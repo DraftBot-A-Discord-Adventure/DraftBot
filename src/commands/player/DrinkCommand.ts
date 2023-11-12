@@ -31,32 +31,32 @@ type TextInformation = { tr: TranslationModule, interaction: DraftbotInteraction
  */
 async function consumePotion(potion: Potion, embed: DraftBotEmbed, player: Player, textInformation: TextInformation): Promise<void> {
 	switch (potion.nature) {
-		case ItemConstants.NATURE.HEALTH:
-			embed.setDescription(textInformation.tr.format("healthBonus", {value: potion.power}));
-			await player.addHealth(potion.power, textInformation.interaction.channel, textInformation.tr.language, NumberChangeReason.DRINK);
-			break;
-		case ItemConstants.NATURE.ENERGY:
-			embed.setDescription(textInformation.tr.format("energyBonus", {value: potion.power}));
-			player.addEnergy(potion.power, NumberChangeReason.DRINK);
-			break;
-		case ItemConstants.NATURE.HOSPITAL:
-			embed.setDescription(textInformation.tr.format("hospitalBonus", {value: minutesDisplay(potion.power, textInformation.tr.language)}));
-			await TravelTime.timeTravel(player, potion.power, NumberChangeReason.DRINK);
-			break;
-		case ItemConstants.NATURE.MONEY:
-			embed.setDescription(textInformation.tr.format("moneyBonus", {value: potion.power}));
-			await player.addMoney({
-				amount: potion.power,
-				channel: textInformation.interaction.channel,
-				language: textInformation.tr.language,
-				reason: NumberChangeReason.DRINK
-			});
-			break;
-		case ItemConstants.NATURE.NONE:
-			embed.setDescription(textInformation.tr.format("noBonus", {value: potion.power}));
-			break;
-		default:
-			break;
+	case ItemConstants.NATURE.HEALTH:
+		embed.setDescription(textInformation.tr.format("healthBonus", {value: potion.power}));
+		await player.addHealth(potion.power, textInformation.interaction.channel, textInformation.tr.language, NumberChangeReason.DRINK);
+		break;
+	case ItemConstants.NATURE.ENERGY:
+		embed.setDescription(textInformation.tr.format("energyBonus", {value: potion.power}));
+		player.addEnergy(potion.power, NumberChangeReason.DRINK);
+		break;
+	case ItemConstants.NATURE.HOSPITAL:
+		embed.setDescription(textInformation.tr.format("hospitalBonus", {value: minutesDisplay(potion.power, textInformation.tr.language)}));
+		await TravelTime.timeTravel(player, potion.power, NumberChangeReason.DRINK);
+		break;
+	case ItemConstants.NATURE.MONEY:
+		embed.setDescription(textInformation.tr.format("moneyBonus", {value: potion.power}));
+		await player.addMoney({
+			amount: potion.power,
+			channel: textInformation.interaction.channel,
+			language: textInformation.tr.language,
+			reason: NumberChangeReason.DRINK
+		});
+		break;
+	case ItemConstants.NATURE.NONE:
+		embed.setDescription(textInformation.tr.format("noBonus", {value: potion.power}));
+		break;
+	default:
+		break;
 	}
 	await player.drinkPotion();
 

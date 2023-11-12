@@ -16,7 +16,8 @@ async function executeCommand(interaction: DraftbotInteraction, language: string
 	const languageModule = Translations.getModule("commands.changeLanguage", language);
 	if (server.language === Constants.LANGUAGE.FRENCH) {
 		server.language = Constants.LANGUAGE.ENGLISH;
-	} else {
+	}
+	else {
 		server.language = Constants.LANGUAGE.FRENCH;
 	}
 	await server.save();

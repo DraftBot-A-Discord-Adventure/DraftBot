@@ -36,37 +36,37 @@ export const smallEvent: SmallEvent = {
 		const alterationObject = tr.getObject("alteration.stories");
 		let lifeLoss, seFallen, moneyLoss;
 		switch (outRand) {
-			case 0:
-				lifeLoss = RandomUtils.rangedInt(SmallEventConstants.BIG_BAD.HEALTH);
-				seEmbed.setDescription(base + format(tr.getRandom("lifeLoss.stories"), {lifeLoss: lifeLoss}));
-				await player.addHealth(-lifeLoss, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
-				break;
-			case 1:
-				seFallen = alterationObject[RandomUtils.randInt(0, alterationObject.length)];
-				seEmbed.setDescription(base + format(seFallen.sentence as string, {
-					alteTime: minutesDisplay(EffectsConstants.DURATION[seFallen.alte as keyof typeof EffectsConstants.DURATION]),
-					alteEmoji: seFallen.alte as string
-				}));
-				await TravelTime.applyEffect(player, seFallen.alte as string, 0, new Date(), NumberChangeReason.SMALL_EVENT);
-				if (seFallen.tags) {
-					for (const tag of (seFallen.tags as string[])) {
-						await MissionsController.update(player, interaction.channel, language, {
-							missionId: tag,
-							params: {tags: seFallen.tags}
-						});
-					}
+		case 0:
+			lifeLoss = RandomUtils.rangedInt(SmallEventConstants.BIG_BAD.HEALTH);
+			seEmbed.setDescription(base + format(tr.getRandom("lifeLoss.stories"), {lifeLoss: lifeLoss}));
+			await player.addHealth(-lifeLoss, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
+			break;
+		case 1:
+			seFallen = alterationObject[RandomUtils.randInt(0, alterationObject.length)];
+			seEmbed.setDescription(base + format(seFallen.sentence as string, {
+				alteTime: minutesDisplay(EffectsConstants.DURATION[seFallen.alte as keyof typeof EffectsConstants.DURATION]),
+				alteEmoji: seFallen.alte as string
+			}));
+			await TravelTime.applyEffect(player, seFallen.alte as string, 0, new Date(), NumberChangeReason.SMALL_EVENT);
+			if (seFallen.tags) {
+				for (const tag of (seFallen.tags as string[])) {
+					await MissionsController.update(player, interaction.channel, language, {
+						missionId: tag,
+						params: {tags: seFallen.tags}
+					});
 				}
-				break;
-			default:
-				moneyLoss = RandomUtils.rangedInt(SmallEventConstants.BIG_BAD.MONEY);
-				seEmbed.setDescription(base + format(tr.getRandom("moneyLoss.stories"), {moneyLost: moneyLoss}));
-				await player.addMoney({
-					amount: -moneyLoss,
-					channel: interaction.channel,
-					language,
-					reason: NumberChangeReason.SMALL_EVENT
-				});
-				break;
+			}
+			break;
+		default:
+			moneyLoss = RandomUtils.rangedInt(SmallEventConstants.BIG_BAD.MONEY);
+			seEmbed.setDescription(base + format(tr.getRandom("moneyLoss.stories"), {moneyLost: moneyLoss}));
+			await player.addMoney({
+				amount: -moneyLoss,
+				channel: interaction.channel,
+				language,
+				reason: NumberChangeReason.SMALL_EVENT
+			});
+			break;
 		}
 		await interaction.editReply({embeds: [seEmbed]});
 		await player.killIfNeeded(interaction.channel, language, NumberChangeReason.SMALL_EVENT);

@@ -35,7 +35,8 @@ async function getValidationCallback(
 			let kickedGuild;
 			try {
 				kickedGuild = await Guilds.getById(kickedPlayer.guildId);
-			} catch (error) {
+			}
+			catch (error) {
 				kickedGuild = null;
 			}
 
@@ -108,7 +109,8 @@ async function isNotEligible(entityInformation: PlayerInformation, textInformati
 	// Search for a user's guild
 	try {
 		kickedGuild = await Guilds.getById(kickedPlayer.guildId);
-	} catch (error) {
+	}
+	catch (error) {
 		kickedGuild = null;
 	}
 

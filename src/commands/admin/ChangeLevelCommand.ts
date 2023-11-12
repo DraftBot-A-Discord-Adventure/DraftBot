@@ -15,9 +15,11 @@ function giveLevelsTo(playerToEdit: Player, amount: number, interaction: Draftbo
 	const ratioExpCurrentLevel: number = playerToEdit.experience / playerToEdit.getExperienceNeededToLevelUp();
 	if (interaction.options.get("mode").value as string === "set") {
 		playerToEdit.level = amount;
-	} else if (interaction.options.get("mode").value as string === "add") {
+	}
+	else if (interaction.options.get("mode").value as string === "add") {
 		playerToEdit.level += amount;
-	} else {
+	}
+	else {
 		throw new Error("wrong parameter");
 	}
 	playerToEdit.addExperience({

@@ -196,7 +196,8 @@ async function alterationHealEveryMember(guildLike: GuildLike, stringInfos: Stri
 					}
 				);
 			}
-		} else if (member.effect !== EffectsConstants.EMOJI_TEXT.DEAD && member.effect !== EffectsConstants.EMOJI_TEXT.LOCKED) {
+		}
+		else if (member.effect !== EffectsConstants.EMOJI_TEXT.DEAD && member.effect !== EffectsConstants.EMOJI_TEXT.LOCKED) {
 			noAlteHeal = false;
 			await TravelTime.removeEffect(member, NumberChangeReason.GUILD_DAILY);
 		}
@@ -406,7 +407,8 @@ function generateRandomProperty(guild: Guild): string {
 	for (const reward of Object.keys(recompenses)) {
 		if (recompenses[reward] < resultNumber) {
 			resultNumber -= recompenses[reward];
-		} else {
+		}
+		else {
 			return reward;
 		}
 	}

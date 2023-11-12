@@ -26,7 +26,7 @@ import {DraftbotChannel} from "../messages/DraftbotInteraction";
  * Get the value of an item
  * @param item
  */
-export const getItemValue = function (item: GenericItemModel): number {
+export const getItemValue = function(item: GenericItemModel): number {
 	return Math.round(ItemConstants.RARITY.VALUES[item.rarity] + item.getItemAddedValue());
 };
 
@@ -34,7 +34,7 @@ export const getItemValue = function (item: GenericItemModel): number {
  * Count how many potions the player have
  * @param invSlots
  */
-export const countNbOfPotions = function (invSlots: InventorySlot[]): number {
+export const countNbOfPotions = function(invSlots: InventorySlot[]): number {
 	return invSlots.filter(slot => slot.isPotion() && slot.itemId !== 0).length;
 };
 
@@ -46,7 +46,7 @@ export const countNbOfPotions = function (invSlots: InventorySlot[]): number {
  * @param potion
  * @param inventorySlots
  */
-export const checkDrinkPotionMissions = async function (channel: DraftbotChannel, language: string, player: Player, potion: Potion, inventorySlots: InventorySlot[]): Promise<void> {
+export const checkDrinkPotionMissions = async function(channel: DraftbotChannel, language: string, player: Player, potion: Potion, inventorySlots: InventorySlot[]): Promise<void> {
 	await MissionsController.update(player, channel, language, {missionId: "drinkPotion"});
 	await MissionsController.update(player, channel, language, {
 		missionId: "drinkPotionRarity",
@@ -90,7 +90,7 @@ export const checkDrinkPotionMissions = async function (channel: DraftbotChannel
  * @param inventorySlots
  */
 // eslint-disable-next-line max-params
-const sellOrKeepItem = async function (
+const sellOrKeepItem = async function(
 	player: Player,
 	keepOriginal: boolean,
 	discordUser: User,
@@ -279,7 +279,7 @@ async function manageMoreThan2ItemsSwitching(
  * @param resaleMultiplierActual
  */
 // eslint-disable-next-line max-params
-export const giveItemToPlayer = async function (
+export const giveItemToPlayer = async function(
 	player: Player,
 	item: GenericItemModel,
 	language: string,
@@ -321,11 +321,13 @@ export const giveItemToPlayer = async function (
 	if (maxSlots < 3) {
 		itemToReplace = inventorySlots.filter((slot: InventorySlot) => (maxSlots === 1 ? slot.isEquipped() : slot.slot === 1) && slot.itemCategory === category)[0];
 		autoSell = itemToReplace.itemId === item.id;
-	} else {
+	}
+	else {
 		const items = inventorySlots.filter((slot: InventorySlot) => slot.itemCategory === category && !slot.isEquipped());
 		if (items.length === items.filter((slot: InventorySlot) => slot.itemId === item.id).length) {
 			autoSell = true;
-		} else {
+		}
+		else {
 			await manageMoreThan2ItemsSwitching(items, discordUser, player, channel, item, resaleMultiplier, resaleMultiplierActual, tr, inventorySlots);
 			return;
 		}
@@ -383,7 +385,7 @@ export const giveItemToPlayer = async function (
  * @param {number} maxRarity
  * @return {Number} generated rarity
  */
-export const generateRandomRarity = function (minRarity = ItemConstants.RARITY.COMMON, maxRarity = ItemConstants.RARITY.MYTHICAL): number {
+export const generateRandomRarity = function(minRarity = ItemConstants.RARITY.COMMON, maxRarity = ItemConstants.RARITY.MYTHICAL): number {
 	const randomValue = RandomUtils.draftbotRandom.integer(
 		1 + (minRarity === ItemConstants.RARITY.COMMON ? -1 : ItemConstants.RARITY.GENERATOR.VALUES[minRarity - 2]),
 		ItemConstants.RARITY.GENERATOR.MAX_VALUE
@@ -401,7 +403,7 @@ export const generateRandomRarity = function (minRarity = ItemConstants.RARITY.C
  * Generate a random itemType
  * @return {Number}
  */
-export const generateRandomItemCategory = function (): number {
+export const generateRandomItemCategory = function(): number {
 	return RandomUtils.draftbotRandom.pick(Object.values(ItemConstants.CATEGORIES));
 };
 
@@ -422,25 +424,25 @@ export async function generateRandomItem(
 	const category = itemCategory ?? generateRandomItemCategory();
 	let itemsIds;
 	switch (category) {
-		case ItemConstants.CATEGORIES.WEAPON:
-			itemsIds = await Weapons.getAllIdsForRarity(rarity);
-			return await Weapons.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)].id);
-		case ItemConstants.CATEGORIES.ARMOR:
-			itemsIds = await Armors.getAllIdsForRarity(rarity);
-			return await Armors.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)].id);
-		case ItemConstants.CATEGORIES.POTION:
-			if (itemSubType !== null) { // 0 (no effect) is a false value
-				return await Potions.randomItem(itemSubType, rarity);
-			}
-			itemsIds = await Potions.getAllIdsForRarity(rarity);
-			return await Potions.getById(itemsIds[RandomUtils.randInt(0, itemsIds.length)].id);
-		default:
-			// This will be triggered by ItemConstants.CATEGORIES.OBJECT
-			if (itemSubType !== null) {
-				return await ObjectItems.randomItem(itemSubType, rarity);
-			}
-			itemsIds = await ObjectItems.getAllIdsForRarity(rarity);
-			return await ObjectItems.getById(itemsIds[RandomUtils.randInt(0, itemsIds.length)].id);
+	case ItemConstants.CATEGORIES.WEAPON:
+		itemsIds = await Weapons.getAllIdsForRarity(rarity);
+		return await Weapons.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)].id);
+	case ItemConstants.CATEGORIES.ARMOR:
+		itemsIds = await Armors.getAllIdsForRarity(rarity);
+		return await Armors.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)].id);
+	case ItemConstants.CATEGORIES.POTION:
+		if (itemSubType !== null) { // 0 (no effect) is a false value
+			return await Potions.randomItem(itemSubType, rarity);
+		}
+		itemsIds = await Potions.getAllIdsForRarity(rarity);
+		return await Potions.getById(itemsIds[RandomUtils.randInt(0, itemsIds.length)].id);
+	default:
+		// This will be triggered by ItemConstants.CATEGORIES.OBJECT
+		if (itemSubType !== null) {
+			return await ObjectItems.randomItem(itemSubType, rarity);
+		}
+		itemsIds = await ObjectItems.getAllIdsForRarity(rarity);
+		return await ObjectItems.getById(itemsIds[RandomUtils.randInt(0, itemsIds.length)].id);
 	}
 }
 
@@ -451,7 +453,7 @@ export async function generateRandomItem(
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {Player} player
  */
-export const giveRandomItem = async function (discordUser: User, channel: DraftbotChannel, language: string, player: Player): Promise<void> {
+export const giveRandomItem = async function(discordUser: User, channel: DraftbotChannel, language: string, player: Player): Promise<void> {
 	await giveItemToPlayer(player, await generateRandomItem(), language, discordUser, channel, await InventorySlots.getOfPlayer(player.id));
 };
 
@@ -461,8 +463,8 @@ type TemporarySlotAndItemType = { slot: InventorySlot, item: GenericItemModel };
  * Sort an item slots list by type then price
  * @param items
  */
-export const sortPlayerItemList = async function (items: InventorySlot[]): Promise<InventorySlot[]> {
-	let itemInstances: TemporarySlotAndItemType[] = await Promise.all(items.map(async function (invSlot) {
+export const sortPlayerItemList = async function(items: InventorySlot[]): Promise<InventorySlot[]> {
+	let itemInstances: TemporarySlotAndItemType[] = await Promise.all(items.map(async function(invSlot) {
 		return {
 			slot: invSlot,
 			item: await invSlot.getItem()
@@ -481,7 +483,7 @@ export const sortPlayerItemList = async function (items: InventorySlot[]): Promi
 			return aValue > bValue ? -1 : aValue < bValue ? 1 : 0;
 		}
 	);
-	return itemInstances.map(function (e) {
+	return itemInstances.map(function(e) {
 		return e.slot;
 	});
 };
@@ -491,7 +493,7 @@ export const sortPlayerItemList = async function (items: InventorySlot[]): Promi
  * @param slots
  * @param rarity
  */
-export const haveRarityOrMore = async function (slots: InventorySlot[], rarity: number): Promise<boolean> {
+export const haveRarityOrMore = async function(slots: InventorySlot[], rarity: number): Promise<boolean> {
 	for (const slot of slots) {
 		if ((await slot.getItem()).rarity >= rarity) {
 			return true;
@@ -509,16 +511,16 @@ function getCategoryModelByName(category: number): {
 	getById: (itemId: number) => Promise<GenericItemModel>
 } {
 	switch (category) {
-		case ItemConstants.CATEGORIES.WEAPON:
-			return Weapons;
-		case ItemConstants.CATEGORIES.ARMOR:
-			return Armors;
-		case ItemConstants.CATEGORIES.POTION:
-			return Potions;
-		case ItemConstants.CATEGORIES.OBJECT:
-			return ObjectItems;
-		default:
-			return null;
+	case ItemConstants.CATEGORIES.WEAPON:
+		return Weapons;
+	case ItemConstants.CATEGORIES.ARMOR:
+		return Armors;
+	case ItemConstants.CATEGORIES.POTION:
+		return Potions;
+	case ItemConstants.CATEGORIES.OBJECT:
+		return ObjectItems;
+	default:
+		return null;
 	}
 }
 

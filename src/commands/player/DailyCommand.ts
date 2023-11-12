@@ -92,33 +92,33 @@ async function activateDailyItem(
 	embed: DraftBotEmbed,
 	textInformation: TextInformation): Promise<void> {
 	switch (entityInformation.activeObject.nature) {
-		case ItemConstants.NATURE.HEALTH:
-			embed.setDescription(textInformation.dailyModule.format("healthDaily", {value: entityInformation.activeObject.power}));
-			await entityInformation.player.addHealth(entityInformation.activeObject.power, textInformation.interaction.channel, textInformation.language, NumberChangeReason.DAILY);
-			break;
-		case ItemConstants.NATURE.ENERGY:
-			embed.setDescription(textInformation.dailyModule.format("energyDaily", {value: entityInformation.activeObject.power}));
-			entityInformation.player.addEnergy(entityInformation.activeObject.power, NumberChangeReason.DAILY);
-			break;
-		case ItemConstants.NATURE.HOSPITAL:
-			embed.setDescription(
-				textInformation.dailyModule.format("hospitalBonus", {
-					value: minutesDisplay(entityInformation.activeObject.power)
-				})
-			);
-			await TravelTime.timeTravel(entityInformation.player, entityInformation.activeObject.power, NumberChangeReason.DAILY);
-			break;
-		case ItemConstants.NATURE.MONEY:
-			embed.setDescription(textInformation.dailyModule.format("moneyBonus", {value: entityInformation.activeObject.power}));
-			await entityInformation.player.addMoney({
-				amount: entityInformation.activeObject.power,
-				channel: textInformation.interaction.channel,
-				language: textInformation.language,
-				reason: NumberChangeReason.DAILY
-			});
-			break;
-		default:
-			break;
+	case ItemConstants.NATURE.HEALTH:
+		embed.setDescription(textInformation.dailyModule.format("healthDaily", {value: entityInformation.activeObject.power}));
+		await entityInformation.player.addHealth(entityInformation.activeObject.power, textInformation.interaction.channel, textInformation.language, NumberChangeReason.DAILY);
+		break;
+	case ItemConstants.NATURE.ENERGY:
+		embed.setDescription(textInformation.dailyModule.format("energyDaily", {value: entityInformation.activeObject.power}));
+		entityInformation.player.addEnergy(entityInformation.activeObject.power, NumberChangeReason.DAILY);
+		break;
+	case ItemConstants.NATURE.HOSPITAL:
+		embed.setDescription(
+			textInformation.dailyModule.format("hospitalBonus", {
+				value: minutesDisplay(entityInformation.activeObject.power)
+			})
+		);
+		await TravelTime.timeTravel(entityInformation.player, entityInformation.activeObject.power, NumberChangeReason.DAILY);
+		break;
+	case ItemConstants.NATURE.MONEY:
+		embed.setDescription(textInformation.dailyModule.format("moneyBonus", {value: entityInformation.activeObject.power}));
+		await entityInformation.player.addMoney({
+			amount: entityInformation.activeObject.power,
+			channel: textInformation.interaction.channel,
+			language: textInformation.language,
+			reason: NumberChangeReason.DAILY
+		});
+		break;
+	default:
+		break;
 	}
 	const inventoryInfo = await InventoryInfos.getOfPlayer(entityInformation.player.id);
 	inventoryInfo.updateLastDailyAt();

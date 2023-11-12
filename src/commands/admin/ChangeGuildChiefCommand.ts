@@ -130,7 +130,8 @@ async function executeCommand(interaction: DraftbotInteraction, language: string
 	let userToPromote;
 	try {
 		userToPromote = await Players.getByDiscordUserId(interaction.options.get("id").value as string);
-	} catch {
+	}
+	catch {
 		userToPromote = null;
 	}
 	if (!userToPromote) {

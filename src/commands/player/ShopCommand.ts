@@ -16,7 +16,6 @@ import {MissionsController} from "../../core/missions/MissionsController";
 import {BlockingUtils, sendBlockedError} from "../../core/utils/BlockingUtils";
 import {ICommand} from "../ICommand";
 import {sendErrorMessage} from "../../core/utils/ErrorUtils";
-import {CommandInteraction} from "discord.js";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {draftBotInstance} from "../../core/bot";
 import {EffectsConstants} from "../../core/constants/EffectsConstants";
@@ -333,7 +332,7 @@ async function getSlotExtensionShopItem(translationModule: TranslationModule, pl
 
 /**
  * Displays the shop
- * @param {CommandInteraction} interaction
+ * @param {DraftbotInteraction} interaction
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {Player} player
  */

@@ -176,7 +176,8 @@ async function getFightDescription(
 			friendly: friendly ? fightTranslationModule.get("friendly") : "",
 			player: askingFighter.getMention()
 		});
-	} else {
+	}
+	else {
 		fightAskingDescription = fightTranslationModule.format("wantsToFightSomeone", {
 			friendly: friendly ? fightTranslationModule.get("friendly") : "",
 			player: askingFighter.getMention(),
@@ -332,27 +333,32 @@ function generateEmbedDescription(player1: PlayerInformation, player2: PlayerInf
 			player1: player1.player.getMention(),
 			player2: player2.player.getMention()
 		}));
-	} else if (player1.playerGameResult === EloGameResult.WIN && player1.player.gloryPoints > player2.player.gloryPoints) {
+	}
+	else if (player1.playerGameResult === EloGameResult.WIN && player1.player.gloryPoints > player2.player.gloryPoints) {
 		embed.setDescription(format(fightTr.getRandom("elo.higherEloWins"), {
 			winner: player1.player.getMention(),
 			loser: player2.player.getMention()
 		}));
-	} else if (player2.playerGameResult === EloGameResult.WIN && player2.player.gloryPoints > player1.player.gloryPoints) {
+	}
+	else if (player2.playerGameResult === EloGameResult.WIN && player2.player.gloryPoints > player1.player.gloryPoints) {
 		embed.setDescription(format(fightTr.getRandom("elo.higherEloWins"), {
 			winner: player2.player.getMention(),
 			loser: player1.player.getMention()
 		}));
-	} else if (player1.playerGameResult === EloGameResult.WIN && player1.player.gloryPoints < player2.player.gloryPoints) {
+	}
+	else if (player1.playerGameResult === EloGameResult.WIN && player1.player.gloryPoints < player2.player.gloryPoints) {
 		embed.setDescription(format(fightTr.getRandom("elo.lowestEloWins"), {
 			winner: player1.player.getMention(),
 			loser: player2.player.getMention()
 		}));
-	} else if (player2.playerGameResult === EloGameResult.WIN && player2.player.gloryPoints < player1.player.gloryPoints) {
+	}
+	else if (player2.playerGameResult === EloGameResult.WIN && player2.player.gloryPoints < player1.player.gloryPoints) {
 		embed.setDescription(format(fightTr.getRandom("elo.lowestEloWins"), {
 			winner: player2.player.getMention(),
 			loser: player1.player.getMention()
 		}));
-	} else {
+	}
+	else {
 		embed.setDescription(format(fightTr.getRandom("elo.draw"), {
 			player1: player1.player.getMention(),
 			player2: player2.player.getMention()
@@ -431,7 +437,7 @@ function getAcceptCallback(
 	askedPlayer: Player | null,
 	askingFighter: Fighter
 ): (user: User) => Promise<boolean> {
-	return async function (user: User): Promise<boolean> {
+	return async function(user: User): Promise<boolean> {
 		const incomingFighterPlayer = await Players.getByDiscordUserId(user.id);
 		const attackerFightErrorStatus = await canFight(incomingFighterPlayer, initiatorPlayer, friendly, new Date());
 		if (askedPlayer !== null && incomingFighterPlayer.discordUserId !== askedPlayer.discordUserId) {

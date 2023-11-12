@@ -26,7 +26,8 @@ import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 async function getGuildByName(askedName: string): Promise<Guild> {
 	try {
 		return await Guilds.getByName(askedName);
-	} catch (error) {
+	}
+	catch (error) {
 		return null;
 	}
 }
@@ -140,7 +141,8 @@ async function executeCommand(interaction: DraftbotInteraction, language: string
 	let guild;
 	try {
 		guild = await Guilds.getById(player.guildId);
-	} catch (error) {
+	}
+	catch (error) {
 		guild = null;
 	}
 	if (guild !== null) {

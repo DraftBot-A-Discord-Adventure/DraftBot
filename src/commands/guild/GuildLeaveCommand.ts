@@ -33,7 +33,8 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 			// The user confirmed the choice to leave
 			try {
 				userInformation.guild = await Guilds.getById(userInformation.player.guildId);
-			} catch (error) {
+			}
+			catch (error) {
 				userInformation.guild = null;
 			}
 			if (userInformation.guild === null) {
@@ -67,7 +68,8 @@ function getEndCallbackGuildLeave(userInformation: UserInformation, interaction:
 							guild: userInformation.guild.name
 						})
 					});
-				} else {
+				}
+				else {
 					// No one can recover the guild.
 					await userInformation.guild.completelyDestroyAndDeleteFromTheDatabase();
 				}
@@ -148,7 +150,8 @@ async function executeCommand(interaction: DraftbotInteraction, language: string
 				guildName: guild.name,
 				elderName: elder.getPseudo(language)
 			}));
-		} else {
+		}
+		else {
 			validationEmbed.setDescription(guildLeaveModule.format("leaveChiefDesc", {
 				guildName: guild.name
 			}));

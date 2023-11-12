@@ -44,7 +44,8 @@ function getEndCallbackGuildAdd(
 		}
 		try {
 			inviter.guild = await Guilds.getById(inviter.player.guildId);
-		} catch (error) {
+		}
+		catch (error) {
 			inviter.guild = null;
 		}
 
@@ -170,7 +171,8 @@ async function executeCommand(interaction: DraftbotInteraction, language: string
 	let invitedGuild;
 	try {
 		invitedGuild = await Guilds.getById(invitedPlayer.guildId);
-	} catch (error) {
+	}
+	catch (error) {
 		invitedGuild = null;
 	}
 	if (invitedGuild !== null) {

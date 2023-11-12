@@ -33,32 +33,32 @@ export const smallEvent: SmallEvent = {
 		const base = seEmbed.data.description + Translations.getModule("smallEventsIntros", language).getRandom("intro");
 		let lifeLoss, time, moneyLoss;
 		switch (outRand) {
-			case 0:
-				lifeLoss = RandomUtils.rangedInt(SmallEventConstants.SMALL_BAD.HEALTH);
-				seEmbed.setDescription(
-					base + format(translationSBE.getRandom("lifeLoss.stories"), {lifeLoss: lifeLoss})
-				);
-				await player.addHealth(-lifeLoss, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
-				break;
-			case 1:
-				time = RandomUtils.rangedInt(SmallEventConstants.SMALL_BAD.TIME) * 5;
-				seEmbed.setDescription(
-					base + format(translationSBE.getRandom("alteration.stories"), {alteTime: minutesDisplay(time)})
-				);
-				await TravelTime.applyEffect(player, EffectsConstants.EMOJI_TEXT.OCCUPIED, time, new Date(), NumberChangeReason.SMALL_EVENT);
-				break;
-			default:
-				moneyLoss = RandomUtils.rangedInt(SmallEventConstants.SMALL_BAD.MONEY);
-				seEmbed.setDescription(
-					base + format(translationSBE.getRandom("moneyLoss.stories"), {moneyLost: moneyLoss})
-				);
-				await player.addMoney({
-					amount: -moneyLoss,
-					channel: interaction.channel,
-					language,
-					reason: NumberChangeReason.SMALL_EVENT
-				});
-				break;
+		case 0:
+			lifeLoss = RandomUtils.rangedInt(SmallEventConstants.SMALL_BAD.HEALTH);
+			seEmbed.setDescription(
+				base + format(translationSBE.getRandom("lifeLoss.stories"), {lifeLoss: lifeLoss})
+			);
+			await player.addHealth(-lifeLoss, interaction.channel, language, NumberChangeReason.SMALL_EVENT);
+			break;
+		case 1:
+			time = RandomUtils.rangedInt(SmallEventConstants.SMALL_BAD.TIME) * 5;
+			seEmbed.setDescription(
+				base + format(translationSBE.getRandom("alteration.stories"), {alteTime: minutesDisplay(time)})
+			);
+			await TravelTime.applyEffect(player, EffectsConstants.EMOJI_TEXT.OCCUPIED, time, new Date(), NumberChangeReason.SMALL_EVENT);
+			break;
+		default:
+			moneyLoss = RandomUtils.rangedInt(SmallEventConstants.SMALL_BAD.MONEY);
+			seEmbed.setDescription(
+				base + format(translationSBE.getRandom("moneyLoss.stories"), {moneyLost: moneyLoss})
+			);
+			await player.addMoney({
+				amount: -moneyLoss,
+				channel: interaction.channel,
+				language,
+				reason: NumberChangeReason.SMALL_EVENT
+			});
+			break;
 		}
 		await interaction.editReply({embeds: [seEmbed]});
 		await player.killIfNeeded(interaction.channel, language, NumberChangeReason.SMALL_EVENT);

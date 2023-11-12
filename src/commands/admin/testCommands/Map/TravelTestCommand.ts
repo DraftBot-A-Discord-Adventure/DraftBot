@@ -2,7 +2,6 @@ import {MapLocations} from "../../../../core/database/game/models/MapLocation";
 import {MapLinks} from "../../../../core/database/game/models/MapLink";
 import {Maps} from "../../../../core/maps/Maps";
 import {format} from "../../../../core/utils/StringFormatter";
-import {CommandInteraction} from "discord.js";
 import {Constants} from "../../../../core/Constants";
 import {ITestCommand} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
@@ -27,7 +26,7 @@ export const commandInfo: ITestCommand = {
 /**
  * Teleport you on a given path
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {CommandInteraction} interaction
+ * @param {DraftbotInteraction} interaction
  * @param {String[]} args - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */

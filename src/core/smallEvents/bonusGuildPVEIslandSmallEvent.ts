@@ -27,7 +27,8 @@ async function applyPossibility(textInformation: TextInformation, player: Player
 		const draw = RandomUtils.draftbotRandom.bool();
 		if (draw) {
 			await guild.addExperience(amount, textInformation.interaction.channel, textInformation.language, NumberChangeReason.SMALL_EVENT);
-		} else {
+		}
+		else {
 			await guild.addScore(amount, textInformation.interaction.channel, textInformation.language, NumberChangeReason.SMALL_EVENT);
 		}
 		await guild.save();
@@ -35,31 +36,31 @@ async function applyPossibility(textInformation: TextInformation, player: Player
 	}
 
 	switch (malusName) {
-		case "money":
-			await player.addMoney({
-				amount: -amount,
-				channel: textInformation.interaction.channel,
-				language: textInformation.language,
-				reason: NumberChangeReason.SMALL_EVENT
-			});
-			break;
-		case "exp":
-			await player.addExperience({
-				amount,
-				channel: textInformation.interaction.channel,
-				language: textInformation.language,
-				reason: NumberChangeReason.SMALL_EVENT
-			});
-			break;
-		case "life":
-			await player.addHealth(-amount, textInformation.interaction.channel, textInformation.language, NumberChangeReason.SMALL_EVENT);
-			await player.killIfNeeded(textInformation.interaction.channel, textInformation.language, NumberChangeReason.SMALL_EVENT);
-			break;
-		case "energy":
-			player.addEnergy(-amount, NumberChangeReason.SMALL_EVENT);
-			break;
-		default:
-			break;
+	case "money":
+		await player.addMoney({
+			amount: -amount,
+			channel: textInformation.interaction.channel,
+			language: textInformation.language,
+			reason: NumberChangeReason.SMALL_EVENT
+		});
+		break;
+	case "exp":
+		await player.addExperience({
+			amount,
+			channel: textInformation.interaction.channel,
+			language: textInformation.language,
+			reason: NumberChangeReason.SMALL_EVENT
+		});
+		break;
+	case "life":
+		await player.addHealth(-amount, textInformation.interaction.channel, textInformation.language, NumberChangeReason.SMALL_EVENT);
+		await player.killIfNeeded(textInformation.interaction.channel, textInformation.language, NumberChangeReason.SMALL_EVENT);
+		break;
+	case "energy":
+		player.addEnergy(-amount, NumberChangeReason.SMALL_EVENT);
+		break;
+	default:
+		break;
 	}
 	await player.save();
 	return [amount.toString()];
@@ -91,7 +92,8 @@ async function drawPossibilities(textInformation: TextInformation, player: Playe
 			return await getText(textInformation, player, `${event}.success.withGuild.malus`, `events.${event}.success.soloWithGuild`);
 		}
 		return await getText(textInformation, player, `${event}.success.solo.malus`, `events.${event}.success.solo`);
-	} else if (probabilities < 40) {
+	}
+	else if (probabilities < 40) {
 		return player.isInGuild() ? textInformation.tr.get(`events.${event}.escape.withGuild`) : textInformation.tr.get(`events.${event}.escape.solo`);
 	}
 

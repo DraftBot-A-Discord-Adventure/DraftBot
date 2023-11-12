@@ -28,10 +28,12 @@ async function executeCommand(interaction: DraftbotInteraction, language: string
 	if (guildNameUntested) {
 		try {
 			guild = await Guilds.getByName(guildNameUntested.value as string);
-		} catch (error) {
+		}
+		catch (error) {
 			guild = null;
 		}
-	} else {
+	}
+	else {
 		// Search for a user's guild
 		let playerToAnalise = await Players.getByOptions(interaction);
 		if (playerToAnalise === null) {
@@ -39,7 +41,8 @@ async function executeCommand(interaction: DraftbotInteraction, language: string
 		}
 		try {
 			guild = await Guilds.getById(playerToAnalise.guildId);
-		} catch (error) {
+		}
+		catch (error) {
 			guild = null;
 		}
 	}

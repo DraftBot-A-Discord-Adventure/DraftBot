@@ -70,7 +70,8 @@ export class DraftBotTopPlayersMessage extends DraftBotTopMessage {
 		let title;
 		if (topParameters.dataType === TopDataType.GLORY) {
 			title = `topGlory${topParameters.scope}Title`;
-		} else {
+		}
+		else {
 			title = `top${topParameters.dataType}${topParameters.timing}${topParameters.scope}Title`;
 		}
 
@@ -255,10 +256,12 @@ export class DraftBotTopPlayersMessage extends DraftBotTopMessage {
 		if (playerRank === -1) {
 			if (this._dataType === TopDataType.GLORY) {
 				message = "notEnoughRankedFight";
-			} else {
+			}
+			else {
 				message = "lowScore";
 			}
-		} else {
+		}
+		else {
 			message = `end${playerRank === 1 ? "First" : "Any"}${maxRank >= playerRank && playerRank >= minRank ? "Right" : "Wrong"}Page`;
 		}
 

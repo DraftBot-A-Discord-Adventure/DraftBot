@@ -22,7 +22,8 @@ async function executeCommand(interaction: DraftbotInteraction, language: string
 		let testCommands: string[];
 		try {
 			testCommands = (interaction.options.get(currentCommandEnglishTranslations.get("optionCommandName")).value as string).split(" && ");
-		} catch {
+		}
+		catch {
 			testCommands = ["list"];
 		}
 
@@ -30,7 +31,8 @@ async function executeCommand(interaction: DraftbotInteraction, language: string
 			let argsTest: string[];
 			try {
 				argsTest = testCommand.split(" ").slice(1);
-			} catch { /* Case no args given */
+			}
+			catch { /* Case no args given */
 			}
 
 			testCommand = testCommand.split(" ")[0];
@@ -38,7 +40,8 @@ async function executeCommand(interaction: DraftbotInteraction, language: string
 			let commandTestCurrent;
 			try {
 				commandTestCurrent = CommandsTest.getTestCommand(testCommand);
-			} catch (e) {
+			}
+			catch (e) {
 				if (!interaction.replied) {
 					await interaction.reply({content: `:x: | Commande test ${testCommand} inexistante : \`\`\`${e.stack}\`\`\``});
 					return;
@@ -57,7 +60,8 @@ async function executeCommand(interaction: DraftbotInteraction, language: string
 
 			try {
 				await interaction.reply({embeds: [testGoodFormat[1]]});
-			} catch {
+			}
+			catch {
 				await interaction.followUp({embeds: [testGoodFormat[1]]});
 			}
 			return;

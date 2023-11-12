@@ -127,7 +127,8 @@ async function addReactionsToMessage(unlockMessage: Message): Promise<void> {
 			unlockMessage.react(Constants.REACTIONS.VALIDATE_REACTION),
 			unlockMessage.react(Constants.REACTIONS.REFUSE_REACTION)
 		]);
-	} catch (e) {
+	}
+	catch (e) {
 		log(`Error while reaction to unlock message: ${e}`);
 	}
 }

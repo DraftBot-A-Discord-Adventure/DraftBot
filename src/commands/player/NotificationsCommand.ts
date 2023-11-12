@@ -29,24 +29,24 @@ async function executeCommand(interaction: DraftbotInteraction, language: string
 		.setDescription(translations.get(`description.${choice}`));
 
 	switch (choice) {
-		case NotificationsScopes.CHANNEL_SCOPE:
-			player.notifications = interaction.channelId;
-			notificationsEmbed.setDescription(`${notificationsEmbed.data.description}\n\n${translations.get("normal")}`);
-			break;
-		case NotificationsScopes.DM_SCOPE:
-			player.notifications = NotificationsConstants.DM_VALUE;
-			await sendNotificationToPlayer(player,
-				new DraftBotEmbed()
-					.formatAuthor(translations.get("title"), interaction.user)
-					.setDescription(translations.get("normal")),
-				language);
-			break;
-		case NotificationsScopes.NO_NOTIFICATION_SCOPE:
-			player.notifications = NotificationsConstants.NO_NOTIFICATIONS_VALUE;
-			notificationsEmbed.setDescription(`${notificationsEmbed.data.description}`);
-			break;
-		default:
-			return;
+	case NotificationsScopes.CHANNEL_SCOPE:
+		player.notifications = interaction.channelId;
+		notificationsEmbed.setDescription(`${notificationsEmbed.data.description}\n\n${translations.get("normal")}`);
+		break;
+	case NotificationsScopes.DM_SCOPE:
+		player.notifications = NotificationsConstants.DM_VALUE;
+		await sendNotificationToPlayer(player,
+			new DraftBotEmbed()
+				.formatAuthor(translations.get("title"), interaction.user)
+				.setDescription(translations.get("normal")),
+			language);
+		break;
+	case NotificationsScopes.NO_NOTIFICATION_SCOPE:
+		player.notifications = NotificationsConstants.NO_NOTIFICATIONS_VALUE;
+		notificationsEmbed.setDescription(`${notificationsEmbed.data.description}`);
+		break;
+	default:
+		return;
 	}
 	await interaction.reply({embeds: [notificationsEmbed], ephemeral: choice !== NotificationsScopes.CHANNEL_SCOPE});
 	await player.save();

@@ -24,7 +24,8 @@ import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
 async function getGuild(player: Player): Promise<Guild> {
 	try {
 		return await Guilds.getById(player.guildId);
-	} catch (error) {
+	}
+	catch (error) {
 		return null;
 	}
 }
@@ -198,7 +199,8 @@ async function feedPet(
 				typeSuffix: pet.sex === PetConstants.SEX.FEMALE ? "se" : "x"
 			})
 		);
-	} else {
+	}
+	else {
 		await pet.changeLovePoints(editValueChanges);
 		successEmbed.setDescription(
 			petFeedModule.format(`description.${item}`, {
@@ -301,7 +303,8 @@ async function executeCommand(interaction: DraftbotInteraction, language: string
 	const guild = await getGuild(player);
 	if (guild === null) {
 		await withoutGuildPetFeed(language, interaction, player, authorPet, petModel, petFeedModule);
-	} else {
+	}
+	else {
 		await guildUserFeedPet(language, interaction, player, authorPet, petModel, petFeedModule);
 	}
 }
