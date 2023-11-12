@@ -43,7 +43,8 @@ async function executeCommand(interaction: DraftbotInteraction, language: string
 			language,
 			tr.get("noPet")
 		);
-	} else {
+	}
+	else {
 		await replyErrorMessage(
 			interaction,
 			language,
