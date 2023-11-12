@@ -67,8 +67,12 @@ export class FightView {
 		this.fightLaunchMessage = await this.channel.send({
 			content: fighter1.getMention(),
 			embeds: [introEmbed]
+		}, () => {
+			this.fightController.endBugFight();
 		});
-		this.actionMessages.push(await this.channel.send({content: "_ _"}));
+		this.actionMessages.push(await this.channel.send({content: "_ _"}, () => {
+			this.fightController.endBugFight();
+		}));
 	}
 
 	/**
@@ -79,7 +83,9 @@ export class FightView {
 		const playingFighter = this.fightController.getPlayingFighter();
 		const defendingFighter = this.fightController.getDefendingFighter();
 		if (!this.lastSummary) {
-			this.lastSummary = await this.channel.send({embeds: [this.getSummarizeEmbed(playingFighter, defendingFighter)]});
+			this.lastSummary = await this.channel.send({embeds: [this.getSummarizeEmbed(playingFighter, defendingFighter)]}, () => {
+				this.fightController.endBugFight();
+			});
 		} else {
 			await this.lastSummary.edit({embeds: [this.getSummarizeEmbed(playingFighter, defendingFighter)]});
 		}
@@ -101,7 +107,9 @@ export class FightView {
 			// Message character limit reached : creation of a new message
 			await this.lastSummary.delete();
 			this.lastSummary = null;
-			lastMessage = await this.channel.send({content: messageToSend});
+			lastMessage = await this.channel.send({content: messageToSend}, () => {
+				this.fightController.endBugFight();
+			});
 			this.actionMessages.push(lastMessage);
 		} else if (lastMessage.content === "_ _") {
 			// First action of the fight, no history yet
