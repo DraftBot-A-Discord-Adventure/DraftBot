@@ -23,10 +23,18 @@ type ReplyFunctionLike = (options: OptionLike) => Promise<Message>;
 export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands {
 	private _channel: DraftbotChannel;
 
+	/**
+	 * Get the channel of the interaction
+	 */
 	get channel(): DraftbotChannel {
 		return this._channel;
 	}
 
+
+	/**
+	 * Cast a CommandInteraction to a DraftbotInteraction
+	 * @param discordInteraction
+	 */
 	static cast(discordInteraction: CommandInteraction): DraftbotInteraction {
 		discordInteraction.followUp = DraftbotInteraction.prototype.followUp.bind(discordInteraction);
 		discordInteraction.reply = DraftbotInteraction.prototype.reply.bind(discordInteraction);
@@ -35,14 +43,31 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 		return discordInteraction as unknown as DraftbotInteraction;
 	}
 
+	/**
+	 * Send a reply to the user
+	 * @param options classic discord.js send options
+	 * @param fallback function to execute if the bot can't send the message
+	 */
 	public async reply(options: OptionLike, fallback?: () => void | Promise<void>): Promise<Message> {
 		return await DraftbotInteraction.prototype.commonSendCommand(CommandInteraction.prototype.reply.bind(this), options, fallback ?? ((): null => null));
 	}
 
+	/**
+	 * Send a followUp to the user
+	 * @param options classic discord.js send options
+	 * @param fallback function to execute if the bot can't send the message
+	 */
 	public async followUp(options: OptionLike, fallback?: () => void | Promise<void>): Promise<Message> {
 		return await DraftbotInteraction.prototype.commonSendCommand(CommandInteraction.prototype.followUp.bind(this), options, fallback ?? ((): null => null));
 	}
 
+	/**
+	 * Send a message to the user
+	 * @param functionPrototype reply or followUp function
+	 * @param options classic discord.js send options
+	 * @param fallback function to execute if the bot can't send the message
+	 * @private
+	 */
 	private async commonSendCommand(functionPrototype: ReplyFunctionLike, options: OptionLike, fallback: () => void | Promise<void>): Promise<Message> {
 		try {
 			return await functionPrototype(options);
@@ -54,6 +79,10 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 		}
 	}
 
+	/**
+	 * Manage the fallback of both reply and followUp functions
+	 * @private
+	 */
 	private async manageFallback(functionPrototype: ReplyFunctionLike): Promise<void> {
 		const errorText = Translations.getModule("bot", this.channel.language).get("noSpeakPermission");
 		try {
@@ -76,24 +105,37 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 export class DraftbotChannel extends ChannelTypeWithoutSend {
 	public language: string;
 
+	/**
+	 * Cast a GuildTextBasedChannel to a DraftbotChannel
+	 * @param channel
+	 */
 	static cast(channel: GuildTextBasedChannel): DraftbotChannel {
 		channel.send = DraftbotChannel.prototype.send.bind(channel);
 		return channel as unknown as DraftbotChannel;
 	}
 
+	/**
+	 * Send a message to the channel
+	 * @param options classic discord.js send options
+	 * @param fallback function to execute if the bot can't send the message
+	 */
 	public async send(options: string | MessageCreateOptions, fallback?: () => void | Promise<void>): Promise<Message> {
 		fallback = fallback ?? ((): null => null);
 		try {
 			return await BaseGuildTextChannel.prototype.send.bind(this)(options);
 		} catch (e) {
 			console.error(`Weird Permission Error ${e.stack}`);
-			await DraftbotChannel.prototype.manageFallback.bind(this)();
+			DraftbotChannel.prototype.manageFallback.bind(this)();
 			await fallback();
 			return null;
 		}
 	}
 
-	private async manageFallback(): Promise<void> {
+	/**
+	 * Manage the fallback of the send function
+	 * @private
+	 */
+	private manageFallback(): void {
 		// We can't send ephemeral message nor send message in DM
 		console.log(`Unable to alert user of no speak permission : c:${this.id} / u:N/A`);
 	}

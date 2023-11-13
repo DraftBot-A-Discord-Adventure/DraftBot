@@ -104,8 +104,7 @@ async function executeSmallEvent(interaction: DraftbotInteraction, language: str
 				break;
 			}
 		}
-	}
-	else {
+	} else {
 		event = forced;
 	}
 
@@ -125,12 +124,10 @@ async function executeSmallEvent(interaction: DraftbotInteraction, language: str
 			await smallEvent.executeSmallEvent(interaction, language, player, seEmbed);
 
 			await MissionsController.update(player, interaction.channel, language, {missionId: "doReports"});
-		}
-		catch (e) {
+		} catch (e) {
 			console.error(e);
 		}
-	}
-	catch (e) {
+	} catch (e) {
 		await interaction.editReply({content: `${filename} doesn't exist`});
 	}
 
@@ -196,8 +193,7 @@ async function sendTravelPath(player: Player, interaction: DraftbotInteraction, 
 			value: errorMessageObject.description,
 			inline: false
 		});
-	}
-	else {
+	} else {
 		const millisecondsBeforeSmallEvent = timeData.nextSmallEventTime - date.valueOf();
 		const millisecondsBeforeBigEvent = timeData.travelEndTime - timeData.travelStartTime - timeData.effectDuration - timeData.playerTravelledTime;
 		if (millisecondsBeforeSmallEvent >= millisecondsBeforeBigEvent) {
@@ -206,8 +202,7 @@ async function sendTravelPath(player: Player, interaction: DraftbotInteraction, 
 				name: tr.get("travellingTitle"),
 				value: tr.get("travellingDescriptionEndTravel")
 			});
-		}
-		else {
+		} else {
 			const lastMiniEvent = await PlayerSmallEvents.getLastOfPlayer(player.id);
 			const timeBeforeSmallEvent = printTimeBeforeDate(date.valueOf() + millisecondsBeforeSmallEvent);
 			travelEmbed.addFields({
@@ -230,8 +225,7 @@ async function sendTravelPath(player: Player, interaction: DraftbotInteraction, 
 			value: `⚡ ${await player.getCumulativeFightPoint()} / ${await player.getMaxCumulativeFightPoint()}`,
 			inline: true
 		});
-	}
-	else {
+	} else {
 		travelEmbed.addFields({
 			name: tr.get("collectedPointsTitle"),
 			value: `🏅 ${await PlayerSmallEvents.calculateCurrentScore(player)}`,
@@ -303,8 +297,7 @@ async function destinationChoseMessage(
 			mapType: typeTr.get(`types.${mapInstance.type}.name`).toLowerCase(),
 			time: Math.round(tripDuration * 60)
 		}));
-	}
-	else {
+	} else {
 		destinationEmbed.setDescription(tr.format("choseMap", {
 			mapPrefix: typeTr.get(`types.${mapInstance.type}.prefix`),
 			mapName: mapInstance.getDisplayName(language),
@@ -315,6 +308,13 @@ async function destinationChoseMessage(
 	await interaction.channel.send({embeds: [destinationEmbed]});
 }
 
+/**
+ * Automatically chooses a destination at random / based on the forced link
+ * @param forcedLink
+ * @param player
+ * @param destinationMaps
+ * @param interaction
+ */
 async function automaticChooseDestination(forcedLink: MapLink, player: Player, destinationMaps: number[], interaction: DraftbotInteraction): Promise<void> {
 	const newLink = forcedLink && forcedLink.id !== -1 ? forcedLink : await MapLinks.getLinkByLocations(await player.getDestinationId(), destinationMaps[0]);
 	await Maps.startTravel(player, newLink, Date.now());
@@ -386,8 +386,7 @@ async function chooseDestination(
 	for (let i = 0; i < destinationMaps.length; ++i) {
 		try {
 			await sentMessage.react(destinationChoiceEmotes[i]);
-		}
-		catch (e) {
+		} catch (e) {
 			console.error(e);
 		}
 	}
@@ -551,8 +550,7 @@ async function doRandomBigEvent(
 			await interaction.channel.send({content: "It seems that there is no event here... It's a bug, please report it to the DraftBot staff."});
 			return;
 		}
-	}
-	else {
+	} else {
 		event = BigEventsController.getEvent(forceSpecificEvent);
 	}
 	await Maps.stopTravel(player);
@@ -744,8 +742,7 @@ async function executeCommand(
 		await interaction.deferReply();
 		if (Maps.isOnPveIsland(player)) {
 			await doPVEBoss(interaction, language, player);
-		}
-		else {
+		} else {
 			await doRandomBigEvent(interaction, language, player, forceSpecificEvent);
 		}
 		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND);
