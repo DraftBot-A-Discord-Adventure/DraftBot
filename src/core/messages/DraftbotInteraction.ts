@@ -40,7 +40,7 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 		discordInteraction.reply = DraftbotInteraction.prototype.reply.bind(discordInteraction);
 		const interaction = discordInteraction as unknown as DraftbotInteraction;
 		interaction._channel = DraftbotChannel.cast(discordInteraction.channel as GuildTextBasedChannel);
-		return discordInteraction as unknown as DraftbotInteraction;
+		return interaction;
 	}
 
 	/**
