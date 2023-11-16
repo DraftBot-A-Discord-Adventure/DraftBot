@@ -3,7 +3,7 @@
 		"fr": {
 			"name": "Attaque jet de toile",
 			"namePlural": "Attaques jets de toile",
-			"description": "Envoie une jet de toile qui blesse et ralentit l'adversaire."
+			"description": "Envoie un jet de toile qui blesse et ralentit l'adversaire."
 		},
 		"en": {
 			"name": "Web shot",

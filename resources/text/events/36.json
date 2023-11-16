@@ -6,19 +6,19 @@
 	],
 	"translations": {
 		"fr": "🏘️ Au cours de votre très long périple vous arrivez dans un petit village fort charmant. Vous atteignez le centre du village, mais il s'avère qu'il est très petit et qu'il n'y a que deux commerces : une bijouterie et une auberge. Vous découvrez grâce à un passant que la bijouterie est gérée par un vieillard et qu'il fait de magnifiques bijoux et colliers. L'auberge est, quant à elle, dirigée par un couple, et il paraît qu'elle a un grand succès.",
-		"en": "🏘️ At some point in your journey, you arrive in a charming little village. You reach the center of the village, however it turns out that there are only two shops: a jewelry store and an inn. You learn from a bystander that the jewelry is held by an old man. It is a well known fact that he makes beautiful jewellery such as necklaces and rings. As for the inn run by a couple, it seems pretty successful."
+		"en": "🏘️ At some point in your journey, you arrive in a charming little village. You reach the center of the village, however it turns out that there are only two shops: a jewelry store and an inn. You learn from a bystander that the jewelry is held by an old man. It is a well known fact that he makes beautiful jewelry such as necklaces and rings. As for the inn run by a couple, it seems pretty successful."
 	},
 	"possibilities": {
 		"🗣️": {
 			"translations": {
 				"fr": "Aller voir le bijoutier et discuter.",
-				"en": "Go and have a talk with the jeweller."
+				"en": "Go and have a talk with the jeweler."
 			},
 			"outcomes": [
 				{
 					"translations": {
 						"fr": "Vous discutez avec le bijoutier et vous vous liez d'amitié avec lui. Il vous offre alors un objet en gage de cette nouvelle amitié.",
-						"en": "You talk with the jeweller and you bond with him. He then offers you an object as a token of this new friendship."
+						"en": "You talk with the jeweler and you bond with him. He then offers you an object as a token of this new friendship."
 					},
 					"lostTime": 50,
 					"effect": ":clock2:",
@@ -37,7 +37,7 @@
 		"💸": {
 			"translations": {
 				"fr": "Essayer de voler le bijoutier.",
-				"en": "Try to rob the jeweller."
+				"en": "Try to rob the jeweler."
 			},
 			"outcomes": [
 				{
@@ -50,7 +50,7 @@
 				{
 					"translations": {
 						"fr": "Vous arrivez devant la boutique et vous entrez dedans dans le but de voler le bijoutier. Alors que vous vous emparez de l'argent du bijoutier, un garde personnel vous assomme. Vous vous réveillez quelques heures plus tard, le long d'un sentier.",
-						"en": "You arrive in front of the shop and you enter in order to rob the jeweller. As you grab the jeweller's money, a personal guard knocks you out. You wake up a few hours later, on the side of a road."
+						"en": "You arrive in front of the shop and you enter in order to rob the jeweler. As you grab the jeweler's money, a personal guard knocks you out. You wake up a few hours later, on the side of a road."
 					},
 					"lostTime": 180,
 					"effect": ":clock2:"

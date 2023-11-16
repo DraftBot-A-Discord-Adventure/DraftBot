@@ -8,7 +8,7 @@
 		"en": {
 			"name": "Intense attack",
 			"namePlural": "Intense attacks",
-			"description": "Ignore a part of the enemy's defense. Never fails on a faster enemy. Works better on faster enemies. Forces the user to use the \"rest\" action next turn. Cannot kill the enemy."
+			"description": "Ignore a part of the enemy's defense. Never fails on a faster enemy. Works better on fast enemies. Forces the user to use the \"rest\" action in their next turn. Cannot kill the enemy."
 		}
 	},
 	"emote": "\uD83D\uDE24",

@@ -6,7 +6,7 @@
 			"optionIdName": "identifiant",
 			"optionIdDescription": "L'identifiant discord du joueur qui doit être débloqué.",
 			"title": "Vous avez été débloqué",
-			"description": "Excusez nous de la gène occasionnée."
+			"description": "Excusez-nous de la gène occasionnée."
 		},
 		"en": {
 			"commandName": "unblock",

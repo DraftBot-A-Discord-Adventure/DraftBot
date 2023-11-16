@@ -47,14 +47,14 @@
 				{
 					"translations": {
 						"fr": "Vous tentez d'assiéger le château du seigneur avec le village mais la nuit tombe, vous décidez donc de dormir devant le château. Le seigneur en profite pour sortir avec ses hommes et arrive jusqu'à votre campement, mais un villageois alerte tout le monde. Vous vous précipitez sur le seigneur et le pourfendez d'un agile coup d'épée. Les gardes se rendent et les villageois vous donnent une bourse remplie d'or pour vous remercier de les avoir aidé !",
-						"en": "You try to siege the lord's castle with the village but the night falls, therefore, you decide to sleep in front of the castle. The lord took advantage of the situation to go out with his man and reach the camp, but a villager alerts everyone. You rush on the lord and send him an agile sword strike. The guards surrender and the villagers give you a purse filled with gold to thank you for helping them !"
+						"en": "You try to siege the lord's castle with the village but the night falls, therefore, you decide to sleep in front of the castle. The lord took advantage of the situation to go out with his man and reach the camp, but a villager alerts everyone. You rush on the lord and send him an agile sword strike. The guards surrender and the villagers give you a purse filled with gold to thank you for helping them!"
 					},
 					"money": 1200
 				},
 				{
 					"translations": {
 						"fr": "Vous allez voir le seigneur et lui annoncez que son village compte organiser une rébellion. Après avoir longuement discuté, vous parvenez à gagner sa confiance et en profitez pour lui enfoncer une dague dans le cœur. Les gardes loyaux au seigneur se précipitent sur vous et vous immobilisent. L'un d'eux propose de vous exécuter devant le village tout entier pour faire passer le message mais la révolte fait alors rage ! Les villageois finissent par réussir à faire fuir les gardes et vous offrent une large bourse d'or pour vous remercier.",
-						"en": "You go see the lord and announce him that his village is planning a rebellion. After a long discussion, you manage to gain his trust and seize the opportunity to pierce his heart with a dagger. The Lord's loyal guards rush on you and immobilize you. One of them propose to execute you in front of the villagers to get the message across, but the rebellion is raging ! The villagers end up making the guards flee and offer you a large purse filled with gold to thank you."
+						"en": "You go see the lord and announce him that his village is planning a rebellion. After a long discussion, you manage to gain his trust and seize the opportunity to pierce his heart with a dagger. The Lord's loyal guards rush on you and immobilize you. One of them propose to execute you in front of the villagers to get the message across, but the rebellion is raging! The villagers end up making the guards flee and offer you a large purse filled with gold to thank you."
 					},
 					"money": 800
 				},
@@ -83,7 +83,7 @@
 				{
 					"translations": {
 						"fr": "Vous allez visiter le seigneur et lui contez la traîtrise régnant dans le village voisin, vous lui annoncez que vous êtes prêt à lui donner le nom des dissidents en échange d'une importante somme d'argent. Il accepte votre offfe et vous le conduisez jusqu'aux traîtres, qu'il exécute sous vos yeux. Sur la route, vous vérifiez la bourse qu'il vous a donné et vous rendez compte qu'elle ne contient que peu de pièces !",
-						"en": "You go visit the lord and tell him of the reigning betrayal in the nearby village, you announce him that you are ready to seize it in exchange of a large amount of money. He accepts your offer and you lead him to the traitor who is executed before your eyes. On the road, you verify the purse that he gave you and see that it only contains a small amount of money !"
+						"en": "You go visit the lord and tell him of the reigning betrayal in the nearby village, you announce him that you are ready to seize it in exchange of a large amount of money. He accepts your offer and you lead him to the traitor who is executed before your eyes. On the road, you verify the purse that he gave you and see that it only contains a small amount of money!"
 					},
 					"money": 25
 				},

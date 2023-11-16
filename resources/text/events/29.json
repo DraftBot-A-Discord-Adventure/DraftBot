@@ -37,7 +37,7 @@
 				{
 					"translations": {
 						"fr": "Vous cherchez un point d'eau en vain... A cause de cette fatigue, vous faites un malaise.",
-						"en": "You look for a body of water in vain.... Because of this fatigue, you fall ill."
+						"en": "You look for a body of water in vain... Because of this fatigue, you fall ill."
 					},
 					"health": -10,
 					"effect": ":sleeping:"

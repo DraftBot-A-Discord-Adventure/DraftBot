@@ -1,10 +1,10 @@
 {
 	"translations": {
 		"fr": {
-			"desc": "Rejoignez l'île mystérieuse."
+			"desc": "Rejoindre l'île mystérieuse"
 		},
 		"en": {
-			"desc": "Join the mysterious island."
+			"desc": "Join the mysterious island"
 		}
 	},
 	"campaignOnly": true

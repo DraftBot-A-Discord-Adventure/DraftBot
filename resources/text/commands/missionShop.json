@@ -42,7 +42,7 @@
 					"price": 5,
 					"info": "Vous octroie 1000 points. Ne peut être utilisé qu'une fois par semaine.",
 					"giveTitle": "{pseudo}, achat effectué !",
-					"giveDescription": "Vous avez reçu 1000 :medal:. A la semaine prochaine pour une nouvelle ferveur !"
+					"giveDescription": "Vous avez reçu 1000 :medal:. À la semaine prochaine pour une nouvelle ferveur !"
 				},
 				"lovePointsValue": {
 					"emote": "\uD83E\uDDD1\u200D⚕️",
@@ -95,7 +95,7 @@
 				"leaveShop": "Vous avez quitté le magasin.",
 				"remainingCooldown": "Vous avez déjà acheté des points cette semaine, revenez la semaine prochaine pour en acheter !",
 				"noMissionToSkip": "Vous n'avez aucune mission à passer !",
-				"noPet": "Vous n'avez aucun animal sur vous, nous ne pouvons prodiguer un diagnostique sur un animal fantôme !"
+				"noPet": "Vous n'avez aucun animal sur vous, nous ne pouvons prodiguer un diagnostic sur un animal fantôme !"
 			}
 		},
 		"en": {
@@ -188,12 +188,12 @@
 			"moneyQuantity": "You have `{money}💎`.",
 			"error": {
 				"cannotBuy": "You don't have enough gems to buy this item! You are missing `{missingMoney}💎`.",
-				"canceledPurchase": "Transaction canceled!",
+				"canceledPurchase": "Transaction cancelled!",
 				"alreadyHasItem": "You already own this item.",
 				"leaveShop": "You have left the store.",
 				"remainingCooldown": "You already bought points this week, come back next week to buy more!",
-				"noMissionToSkip": "You don't have any missions to pass!",
-				"noPet": "You don't have any animals on you, we cannot provide a diagnosis on a ghost animal!"
+				"noMissionToSkip": "You don't have any mission to skip!",
+				"noPet": "You don't have any pet on you, we cannot provide a diagnosis on a ghost animal!"
 			}
 		}
 	}

@@ -1,7 +1,7 @@
 {
 	"translations": {
 		"fr": {
-			"heal": "subit les conséquences du maléfice.  `Dégâts reçus : {damages}`",
+			"heal": "subit les conséquences du maléfice. `Dégâts reçus : {damages}`",
 			"damage": "est maudit..."
 		},
 		"en": {
