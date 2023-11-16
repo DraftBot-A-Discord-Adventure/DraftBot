@@ -30,7 +30,7 @@
 				"23": "Une classe disposant de très bonnes stats mais avec un malus important sur les points de vie.",
 				"24": "Une classe polyvalente axée sur des mécaniques de combat uniques."
 			},
-			"title": ":bookmark:  **Changer de classe :**",
+			"title": ":bookmark: **Changer de classe :**",
 			"desc": "Choisissez une classe dans la liste ci-dessous pour plus d'informations.",
 			"display": "{name}\n\n:scroll: `{description}`\n\nSouhaitez-vous changer pour cette classe ? Vous ne pourrez pas changer de classe avant le {time}.",
 			"success": "{pseudo}, votre classe a été modifiée !",
@@ -73,7 +73,7 @@
 				"23": "A class with very good stats but with a significant hitpoints penalty.",
 				"24": "A versatile class focused on unique combat mechanics."
 			},
-			"title": ":bookmark:  **Change your class :**",
+			"title": ":bookmark: **Change your class :**",
 			"desc": "Choose a class in the list below for more information",
 			"display": "{name}\n\n:scroll: `{description}`\n\nWould you like to switch to this class? You will not be able to change your class again until {time}.",
 			"success": "{pseudo}, your class has been changed !",

@@ -3,13 +3,13 @@
 		"fr": {
 			"commandName": "vote",
 			"commandDescription": "Afficher le lien permettant de voter pour le bot.",
-			"title": "🗳️  Voter",
+			"title": "🗳️ Voter",
 			"text": "\n\nVoici le lien permettant de soutenir le bot :\nhttps://top.gg/bot/448110812801007618"
 		},
 		"en": {
 			"commandName": "vote",
 			"commandDescription": "Displays the link to vote for the bot.",
-			"title": "🗳️  Vote",
+			"title": "🗳️ Vote",
 			"text": "\n\nHere is the link to support the bot :\nhttps://top.gg/bot/448110812801007618"
 		}
 	}

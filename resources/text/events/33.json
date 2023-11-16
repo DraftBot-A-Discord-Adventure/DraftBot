@@ -22,7 +22,7 @@
 					},
 					"lostTime": 120,
 					"effect": ":clock2:",
-					"tags":  [
+					"tags": [
 						"bigFeast"
 					]
 				},
@@ -32,7 +32,7 @@
 						"en": "You bond with the guy sitting next to you whom gifts you a present for the sake of it."
 					},
 					"randomItem": {},
-					"tags":  [
+					"tags": [
 						"bigFeast"
 					]
 				},
@@ -41,7 +41,7 @@
 						"fr": "Avec l'alcool, les esprits s'échauffent et vous assistez à une bagarre avant de vous en aller.",
 						"en": "As the alcohol kicks in, some people starts getting aggressive and you watch a fight happen before going away."
 					},
-					"tags":  [
+					"tags": [
 						"bigFeast"
 					]
 				},
@@ -52,7 +52,7 @@
 					},
 					"health": 20,
 					"money": 400,
-					"tags":  [
+					"tags": [
 						"bigFeast"
 					]
 				},
@@ -61,7 +61,7 @@
 						"fr": "Vous acceptez poliment et restez quelques minutes, avant de repartir, feignant d'être pressé.",
 						"en": "You accept politely and stay for a bit, before faking being in a rush and going."
 					},
-					"tags":  [
+					"tags": [
 						"bigFeast"
 					]
 				}
@@ -79,7 +79,7 @@
 						"en": "This good food makes you full of energy."
 					},
 					"health": 10,
-					"tags":  [
+					"tags": [
 						"bigFeast"
 					]
 				},
@@ -89,7 +89,7 @@
 						"en": "Not your lucky day, you end up eating a part which turned bad."
 					},
 					"effect": ":sick:",
-					"tags":  [
+					"tags": [
 						"bigFeast"
 					]
 				},
@@ -100,7 +100,7 @@
 					},
 					"lostTime": 75,
 					"effect": ":clock2:",
-					"tags":  [
+					"tags": [
 						"bigFeast"
 					]
 				},
@@ -193,7 +193,7 @@
 					"lostTime": 180,
 					"health": 40,
 					"effect": ":clock2:",
-					"tags":  [
+					"tags": [
 						"bigFeast"
 					]
 				}

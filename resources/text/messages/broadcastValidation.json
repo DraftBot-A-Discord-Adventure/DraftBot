@@ -11,7 +11,7 @@
 			"errorBroadcastCancelled": "Your request has been cancelled.",
 			"errorSelfAccept": "You can't accept your own request",
 			"errorSelfAcceptSpam": "Your request has been cancelled. Please do not spam the acceptance of your own request.",
-			"errorOtherDeny": "{pseudo}, only the initiator of the request can cancel it !",
+			"errorOtherDeny": "{pseudo}, only the initiator of the request can cancel it!",
 			"errorNoAnswer": "Nobody has answered to your request in the time. Your request has been cancelled."
 		}
 	}

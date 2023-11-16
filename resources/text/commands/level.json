@@ -31,7 +31,7 @@
 				"invalidIdOrMention": "Invalid mention / ID at position {position} : {wrongText}",
 				"invalidIdOrMentionDoesntExist": "Mention / ID belonging to no one at position {position} : {wrongText}",
 				"invalidDonationParameter": "Invalid first parameter\nformat : `/level <set|add> <amount> [mentions]`",
-				"tooMuchPeople": "Modification of the level on too much users. Please limit your command to 50 users."
+				"tooMuchPeople": "Modification of the level on too many users at the same time. Please limit your command to 50 users."
 			},
 			"dm": {
 				"title": "{pseudo}, your level has been edited by an administrator!",

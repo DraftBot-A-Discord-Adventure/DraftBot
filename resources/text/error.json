@@ -100,8 +100,8 @@
 			"dmSupportPermissionMissing": "You must be part of the support team!",
 			"administratorPermissionMissing": "You must have the `Administrator` permission on this server!",
 			"botOwnerPermissionMissing": "This command is for the bot owner only!",
-			"contributorPermissionMissing": "This command is for the bot contributors !",
-			"notContributorsChannel": "This command is can be executed by contributors only in a specific channel !",
+			"contributorPermissionMissing": "This command is for the bot contributors!",
+			"notContributorsChannel": "This command is can be executed by contributors only in a specific channel!",
 			"title": [
 				"{pseudo}, hmmm... That didn't work!",
 				"{pseudo}, cancelled!",

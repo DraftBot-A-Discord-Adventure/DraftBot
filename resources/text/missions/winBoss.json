@@ -1,10 +1,10 @@
 {
 	"translations": {
 		"fr": {
-			"desc": "Gagnez {objective} combat{objective>1?s:} de boss."
+			"desc": "Gagner {objective} combat{objective>1?s:} de boss"
 		},
 		"en": {
-			"desc": "Win {objective} boss fight{objective>1?s:}."
+			"desc": "Win {objective} boss fight{objective>1?s:}"
 		}
 	},
 	"campaignOnly": false,

@@ -5,7 +5,7 @@
 			"namePlural": "Concentrations",
 			"active": "essaie de se concentrer...",
 			"fail": "ne parvient pas à se concentrer !",
-			"description": "Échoue si vous utilisez cette action alors que vous avez une altération d’état. L’altération \"concentré\" double la vitesse et l’attaque durant 1 tour. "
+			"description": "Échoue si vous utilisez cette action alors que vous avez une altération d’état. L’altération \"concentré\" double la vitesse et l’attaque durant 1 tour."
 		},
 		"en": {
 			"name": "Concentration",

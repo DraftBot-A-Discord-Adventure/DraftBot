@@ -54,7 +54,7 @@
 				"Vous rencontrez {playerDisplay} de votre guilde ! Vous réalisez la poignée de main secrète de la guilde et repartez chacun sur vos chemins respectifs."
 			],
 			"staffMember": [
-				"{playerDisplay}, qui fait partie du staff de DraftBot, vous donne un conseil pour la suite de votre aventure :\n\n{advice}\n\nVous reprenez ensuite votre chemin",
+				"{playerDisplay}, qui fait partie du staff de DraftBot, vous donne un conseil pour la suite de votre aventure :\n\n{advice}\n\nVous reprenez ensuite votre chemin.",
 				"\"{advice}\". C'est ce que vous a dit {playerDisplay}, un des célèbres staff du bot, que vous croisez au detour d'un chemin !",
 				"Vous discutez avec {playerDisplay} qui fait partie de l'équipe DraftBot, et qui a de bons conseils pour la suite de votre aventure:\n\n{advice}"
 			],
@@ -218,7 +218,7 @@
 			"top1": [
 				"You pass by {playerDisplay} on your way. They're the best player currently!",
 				"As you walk, you meet {playerDisplay}. They are currently at the top of the rankings. Your eyes filled with admiration, you decide not to disturb them in their progress, and you continue on your way.",
-				"Oh my god! It's amazing! This is the legendary {playerDisplay}, currently the greatest fighter ! You pass by them and chat for a while. They give you some advice for your adventure!",
+				"Oh my god! It's amazing! This is the legendary {playerDisplay}, currently the greatest fighter! You pass by them and chat for a while. They give you some advice for your adventure!",
 				"Make way for {playerDisplay}, the world's number one in the DraftBot rankings! You actually ignore this person and keep walking to reach your destination."
 			],
 			"top10": [
@@ -242,7 +242,7 @@
 				"Rumor has it that a member of a powerful guild is making their way on the same path as you. Indeed, you see {playerDisplay} walking far away!"
 			],
 			"beginner": [
-				"One always has to start somewhere ! You meet {playerDisplay}, who're just starting their adventure dedicated to the princess.",
+				"One always has to start somewhere! You meet {playerDisplay}, who're just starting their adventure dedicated to the princess.",
 				"A person passes by you. You quickly recognize them : it's {playerDisplay}, a nice and friendly newcomer!",
 				"You feel the need to take a break from your adventures. As such, you train {playerDisplay}, who's just starting the game."
 			],
@@ -252,18 +252,18 @@
 				"{playerDisplay} keeps leveling up, and is one of the best players! They're currently level **{level}**."
 			],
 			"sameClass": [
-				"On your way, you do not fail to recognize {playerDisplay}'s outfit. He is **{class}** just like you !",
+				"On your way, you do not fail to recognize {playerDisplay}'s outfit. He is **{class}** just like you!",
 				"You notice {playerDisplay}, and quickly notice his familiar outfit and manners. He is indeed **{class}**, just like you!",
 				"You greet one of your colleagues **{class}*, {playerDisplay}, who's passing by. Having no time to stop, you both continue on your respective adventure."
 			],
 			"sameGuild": [
-				"On your way, you stumble upon a very familiar face... Indeed, {playerDisplay} is part of your guild !",
+				"On your way, you stumble upon a very familiar face... Indeed, {playerDisplay} is part of your guild!",
 				"You approach someone, whose familiar face reminds you of someone... Of course! It's {playerDisplay}, a fellow guild member of yours!",
 				"You meet {playerDisplay}, a member of your guild! You perform the guild's secret handshake and then go separate ways."
 			],
 			"staffMember": [
-				"{playerDisplay}, who is part of the DraftBot staff, gives you a tip that should help for the rest of your adventure:\n\n{advice}\n\nYou then go on your way",
-				"\"{advice}\", that's what {playerDisplay}, one of the famous bot's staff, told you when you crossed their path !",
+				"{playerDisplay}, who is part of the DraftBot staff, gives you a tip that should help for the rest of your adventure:\n\n{advice}\n\nYou then go on your way.",
+				"\"{advice}\", that's what {playerDisplay}, one of the famous bot's staff, told you when you crossed their path!",
 				"You talk with {playerDisplay}, who is part of the DraftBot team. They have some good advice for the rest of your adventure:\n\n{advice}"
 			],
 			"topWeek": [
@@ -274,12 +274,12 @@
 			"lowHP": [
 				"You meet a limping {playerDisplay}... They don't look so good... They fall on the side of the road, so you decide to help them up.",
 				"You come across {playerDisplay}, they look like they're on their last breath....",
-				"An arrow to the knee would force {playerDisplay} to give up on their adventurer's life. You pray they find a healing potion before they become a city guard !"
+				"An arrow to the knee would force {playerDisplay} to give up on their adventurer's life. You pray they find a healing potion before they become a city guard!"
 			],
 			"fullHP": [
 				"You have rarely seen someone as energetic as {playerDisplay}... They seem to be in a great shape!",
-				"On your way, you meet {playerDisplay} who seems in good shape. Indeed, their hp is full !",
-				"You're almost knocked down by a running {playerDisplay} ! They're very energetic, as their life is at its maximum."
+				"On your way, you meet {playerDisplay} who seems in good shape. Indeed, their hp is full!",
+				"You're almost knocked down by a running {playerDisplay}! They're very energetic, as their life is at its maximum."
 			],
 			"unranked": [
 				"You pass by {playerDisplay}, a player who doesn't seem to be ranked... You walk away wondering what kind of spirit possessed them, to come here only to give up so quickly.",
@@ -318,8 +318,8 @@
 			],
 			"duplicatePotion": [
 				"You chat about your journey with {playerDisplay}. After getting to know them, they pour some of their extra potion into one of your empty vials. You continue your adventure with **1x** {item}!",
-				"A stranger named {playerDisplay} arrives, pours some potion into an empty flask of yours, and leaves without elaborating further. You obtain **1x** {item} !",
-				"Sharing is the secret to long lasting, happy relationships! {playerDisplay} drops some {item} into one of your empty vials. You leave happily"
+				"A stranger named {playerDisplay} arrives, pours some potion into an empty flask of yours, and leaves without elaborating further. You obtain **1x** {item}!",
+				"Sharing is the secret to long lasting, happy relationships! {playerDisplay} drops some {item} into one of your empty vials. You leave happily."
 			],
 			"pet": [
 				"{playerDisplay} pass near you with their **{petName}** pet. You pet this brave animal and continue on your way in a good mood!",
@@ -343,7 +343,7 @@
 			],
 			":sick:": [
 				"You hear a noise in the distance... It's {playerDisplay}, vomiting in a bush... You resume your walking, albeit at faster speeds.",
-				"{playerDisplay} vomits in a bush. So *that's* the noise you've been hearing for a while ! You continue walking, with more haste, hoping not to vomit too.",
+				"{playerDisplay} vomits in a bush. So *that's* the noise you've been hearing for a while! You continue walking, with more haste, hoping not to vomit too.",
 				"{playerDisplay} can't hold back and vomits at your feet. You narrowly dodge the attack and increase your pace to get away from the massacre."
 			],
 			":head_bandage:": [
@@ -369,7 +369,7 @@
 			":cold_face:": [
 				"You feel a great cold aura overtaking you. As you turn around, you realize it's {playerDisplay}, close to hypothermia!",
 				"{playerDisplay} seem to be feeling extremely cold, so you warm them up a bit, and then leave.",
-				"A constant sound annoys you. You quickly discover that it's {playerDisplay}'s chattering teeth... This person is nearly frozen !"
+				"A constant sound annoys you. You quickly discover that it's {playerDisplay}'s chattering teeth... This person is nearly frozen!"
 			],
 			":confounded:": [
 				"You try to talk to {playerDisplay}. Try. Their words are absolutely incoherent, so you continue your way somewhat disturbed.",
@@ -383,17 +383,17 @@
 			],
 			"weapon": [
 				"You meet {playerDisplay}, who shows you {item}.",
-				"A person comes to show off next to you, it's {playerDisplay} and he shows you {item} !",
+				"A person comes to show off next to you, it's {playerDisplay} and he shows you {item}!",
 				"Wow! {playerDisplay} brandishes {item} in front of you. You continue walking, astonished."
 			],
 			"armor": [
 				"You meet {playerDisplay} who shows you {item}.",
-				"A guard approaches you, it's {playerDisplay}. They come to show you {item} !",
+				"A guard approaches you, it's {playerDisplay}. They come to show you {item}!",
 				"{playerDisplay} challenge you to test {item}, which serves as their protection. After testing its effectiveness, you go back to your journey."
 			],
 			"potion": [
 				"You meet {playerDisplay}, who shows you {item}.",
-				"{playerDisplay} comes to talk to you, and to show off {item} !",
+				"{playerDisplay} comes to talk to you, and to show off {item}!",
 				"{playerDisplay}, which you meet on your way, tell you that they are in possession of a great potion. they then proceed to show you {item}."
 			],
 			"object": [
@@ -403,7 +403,7 @@
 			],
 			":scream:": [
 				"You meet {playerDisplay}, which is seemingly running in your direction. Indeed, they are chased by a group of bandits that are after their money. It doesn't really concern you, so you just continue walking.",
-				"You see {playerDisplay} from afar, running as fast as possible to escape a pack of wolves, you hurry to help them and retreat drive away those wild beasts",
+				"You see {playerDisplay} from afar, running as fast as possible to escape a pack of wolves, you hurry to help them and retreat drive away those wild beasts.",
 				"You meet {playerDisplay}. They seem panicked. You ask them why they are in such a state. They tell you they were chased by a dragon, but managed to escape, thankfully losing nothing but some hair in the whole mishap."
 			],
 			":clock2:": [

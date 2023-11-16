@@ -1,10 +1,10 @@
 {
 	"translations": {
 		"fr": {
-			"desc": "Aidez votre guilde à posséder plus de {objective} points de guilde."
+			"desc": "Aider votre guilde à posséder plus de {objective} points de guilde"
 		},
 		"en": {
-			"desc": "Help your guild to get more than {objective} guild points."
+			"desc": "Help your guild to get more than {objective} guild points"
 		}
 	},
 	"campaignOnly": true

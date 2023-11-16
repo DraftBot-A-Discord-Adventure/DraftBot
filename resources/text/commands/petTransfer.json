@@ -13,7 +13,7 @@
 			"noSlotAvailable": "Aucun emplacement libre dans le refuge de la guilde !",
 			"confirmDeposit": "**{pet}** restera désormais dans le refuge de la guilde !",
 			"noPetToTransfer": "Vous n'avez aucun familier à placer dans le refuge de la guilde ! Pour en récupérer un, faites {command:pettransfer} en précisant la position du familier dans les arguments.\nPour connaître la position du familier, utilisez la commande {command:guildshelter}",
-			"isFeisty": "Vous ne pouvez pas transférer de familier fielleux"
+			"isFeisty": "Vous ne pouvez pas transférer de familier fielleux."
 		},
 		"en": {
 			"commandName": "pettransfer",

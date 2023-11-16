@@ -15,7 +15,7 @@
 			"embedTitle": "Pet shelter of the {guild} guild: {count} / {max} ",
 			"noPetMessage": "Oh! It seems that there is no pet in the shelter.",
 			"petFieldName": "__Pet number {number}__",
-			"petField": "**Type:** {type} {emote}\n**Nickname:** {nickname}\n\n**Rarity:** {rarity}\n**Sex:** {sex}\n**Spirit:** {loveLevel}",
+			"petField": "**Type:** {emote} {type}\n**Nickname:** {nickname}\n\n**Rarity:** {rarity}\n**Sex:** {sex}\n**Spirit:** {loveLevel}",
 			"warningFull": ":warning: The shelter is full, no more pets can be obtained!"
 		}
 	}

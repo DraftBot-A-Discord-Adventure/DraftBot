@@ -3,7 +3,7 @@
 		"fr": {
 			"name": "Attaque lourde",
 			"namePlural": "Attaques lourdes",
-			"description": "Les dégâts de cette attaque sont réduits de 90% si le défenseur dispose de moins de défense de l’attaquant."
+			"description": "Les dégâts de cette attaque sont réduits de 90% si le défenseur dispose de moins de défense que l’attaquant."
 		},
 		"en": {
 			"name": "Heavy attack",

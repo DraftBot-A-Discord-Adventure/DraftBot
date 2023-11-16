@@ -71,16 +71,16 @@
 			"summarize": {
 				"title": "Résumé du combat",
 				"intro": ":clipboard: | **État actuel du combat** [{turn>maxTurns?Prolongations:{{turn}/{maxTurns}}}]\n\n",
-				"notStarted": ":crossed_swords: |** Combattant : {pseudo}**\n",
-				"notStartedPlayer": ":crossed_swords: |** Combattant : {pseudo}** | {glory} :sparkles: | {class}\n",
-				"attacker": ":crossed_swords: |** Attaquant : {pseudo}**\n",
-				"defender": ":shield: |** Défenseur : {pseudo}**\n",
-				"bug": ":crossed_swords: |** Combattant : {pseudo}**\n",
+				"notStarted": ":crossed_swords: | **Combattant : {pseudo}**\n",
+				"notStartedPlayer": ":crossed_swords: | **Combattant : {pseudo}** | {glory} :sparkles: | {class}\n",
+				"attacker": ":crossed_swords: | **Attaquant : {pseudo}**\n",
+				"defender": ":shield: | **Défenseur : {pseudo}**\n",
+				"bug": ":crossed_swords: | **Combattant : {pseudo}**\n",
 				"stats": ":zap: {power} | :dagger: {attack} | :shield: {defense} | :rocket: {speed} | :wind_blowing_face: {breath} / {maxBreath} | :lungs: {breathRegen}"
 			},
 			"end": {
-				"draw": ":newspaper: |** {player1} et {player2} terminent leur combat sur une égalité !**\n\n",
-				"win": ":newspaper: |** {winner} remporte le match contre {loser}**\n\n",
+				"draw": ":newspaper: | **{player1} et {player2} terminent leur combat sur une égalité !**\n\n",
+				"win": ":newspaper: | **{winner} remporte le match contre {loser}**\n\n",
 				"gameStats": ":bar_chart: | Statistiques du combat\n- **Tours** : {turn}/{maxTurn}{turn>maxTurn? (prolongations):}\n- **Temps de combat** : {time}",
 				"winElo": "\n- **Elo de la partie** : `{elo}`\n- **Points gagnés/perdus** : `{points}`",
 				"drawElo": "\n- **Elo de la partie** : `{elo}`",
@@ -98,12 +98,12 @@
 					"indirect": "Cet adversaire n'a pas encore atteint le **LVL {level}** et ne peut donc pas combattre !"
 				},
 				"baby": {
-					"indirect": "Cet adversaire n'a pas encore débuté son aventure ! Utilisez la commande {command:report} pour la commencer !",
+					"indirect": "Cet adversaire n'a pas encore débuté son aventure !",
 					"direct": "Vous n'avez pas encore débuté votre aventure ! Utilisez la commande {command:report} pour la commencer !"
 				},
 				"dead": {
-					"direct": "{pseudo}, il n'est pas possible de combattre en étant K.O ! Vous pouvez revivre en utilisant la commande {command:respawn} pour pouvoir continuer à jouer.",
-					"indirect": "Il n'est pas possible de lancer un combat contre une personne K.O.!"
+					"direct": "{pseudo}, il n'est pas possible de combattre en étant K.O. ! Vous pouvez revivre en utilisant la commande {command:respawn} pour pouvoir continuer à jouer.",
+					"indirect": "Il n'est pas possible de lancer un combat contre une personne K.O. !"
 				},
 				"cantFightStatus": {
 					"direct": "{pseudo}, vous n'êtes pas en état de combattre pour le moment ! Veuillez attendre la fin d'altération de votre état !",
@@ -122,8 +122,8 @@
 					"indirect": "Vous ne pouvez pas faire un combat classé contre cette personne car votre écart de points de gloire est trop important !"
 				},
 				"bestOf3": {
-					"direct": "Vous ne pouvez pas faire un combat classé contre cette personne car vous avez déjà fait trop de duels avec elle cette semaine!",
-					"indirect": "Vous ne pouvez pas faire un combat classé contre cette personne car vous avez déjà fait trop de duels avec elle cette semaine!"
+					"direct": "Vous ne pouvez pas faire un combat classé contre cette personne car vous avez déjà fait trop de duels avec elle cette semaine !",
+					"indirect": "Vous ne pouvez pas faire un combat classé contre cette personne car vous avez déjà fait trop de duels avec elle cette semaine !"
 				},
 				"onPveIsland": {
 					"direct": "{pseudo}, vous ne pouvez pas lancer de combat en étant sur une île mystérieuse !",
@@ -178,7 +178,7 @@
 						"effectue une {attack} ! C'était risqué et ça n'est pas passé !",
 						"lance une mauvaise {attack} !",
 						"utilise une {attack} ! Un choix peu judicieux !",
-						"choisit une {attack} ! Mauvaise initiative",
+						"choisit une {attack} ! Mauvaise initiative...",
 						"effectue une {attack} ! C'est une mauvaise {attack} !"
 					]
 				},
@@ -261,7 +261,7 @@
 				"gloryField": "Glory changes",
 				"glory": "**{player} :** {ratingDiff>=0?+:}{ratingDiff} ✨\n",
 				"leagueField": "Leagues changes",
-				"leagueChangeUp": "️ **{player} :** {oldLeague} -> {newLeague}\n",
+				"leagueChangeUp": "️↗️ **{player} :** {oldLeague} -> {newLeague}\n",
 				"leagueChangeDown": "↘️️ **{player} :** {oldLeague} -> {newLeague}\n",
 				"higherEloWins": [
 					"{winner} takes the field with a marked performance.",
@@ -310,15 +310,15 @@
 				"title": "Fight summary",
 				"intro": ":clipboard: | **Current fight state** [{turn>maxTurns?Overtime:{{turn}/{maxTurns}}}]\n\n",
 				"notStarted": ":crossed_swords: | **Fighter: {pseudo}**\n",
-				"notStartedPlayer": ":crossed_swords: |** Combattant : {pseudo}** | {glory} :sparkles: | {class}\n",
+				"notStartedPlayer": ":crossed_swords: | **Fighter : {pseudo}** | {glory} :sparkles: | {class}\n",
 				"attacker": ":crossed_swords: | **Attacker: {pseudo}**\n",
 				"defender": ":shield: | **Defender: {pseudo}**\n",
 				"bug": ":crossed_swords: | **Fighter: {pseudo}**\n",
 				"stats": ":zap: {power} | :dagger: {attack} | :shield: {defense} | :rocket: {speed} | :wind_blowing_face: {breath} / {maxBreath} | :lungs: {breathRegen}"
 			},
 			"end": {
-				"draw": ":newspaper: |**{player1} and {player2} end their fight with a draw!**\n\n",
-				"win": ":newspaper: |**{winner} won the fight against {loser}**\n\n",
+				"draw": ":newspaper: | **{player1} and {player2} end their fight with a draw!**\n\n",
+				"win": ":newspaper: | **{winner} won the fight against {loser}**\n\n",
 				"gameStats": ":bar_chart: | Fight stats\n- **Turns**: {turn}/{maxTurn}{turn>maxTurn? (overtime):}\n- **Fighting time elapsed**: {time}",
 				"winElo": "\n- **Elo**: `{elo}`\n- **Points gained/lost**: `{points}`",
 				"drawElo": "\n- **Elo**: `{elo}`",
@@ -336,11 +336,11 @@
 					"indirect": "This opponent's level is below **level {level}**, thus can't fight yet!"
 				},
 				"baby": {
-					"indirect": "This opponent hasn't started his adventure yet! Use the {command:report} command to start it!",
+					"indirect": "This opponent hasn't started his adventure yet!",
 					"direct": "You haven't started your adventure yet! Use the {command:report} command to start it!"
 				},
 				"dead": {
-					"direct": "{pseudo}, You can't fight while KO ! Please use the {command:respawn} command to continue playing.",
+					"direct": "{pseudo}, You can't fight while being knocked out! Please use the {command:respawn} command to continue playing.",
 					"indirect": "This opponent is dead, thus can't fight yet!"
 				},
 				"cantFightStatus": {
@@ -356,8 +356,8 @@
 					"indirect": "This person is out of energy!"
 				},
 				"eloGap": {
-					"direct": "You can't make a ranked match against this person because your distance gap is too big!",
-					"indirect": "You can't make a ranked match against this person because your distance gap is too big!"
+					"direct": "You can't make a ranked match against this person because your glory point gap is too big!",
+					"indirect": "You can't make a ranked match against this person because your glory point gap is too big!"
 				},
 				"bestOf3": {
 					"direct": "You can't make a ranked fight against this person because you've already made too many duels with them this week!",
@@ -377,47 +377,47 @@
 						"uses {attack}! Perfectly executed!",
 						"uses {attack}! It's magnificent!",
 						"uses an amazing {attack}! Perfectly executed!",
-						"uses an {attack}! Incredibly well done!",
-						"launches an {attack}! So brutal!",
-						"uses an {attack}! It was risky, but it's worth it!",
+						"uses a {attack}! Incredibly well done!",
+						"launches a {attack}! So brutal!",
+						"uses a {attack}! It was risky, but it's worth it!",
 						"launches a good {attack}!",
-						"uses an {attack}! It's PERFECT!",
-						"uses an {attack}! Masterly done!",
+						"uses a {attack}! It's PERFECT!",
+						"uses a {attack}! Masterly done!",
 						"launches a beautiful {attack}!",
-						"uses an {attack}! It's perfect!",
-						"launches an {attack}! The assault is absolutely crazy!",
-						"hits his opponent with an {attack}! No mercy!",
-						"uses an {attack}! Lovely!",
-						"launches an {attack}! OH MY GOOOOOOOOD THAT'S INCREDIBLE!",
-						"chooses an {attack}! Very great initiative!",
-						"uses an {attack}! That was an excellent one!",
-						"used an {attack}! It's a critical hit!",
+						"uses a {attack}! It's perfect!",
+						"launches a {attack}! The assault is absolutely crazy!",
+						"hits his opponent with a {attack}! No mercy!",
+						"uses a {attack}! Lovely!",
+						"launches a {attack}! OH MY GOOOOOOOOD THAT'S INCREDIBLE!",
+						"chooses a {attack}! Very great initiative!",
+						"uses a {attack}! That was an excellent one!",
+						"used a {attack}! It's a critical hit!",
 						"beats their opponent down with a no-holds-barred {attack}!"
 					],
 					"normal": [
-						"executes an {attack}!",
-						"launches an {attack}!",
-						"uses an {attack}!",
-						"realized an {attack}!"
+						"executes a {attack}!",
+						"launches a {attack}!",
+						"uses a {attack}!",
+						"realized a {attack}!"
 					],
-					"maxUses": "tried to use an {attack}, but it failed!",
-					"charging": "prepares to launch an {attack}!",
+					"maxUses": "tried to use a {attack}, but it failed!",
+					"charging": "prepares to launch a {attack}!",
 					"missed": [
-						"launches an {attack}! We've seen better than that...",
-						"launches an {attack}! Mediocre",
-						"uses an {attack}! It's not that well executed.",
-						"uses an {attack}! It's not very effective...",
-						"chooses an {attack}! The result is really pathetic.",
-						"launches an {attack}! That wasn't the best choice to do...",
-						"uses an {attack}! And it failed!",
-						"uses an {attack}! Yet it miserably misses its target!",
+						"launches a {attack}! We've seen better than that...",
+						"launches a {attack}! Mediocre",
+						"uses a {attack}! It's not that well executed.",
+						"uses a {attack}! It's not very effective...",
+						"chooses a {attack}! The result is really pathetic.",
+						"launches a {attack}! That wasn't the best choice to do...",
+						"uses a {attack}! And it failed!",
+						"uses a {attack}! Yet it miserably misses its target!",
 						"uses a bad {attack}! A cruel lack of technique!",
-						"uses an {attack}! That was a mistake!",
-						"uses an {attack}! It was risky and not worth it!",
+						"uses a {attack}! That was a mistake!",
+						"uses a {attack}! It was risky and not worth it!",
 						"launches a bad {attack}!",
-						"uses an {attack}! A poorly made choice!",
-						"chooses an {attack}! Pretty bad initiative",
-						"uses an {attack}! That was an awful one!"
+						"uses a {attack}! A poorly made choice!",
+						"chooses a {attack}! Pretty bad initiative",
+						"uses a {attack}! That was an awful one!"
 					]
 				},
 				"damages": " `Damage inflicted: {damages}`",

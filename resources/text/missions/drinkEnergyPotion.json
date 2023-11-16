@@ -1,7 +1,7 @@
 {
 	"translations": {
 		"fr": {
-			"desc": "Buvez {objective} potion{objective>1?s:} d'énergie"
+			"desc": "Boire {objective} potion{objective>1?s:} d'énergie"
 		},
 		"en": {
 			"desc": "Drink {objective} energy potion{objective>1?s:}"

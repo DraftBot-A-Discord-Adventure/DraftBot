@@ -1,7 +1,7 @@
 {
 	"translations": {
 		"fr": {
-			"desc": "Buvez une potion de rareté {variantText} ou supérieure ({command:rarity})"
+			"desc": "Boire une potion de rareté {variantText} ou supérieure ({command:rarity})"
 		},
 		"en": {
 			"desc": "Drink a potion of rarity {variantText} or more ({command:rarity})"

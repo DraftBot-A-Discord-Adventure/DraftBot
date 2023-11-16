@@ -1,10 +1,10 @@
 {
 	"translations": {
 		"fr": {
-			"desc": "Dépensez {objective} pièces."
+			"desc": "Dépenser {objective} pièces"
 		},
 		"en": {
-			"desc": "Spend {objective} coins."
+			"desc": "Spend {objective} coins"
 		}
 	},
 	"campaignOnly": false,

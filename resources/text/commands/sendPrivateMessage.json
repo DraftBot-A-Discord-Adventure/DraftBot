@@ -24,7 +24,7 @@
 			"title": "✅ | DM sent to {pseudo}:",
 			"signature": "\n\n- {username}",
 			"errorCannotSend": "An error happened while sending the private message. This person probably disabled DMs!",
-			"personNotExists": "No one was found with this id !"
+			"personNotExists": "No one was found with this id!"
 		}
 	}
 }
