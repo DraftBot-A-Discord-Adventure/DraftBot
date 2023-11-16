@@ -7,7 +7,7 @@
 			"optionUserDescription": "L'utilisateur concerné par la commande.",
 			"alreadyInAGuild": "Le joueur invité a déjà rejoint une guilde.",
 			"guildDestroy": "Vous ne pouvez pas rejoindre la guilde car celle-ci à été supprimée.",
-			"playerDead": "Vous ne pouvez pas rejoindre la guilde car vous êtes actuellement K.O. Vous pouvez revivre en utilisant la commande {command:respawn} pour pouvoir continuer à jouer.",
+			"playerDead": "Vous ne pouvez pas rejoindre la guilde car vous êtes actuellement K.O. ! Vous pouvez revivre en utilisant la commande {command:respawn} pour pouvoir continuer à jouer.",
 			"playerInPveIsland": "Vous ne pouvez pas rejoindre la guilde car vous êtes actuellement sur un bateau ou une île mystérieuse. Vous devez vous situer sur le continent principal afin de rejoindre une guilde.",
 			"invitationTitle": "{pseudo}, vous êtes invité à rejoindre une guilde !",
 			"invitation": ":question: Souhaitez vous rejoindre la guilde `{guildName}` ?",
@@ -24,15 +24,15 @@
 			"optionUserDescription": "The user concerned by the command.",
 			"alreadyInAGuild": "The player you are inviting is already in a guild.",
 			"guildDestroy": "You can't join the guild because it has been deleted.",
-			"playerDead": "You can't join the guild because you are currently KO. You can respawn using the command {command:respawn} to continue playing.",
+			"playerDead": "You can't join the guild because you are currently K.O.! You can respawn using the command {command:respawn} to continue playing.",
 			"playerInPveIsland": "You can't join the guild because you are currently on a boat or a mysterious island. You must be on the main continent to join a guild.",
 			"invitationTitle": "{pseudo}, you are invited to join a guild!",
 			"invitation": ":question: Do you want to join the guild `{guildName}`?",
 			"successTitle": "{pseudo} joined the guild {guildName}!",
 			"invitationSuccess": "The cooldown before the next guild daily reward has been reset.",
 			"invitationCancelled": "You did not join the guild `{guildName}`!",
-			"guildFull": "Your guild is full.",
-			"levelTooLow": "This player is currently level {playerLevel}. However, you must be **level {level}** to join a guild, so he needs {comeIn} more level{comeIn>1?s:}."
+			"guildFull": "Your guild is full and cannot accept any new members.",
+			"levelTooLow": "This player is currently level {playerLevel}. However, they must be **level {level}** to join a guild, so they need {comeIn} more level{comeIn>1?s:} before they can join yours."
 		}
 	}
 }

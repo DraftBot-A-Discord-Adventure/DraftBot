@@ -26,7 +26,7 @@
 				],
 				"winObject": [
 					"un animal affamé s'approche de vous. Par précaution, vous décidez de le tuer. En fouillant dans ses entrailles, vous trouvez un objet qui semble servir à défendre.",
-					"un chevalier s'approche et vous propose un duel. Il vous donnera son objet de défense si vous gagnez.  Grâce à vôtre entrainement, cette victoire est vôtre, et vous remportez le lot promis.",
+					"un chevalier s'approche et vous propose un duel. Il vous donnera son objet de défense si vous gagnez. Grâce à vôtre entrainement, cette victoire est vôtre, et vous remportez le lot promis.",
 					"Vous trouvez un paysan qui a besoin d'aide pour réparer sa charrette. Vous remettez la roue en place. Pour vous remercier, il vous donne un objet défensif forgé par les meilleurs ouvriers de Claire De Ville."
 				],
 				"winArmor": [
@@ -101,7 +101,7 @@
 			"basic": {
 				"winItem": [
 					"Because of a recent feat of arms, a group of grateful villagers give you an item.",
-					"you meet a group of children playing tag. One of them bumps into you and starts crying. His parents come up to you and start begging you to be  merciful, offering an item to quell your anger.",
+					"you meet a group of children playing tag. One of them bumps into you and starts crying. His parents come up to you and start begging you to be merciful, offering an item to quell your anger.",
 					"a cart bars your way. Eager to continue your journey, you approach the driver, who tells you to get out and find another path. Upset, you threaten him with your weapon. This instantly forces him to calm down. He gives you an item and hurriedly frees the way.",
 					"you see a crowd of people gathered. Wanting to see what's going on, you push a dozen of people with one hand and discover a blood-covered item. You leave as if nothing happened with the item in your possession."
 				],
@@ -116,7 +116,7 @@
 					"your feet bump on something emerging from the ground, which compels you to search the ground, netting you an item...",
 					"you notice a weirdly-shaped shadow in a corner of your field of vision. Naturally intrigued, you approach it, and while doing so, realize it is an item that could be helpful for your adventure...",
 					"you decide to lean on a tree. While sitting, you feel a pain on your back. You get up quickly to find... an item!",
-					"you walk without paying much attention to your environment, which causes you to trip over a bunch of roots ! While getting up , you discover an item !"
+					"you walk without paying much attention to your environment, which causes you to trip over a bunch of roots ! While getting up, you discover an item!"
 				],
 				"winHealth": [
 					"you encounter some villagers remembering your prowess. They offer you a bag in which you find provisions that you eat before resuming your journey. You gain **{health} :heart:**.",

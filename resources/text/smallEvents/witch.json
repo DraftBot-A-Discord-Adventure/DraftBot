@@ -122,18 +122,18 @@
 		},
 		"en": {
 			"intro": [
-				"You stumble upon an old lady, and it looks like she wants you to follow her.",
-				"You see an old woman, and choose to approach her.",
-				"You notice an old woman, who beckons to you.",
-				"You notice an old lady's silhouette, and decide to go and see what she is doing."
+				"You stumble upon an old lady, and it looks like she wants you to follow her. ",
+				"You see an old woman, and choose to approach her. ",
+				"You notice an old woman, who beckons to you. ",
+				"You notice an old lady's silhouette, and decide to go and see what she is doing. "
 			],
 			"description": [
-				"She appears to be very old, frail, and has a long and thin nose.",
-				"Her clothes are in a sorry state. They are so tattered they seem to be falling appart, as if made of dust.",
-				"Her back is curved, she seems to be nothing but bones, yet you catch in her eyes a glimpse of mischievousness. She is wearing tattered clothes, of a dull and dirty fabric.",
-				"You recall rumours regarding a clumsy witch, apparently wandering throughout the kingdom.",
-				"Completely mute, she seems worn by the years, frail, skeletal, her skin almost grey.",
-				"She doesn't really seem to understand what you are telling her."
+				"She appears to be very old, frail, and has a long and thin nose. ",
+				"Her clothes are in a sorry state. They are so tattered they seem to be falling appart, as if made of dust. ",
+				"Her back is curved, she seems to be nothing but bones, yet you catch in her eyes a glimpse of mischievousness. She is wearing tattered clothes, of a dull and dirty fabric. ",
+				"You recall rumours regarding a clumsy witch, apparently wandering throughout the kingdom. ",
+				"Completely mute, she seems worn by the years, frail, skeletal, her skin almost grey. ",
+				"She doesn't really seem to understand what you are telling her. "
 			],
 			"situation": [
 				"You enter what appears to be her hut, and discover that she is currently concocting a potion of sorts...",

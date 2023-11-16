@@ -29,10 +29,10 @@
 				"Votre niveau n'influence pas le nombre de points de guilde, mais influence les autres récompenses",
 				"Gagner contre un monstre plus loin dans l'île rapportera plus de points de guilde que ceux du début",
 				"On raconte que si plusieurs membres d'une même guilde sont sur l'île en même temps, il est possible de combiner les forces de chacun pour faire une attaque dévastatrice",
-				"Les membres de votre guilde peuvent vous aider à combattre les monstres lorsque vous vous rendez sur une île mystérieuse.",
-				"Il est possible de voir les membres de votre guilde qui sont sur une île mystérieuse à l'aide de la commande {command:guild}.",
-				"La commande {command:guild} vous permet de voir le nombre d'alliés qui vous aideront sur l'île mystérieuse.",
-				"Un \"allié\" est un membre de votre guilde qui est actuellement sur l'île mystérieuse ou qui en est récemment parti."
+				"Les membres de votre guilde peuvent vous aider à combattre les monstres lorsque vous vous rendez sur une île mystérieuse",
+				"Il est possible de voir les membres de votre guilde qui sont sur une île mystérieuse à l'aide de la commande {command:guild}",
+				"La commande {command:guild} vous permet de voir le nombre d'alliés qui vous aideront sur l'île mystérieuse",
+				"Un \"allié\" est un membre de votre guilde qui est actuellement sur l'île mystérieuse ou qui en est récemment parti"
 			]
 		},
 		"en": {
@@ -64,10 +64,10 @@
 				"Your level doesn't influence the number of guild points, but it does influence other rewards",
 				"Winning against a monster further down the island will yield more guild points than those at the start",
 				"It is said that if several members of the same guild are on the island at the same time, it is possible to combine the forces of each to make a devastating attack",
-				"Members of your guild can help you fight monsters when you visit a mysterious island.",
-				"You can see guild members who are on a mysterious island using the {command:guild} command.",
-				"The {command:guild} command allows you to see the number of allies who will assist you on the mysterious island.",
-				"An 'ally' is a guild member who is currently on the mysterious island or has recently left it."
+				"Members of your guild can help you fight monsters when you visit a mysterious island",
+				"You can see guild members who are on a mysterious island using the {command:guild} command",
+				"The {command:guild} command allows you to see the number of allies who will assist you on the mysterious island",
+				"An 'ally' is a guild member who is currently on the mysterious island or has recently left it"
 			]
 		}
 	},

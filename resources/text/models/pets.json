@@ -20,7 +20,7 @@
 			"genericGiveTitle": "{pseudo}, obtention d'un familier",
 			"genericGiveNoSlot": "Vous obtenez un{feminine?e:} **{pet}**, cependant, vous n'avez pas de place pour l'accueillir.",
 			"genericGiveGuild": "Vous obtenez un{feminine?e:} **{pet}**. Vous l{feminine?a:e} placez dans le refuge de la guilde.",
-			"genericGivePlayer": "Vous obtenez un{feminine?e:} **{pet}**. Vous décidez de l'emmenez avec vous."
+			"genericGivePlayer": "Vous obtenez un{feminine?e:} **{pet}**. Vous décidez de l'emmener avec vous."
 		},
 		"en": {
 			"hungry": "\uD83E\uDD24 hungry",

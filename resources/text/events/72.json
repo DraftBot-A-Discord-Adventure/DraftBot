@@ -11,8 +11,8 @@
 	"possibilities": {
 		"🐴": {
 			"translations": {
-				"fr": "Participer à l'épreuve de joute",
-				"en": "Join the joust"
+				"fr": "Participer à l'épreuve de joute.",
+				"en": "Join the joust."
 			},
 			"outcomes": [
 				{
@@ -51,8 +51,8 @@
 		},
 		"🎯": {
 			"translations": {
-				"fr": "Participer à l'épreuve de tir à l'arc",
-				"en": "Join the archery tournament"
+				"fr": "Participer à l'épreuve de tir à l'arc.",
+				"en": "Join the archery tournament."
 			},
 			"outcomes": [
 				{
@@ -82,8 +82,8 @@
 		},
 		"📜": {
 			"translations": {
-				"fr": "Participer à l'épreuve de poésie",
-				"en": "Join the poetry contest"
+				"fr": "Participer à l'épreuve de poésie.",
+				"en": "Join the poetry contest."
 			},
 			"outcomes": [
 				{
@@ -113,8 +113,8 @@
 		},
 		"⚔️": {
 			"translations": {
-				"fr": "Participer à l'épreuve de combat à pied",
-				"en": "Join the melee fight"
+				"fr": "Participer à l'épreuve de combat à pied.",
+				"en": "Join the melee fight."
 			},
 			"outcomes": [
 				{
@@ -152,8 +152,8 @@
 		},
 		"🍴": {
 			"translations": {
-				"fr": "Changer d'avis et partir en quête d'un stand de nourriture",
-				"en": "Change your mind and seek a food stall"
+				"fr": "Changer d'avis et partir en quête d'un stand de nourriture.",
+				"en": "Change your mind and seek a food stall."
 			},
 			"outcomes": [
 				{

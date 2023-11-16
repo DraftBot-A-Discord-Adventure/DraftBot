@@ -20,15 +20,15 @@
 			"commandDescription": "Change the guild description.",
 			"optionDescriptionName": "description",
 			"optionDescriptionDescription": "The new guild description.",
-			"invalidDescription": "The rules for the guild's name are the followings:\n- Use at least one letter\n- Two spaces or more aren't allowed\n- Special characters aren't allowed\n- Between {min} and {max} characters",
+			"invalidDescription": "The rules for the guild's name are the following:\n- Use at least one letter\n- Two spaces or more aren't allowed\n- Special characters aren't allowed\n- Between {min} and {max} characters",
 			"noDescriptionFound": "There are no description found for your guild. Use `guilddescription [description]` for add description.",
 			"noDescriptionGiven": "Please indicate a valide description for your guild : `guilddescription [description]`",
 			"changeDescriptionTitle": "{pseudo}, confirmation :",
-			"changeDescriptionConfirm": ":question: Do you really wish to change your guilds description ? \n\n New description: :scroll: `{description}`",
-			"changeDescriptionFooter": "Warning, the bot's staff keeps control on guild's description and may change it.",
-			"editSuccessTitle": "The description of guild has been edit !",
-			"editCancelled": "You does not change the description of guild !",
-			"guildDestroy": "You can't change the description of the guild because it has been deleted, or you have been kicked of it."
+			"changeDescriptionConfirm": ":question: Do you really wish to change your guild's description ? \n\n New description: :scroll: `{description}`",
+			"changeDescriptionFooter": "Warning, the bot's staff keeps control on your guild's description and may change it.",
+			"editSuccessTitle": "The description of the guild has been edited !",
+			"editCancelled": "You didn't change the description of the guild !",
+			"guildDestroy": "You can't change the description of the guild because it has been deleted, or you have been kicked out of it."
 		}
 	}
 }

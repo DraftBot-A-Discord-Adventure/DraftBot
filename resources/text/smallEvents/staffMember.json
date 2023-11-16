@@ -9,7 +9,7 @@
 				"Sur votre chemin, vous faites la rencontre d'un vieil homme que vous décidez d'accompagner. Durant votre bout de chemin ensemble, celui-ci vous raconte l'histoire de **{pseudo}** : \"{sentence}\".",
 				"En marchant le long de la route, vous apercevez un livre en mauvais état par terre. Intitulé **{pseudo}**, vous l'ouvrez et lisez les premières phrases... \"{sentence}\".",
 				"Après une longue et monotone marche, vous rencontrez une personne chantant en l'honneur de **{pseudo}**... :musical_note: \"{sentence}\" :musical_note:.",
-				"Sur votre voyage, un nuage de poussière apparaît au loin. Quelques minutes plus tard, un cavalier s'arrête devant vous, il dit chercher **{pseudo}**. À votre regard inquisiteur, il ajoute :  \"{sentence}\"."
+				"Sur votre voyage, un nuage de poussière apparaît au loin. Quelques minutes plus tard, un cavalier s'arrête devant vous, il dit chercher **{pseudo}**. À votre regard inquisiteur, il ajoute : \"{sentence}\"."
 			],
 			"members": {
 				"Nysvaa": "un prétendant à la main de la princesse qui ne compte pas la gagner par le combat mais en prouvant sa réflexion lors de ses péripéties (et par sa chance un peu... beaucoup)",
@@ -46,7 +46,7 @@
 				"As you walk quietly, you notice a large poster. It seems to praise the feats of **{pseudo}**... \"{sentence}\".",
 				"During one of your adventures, you hear a story, \"{sentence}\", but you don't know who the hero is. After some research, you realize that they are talking about **{pseudo}**! Their name seems familiar to you...",
 				"Entering a building along your path, you chat with the owner for a while. You ask them to tell you about the local legends, he then describes **{pseudo}** to you: \"{sentence}\".",
-				"On your way, you meet an old man that you decides to accompany you. During your time together, he tells you the story of **{pseudo}**: {sentence}.",
+				"On your way, you meet an old man that you decides to accompany you. During your time together, he tells you the story of **{pseudo}**: \"{sentence}\".",
 				"As you walk along the road, you see a book in poor condition laying on the ground. Entitled **{pseudo}**, you open it and read the first few sentences... \"{sentence}\".",
 				"You walk quietly for a long time, until you meet a person singing a tune dedicated to **{pseudo}**... :musical_note: \"{sentence}\" :musical_note:.",
 				"During your journey, a dust cloud appears in the distance. A few minutes later, a horseman stops in front of you, saying he's looking for **{pseudo}**. Seeing your inquisitive look, he adds: \"{sentence}\"."

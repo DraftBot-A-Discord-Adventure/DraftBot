@@ -16,7 +16,7 @@
 			"ko": ":skull: | **{pseudo}** a été mis K.O !",
 			"koPM": {
 				"title": "Bonjour Combattant !",
-				"description": "Il semblerait que vous ayez été mis K.O... :skull:\nGrâce à nos technologies avancées il nous a été possible de modifier les évènements de manière à vous éviter une mort atroce  ! :tada:\nMalheureusement l'opération est coûteuse et votre score a donc été impacté par cette mort... \n\nPour recommencer à jouer, faites {command:respawn}."
+				"description": "Il semblerait que vous ayez été mis K.O... :skull:\nGrâce à nos technologies avancées il nous a été possible de modifier les évènements de manière à vous éviter une mort atroce ! :tada:\nMalheureusement l'opération est coûteuse et votre score a donc été impacté par cette mort... \n\nPour recommencer à jouer, faites {command:respawn}."
 			},
 			"dmDisabledFooter": "Vous avez bloqué vos messages privés, ou vous avez désactivé les notifications. Si vous voulez activer les notifications, faites la commande notification et activez les messages privés dans vos paramètres utilisateurs.",
 			"dmEnabledFooter": "Ce message vous est envoyé via le système de notification par messages privés. Si vous souhaitez que le bot ne vous envoie plus de messages privés, utilisez la commande notifications (les commandes ne fonctionnent pas en message privé).",
@@ -30,12 +30,12 @@
 			"levelUp": {
 				"mainMessage": ":star: | {mention} just reached level **{level}**\n\n",
 				"healthRestored": ":heart: | All HP recovered",
-				"fightUnlocked": ":dagger: | Battles unlocked with the command {command:fight} ! For more information about fights, please use the {command:help} command",
+				"fightUnlocked": ":dagger: | Battles unlocked with the command {command:fight}! For more information about fights, please use the {command:help} command",
 				"guildUnlocked": ":stadium: | Guilds unlocked with the commands {command:guild}, {command:guildcreate}, {command:guildinvite}, {command:guildleave}, {command:guilddailybonus}, {command:guildkick} and more! For more information about guilds, please use the {command:help} command.",
 				"classUnlocked": ":bookmark: | Class unlocked with the commands {command:classes} and {command:classesinfo}! For more information about guilds, please use the {command:help} command.",
 				"classTier": ":bookmark: | Tier {tier} classes unlocked! For more information about guilds, please use the {command:classesinfo} and {command:help} commands.",
 				"newMissionSlot": ":scroll: | New mission slot unlocked! For more information about your missions, please use the {command:missions} command.",
-				"pveUnlocked": ":island: | Access to far-away islands unlocked ! Go near a water point for new adventures!",
+				"pveUnlocked": ":island: | Access to far-away islands unlocked! Go near a water point for new adventures!",
 				"noBonuses": ":arrow_up: | Stats upgraded."
 			},
 			"ko": ":skull: | **{pseudo}** has been KO'd!",

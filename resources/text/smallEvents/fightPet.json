@@ -19,8 +19,8 @@
 				"L'haleine fétide de l'animal vous fait tourner la tête. Vous tentez de vous concentrer...",
 				"Vous vous demandez si vous ne devriez pas vous enfuir en courant, mais vous vous dites que vous pourriez peut-être vous en sortir si vous réfléchissez à un plan d'action.",
 				"Vous raffermissez votre prise sur la garde de votre épée et, un peu rassuré, réfléchissez à ce que vous devez faire.",
-				"Pétrifié par la peur, vous regardez l'animal foncer vers vous, essayant de forcer votre cerveau tétanisé à trouver une solution",
-				"Affolé, vous cherchez désespérément une solution qui vous maintiendra en vie"
+				"Pétrifié par la peur, vous regardez l'animal foncer vers vous, essayant de forcer votre cerveau tétanisé à trouver une solution.",
+				"Affolé, vous cherchez désespérément une solution qui vous maintiendra en vie."
 			],
 			"rageUp": [
 				"Heureux de vous en être sorti, vous sentez votre rage monter contre les créatures possédées de cette île.",
@@ -156,7 +156,7 @@
 			"intro": [
 				"you run into some dangerous-looking {feralPet}! ",
 				"you encounter a wild {feralPet}. ",
-				"you cross paths with a grumpy {feralPet}, apparently disinclined to let you continue on your way",
+				"you cross paths with a grumpy {feralPet}, apparently disinclined to let you continue on your way. ",
 				"you suddenly let out a terrified whimper : a murderous {feralPet} is right in front of you! ",
 				"you are frozen in place upon catching sight of some {feralPet}. ",
 				"a dangerously-approaching dust cloud enters your field of vision... It turns out to be a wildly-running {feralPet}! ",
@@ -175,7 +175,7 @@
 				"Distraught, you try, with great despair, to come up with a solution that would let you keep your life."
 			],
 			"rageUp": [
-				"Glad that you made it out alive, you feel your rage against the possessed creatures of this island grow",
+				"Glad that you made it out alive, you feel your rage against the possessed creatures of this island grow.",
 				"You feel as strong as ever and your rage against the evil creatures of this island grows.",
 				"Your victory against the beast makes you feel stronger than ever, and your rage against the evil creatures of this island grows.",
 				"Proud of yourself, you feel your rage against the evil creatures of this island grow.",

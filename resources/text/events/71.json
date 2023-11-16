@@ -15,7 +15,7 @@
 		"🍖": {
 			"translations": {
 				"fr": "Accepter de se joindre à lui.",
-				"en": "Accept and join him"
+				"en": "Accept and join him."
 			},
 			"outcomes": [
 				{
@@ -45,7 +45,7 @@
 		"💸": {
 			"translations": {
 				"fr": "Accepter et profiter de la nuit pour lui dérober ses biens.",
-				"en": "Accept and rob him under the cover of night"
+				"en": "Accept and rob him under the cover of night."
 			},
 			"outcomes": [
 				{
@@ -85,7 +85,7 @@
 		"❌": {
 			"translations": {
 				"fr": "Refuser son offre et poursuivre votre route.",
-				"en": "Decline the offer"
+				"en": "Decline the offer."
 			},
 			"outcomes": [
 				{

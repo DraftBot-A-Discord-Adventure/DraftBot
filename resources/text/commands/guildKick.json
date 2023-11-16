@@ -12,9 +12,9 @@
 			"kickTitle": "{pseudo}, confirmation :",
 			"kick": ":question: Souhaitez vous vraiment exclure {kickedPseudo} de la guilde `{guildName}` ?",
 			"successTitle": "{kickedPseudo} a quitté la guilde {guildName} !",
-			"kickSuccess": "You're poor lonesome cowboy and a long long way from home...",
+			"kickSuccess": "You're a poor lonesome cowboy and a long long way from home...",
 			"kickCancelled": "L'exclusion de {kickedPseudo} a été annulée !",
-			"excludeHimself": "Vous ne pouvez pas vous exclure vous même"
+			"excludeHimself": "Vous ne pouvez pas vous exclure vous même !"
 		},
 		"en": {
 			"commandName": "guildkick",
@@ -26,11 +26,11 @@
 			"cannotGetKickedUser": "Please mention an existing player. Ex : `guildKick @user#0000`",
 			"notInTheGuild": "This player is not in your guild.",
 			"kickTitle": "{pseudo}, confirmation:",
-			"kick": ":question:  Are you sure you want to kick {kickedPseudo} from the guild `{guildName}`?",
+			"kick": ":question: Are you sure you want to kick {kickedPseudo} from the guild `{guildName}`?",
 			"successTitle": "{kickedPseudo} left the guild {guildName}!",
-			"kickSuccess": "You're poor lonesome cowboy and a long long way from home...",
+			"kickSuccess": "You're a poor lonesome cowboy and a long long way from home...",
 			"kickCancelled": "{kickedPseudo} was not kicked from the guild!",
-			"excludeHimself": "You cannot exclude yourself."
+			"excludeHimself": "You cannot exclude yourself!"
 		}
 	}
 }

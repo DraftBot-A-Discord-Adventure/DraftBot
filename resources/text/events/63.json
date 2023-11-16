@@ -18,7 +18,7 @@
 				{
 					"translations": {
 						"fr": "Vous vous rendez dans le sous-sol du grenier et tombez nez à nez avec des personnages en robe noire se tenant en cercle. Couverts de plumes et du sang partout. Alors que vous essayez d'en frapper un, vous hésitez. Ces hommes ne sont que d'ordinaires parieurs de combats de coqs et non des bêtes. Mais les hommes vous remarquent, et par peur, se liguent contre vous, vous renversent et prennent rapidement la fuite.",
-						"en": "Some black robed figures are standing in a circle with feathers and blood everywhere. When attempting to strike one down, you hesitate. As these men are just ordinary cockfight betters and no cultists. But the men notice you , and out of fear, all gang up on you, bringing you down and afterwards legging it."
+						"en": "Some black robed figures are standing in a circle with feathers and blood everywhere. When attempting to strike one down, you hesitate. As these men are just ordinary cockfight betters and no cultists. But the men notice you, and out of fear, all gang up on you, bringing you down and afterwards legging it."
 					},
 					"health": -20,
 					"effect": ":confounded:"
@@ -181,7 +181,7 @@
 				{
 					"translations": {
 						"fr": "🎆 Vous avez choisi de simplement regarder les feux d'artifice et de rester pour voir le village tomber dans le désespoir, appuyé contre un arbre juste à l'extérieur du village. Mais même après minuit, rien ne s'est passé. Il semble que ces prétendus bêtes ne soient qu'une imposture et vous partez.",
-						"en": "🎆 You chose to simply watch the fireworks and stay to see the village fall in despair, leaning against a tree just outside the village. But even after midnight nothing happened. It seems these supposed \"cultist\" are just a fraud and you take your leave."
+						"en": "🎆 You chose to simply watch the fireworks and stay to see the village fall in despair, leaning against a tree just outside the village. But even after midnight nothing happened. It seems these supposed \"cultists\" are just a fraud and you take your leave."
 					},
 					"lostTime": 120,
 					"effect": ":clock2:"

@@ -11,7 +11,7 @@
 			"healthDaily": "❤️ Vie gagnée : **{value}** !",
 			"energyDaily": "⚡️ Énergie gagnée : **{value}** !",
 			"moneyBonus": "💰 Argent gagné : **{value}** !",
-			"hospitalBonus": "🕥 Vous avez avancé de **{value}**",
+			"hospitalBonus": "🕥 Vous avez avancé de **{value}** !",
 			"coolDown": "Vous ne pouvez utiliser votre objet quotidien que toutes les {coolDownTime} heures. Revenez {time}."
 		},
 		"en": {
@@ -25,7 +25,7 @@
 			"healthDaily": "❤️ HP recovered: **{value}**!",
 			"energyDaily": "⚡️ Energy recovered: **{value}**!",
 			"moneyBonus": "💰 Money Earned: **{value}**!",
-			"hospitalBonus": "🕥 You have moved up **{value}**",
+			"hospitalBonus": "🕥 You have moved up **{value}**!",
 			"coolDown": "You can only use your daily item every {coolDownTime} hours. Come back {time}."
 		}
 	}

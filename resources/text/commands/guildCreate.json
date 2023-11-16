@@ -23,14 +23,14 @@
 			"optionGuildDescription": "The guild name.",
 			"buyTitle": "{pseudo}, confirmation :",
 			"alreadyInAGuild": "You are already in a guild.",
-			"invalidName": "The rules for the guild's name are the followings:",
+			"invalidName": "The rules for the guild's name are the following:",
 			"nameAlreadyUsed": "The guild name you chose is already being used.",
 			"creationCancelled": "The creation of your guild has been cancelled.",
 			"buyConfirm": ":question: Confirm that you want to create a guild named **{guildName}** for `{price}` :moneybag:?",
 			"buyFooter": "Warning, the bot's staff keeps control on guild's names and may change it.",
 			"notEnoughMoney": "You don't have enough money to buy this.",
-			"createTitle": "{pseudo}, congratulation!",
-			"createSuccess": "The guild **{guildName}** has been sucessfuly created."
+			"createTitle": "{pseudo}, congratulations!",
+			"createSuccess": "The guild **{guildName}** has been successfully created."
 		}
 	}
 }
