@@ -6,7 +6,7 @@
 		},
 		"en": {
 			"heal": "is no longer burned.",
-			"damage": "suffers from its burn. `Received damages : {damages}`"
+			"damage": "suffers from its burn. `Received damages: {damages}`"
 		}
 	},
 	"emote": "\uD83E\uDD75",

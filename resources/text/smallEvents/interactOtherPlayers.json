@@ -223,7 +223,7 @@
 			],
 			"top10": [
 				"On your way, you meet someone important. Indeed, {playerDisplay} is in the top 10!",
-				"Incredible! While walking on a path you meet one of the current heroes! You surely know of them : it's {playerDisplay}, you saw them in the top 10. This encounter cheers you up for the day!",
+				"Incredible! While walking on a path you meet one of the current heroes! You surely know of them: it's {playerDisplay}, you saw them in the top 10. This encounter cheers you up for the day!",
 				"You are talking to a well-known face amongst the adventurers competing for the princess's hand. This is {playerDisplay}, who is in the top 10!"
 			],
 			"top50": [
@@ -243,12 +243,12 @@
 			],
 			"beginner": [
 				"One always has to start somewhere! You meet {playerDisplay}, who're just starting their adventure dedicated to the princess.",
-				"A person passes by you. You quickly recognize them : it's {playerDisplay}, a nice and friendly newcomer!",
+				"A person passes by you. You quickly recognize them: it's {playerDisplay}, a nice and friendly newcomer!",
 				"You feel the need to take a break from your adventures. As such, you train {playerDisplay}, who's just starting the game."
 			],
 			"advanced": [
 				"The grey hair of {playerDisplay} shows the experience they have accumulated. They, indeed, are lvl **{level}**! You continue your way.",
-				"While walking around, you come across {playerDisplay} : They are a powerful lvl-**{level}** hero!",
+				"While walking around, you come across {playerDisplay}: They are a powerful lvl-**{level}** hero!",
 				"{playerDisplay} keeps leveling up, and is one of the best players! They're currently level **{level}**."
 			],
 			"sameClass": [

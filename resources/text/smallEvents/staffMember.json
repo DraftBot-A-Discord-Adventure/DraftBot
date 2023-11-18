@@ -42,7 +42,7 @@
 		},
 		"en": {
 			"context": [
-				"While taking a detour to get around a ravine, you encounter a bard. While you're walking together, he tells you the story of **{pseudo}** : \"{sentence}\".",
+				"While taking a detour to get around a ravine, you encounter a bard. While you're walking together, he tells you the story of **{pseudo}**: \"{sentence}\".",
 				"As you walk quietly, you notice a large poster. It seems to praise the feats of **{pseudo}**... \"{sentence}\".",
 				"During one of your adventures, you hear a story, \"{sentence}\", but you don't know who the hero is. After some research, you realize that they are talking about **{pseudo}**! Their name seems familiar to you...",
 				"Entering a building along your path, you chat with the owner for a while. You ask them to tell you about the local legends, he then describes **{pseudo}** to you: \"{sentence}\".",

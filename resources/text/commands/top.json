@@ -30,7 +30,7 @@
 			"topGloryGlobalTitle": "✨ Affichage du top gloire des places {minRank} à {maxRank}",
 			"topGloryServerTitle": "✨ Affichage du top gloire du serveur des places {minRank} à {maxRank}",
 			"endFirstWrongPage": " :trophy: Félicitations **{pseudo}** ! Vous êtes actuellement le meilleur sur un total de {totalPlayer} joueur{totalPlayer>1?s:} ! \n(Vous vous trouverez à la page {page} / {pageMax})",
-			"endFirstRightPage": " :trophy: Félicitations **{pseudo} !** Vous êtes actuellement le meilleur sur un total de {totalPlayer} joueur{totalPlayer>1?s:} !",
+			"endFirstRightPage": " :trophy: Félicitations **{pseudo}** ! Vous êtes actuellement le meilleur sur un total de {totalPlayer} joueur{totalPlayer>1?s:} !",
 			"endAnyWrongPage": " {badge} **{pseudo}**, vous êtes actuellement classé **{rank}ème** sur un total de {totalPlayer} joueur{totalPlayer>1?s:} ! \n(Vous vous trouverez à la page {page} / {pageMax})",
 			"endAnyRightPage": " {badge} **{pseudo}**, vous êtes actuellement classé **{rank}ème** sur un total de {totalPlayer} joueur{totalPlayer>1?s:} !",
 			"lowScore": ":x: | **{pseudo}**, vous n'apparaissez malheureusement pas dans le top car vous avez un score égal ou inférieur à 100 !",

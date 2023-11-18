@@ -61,15 +61,15 @@
 			"defense": ":shield: {value}",
 			"speed": ":rocket: {value}",
 			"weapons": {
-				"fieldName": "Weapon :",
+				"fieldName": "Weapon:",
 				"fieldValue": "{name} | {rarity} | {values}"
 			},
 			"armors": {
-				"fieldName": "Armor/Shield :",
+				"fieldName": "Armor/Shield:",
 				"fieldValue": "{name} | {rarity} | {values}"
 			},
 			"potions": {
-				"fieldName": "Potion :",
+				"fieldName": "Potion:",
 				"fieldValue": "{name} | {rarity} | {nature}",
 				"natures": [
 					":x: No effect",
@@ -83,7 +83,7 @@
 				]
 			},
 			"objects": {
-				"fieldName": "Item :",
+				"fieldName": "Item:",
 				"fieldValue": "{name} | {rarity} | {nature}",
 				"natures": [
 					":x: No effect",

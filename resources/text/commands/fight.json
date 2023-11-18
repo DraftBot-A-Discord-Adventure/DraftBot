@@ -259,10 +259,10 @@
 			"elo": {
 				"title": ":postal_horn: Glory report",
 				"gloryField": "Glory changes",
-				"glory": "**{player} :** {ratingDiff>=0?+:}{ratingDiff} ✨\n",
+				"glory": "**{player}:** {ratingDiff>=0?+:}{ratingDiff} ✨\n",
 				"leagueField": "Leagues changes",
-				"leagueChangeUp": "️↗️ **{player} :** {oldLeague} -> {newLeague}\n",
-				"leagueChangeDown": "↘️️ **{player} :** {oldLeague} -> {newLeague}\n",
+				"leagueChangeUp": "️↗️ **{player}:** {oldLeague} -> {newLeague}\n",
+				"leagueChangeDown": "↘️️ **{player}:** {oldLeague} -> {newLeague}\n",
 				"higherEloWins": [
 					"{winner} takes the field with a marked performance.",
 					"{loser} gave everything he had, but {winner} showed a better command of his game.",
@@ -310,7 +310,7 @@
 				"title": "Fight summary",
 				"intro": ":clipboard: | **Current fight state** [{turn>maxTurns?Overtime:{{turn}/{maxTurns}}}]\n\n",
 				"notStarted": ":crossed_swords: | **Fighter: {pseudo}**\n",
-				"notStartedPlayer": ":crossed_swords: | **Fighter : {pseudo}** | {glory} :sparkles: | {class}\n",
+				"notStartedPlayer": ":crossed_swords: | **Fighter: {pseudo}** | {glory} :sparkles: | {class}\n",
 				"attacker": ":crossed_swords: | **Attacker: {pseudo}**\n",
 				"defender": ":shield: | **Defender: {pseudo}**\n",
 				"bug": ":crossed_swords: | **Fighter: {pseudo}**\n",
@@ -325,11 +325,11 @@
 				"fighterStats": "\n\n:bust_in_silhouette: | {pseudo}'s stats\n- **Final health**: {health}/{maxHealth} :zap:"
 			},
 			"error": {
-				"spamCanceled": "Your fight has been cancelled. Please do not spam your fighting request's reaction.",
-				"noOneAvailable": "Sadly, nobody from this server seems to be available for a fight. Your fighting request has been cancelled.",
-				"opponentNotAvailable": "Sadly, this user doesn't seem to be available yet. Your fighting request has been cancelled.",
+				"spamCanceled": "Your fight has been canceled. Please do not spam your fighting request's reaction.",
+				"noOneAvailable": "Sadly, nobody from this server seems to be available for a fight. Your fighting request has been canceled.",
+				"opponentNotAvailable": "Sadly, this user doesn't seem to be available yet. Your fighting request has been canceled.",
 				"fightHimself": "You can't fight yourself! Find someone else to fight.",
-				"canceled": "Your fighting request has been successfully cancelled.",
+				"canceled": "Your fighting request has been successfully canceled.",
 				"onlyInitiator": " {pseudo}, only the fighting requester can cancel their request!",
 				"levelTooLow": {
 					"direct": "You need to be **LVL {level}** if you want to fight!",

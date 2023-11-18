@@ -67,7 +67,7 @@
 				{
 					"translations": {
 						"fr": "Vous promettez au coursier de livrer le colis et rentrez dans l'auberge qui vous a logé la nuit précédente. Vous décidez d'ouvrir le colis afin d'en voir le contenu et découvrez qu'il est totalement vide. Quel gâchis !",
-						"en": "You promise to the courier to deliver the package and return to the inn that hosted you the night before. You decide to open the package in order to see the content and find out that it is completely empty. What a waste !"
+						"en": "You promise to the courier to deliver the package and return to the inn that hosted you the night before. You decide to open the package in order to see the content and find out that it is completely empty. What a waste!"
 					},
 					"lostTime": 10,
 					"effect": ":clock2:"

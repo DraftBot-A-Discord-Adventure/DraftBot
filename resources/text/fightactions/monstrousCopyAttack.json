@@ -9,7 +9,7 @@
 		"en": {
 			"name": "Monstrous Copy",
 			"namePlural": "Monstrous Copies",
-			"active": "copies the attack **{attackName}** from the monster **{monsterName}** !",
+			"active": "copies the attack **{attackName}** from the monster **{monsterName}**!",
 			"description": "Copies the attack of a random monster."
 		}
 	},

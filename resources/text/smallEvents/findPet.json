@@ -108,7 +108,7 @@
 				"f": "her"
 			},
 			"petObtentionGuild": "{emote} | A pet has joined the guild shelter: **{pet}**",
-			"petObtentionPlayer": "{emote} | A pet is now following you : **{pet}**"
+			"petObtentionPlayer": "{emote} | A pet is now following you: **{pet}**"
 		}
 	},
 	"rarity": 2,

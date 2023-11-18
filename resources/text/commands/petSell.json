@@ -60,13 +60,13 @@
 			},
 			"noMoney": "You don't have enough money to buy that.",
 			"deadBuyer": "You can't buy a pet because you are currently K.O.! You can respawn using the {command:respawn} command to continue playing.",
-			"sellCancelled": "The sale has been cancelled!",
+			"sellCancelled": "The sale has been canceled!",
 			"havePet": "You already have a pet in your inventory.",
 			"errors": {
 				"canSellYourself": "It is impossible to sell a pet to yourself!",
-				"spam": "Your sale has been cancelled. Thank you for not spamming the reaction on your sale.",
+				"spam": "Your sale has been canceled. Thank you for not spamming the reaction on your sale.",
 				"onlyInitiator": "Only the initiator of the sale can cancel it!",
-				"noOneAvailable": "Sadly, no one seems to be available to buy your pet. Your sale has been cancelled."
+				"noOneAvailable": "Sadly, no one seems to be available to buy your pet. Your sale has been canceled."
 			},
 			"guildAtMaxLevel": "Your guild is at the maximum level and therefore cannot receive guild XP. We invite you to trade pets using the `pettrade` command."
 		}

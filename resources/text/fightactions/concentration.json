@@ -11,7 +11,7 @@
 			"name": "Concentration",
 			"namePlural": "Concentrations",
 			"active": "is trying to concentrate...",
-			"fail": "can't concentrate !",
+			"fail": "can't concentrate!",
 			"description": "Fails if you use this action while you have an alteration. The alteration \"concentrated\" doubles the speed and attack duration for 1 turn."
 		}
 	},

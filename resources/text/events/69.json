@@ -79,7 +79,7 @@
 						"en": "Instead of a blessing, you ask her if she knows of a place where you can rest for a couple of hours, before getting back on your way. Donia brings you to her house, where she also offers you some food and wine. The latter is particularly good and you end up emptying the whole bottle, barely able to reach the bed before falling asleep. While sleeping, you have a nightmare: you see Donia as a creepy old woman, who plans to kill you and later cook your body in her oven. The real donia let you sleep and leaves."
 					},
 					"effect": ":sleeping:",
-					"tags" : [
+					"tags": [
 						"drinkAlcohol"
 					]
 				}

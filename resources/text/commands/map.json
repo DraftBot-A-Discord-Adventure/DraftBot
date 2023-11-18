@@ -10,9 +10,9 @@
 		"en": {
 			"commandName": "map",
 			"commandDescription": "Show the map.",
-			"text": "There is the map, {pseudo} !",
-			"descText": "Currently, you are going in the direction {particle} **{direction}** : {dirDesc}",
-			"descTextReached": "You have arrived at your destination : **{direction}**"
+			"text": "There is the map, {pseudo}!",
+			"descText": "Currently, you are going in the direction {particle} **{direction}**: {dirDesc}",
+			"descTextReached": "You have arrived at your destination: **{direction}**"
 		}
 	}
 }

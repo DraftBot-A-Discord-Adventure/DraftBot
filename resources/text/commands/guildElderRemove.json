@@ -13,10 +13,10 @@
 		"en": {
 			"commandName": "guildelderremove",
 			"commandDescription": "Demote the elder of the guild.",
-			"elderRemoveTitle": "{pseudo}, do you wish to remove the elder of your guild ?",
+			"elderRemoveTitle": "{pseudo}, do you wish to remove the elder of your guild?",
 			"elderRemove": "❓ If you accept, the elder's position will be free",
 			"noElderToRemove": "Your guild does not have an elder.",
-			"successElderRemoveTitle": "There is no elder anymore in the guild !",
+			"successElderRemoveTitle": "There is no elder anymore in the guild!",
 			"successElderRemove": "To select an elder, use the {command:guildelder} command.",
 			"elderRemoveCancelled": "The elder will not be removed."
 		}

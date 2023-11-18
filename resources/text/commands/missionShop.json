@@ -106,7 +106,7 @@
 			"utilTitle": "Utilities",
 			"presTitle": "Prestige",
 			"display": "{emote} **{name}** | `{price}💎`",
-			"success": "{pseudo}, successful transaction !",
+			"success": "{pseudo}, successful transaction!",
 			"items": {
 				"changeMapMission": {
 					"emote": "\uD83E\uDDFE",
@@ -116,7 +116,7 @@
 					"giveTitle": "{pseudo}, you have decided to change a mission",
 					"giveDesc": "Choose the mission to change:",
 					"successTitle": "{pseudo}, you have changed a mission!",
-					"successDescription": "You have deleted mission :scroll: **{missionInfo}**.",
+					"successDescription": "You have deleted the mission: :scroll: **{missionInfo}**.",
 					"getNewMission": "You have received the mission: \n\n:scroll: **{mission}**"
 				},
 				"money": {
@@ -188,7 +188,7 @@
 			"moneyQuantity": "You have `{money}💎`.",
 			"error": {
 				"cannotBuy": "You don't have enough gems to buy this item! You are missing `{missingMoney}💎`.",
-				"canceledPurchase": "Transaction cancelled!",
+				"canceledPurchase": "Transaction canceled!",
 				"alreadyHasItem": "You already own this item.",
 				"leaveShop": "You have left the store.",
 				"remainingCooldown": "You already bought points this week, come back next week to buy more!",

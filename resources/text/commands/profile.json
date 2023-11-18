@@ -113,7 +113,7 @@
 				"unranked": "Unranked"
 			},
 			"fightRanking": {
-				"fieldName": "Glory points and league :",
+				"fieldName": "Glory points and league:",
 				"fieldValue": ":sparkles: {gloryPoints} | {league}"
 			},
 			"timeLeft": {
