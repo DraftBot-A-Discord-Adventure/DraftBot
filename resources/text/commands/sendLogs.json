@@ -17,7 +17,7 @@
 			"optionFileDescription": "Name of the log file to load.",
 			"optionDMName": "in_dm",
 			"optionDMDescription": "To have the reply in DMs. Default: true. Else, the reply isan ephemeral.",
-			"noLogFile": "No log file exists with this name !",
+			"noLogFile": "No log file exists with this name!",
 			"localFileInclusion": "Tried to include local file..."
 		}
 	}

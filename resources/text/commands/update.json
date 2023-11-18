@@ -10,7 +10,7 @@
 			"commandName": "update",
 			"commandDescription": "Display the list of the latest update's features.",
 			"title": "📜 Updates",
-			"text": "The current bot version is **{version}** \n\nEvery informations about the update are available here :\n<https://guide.draftbot.com/v/en/lore/change-logs>"
+			"text": "The current bot version is **{version}** \n\nEvery informations about the update are available here:\n<https://guide.draftbot.com/v/en/lore/change-logs>"
 		}
 	}
 }

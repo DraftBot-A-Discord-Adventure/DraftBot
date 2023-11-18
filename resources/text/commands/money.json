@@ -27,10 +27,10 @@
 			"title": "{pseudo}, you changed the money of one or more players!",
 			"desc": "{player} now has {value} :moneybag:\n",
 			"errors": {
-				"invalidAmountFormat": "Invalid amount\nformat : `<prefix>money <set|add> <amount> [mentions]`",
-				"invalidIdOrMention": "Invalid mention / ID at position {position} : {wrongText}",
-				"invalidIdOrMentionDoesntExist": "Mention / ID belonging to no one at position {position} : {wrongText}",
-				"invalidDonationParameter": "Invalid first parameter\nformat : `<prefix>money <set|add> <amount> [mentions]`",
+				"invalidAmountFormat": "Invalid amount\nformat: `<prefix>money <set|add> <amount> [mentions]`",
+				"invalidIdOrMention": "Invalid mention / ID at position {position}: {wrongText}",
+				"invalidIdOrMentionDoesntExist": "Mention / ID belonging to no one at position {position}: {wrongText}",
+				"invalidDonationParameter": "Invalid first parameter\nformat: `<prefix>money <set|add> <amount> [mentions]`",
 				"tooMuchPeople": "Modification of the money on too many users at the same time. Please limit your command to 50 users."
 			},
 			"dm": {

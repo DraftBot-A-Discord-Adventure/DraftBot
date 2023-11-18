@@ -22,8 +22,8 @@
 			"open": "activé",
 			"closed": "désactivé",
 			"channelNotification": "Ce message vous est envoyé via le système de notification. Si vous ne souhaitez pas que le bot puisse vous envoyer des messages, utilisez la commande /notifications.",
-			"noChannelAccess" : "❌ Il semble que le bot n'ait plus accès à votre salon de notification, les notifications seront désormais en messages privés. Afin de changer le mode de notification, merci d'exécuter la commande {command:notifications}.",
-			"noChannelAccessTitle" : "Désactivation des notifications"
+			"noChannelAccess": "❌ Il semble que le bot n'ait plus accès à votre salon de notification, les notifications seront désormais en messages privés. Afin de changer le mode de notification, merci d'exécuter la commande {command:notifications}.",
+			"noChannelAccessTitle": "Désactivation des notifications"
 		},
 		"en": {
 			"commandName": "notifications",
@@ -47,8 +47,8 @@
 			"open": "open",
 			"closed": "closed",
 			"channelNotification": "This message is sent to you through the notification system. If you no longer wish to receive messages from this bot, please use the command /notifications.",
-			"noChannelAccess" : "❌ It seems the bot no longer has access to your notification channel, notifications will now be in private messages. In order to change the notification mode, please run the command {command:notifications}.",
-			"noChannelAccessTitle" : "Disabling notifications"
+			"noChannelAccess": "❌ It seems the bot no longer has access to your notification channel, notifications will now be in private messages. In order to change the notification mode, please run the command {command:notifications}.",
+			"noChannelAccessTitle": "Disabling notifications"
 		}
 	}
 }

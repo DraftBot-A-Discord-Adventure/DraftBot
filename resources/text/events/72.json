@@ -6,7 +6,7 @@
 	],
 	"translations": {
 		"fr": "🏟️ Alors que vous arrivez aux abords de Claire de Ville, vous découvrez que bon nombre de ses habitants se sont déplacés à l'extérieur des grandes murailles : un tournoi seigneurial bat son plein ! Sur les hourds accolés aux murailles, bouffons, troubadours, ménestrels, hérauts, bardes et conteurs vocifèrent de joie, acclamant chaque coup d'épée, de lance ou de masse. Enthousiasmé par la pagaille et l'entrain général, vous décidez de tenter votre chance. Vous repérez le juge diseur qui accepte votre inscription et vous demande à quelle épreuve vous souhaitez participer.",
-		"en": "🏟️ As you near Claire de Ville, you notice that the usually busy city is now almost entirely focused on the outsides of its great walls : a tournament is taking place there ! In the hoards attached to the walls, jesters, troubadours, minstrels, heralds, bards, and tellers bellow with joy. They cheer at each strike, whether it be from a sword, lance, or even mace. Overjoyed in the midst of all this spirited mess, you choose to join in and partake in this tournament. You go to the tournament's overseer, who accepts your participation, and asks you to choose a category in which to compete."
+		"en": "🏟️ As you near Claire de Ville, you notice that the usually busy city is now almost entirely focused on the outsides of its great walls: a tournament is taking place there! In the hoards attached to the walls, jesters, troubadours, minstrels, heralds, bards, and tellers bellow with joy. They cheer at each strike, whether it be from a sword, lance, or even mace. Overjoyed in the midst of all this spirited mess, you choose to join in and partake in this tournament. You go to the tournament's overseer, who accepts your participation, and asks you to choose a category in which to compete."
 	},
 	"possibilities": {
 		"🐴": {
@@ -34,7 +34,7 @@
 				{
 					"translations": {
 						"fr": "Après avoir repéré un canasson bai laissé sans surveillance, vous vous en emparez afin de participer aux joutes. Vous voilà vainqueur ! L'épouse du Seigneur local, surnommée Yseldia, vous donne en mains propres vos récompenses. ",
-						"en": "After noticing an unsupervised bay nag, you take it in order to joust. You end up as the grand winner ! The local lord's spouse, Yseldia, hand-delivers your prizes."
+						"en": "After noticing an unsupervised bay nag, you take it in order to joust. You end up as the grand winner! The local lord's spouse, Yseldia, hand-delivers your prizes."
 					},
 					"lostTime": 160,
 					"effect": ":clock2:",
@@ -58,7 +58,7 @@
 				{
 					"translations": {
 						"fr": "L'épreuve vous semble un brin difficile : vous devez décocher trois flèches sur un paillon placé à une cinquantaine de mètres de vous. Vos flèches viennent toutes trois se planter au milieu de la cible de paille. Vous sacrant vainqueur de cette épreuve ! La belle Dame du Seigneur local, Yseldia, vient vous offrir une lourde bourse tandis que vous êtes ébloui par sa couronne sertie de rubis.",
-						"en": "This event seems a bit hard : you need to fire three arrows straight into a paillon sitting some fifty meters away from you. All three of your arrows manage to etch themselves into the straw target, winning you the first place. Yseldia, ghe local lord's wife, comes to you with a hefty sack full of gold coins. As she gives it to you, you're distracted by her ruby-set crown."
+						"en": "This event seems a bit hard: you need to fire three arrows straight into a paillon sitting some fifty meters away from you. All three of your arrows manage to etch themselves into the straw target, winning you the first place. Yseldia, ghe local lord's wife, comes to you with a hefty sack full of gold coins. As she gives it to you, you're distracted by her ruby-set crown."
 					},
 					"lostTime": 60,
 					"effect": ":clock2:",
@@ -67,7 +67,7 @@
 				{
 					"translations": {
 						"fr": "L'épreuve vous semble un brin difficile : vous devez décocher trois flèches sur un paillon placé à une cinquantaine de mètres de vous. Vous n'êtes pas très adroit, vous ratez donc deux de vos flèches sur les trois et prenez la dernière place du classement ! Heureux d'avoir pu cependant participer à l'euphorie générale, vous reprenez joyeusement votre route.",
-						"en": "This event seems a bit hard : you need to fire three arrows straight into a paillon sitting some fifty meters away from you. You aren't really deft, and two of your arrows miss the target entirely. You end up last but, still happy from partaking in the festivities, you resume your journey with a smile on your lips."
+						"en": "This event seems a bit hard: you need to fire three arrows straight into a paillon sitting some fifty meters away from you. You aren't really deft, and two of your arrows miss the target entirely. You end up last but, still happy from partaking in the festivities, you resume your journey with a smile on your lips."
 					},
 					"lostTime": 60,
 					"effect": ":clock2:"
@@ -136,7 +136,7 @@
 				{
 					"translations": {
 						"fr": "Après avoir battu facilement la quasi-totalité de vos adversaires, vous commencez à fatiguer et perdez votre dernier combat ! Vous remarquez une vilaine estafilade au niveau de votre main, et partez en direction du rebouteux de la ville. Celui-ci panse votre blessure et insiste pour que vous vous reposiez un peu.",
-						"en": "After easily getting rid of most of the competitors, you feel greatly tired, and loose your fight against the last standing person. You then notice a nasty gash in your hand, so you go to see the city's healer. He bandages your wound and insists on letting you rest properly."
+						"en": "After easily getting rid of most of the competitors, you feel greatly tired, and lose your fight against the last standing person. You then notice a nasty gash in your hand, so you go to see the city's healer. He bandages your wound and insists on letting you rest properly."
 					},
 					"effect": ":sleeping:",
 					"health": 10
@@ -166,7 +166,7 @@
 				{
 					"translations": {
 						"fr": "Vous ne trouvez pas de cuisine de rue : un amuseur vous explique qu'un grand banquet est prévu bien plus tard. Dépité par cette nouvelle, vous décidez de partir de la ville. ",
-						"en": "You do not stumble upon any street food stall : an entertainer passing by tells you that a great feast will happen in a few hours. Unwilling to waste that much time, you get out of the city."
+						"en": "You do not stumble upon any street food stall: an entertainer passing by tells you that a great feast will happen in a few hours. Unwilling to waste that much time, you get out of the city."
 					}
 				},
 				{

@@ -25,7 +25,7 @@
 			"optionUserDescription": "The user to free.",
 			"optionRankName": "rank",
 			"optionRankDescription": "The rank of the player to free.",
-			"cannotGetLockedUser": "Please mention an existing player. Ex : `unlock @user#0000`",
+			"cannotGetLockedUser": "Please mention an existing player. Ex: `unlock @user#0000`",
 			"userNotLocked": "This player isn't in jail.",
 			"unlockHimself": "You can't free yourself, ask a friend.",
 			"unlockTitle": "{pseudo}, confirmation:",

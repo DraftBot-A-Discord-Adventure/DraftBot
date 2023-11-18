@@ -32,7 +32,7 @@
 		"en": {
 			"lifeLoss": {
 				"stories": [
-					"your feet trip over a bunch of roots ! Wounded, you loose **{lifeLoss} :broken_heart:**.",
+					"your feet trip over a bunch of roots! Wounded, you lose **{lifeLoss} :broken_heart:**.",
 					"deep in your thoughts, you barely pay attention to the ground upon which you walk, and so you scrap your knee. It's not too bad, but it's painful. You lose **{lifeLoss} :broken_heart:**.",
 					"you whistle while walking. Suddenly, something enters into your field of vision: it's a dog, and it's running straight at you! Without giving you any time to understand what is happening, the animal collides with you. And then leaves. Fortunately, you are only slightly injured, and only lose **{lifeLoss} :broken_heart:**.",
 					"you get hit by a galloping horse, but thankfully, you are only hurt superficially. You lose **{lifeLoss} :broken_heart:**.",

@@ -104,8 +104,8 @@
 			"notContributorsChannel": "This command is can be executed by contributors only in a specific channel!",
 			"title": [
 				"{pseudo}, hmmm... That didn't work!",
-				"{pseudo}, cancelled!",
-				"{pseudo}, this person is occupied !"
+				"{pseudo}, canceled!",
+				"{pseudo}, this person is occupied!"
 			],
 			"titleMeIsBaby": "{pseudo}, you didn't start your adventure!",
 			"meIsBaby": " Use the command {command:report} to start your adventure!",
@@ -152,7 +152,7 @@
 				"shop": "shop",
 				"report": "report",
 				"fight": "fight",
-				"cooldown": "You are typing commands too fast !",
+				"cooldown": "You are typing commands too fast!",
 				"class": "changing class",
 				"guildInvite": "guild add",
 				"guildCreate": "guild create",

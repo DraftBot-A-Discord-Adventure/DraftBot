@@ -14,8 +14,8 @@
 			"commandDescription": "Displays the guild's storage content.",
 			"embedTitle": "{guild}'s guild storage",
 			"foodTitle": "{emote} {foodType}",
-			"foodField": "**Stock** : {guildFood}/{maxFood}\n",
-			"fieldDescKey": "**Food** : ",
+			"foodField": "**Stock**: {guildFood}/{maxFood}\n",
+			"fieldDescKey": "**Food**: ",
 			"fieldDescValue": "Food is useful to feed all of your pets. If you don't have any left, you can buy some using `guildshop`."
 		}
 	}

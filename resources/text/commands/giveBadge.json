@@ -18,7 +18,7 @@
 			"optionUserDescription": "The user concerned by the command.",
 			"optionBadgeName": "badge",
 			"optionBadgeDescription": "The badge that will be given.",
-			"giveSuccess": "{pseudo}, success !",
+			"giveSuccess": "{pseudo}, success!",
 			"descGive": "The badge {badge} has been given to {player}",
 			"descError": "Please indicate a valid user. `gb :badge: @mention`."
 		}

@@ -41,11 +41,11 @@
 			"title": "Guild's shop",
 			"xpItem": "Guild's experience",
 			"foodItem": "Food",
-			"success": "{pseudo}, food added to the storage !",
+			"success": "{pseudo}, food added to the storage!",
 			"singleSuccessAddFoodDesc": "{emote} {quantity} {name} has been added to your guild's inventory.",
 			"multipleSuccessAddFoodDesc": "{emote} {quantity} {name}s have been added to your guild's inventory.",
 			"fullStock": "The guild storage doesn't have enough space for that resource.",
-			"quantityTitle": "How many food would you like to buy ?",
+			"quantityTitle": "How many food would you like to buy?",
 			"guildXp": {
 				"emote": "⭐",
 				"name": "Some xp for your guild",

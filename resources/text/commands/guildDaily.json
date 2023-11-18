@@ -28,7 +28,7 @@
 			"commandName": "guilddailybonus",
 			"commandDescription": "Get the guild's daily reward.",
 			"notifications": {
-				"title": "Guild notification :",
+				"title": "Guild notification:",
 				"description": "\uD83C\uDFDF️ On the server {server}, {pseudo} requested guild daily reward."
 			},
 			"rewardTitle": "{guildName} Guild's rewards:",

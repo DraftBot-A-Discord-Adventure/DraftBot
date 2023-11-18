@@ -14,7 +14,7 @@
 			"listTitle": ":bookmark: **Comparing classes:**",
 			"listDesc": "Here is the list of all available classes for you and their statistics. To get more information, select a class below. To choose a new class, please use the {command:classes} command.",
 			"classTitle": "**{class}**",
-			"descriptionEnd": "\n\n**List of available attacks for this class :**"
+			"descriptionEnd": "\n\n**List of available attacks for this class:**"
 		}
 	}
 }
