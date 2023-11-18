@@ -3,9 +3,9 @@
 		"fr": {
 			"commandName": "rapport",
 			"commandDescription": "Obtenir un rapport sur la situation de votre personnage.",
-			"doEvent": ":newspaper: ** Journal de {pseudo} : ** {event}\n*- Utilisez les réactions pour effectuer une action ⚠️ Ne pas répondre est considéré comme un choix à part.*",
+			"doEvent": ":newspaper: **Journal de {pseudo} :** {event}\n*- Utilisez les réactions pour effectuer une action ⚠️ Ne pas répondre est considéré comme un choix à part.*",
 			"doChoice": "{emoji} {choiceText}\n",
-			"doPossibility": ":newspaper: ** Journal de {pseudo} {result}** | {emoji}{event}{alte}",
+			"doPossibility": ":newspaper: **Journal de {pseudo} {result}** | {emoji}{event}{alte}",
 			"points": ":** :medal: Points gagnés : **{score}",
 			"money": "** | :moneybag: Argent gagné : **{money}",
 			"energy": "** | :zap: Énergie gagnée : **{energy}",
