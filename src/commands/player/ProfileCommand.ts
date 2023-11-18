@@ -90,7 +90,7 @@ async function getStatisticField(profileModule: TranslationModule, askedPlayer: 
  * @param missionsInfo
  */
 function getCampaignProgression(missionsInfo: PlayerMissionsInfo): number {
-	return missionsInfo.campaignProgression === 0 ? 1 : Math.round(Campaign.getAmountOfCampaignCompleted(missionsInfo.campaignBlob) / Campaign.getMaxCampaignNumber() * 100);
+	return missionsInfo.campaignProgression === 0 ? 100 : Math.round(Campaign.getAmountOfCampaignCompleted(missionsInfo.campaignBlob) / Campaign.getMaxCampaignNumber() * 100);
 }
 
 /**
