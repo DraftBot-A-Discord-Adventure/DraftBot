@@ -31,8 +31,8 @@
 			"collectedPointsTitle": "Points récoltés :",
 			"newBigEvent": ":flag_fr: Vous êtes arrivé à **{destination}** !",
 			"remainingEnergyTitle": "Énergie restante :",
-			"pveEvent": ":newspaper: ** Journal de {pseudo} : ** {event}\n\n{monsterDisplay}\n\n{startTheFightReaction} Commencer le combat\n{waitABitReaction} Attendre un peu avant de commencer le combat\n\n*- Utilisez les réactions pour effectuer une action*",
-			"noFight": ":newspaper: ** Journal de {pseudo} : **{waitABitReaction} | Vous vous enfuyez rapidement et trouvez une petite cachette ! Le monstre vous attend patiemment dehors...",
+			"pveEvent": ":newspaper: **Journal de {pseudo} :** {event}\n\n{monsterDisplay}\n\n{startTheFightReaction} Commencer le combat\n{waitABitReaction} Attendre un peu avant de commencer le combat\n\n*- Utilisez les réactions pour effectuer une action*",
+			"noFight": ":newspaper: **Journal de {pseudo} :** {waitABitReaction} | Vous vous enfuyez rapidement et trouvez une petite cachette ! Le monstre vous attend patiemment dehors...",
 			"encounterMonster": [
 				"Vous arrivez à votre destination quand soudain, vous entendez un bruit derrière vous... Un monstre vous attaque !"
 			],
@@ -45,9 +45,9 @@
 		"en": {
 			"commandName": "report",
 			"commandDescription": "Get a report on your character's situation.",
-			"doEvent": ":newspaper: ** Journal of {pseudo}: **{event}\n*- Use reactions to make an action ⚠️ Not responding is considered a separate choice!*",
+			"doEvent": ":newspaper: **Journal of {pseudo}: **{event}\n*- Use reactions to make an action ⚠️ Not responding is considered a separate choice!*",
 			"doChoice": "{emoji} {choiceText}\n",
-			"doPossibility": ":newspaper: ** Journal of {pseudo}{result}** | {emoji}{event}{alte}",
+			"doPossibility": ":newspaper: **Journal of {pseudo}{result}** | {emoji}{event}{alte}",
 			"points": ":** :medal: Points earned: **{score}",
 			"money": "** | :moneybag: Money earned: **{money}",
 			"energy": "** | :zap: Energy earned: **{energy}",
@@ -73,8 +73,8 @@
 			"collectedPointsTitle": "Collected points:",
 			"newBigEvent": ":flag_gb: You have arrived at **{destination}**!",
 			"remainingEnergyTitle": "Remaining energy:",
-			"pveEvent": ":newspaper: ** Journal of {pseudo}: ** {event}\n\n{monsterDisplay}\n\n- {startTheFightReaction} Start the fight\n- {waitABitReaction} Wait a bit before starting the fight\n\n*- Use reactions to make an action*",
-			"noFight": ":newspaper: ** Journal of {pseudo}: **{waitABitReaction} | You run away as fast as possible and decide to hide for now... The monster is still ready to fight you when you are ready!",
+			"pveEvent": ":newspaper: **Journal of {pseudo}:** {event}\n\n{monsterDisplay}\n\n- {startTheFightReaction} Start the fight\n- {waitABitReaction} Wait a bit before starting the fight\n\n*- Use reactions to make an action*",
+			"noFight": ":newspaper: **Journal of {pseudo}:** {waitABitReaction} | You run away as fast as possible and decide to hide for now... The monster is still ready to fight you when you are ready!",
 			"encounterMonster": [
 				"You arrive at your destination when suddenly, you hear a noise behind you... A monster attacks you!"
 			],
