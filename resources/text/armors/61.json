@@ -1,0 +1,13 @@
+{
+	"translations": {
+		"fr": "Cri UwUrlant",
+		"en": "HUwUling Scream"
+	},
+	"emote": ":sparkles:",
+	"rarity": 7,
+	"rawDefense": 9,
+	"defense": 4,
+	"attack": 30,
+	"frenchMasculine": 1,
+	"frenchPlural": 0
+}
