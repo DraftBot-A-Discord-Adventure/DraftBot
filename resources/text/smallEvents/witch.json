@@ -130,7 +130,8 @@
 			"description": [
 				"She appears to be very old, frail, and has a long and thin nose. ",
 				"Her clothes are in a sorry state. They are so tattered they seem to be falling appart, as if made of dust. ",
-				"Her back is curved, she seems to be nothing but bones, yet you catch in her eyes a glimpse of mischievousness. She is wearing tattered clothes, of a dull and dirty fabric. ",
+				"Her back is curved, she seems to be nothing but bones, yet you catch in her eyes a glimpse of mischievousness. ",
+				"She is wearing tattered clothes, of a dull and dirty fabric. ",
 				"You recall rumours regarding a clumsy witch, apparently wandering throughout the kingdom. ",
 				"Completely mute, she seems worn by the years, frail, skeletal, her skin almost grey. ",
 				"She doesn't really seem to understand what you are telling her. "
@@ -138,7 +139,7 @@
 			"situation": [
 				"You enter what appears to be her hut, and discover that she is currently concocting a potion of sorts...",
 				"You discover a bubbling cauldron: the old woman seems to be making a potion...",
-				"You approach, only to discover that her potion-making isn't doing to well..",
+				"You approach, only to discover that her potion-making isn't doing too well...",
 				"You observe as the old lady is brewing a potion, but soon realize that the liquid is nearly overflowing out of the cauldron...",
 				"The old woman is making a potion, but she seems to struggle with obtaining decent results in this endeavor...",
 				"She looks like she's trying to prepare a strange brew in an enormous cauldron..."
@@ -197,7 +198,7 @@
 						"As the old woman is about to pour the last drop into the pot a thud is heard. It seems that the pot has exploded. You lose **{lifeLoss} :broken_heart:**."
 					],
 					"4": [
-						"Unfortunately, the potion looks completely charred and undrinkable. You decide not to risk drinking it and quickly leave",
+						"Unfortunately, the potion looks completely charred and undrinkable. You decide not to risk drinking it and quickly leave.",
 						"You finish the potion with the old lady, but decide not to consume it, preferring to save your health for the rest of your adventure."
 					]
 				}
