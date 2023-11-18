@@ -157,23 +157,23 @@
 			],
 			"loseLife": [
 				"While you are trying to pet **{pet}**, {nominative} doesn't let it happen and bites your hand. You lose **{amount}** :broken_heart:.",
-				"**{pet}** suddenly starts running. Since {possessive} leash is binding the two of you together, you are forcefully projected forwards, and manage to get out with a few scratches. You loose **{amount}** :broken_heart:.",
-				"You see **{pet}** leave. {nominative} returns a few minutes later with food. You eat it, but quickly regret doing so. Your belly suddenly hurts... You loose **{amount}** :broken_heart:.",
-				"**{pet}** starts a fight with a wild **{randomAnimal}**! You decide to join {determinant}. Unfortunately the wild beast hurts you. You loose **{amount}** :broken_heart:.",
-				"**{pet}** jumps on a tree, playing. Unfortunately, {possessive} weight broke the branch and {nominative} falls on you. You loose **{amount}** :broken_heart:."
+				"**{pet}** suddenly starts running. Since {possessive} leash is binding the two of you together, you are forcefully projected forwards, and manage to get out with a few scratches. You lose **{amount}** :broken_heart:.",
+				"You see **{pet}** leave. {nominative} returns a few minutes later with food. You eat it, but quickly regret doing so. Your belly suddenly hurts... You lose **{amount}** :broken_heart:.",
+				"**{pet}** starts a fight with a wild **{randomAnimal}**! You decide to join {determinant}. Unfortunately the wild beast hurts you. You lose **{amount}** :broken_heart:.",
+				"**{pet}** jumps on a tree, playing. Unfortunately, {possessive} weight broke the branch and {nominative} falls on you. You lose **{amount}** :broken_heart:."
 			],
 			"loseMoney": [
-				"You feel **{pet}** stealing some coins from you, and see {determinant} going away to hide them somewhere. You unfortunately don't manage to find where. Therefore, you loose **{amount}** :money_with_wings:.",
+				"You feel **{pet}** stealing some coins from you, and see {determinant} going away to hide them somewhere. You unfortunately don't manage to find where. Therefore, you lose **{amount}** :money_with_wings:.",
 				"You notice a large hole in your purse. **{pet}** probably played with it during the night! After a quick check of its content, you notice that **{amount}** :money_with_wings: is missing.",
 				"As you play with **{pet}**, {nominative} pushes you. A money-filled pouch of yours end up falling into a narrow crack on the ground. It will be impossible to recover those **{amount}** :money_with_wings:!",
-				"**{pet}** looks quite irritated, {nominative} goes as far as injuring a random passerby. After explaining yourself to them, you decide to compensate them and leave. You loose **{amount}** :money_with_wings:.",
+				"**{pet}** looks quite irritated, {nominative} goes as far as injuring a random passerby. After explaining yourself to them, you decide to compensate them and leave. You lose **{amount}** :money_with_wings:.",
 				"Trying to play with **{pet}**, you unfortunately hit {accusative}. Wounded, you take {nominative} to a groomer to heal {determinant}. After healing {determinant}, they charge you **{amount}** :money_with_wings:."
 			],
 			"loseTime": [
-				"You keep tugging **{pet}**'s leash so that {nominative} follows you. You loose a total of **{amount} Min** :clock2:.",
-				"You feel that **{pet}** doesn't want to move. You still decide to pull {déterminant} along by force. Because of {determinant}, you loose **{amount} Min** :clock2:.",
-				"You see **{pet}** rushing towards you, followed by a wild **{randomAnimal}**! You flee with {accusative}. This chase made you loose **{amount} Min** :clock2: on your travel.",
-				"As you enter a village, you hear a rumor about a beast, the description of which fits **{pet}**, that goes around the village to attack its residents. Upon seeing you, the villagers become scared of you and your pet, believing {accusative} to be that famous beast. You are as such immediately hunted out of the village. This misadventure looses you **{amount} Min** :clock2: altogether.",
+				"You keep tugging **{pet}**'s leash so that {nominative} follows you. You lose a total of **{amount} Min** :clock2:.",
+				"You feel that **{pet}** doesn't want to move. You still decide to pull {déterminant} along by force. Because of {determinant}, you lose **{amount} Min** :clock2:.",
+				"You see **{pet}** rushing towards you, followed by a wild **{randomAnimal}**! You flee with {accusative}. This chase made you lose **{amount} Min** :clock2: on your travel.",
+				"As you enter a village, you hear a rumor about a beast, the description of which fits **{pet}**, that goes around the village to attack its residents. Upon seeing you, the villagers become scared of you and your pet, believing {accusative} to be that famous beast. You are as such immediately hunted out of the village. This misadventure made you lose **{amount} Min** :clock2: altogether.",
 				"**{pet}** stares at the ground, before starting to dig. {nominative} gets a sealed chest out. After multiple attempts, you manage to open it up. Unfortunately, it is empty. This misadventure ended up costing you **{amount} Min** :clock2:."
 			],
 			"petFlee": [

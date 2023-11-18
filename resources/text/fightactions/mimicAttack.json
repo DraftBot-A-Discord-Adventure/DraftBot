@@ -9,7 +9,7 @@
 		"en": {
 			"name": "Mimic",
 			"namePlural": "Mimics",
-			"active": "copies your attack \"{attackName}\" !",
+			"active": "copies your attack \"{attackName}\"!",
 			"description": "Randomly copies one of your attacks."
 		}
 	},

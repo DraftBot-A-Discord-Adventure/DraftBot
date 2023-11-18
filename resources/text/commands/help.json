@@ -241,7 +241,7 @@
 				"description": ":crossed_swords: Hey! This message was sent because you asked for help.\n\nIf you need help, you can join the bot's server!\n\nYou will be able to be a part of the bot's development and you will get details about it!\n\nhttps://discord.gg/USnCxg4\n\nIf you don't want to join us (:sob:) you can also read the bot's wiki!\n https://guide.draftbot.com/v/en/"
 			},
 			"helpEmbedTitle": "{pseudo}, here is the list of the available commands:",
-			"helpEmbedDescription": ":arrow_forward: If you want more information about a specific command click here : {command:help}, and complete the parameter with a command. :wink:",
+			"helpEmbedDescription": ":arrow_forward: If you want more information about a specific command click here: {command:help}, and complete the parameter with a command. :wink:",
 			"serverCommands": ":gear: Server:",
 			"utilCommands": ":question: Utility:",
 			"playerCommands": ":bust_in_silhouette: Player:",
@@ -257,7 +257,7 @@
 			"commands": {
 				"PREFIX": {
 					"usage": "{command:prefix}",
-					"description": "This feature was removed from the bot after an update to discord's features."
+					"description": "This feature was removed from the bot after an update to Discord's features."
 				},
 				"PING": {
 					"usage": "{command:ping}",
@@ -269,7 +269,7 @@
 				},
 				"PROFILE": {
 					"usage": "{command:profile}",
-					"description": "Displays information about your character:\n\n😃 Health status | Pseudo | Level\n\n឵឵឵Information :\n❤️ Life | ⭐ XP | 💰 Money\n\nStatistics :\n⚡ Energy | 🗡️ Attack | 🛡️ Defense | 🚀 Speed | 🌬️ Breath | 🫁 Recovery\n\nMissions :\n💎 Gems | 📖 Campaign progress %\n\nRanking and score :\n🏆 Ranking | 🏅 Score\n\nClass :\nSee {command:classes}\n\nGlory and League :\n✨ Glory | See {command:top glory}\n\nGuild :\n🏟️ Guild\n\nDestination :\nSee {command:map}\n\nPet :\nSee {command:pet}\n\n💡-Badges are displayed on your profile as reaction(s)."
+					"description": "Displays information about your character:\n\n😃 Health status | Pseudo | Level\n\n឵឵឵Information:\n❤️ Life | ⭐ XP | 💰 Money\n\nStatistics:\n⚡ Energy | 🗡️ Attack | 🛡️ Defense | 🚀 Speed | 🌬️ Breath | 🫁 Recovery\n\nMissions:\n💎 Gems | 📖 Campaign progress %\n\nRanking and score:\n🏆 Ranking | 🏅 Score\n\nClass:\nSee {command:classes}\n\nGlory and League:\n✨ Glory | See {command:top glory}\n\nGuild:\n🏟️ Guild\n\nDestination:\nSee {command:map}\n\nPet:\nSee {command:pet}\n\n💡-Badges are displayed on your profile as reaction(s)."
 				},
 				"SWITCH": {
 					"usage": "{command:switch}",
@@ -322,7 +322,7 @@
 				},
 				"BADGES": {
 					"usage": "{command:badges}",
-					"description": "Badges are rewards that are very hard to get, created to honor people who helped in the bot's development. The list of badges is available on the bot guide.\n Available by this link : https://guide.draftbot.com/v/en/notions-avancees/badges"
+					"description": "Badges are rewards that are very hard to get, created to honor people who helped in the bot's development. The list of badges is available on the bot guide.\n Available by this link: https://guide.draftbot.com/v/en/notions-avancees/badges"
 				},
 				"DRINK": {
 					"usage": "{command:drink}",
@@ -382,7 +382,7 @@
 				},
 				"CLASSES": {
 					"usage": "{command:classes}",
-					"description": "Change your class. More information about class is available through the player guide : https://guide.draftbot.com/v/en"
+					"description": "Change your class. More information about class is available through the player guide: https://guide.draftbot.com/v/en"
 				},
 				"PET": {
 					"usage": "{command:pet}",

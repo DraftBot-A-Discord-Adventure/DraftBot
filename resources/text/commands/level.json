@@ -28,9 +28,9 @@
 			"desc": "{player} now is level {level}\n",
 			"errors": {
 				"invalidAmountFormat": "Invalid amount!",
-				"invalidIdOrMention": "Invalid mention / ID at position {position} : {wrongText}",
-				"invalidIdOrMentionDoesntExist": "Mention / ID belonging to no one at position {position} : {wrongText}",
-				"invalidDonationParameter": "Invalid first parameter\nformat : `/level <set|add> <amount> [mentions]`",
+				"invalidIdOrMention": "Invalid mention / ID at position {position}: {wrongText}",
+				"invalidIdOrMentionDoesntExist": "Mention / ID belonging to no one at position {position}: {wrongText}",
+				"invalidDonationParameter": "Invalid first parameter\nformat: `/level <set|add> <amount> [mentions]`",
 				"tooMuchPeople": "Modification of the level on too many users at the same time. Please limit your command to 50 users."
 			},
 			"dm": {

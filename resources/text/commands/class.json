@@ -73,11 +73,11 @@
 				"23": "A class with very good stats but with a significant hitpoints penalty.",
 				"24": "A versatile class focused on unique combat mechanics."
 			},
-			"title": ":bookmark: **Change your class :**",
+			"title": ":bookmark: **Change your class:**",
 			"desc": "Choose a class in the list below for more information",
 			"display": "{name}\n\n:scroll: `{description}`\n\nWould you like to switch to this class? You will not be able to change your class again until {time}.",
-			"success": "{pseudo}, your class has been changed !",
-			"newClass": "Your new class is : ",
+			"success": "{pseudo}, your class has been changed!",
+			"newClass": "Your new class is: ",
 			"confirm": "{pseudo}, you have chosen the following class:",
 			"error": {
 				"canceledPurchase": "Class change canceled.",

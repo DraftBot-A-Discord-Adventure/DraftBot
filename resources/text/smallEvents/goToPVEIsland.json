@@ -24,7 +24,7 @@
 			],
 			"priceFree": "the trip **is free**",
 			"priceMoney": "the trip **will cost you {price} \uD83D\uDC8E**",
-			"confirm": "Do you wish to go to the island ? You have ⚡ **{fightPoints} / {fightPointsMax}**.",
+			"confirm": "Do you wish to go to the island? You have ⚡ **{fightPoints} / {fightPointsMax}**.",
 			"endStoryAccept": "You accept and embark on the boat in the direction of the island.",
 			"endStoryAcceptWithMember": "You accept, and just as you're about to embark, you notice that a member of your guild is already on the boat, so you join him and head for the island.",
 			"endStoryRefuse": "You politely decline and continue walking towards your planned destination.",

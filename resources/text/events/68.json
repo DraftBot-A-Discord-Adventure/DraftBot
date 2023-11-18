@@ -33,7 +33,7 @@
 				{
 					"translations": {
 						"fr": "Vous tentez de voler un livre doré discrètement, mais la bibliothécaire vous prend la main dans le sac. Elle exige que vous lui restituiez ce précieux livre, et par la même occasion, une compensation ! Déçu et penaud, vous lui rendez le livre et la dédommagez d'une large poignée de vos économies afin d'éviter la prison...",
-						"en": "You try to steal a book discreetly, but the librarian caught you red-handed. You run away with the book, but stumble over a stone, after which the librarian catches up to you. She requires that you give back the precious, golden-covered book along with compensation ! Disappointed, and quite sheepish, you give the book back to her, a large part of your savings, all in order to avoid prison..."
+						"en": "You try to steal a book discreetly, but the librarian caught you red-handed. You run away with the book, but stumble over a stone, after which the librarian catches up to you. She requires that you give back the precious, golden-covered book along with compensation! Disappointed, and quite sheepish, you give the book back to her, a large part of your savings, all in order to avoid prison..."
 					},
 					"money": -400
 				}
@@ -48,7 +48,7 @@
 				{
 					"translations": {
 						"fr": "Vous décidez de lire un livre. Celui-ci parle de cuisine et de succulents repas à préparer. Vous notez la recette avant d'aller en chercher les ingrédients. Une fois ces derniers trouvés, vous suivez les instructions à la lettre. Vous goûtez votre plat avant d'en ressentir les bienfaits, puis reprenez votre route.",
-						"en": "You decide to read a book. It is about cooking, and delicious meals to prepare. You write down the recipe before looking for the ingredients. Once these are found, you follow the instructions down to a t ! You taste your dish, and feel its benefits, then resume your journey."
+						"en": "You decide to read a book. It is about cooking, and delicious meals to prepare. You write down the recipe before looking for the ingredients. Once these are found, you follow the instructions down to a t! You taste your dish, and feel its benefits, then resume your journey."
 					},
 					"lostTime": 60,
 					"health": 27,
@@ -88,7 +88,7 @@
 				{
 					"translations": {
 						"fr": "Vous regardez le calendrier et y découvrez l’existence d’un tournoi qui commence sous peu ! Vous décidez donc de vous y rendre et parvenez à atteindre la finale après quelques heures de combat. Cependant, votre adversaire vous domine et vous ratez votre dernière bataille. Finaliste, vous gagnez tout de même une bourse remplie d'or avant de reprendre votre chemin.",
-						"en": "You look at the calendar, and discover the existence of a tournament that will shortly start ! You thus decide to go there and, after a few hours of battling, you reach the finals. However, your opponent is simply too strong, and you lose the fight. As you still made it to the finals, you win a purse full of gold, before continuing on your way."
+						"en": "You look at the calendar, and discover the existence of a tournament that will shortly start! You thus decide to go there and, after a few hours of battling, you reach the finals. However, your opponent is simply too strong, and you lose the fight. As you still made it to the finals, you win a purse full of gold, before continuing on your way."
 					},
 					"lostTime": 190,
 					"effect": ":clock2:",
@@ -137,7 +137,7 @@
 				{
 					"translations": {
 						"fr": "👀 Vous restez ébahi devant le nombre de livres et la quantité de connaissances qui émane de ces lieux. Peu après, la bibliothécaire vous fait signe : le bâtiment est sur le point de fermer. Déçu, vous faites demi-tour afin de poursuivre vos aventures.",
-						"en": "👀 You are amazed as you face the numerous books, and feel the amount of knowledge that they contain. Soon however, the librarian signals a sad fact : the library is about to close. Disappointed, you turn around, and continue your adventures."
+						"en": "👀 You are amazed as you face the numerous books, and feel the amount of knowledge that they contain. Soon however, the librarian signals a sad fact: the library is about to close. Disappointed, you turn around, and continue your adventures."
 					}
 				},
 				{

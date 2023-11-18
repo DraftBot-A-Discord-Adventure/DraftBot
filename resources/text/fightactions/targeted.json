@@ -8,7 +8,7 @@
 		"en": {
 			"heal": "is no longer targeted by boomerang.",
 			"boomerangSpin": "looks at the boomerang spinning away.",
-			"damage": "is hit by the boomerang. `Received damages : {damages}`"
+			"damage": "is hit by the boomerang. `Received damages: {damages}`"
 		}
 	},
 	"emote": "↩️",

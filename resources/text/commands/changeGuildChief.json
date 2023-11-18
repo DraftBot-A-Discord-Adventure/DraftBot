@@ -6,7 +6,7 @@
 			"optionGuildName": "guilde",
 			"optionGuildDescription": "La guilde dont le chef doit être changé.",
 			"optionIdName": "identifiant",
-			"optionIdDescription": "L'identifiant discord du joueur qui doit devenir chef.",
+			"optionIdDescription": "L'identifiant Discord du joueur qui doit devenir chef.",
 			"errors": {
 				"notInTheGuild": "L'utilisateur spécifié ne fait pas partie de la guilde.",
 				"alreadyChief": "L'utilisateur spécifié est déjà le chef de cette guilde.",
@@ -33,7 +33,7 @@
 			"optionGuildName": "guild",
 			"optionGuildDescription": "The guild whose chief will be changed.",
 			"optionIdName": "id",
-			"optionIdDescription": "The discord id of the player who will become chief.",
+			"optionIdDescription": "The Discord id of the player who will become chief.",
 			"errors": {
 				"notInTheGuild": "The specified user is not in the guild.",
 				"alreadyChief": "The specified user is already the leader of the guild.",
@@ -43,7 +43,7 @@
 			"validation": {
 				"title": "{pseudo}, confirmation:",
 				"description": "Are you sure you want to make **{user}** ({userID}) the new leader of **{guild}**?",
-				"canceled": "`changeguildchief` command cancelled!"
+				"canceled": "`changeguildchief` command canceled!"
 			},
 			"DM": {
 				"title": "Your guild leader has been changed",

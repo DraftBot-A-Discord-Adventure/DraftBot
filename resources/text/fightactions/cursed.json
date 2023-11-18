@@ -5,7 +5,7 @@
 			"damage": "est maudit..."
 		},
 		"en": {
-			"heal": "is hurt by the curse. `Damages received : {damages}`",
+			"heal": "is hurt by the curse. `Damages received: {damages}`",
 			"damage": "is cursed..."
 		}
 	},

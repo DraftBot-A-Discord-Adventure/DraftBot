@@ -24,7 +24,7 @@
 				{
 					"translations": {
 						"fr": "Vous et les villageois organisez une rébellion ! Malheureusement, lorsque vous décidez d'attaquer un garde, les villageois trop effrayés ne vous suivent pas et s'enfuient. Votre adversaire vous donne un violent coup de poing qui vous fait tomber à la renverse, le garde en profite pour vous voler votre bourse.",
-						"en": "You and the villagers plan a rebellion ! Unfortunately, when you decide to attack a guard, the villagers are too frightened to follow you and flee. Your opponent gives you a violent strike that knocks you down, the guard takes advantage of the situation to steal your purse."
+						"en": "You and the villagers plan a rebellion! Unfortunately, when you decide to attack a guard, the villagers are too frightened to follow you and flee. Your opponent gives you a violent strike that knocks you down, the guard takes advantage of the situation to steal your purse."
 					},
 					"effect": ":head_bandage:",
 					"money": -160
@@ -32,7 +32,7 @@
 				{
 					"translations": {
 						"fr": "Vous décidez d'organiser une révolte ! Cependant un villageois vous trahit afin d'obtenir une récompense. Les gardes du château se hâtent de vous appréhender. Vous parvenez à leur fausser compagnie, non sans avoir essuyé quelques coups.",
-						"en": "You decide to organize an uprising ! Tho, a villager betrays you to obtain a prize. The castle´s guards hasten to haunt you. You manage to distract them, not without having suffered a few blows."
+						"en": "You decide to organize an uprising! Tho, a villager betrays you to obtain a prize. The castle´s guards hasten to haunt you. You manage to distract them, not without having suffered a few blows."
 					},
 					"health": -15
 				},

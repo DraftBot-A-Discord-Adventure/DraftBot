@@ -21,7 +21,7 @@
 			"leaveDesc": ":question: Do you really want to quit the guild `{guildName}`?",
 			"leaveChiefDesc": ":question: Do you really want to **permanently destroy** the guild `{guildName}`?",
 			"leaveChiefDescWithElder": "Do you really want to leave the guild {guild}? {elderName} will become the new chief.",
-			"leavingCancelled": "Your departure has been cancelled.",
+			"leavingCancelled": "Your departure has been canceled.",
 			"successTitle": "{pseudo} left the guild {guildName}!",
 			"leavingSuccess": "You're a poor lonesome cowboy and a long long way from home...",
 			"newChiefTitle": ":crown: | The guild **{guild}** has a new chief!",
