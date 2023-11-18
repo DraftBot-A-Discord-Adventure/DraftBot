@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Lampe Magique",
+		"en": "Magic Lamp"
+	},
+	"emote": ":genie:",
+	"rarity": 5,
+	"attack": 10,
+	"speed": 9,
+	"frenchMasculine": 0,
+	"frenchPlural": 0
+}

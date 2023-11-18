@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Eau de Mer",
+		"en": "Sea Water"
+	},
+	"emote": ":ocean:",
+	"rarity": 1,
+	"power": 0,
+	"nature": 0,
+	"frenchMasculine": 0,
+	"frenchPlural": 0
+}

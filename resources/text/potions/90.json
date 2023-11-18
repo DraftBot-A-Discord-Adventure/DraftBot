@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Jus de Pomme de Terre",
+		"en": "Potato Juice"
+	},
+	"emote": ":potato:",
+	"rarity": 1,
+	"power": 15,
+	"nature": 5,
+	"frenchMasculine": 1,
+	"frenchPlural": 0
+}

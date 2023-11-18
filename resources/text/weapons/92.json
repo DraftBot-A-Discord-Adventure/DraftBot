@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Le Game Over",
+		"en": "The Game Over"
+	},
+	"emote": ":video_game:",
+	"rarity": 8,
+	"rawAttack": 10,
+	"attack": 3,
+	"frenchMasculine": 1,
+	"frenchPlural": 0
+}

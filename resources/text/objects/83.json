@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Fusée en Carton",
+		"en": "Cardboard Rocket"
+	},
+	"emote": ":rocket:",
+	"rarity": 5,
+	"power": 45,
+	"nature": 5,
+	"frenchMasculine": 0,
+	"frenchPlural": 0
+}

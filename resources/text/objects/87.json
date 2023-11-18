@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Guitare Électrique",
+		"en": "Electric Guitar"
+	},
+	"emote": ":guitar:",
+	"rarity": 4,
+	"power": 52,
+	"nature": 3,
+	"frenchMasculine": 0,
+	"frenchPlural": 0
+}

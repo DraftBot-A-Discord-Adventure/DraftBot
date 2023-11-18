@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Corne de Licorne",
+		"en": "Unicorn Horn"
+	},
+	"emote": ":unicorn:",
+	"rarity": 4,
+	"rawAttack": 1,
+	"speed": 62,
+	"frenchMasculine": 0,
+	"frenchPlural": 0
+}

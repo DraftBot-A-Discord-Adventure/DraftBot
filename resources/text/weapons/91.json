@@ -1,0 +1,13 @@
+{
+	"translations": {
+		"fr": "Baguette de Fibonacci",
+		"en": "Fibonacci's Wand"
+	},
+	"emote": ":lollipop:",
+	"rarity": 8,
+	"rawAttack": 7,
+	"defense": 19,
+	"speed": 19,
+	"frenchMasculine": 0,
+	"frenchPlural": 0
+}

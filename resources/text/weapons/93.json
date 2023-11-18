@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Le Torchon du Cuisinier",
+		"en": "The Kitchen Towel"
+	},
+	"emote": ":fork_and_knife:",
+	"rarity": 4,
+	"rawAttack": 3,
+	"rawDefense": 1,
+	"frenchMasculine": 1,
+	"frenchPlural": 0
+}

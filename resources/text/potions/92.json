@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Bave de Troll",
+		"en": "Troll Slime"
+	},
+	"emote": ":troll:",
+	"rarity": 6,
+	"power": 188,
+	"nature": 3,
+	"frenchMasculine": 0,
+	"frenchPlural": 0
+}
