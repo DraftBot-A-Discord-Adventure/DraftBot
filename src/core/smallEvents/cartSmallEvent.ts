@@ -1,5 +1,4 @@
 import {SmallEvent} from "./SmallEvent";
-import {CommandInteraction} from "discord.js";
 import Player from "../database/game/models/Player";
 import {Maps} from "../maps/Maps";
 import {RandomUtils} from "../utils/RandomUtils";
@@ -14,6 +13,7 @@ import {BlockingConstants} from "../constants/BlockingConstants";
 import {MapLocations} from "../database/game/models/MapLocation";
 import {DraftBotReaction} from "../messages/DraftBotReaction";
 import {NumberChangeReason} from "../constants/LogsConstants";
+import {DraftbotInteraction} from "../messages/DraftbotInteraction";
 
 
 /**
@@ -26,14 +26,14 @@ import {NumberChangeReason} from "../constants/LogsConstants";
  */
 async function generateInitialEmbed(
 	embed: DraftBotReactionMessageBuilder,
-	interaction: CommandInteraction,
+	interaction: DraftbotInteraction,
 	seEmbed: DraftBotEmbed,
 	cartObject: { player: Player, destination: MapLink, price: number, displayedDestination: MapLink },
 	tr: TranslationModule
 ): Promise<DraftBotReactionMessage> {
 	embed.addReaction(new DraftBotReaction(SmallEventConstants.CART.REACTIONS.ACCEPT));
 	embed.addReaction(new DraftBotReaction(SmallEventConstants.CART.REACTIONS.REFUSE));
-	let displayedDestinationString = tr.get("unknownDestination");
+	let displayedDestinationString = "";
 	if (cartObject.displayedDestination) {
 		const mapLocationDestination = await MapLocations.getById(cartObject.displayedDestination.endMap);
 		displayedDestinationString = mapLocationDestination.getDisplayName(tr.language);
@@ -42,23 +42,17 @@ async function generateInitialEmbed(
 	const language = tr.language;
 	const intro = Translations.getModule("smallEventsIntros", language).getRandom("intro");
 	const builtEmbed = embed.build();
+	const situation = cartObject.displayedDestination
+		? tr.formatRandom("knownDestination", {destination: displayedDestinationString, price: cartObject.price})
+		: tr.formatRandom("unknownDestination", {price: cartObject.price});
 	builtEmbed.formatAuthor(Translations.getModule("commands.report", language).get("journal"), interaction.user);
 	builtEmbed.setDescription(
 		`${seEmbed.data.description
 		+ intro
-		+ tr.formatRandom("situation", {destination: displayedDestinationString, price: cartObject.price})
+		+ situation
 		+ tr.get("menu")}`
 	);
 	return builtEmbed;
-}
-
-
-async function generateRandomMapLinkDifferentOfCurrent(player: Player) {
-	let destination = await MapLinks.getRandomLink();
-	if (destination.id === player.mapLinkId) { // If the player is already on the destination, get the inverse link
-		destination = await MapLinks.getInverseLinkOf(player.mapLinkId);
-	}
-	return destination;
 }
 
 export const smallEvent: SmallEvent = {
@@ -77,11 +71,11 @@ export const smallEvent: SmallEvent = {
 	 * @param player
 	 * @param seEmbed
 	 */
-	async executeSmallEvent(interaction: CommandInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
+	async executeSmallEvent(interaction: DraftbotInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const tr = Translations.getModule("smallEvents.cart", language);
 		const chance = RandomUtils.draftbotRandom.realZeroToOneInclusive();
 
-		const destination = await generateRandomMapLinkDifferentOfCurrent(player);
+		const destination = await MapLinks.generateRandomMapLinkDifferentOfCurrent(player.mapLinkId);
 		let price = SmallEventConstants.CART.TRANSPARENT_TP_PRICE, displayedDestination = destination;
 
 		// 40% chance that the player knows where they will be teleported
@@ -92,7 +86,7 @@ export const smallEvent: SmallEvent = {
 		}
 		else if (chance <= SmallEventConstants.CART.SCAM_THRESHOLD) {
 			// 5% chance that the NPC lied about the destination but offers the trip for cheap
-			displayedDestination = await generateRandomMapLinkDifferentOfCurrent(player);
+			displayedDestination = await MapLinks.generateRandomMapLinkDifferentOfCurrent(player.mapLinkId);
 			price = SmallEventConstants.CART.SCAM_TP_PRICE;
 		}
 		else {
@@ -100,6 +94,9 @@ export const smallEvent: SmallEvent = {
 			displayedDestination = destination;
 			price = SmallEventConstants.CART.SCAM_TP_PRICE;
 		}
+
+		// Apply the RANDOM_PRICE_BONUS
+		price = Math.round(price * (1 + RandomUtils.draftbotRandom.realZeroToOneInclusive() * SmallEventConstants.CART.RANDOM_PRICE_BONUS));
 
 		const embed = new DraftBotReactionMessageBuilder()
 			.allowUser(interaction.user)
@@ -118,15 +115,21 @@ export const smallEvent: SmallEvent = {
 							reason: NumberChangeReason.SMALL_EVENT
 						});
 						player.mapLinkId = destination.id;
+						// Todo: Log the teleportation here
 						await player.save();
-						seEmbed.setDescription(tr.get("travelAccepted"));
+						if (destination.id !== displayedDestination.id) {
+							seEmbed.setDescription(tr.getRandom("scamTravelDone"));
+						}
+						else {
+							seEmbed.setDescription(tr.getRandom("normalTravelDone"));
+						}
 					}
 					else {
-						seEmbed.setDescription(tr.get("notEnoughMoney"));
+						seEmbed.setDescription(tr.getRandom("notEnoughMoney"));
 					}
 				}
 				else {
-					seEmbed.setDescription(tr.get("travelRefused"));
+					seEmbed.setDescription(tr.getRandom("travelRefused"));
 				}
 				await interaction.channel.send({embeds: [seEmbed]});
 			});
