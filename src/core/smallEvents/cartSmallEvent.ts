@@ -14,6 +14,7 @@ import {MapLocations} from "../database/game/models/MapLocation";
 import {DraftBotReaction} from "../messages/DraftBotReaction";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import {DraftbotInteraction} from "../messages/DraftbotInteraction";
+import {draftBotInstance} from "../bot";
 
 
 /**
@@ -114,10 +115,13 @@ export const smallEvent: SmallEvent = {
 							language: tr.language,
 							reason: NumberChangeReason.SMALL_EVENT
 						});
+						await draftBotInstance.logsDatabase.logTeleportation(player.discordUserId, player.mapLinkId, destination.id);
 						player.mapLinkId = destination.id;
-						// Todo: Log the teleportation here
 						await player.save();
-						if (destination.id !== displayedDestination.id) {
+						if (!displayedDestination) {
+							seEmbed.setDescription(tr.getRandom("unknownDestinationTravelDone"));
+						}
+						else if ( destination.id !== displayedDestination.id) {
 							seEmbed.setDescription(tr.getRandom("scamTravelDone"));
 						}
 						else {
