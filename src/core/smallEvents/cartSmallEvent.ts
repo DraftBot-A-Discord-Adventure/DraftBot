@@ -132,7 +132,7 @@ export const smallEvent: SmallEvent = {
 
 		// Apply the RANDOM_PRICE_BONUS
 		price = Math.round(price * (1 + RandomUtils.draftbotRandom.realZeroToOneInclusive() * SmallEventConstants.CART.RANDOM_PRICE_BONUS));
-
+		const cartObject = {player, destination, price, displayedDestination};
 		const menuEmbed = new DraftBotReactionMessageBuilder()
 			.allowUser(interaction.user)
 			.allowEndReaction()
@@ -147,8 +147,6 @@ export const smallEvent: SmallEvent = {
 				seEmbed.setDescription(tr.getRandom(descriptionKey));
 				await interaction.channel.send({embeds: [seEmbed]});
 			});
-
-		const cartObject = {player, destination, price, displayedDestination};
 		const builtEmbed = await generateInitialEmbed(menuEmbed, interaction, seEmbed, cartObject, tr);
 		await builtEmbed.editReply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.CART_CHOOSE, collector));
 	}
