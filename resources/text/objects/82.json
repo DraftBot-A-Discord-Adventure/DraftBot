@@ -1,12 +1,12 @@
 {
 	"translations": {
-		"fr": "Le Script de Easy",
+		"fr": "Script de Easy",
 		"en": "Easy's Script"
 	},
 	"emote": ":cockroach:",
-	"rarity": 7,
-	"power": 285,
-	"nature": 2,
+	"rarity": 6,
+	"power": 107,
+	"nature": 3,
 	"frenchMasculine": 1,
 	"frenchPlural": 0
 }

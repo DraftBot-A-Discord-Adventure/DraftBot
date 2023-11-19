@@ -5,9 +5,8 @@
 	},
 	"emote": ":sparkles:",
 	"rarity": 7,
-	"rawDefense": 9,
-	"defense": 4,
-	"attack": 30,
+	"rawDefense": 6,
+	"attack": 45,
 	"frenchMasculine": 1,
 	"frenchPlural": 0
 }
