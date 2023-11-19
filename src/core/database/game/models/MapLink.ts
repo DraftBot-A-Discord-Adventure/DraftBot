@@ -80,7 +80,7 @@ export class MapLinks {
 	}
 
 	/**
-	 * Get the list of all the mapLinks excluding the one given in parameter and if it exist the one that is the opposite of the one given in parameter (inverted destination and origin)
+	 * Get the list of all the mapLinks excluding the one given in parameter
 	 * @param excludedMapLink : MapLink to exclude (can be null)
 	 */
 	static getMapLinks(excludedMapLink: MapLink | null = null): Promise<MapLink[]> {
