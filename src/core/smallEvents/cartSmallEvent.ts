@@ -16,24 +16,25 @@ import {NumberChangeReason} from "../constants/LogsConstants";
 import {DraftbotInteraction} from "../messages/DraftbotInteraction";
 import {draftBotInstance} from "../bot";
 
+type CartObject = { player: Player, destination: MapLink, price: number, displayedDestination: MapLink };
 
 /**
  * Generate an embed with the menu and a short introduction to the cart man
- * @param embed
+ * @param menuEmbed
  * @param interaction
  * @param seEmbed
  * @param cartObject
  * @param tr
  */
 async function generateInitialEmbed(
-	embed: DraftBotReactionMessageBuilder,
+	menuEmbed: DraftBotReactionMessageBuilder,
 	interaction: DraftbotInteraction,
 	seEmbed: DraftBotEmbed,
-	cartObject: { player: Player, destination: MapLink, price: number, displayedDestination: MapLink },
+	cartObject: CartObject,
 	tr: TranslationModule
 ): Promise<DraftBotReactionMessage> {
-	embed.addReaction(new DraftBotReaction(SmallEventConstants.CART.REACTIONS.ACCEPT));
-	embed.addReaction(new DraftBotReaction(SmallEventConstants.CART.REACTIONS.REFUSE));
+	menuEmbed.addReaction(new DraftBotReaction(SmallEventConstants.CART.REACTIONS.ACCEPT));
+	menuEmbed.addReaction(new DraftBotReaction(SmallEventConstants.CART.REACTIONS.REFUSE));
 	let displayedDestinationString = "";
 	if (cartObject.displayedDestination) {
 		const mapLocationDestination = await MapLocations.getById(cartObject.displayedDestination.endMap);
@@ -42,36 +43,69 @@ async function generateInitialEmbed(
 
 	const language = tr.language;
 	const intro = Translations.getModule("smallEventsIntros", language).getRandom("intro");
-	const builtEmbed = embed.build();
+	const builtEmbed = menuEmbed.build();
 	const situation = cartObject.displayedDestination
 		? tr.formatRandom("knownDestination", {destination: displayedDestinationString, price: cartObject.price})
 		: tr.formatRandom("unknownDestination", {price: cartObject.price});
 	builtEmbed.formatAuthor(Translations.getModule("commands.report", language).get("journal"), interaction.user);
 	builtEmbed.setDescription(
 		`${seEmbed.data.description
-		+ intro
-		+ situation
-		+ tr.get("menu")}`
+        + intro
+        + situation
+        + tr.get("menu")}`
 	);
 	return builtEmbed;
 }
 
+/**
+ * Manage the teleportation of the player
+ * @param cartObject
+ * @param interaction
+ * @param tr
+ * @param reactionEmoji
+ */
+async function manageTeleportation(cartObject: CartObject, interaction: DraftbotInteraction, tr: TranslationModule, reactionEmoji: string): Promise<string> {
+	if (reactionEmoji !== SmallEventConstants.CART.REACTIONS.ACCEPT) {
+		return "travelRefused";
+	}
+
+	if (cartObject.player.money < cartObject.price) {
+		return "notEnoughMoney";
+	}
+
+	await cartObject.player.spendMoney({
+		amount: cartObject.price,
+		channel: interaction.channel,
+		language: tr.language,
+		reason: NumberChangeReason.SMALL_EVENT
+	});
+	draftBotInstance.logsDatabase.logTeleportation(cartObject.player.discordUserId, cartObject.player.mapLinkId, cartObject.destination.id).then(async () => {
+		cartObject.player.mapLinkId = cartObject.destination.id;
+		await cartObject.player.save();
+	});
+
+	if (!cartObject.displayedDestination) {
+		return "unknownDestinationTravelDone";
+	}
+	return cartObject.destination.id !== cartObject.displayedDestination.id ? "scamTravelDone" : "normalTravelDone";
+}
+
 export const smallEvent: SmallEvent = {
 	/**
-	 * Check if small event can be executed
-	 */
+     * Check if small event can be executed
+     */
 	canBeExecuted(player: Player): Promise<boolean> {
 		return Promise.resolve(Maps.isOnContinent(player));
 	},
 
 
 	/**
-	 * Execute the small event
-	 * @param interaction
-	 * @param language
-	 * @param player
-	 * @param seEmbed
-	 */
+     * Execute the small event
+     * @param interaction
+     * @param language
+     * @param player
+     * @param seEmbed
+     */
 	async executeSmallEvent(interaction: DraftbotInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const tr = Translations.getModule("smallEvents.cart", language);
 		const chance = RandomUtils.draftbotRandom.realZeroToOneInclusive();
@@ -99,47 +133,23 @@ export const smallEvent: SmallEvent = {
 		// Apply the RANDOM_PRICE_BONUS
 		price = Math.round(price * (1 + RandomUtils.draftbotRandom.realZeroToOneInclusive() * SmallEventConstants.CART.RANDOM_PRICE_BONUS));
 
-		const embed = new DraftBotReactionMessageBuilder()
+		const menuEmbed = new DraftBotReactionMessageBuilder()
 			.allowUser(interaction.user)
 			.allowEndReaction()
 			.endCallback(async (acceptOrRefuseMenu) => {
 				BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.CART_CHOOSE);
 				const reaction = acceptOrRefuseMenu.getFirstReaction();
+
 				const reactionEmoji = !reaction ? Constants.REACTIONS.NOT_REPLIED_REACTION : reaction.emoji.name;
-				if (reactionEmoji === SmallEventConstants.CART.REACTIONS.ACCEPT) {
-					// Player accepts the offer, teleport the player and debit the money
-					if (player.money >= price) {
-						await player.spendMoney({
-							amount: price,
-							channel: interaction.channel,
-							language: tr.language,
-							reason: NumberChangeReason.SMALL_EVENT
-						});
-						await draftBotInstance.logsDatabase.logTeleportation(player.discordUserId, player.mapLinkId, destination.id);
-						player.mapLinkId = destination.id;
-						await player.save();
-						if (!displayedDestination) {
-							seEmbed.setDescription(tr.getRandom("unknownDestinationTravelDone"));
-						}
-						else if ( destination.id !== displayedDestination.id) {
-							seEmbed.setDescription(tr.getRandom("scamTravelDone"));
-						}
-						else {
-							seEmbed.setDescription(tr.getRandom("normalTravelDone"));
-						}
-					}
-					else {
-						seEmbed.setDescription(tr.getRandom("notEnoughMoney"));
-					}
-				}
-				else {
-					seEmbed.setDescription(tr.getRandom("travelRefused"));
-				}
+
+				const descriptionKey = await manageTeleportation(cartObject, interaction, tr, reactionEmoji);
+
+				seEmbed.setDescription(tr.getRandom(descriptionKey));
 				await interaction.channel.send({embeds: [seEmbed]});
 			});
 
 		const cartObject = {player, destination, price, displayedDestination};
-		const builtEmbed = await generateInitialEmbed(embed, interaction, seEmbed, cartObject, tr);
+		const builtEmbed = await generateInitialEmbed(menuEmbed, interaction, seEmbed, cartObject, tr);
 		await builtEmbed.editReply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.CART_CHOOSE, collector));
 	}
 };
