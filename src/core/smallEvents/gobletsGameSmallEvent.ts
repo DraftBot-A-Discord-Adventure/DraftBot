@@ -41,13 +41,13 @@ function generateMalus(player: Player, malus: string, notReacted: boolean): Rewa
 		return {
 			type: malus,
 			value: Math.round(player.level * SmallEventConstants.GOBLETS_GAME.HEALTH_LOST.LEVEL_MULTIPLIER) + SmallEventConstants.GOBLETS_GAME.HEALTH_LOST.BASE
-					+ RandomUtils.variationInt(SmallEventConstants.GOBLETS_GAME.HEALTH_LOST.VARIATION)
+				+ RandomUtils.variationInt(SmallEventConstants.GOBLETS_GAME.HEALTH_LOST.VARIATION)
 		};
 	case "time":
 		return {
 			type: malus,
 			value: Math.round(player.level * SmallEventConstants.GOBLETS_GAME.TIME_LOST.LEVEL_MULTIPLIER) + SmallEventConstants.GOBLETS_GAME.TIME_LOST.BASE
-					+ RandomUtils.variationInt(SmallEventConstants.GOBLETS_GAME.TIME_LOST.VARIATION)
+				+ RandomUtils.variationInt(SmallEventConstants.GOBLETS_GAME.TIME_LOST.VARIATION)
 		};
 	case "nothing":
 		return {
@@ -93,12 +93,13 @@ async function applyMalus(malus: RewardType, interaction: DraftbotInteraction, l
  * @param goblet
  * @param seEmbed
  * @param tr
+ * @param emoji
  */
-function generateEndMessage(malus: RewardType, goblet: string, seEmbed: DraftBotEmbed, tr: TranslationModule): DraftBotEmbed {
-	seEmbed.setDescription(format(tr.getRandom(`results.${malus.type}`), {
+function generateEndMessage(malus: RewardType, goblet: string, seEmbed: DraftBotEmbed, tr: TranslationModule, emoji: string): DraftBotEmbed {
+	seEmbed.setDescription(`${emoji} ${format(tr.getRandom(`results.${malus.type}`), {
 		amount: malus.value,
 		goblet: goblet
-	}));
+	})}`);
 	return seEmbed;
 }
 
@@ -139,7 +140,7 @@ export const smallEvent: SmallEvent = {
 					if (reactionEmoji === Constants.REACTIONS.NOT_REPLIED_REACTION || reactionEmoji === tr.getObject("intro.goblets")[i].emoji) {
 						BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.GOBLET_CHOOSE);
 						await applyMalus(malus, interaction, language, player);
-						await interaction.channel.send({embeds: [generateEndMessage(malus, currentGoblet.name as string, seEmbed, tr)]});
+						await interaction.channel.send({embeds: [generateEndMessage(malus, currentGoblet.name as string, seEmbed, tr, currentGoblet.emoji as string)]});
 						break;
 					}
 				}
