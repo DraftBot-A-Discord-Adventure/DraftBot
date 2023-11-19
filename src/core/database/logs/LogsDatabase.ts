@@ -97,6 +97,7 @@ import {MonsterFighter} from "../../fights/fighter/MonsterFighter";
 import {LogsPveFightsResults} from "./models/LogsPveFightsResults";
 import {LogsPveFightsActionsUsed} from "./models/LogsPveFightsActionsUsed";
 import {LogsPlayersRage} from "./models/LogsPlayersRage";
+import {LogsPlayersTeleportations} from "./models/LogsPlayersTeleportations";
 
 /**
  * This class is used to log all the changes in the game database
@@ -677,7 +678,9 @@ export class LogsDatabase extends Database {
 	 * @param item
 	 */
 	public logItemGain(discordId: string, item: GenericItemModel): Promise<unknown> {
-		let itemCategoryDatabase: { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> };
+		let itemCategoryDatabase: {
+			create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>>
+		};
 		switch (item.categoryName) {
 		case "weapons":
 			itemCategoryDatabase = LogsItemGainsWeapon;
@@ -717,12 +720,30 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
+	 * Log when a player is teleported
+	 * @param discordId
+	 * @param originMapLinkId
+	 * @param newMapLinkId
+	 */
+	public async logTeleportation(discordId: string, originMapLinkId: number, newMapLinkId: number): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+		await LogsPlayersTeleportations.create({
+			playerId: player.id,
+			originMapLinkId,
+			newMapLinkId,
+			date: getDateLogs()
+		});
+	}
+
+	/**
 	 * Log when a player sell an item
 	 * @param discordId
 	 * @param item
 	 */
 	public logItemSell(discordId: string, item: GenericItemModel): Promise<unknown> {
-		let itemCategoryDatabase: { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> };
+		let itemCategoryDatabase: {
+			create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>>
+		};
 		switch (item.categoryName) {
 		case "weapons":
 			itemCategoryDatabase = LogsItemSellsWeapon;
