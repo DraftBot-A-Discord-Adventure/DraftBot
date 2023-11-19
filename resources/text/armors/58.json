@@ -5,8 +5,8 @@
 	},
 	"emote": ":genie:",
 	"rarity": 5,
+	"rawDefense": 9,
 	"attack": 10,
-	"speed": 9,
 	"frenchMasculine": 0,
 	"frenchPlural": 0
 }
