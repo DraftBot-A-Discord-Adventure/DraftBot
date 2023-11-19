@@ -2,7 +2,6 @@ import {DataTypes, Model, Op, QueryTypes, Sequelize} from "sequelize";
 import {RandomUtils} from "../../../utils/RandomUtils";
 import {MapConstants} from "../../../constants/MapConstants";
 import moment = require("moment");
-import Player from "./Player";
 
 export class MapLink extends Model {
 	declare readonly id: number;
