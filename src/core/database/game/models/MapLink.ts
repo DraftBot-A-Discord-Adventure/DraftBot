@@ -2,6 +2,7 @@ import {DataTypes, Model, Op, QueryTypes, Sequelize} from "sequelize";
 import {RandomUtils} from "../../../utils/RandomUtils";
 import {MapConstants} from "../../../constants/MapConstants";
 import moment = require("moment");
+import Player from "./Player";
 
 export class MapLink extends Model {
 	declare readonly id: number;
@@ -25,11 +26,12 @@ export class MapLinks {
 	 * Get a random mapLink only on the main continent
 	 */
 	static async getRandomLink(): Promise<MapLink> {
-		const query = `SELECT ml.id FROM map_links ml
-			JOIN map_locations ml_start ON ml.startMap = ml_start.id
-			JOIN map_locations ml_end ON ml.endMap = ml_end.id
-			WHERE ml_start.attribute = :continentConst
-			AND ml_end.attribute = :continentConst;`;
+		const query = `SELECT ml.id
+					   FROM map_links ml
+								JOIN map_locations ml_start ON ml.startMap = ml_start.id
+								JOIN map_locations ml_end ON ml.endMap = ml_end.id
+					   WHERE ml_start.attribute = :continentConst
+						 AND ml_end.attribute = :continentConst;`;
 		const linkIds: { id: number }[] = await MapLink.sequelize.query(query, {
 			type: QueryTypes.SELECT,
 			replacements: {
@@ -37,6 +39,18 @@ export class MapLinks {
 			}
 		});
 		return await MapLinks.getById(linkIds[RandomUtils.randInt(0, linkIds.length)].id);
+	}
+
+	/**
+	 * Generate a random map link different of the current one
+	 * @param currentMapLinkId
+	 */
+	static async generateRandomMapLinkDifferentOfCurrent(currentMapLinkId: number): Promise<MapLink> {
+		let generatedMapLink = await MapLinks.getRandomLink();
+		if (generatedMapLink.id === currentMapLinkId) { // If the player is already on the destination, get the inverse link
+			generatedMapLink = await MapLinks.getInverseLinkOf(currentMapLinkId);
+		}
+		return generatedMapLink;
 	}
 
 	static async getLinkByLocations(idStartPoint: number, idEndPoint: number): Promise<MapLink> {
@@ -70,7 +84,7 @@ export class MapLinks {
 	 * Get the list of all the mapLinks excluding the one given in parameter and if it exist the one that is the opposite of the one given in parameter (inverted destination and origin)
 	 * @param excludedMapLink : MapLink to exclude (can be null)
 	 */
-	static getMapLinks(excludedMapLink : MapLink | null = null) : Promise<MapLink[]> {
+	static getMapLinks(excludedMapLink: MapLink | null = null): Promise<MapLink[]> {
 		if (!excludedMapLink) {
 			return MapLink.findAll();
 		}
@@ -99,12 +113,13 @@ export class MapLinks {
 	}
 
 	static async getMapLinksWithMapTypes(mapTypes: string[], startMapId: number, blacklistMapId: number): Promise<MapLink[]> {
-		const query = `SELECT map_links.* FROM map_links
-			JOIN map_locations ml_start ON map_links.startMap = ml_start.id
-			JOIN map_locations ml_end ON map_links.endMap = ml_end.id
-			WHERE ml_start.id = :startMapId
-				AND ml_end.id != :blacklistMapId
-			    AND ml_end.type IN (:mapTypes)`;
+		const query = `SELECT map_links.*
+					   FROM map_links
+								JOIN map_locations ml_start ON map_links.startMap = ml_start.id
+								JOIN map_locations ml_end ON map_links.endMap = ml_end.id
+					   WHERE ml_start.id = :startMapId
+						 AND ml_end.id != :blacklistMapId
+						 AND ml_end.type IN (:mapTypes)`;
 		return await MapLink.sequelize.query(query, {
 			type: QueryTypes.SELECT,
 			replacements: {
@@ -116,11 +131,12 @@ export class MapLinks {
 	}
 
 	static async getFromAttributeToAttribute(attributeFrom: string, attributeTo: string): Promise<MapLink[]> {
-		const query = `SELECT map_links.* FROM map_links
-			JOIN map_locations ml_start ON map_links.startMap = ml_start.id
-			JOIN map_locations ml_end ON map_links.endMap = ml_end.id
-			WHERE ml_start.attribute = :attributeFrom
-				AND ml_end.attribute = :attributeTo`;
+		const query = `SELECT map_links.*
+					   FROM map_links
+								JOIN map_locations ml_start ON map_links.startMap = ml_start.id
+								JOIN map_locations ml_end ON map_links.endMap = ml_end.id
+					   WHERE ml_start.attribute = :attributeFrom
+						 AND ml_end.attribute = :attributeTo`;
 		return await MapLink.sequelize.query(query, {
 			type: QueryTypes.SELECT,
 			replacements: {

@@ -256,6 +256,7 @@ export abstract class SmallEventConstants {
 		TRANSPARENT_TP_PRICE: 1200,
 		HIDDEN_TP_PRICE: 500,
 		SCAM_TP_PRICE: 750,
+		RANDOM_PRICE_BONUS: 0.3, // Prices have a random 30% bonus
 		REACTIONS: {
 			ACCEPT: "🚗",
 			REFUSE: "🚶"

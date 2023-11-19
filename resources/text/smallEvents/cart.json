@@ -1,20 +1,48 @@
 {
 	"translations": {
 		"fr": {
-			"situation": [
-				"vous apercevez au loin une charette délabrée, son bois usé par le temps et les voyages. Un homme aux cheveux hirsutes, le visage marqué par les intempéries, vous interpelle. Il prétend pouvoir vous conduire aux alentours de **{destination}** pour **{price}** :moneybag:. Son sourire malicieux et l'éclat rusé dans ses yeux laissent planer un doute. Vous vous demandez si cette direction approximative vaut le risque.",
-				"un individu à l'allure louche sort de l'ombre, traînant derrière lui une charette brinquebalante. C'est un roublard connu pour ses voyages imprévisibles, les yeux pétillants de malice. Il vous propose un voyage vers les environs de **{destination}** contre **{price}** :moneybag:. Son assurance et son sourire espiègle vous font vous interroger sur la fiabilité de sa direction.",
-				"une charette bien entretenue surgit soudainement sur votre chemin. Son propriétaire, un homme au visage buriné et au sourire énigmatique, vous assure qu'il peut vous emmener quelque part près de **{destination}** contre **{price}** :moneybag:. Son regard déterminé semble cacher quelque chose. Vous vous demandez si cette direction vague est aussi attrayante qu'elle en a l'air.",
-				"vous croisez un homme qui semble perdu. C'est un roublard mystérieux, aux cheveux ébouriffés et à l'air malin, qui prétend pouvoir vous conduire aux abords de **{destination}** en échange de **{price}** :moneybag:. Ses yeux brillent d'une malice difficile à cerner. Vous hésitez, pesant le pour et le contre de cette direction incertaine.",
-				"un étranger vous aborde, vous proposant un voyage dans sa charette en direction des environs de **{destination}** pour **{price}** :moneybag:. C'est un homme dont les voyages sont aussi variés que ses ruses, avec un regard pétillant de malice. Son assurance semble un peu trop parfaite, comme s'il avait tout prévu à l'avance. Vous vous demandez ce qu'il cache.",
-				"un homme affable vous propose un voyage dans sa charette. C'est un roublard connu pour ses voyages à travers le royaume, à la barbe hirsute et au regard rusé, qui vous propose un trajet près de **{destination}** pour **{price}** :moneybag:. Ses paroles sont douces, mais son regard est dur. Vous vous demandez si vous pouvez vraiment lui faire confiance.",
-				"vous rencontrez un individu étrange avec une charette. C'est un voyageur au passé mystérieux, aux cheveux en bataille et au regard perçant. Il vous propose un voyage vers les alentours de **{destination}** en échange de **{price}** :moneybag:. Ses promesses semblent alléchantes, mais son allure laisse planer un doute. Vous vous demandez si vous ne risquez pas de tomber dans un piège."
+			"knownDestination": [
+				"vous apercevez au loin une charette délabrée, son bois usé par le temps et les voyages. Un homme aux cheveux hirsutes, le visage marqué par les intempéries, vous interpelle. Il prétend pouvoir vous conduire aux alentours de **{destination}** pour **{price}** :moneybag:. Son sourire malicieux et l'éclat rusé dans ses yeux laissent planer un doute. Vous vous demandez si cette direction approximative vaut le risque...",
+				"un individu à l'allure louche sort de l'ombre, traînant derrière lui une charette brinquebalante. C'est un roublard connu pour ses voyages imprévisibles, les yeux pétillants de malice. Il vous propose un voyage vers les environs de **{destination}** contre **{price}** :moneybag:. Son assurance et son sourire espiègle vous font vous interroger sur la fiabilité de sa direction...",
+				"une charette bien entretenue surgit soudainement sur votre chemin. Son propriétaire, un homme au visage buriné et au sourire énigmatique, vous assure qu'il peut vous emmener quelque part près de **{destination}** contre **{price}** :moneybag:. Son regard déterminé semble cacher quelque chose. Vous vous demandez si cette direction vague est aussi attrayante qu'elle en a l'air...",
+				"vous croisez un homme qui semble perdu. C'est un roublard mystérieux, aux cheveux ébouriffés et à l'air malin, qui prétend pouvoir vous conduire aux abords de **{destination}** en échange de **{price}** :moneybag:. Ses yeux brillent d'une malice difficile à cerner. Vous hésitez, pesant le pour et le contre de cette direction incertaine...",
+				"un étranger vous aborde, vous proposant un voyage dans sa charette en direction des environs de **{destination}** pour **{price}** :moneybag:. Après une courte discussion, vous découvrez que c'est un homme dont les voyages sont aussi variés que ses ruses. Son assurance semble un peu trop parfaite, comme s'il avait tout prévu à l'avance. Vous vous demandez ce qu'il cache...",
+				"un homme affable vous propose un voyage dans sa charette. C'est un roublard connu pour ses voyages à travers le royaume, à la barbe hirsute et au regard rusé, qui vous propose un trajet près de **{destination}** pour **{price}** :moneybag:. Ses paroles sont douces, mais son regard est dur. Vous vous demandez si vous pouvez vraiment lui faire confiance...",
+				"vous rencontrez un individu étrange avec une charette. C'est un voyageur au passé mystérieux, aux cheveux en bataille et au regard perçant. Il vous propose un voyage vers les alentours de **{destination}** en échange de **{price}** :moneybag:. Ses promesses semblent alléchantes, mais son allure laisse planer un doute. Vous vous demandez si vous ne risquez pas de tomber dans un piège..."
+			],
+			"unknownDestination": [
+				"un homme énigmatique avec une charette délabrée vous interpelle. Il vous propose un voyage vers un lieu inconnu pour **{price}** :moneybag:. Son regard rusé et son sourire énigmatique laissent planer un doute...",
+				"un individu louche sort de l'ombre et vous propose un voyage dans sa charette cahoteuse vers une destination inconnue pour **{price}** :moneybag:. Son air malicieux et son assurance débordante suscitent votre méfiance...",
+				"un homme au visage buriné surgit sur votre chemin avec une charette bien entretenue. Il vous propose de vous emmener vers une destination inconnue pour **{price}** :moneybag:. Son sourire énigmatique et son regard déterminé cachent peut-être quelque chose...",
+				"un roublard mystérieux vous croise et prétend pouvoir vous conduire vers un lieu inconnu pour **{price}** :moneybag:. Son air malin et ses yeux brillants de malice vous font hésiter...",
+				"un étranger vous aborde avec une proposition de voyage dans sa charette vers une destination inconnue pour **{price}** :moneybag:. Son assurance et son regard malicieux éveillent votre curiosité...",
+				"un homme affable à la barbe hirsute vous propose un voyage dans sa charette vers un lieu inconnu pour **{price}** :moneybag:. Malgré ses paroles douces, son regard dur vous met mal à l'aise...",
+				"un voyageur au passé mystérieux vous propose un voyage vers une destination inconnue pour **{price}** :moneybag:. Son allure intrigante et ses promesses alléchantes suscitent votre intérêt..."
 			],
 			"menu": "\n\n:red_car: Monter dans la charette\n:person_walking: Passer votre chemin",
-			"travelAccepted": "voyage accepté",
-			"travelRefused": "voyage refusé",
-			"notEnoughMoney": "pas d'argent",
-			"unknownDestination": "Destination inconnue"
+			"scamTravelDone": [
+				":blue_car: Après un voyage étonnement rapide, vous vous retrouvez dans un endroit inconnu. L'homme vous regarde avec un sourire narquois et s'éloigne avec sa charette.",
+				":blue_car: L'homme aux cheveux hirsutes vous a mené dans un endroit complètement différent de votre destination prévue. Avant que vous n'ayez le temps de réagir, il disparaît rapidement dans un nuage de poussière.",
+				":blue_car: Le voyage est passé plus vite que prévu et vous vous retrouvez dans un endroit inconnu. L'homme aux yeux malicieux s'éloigne avec sa charette, vous laissant seul et dérouté.",
+				":blue_car: Très vite, vous êtes transporté vers un endroit familier... Vous réalisez rapidement qu'il ne s'agit pas de la destination qui vous avait été indiquée mais il est déjà trop tard pour réagir. L'homme mystérieux est déjà loin.."
+			],
+			"normalTravelDone" : [
+				":red_car: Vous acceptez l'offre de l'homme et montez dans sa charette. Après un voyage paisible, vous vous retrouvez près de votre destination prévue.",
+				":red_car: Après avoir pesé le pour et le contre, vous décidez de faire confiance à l'homme et de monter dans sa charette. Vous êtes soulagé de vous retrouver près de la destination indiquée.",
+				":red_car: Vous montez dans la charette et l'homme aux cheveux ébouriffés vous conduit à votre destination. Vous arrivez sain et sauf, près de l'endroit prévu.",
+				":red_car: Vous acceptez l'offre du voyageur au passé mystérieux et montez dans sa charette. À votre grande surprise, vous vous retrouvez près de votre destination prévue."
+			],
+			"travelRefused": [
+				":person_walking: Après une courte reflexion, vous décidez de ne pas prendre le risque et de passer votre chemin.",
+				":person_walking: Vous refusez poliment la proposition et continuez votre chemin.",
+				":person_walking: Jugeant que vous n'avez pas besoin d'un tel service à ce moment, vous décidez de continuer votre route.",
+				":person_walking: Vous refusez la proposition et continuez votre chemin."
+			],
+			"notEnoughMoney": [
+				":person_frowning: Vous fouillez dans vos poches, mais vous réalisez que vous n'avez pas assez d'argent. L'homme vous regarde déçu et part avec sa charette.",
+				":person_frowning: Vous comptez vos pièces, mais il vous en manque pour le voyage. Le roublard secoue la tête et s'éloigne avec sa charette.",
+				":person_frowning: Vous vérifiez votre bourse, mais malheureusement vous n'avez pas assez d'argent. L'étranger hoche la tête et part avec sa charette."
+			]
 		},
 		"en": {
 		}
