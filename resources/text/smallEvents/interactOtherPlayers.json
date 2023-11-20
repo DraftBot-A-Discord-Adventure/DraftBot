@@ -206,6 +206,11 @@
 			":lock:": [
 				"En vous promenant tranquillement jusqu'à votre destination, vous apercevez des gardes en train d'enfiler des menottes à {playerDisplay}. Curieux, vous vous approchez et entendez qu'il se dirige droit vers la case prison. Vous repartez en vous demandant ce qu'a bien pu faire cet homme.",
 				"Tandis que vous descendez prudemment un chemin, vous croisez un convoi de prisonniers escorté par des gardes armés. Alors qu'ils montent péniblement la pente, vous avez le temps de dévisager les pauvres bougres, dont {playerDisplay}, qui est en pleurs. Vous avez un peu pitié mais oubliez rapidement ce sentiment en vous disant qu'il n'est sûrement pas là par hasard."
+			],
+			":face_with_monocle:": [
+				"Vous croisez {playerDisplay}, qui semble perdu et s'empresse de vous demander quel chemin emprunter pour arriver à destination. Malheureusement, vous ne pouvez pas l'aider, et le réconfortez un peu avant de reprendre votre route.",
+				"Vous croisez {playerDisplay}, qui semble s'être égaré, visiblement désorienté. Il vous regarde avec espoir, cherchant de l'aide pour retrouver son chemin.",
+				"Vous remarquez que {playerDisplay} tourne en rond, après l'avoir croisé plusieurs fois en chemin. Vous vous approchez de lui et lui demandez s'il a besoin d'aide. Il vous explique qu'il est perdu et vous demande de l'accompagner vers sa destination."
 			]
 		},
 		"en": {
@@ -414,6 +419,11 @@
 			":lock:": [
 				"As you quietly walk towards your destination, you notice guards handcuffing {playerDisplay}. Curious, you approach them and realize that they're going to jail. You then resume your journey, unwilling to waste more time on such unrelated matters. You however wonder what they could've done to get sent in a cell.",
 				"Just as you're walking down the road, you meet prisoners being lead by guards. As they're painfully going upwards, you manage to take see them, including {playerDisplay}, who seem to be having trouble holding back their tears. You begin to feel some pity for the prisoners, but forget this feeling shortly after by thinking that they most likely didn't end up in such a situation for nothing."
+			],
+			":face_with_monocle:": [
+				"You meet {playerDisplay}, who seems lost and quickly asks you which way to go to reach their destination. Unfortunately, you can't help them, and comfort them a little before continuing on your way.",
+				"You meet {playerDisplay}, who seems to be lost, disoriented. They look at you with hope, looking for help to find their way.",
+				"You notice that {playerDisplay} is going around in circles, after having crossed them several times on the road. You approach them and ask them if they need help. They explain that they are lost and ask you to accompany them to their destination."
 			]
 		}
 	},
