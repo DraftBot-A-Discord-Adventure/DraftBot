@@ -5,6 +5,7 @@ import {FightAlterations} from "../../FightAlterations";
 import {FightConstants} from "../../../../constants/FightConstants";
 import {Translations} from "../../../../Translations";
 import {FightActionStatus} from "../../FightActionStatus";
+import {RandomUtils} from "../../../../utils/RandomUtils";
 
 export default class BoulderTossAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
@@ -16,7 +17,7 @@ export default class BoulderTossAttack extends FightAction {
 		let sideEffects = "";
 
 		// 50% chance to stun the defender
-		if (this.getAttackStatus(damageDealt, initialDamage) !== FightActionStatus.MISSED && Math.random() < 0.5) {
+		if (this.getAttackStatus(damageDealt, initialDamage) !== FightActionStatus.MISSED && RandomUtils.draftbotRandom.realZeroToOneInclusive() < 0.5) {
 			const alteration = receiver.newAlteration(FightAlterations.STUNNED);
 			if (alteration === FightAlterations.STUNNED) {
 				sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {

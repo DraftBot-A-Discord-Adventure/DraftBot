@@ -4,13 +4,14 @@ import {format} from "../../../../utils/StringFormatter";
 import {FightActionController} from "../../FightActionController";
 import {attackInfo, statsInfo} from "../../FightAction";
 import {FightAlteration} from "../../FightAlteration";
+import {RandomUtils} from "../../../../utils/RandomUtils";
 
 export default class BurnedAlteration extends FightAlteration {
 	use(victim: Fighter, sender: Fighter, turn: number, language: string): string {
 		victim.alterationTurn++;
 		const burnedTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 		// 60 % chance to be healed from the poison (except for the first two turns)
-		if (Math.random() < 0.6 && victim.alterationTurn > 1) {
+		if (RandomUtils.draftbotRandom.realZeroToOneInclusive() < 0.6 && victim.alterationTurn > 1) {
 			victim.removeAlteration();
 			return burnedTranslationModule.get("heal");
 		}

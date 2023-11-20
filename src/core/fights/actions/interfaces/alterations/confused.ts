@@ -3,11 +3,12 @@ import {Translations} from "../../../../Translations";
 import {FightActionController} from "../../FightActionController";
 import {attackInfo, FightAction, statsInfo} from "../../FightAction";
 import {FightActions} from "../../FightActions";
+import {RandomUtils} from "../../../../utils/RandomUtils";
 
 export default class ConfusedAlteration extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		sender.alterationTurn++;
-		const randomValue = Math.random();
+		const randomValue = RandomUtils.draftbotRandom.realZeroToOneInclusive();
 
 		const confusionTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
 

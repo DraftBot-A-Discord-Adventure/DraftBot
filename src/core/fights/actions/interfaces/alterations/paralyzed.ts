@@ -2,6 +2,7 @@ import {Fighter, FightStatModifierOperation} from "../../../fighter/Fighter";
 import {Translations} from "../../../../Translations";
 import {FightActions} from "../../FightActions";
 import {FightAlteration} from "../../FightAlteration";
+import {RandomUtils} from "../../../../utils/RandomUtils";
 
 export default class ParalyzedAlteration extends FightAlteration {
 	use(victim: Fighter, sender: Fighter, turn: number, language: string): string {
@@ -14,7 +15,7 @@ export default class ParalyzedAlteration extends FightAlteration {
 		}
 
 		// 20% chance to not attack this turn
-		if (Math.random() < 0.2) {
+		if (RandomUtils.draftbotRandom.realZeroToOneInclusive() < 0.2) {
 			victim.nextFightAction = FightActions.getNoAttack();
 			return paralyzedTranslationModule.get("noAttack");
 		}

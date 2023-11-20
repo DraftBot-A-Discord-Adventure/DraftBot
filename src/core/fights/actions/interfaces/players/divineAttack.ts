@@ -5,6 +5,7 @@ import {FightConstants} from "../../../../constants/FightConstants";
 import {attackInfo, FightAction, statsInfo} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
 import Benediction from "./benediction";
+import {RandomUtils} from "../../../../utils/RandomUtils";
 
 export default class DivineAttack extends FightAction {
 	static getUsedGodMoves(sender: Fighter, receiver: Fighter): number {
@@ -51,7 +52,7 @@ export default class DivineAttack extends FightAction {
 
 		let sideEffects = "";
 
-		if (Math.random() < 0.2) {
+		if (RandomUtils.draftbotRandom.realZeroToOneInclusive() < 0.2) {
 			const alteration = receiver.newAlteration(FightAlterations.PARALYZED);
 			if (alteration === FightAlterations.PARALYZED) {
 				sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {

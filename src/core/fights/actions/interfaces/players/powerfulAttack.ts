@@ -4,6 +4,7 @@ import {FightActionController} from "../../FightActionController";
 import {FightConstants} from "../../../../constants/FightConstants";
 import {attackInfo, FightAction, statsInfo} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
+import {RandomUtils} from "../../../../utils/RandomUtils";
 
 export default class PowerfulAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
@@ -21,7 +22,7 @@ export default class PowerfulAttack extends FightAction {
 		let sideEffects = "";
 
 		// 20% chance to stun the sender and deal 50% more damage
-		if (Math.random() < 0.2) {
+		if (RandomUtils.draftbotRandom.realZeroToOneInclusive() < 0.2) {
 			const alteration = sender.newAlteration(FightAlterations.STUNNED);
 			if (alteration === FightAlterations.STUNNED) {
 				sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {
