@@ -4,6 +4,7 @@ import {attackInfo, FightAction, statsInfo} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
 import {FightConstants} from "../../../../constants/FightConstants";
 import {Translations} from "../../../../Translations";
+import {RandomUtils} from "../../../../utils/RandomUtils";
 
 export default class SabotageAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
@@ -14,7 +15,7 @@ export default class SabotageAttack extends FightAction {
 
 		let sideEffects = "";
 
-		if (Math.random() < 0.9) {
+		if (RandomUtils.draftbotRandom.realZeroToOneInclusive() < 0.9) {
 			const alteration = sender.newAlteration(FightAlterations.PARALYZED);
 			if (alteration === FightAlterations.PARALYZED) {
 				sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {

@@ -3,6 +3,7 @@ import {Translations} from "../../../../Translations";
 import {FightActionController} from "../../FightActionController";
 import {FightConstants} from "../../../../constants/FightConstants";
 import {attackInfo, FightAction, statsInfo} from "../../FightAction";
+import {RandomUtils} from "../../../../utils/RandomUtils";
 
 export default class PiercingAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
@@ -16,7 +17,7 @@ export default class PiercingAttack extends FightAction {
 
 
 		// 45% chance to lower the target's defense by 10%
-		if (Math.random() < 0.45) {
+		if (RandomUtils.draftbotRandom.realZeroToOneInclusive() < 0.45) {
 			const reductionAmont = 10;
 			receiver.applyDefenseModifier({
 				origin: this,

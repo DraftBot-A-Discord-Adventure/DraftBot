@@ -5,6 +5,7 @@ import {FightConstants} from "../../../../constants/FightConstants";
 import {MathUtils} from "../../../../utils/MathUtils";
 import {attackInfo, FightAction, statsInfo} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
+import {RandomUtils} from "../../../../utils/RandomUtils";
 
 export default class CanonAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
@@ -24,7 +25,7 @@ export default class CanonAttack extends FightAction {
 		let sideEffects = "";
 
 		// The receiver has a 65% chance to be slowed
-		if (Math.random() < 0.65) {
+		if (RandomUtils.draftbotRandom.realZeroToOneInclusive() < 0.65) {
 			const alteration = receiver.newAlteration(FightAlterations.SLOWED);
 			if (alteration === FightAlterations.SLOWED) {
 				sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {
