@@ -1,11 +1,11 @@
 {
 	"translations": {
-		"fr": "Guitare terrifiante",
-		"en": "Terrifying guitar"
+		"fr": "Guitare Électrique",
+		"en": "Electric Guitar"
 	},
 	"emote": ":guitar:",
-	"rarity": 8,
-	"power": 151,
+	"rarity": 4,
+	"power": 51,
 	"nature": 3,
 	"frenchMasculine": 0,
 	"frenchPlural": 0

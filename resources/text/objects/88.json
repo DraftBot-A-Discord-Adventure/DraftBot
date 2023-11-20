@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Carte SYM",
+		"en": "SYM card"
+	},
+	"emote": ":floppy_disk:",
+	"rarity": 5,
+	"power": 72,
+	"nature": 2,
+	"frenchMasculine": 0,
+	"frenchPlural": 0
+}

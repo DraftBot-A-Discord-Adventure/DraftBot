@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": "Poudre de Squelette",
+		"en": "Skeleton Powder"
+	},
+	"emote": ":skull:",
+	"rarity": 5,
+	"rawAttack": 8,
+	"frenchMasculine": 0,
+	"frenchPlural": 0
+}

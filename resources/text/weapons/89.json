@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "Épée du Dragon",
+		"en": "Dragon's Sword"
+	},
+	"emote": ":dragon:",
+	"rarity": 7,
+	"rawDefense": 6,
+	"speed": 18,
+	"frenchMasculine": 0,
+	"frenchPlural": 0
+}
