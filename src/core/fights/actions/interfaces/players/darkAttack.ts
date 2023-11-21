@@ -38,7 +38,7 @@ export default class DarkAttack extends FightAction {
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 		return {
 			attackerStats: [
-				Math.min(sender.getAttack(), 600), // Cap at 800 to avoid too much damage
+				Math.min(sender.getAttack(), 500), // Cap at 500 to avoid too much damage
 				receiver.getAttack()
 			], defenderStats: [
 				0,

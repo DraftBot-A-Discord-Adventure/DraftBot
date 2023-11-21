@@ -24,7 +24,7 @@ export default class Benediction extends FightAction {
 
 		receiver.damage(damageDealt);
 		let sideEffects = "";
-		const buff = turn < 15 ? Math.round(1.67 * turn) : 25;
+		const buff = turn < 15 ? Math.round(2.27 * turn) : 45;
 
 		sender.applyDefenseModifier({
 			origin: this,

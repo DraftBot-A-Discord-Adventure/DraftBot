@@ -1,4 +1,4 @@
-import {Fighter, FightStatModifierOperation} from "../../../fighter/Fighter";
+import {Fighter} from "../../../fighter/Fighter";
 import {Translations} from "../../../../Translations";
 import {FightAlteration} from "../../FightAlteration";
 
@@ -13,16 +13,7 @@ export default class ConcentratedAlteration extends FightAlteration {
 			return concentratedTranslationModule.get("heal");
 		}
 		if (!victim.hasAttackModifier(this)) {
-			victim.applySpeedModifier({
-				origin: this,
-				operation: FightStatModifierOperation.MULTIPLIER,
-				value: 2
-			});
-			victim.applyAttackModifier({
-				origin: this,
-				operation: FightStatModifierOperation.MULTIPLIER,
-				value: 2
-			});
+			victim.applyDamageMultiplier(2,1);
 			return concentratedTranslationModule.get("new");
 		}
 		return concentratedTranslationModule.get("active");
