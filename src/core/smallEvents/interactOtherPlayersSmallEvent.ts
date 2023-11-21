@@ -246,8 +246,12 @@ function selectAPlayer(playersOnMap: { discordUserId: string }[]): string {
  * @param tr
  * @param otherPlayer
  * @param numberOfPlayers
+ * @param isBanned
  */
-async function getPlayerDisplay(tr: TranslationModule, otherPlayer: Player, numberOfPlayers: number): Promise<string> {
+async function getPlayerDisplay(tr: TranslationModule, otherPlayer: Player, numberOfPlayers: number, isBanned: boolean): Promise<string> {
+	if (isBanned) {
+		return getBannedPlayerDisplay(tr, otherPlayer);
+	}
 	return format(tr.get("playerDisplay"), {
 		pseudo: otherPlayer.getPseudo(tr.language),
 		rank: await Players.getRankById(otherPlayer.id) > numberOfPlayers ?
@@ -427,9 +431,11 @@ async function getAvailableInteractions(otherPlayer: Player, player: Player, num
  */
 function getBannedPlayerDisplay(tr: TranslationModule, otherPlayer: Player): string {
 	const pseudo = otherPlayer.getPseudo(tr.language).split("");
-	for (let _ = 0; _ < pseudo.length; _++) {
-		pseudo[RandomUtils.randInt(0, pseudo.length)] = RandomUtils.draftbotRandom.pick(["\\*", "/", "\\_", "&", "$"]);
-	}
+	pseudo.forEach((_letter, index) => {
+		if (RandomUtils.draftbotRandom.bool()) {
+			pseudo[index] = RandomUtils.draftbotRandom.pick(["\\*", "/", "\\_", "&", "$"]);
+		}
+	});
 	return tr.format("bannedPlayerDisplay", {
 		pseudo: pseudo.join("")
 	});
@@ -479,7 +485,7 @@ export const smallEvent: SmallEvent = {
 		const {prefixItem, prefixItem2} = getPrefixes(item);
 
 		seEmbed.setDescription(seEmbed.data.description + format(tr.getRandom(characteristic), {
-			playerDisplay: characteristic === "banned" ? getBannedPlayerDisplay(tr, otherPlayer) : await getPlayerDisplay(tr, otherPlayer, numberOfPlayers),
+			playerDisplay: await getPlayerDisplay(tr, otherPlayer, numberOfPlayers, characteristic === "banned"),
 			level: otherPlayer.level,
 			class: (await Classes.getById(otherPlayer.class)).getName(language),
 			advice: Translations.getModule("advices", language).getRandom("advices"),
