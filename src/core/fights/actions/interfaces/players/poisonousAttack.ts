@@ -31,17 +31,15 @@ export default class PoisonousAttack extends FightAction {
 		return {minDamage: 15, averageDamage: 20, maxDamage: 40};
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 		return {
 			attackerStats: [
-				sender.getAttack(),
-				sender.getSpeed()
+				sender.getAttack()
 			], defenderStats: [
-				receiver.getDefense(),
-				receiver.getSpeed()
+				0
 			], statsEffect: [
-				0.7,
-				0.3
+				1
 			]
 		};
 	}

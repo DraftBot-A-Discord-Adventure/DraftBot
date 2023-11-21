@@ -34,7 +34,7 @@ export default class UltimateAttack extends FightAction {
 	}
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 100, averageDamage: 250, maxDamage: 350};
+		return {minDamage: 100, averageDamage: 325, maxDamage: 400};
 	}
 
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
