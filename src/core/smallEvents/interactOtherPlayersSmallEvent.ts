@@ -23,6 +23,7 @@ import {Op} from "sequelize";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {Maps} from "../maps/Maps";
 import {DraftbotChannel, DraftbotInteraction} from "../messages/DraftbotInteraction";
+import {EffectsConstants} from "../constants/EffectsConstants";
 
 type TextInformation = { interaction: DraftbotInteraction, tr: TranslationModule };
 
@@ -398,6 +399,10 @@ async function getAvailableInteractions(otherPlayer: Player, player: Player, num
 		Players.getRankById(otherPlayer.id),
 		Players.getWeeklyRankById(otherPlayer.id)
 	]);
+	if (otherPlayer.effectDuration > 60000 && otherPlayer.effect === EffectsConstants.EMOJI_TEXT.OCCUPIED) {
+		cList.push("banned");
+		return {guild, cList};
+	}
 	checkTop(otherPlayerRank, cList);
 	checkBadges(otherPlayer, cList);
 	checkLevel(otherPlayer, cList);
@@ -413,6 +418,17 @@ async function getAvailableInteractions(otherPlayer: Player, player: Player, num
 	checkEffects(otherPlayer, tr, cList);
 	await checkInventory(otherPlayer, cList);
 	return {guild, cList};
+}
+
+function getBannedPlayerDisplay(tr: TranslationModule, otherPlayer: Player): string {
+	const pseudo = otherPlayer.getPseudo(tr.language).split("");
+	for (let i = 0; i < pseudo.length; i++) {
+		// replace a random character by one of * / _ / - / +
+		pseudo[RandomUtils.randInt(0, pseudo.length)] = RandomUtils.draftbotRandom.pick(["\\*", "/", "\\_", "&", "$"]);
+	}
+	return tr.format("bannedPlayerDisplay", {
+		pseudo: pseudo.join("")
+	});
 }
 
 export const smallEvent: SmallEvent = {
@@ -459,7 +475,7 @@ export const smallEvent: SmallEvent = {
 		const {prefixItem, prefixItem2} = getPrefixes(item);
 
 		seEmbed.setDescription(seEmbed.data.description + format(tr.getRandom(characteristic), {
-			playerDisplay: await getPlayerDisplay(tr, otherPlayer, numberOfPlayers),
+			playerDisplay: characteristic === "banned" ? getBannedPlayerDisplay(tr, otherPlayer) : await getPlayerDisplay(tr, otherPlayer, numberOfPlayers),
 			level: otherPlayer.level,
 			class: (await Classes.getById(otherPlayer.class)).getName(language),
 			advice: Translations.getModule("advices", language).getRandom("advices"),

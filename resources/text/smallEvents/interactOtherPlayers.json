@@ -2,6 +2,7 @@
 	"translations": {
 		"fr": {
 			"playerDisplay": "**{pseudo}** ({rank} :trophy:)",
+			"bannedPlayerDisplay": "**{pseudo}**",
 			"no_one": [
 				"Vous continuez votre chemin dans le plus grand calme. Il n'y a pas un chat sur votre route.",
 				"Vous êtes seul, vous continuez donc votre route dans le plus grand calme.",
@@ -211,10 +212,16 @@
 				"Vous croisez {playerDisplay}, qui semble perdu et s'empresse de vous demander quel chemin emprunter pour arriver à destination. Malheureusement, vous ne pouvez pas l'aider, et le réconfortez un peu avant de reprendre votre route.",
 				"Vous croisez {playerDisplay}, qui semble s'être égaré, visiblement désorienté. Il vous regarde avec espoir, cherchant de l'aide pour retrouver son chemin.",
 				"Vous remarquez que {playerDisplay} tourne en rond, après l'avoir croisé plusieurs fois en chemin. Vous vous approchez de lui et lui demandez s'il a besoin d'aide. Il vous explique qu'il est perdu et vous demande de l'accompagner vers sa destination."
+			],
+			"banned": [
+				"Vous tombez sur une créature étrange qui vous demande de l'aide. Celle-ci porte une plaque sur laquelle est inscrit {playerDisplay}. Horrifié de sa vision, vous prenez vos jambes à votre cou et fuyez.",
+				"Lors de votre route, vous croisez un aventurier banni, marqué par une sinistre étiquette portant le nom {playerDisplay}. Vous vous hâtez de poursuivre votre propre quête, conscient que la désobéissance aux règles peut mener à une destinée peu enviable.",
+				"Errant dans les buissons, un joueur banni, arborant fièrement le stigmate {playerDisplay}, se dresse tel un avertissement vivant. Son exclusion rappelle la importance de jouer selon les règles, et vous choisissez de poursuivre votre aventure en évitant les sentiers sombres de la tricherie."
 			]
 		},
 		"en": {
 			"playerDisplay": "**{pseudo}** ({rank} :trophy:)",
+			"bannedPlayerDisplay": "**{pseudo}**",
 			"no_one": [
 				"You continue your way calmly. There is nobody on your road.",
 				"You are alone, so you continue your way leisurely.",
@@ -424,6 +431,11 @@
 				"You meet {playerDisplay}, who seems lost and quickly asks you which way to go to reach their destination. Unfortunately, you can't help them, and comfort them a little before continuing on your way.",
 				"You meet {playerDisplay}, who seems to be lost, disoriented. They look at you with hope, looking for help to find their way.",
 				"You notice that {playerDisplay} is going around in circles, after having crossed them several times on the road. You approach them and ask them if they need help. They explain that they are lost and ask you to accompany them to their destination."
+			],
+			"banned": [
+				"You encounter a strange creature asking for help. It bears a plaque with the inscription {playerDisplay}. Horrified by its sight, you swiftly turn and flee.",
+				"On your journey, you come across a banned adventurer, marked by a sinister label bearing the name {playerDisplay}. You hasten to continue your own quest, aware that disobedience to the rules can lead to an undesirable fate.",
+				"Wandering in the bushes, a banned player proudly displaying the stigma {playerDisplay} stands as a living warning. His exclusion reminds of the importance of playing by the rules, and you choose to continue your adventure, avoiding the dark paths of cheating."
 			]
 		}
 	},
