@@ -10,8 +10,8 @@ export default class PoisonedAlteration extends FightAlteration {
 	use(victim: Fighter, sender: Fighter, turn: number, language: string): string {
 		victim.alterationTurn++;
 		const poisonTranslationModule = Translations.getModule(`fightactions.${this.name}`, language);
-		// 25 % chance to be healed from the poison (except for the first turn)
-		if (RandomUtils.draftbotRandom.realZeroToOneInclusive() < 0.25 && victim.alterationTurn > 1) {
+		// 35 % chance to be healed from the poison (except for the first 3 turn)
+		if (RandomUtils.draftbotRandom.realZeroToOneInclusive() < 0.35 && victim.alterationTurn > 3) {
 			victim.removeAlteration();
 			return poisonTranslationModule.get("heal");
 		}

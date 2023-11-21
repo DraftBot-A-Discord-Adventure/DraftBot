@@ -31,7 +31,7 @@ export default class FireAttack extends FightAction {
 	}
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 15, averageDamage: 100, maxDamage: 170};
+		return {minDamage: 15, averageDamage: 100, maxDamage: 130};
 	}
 
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {

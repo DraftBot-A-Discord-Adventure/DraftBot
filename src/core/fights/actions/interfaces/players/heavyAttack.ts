@@ -18,17 +18,6 @@ export default class HeavyAttack extends FightAction {
 		receiver.damage(damageDealt);
 		let sideEffects = "";
 
-		// 35% chance to stun the receiver
-		if (RandomUtils.draftbotRandom.realZeroToOneInclusive() < 0.35) {
-			const alteration = receiver.newAlteration(FightAlterations.STUNNED);
-			if (alteration === FightAlterations.STUNNED) {
-				sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {
-					adversary: FightConstants.TARGET.OPPONENT,
-					effect: attackTranslationModule.get("effects.stunned").toLowerCase()
-				});
-			}
-		}
-
 		// Reduce defense of the receiver by 25 %
 		const reductionAmont = 25;
 		receiver.applyDefenseModifier({
@@ -46,7 +35,7 @@ export default class HeavyAttack extends FightAction {
 	}
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 40, averageDamage: 120, maxDamage: 180};
+		return {minDamage: 50, averageDamage: 160, maxDamage: 230};
 	}
 
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
