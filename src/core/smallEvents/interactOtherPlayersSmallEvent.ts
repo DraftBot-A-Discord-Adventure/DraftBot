@@ -420,10 +420,14 @@ async function getAvailableInteractions(otherPlayer: Player, player: Player, num
 	return {guild, cList};
 }
 
+/**
+ * Get the display of a banned player
+ * @param tr
+ * @param otherPlayer
+ */
 function getBannedPlayerDisplay(tr: TranslationModule, otherPlayer: Player): string {
 	const pseudo = otherPlayer.getPseudo(tr.language).split("");
-	for (let i = 0; i < pseudo.length; i++) {
-		// replace a random character by one of * / _ / - / +
+	for (let _ = 0; _ < pseudo.length; _++) {
 		pseudo[RandomUtils.randInt(0, pseudo.length)] = RandomUtils.draftbotRandom.pick(["\\*", "/", "\\_", "&", "$"]);
 	}
 	return tr.format("bannedPlayerDisplay", {

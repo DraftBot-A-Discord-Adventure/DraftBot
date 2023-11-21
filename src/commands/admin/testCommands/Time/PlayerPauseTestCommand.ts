@@ -16,11 +16,17 @@ export const commandInfo: ITestCommand = {
 		effect: Constants.TEST_VAR_TYPES.INTEGER
 	},
 	messageWhenExecuted: "Vous vous mettez en pause pendant {duration} !",
-	description: `Vous mets en pause pendant une durée en minutes donnée`,
+	description: "Vous mets en pause pendant une durée en minutes donnée",
 	commandTestShouldReply: true,
 	execute: null // Defined later
 };
 
+/**
+ * Pause the player (apply the effect occupied) for the given duration
+ * @param language
+ * @param interaction
+ * @param args
+ */
 const playerPauseTestCommand = async (language: string, interaction: DraftbotInteraction, args: string[]): Promise<string> => {
 	const [player] = await Players.getOrRegister(interaction.user.id);
 	const time = Number(args[0]);
