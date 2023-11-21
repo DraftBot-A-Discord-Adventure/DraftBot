@@ -8,7 +8,7 @@ import {FightAlterations} from "../../FightAlterations";
 export default class ShieldAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
-		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 5);
+		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 1);
 		receiver.damage(damageDealt);
 
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
@@ -26,7 +26,7 @@ export default class ShieldAttack extends FightAction {
 	}
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 15, averageDamage: 60, maxDamage: 85};
+		return {minDamage: 15, averageDamage: 120, maxDamage: 165};
 	}
 
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {

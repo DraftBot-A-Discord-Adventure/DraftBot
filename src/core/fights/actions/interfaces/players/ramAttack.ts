@@ -9,7 +9,7 @@ import {RandomUtils} from "../../../../utils/RandomUtils";
 export default class RamAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
-		let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 25);
+		let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 20);
 
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 
@@ -37,7 +37,26 @@ export default class RamAttack extends FightAction {
 			}
 		}
 		else {
-			const ownDamage = Math.round(damageDealt * 0.45);
+			const baseAttackInfo = this.getAttackInfo();
+			const reductionFactor = 0.55;
+			const reducedAttackInfo: attackInfo = {
+				minDamage: Math.round(baseAttackInfo.minDamage * reductionFactor),
+				averageDamage: Math.round(baseAttackInfo.averageDamage * reductionFactor),
+				maxDamage: Math.round(baseAttackInfo.maxDamage * reductionFactor)
+			};
+			const editedStatsInfo = {
+				attackerStats: [
+					sender.getDefense() * reductionFactor,
+					sender.getSpeed() * reductionFactor
+				], defenderStats: [
+					sender.getDefense(),
+					sender.getSpeed()
+				], statsEffect: [
+					0.85,
+					0.15
+				]
+			};
+			const ownDamage = FightActionController.getAttackDamage(editedStatsInfo, sender, reducedAttackInfo);
 			sender.damage(ownDamage);
 			sideEffects += attackTranslationModule.format("actions.sideEffects.damage", {
 				amount: ownDamage

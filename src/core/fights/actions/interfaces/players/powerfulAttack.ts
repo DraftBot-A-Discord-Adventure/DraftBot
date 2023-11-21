@@ -9,7 +9,7 @@ import {RandomUtils} from "../../../../utils/RandomUtils";
 export default class PowerfulAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
-		let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 20);
+		let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 15);
 
 		// Check how many times the attack appears in the fight action history of the sender
 		const count = sender.fightActionsHistory.filter(action => action instanceof PowerfulAttack).length;
@@ -21,8 +21,8 @@ export default class PowerfulAttack extends FightAction {
 
 		let sideEffects = "";
 
-		// 20% chance to stun the sender and deal 50% more damage
-		if (RandomUtils.draftbotRandom.realZeroToOneInclusive() < 0.2) {
+		// 25% chance to stun the sender and deal 50% more damage (not possible on failed attacks)
+		if (RandomUtils.draftbotRandom.realZeroToOneInclusive() < 0.25 && damageDealt >= initialDamage) {
 			const alteration = sender.newAlteration(FightAlterations.STUNNED);
 			if (alteration === FightAlterations.STUNNED) {
 				sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {

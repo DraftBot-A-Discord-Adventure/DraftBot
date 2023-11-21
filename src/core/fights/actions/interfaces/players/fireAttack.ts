@@ -15,7 +15,7 @@ export default class FireAttack extends FightAction {
 
 		let sideEffects = "";
 
-		if (RandomUtils.draftbotRandom.bool(0.8)) {
+		if (RandomUtils.draftbotRandom.bool(0.98)) {
 			const alteration = receiver.newAlteration(FightAlterations.BURNED);
 			if (alteration === FightAlterations.BURNED) {
 				sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {
@@ -31,7 +31,7 @@ export default class FireAttack extends FightAction {
 	}
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 15, averageDamage: 100, maxDamage: 130};
+		return {minDamage: 15, averageDamage: 100, maxDamage: 170};
 	}
 
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {

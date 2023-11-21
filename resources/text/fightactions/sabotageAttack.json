@@ -3,16 +3,16 @@
 		"fr": {
 			"name": "Attaque sabotage",
 			"namePlural": "Attaques sabotages",
-			"description": "Ignore complètement la défense de l’adversaire. Fonctionne mieux sur un adversaire ayant peu d’attaque."
+			"description": "Ignore complètement la défense de l’adversaire. Fonctionne mieux sur un adversaire ayant peu d’attaque. Attaque peu couteuse en souffle mais qui paralyse le lanceur."
 		},
 		"en": {
 			"name": "Sabotage attack",
 			"namePlural": "Sabotage attacks",
-			"description": "Ignores the opponent’s defense completely. Works better on an opponent with low attack."
+			"description": "Ignores the opponent’s defense completely. Works better on an opponent with low attack. Attack that costs little breath but paralyzes the attacker."
 		}
 	},
 	"emote": "\uD83D\uDEE0️",
-	"breath": 2,
+	"breath": 1,
 	"missionVariant": 24,
 	"type": "physical"
 }

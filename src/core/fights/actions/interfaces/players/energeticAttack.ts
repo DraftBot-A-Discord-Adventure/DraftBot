@@ -25,7 +25,7 @@ export default class EnergeticAttack extends FightAction {
 	}
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 30, averageDamage: 75, maxDamage: 115};
+		return {minDamage: 30, averageDamage: 90, maxDamage: 115};
 	}
 
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
