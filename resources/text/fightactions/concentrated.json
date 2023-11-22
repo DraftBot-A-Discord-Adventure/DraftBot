@@ -2,12 +2,12 @@
 	"translations": {
 		"fr": {
 			"heal": "n'est plus concentré.",
-			"new": "concentre son pouvoir. `Attaque : + 100%` `Vitesse : + 100%`",
+			"new": "concentre son pouvoir.  `Boost de dégâts actif`",
 			"active": "concentre son pouvoir."
 		},
 		"en": {
 			"heal": "is no longer concentrated.",
-			"new": "concentrates his power. `Attack: + 100%` `Speed: + 100%`",
+			"new": "concentrates his power. `Damage boost active`",
 			"active": "concentrates his power."
 		}
 	},

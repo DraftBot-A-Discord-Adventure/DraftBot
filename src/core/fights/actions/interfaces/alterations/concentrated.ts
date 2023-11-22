@@ -13,7 +13,7 @@ export default class ConcentratedAlteration extends FightAlteration {
 			return concentratedTranslationModule.get("heal");
 		}
 		if (!victim.hasAttackModifier(this)) {
-			victim.applyDamageMultiplier(2,1);
+			victim.applyDamageMultiplier(1.4,1);
 			return concentratedTranslationModule.get("new");
 		}
 		return concentratedTranslationModule.get("active");

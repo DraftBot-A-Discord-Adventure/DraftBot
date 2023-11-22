@@ -3,8 +3,6 @@ import {Translations} from "../../../../Translations";
 import {FightActionController} from "../../FightActionController";
 import {FightConstants} from "../../../../constants/FightConstants";
 import {attackInfo, FightAction, statsInfo} from "../../FightAction";
-import {FightAlterations} from "../../FightAlterations";
-import {RandomUtils} from "../../../../utils/RandomUtils";
 
 export default class HeavyAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
@@ -35,7 +33,7 @@ export default class HeavyAttack extends FightAction {
 	}
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 50, averageDamage: 160, maxDamage: 230};
+		return {minDamage: 50, averageDamage: 170, maxDamage: 240};
 	}
 
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
