@@ -26,7 +26,7 @@ export default class ShieldAttack extends FightAction {
 	}
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 30, averageDamage: 160, maxDamage: 265};
+		return {minDamage: 30, averageDamage: 140, maxDamage: 225};
 	}
 
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
