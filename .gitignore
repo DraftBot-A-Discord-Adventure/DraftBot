@@ -10,3 +10,8 @@ package-lock.json
 /dist/
 dist/
 /database/mariadb/
+/allArmors.txt
+/allWeapons.txt
+/allItems.txt
+/allPotions.txt
+/allObjects.txt
