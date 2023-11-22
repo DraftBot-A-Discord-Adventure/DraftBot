@@ -8,7 +8,7 @@ import {RandomUtils} from "../../../../utils/RandomUtils";
 export default class DarkAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), receiver, this.getAttackInfo());
-		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 30, 15);
+		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 40, 15);
 
 		receiver.damage(damageDealt);
 
@@ -41,8 +41,8 @@ export default class DarkAttack extends FightAction {
 				Math.min(sender.getAttack(), 500), // Cap at 500 to avoid too much damage
 				receiver.getAttack()
 			], defenderStats: [
-				0,
-				0
+				100,
+				100
 			], statsEffect: [
 				0.5,
 				0.5
