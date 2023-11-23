@@ -1,4 +1,7 @@
 export abstract class PVEConstants {
+
+	static readonly TIME_AFTER_INACTIVITY_ON_BOAT_IS_NOT_ACCEPTED = 24 * 3 * 3600 * 1000; // 3 days
+
 	static readonly TIME_BETWEEN_SMALL_EVENTS = 18 * 1000; // 18 seconds
 
 	static TRAVEL_COST = [0, 15, 25];

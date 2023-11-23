@@ -10,6 +10,7 @@ import {MapConstants} from "../constants/MapConstants";
 import {MapCache} from "./MapCache";
 import {Op} from "sequelize";
 import {LogsReadRequests} from "../database/logs/LogsReadRequests";
+import {PVEConstants} from "../constants/PVEConstants";
 
 export class Maps {
 
@@ -221,6 +222,9 @@ export class Maps {
 				guildId: player.guildId,
 				mapLinkId: {
 					[Op.in]: MapCache.boatEntryMapLinks
+				},// Use the start travel date to check if the player has started his travel since less than 3 days
+				startTravelDate: {
+					[Op.gt]: new Date(Date.now() - PVEConstants.TIME_AFTER_INACTIVITY_ON_BOAT_IS_NOT_ACCEPTED)
 				},
 				id: {
 					[Op.not]: player.id
@@ -232,7 +236,7 @@ export class Maps {
 	/**
 	 * Get the lost of all the mapLocations
 	 */
-	static getMaps() : Promise<MapLocation[]> {
-		return MapLocations.getAll() ;
+	static getMaps(): Promise<MapLocation[]> {
+		return MapLocations.getAll();
 	}
 }
