@@ -73,7 +73,9 @@ async function executeCommand(interaction: DraftbotInteraction, language: string
 				score: member.score,
 				isOnPveIsland: Maps.isOnPveIsland(member),
 				isOnBoat: MapCache.boatEntryMapLinks.includes(member.mapLinkId),
-				isPveIslandAlly: membersPveAlliesIds.includes(member.discordUserId)
+				isPveIslandAlly: membersPveAlliesIds.includes(member.discordUserId),
+				isInactive: member.isInactive(),
+				isNotBotJoinable: member.isNotActiveEnoughToBeJoinedInTheBoat()
 			}
 		);
 	}
