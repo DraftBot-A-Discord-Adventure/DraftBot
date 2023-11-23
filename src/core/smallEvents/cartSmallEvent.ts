@@ -50,9 +50,9 @@ async function generateInitialEmbed(
 	builtEmbed.formatAuthor(Translations.getModule("commands.report", language).get("journal"), interaction.user);
 	builtEmbed.setDescription(
 		`${seEmbed.data.description
-        + intro
-        + situation
-        + tr.get("menu")}`
+		+ intro
+		+ situation
+		+ tr.get("menu")}`
 	);
 	return builtEmbed;
 }
@@ -92,40 +92,44 @@ async function manageTeleportation(cartObject: CartObject, interaction: Draftbot
 
 export const smallEvent: SmallEvent = {
 	/**
-     * Check if small event can be executed
-     */
+	 * Check if small event can be executed
+	 */
 	canBeExecuted(player: Player): Promise<boolean> {
 		return Promise.resolve(Maps.isOnContinent(player));
 	},
 
 
 	/**
-     * Execute the small event
-     * @param interaction
-     * @param language
-     * @param player
-     * @param seEmbed
-     */
+	 * Execute the small event
+	 * @param interaction
+	 * @param language
+	 * @param player
+	 * @param seEmbed
+	 */
 	async executeSmallEvent(interaction: DraftbotInteraction, language: string, player: Player, seEmbed: DraftBotEmbed): Promise<void> {
 		const tr = Translations.getModule("smallEvents.cart", language);
 		const chance = RandomUtils.draftbotRandom.realZeroToOneInclusive();
 
 		const destination = await MapLinks.generateRandomMapLinkDifferentOfCurrent(player.mapLinkId);
-		let price = SmallEventConstants.CART.TRANSPARENT_TP_PRICE, displayedDestination = destination;
+		let price: number, displayedDestination: MapLink;
 
-		// 40% chance that the player knows where they will be teleported
-		if (chance <= SmallEventConstants.CART.HIDDEN_TP_THRESHOLD && chance > SmallEventConstants.CART.TRANSPARENT_TP_THRESHOLD) {
-			// 50% chance that the player doesn't know where they will be teleported
+		if (chance <= SmallEventConstants.CART.TRANSPARENT_TP_THRESHOLD) {
+			// The player knows where they will be teleported
+			price = SmallEventConstants.CART.TRANSPARENT_TP_PRICE;
+			displayedDestination = destination;
+		}
+		else if (chance <= SmallEventConstants.CART.HIDDEN_TP_THRESHOLD) {
+			// The player doesn't know where they will be teleported
 			displayedDestination = null;
 			price = SmallEventConstants.CART.HIDDEN_TP_PRICE;
 		}
 		else if (chance <= SmallEventConstants.CART.SCAM_THRESHOLD) {
-			// 5% chance that the NPC lied about the destination but offers the trip for cheap
+			// The NPC lied about the destination but offers the trip for cheap
 			displayedDestination = await MapLinks.generateRandomMapLinkDifferentOfCurrent(player.mapLinkId);
 			price = SmallEventConstants.CART.SCAM_TP_PRICE;
 		}
 		else {
-			// 5% chance that the trip is just cheap
+			// The trip is just cheap
 			displayedDestination = destination;
 			price = SmallEventConstants.CART.SCAM_TP_PRICE;
 		}
