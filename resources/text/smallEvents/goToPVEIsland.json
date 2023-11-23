@@ -4,7 +4,7 @@
 			"stories": [
 				"vous remarquez un bateau arrêté sur le bas-côté. Le capitaine vous interpelle et vous propose une aventure des plus trépidantes sur une île infestée de monstres. Il vous indique également que {priceText}.",
 				"un homme vous approche et vous demande si vous seriez intéressé par ses services. Il précise qu'il est capitaine d'un navire faisant la liaison entre le continent et une île mystérieuse, pleine de monstres. Il dit pouvoir vous y amener si vous cherchez une aventure mouvementée, et rajoute que {priceText}.",
-				"vous êtes interpellé par un homme en habits de marin, et arborant l'emblême du roi. Il vous explique chercher à envoyer certains des aventuriers concurrents pour la main de la princesse sur une île pleine de monstres, dont il serait utile au royaume de se débarrasser. Il dit aussi qu'un bateau est prêt à partir pour cette île, et vous demande si vous êtes partant, en précisant que {priceText}.",
+				"vous êtes interpellé par un homme en habits de marin, et arborant l'emblème du roi. Il vous explique chercher à envoyer certains des aventuriers concurrents pour la main de la princesse sur une île pleine de monstres, dont il serait utile au royaume de se débarrasser. Il dit aussi qu'un bateau est prêt à partir pour cette île, et vous demande si vous êtes partant, en précisant que {priceText}.",
 				"vous êtes accosté par un grand homme barbu, se présentant comme le chef d'un groupe de mercenaires réputé dans la région. Il vous dit pouvoir vous présenter une incroyable offre. Il s'agirait pour vous de vous rendre sur une nouvelle et mystérieuse île, où cohabitent opportunités et dangers, en tant que chasseur de monstres. Il ajoute aussi que {priceText}."
 			],
 			"priceFree": "le voyage **est gratuit**",
@@ -31,6 +31,6 @@
 			"notEnoughGems": "You accept but when the time to pay has come, you realize that you don't have enough gems. You leave disappointed."
 		}
 	},
-	"rarity": 40,
+	"rarity": 80,
 	"emote": ":ferry:"
 }
