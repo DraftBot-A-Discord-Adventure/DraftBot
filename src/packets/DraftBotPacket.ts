@@ -5,3 +5,8 @@ export interface PacketContext {
         channel: string
     }
 }
+
+
+export function makePacket<T extends DraftBotPacket>(packet: T): T {
+	return packet;
+}
