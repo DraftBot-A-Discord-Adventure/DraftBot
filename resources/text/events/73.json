@@ -5,8 +5,8 @@
 		}
 	],
 	"translations": {
-		"fr": "🐯 Cheminant avec nonchalance sur la Route des Merveilles, vous arrivez à proximité d'un attroupement assez hétéroclite et semblant absorbé par quelque chose que vous ne pouvez pas apercevoir à cette distance. Tout en avançant vers eux, vous remarquez qu'ils sont regroupés en demi-cercle autour d'un homme de forte corpulence. Après quelques pas supplémentaires vous remarquez que ce dernier est vêtu d'un costume de spectacle moulant, entièrement rouge, avec des empiècements jaunes au niveau des épaules et un slip bleu enfilé par-dessus l'uniforme. Il y a également un petit écusson de couleur bleue roi, illisible de là où vous vous situez, à hauteur de ses volumineux pectoraux. Vous vous frayez un chemin parmi les nombreux badauds présents, jusqu'à arriver au premier rang. Vous remarquez finalement qu'il s'agit d'un dresseur de fauves muni d'un long fouet en cuir brun avec, à ses pieds, deux magnifiques bébés tigres auxquels il apprend l'exécution de quelques tours.",
-		"en": "🐯 As you idly pass through the Road of Wonders, you close in to a motley gathering, seemingly immersed in something you can't quite discern yet, with how far you are. Coming in closer, you notice they are arranged in a semicircle around a heavy-bodied man. Getting closer again, you can fully apppreciate the fully-red, tight-fitting performance suit, complete with yellow shoulder-pieces and blue pants. The man's chest is also adorned with a royal-blue emblem, which you do not recognize. You carve yourself a path through the bystanders, until you get to the front. You finally understand the core reason for this unusual crowd: the man is, in fact, a beastmaster equipped with a long brown leather whip. At his feet lay two extraordinarily cute baby tigers, and the man is seemingly teaching them some tricks."
+		"fr": "🐯 Cheminant avec nonchalance sur la Route des Merveilles, vous arrivez à proximité d'un attroupement assez hétéroclite et semblant absorbé par quelque chose que vous ne pouvez pas apercevoir à cette distance. En vous rapprochant, vous remarquez qu'ils sont regroupés en demi-cercle autour d'un homme corpulent. Après quelques pas supplémentaires vous remarquez que ce dernier est vêtu d'un costume de spectacle moulant, entièrement rouge, avec des empiècements jaunes au niveau des épaules et un slip bleu enfilé par-dessus l'uniforme. Il y a également un petit écusson de couleur bleue roi, illisible de là où vous vous situez, à hauteur de ses volumineux pectoraux. Vous vous frayez un chemin à travers la foule, jusqu'à atteindre le premier rang. Vous remarquez finalement qu'il s'agit d'un dresseur de fauves muni d'un long fouet en cuir brun avec, à ses pieds, deux magnifiques bébés tigres auxquels il apprend l'exécution de quelques tours.",
+		"en": "🐯 As you idly pass through the Road of Wonders, you close in to a motley gathering, seemingly immersed in something you can't quite discern yet, with how far you are. As you draw closer, you notice they are gathered in a semicircle around a stout man. Getting closer again, you can fully appreciate the fully-red, tight-fitting performance suit, complete with yellow shoulder-pieces and blue pants. The man's chest is also adorned with a royal-blue emblem, which you do not recognize. You make your way through the crowd, eventually reaching the front. You finally understand the core reason for this unusual crowd: the man is, in fact, a beastmaster equipped with a long brown leather whip. At his feet lay two extraordinarily cute baby tigers, and the man is seemingly teaching them some tricks."
 	},
 	"possibilities": {
 		"👀": {
@@ -20,7 +20,8 @@
 						"fr": "Vous restez assister au spectacle, ébahi par tant de mignonnerie. Vous avez pris beaucoup de plaisir à voir cette magnifique et grandiose représentation, de ce fait vous offrez quelques pièces au dresseur.",
 						"en": "You choose to stay here and see those spectacular animals, awed by the sheer cuteness they emit. You found this performance deeply pleasurable, so you give some coins to the trainer."
 					},
-					"health": 10,
+					"lostTime": 25,
+					"effect": ":clock2:",
 					"money": -70
 				},
 				{
@@ -33,9 +34,7 @@
 					"translations": {
 						"fr": "Vous observez le dressage mais, après tout ce que vous avez vécu depuis le début de votre aventure, cela ne vous impressionne guère. Vous quittez aussitôt la foule sans demander votre reste et retournez à votre vie d'aventurier.",
 						"en": "You glance at the training but, after all of your adventures, this isn't really anything impressive. You quickly leave the crowded area and continue your travels."
-					},
-					"lostTime": 5,
-					"effect": ":clock2:"
+					}
 				}
 			]
 		},
@@ -50,12 +49,12 @@
 						"fr": "Vous comprenez assez rapidement qu'il s'agit là de chatons. Cela ne fait aucun doute car vous avez déjà eu la chance de croiser des tigres, et ceux-ci donnent naissance à des tigreaux bien plus grands. Vous déclarez cela scandaleux, et exigez une compensation financière des escrocs. Ceux-ci acceptent à condition que vous partiez immédiatement.",
 						"en": "You immediately understand the \"rare beasts\" are nothing but kitten. You are sure of this fact as you already encountered actual tigers before, and their cubs are way bigger. You start and call out the scandalous scam, and demand that the scammers compensate you a great sum, or else you'll tell everyone about it. They accept your conditions, hoping you quickly get out of here."
 					},
-					"money": 500
+					"money": 195
 				},
 				{
 					"translations": {
-						"fr": "Vous voyez le dresseur avec un fouet en mains, prêt à fouetter un jeune tigreau. En bon défenseur des causes perdues, vous lui foncez dessus en lui hurlant d'arrêter et de relâcher ces pauvres tigres sans défense. L'homme vous attrape et vous flagelle de son arme, sous les applaudissements de la foule en furie.",
-						"en": "You see the trainer ready is whip, and know he's about to hurt the young beasts. As a greatly altruist person, you run up to him, shouting for him to stop his immense cruelty towards innocent newborns. He gets you and lashes at you with his weapon, to which the crowd cheers with glee."
+						"fr": "Vous observez le dresseur, fouet en main, prêt à s'en prendre à un jeune tigre. En bon défenseur des causes perdues, vous lui foncez dessus en lui hurlant d'arrêter et de relâcher ces pauvres tigres sans défense. L'homme vous attrape et vous flagelle de son arme, sous les applaudissements de la foule en furie.",
+						"en": "You see the trainer ready his whip, realizing he's about to harm the young creatures. As a greatly altruist person, you run up to him, shouting for him to stop his immense cruelty towards innocent newborns. He gets you and lashes at you with his weapon, to which the crowd cheers with glee."
 					},
 					"effect": ":dizzy_face:",
 					"health": -25
@@ -84,25 +83,24 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous reprenez immédiatement votre route. Vous n'avez pas de temps à perdre dans ce genre de clowneries. Après avoir fait quelques pas, vous réalisez que vous êtes repartis en prenant le mauvais chemin et faites donc demi-tour, pestant d'avoir perdu ce précieux temps.",
-						"en": "You immediately go back to your travels. You cannot lose any time on such clownery. After a few steps, you realize you went the wrong way, so you turn around, deeply affected by the loss of those precious minutes."
+						"fr": "Vous reprenez immédiatement votre route. Vous n'avez pas de temps à perdre dans ce genre de clowneries. Vous mettez bien longtemps à réaliser que vous êtes repartis en prenant le mauvais chemin et faites donc demi-tour, pestant d'avoir perdu ce précieux temps.",
+						"en": "You immediately go back to your travels. You cannot lose any time on such clownery. After a while, you realize you went the wrong way, so you turn around, deeply affected by the loss of those precious minutes."
 					},
-					"lostTime": 5,
-					"effect": ":clock2:"
+					"effect": ":face_with_monocle:"
 				},
 				{
 					"translations": {
-						"fr": "Vous quittez aussitôt le spectacle et trébuchez sur un sac oublié là, par un spectateur négligent. Vous vous blessez très légèrement en tombant. Le sac est de couleur brun délavé, et bien que le cuir soit usé, ce dernier est en relativement bon état. Vous décidez de fouiller le sac en espérant y trouver un dédommagement et y découvrez une petite bourse ainsi qu'un objet qui vous semble bien utile.",
+						"fr": "Vous quittez rapidement le spectacle et trébuchez sur un sac négligemment laissé par un spectateur. Vous vous blessez très légèrement en tombant. Le sac est de couleur brun délavé, et bien que le cuir soit usé, ce dernier est en relativement bon état. Vous décidez de fouiller le sac en espérant y trouver un dédommagement et y découvrez une petite bourse ainsi qu'un objet qui vous semble bien utile.",
 						"en": "You promptly leave the gathering, and stumble on a bag left to lay on the ground. You are slightly hurt. The bag is of a slightly-faded brown color, and even though its material is worn out, it is still in a pretty good state. You choose to explore the contents of this bag, hoping to find something to compensate your hurting leg. You discover a small bag of coins, as well as a maybe-useful item."
 					},
-					"health": 5,
-					"money": 100,
+					"health": -5,
+					"money": 87,
 					"randomItem": {}
 				},
 				{
 					"translations": {
-						"fr": "Vous préférez poursuivre votre aventure, indifférent au spectacle et aux cris de joie que pousse la foule.",
-						"en": "You would rather continue your adventures than partake in the crowd's joy."
+						"fr": "Vous décidez de poursuivre votre aventure, indifférent au spectacle et aux cris de joie de la foule.",
+						"en": "You decide to continue your journey, indifferent to the crowd's merriment."
 					}
 				}
 			]
@@ -111,20 +109,20 @@
 			"outcomes": [
 				{
 					"translations": {
-						"fr": "👤 Vous quittez la foule afin de vous glisser discrètement à l'arrière de la roulotte de l'homme à l'embonpoint. À l'intérieur de sa modeste demeure sur roue, vous apercevez une chatte avec ses petits chatons et comprenez immédiatement la supercherie ! Vous allez voir le dresseur et lui demandez de l'argent en échange de votre silence. ",
-						"en": "👤 You get out of the mass of people, and swiftly make your way towards the fatman's chariot. Inside this place, you see a cat with its children, and immediately understand the scam! You go and bargain a good price from the trainer, in exchange for you keeping your mouth shut on this matter."
+						"fr": "👤 Vous quittez la foule afin de vous glisser discrètement à l'arrière de la roulotte de l'homme à l'embonpoint. À l'intérieur de sa modeste demeure sur roue, vous apercevez une chatte avec ses petits chatons et comprenez immédiatement la supercherie ! Vous approchez le dresseur et exigez de l'argent en échange de votre silence.",
+						"en": "👤 You get out of the mass of people, and swiftly make your way towards the fatman's chariot. Inside this place, you see a cat with its children, and immediately understand the scam! You approach the trainer and negotiate a good price in return for your silence regarding the scam."
 					},
-					"money": 500
+					"money": 195
 				},
 				{
 					"translations": {
-						"fr": "🖌️ Vous êtes désireux de voir les autres tigres et, en vous faufilant discrètement à l'arrière de la roulotte du dresseur, vous voyez un vieillard un pinceau à la main, et vous remarquez le pot de peinture à ses pieds. Il est assis sur une malle en bois avec un chiot sur les genoux. L'homme ne vous a pas entendu venir et continue de peindre l'adorable chiot en lionceau. Vous repartez en pouffant de rire, bien content de ne pas vous être laissé berner.",
+						"fr": "🖌️ Désirant voir les autres tigres vous vous faufilez discrètement à l'arrière de la roulotte du dresseur, vous voyez un vieillard un pinceau à la main, et vous remarquez le pot de peinture à ses pieds. Il est assis sur une malle en bois avec un chiot sur les genoux. L'homme ne vous a pas entendu venir et continue de peindre l'adorable chiot en lionceau. Vous repartez en pouffant de rire, bien content de ne pas vous être laissé berner.",
 						"en": "🖌️ You wish to see the other tigers and, as you get behind the trainer's caravan, you witness an old man, paintbrush in hand, carefully transforming a cute pup into a ferocious beast. You leave while laughing wildly, happy you didn't get scammed by this team of \"trainers\"."
 					}
 				},
 				{
 					"translations": {
-						"fr": "💼 Vous vous éloignez de la foule pour chercher un meilleur endroit permettant d'assister au spectacle. Absorbé par ce dernier, vous ne regardez pas où se posent vos pieds, et tombez dans une lourde malle ouverte, abandonnée négligemment au milieu du chemin. Vous n'avez pas le temps de comprendre ce qu'il vous arrive, que celle-ci s'est déjà refermée sur vous, vous assomant douloureusement au passage.",
+						"fr": "💼 Vous vous éloignez de la foule pour chercher un meilleur endroit permettant d'assister au spectacle. Absorbé par ce dernier, vous ne regardez pas où se posent vos pieds, et tombez dans une lourde malle ouverte, abandonnée négligemment au milieu du chemin. Avant même de comprendre ce qu'il vous arrive, la malle se referme sur vous, vous assommant. Vous ne vous réveillez que bien plus tard.",
 						"en": "💼 You get away from the mass, hoping to find a better spot from which to see the show. Fully focused on the spectacle, you do not pay attention to where you put your feet, and fall into a wide open case that was randomly laying in the middle of the road. That the case closes itself on you, before you even get a chance to understand what's happening. You end up all dizzy."
 					},
 					"effect": ":confounded:"
