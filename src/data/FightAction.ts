@@ -49,8 +49,8 @@ export class FightActionDataController extends DataController<string, FightActio
 	public static getFightActionFunction(id: string): FightActionFunc {
 		if (FightActionDataController.fightActionsFunctionsCache === null) {
 			FightActionDataController.fightActionsFunctionsCache = new Map<string, FightActionFunc>();
-			FightActionDataController.loadFightActionsFromFolder("dist/src/core/fights/actions/interfaces/players", "./interfaces/players");
-			FightActionDataController.loadFightActionsFromFolder("dist/src/core/fights/actions/interfaces/monsters", "./interfaces/monsters");
+			FightActionDataController.loadFightActionsFromFolder("dist/src/core/fights/actions/interfaces/players", "TODO replace with the right one");
+			FightActionDataController.loadFightActionsFromFolder("dist/src/core/fights/actions/interfaces/monsters", "TODO replace with the right one");
 		}
 
 		return FightActionDataController.fightActionsFunctionsCache.get(id);

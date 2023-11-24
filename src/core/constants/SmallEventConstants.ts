@@ -1,5 +1,7 @@
 import {Constants} from "../Constants";
 import {ItemConstants} from "./ItemConstants";
+import {Maps} from "../maps/Maps";
+import Player from "../database/game/models/Player";
 
 export abstract class SmallEventConstants {
 	static readonly HEALTH = {
@@ -234,6 +236,15 @@ export abstract class SmallEventConstants {
 		ENERGY: {
 			MIN: 10,
 			MAX: 250
+		}
+	};
+
+	static readonly DEFAULT_FUNCTIONS = {
+		CAN_BE_EXECUTED: {
+			CONTINENT: (player: Player): boolean => Maps.isOnContinent(player)
+		},
+		EXECUTE_SMALL_EVENT: {
+			EMPTY: (): void => { }
 		}
 	};
 }
