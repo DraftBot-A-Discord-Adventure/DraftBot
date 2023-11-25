@@ -7,21 +7,21 @@ import {DraftBotPacket, makePacket} from "../../../Lib/src/packets/DraftBotPacke
 import {SmallEventPacket} from "../../../Lib/src/packets/commands/CommandReportPacket";
 
 export class SmallEvent extends Data<string> {
+	private readonly properties: { [key: string]: unknown };
 
-	public canBeExecuted(player: Player): Promise<boolean> {
-		const smallEventFunction = SmallEventDataController.getSmallEventFunction(this.id);
-		return smallEventFunction.canBeExecuted(player) as Promise<boolean>;
-	}
-
-	public async execute(client: WebsocketClient, response: DraftBotPacket[], player: Player): Promise<void> {
+	async execute(response: DraftBotPacket[], player: Player, client: WebsocketClient): Promise<void> {
 		const smallEventFunction = SmallEventDataController.getSmallEventFunction(this.id);
 		response.push(makePacket<SmallEventPacket>({smallEvent: this.id}));
-		await smallEventFunction.executeSmallEvent(client, response, player);
+		await smallEventFunction.executeSmallEvent(response, player, client);
+	}
+
+	getProperties<T>(): T {
+		return <T> this.properties;
 	}
 }
 
-export type CanBeExecutedLike = (player: Player) => boolean | Promise<boolean>;
-export type ExecuteSmallEventLike = (client: WebsocketClient, response: DraftBotPacket[], player: Player) => void | Promise<void>;
+type CanBeExecutedLike = (player: Player) => boolean | Promise<boolean>;
+type ExecuteSmallEventLike = (response: DraftBotPacket[], player: Player, client: WebsocketClient) => void | Promise<void>;
 
 export type SmallEventFuncs = {
 	canBeExecuted: CanBeExecutedLike;
@@ -29,7 +29,7 @@ export type SmallEventFuncs = {
 }
 
 export class SmallEventDataController extends DataController<string, SmallEvent> {
-	static readonly instance: SmallEventDataController = new SmallEventDataController("fightactions");
+	static readonly instance: SmallEventDataController = new SmallEventDataController("smallEvents");
 
 	private static smallEventsFunctionsCache: Map<string, SmallEventFuncs>;
 
@@ -46,10 +46,10 @@ export class SmallEventDataController extends DataController<string, SmallEvent>
 		const files = readdirSync(path);
 		for (const file of files) {
 			if (file.endsWith(".js")) {
-				const smallEventFile = require(`${relativePath}/${file.substring(0, file.length - 3)}`);
+				const smallEventFuncs = (<{smallEventFuncs: SmallEventFuncs}>require(`${relativePath}/${file.substring(0, file.length - 3)}`)).smallEventFuncs;
 				SmallEventDataController.smallEventsFunctionsCache.set(
 					file.substring(0, file.length - 3),
-					smallEventFile as SmallEventFuncs
+					smallEventFuncs
 				);
 			}
 		}

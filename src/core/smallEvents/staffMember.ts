@@ -1,5 +1,7 @@
-import {CanBeExecutedLike, ExecuteSmallEventLike} from "../../data/SmallEvent";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
+import {SmallEventFuncs} from "../../data/SmallEvent";
 
-export const canBeExecuted: CanBeExecutedLike = SmallEventConstants.DEFAULT_FUNCTIONS.CAN_BE_EXECUTED.CONTINENT;
-export const executeSmallEvent: ExecuteSmallEventLike = SmallEventConstants.DEFAULT_FUNCTIONS.EXECUTE_SMALL_EVENT.EMPTY;
+export const smallEventFuncs: SmallEventFuncs = {
+	canBeExecuted: SmallEventConstants.DEFAULT_FUNCTIONS.CAN_BE_EXECUTED.CONTINENT,
+	executeSmallEvent: SmallEventConstants.DEFAULT_FUNCTIONS.EXECUTE_SMALL_EVENT.EMPTY
+};
