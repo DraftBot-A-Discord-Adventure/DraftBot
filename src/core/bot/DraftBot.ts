@@ -6,6 +6,8 @@ import {LogsDatabase} from "../database/logs/LogsDatabase";
 import {ReactionCollectorReactPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {ReactionCollector} from "../utils/ReactionsCollector";
 import {CommandPingPacketReq} from "../../../../Lib/src/packets/commands/CommandPingPacket";
+import {CommandRarityPacketReq} from "../../../../Lib/src/packets/commands/CommandRarityPacket";
+import rarityCommand from "../../commands/player/RarityCommand";
 
 export class DraftBot {
 	public readonly packetListener: PacketListener;
@@ -22,6 +24,7 @@ export class DraftBot {
 		// Register commands
 		this.packetListener = new PacketListener();
 		this.packetListener.addPacketListener<CommandPingPacketReq>("CommandPingPacketReq", pingCommand);
+		this.packetListener.addPacketListener<CommandRarityPacketReq>("CommandRarityPacketReq", rarityCommand);
 		this.packetListener.addPacketListener<ReactionCollectorReactPacket>("ReactionCollectorReactPacket", ReactionCollector.reactPacket);
 
 		// Databases
