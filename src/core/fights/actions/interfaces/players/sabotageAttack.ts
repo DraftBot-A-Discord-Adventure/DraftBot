@@ -4,22 +4,27 @@ import {attackInfo, FightAction, statsInfo} from "../../FightAction";
 import {FightAlterations} from "../../FightAlterations";
 import {FightConstants} from "../../../../constants/FightConstants";
 import {Translations} from "../../../../Translations";
+import {RandomUtils} from "../../../../utils/RandomUtils";
 
 export default class SabotageAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
-		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 15, 5);
+		let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 15, 5);
 		receiver.damage(damageDealt);
 
 		let sideEffects = "";
 
-		const alteration = sender.newAlteration(FightAlterations.PARALYZED);
-		if (alteration === FightAlterations.PARALYZED) {
-			sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {
-				adversary: FightConstants.TARGET.SELF,
-				effect: attackTranslationModule.get("effects.paralyzed").toLowerCase()
-			});
+		if (RandomUtils.draftbotRandom.realZeroToOneInclusive() < 0.6) {
+			const alteration = sender.newAlteration(FightAlterations.PARALYZED);
+			if (alteration === FightAlterations.PARALYZED) {
+				sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {
+					adversary: FightConstants.TARGET.SELF,
+					effect: attackTranslationModule.get("effects.paralyzed").toLowerCase()
+				});
+			}
+			// If paralyzed, damages of this attack are increased
+			damageDealt *= 1.5;
 		}
 
 		return this.getGenericAttackOutput(damageDealt, initialDamage, language, sideEffects);
