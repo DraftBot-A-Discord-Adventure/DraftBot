@@ -7,7 +7,11 @@ import {ReactionCollectorReactPacket} from "../../../../Lib/src/packets/interact
 import {ReactionCollector} from "../utils/ReactionsCollector";
 import {CommandPingPacketReq} from "../../../../Lib/src/packets/commands/CommandPingPacket";
 import {CommandRarityPacketReq} from "../../../../Lib/src/packets/commands/CommandRarityPacket";
+import {CommandVotePacketReq} from "../../../../Lib/src/packets/commands/CommandVotePacket";
+import {CommandBadgePacketReq} from "../../../../Lib/src/packets/commands/CommandBadgePacket";
 import rarityCommand from "../../commands/player/RarityCommand";
+import voteCommand from "../../commands/player/VoteCommand";
+import badgeCommand from "../../commands/player/BadgeCommand";
 
 export class DraftBot {
 	public readonly packetListener: PacketListener;
@@ -25,6 +29,8 @@ export class DraftBot {
 		this.packetListener = new PacketListener();
 		this.packetListener.addPacketListener<CommandPingPacketReq>("CommandPingPacketReq", pingCommand);
 		this.packetListener.addPacketListener<CommandRarityPacketReq>("CommandRarityPacketReq", rarityCommand);
+		this.packetListener.addPacketListener<CommandVotePacketReq>("CommandVotePacketReq", voteCommand);
+		this.packetListener.addPacketListener<CommandBadgePacketReq>("CommandBadgePacketReq", badgeCommand);
 		this.packetListener.addPacketListener<ReactionCollectorReactPacket>("ReactionCollectorReactPacket", ReactionCollector.reactPacket);
 
 		// Databases
