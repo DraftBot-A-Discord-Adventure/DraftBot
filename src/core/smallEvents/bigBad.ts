@@ -4,6 +4,8 @@ import {RandomUtils} from "../utils/RandomUtils";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import {TravelTime} from "../maps/TravelTime";
 import {MissionsController} from "../missions/MissionsController";
+import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
+import {SmallEventBigBadPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventBigBadPacket";
 
 type BigBadProperties = {
 	"alterationStories": {
@@ -46,6 +48,12 @@ export const smallEventFuncs: SmallEventFuncs = {
 			});
 			break;
 		}
+		response.push(makePacket<SmallEventBigBadPacket>({
+			kind: outRand,
+			lifeLost: lifeLoss,
+			receivedStory: seFallen,
+			moneyLost: moneyLoss
+		}));
 		await player.killIfNeeded(response, NumberChangeReason.SMALL_EVENT);
 		await player.save();
 	}

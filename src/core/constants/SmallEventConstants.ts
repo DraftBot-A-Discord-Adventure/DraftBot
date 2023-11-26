@@ -242,9 +242,6 @@ export abstract class SmallEventConstants {
 	static readonly DEFAULT_FUNCTIONS = {
 		CAN_BE_EXECUTED: {
 			CONTINENT: (player: Player): boolean => Maps.isOnContinent(player)
-		},
-		EXECUTE_SMALL_EVENT: {
-			EMPTY: (): void => { }
 		}
 	};
 }

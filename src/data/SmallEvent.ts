@@ -3,15 +3,13 @@ import {Data} from "./Data";
 import {readdirSync} from "fs";
 import Player from "../core/database/game/models/Player";
 import {WebsocketClient} from "../../../Lib/src/instances/WebsocketClient";
-import {DraftBotPacket, makePacket} from "../../../Lib/src/packets/DraftBotPacket";
-import {SmallEventPacket} from "../../../Lib/src/packets/commands/CommandReportPacket";
+import {DraftBotPacket} from "../../../Lib/src/packets/DraftBotPacket";
 
 export class SmallEvent extends Data<string> {
 	private readonly properties: { [key: string]: unknown };
 
 	async execute(response: DraftBotPacket[], player: Player, client: WebsocketClient): Promise<void> {
 		const smallEventFunction = SmallEventDataController.getSmallEventFunction(this.id);
-		response.push(makePacket<SmallEventPacket>({smallEvent: this.id}));
 		await smallEventFunction.executeSmallEvent(response, player, client);
 	}
 
