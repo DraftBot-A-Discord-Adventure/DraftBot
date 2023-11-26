@@ -1,5 +1,5 @@
-import {DraftBotPacket} from "../DraftBotPacket";
+import {SmallEventPacket} from "./SmallEventPacket";
 
-export interface SmallEventAdvanceTimePacket extends DraftBotPacket {
+export interface SmallEventAdvanceTimePacket extends SmallEventPacket {
 	time: number;
 }
