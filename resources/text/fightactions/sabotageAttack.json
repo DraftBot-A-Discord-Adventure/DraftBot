@@ -3,12 +3,12 @@
 		"fr": {
 			"name": "Attaque sabotage",
 			"namePlural": "Attaques sabotages",
-			"description": "Ignore complètement la défense de l’adversaire. Fonctionne mieux sur un adversaire ayant peu d’attaque. Attaque peu couteuse en souffle mais qui paralyse le lanceur."
+			"description": "Ignore complètement la défense de l’adversaire. Fonctionne mieux sur un adversaire ayant peu d’attaque. Attaque peu couteuse en souffle mais qui peut paralyser le lanceur. Si c’est le cas, les dégâts sont augmentés."
 		},
 		"en": {
 			"name": "Sabotage attack",
 			"namePlural": "Sabotage attacks",
-			"description": "Ignores the opponent’s defense completely. Works better on an opponent with low attack. Attack that costs little breath but paralyzes the attacker."
+			"description": "Ignores the opponent’s defense completely. Works better on an opponent with low attack. Attack that costs little breath but that can paralyzes the attacker. If that happens, the damages are increased."
 		}
 	},
 	"emote": "\uD83D\uDEE0️",
