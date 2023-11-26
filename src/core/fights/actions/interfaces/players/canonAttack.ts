@@ -24,8 +24,8 @@ export default class CanonAttack extends FightAction {
 
 		let sideEffects = "";
 
-		// The receiver has an 85% chance to be slowed
-		if (RandomUtils.draftbotRandom.realZeroToOneInclusive() < 0.85) {
+		// The receiver has an 20% chance to be slowed
+		if (RandomUtils.draftbotRandom.realZeroToOneInclusive() < 0.20) {
 			const alteration = receiver.newAlteration(FightAlterations.SLOWED);
 			if (alteration === FightAlterations.SLOWED) {
 				sideEffects = attackTranslationModule.format("actions.sideEffects.newAlteration", {

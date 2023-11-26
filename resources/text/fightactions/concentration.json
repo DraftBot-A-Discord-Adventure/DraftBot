@@ -5,14 +5,14 @@
 			"namePlural": "Concentrations",
 			"active": "essaie de se concentrer...",
 			"fail": "ne parvient pas à se concentrer !",
-			"description": "Échoue si vous utilisez cette action alors que vous avez une altération d’état. L’altération \"concentré\" double la vitesse et l’attaque durant 1 tour."
+			"description": "Échoue si vous utilisez cette action alors que vous avez une altération d’état. L’altération \"concentré\" augmente fortement les dégâts infligés par le combattant affecté lors du prochain tour."
 		},
 		"en": {
 			"name": "Concentration",
 			"namePlural": "Concentrations",
 			"active": "is trying to concentrate...",
 			"fail": "can't concentrate!",
-			"description": "Fails if you use this action while you have an alteration. The alteration \"concentrated\" doubles the speed and attack duration for 1 turn."
+			"description": "Fails if you use this action while you have an alteration. The alteration \"concentrated\" increases highly the damages dealt by the affected fighter during the next turn."
 		}
 	},
 	"emote": "\uD83C\uDFAF",
