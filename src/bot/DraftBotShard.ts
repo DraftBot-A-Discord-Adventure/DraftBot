@@ -1,6 +1,8 @@
 import {Client, Guild, IntentsBitField, Partials, TextChannel} from "discord.js";
 import {Constants} from "../Constants";
 import {loadConfig} from "../config/DiscordConfig";
+import i18n from "../translations/i18n";
+import {BotUtils} from "../utils/BotUtils";
 
 process.on("uncaughtException", function(error) {
 	console.log(error);
@@ -12,7 +14,7 @@ process.on("unhandledRejection", function(err: Error) {
 	console.log(err.stack);
 });
 
-export let draftBotClient: Client = null;
+export let draftBotClient: Client | null = null;
 export const discordConfig = loadConfig();
 export let shardId = -1;
 
@@ -25,7 +27,7 @@ process.on("message", async (message: { type: string, data: { shardId: number } 
 		shardId = message.data.shardId;
 	}
 
-	const guild = draftBotClient.guilds.cache.get(discordConfig.MAIN_SERVER_ID);
+	const guild = draftBotClient?.guilds.cache.get(discordConfig.MAIN_SERVER_ID);
 	if (guild?.shard) {
 		(await guild.channels.fetch(discordConfig.CONSOLE_CHANNEL_ID) as TextChannel)
 			.send(`:robot: **DraftBot** - v${await Constants.VERSION} - Shard ${shardId}`)
@@ -81,46 +83,37 @@ async function main(): Promise<void> {
 	 * @return {string}
 	 */
 	function getJoinLeaveMessage(guild: Guild, join: boolean, language: string): string {
-		/*
 		const {validation, humans, bots, ratio} = BotUtils.getValidationInfos(guild);
-		return format(
-			join
-				? Translations.getModule("bot", language).get("joinGuild")
-				: Translations.getModule("bot", language).get("leaveGuild"),
-			{
-				guild,
-				humans,
-				robots: bots,
-				ratio,
-				validation
-			});
-			*/
-		// TODO
-		return "";
+		return i18n.t(join ? "bot:joinGuild" : "bot:leaveGuild", {
+			guild: guild.name,
+			humans,
+			robots: bots,
+			ratio,
+			validation,
+			lng: language
+		});
 	}
 
 	/**
 	 * Will be executed each time the bot join a new server
 	 */
 	async function onDiscordGuildCreate(guild: Guild): Promise<void> {
-		/*
-		const serv = await Servers.getOrRegister(botConfig.MAIN_SERVER_ID);
-		const msg = getJoinLeaveMessage(guild, true, serv.language);
-		draftBotInstance.logsDatabase.logServerJoin(guild.id).then();
-		console.log(msg);
-		*/
 		// TODO
+		//const serv = await Servers.getOrRegister(botConfig.MAIN_SERVER_ID);
+		const msg = getJoinLeaveMessage(guild, true, "en");
+		//draftBotInstance.logsDatabase.logServerJoin(guild.id).then();
+		console.log(msg);
 	}
 
 	/**
 	 * Will be executed each time the bot leave a server
 	 */
 	async function onDiscordGuildDelete(guild: Guild): Promise<void> {
-		/*const serv = await Servers.getOrRegister(botConfig.MAIN_SERVER_ID);
-		const msg = getJoinLeaveMessage(guild, false, serv.language);
-		draftBotInstance.logsDatabase.logServerQuit(guild.id).then();
-		console.log(msg);*/
 		// TODO
+		//const serv = await Servers.getOrRegister(botConfig.MAIN_SERVER_ID);
+		const msg = getJoinLeaveMessage(guild, false, "en");
+		//draftBotInstance.logsDatabase.logServerQuit(guild.id).then();
+		console.log(msg);
 	}
 
 	client.on("ready", () => console.log("Client ready"));
@@ -128,6 +121,7 @@ async function main(): Promise<void> {
 	client.on("guildDelete", onDiscordGuildDelete);
 
 	draftBotClient = client;
+
 	await client.login(discordConfig.DISCORD_CLIENT_TOKEN);
 }
 

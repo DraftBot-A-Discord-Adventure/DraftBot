@@ -21,7 +21,8 @@
 		"lib": [
 			"ES2022",
 			"dom"
-		]
+		],
+		"strict": true
 	},
 	"include": [
 		"src/**/*",

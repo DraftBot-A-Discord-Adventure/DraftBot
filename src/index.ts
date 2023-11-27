@@ -9,7 +9,7 @@ const shardCount = "auto";
 function main(): void {
 	const config = loadConfig();
 
-	const shardingManager = new ShardingManager("./dist/src/bot/DraftBotShard.js", {
+	const shardingManager = new ShardingManager("./dist/Discord/src/bot/DraftBotShard.js", {
 		totalShards: shardCount,
 		// Needed as in auto mode it has to make a request to know the needed number of shards
 		token: config.DISCORD_CLIENT_TOKEN
