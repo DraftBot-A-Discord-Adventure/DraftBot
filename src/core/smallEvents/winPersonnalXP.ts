@@ -2,16 +2,19 @@ import {SmallEventFuncs} from "../../data/SmallEvent";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {RandomUtils} from "../utils/RandomUtils";
-import {TravelTime} from "../maps/TravelTime";
 import {NumberChangeReason} from "../constants/LogsConstants";
-import {SmallEventAdvanceTimePacket} from "../../../../Lib/src/packets/smallEvents/SmallEventAdvanceTimePacket";
+import {SmallEventWinPersonnalXPPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinPersonnalXPPacket";
 
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: SmallEventConstants.DEFAULT_FUNCTIONS.CAN_BE_EXECUTED.onContinent,
 	executeSmallEvent: async (response, player): Promise<void> => {
-		const timeAdvanced = RandomUtils.draftbotRandom.integer(10, 50);
-		await TravelTime.timeTravel(player, timeAdvanced, NumberChangeReason.SMALL_EVENT);
+		const xpWon = RandomUtils.rangedInt(SmallEventConstants.EXPERIENCE);
+		await player.addExperience({
+			amount: xpWon,
+			response,
+			reason: NumberChangeReason.SMALL_EVENT
+		});
 		await player.save();
-		response.push(makePacket<SmallEventAdvanceTimePacket>({amount: timeAdvanced}));
+		response.push(makePacket<SmallEventWinPersonnalXPPacket>({amount: xpWon}));
 	}
 };

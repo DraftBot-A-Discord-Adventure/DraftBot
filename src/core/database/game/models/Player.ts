@@ -717,25 +717,27 @@ export class Player extends Model {
 	 * @param response
 	 */
 	public async leavePVEIslandIfNoFightPoints(response: DraftBotPacket[]): Promise<boolean> {
-		if (Maps.isOnPveIsland(this) && this.fightPointsLost >= this.getMaxCumulativeFightPoint()) {
-			const {moneyLost, guildPointsLost} = await this.getAndApplyLostRessourcesOnPveFaint(response);
-			const packet: PlayerLeavePveIslandPacket = {
-				moneyLost,
-				guildPointsLost
-			};
-			response.push(packet);
-			await Maps.stopTravel(this);
-			await Maps.startTravel(
-				this,
-				MapLinkDataController.instance.getById(MapConstants.WATER_MAP_LINKS[RandomUtils.randInt(0, MapConstants.WATER_MAP_LINKS.length)]),
-				Date.now()
-			);
-			await TravelTime.applyEffect(this, EffectsConstants.EMOJI_TEXT.CONFOUNDED, 0, new Date(), NumberChangeReason.PVE_ISLAND);
-			await PlayerSmallEvents.removeSmallEventsOfPlayer(this.id);
-			return true;
+		if (!(Maps.isOnPveIsland(this) && this.fightPointsLost >= this.getMaxCumulativeFightPoint())) {
+			return false;
 		}
-
-		return false;
+		const {
+			moneyLost,
+			guildPointsLost
+		} = await this.getAndApplyLostRessourcesOnPveFaint(response);
+		const packet: PlayerLeavePveIslandPacket = {
+			moneyLost,
+			guildPointsLost
+		};
+		response.push(packet);
+		await Maps.stopTravel(this);
+		await Maps.startTravel(
+			this,
+			MapLinkDataController.instance.getById(MapConstants.WATER_MAP_LINKS[RandomUtils.randInt(0, MapConstants.WATER_MAP_LINKS.length)]),
+			Date.now()
+		);
+		await TravelTime.applyEffect(this, EffectsConstants.EMOJI_TEXT.CONFOUNDED, 0, new Date(), NumberChangeReason.PVE_ISLAND);
+		await PlayerSmallEvents.removeSmallEventsOfPlayer(this.id);
+		return true;
 	}
 
 	/**

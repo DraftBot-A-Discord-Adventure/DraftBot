@@ -17,7 +17,7 @@ type BigBadProperties = {
 }
 
 export const smallEventFuncs: SmallEventFuncs = {
-	canBeExecuted: SmallEventConstants.DEFAULT_FUNCTIONS.CAN_BE_EXECUTED.CONTINENT,
+	canBeExecuted: SmallEventConstants.DEFAULT_FUNCTIONS.CAN_BE_EXECUTED.onContinent,
 	executeSmallEvent: async (response, player): Promise<void> => {
 		const outRand = RandomUtils.draftbotRandom.integer(0, 2);
 		let lifeLoss, seFallen, moneyLoss;
