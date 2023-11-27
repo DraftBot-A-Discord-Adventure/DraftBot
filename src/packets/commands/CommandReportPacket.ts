@@ -6,11 +6,3 @@ import {DraftBotPacket} from "../DraftBotPacket";
 export interface CommandReportPacketRes extends DraftBotPacket {
 	kind: string
 }
-
-
-/**
- * This packet gives what small event has been executed
- */
-export interface SmallEventPacket extends DraftBotPacket {
-	smallEvent: string
-}

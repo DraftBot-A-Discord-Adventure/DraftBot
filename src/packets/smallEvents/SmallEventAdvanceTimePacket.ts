@@ -1,5 +1,3 @@
-import {SmallEventPacket} from "./SmallEventPacket";
+import {SmallEventAddSomething} from "./SmallEventPacket";
 
-export interface SmallEventAdvanceTimePacket extends SmallEventPacket {
-	time: number;
-}
+export interface SmallEventAdvanceTimePacket extends SmallEventAddSomething {}
