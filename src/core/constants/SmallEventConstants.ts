@@ -239,6 +239,35 @@ export abstract class SmallEventConstants {
 		}
 	};
 
+	static readonly BONUS_GUILD_PVE_ISLANDS: {
+		PROBABILITIES: {
+			SUCCESS: 10,
+			ESCAPE: 40
+		},
+		MALUS: {
+			EXP_OR_POINTS_GUILD: {
+				MIN: 25,
+				MAX: 100
+			},
+			EXP: {
+				MIN: 20,
+				MAX: 25
+			},
+			MONEY: {
+				MIN: 25,
+				MAX: 50
+			},
+			LIFE: {
+				MIN: 3,
+				MAX: 10
+			},
+			ENERGY: {
+				MIN: 10,
+				MAX: 25
+			}
+		},
+	};
+
 	static readonly DEFAULT_FUNCTIONS = {
 		CAN_BE_EXECUTED: {
 			onContinent: (player: Player): boolean => Maps.isOnContinent(player),
