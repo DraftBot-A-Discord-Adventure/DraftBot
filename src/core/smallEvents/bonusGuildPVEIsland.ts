@@ -108,7 +108,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 
         response.push(makePacket<SmallEventBonusGuildPVEIslandPacket>({
             hasEnoughMemberOnPVEIsland: true,
-            eventName: "",
+            eventName,
             amount,
             isXp
         }))
