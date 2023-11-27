@@ -1,20 +1,22 @@
 {
-  "possibleInfos": [
-    "nbMeanPoints",
-    "meanWeeklyScore",
-    "nbPlayersHaventStartedTheAdventure",
-    "levelMean",
-    "nbMeanMoney",
-    "sumAllMoney",
-    "richestPlayer",
-    "trainedPets",
-    "feistyPets",
-    "percentMalePets",
-    "percentFemalePets",
-    "guildLevelMean",
-    "nbPlayersWithGivenClass",
-    "nbPlayersOnYourMap"
-  ],
+  "properties": {
+    "possibleInfos": [
+      "nbMeanPoints",
+      "meanWeeklyScore",
+      "nbPlayersHaventStartedTheAdventure",
+      "levelMean",
+      "nbMeanMoney",
+      "sumAllMoney",
+      "richestPlayer",
+      "trainedPets",
+      "feistyPets",
+      "percentMalePets",
+      "percentFemalePets",
+      "guildLevelMean",
+      "nbPlayersWithGivenClass",
+      "nbPlayersOnYourMap"
+    ]
+  },
   "rarity": 2,
   "emote": ":white_flower:"
 }
