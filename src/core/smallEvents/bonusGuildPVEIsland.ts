@@ -85,7 +85,7 @@ export const smallEventFuncs: SmallEventFuncs = {
     canBeExecuted: (player) => SmallEventConstants.DEFAULT_FUNCTIONS.CAN_BE_EXECUTED.onPveIsland(player),
     executeSmallEvent: async (response, player): Promise<void> => {
         if (!await hasEnoughMemberOnPVEIsland(player)) {
-            response.push(makePacket<SmallEventBonusGuildPVEIslandPacket>({hasEnoughMemberOnPVEIsland: false, amount: "", isXp: false}))
+            response.push(makePacket<SmallEventBonusGuildPVEIslandPacket>({hasEnoughMemberOnPVEIsland: false, eventName: "", amount: "", isXp: false}))
             return;
         }
 
@@ -108,6 +108,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 
         response.push(makePacket<SmallEventBonusGuildPVEIslandPacket>({
             hasEnoughMemberOnPVEIsland: true,
+            eventName: "",
             amount,
             isXp
         }))
