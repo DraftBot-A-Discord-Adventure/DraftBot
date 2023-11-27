@@ -98,7 +98,7 @@ export const smallEventFuncs: SmallEventFuncs = {
         if (probabilities < SmallEventConstants.BONUS_GUILD_PVE_ISLANDS.PROBABILITIES.SUCCESS) {
             issue = event.success;
         }
-        else if (probabilities > SmallEventConstants.BONUS_GUILD_PVE_ISLANDS.PROBABILITIES.ESCAPE) {
+        else if (probabilities < SmallEventConstants.BONUS_GUILD_PVE_ISLANDS.PROBABILITIES.ESCAPE) {
             issue = event.escape;
         } else issue = event.loose;
 

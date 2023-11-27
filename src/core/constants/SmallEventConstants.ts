@@ -243,29 +243,7 @@ export abstract class SmallEventConstants {
 		PROBABILITIES: {
 			SUCCESS: 10,
 			ESCAPE: 40
-		},
-		MALUS: {
-			EXP_OR_POINTS_GUILD: {
-				MIN: 25,
-				MAX: 100
-			},
-			EXP: {
-				MIN: 20,
-				MAX: 25
-			},
-			MONEY: {
-				MIN: 25,
-				MAX: 50
-			},
-			LIFE: {
-				MIN: 3,
-				MAX: 10
-			},
-			ENERGY: {
-				MIN: 10,
-				MAX: 25
-			}
-		},
+		}
 	};
 
 	static readonly DEFAULT_FUNCTIONS = {
