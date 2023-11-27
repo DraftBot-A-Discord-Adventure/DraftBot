@@ -295,8 +295,6 @@ export abstract class Constants {
 		}
 	};
 
-	static readonly MAX_TIME_BOT_RESPONSE = 30000;
-
 	static readonly MINIMAL_PLAYER_SCORE = 100;
 
 	static readonly PERMISSION = {
