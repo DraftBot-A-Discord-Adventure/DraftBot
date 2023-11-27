@@ -242,7 +242,8 @@ export abstract class SmallEventConstants {
 	static readonly DEFAULT_FUNCTIONS = {
 		CAN_BE_EXECUTED: {
 			onContinent: (player: Player): boolean => Maps.isOnContinent(player),
-			onPveIsland: (player: Player): boolean => Maps.isOnPveIsland(player)
+			onPveIsland: (player: Player): boolean => Maps.isOnPveIsland(player),
+			onBoat: (player: Player): boolean => Maps.isOnBoat(player)
 		}
 	};
 }
