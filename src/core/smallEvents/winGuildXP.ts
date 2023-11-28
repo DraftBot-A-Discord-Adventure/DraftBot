@@ -5,9 +5,10 @@ import {RandomUtils} from "../utils/RandomUtils";
 import {Guilds} from "../database/game/models/Guild";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import {SmallEventWinGuildXPPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinGuildXPPacket";
+import {Maps} from "../maps/Maps";
 
 export const smallEventFuncs: SmallEventFuncs = {
-	canBeExecuted: (player) => SmallEventConstants.DEFAULT_FUNCTIONS.CAN_BE_EXECUTED.onContinent(player) && player.hasAGuild(),
+	canBeExecuted: (player) => Maps.isOnContinent(player) && player.hasAGuild(),
 	executeSmallEvent: async (response, player): Promise<void> => {
 		const guild = await Guilds.getById(player.guildId);
 		const xpWon = RandomUtils.draftbotRandom.integer(

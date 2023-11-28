@@ -1,6 +1,5 @@
 import {Constants} from "../Constants";
 import {ItemConstants} from "./ItemConstants";
-import {Maps} from "../maps/Maps";
 
 export abstract class SmallEventConstants {
 	static readonly HEALTH = {
@@ -242,14 +241,6 @@ export abstract class SmallEventConstants {
 		PROBABILITIES: {
 			SUCCESS: 10,
 			ESCAPE: 40
-		}
-	};
-
-	static readonly DEFAULT_FUNCTIONS = {
-		CAN_BE_EXECUTED: {
-			onContinent: Maps.isOnContinent,
-			onPveIsland: Maps.isOnPveIsland,
-			onBoat: Maps.isOnBoat
 		}
 	};
 }

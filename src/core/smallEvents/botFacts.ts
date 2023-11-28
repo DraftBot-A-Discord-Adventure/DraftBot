@@ -1,5 +1,4 @@
 import {SmallEventDataController, SmallEventFuncs} from "../../data/SmallEvent";
-import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {RandomUtils} from "../utils/RandomUtils";
 import {Players} from "../database/game/models/Player";
@@ -8,6 +7,7 @@ import {Guilds} from "../database/game/models/Guild";
 import {ClassDataController} from "../../data/Class";
 import {readdirSync} from "fs";
 import {SmallEventBotFactsPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventBotFactsPacket";
+import {Maps} from "../maps/Maps";
 
 type BotFactsProperties = {
     "properties": {
@@ -22,7 +22,7 @@ const getNbPlayersWithGivenClass = async (): Promise<[number, number]> => {
 };
 
 export const smallEventFuncs: SmallEventFuncs = {
-	canBeExecuted: (player) => SmallEventConstants.DEFAULT_FUNCTIONS.CAN_BE_EXECUTED.onContinent(player),
+	canBeExecuted: Maps.isOnContinent,
 	executeSmallEvent: async (response, player): Promise<void> => {
 		const botFactsProperties = SmallEventDataController.instance.getById("botFacts").getProperties<BotFactsProperties>();
 		const information = RandomUtils.draftbotRandom.pick(Object.keys(botFactsProperties.properties.possibleInfos));

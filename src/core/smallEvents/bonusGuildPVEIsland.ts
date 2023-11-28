@@ -84,7 +84,7 @@ async function applyPossibility(player: Player, response: DraftBotPacket[], malu
 }
 
 export const smallEventFuncs: SmallEventFuncs = {
-	canBeExecuted: (player) => SmallEventConstants.DEFAULT_FUNCTIONS.CAN_BE_EXECUTED.onPveIsland(player),
+	canBeExecuted: Maps.isOnPveIsland,
 	executeSmallEvent: async (response, player): Promise<void> => {
 		if (!await hasEnoughMemberOnPVEIsland(player)) {
 			response.push(makePacket<SmallEventBonusGuildPVEIslandPacket>({hasEnoughMemberOnPVEIsland: false, eventName: "", amount: "", isXp: false}));

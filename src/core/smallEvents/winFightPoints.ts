@@ -1,12 +1,12 @@
 import {SmallEventFuncs} from "../../data/SmallEvent";
-import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {RandomUtils} from "../utils/RandomUtils";
 import {PVEConstants} from "../constants/PVEConstants";
 import {SmallEventWinFightPointsPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinFightPointsPacket";
+import {Maps} from "../maps/Maps";
 
 export const smallEventFuncs: SmallEventFuncs = {
-	canBeExecuted: (player) => SmallEventConstants.DEFAULT_FUNCTIONS.CAN_BE_EXECUTED.onPveIsland(player) && player.fightPointsLost > 0,
+	canBeExecuted: (player) => Maps.isOnPveIsland(player) && player.fightPointsLost > 0,
 	executeSmallEvent: async (response, player): Promise<void> => {
 		const maxFightPoints = player.getMaxCumulativeFightPoint();
 		const amount = RandomUtils.randInt(

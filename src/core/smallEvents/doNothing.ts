@@ -1,7 +1,11 @@
-import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {SmallEventFuncs} from "../../data/SmallEvent";
+import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
+import {SmallEventDoNothingPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventDoNothingPacket";
+import {Maps} from "../maps/Maps";
 
 export const smallEventFuncs: SmallEventFuncs = {
-	canBeExecuted: SmallEventConstants.DEFAULT_FUNCTIONS.CAN_BE_EXECUTED.onContinent || SmallEventConstants.DEFAULT_FUNCTIONS.CAN_BE_EXECUTED.onPveIsland,
-	executeSmallEvent: (): void => {}
+	canBeExecuted: (player) => Maps.isOnContinent(player) || Maps.isOnPveIsland(player),
+	executeSmallEvent: (response): void => {
+		response.push(makePacket<SmallEventDoNothingPacket>({}));
+	}
 };

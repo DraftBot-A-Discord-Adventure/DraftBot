@@ -6,6 +6,7 @@ import {TravelTime} from "../maps/TravelTime";
 import {MissionsController} from "../missions/MissionsController";
 import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {SmallEventBigBadPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventBigBadPacket";
+import {Maps} from "../maps/Maps";
 
 type BigBadProperties = {
 	"alterationStories": {
@@ -17,7 +18,7 @@ type BigBadProperties = {
 }
 
 export const smallEventFuncs: SmallEventFuncs = {
-	canBeExecuted: SmallEventConstants.DEFAULT_FUNCTIONS.CAN_BE_EXECUTED.onContinent,
+	canBeExecuted: Maps.isOnContinent,
 	executeSmallEvent: async (response, player): Promise<void> => {
 		const outRand = RandomUtils.draftbotRandom.integer(0, 2);
 		let lifeLoss, seFallen, moneyLoss;

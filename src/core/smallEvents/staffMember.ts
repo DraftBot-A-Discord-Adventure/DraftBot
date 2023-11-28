@@ -1,10 +1,10 @@
-import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {SmallEventFuncs} from "../../data/SmallEvent";
 import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {SmallEventStaffMemberPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventStaffMemberPacket";
+import {Maps} from "../maps/Maps";
 
 export const smallEventFuncs: SmallEventFuncs = {
-	canBeExecuted: SmallEventConstants.DEFAULT_FUNCTIONS.CAN_BE_EXECUTED.onContinent,
+	canBeExecuted: Maps.isOnContinent,
 	executeSmallEvent: (response): void => {
 		response.push(makePacket<SmallEventStaffMemberPacket>({}));
 	}
