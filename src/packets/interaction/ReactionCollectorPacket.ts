@@ -2,7 +2,8 @@ import {DraftBotPacket} from "../DraftBotPacket";
 
 export enum ReactionCollectorType {
     ACCEPT_ITEM,
-    ACCEPT_ITEM_CHOICE
+    ACCEPT_ITEM_CHOICE,
+	GOBLET_CHOOSE,
 }
 
 export interface ReactionCollectorCreationPacket extends DraftBotPacket {
