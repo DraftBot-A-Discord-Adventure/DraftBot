@@ -24,13 +24,19 @@ export type CollectorOptions = {
 	collectorType?: ReactionCollectorType;
 	reactions?: string[];
 	time?: number;
+	allowedPlayerIds?: number[];
 };
 
 export type ReactionCollectorOptions<T> = {
 	allowedPlayerIds?: number[],
 	choices?: T[],
 	callback?: ChoiceReactionCallback<T>,
-}
+};
+
+type ReactionInfo = {
+	playerId: number,
+	emoji: string
+};
 
 export class ReactionCollector {
 	protected static collectors: Map<string, ReactionCollector>;
@@ -55,6 +61,7 @@ export class ReactionCollector {
 
 	protected hasEnded: boolean;
 
+	protected reactionsHistory: ReactionInfo[] = [];
 
 	protected constructor(context: PacketContext, collectorOptions: CollectorOptions, collectorFunctions: CollectorFunctions) {
 		this.collectorType = collectorOptions.collectorType;
@@ -85,14 +92,15 @@ export class ReactionCollector {
 	}
 
 	public async end(): Promise<void> {
-		if (!this.hasEnded) {
-			this.hasEnded = true;
-			ReactionCollector.collectors.delete(this.id);
-			if (this.endCallback) {
-				const response: DraftBotPacket[] = [];
-				await this.endCallback(this, response);
-				sendPacketsToContext(this.context, response);
-			}
+		if (this.hasEnded) {
+			return;
+		}
+		this.hasEnded = true;
+		ReactionCollector.collectors.delete(this.id);
+		if (this.endCallback) {
+			const response: DraftBotPacket[] = [];
+			await this.endCallback(this, response);
+			sendPacketsToContext(this.context, response);
 		}
 	}
 
@@ -110,11 +118,18 @@ export class ReactionCollector {
 		return this;
 	}
 
+	public getReactionsHistory(): ReactionInfo[] {
+		return this.reactionsHistory;
+	}
+
+	public getFirstReaction(): ReactionInfo {
+		return this.reactionsHistory[0] ?? {playerId: null, emoji: null};
+	}
+
 	private async react(playerId: number, reaction: string, response: DraftBotPacket[]): Promise<void> {
-		if (await this.filter(playerId, reaction)) {
-			if (this.collectCallback) {
-				await this.collectCallback(this, playerId, reaction, response);
-			}
+		if (await this.filter(playerId, reaction) && this.collectCallback) {
+			this.reactionsHistory.push({playerId, emoji: reaction});
+			await this.collectCallback(this, playerId, reaction, response);
 		}
 	}
 }
@@ -122,8 +137,11 @@ export class ReactionCollector {
 export class GenericReactionCollector extends ReactionCollector {
 	public static create(
 		context: PacketContext,
-		{collectorType, reactions, time = Constants.MESSAGES.COLLECTOR_TIME}: CollectorOptions,
-		{filter, collect, end = null}: CollectorFunctions
+		{collectorType, reactions, allowedPlayerIds, time = Constants.MESSAGES.COLLECTOR_TIME}: CollectorOptions, {
+			filter = (playerId, reaction): boolean => allowedPlayerIds.includes(playerId) && reactions.includes(reaction),
+			collect = async (collector): Promise<void> => await collector.end(),
+			end
+		}: CollectorFunctions
 	): GenericReactionCollector {
 		const collector = new GenericReactionCollector(context,
 			{collectorType, reactions, time},

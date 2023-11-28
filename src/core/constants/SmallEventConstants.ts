@@ -1,7 +1,6 @@
 import {Constants} from "../Constants";
 import {ItemConstants} from "./ItemConstants";
 import {Maps} from "../maps/Maps";
-import Player from "../database/game/models/Player";
 
 export abstract class SmallEventConstants {
 	static readonly HEALTH = {
@@ -248,9 +247,9 @@ export abstract class SmallEventConstants {
 
 	static readonly DEFAULT_FUNCTIONS = {
 		CAN_BE_EXECUTED: {
-			onContinent: (player: Player): boolean => Maps.isOnContinent(player),
-			onPveIsland: (player: Player): boolean => Maps.isOnPveIsland(player),
-			onBoat: (player: Player): boolean => Maps.isOnBoat(player)
+			onContinent: Maps.isOnContinent,
+			onPveIsland: Maps.isOnPveIsland,
+			onBoat: Maps.isOnBoat
 		}
 	};
 }
