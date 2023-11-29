@@ -40,7 +40,7 @@ export class MapLocation extends Data<number> {
 }
 
 export class MapLocationDataController extends DataController<number, MapLocation> {
-	static readonly instance: MapLocationDataController = new MapLocationDataController("maplocations");
+	static readonly instance: MapLocationDataController = new MapLocationDataController("mapLocations");
 
 	private missionsMapsCache: MapLocation[] = null;
 

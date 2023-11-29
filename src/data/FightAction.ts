@@ -42,7 +42,7 @@ export type FightActionFunc = (sender: Fighter, receiver: Fighter, fightAction: 
 
 
 export class FightActionDataController extends DataController<string, FightAction> {
-	static readonly instance: FightActionDataController = new FightActionDataController("fightactions");
+	static readonly instance: FightActionDataController = new FightActionDataController("fightActions");
 
 	private static fightActionsFunctionsCache: Map<string, FightActionFunc>;
 

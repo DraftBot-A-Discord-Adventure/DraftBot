@@ -17,7 +17,7 @@ export class FightAlteration extends FightAction {
 export type FightAlterationFunc = (affected: Fighter, fightAlteration: FightAlteration, opponent: Fighter, turn: number, fight: FightController) => FightAlterationResult;
 
 export class FightAlterationDataController extends DataController<string, FightAlteration> {
-	static readonly instance: FightAlterationDataController = new FightAlterationDataController("fightactions");
+	static readonly instance: FightAlterationDataController = new FightAlterationDataController("fightActions");
 
 	private static fightAlterationsFunctionsCache: Map<string, FightAlterationFunc>;
 

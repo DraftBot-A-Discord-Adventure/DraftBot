@@ -14,7 +14,7 @@ export class MapLink extends Data<number> {
 }
 
 export class MapLinkDataController extends DataController<number, MapLink> {
-	static readonly instance: MapLinkDataController = new MapLinkDataController("maplinks");
+	static readonly instance: MapLinkDataController = new MapLinkDataController("mapLinks");
 
 	newInstance(): MapLink {
 		return new MapLink();
