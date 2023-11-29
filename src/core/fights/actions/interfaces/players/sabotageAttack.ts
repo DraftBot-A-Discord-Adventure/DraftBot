@@ -24,7 +24,7 @@ export default class SabotageAttack extends FightAction {
 				});
 			}
 			// If paralyzed, damages of this attack are increased
-			damageDealt *= 1.5;
+			damageDealt = Math.round(damageDealt * 1.5);
 		}
 
 		return this.getGenericAttackOutput(damageDealt, initialDamage, language, sideEffects);

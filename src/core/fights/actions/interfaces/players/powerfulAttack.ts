@@ -9,13 +9,13 @@ import {RandomUtils} from "../../../../utils/RandomUtils";
 export default class PowerfulAttack extends FightAction {
 	use(sender: Fighter, receiver: Fighter, turn: number, language: string): string {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
-		let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 15);
+		let damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 3);
 
 		// Check how many times the attack appears in the fight action history of the sender
 		const count = sender.fightActionsHistory.filter(action => action instanceof PowerfulAttack).length;
 
-		// If the attack is repeated more than 3 times, the damage dealt is reduced by 70%
-		damageDealt *= count > 3 ? 0.3 : 1;
+		// If the attack has already been done more than 2 times in the past, the damage dealt is reduced by 70%
+		damageDealt *= count > 2 ? 0.3 : 1;
 
 		const attackTranslationModule = Translations.getModule("commands.fight", language);
 
