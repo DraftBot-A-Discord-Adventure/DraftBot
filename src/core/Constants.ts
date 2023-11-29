@@ -44,7 +44,8 @@ export abstract class Constants {
 			SUCCESSFUL: "#5EAD45"
 		},
 		PROGRESS_BAR_SIZE: 20,
-		MAX_SPAM_COUNT: 3
+		MAX_SPAM_COUNT: 3,
+		DEFAULT_REACTION_LIMIT: 1
 	};
 
 	static readonly TOPGG = {

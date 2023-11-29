@@ -179,10 +179,10 @@ function manageMoreThan2ItemsSwitching(
 	response.push(ChoiceReactionCollector.create<InventorySlot>(
 		context,
 		{
-			collectorType: ReactionCollectorType.ACCEPT_ITEM_CHOICE
-		},
-		{
-			callback: async (collector, playerId, inventorySlot, response) => {
+			collectorType: ReactionCollectorType.ACCEPT_ITEM_CHOICE,
+			choices: items,
+			allowedPlayerIds: [player.id],
+			callback: async (_collector, inventorySlot, _playerId, response) => {
 				player = await Players.getById(player.id);
 				BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.ACCEPT_ITEM);
 				await sellOrKeepItem(
@@ -191,17 +191,16 @@ function manageMoreThan2ItemsSwitching(
 					response,
 					item,
 					inventorySlot,
-					await inventorySlot.getItem(),
+					inventorySlot.getItem(),
 					resaleMultiplier,
 					resaleMultiplierActual,
 					false,
 					inventorySlots
 				);
-			},
-			allowedPlayerIds: [player.id],
-			choices: items
+			}
 		},
-		async (collector, response) => {
+		async (_collector, response) => {
+			player = await Players.getById(player.id);
 			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.ACCEPT_ITEM);
 			await sellOrKeepItem(
 				player,
@@ -302,9 +301,11 @@ export const giveItemToPlayer = async function(
 	response.push(
 		ValidationReactionCollector.create(
 			context,
-			ReactionCollectorType.ACCEPT_ITEM,
-			[player.id],
-			async (collector: ValidationReactionCollector) => {
+			{
+				collectorType: ReactionCollectorType.ACCEPT_ITEM,
+				allowedPlayerIds: [player.id]
+			},
+			async (collector: ValidationReactionCollector, response) => {
 				player = await Players.getById(player.id);
 				BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.ACCEPT_ITEM);
 				await sellOrKeepItem(

@@ -239,6 +239,15 @@ export class Player extends Model {
 		return this;
 	}
 
+	public async spendMoney(parameters: EditValueParameters): Promise<Player> {
+		await MissionsController.update(this, parameters.response, {
+			missionId: "spendMoney",
+			count: parameters.amount
+		});
+		parameters.amount = -parameters.amount;
+		return this.addMoney(parameters);
+	}
+
 	/**
 	 * Check if a player needs to level up
 	 */

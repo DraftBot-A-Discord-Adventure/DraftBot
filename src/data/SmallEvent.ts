@@ -18,8 +18,8 @@ export class SmallEvent extends Data<string> {
 	}
 }
 
-type CanBeExecutedLike = (player: Player) => boolean | Promise<boolean>;
-type ExecuteSmallEventLike = (response: DraftBotPacket[], player: Player, client: WebsocketClient) => void | Promise<void>;
+export type CanBeExecutedLike = (player: Player) => boolean | Promise<boolean>;
+export type ExecuteSmallEventLike = (response: DraftBotPacket[], player: Player, client: WebsocketClient) => void | Promise<void>;
 
 export type SmallEventFuncs = {
 	canBeExecuted: CanBeExecutedLike;

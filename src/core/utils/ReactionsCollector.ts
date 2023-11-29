@@ -6,13 +6,13 @@ import {BlockingUtils} from "./BlockingUtils";
 import {sendPacketsToContext} from "../../../../Lib/src/packets/PacketUtils";
 import {WebsocketClient} from "../../../../Lib/src/instances/WebsocketClient";
 
-type CollectCallback = (collector: ReactionCollector, playerId: number, reaction: string, response: DraftBotPacket[]) => void | Promise<void>;
+type CollectCallback = (collector: ReactionCollector, reaction: string, playerId: number, response: DraftBotPacket[]) => void | Promise<void>;
 
-type EndCallback = (collector: ReactionCollector, response: DraftBotPacket[]) => void | Promise<void>;
+export type EndCallback = (collector: ReactionCollector, response: DraftBotPacket[]) => void | Promise<void>;
 
 type FilterFunction = (playerId: number, reaction: string) => boolean | Promise<boolean>;
 
-type ChoiceReactionCallback<T> = (collector: ChoiceReactionCollector, playerId: number, item: T, response: DraftBotPacket[]) => Promise<void>
+type ChoiceReactionCallback<T> = (collector: ChoiceReactionCollector, item: T, playerId: number, response: DraftBotPacket[]) => Promise<void>
 
 export type CollectorFunctions = {
 	collect?: CollectCallback;
@@ -25,18 +25,26 @@ export type CollectorOptions = {
 	reactions?: string[];
 	time?: number;
 	allowedPlayerIds?: number[];
+	reactionLimit?: number;
 };
 
 export type ReactionCollectorOptions<T> = {
-	allowedPlayerIds?: number[],
-	choices?: T[],
+	allowedPlayerIds: number[],
+	collectorType: ReactionCollectorType
+	choices: T[],
 	callback?: ChoiceReactionCallback<T>,
+	time?: number,
+	reactionLimit?: number
 };
 
 type ReactionInfo = {
 	playerId: number,
 	emoji: string
 };
+
+export function createDefaultFilter(reactions: string[], allowedPlayerIds: number[]): FilterFunction {
+	return (playerId, reaction) => allowedPlayerIds.includes(playerId) && reactions.includes(reaction);
+}
 
 export class ReactionCollector {
 	protected static collectors: Map<string, ReactionCollector>;
@@ -59,6 +67,8 @@ export class ReactionCollector {
 
 	protected readonly endCallback: EndCallback;
 
+	protected readonly reactionLimit: number;
+
 	protected hasEnded: boolean;
 
 	protected reactionsHistory: ReactionInfo[] = [];
@@ -72,6 +82,7 @@ export class ReactionCollector {
 		this.collectCallback = collectorFunctions.collect;
 		this.context = context;
 		this.endCallback = collectorFunctions.end;
+		this.reactionLimit = collectorOptions.reactionLimit;
 	}
 
 	public static async reactPacket(_client: WebsocketClient, packet: ReactionCollectorReactPacket, response: DraftBotPacket[]): Promise<void> {
@@ -127,9 +138,18 @@ export class ReactionCollector {
 	}
 
 	private async react(playerId: number, reaction: string, response: DraftBotPacket[]): Promise<void> {
-		if (await this.filter(playerId, reaction) && this.collectCallback) {
-			this.reactionsHistory.push({playerId, emoji: reaction});
-			await this.collectCallback(this, playerId, reaction, response);
+		if (!await this.filter(playerId, reaction)) {
+			return;
+		}
+		this.reactionsHistory.push({
+			playerId,
+			emoji: reaction
+		});
+		if (this.collectCallback) {
+			await this.collectCallback(this, reaction, playerId, response);
+		}
+		if (this.reactionsHistory.length >= this.reactionLimit && this.reactionLimit > 0) {
+			await this.end();
 		}
 	}
 }
@@ -137,14 +157,20 @@ export class ReactionCollector {
 export class GenericReactionCollector extends ReactionCollector {
 	public static create(
 		context: PacketContext,
-		{collectorType, reactions, allowedPlayerIds, time = Constants.MESSAGES.COLLECTOR_TIME}: CollectorOptions, {
-			filter = (playerId, reaction): boolean => allowedPlayerIds.includes(playerId) && reactions.includes(reaction),
-			collect = async (collector): Promise<void> => await collector.end(),
+		collectorOptions: CollectorOptions, {
+			filter = createDefaultFilter(collectorOptions.reactions, collectorOptions.allowedPlayerIds),
+			collect = null,
 			end
 		}: CollectorFunctions
 	): GenericReactionCollector {
+		if (!collectorOptions.reactionLimit) {
+			collectorOptions.reactionLimit = Constants.MESSAGES.DEFAULT_REACTION_LIMIT;
+		}
+		if (!collectorOptions.time) {
+			collectorOptions.time = Constants.MESSAGES.COLLECTOR_TIME;
+		}
 		const collector = new GenericReactionCollector(context,
-			{collectorType, reactions, time},
+			collectorOptions,
 			{filter, collect, end});
 		ReactionCollector.register(collector);
 		return collector;
@@ -156,23 +182,21 @@ export class ValidationReactionCollector extends ReactionCollector {
 
 	public static create(
 		context: PacketContext,
-		collectorType: ReactionCollectorType,
-		allowedPlayerIds: number[],
-		callback: CollectCallback,
-		endCallback: EndCallback = null,
-		time: number = Constants.MESSAGES.COLLECTOR_TIME
+		collectorOptions: CollectorOptions,
+		endCallback: EndCallback
 	): ValidationReactionCollector {
 		const reactions = [Constants.REACTIONS.VALIDATE_REACTION, Constants.REACTIONS.REFUSE_REACTION];
-		const filter = (playerId: number, reaction: string): boolean => allowedPlayerIds.includes(playerId) && reactions.includes(reaction);
-		const callbackOverload: CollectCallback = async (collector: ValidationReactionCollector, playerId: number, reaction: string, response: DraftBotPacket[]) => {
+		const callbackOverload: CollectCallback = (collector: ValidationReactionCollector, reaction: string) => {
 			collector.validated = reaction === reactions[0];
-			await callback(collector, playerId, reaction, response);
 		};
+
+		collectorOptions.reactions = reactions;
+		collectorOptions.reactionLimit = Constants.MESSAGES.DEFAULT_REACTION_LIMIT;
 
 		const collector = new ValidationReactionCollector(
 			context,
-			{collectorType, reactions, time},
-			{filter, collect: callbackOverload, end: endCallback}
+			collectorOptions,
+			{collect: callbackOverload, end: endCallback}
 		);
 		ReactionCollector.register(collector);
 		return collector;
@@ -186,33 +210,36 @@ export class ValidationReactionCollector extends ReactionCollector {
 export class ChoiceReactionCollector extends ReactionCollector {
 	public static create<T>(
 		context: PacketContext,
-		{collectorType, time = Constants.MESSAGES.COLLECTOR_TIME}: CollectorOptions,
-		{allowedPlayerIds, choices, callback}: ReactionCollectorOptions<T>,
-		endCallback: EndCallback = null
+		collectorOptions: ReactionCollectorOptions<T>,
+		defaultEndCallback: EndCallback
 	): ChoiceReactionCollector {
+		const options: CollectorOptions = {
+			allowedPlayerIds: collectorOptions.allowedPlayerIds,
+			collectorType: collectorOptions.collectorType,
+			time: collectorOptions.time ?? Constants.MESSAGES.COLLECTOR_TIME,
+			reactionLimit: collectorOptions.reactionLimit ?? Constants.MESSAGES.DEFAULT_REACTION_LIMIT
+		};
 		const reactions: string[] = [];
 		const reactionsMap = new Map<string, T>();
-		for (let i = 0; i < choices.length; ++i) {
+		for (let i = 0; i < collectorOptions.choices.length; ++i) {
 			reactions.push(Constants.REACTIONS.NUMBERS[i]);
-			reactionsMap.set(Constants.REACTIONS.NUMBERS[i], choices[i]);
+			reactionsMap.set(Constants.REACTIONS.NUMBERS[i], collectorOptions.choices[i]);
 		}
-		const filter: FilterFunction = (playerId, reaction) => allowedPlayerIds.includes(playerId) && reactions.includes(reaction);
-		const callbackOverload: CollectCallback = async (collector: ChoiceReactionCollector, playerId: number, reaction: string, response: DraftBotPacket[]) => {
-			const item = reactionsMap.get(reaction);
-			await callback(collector, playerId, item, response);
+		options.reactions = reactions;
+		const endOverload: EndCallback = async (collector, response) => {
+			const choice = reactionsMap.get(collector.getFirstReaction().emoji);
+			if (choice) {
+				await collectorOptions.callback(collector, choice, collector.getFirstReaction().playerId, response);
+			}
+			else {
+				await defaultEndCallback(collector, response);
+			}
 		};
-
 		const collector = new ChoiceReactionCollector(
 			context,
+			options,
 			{
-				collectorType,
-				reactions,
-				time
-			},
-			{
-				collect: callbackOverload,
-				end: endCallback,
-				filter
+				end: endOverload
 			}
 		);
 		ReactionCollector.register(collector);
