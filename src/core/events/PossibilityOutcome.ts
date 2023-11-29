@@ -87,14 +87,14 @@ async function applyOutcomeMoney(outcome: PossibilityOutcome, time: number, play
 		return "";
 	}
 	const isMoneyChangePositive = moneyChange > 0;
-	moneyChange = Math.abs(moneyChange);
+	const moneyChangeAbs = Math.abs(moneyChange);
 	if (!isMoneyChangePositive && outcome.tags?.includes("moneyUsage")) {
-		await player.spendMoney(Object.assign(valuesToEditParameters, {amount: moneyChange}));
+		await player.spendMoney(Object.assign(valuesToEditParameters, {amount: moneyChangeAbs}));
 	}
 	else {
 		await player.addMoney(Object.assign(valuesToEditParameters, {amount: moneyChange}));
 	}
-	return textInformation.tr.format(isMoneyChangePositive ? "money" : "moneyLoose", {money: moneyChange});
+	return textInformation.tr.format(isMoneyChangePositive ? "money" : "moneyLoose", {money: moneyChangeAbs});
 }
 
 function applyOutcomeEnergy(outcome: PossibilityOutcome, player: Player, textInformation: TextInformation): string {
