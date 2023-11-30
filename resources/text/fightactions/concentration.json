@@ -12,7 +12,7 @@
 			"namePlural": "Concentrations",
 			"active": "is trying to concentrate...",
 			"fail": "can't concentrate!",
-			"description": "Fails if you use this action while you have an alteration. The alteration \"concentrated\" increases highly the damages dealt by the affected fighter during the next turn."
+			"description": "Fails if you use this action while you have an alteration. The alteration \"concentrated\" highly increases the damages dealt by the affected fighter during the next turn."
 		}
 	},
 	"emote": "\uD83C\uDFAF",
