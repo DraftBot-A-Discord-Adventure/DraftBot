@@ -3,6 +3,7 @@ import {SmallEventPacket} from "./SmallEventPacket";
 
 export interface SmallEventFightPetCollectorCreationPacket extends ReactionCollectorCreationPacket {
 	petId: number;
+	isFemale: boolean;
 }
 
 export interface SmallEventFightPetPacket extends SmallEventPacket {
