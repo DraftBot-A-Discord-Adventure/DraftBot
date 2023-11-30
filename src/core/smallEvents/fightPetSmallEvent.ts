@@ -18,6 +18,7 @@ import {FeralPet} from "../database/game/models/FeralPet";
 import {ClassInfoConstants} from "../constants/ClassInfoConstants";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import {DraftbotInteraction} from "../messages/DraftbotInteraction";
+import {Data} from "../Data";
 
 /**
  * Returns an object composed of three random witch events
@@ -52,7 +53,10 @@ function getRandomFightPetActions(player: Player): FightPetAction[] {
 function retrieveSelectedEvent(fightPetActionMessage: DraftBotReactionMessage): FightPetAction {
 	const reaction = fightPetActionMessage.getFirstReaction();
 	// If the player did not react, we use the nothing happen event with the menu reaction deny
-	const reactionEmoji = reaction ? reaction.emoji.name : Constants.REACTIONS.NOT_REPLIED_REACTION;
+	const reactionEmoji = reaction
+		? reaction.emoji.name === Constants.REACTIONS.NOT_REPLIED_REACTION
+			? Data.getModule("smallEvents.fightPet").getString("fightPetActionEmotes.doNothing")
+			: reaction.emoji.name : Data.getModule("smallEvents.fightPet").getString("fightPetActionEmotes.doNothing");
 	return FightPetActions.getFightPetActionByEmoji(reactionEmoji);
 }
 
