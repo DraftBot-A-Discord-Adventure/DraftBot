@@ -22,9 +22,9 @@ export default class SabotageAttack extends FightAction {
 					adversary: FightConstants.TARGET.SELF,
 					effect: attackTranslationModule.get("effects.paralyzed").toLowerCase()
 				});
+				// If paralyzed, damages of this attack are increased
+				damageDealt = Math.round(damageDealt * 1.5);
 			}
-			// If paralyzed, damages of this attack are increased
-			damageDealt = Math.round(damageDealt * 1.5);
 		}
 
 		return this.getGenericAttackOutput(damageDealt, initialDamage, language, sideEffects);
