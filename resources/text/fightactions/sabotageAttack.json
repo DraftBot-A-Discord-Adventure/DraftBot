@@ -8,7 +8,7 @@
 		"en": {
 			"name": "Sabotage attack",
 			"namePlural": "Sabotage attacks",
-			"description": "Ignores the opponent’s defense completely. Works better on an opponent with low attack. Attack that costs little breath but that can paralyzes the attacker. If that happens, the damages are increased."
+			"description": "Ignores the opponent’s defense completely. Works better on an opponent with low attack. Attack that costs little breath but that can paralyze the attacker. If that happens, the damages are increased."
 		}
 	},
 	"emote": "\uD83D\uDEE0️",
