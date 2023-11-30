@@ -102,6 +102,11 @@ export class ReactionCollector {
 		setTimeout(collector.end, collector.endTime - Date.now());
 	}
 
+	public allowEndReaction(): this {
+		this.reactions.push(Constants.REACTIONS.NOT_REPLIED_REACTION);
+		return this;
+	}
+
 	public async end(): Promise<void> {
 		if (this.hasEnded) {
 			return;
@@ -124,7 +129,7 @@ export class ReactionCollector {
 		};
 	}
 
-	public block(playerId: number, reason: string): ReactionCollector {
+	public block(playerId: number, reason: string): this {
 		BlockingUtils.blockPlayerUntil(playerId, reason, this.endTime);
 		return this;
 	}

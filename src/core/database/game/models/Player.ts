@@ -654,6 +654,10 @@ export class Player extends Model {
 		return fp;
 	}
 
+	public getRatioCumulativeFightPoint(): number {
+		return this.getCumulativeFightPoint() / this.getMaxCumulativeFightPoint();
+	}
+
 	/**
 	 * Return the player max health
 	 */
