@@ -84,7 +84,8 @@ export class PlayerSmallEvents {
 	static async playerSmallEventCount(playerId: number, smallEventId: string): Promise<number> {
 		return await PlayerSmallEvent.count({
 			where: {
-				eventType: smallEventId
+				eventType: smallEventId,
+				playerId
 			}
 		});
 	}
