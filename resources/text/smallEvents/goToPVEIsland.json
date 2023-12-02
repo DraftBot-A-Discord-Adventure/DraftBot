@@ -31,6 +31,6 @@
 			"notEnoughGems": "You accept but when the time to pay has come, you realize that you don't have enough gems. You leave disappointed."
 		}
 	},
-	"rarity": 80,
+	"rarity": 40,
 	"emote": ":ferry:"
 }
