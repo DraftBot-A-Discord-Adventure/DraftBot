@@ -5,7 +5,8 @@ export enum ReactionCollectorType {
     ACCEPT_ITEM_CHOICE,
 	GOBLET_CHOOSE,
 	SHOP_SMALL_EVENT,
-	FIGHT_PET,
+	FIGHT_PET_SMALL_EVENT,
+	WITCH_SMALL_EVENT,
 }
 
 export interface ReactionCollectorCreationPacket extends DraftBotPacket {
