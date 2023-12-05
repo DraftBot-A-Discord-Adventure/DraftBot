@@ -5,7 +5,7 @@ import {BlockingConstants} from "../constants/BlockingConstants";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import Player, {Players} from "../database/game/models/Player";
 import {InventoryInfos} from "../database/game/models/InventoryInfo";
-import {ItemConstants} from "../constants/ItemConstants";
+import {ItemCategory, ItemConstants, ItemNature, ItemRarity} from "../constants/ItemConstants";
 import {GenericItem} from "../../data/GenericItem";
 import {BlockingUtils} from "./BlockingUtils";
 import {DraftBotPacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
@@ -59,7 +59,7 @@ export const checkDrinkPotionMissions = async function(response: DraftBotPacket[
 			});
 		}
 	}
-	if (potion.nature === ItemConstants.NATURE.NONE) {
+	if (potion.nature === ItemNature.NONE) {
 		await MissionsController.update(player, response, {missionId: "drinkPotionWithoutEffect"});
 	}
 	await MissionsController.update(player, response, {
@@ -122,7 +122,7 @@ const sellOrKeepItem = async function(
 		item = itemToReplaceInstance;
 		resaleMultiplier = resaleMultiplierActual;
 	}
-	if (item.getCategory() !== ItemConstants.CATEGORIES.POTION) {
+	if (item.getCategory() !== ItemCategory.POTION) {
 		const money = Math.round(getItemValue(item) * resaleMultiplier);
 		await player.addMoney({
 			amount: money,
@@ -328,18 +328,18 @@ export const giveItemToPlayer = async function(
 
 /**
  * Generate a random rarity. Legendary is very rare and common is not rare at all
- * @param {number} minRarity
- * @param {number} maxRarity
- * @return {Number} generated rarity
+ * @param {ItemRarity} minRarity
+ * @param {ItemRarity} maxRarity
+ * @return {ItemRarity} generated rarity
  */
-export const generateRandomRarity = function(minRarity: number = ItemConstants.RARITY.COMMON, maxRarity: number = ItemConstants.RARITY.MYTHICAL): number {
+export const generateRandomRarity = function(minRarity: ItemRarity = ItemRarity.COMMON, maxRarity: ItemRarity = ItemRarity.MYTHICAL): ItemRarity {
 	const randomValue = RandomUtils.draftbotRandom.integer(
-		1 + (minRarity === ItemConstants.RARITY.COMMON ? -1 : ItemConstants.RARITY.GENERATOR.VALUES[minRarity - 2]),
+		1 + (minRarity === ItemRarity.COMMON ? -1 : ItemConstants.RARITY.GENERATOR.VALUES[minRarity - 2]),
 		ItemConstants.RARITY.GENERATOR.MAX_VALUE
-		- (maxRarity === ItemConstants.RARITY.MYTHICAL ? 0 : ItemConstants.RARITY.GENERATOR.MAX_VALUE
+		- (maxRarity === ItemRarity.MYTHICAL ? 0 : ItemConstants.RARITY.GENERATOR.MAX_VALUE
 			- ItemConstants.RARITY.GENERATOR.VALUES[maxRarity - 1])
 	);
-	let rarity = ItemConstants.RARITY.BASIC;
+	let rarity = ItemRarity.BASIC;
 	do {
 		rarity++; // We increase rarity until we find the generated one
 	} while (randomValue > ItemConstants.RARITY.GENERATOR.VALUES[rarity - 1]);
@@ -350,8 +350,8 @@ export const generateRandomRarity = function(minRarity: number = ItemConstants.R
  * Generate a random itemType
  * @return {Number}
  */
-export const generateRandomItemCategory = function(): number {
-	return RandomUtils.draftbotRandom.pick(Object.values(ItemConstants.CATEGORIES));
+export const generateRandomItemCategory = function(): ItemCategory {
+	return RandomUtils.enumPick(ItemCategory);
 };
 
 /**
@@ -362,29 +362,29 @@ export const generateRandomItemCategory = function(): number {
  * @param itemSubType
  */
 export function generateRandomItem(
-	itemCategory: number = null,
-	minRarity: number = ItemConstants.RARITY.COMMON,
-	maxRarity: number = ItemConstants.RARITY.MYTHICAL,
-	itemSubType: number = null
+	itemCategory: ItemCategory = null,
+	minRarity: ItemRarity = ItemRarity.COMMON,
+	maxRarity: ItemRarity = ItemRarity.MYTHICAL,
+	itemSubType: ItemNature = null
 ): GenericItem {
 	const rarity = generateRandomRarity(minRarity, maxRarity);
 	const category = itemCategory ?? generateRandomItemCategory();
 	let itemsIds;
 	switch (category) {
-	case ItemConstants.CATEGORIES.WEAPON:
+	case ItemCategory.WEAPON:
 		itemsIds = WeaponDataController.instance.getAllIdsForRarity(rarity);
 		return WeaponDataController.instance.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)]);
-	case ItemConstants.CATEGORIES.ARMOR:
+	case ItemCategory.ARMOR:
 		itemsIds = ArmorDataController.instance.getAllIdsForRarity(rarity);
 		return ArmorDataController.instance.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)]);
-	case ItemConstants.CATEGORIES.POTION:
+	case ItemCategory.POTION:
 		if (itemSubType !== null) { // 0 (no effect) is a false value
 			return PotionDataController.instance.randomItem(itemSubType, rarity);
 		}
 		itemsIds = PotionDataController.instance.getAllIdsForRarity(rarity);
 		return PotionDataController.instance.getById(itemsIds[RandomUtils.randInt(0, itemsIds.length)]);
 	default:
-		// This will be triggered by ItemConstants.CATEGORIES.OBJECT
+		// This will be triggered by ItemCategory.OBJECT
 		if (itemSubType !== null) {
 			return ObjectItemDataController.instance.randomItem(itemSubType, rarity);
 		}
@@ -442,7 +442,7 @@ export const sortPlayerItemList = function(items: InventorySlot[]): InventorySlo
  * @param slots
  * @param rarity
  */
-export const haveRarityOrMore = function(slots: InventorySlot[], rarity: number): boolean {
+export const haveRarityOrMore = function(slots: InventorySlot[], rarity: ItemRarity): boolean {
 	for (const slot of slots) {
 		if (slot.getItem().rarity >= rarity) {
 			return true;
@@ -455,15 +455,15 @@ export const haveRarityOrMore = function(slots: InventorySlot[], rarity: number)
  * Get a portion of the model corresponding to the category number
  * @param category
  */
-function getCategoryDataByName(category: number): ItemDataController<number, GenericItem> {
+function getCategoryDataByName(category: ItemCategory): ItemDataController<number, GenericItem> {
 	switch (category) {
-	case ItemConstants.CATEGORIES.WEAPON:
+	case ItemCategory.WEAPON:
 		return WeaponDataController.instance;
-	case ItemConstants.CATEGORIES.ARMOR:
+	case ItemCategory.ARMOR:
 		return ArmorDataController.instance;
-	case ItemConstants.CATEGORIES.POTION:
+	case ItemCategory.POTION:
 		return PotionDataController.instance;
-	case ItemConstants.CATEGORIES.OBJECT:
+	case ItemCategory.OBJECT:
 		return ObjectItemDataController.instance;
 	default:
 		return null;
@@ -475,7 +475,7 @@ function getCategoryDataByName(category: number): ItemDataController<number, Gen
  * @param itemId
  * @param category
  */
-export function getItemByIdAndCategory(itemId: number, category: number): GenericItem {
+export function getItemByIdAndCategory(itemId: number, category: ItemCategory): GenericItem {
 	const categoryDataController = getCategoryDataByName(category);
 	if (!categoryDataController) {
 		return null;

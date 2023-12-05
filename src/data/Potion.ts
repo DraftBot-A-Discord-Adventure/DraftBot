@@ -1,4 +1,4 @@
-import {ItemConstants} from "../core/constants/ItemConstants";
+import {ItemCategory, ItemNature, ItemRarity} from "../core/constants/ItemConstants";
 import {ItemDataController} from "./DataController";
 import {SupportItem} from "./SupportItem";
 import {RandomUtils} from "../core/utils/RandomUtils";
@@ -7,8 +7,8 @@ import {ObjectItem} from "./ObjectItem";
 export class Potion extends SupportItem {
 	categoryName = "potions";
 
-	public getCategory(): number {
-		return ItemConstants.CATEGORIES.POTION;
+	public getCategory(): ItemCategory {
+		return ItemCategory.POTION;
 	}
 
 	public isFightPotion(): boolean {
@@ -41,8 +41,8 @@ export class PotionDataController extends ItemDataController<number, Potion> {
 		return RandomUtils.draftbotRandom.pick(
 			this.getValuesArray()
 				.filter((item) =>
-					item.nature !== ItemConstants.NATURE.NONE &&
-					item.rarity < ItemConstants.RARITY.LEGENDARY &&
+					item.nature !== ItemNature.NONE &&
+					item.rarity < ItemRarity.LEGENDARY &&
 					item.id !== excludeId
 				)
 		);

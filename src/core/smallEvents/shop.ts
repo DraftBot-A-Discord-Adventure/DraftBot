@@ -5,7 +5,7 @@ import {GenericItem} from "../../data/GenericItem";
 import {RandomUtils} from "../utils/RandomUtils";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {generateRandomItem} from "../utils/ItemUtils";
-import {ItemConstants} from "../constants/ItemConstants";
+import {ItemRarity} from "../constants/ItemConstants";
 import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {SmallEventFuncs} from "../../data/SmallEvent";
 
@@ -19,7 +19,7 @@ class ShopSmallEvent extends Shop<SmallEventShopPacket> {
 	}
 
 	getRandomItem(): GenericItem {
-		return generateRandomItem(null, ItemConstants.RARITY.COMMON, SmallEventConstants.SHOP.MAX_RARITY);
+		return generateRandomItem(null, ItemRarity.COMMON, SmallEventConstants.SHOP.MAX_RARITY);
 	}
 
 	getSmallEventPacket(): SmallEventShopPacket {

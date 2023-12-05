@@ -37,18 +37,18 @@ export class FightPetActionDataController extends DataController<string, FightPe
 		for (const file of files) {
 			if (file.endsWith(".js")) {
 				const defaultFunc = require(`${relativePath}/${file.substring(0, file.length - 3)}`).default;
-				const fightActionName = file.substring(0, file.length - 3);
-				FightPetActionDataController.fightPetActionsFunctionsCache.set(fightActionName, defaultFunc);
+				const fightPetActionName = file.substring(0, file.length - 3);
+				FightPetActionDataController.fightPetActionsFunctionsCache.set(fightPetActionName, defaultFunc);
 			}
 		}
 	}
 
 	public getRandomFightPetAction(excludedFightPetActions: FightPetAction[]): FightPetAction {
-		return RandomUtils.draftbotRandom.pick(Array.from(this.data.values()).filter((FightPetAction) => !excludedFightPetActions.includes(FightPetAction)));
+		return RandomUtils.draftbotRandom.pick(Array.from(this.data.values()).filter((fightPetAction) => !excludedFightPetActions.includes(fightPetAction)));
 	}
 
 	public getFightPetActionByEmoji(emoji: string): FightPetAction {
-		return Array.from(this.data.values()).find((FightPetAction) => FightPetAction.emoji === emoji);
+		return Array.from(this.data.values()).find((fightPetAction) => fightPetAction.emoji === emoji);
 	}
 
 	newInstance(): FightPetAction {

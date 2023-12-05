@@ -18,28 +18,7 @@ export abstract class ItemConstants {
 		]
 	};
 
-	static readonly NATURE = {
-		NONE: 0,
-		HEALTH: 1,
-		SPEED: 2,
-		ATTACK: 3,
-		DEFENSE: 4,
-		HOSPITAL: 5,
-		MONEY: 6,
-		ENERGY: 7
-	};
-
 	static readonly RARITY = {
-		BASIC: 0,
-		COMMON: 1,
-		UNCOMMON: 2,
-		EXOTIC: 3,
-		RARE: 4,
-		SPECIAL: 5,
-		EPIC: 6,
-		LEGENDARY: 7,
-		MYTHICAL: 8,
-
 		VALUES: [
 			0, // Basic
 			20, // Common
@@ -70,11 +49,34 @@ export abstract class ItemConstants {
 	static readonly TAGS = {
 		HOLY: "holy"
 	};
+}
 
-	static readonly CATEGORIES = {
-		WEAPON: 0,
-		ARMOR: 1,
-		POTION: 2,
-		OBJECT: 3
-	};
+export enum ItemCategory {
+	WEAPON,
+	ARMOR,
+	POTION,
+	OBJECT
+}
+
+export enum ItemRarity {
+	BASIC,
+	COMMON,
+	UNCOMMON,
+	EXOTIC,
+	RARE,
+	SPECIAL,
+	EPIC,
+	LEGENDARY,
+	MYTHICAL
+}
+
+export enum ItemNature {
+	NONE,
+	HEALTH,
+	SPEED,
+	ATTACK,
+	DEFENSE,
+	TIME_SPEEDUP,
+	MONEY,
+	ENERGY
 }

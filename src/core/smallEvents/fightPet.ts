@@ -67,7 +67,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 				response[0], // TODO: replace with the right one
 				{
 					allowedPlayerIds: [player.id],
-					collectorType: ReactionCollectorType.FIGHT_PET,
+					collectorType: ReactionCollectorType.FIGHT_PET_SMALL_EVENT,
 					reactions: getRandomFightPetActions(player)
 						.map((fightPetAction) => fightPetAction.emoji)
 				},

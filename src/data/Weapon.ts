@@ -1,5 +1,5 @@
 import {MainItem} from "./MainItem";
-import {ItemConstants} from "../core/constants/ItemConstants";
+import {ItemCategory} from "../core/constants/ItemConstants";
 import {ItemDataController} from "./DataController";
 
 export class Weapon extends MainItem {
@@ -9,8 +9,8 @@ export class Weapon extends MainItem {
 		return Math.round(1.15053 * Math.pow(this.multiplier(), 2.3617) * Math.pow(1.0569 + 0.1448 / this.multiplier(), this.rawAttack)) + this.attack;
 	}
 
-	public getCategory(): number {
-		return ItemConstants.CATEGORIES.WEAPON;
+	public getCategory(): ItemCategory {
+		return ItemCategory.WEAPON;
 	}
 
 	public getDefense(): number {

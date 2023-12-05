@@ -1,5 +1,5 @@
 import {Constants} from "../Constants";
-import {ItemConstants} from "./ItemConstants";
+import {ItemRarity} from "./ItemConstants";
 
 export abstract class SmallEventConstants {
 	static readonly HEALTH = {
@@ -13,7 +13,7 @@ export abstract class SmallEventConstants {
 	};
 
 	static readonly SHOP = {
-		MAX_RARITY: ItemConstants.RARITY.SPECIAL,
+		MAX_RARITY: ItemRarity.SPECIAL,
 		SCAM_PROBABILITY: 0.1,
 		BASE_MULTIPLIER: 0.6,
 		SCAM_MULTIPLIER: 5,
@@ -132,8 +132,7 @@ export abstract class SmallEventConstants {
 			NOTHING: 4
 		},
 		NO_EFFECT_CHANCE: 0.25,
-		MIN_PROBABILITY: 1,
-		MAX_PROBABILITY: 51
+		MAX_PROBABILITY: 50
 	};
 
 	static readonly FIGHT_PET = {
@@ -199,7 +198,7 @@ export abstract class SmallEventConstants {
 	};
 
 	static readonly FIND_ITEM = {
-		MAXIMUM_RARITY: ItemConstants.RARITY.EPIC
+		MAXIMUM_RARITY: ItemRarity.EPIC
 	};
 
 	static readonly FIND_PET = {

@@ -1,0 +1,8 @@
+{
+	"outcomeProbabilities": {
+		"lifeLoss": 10,
+		"nothing": 40
+	},
+	"isIngredient": true,
+	"emoji": "🕸️"
+}

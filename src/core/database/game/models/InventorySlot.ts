@@ -1,6 +1,6 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 import {PlayerActiveObjects} from "./PlayerActiveObjects";
-import {ItemConstants} from "../../../constants/ItemConstants";
+import {ItemCategory} from "../../../constants/ItemConstants";
 import {GenericItem} from "../../../../data/GenericItem";
 import {Armor, ArmorDataController} from "../../../../data/Armor";
 import {Weapon, WeaponDataController} from "../../../../data/Weapon";
@@ -24,13 +24,13 @@ export class InventorySlot extends Model {
 
 	getItem(): GenericItem {
 		switch (this.itemCategory) {
-		case ItemConstants.CATEGORIES.WEAPON:
+		case ItemCategory.WEAPON:
 			return WeaponDataController.instance.getById(this.itemId);
-		case ItemConstants.CATEGORIES.ARMOR:
+		case ItemCategory.ARMOR:
 			return ArmorDataController.instance.getById(this.itemId);
-		case ItemConstants.CATEGORIES.POTION:
+		case ItemCategory.POTION:
 			return PotionDataController.instance.getById(this.itemId);
-		case ItemConstants.CATEGORIES.OBJECT:
+		case ItemCategory.OBJECT:
 			return ObjectItemDataController.instance.getById(this.itemId);
 		default:
 			return null;
@@ -42,19 +42,19 @@ export class InventorySlot extends Model {
 	}
 
 	isWeapon(): boolean {
-		return this.itemCategory === ItemConstants.CATEGORIES.WEAPON;
+		return this.itemCategory === ItemCategory.WEAPON;
 	}
 
 	isArmor(): boolean {
-		return this.itemCategory === ItemConstants.CATEGORIES.ARMOR;
+		return this.itemCategory === ItemCategory.ARMOR;
 	}
 
 	isPotion(): boolean {
-		return this.itemCategory === ItemConstants.CATEGORIES.POTION;
+		return this.itemCategory === ItemCategory.POTION;
 	}
 
 	isObject(): boolean {
-		return this.itemCategory === ItemConstants.CATEGORIES.OBJECT;
+		return this.itemCategory === ItemCategory.OBJECT;
 	}
 
 	/**
@@ -62,13 +62,13 @@ export class InventorySlot extends Model {
 	 */
 	getItemCategory(): string {
 		switch (this.itemCategory) {
-		case ItemConstants.CATEGORIES.WEAPON:
+		case ItemCategory.WEAPON:
 			return "Weapon";
-		case ItemConstants.CATEGORIES.ARMOR:
+		case ItemCategory.ARMOR:
 			return "Armor";
-		case ItemConstants.CATEGORIES.POTION:
+		case ItemCategory.POTION:
 			return "Potion";
-		case ItemConstants.CATEGORIES.OBJECT:
+		case ItemCategory.OBJECT:
 			return "Object";
 		default:
 			return "Unknown";
@@ -125,7 +125,7 @@ export class InventorySlots {
 			where: {
 				playerId,
 				slot: 0,
-				itemCategory: ItemConstants.CATEGORIES.WEAPON
+				itemCategory: ItemCategory.WEAPON
 			}
 		});
 	}
@@ -139,7 +139,7 @@ export class InventorySlots {
 			where: {
 				playerId,
 				slot: 0,
-				itemCategory: ItemConstants.CATEGORIES.ARMOR
+				itemCategory: ItemCategory.ARMOR
 			}
 		});
 	}
@@ -153,7 +153,7 @@ export class InventorySlots {
 			where: {
 				playerId,
 				slot: 0,
-				itemCategory: ItemConstants.CATEGORIES.POTION
+				itemCategory: ItemCategory.POTION
 			}
 		});
 	}
@@ -167,7 +167,7 @@ export class InventorySlots {
 			where: {
 				playerId,
 				slot: 0,
-				itemCategory: ItemConstants.CATEGORIES.OBJECT
+				itemCategory: ItemCategory.OBJECT
 			}
 		});
 	}

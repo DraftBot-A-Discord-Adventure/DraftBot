@@ -17,7 +17,7 @@ import {EntityConstants} from "../../../constants/EntityConstants";
 import {BlockingConstants} from "../../../constants/BlockingConstants";
 import {GuildConstants} from "../../../constants/GuildConstants";
 import {FightConstants} from "../../../constants/FightConstants";
-import {ItemConstants} from "../../../constants/ItemConstants";
+import {ItemCategory} from "../../../constants/ItemConstants";
 import {Maps} from "../../../maps/Maps";
 import {PVEConstants} from "../../../constants/PVEConstants";
 import {MapConstants} from "../../../constants/MapConstants";
@@ -510,7 +510,7 @@ export class Player extends Model {
 			where: {
 				playerId: this.id,
 				slot: 0,
-				itemCategory: ItemConstants.CATEGORIES.POTION
+				itemCategory: ItemCategory.POTION
 			}
 		})
 			.then(async item => await draftBotInstance.logsDatabase.logItemSell(this.discordUserId, await item.getItem()));
@@ -521,7 +521,7 @@ export class Player extends Model {
 			{
 				where: {
 					slot: 0,
-					itemCategory: ItemConstants.CATEGORIES.POTION,
+					itemCategory: ItemCategory.POTION,
 					playerId: this.id
 				}
 			});

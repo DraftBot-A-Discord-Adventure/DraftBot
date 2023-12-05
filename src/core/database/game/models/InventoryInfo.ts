@@ -1,5 +1,5 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
-import {ItemConstants} from "../../../constants/ItemConstants";
+import {ItemCategory} from "../../../constants/ItemConstants";
 import moment = require("moment");
 
 export class InventoryInfo extends Model {
@@ -20,33 +20,33 @@ export class InventoryInfo extends Model {
 	declare createdAt: Date;
 
 
-	public slotLimitForCategory(category: number): number {
+	public slotLimitForCategory(category: ItemCategory): number {
 		switch (category) {
-		case ItemConstants.CATEGORIES.WEAPON:
+		case ItemCategory.WEAPON:
 			return this.weaponSlots;
-		case ItemConstants.CATEGORIES.ARMOR:
+		case ItemCategory.ARMOR:
 			return this.armorSlots;
-		case ItemConstants.CATEGORIES.POTION:
+		case ItemCategory.POTION:
 			return this.potionSlots;
-		case ItemConstants.CATEGORIES.OBJECT:
+		case ItemCategory.OBJECT:
 			return this.objectSlots;
 		default:
 			return 0;
 		}
 	}
 
-	public addSlotForCategory(category: number): void {
+	public addSlotForCategory(category: ItemCategory): void {
 		switch (category) {
-		case ItemConstants.CATEGORIES.WEAPON:
+		case ItemCategory.WEAPON:
 			this.weaponSlots++;
 			break;
-		case ItemConstants.CATEGORIES.ARMOR:
+		case ItemCategory.ARMOR:
 			this.armorSlots++;
 			break;
-		case ItemConstants.CATEGORIES.POTION:
+		case ItemCategory.POTION:
 			this.potionSlots++;
 			break;
-		case ItemConstants.CATEGORIES.OBJECT:
+		case ItemCategory.OBJECT:
 			this.objectSlots++;
 			break;
 		default:

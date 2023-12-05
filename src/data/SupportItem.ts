@@ -1,5 +1,5 @@
 import {GenericItem} from "./GenericItem";
-import {Constants} from "../core/Constants";
+import {ItemNature} from "../core/constants/ItemConstants";
 
 export abstract class SupportItem extends GenericItem {
 	declare readonly power: number;
@@ -7,14 +7,14 @@ export abstract class SupportItem extends GenericItem {
 	declare readonly nature: number;
 
 	public getAttack(): number {
-		return this.nature === Constants.ITEM_NATURE.ATTACK ? this.power : 0;
+		return this.nature === ItemNature.ATTACK ? this.power : 0;
 	}
 
 	public getDefense(): number {
-		return this.nature === Constants.ITEM_NATURE.DEFENSE ? this.power : 0;
+		return this.nature === ItemNature.DEFENSE ? this.power : 0;
 	}
 
 	public getSpeed(): number {
-		return this.nature === Constants.ITEM_NATURE.SPEED ? this.power : 0;
+		return this.nature === ItemNature.SPEED ? this.power : 0;
 	}
 }
