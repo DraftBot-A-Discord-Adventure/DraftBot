@@ -49,7 +49,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 			});
 			break;
 		}
-		response.push(makePacket<SmallEventBigBadPacket>(SmallEventBigBadPacket, {
+		response.push(makePacket(SmallEventBigBadPacket, {
 			kind: outRand,
 			lifeLost: lifeLoss,
 			receivedStory: seFallen,

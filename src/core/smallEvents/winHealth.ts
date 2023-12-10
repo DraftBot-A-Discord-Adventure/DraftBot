@@ -12,6 +12,6 @@ export const smallEventFuncs: SmallEventFuncs = {
 		const healthWon = RandomUtils.rangedInt(SmallEventConstants.HEALTH);
 		await player.addHealth(healthWon, response, NumberChangeReason.SMALL_EVENT);
 		await player.save();
-		response.push(makePacket<SmallEventWinHealthPacket>(SmallEventWinHealthPacket, {amount: healthWon}));
+		response.push(makePacket(SmallEventWinHealthPacket, {amount: healthWon}));
 	}
 };

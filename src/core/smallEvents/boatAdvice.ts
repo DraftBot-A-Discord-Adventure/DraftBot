@@ -6,6 +6,6 @@ import {Maps} from "../maps/Maps";
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnBoat,
 	executeSmallEvent: (response): void => {
-		response.push(makePacket<SmallEventBoatAdvicePacket>(SmallEventBoatAdvicePacket, {}));
+		response.push(makePacket(SmallEventBoatAdvicePacket, {}));
 	}
 };

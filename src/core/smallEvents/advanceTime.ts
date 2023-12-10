@@ -12,6 +12,6 @@ export const smallEventFuncs: SmallEventFuncs = {
 		const timeAdvanced = RandomUtils.draftbotRandom.integer(10, 50);
 		await TravelTime.timeTravel(player, timeAdvanced, NumberChangeReason.SMALL_EVENT);
 		await player.save();
-		response.push(makePacket<SmallEventAdvanceTimePacket>(SmallEventAdvanceTimePacket, {amount: timeAdvanced}));
+		response.push(makePacket(SmallEventAdvanceTimePacket, {amount: timeAdvanced}));
 	}
 };

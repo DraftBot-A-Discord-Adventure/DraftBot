@@ -6,6 +6,6 @@ import {Maps} from "../maps/Maps";
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnContinent,
 	executeSmallEvent: (response): void => {
-		response.push(makePacket<SmallEventStaffMemberPacket>(SmallEventStaffMemberPacket, {}));
+		response.push(makePacket(SmallEventStaffMemberPacket, {}));
 	}
 };

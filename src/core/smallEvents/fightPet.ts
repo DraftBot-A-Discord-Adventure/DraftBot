@@ -60,7 +60,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 	executeSmallEvent: (response, player) => {
 		const pet = PetDataController.instance.getRandom();
 		const isFemale = RandomUtils.draftbotRandom.bool();
-		response.push(makePacket<SmallEventFightPetCollectorCreationPacket>({
+		response.push(makePacket(SmallEventFightPetCollectorCreationPacket,{
 			petId: pet.id,
 			isFemale,
 			...GenericReactionCollector.create(
@@ -78,7 +78,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 						const outcomeIsSuccess = await selectedFightPetAction.applyOutcomeFightPetAction(player, pet, isFemale);
 						await player.addRage(outcomeIsSuccess ? 1 : 0, NumberChangeReason.FIGHT_PET_SMALL_EVENT);
 						await player.save();
-						response.push(makePacket<SmallEventFightPetPacket>({
+						response.push(makePacket(SmallEventFightPetPacket,{
 							outcomeIsSuccess,
 							petId: pet.id,
 							fightPetActionId: selectedFightPetAction.id

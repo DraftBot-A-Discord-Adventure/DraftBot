@@ -16,6 +16,6 @@ export const smallEventFuncs: SmallEventFuncs = {
 			reason: NumberChangeReason.SMALL_EVENT
 		});
 		await player.save();
-		response.push(makePacket<SmallEventWinPersonalXPPacket>(SmallEventWinPersonalXPPacket, {amount: xpWon}));
+		response.push(makePacket(SmallEventWinPersonalXPPacket, {amount: xpWon}));
 	}
 };

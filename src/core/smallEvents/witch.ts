@@ -113,7 +113,7 @@ function getEndCallback(player: Player): EndCallback {
 		const outcome = selectedEvent.generateOutcome();
 		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.WITCH_CHOOSE);
 
-		const resultPacket = makePacket<SmallEventWitchResultPacket>({
+		const resultPacket = makePacket(SmallEventWitchResultPacket,{
 			outcome: Object.values(WitchActionOutcomeType).indexOf(outcome)
 		});
 
@@ -147,7 +147,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 	executeSmallEvent: (response, player) => {
 		const events = getRandomWitchEvents(player.class === Constants.CLASSES.MYSTIC_MAGE);
 		response.push(
-			makePacket<SmallEventWitchCollectorCreationPacket>(
+			makePacket(SmallEventWitchCollectorCreationPacket,
 				GenericReactionCollector.create(
 					response[0], // TODO : replace with the right one
 					{

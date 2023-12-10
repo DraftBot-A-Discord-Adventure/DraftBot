@@ -25,7 +25,7 @@ type GobletsGameProperties = {
 const properties = SmallEventDataController.instance.getById("gobletsGame").getProperties<GobletsGameProperties>();
 async function applyMalus(response: DraftBotPacket[], player: Player, reaction: string): Promise<void> {
 	const malus = !reaction ? "end" : RandomUtils.draftbotRandom.pick(properties.malusTypes);
-	const packet = makePacket<SmallEventGobletsGamePacket>({
+	const packet = makePacket(SmallEventGobletsGamePacket,{
 		malus,
 		goblet: reaction,
 		value: 0

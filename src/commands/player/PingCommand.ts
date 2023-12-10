@@ -3,7 +3,7 @@ import {PacketListenerCallbackServer} from "../../../../Lib/src/packets/PacketLi
 import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 
 const command: PacketListenerCallbackServer<CommandPingPacketReq> = (client, packet, context, response) => {
-	response.push(makePacket<CommandPingPacketRes>(CommandPingPacketRes, {
+	response.push(makePacket(CommandPingPacketRes, {
 		latency: 0
 	}));
 };

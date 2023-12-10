@@ -23,7 +23,7 @@ class ShopSmallEvent extends Shop<SmallEventShopPacket> {
 	}
 
 	getSmallEventPacket(): SmallEventShopPacket {
-		return makePacket<SmallEventShopPacket>({});
+		return makePacket(SmallEventShopPacket,{});
 	}
 }
 

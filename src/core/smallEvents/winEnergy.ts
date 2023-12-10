@@ -13,6 +13,6 @@ export const smallEventFuncs: SmallEventFuncs = {
 	executeSmallEvent: async (response, player): Promise<void> => {
 		player.setFightPointsLost(0, NumberChangeReason.SMALL_EVENT);
 		await player.save();
-		response.push(makePacket<SmallEventWinEnergyPacket>(SmallEventWinEnergyPacket, {}));
+		response.push(makePacket(SmallEventWinEnergyPacket, {}));
 	}
 };

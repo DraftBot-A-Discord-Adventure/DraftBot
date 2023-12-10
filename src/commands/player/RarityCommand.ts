@@ -6,7 +6,7 @@ import {ItemConstants} from "../../core/constants/ItemConstants";
 const command: PacketListenerCallbackServer<CommandRarityPacketReq> = (client, packet, context, response) => {
 	const maxValue = ItemConstants.RARITY.GENERATOR.MAX_VALUE;
 	const raritiesGenerator = ItemConstants.RARITY.GENERATOR.VALUES;
-	response.push(makePacket<CommandRarityPacketRes>(CommandRarityPacketRes, {
+	response.push(makePacket(CommandRarityPacketRes, {
 		common: raritiesGenerator[0] * 100 / maxValue,
 		uncommon: (raritiesGenerator[1] - raritiesGenerator[0]) * 100 / maxValue,
 		exotic: (raritiesGenerator[2] - raritiesGenerator[1]) * 100 / maxValue,

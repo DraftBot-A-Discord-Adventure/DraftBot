@@ -6,6 +6,6 @@ import {Maps} from "../maps/Maps";
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: (player) => Maps.isOnContinent(player) || Maps.isOnPveIsland(player),
 	executeSmallEvent: (response): void => {
-		response.push(makePacket<SmallEventDoNothingPacket>({}));
+		response.push(makePacket(SmallEventDoNothingPacket, {}));
 	}
 };
