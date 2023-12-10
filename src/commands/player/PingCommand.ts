@@ -7,7 +7,7 @@ import {SlashCommandBuilder} from "@discordjs/builders";
  * Pings the bot, to check if it is alive and how well is it
  */
 function getPacket(): CommandPingPacketReq {
-	return makePacket<CommandPingPacketReq>(CommandPingPacketReq, { time: Date.now() });
+	return makePacket(CommandPingPacketReq, { time: Date.now() });
 }
 
 export const commandInfo: ICommand = {
