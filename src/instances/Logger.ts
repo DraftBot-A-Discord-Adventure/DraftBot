@@ -15,15 +15,15 @@ export class Logger {
 
 	private readonly suffix: string;
 
-	private creationDate: Date;
+	private creationDate: Date | null = null;
 
-	private fileStream: &WriteStream;
+	private fileStream: &WriteStream | null = null;
 
 	private lineCount: number = 0;
 
-	private currentListener: (err: Error) => void;
+	private currentListener: ((err: Error) => void) | null = null;
 
-	private canWrite: LogWritingState;
+	private canWrite: LogWritingState | null = null;
 
 	private constructor(suffix: string) {
 		this.suffix = suffix;
@@ -37,14 +37,14 @@ export class Logger {
 		if (!Logger.instances.has(suffix)) {
 			Logger.instances.set(suffix, new Logger(suffix));
 		}
-		return Logger.instances.get(suffix);
+		return Logger.instances.get(suffix)!;
 	}
 
 	public log(loggedText: string): void {
 		if (this.canWrite === LogWritingState.ERROR) {
 			return;
 		}
-		while (this.canWrite === LogWritingState.BUILDING || !this.fileStream.writable) {
+		while (this.canWrite === LogWritingState.BUILDING || !this.fileStream!.writable) {
 			// Wait for the file to be ready
 		}
 		const toSave = `${loggedText}\n----------------------------------------`;
@@ -55,13 +55,13 @@ export class Logger {
 		this.lineCount++;
 		if (this.lineCount > Constants.LOGS.MAX_LOGS_COUNT) {
 			this.lineCount = 0;
-			process.removeListener("uncaughtException", this.currentListener);
-			this.fileStream.end();
+			process.removeListener("uncaughtException", this.currentListener!);
+			this.fileStream!.end();
 			this.buildNewFileStream();
 			this.log(loggedText);
 			return;
 		}
-		this.fileStream.write( `[${new Date().toLocaleString()}] ${toSave}\n`, (err) => {
+		this.fileStream!.write( `[${new Date().toLocaleString()}] ${toSave}\n`, (err) => {
 			if (err) {
 				const eString = err.toString();
 				if (eString.includes("ERR_STREAM_WRITE_AFTER_END") || eString.includes("ERR_STREAM_DESTROYED")) {
@@ -97,7 +97,7 @@ export class Logger {
 	}
 
 	private getLogStart(): string {
-		const center = `###  ${this.suffix} - ${this.creationDate.toLocaleString()}  ###`;
+		const center = `###  ${this.suffix} - ${this.creationDate!.toLocaleString()}  ###`;
 		const inBetween = `###${" ".repeat(center.length - 6)}###`;
 		const top = "#".repeat(center.length);
 		return `${top}\n${top}\n${inBetween}\n${inBetween}\n${center}\n${inBetween}\n${inBetween}\n${top}\n${top}\n\n`;
@@ -106,7 +106,7 @@ export class Logger {
 	private getName(): string {
 		return `${Constants.LOGS.BASE_PATH}/${
 			this.suffix}_${
-			this.creationDate.getFullYear()}-${this.creationDate.getMonth() + 1}-${this.creationDate.getDate()}_${
-			this.creationDate.getHours()}-${this.creationDate.getMinutes()}-${this.creationDate.getSeconds()}.log`;
+			this.creationDate!.getFullYear()}-${this.creationDate!.getMonth() + 1}-${this.creationDate!.getDate()}_${
+			this.creationDate!.getHours()}-${this.creationDate!.getMinutes()}-${this.creationDate!.getSeconds()}.log`;
 	}
 }

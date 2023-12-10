@@ -1,7 +1,7 @@
 import {DraftBotPacket} from "../DraftBotPacket";
 
-export interface CommandBadgePacketReq extends DraftBotPacket {
+export class CommandBadgePacketReq extends DraftBotPacket {
 }
 
-export interface CommandBadgePacketRes extends DraftBotPacket {
+export class CommandBadgePacketRes extends DraftBotPacket {
 }

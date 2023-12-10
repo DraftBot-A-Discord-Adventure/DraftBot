@@ -1,3 +1,3 @@
 import {SmallEventAddSomething} from "./SmallEventPacket";
 
-export interface SmallEventAdvanceTimePacket extends SmallEventAddSomething {}
+export class SmallEventAdvanceTimePacket extends SmallEventAddSomething {}

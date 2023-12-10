@@ -4,3 +4,5 @@ export const Constants = {
 		BASE_PATH: "./logs"
 	}
 };
+
+export type ConstantRange = { MIN: number, MAX: number };

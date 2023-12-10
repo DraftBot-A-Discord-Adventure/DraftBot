@@ -1,16 +1,11 @@
 import {DraftBotPacket, PacketContext} from "./DraftBotPacket";
+import {WebSocket} from "ws";
 
 export function sendPacket(client: WebSocket, packet: DraftBotPacket | DraftBotPacket[]): void {
 	client.send(JSON.stringify(packet));
 }
 
 export function sendPacketsToContext(context: PacketContext, packets: DraftBotPacket[]): void {
-	for (const packet of packets) {
-		for (const prop of Object.keys(context)) {
-			packet[<keyof PacketContext>prop] = context[<keyof PacketContext>prop];
-		}
-	}
-
 	// TODO send
 }
 

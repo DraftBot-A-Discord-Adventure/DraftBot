@@ -1,9 +1,9 @@
 import {DraftBotPacket} from "../DraftBotPacket";
 
-export interface CommandPingPacketReq extends DraftBotPacket {
-    time: number
+export class CommandPingPacketReq extends DraftBotPacket {
+	time!: number;
 }
 
-export interface CommandPingPacketRes extends DraftBotPacket {
-    latency: number
+export class CommandPingPacketRes extends DraftBotPacket {
+	latency!: number;
 }

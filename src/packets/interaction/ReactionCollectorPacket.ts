@@ -9,19 +9,24 @@ export enum ReactionCollectorType {
 	WITCH_SMALL_EVENT,
 }
 
-export interface ReactionCollectorCreationPacket extends DraftBotPacket {
-    id: string,
-    type: ReactionCollectorType,
-    reactions: string[],
-    endTime: number
+export class ReactionCollectorCreationPacket extends DraftBotPacket {
+	id!: string;
+
+	type!: ReactionCollectorType;
+
+	reactions!: string[];
+
+	endTime!: number;
 }
 
-export interface ReactionCollectorReactPacket extends DraftBotPacket {
-    id: string,
-    playerId: number,
-    reaction: string
+export class ReactionCollectorReactPacket extends DraftBotPacket {
+	id!: string;
+
+	playerId!: number;
+
+	reaction!: string;
 }
 
-export interface ReactionCollectorEnded extends DraftBotPacket {
+export class ReactionCollectorEnded extends DraftBotPacket {
 
 }

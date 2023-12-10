@@ -1,3 +1,3 @@
 import {SmallEventAddSomething} from "./SmallEventPacket";
 
-export interface SmallEventWinGuildXPPacket extends SmallEventAddSomething {}
+export class SmallEventWinGuildXPPacket extends SmallEventAddSomething {}

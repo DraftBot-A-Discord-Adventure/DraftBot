@@ -5,7 +5,8 @@ type Fighter = {
     fightActions: string[]
 }
 
-export interface FightIntroductionPacket extends DraftBotPacket {
-    fighter1: Fighter,
-    fighter2: Fighter
+export class FightIntroductionPacket extends DraftBotPacket {
+	fighter1!: Fighter;
+
+	fighter2!: Fighter;
 }

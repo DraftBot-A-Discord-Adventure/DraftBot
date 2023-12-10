@@ -1,3 +1,3 @@
 import {SmallEventPacket} from "./SmallEventPacket";
 
-export interface SmallEventStaffMemberPacket extends SmallEventPacket {}
+export class SmallEventStaffMemberPacket extends SmallEventPacket {}
