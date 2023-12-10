@@ -210,7 +210,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/ws@^8.5.9":
+"@types/ws@^8.5.10", "@types/ws@^8.5.9":
   version "8.5.10"
   resolved "https://registry.yarnpkg.com/@types/ws/-/ws-8.5.10.tgz#4acfb517970853fa6574a3a6886791d04a396787"
   integrity sha512-vmQSUcfalpIq0R9q7uTo2lXs6eGIpt9wtnLdMv9LVpIjCA/+ufZRozlVoVelIYixx1ugCBKDhn89vnsEGOCx9A==

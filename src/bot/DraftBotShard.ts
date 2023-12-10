@@ -3,6 +3,9 @@ import {Constants} from "../Constants";
 import {loadConfig} from "../config/DiscordConfig";
 import i18n from "../translations/i18n";
 import {BotUtils} from "../utils/BotUtils";
+import {KeycloakConfig} from "../../../Lib/src/keycloak/KeycloakConfig";
+import {CommandsManager} from "../commands/CommandsManager";
+import {DiscordWebSocket} from "./Websocket";
 
 process.on("uncaughtException", function(error) {
 	console.log(error);
@@ -16,6 +19,12 @@ process.on("unhandledRejection", function(err: Error) {
 
 export let draftBotClient: Client | null = null;
 export const discordConfig = loadConfig();
+export const keycloakConfig: KeycloakConfig = {
+	realm: discordConfig.KEYCLOAK_REALM,
+	url: discordConfig.KEYCLOAK_URL,
+	clientId: discordConfig.KEYCLOAK_CLIENT_ID,
+	clientSecret: discordConfig.KEYCLOAK_CLIENT_SECRET
+};
 export let shardId = -1;
 
 process.on("message", async (message: { type: string, data: { shardId: number } }) => {
@@ -123,6 +132,9 @@ async function main(): Promise<void> {
 	draftBotClient = client;
 
 	await client.login(discordConfig.DISCORD_CLIENT_TOKEN);
+
+	await CommandsManager.register(client, shardId === 0);
+	DiscordWebSocket.init();
 }
 
 main().then();
