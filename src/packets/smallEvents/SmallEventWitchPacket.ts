@@ -1,8 +1,8 @@
 import {ReactionCollectorCreationPacket} from "../interaction/ReactionCollectorPacket";
 import {SmallEventPacket} from "./SmallEventPacket";
 
-export interface SmallEventWitchCollectorCreationPacket extends ReactionCollectorCreationPacket {}
+export class SmallEventWitchCollectorCreationPacket extends ReactionCollectorCreationPacket {}
 
-export interface SmallEventWitchResultPacket extends SmallEventPacket {
-	outcome: number;
+export class SmallEventWitchResultPacket extends SmallEventPacket {
+	outcome!: number;
 }

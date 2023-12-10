@@ -1,6 +1,7 @@
 import {SmallEventPacket} from "./SmallEventPacket";
 
-export interface SmallEventAnyShopPacket extends SmallEventPacket {
+export class SmallEventAnyShopPacket extends SmallEventPacket {
 	isValidated?: boolean;
+
 	canBuy?: boolean;
 }

@@ -7,9 +7,8 @@ export interface PacketContext {
 }
 
 
-export function makePacket<T extends DraftBotPacket>(cls: {new(): T}, {...args}: T): T {
-	// eslint-disable-next-line new-cap
-	const instance = new cls();
+export function makePacket<Packet extends DraftBotPacket>(Packet: {new(): Packet}, {...args}: Packet): Packet {
+	const instance = new Packet();
 	Object.assign(instance, args);
 	return instance;
 }
