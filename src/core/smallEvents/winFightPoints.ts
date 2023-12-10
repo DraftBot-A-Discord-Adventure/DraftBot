@@ -15,6 +15,6 @@ export const smallEventFuncs: SmallEventFuncs = {
 		);
 		player.addFightPoints(amount, maxFightPoints);
 		await player.save();
-		response.push(makePacket<SmallEventWinFightPointsPacket>({amount}));
+		response.push(makePacket<SmallEventWinFightPointsPacket>(SmallEventWinFightPointsPacket, {amount}));
 	}
 };

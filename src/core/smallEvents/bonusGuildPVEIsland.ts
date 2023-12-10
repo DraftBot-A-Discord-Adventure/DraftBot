@@ -87,7 +87,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnPveIsland,
 	executeSmallEvent: async (response, player): Promise<void> => {
 		if (!await hasEnoughMemberOnPVEIsland(player)) {
-			response.push(makePacket<SmallEventBonusGuildPVEIslandPacket>({hasEnoughMemberOnPVEIsland: false, eventName: "", amount: "", isXp: false}));
+			response.push(makePacket<SmallEventBonusGuildPVEIslandPacket>(SmallEventBonusGuildPVEIslandPacket, {hasEnoughMemberOnPVEIsland: false, eventName: "", amount: "", isXp: false}));
 			return;
 		}
 
@@ -111,7 +111,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 		const malus = isInGuild ? issue.withGuild : issue.malus;
 		const [amount, isXp] = await applyPossibility(player, response, malus);
 
-		response.push(makePacket<SmallEventBonusGuildPVEIslandPacket>({
+		response.push(makePacket<SmallEventBonusGuildPVEIslandPacket>(SmallEventBonusGuildPVEIslandPacket, {
 			hasEnoughMemberOnPVEIsland: true,
 			eventName,
 			amount,

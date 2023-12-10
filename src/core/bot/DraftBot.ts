@@ -1,5 +1,5 @@
 import {DraftBotConfig} from "./DraftBotConfig";
-import {PacketListener} from "../../../../Lib/src/packets/PacketListener";
+import {PacketListenerServer} from "../../../../Lib/src/packets/PacketListener";
 import pingCommand from "../../commands/player/PingCommand";
 import {GameDatabase} from "../database/game/GameDatabase";
 import {LogsDatabase} from "../database/logs/LogsDatabase";
@@ -14,7 +14,7 @@ import voteCommand from "../../commands/player/VoteCommand";
 import badgeCommand from "../../commands/player/BadgeCommand";
 
 export class DraftBot {
-	public readonly packetListener: PacketListener;
+	public readonly packetListener: PacketListenerServer;
 
 	public readonly gameDatabase: GameDatabase;
 
@@ -26,12 +26,12 @@ export class DraftBot {
 		this.config = config;
 
 		// Register commands
-		this.packetListener = new PacketListener();
-		this.packetListener.addPacketListener<CommandPingPacketReq>("CommandPingPacketReq", pingCommand);
-		this.packetListener.addPacketListener<CommandRarityPacketReq>("CommandRarityPacketReq", rarityCommand);
-		this.packetListener.addPacketListener<CommandVotePacketReq>("CommandVotePacketReq", voteCommand);
-		this.packetListener.addPacketListener<CommandBadgePacketReq>("CommandBadgePacketReq", badgeCommand);
-		this.packetListener.addPacketListener<ReactionCollectorReactPacket>("ReactionCollectorReactPacket", ReactionCollector.reactPacket);
+		this.packetListener = new PacketListenerServer();
+		this.packetListener.addPacketListener<CommandPingPacketReq>(CommandPingPacketReq, pingCommand);
+		this.packetListener.addPacketListener<CommandRarityPacketReq>(CommandRarityPacketReq, rarityCommand);
+		this.packetListener.addPacketListener<CommandVotePacketReq>(CommandVotePacketReq, voteCommand);
+		this.packetListener.addPacketListener<CommandBadgePacketReq>(CommandBadgePacketReq, badgeCommand);
+		this.packetListener.addPacketListener<ReactionCollectorReactPacket>(ReactionCollectorReactPacket, ReactionCollector.reactPacket);
 
 		// Databases
 		this.gameDatabase = new GameDatabase();

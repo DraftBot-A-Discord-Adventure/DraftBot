@@ -85,7 +85,7 @@ export class ReactionCollector {
 		this.reactionLimit = collectorOptions.reactionLimit;
 	}
 
-	public static async reactPacket(_client: WebsocketClient, packet: ReactionCollectorReactPacket, response: DraftBotPacket[]): Promise<void> {
+	public static async reactPacket(_client: WebsocketClient, packet: ReactionCollectorReactPacket, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
 		const collector: ReactionCollector = ReactionCollector.collectors.get(packet.id);
 		if (!collector || collector.hasEnded) {
 			const packet: ReactionCollectorEnded = {};

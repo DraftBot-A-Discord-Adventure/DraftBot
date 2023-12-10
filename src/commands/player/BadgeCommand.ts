@@ -1,7 +1,7 @@
 import {CommandBadgePacketReq} from "../../../../Lib/src/packets/commands/CommandBadgePacket";
-import {PacketListenerCallback} from "../../../../Lib/src/packets/PacketListener";
+import {PacketListenerCallbackServer} from "../../../../Lib/src/packets/PacketListener";
 
-const command: PacketListenerCallback<CommandBadgePacketReq> = (client, packet, response) => {
+const command: PacketListenerCallbackServer<CommandBadgePacketReq> = () => {
 
 };
 

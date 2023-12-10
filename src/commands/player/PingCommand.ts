@@ -1,11 +1,11 @@
 import {CommandPingPacketReq, CommandPingPacketRes} from "../../../../Lib/src/packets/commands/CommandPingPacket";
-import {PacketListenerCallback} from "../../../../Lib/src/packets/PacketListener";
+import {PacketListenerCallbackServer} from "../../../../Lib/src/packets/PacketListener";
+import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 
-const command: PacketListenerCallback<CommandPingPacketReq> = (client, packet, response) => {
-	const resPacket: CommandPingPacketRes = {
-		latency: 0 // TODO
-	};
-	response.push(resPacket);
+const command: PacketListenerCallbackServer<CommandPingPacketReq> = (client, packet, context, response) => {
+	response.push(makePacket<CommandPingPacketRes>(CommandPingPacketRes, {
+		latency: 0
+	}));
 };
 
 export default command;

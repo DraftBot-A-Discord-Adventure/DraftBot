@@ -1,12 +1,12 @@
-import {PacketListenerCallback} from "../../../../Lib/src/packets/PacketListener";
+import {PacketListenerCallbackServer} from "../../../../Lib/src/packets/PacketListener";
 import {CommandRarityPacketReq, CommandRarityPacketRes} from "../../../../Lib/src/packets/commands/CommandRarityPacket";
 import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {ItemConstants} from "../../core/constants/ItemConstants";
 
-const command: PacketListenerCallback<CommandRarityPacketReq> = (client, packet, response) => {
+const command: PacketListenerCallbackServer<CommandRarityPacketReq> = (client, packet, context, response) => {
 	const maxValue = ItemConstants.RARITY.GENERATOR.MAX_VALUE;
 	const raritiesGenerator = ItemConstants.RARITY.GENERATOR.VALUES;
-	response.push(makePacket<CommandRarityPacketRes>({
+	response.push(makePacket<CommandRarityPacketRes>(CommandRarityPacketRes, {
 		common: raritiesGenerator[0] * 100 / maxValue,
 		uncommon: (raritiesGenerator[1] - raritiesGenerator[0]) * 100 / maxValue,
 		exotic: (raritiesGenerator[2] - raritiesGenerator[1]) * 100 / maxValue,

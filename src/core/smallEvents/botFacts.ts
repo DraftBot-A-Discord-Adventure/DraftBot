@@ -75,6 +75,6 @@ export const smallEventFuncs: SmallEventFuncs = {
 			packet.infoComplement = array[1];
 		}
 
-		response.push(makePacket<SmallEventBotFactsPacket>(packet));
+		response.push(makePacket<SmallEventBotFactsPacket>(SmallEventBotFactsPacket, packet));
 	}
 };

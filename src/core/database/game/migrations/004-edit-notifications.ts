@@ -1,5 +1,5 @@
 import {DataTypes, QueryInterface} from "sequelize";
-import {NotificationsConstants} from "../../../constants/NotificationsConstants";
+import {NotificationsConstants} from "../../../../../../Lib/src/constants/NotificationsConstants";
 
 export async function up({context}: { context: QueryInterface }): Promise<void> {
 	await context.changeColumn("players", "dmNotification", DataTypes.STRING);
