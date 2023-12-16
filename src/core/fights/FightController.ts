@@ -164,7 +164,7 @@ export class FightController {
 	 * @param fightAction {FightAction} the fight action to execute
 	 * @param endTurn {boolean} true if the turn should be ended after the action has been executed
 	 */
-	public async executeFightAction(fightAction: FightAction, endTurn: boolean): Promise<void> {
+	public async executeFightAction(fightAction: FightAction, endTurn: boolean, damagesDealtByAlteration = false): Promise<void> {
 		if (endTurn) {
 			this.getPlayingFighter().nextFightAction = null;
 		}
@@ -186,10 +186,11 @@ export class FightController {
 		this.getPlayingFighter().fightActionsHistory.push(fightAction);
 
 		// End the fight if a fighter is dead or if the maximum number of turns has been reached and the overtime behavior is to end the fight
-		if (this.hadEnded() || this.turn >= FightConstants.MAX_TURNS && this.overtimeBehavior === FightOvertimeBehavior.END_FIGHT_DRAW) {
+		if (this.hadEnded() || (!damagesDealtByAlteration && this.turn >= FightConstants.MAX_TURNS && this.overtimeBehavior === FightOvertimeBehavior.END_FIGHT_DRAW)) {
 			await this.endFight();
 			return;
 		}
+
 		if (endTurn) {
 			this.turn++;
 			this.invertFighters();
@@ -256,7 +257,7 @@ export class FightController {
 		}
 
 		if (this.getPlayingFighter().hasFightAlteration()) {
-			await this.executeFightAction(this.getPlayingFighter().alteration, false);
+			await this.executeFightAction(this.getPlayingFighter().alteration, false, true);
 		}
 		if (this.state !== FightState.RUNNING) {
 			// A player was killed by a fight alteration, no need to continue the fight
