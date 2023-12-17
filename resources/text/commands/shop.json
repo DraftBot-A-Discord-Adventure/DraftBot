@@ -19,7 +19,6 @@
 				"healAlterations": {
 					"emote": "\uD83C\uDFE5",
 					"name": "Soin des altérations d'état",
-					"price": 500,
 					"info": "Vos altérations d'état seront supprimées et vous reprendrez votre route immédiatement.",
 					"give": ":hospital: Vos altérations d'état ont été supprimées."
 				},
@@ -98,13 +97,12 @@
 					"emote": "❓",
 					"name": "A random item",
 					"price": 350,
-					"info": "You will recieve a random item (Weapon / Armor / Misc or Potion) among all those existing in the game.",
+					"info": "You will receive a random item (Weapon / Armor / Misc or Potion) among all those existing in the game.",
 					"give": "{pseudo}, you received a new {type}:"
 				},
 				"healAlterations": {
 					"emote": "\uD83C\uDFE5",
 					"name": "Heal alterations",
-					"price": 500,
 					"info": "Your status will be reset and you will be back on your road immediately.",
 					"give": ":hospital: Your status has been reset."
 				},

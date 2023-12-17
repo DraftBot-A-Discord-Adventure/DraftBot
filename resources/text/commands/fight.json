@@ -106,7 +106,7 @@
 					"indirect": "Il n'est pas possible de lancer un combat contre une personne K.O. !"
 				},
 				"cantFightStatus": {
-					"direct": "{pseudo}, vous n'êtes pas en état de combattre pour le moment ! Veuillez attendre la fin d'altération de votre état !",
+					"direct": "{pseudo}, vous n'êtes pas en état de combattre pour le moment ! Veuillez attendre la fin d'altération de votre état ! \n\n:information_source: Vous pouvez utiliser la commande {command:shop} pour acheter un soin.",
 					"indirect": "Cette personne ne semble pas en état de combattre pour le moment !"
 				},
 				"occupied": {
@@ -344,7 +344,7 @@
 					"indirect": "This opponent is dead, thus can't fight yet!"
 				},
 				"cantFightStatus": {
-					"direct": "{pseudo}, you aren't healthy enough to fight right now! Please wait until your alteration has been cured!",
+					"direct": "{pseudo}, you aren't healthy enough to fight right now! Please wait until your alteration has been cured! \n\n:information_source: You can use the {command:shop} command to buy a cure.",
 					"indirect": "This person doesn't seem to be able to fight right now!"
 				},
 				"occupied": {
