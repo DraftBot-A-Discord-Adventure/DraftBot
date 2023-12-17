@@ -7,7 +7,7 @@ export abstract class FightConstants {
 
 	static readonly POINTS_REGEN_MINUTES = 7;
 
-	static readonly POINTS_REGEN_AMOUNT = 170;
+	static readonly POINTS_REGEN_AMOUNT = 130;
 
 	static readonly FIGHT_ERROR = {
 		NONE: "none",
@@ -92,7 +92,7 @@ export abstract class FightConstants {
 
 	static readonly ELO = {
 		DEFAULT_ELO: 0,
-		MAX_ELO_GAP: 400,
+		MAX_ELO_GAP: 450,
 		DEFAULT_K_FACTOR: 32,
 		LOW_K_FACTOR: 24,
 		VERY_LOW_K_FACTOR: 16,
@@ -114,7 +114,7 @@ export abstract class FightConstants {
 	// FightCountdown value for new players
 	static readonly DEFAULT_FIGHT_COUNTDOWN = 10;
 
-	// Added at the end of the fight to the last message
+	// Added as a reaction at the end of the fight to the last message
 	static readonly HANDSHAKE_EMOTE = "\uD83E\uDD1D";
 
 	static readonly DEFAULT_ACTION_WEIGHT = 1;
