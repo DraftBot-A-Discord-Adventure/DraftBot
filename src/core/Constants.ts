@@ -347,4 +347,11 @@ export abstract class Constants {
 		"classes.",
 		"advices"
 	];
+
+	static SHOP = {
+		ALTERATION_HEAL_BASE_PRICE: 425,
+		MAX_REDUCTION_TIME: 90, // Minutes
+		MIN_REDUCTION_TIME: 15, // Minutes
+		MAX_PRICE_REDUCTION_DIVISOR: 5
+	};
 }

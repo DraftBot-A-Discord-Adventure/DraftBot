@@ -30,6 +30,7 @@ import {ItemConstants} from "../../core/constants/ItemConstants";
 import {EntityConstants} from "../../core/constants/EntityConstants";
 import {Settings} from "../../core/database/game/models/Setting";
 import {DraftbotInteraction} from "../../core/messages/DraftbotInteraction";
+import {millisecondsToMinutes} from "../../core/utils/TimeUtils";
 
 /**
  * Callback of the shop command
@@ -72,14 +73,43 @@ function getRandomItemShopItem(translationModule: TranslationModule, interaction
 }
 
 /**
+ * Calculate the price for healing from an alteration
+ * @param interaction
+ */
+async function calculateHealAlterationPrice(interaction: DraftbotInteraction) :Promise<number> {
+	let price = Constants.SHOP.ALTERATION_HEAL_BASE_PRICE;
+	const [player] = await Players.getOrRegister(interaction.user.id);
+	const remainingTime = millisecondsToMinutes(player.effectRemainingTime());
+	// If remaining time is under one hour price become degressive until being divided by 8 at the 15 minutes marque then it no longer decrease
+	if (remainingTime < Constants.SHOP.MAX_REDUCTION_TIME) {
+		if (remainingTime <= Constants.SHOP.MIN_REDUCTION_TIME) {
+			price /= Constants.SHOP.MAX_PRICE_REDUCTION_DIVISOR;
+		}
+		else {
+			// Calculate the price reduction based on the remaining time
+			const priceDecreasePerMinute = (
+				Constants.SHOP.ALTERATION_HEAL_BASE_PRICE - Constants.SHOP.ALTERATION_HEAL_BASE_PRICE / Constants.SHOP.MAX_PRICE_REDUCTION_DIVISOR
+			) / (
+				Constants.SHOP.MAX_REDUCTION_TIME - Constants.SHOP.MIN_REDUCTION_TIME
+			);
+			price -= priceDecreasePerMinute * (Constants.SHOP.MAX_REDUCTION_TIME - remainingTime);
+		}
+	}
+	return Math.round(price);
+}
+
+/**
  * Get the shop item for healing from an alteration
  * @param translationModule
  * @param interaction
  */
-function getHealAlterationShopItem(translationModule: TranslationModule, interaction: DraftbotInteraction): ShopItem {
-	return getPermanentItemShopItem(
-		"healAlterations",
-		translationModule,
+async function getHealAlterationShopItem(translationModule: TranslationModule, interaction: DraftbotInteraction): Promise<ShopItem> {
+	const price = await calculateHealAlterationPrice(interaction);
+	return new ShopItem(
+		translationModule.get("permanentItems.healAlterations.emote"),
+		translationModule.get("permanentItems.healAlterations.name"),
+		price,
+		translationModule.format("permanentItems.healAlterations.info"),
 		async (message) => {
 			const [player] = await Players.getOrRegister(message.user.id);
 			if (player.currentEffectFinished(new Date())) {
@@ -347,7 +377,7 @@ async function executeCommand(interaction: DraftbotInteraction, language: string
 	const permanentItemsCategory = new ShopItemCategory(
 		[
 			getRandomItemShopItem(shopTranslations, interaction),
-			getHealAlterationShopItem(shopTranslations, interaction),
+			await getHealAlterationShopItem(shopTranslations, interaction),
 			getHealEnergyShopItem(shopTranslations, healEnergyAlreadyPurchased, interaction),
 			getRegenShopItem(shopTranslations, interaction),
 			getBadgeShopItem(shopTranslations, interaction)
