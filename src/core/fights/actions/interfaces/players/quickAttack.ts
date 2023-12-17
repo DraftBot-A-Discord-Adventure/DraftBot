@@ -7,12 +7,11 @@ export default class QuickAttack extends FightAction {
 		const initialDamage = FightActionController.getAttackDamage(this.getStatsInfo(sender, receiver), sender, this.getAttackInfo());
 		const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 10, sender.getSpeed() > receiver.getSpeed() ? 0 : 20);
 		receiver.damage(damageDealt);
-
 		return this.getGenericAttackOutput(damageDealt, initialDamage, language);
 	}
 
 	getAttackInfo(): attackInfo {
-		return {minDamage: 25, averageDamage: 75, maxDamage: 180};
+		return {minDamage: 25, averageDamage: 90, maxDamage: 180};
 	}
 
 	getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
@@ -24,8 +23,8 @@ export default class QuickAttack extends FightAction {
 				receiver.getDefense(),
 				receiver.getSpeed()
 			], statsEffect: [
-				0.5,
-				0.5
+				0.4,
+				0.6
 			]
 		};
 	}

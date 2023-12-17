@@ -14,7 +14,7 @@
 	"breathRegen": 3,
 	"classGroup": 0,
 	"fightActionsIds": [
-		"shieldAttack",
+		"simpleAttack",
 		"quickAttack",
 		"resting"
 	]

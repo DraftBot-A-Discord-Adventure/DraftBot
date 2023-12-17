@@ -14,7 +14,7 @@
 	"breathRegen": 3,
 	"classGroup": 4,
 	"fightActionsIds": [
-		"shieldAttack",
+		"simpleAttack",
 		"quickAttack",
 		"heavyAttack",
 		"benediction",
