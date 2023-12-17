@@ -5,5 +5,5 @@ export abstract class PetFreeConstants {
 
 	static readonly GIVE_MEAT_PROBABILITY = 0.1;
 
-	static readonly FREE_FEISTY_COST = 1000;
+	static readonly FREE_FEISTY_COST = 500;
 }

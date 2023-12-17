@@ -190,8 +190,6 @@ export abstract class SmallEventConstants {
 		SUCCESS_PROBABILITY_FOR_RARITY_DIFFERENCE: 0.13,
 		MAX_PROBABILITY_PET_VS_PET: 0.97,
 		MIN_PROBABILITY_PET_VS_PET: 0.1
-
-
 	};
 
 	static readonly INTERACT_OTHER_PLAYERS = {

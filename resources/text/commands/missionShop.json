@@ -47,7 +47,7 @@
 				"lovePointsValue": {
 					"emote": "\uD83E\uDDD1\u200D⚕️",
 					"name": "Vétérinaire de la cour",
-					"price": 5,
+					"price": 3,
 					"info": "Obtenir des informations détaillées sur votre familier.",
 					"giveTitle": "{pseudo}, achat effectué !",
 					"giveDesc": "Après un long moment passé à étudier l'état de santé de votre animal, vous finissez par recevoir le rapport du vétérinaire :\n\n**{petName}** {commentOnResult}\n\uD83D\uDC96 **Score d'amour** : {actualLP} / 100\n\uD83C\uDF7D️ **Régime alimentaire** : {regime}\n\uD83D\uDD59 **Prochaine faim** : {nextFeed}",

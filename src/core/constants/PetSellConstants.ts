@@ -3,6 +3,4 @@ export abstract class PetSellConstants {
 		MIN: 100,
 		MAX: 50000
 	};
-
-	static readonly MAX_SPAM_COUNT_SELLER = 3;
 }
