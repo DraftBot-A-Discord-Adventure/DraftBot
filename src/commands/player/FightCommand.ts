@@ -525,6 +525,7 @@ async function executeCommand(interaction: DraftbotInteraction, language: string
 		FightConstants.ASKING_MENU_DURATION)
 		.formatAuthor(fightTranslationModule.get("fightAskingTitle"), interaction.user)
 		.setDescription(fightAskingDescription)
+		.setColor(friendly ? FightConstants.FIGHT_EMBED_COLOR.FRIENDLY : null /* No color for ranked fights */)
 		.reply(askedEntity ? askedFighter.getMention() : "");
 }
 

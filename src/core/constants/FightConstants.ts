@@ -1,3 +1,5 @@
+import {HexColorString} from "discord.js";
+
 export abstract class FightConstants {
 	static readonly MAX_TURNS = 24;
 
@@ -18,6 +20,10 @@ export abstract class FightConstants {
 		ELO_GAP: "error.eloGap",
 		BEST_OF_3: "error.bestOf3",
 		PVE_ISLAND: "error.onPveIsland"
+	};
+
+	static readonly FIGHT_EMBED_COLOR = {
+		FRIENDLY: <HexColorString>"#c7f6b7"
 	};
 
 	// Duration of the menu that search for an opponent in milliseconds
@@ -61,15 +67,6 @@ export abstract class FightConstants {
 		PLUS: "+",
 		MINUS: "-"
 	};
-
-	// Amount of fight points a player will lose when he is poisoned
-	static POISON_DAMAGE_PER_TURN = 30;
-
-	// % of chance a player will heal himself when he is poisoned
-	static POISON_END_PROBABILITY = 25;
-
-	// Empty string to register cancellation of an alteration display
-	static CANCEL_ALTERATION_DISPLAY = "";
 
 	static readonly UNCOUNTERABLE_ACTIONS = [
 		"ultimateAttack",
