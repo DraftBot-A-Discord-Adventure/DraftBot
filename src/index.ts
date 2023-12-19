@@ -5,6 +5,7 @@ import {sendPacket} from "../../Lib/src/packets/PacketUtils";
 import {WebsocketClient} from "../../Lib/src/instances/WebsocketClient";
 import {Logger} from "../../Lib/src/instances/Logger";
 import {WebSocketServer} from "ws";
+import {CommandsTest} from "./core/CommandsTest";
 
 export const botConfig = loadConfig();
 export let draftBotInstance: DraftBot = null;
@@ -13,7 +14,7 @@ const webSocketServer = new WebSocketServer({ port: 7071 });
 
 console.log("Running DraftBot 5.0.0");
 
-webSocketServer.on("connection", (socket): void => {
+webSocketServer.on("connection", async (socket): Promise<void> => {
 	const client: WebsocketClient = {
 		webSocket: socket,
 		logger: Logger.getInstance("core")
@@ -22,6 +23,7 @@ webSocketServer.on("connection", (socket): void => {
 
 	if (botConfig.TEST_MODE) {
 		client.logger.mode = "console";
+		await CommandsTest.init();
 	}
 
 	client.webSocket.addEventListener("message", async (event): Promise<void> => {
@@ -37,7 +39,10 @@ webSocketServer.on("connection", (socket): void => {
 		client.logger.log(`RS: ${JSON.stringify(response)}`);
 		sendPacket(client.webSocket, {
 			context: dataJson.context,
-			packets: response.map((responsePacket) => ({ name: responsePacket.constructor.name, data: responsePacket }))
+			packets: response.map((responsePacket) => ({
+				name: responsePacket.constructor.name,
+				data: responsePacket
+			}))
 		});
 	});
 

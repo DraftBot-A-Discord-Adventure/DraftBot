@@ -6,42 +6,48 @@ import Player, {Players} from "./database/game/models/Player";
 import {Client} from "../../../Lib/src/instances/Client";
 import {CommandTestPacketRes} from "../../../Lib/src/packets/commands/CommandTestPacket";
 
-const typeVariableChecks = [
-	{
-		name: "INTEGER",
-		type: "number",
+type Checker = {
+	check: (v: string) => boolean
+	type: TypeKey
+};
+
+enum TypeKey {
+	INTEGER = "INTEGER",
+	MENTION = "MENTION",
+	EMOJI = "EMOJI",
+	STRING = "STRING"
+}
+
+const typeVariableChecks: Map<TypeKey, Checker> = new Map<TypeKey, Checker>([
+	[TypeKey.INTEGER, {
+		type: TypeKey.INTEGER,
 		check: (v: string): boolean => !isNaN(parseInt(v, 10))
-	},
-	{
-		name: "MENTION",
-		type: "mention",
+	}],
+	[TypeKey.MENTION, {
+		type: TypeKey.MENTION,
 		check: (v: string): boolean => isAMention(v)
-	},
-	{
-		name: "EMOJI",
-		type: "emoji",
+	}],
+	[TypeKey.EMOJI, {
+		type: TypeKey.EMOJI,
 		check: (v: string): boolean => isAnEmoji(v)
-	},
-	{
-		name: "STRING",
-		type: "string",
+	}],
+	[TypeKey.STRING, {
+		type: TypeKey.STRING,
 		check: (): boolean => false
-	}
-];
+	}]
+]);
 
 export interface ITestCommand {
 	name: string,
 	aliases?: string[],
 	commandFormat: string,
-	typeWaited?: { [argName: string]: { type: string, check: (v: string | number) => boolean } }
-	messageWhenExecuted?: string,
+	typeWaited?: { [argName: string]: Checker }
 	description: string,
-	commandTestShouldReply: boolean,
-	execute: ExecuteTestCommandLike,
+	execute?: ExecuteTestCommandLike,
 	category?: string
 }
 
-export type ExecuteTestCommandLike = (response: DraftBotPacket[], args: string[], player: Player, client: Client) => string | Promise<string>;
+export type ExecuteTestCommandLike = (player: Player, args: string[], response: DraftBotPacket[], client: Client) => string | Promise<string>;
 
 /**
  * @class
@@ -120,7 +126,7 @@ export class CommandsTest {
 		client: Client): Promise<void> {
 		const player = await Players.getById(1); // TODO replace with the right one
 		try {
-			const messageToDisplay = await testCommand.execute(response, args, player, client);
+			const messageToDisplay = await testCommand.execute(player, args, response, client);
 			if (!messageToDisplay || messageToDisplay === "") {
 				return;
 			}
@@ -138,17 +144,13 @@ export class CommandsTest {
 		}
 	}
 
-	static getTypeOf(variable: string): string {
-		const typeKeys: string[] = [];
-		typeVariableChecks.forEach(value => typeKeys.push(value.name));
-		for (const typeIn of typeKeys) {
-			if (typeVariableChecks.find(value => value.name === typeIn)) {
-				if (typeVariableChecks.find(value => value.name === typeIn).check(variable)) {
-					return typeVariableChecks.find(value => value.name === typeIn).type;
-				}
+	static getTypeOf(variable: string): TypeKey {
+		for (const typeIn of typeVariableChecks.keys()) {
+			if (typeVariableChecks.get(typeIn).check(variable)) {
+				return typeIn;
 			}
 		}
-		return typeVariableChecks.find(value => value.name === "STRING").type;
+		return TypeKey.STRING;
 	}
 
 	static getTestCommand(commandName: string): ITestCommand {
@@ -177,7 +179,7 @@ export class CommandsTest {
 	 * @private
 	 */
 	private static initCommandTestFromCommandFile(type: string, commandFile: string): void {
-		const testCommand: ITestCommand = require(`../commands/admin/testCommands/${type}/${commandFile}`).default;
+		const testCommand: ITestCommand = require(`dist/src/commands/admin/testCommands/${type}/${commandFile}`).default;
 		testCommand.category = type;
 		CommandsTest.testCommandsArray[testCommand.name.toLowerCase()] = testCommand;
 		if (testCommand.aliases) {
