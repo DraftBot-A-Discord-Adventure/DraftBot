@@ -56,4 +56,8 @@ export class SmallEventDataController extends DataController<string, SmallEvent>
 	newInstance(): SmallEvent {
 		return new SmallEvent();
 	}
+
+	getKeys(): string[] {
+		return Array.from(SmallEventDataController.smallEventsFunctionsCache.keys());
+	}
 }

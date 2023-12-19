@@ -4,7 +4,6 @@ import {Maps} from "../../../../core/maps/Maps";
 export const commandInfo: ITestCommand = {
 	name: "listevents",
 	aliases: ["listevent", "le"],
-	commandFormat: "",
 	description: "Liste tous les évènements disponibles pour chaque lieu"
 };
 

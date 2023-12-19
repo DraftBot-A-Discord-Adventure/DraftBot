@@ -25,7 +25,7 @@ const typeVariableChecks: Map<TypeKey, Checker> = new Map<TypeKey, Checker>([
 export interface ITestCommand {
 	name: string,
 	aliases?: string[],
-	commandFormat: string,
+	commandFormat?: string,
 	typeWaited?: { [argName: string]: TypeKey }
 	description: string,
 	execute?: ExecuteTestCommandLike,
