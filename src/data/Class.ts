@@ -87,4 +87,8 @@ export class ClassDataController extends DataController<number, Class> {
 	newInstance(): Class {
 		return new Class();
 	}
+
+	getClassMaxId(): number {
+		return this.data.size;
+	}
 }

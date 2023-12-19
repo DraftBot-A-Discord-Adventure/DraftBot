@@ -78,4 +78,11 @@ export class Campaign {
 		}
 		return [];
 	}
+
+	/**
+	 * Get the default campaign blob
+	 */
+	static getDefaultCampaignBlob(): string {
+		return "0".repeat(this.getMaxCampaignNumber());
+	}
 }

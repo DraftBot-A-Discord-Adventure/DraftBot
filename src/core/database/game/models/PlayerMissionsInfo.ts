@@ -2,6 +2,7 @@ import {DataTypes, Model, Sequelize} from "sequelize";
 import {datesAreOnSameDay} from "../../../utils/TimeUtils";
 import {NumberChangeReason} from "../../../constants/LogsConstants";
 import {draftBotInstance} from "../../../../index";
+import {Campaign} from "../../../missions/Campaign";
 import moment = require("moment");
 
 export class PlayerMissionsInfo extends Model {
@@ -16,6 +17,8 @@ export class PlayerMissionsInfo extends Model {
 	declare lastDailyMissionCompleted: Date;
 
 	declare campaignProgression: number;
+
+	declare campaignBlob: string;
 
 	declare updatedAt: Date;
 
@@ -50,11 +53,15 @@ export class PlayerMissionsInfos {
 	 * @param playerId
 	 */
 	public static async getOfPlayer(playerId: number): Promise<PlayerMissionsInfo> {
-		return (await PlayerMissionsInfo.findOrCreate({
+		const missionsInfo = (await PlayerMissionsInfo.findOrCreate({
 			where: {
 				playerId
 			}
 		}))[0];
+		if (missionsInfo.campaignBlob === null || !missionsInfo.campaignBlob) {
+			missionsInfo.campaignBlob = Campaign.getDefaultCampaignBlob();
+		}
+		return missionsInfo;
 	}
 }
 
@@ -83,6 +90,9 @@ export function initModel(sequelize: Sequelize): void {
 		campaignProgression: {
 			type: DataTypes.INTEGER,
 			defaultValue: 1
+		},
+		campaignBlob: {
+			type: DataTypes.STRING
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
