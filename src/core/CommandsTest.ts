@@ -6,12 +6,9 @@ import Player, {Players} from "./database/game/models/Player";
 import {Client} from "../../../Lib/src/instances/Client";
 import {CommandTestPacketRes} from "../../../Lib/src/packets/commands/CommandTestPacket";
 
-type Checker = {
-	check: (v: string) => boolean
-	type: TypeKey
-};
+type Checker = (v: string) => boolean;
 
-enum TypeKey {
+export enum TypeKey {
 	INTEGER = "INTEGER",
 	MENTION = "MENTION",
 	EMOJI = "EMOJI",
@@ -19,29 +16,17 @@ enum TypeKey {
 }
 
 const typeVariableChecks: Map<TypeKey, Checker> = new Map<TypeKey, Checker>([
-	[TypeKey.INTEGER, {
-		type: TypeKey.INTEGER,
-		check: (v: string): boolean => !isNaN(parseInt(v, 10))
-	}],
-	[TypeKey.MENTION, {
-		type: TypeKey.MENTION,
-		check: (v: string): boolean => isAMention(v)
-	}],
-	[TypeKey.EMOJI, {
-		type: TypeKey.EMOJI,
-		check: (v: string): boolean => isAnEmoji(v)
-	}],
-	[TypeKey.STRING, {
-		type: TypeKey.STRING,
-		check: (): boolean => false
-	}]
+	[TypeKey.INTEGER, (v: string): boolean => !isNaN(parseInt(v, 10))],
+	[TypeKey.MENTION, (v: string): boolean => isAMention(v)],
+	[TypeKey.EMOJI, (v: string): boolean => isAnEmoji(v)],
+	[TypeKey.STRING, (): boolean => false]
 ]);
 
 export interface ITestCommand {
 	name: string,
 	aliases?: string[],
 	commandFormat: string,
-	typeWaited?: { [argName: string]: Checker }
+	typeWaited?: { [argName: string]: TypeKey }
 	description: string,
 	execute?: ExecuteTestCommandLike,
 	category?: string
@@ -98,13 +83,13 @@ export class CommandsTest {
 			};
 		}
 		for (let i = 0; i < nbArgsWaited; i++) {
-			if (commandTest.typeWaited[commandTypeKeys[i]].type !== CommandsTest.getTypeOf(args[i])) {
+			if (commandTest.typeWaited[commandTypeKeys[i]] !== CommandsTest.getTypeOf(args[i])) {
 				return {
 					good: false,
 					description: `❌ Mauvais argument pour la commande test ${commandTest.name}
 
 **Format attendu** : \`test ${commandTest.name} ${commandTest.commandFormat}\`
-**Format de l'argument** \`<${commandTypeKeys[i]}>\` : ${commandTest.typeWaited[commandTypeKeys[i]].type}
+**Format de l'argument** \`<${commandTypeKeys[i]}>\` : ${commandTest.typeWaited[commandTypeKeys[i]]}
 **Format reçu** : ${CommandsTest.getTypeOf(args[i])}`
 				};
 			}
@@ -146,7 +131,7 @@ export class CommandsTest {
 
 	static getTypeOf(variable: string): TypeKey {
 		for (const typeIn of typeVariableChecks.keys()) {
-			if (typeVariableChecks.get(typeIn).check(variable)) {
+			if (typeVariableChecks.get(typeIn)(variable)) {
 				return typeIn;
 			}
 		}

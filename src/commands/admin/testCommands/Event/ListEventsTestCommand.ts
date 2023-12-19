@@ -5,7 +5,7 @@ export const commandInfo: ITestCommand = {
 	name: "listevents",
 	aliases: ["listevent", "le"],
 	commandFormat: "",
-	description: "Liste tous les évènements disponibles pour chaque lieu",
+	description: "Liste tous les évènements disponibles pour chaque lieu"
 };
 
 /**
