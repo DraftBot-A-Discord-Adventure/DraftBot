@@ -134,7 +134,7 @@ async function main(): Promise<void> {
 	await client.login(discordConfig.DISCORD_CLIENT_TOKEN);
 
 	await CommandsManager.register(client, shardId === 0);
-	DiscordWebSocket.init();
+	await DiscordWebSocket.init();
 }
 
 main().then();

@@ -1,8 +1,7 @@
-import {discordConfig, draftBotClient} from "./DraftBotShard";
+import {discordConfig} from "./DraftBotShard";
 import {PacketListenerClient} from "../../../Lib/src/packets/PacketListener";
-import {CommandPingPacketRes} from "../../../Lib/src/packets/commands/CommandPingPacket";
-import {TextChannel} from "discord.js";
 import {WebSocket} from "ws";
+import {registerAllPacketHandlers} from "../packetHandlers/PacketHandler";
 
 export class DiscordWebSocket {
 
@@ -10,7 +9,7 @@ export class DiscordWebSocket {
 
 	static packetListener: PacketListenerClient = new PacketListenerClient();
 
-	static init(): void {
+	static async init(): Promise<void> {
 		DiscordWebSocket.socket = new WebSocket(discordConfig.WEBSOCKET_URL);
 
 		DiscordWebSocket.socket.on("error", (err) => {
@@ -31,12 +30,7 @@ export class DiscordWebSocket {
 		});
 
 		// Register packets
-		// TODO do that better than that
-		DiscordWebSocket.packetListener.addPacketListener<CommandPingPacketRes>(CommandPingPacketRes, (socket, packet, context) => {
-			draftBotClient?.channels.fetch(context.discord!.channel).then((channel) => {
-				(channel as TextChannel).send({ content: "Pong!\nLatency : " + packet.latency }).then();
-			});
-		});
+		await registerAllPacketHandlers();
 	}
 }
 
