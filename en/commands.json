@@ -1,0 +1,8 @@
+{
+  "ping": {
+    "discord": {
+      "create": ":ping_pong: Pong",
+      "edit": ":ping_pong: Pong\n\n**Total latency:** {{totalLatency}} ms\n**Discord latency:** {{discordApiLatency}} ms\n**Shard ID:** {{shardId}}\n**Total shards:** {{totalShards}} (+main shard)"
+    }
+  }
+}
