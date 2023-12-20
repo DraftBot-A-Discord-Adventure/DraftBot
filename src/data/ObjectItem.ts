@@ -15,7 +15,7 @@ export class ObjectItem extends SupportItem {
 	}
 }
 
-export class ObjectItemDataController extends ItemDataController<number, ObjectItem> {
+export class ObjectItemDataController extends ItemDataController<ObjectItem> {
 	static readonly instance: ObjectItemDataController = new ObjectItemDataController("objects");
 
 	newInstance(): ObjectItem {

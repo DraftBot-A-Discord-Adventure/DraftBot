@@ -290,8 +290,8 @@ export class MissionsController {
 		return retMission;
 	}
 
-	public static async addRandomMissionToPlayer(player: Player, difficulty: MissionDifficulty, exceptions: string = null): Promise<MissionSlot> {
-		const mission = MissionDataController.instance.getRandomMission(difficulty, exceptions);
+	public static async addRandomMissionToPlayer(player: Player, difficulty: MissionDifficulty): Promise<MissionSlot> {
+		const mission = MissionDataController.instance.getRandomMission(difficulty);
 		return await MissionsController.addMissionToPlayer(player, mission.id, difficulty, mission);
 	}
 

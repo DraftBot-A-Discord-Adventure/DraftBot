@@ -26,7 +26,7 @@ export class Weapon extends MainItem {
 	}
 }
 
-export class WeaponDataController extends ItemDataController<number, Weapon> {
+export class WeaponDataController extends ItemDataController<Weapon> {
 	static readonly instance: WeaponDataController = new WeaponDataController("weapons");
 
 	newInstance(): Weapon {

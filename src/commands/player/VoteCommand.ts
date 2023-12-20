@@ -1,8 +1,7 @@
 import {CommandVotePacketReq} from "../../../../Lib/src/packets/commands/CommandVotePacket";
-import {PacketListenerCallbackServer} from "../../../../Lib/src/packets/PacketListener";
+import {packetHandler} from "../../core/packetHandlers/PacketHandler";
 
-const command: PacketListenerCallbackServer<CommandVotePacketReq> = () => {
-
-};
-
-export default command;
+export default class VoteCommand {
+	@packetHandler(CommandVotePacketReq)
+	execute(): void {}
+}

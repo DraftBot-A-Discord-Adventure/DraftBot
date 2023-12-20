@@ -5,25 +5,26 @@ import {GenericItem} from "./GenericItem";
 export abstract class DataController<T extends string | number, U extends Data<number | string>> {
 	protected data: Map<T, U> = new Map<T, U>();
 
-	private readonly junkVariable: T; // Variable only used for typeof. Doesn't contain any value
-
 	private valuesArrayCache: U[] = null;
 
-	protected constructor(folder: string) {
+	protected constructor(type: string, folder: string) {
 		for (const file of readdirSync(`resources/${folder}`)) {
-			let key: string | number;
-			if (typeof this.junkVariable === "string") {
-				key = file;
-			}
-			else {
-				key = parseInt(file);
-			}
+			if (file.endsWith(".json")) {
+				let key: string | number;
+				const filenameWithoutExtension = file.substring(0, file.length - 5);
+				if (type === "string") {
+					key = filenameWithoutExtension;
+				}
+				else {
+					key = parseInt(filenameWithoutExtension);
+				}
 
-			const instance = this.newInstance();
-			this.toInstance(<T>key, instance, readFileSync(`resources/${folder}/${file}`)
-				.toString("utf8"));
+				const instance = this.newInstance();
+				this.toInstance(<T>key, instance, readFileSync(`resources/${folder}/${file}`)
+					.toString("utf8"));
 
-			this.data.set(<T>key, instance);
+				this.data.set(<T>key, instance);
+			}
 		}
 	}
 
@@ -57,7 +58,19 @@ export abstract class DataController<T extends string | number, U extends Data<n
 	}
 }
 
-export abstract class ItemDataController<T extends number, U extends GenericItem> extends DataController<T, U> {
+export abstract class DataControllerString<T extends Data<number | string>> extends DataController<string, T> {
+	constructor(folder: string) {
+		super("string", folder);
+	}
+}
+
+export abstract class DataControllerNumber<T extends Data<number | string>> extends DataController<number, T> {
+	constructor(folder: string) {
+		super("number", folder);
+	}
+}
+
+export abstract class ItemDataController<U extends GenericItem> extends DataControllerNumber<U> {
 	private maxIdCache: number = null;
 
 	private idsForRarityCache: Map<number, number[]> = null;

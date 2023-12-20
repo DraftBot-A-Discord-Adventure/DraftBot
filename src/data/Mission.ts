@@ -1,4 +1,4 @@
-import {DataController} from "./DataController";
+import {DataControllerString} from "./DataController";
 import {Data} from "./Data";
 import {MissionDifficulty} from "../core/missions/MissionDifficulty";
 import {RandomUtils} from "../core/utils/RandomUtils";
@@ -42,14 +42,14 @@ export class Mission extends Data<string> {
 	}
 }
 
-export class MissionDataController extends DataController<string, Mission> {
+export class MissionDataController extends DataControllerString<Mission> {
 	static readonly instance: MissionDataController = new MissionDataController("missions");
 
 	newInstance(): Mission {
 		return new Mission();
 	}
 
-	public getRandomMission(difficulty: MissionDifficulty, exceptions: string = null): Mission {
+	public getRandomMission(difficulty: MissionDifficulty): Mission {
 		const filter: (mission: Mission) => boolean =
 			difficulty === MissionDifficulty.EASY ? (mission): boolean => mission.canBeEasy()
 				: difficulty === MissionDifficulty.MEDIUM ? (mission): boolean => mission.canBeMedium()

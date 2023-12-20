@@ -1,11 +1,15 @@
 import {CommandPingPacketReq, CommandPingPacketRes} from "../../../../Lib/src/packets/commands/CommandPingPacket";
-import {PacketListenerCallbackServer} from "../../../../Lib/src/packets/PacketListener";
-import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
+import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import {packetHandler} from "../../core/packetHandlers/PacketHandler";
+import {CommandRarityPacketReq} from "../../../../Lib/src/packets/commands/CommandRarityPacket";
+import {WebsocketClient} from "../../../../Lib/src/instances/WebsocketClient";
 
-const command: PacketListenerCallbackServer<CommandPingPacketReq> = (client, packet, context, response) => {
-	response.push(makePacket(CommandPingPacketRes, {
-		latency: 0
-	}));
-};
+export default class PingCommand {
+	@packetHandler(CommandPingPacketReq)
+	execute(client: WebsocketClient, packet: CommandRarityPacketReq, context: PacketContext, response: DraftBotPacket[]): void {
+		response.push(makePacket(CommandPingPacketRes, {
+			latency: 0
+		}));
+	}
+}
 
-export default command;

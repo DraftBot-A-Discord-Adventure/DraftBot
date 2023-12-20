@@ -1,4 +1,4 @@
-import {DataController} from "./DataController";
+import {DataControllerString} from "./DataController";
 import {Data} from "./Data";
 import {RandomUtils} from "../core/utils/RandomUtils";
 import {PVEConstants} from "../core/constants/PVEConstants";
@@ -53,7 +53,7 @@ export class Monster extends Data<string> {
 	}
 }
 
-export class MonsterDataController extends DataController<string, Monster> {
+export class MonsterDataController extends DataControllerString<Monster> {
 	static readonly instance: MonsterDataController = new MonsterDataController("monsters");
 
 	newInstance(): Monster {

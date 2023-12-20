@@ -47,9 +47,9 @@ export class CommandsTest {
 	 */
 	static async init(): Promise<void> {
 		CommandsTest.testCommandsArray = {};
-		CommandsTest.testCommType = await readdir("dist/src/commands/admin/testCommands");
+		CommandsTest.testCommType = await readdir("dist/Core/src/commands/admin/testCommands");
 		for (const type of CommandsTest.testCommType) {
-			const commandsFiles = readdirSync(`dist/src/commands/admin/testCommands/${type}`).filter((command: string) => command.endsWith(".js"));
+			const commandsFiles = readdirSync(`dist/Core/src/commands/admin/testCommands/${type}`).filter((command: string) => command.endsWith(".js"));
 			for (const commandFile of commandsFiles) {
 				this.initCommandTestFromCommandFile(type, commandFile);
 			}
@@ -164,7 +164,7 @@ export class CommandsTest {
 	 * @private
 	 */
 	private static initCommandTestFromCommandFile(type: string, commandFile: string): void {
-		const testCommand: ITestCommand = require(`dist/src/commands/admin/testCommands/${type}/${commandFile}`).default;
+		const testCommand: ITestCommand = require(`../commands/admin/testCommands/${type}/${commandFile.substring(0, commandFile.length - 3)}`).default;
 		testCommand.category = type;
 		CommandsTest.testCommandsArray[testCommand.name.toLowerCase()] = testCommand;
 		if (testCommand.aliases) {

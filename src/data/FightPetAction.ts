@@ -1,4 +1,4 @@
-import {DataController} from "./DataController";
+import {DataControllerString} from "./DataController";
 import {Data} from "./Data";
 import Player from "../core/database/game/models/Player";
 import {readdirSync} from "fs";
@@ -18,7 +18,7 @@ export class FightPetAction extends Data<string> {
 
 export type FightPetActionFunc = (player: Player, pet: Pet, isFemale: boolean) => boolean | Promise<boolean>;
 
-export class FightPetActionDataController extends DataController<string, FightPetAction> {
+export class FightPetActionDataController extends DataControllerString<FightPetAction> {
 
 	static readonly instance = new FightPetActionDataController("fightPetActions");
 

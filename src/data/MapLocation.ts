@@ -1,4 +1,4 @@
-import {DataController} from "./DataController";
+import {DataControllerNumber} from "./DataController";
 import {QueryTypes} from "sequelize";
 import {MapLinkDataController} from "./MapLink";
 import Player from "../core/database/game/models/Player";
@@ -39,7 +39,7 @@ export class MapLocation extends Data<number> {
 	}
 }
 
-export class MapLocationDataController extends DataController<number, MapLocation> {
+export class MapLocationDataController extends DataControllerNumber<MapLocation> {
 	static readonly instance: MapLocationDataController = new MapLocationDataController("mapLocations");
 
 	private missionsMapsCache: MapLocation[] = null;

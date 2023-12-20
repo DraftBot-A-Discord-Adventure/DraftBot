@@ -1,4 +1,4 @@
-import {DataController} from "./DataController";
+import {DataController, DataControllerString} from "./DataController";
 import {Data} from "./Data";
 import {readdirSync} from "fs";
 import Player from "../core/database/game/models/Player";
@@ -26,16 +26,20 @@ export type SmallEventFuncs = {
 	executeSmallEvent: ExecuteSmallEventLike;
 }
 
-export class SmallEventDataController extends DataController<string, SmallEvent> {
+export class SmallEventDataController extends DataControllerString<SmallEvent> {
 	static readonly instance: SmallEventDataController = new SmallEventDataController("smallEvents");
 
-	private static smallEventsFunctionsCache: Map<string, SmallEventFuncs>;
+	private static smallEventsFunctionsCache: Map<string, SmallEventFuncs> = null;
 
-	public static getSmallEventFunction(id: string): SmallEventFuncs {
+	private static initCache(): void {
 		if (SmallEventDataController.smallEventsFunctionsCache === null) {
 			SmallEventDataController.smallEventsFunctionsCache = new Map<string, SmallEventFuncs>();
-			SmallEventDataController.loadSmallEventsFromFolder("dist/src/core/smallEvents", "TODO replace with the right one");
+			SmallEventDataController.loadSmallEventsFromFolder("dist/Core/src/core/smallEvents", "../core/smallEvents");
 		}
+	}
+
+	public static getSmallEventFunction(id: string): SmallEventFuncs {
+		SmallEventDataController.initCache();
 
 		return SmallEventDataController.smallEventsFunctionsCache.get(id);
 	}
@@ -58,6 +62,7 @@ export class SmallEventDataController extends DataController<string, SmallEvent>
 	}
 
 	getKeys(): string[] {
+		SmallEventDataController.initCache();
 		return Array.from(SmallEventDataController.smallEventsFunctionsCache.keys());
 	}
 }

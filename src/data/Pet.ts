@@ -1,4 +1,4 @@
-import {DataController} from "./DataController";
+import {DataControllerNumber} from "./DataController";
 import {Data} from "./Data";
 import {PetEntityConstants} from "../core/constants/PetEntityConstants";
 import {RandomUtils} from "../core/utils/RandomUtils";
@@ -32,7 +32,7 @@ export class Pet extends Data<number> {
 	}
 }
 
-export class PetDataController extends DataController<number, Pet> {
+export class PetDataController extends DataControllerNumber<Pet> {
 	static readonly instance: PetDataController = new PetDataController("pets");
 
 	private maxIdCache: number = null;

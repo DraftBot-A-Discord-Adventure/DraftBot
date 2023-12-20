@@ -1,4 +1,4 @@
-import {DataController} from "./DataController";
+import {DataControllerString} from "./DataController";
 import {readdirSync} from "fs";
 import {FightAction} from "./FightAction";
 import {FightController} from "../core/fights/FightController";
@@ -16,7 +16,7 @@ export class FightAlteration extends FightAction {
 
 export type FightAlterationFunc = (affected: Fighter, fightAlteration: FightAlteration, opponent: Fighter, turn: number, fight: FightController) => FightAlterationResult;
 
-export class FightAlterationDataController extends DataController<string, FightAlteration> {
+export class FightAlterationDataController extends DataControllerString<FightAlteration> {
 	static readonly instance: FightAlterationDataController = new FightAlterationDataController("fightActions");
 
 	private static fightAlterationsFunctionsCache: Map<string, FightAlterationFunc>;

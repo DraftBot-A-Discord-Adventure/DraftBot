@@ -1,4 +1,4 @@
-import {DataController} from "./DataController";
+import {DataControllerNumber} from "./DataController";
 import {ClassStats} from "../../../Lib/src/interfaces/ClassStats";
 import {Data} from "./Data";
 
@@ -81,7 +81,7 @@ export class Class extends Data<number> {
 	}
 }
 
-export class ClassDataController extends DataController<number, Class> {
+export class ClassDataController extends DataControllerNumber<Class> {
 	static readonly instance: ClassDataController = new ClassDataController("classes");
 
 	newInstance(): Class {

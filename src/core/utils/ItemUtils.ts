@@ -455,7 +455,7 @@ export const haveRarityOrMore = function(slots: InventorySlot[], rarity: ItemRar
  * Get a portion of the model corresponding to the category number
  * @param category
  */
-function getCategoryDataByName(category: ItemCategory): ItemDataController<number, GenericItem> {
+function getCategoryDataByName(category: ItemCategory): ItemDataController<GenericItem> {
 	switch (category) {
 	case ItemCategory.WEAPON:
 		return WeaponDataController.instance;

@@ -1,4 +1,4 @@
-import {DataController} from "./DataController";
+import {DataControllerNumber} from "./DataController";
 import {Data} from "./Data";
 import {LeagueInfoConstants} from "../core/constants/LeagueInfoConstants";
 import {GenericItem} from "./GenericItem";
@@ -56,7 +56,7 @@ export class League extends Data<number> {
 	}
 }
 
-export class LeagueDataController extends DataController<number, League> {
+export class LeagueDataController extends DataControllerNumber<League> {
 	static readonly instance: LeagueDataController = new LeagueDataController("leagues");
 
 	newInstance(): League {

@@ -51,6 +51,8 @@ webSocketServer.on("connection", async (socket): Promise<void> => {
 	});
 });
 
+require("source-map-support").install();
 draftBotInstance = new DraftBot(loadConfig());
+draftBotInstance.init().then();
 
 // https://ably.com/blog/web-app-websockets-nodejs

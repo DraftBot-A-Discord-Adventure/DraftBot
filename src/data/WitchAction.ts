@@ -1,4 +1,4 @@
-import {DataController} from "./DataController";
+import {DataControllerString} from "./DataController";
 import {Data} from "./Data";
 import {readdirSync} from "fs";
 import {RandomUtils} from "../core/utils/RandomUtils";
@@ -91,9 +91,9 @@ export type PotionParameters = {
 	nature: ItemNature,
 }
 
-export class WitchActionDataController extends DataController<string, WitchAction> {
+export class WitchActionDataController extends DataControllerString<WitchAction> {
 
-	static readonly instance = new WitchActionDataController("witchActions");
+	static readonly instance = new WitchActionDataController("witch");
 
 	private static witchActionsFunctionsCache: Map<string, WitchActionFuncs>;
 

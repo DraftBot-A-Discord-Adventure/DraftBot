@@ -1,4 +1,4 @@
-import {DataController} from "./DataController";
+import {DataControllerNumber} from "./DataController";
 import {RandomUtils} from "../core/utils/RandomUtils";
 import {MapLocationDataController} from "./MapLocation";
 import {Data} from "./Data";
@@ -13,7 +13,7 @@ export class MapLink extends Data<number> {
 	public readonly forcedImage?: string;
 }
 
-export class MapLinkDataController extends DataController<number, MapLink> {
+export class MapLinkDataController extends DataControllerNumber<MapLink> {
 	static readonly instance: MapLinkDataController = new MapLinkDataController("mapLinks");
 
 	newInstance(): MapLink {

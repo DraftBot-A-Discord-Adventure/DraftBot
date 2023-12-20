@@ -21,7 +21,7 @@ export class Potion extends SupportItem {
 	}
 }
 
-export class PotionDataController extends ItemDataController<number, Potion> {
+export class PotionDataController extends ItemDataController<Potion> {
 	static readonly instance: PotionDataController = new PotionDataController("potions");
 
 	newInstance(): Potion {
