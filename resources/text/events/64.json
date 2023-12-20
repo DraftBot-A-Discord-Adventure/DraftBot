@@ -12,7 +12,8 @@
 					"to": 31
 				}
 			},
-			"oncePer": "year"
+			"oncePer": "year",
+			"mapAttributes": ["continent1"]
 		}
 	],
 	"translations": {
