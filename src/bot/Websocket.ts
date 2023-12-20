@@ -25,7 +25,7 @@ export class DiscordWebSocket {
 				return;
 			}
 			for (const packet of dataJson.packets) {
-				await DiscordWebSocket.packetListener.getListener(packet.name)(DiscordWebSocket.socket!, packet.data, dataJson.context);
+				await DiscordWebSocket.packetListener.getListener(packet.name)(DiscordWebSocket.socket!, packet.packet, dataJson.context);
 			}
 		});
 

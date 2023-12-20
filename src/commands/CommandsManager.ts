@@ -30,6 +30,7 @@ import {KeycloakUtils} from "../../../Lib/src/keycloak/KeycloakUtils";
 import {DraftbotChannel, DraftbotInteraction} from "../messages/DraftbotInteraction";
 import {DiscordWebSocket} from "../bot/Websocket";
 import {PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
+import {DiscordCache} from "../bot/DiscordCache";
 
 export class CommandsManager {
 	static commands = new Map<string, ICommand>();
@@ -373,8 +374,9 @@ ${i18n.t("bot:mentionHelp", {
 			return;
 		}
 
+		DiscordCache.cacheInteraction(interaction);
 		const packet = await commandInfo.getPacket(interaction, user);
-		const context: PacketContext = { discord: { channel: interaction.channel.id } };
+		const context: PacketContext = { discord: { channel: interaction.channel.id, interaction: interaction.id } };
 		DiscordWebSocket.socket!.send(JSON.stringify({ packet: { name: packet.constructor.name, data: packet }, context }));
 	}
 

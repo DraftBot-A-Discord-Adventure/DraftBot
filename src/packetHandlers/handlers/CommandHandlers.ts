@@ -1,18 +1,24 @@
-import {draftBotClient} from "../../bot/DraftBotShard";
-import {TextChannel} from "discord.js";
 import {packetHandler} from "../PacketHandler";
 import {PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {CommandPingPacketRes} from "../../../../Lib/src/packets/commands/CommandPingPacket";
 import {WebSocket} from "ws";
+import {DiscordCache} from "../../bot/DiscordCache";
+import i18n from "../../translations/i18n";
+import {draftBotClient, shardId} from "../../bot/DraftBotShard";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
 
 	pingRes(socket: WebSocket, packet: CommandPingPacketRes, context: PacketContext): void {
-		draftBotClient?.channels.fetch(context.discord!.channel)
-			.then((channel) => {
-				(channel as TextChannel).send({content: "Pong!\nLatency : " + packet.latency})
-					.then();
-			});
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		interaction?.editReply({
+			content: i18n.t("commands:ping.discord.edit", {
+				lang: interaction?.channel.language,
+				totalLatency: Date.now() - packet.clientTime,
+				discordApiLatency: draftBotClient!.ws.ping,
+				shardId: shardId,
+				totalShards: draftBotClient!.shard!.count - 1 }
+			)
+		});
 	}
 }

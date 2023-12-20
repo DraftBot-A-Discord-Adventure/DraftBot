@@ -1,15 +1,19 @@
 import * as i18next from "i18next";
 import * as enBot from "../../../Lang/en/bot.json";
 import * as frBot from "../../../Lang/fr/bot.json";
+import * as enCommands from "../../../Lang/en/commands.json";
+import * as frCommands from "../../../Lang/fr/commands.json";
 
 i18next.init({
 	fallbackLng: "en",
 	resources: {
 		en: {
-			bot: enBot
+			bot: enBot,
+			commands: enCommands
 		},
 		fr: {
-			bot: frBot
+			bot: frBot,
+			commands: frCommands
 		}
 	}
 }).then();

@@ -69,4 +69,8 @@ export class Constants {
 		PROGRESS_BAR_SIZE: 20,
 		MAX_SPAM_COUNT: 3
 	};
+
+	static readonly CACHE_TIME = {
+		INTERACTIONS: 900000
+	};
 }
