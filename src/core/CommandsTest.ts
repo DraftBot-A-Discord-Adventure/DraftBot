@@ -164,7 +164,7 @@ export class CommandsTest {
 	 * @private
 	 */
 	private static initCommandTestFromCommandFile(type: string, commandFile: string): void {
-		const testCommand: ITestCommand = require(`../commands/admin/testCommands/${type}/${commandFile.substring(0, commandFile.length - 3)}`).default;
+		const testCommand: ITestCommand = require(`../commands/admin/testCommands/${type}/${commandFile.substring(0, commandFile.length - 3)}`).commandInfo;
 		testCommand.category = type;
 		CommandsTest.testCommandsArray[testCommand.name.toLowerCase()] = testCommand;
 		if (testCommand.aliases) {

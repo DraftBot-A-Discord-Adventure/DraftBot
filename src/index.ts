@@ -35,15 +35,16 @@ webSocketServer.on("connection", async (socket): Promise<void> => {
 			return;
 		}
 		const response: DraftBotPacket[] = [];
-		await draftBotInstance.packetListener.getListener(dataJson.packet.name)(client, dataJson.data, dataJson.context, response);
-		client.logger.log(`RS: ${JSON.stringify(response)}`);
-		sendPacket(client.webSocket, {
+		await draftBotInstance.packetListener.getListener(dataJson.packet.name)(client, dataJson.packet.data, dataJson.context, response);
+		const responsePacket = {
 			context: dataJson.context,
 			packets: response.map((responsePacket) => ({
 				name: responsePacket.constructor.name,
-				data: responsePacket
+				packet: responsePacket
 			}))
-		});
+		};
+		client.logger.log(`RS: ${JSON.stringify(responsePacket)}`);
+		sendPacket(client.webSocket, responsePacket);
 	});
 
 	client.webSocket.addEventListener("close", (event) => {
