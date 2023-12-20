@@ -5,5 +5,5 @@ export class CommandPingPacketReq extends DraftBotPacket {
 }
 
 export class CommandPingPacketRes extends DraftBotPacket {
-	latency!: number;
+	clientTime!: number;
 }

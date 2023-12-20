@@ -2,6 +2,7 @@ export class DraftBotPacket {}
 
 export interface PacketContext {
 	discord?: {
+		interaction: string,
 		channel: string
 	}
 }
