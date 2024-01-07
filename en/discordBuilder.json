@@ -1,0 +1,10 @@
+{
+  "ping": {
+    "description": "Displays the ping of the bot and allow the player to check if the bot is online.",
+    "name": "ping"
+  },
+  "scopes": {
+    "global": "🏆 Global ranking.",
+    "server": "🚩 Server ranking."
+  }
+}

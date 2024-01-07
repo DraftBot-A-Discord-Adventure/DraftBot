@@ -1,5 +1,5 @@
 {
-  "titleDidntWork": "{{pseudo}}, hmmm... Cela n'a pas fonctionné !",
+  "titleBlocked": "{{pseudo}}, cette personne est bloquée !",
   "titleCanceled": "{{pseudo}}, annulation prise en compte !",
-  "titleBlocked": "{{pseudo}}, cette personne est bloquée !"
+  "titleDidntWork": "{{pseudo}}, hmmm... Cela n'a pas fonctionné !"
 }
