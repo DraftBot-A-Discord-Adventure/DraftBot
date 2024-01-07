@@ -6,7 +6,6 @@ import {InventoryInfos} from "./InventoryInfo";
 import {Constants} from "../../../Constants";
 import {MissionsController} from "../../../missions/MissionsController";
 import {PlayerActiveObjects} from "./PlayerActiveObjects";
-import {TopConstants} from "../../../constants/TopConstants";
 import {NumberChangeReason} from "../../../constants/LogsConstants";
 import {EffectsConstants} from "../../../constants/EffectsConstants";
 import {PlayersConstants} from "../../../constants/PlayersConstants";
@@ -39,6 +38,7 @@ import {Class, ClassDataController} from "../../../../data/Class";
 import {BlockingUtils} from "../../../utils/BlockingUtils";
 import {League, LeagueDataController} from "../../../../data/League";
 import moment = require("moment");
+import {TopConstants} from "../../../../../../Lib/src/constants/TopConstants";
 
 export type PlayerEditValueParameters = {
 	player: Player,
