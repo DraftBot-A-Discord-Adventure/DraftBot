@@ -73,4 +73,11 @@ export class Constants {
 	static readonly CACHE_TIME = {
 		INTERACTIONS: 900000
 	};
+
+	static readonly PROFILE = {
+		DISPLAY_ALL_BADGE_EMOTE: "🎖️",
+		MAX_EMOTE_DISPLAY_NUMBER: 10
+	};
+
+	static readonly DEFAULT_HEALED_EFFECT = ":hospital:";
 }

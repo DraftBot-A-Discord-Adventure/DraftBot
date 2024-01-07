@@ -5,6 +5,8 @@ import {WebSocket} from "ws";
 import {DiscordCache} from "../../bot/DiscordCache";
 import i18n from "../../translations/i18n";
 import {draftBotClient, shardId} from "../../bot/DraftBotShard";
+import {CommandProfilePacketRes} from "../../../../Lib/src/packets/commands/CommandProfilePacket";
+import {handleCommandProfilePacketRes} from "../../commands/player/ProfileCommand";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
@@ -20,5 +22,10 @@ export default class CommandHandlers {
 				totalShards: draftBotClient!.shard!.count - 1 }
 			)
 		});
+	}
+
+	@packetHandler(CommandProfilePacketRes)
+	profileRes(socket: WebSocket, packet: CommandProfilePacketRes, context: PacketContext): void {
+		handleCommandProfilePacketRes(packet, context).then();
 	}
 }
