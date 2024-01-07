@@ -3,17 +3,21 @@ import * as enBot from "../../../Lang/en/bot.json";
 import * as frBot from "../../../Lang/fr/bot.json";
 import * as enCommands from "../../../Lang/en/commands.json";
 import * as frCommands from "../../../Lang/fr/commands.json";
+import * as enDiscordBuilder from "../../../Lang/en/discordBuilder.json";
+import * as frDiscordBuilder from "../../../Lang/fr/discordBuilder.json";
 
 i18next.init({
 	fallbackLng: "en",
 	resources: {
 		en: {
 			bot: enBot,
-			commands: enCommands
+			commands: enCommands,
+			discordBuilder: enDiscordBuilder
 		},
 		fr: {
 			bot: frBot,
-			commands: frCommands
+			commands: frCommands,
+			discordBuilder: frDiscordBuilder
 		}
 	}
 }).then();

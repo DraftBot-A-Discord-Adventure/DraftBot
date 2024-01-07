@@ -1,9 +1,9 @@
 import {ICommand} from "../ICommand";
 import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {CommandPingPacketReq} from "../../../../Lib/src/packets/commands/CommandPingPacket";
-import {SlashCommandBuilder} from "@discordjs/builders";
 import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
 import i18n from "../../translations/i18n";
+import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 
 /**
  * Pings the bot, to check if it is alive and how well is it
@@ -15,9 +15,7 @@ async function getPacket(interaction: DraftbotInteraction): Promise<CommandPingP
 }
 
 export const commandInfo: ICommand = {
-	slashCommandBuilder: new SlashCommandBuilder()
-		.setName("ping")
-		.setDescription("Ping!"), // todo i18n + slash command generator
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("ping"),
 	getPacket,
 	requirements: {},
 	mainGuildCommand: false
