@@ -144,8 +144,6 @@ export abstract class Constants {
 		LOG_COUNT_LINE_LIMIT: 50000
 	};
 
-	static readonly DEFAULT_HEALED_EFFECT = ":hospital:";
-
 	static readonly MISSION_SHOP = {
 		RANGE_MISSION_MONEY: 1350,
 		BASE_RATIO: 6500,
@@ -200,11 +198,6 @@ export abstract class Constants {
 		],
 		DAILY_MISSION_MONEY_MULTIPLIER: 0.5,
 		DAILY_MISSION_POINTS_MULTIPLIER: 3.5
-	};
-
-	static readonly PROFILE = {
-		DISPLAY_ALL_BADGE_EMOTE: "🎖️",
-		MAX_EMOTE_DISPLAY_NUMBER: 10
 	};
 
 	static readonly BADGES = {

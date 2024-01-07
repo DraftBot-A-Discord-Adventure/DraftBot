@@ -85,4 +85,12 @@ export class Campaign {
 	static getDefaultCampaignBlob(): string {
 		return "0".repeat(this.getMaxCampaignNumber());
 	}
+
+	/**
+	 * Get the amount of missions completed in the given campaign blob
+	 * @param campaignBlob
+	 */
+	static getAmountOfCampaignCompleted(campaignBlob: string): number {
+		return campaignBlob.split("1").length - 1;
+	}
 }

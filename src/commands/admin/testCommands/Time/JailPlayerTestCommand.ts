@@ -1,6 +1,6 @@
 import {NumberChangeReason} from "../../../../core/constants/LogsConstants";
 import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
-import {EffectsConstants} from "../../../../core/constants/EffectsConstants";
+import {EffectsConstants} from "../../../../../../Lib/src/constants/EffectsConstants";
 import {TravelTime} from "../../../../core/maps/TravelTime";
 
 export const commandInfo: ITestCommand = {

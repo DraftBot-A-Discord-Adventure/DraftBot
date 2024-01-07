@@ -11,7 +11,7 @@ import {BlockingUtils} from "../utils/BlockingUtils";
 import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import {TravelTime} from "../maps/TravelTime";
-import {EffectsConstants} from "../constants/EffectsConstants";
+import {EffectsConstants} from "../../../../Lib/src/constants/EffectsConstants";
 import {SmallEventGobletsGamePacket} from "../../../../Lib/src/packets/smallEvents/SmallEventGobletsGamePacket";
 
 type GobletsGameProperties = {

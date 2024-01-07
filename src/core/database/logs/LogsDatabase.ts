@@ -79,7 +79,7 @@ import {LogsPetsLovesChanges} from "./models/LogsPetsLovesChanges";
 import {LogsGuildsFoodsChanges} from "./models/LogsGuildsFoodsChanges";
 import {LogsGuildsNewPets} from "./models/LogsGuildsNewPets";
 import {LogsPlayersNewPets} from "./models/LogsPlayersNewPets";
-import {EffectsConstants} from "../../constants/EffectsConstants";
+import {EffectsConstants} from "../../../../../Lib/src/constants/EffectsConstants";
 import {LogsPlayersDailies} from "./models/LogsPlayersDailies";
 import {GuildLikeType, ModelType, NumberChangeReason, ShopItemType} from "../../constants/LogsConstants";
 import {getDateLogs} from "../../utils/TimeUtils";

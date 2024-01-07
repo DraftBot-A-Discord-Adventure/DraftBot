@@ -7,7 +7,7 @@ import {Constants} from "../../../Constants";
 import {MissionsController} from "../../../missions/MissionsController";
 import {PlayerActiveObjects} from "./PlayerActiveObjects";
 import {NumberChangeReason} from "../../../constants/LogsConstants";
-import {EffectsConstants} from "../../../constants/EffectsConstants";
+import {EffectsConstants} from "../../../../../../Lib/src/constants/EffectsConstants";
 import {PlayersConstants} from "../../../constants/PlayersConstants";
 import {InventoryConstants} from "../../../constants/InventoryConstants";
 import {getOneDayAgo, millisecondsToSeconds, minutesToHours} from "../../../utils/TimeUtils";
@@ -1247,18 +1247,19 @@ export class Players {
 	 * Get the player with the given rank
 	 * @param rank
 	 */
-	static async getByRank(rank: number): Promise<Player[]> {
+	static async getByRank(rank: number): Promise<Player | null> {
 		const query = `SELECT *
 					   FROM (SELECT *,
 									RANK() OVER (ORDER BY score desc, level desc) rank, RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
 							 FROM players) subquery
 					   WHERE subquery.rank = :rank`;
-		return await Player.sequelize.query(query, {
+		const res = await Player.sequelize.query(query, {
 			replacements: {
 				rank
 			},
 			type: QueryTypes.SELECT
 		});
+		return res.length === 0 ? null : <Player> res[0];
 	}
 
 	/**

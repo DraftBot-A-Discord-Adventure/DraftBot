@@ -3,7 +3,7 @@ import {millisecondsToMinutes, minutesToMilliseconds} from "../utils/TimeUtils";
 import {PlayerSmallEvents} from "../database/game/models/PlayerSmallEvent";
 import {Constants} from "../Constants";
 import {NumberChangeReason} from "../constants/LogsConstants";
-import {EffectsConstants} from "../constants/EffectsConstants";
+import {EffectsConstants} from "../../../../Lib/src/constants/EffectsConstants";
 import {Maps} from "./Maps";
 import {PVEConstants} from "../constants/PVEConstants";
 import {MapLinkDataController} from "../../data/MapLink";

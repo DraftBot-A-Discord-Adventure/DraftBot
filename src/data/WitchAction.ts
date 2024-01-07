@@ -8,7 +8,7 @@ import {ItemNature, ItemRarity} from "../core/constants/ItemConstants";
 import {DraftBotPacket} from "../../../Lib/src/packets/DraftBotPacket";
 import {TravelTime} from "../core/maps/TravelTime";
 import {NumberChangeReason} from "../core/constants/LogsConstants";
-import {EffectsConstants} from "../core/constants/EffectsConstants";
+import {EffectsConstants} from "../../../Lib/src/constants/EffectsConstants";
 
 
 export enum WitchActionOutcomeType {

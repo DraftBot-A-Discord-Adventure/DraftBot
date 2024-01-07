@@ -1,4 +1,4 @@
-import {EffectsConstants} from "./EffectsConstants";
+import {EffectsConstants} from "../../../../Lib/src/constants/EffectsConstants";
 import {NotificationsConstants} from "../../../../Lib/src/constants/NotificationsConstants";
 
 export abstract class PlayersConstants {
