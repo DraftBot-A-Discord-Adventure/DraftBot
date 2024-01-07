@@ -3,6 +3,20 @@
     "description": "Displays the ping of the bot and allow the player to check if the bot is online.",
     "name": "ping"
   },
+  "profile": {
+    "description": "Displays the profile of a player.",
+    "name": "profile",
+    "options": {
+      "rank": {
+        "description": "The rank of the player whose profile you want to display.",
+        "name": "rank"
+      },
+      "user": {
+        "description": "The player whose profile you want to display.",
+        "name": "user"
+      }
+    }
+  },
   "scopes": {
     "global": "🏆 Global ranking.",
     "server": "🚩 Server ranking."

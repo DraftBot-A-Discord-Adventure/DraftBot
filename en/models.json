@@ -1,0 +1,51 @@
+{
+  "armors": {
+    "0": "No shield or armor"
+  },
+  "classes": {
+    "0": "Recruit"
+  },
+  "fight_actions": {
+    "benediction": {
+      "name_one": "Blessing",
+      "name_other": "Blessings",
+      "description": "Part of the \"actions of the gods\" group. Fails if 1 god action has already been performed in the fight. Increases all the caster's stats. The later in the fight the blessing is used, the greater the increase in stats."
+    }
+  },
+  "leagues": {
+    "0": "Wooden league"
+  },
+  "map_locations": {
+    "1": {
+      "name": "Sentinel Beach",
+      "particle": "of the",
+      "description": "A large sandy beach on the edge of the town."
+    }
+  },
+  "missions": {
+    "anyFight_one": "Do {{objective}} fight",
+    "anyFight_other": "Do {{objective}} fights"
+  },
+  "monsters": {
+    "forestTroll": "Forest troll"
+  },
+  "objects": {
+    "0": "Unused space"
+  },
+  "pets": {
+    "0": {
+      "male": "No pet",
+      "female": "No pet"
+    },
+    "1": {
+      "male": "Dog",
+      "female": "Dog"
+    }
+  },
+  "potions": {
+    "0": "No potion"
+  },
+  "weapons": {
+    "0": "Fist"
+  }
+}
