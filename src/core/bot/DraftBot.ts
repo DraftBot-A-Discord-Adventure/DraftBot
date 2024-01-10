@@ -24,6 +24,7 @@ import {BigEventsController} from "../events/BigEventsController";
 import {MapCache} from "../maps/MapCache";
 import {LeagueInfoConstants} from "../constants/LeagueInfoConstants";
 import {Settings} from "../database/game/models/Setting";
+import {getDateLogString} from "../utils/StringUtils";
 
 /**
  * The main class of the bot, manages the bot in general
@@ -559,9 +560,7 @@ export class DraftBot {
 			if (!message) {
 				return;
 			}
-			const now = new Date();
-			// eslint-disable-next-line max-len
-			const dateStr = `[${now.getFullYear()}/${`0${now.getMonth() + 1}`.slice(-2)}/${`0${now.getDate()}`.slice(-2)} ${`0${now.getHours()}`.slice(-2)}:${`0${now.getMinutes()}`.slice(-2)}:${`0${now.getSeconds()}`.slice(-2)}] `;
+			const dateStr = `${getDateLogString()} `;
 			try {
 				fs.appendFileSync(
 					thisInstance.currLogsFile,
