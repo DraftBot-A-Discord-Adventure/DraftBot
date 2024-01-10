@@ -1,6 +1,6 @@
 {
 	"name": "fr.bast.draftbot",
-	"version": "4.5.2.b",
+	"version": "4.5.3",
 	"main": "src/index.js",
 	"engines": {
 		"node": ">=16.17.1"
