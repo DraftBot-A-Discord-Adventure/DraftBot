@@ -244,7 +244,7 @@ async function sendTravelPath(player: Player, interaction: DraftbotInteraction, 
 		value: format(Translations.getModule("advices", language).getRandom("advices")),
 		inline: true
 	});
-	await interaction.reply({embeds: [travelEmbed]});
+	await interaction.editReply({embeds: [travelEmbed]});
 }
 
 const destinationChoiceEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣", "7⃣", "8⃣", "9⃣"];
@@ -737,6 +737,8 @@ async function executeCommand(
 		return;
 	}
 
+	await interaction.deferReply();
+
 	BlockingUtils.blockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND, Constants.MESSAGES.COLLECTOR_TIME * 3); // MaxTime here is to prevent any accident permanent blocking
 
 	await MissionsController.update(player, interaction.channel, language, {missionId: "commandReport"});
@@ -748,7 +750,6 @@ async function executeCommand(
 	}
 
 	if (forceSpecificEvent || await Maps.isArrived(player, currentDate)) {
-		await interaction.deferReply();
 		if (Maps.isOnPveIsland(player)) {
 			await doPVEBoss(interaction, language, player);
 		}
@@ -760,7 +761,6 @@ async function executeCommand(
 	}
 
 	if (forceSmallEvent || await needSmallEvent(player, currentDate)) {
-		await interaction.deferReply();
 		await executeSmallEvent(interaction, language, player, forceSmallEvent);
 		BlockingUtils.unblockPlayer(player.discordUserId, BlockingConstants.REASONS.REPORT_COMMAND);
 		return;
