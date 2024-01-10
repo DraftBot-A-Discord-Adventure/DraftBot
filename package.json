@@ -29,10 +29,10 @@
 		"verbose": true
 	},
 	"dependencies": {
-		"@discordjs/rest": "2.0.1",
+		"@discordjs/rest": "2.2.0",
 		"@top-gg/sdk": "3.1.6",
-		"discord-api-types": "0.37.60",
-		"discord.js": "14.13.0",
+		"discord-api-types": "0.37.67",
+		"discord.js": "14.14.1",
 		"express": "4.18.2",
 		"link-module-alias": "1.2.0",
 		"mariadb": "3.0.2",
