@@ -7,9 +7,9 @@
   },
   "fight_actions": {
     "benediction": {
+      "description": "Part of the \"actions of the gods\" group. Fails if 1 god action has already been performed in the fight. Increases all the caster's stats. The later in the fight the blessing is used, the greater the increase in stats.",
       "name_one": "Blessing",
-      "name_other": "Blessings",
-      "description": "Part of the \"actions of the gods\" group. Fails if 1 god action has already been performed in the fight. Increases all the caster's stats. The later in the fight the blessing is used, the greater the increase in stats."
+      "name_other": "Blessings"
     }
   },
   "leagues": {
@@ -17,9 +17,111 @@
   },
   "map_locations": {
     "1": {
+      "description": "A large sandy beach on the edge of the town.",
       "name": "Sentinel Beach",
-      "particle": "of the",
-      "description": "A large sandy beach on the edge of the town."
+      "particle": "of the"
+    }
+  },
+  "map_types": {
+    "be": {
+      "name": "Beach",
+      "prefix": "of the"
+    },
+    "castle_entrance": {
+      "name": "",
+      "prefix": "of the"
+    },
+    "castle_throne": {
+      "name": "",
+      "prefix": "of the"
+    },
+    "ci": {
+      "name": "City",
+      "prefix": "of the"
+    },
+    "continent": {
+      "name": "",
+      "prefix": "of the"
+    },
+    "crystal_cavern": {
+      "name": "Crystal cavern",
+      "prefix": "of the"
+    },
+    "de": {
+      "name": "Desert",
+      "prefix": "of the"
+    },
+    "fo": {
+      "name": "Forest",
+      "prefix": "of the"
+    },
+    "ice_beach": {
+      "name": "Ice beach",
+      "prefix": "of the"
+    },
+    "ice_cavern": {
+      "name": "Ice cavern",
+      "prefix": "of the"
+    },
+    "ice_lake": {
+      "name": "Frozen lake",
+      "prefix": "of the"
+    },
+    "la": {
+      "name": "Lake",
+      "prefix": "of the"
+    },
+    "mine": {
+      "name": "Mine",
+      "prefix": "of the"
+    },
+    "mo": {
+      "name": "Mountain",
+      "prefix": "of the"
+    },
+    "pl": {
+      "name": "Plain",
+      "prefix": "of the"
+    },
+    "pve_exit": {
+      "name": "",
+      "prefix": "of the"
+    },
+    "ri": {
+      "name": "River",
+      "prefix": "of the"
+    },
+    "ro": {
+      "name": "Road",
+      "prefix": "of the"
+    },
+    "ruins": {
+      "name": "Ruins",
+      "prefix": "of the"
+    },
+    "snow_mountain": {
+      "name": "Peak",
+      "prefix": "of the"
+    },
+    "snowmen_field": {
+      "name": "Plain",
+      "prefix": "of the"
+    },
+    "test_zone": {
+      "name": "",
+      "prefix": "of the"
+    },
+    "tundra": {
+      "name": "Tundra",
+      "prefix": "of the"
+    },
+    "vi": {
+      "name": "Village",
+      "prefix": "of the"
+    },
+    "volcano": {
+      "name": "Volcano",
+      "prefix": "of the"
     }
   },
   "missions": {
@@ -34,12 +136,12 @@
   },
   "pets": {
     "0": {
-      "male": "No pet",
-      "female": "No pet"
+      "female": "No pet",
+      "male": "No pet"
     },
     "1": {
-      "male": "Dog",
-      "female": "Dog"
+      "female": "Dog",
+      "male": "Dog"
     }
   },
   "potions": {

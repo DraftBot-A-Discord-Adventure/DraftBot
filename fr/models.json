@@ -1,0 +1,104 @@
+{
+  "map_types": {
+    "be": {
+      "name": "Plage",
+      "prefix": "de la"
+    },
+    "castle_entrance": {
+      "name": "",
+      "prefix": "des"
+    },
+    "castle_throne": {
+      "name": "",
+      "prefix": "de la"
+    },
+    "ci": {
+      "name": "Ville",
+      "prefix": "de la"
+    },
+    "continent": {
+      "name": "",
+      "prefix": "du"
+    },
+    "crystal_cavern": {
+      "name": "Caverne de crystal",
+      "prefix": "de la"
+    },
+    "de": {
+      "name": "Désert",
+      "prefix": "du"
+    },
+    "fo": {
+      "name": "Forêt",
+      "prefix": "de la"
+    },
+    "ice_beach": {
+      "name": "Plage glacée",
+      "prefix": "de la"
+    },
+    "ice_cavern": {
+      "name": "Caverne de glace",
+      "prefix": "de la"
+    },
+    "ice_lake": {
+      "name": "Lac gelé",
+      "prefix": "du"
+    },
+    "la": {
+      "name": "Lac",
+      "prefix": "du"
+    },
+    "mine": {
+      "name": "Mine",
+      "prefix": "de la"
+    },
+    "mo": {
+      "name": "Montagne",
+      "prefix": "de la"
+    },
+    "pl": {
+      "name": "Plaine",
+      "prefix": "de la"
+    },
+    "pve_exit": {
+      "name": "",
+      "prefix": "du"
+    },
+    "ri": {
+      "name": "Rivière",
+      "prefix": "de la"
+    },
+    "ro": {
+      "name": "Route",
+      "prefix": "de la"
+    },
+    "ruins": {
+      "name": "Ruines",
+      "prefix": "des"
+    },
+    "snow_mountain": {
+      "name": "Pic",
+      "prefix": "du"
+    },
+    "snowmen_field": {
+      "name": "Plaine",
+      "prefix": "de la"
+    },
+    "test_zone": {
+      "name": "",
+      "prefix": "de la"
+    },
+    "tundra": {
+      "name": "Toundra",
+      "prefix": "de la"
+    },
+    "vi": {
+      "name": "Village",
+      "prefix": "du"
+    },
+    "volcano": {
+      "name": "Volcan",
+      "prefix": "du"
+    }
+  }
+}
