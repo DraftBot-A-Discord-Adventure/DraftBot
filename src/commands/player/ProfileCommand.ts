@@ -11,8 +11,9 @@ import {Players} from "../../core/database/game/models/Player";
 import {Guilds} from "../../core/database/game/models/Guild";
 import {Constants} from "../../core/Constants";
 import {hoursToMilliseconds} from "../../core/utils/TimeUtils";
-import {Pet, PetDataController} from "../../data/Pet";
+import {PetDataController} from "../../data/Pet";
 import {MapLocationDataController} from "../../data/MapLocation";
+import {MapTypeDataController} from "../../data/MapType";
 
 /**
  * Get the current campaign progression of the player
@@ -37,8 +38,8 @@ export default class ProfileCommand {
 			const rank = await Players.getRankById(player.id);
 			const numberOfPlayers = await Players.getNbPlayersHaveStartedTheAdventure();
 			const isUnranked = rank > numberOfPlayers;
-			const petEntity = await PetEntities.getById(player.petId);
-			const petModel = PetDataController.instance.getById(petEntity.id);
+			const petEntity = player.petId ? await PetEntities.getById(player.petId) : null;
+			const petModel = player.petId ? PetDataController.instance.getById(petEntity.id) : null;
 			const missionsInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
 			const playerActiveObjects = await InventorySlots.getMainSlotsItems(player.id);
 			const badges = player.badges === "" || !player.badges ? [] : player.badges.split("-");
@@ -70,7 +71,7 @@ export default class ProfileCommand {
 					} : null,
 					destination: {
 						id: destinationId,
-						emote: MapLocationDataController.instance.getById(destinationId).type // todo emote
+						emote: MapTypeDataController.instance.getById(MapLocationDataController.instance.getById(destinationId).type).emote
 					},
 					effect: player.checkEffect() ? {
 						effect: player.effect,
