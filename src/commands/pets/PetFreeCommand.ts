@@ -64,7 +64,9 @@ function getPetFreeEndCallback(player: Player, pPet: PetEntity, pet: Pet, petFre
 				}));
 
 			if (pPet.isFeisty()) {
-				freedEmbed.setDescription(`${freedEmbed.data.description}\n\n${petFreeModule.get("wasFeisty")}`);
+				freedEmbed.setDescription(`${freedEmbed.data.description}\n\n${petFreeModule.format("wasFeisty", {
+					cost: PetFreeConstants.FREE_FEISTY_COST
+				})}`);
 			}
 
 			let guild: Guild;
@@ -159,7 +161,9 @@ async function executeCommand(interaction: DraftbotInteraction, language: string
 		}));
 
 	if (pPet.isFeisty()) {
-		confirmEmbed.setFooter({text: petFreeModule.get("isFeisty")});
+		confirmEmbed.setFooter({text: petFreeModule.format("isFeisty", {
+			cost: PetFreeConstants.FREE_FEISTY_COST
+		})});
 	}
 
 	await confirmEmbed.reply(interaction, (collector) => BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.PET_FREE, collector));
