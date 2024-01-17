@@ -75,9 +75,9 @@ export function discordIdToMention(id: string): string {
  * @param {String} variable
  * @return {boolean}
  */
-export function isAMention(variable: string): boolean {
+export function isAnId(variable: string): boolean {
 	if (typeof variable === "string") {
-		return /^<@!?[0-9]{18}>$/u.test(variable);
+		return /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/u.test(variable);
 	}
 	return false;
 }

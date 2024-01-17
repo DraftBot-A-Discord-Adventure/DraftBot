@@ -7,6 +7,8 @@ export class KeycloakUtils {
 
 	private static keycloakTokenExpirationDate: number | null = null;
 
+	private static keycloakDiscordToIdMap = new Map<string, string>();
+
 	private static async checkAndQueryToken(keycloakConfig: KeycloakConfig): Promise<void> {
 		if (this.keycloakToken === null || this.keycloakTokenExpirationDate! < Date.now()) {
 			const res = await fetch(`${keycloakConfig.url}/realms/${keycloakConfig.realm}/protocol/openid-connect/token`, {
@@ -79,7 +81,7 @@ export class KeycloakUtils {
 		});
 
 		if (!res.ok) {
-			throw new Error(`Keycloak create user with parameters '${registerParams}', error: '${JSON.stringify(await res.json())}'`);
+			throw new Error(`Keycloak create user with parameters '${JSON.stringify(registerParams)}', error: '${JSON.stringify(await res.json())}'`);
 		}
 
 		return (await this.getUserIdByUsername(keycloakConfig, registerParams.username))!;
@@ -101,10 +103,46 @@ export class KeycloakUtils {
 		}
 
 		const obj = await res.json();
+		let user: KeycloakUser;
 		if (obj.length === 0) {
-			return this.registerUser(keycloakConfig, { username: `discord$${discordId}`, discordId, language });
+			user = await this.registerUser(keycloakConfig, { username: `discord$${discordId}`, discordId, language });
+		}
+		else {
+			user = obj[0] as KeycloakUser;
 		}
 
-		return obj[0] as KeycloakUser;
+		KeycloakUtils.keycloakDiscordToIdMap.set(discordId, user.id);
+
+		return user;
+	}
+
+	public static async getKeycloakIdFromDiscordId(keycloakConfig: KeycloakConfig, discordId: string): Promise<string | null> {
+		const cachedId = KeycloakUtils.keycloakDiscordToIdMap.get(discordId);
+		if (cachedId) {
+			return cachedId;
+		}
+
+		await this.checkAndQueryToken(keycloakConfig);
+
+		const res = await fetch(`${keycloakConfig.url}/admin/realms/${keycloakConfig.realm}/users?q=discordId:${discordId}`, {
+			method: "GET",
+			headers: {
+				"Authorization": `Bearer ${this.keycloakToken}`,
+				"Content-Type": "application/json"
+			}
+		});
+
+		if (!res.ok) {
+			throw new Error(`Keycloak retrieve user with attribute 'discordId:${discordId}', error: '${JSON.stringify(await res.json())}'`);
+		}
+
+		const obj = await res.json();
+		const id = obj.length === 0 ? null : (obj[0] as KeycloakUser).id;
+
+		if (id) {
+			KeycloakUtils.keycloakDiscordToIdMap.set(discordId, id);
+		}
+
+		return id;
 	}
 }

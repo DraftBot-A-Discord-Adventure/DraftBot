@@ -3,7 +3,7 @@ import {DraftBotPacket} from "../DraftBotPacket";
 export class CommandProfilePacketReq extends DraftBotPacket {
 	askedPlayer!: {
 		rank?: number,
-		discordId?: string // todo change later
+		keycloakId?: string
 	};
 }
 
