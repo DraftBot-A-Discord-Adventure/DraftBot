@@ -61,7 +61,7 @@ export class Maps {
 		player.startTravelDate = new Date(time);
 		await player.save();
 
-		draftBotInstance.logsDatabase.logNewTravel(player.discordUserId, newLink)
+		draftBotInstance.logsDatabase.logNewTravel(player.keycloakId, newLink)
 			.then();
 	}
 
@@ -133,8 +133,8 @@ export class Maps {
 		}
 
 		const membersThatWere = await LogsReadRequests.getGuildMembersThatWereOnPveIsland(player);
-		const membersThatWereDiscordIds = membersThatWere.map((player) => player.discordUserId);
-		// Filter discord ids that are already in the first array, because even if the players are the same the model instances are different
+		const membersThatWereKeycloakIds = membersThatWere.map((player) => player.keycloakId);
+		// Filter keycloak ids that are already in the first array, because even if the players are the same the model instances are different
 		const membersThatAre = (await Player.findAll({
 			where: {
 				guildId: player.guildId,
@@ -145,7 +145,7 @@ export class Maps {
 					[Op.not]: player.id
 				}
 			}
-		})).filter((player) => !membersThatWereDiscordIds.includes(player.discordUserId));
+		})).filter((player) => !membersThatWereKeycloakIds.includes(player.keycloakId));
 		return [...membersThatWere, ...membersThatAre];
 	}
 

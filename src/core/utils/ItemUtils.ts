@@ -117,7 +117,7 @@ const sellOrKeepItem = async function(
 			missionId: "haveItemRarity",
 			params: {rarity: item.rarity}
 		});
-		draftBotInstance.logsDatabase.logItemGain(player.discordUserId, item)
+		draftBotInstance.logsDatabase.logItemGain(player.keycloakId, item)
 			.then();
 		item = itemToReplaceInstance;
 		resaleMultiplier = resaleMultiplierActual;
@@ -134,7 +134,7 @@ const sellOrKeepItem = async function(
 			params: {itemCost: money}
 		});
 		await player.save();
-		draftBotInstance.logsDatabase.logItemSell(player.discordUserId, item)
+		draftBotInstance.logsDatabase.logItemSell(player.keycloakId, item)
 			.then();
 	}
 	const packet: ItemRefusePacket = {
@@ -258,7 +258,7 @@ export const giveItemToPlayer = async function(
 			missionId: "haveItemRarity",
 			params: {rarity: item.rarity}
 		});
-		draftBotInstance.logsDatabase.logItemGain(player.discordUserId, item)
+		draftBotInstance.logsDatabase.logItemGain(player.keycloakId, item)
 			.then();
 		return;
 	}

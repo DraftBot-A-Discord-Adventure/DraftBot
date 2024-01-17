@@ -7,9 +7,9 @@ import {Players} from "../../../../core/database/game/models/Player";
 
 export const commandInfo: ITestCommand = {
 	name: "resetbo3",
-	commandFormat: "<mention>",
+	commandFormat: "<keycloakId>",
 	typeWaited: {
-		discordId: TypeKey.MENTION
+		keycloakId: TypeKey.ID
 	},
 	description: "Reset le BO3 contre un joueur"
 };
@@ -18,18 +18,17 @@ export const commandInfo: ITestCommand = {
  * Reset the BO3 against a player
  */
 const bo3TestCommand: ExecuteTestCommandLike = async (player, args) => {
-	// TODO : edit this when ids will be used instead of discord ids
-	const otherPlayer = await Players.getByDiscordUserId(args[0].replace("<@!", "").replace(">", ""));
+	const otherPlayer = await Players.getByKeycloakId(args[0]);
 	const fightsBO3 = await LogsFightsResults.findAll({
 		where: {
 			[Op.or]: [
 				{
-					"$LogsPlayer1.discordId$": otherPlayer.discordUserId,
-					"$LogsPlayer2.discordId$": player.discordUserId
+					"$LogsPlayer1.keycloakId$": otherPlayer.keycloakId,
+					"$LogsPlayer2.keycloakId$": player.keycloakId
 				},
 				{
-					"$LogsPlayer1.discordId$": player.discordUserId,
-					"$LogsPlayer2.discordId$": otherPlayer.discordUserId
+					"$LogsPlayer1.keycloakId$": player.keycloakId,
+					"$LogsPlayer2.keycloakId$": otherPlayer.keycloakId
 				}
 			],
 			date: {

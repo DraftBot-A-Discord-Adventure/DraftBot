@@ -2,13 +2,14 @@ import {NumberChangeReason} from "../../../../core/constants/LogsConstants";
 import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
 import {EffectsConstants} from "../../../../../../Lib/src/constants/EffectsConstants";
 import {TravelTime} from "../../../../core/maps/TravelTime";
+import {Players} from "../../../../core/database/game/models/Player";
 
 export const commandInfo: ITestCommand = {
 	name: "jailplayer",
 	aliases: ["jail"],
-	commandFormat: "<mention>",
+	commandFormat: "<id>",
 	typeWaited: {
-		mention: TypeKey.MENTION
+		id: TypeKey.ID
 	},
 	description: "Enferme le joueur donné"
 };
@@ -17,8 +18,9 @@ export const commandInfo: ITestCommand = {
  * Jail the given player
  */
 const jailPlayerTestCommand: ExecuteTestCommandLike = async (player, args) => {
-	await TravelTime.applyEffect(player, EffectsConstants.EMOJI_TEXT.LOCKED, 0, new Date(), NumberChangeReason.TEST);
-	await player.save();
+	const jailPlayer = await Players.getByKeycloakId(player.keycloakId);
+	await TravelTime.applyEffect(jailPlayer, EffectsConstants.EMOJI_TEXT.LOCKED, 0, new Date(), NumberChangeReason.TEST);
+	await jailPlayer.save();
 	return `Vous avez enfermé ${args[0]} !`;
 };
 

@@ -20,7 +20,7 @@ const changeClassTestCommand: ExecuteTestCommandLike = async (player, args) => {
 		throw new Error("Erreur class : choisissez une classe qui existe !");
 	}
 	player.class = newClassId;
-	draftBotInstance.logsDatabase.logPlayerClassChange(player.discordUserId, newClassId).then();
+	draftBotInstance.logsDatabase.logPlayerClassChange(player.keycloakId, newClassId).then();
 	await player.save();
 	return `Vous avez maintenant la classe d'id : ${newClassId} !`;
 };

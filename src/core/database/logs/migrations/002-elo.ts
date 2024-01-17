@@ -60,7 +60,7 @@ async function buildPlayersClassesHistory(context: QueryInterface): Promise<{ [p
 	// Fill the final map with player current classes
 	const players = await Player.findAll();
 	for (const player of players) {
-		const playerId = discordIdToPlayerId[player.discordUserId];
+		const playerId = discordIdToPlayerId[(player as unknown as { discordUserId: string }).discordUserId];
 		if (playerId) {
 			if (!dict[playerId]) {
 				dict[playerId] = [];

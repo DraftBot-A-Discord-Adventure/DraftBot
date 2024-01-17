@@ -124,7 +124,7 @@ export class MissionsController {
 					variant: mission.missionVariant,
 					xp: mission.xpToWin
 				});
-				draftBotInstance.logsDatabase.logMissionFinished(player.discordUserId, mission.missionId, mission.missionVariant, mission.missionObjective)
+				draftBotInstance.logsDatabase.logMissionFinished(player.keycloakId, mission.missionId, mission.missionVariant, mission.missionObjective)
 					.then();
 				await mission.destroy();
 			}
@@ -142,7 +142,7 @@ export class MissionsController {
 				variant: dailyMission.variant,
 				xp: dailyMission.xpToWin
 			});
-			draftBotInstance.logsDatabase.logMissionDailyFinished(player.discordUserId)
+			draftBotInstance.logsDatabase.logMissionDailyFinished(player.keycloakId)
 				.then();
 		}
 		await player.save();
@@ -162,7 +162,7 @@ export class MissionsController {
 			moneyToWin += completedMission.money;
 		}
 
-		await missionInfo.addGems(gemsToWin, player.discordUserId, NumberChangeReason.MISSION_FINISHED);
+		await missionInfo.addGems(gemsToWin, player.keycloakId, NumberChangeReason.MISSION_FINISHED);
 
 		player = await player.addExperience({
 			amount: xpToWin,
@@ -188,7 +188,7 @@ export class MissionsController {
 		for (const mission of missionSlots) {
 			if (mission.hasExpired()) {
 				expiredMissions.push(mission);
-				draftBotInstance.logsDatabase.logMissionFailed(player.discordUserId, mission.missionId, mission.missionVariant, mission.missionObjective)
+				draftBotInstance.logsDatabase.logMissionFailed(player.keycloakId, mission.missionId, mission.missionVariant, mission.missionObjective)
 					.then();
 				await mission.destroy();
 			}
@@ -285,7 +285,7 @@ export class MissionsController {
 			moneyToWin: missionData.money[prop.index]
 		});
 		const retMission = await MissionSlots.getById(missionSlot.id);
-		draftBotInstance.logsDatabase.logMissionFound(player.discordUserId, retMission.missionId, retMission.missionVariant, retMission.missionObjective)
+		draftBotInstance.logsDatabase.logMissionFound(player.keycloakId, retMission.missionId, retMission.missionVariant, retMission.missionObjective)
 			.then();
 		return retMission;
 	}

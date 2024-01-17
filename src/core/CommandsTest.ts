@@ -1,6 +1,6 @@
 import {readdir} from "fs/promises";
 import {readdirSync} from "fs";
-import {isAMention, isAnEmoji} from "../../../Lib/src/utils/StringUtils";
+import {isAnId, isAnEmoji} from "../../../Lib/src/utils/StringUtils";
 import {DraftBotPacket, makePacket} from "../../../Lib/src/packets/DraftBotPacket";
 import Player, {Players} from "./database/game/models/Player";
 import {Client} from "../../../Lib/src/instances/Client";
@@ -10,14 +10,14 @@ type Checker = (v: string) => boolean;
 
 export enum TypeKey {
 	INTEGER = "INTEGER",
-	MENTION = "MENTION",
+	ID = "ID",
 	EMOJI = "EMOJI",
 	STRING = "STRING"
 }
 
 const typeVariableChecks: Map<TypeKey, Checker> = new Map<TypeKey, Checker>([
 	[TypeKey.INTEGER, (v: string): boolean => !isNaN(parseInt(v, 10))],
-	[TypeKey.MENTION, (v: string): boolean => isAMention(v)],
+	[TypeKey.ID, (v: string): boolean => isAnId(v)],
 	[TypeKey.EMOJI, (v: string): boolean => isAnEmoji(v)],
 	[TypeKey.STRING, (): boolean => false]
 ]);

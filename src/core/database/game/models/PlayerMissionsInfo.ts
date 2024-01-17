@@ -35,10 +35,10 @@ export class PlayerMissionsInfo extends Model {
 		return this.lastDailyMissionCompleted && datesAreOnSameDay(this.lastDailyMissionCompleted, new Date());
 	}
 
-	public async addGems(amount: number, discordUserId: string, reason: NumberChangeReason): Promise<void> {
+	public async addGems(amount: number, keycloakId: string, reason: NumberChangeReason): Promise<void> {
 		this.gems += amount;
 		await this.save();
-		draftBotInstance.logsDatabase.logGemsChange(discordUserId, this.gems, reason)
+		draftBotInstance.logsDatabase.logGemsChange(keycloakId, this.gems, reason)
 			.then();
 	}
 }

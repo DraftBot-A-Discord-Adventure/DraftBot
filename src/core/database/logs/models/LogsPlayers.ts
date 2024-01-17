@@ -3,7 +3,7 @@ import {DataTypes, Model, Sequelize} from "sequelize";
 export class LogsPlayers extends Model {
 	declare readonly id: number;
 
-	declare readonly discordId: string;
+	declare readonly keycloakId: string;
 }
 
 export function initModel(sequelize: Sequelize): void {
@@ -13,8 +13,8 @@ export function initModel(sequelize: Sequelize): void {
 			primaryKey: true,
 			autoIncrement: true
 		},
-		discordId: {
-			type: DataTypes.STRING(20), // eslint-disable-line new-cap
+		keycloakId: {
+			type: DataTypes.STRING(64), // eslint-disable-line new-cap
 			allowNull: false
 		}
 	}, {

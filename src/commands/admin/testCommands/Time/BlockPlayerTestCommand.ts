@@ -1,4 +1,7 @@
 import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
+import Player from "../../../../core/database/game/models/Player";
+import {BlockingUtils} from "../../../../core/utils/BlockingUtils";
+import {BlockingConstants} from "../../../../core/constants/BlockingConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "blockplayer",
@@ -13,27 +16,13 @@ export const commandInfo: ITestCommand = {
 /**
  * Block your player for a given time
  */
-const blockPlayerTestCommand: ExecuteTestCommandLike = () => // TODO : Check if this test command is still relevant
-	/* Const blockTime = parseInt(args[0], 10);
+const blockPlayerTestCommand: ExecuteTestCommandLike = (player: Player, args: string[]) => {
+	const blockTime = parseInt(args[0], 10);
 	if (blockTime <= 0) {
 		throw new Error("Erreur block : on ne peut pas vous bloquer pendant un temps négatif ou nul !");
 	}
-	const messageToReact = <Message> await interaction.reply({
-		content: "je suis un message qui va te bloquer",
-		fetchReply: true
-	});
-	const collector = messageToReact.createReactionCollector({
-		filter: () => true,
-		time: blockTime * 1000
-	});
-	collector.on("collect", () => {
-		// Do nothing
-	});
-	collector.on("end", () => {
-		// Do nothing
-	});
-	BlockingUtils.blockPlayerWithCollector(player.discordUserId, BlockingConstants.REASONS.TEST, collector); */
-	`Vous êtes maintenant bloqué pendant ${1} secondes !`
-;
+	BlockingUtils.blockPlayer(player.id, BlockingConstants.REASONS.TEST, parseInt(args[1], 10));
+	return `Vous êtes maintenant bloqué pendant ${args[1]} secondes !`;
+};
 
 commandInfo.execute = blockPlayerTestCommand;

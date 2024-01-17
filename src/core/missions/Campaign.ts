@@ -26,7 +26,6 @@ export class Campaign {
 		let firstMissionChecked = false;
 		while (campaign.isCompleted()) {
 			if (completedCampaign || firstMissionChecked) {
-				const missionModel = MissionDataController.instance.getById(campaign.missionId);
 				completedMissions.push({
 					completedMissionType: CompletedMissionType.CAMPAIGN,
 					gems: campaign.gemsToWin,
@@ -38,7 +37,7 @@ export class Campaign {
 					variant: campaign.missionVariant,
 					xp: campaign.xpToWin
 				});
-				draftBotInstance.logsDatabase.logMissionCampaignProgress(player.discordUserId, missionInfo.campaignProgression)
+				draftBotInstance.logsDatabase.logMissionCampaignProgress(player.keycloakId, missionInfo.campaignProgression)
 					.then();
 			}
 			if (this.hasNextCampaign(missionInfo.campaignProgression)) {

@@ -178,7 +178,7 @@ export class TravelTime {
 			};
 		}
 		// Log
-		draftBotInstance.logsDatabase.logTimeWarp(player.discordUserId, millisecondsToMinutes(time), reason)
+		draftBotInstance.logsDatabase.logTimeWarp(player.keycloakId, millisecondsToMinutes(time), reason)
 			.then();
 	}
 
@@ -230,7 +230,7 @@ export class TravelTime {
 
 		// Save and log
 		await player.save();
-		draftBotInstance.logsDatabase.logAlteration(player.discordUserId, effect, reason, time)
+		draftBotInstance.logsDatabase.logAlteration(player.keycloakId, effect, reason, time)
 			.then();
 	}
 }

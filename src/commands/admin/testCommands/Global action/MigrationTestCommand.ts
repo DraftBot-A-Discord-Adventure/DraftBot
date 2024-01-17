@@ -27,7 +27,7 @@ function getDatabaseFromName(databaseName: string): LogsDatabase | GameDatabase 
  * Execute the migration test command
  */
 const migrationTestCommand: ExecuteTestCommandLike = async (player, args) => {
-	if (player.discordUserId !== "330030648456642562") { // TODO : replace the random ID by the bot owner ID
+	if (player.keycloakId !== "330030648456642562") { // TODO : replace the random ID by the bot owner ID
 		throw new Error("You must be the bot owner to perform this action");
 	}
 	const migrationNumber = parseInt(args[1], 10);

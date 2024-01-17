@@ -66,7 +66,7 @@ type ressourcesLostOnPveFaint = {
 export class Player extends Model {
 	declare readonly id: number;
 
-	declare discordUserId: string;
+	declare keycloakId: string;
 
 	declare health: number;
 
@@ -212,7 +212,7 @@ export class Player extends Model {
 			Object.assign(this, newPlayer);
 		}
 		await this.setScore(this.score, parameters.response);
-		draftBotInstance.logsDatabase.logScoreChange(this.discordUserId, this.score, parameters.reason)
+		draftBotInstance.logsDatabase.logScoreChange(this.keycloakId, this.score, parameters.reason)
 			.then();
 		this.addWeeklyScore(parameters.amount);
 		return this;
@@ -234,7 +234,7 @@ export class Player extends Model {
 			Object.assign(this, newPlayer);
 		}
 		this.setMoney(this.money);
-		draftBotInstance.logsDatabase.logMoneyChange(this.discordUserId, this.money, parameters.reason)
+		draftBotInstance.logsDatabase.logMoneyChange(this.keycloakId, this.money, parameters.reason)
 			.then();
 		return this;
 	}
@@ -310,10 +310,10 @@ export class Player extends Model {
 
 		const xpNeeded = this.getExperienceNeededToLevelUp();
 		this.experience -= xpNeeded;
-		draftBotInstance.logsDatabase.logExperienceChange(this.discordUserId, this.experience, NumberChangeReason.LEVEL_UP)
+		draftBotInstance.logsDatabase.logExperienceChange(this.keycloakId, this.experience, NumberChangeReason.LEVEL_UP)
 			.then();
 		this.level++;
-		draftBotInstance.logsDatabase.logLevelChange(this.discordUserId, this.level)
+		draftBotInstance.logsDatabase.logLevelChange(this.keycloakId, this.level)
 			.then();
 		Object.assign(this, await MissionsController.update(this, response, {
 			missionId: "reachLevel",
@@ -426,7 +426,7 @@ export class Player extends Model {
 	 * Get the travel cost of a player this week
 	 */
 	public async getTravelCostThisWeek(): Promise<number> {
-		const wentCount = await LogsReadRequests.getCountPVEIslandThisWeek(this.discordUserId, this.guildId);
+		const wentCount = await LogsReadRequests.getCountPVEIslandThisWeek(this.keycloakId, this.guildId);
 		return PVEConstants.TRAVEL_COST[wentCount >= PVEConstants.TRAVEL_COST.length ? PVEConstants.TRAVEL_COST.length - 1 : wentCount];
 	}
 
@@ -513,7 +513,7 @@ export class Player extends Model {
 				itemCategory: ItemCategory.POTION
 			}
 		})
-			.then(async item => await draftBotInstance.logsDatabase.logItemSell(this.discordUserId, await item.getItem()));
+			.then(async item => await draftBotInstance.logsDatabase.logItemSell(this.keycloakId, await item.getItem()));
 		await InventorySlot.update(
 			{
 				itemId: InventoryConstants.POTION_DEFAULT_ID
@@ -553,7 +553,7 @@ export class Player extends Model {
 	 */
 	public async addExperience(parameters: EditValueParameters): Promise<Player> {
 		this.experience += parameters.amount;
-		draftBotInstance.logsDatabase.logExperienceChange(this.discordUserId, this.experience, parameters.reason)
+		draftBotInstance.logsDatabase.logExperienceChange(this.keycloakId, this.experience, parameters.reason)
 			.then();
 		if (parameters.amount > 0) {
 			const newPlayer = await MissionsController.update(this, parameters.response, {
@@ -582,7 +582,7 @@ export class Player extends Model {
 	 */
 	public setPet(petEntity: PetEntity): void {
 		this.petId = petEntity.id;
-		draftBotInstance.logsDatabase.logPlayerNewPet(this.discordUserId, petEntity)
+		draftBotInstance.logsDatabase.logPlayerNewPet(this.keycloakId, petEntity)
 			.then();
 	}
 
@@ -686,7 +686,7 @@ export class Player extends Model {
 		shouldPokeMission: true
 	}): Promise<void> {
 		await this.setHealth(this.health + health, response, missionHealthParameter);
-		draftBotInstance.logsDatabase.logHealthChange(this.discordUserId, this.health, reason)
+		draftBotInstance.logsDatabase.logHealthChange(this.keycloakId, this.health, reason)
 			.then();
 	}
 
@@ -706,15 +706,8 @@ export class Player extends Model {
 	 */
 	public setFightPointsLost(energy: number, reason: NumberChangeReason): void {
 		this.fightPointsLost = energy;
-		draftBotInstance.logsDatabase.logFightPointChange(this.discordUserId, this.fightPointsLost, reason)
+		draftBotInstance.logsDatabase.logFightPointChange(this.keycloakId, this.fightPointsLost, reason)
 			.then();
-	}
-
-	/**
-	 * Get the string that mention the user
-	 */
-	public getMention(): string {
-		return `<@${this.discordUserId}>`;
 	}
 
 	/**
@@ -841,7 +834,7 @@ export class Player extends Model {
 			count: gloryPoints,
 			set: true
 		}));
-		await draftBotInstance.logsDatabase.logPlayersGloryPoints(this.discordUserId, gloryPoints, reason, fightId);
+		await draftBotInstance.logsDatabase.logPlayersGloryPoints(this.keycloakId, gloryPoints, reason, fightId);
 		this.gloryPoints = gloryPoints;
 	}
 
@@ -878,7 +871,7 @@ export class Player extends Model {
 	 * Check in the logs if the player has claimed the league reward for the current season returns true if we find a value in the logs for the last 24 hours
 	 */
 	async hasClaimedLeagueReward(): Promise<boolean> {
-		const dateOfLastLeagueReward = await LogsReadRequests.getDateOfLastLeagueReward(this.discordUserId);
+		const dateOfLastLeagueReward = await LogsReadRequests.getDateOfLastLeagueReward(this.keycloakId);
 		// Beware, the date of last league reward is in seconds
 		return dateOfLastLeagueReward && !(dateOfLastLeagueReward < millisecondsToSeconds(getOneDayAgo()));
 	}
@@ -889,7 +882,7 @@ export class Player extends Model {
 
 	public async setRage(rage: number, reason: NumberChangeReason): Promise<void> {
 		this.rage = rage;
-		draftBotInstance.logsDatabase.logRageChange(this.discordUserId, this.rage, reason)
+		draftBotInstance.logsDatabase.logRageChange(this.keycloakId, this.rage, reason)
 			.then();
 		await this.save();
 	}
@@ -1019,18 +1012,17 @@ export class Player extends Model {
 export class Players {
 	/**
 	 * Get or create a player
-	 * @param discordUserId
+	 * @param keycloakId
 	 */
-	static getOrRegister(discordUserId: string): Promise<[Player, boolean] | null> {
+	static getOrRegister(keycloakId: string): Promise<[Player, boolean] | null> {
 		return Promise.resolve(Player.findOrCreate(
 			{
 				where: {
-					discordUserId
+					keycloakId
 				}
 			}
 		));
 	}
-
 
 	/**
 	 * Get a player by guildId
@@ -1051,14 +1043,14 @@ export class Players {
 	}
 
 	/**
-	 * Get a player by discordUserId
-	 * @param discordUserId
+	 * Get a player by keycloakId
+	 * @param keycloakId
 	 */
-	static getByDiscordUserId(discordUserId: string): Promise<Player | null> {
+	static getByKeycloakId(keycloakId: string): Promise<Player | null> {
 		return Promise.resolve(Player.findOne(
 			{
 				where: {
-					discordUserId
+					keycloakId
 				}
 			}
 		));
@@ -1066,22 +1058,22 @@ export class Players {
 
 	/**
 	 * Get the ranking of the player compared to a list of players
-	 * @param discordId
-	 * @param ids - list of discordIds to compare to
+	 * @param keycloakId
+	 * @param ids - list of keycloakIds to compare to
 	 * @param weekOnly - get from the week only
 	 * @param isGloryTop
 	 */
-	static async getRankFromUserList(discordId: string, ids: string[], weekOnly: boolean, isGloryTop: boolean): Promise<number> {
+	static async getRankFromUserList(keycloakId: string, ids: string[], weekOnly: boolean, isGloryTop: boolean): Promise<number> {
 		const scoreLookup = isGloryTop ? "gloryPoints" : weekOnly ? "weeklyScore" : "score";
 		const secondCondition = isGloryTop ? `players.fightCountdown <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE}` : "1";
 		const query = `SELECT rank
-					   FROM (SELECT players.discordUserId,
+					   FROM (SELECT players.keycloakId,
 									(RANK() OVER (ORDER BY players.${scoreLookup} DESC
 										, players.level DESC)) AS rank
 							 FROM players
-							 WHERE (players.discordUserId IN (${ids.toString()}))
+							 WHERE (players.keycloakId IN (${ids.toString()}))
 							   AND ${secondCondition}) subquery
-					   WHERE subquery.discordUserId = ${discordId};`;
+					   WHERE subquery.keycloakId = ${keycloakId};`;
 		return ((await Player.sequelize.query(query))[0][0] as {
 			rank: number
 		}).rank;
@@ -1127,32 +1119,32 @@ export class Players {
 	}
 
 	/**
-	 * Get all the discord ids stored in the database
+	 * Get all the keycloak ids stored in the database
 	 */
-	static async getAllStoredDiscordIds(): Promise<string[]> {
-		const query = `SELECT discordUserId
+	static async getAllStoredKeycloakIds(): Promise<string[]> {
+		const query = `SELECT keycloakId
 					   FROM players`;
 		const queryResult = (await Player.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})) as {
-			discordUserId: string
+			keycloakId: string
 		}[];
-		const discordIds: string[] = [];
-		queryResult.forEach(res => discordIds.push(res.discordUserId));
-		return discordIds;
+		const keycloakIds: string[] = [];
+		queryResult.forEach(res => keycloakIds.push(res.keycloakId));
+		return keycloakIds;
 	}
 
 	/**
 	 * Get the number of players that are considered playing the game inside the list of ids
-	 * @param listDiscordId
+	 * @param listKeycloakId
 	 * @param weekOnly Get of the current week only
 	 */
-	static async getNumberOfPlayingPlayersInList(listDiscordId: string[], weekOnly: boolean): Promise<number> {
+	static async getNumberOfPlayingPlayersInList(listKeycloakId: string[], weekOnly: boolean): Promise<number> {
 		const query = `SELECT COUNT(*) as nbPlayers
 					   FROM players
 					   WHERE players.${weekOnly ? "weeklyScore" : "score"}
 						   > ${Constants.MINIMAL_PLAYER_SCORE}
-						 AND players.discordUserId IN (${listDiscordId.toString()})`;
+						 AND players.keycloakId IN (${listKeycloakId.toString()})`;
 		const queryResult = await Player.sequelize.query(query);
 		return (queryResult[0][0] as {
 			nbPlayers: number
@@ -1161,14 +1153,14 @@ export class Players {
 
 	/**
 	 * Get the number of players that are considered playing the game inside the list of ids
-	 * @param listDiscordId
+	 * @param listKeycloakId
 	 */
-	static async getNumberOfFightingPlayersInList(listDiscordId: string[]): Promise<number> {
+	static async getNumberOfFightingPlayersInList(listKeycloakId: string[]): Promise<number> {
 		const query = `SELECT COUNT(*) as nbPlayers
 					   FROM players
 					   WHERE players.fightCountdown
 						   <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE}
-						 AND players.discordUserId IN (${listDiscordId.toString()})`;
+						 AND players.keycloakId IN (${listKeycloakId.toString()})`;
 		const queryResult = await Player.sequelize.query(query);
 		return (queryResult[0][0] as {
 			nbPlayers: number
@@ -1177,12 +1169,12 @@ export class Players {
 
 	/**
 	 * Get the players in the list of Ids that will be printed into the top at the given page
-	 * @param listDiscordId
+	 * @param listKeycloakId
 	 * @param minRank
 	 * @param maxRank
 	 * @param weekOnly Get from the current week only
 	 */
-	static async getPlayersToPrintTop(listDiscordId: string[], minRank: number, maxRank: number, weekOnly: boolean): Promise<Player[]> {
+	static async getPlayersToPrintTop(listKeycloakId: string[], minRank: number, maxRank: number, weekOnly: boolean): Promise<Player[]> {
 		const restrictionsTopEntering = weekOnly
 			? {
 				weeklyScore: {
@@ -1197,8 +1189,8 @@ export class Players {
 		return await Player.findAll({
 			where: {
 				[Op.and]: {
-					discordUserId: {
-						[Op.in]: listDiscordId
+					keycloakId: {
+						[Op.in]: listKeycloakId
 					},
 					...restrictionsTopEntering
 				}
@@ -1214,11 +1206,11 @@ export class Players {
 
 	/**
 	 * Get the players in the list of Ids that will be printed into the glory top at the given page
-	 * @param listDiscordId
+	 * @param listKeycloakId
 	 * @param minRank
 	 * @param maxRank
 	 */
-	static async getPlayersToPrintGloryTop(listDiscordId: string[], minRank: number, maxRank: number): Promise<Player[]> {
+	static async getPlayersToPrintGloryTop(listKeycloakId: string[], minRank: number, maxRank: number): Promise<Player[]> {
 		const restrictionsTopEntering = {
 			fightCountdown: {
 				[Op.lte]: FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE
@@ -1227,8 +1219,8 @@ export class Players {
 		return await Player.findAll({
 			where: {
 				[Op.and]: {
-					discordUserId: {
-						[Op.in]: listDiscordId
+					keycloakId: {
+						[Op.in]: listKeycloakId
 					},
 					...restrictionsTopEntering
 				}
@@ -1278,7 +1270,7 @@ export class Players {
 			},
 			type: QueryTypes.SELECT
 		}))[0] as Player;
-		return (await Players.getOrRegister(playerToReturn.discordUserId))[0];
+		return (await Players.getOrRegister(playerToReturn.keycloakId))[0];
 	}
 
 	/**
@@ -1434,7 +1426,7 @@ export function initModel(sequelize: Sequelize): void {
 			primaryKey: true,
 			autoIncrement: true
 		},
-		discordUserId: {
+		keycloakId: {
 			type: DataTypes.STRING(64) // eslint-disable-line new-cap
 		},
 		health: {

@@ -26,7 +26,7 @@ function getCampaignProgression(missionsInfo: PlayerMissionsInfo): number {
 export default class ProfileCommand {
 	@packetHandler(CommandProfilePacketReq)
 	async execute(client: WebsocketClient, packet: CommandProfilePacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
-		const player = packet.askedPlayer.discordId ? await Players.getByDiscordUserId(packet.askedPlayer.discordId) : await Players.getByRank(packet.askedPlayer.rank);
+		const player = packet.askedPlayer.keycloakId ? await Players.getByKeycloakId(packet.askedPlayer.keycloakId) : await Players.getByRank(packet.askedPlayer.rank);
 
 		if (!player) {
 			response.push(makePacket(CommandProfilePacketRes, {

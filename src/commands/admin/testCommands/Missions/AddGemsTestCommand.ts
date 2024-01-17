@@ -16,7 +16,7 @@ export const commandInfo: ITestCommand = {
  */
 const addGemsTestCommand: ExecuteTestCommandLike = async (player, args) => {
 	const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
-	await missionInfo.addGems(parseInt(args[0], 10), player.discordUserId, NumberChangeReason.TEST);
+	await missionInfo.addGems(parseInt(args[0], 10), player.keycloakId, NumberChangeReason.TEST);
 	await missionInfo.save();
 
 	return `Vous avez maintenant ${missionInfo.gems} :gem: !`;

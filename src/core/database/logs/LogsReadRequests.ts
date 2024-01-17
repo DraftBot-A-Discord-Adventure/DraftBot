@@ -33,8 +33,8 @@ type RankedFightResult = {
 
 export class LogsReadRequests {
 
-	static async getLastTimeThePlayerHasEditedHisClass(playerDiscordId: string): Promise<Date> {
-		const logPlayer = await LogsDatabase.findOrCreatePlayer(playerDiscordId);
+	static async getLastTimeThePlayerHasEditedHisClass(playerKeycloakId: string): Promise<Date> {
+		const logPlayer = await LogsDatabase.findOrCreatePlayer(playerKeycloakId);
 		return LogsPlayersClassChanges.findOne({
 			where: {
 				playerId: logPlayer.id
@@ -47,11 +47,11 @@ export class LogsReadRequests {
 
 	/**
 	 * Get the amount of time a specific player has bought the daily potion since the last time it was reset
-	 * @param playerDiscordId - The discord id of the player we want to check on
+	 * @param playerKeycloakId - The keycloak id of the player we want to check on
 	 */
-	static async getAmountOfDailyPotionsBoughtByPlayer(playerDiscordId: string): Promise<number> {
+	static async getAmountOfDailyPotionsBoughtByPlayer(playerKeycloakId: string): Promise<number> {
 		const dateOfLastDailyPotionReset = await this.getDateOfLastDailyPotionReset();
-		const logPlayer = await LogsDatabase.findOrCreatePlayer(playerDiscordId);
+		const logPlayer = await LogsDatabase.findOrCreatePlayer(playerKeycloakId);
 		return LogsClassicalShopBuyouts.count({
 			where: {
 				playerId: logPlayer.id,
@@ -80,11 +80,11 @@ export class LogsReadRequests {
 			}
 		});
 		// Extract ids from players
-		const ids = playersInGuild.map((player) => player.discordUserId);
+		const ids = playersInGuild.map((player) => player.keycloakId);
 		// Convert the players to logs players
 		const logsPlayers = await LogsPlayers.findAll({
 			where: {
-				discordId: {
+				keycloakId: {
 					[Op.in]: ids
 				}
 			}
@@ -115,13 +115,13 @@ export class LogsReadRequests {
 			}]
 		}) as unknown as {
 			LogsPlayer1: {
-				discordId: string
+				keycloakId: string
 			}
 		}[];
 		return await Player.findAll({
 			where: {
-				discordUserId: {
-					[Op.in]: travelsInPveIsland.map((travelsInPveIsland) => travelsInPveIsland.LogsPlayer1.discordId)
+				keycloakId: {
+					[Op.in]: travelsInPveIsland.map((travelsInPveIsland) => travelsInPveIsland.LogsPlayer1.keycloakId)
 				}
 			}
 		});
@@ -160,8 +160,8 @@ export class LogsReadRequests {
 	/**
 	 * Get the date of the last season reset
 	 */
-	static async getDateOfLastLeagueReward(playerDiscordId: string): Promise<number | null> {
-		const logPlayer = await LogsDatabase.findOrCreatePlayer(playerDiscordId);
+	static async getDateOfLastLeagueReward(playerKeycloakId: string): Promise<number | null> {
+		const logPlayer = await LogsDatabase.findOrCreatePlayer(playerKeycloakId);
 		return LogsPlayerLeagueReward.findOne({
 			order: [["date", "DESC"]],
 			where: {
@@ -178,10 +178,10 @@ export class LogsReadRequests {
 
 	/**
 	 * Get the date of the last event id for the player
-	 * @param discordId
+	 * @param keycloakId
 	 * @param eventId
 	 */
-	static async getLastEventDate(discordId: string, eventId: number): Promise<Date | null> {
+	static async getLastEventDate(keycloakId: string, eventId: number): Promise<Date | null> {
 		// Get all possibilities id for the big event
 		const possibilityIds = (await LogsPossibilities.findAll({
 			where: {
@@ -192,7 +192,7 @@ export class LogsReadRequests {
 		// Get logs player id
 		const playerId = (await LogsPlayers.findOne({
 			where: {
-				discordId
+				keycloakId
 			}
 		})).id;
 
@@ -212,33 +212,33 @@ export class LogsReadRequests {
 
 	/**
 	 * Get the number of time the player went on the PVE island this week
-	 * @param discordId
+	 * @param keycloakId
 	 * @param guildId
 	 */
-	static async getCountPVEIslandThisWeek(discordId: string, guildId: number): Promise<number> {
-		if (guildId && await this.joinGuildThisWeekRequest(discordId, guildId)) {
+	static async getCountPVEIslandThisWeek(keycloakId: string, guildId: number): Promise<number> {
+		if (guildId && await this.joinGuildThisWeekRequest(keycloakId, guildId)) {
 			return PVEConstants.TRAVEL_COST.length;
 		}
 
-		return await this.travelsOnPveIslandsCountThisWeekRequest(discordId);
+		return await this.travelsOnPveIslandsCountThisWeekRequest(keycloakId);
 	}
 
 	/*
 	 * Get the fights of a player against another this week
-	 * @param playerDiscordId
-	 * @param opponentDiscordId
+	 * @param playerKeycloakId
+	 * @param opponentKeycloakId
 	 */
-	static async getRankedFightsThisWeek(playerDiscordId: string, opponentDiscordId: string): Promise<RankedFightResult> {
+	static async getRankedFightsThisWeek(playerKeycloakId: string, opponentKeycloakId: string): Promise<RankedFightResult> {
 		const fights = await LogsFightsResults.findAll({
 			where: {
 				[Op.or]: [
 					{
-						"$LogsPlayer1.discordId$": playerDiscordId,
-						"$LogsPlayer2.discordId$": opponentDiscordId
+						"$LogsPlayer1.keycloakId$": playerKeycloakId,
+						"$LogsPlayer2.keycloakId$": opponentKeycloakId
 					},
 					{
-						"$LogsPlayer1.discordId$": opponentDiscordId,
-						"$LogsPlayer2.discordId$": playerDiscordId
+						"$LogsPlayer1.keycloakId$": opponentKeycloakId,
+						"$LogsPlayer2.keycloakId$": playerKeycloakId
 					}
 				],
 				date: {
@@ -268,11 +268,11 @@ export class LogsReadRequests {
 
 	/**
 	 * Get the amount of time a specific player has bought the energy heal since the last season reset
-	 * @param playerDiscordId
+	 * @param playerKeycloakId
 	 */
-	static async getAmountOfHealEnergyBoughtByPlayerThisWeek(playerDiscordId: string): Promise<number> {
+	static async getAmountOfHealEnergyBoughtByPlayerThisWeek(playerKeycloakId: string): Promise<number> {
 		const dateOfLastSeasonReset = await this.getDateOfLastSeasonReset();
-		const logPlayer = await LogsDatabase.findOrCreatePlayer(playerDiscordId);
+		const logPlayer = await LogsDatabase.findOrCreatePlayer(playerKeycloakId);
 		return LogsClassicalShopBuyouts.count({
 			where: {
 				playerId: logPlayer.id,
@@ -284,10 +284,10 @@ export class LogsReadRequests {
 		});
 	}
 
-	private static async travelsOnPveIslandsCountThisWeekRequest(discordId: string): Promise<number> {
+	private static async travelsOnPveIslandsCountThisWeekRequest(keycloakId: string): Promise<number> {
 		return await LogsPlayersTravels.count({
 			where: {
-				"$LogsPlayer.discordId$": discordId,
+				"$LogsPlayer.keycloakId$": keycloakId,
 				date: {
 					[Op.gt]: Math.floor((getNextSundayMidnight() - 7 * 24 * 60 * 60 * 1000) / 1000)
 				},
@@ -308,10 +308,10 @@ export class LogsReadRequests {
 		});
 	}
 
-	private static async joinGuildThisWeekRequest(discordId: string, guildId: number): Promise<boolean> {
+	private static async joinGuildThisWeekRequest(keycloakId: string, guildId: number): Promise<boolean> {
 		return await LogsGuildsJoins.count({
 			where: {
-				"$LogsPlayer.discordId$": discordId,
+				"$LogsPlayer.keycloakId$": keycloakId,
 				"$LogsGuild.gameId$": guildId,
 				date: {
 					[Op.gt]: Math.floor((getNextSundayMidnight() - 7 * 24 * 60 * 60 * 1000) / 1000)

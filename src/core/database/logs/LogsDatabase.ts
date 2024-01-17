@@ -7,7 +7,6 @@ import {CreateOptions, Model} from "sequelize";
 import {LogsPlayersLevel} from "./models/LogsPlayersLevel";
 import {LogsPlayersScore} from "./models/LogsPlayersScore";
 import {LogsPlayersGems} from "./models/LogsPlayersGems";
-import {LogsServers} from "./models/LogsServers";
 import {LogsCommands} from "./models/LogsCommands";
 import {LogsPlayersCommands} from "./models/LogsPlayersCommands";
 import {LogsSmallEvents} from "./models/LogsSmallEvents";
@@ -20,8 +19,6 @@ import {LogsPlayersOccupiedAlterations} from "./models/LogsPlayersOccupiedAltera
 import {LogsUnlocks} from "./models/LogsUnlocks";
 import {LogsPlayersClassChanges} from "./models/LogsPlayersClassChanges";
 import {LogsPlayersVotes} from "./models/LogsPlayersVotes";
-import {LogsServersJoins} from "./models/LogsServersJoins";
-import {LogsServersQuits} from "./models/LogsServersQuits";
 import {LogsPlayersTravels} from "./models/LogsPlayersTravels";
 import {LogsMapLinks} from "./models/LogsMapLinks";
 import {LogsMissionsFailed} from "./models/LogsMissionsFailed";
@@ -97,6 +94,7 @@ import {MapLink} from "../../../data/MapLink";
 import {FightController} from "../../fights/FightController";
 import {PlayerFighter} from "../../fights/fighter/PlayerFighter";
 import {MonsterFighter} from "../../fights/fighter/MonsterFighter";
+import {LogsServers} from "./models/LogsServers";
 
 /**
  * This class is used to log all the changes in the game database
@@ -157,11 +155,11 @@ export class LogsDatabase extends Database {
 	/**
 	 * Log when a player leaves a guild
 	 * @param guild
-	 * @param leftDiscordId
+	 * @param leftKeycloakId
 	 */
-	public static async logGuildLeave(guild: Guild | GuildLikeType, leftDiscordId: string): Promise<void> {
+	public static async logGuildLeave(guild: Guild | GuildLikeType, leftKeycloakId: string): Promise<void> {
 		const logGuild = await LogsDatabase.findOrCreateGuild(guild);
-		const leftPlayer = await LogsDatabase.findOrCreatePlayer(leftDiscordId);
+		const leftPlayer = await LogsDatabase.findOrCreatePlayer(leftKeycloakId);
 		await LogsGuildsLeaves.create({
 			guildId: logGuild.id,
 			leftPlayer: leftPlayer.id,
@@ -171,13 +169,13 @@ export class LogsDatabase extends Database {
 
 	/**
 	 * Find or create a player in the log database
-	 * @param discordId
+	 * @param keycloakId
 	 * @private
 	 */
-	static async findOrCreatePlayer(discordId: string): Promise<LogsPlayers> {
+	static async findOrCreatePlayer(keycloakId: string): Promise<LogsPlayers> {
 		return (await LogsPlayers.findOrCreate({
 			where: {
-				discordId
+				keycloakId
 			}
 		}))[0];
 	}
@@ -215,14 +213,14 @@ export class LogsDatabase extends Database {
 
 	/**
 	 * Allow to log a number that comes from a player but only for small numbers like his class, his level or campaign level
-	 * @param discordId
+	 * @param keycloakId
 	 * @param valueFieldName
 	 * @param value
 	 * @param model
 	 * @private
 	 */
-	private static async logPlayerAndNumber(discordId: string, valueFieldName: string, value: number, model: ModelType): Promise<void> {
-		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+	private static async logPlayerAndNumber(keycloakId: string, valueFieldName: string, value: number, model: ModelType): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(keycloakId);
 		const values: { [key: string]: string | number } = {
 			playerId: player.id,
 			date: getDateLogs()
@@ -233,12 +231,12 @@ export class LogsDatabase extends Database {
 
 	/**
 	 * Allow to log a thing that only is about a player and a date like his daily
-	 * @param discordId
+	 * @param keycloakId
 	 * @param model
 	 * @private
 	 */
-	private static async logSimplePlayerDate(discordId: string, model: ModelType): Promise<void> {
-		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+	private static async logSimplePlayerDate(keycloakId: string, model: ModelType): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(keycloakId);
 		await model.create({
 			playerId: player.id,
 			date: getDateLogs()
@@ -247,15 +245,15 @@ export class LogsDatabase extends Database {
 
 	/**
 	 * Allow to log a mission change about a player
-	 * @param discordId
+	 * @param keycloakId
 	 * @param missionId
 	 * @param variant
 	 * @param objective
 	 * @param model
 	 * @private
 	 */
-	private static async logMissionChange(discordId: string, missionId: string, variant: number, objective: number, model: ModelType): Promise<void> {
-		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+	private static async logMissionChange(keycloakId: string, missionId: string, variant: number, objective: number, model: ModelType): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(keycloakId);
 		const [mission] = await LogsMissions.findOrCreate({
 			where: {
 				name: missionId,
@@ -272,14 +270,14 @@ export class LogsDatabase extends Database {
 
 	/**
 	 * Allow to log a number change for example the xp or the money
-	 * @param discordId
+	 * @param keycloakId
 	 * @param value
 	 * @param reason
 	 * @param model
 	 * @private
 	 */
-	private static async logNumberChange(discordId: string, value: number, reason: NumberChangeReason, model: ModelType): Promise<void> {
-		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+	private static async logNumberChange(keycloakId: string, value: number, reason: NumberChangeReason, model: ModelType): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(keycloakId);
 		await model.create({
 			playerId: player.id,
 			value,
@@ -290,19 +288,19 @@ export class LogsDatabase extends Database {
 
 	/**
 	 * Allow to log information about an item in the log database
-	 * @param discordId
+	 * @param keycloakId
 	 * @param item
 	 * @param model
 	 * @private
 	 */
 	private static async logItem(
-		discordId: string,
+		keycloakId: string,
 		item: GenericItem,
 		model: { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> }
 	): Promise<void> {
 		const [player] = await LogsPlayers.findOrCreate({
 			where: {
-				discordId
+				keycloakId
 			}
 		});
 		await model.create({
@@ -314,94 +312,94 @@ export class LogsDatabase extends Database {
 
 	/**
 	 * Log a player's money change
-	 * @param discordId
+	 * @param keycloakId
 	 * @param value
 	 * @param reason
 	 */
-	public logMoneyChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
-		return LogsDatabase.logNumberChange(discordId, value, reason, LogsPlayersMoney);
+	public logMoneyChange(keycloakId: string, value: number, reason: NumberChangeReason): Promise<void> {
+		return LogsDatabase.logNumberChange(keycloakId, value, reason, LogsPlayersMoney);
 	}
 
 	/**
 	 * Log a player's health change
-	 * @param discordId
+	 * @param keycloakId
 	 * @param value
 	 * @param reason
 	 */
-	public logHealthChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
-		return LogsDatabase.logNumberChange(discordId, value, reason, LogsPlayersHealth);
+	public logHealthChange(keycloakId: string, value: number, reason: NumberChangeReason): Promise<void> {
+		return LogsDatabase.logNumberChange(keycloakId, value, reason, LogsPlayersHealth);
 	}
 
 	/**
 	 * Log a player's fightPoints change (except natural regeneration)
-	 * @param discordId
+	 * @param keycloakId
 	 * @param value
 	 * @param reason
 	 */
-	public logFightPointChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
-		return LogsDatabase.logNumberChange(discordId, value, reason, LogsPlayersFightPoints);
+	public logFightPointChange(keycloakId: string, value: number, reason: NumberChangeReason): Promise<void> {
+		return LogsDatabase.logNumberChange(keycloakId, value, reason, LogsPlayersFightPoints);
 	}
 
 	/**
 	 * Log a player's xp change
-	 * @param discordId
+	 * @param keycloakId
 	 * @param value
 	 * @param reason
 	 */
-	public logExperienceChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
-		return LogsDatabase.logNumberChange(discordId, value, reason, LogsPlayersExperience);
+	public logExperienceChange(keycloakId: string, value: number, reason: NumberChangeReason): Promise<void> {
+		return LogsDatabase.logNumberChange(keycloakId, value, reason, LogsPlayersExperience);
 	}
 
 	/**
 	 * Log a player's score change
-	 * @param discordId
+	 * @param keycloakId
 	 * @param value
 	 * @param reason
 	 */
-	public logScoreChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
-		return LogsDatabase.logNumberChange(discordId, value, reason, LogsPlayersScore);
+	public logScoreChange(keycloakId: string, value: number, reason: NumberChangeReason): Promise<void> {
+		return LogsDatabase.logNumberChange(keycloakId, value, reason, LogsPlayersScore);
 	}
 
 	/**
 	 * Log a player's rage change
-	 * @param discordId
+	 * @param keycloakId
 	 * @param value
 	 * @param reason
 	 */
-	public logRageChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
-		return LogsDatabase.logNumberChange(discordId, value, reason, LogsPlayersRage);
+	public logRageChange(keycloakId: string, value: number, reason: NumberChangeReason): Promise<void> {
+		return LogsDatabase.logNumberChange(keycloakId, value, reason, LogsPlayersRage);
 	}
 
 	/**
 	 * Log a player's gems change
-	 * @param discordId
+	 * @param keycloakId
 	 * @param value
 	 * @param reason
 	 */
-	public logGemsChange(discordId: string, value: number, reason: NumberChangeReason): Promise<void> {
-		return LogsDatabase.logNumberChange(discordId, value, reason, LogsPlayersGems);
+	public logGemsChange(keycloakId: string, value: number, reason: NumberChangeReason): Promise<void> {
+		return LogsDatabase.logNumberChange(keycloakId, value, reason, LogsPlayersGems);
 	}
 
 	/**
 	 * Log a player's level change
-	 * @param discordId
+	 * @param keycloakId
 	 * @param level
 	 */
-	public logLevelChange(discordId: string, level: number): Promise<void> {
-		return LogsDatabase.logPlayerAndNumber(discordId, "level", level, LogsPlayersLevel);
+	public logLevelChange(keycloakId: string, level: number): Promise<void> {
+		return LogsDatabase.logPlayerAndNumber(keycloakId, "level", level, LogsPlayersLevel);
 	}
 
 	/**
 	 * Record the usage of a command in the log database
-	 * @param discordId
+	 * @param keycloakId
 	 * @param serverId
 	 * @param commandName
 	 */
-	public async logCommandUsage(discordId: string, serverId: string, commandName: string): Promise<void> {
-		const player = await LogsDatabase.findOrCreatePlayer(discordId);
-		const [server] = await LogsServers.findOrCreate({
+	public async logCommandUsage(keycloakId: string, serverId: string, commandName: string): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(keycloakId);
+		const [server] = await LogsServers.findOrCreate({ // TODO no longer have server
 			where: {
-				discordId: serverId
+				keycloakId: serverId
 			}
 		});
 		const [command] = await LogsCommands.findOrCreate({
@@ -419,11 +417,11 @@ export class LogsDatabase extends Database {
 
 	/**
 	 * Log the appearance of a small event
-	 * @param discordId
+	 * @param keycloakId
 	 * @param name
 	 */
-	public async logSmallEvent(discordId: string, name: string): Promise<void> {
-		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+	public async logSmallEvent(keycloakId: string, name: string): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(keycloakId);
 		const [smallEvent] = await LogsSmallEvents.findOrCreate({
 			where: {
 				name
@@ -438,13 +436,13 @@ export class LogsDatabase extends Database {
 
 	/**
 	 * Log the appearance of a big event
-	 * @param discordId
+	 * @param keycloakId
 	 * @param eventId
 	 * @param possibilityEmote
 	 * @param issueIndex
 	 */
-	public async logBigEvent(discordId: string, eventId: number, possibilityEmote: string, issueIndex: number): Promise<void> {
-		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+	public async logBigEvent(keycloakId: string, eventId: number, possibilityEmote: string, issueIndex: number): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(keycloakId);
 		const [possibility] = await LogsPossibilities.findOrCreate({
 			where: {
 				bigEventId: eventId,
@@ -462,13 +460,13 @@ export class LogsDatabase extends Database {
 
 	/**
 	 * Log a new alteration of a player
-	 * @param discordId
+	 * @param keycloakId
 	 * @param alteration
 	 * @param reason
 	 * @param duration
 	 */
-	public async logAlteration(discordId: string, alteration: string, reason: NumberChangeReason, duration: number): Promise<void> {
-		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+	public async logAlteration(keycloakId: string, alteration: string, reason: NumberChangeReason, duration: number): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(keycloakId);
 		switch (alteration) {
 		case EffectsConstants.EMOJI_TEXT.OCCUPIED:
 			await LogsPlayersOccupiedAlterations.create({
@@ -494,18 +492,18 @@ export class LogsDatabase extends Database {
 
 	/**
 	 * Log when a player has been unlocked from jail
-	 * @param buyerDiscordId
-	 * @param releasedDiscordId
+	 * @param buyerKeycloakId
+	 * @param releasedKeycloakId
 	 */
-	public async logUnlocks(buyerDiscordId: string, releasedDiscordId: string): Promise<void> {
+	public async logUnlocks(buyerKeycloakId: string, releasedKeycloakId: string): Promise<void> {
 		const [buyer] = await LogsPlayers.findOrCreate({
 			where: {
-				discordId: buyerDiscordId
+				keycloakId: buyerKeycloakId
 			}
 		});
 		const [released] = await LogsPlayers.findOrCreate({
 			where: {
-				discordId: releasedDiscordId
+				keycloakId: releasedKeycloakId
 			}
 		});
 		await LogsUnlocks.create({
@@ -517,69 +515,69 @@ export class LogsDatabase extends Database {
 
 	/**
 	 * Log a player's class change
-	 * @param discordId
+	 * @param keycloakId
 	 * @param classId
 	 */
-	public logPlayerClassChange(discordId: string, classId: number): Promise<void> {
-		return LogsDatabase.logPlayerAndNumber(discordId, "classId", classId, LogsPlayersClassChanges);
+	public logPlayerClassChange(keycloakId: string, classId: number): Promise<void> {
+		return LogsDatabase.logPlayerAndNumber(keycloakId, "classId", classId, LogsPlayersClassChanges);
 	}
 
 	/**
 	 * Log a player's vote
-	 * @param discordId
+	 * @param keycloakId
 	 */
-	public logVote(discordId: string): Promise<void> {
-		return LogsDatabase.logSimplePlayerDate(discordId, LogsPlayersVotes);
+	public logVote(keycloakId: string): Promise<void> {
+		return LogsDatabase.logSimplePlayerDate(keycloakId, LogsPlayersVotes);
 	}
 
 	/**
 	 * Log when a player does not succeed a mission
-	 * @param discordId
+	 * @param keycloakId
 	 * @param missionId
 	 * @param variant
 	 * @param objective
 	 */
-	public logMissionFailed(discordId: string, missionId: string, variant: number, objective: number): Promise<void> {
-		return LogsDatabase.logMissionChange(discordId, missionId, variant, objective, LogsMissionsFailed);
+	public logMissionFailed(keycloakId: string, missionId: string, variant: number, objective: number): Promise<void> {
+		return LogsDatabase.logMissionChange(keycloakId, missionId, variant, objective, LogsMissionsFailed);
 	}
 
 	/**
 	 * Log when a player succeeds a mission except for the daily mission
-	 * @param discordId
+	 * @param keycloakId
 	 * @param missionId
 	 * @param variant
 	 * @param objective
 	 */
-	public logMissionFinished(discordId: string, missionId: string, variant: number, objective: number): Promise<void> {
-		return LogsDatabase.logMissionChange(discordId, missionId, variant, objective, LogsMissionsFinished);
+	public logMissionFinished(keycloakId: string, missionId: string, variant: number, objective: number): Promise<void> {
+		return LogsDatabase.logMissionChange(keycloakId, missionId, variant, objective, LogsMissionsFinished);
 	}
 
 	/**
 	 * Log when a player starts a mission
-	 * @param discordId
+	 * @param keycloakId
 	 * @param missionId
 	 * @param variant
 	 * @param objective
 	 */
-	public logMissionFound(discordId: string, missionId: string, variant: number, objective: number): Promise<void> {
-		return LogsDatabase.logMissionChange(discordId, missionId, variant, objective, LogsMissionsFound);
+	public logMissionFound(keycloakId: string, missionId: string, variant: number, objective: number): Promise<void> {
+		return LogsDatabase.logMissionChange(keycloakId, missionId, variant, objective, LogsMissionsFound);
 	}
 
 	/**
 	 * Log when a player finish a daily mission
-	 * @param discordId
+	 * @param keycloakId
 	 */
-	public logMissionDailyFinished(discordId: string): Promise<void> {
-		return LogsDatabase.logSimplePlayerDate(discordId, LogsMissionsDailyFinished);
+	public logMissionDailyFinished(keycloakId: string): Promise<void> {
+		return LogsDatabase.logSimplePlayerDate(keycloakId, LogsMissionsDailyFinished);
 	}
 
 	/**
 	 * Log when a player progress in the campaign
-	 * @param discordId
+	 * @param keycloakId
 	 * @param campaignIndex
 	 */
-	public logMissionCampaignProgress(discordId: string, campaignIndex: number): Promise<void> {
-		return LogsDatabase.logPlayerAndNumber(discordId, "number", campaignIndex, LogsMissionsCampaignProgresses);
+	public logMissionCampaignProgress(keycloakId: string, campaignIndex: number): Promise<void> {
+		return LogsDatabase.logPlayerAndNumber(keycloakId, "number", campaignIndex, LogsMissionsCampaignProgresses);
 	}
 
 	/**
@@ -603,44 +601,12 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * Log when the bot join a new server
-	 * @param discordId
-	 */
-	public async logServerJoin(discordId: string): Promise<void> {
-		const [server] = await LogsServers.findOrCreate({
-			where: {
-				discordId: discordId
-			}
-		});
-		await LogsServersJoins.create({
-			serverId: server.id,
-			date: getDateLogs()
-		});
-	}
-
-	/**
-	 * Log when the bot leave a server
-	 * @param discordId
-	 */
-	public async logServerQuit(discordId: string): Promise<void> {
-		const [server] = await LogsServers.findOrCreate({
-			where: {
-				discordId: discordId
-			}
-		});
-		await LogsServersQuits.create({
-			serverId: server.id,
-			date: getDateLogs()
-		});
-	}
-
-	/**
 	 * Log when new travel is started
-	 * @param discordId
+	 * @param keycloakId
 	 * @param mapLink
 	 */
-	public async logNewTravel(discordId: string, mapLink: MapLink): Promise<void> {
-		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+	public async logNewTravel(keycloakId: string, mapLink: MapLink): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(keycloakId);
 		const [maplinkLog] = await LogsMapLinks.findOrCreate({
 			where: {
 				start: mapLink.startMap,
@@ -658,10 +624,10 @@ export class LogsDatabase extends Database {
 	 * Save the top players from the top week. To avoid having too much data, we only save the top 15 players
 	 */
 	public async log15BestTopWeek(): Promise<void> {
-		const players = await Players.getPlayersToPrintTop(await Players.getAllStoredDiscordIds(), 1, 15, true);
+		const players = await Players.getPlayersToPrintTop(await Players.getAllStoredKeycloakIds(), 1, 15, true);
 		const now = getDateLogs();
 		for (let i = 0; i < players.length; i++) {
-			const player = await LogsDatabase.findOrCreatePlayer(players[0].discordUserId);
+			const player = await LogsDatabase.findOrCreatePlayer(players[0].keycloakId);
 			await LogsPlayers15BestTopweek.create({
 				playerId: player.id,
 				position: i + 1,
@@ -673,10 +639,10 @@ export class LogsDatabase extends Database {
 
 	/**
 	 * Log when a player gain a new item
-	 * @param discordId
+	 * @param keycloakId
 	 * @param item
 	 */
-	public logItemGain(discordId: string, item: GenericItem): Promise<unknown> {
+	public logItemGain(keycloakId: string, item: GenericItem): Promise<unknown> {
 		let itemCategoryDatabase: { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> };
 		switch (item.categoryName) {
 		case "weapons":
@@ -694,20 +660,20 @@ export class LogsDatabase extends Database {
 		default:
 			break;
 		}
-		return LogsDatabase.logItem(discordId, item, itemCategoryDatabase);
+		return LogsDatabase.logItem(keycloakId, item, itemCategoryDatabase);
 	}
 
 	/**
 	 * Log when a player receive a time boost
-	 * @param discordId
+	 * @param keycloakId
 	 * @param time
 	 * @param reason
 	 */
-	public async logTimeWarp(discordId: string, time: number, reason: NumberChangeReason): Promise<void> {
+	public async logTimeWarp(keycloakId: string, time: number, reason: NumberChangeReason): Promise<void> {
 		if (reason === NumberChangeReason.IGNORE) {
 			return;
 		}
-		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+		const player = await LogsDatabase.findOrCreatePlayer(keycloakId);
 		await LogsPlayersTimewarps.create({
 			playerId: player.id,
 			time,
@@ -718,10 +684,10 @@ export class LogsDatabase extends Database {
 
 	/**
 	 * Log when a player sell an item
-	 * @param discordId
+	 * @param keycloakId
 	 * @param item
 	 */
-	public logItemSell(discordId: string, item: GenericItem): Promise<unknown> {
+	public logItemSell(keycloakId: string, item: GenericItem): Promise<unknown> {
 		let itemCategoryDatabase: { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> };
 		switch (item.categoryName) {
 		case "weapons":
@@ -739,7 +705,7 @@ export class LogsDatabase extends Database {
 		default:
 			break;
 		}
-		return LogsDatabase.logItem(discordId, item, itemCategoryDatabase);
+		return LogsDatabase.logItem(keycloakId, item, itemCategoryDatabase);
 	}
 
 	/**
@@ -769,11 +735,11 @@ export class LogsDatabase extends Database {
 	/**
 	 * Log when a player is kicked from a guild
 	 * @param guild
-	 * @param kickedDiscordId
+	 * @param kickedKeycloakId
 	 */
-	public async logGuildKick(guild: Guild, kickedDiscordId: string): Promise<void> {
+	public async logGuildKick(guild: Guild, kickedKeycloakId: string): Promise<void> {
 		const logGuild = await LogsDatabase.findOrCreateGuild(guild);
-		const kickedPlayer = await LogsDatabase.findOrCreatePlayer(kickedDiscordId);
+		const kickedPlayer = await LogsDatabase.findOrCreatePlayer(kickedKeycloakId);
 		await LogsGuildsKicks.create({
 			guildId: logGuild.id,
 			kickedPlayer: kickedPlayer.id,
@@ -783,11 +749,11 @@ export class LogsDatabase extends Database {
 
 	/**
 	 * Log when anything is bought from the shop
-	 * @param discordId
+	 * @param keycloakId
 	 * @param shopItem
 	 */
-	public async logClassicalShopBuyout(discordId: string, shopItem: ShopItemType): Promise<void> {
-		const logPlayer = await LogsDatabase.findOrCreatePlayer(discordId);
+	public async logClassicalShopBuyout(keycloakId: string, shopItem: ShopItemType): Promise<void> {
+		const logPlayer = await LogsDatabase.findOrCreatePlayer(keycloakId);
 		await LogsClassicalShopBuyouts.create({
 			playerId: logPlayer.id,
 			shopItem,
@@ -797,11 +763,11 @@ export class LogsDatabase extends Database {
 
 	/**
 	 * Log when anything is bought from the guild shop
-	 * @param discordId
+	 * @param keycloakId
 	 * @param shopItem
 	 */
-	public async logGuildShopBuyout(discordId: string, shopItem: ShopItemType): Promise<void> {
-		const logPlayer = await LogsDatabase.findOrCreatePlayer(discordId);
+	public async logGuildShopBuyout(keycloakId: string, shopItem: ShopItemType): Promise<void> {
+		const logPlayer = await LogsDatabase.findOrCreatePlayer(keycloakId);
 		await LogsGuildShopBuyouts.create({
 			playerId: logPlayer.id,
 			shopItem,
@@ -812,13 +778,13 @@ export class LogsDatabase extends Database {
 
 	/**
 	 * Log which type of food is bought from the guild shops
-	 * @param discordId
+	 * @param keycloakId
 	 * @param shopItemName
 	 * @param amount
 	 */
-	public async logFoodGuildShopBuyout(discordId: string, shopItemName: string, amount: number): Promise<void> {
+	public async logFoodGuildShopBuyout(keycloakId: string, shopItemName: string, amount: number): Promise<void> {
 		const shopItem = getFoodIndexOf(shopItemName) + 6; // Les items de l'enum sont alignés sur les items du shop de guilde, c'est-à-dire décalés de 6.
-		const logPlayer = await LogsDatabase.findOrCreatePlayer(discordId);
+		const logPlayer = await LogsDatabase.findOrCreatePlayer(keycloakId);
 		await LogsGuildShopBuyouts.create({
 			playerId: logPlayer.id,
 			shopItem,
@@ -858,11 +824,11 @@ export class LogsDatabase extends Database {
 
 	/**
 	 * Log when anything is bought from the mission shop
-	 * @param discordId
+	 * @param keycloakId
 	 * @param shopItem
 	 */
-	public async logMissionShopBuyout(discordId: string, shopItem: ShopItemType): Promise<void> {
-		const logPlayer = await LogsDatabase.findOrCreatePlayer(discordId);
+	public async logMissionShopBuyout(keycloakId: string, shopItem: ShopItemType): Promise<void> {
+		const logPlayer = await LogsDatabase.findOrCreatePlayer(keycloakId);
 		await LogsMissionShopBuyouts.create({
 			playerId: logPlayer.id,
 			shopItem,
@@ -916,7 +882,7 @@ export class LogsDatabase extends Database {
 		const logGuild = await LogsDatabase.findOrCreateGuild(guildInfos);
 		for (const member of await Players.getByGuild(guildInfos.id)) {
 			if (member.id !== guildInfos.chiefId) {
-				await LogsDatabase.logGuildLeave(guild, member.discordUserId);
+				await LogsDatabase.logGuildLeave(guild, member.keycloakId);
 			}
 		}
 		for (const guildPet of guildInfos.guildPets) {
@@ -938,7 +904,7 @@ export class LogsDatabase extends Database {
 		const logGuild = await LogsDatabase.findOrCreateGuild(guild);
 		await LogsGuildsEldersRemoves.create({
 			guildId: logGuild.id,
-			removedElder: (await LogsDatabase.findOrCreatePlayer((await Players.getById(removedPlayerId)).discordUserId)).id,
+			removedElder: (await LogsDatabase.findOrCreatePlayer((await Players.getById(removedPlayerId)).keycloakId)).id,
 			date: getDateLogs()
 		});
 	}
@@ -950,7 +916,7 @@ export class LogsDatabase extends Database {
 	 */
 	public async logGuildChiefChange(guild: Guild, newChiefId: number): Promise<void> {
 		const logGuild = await LogsDatabase.findOrCreateGuild(guild);
-		const logNewChiefId = (await LogsDatabase.findOrCreatePlayer((await Players.getById(newChiefId)).discordUserId)).id;
+		const logNewChiefId = (await LogsDatabase.findOrCreatePlayer((await Players.getById(newChiefId)).keycloakId)).id;
 		await LogsGuildsChiefsChanges.create({
 			guildId: logGuild.id,
 			newChief: logNewChiefId,
@@ -960,11 +926,11 @@ export class LogsDatabase extends Database {
 
 	/**
 	 * Log when a guild is created
-	 * @param creatorDiscordId
+	 * @param creatorKeycloakId
 	 * @param guild
 	 */
-	public async logGuildCreation(creatorDiscordId: string, guild: Guild): Promise<void> {
-		const creator = await LogsDatabase.findOrCreatePlayer(creatorDiscordId);
+	public async logGuildCreation(creatorKeycloakId: string, guild: Guild): Promise<void> {
+		const creator = await LogsDatabase.findOrCreatePlayer(creatorKeycloakId);
 		const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
 		await LogsGuildsCreations.create({
 			guildId: guildInstance.id,
@@ -975,13 +941,13 @@ export class LogsDatabase extends Database {
 
 	/**
 	 * Log when a player joins a guild
-	 * @param adderDiscordId
-	 * @param addedDiscordId
+	 * @param adderKeycloakId
+	 * @param addedKeycloakId
 	 * @param guild
 	 */
-	public async logGuildJoin(adderDiscordId: string | null, addedDiscordId: string, guild: Guild): Promise<void> {
-		const adder = await LogsDatabase.findOrCreatePlayer(adderDiscordId);
-		const added = await LogsDatabase.findOrCreatePlayer(addedDiscordId);
+	public async logGuildJoin(adderKeycloakId: string | null, addedKeycloakId: string, guild: Guild): Promise<void> {
+		const adder = await LogsDatabase.findOrCreatePlayer(adderKeycloakId);
+		const added = await LogsDatabase.findOrCreatePlayer(addedKeycloakId);
 		const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
 		await LogsGuildsJoins.create({
 			guildId: guildInstance.id,
@@ -998,9 +964,9 @@ export class LogsDatabase extends Database {
 	public async logFight(fight: FightController): Promise<number> {
 		if (fight.fighters[0] instanceof PlayerFighter && fight.fighters[1] instanceof PlayerFighter) {
 			const player1 = fight.fighters[(fight.turn + 1) % 2] as PlayerFighter; // Odd turn = fighters[0] is inverted
-			const player1Id = (await LogsDatabase.findOrCreatePlayer(player1.player.discordUserId)).id;
+			const player1Id = (await LogsDatabase.findOrCreatePlayer(player1.player.keycloakId)).id;
 			const player2 = fight.fighters[0] === player1 ? fight.fighters[1] : fight.fighters[0];
-			const player2Id = (await LogsDatabase.findOrCreatePlayer(player2.player.discordUserId)).id;
+			const player2Id = (await LogsDatabase.findOrCreatePlayer(player2.player.keycloakId)).id;
 			const winner = fight.getWinnerFighter() === player1 ? 1 : 2;
 			const fightResult = await LogsFightsResults.create({
 				player1Id: player1Id,
@@ -1055,7 +1021,7 @@ export class LogsDatabase extends Database {
 		}
 
 		if (player && monster) {
-			const playerId = (await LogsDatabase.findOrCreatePlayer(player.player.discordUserId)).id;
+			const playerId = (await LogsDatabase.findOrCreatePlayer(player.player.keycloakId)).id;
 			const monsterStats = monster.getBaseStats();
 			const winner = fight.getWinnerFighter();
 			const fightResult = await LogsPveFightsResults.create({
@@ -1122,11 +1088,11 @@ export class LogsDatabase extends Database {
 
 	/**
 	 * Log when a guild description changes
-	 * @param discordId
+	 * @param keycloakId
 	 * @param guild
 	 */
-	public async logGuildDescriptionChange(discordId: string, guild: Guild): Promise<void> {
-		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+	public async logGuildDescriptionChange(keycloakId: string, guild: Guild): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(keycloakId);
 		const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
 		await LogsGuildsDescriptionChanges.create({
 			guildId: guildInstance.id,
@@ -1186,12 +1152,12 @@ export class LogsDatabase extends Database {
 
 	/**
 	 * Log when a player gets a new pet
-	 * @param discordId
+	 * @param keycloakId
 	 * @param petEntity
 	 */
-	public async logPlayerNewPet(discordId: string, petEntity: PetEntity): Promise<void> {
+	public async logPlayerNewPet(keycloakId: string, petEntity: PetEntity): Promise<void> {
 		const petEntityInstance = await LogsDatabase.findOrCreatePetEntity(petEntity);
-		const playerInstance = await LogsDatabase.findOrCreatePlayer(discordId);
+		const playerInstance = await LogsDatabase.findOrCreatePlayer(keycloakId);
 		await LogsPlayersNewPets.create({
 			playerId: playerInstance.id,
 			petId: petEntityInstance.id,
@@ -1229,22 +1195,22 @@ export class LogsDatabase extends Database {
 
 	/**
 	 * Log when a player ask for his daily reward
-	 * @param discordId
+	 * @param keycloakId
 	 * @param item
 	 */
-	public async logPlayerDaily(discordId: string, item: GenericItem): Promise<void> {
-		await LogsDatabase.logItem(discordId, item, LogsPlayersDailies);
+	public async logPlayerDaily(keycloakId: string, item: GenericItem): Promise<void> {
+		await LogsDatabase.logItem(keycloakId, item, LogsPlayersDailies);
 	}
 
 	/**
 	 * Log when a player's elo changes
-	 * @param discordId
+	 * @param keycloakId
 	 * @param gloryPoints
 	 * @param reason
 	 * @param fightId
 	 */
-	public async logPlayersGloryPoints(discordId: string, gloryPoints: number, reason: NumberChangeReason, fightId: number = null): Promise<void> {
-		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+	public async logPlayersGloryPoints(keycloakId: string, gloryPoints: number, reason: NumberChangeReason, fightId: number = null): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(keycloakId);
 		await LogsPlayersGloryPoints.create({
 			playerId: player.id,
 			value: gloryPoints,
@@ -1258,10 +1224,10 @@ export class LogsDatabase extends Database {
 	 * Save the top players from the season ranking. To avoid having too much data, we only save the top 15 players
 	 */
 	public async log15BestSeason(): Promise<void> {
-		const players = await Players.getPlayersToPrintGloryTop(await Players.getAllStoredDiscordIds(), 1, 15);
+		const players = await Players.getPlayersToPrintGloryTop(await Players.getAllStoredKeycloakIds(), 1, 15);
 		const now = getDateLogs();
 		for (let i = 0; i < players.length; i++) {
-			const player = await LogsDatabase.findOrCreatePlayer(players[0].discordUserId);
+			const player = await LogsDatabase.findOrCreatePlayer(players[0].keycloakId);
 			await LogsPlayers15BestSeason.create({
 				playerId: player.id,
 				position: i + 1,
@@ -1273,11 +1239,11 @@ export class LogsDatabase extends Database {
 
 	/**
 	 * Save when a player ask for his league reward
-	 * @param discordId
+	 * @param keycloakId
 	 * @param leagueLastSeason
 	 */
-	public async logPlayerLeagueReward(discordId: string, leagueLastSeason: number): Promise<void> {
-		const player = await LogsDatabase.findOrCreatePlayer(discordId);
+	public async logPlayerLeagueReward(keycloakId: string, leagueLastSeason: number): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(keycloakId);
 		await LogsPlayerLeagueReward.create({
 			playerId: player.id,
 			leagueLastSeason,

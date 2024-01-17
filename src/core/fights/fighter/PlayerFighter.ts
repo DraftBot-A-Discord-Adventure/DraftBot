@@ -190,6 +190,7 @@ export class PlayerFighter extends Fighter {
 
 	private chooseActionCallback(actions: Map<string, FightAction>, fightView: FightView): () => void { // (m: Message) => void {
 		return null;
+		// TODO
 		/* return (chooseActionEmbedMessage: Message): void => {
 			const collector = chooseActionEmbedMessage.createReactionCollector({
 				filter: (reaction) => reaction.me && reaction.users.cache.last().id === this.getDiscordId(),
@@ -247,7 +248,7 @@ export class PlayerFighter extends Fighter {
 	 */
 	private async manageMissionsOf(fightView: FightView): Promise<void> {
 		if (!fightView.fightController.friendly) {
-			const [newPlayer] = await Players.getOrRegister(this.player.discordUserId);
+			const [newPlayer] = await Players.getOrRegister(this.player.keycloakId);
 			newPlayer.setFightPointsLost(this.stats.maxFightPoint - this.stats.fightPoints, NumberChangeReason.FIGHT);
 			await newPlayer.save();
 		}

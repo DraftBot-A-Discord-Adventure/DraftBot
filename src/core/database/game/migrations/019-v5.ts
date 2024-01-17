@@ -2,8 +2,40 @@ import {DataTypes, QueryInterface} from "sequelize";
 import {classesAttributes001, itemAttributes001, missionsAttributes001, petAttributes001} from "./001-initial-database";
 import {leaguesAttributes008} from "./008-gloryandleague";
 import {monsterLocationsAttributes011} from "./011-pve";
+import {existsSync} from "node:fs";
+import {parse} from "toml";
+import {readFileSync} from "fs";
+import {KeycloakUtils} from "../../../../../../Lib/src/keycloak/KeycloakUtils";
+import {KeycloakConfig} from "../../../../../../Lib/src/keycloak/KeycloakConfig";
+import {Constants} from "../../../Constants";
+import {logsV5NewIds} from "../../logs/migrations/006-v5";
 
 export async function up({context}: { context: QueryInterface }): Promise<void> {
+	const configPath = `${process.cwd()}/config/keycloak.toml`;
+	if (!existsSync(configPath)) {
+		console.error(`Please first backup your database. Then, in order to migrate from v4 to v5, please create a file at '${configPath}' with the following format:
+[keycloak]
+realm = "DraftBot"
+url = "http://127.0.0.1:8080"
+clientId = "discord"
+clientSecret = "secret"
+		`);
+		process.exit(1);
+	}
+
+	const config: { keycloak: KeycloakConfig } = parse(readFileSync(configPath, "utf-8")) as { keycloak: KeycloakConfig };
+
+	const players = await context.select(null, "players") as { [key: string]: unknown }[];
+
+	for (let i = 0; i < players.length; ++i) {
+		const player = players[i];
+		const user = await KeycloakUtils.getOrRegisterDiscordUser(config.keycloak, player.discordUserId as string, Constants.LANGUAGE.ENGLISH);
+		await context.sequelize.query(`UPDATE players SET discordUserId = "${user.id}" WHERE discordUserId = "${player.discordUserId}"`);
+		logsV5NewIds.set(player.discordUserId as string, user.id);
+	}
+
+	await context.renameColumn("players", "discordUserId", "keycloakId");
+
 	await context.dropTable("armors");
 	await context.dropTable("classes");
 	await context.dropTable("leagues");
