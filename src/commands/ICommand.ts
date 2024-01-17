@@ -10,7 +10,7 @@ import {DraftbotInteraction} from "../messages/DraftbotInteraction";
 export interface ICommand {
 	slashCommandBuilder: SlashCommandBuilder,
 
-	getPacket: (interaction: DraftbotInteraction, user: KeycloakUser) => DraftBotPacket | Promise<DraftBotPacket>;
+	getPacket: (interaction: DraftbotInteraction, user: KeycloakUser) => DraftBotPacket | Promise<DraftBotPacket> | Promise<null> | null;
 
 	requirements: {
 		requiredLevel?: number,

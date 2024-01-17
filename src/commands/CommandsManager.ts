@@ -376,8 +376,21 @@ ${i18n.t("bot:mentionHelp", {
 
 		DiscordCache.cacheInteraction(interaction);
 		const packet = await commandInfo.getPacket(interaction, user);
-		const context: PacketContext = { discord: { channel: interaction.channel.id, interaction: interaction.id } };
-		DiscordWebSocket.socket!.send(JSON.stringify({ packet: { name: packet.constructor.name, data: packet }, context }));
+		if (packet) {
+			const context: PacketContext = {
+				discord: {
+					channel: interaction.channel.id,
+					interaction: interaction.id
+				}
+			};
+			DiscordWebSocket.socket!.send(JSON.stringify({
+				packet: {
+					name: packet.constructor.name,
+					data: packet
+				},
+				context
+			}));
+		}
 	}
 
 	/**

@@ -5,6 +5,8 @@ import * as enCommands from "../../../Lang/en/commands.json";
 import * as frCommands from "../../../Lang/fr/commands.json";
 import * as enDiscordBuilder from "../../../Lang/en/discordBuilder.json";
 import * as frDiscordBuilder from "../../../Lang/fr/discordBuilder.json";
+import * as enError from "../../../Lang/en/error.json";
+import * as frError from "../../../Lang/fr/error.json";
 
 i18next.init({
 	fallbackLng: "en",
@@ -12,12 +14,14 @@ i18next.init({
 		en: {
 			bot: enBot,
 			commands: enCommands,
-			discordBuilder: enDiscordBuilder
+			discordBuilder: enDiscordBuilder,
+			error: enError
 		},
 		fr: {
 			bot: frBot,
 			commands: frCommands,
-			discordBuilder: frDiscordBuilder
+			discordBuilder: frDiscordBuilder,
+			error: frError
 		}
 	}
 }).then();

@@ -13,16 +13,24 @@ import {DiscordCache} from "../../bot/DiscordCache";
 import {DraftBotErrorEmbed} from "../../messages/DraftBotErrorEmbed";
 import {ProfileConstants} from "../../constants/ProfileConstants";
 import {Language} from "../../../../Lib/src/Language";
+import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
+import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
+import {keycloakConfig} from "../../bot/DraftBotShard";
 
 /**
  * Pings the bot, to check if it is alive and how well is it
  */
-function getPacket(interaction: DraftbotInteraction): CommandProfilePacketReq {
-	let askedPlayer: { discordId?: string, rank?: number } = {discordId: interaction.user.id};
+async function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser): Promise<CommandProfilePacketReq | null> {
+	let askedPlayer: { keycloakId?: string, rank?: number } = {keycloakId: keycloakUser.id};
 
 	const user = interaction.options.getUser("user");
 	if (user) {
-		askedPlayer = {discordId: user.id};
+		const keycloakId = await KeycloakUtils.getKeycloakIdFromDiscordId(keycloakConfig, user.id);
+		if (!keycloakId) {
+			await interaction.reply({embeds: [new DraftBotErrorEmbed(interaction.user, interaction, interaction.channel.language, i18n.t("error:playerDoesntExist", { lng: interaction.channel.language }))]});
+			return null;
+		}
+		askedPlayer = { keycloakId };
 	}
 	const rank = interaction.options.get("rank");
 	if (rank) {
