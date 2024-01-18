@@ -50,7 +50,7 @@ export default class ProfileCommand {
 
 			response.push(makePacket(CommandProfilePacketRes, {
 				foundPlayer: true,
-				playerId: player.id,
+				keycloakId: player.keycloakId,
 				data: {
 					badges,
 					guild: guild?.name,

@@ -29,7 +29,7 @@ clientSecret = "secret"
 
 	for (let i = 0; i < players.length; ++i) {
 		const player = players[i];
-		const user = await KeycloakUtils.getOrRegisterDiscordUser(config.keycloak, player.discordUserId as string, Constants.LANGUAGE.ENGLISH);
+		const user = await KeycloakUtils.getOrRegisterDiscordUser(config.keycloak, player.discordUserId as string, player.discordUserId as string, Constants.LANGUAGE.ENGLISH);
 		await context.sequelize.query(`UPDATE players SET discordUserId = "${user.id}" WHERE discordUserId = "${player.discordUserId}"`);
 		logsV5NewIds.set(player.discordUserId as string, user.id);
 	}
