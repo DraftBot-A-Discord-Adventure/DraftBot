@@ -10,7 +10,7 @@ export class CommandProfilePacketReq extends DraftBotPacket {
 export class CommandProfilePacketRes extends DraftBotPacket {
 	foundPlayer!: boolean;
 
-	playerId?: number;
+	keycloakId?: string;
 
 	data?: {
 		stats?: {

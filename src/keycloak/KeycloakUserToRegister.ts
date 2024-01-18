@@ -1,5 +1,6 @@
 export interface KeycloakUserToRegister {
-	username: string;
-	language: string,
+	keycloakUsername: string;
+	gameUsername: string;
+	language: string;
 	discordId?: string;
 }

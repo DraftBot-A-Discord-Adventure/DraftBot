@@ -33,6 +33,46 @@ export class KeycloakUtils {
 		}
 	}
 
+	private static async updateGameUsername(user: KeycloakUser, newGameUsername: string, keycloakConfig: KeycloakConfig): Promise<void> {
+		await this.checkAndQueryToken(keycloakConfig);
+
+		const attributes = user.attributes;
+		attributes.gameUsername = newGameUsername;
+
+		const res = await fetch(`${keycloakConfig.url}/admin/realms/${keycloakConfig.realm}/users/${user.id}`, {
+			method: "PUT",
+			headers: {
+				"Authorization": `Bearer ${this.keycloakToken}`,
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+				attributes
+			})
+		});
+
+		if (!res.ok) {
+			throw new Error(`Keycloak update game username for user '${user.id}' tp '${newGameUsername}' error: '${JSON.stringify(await res.json())}'`);
+		}
+	}
+
+	public static async getUserByKeycloakId(keycloakConfig: KeycloakConfig, keycloakId: string): Promise<KeycloakUser | null> {
+		await this.checkAndQueryToken(keycloakConfig);
+
+		const res = await fetch(`${keycloakConfig.url}/admin/realms/${keycloakConfig.realm}/users/${keycloakId}`, {
+			method: "GET",
+			headers: {
+				"Authorization": `Bearer ${this.keycloakToken}`,
+				"Content-Type": "application/json"
+			}
+		});
+
+		if (!res.ok) {
+			throw new Error(`Keycloak retrieve user with keycloak ID '${keycloakId}' error: '${JSON.stringify(await res.json())}'`);
+		}
+
+		return await res.json() as KeycloakUser;
+	}
+
 	public static async getUserIdByUsername(keycloakConfig: KeycloakConfig, username: string): Promise<KeycloakUser | null> {
 		await this.checkAndQueryToken(keycloakConfig);
 
@@ -63,6 +103,7 @@ export class KeycloakUtils {
 		// Populate attributes
 		const attributes: { [key:string]: string[] } = {};
 		attributes.language = [registerParams.language];
+		attributes.gameUsername = [registerParams.gameUsername];
 		if (registerParams.discordId) {
 			attributes.discordId = [registerParams.discordId];
 		}
@@ -74,7 +115,7 @@ export class KeycloakUtils {
 				"Content-Type": "application/json"
 			},
 			body: JSON.stringify({
-				username: registerParams.username,
+				username: registerParams.keycloakUsername,
 				attributes,
 				enabled: true
 			})
@@ -84,10 +125,37 @@ export class KeycloakUtils {
 			throw new Error(`Keycloak create user with parameters '${JSON.stringify(registerParams)}', error: '${JSON.stringify(await res.json())}'`);
 		}
 
-		return (await this.getUserIdByUsername(keycloakConfig, registerParams.username))!;
+		return (await this.getUserIdByUsername(keycloakConfig, registerParams.keycloakUsername))!;
 	}
 
-	public static async getOrRegisterDiscordUser(keycloakConfig: KeycloakConfig, discordId: string, language: string): Promise<KeycloakUser> {
+	public static async getDiscordUser(keycloakConfig: KeycloakConfig, discordId: string, gameUsername: string | null): Promise<KeycloakUser> {
+		await this.checkAndQueryToken(keycloakConfig);
+
+		const res = await fetch(`${keycloakConfig.url}/admin/realms/${keycloakConfig.realm}/users?q=discordId:${discordId}`, {
+			method: "GET",
+			headers: {
+				"Authorization": `Bearer ${this.keycloakToken}`,
+				"Content-Type": "application/json"
+			}
+		});
+
+		if (!res.ok) {
+			throw new Error(`Keycloak retrieve user with attribute 'discordId:${discordId}', error: '${JSON.stringify(await res.json())}'`);
+		}
+
+		const obj = await res.json();
+		const user: KeycloakUser = obj.length === 1 ? obj[0] : null;
+
+		if (gameUsername && user.attributes.gameUsername !== gameUsername) {
+			await KeycloakUtils.updateGameUsername(user, gameUsername, keycloakConfig);
+		}
+
+		KeycloakUtils.keycloakDiscordToIdMap.set(discordId, user.id);
+
+		return user;
+	}
+
+	public static async getOrRegisterDiscordUser(keycloakConfig: KeycloakConfig, discordId: string, gameUsername: string, language: string): Promise<KeycloakUser> {
 		await this.checkAndQueryToken(keycloakConfig);
 
 		const res = await fetch(`${keycloakConfig.url}/admin/realms/${keycloakConfig.realm}/users?q=discordId:${discordId}`, {
@@ -105,10 +173,14 @@ export class KeycloakUtils {
 		const obj = await res.json();
 		let user: KeycloakUser;
 		if (obj.length === 0) {
-			user = await this.registerUser(keycloakConfig, { username: `discord$${discordId}`, discordId, language });
+			user = await this.registerUser(keycloakConfig, { keycloakUsername: `discord/${discordId}`, gameUsername, discordId, language });
 		}
 		else {
 			user = obj[0] as KeycloakUser;
+
+			if (user.attributes.gameUsername !== gameUsername) {
+				await KeycloakUtils.updateGameUsername(user, gameUsername, keycloakConfig);
+			}
 		}
 
 		KeycloakUtils.keycloakDiscordToIdMap.set(discordId, user.id);
