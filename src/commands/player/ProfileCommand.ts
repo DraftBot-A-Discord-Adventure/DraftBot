@@ -40,7 +40,7 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 	return makePacket(CommandProfilePacketReq, {askedPlayer});
 }
 
-async function sendMessageAllBadgesTooMuchBadges(badges: string[], interaction: DraftbotInteraction): Promise<void> {
+async function sendMessageAllBadgesTooMuchBadges(gameUsername: string, badges: string[], interaction: DraftbotInteraction): Promise<void> {
 	let content = "";
 	for (const badgeSentence of badges) {
 		content += `${i18n.t(`commands:profile.badges.${badgeSentence}`, {lng: interaction.channel.language})}\n`;
@@ -49,7 +49,7 @@ async function sendMessageAllBadgesTooMuchBadges(badges: string[], interaction: 
 		embeds: [new DraftBotEmbed()
 			.setTitle(i18n.t("commands:profile.badgeDisplay.title", {
 				lng: interaction.channel.language,
-				pseudo: "TODO" /* TODO keycloak pseudos */
+				pseudo: gameUsername
 			}))
 			.setDescription(content + i18n.t("commands:profile.badgeDisplay.numberBadge", {
 				lng: interaction.channel.language,
@@ -230,6 +230,8 @@ export async function handleCommandProfilePacketRes(packet: CommandProfilePacket
 			return;
 		}
 
+		const keycloakUser = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId!))!;
+
 		const titleEffect = packet.data?.effect?.healed ? Constants.DEFAULT_HEALED_EFFECT : packet.data?.effect;
 		const reply = await interaction.reply({
 			embeds: [
@@ -238,7 +240,7 @@ export async function handleCommandProfilePacketRes(packet: CommandProfilePacket
 					.setTitle(i18n.t("commands:profile.title", {
 						lng: interaction.channel.language,
 						effect: titleEffect,
-						pseudo: "TODO", // todo keycloak pseudos
+						pseudo: keycloakUser.attributes.gameUsername,
 						level: packet.data?.level
 					}))
 					.addFields(generateFields(packet, interaction.channel.language))
@@ -255,7 +257,7 @@ export async function handleCommandProfilePacketRes(packet: CommandProfilePacket
 		collector.on("collect", async (reaction) => {
 			if (reaction.emoji.name === Constants.PROFILE.DISPLAY_ALL_BADGE_EMOTE) {
 				collector.stop(); // Only one is allowed to avoid spam
-				await sendMessageAllBadgesTooMuchBadges(packet.data!.badges!, interaction);
+				await sendMessageAllBadgesTooMuchBadges(keycloakUser.attributes.gameUsername, packet.data!.badges!, interaction);
 			}
 			else {
 				interaction.channel.send({content: i18n.t(`commands:profile.badges.${reaction.emoji.name}`)})

@@ -268,7 +268,7 @@ ${i18n.t("bot:mentionHelp", {
 			if (!discordInteraction.isCommand() || discordInteraction.user.bot || discordInteraction.user.id === draftBotClient!.user!.id) {
 				return;
 			}
-			const user = await KeycloakUtils.getOrRegisterDiscordUser(keycloakConfig, discordInteraction.user.id, discordInteraction.locale.substring(0, 2));
+			const user = await KeycloakUtils.getOrRegisterDiscordUser(keycloakConfig, discordInteraction.user.id, discordInteraction.user.displayName, discordInteraction.locale.substring(0, 2));
 			const interaction: DraftbotInteraction = DraftbotInteraction.cast(discordInteraction);
 			if (!interaction.channel) {
 				replyErrorMessage(
