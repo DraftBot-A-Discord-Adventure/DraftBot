@@ -185,7 +185,7 @@ export class CommandsManager {
 	 * @param message
 	 */
 	static async handlePrivateMessage(message: Message | DraftbotInteraction): Promise<void> {
-		const author = message instanceof DraftbotInteraction ? message.user.id : message.author.id;
+		const author = message instanceof Message ? message.author.id : message.user.id;
 		if (author === botConfig.DM_MANAGER_ID) {
 			return;
 		}
@@ -412,7 +412,7 @@ export class CommandsManager {
 	 * @private
 	 */
 	private static async sendHelperMessage(message: Message | DraftbotInteraction): Promise<void> {
-		const author = message instanceof DraftbotInteraction ? message.user : message.author;
+		const author = message instanceof Message ? message.author : message.user;
 		const helpMessage = new DraftBotReactionMessageBuilder()
 			.allowUserId(author.id)
 			.addReaction(new DraftBotReaction(Constants.REACTIONS.ENGLISH_FLAG))
