@@ -59,21 +59,6 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			type: DataTypes.INTEGER,
 			allowNull: false
 		},
-		descriptionFr: {
-			// eslint-disable-next-line new-cap
-			type: DataTypes.STRING(512),
-			allowNull: false
-		},
-		descriptionEn: {
-			// eslint-disable-next-line new-cap
-			type: DataTypes.STRING(512),
-			allowNull: false
-		},
-		emoji: {
-			// eslint-disable-next-line new-cap
-			type: DataTypes.STRING(10),
-			allowNull: false
-		},
 		updatedAt: DataTypes.DATE,
 		createdAt: DataTypes.DATE
 	});
