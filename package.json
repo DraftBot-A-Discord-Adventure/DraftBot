@@ -9,6 +9,7 @@
   "engineStrict": true,
   "scripts": {
     "start": "yarn interface && tsc && node dist/Discord/src/index.js",
+    "cd": "cd",
     "eslint": "eslint src",
     "eslintFix": "eslint src --fix",
     "tsc": "tsc",
