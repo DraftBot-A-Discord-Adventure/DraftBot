@@ -1,7 +1,7 @@
 <div style="text-align: center;">
 <img src="https://cdn.discordapp.com/attachments/456120666874183680/575235193384861716/couronne.png" style="border-radius: 50%; width: 300px" alt="Couronne DraftBot">
 
-DraftBot is a text adventure game. The story takes place in a medieval world, and the player embodies an adventurer who wants to win a competition launched by the king, to win the princess' hand. To achieve this, he must travel and earn points by going through a lot of danger, including thieves, wilderness, and scary children. Every few hours, the player can follow their adventure through "reports" and  interact with a multiple choice system, using reactions below the report. Each choice has multiple issues, which could hurt the character, heal them, or even give them some stuff. During the journey, they earn money, stuff, and points, and can use them to buy potions, stuff or effects in the shop, fight other players, and ascend the leaderboard.
+DraftBot is a text adventure game. The story takes place in a medieval world, and the player embodies an adventurer who wants to win a competition launched by the king, to win the princess' hand. To achieve this, he must travel and earn points by going through a lot of danger, including thieves, wilderness, and scary children. Every few hours, the player can follow their adventure through "reports" and interact with a multiple choice system, using reactions below the report. Each choice has multiple issues, which could hurt the character, heal them, or even give them some stuff. During the journey, they earn money, equipments, and points, and can use them to buy potions, items or effects in the shop, fight other players, and ascend the leaderboard.
 
 [![](https://img.shields.io/discord/429765017332613120.svg)](https://discord.gg/5JqrMtZ)
 [![](https://img.shields.io/github/stars/BastLast/DraftBot-A-Discord-Adventure.svg?label=Stars&style=social)](https://github.com/BastLast/DraftBot-A-Discord-Adventure)
@@ -34,7 +34,7 @@ Please do not copy and paste the commands we provide in this readme without :
 
 ## BETA BRANCH WARNING
 
-You are here in the not yet released v5 of DraftBot. Compared to previous versions of the game, we migrated to microservices. This cloning this repository will allow you to get all the services necessary to run draftbot v5.
+You are here in the not yet released v5 of DraftBot. Compared to previous versions of the game, we migrated to microservices. Cloning this repository and its submodules will allow you to get all the services necessary to run draftbot v5.
 
 This work is still in progress, please do not open issues about bugs faced in this version of the software.
 
@@ -54,11 +54,11 @@ This list contains all the software programs necessary to run DraftBot. Our star
 ### Start guide
 
 This guide will help you run DraftBot on your computer. We provide instructions for Linux, MacOS (🐧) and Windows (🪟). If not specified, the command is the same for all OS.
-Please do not skip any step of this guide, otherwise, the followings will not work.
+Please do not skip any step of this guide, otherwise, the following commands will not work.
 
 - Install git: 🐧 `apt-get install git` | 🪟 https://git-scm.com/download/win
 - Download the bot: `git clone https://github.com/BastLast/DraftBot-A-Discord-Adventure`
-- Switch to this branch: 
+- Switch to the DraftBot v5 branch `git checkout draftbot-v5-multirepo-preparation`
 - Download all the git submodules:
 - Install NodeJS (check nvm documentation for instructions)
   - Check any package.json for the minimal required version
@@ -84,7 +84,7 @@ Please do not skip any step of this guide, otherwise, the followings will not wo
 - and the discord module `cd ../Discord && yarn start`
 
 You can set up npm launch scripts to make the start easier.
-From now one you should be able to start the bot by running `yarn start` in the Core and Discord folders while having the database and keycloak running.
+From now on you should be able to start the bot by running `yarn start` in the Core and Discord folders while having the database and keycloak running.
 Starting order is important, start with the database container and keycloak, then the Core and finally the Discord module.
 
 # Screenshots
