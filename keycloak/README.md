@@ -4,11 +4,18 @@ Keycloak is the project used to authenticate users on DraftBot
 
 ## Start with docker
 
-See [docker-compose.yml](./docker-compose.yml) as an example
+You can start Keycloak with docker using the following command:
+
+```bash
+docker-compose up -d
+```
+
+You can find the docker-compose file here:
+[docker-compose.yml](./docker-compose.yml) 
 
 ## Configuring a realm
 
-On http://127.0.0.1:8080/admin/master/console/:
+Visit http://127.0.0.1:8080/admin/master/console/ (Default credentials are admin/admin)
 
 First click on the create realm button:
 
