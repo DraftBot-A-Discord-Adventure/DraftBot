@@ -7,6 +7,12 @@ import * as enDiscordBuilder from "../../../Lang/en/discordBuilder.json";
 import * as frDiscordBuilder from "../../../Lang/fr/discordBuilder.json";
 import * as enError from "../../../Lang/en/error.json";
 import * as frError from "../../../Lang/fr/error.json";
+import * as enItems from "../../../Lang/en/items.json";
+import * as frItems from "../../../Lang/fr/items.json";
+import * as enModels from "../../../Lang/en/models.json";
+import * as frModels from "../../../Lang/fr/models.json";
+
+// todo load automatically modules
 
 i18next.init({
 	fallbackLng: "fr",
@@ -15,13 +21,17 @@ i18next.init({
 			bot: enBot,
 			commands: enCommands,
 			discordBuilder: enDiscordBuilder,
-			error: enError
+			error: enError,
+			items: enItems,
+			models: enModels
 		},
 		fr: {
 			bot: frBot,
 			commands: frCommands,
 			discordBuilder: frDiscordBuilder,
-			error: frError
+			error: frError,
+			items: frItems,
+			models: frModels
 		}
 	}
 }).then();

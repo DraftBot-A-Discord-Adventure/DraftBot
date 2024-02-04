@@ -379,6 +379,7 @@ ${i18n.t("bot:mentionHelp", {
 		if (packet) {
 			const context: PacketContext = {
 				discord: {
+					user: interaction.user.id,
 					channel: interaction.channel.id,
 					interaction: interaction.id
 				}

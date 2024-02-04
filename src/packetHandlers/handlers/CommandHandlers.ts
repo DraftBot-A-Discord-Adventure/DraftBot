@@ -7,6 +7,8 @@ import i18n from "../../translations/i18n";
 import {draftBotClient, shardId} from "../../bot/DraftBotShard";
 import {CommandProfilePacketRes} from "../../../../Lib/src/packets/commands/CommandProfilePacket";
 import {handleCommandProfilePacketRes} from "../../commands/player/ProfileCommand";
+import {CommandInventoryPacketRes} from "../../../../Lib/src/packets/commands/CommandInventoryPacket";
+import {handleCommandInventoryPacketRes} from "../../commands/player/InventoryCommand";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
@@ -27,5 +29,10 @@ export default class CommandHandlers {
 	@packetHandler(CommandProfilePacketRes)
 	profileRes(socket: WebSocket, packet: CommandProfilePacketRes, context: PacketContext): void {
 		handleCommandProfilePacketRes(packet, context).then();
+	}
+
+	@packetHandler(CommandInventoryPacketRes)
+	inventoryRes(socket: WebSocket, packet: CommandInventoryPacketRes, context: PacketContext): void {
+		handleCommandInventoryPacketRes(packet, context).then();
 	}
 }
