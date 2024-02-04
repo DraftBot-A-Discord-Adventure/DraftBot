@@ -1,0 +1,94 @@
+{
+  "badges": {
+    "description": "I badge sono distinzione difficile a ottenere che sono state create per ricompensare le persone che hanno il più sostenuti il sviluppo del bot. La lista dei badge e disponibile sulla guida del bot.\n(link : https://guide.draftbot.com/notions-avancees/badges)",
+    "title": ":military_medal: Informazione dettagliate :"
+  },
+  "ping": {
+    "discord": {
+      "create": ":ping_pong: Pong",
+      "edit": ":ping_pong: Pong\n\n**Latenza totale :** {{totalLatency}} ms\n**Latenza Discord :** {{discordApiLatency}} ms\n**Numero del shard :** {{shardId}}\n**Numeri de shards :** {{totalShards}} (+main shard)"
+    }
+  },
+  "profile": {
+    "badgeDisplay": {
+      "numberBadge_one": "\nQuesto giocatore possiede {{badge}} badge in totale !",
+      "numberBadge_other": "\nQuesto giocatore possiede {{badge}} badge in totale !",
+      "title": "Lista dei badge di {{pseudo}}"
+    },
+    "badges": {
+      "⚔️": ":crossed_swords: `Vincitore di un torneo`",
+      "⚙️": ":gear: `Squadra tecnica`",
+      "⛑️": ":helmet_with_cross: `Persona facendo parte dei 20 primi avendo raggiunto il server del bot`",
+      "✨": ":sparkles: `Persona che ha accumulato il più punti di gloria durante la stagione di combattimento`",
+      "❤️": ":heart: `Persona avendo il grado Sostegno sul server del bot`",
+      "🌍": ":earth_africa: `Traduttore`",
+      "🌟": ":star2: `Persona che ha aiutato a mettere il bot su un server con più di 2000 membri`",
+      "🍀": ":four_leaf_clover: `Badge che può essere vinto ogni tanto in concorsi sul server o su twitter`",
+      "🎄": ":christmas_tree: `Badge pouvant être gagné chaque noël lors d'un concours`",
+      "🎗️": ":reminder_ribbon: `Personne ayant dominé un classement de la semaine`",
+      "🎰": ":slot_machine: `Badge donné de manière totalement random`",
+      "🏅": ":medal: `Joueur dans le top 10 au reset de la 1.0`",
+      "🏆": ":trophy: `Meilleur joueur au moment du reset de la 1.0`",
+      "🐞": ":lady_beetle: `Personne ayant signalé des bugs majeurs`",
+      "👑": ":crown: `Propriétaire du bot`",
+      "💍": ":ring: `Badge acheté dans le shop des Missions`",
+      "💎": ":gem: `Membre d'une guilde puissante`",
+      "💞": ":revolving_hearts: `Joueur ayant dressé un familier légendaire`",
+      "💸": ":money_with_wings: `Donateur`",
+      "🔖": ":bookmark: `Adopteur de classes de la première heure`",
+      "🕊️": ":dove: `Personne ayant rapporté un bug exploitable sans en profiter`",
+      "🖋️": ":pen_fountain: `Rédacteur du bot`",
+      "🗳️": ":ballot_box: `Personne ayant voté dans les 12 dernières heures`",
+      "😂": ":joy: `Badge offert à une personne drôle`",
+      "🤑": ":money_mouth: `Badge acheté dans le shop`",
+      "🥇": ":first_place: `Personne ayant atteint la première place du classement après le reset`",
+      "🪩": ":mirror_ball: `Membre d'une guilde très puissante`"
+    },
+    "fightRanking": {
+      "fieldName": "Gloire et ligue :",
+      "fieldValue": ":sparkles: {{gloryPoints}} | {{league}}"
+    },
+    "guild": {
+      "fieldName": "Guilde :",
+      "fieldValue": ":stadium: {{guild}}"
+    },
+    "information": {
+      "fieldName": "Informations :",
+      "fieldValue": ":heart: {{health}}/{{maxHealth}} | :star: {{experience}}/{{experienceNeededToLevelUp}} | :moneybag: {{money}}"
+    },
+    "map": {
+      "fieldName": "Destination :",
+      "fieldValue": "{{mapEmote}} {{mapName}}"
+    },
+    "mission": {
+      "fieldName": "Missions :",
+      "fieldValue": ":gem: {{gems}} | :book: {{campaign}}% "
+    },
+    "noTimeLeft": {
+      "fieldName": "Temps restant :",
+      "fieldValue": ":hospital: Reprise du jeu possible"
+    },
+    "pet": {
+      "fieldName": "Familier :",
+      "fieldValue": "Rareté: {{rarity}}\n{{emote}} {{nickname}}"
+    },
+    "playerClass": {
+      "fieldName": "Classe :",
+      "fieldValue": "{{class}}"
+    },
+    "ranking": {
+      "fieldName": "Classement et Score :",
+      "fieldValue": ":trophy: {{rank}}/{{numberOfPlayer}} | :medal: {{score}}",
+      "fieldValueUnranked": ":trophy: Non classé | :medal: {{score}}"
+    },
+    "statistics": {
+      "fieldName": "Statistiques :",
+      "fieldValue": ":zap: {{cumulativeHealth}} / {{cumulativeMaxHealth}} | :dagger: {{cumulativeAttack}} | :shield: {{cumulativeDefense}} | :rocket: {{cumulativeSpeed}} | :wind_blowing_face: {{baseBreath}} / {{maxBreath}} | :lungs: {{breathRegen}}"
+    },
+    "timeLeft": {
+      "fieldName": "Temps restant :",
+      "fieldValue": "{{effect}} {{timeLeft}}"
+    },
+    "title": "{{effect}} | {{pseudo}} | Niveau {{level}}"
+  }
+}
