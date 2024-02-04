@@ -3,6 +3,22 @@
     "description": "Badges are difficult to get awards that were created to reward those who have most supported the development of the bot. The badge list is available in the bot guide.\n(via this link: https://guide.draftbot.com/notions-progresses/badges)",
     "title": ":military_medal: Detailed Information:"
   },
+  "inventory": {
+    "armors_one": "Armor/Shield ({{count}}/{{max}}):",
+    "armors_other": "Armors/Shields ({{count}}/{{max}}):",
+    "emptySlot": ":black_large_square: **Empty slot**",
+    "noSlot": ":x: No slot available. Buy slots in the shop!",
+    "objects_one": "Item ({{count}}/{{max}}):",
+    "objects_other": "Items ({{count}}/{{max}}):",
+    "potions_one": "Potion ({{count}}/{{max}}):",
+    "potions_other": "Potions ({{count}}/{{max}}):",
+    "stockTitle": ":package: **{{pseudo}}'s items stock**",
+    "title": ":briefcase: **{{pseudo}}'s inventory**",
+    "weapons_one": "Weapon ({{count}}/{{max}}):",
+    "weapons_other": "Weapons ({{count}}/{{max}}):",
+    "seeBackupItems": "🔁 See backup items",
+    "seeEquippedItems":  "🔁 See equipped items"
+  },
   "ping": {
     "discord": {
       "create": ":ping_pong: Pong",

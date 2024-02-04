@@ -3,6 +3,20 @@
     "description": "Affiche des informations sur les badges et leur fonctionnement.",
     "name": "badges"
   },
+  "inventory": {
+    "description": "Affiche l'inventaire du joueur.",
+    "name": "inventaire",
+    "options": {
+      "rank": {
+        "description": "Le classement du joueur dont l'inventaire doit être affiché.",
+        "name": "classement"
+      },
+      "user": {
+        "description": "L'utilisateur dont l'inventaire doit être affiché.",
+        "name": "utilisateur"
+      }
+    }
+  },
   "ping": {
     "description": "Affiche la latence du bot et permet au joueur de vérifier si le bot est en ligne.",
     "name": "ping"

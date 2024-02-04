@@ -3,6 +3,9 @@
     "description": "I badge sono distinzione difficile a ottenere che sono state create per ricompensare le persone che hanno il più sostenuti il sviluppo del bot. La lista dei badge e disponibile sulla guida del bot.\n(link : https://guide.draftbot.com/notions-avancees/badges)",
     "title": ":military_medal: Informazione dettagliate :"
   },
+  "inventory": {
+    "armors_one": ""
+  },
   "ping": {
     "discord": {
       "create": ":ping_pong: Pong",

@@ -3,6 +3,20 @@
     "description": "Displays information about badges.",
     "name": "badges"
   },
+  "inventory": {
+    "description": "Displays the player's inventory.",
+    "name": "inventory",
+    "options": {
+      "rank": {
+        "description": "The rank of the player whose inventory should be displayed.",
+        "name": "rank"
+      },
+      "user": {
+        "description": "The user whose inventory should be displayed.",
+        "name": "user"
+      }
+    }
+  },
   "ping": {
     "description": "Displays the ping of the bot and allow the player to check if the bot is online.",
     "name": "ping"
