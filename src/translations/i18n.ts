@@ -9,7 +9,7 @@ import * as enError from "../../../Lang/en/error.json";
 import * as frError from "../../../Lang/fr/error.json";
 
 i18next.init({
-	fallbackLng: "en",
+	fallbackLng: "fr",
 	resources: {
 		en: {
 			bot: enBot,
