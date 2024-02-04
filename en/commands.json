@@ -1,4 +1,8 @@
 {
+  "badges": {
+    "description": "test",
+    "title": "banane"
+  },
   "ping": {
     "discord": {
       "create": ":ping_pong: Pong",

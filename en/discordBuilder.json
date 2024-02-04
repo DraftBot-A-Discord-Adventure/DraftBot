@@ -1,11 +1,11 @@
 {
-  "ping": {
-    "description": "Displays the ping of the bot and allow the player to check if the bot is online.",
-    "name": "ping"
-  },
   "badges": {
     "description": "Displays information about badges.",
     "name": "badges"
+  },
+  "ping": {
+    "description": "Displays the ping of the bot and allow the player to check if the bot is online.",
+    "name": "ping"
   },
   "profile": {
     "description": "Displays the profile of a player.",
