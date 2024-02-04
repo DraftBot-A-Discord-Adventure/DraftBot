@@ -3,6 +3,10 @@
     "description": "Affiche la latence du bot et permet au joueur de vérifier si le bot est en ligne.",
     "name": "ping"
   },
+  "badges": {
+    "description": "Affiche des informations sur les badges et leur fonctionnement.",
+    "name": "badges"
+  },
   "profile": {
     "description": "Afficher le profil d'un joueur.",
     "name": "profil",

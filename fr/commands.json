@@ -5,6 +5,10 @@
       "edit": ":ping_pong: Pong\n\n**Latence totale :** {{totalLatency}} ms\n**Latence Discord :** {{discordApiLatency}} ms\n**Numéro du shard :** {{shardId}}\n**Nombre de shards :** {{totalShards}} (+main shard)"
     }
   },
+  "badges": {
+    "title": ":military_medal: Informations détaillées :",
+    "description": "Les badges sont des distinctions difficiles à obtenir qui ont été créées pour récompenser les personnes ayant le plus soutenu le développement du bot. La liste des badges est disponible sur le guide du bot.\n(via ce lien : https://guide.draftbot.com/notions-avancees/badges)"
+  },
   "profile": {
     "badgeDisplay": {
       "numberBadge_one": "\n Ce joueur possède {{badge}} badge au total !",
