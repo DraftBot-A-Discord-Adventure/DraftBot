@@ -1,5 +1,5 @@
 import {IMission} from "../IMission";
-import {hoursToMilliseconds} from "../../utils/TimeUtils";
+import {hoursToMilliseconds} from "../../../../../Lib/src/utils/TimeUtils";
 
 const saveBlobFromData = function(startTimestamp: number, startMap: number): Buffer {
 	const saveBlob = Buffer.alloc(10);

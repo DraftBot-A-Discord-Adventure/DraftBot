@@ -1,6 +1,6 @@
 import {FightPetActionFunc} from "../../../data/FightPetAction";
 import {InventorySlots} from "../../database/game/models/InventorySlot";
-import {ItemCategory} from "../../constants/ItemConstants";
+import {ItemCategory} from "../../../../../Lib/src/constants/ItemConstants";
 import {RandomUtils} from "../../utils/RandomUtils";
 
 export const fightPetAction: FightPetActionFunc = async (player, pet) =>

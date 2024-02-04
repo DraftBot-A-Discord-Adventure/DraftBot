@@ -11,7 +11,7 @@ import {BlockingConstants} from "../constants/BlockingConstants";
 import {RandomUtils} from "../utils/RandomUtils";
 import {SmallEventWitchCollectorCreationPacket, SmallEventWitchResultPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWitchPacket";
 import {generateRandomItem, giveItemToPlayer} from "../utils/ItemUtils";
-import {ItemCategory, ItemNature, ItemRarity} from "../constants/ItemConstants";
+import {ItemCategory, ItemNature, ItemRarity} from "../../../../Lib/src/constants/ItemConstants";
 import Player from "../database/game/models/Player";
 import {GenericItem} from "../../data/GenericItem";
 import {InventorySlots} from "../database/game/models/InventorySlot";

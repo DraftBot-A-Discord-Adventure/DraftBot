@@ -7,7 +7,7 @@ import {LogsPlayersPossibilities} from "./models/LogsPlayersPossibilities";
 import {LogsPossibilities} from "./models/LogsPossibilities";
 import {LogsPlayers} from "./models/LogsPlayers";
 import {LogsPlayersTravels} from "./models/LogsPlayersTravels";
-import {getNextSaturdayMidnight, getNextSundayMidnight, minutesToMilliseconds} from "../../utils/TimeUtils";
+import {getNextSaturdayMidnight, getNextSundayMidnight, minutesToMilliseconds} from "../../../../../Lib/src/utils/TimeUtils";
 import {LogsMapLinks} from "./models/LogsMapLinks";
 import {MapConstants} from "../../constants/MapConstants";
 import {LogsFightsResults} from "./models/LogsFightsResults";

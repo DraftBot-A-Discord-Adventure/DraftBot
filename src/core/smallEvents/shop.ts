@@ -5,7 +5,7 @@ import {GenericItem} from "../../data/GenericItem";
 import {RandomUtils} from "../utils/RandomUtils";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {generateRandomItem} from "../utils/ItemUtils";
-import {ItemRarity} from "../constants/ItemConstants";
+import {ItemRarity} from "../../../../Lib/src/constants/ItemConstants";
 import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {SmallEventFuncs} from "../../data/SmallEvent";
 

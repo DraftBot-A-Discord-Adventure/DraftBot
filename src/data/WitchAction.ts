@@ -4,7 +4,7 @@ import {readdirSync} from "fs";
 import {RandomUtils} from "../core/utils/RandomUtils";
 import Player from "../core/database/game/models/Player";
 import {SmallEventConstants} from "../core/constants/SmallEventConstants";
-import {ItemNature, ItemRarity} from "../core/constants/ItemConstants";
+import {ItemNature, ItemRarity} from "../../../Lib/src/constants/ItemConstants";
 import {DraftBotPacket} from "../../../Lib/src/packets/DraftBotPacket";
 import {TravelTime} from "../core/maps/TravelTime";
 import {NumberChangeReason} from "../core/constants/LogsConstants";

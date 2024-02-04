@@ -8,7 +8,7 @@ import {BlockingConstants} from "../../constants/BlockingConstants";
 import {FightView} from "../FightView";
 import {MissionsController} from "../../missions/MissionsController";
 import {MissionSlots} from "../../database/game/models/MissionSlot";
-import {getDayNumber} from "../../utils/TimeUtils";
+import {getDayNumber} from "../../../../../Lib/src/utils/TimeUtils";
 import {NumberChangeReason} from "../../constants/LogsConstants";
 import {FighterStatus} from "../FighterStatus";
 import {Maps} from "../../maps/Maps";

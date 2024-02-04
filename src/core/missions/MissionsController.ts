@@ -2,7 +2,7 @@ import Player from "../database/game/models/Player";
 import {IMission} from "./IMission";
 import MissionSlot, {MissionSlots} from "../database/game/models/MissionSlot";
 import {DailyMissions} from "../database/game/models/DailyMission";
-import {hoursToMilliseconds} from "../utils/TimeUtils";
+import {hoursToMilliseconds} from "../../../../Lib/src/utils/TimeUtils";
 import {MissionDifficulty} from "./MissionDifficulty";
 import {Campaign} from "./Campaign";
 import {Constants} from "../Constants";

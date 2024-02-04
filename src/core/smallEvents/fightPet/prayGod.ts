@@ -1,7 +1,7 @@
 import {FightPetActionFunc} from "../../../data/FightPetAction";
 import {SmallEventConstants} from "../../constants/SmallEventConstants";
 import {InventorySlots} from "../../database/game/models/InventorySlot";
-import {ItemConstants} from "../../constants/ItemConstants";
+import {ItemConstants} from "../../../../../Lib/src/constants/ItemConstants";
 import {RandomUtils} from "../../utils/RandomUtils";
 
 export const fightPetAction: FightPetActionFunc = async (player, pet) =>

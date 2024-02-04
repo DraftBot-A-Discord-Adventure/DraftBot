@@ -1,8 +1,10 @@
-import {ItemCategory, ItemNature, ItemRarity} from "../core/constants/ItemConstants";
+import {ItemCategory, ItemNature, ItemRarity} from "../../../Lib/src/constants/ItemConstants";
 import {ItemDataController} from "./DataController";
 import {SupportItem} from "./SupportItem";
 import {RandomUtils} from "../core/utils/RandomUtils";
 import {ObjectItem} from "./ObjectItem";
+import {MaxStatsValues} from "./GenericItem";
+import {SupportItemDisplayPacket} from "../../../Lib/src/packets/commands/CommandInventoryPacket";
 
 export class Potion extends SupportItem {
 	categoryName = "potions";
@@ -18,6 +20,17 @@ export class Potion extends SupportItem {
 
 	public getItemAddedValue(): number {
 		return this.power;
+	}
+
+	public getDisplayPacket(): SupportItemDisplayPacket {
+		return {
+			maxPower: this.power,
+			nature: this.nature,
+			power: this.power,
+			emote: this.emote,
+			rarity: this.rarity,
+			id: this.id
+		};
 	}
 }
 

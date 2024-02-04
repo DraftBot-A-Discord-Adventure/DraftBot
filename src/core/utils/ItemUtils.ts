@@ -5,7 +5,7 @@ import {BlockingConstants} from "../constants/BlockingConstants";
 import {NumberChangeReason} from "../constants/LogsConstants";
 import Player, {Players} from "../database/game/models/Player";
 import {InventoryInfos} from "../database/game/models/InventoryInfo";
-import {ItemCategory, ItemConstants, ItemNature, ItemRarity} from "../constants/ItemConstants";
+import {ItemCategory, ItemConstants, ItemNature, ItemRarity} from "../../../../Lib/src/constants/ItemConstants";
 import {GenericItem} from "../../data/GenericItem";
 import {BlockingUtils} from "./BlockingUtils";
 import {DraftBotPacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";

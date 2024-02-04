@@ -1,5 +1,5 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
-import {ItemCategory} from "../../../constants/ItemConstants";
+import {ItemCategory} from "../../../../../../Lib/src/constants/ItemConstants";
 import moment = require("moment");
 
 export class InventoryInfo extends Model {

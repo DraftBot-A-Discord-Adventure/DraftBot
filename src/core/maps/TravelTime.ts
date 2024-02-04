@@ -1,5 +1,5 @@
 import Player from "../database/game/models/Player";
-import {millisecondsToMinutes, minutesToMilliseconds} from "../utils/TimeUtils";
+import {millisecondsToMinutes, minutesToMilliseconds} from "../../../../Lib/src/utils/TimeUtils";
 import {PlayerSmallEvents} from "../database/game/models/PlayerSmallEvent";
 import {Constants} from "../Constants";
 import {NumberChangeReason} from "../constants/LogsConstants";

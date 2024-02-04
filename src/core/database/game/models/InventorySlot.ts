@@ -1,6 +1,6 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 import {PlayerActiveObjects} from "./PlayerActiveObjects";
-import {ItemCategory} from "../../../constants/ItemConstants";
+import {ItemCategory} from "../../../../../../Lib/src/constants/ItemConstants";
 import {GenericItem} from "../../../../data/GenericItem";
 import {Armor, ArmorDataController} from "../../../../data/Armor";
 import {Weapon, WeaponDataController} from "../../../../data/Weapon";

@@ -9,7 +9,7 @@ import {Op} from "sequelize";
 import PetEntity from "../database/game/models/PetEntity";
 import {RandomUtils} from "../utils/RandomUtils";
 import {PotionDataController} from "../../data/Potion";
-import {getNextDay2AM} from "../utils/TimeUtils";
+import {getNextDay2AM} from "../../../../Lib/src/utils/TimeUtils";
 import {TIMEOUT_FUNCTIONS} from "../constants/TimeoutFunctionsConstants";
 import {MapCache} from "../maps/MapCache";
 import {registerAllPacketHandlers} from "../packetHandlers/PacketHandler";

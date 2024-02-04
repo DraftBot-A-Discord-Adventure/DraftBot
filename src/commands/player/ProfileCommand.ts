@@ -10,7 +10,7 @@ import {Campaign} from "../../core/missions/Campaign";
 import {Players} from "../../core/database/game/models/Player";
 import {Guilds} from "../../core/database/game/models/Guild";
 import {Constants} from "../../core/Constants";
-import {hoursToMilliseconds} from "../../core/utils/TimeUtils";
+import {hoursToMilliseconds} from "../../../../Lib/src/utils/TimeUtils";
 import {PetDataController} from "../../data/Pet";
 import {MapLocationDataController} from "../../data/MapLocation";
 import {MapTypeDataController} from "../../data/MapType";

@@ -1,5 +1,5 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
-import {datesAreOnSameDay} from "../../../utils/TimeUtils";
+import {datesAreOnSameDay} from "../../../../../../Lib/src/utils/TimeUtils";
 import {NumberChangeReason} from "../../../constants/LogsConstants";
 import {draftBotInstance} from "../../../../index";
 import {Campaign} from "../../../missions/Campaign";

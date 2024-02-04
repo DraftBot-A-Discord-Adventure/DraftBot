@@ -1,5 +1,6 @@
-import {GenericItem} from "./GenericItem";
+import {GenericItem, MaxStatsValues} from "./GenericItem";
 import {InventoryConstants} from "../core/constants/InventoryConstants";
+import {MainItemDisplayPacket} from "../../../Lib/src/packets/commands/CommandInventoryPacket";
 
 export abstract class MainItem extends GenericItem {
 
@@ -30,5 +31,25 @@ export abstract class MainItem extends GenericItem {
 	 */
 	protected multiplier(): number {
 		return InventoryConstants.ITEMS_MAPPER[this.rarity];
+	}
+
+	public getDisplayPacket(maxStatsValue: MaxStatsValues): MainItemDisplayPacket {
+		return {
+			attack: {
+				value: this.getAttack(),
+				maxValue: maxStatsValue.attack
+			},
+			defense: {
+				value: this.getDefense(),
+				maxValue: maxStatsValue.defense
+			},
+			speed: {
+				value: this.getSpeed(),
+				maxValue: maxStatsValue.speed
+			},
+			emote: this.emote,
+			rarity: this.rarity,
+			id: this.id
+		};
 	}
 }

@@ -1,6 +1,6 @@
 import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
 import {InventoryInfos} from "../../../../core/database/game/models/InventoryInfo";
-import {ItemCategory} from "../../../../core/constants/ItemConstants";
+import {ItemCategory} from "../../../../../../Lib/src/constants/ItemConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "slots",

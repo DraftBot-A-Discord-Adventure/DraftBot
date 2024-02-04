@@ -1,5 +1,5 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
-import {datesAreOnSameDay} from "../../../utils/TimeUtils";
+import {datesAreOnSameDay} from "../../../../../../Lib/src/utils/TimeUtils";
 import {MissionsController} from "../../../missions/MissionsController";
 import PlayerMissionsInfo from "./PlayerMissionsInfo";
 import {draftBotInstance} from "../../../../index";

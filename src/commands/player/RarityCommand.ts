@@ -1,6 +1,6 @@
 import {CommandRarityPacketReq, CommandRarityPacketRes} from "../../../../Lib/src/packets/commands/CommandRarityPacket";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {ItemConstants} from "../../core/constants/ItemConstants";
+import {ItemConstants} from "../../../../Lib/src/constants/ItemConstants";
 import {packetHandler} from "../../core/packetHandlers/PacketHandler";
 import {WebsocketClient} from "../../../../Lib/src/instances/WebsocketClient";
 

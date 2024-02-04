@@ -1,7 +1,7 @@
 import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
 import {LogsFightsResults} from "../../../../core/database/logs/models/LogsFightsResults";
 import {HasOne, Op} from "sequelize";
-import {getNextSaturdayMidnight} from "../../../../core/utils/TimeUtils";
+import {getNextSaturdayMidnight} from "../../../../../../Lib/src/utils/TimeUtils";
 import {LogsPlayers} from "../../../../core/database/logs/models/LogsPlayers";
 import {Players} from "../../../../core/database/game/models/Player";
 

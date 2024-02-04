@@ -1,5 +1,5 @@
 import {IMission} from "../IMission";
-import {getDayNumber} from "../../utils/TimeUtils";
+import {getDayNumber} from "../../../../../Lib/src/utils/TimeUtils";
 
 export const missionInterface: IMission = {
 	areParamsMatchingVariantAndSave(): boolean {
