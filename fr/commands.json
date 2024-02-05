@@ -16,8 +16,8 @@
     "title": ":briefcase: **Inventaire de {{pseudo}}**",
     "weapons_one": "Arme ({{count}}/{{max}}) :",
     "weapons_other": "Armes ({{count}}/{{max}}) :",
-    "seeBackupItems": "🔁 Voir la réserve",
-    "seeEquippedItems":  "🔁 Voir l'inventaire principal"
+    "seeBackupItems": "🔄 Voir la réserve",
+    "seeEquippedItems":  "🔄 Voir l'inventaire principal"
   },
   "ping": {
     "discord": {

@@ -6,15 +6,15 @@
   "speed": ":rocket: {{value}}",
   "weapons": {
     "fieldName": "Weapon:",
-    "fieldValue": "{{name}} | {{rarity}} | {{values}}"
+    "fieldValue": "**{{name}}** | {{rarity}} | {{values}}"
   },
   "armors": {
     "fieldName": "Armor/Shield:",
-    "fieldValue": "{{name}} | {{rarity}} | {{values}}"
+    "fieldValue": "**{{name}}** | {{rarity}} | {{values}}"
   },
   "potions": {
     "fieldName": "Potion:",
-    "fieldValue": "{{name}} | {{rarity}} | {{nature}}",
+    "fieldValue": "**{{name}}** | {{rarity}} | {{nature}}",
     "natures": [
       ":x: No effect",
       ":heart: Health + {{power}}",
@@ -28,7 +28,7 @@
   },
   "objects": {
     "fieldName": "Item:",
-    "fieldValue": "{{name}} | {{rarity}} | {{nature}}",
+    "fieldValue": "**{{name}}** | {{rarity}} | {{nature}}",
     "natures": [
       ":x: No effect",
       ":heart: Health + {{power}} per day",

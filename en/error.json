@@ -2,5 +2,6 @@
   "playerDoesntExist": "This player doesn't exist!",
   "titleBlocked": "{{pseudo}}, this person is occupied!",
   "titleCanceled": "{{pseudo}}, canceled!",
-  "titleDidntWork": "{{pseudo}}, hmmm... That didn't work!"
+  "titleDidntWork": "{{pseudo}}, hmmm... That didn't work!",
+  "interactionNotForYou": "This interaction is not intended for you!"
 }

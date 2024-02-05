@@ -16,8 +16,8 @@
     "title": ":briefcase: **{{pseudo}}'s inventory**",
     "weapons_one": "Weapon ({{count}}/{{max}}):",
     "weapons_other": "Weapons ({{count}}/{{max}}):",
-    "seeBackupItems": "🔁 See backup items",
-    "seeEquippedItems":  "🔁 See equipped items"
+    "seeBackupItems": "🔄 See backup items",
+    "seeEquippedItems":  "🔄 See equipped items"
   },
   "ping": {
     "discord": {
