@@ -25,7 +25,7 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 
 	const user = interaction.options.getUser("user");
 	if (user) {
-		const keycloakId = await KeycloakUtils.getKeycloakIdFromDiscordId(keycloakConfig, user.id);
+		const keycloakId = await KeycloakUtils.getKeycloakIdFromDiscordId(keycloakConfig, user.id, user.displayName);
 		if (!keycloakId) {
 			await interaction.reply({embeds: [new DraftBotErrorEmbed(interaction.user, interaction, interaction.channel.language, i18n.t("error:playerDoesntExist", { lng: interaction.channel.language }))]});
 			return null;

@@ -1,7 +1,9 @@
-import {User} from "discord.js";
+import {ButtonInteraction, User} from "discord.js";
 import {DraftBotErrorEmbed} from "../messages/DraftBotErrorEmbed";
 import {Language} from "../../../Lib/src/Language";
 import {DraftbotInteraction} from "../messages/DraftbotInteraction";
+import i18n from "../translations/i18n";
+import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 
 /**
  * Reply to an interaction with a given error
@@ -35,5 +37,21 @@ export async function sendErrorMessage(
 ): Promise<void> {
 	await interaction.channel.send({
 		embeds: [new DraftBotErrorEmbed(user, interaction, language, reason, isCancelling, isBlockedError)]
+	});
+}
+
+export async function sendInteractionNotForYou(
+	user: User,
+	buttonInteraction: ButtonInteraction,
+	language: Language
+): Promise<void> {
+	await buttonInteraction.reply({
+		embeds: [
+			new DraftBotEmbed()
+				.setDescription(i18n.t("error:interactionNotForYou", { lng: language }))
+				.setErrorColor()
+				.formatAuthor(i18n.t("error:titleDidntWork", { lang: language, pseudo: user.username }), user)
+		],
+		ephemeral: true
 	});
 }

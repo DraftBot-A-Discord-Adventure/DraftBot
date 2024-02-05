@@ -6,7 +6,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {EffectsConstants} from "../../../../Lib/src/constants/EffectsConstants";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
-import {ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedField} from "discord.js";
+import {ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, EmbedField} from "discord.js";
 import {Constants} from "../../Constants";
 import {DiscordCache} from "../../bot/DiscordCache";
 import {DraftBotErrorEmbed} from "../../messages/DraftBotErrorEmbed";
@@ -15,18 +15,21 @@ import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
 import {CommandInventoryPacketReq, CommandInventoryPacketRes, MainItemDisplayPacket, SupportItemDisplayPacket} from "../../../../Lib/src/packets/commands/CommandInventoryPacket";
-import {MaxStatsValues} from "../../../../Lib/dist/Core/src/data/GenericItem";
-import {ItemNature} from "../../../../Lib/src/constants/ItemConstants";
-import {minutesDisplay} from "../../../../Lib/src/utils/TimeUtils";
+import {DiscordItemUtils} from "../../utils/DiscordItemUtils";
+import {sendInteractionNotForYou} from "../../utils/ErrorUtils";
 
 async function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser): Promise<CommandInventoryPacketReq | null> {
 	let askedPlayer: { keycloakId?: string, rank?: number } = {keycloakId: keycloakUser.id};
 
 	const user = interaction.options.getUser("user");
 	if (user) {
-		const keycloakId = await KeycloakUtils.getKeycloakIdFromDiscordId(keycloakConfig, user.id);
+		const keycloakId = await KeycloakUtils.getKeycloakIdFromDiscordId(keycloakConfig, user.id, user.displayName);
 		if (!keycloakId) {
-			await interaction.reply({embeds: [new DraftBotErrorEmbed(interaction.user, interaction, interaction.channel.language, i18n.t("error:playerDoesntExist", {lng: interaction.channel.language}))]});
+			await interaction.reply({
+				embeds: [
+					new DraftBotErrorEmbed(interaction.user, interaction, interaction.channel.language, i18n.t("error:playerDoesntExist", {lng: interaction.channel.language}))
+				]
+			});
 			return null;
 		}
 		askedPlayer = {keycloakId};
@@ -39,148 +42,34 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 	return makePacket(CommandInventoryPacketReq, {askedPlayer});
 }
 
-type Value = {
-	maxValue: number,
-	value: number,
-	typeValue: "attack" | "defense" | "speed"
-}
-
-/**
- * Get a stat value of an item into its string form
- * @param language
- * @param values
- * @param value
- */
-function getStringValueFor(language: Language, values: string[], value: Value): void {
-	if (value.value !== 0) {
-		values.push(i18n.t(`items:${value.typeValue}`, {
-			lng: language,
-			value: value.maxValue >= value.value ? value.value : i18n.t("items:nerfDisplay", {
-				lng: language,
-				old: value.value,
-				max: value.maxValue
-			})
-		}));
-	}
-}
-
-/**
- * Get the string for the stats of the main item
- * @param attack
- * @param defense
- * @param speed
- * @param language
- * @param maxStatsValue
- * @protected
- */
-function getValues(attack: number, defense: number, speed: number, language: Language, maxStatsValue: MaxStatsValues | null = null): string {
-	if (!maxStatsValue) {
-		maxStatsValue = {
-			attack: Infinity,
-			defense: Infinity,
-			speed: Infinity
+function getBackupField<T = MainItemDisplayPacket | SupportItemDisplayPacket>(
+	language: Language,
+	items: { display: T, slot: number}[],
+	slots: number,
+	toFieldFunc: (displayPacket: T, language: Language) => EmbedField
+): EmbedField {
+	const formattedTitle = i18n.t("commands:inventory.weapons", { lng: language, count: items.length, max: slots - 1 });
+	if (slots <= 1) {
+		return {
+			name: formattedTitle,
+			value: i18n.t("commands:inventory.noSlot", { lng: language }),
+			inline: false
 		};
 	}
-	const values: string[] = [];
-	getStringValueFor(language, values, {
-		value: attack,
-		maxValue: maxStatsValue.attack,
-		typeValue: "attack"
-	});
-	getStringValueFor(language, values, {
-		value: defense,
-		maxValue: maxStatsValue.defense,
-		typeValue: "defense"
-	});
-	getStringValueFor(language, values, {
-		value: speed,
-		maxValue: maxStatsValue.speed,
-		typeValue: "speed"
-	});
-	return values.join(" ");
-}
-
-function getWeaponField(displayPacket: MainItemDisplayPacket, language: Language): EmbedField {
-	const itemName = i18n.t(`models:weapons.${displayPacket.id}`);
-	return {
-		name: i18n.t("items:weapons.fieldName", {lng: language}),
-		value: displayPacket.id === 0 ? itemName : i18n.t("items:weapons.fieldValue", {
-			lng: language,
-			name: `${displayPacket.emote} ${itemName}`,
-			rarity: i18n.t(`items:rarities.${displayPacket.rarity}`, {lng: language}),
-			values: getValues(displayPacket.attack.value, displayPacket.defense.value, displayPacket.speed.value, language, {
-				attack: displayPacket.attack.maxValue,
-				defense: displayPacket.defense.maxValue,
-				speed: displayPacket.speed.maxValue
-			})
-		}),
-		inline: false
-	};
-}
-
-function getArmorField(displayPacket: MainItemDisplayPacket, language: Language): EmbedField {
-	const itemName = i18n.t(`models:armors.${displayPacket.id}`);
-	return {
-		name: i18n.t("items:armors.fieldName", {lng: language}),
-		value: displayPacket.id === 0 ? itemName : i18n.t("items:armors.fieldValue", {
-			lng: language,
-			name: `${displayPacket.emote} ${itemName}`,
-			rarity: i18n.t(`items:rarities.${displayPacket.rarity}`, {lng: language}),
-			values: getValues(displayPacket.attack.value, displayPacket.defense.value, displayPacket.speed.value, language, {
-				attack: displayPacket.attack.maxValue,
-				defense: displayPacket.defense.maxValue,
-				speed: displayPacket.speed.maxValue
-			})
-		}),
-		inline: false
-	};
-}
-
-function getPotionField(displayPacket: SupportItemDisplayPacket, language: Language): EmbedField {
-	const itemName = i18n.t(`models:potions.${displayPacket.id}`);
-	return {
-		name: i18n.t("items:potions.fieldName", {lng: language}),
-		value: displayPacket.id === 0 ? itemName : i18n.t("items:potions.fieldValue", {
-			lng: language,
-			name: `${displayPacket.emote} ${itemName}`,
-			rarity: i18n.t(`items:rarities.${displayPacket.rarity}`, {lng: language}),
-			nature: i18n.t(`items:potions.natures.${displayPacket.nature}`, {
-				lng: language,
-				power: displayPacket.nature === ItemNature.TIME_SPEEDUP ? minutesDisplay(displayPacket.power, language) : displayPacket.power
-			})
-		}),
-		inline: false
-	};
-}
-
-function getObjectField(displayPacket: SupportItemDisplayPacket, language: Language): EmbedField {
-	const itemName = i18n.t(`models:objects.${displayPacket.id}`);
-	const natureTrKey = `items:objects.natures.${displayPacket.nature}`;
-	let nature;
-	if (displayPacket.nature === ItemNature.TIME_SPEEDUP) {
-		nature = i18n.t(natureTrKey, { lng: language, power: minutesDisplay(displayPacket.power, language) });
-	}
-	else if (displayPacket.nature === ItemNature.SPEED) {
-		nature = i18n.t(natureTrKey, {
-			lng: language,
-			power: displayPacket.maxPower >= displayPacket.power ? displayPacket.power : i18n.t("items:nerfDisplay", {
-				lng: language,
-				old: displayPacket.power,
-				max: displayPacket.maxPower
-			})
-		});
-	}
-	else {
-		nature = i18n.t(natureTrKey, { lng: language, power: displayPacket.power });
+	let value = "";
+	for (let i = 1; i < slots; ++i) {
+		const search = items.find(item => item.slot === i);
+		if (!search) {
+			value += i18n.t("commands:inventory.emptySlot", { lng: language });
+		}
+		else {
+			value += toFieldFunc(search.display, language).value;
+		}
+		value += "\n";
 	}
 	return {
-		name: i18n.t("items:objects.fieldName", {lng: language}),
-		value: displayPacket.id === 0 ? itemName : i18n.t("items:objects.fieldValue", {
-			lng: language,
-			name: `${displayPacket.emote} ${itemName}`,
-			rarity: i18n.t(`items:rarities.${displayPacket.rarity}`, {lng: language}),
-			nature
-		}),
+		name: formattedTitle,
+		value,
 		inline: false
 	};
 }
@@ -193,10 +82,10 @@ function getEquippedEmbed(packet: CommandInventoryPacketRes, pseudo: string, lan
 				pseudo
 			}))
 			.addFields([
-				getWeaponField(packet.data.weapon, language),
-				getArmorField(packet.data.armor, language),
-				getPotionField(packet.data.potion, language),
-				getObjectField(packet.data.object, language)
+				DiscordItemUtils.getWeaponField(packet.data.weapon, language),
+				DiscordItemUtils.getArmorField(packet.data.armor, language),
+				DiscordItemUtils.getPotionField(packet.data.potion, language),
+				DiscordItemUtils.getObjectField(packet.data.object, language)
 			]);
 	}
 
@@ -206,11 +95,16 @@ function getEquippedEmbed(packet: CommandInventoryPacketRes, pseudo: string, lan
 function getBackupEmbed(packet: CommandInventoryPacketRes, pseudo: string, language: Language): DraftBotEmbed {
 	if (packet.data) {
 		return new DraftBotEmbed()
-			.setTitle(i18n.t("commands:inventory.title", {
+			.setTitle(i18n.t("commands:inventory.stockTitle", {
 				lng: language,
 				pseudo
-			}));
-		// todo backup items fields
+			}))
+			.addFields([
+				getBackupField(language, packet.data.backupWeapons, packet.data.slots.weapons, DiscordItemUtils.getWeaponField),
+				getBackupField(language, packet.data.backupArmors, packet.data.slots.armors, DiscordItemUtils.getArmorField),
+				getBackupField(language, packet.data.backupPotions, packet.data.slots.potions, DiscordItemUtils.getPotionField),
+				getBackupField(language, packet.data.backupObjects, packet.data.slots.objects, DiscordItemUtils.getObjectField)
+			]);
 	}
 
 	throw new Error("Inventory packet data must not be undefined");
@@ -238,8 +132,8 @@ export async function handleCommandInventoryPacketRes(packet: CommandInventoryPa
 		let equippedView = true;
 
 		const buttonId = "switchItems";
-		const backupButtonLabel = i18n.t("commands:inventory.seeEquippedItems", {lng: interaction.channel.language});
-		const equippedButtonLabel = i18n.t("commands:inventory.seeBackupItems", {lng: interaction.channel.language});
+		const equippedButtonLabel = i18n.t("commands:inventory.seeEquippedItems", {lng: interaction.channel.language});
+		const backupButtonLabel = i18n.t("commands:inventory.seeBackupItems", {lng: interaction.channel.language});
 
 		const switchItemsButton = new ButtonBuilder()
 			.setCustomId(buttonId)
@@ -249,22 +143,27 @@ export async function handleCommandInventoryPacketRes(packet: CommandInventoryPa
 		const equippedEmbed = getEquippedEmbed(packet, keycloakUser.attributes.gameUsername, interaction.channel.language);
 		const backupEmbed = getBackupEmbed(packet, keycloakUser.attributes.gameUsername, interaction.channel.language);
 
-		const collector = interaction.channel.createMessageComponentCollector({
-			filter: i => i.customId === buttonId && i.user.id === context.discord?.user,
+		const msg = await interaction.reply({
+			embeds: [equippedEmbed],
+			components: [new ActionRowBuilder<ButtonBuilder>().addComponents(switchItemsButton)]
+		});
+
+		const collector = msg.createMessageComponentCollector({
+			filter: i => i.customId === buttonId,
 			time: Constants.MESSAGES.COLLECTOR_TIME
 		});
-		collector.on("collect", async i => {
+		collector.on("collect", async (i: ButtonInteraction) => {
+			if (i.user.id !== context.discord?.user) {
+				await sendInteractionNotForYou(i.user, i, interaction.channel.language);
+				return;
+			}
+
 			equippedView = !equippedView;
-			switchItemsButton.setLabel(equippedView ? equippedButtonLabel : backupButtonLabel);
+			switchItemsButton.setLabel(equippedView ? backupButtonLabel : equippedButtonLabel);
 			await i.update({
 				embeds: [equippedView ? equippedEmbed : backupEmbed],
 				components: [new ActionRowBuilder<ButtonBuilder>().addComponents(switchItemsButton)]
 			});
-		});
-
-		await interaction.reply({
-			embeds: [equippedEmbed],
-			components: [new ActionRowBuilder<ButtonBuilder>().addComponents(switchItemsButton)]
 		});
 	}
 }
