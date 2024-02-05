@@ -36,15 +36,15 @@ export abstract class MainItem extends GenericItem {
 	public getDisplayPacket(maxStatsValue: MaxStatsValues): MainItemDisplayPacket {
 		return {
 			attack: {
-				value: this.getAttack(),
+				value: this.attack ? this.getAttack() : 0,
 				maxValue: maxStatsValue.attack
 			},
 			defense: {
-				value: this.getDefense(),
+				value: this.defense ? this.getDefense() : 0,
 				maxValue: maxStatsValue.defense
 			},
 			speed: {
-				value: this.getSpeed(),
+				value: this.speed ? this.getSpeed() : 0,
 				maxValue: maxStatsValue.speed
 			},
 			emote: this.emote,
