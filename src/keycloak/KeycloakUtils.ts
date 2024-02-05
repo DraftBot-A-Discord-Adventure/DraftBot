@@ -178,7 +178,7 @@ export class KeycloakUtils {
 		else {
 			user = obj[0] as KeycloakUser;
 
-			if (user.attributes.gameUsername !== gameUsername) {
+			if (gameUsername && user.attributes.gameUsername !== gameUsername) {
 				await KeycloakUtils.updateGameUsername(user, gameUsername, keycloakConfig);
 			}
 		}
@@ -188,7 +188,7 @@ export class KeycloakUtils {
 		return user;
 	}
 
-	public static async getKeycloakIdFromDiscordId(keycloakConfig: KeycloakConfig, discordId: string): Promise<string | null> {
+	public static async getKeycloakIdFromDiscordId(keycloakConfig: KeycloakConfig, discordId: string, gameUsername: string | null): Promise<string | null> {
 		const cachedId = KeycloakUtils.keycloakDiscordToIdMap.get(discordId);
 		if (cachedId) {
 			return cachedId;
@@ -209,10 +209,15 @@ export class KeycloakUtils {
 		}
 
 		const obj = await res.json();
-		const id = obj.length === 0 ? null : (obj[0] as KeycloakUser).id;
+		const user = obj.length === 0 ? null : obj[0] as KeycloakUser;
+		const id = user?.id ?? null;
 
-		if (id) {
+		if (user && id) {
 			KeycloakUtils.keycloakDiscordToIdMap.set(discordId, id);
+
+			if (gameUsername && user.attributes.gameUsername !== gameUsername) {
+				await KeycloakUtils.updateGameUsername(user, gameUsername, keycloakConfig);
+			}
 		}
 
 		return id;

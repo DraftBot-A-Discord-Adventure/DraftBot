@@ -23,7 +23,7 @@ export interface MainItemDisplayPacket {
 	speed: {
 		value: number,
 		maxValue: number
-	}
+	},
 }
 
 export interface SupportItemDisplayPacket {
@@ -45,9 +45,15 @@ export class CommandInventoryPacketRes extends DraftBotPacket {
 		armor: MainItemDisplayPacket,
 		potion: SupportItemDisplayPacket,
 		object: SupportItemDisplayPacket,
-		backupWeapons: MainItemDisplayPacket[],
-		backupArmors: MainItemDisplayPacket[],
-		backupPotions: SupportItemDisplayPacket[],
-		backupObjects: SupportItemDisplayPacket[]
+		backupWeapons: { display: MainItemDisplayPacket, slot: number }[],
+		backupArmors: { display: MainItemDisplayPacket, slot: number }[],
+		backupPotions: { display: SupportItemDisplayPacket, slot: number }[],
+		backupObjects: { display: SupportItemDisplayPacket, slot: number }[],
+		slots: {
+			weapons: number,
+			armors: number,
+			potions: number,
+			objects: number
+		}
 	};
 }
