@@ -10,7 +10,7 @@ export const packetHandler = <T extends DraftBotPacket>(val: {new(): T}) =>
 	};
 
 export async function registerAllPacketHandlers(): Promise<void> {
-	for (const file of readdirSync("dist/Core/src/core/packetHandlers/handlers")) {
+	for (const file of readdirSync("dist/Core/src/Core/packetHandlers/handlers")) {
 		if (file.endsWith(".js")) {
 			await import(`./handlers/${file.substring(0, file.length - 3)}`);
 		}

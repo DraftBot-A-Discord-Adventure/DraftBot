@@ -17,7 +17,7 @@ console.log("Running DraftBot 5.0.0");
 webSocketServer.on("connection", async (socket): Promise<void> => {
 	const client: WebsocketClient = {
 		webSocket: socket,
-		logger: Logger.getInstance("core")
+		logger: Logger.getInstance("Core")
 	};
 	client.logger.log("Client connected");
 

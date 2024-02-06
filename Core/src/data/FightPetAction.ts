@@ -27,7 +27,7 @@ export class FightPetActionDataController extends DataControllerString<FightPetA
 	public static getFightPetActionFunction(id: string): FightPetActionFunc {
 		if (FightPetActionDataController.fightPetActionsFunctionsCache === null) {
 			FightPetActionDataController.fightPetActionsFunctionsCache = new Map<string, FightPetActionFunc>();
-			FightPetActionDataController.loadFightPetActionsFromFolder("dist/src/core/smallEvents/fightPet", "TODO replace with the right one");
+			FightPetActionDataController.loadFightPetActionsFromFolder("dist/src/Core/smallEvents/fightPet", "TODO replace with the right one");
 		}
 		return FightPetActionDataController.fightPetActionsFunctionsCache.get(id);
 	}

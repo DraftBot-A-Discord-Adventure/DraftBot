@@ -100,7 +100,7 @@ export class WitchActionDataController extends DataControllerString<WitchAction>
 	public static getWitchActionFunction(id: string): WitchActionFuncs {
 		if (WitchActionDataController.witchActionsFunctionsCache === null) {
 			WitchActionDataController.witchActionsFunctionsCache = new Map<string, WitchActionFuncs>();
-			WitchActionDataController.loadWitchActionsFromFolder("dist/src/core/smallEvents/witch", "TODO replace with the right one");
+			WitchActionDataController.loadWitchActionsFromFolder("dist/src/Core/smallEvents/witch", "TODO replace with the right one");
 			WitchActionDataController.instance.getValuesArray().forEach((witchAction) => {
 				witchAction.checkOutcomeProbabilities();
 			});
