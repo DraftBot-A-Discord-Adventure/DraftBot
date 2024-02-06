@@ -4,7 +4,20 @@
     "title": ":military_medal: Informazione dettagliate :"
   },
   "inventory": {
-    "armors_one": ""
+    "armors_one": "Armure/Bouclier ({{count}}/{{max}}) :",
+    "armors_other": "Armures/Boucliers ({{count}}/{{max}}) :",
+    "emptySlot": ":black_large_square: **Emplacement vide**",
+    "noSlot": ":x: Aucun emplacement disponible. Achetez-en plus dans le magasin !",
+    "objects_one": "Objet ({{count}}/{{max}}) :",
+    "objects_other": "Objets ({{count}}/{{max}}) :",
+    "potions_one": "Potion ({{count}}/{{max}}) :",
+    "potions_other": "Potions ({{count}}/{{max}}) :",
+    "stockTitle": ":package: **Réserve d'objets de {{pseudo}}**",
+    "title": ":briefcase: **Inventaire de {{pseudo}}**",
+    "weapons_one": "Arme ({{count}}/{{max}}) :",
+    "weapons_other": "Armes ({{count}}/{{max}}) :",
+    "seeBackupItems": "🔄 Voir la réserve",
+    "seeEquippedItems": "🔄 Voir l'inventaire principal"
   },
   "ping": {
     "discord": {
@@ -27,71 +40,71 @@
       "🌍": ":earth_africa: `Traduttore`",
       "🌟": ":star2: `Persona che ha aiutato a mettere il bot su un server con più di 2000 membri`",
       "🍀": ":four_leaf_clover: `Badge che può essere vinto ogni tanto in concorsi sul server o su twitter`",
-      "🎄": ":christmas_tree: `Badge pouvant être gagné chaque noël lors d'un concours`",
-      "🎗️": ":reminder_ribbon: `Personne ayant dominé un classement de la semaine`",
-      "🎰": ":slot_machine: `Badge donné de manière totalement random`",
-      "🏅": ":medal: `Joueur dans le top 10 au reset de la 1.0`",
-      "🏆": ":trophy: `Meilleur joueur au moment du reset de la 1.0`",
-      "🐞": ":lady_beetle: `Personne ayant signalé des bugs majeurs`",
-      "👑": ":crown: `Propriétaire du bot`",
-      "💍": ":ring: `Badge acheté dans le shop des Missions`",
-      "💎": ":gem: `Membre d'une guilde puissante`",
-      "💞": ":revolving_hearts: `Joueur ayant dressé un familier légendaire`",
-      "💸": ":money_with_wings: `Donateur`",
-      "🔖": ":bookmark: `Adopteur de classes de la première heure`",
-      "🕊️": ":dove: `Personne ayant rapporté un bug exploitable sans en profiter`",
-      "🖋️": ":pen_fountain: `Rédacteur du bot`",
-      "🗳️": ":ballot_box: `Personne ayant voté dans les 12 dernières heures`",
-      "😂": ":joy: `Badge offert à une personne drôle`",
-      "🤑": ":money_mouth: `Badge acheté dans le shop`",
-      "🥇": ":first_place: `Personne ayant atteint la première place du classement après le reset`",
-      "🪩": ":mirror_ball: `Membre d'une guilde très puissante`"
+      "🎄": ":christmas_tree: `Badge che può essere vinto ogni Natale mentre un concorso`",
+      "🎗️": ":reminder_ribbon: `Persona che ha dominato la classifica della settimana`",
+      "🎰": ":slot_machine: `Badge dato in modo totalmente aleatorio`",
+      "🏅": ":medal: `giocatore nel top 10 al reset 1.0`",
+      "🏆": ":trophy: `Migliore giocatore al reset 1.0`",
+      "🐞": ":lady_beetle: `Persona che ha segnalato dei bug maggiori`",
+      "👑": ":crown: `Proprietario del bot'",
+      "💍": ":ring: `Badge comprato nel negozio delle Missione`",
+      "💎": ":gem: `Membro di una gilda potente`",
+      "💞": ":revolving_hearts: `Giocatore che ha addestrato un animale di compagnia leggendario`",
+      "💸": ":money_with_wings: `Donatore`",
+      "🔖": ":bookmark: `Tra i primi ha avere utilizzato le classe`",
+      "🕊️": ":dove: `Persona che ha segnalato un bug maggiore sfruttabile senza averne approfittato`",
+      "🖋️": ":pen_fountain: `Redattore del bot`",
+      "🗳️": ":ballot_box: `Persona che ha votato per il bot nelle 12 ultime ore`",
+      "😂": ":joy: `Badge regalato a una persona divertente`",
+      "🤑": ":money_mouth: `Badge comprato nel negozio`",
+      "🥇": ":first_place: `Persona che ha per primo ottenuto il primo posto della dopo il reset`",
+      "🪩": ":mirror_ball: `Membro di una gilda molto potente`"
     },
     "fightRanking": {
-      "fieldName": "Gloire et ligue :",
+      "fieldName": "Gloria e lega :",
       "fieldValue": ":sparkles: {{gloryPoints}} | {{league}}"
     },
     "guild": {
-      "fieldName": "Guilde :",
+      "fieldName": "Gilda :",
       "fieldValue": ":stadium: {{guild}}"
     },
     "information": {
-      "fieldName": "Informations :",
+      "fieldName": "Informazione :",
       "fieldValue": ":heart: {{health}}/{{maxHealth}} | :star: {{experience}}/{{experienceNeededToLevelUp}} | :moneybag: {{money}}"
     },
     "map": {
-      "fieldName": "Destination :",
+      "fieldName": "Destinazione:",
       "fieldValue": "{{mapEmote}} {{mapName}}"
     },
     "mission": {
-      "fieldName": "Missions :",
+      "fieldName": "Missione :",
       "fieldValue": ":gem: {{gems}} | :book: {{campaign}}% "
     },
     "noTimeLeft": {
-      "fieldName": "Temps restant :",
-      "fieldValue": ":hospital: Reprise du jeu possible"
+      "fieldName": "Tempo restante:",
+      "fieldValue": ":hospital: Ripresa del gioco possibile"
     },
     "pet": {
-      "fieldName": "Familier :",
-      "fieldValue": "Rareté: {{rarity}}\n{{emote}} {{nickname}}"
+      "fieldName": "Animale di compagnia :",
+      "fieldValue": "Rarità: {{rarity}}\n{{emote}} {{nickname}}"
     },
     "playerClass": {
       "fieldName": "Classe :",
       "fieldValue": "{{class}}"
     },
     "ranking": {
-      "fieldName": "Classement et Score :",
+      "fieldName": "Classifica e punti :",
       "fieldValue": ":trophy: {{rank}}/{{numberOfPlayer}} | :medal: {{score}}",
-      "fieldValueUnranked": ":trophy: Non classé | :medal: {{score}}"
+      "fieldValueUnranked": ":trophy: Non estimato | :medal: {{score}}"
     },
     "statistics": {
-      "fieldName": "Statistiques :",
+      "fieldName": "Statistiche :",
       "fieldValue": ":zap: {{cumulativeHealth}} / {{cumulativeMaxHealth}} | :dagger: {{cumulativeAttack}} | :shield: {{cumulativeDefense}} | :rocket: {{cumulativeSpeed}} | :wind_blowing_face: {{baseBreath}} / {{maxBreath}} | :lungs: {{breathRegen}}"
     },
     "timeLeft": {
-      "fieldName": "Temps restant :",
+      "fieldName": "Tempo restante :",
       "fieldValue": "{{effect}} {{timeLeft}}"
     },
-    "title": "{{effect}} | {{pseudo}} | Niveau {{level}}"
+    "title": "{{effect}} | {{pseudo}} | Livello {{level}}"
   }
 }

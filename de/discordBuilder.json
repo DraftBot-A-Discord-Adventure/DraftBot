@@ -4,16 +4,16 @@
     "name": "badges"
   },
   "inventory": {
-    "description": "",
-    "name": "",
+    "description": "Affiche l'inventaire du joueur.",
+    "name": "inventaire",
     "options": {
       "rank": {
-        "description": "",
-        "name": ""
+        "description": "Le classement du joueur dont l'inventaire doit être affiché.",
+        "name": "classement"
       },
       "user": {
-        "description": "",
-        "name": ""
+        "description": "L'utilisateur dont l'inventaire doit être affiché.",
+        "name": "utilisateur"
       }
     }
   },

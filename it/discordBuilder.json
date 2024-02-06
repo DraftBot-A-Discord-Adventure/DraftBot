@@ -1,7 +1,21 @@
 {
   "badges": {
-    "description": "Affiche des informations sur les badges et leur fonctionnement.",
-    "name": "badges"
+    "description": "Locandina d'informazione sui badge e loro funzionamento.",
+    "name": "badge"
+  },
+  "inventory": {
+    "description": "Affiche l'inventaire du joueur.",
+    "name": "inventaire",
+    "options": {
+      "rank": {
+        "description": "Le classement du joueur dont l'inventaire doit être affiché.",
+        "name": "classement"
+      },
+      "user": {
+        "description": "L'utilisateur dont l'inventaire doit être affiché.",
+        "name": "utilisateur"
+      }
+    }
   },
   "inventory": {
     "description": "",
@@ -18,25 +32,25 @@
     }
   },
   "ping": {
-    "description": "Affiche la latence du bot et permet au joueur de vérifier si le bot est en ligne.",
+    "description": "Locandina della latenza del bot e permette ai giocatori di verificare se il bot è connesso.",
     "name": "ping"
   },
   "profile": {
-    "description": "Afficher le profil d'un joueur.",
-    "name": "profil",
+    "description": "Mostrare il profilo di un giocatore.",
+    "name": "profilo",
     "options": {
       "rank": {
-        "description": "Le classement du joueur dont le profil doit être affiché.",
-        "name": "classement"
+        "description": "La classificazione del giocatore deve essere mostrata.",
+        "name": "classifica"
       },
       "user": {
-        "description": "L'utilisateur dont le profil doit être affiché.",
-        "name": "utilisateur"
+        "description": "L'utilizzatore per il quale il profilo deve essere mostrato.",
+        "name": "utilizzatore"
       }
     }
   },
   "scopes": {
-    "global": "🏆 Classement général",
-    "server": "🚩 Classement du serveur"
+    "global": "🏆 Classifica generale",
+    "server": "🚩Classifica del server"
   }
 }

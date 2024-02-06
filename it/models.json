@@ -1,115 +1,115 @@
 {
   "armors": {
-    "0": "Pas de bouclier ni d'armure",
-    "1": "Bouclier déflecteur Engi",
-    "10": "Bouclier lourd",
-    "11": "Bouclier de débutant",
-    "12": "Bouclier de maître",
-    "13": "Bouclier ultime",
-    "14": "Bouclier puissant",
-    "15": "Bouclier rouillé",
-    "16": "Bouclier usé",
-    "17": "Bouclier solaire",
-    "18": "Kimono de maître",
-    "19": "Veste de sécurité",
-    "2": "Casque de sécurité",
-    "20": "Bouclier humain",
-    "21": "Bras mécanique",
-    "22": "Casque de robot",
-    "23": "Parapluie d'auto défense",
-    "24": "Bouclier de gladiateur",
-    "25": "Bouclier de guerrier",
-    "26": "Bouclier de Brennus",
-    "27": "Champ de force",
-    "28": "Bouclier de lynel",
-    "29": "Bouclier solide",
-    "3": "Bouclier",
-    "30": "Petit bouclier",
-    "31": "Bouclier de la solitude",
-    "32": "Bouclier royal",
+    "0": "Nessuno scudo e armatura",
+    "1": "Scudo deflettore Engi",
+    "10": "Scudo pesante",
+    "11": "Scudo di principiante",
+    "12": "Scudo di maestro",
+    "13": "Scudo ultimo",
+    "14": "Scudo potente",
+    "15": "Scudo arrugginito",
+    "16": "Scudo usato",
+    "17": "Scudo solare",
+    "18": "Kimono di maestro",
+    "19": "Giacca di sicurezza",
+    "2": "Casco di sicurezza",
+    "20": "Scudo umano",
+    "21": "Braccio meccanico",
+    "22": "Casco di robot",
+    "23": "Ombrello d'auto difesa",
+    "24": "Scudo di gladiatore",
+    "25": "Scudo di guerriero",
+    "26": "Scudo di Brennus",
+    "27": "Campo di forza",
+    "28": "Scudo di lynel",
+    "29": "Scudo robusto",
+    "3": "Scudo",
+    "30": "Piccolo scudo",
+    "31": "Scudo della solitudine",
+    "32": "Scudo reale",
     "33": "Scutum",
     "34": "Rondache",
-    "35": "Bouclier en vibranium",
-    "36": "Bouclier à pointes",
-    "37": "Conventions de Genève",
-    "38": "Lumière de node",
-    "39": "Blindage du Major",
-    "4": "Bouclier en bois",
-    "40": "Carapace de Franklin",
+    "35": "Scudo in vibranium",
+    "36": "Scudo chiodato",
+    "37": "Convenzione di Ginevra",
+    "38": "Luce di node",
+    "39": "Schermatura del maresciallo",
+    "4": "Scudo di legno",
+    "40": "Conchiglia di Franklin",
     "41": "Jurisprudence",
-    "42": "Casque de guerre",
-    "43": "Seau en métal",
-    "44": "Mur",
-    "45": "Rangée de pions",
+    "42": "Casco di guerra",
+    "43": "Secchio in metallo",
+    "44": "Muro",
+    "45": "Riga di pioni",
     "46": "Plexiglas",
-    "47": "Forteresse japonaise",
-    "48": "Manteau",
-    "49": "Doudoune de combat",
-    "5": "Bouclier en fer",
-    "50": "Blouse de protection",
-    "51": "Tente de protection",
-    "52": "Égide puissante",
-    "53": "Égide contrefaite",
+    "47": "Fortezza giapponese",
+    "48": "Giacca",
+    "49": "Piumino in metallo",
+    "5": "Scudo di ferro",
+    "50": "Camicetta di protezione",
+    "51": "Tenda di protezione",
+    "52": "Egida potente",
+    "53": "Egida contraffatta",
     "54": "Nam Nam",
-    "55": "Autodérision",
-    "56": "Flemme",
-    "57": "Aile droite d'Icare",
-    "58": "Lampe Magique",
-    "59": "Chapeau Magique",
-    "6": "Armure de fer",
-    "60": "Giga Chad",
-    "61": "Cri UwUrlant",
-    "7": "Kimono renforcé",
-    "8": "Bouclier simple",
-    "9": "Bouclier résistant"
+    "55": "Auto derisione",
+    "56": "Pigrizia",
+    "57": "Ala destra d'Icare",
+    "58": "Lampada Magica",
+    "59": "Capello Magico",
+    "6": "Armatura di ferro",
+    "60": "Giga Ciad",
+    "61": "Grido UwUrlante",
+    "7": "Kimono rinforzato",
+    "8": "Scudo semplice",
+    "9": "Scudo resistente"
   },
   "classes": {
-    "0": "Recrue",
-    "1": "Combattant",
-    "10": "Archer",
-    "11": "Canonnier",
-    "12": "Écuyer",
-    "13": "Cavalier",
-    "14": "Piquier",
-    "15": "Chevalier",
-    "16": "Paladin",
-    "17": "Vétéran",
-    "18": "Fantassin puissant",
-    "19": "Tank impénétrable",
-    "2": "Soldat",
-    "20": "Canonnier redoutable",
-    "21": "Chevalier valeureux",
-    "22": "Paladin lumineux",
-    "23": "Vétéran chevronné",
-    "24": "Mage mystique",
-    "3": "Fantassin",
-    "4": "Ganté",
-    "5": "Casqué",
-    "6": "Maillé",
-    "7": "Tank",
-    "8": "Lanceur de pierre",
-    "9": "Frondeur"
+    "0": "Recluta",
+    "1": "Combattente",
+    "10": "Arciere",
+    "11": "Cannoniere",
+    "12": "Scudiero",
+    "13": "Paggio",
+    "14": "Picchiere",
+    "15": "Cavaliere",
+    "16": "Paladino",
+    "17": "Veterano",
+    "18": "Fante potente",
+    "19": "Carro armato impenetrabile ",
+    "2": "Soldato",
+    "20": "Cannoniere formidabile",
+    "21": "Cavaliere valoroso",
+    "22": "Paladino luminoso",
+    "23": "Veterano condito",
+    "24": "Mago mistico",
+    "3": "Fante",
+    "4": "Lottatore",
+    "5": "Cascone",
+    "6": "Scudiero",
+    "7": "Carro armato",
+    "8": "Lanciatore di pietra",
+    "9": "Fronda"
   },
   "fight_actions": {
     "benediction": {
-      "description": "Fait partie du groupe des \"actions des dieux\". Échoue si 1 action des dieux a déjà été effectuée dans le combat. Augmente toutes les statistiques du lanceur. Plus la bénédiction est utilisée tard dans le combat, plus l’augmentation des statistiques est importante.",
-      "name_one": "Bénédiction",
-      "name_other": "Bénédictions"
+      "description": "Fa parte del gruppo delle \"azione degli Dei\". Fallisce se 1 azione degli Dei è già stata effettuata nel combattimento. Aumenta tutte le statistiche del lanciatore. Più la benedizione è usata tardi nel combattimento più l'aumentazione delle statistiche e grande.",
+      "name_one": "Benedizione",
+      "name_other": "Benedizioni"
     },
     "boomerangAttack": {
-      "description": "Lance un boomerang qui inflige des dégâts à l'ennemi jusqu'à 3 fois.",
-      "name_one": "Attaque boomerang",
-      "name_other": "Attaques boomerang"
+      "description": "Lancia un boomerang che fa dei danni al nemico fino a 3 volte.",
+      "name_one": "Attacco boomerang",
+      "name_other": "Attacchi boomerang"
     },
     "boulderTossAttack": {
-      "description": "Attaque moyenne qui a des chances d'étourdir l'adversaire.",
-      "name_one": "Attaque rocheuse",
-      "name_other": "Attaques rocheuses"
+      "description": "Attacco medio che può stordire l'avversario.",
+      "name_one": "Attacco roccioso",
+      "name_other": "Attacchi rocciosi"
     },
     "breathTakingAttack": {
-      "description": "Inflige une faible quantité de dégâts mais peut voler le souffle de votre adversaire ou le ralentir.",
-      "name_one": "Attaque vol de souffle",
-      "name_other": "Attaques vol de souffle"
+      "description": "Infligge una piccola quantità di danni ma può rubare del soffio di vostro avversario o rallentarlo.",
+      "name_one": "Attacco ruba soffio",
+      "name_other": "Attacchi ruba soffi"
     },
     "burned": {
       "description": "",
@@ -117,34 +117,34 @@
       "name_other": ""
     },
     "canonAttack": {
-      "description": "La précision de cette attaque baisse sur les adversaires rapides. Un bonus de dégât est affecté à cette attaque si l’adversaire est très lent. L'adversaire peut être ralenti par l'attaque. Inflige plus de dégâts si utilisé plusieurs fois de suite",
-      "name_one": "Attaque canon",
-      "name_other": "Attaques canons"
+      "description": "La precisione di questo attacco diminuisce su i avversari rapidi. Un bonus di danni e aggiunta a questo attacco se l'avversario è molto lento. L'avversario può essere rallentato da questo attacco. Infligge più danni si è usato parecchie volte di seguito",
+      "name_one": "Attacco canone",
+      "name_other": "Attacchi canoni"
     },
     "chargeChargingAttack": {
-      "description": "Attaque sur 2 tours. Durant le premier tour, la défense du lanceur est augmentée de 50 %. Durant le second tour, la défense du lanceur est replacée à son niveau initial.",
-      "name_one": "Attaque chargée",
-      "name_other": "Attaques chargées"
+      "description": "Attacco su due turni. Durante il primo turno, la difesa di l'avversario è aumentata di 50 %. Durante il secondo turno, la difesa dell'avversario e rimesso a suo livello iniziale.",
+      "name_one": "Attacco caricato",
+      "name_other": "Attacchi caricati"
     },
     "chargeClubSmashAttack": {
-      "description": "Nécessite un tour pour charger l’attaque. Délivre une charge puissante au tour suivant.",
-      "name_one": "Attaque gourdin",
-      "name_other": "Attaques gourdin"
+      "description": "Necessità un turno per caricare l'attacco. Libero un attacco potente al turno dopo.",
+      "name_one": "Attacco clava",
+      "name_other": "Attacchi clava"
     },
     "chargeUltimateAttack": {
-      "description": "Nécessite un tour pour charger l’attaque Si l’attaquant dispose de moins de 45% de ses points de combat, cette attaque ne peut pas échouer. Si l’attaquant dispose de plus de 45% de ses points de combat, la précision de cette attaque est de 70. Cette attaque ne peut être utilisée qu’une fois par joueur et par combat.",
-      "name_one": "Attaque ultime",
-      "name_other": "Attaques ultimes"
+      "description": "Necessità un turno per caricare l'attacco. Se l'attaccante dispone di meno di 45% di sui punti di combattimento, questo attacco non può fallire. Se l'attaccante dispone di più di 45% di sui punti di combattimento, la precisione di questo attacco è di 70. Questo attacco può essere usato soltanto una volta per giocatore et combattimento.",
+      "name_one": "Attacco ultimo",
+      "name_other": "Attacchi ultimi"
     },
     "chargingAttack": {
       "description": "",
-      "name_one": "Attaque chargée",
-      "name_other": "Attaques chargées"
+      "name_one": "Attacco caricato",
+      "name_other": "Attacchi caricati "
     },
     "clubSmashAttack": {
       "description": "",
-      "name_one": "Attaque gourdin",
-      "name_other": "Attaques gourdin"
+      "name_one": "Attacco clava",
+      "name_other": "Attacchi clava"
     },
     "concentrated": {
       "description": "",
@@ -152,14 +152,14 @@
       "name_other": ""
     },
     "concentration": {
-      "description": "Échoue si vous utilisez cette action alors que vous avez une altération d’état. L’altération \"concentré\" augmente fortement les dégâts infligés par le combattant affecté lors du prochain tour.",
-      "name_one": "Concentration",
-      "name_other": "Concentrations"
+      "description": "Fallisce se utilizzate quest'azione quando avete un alterazione di salute. L'alterazione \"concentrato\" aumenta molto i danni inflitti dal giocatore con l'alterazione al prossimo turno.",
+      "name_one": "Concentrato",
+      "name_other": "Concentrazione"
     },
     "counterAttack": {
-      "description": "Réplique avec la même action que celle que vient de jouer votre adversaire. Ne fonctionne pas sur les attaques magiques ou divines, ni si l'adversaire n'a pas attaqué.",
-      "name_one": "Attaque riposte",
-      "name_other": "Attaques riposte"
+      "description": "Replica con la stessa azione che quella appena usata da vostro avversario. Non funziona su gli attacchi magiche o divine, neanche se vostro avversario non ha attaccato.",
+      "name_one": "Attacco risposto",
+      "name_other": "Attacchi risposto"
     },
     "cursed": {
       "description": "",
@@ -167,44 +167,44 @@
       "name_other": ""
     },
     "cursedAttack": {
-      "description": "Maudit l'adversaire, peut être en subira-t-il les conséquences dans le futur...",
-      "name_one": "Attaque maudite",
-      "name_other": "Attaques maudites"
+      "description": "Maledice l'avversario, chissà, può darsi ne subirà le conseguenze nel futuro...",
+      "name_one": "Attacca maledetta",
+      "name_other": "Attacchi maledette"
     },
     "darkAttack": {
-      "description": "Ignore la défense de l'adversaire. Plus efficace contre un joueur ayant une attaque élevée.",
-      "name_one": "Attaque sombre",
-      "name_other": "Attaques sombres"
+      "description": "Non prende in conto la difesa dell'avversario. Più efficace contro un giocatore con un attacco più elevata.",
+      "name_one": "Attacco oscuro",
+      "name_other": "Attacchi oscure"
     },
     "defenseBuff": {
-      "description": "Plus cette action est effectuée à la suite, plus le bonus de défense est important.",
-      "name_one": "Boost de la défense",
-      "name_other": "Boosts de la défense"
+      "description": "Più questa azione è effettuata al seguito, più il bonus di difesa è importante.",
+      "name_one": "Aumento della difesa",
+      "name_other": "Aumenti della difesa"
     },
     "divineAttack": {
-      "description": "La précision de cette attaque augmente avec la durée du combat. Fait partie du groupe des \"actions des dieux\". Échoue si 2 actions des dieux ont déjà été effectuées dans le combat.",
-      "name_one": "Attaque divine",
-      "name_other": "Attaques divines"
+      "description": "La precisione di questo attacco aumenta con la durata del combattimento. Fa parte del gruppo delle \"azione degli dei\". Fallisce se 2 di queste azione sono state effettuate nel combattimento.",
+      "name_one": "Attacco divino",
+      "name_other": "Attacchi divini"
     },
     "energeticAttack": {
-      "description": "La moitié des dégâts de cette attaque sont restitués au lanceur sous forme de soin.",
-      "name_one": "Attaque énergique",
-      "name_other": "Attaques énergiques"
+      "description": "La metà dei danni di questo attacco sono restituiti al lanciatore sotto forma di cura.",
+      "name_one": "Attacca energica ",
+      "name_other": "Attacchi energetiche"
     },
     "eruptionAttack": {
-      "description": "Fait entrer en éruption le volcan qui crache des rochers en fusion sur les joueurs.",
-      "name_one": "Eruption",
-      "name_other": "Eruptions"
+      "description": "Fa entrare in eruzione il vulcano che manda delle rocche in fusione sui giocatori.",
+      "name_one": "Eruzione ",
+      "name_other": "Eruzioni"
     },
     "familyMealAttack": {
-      "description": "Appelle des alliés pour dévorer l'adversaire et l'empoisonner.",
-      "name_one": "Repas de famille",
-      "name_other": "Repas de famille"
+      "description": "Chiama in aiuto dei compagni per decorare l'avversario e avvelenarlo.",
+      "name_one": "Pasto di famiglia",
+      "name_other": "Pasti di famiglia"
     },
     "fireAttack": {
-      "description": "Grande chance de brûler l'adversaire. L’altération \"brûlé\" inflige des dégâts à votre adversaire sur la durée.",
-      "name_one": "Attaque feu",
-      "name_other": "Attaques feu"
+      "description": "Grande possibilità di bruciare l'avversario. L'alterazione \"bruciato\" infligge dei danni a vostro avversario sul tempo.",
+      "name_one": "Attacco fuoco",
+      "name_other": "Attacchi fuoco"
     },
     "frozen": {
       "description": "",
@@ -217,44 +217,44 @@
       "name_other": ""
     },
     "grabAndThrowAttack": {
-      "description": "Projette l'adversaire s'il utilise une attaque physique, infligeant des dégâts moyens et ayant une chance d'étourdir de l'adversaire",
-      "name_one": "Attaque projection",
-      "name_other": "Attaques projections"
+      "description": "Proietta l'avversario se utilizza un attacco psichico, infliggendo dei danni medi e potendo stordire l'avversario",
+      "name_one": "Attacco proiettiva",
+      "name_other": "Attacchi proiettive"
     },
     "guildAttack": {
-      "description": "Les joueurs de la guilde se réunissent pour réaliser une attaque groupée puissante.",
-      "name_one": "Attaque de guilde",
-      "name_other": "Attaques de guilde"
+      "description": "I giocatori della gilda si re uniscono per realizzare un attacco di gruppo potente.",
+      "name_one": "Attacco di gilda",
+      "name_other": "Attacchi di gilda "
     },
     "heatDrainAttack": {
-      "description": "Récupère la chaleur du joueur, ce qui augmente l'attaque du lanceur et gèle l'adversaire.",
-      "name_one": "Drain de chaleur",
-      "name_other": "Drains de chaleur"
+      "description": "Recupera il calore del giocatore, che aumenta allora l'attacco del lanciatore e gela l'avversario.",
+      "name_one": "Scarico del calore",
+      "name_other": "Scariche del calore "
     },
     "heavyAttack": {
-      "description": "Les dégâts de cette attaque sont réduits de 90% si le défenseur dispose de moins de défense que l’attaquant. La défense de l'ennemi est réduite de 25%.",
-      "name_one": "Attaque lourde",
-      "name_other": "Attaques lourdes"
+      "description": "I danni di questo attacco sono ridotti di 90% se il difensore dispone di meno difesa che l'attaccante. La difesa dell'nemico è ridotta di 25%.",
+      "name_one": "Attacco lordo",
+      "name_other": "Attacchi lorde"
     },
     "intenseAttack": {
-      "description": "Ignore une partie de la défense de l’adversaire. N’échoue jamais sur un adversaire plus rapide. Fonctionne mieux sur un adversaire rapide. Force le lanceur à utiliser l’action \"repos\" au tour suivant. Ne peut pas tuer l’adversaire.",
-      "name_one": "Attaque intense",
-      "name_other": "Attaques intenses"
+      "description": "Ignora una parte della difesa di l'avversario. Non fallisce mai su un avversario più veloce. Funziona meglio su un avversario rapido. Forza il lanciatore ha utilizzare \"riposo\" al turno dopo. Non può uccidere l'avversario.",
+      "name_one": "Attacco intense",
+      "name_other": "Attacchi intensi"
     },
     "lavaWaveAttack": {
-      "description": "Attaque très puissante utilisable en dernier recours et infligeant à coup sûr l'altération \"Brûlé\" à l'adversaire.",
-      "name_one": "Vague de lave",
-      "name_other": "Vagues de lave"
+      "description": "Attacco molto potente utilizzabile infliggendo di sicuro l'alterazione \"bruciato\" a l'avversario.",
+      "name_one": "Onda di lava",
+      "name_other": "Onde di lava"
     },
     "magmaBathAttack": {
       "description": "S'applique au lanceur. Celui-ci se repose dans la lave et récupère ses points de combats. Le nombre de points de combats récupérés est divisé par 4 après 4 utilisations.",
-      "name_one": "Bain de magma",
-      "name_other": "Bains de magma"
+      "name_one": "Bagno di magma",
+      "name_other": "Bagni di magma"
     },
     "mimicAttack": {
       "description": "Copie aléatoirement une de vos attaques.",
-      "name_one": "Mimique",
-      "name_other": "Mimiques"
+      "name_one": "Imitazione",
+      "name_other": "Imitazioni"
     },
     "monstrousCopyAttack": {
       "description": "Copie l'attaque d'un monstre aléatoire.",
@@ -298,8 +298,8 @@
     },
     "piercingAttack": {
       "description": "Ignore presque complètement la défense de l’adversaire. L'attaquant a une probabilité de réduire légèrement la défense de son adversaire.",
-      "name_one": "Attaque perçante",
-      "name_other": "Attaques perçantes"
+      "name_one": "Attacco perforante",
+      "name_other": "Attacchi perforanti"
     },
     "poisoned": {
       "description": "",
@@ -409,7 +409,7 @@
     "ultimateAttack": {
       "description": "",
       "name_one": "Attaque ultime",
-      "name_other": "Attaques ultimes"
+      "name_other": "verso lo"
     },
     "weak": {
       "description": "",
@@ -423,222 +423,222 @@
     }
   },
   "leagues": {
-    "0": "Ligue bois",
-    "1": "Ligue pierre",
-    "2": "Ligue fer",
-    "3": "Ligue bronze",
-    "4": "Ligue argent",
-    "5": "Ligue or",
-    "6": "Ligue diamant",
-    "7": "Ligue d'élite",
-    "8": "Ligue infinie",
-    "9": "Ligue légende"
+    "0": "Lega di legno",
+    "1": "Lega di pietra",
+    "2": "Lega di ferro",
+    "3": "Lega di bronzo",
+    "4": "Lega d'argento",
+    "5": "Lega d'oro",
+    "6": "Lega di diamante",
+    "7": "Lega d'élite ",
+    "8": "Lega infinito",
+    "9": "Lega legenda"
   },
   "map_locations": {
     "1": {
       "description": "Une grande plage de sable fin au bord de la ville.",
       "name": "Plage Sentinelle",
-      "particle": "vers la"
+      "particle": "verso la"
     },
     "10": {
       "description": "Ancienne grande ville fortifiée, Ville Forte n'est plus que l'ombre d'elle-même. Ravagée par l'ancienne guerre il ne reste qu'une dizaine de maisons et paysans. Le reste de l'ancienne fortification n'est que ruine.",
       "name": "Ville Forte",
-      "particle": "vers la"
+      "particle": "verso la"
     },
     "1000": {
       "description": "Une grande plage de sable volcanique noir. Elle tient son nom de sa couleur très particulière. Les premiers hommes à avoir posé le pied sur la plage noire redoutaient une grande malédiction. Il n'en est évidemment rien. Attention cependant, le sable noir tache les pieds et les habits.",
       "name": "Plage noire",
-      "particle": "vers la"
+      "particle": "verso la"
     },
     "1001": {
       "description": "Une immense forêt qui recouvre pratiquement l'entièreté de l'île. De fines particules de cendres tombent du Volcan Grondant, ce qui rend la visibilité dans cette forêt plutôt difficile. Elle est de ce fait que très peu explorée.",
       "name": "Forêt de la pénombre",
-      "particle": "vers la"
+      "particle": "verso la"
     },
     "1002": {
       "description": "Un petit village d'une vingtaine de maisons, partiellement détruit, qui se trouve à proximité de la forêt de la pénombre. Personne ne sait exactement pourquoi ce village est en ruines. Beaucoup pensent qu'il s'agit du village des anciens habitants qui auraient succombé aux coulées de lave du Volcan Grondant. Mais d'autres avancent la théorie d'une maladie, la peste et de nombreux rats. Il ne reste plus un seul habitant ici...",
       "name": "Village en ruines",
-      "particle": "vers le"
+      "particle": "verso lo"
     },
     "1003": {
       "description": "Cette ancienne mine abandonnée passe sous le chemin escarpé et les montagnes. Elle est tellement grande est labyrinthique qu'elle finit au cœur du volcan. Il est cependant difficile d'arriver jusque là. Attention toutefois, certains auraient retrouvé de vieux restes de bananes dans la mine brumeuse.",
       "name": "Mine brumeuse",
-      "particle": "vers la"
+      "particle": "verso la"
     },
     "1004": {
       "description": "Ce chemin est le seul vrai chemin existant permettant d'aller jusqu'au sommet du Volcan Grondant. Il est très difficile de l'utiliser et surtout très dangereux. De nombreux hommes sont morts en voulant y grimper. À vos risques et périls.",
       "name": "Chemin escarpé",
-      "particle": "vers le"
+      "particle": "verso lo"
     },
     "1005": {
       "description": "Pièce maîtresse de l'île volcanique, ce volcan est toujours en activité. Il déverse plusieurs tonnes de cendres par an sur cette petite île qui de ce fait ne fait que grandir. La lave qui coule en son centre est en si grande quantité qu'un canal souterrain qu'on appelle Canal Lavique circule sur plusieurs kilomètres. Depuis les bateaux sur l'eau, on peut apercevoir ce canal faire bouillir l'eau en profondeur. Ce volcan serait même le créateur de plusieurs petites îles aux alentours comme l'île de glace.",
       "name": "Volcan grondant",
-      "particle": "vers le"
+      "particle": "verso lo"
     },
     "11": {
       "description": "Dernière vraie route qui permet encore de contourner le Mont Célestrum par le nord, le grand axe est encore très utilisé aujourd'hui, principalement par les brigands.",
       "name": "Grand Axe",
-      "particle": "vers le"
+      "particle": "verso lo"
     },
     "1100": {
       "description": "Ce rivage est la première chose que l'on voit quand on arrive sur l'île de glace. Il tire son nom du bruit que faisaient les marins quand ils ont accosté. Evidemment, ils revenaient de l'île volcanique où la température est beaucoup plus chaude.",
       "name": "Rivage gla-gla",
-      "particle": "vers le"
+      "particle": "verso lo"
     },
     "1101": {
       "description": "Comme son nom l'indique, cette vaste étendue de terre gelée n'est pas propice pour le repos. Très froide et très aride, il y subsiste toutefois quelques arbres robustes.",
       "name": "Toundra gelée",
-      "particle": "vers la"
+      "particle": "verso la"
     },
     "1102": {
       "description": "Grand lac gelé, le lac du savoir est un endroit calme et reposant. On peut y entendre une fine brise glissant sur la glace du lac. Idéale pour méditer après l'exploration de cette immense île sauvage.",
       "name": "Lac du savoir",
-      "particle": "vers le"
+      "particle": "verso lo"
     },
     "1103": {
       "description": "Une très grande plaine où de nombreux bonhommes de neige y sont construits. Qui a créé le premier bonhomme de neige ? Personne ne le sait. Il fait bien trop froid pour qu'ils fondent. Cependant, certains voyageurs s'amusent à en créer de nouveaux.",
       "name": "Plaine aux bonhommes de neige",
-      "particle": "vers la"
+      "particle": "verso la"
     },
     "1104": {
       "description": "Une magnifique caverne de glace. Des centaines se stalactites et de stalagmites décorent cette caverne. Une lumière naturelle illumine ces cristaux de glace et donnent l'impression de milliers d'étoiles. Si on oublie les centaines de cadavres d'explorateurs qui ont glissé et se sont empalés sur les stalagmites, cette caverne est d'une beauté incroyable ou d'une tristesse sans nom. La caverne de cristal est un moyen dangereux d'atteindre le sommet du pic enneigé.",
       "name": "Caverne de cristal",
-      "particle": "vers la"
+      "particle": "verso la"
     },
     "1105": {
       "description": "Cette caverne, très similaire à sa sœur la caverne de cristal, comporte cependant un grand avantage. Elle mène au pic enneigé en passant dans les profondeurs de la terre. Il s'agit d'un long chemin sur la glace et la roche. Elle doit son nom à ces grottes qui descendent très profond sous terre et laissent apparaitre de belles formations de glace.",
       "name": "Caverne cœur de glace",
-      "particle": "vers la"
+      "particle": "verso la"
     },
     "1106": {
       "description": "Ce gigantesque pic domine toute l'île. Il est visible à des kilomètres à la ronde. Très difficile d'accès, le pic enneigé abrite de vieilles structures en bois datant d'une ancienne civilisation. Les deux chemins y menant étant très périlleux, peu d'hommes ont pu voir ces structures de leurs propres yeux.",
       "name": "Pic enneigé",
-      "particle": "vers le"
+      "particle": "verso lo"
     },
     "12": {
       "description": "Une grande plaine vide nordique sans grand intérêt.",
       "name": "L'Étendue",
-      "particle": "vers"
+      "particle": "verso"
     },
     "13": {
       "description": "Un chemin difficile d'accès, boueux et humide. La Route Marécageuse relie l'Étendue à la Rivière aux crabes.",
       "name": "Route Marécageuse",
-      "particle": "vers la"
+      "particle": "verso la"
     },
     "14": {
       "description": "Un grand lac où les familles aiment bien se réunir. La rivière Vacarme vient s'y jeter.",
       "name": "Lac Mirage",
-      "particle": "vers le"
+      "particle": "verso lo"
     },
     "15": {
       "description": "Le Mont Celestrum est la montagne dominante de la région. Haute de plusieurs kilomètres, Celestrum est visible de tous. On raconte qu'elle porte le nom de l'ancienne déesse. Par ailleurs une seule personne est parvenue à grimper jusqu'au sommet. On ne retient d'elle que ses initiales : M-B.",
       "name": "Mont Célestrum",
-      "particle": "vers le"
+      "particle": "verso lo"
     },
     "16": {
       "description": "Petit chemin dangereux bordant la rivière Vacarme. Attention à ne pas tomber.",
       "name": "Chemin aux Loups",
-      "particle": "vers le"
+      "particle": "verso lo"
     },
     "17": {
       "description": "Village chaud bordant la vallée des rois. Il s'agit d'une oasis chaleureuse pour les voyageurs en transit.",
       "name": "Village Coco",
-      "particle": "vers le"
+      "particle": "verso lo"
     },
     "18": {
       "description": "Cette rivière doit son nom au bruit produit par son fort courant qui a fait perdre la vie à de nombreux villageois.",
       "name": "Rivière Vacarme",
-      "particle": "vers la"
+      "particle": "verso la"
     },
     "19": {
       "description": "Plage créée par les forts vents de la Vallée des Rois. La Dune protège les Plaines du Contre Bois de la chaleur et amène l'eau de la rivière Vacarme.",
       "name": "La Dune",
-      "particle": "vers"
+      "particle": "verso"
     },
     "1999": {
       "description": "Un vieux bateau en bois, il a l'air de tenir le coup grâce aux réparations des ouvriers. Il est prêt à partir et n'attend plus que votre arrivée.",
       "name": "Bateau pour quitter l'île",
-      "particle": "vers le"
+      "particle": "verso lo"
     },
     "2": {
       "description": "Une petite route qui permet de se rendre à la campagne à partir de Mergagnan et inversement.",
       "name": "Voie champêtre",
-      "particle": "vers la"
+      "particle": "verso la"
     },
     "20": {
       "description": "Une vaste plaine paisible et agricole.",
       "name": "Plaines du Contre Bois",
-      "particle": "vers les"
+      "particle": "verso gli"
     },
     "21": {
       "description": "Une route très empruntée par les villageois. Beaucoup de petits vendeurs ambulants s'y installent le temps d'une journée pour au final créer un immense marché.",
       "name": "Route des Merveilles",
-      "particle": "vers la"
+      "particle": "verso la"
     },
     "22": {
       "description": "Forêt mal famée au bord de Claire De Ville, Bois Hurlant a une très mauvaise réputation. Repaire de bandits et hors la loi en tout genre, elle tient surtout son nom de ces pratiques douteuses il y a de ça des centaines d'années.",
       "name": "Bois Hurlant",
-      "particle": "vers le"
+      "particle": "verso lo"
     },
     "22222": {
       "description": "Une zone de test pour les monstres. N'est jamais censée apparaître dans le jeu",
       "name": "Zone de test des monstres",
-      "particle": "vers la"
+      "particle": "verso la"
     },
     "23": {
       "description": "Grande ville marchande et carrefour économique, Claire De Ville n'a pas toujours été aussi accueillante. Au début très pauvre, elle a su se développer rapidement grâce à ses nombreux commerces et hôtels offrant un large choix aux voyageurs de la région. Claire De Ville est aussi réputée pour son calme et son respect de l'ordre.",
       "name": "Claire De Ville",
-      "particle": "vers"
+      "particle": "verso"
     },
     "24": {
       "description": "Une route très raide qui mène jusqu'à Claire De Ville. Tout dépend dans quel sens vous l'empruntez.",
       "name": "Route Grimpante",
-      "particle": "vers la"
+      "particle": "verso la"
     },
     "25": {
       "description": "Tout est dans le nom. Une rivière très appréciée des poissonniers de Claire De Ville.",
       "name": "Rivière aux Crabes",
-      "particle": "vers la"
+      "particle": "verso la"
     },
     "26": {
       "description": "Une paisible ville au bord de la Plage Sentinelle.",
       "name": "Mergagnan",
-      "particle": "vers"
+      "particle": "verso"
     },
     "27": {
       "description": "Une forêt au bord du Mont Célestrum.",
       "name": "Forêt Célestrum",
-      "particle": "vers la"
+      "particle": "verso la"
     },
     "28": {
       "description": "Entrée du château du roi, entouré d'une épaisse muraille, il semble pouvoir résister à toutes les attaques imaginables.",
       "name": "Portes du château",
-      "particle": "vers les"
+      "particle": "verso gli"
     },
     "29": {
       "description": "Immense salle ornée de nombreuses oeuvres d'art",
       "name": "Salle de réception",
-      "particle": "vers la"
+      "particle": "verso la"
     },
     "3": {
       "description": "Grande plaine de l'ouest de la contrée bordée d'une grande forêt et traversée par une grande route.",
       "name": "Le Berceau",
-      "particle": "vers"
+      "particle": "verso"
     },
     "32": {
       "description": "La route qui mène au château du Roi",
       "name": "Route vers le château du Roi",
-      "particle": "vers"
+      "particle": "verso"
     },
     "33": {
       "description": "",
       "name": "Continent principal",
-      "particle": "vers"
+      "particle": "verso"
     },
     "4": {
       "description": "Immense forêt au sud du Berceau. On raconte que beaucoup de voyageurs s'y sont perdus.",
       "name": "Forêt Du Vieillard",
-      "particle": "vers la"
+      "particle": "verso la"
     },
     "5": {
       "description": "Chemin tirant son surnom de son sillonement au sein de la nature foisonnant du sud de la forêt du vieillard.",
@@ -648,124 +648,124 @@
     "6": {
       "description": "Un village paisible réputé pour son auberge accueillante.",
       "name": "Boug-Coton",
-      "particle": "vers"
+      "particle": "verso"
     },
     "7": {
       "description": "Désert de sable chaud nommé en l'honneur des anciens rois de la région.",
-      "name": "Vallée des Rois",
-      "particle": "vers la"
+      "name": "Vallata dei re",
+      "particle": "verso la"
     },
     "8": {
       "description": "Un très grand carrefour qui relie les principaux chemins à l'ouest du Mont Célestrum.",
       "name": "Croisement des Destins",
-      "particle": "vers le"
+      "particle": "verso lo"
     },
     "9": {
       "description": "Ancienne grande route commerciale reliant le Berceau et Ville forte, il ne reste de la Grande Rue que de vieux pavés ébréchés.",
-      "name": "Grande Rue",
-      "particle": "vers la"
+      "name": "Strada principale ",
+      "particle": "verso la"
     }
   },
   "map_types": {
     "be": {
-      "name": "Plage",
-      "prefix": "de la"
+      "name": "Spiaggia",
+      "prefix": "della"
     },
     "castle_entrance": {
       "name": "",
-      "prefix": "des"
+      "prefix": "delle"
     },
     "castle_throne": {
       "name": "",
-      "prefix": "de la"
+      "prefix": "della"
     },
     "ci": {
-      "name": "Ville",
-      "prefix": "de la"
+      "name": "Città",
+      "prefix": "della"
     },
     "continent": {
       "name": "",
-      "prefix": "du"
+      "prefix": "di"
     },
     "crystal_cavern": {
-      "name": "Caverne de crystal",
-      "prefix": "de la"
+      "name": "Grotta di cristallo",
+      "prefix": "della"
     },
     "de": {
-      "name": "Désert",
-      "prefix": "du"
+      "name": "Deserto",
+      "prefix": "di"
     },
     "fo": {
-      "name": "Forêt",
-      "prefix": "de la"
+      "name": "Foresta",
+      "prefix": "della"
     },
     "ice_beach": {
-      "name": "Plage glacée",
-      "prefix": "de la"
+      "name": "Spiaggia ghiacciata",
+      "prefix": "della"
     },
     "ice_cavern": {
-      "name": "Caverne de glace",
-      "prefix": "de la"
+      "name": "Caverna di ghiaccio",
+      "prefix": "della"
     },
     "ice_lake": {
-      "name": "Lac gelé",
-      "prefix": "du"
+      "name": "Lago ghiacciato",
+      "prefix": "di"
     },
     "la": {
-      "name": "Lac",
-      "prefix": "du"
+      "name": "Lago",
+      "prefix": "di"
     },
     "mine": {
-      "name": "Mine",
-      "prefix": "de la"
+      "name": "Miniera",
+      "prefix": "della"
     },
     "mo": {
-      "name": "Montagne",
-      "prefix": "de la"
+      "name": "Montagna",
+      "prefix": "della"
     },
     "pl": {
-      "name": "Plaine",
-      "prefix": "de la"
+      "name": "Pianura",
+      "prefix": "della"
     },
     "pve_exit": {
       "name": "",
-      "prefix": "du"
+      "prefix": "di"
     },
     "ri": {
-      "name": "Rivière",
-      "prefix": "de la"
+      "name": "Fiume",
+      "prefix": "della"
     },
     "ro": {
-      "name": "Route",
-      "prefix": "de la"
+      "name": "Strada",
+      "prefix": "della"
     },
     "ruins": {
-      "name": "Ruines",
-      "prefix": "des"
+      "name": "Rovine",
+      "prefix": "delle"
     },
     "snow_mountain": {
-      "name": "Pic",
-      "prefix": "du"
+      "name": "Cima",
+      "prefix": "di"
     },
     "snowmen_field": {
-      "name": "Plaine",
-      "prefix": "de la"
+      "name": "Pianura",
+      "prefix": "della"
     },
     "test_zone": {
       "name": "",
-      "prefix": "de la"
+      "prefix": "della"
     },
     "tundra": {
-      "name": "Toundra",
-      "prefix": "de la"
+      "name": "Tundra",
+      "prefix": "della"
     },
     "vi": {
-      "name": "Village",
-      "prefix": "du"
+      "name": "Villaggio",
+      "prefix": "di"
     },
     "volcano": {
-      "name": "Volcan",
-      "prefix": "du"
+      "name": "Vulcano",
+      "prefix": "di"
     }
   },
   "missions": {
@@ -843,529 +843,529 @@
     "winBoss_other": "Gagner {{objective}} combats de boss"
   },
   "monsters": {
-    "forestTroll": "Troll de la forêt",
-    "magmaTitan": "Titan de magma",
-    "rockGolem": "Golem de roche",
-    "skeleton": "Squelette",
-    "slimyMutant": "Mutant Vaseux",
-    "spider": "Araignée"
+    "forestTroll": "Troll di foresta",
+    "magmaTitan": "Titano di magma",
+    "rockGolem": "Golem di roccia",
+    "skeleton": "Scheletro",
+    "slimyMutant": "Mutante fangoso",
+    "spider": "Ragno"
   },
   "objects": {
-    "0": "Emplacement libre",
-    "1": "Drapeau de la paix",
-    "10": "Chaussure de course",
-    "11": "Bénédiction du ciel",
-    "12": "Bout d'obsidienne",
-    "13": "Feuilles mortes",
-    "14": "Pomme rouge",
-    "15": "Pomme verte",
-    "16": "Réceptacle de cœur",
-    "17": "Livre d'incantations Volume 1",
-    "18": "Livre d'incantations Volume 2",
-    "19": "Livre d'incantations Volume 3",
-    "2": "Dé magique",
-    "20": "Livre d'incantations Volume 4",
-    "21": "Chapelet mythique",
-    "22": "Drapeau de la mort",
-    "23": "Fleur royale",
-    "24": "Baril métallique",
-    "25": "Vieille bougie",
-    "26": "Pot en terre cuite",
-    "27": "Saxo magique",
-    "28": "Guitare terrifiante",
-    "29": "Carte bancaire",
-    "3": "Diamant Kéraunique",
-    "30": "Jambe mécanique",
-    "31": "Chat aux yeux lasers mignon",
-    "32": "Kyuillère",
-    "33": "Citrouille",
-    "34": "Ours en peluche",
-    "35": "Aimant",
-    "36": "Pansement",
-    "37": "Skis glissants",
-    "38": "Amulette cyclonique",
-    "39": "Pouvoir de Nayru",
-    "4": "Fleur de l'espoir",
-    "40": "Bague de l'ange sans vie",
-    "41": "Urne ornée du minotaure",
-    "42": "Horloge du lapin",
+    "0": "Spazio libero",
+    "1": "Bandiera della pace",
+    "10": "Scarpe da corsa",
+    "11": "Benedizione degli Dei",
+    "12": "Muro di ossidiana",
+    "13": "Foglie morte",
+    "14": "Mela rossa",
+    "15": "Mela verde",
+    "16": "Ricettacolo di cuore",
+    "17": "Libro d'incantesimo numero 1",
+    "18": "Libro d'incantesimo numero 2",
+    "19": "Libro d'incantesimo numero 3",
+    "2": "Dado magico ",
+    "20": "Libro d'incantesimo numero 4",
+    "21": "Rosario mitico",
+    "22": "Bandiera della morte",
+    "23": "Fiore reale",
+    "24": "Barile metallico",
+    "25": "Vecchia candela",
+    "26": "Vaso in terracotta",
+    "27": "Saxo magico",
+    "28": "Chitarra terrificante",
+    "29": "Carta di credito ",
+    "3": "Diamante Kéraunique",
+    "30": "Gamba meccanica ",
+    "31": "Gatto con occhi laser carino",
+    "32": "Kyucchiaio",
+    "33": "Zucca",
+    "34": "Orso in peluche",
+    "35": "Magnete",
+    "36": "Cerotto",
+    "37": "Sci scivolosi",
+    "38": "Amuleto ciclonico",
+    "39": "Potere di Nayru",
+    "4": "Fiore della speranza",
+    "40": "Badge dell'angelo senza vita",
+    "41": "Urna ornata del Minotauro",
+    "42": "Orologio del coniglio",
     "43": "Banan'ase split",
-    "44": "Pomme du grand arbre",
-    "45": "Amulette de Midas",
-    "46": "Étoile filante",
+    "44": "Mela del grande albero",
+    "45": "Amuleto di mydas",
+    "46": "Stella cadente",
     "47": "Kyuran",
-    "48": "Accélérateur de particule",
-    "49": "Gel Hydro-Alcoolique",
-    "5": "Lune de Mojaro",
-    "50": "Bottes de Pégase",
+    "48": "Acceleratore di particole",
+    "49": "Gel idroalcolico",
+    "5": "Luna di Mojaro",
+    "50": "Stivali di Pegaso",
     "51": "Nimbus 2000",
-    "52": "Savon glissant",
-    "53": "Médaille de mérite",
-    "54": "Cor de chasse",
-    "55": "Bourse du voleur",
-    "56": "Machine à sous",
-    "57": "Chaussures à talon",
-    "58": "Anneaux de défense",
+    "52": "Sapone scivoloso",
+    "53": "Medaglia dell merito",
+    "54": "Corno di caccia",
+    "55": "Borsa di ladro",
+    "56": "Slot-machine",
+    "57": "Tacchi alti",
+    "58": "Anelli di difesa ",
     "59": "Chocobrie",
-    "6": "Boule de verre magique",
-    "60": "Multinationale",
-    "61": "Voltou",
-    "62": "Œil de Fatalis",
-    "63": "Pied-de-biche",
+    "6": "Palla di vetro magica",
+    "60": "Multinazionale ",
+    "61": "Rubatuto",
+    "62": "Occhio di Fatalis",
+    "63": "Piede di porco",
     "64": "Lego",
-    "65": "Harmonica du temps",
-    "66": "Fibre optique",
+    "65": "Armonica del tempo",
+    "66": "Fibra ottica",
     "67": "Kars",
     "68": "Tardis",
-    "69": "Musique",
-    "7": "Chaines magiques",
-    "70": "Lit",
-    "71": "Figurine Buzz l'éclair",
-    "72": "Soleil",
-    "73": "Ticket de montagnes russes",
-    "74": "Piment",
-    "75": "Défibrillateur",
-    "76": "Nourriture pour chien",
-    "77": "Docteur de poche",
-    "78": "Coeur artificiel",
-    "79": "Programme de dopage",
-    "8": "Feuille de vent",
-    "80": "Batterie faible",
-    "81": "Batterie pleine",
-    "82": "Script de Easy",
-    "83": "Fusée en Carton",
-    "84": "Trèfle à 4 Feuilles",
-    "85": "Roulo PQ",
-    "86": "Étoile du Destin",
-    "87": "Guitare Électrique",
-    "88": "Carte SYM",
-    "9": "Clé rouillée"
+    "69": "Musica",
+    "7": "Catene magiche",
+    "70": "Letto",
+    "71": "Figurina di Buzz Lightyear",
+    "72": "Sole",
+    "73": "Biglietto di montagne russe",
+    "74": "Pepe",
+    "75": "Defibrillatore",
+    "76": "Cibo per cani",
+    "77": "Dottore di tasca",
+    "78": "Cuore artificiale",
+    "79": "Programmo di doping",
+    "8": "Foglia di vento",
+    "80": "Batteria scarica",
+    "81": "Batteria carica",
+    "82": "Script di Easy",
+    "83": "Razzo in cartone",
+    "84": "Trifoglio a 4 foglie",
+    "85": "Carta igienica",
+    "86": "Stella del destino",
+    "87": "Chitarra elettrica",
+    "88": "Carta SYM",
+    "9": "Chiave Arrugginita"
   },
   "pets": {
     "0": {
-      "female": "Aucun familier",
-      "male": "Aucun familier"
+      "female": "Nessuno animale di compagnia",
+      "male": "Nessuno animale di compagnia"
     },
     "1": {
-      "female": "Chienne",
-      "male": "Chien"
+      "female": "Cagna",
+      "male": "Cane"
     },
     "10": {
-      "female": "Poule",
-      "male": "Coq"
+      "female": "Gallina",
+      "male": "Gallo"
     },
     "11": {
-      "female": "Oiseau",
-      "male": "Oiseau"
+      "female": "Uccello",
+      "male": "Uccello"
     },
     "12": {
-      "female": "Cane",
-      "male": "Canard"
+      "female": "Anatra",
+      "male": "Anatre"
     },
     "13": {
-      "female": "Jument",
-      "male": "Étalon"
+      "female": "Cavallo",
+      "male": "Stallone"
     },
     "14": {
-      "female": "Tortue",
-      "male": "Tortue"
+      "female": "Tartaruga",
+      "male": "Tartaruga"
     },
     "15": {
-      "female": "Serpent",
-      "male": "Serpent"
+      "female": "Serpente",
+      "male": "Serpente"
     },
     "16": {
-      "female": "Lézarde",
-      "male": "Lézard"
+      "female": "Lucertola",
+      "male": "Lucertola"
     },
     "17": {
-      "female": "Brebis",
-      "male": "Bélier"
+      "female": "Agnello",
+      "male": "Ariete"
     },
     "18": {
-      "female": "Chèvre",
-      "male": "Bouc"
+      "female": "Capra",
+      "male": "Caprone"
     },
     "19": {
-      "female": "Dinde",
-      "male": "Dindon"
+      "female": "Tacchino",
+      "male": "Tacchino"
     },
     "2": {
-      "female": "Caniche",
-      "male": "Caniche"
+      "female": "Barboncino",
+      "male": "Barboncino"
     },
     "20": {
-      "female": "Renarde",
-      "male": "Renard"
+      "female": "Volpeta",
+      "male": "Volpe"
     },
     "21": {
-      "female": "Ourse",
-      "male": "Ours"
+      "female": "Orsa",
+      "male": "Orso"
     },
     "22": {
       "female": "Koala",
       "male": "Koala"
     },
     "23": {
-      "female": "Grenouille",
-      "male": "Crapaud"
+      "female": "Rana",
+      "male": "Rospo"
     },
     "24": {
-      "female": "Guenon",
-      "male": "Singe"
+      "female": "Scimmia",
+      "male": "Scimmia"
     },
     "25": {
-      "female": "Pingouine",
-      "male": "Pingouin"
+      "female": "Pinguino",
+      "male": "Pinguino"
     },
     "26": {
-      "female": "Chouette",
-      "male": "Hibou"
+      "female": "Gufo",
+      "male": "Gufo"
     },
     "27": {
-      "female": "Chauve-souris",
-      "male": "Chauve-souris"
+      "female": "Pipistrello",
+      "male": "Pipistrello"
     },
     "28": {
-      "female": "Louve",
-      "male": "Loup"
+      "female": "Lupa",
+      "male": "Lupo"
     },
     "29": {
-      "female": "Laie",
-      "male": "Sanglier"
+      "female": "Scrofa",
+      "male": "Cinghiale"
     },
     "3": {
-      "female": "Chatte",
-      "male": "Chat"
+      "female": "Gatta",
+      "male": "Gatto"
     },
     "30": {
-      "female": "Otarie",
-      "male": "Phoque"
+      "female": "Otaria",
+      "male": "Foca "
     },
     "31": {
-      "female": "Hippopotame",
-      "male": "Hippopotame"
+      "female": "Ippopotamo",
+      "male": "Ippopotamo"
     },
     "32": {
-      "female": "Lamate",
+      "female": "Lama",
       "male": "Lama"
     },
     "33": {
-      "female": "Cygne",
-      "male": "Cygne"
+      "female": "Cigno",
+      "male": "Cigno"
     },
     "34": {
-      "female": "Flamant rose",
-      "male": "Flamant rose"
+      "female": "Fenicottero",
+      "male": "Fenicottero"
     },
     "35": {
-      "female": "Ratonne",
-      "male": "Raton laveur"
+      "female": "Procione",
+      "male": "Procione"
     },
     "36": {
-      "female": "Mouffette",
-      "male": "Putois"
+      "female": "Puzzola",
+      "male": "Puzzola"
     },
     "37": {
-      "female": "Blairelle",
-      "male": "Blaireau"
+      "female": "Tasso",
+      "male": "Tasso"
     },
     "38": {
-      "female": "Castor",
-      "male": "Castor"
+      "female": "Castoro",
+      "male": "Castoro"
     },
     "39": {
-      "female": "Paresseuse",
-      "male": "Paresseux"
+      "female": "Bradipo",
+      "male": "Bradipo"
     },
     "4": {
-      "female": "Chatte noire",
-      "male": "Chat noir"
+      "female": "Gatta nera",
+      "male": "Gatto nero"
     },
     "40": {
-      "female": "Tamia",
-      "male": "Tamia"
+      "female": "Scoiattolo",
+      "male": "Scoiattolo"
     },
     "41": {
-      "female": "Hérissonne",
-      "male": "Hérisson"
+      "female": "Riccio",
+      "male": "Riccio"
     },
     "42": {
-      "female": "Ourse polaire",
-      "male": "Ours polaire"
+      "female": "Orso polare",
+      "male": "Orso polare"
     },
     "43": {
       "female": "Panda",
       "male": "Panda"
     },
     "44": {
-      "female": "Scorpionne",
-      "male": "Scorpion"
+      "female": "Scorpione",
+      "male": "Scorpione"
     },
     "45": {
-      "female": "Crocodile",
-      "male": "Crocodile"
+      "female": "Coccodrillo",
+      "male": "Coccodrillo"
     },
     "46": {
-      "female": "Éléphante",
-      "male": "Éléphant"
+      "female": "Elefante",
+      "male": "Elefante"
     },
     "47": {
-      "female": "Zébrelle",
-      "male": "Zèbre"
+      "female": "Zebra",
+      "male": "Zebra"
     },
     "48": {
-      "female": "Rhinocéros",
-      "male": "Rhinocéros"
+      "female": "Rinoceronte",
+      "male": "Rinoceronte"
     },
     "49": {
-      "female": "Chamelle",
-      "male": "Dromadaire"
+      "female": "Dromedario",
+      "male": "Dromedario"
     },
     "5": {
-      "female": "Souris",
-      "male": "Rongeur"
+      "female": "Topo",
+      "male": "Roditore"
     },
     "50": {
-      "female": "Chamelle",
-      "male": "Chameau"
+      "female": "Cammello",
+      "male": "Cammello"
     },
     "51": {
-      "female": "Girafe",
-      "male": "Girafe"
+      "female": "Giraffa",
+      "male": "Giraffa"
     },
     "52": {
-      "female": "Kangourou",
-      "male": "Kangourou"
+      "female": "Canguro",
+      "male": "Canguro"
     },
     "53": {
-      "female": "Paonne",
-      "male": "Paon"
+      "female": "Pavone",
+      "male": "Pavone"
     },
     "54": {
-      "female": "Perroquet",
-      "male": "Perroquet"
+      "female": "Pappagallo",
+      "male": "Pappagallo"
     },
     "55": {
-      "female": "Loutre",
-      "male": "Loutre"
+      "female": "Lontra",
+      "male": "Lontra"
     },
     "56": {
-      "female": "Tigresse",
+      "female": "Tigre",
       "male": "Tigre"
     },
     "57": {
-      "female": "Lionne",
-      "male": "Lion"
+      "female": "Leone",
+      "male": "Leone"
     },
     "58": {
-      "female": "Aigle",
-      "male": "Aigle"
+      "female": "Aquila",
+      "male": "Aquila"
     },
     "59": {
       "female": "Dodo",
       "male": "Dodo"
     },
     "6": {
-      "female": "Hamster",
-      "male": "Hamster"
+      "female": "Criceto",
+      "male": "Criceto"
     },
     "60": {
-      "female": "Léoparde",
-      "male": "Léopard"
+      "female": "Leopardo",
+      "male": "Leopardo"
     },
     "61": {
-      "female": "Mammouth",
-      "male": "Mammouth"
+      "female": "Mammut",
+      "male": "Mammut"
     },
     "62": {
-      "female": "Colombe",
-      "male": "Colombe"
+      "female": "Colomba",
+      "male": "Colomba"
     },
     "63": {
-      "female": "Licorne",
-      "male": "Licorne"
+      "female": "Unicorno",
+      "male": "Unicorno"
     },
     "64": {
-      "female": "Dragonne",
-      "male": "Dragon"
+      "female": "Drago ",
+      "male": "Drago"
     },
     "65": {
       "female": "T-Rex",
       "male": "T-Rex"
     },
     "66": {
-      "female": "Angel",
+      "female": "Angelo",
       "male": "Stitch"
     },
     "67": {
-      "female": "Dame de neige",
-      "male": "Bonhomme de neige"
+      "female": "Donna di neve",
+      "male": "Pupazzo di neve"
     },
     "68": {
-      "female": "Cane écarlate",
-      "male": "Canard écarlate"
+      "female": "Anatra scarlatto",
+      "male": "Anatra scarlatta"
     },
     "69": {
-      "female": "Dame de neige",
-      "male": "Bonhomme de neige"
+      "female": "Donna di neve",
+      "male": "Pupazzo di neve"
     },
     "7": {
-      "female": "Lapine",
-      "male": "Lapin"
+      "female": "Coniglio",
+      "male": "Coniglio"
     },
     "70": {
-      "female": "Alienne",
+      "female": "Aliene",
       "male": "Alien"
     },
     "71": {
-      "female": "Pieuvre",
-      "male": "Poulpe"
+      "female": "Calamaro",
+      "male": "Polpo"
     },
     "72": {
-      "female": "Manchote",
-      "male": "Manchot"
+      "female": "Pinguino",
+      "male": "Pinguino"
     },
     "8": {
-      "female": "Vache",
-      "male": "Bœuf"
+      "female": "Mucca",
+      "male": "Bue"
     },
     "9": {
-      "female": "Truie",
-      "male": "Porc"
+      "female": "Maiale",
+      "male": "Maiale"
     }
   },
   "potions": {
-    "0": "Pas de potion",
-    "1": "Potion rouge",
-    "10": "Potion violette",
-    "11": "Potion acide",
-    "12": "Potion foncée",
-    "13": "Potion bleue",
-    "14": "Potion périmée",
-    "15": "Potion magique",
-    "16": "Potion morvique",
-    "17": "Potion ultime",
-    "18": "Potion secouée",
-    "19": "Potion de force",
-    "2": "Potion simple",
-    "20": "Potion explosive",
-    "21": "Potion de vitesse",
-    "22": "Potion de soin",
-    "23": "Potion de soin ultime",
-    "24": "Potion de guérison",
-    "25": "Boisson tropicale",
-    "26": "Verre de lait",
+    "0": "Nessuna pozione",
+    "1": "Pozione rossa",
+    "10": "Pozione viola",
+    "11": "Pozione acida",
+    "12": "Pozione scura",
+    "13": "Pozione blu",
+    "14": "Pozione scaduta",
+    "15": "Pozione magica",
+    "16": "Pozione mocciosa",
+    "17": "Pozione ultima",
+    "18": "Pozione scossa",
+    "19": "Pozione di forza",
+    "2": "Pozione semplice",
+    "20": "Pozione esplosiva",
+    "21": "Pozione di velocità",
+    "22": "Pozione curativa",
+    "23": "Pozione di cura ultima",
+    "24": "Pozione di guarigione",
+    "25": "Pozione tropicale",
+    "26": "Bicchiere di Latte",
     "27": "Biberon",
-    "28": "Thé",
-    "29": "Café",
-    "3": "Potion",
-    "30": "Alcool",
-    "31": "Soupe de grand mère",
-    "32": "Eau purifiée",
-    "33": "Vin rouge",
-    "34": "Essence de volaille n°5",
+    "28": "Tè",
+    "29": "Cafe",
+    "3": "Pozione",
+    "30": "Alcol",
+    "31": "Zuppa di nonna",
+    "32": "Acqua Purificata",
+    "33": "Vino Rosso",
+    "34": "Essenza di pollame n°5",
     "35": "Kyurburant",
-    "36": "Jus",
-    "37": "Glaçons fondus",
+    "36": "Succo",
+    "37": "Ghiaccioli sciolti",
     "38": "Saké",
-    "39": "Maté",
-    "4": "Grande Potion",
-    "40": "Champagne sabré",
-    "41": "Jus de chaussettes",
-    "42": "Bizous'koup",
-    "43": "Larmes de l'adversaire",
-    "44": "Potion de sang de loup",
-    "45": "Breuvage à base de coca",
-    "46": "Huile de ghost pepper",
-    "47": "Potion de la mort qui tue",
-    "48": "Jus de batterie",
-    "49": "Huile de noix",
-    "5": "Super Potion",
-    "50": "Breuvage du courage",
-    "51": "Épinards",
-    "52": "Jus de kiwi",
-    "53": "Jus de banane",
+    "39": "Mate",
+    "4": "Grande pozione",
+    "40": "Sciabola champagne",
+    "41": "Succo di calze",
+    "42": "Baci'Kolpi",
+    "43": "L'armi dell'avversario",
+    "44": "Pozione di sangue di lupo",
+    "45": "Bevanda con coca",
+    "46": "Olio di ghost pepper",
+    "47": "Pozione della morte che uccide",
+    "48": "Succo di batterie",
+    "49": "Olio di noci",
+    "5": "Superpozione",
+    "50": "Bevanda di coraggio",
+    "51": "Spinaci",
+    "52": "Succo di kiwi",
+    "53": "Succo di Banana",
     "54": "Friandwill",
-    "55": "Fondue hivernale",
-    "56": "Pâte à tartiner",
-    "57": "Potion de sang de dragon",
-    "58": "Potion de dureté extrême",
-    "59": "Potion à bulles",
-    "6": "Potion verte",
-    "60": "Sueur",
-    "61": "Potion non potable",
-    "62": "Potion de la mer",
-    "63": "Potion vide",
-    "64": "Potion recyclable",
-    "65": "Potion renversée",
+    "55": "Fonduta invernale",
+    "56": "Crema di nocciole",
+    "57": "Pozione di sangue di drago",
+    "58": "Pozione di resistenza estrema",
+    "59": "Sapone a bolle",
+    "6": "Pozione verde",
+    "60": "Sudore",
+    "61": "Pozione no potabile",
+    "62": "Pozione di mare",
+    "63": "Pozione vuota",
+    "64": "Pozione riciclabile",
+    "65": "Pozione rovesciata",
     "66": "Bubble tea",
-    "67": "Jus d'orange",
-    "68": "Jus de pomme",
-    "69": "Miel",
-    "7": "Potion douteuse",
-    "70": "Soupe à l'oignon",
+    "67": "Succo d'Arancia",
+    "68": "Succo di mela",
+    "69": "Miele",
+    "7": "Pozione strana",
+    "70": "Zuppa di cipolle",
     "71": "Super Nariwa",
-    "72": "Jus d'orage",
-    "73": "Expresso",
-    "74": "Potion renversante",
-    "75": "Jus de cactus",
-    "76": "Eau de douche",
+    "72": "Succo di fulmini",
+    "73": "Espresso",
+    "74": "Pozione rovesciata",
+    "75": "Succo di cactus",
+    "76": "Acqua di doccia",
     "77": "SP 95",
-    "78": "Eau savonneuse",
-    "79": "Rosée du matin",
-    "8": "Potion fumante",
-    "80": "Eau de stalactites",
-    "81": "Encre",
-    "82": "Bave sur l'oreiller",
-    "83": "Gouttes de pluie",
-    "84": "Essence de phénix",
-    "85": "Substance inconnue",
-    "86": "Cocktail tonique",
-    "87": "Rhum",
-    "88": "Bave d'escargot",
-    "89": "Eau bouillante",
-    "9": "Potion puante",
-    "90": "Jus de Pomme de Terre",
-    "91": "Eau de Mer",
-    "92": "Bave de Troll",
-    "93": "Larme de Titan"
+    "78": "Acqua saponosa",
+    "79": "Rosea del mattino",
+    "8": "Pozione fumante",
+    "80": "Acqua di stalattiti",
+    "81": "Inchiostro",
+    "82": "Bava sul cuscino",
+    "83": "Gocce di Pioggia",
+    "84": "Anima di fenice",
+    "85": "Sostanza sconosciuta",
+    "86": "Cocktail tonico",
+    "87": "Rum",
+    "88": "Bava di lumaca",
+    "89": "Acqua bollente",
+    "9": "Pozione puzzolente",
+    "90": "Succo di patate",
+    "91": "Acqua di mare",
+    "92": "Bava di troll",
+    "93": "Lacrima di titano"
   },
   "weapons": {
-    "0": "Poing",
-    "1": "Foudre de Zeus",
-    "10": "Épée en bois",
-    "11": "Pistolet vide",
-    "12": "Seringue infectée",
-    "13": "Bombe",
-    "14": "Guitare lourde",
-    "15": "Paire de dagues",
-    "16": "Pioche",
-    "17": "Masse",
-    "18": "Bâton",
-    "19": "Couteau Ancien",
-    "2": "Outils usés",
-    "20": "Branche souple",
-    "21": "Pioche abimée",
-    "22": "Arc",
-    "23": "Poêle",
-    "24": "Ciseaux",
-    "25": "Dague fragile",
-    "26": "Crosse",
-    "27": "Sabre",
-    "28": "Marteau de combat",
-    "29": "Couteau de débutant",
-    "3": "Assomoire",
-    "30": "Gant de boxe",
-    "31": "Poing renforcé",
-    "32": "Canne à pêche de débutant",
-    "33": "Vieux couteau",
-    "34": "Canne à pêche",
-    "35": "Canne à pêche de maître",
-    "36": "Épée en fer",
-    "37": "Épée de débutant",
-    "38": "Épée de maître",
-    "39": "Épées doubles",
+    "0": "Pugni",
+    "1": "Fulmine di Zeus",
+    "10": "Spada di legno",
+    "11": "Pistola vuota",
+    "12": "Siringa sporca",
+    "13": "Bomba",
+    "14": "Chitarra lorda",
+    "15": "Paio di pugnali",
+    "16": "Piccone",
+    "17": "Massa",
+    "18": "Bastone",
+    "19": "Vecchio coltello",
+    "2": "Utensili usati",
+    "20": "Ramo flessibile",
+    "21": "Piccone danneggiato",
+    "22": "Arco",
+    "23": "Padella",
+    "24": "Forbici",
+    "25": "Pugnale fragile",
+    "26": "Bastone di hockey",
+    "27": "Scimitarra",
+    "28": "Martello da combattimento",
+    "29": "Coltello di principiante",
+    "3": "Storditore",
+    "30": "Guantoni da boxe",
+    "31": "Pugno rinforzato",
+    "32": "Canna da pesca da principiante",
+    "33": "Vecchio coltello",
+    "34": "Canna da pesca",
+    "35": "Canna da pesca da maestro",
+    "36": "Spada di ferro",
+    "37": "Spada da principiante",
+    "38": "Spada da maestro",
+    "39": "Spade doppie",
     "4": "Transperceur",
     "40": "Épée en diamant",
     "41": "Épée sharpness 4",
@@ -1393,33 +1393,33 @@
     "61": "Seringue sale",
     "62": "Bio-Arme",
     "63": "Bombe atomique",
-    "64": "Brûleur",
-    "65": "Pew Pew",
-    "66": "Beat Saber",
-    "67": "Épée royale",
-    "68": "Griffe",
+    "64": "Accendino",
+    "65": "Piu Piu",
+    "66": "Mazza laser",
+    "67": "Spada reale",
+    "68": "Artiglio",
     "69": "Ines'word",
-    "7": "Dague",
-    "70": "Pistolet pan pan QQ",
-    "71": "Épée de Ragnell",
-    "72": "Ballon de fluxball",
-    "73": "Ashoir",
-    "74": "Âme du démon",
+    "7": "Pugnale",
+    "70": "Pistola piu piu sei morto",
+    "71": "Spada di Ragnell",
+    "72": "Pallone di fluxball",
+    "73": "Tritacarne",
+    "74": "Anima demoniaca",
     "75": "Boomerang",
-    "76": "Volto-hache",
-    "77": "Sabotage de l'oxygène",
-    "78": "Pouvoir de l'amitié",
-    "79": "Parapluie de grand-mère",
-    "8": "Percingasiteur",
-    "80": "Sceptre à 100 sorts",
+    "76": "Voltascia",
+    "77": "Sabotaggio dell'ossigeno",
+    "78": "Potere di l'amicizia",
+    "79": "Ombrello di nonna",
+    "8": "Piercingasitore",
+    "80": "Scettro a 100 incantesimi",
     "81": "Exagide",
-    "82": "Griffe de chat enragé",
-    "83": "Injures",
-    "84": "Tournevis sonique",
-    "85": "Pouvoir de l'amour",
-    "86": "Masque Mojaro",
+    "82": "Artiglio di gatto infuriato",
+    "83": "Parolacce",
+    "84": "Cacciavite sonico",
+    "85": "Potere dell'amore",
+    "86": "Masco di Mojaro",
     "87": "Plothammer",
-    "88": "Aile gauche d'Icare",
+    "88": "Ala sinistra d'Icare",
     "89": "Épée du Dragon",
     "9": "Clé rouillée",
     "90": "Corne de Licorne",

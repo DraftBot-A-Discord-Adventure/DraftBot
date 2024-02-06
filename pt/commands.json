@@ -4,7 +4,20 @@
     "title": ":military_medal: Informations détaillées :"
   },
   "inventory": {
-    "armors_one": ""
+    "armors_one": "Armure/Bouclier ({{count}}/{{max}}) :",
+    "armors_other": "Armures/Boucliers ({{count}}/{{max}}) :",
+    "emptySlot": ":black_large_square: **Emplacement vide**",
+    "noSlot": ":x: Aucun emplacement disponible. Achetez-en plus dans le magasin !",
+    "objects_one": "Objet ({{count}}/{{max}}) :",
+    "objects_other": "Objets ({{count}}/{{max}}) :",
+    "potions_one": "Potion ({{count}}/{{max}}) :",
+    "potions_other": "Potions ({{count}}/{{max}}) :",
+    "stockTitle": ":package: **Réserve d'objets de {{pseudo}}**",
+    "title": ":briefcase: **Inventaire de {{pseudo}}**",
+    "weapons_one": "Arme ({{count}}/{{max}}) :",
+    "weapons_other": "Armes ({{count}}/{{max}}) :",
+    "seeBackupItems": "🔄 Voir la réserve",
+    "seeEquippedItems": "🔄 Voir l'inventaire principal"
   },
   "ping": {
     "discord": {

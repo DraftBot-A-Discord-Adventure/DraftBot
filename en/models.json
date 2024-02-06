@@ -107,7 +107,7 @@
       "name_other": "Boulder tosses"
     },
     "breathTakingAttack": {
-      "description": "Inflige une faible quantité de dégâts mais peut voler le souffle de votre adversaire ou le ralentir.",
+      "description": "Inflicts a small amount of damage but can steal your opponent's breath or slow it down.",
       "name_one": "Breath-taking attack",
       "name_other": "Breath-taking attacks"
     },
@@ -154,7 +154,7 @@
     "concentration": {
       "description": "Fails if you use this action while you have an alteration. The alteration \"concentrated\" highly increases the damages dealt by the affected fighter during the next turn.",
       "name_one": "Concentration",
-      "name_other": "Concentrations"
+      "name_other": "Concentration"
     },
     "counterAttack": {
       "description": "Reply with the same action your opponent just played. Does not work on magical or divine attacks, nor if your opponent did not attack.",
@@ -1273,7 +1273,7 @@
     "4": "Large potion",
     "40": "Sabered champagne",
     "41": "Socks juice",
-    "42": "Bizous'koup",
+    "42": "SmoochSip",
     "43": "Opponent's tears",
     "44": "Potion of wolf blood",
     "45": "Erythroxylum coca mixture",
@@ -1299,7 +1299,7 @@
     "63": "Empty potion",
     "64": "Recyclable Potion",
     "65": "Poured Potion",
-    "66": "Bubble tea",
+    "66": "Bubble Tea",
     "67": "Orange juice",
     "68": "Apple juice",
     "69": "Honey",
@@ -1307,7 +1307,7 @@
     "70": "Onion soup",
     "71": "Super Nariwa",
     "72": "Storm Juice",
-    "73": "Expresso",
+    "73": "Espresso",
     "74": "Flipping Potion",
     "75": "Cactus juice",
     "76": "Shower water",
@@ -1322,7 +1322,7 @@
     "84": "Phoenix Essence",
     "85": "Unknown substance",
     "86": "Tonic cocktail",
-    "87": "Rhum",
+    "87": "Rum",
     "88": "Snail slime",
     "89": "Boiling water",
     "9": "Foul potion",
@@ -1403,7 +1403,7 @@
     "70": "Gun pan pan QQ",
     "71": "Sword of Ragnell",
     "72": "Ball of fluxball",
-    "73": "Ashoir",
+    "73": "Shopper",
     "74": "Devil's Soul",
     "75": "Boomerang",
     "76": "Charge blade",
