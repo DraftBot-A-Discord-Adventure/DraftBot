@@ -1,0 +1,41 @@
+[general]
+# Bot discord token
+token = ""
+# Put id of the discord server where the announcements will be done etc.
+main_server_id = ""
+# Test mode
+test_mode = false
+# Websocket URL
+websocket_url = ""
+
+[users]
+# The bot will use this to check if you can use admins commands
+owner_id = ""
+# Put id of the user where bot's received dms will be sent
+dm_manager_id = ""
+
+[roles]
+# Put the id of the contributors role
+contributor_role_id = ""
+# Put id of the which will be able to manage badges
+badge_manager_ids = ""
+
+[channels]
+# Put id of the contributors channel
+contributor_channel = ""
+# Put id of the channel where the main status messages from the bot will be sent
+console_channel_id = ""
+# Put id of the channel where important public announcement will be sent in french
+french_announcements_channel_id = ""
+# Put id of the channel where important public announcement will be sent in english
+english_announcements_channel_id = ""
+
+[keycloak]
+# Keycloak realm
+realm = ""
+# Keycloak URL
+url = ""
+# Keycloak client ID
+clientId = ""
+# Keycloak client secret
+clientSecret = ""

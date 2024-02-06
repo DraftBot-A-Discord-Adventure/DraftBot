@@ -1,0 +1,39 @@
+{
+  "name": "draftbot_discord_middleware",
+  "version": "5.0.0",
+  "description": "Discord middleware package of DraftBot",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "engineStrict": true,
+  "scripts": {
+    "start": "yarn interface && tsc && node dist/Discord/src/index.js",
+    "cd": "cd",
+    "eslint": "eslint src",
+    "eslintFix": "eslint src --fix",
+    "tsc": "tsc",
+    "yarnInstall": "yarn install",
+    "dockerStart": "node dist/Discord/src/index.js",
+    "interface": "i18next-resources-for-ts interface -i ../Lang/en -o ./src/@types/resources.d.ts"
+  },
+  "dependencies": {
+    "@types/i18next": "^13.0.0",
+    "@types/node": "20.4.8",
+    "@types/ws": "^8.5.10",
+    "discord.js": "^14.14.1",
+    "i18next": "^23.7.6",
+    "i18next-resources-for-ts": "^1.4.0",
+    "source-map-support": "^0.5.21",
+    "toml": "^3.0.0",
+    "ws": "^8.14.2"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "6.8.0",
+    "@typescript-eslint/parser": "6.8.0",
+    "eslint": "8.52.0",
+    "eslint-config-google": "0.14.0",
+    "typescript": "5.2.2",
+    "typescript-eslint": "0.0.1-alpha.0"
+  }
+}
