@@ -1,0 +1,54 @@
+{
+  "nameDisplay": "{{emote}} **{{{name}}}**",
+  "nerfDisplay": "~~{{old}}~~ {{max}}",
+  "attack": ":dagger: {{value}}",
+  "defense": ":shield: {{value}}",
+  "speed": ":rocket: {{value}}",
+  "weapons": {
+    "fieldName": "Arme :",
+    "fieldValue": "**{{name}}** | {{rarity}} | {{values}}"
+  },
+  "armors": {
+    "fieldName": "Armure/Bouclier :",
+    "fieldValue": "**{{name}}** | {{rarity}} | {{values}}"
+  },
+  "potions": {
+    "fieldName": "Potion :",
+    "fieldValue": "**{{name}}** | {{rarity}} | {{nature}}",
+    "natures": [
+      ":x: Aucun effet",
+      ":heart: Vie + {{power}}",
+      ":rocket: Vitesse + {{power}} pendant le prochain combat",
+      ":crossed_swords: Attaque + {{power}} pendant le prochain combat",
+      ":shield: Défense + {{power}} pendant le prochain combat",
+      ":clock1030: Avance le temps de {{power}}",
+      ":moneybag: Argent + {{power}}",
+      ":zap: Énergie + {{power}}"
+    ]
+  },
+  "objects": {
+    "fieldName": "Objet :",
+    "fieldValue": "**{{name}}** | {{rarity}} | {{nature}}",
+    "natures": [
+      ":x: Aucun effet",
+      ":heart: Vie + {{power}} par jour",
+      ":rocket: Vitesse + {{power}} pendant les combats",
+      ":crossed_swords: Attaque + {{power}} pendant les combats",
+      ":shield: Défense + {{power}} pendant les combats",
+      ":clock1030: Avance le temps de {{power}} chaque jour",
+      ":moneybag: Argent + {{power}} par jour",
+      ":zap: Énergie + {{power}} par jour"
+    ]
+  },
+  "rarities": [
+    ":small_orange_diamond: Basique",
+    ":large_orange_diamond: Commun",
+    ":fire: Peu commun",
+    ":trident: Exotique",
+    ":comet: Rare",
+    ":dizzy: Spécial",
+    ":star: Épique",
+    ":star2: Légendaire",
+    ":gem: Mythique"
+  ]
+}

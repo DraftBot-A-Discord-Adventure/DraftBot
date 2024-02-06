@@ -1,0 +1,42 @@
+{
+  "badges": {
+    "description": "Affiche des informations sur les badges et leur fonctionnement.",
+    "name": "badges"
+  },
+  "inventory": {
+    "description": "Affiche l'inventaire du joueur.",
+    "name": "inventaire",
+    "options": {
+      "rank": {
+        "description": "Le classement du joueur dont l'inventaire doit être affiché.",
+        "name": "classement"
+      },
+      "user": {
+        "description": "L'utilisateur dont l'inventaire doit être affiché.",
+        "name": "utilisateur"
+      }
+    }
+  },
+  "ping": {
+    "description": "Affiche la latence du bot et permet au joueur de vérifier si le bot est en ligne.",
+    "name": "ping"
+  },
+  "profile": {
+    "description": "Afficher le profil d'un joueur.",
+    "name": "profil",
+    "options": {
+      "rank": {
+        "description": "Le classement du joueur dont le profil doit être affiché.",
+        "name": "classement"
+      },
+      "user": {
+        "description": "L'utilisateur dont le profil doit être affiché.",
+        "name": "utilisateur"
+      }
+    }
+  },
+  "scopes": {
+    "global": "🏆 Classement général",
+    "server": "🚩 Classement du serveur"
+  }
+}
