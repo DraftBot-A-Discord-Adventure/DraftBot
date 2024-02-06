@@ -1,0 +1,1 @@
+export type MaxStatsValues = { attack: number, defense: number, speed: number }

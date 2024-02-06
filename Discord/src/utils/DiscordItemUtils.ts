@@ -1,10 +1,11 @@
 import {Language} from "../../../Lib/src/Language";
 import i18n from "../translations/i18n";
-import {MaxStatsValues} from "../../../Lib/dist/Core/src/data/GenericItem";
 import {MainItemDisplayPacket, SupportItemDisplayPacket} from "../../../Lib/src/packets/commands/CommandInventoryPacket";
 import {EmbedField} from "discord.js";
 import {ItemNature} from "../../../Lib/src/constants/ItemConstants";
 import {minutesDisplay} from "../../../Lib/src/utils/TimeUtils";
+import {MaxStatsValues} from "../../../Lib/src/types/MaxStatsValues";
+
 
 type Value = {
 	maxValue: number,

@@ -3,7 +3,6 @@ import {ItemDataController} from "./DataController";
 import {SupportItem} from "./SupportItem";
 import {RandomUtils} from "../core/utils/RandomUtils";
 import {ObjectItem} from "./ObjectItem";
-import {MaxStatsValues} from "./GenericItem";
 import {SupportItemDisplayPacket} from "../../../Lib/src/packets/commands/CommandInventoryPacket";
 
 export class Potion extends SupportItem {

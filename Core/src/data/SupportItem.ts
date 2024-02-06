@@ -1,6 +1,7 @@
-import {GenericItem, MaxStatsValues} from "./GenericItem";
+import {GenericItem} from "./GenericItem";
 import {ItemCategory, ItemNature} from "../../../Lib/src/constants/ItemConstants";
 import {SupportItemDisplayPacket} from "../../../Lib/src/packets/commands/CommandInventoryPacket";
+import {MaxStatsValues} from "../../../Lib/src/types/MaxStatsValues";
 
 export abstract class SupportItem extends GenericItem {
 	declare readonly power: number;

@@ -2,8 +2,8 @@ import {ItemCategory, ItemNature} from "../../../Lib/src/constants/ItemConstants
 import {ItemDataController} from "./DataController";
 import {SupportItem} from "./SupportItem";
 import {RandomUtils} from "../core/utils/RandomUtils";
-import {MaxStatsValues} from "./GenericItem";
 import {SupportItemDisplayPacket} from "../../../Lib/src/packets/commands/CommandInventoryPacket";
+import {MaxStatsValues} from "../../../Lib/src/types/MaxStatsValues";
 
 export class ObjectItem extends SupportItem {
 	categoryName = "objects";

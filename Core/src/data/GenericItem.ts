@@ -1,7 +1,5 @@
 import {Data} from "./Data";
 
-export type MaxStatsValues = { attack: number, defense: number, speed: number }
-
 export abstract class GenericItem extends Data<number> {
 	declare readonly rarity: number;
 
