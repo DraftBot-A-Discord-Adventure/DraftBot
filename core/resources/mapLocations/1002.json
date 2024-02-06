@@ -1,0 +1,5 @@
+{
+	"type": "ruins",
+	"canBeGoToPlaceMissionDestination": false,
+	"attribute": "pve_island"
+}

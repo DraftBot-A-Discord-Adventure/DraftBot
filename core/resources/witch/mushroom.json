@@ -1,0 +1,10 @@
+{
+	"outcomeProbabilities": {
+		"potion": 25,
+		"effect": 0,
+		"lifeLoss": 25,
+		"nothing": 0
+	},
+	"isIngredient": true,
+	"emoji": "🍄"
+}

@@ -1,0 +1,54 @@
+{
+	"properties": {
+		"alterationStories": {
+			"badBerries": {
+				"alte": ":sick:"
+			},
+			"gentleBreeze": {
+				"alte": ":sleeping:"
+			},
+			"mysteriousBottle": {
+				"alte": ":zany_face:",
+				"tags": ["drinkAlcohol"]
+			},
+			"strangeLiquid": {
+				"alte": ":sick:"
+			},
+			"expiredProvisions": {
+				"alte": ":confounded:"
+			},
+			"unexpectedRider": {
+				"alte": ":dizzy_face:"
+			},
+			"fallingBranch": {
+				"alte": ":head_bandage:"
+			},
+			"precipiceFall": {
+				"alte": ":dizzy_face:"
+			},
+			"ambushedByGroup": {
+				"alte": ":head_bandage:"
+			},
+			"cowStampede": {
+				"alte": ":scream:"
+			},
+			"trippedOverRoot": {
+				"alte": ":head_bandage:"
+			},
+			"encounterWithBearCub": {
+				"alte": ":scream:"
+			},
+			"wrongDirection": {
+				"alte": ":face_with_monocle:"
+			},
+			"chilledByColdNights": {
+				"alte": ":cold_face:"
+			},
+			"mistakenIdentity": {
+				"alte": ":lock:"
+			}
+		}
+	},
+	"rarity": 1,
+	"emote": ":scream:"
+}

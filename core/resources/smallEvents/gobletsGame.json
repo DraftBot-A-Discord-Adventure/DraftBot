@@ -1,0 +1,16 @@
+{
+	"properties": {
+		"goblets": {
+			"metal": "🐲",
+			"biggest": "🪣",
+			"sparkling": "✨"
+		},
+		"malusTypes": [
+			"life",
+			"time",
+			"nothing"
+		]
+	},
+	"rarity": 2,
+	"emote": ":milk:"
+}

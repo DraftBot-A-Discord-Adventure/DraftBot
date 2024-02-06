@@ -1,0 +1,12 @@
+{
+	"outcomeProbabilities": {
+		"potion": 40,
+		"effect": 0,
+		"lifeLoss": 5,
+		"nothing": 5
+	},
+	"timePenalty": 15,
+	"forceEffect": true,
+	"isIngredient": false,
+	"emoji": "🌡️"
+}

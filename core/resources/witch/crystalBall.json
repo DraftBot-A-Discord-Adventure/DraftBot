@@ -1,0 +1,11 @@
+{
+	"outcomeProbabilities": {
+		"potion": 0,
+		"effect": 0,
+		"lifeLoss": 0,
+		"nothing": 0
+	},
+	"effectName": ":scream:",
+	"isIngredient": false,
+	"emoji": "🔮"
+}
