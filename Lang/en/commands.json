@@ -17,7 +17,7 @@
     "weapons_one": "Weapon ({{count}}/{{max}}):",
     "weapons_other": "Weapons ({{count}}/{{max}}):",
     "seeBackupItems": "🔄 See backup items",
-    "seeEquippedItems":  "🔄 See equipped items"
+    "seeEquippedItems": "🔄 See equipped items"
   },
   "ping": {
     "discord": {
