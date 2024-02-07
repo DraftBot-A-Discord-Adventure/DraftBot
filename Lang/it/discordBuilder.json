@@ -40,7 +40,7 @@
     "server": "🚩Classifica del server"
   },
   "update": {
-    "description": "Affiche la version actuelle du bot.",
-    "name": "nouveautes"
+    "description": "Mostrare la versione attuale del bot.",
+    "name": "novità"
   }
 }
