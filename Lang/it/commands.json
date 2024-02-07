@@ -4,20 +4,20 @@
     "title": ":military_medal: Informazione dettagliate :"
   },
   "inventory": {
-    "armors_one": "Armure/Bouclier ({{count}}/{{max}}) :",
-    "armors_other": "Armures/Boucliers ({{count}}/{{max}}) :",
-    "emptySlot": ":black_large_square: **Emplacement vide**",
-    "noSlot": ":x: Aucun emplacement disponible. Achetez-en plus dans le magasin !",
-    "objects_one": "Objet ({{count}}/{{max}}) :",
-    "objects_other": "Objets ({{count}}/{{max}}) :",
-    "potions_one": "Potion ({{count}}/{{max}}) :",
-    "potions_other": "Potions ({{count}}/{{max}}) :",
-    "stockTitle": ":package: **Réserve d'objets de {{pseudo}}**",
-    "title": ":briefcase: **Inventaire de {{pseudo}}**",
-    "weapons_one": "Arme ({{count}}/{{max}}) :",
-    "weapons_other": "Armes ({{count}}/{{max}}) :",
-    "seeBackupItems": "🔄 Voir la réserve",
-    "seeEquippedItems": "🔄 Voir l'inventaire principal"
+    "armors_one": "Armatura/Scudo ({{count}}/{{max}}) :",
+    "armors_other": "Armature/Scudi ({{count}}/{{max}}) :",
+    "emptySlot": ":black_large_square: **Posto libero**",
+    "noSlot": ":x: Nessuno spazio libero. Compratene di più nel negozio !",
+    "objects_one": "Oggetto ({{count}}/{{max}}) :",
+    "objects_other": "Oggetti ({{count}}/{{max}}) :",
+    "potions_one": "Pozione ({{count}}/{{max}}) :",
+    "potions_other": "Pozioni ({{count}}/{{max}}) :",
+    "stockTitle": ":package: **Riserva d'oggetti di {{pseudo}}**",
+    "title": ":briefcase: **Inventario di {{pseudo}}**",
+    "weapons_one": "Arma ({{count}}/{{max}}) :",
+    "weapons_other": "Armi ({{count}}/{{max}}) :",
+    "seeBackupItems": "🔄 Vedere la riserva",
+    "seeEquippedItems": "🔄 Vedere l'inventario principale"
   },
   "ping": {
     "discord": {
