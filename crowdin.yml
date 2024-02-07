@@ -2,4 +2,4 @@ files:
   - source: /Lang/fr/*.json
     translation: /Lang/%two_letters_code%/%file_name%.json
 commit_message: "[ci skip]"
-pull_request_labels: "translations"
+pull_request_labels: ["translations"]
