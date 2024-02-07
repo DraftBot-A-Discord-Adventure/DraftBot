@@ -17,20 +17,6 @@
       }
     }
   },
-  "inventory": {
-    "description": "",
-    "name": "",
-    "options": {
-      "rank": {
-        "description": "",
-        "name": ""
-      },
-      "user": {
-        "description": "",
-        "name": ""
-      }
-    }
-  },
   "ping": {
     "description": "Locandina della latenza del bot e permette ai giocatori di verificare se il bot è connesso.",
     "name": "ping"
