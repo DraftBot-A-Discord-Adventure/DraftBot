@@ -1,5 +1,4 @@
 import {CommandUpdatePacketReq, CommandUpdatePacketRes} from "../../../../Lib/src/packets/commands/CommandUpdatePacket";
-import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
 import {ICommand} from "../ICommand";
 import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
