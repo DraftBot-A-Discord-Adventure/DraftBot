@@ -1,9 +1,9 @@
 version = 1
 
 exclude_patterns = [
-    "src/core/utils/astronomy.ts",
-    "src/core/database/game/migrations/*.ts",
-    "src/core/database/logs/migrations/*.ts"
+    "Core/src/core/utils/astronomy.ts",
+    "Core/src/core/database/game/migrations/*.ts",
+    "Core/src/core/database/logs/migrations/*.ts"
 ]
 
 [[analyzers]]
