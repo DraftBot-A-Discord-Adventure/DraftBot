@@ -106,5 +106,9 @@
       "fieldValue": "{{effect}} {{timeLeft}}"
     },
     "title": "{{effect}} | {{pseudo}} | Level {{level}}"
+  },
+  "update": {
+    "description": "The latest version of the bot's core is **{{coreVersion}}**. The Discord module's version is **{{discordModuleVersion}}**.\n\nInformations about the changelog can be found here:\nhttps://guide.draftbot.com/v/en/lore/change-logs",
+    "title": ":scroll: Changelog"
   }
 }
