@@ -38,5 +38,9 @@
   "scopes": {
     "global": "🏆 Classement général",
     "server": "🚩 Classement du serveur"
+  },
+  "update": {
+    "description": "Affiche la version actuelle du bot.",
+    "name": "nouveautes"
   }
 }
