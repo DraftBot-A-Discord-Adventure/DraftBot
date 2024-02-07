@@ -34,7 +34,7 @@ Please do not copy and paste the commands we provide in this readme without :
 
 ## BETA BRANCH WARNING
 
-You are here in the not yet released v5 of DraftBot. Compared to previous versions of the game, we migrated to microservices. Cloning this repository and its submodules will allow you to get all the services necessary to run draftbot v5.
+You are here in the not yet released v5 of DraftBot. Compared to previous versions of the game, we migrated to microservices. Cloning this repository will allow you to get all the services necessary to run draftbot v5.
 
 This work is still in progress, please do not open issues about bugs faced in this version of the software.
 
@@ -58,8 +58,7 @@ Please do not skip any step of this guide, otherwise, the following commands wil
 
 - Install git: 🐧 `apt-get install git` | 🪟 https://git-scm.com/download/win
 - Download the bot: `git clone https://github.com/BastLast/DraftBot-A-Discord-Adventure`
-- Switch to the DraftBot v5 branch `git checkout draftbot-v5-multirepo-preparation`
-- Download all the git submodules:
+- Switch to the DraftBot v5 branch `git checkout draftbot-v5`
 - Install NodeJS (check nvm documentation for instructions)
   - Check any package.json for the minimal required version
 - Install Yarn `npm install --global yarn`
