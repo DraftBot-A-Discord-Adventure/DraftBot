@@ -34,7 +34,7 @@ export class SmallEventDataController extends DataControllerString<SmallEvent> {
 	private static initCache(): void {
 		if (SmallEventDataController.smallEventsFunctionsCache === null) {
 			SmallEventDataController.smallEventsFunctionsCache = new Map<string, SmallEventFuncs>();
-			SmallEventDataController.loadSmallEventsFromFolder("dist/Core/src/Core/smallEvents", "../Core/smallEvents");
+			SmallEventDataController.loadSmallEventsFromFolder("dist/Core/src/core/smallEvents", "../core/smallEvents");
 		}
 	}
 

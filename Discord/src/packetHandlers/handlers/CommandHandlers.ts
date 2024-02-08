@@ -11,6 +11,8 @@ import {CommandInventoryPacketRes} from "../../../../Lib/src/packets/commands/Co
 import {handleCommandInventoryPacketRes} from "../../commands/player/InventoryCommand";
 import {handleCommandUpdatePacketRes} from "../../commands/player/UpdateCommand";
 import { CommandUpdatePacketRes } from "../../../../Lib/src/packets/commands/CommandUpdatePacket";
+import {CommandTestPacketReq, CommandTestPacketRes} from "../../../../Lib/src/packets/commands/CommandTestPacket";
+import {handleCommandTestPacketRes} from "../../commands/player/TestCommand";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
@@ -41,5 +43,10 @@ export default class CommandHandlers {
 	@packetHandler(CommandUpdatePacketRes)
 	updateRes(socket: WebSocket, packet: CommandUpdatePacketRes, context: PacketContext): void {
 		handleCommandUpdatePacketRes(packet, context).then();
+	}
+
+	@packetHandler(CommandTestPacketRes)
+	testRes(socket: WebSocket, packet: CommandTestPacketRes, context: PacketContext): void {
+		handleCommandTestPacketRes(packet, context).then();
 	}
 }

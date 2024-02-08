@@ -97,38 +97,6 @@ export class CommandsTest {
 		return ret;
 	}
 
-	/**
-	 * Execute the test command, and alert the user about its success or its failure
-	 * @param testCommand - the executed test command
-	 * @param {string[]} args - Additional arguments sent with the test command
-	 * @param response
-	 * @param client
-	 */
-	static async executeAndAlertUser(
-		testCommand: ITestCommand,
-		args: string[],
-		response: DraftBotPacket[],
-		client: Client): Promise<void> {
-		const player = await Players.getById(1); // TODO replace with the right one
-		try {
-			const messageToDisplay = await testCommand.execute(player, args, response, client);
-			if (!messageToDisplay || messageToDisplay === "") {
-				return;
-			}
-			response.push(makePacket(CommandTestPacketRes, {
-				result: messageToDisplay,
-				isError: false
-			}));
-		}
-		catch (e) {
-			console.error(e);
-			response.push(makePacket(CommandTestPacketRes, {
-				result: `:x: | Une erreur est survenue pendant la commande test ${testCommand.name} : \`\`\`${e.stack}\`\`\``,
-				isError: true
-			}));
-		}
-	}
-
 	static getTypeOf(variable: string): TypeKey {
 		for (const typeIn of typeVariableChecks.keys()) {
 			if (typeVariableChecks.get(typeIn)(variable)) {

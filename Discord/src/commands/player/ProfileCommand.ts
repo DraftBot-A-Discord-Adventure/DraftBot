@@ -190,7 +190,7 @@ function generateFields(packet: CommandProfilePacketRes, language: Language): Em
 			value: i18n.t("commands:profile.map.fieldValue", {
 				lng: language,
 				mapEmote: packet.data.destination.emote,
-				mapName: i18n.t(`models:map_locations.${packet.data.destination.id}`, { lng: language })
+				mapName: i18n.t(`models:map_locations.${packet.data.destination.id}.name`, { lng: language })
 			}),
 			inline: false
 		});
