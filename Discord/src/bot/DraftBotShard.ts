@@ -108,9 +108,9 @@ async function main(): Promise<void> {
 	 */
 	async function onDiscordGuildCreate(guild: Guild): Promise<void> {
 		// TODO
-		//const serv = await Servers.getOrRegister(botConfig.MAIN_SERVER_ID);
+		// Const serv = await Servers.getOrRegister(botConfig.MAIN_SERVER_ID);
 		const msg = getJoinLeaveMessage(guild, true, "en");
-		//draftBotInstance.logsDatabase.logServerJoin(guild.id).then();
+		// DraftBotInstance.logsDatabase.logServerJoin(guild.id).then();
 		console.log(msg);
 	}
 
@@ -119,9 +119,9 @@ async function main(): Promise<void> {
 	 */
 	async function onDiscordGuildDelete(guild: Guild): Promise<void> {
 		// TODO
-		//const serv = await Servers.getOrRegister(botConfig.MAIN_SERVER_ID);
+		// Const serv = await Servers.getOrRegister(botConfig.MAIN_SERVER_ID);
 		const msg = getJoinLeaveMessage(guild, false, "en");
-		//draftBotInstance.logsDatabase.logServerQuit(guild.id).then();
+		// DraftBotInstance.logsDatabase.logServerQuit(guild.id).then();
 		console.log(msg);
 	}
 

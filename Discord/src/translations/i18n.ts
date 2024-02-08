@@ -12,7 +12,7 @@ import * as frItems from "../../../Lang/fr/items.json";
 import * as enModels from "../../../Lang/en/models.json";
 import * as frModels from "../../../Lang/fr/models.json";
 
-// todo load automatically modules
+// Todo load automatically modules
 
 i18next.init({
 	fallbackLng: "fr",
