@@ -20,8 +20,7 @@ export default class CommandHandlers {
 	pingRes(socket: WebSocket, packet: CommandPingPacketRes, context: PacketContext): void {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		interaction?.editReply({
-			content: i18n.t("commands:ping.discord.edit", {
-				lang: interaction?.channel.language,
+			content: i18n.t("commands:ping.discord.edit", {lang: interaction?.channel.language,
 				totalLatency: Date.now() - packet.clientTime,
 				discordApiLatency: draftBotClient!.ws.ping,
 				shardId: shardId,

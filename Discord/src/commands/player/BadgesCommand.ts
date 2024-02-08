@@ -10,23 +10,23 @@ import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
  * Pings the bot, to check if it is alive and how well is it
  */
 async function getPacket(interaction: DraftbotInteraction): Promise<CommandBadgesPacketReq> {
-    const packet = makePacket(CommandBadgesPacketReq, {});
-    await interaction.reply({
-        embeds: [new DraftBotEmbed()
-            .setTitle(i18n.t("commands:badges.title", {
-                    lng: interaction.channel.language
-                }
-            ))
-            .setDescription(i18n.t("commands:badges.description", {
-                lng: interaction.channel.language
-            }))]
-    });
-    return packet;
+	const packet = makePacket(CommandBadgesPacketReq, {});
+	await interaction.reply({
+		embeds: [new DraftBotEmbed()
+			.setTitle(i18n.t("commands:badges.title", {
+				lng: interaction.channel.language
+			}
+			))
+			.setDescription(i18n.t("commands:badges.description", {
+				lng: interaction.channel.language
+			}))]
+	});
+	return packet;
 }
 
 export const commandInfo: ICommand = {
-    slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("badges"),
-    getPacket,
-    requirements: {},
-    mainGuildCommand: false
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("badges"),
+	getPacket,
+	requirements: {},
+	mainGuildCommand: false
 };
