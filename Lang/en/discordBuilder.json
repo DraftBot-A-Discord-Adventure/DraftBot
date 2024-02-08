@@ -39,6 +39,16 @@
     "global": "🏆 Global ranking.",
     "server": "🚩 Server ranking."
   },
+  "test": {
+    "description": "Cheat command for testers (TEST MODE ONLY).",
+    "name": "test",
+    "options": {
+      "commandName": {
+        "description": "Test command executed.",
+        "name": "order"
+      }
+    }
+  },
   "update": {
     "description": "Displays the bot's latest version.",
     "name": "update"
