@@ -39,6 +39,16 @@
     "global": "🏆 Classifica generale",
     "server": "🚩Classifica del server"
   },
+  "test": {
+    "description": "Commande de triche pour les testeurs (MODE TEST UNIQUEMENT).",
+    "name": "test",
+    "options": {
+      "commandName": {
+        "description": "Commande test à exécuter.",
+        "name": "commande"
+      }
+    }
+  },
   "update": {
     "description": "Mostrare la versione attuale del bot.",
     "name": "novità"
