@@ -501,167 +501,167 @@
       "particle": "verso la"
     },
     "1104": {
-      "description": "Una magnifica caverna di ghiaccio. Centinaia di stalattiti e stalagmiti decorano questa caverna. La luce naturale illumina questi cristalli di ghiaccio, dando l'impressione di migliaia di stelle. Se si dimenticano le centinaia di esploratori morti che sono scivolati e si sono impalati sulle stalagmiti, questa caverna è incredibilmente bella o assolutamente triste. La Grotta dei cristalli è una srada pericolosa per raggiungere la il pico innevato.",
-      "name": "Caverne de cristal",
+      "description": "Una magnifica caverna di ghiaccio. Centinaia di stalattiti e stalagmiti decorano questa caverna. La luce naturale illumina questi cristalli di ghiaccio, dando l'impressione di migliaia di stelle. Se si dimenticano le centinaia di esploratori morti che sono scivolati e si sono impalati sulle stalagmiti, questa caverna è incredibilmente bella o assolutamente triste. La Grotta dei cristalli è una srada pericolosa per raggiungere la il picco innevato.",
+      "name": "Grotta di cristallo",
       "particle": "verso la"
     },
     "1105": {
-      "description": "Cette caverne, très similaire à sa sœur la caverne de cristal, comporte cependant un grand avantage. Elle mène au pic enneigé en passant dans les profondeurs de la terre. Il s'agit d'un long chemin sur la glace et la roche. Elle doit son nom à ces grottes qui descendent très profond sous terre et laissent apparaitre de belles formations de glace.",
-      "name": "Caverne cœur de glace",
+      "description": "Questa caverna, molto simile alla sua sorella, la Grotta dei Cristalli, ha un grande vantaggio. Conduce al picco innevato attraverso le profondità della terra. È un lungo percorso su ghiaccio e roccia. Deve il suo nome alle grotte che scendono in profondità nel sottosuolo, rivelando bellissime formazioni di ghiaccio.",
+      "name": "Cuore della Caverna di Ghiaccio",
       "particle": "verso la"
     },
     "1106": {
-      "description": "Ce gigantesque pic domine toute l'île. Il est visible à des kilomètres à la ronde. Très difficile d'accès, le pic enneigé abrite de vieilles structures en bois datant d'une ancienne civilisation. Les deux chemins y menant étant très périlleux, peu d'hommes ont pu voir ces structures de leurs propres yeux.",
-      "name": "Pic enneigé",
+      "description": "Questo gigantesco picco domina l'intera isola. È visibile a chilometri di distanza. Molto difficile d'accesso, il picco innevato ospita antiche strutture in legno risalenti a un'antica civiltà. Poiché i due sentieri che vi conducono sono molto pericolosi, poche persone sono riuscite a vedere queste antiche strutture con i propri occhi.",
+      "name": "Picco innevato",
       "particle": "verso lo"
     },
     "12": {
-      "description": "Une grande plaine vide nordique sans grand intérêt.",
-      "name": "L'Étendue",
+      "description": "Una vasta pianura vuota settentrionale di scarso interesso.",
+      "name": "La Distesa",
       "particle": "verso"
     },
     "13": {
-      "description": "Un chemin difficile d'accès, boueux et humide. La Route Marécageuse relie l'Étendue à la Rivière aux crabes.",
-      "name": "Route Marécageuse",
+      "description": "Una strada difficile, fangosa e bagnata. La Strada Paludosa collega la Distesa al Fiume dei granchi.",
+      "name": "Strada Paludosa",
       "particle": "verso la"
     },
     "14": {
-      "description": "Un grand lac où les familles aiment bien se réunir. La rivière Vacarme vient s'y jeter.",
-      "name": "Lac Mirage",
+      "description": "Un grande lago dove le famiglie amano riunirsi. Il fiume Baccano viene buttarsi.",
+      "name": "Lago Miraggio",
       "particle": "verso lo"
     },
     "15": {
-      "description": "Le Mont Celestrum est la montagne dominante de la région. Haute de plusieurs kilomètres, Celestrum est visible de tous. On raconte qu'elle porte le nom de l'ancienne déesse. Par ailleurs une seule personne est parvenue à grimper jusqu'au sommet. On ne retient d'elle que ses initiales : M-B.",
-      "name": "Mont Célestrum",
+      "description": "Il monte Celestrum è la montagna dominante della regione. Alto diversi chilometri, il Celestrum è visibile a tutti. Si dice che porta il nome dell'antica dea. In realtà, solo una persona è riuscita a salire fino alla cima. Di lei rimangono solo le iniziali: M-B.",
+      "name": "Monte Celestrum",
       "particle": "verso lo"
     },
     "16": {
-      "description": "Petit chemin dangereux bordant la rivière Vacarme. Attention à ne pas tomber.",
-      "name": "Chemin aux Loups",
+      "description": "Piccola strada pericolosa vicina al fiume Baccano. Attenzione a non cadere.",
+      "name": "Strada dei Lupi",
       "particle": "verso lo"
     },
     "17": {
-      "description": "Village chaud bordant la vallée des rois. Il s'agit d'une oasis chaleureuse pour les voyageurs en transit.",
-      "name": "Village Coco",
+      "description": "Caldo villaggio che confina la Valle dei Re. È un'oasi calmo per i viaggiatori in transito.",
+      "name": "Villaggio Coco",
       "particle": "verso lo"
     },
     "18": {
-      "description": "Cette rivière doit son nom au bruit produit par son fort courant qui a fait perdre la vie à de nombreux villageois.",
-      "name": "Rivière Vacarme",
+      "description": "Questo fiume deve il suo nome al rumore prodotto dalla sua forte corrente, che ha causato la morte di molti abitanti del villaggio.",
+      "name": "Fiume Baccano",
       "particle": "verso la"
     },
     "19": {
-      "description": "Plage créée par les forts vents de la Vallée des Rois. La Dune protège les Plaines du Contre Bois de la chaleur et amène l'eau de la rivière Vacarme.",
-      "name": "La Dune",
+      "description": "Una spiaggia creata dai forti venti della Valle dei Re. La duna protegge le Pianure del Boschive dal caldo e porta l'acqua del fiume Baccano.",
+      "name": "La Duna",
       "particle": "verso"
     },
     "1999": {
-      "description": "Un vieux bateau en bois, il a l'air de tenir le coup grâce aux réparations des ouvriers. Il est prêt à partir et n'attend plus que votre arrivée.",
-      "name": "Bateau pour quitter l'île",
+      "description": "Una vecchia barca in legno, che sembra resistere bene grazie alle riparazioni effettuate dagli operai. È pronta a partire, aspetta solo il vostro arrivo.",
+      "name": "Barca per lasciare l'isola",
       "particle": "verso lo"
     },
     "2": {
-      "description": "Une petite route qui permet de se rendre à la campagne à partir de Mergagnan et inversement.",
-      "name": "Voie champêtre",
+      "description": "Una piccola strada che conduce alla campagna da Mergagnan e viceversa.",
+      "name": "Strada di campagna",
       "particle": "verso la"
     },
     "20": {
-      "description": "Une vaste plaine paisible et agricole.",
-      "name": "Plaines du Contre Bois",
+      "description": "Una vasta e tranquilla pianura agricola.",
+      "name": "Pianure Boschive",
       "particle": "verso gli"
     },
     "21": {
-      "description": "Une route très empruntée par les villageois. Beaucoup de petits vendeurs ambulants s'y installent le temps d'une journée pour au final créer un immense marché.",
-      "name": "Route des Merveilles",
+      "description": "Una strada molto utilizzata dagli abitanti del villaggio. Molti piccoli venditori ambulanti si installano qui per un giorno, creando un grande mercato.",
+      "name": "Strada delle Meraviglie",
       "particle": "verso la"
     },
     "22": {
-      "description": "Forêt mal famée au bord de Claire De Ville, Bois Hurlant a une très mauvaise réputation. Repaire de bandits et hors la loi en tout genre, elle tient surtout son nom de ces pratiques douteuses il y a de ça des centaines d'années.",
-      "name": "Bois Hurlant",
+      "description": "Famigerata foresta ai margini di Claire De Ville, il Bosco Urlante ha una pessima reputazione. Rifugio di banditi e fuorilegge di ogni genere, il suo nome deriva principalmente dalle dubbie pratiche di centinaia di anni fa.",
+      "name": "Bosco Urlante",
       "particle": "verso lo"
     },
     "22222": {
-      "description": "Une zone de test pour les monstres. N'est jamais censée apparaître dans le jeu",
-      "name": "Zone de test des monstres",
+      "description": "Un'area di prova per i mostri. Non dovrebbe mai apparire nel gioco",
+      "name": "Area di prova dei mostri",
       "particle": "verso la"
     },
     "23": {
-      "description": "Grande ville marchande et carrefour économique, Claire De Ville n'a pas toujours été aussi accueillante. Au début très pauvre, elle a su se développer rapidement grâce à ses nombreux commerces et hôtels offrant un large choix aux voyageurs de la région. Claire De Ville est aussi réputée pour son calme et son respect de l'ordre.",
+      "description": "Importante città mercantile e crocevia economico, Claire De Ville non è sempre stata così accogliente. Inizialmente molto povera, si è sviluppata rapidamente grazie ai suoi numerosi negozi e alberghi che offrono un'ampia scelta ai viaggiatori della regione. Claire De Ville è anche rinomata per la sua calma e il rispetto dell'ordine.",
       "name": "Claire De Ville",
       "particle": "verso"
     },
     "24": {
-      "description": "Une route très raide qui mène jusqu'à Claire De Ville. Tout dépend dans quel sens vous l'empruntez.",
-      "name": "Route Grimpante",
+      "description": "Una strada molto ripida che porta a Claire De Ville. Tutto dipende dalla strada che prendete.",
+      "name": "Strada Arrampicata",
       "particle": "verso la"
     },
     "25": {
-      "description": "Tout est dans le nom. Une rivière très appréciée des poissonniers de Claire De Ville.",
-      "name": "Rivière aux Crabes",
+      "description": "È tutto nel nome. Un fiume molto apprezzato dai pescivendoli di Claire De Ville.",
+      "name": "Fiume dei Granchi",
       "particle": "verso la"
     },
     "26": {
-      "description": "Une paisible ville au bord de la Plage Sentinelle.",
+      "description": "Una piccola cita tranquilla sulle rive di Spiaggia Sentinella.",
       "name": "Mergagnan",
       "particle": "verso"
     },
     "27": {
-      "description": "Une forêt au bord du Mont Célestrum.",
-      "name": "Forêt Célestrum",
+      "description": "Una foresta ai margini del Monte Celestrum.",
+      "name": "Foresta di Celestrum",
       "particle": "verso la"
     },
     "28": {
-      "description": "Entrée du château du roi, entouré d'une épaisse muraille, il semble pouvoir résister à toutes les attaques imaginables.",
-      "name": "Portes du château",
+      "description": "L'ingresso del castello del re, circondato da uno spesso muro, sembra in grado di resistere a qualsiasi attacco immaginabile.",
+      "name": "Porte del castello",
       "particle": "verso gli"
     },
     "29": {
-      "description": "Immense salle ornée de nombreuses oeuvres d'art",
-      "name": "Salle de réception",
+      "description": "Un'enorme sala decorata con numerose opere d'arte",
+      "name": "Salotto",
       "particle": "verso la"
     },
     "3": {
-      "description": "Grande plaine de l'ouest de la contrée bordée d'une grande forêt et traversée par une grande route.",
-      "name": "Le Berceau",
+      "description": "Ampia pianura nella parte occidentale del paese, delimitata da una grande foresta e attraversata da una strada principale.",
+      "name": "La Culla",
       "particle": "verso"
     },
     "32": {
-      "description": "La route qui mène au château du Roi",
-      "name": "Route vers le château du Roi",
+      "description": "La strada per andare al castello del Re",
+      "name": "Percorso verso il castello del Re",
       "particle": "verso"
     },
     "33": {
       "description": "",
-      "name": "Continent principal",
+      "name": "Continente principale",
       "particle": "verso"
     },
     "4": {
-      "description": "Immense forêt au sud du Berceau. On raconte que beaucoup de voyageurs s'y sont perdus.",
-      "name": "Forêt Du Vieillard",
+      "description": "Una vasta foresta a sud della Culla. Si dice che molti viaggiatori si siano persi qui.",
+      "name": "Foresta di Vecchietto",
       "particle": "verso la"
     },
     "5": {
-      "description": "Chemin tirant son surnom de son sillonement au sein de la nature foisonnant du sud de la forêt du vieillard.",
-      "name": "Chemin du Dédale",
-      "particle": "vers le"
+      "description": "Il sentiero deriva il suo soprannome dalla sua natura di attraversamento della parte meridionale della Foresta del Vecchio.",
+      "name": "Strada di Dedale",
+      "particle": "verso lo"
     },
     "6": {
-      "description": "Un village paisible réputé pour son auberge accueillante.",
+      "description": "Un villaggio tranquillo, rinomato per la sua accogliente locanda.",
       "name": "Boug-Coton",
       "particle": "verso"
     },
     "7": {
-      "description": "Désert de sable chaud nommé en l'honneur des anciens rois de la région.",
+      "description": "Un deserto sabbioso e caldo che prende il nome dagli antichi re della regione.",
       "name": "Vallata dei re",
       "particle": "verso la"
     },
     "8": {
-      "description": "Un très grand carrefour qui relie les principaux chemins à l'ouest du Mont Célestrum.",
-      "name": "Croisement des Destins",
+      "description": "Un importante crocevia che collega le strade principali a ovest del Monte Celestrum.",
+      "name": "Crocevia del destino",
       "particle": "verso lo"
     },
     "9": {
-      "description": "Ancienne grande route commerciale reliant le Berceau et Ville forte, il ne reste de la Grande Rue que de vieux pavés ébréchés.",
+      "description": "Un tempo importante via commerciale che collegava la Culla e la Ville Forte, tutto ciò che rimane della Grande Strada sono alcuni vecchi ciottoli scheggiati.",
       "name": "Strada principale ",
       "particle": "verso la"
     }
@@ -769,33 +769,33 @@
     }
   },
   "missions": {
-    "anyFight_one": "Faire {{objective}} combat",
-    "anyFight_other": "Faire {{objective}} combats",
-    "bigFeast": "Assister à un grand festin",
-    "buyUltimateSoups_one": "Acheter au moins {{objective}} soupe ultime",
-    "buyUltimateSoups_other": "Acheter au moins {{objective}} soupes ultimes",
-    "chooseClass": "Choisir une classe autre que 🌿 Recrue",
-    "chooseClassTier": "Avoir une classe de niveau {{variantText}} ou plus",
-    "commandMission": "Faire la commande {{commandMissions}}",
-    "commandReport": "Faire la commande {{commandReport}}",
-    "dailyPotionsStock": "Acheter tout le stock de potions du jour",
-    "doReports_one": "Faire {{objective}} rapport",
-    "doReports_other": "Faire {{objective}} rapports",
-    "drinkAlcohol": "Boire une potion contenant de l'alcool",
-    "drinkEnergyPotion_one": "Boire {{objective}} potion d'énergie",
-    "drinkEnergyPotion_other": "Boire {{objective}} potions d'énergie",
-    "drinkPotionRarity": "Boire une potion de rareté {{variantText}} ou supérieure",
-    "drinkPotionWithoutEffect_one": "Boire {{objective}} potion sans effet",
-    "drinkPotionWithoutEffect_other": "Boire {{objective}} potions sans effet",
-    "drinkPotion_one": "Boire {{objective}} potion",
-    "drinkPotion_other": "Boire {{objective}} potions",
-    "earnLifePoints_one": "Gagner {{objective}} point de vie",
-    "earnLifePoints_other": "Gagner {{objective}} points de vie",
-    "earnMoney": "Récolter {{objective}} 💰",
-    "earnPoints": "Gagner {{objective}} 🏅",
-    "earnXP": "Gagner {{objective}} ⭐",
-    "exploreDifferentPlaces": "Explorer {{objective}} lieux différents",
-    "fightAttacks": "Faire {{objective}} {{variantText}} dans des combats",
+    "anyFight_one": "Fare {{objective}} combattimento",
+    "anyFight_other": "Fare {{objective}} combattimenti",
+    "bigFeast": "Partecipare a un grande banchetto",
+    "buyUltimateSoups_one": "Acquistare almeno {{objective}} zuppa ultime",
+    "buyUltimateSoups_other": "Acquistare almeno {{objective}} zuppe ultime",
+    "chooseClass": "Scegliere una classe diversa da 🌿 Recluta",
+    "chooseClassTier": "Avere un livello di classe pari o superiore a {{variantText}}",
+    "commandMission": "Fare il comando {{commandMissions}}",
+    "commandReport": "Fare il comando {{commandReport}}",
+    "dailyPotionsStock": "Acquistare tutta la scorta di pozioni del giorno",
+    "doReports_one": "Fare {{objective}} rapporto",
+    "doReports_other": "Fare {{objective}} rapporti",
+    "drinkAlcohol": "Bere una pozione che contiene del alcol",
+    "drinkEnergyPotion_one": "Bere {{objective}} pozione d'energia",
+    "drinkEnergyPotion_other": "Bere {{objective}} pozione d'energia",
+    "drinkPotionRarity": "Bevete una pozione di rarità {{variantText}} o superiore",
+    "drinkPotionWithoutEffect_one": "Bere {{objective}} pozione senza effetto",
+    "drinkPotionWithoutEffect_other": "Bere {{objective}} pozione senza effetto",
+    "drinkPotion_one": "Bere {{objective}} pozione",
+    "drinkPotion_other": "Bere {{objective}} pozione",
+    "earnLifePoints_one": "Guadagna {{objective}} punti di vita",
+    "earnLifePoints_other": "Guadagnare {{objective}} punti di vita",
+    "earnMoney": "Raccolta {{objective}}💰",
+    "earnPoints": "Vinci {{objective}}🏅",
+    "earnXP": "Vinci {{objective}}⭐",
+    "exploreDifferentPlaces": "Esplorare {{objective}} diversi posti",
+    "fightAttacks": "Fare {{objective}} {{variantText}} nei combattimenti",
     "fightHealthPercent_one": "Gagner {{objective}} combat avec moins de {{variantText}}% de votre vie restante",
     "fightHealthPercent_other": "Gagner {{objective}} combats avec moins de {{variantText}}% de votre vie restante",
     "fightStreak": "Faire un combat pendant {{objective}} jours d'affilée",
@@ -1368,31 +1368,31 @@
     "39": "Spade doppie",
     "4": "Transperceur",
     "40": "Épée en diamant",
-    "41": "Épée sharpness 4",
-    "42": "Pistolet chargé",
-    "43": "Cornichon",
-    "44": "Bouquet de roses",
-    "45": "Banane",
-    "46": "Vieux grimoire",
-    "47": "Boule de neige",
-    "48": "Arc de chevalier",
-    "49": "Arc de soldat",
-    "5": "Marteau",
-    "50": "Arc de novice",
-    "51": "Arc du héros",
-    "52": "Rasoir",
-    "53": "Chaise",
-    "54": "Brique",
-    "55": "Fourchettecouteau",
-    "56": "Épée Kokiri",
-    "57": "Extincteur",
-    "58": "Gros livre",
-    "59": "Seringue",
-    "6": "Couteau simple",
-    "60": "Seringue contaminée",
-    "61": "Seringue sale",
-    "62": "Bio-Arme",
-    "63": "Bombe atomique",
+    "41": "Spada sharpness 4",
+    "42": "Pistola carica",
+    "43": "Cetriolo",
+    "44": "Mazzo di rose",
+    "45": "Banana",
+    "46": "Vecchio grimorio",
+    "47": "Palla di neve",
+    "48": "Arco da cavaliere",
+    "49": "Arco del soldato",
+    "5": "Martello",
+    "50": "Arco per principianti",
+    "51": "Arco dell'eroe",
+    "52": "Rasoio",
+    "53": "Sedia",
+    "54": "Mattoncino",
+    "55": "Coltello della forchetta",
+    "56": "Spada Kokiri",
+    "57": "Estintore",
+    "58": "Grosso libro",
+    "59": "Siringa",
+    "6": "Coltello singolo",
+    "60": "Siringa contaminata",
+    "61": "Siringa sporca",
+    "62": "Bio-Arma",
+    "63": "Bomba nucleare",
     "64": "Accendino",
     "65": "Piu Piu",
     "66": "Mazza laser",
@@ -1420,12 +1420,12 @@
     "86": "Masco di Mojaro",
     "87": "Plothammer",
     "88": "Ala sinistra d'Icare",
-    "89": "Épée du Dragon",
-    "9": "Clé rouillée",
-    "90": "Corne de Licorne",
-    "91": "Baguette de Fibonacci",
+    "89": "La spada del drago",
+    "9": "Chiave arrugginita",
+    "90": "Corno di unicorno",
+    "91": "Bacchetta di Fibonacci",
     "92": "Game Over",
-    "93": "Torchon du Cuisinier",
-    "94": "Poudre de Squelette"
+    "93": "Asciugamano da Cuoco",
+    "94": "Polvere di scheletro"
   }
 }
