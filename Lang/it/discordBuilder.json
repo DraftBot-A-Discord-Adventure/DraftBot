@@ -40,12 +40,12 @@
     "server": "🚩Classifica del server"
   },
   "test": {
-    "description": "Commande de triche pour les testeurs (MODE TEST UNIQUEMENT).",
+    "description": "Comanda di cheat per i tester (SOLO MODALITÀ TEST).",
     "name": "test",
     "options": {
       "commandName": {
-        "description": "Commande test à exécuter.",
-        "name": "commande"
+        "description": "Comando di testo da eseguire.",
+        "name": "comando"
       }
     }
   },
