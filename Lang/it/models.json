@@ -247,7 +247,7 @@
       "name_other": "Onde di lava"
     },
     "magmaBathAttack": {
-      "description": "S'applique au lanceur. Celui-ci se repose dans la lave et récupère ses points de combats. Le nombre de points de combats récupérés est divisé par 4 après 4 utilisations.",
+      "description": "Si applica al lanciatore. L'incantatore si riposa nella lava e recupera i suoi punti di combattimento. Il numero di punti di combattimento recuperati viene diviso per 4 dopo 4 utilizzi.",
       "name_one": "Bagno di magma",
       "name_other": "Bagni di magma"
     },
