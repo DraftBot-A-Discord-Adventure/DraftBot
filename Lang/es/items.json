@@ -1,54 +1,54 @@
 {
-  "nameDisplay": "{{emote}} **{{{name}}}**",
-  "nerfDisplay": "~~{{old}}~~ {{max}}",
-  "attack": ":dagger: {{value}}",
-  "defense": ":shield: {{value}}",
-  "speed": ":rocket: {{value}}",
-  "weapons": {
-    "fieldName": "Arma :",
-    "fieldValue": "**{{name}}** | {{rarity}} | {{values}}"
-  },
-  "armors": {
-    "fieldName": "Armadura/Escudo :",
-    "fieldValue": "**{{name}}** | {{rarity}} | {{values}}"
-  },
-  "potions": {
-    "fieldName": "Poción :",
-    "fieldValue": "**{{name}}** | {{rarity}} | {{nature}}",
-    "natures": [
-      ":x: Sin efecto",
-      ":heart: Vida + {{power}}",
-      ":rocket: Velocidad + {{power}} durante el siguiente combate",
-      ":crossed_swords: Ataque + {{power}} durante el siguiente combate",
-      ":shield: Defensa + {{power}} durante el siguiente combate",
-      ":clock1030: Tiempo de antelación {{power}}",
-      ":moneybag: Plata + {{power}}",
-      ":zap: Energía + {{power}}"
-    ]
-  },
-  "objects": {
-    "fieldName": "Asunto :",
-    "fieldValue": "**{{name}}** | {{rarity}} | {{nature}}",
-    "natures": [
-      ":x: Sin efecto",
-      ":heart: Vida + {{power}} al día",
-      ":rocket: Velocidad + {{power}} durante el combate",
-      ":crossed_swords: Ataque + {{power}} durante el combate",
-      ":shield: Defensa + {{power}} durante el combate",
-      ":clock1030: Avance rápido a {{power}} cada día",
-      ":moneybag: Dinero + {{power}} al día",
-      ":zap: Energía + {{power}} al día"
-    ]
-  },
-  "rarities": [
-    ":small_orange_diamond: Básico",
-    ":large_orange_diamond: Común",
-    ":fire: Uncommon",
-    ":trident: Exótico",
-    ":comet: Raro",
-    ":dizzy: Especial",
-    ":star: Épica",
-    ":star2: Legendario",
-    ":gem: Mítico"
-  ]
+	"nameDisplay": "{{emote}} **{{{name}}}**",
+	"nerfDisplay": "~~{{old}}~~ {{max}}",
+	"attack": ":dagger: {{value}}",
+	"defense": ":shield: {{value}}",
+	"speed": ":rocket: {{value}}",
+	"weapons": {
+		"fieldName": "Arma :",
+		"fieldValue": "**{{name}}** | {{rarity}} | {{values}}"
+	},
+	"armors": {
+		"fieldName": "Armadura/Escudo :",
+		"fieldValue": "**{{name}}** | {{rarity}} | {{values}}"
+	},
+	"potions": {
+		"fieldName": "Poción :",
+		"fieldValue": "**{{name}}** | {{rarity}} | {{nature}}",
+		"natures": [
+			":x: Sin efecto",
+			":heart: Vida + {{power}}",
+			":rocket: Velocidad + {{power}} durante el siguiente combate",
+			":crossed_swords: Ataque + {{power}} durante el siguiente combate",
+			":shield: Defensa + {{power}} durante el siguiente combate",
+			":clock1030: Tiempo de antelación {{power}}",
+			":moneybag: Plata + {{power}}",
+			":zap: Energía + {{power}}"
+		]
+	},
+	"objects": {
+		"fieldName": "Asunto :",
+		"fieldValue": "**{{name}}** | {{rarity}} | {{nature}}",
+		"natures": [
+			":x: Sin efecto",
+			":heart: Vida + {{power}} al día",
+			":rocket: Velocidad + {{power}} durante el combate",
+			":crossed_swords: Ataque + {{power}} durante el combate",
+			":shield: Defensa + {{power}} durante el combate",
+			":clock1030: Avance rápido a {{power}} cada día",
+			":moneybag: Dinero + {{power}} al día",
+			":zap: Energía + {{power}} al día"
+		]
+	},
+	"rarities": [
+		":small_orange_diamond: Básico",
+		":large_orange_diamond: Común",
+		":fire: Uncommon",
+		":trident: Exótico",
+		":comet: Raro",
+		":dizzy: Especial",
+		":star: Épica",
+		":star2: Legendario",
+		":gem: Mítico"
+	]
 }

@@ -1,56 +1,56 @@
 {
-  "badges": {
-    "description": "Muestra información sobre las insignias y su funcionamiento.",
-    "name": "insignias"
-  },
-  "inventory": {
-    "description": "Muestra el inventario del jugador.",
-    "name": "inventario",
-    "options": {
-      "rank": {
-        "description": "La clasificación del jugador cuyo inventario debe mostrarse.",
-        "name": "clasificación"
-      },
-      "user": {
-        "description": "El usuario cuyo inventario debe mostrarse.",
-        "name": "usuario"
-      }
-    }
-  },
-  "ping": {
-    "description": "Muestra la latencia del bot y permite al jugador comprobar si el bot está en línea.",
-    "name": "ping"
-  },
-  "profile": {
-    "description": "Ver el perfil de un jugador.",
-    "name": "perfil",
-    "options": {
-      "rank": {
-        "description": "La clasificación del jugador cuyo perfil se desea mostrar.",
-        "name": "clasificación"
-      },
-      "user": {
-        "description": "El usuario cuyo perfil debe mostrarse.",
-        "name": "usuario"
-      }
-    }
-  },
-  "scopes": {
-    "global": "🏆 Clasificación general",
-    "server": "🚩 Clasificación de servidores"
-  },
-  "test": {
-    "description": "Control de trucos para probadores (SÓLO MODO PRUEBA).",
-    "name": "prueba",
-    "options": {
-      "commandName": {
-        "description": "Comando de prueba a ejecutar.",
-        "name": "pedir"
-      }
-    }
-  },
-  "update": {
-    "description": "Muestra la versión actual del bot.",
-    "name": "nuevos productos"
-  }
+	"badges": {
+		"description": "Muestra información sobre las insignias y su funcionamiento.",
+		"name": "insignias"
+	},
+	"inventory": {
+		"description": "Muestra el inventario del jugador.",
+		"name": "inventario",
+		"options": {
+			"rank": {
+				"description": "La clasificación del jugador cuyo inventario debe mostrarse.",
+				"name": "clasificación"
+			},
+			"user": {
+				"description": "El usuario cuyo inventario debe mostrarse.",
+				"name": "usuario"
+			}
+		}
+	},
+	"ping": {
+		"description": "Muestra la latencia del bot y permite al jugador comprobar si el bot está en línea.",
+		"name": "ping"
+	},
+	"profile": {
+		"description": "Ver el perfil de un jugador.",
+		"name": "perfil",
+		"options": {
+			"rank": {
+				"description": "La clasificación del jugador cuyo perfil se desea mostrar.",
+				"name": "clasificación"
+			},
+			"user": {
+				"description": "El usuario cuyo perfil debe mostrarse.",
+				"name": "usuario"
+			}
+		}
+	},
+	"scopes": {
+		"global": "🏆 Clasificación general",
+		"server": "🚩 Clasificación de servidores"
+	},
+	"test": {
+		"description": "Control de trucos para probadores (SÓLO MODO PRUEBA).",
+		"name": "prueba",
+		"options": {
+			"commandName": {
+				"description": "Comando de prueba a ejecutar.",
+				"name": "pedir"
+			}
+		}
+	},
+	"update": {
+		"description": "Muestra la versión actual del bot.",
+		"name": "nuevos productos"
+	}
 }
