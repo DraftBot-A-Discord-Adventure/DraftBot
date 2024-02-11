@@ -39,6 +39,16 @@
     "global": "🏆 Classifica generale",
     "server": "🚩Classifica del server"
   },
+  "test": {
+    "description": "Comanda di cheat per i tester (SOLO MODALITÀ TEST).",
+    "name": "test",
+    "options": {
+      "commandName": {
+        "description": "Comando di testo da eseguire.",
+        "name": "comando"
+      }
+    }
+  },
   "update": {
     "description": "Mostrare la versione attuale del bot.",
     "name": "novità"

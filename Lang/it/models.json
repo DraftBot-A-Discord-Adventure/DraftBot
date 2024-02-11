@@ -36,7 +36,7 @@
     "39": "Schermatura del maresciallo",
     "4": "Scudo di legno",
     "40": "Conchiglia di Franklin",
-    "41": "Jurisprudence",
+    "41": "Giurisprudenza",
     "42": "Casco di guerra",
     "43": "Secchio in metallo",
     "44": "Muro",
@@ -247,19 +247,19 @@
       "name_other": "Onde di lava"
     },
     "magmaBathAttack": {
-      "description": "S'applique au lanceur. Celui-ci se repose dans la lave et récupère ses points de combats. Le nombre de points de combats récupérés est divisé par 4 après 4 utilisations.",
+      "description": "Si applica al lanciatore. L'incantatore si riposa nella lava e recupera i suoi punti di combattimento. Il numero di punti di combattimento recuperati viene diviso per 4 dopo 4 utilizzi.",
       "name_one": "Bagno di magma",
       "name_other": "Bagni di magma"
     },
     "mimicAttack": {
-      "description": "Copie aléatoirement une de vos attaques.",
+      "description": "Copia a caso uno dei vostri attacchi.",
       "name_one": "Imitazione",
       "name_other": "Imitazioni"
     },
     "monstrousCopyAttack": {
-      "description": "Copie l'attaque d'un monstre aléatoire.",
-      "name_one": "Monstrueuse Copie",
-      "name_other": "Monstrueuses Copies"
+      "description": "Copia l'attacco d'un mostro a caso.",
+      "name_one": "Copia mostruosa",
+      "name_other": "Copie mostruose"
     },
     "none": {
       "description": "",
@@ -277,9 +277,9 @@
       "name_other": ""
     },
     "outrageAttack": {
-      "description": "Échoue si vous utilisez cette action alors que vous avez une altération d’état. L’altération \"en colère\" double l'attaque mais baisse la défense. Au bout de 2 tours, l'effet disparait et l'attaquant devient confus.",
-      "name_one": "Colère",
-      "name_other": "Colères"
+      "description": "Fallisce se usate questa azione mentre che avete un'alterazione di stato. L'alterazione \"arrabbiato\" raddoppia l'attacco ma abbassa la difesa. Dopo 2 turni, l'effetto scompare e l'attaccante diventa confuso.",
+      "name_one": "Rabbia",
+      "name_other": "Rabbie"
     },
     "paralyzed": {
       "description": "",
@@ -287,9 +287,9 @@
       "name_other": ""
     },
     "petrificationAttack": {
-      "description": "Pétrifie la cible pendant 2 tours mais augmente sa défense de 200%.",
-      "name_one": "Pétrification",
-      "name_other": "Pétrifications"
+      "description": "Pietrifica il bersaglio per 2 turni, ma aumenta la sua difesa di 200%.",
+      "name_one": "Pietrificazione",
+      "name_other": "Pietrificazione"
     },
     "petrified": {
       "description": "",
@@ -297,7 +297,7 @@
       "name_other": ""
     },
     "piercingAttack": {
-      "description": "Ignore presque complètement la défense de l’adversaire. L'attaquant a une probabilité de réduire légèrement la défense de son adversaire.",
+      "description": "Ignora quasi completamente la difesa dell'avversario. È possibile che riduce leggermente la difesa dell'avversario.",
       "name_one": "Attacco perforante",
       "name_other": "Attacchi perforanti"
     },
@@ -307,14 +307,14 @@
       "name_other": ""
     },
     "poisonousAttack": {
-      "description": "Empoisonne l'adversaire. L’altération \"empoisonné\" dure au moins trois tours et inflige des dégâts à votre adversaire sur la durée.",
-      "name_one": "Attaque empoisonnée",
-      "name_other": "Attaques empoisonnées"
+      "description": "Avvelena l'avversario. L'alterazione \"avvelenato\" dura almeno tre turni e infligge danni all'avversario nel tempo.",
+      "name_one": "Attacco avvelenato",
+      "name_other": "Attacchi avvelenati"
     },
     "powerfulAttack": {
-      "description": "Cette attaque a 25 % de chance de faire plus de dégâts, au prix d’un étourdissement de l’attaquant. Après 3 utilisations, les dégâts de l’attaque sont réduits de 70%.",
-      "name_one": "Attaque puissante",
-      "name_other": "Attaques puissantes"
+      "description": "Questo attacco ha una probabilità del 25% di fare più danni, al costo di stordire l'attaccante. Dopo 3 utilizzi, i danni di questo attacco sono ridotti di 70%.",
+      "name_one": "Attacco Potente",
+      "name_other": "Attacchi potenti"
     },
     "protected": {
       "description": "",
@@ -322,59 +322,59 @@
       "name_other": ""
     },
     "protection": {
-      "description": "Échoue si vous utilisez cette action alors que vous avez une altération d’état. L’altération \"protégé\" dure 3 tours et vous empêche d’être victime d’une autre altération tout en vous offrant un boost de 30% de votre défense.",
-      "name_one": "Protection",
-      "name_other": "Protections"
+      "description": "Fallisce se si usa questa azione mentre si ha un'alterazione di stato. L'alterazione \"protetto\" dura 3 turni e impedisce di essere vittima di un'altra alterazione, dando un bonus di 30% alla difesa.",
+      "name_one": "Protezione",
+      "name_other": "Protezioni"
     },
     "quickAttack": {
-      "description": "N’échoue jamais sur un adversaire plus lent. Plus votre adversaire est lent, plus cette attaque lui fera des dégâts.",
-      "name_one": "Attaque rapide",
-      "name_other": "Attaques rapides"
+      "description": "Non fallire mai su un avversario più lento. Più lento è l'avversario, più questo attacco gli farà dei danni.",
+      "name_one": "Attacco rapido",
+      "name_other": "Attacchi rapido"
     },
     "rageExplosion": {
-      "description": "Laisse exploser sa rage accumulée durant le trajet sur l'ennemi.",
-      "name_one": "Explosion de rage",
-      "name_other": "Explosions de rage"
+      "description": "Scatenate la rabbia che avete accumulato mentre il vostro percorso sul nemico.",
+      "name_one": "Esplosione di rabbia",
+      "name_other": "Esplosioni di rabbia"
     },
     "ramAttack": {
-      "description": "Si l’attaquant n’est pas étourdi par l’attaque, il reçoit une partie des dégâts infligés. L'attaque peut également étourdir l'adversaire.",
-      "name_one": "Attaque bélier",
-      "name_other": "Attaques béliers"
+      "description": "Se l'attaccante non viene stordito dall'attacco, riceve una parte dei danni inflitti. L'attacco può anche stordire l'avversario.",
+      "name_one": "Attacco frontale",
+      "name_other": "Attacchi frontali"
     },
     "resting": {
-      "description": "S’applique sous forme de soin au lanceur. La quantité de points de combat récupérée est divisée par 4 au bout de 4 utilisations.",
-      "name_one": "Repos",
-      "name_other": "Repos"
+      "description": "Si applica come guarigione all'incantatore. La quantità di punti di combattimento recuperati viene divisa per 4 dopo 4 utilizzazione.",
+      "name_one": "Riposo",
+      "name_other": "Riposi"
     },
     "roarAttack": {
-      "description": "Baisse l'attaque et la vitesse de l'adversaire.",
-      "name_one": "Rugissement",
-      "name_other": "Rugissements"
+      "description": "Riduce l'attacco e la velocità dell'avversario.",
+      "name_one": "Ruggito",
+      "name_other": "Ruggiti"
     },
     "rockShieldAttack": {
-      "description": "Réduit de moitié la prochaine attaque reçue.",
-      "name_one": "Bouclier de roche",
-      "name_other": "Bouclier de roche"
+      "description": "Riduce di meta il prossimo attacco ricevuto.",
+      "name_one": "Scudo di roccia",
+      "name_other": "Scudo di roccia"
     },
     "sabotageAttack": {
-      "description": "Ignore complètement la défense de l’adversaire. Fonctionne mieux sur un adversaire ayant peu d’attaque. Attaque peu couteuse en souffle mais qui peut paralyser le lanceur. Si c’est le cas, les dégâts sont augmentés.",
-      "name_one": "Attaque sabotage",
-      "name_other": "Attaques sabotages"
+      "description": "Ignora completamente la difesa dell'avversario. Funziona meglio su un avversario con pochi attacchi. Un attacco a bassa respirazione che può paralizzare il lanciatore. In tal caso, i danni aumentano.",
+      "name_one": "Attacco sabotaggio",
+      "name_other": "Attacchi sabotaggi"
     },
     "shieldAttack": {
-      "description": "Utilise le bouclier de l’attaquant pour attaquer. L’altération \"affaibli\" réduit l’attaque de 70% durant 1 tour.",
-      "name_one": "Attaque bouclier",
-      "name_other": "Attaques boucliers"
+      "description": "Utilizza il scudo dell'attaccante per attaccare. Il danno \"indebolito\" riduce l'attacco del 70% per 1 turno.",
+      "name_one": "Attacco scudo",
+      "name_other": "Attacchi scudi"
     },
     "simpleAttack": {
-      "description": "Une attaque simple.",
-      "name_one": "Attaque simple",
-      "name_other": "Attaques simples"
+      "description": "Un attacco semplice.",
+      "name_one": "Attacco semplice",
+      "name_other": "Attacchi semplici"
     },
     "slamAttack": {
-      "description": "Attaque faible-moyenne qui réduit la vitesse de l'adversaire.",
-      "name_one": "Attaque impact",
-      "name_other": "Impacts"
+      "description": "Attacco debole-medio che riduce la velocità dell'avversario.",
+      "name_one": "Attacco impatto",
+      "name_other": "Impatti"
     },
     "slowed": {
       "description": "",
@@ -382,14 +382,14 @@
       "name_other": ""
     },
     "stealth": {
-      "description": "Se cache discrètement pour doubler les dégâts de la prochaine attaque.",
-      "name_one": "Discrétion",
-      "name_other": "Discrétions"
+      "description": "Si nasconde discretamente per raddoppiare i danni del prossimo attacco.",
+      "name_one": "Furtività",
+      "name_other": "Furtivi"
     },
     "stoneSkinAttack": {
-      "description": "Plus cette action est effectuée à la suite, plus le bonus de défense est important.",
-      "name_one": "Peau de roche",
-      "name_other": "Peaux de roche"
+      "description": "Più questa azione è effettuata al seguito, più il bonus di difesa è importante.",
+      "name_one": "Pelle di roccia",
+      "name_other": "Pelli di roccia"
     },
     "stunned": {
       "description": "",
@@ -397,9 +397,9 @@
       "name_other": ""
     },
     "summonAttack": {
-      "description": "Invoque des alliés pour vous aider et attaquer très fort.",
-      "name_one": "Invocation d'alliés",
-      "name_other": "Invocations d'alliés"
+      "description": "Evoca gli alleati per aiutarvi e attaccate duramente.",
+      "name_one": "Invocazione di alleati",
+      "name_other": "Invocazione di alleati"
     },
     "targeted": {
       "description": "",
@@ -408,7 +408,7 @@
     },
     "ultimateAttack": {
       "description": "",
-      "name_one": "Attaque ultime",
+      "name_one": "Attacco ultimo",
       "name_other": "verso lo"
     },
     "weak": {
@@ -417,9 +417,9 @@
       "name_other": ""
     },
     "webShotAttack": {
-      "description": "Envoie un jet de toile qui blesse et ralentit l'adversaire.",
-      "name_one": "Attaque jet de toile",
-      "name_other": "Attaques jets de toile"
+      "description": "Invia un getto di ragnatela che ferisce e rallenta l'avversario.",
+      "name_one": "Attacchi getto di ragnatela",
+      "name_other": "Attacchi getto di ragnatela"
     }
   },
   "leagues": {
@@ -436,232 +436,232 @@
   },
   "map_locations": {
     "1": {
-      "description": "Une grande plage de sable fin au bord de la ville.",
-      "name": "Plage Sentinelle",
+      "description": "Una grande spiaggia di sabbia ai margini della città.",
+      "name": "Spiaggia Sentinella",
       "particle": "verso la"
     },
     "10": {
-      "description": "Ancienne grande ville fortifiée, Ville Forte n'est plus que l'ombre d'elle-même. Ravagée par l'ancienne guerre il ne reste qu'une dizaine de maisons et paysans. Le reste de l'ancienne fortification n'est que ruine.",
+      "description": "Un tempo grande città fortificata, Ville Forte è oggi l'ombra di se stessa. Devastata dalla guerra, sono rimaste solo una decina di case e di contadini. Il resto delle vecchie fortificazioni è in rovina.",
       "name": "Ville Forte",
       "particle": "verso la"
     },
     "1000": {
-      "description": "Une grande plage de sable volcanique noir. Elle tient son nom de sa couleur très particulière. Les premiers hommes à avoir posé le pied sur la plage noire redoutaient une grande malédiction. Il n'en est évidemment rien. Attention cependant, le sable noir tache les pieds et les habits.",
-      "name": "Plage noire",
+      "description": "Una grande spiaggia di sabbia nera vulcanica. Prende il nome dal suo colore caratteristico. I primi uomini a mettere piede sulla spiaggia nera temevano una grande maledizione. Ovviamente non è così. Fate attenzione, però, perché la sabbia nera macchia piedi e vestiti.",
+      "name": "Spiaggia Nera",
       "particle": "verso la"
     },
     "1001": {
-      "description": "Une immense forêt qui recouvre pratiquement l'entièreté de l'île. De fines particules de cendres tombent du Volcan Grondant, ce qui rend la visibilité dans cette forêt plutôt difficile. Elle est de ce fait que très peu explorée.",
-      "name": "Forêt de la pénombre",
+      "description": "Un'immensa foresta che copre praticamente tutta l'isola. Le sottili particelle di cenere che cadono dal Vulcano Rimbombante rendono la visibilità di questa foresta piuttosto difficile. Di conseguenza, viene esplorata raramente.",
+      "name": "Foresta del Crepuscolo",
       "particle": "verso la"
     },
     "1002": {
-      "description": "Un petit village d'une vingtaine de maisons, partiellement détruit, qui se trouve à proximité de la forêt de la pénombre. Personne ne sait exactement pourquoi ce village est en ruines. Beaucoup pensent qu'il s'agit du village des anciens habitants qui auraient succombé aux coulées de lave du Volcan Grondant. Mais d'autres avancent la théorie d'une maladie, la peste et de nombreux rats. Il ne reste plus un seul habitant ici...",
-      "name": "Village en ruines",
+      "description": "Un piccolo villaggio di circa venti case, parzialmente distrutto, vicino alla Foresta del Crepuscolo. Nessuno sa esattamente perché il villaggio sia in rovina. Molti credono che sia il villaggio degli ex abitanti morti nelle colate laviche del Vulcano Rimbombante. Ma altri avanzano l'ipotesi di una malattia, la peste e i numerosi ratti. Qui non è rimasto un solo abitante...",
+      "name": "Villaggio in rovina",
       "particle": "verso lo"
     },
     "1003": {
-      "description": "Cette ancienne mine abandonnée passe sous le chemin escarpé et les montagnes. Elle est tellement grande est labyrinthique qu'elle finit au cœur du volcan. Il est cependant difficile d'arriver jusque là. Attention toutefois, certains auraient retrouvé de vieux restes de bananes dans la mine brumeuse.",
-      "name": "Mine brumeuse",
+      "description": "Questa vecchia miniera abbandonata passa sotto il ripido sentiero e le montagne. È così grande e labirintica che finisce nel cuore del vulcano. Tuttavia, è difficile arrivarci. Fate attenzione, però, perché alcune persone dicono avere trovato vecchi resti di banane nella nebbiosa miniera.",
+      "name": "Miniera brumosa",
       "particle": "verso la"
     },
     "1004": {
-      "description": "Ce chemin est le seul vrai chemin existant permettant d'aller jusqu'au sommet du Volcan Grondant. Il est très difficile de l'utiliser et surtout très dangereux. De nombreux hommes sont morts en voulant y grimper. À vos risques et périls.",
-      "name": "Chemin escarpé",
+      "description": "Questo è l'unico vero sentiero che porta alla cima del Volcan Rimbombante. È molto difficile da percorrere e, soprattutto, molto pericoloso. Molti uomini sono morti nel tentativo di scalarlo. A proprio rischio e pericolo.",
+      "name": "Sentiero ripido",
       "particle": "verso lo"
     },
     "1005": {
-      "description": "Pièce maîtresse de l'île volcanique, ce volcan est toujours en activité. Il déverse plusieurs tonnes de cendres par an sur cette petite île qui de ce fait ne fait que grandir. La lave qui coule en son centre est en si grande quantité qu'un canal souterrain qu'on appelle Canal Lavique circule sur plusieurs kilomètres. Depuis les bateaux sur l'eau, on peut apercevoir ce canal faire bouillir l'eau en profondeur. Ce volcan serait même le créateur de plusieurs petites îles aux alentours comme l'île de glace.",
-      "name": "Volcan grondant",
+      "description": "Il centro dell'isola vulcanica, questo vulcano è ancora attivo. Scarica tonnellate di cenere all'anno su questa piccola isola, che di conseguenza cresce costantemente. Dal suo centro fuoriesce così tanta lava che un canale sotterraneo, noto come Canale di Lavique, si estende per diversi chilometri. Dalle barche in navigazione, è possibile vedere questo canale che fa bollire l'acqua in profondità sotto la superficie. Si dice che questo vulcano sia anche il creatore di alcune piccole isole della zona, tra cui l'Isola del Ghiaccio.",
+      "name": "Vulcano Rimbombante",
       "particle": "verso lo"
     },
     "11": {
-      "description": "Dernière vraie route qui permet encore de contourner le Mont Célestrum par le nord, le grand axe est encore très utilisé aujourd'hui, principalement par les brigands.",
-      "name": "Grand Axe",
+      "description": "Questa è stata l'ultima vera strada che ha aggirato il Monte Celestrum dal nord ed è ancora oggi molto utilizzata, soprattutto dai briganti.",
+      "name": "Asso Maggiore",
       "particle": "verso lo"
     },
     "1100": {
-      "description": "Ce rivage est la première chose que l'on voit quand on arrive sur l'île de glace. Il tire son nom du bruit que faisaient les marins quand ils ont accosté. Evidemment, ils revenaient de l'île volcanique où la température est beaucoup plus chaude.",
-      "name": "Rivage gla-gla",
+      "description": "Questa riva è la prima cosa che si vede quando si arriva sull'isola di ghiaccio. Prende il nome dal rumore che facevano i marinai quando sbarcavano qui. Ovviamente, stavano tornando dall'isola vulcanica, dove la temperatura è molto più calda.",
+      "name": "Litorale Gla-gla",
       "particle": "verso lo"
     },
     "1101": {
-      "description": "Comme son nom l'indique, cette vaste étendue de terre gelée n'est pas propice pour le repos. Très froide et très aride, il y subsiste toutefois quelques arbres robustes.",
-      "name": "Toundra gelée",
+      "description": "Come suggerisce il suo nome, questa vasta distesa di terra ghiacciata non è un luogo di riposo. Molto fredda e arida, ci sono ancora alcuni alberi resistenti.",
+      "name": "Tundra ghiacciata",
       "particle": "verso la"
     },
     "1102": {
-      "description": "Grand lac gelé, le lac du savoir est un endroit calme et reposant. On peut y entendre une fine brise glissant sur la glace du lac. Idéale pour méditer après l'exploration de cette immense île sauvage.",
-      "name": "Lac du savoir",
+      "description": "Grande lago ghiacciato, il lago del sapere è un luogo tranquillo e rilassante. Si sente una leggera brezza che scivola sul ghiaccio del lago. Ideale per meditare dopo aver esplorato questa immensa isola selvaggia.",
+      "name": "Lago del sapere",
       "particle": "verso lo"
     },
     "1103": {
-      "description": "Une très grande plaine où de nombreux bonhommes de neige y sont construits. Qui a créé le premier bonhomme de neige ? Personne ne le sait. Il fait bien trop froid pour qu'ils fondent. Cependant, certains voyageurs s'amusent à en créer de nouveaux.",
-      "name": "Plaine aux bonhommes de neige",
+      "description": "Una grande pianura dove sono stati costruiti molti pupazzi di neve. Chi ha costruito il primo pupazzo di neve? Nessuno lo sa. Fa troppo freddo perché si sciolgano. Tuttavia, alcuni viaggiatori si divertono a crearne di nuovi.",
+      "name": "Pianura dei pupazzi di neve",
       "particle": "verso la"
     },
     "1104": {
-      "description": "Une magnifique caverne de glace. Des centaines se stalactites et de stalagmites décorent cette caverne. Une lumière naturelle illumine ces cristaux de glace et donnent l'impression de milliers d'étoiles. Si on oublie les centaines de cadavres d'explorateurs qui ont glissé et se sont empalés sur les stalagmites, cette caverne est d'une beauté incroyable ou d'une tristesse sans nom. La caverne de cristal est un moyen dangereux d'atteindre le sommet du pic enneigé.",
-      "name": "Caverne de cristal",
+      "description": "Una magnifica caverna di ghiaccio. Centinaia di stalattiti e stalagmiti decorano questa caverna. La luce naturale illumina questi cristalli di ghiaccio, dando l'impressione di migliaia di stelle. Se si dimenticano le centinaia di esploratori morti che sono scivolati e si sono impalati sulle stalagmiti, questa caverna è incredibilmente bella o assolutamente triste. La Grotta dei cristalli è una srada pericolosa per raggiungere la il picco innevato.",
+      "name": "Grotta di cristallo",
       "particle": "verso la"
     },
     "1105": {
-      "description": "Cette caverne, très similaire à sa sœur la caverne de cristal, comporte cependant un grand avantage. Elle mène au pic enneigé en passant dans les profondeurs de la terre. Il s'agit d'un long chemin sur la glace et la roche. Elle doit son nom à ces grottes qui descendent très profond sous terre et laissent apparaitre de belles formations de glace.",
-      "name": "Caverne cœur de glace",
+      "description": "Questa caverna, molto simile alla sua sorella, la Grotta dei Cristalli, ha un grande vantaggio. Conduce al picco innevato attraverso le profondità della terra. È un lungo percorso su ghiaccio e roccia. Deve il suo nome alle grotte che scendono in profondità nel sottosuolo, rivelando bellissime formazioni di ghiaccio.",
+      "name": "Cuore della Caverna di Ghiaccio",
       "particle": "verso la"
     },
     "1106": {
-      "description": "Ce gigantesque pic domine toute l'île. Il est visible à des kilomètres à la ronde. Très difficile d'accès, le pic enneigé abrite de vieilles structures en bois datant d'une ancienne civilisation. Les deux chemins y menant étant très périlleux, peu d'hommes ont pu voir ces structures de leurs propres yeux.",
-      "name": "Pic enneigé",
+      "description": "Questo gigantesco picco domina l'intera isola. È visibile a chilometri di distanza. Molto difficile d'accesso, il picco innevato ospita antiche strutture in legno risalenti a un'antica civiltà. Poiché i due sentieri che vi conducono sono molto pericolosi, poche persone sono riuscite a vedere queste antiche strutture con i propri occhi.",
+      "name": "Picco innevato",
       "particle": "verso lo"
     },
     "12": {
-      "description": "Une grande plaine vide nordique sans grand intérêt.",
-      "name": "L'Étendue",
+      "description": "Una vasta pianura vuota settentrionale di scarso interesso.",
+      "name": "La Distesa",
       "particle": "verso"
     },
     "13": {
-      "description": "Un chemin difficile d'accès, boueux et humide. La Route Marécageuse relie l'Étendue à la Rivière aux crabes.",
-      "name": "Route Marécageuse",
+      "description": "Una strada difficile, fangosa e bagnata. La Strada Paludosa collega la Distesa al Fiume dei granchi.",
+      "name": "Strada Paludosa",
       "particle": "verso la"
     },
     "14": {
-      "description": "Un grand lac où les familles aiment bien se réunir. La rivière Vacarme vient s'y jeter.",
-      "name": "Lac Mirage",
+      "description": "Un grande lago dove le famiglie amano riunirsi. Il fiume Baccano viene buttarsi.",
+      "name": "Lago Miraggio",
       "particle": "verso lo"
     },
     "15": {
-      "description": "Le Mont Celestrum est la montagne dominante de la région. Haute de plusieurs kilomètres, Celestrum est visible de tous. On raconte qu'elle porte le nom de l'ancienne déesse. Par ailleurs une seule personne est parvenue à grimper jusqu'au sommet. On ne retient d'elle que ses initiales : M-B.",
-      "name": "Mont Célestrum",
+      "description": "Il monte Celestrum è la montagna dominante della regione. Alto diversi chilometri, il Celestrum è visibile a tutti. Si dice che porta il nome dell'antica dea. In realtà, solo una persona è riuscita a salire fino alla cima. Di lei rimangono solo le iniziali: M-B.",
+      "name": "Monte Celestrum",
       "particle": "verso lo"
     },
     "16": {
-      "description": "Petit chemin dangereux bordant la rivière Vacarme. Attention à ne pas tomber.",
-      "name": "Chemin aux Loups",
+      "description": "Piccola strada pericolosa vicina al fiume Baccano. Attenzione a non cadere.",
+      "name": "Strada dei Lupi",
       "particle": "verso lo"
     },
     "17": {
-      "description": "Village chaud bordant la vallée des rois. Il s'agit d'une oasis chaleureuse pour les voyageurs en transit.",
-      "name": "Village Coco",
+      "description": "Caldo villaggio che confina la Valle dei Re. È un'oasi calmo per i viaggiatori in transito.",
+      "name": "Villaggio Coco",
       "particle": "verso lo"
     },
     "18": {
-      "description": "Cette rivière doit son nom au bruit produit par son fort courant qui a fait perdre la vie à de nombreux villageois.",
-      "name": "Rivière Vacarme",
+      "description": "Questo fiume deve il suo nome al rumore prodotto dalla sua forte corrente, che ha causato la morte di molti abitanti del villaggio.",
+      "name": "Fiume Baccano",
       "particle": "verso la"
     },
     "19": {
-      "description": "Plage créée par les forts vents de la Vallée des Rois. La Dune protège les Plaines du Contre Bois de la chaleur et amène l'eau de la rivière Vacarme.",
-      "name": "La Dune",
+      "description": "Una spiaggia creata dai forti venti della Valle dei Re. La duna protegge le Pianure del Boschive dal caldo e porta l'acqua del fiume Baccano.",
+      "name": "La Duna",
       "particle": "verso"
     },
     "1999": {
-      "description": "Un vieux bateau en bois, il a l'air de tenir le coup grâce aux réparations des ouvriers. Il est prêt à partir et n'attend plus que votre arrivée.",
-      "name": "Bateau pour quitter l'île",
+      "description": "Una vecchia barca in legno, che sembra resistere bene grazie alle riparazioni effettuate dagli operai. È pronta a partire, aspetta solo il vostro arrivo.",
+      "name": "Barca per lasciare l'isola",
       "particle": "verso lo"
     },
     "2": {
-      "description": "Une petite route qui permet de se rendre à la campagne à partir de Mergagnan et inversement.",
-      "name": "Voie champêtre",
+      "description": "Una piccola strada che conduce alla campagna da Mergagnan e viceversa.",
+      "name": "Strada di campagna",
       "particle": "verso la"
     },
     "20": {
-      "description": "Une vaste plaine paisible et agricole.",
-      "name": "Plaines du Contre Bois",
+      "description": "Una vasta e tranquilla pianura agricola.",
+      "name": "Pianure Boschive",
       "particle": "verso gli"
     },
     "21": {
-      "description": "Une route très empruntée par les villageois. Beaucoup de petits vendeurs ambulants s'y installent le temps d'une journée pour au final créer un immense marché.",
-      "name": "Route des Merveilles",
+      "description": "Una strada molto utilizzata dagli abitanti del villaggio. Molti piccoli venditori ambulanti si installano qui per un giorno, creando un grande mercato.",
+      "name": "Strada delle Meraviglie",
       "particle": "verso la"
     },
     "22": {
-      "description": "Forêt mal famée au bord de Claire De Ville, Bois Hurlant a une très mauvaise réputation. Repaire de bandits et hors la loi en tout genre, elle tient surtout son nom de ces pratiques douteuses il y a de ça des centaines d'années.",
-      "name": "Bois Hurlant",
+      "description": "Famigerata foresta ai margini di Claire De Ville, il Bosco Urlante ha una pessima reputazione. Rifugio di banditi e fuorilegge di ogni genere, il suo nome deriva principalmente dalle dubbie pratiche di centinaia di anni fa.",
+      "name": "Bosco Urlante",
       "particle": "verso lo"
     },
     "22222": {
-      "description": "Une zone de test pour les monstres. N'est jamais censée apparaître dans le jeu",
-      "name": "Zone de test des monstres",
+      "description": "Un'area di prova per i mostri. Non dovrebbe mai apparire nel gioco",
+      "name": "Area di prova dei mostri",
       "particle": "verso la"
     },
     "23": {
-      "description": "Grande ville marchande et carrefour économique, Claire De Ville n'a pas toujours été aussi accueillante. Au début très pauvre, elle a su se développer rapidement grâce à ses nombreux commerces et hôtels offrant un large choix aux voyageurs de la région. Claire De Ville est aussi réputée pour son calme et son respect de l'ordre.",
+      "description": "Importante città mercantile e crocevia economico, Claire De Ville non è sempre stata così accogliente. Inizialmente molto povera, si è sviluppata rapidamente grazie ai suoi numerosi negozi e alberghi che offrono un'ampia scelta ai viaggiatori della regione. Claire De Ville è anche rinomata per la sua calma e il rispetto dell'ordine.",
       "name": "Claire De Ville",
       "particle": "verso"
     },
     "24": {
-      "description": "Une route très raide qui mène jusqu'à Claire De Ville. Tout dépend dans quel sens vous l'empruntez.",
-      "name": "Route Grimpante",
+      "description": "Una strada molto ripida che porta a Claire De Ville. Tutto dipende dalla strada che prendete.",
+      "name": "Strada Arrampicata",
       "particle": "verso la"
     },
     "25": {
-      "description": "Tout est dans le nom. Une rivière très appréciée des poissonniers de Claire De Ville.",
-      "name": "Rivière aux Crabes",
+      "description": "È tutto nel nome. Un fiume molto apprezzato dai pescivendoli di Claire De Ville.",
+      "name": "Fiume dei Granchi",
       "particle": "verso la"
     },
     "26": {
-      "description": "Une paisible ville au bord de la Plage Sentinelle.",
+      "description": "Una piccola cita tranquilla sulle rive di Spiaggia Sentinella.",
       "name": "Mergagnan",
       "particle": "verso"
     },
     "27": {
-      "description": "Une forêt au bord du Mont Célestrum.",
-      "name": "Forêt Célestrum",
+      "description": "Una foresta ai margini del Monte Celestrum.",
+      "name": "Foresta di Celestrum",
       "particle": "verso la"
     },
     "28": {
-      "description": "Entrée du château du roi, entouré d'une épaisse muraille, il semble pouvoir résister à toutes les attaques imaginables.",
-      "name": "Portes du château",
+      "description": "L'ingresso del castello del re, circondato da uno spesso muro, sembra in grado di resistere a qualsiasi attacco immaginabile.",
+      "name": "Porte del castello",
       "particle": "verso gli"
     },
     "29": {
-      "description": "Immense salle ornée de nombreuses oeuvres d'art",
-      "name": "Salle de réception",
+      "description": "Un'enorme sala decorata con numerose opere d'arte",
+      "name": "Salotto",
       "particle": "verso la"
     },
     "3": {
-      "description": "Grande plaine de l'ouest de la contrée bordée d'une grande forêt et traversée par une grande route.",
-      "name": "Le Berceau",
+      "description": "Ampia pianura nella parte occidentale del paese, delimitata da una grande foresta e attraversata da una strada principale.",
+      "name": "La Culla",
       "particle": "verso"
     },
     "32": {
-      "description": "La route qui mène au château du Roi",
-      "name": "Route vers le château du Roi",
+      "description": "La strada per andare al castello del Re",
+      "name": "Percorso verso il castello del Re",
       "particle": "verso"
     },
     "33": {
       "description": "",
-      "name": "Continent principal",
+      "name": "Continente principale",
       "particle": "verso"
     },
     "4": {
-      "description": "Immense forêt au sud du Berceau. On raconte que beaucoup de voyageurs s'y sont perdus.",
-      "name": "Forêt Du Vieillard",
+      "description": "Una vasta foresta a sud della Culla. Si dice che molti viaggiatori si siano persi qui.",
+      "name": "Foresta di Vecchietto",
       "particle": "verso la"
     },
     "5": {
-      "description": "Chemin tirant son surnom de son sillonement au sein de la nature foisonnant du sud de la forêt du vieillard.",
-      "name": "Chemin du Dédale",
-      "particle": "vers le"
+      "description": "Il sentiero deriva il suo soprannome dalla sua natura di attraversamento della parte meridionale della Foresta del Vecchio.",
+      "name": "Strada di Dedale",
+      "particle": "verso lo"
     },
     "6": {
-      "description": "Un village paisible réputé pour son auberge accueillante.",
+      "description": "Un villaggio tranquillo, rinomato per la sua accogliente locanda.",
       "name": "Boug-Coton",
       "particle": "verso"
     },
     "7": {
-      "description": "Désert de sable chaud nommé en l'honneur des anciens rois de la région.",
+      "description": "Un deserto sabbioso e caldo che prende il nome dagli antichi re della regione.",
       "name": "Vallata dei re",
       "particle": "verso la"
     },
     "8": {
-      "description": "Un très grand carrefour qui relie les principaux chemins à l'ouest du Mont Célestrum.",
-      "name": "Croisement des Destins",
+      "description": "Un importante crocevia che collega le strade principali a ovest del Monte Celestrum.",
+      "name": "Crocevia del destino",
       "particle": "verso lo"
     },
     "9": {
-      "description": "Ancienne grande route commerciale reliant le Berceau et Ville forte, il ne reste de la Grande Rue que de vieux pavés ébréchés.",
+      "description": "Un tempo importante via commerciale che collegava la Culla e la Ville Forte, tutto ciò che rimane della Grande Strada sono alcuni vecchi ciottoli scheggiati.",
       "name": "Strada principale ",
       "particle": "verso la"
     }
@@ -769,78 +769,78 @@
     }
   },
   "missions": {
-    "anyFight_one": "Faire {{objective}} combat",
-    "anyFight_other": "Faire {{objective}} combats",
-    "bigFeast": "Assister à un grand festin",
-    "buyUltimateSoups_one": "Acheter au moins {{objective}} soupe ultime",
-    "buyUltimateSoups_other": "Acheter au moins {{objective}} soupes ultimes",
-    "chooseClass": "Choisir une classe autre que 🌿 Recrue",
-    "chooseClassTier": "Avoir une classe de niveau {{variantText}} ou plus",
-    "commandMission": "Faire la commande {{commandMissions}}",
-    "commandReport": "Faire la commande {{commandReport}}",
-    "dailyPotionsStock": "Acheter tout le stock de potions du jour",
-    "doReports_one": "Faire {{objective}} rapport",
-    "doReports_other": "Faire {{objective}} rapports",
-    "drinkAlcohol": "Boire une potion contenant de l'alcool",
-    "drinkEnergyPotion_one": "Boire {{objective}} potion d'énergie",
-    "drinkEnergyPotion_other": "Boire {{objective}} potions d'énergie",
-    "drinkPotionRarity": "Boire une potion de rareté {{variantText}} ou supérieure",
-    "drinkPotionWithoutEffect_one": "Boire {{objective}} potion sans effet",
-    "drinkPotionWithoutEffect_other": "Boire {{objective}} potions sans effet",
-    "drinkPotion_one": "Boire {{objective}} potion",
-    "drinkPotion_other": "Boire {{objective}} potions",
-    "earnLifePoints_one": "Gagner {{objective}} point de vie",
-    "earnLifePoints_other": "Gagner {{objective}} points de vie",
-    "earnMoney": "Récolter {{objective}} 💰",
-    "earnPoints": "Gagner {{objective}} 🏅",
-    "earnXP": "Gagner {{objective}} ⭐",
-    "exploreDifferentPlaces": "Explorer {{objective}} lieux différents",
-    "fightAttacks": "Faire {{objective}} {{variantText}} dans des combats",
-    "fightHealthPercent_one": "Gagner {{objective}} combat avec moins de {{variantText}}% de votre vie restante",
-    "fightHealthPercent_other": "Gagner {{objective}} combats avec moins de {{variantText}}% de votre vie restante",
-    "fightStreak": "Faire un combat pendant {{objective}} jours d'affilée",
-    "findOrBuyItem_one": "Trouver ou acheter {{objective}} objet",
-    "findOrBuyItem_other": "Trouver ou acheter {{objective}} objets",
-    "finishWithAttack": "Utiliser {{objective}} fois l'{{variantText}} pour achever votre adversaire",
+    "anyFight_one": "Fare {{objective}} combattimento",
+    "anyFight_other": "Fare {{objective}} combattimenti",
+    "bigFeast": "Partecipare a un grande banchetto",
+    "buyUltimateSoups_one": "Acquistare almeno {{objective}} zuppa ultime",
+    "buyUltimateSoups_other": "Acquistare almeno {{objective}} zuppe ultime",
+    "chooseClass": "Scegliere una classe diversa da 🌿 Recluta",
+    "chooseClassTier": "Avere un livello di classe pari o superiore a {{variantText}}",
+    "commandMission": "Fare il comando {{commandMissions}}",
+    "commandReport": "Fare il comando {{commandReport}}",
+    "dailyPotionsStock": "Acquistare tutta la scorta di pozioni del giorno",
+    "doReports_one": "Fare {{objective}} rapporto",
+    "doReports_other": "Fare {{objective}} rapporti",
+    "drinkAlcohol": "Bere una pozione che contiene del alcol",
+    "drinkEnergyPotion_one": "Bere {{objective}} pozione d'energia",
+    "drinkEnergyPotion_other": "Bere {{objective}} pozione d'energia",
+    "drinkPotionRarity": "Bevete una pozione di rarità {{variantText}} o superiore",
+    "drinkPotionWithoutEffect_one": "Bere {{objective}} pozione senza effetto",
+    "drinkPotionWithoutEffect_other": "Bere {{objective}} pozione senza effetto",
+    "drinkPotion_one": "Bere {{objective}} pozione",
+    "drinkPotion_other": "Bere {{objective}} pozione",
+    "earnLifePoints_one": "Guadagna {{objective}} punti di vita",
+    "earnLifePoints_other": "Guadagnare {{objective}} punti di vita",
+    "earnMoney": "Raccolta {{objective}}💰",
+    "earnPoints": "Vinci {{objective}}🏅",
+    "earnXP": "Vinci {{objective}}⭐",
+    "exploreDifferentPlaces": "Esplorare {{objective}} diversi posti",
+    "fightAttacks": "Fare {{objective}} {{variantText}} nei combattimenti",
+    "fightHealthPercent_one": "Vincere {{objective}} affronti con meno di {{variantText}}% di vostra vita rimanente",
+    "fightHealthPercent_other": "Vincere {{objective}} affronti con meno di {{variantText}}% di vostra vita rimanente",
+    "fightStreak": "Fare un combattimento per {{objective}} giorni di seguito",
+    "findOrBuyItem_one": "Trova o acquista {{objective}} oggetto",
+    "findOrBuyItem_other": "Trova o acquista {{objective}} oggetti",
+    "finishWithAttack": "Usare {{objective}} volte {{variantText}} per finire il tuo avversario",
     "fromPlaceToPlace": "{{variantText}}",
-    "gainRage_one": "Gagner {{objective}} point de rage en battant des animaux sauvages",
-    "gainRage_other": "Gagner {{objective}} points de rage en battant des animaux sauvages",
-    "goToPlace": "Voyager jusqu'{{variantText}}",
-    "guildDailyFromSomeoneElse": "Recevoir une récompense de guilde sans l'avoir réclamée",
-    "guildDaily_one": "Recevoir {{objective}} récompense de guilde",
-    "guildDaily_other": "Recevoir {{objective}} récompenses de guilde",
-    "guildHasPoints": "Aider votre guilde à posséder plus de {{objective}} points de guilde",
-    "guildLevel": "Faire partie d'une guilde niveau {{objective}} ou plus",
-    "haveItemRarity": "Posséder un équipement de rareté {{variantText}} ou mieux",
-    "havePet": "Avoir un familier avec soi",
-    "havePotions": "Posséder {{objective}} potions en même temps",
-    "joinGuild": "Rejoindre ou créer une guilde",
-    "joinMemberOnBoat": "Rejoindre un membre sur l'île",
-    "joinPVEIsland": "Rejoindre l'île mystérieuse",
-    "kingsMoneyValue": "Obtenir moins de 6500 💰 dans l'argent du roi",
-    "meetDifferentPlayers_one": "Rencontrer {{objective}} joueur",
-    "meetDifferentPlayers_other": "Rencontrer {{objective}} joueurs différents",
-    "meetGruffo": "Rencontrer Gruffo",
-    "meetHermit": "Rencontrer un ermite",
-    "petEarnHealth": "Obtenir de la vie grâce à un familier",
-    "reachGlory": "Avoir {{objective}} points de gloire ou plus",
-    "reachLevel": "Atteindre le niveau {{objective}}",
-    "reachScore": "Avoir un score supérieur à {{objective}} 🏅",
-    "recoverAlteration_one": "Se remettre de {{objective}} altération d'état",
-    "recoverAlteration_other": "Se remettre de {{objective}} altérations d'état",
-    "sellItemWithGivenCost_one": "Vendre {{objective}} équipement pour plus de {{variantText}} 💰",
-    "sellItemWithGivenCost_other": "Vendre {{objective}} équipements pour plus de {{variantText}} 💰",
-    "sellOrTradePet": "Vendre ou échanger un familier à un autre joueur",
-    "spendGems": "Dépenser des gemmes dans le magasin des missions",
-    "spendMoney": "Dépenser {{objective}} pièces",
-    "tamedPet": "Avoir un familier apprivoisé ou dressé",
-    "trainedPet": "Avoir un familier dressé",
-    "travelHours_one": "Faire {{objective}} voyage d'au moins {{variantText}} heure",
-    "travelHours_other": "Faire {{objective}} voyages d'au moins {{variantText}} heures",
-    "unlock": "Libérer quelqu'un de prison",
-    "wealthyPayForPVEIsland": "Acheter un voyage vers une île mystérieuse au prix maximal",
-    "winBoss_one": "Gagner {{objective}} combat de boss",
-    "winBoss_other": "Gagner {{objective}} combats de boss"
+    "gainRage_one": "Vincere {{objective}} punto di rabbia sconfiggendo degli animali selvatici",
+    "gainRage_other": "Vincere {{objective}} punti di rabbia sconfiggendo degli animali selvatici",
+    "goToPlace": "Viaggiare fino a{{variantText}}",
+    "guildDailyFromSomeoneElse": "Ricevere una ricompensa di gilda senza averla reclamata",
+    "guildDaily_one": "Ricevere {{objective}} ricompensa di gilda",
+    "guildDaily_other": "Ricevere {{objective}} ricompense di gilda",
+    "guildHasPoints": "Aiutate la vostra gilda a ottenere più di {{objective}} punti di gilda",
+    "guildLevel": "Fare parte di una gilda di livello {{objective}} o superiore",
+    "haveItemRarity": "Equipaggiamento raro {{variantText}} o superiore",
+    "havePet": "Avere un animale domestico con sé",
+    "havePotions": "Possedere {{objective}} pozione al stesso momento",
+    "joinGuild": "Raggiungere o creare una gilda",
+    "joinMemberOnBoat": "Unirsi a un membro sull'isola",
+    "joinPVEIsland": "Raggiungere l'isola misteriosa",
+    "kingsMoneyValue": "Ottenere meno di 6.500 💰 nel denaro del re",
+    "meetDifferentPlayers_one": "Incontrare {{objective}} giocatore",
+    "meetDifferentPlayers_other": "Incontrare {{objective}} giocatori diversi",
+    "meetGruffo": "Incontrare Gruffo",
+    "meetHermit": "Incontrare un eremita",
+    "petEarnHealth": "Ottenere della vita con un animale domestico",
+    "reachGlory": "Avere {{objective}} punti gloria o più",
+    "reachLevel": "Raggiungere il livello {{objective}}",
+    "reachScore": "Punteggio superiore a {{objective}}🏅",
+    "recoverAlteration_one": "Recuperarsi da {{objective}} alterazione di stato",
+    "recoverAlteration_other": "Recuperarsi da {{objective}} alterazione di stato",
+    "sellItemWithGivenCost_one": "Vendere {{objective}} attrezzatura per più di {{variantText}}💰",
+    "sellItemWithGivenCost_other": "Vendere {{objective}} attrezzature per più di {{variantText}}💰",
+    "sellOrTradePet": "Vendere o scambiare un animale domestico con un altro giocatore",
+    "spendGems": "Spendere delle gemme nel negozio delle missioni",
+    "spendMoney": "Spendere {{objective}} monete",
+    "tamedPet": "Avere un animale domestico addomesticato o allenato",
+    "trainedPet": "Avere un animale domestico addestrato",
+    "travelHours_one": "Fare {{objective}} viaggio di almeno {{variantText}} ore",
+    "travelHours_other": "Fare {{objective}} viaggi di almeno {{variantText}} ore",
+    "unlock": "Liberare Qualcuno di prigione",
+    "wealthyPayForPVEIsland": "Acquistare un viaggio su un'isola misteriosa al prezzo massimo",
+    "winBoss_one": "Vincere {{objective}} combatto di boss",
+    "winBoss_other": "Vincere {{objective}} combatti di boss"
   },
   "monsters": {
     "forestTroll": "Troll di foresta",
@@ -1268,7 +1268,7 @@
     "35": "Kyurburant",
     "36": "Succo",
     "37": "Ghiaccioli sciolti",
-    "38": "Saké",
+    "38": "Sakè",
     "39": "Mate",
     "4": "Grande pozione",
     "40": "Sciabola champagne",
@@ -1366,33 +1366,33 @@
     "37": "Spada da principiante",
     "38": "Spada da maestro",
     "39": "Spade doppie",
-    "4": "Transperceur",
-    "40": "Épée en diamant",
-    "41": "Épée sharpness 4",
-    "42": "Pistolet chargé",
-    "43": "Cornichon",
-    "44": "Bouquet de roses",
-    "45": "Banane",
-    "46": "Vieux grimoire",
-    "47": "Boule de neige",
-    "48": "Arc de chevalier",
-    "49": "Arc de soldat",
-    "5": "Marteau",
-    "50": "Arc de novice",
-    "51": "Arc du héros",
-    "52": "Rasoir",
-    "53": "Chaise",
-    "54": "Brique",
-    "55": "Fourchettecouteau",
-    "56": "Épée Kokiri",
-    "57": "Extincteur",
-    "58": "Gros livre",
-    "59": "Seringue",
-    "6": "Couteau simple",
-    "60": "Seringue contaminée",
-    "61": "Seringue sale",
-    "62": "Bio-Arme",
-    "63": "Bombe atomique",
+    "4": "Perforatore",
+    "40": "Spada di diamante",
+    "41": "Spada sharpness 4",
+    "42": "Pistola carica",
+    "43": "Cetriolo",
+    "44": "Mazzo di rose",
+    "45": "Banana",
+    "46": "Vecchio grimorio",
+    "47": "Palla di neve",
+    "48": "Arco da cavaliere",
+    "49": "Arco del soldato",
+    "5": "Martello",
+    "50": "Arco per principianti",
+    "51": "Arco dell'eroe",
+    "52": "Rasoio",
+    "53": "Sedia",
+    "54": "Mattoncino",
+    "55": "Coltello della forchetta",
+    "56": "Spada Kokiri",
+    "57": "Estintore",
+    "58": "Grosso libro",
+    "59": "Siringa",
+    "6": "Coltello singolo",
+    "60": "Siringa contaminata",
+    "61": "Siringa sporca",
+    "62": "Bio-Arma",
+    "63": "Bomba nucleare",
     "64": "Accendino",
     "65": "Piu Piu",
     "66": "Mazza laser",
@@ -1420,12 +1420,12 @@
     "86": "Masco di Mojaro",
     "87": "Plothammer",
     "88": "Ala sinistra d'Icare",
-    "89": "Épée du Dragon",
-    "9": "Clé rouillée",
-    "90": "Corne de Licorne",
-    "91": "Baguette de Fibonacci",
+    "89": "La spada del drago",
+    "9": "Chiave arrugginita",
+    "90": "Corno di unicorno",
+    "91": "Bacchetta di Fibonacci",
     "92": "Game Over",
-    "93": "Torchon du Cuisinier",
-    "94": "Poudre de Squelette"
+    "93": "Asciugamano da Cuoco",
+    "94": "Polvere di scheletro"
   }
 }
