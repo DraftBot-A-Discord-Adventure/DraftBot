@@ -4,6 +4,7 @@ import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/pac
 import {CommandsTest} from "../../core/CommandsTest";
 import {packetHandler} from "../../core/packetHandlers/PacketHandler";
 import {WebsocketClient} from "../../../../Lib/src/instances/WebsocketClient";
+import {Players} from "../../core/database/game/models/Player";
 
 export default class TestCommand {
 	@packetHandler(CommandTestPacketReq)
@@ -14,7 +15,8 @@ export default class TestCommand {
 		let testCommands: string[];
 		try {
 			testCommands = packet.command.split(" && ");
-		} catch {
+		}
+		catch {
 			testCommands = ["list"];
 		}
 		for (let testCommand of testCommands) {
@@ -22,7 +24,8 @@ export default class TestCommand {
 			try {
 				argsTest = testCommand.split(" ")
 					.slice(1);
-			} catch { /* Case no args given */
+			}
+			catch { /* Case no args given */
 			}
 
 			testCommand = testCommand.split(" ")[0];
@@ -30,8 +33,10 @@ export default class TestCommand {
 			let commandTestCurrent;
 			try {
 				commandTestCurrent = CommandsTest.getTestCommand(testCommand);
-			} catch (e) {
+			}
+			catch (e) {
 				response.push(makePacket(CommandTestPacketRes, {
+					commandName: testCommand,
 					result: `:x: | Commande test ${testCommand} inexistante : \`\`\`${e.stack}\`\`\``,
 					isError: true
 				}));
@@ -42,17 +47,31 @@ export default class TestCommand {
 			const testGoodFormat = CommandsTest.isGoodFormat(commandTestCurrent, argsTest);
 			if (!testGoodFormat.good) {
 				response.push(makePacket(CommandTestPacketRes, {
+					commandName: testCommand,
 					result: testGoodFormat.description,
 					isError: true
 				}));
 			}
 			else {
 				// Last, we execute the test command
-				response.push(makePacket(CommandTestPacketRes, {
-					result: argsTest.join(" ") + commandTestCurrent,
-					isError: false
-				}));
-				await CommandsTest.executeAndAlertUser(commandTestCurrent, argsTest, response, client);
+				try {
+					const player = await Players.getByKeycloakId(packet.keycloakId);
+					const messageToDisplay = await commandTestCurrent.execute(player, argsTest, response, client);
+
+					response.push(makePacket(CommandTestPacketRes, {
+						commandName: testCommand,
+						result: messageToDisplay,
+						isError: false
+					}));
+				}
+				catch (e) {
+					console.error(e);
+					response.push(makePacket(CommandTestPacketRes, {
+						commandName: testCommand,
+						result: `:x: | Une erreur est survenue pendant la commande test ${testCommand} : \`\`\`${e.stack}\`\`\``,
+						isError: true
+					}));
+				}
 			}
 		}
 	}

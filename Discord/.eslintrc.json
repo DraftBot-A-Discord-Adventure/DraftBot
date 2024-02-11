@@ -16,6 +16,14 @@
 		"@typescript-eslint"
 	],
 	"rules": {
+		"no-restricted-imports": [
+			"error",
+			{
+				"patterns": [
+					"**/Core/*"
+				]
+			}
+		],
 		"indent": [
 			"error",
 			"tab"

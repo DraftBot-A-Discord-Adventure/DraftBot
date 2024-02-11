@@ -16,6 +16,15 @@
 		"@typescript-eslint"
 	],
 	"rules": {
+		"no-restricted-imports": [
+			"error",
+			{
+				"patterns": [
+					"**/Discord/*",
+					"**/Core/*"
+				]
+			}
+		],
 		"indent": [
 			"error",
 			"tab"

@@ -11,6 +11,8 @@ import {CommandInventoryPacketRes} from "../../../../Lib/src/packets/commands/Co
 import {handleCommandInventoryPacketRes} from "../../commands/player/InventoryCommand";
 import {handleCommandUpdatePacketRes} from "../../commands/player/UpdateCommand";
 import { CommandUpdatePacketRes } from "../../../../Lib/src/packets/commands/CommandUpdatePacket";
+import {CommandTestPacketReq, CommandTestPacketRes} from "../../../../Lib/src/packets/commands/CommandTestPacket";
+import {handleCommandTestPacketRes} from "../../commands/player/TestCommand";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
@@ -18,8 +20,7 @@ export default class CommandHandlers {
 	pingRes(socket: WebSocket, packet: CommandPingPacketRes, context: PacketContext): void {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		interaction?.editReply({
-			content: i18n.t("commands:ping.discord.edit", {
-				lang: interaction?.channel.language,
+			content: i18n.t("commands:ping.discord.edit", {lang: interaction?.channel.language,
 				totalLatency: Date.now() - packet.clientTime,
 				discordApiLatency: draftBotClient!.ws.ping,
 				shardId: shardId,
@@ -41,5 +42,10 @@ export default class CommandHandlers {
 	@packetHandler(CommandUpdatePacketRes)
 	updateRes(socket: WebSocket, packet: CommandUpdatePacketRes, context: PacketContext): void {
 		handleCommandUpdatePacketRes(packet, context).then();
+	}
+
+	@packetHandler(CommandTestPacketRes)
+	testRes(socket: WebSocket, packet: CommandTestPacketRes, context: PacketContext): void {
+		handleCommandTestPacketRes(packet, context).then();
 	}
 }

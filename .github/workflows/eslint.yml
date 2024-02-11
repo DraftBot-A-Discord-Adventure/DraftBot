@@ -1,0 +1,81 @@
+name: Eslint
+
+on:
+  pull_request:
+    branches: [ draftbot-v5 ]
+
+jobs:
+  eslint-discord-module:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v3
+
+      # Setup Node.js environment once for all jobs
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # Install and cache dependencies for the Discord subproject
+      - name: Cache Discord dependencies
+        uses: actions/cache@v3
+        with:
+          path: ./Discord/node_modules
+          key: ${{ runner.os }}-discord-dependencies-${{ hashFiles('./Discord/yarn.lock') }}
+
+      - name: Install dependencies and Run ESLint in Discord folder
+        working-directory: ./Discord
+        run: |
+          yarn install    
+          yarn eslint
+
+  eslint-lib-module:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v3
+
+      # Setup Node.js environment once for all jobs
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # Repeat the caching step and ESLint check for the Lib subproject
+      - name: Cache Lib dependencies
+        uses: actions/cache@v3
+        with:
+          path: ./Lib/node_modules
+          key: ${{ runner.os }}-lib-dependencies-${{ hashFiles('./Lib/yarn.lock') }}
+
+      - name: Install dependencies and Run ESLint in Lib folder
+        working-directory: ./Lib
+        run: |
+          yarn install    
+          yarn eslint
+
+  eslint-core-module:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v3
+
+      # Setup Node.js environment once for all jobs
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # Repeat the caching step and ESLint check for the Core subproject
+      - name: Cache Core dependencies
+        uses: actions/cache@v3
+        with:
+          path: ./Core/node_modules
+          key: ${{ runner.os }}-core-dependencies-${{ hashFiles('./Core/yarn.lock') }}
+
+      - name: Install dependencies and Run ESLint in Core folder
+        working-directory: ./Core
+        run: |
+          yarn install    
+          yarn eslint

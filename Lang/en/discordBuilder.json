@@ -44,8 +44,8 @@
     "name": "test",
     "options": {
       "commandName": {
-        "description": "Test command executed.",
-        "name": "order"
+        "description": "Test command to execute.",
+        "name": "command"
       }
     }
   },
