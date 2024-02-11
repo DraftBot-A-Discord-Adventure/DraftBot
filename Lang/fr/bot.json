@@ -20,5 +20,5 @@
   "serverList": "**:outbox_tray: Serveur {{count}} :** `{{guild}}` | :bust_in_silhouette: : `{{humans}}` | :robot: : `{{robots}}` | Ratio bot/Humain : `{{ratio}}` % | Validation : {{validation}}",
   "supportAlert": ":love_letter: | **Nouveau message privé reçu !** \n`Auteur: {{username}} (id : {{id}})\n\n`",
   "topWeekAnnouncement": ":trophy: **Le classement de la semaine est terminé ! Le gagnant est :** {{mention}}",
-  "totalUsersCount": "**Nombre total d'utilisateurs : `{{count}}`**"
+  "totalUsersCount": "test"
 }
