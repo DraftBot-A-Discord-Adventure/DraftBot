@@ -1,114 +1,114 @@
 {
-	"badges": {
-		"description": "Les badges sont des distinctions difficiles à obtenir qui ont été créées pour récompenser les personnes ayant le plus soutenu le développement du bot. La liste des badges est disponible sur le guide du bot.\n(via ce lien : https://guide.draftbot.com/notions-avancees/badges)",
-		"title": ":military_medal: Informations détaillées :"
-	},
-	"inventory": {
-		"armors_one": "Armure/Bouclier ({{count}}/{{max}}) :",
-		"armors_other": "Armures/Boucliers ({{count}}/{{max}}) :",
-		"emptySlot": ":black_large_square: **Emplacement vide**",
-		"noSlot": ":x: Aucun emplacement disponible. Achetez-en plus dans le magasin !",
-		"objects_one": "Objet ({{count}}/{{max}}) :",
-		"objects_other": "Objets ({{count}}/{{max}}) :",
-		"potions_one": "Potion ({{count}}/{{max}}) :",
-		"potions_other": "Potions ({{count}}/{{max}}) :",
-		"stockTitle": ":package: **Réserve d'objets de {{pseudo}}**",
-		"title": ":briefcase: **Inventaire de {{pseudo}}**",
-		"weapons_one": "Arme ({{count}}/{{max}}) :",
-		"weapons_other": "Armes ({{count}}/{{max}}) :",
-		"seeBackupItems": "🔄 Voir la réserve",
-		"seeEquippedItems": "🔄 Voir l'inventaire principal"
-	},
-	"ping": {
-		"discord": {
-			"create": ":ping_pong: Pong",
-			"edit": ":ping_pong: Pong\n\n**Latence totale :** {{totalLatency}} ms\n**Latence Discord :** {{discordApiLatency}} ms\n**Numéro du shard :** {{shardId}}\n**Nombre de shards :** {{totalShards}} (+main shard)"
-		}
-	},
-	"profile": {
-		"badgeDisplay": {
-			"numberBadge_one": "\n Ce joueur possède {{badge}} badge au total !",
-			"numberBadge_other": "\n Ce joueur possède {{badge}} badges au total !",
-			"title": "Liste des badges de {{pseudo}}"
-		},
-		"badges": {
-			"⚔️": ":crossed_swords: `Vainqueur d'un tournoi`",
-			"⚙️": ":gear: `Équipe technique`",
-			"⛑️": ":helmet_with_cross: `Personne faisant partie des 20 premières à avoir rejoint le serveur du bot`",
-			"✨": ":sparkles: `Personne ayant remporté le plus de gloire durant une saison de combat`",
-			"❤️": ":heart: `Personne ayant le grade Soutien sur le serveur du bot`",
-			"🌍": ":earth_africa: `Traducteur`",
-			"🌟": ":star2: `Personne ayant aidé à mettre le bot sur un serv de plus de 2000 membres`",
-			"🍀": ":four_leaf_clover: `Badge pouvant être gagné de temps en temps dans des concours sur le serveur du bot ou sur twitter`",
-			"🎄": ":christmas_tree: `Badge pouvant être gagné chaque noël lors d'un concours`",
-			"🎗️": ":reminder_ribbon: `Personne ayant dominé un classement de la semaine`",
-			"🎰": ":slot_machine: `Badge donné de manière totalement random`",
-			"🏅": ":medal: `Joueur dans le top 10 au reset de la 1.0`",
-			"🏆": ":trophy: `Meilleur joueur au moment du reset de la 1.0`",
-			"🐞": ":lady_beetle: `Personne ayant signalé des bugs majeurs`",
-			"👑": ":crown: `Propriétaire du bot`",
-			"💍": ":ring: `Badge acheté dans le shop des Missions`",
-			"💎": ":gem: `Membre d'une guilde puissante`",
-			"💞": ":revolving_hearts: `Joueur ayant dressé un familier légendaire`",
-			"💸": ":money_with_wings: `Donateur`",
-			"🔖": ":bookmark: `Adopteur de classes de la première heure`",
-			"🕊️": ":dove: `Personne ayant rapporté un bug exploitable sans en profiter`",
-			"🖋️": ":pen_fountain: `Rédacteur du bot`",
-			"🗳️": ":ballot_box: `Personne ayant voté dans les 12 dernières heures`",
-			"😂": ":joy: `Badge offert à une personne drôle`",
-			"🤑": ":money_mouth: `Badge acheté dans le shop`",
-			"🥇": ":first_place: `Personne ayant atteint la première place du classement après le reset`",
-			"🪩": ":mirror_ball: `Membre d'une guilde très puissante`"
-		},
-		"fightRanking": {
-			"fieldName": "Gloire et ligue :",
-			"fieldValue": ":sparkles: {{gloryPoints}} | {{league}}"
-		},
-		"guild": {
-			"fieldName": "Guilde :",
-			"fieldValue": ":stadium: {{guild}}"
-		},
-		"information": {
-			"fieldName": "Informations :",
-			"fieldValue": ":heart: {{health}}/{{maxHealth}} | :star: {{experience}}/{{experienceNeededToLevelUp}} | :moneybag: {{money}}"
-		},
-		"map": {
-			"fieldName": "Destination :",
-			"fieldValue": "{{mapEmote}} {{mapName}}"
-		},
-		"mission": {
-			"fieldName": "Missions :",
-			"fieldValue": ":gem: {{gems}} | :book: {{campaign}}% "
-		},
-		"noTimeLeft": {
-			"fieldName": "Temps restant :",
-			"fieldValue": ":hospital: Reprise du jeu possible"
-		},
-		"pet": {
-			"fieldName": "Familier :",
-			"fieldValue": "Rareté: {{rarity}}\n{{emote}} {{nickname}}"
-		},
-		"playerClass": {
-			"fieldName": "Classe :",
-			"fieldValue": "{{class}}"
-		},
-		"ranking": {
-			"fieldName": "Classement et Score :",
-			"fieldValue": ":trophy: {{rank}}/{{numberOfPlayer}} | :medal: {{score}}",
-			"fieldValueUnranked": ":trophy: Non classé | :medal: {{score}}"
-		},
-		"statistics": {
-			"fieldName": "Statistiques :",
-			"fieldValue": ":zap: {{cumulativeHealth}} / {{cumulativeMaxHealth}} | :dagger: {{cumulativeAttack}} | :shield: {{cumulativeDefense}} | :rocket: {{cumulativeSpeed}} | :wind_blowing_face: {{baseBreath}} / {{maxBreath}} | :lungs: {{breathRegen}}"
-		},
-		"timeLeft": {
-			"fieldName": "Temps restant :",
-			"fieldValue": "{{effect}} {{timeLeft}}"
-		},
-		"title": "{{effect}} | {{pseudo}} | Niveau {{level}}"
-	},
-	"update": {
-		"description": "La version actuelle du noyau du bot est la **{{coreVersion}}**. Celle du module Discord est la **{{discordModuleVersion}}**.\n\nToutes les informations concernant les mises à jour sont disponibles ici :\nhttps://guide.draftbot.com/lore/historique-des-mises-a-jour",
-		"title": ":scroll: Mises à jour"
-	}
+  "badges": {
+    "description": "Les badges sont des distinctions difficiles à obtenir qui ont été créées pour récompenser les personnes ayant le plus soutenu le développement du bot. La liste des badges est disponible sur le guide du bot.\n(via ce lien : https://guide.draftbot.com/notions-avancees/badges)",
+    "title": ":military_medal: Informations détaillées :"
+  },
+  "inventory": {
+    "armors_one": "Armure/Bouclier ({{count}}/{{max}}) :",
+    "armors_other": "Armures/Boucliers ({{count}}/{{max}}) :",
+    "emptySlot": ":black_large_square: **Emplacement vide**",
+    "noSlot": ":x: Aucun emplacement disponible. Achetez-en plus dans le magasin !",
+    "objects_one": "Objet ({{count}}/{{max}}) :",
+    "objects_other": "Objets ({{count}}/{{max}}) :",
+    "potions_one": "Potion ({{count}}/{{max}}) :",
+    "potions_other": "Potions ({{count}}/{{max}}) :",
+    "stockTitle": ":package: **Réserve d'objets de {{pseudo}}**",
+    "title": ":briefcase: **Inventaire de {{pseudo}}**",
+    "weapons_one": "Arme ({{count}}/{{max}}) :",
+    "weapons_other": "Armes ({{count}}/{{max}}) :",
+    "seeBackupItems": "🔄 Voir la réserve",
+    "seeEquippedItems": "🔄 Voir l'inventaire principal"
+  },
+  "ping": {
+    "discord": {
+      "create": ":ping_pong: Pong",
+      "edit": ":ping_pong: Pong\n\n**Latence totale :** {{totalLatency}} ms\n**Latence Discord :** {{discordApiLatency}} ms\n**Numéro du shard :** {{shardId}}\n**Nombre de shards :** {{totalShards}} (+main shard)"
+    }
+  },
+  "profile": {
+    "badgeDisplay": {
+      "numberBadge_one": "\n Ce joueur possède {{badge}} badge au total !",
+      "numberBadge_other": "\n Ce joueur possède {{badge}} badges au total !",
+      "title": "Liste des badges de {{pseudo}}"
+    },
+    "badges": {
+      "⚔️": ":crossed_swords: `Vainqueur d'un tournoi`",
+      "⚙️": ":gear: `Équipe technique`",
+      "⛑️": ":helmet_with_cross: `Personne faisant partie des 20 premières à avoir rejoint le serveur du bot`",
+      "✨": ":sparkles: `Personne ayant remporté le plus de gloire durant une saison de combat`",
+      "❤️": ":heart: `Personne ayant le grade Soutien sur le serveur du bot`",
+      "🌍": ":earth_africa: `Traducteur`",
+      "🌟": ":star2: `Personne ayant aidé à mettre le bot sur un serv de plus de 2000 membres`",
+      "🍀": ":four_leaf_clover: `Badge pouvant être gagné de temps en temps dans des concours sur le serveur du bot ou sur twitter`",
+      "🎄": ":christmas_tree: `Badge pouvant être gagné chaque noël lors d'un concours`",
+      "🎗️": ":reminder_ribbon: `Personne ayant dominé un classement de la semaine`",
+      "🎰": ":slot_machine: `Badge donné de manière totalement random`",
+      "🏅": ":medal: `Joueur dans le top 10 au reset de la 1.0`",
+      "🏆": ":trophy: `Meilleur joueur au moment du reset de la 1.0`",
+      "🐞": ":lady_beetle: `Personne ayant signalé des bugs majeurs`",
+      "👑": ":crown: `Propriétaire du bot`",
+      "💍": ":ring: `Badge acheté dans le shop des Missions`",
+      "💎": ":gem: `Membre d'une guilde puissante`",
+      "💞": ":revolving_hearts: `Joueur ayant dressé un familier légendaire`",
+      "💸": ":money_with_wings: `Donateur`",
+      "🔖": ":bookmark: `Adopteur de classes de la première heure`",
+      "🕊️": ":dove: `Personne ayant rapporté un bug exploitable sans en profiter`",
+      "🖋️": ":pen_fountain: `Rédacteur du bot`",
+      "🗳️": ":ballot_box: `Personne ayant voté dans les 12 dernières heures`",
+      "😂": ":joy: `Badge offert à une personne drôle`",
+      "🤑": ":money_mouth: `Badge acheté dans le shop`",
+      "🥇": ":first_place: `Personne ayant atteint la première place du classement après le reset`",
+      "🪩": ":mirror_ball: `Membre d'une guilde très puissante`"
+    },
+    "fightRanking": {
+      "fieldName": "Gloire et ligue :",
+      "fieldValue": ":sparkles: {{gloryPoints}} | {{league}}"
+    },
+    "guild": {
+      "fieldName": "Guilde :",
+      "fieldValue": ":stadium: {{guild}}"
+    },
+    "information": {
+      "fieldName": "Informations :",
+      "fieldValue": ":heart: {{health}}/{{maxHealth}} | :star: {{experience}}/{{experienceNeededToLevelUp}} | :moneybag: {{money}}"
+    },
+    "map": {
+      "fieldName": "Destination :",
+      "fieldValue": "{{mapEmote}} {{mapName}}"
+    },
+    "mission": {
+      "fieldName": "Missions :",
+      "fieldValue": ":gem: {{gems}} | :book: {{campaign}}% "
+    },
+    "noTimeLeft": {
+      "fieldName": "Temps restant :",
+      "fieldValue": ":hospital: Reprise du jeu possible"
+    },
+    "pet": {
+      "fieldName": "Familier :",
+      "fieldValue": "Rareté: {{rarity}}\n{{emote}} {{nickname}}"
+    },
+    "playerClass": {
+      "fieldName": "Classe :",
+      "fieldValue": "{{class}}"
+    },
+    "ranking": {
+      "fieldName": "Classement et Score :",
+      "fieldValue": ":trophy: {{rank}}/{{numberOfPlayer}} | :medal: {{score}}",
+      "fieldValueUnranked": ":trophy: Non classé | :medal: {{score}}"
+    },
+    "statistics": {
+      "fieldName": "Statistiques :",
+      "fieldValue": ":zap: {{cumulativeHealth}} / {{cumulativeMaxHealth}} | :dagger: {{cumulativeAttack}} | :shield: {{cumulativeDefense}} | :rocket: {{cumulativeSpeed}} | :wind_blowing_face: {{baseBreath}} / {{maxBreath}} | :lungs: {{breathRegen}}"
+    },
+    "timeLeft": {
+      "fieldName": "Temps restant :",
+      "fieldValue": "{{effect}} {{timeLeft}}"
+    },
+    "title": "{{effect}} | {{pseudo}} | Niveau {{level}}"
+  },
+  "update": {
+    "description": "La version actuelle du noyau du bot est la **{{coreVersion}}**. Celle du module Discord est la **{{discordModuleVersion}}**.\n\nToutes les informations concernant les mises à jour sont disponibles ici :\nhttps://guide.draftbot.com/lore/historique-des-mises-a-jour",
+    "title": ":scroll: Mises à jour"
+  }
 }
