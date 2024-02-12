@@ -1,56 +1,56 @@
 {
-  "badges": {
-    "description": "Locandina d'informazione sui badge e loro funzionamento.",
-    "name": "badge"
-  },
-  "inventory": {
-    "description": "Mostra l'inventario del giocatore.",
-    "name": "inventario",
-    "options": {
-      "rank": {
-        "description": "La classificazione del giocatore di chi l'inventario deve essere mostrato.",
-        "name": "classifica"
-      },
-      "user": {
-        "description": "L'utilizzatore di chi l'inventario deve essere mostrato.",
-        "name": "utilizzatore"
-      }
-    }
-  },
-  "ping": {
-    "description": "Locandina della latenza del bot e permette ai giocatori di verificare se il bot è connesso.",
-    "name": "ping"
-  },
-  "profile": {
-    "description": "Mostrare il profilo di un giocatore.",
-    "name": "profilo",
-    "options": {
-      "rank": {
-        "description": "La classificazione del giocatore deve essere mostrata.",
-        "name": "classifica"
-      },
-      "user": {
-        "description": "L'utilizzatore per il quale il profilo deve essere mostrato.",
-        "name": "utilizzatore"
-      }
-    }
-  },
-  "scopes": {
-    "global": "🏆 Classifica generale",
-    "server": "🚩Classifica del server"
-  },
-  "test": {
-    "description": "Comanda di cheat per i tester (SOLO MODALITÀ TEST).",
-    "name": "test",
-    "options": {
-      "commandName": {
-        "description": "Comando di testo da eseguire.",
-        "name": "comando"
-      }
-    }
-  },
-  "update": {
-    "description": "Mostrare la versione attuale del bot.",
-    "name": "novità"
-  }
+	"badges": {
+		"description": "Locandina d'informazione sui badge e loro funzionamento.",
+		"name": "badge"
+	},
+	"inventory": {
+		"description": "Mostra l'inventario del giocatore.",
+		"name": "inventario",
+		"options": {
+			"rank": {
+				"description": "La classificazione del giocatore di chi l'inventario deve essere mostrato.",
+				"name": "classifica"
+			},
+			"user": {
+				"description": "L'utilizzatore di chi l'inventario deve essere mostrato.",
+				"name": "utilizzatore"
+			}
+		}
+	},
+	"ping": {
+		"description": "Locandina della latenza del bot e permette ai giocatori di verificare se il bot è connesso.",
+		"name": "ping"
+	},
+	"profile": {
+		"description": "Mostrare il profilo di un giocatore.",
+		"name": "profilo",
+		"options": {
+			"rank": {
+				"description": "La classificazione del giocatore deve essere mostrata.",
+				"name": "classifica"
+			},
+			"user": {
+				"description": "L'utilizzatore per il quale il profilo deve essere mostrato.",
+				"name": "utilizzatore"
+			}
+		}
+	},
+	"scopes": {
+		"global": "🏆 Classifica generale",
+		"server": "🚩Classifica del server"
+	},
+	"test": {
+		"description": "Comanda di cheat per i tester (SOLO MODALITÀ TEST).",
+		"name": "test",
+		"options": {
+			"commandName": {
+				"description": "Comando di testo da eseguire.",
+				"name": "comando"
+			}
+		}
+	},
+	"update": {
+		"description": "Mostrare la versione attuale del bot.",
+		"name": "novità"
+	}
 }
