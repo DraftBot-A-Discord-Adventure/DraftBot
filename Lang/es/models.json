@@ -1,1431 +1,1431 @@
 {
-  "armors": {
-    "0": "Sin escudo ni armadura",
-    "1": "Escudo deflector Engi",
-    "10": "Escudo pesado",
-    "11": "Escudo para principiantes",
-    "12": "Escudo Maestro",
-    "13": "Escudo definitivo",
-    "14": "Escudo potente",
-    "15": "Escudo oxidado",
-    "16": "Escudo desgastado",
-    "17": "Escudo solar",
-    "18": "Maestro Kimono",
-    "19": "Chaqueta de seguridad",
-    "2": "Casco de seguridad",
-    "20": "Escudo humano",
-    "21": "Brazo mecánico",
-    "22": "Casco de robot",
-    "23": "Paraguas de autodefensa",
-    "24": "Escudo de gladiador",
-    "25": "Escudo del guerrero",
-    "26": "Escudo Brennus",
-    "27": "Campo de fuerza",
-    "28": "Escudo Lynel",
-    "29": "Escudo sólido",
-    "3": "Escudo",
-    "30": "Escudo pequeño",
-    "31": "Blindar la soledad",
-    "32": "Escudo real",
-    "33": "Scutum",
-    "34": "Rondache",
-    "35": "Escudo de vibranium",
-    "36": "Escudo de púas",
-    "37": "Convenios de Ginebra",
-    "38": "Luz de nodo",
-    "39": "Armadura de comandante",
-    "4": "Escudo de madera",
-    "40": "Concha Franklin",
-    "41": "Jurisprudencia",
-    "42": "Casco de guerra",
-    "43": "Cubo metálico",
-    "44": "Pared",
-    "45": "Fila de contadores",
-    "46": "Plexiglás",
-    "47": "Fortaleza japonesa",
-    "48": "Abrigo",
-    "49": "Chaqueta de combate",
-    "5": "Escudo de hierro",
-    "50": "Bata protectora",
-    "51": "Tienda protectora",
-    "52": "Poderosa égida",
-    "53": "Égida falsificada",
-    "54": "Nam Nam",
-    "55": "Autoburla",
-    "56": "Flemme",
-    "57": "El ala derecha de Ícaro",
-    "58": "Lámpara mágica",
-    "59": "Sombrero mágico",
-    "6": "Armadura de hierro",
-    "60": "Giga Chad",
-    "61": "UwUrlant Cry",
-    "7": "Kimono reforzado",
-    "8": "Escudo único",
-    "9": "Escudo resistente"
-  },
-  "classes": {
-    "0": "Reclutar",
-    "1": "Caza",
-    "10": "Archer",
-    "11": "Artillero",
-    "12": "Escudero",
-    "13": "Rider",
-    "14": "Piquier",
-    "15": "Chevalier",
-    "16": "Paladín",
-    "17": "Veterano",
-    "18": "Poderoso soldado de infantería",
-    "19": "Tanque impenetrable",
-    "2": "Privado",
-    "20": "Un artillero formidable",
-    "21": "Caballero valiente",
-    "22": "Paladín brillante",
-    "23": "Veterano curtido",
-    "24": "Mago místico",
-    "3": "Soldado de Infantería",
-    "4": "Guante",
-    "5": "Casco",
-    "6": "Maillé",
-    "7": "Depósito",
-    "8": "Lanzapiedras",
-    "9": "Recortadora"
-  },
-  "fight_actions": {
-    "benediction": {
-      "description": "Forma parte del grupo \"acciones de los dioses\". Falla si ya se ha realizado 1 acción de los dioses en combate. Aumenta todas las estadísticas del lanzador. Cuanto más tarde en el combate se utilice la bendición, mayor será el aumento de estadísticas.",
-      "name_one": "Bendición",
-      "name_other": "Bendiciones"
-    },
-    "boomerangAttack": {
-      "description": "Lanza un bumerán que inflige daño a los enemigos hasta 3 veces.",
-      "name_one": "Ataque bumerán",
-      "name_other": "Ataques bumerán"
-    },
-    "boulderTossAttack": {
-      "description": "Ataque medio que puede aturdir al oponente.",
-      "name_one": "Ataque con piedras",
-      "name_other": "Ataques con piedras"
-    },
-    "breathTakingAttack": {
-      "description": "Inflige una pequeña cantidad de daño, pero puede robar el aliento o ralentizar a tu oponente.",
-      "name_one": "Ataque explosivo",
-      "name_other": "Ataques de robo de aliento"
-    },
-    "burned": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
-    },
-    "canonAttack": {
-      "description": "La precisión de este ataque se reduce en oponentes que se mueven rápido. Se aplica una bonificación de daño a este ataque si el oponente es muy lento. El oponente puede ser ralentizado por el ataque. Inflige más daño si se utiliza varias veces seguidas.",
-      "name_one": "Ataque con cañón",
-      "name_other": "Ataques con cañón"
-    },
-    "chargeChargingAttack": {
-      "description": "Ataque de 2 turnos. Durante el primer asalto, la defensa del lanzador aumenta un 50%. Durante el segundo asalto, la defensa del lanzador vuelve a su nivel inicial.",
-      "name_one": "Ataque cargado",
-      "name_other": "Ataques cargados"
-    },
-    "chargeClubSmashAttack": {
-      "description": "Requiere un turno para cargar el ataque. Realiza una potente carga al turno siguiente.",
-      "name_one": "Ataque a un club",
-      "name_other": "Ataques a clubes"
-    },
-    "chargeUltimateAttack": {
-      "description": "Requiere un turno para cargar el ataque Si el atacante tiene menos del 45% de sus puntos de combate, este ataque no puede fallar. Si el atacante tiene más del 45% de sus puntos de combate, la precisión de este ataque es de 70. Este ataque sólo puede ser utilizado una vez por jugador y por batalla.",
-      "name_one": "Ataque definitivo",
-      "name_other": "Ataques definitivos"
-    },
-    "chargingAttack": {
-      "description": "",
-      "name_one": "Ataque cargado",
-      "name_other": "Ataques cargados"
-    },
-    "clubSmashAttack": {
-      "description": "",
-      "name_one": "Ataque a un club",
-      "name_other": "Ataques a clubes"
-    },
-    "concentrated": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
-    },
-    "concentration": {
-      "description": "Falla si utilizas esta acción mientras estás alterado. La alteración \"concentrado\" aumenta enormemente el daño infligido por el luchador afectado durante el siguiente turno.",
-      "name_one": "Concentración",
-      "name_other": "Concentraciones"
-    },
-    "counterAttack": {
-      "description": "Repite la misma acción que tu oponente. No funciona con ataques mágicos o divinos, o si el oponente no ha atacado.",
-      "name_one": "Réplica de ataque",
-      "name_other": "Los ataques contraatacan"
-    },
-    "cursed": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
-    },
-    "cursedAttack": {
-      "description": "Maldición para el adversario, quizás sufra las consecuencias en el futuro...",
-      "name_one": "Ataque maldito",
-      "name_other": "Ataques malditos"
-    },
-    "darkAttack": {
-      "description": "Ignora la defensa del adversario. Más eficaz contra un jugador con un ataque alto.",
-      "name_one": "Ataque oscuro",
-      "name_other": "Ataques oscuros"
-    },
-    "defenseBuff": {
-      "description": "Cuantas más veces se realice esta acción, mayor será la bonificación de defensa.",
-      "name_one": "Impulso a la defensa",
-      "name_other": "Defensa impulsa"
-    },
-    "divineAttack": {
-      "description": "La precisión de este ataque aumenta con la duración del combate. Forma parte del grupo \"acciones de los dioses\". Falla si ya se han realizado 2 acciones de los dioses en el combate.",
-      "name_one": "Ataque divino",
-      "name_other": "Ataques divinos"
-    },
-    "energeticAttack": {
-      "description": "La mitad del daño de este ataque se devuelve al lanzador en forma de curación.",
-      "name_one": "Ataque energético",
-      "name_other": "Ataques energéticos"
-    },
-    "eruptionAttack": {
-      "description": "El volcán entra en erupción y escupe roca fundida a los jugadores.",
-      "name_one": "Erupción",
-      "name_other": "Erupciones"
-    },
-    "familyMealAttack": {
-      "description": "Invoca a tus aliados para que devoren y envenenen a tu oponente.",
-      "name_one": "Comidas familiares",
-      "name_other": "Comidas familiares"
-    },
-    "fireAttack": {
-      "description": "Alta probabilidad de quemar a tu oponente. La alteración \"quemado\" inflige daño a tu rival con el tiempo.",
-      "name_one": "Ataque de fuego",
-      "name_other": "Ataques con fuego"
-    },
-    "frozen": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
-    },
-    "full": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
-    },
-    "grabAndThrowAttack": {
-      "description": "Lanza al oponente si utiliza un ataque físico, infligiendo un daño medio y teniendo una posibilidad de aturdir al oponente",
-      "name_one": "Ataque con proyectiles",
-      "name_other": "Ataques con proyectiles"
-    },
-    "guildAttack": {
-      "description": "Los jugadores del gremio se reúnen para llevar a cabo un poderoso ataque en grupo.",
-      "name_one": "Ataque gremial",
-      "name_other": "Ataques gremiales"
-    },
-    "heatDrainAttack": {
-      "description": "Recupera el calor del jugador, aumentando el ataque del lanzador y congelando al oponente.",
-      "name_one": "Drenaje de calor",
-      "name_other": "Drenajes térmicos"
-    },
-    "heavyAttack": {
-      "description": "El daño de este ataque se reduce un 90% si el defensor tiene menos defensa que el atacante. La defensa del enemigo se reduce un 25%.",
-      "name_one": "Ataque pesado",
-      "name_other": "Ataques fuertes"
-    },
-    "intenseAttack": {
-      "description": "Ignora parte de la defensa de tu oponente. Nunca falla contra un oponente más rápido. Funciona mejor contra un oponente rápido. Obliga al lanzador a utilizar la acción \"descansar\" en el siguiente turno. No puede matar al oponente.",
-      "name_one": "Ataque intenso",
-      "name_other": "Ataques intensos"
-    },
-    "lavaWaveAttack": {
-      "description": "Un ataque muy poderoso utilizado como último recurso y que garantiza infligir el daño \"Quemado\" al oponente.",
-      "name_one": "Ola de lava",
-      "name_other": "Ondas de lava"
-    },
-    "magmaBathAttack": {
-      "description": "Se aplica al lanzador. El lanzador descansa en la lava y recupera sus puntos de combate. El número de puntos de combate recuperados se divide por 4 tras 4 usos.",
-      "name_one": "Baño de magma",
-      "name_other": "Baños de magma"
-    },
-    "mimicAttack": {
-      "description": "Copia aleatoriamente uno de tus ataques.",
-      "name_one": "Mimic",
-      "name_other": "Imita"
-    },
-    "monstrousCopyAttack": {
-      "description": "Copia el ataque de un monstruo aleatorio.",
-      "name_one": "Copia monstruosa",
-      "name_other": "Copias monstruosas"
-    },
-    "none": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
-    },
-    "outOfBreath": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
-    },
-    "outrage": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
-    },
-    "outrageAttack": {
-      "description": "Falla si utilizas esta acción mientras tienes una alteración de estado. La alteración \"furioso\" duplica el ataque pero disminuye la defensa. Tras 2 turnos, el efecto desaparece y el atacante queda confuso.",
-      "name_one": "Ira",
-      "name_other": "Ira"
-    },
-    "paralyzed": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
-    },
-    "petrificationAttack": {
-      "description": "Petrifica al objetivo durante 2 turnos, pero aumenta su defensa un 200%.",
-      "name_one": "Petrificación",
-      "name_other": "Petrificaciones"
-    },
-    "petrified": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
-    },
-    "piercingAttack": {
-      "description": "Ignora casi por completo la defensa del adversario. Es probable que el atacante reduzca ligeramente la defensa de su adversario.",
-      "name_one": "Ataque perforante",
-      "name_other": "Ataques perforantes"
-    },
-    "poisoned": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
-    },
-    "poisonousAttack": {
-      "description": "Envenena a tu oponente. La alteración \"envenenada\" dura al menos tres turnos e inflige daño a tu oponente a lo largo del tiempo.",
-      "name_one": "Ataque envenenado",
-      "name_other": "Ataques envenenados"
-    },
-    "powerfulAttack": {
-      "description": "Este ataque tiene un 25% de posibilidades de hacer más daño, a costa de aturdir al atacante. Tras 3 usos, el daño del ataque se reduce un 70%.",
-      "name_one": "Poderoso ataque",
-      "name_other": "Poderosos ataques"
-    },
-    "protected": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
-    },
-    "protection": {
-      "description": "Falla si utilizas esta acción mientras tienes una alteración de estado. La alteración \"protegida\" dura 3 turnos y evita que seas víctima de otra alteración, al tiempo que te da un 30% de aumento a tu defensa.",
-      "name_one": "Protección",
-      "name_other": "Protecciones"
-    },
-    "quickAttack": {
-      "description": "Nunca falla en un oponente más lento. Cuanto más lento sea tu oponente, más daño hará este ataque.",
-      "name_one": "Ataque rápido",
-      "name_other": "Ataques rápidos"
-    },
-    "rageExplosion": {
-      "description": "Desata la rabia que has acumulado por el camino sobre tu enemigo.",
-      "name_one": "Explosión de rabia",
-      "name_other": "Explosiones de rabia"
-    },
-    "ramAttack": {
-      "description": "Si el atacante no queda aturdido por el ataque, recibe parte del daño infligido. El ataque también puede aturdir al adversario.",
-      "name_one": "Ataque de carnero",
-      "name_other": "Ataques de carnero"
-    },
-    "resting": {
-      "description": "Se aplica como curación al lanzador. La cantidad de puntos de combate recuperados se divide por 4 tras 4 usos.",
-      "name_one": "Descansa",
-      "name_other": "Descansa"
-    },
-    "roarAttack": {
-      "description": "Reduce el ataque y la velocidad de tu oponente.",
-      "name_one": "Rugido",
-      "name_other": "Ruge"
-    },
-    "rockShieldAttack": {
-      "description": "Reduce a la mitad el siguiente ataque recibido.",
-      "name_one": "Escudo de roca",
-      "name_other": "Escudo de roca"
-    },
-    "sabotageAttack": {
-      "description": "Ignora completamente la defensa del oponente. Funciona mejor sobre un oponente con poco ataque. Un ataque con poco aliento que puede paralizar al lanzador. Si lo hace, el daño aumenta.",
-      "name_one": "Ataque de sabotaje",
-      "name_other": "Ataques de sabotaje"
-    },
-    "shieldAttack": {
-      "description": "Utiliza el escudo del atacante para atacar. El daño \"debilitado\" reduce el ataque un 70% durante 1 turno.",
-      "name_one": "Ataque con escudo",
-      "name_other": "Ataques con escudo"
-    },
-    "simpleAttack": {
-      "description": "Un ataque simple.",
-      "name_one": "Ataque simple",
-      "name_other": "Ataques simples"
-    },
-    "slamAttack": {
-      "description": "Ataque débil-medio que reduce la velocidad del oponente.",
-      "name_one": "Ataque de impacto",
-      "name_other": "Impactos"
-    },
-    "slowed": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
-    },
-    "stealth": {
-      "description": "Se esconde discretamente para duplicar el daño del siguiente ataque.",
-      "name_one": "Discreción",
-      "name_other": "Discreciones"
-    },
-    "stoneSkinAttack": {
-      "description": "Cuantas más veces se realice esta acción, mayor será la bonificación de defensa.",
-      "name_one": "Piel de roca",
-      "name_other": "Pieles de roca"
-    },
-    "stunned": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
-    },
-    "summonAttack": {
-      "description": "Invoca aliados que te ayuden y ataca con fuerza.",
-      "name_one": "Invocación de aliados",
-      "name_other": "Invocación de aliados"
-    },
-    "targeted": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
-    },
-    "ultimateAttack": {
-      "description": "",
-      "name_one": "Ataque definitivo",
-      "name_other": "Ataques definitivos"
-    },
-    "weak": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
-    },
-    "webShotAttack": {
-      "description": "Lanza un chorro de telaraña que hiere y ralentiza a tu oponente.",
-      "name_one": "Ataque de lanzamiento de red",
-      "name_other": "Ataques con lanza telarañas"
-    }
-  },
-  "leagues": {
-    "0": "Liga de la Madera",
-    "1": "Liga de la Piedra",
-    "2": "Liga de Hierro",
-    "3": "Liga de Bronce",
-    "4": "Liga de Plata",
-    "5": "Liga de Oro",
-    "6": "Liga de Diamante",
-    "7": "Liga Elite",
-    "8": "Liga Infinita",
-    "9": "Liga de Leyendas"
-  },
-  "map_locations": {
-    "1": {
-      "description": "Una gran playa de arena a las afueras de la ciudad.",
-      "name": "Playa Sentinel",
-      "particle": "a la"
-    },
-    "10": {
-      "description": "Antaño una gran ciudad fortificada, Ville Forte es ahora una sombra de lo que fue. Asolada por la antigua guerra, sólo quedan una docena de casas y campesinos. El resto de las antiguas fortificaciones está en ruinas.",
-      "name": "Ciudad fuerte",
-      "particle": "a la"
-    },
-    "1000": {
-      "description": "Una gran playa de arena volcánica negra. Debe su nombre a su color característico. Los primeros hombres que pisaron la playa negra temieron una gran maldición. Evidentemente, no es el caso. Pero hay que tener cuidado, porque la arena negra mancha los pies y la ropa.",
-      "name": "Playa negra",
-      "particle": "a la"
-    },
-    "1001": {
-      "description": "Un inmenso bosque que cubre prácticamente toda la isla. Las finas partículas de ceniza que caen del volcán Grondant dificultan la visibilidad en este bosque. Por ello, apenas se explora.",
-      "name": "Bosque del Crepúsculo",
-      "particle": "a la"
-    },
-    "1002": {
-      "description": "Un pequeño pueblo de unas veinte casas, parcialmente destruido, cerca del Bosque del Crepúsculo. Nadie sabe exactamente por qué el pueblo está en ruinas. Muchos creen que es la aldea de antiguos habitantes que murieron en las corrientes de lava del volcán Grondant. Pero otros proponen la teoría de una enfermedad, la peste y numerosas ratas. Aquí no queda ni un solo habitante...",
-      "name": "Pueblo en ruinas",
-      "particle": "a la"
-    },
-    "1003": {
-      "description": "Esta antigua mina abandonada pasa por debajo del escarpado camino y las montañas. Es tan grande y laberíntica que acaba en el corazón del volcán. Sin embargo, es difícil llegar hasta ella. Eso sí, tenga cuidado, ya que algunas personas han encontrado restos de viejos plátanos en la brumosa mina.",
-      "name": "Cara brumosa",
-      "particle": "a la"
-    },
-    "1004": {
-      "description": "Este es el único camino real hacia la cumbre del Volcán Grondant. Es muy difícil de utilizar y, sobre todo, muy peligroso. Muchos hombres han muerto intentando escalarlo. Por su cuenta y riesgo.",
-      "name": "Camino empinado",
-      "particle": "a la"
-    },
-    "1005": {
-      "description": "Este volcán, pieza central de la isla volcánica, sigue activo. Vierte varias toneladas de ceniza al año sobre esta pequeña isla, que no deja de crecer. De su centro fluye tanta lava que un canal subterráneo, conocido como Canal de Lavique, recorre varios kilómetros. Desde los barcos se puede ver cómo hierve el agua bajo la superficie. Se dice incluso que este volcán es el creador de varias pequeñas islas de la zona, entre ellas la Isla de Hielo.",
-      "name": "Volcán retumbante",
-      "particle": "a la"
-    },
-    "11": {
-      "description": "Esta fue la última carretera real que rodeaba el monte Celestrum desde el norte, y todavía se utiliza mucho hoy en día, principalmente por los bandoleros.",
-      "name": "Gran Hacha",
-      "particle": "a la"
-    },
-    "1100": {
-      "description": "Esta orilla es lo primero que se ve al llegar a la isla de hielo. Debe su nombre al ruido que hacían los marineros al desembarcar. Obviamente, regresaban de la isla volcánica, donde la temperatura es mucho más cálida.",
-      "name": "Gla-gla litoral",
-      "particle": "a la"
-    },
-    "1101": {
-      "description": "Como su nombre indica, esta vasta extensión de tierra helada no es lugar para descansar. Muy fría y árida, aún quedan algunos árboles resistentes.",
-      "name": "Tundra helada",
-      "particle": "a la"
-    },
-    "1102": {
-      "description": "Lac du savoir, un gran lago helado, es un lugar tranquilo y relajante. Se puede oír una suave brisa que se desliza por el hielo del lago. Ideal para meditar después de explorar esta inmensa isla salvaje.",
-      "name": "El lago del conocimiento",
-      "particle": "a la"
-    },
-    "1103": {
-      "description": "Una inmensa llanura donde se han construido montones de muñecos de nieve. ¿Quién construyó el primer muñeco de nieve? Nadie lo sabe. Hace demasiado frío para que se derritan. Sin embargo, algunos viajeros se divierten creando otros nuevos.",
-      "name": "Muñeco de nieve llano",
-      "particle": "a la"
-    },
-    "1104": {
-      "description": "Una magnífica caverna de hielo. Cientos de estalactitas y estalagmitas decoran esta caverna. La luz natural ilumina estos cristales de hielo, dando la impresión de miles de estrellas. Si se olvidan los cientos de exploradores muertos que han resbalado y se han empalado en las estalagmitas, esta caverna es increíblemente bella o totalmente triste. La Cueva de Cristal es un peligroso camino para llegar a la cumbre del pico nevado.",
-      "name": "Cueva de cristal",
-      "particle": "a la"
-    },
-    "1105": {
-      "description": "Esta caverna, muy parecida a su hermana, la Cueva de Cristal, tiene una gran ventaja. Conduce a la cima nevada a través de las profundidades de la tierra. Es un largo camino sobre hielo y roca. Debe su nombre a las cuevas que se adentran bajo tierra, revelando bellas formaciones de hielo.",
-      "name": "Corazón de la caverna de hielo",
-      "particle": "a la"
-    },
-    "1106": {
-      "description": "Este gigantesco pico domina toda la isla. Se divisa a kilómetros de distancia. De muy difícil acceso, el pico nevado alberga viejas estructuras de madera que datan de una antigua civilización. Como los dos senderos que conducen a ella son muy peligrosos, pocas personas han podido ver estas estructuras con sus propios ojos.",
-      "name": "Pico nevado",
-      "particle": "a la"
-    },
-    "12": {
-      "description": "Una vasta y vacía llanura septentrional de escaso interés.",
-      "name": "La Expansión",
-      "particle": "a"
-    },
-    "13": {
-      "description": "Una carretera difícil, fangosa y húmeda. La carretera pantanosa une la Expansión con el río Cangrejo.",
-      "name": "Carretera pantanosa",
-      "particle": "a la"
-    },
-    "14": {
-      "description": "Un gran lago donde a las familias les gusta reunirse. En él desemboca el río Vacarme.",
-      "name": "Lago Mirage",
-      "particle": "a la"
-    },
-    "15": {
-      "description": "El monte Celestrum es la montaña dominante de la región. Con varios kilómetros de altura, Celestrum es visible para todos. Se dice que lleva el nombre de la antigua diosa. De hecho, sólo una persona ha conseguido escalar hasta la cima. De ella sólo quedan sus iniciales: M-B.",
-      "name": "Monte Celestrum",
-      "particle": "a la"
-    },
-    "16": {
-      "description": "Peligroso sendero a orillas del río Vacarme. Tenga cuidado de no caerse.",
-      "name": "Camino de los Lobos",
-      "particle": "a la"
-    },
-    "17": {
-      "description": "Cálido pueblo que bordea el Valle de los Reyes. Es un cálido oasis para los viajeros en tránsito.",
-      "name": "Coco Village",
-      "particle": "a la"
-    },
-    "18": {
-      "description": "Este río debe su nombre al ruido producido por su fuerte corriente, que se ha cobrado la vida de muchos aldeanos.",
-      "name": "Río Vacarme",
-      "particle": "a la"
-    },
-    "19": {
-      "description": "Una playa creada por los fuertes vientos del Valle de los Reyes. La Duna protege las Plaines du Contre Bois del calor y trae agua del río Vacarme.",
-      "name": "La Duna",
-      "particle": "a"
-    },
-    "1999": {
-      "description": "Un viejo barco de madera, parece que aguanta bien gracias a las reparaciones realizadas por los trabajadores. Está listo para partir, a la espera de tu llegada.",
-      "name": "Barco para salir de la isla",
-      "particle": "a la"
-    },
-    "2": {
-      "description": "Una pequeña carretera que conduce al campo desde Mergagnan y viceversa.",
-      "name": "Camino rural",
-      "particle": "a la"
-    },
-    "20": {
-      "description": "Una vasta y pacífica llanura agrícola.",
-      "name": "Plaines du Contre Bois",
-      "particle": "a la"
-    },
-    "21": {
-      "description": "Una carretera muy utilizada por los aldeanos. Muchos pequeños vendedores ambulantes se instalan aquí durante un día, creando un enorme mercado.",
-      "name": "Ruta de las maravillas",
-      "particle": "a la"
-    },
-    "22": {
-      "description": "Bois Hurlant, un bosque tristemente célebre situado en las afueras de Claire de Ville, tiene muy mala reputación. Refugio de bandidos y forajidos de todo tipo, su nombre se debe principalmente a las dudosas prácticas de hace cientos de años.",
-      "name": "Bosque aullador",
-      "particle": "a la"
-    },
-    "22222": {
-      "description": "Una zona de pruebas para monstruos. Se supone que nunca aparecerán en el juego",
-      "name": "Zona de pruebas de monstruos",
-      "particle": "a la"
-    },
-    "23": {
-      "description": "Claire De Ville, gran ciudad comercial y encrucijada económica, no siempre ha sido tan acogedora. Inicialmente muy pobre, se ha desarrollado rápidamente gracias a sus numerosos comercios y hoteles que ofrecen una amplia oferta a los viajeros de la región. Claire De Ville también es conocida por su tranquilidad y respeto al orden.",
-      "name": "Claire De Ville",
-      "particle": "a"
-    },
-    "24": {
-      "description": "Una carretera muy empinada que lleva a Claire De Ville. Todo depende del camino que tomes.",
-      "name": "Vía de escalada",
-      "particle": "a la"
-    },
-    "25": {
-      "description": "Todo está en el nombre. Un río muy apreciado por los pescaderos de Claire De Ville.",
-      "name": "Rivière aux Crabes",
-      "particle": "a la"
-    },
-    "26": {
-      "description": "Una ciudad tranquila a orillas de Plage Sentinelle.",
-      "name": "Mergagnan",
-      "particle": "a"
-    },
-    "27": {
-      "description": "Un bosque al borde del monte Celestrum.",
-      "name": "Bosque de Celestrum",
-      "particle": "a la"
-    },
-    "28": {
-      "description": "La entrada al castillo del rey, rodeada por una gruesa muralla, parece capaz de resistir cualquier ataque imaginable.",
-      "name": "Puertas del castillo",
-      "particle": "a la"
-    },
-    "29": {
-      "description": "Una enorme sala decorada con numerosas obras de arte",
-      "name": "Sala de recepción",
-      "particle": "a la"
-    },
-    "3": {
-      "description": "Gran llanura al oeste del país bordeada por un gran bosque y atravesada por una carretera principal.",
-      "name": "El Berceau",
-      "particle": "a"
-    },
-    "32": {
-      "description": "El camino al castillo del Rey",
-      "name": "Ruta al castillo del Rey",
-      "particle": "a"
-    },
-    "33": {
-      "description": "",
-      "name": "Continente principal",
-      "particle": "a"
-    },
-    "4": {
-      "description": "Un vasto bosque al sur de la Cuna. Se dice que muchos viajeros se han perdido aquí.",
-      "name": "Bosque de Vieillard",
-      "particle": "a la"
-    },
-    "5": {
-      "description": "El sendero debe su apodo a su naturaleza entrecruzada en la parte sur del Bosque del Viejo.",
-      "name": "Camino de Dédale",
-      "particle": "a la"
-    },
-    "6": {
-      "description": "Un pueblo tranquilo conocido por su acogedora posada.",
-      "name": "Algodón Boug",
-      "particle": "a"
-    },
-    "7": {
-      "description": "Un desierto arenoso y caluroso que debe su nombre a los antiguos reyes de la región.",
-      "name": "Valle de los Reyes",
-      "particle": "a la"
-    },
-    "8": {
-      "description": "Un cruce importante que une las principales carreteras al oeste del monte Celestrum.",
-      "name": "Encrucijada del destino",
-      "particle": "a la"
-    },
-    "9": {
-      "description": "Antaño una importante ruta comercial que unía la Cuna y la Ville Forte, todo lo que queda de la Grande Rue son algunos viejos adoquines desconchados.",
-      "name": "Grande Rue",
-      "particle": "a la"
-    }
-  },
-  "map_types": {
-    "be": {
-      "name": "Playa",
-      "prefix": "de la"
-    },
-    "castle_entrance": {
-      "name": "",
-      "prefix": "de"
-    },
-    "castle_throne": {
-      "name": "",
-      "prefix": "de la"
-    },
-    "ci": {
-      "name": "Ciudad",
-      "prefix": "de la"
-    },
-    "continent": {
-      "name": "",
-      "prefix": "de"
-    },
-    "crystal_cavern": {
-      "name": "Cueva de cristal",
-      "prefix": "de la"
-    },
-    "de": {
-      "name": "Desierto",
-      "prefix": "de"
-    },
-    "fo": {
-      "name": "Bosque",
-      "prefix": "de la"
-    },
-    "ice_beach": {
-      "name": "Playa de hielo",
-      "prefix": "de la"
-    },
-    "ice_cavern": {
-      "name": "Caverna de hielo",
-      "prefix": "de la"
-    },
-    "ice_lake": {
-      "name": "Lago helado",
-      "prefix": "de"
-    },
-    "la": {
-      "name": "Lago",
-      "prefix": "de"
-    },
-    "mine": {
-      "name": "Mina",
-      "prefix": "de la"
-    },
-    "mo": {
-      "name": "Montaña",
-      "prefix": "de la"
-    },
-    "pl": {
-      "name": "Llanura",
-      "prefix": "de la"
-    },
-    "pve_exit": {
-      "name": "",
-      "prefix": "de"
-    },
-    "ri": {
-      "name": "Río",
-      "prefix": "de la"
-    },
-    "ro": {
-      "name": "Ruta",
-      "prefix": "de la"
-    },
-    "ruins": {
-      "name": "Ruinas",
-      "prefix": "de"
-    },
-    "snow_mountain": {
-      "name": "Pájaro carpintero",
-      "prefix": "de"
-    },
-    "snowmen_field": {
-      "name": "Llanura",
-      "prefix": "de la"
-    },
-    "test_zone": {
-      "name": "",
-      "prefix": "de la"
-    },
-    "tundra": {
-      "name": "Tundra",
-      "prefix": "de la"
-    },
-    "vi": {
-      "name": "Pueblo",
-      "prefix": "de"
-    },
-    "volcano": {
-      "name": "Volcán",
-      "prefix": "de"
-    }
-  },
-  "missions": {
-    "anyFight_one": "Haz {{objective}} combat",
-    "anyFight_other": "Hacer {{objective}} peleas",
-    "bigFeast": "Asistir a una gran fiesta",
-    "buyUltimateSoups_one": "Compra al menos {{objective}} ultimate soup",
-    "buyUltimateSoups_other": "Compra al menos {{objective}} ultimate soups",
-    "chooseClass": "Elige una clase que no sea 🌿 Recluta",
-    "chooseClassTier": "Tener un nivel de clase de {{variantText}} o superior",
-    "commandMission": "Para pedir {{commandMissions}}",
-    "commandReport": "Para pedir {{commandReport}}",
-    "dailyPotionsStock": "Compra las existencias de pociones de hoy",
-    "doReports_one": "Informe a {{objective}}",
-    "doReports_other": "Realizar informes {{objective}}",
-    "drinkAlcohol": "Beber una poción que contenga alcohol",
-    "drinkEnergyPotion_one": "Bebe {{objective}} poción energética",
-    "drinkEnergyPotion_other": "Beber pociones energéticas {{objective}}",
-    "drinkPotionRarity": "Bebe una poción de rareza {{variantText}} o superior",
-    "drinkPotionWithoutEffect_one": "Beber {{objective}} poción sin efecto",
-    "drinkPotionWithoutEffect_other": "Beber {{objective}} pociones sin efecto",
-    "drinkPotion_one": "Bebe {{objective}} potion",
-    "drinkPotion_other": "Beber pociones {{objective}}",
-    "earnLifePoints_one": "Gana {{objective}} puntos de golpe",
-    "earnLifePoints_other": "Gana {{objective}} puntos de golpe",
-    "earnMoney": "Cosecha {{objective}}💰",
-    "earnPoints": "Gana {{objective}}🏅",
-    "earnXP": "Gana {{objective}}⭐",
-    "exploreDifferentPlaces": "Explore {{objective}} lugares diferentes",
-    "fightAttacks": "Hacer {{objective}} {{variantText}} en las peleas",
-    "fightHealthPercent_one": "Gana {{objective}} con menos de {{variantText}}% de tu vida restante",
-    "fightHealthPercent_other": "Gana {{objective}} combates con menos de {{variantText}}% de tu vida restante.",
-    "fightStreak": "Luchando por {{objective}} días seguidos",
-    "findOrBuyItem_one": "Buscar o comprar {{objective}}",
-    "findOrBuyItem_other": "Buscar o comprar artículos en {{objective}}",
-    "finishWithAttack": "Usa {{objective}}{{variantText}} para acabar con tu oponente",
-    "fromPlaceToPlace": "{{variantText}}",
-    "gainRage_one": "Gana {{objective}} puntos de rabia derrotando a animales salvajes",
-    "gainRage_other": "Gana {{objective}} puntos de rabia derrotando a animales salvajes",
-    "goToPlace": "Viaje a{{variantText}}",
-    "guildDailyFromSomeoneElse": "Recibir una recompensa del gremio sin haberla reclamado",
-    "guildDaily_one": "Recibe la recompensa del gremio {{objective}}",
-    "guildDaily_other": "Recibe recompensas del gremio {{objective}}",
-    "guildHasPoints": "Ayuda a tu gremio a tener más de {{objective}} puntos de gremio",
-    "guildLevel": "Formar parte de un gremio de nivel {{objective}} o superior",
-    "haveItemRarity": "Equipo raro {{variantText}} o mejor",
-    "havePet": "Tener un animal de compañía",
-    "havePotions": "Poseer {{objective}} pociones al mismo tiempo",
-    "joinGuild": "Unirse o crear un gremio",
-    "joinMemberOnBoat": "Únase a un miembro en la isla",
-    "joinPVEIsland": "Llegar a la isla misteriosa",
-    "kingsMoneyValue": "Consigue menos de 6.500 💰 en dinero del rey",
-    "meetDifferentPlayers_one": "Conozca al jugador {{objective}}",
-    "meetDifferentPlayers_other": "Conozca {{objective}} jugadores diferentes",
-    "meetGruffo": "Conoce a Gruffo",
-    "meetHermit": "Conoce a un ermitaño",
-    "petEarnHealth": "Obtener vida de una mascota",
-    "reachGlory": "Tener {{objective}} puntos de gloria o más",
-    "reachLevel": "Alcanza el nivel {{objective}}",
-    "reachScore": "Puntuación superior a {{objective}}🏅",
-    "recoverAlteration_one": "Recuperarse de {{objective}}",
-    "recoverAlteration_other": "Recuperarse de {{objective}}",
-    "sellItemWithGivenCost_one": "Venta de equipos {{objective}} por más de {{variantText}}💰",
-    "sellItemWithGivenCost_other": "Venta de equipos {{objective}} por más de {{variantText}}💰",
-    "sellOrTradePet": "Vender o intercambiar una mascota con otro jugador",
-    "spendGems": "Gasta gemas en la tienda de la misión",
-    "spendMoney": "Gastar monedas {{objective}}",
-    "tamedPet": "Tener una mascota domesticada o adiestrada",
-    "trainedPet": "Tener una mascota adiestrada",
-    "travelHours_one": "Haga {{objective}} un viaje de al menos {{variantText}} hora",
-    "travelHours_other": "Hacer {{objective}} viajes de al menos {{variantText}} horas",
-    "unlock": "Liberar a alguien de la cárcel",
-    "wealthyPayForPVEIsland": "Comprar un viaje a una isla misteriosa al precio máximo",
-    "winBoss_one": "Gana la batalla contra el jefe de {{objective}}",
-    "winBoss_other": "Gana combates contra jefes en {{objective}}"
-  },
-  "monsters": {
-    "forestTroll": "Trol del bosque",
-    "magmaTitan": "Titán de magma",
-    "rockGolem": "Golem de roca",
-    "skeleton": "Esqueleto",
-    "slimyMutant": "Mutante de barro",
-    "spider": "Araña"
-  },
-  "objects": {
-    "0": "Espacio libre",
-    "1": "Bandera de la paz",
-    "10": "Zapatilla deportiva",
-    "11": "Bendición del cielo",
-    "12": "Punta de obsidiana",
-    "13": "Hojas muertas",
-    "14": "Manzana roja",
-    "15": "Manzana verde",
-    "16": "Recipiente para el corazón",
-    "17": "Libro de conjuros Volumen 1",
-    "18": "Libro de conjuros Volumen 2",
-    "19": "Libro de conjuros Volumen 3",
-    "2": "Dado mágico",
-    "20": "Libro de conjuros Volumen 4",
-    "21": "Rosario mítico",
-    "22": "Bandera de la muerte",
-    "23": "Flor real",
-    "24": "Barril metálico",
-    "25": "Vela vieja",
-    "26": "Maceta de terracota",
-    "27": "Saxo mágico",
-    "28": "Guitarra terrorífica",
-    "29": "Tarjeta de crédito",
-    "3": "Diamante Kéraunique",
-    "30": "Pata mecánica",
-    "31": "Lindo gato con ojos láser",
-    "32": "Kyuillère",
-    "33": "Calabaza",
-    "34": "Osito de peluche",
-    "35": "Imán",
-    "36": "Aderezo",
-    "37": "Esquíes resbaladizos",
-    "38": "Amuleto del ciclón",
-    "39": "Poder de Nayru",
-    "4": "Flor de esperanza",
-    "40": "Anillo del ángel sin vida",
-    "41": "Urna ornamentada de minotauro",
-    "42": "Reloj conejo",
-    "43": "Escisión de Banan'ase",
-    "44": "Manzana de árbol grande",
-    "45": "Amuleto de Midas",
-    "46": "Estrella fugaz",
-    "47": "Kyuran",
-    "48": "Acelerador de partículas",
-    "49": "Gel hidroalcohólico",
-    "5": "Luna de Mojaro",
-    "50": "Botas Pegaso",
-    "51": "Nimbus 2000",
-    "52": "Jabón resbaladizo",
-    "53": "Medalla al Mérito",
-    "54": "Cuerno de caza",
-    "55": "Bolso del ladrón",
-    "56": "Máquina tragaperras",
-    "57": "Zapatos de tacón",
-    "58": "Anillos de defensa",
-    "59": "Chocobrie",
-    "6": "Bola mágica de cristal",
-    "60": "Multinacional",
-    "61": "Voltou",
-    "62": "Ojo del destino",
-    "63": "Prensatelas",
-    "64": "Lego",
-    "65": "La armónica del tiempo",
-    "66": "Fibra óptica",
-    "67": "Kars",
-    "68": "Tardis",
-    "69": "Música",
-    "7": "Cadenas mágicas",
-    "70": "Cama",
-    "71": "Figura de acción de Buzz Lightyear",
-    "72": "Sol",
-    "73": "Billete para la montaña rusa",
-    "74": "Guindilla",
-    "75": "Desfibrilador",
-    "76": "Comida para perros",
-    "77": "Médico de bolsillo",
-    "78": "Corazón artificial",
-    "79": "Programa de dopaje",
-    "8": "Hoja de viento",
-    "80": "Batería baja",
-    "81": "Batería llena",
-    "82": "Guión de Easy",
-    "83": "Cohete de cartón",
-    "84": "Trébol de 4 hojas",
-    "85": "Roulo PQ",
-    "86": "Estrella del destino",
-    "87": "Guitarra eléctrica",
-    "88": "Tarjeta SYM",
-    "9": "Llave oxidada"
-  },
-  "pets": {
-    "0": {
-      "female": "No se admiten animales",
-      "male": "No se admiten animales"
-    },
-    "1": {
-      "female": "Perro",
-      "male": "Perro"
-    },
-    "10": {
-      "female": "Gallina",
-      "male": "Coq"
-    },
-    "11": {
-      "female": "Pájaro",
-      "male": "Pájaro"
-    },
-    "12": {
-      "female": "Pato",
-      "male": "Pato"
-    },
-    "13": {
-      "female": "Yegua",
-      "male": "Semental"
-    },
-    "14": {
-      "female": "Tortuga",
-      "male": "Tortuga"
-    },
-    "15": {
-      "female": "Serpiente",
-      "male": "Serpiente"
-    },
-    "16": {
-      "female": "Lézarde",
-      "male": "Lagarto"
-    },
-    "17": {
-      "female": "Ovejas",
-      "male": "Aries"
-    },
-    "18": {
-      "female": "Cabra",
-      "male": "Cabra"
-    },
-    "19": {
-      "female": "Turquía",
-      "male": "Turquía"
-    },
-    "2": {
-      "female": "Caniche",
-      "male": "Caniche"
-    },
-    "20": {
-      "female": "Fox",
-      "male": "Fox"
-    },
-    "21": {
-      "female": "Oso",
-      "male": "Oso"
-    },
-    "22": {
-      "female": "Koala",
-      "male": "Koala"
-    },
-    "23": {
-      "female": "Rana",
-      "male": "Sapo"
-    },
-    "24": {
-      "female": "Guenon",
-      "male": "Mono"
-    },
-    "25": {
-      "female": "Pingüino",
-      "male": "Pingüino"
-    },
-    "26": {
-      "female": "Búho",
-      "male": "Búho"
-    },
-    "27": {
-      "female": "Murciélagos",
-      "male": "Murciélagos"
-    },
-    "28": {
-      "female": "Loba",
-      "male": "Lobo"
-    },
-    "29": {
-      "female": "Vellón",
-      "male": "Jabalí"
-    },
-    "3": {
-      "female": "Coño",
-      "male": "Gato"
-    },
-    "30": {
-      "female": "Leones marinos",
-      "male": "Sello"
-    },
-    "31": {
-      "female": "Hipopótamo",
-      "male": "Hipopótamo"
-    },
-    "32": {
-      "female": "Lamate",
-      "male": "Lama"
-    },
-    "33": {
-      "female": "Cisne",
-      "male": "Cisne"
-    },
-    "34": {
-      "female": "Flamenco rosa",
-      "male": "Flamenco rosa"
-    },
-    "35": {
-      "female": "Ratonne",
-      "male": "Mapache"
-    },
-    "36": {
-      "female": "Zorrilla",
-      "male": "Turón"
-    },
-    "37": {
-      "female": "Tejón",
-      "male": "Tejón"
-    },
-    "38": {
-      "female": "Castor",
-      "male": "Castor"
-    },
-    "39": {
-      "female": "Perezoso",
-      "male": "Perezoso"
-    },
-    "4": {
-      "female": "Gato negro",
-      "male": "Gato negro"
-    },
-    "40": {
-      "female": "Tamia",
-      "male": "Tamia"
-    },
-    "41": {
-      "female": "Espiga",
-      "male": "Erizo"
-    },
-    "42": {
-      "female": "Oso polar",
-      "male": "Oso polar"
-    },
-    "43": {
-      "female": "Panda",
-      "male": "Panda"
-    },
-    "44": {
-      "female": "Escorpión",
-      "male": "Escorpio"
-    },
-    "45": {
-      "female": "Cocodrilo",
-      "male": "Cocodrilo"
-    },
-    "46": {
-      "female": "Elefante",
-      "male": "Elefante"
-    },
-    "47": {
-      "female": "Zebrelle",
-      "male": "Cebra"
-    },
-    "48": {
-      "female": "Rinoceronte",
-      "male": "Rinoceronte"
-    },
-    "49": {
-      "female": "Chamelle",
-      "male": "Dromedario"
-    },
-    "5": {
-      "female": "Ratón",
-      "male": "Roedores"
-    },
-    "50": {
-      "female": "Chamelle",
-      "male": "Camello"
-    },
-    "51": {
-      "female": "Jirafa",
-      "male": "Jirafa"
-    },
-    "52": {
-      "female": "Canguro",
-      "male": "Canguro"
-    },
-    "53": {
-      "female": "Paonne",
-      "male": "Pavo real"
-    },
-    "54": {
-      "female": "Loro",
-      "male": "Loro"
-    },
-    "55": {
-      "female": "Nutria",
-      "male": "Nutria"
-    },
-    "56": {
-      "female": "Tigresa",
-      "male": "Tigre"
-    },
-    "57": {
-      "female": "Leona",
-      "male": "León"
-    },
-    "58": {
-      "female": "Águila",
-      "male": "Águila"
-    },
-    "59": {
-      "female": "Dodo",
-      "male": "Dodo"
-    },
-    "6": {
-      "female": "Hámster",
-      "male": "Hámster"
-    },
-    "60": {
-      "female": "Leopardo",
-      "male": "Leopardo"
-    },
-    "61": {
-      "female": "Mamut",
-      "male": "Mamut"
-    },
-    "62": {
-      "female": "Colombe",
-      "male": "Colombe"
-    },
-    "63": {
-      "female": "Unicornio",
-      "male": "Unicornio"
-    },
-    "64": {
-      "female": "Correa de mano",
-      "male": "Dragón"
-    },
-    "65": {
-      "female": "T-Rex",
-      "male": "T-Rex"
-    },
-    "66": {
-      "female": "Ángel",
-      "male": "Puntada"
-    },
-    "67": {
-      "female": "Dama de nieve",
-      "male": "Muñeco de nieve"
-    },
-    "68": {
-      "female": "Pato escarlata",
-      "male": "Pato escarlata"
-    },
-    "69": {
-      "female": "Dama de nieve",
-      "male": "Muñeco de nieve"
-    },
-    "7": {
-      "female": "Conejo",
-      "male": "Conejo"
-    },
-    "70": {
-      "female": "Alienne",
-      "male": "Alien"
-    },
-    "71": {
-      "female": "Pulpo",
-      "male": "Pulpo"
-    },
-    "72": {
-      "female": "Manchote",
-      "male": "Pingüino"
-    },
-    "8": {
-      "female": "Vaca",
-      "male": "Carne de vacuno"
-    },
-    "9": {
-      "female": "Siembre",
-      "male": "Carne de cerdo"
-    }
-  },
-  "potions": {
-    "0": "Sin poción",
-    "1": "Poción roja",
-    "10": "Poción violeta",
-    "11": "Poción ácida",
-    "12": "Poción oscura",
-    "13": "Poción azul",
-    "14": "Poción caducada",
-    "15": "Poción mágica",
-    "16": "Poción mórvica",
-    "17": "Poción definitiva",
-    "18": "Poción agitadora",
-    "19": "Poción de fuerza",
-    "2": "Poción simple",
-    "20": "Poción explosiva",
-    "21": "Poción de velocidad",
-    "22": "Poción curativa",
-    "23": "Poción curativa definitiva",
-    "24": "Poción curativa",
-    "25": "Bebida tropical",
-    "26": "Vaso de leche",
-    "27": "Biberón",
-    "28": "Té",
-    "29": "Café",
-    "3": "Poción",
-    "30": "Alcohol",
-    "31": "La sopa de la abuela",
-    "32": "Agua purificada",
-    "33": "Vino tinto",
-    "34": "Esencia de ave n°5",
-    "35": "Kyurburant",
-    "36": "Zumos",
-    "37": "Cubitos de hielo derretidos",
-    "38": "Sake",
-    "39": "Maté",
-    "4": "Gran poción",
-    "40": "Champán sabré",
-    "41": "Zumo de calcetín",
-    "42": "Bizous'koup",
-    "43": "Las lágrimas del adversario",
-    "44": "Poción de sangre de lobo",
-    "45": "Bebida a base de coca",
-    "46": "Aceite de pimienta fantasma",
-    "47": "Poción mortal asesina",
-    "48": "Jugo de batería",
-    "49": "Aceite de nuez",
-    "5": "Super Poción",
-    "50": "Bebida del valor",
-    "51": "Espinacas",
-    "52": "Zumo de kiwi",
-    "53": "Zumo de plátano",
-    "54": "Friandwill",
-    "55": "Fondue de invierno",
-    "56": "Difunde",
-    "57": "Poción de sangre de dragón",
-    "58": "Poción de dureza extrema",
-    "59": "Poción de burbujas",
-    "6": "Poción verde",
-    "60": "Sudor",
-    "61": "Poción no bebible",
-    "62": "Poción marina",
-    "63": "Poción vacía",
-    "64": "Poción reciclable",
-    "65": "Poción derramada",
-    "66": "Té de burbujas",
-    "67": "Zumo de naranja",
-    "68": "Zumo de manzana",
-    "69": "Miel",
-    "7": "Poción dudosa",
-    "70": "Sopa de cebolla",
-    "71": "Super Nariwa",
-    "72": "Zumo de tormenta",
-    "73": "Expresso",
-    "74": "Poción asombrosa",
-    "75": "Zumo de cactus",
-    "76": "Agua de la ducha",
-    "77": "SP 95",
-    "78": "Agua jabonosa",
-    "79": "Rocío matutino",
-    "8": "Poción para fumar",
-    "80": "Agua de estalactitas",
-    "81": "Tinta",
-    "82": "Babas en la almohada",
-    "83": "Gotas de lluvia",
-    "84": "Esencia de fénix",
-    "85": "Sustancia desconocida",
-    "86": "Cóctel vigorizante",
-    "87": "Ron",
-    "88": "Baba de caracol",
-    "89": "Agua hirviendo",
-    "9": "Poción apestosa",
-    "90": "Zumo de patata",
-    "91": "Agua de mar",
-    "92": "Baba de trol",
-    "93": "Lágrima de Titán"
-  },
-  "weapons": {
-    "0": "Puño",
-    "1": "Relámpago de Zeus",
-    "10": "Espada de madera",
-    "11": "Pistola vacía",
-    "12": "Jeringa infectada",
-    "13": "Bomba",
-    "14": "Guitarra pesada",
-    "15": "Par de dagas",
-    "16": "Piqueta",
-    "17": "Masa",
-    "18": "Bastón",
-    "19": "Cuchillo antiguo",
-    "2": "Herramientas usadas",
-    "20": "Sucursal flexible",
-    "21": "Piqueta dañada",
-    "22": "Arco",
-    "23": "Estufa",
-    "24": "Tijeras",
-    "25": "Daga frágil",
-    "26": "Stock",
-    "27": "Sable",
-    "28": "Martillo de combate",
-    "29": "Cuchillo para principiantes",
-    "3": "Assomoire",
-    "30": "Guantes de boxeo",
-    "31": "Puño reforzado",
-    "32": "Caña de pescar para principiantes",
-    "33": "Cuchillo viejo",
-    "34": "Caña de pescar",
-    "35": "Caña de pescar Master",
-    "36": "Espada de hierro",
-    "37": "Espada de principiante",
-    "38": "Espada maestra",
-    "39": "Espadas dobles",
-    "4": "Transperceur",
-    "40": "Espada de diamantes",
-    "41": "Afilado espada 4",
-    "42": "Arma cargada",
-    "43": "Gherkin",
-    "44": "Manojo de rosas",
-    "45": "Plátano",
-    "46": "Antiguo grimorio",
-    "47": "Bola de nieve",
-    "48": "Arco de caballero",
-    "49": "Arco de soldado",
-    "5": "Martillo",
-    "50": "Arco para principiantes",
-    "51": "Arco del héroe",
-    "52": "Navaja",
-    "53": "Silla",
-    "54": "Ladrillo",
-    "55": "Tenedor",
-    "56": "Espada Kokiri",
-    "57": "Extintor",
-    "58": "Libro grande",
-    "59": "Jeringa",
-    "6": "Cuchillo simple",
-    "60": "Jeringa contaminada",
-    "61": "Jeringa sucia",
-    "62": "Bio-Arme",
-    "63": "Bomba atómica",
-    "64": "Quemador",
-    "65": "Pew Pew",
-    "66": "Vencer a Saber",
-    "67": "Espada real",
-    "68": "Garra",
-    "69": "Palabra de Inés",
-    "7": "Daga",
-    "70": "Pistola Pan Pan QQ",
-    "71": "Espada de Ragnell",
-    "72": "Fluxball",
-    "73": "Ashoir",
-    "74": "Alma de demonio",
-    "75": "Boomerang",
-    "76": "Volto-hache",
-    "77": "Sabotaje del oxígeno",
-    "78": "El poder de la amistad",
-    "79": "El paraguas de la abuela",
-    "8": "Percingasiteur",
-    "80": "Cetro con 100 hechizos",
-    "81": "Exagide",
-    "82": "Garra de gato rabioso",
-    "83": "Insultos",
-    "84": "Destornillador sónico",
-    "85": "El poder del amor",
-    "86": "Máscara Mojaro",
-    "87": "Martillo pilón",
-    "88": "Ala izquierda de Ícaro",
-    "89": "Espada del Dragón",
-    "9": "Llave oxidada",
-    "90": "Cuerno de unicornio",
-    "91": "Barra de Fibonacci",
-    "92": "Se acabó el juego",
-    "93": "Trapo de cocina",
-    "94": "Polvo de esqueleto"
-  }
+	"armors": {
+		"0": "Sin escudo ni armadura",
+		"1": "Escudo deflector Engi",
+		"10": "Escudo pesado",
+		"11": "Escudo para principiantes",
+		"12": "Escudo Maestro",
+		"13": "Escudo definitivo",
+		"14": "Escudo potente",
+		"15": "Escudo oxidado",
+		"16": "Escudo desgastado",
+		"17": "Escudo solar",
+		"18": "Maestro Kimono",
+		"19": "Chaqueta de seguridad",
+		"2": "Casco de seguridad",
+		"20": "Escudo humano",
+		"21": "Brazo mecánico",
+		"22": "Casco de robot",
+		"23": "Paraguas de autodefensa",
+		"24": "Escudo de gladiador",
+		"25": "Escudo del guerrero",
+		"26": "Escudo Brennus",
+		"27": "Campo de fuerza",
+		"28": "Escudo Lynel",
+		"29": "Escudo sólido",
+		"3": "Escudo",
+		"30": "Escudo pequeño",
+		"31": "Blindar la soledad",
+		"32": "Escudo real",
+		"33": "Scutum",
+		"34": "Rondache",
+		"35": "Escudo de vibranium",
+		"36": "Escudo de púas",
+		"37": "Convenios de Ginebra",
+		"38": "Luz de nodo",
+		"39": "Armadura de comandante",
+		"4": "Escudo de madera",
+		"40": "Concha Franklin",
+		"41": "Jurisprudencia",
+		"42": "Casco de guerra",
+		"43": "Cubo metálico",
+		"44": "Pared",
+		"45": "Fila de contadores",
+		"46": "Plexiglás",
+		"47": "Fortaleza japonesa",
+		"48": "Abrigo",
+		"49": "Chaqueta de combate",
+		"5": "Escudo de hierro",
+		"50": "Bata protectora",
+		"51": "Tienda protectora",
+		"52": "Poderosa égida",
+		"53": "Égida falsificada",
+		"54": "Nam Nam",
+		"55": "Autoburla",
+		"56": "Flemme",
+		"57": "El ala derecha de Ícaro",
+		"58": "Lámpara mágica",
+		"59": "Sombrero mágico",
+		"6": "Armadura de hierro",
+		"60": "Giga Chad",
+		"61": "UwUrlant Cry",
+		"7": "Kimono reforzado",
+		"8": "Escudo único",
+		"9": "Escudo resistente"
+	},
+	"classes": {
+		"0": "Reclutar",
+		"1": "Caza",
+		"10": "Archer",
+		"11": "Artillero",
+		"12": "Escudero",
+		"13": "Rider",
+		"14": "Piquier",
+		"15": "Chevalier",
+		"16": "Paladín",
+		"17": "Veterano",
+		"18": "Poderoso soldado de infantería",
+		"19": "Tanque impenetrable",
+		"2": "Privado",
+		"20": "Un artillero formidable",
+		"21": "Caballero valiente",
+		"22": "Paladín brillante",
+		"23": "Veterano curtido",
+		"24": "Mago místico",
+		"3": "Soldado de Infantería",
+		"4": "Guante",
+		"5": "Casco",
+		"6": "Maillé",
+		"7": "Depósito",
+		"8": "Lanzapiedras",
+		"9": "Recortadora"
+	},
+	"fight_actions": {
+		"benediction": {
+			"description": "Forma parte del grupo \"acciones de los dioses\". Falla si ya se ha realizado 1 acción de los dioses en combate. Aumenta todas las estadísticas del lanzador. Cuanto más tarde en el combate se utilice la bendición, mayor será el aumento de estadísticas.",
+			"name_one": "Bendición",
+			"name_other": "Bendiciones"
+		},
+		"boomerangAttack": {
+			"description": "Lanza un bumerán que inflige daño a los enemigos hasta 3 veces.",
+			"name_one": "Ataque bumerán",
+			"name_other": "Ataques bumerán"
+		},
+		"boulderTossAttack": {
+			"description": "Ataque medio que puede aturdir al oponente.",
+			"name_one": "Ataque con piedras",
+			"name_other": "Ataques con piedras"
+		},
+		"breathTakingAttack": {
+			"description": "Inflige una pequeña cantidad de daño, pero puede robar el aliento o ralentizar a tu oponente.",
+			"name_one": "Ataque explosivo",
+			"name_other": "Ataques de robo de aliento"
+		},
+		"burned": {
+			"description": "",
+			"name_one": "",
+			"name_other": ""
+		},
+		"canonAttack": {
+			"description": "La precisión de este ataque se reduce en oponentes que se mueven rápido. Se aplica una bonificación de daño a este ataque si el oponente es muy lento. El oponente puede ser ralentizado por el ataque. Inflige más daño si se utiliza varias veces seguidas.",
+			"name_one": "Ataque con cañón",
+			"name_other": "Ataques con cañón"
+		},
+		"chargeChargingAttack": {
+			"description": "Ataque de 2 turnos. Durante el primer asalto, la defensa del lanzador aumenta un 50%. Durante el segundo asalto, la defensa del lanzador vuelve a su nivel inicial.",
+			"name_one": "Ataque cargado",
+			"name_other": "Ataques cargados"
+		},
+		"chargeClubSmashAttack": {
+			"description": "Requiere un turno para cargar el ataque. Realiza una potente carga al turno siguiente.",
+			"name_one": "Ataque a un club",
+			"name_other": "Ataques a clubes"
+		},
+		"chargeUltimateAttack": {
+			"description": "Requiere un turno para cargar el ataque Si el atacante tiene menos del 45% de sus puntos de combate, este ataque no puede fallar. Si el atacante tiene más del 45% de sus puntos de combate, la precisión de este ataque es de 70. Este ataque sólo puede ser utilizado una vez por jugador y por batalla.",
+			"name_one": "Ataque definitivo",
+			"name_other": "Ataques definitivos"
+		},
+		"chargingAttack": {
+			"description": "",
+			"name_one": "Ataque cargado",
+			"name_other": "Ataques cargados"
+		},
+		"clubSmashAttack": {
+			"description": "",
+			"name_one": "Ataque a un club",
+			"name_other": "Ataques a clubes"
+		},
+		"concentrated": {
+			"description": "",
+			"name_one": "",
+			"name_other": ""
+		},
+		"concentration": {
+			"description": "Falla si utilizas esta acción mientras estás alterado. La alteración \"concentrado\" aumenta enormemente el daño infligido por el luchador afectado durante el siguiente turno.",
+			"name_one": "Concentración",
+			"name_other": "Concentraciones"
+		},
+		"counterAttack": {
+			"description": "Repite la misma acción que tu oponente. No funciona con ataques mágicos o divinos, o si el oponente no ha atacado.",
+			"name_one": "Réplica de ataque",
+			"name_other": "Los ataques contraatacan"
+		},
+		"cursed": {
+			"description": "",
+			"name_one": "",
+			"name_other": ""
+		},
+		"cursedAttack": {
+			"description": "Maldición para el adversario, quizás sufra las consecuencias en el futuro...",
+			"name_one": "Ataque maldito",
+			"name_other": "Ataques malditos"
+		},
+		"darkAttack": {
+			"description": "Ignora la defensa del adversario. Más eficaz contra un jugador con un ataque alto.",
+			"name_one": "Ataque oscuro",
+			"name_other": "Ataques oscuros"
+		},
+		"defenseBuff": {
+			"description": "Cuantas más veces se realice esta acción, mayor será la bonificación de defensa.",
+			"name_one": "Impulso a la defensa",
+			"name_other": "Defensa impulsa"
+		},
+		"divineAttack": {
+			"description": "La precisión de este ataque aumenta con la duración del combate. Forma parte del grupo \"acciones de los dioses\". Falla si ya se han realizado 2 acciones de los dioses en el combate.",
+			"name_one": "Ataque divino",
+			"name_other": "Ataques divinos"
+		},
+		"energeticAttack": {
+			"description": "La mitad del daño de este ataque se devuelve al lanzador en forma de curación.",
+			"name_one": "Ataque energético",
+			"name_other": "Ataques energéticos"
+		},
+		"eruptionAttack": {
+			"description": "El volcán entra en erupción y escupe roca fundida a los jugadores.",
+			"name_one": "Erupción",
+			"name_other": "Erupciones"
+		},
+		"familyMealAttack": {
+			"description": "Invoca a tus aliados para que devoren y envenenen a tu oponente.",
+			"name_one": "Comidas familiares",
+			"name_other": "Comidas familiares"
+		},
+		"fireAttack": {
+			"description": "Alta probabilidad de quemar a tu oponente. La alteración \"quemado\" inflige daño a tu rival con el tiempo.",
+			"name_one": "Ataque de fuego",
+			"name_other": "Ataques con fuego"
+		},
+		"frozen": {
+			"description": "",
+			"name_one": "",
+			"name_other": ""
+		},
+		"full": {
+			"description": "",
+			"name_one": "",
+			"name_other": ""
+		},
+		"grabAndThrowAttack": {
+			"description": "Lanza al oponente si utiliza un ataque físico, infligiendo un daño medio y teniendo una posibilidad de aturdir al oponente",
+			"name_one": "Ataque con proyectiles",
+			"name_other": "Ataques con proyectiles"
+		},
+		"guildAttack": {
+			"description": "Los jugadores del gremio se reúnen para llevar a cabo un poderoso ataque en grupo.",
+			"name_one": "Ataque gremial",
+			"name_other": "Ataques gremiales"
+		},
+		"heatDrainAttack": {
+			"description": "Recupera el calor del jugador, aumentando el ataque del lanzador y congelando al oponente.",
+			"name_one": "Drenaje de calor",
+			"name_other": "Drenajes térmicos"
+		},
+		"heavyAttack": {
+			"description": "El daño de este ataque se reduce un 90% si el defensor tiene menos defensa que el atacante. La defensa del enemigo se reduce un 25%.",
+			"name_one": "Ataque pesado",
+			"name_other": "Ataques fuertes"
+		},
+		"intenseAttack": {
+			"description": "Ignora parte de la defensa de tu oponente. Nunca falla contra un oponente más rápido. Funciona mejor contra un oponente rápido. Obliga al lanzador a utilizar la acción \"descansar\" en el siguiente turno. No puede matar al oponente.",
+			"name_one": "Ataque intenso",
+			"name_other": "Ataques intensos"
+		},
+		"lavaWaveAttack": {
+			"description": "Un ataque muy poderoso utilizado como último recurso y que garantiza infligir el daño \"Quemado\" al oponente.",
+			"name_one": "Ola de lava",
+			"name_other": "Ondas de lava"
+		},
+		"magmaBathAttack": {
+			"description": "Se aplica al lanzador. El lanzador descansa en la lava y recupera sus puntos de combate. El número de puntos de combate recuperados se divide por 4 tras 4 usos.",
+			"name_one": "Baño de magma",
+			"name_other": "Baños de magma"
+		},
+		"mimicAttack": {
+			"description": "Copia aleatoriamente uno de tus ataques.",
+			"name_one": "Mimic",
+			"name_other": "Imita"
+		},
+		"monstrousCopyAttack": {
+			"description": "Copia el ataque de un monstruo aleatorio.",
+			"name_one": "Copia monstruosa",
+			"name_other": "Copias monstruosas"
+		},
+		"none": {
+			"description": "",
+			"name_one": "",
+			"name_other": ""
+		},
+		"outOfBreath": {
+			"description": "",
+			"name_one": "",
+			"name_other": ""
+		},
+		"outrage": {
+			"description": "",
+			"name_one": "",
+			"name_other": ""
+		},
+		"outrageAttack": {
+			"description": "Falla si utilizas esta acción mientras tienes una alteración de estado. La alteración \"furioso\" duplica el ataque pero disminuye la defensa. Tras 2 turnos, el efecto desaparece y el atacante queda confuso.",
+			"name_one": "Ira",
+			"name_other": "Ira"
+		},
+		"paralyzed": {
+			"description": "",
+			"name_one": "",
+			"name_other": ""
+		},
+		"petrificationAttack": {
+			"description": "Petrifica al objetivo durante 2 turnos, pero aumenta su defensa un 200%.",
+			"name_one": "Petrificación",
+			"name_other": "Petrificaciones"
+		},
+		"petrified": {
+			"description": "",
+			"name_one": "",
+			"name_other": ""
+		},
+		"piercingAttack": {
+			"description": "Ignora casi por completo la defensa del adversario. Es probable que el atacante reduzca ligeramente la defensa de su adversario.",
+			"name_one": "Ataque perforante",
+			"name_other": "Ataques perforantes"
+		},
+		"poisoned": {
+			"description": "",
+			"name_one": "",
+			"name_other": ""
+		},
+		"poisonousAttack": {
+			"description": "Envenena a tu oponente. La alteración \"envenenada\" dura al menos tres turnos e inflige daño a tu oponente a lo largo del tiempo.",
+			"name_one": "Ataque envenenado",
+			"name_other": "Ataques envenenados"
+		},
+		"powerfulAttack": {
+			"description": "Este ataque tiene un 25% de posibilidades de hacer más daño, a costa de aturdir al atacante. Tras 3 usos, el daño del ataque se reduce un 70%.",
+			"name_one": "Poderoso ataque",
+			"name_other": "Poderosos ataques"
+		},
+		"protected": {
+			"description": "",
+			"name_one": "",
+			"name_other": ""
+		},
+		"protection": {
+			"description": "Falla si utilizas esta acción mientras tienes una alteración de estado. La alteración \"protegida\" dura 3 turnos y evita que seas víctima de otra alteración, al tiempo que te da un 30% de aumento a tu defensa.",
+			"name_one": "Protección",
+			"name_other": "Protecciones"
+		},
+		"quickAttack": {
+			"description": "Nunca falla en un oponente más lento. Cuanto más lento sea tu oponente, más daño hará este ataque.",
+			"name_one": "Ataque rápido",
+			"name_other": "Ataques rápidos"
+		},
+		"rageExplosion": {
+			"description": "Desata la rabia que has acumulado por el camino sobre tu enemigo.",
+			"name_one": "Explosión de rabia",
+			"name_other": "Explosiones de rabia"
+		},
+		"ramAttack": {
+			"description": "Si el atacante no queda aturdido por el ataque, recibe parte del daño infligido. El ataque también puede aturdir al adversario.",
+			"name_one": "Ataque de carnero",
+			"name_other": "Ataques de carnero"
+		},
+		"resting": {
+			"description": "Se aplica como curación al lanzador. La cantidad de puntos de combate recuperados se divide por 4 tras 4 usos.",
+			"name_one": "Descansa",
+			"name_other": "Descansa"
+		},
+		"roarAttack": {
+			"description": "Reduce el ataque y la velocidad de tu oponente.",
+			"name_one": "Rugido",
+			"name_other": "Ruge"
+		},
+		"rockShieldAttack": {
+			"description": "Reduce a la mitad el siguiente ataque recibido.",
+			"name_one": "Escudo de roca",
+			"name_other": "Escudo de roca"
+		},
+		"sabotageAttack": {
+			"description": "Ignora completamente la defensa del oponente. Funciona mejor sobre un oponente con poco ataque. Un ataque con poco aliento que puede paralizar al lanzador. Si lo hace, el daño aumenta.",
+			"name_one": "Ataque de sabotaje",
+			"name_other": "Ataques de sabotaje"
+		},
+		"shieldAttack": {
+			"description": "Utiliza el escudo del atacante para atacar. El daño \"debilitado\" reduce el ataque un 70% durante 1 turno.",
+			"name_one": "Ataque con escudo",
+			"name_other": "Ataques con escudo"
+		},
+		"simpleAttack": {
+			"description": "Un ataque simple.",
+			"name_one": "Ataque simple",
+			"name_other": "Ataques simples"
+		},
+		"slamAttack": {
+			"description": "Ataque débil-medio que reduce la velocidad del oponente.",
+			"name_one": "Ataque de impacto",
+			"name_other": "Impactos"
+		},
+		"slowed": {
+			"description": "",
+			"name_one": "",
+			"name_other": ""
+		},
+		"stealth": {
+			"description": "Se esconde discretamente para duplicar el daño del siguiente ataque.",
+			"name_one": "Discreción",
+			"name_other": "Discreciones"
+		},
+		"stoneSkinAttack": {
+			"description": "Cuantas más veces se realice esta acción, mayor será la bonificación de defensa.",
+			"name_one": "Piel de roca",
+			"name_other": "Pieles de roca"
+		},
+		"stunned": {
+			"description": "",
+			"name_one": "",
+			"name_other": ""
+		},
+		"summonAttack": {
+			"description": "Invoca aliados que te ayuden y ataca con fuerza.",
+			"name_one": "Invocación de aliados",
+			"name_other": "Invocación de aliados"
+		},
+		"targeted": {
+			"description": "",
+			"name_one": "",
+			"name_other": ""
+		},
+		"ultimateAttack": {
+			"description": "",
+			"name_one": "Ataque definitivo",
+			"name_other": "Ataques definitivos"
+		},
+		"weak": {
+			"description": "",
+			"name_one": "",
+			"name_other": ""
+		},
+		"webShotAttack": {
+			"description": "Lanza un chorro de telaraña que hiere y ralentiza a tu oponente.",
+			"name_one": "Ataque de lanzamiento de red",
+			"name_other": "Ataques con lanza telarañas"
+		}
+	},
+	"leagues": {
+		"0": "Liga de la Madera",
+		"1": "Liga de la Piedra",
+		"2": "Liga de Hierro",
+		"3": "Liga de Bronce",
+		"4": "Liga de Plata",
+		"5": "Liga de Oro",
+		"6": "Liga de Diamante",
+		"7": "Liga Elite",
+		"8": "Liga Infinita",
+		"9": "Liga de Leyendas"
+	},
+	"map_locations": {
+		"1": {
+			"description": "Una gran playa de arena a las afueras de la ciudad.",
+			"name": "Playa Sentinel",
+			"particle": "a la"
+		},
+		"10": {
+			"description": "Antaño una gran ciudad fortificada, Ville Forte es ahora una sombra de lo que fue. Asolada por la antigua guerra, sólo quedan una docena de casas y campesinos. El resto de las antiguas fortificaciones está en ruinas.",
+			"name": "Ciudad fuerte",
+			"particle": "a la"
+		},
+		"1000": {
+			"description": "Una gran playa de arena volcánica negra. Debe su nombre a su color característico. Los primeros hombres que pisaron la playa negra temieron una gran maldición. Evidentemente, no es el caso. Pero hay que tener cuidado, porque la arena negra mancha los pies y la ropa.",
+			"name": "Playa negra",
+			"particle": "a la"
+		},
+		"1001": {
+			"description": "Un inmenso bosque que cubre prácticamente toda la isla. Las finas partículas de ceniza que caen del volcán Grondant dificultan la visibilidad en este bosque. Por ello, apenas se explora.",
+			"name": "Bosque del Crepúsculo",
+			"particle": "a la"
+		},
+		"1002": {
+			"description": "Un pequeño pueblo de unas veinte casas, parcialmente destruido, cerca del Bosque del Crepúsculo. Nadie sabe exactamente por qué el pueblo está en ruinas. Muchos creen que es la aldea de antiguos habitantes que murieron en las corrientes de lava del volcán Grondant. Pero otros proponen la teoría de una enfermedad, la peste y numerosas ratas. Aquí no queda ni un solo habitante...",
+			"name": "Pueblo en ruinas",
+			"particle": "a la"
+		},
+		"1003": {
+			"description": "Esta antigua mina abandonada pasa por debajo del escarpado camino y las montañas. Es tan grande y laberíntica que acaba en el corazón del volcán. Sin embargo, es difícil llegar hasta ella. Eso sí, tenga cuidado, ya que algunas personas han encontrado restos de viejos plátanos en la brumosa mina.",
+			"name": "Cara brumosa",
+			"particle": "a la"
+		},
+		"1004": {
+			"description": "Este es el único camino real hacia la cumbre del Volcán Grondant. Es muy difícil de utilizar y, sobre todo, muy peligroso. Muchos hombres han muerto intentando escalarlo. Por su cuenta y riesgo.",
+			"name": "Camino empinado",
+			"particle": "a la"
+		},
+		"1005": {
+			"description": "Este volcán, pieza central de la isla volcánica, sigue activo. Vierte varias toneladas de ceniza al año sobre esta pequeña isla, que no deja de crecer. De su centro fluye tanta lava que un canal subterráneo, conocido como Canal de Lavique, recorre varios kilómetros. Desde los barcos se puede ver cómo hierve el agua bajo la superficie. Se dice incluso que este volcán es el creador de varias pequeñas islas de la zona, entre ellas la Isla de Hielo.",
+			"name": "Volcán retumbante",
+			"particle": "a la"
+		},
+		"11": {
+			"description": "Esta fue la última carretera real que rodeaba el monte Celestrum desde el norte, y todavía se utiliza mucho hoy en día, principalmente por los bandoleros.",
+			"name": "Gran Hacha",
+			"particle": "a la"
+		},
+		"1100": {
+			"description": "Esta orilla es lo primero que se ve al llegar a la isla de hielo. Debe su nombre al ruido que hacían los marineros al desembarcar. Obviamente, regresaban de la isla volcánica, donde la temperatura es mucho más cálida.",
+			"name": "Gla-gla litoral",
+			"particle": "a la"
+		},
+		"1101": {
+			"description": "Como su nombre indica, esta vasta extensión de tierra helada no es lugar para descansar. Muy fría y árida, aún quedan algunos árboles resistentes.",
+			"name": "Tundra helada",
+			"particle": "a la"
+		},
+		"1102": {
+			"description": "Lac du savoir, un gran lago helado, es un lugar tranquilo y relajante. Se puede oír una suave brisa que se desliza por el hielo del lago. Ideal para meditar después de explorar esta inmensa isla salvaje.",
+			"name": "El lago del conocimiento",
+			"particle": "a la"
+		},
+		"1103": {
+			"description": "Una inmensa llanura donde se han construido montones de muñecos de nieve. ¿Quién construyó el primer muñeco de nieve? Nadie lo sabe. Hace demasiado frío para que se derritan. Sin embargo, algunos viajeros se divierten creando otros nuevos.",
+			"name": "Muñeco de nieve llano",
+			"particle": "a la"
+		},
+		"1104": {
+			"description": "Una magnífica caverna de hielo. Cientos de estalactitas y estalagmitas decoran esta caverna. La luz natural ilumina estos cristales de hielo, dando la impresión de miles de estrellas. Si se olvidan los cientos de exploradores muertos que han resbalado y se han empalado en las estalagmitas, esta caverna es increíblemente bella o totalmente triste. La Cueva de Cristal es un peligroso camino para llegar a la cumbre del pico nevado.",
+			"name": "Cueva de cristal",
+			"particle": "a la"
+		},
+		"1105": {
+			"description": "Esta caverna, muy parecida a su hermana, la Cueva de Cristal, tiene una gran ventaja. Conduce a la cima nevada a través de las profundidades de la tierra. Es un largo camino sobre hielo y roca. Debe su nombre a las cuevas que se adentran bajo tierra, revelando bellas formaciones de hielo.",
+			"name": "Corazón de la caverna de hielo",
+			"particle": "a la"
+		},
+		"1106": {
+			"description": "Este gigantesco pico domina toda la isla. Se divisa a kilómetros de distancia. De muy difícil acceso, el pico nevado alberga viejas estructuras de madera que datan de una antigua civilización. Como los dos senderos que conducen a ella son muy peligrosos, pocas personas han podido ver estas estructuras con sus propios ojos.",
+			"name": "Pico nevado",
+			"particle": "a la"
+		},
+		"12": {
+			"description": "Una vasta y vacía llanura septentrional de escaso interés.",
+			"name": "La Expansión",
+			"particle": "a"
+		},
+		"13": {
+			"description": "Una carretera difícil, fangosa y húmeda. La carretera pantanosa une la Expansión con el río Cangrejo.",
+			"name": "Carretera pantanosa",
+			"particle": "a la"
+		},
+		"14": {
+			"description": "Un gran lago donde a las familias les gusta reunirse. En él desemboca el río Vacarme.",
+			"name": "Lago Mirage",
+			"particle": "a la"
+		},
+		"15": {
+			"description": "El monte Celestrum es la montaña dominante de la región. Con varios kilómetros de altura, Celestrum es visible para todos. Se dice que lleva el nombre de la antigua diosa. De hecho, sólo una persona ha conseguido escalar hasta la cima. De ella sólo quedan sus iniciales: M-B.",
+			"name": "Monte Celestrum",
+			"particle": "a la"
+		},
+		"16": {
+			"description": "Peligroso sendero a orillas del río Vacarme. Tenga cuidado de no caerse.",
+			"name": "Camino de los Lobos",
+			"particle": "a la"
+		},
+		"17": {
+			"description": "Cálido pueblo que bordea el Valle de los Reyes. Es un cálido oasis para los viajeros en tránsito.",
+			"name": "Coco Village",
+			"particle": "a la"
+		},
+		"18": {
+			"description": "Este río debe su nombre al ruido producido por su fuerte corriente, que se ha cobrado la vida de muchos aldeanos.",
+			"name": "Río Vacarme",
+			"particle": "a la"
+		},
+		"19": {
+			"description": "Una playa creada por los fuertes vientos del Valle de los Reyes. La Duna protege las Plaines du Contre Bois del calor y trae agua del río Vacarme.",
+			"name": "La Duna",
+			"particle": "a"
+		},
+		"1999": {
+			"description": "Un viejo barco de madera, parece que aguanta bien gracias a las reparaciones realizadas por los trabajadores. Está listo para partir, a la espera de tu llegada.",
+			"name": "Barco para salir de la isla",
+			"particle": "a la"
+		},
+		"2": {
+			"description": "Una pequeña carretera que conduce al campo desde Mergagnan y viceversa.",
+			"name": "Camino rural",
+			"particle": "a la"
+		},
+		"20": {
+			"description": "Una vasta y pacífica llanura agrícola.",
+			"name": "Plaines du Contre Bois",
+			"particle": "a la"
+		},
+		"21": {
+			"description": "Una carretera muy utilizada por los aldeanos. Muchos pequeños vendedores ambulantes se instalan aquí durante un día, creando un enorme mercado.",
+			"name": "Ruta de las maravillas",
+			"particle": "a la"
+		},
+		"22": {
+			"description": "Bois Hurlant, un bosque tristemente célebre situado en las afueras de Claire de Ville, tiene muy mala reputación. Refugio de bandidos y forajidos de todo tipo, su nombre se debe principalmente a las dudosas prácticas de hace cientos de años.",
+			"name": "Bosque aullador",
+			"particle": "a la"
+		},
+		"22222": {
+			"description": "Una zona de pruebas para monstruos. Se supone que nunca aparecerán en el juego",
+			"name": "Zona de pruebas de monstruos",
+			"particle": "a la"
+		},
+		"23": {
+			"description": "Claire De Ville, gran ciudad comercial y encrucijada económica, no siempre ha sido tan acogedora. Inicialmente muy pobre, se ha desarrollado rápidamente gracias a sus numerosos comercios y hoteles que ofrecen una amplia oferta a los viajeros de la región. Claire De Ville también es conocida por su tranquilidad y respeto al orden.",
+			"name": "Claire De Ville",
+			"particle": "a"
+		},
+		"24": {
+			"description": "Una carretera muy empinada que lleva a Claire De Ville. Todo depende del camino que tomes.",
+			"name": "Vía de escalada",
+			"particle": "a la"
+		},
+		"25": {
+			"description": "Todo está en el nombre. Un río muy apreciado por los pescaderos de Claire De Ville.",
+			"name": "Rivière aux Crabes",
+			"particle": "a la"
+		},
+		"26": {
+			"description": "Una ciudad tranquila a orillas de Plage Sentinelle.",
+			"name": "Mergagnan",
+			"particle": "a"
+		},
+		"27": {
+			"description": "Un bosque al borde del monte Celestrum.",
+			"name": "Bosque de Celestrum",
+			"particle": "a la"
+		},
+		"28": {
+			"description": "La entrada al castillo del rey, rodeada por una gruesa muralla, parece capaz de resistir cualquier ataque imaginable.",
+			"name": "Puertas del castillo",
+			"particle": "a la"
+		},
+		"29": {
+			"description": "Una enorme sala decorada con numerosas obras de arte",
+			"name": "Sala de recepción",
+			"particle": "a la"
+		},
+		"3": {
+			"description": "Gran llanura al oeste del país bordeada por un gran bosque y atravesada por una carretera principal.",
+			"name": "El Berceau",
+			"particle": "a"
+		},
+		"32": {
+			"description": "El camino al castillo del Rey",
+			"name": "Ruta al castillo del Rey",
+			"particle": "a"
+		},
+		"33": {
+			"description": "",
+			"name": "Continente principal",
+			"particle": "a"
+		},
+		"4": {
+			"description": "Un vasto bosque al sur de la Cuna. Se dice que muchos viajeros se han perdido aquí.",
+			"name": "Bosque de Vieillard",
+			"particle": "a la"
+		},
+		"5": {
+			"description": "El sendero debe su apodo a su naturaleza entrecruzada en la parte sur del Bosque del Viejo.",
+			"name": "Camino de Dédale",
+			"particle": "a la"
+		},
+		"6": {
+			"description": "Un pueblo tranquilo conocido por su acogedora posada.",
+			"name": "Algodón Boug",
+			"particle": "a"
+		},
+		"7": {
+			"description": "Un desierto arenoso y caluroso que debe su nombre a los antiguos reyes de la región.",
+			"name": "Valle de los Reyes",
+			"particle": "a la"
+		},
+		"8": {
+			"description": "Un cruce importante que une las principales carreteras al oeste del monte Celestrum.",
+			"name": "Encrucijada del destino",
+			"particle": "a la"
+		},
+		"9": {
+			"description": "Antaño una importante ruta comercial que unía la Cuna y la Ville Forte, todo lo que queda de la Grande Rue son algunos viejos adoquines desconchados.",
+			"name": "Grande Rue",
+			"particle": "a la"
+		}
+	},
+	"map_types": {
+		"be": {
+			"name": "Playa",
+			"prefix": "de la"
+		},
+		"castle_entrance": {
+			"name": "",
+			"prefix": "de"
+		},
+		"castle_throne": {
+			"name": "",
+			"prefix": "de la"
+		},
+		"ci": {
+			"name": "Ciudad",
+			"prefix": "de la"
+		},
+		"continent": {
+			"name": "",
+			"prefix": "de"
+		},
+		"crystal_cavern": {
+			"name": "Cueva de cristal",
+			"prefix": "de la"
+		},
+		"de": {
+			"name": "Desierto",
+			"prefix": "de"
+		},
+		"fo": {
+			"name": "Bosque",
+			"prefix": "de la"
+		},
+		"ice_beach": {
+			"name": "Playa de hielo",
+			"prefix": "de la"
+		},
+		"ice_cavern": {
+			"name": "Caverna de hielo",
+			"prefix": "de la"
+		},
+		"ice_lake": {
+			"name": "Lago helado",
+			"prefix": "de"
+		},
+		"la": {
+			"name": "Lago",
+			"prefix": "de"
+		},
+		"mine": {
+			"name": "Mina",
+			"prefix": "de la"
+		},
+		"mo": {
+			"name": "Montaña",
+			"prefix": "de la"
+		},
+		"pl": {
+			"name": "Llanura",
+			"prefix": "de la"
+		},
+		"pve_exit": {
+			"name": "",
+			"prefix": "de"
+		},
+		"ri": {
+			"name": "Río",
+			"prefix": "de la"
+		},
+		"ro": {
+			"name": "Ruta",
+			"prefix": "de la"
+		},
+		"ruins": {
+			"name": "Ruinas",
+			"prefix": "de"
+		},
+		"snow_mountain": {
+			"name": "Pájaro carpintero",
+			"prefix": "de"
+		},
+		"snowmen_field": {
+			"name": "Llanura",
+			"prefix": "de la"
+		},
+		"test_zone": {
+			"name": "",
+			"prefix": "de la"
+		},
+		"tundra": {
+			"name": "Tundra",
+			"prefix": "de la"
+		},
+		"vi": {
+			"name": "Pueblo",
+			"prefix": "de"
+		},
+		"volcano": {
+			"name": "Volcán",
+			"prefix": "de"
+		}
+	},
+	"missions": {
+		"anyFight_one": "Haz {{objective}} combat",
+		"anyFight_other": "Hacer {{objective}} peleas",
+		"bigFeast": "Asistir a una gran fiesta",
+		"buyUltimateSoups_one": "Compra al menos {{objective}} ultimate soup",
+		"buyUltimateSoups_other": "Compra al menos {{objective}} ultimate soups",
+		"chooseClass": "Elige una clase que no sea 🌿 Recluta",
+		"chooseClassTier": "Tener un nivel de clase de {{variantText}} o superior",
+		"commandMission": "Para pedir {{commandMissions}}",
+		"commandReport": "Para pedir {{commandReport}}",
+		"dailyPotionsStock": "Compra las existencias de pociones de hoy",
+		"doReports_one": "Informe a {{objective}}",
+		"doReports_other": "Realizar informes {{objective}}",
+		"drinkAlcohol": "Beber una poción que contenga alcohol",
+		"drinkEnergyPotion_one": "Bebe {{objective}} poción energética",
+		"drinkEnergyPotion_other": "Beber pociones energéticas {{objective}}",
+		"drinkPotionRarity": "Bebe una poción de rareza {{variantText}} o superior",
+		"drinkPotionWithoutEffect_one": "Beber {{objective}} poción sin efecto",
+		"drinkPotionWithoutEffect_other": "Beber {{objective}} pociones sin efecto",
+		"drinkPotion_one": "Bebe {{objective}} potion",
+		"drinkPotion_other": "Beber pociones {{objective}}",
+		"earnLifePoints_one": "Gana {{objective}} puntos de golpe",
+		"earnLifePoints_other": "Gana {{objective}} puntos de golpe",
+		"earnMoney": "Cosecha {{objective}}💰",
+		"earnPoints": "Gana {{objective}}🏅",
+		"earnXP": "Gana {{objective}}⭐",
+		"exploreDifferentPlaces": "Explore {{objective}} lugares diferentes",
+		"fightAttacks": "Hacer {{objective}} {{variantText}} en las peleas",
+		"fightHealthPercent_one": "Gana {{objective}} con menos de {{variantText}}% de tu vida restante",
+		"fightHealthPercent_other": "Gana {{objective}} combates con menos de {{variantText}}% de tu vida restante.",
+		"fightStreak": "Luchando por {{objective}} días seguidos",
+		"findOrBuyItem_one": "Buscar o comprar {{objective}}",
+		"findOrBuyItem_other": "Buscar o comprar artículos en {{objective}}",
+		"finishWithAttack": "Usa {{objective}}{{variantText}} para acabar con tu oponente",
+		"fromPlaceToPlace": "{{variantText}}",
+		"gainRage_one": "Gana {{objective}} puntos de rabia derrotando a animales salvajes",
+		"gainRage_other": "Gana {{objective}} puntos de rabia derrotando a animales salvajes",
+		"goToPlace": "Viaje a{{variantText}}",
+		"guildDailyFromSomeoneElse": "Recibir una recompensa del gremio sin haberla reclamado",
+		"guildDaily_one": "Recibe la recompensa del gremio {{objective}}",
+		"guildDaily_other": "Recibe recompensas del gremio {{objective}}",
+		"guildHasPoints": "Ayuda a tu gremio a tener más de {{objective}} puntos de gremio",
+		"guildLevel": "Formar parte de un gremio de nivel {{objective}} o superior",
+		"haveItemRarity": "Equipo raro {{variantText}} o mejor",
+		"havePet": "Tener un animal de compañía",
+		"havePotions": "Poseer {{objective}} pociones al mismo tiempo",
+		"joinGuild": "Unirse o crear un gremio",
+		"joinMemberOnBoat": "Únase a un miembro en la isla",
+		"joinPVEIsland": "Llegar a la isla misteriosa",
+		"kingsMoneyValue": "Consigue menos de 6.500 💰 en dinero del rey",
+		"meetDifferentPlayers_one": "Conozca al jugador {{objective}}",
+		"meetDifferentPlayers_other": "Conozca {{objective}} jugadores diferentes",
+		"meetGruffo": "Conoce a Gruffo",
+		"meetHermit": "Conoce a un ermitaño",
+		"petEarnHealth": "Obtener vida de una mascota",
+		"reachGlory": "Tener {{objective}} puntos de gloria o más",
+		"reachLevel": "Alcanza el nivel {{objective}}",
+		"reachScore": "Puntuación superior a {{objective}}🏅",
+		"recoverAlteration_one": "Recuperarse de {{objective}}",
+		"recoverAlteration_other": "Recuperarse de {{objective}}",
+		"sellItemWithGivenCost_one": "Venta de equipos {{objective}} por más de {{variantText}}💰",
+		"sellItemWithGivenCost_other": "Venta de equipos {{objective}} por más de {{variantText}}💰",
+		"sellOrTradePet": "Vender o intercambiar una mascota con otro jugador",
+		"spendGems": "Gasta gemas en la tienda de la misión",
+		"spendMoney": "Gastar monedas {{objective}}",
+		"tamedPet": "Tener una mascota domesticada o adiestrada",
+		"trainedPet": "Tener una mascota adiestrada",
+		"travelHours_one": "Haga {{objective}} un viaje de al menos {{variantText}} hora",
+		"travelHours_other": "Hacer {{objective}} viajes de al menos {{variantText}} horas",
+		"unlock": "Liberar a alguien de la cárcel",
+		"wealthyPayForPVEIsland": "Comprar un viaje a una isla misteriosa al precio máximo",
+		"winBoss_one": "Gana la batalla contra el jefe de {{objective}}",
+		"winBoss_other": "Gana combates contra jefes en {{objective}}"
+	},
+	"monsters": {
+		"forestTroll": "Trol del bosque",
+		"magmaTitan": "Titán de magma",
+		"rockGolem": "Golem de roca",
+		"skeleton": "Esqueleto",
+		"slimyMutant": "Mutante de barro",
+		"spider": "Araña"
+	},
+	"objects": {
+		"0": "Espacio libre",
+		"1": "Bandera de la paz",
+		"10": "Zapatilla deportiva",
+		"11": "Bendición del cielo",
+		"12": "Punta de obsidiana",
+		"13": "Hojas muertas",
+		"14": "Manzana roja",
+		"15": "Manzana verde",
+		"16": "Recipiente para el corazón",
+		"17": "Libro de conjuros Volumen 1",
+		"18": "Libro de conjuros Volumen 2",
+		"19": "Libro de conjuros Volumen 3",
+		"2": "Dado mágico",
+		"20": "Libro de conjuros Volumen 4",
+		"21": "Rosario mítico",
+		"22": "Bandera de la muerte",
+		"23": "Flor real",
+		"24": "Barril metálico",
+		"25": "Vela vieja",
+		"26": "Maceta de terracota",
+		"27": "Saxo mágico",
+		"28": "Guitarra terrorífica",
+		"29": "Tarjeta de crédito",
+		"3": "Diamante Kéraunique",
+		"30": "Pata mecánica",
+		"31": "Lindo gato con ojos láser",
+		"32": "Kyuillère",
+		"33": "Calabaza",
+		"34": "Osito de peluche",
+		"35": "Imán",
+		"36": "Aderezo",
+		"37": "Esquíes resbaladizos",
+		"38": "Amuleto del ciclón",
+		"39": "Poder de Nayru",
+		"4": "Flor de esperanza",
+		"40": "Anillo del ángel sin vida",
+		"41": "Urna ornamentada de minotauro",
+		"42": "Reloj conejo",
+		"43": "Escisión de Banan'ase",
+		"44": "Manzana de árbol grande",
+		"45": "Amuleto de Midas",
+		"46": "Estrella fugaz",
+		"47": "Kyuran",
+		"48": "Acelerador de partículas",
+		"49": "Gel hidroalcohólico",
+		"5": "Luna de Mojaro",
+		"50": "Botas Pegaso",
+		"51": "Nimbus 2000",
+		"52": "Jabón resbaladizo",
+		"53": "Medalla al Mérito",
+		"54": "Cuerno de caza",
+		"55": "Bolso del ladrón",
+		"56": "Máquina tragaperras",
+		"57": "Zapatos de tacón",
+		"58": "Anillos de defensa",
+		"59": "Chocobrie",
+		"6": "Bola mágica de cristal",
+		"60": "Multinacional",
+		"61": "Voltou",
+		"62": "Ojo del destino",
+		"63": "Prensatelas",
+		"64": "Lego",
+		"65": "La armónica del tiempo",
+		"66": "Fibra óptica",
+		"67": "Kars",
+		"68": "Tardis",
+		"69": "Música",
+		"7": "Cadenas mágicas",
+		"70": "Cama",
+		"71": "Figura de acción de Buzz Lightyear",
+		"72": "Sol",
+		"73": "Billete para la montaña rusa",
+		"74": "Guindilla",
+		"75": "Desfibrilador",
+		"76": "Comida para perros",
+		"77": "Médico de bolsillo",
+		"78": "Corazón artificial",
+		"79": "Programa de dopaje",
+		"8": "Hoja de viento",
+		"80": "Batería baja",
+		"81": "Batería llena",
+		"82": "Guión de Easy",
+		"83": "Cohete de cartón",
+		"84": "Trébol de 4 hojas",
+		"85": "Roulo PQ",
+		"86": "Estrella del destino",
+		"87": "Guitarra eléctrica",
+		"88": "Tarjeta SYM",
+		"9": "Llave oxidada"
+	},
+	"pets": {
+		"0": {
+			"female": "No se admiten animales",
+			"male": "No se admiten animales"
+		},
+		"1": {
+			"female": "Perro",
+			"male": "Perro"
+		},
+		"10": {
+			"female": "Gallina",
+			"male": "Coq"
+		},
+		"11": {
+			"female": "Pájaro",
+			"male": "Pájaro"
+		},
+		"12": {
+			"female": "Pato",
+			"male": "Pato"
+		},
+		"13": {
+			"female": "Yegua",
+			"male": "Semental"
+		},
+		"14": {
+			"female": "Tortuga",
+			"male": "Tortuga"
+		},
+		"15": {
+			"female": "Serpiente",
+			"male": "Serpiente"
+		},
+		"16": {
+			"female": "Lézarde",
+			"male": "Lagarto"
+		},
+		"17": {
+			"female": "Ovejas",
+			"male": "Aries"
+		},
+		"18": {
+			"female": "Cabra",
+			"male": "Cabra"
+		},
+		"19": {
+			"female": "Turquía",
+			"male": "Turquía"
+		},
+		"2": {
+			"female": "Caniche",
+			"male": "Caniche"
+		},
+		"20": {
+			"female": "Fox",
+			"male": "Fox"
+		},
+		"21": {
+			"female": "Oso",
+			"male": "Oso"
+		},
+		"22": {
+			"female": "Koala",
+			"male": "Koala"
+		},
+		"23": {
+			"female": "Rana",
+			"male": "Sapo"
+		},
+		"24": {
+			"female": "Guenon",
+			"male": "Mono"
+		},
+		"25": {
+			"female": "Pingüino",
+			"male": "Pingüino"
+		},
+		"26": {
+			"female": "Búho",
+			"male": "Búho"
+		},
+		"27": {
+			"female": "Murciélagos",
+			"male": "Murciélagos"
+		},
+		"28": {
+			"female": "Loba",
+			"male": "Lobo"
+		},
+		"29": {
+			"female": "Vellón",
+			"male": "Jabalí"
+		},
+		"3": {
+			"female": "Coño",
+			"male": "Gato"
+		},
+		"30": {
+			"female": "Leones marinos",
+			"male": "Sello"
+		},
+		"31": {
+			"female": "Hipopótamo",
+			"male": "Hipopótamo"
+		},
+		"32": {
+			"female": "Lamate",
+			"male": "Lama"
+		},
+		"33": {
+			"female": "Cisne",
+			"male": "Cisne"
+		},
+		"34": {
+			"female": "Flamenco rosa",
+			"male": "Flamenco rosa"
+		},
+		"35": {
+			"female": "Ratonne",
+			"male": "Mapache"
+		},
+		"36": {
+			"female": "Zorrilla",
+			"male": "Turón"
+		},
+		"37": {
+			"female": "Tejón",
+			"male": "Tejón"
+		},
+		"38": {
+			"female": "Castor",
+			"male": "Castor"
+		},
+		"39": {
+			"female": "Perezoso",
+			"male": "Perezoso"
+		},
+		"4": {
+			"female": "Gato negro",
+			"male": "Gato negro"
+		},
+		"40": {
+			"female": "Tamia",
+			"male": "Tamia"
+		},
+		"41": {
+			"female": "Espiga",
+			"male": "Erizo"
+		},
+		"42": {
+			"female": "Oso polar",
+			"male": "Oso polar"
+		},
+		"43": {
+			"female": "Panda",
+			"male": "Panda"
+		},
+		"44": {
+			"female": "Escorpión",
+			"male": "Escorpio"
+		},
+		"45": {
+			"female": "Cocodrilo",
+			"male": "Cocodrilo"
+		},
+		"46": {
+			"female": "Elefante",
+			"male": "Elefante"
+		},
+		"47": {
+			"female": "Zebrelle",
+			"male": "Cebra"
+		},
+		"48": {
+			"female": "Rinoceronte",
+			"male": "Rinoceronte"
+		},
+		"49": {
+			"female": "Chamelle",
+			"male": "Dromedario"
+		},
+		"5": {
+			"female": "Ratón",
+			"male": "Roedores"
+		},
+		"50": {
+			"female": "Chamelle",
+			"male": "Camello"
+		},
+		"51": {
+			"female": "Jirafa",
+			"male": "Jirafa"
+		},
+		"52": {
+			"female": "Canguro",
+			"male": "Canguro"
+		},
+		"53": {
+			"female": "Paonne",
+			"male": "Pavo real"
+		},
+		"54": {
+			"female": "Loro",
+			"male": "Loro"
+		},
+		"55": {
+			"female": "Nutria",
+			"male": "Nutria"
+		},
+		"56": {
+			"female": "Tigresa",
+			"male": "Tigre"
+		},
+		"57": {
+			"female": "Leona",
+			"male": "León"
+		},
+		"58": {
+			"female": "Águila",
+			"male": "Águila"
+		},
+		"59": {
+			"female": "Dodo",
+			"male": "Dodo"
+		},
+		"6": {
+			"female": "Hámster",
+			"male": "Hámster"
+		},
+		"60": {
+			"female": "Leopardo",
+			"male": "Leopardo"
+		},
+		"61": {
+			"female": "Mamut",
+			"male": "Mamut"
+		},
+		"62": {
+			"female": "Colombe",
+			"male": "Colombe"
+		},
+		"63": {
+			"female": "Unicornio",
+			"male": "Unicornio"
+		},
+		"64": {
+			"female": "Correa de mano",
+			"male": "Dragón"
+		},
+		"65": {
+			"female": "T-Rex",
+			"male": "T-Rex"
+		},
+		"66": {
+			"female": "Ángel",
+			"male": "Puntada"
+		},
+		"67": {
+			"female": "Dama de nieve",
+			"male": "Muñeco de nieve"
+		},
+		"68": {
+			"female": "Pato escarlata",
+			"male": "Pato escarlata"
+		},
+		"69": {
+			"female": "Dama de nieve",
+			"male": "Muñeco de nieve"
+		},
+		"7": {
+			"female": "Conejo",
+			"male": "Conejo"
+		},
+		"70": {
+			"female": "Alienne",
+			"male": "Alien"
+		},
+		"71": {
+			"female": "Pulpo",
+			"male": "Pulpo"
+		},
+		"72": {
+			"female": "Manchote",
+			"male": "Pingüino"
+		},
+		"8": {
+			"female": "Vaca",
+			"male": "Carne de vacuno"
+		},
+		"9": {
+			"female": "Siembre",
+			"male": "Carne de cerdo"
+		}
+	},
+	"potions": {
+		"0": "Sin poción",
+		"1": "Poción roja",
+		"10": "Poción violeta",
+		"11": "Poción ácida",
+		"12": "Poción oscura",
+		"13": "Poción azul",
+		"14": "Poción caducada",
+		"15": "Poción mágica",
+		"16": "Poción mórvica",
+		"17": "Poción definitiva",
+		"18": "Poción agitadora",
+		"19": "Poción de fuerza",
+		"2": "Poción simple",
+		"20": "Poción explosiva",
+		"21": "Poción de velocidad",
+		"22": "Poción curativa",
+		"23": "Poción curativa definitiva",
+		"24": "Poción curativa",
+		"25": "Bebida tropical",
+		"26": "Vaso de leche",
+		"27": "Biberón",
+		"28": "Té",
+		"29": "Café",
+		"3": "Poción",
+		"30": "Alcohol",
+		"31": "La sopa de la abuela",
+		"32": "Agua purificada",
+		"33": "Vino tinto",
+		"34": "Esencia de ave n°5",
+		"35": "Kyurburant",
+		"36": "Zumos",
+		"37": "Cubitos de hielo derretidos",
+		"38": "Sake",
+		"39": "Maté",
+		"4": "Gran poción",
+		"40": "Champán sabré",
+		"41": "Zumo de calcetín",
+		"42": "Bizous'koup",
+		"43": "Las lágrimas del adversario",
+		"44": "Poción de sangre de lobo",
+		"45": "Bebida a base de coca",
+		"46": "Aceite de pimienta fantasma",
+		"47": "Poción mortal asesina",
+		"48": "Jugo de batería",
+		"49": "Aceite de nuez",
+		"5": "Super Poción",
+		"50": "Bebida del valor",
+		"51": "Espinacas",
+		"52": "Zumo de kiwi",
+		"53": "Zumo de plátano",
+		"54": "Friandwill",
+		"55": "Fondue de invierno",
+		"56": "Difunde",
+		"57": "Poción de sangre de dragón",
+		"58": "Poción de dureza extrema",
+		"59": "Poción de burbujas",
+		"6": "Poción verde",
+		"60": "Sudor",
+		"61": "Poción no bebible",
+		"62": "Poción marina",
+		"63": "Poción vacía",
+		"64": "Poción reciclable",
+		"65": "Poción derramada",
+		"66": "Té de burbujas",
+		"67": "Zumo de naranja",
+		"68": "Zumo de manzana",
+		"69": "Miel",
+		"7": "Poción dudosa",
+		"70": "Sopa de cebolla",
+		"71": "Super Nariwa",
+		"72": "Zumo de tormenta",
+		"73": "Expresso",
+		"74": "Poción asombrosa",
+		"75": "Zumo de cactus",
+		"76": "Agua de la ducha",
+		"77": "SP 95",
+		"78": "Agua jabonosa",
+		"79": "Rocío matutino",
+		"8": "Poción para fumar",
+		"80": "Agua de estalactitas",
+		"81": "Tinta",
+		"82": "Babas en la almohada",
+		"83": "Gotas de lluvia",
+		"84": "Esencia de fénix",
+		"85": "Sustancia desconocida",
+		"86": "Cóctel vigorizante",
+		"87": "Ron",
+		"88": "Baba de caracol",
+		"89": "Agua hirviendo",
+		"9": "Poción apestosa",
+		"90": "Zumo de patata",
+		"91": "Agua de mar",
+		"92": "Baba de trol",
+		"93": "Lágrima de Titán"
+	},
+	"weapons": {
+		"0": "Puño",
+		"1": "Relámpago de Zeus",
+		"10": "Espada de madera",
+		"11": "Pistola vacía",
+		"12": "Jeringa infectada",
+		"13": "Bomba",
+		"14": "Guitarra pesada",
+		"15": "Par de dagas",
+		"16": "Piqueta",
+		"17": "Masa",
+		"18": "Bastón",
+		"19": "Cuchillo antiguo",
+		"2": "Herramientas usadas",
+		"20": "Sucursal flexible",
+		"21": "Piqueta dañada",
+		"22": "Arco",
+		"23": "Estufa",
+		"24": "Tijeras",
+		"25": "Daga frágil",
+		"26": "Stock",
+		"27": "Sable",
+		"28": "Martillo de combate",
+		"29": "Cuchillo para principiantes",
+		"3": "Assomoire",
+		"30": "Guantes de boxeo",
+		"31": "Puño reforzado",
+		"32": "Caña de pescar para principiantes",
+		"33": "Cuchillo viejo",
+		"34": "Caña de pescar",
+		"35": "Caña de pescar Master",
+		"36": "Espada de hierro",
+		"37": "Espada de principiante",
+		"38": "Espada maestra",
+		"39": "Espadas dobles",
+		"4": "Transperceur",
+		"40": "Espada de diamantes",
+		"41": "Afilado espada 4",
+		"42": "Arma cargada",
+		"43": "Gherkin",
+		"44": "Manojo de rosas",
+		"45": "Plátano",
+		"46": "Antiguo grimorio",
+		"47": "Bola de nieve",
+		"48": "Arco de caballero",
+		"49": "Arco de soldado",
+		"5": "Martillo",
+		"50": "Arco para principiantes",
+		"51": "Arco del héroe",
+		"52": "Navaja",
+		"53": "Silla",
+		"54": "Ladrillo",
+		"55": "Tenedor",
+		"56": "Espada Kokiri",
+		"57": "Extintor",
+		"58": "Libro grande",
+		"59": "Jeringa",
+		"6": "Cuchillo simple",
+		"60": "Jeringa contaminada",
+		"61": "Jeringa sucia",
+		"62": "Bio-Arme",
+		"63": "Bomba atómica",
+		"64": "Quemador",
+		"65": "Pew Pew",
+		"66": "Vencer a Saber",
+		"67": "Espada real",
+		"68": "Garra",
+		"69": "Palabra de Inés",
+		"7": "Daga",
+		"70": "Pistola Pan Pan QQ",
+		"71": "Espada de Ragnell",
+		"72": "Fluxball",
+		"73": "Ashoir",
+		"74": "Alma de demonio",
+		"75": "Boomerang",
+		"76": "Volto-hache",
+		"77": "Sabotaje del oxígeno",
+		"78": "El poder de la amistad",
+		"79": "El paraguas de la abuela",
+		"8": "Percingasiteur",
+		"80": "Cetro con 100 hechizos",
+		"81": "Exagide",
+		"82": "Garra de gato rabioso",
+		"83": "Insultos",
+		"84": "Destornillador sónico",
+		"85": "El poder del amor",
+		"86": "Máscara Mojaro",
+		"87": "Martillo pilón",
+		"88": "Ala izquierda de Ícaro",
+		"89": "Espada del Dragón",
+		"9": "Llave oxidada",
+		"90": "Cuerno de unicornio",
+		"91": "Barra de Fibonacci",
+		"92": "Se acabó el juego",
+		"93": "Trapo de cocina",
+		"94": "Polvo de esqueleto"
+	}
 }
