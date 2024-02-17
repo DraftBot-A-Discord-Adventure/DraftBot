@@ -1,4 +1,4 @@
-import {DataController, DataControllerString} from "./DataController";
+import {DataControllerString} from "./DataController";
 import {Data} from "./Data";
 import {readdirSync} from "fs";
 import Player from "../core/database/game/models/Player";
@@ -7,6 +7,8 @@ import {DraftBotPacket} from "../../../Lib/src/packets/DraftBotPacket";
 
 export class SmallEvent extends Data<string> {
 	private readonly properties: { [key: string]: unknown };
+
+	public readonly rarity: number;
 
 	async execute(response: DraftBotPacket[], player: Player, client: WebsocketClient): Promise<void> {
 		const smallEventFunction = SmallEventDataController.getSmallEventFunction(this.id);
@@ -19,7 +21,7 @@ export class SmallEvent extends Data<string> {
 }
 
 export type CanBeExecutedLike = (player: Player) => boolean | Promise<boolean>;
-export type ExecuteSmallEventLike = (response: DraftBotPacket[], player: Player, client: WebsocketClient) => void | Promise<void>;
+export type ExecuteSmallEventLike = (response: DraftBotPacket[], player: Player) => void | Promise<void>;
 
 export type SmallEventFuncs = {
 	canBeExecuted: CanBeExecutedLike;

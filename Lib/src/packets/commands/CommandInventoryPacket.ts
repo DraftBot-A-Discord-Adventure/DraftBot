@@ -10,7 +10,6 @@ export class CommandInventoryPacketReq extends DraftBotPacket {
 
 export interface MainItemDisplayPacket {
 	id: number,
-	emote: string,
 	rarity: ItemRarity,
 	attack: {
 		value: number,
@@ -28,7 +27,6 @@ export interface MainItemDisplayPacket {
 
 export interface SupportItemDisplayPacket {
 	id: number,
-	emote: string,
 	rarity: number,
 	nature: ItemNature,
 	power: number,

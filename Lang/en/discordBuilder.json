@@ -51,6 +51,10 @@
       }
     }
   },
+  "report": {
+    "description": "Get a report on your character's situation.",
+    "name": "report"
+  },
   "scopes": {
     "global": "🏆 Global ranking.",
     "server": "🚩 Server ranking."

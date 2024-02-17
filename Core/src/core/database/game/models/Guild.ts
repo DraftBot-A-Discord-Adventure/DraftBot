@@ -231,10 +231,20 @@ export class Guild extends Model {
 	/**
 	 * Add guild points
 	 * @param points
+	 * @param response
 	 * @param reason
 	 */
-	public addScore(points: number, reason: NumberChangeReason): void {
+	public async addScore(points: number, response: DraftBotPacket[], reason: NumberChangeReason): Promise<void> {
 		this.score += points;
+		if (points > 0) {
+			for (const member of await Players.getByGuild(this.id)) {
+				await MissionsController.update(member, response, {
+					missionId: "guildHasPoints",
+					count: this.score,
+					set: true
+				});
+			}
+		}
 		draftBotInstance.logsDatabase.logGuildPointsChange(this, reason)
 			.then();
 	}
