@@ -1,115 +1,115 @@
 {
   "armors": {
-    "0": "Sin escudo ni armadura",
-    "1": "Escudo deflector Engi",
-    "10": "Escudo pesado",
-    "11": "Escudo para principiantes",
-    "12": "Escudo Maestro",
-    "13": "Escudo definitivo",
-    "14": "Escudo potente",
-    "15": "Escudo oxidado",
-    "16": "Escudo desgastado",
-    "17": "Escudo solar",
-    "18": "Maestro Kimono",
-    "19": "Chaqueta de seguridad",
-    "2": "Casco de seguridad",
-    "20": "Escudo humano",
-    "21": "Brazo mecánico",
-    "22": "Casco de robot",
-    "23": "Paraguas de autodefensa",
-    "24": "Escudo de gladiador",
-    "25": "Escudo del guerrero",
-    "26": "Escudo Brennus",
-    "27": "Campo de fuerza",
-    "28": "Escudo Lynel",
-    "29": "Escudo sólido",
-    "3": "Escudo",
-    "30": "Escudo pequeño",
-    "31": "Blindar la soledad",
-    "32": "Escudo real",
+    "0": "Pas de bouclier ni d'armure",
+    "1": "Bouclier déflecteur Engi",
+    "10": "Bouclier lourd",
+    "11": "Bouclier de débutant",
+    "12": "Bouclier de maître",
+    "13": "Bouclier ultime",
+    "14": "Bouclier puissant",
+    "15": "Bouclier rouillé",
+    "16": "Bouclier usé",
+    "17": "Bouclier solaire",
+    "18": "Kimono de maître",
+    "19": "Veste de sécurité",
+    "2": "Casque de sécurité",
+    "20": "Bouclier humain",
+    "21": "Bras mécanique",
+    "22": "Casque de robot",
+    "23": "Parapluie d'auto défense",
+    "24": "Bouclier de gladiateur",
+    "25": "Bouclier de guerrier",
+    "26": "Bouclier de Brennus",
+    "27": "Champ de force",
+    "28": "Bouclier de lynel",
+    "29": "Bouclier solide",
+    "3": "Bouclier",
+    "30": "Petit bouclier",
+    "31": "Bouclier de la solitude",
+    "32": "Bouclier royal",
     "33": "Scutum",
     "34": "Rondache",
-    "35": "Escudo de vibranium",
-    "36": "Escudo de púas",
-    "37": "Convenios de Ginebra",
-    "38": "Luz de nodo",
-    "39": "Armadura de comandante",
-    "4": "Escudo de madera",
-    "40": "Concha Franklin",
-    "41": "Jurisprudencia",
-    "42": "Casco de guerra",
-    "43": "Cubo metálico",
-    "44": "Pared",
-    "45": "Fila de contadores",
-    "46": "Plexiglás",
-    "47": "Fortaleza japonesa",
-    "48": "Abrigo",
-    "49": "Chaqueta de combate",
-    "5": "Escudo de hierro",
-    "50": "Bata protectora",
-    "51": "Tienda protectora",
-    "52": "Poderosa égida",
-    "53": "Égida falsificada",
+    "35": "Bouclier en vibranium",
+    "36": "Bouclier à pointes",
+    "37": "Conventions de Genève",
+    "38": "Lumière de node",
+    "39": "Blindage du Major",
+    "4": "Bouclier en bois",
+    "40": "Carapace de Franklin",
+    "41": "Jurisprudence",
+    "42": "Casque de guerre",
+    "43": "Seau en métal",
+    "44": "Mur",
+    "45": "Rangée de pions",
+    "46": "Plexiglas",
+    "47": "Forteresse japonaise",
+    "48": "Manteau",
+    "49": "Doudoune de combat",
+    "5": "Bouclier en fer",
+    "50": "Blouse de protection",
+    "51": "Tente de protection",
+    "52": "Égide puissante",
+    "53": "Égide contrefaite",
     "54": "Nam Nam",
-    "55": "Autoburla",
+    "55": "Autodérision",
     "56": "Flemme",
-    "57": "El ala derecha de Ícaro",
-    "58": "Lámpara mágica",
-    "59": "Sombrero mágico",
-    "6": "Armadura de hierro",
+    "57": "Aile droite d'Icare",
+    "58": "Lampe Magique",
+    "59": "Chapeau Magique",
+    "6": "Armure de fer",
     "60": "Giga Chad",
-    "61": "UwUrlant Cry",
-    "7": "Kimono reforzado",
-    "8": "Escudo único",
-    "9": "Escudo resistente"
+    "61": "Cri UwUrlant",
+    "7": "Kimono renforcé",
+    "8": "Bouclier simple",
+    "9": "Bouclier résistant"
   },
   "classes": {
-    "0": "Reclutar",
-    "1": "Caza",
+    "0": "Recrue",
+    "1": "Combattant",
     "10": "Archer",
-    "11": "Artillero",
-    "12": "Escudero",
-    "13": "Rider",
+    "11": "Canonnier",
+    "12": "Écuyer",
+    "13": "Cavalier",
     "14": "Piquier",
     "15": "Chevalier",
-    "16": "Paladín",
-    "17": "Veterano",
-    "18": "Poderoso soldado de infantería",
-    "19": "Tanque impenetrable",
-    "2": "Privado",
-    "20": "Un artillero formidable",
-    "21": "Caballero valiente",
-    "22": "Paladín brillante",
-    "23": "Veterano curtido",
-    "24": "Mago místico",
-    "3": "Soldado de Infantería",
-    "4": "Guante",
-    "5": "Casco",
+    "16": "Paladin",
+    "17": "Vétéran",
+    "18": "Fantassin puissant",
+    "19": "Tank impénétrable",
+    "2": "Soldat",
+    "20": "Canonnier redoutable",
+    "21": "Chevalier valeureux",
+    "22": "Paladin lumineux",
+    "23": "Vétéran chevronné",
+    "24": "Mage mystique",
+    "3": "Fantassin",
+    "4": "Ganté",
+    "5": "Casqué",
     "6": "Maillé",
-    "7": "Depósito",
-    "8": "Lanzapiedras",
-    "9": "Recortadora"
+    "7": "Tank",
+    "8": "Lanceur de pierre",
+    "9": "Frondeur"
   },
   "fight_actions": {
     "benediction": {
-      "description": "Forma parte del grupo \"acciones de los dioses\". Falla si ya se ha realizado 1 acción de los dioses en combate. Aumenta todas las estadísticas del lanzador. Cuanto más tarde en el combate se utilice la bendición, mayor será el aumento de estadísticas.",
-      "name_one": "Bendición",
-      "name_other": "Bendiciones"
+      "description": "Fait partie du groupe des \"actions des dieux\". Échoue si 1 action des dieux a déjà été effectuée dans le combat. Augmente toutes les statistiques du lanceur. Plus la bénédiction est utilisée tard dans le combat, plus l’augmentation des statistiques est importante.",
+      "name_one": "Bénédiction",
+      "name_other": "Bénédictions"
     },
     "boomerangAttack": {
-      "description": "Lanza un bumerán que inflige daño a los enemigos hasta 3 veces.",
-      "name_one": "Ataque bumerán",
-      "name_other": "Ataques bumerán"
+      "description": "Lance un boomerang qui inflige des dégâts à l'ennemi jusqu'à 3 fois.",
+      "name_one": "Attaque boomerang",
+      "name_other": "Attaques boomerang"
     },
     "boulderTossAttack": {
-      "description": "Ataque medio que puede aturdir al oponente.",
-      "name_one": "Ataque con piedras",
-      "name_other": "Ataques con piedras"
+      "description": "Attaque moyenne qui a des chances d'étourdir l'adversaire.",
+      "name_one": "Attaque rocheuse",
+      "name_other": "Attaques rocheuses"
     },
     "breathTakingAttack": {
-      "description": "Inflige una pequeña cantidad de daño, pero puede robar el aliento o ralentizar a tu oponente.",
-      "name_one": "Ataque explosivo",
-      "name_other": "Ataques de robo de aliento"
+      "description": "Inflige une faible quantité de dégâts mais peut voler le souffle de votre adversaire ou le ralentir.",
+      "name_one": "Attaque vol de souffle",
+      "name_other": "Attaques vol de souffle"
     },
     "burned": {
       "description": "",
@@ -117,34 +117,34 @@
       "name_other": ""
     },
     "canonAttack": {
-      "description": "La precisión de este ataque se reduce en oponentes que se mueven rápido. Se aplica una bonificación de daño a este ataque si el oponente es muy lento. El oponente puede ser ralentizado por el ataque. Inflige más daño si se utiliza varias veces seguidas.",
-      "name_one": "Ataque con cañón",
-      "name_other": "Ataques con cañón"
+      "description": "La précision de cette attaque baisse sur les adversaires rapides. Un bonus de dégât est affecté à cette attaque si l’adversaire est très lent. L'adversaire peut être ralenti par l'attaque. Inflige plus de dégâts si utilisé plusieurs fois de suite",
+      "name_one": "Attaque canon",
+      "name_other": "Attaques canons"
     },
     "chargeChargingAttack": {
-      "description": "Ataque de 2 turnos. Durante el primer asalto, la defensa del lanzador aumenta un 50%. Durante el segundo asalto, la defensa del lanzador vuelve a su nivel inicial.",
-      "name_one": "Ataque cargado",
-      "name_other": "Ataques cargados"
+      "description": "Attaque sur 2 tours. Durant le premier tour, la défense du lanceur est augmentée de 50 %. Durant le second tour, la défense du lanceur est replacée à son niveau initial.",
+      "name_one": "Attaque chargée",
+      "name_other": "Attaques chargées"
     },
     "chargeClubSmashAttack": {
-      "description": "Requiere un turno para cargar el ataque. Realiza una potente carga al turno siguiente.",
-      "name_one": "Ataque a un club",
-      "name_other": "Ataques a clubes"
+      "description": "Nécessite un tour pour charger l’attaque. Délivre une charge puissante au tour suivant.",
+      "name_one": "Attaque gourdin",
+      "name_other": "Attaques gourdin"
     },
     "chargeUltimateAttack": {
-      "description": "Requiere un turno para cargar el ataque Si el atacante tiene menos del 45% de sus puntos de combate, este ataque no puede fallar. Si el atacante tiene más del 45% de sus puntos de combate, la precisión de este ataque es de 70. Este ataque sólo puede ser utilizado una vez por jugador y por batalla.",
-      "name_one": "Ataque definitivo",
-      "name_other": "Ataques definitivos"
+      "description": "Nécessite un tour pour charger l’attaque Si l’attaquant dispose de moins de 45% de ses points de combat, cette attaque ne peut pas échouer. Si l’attaquant dispose de plus de 45% de ses points de combat, la précision de cette attaque est de 70. Cette attaque ne peut être utilisée qu’une fois par joueur et par combat.",
+      "name_one": "Attaque ultime",
+      "name_other": "Attaques ultimes"
     },
     "chargingAttack": {
       "description": "",
-      "name_one": "Ataque cargado",
-      "name_other": "Ataques cargados"
+      "name_one": "Attaque chargée",
+      "name_other": "Attaques chargées"
     },
     "clubSmashAttack": {
       "description": "",
-      "name_one": "Ataque a un club",
-      "name_other": "Ataques a clubes"
+      "name_one": "Attaque gourdin",
+      "name_other": "Attaques gourdin"
     },
     "concentrated": {
       "description": "",
@@ -152,14 +152,14 @@
       "name_other": ""
     },
     "concentration": {
-      "description": "Falla si utilizas esta acción mientras estás alterado. La alteración \"concentrado\" aumenta enormemente el daño infligido por el luchador afectado durante el siguiente turno.",
-      "name_one": "Concentración",
-      "name_other": "Concentraciones"
+      "description": "Échoue si vous utilisez cette action alors que vous avez une altération d’état. L’altération \"concentré\" augmente fortement les dégâts infligés par le combattant affecté lors du prochain tour.",
+      "name_one": "Concentration",
+      "name_other": "Concentrations"
     },
     "counterAttack": {
-      "description": "Repite la misma acción que tu oponente. No funciona con ataques mágicos o divinos, o si el oponente no ha atacado.",
-      "name_one": "Réplica de ataque",
-      "name_other": "Los ataques contraatacan"
+      "description": "Réplique avec la même action que celle que vient de jouer votre adversaire. Ne fonctionne pas sur les attaques magiques ou divines, ni si l'adversaire n'a pas attaqué.",
+      "name_one": "Attaque riposte",
+      "name_other": "Attaques riposte"
     },
     "cursed": {
       "description": "",
@@ -167,44 +167,44 @@
       "name_other": ""
     },
     "cursedAttack": {
-      "description": "Maldición para el adversario, quizás sufra las consecuencias en el futuro...",
-      "name_one": "Ataque maldito",
-      "name_other": "Ataques malditos"
+      "description": "Maudit l'adversaire, peut être en subira-t-il les conséquences dans le futur...",
+      "name_one": "Attaque maudite",
+      "name_other": "Attaques maudites"
     },
     "darkAttack": {
-      "description": "Ignora la defensa del adversario. Más eficaz contra un jugador con un ataque alto.",
-      "name_one": "Ataque oscuro",
-      "name_other": "Ataques oscuros"
+      "description": "Ignore la défense de l'adversaire. Plus efficace contre un joueur ayant une attaque élevée.",
+      "name_one": "Attaque sombre",
+      "name_other": "Attaques sombres"
     },
     "defenseBuff": {
-      "description": "Cuantas más veces se realice esta acción, mayor será la bonificación de defensa.",
-      "name_one": "Impulso a la defensa",
-      "name_other": "Defensa impulsa"
+      "description": "Plus cette action est effectuée à la suite, plus le bonus de défense est important.",
+      "name_one": "Boost de la défense",
+      "name_other": "Boosts de la défense"
     },
     "divineAttack": {
-      "description": "La precisión de este ataque aumenta con la duración del combate. Forma parte del grupo \"acciones de los dioses\". Falla si ya se han realizado 2 acciones de los dioses en el combate.",
-      "name_one": "Ataque divino",
-      "name_other": "Ataques divinos"
+      "description": "La précision de cette attaque augmente avec la durée du combat. Fait partie du groupe des \"actions des dieux\". Échoue si 2 actions des dieux ont déjà été effectuées dans le combat.",
+      "name_one": "Attaque divine",
+      "name_other": "Attaques divines"
     },
     "energeticAttack": {
-      "description": "La mitad del daño de este ataque se devuelve al lanzador en forma de curación.",
-      "name_one": "Ataque energético",
-      "name_other": "Ataques energéticos"
+      "description": "La moitié des dégâts de cette attaque sont restitués au lanceur sous forme de soin.",
+      "name_one": "Attaque énergique",
+      "name_other": "Attaques énergiques"
     },
     "eruptionAttack": {
-      "description": "El volcán entra en erupción y escupe roca fundida a los jugadores.",
-      "name_one": "Erupción",
-      "name_other": "Erupciones"
+      "description": "Fait entrer en éruption le volcan qui crache des rochers en fusion sur les joueurs.",
+      "name_one": "Eruption",
+      "name_other": "Eruptions"
     },
     "familyMealAttack": {
-      "description": "Invoca a tus aliados para que devoren y envenenen a tu oponente.",
-      "name_one": "Comidas familiares",
-      "name_other": "Comidas familiares"
+      "description": "Appelle des alliés pour dévorer l'adversaire et l'empoisonner.",
+      "name_one": "Repas de famille",
+      "name_other": "Repas de famille"
     },
     "fireAttack": {
-      "description": "Alta probabilidad de quemar a tu oponente. La alteración \"quemado\" inflige daño a tu rival con el tiempo.",
-      "name_one": "Ataque de fuego",
-      "name_other": "Ataques con fuego"
+      "description": "Grande chance de brûler l'adversaire. L’altération \"brûlé\" inflige des dégâts à votre adversaire sur la durée.",
+      "name_one": "Attaque feu",
+      "name_other": "Attaques feu"
     },
     "frozen": {
       "description": "",
@@ -217,49 +217,49 @@
       "name_other": ""
     },
     "grabAndThrowAttack": {
-      "description": "Lanza al oponente si utiliza un ataque físico, infligiendo un daño medio y teniendo una posibilidad de aturdir al oponente",
-      "name_one": "Ataque con proyectiles",
-      "name_other": "Ataques con proyectiles"
+      "description": "Projette l'adversaire s'il utilise une attaque physique, infligeant des dégâts moyens et ayant une chance d'étourdir de l'adversaire",
+      "name_one": "Attaque projection",
+      "name_other": "Attaques projections"
     },
     "guildAttack": {
-      "description": "Los jugadores del gremio se reúnen para llevar a cabo un poderoso ataque en grupo.",
-      "name_one": "Ataque gremial",
-      "name_other": "Ataques gremiales"
+      "description": "Les joueurs de la guilde se réunissent pour réaliser une attaque groupée puissante.",
+      "name_one": "Attaque de guilde",
+      "name_other": "Attaques de guilde"
     },
     "heatDrainAttack": {
-      "description": "Recupera el calor del jugador, aumentando el ataque del lanzador y congelando al oponente.",
-      "name_one": "Drenaje de calor",
-      "name_other": "Drenajes térmicos"
+      "description": "Récupère la chaleur du joueur, ce qui augmente l'attaque du lanceur et gèle l'adversaire.",
+      "name_one": "Drain de chaleur",
+      "name_other": "Drains de chaleur"
     },
     "heavyAttack": {
-      "description": "El daño de este ataque se reduce un 90% si el defensor tiene menos defensa que el atacante. La defensa del enemigo se reduce un 25%.",
-      "name_one": "Ataque pesado",
-      "name_other": "Ataques fuertes"
+      "description": "Les dégâts de cette attaque sont réduits de 90% si le défenseur dispose de moins de défense que l’attaquant. La défense de l'ennemi est réduite de 25%.",
+      "name_one": "Attaque lourde",
+      "name_other": "Attaques lourdes"
     },
     "intenseAttack": {
-      "description": "Ignora parte de la defensa de tu oponente. Nunca falla contra un oponente más rápido. Funciona mejor contra un oponente rápido. Obliga al lanzador a utilizar la acción \"descansar\" en el siguiente turno. No puede matar al oponente.",
-      "name_one": "Ataque intenso",
-      "name_other": "Ataques intensos"
+      "description": "Ignore une partie de la défense de l’adversaire. N’échoue jamais sur un adversaire plus rapide. Fonctionne mieux sur un adversaire rapide. Force le lanceur à utiliser l’action \"repos\" au tour suivant. Ne peut pas tuer l’adversaire.",
+      "name_one": "Attaque intense",
+      "name_other": "Attaques intenses"
     },
     "lavaWaveAttack": {
-      "description": "Un ataque muy poderoso utilizado como último recurso y que garantiza infligir el daño \"Quemado\" al oponente.",
-      "name_one": "Ola de lava",
-      "name_other": "Ondas de lava"
+      "description": "Attaque très puissante utilisable en dernier recours et infligeant à coup sûr l'altération \"Brûlé\" à l'adversaire.",
+      "name_one": "Vague de lave",
+      "name_other": "Vagues de lave"
     },
     "magmaBathAttack": {
-      "description": "Se aplica al lanzador. El lanzador descansa en la lava y recupera sus puntos de combate. El número de puntos de combate recuperados se divide por 4 tras 4 usos.",
-      "name_one": "Baño de magma",
-      "name_other": "Baños de magma"
+      "description": "S'applique au lanceur. Celui-ci se repose dans la lave et récupère ses points de combats. Le nombre de points de combats récupérés est divisé par 4 après 4 utilisations.",
+      "name_one": "Bain de magma",
+      "name_other": "Bains de magma"
     },
     "mimicAttack": {
-      "description": "Copia aleatoriamente uno de tus ataques.",
-      "name_one": "Mimic",
-      "name_other": "Imita"
+      "description": "Copie aléatoirement une de vos attaques.",
+      "name_one": "Mimique",
+      "name_other": "Mimiques"
     },
     "monstrousCopyAttack": {
-      "description": "Copia el ataque de un monstruo aleatorio.",
-      "name_one": "Copia monstruosa",
-      "name_other": "Copias monstruosas"
+      "description": "Copie l'attaque d'un monstre aléatoire.",
+      "name_one": "Monstrueuse Copie",
+      "name_other": "Monstrueuses Copies"
     },
     "none": {
       "description": "",
@@ -277,9 +277,9 @@
       "name_other": ""
     },
     "outrageAttack": {
-      "description": "Falla si utilizas esta acción mientras tienes una alteración de estado. La alteración \"furioso\" duplica el ataque pero disminuye la defensa. Tras 2 turnos, el efecto desaparece y el atacante queda confuso.",
-      "name_one": "Ira",
-      "name_other": "Ira"
+      "description": "Échoue si vous utilisez cette action alors que vous avez une altération d’état. L’altération \"en colère\" double l'attaque mais baisse la défense. Au bout de 2 tours, l'effet disparait et l'attaquant devient confus.",
+      "name_one": "Colère",
+      "name_other": "Colères"
     },
     "paralyzed": {
       "description": "",
@@ -287,9 +287,9 @@
       "name_other": ""
     },
     "petrificationAttack": {
-      "description": "Petrifica al objetivo durante 2 turnos, pero aumenta su defensa un 200%.",
-      "name_one": "Petrificación",
-      "name_other": "Petrificaciones"
+      "description": "Pétrifie la cible pendant 2 tours mais augmente sa défense de 200%.",
+      "name_one": "Pétrification",
+      "name_other": "Pétrifications"
     },
     "petrified": {
       "description": "",
@@ -297,9 +297,9 @@
       "name_other": ""
     },
     "piercingAttack": {
-      "description": "Ignora casi por completo la defensa del adversario. Es probable que el atacante reduzca ligeramente la defensa de su adversario.",
-      "name_one": "Ataque perforante",
-      "name_other": "Ataques perforantes"
+      "description": "Ignore presque complètement la défense de l’adversaire. L'attaquant a une probabilité de réduire légèrement la défense de son adversaire.",
+      "name_one": "Attaque perçante",
+      "name_other": "Attaques perçantes"
     },
     "poisoned": {
       "description": "",
@@ -307,14 +307,14 @@
       "name_other": ""
     },
     "poisonousAttack": {
-      "description": "Envenena a tu oponente. La alteración \"envenenada\" dura al menos tres turnos e inflige daño a tu oponente a lo largo del tiempo.",
-      "name_one": "Ataque envenenado",
-      "name_other": "Ataques envenenados"
+      "description": "Empoisonne l'adversaire. L’altération \"empoisonné\" dure au moins trois tours et inflige des dégâts à votre adversaire sur la durée.",
+      "name_one": "Attaque empoisonnée",
+      "name_other": "Attaques empoisonnées"
     },
     "powerfulAttack": {
-      "description": "Este ataque tiene un 25% de posibilidades de hacer más daño, a costa de aturdir al atacante. Tras 3 usos, el daño del ataque se reduce un 70%.",
-      "name_one": "Poderoso ataque",
-      "name_other": "Poderosos ataques"
+      "description": "Cette attaque a 25 % de chance de faire plus de dégâts, au prix d’un étourdissement de l’attaquant. Après 3 utilisations, les dégâts de l’attaque sont réduits de 70%.",
+      "name_one": "Attaque puissante",
+      "name_other": "Attaques puissantes"
     },
     "protected": {
       "description": "",
@@ -322,59 +322,59 @@
       "name_other": ""
     },
     "protection": {
-      "description": "Falla si utilizas esta acción mientras tienes una alteración de estado. La alteración \"protegida\" dura 3 turnos y evita que seas víctima de otra alteración, al tiempo que te da un 30% de aumento a tu defensa.",
-      "name_one": "Protección",
-      "name_other": "Protecciones"
+      "description": "Échoue si vous utilisez cette action alors que vous avez une altération d’état. L’altération \"protégé\" dure 3 tours et vous empêche d’être victime d’une autre altération tout en vous offrant un boost de 30% de votre défense.",
+      "name_one": "Protection",
+      "name_other": "Protections"
     },
     "quickAttack": {
-      "description": "Nunca falla en un oponente más lento. Cuanto más lento sea tu oponente, más daño hará este ataque.",
-      "name_one": "Ataque rápido",
-      "name_other": "Ataques rápidos"
+      "description": "N’échoue jamais sur un adversaire plus lent. Plus votre adversaire est lent, plus cette attaque lui fera des dégâts.",
+      "name_one": "Attaque rapide",
+      "name_other": "Attaques rapides"
     },
     "rageExplosion": {
-      "description": "Desata la rabia que has acumulado por el camino sobre tu enemigo.",
-      "name_one": "Explosión de rabia",
-      "name_other": "Explosiones de rabia"
+      "description": "Laisse exploser sa rage accumulée durant le trajet sur l'ennemi.",
+      "name_one": "Explosion de rage",
+      "name_other": "Explosions de rage"
     },
     "ramAttack": {
-      "description": "Si el atacante no queda aturdido por el ataque, recibe parte del daño infligido. El ataque también puede aturdir al adversario.",
-      "name_one": "Ataque de carnero",
-      "name_other": "Ataques de carnero"
+      "description": "Si l’attaquant n’est pas étourdi par l’attaque, il reçoit une partie des dégâts infligés. L'attaque peut également étourdir l'adversaire.",
+      "name_one": "Attaque bélier",
+      "name_other": "Attaques béliers"
     },
     "resting": {
-      "description": "Se aplica como curación al lanzador. La cantidad de puntos de combate recuperados se divide por 4 tras 4 usos.",
-      "name_one": "Descansa",
-      "name_other": "Descansa"
+      "description": "S’applique sous forme de soin au lanceur. La quantité de points de combat récupérée est divisée par 4 au bout de 4 utilisations.",
+      "name_one": "Repos",
+      "name_other": "Repos"
     },
     "roarAttack": {
-      "description": "Reduce el ataque y la velocidad de tu oponente.",
-      "name_one": "Rugido",
-      "name_other": "Ruge"
+      "description": "Baisse l'attaque et la vitesse de l'adversaire.",
+      "name_one": "Rugissement",
+      "name_other": "Rugissements"
     },
     "rockShieldAttack": {
-      "description": "Reduce a la mitad el siguiente ataque recibido.",
-      "name_one": "Escudo de roca",
-      "name_other": "Escudo de roca"
+      "description": "Réduit de moitié la prochaine attaque reçue.",
+      "name_one": "Bouclier de roche",
+      "name_other": "Bouclier de roche"
     },
     "sabotageAttack": {
-      "description": "Ignora completamente la defensa del oponente. Funciona mejor sobre un oponente con poco ataque. Un ataque con poco aliento que puede paralizar al lanzador. Si lo hace, el daño aumenta.",
-      "name_one": "Ataque de sabotaje",
-      "name_other": "Ataques de sabotaje"
+      "description": "Ignore complètement la défense de l’adversaire. Fonctionne mieux sur un adversaire ayant peu d’attaque. Attaque peu couteuse en souffle mais qui peut paralyser le lanceur. Si c’est le cas, les dégâts sont augmentés.",
+      "name_one": "Attaque sabotage",
+      "name_other": "Attaques sabotages"
     },
     "shieldAttack": {
-      "description": "Utiliza el escudo del atacante para atacar. El daño \"debilitado\" reduce el ataque un 70% durante 1 turno.",
-      "name_one": "Ataque con escudo",
-      "name_other": "Ataques con escudo"
+      "description": "Utilise le bouclier de l’attaquant pour attaquer. L’altération \"affaibli\" réduit l’attaque de 70% durant 1 tour.",
+      "name_one": "Attaque bouclier",
+      "name_other": "Attaques boucliers"
     },
     "simpleAttack": {
-      "description": "Un ataque simple.",
-      "name_one": "Ataque simple",
-      "name_other": "Ataques simples"
+      "description": "Une attaque simple.",
+      "name_one": "Attaque simple",
+      "name_other": "Attaques simples"
     },
     "slamAttack": {
-      "description": "Ataque débil-medio que reduce la velocidad del oponente.",
-      "name_one": "Ataque de impacto",
-      "name_other": "Impactos"
+      "description": "Attaque faible-moyenne qui réduit la vitesse de l'adversaire.",
+      "name_one": "Attaque impact",
+      "name_other": "Impacts"
     },
     "slowed": {
       "description": "",
@@ -382,14 +382,14 @@
       "name_other": ""
     },
     "stealth": {
-      "description": "Se esconde discretamente para duplicar el daño del siguiente ataque.",
-      "name_one": "Discreción",
-      "name_other": "Discreciones"
+      "description": "Se cache discrètement pour doubler les dégâts de la prochaine attaque.",
+      "name_one": "Discrétion",
+      "name_other": "Discrétions"
     },
     "stoneSkinAttack": {
-      "description": "Cuantas más veces se realice esta acción, mayor será la bonificación de defensa.",
-      "name_one": "Piel de roca",
-      "name_other": "Pieles de roca"
+      "description": "Plus cette action est effectuée à la suite, plus le bonus de défense est important.",
+      "name_one": "Peau de roche",
+      "name_other": "Peaux de roche"
     },
     "stunned": {
       "description": "",
@@ -397,9 +397,9 @@
       "name_other": ""
     },
     "summonAttack": {
-      "description": "Invoca aliados que te ayuden y ataca con fuerza.",
-      "name_one": "Invocación de aliados",
-      "name_other": "Invocación de aliados"
+      "description": "Invoque des alliés pour vous aider et attaquer très fort.",
+      "name_one": "Invocation d'alliés",
+      "name_other": "Invocations d'alliés"
     },
     "targeted": {
       "description": "",
@@ -408,8 +408,8 @@
     },
     "ultimateAttack": {
       "description": "",
-      "name_one": "Ataque definitivo",
-      "name_other": "Ataques definitivos"
+      "name_one": "Attaque ultime",
+      "name_other": "Attaques ultimes"
     },
     "weak": {
       "description": "",
@@ -417,338 +417,338 @@
       "name_other": ""
     },
     "webShotAttack": {
-      "description": "Lanza un chorro de telaraña que hiere y ralentiza a tu oponente.",
-      "name_one": "Ataque de lanzamiento de red",
-      "name_other": "Ataques con lanza telarañas"
+      "description": "Envoie un jet de toile qui blesse et ralentit l'adversaire.",
+      "name_one": "Attaque jet de toile",
+      "name_other": "Attaques jets de toile"
     }
   },
   "leagues": {
-    "0": "Liga de la Madera",
-    "1": "Liga de la Piedra",
-    "2": "Liga de Hierro",
-    "3": "Liga de Bronce",
-    "4": "Liga de Plata",
-    "5": "Liga de Oro",
-    "6": "Liga de Diamante",
-    "7": "Liga Elite",
-    "8": "Liga Infinita",
-    "9": "Liga de Leyendas"
+    "0": "Ligue bois",
+    "1": "Ligue pierre",
+    "2": "Ligue fer",
+    "3": "Ligue bronze",
+    "4": "Ligue argent",
+    "5": "Ligue or",
+    "6": "Ligue diamant",
+    "7": "Ligue d'élite",
+    "8": "Ligue infinie",
+    "9": "Ligue légende"
   },
   "map_locations": {
     "1": {
-      "description": "Una gran playa de arena a las afueras de la ciudad.",
-      "name": "Playa Sentinel",
-      "particle": "a la"
+      "description": "Une grande plage de sable fin au bord de la ville.",
+      "name": "Plage Sentinelle",
+      "particle": "vers la"
     },
     "10": {
-      "description": "Antaño una gran ciudad fortificada, Ville Forte es ahora una sombra de lo que fue. Asolada por la antigua guerra, sólo quedan una docena de casas y campesinos. El resto de las antiguas fortificaciones está en ruinas.",
-      "name": "Ciudad fuerte",
-      "particle": "a la"
+      "description": "Ancienne grande ville fortifiée, Ville Forte n'est plus que l'ombre d'elle-même. Ravagée par l'ancienne guerre il ne reste qu'une dizaine de maisons et paysans. Le reste de l'ancienne fortification n'est que ruine.",
+      "name": "Ville Forte",
+      "particle": "vers la"
     },
     "1000": {
-      "description": "Una gran playa de arena volcánica negra. Debe su nombre a su color característico. Los primeros hombres que pisaron la playa negra temieron una gran maldición. Evidentemente, no es el caso. Pero hay que tener cuidado, porque la arena negra mancha los pies y la ropa.",
-      "name": "Playa negra",
-      "particle": "a la"
+      "description": "Une grande plage de sable volcanique noir. Elle tient son nom de sa couleur très particulière. Les premiers hommes à avoir posé le pied sur la plage noire redoutaient une grande malédiction. Il n'en est évidemment rien. Attention cependant, le sable noir tache les pieds et les habits.",
+      "name": "Plage noire",
+      "particle": "vers la"
     },
     "1001": {
-      "description": "Un inmenso bosque que cubre prácticamente toda la isla. Las finas partículas de ceniza que caen del volcán Grondant dificultan la visibilidad en este bosque. Por ello, apenas se explora.",
-      "name": "Bosque del Crepúsculo",
-      "particle": "a la"
+      "description": "Une immense forêt qui recouvre pratiquement l'entièreté de l'île. De fines particules de cendres tombent du Volcan Grondant, ce qui rend la visibilité dans cette forêt plutôt difficile. Elle est de ce fait que très peu explorée.",
+      "name": "Forêt de la pénombre",
+      "particle": "vers la"
     },
     "1002": {
-      "description": "Un pequeño pueblo de unas veinte casas, parcialmente destruido, cerca del Bosque del Crepúsculo. Nadie sabe exactamente por qué el pueblo está en ruinas. Muchos creen que es la aldea de antiguos habitantes que murieron en las corrientes de lava del volcán Grondant. Pero otros proponen la teoría de una enfermedad, la peste y numerosas ratas. Aquí no queda ni un solo habitante...",
-      "name": "Pueblo en ruinas",
-      "particle": "a la"
+      "description": "Un petit village d'une vingtaine de maisons, partiellement détruit, qui se trouve à proximité de la forêt de la pénombre. Personne ne sait exactement pourquoi ce village est en ruines. Beaucoup pensent qu'il s'agit du village des anciens habitants qui auraient succombé aux coulées de lave du Volcan Grondant. Mais d'autres avancent la théorie d'une maladie, la peste et de nombreux rats. Il ne reste plus un seul habitant ici...",
+      "name": "Village en ruines",
+      "particle": "vers le"
     },
     "1003": {
-      "description": "Esta antigua mina abandonada pasa por debajo del escarpado camino y las montañas. Es tan grande y laberíntica que acaba en el corazón del volcán. Sin embargo, es difícil llegar hasta ella. Eso sí, tenga cuidado, ya que algunas personas han encontrado restos de viejos plátanos en la brumosa mina.",
-      "name": "Cara brumosa",
-      "particle": "a la"
+      "description": "Cette ancienne mine abandonnée passe sous le chemin escarpé et les montagnes. Elle est tellement grande est labyrinthique qu'elle finit au cœur du volcan. Il est cependant difficile d'arriver jusque là. Attention toutefois, certains auraient retrouvé de vieux restes de bananes dans la mine brumeuse.",
+      "name": "Mine brumeuse",
+      "particle": "vers la"
     },
     "1004": {
-      "description": "Este es el único camino real hacia la cumbre del Volcán Grondant. Es muy difícil de utilizar y, sobre todo, muy peligroso. Muchos hombres han muerto intentando escalarlo. Por su cuenta y riesgo.",
-      "name": "Camino empinado",
-      "particle": "a la"
+      "description": "Ce chemin est le seul vrai chemin existant permettant d'aller jusqu'au sommet du Volcan Grondant. Il est très difficile de l'utiliser et surtout très dangereux. De nombreux hommes sont morts en voulant y grimper. À vos risques et périls.",
+      "name": "Chemin escarpé",
+      "particle": "vers le"
     },
     "1005": {
-      "description": "Este volcán, pieza central de la isla volcánica, sigue activo. Vierte varias toneladas de ceniza al año sobre esta pequeña isla, que no deja de crecer. De su centro fluye tanta lava que un canal subterráneo, conocido como Canal de Lavique, recorre varios kilómetros. Desde los barcos se puede ver cómo hierve el agua bajo la superficie. Se dice incluso que este volcán es el creador de varias pequeñas islas de la zona, entre ellas la Isla de Hielo.",
-      "name": "Volcán retumbante",
-      "particle": "a la"
+      "description": "Pièce maîtresse de l'île volcanique, ce volcan est toujours en activité. Il déverse plusieurs tonnes de cendres par an sur cette petite île qui de ce fait ne fait que grandir. La lave qui coule en son centre est en si grande quantité qu'un canal souterrain qu'on appelle Canal Lavique circule sur plusieurs kilomètres. Depuis les bateaux sur l'eau, on peut apercevoir ce canal faire bouillir l'eau en profondeur. Ce volcan serait même le créateur de plusieurs petites îles aux alentours comme l'île de glace.",
+      "name": "Volcan grondant",
+      "particle": "vers le"
     },
     "11": {
-      "description": "Esta fue la última carretera real que rodeaba el monte Celestrum desde el norte, y todavía se utiliza mucho hoy en día, principalmente por los bandoleros.",
-      "name": "Gran Hacha",
-      "particle": "a la"
+      "description": "Dernière vraie route qui permet encore de contourner le Mont Célestrum par le nord, le grand axe est encore très utilisé aujourd'hui, principalement par les brigands.",
+      "name": "Grand Axe",
+      "particle": "vers le"
     },
     "1100": {
-      "description": "Esta orilla es lo primero que se ve al llegar a la isla de hielo. Debe su nombre al ruido que hacían los marineros al desembarcar. Obviamente, regresaban de la isla volcánica, donde la temperatura es mucho más cálida.",
-      "name": "Gla-gla litoral",
-      "particle": "a la"
+      "description": "Ce rivage est la première chose que l'on voit quand on arrive sur l'île de glace. Il tire son nom du bruit que faisaient les marins quand ils ont accosté. Evidemment, ils revenaient de l'île volcanique où la température est beaucoup plus chaude.",
+      "name": "Rivage gla-gla",
+      "particle": "vers le"
     },
     "1101": {
-      "description": "Como su nombre indica, esta vasta extensión de tierra helada no es lugar para descansar. Muy fría y árida, aún quedan algunos árboles resistentes.",
-      "name": "Tundra helada",
-      "particle": "a la"
+      "description": "Comme son nom l'indique, cette vaste étendue de terre gelée n'est pas propice pour le repos. Très froide et très aride, il y subsiste toutefois quelques arbres robustes.",
+      "name": "Toundra gelée",
+      "particle": "vers la"
     },
     "1102": {
-      "description": "Lac du savoir, un gran lago helado, es un lugar tranquilo y relajante. Se puede oír una suave brisa que se desliza por el hielo del lago. Ideal para meditar después de explorar esta inmensa isla salvaje.",
-      "name": "El lago del conocimiento",
-      "particle": "a la"
+      "description": "Grand lac gelé, le lac du savoir est un endroit calme et reposant. On peut y entendre une fine brise glissant sur la glace du lac. Idéale pour méditer après l'exploration de cette immense île sauvage.",
+      "name": "Lac du savoir",
+      "particle": "vers le"
     },
     "1103": {
-      "description": "Una inmensa llanura donde se han construido montones de muñecos de nieve. ¿Quién construyó el primer muñeco de nieve? Nadie lo sabe. Hace demasiado frío para que se derritan. Sin embargo, algunos viajeros se divierten creando otros nuevos.",
-      "name": "Muñeco de nieve llano",
-      "particle": "a la"
+      "description": "Une très grande plaine où de nombreux bonhommes de neige y sont construits. Qui a créé le premier bonhomme de neige ? Personne ne le sait. Il fait bien trop froid pour qu'ils fondent. Cependant, certains voyageurs s'amusent à en créer de nouveaux.",
+      "name": "Plaine aux bonhommes de neige",
+      "particle": "vers la"
     },
     "1104": {
-      "description": "Una magnífica caverna de hielo. Cientos de estalactitas y estalagmitas decoran esta caverna. La luz natural ilumina estos cristales de hielo, dando la impresión de miles de estrellas. Si se olvidan los cientos de exploradores muertos que han resbalado y se han empalado en las estalagmitas, esta caverna es increíblemente bella o totalmente triste. La Cueva de Cristal es un peligroso camino para llegar a la cumbre del pico nevado.",
-      "name": "Cueva de cristal",
-      "particle": "a la"
+      "description": "Une magnifique caverne de glace. Des centaines se stalactites et de stalagmites décorent cette caverne. Une lumière naturelle illumine ces cristaux de glace et donnent l'impression de milliers d'étoiles. Si on oublie les centaines de cadavres d'explorateurs qui ont glissé et se sont empalés sur les stalagmites, cette caverne est d'une beauté incroyable ou d'une tristesse sans nom. La caverne de cristal est un moyen dangereux d'atteindre le sommet du pic enneigé.",
+      "name": "Caverne de cristal",
+      "particle": "vers la"
     },
     "1105": {
-      "description": "Esta caverna, muy parecida a su hermana, la Cueva de Cristal, tiene una gran ventaja. Conduce a la cima nevada a través de las profundidades de la tierra. Es un largo camino sobre hielo y roca. Debe su nombre a las cuevas que se adentran bajo tierra, revelando bellas formaciones de hielo.",
-      "name": "Corazón de la caverna de hielo",
-      "particle": "a la"
+      "description": "Cette caverne, très similaire à sa sœur la caverne de cristal, comporte cependant un grand avantage. Elle mène au pic enneigé en passant dans les profondeurs de la terre. Il s'agit d'un long chemin sur la glace et la roche. Elle doit son nom à ces grottes qui descendent très profond sous terre et laissent apparaitre de belles formations de glace.",
+      "name": "Caverne cœur de glace",
+      "particle": "vers la"
     },
     "1106": {
-      "description": "Este gigantesco pico domina toda la isla. Se divisa a kilómetros de distancia. De muy difícil acceso, el pico nevado alberga viejas estructuras de madera que datan de una antigua civilización. Como los dos senderos que conducen a ella son muy peligrosos, pocas personas han podido ver estas estructuras con sus propios ojos.",
-      "name": "Pico nevado",
-      "particle": "a la"
+      "description": "Ce gigantesque pic domine toute l'île. Il est visible à des kilomètres à la ronde. Très difficile d'accès, le pic enneigé abrite de vieilles structures en bois datant d'une ancienne civilisation. Les deux chemins y menant étant très périlleux, peu d'hommes ont pu voir ces structures de leurs propres yeux.",
+      "name": "Pic enneigé",
+      "particle": "vers le"
     },
     "12": {
-      "description": "Una vasta y vacía llanura septentrional de escaso interés.",
-      "name": "La Expansión",
-      "particle": "a"
+      "description": "Une grande plaine vide nordique sans grand intérêt.",
+      "name": "L'Étendue",
+      "particle": "vers"
     },
     "13": {
-      "description": "Una carretera difícil, fangosa y húmeda. La carretera pantanosa une la Expansión con el río Cangrejo.",
-      "name": "Carretera pantanosa",
-      "particle": "a la"
+      "description": "Un chemin difficile d'accès, boueux et humide. La Route Marécageuse relie l'Étendue à la Rivière aux crabes.",
+      "name": "Route Marécageuse",
+      "particle": "vers la"
     },
     "14": {
-      "description": "Un gran lago donde a las familias les gusta reunirse. En él desemboca el río Vacarme.",
-      "name": "Lago Mirage",
-      "particle": "a la"
+      "description": "Un grand lac où les familles aiment bien se réunir. La rivière Vacarme vient s'y jeter.",
+      "name": "Lac Mirage",
+      "particle": "vers le"
     },
     "15": {
-      "description": "El monte Celestrum es la montaña dominante de la región. Con varios kilómetros de altura, Celestrum es visible para todos. Se dice que lleva el nombre de la antigua diosa. De hecho, sólo una persona ha conseguido escalar hasta la cima. De ella sólo quedan sus iniciales: M-B.",
-      "name": "Monte Celestrum",
-      "particle": "a la"
+      "description": "Le Mont Celestrum est la montagne dominante de la région. Haute de plusieurs kilomètres, Celestrum est visible de tous. On raconte qu'elle porte le nom de l'ancienne déesse. Par ailleurs une seule personne est parvenue à grimper jusqu'au sommet. On ne retient d'elle que ses initiales : M-B.",
+      "name": "Mont Célestrum",
+      "particle": "vers le"
     },
     "16": {
-      "description": "Peligroso sendero a orillas del río Vacarme. Tenga cuidado de no caerse.",
-      "name": "Camino de los Lobos",
-      "particle": "a la"
+      "description": "Petit chemin dangereux bordant la rivière Vacarme. Attention à ne pas tomber.",
+      "name": "Chemin aux Loups",
+      "particle": "vers le"
     },
     "17": {
-      "description": "Cálido pueblo que bordea el Valle de los Reyes. Es un cálido oasis para los viajeros en tránsito.",
-      "name": "Coco Village",
-      "particle": "a la"
+      "description": "Village chaud bordant la vallée des rois. Il s'agit d'une oasis chaleureuse pour les voyageurs en transit.",
+      "name": "Village Coco",
+      "particle": "vers le"
     },
     "18": {
-      "description": "Este río debe su nombre al ruido producido por su fuerte corriente, que se ha cobrado la vida de muchos aldeanos.",
-      "name": "Río Vacarme",
-      "particle": "a la"
+      "description": "Cette rivière doit son nom au bruit produit par son fort courant qui a fait perdre la vie à de nombreux villageois.",
+      "name": "Rivière Vacarme",
+      "particle": "vers la"
     },
     "19": {
-      "description": "Una playa creada por los fuertes vientos del Valle de los Reyes. La Duna protege las Plaines du Contre Bois del calor y trae agua del río Vacarme.",
-      "name": "La Duna",
-      "particle": "a"
+      "description": "Plage créée par les forts vents de la Vallée des Rois. La Dune protège les Plaines du Contre Bois de la chaleur et amène l'eau de la rivière Vacarme.",
+      "name": "La Dune",
+      "particle": "vers"
     },
     "1999": {
-      "description": "Un viejo barco de madera, parece que aguanta bien gracias a las reparaciones realizadas por los trabajadores. Está listo para partir, a la espera de tu llegada.",
-      "name": "Barco para salir de la isla",
-      "particle": "a la"
+      "description": "Un vieux bateau en bois, il a l'air de tenir le coup grâce aux réparations des ouvriers. Il est prêt à partir et n'attend plus que votre arrivée.",
+      "name": "Bateau pour quitter l'île",
+      "particle": "vers le"
     },
     "2": {
-      "description": "Una pequeña carretera que conduce al campo desde Mergagnan y viceversa.",
-      "name": "Camino rural",
-      "particle": "a la"
+      "description": "Une petite route qui permet de se rendre à la campagne à partir de Mergagnan et inversement.",
+      "name": "Voie champêtre",
+      "particle": "vers la"
     },
     "20": {
-      "description": "Una vasta y pacífica llanura agrícola.",
+      "description": "Une vaste plaine paisible et agricole.",
       "name": "Plaines du Contre Bois",
-      "particle": "a la"
+      "particle": "vers les"
     },
     "21": {
-      "description": "Una carretera muy utilizada por los aldeanos. Muchos pequeños vendedores ambulantes se instalan aquí durante un día, creando un enorme mercado.",
-      "name": "Ruta de las maravillas",
-      "particle": "a la"
+      "description": "Une route très empruntée par les villageois. Beaucoup de petits vendeurs ambulants s'y installent le temps d'une journée pour au final créer un immense marché.",
+      "name": "Route des Merveilles",
+      "particle": "vers la"
     },
     "22": {
-      "description": "Bois Hurlant, un bosque tristemente célebre situado en las afueras de Claire de Ville, tiene muy mala reputación. Refugio de bandidos y forajidos de todo tipo, su nombre se debe principalmente a las dudosas prácticas de hace cientos de años.",
-      "name": "Bosque aullador",
-      "particle": "a la"
+      "description": "Forêt mal famée au bord de Claire De Ville, Bois Hurlant a une très mauvaise réputation. Repaire de bandits et hors la loi en tout genre, elle tient surtout son nom de ces pratiques douteuses il y a de ça des centaines d'années.",
+      "name": "Bois Hurlant",
+      "particle": "vers le"
     },
     "22222": {
-      "description": "Una zona de pruebas para monstruos. Se supone que nunca aparecerán en el juego",
-      "name": "Zona de pruebas de monstruos",
-      "particle": "a la"
+      "description": "Une zone de test pour les monstres. N'est jamais censée apparaître dans le jeu",
+      "name": "Zone de test des monstres",
+      "particle": "vers la"
     },
     "23": {
-      "description": "Claire De Ville, gran ciudad comercial y encrucijada económica, no siempre ha sido tan acogedora. Inicialmente muy pobre, se ha desarrollado rápidamente gracias a sus numerosos comercios y hoteles que ofrecen una amplia oferta a los viajeros de la región. Claire De Ville también es conocida por su tranquilidad y respeto al orden.",
+      "description": "Grande ville marchande et carrefour économique, Claire De Ville n'a pas toujours été aussi accueillante. Au début très pauvre, elle a su se développer rapidement grâce à ses nombreux commerces et hôtels offrant un large choix aux voyageurs de la région. Claire De Ville est aussi réputée pour son calme et son respect de l'ordre.",
       "name": "Claire De Ville",
-      "particle": "a"
+      "particle": "vers"
     },
     "24": {
-      "description": "Una carretera muy empinada que lleva a Claire De Ville. Todo depende del camino que tomes.",
-      "name": "Vía de escalada",
-      "particle": "a la"
+      "description": "Une route très raide qui mène jusqu'à Claire De Ville. Tout dépend dans quel sens vous l'empruntez.",
+      "name": "Route Grimpante",
+      "particle": "vers la"
     },
     "25": {
-      "description": "Todo está en el nombre. Un río muy apreciado por los pescaderos de Claire De Ville.",
+      "description": "Tout est dans le nom. Une rivière très appréciée des poissonniers de Claire De Ville.",
       "name": "Rivière aux Crabes",
-      "particle": "a la"
+      "particle": "vers la"
     },
     "26": {
-      "description": "Una ciudad tranquila a orillas de Plage Sentinelle.",
+      "description": "Une paisible ville au bord de la Plage Sentinelle.",
       "name": "Mergagnan",
-      "particle": "a"
+      "particle": "vers"
     },
     "27": {
-      "description": "Un bosque al borde del monte Celestrum.",
-      "name": "Bosque de Celestrum",
-      "particle": "a la"
+      "description": "Une forêt au bord du Mont Célestrum.",
+      "name": "Forêt Célestrum",
+      "particle": "vers la"
     },
     "28": {
-      "description": "La entrada al castillo del rey, rodeada por una gruesa muralla, parece capaz de resistir cualquier ataque imaginable.",
-      "name": "Puertas del castillo",
-      "particle": "a la"
+      "description": "Entrée du château du roi, entouré d'une épaisse muraille, il semble pouvoir résister à toutes les attaques imaginables.",
+      "name": "Portes du château",
+      "particle": "vers les"
     },
     "29": {
-      "description": "Una enorme sala decorada con numerosas obras de arte",
-      "name": "Sala de recepción",
-      "particle": "a la"
+      "description": "Immense salle ornée de nombreuses oeuvres d'art",
+      "name": "Salle de réception",
+      "particle": "vers la"
     },
     "3": {
-      "description": "Gran llanura al oeste del país bordeada por un gran bosque y atravesada por una carretera principal.",
-      "name": "El Berceau",
-      "particle": "a"
+      "description": "Grande plaine de l'ouest de la contrée bordée d'une grande forêt et traversée par une grande route.",
+      "name": "Le Berceau",
+      "particle": "vers"
     },
     "32": {
-      "description": "El camino al castillo del Rey",
-      "name": "Ruta al castillo del Rey",
-      "particle": "a"
+      "description": "La route qui mène au château du Roi",
+      "name": "Route vers le château du Roi",
+      "particle": "vers"
     },
     "33": {
       "description": "",
-      "name": "Continente principal",
-      "particle": "a"
+      "name": "Continent principal",
+      "particle": "vers"
     },
     "4": {
-      "description": "Un vasto bosque al sur de la Cuna. Se dice que muchos viajeros se han perdido aquí.",
-      "name": "Bosque de Vieillard",
-      "particle": "a la"
+      "description": "Immense forêt au sud du Berceau. On raconte que beaucoup de voyageurs s'y sont perdus.",
+      "name": "Forêt Du Vieillard",
+      "particle": "vers la"
     },
     "5": {
-      "description": "El sendero debe su apodo a su naturaleza entrecruzada en la parte sur del Bosque del Viejo.",
-      "name": "Camino de Dédale",
-      "particle": "a la"
+      "description": "Chemin tirant son surnom de son sillonement au sein de la nature foisonnant du sud de la forêt du vieillard.",
+      "name": "Chemin du Dédale",
+      "particle": "vers le"
     },
     "6": {
-      "description": "Un pueblo tranquilo conocido por su acogedora posada.",
-      "name": "Algodón Boug",
-      "particle": "a"
+      "description": "Un village paisible réputé pour son auberge accueillante.",
+      "name": "Boug-Coton",
+      "particle": "vers"
     },
     "7": {
-      "description": "Un desierto arenoso y caluroso que debe su nombre a los antiguos reyes de la región.",
-      "name": "Valle de los Reyes",
-      "particle": "a la"
+      "description": "Désert de sable chaud nommé en l'honneur des anciens rois de la région.",
+      "name": "Vallée des Rois",
+      "particle": "vers la"
     },
     "8": {
-      "description": "Un cruce importante que une las principales carreteras al oeste del monte Celestrum.",
-      "name": "Encrucijada del destino",
-      "particle": "a la"
+      "description": "Un très grand carrefour qui relie les principaux chemins à l'ouest du Mont Célestrum.",
+      "name": "Croisement des Destins",
+      "particle": "vers le"
     },
     "9": {
-      "description": "Antaño una importante ruta comercial que unía la Cuna y la Ville Forte, todo lo que queda de la Grande Rue son algunos viejos adoquines desconchados.",
+      "description": "Ancienne grande route commerciale reliant le Berceau et Ville forte, il ne reste de la Grande Rue que de vieux pavés ébréchés.",
       "name": "Grande Rue",
-      "particle": "a la"
+      "particle": "vers la"
     }
   },
   "map_types": {
     "be": {
-      "name": "Playa",
+      "name": "Plage",
       "prefix": "de la"
     },
     "castle_entrance": {
       "name": "",
-      "prefix": "de"
+      "prefix": "des"
     },
     "castle_throne": {
       "name": "",
       "prefix": "de la"
     },
     "ci": {
-      "name": "Ciudad",
+      "name": "Ville",
       "prefix": "de la"
     },
     "continent": {
       "name": "",
-      "prefix": "de"
+      "prefix": "du"
     },
     "crystal_cavern": {
-      "name": "Cueva de cristal",
+      "name": "Caverne de crystal",
       "prefix": "de la"
     },
     "de": {
-      "name": "Desierto",
-      "prefix": "de"
+      "name": "Désert",
+      "prefix": "du"
     },
     "fo": {
-      "name": "Bosque",
+      "name": "Forêt",
       "prefix": "de la"
     },
     "ice_beach": {
-      "name": "Playa de hielo",
+      "name": "Plage glacée",
       "prefix": "de la"
     },
     "ice_cavern": {
-      "name": "Caverna de hielo",
+      "name": "Caverne de glace",
       "prefix": "de la"
     },
     "ice_lake": {
-      "name": "Lago helado",
-      "prefix": "de"
+      "name": "Lac gelé",
+      "prefix": "du"
     },
     "la": {
-      "name": "Lago",
-      "prefix": "de"
+      "name": "Lac",
+      "prefix": "du"
     },
     "mine": {
-      "name": "Mina",
+      "name": "Mine",
       "prefix": "de la"
     },
     "mo": {
-      "name": "Montaña",
+      "name": "Montagne",
       "prefix": "de la"
     },
     "pl": {
-      "name": "Llanura",
+      "name": "Plaine",
       "prefix": "de la"
     },
     "pve_exit": {
       "name": "",
-      "prefix": "de"
+      "prefix": "du"
     },
     "ri": {
-      "name": "Río",
+      "name": "Rivière",
       "prefix": "de la"
     },
     "ro": {
-      "name": "Ruta",
+      "name": "Route",
       "prefix": "de la"
     },
     "ruins": {
-      "name": "Ruinas",
-      "prefix": "de"
+      "name": "Ruines",
+      "prefix": "des"
     },
     "snow_mountain": {
-      "name": "Pájaro carpintero",
-      "prefix": "de"
+      "name": "Pic",
+      "prefix": "du"
     },
     "snowmen_field": {
-      "name": "Llanura",
+      "name": "Plaine",
       "prefix": "de la"
     },
     "test_zone": {
@@ -756,676 +756,676 @@
       "prefix": "de la"
     },
     "tundra": {
-      "name": "Tundra",
+      "name": "Toundra",
       "prefix": "de la"
     },
     "vi": {
-      "name": "Pueblo",
-      "prefix": "de"
+      "name": "Village",
+      "prefix": "du"
     },
     "volcano": {
-      "name": "Volcán",
-      "prefix": "de"
+      "name": "Volcan",
+      "prefix": "du"
     }
   },
   "missions": {
-    "anyFight_one": "Haz {{objective}} combat",
-    "anyFight_other": "Hacer {{objective}} peleas",
-    "bigFeast": "Asistir a una gran fiesta",
-    "buyUltimateSoups_one": "Compra al menos {{objective}} ultimate soup",
-    "buyUltimateSoups_other": "Compra al menos {{objective}} ultimate soups",
-    "chooseClass": "Elige una clase que no sea 🌿 Recluta",
-    "chooseClassTier": "Tener un nivel de clase de {{variantText}} o superior",
-    "commandMission": "Para pedir {{commandMissions}}",
-    "commandReport": "Para pedir {{commandReport}}",
-    "dailyPotionsStock": "Compra las existencias de pociones de hoy",
-    "doReports_one": "Informe a {{objective}}",
-    "doReports_other": "Realizar informes {{objective}}",
-    "drinkAlcohol": "Beber una poción que contenga alcohol",
-    "drinkEnergyPotion_one": "Bebe {{objective}} poción energética",
-    "drinkEnergyPotion_other": "Beber pociones energéticas {{objective}}",
-    "drinkPotionRarity": "Bebe una poción de rareza {{variantText}} o superior",
-    "drinkPotionWithoutEffect_one": "Beber {{objective}} poción sin efecto",
-    "drinkPotionWithoutEffect_other": "Beber {{objective}} pociones sin efecto",
-    "drinkPotion_one": "Bebe {{objective}} potion",
-    "drinkPotion_other": "Beber pociones {{objective}}",
-    "earnLifePoints_one": "Gana {{objective}} puntos de golpe",
-    "earnLifePoints_other": "Gana {{objective}} puntos de golpe",
-    "earnMoney": "Cosecha {{objective}}💰",
-    "earnPoints": "Gana {{objective}}🏅",
-    "earnXP": "Gana {{objective}}⭐",
-    "exploreDifferentPlaces": "Explore {{objective}} lugares diferentes",
-    "fightAttacks": "Hacer {{objective}} {{variantText}} en las peleas",
-    "fightHealthPercent_one": "Gana {{objective}} con menos de {{variantText}}% de tu vida restante",
-    "fightHealthPercent_other": "Gana {{objective}} combates con menos de {{variantText}}% de tu vida restante.",
-    "fightStreak": "Luchando por {{objective}} días seguidos",
-    "findOrBuyItem_one": "Buscar o comprar {{objective}}",
-    "findOrBuyItem_other": "Buscar o comprar artículos en {{objective}}",
-    "finishWithAttack": "Usa {{objective}}{{variantText}} para acabar con tu oponente",
+    "anyFight_one": "Faire {{objective}} combat",
+    "anyFight_other": "Faire {{objective}} combats",
+    "bigFeast": "Assister à un grand festin",
+    "buyUltimateSoups_one": "Acheter au moins {{objective}} soupe ultime",
+    "buyUltimateSoups_other": "Acheter au moins {{objective}} soupes ultimes",
+    "chooseClass": "Choisir une classe autre que 🌿 Recrue",
+    "chooseClassTier": "Avoir une classe de niveau {{variantText}} ou plus",
+    "commandMission": "Faire la commande {{commandMissions}}",
+    "commandReport": "Faire la commande {{commandReport}}",
+    "dailyPotionsStock": "Acheter tout le stock de potions du jour",
+    "doReports_one": "Faire {{objective}} rapport",
+    "doReports_other": "Faire {{objective}} rapports",
+    "drinkAlcohol": "Boire une potion contenant de l'alcool",
+    "drinkEnergyPotion_one": "Boire {{objective}} potion d'énergie",
+    "drinkEnergyPotion_other": "Boire {{objective}} potions d'énergie",
+    "drinkPotionRarity": "Boire une potion de rareté {{variantText}} ou supérieure",
+    "drinkPotionWithoutEffect_one": "Boire {{objective}} potion sans effet",
+    "drinkPotionWithoutEffect_other": "Boire {{objective}} potions sans effet",
+    "drinkPotion_one": "Boire {{objective}} potion",
+    "drinkPotion_other": "Boire {{objective}} potions",
+    "earnLifePoints_one": "Gagner {{objective}} point de vie",
+    "earnLifePoints_other": "Gagner {{objective}} points de vie",
+    "earnMoney": "Récolter {{objective}} 💰",
+    "earnPoints": "Gagner {{objective}} 🏅",
+    "earnXP": "Gagner {{objective}} ⭐",
+    "exploreDifferentPlaces": "Explorer {{objective}} lieux différents",
+    "fightAttacks": "Faire {{objective}} {{variantText}} dans des combats",
+    "fightHealthPercent_one": "Gagner {{objective}} combat avec moins de {{variantText}}% de votre vie restante",
+    "fightHealthPercent_other": "Gagner {{objective}} combats avec moins de {{variantText}}% de votre vie restante",
+    "fightStreak": "Faire un combat pendant {{objective}} jours d'affilée",
+    "findOrBuyItem_one": "Trouver ou acheter {{objective}} objet",
+    "findOrBuyItem_other": "Trouver ou acheter {{objective}} objets",
+    "finishWithAttack": "Utiliser {{objective}} fois l'{{variantText}} pour achever votre adversaire",
     "fromPlaceToPlace": "{{variantText}}",
-    "gainRage_one": "Gana {{objective}} puntos de rabia derrotando a animales salvajes",
-    "gainRage_other": "Gana {{objective}} puntos de rabia derrotando a animales salvajes",
-    "goToPlace": "Viaje a{{variantText}}",
-    "guildDailyFromSomeoneElse": "Recibir una recompensa del gremio sin haberla reclamado",
-    "guildDaily_one": "Recibe la recompensa del gremio {{objective}}",
-    "guildDaily_other": "Recibe recompensas del gremio {{objective}}",
-    "guildHasPoints": "Ayuda a tu gremio a tener más de {{objective}} puntos de gremio",
-    "guildLevel": "Formar parte de un gremio de nivel {{objective}} o superior",
-    "haveItemRarity": "Equipo raro {{variantText}} o mejor",
-    "havePet": "Tener un animal de compañía",
-    "havePotions": "Poseer {{objective}} pociones al mismo tiempo",
-    "joinGuild": "Unirse o crear un gremio",
-    "joinMemberOnBoat": "Únase a un miembro en la isla",
-    "joinPVEIsland": "Llegar a la isla misteriosa",
-    "kingsMoneyValue": "Consigue menos de 6.500 💰 en dinero del rey",
-    "meetDifferentPlayers_one": "Conozca al jugador {{objective}}",
-    "meetDifferentPlayers_other": "Conozca {{objective}} jugadores diferentes",
-    "meetGruffo": "Conoce a Gruffo",
-    "meetHermit": "Conoce a un ermitaño",
-    "petEarnHealth": "Obtener vida de una mascota",
-    "reachGlory": "Tener {{objective}} puntos de gloria o más",
-    "reachLevel": "Alcanza el nivel {{objective}}",
-    "reachScore": "Puntuación superior a {{objective}}🏅",
-    "recoverAlteration_one": "Recuperarse de {{objective}}",
-    "recoverAlteration_other": "Recuperarse de {{objective}}",
-    "sellItemWithGivenCost_one": "Venta de equipos {{objective}} por más de {{variantText}}💰",
-    "sellItemWithGivenCost_other": "Venta de equipos {{objective}} por más de {{variantText}}💰",
-    "sellOrTradePet": "Vender o intercambiar una mascota con otro jugador",
-    "spendGems": "Gasta gemas en la tienda de la misión",
-    "spendMoney": "Gastar monedas {{objective}}",
-    "tamedPet": "Tener una mascota domesticada o adiestrada",
-    "trainedPet": "Tener una mascota adiestrada",
-    "travelHours_one": "Haga {{objective}} un viaje de al menos {{variantText}} hora",
-    "travelHours_other": "Hacer {{objective}} viajes de al menos {{variantText}} horas",
-    "unlock": "Liberar a alguien de la cárcel",
-    "wealthyPayForPVEIsland": "Comprar un viaje a una isla misteriosa al precio máximo",
-    "winBoss_one": "Gana la batalla contra el jefe de {{objective}}",
-    "winBoss_other": "Gana combates contra jefes en {{objective}}"
+    "gainRage_one": "Gagner {{objective}} point de rage en battant des animaux sauvages",
+    "gainRage_other": "Gagner {{objective}} points de rage en battant des animaux sauvages",
+    "goToPlace": "Voyager jusqu'{{variantText}}",
+    "guildDailyFromSomeoneElse": "Recevoir une récompense de guilde sans l'avoir réclamée",
+    "guildDaily_one": "Recevoir {{objective}} récompense de guilde",
+    "guildDaily_other": "Recevoir {{objective}} récompenses de guilde",
+    "guildHasPoints": "Aider votre guilde à posséder plus de {{objective}} points de guilde",
+    "guildLevel": "Faire partie d'une guilde niveau {{objective}} ou plus",
+    "haveItemRarity": "Posséder un équipement de rareté {{variantText}} ou mieux",
+    "havePet": "Avoir un familier avec soi",
+    "havePotions": "Posséder {{objective}} potions en même temps",
+    "joinGuild": "Rejoindre ou créer une guilde",
+    "joinMemberOnBoat": "Rejoindre un membre sur l'île",
+    "joinPVEIsland": "Rejoindre l'île mystérieuse",
+    "kingsMoneyValue": "Obtenir moins de 6500 💰 dans l'argent du roi",
+    "meetDifferentPlayers_one": "Rencontrer {{objective}} joueur",
+    "meetDifferentPlayers_other": "Rencontrer {{objective}} joueurs différents",
+    "meetGruffo": "Rencontrer Gruffo",
+    "meetHermit": "Rencontrer un ermite",
+    "petEarnHealth": "Obtenir de la vie grâce à un familier",
+    "reachGlory": "Avoir {{objective}} points de gloire ou plus",
+    "reachLevel": "Atteindre le niveau {{objective}}",
+    "reachScore": "Avoir un score supérieur à {{objective}} 🏅",
+    "recoverAlteration_one": "Se remettre de {{objective}} altération d'état",
+    "recoverAlteration_other": "Se remettre de {{objective}} altérations d'état",
+    "sellItemWithGivenCost_one": "Vendre {{objective}} équipement pour plus de {{variantText}} 💰",
+    "sellItemWithGivenCost_other": "Vendre {{objective}} équipements pour plus de {{variantText}} 💰",
+    "sellOrTradePet": "Vendre ou échanger un familier à un autre joueur",
+    "spendGems": "Dépenser des gemmes dans le magasin des missions",
+    "spendMoney": "Dépenser {{objective}} pièces",
+    "tamedPet": "Avoir un familier apprivoisé ou dressé",
+    "trainedPet": "Avoir un familier dressé",
+    "travelHours_one": "Faire {{objective}} voyage d'au moins {{variantText}} heure",
+    "travelHours_other": "Faire {{objective}} voyages d'au moins {{variantText}} heures",
+    "unlock": "Libérer quelqu'un de prison",
+    "wealthyPayForPVEIsland": "Acheter un voyage vers une île mystérieuse au prix maximal",
+    "winBoss_one": "Gagner {{objective}} combat de boss",
+    "winBoss_other": "Gagner {{objective}} combats de boss"
   },
   "monsters": {
-    "forestTroll": "Trol del bosque",
-    "magmaTitan": "Titán de magma",
-    "rockGolem": "Golem de roca",
-    "skeleton": "Esqueleto",
-    "slimyMutant": "Mutante de barro",
-    "spider": "Araña"
+    "forestTroll": "Troll de la forêt",
+    "magmaTitan": "Titan de magma",
+    "rockGolem": "Golem de roche",
+    "skeleton": "Squelette",
+    "slimyMutant": "Mutant Vaseux",
+    "spider": "Araignée"
   },
   "objects": {
-    "0": "Espacio libre",
-    "1": "Bandera de la paz",
-    "10": "Zapatilla deportiva",
-    "11": "Bendición del cielo",
-    "12": "Punta de obsidiana",
-    "13": "Hojas muertas",
-    "14": "Manzana roja",
-    "15": "Manzana verde",
-    "16": "Recipiente para el corazón",
-    "17": "Libro de conjuros Volumen 1",
-    "18": "Libro de conjuros Volumen 2",
-    "19": "Libro de conjuros Volumen 3",
-    "2": "Dado mágico",
-    "20": "Libro de conjuros Volumen 4",
-    "21": "Rosario mítico",
-    "22": "Bandera de la muerte",
-    "23": "Flor real",
-    "24": "Barril metálico",
-    "25": "Vela vieja",
-    "26": "Maceta de terracota",
-    "27": "Saxo mágico",
-    "28": "Guitarra terrorífica",
-    "29": "Tarjeta de crédito",
-    "3": "Diamante Kéraunique",
-    "30": "Pata mecánica",
-    "31": "Lindo gato con ojos láser",
+    "0": "Emplacement libre",
+    "1": "Drapeau de la paix",
+    "10": "Chaussure de course",
+    "11": "Bénédiction du ciel",
+    "12": "Bout d'obsidienne",
+    "13": "Feuilles mortes",
+    "14": "Pomme rouge",
+    "15": "Pomme verte",
+    "16": "Réceptacle de cœur",
+    "17": "Livre d'incantations Volume 1",
+    "18": "Livre d'incantations Volume 2",
+    "19": "Livre d'incantations Volume 3",
+    "2": "Dé magique",
+    "20": "Livre d'incantations Volume 4",
+    "21": "Chapelet mythique",
+    "22": "Drapeau de la mort",
+    "23": "Fleur royale",
+    "24": "Baril métallique",
+    "25": "Vieille bougie",
+    "26": "Pot en terre cuite",
+    "27": "Saxo magique",
+    "28": "Guitare terrifiante",
+    "29": "Carte bancaire",
+    "3": "Diamant Kéraunique",
+    "30": "Jambe mécanique",
+    "31": "Chat aux yeux lasers mignon",
     "32": "Kyuillère",
-    "33": "Calabaza",
-    "34": "Osito de peluche",
-    "35": "Imán",
-    "36": "Aderezo",
-    "37": "Esquíes resbaladizos",
-    "38": "Amuleto del ciclón",
-    "39": "Poder de Nayru",
-    "4": "Flor de esperanza",
-    "40": "Anillo del ángel sin vida",
-    "41": "Urna ornamentada de minotauro",
-    "42": "Reloj conejo",
-    "43": "Escisión de Banan'ase",
-    "44": "Manzana de árbol grande",
-    "45": "Amuleto de Midas",
-    "46": "Estrella fugaz",
+    "33": "Citrouille",
+    "34": "Ours en peluche",
+    "35": "Aimant",
+    "36": "Pansement",
+    "37": "Skis glissants",
+    "38": "Amulette cyclonique",
+    "39": "Pouvoir de Nayru",
+    "4": "Fleur de l'espoir",
+    "40": "Bague de l'ange sans vie",
+    "41": "Urne ornée du minotaure",
+    "42": "Horloge du lapin",
+    "43": "Banan'ase split",
+    "44": "Pomme du grand arbre",
+    "45": "Amulette de Midas",
+    "46": "Étoile filante",
     "47": "Kyuran",
-    "48": "Acelerador de partículas",
-    "49": "Gel hidroalcohólico",
-    "5": "Luna de Mojaro",
-    "50": "Botas Pegaso",
+    "48": "Accélérateur de particule",
+    "49": "Gel Hydro-Alcoolique",
+    "5": "Lune de Mojaro",
+    "50": "Bottes de Pégase",
     "51": "Nimbus 2000",
-    "52": "Jabón resbaladizo",
-    "53": "Medalla al Mérito",
-    "54": "Cuerno de caza",
-    "55": "Bolso del ladrón",
-    "56": "Máquina tragaperras",
-    "57": "Zapatos de tacón",
-    "58": "Anillos de defensa",
+    "52": "Savon glissant",
+    "53": "Médaille de mérite",
+    "54": "Cor de chasse",
+    "55": "Bourse du voleur",
+    "56": "Machine à sous",
+    "57": "Chaussures à talon",
+    "58": "Anneaux de défense",
     "59": "Chocobrie",
-    "6": "Bola mágica de cristal",
-    "60": "Multinacional",
+    "6": "Boule de verre magique",
+    "60": "Multinationale",
     "61": "Voltou",
-    "62": "Ojo del destino",
-    "63": "Prensatelas",
+    "62": "Œil de Fatalis",
+    "63": "Pied-de-biche",
     "64": "Lego",
-    "65": "La armónica del tiempo",
-    "66": "Fibra óptica",
+    "65": "Harmonica du temps",
+    "66": "Fibre optique",
     "67": "Kars",
     "68": "Tardis",
-    "69": "Música",
-    "7": "Cadenas mágicas",
-    "70": "Cama",
-    "71": "Figura de acción de Buzz Lightyear",
-    "72": "Sol",
-    "73": "Billete para la montaña rusa",
-    "74": "Guindilla",
-    "75": "Desfibrilador",
-    "76": "Comida para perros",
-    "77": "Médico de bolsillo",
-    "78": "Corazón artificial",
-    "79": "Programa de dopaje",
-    "8": "Hoja de viento",
-    "80": "Batería baja",
-    "81": "Batería llena",
-    "82": "Guión de Easy",
-    "83": "Cohete de cartón",
-    "84": "Trébol de 4 hojas",
+    "69": "Musique",
+    "7": "Chaines magiques",
+    "70": "Lit",
+    "71": "Figurine Buzz l'éclair",
+    "72": "Soleil",
+    "73": "Ticket de montagnes russes",
+    "74": "Piment",
+    "75": "Défibrillateur",
+    "76": "Nourriture pour chien",
+    "77": "Docteur de poche",
+    "78": "Coeur artificiel",
+    "79": "Programme de dopage",
+    "8": "Feuille de vent",
+    "80": "Batterie faible",
+    "81": "Batterie pleine",
+    "82": "Script de Easy",
+    "83": "Fusée en Carton",
+    "84": "Trèfle à 4 Feuilles",
     "85": "Roulo PQ",
-    "86": "Estrella del destino",
-    "87": "Guitarra eléctrica",
-    "88": "Tarjeta SYM",
-    "9": "Llave oxidada"
+    "86": "Étoile du Destin",
+    "87": "Guitare Électrique",
+    "88": "Carte SYM",
+    "9": "Clé rouillée"
   },
   "pets": {
     "0": {
-      "female": "No se admiten animales",
-      "male": "No se admiten animales"
+      "female": "Aucun familier",
+      "male": "Aucun familier"
     },
     "1": {
-      "female": "Perro",
-      "male": "Perro"
+      "female": "Chienne",
+      "male": "Chien"
     },
     "10": {
-      "female": "Gallina",
+      "female": "Poule",
       "male": "Coq"
     },
     "11": {
-      "female": "Pájaro",
-      "male": "Pájaro"
+      "female": "Oiseau",
+      "male": "Oiseau"
     },
     "12": {
-      "female": "Pato",
-      "male": "Pato"
+      "female": "Cane",
+      "male": "Canard"
     },
     "13": {
-      "female": "Yegua",
-      "male": "Semental"
+      "female": "Jument",
+      "male": "Étalon"
     },
     "14": {
-      "female": "Tortuga",
-      "male": "Tortuga"
+      "female": "Tortue",
+      "male": "Tortue"
     },
     "15": {
-      "female": "Serpiente",
-      "male": "Serpiente"
+      "female": "Serpent",
+      "male": "Serpent"
     },
     "16": {
       "female": "Lézarde",
-      "male": "Lagarto"
+      "male": "Lézard"
     },
     "17": {
-      "female": "Ovejas",
-      "male": "Aries"
+      "female": "Brebis",
+      "male": "Bélier"
     },
     "18": {
-      "female": "Cabra",
-      "male": "Cabra"
+      "female": "Chèvre",
+      "male": "Bouc"
     },
     "19": {
-      "female": "Turquía",
-      "male": "Turquía"
+      "female": "Dinde",
+      "male": "Dindon"
     },
     "2": {
       "female": "Caniche",
       "male": "Caniche"
     },
     "20": {
-      "female": "Fox",
-      "male": "Fox"
+      "female": "Renarde",
+      "male": "Renard"
     },
     "21": {
-      "female": "Oso",
-      "male": "Oso"
+      "female": "Ourse",
+      "male": "Ours"
     },
     "22": {
       "female": "Koala",
       "male": "Koala"
     },
     "23": {
-      "female": "Rana",
-      "male": "Sapo"
+      "female": "Grenouille",
+      "male": "Crapaud"
     },
     "24": {
       "female": "Guenon",
-      "male": "Mono"
+      "male": "Singe"
     },
     "25": {
-      "female": "Pingüino",
-      "male": "Pingüino"
+      "female": "Pingouine",
+      "male": "Pingouin"
     },
     "26": {
-      "female": "Búho",
-      "male": "Búho"
+      "female": "Chouette",
+      "male": "Hibou"
     },
     "27": {
-      "female": "Murciélagos",
-      "male": "Murciélagos"
+      "female": "Chauve-souris",
+      "male": "Chauve-souris"
     },
     "28": {
-      "female": "Loba",
-      "male": "Lobo"
+      "female": "Louve",
+      "male": "Loup"
     },
     "29": {
-      "female": "Vellón",
-      "male": "Jabalí"
+      "female": "Laie",
+      "male": "Sanglier"
     },
     "3": {
-      "female": "Coño",
-      "male": "Gato"
+      "female": "Chatte",
+      "male": "Chat"
     },
     "30": {
-      "female": "Leones marinos",
-      "male": "Sello"
+      "female": "Otarie",
+      "male": "Phoque"
     },
     "31": {
-      "female": "Hipopótamo",
-      "male": "Hipopótamo"
+      "female": "Hippopotame",
+      "male": "Hippopotame"
     },
     "32": {
       "female": "Lamate",
       "male": "Lama"
     },
     "33": {
-      "female": "Cisne",
-      "male": "Cisne"
+      "female": "Cygne",
+      "male": "Cygne"
     },
     "34": {
-      "female": "Flamenco rosa",
-      "male": "Flamenco rosa"
+      "female": "Flamant rose",
+      "male": "Flamant rose"
     },
     "35": {
       "female": "Ratonne",
-      "male": "Mapache"
+      "male": "Raton laveur"
     },
     "36": {
-      "female": "Zorrilla",
-      "male": "Turón"
+      "female": "Mouffette",
+      "male": "Putois"
     },
     "37": {
-      "female": "Tejón",
-      "male": "Tejón"
+      "female": "Blairelle",
+      "male": "Blaireau"
     },
     "38": {
       "female": "Castor",
       "male": "Castor"
     },
     "39": {
-      "female": "Perezoso",
-      "male": "Perezoso"
+      "female": "Paresseuse",
+      "male": "Paresseux"
     },
     "4": {
-      "female": "Gato negro",
-      "male": "Gato negro"
+      "female": "Chatte noire",
+      "male": "Chat noir"
     },
     "40": {
       "female": "Tamia",
       "male": "Tamia"
     },
     "41": {
-      "female": "Espiga",
-      "male": "Erizo"
+      "female": "Hérissonne",
+      "male": "Hérisson"
     },
     "42": {
-      "female": "Oso polar",
-      "male": "Oso polar"
+      "female": "Ourse polaire",
+      "male": "Ours polaire"
     },
     "43": {
       "female": "Panda",
       "male": "Panda"
     },
     "44": {
-      "female": "Escorpión",
-      "male": "Escorpio"
+      "female": "Scorpionne",
+      "male": "Scorpion"
     },
     "45": {
-      "female": "Cocodrilo",
-      "male": "Cocodrilo"
+      "female": "Crocodile",
+      "male": "Crocodile"
     },
     "46": {
-      "female": "Elefante",
-      "male": "Elefante"
+      "female": "Éléphante",
+      "male": "Éléphant"
     },
     "47": {
-      "female": "Zebrelle",
-      "male": "Cebra"
+      "female": "Zébrelle",
+      "male": "Zèbre"
     },
     "48": {
-      "female": "Rinoceronte",
-      "male": "Rinoceronte"
+      "female": "Rhinocéros",
+      "male": "Rhinocéros"
     },
     "49": {
       "female": "Chamelle",
-      "male": "Dromedario"
+      "male": "Dromadaire"
     },
     "5": {
-      "female": "Ratón",
-      "male": "Roedores"
+      "female": "Souris",
+      "male": "Rongeur"
     },
     "50": {
       "female": "Chamelle",
-      "male": "Camello"
+      "male": "Chameau"
     },
     "51": {
-      "female": "Jirafa",
-      "male": "Jirafa"
+      "female": "Girafe",
+      "male": "Girafe"
     },
     "52": {
-      "female": "Canguro",
-      "male": "Canguro"
+      "female": "Kangourou",
+      "male": "Kangourou"
     },
     "53": {
       "female": "Paonne",
-      "male": "Pavo real"
+      "male": "Paon"
     },
     "54": {
-      "female": "Loro",
-      "male": "Loro"
+      "female": "Perroquet",
+      "male": "Perroquet"
     },
     "55": {
-      "female": "Nutria",
-      "male": "Nutria"
+      "female": "Loutre",
+      "male": "Loutre"
     },
     "56": {
-      "female": "Tigresa",
+      "female": "Tigresse",
       "male": "Tigre"
     },
     "57": {
-      "female": "Leona",
-      "male": "León"
+      "female": "Lionne",
+      "male": "Lion"
     },
     "58": {
-      "female": "Águila",
-      "male": "Águila"
+      "female": "Aigle",
+      "male": "Aigle"
     },
     "59": {
       "female": "Dodo",
       "male": "Dodo"
     },
     "6": {
-      "female": "Hámster",
-      "male": "Hámster"
+      "female": "Hamster",
+      "male": "Hamster"
     },
     "60": {
-      "female": "Leopardo",
-      "male": "Leopardo"
+      "female": "Léoparde",
+      "male": "Léopard"
     },
     "61": {
-      "female": "Mamut",
-      "male": "Mamut"
+      "female": "Mammouth",
+      "male": "Mammouth"
     },
     "62": {
       "female": "Colombe",
       "male": "Colombe"
     },
     "63": {
-      "female": "Unicornio",
-      "male": "Unicornio"
+      "female": "Licorne",
+      "male": "Licorne"
     },
     "64": {
-      "female": "Correa de mano",
-      "male": "Dragón"
+      "female": "Dragonne",
+      "male": "Dragon"
     },
     "65": {
       "female": "T-Rex",
       "male": "T-Rex"
     },
     "66": {
-      "female": "Ángel",
-      "male": "Puntada"
+      "female": "Angel",
+      "male": "Stitch"
     },
     "67": {
-      "female": "Dama de nieve",
-      "male": "Muñeco de nieve"
+      "female": "Dame de neige",
+      "male": "Bonhomme de neige"
     },
     "68": {
-      "female": "Pato escarlata",
-      "male": "Pato escarlata"
+      "female": "Cane écarlate",
+      "male": "Canard écarlate"
     },
     "69": {
-      "female": "Dama de nieve",
-      "male": "Muñeco de nieve"
+      "female": "Dame de neige",
+      "male": "Bonhomme de neige"
     },
     "7": {
-      "female": "Conejo",
-      "male": "Conejo"
+      "female": "Lapine",
+      "male": "Lapin"
     },
     "70": {
       "female": "Alienne",
       "male": "Alien"
     },
     "71": {
-      "female": "Pulpo",
-      "male": "Pulpo"
+      "female": "Pieuvre",
+      "male": "Poulpe"
     },
     "72": {
       "female": "Manchote",
-      "male": "Pingüino"
+      "male": "Manchot"
     },
     "8": {
-      "female": "Vaca",
-      "male": "Carne de vacuno"
+      "female": "Vache",
+      "male": "Bœuf"
     },
     "9": {
-      "female": "Siembre",
-      "male": "Carne de cerdo"
+      "female": "Truie",
+      "male": "Porc"
     }
   },
   "potions": {
-    "0": "Sin poción",
-    "1": "Poción roja",
-    "10": "Poción violeta",
-    "11": "Poción ácida",
-    "12": "Poción oscura",
-    "13": "Poción azul",
-    "14": "Poción caducada",
-    "15": "Poción mágica",
-    "16": "Poción mórvica",
-    "17": "Poción definitiva",
-    "18": "Poción agitadora",
-    "19": "Poción de fuerza",
-    "2": "Poción simple",
-    "20": "Poción explosiva",
-    "21": "Poción de velocidad",
-    "22": "Poción curativa",
-    "23": "Poción curativa definitiva",
-    "24": "Poción curativa",
-    "25": "Bebida tropical",
-    "26": "Vaso de leche",
-    "27": "Biberón",
-    "28": "Té",
+    "0": "Pas de potion",
+    "1": "Potion rouge",
+    "10": "Potion violette",
+    "11": "Potion acide",
+    "12": "Potion foncée",
+    "13": "Potion bleue",
+    "14": "Potion périmée",
+    "15": "Potion magique",
+    "16": "Potion morvique",
+    "17": "Potion ultime",
+    "18": "Potion secouée",
+    "19": "Potion de force",
+    "2": "Potion simple",
+    "20": "Potion explosive",
+    "21": "Potion de vitesse",
+    "22": "Potion de soin",
+    "23": "Potion de soin ultime",
+    "24": "Potion de guérison",
+    "25": "Boisson tropicale",
+    "26": "Verre de lait",
+    "27": "Biberon",
+    "28": "Thé",
     "29": "Café",
-    "3": "Poción",
-    "30": "Alcohol",
-    "31": "La sopa de la abuela",
-    "32": "Agua purificada",
-    "33": "Vino tinto",
-    "34": "Esencia de ave n°5",
+    "3": "Potion",
+    "30": "Alcool",
+    "31": "Soupe de grand mère",
+    "32": "Eau purifiée",
+    "33": "Vin rouge",
+    "34": "Essence de volaille n°5",
     "35": "Kyurburant",
-    "36": "Zumos",
-    "37": "Cubitos de hielo derretidos",
-    "38": "Sake",
+    "36": "Jus",
+    "37": "Glaçons fondus",
+    "38": "Saké",
     "39": "Maté",
-    "4": "Gran poción",
-    "40": "Champán sabré",
-    "41": "Zumo de calcetín",
+    "4": "Grande Potion",
+    "40": "Champagne sabré",
+    "41": "Jus de chaussettes",
     "42": "Bizous'koup",
-    "43": "Las lágrimas del adversario",
-    "44": "Poción de sangre de lobo",
-    "45": "Bebida a base de coca",
-    "46": "Aceite de pimienta fantasma",
-    "47": "Poción mortal asesina",
-    "48": "Jugo de batería",
-    "49": "Aceite de nuez",
-    "5": "Super Poción",
-    "50": "Bebida del valor",
-    "51": "Espinacas",
-    "52": "Zumo de kiwi",
-    "53": "Zumo de plátano",
+    "43": "Larmes de l'adversaire",
+    "44": "Potion de sang de loup",
+    "45": "Breuvage à base de coca",
+    "46": "Huile de ghost pepper",
+    "47": "Potion de la mort qui tue",
+    "48": "Jus de batterie",
+    "49": "Huile de noix",
+    "5": "Super Potion",
+    "50": "Breuvage du courage",
+    "51": "Épinards",
+    "52": "Jus de kiwi",
+    "53": "Jus de banane",
     "54": "Friandwill",
-    "55": "Fondue de invierno",
-    "56": "Difunde",
-    "57": "Poción de sangre de dragón",
-    "58": "Poción de dureza extrema",
-    "59": "Poción de burbujas",
-    "6": "Poción verde",
-    "60": "Sudor",
-    "61": "Poción no bebible",
-    "62": "Poción marina",
-    "63": "Poción vacía",
-    "64": "Poción reciclable",
-    "65": "Poción derramada",
-    "66": "Té de burbujas",
-    "67": "Zumo de naranja",
-    "68": "Zumo de manzana",
+    "55": "Fondue hivernale",
+    "56": "Pâte à tartiner",
+    "57": "Potion de sang de dragon",
+    "58": "Potion de dureté extrême",
+    "59": "Potion à bulles",
+    "6": "Potion verte",
+    "60": "Sueur",
+    "61": "Potion non potable",
+    "62": "Potion de la mer",
+    "63": "Potion vide",
+    "64": "Potion recyclable",
+    "65": "Potion renversée",
+    "66": "Bubble tea",
+    "67": "Jus d'orange",
+    "68": "Jus de pomme",
     "69": "Miel",
-    "7": "Poción dudosa",
-    "70": "Sopa de cebolla",
+    "7": "Potion douteuse",
+    "70": "Soupe à l'oignon",
     "71": "Super Nariwa",
-    "72": "Zumo de tormenta",
+    "72": "Jus d'orage",
     "73": "Expresso",
-    "74": "Poción asombrosa",
-    "75": "Zumo de cactus",
-    "76": "Agua de la ducha",
+    "74": "Potion renversante",
+    "75": "Jus de cactus",
+    "76": "Eau de douche",
     "77": "SP 95",
-    "78": "Agua jabonosa",
-    "79": "Rocío matutino",
-    "8": "Poción para fumar",
-    "80": "Agua de estalactitas",
-    "81": "Tinta",
-    "82": "Babas en la almohada",
-    "83": "Gotas de lluvia",
-    "84": "Esencia de fénix",
-    "85": "Sustancia desconocida",
-    "86": "Cóctel vigorizante",
-    "87": "Ron",
-    "88": "Baba de caracol",
-    "89": "Agua hirviendo",
-    "9": "Poción apestosa",
-    "90": "Zumo de patata",
-    "91": "Agua de mar",
-    "92": "Baba de trol",
-    "93": "Lágrima de Titán"
+    "78": "Eau savonneuse",
+    "79": "Rosée du matin",
+    "8": "Potion fumante",
+    "80": "Eau de stalactites",
+    "81": "Encre",
+    "82": "Bave sur l'oreiller",
+    "83": "Gouttes de pluie",
+    "84": "Essence de phénix",
+    "85": "Substance inconnue",
+    "86": "Cocktail tonique",
+    "87": "Rhum",
+    "88": "Bave d'escargot",
+    "89": "Eau bouillante",
+    "9": "Potion puante",
+    "90": "Jus de Pomme de Terre",
+    "91": "Eau de Mer",
+    "92": "Bave de Troll",
+    "93": "Larme de Titan"
   },
   "weapons": {
-    "0": "Puño",
-    "1": "Relámpago de Zeus",
-    "10": "Espada de madera",
-    "11": "Pistola vacía",
-    "12": "Jeringa infectada",
-    "13": "Bomba",
-    "14": "Guitarra pesada",
-    "15": "Par de dagas",
-    "16": "Piqueta",
-    "17": "Masa",
-    "18": "Bastón",
-    "19": "Cuchillo antiguo",
-    "2": "Herramientas usadas",
-    "20": "Sucursal flexible",
-    "21": "Piqueta dañada",
-    "22": "Arco",
-    "23": "Estufa",
-    "24": "Tijeras",
-    "25": "Daga frágil",
-    "26": "Stock",
-    "27": "Sable",
-    "28": "Martillo de combate",
-    "29": "Cuchillo para principiantes",
+    "0": "Poing",
+    "1": "Foudre de Zeus",
+    "10": "Épée en bois",
+    "11": "Pistolet vide",
+    "12": "Seringue infectée",
+    "13": "Bombe",
+    "14": "Guitare lourde",
+    "15": "Paire de dagues",
+    "16": "Pioche",
+    "17": "Masse",
+    "18": "Bâton",
+    "19": "Couteau Ancien",
+    "2": "Outils usés",
+    "20": "Branche souple",
+    "21": "Pioche abimée",
+    "22": "Arc",
+    "23": "Poêle",
+    "24": "Ciseaux",
+    "25": "Dague fragile",
+    "26": "Crosse",
+    "27": "Sabre",
+    "28": "Marteau de combat",
+    "29": "Couteau de débutant",
     "3": "Assomoire",
-    "30": "Guantes de boxeo",
-    "31": "Puño reforzado",
-    "32": "Caña de pescar para principiantes",
-    "33": "Cuchillo viejo",
-    "34": "Caña de pescar",
-    "35": "Caña de pescar Master",
-    "36": "Espada de hierro",
-    "37": "Espada de principiante",
-    "38": "Espada maestra",
-    "39": "Espadas dobles",
+    "30": "Gant de boxe",
+    "31": "Poing renforcé",
+    "32": "Canne à pêche de débutant",
+    "33": "Vieux couteau",
+    "34": "Canne à pêche",
+    "35": "Canne à pêche de maître",
+    "36": "Épée en fer",
+    "37": "Épée de débutant",
+    "38": "Épée de maître",
+    "39": "Épées doubles",
     "4": "Transperceur",
-    "40": "Espada de diamantes",
-    "41": "Afilado espada 4",
-    "42": "Arma cargada",
-    "43": "Gherkin",
-    "44": "Manojo de rosas",
-    "45": "Plátano",
-    "46": "Antiguo grimorio",
-    "47": "Bola de nieve",
-    "48": "Arco de caballero",
-    "49": "Arco de soldado",
-    "5": "Martillo",
-    "50": "Arco para principiantes",
-    "51": "Arco del héroe",
-    "52": "Navaja",
-    "53": "Silla",
-    "54": "Ladrillo",
-    "55": "Tenedor",
-    "56": "Espada Kokiri",
-    "57": "Extintor",
-    "58": "Libro grande",
-    "59": "Jeringa",
-    "6": "Cuchillo simple",
-    "60": "Jeringa contaminada",
-    "61": "Jeringa sucia",
+    "40": "Épée en diamant",
+    "41": "Épée sharpness 4",
+    "42": "Pistolet chargé",
+    "43": "Cornichon",
+    "44": "Bouquet de roses",
+    "45": "Banane",
+    "46": "Vieux grimoire",
+    "47": "Boule de neige",
+    "48": "Arc de chevalier",
+    "49": "Arc de soldat",
+    "5": "Marteau",
+    "50": "Arc de novice",
+    "51": "Arc du héros",
+    "52": "Rasoir",
+    "53": "Chaise",
+    "54": "Brique",
+    "55": "Fourchettecouteau",
+    "56": "Épée Kokiri",
+    "57": "Extincteur",
+    "58": "Gros livre",
+    "59": "Seringue",
+    "6": "Couteau simple",
+    "60": "Seringue contaminée",
+    "61": "Seringue sale",
     "62": "Bio-Arme",
-    "63": "Bomba atómica",
-    "64": "Quemador",
+    "63": "Bombe atomique",
+    "64": "Brûleur",
     "65": "Pew Pew",
-    "66": "Vencer a Saber",
-    "67": "Espada real",
-    "68": "Garra",
-    "69": "Palabra de Inés",
-    "7": "Daga",
-    "70": "Pistola Pan Pan QQ",
-    "71": "Espada de Ragnell",
-    "72": "Fluxball",
+    "66": "Beat Saber",
+    "67": "Épée royale",
+    "68": "Griffe",
+    "69": "Ines'word",
+    "7": "Dague",
+    "70": "Pistolet pan pan QQ",
+    "71": "Épée de Ragnell",
+    "72": "Ballon de fluxball",
     "73": "Ashoir",
-    "74": "Alma de demonio",
+    "74": "Âme du démon",
     "75": "Boomerang",
     "76": "Volto-hache",
-    "77": "Sabotaje del oxígeno",
-    "78": "El poder de la amistad",
-    "79": "El paraguas de la abuela",
+    "77": "Sabotage de l'oxygène",
+    "78": "Pouvoir de l'amitié",
+    "79": "Parapluie de grand-mère",
     "8": "Percingasiteur",
-    "80": "Cetro con 100 hechizos",
+    "80": "Sceptre à 100 sorts",
     "81": "Exagide",
-    "82": "Garra de gato rabioso",
-    "83": "Insultos",
-    "84": "Destornillador sónico",
-    "85": "El poder del amor",
-    "86": "Máscara Mojaro",
-    "87": "Martillo pilón",
-    "88": "Ala izquierda de Ícaro",
-    "89": "Espada del Dragón",
-    "9": "Llave oxidada",
-    "90": "Cuerno de unicornio",
-    "91": "Barra de Fibonacci",
-    "92": "Se acabó el juego",
-    "93": "Trapo de cocina",
-    "94": "Polvo de esqueleto"
+    "82": "Griffe de chat enragé",
+    "83": "Injures",
+    "84": "Tournevis sonique",
+    "85": "Pouvoir de l'amour",
+    "86": "Masque Mojaro",
+    "87": "Plothammer",
+    "88": "Aile gauche d'Icare",
+    "89": "Épée du Dragon",
+    "9": "Clé rouillée",
+    "90": "Corne de Licorne",
+    "91": "Baguette de Fibonacci",
+    "92": "Game Over",
+    "93": "Torchon du Cuisinier",
+    "94": "Poudre de Squelette"
   }
 }
