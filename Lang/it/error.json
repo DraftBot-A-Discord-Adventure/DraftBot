@@ -1,7 +1,7 @@
 {
-  "playerDoesntExist": "Questo giocatore non esiste !",
-  "titleBlocked": "{{pseudo}}, questa persona è bloccata !",
-  "titleCanceled": "{{pseudo}}, cancellazione presa in conto !",
-  "titleDidntWork": "{{pseudo}}, hmmm... Questo non ha funzionato !",
-  "interactionNotForYou": "Questa interazione non è per voi!"
+  "playerDoesntExist": "Ce joueur n'existe pas !",
+  "titleBlocked": "{{pseudo}}, cette personne est bloquée !",
+  "titleCanceled": "{{pseudo}}, annulation prise en compte !",
+  "titleDidntWork": "{{pseudo}}, hmmm... Cela n'a pas fonctionné !",
+  "interactionNotForYou": "Cette interaction n'est pas pour vous!"
 }
