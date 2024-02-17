@@ -29,7 +29,7 @@
     "badgeDisplay": {
       "numberBadge_one": "\n ¡Este jugador tiene un total de {{badge}} insignias!",
       "numberBadge_other": "\n ¡Este jugador tiene {{badge}} insignias en total!",
-      "title": "Lista de insignias en {{pseudo}}"
+      "title": "Lista de insignias {{pseudo}}"
     },
     "badges": {
       "⚔️": ":crossed_swords: Ganador del torneo",
@@ -44,7 +44,7 @@
       "🎗️": ":reminder_ribbon: Persona que ha dominado una clasificación de la semana`.",
       "🎰": ":slot_machine: Insignia entregada completamente al azar",
       "🏅": ":medal: Jugador Top 10 en el reinicio de 1.0",
-      "🏆": ":trophy: Mejor jugador en el momento del reinicio de 1.0",
+      "🏆": ":trophy: Mejor jugador en el momento del reinicio 1.0",
       "🐞": ":lady_beetle: Personas que han informado de errores importantes",
       "👑": ":crown: Propietario del bot",
       "💍": ":ring: Insignia comprada en la tienda de Misiones",
