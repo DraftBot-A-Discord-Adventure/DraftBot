@@ -40,7 +40,7 @@
     "server": "🚩 Server ranking."
   },
   "test": {
-    "description": "Commande de triche pour les testeurs (MODE TEST UNIQUEMENT).",
+    "description": "Cheat command for testers (TEST MODE ONLY).",
     "name": "test",
     "options": {
       "commandName": {
