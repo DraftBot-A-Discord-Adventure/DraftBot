@@ -1,110 +1,103 @@
 import {RandomUtils} from "./RandomUtils";
-import {ReactionCollectorCreationPacket, ReactionCollectorEnded, ReactionCollectorReactPacket, ReactionCollectorType} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import {
+	ReactionCollector,
+	ReactionCollectorCreationPacket,
+	ReactionCollectorEnded,
+	ReactionCollectorReaction,
+	ReactionCollectorReactPacket
+} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {DraftBotPacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {Constants} from "../Constants";
 import {BlockingUtils} from "./BlockingUtils";
 import {sendPacketsToContext} from "../../../../Lib/src/packets/PacketUtils";
 import {WebsocketClient} from "../../../../Lib/src/instances/WebsocketClient";
+import {Error} from "sequelize";
 
-type CollectCallback = (collector: ReactionCollector, reaction: string, playerId: number, response: DraftBotPacket[]) => void | Promise<void>;
+type CollectCallback = (collector: ReactionCollectorInstance, reaction: ReactionCollectorReaction, playerId: number, response: DraftBotPacket[]) => void | Promise<void>;
 
-export type EndCallback = (collector: ReactionCollector, response: DraftBotPacket[]) => void | Promise<void>;
+export type EndCallback = (collector: ReactionCollectorInstance, response: DraftBotPacket[]) => void | Promise<void>;
 
-type FilterFunction = (playerId: number, reaction: string) => boolean | Promise<boolean>;
-
-type ChoiceReactionCallback<T> = (collector: ChoiceReactionCollector, item: T, playerId: number, response: DraftBotPacket[]) => Promise<void>
-
-export type CollectorFunctions = {
-	collect?: CollectCallback;
-	end?: EndCallback;
-	filter?: FilterFunction;
-};
+type FilterFunction = (collector: ReactionCollectorInstance, playerId: number, reactionIndex: number) => boolean | Promise<boolean>;
 
 export type CollectorOptions = {
-	collectorType?: ReactionCollectorType;
-	reactions?: string[];
 	time?: number;
 	allowedPlayerIds?: number[];
 	reactionLimit?: number;
 };
 
-export type ReactionCollectorOptions<T> = {
-	allowedPlayerIds: number[],
-	collectorType: ReactionCollectorType
-	choices: T[],
-	callback?: ChoiceReactionCallback<T>,
-	time?: number,
-	reactionLimit?: number
-};
-
 type ReactionInfo = {
 	playerId: number,
-	emoji: string
+	reaction: ReactionCollectorReaction
 };
 
-export function createDefaultFilter(reactions: string[], allowedPlayerIds: number[]): FilterFunction {
-	return (playerId, reaction) => allowedPlayerIds.includes(playerId) && reactions.includes(reaction);
+export function createDefaultFilter(allowedPlayerIds: number[]): FilterFunction {
+	return (collector, playerId, reactionIndex) => allowedPlayerIds.includes(playerId) && collector.isValidReactionIndex(reactionIndex);
 }
 
-export class ReactionCollector {
-	protected static collectors: Map<string, ReactionCollector>;
+const collectors: Map<string, ReactionCollectorInstance> = new Map<string, ReactionCollectorInstance>();
 
-	protected id: string;
+export class ReactionCollectorInstance {
+	private id: string;
 
-	protected readonly reactions: string[];
+	private model: ReactionCollector;
 
-	protected readonly filter: FilterFunction;
+	private readonly filter: FilterFunction;
 
-	protected readonly endTime: number;
+	private readonly endTime: number;
 
-	protected readonly time: number;
+	private readonly time: number;
 
-	protected readonly collectCallback: CollectCallback;
+	private readonly collectCallback: CollectCallback;
 
-	protected readonly collectorType: ReactionCollectorType;
+	private readonly context: PacketContext;
 
-	protected readonly context: PacketContext;
+	private readonly endCallback: EndCallback;
 
-	protected readonly endCallback: EndCallback;
+	private readonly reactionLimit: number;
 
-	protected readonly reactionLimit: number;
+	private _hasEnded: boolean;
 
-	protected hasEnded: boolean;
+	private reactionsHistory: ReactionInfo[] = [];
 
-	protected reactionsHistory: ReactionInfo[] = [];
+	private _creationPacket: ReactionCollectorCreationPacket;
 
-	protected constructor(context: PacketContext, collectorOptions: CollectorOptions, collectorFunctions: CollectorFunctions) {
-		this.collectorType = collectorOptions.collectorType;
-		this.reactions = collectorOptions.reactions;
-		this.filter = collectorFunctions.filter;
+	public constructor(reactionCollector: ReactionCollector, context: PacketContext, collectorOptions: CollectorOptions, endCallback: EndCallback, collectCallback: CollectCallback = null) {
+		this.model = reactionCollector;
+		this.filter = collectorOptions.allowedPlayerIds ? createDefaultFilter(collectorOptions.allowedPlayerIds) : (): boolean => true;
 		this.time = collectorOptions.time;
 		this.endTime = Date.now() + this.time;
-		this.collectCallback = collectorFunctions.collect;
+		this.collectCallback = collectCallback;
 		this.context = context;
-		this.endCallback = collectorFunctions.end;
+		this.endCallback = endCallback;
 		this.reactionLimit = collectorOptions.reactionLimit;
 	}
 
-	public static async reactPacket(_client: WebsocketClient, packet: ReactionCollectorReactPacket, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
-		const collector: ReactionCollector = ReactionCollector.collectors.get(packet.id);
-		if (!collector || collector.hasEnded) {
-			const packet: ReactionCollectorEnded = {};
-			response.push(packet);
-		}
-		else {
-			await collector.react(packet.playerId, packet.reaction, response);
-		}
+	get hasEnded(): boolean {
+		return this._hasEnded;
 	}
 
-	protected static register(collector: ReactionCollector): void {
-		collector.id = RandomUtils.draftbotRandom.uuid4();
-		ReactionCollector.collectors.set(collector.id, collector);
-		setTimeout(collector.end, collector.endTime - Date.now());
+	private set hasEnded(value: boolean) {
+		this._hasEnded = value;
 	}
 
-	public allowEndReaction(): this {
-		this.reactions.push(Constants.REACTIONS.NOT_REPLIED_REACTION);
-		return this;
+	public async react(playerId: number, index: number, response: DraftBotPacket[]): Promise<void> {
+		if (!this._creationPacket) {
+			throw new Error("Reaction collector has not been built yet");
+		}
+
+		const reaction = this._creationPacket.reactions[index];
+		if (!await this.filter(this, playerId, index)) {
+			return;
+		}
+		this.reactionsHistory.push({
+			playerId,
+			reaction
+		});
+		if (this.collectCallback) {
+			await this.collectCallback(this, reaction, playerId, response);
+		}
+		if (this.reactionsHistory.length >= this.reactionLimit && this.reactionLimit > 0) {
+			await this.end();
+		}
 	}
 
 	public async end(): Promise<void> {
@@ -112,21 +105,12 @@ export class ReactionCollector {
 			return;
 		}
 		this.hasEnded = true;
-		ReactionCollector.collectors.delete(this.id);
+		collectors.delete(this.id);
 		if (this.endCallback) {
 			const response: DraftBotPacket[] = [];
 			await this.endCallback(this, response);
 			sendPacketsToContext(this.context, response);
 		}
-	}
-
-	public getPacket(): ReactionCollectorCreationPacket {
-		return {
-			reactions: this.reactions,
-			endTime: this.endTime,
-			id: this.id,
-			type: this.collectorType
-		};
 	}
 
 	public block(playerId: number, reason: string): this {
@@ -138,116 +122,42 @@ export class ReactionCollector {
 		return this.reactionsHistory;
 	}
 
-	public getFirstReaction(): ReactionInfo {
-		return this.reactionsHistory[0] ?? {playerId: null, emoji: null};
+	public getFirstReaction(): ReactionInfo | null {
+		return this.reactionsHistory.length !== 0 ? this.reactionsHistory[0] : null;
 	}
 
-	private async react(playerId: number, reaction: string, response: DraftBotPacket[]): Promise<void> {
-		if (!await this.filter(playerId, reaction)) {
-			return;
+	public build(): ReactionCollectorCreationPacket {
+		if (this._creationPacket) {
+			throw "Reaction collector has already been built";
 		}
-		this.reactionsHistory.push({
-			playerId,
-			emoji: reaction
-		});
-		if (this.collectCallback) {
-			await this.collectCallback(this, reaction, playerId, response);
-		}
-		if (this.reactionsHistory.length >= this.reactionLimit && this.reactionLimit > 0) {
-			await this.end();
-		}
-	}
-}
 
-export class GenericReactionCollector extends ReactionCollector {
-	public static create(
-		context: PacketContext,
-		collectorOptions: CollectorOptions, {
-			filter = createDefaultFilter(collectorOptions.reactions, collectorOptions.allowedPlayerIds),
-			collect = null,
-			end
-		}: CollectorFunctions
-	): GenericReactionCollector {
-		if (!collectorOptions.reactionLimit) {
-			collectorOptions.reactionLimit = Constants.MESSAGES.DEFAULT_REACTION_LIMIT;
-		}
-		if (!collectorOptions.time) {
-			collectorOptions.time = Constants.MESSAGES.COLLECTOR_TIME;
-		}
-		const collector = new GenericReactionCollector(context,
-			collectorOptions,
-			{filter, collect, end});
-		ReactionCollector.register(collector);
-		return collector;
+		// Register
+		const id = RandomUtils.draftbotRandom.uuid4();
+		collectors.set(id, this);
+		setTimeout(this.endCallback, this.endTime - Date.now());
+
+		this._creationPacket = this.model.creationPacket(this.id, this.endTime);
+		return this.model.creationPacket(this.id, this.endTime);
+	}
+
+	public isValidReactionIndex(index: number): boolean {
+		return index >= 0 && index < this._creationPacket.reactions.length;
+	}
+
+	get creationPacket(): ReactionCollectorCreationPacket {
+		return this._creationPacket;
 	}
 }
 
-export class ValidationReactionCollector extends ReactionCollector {
-	private validated: boolean = false;
-
-	public static create(
-		context: PacketContext,
-		collectorOptions: CollectorOptions,
-		endCallback: EndCallback
-	): ValidationReactionCollector {
-		const reactions = [Constants.REACTIONS.VALIDATE_REACTION, Constants.REACTIONS.REFUSE_REACTION];
-		const callbackOverload: CollectCallback = (collector: ValidationReactionCollector, reaction: string) => {
-			collector.validated = reaction === reactions[0];
-		};
-
-		collectorOptions.reactions = reactions;
-		collectorOptions.reactionLimit = Constants.MESSAGES.DEFAULT_REACTION_LIMIT;
-
-		const collector = new ValidationReactionCollector(
-			context,
-			collectorOptions,
-			{collect: callbackOverload, end: endCallback}
-		);
-		ReactionCollector.register(collector);
-		return collector;
-	}
-
-	public isValidated(): boolean {
-		return this.validated;
-	}
-}
-
-export class ChoiceReactionCollector extends ReactionCollector {
-	public static create<T>(
-		context: PacketContext,
-		collectorOptions: ReactionCollectorOptions<T>,
-		defaultEndCallback: EndCallback
-	): ChoiceReactionCollector {
-		const options: CollectorOptions = {
-			allowedPlayerIds: collectorOptions.allowedPlayerIds,
-			collectorType: collectorOptions.collectorType,
-			time: collectorOptions.time ?? Constants.MESSAGES.COLLECTOR_TIME,
-			reactionLimit: collectorOptions.reactionLimit ?? Constants.MESSAGES.DEFAULT_REACTION_LIMIT
-		};
-		const reactions: string[] = [];
-		const reactionsMap = new Map<string, T>();
-		for (let i = 0; i < collectorOptions.choices.length; ++i) {
-			reactions.push(Constants.REACTIONS.NUMBERS[i]);
-			reactionsMap.set(Constants.REACTIONS.NUMBERS[i], collectorOptions.choices[i]);
+export class ReactionCollectorController {
+	public static async reactPacket(_client: WebsocketClient, packet: ReactionCollectorReactPacket, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
+		const collector: ReactionCollectorInstance = collectors.get(packet.id);
+		if (!collector || collector.hasEnded) {
+			const packet: ReactionCollectorEnded = {};
+			response.push(packet);
 		}
-		options.reactions = reactions;
-		const endOverload: EndCallback = async (collector, response) => {
-			const choice = reactionsMap.get(collector.getFirstReaction().emoji);
-			if (choice) {
-				await collectorOptions.callback(collector, choice, collector.getFirstReaction().playerId, response);
-			}
-			else {
-				await defaultEndCallback(collector, response);
-			}
-		};
-		const collector = new ChoiceReactionCollector(
-			context,
-			options,
-			{
-				end: endOverload
-			}
-		);
-		ReactionCollector.register(collector);
-		return collector;
+		else {
+			await collector.react(packet.playerId, packet.reactionIndex, response);
+		}
 	}
 }

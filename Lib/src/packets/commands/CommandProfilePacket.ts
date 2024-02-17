@@ -48,15 +48,11 @@ export class CommandProfilePacketRes extends DraftBotPacket {
 			league: number
 		},
 		guild?: string,
-		destination?: {
-			id: number,
-			emote: string
-		},
+		destination?: number,
 		pet?: {
 			id: number,
 			rarity: number,
-			nickname?: string,
-			emote: string
+			nickname?: string
 		},
 		color: string,
 		level: number,
