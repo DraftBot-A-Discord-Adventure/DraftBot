@@ -1,54 +1,54 @@
 {
-  "nameDisplay": "{{emote}} **{{{name}}}**",
+  "nameDisplay": "{{emote}} **{{name}}**",
   "nerfDisplay": "~~{{old}}~~ {{max}}",
   "attack": ":dagger: {{value}}",
   "defense": ":shield: {{value}}",
   "speed": ":rocket: {{value}}",
   "weapons": {
-    "fieldName": "Arme :",
+    "fieldName": "Weapon:",
     "fieldValue": "**{{name}}** | {{rarity}} | {{values}}"
   },
   "armors": {
-    "fieldName": "Armure/Bouclier :",
+    "fieldName": "Armor/Shield:",
     "fieldValue": "**{{name}}** | {{rarity}} | {{values}}"
   },
   "potions": {
-    "fieldName": "Potion :",
+    "fieldName": "Potion:",
     "fieldValue": "**{{name}}** | {{rarity}} | {{nature}}",
     "natures": [
-      ":x: Aucun effet",
-      ":heart: Vie + {{power}}",
-      ":rocket: Vitesse + {{power}} pendant le prochain combat",
-      ":crossed_swords: Attaque + {{power}} pendant le prochain combat",
-      ":shield: Défense + {{power}} pendant le prochain combat",
-      ":clock1030: Avance le temps de {{power}}",
-      ":moneybag: Argent + {{power}}",
-      ":zap: Énergie + {{power}}"
+      ":x: No effect",
+      ":heart: Health + {{power}}",
+      ":rocket: Speed + {{power}} during the next fight",
+      ":crossed_swords: Attack + {{power}} during the next fight",
+      ":shield: Defense + {{power}} during the next fight",
+      ":clock1030: Speeds up time for {{power}}",
+      ":moneybag: Money + {{power}}",
+      ":zap: Energy + {{power}}"
     ]
   },
   "objects": {
-    "fieldName": "Objet :",
+    "fieldName": "Item:",
     "fieldValue": "**{{name}}** | {{rarity}} | {{nature}}",
     "natures": [
-      ":x: Aucun effet",
-      ":heart: Vie + {{power}} par jour",
-      ":rocket: Vitesse + {{power}} pendant les combats",
-      ":crossed_swords: Attaque + {{power}} pendant les combats",
-      ":shield: Défense + {{power}} pendant les combats",
-      ":clock1030: Avance le temps de {{power}} chaque jour",
-      ":moneybag: Argent + {{power}} par jour",
-      ":zap: Énergie + {{power}} par jour"
+      ":x: No effect",
+      ":heart: Health + {{power}} per day",
+      ":rocket: Speed + {{power}} during fights",
+      ":crossed_swords: Attack + {{power}} during fights",
+      ":shield: Defense + {{power}} during fights",
+      ":clock1030: Speeds up time for {{power}} every day",
+      ":moneybag: Money + {{power}} per day",
+      ":zap: Energy + {{power}} per day"
     ]
   },
   "rarities": [
-    ":small_orange_diamond: Basique",
-    ":large_orange_diamond: Commun",
-    ":fire: Peu commun",
-    ":trident: Exotique",
+    ":small_orange_diamond: Basic",
+    ":large_orange_diamond: Common",
+    ":fire: Uncommon",
+    ":trident: Exotic",
     ":comet: Rare",
-    ":dizzy: Spécial",
-    ":star: Épique",
-    ":star2: Légendaire",
-    ":gem: Mythique"
+    ":dizzy: Special",
+    ":star: Epic",
+    ":star2: Legendary",
+    ":gem: Mythical"
   ]
 }
