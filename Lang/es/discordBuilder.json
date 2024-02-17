@@ -1,56 +1,56 @@
 {
   "badges": {
-    "description": "Affiche des informations sur les badges et leur fonctionnement.",
-    "name": "badges"
+    "description": "Muestra información sobre las insignias y su funcionamiento.",
+    "name": "insignias"
   },
   "inventory": {
-    "description": "Affiche l'inventaire du joueur.",
-    "name": "inventaire",
+    "description": "Muestra el inventario del jugador.",
+    "name": "inventario",
     "options": {
       "rank": {
-        "description": "Le classement du joueur dont l'inventaire doit être affiché.",
-        "name": "classement"
+        "description": "La clasificación del jugador cuyo inventario debe mostrarse.",
+        "name": "clasificación"
       },
       "user": {
-        "description": "L'utilisateur dont l'inventaire doit être affiché.",
-        "name": "utilisateur"
+        "description": "El usuario cuyo inventario debe mostrarse.",
+        "name": "usuario"
       }
     }
   },
   "ping": {
-    "description": "Affiche la latence du bot et permet au joueur de vérifier si le bot est en ligne.",
+    "description": "Muestra la latencia del bot y permite al jugador comprobar si el bot está en línea.",
     "name": "ping"
   },
   "profile": {
-    "description": "Afficher le profil d'un joueur.",
-    "name": "profil",
+    "description": "Ver el perfil de un jugador.",
+    "name": "perfil",
     "options": {
       "rank": {
-        "description": "Le classement du joueur dont le profil doit être affiché.",
-        "name": "classement"
+        "description": "La clasificación del jugador cuyo perfil se desea mostrar.",
+        "name": "clasificación"
       },
       "user": {
-        "description": "L'utilisateur dont le profil doit être affiché.",
-        "name": "utilisateur"
+        "description": "El usuario cuyo perfil debe mostrarse.",
+        "name": "usuario"
       }
     }
   },
   "scopes": {
-    "global": "🏆 Classement général",
-    "server": "🚩 Classement du serveur"
+    "global": "🏆 Clasificación general",
+    "server": "🚩 Clasificación de servidores"
   },
   "test": {
-    "description": "Commande de triche pour les testeurs (MODE TEST UNIQUEMENT).",
-    "name": "test",
+    "description": "Control de trucos para probadores (SÓLO MODO PRUEBA).",
+    "name": "prueba",
     "options": {
       "commandName": {
-        "description": "Commande test à exécuter.",
-        "name": "commande"
+        "description": "Comando de prueba a ejecutar.",
+        "name": "pedir"
       }
     }
   },
   "update": {
-    "description": "Affiche la version actuelle du bot.",
-    "name": "nouveautes"
+    "description": "Muestra la versión actual del bot.",
+    "name": "nuevos productos"
   }
 }
