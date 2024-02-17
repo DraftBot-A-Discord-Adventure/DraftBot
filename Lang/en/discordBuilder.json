@@ -1,56 +1,56 @@
 {
   "badges": {
-    "description": "Affiche des informations sur les badges et leur fonctionnement.",
+    "description": "Displays information about badges.",
     "name": "badges"
   },
   "inventory": {
-    "description": "Affiche l'inventaire du joueur.",
-    "name": "inventaire",
+    "description": "Displays the player's inventory.",
+    "name": "inventory",
     "options": {
       "rank": {
-        "description": "Le classement du joueur dont l'inventaire doit être affiché.",
-        "name": "classement"
+        "description": "The rank of the player whose inventory should be displayed.",
+        "name": "rank"
       },
       "user": {
-        "description": "L'utilisateur dont l'inventaire doit être affiché.",
-        "name": "utilisateur"
+        "description": "The user whose inventory should be displayed.",
+        "name": "user"
       }
     }
   },
   "ping": {
-    "description": "Affiche la latence du bot et permet au joueur de vérifier si le bot est en ligne.",
+    "description": "Displays the ping of the bot and allow the player to check if the bot is online.",
     "name": "ping"
   },
   "profile": {
-    "description": "Afficher le profil d'un joueur.",
-    "name": "profil",
+    "description": "Displays the profile of a player.",
+    "name": "profile",
     "options": {
       "rank": {
-        "description": "Le classement du joueur dont le profil doit être affiché.",
-        "name": "classement"
+        "description": "The rank of the player whose profile you want to display.",
+        "name": "rank"
       },
       "user": {
-        "description": "L'utilisateur dont le profil doit être affiché.",
-        "name": "utilisateur"
+        "description": "The player whose profile you want to display.",
+        "name": "user"
       }
     }
   },
   "scopes": {
-    "global": "🏆 Classement général",
-    "server": "🚩 Classement du serveur"
+    "global": "🏆 Global ranking.",
+    "server": "🚩 Server ranking."
   },
   "test": {
     "description": "Commande de triche pour les testeurs (MODE TEST UNIQUEMENT).",
     "name": "test",
     "options": {
       "commandName": {
-        "description": "Commande test à exécuter.",
-        "name": "commande"
+        "description": "Test command to execute.",
+        "name": "command"
       }
     }
   },
   "update": {
-    "description": "Affiche la version actuelle du bot.",
-    "name": "nouveautes"
+    "description": "Displays the bot's latest version.",
+    "name": "update"
   }
 }
