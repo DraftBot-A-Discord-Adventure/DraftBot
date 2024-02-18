@@ -245,7 +245,7 @@
         "description": "Give some food to your pet."
       },
       "PET_SELL": {
-        "description": "Allows to sell a pet. The following conditions apply: \n - The selling price must be higher than `{option1}💰` and lower than `{option2}💰`. \n- The seller will not earn money for the transaction, but guild experience. \n- The seller and the buyer cannot be part of the same guild."
+        "description": "Allows to sell a pet. The following conditions apply: \n - The selling price must be higher than `{{option1}}💰` and lower than `{{option2}}💰`. \n- The seller will not earn money for the transaction, but guild experience. \n- The seller and the buyer cannot be part of the same guild."
       },
       "CLASSES_INFO": {
         "description": "Read a quick comparison of the statistics between all the classes you can have."
