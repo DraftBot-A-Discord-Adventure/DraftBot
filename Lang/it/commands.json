@@ -112,7 +112,6 @@
     "title": ":scroll: Aggiornamenti"
   },
   "help": {
-    "helpEmbedTitle": "",
     "aliasFieldTitle": "",
     "helpEmbedDescription": "",
     "serverCommands": "",
@@ -125,6 +124,163 @@
     "commandEmbedTitle": "",
     "forMoreHelpValue": "",
     "usageFieldTitle": "",
-    "aliasesFieldTitle": ""
+    "aliasesFieldTitle": "",
+    "commands": {
+      "PREFIX": {
+        "description": ""
+      },
+      "PING": {
+        "description": ""
+      },
+      "RESPAWN": {
+        "description": ""
+      },
+      "PROFILE": {
+        "description": ""
+      },
+      "SWITCH": {
+        "description": ""
+      },
+      "FIGHT": {
+        "description": "",
+        "image": ""
+      },
+      "HELP": {
+        "description": ""
+      },
+      "LANGUAGE": {
+        "description": ""
+      },
+      "TOP": {
+        "description": ""
+      },
+      "GLORY_TOP": {
+        "description": ""
+      },
+      "GUILD_TOP": {
+        "description": ""
+      },
+      "INVENTORY": {
+        "description": ""
+      },
+      "REPORT": {
+        "description": ""
+      },
+      "SELL": {
+        "description": ""
+      },
+      "DAILY_BONUS": {
+        "description": ""
+      },
+      "INVITE_DRAFTBOT": {
+        "description": ""
+      },
+      "BADGES": {
+        "description": ""
+      },
+      "DRINK": {
+        "description": ""
+      },
+      "SHOP": {
+        "description": ""
+      },
+      "GUILD_CREATE": {
+        "description": ""
+      },
+      "GUILD_LEAVE": {
+        "description": ""
+      },
+      "GUILD": {
+        "description": ""
+      },
+      "GUILD_DAILY_BONUS": {
+        "description": ""
+      },
+      "GUILD_KICK": {
+        "description": ""
+      },
+      "GUILD_INVITE": {
+        "description": ""
+      },
+      "GUILD_DESCRIPTION": {
+        "description": ""
+      },
+      "GUILD_ELDER": {
+        "description": ""
+      },
+      "GUILD_ELDER_REMOVE": {
+        "description": ""
+      },
+      "GUILD_STORAGE": {
+        "description": ""
+      },
+      "GUILD_SHOP": {
+        "description": ""
+      },
+      "UPDATE": {
+        "description": ""
+      },
+      "CLASSES": {
+        "description": ""
+      },
+      "PET": {
+        "description": ""
+      },
+      "PET_TRANSFER": {
+        "description": ""
+      },
+      "PET_NICKNAME": {
+        "description": ""
+      },
+      "PET_FREE": {
+        "description": ""
+      },
+      "GUILD_SHELTER": {
+        "description": ""
+      },
+      "PET_TRADE": {
+        "description": ""
+      },
+      "PET_FEED": {
+        "description": ""
+      },
+      "PET_SELL": {
+        "description": ""
+      },
+      "CLASSES_INFO": {
+        "description": ""
+      },
+      "RARITY": {
+        "description": ""
+      },
+      "VOTE": {
+        "description": ""
+      },
+      "IDEA": {
+        "description": ""
+      },
+      "DM_NOTIFICATIONS": {
+        "description": ""
+      },
+      "UNLOCK": {
+        "description": ""
+      },
+      "MAP": {
+        "description": ""
+      },
+      "MISSIONS": {
+        "description": ""
+      },
+      "MISSIONS_SHOP": {
+        "description": ""
+      },
+      "LEAGUE_BONUS": {
+        "description": ""
+      },
+      "JOIN_BOAT": {
+        "description": ""
+      }
+    },
+    "helpEmbedTitle": ""
   }
 }
