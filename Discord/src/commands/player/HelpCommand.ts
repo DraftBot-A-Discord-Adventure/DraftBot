@@ -83,38 +83,45 @@ function generateGenericHelpMessage(helpMessage: DraftBotEmbed, interaction: Dra
 		guildCommands,
 		petCommands
 	} = getCommandByCategories(interaction.channel.language);
-	helpMessage.formatAuthor(tr.get("helpEmbedTitle"), interaction.user);
+	helpMessage.formatAuthor(i18n.t("commands:help.helpEmbedTitle", {
+		lng: interaction.channel.language,
+		pseudo: interaction.user.username
+	}), interaction.user);
 	helpMessage.setDescription(
-		`${tr.format("helpEmbedDescription")}\n\u200b`
+		`${i18n.t("commands:help.helpEmbedDescription", {
+			lng: interaction.channel.language,
+			helpCommandMention: BotUtils.commandsMentions.get("help"),
+			interpolation: {escapeValue: false}
+		})}\n\u200b`
 	);
 	helpMessage.addFields([
 		{
-			name: tr.get("serverCommands"),
+			name: i18n.t("commands:help.serverCommands", {lng: interaction.channel.language}),
 			value: `${serverCommands.sort().join(" • ")}`
 		},
 		{
-			name: tr.get("utilCommands"),
+			name: i18n.t("commands:help.utilCommands", {lng: interaction.channel.language}),
 			value: `${utilCommands.sort().join(" • ")}`
 		},
 		{
-			name: tr.get("playerCommands"),
+			name: i18n.t("commands:help.playerCommands", {lng: interaction.channel.language}),
 			value: `${playerCommands.join(" • ")}`
 		},
 		{
-			name: tr.get("missionCommands"),
+			name: i18n.t("commands:help.missionCommands", {lng: interaction.channel.language}),
 			value: `${missionCommands.join(" • ")}`
 		},
 		{
-			name: tr.get("guildCommands"),
+			name: i18n.t("commands:help.guildCommands", {lng: interaction.channel.language}),
 			value: `${guildCommands.sort().join(" • ")}`
 		},
 		{
-			name: tr.get("petCommands"),
+			name: i18n.t("commands:help.petCommands", {lng: interaction.channel.language}),
 			value: `${petCommands.sort().join(" • ")} \n\u200b`
 		},
 		{
-			name: tr.get("forMoreHelp"),
-			value: tr.get("forMoreHelpValue")
+			name: i18n.t("commands:help.forMoreHelp", {lng: interaction.channel.language}),
+			value: i18n.t("commands:help.forMoreHelpValue", {lng: interaction.channel.language})
 		}
 	]);
 }
@@ -133,15 +140,6 @@ async function getPacket(interaction: DraftbotInteraction): Promise<CommandHelpP
 			embeds: [helpMessage]
 		});
 	}
-	await interaction.reply({
-		embeds: [new DraftBotEmbed()
-			.setTitle(i18n.t("commands:help.title", {
-				lng: interaction.channel.language
-			}))
-			.setDescription(i18n.t("commands:help.description", {
-				lng: interaction.channel.language
-			}))]
-	});
 	return packet;
 }
 
