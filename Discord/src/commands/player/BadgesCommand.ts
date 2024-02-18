@@ -15,8 +15,7 @@ async function getPacket(interaction: DraftbotInteraction): Promise<CommandBadge
 		embeds: [new DraftBotEmbed()
 			.setTitle(i18n.t("commands:badges.title", {
 				lng: interaction.channel.language
-			}
-			))
+			}))
 			.setDescription(i18n.t("commands:badges.description", {
 				lng: interaction.channel.language
 			}))]
