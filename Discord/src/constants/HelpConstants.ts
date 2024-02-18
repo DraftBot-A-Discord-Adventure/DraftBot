@@ -1,4 +1,6 @@
 export abstract class HelpConstants {
+	static readonly COMMAND_SEPARATOR_FOR_GENERAL_DESCRIPTION = " • ";
+
 	static readonly COMMAND_CATEGORY = {
 		SERVER: "server",
 		UTIL: "util",
