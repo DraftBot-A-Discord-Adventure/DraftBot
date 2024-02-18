@@ -110,5 +110,21 @@
   "update": {
     "description": "La version actuelle du noyau du bot est la **{{coreVersion}}**. Celle du module Discord est la **{{discordModuleVersion}}**.\n\nToutes les informations concernant les mises à jour sont disponibles ici :\nhttps://guide.draftbot.com/lore/historique-des-mises-a-jour",
     "title": ":scroll: Mises à jour"
+  },
+  "help": {
+    "helpEmbedTitle": "",
+    "aliasFieldTitle": "",
+    "helpEmbedDescription": "",
+    "serverCommands": "",
+    "utilCommands": "",
+    "playerCommands": "",
+    "missionCommands": "",
+    "guildCommands": "",
+    "forMoreHelp": "",
+    "petCommands": "",
+    "commandEmbedTitle": "",
+    "forMoreHelpValue": "",
+    "usageFieldTitle": "",
+    "aliasesFieldTitle": ""
   }
 }

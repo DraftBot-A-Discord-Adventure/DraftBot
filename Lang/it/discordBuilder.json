@@ -52,5 +52,15 @@
   "update": {
     "description": "Mostrare la versione attuale del bot.",
     "name": "novità"
+  },
+  "help": {
+    "description": "",
+    "name": "",
+    "options": {
+      "commandName": {
+        "description": "",
+        "name": ""
+      }
+    }
   }
 }

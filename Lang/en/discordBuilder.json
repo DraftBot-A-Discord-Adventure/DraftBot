@@ -52,5 +52,15 @@
   "update": {
     "description": "Displays the bot's latest version.",
     "name": "update"
+  },
+  "help": {
+    "description": "Displays the list of commands or detailed information about a specific command.",
+    "name": "help",
+    "options": {
+      "commandName": {
+        "description": "The command to display information about.",
+        "name": "command"
+      }
+    }
   }
 }
