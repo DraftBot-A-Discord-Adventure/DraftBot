@@ -1,4 +1,13 @@
 export abstract class HelpConstants {
+	static readonly COMMAND_CATEGORY = {
+		SERVER: "server",
+		UTIL: "util",
+		PLAYER: "player",
+		MISSION: "mission",
+		GUILD: "guild",
+		PET: "pet"
+	};
+
 	static readonly ACCEPTED_SEARCH_WORDS = {
 		PREFIX: ["prefix", "prefixe", "préfixe", "préfix", "changePrefix", "changePréfix", "changePrefixe", "changePréfixe"],
 		PING: ["ping", "mention", "uptime", "shard"],
@@ -9,8 +18,8 @@ export abstract class HelpConstants {
 		LANGUAGE: ["language", "langage", "langue", "l", "speak"],
 		TOP: ["top", "classement", "t", "points", "top score", "classement score", "topscore", "classementscore", "topscores", "classementscores"],
 		GLORY_TOP: ["topgloire", "classementgloire", "tgloire", "gloire", "glorytop", "glory", "topglory"],
-		GUILD_TOP: ["topguild", "classementguild","classementguilde", "topguilde", "tguild","tguilde", "guildrank", "guildranking", "guildrankings", "guildranks",
-			"topguilds","topguildes","classementguilds", "classementguildes"],
+		GUILD_TOP: ["topguild", "classementguild", "classementguilde", "topguilde", "tguild", "tguilde", "guildrank", "guildranking", "guildrankings", "guildranks",
+			"topguilds", "topguildes", "classementguilds", "classementguildes"],
 		HELP: ["help", "h", "aide", "a"],
 		INVENTORY: ["inventory", "inv", "i", "inventaire"],
 		REPORT: ["report", "r", "rapport", "raport", "repport", "adventure", "play", "aventure", "advance", "avancer", "rapor", "repor", "rep", "game", "jouer"],

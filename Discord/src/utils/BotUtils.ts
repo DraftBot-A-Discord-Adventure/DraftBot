@@ -23,4 +23,9 @@ export class BotUtils {
 		}
 		return {validation, humans, bots, ratio};
 	}
+
+	/**
+	 * A map of all necessary strings to mention commands, the key is the command name in english, and the value is the mention
+	 */
+	static commandsMentions = new Map<string, string>();
 }
