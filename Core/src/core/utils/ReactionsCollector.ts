@@ -10,7 +10,6 @@ import {DraftBotPacket, PacketContext} from "../../../../Lib/src/packets/DraftBo
 import {BlockingUtils} from "./BlockingUtils";
 import {sendPacketsToContext} from "../../../../Lib/src/packets/PacketUtils";
 import {WebsocketClient} from "../../../../Lib/src/instances/WebsocketClient";
-import {Error} from "sequelize";
 
 type CollectCallback = (collector: ReactionCollectorInstance, reaction: ReactionCollectorReaction, playerId: number, response: DraftBotPacket[]) => void | Promise<void>;
 
@@ -48,7 +47,7 @@ export class ReactionCollectorInstance {
 
 	private readonly collectCallback: CollectCallback;
 
-	private readonly context: PacketContext;
+	private readonly _context: PacketContext;
 
 	private readonly endCallback: EndCallback;
 
@@ -66,7 +65,7 @@ export class ReactionCollectorInstance {
 		this.time = collectorOptions.time;
 		this.endTime = Date.now() + this.time;
 		this.collectCallback = collectCallback;
-		this.context = context;
+		this._context = context;
 		this.endCallback = endCallback;
 		this.reactionLimit = collectorOptions.reactionLimit;
 	}
@@ -81,7 +80,7 @@ export class ReactionCollectorInstance {
 
 	public async react(playerId: number, index: number, response: DraftBotPacket[]): Promise<void> {
 		if (!this._creationPacket) {
-			throw new Error("Reaction collector has not been built yet");
+			throw "Reaction collector has not been built yet";
 		}
 
 		const reaction = this._creationPacket.reactions[index];
@@ -109,7 +108,7 @@ export class ReactionCollectorInstance {
 		if (this.endCallback) {
 			const response: DraftBotPacket[] = [];
 			await this.endCallback(this, response);
-			sendPacketsToContext(this.context, response);
+			sendPacketsToContext(this._context, response);
 		}
 	}
 
@@ -146,6 +145,10 @@ export class ReactionCollectorInstance {
 
 	get creationPacket(): ReactionCollectorCreationPacket {
 		return this._creationPacket;
+	}
+
+	get context(): PacketContext {
+		return this._context;
 	}
 }
 

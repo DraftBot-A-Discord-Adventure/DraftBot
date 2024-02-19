@@ -12,8 +12,6 @@ import {Guilds} from "../../core/database/game/models/Guild";
 import {Constants} from "../../core/Constants";
 import {hoursToMilliseconds} from "../../../../Lib/src/utils/TimeUtils";
 import {PetDataController} from "../../data/Pet";
-import {MapLocationDataController} from "../../data/MapLocation";
-import {MapTypeDataController} from "../../data/MapType";
 
 /**
  * Get the current campaign progression of the player
@@ -66,13 +64,9 @@ export default class ProfileCommand {
 					pet: petEntity ? {
 						id: petEntity.id,
 						nickname: petEntity.nickname,
-						rarity: petModel.rarity,
-						emote: petEntity.getPetEmote(petModel)
+						rarity: petModel.rarity
 					} : null,
-					destination: {
-						id: destinationId,
-						emote: MapTypeDataController.instance.getById(MapLocationDataController.instance.getById(destinationId).type).emote
-					},
+					destination: destinationId,
 					effect: player.checkEffect() ? {
 						effect: player.effect,
 						timeLeft: player.effectEndDate.valueOf() - Date.now(),

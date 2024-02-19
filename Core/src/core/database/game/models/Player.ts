@@ -919,7 +919,7 @@ export class Player extends Model {
 			if (guildPointsLost > playerGuild.score) {
 				guildPointsLost = playerGuild.score;
 			}
-			playerGuild.addScore(-guildPointsLost, NumberChangeReason.PVE_ISLAND);
+			await playerGuild.addScore(-guildPointsLost, response, NumberChangeReason.PVE_ISLAND);
 			await playerGuild.save();
 		}
 		return {moneyLost, guildPointsLost};

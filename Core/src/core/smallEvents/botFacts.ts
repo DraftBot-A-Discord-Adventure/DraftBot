@@ -23,7 +23,7 @@ const getNbPlayersWithGivenClass = async (): Promise<[number, number]> => {
 
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnContinent,
-	executeSmallEvent: async (response, player): Promise<void> => {
+	executeSmallEvent: async (context, response, player): Promise<void> => {
 		const botFactsProperties = SmallEventDataController.instance.getById("botFacts").getProperties<BotFactsProperties>();
 		const information = RandomUtils.draftbotRandom.pick(Object.keys(botFactsProperties.properties.possibleInfos));
 		const packet: SmallEventBotFactsPacket = {information, infoResult: 0};

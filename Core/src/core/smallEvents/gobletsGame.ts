@@ -1,8 +1,6 @@
 import {SmallEventDataController, SmallEventFuncs} from "../../data/SmallEvent";
 import {MapConstants} from "../constants/MapConstants";
 import {Maps} from "../maps/Maps";
-import {GenericReactionCollector} from "../utils/ReactionsCollector";
-import {ReactionCollectorType} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {BlockingConstants} from "../constants/BlockingConstants";
 import Player from "../database/game/models/Player";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
@@ -13,21 +11,19 @@ import {NumberChangeReason} from "../constants/LogsConstants";
 import {TravelTime} from "../maps/TravelTime";
 import {EffectsConstants} from "../../../../Lib/src/constants/EffectsConstants";
 import {SmallEventGobletsGamePacket} from "../../../../Lib/src/packets/smallEvents/SmallEventGobletsGamePacket";
+import {EndCallback, ReactionCollectorInstance} from "../utils/ReactionsCollector";
+import {ReactionCollectorGobletsGame} from "../../../../Lib/src/packets/interaction/ReactionCollectorGobletsGame";
+import {ReactionCollectorReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 
 type GobletsGameProperties = {
-	"goblets": {
-		"metal": string,
-		"biggest": string,
-		"sparkling": string
-	},
 	"malusTypes": string[]
 }
 const properties = SmallEventDataController.instance.getById("gobletsGame").getProperties<GobletsGameProperties>();
-async function applyMalus(response: DraftBotPacket[], player: Player, reaction: string): Promise<void> {
+async function applyMalus(response: DraftBotPacket[], player: Player, reaction: ReactionCollectorReaction): Promise<void> {
 	const malus = !reaction ? "end" : RandomUtils.draftbotRandom.pick(properties.malusTypes);
 	const packet = makePacket(SmallEventGobletsGamePacket,{
 		malus,
-		goblet: reaction,
+		goblet: reaction.constructor.name,
 		value: 0
 	});
 	switch (malus) {
@@ -63,21 +59,26 @@ export const smallEventFuncs: SmallEventFuncs = {
 				|| origin.id === MapConstants.LOCATIONS_IDS.MARSHY_ROAD
 			);
 	},
-	executeSmallEvent: (response, player) => {
-		response.push(GenericReactionCollector.create(
-			response[0], // TODO : replace with the right one
+	executeSmallEvent: (context, response, player) => {
+		const collector = new ReactionCollectorGobletsGame();
+
+		const endCallback: EndCallback = async (collector, response) => {
+			await applyMalus(response, player, collector.getFirstReaction().reaction);
+			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.GOBLET_CHOOSE);
+		};
+
+		const packet = new ReactionCollectorInstance(
+			collector,
+			context,
 			{
-				collectorType: ReactionCollectorType.GOBLET_CHOOSE,
-				reactions: Object.values(properties.goblets),
-				allowedPlayerIds: [player.id]
+				allowedPlayerIds: [player.id],
+				reactionLimit: 1
 			},
-			{
-				end: async (collector, response) => {
-					await applyMalus(response, player, collector.getFirstReaction().emoji);
-					BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.GOBLET_CHOOSE);
-				}
-			})
+			endCallback
+		)
 			.block(player.id, BlockingConstants.REASONS.GOBLET_CHOOSE)
-			.getPacket());
+			.build();
+
+		response.push(packet);
 	}
 };
