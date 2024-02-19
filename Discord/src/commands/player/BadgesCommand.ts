@@ -1,6 +1,4 @@
 import {ICommand} from "../ICommand";
-import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
-import {CommandBadgesPacketReq} from "../../../../Lib/src/packets/commands/CommandBadgesPacket";
 import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
 import i18n from "../../translations/i18n";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
@@ -9,8 +7,7 @@ import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 /**
  * Access information about badges
  */
-async function getPacket(interaction: DraftbotInteraction): Promise<CommandBadgesPacketReq> {
-	const packet = makePacket(CommandBadgesPacketReq, {});
+async function getPacket(interaction: DraftbotInteraction): Promise<null> {
 	await interaction.reply({
 		embeds: [new DraftBotEmbed()
 			.setTitle(i18n.t("commands:badges.title", {
@@ -20,7 +17,7 @@ async function getPacket(interaction: DraftbotInteraction): Promise<CommandBadge
 				lng: interaction.channel.language
 			}))]
 	});
-	return packet;
+	return null;
 }
 
 export const commandInfo: ICommand = {

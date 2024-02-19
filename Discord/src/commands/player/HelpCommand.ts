@@ -1,6 +1,4 @@
 import {ICommand} from "../ICommand";
-import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
-import {CommandHelpPacketReq} from "../../../../Lib/src/packets/commands/CommandHelpPacket";
 import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
 import i18n from "../../translations/i18n";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
@@ -182,8 +180,7 @@ function generateReplacementObjectForHelpCommand(interaction: DraftbotInteractio
 /**
  * Get the list of available commands and information about what they do
  */
-async function getPacket(interaction: DraftbotInteraction): Promise<CommandHelpPacketReq> {
-	const packet = makePacket(CommandHelpPacketReq, {});
+async function getPacket(interaction: DraftbotInteraction): Promise<null> {
 	const helpMessage = new DraftBotEmbed();
 	const command = interaction.options.get(i18n.t("discordBuilder:help.options.commandName.name", {lng: Constants.LANGUAGE.ENGLISH}));
 	const askedCommand = command ? command.value as string : null;
@@ -201,7 +198,7 @@ async function getPacket(interaction: DraftbotInteraction): Promise<CommandHelpP
 			await interaction.reply({
 				embeds: [helpMessage]
 			});
-			return packet;
+			return null;
 		}
 
 		const commandMention = BotUtils.commandsMentions.get(HelpConstants.COMMANDS_DATA[command as keyof typeof HelpConstants.COMMANDS_DATA].NAME);
@@ -229,7 +226,7 @@ async function getPacket(interaction: DraftbotInteraction): Promise<CommandHelpP
 			embeds: [helpMessage]
 		});
 	}
-	return packet;
+	return null;
 }
 
 export const commandInfo: ICommand = {
