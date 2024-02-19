@@ -3,6 +3,10 @@
     "description": "Locandina d'informazione sui badge e loro funzionamento.",
     "name": "badge"
   },
+  "idea": {
+    "description": "Envoyer une suggestion pour améliorer le jeu.",
+    "name": "suggestion"
+  },
   "inventory": {
     "description": "Mostra l'inventario del giocatore.",
     "name": "inventario",
