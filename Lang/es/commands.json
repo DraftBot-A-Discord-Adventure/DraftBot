@@ -4,8 +4,8 @@
     "title": ":military_medal: Información detallada:"
   },
   "idea": {
-    "description": "Vous pouvez proposer des suggestions et voter pour vos idées préférées via ce lien:\nhttps://feedback.draftbot.com/",
-    "title": ":bulb: Idées"
+    "description": "Puede hacer sugerencias y votar sus ideas favoritas a través de este enlace:\nhttps://feedback.draftbot.com/",
+    "title": ":bulb: Ideas"
   },
   "inventory": {
     "armors_one": "Armadura/Escudo ({{count}}/{{max}}) :",
