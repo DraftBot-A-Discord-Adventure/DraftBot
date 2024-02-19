@@ -3,5 +3,6 @@
   "titleBlocked": "{{pseudo}}¡esta persona está bloqueada!",
   "titleCanceled": "{{pseudo}}¡cancelación tenida en cuenta!",
   "titleDidntWork": "{{pseudo}}, hmmm... ¡No funcionó!",
-  "interactionNotForYou": "¡Esta interacción no es para ti!"
+  "interactionNotForYou": "¡Esta interacción no es para ti!",
+  "commandDoesntExist": "ERREUR: Commande inconnue"
 }
