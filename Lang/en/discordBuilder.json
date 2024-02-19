@@ -3,6 +3,10 @@
     "description": "Displays information about badges.",
     "name": "badges"
   },
+  "idea": {
+    "description": "Share with us your idea to improve the game.",
+    "name": "idea"
+  },
   "inventory": {
     "description": "Displays the player's inventory.",
     "name": "inventory",
