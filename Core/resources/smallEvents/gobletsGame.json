@@ -1,10 +1,5 @@
 {
 	"properties": {
-		"goblets": {
-			"metal": "🐲",
-			"biggest": "🪣",
-			"sparkling": "✨"
-		},
 		"malusTypes": [
 			"life",
 			"time",

@@ -48,7 +48,6 @@ export abstract class MainItem extends GenericItem {
 				value: this.speed ? this.getSpeed() : 0,
 				maxValue: maxStatsValue.speed
 			},
-			emote: this.emote,
 			rarity: this.rarity,
 			id: this.id
 		};

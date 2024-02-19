@@ -26,7 +26,6 @@ export class Potion extends SupportItem {
 			maxPower: this.power,
 			nature: this.nature,
 			power: this.power,
-			emote: this.emote,
 			rarity: this.rarity,
 			id: this.id
 		};

@@ -25,7 +25,6 @@ export class ObjectItem extends SupportItem {
 			maxPower,
 			nature: this.nature,
 			power: this.power,
-			emote: this.emote,
 			rarity: this.rarity,
 			id: this.id
 		};

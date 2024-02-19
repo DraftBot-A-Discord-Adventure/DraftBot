@@ -22,8 +22,6 @@ export enum WitchActionOutcomeType {
  * The base class for the different events that can happen after the player encounters a feral pet
  */
 export class WitchAction extends Data<string> {
-	public readonly emoji: string;
-
 	public readonly isIngredient: boolean;
 
 	public readonly forceEffect: boolean;
@@ -121,10 +119,6 @@ export class WitchActionDataController extends DataControllerString<WitchAction>
 
 	public getRandomWitchAction(excludedWitchActions: WitchAction[]): WitchAction {
 		return RandomUtils.draftbotRandom.pick(Array.from(this.data.values()).filter((witchAction) => !excludedWitchActions.includes(witchAction)));
-	}
-
-	public getWitchActionByEmoji(emoji: string): WitchAction {
-		return Array.from(this.data.values()).find((witchAction) => witchAction.emoji === emoji);
 	}
 
 	newInstance(): WitchAction {
