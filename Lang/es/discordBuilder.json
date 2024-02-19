@@ -4,8 +4,8 @@
     "name": "insignias"
   },
   "idea": {
-    "description": "Envoyer une suggestion pour améliorer le jeu.",
-    "name": "suggestion"
+    "description": "Envía una sugerencia para mejorar el juego.",
+    "name": "sugerencia"
   },
   "inventory": {
     "description": "Muestra el inventario del jugador.",
