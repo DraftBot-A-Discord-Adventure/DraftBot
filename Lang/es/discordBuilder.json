@@ -52,5 +52,15 @@
   "update": {
     "description": "Muestra la versión actual del bot.",
     "name": "nuevos productos"
+  },
+  "help": {
+    "description": "Affiche la liste des commandes disponibles ou les informations détaillées sur une commande.",
+    "name": "aide",
+    "options": {
+      "commandName": {
+        "description": "La commande dont les informations doivent être affichées.",
+        "name": "commande"
+      }
+    }
   }
 }
