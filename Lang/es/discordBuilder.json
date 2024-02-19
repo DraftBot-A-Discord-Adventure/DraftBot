@@ -3,6 +3,10 @@
     "description": "Muestra información sobre las insignias y su funcionamiento.",
     "name": "insignias"
   },
+  "idea": {
+    "description": "Envoyer une suggestion pour améliorer le jeu.",
+    "name": "suggestion"
+  },
   "inventory": {
     "description": "Muestra el inventario del jugador.",
     "name": "inventario",
@@ -54,12 +58,12 @@
     "name": "nuevos productos"
   },
   "help": {
-    "description": "Affiche la liste des commandes disponibles ou les informations détaillées sur une commande.",
-    "name": "aide",
+    "description": "Muestra la lista de comandos disponibles o información detallada sobre un comando.",
+    "name": "asistencia",
     "options": {
       "commandName": {
-        "description": "La commande dont les informations doivent être affichées.",
-        "name": "commande"
+        "description": "El comando cuya información debe mostrarse.",
+        "name": "pedir"
       }
     }
   }
