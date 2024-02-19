@@ -7,7 +7,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 
 /**
- * Pings the bot, to check if it is alive and how well is it
+ * Access information about badges
  */
 async function getPacket(interaction: DraftbotInteraction): Promise<CommandBadgesPacketReq> {
 	const packet = makePacket(CommandBadgesPacketReq, {});
@@ -15,8 +15,7 @@ async function getPacket(interaction: DraftbotInteraction): Promise<CommandBadge
 		embeds: [new DraftBotEmbed()
 			.setTitle(i18n.t("commands:badges.title", {
 				lng: interaction.channel.language
-			}
-			))
+			}))
 			.setDescription(i18n.t("commands:badges.description", {
 				lng: interaction.channel.language
 			}))]

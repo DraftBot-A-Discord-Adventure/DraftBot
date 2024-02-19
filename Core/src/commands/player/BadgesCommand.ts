@@ -3,5 +3,6 @@ import {CommandBadgesPacketReq} from "../../../../Lib/src/packets/commands/Comma
 
 export default class BadgesCommand {
 	@packetHandler(CommandBadgesPacketReq)
-	execute(): void {}
+	execute(): void {
+	}
 }

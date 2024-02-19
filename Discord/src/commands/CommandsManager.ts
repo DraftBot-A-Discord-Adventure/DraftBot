@@ -31,13 +31,13 @@ import {DraftbotChannel, DraftbotInteraction} from "../messages/DraftbotInteract
 import {DiscordWebSocket} from "../bot/Websocket";
 import {PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
 import {DiscordCache} from "../bot/DiscordCache";
+import {BotUtils} from "../utils/BotUtils";
 
 export class CommandsManager {
 	static commands = new Map<string, ICommand>();
 
 	static commandsInstances = new Map<string, ApplicationCommand>();
 
-	static commandsMentions = new Map<string, string>();
 
 	/**
 	 * Register the bot at launch
@@ -142,7 +142,7 @@ export class CommandsManager {
 		for (const command of commands) {
 			CommandsManager.commandsInstances.set(command[1].name, command[1]);
 			this.addSubCommandsToTheCommandsMentions(command);
-			CommandsManager.commandsMentions.set(command[1].name, `</${command[1].name}:${command[0]}>`);
+			BotUtils.commandsMentions.set(command[1].name, `</${command[1].name}:${command[0]}>`);
 		}
 	}
 
@@ -157,7 +157,7 @@ export class CommandsManager {
 		if (command[1].options) {
 			for (const option of command[1].options) {
 				if (option.type === ApplicationCommandOptionType.Subcommand) {
-					CommandsManager.commandsMentions.set(`${command[1].name} ${option.name}`, `</${command[1].name} ${option.name}:${command[0]}>`);
+					BotUtils.commandsMentions.set(`${command[1].name} ${option.name}`, `</${command[1].name} ${option.name}:${command[0]}>`);
 				}
 			}
 		}
@@ -217,14 +217,14 @@ export class CommandsManager {
 				content: `
 ${i18n.t("bot:mentionHelp", {
 		lang: Constants.LANGUAGE.ENGLISH,
-		commandHelp: this.commandsMentions.get("help"),
-		commandLanguage: this.commandsMentions.get("language")
+		commandHelp: BotUtils.commandsMentions.get("help"),
+		commandLanguage: BotUtils.commandsMentions.get("language")
 	})}
 
 ${i18n.t("bot:mentionHelp", {
 		lang: Constants.LANGUAGE.FRENCH,
-		commandHelp: this.commandsMentions.get("help"),
-		commandLanguage: this.commandsMentions.get("language")
+		commandHelp: BotUtils.commandsMentions.get("help"),
+		commandLanguage: BotUtils.commandsMentions.get("language")
 	})}`
 			}).then();
 		});
@@ -339,8 +339,15 @@ ${i18n.t("bot:mentionHelp", {
 				const language = msg!.getFirstReaction()!.emoji.name === Constants.REACTIONS.ENGLISH_FLAG ? Constants.LANGUAGE.ENGLISH : Constants.LANGUAGE.FRENCH;
 				message.channel.send({
 					embeds: [new DraftBotEmbed()
-						.formatAuthor(i18n.t("bot:dmHelpMessageTitle", { lang: language, pseudo: escapeUsername(author.username) }), author)
-						.setDescription(i18n.t("bot:dmHelpMessage", { lang: language, commandHelp: this.commandsMentions.get("help"), commandRespawn: this.commandsMentions.get("respawn") }))]
+						.formatAuthor(i18n.t("bot:dmHelpMessageTitle", {
+							lang: language,
+							pseudo: escapeUsername(author.username)
+						}), author)
+						.setDescription(i18n.t("bot:dmHelpMessage", {
+							lang: language,
+							commandHelp: BotUtils.commandsMentions.get("help"),
+							commandRespawn: BotUtils.commandsMentions.get("respawn")
+						}))]
 				});
 			})
 			.build()
@@ -363,14 +370,14 @@ ${i18n.t("bot:mentionHelp", {
 		const commandInfo = this.commands.get(interaction.commandName);
 
 		if (!commandInfo) {
-			await replyErrorMessage(interaction, Constants.LANGUAGE.ENGLISH, i18n.t("bot:command404", { lang: language }));
+			await replyErrorMessage(interaction, Constants.LANGUAGE.ENGLISH, i18n.t("bot:command404", {lang: language}));
 			console.error(`Command "${interaction.commandName}" is not registered`);
 			return;
 		}
 
 		const channelAccess = this.hasChannelPermission(interaction.channel);
 		if (!channelAccess[0]) {
-			await replyErrorMessage(interaction, Constants.LANGUAGE.ENGLISH, i18n.t(channelAccess[1], { lang: language }));
+			await replyErrorMessage(interaction, Constants.LANGUAGE.ENGLISH, i18n.t(channelAccess[1], {lang: language}));
 			return;
 		}
 
