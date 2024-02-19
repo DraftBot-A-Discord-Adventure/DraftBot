@@ -5,7 +5,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 
 /**
- * Access information about badges
+ * Shows the embed that redirects to the topGG vote page
  */
 async function getPacket(interaction: DraftbotInteraction): Promise<null> {
 	await interaction.reply({
