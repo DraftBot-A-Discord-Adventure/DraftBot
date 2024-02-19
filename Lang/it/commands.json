@@ -3,6 +3,10 @@
     "description": "I badge sono distinzione difficile a ottenere che sono state create per ricompensare le persone che hanno il più sostenuti il sviluppo del bot. La lista dei badge e disponibile sulla guida del bot.\n(link : https://guide.draftbot.com/notions-avancees/badges)",
     "title": ":military_medal: Informazione dettagliate :"
   },
+  "idea": {
+    "description": "Vous pouvez proposer des suggestions et voter pour vos idées préférées via ce lien:\nhttps://feedback.draftbot.com/",
+    "title": ":bulb: Idées"
+  },
   "inventory": {
     "armors_one": "Armatura/Scudo ({{count}}/{{max}}) :",
     "armors_other": "Armature/Scudi ({{count}}/{{max}}) :",
