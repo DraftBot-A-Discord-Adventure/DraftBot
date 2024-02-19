@@ -82,5 +82,13 @@
         "name": "command"
       }
     }
+  },
+  "vote": {
+    "description": "Displays the link to vote for the bot.",
+    "name": "vote"
+  },
+  "language": {
+    "description": "Change the language spoken by the bot in the discord server where the command was executed.",
+    "name": "language"
   }
 }

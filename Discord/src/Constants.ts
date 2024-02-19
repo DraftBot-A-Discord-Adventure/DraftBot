@@ -54,11 +54,6 @@ export class Constants {
 		]
 	};
 
-	static readonly LANGUAGE: { FRENCH: Language, ENGLISH: Language } = {
-		FRENCH: "fr",
-		ENGLISH: "en"
-	};
-
 	static readonly MESSAGES = {
 		COLLECTOR_TIME: 120000,
 		COLORS: {
