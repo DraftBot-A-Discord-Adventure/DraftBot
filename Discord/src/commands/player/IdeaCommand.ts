@@ -1,14 +1,10 @@
-import { CommandIdeaPacketReq } from "../../../../Lib/src/packets/commands/CommandIdeaPacket";
-import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
 import i18n from "../../translations/i18n";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 
-async function getPacket(interaction: DraftbotInteraction): Promise<CommandIdeaPacketReq> {
-	const packet = makePacket(CommandIdeaPacketReq, {});
-
+async function getPacket(interaction: DraftbotInteraction): Promise<null> {
 	await interaction.reply({
 		embeds: [new DraftBotEmbed()
 			.setTitle(i18n.t("commands:idea.title", {
@@ -18,8 +14,7 @@ async function getPacket(interaction: DraftbotInteraction): Promise<CommandIdeaP
 				lng: interaction.channel.language
 			}))]
 	});
-
-	return packet;
+	return null;
 }
 
 export const commandInfo: ICommand = {
