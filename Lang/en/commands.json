@@ -3,6 +3,10 @@
     "description": "Badges are difficult to get awards that were created to reward those who have most supported the development of the bot. The badge list is available in the bot guide.\n(via this link: https://guide.draftbot.com/notions-progresses/badges)",
     "title": ":military_medal: Detailed Information:"
   },
+  "idea": {
+    "description": "You can submit suggestions and vote for your favorites via this link:\nhttps://feedback.draftbot.com/",
+    "title": ":bulb: Ideas"
+  },
   "inventory": {
     "armors_one": "Armor/Shield ({{count}}/{{max}}):",
     "armors_other": "Armors/Shields ({{count}}/{{max}}):",
