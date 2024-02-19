@@ -140,7 +140,7 @@
         "description": "Lets you continue to play after you've been knocked out."
       },
       "PROFILE": {
-        "description": ""
+        "description": "Displays information about your character:\n\n😃 Health status | Pseudo | Level\n\n឵឵឵Information:\n❤️ Life | ⭐ XP | 💰 Money\n\nStatistics:\n⚡ Energy | 🗡️ Attack | 🛡️ Defense | 🚀 Speed | 🌬️ Breath | 🫁 Recovery\n\nMissions:\n💎 Gems | 📖 Campaign progress %\n\nRanking and score:\n🏆 Ranking | 🏅 Score\n\nClass:\nSee {command:classes}\n\nGlory and League:\n✨ Glory | See {command:top glory}\n\nGuild:\n🏟️ Guild\n\nDestination:\nSee {command:map}\n\nPet:\nSee {command:pet}\n\n💡-Badges are displayed on your profile as reaction(s)."
       },
       "SWITCH": {
         "description": "Switches the item currently in use with the one in your inventory."
@@ -171,7 +171,7 @@
         "description": "Lets you obtain the resources and intel your character got during your absence.\nFrom time to time, events will be triggered and will necessitate special actions or choices."
       },
       "SELL": {
-        "description": ""
+        "description": "Lets you sell the item currently in your reserve. The value of the item is set to be equal to its power, it can be 0 if the item is not very good :wink:."
       },
       "DAILY_BONUS": {
         "description": "Some items give you bonuses daily. Use this command to obtain said bonuses. You can learn whether or not an item gives you a bonus by using the command {command:inventory}."
@@ -285,6 +285,6 @@
         "description": "Allows you to join a guild member on a boat going to a mysterious island."
       }
     },
-    "helpEmbedTitle": "{{pseudo}}, voici la liste des commandes disponibles :"
+    "helpEmbedTitle": "{{pseudo}}, here is the list of available commands:"
   }
 }

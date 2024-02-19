@@ -3,6 +3,10 @@
     "description": "Las insignias son difíciles de obtener y se han creado para recompensar a las personas que más han contribuido al desarrollo del bot. La lista de insignias está disponible en la guía del bot.\n(a través de este enlace: https://guide.draftbot.com/notions-avancees/badges)",
     "title": ":military_medal: Información detallada:"
   },
+  "idea": {
+    "description": "Puede hacer sugerencias y votar sus ideas favoritas a través de este enlace:\nhttps://feedback.draftbot.com/",
+    "title": ":bulb: Ideas"
+  },
   "inventory": {
     "armors_one": "Armadura/Escudo ({{count}}/{{max}}) :",
     "armors_other": "Armaduras / Escudos ({{count}}/{{max}}) :",
@@ -112,175 +116,175 @@
     "title": ":scroll: Actualizaciones"
   },
   "help": {
-    "aliasFieldTitle": "",
-    "helpEmbedDescription": "",
-    "serverCommands": "",
-    "utilCommands": "",
-    "playerCommands": "",
-    "missionCommands": "",
-    "guildCommands": "",
-    "forMoreHelp": "",
-    "petCommands": "",
-    "commandEmbedTitle": "",
-    "forMoreHelpValue": "",
-    "usageFieldTitle": "",
-    "aliasesFieldTitle": "",
+    "aliasFieldTitle": "Alias",
+    "helpEmbedDescription": ":arrow_forward: Si desea más información sobre un comando en particular, haga clic aquí : {{helpCommandMention}}e introduzca como parámetro el comando con el que tiene problemas. :wink:",
+    "serverCommands": ":gear: Servidor :",
+    "utilCommands": ":question: Información útil:",
+    "playerCommands": ":bust_in_silhouette: Jugador :",
+    "missionCommands": ":scroll: Misión:",
+    "guildCommands": ":stadium: Gremio :",
+    "forMoreHelp": ":arrow_forward: Para más ayuda : ",
+    "petCommands": ":dog: Animales :",
+    "commandEmbedTitle": "{{emote}} Información detallada:",
+    "forMoreHelpValue": "Puedes visitar la [wiki] del bot (https://guide.draftbot.com/).",
+    "usageFieldTitle": "Utilice",
+    "aliasesFieldTitle": "Alias",
     "commands": {
       "PREFIX": {
-        "description": ""
+        "description": "Esta función se ha eliminado del juego tras una actualización de la funcionalidad de Discord."
       },
       "PING": {
-        "description": ""
+        "description": "Muestra si el bot está en línea.\n\n(Nota: El tiempo que se muestra es el tiempo de respuesta del bot y no tu ping: un tiempo de respuesta correcto será inferior a 500ms. :clock1:"
       },
       "RESPAWN": {
-        "description": ""
+        "description": "Te permite volver a jugar después de haber sido eliminado."
       },
       "PROFILE": {
-        "description": ""
+        "description": "Muestra información sobre tu personaje:\n\n😃 Estado de salud | Apodo | Nivel\n\n឵឵Información:\n❤️ Vida | ⭐ XP | 💰 Dinero\n\nEstadísticas :\n⚡ Energía | 🗡️ Ataque | 🛡️ Defensa | 🚀 Velocidad | 🌬️ Aliento | 🫁 Recuperación\n\nMisiones :\n💎 Gemas | 📖 Campaña avanzada %\n\nRango y puntuación:\n🏆 Rango | 🏅 Puntuación\n\nClase:\nVer {{classesCommandMention}}\n\nGloria y Liga:\n✨ Gloria | Ver {{topGloryCommandMention}}\n\nGremio:\n🏟️ Gremio\n\nDestino:\nVer {{mapCommandMention}}\n\nFamiliar:\nVer {{petCommandMention}}\n\n💡-Las insignias se muestran en tu perfil como reacción."
       },
       "SWITCH": {
-        "description": ""
+        "description": "Cambia el objeto de tu reserva por el objeto de la casilla \"objeto\" de tu inventario."
       },
       "FIGHT": {
-        "description": "",
-        "image": ""
+        "description": "Utiliza este comando para retar a otros jugadores que estén en el mismo servidor que tú.\nLas batallas tienen lugar turno a turno. En cada turno, puedes elegir una acción a realizar.\n\nPara más información, consulta la página de la guía: https://guide.draftbot.com/notions-principale/combats",
+        "image": "https://draftbot.com/public/ressources/fighthelp/fr/4.5.2.png"
       },
       "HELP": {
-        "description": ""
+        "description": ":expressionless:"
       },
       "LANGUAGE": {
-        "description": ""
+        "description": "Cambia el idioma utilizado por el bot al inglés. Se puede utilizar si eres administrador de un servidor."
       },
       "TOP": {
-        "description": ""
+        "description": "Muestra la clasificación general de la partida para cada 15 jugadores. Los jugadores que están en el mismo servidor que tú aparecen marcados con un punto azul."
       },
       "GLORY_TOP": {
-        "description": ""
+        "description": "Muestra la clasificación gloriosa del partido para cada 15 jugadores. También se muestra la liga de los jugadores. Los jugadores que están en el mismo servidor que tú aparecen marcados con un punto azul."
       },
       "GUILD_TOP": {
-        "description": ""
+        "description": "Muestra la clasificación de los gremios en incrementos de 15 gremios. Los gremios se clasifican según los puntos obtenidos en las islas misteriosas."
       },
       "INVENTORY": {
-        "description": ""
+        "description": "Muestra el contenido de tu inventario, que puede contener 4 tipos de objetos:\n```\n-armas\n-armaduras\n-pociones\n-objetos\n```\nEl comando también muestra el contenido de la reserva, que tiene almacenamiento adicional."
       },
       "REPORT": {
-        "description": ""
+        "description": "Te permite recoger información y recursos reunidos por tu personaje durante tu ausencia. De vez en cuando se desencadenan eventos que requieren acciones específicas."
       },
       "SELL": {
-        "description": ""
+        "description": "Te permite vender un objeto de tu alijo. El valor del objeto viene determinado por su poder. Las pociones no tienen valor de reventa, pero pueden desecharse usando este comando."
       },
       "DAILY_BONUS": {
-        "description": ""
+        "description": "Algunos objetos te dan una bonificación diaria. Utiliza este comando para obtener estas bonificaciones. Para saber si un objeto te da una bonificación diaria, utiliza el comando {command:inventory}."
       },
       "INVITE_DRAFTBOT": {
-        "description": ""
+        "description": "Este comando proporciona un enlace al servidor de ayuda."
       },
       "BADGES": {
-        "description": ""
+        "description": "Las insignias son difíciles de obtener y se han creado para recompensar a las personas que más han contribuido al desarrollo del bot. La lista de insignias está disponible en la guía del bot.\n(a través de este enlace: https://guide.draftbot.com/notions-avancees/badges)"
       },
       "DRINK": {
-        "description": ""
+        "description": "Este comando te permite consumir la poción que llevas. Algunas pociones no se pueden beber y se consumen automáticamente durante el combate."
       },
       "SHOP": {
-        "description": ""
+        "description": "Esta orden te permite gastar tu dinero para facilitar tu aventura. Además de las 4 opciones básicas que estarán disponibles permanentemente, podrás disfrutar de una poción exclusiva cada día, a la venta solo durante 24 horas."
       },
       "GUILD_CREATE": {
-        "description": ""
+        "description": "Crear un gremio. Crear un gremio cuesta 5.000 :moneybag:."
       },
       "GUILD_LEAVE": {
-        "description": ""
+        "description": "Te permite abandonar tu gremio."
       },
       "GUILD": {
-        "description": ""
+        "description": "Muestra información sobre un gremio."
       },
       "GUILD_DAILY_BONUS": {
-        "description": ""
+        "description": "Recoge las recompensas diarias del gremio."
       },
       "GUILD_KICK": {
-        "description": ""
+        "description": "Te permite expulsar a un miembro de un gremio, requiere que seas un líder de gremio."
       },
       "GUILD_INVITE": {
-        "description": ""
+        "description": "Te permite añadir un usuario a un gremio. Necesitas ser un líder de gremio o un anciano de gremio."
       },
       "GUILD_DESCRIPTION": {
-        "description": ""
+        "description": "Te permite modificar la descripción del gremio, requiere que seas líder del gremio."
       },
       "GUILD_ELDER": {
-        "description": ""
+        "description": "Te permite añadir un anciano al gremio, requiere que seas líder del gremio."
       },
       "GUILD_ELDER_REMOVE": {
-        "description": ""
+        "description": "Elimina al miembro de mayor edad del gremio, requiere ser líder del gremio."
       },
       "GUILD_STORAGE": {
-        "description": ""
+        "description": "Muestra el contenido del almacén del gremio."
       },
       "GUILD_SHOP": {
-        "description": ""
+        "description": "Muestra la tienda de tu gremio."
       },
       "UPDATE": {
-        "description": ""
+        "description": "Permite ver el registro de cambios."
       },
       "CLASSES": {
-        "description": ""
+        "description": "Te permite cambiar de clase. Más información sobre las clases en la guía del jugador: https://guide.draftbot.com"
       },
       "PET": {
-        "description": ""
+        "description": "Muestra información sobre su mascota."
       },
       "PET_TRANSFER": {
-        "description": ""
+        "description": "Te permite transferir una mascota a o desde el gremio. Si no se indica ningún número, la mascota de tu inventario se trasladará a la cabaña del gremio. De lo contrario, se intercambiará con la mascota del gremio cuya ubicación coincida con el número indicado."
       },
       "PET_NICKNAME": {
-        "description": ""
+        "description": "Cambia el apodo de tu mascota. Si no se proporciona ningún nombre, se eliminará el nombre actual."
       },
       "PET_FREE": {
-        "description": ""
+        "description": "Libera a tu mascota. Ten en cuenta que una vez liberada, se borrará para siempre, por lo que será imposible recuperarla. Este comando solo puede utilizarse una vez por hora."
       },
       "GUILD_SHELTER": {
-        "description": ""
+        "description": "Muestra el refugio de animales del gremio."
       },
       "PET_TRADE": {
-        "description": ""
+        "description": "Proponga un intercambio de sus animales con la persona mencionada."
       },
       "PET_FEED": {
-        "description": ""
+        "description": "Alimente a su mascota."
       },
       "PET_SELL": {
-        "description": ""
+        "description": "Permite vender una mascota. Se aplican las siguientes condiciones: \n - el precio de venta debe ser mayor que `{{petSellMinPrice}}💰` y menor que `{{petSellMaxPrice}}💰`. \n- El vendedor no ganará dinero con la transacción, solo experiencia de gremio. \n- El vendedor y el comprador no pueden ser miembros del mismo gremio."
       },
       "CLASSES_INFO": {
-        "description": ""
+        "description": "Permite una comparación rápida de las estadísticas de clase y la información que debe leer el usuario que realiza el pedido."
       },
       "RARITY": {
-        "description": ""
+        "description": "Muestra la probabilidad de tener un objeto según su rareza."
       },
       "VOTE": {
-        "description": ""
+        "description": "Proporciona el enlace para votar por el bot."
       },
       "IDEA": {
-        "description": ""
+        "description": "Utilice este enlace para sugerir una idea o votar las ya existentes."
       },
       "NOTIFICATIONS": {
-        "description": ""
+        "description": "Activa o desactiva las notificaciones de bots."
       },
       "UNLOCK": {
-        "description": ""
+        "description": "Se utiliza para pagar la fianza de excarcelación."
       },
       "MAP": {
-        "description": ""
+        "description": "Muestra información sobre el destino, así como el mapa."
       },
       "MISSIONS": {
-        "description": ""
+        "description": "Muestra la lista de misiones disponibles."
       },
       "MISSIONS_SHOP": {
-        "description": ""
+        "description": "Muestra la tienda de la misión."
       },
       "LEAGUE_BONUS": {
-        "description": ""
+        "description": "Consigue una recompensa de liga cada domingo."
       },
       "JOIN_BOAT": {
-        "description": ""
+        "description": "Únete a un miembro del Gremio en un barco rumbo a una isla misteriosa."
       }
     },
-    "helpEmbedTitle": ""
+    "helpEmbedTitle": "{{pseudo}}Esta es la lista de comandos disponibles:"
   }
 }

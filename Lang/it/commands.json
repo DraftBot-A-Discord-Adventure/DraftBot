@@ -3,6 +3,10 @@
     "description": "I badge sono distinzione difficile a ottenere che sono state create per ricompensare le persone che hanno il più sostenuti il sviluppo del bot. La lista dei badge e disponibile sulla guida del bot.\n(link : https://guide.draftbot.com/notions-avancees/badges)",
     "title": ":military_medal: Informazione dettagliate :"
   },
+  "idea": {
+    "description": "Vous pouvez proposer des suggestions et voter pour vos idées préférées via ce lien:\nhttps://feedback.draftbot.com/",
+    "title": ":bulb: Idées"
+  },
   "inventory": {
     "armors_one": "Armatura/Scudo ({{count}}/{{max}}) :",
     "armors_other": "Armature/Scudi ({{count}}/{{max}}) :",
@@ -112,175 +116,175 @@
     "title": ":scroll: Aggiornamenti"
   },
   "help": {
-    "aliasFieldTitle": "",
-    "helpEmbedDescription": "",
-    "serverCommands": "",
-    "utilCommands": "",
-    "playerCommands": "",
-    "missionCommands": "",
-    "guildCommands": "",
-    "forMoreHelp": "",
-    "petCommands": "",
-    "commandEmbedTitle": "",
-    "forMoreHelpValue": "",
-    "usageFieldTitle": "",
-    "aliasesFieldTitle": "",
+    "aliasFieldTitle": "Alias",
+    "helpEmbedDescription": ":arrow_forward: Si vous voulez plus d'informations sur une commande en particulier, cliquez ici : {{helpCommandMention}}, et donnez la commande qui vous pose problème en paramètre. :wink:",
+    "serverCommands": ":gear: Serveur :",
+    "utilCommands": ":question: Utiles :",
+    "playerCommands": ":bust_in_silhouette: Joueur :",
+    "missionCommands": ":scroll: Mission :",
+    "guildCommands": ":stadium: Guilde :",
+    "forMoreHelp": ":arrow_forward: Pour plus d'aide : ",
+    "petCommands": ":dog: Animaux :",
+    "commandEmbedTitle": "{{emote}} Informazione dettagliate :",
+    "forMoreHelpValue": "Vous pouvez vous rendre sur le [wiki](https://guide.draftbot.com/) du bot !",
+    "usageFieldTitle": "Utilisation",
+    "aliasesFieldTitle": "Alias",
     "commands": {
       "PREFIX": {
-        "description": ""
+        "description": "Cette fonctionnalité a été supprimée du jeu suite à une mise à jour des fonctionnalités proposées par Discord."
       },
       "PING": {
-        "description": ""
+        "description": "Permet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. :clock1:"
       },
       "RESPAWN": {
-        "description": ""
+        "description": "Permet de recommencer à jouer après avoir été mis K.O."
       },
       "PROFILE": {
-        "description": ""
+        "description": "Affiche des informations sur votre personnage :\n\n😃 État de santé | Pseudo | Level\n\n឵឵឵Informations :\n❤️ Vie | ⭐ XP | 💰 Argent\n\nStatistiques :\n⚡ Énergie | 🗡️ Attaque | 🛡️ Défense | 🚀 Vitesse | 🌬️ Souffle | 🫁 Récupération\n\nMissions :\n💎 Gemmes | 📖 Avancé de la campagne %\n\nClassement et score :\n🏆 Classement | 🏅 Score\n\nClasse :\nVoir {{classesCommandMention}}\n\nGloire et Ligue :\n✨ Gloire | Voir {{topGloryCommandMention}}\n\nGuilde :\n🏟️ Guilde\n\nDestination :\nVoir {{mapCommandMention}}\n\nFamilier :\nVoir {{petCommandMention}}\n\n💡-Les badges sont affichés sur votre profil sous forme de réaction."
       },
       "SWITCH": {
-        "description": ""
+        "description": "Échange l'item qui se trouve dans votre réserve avec l'item qui se trouve dans la case \"item\" de votre inventaire."
       },
       "FIGHT": {
-        "description": "",
-        "image": ""
+        "description": "Utilisez cette commande pour défier les autres joueurs qui se trouvent sur le même serveur que vous.\nLes combats se déroulent tour par tour. À chaque tour, vous pouvez choisir une action à effectuer.\n\nPour plus d'informations vous pouvez aller voir la page du guide : https://guide.draftbot.com/notions-principale/combats",
+        "image": "https://draftbot.com/public/ressources/fighthelp/fr/4.5.2.png"
       },
       "HELP": {
-        "description": ""
+        "description": ":expressionless:"
       },
       "LANGUAGE": {
-        "description": ""
+        "description": "Change la langue utilisée par le bot pour l'anglais. Utilisable si vous êtes administrateur sur un serveur."
       },
       "TOP": {
-        "description": ""
+        "description": "Affiche le classement général du jeu par tranche de 15 joueurs. Les joueurs dans le même serveur que vous sont marqués par une pastille bleue."
       },
       "GLORY_TOP": {
-        "description": ""
+        "description": "Affiche le classement glorieux du jeu par tranche de 15 joueurs. La ligue des joueurs est également affichée. Les joueurs dans le même serveur que vous sont marqués par une pastille bleue."
       },
       "GUILD_TOP": {
-        "description": ""
+        "description": "Affiche le classement des guildes par tranche de 15 guildes. Les guildes sont classées en fonctions des points récoltés sur les îles mystérieuses."
       },
       "INVENTORY": {
-        "description": ""
+        "description": "Affiche le contenu de votre inventaire qui peut contenir 4 types d'objets :\n```\n-armes\n-armures\n-potions\n-items\n```\nLa commande affiche également le contenu de la réserve qui dispose de stockage supplémentaire."
       },
       "REPORT": {
-        "description": ""
+        "description": "Permet de collecter les informations et les ressources collectées par votre personnage durant votre absence. De temps en temps, des évènements se déclenchent et demandent des actions particulières."
       },
       "SELL": {
-        "description": ""
+        "description": "Permet de vendre l'objet qui se trouve dans votre réserve, la valeur de l'objet est déterminée en fonction de sa puissance. Les potions n'ont pas de valeur de revente, mais peuvent être jetées grace à cette commande."
       },
       "DAILY_BONUS": {
-        "description": ""
+        "description": "Certains items vous donnent un bonus journalier. Utilisez cette commande pour récupérer ces bonus. Pour savoir si un item vous donne un bonus journalier, effectuez la commande {command:inventory}."
       },
       "INVITE_DRAFTBOT": {
-        "description": ""
+        "description": "Cette commande vous permet d'obtenir un lien permettant de rejoindre le serveur d'aide !"
       },
       "BADGES": {
-        "description": ""
+        "description": "I badge sono distinzione difficile a ottenere che sono state create per ricompensare le persone che hanno il più sostenuti il sviluppo del bot. La lista dei badge e disponibile sulla guida del bot.\n(link : https://guide.draftbot.com/notions-avancees/badges)"
       },
       "DRINK": {
-        "description": ""
+        "description": "Cette commande permet de consommer la potion que vous transportez. Certaines potions ne peuvent pas être bues et sont consommées automatiquement lors d'un combat."
       },
       "SHOP": {
-        "description": ""
+        "description": "Cette commande permet de dépenser votre argent pour faciliter votre aventure. En plus des 4 choix de base qui seront disponible de façon permanente, vous pourrez, chaque jour, profiter d'une potion exclusive, disponible à la vente durant 24 heures uniquement."
       },
       "GUILD_CREATE": {
-        "description": ""
+        "description": "Permet de créer une guilde. Créer une guilde coûte 5000 :moneybag:."
       },
       "GUILD_LEAVE": {
-        "description": ""
+        "description": "Permet de quitter votre guilde."
       },
       "GUILD": {
-        "description": ""
+        "description": "Permet d'afficher les informations sur une guilde."
       },
       "GUILD_DAILY_BONUS": {
-        "description": ""
+        "description": "Permet de récupérer des récompenses quotidiennes de guilde."
       },
       "GUILD_KICK": {
-        "description": ""
+        "description": "Permet d'expulser un membre d'une guilde, nécessite d'être chef de guilde."
       },
       "GUILD_INVITE": {
-        "description": ""
+        "description": "Permet d'ajouter un utilisateur à une guilde, nécessite d'être chef ou aîné de guilde."
       },
       "GUILD_DESCRIPTION": {
-        "description": ""
+        "description": "Permet de modifier la description de la guilde, nécessite d'être chef de guilde."
       },
       "GUILD_ELDER": {
-        "description": ""
+        "description": "Permet d'ajouter un aîné à la guilde, nécessite d'être chef de guilde."
       },
       "GUILD_ELDER_REMOVE": {
-        "description": ""
+        "description": "Permet de supprimer l'aîné de la guilde, nécessite d'être chef de guilde."
       },
       "GUILD_STORAGE": {
-        "description": ""
+        "description": "Affiche le contenu de l'entrepôt de la guilde."
       },
       "GUILD_SHOP": {
-        "description": ""
+        "description": "Affiche le magasin de votre guilde."
       },
       "UPDATE": {
-        "description": ""
+        "description": "Permet de visionner le changelog."
       },
       "CLASSES": {
-        "description": ""
+        "description": "Permet de changer de classe. Plus d'informations sur les classes sont disponibles sur le guide du joueur : https://guide.draftbot.com"
       },
       "PET": {
-        "description": ""
+        "description": "Affiche les informations relatives à votre familier."
       },
       "PET_TRANSFER": {
-        "description": ""
+        "description": "Permet de transférer un familier depuis ou vers la guilde. Si aucun numéro n'est fourni, le familier de votre inventaire sera déplacé vers le refuge de la guilde. Sinon, il sera échangé avec celui de la guilde dont la position correspond au numéro donné."
       },
       "PET_NICKNAME": {
-        "description": ""
+        "description": "Change le surnom de votre familier. Si aucun nom n'est fourni, le nom actuel sera effacé."
       },
       "PET_FREE": {
-        "description": ""
+        "description": "Libère votre familier. Attention, une fois libéré, il sera effacé à tout jamais et donc impossible de le récupérer. Cette commande ne peut être effectuée qu'une fois par heure."
       },
       "GUILD_SHELTER": {
-        "description": ""
+        "description": "Affiche le refuge d'animaux de la guilde."
       },
       "PET_TRADE": {
-        "description": ""
+        "description": "Propose un échange de vos animaux avec la personne mentionnée."
       },
       "PET_FEED": {
-        "description": ""
+        "description": "Donner de la nourriture à votre familier."
       },
       "PET_SELL": {
-        "description": ""
+        "description": "Permet de vendre un familier. Les conditions suivantes s'appliquent : \n - le prix de vente doit être être supérieur à `{{petSellMinPrice}}💰` et inférieur à `{{petSellMaxPrice}}💰`. \n- Le vendeur ne gagnera pas d'argent lors de la transaction, mais de l'expérience de guilde. \n- Le vendeur et l'acheteur ne peuvent pas faire partie de la même guilde."
       },
       "CLASSES_INFO": {
-        "description": ""
+        "description": "Permet de lire une comparaison rapide des statistiques et des informations des classes qui sont accessible à l'utilisateur effectuant la commande."
       },
       "RARITY": {
-        "description": ""
+        "description": "Permet de voir la probabilité d'avoir un item selon sa rareté."
       },
       "VOTE": {
-        "description": ""
+        "description": "Permet d'obtenir le lien pour voter pour le bot."
       },
       "IDEA": {
-        "description": ""
+        "description": "Permet d'obtenir un lien afin de suggérer une idée ou alors de voter pour celles déjà existantes."
       },
       "NOTIFICATIONS": {
-        "description": ""
+        "description": "Permet d'activer ou de désactiver les notifications du bot."
       },
       "UNLOCK": {
-        "description": ""
+        "description": "Permet de payer une caution pour libérer quelqu'un de prison."
       },
       "MAP": {
-        "description": ""
+        "description": "Affiche des informations sur votre destination, ainsi que la carte."
       },
       "MISSIONS": {
-        "description": ""
+        "description": "Affiche la liste des missions qui vous sont proposées."
       },
       "MISSIONS_SHOP": {
-        "description": ""
+        "description": "Affiche le magasin des missions."
       },
       "LEAGUE_BONUS": {
-        "description": ""
+        "description": "Permet d'obtenir une récompense de ligue chaque dimanche."
       },
       "JOIN_BOAT": {
-        "description": ""
+        "description": "Permet de rejoindre un membre de la guilde dans un bateau allant sur une île mystérieuse."
       }
     },
-    "helpEmbedTitle": ""
+    "helpEmbedTitle": "{{pseudo}}, voici la liste des commandes disponibles :"
   }
 }

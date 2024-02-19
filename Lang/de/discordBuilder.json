@@ -3,6 +3,10 @@
     "description": "Affiche des informations sur les badges et leur fonctionnement.",
     "name": "badges"
   },
+  "idea": {
+    "description": "Envoyer une suggestion pour améliorer le jeu.",
+    "name": "suggestion"
+  },
   "inventory": {
     "description": "Affiche l'inventaire du joueur.",
     "name": "inventaire",
@@ -54,12 +58,12 @@
     "name": "nouveautes"
   },
   "help": {
-    "description": "",
-    "name": "",
+    "description": "Affiche la liste des commandes disponibles ou les informations détaillées sur une commande.",
+    "name": "aide",
     "options": {
       "commandName": {
-        "description": "",
-        "name": ""
+        "description": "La commande dont les informations doivent être affichées.",
+        "name": "commande"
       }
     }
   }
