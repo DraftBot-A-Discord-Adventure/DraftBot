@@ -128,6 +128,37 @@
     "description": "The latest version of the bot's core is **{{coreVersion}}**. The Discord module's version is **{{discordModuleVersion}}**.\n\nInformations about the changelog can be found here:\nhttps://guide.draftbot.com/v/en/lore/change-logs",
     "title": ":scroll: Changelog"
   },
+  "language": {
+    "selectLanguage": "Select a new language",
+    "description": "Use the menu below to change the language used by the bot on this discord server. This command can only be used by server administrators.",
+    "title": ":earth_africa: Language selection",
+    "languages": {
+      "en": {
+        "emoji": "🇬🇧",
+        "name": "English"
+      },
+      "fr": {
+        "emoji": "🇫🇷",
+        "name": "French"
+      },
+      "es": {
+        "emoji": "🇪🇸",
+        "name": "spanish"
+      },
+      "de": {
+        "emoji": "🇩🇪",
+        "name": "German"
+      },
+      "pt": {
+        "emoji": "🇵🇹",
+        "name": "Portuguese"
+      },
+      "it": {
+        "emoji": "🇮🇹",
+        "name": "Italian"
+      }
+    }
+  },
   "help": {
     "aliasFieldTitle": "Alias",
     "helpEmbedDescription": ":arrow_forward: If you want more information about a specific command click here: {{helpCommandMention}}, and complete the parameter with a command. :wink:",

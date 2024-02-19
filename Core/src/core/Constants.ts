@@ -235,11 +235,6 @@ export abstract class Constants {
 		]
 	};
 
-	static readonly LANGUAGE = {
-		FRENCH: "fr",
-		ENGLISH: "en"
-	};
-
 	static readonly PET_FOOD = {
 		COMMON_FOOD: "commonFood",
 		CARNIVOROUS_FOOD: "carnivorousFood",
