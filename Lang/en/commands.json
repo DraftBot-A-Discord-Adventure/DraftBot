@@ -136,7 +136,7 @@
         "description": "Lets you continue to play after you've been knocked out."
       },
       "PROFILE": {
-        "description": "Displays information about your character:\n\n😃 Health status | Pseudo | Level\n\n឵឵឵Information:\n❤️ Life | ⭐ XP | 💰 Money\n\nStatistics:\n⚡ Energy | 🗡️ Attack | 🛡️ Defense | 🚀 Speed | 🌬️ Breath | 🫁 Recovery\n\nMissions:\n💎 Gems | 📖 Campaign progress %\n\nRanking and score:\n🏆 Ranking | 🏅 Score\n\nClass:\nSee {command:classes}\n\nGlory and League:\n✨ Glory | See {command:top glory}\n\nGuild:\n🏟️ Guild\n\nDestination:\nSee {command:map}\n\nPet:\nSee {command:pet}\n\n💡-Badges are displayed on your profile as reaction(s)."
+        "description": ""
       },
       "SWITCH": {
         "description": "Switches the item currently in use with the one in your inventory."
@@ -167,7 +167,7 @@
         "description": "Lets you obtain the resources and intel your character got during your absence.\nFrom time to time, events will be triggered and will necessitate special actions or choices."
       },
       "SELL": {
-        "description": "Lets you sell the item currently in your reserve. The value of the item is set to be equal to its power, it can be 0 if the item is not very good :wink:."
+        "description": ""
       },
       "DAILY_BONUS": {
         "description": "Some items give you bonuses daily. Use this command to obtain said bonuses. You can learn whether or not an item gives you a bonus by using the command {command:inventory}."
@@ -245,7 +245,7 @@
         "description": "Give some food to your pet."
       },
       "PET_SELL": {
-        "description": "Allows to sell a pet. The following conditions apply: \n - The selling price must be higher than `{{option1}}💰` and lower than `{{option2}}💰`. \n- The seller will not earn money for the transaction, but guild experience. \n- The seller and the buyer cannot be part of the same guild."
+        "description": "Allows to sell a pet. The following conditions apply: \n - The selling price must be higher than `{{petSellMinPrice}}💰` and lower than `{{petSellMaxPrice}}💰`. \n- The seller will not earn money for the transaction, but guild experience. \n- The seller and the buyer cannot be part of the same guild."
       },
       "CLASSES_INFO": {
         "description": "Read a quick comparison of the statistics between all the classes you can have."
@@ -259,7 +259,7 @@
       "IDEA": {
         "description": "Give a link to submit suggestions and vote for those already submitted."
       },
-      "DM_NOTIFICATIONS": {
+      "NOTIFICATIONS": {
         "description": "Allows to enable or disable private messages from the bot."
       },
       "UNLOCK": {

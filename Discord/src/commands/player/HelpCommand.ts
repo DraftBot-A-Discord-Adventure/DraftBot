@@ -22,7 +22,9 @@ function getListOfMentionFromCommandData(commandData: [string, {
 	NAME: string,
 	CATEGORY: string
 }], language: Language): string {
-	return BotUtils.commandsMentions.get(commandData[1].NAME) ? BotUtils.commandsMentions.get(commandData[1].NAME)! : i18n.t("error:commandDoesntExist", {lng: language});
+	const commandName = commandData[1].NAME;
+	const commandMention = BotUtils.commandsMentions.get(commandName);
+	return commandMention ? commandMention : i18n.t("error:commandDoesntExist", {lng: language});
 }
 
 /**
@@ -133,12 +135,48 @@ function generateGenericHelpMessage(helpMessage: DraftBotEmbed, interaction: Dra
  */
 function getCommandAliasMap(): Map<string, string> {
 	const helpAlias: Map<string, string> = new Map<string, string>();
-	Object.entries(HelpConstants.ACCEPTED_SEARCH_WORDS).forEach(function(commands) {
+	Object.entries(HelpConstants.ACCEPTED_SEARCH_WORDS).forEach((commands) => {
 		for (const alias of commands[1]) {
 			helpAlias.set(alias, commands[0]);
 		}
 	});
 	return helpAlias;
+}
+
+/**
+ * The help command has different replacements items for subcommands help messages. This method will generate the replacements object for the help command
+ * @param interaction
+ */
+function generateReplacementObjectForHelpCommand(interaction: DraftbotInteraction): {
+	lng: string;
+	petSellMinPrice: number;
+	petSellMaxPrice: number;
+	classesCommandMention: string;
+	topGloryCommandMention: string;
+	mapCommandMention: string;
+	petCommandMention: string;
+	interpolation: { escapeValue: boolean };
+} {
+	const petSellMinPrice = PetConstants.SELL_PRICE.MIN;
+	const petSellMaxPrice = PetConstants.SELL_PRICE.MAX;
+	const classesCommandMention = BotUtils.commandsMentions.get("classes");
+	const topGloryCommandMention = BotUtils.commandsMentions.get("top guilds");
+	const mapCommandMention = BotUtils.commandsMentions.get("map");
+	const petCommandMention = BotUtils.commandsMentions.get("pet");
+	const classesCommandMentionString = classesCommandMention ? classesCommandMention : i18n.t("error:commandDoesntExist", {lng: interaction.channel.language});
+	const topGloryCommandMentionString = topGloryCommandMention ? topGloryCommandMention : i18n.t("error:commandDoesntExist", {lng: interaction.channel.language});
+	const mapCommandMentionString = mapCommandMention ? mapCommandMention : i18n.t("error:commandDoesntExist", {lng: interaction.channel.language});
+	const petCommandMentionString = petCommandMention ? petCommandMention : i18n.t("error:commandDoesntExist", {lng: interaction.channel.language});
+	return {
+		lng: interaction.channel.language,
+		petSellMinPrice,
+		petSellMaxPrice,
+		classesCommandMention: classesCommandMentionString,
+		topGloryCommandMention: topGloryCommandMentionString,
+		mapCommandMention: mapCommandMentionString,
+		petCommandMention: petCommandMentionString,
+		interpolation: {escapeValue: false}
+	};
 }
 
 /**
@@ -158,7 +196,6 @@ async function getPacket(interaction: DraftbotInteraction): Promise<CommandHelpP
 	else {
 		const helpAlias = getCommandAliasMap();
 		const command = helpAlias.get(askedCommand.toLowerCase().replace(" ", ""));
-		let option1, option2;
 		if (!command) {
 			generateGenericHelpMessage(helpMessage, interaction);
 			await interaction.reply({
@@ -167,20 +204,16 @@ async function getPacket(interaction: DraftbotInteraction): Promise<CommandHelpP
 			return packet;
 		}
 
-		if (command === "PET_SELL") {
-			option1 = PetConstants.SELL_PRICE.MIN;
-			option2 = PetConstants.SELL_PRICE.MAX;
-		}
+		const commandMention = BotUtils.commandsMentions.get(HelpConstants.COMMANDS_DATA[command as keyof typeof HelpConstants.COMMANDS_DATA].NAME);
+		const commandMentionString: string = commandMention ? commandMention : i18n.t("error:commandDoesntExist", {lng: interaction.channel.language});
+		const replacements = generateReplacementObjectForHelpCommand(interaction);
+
 
 		if (command === "FIGHT") {
 			helpMessage.setImage(i18n.t("commands:help.commands.FIGHT.image", {lng: interaction.channel.language}));
 		}
 
-		helpMessage.setDescription(i18n.t(`commands:help.commands.${command}.description`, {
-			lng: interaction.channel.language,
-			option1,
-			option2
-		}))
+		helpMessage.setDescription(i18n.t(`commands:help.commands.${command}.description`, replacements))
 			.setTitle(
 				i18n.t("commands:help.commandEmbedTitle", {
 					lng: interaction.channel.language,
@@ -189,7 +222,7 @@ async function getPacket(interaction: DraftbotInteraction): Promise<CommandHelpP
 			);
 		helpMessage.addFields({
 			name: i18n.t("commands:help.usageFieldTitle", {lng: interaction.channel.language}),
-			value: BotUtils.commandsMentions.get(HelpConstants.COMMANDS_DATA[command as keyof typeof HelpConstants.COMMANDS_DATA].NAME)!,
+			value: commandMentionString,
 			inline: true
 		});
 		await interaction.reply({
