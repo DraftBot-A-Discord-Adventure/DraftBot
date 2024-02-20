@@ -11,10 +11,6 @@
     "description": "Share with us your idea to improve the game.",
     "name": "idea"
   },
-  "vote": {
-    "description": "Displays the link to vote for the bot.",
-    "name": "vote"
-  },
   "inventory": {
     "description": "Displays the player's inventory.",
     "name": "inventory",
