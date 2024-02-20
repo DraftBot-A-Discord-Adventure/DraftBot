@@ -189,8 +189,8 @@ function generateFields(packet: CommandProfilePacketRes, language: Language): Em
 			name: i18n.t("commands:profile.map.fieldName", {lng: language}),
 			value: i18n.t("commands:profile.map.fieldValue", {
 				lng: language,
-				mapEmote: packet.data.destination.emote,
-				mapName: i18n.t(`models:map_locations.${packet.data.destination.id}.name`, { lng: language })
+				mapEmote: "TODO EMOTE", // todo
+				mapName: i18n.t(`models:map_locations.${packet.data.destination}.name`, { lng: language })
 			}),
 			inline: false
 		});
@@ -201,7 +201,7 @@ function generateFields(packet: CommandProfilePacketRes, language: Language): Em
 			name: i18n.t("commands:profile.pet.fieldName", {lng: language}),
 			value: i18n.t("commands:profile.pet.fieldValue", {
 				lng: language,
-				emote: packet.data.pet.emote,
+				emote: "TODO EMOTE", // todo
 				rarity: packet.data.pet.rarity,
 				nickname: packet.data.pet.nickname ?? i18n.t(`models:pets.${packet.data.pet.id}`, { lng: language })
 			}),

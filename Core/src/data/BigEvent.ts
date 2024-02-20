@@ -63,7 +63,7 @@ export class BigEventDataController extends DataControllerNumber<BigEvent> {
 
 		let mapEvents: BigEvent[];
 		if (!this.mapEvents.has(mapId)) {
-			mapEvents = this.getValuesArray().filter((event) => event.triggers?.filter((trigger) => trigger.mapId === mapId));
+			mapEvents = this.getValuesArray().filter((event) => event.triggers?.filter((trigger) => trigger.mapId === mapId).length !== 0);
 			this.mapEvents.set(mapId, mapEvents);
 		}
 		else {

@@ -11,7 +11,7 @@ import {CommandInventoryPacketRes} from "../../../../Lib/src/packets/commands/Co
 import {handleCommandInventoryPacketRes} from "../../commands/player/InventoryCommand";
 import {handleCommandUpdatePacketRes} from "../../commands/player/UpdateCommand";
 import { CommandUpdatePacketRes } from "../../../../Lib/src/packets/commands/CommandUpdatePacket";
-import {CommandTestPacketReq, CommandTestPacketRes} from "../../../../Lib/src/packets/commands/CommandTestPacket";
+import {CommandTestPacketRes} from "../../../../Lib/src/packets/commands/CommandTestPacket";
 import {handleCommandTestPacketRes} from "../../commands/player/TestCommand";
 import {CommandRarityPacketRes} from "../../../../Lib/src/packets/commands/CommandRarityPacket";
 import {handleCommandRarityPacketRes} from "../../commands/player/RarityCommand";

@@ -246,5 +246,6 @@ export class DraftBot {
 		await registerAllPacketHandlers();
 		await this.gameDatabase.init();
 		await this.logsDatabase.init();
+		await MapCache.init();
 	}
 }

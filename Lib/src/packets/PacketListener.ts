@@ -31,8 +31,8 @@ export class PacketListenerClient {
 		this.packetCallbacks.set(instance.constructor.name, callback);
 	}
 
-	public getListener(packet: string): PacketListenerCallbackClient<DraftBotPacket> {
-		return this.packetCallbacks.get(packet)!;
+	public getListener(packet: string): PacketListenerCallbackClient<DraftBotPacket> | undefined {
+		return this.packetCallbacks.get(packet);
 	}
 }
 
