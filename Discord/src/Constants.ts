@@ -1,5 +1,3 @@
-import {Language} from "../../Lib/src/Language";
-
 export class Constants {
 	static readonly VERSION = import("../package.json").then(json => json.version);
 

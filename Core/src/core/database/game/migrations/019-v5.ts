@@ -7,8 +7,8 @@ import {parse} from "toml";
 import {readFileSync} from "fs";
 import {KeycloakUtils} from "../../../../../../Lib/src/keycloak/KeycloakUtils";
 import {KeycloakConfig} from "../../../../../../Lib/src/keycloak/KeycloakConfig";
-import {Constants} from "../../../Constants";
 import {logsV5NewIds} from "../../logs/migrations/006-v5";
+import {StringConstants} from "../../../../../../Lib/src/constants/StringConstants";
 
 export async function up({context}: { context: QueryInterface }): Promise<void> {
 	const configPath = `${process.cwd()}/config/keycloak.toml`;
@@ -29,7 +29,7 @@ clientSecret = "secret"
 
 	for (let i = 0; i < players.length; ++i) {
 		const player = players[i];
-		const user = await KeycloakUtils.getOrRegisterDiscordUser(config.keycloak, player.discordUserId as string, player.discordUserId as string, Constants.LANGUAGE.ENGLISH);
+		const user = await KeycloakUtils.getOrRegisterDiscordUser(config.keycloak, player.discordUserId as string, player.discordUserId as string, StringConstants.LANGUAGE.ENGLISH);
 		await context.sequelize.query(`UPDATE players SET discordUserId = "${user.id}" WHERE discordUserId = "${player.discordUserId}"`);
 		logsV5NewIds.set(player.discordUserId as string, user.id);
 	}

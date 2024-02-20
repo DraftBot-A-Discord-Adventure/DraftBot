@@ -5,6 +5,9 @@ import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
 import i18n from "../../translations/i18n";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import { StringConstants } from "../../../../Lib/src/constants/StringConstants";
+import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
+import {PermissionsConstants} from "../../constants/PermissionsConstants";
+
 /**
  * Allow an admin to change the prefix the bot uses in a specific server
  */
@@ -40,6 +43,8 @@ async function getPacket(interaction: DraftbotInteraction): Promise<null> {
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("language"),
 	getPacket,
-	requirements: {},
+	requirements: {
+		userPermission: PermissionsConstants.ROLES.USER.ADMINISTRATOR
+	},
 	mainGuildCommand: false
 };
