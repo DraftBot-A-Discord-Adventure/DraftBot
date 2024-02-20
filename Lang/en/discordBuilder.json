@@ -11,10 +11,6 @@
     "description": "Share with us your idea to improve the game.",
     "name": "idea"
   },
-  "vote": {
-    "description": "Displays the link to vote for the bot.",
-    "name": "vote"
-  },
   "inventory": {
     "description": "Displays the player's inventory.",
     "name": "inventory",
@@ -28,6 +24,10 @@
         "name": "user"
       }
     }
+  },
+  "invite": {
+    "description": "Add the bot on your server.",
+    "name": "invitedraftbot"
   },
   "ping": {
     "description": "Displays the ping of the bot and allow the player to check if the bot is online.",
