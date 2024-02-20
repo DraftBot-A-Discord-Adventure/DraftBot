@@ -3,6 +3,10 @@
     "description": "Affiche des informations sur les badges et leur fonctionnement.",
     "name": "badges"
   },
+  "vote": {
+    "description": "Afficher le lien permettant de voter pour le bot.",
+    "name": "vote"
+  },
   "idea": {
     "description": "Envoyer une suggestion pour améliorer le jeu.",
     "name": "suggestion"
