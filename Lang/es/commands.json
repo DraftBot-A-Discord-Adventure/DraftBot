@@ -7,6 +7,10 @@
     "description": "Puede hacer sugerencias y votar sus ideas favoritas a través de este enlace:\nhttps://feedback.draftbot.com/",
     "title": ":bulb: Ideas"
   },
+  "vote": {
+    "description": "Voici le lien permettant de soutenir le bot :\nhttps://top.gg/bot/448110812801007618",
+    "title": ":ballot_box: Voter"
+  },
   "inventory": {
     "armors_one": "Armadura/Escudo ({{count}}/{{max}}) :",
     "armors_other": "Armaduras / Escudos ({{count}}/{{max}}) :",
