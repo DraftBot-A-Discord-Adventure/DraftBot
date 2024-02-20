@@ -8,8 +8,8 @@
     "title": ":bulb: Ideas"
   },
   "vote": {
-    "description": "Voici le lien permettant de soutenir le bot :\nhttps://top.gg/bot/448110812801007618",
-    "title": ":ballot_box: Voter"
+    "description": "Here is the link to support the bot:\nhttps://top.gg/bot/448110812801007618",
+    "title": ":ballot_box: Vote"
   },
   "inventory": {
     "armors_one": "Armor/Shield ({{count}}/{{max}}):",
