@@ -439,15 +439,15 @@ export class LogsDatabase extends Database {
 	 * @param keycloakId
 	 * @param eventId
 	 * @param possibilityEmote
-	 * @param issueIndex
+	 * @param outcome
 	 */
-	public async logBigEvent(keycloakId: string, eventId: number, possibilityEmote: string, issueIndex: number): Promise<void> {
+	public async logBigEvent(keycloakId: string, eventId: number, possibilityEmote: string, outcome: string): Promise<void> {
 		const player = await LogsDatabase.findOrCreatePlayer(keycloakId);
 		const [possibility] = await LogsPossibilities.findOrCreate({
 			where: {
 				bigEventId: eventId,
 				emote: possibilityEmote === "end" ? null : possibilityEmote,
-				issueIndex
+				issueIndex: parseInt(outcome)
 			}
 		});
 		await LogsPlayersPossibilities.create({

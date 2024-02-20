@@ -11,6 +11,8 @@ import * as enItems from "../../../Lang/en/items.json";
 import * as frItems from "../../../Lang/fr/items.json";
 import * as enModels from "../../../Lang/en/models.json";
 import * as frModels from "../../../Lang/fr/models.json";
+import * as enEvents from "../../../Lang/en/events.json";
+import * as frEvents from "../../../Lang/fr/events.json";
 
 // Todo load automatically modules
 
@@ -23,7 +25,8 @@ i18next.init({
 			discordBuilder: enDiscordBuilder,
 			error: enError,
 			items: enItems,
-			models: enModels
+			models: enModels,
+			events: enEvents
 		},
 		fr: {
 			bot: frBot,
@@ -31,7 +34,8 @@ i18next.init({
 			discordBuilder: frDiscordBuilder,
 			error: frError,
 			items: frItems,
-			models: frModels
+			models: frModels,
+			events: frEvents
 		}
 	}
 }).then();

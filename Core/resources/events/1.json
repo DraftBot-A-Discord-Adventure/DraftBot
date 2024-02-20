@@ -1,0 +1,28 @@
+{
+  "triggers": [
+    {
+      "mapId": 4
+    }
+  ],
+  "possibilities": {
+    "cutTree": {
+      "0": {
+        "lostTime": 30,
+        "effect": ":clock2:"
+      }
+    },
+    "otherWay":  {
+      "0": {
+        "lostTime": 30,
+        "health": -5,
+        "effect": ":clock2:"
+      }
+    },
+    "end": {
+      "0": {
+        "lostTime": 100,
+        "effect": ":clock2:"
+      }
+    }
+  }
+}

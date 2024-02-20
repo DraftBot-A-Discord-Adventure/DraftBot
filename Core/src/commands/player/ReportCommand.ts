@@ -2,6 +2,7 @@ import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/pac
 import {packetHandler} from "../../core/packetHandlers/PacketHandler";
 import {WebsocketClient} from "../../../../Lib/src/instances/WebsocketClient";
 import {
+	CommandReportBigEventResultRes,
 	CommandReportChooseDestinationRes,
 	CommandReportErrorNoMonsterRes,
 	CommandReportMonsterRewardRes,
@@ -13,7 +14,7 @@ import {EffectsConstants} from "../../../../Lib/src/constants/EffectsConstants";
 import {Maps} from "../../core/maps/Maps";
 import {MapLink, MapLinkDataController} from "../../data/MapLink";
 import {Constants} from "../../core/Constants";
-import {getTimeFromXHoursAgo, millisecondsToSeconds} from "../../../../Lib/src/utils/TimeUtils";
+import {getTimeFromXHoursAgo, millisecondsToMinutes, millisecondsToSeconds} from "../../../../Lib/src/utils/TimeUtils";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {BlockingConstants} from "../../core/constants/BlockingConstants";
 import {MissionsController} from "../../core/missions/MissionsController";
@@ -36,6 +37,11 @@ import {ReactionCollectorChooseDestination, ReactionCollectorChooseDestinationRe
 import {MapCache} from "../../core/maps/MapCache";
 import {TravelTime} from "../../core/maps/TravelTime";
 import {SmallEventDataController, SmallEventFuncs} from "../../data/SmallEvent";
+import {ReportConstants} from "../../core/constants/ReportConstants";
+import {BigEvent, BigEventDataController} from "../../data/BigEvent";
+import {ReactionCollectorBigEvent, ReactionCollectorBigEventPossibilityReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorBigEvent";
+import {Possibility} from "../../data/events/Possibility";
+import {applyPossibilityOutcome} from "../../data/events/PossibilityOutcome";
 
 export default class ReportCommand {
 	@packetHandler(CommandReportPacketReq)
@@ -71,14 +77,14 @@ export default class ReportCommand {
 				await doPVEBoss(player, response, context);
 			}
 			else {
-				await doRandomBigEvent(interaction, language, player, forceSpecificEvent);
+				await doRandomBigEvent(context, response, player, forceSpecificEvent);
 			}
 			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.REPORT_COMMAND);
 			return;
 		}
 
 		if (forceSmallEvent || await needSmallEvent(player, currentDate)) {
-			await executeSmallEvent(player, response, forceSmallEvent);
+			await executeSmallEvent(context, player, response, forceSmallEvent);
 			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.REPORT_COMMAND);
 			return;
 		}
@@ -114,6 +120,184 @@ async function initiateNewPlayerOnTheAdventure(player: Player): Promise<void> {
 	await Maps.startTravel(player, MapLinkDataController.instance.getById(Constants.BEGINNING.START_MAP_LINK),
 		getTimeFromXHoursAgo(Constants.REPORT.HOURS_USED_TO_CALCULATE_FIRST_REPORT_REWARD).valueOf());
 	await player.save();
+}
+
+/**
+ * Check all missions to check when you execute a big event
+ * @param player
+ * @param response
+ */
+async function completeMissionsBigEvent(player: Player, response: DraftBotPacket[]): Promise<void> {
+	await MissionsController.update(player, response, {
+		missionId: "travelHours", params: {
+			travelTime: player.getCurrentTripDuration()
+		}
+	});
+	const endMapId = MapLinkDataController.instance.getById(player.mapLinkId).endMap;
+	await MissionsController.update(player, response, {
+		missionId: "goToPlace",
+		params: {mapId: endMapId}
+	});
+	await MissionsController.update(player, response, {
+		missionId: "exploreDifferentPlaces",
+		params: {placeId: endMapId}
+	});
+	await MissionsController.update(player, response, {
+		missionId: "fromPlaceToPlace",
+		params: {mapId: endMapId}
+	});
+}
+
+/**
+ * @param {BigEvent} event
+ * @param {Possibility} possibility
+ * @param {Player} player
+ * @param {Number} time
+ * @param context
+ * @param response
+ */
+async function doPossibility(
+	event: BigEvent,
+	possibility: [string, Possibility],
+	player: Player,
+	time: number,
+	context: PacketContext,
+	response: DraftBotPacket[]
+): Promise<void> {
+	[player] = await Players.getOrRegister(player.keycloakId);
+	player.nextEvent = null;
+
+	if (event.id === 0 && possibility[0] === "end") { // Don't do anything if the player ends the first report
+		draftBotInstance.logsDatabase.logBigEvent(player.keycloakId, event.id, possibility[0], "0").then();
+		response.push(makePacket(CommandReportBigEventResultRes, {
+			eventId: event.id,
+			possibilityId: possibility[0],
+			outcomeId: "0",
+			oneshot: false,
+			money: 0,
+			energy: 0,
+			gems: 0,
+			experience: 0,
+			health: 0,
+			score: 0
+		}));
+		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.REPORT);
+		return;
+	}
+
+	const randomOutcome = RandomUtils.draftbotRandom.pick(Object.entries(possibility[1].outcomes));
+
+	draftBotInstance.logsDatabase.logBigEvent(player.keycloakId, event.id, possibility[0], randomOutcome[0]).then();
+
+	const newMapLink = await applyPossibilityOutcome(event.id, possibility[0], randomOutcome, player, time, context, response);
+
+	if (!await player.killIfNeeded(response, NumberChangeReason.BIG_EVENT) && newMapLink) {
+		await chooseDestination(context, player, newMapLink, response);
+	}
+
+	await MissionsController.update(player, response, {missionId: "doReports"});
+
+	const tagsToVerify = (randomOutcome[1].tags ?? [])
+		.concat(possibility[1].tags ?? [])
+		.concat(event.tags ?? []);
+	if (tagsToVerify) {
+		for (const tag of tagsToVerify) {
+			await MissionsController.update(player, response, {
+				missionId: tag,
+				params: {tags: tagsToVerify}
+			});
+		}
+	}
+
+	await player.save();
+	BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.REPORT);
+}
+
+/**
+ * @param {BigEvent} event
+ * @param {Player} player
+ * @param {Number} time
+ * @param context
+ * @param response
+ * @return {Promise<void>}
+ */
+async function doEvent(event: BigEvent, player: Player, time: number, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
+	const possibilities = await event.getPossibilities(player);
+
+	const collector = new ReactionCollectorBigEvent(
+		event.id,
+		possibilities.map((possibility) => ({ name: possibility[0] }))
+	);
+
+	const endCallback: EndCallback = async (collector, response) => {
+		const reaction = collector.getFirstReaction();
+
+		if (!reaction) {
+			await doPossibility(event, possibilities.find((possibility) => possibility[0] === "end"), player, time, context, response);
+		}
+		else {
+			const reactionName = (reaction.reaction as ReactionCollectorBigEventPossibilityReaction).name;
+			await doPossibility(event, possibilities.find((possibility) => possibility[0] === reactionName), player, time, context, response);
+		}
+	};
+
+	const packet = new ReactionCollectorInstance(
+		collector,
+		context,
+		{
+			allowedPlayerIds: [player.id],
+			reactionLimit: 1
+		},
+		endCallback
+	)
+		.block(player.id, BlockingConstants.REASONS.REPORT)
+		.build();
+
+	response.push(packet);
+}
+
+/**
+ * Do a random big event
+ * @param context
+ * @param response
+ * @param player
+ * @param forceSpecificEvent
+ */
+async function doRandomBigEvent(
+	context: PacketContext,
+	response: DraftBotPacket[],
+	player: Player,
+	forceSpecificEvent: number
+): Promise<void> {
+	await completeMissionsBigEvent(player, response);
+	const travelData = TravelTime.getTravelDataSimplified(player, new Date());
+	let time = forceSpecificEvent
+		? ReportConstants.TIME_MAXIMAL + 1
+		: millisecondsToMinutes(travelData.playerTravelledTime);
+	if (time > ReportConstants.TIME_LIMIT) {
+		time = ReportConstants.TIME_LIMIT;
+	}
+
+	let event;
+
+	// NextEvent is defined ?
+	if (player.nextEvent) {
+		forceSpecificEvent = player.nextEvent;
+	}
+
+	if (forceSpecificEvent === -1 || !forceSpecificEvent) {
+		const mapId = player.getDestinationId();
+		event = await BigEventDataController.instance.getRandomEvent(mapId, player);
+		if (!event) {
+			console.error({content: "It seems that there is no event here... It's a bug, please report it to the DraftBot staff."});
+			return;
+		}
+	}
+	else {
+		event = BigEventDataController.instance.getById(forceSpecificEvent);
+	}
+	await Maps.stopTravel(player);
+	await doEvent(event, player, time, context, response);
 }
 
 /**
@@ -305,7 +489,7 @@ async function doPVEBoss(
 				EffectsConstants.EMOJI_TEXT.SMILEY,
 				NumberChangeReason.BIG_EVENT
 			);
-			await chooseDestination(player, interaction, language, null);
+			await chooseDestination(context, player, null, response);
 		}
 	};
 
@@ -377,11 +561,12 @@ async function doPVEBoss(
 
 /**
  * Executes a small event
+ * @param context
  * @param player
  * @param response
  * @param forced
  */
-async function executeSmallEvent(player: Player, response:DraftBotPacket[], forced: string): Promise<void> {
+async function executeSmallEvent(context: PacketContext, player: Player, response:DraftBotPacket[], forced: string): Promise<void> {
 	// Pick random event
 	let event: string;
 	if (forced === null) {
@@ -420,7 +605,7 @@ async function executeSmallEvent(player: Player, response:DraftBotPacket[], forc
 		try {
 			const smallEvent: SmallEventFuncs = require(smallEventModule).smallEventFuncs;
 			draftBotInstance.logsDatabase.logSmallEvent(player.keycloakId, event).then();
-			await smallEvent.executeSmallEvent(response, player);
+			await smallEvent.executeSmallEvent(context, response, player);
 			await MissionsController.update(player, response, { missionId: "doReports" });
 		}
 		catch (e) {
