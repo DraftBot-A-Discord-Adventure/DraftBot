@@ -42,6 +42,7 @@ import {BigEvent, BigEventDataController} from "../../data/BigEvent";
 import {ReactionCollectorBigEvent, ReactionCollectorBigEventPossibilityReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorBigEvent";
 import {Possibility} from "../../data/events/Possibility";
 import {applyPossibilityOutcome} from "../../data/events/PossibilityOutcome";
+import {ErrorPacket} from "../../../../Lib/src/packets/commands/ErrorPacket";
 
 export default class ReportCommand {
 	@packetHandler(CommandReportPacketReq)
@@ -289,7 +290,7 @@ async function doRandomBigEvent(
 		const mapId = player.getDestinationId();
 		event = await BigEventDataController.instance.getRandomEvent(mapId, player);
 		if (!event) {
-			console.error({content: "It seems that there is no event here... It's a bug, please report it to the DraftBot staff."});
+			response.push(makePacket(ErrorPacket, { message: "It seems that there is no event here... It's a bug, please report it to the DraftBot staff." }));
 			return;
 		}
 	}
@@ -576,7 +577,7 @@ async function executeSmallEvent(context: PacketContext, player: Player, respons
 		for (const key of keys) {
 			const file = await import(`../../core/smallEvents/${key}.js`);
 			if (!file.smallEvent?.canBeExecuted) {
-				console.error(`${key} doesn't contain a canBeExecuted function`);
+				response.push(makePacket(ErrorPacket, { message: `${key} doesn't contain a canBeExecuted function` }));
 				return;
 			}
 			if (await file.smallEvent.canBeExecuted(player)) {
@@ -609,11 +610,11 @@ async function executeSmallEvent(context: PacketContext, player: Player, respons
 			await MissionsController.update(player, response, { missionId: "doReports" });
 		}
 		catch (e) {
-			console.error(e);
+			response.push(makePacket(ErrorPacket, { message: `${e}` }));
 		}
 	}
 	catch (e) {
-		console.error(`${filename} doesn't exist`);
+		response.push(makePacket(ErrorPacket, { message: `${filename} doesn't exist` }));
 	}
 
 	// Save
