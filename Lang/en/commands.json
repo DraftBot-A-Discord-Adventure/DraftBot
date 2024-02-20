@@ -27,6 +27,11 @@
     "seeBackupItems": "🔄 See backup items",
     "seeEquippedItems": "🔄 See equipped items"
   },
+  "invite": {
+    "discord": {
+      "main": "Join the community! Use this link: https://discord.gg/acGNvzEY92 :smiley:"
+    }
+  },
   "ping": {
     "discord": {
       "create": ":ping_pong: Pong",
