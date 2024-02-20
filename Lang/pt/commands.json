@@ -7,6 +7,10 @@
     "description": "Vous pouvez proposer des suggestions et voter pour vos idées préférées via ce lien:\nhttps://feedback.draftbot.com/",
     "title": ":bulb: Idées"
   },
+  "vote": {
+    "description": "Voici le lien permettant de soutenir le bot :\nhttps://top.gg/bot/448110812801007618",
+    "title": ":ballot_box: Voter"
+  },
   "inventory": {
     "armors_one": "Armure/Bouclier ({{count}}/{{max}}) :",
     "armors_other": "Armures/Boucliers ({{count}}/{{max}}) :",

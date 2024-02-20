@@ -3,6 +3,10 @@
     "description": "Muestra información sobre las insignias y su funcionamiento.",
     "name": "insignias"
   },
+  "vote": {
+    "description": "Muestra el enlace para votar por el bot.",
+    "name": "vote"
+  },
   "idea": {
     "description": "Envía una sugerencia para mejorar el juego.",
     "name": "sugerencia"

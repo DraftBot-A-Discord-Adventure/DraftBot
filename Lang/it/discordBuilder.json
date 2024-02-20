@@ -3,9 +3,13 @@
     "description": "Locandina d'informazione sui badge e loro funzionamento.",
     "name": "badge"
   },
+  "vote": {
+    "description": "Visualizzare il link per votare il bot.",
+    "name": "voto"
+  },
   "idea": {
-    "description": "Envoyer une suggestion pour améliorer le jeu.",
-    "name": "suggestion"
+    "description": "Invia un suggerimento per migliorare il gioco.",
+    "name": "suggerimento"
   },
   "inventory": {
     "description": "Mostra l'inventario del giocatore.",
@@ -58,11 +62,11 @@
     "name": "novità"
   },
   "help": {
-    "description": "Affiche la liste des commandes disponibles ou les informations détaillées sur une commande.",
-    "name": "aide",
+    "description": "Visualizza l'elenco dei comandi disponibili o informazioni dettagliate su un comando.",
+    "name": "aiuto",
     "options": {
       "commandName": {
-        "description": "La commande dont les informations doivent être affichées.",
+        "description": "Il comando di cui si deve mostrare le informazioni.",
         "name": "comando"
       }
     }

@@ -7,6 +7,10 @@
     "description": "You can submit suggestions and vote for your favorites via this link:\nhttps://feedback.draftbot.com/",
     "title": ":bulb: Ideas"
   },
+  "vote": {
+    "description": "Here is the link to support the bot:\nhttps://top.gg/bot/448110812801007618",
+    "title": ":ballot_box: Vote"
+  },
   "inventory": {
     "armors_one": "Armor/Shield ({{count}}/{{max}}):",
     "armors_other": "Armors/Shields ({{count}}/{{max}}):",
