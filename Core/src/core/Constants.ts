@@ -54,15 +54,6 @@ export abstract class Constants {
 		ROLE_DURATION: 24
 	};
 
-	static readonly COMMAND_CATEGORY = {
-		SERVER: "server",
-		UTIL: "util",
-		PLAYER: "player",
-		MISSION: "mission",
-		GUILD: "guild",
-		PET: "pet"
-	};
-
 	static readonly XP = {
 		BASE_VALUE: 325,
 		COEFFICIENT: 1.041,
@@ -269,33 +260,8 @@ export abstract class Constants {
 		]
 	};
 
-	static readonly ROLES = {
-		GUILD: {
-			NONE: "none",
-			MEMBER: "member",
-			ELDER: "elder",
-			CHIEF: "chief"
-		},
-		USER: {
-			ADMINISTRATOR: "administrator",
-			BADGE_MANAGER: "manager",
-			CONTRIBUTORS: "contributors",
-			BOT_OWNER: "owner"
-		}
-	};
-
 	static readonly MINIMAL_PLAYER_SCORE = 100;
 
-	static readonly PERMISSION = {
-		ROLE: {
-			BOT_OWNER: "owner", // Is the owner of the bot
-			BADGE_MANAGER: "manager", // Has the badge manager role
-			SUPPORT: "support", // Has the support role
-			ADMINISTRATOR: "administrator", // Has the admin permission in a server where the bot is.
-			CONTRIBUTORS: "contributors",
-			ALL: "all"
-		}
-	};
 
 	static readonly MAX_DAILY_POTION_BUYOUTS: number = 5;
 

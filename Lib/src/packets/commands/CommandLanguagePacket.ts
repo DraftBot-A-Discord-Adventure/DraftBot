@@ -1,7 +1,8 @@
-export class CommandLanguagePacketReq {
+import {DraftBotPacket} from "../DraftBotPacket";
 
+export class CommandLanguagePacketReq extends DraftBotPacket {
 }
 
-export class CommandLanguagePacketRes {
-
+export class CommandLanguagePacketRes extends DraftBotPacket {
+	hasPermission!: boolean;
 }
