@@ -31,16 +31,6 @@ export class CommandReportTravelSummaryRes extends DraftBotPacket {
 	lastSmallEventId?: string;
 }
 
-export class CommandReportBigEventRes extends DraftBotPacket {
-	eventId!: number;
-
-	choices!: number[];
-}
-
-export class CommandReportBigEventResultRes extends DraftBotPacket {
-
-}
-
 export class CommandReportMonsterRewardRes extends DraftBotPacket {
 	money!: number;
 
@@ -63,4 +53,31 @@ export class CommandReportChooseDestinationRes extends DraftBotPacket {
 	mapId!: number;
 
 	tripDuration!: number;
+}
+
+export class CommandReportBigEventResultRes extends DraftBotPacket {
+	eventId!: number;
+
+	possibilityId!: string;
+
+	outcomeId!: string;
+
+	score!: number;
+
+	experience!: number;
+
+	effect?: {
+		name: string,
+		time: number
+	};
+
+	health!: number;
+
+	money!: number;
+
+	energy!: number;
+
+	gems!: number;
+
+	oneshot!: boolean;
 }
