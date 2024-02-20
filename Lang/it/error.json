@@ -4,5 +4,5 @@
   "titleCanceled": "{{pseudo}}, cancellazione presa in conto !",
   "titleDidntWork": "{{pseudo}}, hmmm... Questo non ha funzionato !",
   "interactionNotForYou": "Questa interazione non è per voi!",
-  "commandDoesntExist": "ERREUR: Commande inconnue"
+  "commandDoesntExist": "ERRORE: comando sconosciuto"
 }
