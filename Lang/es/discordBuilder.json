@@ -4,7 +4,7 @@
     "name": "insignias"
   },
   "vote": {
-    "description": "Afficher le lien permettant de voter pour le bot.",
+    "description": "Muestra el enlace para votar por el bot.",
     "name": "vote"
   },
   "idea": {
