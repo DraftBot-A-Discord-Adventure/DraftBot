@@ -1,0 +1,55 @@
+{
+    "possibilities": {
+        "end": {
+            "0": {
+                "randomItem": {}
+            }
+        },
+        "help": {
+            "0": {
+                "effect": ":clock2:",
+                "health": -10,
+                "lostTime": 60
+            },
+            "1": {
+                "effect": ":clock2:",
+                "health": 15,
+                "lostTime": 180
+            },
+            "2": {
+                "effect": ":clock2:",
+                "lostTime": 15,
+                "randomItem": {}
+            },
+            "3": {
+                "health": -50
+            }
+        },
+        "push": {
+            "0": {},
+            "1": {
+                "health": -50
+            },
+            "2": {
+                "money": 300
+            }
+        },
+        "watch": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 10,
+                "money": 300
+            },
+            "1": {
+                "effect": ":clock2:",
+                "lostTime": 360,
+                "money": -200
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 18
+        }
+    ]
+}

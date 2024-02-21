@@ -1,0 +1,100 @@
+{
+    "possibilities": {
+        "corrupt": {
+            "0": {
+                "money": -150,
+                "tags": [
+                    "moneyUsage"
+                ]
+            },
+            "1": {
+                "effect": ":clock2:",
+                "health": 20,
+                "lostTime": 45,
+                "money": -250,
+                "tags": [
+                    "moneyUsage"
+                ]
+            },
+            "2": {
+                "effect": ":lock:",
+                "health": -5
+            },
+            "3": {
+                "effect": ":clock2:",
+                "lostTime": 120
+            },
+            "4": {
+                "effect": ":sleeping:"
+            }
+        },
+        "end": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 120
+            },
+            "1": {
+                "effect": ":clock2:",
+                "lostTime": 60
+            },
+            "2": {
+                "effect": ":sleeping:"
+            }
+        },
+        "escape": {
+            "0": {
+                "effect": ":lock:"
+            },
+            "1": {
+                "health": 5
+            },
+            "2": {
+                "effect": ":clock2:",
+                "health": -10,
+                "lostTime": 15
+            }
+        },
+        "explain": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 180
+            },
+            "1": {
+                "effect": ":clock2:",
+                "lostTime": 180,
+                "money": 75
+            },
+            "2": {},
+            "3": {
+                "effect": ":clock2:",
+                "health": -10,
+                "lostTime": 15
+            }
+        },
+        "playDead": {
+            "0": {},
+            "1": {
+                "effect": ":clock2:",
+                "lostTime": 240
+            },
+            "2": {}
+        },
+        "wait": {
+            "0": {
+                "effect": ":lock:"
+            },
+            "1": {
+                "effect": ":clock2:",
+                "lostTime": 120
+            },
+            "2": {
+                "health": 15
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 23
+        }
+    ]
+}

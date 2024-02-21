@@ -2,10 +2,10 @@ import {
 	BaseGuildTextChannel,
 	Client,
 	CommandInteraction,
-	GuildTextBasedChannel,
+	GuildTextBasedChannel, InteractionEditReplyOptions,
 	InteractionReplyOptions,
 	Message,
-	MessageCreateOptions
+	MessageCreateOptions, MessagePayload
 } from "discord.js";
 import {RawInteractionData, RawWebhookData} from "discord.js/typings/rawDataTypes";
 import i18n from "../translations/i18n";
@@ -26,6 +26,8 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 	// @ts-ignore
 	private _channel: DraftbotChannel;
 
+	private _replyEdited = false;
+
 	/**
 	 * Get the channel of the interaction
 	 */
@@ -43,6 +45,7 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
 		discordInteraction.reply = DraftbotInteraction.prototype.reply.bind(discordInteraction);
+		discordInteraction.editReply = DraftbotInteraction.prototype.editReply.bind(discordInteraction);
 		const interaction = discordInteraction as unknown as DraftbotInteraction;
 		interaction._channel = DraftbotChannel.cast(discordInteraction.channel as GuildTextBasedChannel);
 		return interaction;
@@ -114,6 +117,15 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 				console.log(`Unable to alert user of no speak permission : c:${this.channel.id} / u:${this.user.id}`);
 			}
 		}
+	}
+
+	editReply = async (options: string | MessagePayload | InteractionEditReplyOptions): Promise<Message> => {
+		this._replyEdited = true;
+		return await CommandInteraction.prototype.editReply.bind(this)(options);
+	};
+
+	public get replyEdited(): boolean {
+		return this._replyEdited;
 	}
 }
 

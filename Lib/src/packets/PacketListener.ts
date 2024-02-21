@@ -36,4 +36,4 @@ export class PacketListenerClient {
 	}
 }
 
-export type PacketListenerCallbackClient<T extends DraftBotPacket> = (socket: WebSocket, packet: T, context: PacketContext) => void | Promise<void>;
+export type PacketListenerCallbackClient<T extends DraftBotPacket> = (socket: WebSocket, packet: T, context: PacketContext) => Promise<void>;

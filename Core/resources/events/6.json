@@ -1,0 +1,50 @@
+{
+    "possibilities": {
+        "end": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 270
+            }
+        },
+        "goAway": {
+            "0": {}
+        },
+        "goDeeper": {
+            "0": {
+                "effect": ":face_with_monocle:"
+            },
+            "1": {
+                "effect": ":clock2:",
+                "lostTime": 20,
+                "randomItem": {}
+            },
+            "2": {
+                "effect": ":confounded:",
+                "health": -1
+            }
+        },
+        "search": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 30,
+                "randomItem": {}
+            },
+            "1": {
+                "effect": ":clock2:",
+                "lostTime": 60
+            },
+            "2": {
+                "money": -190
+            },
+            "3": {
+                "effect": ":confounded:",
+                "health": -25
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 27
+        }
+    ]
+}

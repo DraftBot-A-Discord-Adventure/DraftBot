@@ -1,0 +1,110 @@
+{
+    "possibilities": {
+        "end": {
+            "0": {
+                "money": 3000
+            },
+            "1": {
+                "health": 300
+            },
+            "2": {
+                "gems": 35
+            },
+            "3": {
+                "bonusExperience": 2000
+            },
+            "4": {
+                "bonusPoints": 10000
+            },
+            "5": {
+                "randomItem": {
+                    "category": 0,
+                    "rarity": {
+                        "min": 5
+                    }
+                }
+            },
+            "6": {
+                "randomItem": {
+                    "category": 1,
+                    "rarity": {
+                        "min": 5
+                    }
+                }
+            },
+            "7": {
+                "randomItem": {
+                    "category": 3,
+                    "rarity": {
+                        "min": 5
+                    }
+                }
+            }
+        },
+        "hopeArmor": {
+            "0": {
+                "randomItem": {
+                    "category": 1,
+                    "rarity": {
+                        "min": 5
+                    }
+                }
+            }
+        },
+        "hopeGems": {
+            "0": {
+                "gems": 35
+            }
+        },
+        "hopeGlory": {
+            "0": {
+                "bonusPoints": 10000
+            }
+        },
+        "hopeHealthy": {
+            "0": {
+                "health": 300
+            }
+        },
+        "hopeItem": {
+            "0": {
+                "randomItem": {
+                    "category": 3,
+                    "rarity": {
+                        "min": 5
+                    }
+                }
+            }
+        },
+        "hopeMoney": {
+            "0": {
+                "money": 3000
+            }
+        },
+        "hopePet": {
+            "0": {
+                "randomPet": {
+                    "rarity": {
+                        "min": 3
+                    }
+                }
+            }
+        },
+        "hopeWeapon": {
+            "0": {
+                "randomItem": {
+                    "category": 0,
+                    "rarity": {
+                        "min": 5
+                    }
+                }
+            }
+        },
+        "hopeXP": {
+            "0": {
+                "bonusExperience": 1500
+            }
+        }
+    },
+    "triggers": []
+}

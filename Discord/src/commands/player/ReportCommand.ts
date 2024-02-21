@@ -6,8 +6,9 @@ import {EffectsConstants} from "../../../../Lib/src/constants/EffectsConstants";
 import {CommandReportPacketReq} from "../../../../Lib/src/packets/commands/CommandReportPacket";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 
-function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandReportPacketReq> {
-	return Promise.resolve(makePacket(CommandReportPacketReq, { keycloakId: user.id }));
+async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandReportPacketReq> {
+	await interaction.deferReply();
+	return Promise.resolve(makePacket(CommandReportPacketReq, {keycloakId: user.id}));
 }
 
 export const commandInfo: ICommand = {

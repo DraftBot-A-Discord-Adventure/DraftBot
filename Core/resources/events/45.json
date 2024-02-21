@@ -1,0 +1,64 @@
+{
+    "possibilities": {
+        "askJoin": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 210
+            },
+            "1": {},
+            "2": {
+                "health": -20
+            }
+        },
+        "end": {
+            "0": {
+                "effect": ":confounded:",
+                "health": -25
+            },
+            "1": {
+                "effect": ":clock2:",
+                "lostTime": 15
+            }
+        },
+        "goAlone": {
+            "0": {
+                "effect": ":head_bandage:",
+                "health": -40
+            },
+            "1": {
+                "effect": ":sick:",
+                "health": -10
+            },
+            "2": {
+                "effect": ":clock2:",
+                "lostTime": 75,
+                "randomItem": {}
+            },
+            "3": {
+                "effect": ":clock2:",
+                "lostTime": 90
+            },
+            "4": {}
+        },
+        "skip": {
+            "0": {},
+            "1": {
+                "effect": ":clock2:",
+                "lostTime": 15,
+                "money": -300
+            }
+        },
+        "talk": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 30
+            },
+            "1": {}
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 17
+        }
+    ]
+}

@@ -1,0 +1,40 @@
+{
+    "possibilities": {
+        "end": {
+            "0": {}
+        },
+        "help": {
+            "0": {},
+            "1": {
+                "effect": ":clock2:",
+                "lostTime": 30,
+                "randomItem": {}
+            },
+            "2": {
+                "effect": ":clock2:",
+                "lostTime": 30,
+                "money": 234
+            },
+            "3": {
+                "effect": ":confounded:",
+                "health": -10
+            }
+        },
+        "push": {
+            "0": {
+                "money": -500,
+                "tags": [
+                    "moneyUsage"
+                ]
+            }
+        },
+        "skip": {
+            "0": {}
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 14
+        }
+    ]
+}

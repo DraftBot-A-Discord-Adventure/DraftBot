@@ -1,0 +1,52 @@
+{
+    "possibilities": {
+        "end": {
+            "0": {
+                "money": 195
+            },
+            "1": {},
+            "2": {
+                "effect": ":confounded:"
+            }
+        },
+        "goAway": {
+            "0": {},
+            "1": {
+                "effect": ":face_with_monocle:"
+            },
+            "2": {
+                "health": -5,
+                "money": 87,
+                "randomItem": {}
+            },
+            "3": {}
+        },
+        "look": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 25,
+                "money": -70
+            },
+            "1": {},
+            "2": {}
+        },
+        "shame": {
+            "0": {
+                "money": 195
+            },
+            "1": {
+                "effect": ":dizzy_face:",
+                "health": -25
+            },
+            "2": {
+                "effect": ":clock2:",
+                "lostTime": 30
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 21
+        }
+    ]
+}

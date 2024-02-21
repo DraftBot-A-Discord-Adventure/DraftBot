@@ -1,0 +1,60 @@
+{
+    "possibilities": {
+        "end": {
+            "0": {
+                "effect": ":sleeping:"
+            },
+            "1": {
+                "effect": ":clock2:",
+                "lostTime": 180
+            },
+            "2": {
+                "effect": ":dizzy_face:",
+                "health": -45
+            }
+        },
+        "explore": {
+            "0": {},
+            "1": {
+                "effect": ":clock2:",
+                "lostTime": 20,
+                "money": 785,
+                "randomItem": {}
+            },
+            "2": {
+                "effect": ":clock2:",
+                "health": -20,
+                "lostTime": 25,
+                "money": 165
+            },
+            "3": {
+                "effect": ":face_with_monocle:"
+            },
+            "4": {
+                "effect": ":face_with_monocle:"
+            },
+            "5": {
+                "health": -15
+            }
+        },
+        "skip": {
+            "0": {},
+            "1": {
+                "effect": ":sleeping:"
+            },
+            "2": {
+                "effect": ":clock2:",
+                "health": 5,
+                "lostTime": 30
+            },
+            "3": {
+                "health": -25
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 19
+        }
+    ]
+}

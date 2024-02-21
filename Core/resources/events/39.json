@@ -1,0 +1,55 @@
+{
+    "possibilities": {
+        "convoy": {
+            "0": {
+                "money": 350
+            },
+            "1": {
+                "money": 150,
+                "randomItem": {}
+            },
+            "2": {
+                "money": -150,
+                "tags": [
+                    "moneyUsage"
+                ]
+            },
+            "3": {
+                "effect": ":head_bandage:",
+                "health": -20,
+                "money": -300,
+                "tags": [
+                    "moneyUsage"
+                ]
+            }
+        },
+        "end": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 10
+            },
+            "1": {
+                "money": -300
+            }
+        },
+        "meal": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 120
+            },
+            "1": {}
+        },
+        "steal": {
+            "0": {
+                "effect": ":head_bandage:",
+                "health": -20
+            },
+            "1": {}
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 26
+        }
+    ]
+}

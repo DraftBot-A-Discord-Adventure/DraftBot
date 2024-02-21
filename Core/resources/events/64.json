@@ -1,0 +1,35 @@
+{
+    "possibilities": {
+        "accept": {
+            "0": {
+                "mapLink": 84,
+                "nextEvent": 65
+            }
+        },
+        "deny": {
+            "0": {}
+        },
+        "end": {
+            "0": {
+                "mapLink": 84,
+                "nextEvent": 65
+            }
+        }
+    },
+    "triggers": [
+        {
+            "date": {
+                "day": {
+                    "from": 20,
+                    "to": 31
+                },
+                "month": {
+                    "from": 12,
+                    "to": 12
+                }
+            },
+            "level": 3,
+            "oncePer": "year"
+        }
+    ]
+}
