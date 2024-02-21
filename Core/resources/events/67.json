@@ -1,0 +1,30 @@
+{
+    "possibilities": {
+        "accept": {
+            "0": {
+                "health": 10
+            },
+            "1": {
+                "health": 15
+            }
+        },
+        "deny": {
+            "0": {
+                "energy": 250
+            },
+            "1": {
+                "energy": 150
+            }
+        },
+        "end": {
+            "0": {
+                "energy": 150
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 1999
+        }
+    ]
+}

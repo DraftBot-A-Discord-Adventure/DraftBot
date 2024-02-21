@@ -1,0 +1,96 @@
+{
+    "possibilities": {
+        "duke": {
+            "0": {
+                "effect": ":clock2:",
+                "health": 10,
+                "lostTime": 50,
+                "tags": [
+                    "bigFeast"
+                ]
+            },
+            "1": {
+                "effect": ":clock2:",
+                "lostTime": 30,
+                "money": 150,
+                "tags": [
+                    "bigFeast"
+                ]
+            },
+            "2": {
+                "effect": ":lock:"
+            }
+        },
+        "end": {
+            "0": {},
+            "1": {
+                "health": -1
+            }
+        },
+        "gift": {
+            "0": {
+                "money": -400,
+                "tags": [
+                    "bigFeast",
+                    "moneyUsage"
+                ]
+            },
+            "1": {
+                "effect": ":clock2:",
+                "lostTime": 35,
+                "tags": [
+                    "bigFeast"
+                ]
+            },
+            "2": {
+                "effect": ":clock2:",
+                "randomItem": {},
+                "tags": [
+                    "bigFeast"
+                ]
+            }
+        },
+        "party": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 155,
+                "tags": [
+                    "bigFeast"
+                ]
+            },
+            "1": {
+                "effect": ":clock2:",
+                "lostTime": 85,
+                "money": -100,
+                "tags": [
+                    "bigFeast",
+                    "moneyUsage"
+                ]
+            },
+            "2": {
+                "effect": ":clock2:",
+                "health": 50,
+                "lostTime": 60,
+                "tags": [
+                    "bigFeast"
+                ]
+            }
+        },
+        "steal": {
+            "0": {
+                "effect": ":lock:"
+            },
+            "1": {
+                "health": 20
+            },
+            "2": {
+                "effect": ":sick:"
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 16
+        }
+    ]
+}

@@ -1,0 +1,62 @@
+{
+    "possibilities": {
+        "continue": {
+            "0": {},
+            "1": {
+                "effect": ":clock2:",
+                "health": 30,
+                "lostTime": 210,
+                "money": -200,
+                "tags": [
+                    "moneyUsage"
+                ]
+            }
+        },
+        "end": {
+            "0": {
+                "randomItem": {}
+            },
+            "1": {
+                "effect": ":clock2:",
+                "lostTime": 20
+            },
+            "2": {
+                "effect": ":clock2:",
+                "health": -5,
+                "lostTime": 10
+            }
+        },
+        "fight": {
+            "0": {},
+            "1": {
+                "effect": ":clock2:",
+                "lostTime": 30
+            },
+            "2": {}
+        },
+        "goBack": {
+            "0": {},
+            "1": {
+                "health": -5
+            }
+        },
+        "shelter": {
+            "0": {
+                "effect": ":sleeping:"
+            },
+            "1": {
+                "effect": ":sleeping:"
+            },
+            "2": {},
+            "3": {
+                "effect": ":clock2:",
+                "lostTime": 90
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 11
+        }
+    ]
+}

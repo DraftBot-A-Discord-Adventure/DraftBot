@@ -1,0 +1,42 @@
+{
+    "possibilities": {
+        "end": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 15
+            }
+        },
+        "help": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 15,
+                "money": 25
+            },
+            "1": {
+                "effect": ":clock2:",
+                "lostTime": 30,
+                "randomItem": {}
+            },
+            "2": {
+                "effect": ":head_bandage:",
+                "health": -15
+            },
+            "3": {
+                "effect": ":clock2:",
+                "lostTime": 50
+            }
+        },
+        "skip": {
+            "0": {},
+            "1": {
+                "effect": ":head_bandage:",
+                "health": -15
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 3
+        }
+    ]
+}

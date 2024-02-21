@@ -1,0 +1,15 @@
+{
+    "possibilities": {
+        "end": {
+            "0": {}
+        },
+        "start": {
+            "0": {}
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 29
+        }
+    ]
+}

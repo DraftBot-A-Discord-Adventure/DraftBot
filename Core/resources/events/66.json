@@ -1,0 +1,23 @@
+{
+    "possibilities": {
+        "end": {
+            "0": {},
+            "1": {}
+        },
+        "hints": {
+            "0": {},
+            "1": {}
+        },
+        "run": {
+            "0": {},
+            "1": {}
+        }
+    },
+    "triggers": [
+        {
+            "mapAttributes": [
+                "pve_island_entry"
+            ]
+        }
+    ]
+}

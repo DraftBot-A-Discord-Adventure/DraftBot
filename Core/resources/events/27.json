@@ -1,0 +1,54 @@
+{
+    "possibilities": {
+        "end": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 20
+            },
+            "1": {
+                "effect": ":head_bandage:",
+                "health": -45
+            }
+        },
+        "goDown": {
+            "0": {
+                "effect": ":clock2:",
+                "health": -30,
+                "lostTime": 150
+            },
+            "1": {
+                "randomItem": {}
+            },
+            "2": {},
+            "3": {
+                "money": 150
+            }
+        },
+        "skip": {
+            "0": {},
+            "1": {
+                "effect": ":clock2:",
+                "lostTime": 60,
+                "money": -75
+            }
+        },
+        "useBucket": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 60
+            },
+            "1": {
+                "effect": ":confounded:",
+                "health": -40
+            },
+            "2": {
+                "money": 150
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 17
+        }
+    ]
+}

@@ -1,0 +1,42 @@
+{
+    "possibilities": {
+        "accept": {
+            "0": {},
+            "1": {},
+            "2": {
+                "effect": ":sleeping:",
+                "health": 35
+            }
+        },
+        "comrpomise": {
+            "0": {},
+            "1": {
+                "effect": ":sleeping:",
+                "tags": [
+                    "drinkAlcohol"
+                ]
+            }
+        },
+        "deny": {
+            "0": {
+                "effect": ":head_bandage:",
+                "health": -25
+            },
+            "1": {
+                "effect": ":sick:",
+                "health": -10
+            }
+        },
+        "end": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 135
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 4
+        }
+    ]
+}

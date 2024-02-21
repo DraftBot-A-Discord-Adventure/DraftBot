@@ -1,0 +1,73 @@
+{
+    "possibilities": {
+        "checkDate": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 190,
+                "money": 700
+            },
+            "1": {
+                "effect": ":clock2:",
+                "health": 7,
+                "lostTime": 10
+            },
+            "2": {
+                "effect": ":clock2:",
+                "lostTime": 120
+            },
+            "3": {
+                "effect": ":zany_face:",
+                "money": 200,
+                "tags": [
+                    "drinkAlcohol"
+                ]
+            }
+        },
+        "end": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 60
+            },
+            "1": {},
+            "2": {
+                "effect": ":clock2:",
+                "lostTime": 10
+            }
+        },
+        "read": {
+            "0": {
+                "effect": ":clock2:",
+                "health": 27,
+                "lostTime": 60
+            },
+            "1": {
+                "effect": ":clock2:",
+                "lostTime": 10
+            },
+            "2": {
+                "effect": ":sick:"
+            },
+            "3": {
+                "effect": ":clock2:",
+                "lostTime": 30
+            }
+        },
+        "steal": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 20
+            },
+            "1": {
+                "money": 100
+            },
+            "2": {
+                "money": -400
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 23
+        }
+    ]
+}

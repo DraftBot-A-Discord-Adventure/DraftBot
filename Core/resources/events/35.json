@@ -1,0 +1,43 @@
+{
+    "possibilities": {
+        "deny": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 30,
+                "money": -50,
+                "tags": [
+                    "moneyUsage"
+                ]
+            },
+            "1": {},
+            "2": {}
+        },
+        "end": {
+            "0": {}
+        },
+        "steal": {
+            "0": {
+                "money": 1000
+            },
+            "1": {
+                "effect": ":lock:",
+                "money": -200
+            }
+        },
+        "test": {
+            "0": {
+                "health": 30
+            },
+            "1": {
+                "effect": ":sick:",
+                "money": 250
+            },
+            "2": {}
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 26
+        }
+    ]
+}

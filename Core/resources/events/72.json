@@ -1,0 +1,83 @@
+{
+    "possibilities": {
+        "end": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 180
+            },
+            "1": {}
+        },
+        "joinArchery": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 60,
+                "money": 235
+            },
+            "1": {
+                "effect": ":clock2:",
+                "lostTime": 60
+            },
+            "2": {}
+        },
+        "joinJoust": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 115,
+                "money": 425
+            },
+            "1": {
+                "health": -45
+            },
+            "2": {
+                "effect": ":clock2:",
+                "lostTime": 160,
+                "money": 565,
+                "randomItem": {}
+            },
+            "3": {}
+        },
+        "joinMelee": {
+            "0": {},
+            "1": {
+                "effect": ":clock2:",
+                "lostTime": 120,
+                "money": 320,
+                "randomItem": {}
+            },
+            "2": {
+                "effect": ":sleeping:",
+                "health": 10
+            },
+            "3": {
+                "health": -55
+            }
+        },
+        "joinPoetry": {
+            "0": {
+                "money": 120
+            },
+            "1": {
+                "money": -350
+            },
+            "2": {
+                "effect": ":clock2:",
+                "lostTime": 15,
+                "randomItem": {}
+            }
+        },
+        "searchFood": {
+            "0": {
+                "health": 15
+            },
+            "1": {},
+            "2": {
+                "health": 10
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 23
+        }
+    ]
+}

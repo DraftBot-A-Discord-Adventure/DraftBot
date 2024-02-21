@@ -1,0 +1,62 @@
+{
+    "possibilities": {
+        "end": {
+            "0": {
+                "effect": ":sleeping:",
+                "health": 5
+            },
+            "1": {
+                "effect": ":clock2:",
+                "health": -10,
+                "lostTime": 10
+            },
+            "2": {}
+        },
+        "goBack": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 120
+            },
+            "1": {
+                "health": -30,
+                "money": -120
+            },
+            "2": {
+                "effect": ":clock2:",
+                "health": 10,
+                "lostTime": 60
+            }
+        },
+        "search": {
+            "0": {
+                "money": 25
+            },
+            "1": {},
+            "2": {
+                "effect": ":head_bandage:",
+                "health": -20
+            }
+        },
+        "stairs": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 180,
+                "randomItem": {}
+            },
+            "1": {
+                "effect": ":sleeping:",
+                "health": 15
+            },
+            "2": {
+                "effect": ":clock2:",
+                "health": -35,
+                "lostTime": 10
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 15
+        }
+    ]
+}

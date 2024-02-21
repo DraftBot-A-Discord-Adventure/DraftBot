@@ -26,10 +26,10 @@ export class DiscordWebSocket {
 				console.log(`Wrong packet format : ${data}`);
 				return;
 			}
-			for (let packet of dataJson.packets) {
+			for (const packet of dataJson.packets) {
 				let listener = DiscordWebSocket.packetListener.getListener(packet.name);
 				if (!listener) {
-					packet = makePacket(ErrorPacket, { message: `No packet listener found for received packet '${packet.name}'` });
+					packet.packet = makePacket(ErrorPacket, { message: `No packet listener found for received packet '${packet.name}'` });
 					listener = DiscordWebSocket.packetListener.getListener("ErrorPacket")!;
 				}
 				await listener(DiscordWebSocket.socket!, packet.packet, dataJson.context);

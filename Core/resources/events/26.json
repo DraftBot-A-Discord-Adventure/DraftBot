@@ -1,0 +1,56 @@
+{
+    "possibilities": {
+        "end": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 15
+            }
+        },
+        "goAway": {
+            "0": {},
+            "1": {
+                "effect": ":clock2:",
+                "lostTime": 10,
+                "money": 75
+            }
+        },
+        "steal": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 30,
+                "randomItem": {}
+            },
+            "1": {
+                "effect": ":clock2:",
+                "health": -15,
+                "lostTime": 25
+            }
+        },
+        "trySave": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 15,
+                "randomItem": {}
+            },
+            "1": {
+                "effect": ":clock2:",
+                "health": -10,
+                "lostTime": 15
+            },
+            "2": {
+                "effect": ":clock2:",
+                "health": -15,
+                "lostTime": 20,
+                "money": -200
+            },
+            "3": {
+                "oneshot": true
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 10
+        }
+    ]
+}

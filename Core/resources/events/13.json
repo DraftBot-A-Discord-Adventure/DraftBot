@@ -1,0 +1,71 @@
+{
+    "possibilities": {
+        "end": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 200
+            }
+        },
+        "goAway": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 25
+            },
+            "1": {
+                "effect": ":clock2:",
+                "lostTime": 70
+            }
+        },
+        "goForge": {
+            "0": {},
+            "1": {
+                "effect": ":clock2:",
+                "lostTime": 40,
+                "money": -300
+            },
+            "2": {
+                "randomItem": {}
+            },
+            "3": {},
+            "4": {
+                "effect": ":clock2:",
+                "lostTime": 20
+            }
+        },
+        "goInn": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 120
+            },
+            "1": {
+                "effect": ":sleeping:",
+                "health": 15,
+                "money": -70,
+                "tags": [
+                    "moneyUsage"
+                ]
+            },
+            "2": {}
+        },
+        "goMarket": {
+            "0": {
+                "effect": ":clock2:",
+                "lostTime": 30,
+                "randomItem": {}
+            },
+            "1": {
+                "effect": ":clock2:",
+                "lostTime": 60
+            },
+            "2": {
+                "effect": ":dizzy_face:",
+                "health": -60
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 23
+        }
+    ]
+}
