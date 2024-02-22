@@ -61,6 +61,10 @@
       }
     }
   },
+  "rarity": {
+    "description": "Displays the different equipment rarities.",
+    "name": "rarity"
+  },
   "update": {
     "description": "Displays the bot's latest version.",
     "name": "update"
