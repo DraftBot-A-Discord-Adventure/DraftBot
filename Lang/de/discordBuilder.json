@@ -1,77 +1,77 @@
 {
   "badges": {
-    "description": "Affiche des informations sur les badges et leur fonctionnement.",
-    "name": "badges"
+    "description": "Zeigt Informationen zu den Ausbeinen und deren Funktion an.",
+    "name": "Badges"
   },
   "vote": {
-    "description": "Afficher le lien permettant de voter pour le bot.",
-    "name": "vote"
+    "description": "Link zur Abstimmung für den Bot anzeigen.",
+    "name": "Abstimmung"
   },
   "idea": {
-    "description": "Envoyer une suggestion pour améliorer le jeu.",
-    "name": "suggestion"
+    "description": "Einen Vorschlag zur Verbesserung des Spiels senden.",
+    "name": "Vorschlag"
   },
   "inventory": {
-    "description": "Affiche l'inventaire du joueur.",
-    "name": "inventaire",
+    "description": "Zeigt den Bestand des Spielers an.",
+    "name": "Bestandsaufnahme",
     "options": {
       "rank": {
-        "description": "Le classement du joueur dont l'inventaire doit être affiché.",
-        "name": "classement"
+        "description": "Die Rangfolge des Spielers, dessen Bestand angezeigt werden soll.",
+        "name": "Rangfolge"
       },
       "user": {
-        "description": "L'utilisateur dont l'inventaire doit être affiché.",
-        "name": "utilisateur"
+        "description": "Der Benutzer, dessen Bestand angezeigt werden soll.",
+        "name": "User"
       }
     }
   },
   "invite": {
-    "description": "Ajouter le bot sur votre serveur.",
+    "description": "Fügen Sie den Bot auf Ihrem Server hinzu.",
     "name": "invitationdraftbot"
   },
   "ping": {
-    "description": "Affiche la latence du bot et permet au joueur de vérifier si le bot est en ligne.",
-    "name": "ping"
+    "description": "Zeigt die Latenzzeit des Bots an und ermöglicht dem Spieler, zu prüfen, ob der Bot online ist.",
+    "name": "Ping"
   },
   "profile": {
-    "description": "Afficher le profil d'un joueur.",
-    "name": "profil",
+    "description": "Zeigt das Profil eines Spielers an.",
+    "name": "Profil",
     "options": {
       "rank": {
-        "description": "Le classement du joueur dont le profil doit être affiché.",
-        "name": "classement"
+        "description": "Die Rangfolge des Spielers, dessen Profil angezeigt werden soll.",
+        "name": "Rangfolge"
       },
       "user": {
-        "description": "L'utilisateur dont le profil doit être affiché.",
-        "name": "utilisateur"
+        "description": "Der Benutzer, dessen Profil angezeigt werden soll.",
+        "name": "User"
       }
     }
   },
   "scopes": {
-    "global": "🏆 Classement général",
-    "server": "🚩 Classement du serveur"
+    "global": "🏆 Gesamteinstufung",
+    "server": "🚩 Servereinstufung"
   },
   "test": {
-    "description": "Commande de triche pour les testeurs (MODE TEST UNIQUEMENT).",
-    "name": "test",
+    "description": "Schmacks-Befehl für Tester (NUR TESTMODUS).",
+    "name": "Test",
     "options": {
       "commandName": {
-        "description": "Commande test à exécuter.",
-        "name": "commande"
+        "description": "Der auszuführende Testbefehl.",
+        "name": "Befehl"
       }
     }
   },
   "update": {
-    "description": "Affiche la version actuelle du bot.",
-    "name": "nouveautes"
+    "description": "Zeigt die aktuelle Version des Bots an.",
+    "name": "Neuigkeiten"
   },
   "help": {
-    "description": "Affiche la liste des commandes disponibles ou les informations détaillées sur une commande.",
-    "name": "aide",
+    "description": "Zeigt eine Liste der verfügbaren Befehle oder die ausführlichen Informationen zu einem Befehl an.",
+    "name": "Hilfe",
     "options": {
       "commandName": {
-        "description": "La commande dont les informations doivent être affichées.",
-        "name": "commande"
+        "description": "Der Befehl, dessen Informationen angezeigt werden sollen.",
+        "name": "Befehl"
       }
     }
   }
