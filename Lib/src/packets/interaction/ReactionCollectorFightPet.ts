@@ -27,14 +27,14 @@ export class ReactionCollectorFightPet extends ReactionCollector {
 	creationPacket(id: string, endTime: number): ReactionCollectorCreationPacket {
 		const reactions = [];
 		for (const action of this.actions) {
-			reactions.push(this.buildReaction(action));
+			reactions.push(this.buildReaction(ReactionCollectorFightPetReaction, action));
 		}
 
 		return {
 			id,
 			endTime,
 			reactions,
-			data: this.buildData<ReactionCollectorFightPetData>({ petId: this.petId, isFemale: this.isFemale })
+			data: this.buildData(ReactionCollectorFightPetData, { petId: this.petId, isFemale: this.isFemale })
 		};
 	}
 }

@@ -153,8 +153,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 			collector,
 			context,
 			{
-				allowedPlayerIds: [player.id],
-				reactionLimit: 1
+				allowedPlayerIds: [player.id]
 			},
 			getEndCallback(player)
 		)

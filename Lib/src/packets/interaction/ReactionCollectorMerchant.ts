@@ -26,14 +26,14 @@ export class ReactionCollectorMerchant extends ReactionCollector {
 	}
 
 	creationPacket(id: string, endTime: number): ReactionCollectorCreationPacket {
-		return makePacket(ReactionCollectorCreationPacket, {
+		return {
 			id,
 			endTime,
 			reactions: [
-				this.buildReaction<ReactionCollectorMerchantAcceptReaction>({}),
-				this.buildReaction<ReactionCollectorMerchantRefuseReaction>({})
+				this.buildReaction(ReactionCollectorMerchantAcceptReaction, {}),
+				this.buildReaction(ReactionCollectorMerchantRefuseReaction, {})
 			],
-			data: this.buildData(this.data)
-		});
+			data: this.buildData(ReactionCollectorMerchantData, this.data)
+		};
 	}
 }

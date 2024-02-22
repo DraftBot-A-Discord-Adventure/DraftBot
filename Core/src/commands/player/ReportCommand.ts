@@ -246,8 +246,7 @@ async function doEvent(event: BigEvent, player: Player, time: number, context: P
 		collector,
 		context,
 		{
-			allowedPlayerIds: [player.id],
-			reactionLimit: 1
+			allowedPlayerIds: [player.id]
 		},
 		endCallback
 	)
@@ -372,9 +371,7 @@ async function chooseDestination(
 		collector,
 		context,
 		{
-			allowedPlayerIds: [player.id],
-			time: Constants.MESSAGES.COLLECTOR_TIME,
-			reactionLimit: 1
+			allowedPlayerIds: [player.id]
 		},
 		endCallback
 	)

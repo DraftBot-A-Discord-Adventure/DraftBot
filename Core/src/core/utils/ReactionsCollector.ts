@@ -6,10 +6,11 @@ import {
 	ReactionCollectorReaction,
 	ReactionCollectorReactPacket
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {DraftBotPacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {BlockingUtils} from "./BlockingUtils";
 import {sendPacketsToContext} from "../../../../Lib/src/packets/PacketUtils";
 import {WebsocketClient} from "../../../../Lib/src/instances/WebsocketClient";
+import {Constants} from "../Constants";
 
 type CollectCallback = (collector: ReactionCollectorInstance, reaction: ReactionCollectorReaction, playerId: number, response: DraftBotPacket[]) => void | Promise<void>;
 
@@ -62,12 +63,12 @@ export class ReactionCollectorInstance {
 	public constructor(reactionCollector: ReactionCollector, context: PacketContext, collectorOptions: CollectorOptions, endCallback: EndCallback, collectCallback: CollectCallback = null) {
 		this.model = reactionCollector;
 		this.filter = collectorOptions.allowedPlayerIds ? createDefaultFilter(collectorOptions.allowedPlayerIds) : (): boolean => true;
-		this.time = collectorOptions.time;
+		this.time = collectorOptions.time ?? Constants.MESSAGES.COLLECTOR_TIME;
 		this.endTime = Date.now() + this.time;
 		this.collectCallback = collectCallback;
 		this._context = context;
 		this.endCallback = endCallback;
-		this.reactionLimit = collectorOptions.reactionLimit;
+		this.reactionLimit = collectorOptions.reactionLimit ?? 1;
 	}
 
 	get hasEnded(): boolean {
@@ -135,8 +136,8 @@ export class ReactionCollectorInstance {
 		collectors.set(id, this);
 		setTimeout(this.endCallback, this.endTime - Date.now());
 
-		this._creationPacket = this.model.creationPacket(this.id, this.endTime);
-		return this.model.creationPacket(this.id, this.endTime);
+		this._creationPacket = makePacket(ReactionCollectorCreationPacket, this.model.creationPacket(this.id, this.endTime));
+		return this._creationPacket;
 	}
 
 	public isValidReactionIndex(index: number): boolean {

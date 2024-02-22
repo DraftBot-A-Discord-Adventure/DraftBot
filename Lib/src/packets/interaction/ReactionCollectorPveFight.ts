@@ -29,14 +29,14 @@ export class ReactionCollectorPveFight extends ReactionCollector {
 	}
 
 	creationPacket(id: string, endTime: number): ReactionCollectorCreationPacket {
-		return makePacket(ReactionCollectorCreationPacket, {
+		return {
 			id,
 			endTime,
 			reactions: [
-				this.buildReaction<ReactionCollectorPveFightReactionValidate>({}),
-				this.buildReaction<ReactionCollectorPveFightReactionWait>({})
+				this.buildReaction(ReactionCollectorPveFightReactionValidate, {}),
+				this.buildReaction(ReactionCollectorPveFightReactionWait, {})
 			],
-			data: this.buildData(this.data)
-		});
+			data: this.buildData(ReactionCollectorPveFightData, this.data)
+		};
 	}
 }
