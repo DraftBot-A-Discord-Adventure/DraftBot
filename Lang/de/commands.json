@@ -1,299 +1,299 @@
 {
   "badges": {
-    "description": "Les badges sont des distinctions difficiles à obtenir qui ont été créées pour récompenser les personnes ayant le plus soutenu le développement du bot. La liste des badges est disponible sur le guide du bot.\n(via ce lien : https://guide.draftbot.com/notions-avancees/badges)",
-    "title": ":military_medal: Informations détaillées :"
+    "description": "Bei den Auszeichnungen handelt es sich um komplizierte Unterscheidungen, die geschaffen wurden, um diejenigen zu belohnen, die die Entwicklung des Bots am stärksten unterstützt haben. Die Liste der Badges ist auf dem Bot Guide erhältlich.\n(über diesen Link: https://guide.draftbot.com/notions-avancees/badges)",
+    "title": ":military_medal: Detaillierte Informationen:"
   },
   "idea": {
-    "description": "Vous pouvez proposer des suggestions et voter pour vos idées préférées via ce lien:\nhttps://feedback.draftbot.com/",
-    "title": ":bulb: Idées"
+    "description": "Sie können Vorschläge unterbreiten und für Ihre Lieblingsideen über diesen Link wählen:\nhttps://feedback.draftbot.com/",
+    "title": ":bulb: Ideen"
   },
   "vote": {
-    "description": "Voici le lien permettant de soutenir le bot :\nhttps://top.gg/bot/448110812801007618",
+    "description": "Dies ist der Link zur Unterstützung des Bot-Bots:\nhttps://top.gg/bot/448110812801007618",
     "title": ":ballot_box: Voter"
   },
   "inventory": {
-    "armors_one": "Armure/Bouclier ({{count}}/{{max}}) :",
-    "armors_other": "Armures/Boucliers ({{count}}/{{max}}) :",
-    "emptySlot": ":black_large_square: **Emplacement vide**",
-    "noSlot": ":x: Aucun emplacement disponible. Achetez-en plus dans le magasin !",
-    "objects_one": "Objet ({{count}}/{{max}}) :",
-    "objects_other": "Objets ({{count}}/{{max}}) :",
-    "potions_one": "Potion ({{count}}/{{max}}) :",
-    "potions_other": "Potions ({{count}}/{{max}}) :",
-    "stockTitle": ":package: **Réserve d'objets de {{pseudo}}**",
-    "title": ":briefcase: **Inventaire de {{pseudo}}**",
-    "weapons_one": "Arme ({{count}}/{{max}}) :",
-    "weapons_other": "Armes ({{count}}/{{max}}) :",
-    "seeBackupItems": "🔄 Voir la réserve",
-    "seeEquippedItems": "🔄 Voir l'inventaire principal"
+    "armors_one": "Armierung/Bouclier ({{count}}/{{max}}):",
+    "armors_other": "Armierungen/Boucliers ({{count}}/{{max}}):",
+    "emptySlot": ":black_large_square: ** Leere Position * *",
+    "noSlot": ":x: Es sind keine Positionen verfügbar. Kaufen Sie mehr in den Laden!",
+    "objects_one": "Betreff ({{count}}/{{max}}):",
+    "objects_other": "Objekte ({{count}}/{{max}}):",
+    "potions_one": "Potion ({{count}}/{{max}}):",
+    "potions_other": "Potionen ({{count}}/{{max}}):",
+    "stockTitle": ":package: ** Reserven für Objekte von {{pseudo}}**",
+    "title": ":briefcase: ** Inventar von {{pseudo}}**",
+    "weapons_one": "Waffe ({{count}}/{{max}}):",
+    "weapons_other": "Waffen ({{count}}/{{max}}):",
+    "seeBackupItems": "🔄 Siehe Reserve",
+    "seeEquippedItems": "🔄 Vgl. Bestand anzeigen"
   },
   "invite": {
     "discord": {
-      "main": "Rejoignez la communauté ! Utilisez ce lien : https://discord.gg/acGNvzEY92 :smiley:"
+      "main": "Kommen Sie zurück zur Gemeinschaft! Verwenden Sie diesen Link: https://discord.gg/acGNvzEY92 :smiley:"
     }
   },
   "ping": {
     "discord": {
       "create": ":ping_pong: Pong",
-      "edit": ":ping_pong: Pong\n\n**Latence totale :** {{totalLatency}} ms\n**Latence Discord :** {{discordApiLatency}} ms\n**Numéro du shard :** {{shardId}}\n**Nombre de shards :** {{totalShards}} (+main shard)"
+      "edit": ":ping_pong: Pong\n\n** Latenz insgesamt: ** {{totalLatency}} ms\n** Latenz Discord: ** {{discordApiLatency}} ms\n** Shard-Nummer: ** {{shardId}}\n** Anzahl der shards: ** {{totalShards}} (+ main shard)"
     }
   },
   "profile": {
     "badgeDisplay": {
-      "numberBadge_one": "\n Ce joueur possède {{badge}} badge au total !",
-      "numberBadge_other": "\n Ce joueur possède {{badge}} badges au total !",
-      "title": "Liste des badges de {{pseudo}}"
+      "numberBadge_one": "\n Dieser Spieler hat {{badge}} Badge insgesamt!",
+      "numberBadge_other": "\n Dieser Spieler hat {{badge}} Badges insgesamt!",
+      "title": "Liste der Badges in {{pseudo}}"
     },
     "badges": {
-      "⚔️": ":crossed_swords: `Vainqueur d'un tournoi`",
-      "⚙️": ":gear: `Équipe technique`",
-      "⛑️": ":helmet_with_cross: `Personne faisant partie des 20 premières à avoir rejoint le serveur du bot`",
-      "✨": ":sparkles: `Personne ayant remporté le plus de gloire durant une saison de combat`",
-      "❤️": ":heart: `Personne ayant le grade Soutien sur le serveur du bot`",
-      "🌍": ":earth_africa: `Traducteur`",
-      "🌟": ":star2: `Personne ayant aidé à mettre le bot sur un serv de plus de 2000 membres`",
-      "🍀": ":four_leaf_clover: `Badge pouvant être gagné de temps en temps dans des concours sur le serveur du bot ou sur twitter`",
-      "🎄": ":christmas_tree: `Badge pouvant être gagné chaque noël lors d'un concours`",
-      "🎗️": ":reminder_ribbon: `Personne ayant dominé un classement de la semaine`",
-      "🎰": ":slot_machine: `Badge donné de manière totalement random`",
-      "🏅": ":medal: `Joueur dans le top 10 au reset de la 1.0`",
-      "🏆": ":trophy: `Meilleur joueur au moment du reset de la 1.0`",
-      "🐞": ":lady_beetle: `Personne ayant signalé des bugs majeurs`",
-      "👑": ":crown: `Propriétaire du bot`",
-      "💍": ":ring: `Badge acheté dans le shop des Missions`",
-      "💎": ":gem: `Membre d'une guilde puissante`",
-      "💞": ":revolving_hearts: `Joueur ayant dressé un familier légendaire`",
-      "💸": ":money_with_wings: `Donateur`",
-      "🔖": ":bookmark: `Adopteur de classes de la première heure`",
-      "🕊️": ":dove: `Personne ayant rapporté un bug exploitable sans en profiter`",
-      "🖋️": ":pen_fountain: `Rédacteur du bot`",
-      "🗳️": ":ballot_box: `Personne ayant voté dans les 12 dernières heures`",
-      "😂": ":joy: `Badge offert à une personne drôle`",
-      "🤑": ":money_mouth: `Badge acheté dans le shop`",
-      "🥇": ":first_place: `Personne ayant atteint la première place du classement après le reset`",
-      "🪩": ":mirror_ball: `Membre d'une guilde très puissante`"
+      "⚔️": ":crossed_swords: ` Vainger eines Turniers '",
+      "⚙️": ":gear: \"Technisches Team\"",
+      "⛑️": ":helmet_with_cross: Personen, die zu den ersten 20 Personen gehören, die dem Bot-Server beigetreten sind.",
+      "✨": ":sparkles: Personen, die während einer Kampfsaison den größten Ruhm gewonnen haben.",
+      "❤️": ":heart: Personen mit der Besoldungsgruppe auf dem Bot-Server-Server",
+      "🌍": ":earth_africa: ` Traducer `",
+      "🌟": ":star2: \" Niemand, der dazu beigetragen hat, den Bot auf einen Server mit mehr als 2000 Mitgliedern zu setzen.",
+      "🍀": ":four_leaf_clover: ` Badge, der von Zeit zu Zeit in Wettbewerben auf dem Bot-oder Twitter-Server gewonnen werden kann.",
+      "🎄": ":christmas_tree: ` Badge, die jedes Weihnachten bei einem Wettbewerb gewonnen werden kann.",
+      "🎗️": ":reminder_ribbon: ` Person, die eine Rangliste der Woche dominiert hat.",
+      "🎰": ":slot_machine: ` Badge auf völlig wandern `",
+      "🏅": ":medal: 'Joucher' in den Top 10-und Reset-10-Reset 1.0 `",
+      "🏆": ":trophy: ` Bester Spieler zum Zeitpunkt des Reset von 1.0 `",
+      "🐞": ":lady_beetle: Personen, die große Bugs gemeldet haben.",
+      "👑": ":crown: ` Eigentümer des Bots '",
+      "💍": ":ring: ` Badge, gekauft im Shop der Missionen ` `",
+      "💎": ":gem: 'Mitglied einer leistungsfähigen Gilde'",
+      "💞": ":revolving_hearts: \" Spieler, der ein legendäres Begleiter aufrichtete.",
+      "💸": ":money_with_wings: ` Donator `",
+      "🔖": ":bookmark: ` Adoper für die erste Stunde '",
+      "🕊️": ":dove: Personen, die einen nutzbaren Fehler gemeldet haben, ohne die Vorteile des Bugs zu nutzen.",
+      "🖋️": ":pen_fountain: ` Redakteur des Bots '",
+      "🗳️": ":ballot_box: Personen, die in den letzten 12 Stunden abgestimmt haben.",
+      "😂": ":joy: ` Badge angeboten für eine lustige Person `",
+      "🤑": ":money_mouth: ` Badge, gekauft im Shop `",
+      "🥇": ":first_place: Personen, die nach dem Reset den ersten Platz in der Rangfolge erreicht haben.",
+      "🪩": ":mirror_ball: ` Mitglied einer sehr mächtigen Gilde '"
     },
     "fightRanking": {
-      "fieldName": "Gloire et ligue :",
+      "fieldName": "Gloire und Liga:",
       "fieldValue": ":sparkles: {{gloryPoints}} | {{league}}"
     },
     "guild": {
-      "fieldName": "Guilde :",
+      "fieldName": "Gilde:",
       "fieldValue": ":stadium: {{guild}}"
     },
     "information": {
-      "fieldName": "Informations :",
+      "fieldName": "Information:",
       "fieldValue": ":heart: {{health}}/{{maxHealth}} | :star: {{experience}}/{{experienceNeededToLevelUp}} | :moneybag: {{money}}"
     },
     "map": {
-      "fieldName": "Destination :",
+      "fieldName": "Bestimmung:",
       "fieldValue": "{{mapEmote}} {{mapName}}"
     },
     "mission": {
-      "fieldName": "Missions :",
+      "fieldName": "Aufgaben:",
       "fieldValue": ":gem: {{gems}} | :book: {{campaign}}% "
     },
     "noTimeLeft": {
-      "fieldName": "Temps restant :",
-      "fieldValue": ":hospital: Reprise du jeu possible"
+      "fieldName": "Restdauer:",
+      "fieldValue": ":hospital: Mögliche Wiederherstellung des Spiels"
     },
     "pet": {
-      "fieldName": "Familier :",
-      "fieldValue": "Rareté: {{rarity}}\n{{emote}} {{nickname}}"
+      "fieldName": "Home:",
+      "fieldValue": "Rarität: {{rarity}}\n{{emote}} {{nickname}}"
     },
     "playerClass": {
-      "fieldName": "Classe :",
+      "fieldName": "Klasse:",
       "fieldValue": "{{class}}"
     },
     "ranking": {
-      "fieldName": "Classement et Score :",
+      "fieldName": "Bewertung und Score:",
       "fieldValue": ":trophy: {{rank}}/{{numberOfPlayer}} | :medal: {{score}}",
-      "fieldValueUnranked": ":trophy: Non classé | :medal: {{score}}"
+      "fieldValueUnranked": ":trophy: Nicht klassifiziert | :medal: {{score}}"
     },
     "statistics": {
-      "fieldName": "Statistiques :",
+      "fieldName": "Statistik:",
       "fieldValue": ":zap: {{cumulativeHealth}} / {{cumulativeMaxHealth}} | :dagger: {{cumulativeAttack}} | :shield: {{cumulativeDefense}} | :rocket: {{cumulativeSpeed}} | :wind_blowing_face: {{baseBreath}} / {{maxBreath}} | :lungs: {{breathRegen}}"
     },
     "timeLeft": {
-      "fieldName": "Temps restant :",
+      "fieldName": "Restdauer:",
       "fieldValue": "{{effect}} {{timeLeft}}"
     },
-    "title": "{{effect}} | {{pseudo}} | Niveau {{level}}"
+    "title": "{{effect}} | {{pseudo}} | Stufe {{level}}"
   },
   "update": {
-    "description": "La version actuelle du noyau du bot est la **{{coreVersion}}**. Celle du module Discord est la **{{discordModuleVersion}}**.\n\nToutes les informations concernant les mises à jour sont disponibles ici :\nhttps://guide.draftbot.com/lore/historique-des-mises-a-jour",
-    "title": ":scroll: Mises à jour"
+    "description": "Die aktuelle Version des Bot-Kernels lautet **{{coreVersion}}**. Das Paket für das Discord-Modul lautet **{{discordModuleVersion}}**.\n\nAlle Informationen zu den Aktualisierungen sind hier verfügbar:\nhttps://guide.draftbot.com/lore/historique-des-mises-a-jour",
+    "title": ":scroll: Aktualisierungen"
   },
   "help": {
     "aliasFieldTitle": "Alias",
-    "helpEmbedDescription": ":arrow_forward: Si vous voulez plus d'informations sur une commande en particulier, cliquez ici : {{helpCommandMention}}, et donnez la commande qui vous pose problème en paramètre. :wink:",
-    "serverCommands": ":gear: Serveur :",
-    "utilCommands": ":question: Utiles :",
-    "playerCommands": ":bust_in_silhouette: Joueur :",
+    "helpEmbedDescription": ":arrow_forward: Wenn Sie weitere Informationen zu einem bestimmten Befehl wünschen, klicken Sie hier: {{helpCommandMention}}, und geben Sie den Befehl an, mit dem Sie ein Problem mit dem Parameter haben. :wink:",
+    "serverCommands": ":gear: Server:",
+    "utilCommands": ":question: Utilien:",
+    "playerCommands": ":bust_in_silhouette: Joucher:",
     "missionCommands": ":scroll: Mission :",
-    "guildCommands": ":stadium: Guilde :",
-    "forMoreHelp": ":arrow_forward: Pour plus d'aide : ",
-    "petCommands": ":dog: Animaux :",
-    "commandEmbedTitle": "{{emote}} Informations détaillées :",
-    "forMoreHelpValue": "Vous pouvez vous rendre sur le [wiki](https://guide.draftbot.com/) du bot !",
-    "usageFieldTitle": "Utilisation",
+    "guildCommands": ":stadium: Gilde:",
+    "forMoreHelp": ":arrow_forward: Für weitere Hilfe: ",
+    "petCommands": ":dog: Tiere:",
+    "commandEmbedTitle": "{{emote}} Detaillierte Informationen:",
+    "forMoreHelpValue": "Sie können sich auf den [ wiki](https: //guide.draftbot.com/) des Bots stellen.",
+    "usageFieldTitle": "Verwendung",
     "aliasesFieldTitle": "Alias",
     "commands": {
       "PREFIX": {
-        "description": "Cette fonctionnalité a été supprimée du jeu suite à une mise à jour des fonctionnalités proposées par Discord."
+        "description": "Diese Funktion wurde aus dem Spiel entfernt, als eine Aktualisierung der von Discord angebotenen Funktionen."
       },
       "PING": {
-        "description": "Permet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. :clock1:"
+        "description": "Gibt an, ob der Bot online ist.\n\n(Hinweis: Die angezeigte Zeit ist die Antwortzeit des Bots und nicht das Pingsignal: Eine gültige Antwortzeit beträgt weniger als 500ms. :clock1:"
       },
       "RESPAWN": {
-        "description": "Permet de recommencer à jouer après avoir été mis K.O."
+        "description": "Wählen Sie diese Option aus, wenn Sie nach der K.O."
       },
       "PROFILE": {
         "description": "Affiche des informations sur votre personnage :\n\n😃 État de santé | Pseudo | Level\n\n឵឵឵Informations :\n❤️ Vie | ⭐ XP | 💰 Argent\n\nStatistiques :\n⚡ Énergie | 🗡️ Attaque | 🛡️ Défense | 🚀 Vitesse | 🌬️ Souffle | 🫁 Récupération\n\nMissions :\n💎 Gemmes | 📖 Avancé de la campagne %\n\nClassement et score :\n🏆 Classement | 🏅 Score\n\nClasse :\nVoir {{classesCommandMention}}\n\nGloire et Ligue :\n✨ Gloire | Voir {{topGloryCommandMention}}\n\nGuilde :\n🏟️ Guilde\n\nDestination :\nVoir {{mapCommandMention}}\n\nFamilier :\nVoir {{petCommandMention}}\n\n💡-Les badges sont affichés sur votre profil sous forme de réaction."
       },
       "SWITCH": {
-        "description": "Échange l'item qui se trouve dans votre réserve avec l'item qui se trouve dans la case \"item\" de votre inventaire."
+        "description": "Das Element befindet sich in Ihrer Reserve mit dem item, das im Feld \"item\" Ihres Bestands liegt."
       },
       "FIGHT": {
-        "description": "Utilisez cette commande pour défier les autres joueurs qui se trouvent sur le même serveur que vous.\nLes combats se déroulent tour par tour. À chaque tour, vous pouvez choisir une action à effectuer.\n\nPour plus d'informations vous pouvez aller voir la page du guide : https://guide.draftbot.com/notions-principale/combats",
+        "description": "Verwenden Sie diesen Befehl, um andere Spieler, die sich auf demselben Server wie Sie befinden, zu detrieren.\nDie Kämpfe werden um die Reihe umgeleitet. In jeder Runde können Sie eine Aktion auswählen, die ausgeführt werden soll.\n\nFür weitere Informationen können Sie die Seite \"Guide\" auf der Seite \"https://guide.draftbot.com/notions-principale/combats\" anzeigen.",
         "image": "https://draftbot.com/public/ressources/fighthelp/fr/4.5.2.png"
       },
       "HELP": {
         "description": ":expressionless:"
       },
       "LANGUAGE": {
-        "description": "Change la langue utilisée par le bot pour l'anglais. Utilisable si vous êtes administrateur sur un serveur."
+        "description": "Ändern Sie die Sprache, die der Bot für die englische Sprache verwendet. Sie können diese verwenden, wenn Sie ein Administrator auf einem Server sind."
       },
       "TOP": {
-        "description": "Affiche le classement général du jeu par tranche de 15 joueurs. Les joueurs dans le même serveur que vous sont marqués par une pastille bleue."
+        "description": "Zeigt die allgemeine Rangfolge des Spiels pro Schicht von 15 Spielern an. Spieler auf dem gleichen Server, die Sie mit einem blauen Pellet markiert haben."
       },
       "GLORY_TOP": {
-        "description": "Affiche le classement glorieux du jeu par tranche de 15 joueurs. La ligue des joueurs est également affichée. Les joueurs dans le même serveur que vous sont marqués par une pastille bleue."
+        "description": "Zeigt die ruhmige Rangfolge des Spiels pro Schicht von 15 Spielern an. Die Liga der Spieler wird ebenfalls angezeigt. Spieler auf dem gleichen Server, die Sie mit einem blauen Pellet markiert haben."
       },
       "GUILD_TOP": {
-        "description": "Affiche le classement des guildes par tranche de 15 guildes. Les guildes sont classées en fonctions des points récoltés sur les îles mystérieuses."
+        "description": "Zeigt die Rangfolge der Gilder pro Schicht von 15 Gilder an. Die Guilder werden als Funktionen der auf den mysteriösen Inseln geernteten Punkte eingestuft."
       },
       "INVENTORY": {
-        "description": "Affiche le contenu de votre inventaire qui peut contenir 4 types d'objets :\n```\n-armes\n-armures\n-potions\n-items\n```\nLa commande affiche également le contenu de la réserve qui dispose de stockage supplémentaire."
+        "description": "Zeigt den Inhalt des Inventars an, der vier Arten von Objekten enthalten kann:\n` ` `\n-waffen\n-armide\n-potions\n-items\n` ` `\n. Der Befehl zeigt auch den Inhalt der Reserve an, die über zusätzliche Speicher verfügt."
       },
       "REPORT": {
-        "description": "Permet de collecter les informations et les ressources collectées par votre personnage durant votre absence. De temps en temps, des évènements se déclenchent et demandent des actions particulières."
+        "description": "Wählen Sie diese Option aus, um die von Ihrem Charakter erfassten Informationen und Ressourcen während der Abwesenheit zu erfassen. Von Zeit zu Zeit lösen sich Ereignisse aus und fordern konkrete Maßnahmen."
       },
       "SELL": {
-        "description": "Permet de vendre l'objet qui se trouve dans votre réserve, la valeur de l'objet est déterminée en fonction de sa puissance. Les potions n'ont pas de valeur de revente, mais peuvent être jetées grace à cette commande."
+        "description": "Wählen Sie aus, dass das Objekt in Ihrer Reserve verkauft wird. Der Wert des Objekts richtet sich nach der Leistung. Potionen haben keinen Wiederverkaufungswert, können aber mit diesem Befehl grace verworfen werden."
       },
       "DAILY_BONUS": {
-        "description": "Certains items vous donnent un bonus journalier. Utilisez cette commande pour récupérer ces bonus. Pour savoir si un item vous donne un bonus journalier, effectuez la commande {command:inventory}."
+        "description": "Einige dieser Elemente geben Ihnen einen täglichen Bonus. Verwenden Sie diesen Befehl, um diese Boni zu erhalten. Um festzustellen, ob ein Tem Sie einen täglichen Bonus gibt, führen Sie den Befehl {command:inventory} aus."
       },
       "INVITE_DRAFTBOT": {
-        "description": "Cette commande vous permet d'obtenir un lien permettant de rejoindre le serveur d'aide !"
+        "description": "Mit diesem Befehl erhalten Sie einen Link zum Hilf-und Hilf-Server!"
       },
       "BADGES": {
-        "description": "Les badges sont des distinctions difficiles à obtenir qui ont été créées pour récompenser les personnes ayant le plus soutenu le développement du bot. La liste des badges est disponible sur le guide du bot.\n(via ce lien : https://guide.draftbot.com/notions-avancees/badges)"
+        "description": "Bei den Auszeichnungen handelt es sich um komplizierte Unterscheidungen, die geschaffen wurden, um diejenigen zu belohnen, die die Entwicklung des Bots am stärksten unterstützt haben. Die Liste der Badges ist auf dem Bot Guide erhältlich.\n(über diesen Link: https://guide.draftbot.com/notions-avancees/badges)"
       },
       "DRINK": {
-        "description": "Cette commande permet de consommer la potion que vous transportez. Certaines potions ne peuvent pas être bues et sont consommées automatiquement lors d'un combat."
+        "description": "Dieser Befehl wird verwendet, um den von Ihnen zu transmitenden Trank zu konsumieren. Einige Potionen können nicht bucht werden und werden automatisch in einem Kampf verbraucht."
       },
       "SHOP": {
-        "description": "Cette commande permet de dépenser votre argent pour faciliter votre aventure. En plus des 4 choix de base qui seront disponible de façon permanente, vous pourrez, chaque jour, profiter d'une potion exclusive, disponible à la vente durant 24 heures uniquement."
+        "description": "Mit diesem Befehl können Sie Ihr Geld ausgeben, um Ihr Abenteuer zu erleichtern. Zusätzlich zu den 4 Basisoptionen, die dauerhaft verfügbar sein werden, können Sie jeden Tag eine exklusive Portion genießen, die nur für 24 Stunden zum Verkauf verfügbar ist."
       },
       "GUILD_CREATE": {
-        "description": "Permet de créer une guilde. Créer une guilde coûte 5000 :moneybag:."
+        "description": "Erzeugt eine Gilde. Eine Gilde zu erstellen kostet 5000 :moneybag:."
       },
       "GUILD_LEAVE": {
-        "description": "Permet de quitter votre guilde."
+        "description": "Verlassen Sie Ihre Gilde."
       },
       "GUILD": {
-        "description": "Permet d'afficher les informations sur une guilde."
+        "description": "Zeigt Informationen zu einer Gilde an."
       },
       "GUILD_DAILY_BONUS": {
-        "description": "Permet de récupérer des récompenses quotidiennes de guilde."
+        "description": "Gewinnen Sie die täglichen Gilde-Belohnungen."
       },
       "GUILD_KICK": {
-        "description": "Permet d'expulser un membre d'une guilde, nécessite d'être chef de guilde."
+        "description": "Um ein Mitglied aus einer Gilde auszuweisen, ist es erforderlich, ein Gilde-Führer zu sein."
       },
       "GUILD_INVITE": {
-        "description": "Permet d'ajouter un utilisateur à une guilde, nécessite d'être chef ou aîné de guilde."
+        "description": "Wenn Sie einen Benutzer zu einer Gilde hinzufügen, müssen Sie Chief oder Anführer von Gilde sein."
       },
       "GUILD_DESCRIPTION": {
-        "description": "Permet de modifier la description de la guilde, nécessite d'être chef de guilde."
+        "description": "Um die Beschreibung der Gilde zu ändern, ist es notwendig, die Gilde zu sein."
       },
       "GUILD_ELDER": {
-        "description": "Permet d'ajouter un aîné à la guilde, nécessite d'être chef de guilde."
+        "description": "Um der Gilde einen älteren Menschen hinzuzufügen, muss man der Name der Gilde sein."
       },
       "GUILD_ELDER_REMOVE": {
-        "description": "Permet de supprimer l'aîné de la guilde, nécessite d'être chef de guilde."
+        "description": "Um die Älteste der Gilde zu entfernen, ist es notwendig, die Gilde zu sein."
       },
       "GUILD_STORAGE": {
-        "description": "Affiche le contenu de l'entrepôt de la guilde."
+        "description": "Zeigt den Inhalt des Inhaltslagers der Gilde an."
       },
       "GUILD_SHOP": {
-        "description": "Affiche le magasin de votre guilde."
+        "description": "Zeigt den Speicher für Ihre Gilde an."
       },
       "UPDATE": {
-        "description": "Permet de visionner le changelog."
+        "description": "Ermöglicht das Betragen von Changelog."
       },
       "CLASSES": {
-        "description": "Permet de changer de classe. Plus d'informations sur les classes sont disponibles sur le guide du joueur : https://guide.draftbot.com"
+        "description": "Ermöglicht die Änderung der Klasse. Mehr Informationen zu den Klassen finden Sie auf der Spielerführung: https://guide.draftbot.com"
       },
       "PET": {
-        "description": "Affiche les informations relatives à votre familier."
+        "description": "Zeigt Informationen zu Ihrem Begleiter an."
       },
       "PET_TRANSFER": {
-        "description": "Permet de transférer un familier depuis ou vers la guilde. Si aucun numéro n'est fourni, le familier de votre inventaire sera déplacé vers le refuge de la guilde. Sinon, il sera échangé avec celui de la guilde dont la position correspond au numéro donné."
+        "description": "Ermöglicht das Übertragen von Begleiter aus oder in die Gilden-Gilde. Wenn keine Nummer angegeben wird, wird der Begleiter Ihrer Bestandsaufnahme in die Gilde verdrängt. Ansonsten wird es mit dem der Gilde ausgetauscht werden, deren Position mit der gegebenen Nummer übereinstimmt."
       },
       "PET_NICKNAME": {
-        "description": "Change le surnom de votre familier. Si aucun nom n'est fourni, le nom actuel sera effacé."
+        "description": "Ändern Sie den Spitznamen Ihres Vertrauten. Wenn kein Name angegeben wird, wird der aktuelle Name gelöscht."
       },
       "PET_FREE": {
-        "description": "Libère votre familier. Attention, une fois libéré, il sera effacé à tout jamais et donc impossible de le récupérer. Cette commande ne peut être effectuée qu'une fois par heure."
+        "description": "Gibt Ihnen Ihr Vertrautes. Bitte beachten Sie, dass es nach seiner Freigabe für immer wieder gelöscht wird und dass es unmöglich ist, es zurückzubekommen. Dieser Befehl kann nur einmal pro Stunde ausgeführt werden."
       },
       "GUILD_SHELTER": {
-        "description": "Affiche le refuge d'animaux de la guilde."
+        "description": "Zeigt den Zufluchtsort von Gilde an."
       },
       "PET_TRADE": {
-        "description": "Propose un échange de vos animaux avec la personne mentionnée."
+        "description": "Stellt einen Austausch Ihrer Tiere mit der genannten Person bereit."
       },
       "PET_FEED": {
-        "description": "Donner de la nourriture à votre familier."
+        "description": "Essen Sie zu Ihrem Begleiter."
       },
       "PET_SELL": {
-        "description": "Permet de vendre un familier. Les conditions suivantes s'appliquent : \n - le prix de vente doit être être supérieur à `{{petSellMinPrice}}💰` et inférieur à `{{petSellMaxPrice}}💰`. \n- Le vendeur ne gagnera pas d'argent lors de la transaction, mais de l'expérience de guilde. \n- Le vendeur et l'acheteur ne peuvent pas faire partie de la même guilde."
+        "description": "Verkauft einen Begleiter. Die folgenden Bedingungen gelten: \n -Der Verkaufspreis muss höher sein als `{{petSellMinPrice}}💰` und kleiner als '{{petSellMaxPrice}}💰`. \n-Der Verkäufer wird bei der Transaktion kein Geld verdienen, sondern von der Gilde-Erfahrung. \n-Der Verkäufer und der Käufer können nicht zu derselben Gilde gehören."
       },
       "CLASSES_INFO": {
-        "description": "Permet de lire une comparaison rapide des statistiques et des informations des classes qui sont accessible à l'utilisateur effectuant la commande."
+        "description": "Lendet einen schnellen Vergleich der Statistikdaten und der Klasseninformationen an, die für den Benutzer, der den Befehl ausführt, zugänglich sind."
       },
       "RARITY": {
-        "description": "Permet de voir la probabilité d'avoir un item selon sa rareté."
+        "description": "Wählen Sie diese Option aus, um die Wahrscheinlichkeit eines item nach der Knappheit zu erkennen."
       },
       "VOTE": {
-        "description": "Permet d'obtenir le lien pour voter pour le bot."
+        "description": "Ruft die Verbindung ab, um für den Bot zu stimmen."
       },
       "IDEA": {
-        "description": "Permet d'obtenir un lien afin de suggérer une idée ou alors de voter pour celles déjà existantes."
+        "description": "Sie können einen Link erhalten, um eine Idee vorzuschlagen oder für bereits vorhandene Ideen zu stimmen."
       },
       "NOTIFICATIONS": {
-        "description": "Permet d'activer ou de désactiver les notifications du bot."
+        "description": "Stellt die Möglichkeit zum Aktivieren oder Inaktivieren von Bots-Benachrichtigungen bereit."
       },
       "UNLOCK": {
-        "description": "Permet de payer une caution pour libérer quelqu'un de prison."
+        "description": "Sie können eine Kaution bezahlen, um jemanden aus dem Gefängnis zu befreien."
       },
       "MAP": {
-        "description": "Affiche des informations sur votre destination, ainsi que la carte."
+        "description": "Zeigt Informationen zu Ihrem Ziel an und zeigt die Karte an."
       },
       "MISSIONS": {
-        "description": "Affiche la liste des missions qui vous sont proposées."
+        "description": "Zeigt eine Liste der Ihnen angebotenen Aufgaben an."
       },
       "MISSIONS_SHOP": {
-        "description": "Affiche le magasin des missions."
+        "description": "Zeigt den Lagerort für die Missionen an."
       },
       "LEAGUE_BONUS": {
-        "description": "Permet d'obtenir une récompense de ligue chaque dimanche."
+        "description": "Erhalten Sie jeden Sonntag eine Liga-Belohnung."
       },
       "JOIN_BOAT": {
-        "description": "Permet de rejoindre un membre de la guilde dans un bateau allant sur une île mystérieuse."
+        "description": "Erlaubt Ihnen, einem Mitglied der Gilde in einem Schiff auf einer mysteriösen Insel beizutreten."
       }
     },
-    "helpEmbedTitle": "{{pseudo}}, voici la liste des commandes disponibles :"
+    "helpEmbedTitle": "{{pseudo}}, hier ist die Liste der verfügbaren Befehle:"
   }
 }
