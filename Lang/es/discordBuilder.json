@@ -26,8 +26,8 @@
     }
   },
   "invite": {
-    "description": "Ajouter le bot sur votre serveur.",
-    "name": "invitationdraftbot"
+    "description": "Añade el bot a tu servidor.",
+    "name": "invitacióndraftbot"
   },
   "ping": {
     "description": "Muestra la latencia del bot y permite al jugador comprobar si el bot está en línea.",
