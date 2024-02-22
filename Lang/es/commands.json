@@ -27,6 +27,11 @@
     "seeBackupItems": "🔄 Ver la reserva",
     "seeEquippedItems": "🔄 Ver inventario principal"
   },
+  "invite": {
+    "discord": {
+      "main": "Únete a la comunidad Utilice este enlace: https://discord.gg/acGNvzEY92 :smiley:"
+    }
+  },
   "ping": {
     "discord": {
       "create": ":ping_pong: Pong",

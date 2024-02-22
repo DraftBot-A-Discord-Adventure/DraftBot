@@ -27,6 +27,11 @@
     "seeBackupItems": "🔄 Vedere la riserva",
     "seeEquippedItems": "🔄 Vedere l'inventario principale"
   },
+  "invite": {
+    "discord": {
+      "main": "Rejoignez la communauté ! Utilisez ce lien : https://discord.gg/acGNvzEY92 :smiley:"
+    }
+  },
   "ping": {
     "discord": {
       "create": ":ping_pong: Pong",
