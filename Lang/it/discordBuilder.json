@@ -61,6 +61,10 @@
       }
     }
   },
+  "rarity": {
+    "description": "Affiche les différentes raretés des équipements.",
+    "name": "rarete"
+  },
   "update": {
     "description": "Mostrare la versione attuale del bot.",
     "name": "novità"
