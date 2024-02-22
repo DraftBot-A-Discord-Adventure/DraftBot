@@ -19,14 +19,14 @@ export class ReactionCollectorWitch extends ReactionCollector {
 	creationPacket(id: string, endTime: number): ReactionCollectorCreationPacket {
 		const reactions = [];
 		for (const ingredient of this.ingredients) {
-			reactions.push(this.buildReaction(ingredient));
+			reactions.push(this.buildReaction(ReactionCollectorWitchReaction, ingredient));
 		}
 
 		return {
 			id,
 			endTime,
 			reactions,
-			data: this.buildData<ReactionCollectorWitchData>({})
+			data: this.buildData(ReactionCollectorWitchData, {})
 		};
 	}
 }

@@ -27,17 +27,17 @@ export class ReactionCollectorItemAccept extends ReactionCollector {
 	}
 
 	creationPacket(id: string, endTime: number): ReactionCollectorCreationPacket {
-		return makePacket(ReactionCollectorCreationPacket, {
+		return {
 			id,
 			endTime,
 			reactions: [
-				this.buildReaction<ReactionCollectorItemAcceptAcceptReaction>({}),
-				this.buildReaction<ReactionCollectorItemAcceptRefuseReaction>({})
+				this.buildReaction(ReactionCollectorItemAcceptAcceptReaction, {}),
+				this.buildReaction(ReactionCollectorItemAcceptRefuseReaction, {})
 			],
-			data: this.buildData<ReactionCollectorItemAcceptData>({
+			data: this.buildData(ReactionCollectorItemAcceptData, {
 				itemId: this.itemId,
 				itemCategory: this.itemCategory
 			})
-		});
+		};
 	}
 }

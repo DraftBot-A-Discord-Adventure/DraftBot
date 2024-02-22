@@ -6,7 +6,8 @@ export interface PacketContext {
 	discord?: {
 		user: string,
 		interaction: string,
-		channel: string
+		channel: string,
+		language: string
 	}
 }
 

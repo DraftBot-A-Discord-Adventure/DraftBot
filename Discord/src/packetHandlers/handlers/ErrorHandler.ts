@@ -18,9 +18,15 @@ export default class ErrorHandler {
 			.setTitle(i18n.t("error:unexpectedError", {lng: interaction?.channel?.language}))
 			.setDescription(packet.message);
 
-		interaction?.replied ?
-			await interaction?.channel.send({embeds: [embed]}) :
-			await interaction?.reply({embeds: [embed]});
+		if (interaction?.deferred && !interaction.replyEdited) {
+			interaction?.editReply({embeds: [embed]});
+		}
+		else if (!interaction?.deferred && !interaction?.replied) {
+			interaction?.reply({embeds: [embed]});
+		}
+		else {
+			interaction?.channel.send({embeds: [embed]});
+		}
 	}
 
 	@packetHandler(BlockedPacket)

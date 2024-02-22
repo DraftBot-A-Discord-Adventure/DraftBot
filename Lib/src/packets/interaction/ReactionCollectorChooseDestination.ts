@@ -1,4 +1,9 @@
-import {ReactionCollector, ReactionCollectorCreationPacket, ReactionCollectorData, ReactionCollectorReaction} from "./ReactionCollectorPacket";
+import {
+	ReactionCollector,
+	ReactionCollectorCreationPacket,
+	ReactionCollectorData,
+	ReactionCollectorReaction
+} from "./ReactionCollectorPacket";
 
 export class ReactionCollectorChooseDestinationReaction extends ReactionCollectorReaction {
 	mapId!: number;
@@ -21,14 +26,14 @@ export class ReactionCollectorChooseDestination extends ReactionCollector {
 	creationPacket(id: string, endTime: number): ReactionCollectorCreationPacket {
 		const reactions = [];
 		for (const map of this.maps) {
-			reactions.push(this.buildReaction(map));
+			reactions.push(this.buildReaction(ReactionCollectorChooseDestinationReaction, map));
 		}
 
 		return {
 			id,
 			endTime,
 			reactions,
-			data: this.buildData<ReactionCollectorChooseDestinationData>({})
+			data: this.buildData(ReactionCollectorChooseDestinationData, {})
 		};
 	}
 }

@@ -43,8 +43,7 @@ export abstract class Shop<T extends SmallEventAnyShopPacket> {
 			collector,
 			context,
 			{
-				allowedPlayerIds: [player.id],
-				reactionLimit: 1
+				allowedPlayerIds: [player.id]
 			},
 			this.callbackShopSmallEvent(player)
 		)

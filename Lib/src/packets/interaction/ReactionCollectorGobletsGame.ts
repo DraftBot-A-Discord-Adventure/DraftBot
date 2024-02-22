@@ -22,11 +22,11 @@ export class ReactionCollectorGobletsGame extends ReactionCollector {
 			id,
 			endTime,
 			reactions: [
-				this.buildReaction<ReactionCollectorGobletsGameMetalReaction>({}),
-				this.buildReaction<ReactionCollectorGobletsGameBiggestReaction>({}),
-				this.buildReaction<ReactionCollectorGobletsGameSparklingReaction>({})
+				this.buildReaction(ReactionCollectorGobletsGameMetalReaction, {}),
+				this.buildReaction(ReactionCollectorGobletsGameBiggestReaction, {}),
+				this.buildReaction(ReactionCollectorGobletsGameSparklingReaction, {})
 			],
-			data: this.buildData<ReactionCollectorGobletsGameData>({})
+			data: this.buildData(ReactionCollectorGobletsGameData, {})
 		};
 	}
 }

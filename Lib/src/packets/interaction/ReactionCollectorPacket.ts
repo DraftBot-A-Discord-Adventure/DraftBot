@@ -37,23 +37,27 @@ export class ReactionCollectorCreationPacket extends DraftBotPacket {
 }
 
 export abstract class ReactionCollector {
-	buildData<T extends ReactionCollectorData>(data: T): {
+	buildData<T extends ReactionCollectorData>(Packet: {new(): T}, {...args}: T): {
 		type: string,
 		data: T
 	} {
+		const instance = new Packet();
+		Object.assign(instance, args);
 		return {
-			type: data.constructor.name,
-			data
+			type: instance.constructor.name,
+			data: instance
 		};
 	}
 
-	buildReaction<T extends ReactionCollectorReaction>(reaction: T): {
+	buildReaction<T extends ReactionCollectorReaction>(Packet: {new(): T}, {...args}: T): {
 		type: string,
 		data: T
 	} {
+		const instance = new Packet();
+		Object.assign(instance, args);
 		return {
-			type: reaction.constructor.name,
-			data: reaction
+			type: instance.constructor.name,
+			data: instance
 		};
 	}
 

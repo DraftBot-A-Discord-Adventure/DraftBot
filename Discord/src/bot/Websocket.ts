@@ -29,7 +29,7 @@ export class DiscordWebSocket {
 			for (const packet of dataJson.packets) {
 				let listener = DiscordWebSocket.packetListener.getListener(packet.name);
 				if (!listener) {
-					packet.packet = makePacket(ErrorPacket, { message: `No packet listener found for received packet '${packet.name}'` });
+					packet.packet = makePacket(ErrorPacket, { message: `No packet listener found for received packet '${packet.name}'.\n\nData:\n${JSON.stringify(packet.packet)}` });
 					listener = DiscordWebSocket.packetListener.getListener("ErrorPacket")!;
 				}
 				await listener(DiscordWebSocket.socket!, packet.packet, dataJson.context);

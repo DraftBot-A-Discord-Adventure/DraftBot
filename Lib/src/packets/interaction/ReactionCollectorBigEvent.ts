@@ -1,4 +1,9 @@
-import {ReactionCollector, ReactionCollectorCreationPacket, ReactionCollectorData, ReactionCollectorReaction} from "./ReactionCollectorPacket";
+import {
+	ReactionCollector,
+	ReactionCollectorCreationPacket,
+	ReactionCollectorData,
+	ReactionCollectorReaction
+} from "./ReactionCollectorPacket";
 
 export class ReactionCollectorBigEventPossibilityReaction extends ReactionCollectorReaction {
 	name!: string;
@@ -22,14 +27,14 @@ export class ReactionCollectorBigEvent extends ReactionCollector {
 	creationPacket(id: string, endTime: number): ReactionCollectorCreationPacket {
 		const reactions = [];
 		for (const reaction of this.reactions) {
-			reactions.push(this.buildReaction(reaction));
+			reactions.push(this.buildReaction(ReactionCollectorBigEventPossibilityReaction, reaction));
 		}
 
 		return {
 			id,
 			endTime,
 			reactions,
-			data: this.buildData<ReactionCollectorBigEventData>({ eventId: this.eventId })
+			data: this.buildData(ReactionCollectorBigEventData, { eventId: this.eventId })
 		};
 	}
 }

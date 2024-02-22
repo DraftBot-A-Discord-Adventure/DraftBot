@@ -29,15 +29,15 @@ export class ReactionCollectorItemChoice extends ReactionCollector {
 	creationPacket(id: string, endTime: number): ReactionCollectorCreationPacket {
 		const reactions = [];
 		for (const item of this.items) {
-			reactions.push(this.buildReaction(item));
+			reactions.push(this.buildReaction(ReactionCollectorItemChoiceItemReaction, item));
 		}
-		reactions.push(this.buildReaction<ReactionCollectorItemChoiceRefuseReaction>({}));
+		reactions.push(this.buildReaction(ReactionCollectorItemChoiceRefuseReaction, {}));
 
-		return makePacket(ReactionCollectorCreationPacket, {
+		return {
 			id,
 			endTime,
 			reactions,
-			data: this.buildData<ReactionCollectorItemChoiceData>(this.data)
-		});
+			data: this.buildData(ReactionCollectorItemChoiceData, this.data)
+		};
 	}
 }
