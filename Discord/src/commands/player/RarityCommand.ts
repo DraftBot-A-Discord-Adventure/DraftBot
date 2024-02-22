@@ -18,8 +18,7 @@ export async function handleCommandRarityPacketRes(packet: CommandRarityPacketRe
 			embeds: [new DraftBotEmbed()
 				.setTitle(i18n.t("commands:rarity.title", {
 					lng: interaction.channel.language
-				}
-				))
+				}))
 				.setDescription(i18n.t("commands:rarity.rarities", {
 					common: packet.common,
 					uncommon: packet.uncommon,
