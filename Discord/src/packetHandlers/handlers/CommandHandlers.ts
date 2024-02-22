@@ -13,6 +13,8 @@ import {handleCommandUpdatePacketRes} from "../../commands/player/UpdateCommand"
 import { CommandUpdatePacketRes } from "../../../../Lib/src/packets/commands/CommandUpdatePacket";
 import {CommandTestPacketReq, CommandTestPacketRes} from "../../../../Lib/src/packets/commands/CommandTestPacket";
 import {handleCommandTestPacketRes} from "../../commands/player/TestCommand";
+import {CommandRarityPacketRes} from "../../../../Lib/src/packets/commands/CommandRarityPacket";
+import {handleCommandRarityPacketRes} from "../../commands/player/RarityCommand";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
@@ -47,5 +49,10 @@ export default class CommandHandlers {
 	@packetHandler(CommandTestPacketRes)
 	testRes(socket: WebSocket, packet: CommandTestPacketRes, context: PacketContext): void {
 		handleCommandTestPacketRes(packet, context).then();
+	}
+
+	@packetHandler(CommandRarityPacketRes)
+	rarityRes(socket: WebSocket, packet: CommandRarityPacketRes, context: PacketContext): void {
+		handleCommandRarityPacketRes(packet, context).then();
 	}
 }

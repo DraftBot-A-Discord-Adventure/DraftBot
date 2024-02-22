@@ -120,6 +120,10 @@
     },
     "title": "{{effect}} | {{pseudo}} | Level {{level}}"
   },
+  "rarity": {
+    "title": ":slot_machine: Equipment rarity",
+    "rarities": ":small_orange_diamond: Basic | Owned at the beginning of the game\n:large_orange_diamond: Common | {{common}}%\n:fire: Uncommon | {{uncommon}}%\n:trident: Exotic | {{exotic}}%\n:comet: Rare | {{rare}}%\n:dizzy: Special | {{special}}%\n:star: Epic | {{epic}}%\n:star2: Legendary | {{legendary}}%\n:gem: Mythical | {{unique}}%"
+  },
   "update": {
     "description": "The latest version of the bot's core is **{{coreVersion}}**. The Discord module's version is **{{discordModuleVersion}}**.\n\nInformations about the changelog can be found here:\nhttps://guide.draftbot.com/v/en/lore/change-logs",
     "title": ":scroll: Changelog"
