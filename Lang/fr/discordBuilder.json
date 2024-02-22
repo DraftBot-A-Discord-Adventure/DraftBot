@@ -61,6 +61,10 @@
       }
     }
   },
+  "rarity": {
+    "description": "Affiche les différentes raretés des équipements.",
+    "name": "rarete"
+  },
   "update": {
     "description": "Affiche la version actuelle du bot.",
     "name": "nouveautes"
