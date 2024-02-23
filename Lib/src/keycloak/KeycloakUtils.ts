@@ -1,6 +1,7 @@
 import {KeycloakConfig} from "./KeycloakConfig";
 import {KeycloakUserToRegister} from "./KeycloakUserToRegister";
 import {KeycloakUser} from "./KeycloakUser";
+import {Language} from "../Language";
 
 export class KeycloakUtils {
 	private static keycloakToken: string | null = null;
@@ -221,5 +222,33 @@ export class KeycloakUtils {
 		}
 
 		return id;
+	}
+
+	public static async updateUserLanguage(keycloakConfig: KeycloakConfig, user: KeycloakUser, newLanguage: Language): Promise<void> {
+		await this.checkAndQueryToken(keycloakConfig);
+
+		// Update the language attribute
+		const attributes = user.attributes;
+		attributes.language = [newLanguage];
+
+		// Send the update request to Keycloak
+		const res = await fetch(`${keycloakConfig.url}/admin/realms/${keycloakConfig.realm}/users/${user.id}`, {
+			method: "PUT",
+			headers: {
+				"Authorization": `Bearer ${this.keycloakToken}`,
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+				attributes: attributes
+			})
+		});
+
+		if (!res.ok) {
+			throw new Error(`Keycloak update language for user '${user.id}' to '${newLanguage}' error: '${JSON.stringify(await res.json())}'`);
+		}
+	}
+
+	public static getUserLanguage(user: KeycloakUser): Language {
+		return user.attributes.language[0];
 	}
 }
