@@ -15,7 +15,6 @@ import {CommandTestPacketRes} from "../../../../Lib/src/packets/commands/Command
 import {handleCommandTestPacketRes} from "../../commands/player/TestCommand";
 import {CommandRarityPacketRes} from "../../../../Lib/src/packets/commands/CommandRarityPacket";
 import {handleCommandRarityPacketRes} from "../../commands/player/RarityCommand";
-import {CommandTestPacketRes} from "../../../../Lib/src/packets/commands/CommandTestPacket";
 import {handleCommandTestPacketRes} from "../../commands/admin/TestCommand";
 
 export default class CommandHandlers {

@@ -274,14 +274,14 @@ ${i18n.t("bot:mentionHelp", {
 			if (!interaction.channel) {
 				replyErrorMessage(
 					interaction,
-					user.attributes.language,
+					KeycloakUtils.getUserLanguage(user),
 					i18n.t("bot:noChannelAccess", {lang: user.attributes.language})
 				)
 					.finally(() => null);
 				return;
 			}
 			if (!interaction.member) { // If in DM, shouldn't happen
-				interaction.channel.language = user.attributes.language;
+				interaction.channel.language = KeycloakUtils.getUserLanguage(user);
 				CommandsManager.handlePrivateMessage(interaction)
 					.finally(() => null);
 				return;
