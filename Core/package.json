@@ -4,7 +4,7 @@
 	"description": "Core package of DraftBot which manages the game mechanics",
 	"main": "src/index.js",
 	"engines": {
-		"node": ">=18.0.0"
+		"node": ">=18.19.0"
 	},
 	"engineStrict": true,
 	"scripts": {
