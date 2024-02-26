@@ -1,37 +1,43 @@
 {
     "possibilities": {
         "end": {
-            "0": {}
+            "outcomes": {
+                "0": {}
+            }
         },
         "skip": {
-            "0": {},
-            "1": {},
-            "2": {
-                "health": -20
+            "outcomes": {
+                "0": {},
+                "1": {},
+                "2": {
+                    "health": -20
+                }
             }
         },
         "wish": {
-            "0": {
-                "effect": ":clock2:",
-                "lostTime": 10,
-                "money": 1040
-            },
-            "1": {
-                "effect": ":clock2:",
-                "lostTime": 10
-            },
-            "2": {
-                "effect": ":clock2:",
-                "lostTime": 10
-            },
-            "3": {
-                "effect": ":clock2:",
-                "lostTime": 10
-            },
-            "4": {
-                "effect": ":clock2:",
-                "health": -5,
-                "lostTime": 10
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 10,
+                    "money": 1040
+                },
+                "1": {
+                    "effect": ":clock2:",
+                    "lostTime": 10
+                },
+                "2": {
+                    "effect": ":clock2:",
+                    "lostTime": 10
+                },
+                "3": {
+                    "effect": ":clock2:",
+                    "lostTime": 10
+                },
+                "4": {
+                    "effect": ":clock2:",
+                    "health": -5,
+                    "lostTime": 10
+                }
             }
         }
     },

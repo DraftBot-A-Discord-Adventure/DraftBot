@@ -1,68 +1,78 @@
 {
     "possibilities": {
         "buyCheap": {
-            "0": {
-                "money": -100,
-                "randomItem": {},
-                "tags": [
-                    "moneyUsage"
-                ]
-            },
-            "1": {
-                "money": -100,
-                "tags": [
-                    "moneyUsage"
-                ]
+            "outcomes": {
+                "0": {
+                    "money": -100,
+                    "randomItem": {},
+                    "tags": [
+                        "moneyUsage"
+                    ]
+                },
+                "1": {
+                    "money": -100,
+                    "tags": [
+                        "moneyUsage"
+                    ]
+                }
             }
         },
         "buyExpensive": {
-            "0": {
-                "money": -350,
-                "randomItem": {},
-                "tags": [
-                    "moneyUsage"
-                ]
-            },
-            "1": {
-                "money": -350,
-                "randomItem": {},
-                "tags": [
-                    "moneyUsage"
-                ]
-            },
-            "2": {
-                "money": -350,
-                "tags": [
-                    "moneyUsage"
-                ]
+            "outcomes": {
+                "0": {
+                    "money": -350,
+                    "randomItem": {},
+                    "tags": [
+                        "moneyUsage"
+                    ]
+                },
+                "1": {
+                    "money": -350,
+                    "randomItem": {},
+                    "tags": [
+                        "moneyUsage"
+                    ]
+                },
+                "2": {
+                    "money": -350,
+                    "tags": [
+                        "moneyUsage"
+                    ]
+                }
             }
         },
         "deny": {
-            "0": {}
+            "outcomes": {
+                "0": {}
+            }
         },
         "end": {
-            "0": {
-                "effect": ":clock2:",
-                "lostTime": 10
-            },
-            "1": {
-                "effect": ":clock2:",
-                "lostTime": 180,
-                "randomItem": {}
-            },
-            "2": {
-                "effect": ":clock2:",
-                "lostTime": 180
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 10
+                },
+                "1": {
+                    "effect": ":clock2:",
+                    "lostTime": 180,
+                    "randomItem": {}
+                },
+                "2": {
+                    "effect": ":clock2:",
+                    "lostTime": 180
+                }
             }
         },
         "steal": {
-            "0": {
-                "randomItem": {}
-            },
-            "1": {},
-            "2": {
-                "effect": ":head_bandage:",
-                "health": -20
+            "outcomes": {
+                "0": {
+                    "randomItem": {}
+                },
+                "1": {},
+                "2": {
+                    "effect": ":head_bandage:",
+                    "health": -20
+                }
             }
         }
     },

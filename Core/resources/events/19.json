@@ -1,47 +1,55 @@
 {
     "possibilities": {
         "butch": {
-            "0": {
-                "effect": ":clock2:",
-                "lostTime": 90,
-                "money": 500
-            },
-            "1": {
-                "effect": ":clock2:",
-                "lostTime": 15,
-                "randomItem": {}
-            },
-            "2": {
-                "effect": ":sick:"
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 90,
+                    "money": 500
+                },
+                "1": {
+                    "effect": ":clock2:",
+                    "lostTime": 15,
+                    "randomItem": {}
+                },
+                "2": {
+                    "effect": ":sick:"
+                }
             }
         },
         "cook": {
-            "0": {
-                "effect": ":sick:"
-            },
-            "1": {
-                "effect": ":clock2:",
-                "lostTime": 40
-            },
-            "2": {
-                "health": -20
-            },
-            "3": {
-                "effect": ":clock2:",
-                "health": 20,
-                "lostTime": 40
+            "outcomes": {
+                "0": {
+                    "effect": ":sick:"
+                },
+                "1": {
+                    "effect": ":clock2:",
+                    "lostTime": 40
+                },
+                "2": {
+                    "health": -20
+                },
+                "3": {
+                    "effect": ":clock2:",
+                    "health": 20,
+                    "lostTime": 40
+                }
             }
         },
         "end": {
-            "0": {
-                "effect": ":clock2:",
-                "lostTime": 10
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 10
+                }
             }
         },
         "skip": {
-            "0": {},
-            "1": {
-                "health": -20
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "health": -20
+                }
             }
         }
     },

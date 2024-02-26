@@ -1,39 +1,47 @@
 {
     "possibilities": {
         "alert": {
-            "0": {
-                "randomItem": {}
-            },
-            "1": {
-                "effect": ":head_bandage:",
-                "health": -35
+            "outcomes": {
+                "0": {
+                    "randomItem": {}
+                },
+                "1": {
+                    "effect": ":head_bandage:",
+                    "health": -35
+                }
             }
         },
         "end": {
-            "0": {},
-            "1": {
-                "effect": ":clock2:",
-                "lostTime": 5
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "effect": ":clock2:",
+                    "lostTime": 5
+                }
             }
         },
         "skip": {
-            "0": {},
-            "1": {
-                "health": -5
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "health": -5
+                }
             }
         },
         "surpriseAttack": {
-            "0": {
-                "randomItem": {}
-            },
-            "1": {
-                "effect": ":head_bandage:",
-                "health": -55
-            },
-            "2": {
-                "effect": ":clock2:",
-                "lostTime": 30,
-                "money": 25
+            "outcomes": {
+                "0": {
+                    "randomItem": {}
+                },
+                "1": {
+                    "effect": ":head_bandage:",
+                    "health": -55
+                },
+                "2": {
+                    "effect": ":clock2:",
+                    "lostTime": 30,
+                    "money": 25
+                }
             }
         }
     },

@@ -43,7 +43,7 @@ export abstract class Shop<T extends SmallEventAnyShopPacket> {
 			collector,
 			context,
 			{
-				allowedPlayerIds: [player.id]
+				allowedPlayerKeycloakIds: [player.keycloakId]
 			},
 			this.callbackShopSmallEvent(player)
 		)

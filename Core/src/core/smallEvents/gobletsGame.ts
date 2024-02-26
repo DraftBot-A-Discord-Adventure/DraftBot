@@ -71,7 +71,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 			collector,
 			context,
 			{
-				allowedPlayerIds: [player.id]
+				allowedPlayerKeycloakIds: [player.keycloakId]
 			},
 			endCallback
 		)

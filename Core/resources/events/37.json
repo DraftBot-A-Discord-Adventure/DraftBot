@@ -1,23 +1,29 @@
 {
     "possibilities": {
         "end": {
-            "0": {
-                "effect": ":clock2:",
-                "health": 5,
-                "lostTime": 15
-            },
-            "1": {
-                "randomItem": {}
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "health": 5,
+                    "lostTime": 15
+                },
+                "1": {
+                    "randomItem": {}
+                }
             }
         },
         "run": {
-            "0": {},
-            "1": {}
+            "outcomes": {
+                "0": {},
+                "1": {}
+            }
         },
         "walk": {
-            "0": {},
-            "1": {},
-            "2": {}
+            "outcomes": {
+                "0": {},
+                "1": {},
+                "2": {}
+            }
         }
     },
     "triggers": [

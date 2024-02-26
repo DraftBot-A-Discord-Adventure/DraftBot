@@ -9,7 +9,7 @@ import {PlayerMissionsInfos} from "../../core/database/game/models/PlayerMission
 import {InventorySlots} from "../../core/database/game/models/InventorySlot";
 import {PetEntities} from "../../core/database/game/models/PetEntity";
 import {CommandReportBigEventResultRes} from "../../../../Lib/src/packets/commands/CommandReportPacket";
-import {DraftBotPacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {EffectsConstants} from "../../../../Lib/src/constants/EffectsConstants";
 import {ItemConstants} from "../../../../Lib/src/constants/ItemConstants";
 import {MapLink, MapLinkDataController} from "../MapLink";
@@ -225,7 +225,7 @@ export async function applyPossibilityOutcome(eventId: number, possibilityName: 
 	// Effect + lost time
 	const effect = await applyOutcomeEffect(outcome[1], player);
 
-	const packet: CommandReportBigEventResultRes = {
+	const packet = makePacket(CommandReportBigEventResultRes, {
 		eventId,
 		possibilityId: possibilityName,
 		outcomeId: outcome[0],
@@ -237,7 +237,7 @@ export async function applyPossibilityOutcome(eventId: number, possibilityName: 
 		experience,
 		effect,
 		oneshot: outcome[1].oneshot ?? false
-	};
+	});
 
 	response.push(packet);
 

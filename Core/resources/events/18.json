@@ -1,46 +1,54 @@
 {
     "possibilities": {
         "end": {
-            "0": {
-                "effect": ":clock2:",
-                "lostTime": 10
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 10
+                }
             }
         },
         "searchScaffolding": {
-            "0": {
-                "effect": ":clock2:",
-                "lostTime": 45
-            },
-            "1": {
-                "effect": ":clock2:",
-                "lostTime": 15,
-                "randomItem": {}
-            },
-            "2": {
-                "effect": ":confounded:",
-                "health": -30
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 45
+                },
+                "1": {
+                    "effect": ":clock2:",
+                    "lostTime": 15,
+                    "randomItem": {}
+                },
+                "2": {
+                    "effect": ":confounded:",
+                    "health": -30
+                }
             }
         },
         "searchSite": {
-            "0": {
-                "effect": ":clock2:",
-                "lostTime": 30
-            },
-            "1": {
-                "effect": ":clock2:",
-                "lostTime": 40,
-                "randomItem": {}
-            },
-            "2": {
-                "effect": ":head_bandage:",
-                "health": -20
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 30
+                },
+                "1": {
+                    "effect": ":clock2:",
+                    "lostTime": 40,
+                    "randomItem": {}
+                },
+                "2": {
+                    "effect": ":head_bandage:",
+                    "health": -20
+                }
             }
         },
         "skip": {
-            "0": {},
-            "1": {
-                "effect": ":confounded:",
-                "health": -15
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "effect": ":confounded:",
+                    "health": -15
+                }
             }
         }
     },

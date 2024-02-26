@@ -1,35 +1,43 @@
 {
     "possibilities": {
         "end": {
-            "0": {}
+            "outcomes": {
+                "0": {}
+            }
         },
         "hide": {
-            "0": {},
-            "1": {
-                "health": -15
-            },
-            "2": {
-                "randomItem": {}
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "health": -15
+                },
+                "2": {
+                    "randomItem": {}
+                }
             }
         },
         "keepGoing": {
-            "0": {
-                "health": -45
-            },
-            "1": {
-                "health": 10
-            },
-            "2": {}
+            "outcomes": {
+                "0": {
+                    "health": -45
+                },
+                "1": {
+                    "health": 10
+                },
+                "2": {}
+            }
         },
         "wave": {
-            "0": {
-                "effect": ":clock2:",
-                "lostTime": 50
-            },
-            "1": {
-                "money": -400
-            },
-            "2": {}
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 50
+                },
+                "1": {
+                    "money": -400
+                },
+                "2": {}
+            }
         }
     },
     "triggers": [

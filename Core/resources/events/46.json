@@ -1,73 +1,85 @@
 {
     "possibilities": {
         "end": {
-            "0": {},
-            "1": {
-                "effect": ":confounded:",
-                "randomItem": {}
-            },
-            "2": {
-                "effect": ":lock:"
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "effect": ":confounded:",
+                    "randomItem": {}
+                },
+                "2": {
+                    "effect": ":lock:"
+                }
             }
         },
         "singCrazyLove": {
-            "0": {
-                "effect": ":scream:"
-            },
-            "1": {
-                "randomItem": {}
-            },
-            "2": {
-                "effect": ":clock2:",
-                "lostTime": 20
+            "outcomes": {
+                "0": {
+                    "effect": ":scream:"
+                },
+                "1": {
+                    "randomItem": {}
+                },
+                "2": {
+                    "effect": ":clock2:",
+                    "lostTime": 20
+                }
             }
         },
         "singHero": {
-            "0": {
-                "effect": ":clock2:",
-                "lostTime": 5
-            },
-            "1": {
-                "effect": ":clock2:",
-                "lostTime": 480
-            },
-            "2": {
-                "effect": ":sick:",
-                "money": 200,
-                "randomItem": {}
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 5
+                },
+                "1": {
+                    "effect": ":clock2:",
+                    "lostTime": 480
+                },
+                "2": {
+                    "effect": ":sick:",
+                    "money": 200,
+                    "randomItem": {}
+                }
             }
         },
         "singLove": {
-            "0": {
-                "effect": ":clock2:",
-                "lostTime": 360
-            },
-            "1": {
-                "health": 20
-            },
-            "2": {
-                "money": -100
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 360
+                },
+                "1": {
+                    "health": 20
+                },
+                "2": {
+                    "money": -100
+                }
             }
         },
         "singRoyalty": {
-            "0": {
-                "money": 600
-            },
-            "1": {
-                "effect": ":lock:"
-            },
-            "2": {}
+            "outcomes": {
+                "0": {
+                    "money": 600
+                },
+                "1": {
+                    "effect": ":lock:"
+                },
+                "2": {}
+            }
         },
         "singWork": {
-            "0": {
-                "effect": ":clock2:",
-                "lostTime": 480
-            },
-            "1": {
-                "randomItem": {}
-            },
-            "2": {
-                "money": 300
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 480
+                },
+                "1": {
+                    "randomItem": {}
+                },
+                "2": {
+                    "money": 300
+                }
             }
         }
     },

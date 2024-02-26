@@ -1,23 +1,29 @@
 {
     "possibilities": {
         "cutTree": {
-            "0": {
-                "effect": ":clock2:",
-                "lostTime": 30
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 30
+                }
             }
         },
         "end": {
-            "0": {
-                "effect": ":clock2:",
-                "lostTime": 100
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 100
+                }
             }
         },
         "otherWay": {
-            "0": {},
-            "1": {
-                "effect": ":clock2:",
-                "health": -5,
-                "lostTime": 30
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "effect": ":clock2:",
+                    "health": -5,
+                    "lostTime": 30
+                }
             }
         }
     },

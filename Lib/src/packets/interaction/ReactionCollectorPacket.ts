@@ -3,7 +3,7 @@ import {DraftBotPacket} from "../DraftBotPacket";
 export class ReactionCollectorReactPacket extends DraftBotPacket {
 	id!: string;
 
-	playerId!: number;
+	keycloakId!: string;
 
 	reactionIndex!: number;
 }

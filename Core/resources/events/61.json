@@ -1,13 +1,19 @@
 {
     "possibilities": {
         "end": {
-            "0": {}
+            "outcomes": {
+                "0": {}
+            }
         },
         "follow": {
-            "0": {}
+            "outcomes": {
+                "0": {}
+            }
         },
         "observe": {
-            "0": {}
+            "outcomes": {
+                "0": {}
+            }
         }
     },
     "triggers": [
