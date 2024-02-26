@@ -1,46 +1,52 @@
 {
     "possibilities": {
         "crossBridge": {
-            "0": {
-                "effect": ":clock2:",
-                "lostTime": 5
-            },
-            "1": {
-                "effect": ":clock2:",
-                "lostTime": 10,
-                "money": 50
-            },
-            "2": {
-                "effect": ":head_bandage:",
-                "health": -60
-            },
-            "3": {
-                "effect": ":clock2:",
-                "lostTime": 15
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 5
+                },
+                "1": {
+                    "effect": ":clock2:",
+                    "lostTime": 10,
+                    "money": 50
+                },
+                "2": {
+                    "effect": ":head_bandage:",
+                    "health": -60
+                },
+                "3": {
+                    "effect": ":clock2:",
+                    "lostTime": 15
+                }
             }
         },
         "end": {
-            "0": {
-                "effect": ":clock2:",
-                "lostTime": 20
-            },
-            "1": {
-                "effect": ":clock2:",
-                "lostTime": 5
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 20
+                },
+                "1": {
+                    "effect": ":clock2:",
+                    "lostTime": 5
+                }
             }
         },
         "otherWay": {
-            "0": {
-                "effect": ":clock2:",
-                "lostTime": 60
-            },
-            "1": {
-                "effect": ":clock2:",
-                "lostTime": 45,
-                "randomItem": {}
-            },
-            "2": {
-                "effect": ":confounded:"
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 60
+                },
+                "1": {
+                    "effect": ":clock2:",
+                    "lostTime": 45,
+                    "randomItem": {}
+                },
+                "2": {
+                    "effect": ":confounded:"
+                }
             }
         }
     },

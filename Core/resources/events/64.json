@@ -1,18 +1,24 @@
 {
     "possibilities": {
         "accept": {
-            "0": {
-                "mapLink": 84,
-                "nextEvent": 65
+            "outcomes": {
+                "0": {
+                    "mapLink": 84,
+                    "nextEvent": 65
+                }
             }
         },
         "deny": {
-            "0": {}
+            "outcomes": {
+                "0": {}
+            }
         },
         "end": {
-            "0": {
-                "mapLink": 84,
-                "nextEvent": 65
+            "outcomes": {
+                "0": {
+                    "mapLink": 84,
+                    "nextEvent": 65
+                }
             }
         }
     },

@@ -1,11 +1,12 @@
 import {DraftBot} from "./core/bot/DraftBot";
 import {loadConfig} from "./core/bot/DraftBotConfig";
-import {DraftBotPacket} from "../../Lib/src/packets/DraftBotPacket";
+import {DraftBotPacket, makePacket} from "../../Lib/src/packets/DraftBotPacket";
 import {sendPacket} from "../../Lib/src/packets/PacketUtils";
 import {WebsocketClient} from "../../Lib/src/instances/WebsocketClient";
 import {Logger} from "../../Lib/src/instances/Logger";
 import {WebSocketServer} from "ws";
 import {CommandsTest} from "./core/CommandsTest";
+import {ErrorPacket} from "../../Lib/src/packets/commands/ErrorPacket";
 
 export const botConfig = loadConfig();
 export let draftBotInstance: DraftBot = null;
@@ -35,7 +36,15 @@ webSocketServer.on("connection", async (socket): Promise<void> => {
 			return;
 		}
 		const response: DraftBotPacket[] = [];
-		await draftBotInstance.packetListener.getListener(dataJson.packet.name)(client, dataJson.packet.data, dataJson.context, response);
+		const listener = draftBotInstance.packetListener.getListener(dataJson.packet.name);
+		if (!listener) {
+			const errorMessage = `No listener found for packet '${dataJson.packet.name}'`;
+			console.error(errorMessage);
+			response.push(makePacket(ErrorPacket, { message: errorMessage }));
+		}
+		else {
+			await draftBotInstance.packetListener.getListener(dataJson.packet.name)(client, dataJson.packet.data, dataJson.context, response);
+		}
 		const responsePacket = {
 			context: dataJson.context,
 			packets: response.map((responsePacket) => ({

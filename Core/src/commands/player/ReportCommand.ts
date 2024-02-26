@@ -237,7 +237,7 @@ async function doEvent(event: BigEvent, player: Player, time: number, context: P
 			await doPossibility(event, possibilities.find((possibility) => possibility[0] === "end"), player, time, context, response);
 		}
 		else {
-			const reactionName = (reaction.reaction as ReactionCollectorBigEventPossibilityReaction).name;
+			const reactionName = (reaction.reaction.data as ReactionCollectorBigEventPossibilityReaction).name;
 			await doPossibility(event, possibilities.find((possibility) => possibility[0] === reactionName), player, time, context, response);
 		}
 	};
@@ -246,7 +246,7 @@ async function doEvent(event: BigEvent, player: Player, time: number, context: P
 		collector,
 		context,
 		{
-			allowedPlayerIds: [player.id]
+			allowedPlayerKeycloakIds: [player.keycloakId]
 		},
 		endCallback
 	)
@@ -356,7 +356,7 @@ async function chooseDestination(
 	const endCallback: EndCallback = async (collector, response) => {
 		const firstReaction = collector.getFirstReaction();
 		const mapId = firstReaction ?
-			(firstReaction.reaction as ReactionCollectorChooseDestinationReaction).mapId :
+			(firstReaction.reaction.data as ReactionCollectorChooseDestinationReaction).mapId :
 			(RandomUtils.draftbotRandom.pick(collector.creationPacket.reactions).data as ReactionCollectorChooseDestinationReaction).mapId;
 		const newLink = MapLinkDataController.instance.getLinkByLocations(player.getDestinationId(), mapId);
 		await Maps.startTravel(player, newLink, Date.now());
@@ -371,7 +371,7 @@ async function chooseDestination(
 		collector,
 		context,
 		{
-			allowedPlayerIds: [player.id]
+			allowedPlayerKeycloakIds: [player.keycloakId]
 		},
 		endCallback
 	)
@@ -546,7 +546,7 @@ async function doPVEBoss(
 		reactionCollector,
 		context,
 		{
-			allowedPlayerIds: [player.id],
+			allowedPlayerKeycloakIds: [player.keycloakId],
 			time: PVEConstants.COLLECTOR_TIME
 		},
 		endCallback

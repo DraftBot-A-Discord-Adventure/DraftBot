@@ -1,36 +1,42 @@
 {
     "possibilities": {
         "check": {
-            "0": {
-                "effect": ":head_bandage:",
-                "health": -25
-            },
-            "1": {
-                "effect": ":clock2:",
-                "lostTime": 55,
-                "randomItem": {}
-            },
-            "2": {
-                "effect": ":sleeping:"
-            },
-            "3": {
-                "effect": ":clock2:",
-                "lostTime": 15,
-                "randomItem": {}
-            },
-            "4": {
-                "effect": ":clock2:",
-                "lostTime": 15
+            "outcomes": {
+                "0": {
+                    "effect": ":head_bandage:",
+                    "health": -25
+                },
+                "1": {
+                    "effect": ":clock2:",
+                    "lostTime": 55,
+                    "randomItem": {}
+                },
+                "2": {
+                    "effect": ":sleeping:"
+                },
+                "3": {
+                    "effect": ":clock2:",
+                    "lostTime": 15,
+                    "randomItem": {}
+                },
+                "4": {
+                    "effect": ":clock2:",
+                    "lostTime": 15
+                }
             }
         },
         "end": {
-            "0": {
-                "effect": ":clock2:",
-                "lostTime": 15
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 15
+                }
             }
         },
         "skip": {
-            "0": {}
+            "outcomes": {
+                "0": {}
+            }
         }
     },
     "triggers": [

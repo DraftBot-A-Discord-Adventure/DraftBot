@@ -227,7 +227,7 @@ function manageMoreThan2ItemsSwitching(
 		collector,
 		context,
 		{
-			allowedPlayerIds: [player.id],
+			allowedPlayerKeycloakIds: [player.keycloakId],
 			reactionLimit: 1
 		},
 		endCallback
@@ -345,7 +345,7 @@ export const giveItemToPlayer = async function(
 		collector,
 		context,
 		{
-			allowedPlayerIds: [player.id],
+			allowedPlayerKeycloakIds: [player.keycloakId],
 			reactionLimit: 1
 		},
 		endCallback

@@ -45,7 +45,7 @@ function getRandomFightPetActions(player: Player): FightPetAction[] {
  * @param collector
  */
 function retrieveSelectedEvent(collector: ReactionCollectorInstance): FightPetAction {
-	const reaction = collector.getFirstReaction().reaction as ReactionCollectorFightPetReaction;
+	const reaction = collector.getFirstReaction().reaction.data as ReactionCollectorFightPetReaction;
 
 	if (!reaction) {
 		return FightPetActionDataController.instance.getNothing();
@@ -83,7 +83,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 			collector,
 			context,
 			{
-				allowedPlayerIds: [player.id]
+				allowedPlayerKeycloakIds: [player.keycloakId]
 			},
 			endCallback
 		)

@@ -1,36 +1,44 @@
 {
     "possibilities": {
         "end": {
-            "0": {
-                "effect": ":clock2:",
-                "lostTime": 45
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 45
+                }
             }
         },
         "followHint": {
-            "0": {},
-            "1": {
-                "effect": ":head_bandage:",
-                "health": -40,
-                "money": -200
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "effect": ":head_bandage:",
+                    "health": -40,
+                    "money": -200
+                }
             }
         },
         "forest": {
-            "0": {
-                "effect": ":face_with_monocle:"
-            },
-            "1": {
-                "effect": ":clock2:",
-                "lostTime": 130,
-                "randomItem": {}
-            },
-            "2": {
-                "effect": ":head_bandage:",
-                "health": -20
+            "outcomes": {
+                "0": {
+                    "effect": ":face_with_monocle:"
+                },
+                "1": {
+                    "effect": ":clock2:",
+                    "lostTime": 130,
+                    "randomItem": {}
+                },
+                "2": {
+                    "effect": ":head_bandage:",
+                    "health": -20
+                }
             }
         },
         "oppositeSide": {
-            "0": {
-                "effect": ":face_with_monocle:"
+            "outcomes": {
+                "0": {
+                    "effect": ":face_with_monocle:"
+                }
             }
         }
     },

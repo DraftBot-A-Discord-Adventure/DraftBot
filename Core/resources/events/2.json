@@ -1,27 +1,33 @@
 {
     "possibilities": {
         "end": {
-            "0": {
-                "health": -10
+            "outcomes": {
+                "0": {
+                    "health": -10
+                }
             }
         },
         "followDog": {
-            "0": {
-                "effect": ":face_with_monocle:"
-            },
-            "1": {
-                "money": 176
+            "outcomes": {
+                "0": {
+                    "effect": ":face_with_monocle:"
+                },
+                "1": {
+                    "money": 176
+                }
             }
         },
         "skip": {
-            "0": {
-                "effect": ":clock2:",
-                "lostTime": 15
-            },
-            "1": {},
-            "2": {
-                "effect": ":head_bandage:",
-                "health": -15
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 15
+                },
+                "1": {},
+                "2": {
+                    "effect": ":head_bandage:",
+                    "health": -15
+                }
             }
         }
     },

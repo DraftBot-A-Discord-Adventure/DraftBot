@@ -1,61 +1,71 @@
 {
     "possibilities": {
         "deny": {
-            "0": {},
-            "1": {
-                "effect": ":head_bandage:"
-            },
-            "2": {}
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "effect": ":head_bandage:"
+                },
+                "2": {}
+            }
         },
         "end": {
-            "0": {},
-            "1": {
-                "health": -5
-            },
-            "2": {
-                "effect": ":clock2:",
-                "lostTime": 120,
-                "money": -100
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "health": -5
+                },
+                "2": {
+                    "effect": ":clock2:",
+                    "lostTime": 120,
+                    "money": -100
+                }
             }
         },
         "play": {
-            "0": {},
-            "1": {
-                "effect": ":clock2:",
-                "lostTime": 5
-            },
-            "2": {
-                "effect": ":head_bandage:",
-                "health": -15
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "effect": ":clock2:",
+                    "lostTime": 5
+                },
+                "2": {
+                    "effect": ":head_bandage:",
+                    "health": -15
+                }
             }
         },
         "playFight": {
-            "0": {
-                "effect": ":clock2:",
-                "lostTime": 20
-            },
-            "1": {
-                "health": -1
-            },
-            "2": {
-                "money": -250
-            },
-            "3": {
-                "effect": ":clock2:",
-                "lostTime": 20
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 20
+                },
+                "1": {
+                    "health": -1
+                },
+                "2": {
+                    "money": -250
+                },
+                "3": {
+                    "effect": ":clock2:",
+                    "lostTime": 20
+                }
             }
         },
         "teach": {
-            "0": {
-                "effect": ":head_bandage:",
-                "health": -25
-            },
-            "1": {
-                "effect": ":clock2:",
-                "lostTime": 190,
-                "randomItem": {}
-            },
-            "2": {}
+            "outcomes": {
+                "0": {
+                    "effect": ":head_bandage:",
+                    "health": -25
+                },
+                "1": {
+                    "effect": ":clock2:",
+                    "lostTime": 190,
+                    "randomItem": {}
+                },
+                "2": {}
+            }
         }
     },
     "triggers": [

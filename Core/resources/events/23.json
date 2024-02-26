@@ -1,34 +1,40 @@
 {
     "possibilities": {
         "end": {
-            "0": {
-                "effect": ":clock2:",
-                "lostTime": 15
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 15
+                }
             }
         },
         "help": {
-            "0": {
-                "effect": ":clock2:",
-                "lostTime": 45,
-                "money": 75
-            },
-            "1": {
-                "effect": ":clock2:",
-                "health": -20,
-                "lostTime": 55,
-                "money": -50
-            },
-            "2": {
-                "effect": ":clock2:",
-                "lostTime": 10,
-                "randomItem": {}
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 45,
+                    "money": 75
+                },
+                "1": {
+                    "effect": ":clock2:",
+                    "health": -20,
+                    "lostTime": 55,
+                    "money": -50
+                },
+                "2": {
+                    "effect": ":clock2:",
+                    "lostTime": 10,
+                    "randomItem": {}
+                }
             }
         },
         "skip": {
-            "0": {},
-            "1": {
-                "effect": ":head_bandage:",
-                "health": -35
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "effect": ":head_bandage:",
+                    "health": -35
+                }
             }
         }
     },

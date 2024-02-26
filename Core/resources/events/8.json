@@ -1,45 +1,51 @@
 {
     "possibilities": {
         "end": {
-            "0": {
-                "effect": ":sleeping:"
+            "outcomes": {
+                "0": {
+                    "effect": ":sleeping:"
+                }
             }
         },
         "forest": {
-            "0": {
-                "mapTypesDestination": [
-                    "fo"
-                ]
-            },
-            "1": {
-                "mapTypesDestination": [
-                    "fo"
-                ],
-                "randomItem": {}
-            },
-            "2": {
-                "effect": ":head_bandage:",
-                "health": -25,
-                "mapTypesDestination": [
-                    "fo"
-                ]
+            "outcomes": {
+                "0": {
+                    "mapTypesDestination": [
+                        "fo"
+                    ]
+                },
+                "1": {
+                    "mapTypesDestination": [
+                        "fo"
+                    ],
+                    "randomItem": {}
+                },
+                "2": {
+                    "effect": ":head_bandage:",
+                    "health": -25,
+                    "mapTypesDestination": [
+                        "fo"
+                    ]
+                }
             }
         },
         "plains": {
-            "0": {
-                "effect": ":clock2:",
-                "lostTime": 150,
-                "mapTypesDestination": [
-                    "pl"
-                ]
-            },
-            "1": {
-                "effect": ":clock2:",
-                "health": 10,
-                "lostTime": 150,
-                "mapTypesDestination": [
-                    "pl"
-                ]
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 150,
+                    "mapTypesDestination": [
+                        "pl"
+                    ]
+                },
+                "1": {
+                    "effect": ":clock2:",
+                    "health": 10,
+                    "lostTime": 150,
+                    "mapTypesDestination": [
+                        "pl"
+                    ]
+                }
             }
         }
     },

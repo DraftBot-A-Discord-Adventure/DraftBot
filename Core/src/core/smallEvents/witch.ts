@@ -106,7 +106,7 @@ function getEndCallback(player: Player): EndCallback {
 	return async (collector, response) => {
 		const reaction = collector.getFirstReaction();
 		const selectedEvent = reaction ?
-			WitchActionDataController.instance.getById((reaction.reaction as ReactionCollectorWitchReaction).id) :
+			WitchActionDataController.instance.getById((reaction.reaction.data as ReactionCollectorWitchReaction).id) :
 			WitchActionDataController.instance.getDoNothing();
 		const outcome = selectedEvent.generateOutcome();
 		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.WITCH_CHOOSE);
@@ -153,7 +153,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 			collector,
 			context,
 			{
-				allowedPlayerIds: [player.id]
+				allowedPlayerKeycloakIds: [player.keycloakId]
 			},
 			getEndCallback(player)
 		)

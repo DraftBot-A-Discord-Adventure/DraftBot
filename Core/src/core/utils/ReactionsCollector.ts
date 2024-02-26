@@ -12,25 +12,28 @@ import {sendPacketsToContext} from "../../../../Lib/src/packets/PacketUtils";
 import {WebsocketClient} from "../../../../Lib/src/instances/WebsocketClient";
 import {Constants} from "../Constants";
 
-type CollectCallback = (collector: ReactionCollectorInstance, reaction: ReactionCollectorReaction, playerId: number, response: DraftBotPacket[]) => void | Promise<void>;
+type CollectCallback = (collector: ReactionCollectorInstance, reaction: ReactionCollectorReaction, keycloakId: string, response: DraftBotPacket[]) => void | Promise<void>;
 
 export type EndCallback = (collector: ReactionCollectorInstance, response: DraftBotPacket[]) => void | Promise<void>;
 
-type FilterFunction = (collector: ReactionCollectorInstance, playerId: number, reactionIndex: number) => boolean | Promise<boolean>;
+type FilterFunction = (collector: ReactionCollectorInstance, keycloakId: string, reactionIndex: number) => boolean | Promise<boolean>;
 
 export type CollectorOptions = {
 	time?: number;
-	allowedPlayerIds?: number[];
+	allowedPlayerKeycloakIds?: string[];
 	reactionLimit?: number;
 };
 
 type ReactionInfo = {
-	playerId: number,
-	reaction: ReactionCollectorReaction
+	keycloakId: string,
+	reaction: {
+		type: string,
+		data: ReactionCollectorReaction
+	}
 };
 
-export function createDefaultFilter(allowedPlayerIds: number[]): FilterFunction {
-	return (collector, playerId, reactionIndex) => allowedPlayerIds.includes(playerId) && collector.isValidReactionIndex(reactionIndex);
+export function createDefaultFilter(allowedPlayerKeycloakIds: string[]): FilterFunction {
+	return (collector, keycloakId, reactionIndex) => allowedPlayerKeycloakIds.includes(keycloakId) && collector.isValidReactionIndex(reactionIndex);
 }
 
 const collectors: Map<string, ReactionCollectorInstance> = new Map<string, ReactionCollectorInstance>();
@@ -62,7 +65,7 @@ export class ReactionCollectorInstance {
 
 	public constructor(reactionCollector: ReactionCollector, context: PacketContext, collectorOptions: CollectorOptions, endCallback: EndCallback, collectCallback: CollectCallback = null) {
 		this.model = reactionCollector;
-		this.filter = collectorOptions.allowedPlayerIds ? createDefaultFilter(collectorOptions.allowedPlayerIds) : (): boolean => true;
+		this.filter = collectorOptions.allowedPlayerKeycloakIds ? createDefaultFilter(collectorOptions.allowedPlayerKeycloakIds) : (): boolean => true;
 		this.time = collectorOptions.time ?? Constants.MESSAGES.COLLECTOR_TIME;
 		this.endTime = Date.now() + this.time;
 		this.collectCallback = collectCallback;
@@ -79,37 +82,42 @@ export class ReactionCollectorInstance {
 		this._hasEnded = value;
 	}
 
-	public async react(playerId: number, index: number, response: DraftBotPacket[]): Promise<void> {
+	public async react(keycloakId: string, index: number, response: DraftBotPacket[]): Promise<void> {
 		if (!this._creationPacket) {
 			throw "Reaction collector has not been built yet";
 		}
 
 		const reaction = this._creationPacket.reactions[index];
-		if (!await this.filter(this, playerId, index)) {
+		if (!await this.filter(this, keycloakId, index)) {
 			return;
 		}
 		this.reactionsHistory.push({
-			playerId,
+			keycloakId,
 			reaction
 		});
 		if (this.collectCallback) {
-			await this.collectCallback(this, reaction, playerId, response);
+			await this.collectCallback(this, reaction, keycloakId, response);
 		}
 		if (this.reactionsHistory.length >= this.reactionLimit && this.reactionLimit > 0) {
-			await this.end();
+			await this.end(response);
 		}
 	}
 
-	public async end(): Promise<void> {
+	public async end(response: DraftBotPacket[] = null): Promise<void> {
+		const isResponseProvided = response !== null;
 		if (this.hasEnded) {
 			return;
 		}
 		this.hasEnded = true;
 		collectors.delete(this.id);
 		if (this.endCallback) {
-			const response: DraftBotPacket[] = [];
+			if (!isResponseProvided) {
+				response = [];
+			}
 			await this.endCallback(this, response);
-			sendPacketsToContext(this._context, response);
+			if (!isResponseProvided && response.length !== 0) {
+				sendPacketsToContext(this._context, response);
+			}
 		}
 	}
 
@@ -132,9 +140,9 @@ export class ReactionCollectorInstance {
 		}
 
 		// Register
-		const id = RandomUtils.draftbotRandom.uuid4();
-		collectors.set(id, this);
-		setTimeout(this.endCallback, this.endTime - Date.now());
+		this.id = RandomUtils.draftbotRandom.uuid4();
+		collectors.set(this.id, this);
+		setTimeout(this.end, this.endTime - Date.now());
 
 		this._creationPacket = makePacket(ReactionCollectorCreationPacket, this.model.creationPacket(this.id, this.endTime));
 		return this._creationPacket;
@@ -157,11 +165,11 @@ export class ReactionCollectorController {
 	public static async reactPacket(_client: WebsocketClient, packet: ReactionCollectorReactPacket, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
 		const collector: ReactionCollectorInstance = collectors.get(packet.id);
 		if (!collector || collector.hasEnded) {
-			const packet: ReactionCollectorEnded = {};
+			const packet: ReactionCollectorEnded = makePacket(ReactionCollectorEnded, {});
 			response.push(packet);
 		}
 		else {
-			await collector.react(packet.playerId, packet.reactionIndex, response);
+			await collector.react(packet.keycloakId, packet.reactionIndex, response);
 		}
 	}
 }

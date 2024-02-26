@@ -1,10 +1,14 @@
 {
     "possibilities": {
         "end": {
-            "0": {}
+            "outcomes": {
+                "0": {}
+            }
         },
         "start": {
-            "0": {}
+            "outcomes": {
+                "0": {}
+            }
         }
     },
     "triggers": [

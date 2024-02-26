@@ -1,57 +1,67 @@
 {
     "possibilities": {
         "end": {
-            "0": {
-                "money": 250,
-                "randomItem": {}
-            },
-            "1": {},
-            "2": {
-                "money": 450
+            "outcomes": {
+                "0": {
+                    "money": 250,
+                    "randomItem": {}
+                },
+                "1": {},
+                "2": {
+                    "money": 450
+                }
             }
         },
         "food": {
-            "0": {
-                "effect": ":sick:",
-                "money": -300
-            },
-            "1": {
-                "health": 20,
-                "randomItem": {}
-            },
-            "2": {}
+            "outcomes": {
+                "0": {
+                    "effect": ":sick:",
+                    "money": -300
+                },
+                "1": {
+                    "health": 20,
+                    "randomItem": {}
+                },
+                "2": {}
+            }
         },
         "health": {
-            "0": {
-                "health": 30
-            },
-            "1": {
-                "health": -20
-            },
-            "2": {}
+            "outcomes": {
+                "0": {
+                    "health": 30
+                },
+                "1": {
+                    "health": -20
+                },
+                "2": {}
+            }
         },
         "kind": {
-            "0": {},
-            "1": {
-                "effect": ":confounded:",
-                "health": -10
-            },
-            "2": {
-                "randomItem": {}
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "effect": ":confounded:",
+                    "health": -10
+                },
+                "2": {
+                    "randomItem": {}
+                }
             }
         },
         "money": {
-            "0": {
-                "randomItem": {}
-            },
-            "1": {
-                "effect": ":clock2:",
-                "lostTime": 85,
-                "money": 350
-            },
-            "2": {
-                "effect": ":clock2:",
-                "lostTime": 190
+            "outcomes": {
+                "0": {
+                    "randomItem": {}
+                },
+                "1": {
+                    "effect": ":clock2:",
+                    "lostTime": 85,
+                    "money": 350
+                },
+                "2": {
+                    "effect": ":clock2:",
+                    "lostTime": 190
+                }
             }
         }
     },

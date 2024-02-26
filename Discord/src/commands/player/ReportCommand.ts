@@ -5,7 +5,10 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {EffectsConstants} from "../../../../Lib/src/constants/EffectsConstants";
 import {CommandReportPacketReq} from "../../../../Lib/src/packets/commands/CommandReportPacket";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
-import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import {
+	ReactionCollectorCreationPacket,
+	ReactionCollectorReactPacket
+} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {
 	ReactionCollectorBigEventData,
 	ReactionCollectorBigEventPossibilityReaction
@@ -13,8 +16,16 @@ import {
 import i18n from "../../translations/i18n";
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
-import {Message} from "discord.js";
+import {
+	ActionRowBuilder,
+	ButtonBuilder, ButtonInteraction, ButtonStyle, Message,
+	parseEmoji
+} from "discord.js";
 import {DiscordCache} from "../../bot/DiscordCache";
+import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
+import {sendInteractionNotForYou} from "../../utils/ErrorUtils";
+import {DiscordWebSocket} from "../../bot/Websocket";
+import {Constants} from "../../Constants";
 
 async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandReportPacketReq> {
 	await interaction.deferReply();
@@ -23,27 +34,92 @@ async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): 
 
 export async function createBigEventCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
 	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
-	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorBigEventData;
 	const reactions = packet.reactions.map((reaction) => reaction.data) as ReactionCollectorBigEventPossibilityReaction[];
 
+	const row = new ActionRowBuilder<ButtonBuilder>();
 	let eventText = `${i18n.t(`events:${data.eventId}.text`, { lng: context.discord?.language, interpolation: { escapeValue: false } })}\n\n`;
 	for (const possibility of reactions) {
 		if (possibility.name !== "end") {
-			eventText += `[TODO emoji] ${i18n.t(`events:${data.eventId}.possibilities.${possibility.name}.text`, {
+			const emoji = DraftBotIcons.events[data.eventId.toString()][possibility.name] as string;
+
+			const button = new ButtonBuilder()
+				.setEmoji(parseEmoji(emoji)!)
+				.setCustomId(possibility.name)
+				.setStyle(ButtonStyle.Secondary);
+			row.addComponents(button);
+
+			const reactionText = `${emoji} ${i18n.t(`events:${data.eventId}.possibilities.${possibility.name}.text`, {
 				lng: context.discord?.language,
 				interpolation: { escapeValue: false }
-			})}\n`; // todo emoji
+			})}`;
+			eventText += `${reactionText}\n`;
 		}
 	}
 
-	const eventDisplayed = await interaction?.editReply({
-		content: i18n.t("commands:report.doEvent", {
-			lng: context.discord?.language,
-			pseudo: user.attributes.gameUsername,
-			event: eventText
-		})
+	const msg = await interaction?.editReply({
+		content: i18n.t("commands:report.doEvent", { lng: interaction?.channel.language, event: eventText, pseudo: user.attributes.gameUsername, interpolation: { escapeValue: false } }),
+		components: [row]
 	}) as Message;
+
+	let responded = false; // To avoid concurrence between buttons controller and reactions controller
+	const respondToEvent = (possibilityName: string): void => {
+		if (!responded) {
+			responded = true;
+
+			const responsePacket = makePacket(
+				ReactionCollectorReactPacket,
+				{
+					id: packet.id,
+					keycloakId: user.id,
+					reactionIndex: reactions.findIndex((reaction) => reaction.name === possibilityName)
+				});
+
+			DiscordWebSocket.socket!.send(JSON.stringify({
+				packet: {
+					name: responsePacket.constructor.name,
+					data: responsePacket
+				},
+				context
+			}));
+		}
+	};
+
+	const buttonCollector = msg.createMessageComponentCollector({
+		time: packet.endTime - Date.now()
+	});
+	const endCollector = msg.createReactionCollector({
+		time: packet.endTime - Date.now(),
+		filter: (reaction, user) => reaction.emoji.name === Constants.REACTIONS.NOT_REPLIED_REACTION && user.id === interaction.user.id,
+	});
+
+	buttonCollector.on("collect", async (i: ButtonInteraction) => {
+		if (i.user.id !== context.discord?.user) {
+			await sendInteractionNotForYou(i.user, i, interaction.channel.language);
+			return;
+		}
+
+		buttonCollector.stop();
+		endCollector.stop();
+	});
+	buttonCollector.on("end", (collected) => {
+		const firstReaction = collected.first() as ButtonInteraction;
+
+		if (!firstReaction) {
+			respondToEvent("end");
+		}
+		else {
+			respondToEvent(firstReaction.customId);
+		}
+	});
+
+	endCollector.on("collect", () => {
+		respondToEvent("end");
+
+		//buttonCollector.stop();
+		//endCollector.stop();
+	});
 }
 
 export const commandInfo: ICommand = {

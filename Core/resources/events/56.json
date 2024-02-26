@@ -1,25 +1,29 @@
 {
     "possibilities": {
         "": {
-            "0": {
-                "money": -100
-            },
-            "1": {},
-            "2": {
-                "health": -3
+            "outcomes": {
+                "0": {
+                    "money": -100
+                },
+                "1": {},
+                "2": {
+                    "health": -3
+                }
             }
         },
         "end": {
-            "0": {
-                "effect": ":confounded:"
-            },
-            "1": {
-                "money": -225
-            },
-            "2": {
-                "effect": ":clock2:",
-                "health": 5,
-                "lostTime": 20
+            "outcomes": {
+                "0": {
+                    "effect": ":confounded:"
+                },
+                "1": {
+                    "money": -225
+                },
+                "2": {
+                    "effect": ":clock2:",
+                    "health": 5,
+                    "lostTime": 20
+                }
             }
         }
     },
