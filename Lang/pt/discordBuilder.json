@@ -47,6 +47,10 @@
       }
     }
   },
+  "report": {
+    "description": "Obtenir un rapport sur la situation de votre personnage.",
+    "name": "rapport"
+  },
   "scopes": {
     "global": "🏆 Classement général",
     "server": "🚩 Classement du serveur"
