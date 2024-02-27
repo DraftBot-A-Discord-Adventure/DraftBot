@@ -12,8 +12,6 @@ export class MonsterFighter extends Fighter {
 
 	private readonly name: string;
 
-	private readonly emoji: string;
-
 	public constructor(level: number, monster: Monster) {
 		const attacks: FightAction[] = [];
 		for (const attack of monster.attacks) {
