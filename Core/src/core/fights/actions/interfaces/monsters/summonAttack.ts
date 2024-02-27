@@ -23,7 +23,8 @@ const use: FightActionFunc = (sender, receiver) => {
 		{
 			attackInfo: getAttackInfo(),
 			statsInfo: getStatsInfo(sender, receiver)
-		}, RandomUtils.randInt(2, 6) // Number of summoned allies
+		},
+		RandomUtils.randInt(2, 6) // Number of summoned allies
 	);
 };
 

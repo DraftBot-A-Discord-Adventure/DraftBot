@@ -25,8 +25,10 @@ const giveRandomMissionTestCommand: ExecuteTestCommandLike = async (player, args
 	if (!difficulty || difficulty !== "e" && difficulty !== "m" && difficulty !== "h") {
 		throw new Error("Difficulté incorrecte, elle doit être easy (e), medium (m) ou hard (h)");
 	}
-	const missionSlot = await MissionsController.addRandomMissionToPlayer(player,
-		difficulty === "e" ? MissionDifficulty.EASY : difficulty === "m" ? MissionDifficulty.MEDIUM : MissionDifficulty.HARD);
+	const missionSlot = await MissionsController.addRandomMissionToPlayer(
+		player,
+		difficulty === "e" ? MissionDifficulty.EASY : difficulty === "m" ? MissionDifficulty.MEDIUM : MissionDifficulty.HARD
+	);
 	const mission = MissionDataController.instance.getById(missionSlot.missionId);
 
 	return `Vous avez reçu la mission suivante:

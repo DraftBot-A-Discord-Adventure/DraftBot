@@ -39,7 +39,8 @@ function getRandomWitchEvents(isMage: boolean): WitchEventSelection {
 			[randomAdvice,
 				randomIngredient,
 				fullRandom,
-				WitchActionDataController.instance.getDoNothing()]);
+				WitchActionDataController.instance.getDoNothing()]
+		);
 		return {randomAdvice, randomIngredient, optional, fullRandom};
 	}
 	return {randomAdvice, randomIngredient, fullRandom};
@@ -97,7 +98,8 @@ async function applyOutcome(outcome: WitchActionOutcomeType, selectedEvent: Witc
 				potionToGive.maxRarity,
 				potionToGive.nature
 			),
-			response);
+			response
+		);
 	}
 	await player.save();
 }

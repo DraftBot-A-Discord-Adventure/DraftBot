@@ -15,7 +15,9 @@ export function simpleDamageFightAction(
 	info: {
 		attackInfo: attackInfo,
 		statsInfo: statsInfo
-	}, multiplier = 1): FightActionResult {
+	},
+	multiplier = 1
+): FightActionResult {
 
 	const initialDamage = FightActionController.getAttackDamage(info.statsInfo, fighters.sender, info.attackInfo) * multiplier;
 	const attack = FightActionController.applySecondaryEffects(initialDamage, probabilities.critical, probabilities.failure);

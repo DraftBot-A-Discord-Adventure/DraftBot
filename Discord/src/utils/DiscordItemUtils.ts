@@ -75,7 +75,7 @@ export class DiscordItemUtils {
 			name: i18n.t("items:weapons.fieldName", {lng: language}),
 			value: displayPacket.id === 0 ? itemName : i18n.t("items:weapons.fieldValue", {
 				lng: language,
-				name: `TODO EMOTE ${itemName}`, // todo
+				name: `TODO EMOTE ${itemName}`, // Todo
 				rarity: i18n.t(`items:rarities.${displayPacket.rarity}`, {lng: language}),
 				values: DiscordItemUtils.getValues(displayPacket.attack.value, displayPacket.defense.value, displayPacket.speed.value, language, {
 					attack: displayPacket.attack.maxValue,
@@ -93,7 +93,7 @@ export class DiscordItemUtils {
 			name: i18n.t("items:armors.fieldName", {lng: language}),
 			value: displayPacket.id === 0 ? itemName : i18n.t("items:armors.fieldValue", {
 				lng: language,
-				name: `TODO EMOTE ${itemName}`, // todo
+				name: `TODO EMOTE ${itemName}`, // Todo
 				rarity: i18n.t(`items:rarities.${displayPacket.rarity}`, {lng: language}),
 				values: DiscordItemUtils.getValues(displayPacket.attack.value, displayPacket.defense.value, displayPacket.speed.value, language, {
 					attack: displayPacket.attack.maxValue,
@@ -111,7 +111,7 @@ export class DiscordItemUtils {
 			name: i18n.t("items:potions.fieldName", {lng: language}),
 			value: displayPacket.id === 0 ? itemName : i18n.t("items:potions.fieldValue", {
 				lng: language,
-				name: `TODO EMOTE ${itemName}`, // todo
+				name: `TODO EMOTE ${itemName}`, // Todo
 				rarity: i18n.t(`items:rarities.${displayPacket.rarity}`, {lng: language}),
 				nature: i18n.t(`items:potions.natures.${displayPacket.nature}`, {
 					lng: language,
@@ -146,7 +146,7 @@ export class DiscordItemUtils {
 			name: i18n.t("items:objects.fieldName", {lng: language}),
 			value: displayPacket.id === 0 ? itemName : i18n.t("items:objects.fieldValue", {
 				lng: language,
-				name: `TODO EMOTE ${itemName}`, // todo
+				name: `TODO EMOTE ${itemName}`, // Todo
 				rarity: i18n.t(`items:rarities.${displayPacket.rarity}`, {lng: language}),
 				nature
 			}),

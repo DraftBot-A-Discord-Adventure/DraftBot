@@ -72,7 +72,8 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 	constructor(
 		reactionInformation: ReactionInformation,
 		endCallback: CallbackLike | null = null,
-		collectorTime = 0) {
+		collectorTime = 0
+	) {
 		super();
 		this._reactions = reactionInformation.reactions;
 		this._allowEnd = reactionInformation.allowEnd;
@@ -334,6 +335,7 @@ export class DraftBotReactionMessageBuilder {
 				anyUserAllowed: this._anyUserAllowed
 			},
 			this._endCallback,
-			this._collectorTime);
+			this._collectorTime
+		);
 	}
 }

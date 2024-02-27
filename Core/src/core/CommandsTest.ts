@@ -64,7 +64,8 @@ export class CommandsTest {
 	 */
 	static isGoodFormat(
 		commandTest: ITestCommand,
-		args: string[]): { good: boolean, description: string } {
+		args: string[]
+	): { good: boolean, description: string } {
 		const ret = {
 			good: true,
 			description: ""

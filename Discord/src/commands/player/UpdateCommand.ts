@@ -21,8 +21,7 @@ export async function handleCommandUpdatePacketRes(packet: CommandUpdatePacketRe
 			embeds: [new DraftBotEmbed()
 				.setTitle(i18n.t("commands:update.title", {
 					lng: interaction.channel.language
-				}
-				))
+				}))
 				.setDescription(i18n.t("commands:update.description", {
 					coreVersion: packet.coreVersion,
 					discordModuleVersion: process.env.npm_package_version,

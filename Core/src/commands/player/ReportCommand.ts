@@ -7,7 +7,8 @@ import {
 	CommandReportErrorNoMonsterRes,
 	CommandReportMonsterRewardRes,
 	CommandReportPacketReq,
-	CommandReportRefusePveFightRes, CommandReportTravelSummaryRes
+	CommandReportRefusePveFightRes,
+	CommandReportTravelSummaryRes
 } from "../../../../Lib/src/packets/commands/CommandReportPacket";
 import {Player, Players} from "../../core/database/game/models/Player";
 import {EffectsConstants} from "../../../../Lib/src/constants/EffectsConstants";
@@ -32,14 +33,23 @@ import {FightOvertimeBehavior} from "../../core/fights/FightOvertimeBehavior";
 import {ClassDataController} from "../../data/Class";
 import {PlayerSmallEvents} from "../../core/database/game/models/PlayerSmallEvent";
 import {RandomUtils} from "../../core/utils/RandomUtils";
-import {ReactionCollectorPveFight, ReactionCollectorPveFightReactionValidate} from "../../../../Lib/src/packets/interaction/ReactionCollectorPveFight";
-import {ReactionCollectorChooseDestination, ReactionCollectorChooseDestinationReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorChooseDestination";
+import {
+	ReactionCollectorPveFight,
+	ReactionCollectorPveFightReactionValidate
+} from "../../../../Lib/src/packets/interaction/ReactionCollectorPveFight";
+import {
+	ReactionCollectorChooseDestination,
+	ReactionCollectorChooseDestinationReaction
+} from "../../../../Lib/src/packets/interaction/ReactionCollectorChooseDestination";
 import {MapCache} from "../../core/maps/MapCache";
 import {TravelTime} from "../../core/maps/TravelTime";
 import {SmallEventDataController, SmallEventFuncs} from "../../data/SmallEvent";
 import {ReportConstants} from "../../core/constants/ReportConstants";
 import {BigEvent, BigEventDataController} from "../../data/BigEvent";
-import {ReactionCollectorBigEvent, ReactionCollectorBigEventPossibilityReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorBigEvent";
+import {
+	ReactionCollectorBigEvent,
+	ReactionCollectorBigEventPossibilityReaction
+} from "../../../../Lib/src/packets/interaction/ReactionCollectorBigEvent";
 import {Possibility} from "../../data/events/Possibility";
 import {applyPossibilityOutcome} from "../../data/events/PossibilityOutcome";
 import {ErrorPacket} from "../../../../Lib/src/packets/commands/ErrorPacket";
@@ -118,8 +128,11 @@ export default class ReportCommand {
  * @param player
  */
 async function initiateNewPlayerOnTheAdventure(player: Player): Promise<void> {
-	await Maps.startTravel(player, MapLinkDataController.instance.getById(Constants.BEGINNING.START_MAP_LINK),
-		getTimeFromXHoursAgo(Constants.REPORT.HOURS_USED_TO_CALCULATE_FIRST_REPORT_REWARD).valueOf());
+	await Maps.startTravel(
+		player,
+		MapLinkDataController.instance.getById(Constants.BEGINNING.START_MAP_LINK),
+		getTimeFromXHoursAgo(Constants.REPORT.HOURS_USED_TO_CALCULATE_FIRST_REPORT_REWARD).valueOf()
+	);
 	await player.save();
 }
 
@@ -227,7 +240,7 @@ async function doEvent(event: BigEvent, player: Player, time: number, context: P
 
 	const collector = new ReactionCollectorBigEvent(
 		event.id,
-		possibilities.map((possibility) => ({ name: possibility[0] }))
+		possibilities.map((possibility) => ({name: possibility[0]}))
 	);
 
 	const endCallback: EndCallback = async (collector, response) => {
@@ -289,7 +302,7 @@ async function doRandomBigEvent(
 		const mapId = player.getDestinationId();
 		event = await BigEventDataController.instance.getRandomEvent(mapId, player);
 		if (!event) {
-			response.push(makePacket(ErrorPacket, { message: "It seems that there is no event here... It's a bug, please report it to the DraftBot staff." }));
+			response.push(makePacket(ErrorPacket, {message: "It seems that there is no event here... It's a bug, please report it to the DraftBot staff."}));
 			return;
 		}
 	}
@@ -348,7 +361,7 @@ async function chooseDestination(
 		const mapLink = MapLinkDataController.instance.getLinkByLocations(player.getDestinationId(), mapId);
 		const isPveMap = MapCache.allPveMapLinks.includes(mapLink.id);
 
-		return { mapId, tripDuration: isPveMap || RandomUtils.draftbotRandom.bool() ? mapLink.tripDuration : null };
+		return {mapId, tripDuration: isPveMap || RandomUtils.draftbotRandom.bool() ? mapLink.tripDuration : null};
 	});
 
 	const collector = new ReactionCollectorChooseDestination(mapReactions);
@@ -472,7 +485,7 @@ async function doPVEBoss(
 					guildXp,
 					guildPoints
 				}));
-				await MissionsController.update(player, response, { missionId: "winBoss" });
+				await MissionsController.update(player, response, {missionId: "winBoss"});
 			}
 
 			await player.save();
@@ -564,7 +577,7 @@ async function doPVEBoss(
  * @param response
  * @param forced
  */
-async function executeSmallEvent(context: PacketContext, player: Player, response:DraftBotPacket[], forced: string): Promise<void> {
+async function executeSmallEvent(context: PacketContext, player: Player, response: DraftBotPacket[], forced: string): Promise<void> {
 	// Pick random event
 	let event: string;
 	if (forced === null) {
@@ -574,7 +587,7 @@ async function executeSmallEvent(context: PacketContext, player: Player, respons
 		for (const key of keys) {
 			const file = await import(`../../core/smallEvents/${key}.js`);
 			if (!file.smallEvent?.canBeExecuted) {
-				response.push(makePacket(ErrorPacket, { message: `${key} doesn't contain a canBeExecuted function` }));
+				response.push(makePacket(ErrorPacket, {message: `${key} doesn't contain a canBeExecuted function`}));
 				return;
 			}
 			if (await file.smallEvent.canBeExecuted(player)) {
@@ -604,14 +617,14 @@ async function executeSmallEvent(context: PacketContext, player: Player, respons
 			const smallEvent: SmallEventFuncs = require(smallEventModule).smallEventFuncs;
 			draftBotInstance.logsDatabase.logSmallEvent(player.keycloakId, event).then();
 			await smallEvent.executeSmallEvent(context, response, player);
-			await MissionsController.update(player, response, { missionId: "doReports" });
+			await MissionsController.update(player, response, {missionId: "doReports"});
 		}
 		catch (e) {
-			response.push(makePacket(ErrorPacket, { message: `${e}` }));
+			response.push(makePacket(ErrorPacket, {message: `${e}`}));
 		}
 	}
 	catch (e) {
-		response.push(makePacket(ErrorPacket, { message: `${filename} doesn't exist` }));
+		response.push(makePacket(ErrorPacket, {message: `${filename} doesn't exist`}));
 	}
 
 	// Save

@@ -13,7 +13,7 @@ export default class ReactionCollectorHandler {
 			await createBigEventCollector(packet, context);
 			break;
 		default:
-			throw `Unknown collector with data: ${packet.data.type}`; // todo error embed
+			throw `Unknown collector with data: ${packet.data.type}`; // Todo error embed
 		}
 	}
 }

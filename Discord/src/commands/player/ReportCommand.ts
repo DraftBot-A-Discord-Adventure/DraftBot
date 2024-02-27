@@ -74,7 +74,8 @@ export async function createBigEventCollector(packet: ReactionCollectorCreationP
 					id: packet.id,
 					keycloakId: user.id,
 					reactionIndex: reactions.findIndex((reaction) => reaction.name === possibilityName)
-				});
+				}
+			);
 
 			DiscordWebSocket.socket!.send(JSON.stringify({
 				packet: {
@@ -91,7 +92,7 @@ export async function createBigEventCollector(packet: ReactionCollectorCreationP
 	});
 	const endCollector = msg.createReactionCollector({
 		time: packet.endTime - Date.now(),
-		filter: (reaction, user) => reaction.emoji.name === Constants.REACTIONS.NOT_REPLIED_REACTION && user.id === interaction.user.id,
+		filter: (reaction, user) => reaction.emoji.name === Constants.REACTIONS.NOT_REPLIED_REACTION && user.id === interaction.user.id
 	});
 
 	buttonCollector.on("collect", async (i: ButtonInteraction) => {
@@ -117,8 +118,8 @@ export async function createBigEventCollector(packet: ReactionCollectorCreationP
 	endCollector.on("collect", () => {
 		respondToEvent("end");
 
-		//buttonCollector.stop();
-		//endCollector.stop();
+		// ButtonCollector.stop();
+		// EndCollector.stop();
 	});
 }
 

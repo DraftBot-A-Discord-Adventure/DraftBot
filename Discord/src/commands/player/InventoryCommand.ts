@@ -172,12 +172,10 @@ export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("inventory")
 		.addUserOption(option =>
 			SlashCommandBuilderGenerator.generateOption("inventory", "user", option)
-				.setRequired(false)
-		)
+				.setRequired(false))
 		.addIntegerOption(option =>
 			SlashCommandBuilderGenerator.generateOption("inventory", "rank", option)
-				.setRequired(false)
-		) as SlashCommandBuilder,
+				.setRequired(false)) as SlashCommandBuilder,
 	getPacket,
 	requirements: {
 		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD]
