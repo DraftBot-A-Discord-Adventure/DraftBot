@@ -64,8 +64,14 @@ export abstract class Shop<T extends SmallEventAnyShopPacket> {
 			if (!packet.isValidated || !packet.canBuy) {
 				return;
 			}
-			await giveItemToPlayer(player, this.randomItem, collector.context,
-				response, await InventorySlots.getOfPlayer(player.id), SmallEventConstants.SHOP.RESALE_MULTIPLIER);
+			await giveItemToPlayer(
+				player,
+				this.randomItem,
+				collector.context,
+				response,
+				await InventorySlots.getOfPlayer(player.id),
+				SmallEventConstants.SHOP.RESALE_MULTIPLIER
+			);
 			await player.spendMoney({
 				amount: this.itemPrice,
 				response,

@@ -54,8 +54,7 @@ export class PotionDataController extends ItemDataController<Potion> {
 				.filter((item) =>
 					item.nature !== ItemNature.NONE &&
 					item.rarity < ItemRarity.LEGENDARY &&
-					item.id !== excludeId
-				)
+					item.id !== excludeId)
 		);
 	}
 }

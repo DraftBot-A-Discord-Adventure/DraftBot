@@ -113,7 +113,8 @@ const sellOrKeepItem = async function(
 					itemCategory: itemToReplace.itemCategory,
 					playerId: player.id
 				}
-			});
+			}
+		);
 		await MissionsController.update(player, response, {
 			missionId: "haveItemRarity",
 			params: {rarity: item.rarity}
