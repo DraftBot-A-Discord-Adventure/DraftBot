@@ -4,7 +4,7 @@
   "titleCanceled": "{{pseudo}}, cancellazione presa in conto !",
   "titleDidntWork": "{{pseudo}}, hmmm... Questo non ha funzionato !",
   "commandDoesntExist": "ERRORE: comando sconosciuto",
-  "interactionNotForYou": "Cette interaction n'est pas pour vous !",
+  "interactionNotForYou": "Questa interazione non è per voi !",
   "unexpectedError": "Une erreur est survenue :(",
   "playerBlocked": "Vous ne pouvez pas effectuer cela car vous avez une action en attente ({{reasons}}) !",
   "anotherPlayerBlocked": "Vous ne pouvez pas effectuer cela car {{username}} a une action en attente ({{reasons}}) !",
