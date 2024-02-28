@@ -12,11 +12,14 @@ export class StringConstants {
 		GERMAN: Language
 	}
 		= {
-			FRENCH: "fr",
-			ENGLISH: "en",
-			ITALIAN: "it",
-			SPANISH: "es",
-			PORTUGUESE: "pt",
-			GERMAN: "de"
-		};
+		FRENCH: "fr",
+		ENGLISH: "en",
+		ITALIAN: "it",
+		SPANISH: "es",
+		PORTUGUESE: "pt",
+		GERMAN: "de"
+	};
+
+	static readonly DEFAULT_LANGUAGE: Language = StringConstants.LANGUAGE.FRENCH
+
 }
