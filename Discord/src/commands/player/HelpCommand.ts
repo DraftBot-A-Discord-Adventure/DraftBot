@@ -85,46 +85,46 @@ function generateGenericHelpMessage(helpMessage: DraftBotEmbed, interaction: Dra
 		missionCommands,
 		guildCommands,
 		petCommands
-	} = getCommandByCategories(interaction.channel.language);
+	} = getCommandByCategories(interaction.userLanguage);
 	helpMessage.formatAuthor(i18n.t("commands:help.helpEmbedTitle", {
-		lng: interaction.channel.language,
+		lng: interaction.userLanguage,
 		pseudo: interaction.user.username
 	}), interaction.user);
 	helpMessage.setDescription(
 		`${i18n.t("commands:help.helpEmbedDescription", {
-			lng: interaction.channel.language,
+			lng: interaction.userLanguage,
 			helpCommandMention: BotUtils.commandsMentions.get("help"),
 			interpolation: {escapeValue: false}
 		})}\n\u200b`
 	);
 	helpMessage.addFields([
 		{
-			name: i18n.t("commands:help.serverCommands", {lng: interaction.channel.language}),
+			name: i18n.t("commands:help.serverCommands", {lng: interaction.userLanguage}),
 			value: `${serverCommands.sort().join(HelpConstants.COMMAND_SEPARATOR_FOR_GENERAL_DESCRIPTION)}`
 		},
 		{
-			name: i18n.t("commands:help.utilCommands", {lng: interaction.channel.language}),
+			name: i18n.t("commands:help.utilCommands", {lng: interaction.userLanguage}),
 			value: `${utilCommands.sort().join(HelpConstants.COMMAND_SEPARATOR_FOR_GENERAL_DESCRIPTION)}`
 		},
 		{
-			name: i18n.t("commands:help.playerCommands", {lng: interaction.channel.language}),
+			name: i18n.t("commands:help.playerCommands", {lng: interaction.userLanguage}),
 			value: `${playerCommands.join(HelpConstants.COMMAND_SEPARATOR_FOR_GENERAL_DESCRIPTION)}`
 		},
 		{
-			name: i18n.t("commands:help.missionCommands", {lng: interaction.channel.language}),
+			name: i18n.t("commands:help.missionCommands", {lng: interaction.userLanguage}),
 			value: `${missionCommands.join(HelpConstants.COMMAND_SEPARATOR_FOR_GENERAL_DESCRIPTION)}`
 		},
 		{
-			name: i18n.t("commands:help.guildCommands", {lng: interaction.channel.language}),
+			name: i18n.t("commands:help.guildCommands", {lng: interaction.userLanguage}),
 			value: `${guildCommands.sort().join(HelpConstants.COMMAND_SEPARATOR_FOR_GENERAL_DESCRIPTION)}`
 		},
 		{
-			name: i18n.t("commands:help.petCommands", {lng: interaction.channel.language}),
+			name: i18n.t("commands:help.petCommands", {lng: interaction.userLanguage}),
 			value: `${petCommands.sort().join(HelpConstants.COMMAND_SEPARATOR_FOR_GENERAL_DESCRIPTION)} \n\u200b`
 		},
 		{
-			name: i18n.t("commands:help.forMoreHelp", {lng: interaction.channel.language}),
-			value: i18n.t("commands:help.forMoreHelpValue", {lng: interaction.channel.language})
+			name: i18n.t("commands:help.forMoreHelp", {lng: interaction.userLanguage}),
+			value: i18n.t("commands:help.forMoreHelpValue", {lng: interaction.userLanguage})
 		}
 	]);
 }
@@ -162,12 +162,12 @@ function generateReplacementObjectForHelpCommand(interaction: DraftbotInteractio
 	const topGloryCommandMention = BotUtils.commandsMentions.get("top guilds");
 	const mapCommandMention = BotUtils.commandsMentions.get("map");
 	const petCommandMention = BotUtils.commandsMentions.get("pet");
-	const classesCommandMentionString = classesCommandMention ? classesCommandMention : i18n.t("error:commandDoesntExist", {lng: interaction.channel.language});
-	const topGloryCommandMentionString = topGloryCommandMention ? topGloryCommandMention : i18n.t("error:commandDoesntExist", {lng: interaction.channel.language});
-	const mapCommandMentionString = mapCommandMention ? mapCommandMention : i18n.t("error:commandDoesntExist", {lng: interaction.channel.language});
-	const petCommandMentionString = petCommandMention ? petCommandMention : i18n.t("error:commandDoesntExist", {lng: interaction.channel.language});
+	const classesCommandMentionString = classesCommandMention ? classesCommandMention : i18n.t("error:commandDoesntExist", {lng: interaction.userLanguage});
+	const topGloryCommandMentionString = topGloryCommandMention ? topGloryCommandMention : i18n.t("error:commandDoesntExist", {lng: interaction.userLanguage});
+	const mapCommandMentionString = mapCommandMention ? mapCommandMention : i18n.t("error:commandDoesntExist", {lng: interaction.userLanguage});
+	const petCommandMentionString = petCommandMention ? petCommandMention : i18n.t("error:commandDoesntExist", {lng: interaction.userLanguage});
 	return {
-		lng: interaction.channel.language,
+		lng: interaction.userLanguage,
 		petSellMinPrice,
 		petSellMaxPrice,
 		classesCommandMention: classesCommandMentionString,
@@ -203,23 +203,23 @@ async function getPacket(interaction: DraftbotInteraction): Promise<null> {
 		}
 
 		const commandMention = BotUtils.commandsMentions.get(HelpConstants.COMMANDS_DATA[command as keyof typeof HelpConstants.COMMANDS_DATA].NAME);
-		const commandMentionString: string = commandMention ? commandMention : i18n.t("error:commandDoesntExist", {lng: interaction.channel.language});
+		const commandMentionString: string = commandMention ? commandMention : i18n.t("error:commandDoesntExist", {lng: interaction.userLanguage});
 		const replacements = generateReplacementObjectForHelpCommand(interaction);
 
 
 		if (command === "FIGHT") {
-			helpMessage.setImage(i18n.t("commands:help.commands.FIGHT.image", {lng: interaction.channel.language}));
+			helpMessage.setImage(i18n.t("commands:help.commands.FIGHT.image", {lng: interaction.userLanguage}));
 		}
 
 		helpMessage.setDescription(i18n.t(`commands:help.commands.${command}.description`, replacements))
 			.setTitle(
 				i18n.t("commands:help.commandEmbedTitle", {
-					lng: interaction.channel.language,
+					lng: interaction.userLanguage,
 					emote: HelpConstants.COMMANDS_DATA[command as keyof typeof HelpConstants.COMMANDS_DATA].EMOTE
 				})
 			);
 		helpMessage.addFields({
-			name: i18n.t("commands:help.usageFieldTitle", {lng: interaction.channel.language}),
+			name: i18n.t("commands:help.usageFieldTitle", {lng: interaction.userLanguage}),
 			value: commandMentionString,
 			inline: true
 		});

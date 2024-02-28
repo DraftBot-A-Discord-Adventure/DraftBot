@@ -281,7 +281,7 @@ ${i18n.t("bot:mentionHelp", {
 				return;
 			}
 			if (!interaction.member) { // If in DM, shouldn't happen
-				interaction.channel.language = KeycloakUtils.getUserLanguage(user);
+				interaction.userLanguage = KeycloakUtils.getUserLanguage(user);
 				CommandsManager.handlePrivateMessage(interaction)
 					.finally(() => null);
 				return;
@@ -391,7 +391,7 @@ ${i18n.t("bot:mentionHelp", {
 					user: interaction.user.id,
 					channel: interaction.channel.id,
 					interaction: interaction.id,
-					language: interaction.channel.language
+					language: interaction.userLanguage
 				}
 			};
 			DiscordWebSocket.socket!.send(JSON.stringify({

@@ -20,12 +20,12 @@ export async function handleCommandUpdatePacketRes(packet: CommandUpdatePacketRe
 		await interaction.reply({
 			embeds: [new DraftBotEmbed()
 				.setTitle(i18n.t("commands:update.title", {
-					lng: interaction.channel.language
+					lng: interaction.userLanguage
 				}))
 				.setDescription(i18n.t("commands:update.description", {
 					coreVersion: packet.coreVersion,
 					discordModuleVersion: process.env.npm_package_version,
-					lng: interaction.channel.language
+					lng: interaction.userLanguage
 				}))]
 		});
 	}

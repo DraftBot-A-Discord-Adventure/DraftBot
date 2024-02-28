@@ -97,7 +97,7 @@ export async function createBigEventCollector(packet: ReactionCollectorCreationP
 
 	buttonCollector.on("collect", async (i: ButtonInteraction) => {
 		if (i.user.id !== context.discord?.user) {
-			await sendInteractionNotForYou(i.user, i, interaction.channel.language);
+			await sendInteractionNotForYou(i.user, i, interaction.userLanguage);
 			return;
 		}
 
