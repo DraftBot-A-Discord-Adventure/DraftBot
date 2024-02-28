@@ -128,6 +128,8 @@
     "selectLanguage": "Sélectionnez une langue",
     "description": "Utilisez le menu ci-dessous pour changer la langue utilisée par le bot sur ce serveur. Cette commande est réservée aux administrateurs du serveur.",
     "title": ":earth_africa: Sélection de la langue",
+    "newLanguageSetTitle": "Langue changée",
+    "newLanguageSetDescription": "DraftBot vous parlera désormais en français ! 🥖",
     "languages": {
       "en": {
         "emoji": "🇬🇧",
