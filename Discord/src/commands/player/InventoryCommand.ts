@@ -149,7 +149,7 @@ export async function handleCommandInventoryPacketRes(packet: CommandInventoryPa
 		});
 
 		const collector = msg.createMessageComponentCollector({
-			filter: i => i.customId === buttonId,
+			filter: i => i.customId === buttonId, // TODO: rename single letter variable to something clearer
 			time: Constants.MESSAGES.COLLECTOR_TIME
 		});
 		collector.on("collect", async (i: ButtonInteraction) => {
