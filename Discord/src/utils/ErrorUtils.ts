@@ -1,4 +1,4 @@
-import {ButtonInteraction, User} from "discord.js";
+import {ButtonInteraction, StringSelectMenuInteraction, User} from "discord.js";
 import {DraftBotErrorEmbed} from "../messages/DraftBotErrorEmbed";
 import {Language} from "../../../Lib/src/Language";
 import {DraftbotInteraction} from "../messages/DraftbotInteraction";
@@ -42,10 +42,10 @@ export async function sendErrorMessage(
 
 export async function sendInteractionNotForYou(
 	user: User,
-	buttonInteraction: ButtonInteraction,
+	interaction: ButtonInteraction | StringSelectMenuInteraction,
 	language: Language
 ): Promise<void> {
-	await buttonInteraction.reply({
+	await interaction.reply({
 		embeds: [
 			new DraftBotEmbed()
 				.setDescription(i18n.t("error:interactionNotForYou", { lng: language }))
