@@ -48,8 +48,8 @@
     }
   },
   "report": {
-    "description": "Obtenir un rapport sur la situation de votre personnage.",
-    "name": "rapport"
+    "description": "Holen Sie sich einen Bericht über die Situation Ihres Charakters.",
+    "name": "Bericht"
   },
   "scopes": {
     "global": "🏆 Gesamteinstufung",
@@ -66,8 +66,8 @@
     }
   },
   "rarity": {
-    "description": "Affiche les différentes raretés des équipements.",
-    "name": "rarete"
+    "description": "Zeigt die verschiedenen Knappheit der Geräte an.",
+    "name": "Seltenheit"
   },
   "update": {
     "description": "Zeigt die aktuelle Version des Bots an.",
