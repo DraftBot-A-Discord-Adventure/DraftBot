@@ -5,7 +5,7 @@
   "titleDidntWork": "{{pseudo}}, hmmm... That didn't work!",
   "commandDoesntExist": "ERROR: Unknown command",
   "interactionNotForYou": "This interaction is not intended for you!",
-  "unexpectedError": "Une erreur est survenue :(",
+  "unexpectedError": "An error occurred. :(",
   "playerBlocked": "You can't do this because you currently have a pending action ({{reasons}})!",
   "anotherPlayerBlocked": "You can't do this because {{username}} currently has a pending action ({{reasons}})!",
   "blockedContext": {
