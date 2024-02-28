@@ -248,6 +248,10 @@ export class KeycloakUtils {
 		}
 	}
 
+	/**
+	 * Get the language of a user from its attributes
+	 * @param user
+	 */
 	public static getUserLanguage(user: KeycloakUser): Language {
 		return user.attributes.language[0];
 	}
