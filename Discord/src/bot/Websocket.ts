@@ -2,6 +2,8 @@ import {discordConfig} from "./DraftBotShard";
 import {PacketListenerClient} from "../../../Lib/src/packets/PacketListener";
 import {WebSocket} from "ws";
 import {registerAllPacketHandlers} from "../packetHandlers/PacketHandler";
+import {makePacket} from "../../../Lib/src/packets/DraftBotPacket";
+import {ErrorPacket} from "../../../Lib/src/packets/commands/ErrorPacket";
 
 export class DiscordWebSocket {
 
@@ -25,7 +27,12 @@ export class DiscordWebSocket {
 				return;
 			}
 			for (const packet of dataJson.packets) {
-				await DiscordWebSocket.packetListener.getListener(packet.name)(DiscordWebSocket.socket!, packet.packet, dataJson.context);
+				let listener = DiscordWebSocket.packetListener.getListener(packet.name);
+				if (!listener) {
+					packet.packet = makePacket(ErrorPacket, { message: `No packet listener found for received packet '${packet.name}'.\n\nData:\n${JSON.stringify(packet.packet)}` });
+					listener = DiscordWebSocket.packetListener.getListener("ErrorPacket")!;
+				}
+				await listener(DiscordWebSocket.socket!, packet.packet, dataJson.context);
 			}
 		});
 

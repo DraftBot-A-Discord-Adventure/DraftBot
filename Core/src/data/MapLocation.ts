@@ -76,7 +76,8 @@ export class MapLocationDataController extends DataControllerNumber<MapLocation>
 					MapLinkDataController.instance
 						.getLinksByMapStart(mapId)
 						.map((map2) => map2.endMap)
-						.includes(map.id))
+						.includes(map.id)
+			)
 			.map((map) => map.id);
 	}
 
@@ -92,7 +93,8 @@ export class MapLocationDataController extends DataControllerNumber<MapLocation>
 					MapLinkDataController.instance
 						.getLinksByMapStart(mapId)
 						.map((map2) => map2.endMap)
-						.includes(map.id))
+						.includes(map.id)
+			)
 			.map((map) => map.type);
 	}
 

@@ -48,7 +48,8 @@ export class FightController {
 			friendly: boolean,
 			overtimeBehavior: FightOvertimeBehavior
 		},
-		context: PacketContext) {
+		context: PacketContext
+	) {
 		this.fighters = [fighters.fighter1, fighters.fighter2];
 		this.fightInitiator = fighters.fighter1;
 		this.state = FightState.NOT_STARTED;
@@ -209,7 +210,8 @@ export class FightController {
 						console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");
 						console.error(e.stack);
 						this.endBugFight();
-					});
+					}
+				);
 		}
 	}
 
@@ -279,7 +281,8 @@ export class FightController {
 					console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");
 					console.error(e.stack);
 					this.endBugFight();
-				});
+				}
+			);
 		if (this.state !== FightState.RUNNING) {
 			// An issue occurred during the fight status display, no need to continue the fight
 			return;

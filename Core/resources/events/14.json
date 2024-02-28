@@ -1,0 +1,65 @@
+{
+    "possibilities": {
+        "chatWorker": {
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 60,
+                    "randomItem": {}
+                },
+                "1": {
+                    "effect": ":clock2:",
+                    "lostTime": 10
+                },
+                "2": {
+                    "effect": ":dizzy_face:",
+                    "health": -70
+                }
+            }
+        },
+        "end": {
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 30
+                }
+            }
+        },
+        "goAway": {
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "effect": ":clock2:",
+                    "lostTime": 20
+                },
+                "2": {
+                    "effect": ":sleeping:",
+                    "health": -20
+                }
+            }
+        },
+        "stayNight": {
+            "outcomes": {
+                "0": {
+                    "effect": ":sleeping:",
+                    "health": 10
+                },
+                "1": {
+                    "effect": ":clock2:",
+                    "lostTime": 5
+                },
+                "2": {},
+                "3": {
+                    "effect": ":clock2:",
+                    "health": 5,
+                    "lostTime": 100
+                }
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 12
+        }
+    ]
+}

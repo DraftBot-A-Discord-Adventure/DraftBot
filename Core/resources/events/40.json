@@ -1,0 +1,65 @@
+{
+    "possibilities": {
+        "askAdvices": {
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 300
+                },
+                "1": {
+                    "effect": ":clock2:",
+                    "health": 25,
+                    "lostTime": 30
+                },
+                "2": {
+                    "effect": ":zany_face:",
+                    "tags": [
+                        "drinkAlcohol."
+                    ]
+                }
+            }
+        },
+        "breakIn": {
+            "outcomes": {
+                "0": {
+                    "money": 350
+                },
+                "1": {
+                    "effect": ":head_bandage:",
+                    "health": -30
+                },
+                "2": {
+                    "effect": ":clock2:",
+                    "health": 40,
+                    "lostTime": 40
+                }
+            }
+        },
+        "end": {
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 10
+                },
+                "1": {
+                    "effect": ":sick:"
+                }
+            }
+        },
+        "goBack": {
+            "outcomes": {
+                "0": {
+                    "money": 150
+                },
+                "1": {
+                    "money": -250
+                }
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 27
+        }
+    ]
+}

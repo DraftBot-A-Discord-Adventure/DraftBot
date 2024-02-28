@@ -58,7 +58,8 @@ export class MissionsController {
 		{completedDaily, completedCampaign}: CompletedSpecialMissions = {
 			completedDaily: false,
 			completedCampaign: false
-		}): Promise<Player> {
+		}
+	): Promise<Player> {
 		const completedMissions = await MissionsController.completeAndUpdateMissions(player, missionSlots, completedDaily, completedCampaign);
 		if (completedMissions.length !== 0) {
 			player = await MissionsController.updatePlayerStats(player, missionInfo, completedMissions, response);
@@ -80,7 +81,8 @@ export class MissionsController {
 	static async update(
 		player: Player,
 		response: DraftBotPacket[],
-		{missionId, count = 1, params = {}, set = false}: MissionInformations): Promise<Player> {
+		{missionId, count = 1, params = {}, set = false}: MissionInformations
+	): Promise<Player> {
 
 		const missionSlots = await MissionSlots.getOfPlayer(player.id);
 		const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);

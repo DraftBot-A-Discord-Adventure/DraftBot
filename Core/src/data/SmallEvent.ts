@@ -1,16 +1,18 @@
-import {DataController, DataControllerString} from "./DataController";
+import {DataControllerString} from "./DataController";
 import {Data} from "./Data";
 import {readdirSync} from "fs";
 import Player from "../core/database/game/models/Player";
 import {WebsocketClient} from "../../../Lib/src/instances/WebsocketClient";
-import {DraftBotPacket} from "../../../Lib/src/packets/DraftBotPacket";
+import {DraftBotPacket, PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
 
 export class SmallEvent extends Data<string> {
 	private readonly properties: { [key: string]: unknown };
 
-	async execute(response: DraftBotPacket[], player: Player, client: WebsocketClient): Promise<void> {
+	public readonly rarity: number;
+
+	async execute(context: PacketContext, response: DraftBotPacket[], player: Player): Promise<void> {
 		const smallEventFunction = SmallEventDataController.getSmallEventFunction(this.id);
-		await smallEventFunction.executeSmallEvent(response, player, client);
+		await smallEventFunction.executeSmallEvent(context, response, player);
 	}
 
 	getProperties<T>(): T {
@@ -19,7 +21,7 @@ export class SmallEvent extends Data<string> {
 }
 
 export type CanBeExecutedLike = (player: Player) => boolean | Promise<boolean>;
-export type ExecuteSmallEventLike = (response: DraftBotPacket[], player: Player, client: WebsocketClient) => void | Promise<void>;
+export type ExecuteSmallEventLike = (context: PacketContext, response: DraftBotPacket[], player: Player) => void | Promise<void>;
 
 export type SmallEventFuncs = {
 	canBeExecuted: CanBeExecutedLike;

@@ -63,7 +63,8 @@ export class TravelTime {
 		const nextSmallEventTime = Math.max(
 			data.travelStartTime,
 			lastSmallEvent ? lastSmallEvent.time : -1,
-			data.effectEndTime) + timeBetweenSmallEvents;
+			data.effectEndTime
+		) + timeBetweenSmallEvents;
 
 		return {
 			travelStartTime: data.travelStartTime,

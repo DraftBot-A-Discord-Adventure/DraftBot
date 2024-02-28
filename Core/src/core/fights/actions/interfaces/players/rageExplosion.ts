@@ -10,7 +10,8 @@ const use: FightActionFunc = (sender, receiver) => {
 	const playerSender = <PlayerFighter>sender;
 	const damages = Math.round(
 		FightActionController.getAttackDamage(getStatsInfo(sender, receiver), sender, getAttackInfo())
-		* Math.min(Math.max(playerSender.player.rage, PVEConstants.RAGE_MIN_MULTIPLIER), PVEConstants.RAGE_MAX_DAMAGE + playerSender.player.level));
+		* Math.min(Math.max(playerSender.player.rage, PVEConstants.RAGE_MIN_MULTIPLIER), PVEConstants.RAGE_MAX_DAMAGE + playerSender.player.level)
+	);
 	playerSender.player.setRage(0, NumberChangeReason.RAGE_EXPLOSION_ACTION)
 		.then();
 	receiver.damage(damages);

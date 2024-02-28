@@ -85,7 +85,8 @@ export abstract class Constants {
 		BONUS_POINT_TIME_DIVIDER: 6,
 		POINTS_BY_SMALL_EVENT: 50,
 		PATH_SQUARE_COUNT: 16,
-		TIME_BETWEEN_MINI_EVENTS: 9.75 * 60 * 1000 // 9 minutes and 45 seconds
+		TIME_BETWEEN_MINI_EVENTS: 9.75 * 60 * 1000, // 9 minutes and 45 seconds
+		AUTO_CHOOSE_DESTINATION_CHANCE: 0.15 // 15%
 	};
 
 	// This constant represent the different types of values on which the players can be ranked

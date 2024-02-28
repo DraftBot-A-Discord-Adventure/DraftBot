@@ -26,7 +26,6 @@ export class Potion extends SupportItem {
 			maxPower: this.power,
 			nature: this.nature,
 			power: this.power,
-			emote: this.emote,
 			rarity: this.rarity,
 			id: this.id
 		};
@@ -55,8 +54,7 @@ export class PotionDataController extends ItemDataController<Potion> {
 				.filter((item) =>
 					item.nature !== ItemNature.NONE &&
 					item.rarity < ItemRarity.LEGENDARY &&
-					item.id !== excludeId
-				)
+					item.id !== excludeId)
 		);
 	}
 }

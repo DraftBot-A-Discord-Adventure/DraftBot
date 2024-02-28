@@ -48,7 +48,7 @@ async function applyPossibility(player: Player, response: DraftBotPacket[], malu
 			await guild.addExperience(amount, response, NumberChangeReason.SMALL_EVENT);
 		}
 		else {
-			guild.addScore(amount, NumberChangeReason.SMALL_EVENT);
+			await guild.addScore(amount, response, NumberChangeReason.SMALL_EVENT);
 		}
 		await guild.save();
 		return [amount.toString(), draw];
@@ -85,7 +85,7 @@ async function applyPossibility(player: Player, response: DraftBotPacket[], malu
 
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnPveIsland,
-	executeSmallEvent: async (response, player): Promise<void> => {
+	executeSmallEvent: async (context, response, player): Promise<void> => {
 		if (!await hasEnoughMemberOnPVEIsland(player)) {
 			response.push(makePacket(SmallEventBonusGuildPVEIslandPacket, {hasEnoughMemberOnPVEIsland: false, eventName: "", amount: "", isXp: false}));
 			return;

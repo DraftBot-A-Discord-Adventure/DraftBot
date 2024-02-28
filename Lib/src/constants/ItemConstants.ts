@@ -19,6 +19,16 @@ export abstract class ItemConstants {
 	};
 
 	static readonly RARITY = {
+		BASIC: 0,
+		COMMON: 1,
+		UNCOMMON: 2,
+		EXOTIC: 3,
+		RARE: 4,
+		SPECIAL: 5,
+		EPIC: 6,
+		LEGENDARY: 7,
+		MYTHICAL: 8,
+
 		VALUES: [
 			0, // Basic
 			20, // Common

@@ -1,0 +1,60 @@
+{
+    "possibilities": {
+        "end": {
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 10
+                }
+            }
+        },
+        "searchScaffolding": {
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 45
+                },
+                "1": {
+                    "effect": ":clock2:",
+                    "lostTime": 15,
+                    "randomItem": {}
+                },
+                "2": {
+                    "effect": ":confounded:",
+                    "health": -30
+                }
+            }
+        },
+        "searchSite": {
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 30
+                },
+                "1": {
+                    "effect": ":clock2:",
+                    "lostTime": 40,
+                    "randomItem": {}
+                },
+                "2": {
+                    "effect": ":head_bandage:",
+                    "health": -20
+                }
+            }
+        },
+        "skip": {
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "effect": ":confounded:",
+                    "health": -15
+                }
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 26
+        }
+    ]
+}

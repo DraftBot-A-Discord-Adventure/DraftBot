@@ -25,10 +25,9 @@ export class PlayerMissionsInfo extends Model {
 	declare createdAt: Date;
 
 	static async resetShopBuyout(): Promise<void> {
-		await PlayerMissionsInfo.update(
-			{
-				hasBoughtPointsThisWeek: false
-			}, {where: {}});
+		await PlayerMissionsInfo.update({
+			hasBoughtPointsThisWeek: false
+		}, {where: {}});
 	}
 
 	public hasCompletedDailyMission(): boolean {

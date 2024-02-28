@@ -15,11 +15,12 @@ import {ArmorDataController} from "../../data/Armor";
 import {ObjectItemDataController} from "../../data/ObjectItem";
 import {ItemDataController} from "../../data/DataController";
 import {draftBotInstance} from "../../index";
-import {ChoiceReactionCollector, ValidationReactionCollector} from "./ReactionsCollector";
 import {ItemRefusePacket} from "../../../../Lib/src/packets/notifications/ItemRefusePacket";
 import {ItemAcceptPacket} from "../../../../Lib/src/packets/notifications/ItemAcceptPacket";
-import {ReactionCollectorType} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {ItemFoundPacket} from "../../../../Lib/src/packets/notifications/ItemFoundPacket";
+import {ReactionCollectorItemChoice, ReactionCollectorItemChoiceItemReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorItemChoice";
+import {EndCallback, ReactionCollectorInstance} from "./ReactionsCollector";
+import {ReactionCollectorItemAccept, ReactionCollectorItemAcceptAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorItemAccept";
 
 /**
  * Get the value of an item
@@ -112,7 +113,8 @@ const sellOrKeepItem = async function(
 					itemCategory: itemToReplace.itemCategory,
 					playerId: player.id
 				}
-			});
+			}
+		);
 		await MissionsController.update(player, response, {
 			missionId: "haveItemRarity",
 			params: {rarity: item.rarity}
@@ -176,30 +178,35 @@ function manageMoreThan2ItemsSwitching(
 ): void {
 	// eslint-disable-next-line @typescript-eslint/no-extra-parens
 	items.sort((a: InventorySlot, b: InventorySlot) => (a.slot > b.slot ? 1 : b.slot > a.slot ? -1 : 0));
-	response.push(ChoiceReactionCollector.create<InventorySlot>(
-		context,
-		{
-			collectorType: ReactionCollectorType.ACCEPT_ITEM_CHOICE,
-			choices: items,
-			allowedPlayerIds: [player.id],
-			callback: async (_collector, inventorySlot, _playerId, response) => {
-				player = await Players.getById(player.id);
-				BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.ACCEPT_ITEM);
-				await sellOrKeepItem(
-					player,
-					false,
-					response,
-					item,
-					inventorySlot,
-					inventorySlot.getItem(),
-					resaleMultiplier,
-					resaleMultiplierActual,
-					false,
-					inventorySlots
-				);
-			}
-		},
-		async (_collector, response) => {
+
+	const collector = new ReactionCollectorItemChoice(
+		{ itemId: item.id, itemCategory: item.getCategory() },
+		items.map((item) => ({ slot: item.slot, itemCategory: item.itemCategory, itemId: item.itemId }))
+	);
+
+	const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
+		const reaction = collector.getFirstReaction();
+
+		if (reaction && reaction.reaction instanceof ReactionCollectorItemChoiceItemReaction) {
+			const itemReaction = reaction.reaction as ReactionCollectorItemChoiceItemReaction;
+			const invSlot = items.find((item) => item.slot === itemReaction.slot);
+
+			player = await Players.getById(player.id);
+			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.ACCEPT_ITEM);
+			await sellOrKeepItem(
+				player,
+				false,
+				response,
+				item,
+				invSlot,
+				invSlot.getItem(),
+				resaleMultiplier,
+				resaleMultiplierActual,
+				false,
+				inventorySlots
+			);
+		}
+		else {
 			player = await Players.getById(player.id);
 			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.ACCEPT_ITEM);
 			await sellOrKeepItem(
@@ -215,9 +222,21 @@ function manageMoreThan2ItemsSwitching(
 				inventorySlots
 			);
 		}
+	};
+
+	const packet = new ReactionCollectorInstance(
+		collector,
+		context,
+		{
+			allowedPlayerKeycloakIds: [player.keycloakId],
+			reactionLimit: 1
+		},
+		endCallback
 	)
 		.block(player.id, BlockingConstants.REASONS.ACCEPT_ITEM)
-		.getPacket());
+		.build();
+
+	response.push(packet);
 }
 
 /**
@@ -298,32 +317,44 @@ export const giveItemToPlayer = async function(
 	}
 
 	const itemToReplaceInstance = itemToReplace.getItem();
-	response.push(
-		ValidationReactionCollector.create(
-			context,
-			{
-				collectorType: ReactionCollectorType.ACCEPT_ITEM,
-				allowedPlayerIds: [player.id]
-			},
-			async (collector: ValidationReactionCollector, response) => {
-				player = await Players.getById(player.id);
-				BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.ACCEPT_ITEM);
-				await sellOrKeepItem(
-					player,
-					!collector.isValidated(),
-					response,
-					item,
-					itemToReplace,
-					itemToReplaceInstance,
-					resaleMultiplier,
-					resaleMultiplierActual,
-					false,
-					inventorySlots
-				);
-			})
-			.block(player.id, BlockingConstants.REASONS.ACCEPT_ITEM)
-			.getPacket()
+
+	const collector = new ReactionCollectorItemAccept(
+		item.id,
+		item.getCategory()
 	);
+
+	const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
+		const reaction = collector.getFirstReaction();
+		const isValidated = reaction && reaction.reaction instanceof ReactionCollectorItemAcceptAcceptReaction;
+		player = await Players.getById(player.id);
+		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.ACCEPT_ITEM);
+		await sellOrKeepItem(
+			player,
+			!isValidated,
+			response,
+			item,
+			itemToReplace,
+			itemToReplaceInstance,
+			resaleMultiplier,
+			resaleMultiplierActual,
+			false,
+			inventorySlots
+		);
+	};
+
+	const packet = new ReactionCollectorInstance(
+		collector,
+		context,
+		{
+			allowedPlayerKeycloakIds: [player.keycloakId],
+			reactionLimit: 1
+		},
+		endCallback
+	)
+		.block(player.id, BlockingConstants.REASONS.ACCEPT_ITEM)
+		.build();
+
+	response.push(packet);
 };
 
 /**

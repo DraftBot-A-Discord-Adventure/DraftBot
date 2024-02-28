@@ -1,0 +1,78 @@
+{
+    "possibilities": {
+        "end": {
+            "outcomes": {
+                "0": {},
+                "1": {},
+                "2": {
+                    "effect": ":lock:"
+                }
+            }
+        },
+        "goAway": {
+            "outcomes": {
+                "0": {
+                    "health": -5,
+                    "money": -300
+                },
+                "1": {},
+                "2": {
+                    "health": 10
+                },
+                "3": {
+                    "randomItem": {}
+                },
+                "4": {
+                    "money": -250
+                }
+            }
+        },
+        "help": {
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "effect": ":head_bandage:",
+                    "money": -160
+                },
+                "2": {
+                    "health": -15
+                },
+                "3": {
+                    "effect": ":dizzy_face:",
+                    "health": -120
+                },
+                "4": {
+                    "money": 1200
+                },
+                "5": {
+                    "money": 800
+                },
+                "6": {
+                    "money": 100,
+                    "randomItem": {}
+                }
+            }
+        },
+        "tell": {
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "money": 25
+                },
+                "2": {
+                    "money": 100
+                },
+                "3": {},
+                "4": {
+                    "effect": ":head_bandage:",
+                    "health": -60
+                }
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 10
+        }
+    ]
+}

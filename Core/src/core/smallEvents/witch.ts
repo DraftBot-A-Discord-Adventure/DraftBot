@@ -1,21 +1,21 @@
 import {SmallEventFuncs} from "../../data/SmallEvent";
 import {Maps} from "../maps/Maps";
-import {EndCallback, GenericReactionCollector} from "../utils/ReactionsCollector";
-import {ReactionCollectorType} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
+import {EndCallback, ReactionCollectorInstance} from "../utils/ReactionsCollector";
+import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {WitchAction, WitchActionDataController, WitchActionOutcomeType} from "../../data/WitchAction";
 import {Constants} from "../Constants";
 import {SmallEventConstants} from "../constants/SmallEventConstants";
 import {BlockingUtils} from "../utils/BlockingUtils";
 import {BlockingConstants} from "../constants/BlockingConstants";
 import {RandomUtils} from "../utils/RandomUtils";
-import {SmallEventWitchCollectorCreationPacket, SmallEventWitchResultPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWitchPacket";
+import {SmallEventWitchResultPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWitchPacket";
 import {generateRandomItem, giveItemToPlayer} from "../utils/ItemUtils";
 import {ItemCategory, ItemNature, ItemRarity} from "../../../../Lib/src/constants/ItemConstants";
 import Player from "../database/game/models/Player";
 import {GenericItem} from "../../data/GenericItem";
 import {InventorySlots} from "../database/game/models/InventorySlot";
 import {NumberChangeReason} from "../constants/LogsConstants";
+import {ReactionCollectorWitch, ReactionCollectorWitchReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorWitch";
 
 
 type WitchEventSelection = {
@@ -39,7 +39,8 @@ function getRandomWitchEvents(isMage: boolean): WitchEventSelection {
 			[randomAdvice,
 				randomIngredient,
 				fullRandom,
-				WitchActionDataController.instance.getDoNothing()]);
+				WitchActionDataController.instance.getDoNothing()]
+		);
 		return {randomAdvice, randomIngredient, optional, fullRandom};
 	}
 	return {randomAdvice, randomIngredient, fullRandom};
@@ -48,15 +49,16 @@ function getRandomWitchEvents(isMage: boolean): WitchEventSelection {
 
 /**
  * Give a specific potion to a player
+ * @param context
  * @param player
  * @param potionToGive
  * @param response
  */
-async function givePotion(player: Player, potionToGive: GenericItem, response: DraftBotPacket[]): Promise<void> {
+async function givePotion(context: PacketContext, player: Player, potionToGive: GenericItem, response: DraftBotPacket[]): Promise<void> {
 	await giveItemToPlayer(
 		player,
 		potionToGive,
-		response[0], // TODO : replace with the right one
+		context,
 		response,
 		await InventorySlots.getOfPlayer(player.id)
 	);
@@ -66,10 +68,11 @@ async function givePotion(player: Player, potionToGive: GenericItem, response: D
  * Execute the relevant action for the selected event and outcome
  * @param outcome
  * @param selectedEvent
+ * @param context
  * @param player
  * @param response
  */
-async function applyOutcome(outcome: WitchActionOutcomeType, selectedEvent: WitchAction, player: Player, response: DraftBotPacket[]): Promise<void> {
+async function applyOutcome(outcome: WitchActionOutcomeType, selectedEvent: WitchAction, context: PacketContext, player: Player, response: DraftBotPacket[]): Promise<void> {
 	if (selectedEvent.forceEffect || outcome === WitchActionOutcomeType.EFFECT) {
 		await selectedEvent.giveEffect(player);
 	}
@@ -86,30 +89,27 @@ async function applyOutcome(outcome: WitchActionOutcomeType, selectedEvent: Witc
 			maxRarity: ItemRarity.MYTHICAL,
 			nature: null
 		};
-		await givePotion(player, generateRandomItem(
-			ItemCategory.POTION,
-			potionToGive.minRarity,
-			potionToGive.maxRarity,
-			potionToGive.nature
-		), response);
+		await givePotion(
+			context,
+			player,
+			generateRandomItem(
+				ItemCategory.POTION,
+				potionToGive.minRarity,
+				potionToGive.maxRarity,
+				potionToGive.nature
+			),
+			response
+		);
 	}
 	await player.save();
 }
 
-/**
- * Get the selected event from the user's choice
- * @param witchCollector
- */
-function retrieveSelectedEvent(witchCollector: GenericReactionCollector): WitchAction {
-	const reaction = witchCollector.getFirstReaction();
-	// If the player did not react, we use the nothing happen event with the menu reaction deny
-	const reactionEmoji = reaction ? reaction.emoji : Constants.REACTIONS.NOT_REPLIED_REACTION;
-	return WitchActionDataController.instance.getWitchActionByEmoji(reactionEmoji);
-}
-
 function getEndCallback(player: Player): EndCallback {
 	return async (collector, response) => {
-		const selectedEvent = retrieveSelectedEvent(collector);
+		const reaction = collector.getFirstReaction();
+		const selectedEvent = reaction ?
+			WitchActionDataController.instance.getById((reaction.reaction.data as ReactionCollectorWitchReaction).id) :
+			WitchActionDataController.instance.getDoNothing();
 		const outcome = selectedEvent.generateOutcome();
 		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.WITCH_CHOOSE);
 
@@ -129,11 +129,11 @@ function getEndCallback(player: Player): EndCallback {
 				ItemRarity.MYTHICAL,
 				ItemNature.NONE
 			);
-			await givePotion(player, potionToGive, response);
+			await givePotion(collector.context, player, potionToGive, response);
 			return;
 		}
 
-		await applyOutcome(outcome, selectedEvent, player, response);
+		await applyOutcome(outcome, selectedEvent, collector.context, player, response);
 
 		await player.killIfNeeded(response, NumberChangeReason.SMALL_EVENT);
 
@@ -144,22 +144,24 @@ function getEndCallback(player: Player): EndCallback {
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnContinent,
 
-	executeSmallEvent: (response, player) => {
+	executeSmallEvent: (context, response, player) => {
 		const events = getRandomWitchEvents(player.class === Constants.CLASSES.MYSTIC_MAGE);
-		response.push(
-			makePacket(SmallEventWitchCollectorCreationPacket,
-				GenericReactionCollector.create(
-					response[0], // TODO : replace with the right one
-					{
-						collectorType: ReactionCollectorType.WITCH_SMALL_EVENT,
-						allowedPlayerIds: [player.id],
-						reactions: Object.values(events).map((event) => event.emoji)
-					},
-					{
-						end: getEndCallback(player)
-					}).allowEndReaction()
-					.block(player.id, BlockingConstants.REASONS.WITCH_CHOOSE)
-					.getPacket()
-			));
+
+		const collector = new ReactionCollectorWitch(
+			Object.values(events).map((event) => ({ id: event.id }))
+		);
+
+		const packet = new ReactionCollectorInstance(
+			collector,
+			context,
+			{
+				allowedPlayerKeycloakIds: [player.keycloakId]
+			},
+			getEndCallback(player)
+		)
+			.block(player.id, BlockingConstants.REASONS.WITCH_CHOOSE)
+			.build();
+
+		response.push(packet);
 	}
 };

@@ -9,8 +9,6 @@ import {Pet} from "./Pet";
  * The base class for the different events that can happen after the player encounters a feral pet
  */
 export class FightPetAction extends Data<string> {
-	public readonly emoji: string;
-
 	public applyOutcomeFightPetAction(player: Player, pet: Pet, isFemale: boolean): boolean | Promise<boolean> {
 		return FightPetActionDataController.getFightPetActionFunction(this.id)(player, pet, isFemale);
 	}
@@ -45,10 +43,6 @@ export class FightPetActionDataController extends DataControllerString<FightPetA
 
 	public getRandomFightPetAction(excludedFightPetActions: FightPetAction[]): FightPetAction {
 		return RandomUtils.draftbotRandom.pick(Array.from(this.data.values()).filter((fightPetAction) => !excludedFightPetActions.includes(fightPetAction)));
-	}
-
-	public getFightPetActionByEmoji(emoji: string): FightPetAction {
-		return Array.from(this.data.values()).find((fightPetAction) => fightPetAction.emoji === emoji);
 	}
 
 	newInstance(): FightPetAction {

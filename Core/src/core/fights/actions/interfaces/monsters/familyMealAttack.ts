@@ -17,7 +17,8 @@ const use: FightActionFunc = (sender: Fighter, receiver: Fighter) => {
 		{
 			attackInfo: getAttackInfo(),
 			statsInfo: getStatsInfo(sender, receiver)
-		}, 10
+		},
+		10
 	);
 
 	FightActionController.applyAlteration(result, {

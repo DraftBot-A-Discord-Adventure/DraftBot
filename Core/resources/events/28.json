@@ -1,0 +1,49 @@
+{
+    "possibilities": {
+        "accept": {
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 180
+                },
+                "1": {
+                    "effect": ":clock2:",
+                    "lostTime": 30
+                },
+                "2": {
+                    "effect": ":clock2:",
+                    "health": -25,
+                    "lostTime": 15
+                },
+                "3": {
+                    "effect": ":clock2:",
+                    "lostTime": 20,
+                    "randomItem": {}
+                }
+            }
+        },
+        "deny": {
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "effect": ":clock2:",
+                    "health": -10,
+                    "lostTime": 120
+                }
+            }
+        },
+        "end": {
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 15
+                }
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 13
+        }
+    ]
+}

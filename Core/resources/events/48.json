@@ -1,0 +1,70 @@
+{
+    "possibilities": {
+        "end": {
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "health": -5,
+                    "money": -700
+                },
+                "2": {
+                    "health": 30
+                },
+                "3": {
+                    "effect": ":head_bandage:",
+                    "health": -10
+                },
+                "4": {}
+            }
+        },
+        "fight": {
+            "outcomes": {
+                "0": {},
+                "1": {},
+                "2": {
+                    "effect": ":clock2:",
+                    "lostTime": 60,
+                    "money": 500
+                },
+                "3": {
+                    "randomItem": {}
+                },
+                "4": {
+                    "effect": ":head_bandage:",
+                    "health": -35
+                },
+                "5": {
+                    "randomItem": {}
+                },
+                "6": {
+                    "effect": ":dizzy_face:",
+                    "health": -120
+                }
+            }
+        },
+        "meetHim": {
+            "outcomes": {
+                "0": {},
+                "1": {},
+                "2": {},
+                "3": {},
+                "4": {
+                    "effect": ":dizzy_face:",
+                    "health": -75
+                },
+                "5": {
+                    "effect": ":head_bandage:",
+                    "health": -30
+                },
+                "6": {
+                    "money": 500
+                }
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 7
+        }
+    ]
+}

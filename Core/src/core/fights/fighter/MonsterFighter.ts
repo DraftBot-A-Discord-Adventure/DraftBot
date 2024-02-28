@@ -12,10 +12,6 @@ export class MonsterFighter extends Fighter {
 
 	private readonly name: string;
 
-	private readonly description: string;
-
-	private readonly emoji: string;
-
 	public constructor(level: number, monster: Monster) {
 		const attacks: FightAction[] = [];
 		for (const attack of monster.attacks) {
@@ -78,19 +74,5 @@ export class MonsterFighter extends Fighter {
 
 	unblock(): void {
 		// Do nothing
-	}
-
-	/**
-	 * Return the description of the monster
-	 */
-	getDescription(): string {
-		return this.description;
-	}
-
-	/**
-	 * Return the emoji of the monster
-	 */
-	getEmoji(): string {
-		return this.emoji;
 	}
 }

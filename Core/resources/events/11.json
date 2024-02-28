@@ -1,0 +1,50 @@
+{
+    "possibilities": {
+        "end": {
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 45
+                }
+            }
+        },
+        "followHint": {
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "effect": ":head_bandage:",
+                    "health": -40,
+                    "money": -200
+                }
+            }
+        },
+        "forest": {
+            "outcomes": {
+                "0": {
+                    "effect": ":face_with_monocle:"
+                },
+                "1": {
+                    "effect": ":clock2:",
+                    "lostTime": 130,
+                    "randomItem": {}
+                },
+                "2": {
+                    "effect": ":head_bandage:",
+                    "health": -20
+                }
+            }
+        },
+        "oppositeSide": {
+            "outcomes": {
+                "0": {
+                    "effect": ":face_with_monocle:"
+                }
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 22
+        }
+    ]
+}

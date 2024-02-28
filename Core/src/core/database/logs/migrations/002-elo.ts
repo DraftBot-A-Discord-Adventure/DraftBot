@@ -95,7 +95,8 @@ function getOrRegisterFightAction(
 	fightActionsDict: { [key: string]: number },
 	fightActions: { id: number, name: string, classId: number }[],
 	actionName: string,
-	classId: number) : number {
+	classId: number
+) : number {
 	// Build dict key
 	const key = actionName + classId;
 

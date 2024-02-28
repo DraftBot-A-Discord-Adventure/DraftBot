@@ -8,7 +8,7 @@ import {Maps} from "../maps/Maps";
 
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnContinent,
-	executeSmallEvent: async (response, player): Promise<void> => {
+	executeSmallEvent: async (context, response, player): Promise<void> => {
 		const healthWon = RandomUtils.rangedInt(SmallEventConstants.HEALTH);
 		await player.addHealth(healthWon, response, NumberChangeReason.SMALL_EVENT);
 		await player.save();

@@ -1,3 +1,7 @@
+import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
+import {BlockedPacket} from "../../../../Lib/src/packets/commands/BlockedPacket";
+import Player from "../database/game/models/Player";
+
 /**
  * Functions to call when you want to manage the blocking of a player
  */
@@ -99,5 +103,20 @@ export class BlockingUtils {
 			}
 		}
 		return response;
+	}
+
+	/**
+	 * Append BlockedPackets if the player is blocked, and return true
+	 * @param player
+	 * @param packets
+	 */
+	static appendBlockedPacket(player: Player, packets: DraftBotPacket[]): boolean {
+		const blockingReason = BlockingUtils.getPlayerBlockingReason(player.id);
+		if (blockingReason.length !== 0) {
+			packets.push(makePacket(BlockedPacket, { keycloakId: player.keycloakId, reasons: blockingReason }));
+			return true;
+		}
+
+		return false;
 	}
 }

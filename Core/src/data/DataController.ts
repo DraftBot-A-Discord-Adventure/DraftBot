@@ -73,7 +73,7 @@ export abstract class DataControllerNumber<T extends Data<number | string>> exte
 export abstract class ItemDataController<U extends GenericItem> extends DataControllerNumber<U> {
 	private maxIdCache: number = null;
 
-	private idsForRarityCache: Map<number, number[]> = null;
+	private idsForRarityCache: Map<number, number[]> = new Map();
 
 	public getMaxId(): number {
 		if (this.maxIdCache === null) {

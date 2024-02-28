@@ -9,7 +9,7 @@ import {Maps} from "../maps/Maps";
 
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: (player) => Maps.isOnContinent(player) && player.hasAGuild(),
-	executeSmallEvent: async (response, player): Promise<void> => {
+	executeSmallEvent: async (context, response, player): Promise<void> => {
 		const guild = await Guilds.getById(player.guildId);
 		const xpWon = RandomUtils.draftbotRandom.integer(
 			SmallEventConstants.GUILD_EXPERIENCE.MIN + guild.level,

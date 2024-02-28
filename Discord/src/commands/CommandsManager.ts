@@ -385,10 +385,12 @@ ${i18n.t("bot:mentionHelp", {
 		const packet = await commandInfo.getPacket(interaction, user);
 		if (packet) {
 			const context: PacketContext = {
+				keycloakId: user.id,
 				discord: {
 					user: interaction.user.id,
 					channel: interaction.channel.id,
-					interaction: interaction.id
+					interaction: interaction.id,
+					language: interaction.channel.language
 				}
 			};
 			DiscordWebSocket.socket!.send(JSON.stringify({

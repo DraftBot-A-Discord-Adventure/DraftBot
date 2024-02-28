@@ -52,7 +52,8 @@ export class SlashCommandBuilderGenerator {
 	static generateTopScopeOption(
 		commandSectionName: string,
 		optionSectionName: string,
-		option: SlashCommandStringOption): SlashCommandStringOption {
+		option: SlashCommandStringOption
+	): SlashCommandStringOption {
 		return SlashCommandBuilderGenerator.generateOption(commandSectionName, optionSectionName, option)
 			.addChoices(
 				{

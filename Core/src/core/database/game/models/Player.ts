@@ -524,7 +524,8 @@ export class Player extends Model {
 					itemCategory: ItemCategory.POTION,
 					playerId: this.id
 				}
-			});
+			}
+		);
 	}
 
 	public getMaxStatsValue(): {
@@ -850,7 +851,8 @@ export class Player extends Model {
 			FightConstants.ELO.LEAGUE_POINTS_REWARD_BASE_VALUE *
 			Math.exp(
 				FightConstants.ELO.LEAGUE_POINTS_REWARDS_COEFFICIENT_1 *
-				(1 - rank) / rank) -
+				(1 - rank) / rank
+			) -
 			FightConstants.ELO.LEAGUE_POINTS_REWARDS_COEFFICIENT_2 *
 			(rank - 1 - FightConstants.ELO.LEAGUE_POINTS_REWARDS_COEFFICIENT_1)
 		);
@@ -919,7 +921,7 @@ export class Player extends Model {
 			if (guildPointsLost > playerGuild.score) {
 				guildPointsLost = playerGuild.score;
 			}
-			playerGuild.addScore(-guildPointsLost, NumberChangeReason.PVE_ISLAND);
+			await playerGuild.addScore(-guildPointsLost, response, NumberChangeReason.PVE_ISLAND);
 			await playerGuild.save();
 		}
 		return {moneyLost, guildPointsLost};

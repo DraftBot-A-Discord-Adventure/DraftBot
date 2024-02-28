@@ -1,10 +1,13 @@
 export class DraftBotPacket {}
 
 export interface PacketContext {
+	keycloakId?: string;
+
 	discord?: {
 		user: string,
 		interaction: string,
-		channel: string
+		channel: string,
+		language: string
 	}
 }
 

@@ -11,44 +11,44 @@ import {CommandInventoryPacketRes} from "../../../../Lib/src/packets/commands/Co
 import {handleCommandInventoryPacketRes} from "../../commands/player/InventoryCommand";
 import {handleCommandUpdatePacketRes} from "../../commands/player/UpdateCommand";
 import { CommandUpdatePacketRes } from "../../../../Lib/src/packets/commands/CommandUpdatePacket";
-import {CommandTestPacketReq, CommandTestPacketRes} from "../../../../Lib/src/packets/commands/CommandTestPacket";
+import {CommandTestPacketRes} from "../../../../Lib/src/packets/commands/CommandTestPacket";
 import {handleCommandTestPacketRes} from "../../commands/player/TestCommand";
 import {CommandRarityPacketRes} from "../../../../Lib/src/packets/commands/CommandRarityPacket";
 import {handleCommandRarityPacketRes} from "../../commands/player/RarityCommand";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
-
-	pingRes(socket: WebSocket, packet: CommandPingPacketRes, context: PacketContext): void {
+	async pingRes(socket: WebSocket, packet: CommandPingPacketRes, context: PacketContext): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
-		interaction?.editReply({
-			content: i18n.t("commands:ping.discord.edit", {lang: interaction?.channel.language,
+		await interaction?.editReply({
+			content: i18n.t("commands:ping.discord.edit", {
+				lang: interaction?.channel.language,
 				totalLatency: Date.now() - packet.clientTime,
 				discordApiLatency: draftBotClient!.ws.ping,
 				shardId: shardId,
-				totalShards: draftBotClient!.shard!.count - 1 }
-			)
+				totalShards: draftBotClient!.shard!.count - 1
+			})
 		});
 	}
 
 	@packetHandler(CommandProfilePacketRes)
-	profileRes(socket: WebSocket, packet: CommandProfilePacketRes, context: PacketContext): void {
-		handleCommandProfilePacketRes(packet, context).then();
+	async profileRes(socket: WebSocket, packet: CommandProfilePacketRes, context: PacketContext): Promise<void> {
+		await handleCommandProfilePacketRes(packet, context);
 	}
 
 	@packetHandler(CommandInventoryPacketRes)
-	inventoryRes(socket: WebSocket, packet: CommandInventoryPacketRes, context: PacketContext): void {
-		handleCommandInventoryPacketRes(packet, context).then();
+	async inventoryRes(socket: WebSocket, packet: CommandInventoryPacketRes, context: PacketContext): Promise<void> {
+		await handleCommandInventoryPacketRes(packet, context);
 	}
 
 	@packetHandler(CommandUpdatePacketRes)
-	updateRes(socket: WebSocket, packet: CommandUpdatePacketRes, context: PacketContext): void {
-		handleCommandUpdatePacketRes(packet, context).then();
+	async updateRes(socket: WebSocket, packet: CommandUpdatePacketRes, context: PacketContext): Promise<void> {
+		await handleCommandUpdatePacketRes(packet, context);
 	}
 
 	@packetHandler(CommandTestPacketRes)
-	testRes(socket: WebSocket, packet: CommandTestPacketRes, context: PacketContext): void {
-		handleCommandTestPacketRes(packet, context).then();
+	async testRes(socket: WebSocket, packet: CommandTestPacketRes, context: PacketContext): Promise<void> {
+		await handleCommandTestPacketRes(packet, context);
 	}
 
 	@packetHandler(CommandRarityPacketRes)

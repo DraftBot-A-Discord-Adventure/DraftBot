@@ -14,7 +14,7 @@ const listEventsTestCommand: ExecuteTestCommandLike = (_player) => {
 	let str = "";
 	// Let's display for every map all available events
 	for (const map of Maps.getMaps()) {
-		// const events = await BigEventsController.getAvailableEvents(map.id, player);
+		// Const events = await BigEventsController.getAvailableEvents(map.id, player);
 		// TODO: replace when the BigEventsController will be implemented
 		const events = [{id: "test"}];
 		let eventsString = "";

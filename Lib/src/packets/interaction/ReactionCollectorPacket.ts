@@ -1,32 +1,65 @@
 import {DraftBotPacket} from "../DraftBotPacket";
 
-export enum ReactionCollectorType {
-    ACCEPT_ITEM,
-    ACCEPT_ITEM_CHOICE,
-	GOBLET_CHOOSE,
-	SHOP_SMALL_EVENT,
-	FIGHT_PET_SMALL_EVENT,
-	WITCH_SMALL_EVENT,
+export class ReactionCollectorReactPacket extends DraftBotPacket {
+	id!: string;
+
+	keycloakId!: string;
+
+	reactionIndex!: number;
+}
+
+export class ReactionCollectorEnded extends DraftBotPacket {
+
+}
+
+export abstract class ReactionCollectorReaction {
+
+}
+
+export abstract class ReactionCollectorData {
+
 }
 
 export class ReactionCollectorCreationPacket extends DraftBotPacket {
 	id!: string;
 
-	type!: ReactionCollectorType;
+	data!: {
+		type: string,
+		data: ReactionCollectorData
+	};
 
-	reactions!: string[];
+	reactions!: {
+		type: string,
+		data: ReactionCollectorReaction
+	}[];
 
 	endTime!: number;
 }
 
-export class ReactionCollectorReactPacket extends DraftBotPacket {
-	id!: string;
+export abstract class ReactionCollector {
+	buildData<T extends ReactionCollectorData>(Packet: {new(): T}, {...args}: T): {
+		type: string,
+		data: T
+	} {
+		const instance = new Packet();
+		Object.assign(instance, args);
+		return {
+			type: instance.constructor.name,
+			data: instance
+		};
+	}
 
-	playerId!: number;
+	buildReaction<T extends ReactionCollectorReaction>(Packet: {new(): T}, {...args}: T): {
+		type: string,
+		data: T
+	} {
+		const instance = new Packet();
+		Object.assign(instance, args);
+		return {
+			type: instance.constructor.name,
+			data: instance
+		};
+	}
 
-	reaction!: string;
-}
-
-export class ReactionCollectorEnded extends DraftBotPacket {
-
+	abstract creationPacket(id: string, endTime: number): ReactionCollectorCreationPacket;
 }

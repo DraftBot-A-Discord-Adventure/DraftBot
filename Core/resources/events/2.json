@@ -1,0 +1,39 @@
+{
+    "possibilities": {
+        "end": {
+            "outcomes": {
+                "0": {
+                    "health": -10
+                }
+            }
+        },
+        "followDog": {
+            "outcomes": {
+                "0": {
+                    "effect": ":face_with_monocle:"
+                },
+                "1": {
+                    "money": 176
+                }
+            }
+        },
+        "skip": {
+            "outcomes": {
+                "0": {
+                    "effect": ":clock2:",
+                    "lostTime": 15
+                },
+                "1": {},
+                "2": {
+                    "effect": ":head_bandage:",
+                    "health": -15
+                }
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 9
+        }
+    ]
+}
