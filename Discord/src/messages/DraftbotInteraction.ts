@@ -10,6 +10,7 @@ import {
 import {RawInteractionData, RawWebhookData} from "discord.js/typings/rawDataTypes";
 import i18n from "../translations/i18n";
 import {Language} from "../../../Lib/src/Language";
+import { StringConstants } from "../../../Lib/src/constants/StringConstants";
 
 type DraftbotInteractionWithoutSendCommands = new(client: Client<true>, data: RawInteractionData) => Omit<CommandInteraction, "reply" | "followUp" | "channel">;
 const DraftbotInteractionWithoutSendCommands: DraftbotInteractionWithoutSendCommands = CommandInteraction as unknown as DraftbotInteractionWithoutSendCommands;
@@ -25,6 +26,8 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 	// @ts-ignore
 	private _channel: DraftbotChannel;
+
+	public userLanguage: Language = StringConstants.DEFAULT_LANGUAGE;
 
 	private _replyEdited = false;
 

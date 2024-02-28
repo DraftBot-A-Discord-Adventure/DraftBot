@@ -1,23 +1,52 @@
 import * as i18next from "i18next";
 import * as enBot from "../../../Lang/en/bot.json";
 import * as frBot from "../../../Lang/fr/bot.json";
+import * as deBot from "../../../Lang/de/bot.json";
+import * as esBot from "../../../Lang/es/bot.json";
+import * as ptBot from "../../../Lang/pt/bot.json";
+import * as itBot from "../../../Lang/it/bot.json";
 import * as enCommands from "../../../Lang/en/commands.json";
 import * as frCommands from "../../../Lang/fr/commands.json";
+import * as deCommands from "../../../Lang/de/commands.json";
+import * as esCommands from "../../../Lang/es/commands.json";
+import * as ptCommands from "../../../Lang/pt/commands.json";
+import * as itCommands from "../../../Lang/it/commands.json";
+import * as deDiscordBuilder from "../../../Lang/de/discordBuilder.json";
+import * as esDiscordBuilder from "../../../Lang/es/discordBuilder.json";
+import * as ptDiscordBuilder from "../../../Lang/pt/discordBuilder.json";
+import * as itDiscordBuilder from "../../../Lang/it/discordBuilder.json";
 import * as enDiscordBuilder from "../../../Lang/en/discordBuilder.json";
 import * as frDiscordBuilder from "../../../Lang/fr/discordBuilder.json";
 import * as enError from "../../../Lang/en/error.json";
 import * as frError from "../../../Lang/fr/error.json";
+import * as deError from "../../../Lang/de/error.json";
+import * as esError from "../../../Lang/es/error.json";
+import * as ptError from "../../../Lang/pt/error.json";
+import * as itError from "../../../Lang/it/error.json";
+import * as deItems from "../../../Lang/de/items.json";
+import * as esItems from "../../../Lang/es/items.json";
+import * as ptItems from "../../../Lang/pt/items.json";
+import * as itItems from "../../../Lang/it/items.json";
 import * as enItems from "../../../Lang/en/items.json";
 import * as frItems from "../../../Lang/fr/items.json";
 import * as enModels from "../../../Lang/en/models.json";
+import * as esModels from "../../../Lang/es/models.json";
 import * as frModels from "../../../Lang/fr/models.json";
+import * as ptModels from "../../../Lang/pt/models.json";
+import * as itModels from "../../../Lang/it/models.json";
+import * as deModels from "../../../Lang/de/models.json";
 import * as enEvents from "../../../Lang/en/events.json";
 import * as frEvents from "../../../Lang/fr/events.json";
+import * as deEvents from "../../../Lang/de/events.json";
+import * as esEvents from "../../../Lang/es/events.json";
+import * as ptEvents from "../../../Lang/pt/events.json";
+import * as itEvents from "../../../Lang/it/events.json";
+import {StringConstants} from "../../../Lib/src/constants/StringConstants";
 
 // Todo load automatically modules
 
 i18next.init({
-	fallbackLng: "fr",
+	fallbackLng: StringConstants.DEFAULT_LANGUAGE,
 	resources: {
 		en: {
 			bot: enBot,
@@ -36,6 +65,42 @@ i18next.init({
 			items: frItems,
 			models: frModels,
 			events: frEvents
+		},
+		de: {
+			bot: deBot,
+			commands: deCommands,
+			discordBuilder: deDiscordBuilder,
+			error: deError,
+			items: deItems,
+			models: deModels,
+			events: deEvents
+		},
+		es: {
+			bot: esBot,
+			commands: esCommands,
+			discordBuilder: esDiscordBuilder,
+			error: esError,
+			items: esItems,
+			models: esModels,
+			events: esEvents
+		},
+		pt: {
+			bot: ptBot,
+			commands: ptCommands,
+			discordBuilder: ptDiscordBuilder,
+			error: ptError,
+			items: ptItems,
+			models: ptModels,
+			events: ptEvents
+		},
+		it: {
+			bot: itBot,
+			commands: itCommands,
+			discordBuilder: itDiscordBuilder,
+			error: itError,
+			items: itItems,
+			models: itModels,
+			events: itEvents
 		}
 	}
 }).then();
