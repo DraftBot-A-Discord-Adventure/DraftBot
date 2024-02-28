@@ -131,6 +131,8 @@
   "language": {
     "selectLanguage": "Select a new language",
     "description": "Use the menu below to change the language used by the bot on this discord server. This command can only be used by server administrators.",
+    "newLanguageSetTitle": "Language changed",
+    "newLanguageSetDescription": "DraftBot will now speak in english with you! 🇬🇧",
     "title": ":earth_africa: Language selection",
     "languages": {
       "en": {
