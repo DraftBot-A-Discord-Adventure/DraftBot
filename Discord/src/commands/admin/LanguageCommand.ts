@@ -26,23 +26,23 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 		.map((key) => {
 			const languageCode = StringConstants.LANGUAGE[key as keyof typeof StringConstants.LANGUAGE];
 			return new StringSelectMenuOptionBuilder()
-				.setLabel(i18n.t(`commands:language.languages.${languageCode}.name`, {lng: KeycloakUtils.getUserLanguage(keycloakUser)}))
-				.setEmoji(i18n.t(`commands:language.languages.${languageCode}.emoji`, {lng: KeycloakUtils.getUserLanguage(keycloakUser)}))
+				.setLabel(i18n.t(`commands:language.languages.${languageCode}.name`, {lng: interaction.userLanguage}))
+				.setEmoji(i18n.t(`commands:language.languages.${languageCode}.emoji`, {lng:  interaction.userLanguage}))
 				.setValue(languageCode);
 		});
 	const languageSelectionMenu = new StringSelectMenuBuilder()
 		.setCustomId(selectLanguageMenuId)
-		.setPlaceholder(i18n.t("commands:language.selectLanguage", {lng: KeycloakUtils.getUserLanguage(keycloakUser)}))
+		.setPlaceholder(i18n.t("commands:language.selectLanguage", {lng:  interaction.userLanguage}))
 		.addOptions(selectLanguageMenuOptions);
 	const row = new ActionRowBuilder<StringSelectMenuBuilder>()
 		.addComponents(languageSelectionMenu);
 	const msg = await interaction.reply({
 		embeds: [new DraftBotEmbed()
 			.setTitle(i18n.t("commands:language.title", {
-				lng: KeycloakUtils.getUserLanguage(keycloakUser)
+				lng:  interaction.userLanguage
 			}))
 			.setDescription(i18n.t("commands:language.description", {
-				lng: KeycloakUtils.getUserLanguage(keycloakUser)
+				lng:  interaction.userLanguage
 			}))],
 		components: [row]
 	});
@@ -54,7 +54,7 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 
 	collector.on("collect", async (menuInteraction: StringSelectMenuInteraction) => {
 		if (menuInteraction.user.id !== interaction.user.id) {
-			await sendInteractionNotForYou(menuInteraction.user, menuInteraction, KeycloakUtils.getUserLanguage(keycloakUser));
+			await sendInteractionNotForYou(menuInteraction.user, menuInteraction,  interaction.userLanguage);
 			return;
 		}
 		await KeycloakUtils.updateUserLanguage(keycloakConfig, keycloakUser, StringConstants.LANGUAGE.ENGLISH);

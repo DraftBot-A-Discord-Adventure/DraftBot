@@ -17,7 +17,7 @@ export async function handleCommandRarityPacketRes(packet: CommandRarityPacketRe
 		await interaction.reply({
 			embeds: [new DraftBotEmbed()
 				.setTitle(i18n.t("commands:rarity.title", {
-					lng: interaction.channel.language
+					lng: interaction.userLanguage
 				}))
 				.setDescription(i18n.t("commands:rarity.rarities", {
 					common: packet.common,
@@ -28,7 +28,7 @@ export async function handleCommandRarityPacketRes(packet: CommandRarityPacketRe
 					epic: packet.epic,
 					legendary: packet.legendary,
 					unique: packet.unique,
-					lng: interaction.channel.language
+					lng: interaction.userLanguage
 				}))]
 		});
 	}

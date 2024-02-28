@@ -27,7 +27,7 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 	if (user) {
 		const keycloakId = await KeycloakUtils.getKeycloakIdFromDiscordId(keycloakConfig, user.id, user.displayName);
 		if (!keycloakId) {
-			await interaction.reply({embeds: [new DraftBotErrorEmbed(interaction.user, interaction, interaction.channel.language, i18n.t("error:playerDoesntExist", { lng: interaction.channel.language }))]});
+			await interaction.reply({embeds: [new DraftBotErrorEmbed(interaction.user, interaction, interaction.userLanguage, i18n.t("error:playerDoesntExist", { lng: interaction.userLanguage }))]});
 			return null;
 		}
 		askedPlayer = { keycloakId };
@@ -43,16 +43,16 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 async function sendMessageAllBadgesTooMuchBadges(gameUsername: string, badges: string[], interaction: DraftbotInteraction): Promise<void> {
 	let content = "";
 	for (const badgeSentence of badges) {
-		content += `${i18n.t(`commands:profile.badges.${badgeSentence}`, {lng: interaction.channel.language})}\n`;
+		content += `${i18n.t(`commands:profile.badges.${badgeSentence}`, {lng: interaction.userLanguage})}\n`;
 	}
 	await interaction.followUp({
 		embeds: [new DraftBotEmbed()
 			.setTitle(i18n.t("commands:profile.badgeDisplay.title", {
-				lng: interaction.channel.language,
+				lng: interaction.userLanguage,
 				pseudo: gameUsername
 			}))
 			.setDescription(content + i18n.t("commands:profile.badgeDisplay.numberBadge", {
-				lng: interaction.channel.language,
+				lng: interaction.userLanguage,
 				badge: badges.length
 			}))]
 	});
@@ -222,8 +222,8 @@ export async function handleCommandProfilePacketRes(packet: CommandProfilePacket
 					new DraftBotErrorEmbed(
 						interaction.user,
 						interaction,
-						interaction.channel.language,
-						i18n.t("error:playerDoesntExist", {lng: interaction.channel.language})
+						interaction.userLanguage,
+						i18n.t("error:playerDoesntExist", {lng: interaction.userLanguage})
 					)
 				]
 			});
@@ -238,12 +238,12 @@ export async function handleCommandProfilePacketRes(packet: CommandProfilePacket
 				new DraftBotEmbed()
 					.setColor(<ColorResolvable>packet.data!.color)
 					.setTitle(i18n.t("commands:profile.title", {
-						lng: interaction.channel.language,
+						lng: interaction.userLanguage,
 						effect: titleEffect,
 						pseudo: keycloakUser.attributes.gameUsername,
 						level: packet.data?.level
 					}))
-					.addFields(generateFields(packet, interaction.channel.language))
+					.addFields(generateFields(packet, interaction.userLanguage))
 			],
 			fetchReply: true
 		}) as Message;
