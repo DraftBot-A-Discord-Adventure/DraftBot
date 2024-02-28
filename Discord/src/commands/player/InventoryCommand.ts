@@ -27,7 +27,7 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 		if (!keycloakId) {
 			await interaction.reply({
 				embeds: [
-					new DraftBotErrorEmbed(interaction.user, interaction, interaction.userLanguage, i18n.t("error:playerDoesntExist", {lng: interaction.userLanguage}))
+					new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("error:playerDoesntExist", {lng: interaction.userLanguage}))
 				]
 			});
 			return null;
@@ -120,7 +120,6 @@ export async function handleCommandInventoryPacketRes(packet: CommandInventoryPa
 					new DraftBotErrorEmbed(
 						interaction.user,
 						interaction,
-						interaction.userLanguage,
 						i18n.t("error:playerDoesntExist", {lng: interaction.userLanguage})
 					)
 				]

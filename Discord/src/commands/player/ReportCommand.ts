@@ -59,7 +59,7 @@ export async function createBigEventCollector(packet: ReactionCollectorCreationP
 	}
 
 	const msg = await interaction?.editReply({
-		content: i18n.t("commands:report.doEvent", { lng: interaction?.channel.language, event: eventText, pseudo: user.attributes.gameUsername, interpolation: { escapeValue: false } }),
+		content: i18n.t("commands:report.doEvent", { lng: interaction?.userLanguage, event: eventText, pseudo: user.attributes.gameUsername, interpolation: { escapeValue: false } }),
 		components: [row]
 	}) as Message;
 

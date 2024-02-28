@@ -27,7 +27,7 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 	if (user) {
 		const keycloakId = await KeycloakUtils.getKeycloakIdFromDiscordId(keycloakConfig, user.id, user.displayName);
 		if (!keycloakId) {
-			await interaction.reply({embeds: [new DraftBotErrorEmbed(interaction.user, interaction, interaction.userLanguage, i18n.t("error:playerDoesntExist", { lng: interaction.userLanguage }))]});
+			await interaction.reply({embeds: [new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("error:playerDoesntExist", { lng: interaction.userLanguage }))]});
 			return null;
 		}
 		askedPlayer = { keycloakId };
@@ -222,7 +222,6 @@ export async function handleCommandProfilePacketRes(packet: CommandProfilePacket
 					new DraftBotErrorEmbed(
 						interaction.user,
 						interaction,
-						interaction.userLanguage,
 						i18n.t("error:playerDoesntExist", {lng: interaction.userLanguage})
 					)
 				]
