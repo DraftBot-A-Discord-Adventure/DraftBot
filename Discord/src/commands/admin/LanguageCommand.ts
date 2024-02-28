@@ -1,6 +1,11 @@
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder} from "discord.js";
+import {
+	ActionRowBuilder,
+	StringSelectMenuBuilder,
+	StringSelectMenuInteraction,
+	StringSelectMenuOptionBuilder
+} from "discord.js";
 import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
 import i18n from "../../translations/i18n";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
@@ -9,6 +14,8 @@ import {PermissionsConstants} from "../../constants/PermissionsConstants";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
+import {Constants} from "../../Constants";
+import {sendInteractionNotForYou} from "../../utils/ErrorUtils";
 
 /**
  * Allow an admin to change the prefix the bot uses in a specific server
@@ -29,7 +36,7 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 		.addOptions(selectLanguageMenuOptions);
 	const row = new ActionRowBuilder<StringSelectMenuBuilder>()
 		.addComponents(languageSelectionMenu);
-	await interaction.reply({
+	const msg = await interaction.reply({
 		embeds: [new DraftBotEmbed()
 			.setTitle(i18n.t("commands:language.title", {
 				lng: KeycloakUtils.getUserLanguage(keycloakUser)
@@ -39,7 +46,20 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 			}))],
 		components: [row]
 	});
-	await KeycloakUtils.updateUserLanguage(keycloakConfig, keycloakUser, StringConstants.LANGUAGE.ENGLISH);
+
+	const collector = msg.createMessageComponentCollector({
+		filter: menuInteraction => menuInteraction.customId === selectLanguageMenuId,
+		time: Constants.MESSAGES.COLLECTOR_TIME
+	});
+
+	collector.on("collect", async (menuInteraction: StringSelectMenuInteraction) => {
+		if (menuInteraction.user.id !== interaction.user.id) {
+			await sendInteractionNotForYou(menuInteraction.user, menuInteraction, KeycloakUtils.getUserLanguage(keycloakUser));
+			return;
+		}
+		await KeycloakUtils.updateUserLanguage(keycloakConfig, keycloakUser, StringConstants.LANGUAGE.ENGLISH);
+	});
+
 	return null;
 }
 
