@@ -338,7 +338,7 @@
     "encounterMonster": [
       "You arrive at your destination when suddenly, you hear a noise behind you... A monster attacks you!"
     ],
-    "encounterMonsterStats": "> **{{emoji}} {{monsterName}}** | **Level {{level}}**\n> {{description}}\n⚡ {{fightPoints}} | \uD83D\uDDE1 {{attack}} | \uD83D\uDEE1 {{defense}} | \uD83D\uDE80 {{speed}}",
+    "encounterMonsterStats": "> **{{emoji}} {{monsterName}}** | **Level {{level}}**\n> {{description}}\n⚡ {{fightPoints}} | 🗡 {{attack}} | 🛡 {{defense}} | 🚀 {{speed}}",
     "monsterRewardsTitle": "{{pseudo}}, fight rewards",
     "monsterRewardsDescription": ":moneybag: Money earned: **{{money}}**\n:star: XP earned: **{{experience}}**",
     "monsterRewardGuildXp": "\n:star: Guild XP earned: **{{guildXp}}**",

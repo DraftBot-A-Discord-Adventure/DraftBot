@@ -121,8 +121,8 @@
     "title": "{{effect}} | {{pseudo}} | Nivel {{level}}"
   },
   "rarity": {
-    "title": ":slot_machine: Rareté des équipements",
-    "rarities": ":small_orange_diamond: Basique | Possédé en début de jeu\n:large_orange_diamond: Commun | {{common}}%\n:fire: Peu commun | {{uncommon}}%\n:trident: Exotique | {{exotic}}%\n:comet: Rare | {{rare}}%\n:dizzy: Spécial | {{special}}%\n:star: Épique | {{epic}}%\n:star2: Légendaire | {{legendary}}%\n:gem: Mythique | {{unique}}%"
+    "title": ":slot_machine: Escasez de equipos",
+    "rarities": ":small_orange_diamond: Básico | Poseído al inicio del juego\n:large_orange_diamond: Común | {{common}}%\n:fire: Poco común | {{uncommon}}%\n:trident: Exótico | {{exotic}}%\n:comet: Raro | {{rare}}%\n:dizzy: Especial | {{special}}%\n:star: Épico | {{epic}}%\n:star2: Legendario | {{legendary}}%\n:gem: Mítico | {{unique}}%"
   },
   "update": {
     "description": "La versión actual del núcleo bot es **{{coreVersion}}**. El módulo Discord es **{{discordModuleVersion}}**.\n\nToda la información sobre las actualizaciones está disponible aquí:\nhttps://guide.draftbot.com/lore/historique-des-mises-a-jour",
@@ -299,5 +299,49 @@
       }
     },
     "helpEmbedTitle": "{{pseudo}}Esta es la lista de comandos disponibles:"
+  },
+  "report": {
+    "commandName": "informe",
+    "commandDescription": "Obtén un informe sobre la situación de tu personaje.",
+    "doEvent": ":newspaper: ** {{pseudo}} :** {{event}}\n*- Utiliza las reacciones para realizar una acción ⚠️ No responder se considera una elección independiente.*",
+    "doChoice": "{{emoji}} {{choiceText}}\n",
+    "doPossibility": ":newspaper: ** {{pseudo}} {{result}}** {{emoji}}{{event}}{{alte}}",
+    "points": ":** :medal: Puntos ganados : **{{score}}",
+    "money": "** | :moneybag: Dinero ganado : **{{money}}",
+    "energy": "** | :zap: Energía ahorrada : **{{energy}}",
+    "gems": "** | :gem: Gemas ganadas : **{{gems}}",
+    "experience": "| :star: XP ganada : **{{experience}}",
+    "moneyLoose": "** | :money_with_wings: Dinero perdido : **{{money}}",
+    "healthLoose": "| :broken_heart: Vida perdida : **{{health}}",
+    "health": "| :heart: La vida ganada : **{{health}}",
+    "timeLost": "| :clock10: Tiempo perdido :{{timeLost}}",
+    "travellingTitle": "¡Realmente estás progresando!",
+    "travellingDescriptionWithoutSmallEvent": "Tu aventura va viento en popa. Próxima parada {{time}}.",
+    "travellingDescription": "Todo va bien desde su última aventura {{smallEventEmoji}}. Próxima parada {{time}}.",
+    "travellingDescriptionEndTravel": "Todo va bien en tu aventura y pronto llegarás a tu destino.",
+    "choseMap_one": "Ha decidido dirigirse a {{mapPrefix}} {{mapType}} **{{mapName}}**. Este viaje durará aproximadamente **{{time}} hora**.",
+    "choseMap_other": "Ha decidido dirigirse a {{mapPrefix}} {{mapType}} **{{mapName}}**. El viaje durará aproximadamente **{{time}} horas**.",
+    "choseMapMinutes_one": "Ha decidido dirigirse a {{mapPrefix}} {{mapType}} **{{mapName}}**. Este trayecto durará aproximadamente **{{time}} minuto**.",
+    "choseMapMinutes_other": "Ha decidido dirigirse a {{mapPrefix}} {{mapType}} **{{mapName}}**. Este trayecto durará aproximadamente **{{time}} minutos**.",
+    "destinationTitle": "{{pseudo}}destino de viaje",
+    "chooseDestinationIndications": "Elija un destino para su viaje:",
+    "travelPathTitle": "Viaje actual :",
+    "startPoint": "Punto de partida :",
+    "endPoint": "Punto de llegada :",
+    "adviceTitle": "Consejos :",
+    "journal": "Diario de {{pseudo}}",
+    "collectedPointsTitle": "Puntos recogidos :",
+    "newBigEvent": ":flag_fr: ¡Ha llegado a{{destination}}!",
+    "remainingEnergyTitle": "Energía restante :",
+    "pveEvent": ":newspaper: ** {{pseudo}} log:** {{event}}\n\n{{monsterDisplay}}\n\n{{startTheFightReaction}} Empieza el combate\n{{waitABitReaction}} Espera un poco antes de empezar el combate\n\n*- Usa las reacciones para realizar una acción*.",
+    "noFight": ":newspaper: ** {{pseudo}} :** {{waitABitReaction}} | ¡Haces una rápida escapada y encuentras un pequeño escondite! El monstruo espera pacientemente fuera...",
+    "encounterMonster": [
+      "Llegas a tu destino cuando de repente oyes un ruido detrás de ti... ¡Un monstruo te ataca!"
+    ],
+    "encounterMonsterStats": "> **{{emoji}} {{monsterName}} **| **Nivel {{level}}**\n> {{description}}\n\n⚡ {{fightPoints}} | 🗡 {{attack}} | 🛡 {{defense}} | 🚀 {{speed}}",
+    "monsterRewardsTitle": "{{pseudo}}recompensas de combate",
+    "monsterRewardsDescription": ":moneybag: Plata ganada : **{{money}}**\n:star: XP ganada : **{{experience}}**",
+    "monsterRewardGuildXp": "\n:star: XP gremio ganado: **{{guildXp}}**",
+    "monsterRewardsGuildPoints": "\n:mirror_ball: Puntos de gremio ganados : **{{guildPoints}}**"
   }
 }

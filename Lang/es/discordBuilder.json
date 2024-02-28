@@ -47,6 +47,10 @@
       }
     }
   },
+  "report": {
+    "description": "Obtén un informe sobre la situación de tu personaje.",
+    "name": "informe"
+  },
   "scopes": {
     "global": "🏆 Clasificación general",
     "server": "🚩 Clasificación de servidores"
@@ -62,8 +66,8 @@
     }
   },
   "rarity": {
-    "description": "Affiche les différentes raretés des équipements.",
-    "name": "rarete"
+    "description": "Muestra las distintas rarezas de los equipos.",
+    "name": "rareza"
   },
   "update": {
     "description": "Muestra la versión actual del bot.",

@@ -121,7 +121,7 @@
     "title": "{{effect}} | {{pseudo}} | Stufe {{level}}"
   },
   "rarity": {
-    "title": ":slot_machine: Rareté des équipements",
+    "title": ":slot_machine: Schlechtigkeit der Ausrüstung",
     "rarities": ":small_orange_diamond: Basique | Possédé en début de jeu\n:large_orange_diamond: Commun | {{common}}%\n:fire: Peu commun | {{uncommon}}%\n:trident: Exotique | {{exotic}}%\n:comet: Rare | {{rare}}%\n:dizzy: Spécial | {{special}}%\n:star: Épique | {{epic}}%\n:star2: Légendaire | {{legendary}}%\n:gem: Mythique | {{unique}}%"
   },
   "update": {
@@ -299,5 +299,49 @@
       }
     },
     "helpEmbedTitle": "{{pseudo}}, hier ist die Liste der verfügbaren Befehle:"
+  },
+  "report": {
+    "commandName": "Bericht",
+    "commandDescription": "Holen Sie sich einen Bericht über die Situation Ihres Charakters.",
+    "doEvent": ":newspaper: ** Protokoll von {{pseudo}} : ** {{event}}\n*-Verwenden Sie die Reaktionen, um eine Aktion ⚠️ Nicht beantworten zu verwenden, gilt als eine Auswahl von part.*",
+    "doChoice": "{{emoji}} {{choiceText}}\n",
+    "doPossibility": ":newspaper: ** Protokoll von {{pseudo}} {{result}}** | {{emoji}}{{event}}{{alte}}",
+    "points": ": ** :medal: Gewinner: **{{score}}",
+    "money": "** | :moneybag: Der gespart wurde: **{{money}}",
+    "energy": "** | :zap: Energie-Gewinner: **{{energy}}",
+    "gems": "** | :gem: Geme-Gewinner: **{{gems}}",
+    "experience": "** | :star: XP gewonnen: **{{experience}}",
+    "moneyLoose": "** | :money_with_wings: Argent verloren: **{{money}}",
+    "healthLoose": "** | :broken_heart: Verlorene Vie: **{{health}}",
+    "health": "** | :heart: Verlorene Vie: **{{health}}",
+    "timeLost": "** | :clock10: Verlorene Zeit: **{{timeLost}}",
+    "travellingTitle": "Sie sind gerade dabei, Fortschritte zu machen!",
+    "travellingDescriptionWithoutSmallEvent": "Es läuft alles gut in Ihrem Abenteuer. Nächster Haltungsstopp {{time}}.",
+    "travellingDescription": "Es läuft alles gut, seit Ihr letztes Abenteuer {{smallEventEmoji}}. Nächster Halt nach Plan {{time}}.",
+    "travellingDescriptionEndTravel": "Es läuft alles gut in Ihrem Abenteuer, Sie werden bald am Ziel ankommen.",
+    "choseMap_one": "Sie haben entschieden, in Richtung {{mapPrefix}} {{mapType}} **{{mapName}}** zu gehen. Dieser Pfad wird ca. **{{time}} Std. * * dauern.",
+    "choseMap_other": "Sie haben entschieden, in Richtung {{mapPrefix}} {{mapType}} **{{mapName}}** zu gehen. Dieser Pfad wird ca. **{{time}} Stunden * * dauern.",
+    "choseMapMinutes_one": "Sie haben entschieden, in Richtung {{mapPrefix}} {{mapType}} **{{mapName}}** zu gehen. Dieser Pfad wird ca. **{{time}} Minuten * * dauern.",
+    "choseMapMinutes_other": "Sie haben entschieden, in Richtung {{mapPrefix}} {{mapType}} **{{mapName}}** zu gehen. Dieser Pfad wird ca. **{{time}} Minuten * * dauern.",
+    "destinationTitle": "{{pseudo}}, Reiseziel",
+    "chooseDestinationIndications": "Wählen Sie ein Ziel für Ihre Reise:",
+    "travelPathTitle": "Aktuelle Reise:",
+    "startPoint": "Startpunkt:",
+    "endPoint": "Einreise:",
+    "adviceTitle": "Tipp:",
+    "journal": "Protokoll von {{pseudo}}",
+    "collectedPointsTitle": "geerntete Punkte:",
+    "newBigEvent": ":flag_fr: Sie kamen zu **{{destination}}**!",
+    "remainingEnergyTitle": "Verbleibende Energie:",
+    "pveEvent": ":newspaper: ** Journal von {{pseudo}} : ** {{event}}\n\n{{monsterDisplay}}\n\n{{startTheFightReaction}} Beginnt mit dem Kampf\n{{waitABitReaction}} Warten Sie kurz vor Beginn des Kampfes\n\n*-Verwenden Sie die Reaktionen, um eine Aktion durchzuführen *",
+    "noFight": ":newspaper: ** Journal von {{pseudo}} : ** {{waitABitReaction}} | Sie verlassen sich schnell und finden Sie ein kleines Versteck! Das Monster wartet geduldig auf Sie.",
+    "encounterMonster": [
+      "Sie kommen zu Ihrem Ziel, wenn Sie plötzlich hören, dass Sie ein Geräusch hinter Ihnen hören. Ein Monster greift Sie an!"
+    ],
+    "encounterMonsterStats": "> **{{emoji}} {{monsterName}} ** | ** Stufe {{level}}**\n> {{description}}\n\n⚡ {{fightPoints}} | 🗡 {{attack}} | 🛡 {{defense}} | 🚀 {{speed}}",
+    "monsterRewardsTitle": "{{pseudo}}, Kampfbelohnungen",
+    "monsterRewardsDescription": ":moneybag: Silber gewonnen: **{{money}}**\n:star: XP gewonnen: **{{experience}}**",
+    "monsterRewardGuildXp": "\n:star: XP Gilde gewonnen: **{{guildXp}}**",
+    "monsterRewardsGuildPoints": "\n:mirror_ball: Gilde-Gewinner: **{{guildPoints}}**"
   }
 }
