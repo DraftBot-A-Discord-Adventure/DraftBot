@@ -271,17 +271,16 @@ ${i18n.t("bot:mentionHelp", {
 			}
 			const user = await KeycloakUtils.getOrRegisterDiscordUser(keycloakConfig, discordInteraction.user.id, discordInteraction.user.displayName, discordInteraction.locale.substring(0, 2));
 			const interaction: DraftbotInteraction = DraftbotInteraction.cast(discordInteraction);
+			interaction.userLanguage = KeycloakUtils.getUserLanguage(user);
 			if (!interaction.channel) {
 				replyErrorMessage(
 					interaction,
-					KeycloakUtils.getUserLanguage(user),
 					i18n.t("bot:noChannelAccess", {lang: user.attributes.language})
 				)
 					.finally(() => null);
 				return;
 			}
 			if (!interaction.member) { // If in DM, shouldn't happen
-				interaction.userLanguage = KeycloakUtils.getUserLanguage(user);
 				CommandsManager.handlePrivateMessage(interaction)
 					.finally(() => null);
 				return;
@@ -366,19 +365,19 @@ ${i18n.t("bot:mentionHelp", {
 	 * @private
 	 */
 	private static async handleCommand(interaction: DraftbotInteraction, user: KeycloakUser): Promise<void> {
-		const language = user.attributes.language;
+		const language = interaction.userLanguage;
 
 		const commandInfo = this.commands.get(interaction.commandName);
 
 		if (!commandInfo) {
-			await replyErrorMessage(interaction, StringConstants.LANGUAGE.ENGLISH, i18n.t("bot:command404", {lang: language}));
+			await replyErrorMessage(interaction, i18n.t("bot:command404", {lang: language}));
 			console.error(`Command "${interaction.commandName}" is not registered`);
 			return;
 		}
 
 		const channelAccess = this.hasChannelPermission(interaction.channel);
 		if (!channelAccess[0]) {
-			await replyErrorMessage(interaction, StringConstants.LANGUAGE.ENGLISH, i18n.t(channelAccess[1], {lang: language}));
+			await replyErrorMessage(interaction, i18n.t(channelAccess[1], {lang: language}));
 			return;
 		}
 

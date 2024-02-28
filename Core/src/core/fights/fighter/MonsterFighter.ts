@@ -30,7 +30,6 @@ export class MonsterFighter extends Fighter {
 		this.stats.breath = monster.breath;
 		this.stats.maxBreath = monster.maxBreath;
 		this.stats.breathRegen = monster.breathRegen;
-		this.emoji = monster.emoji;
 		this.monster = monster;
 		this.status = FighterStatus.NOT_STARTED;
 	}

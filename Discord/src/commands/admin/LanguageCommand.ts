@@ -16,6 +16,7 @@ import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
 import {Constants} from "../../Constants";
 import {sendInteractionNotForYou} from "../../utils/ErrorUtils";
+import { Language } from "../../../../Lib/src/Language";
 
 /**
  * Allow an admin to change the prefix the bot uses in a specific server
@@ -57,7 +58,8 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 			await sendInteractionNotForYou(menuInteraction.user, menuInteraction,  interaction.userLanguage);
 			return;
 		}
-		await KeycloakUtils.updateUserLanguage(keycloakConfig, keycloakUser, StringConstants.LANGUAGE.ENGLISH);
+		await KeycloakUtils.updateUserLanguage(keycloakConfig, keycloakUser, menuInteraction.values[0] as Language);
+		menuInteraction.reply("test")
 	});
 
 	return null;

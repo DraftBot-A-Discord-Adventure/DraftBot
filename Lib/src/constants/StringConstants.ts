@@ -20,6 +20,6 @@ export class StringConstants {
 		GERMAN: "de"
 	};
 
-	static readonly DEFAULT_LANGUAGE: Language = StringConstants.LANGUAGE.FRENCH
+	static readonly DEFAULT_LANGUAGE: Language = StringConstants.LANGUAGE.ENGLISH
 
 }
