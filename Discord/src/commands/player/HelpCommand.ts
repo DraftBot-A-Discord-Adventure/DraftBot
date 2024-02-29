@@ -5,11 +5,9 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {BotUtils} from "../../utils/BotUtils";
-import {Language} from "../../../../Lib/src/Language";
+import {LANGUAGE, Language} from "../../../../Lib/src/Language";
 import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
 import {HelpConstants} from "../../constants/HelpConstants";
-import {Constants} from "../../Constants";
-import { StringConstants } from "../../../../Lib/src/constants/StringConstants";
 
 /**
  * Get the list of commands mention from the command data
@@ -183,7 +181,7 @@ function generateReplacementObjectForHelpCommand(interaction: DraftbotInteractio
  */
 async function getPacket(interaction: DraftbotInteraction): Promise<null> {
 	const helpMessage = new DraftBotEmbed();
-	const command = interaction.options.get(i18n.t("discordBuilder:help.options.commandName.name", {lng: StringConstants.LANGUAGE.ENGLISH}));
+	const command = interaction.options.get(i18n.t("discordBuilder:help.options.commandName.name", {lng: LANGUAGE.ENGLISH}));
 	const askedCommand = command ? command.value as string : null;
 	if (!askedCommand) {
 		generateGenericHelpMessage(helpMessage, interaction);

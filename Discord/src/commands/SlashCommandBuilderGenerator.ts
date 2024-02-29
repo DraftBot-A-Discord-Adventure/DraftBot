@@ -3,10 +3,9 @@
  */
 import {ApplicationCommandOptionBase, SlashCommandBuilder} from "@discordjs/builders";
 import i18n from "../translations/i18n";
-import {Constants} from "../Constants";
 import {SlashCommandStringOption} from "discord.js";
 import {TopConstants} from "../../../Lib/src/constants/TopConstants";
-import { StringConstants } from "../../../Lib/src/constants/StringConstants";
+import {LANGUAGE} from "../../../Lib/src/Language";
 
 
 export class SlashCommandBuilderGenerator {
@@ -17,13 +16,13 @@ export class SlashCommandBuilderGenerator {
 	 */
 	static generateBaseCommand(commandSectionName: string): SlashCommandBuilder {
 		return new SlashCommandBuilder()
-			.setName(i18n.t(`discordBuilder:${commandSectionName}.name`, { lng: StringConstants.LANGUAGE.ENGLISH }))
+			.setName(i18n.t(`discordBuilder:${commandSectionName}.name`, {lng: LANGUAGE.ENGLISH}))
 			.setNameLocalizations({
-				fr: i18n.t(`discordBuilder:${commandSectionName}.name`, { lng: StringConstants.LANGUAGE.FRENCH })
+				fr: i18n.t(`discordBuilder:${commandSectionName}.name`, {lng: LANGUAGE.FRENCH})
 			})
-			.setDescription(i18n.t(`discordBuilder:${commandSectionName}.description`, { lng: StringConstants.LANGUAGE.ENGLISH }))
+			.setDescription(i18n.t(`discordBuilder:${commandSectionName}.description`, {lng: LANGUAGE.ENGLISH}))
 			.setDescriptionLocalizations({
-				fr: i18n.t(`discordBuilder:${commandSectionName}.description`, { lng: StringConstants.LANGUAGE.FRENCH })
+				fr: i18n.t(`discordBuilder:${commandSectionName}.description`, {lng: LANGUAGE.FRENCH})
 			});
 	}
 
@@ -34,13 +33,13 @@ export class SlashCommandBuilderGenerator {
 	 * @param option Option to populate
 	 */
 	static generateOption<T extends ApplicationCommandOptionBase>(commandSectionName: string, optionSectionName: string, option: T): T {
-		return option.setName(i18n.t(`discordBuilder:${commandSectionName}.options.${optionSectionName}.name`, { lng: StringConstants.LANGUAGE.ENGLISH }))
+		return option.setName(i18n.t(`discordBuilder:${commandSectionName}.options.${optionSectionName}.name`, {lng: LANGUAGE.ENGLISH}))
 			.setNameLocalizations({
-				fr: i18n.t(`discordBuilder:${commandSectionName}.options.${optionSectionName}.name`, { lng: StringConstants.LANGUAGE.FRENCH })
+				fr: i18n.t(`discordBuilder:${commandSectionName}.options.${optionSectionName}.name`, {lng: LANGUAGE.FRENCH})
 			})
-			.setDescription(i18n.t(`discordBuilder:${commandSectionName}.options.${optionSectionName}.description`, { lng: StringConstants.LANGUAGE.ENGLISH }))
+			.setDescription(i18n.t(`discordBuilder:${commandSectionName}.options.${optionSectionName}.description`, {lng: LANGUAGE.ENGLISH}))
 			.setDescriptionLocalizations({
-				fr: i18n.t(`discordBuilder:${commandSectionName}.options.${optionSectionName}.description`, { lng: StringConstants.LANGUAGE.FRENCH })
+				fr: i18n.t(`discordBuilder:${commandSectionName}.options.${optionSectionName}.description`, {lng: LANGUAGE.FRENCH})
 			});
 	}
 
@@ -58,16 +57,16 @@ export class SlashCommandBuilderGenerator {
 		return SlashCommandBuilderGenerator.generateOption(commandSectionName, optionSectionName, option)
 			.addChoices(
 				{
-					name: i18n.t("discordBuilder:scopes.global", { lng: StringConstants.LANGUAGE.ENGLISH }),
+					name: i18n.t("discordBuilder:scopes.global", {lng: LANGUAGE.ENGLISH}),
 					"name_localizations": {
-						fr: i18n.t("discordBuilder:scopes.global", { lng: StringConstants.LANGUAGE.FRENCH })
+						fr: i18n.t("discordBuilder:scopes.global", {lng: LANGUAGE.FRENCH})
 					}, value: TopConstants.GLOBAL_SCOPE
 				},
 				{
-					name: i18n.t("discordBuilder:scopes.server", { lng: StringConstants.LANGUAGE.ENGLISH }),
+					name: i18n.t("discordBuilder:scopes.server", {lng: LANGUAGE.ENGLISH}),
 					"name_localizations":
 						{
-							fr: i18n.t("discordBuilder:scopes.server", { lng: StringConstants.LANGUAGE.FRENCH })
+							fr: i18n.t("discordBuilder:scopes.server", {lng: LANGUAGE.FRENCH})
 						}
 					,
 					value: TopConstants.SERVER_SCOPE

@@ -41,12 +41,12 @@ import * as deEvents from "../../../Lang/de/events.json";
 import * as esEvents from "../../../Lang/es/events.json";
 import * as ptEvents from "../../../Lang/pt/events.json";
 import * as itEvents from "../../../Lang/it/events.json";
-import {StringConstants} from "../../../Lib/src/constants/StringConstants";
+import {LANGUAGE} from "../../../Lib/src/Language";
 
 // Todo load automatically modules
 
 i18next.init({
-	fallbackLng: StringConstants.DEFAULT_LANGUAGE,
+	fallbackLng: LANGUAGE.DEFAULT_LANGUAGE,
 	resources: {
 		en: {
 			bot: enBot,

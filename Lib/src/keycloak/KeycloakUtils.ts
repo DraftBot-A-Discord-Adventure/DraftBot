@@ -159,13 +159,7 @@ export class KeycloakUtils {
 	public static async getOrRegisterDiscordUser(keycloakConfig: KeycloakConfig, discordId: string, gameUsername: string, language: string): Promise<KeycloakUser> {
 		await this.checkAndQueryToken(keycloakConfig);
 
-		const res = await fetch(`${keycloakConfig.url}/admin/realms/${keycloakConfig.realm}/users?q=discordId:${discordId}`, {
-			method: "GET",
-			headers: {
-				"Authorization": `Bearer ${this.keycloakToken}`,
-				"Content-Type": "application/json"
-			}
-		});
+		const res = await this.getUserFromDiscordId(keycloakConfig, discordId);
 
 		if (!res.ok) {
 			throw new Error(`Keycloak retrieve user with attribute 'discordId:${discordId}', error: '${JSON.stringify(await res.json())}'`);
@@ -189,6 +183,22 @@ export class KeycloakUtils {
 		return user;
 	}
 
+	/**
+	 * Send a get request to keycloak to retrieve a user from it's discordId
+	 * @param keycloakConfig
+	 * @param discordId
+	 * @private
+	 */
+	private static async getUserFromDiscordId(keycloakConfig: KeycloakConfig, discordId: string) : Promise<Response> {
+		return await fetch(`${keycloakConfig.url}/admin/realms/${keycloakConfig.realm}/users?q=discordId:${discordId}`, {
+			method: "GET",
+			headers: {
+				"Authorization": `Bearer ${this.keycloakToken}`,
+				"Content-Type": "application/json"
+			}
+		});
+	}
+
 	public static async getKeycloakIdFromDiscordId(keycloakConfig: KeycloakConfig, discordId: string, gameUsername: string | null): Promise<string | null> {
 		const cachedId = KeycloakUtils.keycloakDiscordToIdMap.get(discordId);
 		if (cachedId) {
@@ -197,13 +207,7 @@ export class KeycloakUtils {
 
 		await this.checkAndQueryToken(keycloakConfig);
 
-		const res = await fetch(`${keycloakConfig.url}/admin/realms/${keycloakConfig.realm}/users?q=discordId:${discordId}`, {
-			method: "GET",
-			headers: {
-				"Authorization": `Bearer ${this.keycloakToken}`,
-				"Content-Type": "application/json"
-			}
-		});
+		const res = await this.getUserFromDiscordId(keycloakConfig, discordId);
 
 		if (!res.ok) {
 			throw new Error(`Keycloak retrieve user with attribute 'discordId:${discordId}', error: '${JSON.stringify(await res.json())}'`);
@@ -239,7 +243,7 @@ export class KeycloakUtils {
 				"Content-Type": "application/json"
 			},
 			body: JSON.stringify({
-				attributes: attributes
+				attributes
 			})
 		});
 

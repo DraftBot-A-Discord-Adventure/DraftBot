@@ -9,34 +9,34 @@ import {
 import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
 import i18n from "../../translations/i18n";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
-import {StringConstants} from "../../../../Lib/src/constants/StringConstants";
-import {PermissionsConstants} from "../../constants/PermissionsConstants";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
 import {Constants} from "../../Constants";
 import {sendInteractionNotForYou} from "../../utils/ErrorUtils";
-import {Language} from "../../../../Lib/src/Language";
+import {LANGUAGE, Language} from "../../../../Lib/src/Language";
 
 /**
- * Allow an admin to change the prefix the bot uses in a specific server
+ * Change the language used by the bot to interact with the player
  */
 async function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser): Promise<null> {
 	const selectLanguageMenuId = "languageSelectionMenu";
-	const selectLanguageMenuOptions = Object.keys(StringConstants.LANGUAGE)
-		.map((key) => {
-			const languageCode = StringConstants.LANGUAGE[key as keyof typeof StringConstants.LANGUAGE];
-			return new StringSelectMenuOptionBuilder()
-				.setLabel(i18n.t(`commands:language.languages.${languageCode}.name`, {lng: interaction.userLanguage}))
-				.setEmoji(i18n.t(`commands:language.languages.${languageCode}.emoji`, {lng: interaction.userLanguage}))
-				.setValue(languageCode);
-		});
+
+	const selectLanguageMenuOptions = LANGUAGE.LANGUAGES
+		.map((languageCode) => new StringSelectMenuOptionBuilder()
+			.setLabel(i18n.t(`commands:language.languages.${languageCode}.name`, {lng: interaction.userLanguage}))
+			.setEmoji(i18n.t(`commands:language.languages.${languageCode}.emoji`, {lng: interaction.userLanguage}))
+			.setValue(languageCode)
+		);
+
 	const languageSelectionMenu = new StringSelectMenuBuilder()
 		.setCustomId(selectLanguageMenuId)
 		.setPlaceholder(i18n.t("commands:language.selectLanguage", {lng: interaction.userLanguage}))
 		.addOptions(selectLanguageMenuOptions);
+
 	const row = new ActionRowBuilder<StringSelectMenuBuilder>()
 		.addComponents(languageSelectionMenu);
+
 	const msg = await interaction.reply({
 		embeds: [new DraftBotEmbed()
 			.setTitle(i18n.t("commands:language.title", {
@@ -54,18 +54,21 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 	});
 
 	collector.on("collect", async (menuInteraction: StringSelectMenuInteraction) => {
+
 		if (menuInteraction.user.id !== interaction.user.id) {
 			await sendInteractionNotForYou(menuInteraction.user, menuInteraction, interaction.userLanguage);
 			return;
 		}
+
 		await KeycloakUtils.updateUserLanguage(keycloakConfig, keycloakUser, menuInteraction.values[0] as Language);
+
 		await menuInteraction.reply({
 			embeds: [new DraftBotEmbed()
 				.setTitle(i18n.t("commands:language.newLanguageSetTitle", {
-					lng:  menuInteraction.values[0] as Language
+					lng: menuInteraction.values[0] as Language
 				}))
 				.setDescription(i18n.t("commands:language.newLanguageSetDescription", {
-					lng:  menuInteraction.values[0] as Language
+					lng: menuInteraction.values[0] as Language
 				}))]
 		})
 	});
@@ -75,8 +78,6 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("language"),
 	getPacket,
-	requirements: {
-		userPermission: PermissionsConstants.ROLES.USER.ADMINISTRATOR
-	},
+	requirements: {},
 	mainGuildCommand: false
 };

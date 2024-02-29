@@ -32,7 +32,7 @@ import {DiscordWebSocket} from "../bot/Websocket";
 import {PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
 import {DiscordCache} from "../bot/DiscordCache";
 import {BotUtils} from "../utils/BotUtils";
-import { StringConstants } from "../../../Lib/src/constants/StringConstants";
+import {LANGUAGE} from "../../../Lib/src/Language";
 
 export class CommandsManager {
 	static commands = new Map<string, ICommand>();
@@ -217,16 +217,16 @@ export class CommandsManager {
 			message.channel.send({
 				content: `
 ${i18n.t("bot:mentionHelp", {
-		lang: StringConstants.LANGUAGE.ENGLISH,
-		commandHelp: BotUtils.commandsMentions.get("help"),
-		commandLanguage: BotUtils.commandsMentions.get("language")
-	})}
+					lang: LANGUAGE.ENGLISH,
+					commandHelp: BotUtils.commandsMentions.get("help"),
+					commandLanguage: BotUtils.commandsMentions.get("language")
+				})}
 
 ${i18n.t("bot:mentionHelp", {
-		lang: StringConstants.LANGUAGE.FRENCH,
-		commandHelp: BotUtils.commandsMentions.get("help"),
-		commandLanguage: BotUtils.commandsMentions.get("language")
-	})}`
+					lang: LANGUAGE.FRENCH,
+					commandHelp: BotUtils.commandsMentions.get("help"),
+					commandLanguage: BotUtils.commandsMentions.get("language")
+				})}`
 			}).then();
 		});
 	}
@@ -302,7 +302,7 @@ ${i18n.t("bot:mentionHelp", {
 				attachmentList.push(new AttachmentBuilder(Buffer.from(message.content)).setName(`userMessage-${message.author.id}-${message.id}.txt`));
 			}
 			const supportAlert = i18n.t("bot:supportAlert", {
-				lang: StringConstants.LANGUAGE.FRENCH,
+				lang: LANGUAGE.FRENCH,
 				username: escapeUsername(message.author.username),
 				id: message.author.id
 			}) + (message.content.length > Constants.DM.MAX_MESSAGE_LENGTH_ALLOWED
@@ -336,7 +336,7 @@ ${i18n.t("bot:mentionHelp", {
 				if (!msg!.getFirstReaction()) {
 					return;
 				}
-				const language = msg!.getFirstReaction()!.emoji.name === Constants.REACTIONS.ENGLISH_FLAG ? StringConstants.LANGUAGE.ENGLISH : StringConstants.LANGUAGE.FRENCH;
+				const language = msg!.getFirstReaction()!.emoji.name === Constants.REACTIONS.ENGLISH_FLAG ? LANGUAGE.ENGLISH : LANGUAGE.FRENCH;
 				message.channel.send({
 					embeds: [new DraftBotEmbed()
 						.formatAuthor(i18n.t("bot:dmHelpMessageTitle", {
@@ -354,7 +354,7 @@ ${i18n.t("bot:mentionHelp", {
 			.formatAuthor(Constants.DM.TITLE_SUPPORT, author)
 			.setDescription(message instanceof DraftbotInteraction ? Constants.DM.INTERACTION_SUPPORT : Constants.DM.MESSAGE_SUPPORT);
 		const draftbotChannel = message.channel as unknown as DraftbotChannel;
-		draftbotChannel.language = StringConstants.LANGUAGE.ENGLISH;
+		draftbotChannel.language = LANGUAGE.ENGLISH;
 		message instanceof Message ? await helpMessage.send(draftbotChannel) : await helpMessage.reply(message);
 	}
 
