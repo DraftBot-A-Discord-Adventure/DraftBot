@@ -214,18 +214,13 @@ export class CommandsManager {
 			if (this.isAMessageFromMassOrMissPing(message) || !this.shouldSendHelpMessage(message, client)) {
 				return;
 			}
+			const user = await KeycloakUtils.getOrRegisterDiscordUser(keycloakConfig, message.author.id, message.author.username, LANGUAGE.DEFAULT_LANGUAGE);
 			message.channel.send({
-				content: `
-${i18n.t("bot:mentionHelp", {
-					lng: LANGUAGE.ENGLISH,
+				content: `${i18n.t("bot:mentionHelp", {
+					lng: KeycloakUtils.getUserLanguage(user),
 					commandHelp: BotUtils.commandsMentions.get("help"),
-					commandLanguage: BotUtils.commandsMentions.get("language")
-				})}
-
-${i18n.t("bot:mentionHelp", {
-					lng: LANGUAGE.FRENCH,
-					commandHelp: BotUtils.commandsMentions.get("help"),
-					commandLanguage: BotUtils.commandsMentions.get("language")
+					commandLanguage: BotUtils.commandsMentions.get("language"),
+					interpolation: {escapeValue: false}
 				})}`
 			}).then();
 		});
