@@ -217,13 +217,13 @@ export class CommandsManager {
 			message.channel.send({
 				content: `
 ${i18n.t("bot:mentionHelp", {
-					lang: LANGUAGE.ENGLISH,
+					lng: LANGUAGE.ENGLISH,
 					commandHelp: BotUtils.commandsMentions.get("help"),
 					commandLanguage: BotUtils.commandsMentions.get("language")
 				})}
 
 ${i18n.t("bot:mentionHelp", {
-					lang: LANGUAGE.FRENCH,
+					lng: LANGUAGE.FRENCH,
 					commandHelp: BotUtils.commandsMentions.get("help"),
 					commandLanguage: BotUtils.commandsMentions.get("language")
 				})}`
@@ -275,7 +275,7 @@ ${i18n.t("bot:mentionHelp", {
 			if (!interaction.channel) {
 				replyErrorMessage(
 					interaction,
-					i18n.t("bot:noChannelAccess", {lang: user.attributes.language})
+					i18n.t("bot:noChannelAccess", {lng: interaction.userLanguage})
 				)
 					.finally(() => null);
 				return;
@@ -302,7 +302,7 @@ ${i18n.t("bot:mentionHelp", {
 				attachmentList.push(new AttachmentBuilder(Buffer.from(message.content)).setName(`userMessage-${message.author.id}-${message.id}.txt`));
 			}
 			const supportAlert = i18n.t("bot:supportAlert", {
-				lang: LANGUAGE.FRENCH,
+				lng: LANGUAGE.FRENCH,
 				username: escapeUsername(message.author.username),
 				id: message.author.id
 			}) + (message.content.length > Constants.DM.MAX_MESSAGE_LENGTH_ALLOWED
@@ -340,11 +340,11 @@ ${i18n.t("bot:mentionHelp", {
 				message.channel.send({
 					embeds: [new DraftBotEmbed()
 						.formatAuthor(i18n.t("bot:dmHelpMessageTitle", {
-							lang: language,
+							lng: language,
 							pseudo: escapeUsername(author.username)
 						}), author)
 						.setDescription(i18n.t("bot:dmHelpMessage", {
-							lang: language,
+							lng: language,
 							commandHelp: BotUtils.commandsMentions.get("help"),
 							commandRespawn: BotUtils.commandsMentions.get("respawn")
 						}))]
@@ -370,14 +370,14 @@ ${i18n.t("bot:mentionHelp", {
 		const commandInfo = this.commands.get(interaction.commandName);
 
 		if (!commandInfo) {
-			await replyErrorMessage(interaction, i18n.t("bot:command404", {lang: language}));
+			await replyErrorMessage(interaction, i18n.t("bot:command404", {lng: language}));
 			console.error(`Command "${interaction.commandName}" is not registered`);
 			return;
 		}
 
 		const channelAccess = this.hasChannelPermission(interaction.channel);
 		if (!channelAccess[0]) {
-			await replyErrorMessage(interaction, i18n.t(channelAccess[1], {lang: language}));
+			await replyErrorMessage(interaction, i18n.t(channelAccess[1], {lng: language}));
 			return;
 		}
 

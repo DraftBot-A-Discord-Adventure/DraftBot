@@ -103,7 +103,7 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 	 * @private
 	 */
 	private async manageFallback(functionPrototype: ReplyFunctionLike): Promise<void> {
-		const errorText = i18n.t("bot:noSpeakPermission", {lang: this.channel.language});
+		const errorText = i18n.t("bot:noSpeakPermission", {lng: this.channel.language});
 		try {
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			// @ts-ignore
