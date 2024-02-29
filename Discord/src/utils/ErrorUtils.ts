@@ -47,7 +47,7 @@ export async function sendInteractionNotForYou(
 			new DraftBotEmbed()
 				.setDescription(i18n.t("error:interactionNotForYou", { lng: language }))
 				.setErrorColor()
-				.formatAuthor(i18n.t("error:titleDidntWork", { lang: language, pseudo: user.username }), user)
+				.formatAuthor(i18n.t("error:titleDidntWork", { lng: language, pseudo: user.username }), user)
 		],
 		ephemeral: true
 	});
