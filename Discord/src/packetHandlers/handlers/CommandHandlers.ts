@@ -53,6 +53,6 @@ export default class CommandHandlers {
 
 	@packetHandler(CommandRarityPacketRes)
 	async rarityRes(socket: WebSocket, packet: CommandRarityPacketRes, context: PacketContext): Promise<void> {
-		handleCommandRarityPacketRes(packet, context).then();
+		await handleCommandRarityPacketRes(packet, context);
 	}
 }

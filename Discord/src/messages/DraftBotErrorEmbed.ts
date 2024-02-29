@@ -2,7 +2,6 @@ import {DraftBotEmbed} from "./DraftBotEmbed";
 import {User} from "discord.js";
 import {DraftbotInteraction} from "./DraftbotInteraction";
 import i18n from "../translations/i18n";
-import {Language} from "../../../Lib/src/Language";
 
 /**
  * Default error embed with the title and description formatted. If you just want the red color, see {@link DraftBotEmbed#setErrorColor}

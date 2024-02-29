@@ -2,15 +2,16 @@ import {
 	BaseGuildTextChannel,
 	Client,
 	CommandInteraction,
-	GuildTextBasedChannel, InteractionEditReplyOptions,
+	GuildTextBasedChannel,
+	InteractionEditReplyOptions,
 	InteractionReplyOptions,
 	Message,
-	MessageCreateOptions, MessagePayload
+	MessageCreateOptions,
+	MessagePayload
 } from "discord.js";
 import {RawInteractionData, RawWebhookData} from "discord.js/typings/rawDataTypes";
 import i18n from "../translations/i18n";
-import {Language} from "../../../Lib/src/Language";
-import { StringConstants } from "../../../Lib/src/constants/StringConstants";
+import {LANGUAGE, Language} from "../../../Lib/src/Language";
 
 type DraftbotInteractionWithoutSendCommands = new(client: Client<true>, data: RawInteractionData) => Omit<CommandInteraction, "reply" | "followUp" | "channel">;
 const DraftbotInteractionWithoutSendCommands: DraftbotInteractionWithoutSendCommands = CommandInteraction as unknown as DraftbotInteractionWithoutSendCommands;
@@ -27,7 +28,7 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 	// @ts-ignore
 	private _channel: DraftbotChannel;
 
-	public userLanguage: Language = StringConstants.DEFAULT_LANGUAGE;
+	public userLanguage: Language = LANGUAGE.DEFAULT_LANGUAGE;
 
 	private _replyEdited = false;
 
@@ -102,7 +103,7 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 	 * @private
 	 */
 	private async manageFallback(functionPrototype: ReplyFunctionLike): Promise<void> {
-		const errorText = i18n.t("bot:noSpeakPermission", { lang: this.channel.language });
+		const errorText = i18n.t("bot:noSpeakPermission", {lang: this.channel.language});
 		try {
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			// @ts-ignore

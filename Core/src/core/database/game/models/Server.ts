@@ -1,5 +1,5 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
-import {ServersConstants} from "../../../constants/ServersConstants";
+import {LANGUAGE} from "../../../../../../Lib/src/Language";
 import moment = require("moment");
 
 export class Server extends Model {
@@ -33,7 +33,7 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		language: {
 			type: DataTypes.STRING(2), // eslint-disable-line new-cap
-			defaultValue: ServersConstants.DEFAULT_LANGUAGE
+			defaultValue: LANGUAGE.DEFAULT_LANGUAGE
 		},
 		discordGuildId: {
 			type: DataTypes.STRING(64) // eslint-disable-line new-cap
