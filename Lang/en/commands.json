@@ -7,10 +7,6 @@
     "description": "You can submit suggestions and vote for your favorites via this link:\nhttps://feedback.draftbot.com/",
     "title": ":bulb: Ideas"
   },
-  "vote": {
-    "description": "Here is the link to support the bot:\nhttps://top.gg/bot/448110812801007618",
-    "title": ":ballot_box: Vote"
-  },
   "inventory": {
     "armors_one": "Armor/Shield ({{count}}/{{max}}):",
     "armors_other": "Armors/Shields ({{count}}/{{max}}):",
@@ -127,6 +123,39 @@
   "update": {
     "description": "The latest version of the bot's core is **{{coreVersion}}**. The Discord module's version is **{{discordModuleVersion}}**.\n\nInformations about the changelog can be found here:\nhttps://guide.draftbot.com/v/en/lore/change-logs",
     "title": ":scroll: Changelog"
+  },
+  "language": {
+    "selectLanguage": "Select a new language",
+    "description": "Use the menu below to change the language used by the bot on this discord server. This command can only be used by server administrators.",
+    "title": ":earth_africa: Language selection",
+    "newLanguageSetTitle": "Language changed",
+    "newLanguageSetDescription": "DraftBot will now speak in english with you! 🇬🇧",
+    "languages": {
+      "en": {
+        "emoji": "🇬🇧",
+        "name": "English"
+      },
+      "fr": {
+        "emoji": "🇫🇷",
+        "name": "French"
+      },
+      "es": {
+        "emoji": "🇪🇸",
+        "name": "spanish"
+      },
+      "de": {
+        "emoji": "🇩🇪",
+        "name": "German"
+      },
+      "pt": {
+        "emoji": "🇵🇹",
+        "name": "Portuguese"
+      },
+      "it": {
+        "emoji": "🇮🇹",
+        "name": "Italian"
+      }
+    }
   },
   "help": {
     "aliasFieldTitle": "Alias",
@@ -343,5 +372,9 @@
     "monsterRewardsDescription": ":moneybag: Money earned: **{{money}}**\n:star: XP earned: **{{experience}}**",
     "monsterRewardGuildXp": "\n:star: Guild XP earned: **{{guildXp}}**",
     "monsterRewardsGuildPoints": "\n:mirror_ball: Guild points earned: **{{guildPoints}}**"
+  },
+  "vote": {
+    "description": "Here is the link to support the bot:\nhttps://top.gg/bot/448110812801007618",
+    "title": ":ballot_box: Vote"
   }
 }
