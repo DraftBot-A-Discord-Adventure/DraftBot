@@ -7,10 +7,6 @@
     "description": "Sie können Vorschläge unterbreiten und für Ihre Lieblingsideen über diesen Link wählen:\nhttps://feedback.draftbot.com/",
     "title": ":bulb: Ideen"
   },
-  "vote": {
-    "description": "Dies ist der Link zur Unterstützung des Bot-Bots:\nhttps://top.gg/bot/448110812801007618",
-    "title": ":ballot_box: Voter"
-  },
   "inventory": {
     "armors_one": "Armierung/Bouclier ({{count}}/{{max}}):",
     "armors_other": "Armierungen/Boucliers ({{count}}/{{max}}):",
@@ -127,6 +123,39 @@
   "update": {
     "description": "Die aktuelle Version des Bot-Kernels lautet **{{coreVersion}}**. Das Paket für das Discord-Modul lautet **{{discordModuleVersion}}**.\n\nAlle Informationen zu den Aktualisierungen sind hier verfügbar:\nhttps://guide.draftbot.com/lore/historique-des-mises-a-jour",
     "title": ":scroll: Aktualisierungen"
+  },
+  "language": {
+    "selectLanguage": "Sélectionnez une langue",
+    "description": "Utilisez le menu ci-dessous pour changer la langue utilisée par le bot sur ce serveur. Cette commande est réservée aux administrateurs du serveur.",
+    "title": ":earth_africa: Sélection de la langue",
+    "newLanguageSetTitle": "Langue changée",
+    "newLanguageSetDescription": "DraftBot vous parlera désormais en français ! 🥖",
+    "languages": {
+      "en": {
+        "emoji": "🇬🇧",
+        "name": "Anglais"
+      },
+      "fr": {
+        "emoji": "🇫🇷",
+        "name": "Français"
+      },
+      "es": {
+        "emoji": "🇪🇸",
+        "name": "Espagnol"
+      },
+      "de": {
+        "emoji": "🇩🇪",
+        "name": "Allemand"
+      },
+      "pt": {
+        "emoji": "🇵🇹",
+        "name": "Portugais"
+      },
+      "it": {
+        "emoji": "🇮🇹",
+        "name": "Italien"
+      }
+    }
   },
   "help": {
     "aliasFieldTitle": "Alias",
@@ -343,5 +372,9 @@
     "monsterRewardsDescription": ":moneybag: Silber gewonnen: **{{money}}**\n:star: XP gewonnen: **{{experience}}**",
     "monsterRewardGuildXp": "\n:star: XP Gilde gewonnen: **{{guildXp}}**",
     "monsterRewardsGuildPoints": "\n:mirror_ball: Gilde-Gewinner: **{{guildPoints}}**"
+  },
+  "vote": {
+    "description": "Dies ist der Link zur Unterstützung des Bot-Bots:\nhttps://top.gg/bot/448110812801007618",
+    "title": ":ballot_box: Voter"
   }
 }

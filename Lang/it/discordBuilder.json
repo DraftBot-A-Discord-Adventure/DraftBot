@@ -3,10 +3,6 @@
     "description": "Locandina d'informazione sui badge e loro funzionamento.",
     "name": "badge"
   },
-  "vote": {
-    "description": "Visualizzare il link per votare il bot.",
-    "name": "voto"
-  },
   "idea": {
     "description": "Invia un suggerimento per migliorare il gioco.",
     "name": "suggerimento"
@@ -82,5 +78,13 @@
         "name": "comando"
       }
     }
+  },
+  "vote": {
+    "description": "Visualizzare il link per votare il bot.",
+    "name": "voto"
+  },
+  "language": {
+    "description": "Changer la langue du bot dans le serveur discord ou la commande a été exécutée.",
+    "name": "langage"
   }
 }

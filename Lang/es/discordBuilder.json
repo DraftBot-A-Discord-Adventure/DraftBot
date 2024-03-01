@@ -3,10 +3,6 @@
     "description": "Muestra información sobre las insignias y su funcionamiento.",
     "name": "insignias"
   },
-  "vote": {
-    "description": "Muestra el enlace para votar por el bot.",
-    "name": "vote"
-  },
   "idea": {
     "description": "Envía una sugerencia para mejorar el juego.",
     "name": "sugerencia"
@@ -82,5 +78,13 @@
         "name": "pedir"
       }
     }
+  },
+  "vote": {
+    "description": "Muestra el enlace para votar por el bot.",
+    "name": "vote"
+  },
+  "language": {
+    "description": "Changer la langue du bot dans le serveur discord ou la commande a été exécutée.",
+    "name": "langage"
   }
 }
