@@ -27,7 +27,7 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 		if (!keycloakId) {
 			await interaction.reply({
 				embeds: [
-					new DraftBotErrorEmbed(interaction.user, interaction, interaction.channel.language, i18n.t("error:playerDoesntExist", {lng: interaction.channel.language}))
+					new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("error:playerDoesntExist", {lng: interaction.userLanguage}))
 				]
 			});
 			return null;
@@ -120,8 +120,7 @@ export async function handleCommandInventoryPacketRes(packet: CommandInventoryPa
 					new DraftBotErrorEmbed(
 						interaction.user,
 						interaction,
-						interaction.channel.language,
-						i18n.t("error:playerDoesntExist", {lng: interaction.channel.language})
+						i18n.t("error:playerDoesntExist", {lng: interaction.userLanguage})
 					)
 				]
 			});
@@ -132,16 +131,16 @@ export async function handleCommandInventoryPacketRes(packet: CommandInventoryPa
 		let equippedView = true;
 
 		const buttonId = "switchItems";
-		const equippedButtonLabel = i18n.t("commands:inventory.seeEquippedItems", {lng: interaction.channel.language});
-		const backupButtonLabel = i18n.t("commands:inventory.seeBackupItems", {lng: interaction.channel.language});
+		const equippedButtonLabel = i18n.t("commands:inventory.seeEquippedItems", {lng: interaction.userLanguage});
+		const backupButtonLabel = i18n.t("commands:inventory.seeBackupItems", {lng: interaction.userLanguage});
 
 		const switchItemsButton = new ButtonBuilder()
 			.setCustomId(buttonId)
 			.setLabel(backupButtonLabel)
 			.setStyle(ButtonStyle.Primary);
 
-		const equippedEmbed = getEquippedEmbed(packet, keycloakUser.attributes.gameUsername, interaction.channel.language);
-		const backupEmbed = getBackupEmbed(packet, keycloakUser.attributes.gameUsername, interaction.channel.language);
+		const equippedEmbed = getEquippedEmbed(packet, keycloakUser.attributes.gameUsername, interaction.userLanguage);
+		const backupEmbed = getBackupEmbed(packet, keycloakUser.attributes.gameUsername, interaction.userLanguage);
 
 		const msg = await interaction.reply({
 			embeds: [equippedEmbed],
@@ -149,12 +148,12 @@ export async function handleCommandInventoryPacketRes(packet: CommandInventoryPa
 		});
 
 		const collector = msg.createMessageComponentCollector({
-			filter: i => i.customId === buttonId,
+			filter: i => i.customId === buttonId, // TODO: rename single letter variable to something clearer
 			time: Constants.MESSAGES.COLLECTOR_TIME
 		});
 		collector.on("collect", async (i: ButtonInteraction) => {
 			if (i.user.id !== context.discord?.user) {
-				await sendInteractionNotForYou(i.user, i, interaction.channel.language);
+				await sendInteractionNotForYou(i.user, i, interaction.userLanguage);
 				return;
 			}
 

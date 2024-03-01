@@ -32,6 +32,7 @@ import {DiscordWebSocket} from "../bot/Websocket";
 import {PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
 import {DiscordCache} from "../bot/DiscordCache";
 import {BotUtils} from "../utils/BotUtils";
+import {LANGUAGE} from "../../../Lib/src/Language";
 
 export class CommandsManager {
 	static commands = new Map<string, ICommand>();
@@ -213,19 +214,14 @@ export class CommandsManager {
 			if (this.isAMessageFromMassOrMissPing(message) || !this.shouldSendHelpMessage(message, client)) {
 				return;
 			}
+			const user = await KeycloakUtils.getOrRegisterDiscordUser(keycloakConfig, message.author.id, message.author.username, LANGUAGE.DEFAULT_LANGUAGE);
 			message.channel.send({
-				content: `
-${i18n.t("bot:mentionHelp", {
-		lang: Constants.LANGUAGE.ENGLISH,
-		commandHelp: BotUtils.commandsMentions.get("help"),
-		commandLanguage: BotUtils.commandsMentions.get("language")
-	})}
-
-${i18n.t("bot:mentionHelp", {
-		lang: Constants.LANGUAGE.FRENCH,
-		commandHelp: BotUtils.commandsMentions.get("help"),
-		commandLanguage: BotUtils.commandsMentions.get("language")
-	})}`
+				content: `${i18n.t("bot:mentionHelp", {
+					lng: KeycloakUtils.getUserLanguage(user),
+					commandHelp: BotUtils.commandsMentions.get("help"),
+					commandLanguage: BotUtils.commandsMentions.get("language"),
+					interpolation: {escapeValue: false}
+				})}`
 			}).then();
 		});
 	}
@@ -270,17 +266,16 @@ ${i18n.t("bot:mentionHelp", {
 			}
 			const user = await KeycloakUtils.getOrRegisterDiscordUser(keycloakConfig, discordInteraction.user.id, discordInteraction.user.displayName, discordInteraction.locale.substring(0, 2));
 			const interaction: DraftbotInteraction = DraftbotInteraction.cast(discordInteraction);
+			interaction.userLanguage = KeycloakUtils.getUserLanguage(user);
 			if (!interaction.channel) {
 				replyErrorMessage(
 					interaction,
-					user.attributes.language,
-					i18n.t("bot:noChannelAccess", {lang: user.attributes.language})
+					i18n.t("bot:noChannelAccess", {lng: interaction.userLanguage})
 				)
 					.finally(() => null);
 				return;
 			}
 			if (!interaction.member) { // If in DM, shouldn't happen
-				interaction.channel.language = user.attributes.language;
 				CommandsManager.handlePrivateMessage(interaction)
 					.finally(() => null);
 				return;
@@ -302,7 +297,7 @@ ${i18n.t("bot:mentionHelp", {
 				attachmentList.push(new AttachmentBuilder(Buffer.from(message.content)).setName(`userMessage-${message.author.id}-${message.id}.txt`));
 			}
 			const supportAlert = i18n.t("bot:supportAlert", {
-				lang: Constants.LANGUAGE.FRENCH,
+				lng: LANGUAGE.FRENCH,
 				username: escapeUsername(message.author.username),
 				id: message.author.id
 			}) + (message.content.length > Constants.DM.MAX_MESSAGE_LENGTH_ALLOWED
@@ -336,15 +331,15 @@ ${i18n.t("bot:mentionHelp", {
 				if (!msg!.getFirstReaction()) {
 					return;
 				}
-				const language = msg!.getFirstReaction()!.emoji.name === Constants.REACTIONS.ENGLISH_FLAG ? Constants.LANGUAGE.ENGLISH : Constants.LANGUAGE.FRENCH;
+				const language = msg!.getFirstReaction()!.emoji.name === Constants.REACTIONS.ENGLISH_FLAG ? LANGUAGE.ENGLISH : LANGUAGE.FRENCH;
 				message.channel.send({
 					embeds: [new DraftBotEmbed()
 						.formatAuthor(i18n.t("bot:dmHelpMessageTitle", {
-							lang: language,
+							lng: language,
 							pseudo: escapeUsername(author.username)
 						}), author)
 						.setDescription(i18n.t("bot:dmHelpMessage", {
-							lang: language,
+							lng: language,
 							commandHelp: BotUtils.commandsMentions.get("help"),
 							commandRespawn: BotUtils.commandsMentions.get("respawn")
 						}))]
@@ -354,7 +349,7 @@ ${i18n.t("bot:mentionHelp", {
 			.formatAuthor(Constants.DM.TITLE_SUPPORT, author)
 			.setDescription(message instanceof DraftbotInteraction ? Constants.DM.INTERACTION_SUPPORT : Constants.DM.MESSAGE_SUPPORT);
 		const draftbotChannel = message.channel as unknown as DraftbotChannel;
-		draftbotChannel.language = Constants.LANGUAGE.ENGLISH;
+		draftbotChannel.language = LANGUAGE.ENGLISH;
 		message instanceof Message ? await helpMessage.send(draftbotChannel) : await helpMessage.reply(message);
 	}
 
@@ -365,19 +360,19 @@ ${i18n.t("bot:mentionHelp", {
 	 * @private
 	 */
 	private static async handleCommand(interaction: DraftbotInteraction, user: KeycloakUser): Promise<void> {
-		const language = user.attributes.language;
+		const language = interaction.userLanguage;
 
 		const commandInfo = this.commands.get(interaction.commandName);
 
 		if (!commandInfo) {
-			await replyErrorMessage(interaction, Constants.LANGUAGE.ENGLISH, i18n.t("bot:command404", {lang: language}));
+			await replyErrorMessage(interaction, i18n.t("bot:command404", {lng: language}));
 			console.error(`Command "${interaction.commandName}" is not registered`);
 			return;
 		}
 
 		const channelAccess = this.hasChannelPermission(interaction.channel);
 		if (!channelAccess[0]) {
-			await replyErrorMessage(interaction, Constants.LANGUAGE.ENGLISH, i18n.t(channelAccess[1], {lang: language}));
+			await replyErrorMessage(interaction, i18n.t(channelAccess[1], {lng: language}));
 			return;
 		}
 
@@ -390,7 +385,7 @@ ${i18n.t("bot:mentionHelp", {
 					user: interaction.user.id,
 					channel: interaction.channel.id,
 					interaction: interaction.id,
-					language: interaction.channel.language
+					language: interaction.userLanguage
 				}
 			};
 			DiscordWebSocket.socket!.send(JSON.stringify({

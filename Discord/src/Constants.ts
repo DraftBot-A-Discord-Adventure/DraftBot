@@ -1,5 +1,3 @@
-import {Language} from "../../Lib/src/Language";
-
 export class Constants {
 	static readonly VERSION = import("../package.json").then(json => json.version);
 
@@ -52,11 +50,6 @@ export class Constants {
 			"⚗️",
 			"🧸"
 		]
-	};
-
-	static readonly LANGUAGE: { FRENCH: Language, ENGLISH: Language } = {
-		FRENCH: "fr",
-		ENGLISH: "en"
 	};
 
 	static readonly MESSAGES = {

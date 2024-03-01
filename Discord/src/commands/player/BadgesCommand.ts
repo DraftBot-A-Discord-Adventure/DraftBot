@@ -11,10 +11,10 @@ async function getPacket(interaction: DraftbotInteraction): Promise<null> {
 	await interaction.reply({
 		embeds: [new DraftBotEmbed()
 			.setTitle(i18n.t("commands:badges.title", {
-				lng: interaction.channel.language
+				lng: interaction.userLanguage
 			}))
 			.setDescription(i18n.t("commands:badges.description", {
-				lng: interaction.channel.language
+				lng: interaction.userLanguage
 			}))]
 	});
 	return null;

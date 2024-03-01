@@ -1,4 +1,4 @@
-import {Constants} from "../../../Core/src/core/Constants";
+import {LANGUAGE} from "../Language";
 
 /**
  * Get the elements to display a remaining time in the given language
@@ -11,7 +11,7 @@ function getMinutesDisplayStringConstants(language: string): { hoursDisplay: str
 		secondsDisplay: "s",
 		linkWord: " ",
 		plural: ""
-	} : language === Constants.LANGUAGE.FRENCH ? {
+	} : language === LANGUAGE.FRENCH ? {
 		hoursDisplay: "heure",
 		minutesDisplay: "minute",
 		secondsDisplay: "seconde",
@@ -206,7 +206,7 @@ export function parseTimeDifferenceFooter(date1: number, date2: number, language
 	let parsed = "";
 	const days = Math.floor(seconds / (24 * 60 * 60));
 	if (days > 0) {
-		parsed += days + (language === Constants.LANGUAGE.FRENCH ? " J " : " D ");
+		parsed += days + (language === LANGUAGE.FRENCH ? " J " : " D ");
 		seconds -= days * 24 * 60 * 60;
 	}
 

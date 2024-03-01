@@ -1,4 +1,4 @@
-import {ButtonInteraction, User} from "discord.js";
+import {ButtonInteraction, StringSelectMenuInteraction, User} from "discord.js";
 import {DraftBotErrorEmbed} from "../messages/DraftBotErrorEmbed";
 import {Language} from "../../../Lib/src/Language";
 import {DraftbotInteraction} from "../messages/DraftbotInteraction";
@@ -8,12 +8,11 @@ import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 /**
  * Reply to an interaction with a given error
  * @param interaction
- * @param language
  * @param reason
  */
-export async function replyErrorMessage(interaction: DraftbotInteraction, language: Language, reason: string): Promise<void> {
+export async function replyErrorMessage(interaction: DraftbotInteraction, reason: string): Promise<void> {
 	await interaction.reply({
-		embeds: [new DraftBotErrorEmbed(interaction.user, interaction, language, reason)],
+		embeds: [new DraftBotErrorEmbed(interaction.user, interaction, reason)],
 		ephemeral: true
 	});
 }
@@ -22,7 +21,6 @@ export async function replyErrorMessage(interaction: DraftbotInteraction, langua
  * Sends an error message
  * @param user
  * @param interaction
- * @param language
  * @param reason
  * @param isCancelling - true if the error is a cancelling error
  * @param isBlockedError - set to false if you don't want the "this user is blocked" message when selecting a different user than the one who invoked the command
@@ -30,27 +28,26 @@ export async function replyErrorMessage(interaction: DraftbotInteraction, langua
 export async function sendErrorMessage(
 	user: User,
 	interaction: DraftbotInteraction,
-	language: Language,
 	reason: string,
 	isCancelling = false,
 	isBlockedError = true
 ): Promise<void> {
 	await interaction.channel.send({
-		embeds: [new DraftBotErrorEmbed(user, interaction, language, reason, isCancelling, isBlockedError)]
+		embeds: [new DraftBotErrorEmbed(user, interaction, reason, isCancelling, isBlockedError)]
 	});
 }
 
 export async function sendInteractionNotForYou(
 	user: User,
-	buttonInteraction: ButtonInteraction,
+	interaction: ButtonInteraction | StringSelectMenuInteraction,
 	language: Language
 ): Promise<void> {
-	await buttonInteraction.reply({
+	await interaction.reply({
 		embeds: [
 			new DraftBotEmbed()
 				.setDescription(i18n.t("error:interactionNotForYou", { lng: language }))
 				.setErrorColor()
-				.formatAuthor(i18n.t("error:titleDidntWork", { lang: language, pseudo: user.username }), user)
+				.formatAuthor(i18n.t("error:titleDidntWork", { lng: language, pseudo: user.username }), user)
 		],
 		ephemeral: true
 	});

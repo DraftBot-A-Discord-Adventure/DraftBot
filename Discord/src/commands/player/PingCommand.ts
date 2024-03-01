@@ -10,7 +10,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
  */
 async function getPacket(interaction: DraftbotInteraction): Promise<CommandPingPacketReq> {
 	const packet = makePacket(CommandPingPacketReq, {time: Date.now()});
-	await interaction.reply({content: i18n.t("commands:ping.discord.create")});
+	await interaction.reply({content: i18n.t("commands:ping.discord.create", {lng: interaction.userLanguage})});
 	return packet;
 }
 

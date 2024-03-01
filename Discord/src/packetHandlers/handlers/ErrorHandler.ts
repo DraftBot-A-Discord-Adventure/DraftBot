@@ -38,7 +38,7 @@ export default class ErrorHandler {
 
 		let errorReasons = "";
 		packet.reasons.forEach(reason => {
-			errorReasons = errorReasons.concat(`${i18n.t(`error:blockedContext.${reason}`, { lng: interaction?.channel.language })}, `);
+			errorReasons = errorReasons.concat(`${i18n.t(`error:blockedContext.${reason}`, { lng: interaction?.userLanguage })}, `);
 		});
 		errorReasons = errorReasons.slice(0, -2);
 
@@ -47,8 +47,8 @@ export default class ErrorHandler {
 			.setTitle(i18n.t("error:titleDidntWork", {lng: interaction?.channel?.language, pseudo: originalUser.attributes.gameUsername }))
 			.setDescription(
 				otherPlayer ?
-					i18n.t("error:anotherPlayerBlocked", { lng: interaction?.channel.language, username: blockedUser.attributes.gameUsername, reasons: errorReasons }) :
-					i18n.t("error:playerBlocked", { lng: interaction?.channel.language, reasons: errorReasons })
+					i18n.t("error:anotherPlayerBlocked", { lng: interaction?.userLanguage, username: blockedUser.attributes.gameUsername, reasons: errorReasons }) :
+					i18n.t("error:playerBlocked", { lng: interaction?.userLanguage, reasons: errorReasons })
 			);
 
 		if (interaction?.deferred && !interaction.replyEdited) {

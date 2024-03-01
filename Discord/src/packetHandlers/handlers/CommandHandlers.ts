@@ -10,11 +10,11 @@ import {handleCommandProfilePacketRes} from "../../commands/player/ProfileComman
 import {CommandInventoryPacketRes} from "../../../../Lib/src/packets/commands/CommandInventoryPacket";
 import {handleCommandInventoryPacketRes} from "../../commands/player/InventoryCommand";
 import {handleCommandUpdatePacketRes} from "../../commands/player/UpdateCommand";
-import { CommandUpdatePacketRes } from "../../../../Lib/src/packets/commands/CommandUpdatePacket";
+import {CommandUpdatePacketRes} from "../../../../Lib/src/packets/commands/CommandUpdatePacket";
 import {CommandTestPacketRes} from "../../../../Lib/src/packets/commands/CommandTestPacket";
-import {handleCommandTestPacketRes} from "../../commands/player/TestCommand";
 import {CommandRarityPacketRes} from "../../../../Lib/src/packets/commands/CommandRarityPacket";
 import {handleCommandRarityPacketRes} from "../../commands/player/RarityCommand";
+import {handleCommandTestPacketRes} from "../../commands/admin/TestCommand";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
@@ -22,7 +22,7 @@ export default class CommandHandlers {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		await interaction?.editReply({
 			content: i18n.t("commands:ping.discord.edit", {
-				lang: interaction?.channel.language,
+				lng: interaction?.userLanguage,
 				totalLatency: Date.now() - packet.clientTime,
 				discordApiLatency: draftBotClient!.ws.ping,
 				shardId: shardId,
@@ -52,7 +52,7 @@ export default class CommandHandlers {
 	}
 
 	@packetHandler(CommandRarityPacketRes)
-	rarityRes(socket: WebSocket, packet: CommandRarityPacketRes, context: PacketContext): void {
-		handleCommandRarityPacketRes(packet, context).then();
+	async rarityRes(socket: WebSocket, packet: CommandRarityPacketRes, context: PacketContext): Promise<void> {
+		await handleCommandRarityPacketRes(packet, context);
 	}
 }
