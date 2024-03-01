@@ -7,10 +7,6 @@
     "description": "Puede hacer sugerencias y votar sus ideas favoritas a través de este enlace:\nhttps://feedback.draftbot.com/",
     "title": ":bulb: Ideas"
   },
-  "vote": {
-    "description": "Aquí está el enlace para apoyar el bot:\nhttps://top.gg/bot/448110812801007618",
-    "title": ":ballot_box: Vote"
-  },
   "inventory": {
     "armors_one": "Armadura/Escudo ({{count}}/{{max}}) :",
     "armors_other": "Armaduras / Escudos ({{count}}/{{max}}) :",
@@ -127,6 +123,39 @@
   "update": {
     "description": "La versión actual del núcleo bot es **{{coreVersion}}**. El módulo Discord es **{{discordModuleVersion}}**.\n\nToda la información sobre las actualizaciones está disponible aquí:\nhttps://guide.draftbot.com/lore/historique-des-mises-a-jour",
     "title": ":scroll: Actualizaciones"
+  },
+  "language": {
+    "selectLanguage": "Sélectionnez une langue",
+    "description": "Utilisez le menu ci-dessous pour changer la langue utilisée par le bot sur ce serveur. Cette commande est réservée aux administrateurs du serveur.",
+    "title": ":earth_africa: Sélection de la langue",
+    "newLanguageSetTitle": "Langue changée",
+    "newLanguageSetDescription": "DraftBot vous parlera désormais en français ! 🥖",
+    "languages": {
+      "en": {
+        "emoji": "🇬🇧",
+        "name": "Anglais"
+      },
+      "fr": {
+        "emoji": "🇫🇷",
+        "name": "Français"
+      },
+      "es": {
+        "emoji": "🇪🇸",
+        "name": "Espagnol"
+      },
+      "de": {
+        "emoji": "🇩🇪",
+        "name": "Allemand"
+      },
+      "pt": {
+        "emoji": "🇵🇹",
+        "name": "Portugais"
+      },
+      "it": {
+        "emoji": "🇮🇹",
+        "name": "Italien"
+      }
+    }
   },
   "help": {
     "aliasFieldTitle": "Alias",
@@ -343,5 +372,9 @@
     "monsterRewardsDescription": ":moneybag: Plata ganada : **{{money}}**\n:star: XP ganada : **{{experience}}**",
     "monsterRewardGuildXp": "\n:star: XP gremio ganado: **{{guildXp}}**",
     "monsterRewardsGuildPoints": "\n:mirror_ball: Puntos de gremio ganados : **{{guildPoints}}**"
+  },
+  "vote": {
+    "description": "Aquí está el enlace para apoyar el bot:\nhttps://top.gg/bot/448110812801007618",
+    "title": ":ballot_box: Vote"
   }
 }
