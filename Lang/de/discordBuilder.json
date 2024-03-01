@@ -3,10 +3,6 @@
     "description": "Zeigt Informationen zu den Ausbeinen und deren Funktion an.",
     "name": "Badges"
   },
-  "vote": {
-    "description": "Link zur Abstimmung für den Bot anzeigen.",
-    "name": "Abstimmung"
-  },
   "idea": {
     "description": "Einen Vorschlag zur Verbesserung des Spiels senden.",
     "name": "Vorschlag"
@@ -82,5 +78,13 @@
         "name": "Befehl"
       }
     }
+  },
+  "vote": {
+    "description": "Link zur Abstimmung für den Bot anzeigen.",
+    "name": "Abstimmung"
+  },
+  "language": {
+    "description": "Changer la langue du bot dans le serveur discord ou la commande a été exécutée.",
+    "name": "langage"
   }
 }
