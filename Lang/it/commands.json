@@ -4,8 +4,8 @@
     "title": ":military_medal: Informazione dettagliate :"
   },
   "idea": {
-    "description": "Vous pouvez proposer des suggestions et voter pour vos idées préférées via ce lien:\nhttps://feedback.draftbot.com/",
-    "title": ":bulb: Idées"
+    "description": "Potete fare proposte e votare per le vostre idee preferite a questo link:\nhttps://feedback.draftbot.com/",
+    "title": ":bulb: Idee"
   },
   "inventory": {
     "armors_one": "Armatura/Scudo ({{count}}/{{max}}) :",
@@ -25,7 +25,7 @@
   },
   "invite": {
     "discord": {
-      "main": "Rejoignez la communauté ! Utilisez ce lien : https://discord.gg/acGNvzEY92 :smiley:"
+      "main": "Unisciti alla comunità! Utilizza questo link: https://discord.gg/acGNvzEY92 :smiley:"
     }
   },
   "ping": {
@@ -117,7 +117,7 @@
     "title": "{{effect}} | {{pseudo}} | Livello {{level}}"
   },
   "rarity": {
-    "title": ":slot_machine: Rareté des équipements",
+    "title": ":slot_machine: Rarità delle attrezzature",
     "rarities": ":small_orange_diamond: Basique | Possédé en début de jeu\n:large_orange_diamond: Commun | {{common}}%\n:fire: Peu commun | {{uncommon}}%\n:trident: Exotique | {{exotic}}%\n:comet: Rare | {{rare}}%\n:dizzy: Spécial | {{special}}%\n:star: Épique | {{epic}}%\n:star2: Légendaire | {{legendary}}%\n:gem: Mythique | {{unique}}%"
   },
   "update": {
