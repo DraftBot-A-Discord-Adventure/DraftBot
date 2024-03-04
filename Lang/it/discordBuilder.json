@@ -22,8 +22,8 @@
     }
   },
   "invite": {
-    "description": "Ajouter le bot sur votre serveur.",
-    "name": "invitationdraftbot"
+    "description": "Aggiungere il bot al server.",
+    "name": "invitoDraftBot"
   },
   "ping": {
     "description": "Locandina della latenza del bot e permette ai giocatori di verificare se il bot è connesso.",
@@ -44,8 +44,8 @@
     }
   },
   "report": {
-    "description": "Obtenir un rapport sur la situation de votre personnage.",
-    "name": "rapport"
+    "description": "Ottenere un rapporto sulla situazione del vostro personaggio.",
+    "name": "rapporto"
   },
   "scopes": {
     "global": "🏆 Classifica generale",
@@ -62,8 +62,8 @@
     }
   },
   "rarity": {
-    "description": "Affiche les différentes raretés des équipements.",
-    "name": "rarete"
+    "description": "Visualizza le varie rarità dell'equipaggiamento.",
+    "name": "rarità"
   },
   "update": {
     "description": "Mostrare la versione attuale del bot.",
@@ -84,7 +84,7 @@
     "name": "voto"
   },
   "language": {
-    "description": "Changer la langue du bot dans le serveur discord ou la commande a été exécutée.",
-    "name": "langage"
+    "description": "Cambiare la lingua del bot nel server discord dove è stato eseguito il comando.",
+    "name": "lingua"
   }
 }
