@@ -3,10 +3,7 @@ import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPac
 import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
 import i18n from "../../translations/i18n";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {
-	CommandProfilePacketReq,
-	CommandProfilePacketRes
-} from "../../../../Lib/src/packets/commands/CommandProfilePacket";
+import {CommandGuildPacketReq, CommandGuildPacketRes} from "../../../../Lib/src/packets/commands/CommandGuildPacket";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {EffectsConstants} from "../../../../Lib/src/constants/EffectsConstants";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
@@ -23,9 +20,11 @@ import {keycloakConfig} from "../../bot/DraftBotShard";
 /**
  * Display all the information about a guild
  */
-async function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser): Promise<CommandProfilePacketReq | null> {
+async function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser): Promise<CommandGuildPacketReq | null> {
 
-	const askedGuildName = interaction.options.get('guildName');
+	const guildNameOption = interaction.options.get("guildName");
+	const askedGuildName = guildNameOption ? <string>guildNameOption.value : undefined;
+
 
 	let askedPlayer: { keycloakId?: string, rank?: number } = {keycloakId: keycloakUser.id};
 	const user = interaction.options.getUser("user");
@@ -37,15 +36,16 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 		}
 		askedPlayer = {keycloakId};
 	}
-	const rank = interaction.options.get("rank");
-	if (rank) {
-		askedPlayer = {rank: <number>rank.value};
+
+	const rankOption = interaction.options.get("rank");
+	if (rankOption) {
+		askedPlayer = {rank: <number>rankOption.value};
 	}
 
-	return makePacket(CommandGuildPacketReq, {askedPlayer});
+	return makePacket(CommandGuildPacketReq, {askedPlayer, askedGuildName});
 }
 
-function generateFields(packet: CommandProfilePacketRes, language: Language): EmbedField[] {
+function generateFields(packet: CommandGuildPacketRes, language: Language): EmbedField[] {
 	const fields: EmbedField[] = [];
 
 	fields.push({
