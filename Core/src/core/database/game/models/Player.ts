@@ -360,6 +360,13 @@ export class Player extends Model {
 	}
 
 	/**
+	 * Check if the player is not active enough to be joined in the boat
+	 */
+	public isNotActiveEnoughToBeJoinedInTheBoat(): boolean {
+		return this.startTravelDate.valueOf() + PVEConstants.TIME_AFTER_INACTIVITY_ON_BOAT_IS_NOT_ACCEPTED < Date.now();
+	}
+
+	/**
 	 * Check if the player is in guild
 	 */
 	public isInGuild(): boolean {
