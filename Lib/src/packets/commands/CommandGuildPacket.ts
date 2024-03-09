@@ -1,7 +1,7 @@
 import {DraftBotPacket} from "../DraftBotPacket";
 
 export class CommandGuildPacketReq extends DraftBotPacket {
-	askedPlayer?: {
+	askedPlayer!: {
 		rank?: number,
 		keycloakId?: string
 	};
@@ -24,6 +24,8 @@ export interface GuildMemberPacket {
 
 export class CommandGuildPacketRes extends DraftBotPacket {
 	foundGuild!: boolean;
+
+	askedPlayerKeycloakId? : string;
 
 	data?: {
 		name: string,

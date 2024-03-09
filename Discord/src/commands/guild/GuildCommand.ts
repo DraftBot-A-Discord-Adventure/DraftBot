@@ -186,26 +186,29 @@ function generateFields(packet: CommandGuildPacketRes, language: Language): Embe
 	return fields;
 }
 
-export async function handleCommandProfilePacketRes(packet: CommandProfilePacketRes, context: PacketContext): Promise<void> {
+export async function handleCommandGuildPacketRes(packet: CommandGuildPacketRes, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 
 	if (interaction) {
-		if (!packet.foundPlayer) {
+		if (!packet.foundGuild) {
 			await interaction.reply({
 				embeds: [
 					new DraftBotErrorEmbed(
 						interaction.user,
 						interaction,
-						i18n.t("error:playerDoesntExist", {lng: interaction.userLanguage})
+						i18n.t("error:guildDoesntExist", {lng: interaction.userLanguage})
 					)
 				]
 			});
 			return;
 		}
 
-		const keycloakUser = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId!))!;
+		const keycloakUser = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.askedPlayerKeycloakId!))!;
 
-		const titleEffect = packet.data?.effect?.healed ? Constants.DEFAULT_HEALED_EFFECT : packet.data?.effect;
+		const guildCommandEmbed = new DraftBotEmbed()
+			.setThumbnail(GuildConstants.ICON);
+
+
 		const reply = await interaction.reply({
 			embeds: [
 				new DraftBotEmbed()
