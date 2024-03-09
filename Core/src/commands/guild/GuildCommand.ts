@@ -38,6 +38,7 @@ export default class GuildCommand {
 
 			response.push(makePacket(CommandGuildPacketRes, {
 				foundGuild: true,
+				askedPlayerKeycloakId: player.keycloakId,
 				data: {
 					name: guild.name,
 					description: guild.guildDescription,
