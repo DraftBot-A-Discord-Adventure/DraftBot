@@ -4,7 +4,7 @@ import {GameDatabase} from "../database/game/GameDatabase";
 import {LogsDatabase} from "../database/logs/LogsDatabase";
 import {draftBotInstance} from "../../index";
 import {Settings} from "../database/game/models/Setting";
-import {PetConstants} from "../constants/PetConstants";
+import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
 import {Op} from "sequelize";
 import PetEntity from "../database/game/models/PetEntity";
 import {RandomUtils} from "../utils/RandomUtils";

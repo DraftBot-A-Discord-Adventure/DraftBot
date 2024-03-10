@@ -3,7 +3,7 @@ import {RandomUtils} from "../../../utils/RandomUtils";
 import {MissionsController} from "../../../missions/MissionsController";
 import {PET_ENTITY_GIVE_RETURN, PetEntityConstants} from "../../../constants/PetEntityConstants";
 import {Player, PlayerEditValueParameters} from "./Player";
-import {PetConstants} from "../../../constants/PetConstants";
+import {PetConstants} from "../../../../../../Lib/src/constants/PetConstants";
 import {Guild, Guilds} from "./Guild";
 import {GuildPets} from "./GuildPet";
 import {Pet, PetDataController} from "../../../../data/Pet";
