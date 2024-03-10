@@ -7,7 +7,7 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {DiscordCache} from "../../bot/DiscordCache";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {HexColorString} from "discord.js";
-import {Constants} from "../../Constants";
+import {Constants} from "../../../../Lib/src/constants/Constants";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 
 async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandTestPacketReq> {

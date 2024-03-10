@@ -1,5 +1,5 @@
 import {EmbedBuilder, HexColorString, User} from "discord.js";
-import {Constants} from "../Constants";
+import {Constants} from "../../../Lib/src/constants/Constants";
 
 /**
  * Base class for bot embeds

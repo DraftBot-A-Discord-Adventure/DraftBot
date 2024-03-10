@@ -25,7 +25,7 @@ import {DiscordCache} from "../../bot/DiscordCache";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 import {sendInteractionNotForYou} from "../../utils/ErrorUtils";
 import {DiscordWebSocket} from "../../bot/Websocket";
-import {Constants} from "../../Constants";
+import {Constants} from "../../../../Lib/src/constants/Constants";
 
 async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandReportPacketReq> {
 	await interaction.deferReply();
