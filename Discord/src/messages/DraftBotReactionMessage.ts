@@ -1,6 +1,6 @@
 import {GuildEmoji, Message, MessageReaction, ReactionCollector, User} from "discord.js";
 import {CallbackLike, DraftBotReaction} from "./DraftBotReaction";
-import {Constants} from "../Constants";
+import {Constants} from "../../../Lib/src/constants/Constants";
 import {DraftBotEmbed} from "./DraftBotEmbed";
 import {DraftbotChannel, DraftbotInteraction} from "./DraftbotInteraction";
 import {draftBotClient} from "../bot/DraftBotShard";

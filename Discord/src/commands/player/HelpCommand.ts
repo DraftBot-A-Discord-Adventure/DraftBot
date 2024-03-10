@@ -7,7 +7,7 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {BotUtils} from "../../utils/BotUtils";
 import {LANGUAGE, Language} from "../../../../Lib/src/Language";
 import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
-import {HelpConstants} from "../../constants/HelpConstants";
+import {HelpConstants} from "../../../../Lib/src/constants/HelpConstants";
 
 /**
  * Get the list of commands mention from the command data

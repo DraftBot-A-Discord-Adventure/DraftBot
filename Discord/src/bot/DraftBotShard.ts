@@ -1,5 +1,5 @@
 import {Client, Guild, IntentsBitField, Partials, TextChannel} from "discord.js";
-import {Constants} from "../Constants";
+import {Constants} from "../../../Lib/src/constants/Constants";
 import {loadConfig} from "../config/DiscordConfig";
 import i18n from "../translations/i18n";
 import {BotUtils} from "../utils/BotUtils";

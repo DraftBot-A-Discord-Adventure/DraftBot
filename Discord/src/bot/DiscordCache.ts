@@ -1,5 +1,5 @@
 import {DraftbotInteraction} from "../messages/DraftbotInteraction";
-import {Constants} from "../Constants";
+import {Constants} from "../../../Lib/src/constants/Constants";
 
 export class DiscordCache {
 	private static initialized = false;

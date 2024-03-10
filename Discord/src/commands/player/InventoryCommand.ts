@@ -7,7 +7,7 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {EffectsConstants} from "../../../../Lib/src/constants/EffectsConstants";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, EmbedField} from "discord.js";
-import {Constants} from "../../Constants";
+import {Constants} from "../../../../Lib/src/constants/Constants";
 import {DiscordCache} from "../../bot/DiscordCache";
 import {DraftBotErrorEmbed} from "../../messages/DraftBotErrorEmbed";
 import {Language} from "../../../../Lib/src/Language";

@@ -12,7 +12,7 @@ import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
-import {Constants} from "../../Constants";
+import {Constants} from "../../../../Lib/src/constants/Constants";
 import {sendInteractionNotForYou} from "../../utils/ErrorUtils";
 import {LANGUAGE, Language} from "../../../../Lib/src/Language";
 
@@ -26,8 +26,7 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 		.map((languageCode) => new StringSelectMenuOptionBuilder()
 			.setLabel(i18n.t(`commands:language.languages.${languageCode}.name`, {lng: interaction.userLanguage}))
 			.setEmoji(i18n.t(`commands:language.languages.${languageCode}.emoji`, {lng: interaction.userLanguage}))
-			.setValue(languageCode)
-		);
+			.setValue(languageCode));
 
 	const languageSelectionMenu = new StringSelectMenuBuilder()
 		.setCustomId(selectLanguageMenuId)
@@ -70,7 +69,7 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 				.setDescription(i18n.t("commands:language.newLanguageSetDescription", {
 					lng: menuInteraction.values[0] as Language
 				}))]
-		})
+		});
 	});
 	return null;
 }

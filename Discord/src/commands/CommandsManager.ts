@@ -21,7 +21,7 @@ import {KeycloakUser} from "../../../Lib/src/keycloak/KeycloakUser";
 import {readdirSync} from "fs";
 import i18n from "../translations/i18n";
 import {replyErrorMessage} from "../utils/ErrorUtils";
-import {Constants} from "../Constants";
+import {Constants} from "../../../Lib/src/constants/Constants";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {escapeUsername} from "../../../Lib/src/utils/StringUtils";
 import {DraftBotReactionMessageBuilder} from "../messages/DraftBotReactionMessage";
