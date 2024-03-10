@@ -2,11 +2,6 @@ export class Constants {
 
 	static readonly MESSAGES = {
 		COLLECTOR_TIME: 120000,
-		COLORS: {
-			DEFAULT: "default",
-			ERROR: "#D92D43",
-			SUCCESSFUL: "#5EAD45"
-		},
 		PROGRESS_BAR_SIZE: 20,
 		MAX_SPAM_COUNT: 3,
 		DEFAULT_REACTION_LIMIT: 1
@@ -233,8 +228,6 @@ export class Constants {
 		"classes.",
 		"advices"
 	];
-
-	static readonly VERSION = import("../../../Discord/package.json").then(json => json.version);
 
 	static readonly MAX_TIME_BOT_RESPONSE = 30000;
 

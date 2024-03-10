@@ -39,7 +39,7 @@ process.on("message", async (message: { type: string, data: { shardId: number } 
 	const guild = draftBotClient?.guilds.cache.get(discordConfig.MAIN_SERVER_ID);
 	if (guild?.shard) {
 		(await guild.channels.fetch(discordConfig.CONSOLE_CHANNEL_ID) as TextChannel)
-			.send(`:robot: **DraftBot** - v${await Constants.VERSION} - Shard ${shardId}`)
+			.send(`:robot: **DraftBot** - v${process.env.npm_package_version} - Shard ${shardId}`)
 			.catch(console.error);
 	}
 });

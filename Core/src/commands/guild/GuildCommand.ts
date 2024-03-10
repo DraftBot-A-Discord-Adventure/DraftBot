@@ -6,6 +6,7 @@ import {Guild, Guilds} from "../../core/database/game/models/Guild";
 import {CommandGuildPacketReq, CommandGuildPacketRes} from "../../../../Lib/src/packets/commands/CommandGuildPacket";
 import {Maps} from "../../core/maps/Maps";
 import {MapCache} from "../../core/maps/MapCache";
+import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 
 export default class GuildCommand {
 	@packetHandler(CommandGuildPacketReq)
@@ -57,6 +58,8 @@ export default class GuildCommand {
 					},
 					members: await Promise.all(
 						members.map(async member => ({
+							id: member.id,
+							gameUsername: (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId!)).attributes.gameUsername,
 							keycloakId: member.keycloakId,
 							rank: await Players.getRankById(member.id),
 							score: member.score,

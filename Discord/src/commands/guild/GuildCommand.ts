@@ -11,7 +11,8 @@ import {ColorResolvable, EmbedField, Message, MessageReaction} from "discord.js"
 import {Constants} from "../../../../Lib/src/constants/Constants";
 import {DiscordCache} from "../../bot/DiscordCache";
 import {DraftBotErrorEmbed} from "../../messages/DraftBotErrorEmbed";
-import {ProfileConstants} from "../../../../Lib/src/constants/ProfileConstants";
+import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants";
+import {ColorConstants} from "../../../../Lib/src/constants/ColorConstants";
 import {Language} from "../../../../Lib/src/Language";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
@@ -208,6 +209,50 @@ export async function handleCommandGuildPacketRes(packet: CommandGuildPacketRes,
 		const guildCommandEmbed = new DraftBotEmbed()
 			.setThumbnail(GuildConstants.ICON);
 
+		if (packet.data!.level >= GuildConstants.GOLDEN_GUILD_LEVEL) {
+			guildCommandEmbed.setColor(ColorConstants.GOLD);
+		}
+
+		guildCommandEmbed.setTitle(i18n.t("commands:guild.embedTitle", {
+			lng: interaction.userLanguage,
+			guildName: packet.data?.name,
+			level: packet.data?.level
+		}));
+
+		if (packet.data!.description) {
+			guildCommandEmbed.setDescription(
+				i18n.t("commands:guild.description", {
+					lng: interaction.userLanguage,
+					description: packet.data?.description
+				})
+			);
+		}
+
+		let membersInfos = "";
+		for (const member of packet.data!.members) {
+			membersInfos += i18n.t("commands:guild.memberInfos", {
+				lng: interaction.userLanguage,
+				isChief: member.id === packet.data!.chiefId,
+				isElder: member.id === packet.data!.elderId,
+				pseudo: member.gameUsername,
+				ranking: member.rank,
+				score: member.score,
+				isOnPveIsland: member.islandStatus.isOnPveIsland,
+				isOnBoat: member.islandStatus.isOnBoat,
+				isPveIslandAlly: member.islandStatus.isPveIslandAlly,
+				isInactive: member.islandStatus.isInactive,
+				isNotBotJoinable: member.islandStatus.cannotBeJoinedOnBoat
+			});
+		}
+
+		guildCommandEmbed.addFields({
+			name: guildModule.format("members", {
+				memberCount: members.length,
+				maxGuildMembers: GuildConstants.MAX_GUILD_MEMBERS
+			}),
+			value: membersInfos
+		});
+
 
 		const reply = await interaction.reply({
 			embeds: [
@@ -223,29 +268,6 @@ export async function handleCommandGuildPacketRes(packet: CommandGuildPacketRes,
 			],
 			fetchReply: true
 		}) as Message;
-
-		const collector = reply.createReactionCollector({
-			filter: (reaction: MessageReaction) => reaction.me && !reaction.users.cache.last()!.bot,
-			time: Constants.MESSAGES.COLLECTOR_TIME,
-			max: ProfileConstants.BADGE_MAXIMUM_REACTION
-		});
-
-		collector.on("collect", async (reaction) => {
-			if (reaction.emoji.name === Constants.PROFILE.DISPLAY_ALL_BADGE_EMOTE) {
-				collector.stop(); // Only one is allowed to avoid spam
-				await sendMessageAllBadgesTooMuchBadges(keycloakUser.attributes.gameUsername, packet.data!.badges!, interaction);
-			}
-			else {
-				interaction.channel.send({content: i18n.t(`commands:profile.badges.${reaction.emoji.name}`)})
-					.then((msg: Message | null) => {
-						setTimeout(() => msg?.delete(), ProfileConstants.BADGE_DESCRIPTION_TIMEOUT);
-					});
-			}
-		});
-
-		if (packet.data?.badges.length !== 0) {
-			await displayBadges(packet.data!.badges, reply);
-		}
 	}
 }
 

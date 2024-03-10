@@ -10,6 +10,8 @@ export class CommandGuildPacketReq extends DraftBotPacket {
 }
 
 export interface GuildMemberPacket {
+	id: number;
+	gameUsername: string;
 	keycloakId: string;
 	rank: number,
 	score: number
