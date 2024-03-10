@@ -46,147 +46,6 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 	return makePacket(CommandGuildPacketReq, {askedPlayer, askedGuildName});
 }
 
-function generateFields(packet: CommandGuildPacketRes, language: Language): EmbedField[] {
-	const fields: EmbedField[] = [];
-
-	fields.push({
-		name: i18n.t("commands:profile.information.fieldName", {lng: language}),
-		value: i18n.t("commands:profile.information.fieldValue", {
-			lng: language,
-			health: packet.data?.health.value,
-			maxHealth: packet.data?.health.max,
-			money: packet.data?.money,
-			experience: packet.data?.experience.value,
-			experienceNeededToLevelUp: packet.data?.experience.max
-		}),
-		inline: false
-	});
-
-	if (packet.data?.stats) {
-		fields.push({
-			name: i18n.t("commands:profile.statistics.fieldName", {lng: language}),
-			value: i18n.t("commands:profile.statistics.fieldValue", {
-				lng: language,
-				baseBreath: packet.data?.stats.breath.base,
-				breathRegen: packet.data?.stats.breath.regen,
-				cumulativeAttack: packet.data?.stats.attack,
-				cumulativeDefense: packet.data?.stats.defense,
-				cumulativeHealth: packet.data.stats.energy.value,
-				cumulativeSpeed: packet.data.stats.speed,
-				cumulativeMaxHealth: packet.data.stats.energy.max,
-				maxBreath: packet.data.stats.breath.max
-			}),
-			inline: false
-		});
-	}
-
-	fields.push({
-		name: i18n.t("commands:profile.mission.fieldName", {lng: language}),
-		value: i18n.t("commands:profile.mission.fieldValue", {
-			lng: language,
-			gems: packet.data?.missions.gems,
-			campaign: packet.data?.missions.campaignProgression
-		}),
-		inline: false
-	});
-
-	fields.push({
-		name: i18n.t("commands:profile.ranking.fieldName", {lng: language}),
-		value: packet.data?.rank.unranked ? i18n.t("commands:profile.ranking.fieldValueUnranked", {
-			lng: language,
-			score: packet.data.rank.score
-		}) : i18n.t("commands:profile.ranking.fieldValue", {
-			lng: language,
-			rank: packet.data?.rank.rank,
-			numberOfPlayer: packet.data?.rank.numberOfPlayers,
-			score: packet.data?.rank.score
-		}),
-		inline: false
-	});
-
-	if (packet.data?.effect?.healed) {
-		fields.push({
-			name: i18n.t("commands:profile.noTimeLeft.fieldName", {lng: language}),
-			value: i18n.t("commands:profile.noTimeLeft.fieldValue", {
-				lng: language
-			}),
-			inline: false
-		});
-	}
-	else if (packet.data?.effect) {
-		fields.push({
-			name: i18n.t("commands:profile.timeLeft.fieldName", {lng: language}),
-			value: i18n.t("commands:profile.timeLeft.fieldValue", {
-				lng: language,
-				effect: packet.data.effect,
-				timeLeft: packet.data.effect.timeLeft
-			}),
-			inline: false
-		});
-	}
-
-	if (packet.data?.class) {
-		fields.push({
-			name: i18n.t("commands:profile.playerClass.fieldName", {lng: language}),
-			value: i18n.t("commands:profile.playerClass.fieldValue", {
-				lng: language,
-				class: packet.data.class
-			}),
-			inline: false
-		});
-	}
-
-	if (packet.data?.fightRanking) {
-		fields.push({
-			name: i18n.t("commands:profile.fightRanking.fieldName", {lng: language}),
-			value: i18n.t("commands:profile.fightRanking.fieldValue", {
-				lng: language,
-				league: packet.data.fightRanking.league,
-				gloryPoints: packet.data.fightRanking.glory
-			}),
-			inline: false
-		});
-	}
-
-	if (packet.data?.guild) {
-		fields.push({
-			name: i18n.t("commands:profile.guild.fieldName", {lng: language}),
-			value: i18n.t("commands:profile.guild.fieldValue", {
-				lng: language,
-				guild: packet.data.guild
-			}),
-			inline: false
-		});
-	}
-
-	if (packet.data?.destination) {
-		fields.push({
-			name: i18n.t("commands:profile.map.fieldName", {lng: language}),
-			value: i18n.t("commands:profile.map.fieldValue", {
-				lng: language,
-				mapEmote: "TODO EMOTE", // Todo
-				mapName: i18n.t(`models:map_locations.${packet.data.destination}.name`, {lng: language})
-			}),
-			inline: false
-		});
-	}
-
-	if (packet.data?.pet) {
-		fields.push({
-			name: i18n.t("commands:profile.pet.fieldName", {lng: language}),
-			value: i18n.t("commands:profile.pet.fieldValue", {
-				lng: language,
-				emote: "TODO EMOTE", // Todo
-				rarity: packet.data.pet.rarity,
-				nickname: packet.data.pet.nickname ?? i18n.t(`models:pets.${packet.data.pet.id}`, {lng: language})
-			}),
-			inline: false
-		});
-	}
-
-	return fields;
-}
-
 export async function handleCommandGuildPacketRes(packet: CommandGuildPacketRes, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 
@@ -232,9 +91,10 @@ export async function handleCommandGuildPacketRes(packet: CommandGuildPacketRes,
 		for (const member of packet.data!.members) {
 			membersInfos += i18n.t("commands:guild.memberInfos", {
 				lng: interaction.userLanguage,
+				icon:
 				isChief: member.id === packet.data!.chiefId,
 				isElder: member.id === packet.data!.elderId,
-				pseudo: member.gameUsername,
+				pseudo: (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, member.keycloakId))?.attributes.gameUsername,
 				ranking: member.rank,
 				score: member.score,
 				isOnPveIsland: member.islandStatus.isOnPveIsland,

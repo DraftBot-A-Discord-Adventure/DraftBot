@@ -4,16 +4,16 @@
     "title": ":military_medal: Informations détaillées :"
   },
   "guild": {
-    "embedTitle": "Guilde {guildName} | Niveau {level}",
-    "description": ":scroll: `{description}`",
-    "memberInfos": ":{isChief?crown:{isElder?military_medal:black_circle}}: - **{pseudo}** ({ranking} :trophy: | {score} :medal:{isOnPveIsland? | :{isOnBoat? | :{isPveIslandAlly? | :}}}{isOnPveIsland?🏝️:}{isOnBoat?⛴️:}{isPveIslandAlly?🤝:}{isNotBotJoinable?👻:})\n",
-    "members": ":person_pouting: {memberCount}/{maxGuildMembers} membres",
+    "embedTitle": "Guilde {{guildName}} | Niveau {{level}}",
+    "description": ":scroll: `{{description}}`",
+    "memberInfos": "{{icon}} - **{{pseudo}}** ({{ranking}} {{trophy}} | {{score}} {{medal}}{{islandEmoji}}{{boatEmoji}}{{allyEmoji}}{{ghostEmoji}})\n",
+    "members": ":person_pouting: {{memberCount}}/{{maxGuildMembers}} membres",
     "infoTitle": "Informations",
-    "islandInfo": ":island: Nombre d'alliés sur l'île mystérieuse : {membersOnPveIsland}\n",
-    "info": ":star: {experience} | :mirror_ball: {guildPoints} | :trophy: {ranking}",
-    "xpNeeded": "{xp} / {xpToLevelUp}",
+    "islandInfo": ":island: Nombre d'alliés sur l'île mystérieuse : {{membersOnPveIsland}\n",
+    "info": ":star: {{experience}} | :mirror_ball: {{guildPoints}} | :trophy: {{ranking}}",
+    "xpNeeded": "{{xp} / {{xpToLevelUp}}",
     "xpMax": "Max",
-    "ranking": "{rank} / {rankTotal}",
+    "ranking": "{{rank} / {{rankTotal}}",
     "notRanked": "Non classée"
   },
   "idea": {
