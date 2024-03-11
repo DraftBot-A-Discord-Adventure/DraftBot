@@ -48,5 +48,6 @@
     "startBossFight": "début d'un combat de boss",
     "reportCommand": "commande rapport",
     "cartChoose": "choix de monter dans la charrette ou non"
-  }
+  },
+  "guildDoesntExist": "La guilde demandée n'existe pas"
 }
