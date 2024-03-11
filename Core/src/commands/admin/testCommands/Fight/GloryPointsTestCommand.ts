@@ -1,5 +1,5 @@
 import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
-import {NumberChangeReason} from "../../../../core/constants/LogsConstants";
+import {NumberChangeReason} from "../../../../../../Lib/src/constants/LogsConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "glorypoints",

@@ -1,5 +1,5 @@
 import {StringConstants} from "../constants/StringConstants";
-import {ConstantRange} from "../Constants";
+import {ConstantRange} from "../constants/Constants";
 
 /**
  * Remove discord formatting scrap from usernames

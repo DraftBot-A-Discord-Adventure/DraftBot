@@ -9,7 +9,7 @@ import {DraftBotPacket} from "../../../../../../Lib/src/packets/DraftBotPacket";
 import {GuildLevelUpPacket} from "../../../../../../Lib/src/packets/notifications/GuildLevelUpPacket";
 import moment = require("moment");
 import {TopConstants} from "../../../../../../Lib/src/constants/TopConstants";
-import { Constants } from "../../../../../../Lib/src/Constants/Constants";
+import { Constants } from "../../../../../../Lib/src/constants/Constants";
 import {NumberChangeReason} from "../../../../../../Lib/src/constants/LogsConstants";
 import {GuildConstants} from "../../../../../../Lib/src/constants/GuildConstants";
 import {PetEntityConstants} from "../../../../../../Lib/src/constants/PetEntityConstants";

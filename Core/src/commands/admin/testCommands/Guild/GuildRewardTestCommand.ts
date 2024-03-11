@@ -1,5 +1,5 @@
 import Guild from "../../../../core/database/game/models/Guild";
-import {GuildDailyConstants} from "../../../../core/constants/GuildDailyConstants";
+import {GuildDailyConstants} from "../../../../../../Lib/src/constants/GuildDailyConstants";
 import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
 
 let stringDesc = "Force un gd avec une sortie donnée. Liste des sorties possibles : ";

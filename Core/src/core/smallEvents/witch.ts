@@ -3,10 +3,10 @@ import {Maps} from "../maps/Maps";
 import {EndCallback, ReactionCollectorInstance} from "../utils/ReactionsCollector";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {WitchAction, WitchActionDataController, WitchActionOutcomeType} from "../../data/WitchAction";
-import {Constants} from "../Constants";
-import {SmallEventConstants} from "../constants/SmallEventConstants";
+import {Constants} from "../../../../Lib/src/constants/Constants";
+import {SmallEventConstants} from "../../../../Lib/src/constants/SmallEventConstants";
 import {BlockingUtils} from "../utils/BlockingUtils";
-import {BlockingConstants} from "../constants/BlockingConstants";
+import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
 import {RandomUtils} from "../utils/RandomUtils";
 import {SmallEventWitchResultPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWitchPacket";
 import {generateRandomItem, giveItemToPlayer} from "../utils/ItemUtils";
@@ -14,8 +14,8 @@ import {ItemCategory, ItemNature, ItemRarity} from "../../../../Lib/src/constant
 import Player from "../database/game/models/Player";
 import {GenericItem} from "../../data/GenericItem";
 import {InventorySlots} from "../database/game/models/InventorySlot";
-import {NumberChangeReason} from "../constants/LogsConstants";
 import {ReactionCollectorWitch, ReactionCollectorWitchReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorWitch";
+import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 
 
 type WitchEventSelection = {

@@ -1,4 +1,4 @@
-import {MapConstants} from "../constants/MapConstants";
+import {MapConstants} from "../../../../Lib/src/constants/MapConstants";
 import {RandomUtils} from "../utils/RandomUtils";
 import {LogsMapLinks} from "../database/logs/models/LogsMapLinks";
 import {Op, Sequelize} from "sequelize";

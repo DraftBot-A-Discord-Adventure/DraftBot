@@ -1,6 +1,6 @@
 import Guild from "../../../../core/database/game/models/Guild";
 import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
-import {NumberChangeReason} from "../../../../core/constants/LogsConstants";
+import {NumberChangeReason} from "../../../../../../Lib/src/constants/LogsConstants";
 import {draftBotInstance} from "../../../../index";
 
 export const commandInfo: ITestCommand = {

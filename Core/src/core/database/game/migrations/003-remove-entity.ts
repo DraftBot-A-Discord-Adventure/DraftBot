@@ -1,5 +1,5 @@
 import {DataTypes, QueryInterface} from "sequelize";
-import {EntityConstants} from "../../../constants/EntityConstants";
+import {EntityConstants} from "../../../../../../Lib/src/constants/EntityConstants";
 import {entitiesAttributes001} from "./001-initial-database";
 
 export async function up({context}: { context: QueryInterface }): Promise<void> {

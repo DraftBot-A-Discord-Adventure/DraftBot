@@ -1,5 +1,5 @@
 import Guild from "../../../../core/database/game/models/Guild";
-import {NumberChangeReason} from "../../../../core/constants/LogsConstants";
+import {NumberChangeReason} from "../../../../../../Lib/src/constants/LogsConstants";
 import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
 
 export const commandInfo: ITestCommand = {

@@ -1,6 +1,6 @@
 import Player from "../../database/game/models/Player";
 import {RandomUtils} from "../../utils/RandomUtils";
-import {SmallEventConstants} from "../../constants/SmallEventConstants";
+import {SmallEventConstants} from "../../../../../Lib/src/constants/SmallEventConstants";
 import {FightPetActionFunc} from "../../../data/FightPetAction";
 
 export const fightPetAction: FightPetActionFunc = (player: Player): boolean => RandomUtils.draftbotRandom.bool(

@@ -1,6 +1,6 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 import {datesAreOnSameDay} from "../../../../../../Lib/src/utils/TimeUtils";
-import {NumberChangeReason} from "../../../constants/LogsConstants";
+import {NumberChangeReason} from "../../../../../../Lib/src/constants/LogsConstants";
 import {draftBotInstance} from "../../../../index";
 import {Campaign} from "../../../missions/Campaign";
 import moment = require("moment");

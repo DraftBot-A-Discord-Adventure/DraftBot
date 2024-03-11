@@ -1,8 +1,8 @@
 import {PetEntities} from "../../database/game/models/PetEntity";
 import {FightPetActionFunc} from "../../../data/FightPetAction";
 import {PetConstants} from "../../../../../Lib/src/constants/PetConstants";
-import {SmallEventConstants} from "../../constants/SmallEventConstants";
-import {PetEntityConstants} from "../../constants/PetEntityConstants";
+import {SmallEventConstants} from "../../../../../Lib/src/constants/SmallEventConstants";
+import {PetEntityConstants} from "../../../../../Lib/src/constants/PetEntityConstants";
 import {RandomUtils} from "../../utils/RandomUtils";
 import {PetDataController} from "../../../data/Pet";
 

@@ -1,14 +1,14 @@
 import Player from "../database/game/models/Player";
-import {SmallEventConstants} from "../constants/SmallEventConstants";
-import {ClassInfoConstants} from "../constants/ClassInfoConstants";
+import {SmallEventConstants} from "../../../../Lib/src/constants/SmallEventConstants";
+import {ClassInfoConstants} from "../../../../Lib/src/constants/ClassInfoConstants";
 import {FightPetAction, FightPetActionDataController} from "../../data/FightPetAction";
 import {Maps} from "../maps/Maps";
 import {SmallEventFuncs} from "../../data/SmallEvent";
 import {PetDataController} from "../../data/Pet";
 import {BlockingUtils} from "../utils/BlockingUtils";
 import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {BlockingConstants} from "../constants/BlockingConstants";
-import {NumberChangeReason} from "../constants/LogsConstants";
+import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
+import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {RandomUtils} from "../utils/RandomUtils";
 import {EndCallback, ReactionCollectorInstance} from "../utils/ReactionsCollector";
 import {ReactionCollectorFightPet, ReactionCollectorFightPetReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorFightPet";

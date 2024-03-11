@@ -29,6 +29,24 @@
     "description": "Displays the ping of the bot and allow the player to check if the bot is online.",
     "name": "ping"
   },
+  "guild": {
+    "description": "Displays information about a guild.",
+    "name": "guild",
+    "options": {
+      "rank": {
+        "description": "The rank of the player whose guild you want to display.",
+        "name": "rank"
+      },
+      "user": {
+        "description": "The user whose guild should be displayed.",
+        "name": "user"
+      },
+      "guildName": {
+        "description": "The name of the guild that should be displayed.",
+        "name": "guild"
+      }
+    }
+  },
   "profile": {
     "description": "Displays the profile of a player.",
     "name": "profile",

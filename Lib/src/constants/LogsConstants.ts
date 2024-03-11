@@ -1,6 +1,3 @@
-import {CreateOptions, Model} from "sequelize";
-import GuildPet from "../database/game/models/GuildPet";
-
 export enum NumberChangeReason {
 	// Default value. Used to detect missing parameters in functions
 	NULL,
@@ -70,14 +67,4 @@ export enum ShopItemType {
 	PET_INFORMATION,
 	GUILD_XP,
 	ENERGY_HEAL
-}
-
-export type ModelType = { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> };
-
-export type GuildLikeType = {
-	id: number,
-	name: string,
-	creationDate: Date,
-	chiefId: number,
-	guildPets: GuildPet[]
 }

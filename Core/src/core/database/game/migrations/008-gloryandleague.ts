@@ -1,5 +1,5 @@
 import {DataTypes, QueryInterface} from "sequelize";
-import {FightConstants} from "../../../constants/FightConstants";
+import {FightConstants} from "../../../../../../Lib/src/constants/FightConstants";
 
 export const leaguesAttributes008 = {
 	id: {

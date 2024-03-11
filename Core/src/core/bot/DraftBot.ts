@@ -10,7 +10,7 @@ import PetEntity from "../database/game/models/PetEntity";
 import {RandomUtils} from "../utils/RandomUtils";
 import {PotionDataController} from "../../data/Potion";
 import {getNextDay2AM} from "../../../../Lib/src/utils/TimeUtils";
-import {TIMEOUT_FUNCTIONS} from "../constants/TimeoutFunctionsConstants";
+import {TIMEOUT_FUNCTIONS} from "../../../../Lib/src/constants/TimeoutFunctionsConstants";
 import {MapCache} from "../maps/MapCache";
 import {registerAllPacketHandlers} from "../packetHandlers/PacketHandler";
 

@@ -1,7 +1,7 @@
 import {GenericItem} from "./GenericItem";
-import {InventoryConstants} from "../core/constants/InventoryConstants";
 import {MainItemDisplayPacket} from "../../../Lib/src/packets/commands/CommandInventoryPacket";
 import {MaxStatsValues} from "../../../Lib/src/types/MaxStatsValues";
+import {InventoryConstants} from "../../../Lib/src/constants/InventoryConstants";
 
 export abstract class MainItem extends GenericItem {
 

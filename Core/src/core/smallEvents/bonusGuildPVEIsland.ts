@@ -1,11 +1,11 @@
 import {SmallEventDataController, SmallEventFuncs} from "../../data/SmallEvent";
-import {SmallEventConstants} from "../constants/SmallEventConstants";
+import {SmallEventConstants} from "../../../../Lib/src/constants/SmallEventConstants";
 import {SmallEventBonusGuildPVEIslandPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventBonusGuildPVEIslandPacket";
 import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {Maps} from "../maps/Maps";
 import Player from "../database/game/models/Player";
 import {RandomUtils} from "../utils/RandomUtils";
-import {NumberChangeReason} from "../constants/LogsConstants";
+import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {Guilds} from "../database/game/models/Guild";
 
 type Malus = {

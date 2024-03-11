@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import {WriteStream} from "fs";
-import {Constants} from "../Constants";
+import {Constants} from "../constants/Constants";
 
 enum LogWritingState {
 	BUILDING,
@@ -53,7 +53,7 @@ export class Logger {
 			return;
 		}
 		this.lineCount++;
-		if (this.lineCount > Constants.LOGS.MAX_LOGS_COUNT) {
+		if (this.lineCount > Constants.LOGS.LOG_COUNT_LINE_LIMIT) {
 			this.lineCount = 0;
 			process.removeListener("uncaughtException", this.currentListener!);
 			this.fileStream!.end();

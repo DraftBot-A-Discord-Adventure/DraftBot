@@ -2,7 +2,7 @@ import {Shop} from "./interfaces/Shop";
 import {SmallEventShopPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventShopPacket";
 import {GenericItem} from "../../data/GenericItem";
 import {RandomUtils} from "../utils/RandomUtils";
-import {SmallEventConstants} from "../constants/SmallEventConstants";
+import {SmallEventConstants} from "../../../../Lib/src/constants/SmallEventConstants";
 import {generateRandomItem} from "../utils/ItemUtils";
 import {ItemRarity} from "../../../../Lib/src/constants/ItemConstants";
 import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";

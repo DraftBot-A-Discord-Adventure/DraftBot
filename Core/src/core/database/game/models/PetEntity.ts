@@ -1,7 +1,7 @@
 import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
 import {RandomUtils} from "../../../utils/RandomUtils";
 import {MissionsController} from "../../../missions/MissionsController";
-import {PET_ENTITY_GIVE_RETURN, PetEntityConstants} from "../../../constants/PetEntityConstants";
+import {PET_ENTITY_GIVE_RETURN, PetEntityConstants} from "../../../../../../Lib/src/constants/PetEntityConstants";
 import {Player, PlayerEditValueParameters} from "./Player";
 import {PetConstants} from "../../../../../../Lib/src/constants/PetConstants";
 import {Guild, Guilds} from "./Guild";

@@ -1,8 +1,8 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
 import {PlayerFighter} from "../../../fighter/PlayerFighter";
-import {NumberChangeReason} from "../../../../constants/LogsConstants";
-import {PVEConstants} from "../../../../constants/PVEConstants";
+import {NumberChangeReason} from "../../../../../../../Lib/src/constants/LogsConstants";
+import {PVEConstants} from "../../../../../../../Lib/src/constants/PVEConstants";
 import {FightActionFunc} from "../../../../../data/FightAction";
 import {FightActionStatus} from "../../../../../../../Lib/src/interfaces/FightActionStatus";
 

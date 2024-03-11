@@ -1,6 +1,6 @@
 import {FightPetActionFunc} from "../../../data/FightPetAction";
 import {RandomUtils} from "../../utils/RandomUtils";
-import {SmallEventConstants} from "../../constants/SmallEventConstants";
+import {SmallEventConstants} from "../../../../../Lib/src/constants/SmallEventConstants";
 
 export const fightPetAction: FightPetActionFunc = (player, pet) =>
 	// Chances of success is the ratio of remaining energy on total energy minus the rarity of the pet

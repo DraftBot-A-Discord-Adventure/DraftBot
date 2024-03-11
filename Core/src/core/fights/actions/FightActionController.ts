@@ -1,4 +1,4 @@
-import {FightConstants} from "../../constants/FightConstants";
+import {FightConstants} from "../../../../../Lib/src/constants/FightConstants";
 import {RandomUtils} from "../../utils/RandomUtils";
 import {Fighter} from "../fighter/Fighter";
 import {FightActionStatus} from "../../../../../Lib/src/interfaces/FightActionStatus";

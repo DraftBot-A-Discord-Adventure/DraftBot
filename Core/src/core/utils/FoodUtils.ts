@@ -1,4 +1,4 @@
-import {Constants} from "../Constants";
+import {Constants} from "../../../../Lib/src/constants/Constants";
 
 /**
  * Get the corresponding index in the constants of a given pet food
