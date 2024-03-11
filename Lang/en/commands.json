@@ -3,6 +3,29 @@
     "description": "Badges are difficult to get awards that were created to reward those who have most supported the development of the bot. The badge list is available in the bot guide.\n(via this link: https://guide.draftbot.com/notions-progresses/badges)",
     "title": ":military_medal: Detailed Information:"
   },
+  "guild": {
+    "embedTitle": "Guilde {{guildName}} | Niveau {{level}}",
+    "description": ":scroll: `{{description}}`",
+    "emojis": {
+      "chief": "👑",
+      "elder": "🎖️",
+      "member": "⚫",
+      "isOnPveIsland": "🏝️",
+      "isOnBoat": "⛴️",
+      "countAsAnAlly": "🤝",
+      "cannotBeJoinedOnBoat": "👻"
+    },
+    "separator": " | ",
+    "memberInfos": "{{icon}} - **{{pseudo}}** ({{ranking}} :trophy: | {{score}} :medal:{{islandStatusIcon}})\n",
+    "members": ":person_pouting: {{memberCount}}/{{maxGuildMembers}} membres",
+    "infoTitle": "Informations",
+    "islandInfo": ":island: Nombre d'alliés sur l'île mystérieuse : {{membersOnPveIsland}\n",
+    "info": ":star: {{experience}} | :mirror_ball: {{guildPoints}} | :trophy: {{ranking}}",
+    "xpNeeded": "{{xp} / {{xpToLevelUp}}",
+    "xpMax": "Max",
+    "ranking": "{{rank} / {{rankTotal}}",
+    "notRanked": "Non classée"
+  },
   "idea": {
     "description": "You can submit suggestions and vote for your favorites via this link:\nhttps://feedback.draftbot.com/",
     "title": ":bulb: Ideas"
