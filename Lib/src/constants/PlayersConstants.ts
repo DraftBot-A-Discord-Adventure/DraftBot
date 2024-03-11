@@ -1,5 +1,5 @@
-import {EffectsConstants} from "../../../../Lib/src/constants/EffectsConstants";
-import {NotificationsConstants} from "../../../../Lib/src/constants/NotificationsConstants";
+import {EffectsConstants} from "./EffectsConstants";
+import {NotificationsConstants} from "./NotificationsConstants";
 
 export abstract class PlayersConstants {
 	static readonly PLAYER_DEFAULT_VALUES = {

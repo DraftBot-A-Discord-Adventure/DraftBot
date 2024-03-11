@@ -1,13 +1,13 @@
 import {SmallEventDataController, SmallEventFuncs} from "../../data/SmallEvent";
-import {MapConstants} from "../constants/MapConstants";
+import {MapConstants} from "../../../../Lib/src/constants/MapConstants";
 import {Maps} from "../maps/Maps";
-import {BlockingConstants} from "../constants/BlockingConstants";
+import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
 import Player from "../database/game/models/Player";
-import {SmallEventConstants} from "../constants/SmallEventConstants";
+import {SmallEventConstants} from "../../../../Lib/src/constants/SmallEventConstants";
 import {RandomUtils} from "../utils/RandomUtils";
 import {BlockingUtils} from "../utils/BlockingUtils";
 import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
-import {NumberChangeReason} from "../constants/LogsConstants";
+import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {TravelTime} from "../maps/TravelTime";
 import {EffectsConstants} from "../../../../Lib/src/constants/EffectsConstants";
 import {SmallEventGobletsGamePacket} from "../../../../Lib/src/packets/smallEvents/SmallEventGobletsGamePacket";

@@ -1,6 +1,6 @@
 import {DataControllerNumber} from "./DataController";
 import {Data} from "./Data";
-import {LeagueInfoConstants} from "../core/constants/LeagueInfoConstants";
+import {LeagueInfoConstants} from "../../../Lib/src/constants/LeagueInfoConstants";
 import {GenericItem} from "./GenericItem";
 import {generateRandomItem} from "../core/utils/ItemUtils";
 

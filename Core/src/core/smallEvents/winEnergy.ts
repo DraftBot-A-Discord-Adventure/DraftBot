@@ -1,7 +1,7 @@
 import {SmallEventFuncs} from "../../data/SmallEvent";
 import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
-import {MapConstants} from "../constants/MapConstants";
-import {NumberChangeReason} from "../constants/LogsConstants";
+import {MapConstants} from "../../../../Lib/src/constants/MapConstants";
+import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {SmallEventWinEnergyPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinEnergyPacket";
 
 export const smallEventFuncs: SmallEventFuncs = {

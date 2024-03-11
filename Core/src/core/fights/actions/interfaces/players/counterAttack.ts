@@ -1,4 +1,4 @@
-import {FightConstants} from "../../../../constants/FightConstants";
+import {FightConstants} from "../../../../../../../Lib/src/constants/FightConstants";
 import {FightActionDataController, FightActionFunc} from "../../../../../data/FightAction";
 import {defaultFailFightActionResult, defaultFightActionResult} from "../../../../../../../Lib/src/interfaces/FightActionResult";
 

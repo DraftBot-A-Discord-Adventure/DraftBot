@@ -1,8 +1,8 @@
 import Player from "../../core/database/game/models/Player";
-import {NumberChangeReason} from "../../core/constants/LogsConstants";
+import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {generateRandomItem, giveItemToPlayer} from "../../core/utils/ItemUtils";
 import {RandomUtils} from "../../core/utils/RandomUtils";
-import {Constants} from "../../core/Constants";
+import {Constants} from "../../../../Lib/src/constants/Constants";
 import {PlayerSmallEvents} from "../../core/database/game/models/PlayerSmallEvent";
 import {Maps} from "../../core/maps/Maps";
 import {PlayerMissionsInfos} from "../../core/database/game/models/PlayerMissionsInfo";

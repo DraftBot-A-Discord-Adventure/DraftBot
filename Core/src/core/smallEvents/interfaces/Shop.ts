@@ -4,12 +4,12 @@ import {Maps} from "../../maps/Maps";
 import {ExecuteSmallEventLike} from "../../../data/SmallEvent";
 import {getItemValue, giveItemToPlayer} from "../../utils/ItemUtils";
 import {EndCallback, ReactionCollectorInstance} from "../../utils/ReactionsCollector";
-import {BlockingConstants} from "../../constants/BlockingConstants";
+import {BlockingConstants} from "../../../../../Lib/src/constants/BlockingConstants";
 import {BlockingUtils} from "../../utils/BlockingUtils";
 import {SmallEventAnyShopPacket} from "../../../../../Lib/src/packets/smallEvents/SmallEventAnyShopPacket";
 import {InventorySlots} from "../../database/game/models/InventorySlot";
-import {SmallEventConstants} from "../../constants/SmallEventConstants";
-import {NumberChangeReason} from "../../constants/LogsConstants";
+import {SmallEventConstants} from "../../../../../Lib/src/constants/SmallEventConstants";
+import {NumberChangeReason} from "../../../../../Lib/src/constants/LogsConstants";
 import {DraftBotPacket} from "../../../../../Lib/src/packets/DraftBotPacket";
 import {ReactionCollectorMerchant, ReactionCollectorMerchantAcceptReaction} from "../../../../../Lib/src/packets/interaction/ReactionCollectorMerchant";
 

@@ -1,8 +1,8 @@
 import {SmallEventFuncs} from "../../data/SmallEvent";
-import {SmallEventConstants} from "../constants/SmallEventConstants";
+import {SmallEventConstants} from "../../../../Lib/src/constants/SmallEventConstants";
 import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {RandomUtils} from "../utils/RandomUtils";
-import {NumberChangeReason} from "../constants/LogsConstants";
+import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {SmallEventWinHealthPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinHealthPacket";
 import {Maps} from "../maps/Maps";
 

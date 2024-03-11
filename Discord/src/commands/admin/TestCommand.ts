@@ -7,8 +7,8 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {DiscordCache} from "../../bot/DiscordCache";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {HexColorString} from "discord.js";
-import {Constants} from "../../../../Lib/src/constants/Constants";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
+import { ColorConstants } from "../../../../Lib/src/constants/ColorConstants";
 
 async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandTestPacketReq> {
 	const commandName = interaction.options.get("command");
@@ -38,7 +38,7 @@ export async function handleCommandTestPacketRes(packet: CommandTestPacketRes, c
 					iconURL: interaction.user.displayAvatarURL()
 				})
 				.setDescription(packet.result)
-				.setColor(<HexColorString> Constants.MESSAGES.COLORS.SUCCESSFUL);
+				.setColor(<HexColorString> ColorConstants.SUCCESSFUL);
 
 			await interaction.editReply({embeds: [embedTestSuccessful]});
 		}

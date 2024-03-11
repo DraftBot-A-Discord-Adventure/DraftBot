@@ -1,4 +1,4 @@
-import {DataTypes, Model, Sequelize} from "sequelize";
+import {CreateOptions, DataTypes, Model, Sequelize} from "sequelize";
 import PetEntity from "./PetEntity";
 import Guild from "./Guild";
 import {draftBotInstance} from "../../../../index";
@@ -14,6 +14,18 @@ export class GuildPet extends Model {
 	declare updatedAt: Date;
 
 	declare createdAt: Date;
+}
+
+// Todo: this needs to be moved
+export type ModelType = { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> };
+
+// Todo: moved the type below here from the constants; maybe somewhere else would be better ?
+export type GuildLikeType = {
+	id: number,
+	name: string,
+	creationDate: Date,
+	chiefId: number,
+	guildPets: GuildPet[]
 }
 
 /**

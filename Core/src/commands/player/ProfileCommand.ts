@@ -1,7 +1,7 @@
 import {PetEntities} from "../../core/database/game/models/PetEntity";
 import PlayerMissionsInfo, {PlayerMissionsInfos} from "../../core/database/game/models/PlayerMissionsInfo";
 import {InventorySlots} from "../../core/database/game/models/InventorySlot";
-import {FightConstants} from "../../core/constants/FightConstants";
+import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
 import {packetHandler} from "../../core/packetHandlers/PacketHandler";
 import {WebsocketClient} from "../../../../Lib/src/instances/WebsocketClient";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
@@ -9,7 +9,7 @@ import {CommandProfilePacketReq, CommandProfilePacketRes} from "../../../../Lib/
 import {Campaign} from "../../core/missions/Campaign";
 import {Players} from "../../core/database/game/models/Player";
 import {Guilds} from "../../core/database/game/models/Guild";
-import {Constants} from "../../core/Constants";
+import {Constants} from "../../../../Lib/src/constants/Constants";
 import {hoursToMilliseconds} from "../../../../Lib/src/utils/TimeUtils";
 import {PetDataController} from "../../data/Pet";
 

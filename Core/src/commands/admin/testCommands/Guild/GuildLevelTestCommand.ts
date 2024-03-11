@@ -1,6 +1,6 @@
 import Guild from "../../../../core/database/game/models/Guild";
 import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
-import {GuildConstants} from "../../../../core/constants/GuildConstants";
+import {GuildConstants} from "../../../../../../Lib/src/constants/GuildConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "guildlevel",

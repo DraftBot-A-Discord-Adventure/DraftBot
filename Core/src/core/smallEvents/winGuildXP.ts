@@ -1,9 +1,9 @@
 import {SmallEventFuncs} from "../../data/SmallEvent";
-import {SmallEventConstants} from "../constants/SmallEventConstants";
+import {SmallEventConstants} from "../../../../Lib/src/constants/SmallEventConstants";
 import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {RandomUtils} from "../utils/RandomUtils";
 import {Guilds} from "../database/game/models/Guild";
-import {NumberChangeReason} from "../constants/LogsConstants";
+import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {SmallEventWinGuildXPPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinGuildXPPacket";
 import {Maps} from "../maps/Maps";
 

@@ -1,5 +1,5 @@
 import {Maps} from "../../../../core/maps/Maps";
-import {NumberChangeReason} from "../../../../core/constants/LogsConstants";
+import {NumberChangeReason} from "../../../../../../Lib/src/constants/LogsConstants";
 import {ExecuteTestCommandLike, ITestCommand} from "../../../../core/CommandsTest";
 import {TravelTime} from "../../../../core/maps/TravelTime";
 import {MapLinkDataController} from "../../../../data/MapLink";

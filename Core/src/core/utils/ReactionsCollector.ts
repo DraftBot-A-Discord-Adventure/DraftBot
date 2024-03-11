@@ -10,7 +10,7 @@ import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/pac
 import {BlockingUtils} from "./BlockingUtils";
 import {sendPacketsToContext} from "../../../../Lib/src/packets/PacketUtils";
 import {WebsocketClient} from "../../../../Lib/src/instances/WebsocketClient";
-import {Constants} from "../Constants";
+import {Constants} from "../../../../Lib/src/constants/Constants";
 
 type CollectCallback = (collector: ReactionCollectorInstance, reaction: ReactionCollectorReaction, keycloakId: string, response: DraftBotPacket[]) => void | Promise<void>;
 

@@ -1,7 +1,7 @@
 import Guild from "../../../../core/database/game/models/Guild";
 import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
 import {Players} from "../../../../core/database/game/models/Player";
-import {GuildConstants} from "../../../../core/constants/GuildConstants";
+import {GuildConstants} from "../../../../../../Lib/src/constants/GuildConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "forcejoinguild",

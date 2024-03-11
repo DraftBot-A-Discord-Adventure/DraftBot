@@ -1,10 +1,10 @@
 import {SmallEventFuncs} from "../../data/SmallEvent";
-import {SmallEventConstants} from "../constants/SmallEventConstants";
+import {SmallEventConstants} from "../../../../Lib/src/constants/SmallEventConstants";
 import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {RandomUtils} from "../utils/RandomUtils";
-import {NumberChangeReason} from "../constants/LogsConstants";
 import {SmallEventWinPersonalXPPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinPersonalXPPacket";
 import {Maps} from "../maps/Maps";
+import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnContinent,

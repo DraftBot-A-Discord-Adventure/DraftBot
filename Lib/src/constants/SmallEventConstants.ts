@@ -1,5 +1,5 @@
-import {Constants} from "../Constants";
-import {ItemRarity} from "../../../../Lib/src/constants/ItemConstants";
+import {Constants} from "./Constants";
+import {ItemRarity} from "./ItemConstants";
 
 export abstract class SmallEventConstants {
 	static readonly HEALTH = {

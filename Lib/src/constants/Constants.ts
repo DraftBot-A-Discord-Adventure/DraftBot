@@ -92,7 +92,8 @@ export class Constants {
 	};
 
 	static readonly LOGS = {
-		LOG_COUNT_LINE_LIMIT: 50000
+		LOG_COUNT_LINE_LIMIT: 50000,
+		BASE_PATH: "./logs"
 	};
 
 	static readonly MISSION_SHOP = {
@@ -291,3 +292,5 @@ export class Constants {
 
 	static readonly DEFAULT_HEALED_EFFECT = ":hospital:";
 }
+
+export type ConstantRange = { MIN: number, MAX: number };

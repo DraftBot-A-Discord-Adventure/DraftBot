@@ -1,6 +1,6 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
-import {FightConstants} from "../../../../constants/FightConstants";
+import {FightConstants} from "../../../../../../../Lib/src/constants/FightConstants";
 import {FightAlterations} from "../../FightAlterations";
 import {FightActionFunc} from "../../../../../data/FightAction";
 import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTemplate";

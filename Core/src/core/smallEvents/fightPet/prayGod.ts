@@ -1,5 +1,5 @@
 import {FightPetActionFunc} from "../../../data/FightPetAction";
-import {SmallEventConstants} from "../../constants/SmallEventConstants";
+import {SmallEventConstants} from "../../../../../Lib/src/constants/SmallEventConstants";
 import {InventorySlots} from "../../database/game/models/InventorySlot";
 import {ItemConstants} from "../../../../../Lib/src/constants/ItemConstants";
 import {RandomUtils} from "../../utils/RandomUtils";

@@ -1,11 +1,11 @@
 import Player from "../database/game/models/Player";
 import {millisecondsToMinutes, minutesToMilliseconds} from "../../../../Lib/src/utils/TimeUtils";
 import {PlayerSmallEvents} from "../database/game/models/PlayerSmallEvent";
-import {Constants} from "../Constants";
-import {NumberChangeReason} from "../constants/LogsConstants";
+import {Constants} from "../../../../Lib/src/constants/Constants";
+import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {EffectsConstants} from "../../../../Lib/src/constants/EffectsConstants";
 import {Maps} from "./Maps";
-import {PVEConstants} from "../constants/PVEConstants";
+import {PVEConstants} from "../../../../Lib/src/constants/PVEConstants";
 import {MapLinkDataController} from "../../data/MapLink";
 import {draftBotInstance} from "../../index";
 import {TravelEndPushPacket} from "../../../../Lib/src/packets/push/TravelEndPushPacket";

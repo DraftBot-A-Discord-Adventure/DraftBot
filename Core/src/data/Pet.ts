@@ -1,6 +1,6 @@
 import {DataControllerNumber} from "./DataController";
 import {Data} from "./Data";
-import {PetEntityConstants} from "../core/constants/PetEntityConstants";
+import {PetEntityConstants} from "../../../Lib/src/constants/PetEntityConstants";
 import {RandomUtils} from "../core/utils/RandomUtils";
 
 export class Pet extends Data<number> {

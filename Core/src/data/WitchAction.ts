@@ -3,11 +3,11 @@ import {Data} from "./Data";
 import {readdirSync} from "fs";
 import {RandomUtils} from "../core/utils/RandomUtils";
 import Player from "../core/database/game/models/Player";
-import {SmallEventConstants} from "../core/constants/SmallEventConstants";
+import {SmallEventConstants} from "../../../Lib/src/constants/SmallEventConstants";
 import {ItemNature, ItemRarity} from "../../../Lib/src/constants/ItemConstants";
 import {DraftBotPacket} from "../../../Lib/src/packets/DraftBotPacket";
 import {TravelTime} from "../core/maps/TravelTime";
-import {NumberChangeReason} from "../core/constants/LogsConstants";
+import {NumberChangeReason} from "../../../Lib/src/constants/LogsConstants";
 import {EffectsConstants} from "../../../Lib/src/constants/EffectsConstants";
 
 

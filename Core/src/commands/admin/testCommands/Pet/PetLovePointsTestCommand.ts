@@ -1,4 +1,4 @@
-import {NumberChangeReason} from "../../../../core/constants/LogsConstants";
+import {NumberChangeReason} from "../../../../../../Lib/src/constants/LogsConstants";
 import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
 import {PetEntities} from "../../../../core/database/game/models/PetEntity";
 

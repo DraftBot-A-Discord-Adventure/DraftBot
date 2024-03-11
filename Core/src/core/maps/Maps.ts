@@ -1,6 +1,6 @@
 import Player from "../database/game/models/Player";
 import {TravelTime} from "./TravelTime";
-import {MapConstants} from "../constants/MapConstants";
+import {MapConstants} from "../../../../Lib/src/constants/MapConstants";
 import {MapCache} from "./MapCache";
 import {Op} from "sequelize";
 import {LogsReadRequests} from "../database/logs/LogsReadRequests";

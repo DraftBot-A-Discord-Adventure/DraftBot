@@ -1,7 +1,7 @@
 import {DataControllerString} from "./DataController";
 import {Data} from "./Data";
 import {RandomUtils} from "../core/utils/RandomUtils";
-import {PVEConstants} from "../core/constants/PVEConstants";
+import {PVEConstants} from "../../../Lib/src/constants/PVEConstants";
 
 export class Monster extends Data<string> {
 	public readonly emoji: string;

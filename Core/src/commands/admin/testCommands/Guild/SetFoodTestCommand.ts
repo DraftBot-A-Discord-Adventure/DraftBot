@@ -1,6 +1,6 @@
 import Guild from "../../../../core/database/game/models/Guild";
 import {getFoodIndexOf} from "../../../../core/utils/FoodUtils";
-import {Constants} from "../../../../core/Constants";
+import {Constants} from "../../../../../../Lib/src/constants/Constants";
 import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
 
 export const commandInfo: ITestCommand = {
