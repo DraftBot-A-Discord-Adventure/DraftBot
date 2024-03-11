@@ -6,7 +6,17 @@
   "guild": {
     "embedTitle": "Guilde {{guildName}} | Niveau {{level}}",
     "description": ":scroll: `{{description}}`",
-    "memberInfos": "{{icon}} - **{{pseudo}}** ({{ranking}} {{trophy}} | {{score}} {{medal}}{{islandEmoji}}{{boatEmoji}}{{allyEmoji}}{{ghostEmoji}})\n",
+    "emojis": {
+      "chief": "👑",
+      "elder": "🎖️",
+      "member": "⚫",
+      "isOnPveIsland": "🏝️",
+      "isOnBoat": "⛴️",
+      "countAsAnAlly": "🤝",
+      "cannotBeJoinedOnBoat": "👻"
+    },
+    "separator": " | ",
+    "memberInfos": "{{icon}} - **{{pseudo}}** ({{ranking}} :trophy: | {{score}} :medal:{{islandStatusIcon}})\n",
     "members": ":person_pouting: {{memberCount}}/{{maxGuildMembers}} membres",
     "infoTitle": "Informations",
     "islandInfo": ":island: Nombre d'alliés sur l'île mystérieuse : {{membersOnPveIsland}\n",

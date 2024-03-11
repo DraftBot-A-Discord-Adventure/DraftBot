@@ -15,6 +15,8 @@ import {CommandTestPacketRes} from "../../../../Lib/src/packets/commands/Command
 import {CommandRarityPacketRes} from "../../../../Lib/src/packets/commands/CommandRarityPacket";
 import {handleCommandRarityPacketRes} from "../../commands/player/RarityCommand";
 import {handleCommandTestPacketRes} from "../../commands/admin/TestCommand";
+import {handleCommandGuildPacketRes} from "../../commands/guild/GuildCommand";
+import { CommandGuildPacketRes } from "../../../../Lib/src/packets/commands/CommandGuildPacket";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
@@ -34,6 +36,11 @@ export default class CommandHandlers {
 	@packetHandler(CommandProfilePacketRes)
 	async profileRes(socket: WebSocket, packet: CommandProfilePacketRes, context: PacketContext): Promise<void> {
 		await handleCommandProfilePacketRes(packet, context);
+	}
+
+	@packetHandler(CommandGuildPacketRes)
+	async guildRes(socket: WebSocket, packet: CommandGuildPacketRes, context: PacketContext): Promise<void> {
+		await handleCommandGuildPacketRes(packet, context);
 	}
 
 	@packetHandler(CommandInventoryPacketRes)

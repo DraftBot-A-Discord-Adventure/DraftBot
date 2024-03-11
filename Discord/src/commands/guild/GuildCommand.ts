@@ -3,17 +3,18 @@ import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPac
 import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
 import i18n from "../../translations/i18n";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {CommandGuildPacketReq, CommandGuildPacketRes} from "../../../../Lib/src/packets/commands/CommandGuildPacket";
+import {
+	CommandGuildPacketReq,
+	CommandGuildPacketRes,
+	GuildMemberPacket
+} from "../../../../Lib/src/packets/commands/CommandGuildPacket";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {EffectsConstants} from "../../../../Lib/src/constants/EffectsConstants";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
-import {ColorResolvable, EmbedField, Message, MessageReaction} from "discord.js";
-import {Constants} from "../../../../Lib/src/constants/Constants";
 import {DiscordCache} from "../../bot/DiscordCache";
 import {DraftBotErrorEmbed} from "../../messages/DraftBotErrorEmbed";
 import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants";
 import {ColorConstants} from "../../../../Lib/src/constants/ColorConstants";
-import {Language} from "../../../../Lib/src/Language";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
@@ -46,6 +47,40 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 	return makePacket(CommandGuildPacketReq, {askedPlayer, askedGuildName});
 }
 
+/**
+ * Get the icon depending on what type of member the player is (chief, elder, member)
+ * @param member
+ * @param packet
+ */
+function getMemberTypeIcon(member: GuildMemberPacket, packet: CommandGuildPacketRes): string {
+	return member.id === packet.data!.chiefId ?
+		i18n.t("commands:guild.emojis.chief") :
+		member.id === packet.data!.elderId ?
+			i18n.t("commands:guild.emojis.elder") :
+			i18n.t("commands:guild.emojis.member");
+}
+
+/**
+ * Return the icons corresponding to the island status of the member
+ * @param member
+ */
+function getIslandStatusIcon(member: GuildMemberPacket): string {
+	return member.islandStatus.isOnPveIsland || member.islandStatus.isOnBoat || member.islandStatus.isPveIslandAlly || member.islandStatus.cannotBeJoinedOnBoat ?
+		i18n.t("commands:guild.separator")
+		+ (member.islandStatus.isOnPveIsland ?
+			i18n.t("commands:guild.emojis.pveIsland") :
+			"")
+		+ (member.islandStatus.isOnBoat ?
+			i18n.t("commands:guild.emojis.boat") :
+			"")
+		+ (member.islandStatus.isPveIslandAlly ?
+			i18n.t("commands:guild.emojis.pveIslandAlly") :
+			"")
+		+ (member.islandStatus.cannotBeJoinedOnBoat ?
+			i18n.t("commands:guild.emojis.cannotBeJoinedOnBoat") :
+			"") : "";
+}
+
 export async function handleCommandGuildPacketRes(packet: CommandGuildPacketRes, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 
@@ -62,8 +97,6 @@ export async function handleCommandGuildPacketRes(packet: CommandGuildPacketRes,
 			});
 			return;
 		}
-
-		const keycloakUser = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.askedPlayerKeycloakId!))!;
 
 		const guildCommandEmbed = new DraftBotEmbed()
 			.setThumbnail(GuildConstants.ICON);
@@ -91,43 +124,28 @@ export async function handleCommandGuildPacketRes(packet: CommandGuildPacketRes,
 		for (const member of packet.data!.members) {
 			membersInfos += i18n.t("commands:guild.memberInfos", {
 				lng: interaction.userLanguage,
-				icon:
-				isChief: member.id === packet.data!.chiefId,
-				isElder: member.id === packet.data!.elderId,
+				icon: getMemberTypeIcon(member, packet),
 				pseudo: (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, member.keycloakId))?.attributes.gameUsername,
 				ranking: member.rank,
 				score: member.score,
-				isOnPveIsland: member.islandStatus.isOnPveIsland,
-				isOnBoat: member.islandStatus.isOnBoat,
-				isPveIslandAlly: member.islandStatus.isPveIslandAlly,
-				isInactive: member.islandStatus.isInactive,
-				isNotBotJoinable: member.islandStatus.cannotBeJoinedOnBoat
+				islandStatusIcon: getIslandStatusIcon(member)
 			});
 		}
 
 		guildCommandEmbed.addFields({
-			name: guildModule.format("members", {
-				memberCount: members.length,
+			name: i18n.t("commands:guild.members", {
+				lng: interaction.userLanguage,
+				memberCount: packet.data!.members.length,
 				maxGuildMembers: GuildConstants.MAX_GUILD_MEMBERS
 			}),
 			value: membersInfos
 		});
 
 
-		const reply = await interaction.reply({
-			embeds: [
-				new DraftBotEmbed()
-					.setColor(<ColorResolvable>packet.data!.color)
-					.setTitle(i18n.t("commands:profile.title", {
-						lng: interaction.userLanguage,
-						effect: titleEffect,
-						pseudo: keycloakUser.attributes.gameUsername,
-						level: packet.data?.level
-					}))
-					.addFields(generateFields(packet, interaction.userLanguage))
-			],
+		await interaction.reply({
+			embeds: [guildCommandEmbed],
 			fetchReply: true
-		}) as Message;
+		});
 	}
 }
 

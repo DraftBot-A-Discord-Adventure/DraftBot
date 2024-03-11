@@ -1,5 +1,5 @@
 import {EmbedBuilder, HexColorString, User} from "discord.js";
-import {Constants} from "../../../Lib/src/constants/Constants";
+import { ColorConstants } from "../../../Lib/src/constants/ColorConstants";
 
 /**
  * Base class for bot embeds
@@ -30,7 +30,7 @@ export class DraftBotEmbed extends EmbedBuilder {
 	 *Set the color of the embed to the error color
 	 */
 	setErrorColor(): this {
-		this.setColor(<HexColorString>Constants.MESSAGES.COLORS.ERROR);
+		this.setColor(<HexColorString> ColorConstants.ERROR);
 		return this;
 	}
 }

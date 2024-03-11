@@ -1,11 +1,7 @@
 import {DataTypes, Model, Op, QueryTypes, Sequelize} from "sequelize";
 import {MissionsController} from "../../../missions/MissionsController";
-import {Constants} from "../../../Constants";
 import {getFoodIndexOf} from "../../../utils/FoodUtils";
 import Player, {Players} from "./Player";
-import {NumberChangeReason} from "../../../constants/LogsConstants";
-import {PetEntityConstants} from "../../../constants/PetEntityConstants";
-import {GuildConstants} from "../../../constants/GuildConstants";
 import {GuildPet, GuildPets} from "./GuildPet";
 import PetEntity from "./PetEntity";
 import {draftBotInstance} from "../../../../index";
@@ -13,6 +9,10 @@ import {DraftBotPacket} from "../../../../../../Lib/src/packets/DraftBotPacket";
 import {GuildLevelUpPacket} from "../../../../../../Lib/src/packets/notifications/GuildLevelUpPacket";
 import moment = require("moment");
 import {TopConstants} from "../../../../../../Lib/src/constants/TopConstants";
+import { Constants } from "../../../../../../Lib/src/Constants/Constants";
+import {NumberChangeReason} from "../../../../../../Lib/src/constants/LogsConstants";
+import {GuildConstants} from "../../../../../../Lib/src/constants/GuildConstants";
+import {PetEntityConstants} from "../../../../../../Lib/src/constants/PetEntityConstants";
 
 export class Guild extends Model {
 	declare readonly id: number;
