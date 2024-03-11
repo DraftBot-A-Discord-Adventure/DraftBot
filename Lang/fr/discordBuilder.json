@@ -29,6 +29,24 @@
     "description": "Affiche la latence du bot et permet au joueur de vérifier si le bot est en ligne.",
     "name": "ping"
   },
+  "guild": {
+    "description": "Affiche des informations sur une guilde.",
+    "name": "guilde",
+    "options": {
+      "rank": {
+        "description": "Le classement du joueur dont la guilde doit être affichée.",
+        "name": "classement"
+      },
+      "user": {
+        "description": "L'utilisateur dont la guilde doit être affichée.",
+        "name": "utilisateur"
+      },
+      "guildName": {
+        "description": "Le nom de la guilde dont les informations doivent être affichées.",
+        "name": "guilde"
+      }
+    }
+  },
   "profile": {
     "description": "Afficher le profil d'un joueur.",
     "name": "profil",
