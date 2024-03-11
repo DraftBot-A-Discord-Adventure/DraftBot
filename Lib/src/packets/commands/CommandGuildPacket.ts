@@ -34,6 +34,7 @@ export class CommandGuildPacketRes extends DraftBotPacket {
 		chiefId: number,
 		elderId: number,
 		level: number,
+		isMaxLevel: boolean,
 		experience: {
 			value: number,
 			max: number

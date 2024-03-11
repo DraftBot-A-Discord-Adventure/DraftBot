@@ -45,6 +45,7 @@ export default class GuildCommand {
 					chiefId: guild.chiefId,
 					elderId: guild.elderId,
 					level: guild.level,
+					isMaxLevel: guild.isAtMaxLevel(),
 					experience: {
 						value: guild.experience,
 						max: guild.getExperienceNeededToLevelUp()

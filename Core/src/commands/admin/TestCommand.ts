@@ -55,7 +55,7 @@ export default class TestCommand {
 			else {
 				// Last, we execute the test command
 				try {
-					const player = await Players.getByKeycloakId(packet.keycloakId);
+					const player = await Players.getOrRegister(packet.keycloakId);
 					const messageToDisplay = await commandTestCurrent.execute(player, argsTest, response, client);
 
 					response.push(makePacket(CommandTestPacketRes, {
