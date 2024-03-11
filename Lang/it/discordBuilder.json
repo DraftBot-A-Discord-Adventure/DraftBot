@@ -29,6 +29,24 @@
     "description": "Locandina della latenza del bot e permette ai giocatori di verificare se il bot è connesso.",
     "name": "ping"
   },
+  "guild": {
+    "description": "Affiche des informations sur une guilde.",
+    "name": "gilda",
+    "options": {
+      "rank": {
+        "description": "Le classement du joueur dont la guilde doit être affichée.",
+        "name": "classifica"
+      },
+      "user": {
+        "description": "L'utilisateur dont la guilde doit être affichée.",
+        "name": "utilizzatore"
+      },
+      "guildName": {
+        "description": "Le nom de la guilde dont les informations doivent être affichées.",
+        "name": "gilda"
+      }
+    }
+  },
   "profile": {
     "description": "Mostrare il profilo di un giocatore.",
     "name": "profilo",
