@@ -48,5 +48,6 @@
     "startBossFight": "inicio de un combate contra un jefe",
     "reportCommand": "informe de pedido",
     "cartChoose": "elección de montar o no en el carro"
-  }
+  },
+  "guildDoesntExist": "La guilde demandée n'existe pas"
 }
