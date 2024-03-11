@@ -3,9 +3,32 @@
     "description": "I badge sono distinzione difficile a ottenere che sono state create per ricompensare le persone che hanno il più sostenuti il sviluppo del bot. La lista dei badge e disponibile sulla guida del bot.\n(link : https://guide.draftbot.com/notions-avancees/badges)",
     "title": ":military_medal: Informazione dettagliate :"
   },
+  "guild": {
+    "embedTitle": "Guilde {{guildName}} | Niveau {{level}}",
+    "description": ":scroll: `{{description}}`",
+    "emojis": {
+      "chief": "👑",
+      "elder": "🎖️",
+      "member": "⚫",
+      "isOnPveIsland": "🏝️",
+      "isOnBoat": "⛴️",
+      "countAsAnAlly": "🤝",
+      "cannotBeJoinedOnBoat": "👻"
+    },
+    "separator": " | ",
+    "memberInfos": "{{icon}} - **{{pseudo}}** ({{ranking}} :trophy: | {{score}} :medal:{{islandStatusIcon}})\n",
+    "members": ":person_pouting: {{memberCount}}/{{maxGuildMembers}} membres",
+    "infoTitle": "Informazione",
+    "islandInfo": ":island: Nombre d'alliés sur l'île mystérieuse : {{membersOnPveIsland}\n",
+    "info": ":star: {{experience}} | :mirror_ball: {{guildPoints}} | :trophy: {{ranking}}",
+    "xpNeeded": "{{xp} / {{xpToLevelUp}}",
+    "xpMax": "Max",
+    "ranking": "{{rank} / {{rankTotal}}",
+    "notRanked": "Non classée"
+  },
   "idea": {
-    "description": "Vous pouvez proposer des suggestions et voter pour vos idées préférées via ce lien:\nhttps://feedback.draftbot.com/",
-    "title": ":bulb: Idées"
+    "description": "Potete fare proposte e votare per le vostre idee preferite a questo link:\nhttps://feedback.draftbot.com/",
+    "title": ":bulb: Idee"
   },
   "inventory": {
     "armors_one": "Armatura/Scudo ({{count}}/{{max}}) :",
@@ -25,7 +48,7 @@
   },
   "invite": {
     "discord": {
-      "main": "Rejoignez la communauté ! Utilisez ce lien : https://discord.gg/acGNvzEY92 :smiley:"
+      "main": "Unisciti alla comunità! Utilizza questo link: https://discord.gg/acGNvzEY92 :smiley:"
     }
   },
   "ping": {
@@ -117,75 +140,75 @@
     "title": "{{effect}} | {{pseudo}} | Livello {{level}}"
   },
   "rarity": {
-    "title": ":slot_machine: Rareté des équipements",
-    "rarities": ":small_orange_diamond: Basique | Possédé en début de jeu\n:large_orange_diamond: Commun | {{common}}%\n:fire: Peu commun | {{uncommon}}%\n:trident: Exotique | {{exotic}}%\n:comet: Rare | {{rare}}%\n:dizzy: Spécial | {{special}}%\n:star: Épique | {{epic}}%\n:star2: Légendaire | {{legendary}}%\n:gem: Mythique | {{unique}}%"
+    "title": ":slot_machine: Rarità delle attrezzature",
+    "rarities": ":small_orange_diamond: Basico | Posseduto dall'inizio della partita\n:large_orange_diamond: Commune | {{common}}%\n:fire: Insolito| {{uncommon}}%\n:trident: Exotico | {{exotic}}%\n:comet: Raro | {{rare}}%\n:dizzy: Speciale | {{special}}%\n:star: Epico | {{epic}}%\n:star2: Legendario | {{legendary}}%\n:gem: Mitico | {{unique}}%"
   },
   "update": {
     "description": "La versione attuale di l'essenziale del bot è la **{{coreVersion}}**. Quella del modulo Discord è la **{{discordModuleVersion}}**.\n\nTutte le informazione degli aggiornamenti sono disponibile qui :\nhttps://guide.draftbot.com/lore/historique-des-mises-a-jour",
     "title": ":scroll: Aggiornamenti"
   },
   "language": {
-    "selectLanguage": "Sélectionnez une langue",
-    "description": "Utilisez le menu ci-dessous pour changer la langue utilisée par le bot sur ce serveur. Cette commande est réservée aux administrateurs du serveur.",
-    "title": ":earth_africa: Sélection de la langue",
-    "newLanguageSetTitle": "Langue changée",
-    "newLanguageSetDescription": "DraftBot vous parlera désormais en français ! 🥖",
+    "selectLanguage": "Seleziona una lingua",
+    "description": "Utilizzare il menu sottostante per modificare la lingua utilizzata dal bot su questo server. Questo comando è riservato agli amministratori del server.",
+    "title": ":earth_africa: Selezione della lingua",
+    "newLanguageSetTitle": "Lingua modificata",
+    "newLanguageSetDescription": "Ora DraftBot vi parlerà in francese! 🥖",
     "languages": {
       "en": {
         "emoji": "🇬🇧",
-        "name": "Anglais"
+        "name": "Inglese"
       },
       "fr": {
         "emoji": "🇫🇷",
-        "name": "Français"
+        "name": "Francese"
       },
       "es": {
         "emoji": "🇪🇸",
-        "name": "Espagnol"
+        "name": "Spagnolo"
       },
       "de": {
         "emoji": "🇩🇪",
-        "name": "Allemand"
+        "name": "Tedesco"
       },
       "pt": {
         "emoji": "🇵🇹",
-        "name": "Portugais"
+        "name": "Portoghese"
       },
       "it": {
         "emoji": "🇮🇹",
-        "name": "Italien"
+        "name": "Italiano"
       }
     }
   },
   "help": {
     "aliasFieldTitle": "Alias",
-    "helpEmbedDescription": ":arrow_forward: Si vous voulez plus d'informations sur une commande en particulier, cliquez ici : {{helpCommandMention}}, et donnez la commande qui vous pose problème en paramètre. :wink:",
-    "serverCommands": ":gear: Serveur :",
-    "utilCommands": ":question: Utiles :",
-    "playerCommands": ":bust_in_silhouette: Joueur :",
-    "missionCommands": ":scroll: Mission :",
-    "guildCommands": ":stadium: Guilde :",
-    "forMoreHelp": ":arrow_forward: Pour plus d'aide : ",
-    "petCommands": ":dog: Animaux :",
+    "helpEmbedDescription": ":arrow_forward: Se volete ulteriori informazioni su un commando in particolare, fai click su: {{helpCommandMention}} e inserisci in parametro il nome del commando con qui hai problemi. :wink:",
+    "serverCommands": ":gear: Server :",
+    "utilCommands": ":question: Utili:",
+    "playerCommands": ":bust_in_silhouette: Giocatore :",
+    "missionCommands": ":scroll: Missione:",
+    "guildCommands": ":stadium: Gilda:",
+    "forMoreHelp": ":arrow_forward: Per ulteriori informazioni: ",
+    "petCommands": ":dog: Animali:",
     "commandEmbedTitle": "{{emote}} Informazione dettagliate :",
-    "forMoreHelpValue": "Vous pouvez vous rendre sur le [wiki](https://guide.draftbot.com/) du bot !",
-    "usageFieldTitle": "Utilisation",
+    "forMoreHelpValue": "Potete visitare il [wiki](https://guide.draftbot.com/) del bot !",
+    "usageFieldTitle": "Utilizzo",
     "aliasesFieldTitle": "Alias",
     "commands": {
       "PREFIX": {
-        "description": "Cette fonctionnalité a été supprimée du jeu suite à une mise à jour des fonctionnalités proposées par Discord."
+        "description": "Questa funzione è stata rimossa dal gioco in seguito a un aggiornamento delle funzionalità di Discord."
       },
       "PING": {
-        "description": "Permet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. :clock1:"
+        "description": "Permette di sapere se il bot è online.\n\n(Nota: il tempo visualizzato è il tempo di risposta del bot e non il vostro ping: un tempo di risposta corretto sarà inferiore a 500ms. :clock1:"
       },
       "RESPAWN": {
-        "description": "Permet de recommencer à jouer après avoir été mis K.O."
+        "description": "Permette di ricominciare a giocare dopo essere stato messo K.O."
       },
       "PROFILE": {
-        "description": "Affiche des informations sur votre personnage :\n\n😃 État de santé | Pseudo | Level\n\n឵឵឵Informations :\n❤️ Vie | ⭐ XP | 💰 Argent\n\nStatistiques :\n⚡ Énergie | 🗡️ Attaque | 🛡️ Défense | 🚀 Vitesse | 🌬️ Souffle | 🫁 Récupération\n\nMissions :\n💎 Gemmes | 📖 Avancé de la campagne %\n\nClassement et score :\n🏆 Classement | 🏅 Score\n\nClasse :\nVoir {{classesCommandMention}}\n\nGloire et Ligue :\n✨ Gloire | Voir {{topGloryCommandMention}}\n\nGuilde :\n🏟️ Guilde\n\nDestination :\nVoir {{mapCommandMention}}\n\nFamilier :\nVoir {{petCommandMention}}\n\n💡-Les badges sont affichés sur votre profil sous forme de réaction."
+        "description": "Visualizza le informazioni sul personaggio:\n\n😃 Stato di salute | Nickname | Livello\n\n឵឵Informazioni:\n❤️ Vita | ⭐ XP | 💰 Denaro\n\nStatistiche :\n⚡ Energia | 🗡️ Attacco | 🛡️ Difesa | 🚀 Velocità | 🌬️ Respirazione | 🫁 Recupero\n\nMissioni :\n💎 Gemme | 📖 Avanzata della campagna %\n\nRango e punteggio:\n🏆 Rango | 🏅 Punteggio\n\nClasse:\nVedi {{classesCommandMention}}\n\nGloria e Lega:\n✨ Gloria | Vedi {{topGloryCommandMention}}\n\nGilda:\n🏟️ Gilda\n\nDestinazione:\nVedi {{mapCommandMention}}\n\nFamiliare:\nVedi {{petCommandMention}}\n\n💡 I distintivi vengono visualizzati sul tuo profilo come reazione."
       },
       "SWITCH": {
-        "description": "Échange l'item qui se trouve dans votre réserve avec l'item qui se trouve dans la case \"item\" de votre inventaire."
+        "description": "Scambia l'oggetto nella vostra riserva con l'oggetto nella casella \"oggetto\" del vostro inventario."
       },
       "FIGHT": {
         "description": "Utilisez cette commande pour défier les autres joueurs qui se trouvent sur le même serveur que vous.\nLes combats se déroulent tour par tour. À chaque tour, vous pouvez choisir une action à effectuer.\n\nPour plus d'informations vous pouvez aller voir la page du guide : https://guide.draftbot.com/notions-principale/combats",

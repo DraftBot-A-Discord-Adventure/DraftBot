@@ -48,5 +48,6 @@
     "startBossFight": "start of a boss fight",
     "reportCommand": "report command",
     "cartChoose": "choice to get in the cart or not"
-  }
+  },
+  "guildDoesntExist": "La guilde demandée n'existe pas"
 }

@@ -3,6 +3,29 @@
     "description": "Las insignias son difíciles de obtener y se han creado para recompensar a las personas que más han contribuido al desarrollo del bot. La lista de insignias está disponible en la guía del bot.\n(a través de este enlace: https://guide.draftbot.com/notions-avancees/badges)",
     "title": ":military_medal: Información detallada:"
   },
+  "guild": {
+    "embedTitle": "Guilde {{guildName}} | Niveau {{level}}",
+    "description": ":scroll: `{{description}}`",
+    "emojis": {
+      "chief": "👑",
+      "elder": "🎖️",
+      "member": "⚫",
+      "isOnPveIsland": "🏝️",
+      "isOnBoat": "⛴️",
+      "countAsAnAlly": "🤝",
+      "cannotBeJoinedOnBoat": "👻"
+    },
+    "separator": " | ",
+    "memberInfos": "{{icon}} - **{{pseudo}}** ({{ranking}} :trophy: | {{score}} :medal:{{islandStatusIcon}})\n",
+    "members": ":person_pouting: {{memberCount}}/{{maxGuildMembers}} membres",
+    "infoTitle": "Informations",
+    "islandInfo": ":island: Nombre d'alliés sur l'île mystérieuse : {{membersOnPveIsland}\n",
+    "info": ":star: {{experience}} | :mirror_ball: {{guildPoints}} | :trophy: {{ranking}}",
+    "xpNeeded": "{{xp} / {{xpToLevelUp}}",
+    "xpMax": "Max",
+    "ranking": "{{rank} / {{rankTotal}}",
+    "notRanked": "Non classée"
+  },
   "idea": {
     "description": "Puede hacer sugerencias y votar sus ideas favoritas a través de este enlace:\nhttps://feedback.draftbot.com/",
     "title": ":bulb: Ideas"

@@ -48,5 +48,6 @@
     "startBossFight": "Beginn eines Boss-Kampfes",
     "reportCommand": "Bericht, Befehl",
     "cartChoose": "auswählen, um in den Wagen zu montieren oder nicht"
-  }
+  },
+  "guildDoesntExist": "La guilde demandée n'existe pas"
 }

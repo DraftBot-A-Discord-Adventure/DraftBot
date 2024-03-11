@@ -3,9 +3,9 @@
     "possibilities": {
       "cutTree": {
         "outcomes": {
-          "0": "Couper cet arbre aura pris 30 minutes !"
+          "0": "Per abbattere questo albero ci saranno voluti 30 minuti!"
         },
-        "text": "Couper l'arbre et continuer."
+        "text": "Tagliare l'albero e continuare."
       },
       "end": {
         "outcomes": {
