@@ -146,39 +146,39 @@ export async function reportResult(packet: CommandReportBigEventResultRes, conte
 
 	let result = "";
 	if (packet.score) {
-		result += i18n.t("commands:report.points", { lng: interaction.channel.language, score: packet.score });
+		result += i18n.t("commands:report.points", { lng: interaction.userLanguage, score: packet.score });
 	}
 	if (packet.money < 0) {
-		result += i18n.t("commands:report.moneyLoose", { lng: interaction.channel.language, money: -packet.money });
+		result += i18n.t("commands:report.moneyLoose", { lng: interaction.userLanguage, money: -packet.money });
 	}
 	else if (packet.money > 0) {
-		result += i18n.t("commands:report.money", { lng: interaction.channel.language, money: packet.money });
+		result += i18n.t("commands:report.money", { lng: interaction.userLanguage, money: packet.money });
 	}
 	if (packet.health < 0) {
-		result += i18n.t("commands:report.healthLoose", { lng: interaction.channel.language, health: -packet.health });
+		result += i18n.t("commands:report.healthLoose", { lng: interaction.userLanguage, health: -packet.health });
 	}
 	else if (packet.health > 0) {
-		result += i18n.t("commands:report.health", { lng: interaction.channel.language, health: packet.health });
+		result += i18n.t("commands:report.health", { lng: interaction.userLanguage, health: packet.health });
 	}
 	if (packet.energy) {
-		result += i18n.t("commands:report.energy", { lng: interaction.channel.language, energy: packet.energy });
+		result += i18n.t("commands:report.energy", { lng: interaction.userLanguage, energy: packet.energy });
 	}
 	if (packet.gems) {
-		result += i18n.t("commands:report.gems", { lng: interaction.channel.language, gems: packet.gems });
+		result += i18n.t("commands:report.gems", { lng: interaction.userLanguage, gems: packet.gems });
 	}
 	if (packet.experience) {
-		result += i18n.t("commands:report.experience", { lng: interaction.channel.language, experience: packet.experience });
+		result += i18n.t("commands:report.experience", { lng: interaction.userLanguage, experience: packet.experience });
 	}
 	if (packet.effect && packet.effect.name === Effect.OCCUPIED.id) {
-		result += i18n.t("commands:report.timeLost", { lng: interaction.channel.language, timeLost: minutesDisplay(packet.effect.time) });
+		result += i18n.t("commands:report.timeLost", { lng: interaction.userLanguage, timeLost: minutesDisplay(packet.effect.time) });
 	}
 
 	const content = i18n.t("commands:report.doPossibility", {
-		lng: interaction.channel.language,
+		lng: interaction.userLanguage,
 		interpolation: { escapeValue: false },
 		pseudo: user.attributes.gameUsername,
 		result,
-		event: i18n.t(`events:${packet.eventId}.possibilities.${packet.possibilityId}.outcomes.${packet.outcomeId}`),
+		event: i18n.t(`events:${packet.eventId}.possibilities.${packet.possibilityId}.outcomes.${packet.outcomeId}`, { lng: interaction.userLanguage }),
 		emoji: packet.possibilityId === "end" ? (DraftBotIcons.events[packet.eventId].end as { [outcomeId: string]: string })[packet.outcomeId] : DraftBotIcons.events[packet.possibilityId],
 		alte: packet.effect ? DraftBotIcons.effects[packet.effect.name] : ""
 	});

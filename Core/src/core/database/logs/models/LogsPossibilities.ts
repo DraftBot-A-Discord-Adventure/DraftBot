@@ -5,7 +5,7 @@ export class LogsPossibilities extends Model {
 
 	declare readonly bigEventId: number;
 
-	declare readonly emote: string;
+	declare readonly possibilityName: string;
 
 	declare readonly issueIndex: number;
 }
@@ -21,8 +21,8 @@ export function initModel(sequelize: Sequelize): void {
 			type: DataTypes.SMALLINT.UNSIGNED,
 			allowNull: false
 		},
-		emote: {
-			type: DataTypes.STRING(5), // eslint-disable-line new-cap
+		possibilityName: {
+			type: DataTypes.STRING(256), // eslint-disable-line new-cap
 			allowNull: true // Null for end
 		},
 		issueIndex: {
