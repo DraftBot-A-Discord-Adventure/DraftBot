@@ -48,6 +48,6 @@
   "titleBlocked": "{{pseudo}}¡esta persona está bloqueada!",
   "titleCanceled": "{{pseudo}}¡cancelación tenida en cuenta!",
   "titleDidntWork": "{{pseudo}}, hmmm... ¡No funcionó!",
-  "unexpectedError": "Se ha producido un error :(",
-  "guildDoesntExist": "La guilde demandée n'existe pas"
+  "guildDoesntExist": "La guilde demandée n'existe pas",
+  "unexpectedError": "Se ha producido un error :("
 }
