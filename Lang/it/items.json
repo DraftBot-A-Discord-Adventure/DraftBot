@@ -1,16 +1,25 @@
 {
-  "nameDisplay": "{{emote}} **{{{name}}}**",
-  "nerfDisplay": "~~{{old}}~~ {{max}}",
-  "attack": ":dagger: {{value}}",
-  "defense": ":shield: {{value}}",
-  "speed": ":rocket: {{value}}",
-  "weapons": {
-    "fieldName": "Arma :",
-    "fieldValue": "**{{name}}** | {{rarity}} | {{values}}"
-  },
   "armors": {
     "fieldName": "Armatura/scudo:",
     "fieldValue": "**{{name}}** | {{rarity}} | {{values}}"
+  },
+  "attack": ":dagger: {{value}}",
+  "defense": ":shield: {{value}}",
+  "nameDisplay": "{{emote}} **{{{name}}}**",
+  "nerfDisplay": "~~{{old}}~~ {{max}}",
+  "objects": {
+    "fieldName": "Oggetto :",
+    "fieldValue": "**{{name}}** | {{rarity}} | {{nature}}",
+    "natures": [
+      ":x: Nessuno effetto",
+      ":heart: Vita + {{power}} ogni giorno",
+      ":rocket: Velocità + {{power}} mentre gli affronti",
+      ":crossed_swords: Attacco + {{power}} mentre gli affronti",
+      ":shield: Difesa + {{power}} mentre gli prossimi affronti",
+      ":clock1030: Avanza il tempo di {{power}} ogni giorno",
+      ":moneybag: Soldi + {{power}} ogni giorno",
+      ":zap: Energia + {{power}} ogni giorno"
+    ]
   },
   "potions": {
     "fieldName": "Pozione :",
@@ -26,20 +35,6 @@
       ":zap: Energia + {{power}}"
     ]
   },
-  "objects": {
-    "fieldName": "Oggetto :",
-    "fieldValue": "**{{name}}** | {{rarity}} | {{nature}}",
-    "natures": [
-      ":x: Nessuno effetto",
-      ":heart: Vita + {{power}} ogni giorno",
-      ":rocket: Velocità + {{power}} mentre gli affronti",
-      ":crossed_swords: Attacco + {{power}} mentre gli affronti",
-      ":shield: Difesa + {{power}} mentre gli prossimi affronti",
-      ":clock1030: Avanza il tempo di {{power}} ogni giorno",
-      ":moneybag: Soldi + {{power}} ogni giorno",
-      ":zap: Energia + {{power}} ogni giorno"
-    ]
-  },
   "rarities": [
     ":small_orange_diamond: Basico",
     ":large_orange_diamond: Comune",
@@ -50,5 +45,10 @@
     ":star: Epico",
     ":star2: Leggendario",
     ":gem: Mitico"
-  ]
+  ],
+  "speed": ":rocket: {{value}}",
+  "weapons": {
+    "fieldName": "Arma :",
+    "fieldValue": "**{{name}}** | {{rarity}} | {{values}}"
+  }
 }
