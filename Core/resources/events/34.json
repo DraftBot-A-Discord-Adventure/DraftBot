@@ -15,7 +15,7 @@
         "food": {
             "outcomes": {
                 "0": {
-                    "effect": ":sick:",
+                    "effect": "sick",
                     "money": -300
                 },
                 "1": {
@@ -40,7 +40,7 @@
             "outcomes": {
                 "0": {},
                 "1": {
-                    "effect": ":confounded:",
+                    "effect": "confounded",
                     "health": -10
                 },
                 "2": {
@@ -54,12 +54,12 @@
                     "randomItem": {}
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 85,
                     "money": 350
                 },
                 "2": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 190
                 }
             }

@@ -1,4 +1,4 @@
-import {EffectsConstants} from "./EffectsConstants";
+import {Effect} from "../enums/Effect";
 import {NotificationsConstants} from "./NotificationsConstants";
 
 export abstract class PlayersConstants {
@@ -9,12 +9,12 @@ export abstract class PlayersConstants {
 		EXPERIENCE: 0,
 		MONEY: 0,
 		CLASS: 0,
-		BADGES: null as string,
-		GUILD_ID: null as number,
+		BADGES: null as unknown as string,
+		GUILD_ID: null as unknown as number,
 		TOP_GG_VOTE_AT: new Date(0),
 		LAST_PET_FREE: new Date(0),
-		EFFECT: EffectsConstants.EMOJI_TEXT.BABY,
-		EFFECT_DURATION: EffectsConstants.DURATION[":baby:"],
+		EFFECT: Effect.NOT_STARTED.id,
+		EFFECT_DURATION: Effect.NOT_STARTED.timeMinutes,
 		START_TRAVEL_DATE: 0,
 		NOTIFICATIONS: NotificationsConstants.DM_VALUE
 	};

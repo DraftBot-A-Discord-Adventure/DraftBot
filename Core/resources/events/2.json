@@ -10,7 +10,7 @@
         "followDog": {
             "outcomes": {
                 "0": {
-                    "effect": ":face_with_monocle:"
+                    "effect": "lost"
                 },
                 "1": {
                     "money": 176
@@ -20,12 +20,12 @@
         "skip": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 15
                 },
                 "1": {},
                 "2": {
-                    "effect": ":head_bandage:",
+                    "effect": "hurt",
                     "health": -15
                 }
             }

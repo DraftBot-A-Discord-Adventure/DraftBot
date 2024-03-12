@@ -30,7 +30,7 @@
         "wave": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 50
                 },
                 "1": {

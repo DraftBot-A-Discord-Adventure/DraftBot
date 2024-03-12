@@ -11,11 +11,11 @@
         "restHere": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 180
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": 1,
                     "lostTime": 90
                 }
@@ -24,12 +24,12 @@
         "restTree": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": 10,
                     "lostTime": 55
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 60,
                     "money": -100
                 }
@@ -38,18 +38,18 @@
         "searchWater": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": 10,
                     "lostTime": 50
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": 10,
                     "lostTime": 30,
                     "randomItem": {}
                 },
                 "2": {
-                    "effect": ":sleeping:",
+                    "effect": "sleeping",
                     "health": -10
                 }
             }

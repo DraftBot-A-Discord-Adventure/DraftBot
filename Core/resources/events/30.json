@@ -3,7 +3,7 @@
         "duke": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": 10,
                     "lostTime": 50,
                     "tags": [
@@ -11,7 +11,7 @@
                     ]
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 30,
                     "money": 150,
                     "tags": [
@@ -19,7 +19,7 @@
                     ]
                 },
                 "2": {
-                    "effect": ":lock:"
+                    "effect": "jailed"
                 }
             }
         },
@@ -41,14 +41,14 @@
                     ]
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 35,
                     "tags": [
                         "bigFeast"
                     ]
                 },
                 "2": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "randomItem": {},
                     "tags": [
                         "bigFeast"
@@ -59,14 +59,14 @@
         "party": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 155,
                     "tags": [
                         "bigFeast"
                     ]
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 85,
                     "money": -100,
                     "tags": [
@@ -75,7 +75,7 @@
                     ]
                 },
                 "2": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": 50,
                     "lostTime": 60,
                     "tags": [
@@ -87,13 +87,13 @@
         "steal": {
             "outcomes": {
                 "0": {
-                    "effect": ":lock:"
+                    "effect": "jailed"
                 },
                 "1": {
                     "health": 20
                 },
                 "2": {
-                    "effect": ":sick:"
+                    "effect": "sick"
                 }
             }
         }

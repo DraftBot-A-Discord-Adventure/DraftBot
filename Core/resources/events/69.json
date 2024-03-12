@@ -5,7 +5,7 @@
                 "0": {},
                 "1": {},
                 "2": {
-                    "effect": ":sleeping:",
+                    "effect": "sleeping",
                     "health": 35
                 }
             }
@@ -14,7 +14,7 @@
             "outcomes": {
                 "0": {},
                 "1": {
-                    "effect": ":sleeping:",
+                    "effect": "sleeping",
                     "tags": [
                         "drinkAlcohol"
                     ]
@@ -24,11 +24,11 @@
         "deny": {
             "outcomes": {
                 "0": {
-                    "effect": ":head_bandage:",
+                    "effect": "hurt",
                     "health": -25
                 },
                 "1": {
-                    "effect": ":sick:",
+                    "effect": "sick",
                     "health": -10
                 }
             }
@@ -36,7 +36,7 @@
         "end": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 135
                 }
             }

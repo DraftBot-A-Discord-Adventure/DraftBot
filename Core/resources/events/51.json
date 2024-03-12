@@ -3,11 +3,11 @@
         "end": {
             "outcomes": {
                 "0": {
-                    "effect": ":sleeping:",
+                    "effect": "sleeping",
                     "health": 5
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": -10,
                     "lostTime": 10
                 },
@@ -17,7 +17,7 @@
         "goBack": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 120
                 },
                 "1": {
@@ -25,7 +25,7 @@
                     "money": -120
                 },
                 "2": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": 10,
                     "lostTime": 60
                 }
@@ -38,7 +38,7 @@
                 },
                 "1": {},
                 "2": {
-                    "effect": ":head_bandage:",
+                    "effect": "hurt",
                     "health": -20
                 }
             }
@@ -46,16 +46,16 @@
         "stairs": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 180,
                     "randomItem": {}
                 },
                 "1": {
-                    "effect": ":sleeping:",
+                    "effect": "sleeping",
                     "health": 15
                 },
                 "2": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": -35,
                     "lostTime": 10
                 }

@@ -3,21 +3,21 @@
         "checkDate": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 190,
                     "money": 700
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": 7,
                     "lostTime": 10
                 },
                 "2": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 120
                 },
                 "3": {
-                    "effect": ":zany_face:",
+                    "effect": "drunk",
                     "money": 200,
                     "tags": [
                         "drinkAlcohol"
@@ -28,12 +28,12 @@
         "end": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 60
                 },
                 "1": {},
                 "2": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 10
                 }
             }
@@ -41,19 +41,19 @@
         "read": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": 27,
                     "lostTime": 60
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 10
                 },
                 "2": {
-                    "effect": ":sick:"
+                    "effect": "sick"
                 },
                 "3": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 30
                 }
             }
@@ -61,7 +61,7 @@
         "steal": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 20
                 },
                 "1": {

@@ -10,14 +10,14 @@
                     "money": -200
                 },
                 "3": {
-                    "effect": ":head_bandage:",
+                    "effect": "hurt",
                     "health": -30
                 },
                 "4": {
                     "money": 400
                 },
                 "5": {
-                    "effect": ":head_bandage:",
+                    "effect": "hurt",
                     "health": -60
                 },
                 "6": {
@@ -29,7 +29,7 @@
             "outcomes": {
                 "0": {},
                 "1": {
-                    "effect": ":sleeping:"
+                    "effect": "sleeping"
                 },
                 "2": {},
                 "3": {
@@ -44,7 +44,7 @@
             "outcomes": {
                 "0": {},
                 "1": {
-                    "effect": ":dizzy_face:",
+                    "effect": "injured",
                     "health": -105
                 },
                 "2": {
@@ -55,7 +55,7 @@
                 },
                 "4": {},
                 "5": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 300
                 }
             }
@@ -69,11 +69,11 @@
                     "money": 500
                 },
                 "4": {
-                    "effect": ":head_bandage:",
+                    "effect": "hurt",
                     "health": -60
                 },
                 "5": {
-                    "effect": ":head_bandage:",
+                    "effect": "hurt",
                     "health": -50
                 },
                 "6": {
@@ -86,7 +86,7 @@
                 "0": {},
                 "1": {},
                 "2": {
-                    "effect": ":head_bandage:"
+                    "effect": "hurt"
                 },
                 "3": {
                     "randomItem": {}

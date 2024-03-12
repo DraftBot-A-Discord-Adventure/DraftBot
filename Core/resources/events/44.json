@@ -10,17 +10,17 @@
         "help": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": -10,
                     "lostTime": 60
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": 15,
                     "lostTime": 180
                 },
                 "2": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 15,
                     "randomItem": {}
                 },
@@ -43,12 +43,12 @@
         "watch": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 10,
                     "money": 300
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 360,
                     "money": -200
                 }

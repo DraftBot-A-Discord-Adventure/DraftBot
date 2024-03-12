@@ -3,7 +3,7 @@
         "deny": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 30,
                     "money": -50,
                     "tags": [
@@ -25,7 +25,7 @@
                     "money": 1000
                 },
                 "1": {
-                    "effect": ":lock:",
+                    "effect": "jailed",
                     "money": -200
                 }
             }
@@ -36,7 +36,7 @@
                     "health": 30
                 },
                 "1": {
-                    "effect": ":sick:",
+                    "effect": "sick",
                     "money": 250
                 },
                 "2": {}

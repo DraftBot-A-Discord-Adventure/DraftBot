@@ -4,7 +4,7 @@
             "outcomes": {
                 "0": {},
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": 5,
                     "lostTime": 40
                 }
@@ -13,7 +13,7 @@
         "foodStand": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": 75,
                     "lostTime": 30,
                     "money": -20,
@@ -22,7 +22,7 @@
                     ]
                 },
                 "1": {
-                    "effect": ":sick:",
+                    "effect": "sick",
                     "health": -100,
                     "money": -20,
                     "tags": [
@@ -46,7 +46,7 @@
                     ]
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 30
                 },
                 "2": {
@@ -57,7 +57,7 @@
         "itemStand": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 240
                 },
                 "1": {

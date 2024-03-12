@@ -9,11 +9,11 @@ import {BlockingUtils} from "../utils/BlockingUtils";
 import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {TravelTime} from "../maps/TravelTime";
-import {EffectsConstants} from "../../../../Lib/src/constants/EffectsConstants";
 import {SmallEventGobletsGamePacket} from "../../../../Lib/src/packets/smallEvents/SmallEventGobletsGamePacket";
 import {EndCallback, ReactionCollectorInstance} from "../utils/ReactionsCollector";
 import {ReactionCollectorGobletsGame} from "../../../../Lib/src/packets/interaction/ReactionCollectorGobletsGame";
 import {ReactionCollectorReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import {Effect} from "../../../../Lib/src/enums/Effect";
 
 type GobletsGameProperties = {
 	"malusTypes": string[]
@@ -36,7 +36,7 @@ async function applyMalus(response: DraftBotPacket[], player: Player, reaction: 
 	case "time":
 		packet.value = Math.round(player.level * SmallEventConstants.GOBLETS_GAME.TIME_LOST.LEVEL_MULTIPLIER) + SmallEventConstants.GOBLETS_GAME.TIME_LOST.BASE
 			+ RandomUtils.variationInt(SmallEventConstants.GOBLETS_GAME.TIME_LOST.VARIATION);
-		await TravelTime.applyEffect(player, EffectsConstants.EMOJI_TEXT.OCCUPIED, packet.value, new Date(), NumberChangeReason.SMALL_EVENT);
+		await TravelTime.applyEffect(player, Effect.OCCUPIED, packet.value, new Date(), NumberChangeReason.SMALL_EVENT);
 		break;
 	case "nothing":
 		break;

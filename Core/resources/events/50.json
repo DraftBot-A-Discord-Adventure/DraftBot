@@ -19,7 +19,7 @@
         "end": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 10
                 },
                 "1": {}
@@ -39,16 +39,16 @@
         "nap": {
             "outcomes": {
                 "0": {
-                    "effect": ":head_bandage:",
+                    "effect": "hurt",
                     "health": -30
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": 10,
                     "lostTime": 60
                 },
                 "2": {
-                    "effect": ":sleeping:",
+                    "effect": "sleeping",
                     "money": -50
                 }
             }

@@ -8,7 +8,7 @@ import {ItemNature, ItemRarity} from "../../../Lib/src/constants/ItemConstants";
 import {DraftBotPacket} from "../../../Lib/src/packets/DraftBotPacket";
 import {TravelTime} from "../core/maps/TravelTime";
 import {NumberChangeReason} from "../../../Lib/src/constants/LogsConstants";
-import {EffectsConstants} from "../../../Lib/src/constants/EffectsConstants";
+import {Effect} from "../../../Lib/src/enums/Effect";
 
 
 export enum WitchActionOutcomeType {
@@ -66,8 +66,8 @@ export class WitchAction extends Data<string> {
 		}
 	}
 
-	private getEffectType(): string {
-		return this.effectType ?? EffectsConstants.EMOJI_TEXT.OCCUPIED;
+	private getEffectType(): Effect {
+		return Effect.getById(this.effectType) ?? Effect.OCCUPIED;
 	}
 }
 

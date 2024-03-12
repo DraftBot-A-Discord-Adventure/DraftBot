@@ -5,7 +5,6 @@ import MissionSlot from "./MissionSlot";
 import {InventoryInfos} from "./InventoryInfo";
 import {MissionsController} from "../../../missions/MissionsController";
 import {PlayerActiveObjects} from "./PlayerActiveObjects";
-import {EffectsConstants} from "../../../../../../Lib/src/constants/EffectsConstants";
 import {getOneDayAgo, millisecondsToSeconds, minutesToHours} from "../../../../../../Lib/src/utils/TimeUtils";
 import {TravelTime} from "../../../maps/TravelTime";
 import {ItemCategory} from "../../../../../../Lib/src/constants/ItemConstants";
@@ -14,7 +13,7 @@ import {RandomUtils} from "../../../utils/RandomUtils";
 import {LogsReadRequests} from "../../logs/LogsReadRequests";
 import {PlayerSmallEvents} from "./PlayerSmallEvent";
 import {Guilds} from "./Guild";
-import {DraftBotPacket} from "../../../../../../Lib/src/packets/DraftBotPacket";
+import {DraftBotPacket, makePacket} from "../../../../../../Lib/src/packets/DraftBotPacket";
 import {PlayerDeathPacket} from "../../../../../../Lib/src/packets/notifications/PlayerDeathPacket";
 import {PlayerLeavePveIslandPacket} from "../../../../../../Lib/src/packets/notifications/PlayerLeavePveIslandPacket";
 import {PlayerLevelUpPacket} from "../../../../../../Lib/src/packets/notifications/PlayerLevelUpPacket";
@@ -39,6 +38,7 @@ import {GuildConstants} from "../../../../../../Lib/src/constants/GuildConstants
 import {MapConstants} from "../../../../../../Lib/src/constants/MapConstants";
 import {BlockingConstants} from "../../../../../../Lib/src/constants/BlockingConstants";
 import moment = require("moment");
+import {Effect} from "../../../../../../Lib/src/enums/Effect";
 
 export type PlayerEditValueParameters = {
 	player: Player,
@@ -96,7 +96,7 @@ export class Player extends Model {
 
 	declare lastPetFree: Date;
 
-	declare effect: string;
+	declare effectId: string;
 
 	declare effectEndDate: Date;
 
@@ -276,7 +276,8 @@ export class Player extends Model {
 	public async addLevelUpPacket(response: DraftBotPacket[]): Promise<void> {
 		const healthRestored = this.level % 10 === 0;
 
-		const packet: PlayerLevelUpPacket = {
+		const packet = makePacket(PlayerLevelUpPacket, {
+			level: this.level,
 			fightUnlocked: this.level === FightConstants.REQUIRED_LEVEL,
 			guildUnlocked: this.level === GuildConstants.REQUIRED_LEVEL,
 			healthRestored,
@@ -287,7 +288,7 @@ export class Player extends Model {
 			classesTier5Unlocked: this.level === Constants.CLASS.GROUP4LEVEL,
 			missionSlotUnlocked: this.level === Constants.MISSIONS.SLOT_2_LEVEL || this.level === Constants.MISSIONS.SLOT_3_LEVEL,
 			pveUnlocked: this.level === PVEConstants.MIN_LEVEL
-		};
+		});
 
 		if (healthRestored) {
 			await this.addHealth(this.getMaxHealth() - this.health, response, NumberChangeReason.LEVEL_UP, {
@@ -329,11 +330,11 @@ export class Player extends Model {
 	/**
 	 * This function is called when a player receives an effect after a report
 	 * @param timeMalus
-	 * @param effectMalus
+	 * @param effect
 	 * @param reason
 	 */
-	public async setLastReportWithEffect(timeMalus: number, effectMalus: string, reason: NumberChangeReason): Promise<void> {
-		await TravelTime.applyEffect(this, effectMalus, timeMalus, new Date(), reason);
+	public async setLastReportWithEffect(timeMalus: number, effect: Effect, reason: NumberChangeReason): Promise<void> {
+		await TravelTime.applyEffect(this, effect, timeMalus, new Date(), reason);
 		await this.save();
 	}
 
@@ -346,8 +347,8 @@ export class Player extends Model {
 		if (this.health > 0) {
 			return false;
 		}
-		await TravelTime.applyEffect(this, EffectsConstants.EMOJI_TEXT.DEAD, 0, new Date(), reason);
-		const packet: PlayerDeathPacket = {};
+		await TravelTime.applyEffect(this, Effect.DEAD, 0, new Date(), reason);
+		const packet = makePacket(PlayerDeathPacket, {});
 		response.push(packet);
 		return true;
 	}
@@ -378,10 +379,10 @@ export class Player extends Model {
 	 * @param date
 	 */
 	public currentEffectFinished(date: Date): boolean {
-		if (this.effect === EffectsConstants.EMOJI_TEXT.DEAD || this.effect === EffectsConstants.EMOJI_TEXT.BABY) {
+		if (this.effectId === Effect.DEAD.id || this.effectId === Effect.NOT_STARTED.id) {
 			return false;
 		}
-		if (this.effect === EffectsConstants.EMOJI_TEXT.SMILEY) {
+		if (this.effectId === Effect.NO_EFFECT.id) {
 			return true;
 		}
 		if (!this.effectEndDate) {
@@ -395,8 +396,7 @@ export class Player extends Model {
 	 */
 	public effectRemainingTime(): number {
 		let remainingTime = 0;
-		if (Object.values(EffectsConstants.EMOJI_TEXT)
-			.includes(this.effect) || this.effect === EffectsConstants.EMOJI_TEXT.OCCUPIED) {
+		if (Effect.getById(this.effectId)) {
 			if (!this.effectEndDate || this.effectEndDate.valueOf() === 0) {
 				return 0;
 			}
@@ -412,14 +412,14 @@ export class Player extends Model {
 	 * Check if the player is under some effect (except dead or baby)
 	 */
 	public checkEffect(): boolean {
-		return [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.SMILEY, EffectsConstants.EMOJI_TEXT.DEAD].indexOf(this.effect) !== -1;
+		return [Effect.NOT_STARTED.id, Effect.NO_EFFECT.id, Effect.DEAD.id].indexOf(this.effectId) !== -1;
 	}
 
 	/**
 	 * Check if the player is dead and needs to respawn
 	 */
 	public isDead(): boolean {
-		return this.effect === EffectsConstants.EMOJI_TEXT.DEAD;
+		return this.effectId === Effect.DEAD.id;
 	}
 
 	/**
@@ -749,7 +749,7 @@ export class Player extends Model {
 			MapLinkDataController.instance.getById(MapConstants.WATER_MAP_LINKS[RandomUtils.randInt(0, MapConstants.WATER_MAP_LINKS.length)]),
 			Date.now()
 		);
-		await TravelTime.applyEffect(this, EffectsConstants.EMOJI_TEXT.CONFOUNDED, 0, new Date(), NumberChangeReason.PVE_ISLAND);
+		await TravelTime.applyEffect(this, Effect.CONFOUNDED, 0, new Date(), NumberChangeReason.PVE_ISLAND);
 		await PlayerSmallEvents.removeSmallEventsOfPlayer(this.id);
 		return true;
 	}

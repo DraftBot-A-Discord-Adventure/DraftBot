@@ -3,16 +3,16 @@
         "askAdvices": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 300
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": 25,
                     "lostTime": 30
                 },
                 "2": {
-                    "effect": ":zany_face:",
+                    "effect": "drunk",
                     "tags": [
                         "drinkAlcohol."
                     ]
@@ -25,11 +25,11 @@
                     "money": 350
                 },
                 "1": {
-                    "effect": ":head_bandage:",
+                    "effect": "hurt",
                     "health": -30
                 },
                 "2": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": 40,
                     "lostTime": 40
                 }
@@ -38,11 +38,11 @@
         "end": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 10
                 },
                 "1": {
-                    "effect": ":sick:"
+                    "effect": "sick"
                 }
             }
         },

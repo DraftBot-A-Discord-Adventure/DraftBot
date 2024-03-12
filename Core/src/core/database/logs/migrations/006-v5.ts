@@ -1,4 +1,5 @@
 import {QueryInterface} from "sequelize";
+import {Effect} from "../../../../../../Lib/src/enums/Effect";
 
 // Populated by v5 migration of game
 // Map discordId => new ID
@@ -12,6 +13,11 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 	}
 
 	await context.renameColumn("players", "discordId", "keycloakId");
+
+	// Change alterations name in logs
+	for (const effect of Effect.getAll()) {
+		await context.sequelize.query(`UPDATE alterations SET alteration = "${effect.id}" WHERE alteration = "${effect.v4Id}"`);
+	}
 }
 
 export async function down({context}: { context: QueryInterface }): Promise<void> {

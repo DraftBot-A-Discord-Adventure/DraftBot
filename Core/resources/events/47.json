@@ -5,7 +5,7 @@
                 "0": {},
                 "1": {},
                 "2": {
-                    "effect": ":lock:"
+                    "effect": "jailed"
                 }
             }
         },
@@ -31,14 +31,14 @@
             "outcomes": {
                 "0": {},
                 "1": {
-                    "effect": ":head_bandage:",
+                    "effect": "hurt",
                     "money": -160
                 },
                 "2": {
                     "health": -15
                 },
                 "3": {
-                    "effect": ":dizzy_face:",
+                    "effect": "injured",
                     "health": -120
                 },
                 "4": {
@@ -64,7 +64,7 @@
                 },
                 "3": {},
                 "4": {
-                    "effect": ":head_bandage:",
+                    "effect": "hurt",
                     "health": -60
                 }
             }

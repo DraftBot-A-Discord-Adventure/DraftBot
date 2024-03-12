@@ -61,6 +61,10 @@
       }
     }
   },
+  "rarity": {
+    "description": "Affiche les différentes raretés des équipements.",
+    "name": "rarete"
+  },
   "report": {
     "description": "Obtenir un rapport sur la situation de votre personnage.",
     "name": "rapport"
@@ -78,10 +82,6 @@
         "name": "commande"
       }
     }
-  },
-  "rarity": {
-    "description": "Affiche les différentes raretés des équipements.",
-    "name": "rarete"
   },
   "update": {
     "description": "Affiche la version actuelle du bot.",
