@@ -24,11 +24,10 @@ import {GenericItem} from "../../../../data/GenericItem";
 import {Class, ClassDataController} from "../../../../data/Class";
 import {BlockingUtils} from "../../../utils/BlockingUtils";
 import {League, LeagueDataController} from "../../../../data/League";
-import moment = require("moment");
 import {TopConstants} from "../../../../../../Lib/src/constants/TopConstants";
 import {NumberChangeReason} from "../../../../../../Lib/src/constants/LogsConstants";
 import {InventoryConstants} from "../../../../../../Lib/src/constants/InventoryConstants";
-import { Constants } from "../../../../../../Lib/src/constants/Constants";
+import {Constants} from "../../../../../../Lib/src/constants/Constants";
 import {FightConstants} from "../../../../../../Lib/src/constants/FightConstants";
 import {LeagueInfoConstants} from "../../../../../../Lib/src/constants/LeagueInfoConstants";
 import {PVEConstants} from "../../../../../../Lib/src/constants/PVEConstants";
@@ -38,6 +37,7 @@ import {ClassInfoConstants} from "../../../../../../Lib/src/constants/ClassInfoC
 import {GuildConstants} from "../../../../../../Lib/src/constants/GuildConstants";
 import {MapConstants} from "../../../../../../Lib/src/constants/MapConstants";
 import {BlockingConstants} from "../../../../../../Lib/src/constants/BlockingConstants";
+import moment = require("moment");
 import {Effect} from "../../../../../../Lib/src/enums/Effect";
 
 export type PlayerEditValueParameters = {
@@ -451,11 +451,11 @@ export class Player extends Model {
 		const oppositeLink = MapLinkDataController.instance.getInverseLinkOf(this.mapLinkId);
 
 		const query = `SELECT COUNT(*) as count
-					   FROM players
-					   WHERE (mapLinkId = :link
-						   OR mapLinkId = :linkInverse)
-						 AND score
-						   > ${Constants.MINIMAL_PLAYER_SCORE}`;
+		               FROM players
+		               WHERE (mapLinkId = :link
+			              OR mapLinkId = :linkInverse)
+			             AND score
+			               > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{
 				count: number
@@ -1023,14 +1023,14 @@ export class Players {
 	 * Get or create a player
 	 * @param keycloakId
 	 */
-	static getOrRegister(keycloakId: string): Promise<[Player, boolean] | null> {
-		return Promise.resolve(Player.findOrCreate(
+	static async getOrRegister(keycloakId: string): Promise<Player> {
+		return (await Player.findOrCreate(
 			{
 				where: {
 					keycloakId
 				}
 			}
-		));
+		))[0]; // We don't care about the boolean that findOrCreate returns so we strip it there
 	}
 
 	/**
@@ -1076,13 +1076,13 @@ export class Players {
 		const scoreLookup = isGloryTop ? "gloryPoints" : weekOnly ? "weeklyScore" : "score";
 		const secondCondition = isGloryTop ? `players.fightCountdown <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE}` : "1";
 		const query = `SELECT rank
-					   FROM (SELECT players.keycloakId,
-									(RANK() OVER (ORDER BY players.${scoreLookup} DESC
-										, players.level DESC)) AS rank
-							 FROM players
-							 WHERE (players.keycloakId IN (${ids.toString()}))
-							   AND ${secondCondition}) subquery
-					   WHERE subquery.keycloakId = ${keycloakId};`;
+		               FROM (SELECT players.keycloakId,
+		                            (RANK() OVER (ORDER BY players.${scoreLookup} DESC
+			                            , players.level DESC)) AS rank
+		                     FROM players
+		                     WHERE (players.keycloakId IN (${ids.toString()}))
+			                   AND ${secondCondition}) subquery
+		               WHERE subquery.keycloakId = ${keycloakId};`;
 		return ((await Player.sequelize.query(query))[0][0] as {
 			rank: number
 		}).rank;
@@ -1119,9 +1119,9 @@ export class Players {
 	 */
 	static async getRank(playerId: number, rankType: string): Promise<number> {
 		const query = `SELECT ranking
-					   FROM (SELECT id, RANK() OVER (ORDER BY ${rankType} desc, level desc) ranking
-							 FROM players) subquery
-					   WHERE subquery.id = ${playerId}`;
+		               FROM (SELECT id, RANK() OVER (ORDER BY ${rankType} desc, level desc) ranking
+		                     FROM players) subquery
+		               WHERE subquery.id = ${playerId}`;
 		return ((await Player.sequelize.query(query))[0][0] as {
 			ranking: number
 		}).ranking;
@@ -1132,7 +1132,7 @@ export class Players {
 	 */
 	static async getAllStoredKeycloakIds(): Promise<string[]> {
 		const query = `SELECT keycloakId
-					   FROM players`;
+		               FROM players`;
 		const queryResult = (await Player.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})) as {
@@ -1150,10 +1150,10 @@ export class Players {
 	 */
 	static async getNumberOfPlayingPlayersInList(listKeycloakId: string[], weekOnly: boolean): Promise<number> {
 		const query = `SELECT COUNT(*) as nbPlayers
-					   FROM players
-					   WHERE players.${weekOnly ? "weeklyScore" : "score"}
-						   > ${Constants.MINIMAL_PLAYER_SCORE}
-						 AND players.keycloakId IN (${listKeycloakId.toString()})`;
+		               FROM players
+		               WHERE players.${weekOnly ? "weeklyScore" : "score"}
+			               > ${Constants.MINIMAL_PLAYER_SCORE}
+			             AND players.keycloakId IN (${listKeycloakId.toString()})`;
 		const queryResult = await Player.sequelize.query(query);
 		return (queryResult[0][0] as {
 			nbPlayers: number
@@ -1166,10 +1166,10 @@ export class Players {
 	 */
 	static async getNumberOfFightingPlayersInList(listKeycloakId: string[]): Promise<number> {
 		const query = `SELECT COUNT(*) as nbPlayers
-					   FROM players
-					   WHERE players.fightCountdown
-						   <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE}
-						 AND players.keycloakId IN (${listKeycloakId.toString()})`;
+		               FROM players
+		               WHERE players.fightCountdown
+			               <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE}
+			             AND players.keycloakId IN (${listKeycloakId.toString()})`;
 		const queryResult = await Player.sequelize.query(query);
 		return (queryResult[0][0] as {
 			nbPlayers: number
@@ -1250,17 +1250,17 @@ export class Players {
 	 */
 	static async getByRank(rank: number): Promise<Player | null> {
 		const query = `SELECT *
-					   FROM (SELECT *,
-									RANK() OVER (ORDER BY score desc, level desc) rank, RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
-							 FROM players) subquery
-					   WHERE subquery.rank = :rank`;
+		               FROM (SELECT *,
+		                            RANK() OVER (ORDER BY score desc, level desc) rank, RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
+		                     FROM players) subquery
+		               WHERE subquery.rank = :rank`;
 		const res = await Player.sequelize.query(query, {
 			replacements: {
 				rank
 			},
 			type: QueryTypes.SELECT
 		});
-		return res.length === 0 ? null : <Player> res[0];
+		return res.length === 0 ? null : <Player>res[0];
 	}
 
 	/**
@@ -1269,17 +1269,17 @@ export class Players {
 	 */
 	static async getById(id: number): Promise<Player> {
 		const query = `SELECT *
-					   FROM (SELECT *,
-									RANK() OVER (ORDER BY score desc, level desc) rank, RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
-							 FROM players) subquery
-					   WHERE subquery.id = :id`;
+		               FROM (SELECT *,
+		                            RANK() OVER (ORDER BY score desc, level desc) rank, RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
+		                     FROM players) subquery
+		               WHERE subquery.id = :id`;
 		const playerToReturn = (await Player.sequelize.query<Player>(query, {
 			replacements: {
 				id
 			},
 			type: QueryTypes.SELECT
 		}))[0] as Player;
-		return (await Players.getOrRegister(playerToReturn.keycloakId))[0];
+		return await Players.getOrRegister(playerToReturn.keycloakId);
 	}
 
 	/**
@@ -1287,8 +1287,8 @@ export class Players {
 	 */
 	static async getNbMeanPoints(): Promise<number> {
 		const query = `SELECT AVG(score) as avg
-					   FROM players
-					   WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
+		               FROM players
+		               WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{
 				avg: number
@@ -1303,8 +1303,8 @@ export class Players {
 	 */
 	static async getMeanWeeklyScore(): Promise<number> {
 		const query = `SELECT AVG(weeklyScore) as avg
-					   FROM players
-					   WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
+		               FROM players
+		               WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{
 				avg: number
@@ -1319,8 +1319,8 @@ export class Players {
 	 */
 	static async getNbPlayersHaventStartedTheAdventure(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-					   FROM players
-					   WHERE effect = ":baby:"`;
+		               FROM players
+		               WHERE effect = ":baby:"`;
 		return (<{
 			count: number
 		}[]>(await Player.sequelize.query(query, {
@@ -1333,8 +1333,8 @@ export class Players {
 	 */
 	static async getNbPlayersHaveStartedTheAdventure(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-					   FROM players
-					   WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
+		               FROM players
+		               WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return (<{
 			count: number
 		}[]>(await Player.sequelize.query(query, {
@@ -1347,8 +1347,8 @@ export class Players {
 	 */
 	static async getLevelMean(): Promise<number> {
 		const query = `SELECT AVG(level) as avg
-					   FROM players
-					   WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
+		               FROM players
+		               WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{
 				avg: number
@@ -1363,8 +1363,8 @@ export class Players {
 	 */
 	static async getNbMeanMoney(): Promise<number> {
 		const query = `SELECT AVG(money) as avg
-					   FROM players
-					   WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
+		               FROM players
+		               WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{
 				avg: number
@@ -1379,8 +1379,8 @@ export class Players {
 	 */
 	static async getSumAllMoney(): Promise<number> {
 		const query = `SELECT SUM(money) as sum
-					   FROM players
-					   WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
+		               FROM players
+		               WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return (<{
 			sum: number
 		}[]>(await Player.sequelize.query(query, {
@@ -1393,7 +1393,7 @@ export class Players {
 	 */
 	static async getRichestPlayer(): Promise<number> {
 		const query = `SELECT MAX(money) as max
-					   FROM players`;
+		               FROM players`;
 		return (<{
 			max: number
 		}[]>(await Player.sequelize.query(query, {
@@ -1407,10 +1407,10 @@ export class Players {
 	 */
 	static async getNbPlayersWithClass(classEntity: Class): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-					   FROM players
-					   WHERE class = :class
-						 AND score
-						   > ${Constants.MINIMAL_PLAYER_SCORE}`;
+		               FROM players
+		               WHERE class = :class
+			             AND score
+			               > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{
 				count: number

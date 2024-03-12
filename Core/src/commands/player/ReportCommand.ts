@@ -178,7 +178,7 @@ async function doPossibility(
 	context: PacketContext,
 	response: DraftBotPacket[]
 ): Promise<void> {
-	[player] = await Players.getOrRegister(player.keycloakId);
+	player = await Players.getOrRegister(player.keycloakId);
 	player.nextEvent = null;
 
 	if (event.id === 0 && possibility[0] === "end") { // Don't do anything if the player ends the first report

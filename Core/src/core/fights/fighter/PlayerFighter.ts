@@ -248,7 +248,7 @@ export class PlayerFighter extends Fighter {
 	 */
 	private async manageMissionsOf(fightView: FightView): Promise<void> {
 		if (!fightView.fightController.friendly) {
-			const [newPlayer] = await Players.getOrRegister(this.player.keycloakId);
+			const newPlayer = await Players.getOrRegister(this.player.keycloakId);
 			newPlayer.setFightPointsLost(this.stats.maxFightPoint - this.stats.fightPoints, NumberChangeReason.FIGHT);
 			await newPlayer.save();
 		}
