@@ -30,19 +30,19 @@
     "name": "ping"
   },
   "guild": {
-    "description": "Affiche des informations sur une guilde.",
+    "description": "Visualizza le informazioni su una gilda.",
     "name": "gilda",
     "options": {
       "rank": {
-        "description": "Le classement du joueur dont la guilde doit être affichée.",
+        "description": "La classifica del giocatore di cui si vuole visualizzare la gilda.",
         "name": "classifica"
       },
       "user": {
-        "description": "L'utilisateur dont la guilde doit être affichée.",
+        "description": "L'utente di cui si vuole visualizzare la gilda.",
         "name": "utilizzatore"
       },
       "guildName": {
-        "description": "Le nom de la guilde dont les informations doivent être affichées.",
+        "description": "Il nome della gilda di cui si vogliono visualizzare le informazioni.",
         "name": "gilda"
       }
     }
