@@ -1,8 +1,8 @@
 import {NumberChangeReason} from "../../../../../../Lib/src/constants/LogsConstants";
 import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
-import {EffectsConstants} from "../../../../../../Lib/src/constants/EffectsConstants";
 import {TravelTime} from "../../../../core/maps/TravelTime";
 import {Players} from "../../../../core/database/game/models/Player";
+import {Effect} from "../../../../../../Lib/src/enums/Effect";
 
 export const commandInfo: ITestCommand = {
 	name: "jailplayer",
@@ -19,7 +19,7 @@ export const commandInfo: ITestCommand = {
  */
 const jailPlayerTestCommand: ExecuteTestCommandLike = async (player, args) => {
 	const jailPlayer = await Players.getByKeycloakId(player.keycloakId);
-	await TravelTime.applyEffect(jailPlayer, EffectsConstants.EMOJI_TEXT.LOCKED, 0, new Date(), NumberChangeReason.TEST);
+	await TravelTime.applyEffect(jailPlayer, Effect.JAILED, 0, new Date(), NumberChangeReason.TEST);
 	await jailPlayer.save();
 	return `Vous avez enfermé ${args[0]} !`;
 };

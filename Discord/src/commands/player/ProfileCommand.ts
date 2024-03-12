@@ -5,7 +5,6 @@ import i18n from "../../translations/i18n";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {CommandProfilePacketReq, CommandProfilePacketRes} from "../../../../Lib/src/packets/commands/CommandProfilePacket";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {EffectsConstants} from "../../../../Lib/src/constants/EffectsConstants";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {ColorResolvable, EmbedField, Message, MessageReaction} from "discord.js";
 import {Constants} from "../../../../Lib/src/constants/Constants";
@@ -16,6 +15,8 @@ import {Language} from "../../../../Lib/src/Language";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
+import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
+import {Effect} from "../../../../Lib/src/enums/Effect";
 
 /**
  * Display the profile of a player
@@ -143,7 +144,7 @@ function generateFields(packet: CommandProfilePacketRes, language: Language): Em
 			name: i18n.t("commands:profile.timeLeft.fieldName", {lng: language}),
 			value: i18n.t("commands:profile.timeLeft.fieldValue", {
 				lng: language,
-				effect: packet.data.effect,
+				effect: DraftBotIcons.effects[packet.data.effect.effect],
 				timeLeft: packet.data.effect.timeLeft
 			}),
 			inline: false
@@ -282,7 +283,7 @@ export const commandInfo: ICommand = {
 				.setRequired(false)) as SlashCommandBuilder,
 	getPacket,
 	requirements: {
-		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY]
+		disallowEffects: [Effect.NOT_STARTED]
 	},
 	mainGuildCommand: false
 };

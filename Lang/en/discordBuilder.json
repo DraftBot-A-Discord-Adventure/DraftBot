@@ -3,6 +3,16 @@
     "description": "Displays information about badges.",
     "name": "badges"
   },
+  "help": {
+    "description": "Displays the list of commands or detailed information about a specific command.",
+    "name": "help",
+    "options": {
+      "commandName": {
+        "description": "The command to display information about.",
+        "name": "command"
+      }
+    }
+  },
   "idea": {
     "description": "Share with us your idea to improve the game.",
     "name": "idea"
@@ -24,6 +34,10 @@
   "invite": {
     "description": "Add the bot on your server.",
     "name": "invitedraftbot"
+  },
+  "language": {
+    "description": "Change the language spoken by the bot in the discord server where the command was executed.",
+    "name": "language"
   },
   "ping": {
     "description": "Displays the ping of the bot and allow the player to check if the bot is online.",
@@ -61,6 +75,10 @@
       }
     }
   },
+  "rarity": {
+    "description": "Displays the different equipment rarities.",
+    "name": "rarity"
+  },
   "report": {
     "description": "Get a report on your character's situation.",
     "name": "report"
@@ -79,30 +97,12 @@
       }
     }
   },
-  "rarity": {
-    "description": "Displays the different equipment rarities.",
-    "name": "rarity"
-  },
   "update": {
     "description": "Displays the bot's latest version.",
     "name": "update"
   },
-  "help": {
-    "description": "Displays the list of commands or detailed information about a specific command.",
-    "name": "help",
-    "options": {
-      "commandName": {
-        "description": "The command to display information about.",
-        "name": "command"
-      }
-    }
-  },
   "vote": {
     "description": "Displays the link to vote for the bot.",
     "name": "vote"
-  },
-  "language": {
-    "description": "Change the language spoken by the bot in the discord server where the command was executed.",
-    "name": "language"
   }
 }

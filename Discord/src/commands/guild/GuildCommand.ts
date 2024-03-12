@@ -9,7 +9,6 @@ import {
 	GuildMemberPacket
 } from "../../../../Lib/src/packets/commands/CommandGuildPacket";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {EffectsConstants} from "../../../../Lib/src/constants/EffectsConstants";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {DiscordCache} from "../../bot/DiscordCache";
 import {DraftBotErrorEmbed} from "../../messages/DraftBotErrorEmbed";
@@ -18,6 +17,7 @@ import {ColorConstants} from "../../../../Lib/src/constants/ColorConstants";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
+import {Effect} from "../../../../Lib/src/enums/Effect";
 
 /**
  * Display all the information about a guild
@@ -162,7 +162,7 @@ export const commandInfo: ICommand = {
 				.setRequired(false)) as SlashCommandBuilder,
 	getPacket,
 	requirements: {
-		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY]
+		disallowEffects: [Effect.NOT_STARTED]
 	},
 	mainGuildCommand: false
 };

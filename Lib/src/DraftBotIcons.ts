@@ -1,10 +1,30 @@
 export const DraftBotIcons: {
+	effects: {
+		[effectId: string]: string
+	},
 	events: {
 		[eventId: string]: {
 			[possibilityName: string]: string | { [outcomeId: string]: string }
 		}
 	}
 } = {
+	"effects": {
+		"not_started": "👶",
+		"dead": "💀",
+		"none": "😃",
+		"sleeping": "😴",
+		"drunk": "🤪",
+		"freezing": "🥶",
+		"hurt": "🤕",
+		"sick": "🤢",
+		"jailed": "🔒",
+		"injured": "😵",
+		"occupied": "🕑",
+		"starving": "🤤",
+		"confounded": "😖",
+		"scared:": "😱",
+		"lost": "🧐"
+	},
 	"events": {
 		"1": {
 			"cutTree": "🪓",

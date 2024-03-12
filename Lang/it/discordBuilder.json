@@ -3,6 +3,16 @@
     "description": "Locandina d'informazione sui badge e loro funzionamento.",
     "name": "badge"
   },
+  "help": {
+    "description": "Visualizza l'elenco dei comandi disponibili o informazioni dettagliate su un comando.",
+    "name": "aiuto",
+    "options": {
+      "commandName": {
+        "description": "Il comando di cui si deve mostrare le informazioni.",
+        "name": "comando"
+      }
+    }
+  },
   "idea": {
     "description": "Invia un suggerimento per migliorare il gioco.",
     "name": "suggerimento"
@@ -87,22 +97,12 @@
     "description": "Mostrare la versione attuale del bot.",
     "name": "novità"
   },
-  "help": {
-    "description": "Visualizza l'elenco dei comandi disponibili o informazioni dettagliate su un comando.",
-    "name": "aiuto",
-    "options": {
-      "commandName": {
-        "description": "Il comando di cui si deve mostrare le informazioni.",
-        "name": "comando"
-      }
-    }
+  "language": {
+    "description": "Cambiare la lingua del bot nel server discord dove è stato eseguito il comando.",
+    "name": "lingua"
   },
   "vote": {
     "description": "Visualizzare il link per votare il bot.",
     "name": "voto"
-  },
-  "language": {
-    "description": "Cambiare la lingua del bot nel server discord dove è stato eseguito il comando.",
-    "name": "lingua"
   }
 }

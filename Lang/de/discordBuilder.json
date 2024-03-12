@@ -3,6 +3,16 @@
     "description": "Zeigt Informationen zu den Ausbeinen und deren Funktion an.",
     "name": "Badges"
   },
+  "help": {
+    "description": "Zeigt eine Liste der verfügbaren Befehle oder die ausführlichen Informationen zu einem Befehl an.",
+    "name": "Hilfe",
+    "options": {
+      "commandName": {
+        "description": "Der Befehl, dessen Informationen angezeigt werden sollen.",
+        "name": "Befehl"
+      }
+    }
+  },
   "idea": {
     "description": "Einen Vorschlag zur Verbesserung des Spiels senden.",
     "name": "Vorschlag"
@@ -61,6 +71,10 @@
       }
     }
   },
+  "rarity": {
+    "description": "Zeigt die verschiedenen Knappheit der Geräte an.",
+    "name": "Seltenheit"
+  },
   "report": {
     "description": "Holen Sie sich einen Bericht über die Situation Ihres Charakters.",
     "name": "Bericht"
@@ -79,30 +93,16 @@
       }
     }
   },
-  "rarity": {
-    "description": "Zeigt die verschiedenen Knappheit der Geräte an.",
-    "name": "Seltenheit"
-  },
   "update": {
     "description": "Zeigt die aktuelle Version des Bots an.",
     "name": "Neuigkeiten"
   },
-  "help": {
-    "description": "Zeigt eine Liste der verfügbaren Befehle oder die ausführlichen Informationen zu einem Befehl an.",
-    "name": "Hilfe",
-    "options": {
-      "commandName": {
-        "description": "Der Befehl, dessen Informationen angezeigt werden sollen.",
-        "name": "Befehl"
-      }
-    }
+  "language": {
+    "description": "Changer la langue du bot dans le serveur discord ou la commande a été exécutée.",
+    "name": "langage"
   },
   "vote": {
     "description": "Link zur Abstimmung für den Bot anzeigen.",
     "name": "Abstimmung"
-  },
-  "language": {
-    "description": "Changer la langue du bot dans le serveur discord ou la commande a été exécutée.",
-    "name": "langage"
   }
 }

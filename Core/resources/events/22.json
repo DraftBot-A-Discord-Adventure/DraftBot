@@ -3,7 +3,7 @@
         "buy": {
             "outcomes": {
                 "0": {
-                    "effect": ":sick:",
+                    "effect": "sick",
                     "health": -30,
                     "money": -50,
                     "tags": [
@@ -11,7 +11,7 @@
                     ]
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": 5,
                     "lostTime": 10,
                     "money": -50,
@@ -25,7 +25,7 @@
         "end": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 20
                 },
                 "1": {
@@ -41,23 +41,23 @@
         "steal": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 10,
                     "money": 50
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": -25,
                     "lostTime": 15,
                     "money": -50
                 },
                 "2": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": 10,
                     "lostTime": 15
                 },
                 "3": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 10,
                     "money": -50
                 }

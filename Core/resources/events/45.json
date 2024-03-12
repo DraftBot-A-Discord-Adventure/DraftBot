@@ -3,7 +3,7 @@
         "askJoin": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 210
                 },
                 "1": {},
@@ -15,11 +15,11 @@
         "end": {
             "outcomes": {
                 "0": {
-                    "effect": ":confounded:",
+                    "effect": "confounded",
                     "health": -25
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 15
                 }
             }
@@ -27,20 +27,20 @@
         "goAlone": {
             "outcomes": {
                 "0": {
-                    "effect": ":head_bandage:",
+                    "effect": "hurt",
                     "health": -40
                 },
                 "1": {
-                    "effect": ":sick:",
+                    "effect": "sick",
                     "health": -10
                 },
                 "2": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 75,
                     "randomItem": {}
                 },
                 "3": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 90
                 },
                 "4": {}
@@ -50,7 +50,7 @@
             "outcomes": {
                 "0": {},
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 15,
                     "money": -300
                 }
@@ -59,7 +59,7 @@
         "talk": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 30
                 },
                 "1": {}

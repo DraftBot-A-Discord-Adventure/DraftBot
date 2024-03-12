@@ -3,7 +3,7 @@
         "end": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 15
                 }
             }
@@ -11,18 +11,18 @@
         "help": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 45,
                     "money": 75
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": -20,
                     "lostTime": 55,
                     "money": -50
                 },
                 "2": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 10,
                     "randomItem": {}
                 }
@@ -32,7 +32,7 @@
             "outcomes": {
                 "0": {},
                 "1": {
-                    "effect": ":head_bandage:",
+                    "effect": "hurt",
                     "health": -35
                 }
             }

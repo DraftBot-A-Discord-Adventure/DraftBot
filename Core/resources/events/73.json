@@ -7,7 +7,7 @@
                 },
                 "1": {},
                 "2": {
-                    "effect": ":confounded:"
+                    "effect": "confounded"
                 }
             }
         },
@@ -15,7 +15,7 @@
             "outcomes": {
                 "0": {},
                 "1": {
-                    "effect": ":face_with_monocle:"
+                    "effect": "lost"
                 },
                 "2": {
                     "health": -5,
@@ -28,7 +28,7 @@
         "look": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 25,
                     "money": -70
                 },
@@ -42,11 +42,11 @@
                     "money": 195
                 },
                 "1": {
-                    "effect": ":dizzy_face:",
+                    "effect": "injured",
                     "health": -25
                 },
                 "2": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 30
                 }
             }

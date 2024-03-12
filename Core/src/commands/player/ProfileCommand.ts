@@ -68,7 +68,7 @@ export default class ProfileCommand {
 					} : null,
 					destination: destinationId,
 					effect: player.checkEffect() ? {
-						effect: player.effect,
+						effect: player.effectId,
 						timeLeft: player.effectEndDate.valueOf() - Date.now(),
 						healed: new Date() >= player.effectEndDate
 					} : null,

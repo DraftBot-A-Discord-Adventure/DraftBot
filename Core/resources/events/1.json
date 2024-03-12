@@ -3,7 +3,7 @@
         "cutTree": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 30
                 }
             }
@@ -11,7 +11,7 @@
         "end": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 100
                 }
             }
@@ -20,7 +20,7 @@
             "outcomes": {
                 "0": {},
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": -5,
                     "lostTime": 30
                 }

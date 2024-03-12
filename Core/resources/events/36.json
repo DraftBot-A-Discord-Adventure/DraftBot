@@ -3,12 +3,12 @@
         "end": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": 20,
                     "lostTime": 60
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 15
                 }
             }
@@ -23,12 +23,12 @@
         "goInn": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": 20,
                     "lostTime": 60
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": 10,
                     "lostTime": 30
                 },
@@ -43,7 +43,7 @@
                     "money": 500
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 180
                 }
             }
@@ -51,12 +51,12 @@
         "talkJeweler": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 50,
                     "randomItem": {}
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 75
                 }
             }

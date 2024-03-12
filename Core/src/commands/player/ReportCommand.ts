@@ -11,7 +11,6 @@ import {
 	CommandReportTravelSummaryRes
 } from "../../../../Lib/src/packets/commands/CommandReportPacket";
 import {Player, Players} from "../../core/database/game/models/Player";
-import {EffectsConstants} from "../../../../Lib/src/constants/EffectsConstants";
 import {Maps} from "../../core/maps/Maps";
 import {MapLink, MapLinkDataController} from "../../data/MapLink";
 import {Constants} from "../../../../Lib/src/constants/Constants";
@@ -53,6 +52,7 @@ import {
 import {Possibility} from "../../data/events/Possibility";
 import {applyPossibilityOutcome} from "../../data/events/PossibilityOutcome";
 import {ErrorPacket} from "../../../../Lib/src/packets/commands/ErrorPacket";
+import {Effect} from "../../../../Lib/src/enums/Effect";
 
 export default class ReportCommand {
 	@packetHandler(CommandReportPacketReq)
@@ -65,7 +65,7 @@ export default class ReportCommand {
 		forceSmallEvent: string = null
 	): Promise<void> {
 		const player = await Players.getByKeycloakId(packet.keycloakId);
-		if (player.score === 0 && player.effect === EffectsConstants.EMOJI_TEXT.BABY) {
+		if (player.score === 0 && player.effectId === Effect.NOT_STARTED.id) {
 			await initiateNewPlayerOnTheAdventure(player);
 		}
 
@@ -79,7 +79,7 @@ export default class ReportCommand {
 
 		const currentDate = new Date();
 
-		if (player.effect !== EffectsConstants.EMOJI_TEXT.SMILEY && player.currentEffectFinished(currentDate)) {
+		if (player.effectId !== Effect.NO_EFFECT.id && player.currentEffectFinished(currentDate)) {
 			await MissionsController.update(player, response, {missionId: "recoverAlteration"});
 		}
 
@@ -101,7 +101,7 @@ export default class ReportCommand {
 		}
 
 		if (!player.currentEffectFinished(currentDate)) {
-			await sendTravelPath(player, response, currentDate, player.effect);
+			await sendTravelPath(player, response, currentDate, player.effectId);
 			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.REPORT_COMMAND);
 			return;
 		}
@@ -409,16 +409,16 @@ async function needSmallEvent(player: Player, date: Date): Promise<boolean> {
  * @param player
  * @param response
  * @param date
- * @param effect
+ * @param effectId
  */
-async function sendTravelPath(player: Player, response: DraftBotPacket[], date: Date, effect: string = null): Promise<void> {
+async function sendTravelPath(player: Player, response: DraftBotPacket[], date: Date, effectId: string = null): Promise<void> {
 	const timeData = await TravelTime.getTravelData(player, date);
 	const showEnergy = Maps.isOnPveIsland(player) || Maps.isOnBoat(player);
 	const lastMiniEvent = await PlayerSmallEvents.getLastOfPlayer(player.id);
 	response.push(makePacket(CommandReportTravelSummaryRes, {
-		effect,
+		effect: effectId,
 		arriveTime: timeData.travelEndTime,
-		effectEndTime: effect ? timeData.effectEndTime : null,
+		effectEndTime: effectId ? timeData.effectEndTime : null,
 		points: {
 			show: !showEnergy,
 			cumulated: !showEnergy ? await PlayerSmallEvents.calculateCurrentScore(player) : 0
@@ -497,7 +497,7 @@ async function doPVEBoss(
 			await Maps.stopTravel(player);
 			await player.setLastReportWithEffect(
 				0,
-				EffectsConstants.EMOJI_TEXT.SMILEY,
+				Effect.NO_EFFECT,
 				NumberChangeReason.BIG_EVENT
 			);
 			await chooseDestination(context, player, null, response);

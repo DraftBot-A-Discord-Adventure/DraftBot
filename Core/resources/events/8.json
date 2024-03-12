@@ -3,7 +3,7 @@
         "end": {
             "outcomes": {
                 "0": {
-                    "effect": ":sleeping:"
+                    "effect": "sleeping"
                 }
             }
         },
@@ -21,7 +21,7 @@
                     "randomItem": {}
                 },
                 "2": {
-                    "effect": ":head_bandage:",
+                    "effect": "hurt",
                     "health": -25,
                     "mapTypesDestination": [
                         "fo"
@@ -32,14 +32,14 @@
         "plains": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 150,
                     "mapTypesDestination": [
                         "pl"
                     ]
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": 10,
                     "lostTime": 150,
                     "mapTypesDestination": [

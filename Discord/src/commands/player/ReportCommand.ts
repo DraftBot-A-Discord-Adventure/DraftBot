@@ -2,8 +2,10 @@ import {ICommand} from "../ICommand";
 import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {EffectsConstants} from "../../../../Lib/src/constants/EffectsConstants";
-import {CommandReportPacketReq} from "../../../../Lib/src/packets/commands/CommandReportPacket";
+import {
+	CommandReportBigEventResultRes,
+	CommandReportPacketReq
+} from "../../../../Lib/src/packets/commands/CommandReportPacket";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {
 	ReactionCollectorCreationPacket,
@@ -26,6 +28,8 @@ import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 import {sendInteractionNotForYou} from "../../utils/ErrorUtils";
 import {DiscordWebSocket} from "../../bot/Websocket";
 import {Constants} from "../../../../Lib/src/constants/Constants";
+import {Effect} from "../../../../Lib/src/enums/Effect";
+import {minutesDisplay} from "../../../../Lib/src/utils/TimeUtils";
 
 async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandReportPacketReq> {
 	await interaction.deferReply();
@@ -64,7 +68,7 @@ export async function createBigEventCollector(packet: ReactionCollectorCreationP
 	}) as Message;
 
 	let responded = false; // To avoid concurrence between buttons controller and reactions controller
-	const respondToEvent = (possibilityName: string): void => {
+	const respondToEvent = (possibilityName: string, buttonInteraction: ButtonInteraction | null): void => {
 		if (!responded) {
 			responded = true;
 
@@ -77,12 +81,24 @@ export async function createBigEventCollector(packet: ReactionCollectorCreationP
 				}
 			);
 
+			if (buttonInteraction) {
+				DiscordCache.cacheButtonInteraction(buttonInteraction);
+			}
 			DiscordWebSocket.socket!.send(JSON.stringify({
 				packet: {
 					name: responsePacket.constructor.name,
 					data: responsePacket
 				},
-				context
+				context: {
+					keycloakId: user.id,
+					discord: {
+						user: interaction.user.id,
+						channel: interaction.channel.id,
+						interaction: interaction.id,
+						buttonInteraction: buttonInteraction?.id,
+						language: interaction.userLanguage
+					}
+				}
 			}));
 		}
 	};
@@ -104,30 +120,84 @@ export async function createBigEventCollector(packet: ReactionCollectorCreationP
 		buttonCollector.stop();
 		endCollector.stop();
 	});
-	buttonCollector.on("end", (collected) => {
+	buttonCollector.on("end", async (collected) => {
 		const firstReaction = collected.first() as ButtonInteraction;
 
 		if (!firstReaction) {
-			respondToEvent("end");
+			respondToEvent("end", null);
 		}
 		else {
-			respondToEvent(firstReaction.customId);
+			await firstReaction.deferReply();
+			respondToEvent(firstReaction.customId, firstReaction);
 		}
 	});
 
 	endCollector.on("collect", () => {
-		respondToEvent("end");
+		respondToEvent("end", null);
 
-		// ButtonCollector.stop();
-		// EndCollector.stop();
+		buttonCollector.stop();
+		endCollector.stop();
 	});
+}
+
+export async function reportResult(packet: CommandReportBigEventResultRes, context: PacketContext): Promise<void> {
+	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
+	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
+
+	let result = "";
+	if (packet.score) {
+		result += i18n.t("commands:report.points", { lng: interaction.channel.language, score: packet.score });
+	}
+	if (packet.money < 0) {
+		result += i18n.t("commands:report.moneyLoose", { lng: interaction.channel.language, money: -packet.money });
+	}
+	else if (packet.money > 0) {
+		result += i18n.t("commands:report.money", { lng: interaction.channel.language, money: packet.money });
+	}
+	if (packet.health < 0) {
+		result += i18n.t("commands:report.healthLoose", { lng: interaction.channel.language, health: -packet.health });
+	}
+	else if (packet.health > 0) {
+		result += i18n.t("commands:report.health", { lng: interaction.channel.language, health: packet.health });
+	}
+	if (packet.energy) {
+		result += i18n.t("commands:report.energy", { lng: interaction.channel.language, energy: packet.energy });
+	}
+	if (packet.gems) {
+		result += i18n.t("commands:report.gems", { lng: interaction.channel.language, gems: packet.gems });
+	}
+	if (packet.experience) {
+		result += i18n.t("commands:report.experience", { lng: interaction.channel.language, experience: packet.experience });
+	}
+	if (packet.effect && packet.effect.name === Effect.OCCUPIED.id) {
+		result += i18n.t("commands:report.timeLost", { lng: interaction.channel.language, timeLost: minutesDisplay(packet.effect.time) });
+	}
+
+	const content = i18n.t("commands:report.doPossibility", {
+		lng: interaction.channel.language,
+		interpolation: { escapeValue: false },
+		pseudo: user.attributes.gameUsername,
+		result,
+		event: i18n.t(`events:${packet.eventId}.possibilities.${packet.possibilityId}.outcomes.${packet.outcomeId}`),
+		emoji: packet.possibilityId === "end" ? (DraftBotIcons.events[packet.eventId].end as { [outcomeId: string]: string })[packet.outcomeId] : DraftBotIcons.events[packet.possibilityId],
+		alte: packet.effect ? DraftBotIcons.effects[packet.effect.name] : ""
+	});
+
+	const buttonInteraction = context.discord?.buttonInteraction ? DiscordCache.getButtonInteraction(context.discord?.buttonInteraction) : null;
+
+	if (buttonInteraction) {
+		await buttonInteraction.editReply({ content });
+	}
+	else {
+		await interaction.channel.send({ content });
+	}
 }
 
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("report"),
 	getPacket,
 	requirements: {
-		disallowEffects: [EffectsConstants.EMOJI_TEXT.DEAD]
+		disallowEffects: [Effect.DEAD]
 	},
 	mainGuildCommand: false
 };

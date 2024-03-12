@@ -4,7 +4,6 @@ import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
 import i18n from "../../translations/i18n";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {SlashCommandBuilder} from "@discordjs/builders";
-import {EffectsConstants} from "../../../../Lib/src/constants/EffectsConstants";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, EmbedField} from "discord.js";
 import {Constants} from "../../../../Lib/src/constants/Constants";
@@ -17,6 +16,7 @@ import {keycloakConfig} from "../../bot/DraftBotShard";
 import {CommandInventoryPacketReq, CommandInventoryPacketRes, MainItemDisplayPacket, SupportItemDisplayPacket} from "../../../../Lib/src/packets/commands/CommandInventoryPacket";
 import {DiscordItemUtils} from "../../utils/DiscordItemUtils";
 import {sendInteractionNotForYou} from "../../utils/ErrorUtils";
+import {Effect} from "../../../../Lib/src/enums/Effect";
 
 async function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser): Promise<CommandInventoryPacketReq | null> {
 	let askedPlayer: { keycloakId?: string, rank?: number } = {keycloakId: keycloakUser.id};
@@ -177,7 +177,7 @@ export const commandInfo: ICommand = {
 				.setRequired(false)) as SlashCommandBuilder,
 	getPacket,
 	requirements: {
-		disallowEffects: [EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD]
+		disallowEffects: [Effect.NOT_STARTED, Effect.DEAD]
 	},
 	mainGuildCommand: false
 };

@@ -76,7 +76,6 @@ import {LogsPetsLovesChanges} from "./models/LogsPetsLovesChanges";
 import {LogsGuildsFoodsChanges} from "./models/LogsGuildsFoodsChanges";
 import {LogsGuildsNewPets} from "./models/LogsGuildsNewPets";
 import {LogsPlayersNewPets} from "./models/LogsPlayersNewPets";
-import {EffectsConstants} from "../../../../../Lib/src/constants/EffectsConstants";
 import {LogsPlayersDailies} from "./models/LogsPlayersDailies";
 import {NumberChangeReason, ShopItemType} from "../../../../../Lib/src/constants/LogsConstants";
 import {getDateLogs} from "../../../../../Lib/src/utils/TimeUtils";
@@ -95,6 +94,7 @@ import {FightController} from "../../fights/FightController";
 import {PlayerFighter} from "../../fights/fighter/PlayerFighter";
 import {MonsterFighter} from "../../fights/fighter/MonsterFighter";
 import {LogsServers} from "./models/LogsServers";
+import {Effect} from "../../../../../Lib/src/enums/Effect";
 
 /**
  * This class is used to log all the changes in the game database
@@ -461,14 +461,14 @@ export class LogsDatabase extends Database {
 	/**
 	 * Log a new alteration of a player
 	 * @param keycloakId
-	 * @param alteration
+	 * @param alterationId
 	 * @param reason
 	 * @param duration
 	 */
-	public async logAlteration(keycloakId: string, alteration: string, reason: NumberChangeReason, duration: number): Promise<void> {
+	public async logAlteration(keycloakId: string, alterationId: string, reason: NumberChangeReason, duration: number): Promise<void> {
 		const player = await LogsDatabase.findOrCreatePlayer(keycloakId);
-		switch (alteration) {
-		case EffectsConstants.EMOJI_TEXT.OCCUPIED:
+		switch (alterationId) {
+		case Effect.OCCUPIED.id:
 			await LogsPlayersOccupiedAlterations.create({
 				playerId: player.id,
 				duration,
@@ -481,7 +481,7 @@ export class LogsDatabase extends Database {
 				playerId: player.id,
 				alterationId: (await LogsAlterations.findOrCreate({
 					where: {
-						alteration: alteration
+						alteration: alterationId
 					}
 				}))[0].id,
 				reason,

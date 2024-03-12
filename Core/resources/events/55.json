@@ -4,7 +4,7 @@
             "outcomes": {
                 "0": {},
                 "1": {
-                    "effect": ":head_bandage:",
+                    "effect": "hurt",
                     "health": -15
                 },
                 "2": {
@@ -15,11 +15,11 @@
         "cut": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 30
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 90,
                     "money": -125,
                     "tags": [
@@ -34,7 +34,7 @@
                 "0": {},
                 "1": {},
                 "2": {
-                    "effect": ":head_bandage:",
+                    "effect": "hurt",
                     "health": -20,
                     "money": -150
                 }
@@ -47,7 +47,7 @@
                     "randomItem": {}
                 },
                 "2": {
-                    "effect": ":face_with_monocle:"
+                    "effect": "lost"
                 }
             }
         }

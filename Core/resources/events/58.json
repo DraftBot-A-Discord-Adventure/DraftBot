@@ -4,7 +4,7 @@
             "outcomes": {
                 "0": {},
                 "1": {
-                    "effect": ":sleeping:"
+                    "effect": "sleeping"
                 }
             }
         },
@@ -36,7 +36,7 @@
                     ]
                 },
                 "3": {
-                    "effect": ":confounded:",
+                    "effect": "confounded",
                     "tags": [
                         "meetGruffo"
                     ]
@@ -46,11 +46,11 @@
         "shortcut": {
             "outcomes": {
                 "0": {
-                    "effect": ":dizzy_face:",
+                    "effect": "injured",
                     "health": -50
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 10
                 },
                 "2": {

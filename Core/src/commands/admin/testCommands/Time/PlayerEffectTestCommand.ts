@@ -1,12 +1,12 @@
 import {NumberChangeReason} from "../../../../../../Lib/src/constants/LogsConstants";
 import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
-import {EffectsConstants} from "../../../../../../Lib/src/constants/EffectsConstants";
 import {TravelTime} from "../../../../core/maps/TravelTime";
+import {Effect} from "../../../../../../Lib/src/enums/Effect";
 
-const effects = Object.keys(EffectsConstants.ERROR_TEXT).filter(value => [":baby:", ":smiley:", ":skull:", ":clock2:"].indexOf(value) === -1);
+const effects = Array.from(Effect.getAll()).filter(value => [Effect.NOT_STARTED, Effect.NO_EFFECT, Effect.DEAD, Effect.OCCUPIED].indexOf(value) === -1);
 let printableEffects = "";
 effects.forEach(e => {
-	printableEffects = printableEffects.concat(`- ${e.slice(1, -1)}\n`);
+	printableEffects = printableEffects.concat(`- ${e.id}\n`);
 });
 
 export const commandInfo: ITestCommand = {
@@ -23,14 +23,13 @@ export const commandInfo: ITestCommand = {
  * Set the effect of the player
  */
 const playerEffectTestCommand: ExecuteTestCommandLike = async (player, args) => {
-	const effectMalus = `:${args[0]}:`;
-	if (!Object.keys(EffectsConstants.DURATION)
-		.includes(effectMalus)) {
-		throw new Error("Effet inconnu ! (Il ne faut pas mettre les ::)");
+	const effect = Effect.getById(args[0]);
+	if (!effect) {
+		throw new Error("Effet inconnu !");
 	}
-	await TravelTime.applyEffect(player, effectMalus, 0, new Date(), NumberChangeReason.TEST);
+	await TravelTime.applyEffect(player, effect, 0, new Date(), NumberChangeReason.TEST);
 	await player.save();
-	return `Vous avez maintenant l'effet ${effectMalus} !`;
+	return `Vous avez maintenant l'effet ${effect.id} !`;
 };
 
 commandInfo.execute = playerEffectTestCommand;

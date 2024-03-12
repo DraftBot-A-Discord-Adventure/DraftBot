@@ -39,12 +39,12 @@
     "objects_other": "Objets ({{count}}/{{max}}) :",
     "potions_one": "Potion ({{count}}/{{max}}) :",
     "potions_other": "Potions ({{count}}/{{max}}) :",
+    "seeBackupItems": "🔄 Voir la réserve",
+    "seeEquippedItems": "🔄 Voir l'inventaire principal",
     "stockTitle": ":package: **Réserve d'objets de {{pseudo}}**",
     "title": ":briefcase: **Inventaire de {{pseudo}}**",
     "weapons_one": "Arme ({{count}}/{{max}}) :",
-    "weapons_other": "Armes ({{count}}/{{max}}) :",
-    "seeBackupItems": "🔄 Voir la réserve",
-    "seeEquippedItems": "🔄 Voir l'inventaire principal"
+    "weapons_other": "Armes ({{count}}/{{max}}) :"
   },
   "invite": {
     "discord": {
@@ -140,8 +140,8 @@
     "title": "{{effect}} | {{pseudo}} | Niveau {{level}}"
   },
   "rarity": {
-    "title": ":slot_machine: Rareté des équipements",
-    "rarities": ":small_orange_diamond: Basique | Possédé en début de jeu\n:large_orange_diamond: Commun | {{common}}%\n:fire: Peu commun | {{uncommon}}%\n:trident: Exotique | {{exotic}}%\n:comet: Rare | {{rare}}%\n:dizzy: Spécial | {{special}}%\n:star: Épique | {{epic}}%\n:star2: Légendaire | {{legendary}}%\n:gem: Mythique | {{unique}}%"
+    "rarities": ":small_orange_diamond: Basique | Possédé en début de jeu\n:large_orange_diamond: Commun | {{common}}%\n:fire: Peu commun | {{uncommon}}%\n:trident: Exotique | {{exotic}}%\n:comet: Rare | {{rare}}%\n:dizzy: Spécial | {{special}}%\n:star: Épique | {{epic}}%\n:star2: Légendaire | {{legendary}}%\n:gem: Mythique | {{unique}}%",
+    "title": ":slot_machine: Rareté des équipements"
   },
   "update": {
     "description": "La version actuelle du noyau du bot est la **{{coreVersion}}**. Celle du module Discord est la **{{discordModuleVersion}}**.\n\nToutes les informations concernant les mises à jour sont disponibles ici :\nhttps://guide.draftbot.com/lore/historique-des-mises-a-jour",

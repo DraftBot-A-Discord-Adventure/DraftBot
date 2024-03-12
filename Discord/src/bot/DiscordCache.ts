@@ -1,10 +1,13 @@
 import {DraftbotInteraction} from "../messages/DraftbotInteraction";
 import {Constants} from "../../../Lib/src/constants/Constants";
+import {ButtonInteraction} from "discord.js";
 
 export class DiscordCache {
 	private static initialized = false;
 
 	private static interactionsCache: Map<string, { interaction: DraftbotInteraction, time: number }> = new Map();
+
+	private static buttonInteractionsCache: Map<string, { interaction: ButtonInteraction, time: number }> = new Map();
 
 	private static init(): void {
 		if (!DiscordCache.initialized) {
@@ -27,8 +30,18 @@ export class DiscordCache {
 		DiscordCache.interactionsCache.set(interaction.id, { interaction, time: Date.now() + Constants.CACHE_TIME.INTERACTIONS });
 	}
 
+	public static cacheButtonInteraction(interaction: ButtonInteraction): void {
+		DiscordCache.init();
+		DiscordCache.buttonInteractionsCache.set(interaction.id, { interaction, time: Date.now() + Constants.CACHE_TIME.INTERACTIONS });
+	}
+
 	public static getInteraction(id: string): DraftbotInteraction | null {
 		const entry = DiscordCache.interactionsCache.get(id);
+		return entry?.interaction ?? null;
+	}
+
+	public static getButtonInteraction(id: string): ButtonInteraction | null {
+		const entry = DiscordCache.buttonInteractionsCache.get(id);
 		return entry?.interaction ?? null;
 	}
 }
