@@ -223,6 +223,39 @@
       "main": "Únete a la comunidad Utilice este enlace: https://discord.gg/acGNvzEY92 :smiley:"
     }
   },
+  "language": {
+    "description": "Utilisez le menu ci-dessous pour changer la langue utilisée par le bot sur ce serveur. Cette commande est réservée aux administrateurs du serveur.",
+    "languages": {
+      "de": {
+        "emoji": "🇩🇪",
+        "name": "Allemand"
+      },
+      "en": {
+        "emoji": "🇬🇧",
+        "name": "Anglais"
+      },
+      "es": {
+        "emoji": "🇪🇸",
+        "name": "Espagnol"
+      },
+      "fr": {
+        "emoji": "🇫🇷",
+        "name": "Français"
+      },
+      "it": {
+        "emoji": "🇮🇹",
+        "name": "Italien"
+      },
+      "pt": {
+        "emoji": "🇵🇹",
+        "name": "Portugais"
+      }
+    },
+    "newLanguageSetDescription": "DraftBot vous parlera désormais en français ! 🥖",
+    "newLanguageSetTitle": "Langue changée",
+    "selectLanguage": "Sélectionnez une langue",
+    "title": ":earth_africa: Sélection de la langue"
+  },
   "ping": {
     "discord": {
       "create": ":ping_pong: Pong",
@@ -362,39 +395,6 @@
   "update": {
     "description": "La versión actual del núcleo bot es **{{coreVersion}}**. El módulo Discord es **{{discordModuleVersion}}**.\n\nToda la información sobre las actualizaciones está disponible aquí:\nhttps://guide.draftbot.com/lore/historique-des-mises-a-jour",
     "title": ":scroll: Actualizaciones"
-  },
-  "language": {
-    "selectLanguage": "Sélectionnez une langue",
-    "description": "Utilisez le menu ci-dessous pour changer la langue utilisée par le bot sur ce serveur. Cette commande est réservée aux administrateurs du serveur.",
-    "title": ":earth_africa: Sélection de la langue",
-    "newLanguageSetTitle": "Langue changée",
-    "newLanguageSetDescription": "DraftBot vous parlera désormais en français ! 🥖",
-    "languages": {
-      "en": {
-        "emoji": "🇬🇧",
-        "name": "Anglais"
-      },
-      "fr": {
-        "emoji": "🇫🇷",
-        "name": "Français"
-      },
-      "es": {
-        "emoji": "🇪🇸",
-        "name": "Espagnol"
-      },
-      "de": {
-        "emoji": "🇩🇪",
-        "name": "Allemand"
-      },
-      "pt": {
-        "emoji": "🇵🇹",
-        "name": "Portugais"
-      },
-      "it": {
-        "emoji": "🇮🇹",
-        "name": "Italien"
-      }
-    }
   },
   "vote": {
     "description": "Aquí está el enlace para apoyar el bot:\nhttps://top.gg/bot/448110812801007618",

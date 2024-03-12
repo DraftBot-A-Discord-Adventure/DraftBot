@@ -35,6 +35,10 @@
     "description": "Fügen Sie den Bot auf Ihrem Server hinzu.",
     "name": "invitationdraftbot"
   },
+  "language": {
+    "description": "Changer la langue du bot dans le serveur discord ou la commande a été exécutée.",
+    "name": "langage"
+  },
   "ping": {
     "description": "Zeigt die Latenzzeit des Bots an und ermöglicht dem Spieler, zu prüfen, ob der Bot online ist.",
     "name": "Ping"
@@ -96,10 +100,6 @@
   "update": {
     "description": "Zeigt die aktuelle Version des Bots an.",
     "name": "Neuigkeiten"
-  },
-  "language": {
-    "description": "Changer la langue du bot dans le serveur discord ou la commande a été exécutée.",
-    "name": "langage"
   },
   "vote": {
     "description": "Link zur Abstimmung für den Bot anzeigen.",

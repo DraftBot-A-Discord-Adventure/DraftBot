@@ -35,24 +35,28 @@
     "description": "Aggiungere il bot al server.",
     "name": "invitoDraftBot"
   },
+  "language": {
+    "description": "Cambiare la lingua del bot nel server discord dove è stato eseguito il comando.",
+    "name": "lingua"
+  },
   "ping": {
     "description": "Locandina della latenza del bot e permette ai giocatori di verificare se il bot è connesso.",
     "name": "ping"
   },
   "guild": {
-    "description": "Affiche des informations sur une guilde.",
+    "description": "Visualizza le informazioni su una gilda.",
     "name": "gilda",
     "options": {
       "rank": {
-        "description": "Le classement du joueur dont la guilde doit être affichée.",
+        "description": "La classifica del giocatore di cui si vuole visualizzare la gilda.",
         "name": "classifica"
       },
       "user": {
-        "description": "L'utilisateur dont la guilde doit être affichée.",
+        "description": "L'utente di cui si vuole visualizzare la gilda.",
         "name": "utilizzatore"
       },
       "guildName": {
-        "description": "Le nom de la guilde dont les informations doivent être affichées.",
+        "description": "Il nome della gilda di cui si vogliono visualizzare le informazioni.",
         "name": "gilda"
       }
     }
@@ -70,6 +74,10 @@
         "name": "utilizzatore"
       }
     }
+  },
+  "rarity": {
+    "description": "Visualizza le varie rarità dell'equipaggiamento.",
+    "name": "rarità"
   },
   "report": {
     "description": "Ottenere un rapporto sulla situazione del vostro personaggio.",
@@ -89,17 +97,9 @@
       }
     }
   },
-  "rarity": {
-    "description": "Visualizza le varie rarità dell'equipaggiamento.",
-    "name": "rarità"
-  },
   "update": {
     "description": "Mostrare la versione attuale del bot.",
     "name": "novità"
-  },
-  "language": {
-    "description": "Cambiare la lingua del bot nel server discord dove è stato eseguito il comando.",
-    "name": "lingua"
   },
   "vote": {
     "description": "Visualizzare il link per votare il bot.",
