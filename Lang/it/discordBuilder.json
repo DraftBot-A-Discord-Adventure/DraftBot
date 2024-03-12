@@ -3,6 +3,16 @@
     "description": "Locandina d'informazione sui badge e loro funzionamento.",
     "name": "badge"
   },
+  "help": {
+    "description": "Visualizza l'elenco dei comandi disponibili o informazioni dettagliate su un comando.",
+    "name": "aiuto",
+    "options": {
+      "commandName": {
+        "description": "Il comando di cui si deve mostrare le informazioni.",
+        "name": "comando"
+      }
+    }
+  },
   "idea": {
     "description": "Invia un suggerimento per migliorare il gioco.",
     "name": "suggerimento"
@@ -24,6 +34,10 @@
   "invite": {
     "description": "Aggiungere il bot al server.",
     "name": "invitoDraftBot"
+  },
+  "language": {
+    "description": "Cambiare la lingua del bot nel server discord dove è stato eseguito il comando.",
+    "name": "lingua"
   },
   "ping": {
     "description": "Locandina della latenza del bot e permette ai giocatori di verificare se il bot è connesso.",
@@ -61,6 +75,10 @@
       }
     }
   },
+  "rarity": {
+    "description": "Visualizza le varie rarità dell'equipaggiamento.",
+    "name": "rarità"
+  },
   "report": {
     "description": "Ottenere un rapporto sulla situazione del vostro personaggio.",
     "name": "rapporto"
@@ -79,30 +97,12 @@
       }
     }
   },
-  "rarity": {
-    "description": "Visualizza le varie rarità dell'equipaggiamento.",
-    "name": "rarità"
-  },
   "update": {
     "description": "Mostrare la versione attuale del bot.",
     "name": "novità"
   },
-  "help": {
-    "description": "Visualizza l'elenco dei comandi disponibili o informazioni dettagliate su un comando.",
-    "name": "aiuto",
-    "options": {
-      "commandName": {
-        "description": "Il comando di cui si deve mostrare le informazioni.",
-        "name": "comando"
-      }
-    }
-  },
   "vote": {
     "description": "Visualizzare il link per votare il bot.",
     "name": "voto"
-  },
-  "language": {
-    "description": "Cambiare la lingua del bot nel server discord dove è stato eseguito il comando.",
-    "name": "lingua"
   }
 }
