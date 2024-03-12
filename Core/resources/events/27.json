@@ -3,11 +3,11 @@
         "end": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 20
                 },
                 "1": {
-                    "effect": ":head_bandage:",
+                    "effect": "hurt",
                     "health": -45
                 }
             }
@@ -15,7 +15,7 @@
         "goDown": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": -30,
                     "lostTime": 150
                 },
@@ -32,7 +32,7 @@
             "outcomes": {
                 "0": {},
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 60,
                     "money": -75
                 }
@@ -41,11 +41,11 @@
         "useBucket": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 60
                 },
                 "1": {
-                    "effect": ":confounded:",
+                    "effect": "confounded",
                     "health": -40
                 },
                 "2": {

@@ -3,16 +3,16 @@
         "chatWorker": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 60,
                     "randomItem": {}
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 10
                 },
                 "2": {
-                    "effect": ":dizzy_face:",
+                    "effect": "injured",
                     "health": -70
                 }
             }
@@ -20,7 +20,7 @@
         "end": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 30
                 }
             }
@@ -29,11 +29,11 @@
             "outcomes": {
                 "0": {},
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 20
                 },
                 "2": {
-                    "effect": ":sleeping:",
+                    "effect": "sleeping",
                     "health": -20
                 }
             }
@@ -41,16 +41,16 @@
         "stayNight": {
             "outcomes": {
                 "0": {
-                    "effect": ":sleeping:",
+                    "effect": "sleeping",
                     "health": 10
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 5
                 },
                 "2": {},
                 "3": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": 5,
                     "lostTime": 100
                 }

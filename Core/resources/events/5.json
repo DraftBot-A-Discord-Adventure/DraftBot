@@ -3,7 +3,7 @@
         "end": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 60,
                     "money": 65
                 }
@@ -16,7 +16,7 @@
                 "2": {},
                 "3": {},
                 "4": {
-                    "effect": ":sleeping:",
+                    "effect": "sleeping",
                     "health": -30
                 }
             }
@@ -24,17 +24,17 @@
         "rest": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": 5,
                     "lostTime": 30
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": 15,
                     "lostTime": 60
                 },
                 "2": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 180
                 }
             }

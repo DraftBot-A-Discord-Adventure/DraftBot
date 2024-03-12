@@ -7,6 +7,7 @@ import {MissionsController} from "../missions/MissionsController";
 import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {SmallEventBigBadPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventBigBadPacket";
 import {Maps} from "../maps/Maps";
+import {Effect} from "../../../../Lib/src/enums/Effect";
 
 type BigBadProperties = {
 	"alterationStories": {
@@ -30,7 +31,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 			break;
 		case 1:
 			seFallen = RandomUtils.draftbotRandom.pick(Object.keys(bigBadProperties.alterationStories));
-			await TravelTime.applyEffect(player, bigBadProperties.alterationStories[seFallen].alte, 0, new Date(), NumberChangeReason.SMALL_EVENT);
+			await TravelTime.applyEffect(player, Effect.getById(bigBadProperties.alterationStories[seFallen].alte), 0, new Date(), NumberChangeReason.SMALL_EVENT);
 			if (bigBadProperties.alterationStories[seFallen].tags) {
 				for (const tag of bigBadProperties.alterationStories[seFallen].tags) {
 					await MissionsController.update(player, response, {

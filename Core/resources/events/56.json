@@ -14,13 +14,13 @@
         "end": {
             "outcomes": {
                 "0": {
-                    "effect": ":confounded:"
+                    "effect": "confounded"
                 },
                 "1": {
                     "money": -225
                 },
                 "2": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": 5,
                     "lostTime": 20
                 }

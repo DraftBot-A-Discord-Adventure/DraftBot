@@ -9,6 +9,7 @@ import {KeycloakUtils} from "../../../../../../Lib/src/keycloak/KeycloakUtils";
 import {KeycloakConfig} from "../../../../../../Lib/src/keycloak/KeycloakConfig";
 import {logsV5NewIds} from "../../logs/migrations/006-v5";
 import {LANGUAGE} from "../../../../../../Lib/src/Language";
+import {Effect} from "../../../../../../Lib/src/enums/Effect";
 
 export async function up({context}: { context: QueryInterface }): Promise<void> {
 	const configPath = `${process.cwd()}/config/keycloak.toml`;
@@ -35,6 +36,13 @@ clientSecret = "secret"
 	}
 
 	await context.renameColumn("players", "discordUserId", "keycloakId");
+
+	// Migrate to new effect names
+	for (const effect of Effect.getAll()) {
+		await context.sequelize.query(`UPDATE players SET effect = "${effect.id}" WHERE effect = "${effect.v4Id}"`);
+	}
+
+	await context.renameColumn("players", "effect", "effectId");
 
 	await context.dropTable("armors");
 	await context.dropTable("classes");

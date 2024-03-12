@@ -6,7 +6,7 @@
                     "health": 5
                 },
                 "1": {
-                    "effect": ":confounded:",
+                    "effect": "confounded",
                     "health": -10
                 },
                 "2": {}
@@ -18,18 +18,18 @@
                     "health": 15
                 },
                 "1": {
-                    "effect": ":sick:",
+                    "effect": "sick",
                     "health": -5
                 },
                 "2": {
-                    "effect": ":confounded:"
+                    "effect": "confounded"
                 }
             }
         },
         "findMeal": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": 20,
                     "lostTime": 10
                 },
@@ -42,15 +42,15 @@
         "settle": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 120
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 60
                 },
                 "2": {
-                    "effect": ":sleeping:",
+                    "effect": "sleeping",
                     "health": 5
                 }
             }

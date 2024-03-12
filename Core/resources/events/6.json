@@ -3,7 +3,7 @@
         "end": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 270
                 }
             }
@@ -16,15 +16,15 @@
         "goDeeper": {
             "outcomes": {
                 "0": {
-                    "effect": ":face_with_monocle:"
+                    "effect": "lost"
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 20,
                     "randomItem": {}
                 },
                 "2": {
-                    "effect": ":confounded:",
+                    "effect": "confounded",
                     "health": -1
                 }
             }
@@ -32,19 +32,19 @@
         "search": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 30,
                     "randomItem": {}
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 60
                 },
                 "2": {
                     "money": -190
                 },
                 "3": {
-                    "effect": ":confounded:",
+                    "effect": "confounded",
                     "health": -25
                 }
             }

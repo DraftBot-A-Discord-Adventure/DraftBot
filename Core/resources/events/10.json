@@ -9,17 +9,17 @@
             "outcomes": {
                 "0": {},
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 30,
                     "randomItem": {}
                 },
                 "2": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 30,
                     "money": 234
                 },
                 "3": {
-                    "effect": ":confounded:",
+                    "effect": "confounded",
                     "health": -10
                 }
             }

@@ -1,16 +1,25 @@
 {
-  "nameDisplay": "{{emote}} **{{{name}}}**",
-  "nerfDisplay": "~ ~{{old}}~ ~ {{max}}",
-  "attack": ":dagger: {{value}}",
-  "defense": ":shield: {{value}}",
-  "speed": ":rocket: {{value}}",
-  "weapons": {
-    "fieldName": "Waffe:",
-    "fieldValue": "**{{name}}** | {{rarity}} | {{values}}"
-  },
   "armors": {
     "fieldName": "Armierung/Bouclier:",
     "fieldValue": "**{{name}}** | {{rarity}} | {{values}}"
+  },
+  "attack": ":dagger: {{value}}",
+  "defense": ":shield: {{value}}",
+  "nameDisplay": "{{emote}} **{{{name}}}**",
+  "nerfDisplay": "~ ~{{old}}~ ~ {{max}}",
+  "objects": {
+    "fieldName": "Zweck:",
+    "fieldValue": "**{{name}}** | {{rarity}} | {{nature}}",
+    "natures": [
+      ":x: Keine Auswirkungen",
+      ":heart: Vie + {{power}} (täglich)",
+      ":rocket: Geschwindigkeit + {{power}} während der Kämpfe",
+      ":crossed_swords: Attaque + {{power}} während der Kämpfe",
+      ":shield: Defense + {{power}} während der Kämpfe",
+      ":clock1030: Vorzeie Zeit von {{power}}",
+      ":moneybag: Silber + {{power}} pro Tag",
+      ":zap: Energie + {{power}} pro Tag"
+    ]
   },
   "potions": {
     "fieldName": "Potion:",
@@ -26,20 +35,6 @@
       ":zap: Energie + {{power}}"
     ]
   },
-  "objects": {
-    "fieldName": "Zweck:",
-    "fieldValue": "**{{name}}** | {{rarity}} | {{nature}}",
-    "natures": [
-      ":x: Keine Auswirkungen",
-      ":heart: Vie + {{power}} (täglich)",
-      ":rocket: Geschwindigkeit + {{power}} während der Kämpfe",
-      ":crossed_swords: Attaque + {{power}} während der Kämpfe",
-      ":shield: Defense + {{power}} während der Kämpfe",
-      ":clock1030: Vorzeie Zeit von {{power}}",
-      ":moneybag: Silber + {{power}} pro Tag",
-      ":zap: Energie + {{power}} pro Tag"
-    ]
-  },
   "rarities": [
     ":small_orange_diamond: Basic",
     ":large_orange_diamond: Commun",
@@ -50,5 +45,10 @@
     ":star: Estik",
     ":star2: Legenikon",
     ":gem: Mythen"
-  ]
+  ],
+  "speed": ":rocket: {{value}}",
+  "weapons": {
+    "fieldName": "Waffe:",
+    "fieldValue": "**{{name}}** | {{rarity}} | {{values}}"
+  }
 }

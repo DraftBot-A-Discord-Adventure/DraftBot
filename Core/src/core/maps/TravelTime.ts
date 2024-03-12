@@ -1,14 +1,14 @@
 import Player from "../database/game/models/Player";
 import {millisecondsToMinutes, minutesToMilliseconds} from "../../../../Lib/src/utils/TimeUtils";
 import {PlayerSmallEvents} from "../database/game/models/PlayerSmallEvent";
-import {Constants} from "../../../../Lib/src/constants/Constants";
-import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import {EffectsConstants} from "../../../../Lib/src/constants/EffectsConstants";
 import {Maps} from "./Maps";
 import {PVEConstants} from "../../../../Lib/src/constants/PVEConstants";
 import {MapLinkDataController} from "../../data/MapLink";
 import {draftBotInstance} from "../../index";
 import {TravelEndPushPacket} from "../../../../Lib/src/packets/push/TravelEndPushPacket";
+import {Effect} from "../../../../Lib/src/enums/Effect";
+import { Constants } from "../../../../Lib/src/constants/Constants";
+import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 
 /**
  * Travel time functions class
@@ -196,7 +196,7 @@ export class TravelTime {
 		player.startTravelDate = new Date(player.startTravelDate.valueOf() + minutesToMilliseconds(player.effectDuration));
 
 		// Now we can safely remove the effect, as the player is after the effect
-		player.effect = EffectsConstants.EMOJI_TEXT.SMILEY;
+		player.effectId = Effect.NO_EFFECT.id;
 		player.effectDuration = 0;
 		player.effectEndDate = new Date();
 
@@ -212,26 +212,26 @@ export class TravelTime {
 	 * @param date The date of the beginning of the effect
 	 * @param reason
 	 */
-	static async applyEffect(player: Player, effect: string, time: number, date: Date, reason: NumberChangeReason): Promise<void> {
+	static async applyEffect(player: Player, effect: Effect, time: number, date: Date, reason: NumberChangeReason): Promise<void> {
 		// Reason is IGNORE here because you don't want to log a time warp when you get an alteration
 		// First remove the effect (if the effect is time related)
-		if (![EffectsConstants.EMOJI_TEXT.SMILEY, EffectsConstants.EMOJI_TEXT.BABY, EffectsConstants.EMOJI_TEXT.DEAD].includes(player.effect)) {
+		if (player.effectId in [Effect.NO_EFFECT.id, Effect.NOT_STARTED.id, Effect.DEAD.id]) {
 			await this.removeEffect(player, NumberChangeReason.IGNORE);
 		}
 
 		// Apply the new effect
-		player.effect = effect;
-		if (effect === EffectsConstants.EMOJI_TEXT.OCCUPIED) {
+		player.effectId = effect.id;
+		if (effect === Effect.OCCUPIED) {
 			player.effectDuration = time;
 		}
 		else {
-			player.effectDuration = EffectsConstants.DURATION[effect as keyof typeof EffectsConstants.DURATION];
+			player.effectDuration = effect.timeMinutes;
 		}
 		player.effectEndDate = new Date(date.valueOf() + minutesToMilliseconds(player.effectDuration));
 
 		// Save and log
 		await player.save();
-		draftBotInstance.logsDatabase.logAlteration(player.keycloakId, effect, reason, time)
+		draftBotInstance.logsDatabase.logAlteration(player.keycloakId, effect.id, reason, time)
 			.then();
 	}
 }

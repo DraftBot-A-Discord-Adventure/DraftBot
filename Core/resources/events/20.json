@@ -6,7 +6,7 @@
                     "randomItem": {}
                 },
                 "1": {
-                    "effect": ":head_bandage:",
+                    "effect": "hurt",
                     "health": -35
                 }
             }
@@ -15,7 +15,7 @@
             "outcomes": {
                 "0": {},
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 5
                 }
             }
@@ -34,11 +34,11 @@
                     "randomItem": {}
                 },
                 "1": {
-                    "effect": ":head_bandage:",
+                    "effect": "hurt",
                     "health": -55
                 },
                 "2": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 30,
                     "money": 25
                 }

@@ -3,6 +3,16 @@
     "description": "Affiche des informations sur les badges et leur fonctionnement.",
     "name": "badges"
   },
+  "help": {
+    "description": "Affiche la liste des commandes disponibles ou les informations détaillées sur une commande.",
+    "name": "aide",
+    "options": {
+      "commandName": {
+        "description": "La commande dont les informations doivent être affichées.",
+        "name": "commande"
+      }
+    }
+  },
   "idea": {
     "description": "Envoyer une suggestion pour améliorer le jeu.",
     "name": "suggestion"
@@ -24,6 +34,10 @@
   "invite": {
     "description": "Ajouter le bot sur votre serveur.",
     "name": "invitationdraftbot"
+  },
+  "language": {
+    "description": "Changer la langue du bot dans le serveur discord ou la commande a été exécutée.",
+    "name": "langage"
   },
   "ping": {
     "description": "Affiche la latence du bot et permet au joueur de vérifier si le bot est en ligne.",
@@ -61,6 +75,10 @@
       }
     }
   },
+  "rarity": {
+    "description": "Affiche les différentes raretés des équipements.",
+    "name": "rarete"
+  },
   "report": {
     "description": "Obtenir un rapport sur la situation de votre personnage.",
     "name": "rapport"
@@ -79,30 +97,12 @@
       }
     }
   },
-  "rarity": {
-    "description": "Affiche les différentes raretés des équipements.",
-    "name": "rarete"
-  },
   "update": {
     "description": "Affiche la version actuelle du bot.",
     "name": "nouveautes"
   },
-  "help": {
-    "description": "Affiche la liste des commandes disponibles ou les informations détaillées sur une commande.",
-    "name": "aide",
-    "options": {
-      "commandName": {
-        "description": "La commande dont les informations doivent être affichées.",
-        "name": "commande"
-      }
-    }
-  },
   "vote": {
     "description": "Afficher le lien permettant de voter pour le bot.",
     "name": "vote"
-  },
-  "language": {
-    "description": "Changer la langue du bot dans le serveur discord ou la commande a été exécutée.",
-    "name": "langage"
   }
 }

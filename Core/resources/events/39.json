@@ -16,7 +16,7 @@
                     ]
                 },
                 "3": {
-                    "effect": ":head_bandage:",
+                    "effect": "hurt",
                     "health": -20,
                     "money": -300,
                     "tags": [
@@ -28,7 +28,7 @@
         "end": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 10
                 },
                 "1": {
@@ -39,7 +39,7 @@
         "meal": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 120
                 },
                 "1": {}
@@ -48,7 +48,7 @@
         "steal": {
             "outcomes": {
                 "0": {
-                    "effect": ":head_bandage:",
+                    "effect": "hurt",
                     "health": -20
                 },
                 "1": {}

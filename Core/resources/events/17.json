@@ -3,11 +3,11 @@
         "end": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 10
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 260
                 }
             }
@@ -18,11 +18,11 @@
                     "health": 15
                 },
                 "1": {
-                    "effect": ":confounded:",
+                    "effect": "confounded",
                     "health": -10
                 },
                 "2": {
-                    "effect": ":sick:",
+                    "effect": "sick",
                     "health": -15
                 }
             }
@@ -31,7 +31,7 @@
             "outcomes": {
                 "0": {},
                 "1": {
-                    "effect": ":dizzy_face:",
+                    "effect": "injured",
                     "health": -60
                 },
                 "2": {
@@ -45,11 +45,11 @@
                     "randomItem": {}
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 55
                 },
                 "2": {
-                    "effect": ":dizzy_face:",
+                    "effect": "injured",
                     "health": -40
                 }
             }
@@ -60,7 +60,7 @@
                     "health": 5
                 },
                 "1": {
-                    "effect": ":drooling_face:"
+                    "effect": "starving"
                 },
                 "2": {}
             }
@@ -69,7 +69,7 @@
             "outcomes": {
                 "0": {},
                 "1": {
-                    "effect": ":sleeping:"
+                    "effect": "sleeping"
                 }
             }
         }

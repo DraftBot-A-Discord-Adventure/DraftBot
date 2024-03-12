@@ -49,16 +49,16 @@
         "end": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 10
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 180,
                     "randomItem": {}
                 },
                 "2": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 180
                 }
             }
@@ -70,7 +70,7 @@
                 },
                 "1": {},
                 "2": {
-                    "effect": ":head_bandage:",
+                    "effect": "hurt",
                     "health": -20
                 }
             }

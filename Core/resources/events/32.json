@@ -6,7 +6,7 @@
                     "money": 200
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 10
                 },
                 "2": {},
@@ -53,7 +53,7 @@
                 },
                 "2": {},
                 "3": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": 20,
                     "lostTime": 60
                 }

@@ -1,16 +1,25 @@
 {
-  "nameDisplay": "{{emote}} **{{{name}}}**",
-  "nerfDisplay": "~~{{old}}~~ {{max}}",
-  "attack": ":dagger: {{value}}",
-  "defense": ":shield: {{value}}",
-  "speed": ":rocket: {{value}}",
-  "weapons": {
-    "fieldName": "Arme :",
-    "fieldValue": "**{{name}}** | {{rarity}} | {{values}}"
-  },
   "armors": {
     "fieldName": "Armure/Bouclier :",
     "fieldValue": "**{{name}}** | {{rarity}} | {{values}}"
+  },
+  "attack": ":dagger: {{value}}",
+  "defense": ":shield: {{value}}",
+  "nameDisplay": "{{emote}} **{{{name}}}**",
+  "nerfDisplay": "~~{{old}}~~ {{max}}",
+  "objects": {
+    "fieldName": "Objet :",
+    "fieldValue": "**{{name}}** | {{rarity}} | {{nature}}",
+    "natures": [
+      ":x: Aucun effet",
+      ":heart: Vie + {{power}} par jour",
+      ":rocket: Vitesse + {{power}} pendant les combats",
+      ":crossed_swords: Attaque + {{power}} pendant les combats",
+      ":shield: Défense + {{power}} pendant les combats",
+      ":clock1030: Avance le temps de {{power}} chaque jour",
+      ":moneybag: Argent + {{power}} par jour",
+      ":zap: Énergie + {{power}} par jour"
+    ]
   },
   "potions": {
     "fieldName": "Potion :",
@@ -26,20 +35,6 @@
       ":zap: Énergie + {{power}}"
     ]
   },
-  "objects": {
-    "fieldName": "Objet :",
-    "fieldValue": "**{{name}}** | {{rarity}} | {{nature}}",
-    "natures": [
-      ":x: Aucun effet",
-      ":heart: Vie + {{power}} par jour",
-      ":rocket: Vitesse + {{power}} pendant les combats",
-      ":crossed_swords: Attaque + {{power}} pendant les combats",
-      ":shield: Défense + {{power}} pendant les combats",
-      ":clock1030: Avance le temps de {{power}} chaque jour",
-      ":moneybag: Argent + {{power}} par jour",
-      ":zap: Énergie + {{power}} par jour"
-    ]
-  },
   "rarities": [
     ":small_orange_diamond: Basique",
     ":large_orange_diamond: Commun",
@@ -50,5 +45,10 @@
     ":star: Épique",
     ":star2: Légendaire",
     ":gem: Mythique"
-  ]
+  ],
+  "speed": ":rocket: {{value}}",
+  "weapons": {
+    "fieldName": "Arme :",
+    "fieldValue": "**{{name}}** | {{rarity}} | {{values}}"
+  }
 }

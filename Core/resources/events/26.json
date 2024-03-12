@@ -3,7 +3,7 @@
         "end": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 15
                 }
             }
@@ -12,7 +12,7 @@
             "outcomes": {
                 "0": {},
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 10,
                     "money": 75
                 }
@@ -21,12 +21,12 @@
         "steal": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 30,
                     "randomItem": {}
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": -15,
                     "lostTime": 25
                 }
@@ -35,17 +35,17 @@
         "trySave": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 15,
                     "randomItem": {}
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": -10,
                     "lostTime": 15
                 },
                 "2": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": -15,
                     "lostTime": 20,
                     "money": -200

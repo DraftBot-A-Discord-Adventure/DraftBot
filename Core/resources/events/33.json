@@ -3,7 +3,7 @@
         "chat": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 120,
                     "tags": [
                         "bigFeast"
@@ -43,20 +43,20 @@
                     ]
                 },
                 "1": {
-                    "effect": ":sick:",
+                    "effect": "sick",
                     "tags": [
                         "bigFeast"
                     ]
                 },
                 "2": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 75,
                     "tags": [
                         "bigFeast"
                     ]
                 },
                 "3": {
-                    "effect": ":zany_face:",
+                    "effect": "drunk",
                     "tags": [
                         "drinkAlcohol",
                         "bigFeast"
@@ -67,11 +67,11 @@
         "end": {
             "outcomes": {
                 "0": {
-                    "effect": ":confounded:",
+                    "effect": "confounded",
                     "health": -20
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": 40,
                     "lostTime": 180,
                     "tags": [
@@ -100,7 +100,7 @@
                     "money": 250
                 },
                 "2": {
-                    "effect": ":head_bandage:",
+                    "effect": "hurt",
                     "health": -20
                 }
             }

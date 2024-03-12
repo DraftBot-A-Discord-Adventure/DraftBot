@@ -3,6 +3,16 @@
     "description": "Muestra información sobre las insignias y su funcionamiento.",
     "name": "insignias"
   },
+  "help": {
+    "description": "Muestra la lista de comandos disponibles o información detallada sobre un comando.",
+    "name": "asistencia",
+    "options": {
+      "commandName": {
+        "description": "El comando cuya información debe mostrarse.",
+        "name": "pedir"
+      }
+    }
+  },
   "idea": {
     "description": "Envía una sugerencia para mejorar el juego.",
     "name": "sugerencia"
@@ -61,6 +71,10 @@
       }
     }
   },
+  "rarity": {
+    "description": "Muestra las distintas rarezas de los equipos.",
+    "name": "rareza"
+  },
   "report": {
     "description": "Obtén un informe sobre la situación de tu personaje.",
     "name": "informe"
@@ -79,30 +93,16 @@
       }
     }
   },
-  "rarity": {
-    "description": "Muestra las distintas rarezas de los equipos.",
-    "name": "rareza"
-  },
   "update": {
     "description": "Muestra la versión actual del bot.",
     "name": "nuevos productos"
   },
-  "help": {
-    "description": "Muestra la lista de comandos disponibles o información detallada sobre un comando.",
-    "name": "asistencia",
-    "options": {
-      "commandName": {
-        "description": "El comando cuya información debe mostrarse.",
-        "name": "pedir"
-      }
-    }
+  "language": {
+    "description": "Changer la langue du bot dans le serveur discord ou la commande a été exécutée.",
+    "name": "langage"
   },
   "vote": {
     "description": "Muestra el enlace para votar por el bot.",
     "name": "vote"
-  },
-  "language": {
-    "description": "Changer la langue du bot dans le serveur discord ou la commande a été exécutée.",
-    "name": "langage"
   }
 }

@@ -4,24 +4,24 @@
             "outcomes": {
                 "0": {},
                 "1": {
-                    "effect": ":confounded:",
+                    "effect": "confounded",
                     "randomItem": {}
                 },
                 "2": {
-                    "effect": ":lock:"
+                    "effect": "jailed"
                 }
             }
         },
         "singCrazyLove": {
             "outcomes": {
                 "0": {
-                    "effect": ":scream:"
+                    "effect": "scared"
                 },
                 "1": {
                     "randomItem": {}
                 },
                 "2": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 20
                 }
             }
@@ -29,15 +29,15 @@
         "singHero": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 5
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 480
                 },
                 "2": {
-                    "effect": ":sick:",
+                    "effect": "sick",
                     "money": 200,
                     "randomItem": {}
                 }
@@ -46,7 +46,7 @@
         "singLove": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 360
                 },
                 "1": {
@@ -63,7 +63,7 @@
                     "money": 600
                 },
                 "1": {
-                    "effect": ":lock:"
+                    "effect": "jailed"
                 },
                 "2": {}
             }
@@ -71,7 +71,7 @@
         "singWork": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 480
                 },
                 "1": {

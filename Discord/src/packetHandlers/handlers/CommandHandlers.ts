@@ -16,7 +16,9 @@ import {CommandRarityPacketRes} from "../../../../Lib/src/packets/commands/Comma
 import {handleCommandRarityPacketRes} from "../../commands/player/RarityCommand";
 import {handleCommandTestPacketRes} from "../../commands/admin/TestCommand";
 import {handleCommandGuildPacketRes} from "../../commands/guild/GuildCommand";
-import { CommandGuildPacketRes } from "../../../../Lib/src/packets/commands/CommandGuildPacket";
+import {CommandGuildPacketRes} from "../../../../Lib/src/packets/commands/CommandGuildPacket";
+import {reportResult} from "../../commands/player/ReportCommand";
+import {CommandReportBigEventResultRes} from "../../../../Lib/src/packets/commands/CommandReportPacket";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
@@ -61,5 +63,10 @@ export default class CommandHandlers {
 	@packetHandler(CommandRarityPacketRes)
 	async rarityRes(socket: WebSocket, packet: CommandRarityPacketRes, context: PacketContext): Promise<void> {
 		await handleCommandRarityPacketRes(packet, context);
+	}
+
+	@packetHandler(CommandReportBigEventResultRes)
+	async reportResultRes(socket: WebSocket, packet: CommandReportBigEventResultRes, context: PacketContext): Promise<void> {
+		await reportResult(packet, context);
 	}
 }

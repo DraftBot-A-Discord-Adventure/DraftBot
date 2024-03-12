@@ -2,50 +2,50 @@
 	"properties": {
 		"alterationStories": {
 			"badBerries": {
-				"alte": ":sick:"
+				"alte": "sick"
 			},
 			"gentleBreeze": {
-				"alte": ":sleeping:"
+				"alte": "sleeping"
 			},
 			"mysteriousBottle": {
-				"alte": ":zany_face:",
+				"alte": "drunk",
 				"tags": ["drinkAlcohol"]
 			},
 			"strangeLiquid": {
-				"alte": ":sick:"
+				"alte": "sick"
 			},
 			"expiredProvisions": {
-				"alte": ":confounded:"
+				"alte": "confounded"
 			},
 			"unexpectedRider": {
-				"alte": ":dizzy_face:"
+				"alte": "injured"
 			},
 			"fallingBranch": {
-				"alte": ":head_bandage:"
+				"alte": "hurt"
 			},
 			"precipiceFall": {
-				"alte": ":dizzy_face:"
+				"alte": "injured"
 			},
 			"ambushedByGroup": {
-				"alte": ":head_bandage:"
+				"alte": "hurt"
 			},
 			"cowStampede": {
-				"alte": ":scream:"
+				"alte": "scared"
 			},
 			"trippedOverRoot": {
-				"alte": ":head_bandage:"
+				"alte": "hurt"
 			},
 			"encounterWithBearCub": {
-				"alte": ":scream:"
+				"alte": "scared"
 			},
 			"wrongDirection": {
-				"alte": ":face_with_monocle:"
+				"alte": "lost"
 			},
 			"chilledByColdNights": {
-				"alte": ":cold_face:"
+				"alte": "freezing"
 			},
 			"mistakenIdentity": {
-				"alte": ":lock:"
+				"alte": "jailed"
 			}
 		}
 	},

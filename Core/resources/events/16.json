@@ -3,11 +3,11 @@
         "end": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 15
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 30
                 }
             }
@@ -15,16 +15,16 @@
         "enterCastle": {
             "outcomes": {
                 "0": {
-                    "effect": ":head_bandage:",
+                    "effect": "hurt",
                     "health": -35
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 25,
                     "randomItem": {}
                 },
                 "2": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 10
                 }
             }
@@ -37,16 +37,16 @@
         "walkAround": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 80
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 80,
                     "money": 450
                 },
                 "2": {
-                    "effect": ":head_bandage:",
+                    "effect": "hurt",
                     "health": -20
                 }
             }

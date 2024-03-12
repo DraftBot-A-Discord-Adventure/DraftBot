@@ -10,9 +10,9 @@ import {InventorySlots} from "../../core/database/game/models/InventorySlot";
 import {PetEntities} from "../../core/database/game/models/PetEntity";
 import {CommandReportBigEventResultRes} from "../../../../Lib/src/packets/commands/CommandReportPacket";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {EffectsConstants} from "../../../../Lib/src/constants/EffectsConstants";
 import {ItemConstants} from "../../../../Lib/src/constants/ItemConstants";
 import {MapLink, MapLinkDataController} from "../MapLink";
+import {Effect} from "../../../../Lib/src/enums/Effect";
 
 async function applyOutcomeScore(outcome: PossibilityOutcome, time: number, player: Player, response: DraftBotPacket[]): Promise<number> {
 	const scoreChange = time +
@@ -32,18 +32,18 @@ async function applyOutcomeExperience(outcome: PossibilityOutcome, player: Playe
 		(outcome.health > 0 ? 200 : 0) +
 		(outcome.randomItem ? 300 : 0) +
 		(outcome.money > 0 ? 100 : 0);
-	switch (outcome.effect ?? EffectsConstants.EMOJI_TEXT.SMILEY) {
-	case EffectsConstants.EMOJI_TEXT.OCCUPIED:
+	switch (outcome.effect ?? Effect.NO_EFFECT.id) {
+	case Effect.OCCUPIED.id:
 		experienceChange -= 125;
 		break;
-	case EffectsConstants.EMOJI_TEXT.SLEEPING:
-	case EffectsConstants.EMOJI_TEXT.STARVING:
+	case Effect.SLEEPING.id:
+	case Effect.STARVING.id:
 		experienceChange -= 130;
 		break;
-	case EffectsConstants.EMOJI_TEXT.CONFOUNDED:
+	case Effect.CONFOUNDED.id:
 		experienceChange -= 140;
 		break;
-	case EffectsConstants.EMOJI_TEXT.SMILEY:
+	case Effect.NO_EFFECT.id:
 		break;
 	default:
 		experienceChange = 0;
@@ -69,14 +69,14 @@ async function applyOutcomeEffect(outcome: PossibilityOutcome, player: Player): 
 } | undefined> {
 	await player.setLastReportWithEffect(
 		outcome.lostTime ?? 0,
-		outcome.effect ?? EffectsConstants.EMOJI_TEXT.SMILEY,
+		Effect.getById(outcome.effect) ?? Effect.NO_EFFECT,
 		NumberChangeReason.BIG_EVENT
 	);
 
 	if (outcome.effect) {
 		return {
 			time: player.effectDuration,
-			name: player.effect
+			name: player.effectId
 		};
 	}
 

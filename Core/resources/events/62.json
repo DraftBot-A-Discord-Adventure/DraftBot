@@ -25,17 +25,17 @@
         "searchPatures": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 20,
                     "money": 500
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": 30,
                     "lostTime": 120
                 },
                 "2": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "health": -10,
                     "lostTime": 20
                 }
@@ -45,11 +45,11 @@
             "outcomes": {
                 "0": {},
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 10
                 },
                 "2": {
-                    "effect": ":zany_face:",
+                    "effect": "drunk",
                     "health": 3
                 }
             }
@@ -57,12 +57,12 @@
         "searchWheat": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 30,
                     "money": 400
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 180,
                     "randomItem": {}
                 },

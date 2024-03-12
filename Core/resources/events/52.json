@@ -4,7 +4,7 @@
             "outcomes": {
                 "0": {},
                 "1": {
-                    "effect": ":head_bandage:"
+                    "effect": "hurt"
                 },
                 "2": {}
             }
@@ -16,7 +16,7 @@
                     "health": -5
                 },
                 "2": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 120,
                     "money": -100
                 }
@@ -26,11 +26,11 @@
             "outcomes": {
                 "0": {},
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 5
                 },
                 "2": {
-                    "effect": ":head_bandage:",
+                    "effect": "hurt",
                     "health": -15
                 }
             }
@@ -38,7 +38,7 @@
         "playFight": {
             "outcomes": {
                 "0": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 20
                 },
                 "1": {
@@ -48,7 +48,7 @@
                     "money": -250
                 },
                 "3": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 20
                 }
             }
@@ -56,11 +56,11 @@
         "teach": {
             "outcomes": {
                 "0": {
-                    "effect": ":head_bandage:",
+                    "effect": "hurt",
                     "health": -25
                 },
                 "1": {
-                    "effect": ":clock2:",
+                    "effect": "occupied",
                     "lostTime": 190,
                     "randomItem": {}
                 },
