@@ -4,8 +4,8 @@
     "title": ":military_medal: Informazione dettagliate :"
   },
   "guild": {
-    "embedTitle": "Guilde {{guildName}} | Niveau {{level}}",
-    "description": ":scroll: `{{description}}`",
+    "embedTitle": "Gilda {{guildName}} | Livello {{level}}",
+    "description": ":scroll:`{{description}}`",
     "emojis": {
       "chief": "👑",
       "elder": "🎖️",
@@ -17,14 +17,14 @@
     },
     "separator": " | ",
     "memberInfos": "{{icon}} - **{{pseudo}}** ({{ranking}} :trophy: | {{score}} :medal:{{islandStatusIcon}})\n",
-    "members": ":person_pouting: {{memberCount}}/{{maxGuildMembers}} membres",
+    "members": ":person_pouting: {{memberCount}}/{{maxGuildMembers}} membri",
     "infoTitle": "Informazione",
-    "islandInfo": ":island: Nombre d'alliés sur l'île mystérieuse : {{membersOnPveIsland}\n",
+    "islandInfo": ":island: Numero di alleati sull'Isola Misteriosa : {{membersOnPveIsland}\n",
     "info": ":star: {{experience}} | :mirror_ball: {{guildPoints}} | :trophy: {{ranking}}",
     "xpNeeded": "{{xp} / {{xpToLevelUp}}",
-    "xpMax": "Max",
+    "xpMax": "Massimo",
     "ranking": "{{rank} / {{rankTotal}}",
-    "notRanked": "Non classée"
+    "notRanked": "Non Classificato"
   },
   "idea": {
     "description": "Potete fare proposte e votare per le vostre idee preferite a questo link:\nhttps://feedback.draftbot.com/",
@@ -211,32 +211,32 @@
         "description": "Scambia l'oggetto nella vostra riserva con l'oggetto nella casella \"oggetto\" del vostro inventario."
       },
       "FIGHT": {
-        "description": "Utilisez cette commande pour défier les autres joueurs qui se trouvent sur le même serveur que vous.\nLes combats se déroulent tour par tour. À chaque tour, vous pouvez choisir une action à effectuer.\n\nPour plus d'informations vous pouvez aller voir la page du guide : https://guide.draftbot.com/notions-principale/combats",
+        "description": "Usate questo comando per sfidare altri giocatori sullo stesso server.\nLe battaglie si svolgono turno per turno. A ogni turno si può scegliere un'azione da eseguire.\n\nPer ulteriori informazioni, consultare la pagina della guida: https://guide.draftbot.com/notions-principale/combats",
         "image": "https://draftbot.com/public/ressources/fighthelp/fr/4.5.2.png"
       },
       "HELP": {
         "description": ":expressionless:"
       },
       "LANGUAGE": {
-        "description": "Change la langue utilisée par le bot pour l'anglais. Utilisable si vous êtes administrateur sur un serveur."
+        "description": "Cambia la lingua utilizzata dal bot in inglese. Può essere utilizzato se si è amministratori di un server."
       },
       "TOP": {
-        "description": "Affiche le classement général du jeu par tranche de 15 joueurs. Les joueurs dans le même serveur que vous sont marqués par une pastille bleue."
+        "description": "Mostra la classifica generale della partita per ogni 15 giocatori. I giocatori sullo stesso server che voi sono contrassegnati da un punto blu."
       },
       "GLORY_TOP": {
-        "description": "Affiche le classement glorieux du jeu par tranche de 15 joueurs. La ligue des joueurs est également affichée. Les joueurs dans le même serveur que vous sont marqués par une pastille bleue."
+        "description": "Visualizza la classifica gloriosa della partita per ogni 15 giocatori. Viene visualizzato anche il campionato dei giocatori. I giocatori sullo stesso server che voi sono contrassegnati da un punto blu."
       },
       "GUILD_TOP": {
-        "description": "Affiche le classement des guildes par tranche de 15 guildes. Les guildes sont classées en fonctions des points récoltés sur les îles mystérieuses."
+        "description": "Visualizza le classifiche delle gilde con incrementi di 15 gilde. Le gilde sono classificate in base ai punti raccolti nelle isole misteriose."
       },
       "INVENTORY": {
-        "description": "Affiche le contenu de votre inventaire qui peut contenir 4 types d'objets :\n```\n-armes\n-armures\n-potions\n-items\n```\nLa commande affiche également le contenu de la réserve qui dispose de stockage supplémentaire."
+        "description": "Visualizza il contenuto dell'inventario, che può contenere 4 tipi di oggetti:\n```\n-armi\n-armature\n-pozioni\n-oggetti\n```\nIl comando visualizza anche il contenuto della riserva, che ha un deposito aggiuntivo."
       },
       "REPORT": {
-        "description": "Permet de collecter les informations et les ressources collectées par votre personnage durant votre absence. De temps en temps, des évènements se déclenchent et demandent des actions particulières."
+        "description": "Permette di raccogliere informazioni e risorse raccolte dal personaggio durante la sua assenza. Di tanto in tanto si attivano eventi che richiedono azioni specifiche."
       },
       "SELL": {
-        "description": "Permet de vendre l'objet qui se trouve dans votre réserve, la valeur de l'objet est déterminée en fonction de sa puissance. Les potions n'ont pas de valeur de revente, mais peuvent être jetées grace à cette commande."
+        "description": "Permette di vendere un oggetto presente nella propria scorta. Il valore dell'oggetto è determinato dal suo potere. Le pozioni non hanno valore di rivendita, ma possono essere scartate con questo comando."
       },
       "DAILY_BONUS": {
         "description": "Certains items vous donnent un bonus journalier. Utilisez cette commande pour récupérer ces bonus. Pour savoir si un item vous donne un bonus journalier, effectuez la commande {command:inventory}."
