@@ -7,6 +7,9 @@ export const DraftBotIcons: {
 			[possibilityName: string]: string | { [outcomeId: string]: string }
 		}
 	}
+	map_types: {
+		[mapType: string]: string
+	},
 } = {
 	"effects": {
 		"not_started": "👶",
@@ -685,5 +688,32 @@ export const DraftBotIcons: {
 			"help": "🔎",
 			"skip": "▶️"
 		}
+	},
+	"map_types": {
+		"be": "🏖",
+		"castle_entrance": "🏰",
+		"castle_throne": "🪑",
+		"ci": "🏘",
+		"continent": "🏞",
+		"crystal_cavern": "💎",
+		"de": "🏜",
+		"fo": "🌳",
+		"ice_beach": "🌨",
+		"ice_cavern": "🧊",
+		"ice_lake": "❄",
+		"la": "🚣‍♂",
+		"mine": "🪨",
+		"mo": "⛰",
+		"pl": "🌺",
+		"pve_exit": "⛴",
+		"ri": "🏞",
+		"ro": "🛣",
+		"ruins": "🏚",
+		"snow_mountain": "🏔",
+		"snowmen_field": "☃",
+		"test_zone": "👾",
+		"tundra": "🌲",
+		"vi": "🛖",
+		"volcano": "🌋"
 	}
 };

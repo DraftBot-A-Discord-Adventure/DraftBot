@@ -53,6 +53,7 @@ import {Possibility} from "../../data/events/Possibility";
 import {applyPossibilityOutcome} from "../../data/events/PossibilityOutcome";
 import {ErrorPacket} from "../../../../Lib/src/packets/commands/ErrorPacket";
 import {Effect} from "../../../../Lib/src/enums/Effect";
+import {MapLocationDataController} from "../../data/MapLocation";
 
 export default class ReportCommand {
 	@packetHandler(CommandReportPacketReq)
@@ -205,7 +206,7 @@ async function doPossibility(
 
 	const newMapLink = await applyPossibilityOutcome(event.id, possibility[0], randomOutcome, player, time, context, response);
 
-	if (!await player.killIfNeeded(response, NumberChangeReason.BIG_EVENT) && newMapLink) {
+	if (!await player.killIfNeeded(response, NumberChangeReason.BIG_EVENT) && !newMapLink) {
 		await chooseDestination(context, player, newMapLink, response);
 	}
 
@@ -322,9 +323,11 @@ async function doRandomBigEvent(
  */
 async function automaticChooseDestination(forcedLink: MapLink, player: Player, destinationMaps: number[], response: DraftBotPacket[]): Promise<void> {
 	const newLink = forcedLink && forcedLink.id !== -1 ? forcedLink : MapLinkDataController.instance.getLinkByLocations(player.getDestinationId(), destinationMaps[0]);
+	const endMap = MapLocationDataController.instance.getById(newLink.endMap);
 	await Maps.startTravel(player, newLink, Date.now());
 	response.push(makePacket(CommandReportChooseDestinationRes, {
 		mapId: newLink.endMap,
+		mapTypeId: endMap.type,
 		tripDuration: newLink.tripDuration
 	}));
 }
@@ -359,9 +362,14 @@ async function chooseDestination(
 
 	const mapReactions: ReactionCollectorChooseDestinationReaction[] = destinationMaps.map((mapId) => {
 		const mapLink = MapLinkDataController.instance.getLinkByLocations(player.getDestinationId(), mapId);
+		const mapTypeId = MapLocationDataController.instance.getById(mapId).type;
 		const isPveMap = MapCache.allPveMapLinks.includes(mapLink.id);
 
-		return {mapId, tripDuration: isPveMap || RandomUtils.draftbotRandom.bool() ? mapLink.tripDuration : null};
+		return {
+			mapId,
+			mapTypeId,
+			tripDuration: isPveMap || RandomUtils.draftbotRandom.bool() ? mapLink.tripDuration : null
+		};
 	});
 
 	const collector = new ReactionCollectorChooseDestination(mapReactions);
@@ -372,9 +380,11 @@ async function chooseDestination(
 			(firstReaction.reaction.data as ReactionCollectorChooseDestinationReaction).mapId :
 			(RandomUtils.draftbotRandom.pick(collector.creationPacket.reactions).data as ReactionCollectorChooseDestinationReaction).mapId;
 		const newLink = MapLinkDataController.instance.getLinkByLocations(player.getDestinationId(), mapId);
+		const endMap = MapLocationDataController.instance.getById(mapId);
 		await Maps.startTravel(player, newLink, Date.now());
 		response.push(makePacket(CommandReportChooseDestinationRes, {
 			mapId: newLink.endMap,
+			mapTypeId: endMap.type,
 			tripDuration: newLink.tripDuration
 		}));
 		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.CHOOSE_DESTINATION);

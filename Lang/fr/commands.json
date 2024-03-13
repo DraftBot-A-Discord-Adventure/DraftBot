@@ -223,39 +223,6 @@
       "main": "Rejoignez la communauté ! Utilisez ce lien : https://discord.gg/acGNvzEY92 :smiley:"
     }
   },
-  "language": {
-    "description": "Utilisez le menu ci-dessous pour changer la langue utilisée par le bot sur ce serveur. Cette commande est réservée aux administrateurs du serveur.",
-    "languages": {
-      "de": {
-        "emoji": "🇩🇪",
-        "name": "Allemand"
-      },
-      "en": {
-        "emoji": "🇬🇧",
-        "name": "Anglais"
-      },
-      "es": {
-        "emoji": "🇪🇸",
-        "name": "Espagnol"
-      },
-      "fr": {
-        "emoji": "🇫🇷",
-        "name": "Français"
-      },
-      "it": {
-        "emoji": "🇮🇹",
-        "name": "Italien"
-      },
-      "pt": {
-        "emoji": "🇵🇹",
-        "name": "Portugais"
-      }
-    },
-    "newLanguageSetDescription": "DraftBot vous parlera désormais en français ! 🥖",
-    "newLanguageSetTitle": "Langue changée",
-    "selectLanguage": "Sélectionnez une langue",
-    "title": ":earth_africa: Sélection de la langue"
-  },
   "ping": {
     "discord": {
       "create": ":ping_pong: Pong",
@@ -351,10 +318,10 @@
   "report": {
     "adviceTitle": "Conseil :",
     "chooseDestinationIndications": "Choisissez une destination pour votre voyage:",
-    "choseMapMinutes_one": "Vous avez décidé de partir en direction {{mapPrefix}} {{mapType}} **{{mapName}}**. Ce trajet durera environ **{{time}} minute**.",
-    "choseMapMinutes_other": "Vous avez décidé de partir en direction {{mapPrefix}} {{mapType}} **{{mapName}}**. Ce trajet durera environ **{{time}} minutes**.",
-    "choseMap_one": "Vous avez décidé de partir en direction {{mapPrefix}} {{mapType}} **{{mapName}}**. Ce trajet durera environ **{{time}} heure**.",
-    "choseMap_other": "Vous avez décidé de partir en direction {{mapPrefix}} {{mapType}} **{{mapName}}**. Ce trajet durera environ **{{time}} heures**.",
+    "choseMapMinutes_one": "Vous avez décidé de partir en direction {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. Ce trajet durera environ **{{time}} minute**.",
+    "choseMapMinutes_other": "Vous avez décidé de partir en direction {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. Ce trajet durera environ **{{time}} minutes**.",
+    "choseMap_one": "Vous avez décidé de partir en direction {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. Ce trajet durera environ **{{time}} heure**.",
+    "choseMap_other": "Vous avez décidé de partir en direction {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. Ce trajet durera environ **{{time}} heures**.",
     "collectedPointsTitle": "Points récoltés :",
     "commandDescription": "Obtenir un rapport sur la situation de votre personnage.",
     "commandName": "rapport",
