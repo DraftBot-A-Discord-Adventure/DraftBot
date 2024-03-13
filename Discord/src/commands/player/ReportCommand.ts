@@ -9,7 +9,6 @@ import {
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {
 	ReactionCollectorCreationPacket,
-	ReactionCollectorReactPacket
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {
 	ReactionCollectorBigEventData,
@@ -26,10 +25,13 @@ import {
 import {DiscordCache} from "../../bot/DiscordCache";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 import {sendInteractionNotForYou} from "../../utils/ErrorUtils";
-import {DiscordWebSocket} from "../../bot/Websocket";
 import {Constants} from "../../../../Lib/src/constants/Constants";
 import {Effect} from "../../../../Lib/src/enums/Effect";
 import {minutesDisplay} from "../../../../Lib/src/utils/TimeUtils";
+import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
+import {ReactionCollectorChooseDestinationReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorChooseDestination";
+import {Language} from "../../../../Lib/src/Language";
+import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
 
 async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandReportPacketReq> {
 	await interaction.deferReply();
@@ -71,35 +73,7 @@ export async function createBigEventCollector(packet: ReactionCollectorCreationP
 	const respondToEvent = (possibilityName: string, buttonInteraction: ButtonInteraction | null): void => {
 		if (!responded) {
 			responded = true;
-
-			const responsePacket = makePacket(
-				ReactionCollectorReactPacket,
-				{
-					id: packet.id,
-					keycloakId: user.id,
-					reactionIndex: reactions.findIndex((reaction) => reaction.name === possibilityName)
-				}
-			);
-
-			if (buttonInteraction) {
-				DiscordCache.cacheButtonInteraction(buttonInteraction);
-			}
-			DiscordWebSocket.socket!.send(JSON.stringify({
-				packet: {
-					name: responsePacket.constructor.name,
-					data: responsePacket
-				},
-				context: {
-					keycloakId: user.id,
-					discord: {
-						user: interaction.user.id,
-						channel: interaction.channel.id,
-						interaction: interaction.id,
-						buttonInteraction: buttonInteraction?.id,
-						language: interaction.userLanguage
-					}
-				}
-			}));
+			DiscordCollectorUtils.sendReaction(packet, context, user, buttonInteraction, reactions.findIndex((reaction) => reaction.name === possibilityName));
 		}
 	};
 
@@ -123,20 +97,17 @@ export async function createBigEventCollector(packet: ReactionCollectorCreationP
 	buttonCollector.on("end", async (collected) => {
 		const firstReaction = collected.first() as ButtonInteraction;
 
-		if (!firstReaction) {
-			respondToEvent("end", null);
-		}
-		else {
+		if (firstReaction) {
 			await firstReaction.deferReply();
 			respondToEvent(firstReaction.customId, firstReaction);
 		}
 	});
 
 	endCollector.on("collect", () => {
-		respondToEvent("end", null);
-
 		buttonCollector.stop();
 		endCollector.stop();
+
+		respondToEvent("end", null);
 	});
 }
 
@@ -180,7 +151,7 @@ export async function reportResult(packet: CommandReportBigEventResultRes, conte
 		result,
 		event: i18n.t(`events:${packet.eventId}.possibilities.${packet.possibilityId}.outcomes.${packet.outcomeId}`, { lng: interaction.userLanguage }),
 		emoji: packet.possibilityId === "end" ? (DraftBotIcons.events[packet.eventId].end as { [outcomeId: string]: string })[packet.outcomeId] : DraftBotIcons.events[packet.possibilityId],
-		alte: packet.effect ? DraftBotIcons.effects[packet.effect.name] : ""
+		alte: packet.effect && packet.effect.name !== Effect.OCCUPIED.id ? DraftBotIcons.effects[packet.effect.name] : ""
 	});
 
 	const buttonInteraction = context.discord?.buttonInteraction ? DiscordCache.getButtonInteraction(context.discord?.buttonInteraction) : null;
@@ -191,6 +162,76 @@ export async function reportResult(packet: CommandReportBigEventResultRes, conte
 	else {
 		await interaction.channel.send({ content });
 	}
+}
+
+const destinationChoiceEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣", "7⃣", "8⃣", "9⃣"];
+
+/**
+ * Creates the description for a chooseDestination embed
+ * @param reactions
+ * @param language
+ */
+function createDescriptionChooseDestination(reactions: ReactionCollectorChooseDestinationReaction[], language: Language): string {
+	let desc = `${i18n.t("commands:report.chooseDestinationIndications", { lng: language })}\n`;
+	for (let i = 0; i < reactions.length; ++i) {
+		const reaction = reactions[i];
+		const duration = reaction.tripDuration ? minutesDisplay(reaction.tripDuration) : "?h";
+		desc += `${destinationChoiceEmotes[i]} - ${DraftBotIcons.map_types[reaction.mapTypeId]} ${i18n.t(`models:map_locations.${reaction.mapId}.name`, { lng: language })} (${duration})\n`;
+	}
+	return desc;
+}
+
+export async function chooseDestinationCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
+	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
+
+	const embed = new DraftBotEmbed();
+	embed.formatAuthor(i18n.t("commands:report.destinationTitle", {
+		lng: interaction.userLanguage,
+		pseudo: user.attributes.gameUsername
+	}), interaction.user);
+	embed.setDescription(
+		createDescriptionChooseDestination(
+			packet.reactions.map(reaction => reaction.data) as ReactionCollectorChooseDestinationReaction[],
+			interaction.userLanguage
+		)
+	);
+
+	const row = new ActionRowBuilder<ButtonBuilder>();
+
+	for (let i = 0; i < packet.reactions.length; ++i) {
+		const button = new ButtonBuilder()
+			.setEmoji(parseEmoji(destinationChoiceEmotes[i])!)
+			.setCustomId(i.toString())
+			.setStyle(ButtonStyle.Secondary);
+		row.addComponents(button);
+	}
+
+	const msg = await interaction?.channel.send({
+		embeds: [embed],
+		components: [row]
+	}) as Message;
+
+	const buttonCollector = msg.createMessageComponentCollector({
+		time: packet.endTime - Date.now()
+	});
+
+	buttonCollector.on("collect", async (i: ButtonInteraction) => {
+		if (i.user.id !== context.discord?.user) {
+			await sendInteractionNotForYou(i.user, i, interaction.userLanguage);
+			return;
+		}
+
+		buttonCollector.stop();
+	});
+	buttonCollector.on("end", async (collected) => {
+		const firstReaction = collected.first() as ButtonInteraction;
+
+		if (firstReaction) {
+			await firstReaction.deferReply();
+			DiscordCollectorUtils.sendReaction(packet, context, user, firstReaction, parseInt(firstReaction.customId));
+		}
+	});
 }
 
 export const commandInfo: ICommand = {

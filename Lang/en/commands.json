@@ -223,39 +223,6 @@
       "main": "Join the community! Use this link: https://discord.gg/acGNvzEY92 :smiley:"
     }
   },
-  "language": {
-    "description": "Use the menu below to change the language used by the bot on this discord server. This command can only be used by server administrators.",
-    "languages": {
-      "de": {
-        "emoji": "🇩🇪",
-        "name": "German"
-      },
-      "en": {
-        "emoji": "🇬🇧",
-        "name": "English"
-      },
-      "es": {
-        "emoji": "🇪🇸",
-        "name": "spanish"
-      },
-      "fr": {
-        "emoji": "🇫🇷",
-        "name": "French"
-      },
-      "it": {
-        "emoji": "🇮🇹",
-        "name": "Italian"
-      },
-      "pt": {
-        "emoji": "🇵🇹",
-        "name": "Portuguese"
-      }
-    },
-    "newLanguageSetDescription": "DraftBot will now speak in english with you! 🇬🇧",
-    "newLanguageSetTitle": "Language changed",
-    "selectLanguage": "Select a new language",
-    "title": ":earth_africa: Language selection"
-  },
   "ping": {
     "discord": {
       "create": ":ping_pong: Pong",
@@ -351,10 +318,10 @@
   "report": {
     "adviceTitle": "Advice:",
     "chooseDestinationIndications": "Choose the destination of your travel:",
-    "choseMapMinutes_one": "You chose to go in the direction {{mapPrefix}} **{{mapName}}** {{mapType}}. You'll travel for about **{{time}} minute**.",
-    "choseMapMinutes_other": "You chose to go in the direction {{mapPrefix}} **{{mapName}}** {{mapType}}. You'll travel for about **{{time}} minutes**.",
-    "choseMap_one": "You chose to go in the direction {{mapPrefix}} **{{mapName}}** {{mapType}}. You'll travel for about **{{time}} hour**.",
-    "choseMap_other": "You chose to go in the direction {{mapPrefix}} **{{mapName}}** {{mapType}}. You'll travel for about **{{time}} hours**.",
+    "choseMapMinutes_one": "You chose to go in the direction {{mapPrefix}} {{mapEmote}} **{{mapName}}** {{mapType}}. You'll travel for about **{{time}} minute**.",
+    "choseMapMinutes_other": "You chose to go in the direction {{mapPrefix}} {{mapEmote}} **{{mapName}}** {{mapType}}. You'll travel for about **{{time}} minutes**.",
+    "choseMap_one": "You chose to go in the direction {{mapPrefix}} {{mapEmote}} **{{mapName}}** {{mapType}}. You'll travel for about **{{time}} hour**.",
+    "choseMap_other": "You chose to go in the direction {{mapPrefix}} {{mapEmote}} **{{mapName}}** {{mapType}}. You'll travel for about **{{time}} hours**.",
     "collectedPointsTitle": "Collected points:",
     "commandDescription": "Get a report on your character's situation.",
     "commandName": "report",

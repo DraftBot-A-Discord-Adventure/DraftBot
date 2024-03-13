@@ -8,6 +8,8 @@ import {
 export class ReactionCollectorChooseDestinationReaction extends ReactionCollectorReaction {
 	mapId!: number;
 
+	mapTypeId!: string;
+
 	tripDuration?: number;
 }
 
