@@ -34,9 +34,9 @@
           "0": "L'uomo rifiuta gentilmente il vostro aiuto e continuate per la vostra strada.",
           "1": "Grazie a voi, l'uomo cattura un superbo pesce di 3 kg! Per ringraziarvi, vi regala qualcosa che potreste trovare utile...",
           "2": "Aiutate l'uomo a pescare una superba preda di oltre un chilo! Il pescatore vi offre qualche moneta come ringraziamento.",
-          "3": "Le poisson au bout de la ligne devait vraiment être énorme ! Vous vous retrouvez rapidement emporté au fond de l'eau ! Vous êtes sauvé juste à temps par le pêcheur. Tout étourdi après cette aventure, il faudra vous soigner !"
+          "3": "Il pesce all'estremità della lenza doveva essere davvero enorme! Ti ritrovi rapidamente spazzato sul fondo dell'acqua! Vieni salvato appena in tempo dal pescatore. Se sei stordito dopo quest'avventura, dovrai prenderti cura di te stesso!"
         },
-        "text": "Proposer son aide."
+        "text": "Offrire il suo aiuto."
       },
       "push": {
         "outcomes": {
