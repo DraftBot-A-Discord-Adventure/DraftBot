@@ -376,28 +376,28 @@
     "money": "** | :moneybag: Soldi guadagnati : **{{money}}",
     "moneyLoose": "** | :money_with_wings: Denaro perso : **{{money}}",
     "monsterRewardGuildXp": "\n:star: XP di gilda guadagnati: **{{guildXp}}**",
-    "monsterRewardsDescription": ":moneybag: Argent gagné : **{{money}}**\n:star: XP gagnée : **{{experience}}**",
-    "monsterRewardsGuildPoints": "\n:mirror_ball: Points de guilde gagnés : **{{guildPoints}}**",
-    "monsterRewardsTitle": "{{pseudo}}, récompenses de combat",
-    "newBigEvent": ":flag_fr: Vous êtes arrivé à **{{destination}}** !",
-    "noFight": ":newspaper: **Journal de {{pseudo}} :** {{waitABitReaction}} | Vous vous enfuyez rapidement et trouvez une petite cachette ! Le monstre vous attend patiemment dehors...",
-    "points": ":** :medal: Points gagnés : **{{score}}",
-    "pveEvent": ":newspaper: **Journal de {{pseudo}} :** {{event}}\n\n{{monsterDisplay}}\n\n{{startTheFightReaction}} Commencer le combat\n{{waitABitReaction}} Attendre un peu avant de commencer le combat\n\n*- Utilisez les réactions pour effectuer une action*",
-    "remainingEnergyTitle": "Énergie restante :",
-    "startPoint": "Point de départ :",
-    "timeLost": "** | :clock10: Temps perdu : **{{timeLost}}",
-    "travelPathTitle": "Voyage actuel :",
-    "travellingDescription": "Tout se passe bien depuis votre dernière aventure {{smallEventEmoji}}. Prochain arrêt prévu {{time}}.",
-    "travellingDescriptionEndTravel": "Tout se passe bien dans votre aventure, vous arriverez bientôt à destination.",
-    "travellingDescriptionWithoutSmallEvent": "Tout se passe bien dans votre aventure. Prochain arrêt prévu {{time}}.",
-    "travellingTitle": "Vous êtes actuellement en train d'avancer !"
+    "monsterRewardsDescription": ":moneybag: Argento vinto : **{{money}}**\n:star: XP guadagnati : **{{experience}}**",
+    "monsterRewardsGuildPoints": "\n:mirror_ball: Punti gilda guadagnati : **{{guildPoints}}**",
+    "monsterRewardsTitle": "{{pseudo}}, ricompense per il combattimento",
+    "newBigEvent": ":flag_fr: Avete raggiunto **{{destination}}** !",
+    "noFight": ":newspaper: **Giornale di {{pseudo}} :** {{waitABitReaction}} | Fai una rapida fuga e trova un piccolo nascondiglio! Il mostro sta aspettando pazientemente fuori...",
+    "points": ":** :medal: Punti vinti : **{{score}}",
+    "pveEvent": ":newspaper: ** Giornale di {{pseudo}} :** {{event}}\n\n{{monsterDisplay}}\n\n{{startTheFightReaction}} Iniziare il combattimento\n{{waitABitReaction}} Aspettare un po' prima di iniziare il combattimento\n\n*- Usare le reazioni per eseguire un'azione*",
+    "remainingEnergyTitle": "Energia rimanente :",
+    "startPoint": "Punto di partenza :",
+    "timeLost": "** | :clock10: Tempo perso : **{{timeLost}}",
+    "travelPathTitle": "Viaggio in corso :",
+    "travellingDescription": "Tutto sta andando bene dalla tua ultima avventura {{smallEventEmoji}}. Prossima fermata in {{time}}.",
+    "travellingDescriptionEndTravel": "Tutto procede bene nella vostra avventura e presto arriverete a destinazione.",
+    "travellingDescriptionWithoutSmallEvent": "La vostra avventura sta andando bene. Prossima fermata in {{time}}.",
+    "travellingTitle": "State facendo progressi !"
   },
   "update": {
     "description": "La versione attuale di l'essenziale del bot è la **{{coreVersion}}**. Quella del modulo Discord è la **{{discordModuleVersion}}**.\n\nTutte le informazione degli aggiornamenti sono disponibile qui :\nhttps://guide.draftbot.com/lore/historique-des-mises-a-jour",
     "title": ":scroll: Aggiornamenti"
   },
   "vote": {
-    "description": "Voici le lien permettant de soutenir le bot :\nhttps://top.gg/bot/448110812801007618",
-    "title": ":ballot_box: Voter"
+    "description": "Ecco il link per sostenere il bot :\nhttps://top.gg/bot/448110812801007618",
+    "title": ":ballot_box: Votare"
   }
 }
