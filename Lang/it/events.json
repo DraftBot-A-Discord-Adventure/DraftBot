@@ -9,31 +9,31 @@
       },
       "end": {
         "outcomes": {
-          "0": "L'arbre a bien été coupé et la route est dégagée, malheureusement des pillards ont volé quasiment tout ce que vous aviez récolté depuis votre dernier voyage !"
+          "0": "L'albero è stato abbattuto e la strada è stata liberata, ma purtroppo i saccheggiatori hanno rubato quasi tutto quello che avete raccolto dal vostro ultimo viaggio!"
         }
       },
       "otherWay": {
         "outcomes": {
-          "0": "Passer par un autre chemin semblait être une bonne solution vous n'avez pas perdu de temps !",
-          "1": "Passer par un autre chemin semblait être une bonne solution, malheureusement vous vous êtes blessé en marchant."
+          "0": "Andare da un'altra parte sembrava una buona soluzione: non avete perso tempo!",
+          "1": "Andare da un'altra parte sembrava una buona soluzione, ma sfortunatamente vi siete fatto male camminando."
         },
-        "text": "Passer par un autre chemin."
+        "text": "Andare da un altra parte."
       }
     },
-    "text": "Un arbre est tombé sur le chemin et bloque le passage !"
+    "text": "Un albero è caduto sul sentiero e blocca la strada!"
   },
   "10": {
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "Vous finissez par passer votre chemin sans prêter plus d'attention à cette situation somme toute assez banale !"
+          "0": "Finite per andarvene senza prestare più attenzione a questa situazione piuttosto banale!"
         }
       },
       "help": {
         "outcomes": {
-          "0": "L'homme refuse gentiment votre aide, vous poursuivez votre route.",
-          "1": "Grâce à vous, l'homme attrape un superbe poisson de 3 kg ! Pour vous remercier, il vous offre quelque chose qui pourrait vous être utile...",
-          "2": "Vous aidez l'homme à attraper une superbe prise de plus d'un kilo ! Le pêcheur vous offre quelques pièces pour vous remercier.",
+          "0": "L'uomo rifiuta gentilmente il vostro aiuto e continuate per la vostra strada.",
+          "1": "Grazie a voi, l'uomo cattura un superbo pesce di 3 kg! Per ringraziarvi, vi regala qualcosa che potreste trovare utile...",
+          "2": "Aiutate l'uomo a pescare una superba preda di oltre un chilo! Il pescatore vi offre qualche moneta come ringraziamento.",
           "3": "Le poisson au bout de la ligne devait vraiment être énorme ! Vous vous retrouvez rapidement emporté au fond de l'eau ! Vous êtes sauvé juste à temps par le pêcheur. Tout étourdi après cette aventure, il faudra vous soigner !"
         },
         "text": "Proposer son aide."
