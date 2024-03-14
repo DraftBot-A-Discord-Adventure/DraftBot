@@ -8,6 +8,7 @@ import {CommandReportChooseDestinationRes} from "../../../../Lib/src/packets/com
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
+import {minutesToHours} from "../../../../Lib/src/utils/TimeUtils";
 
 export default class NotificationsHandlers {
 	@packetHandler(CommandReportChooseDestinationRes)
@@ -28,7 +29,7 @@ export default class NotificationsHandlers {
 				i18nTr = time === 1 ? "commands:report.choseMapMinutes_one" : "commands:report.choseMapMinutes_other";
 			}
 			else {
-				time = Math.round(packet.tripDuration / 60);
+				time = Math.round(minutesToHours(packet.tripDuration));
 				i18nTr = time === 1 ? "commands:report.choseMap_one" : "commands:report.choseMap_other";
 			}
 			embed.setDescription(i18n.t(i18nTr, {

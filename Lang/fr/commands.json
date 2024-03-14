@@ -223,6 +223,39 @@
       "main": "Rejoignez la communauté ! Utilisez ce lien : https://discord.gg/acGNvzEY92 :smiley:"
     }
   },
+  "language": {
+    "description": "Utilisez le menu ci-dessous pour changer la langue utilisée par le bot sur ce serveur. Cette commande est réservée aux administrateurs du serveur.",
+    "languages": {
+      "de": {
+        "emoji": "🇩🇪",
+        "name": "Allemand"
+      },
+      "en": {
+        "emoji": "🇬🇧",
+        "name": "Anglais"
+      },
+      "es": {
+        "emoji": "🇪🇸",
+        "name": "Espagnol"
+      },
+      "fr": {
+        "emoji": "🇫🇷",
+        "name": "Français"
+      },
+      "it": {
+        "emoji": "🇮🇹",
+        "name": "Italien"
+      },
+      "pt": {
+        "emoji": "🇵🇹",
+        "name": "Portugais"
+      }
+    },
+    "newLanguageSetDescription": "DraftBot vous parlera désormais en français ! 🥖",
+    "newLanguageSetTitle": "Langue changée",
+    "selectLanguage": "Sélectionnez une langue",
+    "title": ":earth_africa: Sélection de la langue"
+  },
   "ping": {
     "discord": {
       "create": ":ping_pong: Pong",
