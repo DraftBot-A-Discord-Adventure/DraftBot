@@ -26,13 +26,14 @@ export default class NotificationsHandlers {
 			let time = packet.tripDuration;
 			let i18nTr: string;
 			if (time < 60) {
-				i18nTr = time === 1 ? "commands:report.choseMapMinutes_one" : "commands:report.choseMapMinutes_other";
+				i18nTr = "commands:report.choseMapMinutes";
 			}
 			else {
 				time = Math.round(minutesToHours(packet.tripDuration));
-				i18nTr = time === 1 ? "commands:report.choseMap_one" : "commands:report.choseMap_other";
+				i18nTr = "commands:report.choseMap";
 			}
 			embed.setDescription(i18n.t(i18nTr, {
+				count: time,
 				lng: interaction.userLanguage,
 				mapPrefix: i18n.t(`models:map_types.${packet.mapTypeId}.prefix`, { lng: interaction.userLanguage }),
 				mapType: (i18n.t(`models:map_types.${packet.mapTypeId}.name`, { lng: interaction.userLanguage }) as string).toLowerCase(),
