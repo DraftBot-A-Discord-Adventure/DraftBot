@@ -23,7 +23,7 @@
     "info": ":star: {{experience}} | :mirror_ball: {{guildPoints}} | :trophy: {{ranking}}",
     "xpNeeded": "{{xp}} / {{xpToLevelUp}}",
     "xpMax": "Max",
-    "ranking": "{{rank} / {{rankTotal}}",
+    "ranking": "{{rank}} / {{rankTotal}}",
     "notRanked": "Non classée"
   },
   "help": {
