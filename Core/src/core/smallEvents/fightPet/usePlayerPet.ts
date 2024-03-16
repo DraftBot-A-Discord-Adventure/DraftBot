@@ -2,7 +2,6 @@ import {PetEntities} from "../../database/game/models/PetEntity";
 import {FightPetActionFunc} from "../../../data/FightPetAction";
 import {PetConstants} from "../../../../../Lib/src/constants/PetConstants";
 import {SmallEventConstants} from "../../../../../Lib/src/constants/SmallEventConstants";
-import {PetEntityConstants} from "../../../../../Lib/src/constants/PetEntityConstants";
 import {RandomUtils} from "../../utils/RandomUtils";
 import {PetDataController} from "../../../data/Pet";
 
@@ -20,9 +19,9 @@ export const fightPetAction: FightPetActionFunc = async (player, pet) => {
 			? SmallEventConstants.FIGHT_PET.MALUS_FOR_FEISTY_PETS
 			: 0;
 
-	const dietBonusOrMalus = pet.diet === PetEntityConstants.RESTRICTIVES_DIETS.CARNIVOROUS && playerPet.diet === PetEntityConstants.RESTRICTIVES_DIETS.HERBIVOROUS
+	const dietBonusOrMalus = pet.diet === PetConstants.RESTRICTIVES_DIETS.CARNIVOROUS && playerPet.diet === PetConstants.RESTRICTIVES_DIETS.HERBIVOROUS
 		? SmallEventConstants.FIGHT_PET.MALUS_FOR_WRONG_DIET
-		: pet.diet === PetEntityConstants.RESTRICTIVES_DIETS.HERBIVOROUS && playerPet.diet === PetEntityConstants.RESTRICTIVES_DIETS.CARNIVOROUS
+		: pet.diet === PetConstants.RESTRICTIVES_DIETS.HERBIVOROUS && playerPet.diet === PetConstants.RESTRICTIVES_DIETS.CARNIVOROUS
 			? SmallEventConstants.FIGHT_PET.BONUS_FOR_RIGHT_DIET
 			: 0;
 
