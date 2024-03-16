@@ -1,9 +1,8 @@
 import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
 import {RandomUtils} from "../../../utils/RandomUtils";
 import {MissionsController} from "../../../missions/MissionsController";
-import {PET_ENTITY_GIVE_RETURN, PetEntityConstants} from "../../../../../../Lib/src/constants/PetEntityConstants";
+import {PET_ENTITY_GIVE_RETURN, PetConstants} from "../../../../../../Lib/src/constants/PetConstants";
 import {Player, PlayerEditValueParameters} from "./Player";
-import {PetConstants} from "../../../../../../Lib/src/constants/PetConstants";
 import {Guild, Guilds} from "./Guild";
 import {GuildPets} from "./GuildPet";
 import {Pet, PetDataController} from "../../../../data/Pet";
@@ -79,7 +78,7 @@ export class PetEntity extends Model {
 
 	/**
 	 * Give the pet entity to a player, if no space then in their guild and if no space, don't give it.
-	 * Send an embed only if send generic message is true
+	 * Send an embed only if send a generic message is true
 	 * @param player The player
 	 * @param response
 	 */
@@ -154,14 +153,14 @@ export class PetEntities {
 
 		// Calculate max probability value
 		for (rarity = minRarity; rarity <= maxRarity; ++rarity) {
-			totalProbabilities += PetEntityConstants.PROBABILITIES[levelTier][rarity - 1];
+			totalProbabilities += PetConstants.PROBABILITIES[levelTier][rarity - 1];
 		}
 
 		let randomTier = RandomUtils.draftbotRandom.real(0, totalProbabilities, true);
 
 		// Remove the rarity probabilities and stop when going under 0 to pick a rarity
 		for (rarity = minRarity; rarity <= maxRarity; ++rarity) {
-			randomTier -= PetEntityConstants.PROBABILITIES[levelTier][rarity - 1];
+			randomTier -= PetConstants.PROBABILITIES[levelTier][rarity - 1];
 			if (randomTier <= 0) {
 				break;
 			}
