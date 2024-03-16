@@ -3,7 +3,7 @@ export abstract class PetEntityConstants {
 
 	static readonly SLOTS = 6;
 
-	static readonly EMOTE = {
+	static readonly ICONS = {
 		MALE: "♂️",
 		FEMALE: "♀️",
 		RARITY: "⭐"

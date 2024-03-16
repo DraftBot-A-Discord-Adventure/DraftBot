@@ -6,15 +6,11 @@ import {RandomUtils} from "../core/utils/RandomUtils";
 export class Pet extends Data<number> {
 	declare readonly rarity: number;
 
-	declare readonly emoteMale: string;
-
-	declare readonly emoteFemale: string;
-
 	declare readonly diet: string;
 
 
 	public getRarityDisplay(): string {
-		return PetEntityConstants.EMOTE.RARITY.repeat(this.rarity);
+		return PetEntityConstants.ICONS.RARITY.repeat(this.rarity);
 	}
 
 	/**
