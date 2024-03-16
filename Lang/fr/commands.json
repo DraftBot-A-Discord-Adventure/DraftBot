@@ -3,6 +3,43 @@
     "description": "Les badges sont des distinctions difficiles à obtenir qui ont été créées pour récompenser les personnes ayant le plus soutenu le développement du bot. La liste des badges est disponible sur le guide du bot.\n(via ce lien : https://guide.draftbot.com/notions-avancees/badges)",
     "title": ":military_medal: Informations détaillées :"
   },
+  "pet": {
+    "embedTitle": "Familier de {{pseudo}} :",
+    "petField": "**Type :** {{emote}} {{type}}\n**Surnom :** {{nickname}}\n\n**Rareté :** {{rarity}}\n**Sexe :** {{sex}}\n**Mentalité :** {{loveLevel}}",
+    "noNickname": "Aucun surnom",
+    "loveLevels": {
+      "0": {
+        "0_male": ":smirk_cat: Fielleux",
+        "0_female": ":smirk_cat: Fielleuse"
+      },
+      "1": {
+        "1_male": ":pouting_cat: Sauvage",
+        "1_female": ":pouting_cat: Sauvage"
+      },
+      "2": {
+        "2_male": ":scream_cat: Craintif",
+        "2_female": ":scream_cat: Craintive"
+      },
+      "3": {
+        "3_male": ":smiley_cat: Apprivoisé",
+        "3_female": ":smiley_cat: Apprivoisée"
+      },
+      "4": {
+        "4_male": ":heart_eyes_cat: Dressé",
+        "4_female": ":heart_eyes_cat: Dressée"
+      }
+    },
+    "hungry": "\uD83E\uDD24 affamé",
+    "diet": {
+      "diet_null": "\uD83E\uDD6A Omnivore",
+      "diet_herbivorous": "\uD83E\uDD6C Herbivore",
+      "diet_carnivorous": "\uD83E\uDD69 Carnivore"
+    },
+    "sexDisplay": {
+      "female": "Femelle",
+      "male": "Mâle"
+    }
+  },
   "guild": {
     "embedTitle": "Guilde {{guildName}} | Niveau {{level}}",
     "description": ":scroll: `{{description}}`",

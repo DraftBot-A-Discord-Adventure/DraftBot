@@ -8,7 +8,9 @@ export abstract class PetConstants {
 
 	static readonly SEX = {
 		MALE: "m",
-		FEMALE: "f"
+		FEMALE: "f",
+		MALE_FULL: "male",
+		FEMALE_FULL: "female"
 	};
 
 	static readonly PET_INTERACTIONS = {

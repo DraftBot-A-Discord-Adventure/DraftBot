@@ -101,28 +101,6 @@ export async function handleCommandGuildPacketRes(packet: CommandGuildPacketRes,
 			return;
 		}
 
-		const guildCommandEmbed = new DraftBotEmbed()
-			.setThumbnail(GuildConstants.ICON);
-
-		if (packet.data!.level >= GuildConstants.GOLDEN_GUILD_LEVEL) {
-			guildCommandEmbed.setColor(ColorConstants.GOLD);
-		}
-
-		guildCommandEmbed.setTitle(i18n.t("commands:guild.embedTitle", {
-			lng: interaction.userLanguage,
-			guildName: packet.data?.name,
-			level: packet.data?.level
-		}));
-
-		if (packet.data!.description) {
-			guildCommandEmbed.setDescription(
-				i18n.t("commands:guild.description", {
-					lng: interaction.userLanguage,
-					description: packet.data?.description
-				})
-			);
-		}
-
 		let membersInfos = "";
 		for (const member of packet.data!.members) {
 			membersInfos += i18n.t("commands:guild.memberInfos", {
@@ -135,14 +113,35 @@ export async function handleCommandGuildPacketRes(packet: CommandGuildPacketRes,
 			});
 		}
 
-		guildCommandEmbed.addFields({
-			name: i18n.t("commands:guild.members", {
+		const guildCommandEmbed = new DraftBotEmbed()
+			.setThumbnail(GuildConstants.ICON)
+			.setTitle(i18n.t("commands:guild.embedTitle", {
 				lng: interaction.userLanguage,
-				memberCount: packet.data!.members.length,
-				maxGuildMembers: GuildConstants.MAX_GUILD_MEMBERS
-			}),
-			value: membersInfos
-		});
+				guildName: packet.data?.name,
+				level: packet.data?.level
+			}))
+			.addFields({
+				name: i18n.t("commands:guild.members", {
+					lng: interaction.userLanguage,
+					memberCount: packet.data!.members.length,
+					maxGuildMembers: GuildConstants.MAX_GUILD_MEMBERS
+				}),
+				value: membersInfos
+			});
+
+		if (packet.data!.level >= GuildConstants.GOLDEN_GUILD_LEVEL) {
+			guildCommandEmbed.setColor(ColorConstants.GOLD);
+		}
+
+
+		if (packet.data!.description) {
+			guildCommandEmbed.setDescription(
+				i18n.t("commands:guild.description", {
+					lng: interaction.userLanguage,
+					description: packet.data?.description
+				})
+			);
+		}
 
 		const pveIslandInfo = packet.data!.members.some(
 			member => member.keycloakId === context.keycloakId

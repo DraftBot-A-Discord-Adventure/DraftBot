@@ -12,6 +12,7 @@ import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
 import {Effect} from "../../../../Lib/src/enums/Effect";
+import {PetData, PetUtils} from "../../utils/PetUtils";
 
 /**
  * Display all the information about a Pet
@@ -55,7 +56,26 @@ export async function handleCommandPetPacketRes(packet: CommandPetPacketRes, con
 			return;
 		}
 
-		const PetCommandEmbed = new DraftBotEmbed();
+		const petData: PetData = {
+			emote: packet.data!.emote,
+			typeId: packet.data!.typeId,
+			nickname: packet.data!.nickname,
+			sex: packet.data!.sex,
+			rarity: packet.data!.rarity,
+			loveLevel: packet.data!.loveLevel
+		};
+
+		const PetCommandEmbed = new DraftBotEmbed()
+			.formatAuthor(
+				i18n.t("commands:pet.embedTitle", {
+					lng: interaction.userLanguage,
+					pseudo: interaction.user.username
+				}),
+				interaction.user
+			)
+			.setDescription(
+				PetUtils.petToString(interaction.userLanguage, petData)
+			);
 
 		await interaction.reply({
 			embeds: [PetCommandEmbed],
@@ -65,12 +85,12 @@ export async function handleCommandPetPacketRes(packet: CommandPetPacketRes, con
 }
 
 export const commandInfo: ICommand = {
-	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("Pet")
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("pet")
 		.addUserOption(option =>
-			SlashCommandBuilderGenerator.generateOption("Pet", "user", option)
+			SlashCommandBuilderGenerator.generateOption("pet", "user", option)
 				.setRequired(false))
 		.addIntegerOption(option =>
-			SlashCommandBuilderGenerator.generateOption("Pet", "rank", option)
+			SlashCommandBuilderGenerator.generateOption("pet", "rank", option)
 				.setRequired(false)) as SlashCommandBuilder,
 	getPacket,
 	requirements: {

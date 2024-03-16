@@ -19,6 +19,8 @@ import {handleCommandGuildPacketRes} from "../../commands/guild/GuildCommand";
 import {CommandGuildPacketRes} from "../../../../Lib/src/packets/commands/CommandGuildPacket";
 import {reportResult} from "../../commands/player/ReportCommand";
 import {CommandReportBigEventResultRes} from "../../../../Lib/src/packets/commands/CommandReportPacket";
+import { CommandPetPacketRes } from "../../../../Lib/src/packets/commands/CommandPetPacket";
+import {handleCommandPetPacketRes} from "../../commands/pet/PetCommand";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
@@ -38,6 +40,11 @@ export default class CommandHandlers {
 	@packetHandler(CommandProfilePacketRes)
 	async profileRes(socket: WebSocket, packet: CommandProfilePacketRes, context: PacketContext): Promise<void> {
 		await handleCommandProfilePacketRes(packet, context);
+	}
+
+	@packetHandler(CommandPetPacketRes)
+	async petRes(socket: WebSocket, packet: CommandPetPacketRes, context: PacketContext): Promise<void> {
+		await handleCommandPetPacketRes(packet, context);
 	}
 
 	@packetHandler(CommandGuildPacketRes)
