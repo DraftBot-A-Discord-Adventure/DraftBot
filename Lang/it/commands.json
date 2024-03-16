@@ -21,7 +21,7 @@
     "infoTitle": "Informazione",
     "islandInfo": ":island: Nombre d'alliés sur l'île mystérieuse : {{membersOnPveIsland}\n",
     "info": ":star: {{experience}} | :mirror_ball: {{guildPoints}} | :trophy: {{ranking}}",
-    "xpNeeded": "{{xp} / {{xpToLevelUp}}",
+    "xpNeeded": "{{xp}} / {{xpToLevelUp}}",
     "xpMax": "Massimo",
     "ranking": "{{rank} / {{rankTotal}}",
     "notRanked": "Non Classificato"
