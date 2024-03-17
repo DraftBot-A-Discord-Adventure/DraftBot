@@ -51,6 +51,8 @@ export class CommandProfilePacketRes extends DraftBotPacket {
 		destination?: number,
 		pet?: {
 			id: number,
+			typeId: number,
+			sex: string,
 			rarity: number,
 			nickname?: string
 		},

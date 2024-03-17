@@ -37,7 +37,7 @@ export default class ProfileCommand {
 			const numberOfPlayers = await Players.getNbPlayersHaveStartedTheAdventure();
 			const isUnranked = rank > numberOfPlayers;
 			const petEntity = player.petId ? await PetEntities.getById(player.petId) : null;
-			const petModel = player.petId ? PetDataController.instance.getById(petEntity.id) : null;
+			const petModel = player.petId ? PetDataController.instance.getById(petEntity.petId) : null;
 			const missionsInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
 			const playerActiveObjects = await InventorySlots.getMainSlotsItems(player.id);
 			const badges = player.badges === "" || !player.badges ? [] : player.badges.split("-");
@@ -63,6 +63,8 @@ export default class ProfileCommand {
 					color: player.getProfileColor(),
 					pet: petEntity ? {
 						id: petEntity.id,
+						typeId: petModel.id,
+						sex: petEntity.sex,
 						nickname: petEntity.nickname,
 						rarity: petModel.rarity
 					} : null,

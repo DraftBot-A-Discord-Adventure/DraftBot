@@ -12,7 +12,6 @@ export class CommandPetPacketRes extends DraftBotPacket {
 
 	data?: {
 		nickname: string,
-		emote: string,
 		typeId: number,
 		rarity: number,
 		sex: string,
