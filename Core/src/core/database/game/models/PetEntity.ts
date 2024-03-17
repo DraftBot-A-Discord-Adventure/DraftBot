@@ -14,7 +14,7 @@ import moment = require("moment");
 export class PetEntity extends Model {
 	declare readonly id: number;
 
-	declare petId: number;
+	declare typeId: number;
 
 	declare sex: string;
 
@@ -84,7 +84,7 @@ export class PetEntity extends Model {
 			giveInGuild: false,
 			giveInPlayerInv: false,
 			noRoomInGuild: false,
-			petId: this.petId,
+			petTypeId: this.typeId,
 			petSex: this.sex
 		};
 
@@ -131,9 +131,9 @@ export class PetEntities {
 		});
 	}
 
-	static createPet(petId: number, sex: string, nickname: string): PetEntity {
+	static createPet(typeId: number, sex: string, nickname: string): PetEntity {
 		return PetEntity.build({
-			petId,
+			typeId,
 			sex,
 			nickname,
 			lovePoints: PetConstants.BASE_LOVE
@@ -167,7 +167,7 @@ export class PetEntities {
 		}
 		const pet = PetDataController.instance.getRandom(rarity);
 		return PetEntity.build({
-			petId: pet.id,
+			typeId: pet.id,
 			sex,
 			nickname: null,
 			lovePoints: PetConstants.BASE_LOVE
@@ -232,7 +232,7 @@ export function initModel(sequelize: Sequelize): void {
 			primaryKey: true,
 			autoIncrement: true
 		},
-		petId: {
+		typeId: {
 			type: DataTypes.INTEGER
 		},
 		sex: {

@@ -41,7 +41,7 @@ const petTestCommand: ExecuteTestCommandLike = async (player, args, response) =>
 	await MissionsController.update(player, response, {missionId: "havePet"});
 
 	pet = await PetEntities.getById(pet.id); // Recall needed to refresh the pet
-	return `Vous avez un nouveau pet :\n${pet.petId /* TODO : i18n (pet.getPetDisplay(await Pets.getById(pet.petId), language))*/} !`;
+	return `Vous avez un nouveau pet :\n${pet.typeId /* TODO : i18n (pet.getPetDisplay(await Pets.getById(pet.petId), language))*/} !`;
 };
 
 commandInfo.execute = petTestCommand;
