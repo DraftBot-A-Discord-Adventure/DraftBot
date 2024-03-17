@@ -942,298 +942,152 @@
     "9": "Rusty key"
   },
   "pets": {
-    "0": {
-      "female": "No pet",
-      "male": "No pet"
-    },
-    "1": {
-      "female": "Dog",
-      "male": "Dog"
-    },
-    "10": {
-      "female": "Hen",
-      "male": "Rooster"
-    },
-    "11": {
-      "female": "Bird",
-      "male": "Bird"
-    },
-    "12": {
-      "female": "Duck",
-      "male": "Drake"
-    },
-    "13": {
-      "female": "Mare",
-      "male": "Stallion"
-    },
-    "14": {
-      "female": "Turtle",
-      "male": "Turtle"
-    },
-    "15": {
-      "female": "Snake",
-      "male": "Snake"
-    },
-    "16": {
-      "female": "Lizard",
-      "male": "Lizard"
-    },
-    "17": {
-      "female": "Ewe",
-      "male": "Ram"
-    },
-    "18": {
-      "female": "Goat",
-      "male": "Goat"
-    },
-    "19": {
-      "female": "Turkey",
-      "male": "Turkey"
-    },
-    "2": {
-      "female": "Poodle",
-      "male": "Poodle"
-    },
-    "20": {
-      "female": "Vixen",
-      "male": "Fox"
-    },
-    "21": {
-      "female": "Bear",
-      "male": "Bear"
-    },
-    "22": {
-      "female": "Koala",
-      "male": "Koala"
-    },
-    "23": {
-      "female": "Frog",
-      "male": "Frog"
-    },
-    "24": {
-      "female": "Monkey",
-      "male": "Monkey"
-    },
-    "25": {
-      "female": "Penguin",
-      "male": "Penguin"
-    },
-    "26": {
-      "female": "Owl",
-      "male": "Owl"
-    },
-    "27": {
-      "female": "Bat",
-      "male": "Bat"
-    },
-    "28": {
-      "female": "Wolf",
-      "male": "Wolf"
-    },
-    "29": {
-      "female": "Wild boar",
-      "male": "Wild boar"
-    },
-    "3": {
-      "female": "Cat",
-      "male": "Cat"
-    },
-    "30": {
-      "female": "Seal",
-      "male": "Seal"
-    },
-    "31": {
-      "female": "Hippopotamus",
-      "male": "Hippopotamus"
-    },
-    "32": {
-      "female": "Llama",
-      "male": "Llama"
-    },
-    "33": {
-      "female": "Swan",
-      "male": "Swan"
-    },
-    "34": {
-      "female": "Flamingo",
-      "male": "Flamingo"
-    },
-    "35": {
-      "female": "Raccoon",
-      "male": "Raccoon"
-    },
-    "36": {
-      "female": "Skunk",
-      "male": "Skunk"
-    },
-    "37": {
-      "female": "Badger",
-      "male": "Badger"
-    },
-    "38": {
-      "female": "Beaver",
-      "male": "Beaver"
-    },
-    "39": {
-      "female": "Sloth",
-      "male": "Sloth"
-    },
-    "4": {
-      "female": "Black cat",
-      "male": "Black cat"
-    },
-    "40": {
-      "female": "Chipmunk",
-      "male": "Chipmunk"
-    },
-    "41": {
-      "female": "Hedgehog",
-      "male": "Hedgehog"
-    },
-    "42": {
-      "female": "Polar bear",
-      "male": "Polar bear"
-    },
-    "43": {
-      "female": "Panda",
-      "male": "Panda"
-    },
-    "44": {
-      "female": "Scorpion",
-      "male": "Scorpion"
-    },
-    "45": {
-      "female": "Crocodile",
-      "male": "Crocodile"
-    },
-    "46": {
-      "female": "Elephant",
-      "male": "Elephant"
-    },
-    "47": {
-      "female": "Zebra",
-      "male": "Zebra"
-    },
-    "48": {
-      "female": "Rhinoceros",
-      "male": "Rhinoceros"
-    },
-    "49": {
-      "female": "Dromedary",
-      "male": "Dromedary"
-    },
-    "5": {
-      "female": "Mouse",
-      "male": "Mouse"
-    },
-    "50": {
-      "female": "Camel",
-      "male": "Camel"
-    },
-    "51": {
-      "female": "Giraffe",
-      "male": "Giraffe"
-    },
-    "52": {
-      "female": "Kangaroo",
-      "male": "Kangaroo"
-    },
-    "53": {
-      "female": "Peahen",
-      "male": "Peacock"
-    },
-    "54": {
-      "female": "Parrot",
-      "male": "Parrot"
-    },
-    "55": {
-      "female": "Otter",
-      "male": "Otter"
-    },
-    "56": {
-      "female": "Tigress",
-      "male": "Tiger"
-    },
-    "57": {
-      "female": "Lioness",
-      "male": "Lion"
-    },
-    "58": {
-      "female": "Eagle",
-      "male": "Eagle"
-    },
-    "59": {
-      "female": "Dodo",
-      "male": "Dodo"
-    },
-    "6": {
-      "female": "Hamster",
-      "male": "Hamster"
-    },
-    "60": {
-      "female": "Leopard",
-      "male": "Leopard"
-    },
-    "61": {
-      "female": "Mammoth",
-      "male": "Mammoth"
-    },
-    "62": {
-      "female": "Dove",
-      "male": "Dove"
-    },
-    "63": {
-      "female": "Unicorn",
-      "male": "Unicorn"
-    },
-    "64": {
-      "female": "Dragon",
-      "male": "Dragon"
-    },
-    "65": {
-      "female": "T-Rex",
-      "male": "T-Rex"
-    },
-    "66": {
-      "female": "Angel",
-      "male": "Stitch"
-    },
-    "67": {
-      "female": "Snowwoman",
-      "male": "Snowman"
-    },
-    "68": {
-      "female": "Duck from Duck city",
-      "male": "Drake from Duck city"
-    },
-    "69": {
-      "female": "Snowwoman",
-      "male": "Snowman"
-    },
-    "7": {
-      "female": "Doe rabbit",
-      "male": "Buck rabbit"
-    },
-    "70": {
-      "female": "Alien",
-      "male": "Alien"
-    },
-    "71": {
-      "female": "Octopus",
-      "male": "Octopus"
-    },
-    "72": {
-      "female": "Penguin",
-      "male": "Penguin"
-    },
-    "8": {
-      "female": "Cow",
-      "male": "Bull"
-    },
-    "9": {
-      "female": "Sow",
-      "male": "Boar"
-    }
+    "0_female": "No pet",
+    "0_male": "No pet",
+    "1_female": "Dog",
+    "1_male": "Dog",
+    "10_female": "Hen",
+    "10_male": "Rooster",
+    "11_female": "Bird",
+    "11_male": "Bird",
+    "12_female": "Duck",
+    "12_male": "Drake",
+    "13_female": "Mare",
+    "13_male": "Stallion",
+    "14_female": "Turtle",
+    "14_male": "Turtle",
+    "15_female": "Snake",
+    "15_male": "Snake",
+    "16_female": "Lizard",
+    "16_male": "Lizard",
+    "17_female": "Ewe",
+    "17_male": "Ram",
+    "18_female": "Goat",
+    "18_male": "Goat",
+    "19_female": "Turkey",
+    "19_male": "Turkey",
+    "2_female": "Poodle",
+    "2_male": "Poodle",
+    "20_female": "Vixen",
+    "20_male": "Fox",
+    "21_female": "Bear",
+    "21_male": "Bear",
+    "22_female": "Koala",
+    "22_male": "Koala",
+    "23_female": "Frog",
+    "23_male": "Frog",
+    "24_female": "Monkey",
+    "24_male": "Monkey",
+    "25_female": "Penguin",
+    "25_male": "Penguin",
+    "26_female": "Owl",
+    "26_male": "Owl",
+    "27_female": "Bat",
+    "27_male": "Bat",
+    "28_female": "Wolf",
+    "28_male": "Wolf",
+    "29_female": "Wild boar",
+    "29_male": "Wild boar",
+    "3_female": "Cat",
+    "3_male": "Cat",
+    "30_female": "Seal",
+    "30_male": "Seal",
+    "31_female": "Hippopotamus",
+    "31_male": "Hippopotamus",
+    "32_female": "Llama",
+    "32_male": "Llama",
+    "33_female": "Swan",
+    "33_male": "Swan",
+    "34_female": "Flamingo",
+    "34_male": "Flamingo",
+    "35_female": "Raccoon",
+    "35_male": "Raccoon",
+    "36_female": "Skunk",
+    "36_male": "Skunk",
+    "37_female": "Badger",
+    "37_male": "Badger",
+    "38_female": "Beaver",
+    "38_male": "Beaver",
+    "39_female": "Sloth",
+    "39_male": "Sloth",
+    "4_female": "Black cat",
+    "4_male": "Black cat",
+    "40_female": "Chipmunk",
+    "40_male": "Chipmunk",
+    "41_female": "Hedgehog",
+    "41_male": "Hedgehog",
+    "42_female": "Polar bear",
+    "42_male": "Polar bear",
+    "43_female": "Panda",
+    "43_male": "Panda",
+    "44_female": "Scorpion",
+    "44_male": "Scorpion",
+    "45_female": "Crocodile",
+    "45_male": "Crocodile",
+    "46_female": "Elephant",
+    "46_male": "Elephant",
+    "47_female": "Zebra",
+    "47_male": "Zebra",
+    "48_female": "Rhinoceros",
+    "48_male": "Rhinoceros",
+    "49_female": "Dromedary",
+    "49_male": "Dromedary",
+    "5_female": "Mouse",
+    "5_male": "Mouse",
+    "50_female": "Dromedary",
+    "50_male": "Camel",
+    "51_female": "Giraffe",
+    "51_male": "Giraffe",
+    "52_female": "Kangaroo",
+    "52_male": "Kangaroo",
+    "53_female": "Peahen",
+    "53_male": "Peacock",
+    "54_female": "Parrot",
+    "54_male": "Parrot",
+    "55_female": "Otter",
+    "55_male": "Otter",
+    "56_female": "Tigress",
+    "56_male": "Tiger",
+    "57_female": "Lioness",
+    "57_male": "Lion",
+    "58_female": "Eagle",
+    "58_male": "Eagle",
+    "59_female": "Dodo",
+    "59_male": "Dodo",
+    "6_female": "Hamster",
+    "6_male": "Hamster",
+    "60_female": "Leopard",
+    "60_male": "Leopard",
+    "61_female": "Mammoth",
+    "61_male": "Mammoth",
+    "62_female": "Dove",
+    "62_male": "Dove",
+    "63_female": "Unicorn",
+    "63_male": "Unicorn",
+    "64_female": "Dragon",
+    "64_male": "Dragon",
+    "65_female": "T-Rex",
+    "65_male": "T-Rex",
+    "66_female": "Angel",
+    "66_male": "Stitch",
+    "67_female": "Snowwoman",
+    "67_male": "Snowman",
+    "68_female": "Duck from Duck city",
+    "68_male": "Drake from Duck city",
+    "69_female": "Snowwoman",
+    "69_male": "Bonhomme de neige",
+    "7_female": "Doe rabbit",
+    "7_male": "Buck rabbit",
+    "70_female": "Alienne",
+    "70_male": "Alien",
+    "71_female": "Pieuvre",
+    "71_male": "Octopus",
+    "72_female": "Penguin",
+    "72_male": "Penguin",
+    "8_female": "Vache",
+    "8_male": "Bull",
+    "9_female": "Sow",
+    "9_male": "Porc"
   },
   "potions": {
     "0": "No potion",
