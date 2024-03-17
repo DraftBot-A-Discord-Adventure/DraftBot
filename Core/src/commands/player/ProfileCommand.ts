@@ -62,7 +62,6 @@ export default class ProfileCommand {
 					class: player.class,
 					color: player.getProfileColor(),
 					pet: petEntity ? {
-						id: petEntity.id,
 						typeId: petModel.id,
 						sex: petEntity.sex,
 						nickname: petEntity.nickname,
