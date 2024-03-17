@@ -11,7 +11,7 @@ export const fightPetAction: FightPetActionFunc = async (player, pet) => {
 		return false; // Player doesn't have a pet, so cannot use one in the fight
 	}
 
-	const playerPet = PetDataController.instance.getById(playerPetEntity.petId);
+	const playerPet = PetDataController.instance.getById(playerPetEntity.typeId);
 
 	const petLoveBonusOrMalus = playerPetEntity.getLoveLevelNumber() === PetConstants.LOVE_LEVEL.TRAINED
 		? SmallEventConstants.FIGHT_PET.BONUS_FOR_TRAINED_PETS

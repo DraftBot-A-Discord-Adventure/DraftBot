@@ -18,7 +18,7 @@ export default class PetCommand {
 			}));
 		}
 		else {
-			const petModel = PetDataController.instance.getById(pet.petId);
+			const petModel = PetDataController.instance.getById(pet.typeId);
 			response.push(makePacket(CommandPetPacketRes, {
 				foundPet: true,
 				data: {
