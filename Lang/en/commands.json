@@ -3,6 +3,33 @@
     "description": "Badges are difficult to get awards that were created to reward those who have most supported the development of the bot. The badge list is available in the bot guide.\n(via this link: https://guide.draftbot.com/notions-progresses/badges)",
     "title": ":military_medal: Detailed Information:"
   },
+  "pet": {
+    "embedTitle": "Familier de {{pseudo}} :",
+    "petField": "**Type :** {{emote}} {{typeName}}\n**Surnom :** {{nickname}}\n\n**Rareté :** {{rarity}}\n**Sexe :** {{sex}}\n**Mentalité :** {{loveLevel}}",
+    "noNickname": "Aucun surnom",
+    "loveLevels": {
+      "0_male": ":smirk_cat: Fielleux",
+      "0_female": ":smirk_cat: Fielleuse",
+      "1_male": ":pouting_cat: Sauvage",
+      "1_female": ":pouting_cat: Sauvage",
+      "2_male": ":scream_cat: Craintif",
+      "2_female": ":scream_cat: Craintive",
+      "3_male": ":smiley_cat: Apprivoisé",
+      "3_female": ":smiley_cat: Apprivoisée",
+      "4_male": ":heart_eyes_cat: Dressé",
+      "4_female": ":heart_eyes_cat: Dressée"
+    },
+    "hungry": "🤤 affamé",
+    "diet": {
+      "diet_null": "🥪 Omnivore",
+      "diet_herbivorous": "🥬 Herbivore",
+      "diet_carnivorous": "🥩 Carnivore"
+    },
+    "sexDisplay": {
+      "female": "Femelle",
+      "male": "Mâle"
+    }
+  },
   "guild": {
     "embedTitle": "Guilde {{guildName}} | Niveau {{level}}",
     "description": ":scroll: `{{description}}`",
