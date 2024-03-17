@@ -43,6 +43,20 @@
     "description": "Zeigt die Latenzzeit des Bots an und ermöglicht dem Spieler, zu prüfen, ob der Bot online ist.",
     "name": "Ping"
   },
+  "pet": {
+    "description": "Afficher les informations du familier d'un joueur.",
+    "name": "familier",
+    "options": {
+      "rank": {
+        "description": "Le classement du joueur dont le familier doit être affiché.",
+        "name": "classement"
+      },
+      "user": {
+        "description": "L'utilisateur dont le familier doit être affiché.",
+        "name": "utilisateur"
+      }
+    }
+  },
   "guild": {
     "description": "Affiche des informations sur une guilde.",
     "name": "guilde",
