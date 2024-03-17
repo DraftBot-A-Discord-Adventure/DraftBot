@@ -63,6 +63,22 @@ export abstract class PetConstants {
 		RARITY: "⭐"
 	};
 
+	/*
+	This array defines the probability of looting a pet based on two factors:
+    - The rarity of the pet (represented by each column in the sub-arrays)
+    - The level of the guild (represented by each sub-array, with each sub-array corresponding to a range of 10 guild levels)
+
+    Each sub-array contains probabilities for 5 different rarities of pets (from most common to most rare).
+    The probabilities are designed to sum up to 1 for each sub-array, ensuring that a pet will be looted.
+
+    The array is structured as follows:
+    - The first element of each sub-array represents the probability of looting the most common pet.
+    - The second element represents the probability of the next rarer pet, and so on.
+    - The last element represents the probability of looting the rarest pet.
+
+    For example, a guild at level 1-10 has a 90% chance to loot the most common pet and a 0.01% chance to loot the rarest pet.
+	 */
+	// Todo: add unit test to check that each line is summing to 1
 	static readonly PROBABILITIES = [
 		[0.9000, 0.0900, 0.0090, 0.0009, 0.0001],
 		[0.8940, 0.0916, 0.0109, 0.0023, 0.0012],
@@ -74,7 +90,7 @@ export abstract class PetConstants {
 		[0.6060, 0.1684, 0.1026, 0.0695, 0.0535],
 		[0.5160, 0.1924, 0.1312, 0.0905, 0.0699],
 		[0.4140, 0.2196, 0.1637, 0.1143, 0.0884],
-		[0.3000, 0.2500, 0.2000, 0.1409, 0.1091]
+		[0.3000, 0.2500, 0.2000, 0.1409, 0.1091] // Todo: what happen for guilds lvl > 100
 	];
 
 	static RESTRICTIVES_DIETS = {
