@@ -43,6 +43,20 @@
     "description": "Locandina della latenza del bot e permette ai giocatori di verificare se il bot è connesso.",
     "name": "ping"
   },
+  "pet": {
+    "description": "Afficher les informations du familier d'un joueur.",
+    "name": "animale di compagnia",
+    "options": {
+      "rank": {
+        "description": "Le classement du joueur dont le familier doit être affiché.",
+        "name": "classifica"
+      },
+      "user": {
+        "description": "L'utilisateur dont le familier doit être affiché.",
+        "name": "utilizzatore"
+      }
+    }
+  },
   "guild": {
     "description": "Visualizza le informazioni su una gilda.",
     "name": "gilda",
