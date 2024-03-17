@@ -57,7 +57,6 @@ export async function handleCommandPetPacketRes(packet: CommandPetPacketRes, con
 		}
 
 		const petData: PetData = {
-			emote: packet.data!.emote,
 			typeId: packet.data!.typeId,
 			nickname: packet.data!.nickname,
 			sex: packet.data!.sex,

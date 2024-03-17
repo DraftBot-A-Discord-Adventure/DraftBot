@@ -23,7 +23,6 @@ export default class PetCommand {
 				foundPet: true,
 				data: {
 					nickname: pet.nickname,
-					emote: pet.getPetEmote(),
 					typeId: petModel.id,
 					rarity: petModel.rarity,
 					sex: pet.sex,

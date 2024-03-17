@@ -5,29 +5,19 @@
   },
   "pet": {
     "embedTitle": "Familier de {{pseudo}} :",
-    "petField": "**Type :** {{emote}} {{type}}\n**Surnom :** {{nickname}}\n\n**Rareté :** {{rarity}}\n**Sexe :** {{sex}}\n**Mentalité :** {{loveLevel}}",
+    "petField": "**Type :** {{emote}} {{typeName}}\n**Surnom :** {{nickname}}\n\n**Rareté :** {{rarity}}\n**Sexe :** {{sex}}\n**Mentalité :** {{loveLevel}}",
     "noNickname": "Aucun surnom",
     "loveLevels": {
-      "0": {
-        "0_male": ":smirk_cat: Fielleux",
-        "0_female": ":smirk_cat: Fielleuse"
-      },
-      "1": {
-        "1_male": ":pouting_cat: Sauvage",
-        "1_female": ":pouting_cat: Sauvage"
-      },
-      "2": {
-        "2_male": ":scream_cat: Craintif",
-        "2_female": ":scream_cat: Craintive"
-      },
-      "3": {
-        "3_male": ":smiley_cat: Apprivoisé",
-        "3_female": ":smiley_cat: Apprivoisée"
-      },
-      "4": {
-        "4_male": ":heart_eyes_cat: Dressé",
-        "4_female": ":heart_eyes_cat: Dressée"
-      }
+      "0_male": ":smirk_cat: Fielleux",
+      "0_female": ":smirk_cat: Fielleuse",
+      "1_male": ":pouting_cat: Sauvage",
+      "1_female": ":pouting_cat: Sauvage",
+      "2_male": ":scream_cat: Craintif",
+      "2_female": ":scream_cat: Craintive",
+      "3_male": ":smiley_cat: Apprivoisé",
+      "3_female": ":smiley_cat: Apprivoisée",
+      "4_male": ":heart_eyes_cat: Dressé",
+      "4_female": ":heart_eyes_cat: Dressée"
     },
     "hungry": "\uD83E\uDD24 affamé",
     "diet": {

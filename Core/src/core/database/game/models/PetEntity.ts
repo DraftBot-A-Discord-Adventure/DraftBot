@@ -10,7 +10,6 @@ import {draftBotInstance} from "../../../../index";
 import {DraftBotPacket} from "../../../../../../Lib/src/packets/DraftBotPacket";
 import {PlayerReceivePetPacket} from "../../../../../../Lib/src/packets/notifications/PlayerReceivePetPacket";
 import moment = require("moment");
-import {DraftBotIcons} from "../../../../../../Lib/src/DraftBotIcons";
 
 export class PetEntity extends Model {
 	declare readonly id: number;
@@ -38,10 +37,6 @@ export class PetEntity extends Model {
 		}
 		return PetConstants.BREED_COOLDOWN * petModel.rarity -
 			(new Date().valueOf() - this.hungrySince.valueOf());
-	}
-
-	public getPetEmote(): string {
-		return this.sex === PetConstants.SEX.MALE ? DraftBotIcons.pets[this.petId].emoteMale : DraftBotIcons.pets[this.petId].emoteFemale;
 	}
 
 	public getLoveLevelNumber(): number {
