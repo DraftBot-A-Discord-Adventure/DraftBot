@@ -15,6 +15,8 @@ export class CommandMapDisplayRes extends DraftBotPacket {
 	data?: {
 		mapId: number;
 
+		mapType: string;
+
 		mapLink: {
 			name: string;
 			forced: boolean;

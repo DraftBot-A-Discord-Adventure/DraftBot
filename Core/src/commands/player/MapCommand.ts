@@ -11,20 +11,20 @@ async function getMapInformation(player: Player, destination: MapLocation, isInE
 	name: string,
 	forced: boolean
 }> {
-	const departure = player.getPreviousMap();
-
-	const mapLink = MapLinkDataController.instance.getLinkByLocations(departure.id, destination.id);
+	const mapLink = MapLinkDataController.instance.getById(destination.id);
 
 	if (!isInEvent && mapLink.forcedImage) {
 		return {
-			name: destination.forcedImage,
+			name: mapLink.forcedImage,
 			forced: true
 		};
 	}
 
+	const departure = player.getPreviousMap();
+
 	if (isInEvent) {
 		return {
-			name: destination.forcedImage ?? `${language}_${destination.id}_`,
+			name: mapLink.forcedImage ?? `${language}_${destination.id}_`,
 			forced: Boolean(destination.forcedImage)
 		};
 	}
@@ -64,6 +64,7 @@ export class MapCommand {
 				data: {
 					mapId: destinationMap.id,
 					mapLink: mapInformation,
+					mapType: destinationMap.type,
 					inEvent: isInEvent
 				}
 			}));

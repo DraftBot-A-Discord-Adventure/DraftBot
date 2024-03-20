@@ -401,10 +401,10 @@
     "title": ":ballot_box: Voter"
   },
   "map": {
-    "title": "Voici la carte !",
+    "title": "{{pseudo}}, voici la carte !",
     "description": {
-      "ongoing": "Actuellement, vous vous dirigez {{particle}} **{{destination}}** : {{description}}",
-      "arrived": "Vous êtes arrivé à votre destination.\n> **{{destination}}** : {{description}}"
+      "ongoing": "Actuellement, vous vous dirigez {{particle}} **{{emote}} {{destination}}**.\n> {{description}}",
+      "arrived": "Vous êtes arrivé à votre destination.\n> **{{emote}} {{destination}}**.\n> {{description}}"
     }
   }
 }

@@ -9,6 +9,7 @@ import {DiscordCache} from "../../bot/DiscordCache";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import i18n from "../../translations/i18n";
 import {MapConstants} from "../../../../Lib/src/constants/MapConstants";
+import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 
 function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandMapPacketReq> {
 	return Promise.resolve(makePacket(CommandMapPacketReq, {keycloakId: user.id, language: interaction.userLanguage}));
@@ -27,7 +28,8 @@ export async function handleCommandMapDisplayRes(packet: CommandMapDisplayRes, c
 		}
 
 		const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:map.title", {
-			lng: interaction.userLanguage
+			lng: interaction.userLanguage,
+			pseudo: interaction.user.displayName
 		}), interaction.user);
 
 		// Todo: Find another way to replace the values between the brackets in the URL without using replace
@@ -57,6 +59,7 @@ export async function handleCommandMapDisplayRes(packet: CommandMapDisplayRes, c
 			lng: interaction.userLanguage,
 			destination: mapName,
 			particle: mapParticle,
+			emote: DraftBotIcons.map_types[packet.data!.mapType],
 			description: mapDescription,
 			interpolation: { escapeValue: false }
 		}));
