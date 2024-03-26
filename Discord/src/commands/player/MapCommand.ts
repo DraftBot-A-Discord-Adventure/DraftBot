@@ -15,6 +15,33 @@ function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promis
 	return Promise.resolve(makePacket(CommandMapPacketReq, {keycloakId: user.id, language: interaction.userLanguage}));
 }
 
+async function setEmbedMap(embed: DraftBotEmbed, mapLink: {name: string, fallback?: string, forced: boolean}): Promise<void> {
+	if (mapLink.forced && !mapLink.fallback) {
+		embed.setImage(MapConstants.FORCED_MAPS_URL.replace("{name}", mapLink.name));
+	} else {
+		await fetch(mapLink.forced
+			? MapConstants.FORCED_MAPS_URL.replace("{name}", mapLink.name)
+			: MapConstants.MAP_URL_WITH_CURSOR.replace("{mapLink}", mapLink.name))
+			.then((res) => {
+				if (res.status !== 200) {
+					embed.setImage(mapLink.forced
+						? MapConstants.FORCED_MAPS_URL.replace("{name}", mapLink.fallback!)
+						: MapConstants.MAP_URL_WITH_CURSOR.replace("{mapLink}", mapLink.fallback!));
+				}
+				else {
+					embed.setImage(mapLink.forced
+						? MapConstants.FORCED_MAPS_URL.replace("{name}", mapLink.name)
+						: MapConstants.MAP_URL_WITH_CURSOR.replace("{mapLink}", mapLink.name));
+				}
+			})
+			.catch(() => {
+				embed.setImage(mapLink.forced
+					? MapConstants.FORCED_MAPS_URL.replace("{name}", mapLink.fallback!)
+					: MapConstants.MAP_URL_WITH_CURSOR.replace("{mapLink}", mapLink.fallback!));
+			});
+	}
+}
+
 export async function handleCommandMapDisplayRes(packet: CommandMapDisplayRes, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 
@@ -33,11 +60,7 @@ export async function handleCommandMapDisplayRes(packet: CommandMapDisplayRes, c
 		}), interaction.user);
 
 		// Todo: Find another way to replace the values between the brackets in the URL without using replace
-		if (packet.data!.mapLink.forced) {
-			embed.setImage(MapConstants.FORCED_MAPS_URL.replace("{name}", packet.data!.mapLink.name));
-		} else {
-			embed.setImage(MapConstants.MAP_URL_WITH_CURSOR.replace("{mapLink}", packet.data!.mapLink.name));
-		}
+		await setEmbedMap(embed, packet.data!.mapLink);
 
 		const mapName = i18n.t(`models:map_locations.${packet.data?.mapId}.name`, {
 			lng: interaction.userLanguage,

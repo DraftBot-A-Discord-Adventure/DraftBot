@@ -7,10 +7,11 @@ import {MapLocation} from "../../data/MapLocation";
 import {Language} from "../../../../Lib/src/Language";
 import {MapLinkDataController} from "../../data/MapLink";
 
-async function getMapInformation(player: Player, destination: MapLocation, isInEvent: boolean, language: Language): Promise<{
+function getMapInformation(player: Player, destination: MapLocation, isInEvent: boolean, language: Language): {
 	name: string,
+	fallback?: string,
 	forced: boolean
-}> {
+} {
 	const mapLink = MapLinkDataController.instance.getById(destination.id);
 
 	if (!isInEvent && mapLink.forcedImage) {
@@ -25,6 +26,7 @@ async function getMapInformation(player: Player, destination: MapLocation, isInE
 	if (isInEvent) {
 		return {
 			name: mapLink.forcedImage ?? `${language}_${destination.id}_`,
+			fallback: mapLink.forcedImage ? null : `en_${destination.id}_`,
 			forced: Boolean(destination.forcedImage)
 		};
 	}
@@ -32,12 +34,14 @@ async function getMapInformation(player: Player, destination: MapLocation, isInE
 	if (destination.id < departure.id) {
 		return {
 			name: `${language}_${destination.id}_${departure.id}_`,
+			fallback: `en_${destination.id}_${departure.id}_`,
 			forced: false
 		};
 	}
 
 	return {
 		name: `${language}_${departure.id}_${destination.id}_`,
+		fallback: `en_${departure.id}_${destination.id}_`,
 		forced: false
 	};
 }
@@ -56,7 +60,7 @@ export class MapCommand {
 			const isInEvent = player.isInEvent();
 			const destinationMap = player.getDestination();
 
-			const mapInformation = await getMapInformation(player, destinationMap, isInEvent, packet.language);
+			const mapInformation = getMapInformation(player, destinationMap, isInEvent, packet.language);
 
 			response.push(makePacket(CommandMapDisplayRes, {
 				foundPlayer: true,

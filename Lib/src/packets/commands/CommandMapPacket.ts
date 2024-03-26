@@ -19,6 +19,7 @@ export class CommandMapDisplayRes extends DraftBotPacket {
 
 		mapLink: {
 			name: string;
+			fallback?: string;
 			forced: boolean;
 		};
 
