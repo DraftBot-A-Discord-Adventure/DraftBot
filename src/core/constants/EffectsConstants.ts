@@ -14,7 +14,8 @@ export abstract class EffectsConstants {
 		STARVING: ":drooling_face:",
 		CONFOUNDED: ":confounded:",
 		LOST: ":face_with_monocle:",
-		SCARED: ":scream:"
+		SCARED: ":scream:",
+		FISHED: ":fish:"
 	};
 
 	static readonly EMOJIS = {
@@ -32,7 +33,8 @@ export abstract class EffectsConstants {
 		":drooling_face:": "🤤",
 		":confounded:": "😖",
 		":face_with_monocle:": "🧐",
-		":scream:": "😱"
+		":scream:": "😱",
+		":fish:": "🐟"
 	};
 
 	static readonly ERROR_TEXT = {
@@ -50,7 +52,8 @@ export abstract class EffectsConstants {
 		":drooling_face:": "Starving",
 		":confounded:": "Confounded",
 		":face_with_monocle:": "Lost",
-		":scream:": "Scared"
+		":scream:": "Scared",
+		":fish:": "Fished"
 	};
 
 	static readonly DURATION = {
@@ -68,6 +71,7 @@ export abstract class EffectsConstants {
 		":drooling_face:": 50,
 		":confounded:": 40,
 		":face_with_monocle:": 270,
-		":scream:": 15
+		":scream:": 15,
+		":fish:": 5
 	};
 }

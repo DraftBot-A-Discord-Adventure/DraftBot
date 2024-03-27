@@ -1,0 +1,15 @@
+{
+	"translations": {
+		"fr": {
+			"maleName": "Poisson-globe",
+			"femaleName": "Poisson-globe"
+		},
+		"en": {
+			"maleName": "Blowfish",
+			"femaleName": "Blowfish"
+		}
+	},
+	"emoteMale": "🐡",
+	"emoteFemale": "🐡",
+	"rarity": 3
+}
