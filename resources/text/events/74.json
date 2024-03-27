@@ -1,7 +1,7 @@
 {
 	"triggers": [
 		{
-			"level": 3,
+			"level": 20,
 			"date": {
 				"month": {
 					"from": 4,
@@ -9,7 +9,7 @@
 				},
 				"day": {
 					"from": 1,
-					"to": 1
+					"to": 3
 				}
 			},
 			"oncePer": "year",
@@ -19,8 +19,8 @@
 		}
 	],
 	"translations": {
-		"fr": "🐟 Alors que vous déambulez sans but précis, vos narines sont soudainement assaillies par une odeur iodée intense. Une étrange femme vêtue d'une robe aux motifs d'écailles de poisson, les cheveux emmêlés d'algues séchées, vous fait signe de la main. Elle est entourée de paniers débordant de fruits de mer aux couleurs vives et vous invite, avec un sourire édenté mais chaleureux, à goûter à sa spécialité culinaire, un plat mijoté avec amour à partir des plus beaux produits de l'océan.",
-		"en": "🐟 As you wander aimlessly, your nostrils are suddenly assaulted by a strong briny smell. A strange woman dressed in a fish scale-patterned gown, her hair tangled with dried seaweed, beckons you over. Surrounded by baskets brimming with brightly colored seafood, she invites you with a toothless yet warm smile to taste her culinary specialty, a lovingly stewed dish made from the finest oceanic produce."
+		"fr": "🐟 Alors que vous déambulez sans but précis, vos narines sont soudainement assaillies par une intense odeur iodée. Une étrange femme vêtue d'une robe aux motifs d'écailles de poisson, les cheveux emmêlés d'algues séchées, vous fait signe de la main. Elle est entourée de paniers débordant de fruits de mer aux couleurs vives et vous invite, avec un sourire édenté mais chaleureux, à goûter à sa spécialité culinaire : un plat mijoté avec amour à partir des plus beaux produits de l'océan.",
+		"en": "🐟 As you wander aimlessly, your nostrils are suddenly assaulted by a strong briny smell. A strange woman dressed in a fish scale-patterned gown, her hair tangled with dried seaweed, beckons you to come over. Surrounded by baskets brimming with brightly colored seafood, she invites you with a toothless yet warm smile to taste her culinary specialty, a lovingly stewed dish made from the finest oceanic produce."
 	},
 	"possibilities": {
 		"🍽️": {
@@ -61,8 +61,8 @@
 			"outcomes": [
 				{
 					"translations": {
-						"fr": "Vous vous penchez légèrement, intrigué par la senteur corsée émanant du plat de fruits de mer, la femme vous observe avec une intensité qui vous donne la chair de poule. Vous êtes sur le point de commenter le mélange curieux de senteurs émanant de l'assiette quand, sans prévenir, ses mains se trouvent derrière votre tête, vous poussant le visage dans la concoction aromatique. Le monde devient humide et froid lorsque votre nez plonge dans le plat. Vos yeux croisent le regard vitreux d'un poisson cuit, dont le regard inexpressif semble sonder votre âme. L'impact est saisissant, et une vague de liquide froid et salé vous éclabousse le visage. La dernière chose que vous enregistrez est l'œil du poisson pressant contre le vôtre, une connexion bizarre dans cette agression inattendue. Vos sens chavirent suite à la rencontre brutale, et l'obscurité engloutit votre vision. Lorsque la conscience revient, vous êtes accueilli par le grincement du bois et l'odeur du sel, un contraste frappant avec le parfum de fruits de mer plus tôt. Vous ressentez le balancement régulier sous vous et réalisez que vous êtes allongé sur les planches rugueuses du pont d'un navire.",
-						"en": "As you lean in, the pungent aroma of the seafood dish tickles your senses. The strange woman watches you with an intensity that makes the hairs on the back of your neck stand up. You're just about to comment on the peculiar mix of scents wafting from the plate when, without warning, her hands are on the back of your head, shoving your face down into the aromatic concoction. The world turns wet and cold as your nose plunges into the dish. Your eyes meet the glassy stare of a cooked fish, its unblinking gaze seemingly peering into your soul. The impact is jarring, and a shockwave of cold, briny liquid splashes across your face. The last thing you register is the fish's eye pressing against your own, a bizarre connection in this unexpected assault. Your senses reel from the abrupt encounter, and darkness swallows your vision. When consciousness returns, you're met with the creaking of wood and the smell of salt in the air, a stark contrast to the earlier scent of seafood. You feel the steady rocking beneath you and realize you're lying on the rough planks of a ship's deck."
+						"fr": "Vous vous penchez légèrement, intrigué par la senteur corsée émanant du plat de fruits de mer et la femme vous observe avec une intensité qui vous donne la chair de poule. Vous êtes sur le point de commenter le mélange curieux quand, soudainement, vous sentez ses mains vous écraser le visage contre l'assiette. Le monde devient humide et froid alors que votre nez plonge dans le plat. Vous croisez le regard vitreux d'un poisson cuit, l'œil de ce dernier vient peu à peu se presser contre le vôtre. Vos sens chavirent et l'obscurité engloutit votre vision. Lorsque vous reprenez conscience, vous êtes accueilli par le grincement du bois et l'odeur du sel, vous ressentez un balancement régulier et réalisez que vous êtes allongé sur les planches rugueuses du pont d'un navire.",
+						"en": "You lean in slightly, intrigued by the strong scent emanating from the seafood dish, and the woman watches you with an intensity that sends shivers down your spine. You're about to comment on the strange mix when, suddenly, you feel her hands crushing your face against the plate. The world becomes wet and cold as your nose plunges into the dish. You meet the glassy gaze of a cooked fish, its eye gradually pressing against your own. Your senses reel, and darkness swallows your vision. When you regain consciousness, you are greeted by the creaking of wood and the smell of salt, you feel a steady rocking, and realize that you're lying on the rough planks of a ship's deck."
 					},
 					"mapLink": 1000
 				}
@@ -72,8 +72,8 @@
 			"outcomes": [
 				{
 					"translations": {
-						"fr": "La femme semble offensée par votre refus. Elle vous lance des invectives marines et vous bombarde de poissons morts. Vous parvenez à esquiver la plupart, mais un spécimen vous frappe en plein visage. Vous continuez à courir sans vous retourner.",
-						"en": "The woman seems offended by your refusal. She hurls marine insults and bombards you with dead fish. You manage to dodge most, but one specimen hits you square in the face. You keep running without looking back."
+						"fr": ":fish: Vous ne bougez pas, comme pétrifié. La femme prend cette réaction comme un refus et s'énerve . Elle vous lance des invectives marines et vous bombarde de poissons morts. Vous parvenez à esquiver la plupart, mais un spécimen vous frappe en plein visage. Vous continuez à courir sans vous retourner.",
+						"en": ":fish: You do not move, as if petrified. The woman takes this reaction as a refusal and becomes angry. She hurls marine insults and bombards you with dead fish. You manage to dodge most, but one specimen hits you square in the face. You keep running without looking back."
 					},
 					"effect": ":fish:"
 				}
