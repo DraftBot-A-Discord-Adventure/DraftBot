@@ -33,7 +33,7 @@
 		"@top-gg/sdk": "3.1.6",
 		"discord-api-types": "0.37.67",
 		"discord.js": "14.14.1",
-		"express": "4.18.2",
+		"express": "4.19.2",
 		"link-module-alias": "1.2.0",
 		"mariadb": "3.0.2",
 		"moment": "2.29.4",
