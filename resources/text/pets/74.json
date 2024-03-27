@@ -1,0 +1,15 @@
+{
+	"translations": {
+		"fr": {
+			"maleName": "Poisson tropical",
+			"femaleName": "Poisson tropical"
+		},
+		"en": {
+			"maleName": "Tropical fish",
+			"femaleName": "Tropical fish"
+		}
+	},
+	"emoteMale": "🐠",
+	"emoteFemale": "🐠",
+	"rarity": 5
+}
