@@ -12,7 +12,7 @@ import {TopConstants} from "../../../../../../Lib/src/constants/TopConstants";
 import { Constants } from "../../../../../../Lib/src/constants/Constants";
 import {NumberChangeReason} from "../../../../../../Lib/src/constants/LogsConstants";
 import {GuildConstants} from "../../../../../../Lib/src/constants/GuildConstants";
-import {PetEntityConstants} from "../../../../../../Lib/src/constants/PetEntityConstants";
+import {PetConstants} from "../../../../../../Lib/src/constants/PetConstants";
 
 export class Guild extends Model {
 	declare readonly id: number;
@@ -182,7 +182,7 @@ export class Guild extends Model {
 		if (!guildPets) {
 			return true;
 		}
-		return guildPets.length >= PetEntityConstants.SLOTS;
+		return guildPets.length >= PetConstants.SLOTS;
 	}
 
 	/**

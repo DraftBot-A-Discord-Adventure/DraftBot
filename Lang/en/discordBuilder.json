@@ -43,6 +43,20 @@
     "description": "Displays the ping of the bot and allow the player to check if the bot is online.",
     "name": "ping"
   },
+  "pet": {
+    "description": "Displays information about the pet of a player.",
+    "name": "pet",
+    "options": {
+      "rank": {
+        "description": "The rank of the player whose pet should be displayed.",
+        "name": "rank"
+      },
+      "user": {
+        "description": "The user whose pet should be displayed.",
+        "name": "user"
+      }
+    }
+  },
   "guild": {
     "description": "Displays information about a guild.",
     "name": "guild",

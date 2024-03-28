@@ -52,6 +52,8 @@ export class CommandReportRefusePveFightRes extends DraftBotPacket {
 export class CommandReportChooseDestinationRes extends DraftBotPacket {
 	mapId!: number;
 
+	mapTypeId!: string;
+
 	tripDuration!: number;
 }
 

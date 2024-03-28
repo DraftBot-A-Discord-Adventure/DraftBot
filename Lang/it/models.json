@@ -942,298 +942,152 @@
     "9": "Chiave Arrugginita"
   },
   "pets": {
-    "0": {
-      "female": "Nessuno animale di compagnia",
-      "male": "Nessuno animale di compagnia"
-    },
-    "1": {
-      "female": "Cagna",
-      "male": "Cane"
-    },
-    "10": {
-      "female": "Gallina",
-      "male": "Gallo"
-    },
-    "11": {
-      "female": "Uccello",
-      "male": "Uccello"
-    },
-    "12": {
-      "female": "Anatra",
-      "male": "Anatre"
-    },
-    "13": {
-      "female": "Cavallo",
-      "male": "Stallone"
-    },
-    "14": {
-      "female": "Tartaruga",
-      "male": "Tartaruga"
-    },
-    "15": {
-      "female": "Serpente",
-      "male": "Serpente"
-    },
-    "16": {
-      "female": "Lucertola",
-      "male": "Lucertola"
-    },
-    "17": {
-      "female": "Agnello",
-      "male": "Ariete"
-    },
-    "18": {
-      "female": "Capra",
-      "male": "Caprone"
-    },
-    "19": {
-      "female": "Tacchino",
-      "male": "Tacchino"
-    },
-    "2": {
-      "female": "Barboncino",
-      "male": "Barboncino"
-    },
-    "20": {
-      "female": "Volpeta",
-      "male": "Volpe"
-    },
-    "21": {
-      "female": "Orsa",
-      "male": "Orso"
-    },
-    "22": {
-      "female": "Koala",
-      "male": "Koala"
-    },
-    "23": {
-      "female": "Rana",
-      "male": "Rospo"
-    },
-    "24": {
-      "female": "Scimmia",
-      "male": "Scimmia"
-    },
-    "25": {
-      "female": "Pinguino",
-      "male": "Pinguino"
-    },
-    "26": {
-      "female": "Gufo",
-      "male": "Gufo"
-    },
-    "27": {
-      "female": "Pipistrello",
-      "male": "Pipistrello"
-    },
-    "28": {
-      "female": "Lupa",
-      "male": "Lupo"
-    },
-    "29": {
-      "female": "Scrofa",
-      "male": "Cinghiale"
-    },
-    "3": {
-      "female": "Gatta",
-      "male": "Gatto"
-    },
-    "30": {
-      "female": "Otaria",
-      "male": "Foca "
-    },
-    "31": {
-      "female": "Ippopotamo",
-      "male": "Ippopotamo"
-    },
-    "32": {
-      "female": "Lama",
-      "male": "Lama"
-    },
-    "33": {
-      "female": "Cigno",
-      "male": "Cigno"
-    },
-    "34": {
-      "female": "Fenicottero",
-      "male": "Fenicottero"
-    },
-    "35": {
-      "female": "Procione",
-      "male": "Procione"
-    },
-    "36": {
-      "female": "Puzzola",
-      "male": "Puzzola"
-    },
-    "37": {
-      "female": "Tasso",
-      "male": "Tasso"
-    },
-    "38": {
-      "female": "Castoro",
-      "male": "Castoro"
-    },
-    "39": {
-      "female": "Bradipo",
-      "male": "Bradipo"
-    },
-    "4": {
-      "female": "Gatta nera",
-      "male": "Gatto nero"
-    },
-    "40": {
-      "female": "Scoiattolo",
-      "male": "Scoiattolo"
-    },
-    "41": {
-      "female": "Riccio",
-      "male": "Riccio"
-    },
-    "42": {
-      "female": "Orso polare",
-      "male": "Orso polare"
-    },
-    "43": {
-      "female": "Panda",
-      "male": "Panda"
-    },
-    "44": {
-      "female": "Scorpione",
-      "male": "Scorpione"
-    },
-    "45": {
-      "female": "Coccodrillo",
-      "male": "Coccodrillo"
-    },
-    "46": {
-      "female": "Elefante",
-      "male": "Elefante"
-    },
-    "47": {
-      "female": "Zebra",
-      "male": "Zebra"
-    },
-    "48": {
-      "female": "Rinoceronte",
-      "male": "Rinoceronte"
-    },
-    "49": {
-      "female": "Dromedario",
-      "male": "Dromedario"
-    },
-    "5": {
-      "female": "Topo",
-      "male": "Roditore"
-    },
-    "50": {
-      "female": "Cammello",
-      "male": "Cammello"
-    },
-    "51": {
-      "female": "Giraffa",
-      "male": "Giraffa"
-    },
-    "52": {
-      "female": "Canguro",
-      "male": "Canguro"
-    },
-    "53": {
-      "female": "Pavone",
-      "male": "Pavone"
-    },
-    "54": {
-      "female": "Pappagallo",
-      "male": "Pappagallo"
-    },
-    "55": {
-      "female": "Lontra",
-      "male": "Lontra"
-    },
-    "56": {
-      "female": "Tigre",
-      "male": "Tigre"
-    },
-    "57": {
-      "female": "Leone",
-      "male": "Leone"
-    },
-    "58": {
-      "female": "Aquila",
-      "male": "Aquila"
-    },
-    "59": {
-      "female": "Dodo",
-      "male": "Dodo"
-    },
-    "6": {
-      "female": "Criceto",
-      "male": "Criceto"
-    },
-    "60": {
-      "female": "Leopardo",
-      "male": "Leopardo"
-    },
-    "61": {
-      "female": "Mammut",
-      "male": "Mammut"
-    },
-    "62": {
-      "female": "Colomba",
-      "male": "Colomba"
-    },
-    "63": {
-      "female": "Unicorno",
-      "male": "Unicorno"
-    },
-    "64": {
-      "female": "Drago ",
-      "male": "Drago"
-    },
-    "65": {
-      "female": "T-Rex",
-      "male": "T-Rex"
-    },
-    "66": {
-      "female": "Angelo",
-      "male": "Stitch"
-    },
-    "67": {
-      "female": "Donna di neve",
-      "male": "Pupazzo di neve"
-    },
-    "68": {
-      "female": "Anatra scarlatto",
-      "male": "Anatra scarlatta"
-    },
-    "69": {
-      "female": "Donna di neve",
-      "male": "Pupazzo di neve"
-    },
-    "7": {
-      "female": "Coniglio",
-      "male": "Coniglio"
-    },
-    "70": {
-      "female": "Aliene",
-      "male": "Alien"
-    },
-    "71": {
-      "female": "Calamaro",
-      "male": "Polpo"
-    },
-    "72": {
-      "female": "Pinguino",
-      "male": "Pinguino"
-    },
-    "8": {
-      "female": "Mucca",
-      "male": "Bue"
-    },
-    "9": {
-      "female": "Maiale",
-      "male": "Maiale"
-    }
+    "0_female": "Nessuno animale di compagnia",
+    "0_male": "Nessuno animale di compagnia",
+    "1_female": "Cagna",
+    "1_male": "Cane",
+    "10_female": "Gallina",
+    "10_male": "Gallo",
+    "11_female": "Uccello",
+    "11_male": "Uccello",
+    "12_female": "Anatra",
+    "12_male": "Anatre",
+    "13_female": "Cavallo",
+    "13_male": "Stallone",
+    "14_female": "Tartaruga",
+    "14_male": "Tartaruga",
+    "15_female": "Serpente",
+    "15_male": "Serpente",
+    "16_female": "Lucertola",
+    "16_male": "Lucertola",
+    "17_female": "Agnello",
+    "17_male": "Ariete",
+    "18_female": "Capra",
+    "18_male": "Caprone",
+    "19_female": "Tacchino",
+    "19_male": "Tacchino",
+    "2_female": "Barboncino",
+    "2_male": "Barboncino",
+    "20_female": "Volpeta",
+    "20_male": "Volpe",
+    "21_female": "Orsa",
+    "21_male": "Orso",
+    "22_female": "Koala",
+    "22_male": "Koala",
+    "23_female": "Rana",
+    "23_male": "Rospo",
+    "24_female": "Scimmia",
+    "24_male": "Scimmia",
+    "25_female": "Pinguino",
+    "25_male": "Pinguino",
+    "26_female": "Gufo",
+    "26_male": "Gufo",
+    "27_female": "Pipistrello",
+    "27_male": "Pipistrello",
+    "28_female": "Lupa",
+    "28_male": "Lupo",
+    "29_female": "Scrofa",
+    "29_male": "Cinghiale",
+    "3_female": "Gatta",
+    "3_male": "Gatto",
+    "30_female": "Otaria",
+    "30_male": "Foca ",
+    "31_female": "Ippopotamo",
+    "31_male": "Ippopotamo",
+    "32_female": "Lama",
+    "32_male": "Lama",
+    "33_female": "Cigno",
+    "33_male": "Cigno",
+    "34_female": "Fenicottero",
+    "34_male": "Fenicottero",
+    "35_female": "Procione",
+    "35_male": "Procione",
+    "36_female": "Puzzola",
+    "36_male": "Puzzola",
+    "37_female": "Tasso",
+    "37_male": "Tasso",
+    "38_female": "Castoro",
+    "38_male": "Castoro",
+    "39_female": "Bradipo",
+    "39_male": "Bradipo",
+    "4_female": "Gatta nera",
+    "4_male": "Gatto nero",
+    "40_female": "Scoiattolo",
+    "40_male": "Scoiattolo",
+    "41_female": "Riccio",
+    "41_male": "Riccio",
+    "42_female": "Orso polare",
+    "42_male": "Orso polare",
+    "43_female": "Panda",
+    "43_male": "Panda",
+    "44_female": "Scorpione",
+    "44_male": "Scorpione",
+    "45_female": "Coccodrillo",
+    "45_male": "Coccodrillo",
+    "46_female": "Elefante",
+    "46_male": "Elefante",
+    "47_female": "Zebra",
+    "47_male": "Zebra",
+    "48_female": "Rinoceronte",
+    "48_male": "Rinoceronte",
+    "49_female": "Cammello",
+    "49_male": "Dromedario",
+    "5_female": "Topo",
+    "5_male": "Roditore",
+    "50_female": "Cammello",
+    "50_male": "Cammello",
+    "51_female": "Giraffa",
+    "51_male": "Giraffa",
+    "52_female": "Canguro",
+    "52_male": "Canguro",
+    "53_female": "Pavone",
+    "53_male": "Pavone",
+    "54_female": "Pappagallo",
+    "54_male": "Pappagallo",
+    "55_female": "Lontra",
+    "55_male": "Lontra",
+    "56_female": "Tigre",
+    "56_male": "Tigre",
+    "57_female": "Leone",
+    "57_male": "Leone",
+    "58_female": "Aquila",
+    "58_male": "Aquila",
+    "59_female": "Dodo",
+    "59_male": "Dodo",
+    "6_female": "Criceto",
+    "6_male": "Criceto",
+    "60_female": "Leopardo",
+    "60_male": "Leopardo",
+    "61_female": "Mammut",
+    "61_male": "Mammut",
+    "62_female": "Colomba",
+    "62_male": "Colomba",
+    "63_female": "Unicorno",
+    "63_male": "Unicorno",
+    "64_female": "Drago ",
+    "64_male": "Drago",
+    "65_female": "T-Rex",
+    "65_male": "T-Rex",
+    "66_female": "Angelo",
+    "66_male": "Stitch",
+    "67_female": "Donna di neve",
+    "67_male": "Pupazzo di neve",
+    "68_female": "Anatra scarlatto",
+    "68_male": "Anatra scarlatta",
+    "69_female": "Donna di neve",
+    "69_male": "Pupazzo di neve",
+    "7_female": "Coniglio",
+    "7_male": "Coniglio",
+    "70_female": "Aliene",
+    "70_male": "Alien",
+    "71_female": "Calamaro",
+    "71_male": "Polpo",
+    "72_female": "Pinguino",
+    "72_male": "Pinguino",
+    "8_female": "Mucca",
+    "8_male": "Bue",
+    "9_female": "Maiale",
+    "9_male": "Maiale"
   },
   "potions": {
     "0": "Nessuna pozione",

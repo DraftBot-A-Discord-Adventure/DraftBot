@@ -4,6 +4,6 @@ export interface PlayerReceivePetPacket extends DraftBotPacket {
     noRoomInGuild: boolean,
     giveInGuild: boolean,
     giveInPlayerInv: boolean,
-    petId: number,
+    petTypeId: number,
     petSex: string
 }

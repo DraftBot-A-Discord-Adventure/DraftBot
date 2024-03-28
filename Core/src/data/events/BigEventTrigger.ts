@@ -3,7 +3,7 @@ import {LogsReadRequests} from "../../core/database/logs/LogsReadRequests";
 import {BigEvent} from "../BigEvent";
 
 function verifyTriggerDate(trigger: BigEventTrigger): boolean {
-	// Don't do following operations if no date is specified -> save CPU time
+	// Don't do the following operations if no date is specified -> save CPU time
 	if (!trigger.date) {
 		return true;
 	}
@@ -97,7 +97,7 @@ export async function verifyTrigger(bigEvent: BigEvent, trigger: BigEventTrigger
 }
 
 /**
- * A big event trigger is a set of condition to trigger a big event (for instance a map id, a minimum level etc...)
+ * A big event trigger is a set of condition to trigger a big event (for instance, a map id, a minimum level etc...)
  */
 export interface BigEventTrigger {
 	mapId?: number;

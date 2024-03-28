@@ -3,6 +3,33 @@
     "description": "Bei den Auszeichnungen handelt es sich um komplizierte Unterscheidungen, die geschaffen wurden, um diejenigen zu belohnen, die die Entwicklung des Bots am stärksten unterstützt haben. Die Liste der Badges ist auf dem Bot Guide erhältlich.\n(über diesen Link: https://guide.draftbot.com/notions-avancees/badges)",
     "title": ":military_medal: Detaillierte Informationen:"
   },
+  "pet": {
+    "embedTitle": "Familier de {{pseudo}} :",
+    "petField": "**Type :** {{emote}} {{typeName}}\n**Surnom :** {{nickname}}\n\n**Rareté :** {{rarity}}\n**Sexe :** {{sex}}\n**Mentalité :** {{loveLevel}}",
+    "noNickname": "Aucun surnom",
+    "loveLevels": {
+      "0_male": ":smirk_cat: Fielleux",
+      "0_female": ":smirk_cat: Fielleuse",
+      "1_male": ":pouting_cat: Sauvage",
+      "1_female": ":pouting_cat: Sauvage",
+      "2_male": ":scream_cat: Craintif",
+      "2_female": ":scream_cat: Craintive",
+      "3_male": ":smiley_cat: Apprivoisé",
+      "3_female": ":smiley_cat: Apprivoisée",
+      "4_male": ":heart_eyes_cat: Dressé",
+      "4_female": ":heart_eyes_cat: Dressée"
+    },
+    "hungry": "🤤 affamé",
+    "diet": {
+      "diet_null": "🥪 Omnivore",
+      "diet_herbivorous": "🥬 Herbivore",
+      "diet_carnivorous": "🥩 Carnivore"
+    },
+    "sexDisplay": {
+      "female": "Femelle",
+      "male": "Mâle"
+    }
+  },
   "guild": {
     "embedTitle": "Guilde {{guildName}} | Niveau {{level}}",
     "description": ":scroll: `{{description}}`",
@@ -21,9 +48,9 @@
     "infoTitle": "Informations",
     "islandInfo": ":island: Nombre d'alliés sur l'île mystérieuse : {{membersOnPveIsland}\n",
     "info": ":star: {{experience}} | :mirror_ball: {{guildPoints}} | :trophy: {{ranking}}",
-    "xpNeeded": "{{xp} / {{xpToLevelUp}}",
+    "xpNeeded": "{{xp}} / {{xpToLevelUp}}",
     "xpMax": "Max",
-    "ranking": "{{rank} / {{rankTotal}}",
+    "ranking": "{{rank}} / {{rankTotal}}",
     "notRanked": "Non classée"
   },
   "help": {
@@ -351,10 +378,10 @@
   "report": {
     "adviceTitle": "Tipp:",
     "chooseDestinationIndications": "Wählen Sie ein Ziel für Ihre Reise:",
-    "choseMapMinutes_one": "Sie haben entschieden, in Richtung {{mapPrefix}} {{mapType}} **{{mapName}}** zu gehen. Dieser Pfad wird ca. **{{time}} Minuten * * dauern.",
-    "choseMapMinutes_other": "Sie haben entschieden, in Richtung {{mapPrefix}} {{mapType}} **{{mapName}}** zu gehen. Dieser Pfad wird ca. **{{time}} Minuten * * dauern.",
-    "choseMap_one": "Sie haben entschieden, in Richtung {{mapPrefix}} {{mapType}} **{{mapName}}** zu gehen. Dieser Pfad wird ca. **{{time}} Std. * * dauern.",
-    "choseMap_other": "Sie haben entschieden, in Richtung {{mapPrefix}} {{mapType}} **{{mapName}}** zu gehen. Dieser Pfad wird ca. **{{time}} Stunden * * dauern.",
+    "choseMapMinutes_one": "Sie haben entschieden, in Richtung {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}** zu gehen. Dieser Pfad wird ca. **{{time}} Minuten * * dauern.",
+    "choseMapMinutes_other": "Sie haben entschieden, in Richtung {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}** zu gehen. Dieser Pfad wird ca. **{{time}} Minuten * * dauern.",
+    "choseMap_one": "Sie haben entschieden, in Richtung {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}** zu gehen. Dieser Pfad wird ca. **{{time}} Std. * * dauern.",
+    "choseMap_other": "Sie haben entschieden, in Richtung {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}** zu gehen. Dieser Pfad wird ca. **{{time}} Stunden * * dauern.",
     "collectedPointsTitle": "geerntete Punkte:",
     "commandDescription": "Holen Sie sich einen Bericht über die Situation Ihres Charakters.",
     "commandName": "Bericht",

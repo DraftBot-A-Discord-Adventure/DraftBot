@@ -44,10 +44,11 @@
   "commandDoesntExist": "FEHLER: Unbekannter Befehl",
   "interactionNotForYou": "Diese Interaktion ist nicht für Sie!",
   "playerBlocked": "Sie können dies nicht ausführen, da Sie eine Aktion im Wartestatus ({{reasons}}) haben.",
-  "playerDoesntExist": "Dieser Spieler existiert nicht!",
+  "playerDoesntExist": "Le joueur demandé n'a pas été trouvé !",
   "titleBlocked": "{{pseudo}}, diese Person ist blockiert!",
   "titleCanceled": "{{pseudo}}, Rücknahme berücksichtigt!",
   "titleDidntWork": "{{pseudo}}, hmmm ... Das hat nicht funktioniert!",
-  "guildDoesntExist": "La guilde demandée n'existe pas",
+  "guildDoesntExist": "Aucune guilde n'a été trouvée.",
+  "petDoesntExist": "Aucun familier n'a été trouvé.",
   "unexpectedError": "Es ist ein Fehler aufgetreten: ("
 }

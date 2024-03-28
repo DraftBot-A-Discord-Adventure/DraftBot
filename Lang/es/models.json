@@ -942,298 +942,152 @@
     "9": "Llave oxidada"
   },
   "pets": {
-    "0": {
-      "female": "No se admiten animales",
-      "male": "No se admiten animales"
-    },
-    "1": {
-      "female": "Perro",
-      "male": "Perro"
-    },
-    "10": {
-      "female": "Gallina",
-      "male": "Coq"
-    },
-    "11": {
-      "female": "Pájaro",
-      "male": "Pájaro"
-    },
-    "12": {
-      "female": "Pato",
-      "male": "Pato"
-    },
-    "13": {
-      "female": "Yegua",
-      "male": "Semental"
-    },
-    "14": {
-      "female": "Tortuga",
-      "male": "Tortuga"
-    },
-    "15": {
-      "female": "Serpiente",
-      "male": "Serpiente"
-    },
-    "16": {
-      "female": "Lézarde",
-      "male": "Lagarto"
-    },
-    "17": {
-      "female": "Ovejas",
-      "male": "Aries"
-    },
-    "18": {
-      "female": "Cabra",
-      "male": "Cabra"
-    },
-    "19": {
-      "female": "Turquía",
-      "male": "Turquía"
-    },
-    "2": {
-      "female": "Caniche",
-      "male": "Caniche"
-    },
-    "20": {
-      "female": "Fox",
-      "male": "Fox"
-    },
-    "21": {
-      "female": "Oso",
-      "male": "Oso"
-    },
-    "22": {
-      "female": "Koala",
-      "male": "Koala"
-    },
-    "23": {
-      "female": "Rana",
-      "male": "Sapo"
-    },
-    "24": {
-      "female": "Guenon",
-      "male": "Mono"
-    },
-    "25": {
-      "female": "Pingüino",
-      "male": "Pingüino"
-    },
-    "26": {
-      "female": "Búho",
-      "male": "Búho"
-    },
-    "27": {
-      "female": "Murciélagos",
-      "male": "Murciélagos"
-    },
-    "28": {
-      "female": "Loba",
-      "male": "Lobo"
-    },
-    "29": {
-      "female": "Vellón",
-      "male": "Jabalí"
-    },
-    "3": {
-      "female": "Coño",
-      "male": "Gato"
-    },
-    "30": {
-      "female": "Leones marinos",
-      "male": "Sello"
-    },
-    "31": {
-      "female": "Hipopótamo",
-      "male": "Hipopótamo"
-    },
-    "32": {
-      "female": "Lamate",
-      "male": "Lama"
-    },
-    "33": {
-      "female": "Cisne",
-      "male": "Cisne"
-    },
-    "34": {
-      "female": "Flamenco rosa",
-      "male": "Flamenco rosa"
-    },
-    "35": {
-      "female": "Ratonne",
-      "male": "Mapache"
-    },
-    "36": {
-      "female": "Zorrilla",
-      "male": "Turón"
-    },
-    "37": {
-      "female": "Tejón",
-      "male": "Tejón"
-    },
-    "38": {
-      "female": "Castor",
-      "male": "Castor"
-    },
-    "39": {
-      "female": "Perezoso",
-      "male": "Perezoso"
-    },
-    "4": {
-      "female": "Gato negro",
-      "male": "Gato negro"
-    },
-    "40": {
-      "female": "Tamia",
-      "male": "Tamia"
-    },
-    "41": {
-      "female": "Espiga",
-      "male": "Erizo"
-    },
-    "42": {
-      "female": "Oso polar",
-      "male": "Oso polar"
-    },
-    "43": {
-      "female": "Panda",
-      "male": "Panda"
-    },
-    "44": {
-      "female": "Escorpión",
-      "male": "Escorpio"
-    },
-    "45": {
-      "female": "Cocodrilo",
-      "male": "Cocodrilo"
-    },
-    "46": {
-      "female": "Elefante",
-      "male": "Elefante"
-    },
-    "47": {
-      "female": "Zebrelle",
-      "male": "Cebra"
-    },
-    "48": {
-      "female": "Rinoceronte",
-      "male": "Rinoceronte"
-    },
-    "49": {
-      "female": "Chamelle",
-      "male": "Dromedario"
-    },
-    "5": {
-      "female": "Ratón",
-      "male": "Roedores"
-    },
-    "50": {
-      "female": "Chamelle",
-      "male": "Camello"
-    },
-    "51": {
-      "female": "Jirafa",
-      "male": "Jirafa"
-    },
-    "52": {
-      "female": "Canguro",
-      "male": "Canguro"
-    },
-    "53": {
-      "female": "Paonne",
-      "male": "Pavo real"
-    },
-    "54": {
-      "female": "Loro",
-      "male": "Loro"
-    },
-    "55": {
-      "female": "Nutria",
-      "male": "Nutria"
-    },
-    "56": {
-      "female": "Tigresa",
-      "male": "Tigre"
-    },
-    "57": {
-      "female": "Leona",
-      "male": "León"
-    },
-    "58": {
-      "female": "Águila",
-      "male": "Águila"
-    },
-    "59": {
-      "female": "Dodo",
-      "male": "Dodo"
-    },
-    "6": {
-      "female": "Hámster",
-      "male": "Hámster"
-    },
-    "60": {
-      "female": "Leopardo",
-      "male": "Leopardo"
-    },
-    "61": {
-      "female": "Mamut",
-      "male": "Mamut"
-    },
-    "62": {
-      "female": "Colombe",
-      "male": "Colombe"
-    },
-    "63": {
-      "female": "Unicornio",
-      "male": "Unicornio"
-    },
-    "64": {
-      "female": "Correa de mano",
-      "male": "Dragón"
-    },
-    "65": {
-      "female": "T-Rex",
-      "male": "T-Rex"
-    },
-    "66": {
-      "female": "Ángel",
-      "male": "Puntada"
-    },
-    "67": {
-      "female": "Dama de nieve",
-      "male": "Muñeco de nieve"
-    },
-    "68": {
-      "female": "Pato escarlata",
-      "male": "Pato escarlata"
-    },
-    "69": {
-      "female": "Dama de nieve",
-      "male": "Muñeco de nieve"
-    },
-    "7": {
-      "female": "Conejo",
-      "male": "Conejo"
-    },
-    "70": {
-      "female": "Alienne",
-      "male": "Alien"
-    },
-    "71": {
-      "female": "Pulpo",
-      "male": "Pulpo"
-    },
-    "72": {
-      "female": "Manchote",
-      "male": "Pingüino"
-    },
-    "8": {
-      "female": "Vaca",
-      "male": "Carne de vacuno"
-    },
-    "9": {
-      "female": "Siembre",
-      "male": "Carne de cerdo"
-    }
+    "0_female": "Aucun familier",
+    "0_male": "Aucun familier",
+    "1_female": "Chienne",
+    "1_male": "Chien",
+    "10_female": "Poule",
+    "10_male": "Coq",
+    "11_female": "Oiseau",
+    "11_male": "Oiseau",
+    "12_female": "Cane",
+    "12_male": "Canard",
+    "13_female": "Jument",
+    "13_male": "Étalon",
+    "14_female": "Tortue",
+    "14_male": "Tortue",
+    "15_female": "Serpent",
+    "15_male": "Serpent",
+    "16_female": "Lézarde",
+    "16_male": "Lézard",
+    "17_female": "Brebis",
+    "17_male": "Bélier",
+    "18_female": "Chèvre",
+    "18_male": "Bouc",
+    "19_female": "Dinde",
+    "19_male": "Dindon",
+    "2_female": "Caniche",
+    "2_male": "Caniche",
+    "20_female": "Renarde",
+    "20_male": "Renard",
+    "21_female": "Ourse",
+    "21_male": "Ours",
+    "22_female": "Koala",
+    "22_male": "Koala",
+    "23_female": "Grenouille",
+    "23_male": "Crapaud",
+    "24_female": "Guenon",
+    "24_male": "Singe",
+    "25_female": "Pingouine",
+    "25_male": "Pingouin",
+    "26_female": "Chouette",
+    "26_male": "Hibou",
+    "27_female": "Chauve-souris",
+    "27_male": "Chauve-souris",
+    "28_female": "Louve",
+    "28_male": "Loup",
+    "29_female": "Laie",
+    "29_male": "Sanglier",
+    "3_female": "Chatte",
+    "3_male": "Chat",
+    "30_female": "Otarie",
+    "30_male": "Phoque",
+    "31_female": "Hippopotame",
+    "31_male": "Hippopotame",
+    "32_female": "Lamate",
+    "32_male": "Lama",
+    "33_female": "Cygne",
+    "33_male": "Cygne",
+    "34_female": "Flamant rose",
+    "34_male": "Flamant rose",
+    "35_female": "Ratonne",
+    "35_male": "Raton laveur",
+    "36_female": "Mouffette",
+    "36_male": "Putois",
+    "37_female": "Blairelle",
+    "37_male": "Blaireau",
+    "38_female": "Castor",
+    "38_male": "Castor",
+    "39_female": "Paresseuse",
+    "39_male": "Paresseux",
+    "4_female": "Chatte noire",
+    "4_male": "Chat noir",
+    "40_female": "Tamia",
+    "40_male": "Tamia",
+    "41_female": "Hérissonne",
+    "41_male": "Hérisson",
+    "42_female": "Ourse polaire",
+    "42_male": "Ours polaire",
+    "43_female": "Panda",
+    "43_male": "Panda",
+    "44_female": "Scorpionne",
+    "44_male": "Scorpion",
+    "45_female": "Crocodile",
+    "45_male": "Crocodile",
+    "46_female": "Éléphante",
+    "46_male": "Éléphant",
+    "47_female": "Zébrelle",
+    "47_male": "Zèbre",
+    "48_female": "Rhinocéros",
+    "48_male": "Rhinocéros",
+    "49_female": "Chamelle",
+    "49_male": "Dromadaire",
+    "5_female": "Souris",
+    "5_male": "Rongeur",
+    "50_female": "Chamelle",
+    "50_male": "Chameau",
+    "51_female": "Girafe",
+    "51_male": "Girafe",
+    "52_female": "Kangourou",
+    "52_male": "Kangourou",
+    "53_female": "Paonne",
+    "53_male": "Paon",
+    "54_female": "Perroquet",
+    "54_male": "Perroquet",
+    "55_female": "Loutre",
+    "55_male": "Loutre",
+    "56_female": "Tigresse",
+    "56_male": "Tigre",
+    "57_female": "Lionne",
+    "57_male": "Lion",
+    "58_female": "Aigle",
+    "58_male": "Aigle",
+    "59_female": "Dodo",
+    "59_male": "Dodo",
+    "6_female": "Hamster",
+    "6_male": "Hamster",
+    "60_female": "Léoparde",
+    "60_male": "Léopard",
+    "61_female": "Mammouth",
+    "61_male": "Mammouth",
+    "62_female": "Colombe",
+    "62_male": "Colombe",
+    "63_female": "Licorne",
+    "63_male": "Licorne",
+    "64_female": "Dragonne",
+    "64_male": "Dragon",
+    "65_female": "T-Rex",
+    "65_male": "T-Rex",
+    "66_female": "Angel",
+    "66_male": "Stitch",
+    "67_female": "Dame de neige",
+    "67_male": "Bonhomme de neige",
+    "68_female": "Cane écarlate",
+    "68_male": "Canard écarlate",
+    "69_female": "Dame de neige",
+    "69_male": "Bonhomme de neige",
+    "7_female": "Lapine",
+    "7_male": "Lapin",
+    "70_female": "Alienne",
+    "70_male": "Alien",
+    "71_female": "Pieuvre",
+    "71_male": "Poulpe",
+    "72_female": "Manchote",
+    "72_male": "Manchot",
+    "8_female": "Vache",
+    "8_male": "Bœuf",
+    "9_female": "Truie",
+    "9_male": "Porc"
   },
   "potions": {
     "0": "Sin poción",
