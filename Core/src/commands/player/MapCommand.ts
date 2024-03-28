@@ -7,6 +7,13 @@ import {MapLocation} from "../../data/MapLocation";
 import {Language} from "../../../../Lib/src/Language";
 import {MapLinkDataController} from "../../data/MapLink";
 
+/**
+ * Get the map information for the player
+ * @param player
+ * @param destination
+ * @param isInEvent
+ * @param language
+ */
 function getMapInformation(player: Player, destination: MapLocation, isInEvent: boolean, language: Language): {
 	name: string,
 	fallback?: string,

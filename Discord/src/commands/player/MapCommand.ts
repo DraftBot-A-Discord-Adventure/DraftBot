@@ -15,6 +15,11 @@ function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promis
 	return Promise.resolve(makePacket(CommandMapPacketReq, {keycloakId: user.id, language: interaction.userLanguage}));
 }
 
+/**
+ * Sets the map image in the embed
+ * @param embed
+ * @param mapLink
+ */
 async function setEmbedMap(embed: DraftBotEmbed, mapLink: {name: string, fallback?: string, forced: boolean}): Promise<void> {
 	if (mapLink.forced && !mapLink.fallback) {
 		embed.setImage(MapConstants.FORCED_MAPS_URL.replace("{name}", mapLink.name));
@@ -24,10 +29,10 @@ async function setEmbedMap(embed: DraftBotEmbed, mapLink: {name: string, fallbac
 			? MapConstants.FORCED_MAPS_URL.replace("{name}", mapLink.name)
 			: MapConstants.MAP_URL_WITH_CURSOR.replace("{mapLink}", mapLink.name))
 			.then((res) => {
-				if (res.status !== 200) {
+				if (res.status !== 200 && mapLink.fallback) {
 					embed.setImage(mapLink.forced
-						? MapConstants.FORCED_MAPS_URL.replace("{name}", mapLink.fallback!)
-						: MapConstants.MAP_URL_WITH_CURSOR.replace("{mapLink}", mapLink.fallback!));
+						? MapConstants.FORCED_MAPS_URL.replace("{name}", mapLink.fallback)
+						: MapConstants.MAP_URL_WITH_CURSOR.replace("{mapLink}", mapLink.fallback));
 				}
 				else {
 					embed.setImage(mapLink.forced
@@ -36,13 +41,20 @@ async function setEmbedMap(embed: DraftBotEmbed, mapLink: {name: string, fallbac
 				}
 			})
 			.catch(() => {
-				embed.setImage(mapLink.forced
-					? MapConstants.FORCED_MAPS_URL.replace("{name}", mapLink.fallback!)
-					: MapConstants.MAP_URL_WITH_CURSOR.replace("{mapLink}", mapLink.fallback!));
+				if (mapLink.fallback) {
+					embed.setImage(mapLink.forced
+						? MapConstants.FORCED_MAPS_URL.replace("{name}", mapLink.fallback)
+						: MapConstants.MAP_URL_WITH_CURSOR.replace("{mapLink}", mapLink.fallback));
+				}
 			});
 	}
 }
 
+/**
+ * Handles the response of the map command
+ * @param packet
+ * @param context
+ */
 export async function handleCommandMapDisplayRes(packet: CommandMapDisplayRes, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 
@@ -60,7 +72,6 @@ export async function handleCommandMapDisplayRes(packet: CommandMapDisplayRes, c
 			pseudo: interaction.user.displayName
 		}), interaction.user);
 
-		// Todo: Find another way to replace the values between the brackets in the URL without using replace
 		await setEmbedMap(embed, packet.data!.mapLink);
 
 		const mapName = i18n.t(`models:map_locations.${packet.data?.mapId}.name`, {
