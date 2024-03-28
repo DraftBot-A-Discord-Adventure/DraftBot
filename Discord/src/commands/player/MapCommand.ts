@@ -18,7 +18,8 @@ function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promis
 async function setEmbedMap(embed: DraftBotEmbed, mapLink: {name: string, fallback?: string, forced: boolean}): Promise<void> {
 	if (mapLink.forced && !mapLink.fallback) {
 		embed.setImage(MapConstants.FORCED_MAPS_URL.replace("{name}", mapLink.name));
-	} else {
+	}
+	else {
 		await fetch(mapLink.forced
 			? MapConstants.FORCED_MAPS_URL.replace("{name}", mapLink.name)
 			: MapConstants.MAP_URL_WITH_CURSOR.replace("{mapLink}", mapLink.name))
