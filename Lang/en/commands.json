@@ -4,34 +4,34 @@
     "title": ":military_medal: Detailed Information:"
   },
   "pet": {
-    "embedTitle": "Familier de {{pseudo}} :",
-    "petField": "**Type :** {{emote}} {{typeName}}\n**Surnom :** {{nickname}}\n\n**Rareté :** {{rarity}}\n**Sexe :** {{sex}}\n**Mentalité :** {{loveLevel}}",
-    "noNickname": "Aucun surnom",
+    "embedTitle": "{{pseudo}}'s pet:",
+    "petField": "**Type:** {{emote}} {{typeName}}\n**Nickname:** {{nickname}}\n\n**Rarity:** {{rarity}}\n**Gender:** {{sex}}\n**Moral:** {{loveLevel}}",
+    "noNickname": "No nickname",
     "loveLevels": {
-      "0_male": ":smirk_cat: Fielleux",
-      "0_female": ":smirk_cat: Fielleuse",
-      "1_male": ":pouting_cat: Sauvage",
-      "1_female": ":pouting_cat: Sauvage",
-      "2_male": ":scream_cat: Craintif",
-      "2_female": ":scream_cat: Craintive",
-      "3_male": ":smiley_cat: Apprivoisé",
-      "3_female": ":smiley_cat: Apprivoisée",
-      "4_male": ":heart_eyes_cat: Dressé",
-      "4_female": ":heart_eyes_cat: Dressée"
+      "0_male": ":smirk_cat: Spiteful",
+      "0_female": ":smirk_cat: Spiteful",
+      "1_male": ":pouting_cat: Wild",
+      "1_female": ":pouting_cat: Wild",
+      "2_male": ":scream_cat: Fearful",
+      "2_female": ":scream_cat: Fearful",
+      "3_male": ":smiley_cat: Tamed",
+      "3_female": ":smiley_cat: Tamed",
+      "4_male": ":heart_eyes_cat: Trained",
+      "4_female": ":heart_eyes_cat: Trained"
     },
-    "hungry": "🤤 affamé",
+    "hungry": "🤤 hungry",
     "diet": {
       "diet_null": "🥪 Omnivore",
       "diet_herbivorous": "🥬 Herbivore",
       "diet_carnivorous": "🥩 Carnivore"
     },
     "sexDisplay": {
-      "female": "Femelle",
-      "male": "Mâle"
+      "female": "Female",
+      "male": "Male"
     }
   },
   "guild": {
-    "embedTitle": "Guilde {{guildName}} | Niveau {{level}}",
+    "embedTitle": "{{guildName}} Guild | Level {{level}}",
     "description": ":scroll: `{{description}}`",
     "emojis": {
       "chief": "👑",
@@ -45,13 +45,13 @@
     "separator": " | ",
     "memberInfos": "{{icon}} - **{{pseudo}}** ({{ranking}} :trophy: | {{score}} :medal:{{islandStatusIcon}})\n",
     "members": ":person_pouting: {{memberCount}}/{{maxGuildMembers}} membres",
-    "infoTitle": "Informations",
+    "infoTitle": "Information",
     "islandInfo": ":island: Nombre d'alliés sur l'île mystérieuse : {{membersOnPveIsland}\n",
     "info": ":star: {{experience}} | :mirror_ball: {{guildPoints}} | :trophy: {{ranking}}",
     "xpNeeded": "{{xp}} / {{xpToLevelUp}}",
     "xpMax": "Max",
     "ranking": "{{rank}} / {{rankTotal}}",
-    "notRanked": "Non classée"
+    "notRanked": "Unranked"
   },
   "help": {
     "aliasFieldTitle": "Alias",
