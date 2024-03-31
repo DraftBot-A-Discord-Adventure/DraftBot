@@ -6,7 +6,7 @@ main_server_id = ""
 # Test mode
 test_mode = false
 # Websocket URL
-websocket_url = ""
+websocket_url = "http://localhost:7071"
 
 [users]
 # The bot will use this to check if you can use admins commands
@@ -32,10 +32,10 @@ english_announcements_channel_id = ""
 
 [keycloak]
 # Keycloak realm
-realm = ""
+realm = "Draftbot"
 # Keycloak URL
-url = ""
+url = "http://127.0.0.1:8080"
 # Keycloak client ID
-clientId = ""
+clientId = "discord"
 # Keycloak client secret
 clientSecret = ""
