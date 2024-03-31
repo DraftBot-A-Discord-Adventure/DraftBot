@@ -1,0 +1,34 @@
+name: Lib module
+
+on:
+  pull_request:
+    branches: 
+      - draftbot-v5
+    paths: 
+      - Lib/**
+
+jobs:
+  eslint-lib-module:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v3
+
+      # Setup Node.js environment once for all jobs
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # Repeat the caching step and ESLint check for the Lib subproject
+      - name: Cache Lib dependencies
+        uses: actions/cache@v3
+        with:
+          path: ./Lib/node_modules
+          key: ${{ runner.os }}-lib-dependencies-${{ hashFiles('./Lib/yarn.lock') }}
+
+      - name: Install dependencies and Run ESLint in Lib folder
+        working-directory: ./Lib
+        run: |
+          yarn install    
+          yarn eslint
