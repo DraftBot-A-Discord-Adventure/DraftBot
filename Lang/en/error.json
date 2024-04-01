@@ -44,11 +44,11 @@
   "commandDoesntExist": "ERROR: Unknown command",
   "interactionNotForYou": "This interaction is not intended for you!",
   "playerBlocked": "You can't do this because you currently have a pending action ({{reasons}})!",
-  "playerDoesntExist": "Le joueur demandé n'a pas été trouvé !",
+  "playerDoesntExist": "The requested player was not found!",
   "titleBlocked": "{{pseudo}}, this person is occupied!",
   "titleCanceled": "{{pseudo}}, canceled!",
   "titleDidntWork": "{{pseudo}}, hmmm... That didn't work!",
-  "guildDoesntExist": "Aucune guilde n'a été trouvée.",
-  "petDoesntExist": "Aucun familier n'a été trouvé.",
+  "guildDoesntExist": "No guild was found.",
+  "petDoesntExist": "No pet was found.",
   "unexpectedError": "An error occurred. :("
 }

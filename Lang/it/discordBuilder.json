@@ -118,5 +118,9 @@
   "vote": {
     "description": "Visualizzare il link per votare il bot.",
     "name": "voto"
+  },
+  "map": {
+    "description": "Affiche la carte pour indiquer où vous allez.",
+    "name": "carte"
   }
 }
