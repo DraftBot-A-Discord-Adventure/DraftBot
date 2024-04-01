@@ -118,5 +118,9 @@
   "vote": {
     "description": "Link zur Abstimmung für den Bot anzeigen.",
     "name": "Abstimmung"
+  },
+  "map": {
+    "description": "Affiche la carte pour indiquer où vous allez.",
+    "name": "carte"
   }
 }
