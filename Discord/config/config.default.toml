@@ -6,7 +6,7 @@ main_server_id = ""
 # Test mode
 test_mode = false
 # Websocket URL
-websocket_url = "http://localhost:7071"
+websocket_url = "http://127.0.0.1:7071"
 
 [users]
 # The bot will use this to check if you can use admins commands
