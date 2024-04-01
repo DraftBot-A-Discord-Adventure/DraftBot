@@ -426,5 +426,12 @@
   "vote": {
     "description": "Ecco il link per sostenere il bot :\nhttps://top.gg/bot/448110812801007618",
     "title": ":ballot_box: Votare"
+  },
+  "map": {
+    "title": "{{pseudo}}, voici la carte !",
+    "description": {
+      "ongoing": "Actuellement, vous vous dirigez {{particle}} **{{emote}} {{destination}}**.\n> {{description}}",
+      "arrived": "Vous êtes arrivé à votre destination.\n> **{{emote}} {{destination}}**.\n> {{description}}"
+    }
   }
 }
