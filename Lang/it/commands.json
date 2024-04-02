@@ -4,9 +4,9 @@
     "title": ":military_medal: Informazione dettagliate :"
   },
   "pet": {
-    "embedTitle": "Familier de {{pseudo}} :",
-    "petField": "**Type :** {{emote}} {{typeName}}\n**Surnom :** {{nickname}}\n\n**Rareté :** {{rarity}}\n**Sexe :** {{sex}}\n**Mentalité :** {{loveLevel}}",
-    "noNickname": "Aucun surnom",
+    "embedTitle": "Animale domestico di {{pseudo}} :",
+    "petField": "**Tipo :** {{emote}} {{typeName}}\n**Sopranome :** {{nickname}}\n\n**Rarita :** {{rarity}}\n**Sesso :** {{sex}}\n**Mentalita :** {{loveLevel}}",
+    "noNickname": "Nessun soprannome",
     "loveLevels": {
       "0_male": ":smirk_cat: Fielleux",
       "0_female": ":smirk_cat: Fielleuse",
