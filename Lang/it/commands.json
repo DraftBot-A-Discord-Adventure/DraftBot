@@ -8,26 +8,26 @@
     "petField": "**Tipo :** {{emote}} {{typeName}}\n**Sopranome :** {{nickname}}\n\n**Rarita :** {{rarity}}\n**Sesso :** {{sex}}\n**Mentalita :** {{loveLevel}}",
     "noNickname": "Nessun soprannome",
     "loveLevels": {
-      "0_male": ":smirk_cat: Fielleux",
-      "0_female": ":smirk_cat: Fielleuse",
-      "1_male": ":pouting_cat: Sauvage",
-      "1_female": ":pouting_cat: Sauvage",
-      "2_male": ":scream_cat: Craintif",
-      "2_female": ":scream_cat: Craintive",
-      "3_male": ":smiley_cat: Apprivoisé",
-      "3_female": ":smiley_cat: Apprivoisée",
-      "4_male": ":heart_eyes_cat: Dressé",
-      "4_female": ":heart_eyes_cat: Dressée"
+      "0_male": ":smirk_cat: Ribelle",
+      "0_female": ":smirk_cat: Ribelle",
+      "1_male": ":pouting_cat: Selvaggio",
+      "1_female": ":pouting_cat: Selvaggio",
+      "2_male": ":scream_cat: Pauroso",
+      "2_female": ":scream_cat: Pauroso",
+      "3_male": ":smiley_cat: Addomesticato",
+      "3_female": ":smiley_cat: Addomesticato",
+      "4_male": ":heart_eyes_cat: Addestrato",
+      "4_female": ":heart_eyes_cat: Addestrato"
     },
-    "hungry": "🤤 affamé",
+    "hungry": "🤤 affamati",
     "diet": {
-      "diet_null": "🥪 Omnivore",
-      "diet_herbivorous": "🥬 Herbivore",
-      "diet_carnivorous": "🥩 Carnivore"
+      "diet_null": "🥪 Onnivoro",
+      "diet_herbivorous": "🥬 Erbivoro",
+      "diet_carnivorous": "🥩 Carnivoro"
     },
     "sexDisplay": {
-      "female": "Femelle",
-      "male": "Mâle"
+      "female": "Femmina",
+      "male": "Maschio"
     }
   },
   "guild": {
@@ -380,8 +380,8 @@
     "chooseDestinationIndications": "Scegliete una destinazione per il vostro viaggio:",
     "choseMapMinutes_one": "Avete deciso di dirigervi verso {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. Questo viaggio durerà circa **{{time}} minuti**.",
     "choseMapMinutes_other": "Avete deciso di dirigervi verso {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. Il viaggio durerà circa **{{time}} minuti**.",
-    "choseMap_one": "Vous avez décidé de partir en direction {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. Ce trajet durera environ **{{time}} heure**.",
-    "choseMap_other": "Vous avez décidé de partir en direction {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. Ce trajet durera environ **{{time}} heures**.",
+    "choseMap_one": "Avete deciso di dirigervi verso {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. Il viaggio durerà circa **{{time}} ora**.",
+    "choseMap_other": "Avete deciso di partire per {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. Il viaggio durerà circa **{{time}} ore**.",
     "collectedPointsTitle": "Punti raccolti :",
     "commandDescription": "Ottenere un rapporto sulla situazione del personaggio.",
     "commandName": "rapporto",
@@ -428,10 +428,10 @@
     "title": ":ballot_box: Votare"
   },
   "map": {
-    "title": "{{pseudo}}, voici la carte !",
+    "title": "{{pseudo}}, ecco la mappa!",
     "description": {
-      "ongoing": "Actuellement, vous vous dirigez {{particle}} **{{emote}} {{destination}}**.\n> {{description}}",
-      "arrived": "Vous êtes arrivé à votre destination.\n> **{{emote}} {{destination}}**.\n> {{description}}"
+      "ongoing": "Vi state attualmente dirigendo verso {{particle}} **{{emote}} {{destination}}**.\n> {{description}}",
+      "arrived": "Siete arrivati a destinazione.\n> **{{emote}} {{destination}}**.\n> {{description}}"
     }
   }
 }
