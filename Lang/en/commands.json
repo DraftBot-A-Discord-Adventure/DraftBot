@@ -1,7 +1,7 @@
 {
   "badges": {
-    "description": "Badges are difficult to get awards that were created to reward those who have most supported the development of the bot. The badge list is available in the bot guide.\n(via this link: https://guide.draftbot.com/notions-progresses/badges)",
-    "title": ":military_medal: Detailed Information:"
+    "description": "Badges are difficult to get awards that were created to reward those who have most supported the development of the bot. The badge list is available in the bot guide.\n(via this link: https://guide.draftbot.com/v/en/notions-avancees/badges)",
+    "title": ":military_medal: Detailed information:"
   },
   "pet": {
     "embedTitle": "{{pseudo}}'s pet:",
@@ -68,13 +68,13 @@
         "description": "Read a quick comparison of the statistics between all the classes you can have."
       },
       "DAILY_BONUS": {
-        "description": "Some items give you bonuses daily. Use this command to obtain said bonuses. You can learn whether or not an item gives you a bonus by using the command {command:inventory}."
+        "description": "Some items give you bonuses daily. Use this command to obtain said bonuses. You can check if an item gives you a bonus by using the command {command:inventory}."
       },
       "DRINK": {
         "description": "This command allows you to drink the potion you have. Some potions cannot be drunk and are consumed automatically during a fight."
       },
       "FIGHT": {
-        "description": "Use this command to challenge other players who are on the same server as you.",
+        "description": "Use this command to challenge other players on the same server as you.\nBattles take place on a turn-by-turn basis. Each turn, you can choose an action to perform.\n\nFor more information, please visit the guide page: https://guide.draftbot.com/v/en/notions-principale/combats",
         "image": "https://draftbot.com/public/ressources/fighthelp/en/4.5.2.png"
       },
       "GLORY_TOP": {
@@ -138,19 +138,19 @@
         "description": "Change the language the bot uses to french. You can use this command if you are an admin of a server."
       },
       "LEAGUE_BONUS": {
-        "description": "Lets you claim your league's reward each sunday."
+        "description": "Lets you claim your league's reward each Sunday."
       },
       "MAP": {
         "description": "Display information about your destination, and also the map."
       },
       "MISSIONS": {
-        "description": "Displays the lists of the quests you have to achieve."
+        "description": "Displays the list of the quests you have to achieve."
       },
       "MISSIONS_SHOP": {
         "description": "Display the mission's shop."
       },
       "NOTIFICATIONS": {
-        "description": "Allows to enable or disable private messages from the bot."
+        "description": "Allows enabling or disabling private messages from the bot."
       },
       "PET": {
         "description": "Show information about your pet."
@@ -159,7 +159,7 @@
         "description": "Give some food to your pet."
       },
       "PET_FREE": {
-        "description": "Free your pet. Warning: once freed, the pet will be deleted forever. This command can only be used once per hour."
+        "description": "Free your pet. Be careful, once it has been freed, it will be deleted forever and therefore cannot be restored. This command can only be made once per hour."
       },
       "PET_NICKNAME": {
         "description": "Change your pet's nickname. If no name is given, the nickname will be cleared."
@@ -168,7 +168,7 @@
         "description": "Allows to sell a pet. The following conditions apply: \n - The selling price must be higher than `{{petSellMinPrice}}💰` and lower than `{{petSellMaxPrice}}💰`. \n- The seller will not earn money for the transaction, but guild experience. \n- The seller and the buyer cannot be part of the same guild."
       },
       "PET_TRADE": {
-        "description": "Propose a trade of pets with the mentioned player."
+        "description": "Offers to exchange your pet with the mentioned player's."
       },
       "PET_TRANSFER": {
         "description": "Transfer a pet to or from a guild. If no number is given, your current pet will be transferred to the guild's shelter. Otherwise, your pet will be switched for the pet which position corresponds to the given number."
@@ -180,7 +180,7 @@
         "description": "This feature was removed from the bot after an update to Discord's features."
       },
       "PROFILE": {
-        "description": "Displays information about your character:\n\n😃 Health status | Pseudo | Level\n\n឵឵឵Information:\n❤️ Life | ⭐ XP | 💰 Money\n\nStatistics:\n⚡ Energy | 🗡️ Attack | 🛡️ Defense | 🚀 Speed | 🌬️ Breath | 🫁 Recovery\n\nMissions:\n💎 Gems | 📖 Campaign progress %\n\nRanking and score:\n🏆 Ranking | 🏅 Score\n\nClass:\nSee {command:classes}\n\nGlory and League:\n✨ Glory | See {command:top glory}\n\nGuild:\n🏟️ Guild\n\nDestination:\nSee {command:map}\n\nPet:\nSee {command:pet}\n\n💡-Badges are displayed on your profile as reaction(s)."
+        "description": "Displays information about your character:\n\n😃 Health status | Pseudo | Level\n\n឵឵឵Information:\n❤️ Life | ⭐ XP | 💰 Money\n\nStatistics:\n⚡ Energy | 🗡️ Attack | 🛡️ Defense | 🚀 Speed | 🌬️ Breath | 🫁 Recovery\n\nMissions:\n💎 Gems | 📖 Campaign progress %\n\nRanking and score:\n🏆 Ranking | 🏅 Score\n\nClass:\nSee {{classesCommandMention}}\n\nGlory and League:\n✨ Glory | See {{topGloryCommandMention}}\n\nGuild:\n🏟️ Guild\n\nDestination:\nSee {{mapCommandMention}}\n\nPet:\nSee {{petCommandMention}}\n\n💡-Badges are displayed on your profile as reactions."
       },
       "RARITY": {
         "description": "Allows you to see the probability of getting an item by its rarity."
@@ -189,10 +189,10 @@
         "description": "Lets you obtain the resources and intel your character got during your absence.\nFrom time to time, events will be triggered and will necessitate special actions or choices."
       },
       "RESPAWN": {
-        "description": "Lets you continue to play after you've been knocked out."
+        "description": "Lets you restart playing after you've been knocked out."
       },
       "SELL": {
-        "description": "Lets you sell the item currently in your reserve. The value of the item is set to be equal to its power, it can be 0 if the item is not very good :wink:."
+        "description": "Lets you sell the item currently in your reserve. The value of the item is set to be equal to its power. Potions have no resale value, but may be thrown away with this command."
       },
       "SHOP": {
         "description": "This command allows you to spend your money to facilitate your adventure. Besides the 4 main choices which are always available, you can buy an exclusive potion every day, available on sale for only 24h."
@@ -219,7 +219,7 @@
     "helpEmbedDescription": ":arrow_forward: If you want more information about a specific command click here: {{helpCommandMention}}, and complete the parameter with a command. :wink:",
     "helpEmbedTitle": "{{pseudo}}, here is the list of available commands:",
     "missionCommands": ":scroll: Mission:",
-    "petCommands": ":dog: Pet:",
+    "petCommands": ":dog: Pets:",
     "playerCommands": ":bust_in_silhouette: Player:",
     "serverCommands": ":gear: Server:",
     "usageFieldTitle": "Usage",
@@ -313,15 +313,15 @@
       "👑": ":crown: `Bot owner`",
       "💍": ":ring: `Badge bought in the Missions shop`",
       "💎": ":gem: `Member of a powerful team`",
-      "💞": ":revolving_hearts: `A player that raised a legendary pet`",
+      "💞": ":revolving_hearts: `Player who trained a legendary pet`",
       "💸": ":money_with_wings: `Donor`",
       "🔖": ":bookmark: `Early class adopter`",
       "🕊️": ":dove: `Person who reported an exploitable bug without taking advantage of it`",
-      "🖋️": ":pen_fountain: `Bot's redaction team`",
+      "🖋️": ":pen_fountain: `Bot's redactor`",
       "🗳️": ":ballot_box: `Person who voted in the last 12 hours`",
       "😂": ":joy: `Badge given to funny people`",
       "🤑": ":money_mouth: `Badge bought in the shop`",
-      "🥇": ":first_place: `People who reached first place rank after resetting`",
+      "🥇": ":first_place: `Person who has reached the top of the ranking after the reset`",
       "🪩": ":mirror_ball: `Member of a very powerful team`"
     },
     "fightRanking": {
@@ -387,7 +387,7 @@
     "commandName": "report",
     "destinationTitle": "{{pseudo}}, travel destination",
     "doChoice": "{{emoji}} {{choiceText}}\n",
-    "doEvent": ":newspaper: **Journal of {{pseudo}}: **{{event}}\n*- Use reactions to make an action ⚠️ Not responding is considered a separate choice!*",
+    "doEvent": ":newspaper: **Journal of {{pseudo}}:** {{event}}\n*- Use reactions to make an action ⚠️ Not responding is considered a separate choice!*",
     "doPossibility": ":newspaper: **Journal of {{pseudo}}{{result}}** | {{emoji}}{{event}} {{alte}}",
     "encounterMonster": [
       "You arrive at your destination when suddenly, you hear a noise behind you... A monster attacks you!"
