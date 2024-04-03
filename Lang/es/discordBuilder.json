@@ -36,42 +36,42 @@
     "name": "invitacióndraftbot"
   },
   "language": {
-    "description": "Changer la langue du bot dans le serveur discord ou la commande a été exécutée.",
-    "name": "langage"
+    "description": "Cambia el idioma del bot en el servidor de discordia donde se ejecutó el comando.",
+    "name": "idioma"
   },
   "ping": {
     "description": "Muestra la latencia del bot y permite al jugador comprobar si el bot está en línea.",
     "name": "ping"
   },
   "pet": {
-    "description": "Afficher les informations du familier d'un joueur.",
-    "name": "familier",
+    "description": "Muestra información sobre la mascota de un jugador.",
+    "name": "familiar",
     "options": {
       "rank": {
-        "description": "Le classement du joueur dont le familier doit être affiché.",
-        "name": "classement"
+        "description": "La clasificación del jugador cuya mascota debe mostrarse.",
+        "name": "clasificación"
       },
       "user": {
-        "description": "L'utilisateur dont le familier doit être affiché.",
-        "name": "utilisateur"
+        "description": "El usuario cuya mascota debe mostrarse.",
+        "name": "usuario"
       }
     }
   },
   "guild": {
-    "description": "Affiche des informations sur une guilde.",
-    "name": "guilde",
+    "description": "Muestra información sobre un gremio.",
+    "name": "gremio",
     "options": {
       "rank": {
-        "description": "Le classement du joueur dont la guilde doit être affichée.",
-        "name": "classement"
+        "description": "La clasificación del jugador cuyo gremio se va a mostrar.",
+        "name": "clasificación"
       },
       "user": {
-        "description": "L'utilisateur dont la guilde doit être affichée.",
-        "name": "utilisateur"
+        "description": "El usuario cuyo gremio se va a mostrar.",
+        "name": "usuario"
       },
       "guildName": {
-        "description": "Le nom de la guilde dont les informations doivent être affichées.",
-        "name": "guilde"
+        "description": "Nombre del gremio cuya información se desea mostrar.",
+        "name": "gremio"
       }
     }
   },
@@ -120,7 +120,7 @@
     "name": "vote"
   },
   "map": {
-    "description": "Affiche la carte pour indiquer où vous allez.",
-    "name": "carte"
+    "description": "Muestra el mapa para indicarte por dónde vas.",
+    "name": "tarjeta"
   }
 }
