@@ -263,7 +263,7 @@
       },
       "es": {
         "emoji": "🇪🇸",
-        "name": "spanish"
+        "name": "Spanish"
       },
       "fr": {
         "emoji": "🇫🇷",
@@ -430,7 +430,7 @@
   "map": {
     "title": "{{pseudo}}, here's the map!",
     "description": {
-      "ongoing": "Currently you are moving {{particle}} **{{emote}} {{destination}}**.\n> {{description}}",
+      "ongoing": "You are currently going in the direction {{particle}} **{{emote}} {{destination}}**.\n> {{description}}",
       "arrived": "You arrived at your destination.\n> **{{emote}} {{destination}}**.\n> {{description}}"
     }
   }
