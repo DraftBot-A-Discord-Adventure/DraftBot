@@ -44,11 +44,11 @@
   "commandDoesntExist": "ERROR: Comando desconocido",
   "interactionNotForYou": "Esta interacción no es para ti.",
   "playerBlocked": "¡No puede hacerlo porque tiene una acción pendiente ({{reasons}}) !",
-  "playerDoesntExist": "Le joueur demandé n'a pas été trouvé !",
+  "playerDoesntExist": "No se ha encontrado al jugador solicitado.",
   "titleBlocked": "{{pseudo}}¡esta persona está bloqueada!",
   "titleCanceled": "{{pseudo}}¡cancelación tenida en cuenta!",
   "titleDidntWork": "{{pseudo}}, hmmm... ¡No funcionó!",
-  "guildDoesntExist": "Aucune guilde n'a été trouvée.",
-  "petDoesntExist": "Aucun familier n'a été trouvé.",
+  "guildDoesntExist": "No se han encontrado gremios.",
+  "petDoesntExist": "No se encontraron mascotas.",
   "unexpectedError": "Se ha producido un error :("
 }
