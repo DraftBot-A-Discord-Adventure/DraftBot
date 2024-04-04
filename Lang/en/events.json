@@ -5,7 +5,7 @@
         "outcomes": {
           "0": "Felling this tree took half an hour!"
         },
-        "text": "Cut the tree up and continue."
+        "text": "Fell the tree and continue."
       },
       "end": {
         "outcomes": {
@@ -33,14 +33,14 @@
         "outcomes": {
           "0": "The man politely refuses your help, and you continue on your journey.",
           "1": "Thanks to you, the man catches a superb fish weighing in at 3 kg! To thank you, he offers you something that could be useful to you...",
-          "2": "Thanks to you, the man catches a fish! He offer you some money to help you in your adventure.",
+          "2": "Thanks to you, the man catches a superb fish weighing over a kilo! He offers you some money to help you in your adventure.",
           "3": "The fish at the end of the line must be huge! You find yourself quickly pulled down to the bottom of the water! You are saved just in time by the fisherman. Stunned by this adventure, you will have to heal before continuing!"
         },
         "text": "Offer your help."
       },
       "push": {
         "outcomes": {
-          "0": "But why did you do that? 🤔 Feeling remorse, you rescue the poor man and offer him some coins as compensation."
+          "0": "But why did you do that? 🤔 Remorseful, you rescue the poor man and offer him some coins as compensation."
         },
         "text": "Push the fisherman into the water!"
       },
@@ -62,7 +62,7 @@
       },
       "followHint": {
         "outcomes": {
-          "0": "Indeed, it was a shortcut!",
+          "0": "It was indeed a shortcut!",
           "1": "You fall into a trap! After stealing all you possess, the thieves fly away, like cowards. Deeply hurt, you fall unconscious."
         },
         "text": "Follow the advice of the mysterious woman."
