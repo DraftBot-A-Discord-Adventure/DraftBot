@@ -63,23 +63,23 @@
       "followHint": {
         "outcomes": {
           "0": "It was indeed a shortcut!",
-          "1": "You fall into a trap! After stealing all you possess, the thieves fly away, like cowards. Deeply hurt, you fall unconscious."
+          "1": "You're ambushed! After robbing you of all your belongings, the brigands cowardly flee, leaving you badly wounded and unconscious."
         },
         "text": "Follow the advice of the mysterious woman."
       },
       "forest": {
         "outcomes": {
-          "0": "You get lost for several hours in the forest but find your way out without damage.",
+          "0": "You get lost for several hours in the forest but find your way out unscathed.",
           "1": "You waste a lot of time moving through the forest, but you finally succeed in crossing it! When you come out, you pick up an object that may be useful to you!",
-          "2": "While crossing the forest, you take a big fall into a ditch. The injury is serious, you absolutely have to heal yourself!"
+          "2": "While crossing the forest, you take a big fall into a ditch. The wound is deep, you absolutely have to heal yourself!"
         },
-        "text": "Keep going the same way."
+        "text": "Cross the forest anyway."
       },
       "oppositeSide": {
         "outcomes": {
           "0": "You're not sure why you took a route 10 times longer than you originally planned, but you finally arrived at the right place."
         },
-        "text": "Avoid the forest by going the opposite way you were told."
+        "text": "Avoid the forest by going the way opposite to the one you were told."
       }
     },
     "text": "As you get ready to enter a forest, a mysterious woman explains there is a shorter path through the west."
@@ -88,11 +88,11 @@
     "possibilities": {
       "craftBoat": {
         "outcomes": {
-          "0": "When trying to build the raft you hurt yourself! You decide to forget building it after spending several hours on it and leave in another direction.",
+          "0": "When trying to build the raft you slightly hurt yourself! You decide to forget building it after spending several hours on it and leave in another direction.",
           "1": "After spending several hours building your raft, you start to cross the river... and sink miserably in the middle. The water is freezing, but you barely reach the other side, freezing and weakened. You will need to be treated before you can continue!",
-          "2": "You build a small raft in a few hours and reach the other side easily. When you leave your raft, you pick up an object that, if you don't use, will be easy to sell!"
+          "2": "You build a small raft in a few hours and easily reach the other side. When you leave your raft, you pick up an object that, if you don't use, will be easy to sell!"
         },
-        "text": "Try to make a raft."
+        "text": "Try to build a raft."
       },
       "end": {
         "outcomes": {
@@ -108,21 +108,21 @@
       "searchBridge": {
         "outcomes": {
           "0": "After 30 minutes you finally give up and continue on your way in another direction...",
-          "1": "After 60 minutes, you finally find a river crossing. You decide not to go to the village, now too far away, and continue your journey in another direction.",
+          "1": "After 60 minutes, you finally find a river crossing. You decide not to go to the village, which is now too far away, and continue your journey in another direction.",
           "2": "After a few minutes you find a little wooden bridge. You quickly reach the village where the locals, happy to meet a stranger for the first time in years, offer you some coins.",
-          "3": "After a while you finally discover a wooden bridge. Sadly, it is in very bad condition because it has not been used for a long time. After you cross half the bridge, it collapses. You manage to cross the river but you are completely soaked. Confounded by this mishap, you will need to rest before continuing!"
+          "3": "After a while you finally discover a wooden bridge. Sadly, it is in very bad condition because it has not been used for a long time. After you cross half the bridge, it collapses under your weight! You manage to hold on to the railing and land on solid ground. Confounded by this mishap, you will need to rest before continuing!"
         },
         "text": "Look for a bridge further away."
       },
       "swim": {
         "outcomes": {
-          "0": "The water is frozen over! You motivate yourself and dive. Once on the other side, you realize your mistake. You are freezing and weakened. You will need to heal before continuing!",
-          "1": "You reach the other side easily, and arrive at the village. People greet you and give you food."
+          "0": "The water is frozen! You motivate yourself and dive. Once on the other side, you realize your mistake. You are freezing and weakened. You will need to heal before continuing!",
+          "1": "You reach the other side easily, and when you arrive in the village, people greet you and give you something to eat."
         },
         "text": "Swim across the river."
       }
     },
-    "text": "You see a river in front of you. On the other shore, you catch a glimpse of a village."
+    "text": "You see a river in front of you. On the other side of the shore, you catch a glimpse of a village."
   },
   "13": {
     "possibilities": {
@@ -216,7 +216,7 @@
           "2": "You continue without stopping.",
           "3": "You continue without stopping, walking through the small streets. At the corner of one of them, you are savagely pushed by a man who quickly flees."
         },
-        "text": "Continue walking without losing time."
+        "text": "Continue walking without wasting any more time."
       },
       "steal": {
         "outcomes": {
@@ -248,11 +248,11 @@
       },
       "enterCastle": {
         "outcomes": {
-          "0": "Shortly after entering the castle, you realize how unsanitary the place is. Abandoned for years, the building is totally damaged. After a few minutes of exploration, you enter a large, ruined room, as a huge piece of the ceiling falls onto you! With great difficulty, you manage to get out of the building, hurt.",
-          "1": "You enter the castle and quickly walk through the area. After a few minutes, you find a room that looks like the old armory. In a hurry to get out of the building, you pick up the first object that falls into your hands and get like a bat out of hell!",
-          "2": "It seems that this castle is less abandoned than it looks! Shortly after your entrance you hear many noises coming from different rooms. Not reassured, you prefer to go back on your way."
+          "0": "Shortly after entering the castle, you realize how insalubrious the place is. Abandoned for years, the building is totally damaged. After a few minutes of exploration, you enter a large, dilapidated room, as a huge piece of the ceiling falls onto you! With great difficulty, you manage to get out of the building, wounded.",
+          "1": "You enter the castle and quickly walk through the area. After a few minutes, you find a room that looks like the old armory. In a hurry to get out of the building, you pick up the first object that falls into your hands and get out at a quick pace.",
+          "2": "It seems that this castle is less abandoned than it looks! Shortly after your entrance you hear many noises coming from different rooms. With little reassurance, you prefer to go back on your way."
         },
-        "text": "Enter and explore the castle."
+        "text": "Enter to search the castle."
       },
       "skip": {
         "outcomes": {
@@ -262,34 +262,34 @@
       },
       "walkAround": {
         "outcomes": {
-          "0": "You go around the castle but you can't find anything. Believing you wasted enough time, you continue your way.",
-          "1": "This sweep doesn't tell you much about the big building. However, you discover a large number of small gold coins scattered around the castle. Happy with your discovery, you head back on your way.",
-          "2": "As you began to walk around the castle, you accidentally fell into a hole. Injuring your leg, this sweep will cost you a lot of time!"
+          "0": "You go around the castle, but you can't find anything. Believing you wasted enough time, you continue your way.",
+          "1": "This sweep doesn't tell you much about the big building. However, you discover numerous small gold coins scattered around the castle. Happy with your discovery, you head back on your way.",
+          "2": "As you began to walk around the castle, you accidentally fall into a hole. Injuring your leg, this sweep will cost you a lot of time!"
         },
         "text": "Walk around the castle's exterior."
       }
     },
-    "text": "After following a small river for hours, you discover what seems to be a abandoned castle by the riverside."
+    "text": "After following a small river for hours, you discover what seems to be an old, abandoned castle by the riverside."
   },
   "17": {
     "possibilities": {
       "end": {
         "outcomes": {
           "0": "After a few moments of reflection you decide to quickly continue on your journey.",
-          "1": "You look for another food source, but after a long search you realize that there aren't any food sources. Not convinced by the options available to you, you go back on your way."
+          "1": "You look for another food source, but after a long search you realize that there aren't any food sources. Unconvinced by the options available to you, you go back on your way."
         }
       },
       "fruits": {
         "outcomes": {
-          "0": "You climb as high as you can and pick fruit. You quickly satisfy your hunger and feel your strength revitalised by this sugary boost.",
-          "1": "As you were about to pick fruit from the top of the tree, the branch supporting you snaps under your weight! Stunned by your fall, you decide to give up on your meal and go back on your way.",
-          "2": "You quickly pick fruit and eagerly take a large bite... It's only a few hours later you realize your mistake."
+          "0": "You climb as high as you can and pick a fruit. You quickly satisfy your hunger and feel your strength restored thanks to this sugar intake.",
+          "1": "As you were about to pick a fruit from the top of the tree, the branch supporting you snaps under your weight! Stunned by your fall, you decide to give up on your meal and go back on your way.",
+          "2": "You quickly pick a fruit and eagerly take a vigorous bite... It's only a few hours later that you realize your mistake."
         },
-        "text": "Climb the huge tree facing you and get fruit from it."
+        "text": "Climb the huge tree facing you and get fruits from it."
       },
       "hunt": {
         "outcomes": {
-          "0": "With no animals in sight, you continue your journey without further delay.",
+          "0": "With no animals in sight, you continue your journey without further ado.",
           "1": "After a long frantic chase with a wild animal, it stops fleeing and charges you furiously. Stunned by the force of the attack, you are unable to dodge and suffer the beast's wrath. Seriously injured, it will take time before you can resume your adventure.",
           "2": "You quickly stab some critters with your blade and eat your prey with great hunger before continuing on your journey, full."
         },
@@ -298,14 +298,14 @@
       "mushrooms": {
         "outcomes": {
           "0": "As you bend down to pick up the mushrooms, you see a strange object shining on the ground...",
-          "1": "You pick a few mushrooms before you notice that you have nothing to cook them with. Abandoning the hunt, you go back to the road.",
+          "1": "You pick up a few mushrooms before noticing that you don't have anything to cook them. Abandoning your picking, you get back on the road.",
           "2": "You bite into a red mushroom with small white dots... and quickly regret this action!"
         },
         "text": "Gather mushrooms."
       },
       "salad": {
         "outcomes": {
-          "0": "You pick a small amount and eat your meal. With the energy provided by it, you head back on your way.",
+          "0": "You pick a small amount and eat your meal. Energized by your meal, you head back on your way.",
           "1": "After some research, you don't really find any plants satisfying your hunger, so head back on your way without eating anything.",
           "2": "You quickly change your mind. While looking around, you discover thick vegetation preventing you from gathering anything. Without wasting any more time, you continue on your journey."
         },
@@ -316,7 +316,7 @@
           "0": "You continue your journey without wasting any more time.",
           "1": "You decide to not eat, but eventually regret this decision a few hours later. Hungry, you decide to take a little nap before getting back on the road."
         },
-        "text": "Forget eating here. Leave in hopes of finding a better place to eat."
+        "text": "Forget eating here and leave, hoping to find a better place to eat."
       }
     },
     "text": "Hungry after your day of travel, you decide to stop and look for something to eat around you."
@@ -325,7 +325,7 @@
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "You observe the construction site for a few minutes, then you realize it's completely deserted. You're head back on your way."
+          "0": "You observe the construction site for a few minutes, then you realize it's completely deserted. You head back on your way."
         }
       },
       "searchScaffolding": {
