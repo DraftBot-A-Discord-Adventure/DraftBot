@@ -1,59 +1,59 @@
 {
   "armors": {
     "0": "No shield or armor",
-    "1": "Engi's Deflector shield",
+    "1": "Engi deflector shield",
     "10": "Heavy shield",
     "11": "Beginner's shield",
     "12": "Master shield",
     "13": "Ultimate shield",
     "14": "Powerful shield",
     "15": "Rusted shield",
-    "16": "Used shield",
+    "16": "Worn shield",
     "17": "Solar shield",
     "18": "Master's kimono",
-    "19": "Security jacket",
+    "19": "Safety jacket",
     "2": "Security helmet",
     "20": "Human shield",
-    "21": "Mecanical arm",
-    "22": "Robot's Helmet",
+    "21": "Mechanical arm",
+    "22": "Robot helmet",
     "23": "Self-defense umbrella",
-    "24": "Gladiator's shield",
-    "25": "Warrior's shield",
+    "24": "Gladiator shield",
+    "25": "Warrior shield",
     "26": "Brennus shield",
     "27": "Force field",
-    "28": "Lynel's shield",
+    "28": "Lynel shield",
     "29": "Strong shield",
     "3": "Shield",
     "30": "Little shield",
     "31": "Shield of solitude",
     "32": "Royal shield",
     "33": "Scutum",
-    "34": "Rondache",
+    "34": "Roundel",
     "35": "Vibranium shield",
-    "36": "Spike shield",
+    "36": "Spiked shield",
     "37": "Geneva Conventions",
-    "38": "Node's light",
-    "39": "Major's armouring",
+    "38": "Node light",
+    "39": "Major's armor",
     "4": "Wooden shield",
     "40": "Franklin's shell",
-    "41": "Caselaw",
+    "41": "Case law",
     "42": "War helmet",
     "43": "Iron bucket",
     "44": "Wall",
-    "45": "Pawns lane",
+    "45": "Row of pawns",
     "46": "Plexiglas",
     "47": "Japanese fortress",
     "48": "Coat",
-    "49": "Fighting coat",
+    "49": "Combat down jacket",
     "5": "Iron shield",
-    "50": "Lab coat",
+    "50": "Protective gown",
     "51": "Protecting tent",
     "52": "Powerful aegis",
     "53": "Counterfeit aegis",
     "54": "Nam Nam",
-    "55": "Self-mockery",
+    "55": "Self-deprecation",
     "56": "Laziness",
-    "57": "Icarus' right Wing",
+    "57": "Icarus' right wing",
     "58": "Magic Lamp",
     "59": "Magic Hat",
     "6": "Iron armor",
@@ -102,12 +102,12 @@
       "name_other": "Boomerang attacks"
     },
     "boulderTossAttack": {
-      "description": "Average attack that have chances to stun the opponent.",
+      "description": "Average attack that has a chance to stun the opponent.",
       "name_one": "Boulder toss",
       "name_other": "Boulder tosses"
     },
     "breathTakingAttack": {
-      "description": "Inflicts a small amount of damage but can steal your opponent's breath or slow it down.",
+      "description": "Inflicts a small amount of damage but can steal your opponent's breath or slow them down.",
       "name_one": "Breath-taking attack",
       "name_other": "Breath-taking attacks"
     },
@@ -117,12 +117,12 @@
       "name_other": ""
     },
     "canonAttack": {
-      "description": "The precision of this attack decreases on fast enemies. A bonus damage is added to this attack if the enemy is very slow. The enemy has a chance of being slowed down by the attack. Deals more damage if used multiple times in a row.",
+      "description": "The precision of this attack decreases on fast enemies. A bonus damage is added to this attack if the enemy is very slow. The enemy has a chance of being slowed down by the attack. Deals more damage if used multiple times in a row",
       "name_one": "Cannon attack",
       "name_other": "Cannon attacks"
     },
     "chargeChargingAttack": {
-      "description": "Attack for 2 turns. During the first turn, the defender's defense is increased by 50 %. During the second turn, the defender's defense is replaced to its initial level.",
+      "description": "2-turn attack. During the first round, the caster's defense is increased by 50%. During the second round, the caster's defense is reset to its initial level.",
       "name_one": "Charging attack",
       "name_other": "Charging attacks"
     },
@@ -154,12 +154,12 @@
     "concentration": {
       "description": "Fails if you use this action while you have an alteration. The alteration \"concentrated\" highly increases the damages dealt by the affected fighter during the next turn.",
       "name_one": "Concentration",
-      "name_other": "Concentration"
+      "name_other": "Concentrations"
     },
     "counterAttack": {
       "description": "Reply with the same action your opponent just played. Does not work on magical or divine attacks, nor if your opponent did not attack.",
-      "name_one": "Counter attack",
-      "name_other": "Counter attacks"
+      "name_one": "Counterattack",
+      "name_other": "Counterattacks"
     },
     "cursed": {
       "description": "",
@@ -177,7 +177,7 @@
       "name_other": "Dark attacks"
     },
     "defenseBuff": {
-      "description": "More this action is done, more the defense boost is important.",
+      "description": "The more this action is performed in succession, the greater the defense bonus.",
       "name_one": "Defense boost",
       "name_other": "Defense boosts"
     },
@@ -187,17 +187,17 @@
       "name_other": "Divine attacks"
     },
     "energeticAttack": {
-      "description": "Half of the damage of this attack is restored to the user in health.",
+      "description": "Half of the damage dealt by this attack is restored to the caster in the form of healing.",
       "name_one": "Energetic attack",
       "name_other": "Energetic attacks"
     },
     "eruptionAttack": {
-      "description": "Makes the volcano erupt, spewing molten rocks at players.",
+      "description": "Bring into the eruption the volcano that spits molten rocks on players.",
       "name_one": "Eruption",
       "name_other": "Eruptions"
     },
     "familyMealAttack": {
-      "description": "Summons allies to eat the target and poison it.",
+      "description": "Summons allies to eat the target and poison them.",
       "name_one": "Family meal",
       "name_other": "Family meals"
     },
