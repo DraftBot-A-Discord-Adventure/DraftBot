@@ -68,7 +68,7 @@
         "description": "Read a quick comparison of the statistics between all the classes you can have."
       },
       "DAILY_BONUS": {
-        "description": "Some items give you bonuses daily. Use this command to obtain said bonuses. You can check if an item gives you a bonus by using the command {command:inventory}."
+        "description": "Some items give you a daily bonus. Use this command to obtain said bonuses. You can learn if an item gives you a daily bonus by using the command {command:inventory}."
       },
       "DRINK": {
         "description": "This command allows you to drink the potion you have. Some potions cannot be drunk and are consumed automatically during a fight."
@@ -81,7 +81,7 @@
         "description": "Displays the ranking of the fights in 15 player intervals. Player's league is also displayed. Players in the same server as you are shown by a blue dot."
       },
       "GUILD": {
-        "description": "Displays a guild's infos."
+        "description": "Displays a guild's info."
       },
       "GUILD_CREATE": {
         "description": "Create a guild. You need 5000 :moneybag: in order to create a guild."
@@ -99,7 +99,7 @@
         "description": "Allow to remove the current guild's elder, requires to be guild's leader."
       },
       "GUILD_INVITE": {
-        "description": "Invites someone to join your guild. Requires to be the guild's leader."
+        "description": "Invites someone to join your guild. Requires to be the guild's leader or elder."
       },
       "GUILD_KICK": {
         "description": "Kicks a member. Requires to be the guild's leader."
@@ -126,16 +126,16 @@
         "description": "Give a link to submit suggestions and vote for those already submitted."
       },
       "INVENTORY": {
-        "description": "Shows the items in your inventory, can contain 4 types of objects:\n```\n-Weapons\n-Armors\n-Potions\n-Items\n```\nThe command also shows the items stock that can contain additional items."
+        "description": "Shows the items in your inventory, can contain 4 types of objects:\n```\n-weapons\n-armors\n-potions\n-items\n```\nThe command also shows the items stock that can contain additional items."
       },
       "INVITE_DRAFTBOT": {
-        "description": "This command allows you to get an invite url to get the bot on your server, or join the support server!"
+        "description": "This command allows you to get an invitation link to join the support server!"
       },
       "JOIN_BOAT": {
         "description": "Allows you to join a guild member on a boat going to a mysterious island."
       },
       "LANGUAGE": {
-        "description": "Change the language the bot uses to french. You can use this command if you are an admin of a server."
+        "description": "Change the language the bot uses to French. You can use this command if you are an admin of a server."
       },
       "LEAGUE_BONUS": {
         "description": "Lets you claim your league's reward each Sunday."
@@ -278,15 +278,15 @@
         "name": "Portuguese"
       }
     },
-    "newLanguageSetDescription": "DraftBot will now speak in english with you! 🇬🇧",
+    "newLanguageSetDescription": "DraftBot will now speak in English with you! 🇬🇧",
     "newLanguageSetTitle": "Language changed",
-    "selectLanguage": "Select a new language",
+    "selectLanguage": "Select a language",
     "title": ":earth_africa: Language selection"
   },
   "ping": {
     "discord": {
       "create": ":ping_pong: Pong",
-      "edit": ":ping_pong: Pong\n\n**Total latency:** {{totalLatency}} ms\n**Discord latency:** {{discordApiLatency}} ms\n**Shard ID:** {{shardId}}\n**Total shards:** {{totalShards}} (+main shard)"
+      "edit": ":ping_pong: Pong\n\n**Total latency:** {{totalLatency}} ms\n**Discord latency:** {{discordApiLatency}} ms\n**Shard number:** {{shardId}}\n**Total shards:** {{totalShards}} (+main shard)"
     }
   },
   "profile": {
@@ -296,23 +296,23 @@
       "title": "List of {{pseudo}}'s badges"
     },
     "badges": {
-      "⚔️": ":crossed_swords: `Tournament winner`",
+      "⚔️": ":crossed_swords: `Winner of a tournament`",
       "⚙️": ":gear: `Technical team`",
-      "⛑️": ":helmet_with_cross: `People who are one of the 20 first members of the bot server`",
-      "✨": ":sparkles: `Player who earned the most glory points in a fight season`",
-      "❤️": ":heart: `User who has the Support role on the bot server`",
+      "⛑️": ":helmet_with_cross: `People who are one of the 20 first members of the bot's server`",
+      "✨": ":sparkles: `Person who has won the most glory during a fighting season`",
+      "❤️": ":heart: `Person who has the Support role on the bot server`",
       "🌍": ":earth_africa: `Translator`",
-      "🌟": ":star2: `People who helped put the bot on a server of over 2000 members`",
+      "🌟": ":star2: `Person who helped put the bot on a server with over 2000 members`",
       "🍀": ":four_leaf_clover: `Badge that can be won from time to time in contests on the bot official server or on Twitter`",
-      "🎄": ":christmas_tree: `This badge can be won on giveaway every christmas`",
-      "🎗️": ":reminder_ribbon: `People who lead the topweek`",
+      "🎄": ":christmas_tree: `Badge that can be won every Christmas during a contest`",
+      "🎗️": ":reminder_ribbon: `Person who dominated a weekly ranking`",
       "🎰": ":slot_machine: `Badge given in a completely random way`",
-      "🏅": ":medal: `Player in the top 10 by rank before the 1.0 reset.`",
-      "🏆": ":trophy: `Best player by rank when resetting to 1.0.`",
+      "🏅": ":medal: `Player in the top 10 by rank at the 1.0 reset`",
+      "🏆": ":trophy: `Best player by rank at the 1.0 reset`",
       "🐞": ":lady_beetle: `Person who reported major bugs`",
       "👑": ":crown: `Bot owner`",
       "💍": ":ring: `Badge bought in the Missions shop`",
-      "💎": ":gem: `Member of a powerful team`",
+      "💎": ":gem: `Member of a powerful guild`",
       "💞": ":revolving_hearts: `Player who trained a legendary pet`",
       "💸": ":money_with_wings: `Donor`",
       "🔖": ":bookmark: `Early class adopter`",
@@ -399,28 +399,28 @@
     "gems": "** | :gem: Gems earned: **{{gems}}",
     "health": "** | :heart: Life gained: **{{health}}",
     "healthLoose": "** | :broken_heart: Life lost: **{{health}}",
-    "journal": "Journal of {{pseudo}}",
+    "journal": "{{pseudo}}'s log",
     "money": "** | :moneybag: Money earned: **{{money}}",
     "moneyLoose": "** | :money_with_wings: Money lost: **{{money}}",
     "monsterRewardGuildXp": "\n:star: Guild XP earned: **{{guildXp}}**",
     "monsterRewardsDescription": ":moneybag: Money earned: **{{money}}**\n:star: XP earned: **{{experience}}**",
     "monsterRewardsGuildPoints": "\n:mirror_ball: Guild points earned: **{{guildPoints}}**",
     "monsterRewardsTitle": "{{pseudo}}, fight rewards",
-    "newBigEvent": ":flag_gb: You have arrived at **{{destination}}**!",
-    "noFight": ":newspaper: **Journal of {{pseudo}}:** {{waitABitReaction}} | You run away as fast as possible and decide to hide for now... The monster is still ready to fight you when you are ready!",
+    "newBigEvent": ":flag_gb: You have reached **{{destination}}**!",
+    "noFight": ":newspaper: **{{pseudo}}'s log:** {{waitABitReaction}} | You run away as fast as possible and find a small hiding place! The monster is waiting patiently outside...",
     "points": ":** :medal: Points earned: **{{score}}",
-    "pveEvent": ":newspaper: **Journal of {{pseudo}}:** {{event}}\n\n{{monsterDisplay}}\n\n- {{startTheFightReaction}} Start the fight\n- {{waitABitReaction}} Wait a bit before starting the fight\n\n*- Use reactions to make an action*",
+    "pveEvent": ":newspaper: **{{pseudo}}'s log:** {{event}}\n\n{{monsterDisplay}}\n\n- {{startTheFightReaction}} Start the fight\n- {{waitABitReaction}} Wait a bit before starting the fight\n\n*- Use reactions to make an action*",
     "remainingEnergyTitle": "Remaining energy:",
     "startPoint": "Start point:",
-    "timeLost": "** | :clock10: Time spent: **{{timeLost}}",
+    "timeLost": "** | :clock10: Time wasted: **{{timeLost}}",
     "travelPathTitle": "Current travel:",
     "travellingDescription": "Everything is going well since your last adventure {{smallEventEmoji}}. Next stop scheduled {{time}}.",
     "travellingDescriptionEndTravel": "Everything is going well for you. You will reach your destination shortly.",
     "travellingDescriptionWithoutSmallEvent": "Everything is going well for you. Next stop scheduled {{time}}.",
-    "travellingTitle": "You are currently moving forward!"
+    "travellingTitle": "You are currently making progress!"
   },
   "update": {
-    "description": "The latest version of the bot's core is **{{coreVersion}}**. The Discord module's version is **{{discordModuleVersion}}**.\n\nInformations about the changelog can be found here:\nhttps://guide.draftbot.com/v/en/lore/change-logs",
+    "description": "The latest version of the bot's core is **{{coreVersion}}**. The Discord module's version is **{{discordModuleVersion}}**.\n\nInformation about the changelog can be found here:\nhttps://guide.draftbot.com/v/en/lore/change-logs",
     "title": ":scroll: Changelog"
   },
   "vote": {
