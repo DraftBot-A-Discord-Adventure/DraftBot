@@ -1032,45 +1032,45 @@
       },
       "talkJeweler": {
         "outcomes": {
-          "0": "You talk with the jeweler and you bond with him. He then offers you an object as a token of this new friendship.",
-          "1": "You decide to try to haggle in order to buy yourself one of the jewels for a smaller price. You talk for a long time but the old man is very tough in business and he does not give in. You leave after finally understanding that he does not intend to lower his prices."
+          "0": "You talk with the jeweler and befriend him. He then offers you an object as a token of this new friendship.",
+          "1": "You decide to try to haggle in order to buy yourself one of the jewels for a smaller price. So you talk for a long time, but the old man is very tough in business and he does not give in. You leave after understanding that he does not intend to lower his prices."
         },
-        "text": "Go and have a talk with the jeweler."
+        "text": "Go and chat with the jeweler."
       }
     },
-    "text": "At some point in your journey, you arrive in a charming little village. You reach the center of the village, however it turns out that there are only two shops: a jewelry store and an inn. You learn from a bystander that the jewelry is held by an old man. It is a well known fact that he makes beautiful jewelry such as necklaces and rings. As for the inn run by a couple, it seems pretty successful."
+    "text": "At some point in your journey, you arrive in a charming little village. You reach the center of the village, however it turns out to be very small, with only two shops: a jewelry store and an inn. You learn from a passer-by that the jewelry is held by an old man, known for his beautiful jewelry such as necklaces and rings. On the other hand, the inn, run bu a couple, is said to have great success."
   },
   "37": {
     "possibilities": {
       "end": {
         "outcomes": {
           "0": "You notice a small forest on your right. Being really thirsty, you follow the sound of fresh, flowing water. After reaching the little stream, you drink to your thirst and continue your journey to the village.",
-          "1": "You notice a small forest on your right. While crossing it, you pick up an item probably left here by a traveler and continue your journey to the village."
+          "1": "You notice a small forest on your right. As you pass through, you pick up an object probably abandoned by a passer-by and continue towards the village."
         }
       },
       "run": {
         "outcomes": {
-          "0": "You start running and you arrive at the village less than 15 minutes later.",
-          "1": "You start running, fortunately, the rain stops quickly. So you return to your normal pace."
+          "0": "You start running, and less than a quarter of an hour later, you arrive in the village.",
+          "1": "You start running, fortunately the rain soon stops. You pick up your pace and soon reach the village."
         },
-        "text": "Speed up so you don't get too wet."
+        "text": "Speed up to avoid getting too wet."
       },
       "walk": {
         "outcomes": {
-          "0": "You keep walking quietly, after all it's only a light rain and you don't want to run just for that.",
-          "1": "You just keep walking... a few minutes later, the rain stops and you arrive at the village gates.",
+          "0": "You walk quietly, after all it's only a light rain, and you don't feel like running just for that.",
+          "1": "You just keep on walking... a few minutes later, the light rain stops and you come into sight of the village.",
           "2": "You keep walking quietly."
         },
-        "text": "Continue to walk."
+        "text": "Keep walking."
       }
     },
-    "text": "You are walking quietly, the weather is clear, just like the road. You think about the sweet night you will spend in an inn at the next village you will cross, and this allows you to keep the courage to move forward. The road is so calm that, while walking, you immerse yourself in your thoughts. You realize that, although you have begun your adventure in order to prove your worth and to marry the princess, you start to love your journey more and more. While you are no longer very far from the village which is your objective of the day, it starts raining."
+    "text": "You are walking quietly, the weather is clear, just like the road. You think about the pleasant night you'll spend in an inn at the next village you will cross, and this again gives you the courage to move forward. The road is so calm for now that, while walking, you immerse yourself in your thoughts. You realize that, although you have begun your adventure in order to prove your worth and to marry the princess, you're enjoying your journey more and more. Just as you're about to reach the village that is your goal of the day, it starts raining."
   },
   "38": {
     "possibilities": {
       "buyCheap": {
         "outcomes": {
-          "0": "You buy a cheap item in exchange of some gold coins. As you feel satisfied by it, you store the item in your bag.",
+          "0": "You buy an inexpensive item in exchange for a few gold coins. You're satisfied with the item he's sold you and put it back in your bag.",
           "1": "You decide to buy a cheap item. However, as you inspect its quality, you realize that it is in very poor condition. You were taken advantage of, and that guy already fled the scene while you were busy with the item. You swear not to be fooled this way again."
         },
         "text": "Buy a cheap item."
