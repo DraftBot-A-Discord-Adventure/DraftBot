@@ -142,17 +142,17 @@
         "outcomes": {
           "0": "There's nothing interesting in this forge... You quickly leave the place and continue on your way.",
           "1": "While trying a sword, you broke the smithy's window! The blacksmith asks for compensation!",
-          "2": "No one is present at the forge, which seems to have been abandoned for years. Before leaving, however, you notice an object that could be useful to you for the rest of your adventure...",
-          "3": "The forge looks like it's been abandoned for many years, so you continue on your way.",
+          "2": "No one is in the forge, which seems to have been abandoned for years. Before leaving, however, you notice an object that could be useful for the rest of your adventure...",
+          "3": "The forge seems to have been abandoned for years. So you set off again.",
           "4": "You enter and greet the blacksmith. After a quick inspection of his work, you understand you won't find anything interesting here. You go back on your way."
         },
         "text": "Go to the forge."
       },
       "goInn": {
         "outcomes": {
-          "0": "After talking with the innkeeper for 2 hours, you finally learn there are no rooms available tonight! You continue on your way, frustrated you couldn't enjoy a good night's rest.",
+          "0": "After talking to the innkeeper for 2 hours, you finally learn that there are no rooms available for the night! You set off again, frustrated at not having been able to enjoy a good night's rest.",
           "1": "You pay for a room for the night and fall down on the bed. You will need to sleep before resuming the adventure.",
-          "2": "The inn looks like it's been abandoned for many years... You continue on your way without asking yourself any more questions."
+          "2": "The inn seems to have been abandoned for several years... You continue on your way without further question."
         },
         "text": "Go to the inn."
       },
@@ -160,9 +160,9 @@
         "outcomes": {
           "0": "You explore the market for 30 minutes before discovering a small object on the ground that could be useful to you...",
           "1": "After wasting 60 minutes strolling through the stalls, you end up leaving the city without having found anything interesting.",
-          "2": "Your vigilance was at its lowest at the market. You were hit hard on the back of the head and fell to the ground... you remember nothing after that. You'll have to get better before you can keep moving forward!"
+          "2": "Just as your vigilance was at its lowest at the market, you receive a violent blow to the back of the head and collapse to the ground... After that, you have no memory. You'll need to heal yourself before you can move on!"
         },
-        "text": "Go to the marketplace."
+        "text": "Go to the market."
       }
     },
     "text": "After spending several weeks walking without any human encounter, you finally enter a small town that seems rather lively."
@@ -179,7 +179,7 @@
       },
       "end": {
         "outcomes": {
-          "0": "You go around the house and continue your journey."
+          "0": "You bypass the house and continue on your way."
         }
       },
       "goAway": {
@@ -188,7 +188,7 @@
           "1": "You continue on your way around the meadow.",
           "2": "You decide to continue walking despite the fatigue. After a few miles, you collapse at the side of the road."
         },
-        "text": "You don't have time to lose! Continue walking!"
+        "text": "No time to lose! You have to keep going!"
       },
       "stayNight": {
         "outcomes": {
@@ -212,8 +212,8 @@
       "skip": {
         "outcomes": {
           "0": "There's still a long way to go, no time to stop!",
-          "1": "You continue on your way without losing more time!",
-          "2": "You continue without stopping.",
+          "1": "You continue on your way without wasting any more time!",
+          "2": "You continue on your way without stopping.",
           "3": "You continue without stopping, walking through the small streets. At the corner of one of them, you are savagely pushed by a man who quickly flees."
         },
         "text": "Continue walking without wasting any more time."
@@ -285,7 +285,7 @@
           "1": "As you were about to pick a fruit from the top of the tree, the branch supporting you snaps under your weight! Stunned by your fall, you decide to give up on your meal and go back on your way.",
           "2": "You quickly pick a fruit and eagerly take a vigorous bite... It's only a few hours later that you realize your mistake."
         },
-        "text": "Climb the huge tree facing you and get fruits from it."
+        "text": "Climb the huge tree facing you and get fruit from it."
       },
       "hunt": {
         "outcomes": {
@@ -340,33 +340,33 @@
         "outcomes": {
           "0": "You search for 30 minutes, but you find nothing of interest.",
           "1": "After 40 minutes of searching, you finally find something which could be useful!",
-          "2": "While searching a toolbox, you cut yourself on some rusty pliers. It's very deep!"
+          "2": "While searching through a toolbox, you cut your hand on a rusty pair of pliers. The wound is really deep!"
         },
-        "text": "Search the building site."
+        "text": "Search the construction site."
       },
       "skip": {
         "outcomes": {
-          "0": "You decide to ignore the site and you continue on your way.",
-          "1": "You observe the site from a distance, without seeing the pickaxe on the ground. You cut your foot on it leaving."
+          "0": "You decide to ignore this site and continue on your way.",
+          "1": "You watch the site from a distance, unable to see the pickaxe on the ground. You cut your foot on the way out."
         },
-        "text": "Move on without worrying."
+        "text": "Move on without worrying about it."
       }
     },
-    "text": "You arrive at a city without finding anyone. After crossing you spot a building site that also seems deserted."
+    "text": "You arrive at a city without finding anyone. After crossing you spot a construction site that seems just as deserted."
   },
   "19": {
     "possibilities": {
       "butch": {
         "outcomes": {
-          "0": "You approach the fox and butcher him. You sell his fur to the first wandering merchant you meet.",
-          "1": "You butcher the fox and go in search of a way to sell his skin. A few minutes later, you meet a merchant who offers to trade it for one of his quality items, and you accept.",
-          "2": "You butcher the fox and look for a place to sell his fur. Unfortunately, it rots very quickly, and flies begin to swarm you. You end up leaving him by the side of the road, but it seems you still fell ill!"
+          "0": "You approach the corpse and skin it. You sell its fur to the first itinerant merchant you come across.",
+          "1": "You skin the fox and set off in search of a way to sell its skin. A few minutes later, you come across a merchant who offers to trade it for one of his quality items, and you accept.",
+          "2": "You skin the fox and look for a place to sell its fur. Unfortunately, it soon rots and flies gather around you. You end up abandoning it by the side of the road, a little late, as you're soon feeling quite ill!"
         },
-        "text": "Butcher the fox and resell its skin."
+        "text": "Skin the fox to resell its skin."
       },
       "cook": {
         "outcomes": {
-          "0": "Considering your poor cooking skills, you should've expected it, but you get sick soon after tasting your meal.",
+          "0": "Considering your poor cooking skills, you should've expected it, you get sick soon after tasting your meal.",
           "1": "Despite your reduced cooking skills, your fox on the spit satiates you well.",
           "2": "You approach the fox to pick him up, when all of a sudden, he jumps up and bites you! You run away, injured in your stomach and your heels.",
           "3": "You cooked this fox surprisingly well. After eating it, you feel refreshed."
@@ -375,18 +375,18 @@
       },
       "end": {
         "outcomes": {
-          "0": "For a few seconds you consider the beast on the ground, hesitating. Finally, you continue on your way."
+          "0": "You look hesitantly at the beast lying on the ground for a moment. Finally, you move on."
         }
       },
       "skip": {
         "outcomes": {
-          "0": "You choose to ignore this corpse and don't lose any time.",
-          "1": "You choose to ignore the fox and not waste time... but as soon as you pass him, the fox gets up and bites you violently!"
+          "0": "You choose to ignore the corpse and waste no time.",
+          "1": "You choose to ignore the fox and waste no time... but as soon as you pass him, the fox gets up and bites you violently!"
         },
-        "text": "Simply ignore it and hurry to the nearest inn."
+        "text": "Just ignore it and hurry to the nearest inn."
       }
     },
-    "text": "After many days without sustenance, you see a dead fox on the side of the road, looking fresh."
+    "text": "After many days without being able to sustain yourself, you see a dead fox on the side of the road, seemingly fresh."
   },
   "2": {
     "possibilities": {
@@ -397,16 +397,16 @@
       },
       "followDog": {
         "outcomes": {
-          "0": "You lose track of the dog after a few minutes, he was going too fast! You decide to continue your way but you quickly realize that you hadn't paid attention to your orientation... You're lost!",
+          "0": "You lose track of the dog after a few minutes, he was going too fast! You decide to continue your way but quickly realize that you hadn't been paying attention to your orientation... Now you're lost!",
           "1": "You lose track of the dog after a few minutes next to a tree. Looking around you, you discover a lot of small coins scattered all over the place!"
         },
         "text": "Follow the dog."
       },
       "skip": {
         "outcomes": {
-          "0": "After 15 minutes of chasing you manage to lose the dog, he didn't seem very friendly!",
-          "1": "You continue on your way. The dog does not seem to follow you.",
-          "2": "When you try fleeing, you suddenly fall into a ditch. The injury is serious... You'll have to get better before you continue!"
+          "0": "After 15 minutes of chase you manage to lose the dog, he didn't seem very friendly!",
+          "1": "You continue without worrying about the dog. He doesn't insist.",
+          "2": "As you try to escape, you suddenly fall into a ditch, leaving a deep wound... You'll need to be healed before continuing!"
         },
         "text": "Continue without worrying about the dog."
       }
@@ -537,14 +537,14 @@
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "None of the stands interest you and you quickly leave the city after a few looks.",
-          "1": "You decide to not buy anything, but you still spend a long time between the stands."
+          "0": "You're not interested in any of the stands, and quickly leave town after a few glances.",
+          "1": "You decide not to buy anything, but you still spend a long time between the stands."
         }
       },
       "foodStand": {
         "outcomes": {
           "0": "This food is incredible! You've never eaten anything so good in your entire life. You feel invigorated and relaxed.",
-          "1": "This food is strange. As soon as you eat it, you get a headache, begin hallucinating, and feel nausea. You were poisoned! From the smile of your cook, there is no doubt about it. You throw the poison back up onto the table, but you're not sure if you threw it all up.",
+          "1": "This food is strange. As soon as you swallow it, you get headaches, hallucinations and nausea. You've been poisoned! From the smile on your cook's face, there's no doubt about it. You vomit the poison onto the table, but you're not sure that you've eliminated it all.",
           "2": "This food is rather standard. You don't feel anything while eating it or after you finish it. You quickly forget the taste."
         },
         "text": "Go to a food stand."
@@ -553,14 +553,14 @@
         "outcomes": {
           "0": "You play this game several times but never succeed in getting your prize back. Disappointed with your performance, you pay the manager and leave.",
           "1": "You play this game again and again for a long time, but with no luck. However, since the manager became friends with you, he'll partially refund you. You leave with a warm thanks.",
-          "2": "You managed to win the jackpot! Happy and jumping with excitement, you pick it up and get out of town."
+          "2": "You've hit the jackpot! Happy and jumping with excitement, you pick it up and head out of town."
         },
         "text": "Go to a game stand."
       },
       "itemStand": {
         "outcomes": {
-          "0": "For hours you search for the object you want, but no one has it. To avoid buying anything useless, you powerfully decide to buy nothing at all.",
-          "1": "There it is! You've been looking for this object for days and you finally found it! You buy it quickly without paying attention to the price and then leave."
+          "0": "For hours, you search for the object you want, but no one has it. To avoid buying anything useless, you powerfully decide to buy nothing at all.",
+          "1": "There it is! You've been looking for this object for days and finally found it! You buy it quickly without paying attention to the price and then leave."
         },
         "text": "Go to an item stand."
       }
@@ -579,26 +579,26 @@
       },
       "end": {
         "outcomes": {
-          "0": "Having cast a quick glance at the soldiers occupied by their excavations, you decide to resume your journey.",
-          "1": "Tired, you fall sound asleep on the ground."
+          "0": "Having taken a quick look at the soldiers busy with their searches, you decide to set off again.",
+          "1": "Tired, you fall steep and fall asleep on the ground."
         }
       },
       "help": {
         "outcomes": {
           "0": "You decide to go to the soldiers, and offer them your help looking for survivors. After 45 minutes of help, a soldier offers you some money to thank you for your precious help.",
-          "1": "When you go looking for survivors, you get attacked by looters! After struggling, you run and continue on your way."
+          "1": "While searching for survivors, you're attacked by someone looting bodies! After a struggle, you flee and continue on your way."
         },
         "text": "Offer to help."
       },
       "steal": {
         "outcomes": {
           "0": "You decide to go around the soldiers, and go loot the bodies of the deceased to make yourself that tiny bit richer.",
-          "1": "By looting the bodies, you get caught brutally by a soldier. You immediately return what you collected before quickly continuing on your journey."
+          "1": "While looting bodies, you are suddenly caught by a soldier. He takes advantage of your situation to rob you before telling you to move on quickly."
         },
-        "text": "Steal of bodies."
+        "text": "Loot the bodies."
       }
     },
-    "text": "As you wander around, you come across a battlefield, in the surrounding area, you notice several soldiers looking for possible survivors of a massacre."
+    "text": "After several days of trouble-free travel, you finally arrive at the scene of a small skirmish between two armed groups. Spirits seem to have calmed down, however, and you notice several soldiers busy searching for possible survivors."
   },
   "26": {
     "possibilities": {
@@ -609,7 +609,7 @@
       },
       "goAway": {
         "outcomes": {
-          "0": "Horrified by this act of barbarity, you quickly continue on your journey.",
+          "0": "Horrified by this barbaric act, you quickly move on.",
           "1": "During your run, you see an open box in the distance. After a few minutes of walking, you discover a bag full of money inside it."
         },
         "text": "Continue on your journey peacefully."
@@ -712,7 +712,7 @@
       "restTree": {
         "outcomes": {
           "0": "You discover a shaded area under the trees, and decide to go there. After a short hour of sleep, you leave and continue on your way.",
-          "1": "You head for a shady area, where you rest. But when you wake up, you notice that you've been robbed of your belongings."
+          "1": "You head for a shaded area, where you rest. But when you wake up, you notice that you've been robbed of your belongings."
         },
         "text": "Rest at the foot of a tree."
       },
@@ -734,7 +734,7 @@
           "0": "You continue on your way: stealing is bad, and this chest is not yours!",
           "1": "You decide not to get close to the small chest, believing it is not worth a stop that would cause you to waste precious time."
         },
-        "text": "Abandon the box where you found it."
+        "text": "Leave the box where you found it."
       },
       "end": {
         "outcomes": {
@@ -751,13 +751,13 @@
       },
       "searchKey": {
         "outcomes": {
-          "0": "After about fifty minutes of searching, you finally find the key! Buried next to the chest, you now can open the chest and find a lot of gold Coins!",
-          "1": "After about one hour of searching, you finally find the key! Buried next to the chest, you now can open the chest and find some gold Coins!",
+          "0": "After about fifty minutes of searching, you finally find the key! Buried next to the chest, you now can open the chest and find a lot of gold coins!",
+          "1": "After about one hour of searching, you finally find the key! Buried next to the chest, you now can open the chest and find some gold coins!",
           "2": "After about forty minutes of searching, you finally find the key! Buried next to the chest, it's so damaged you can't even use it! You end giving up and carry on.",
-          "3": "After twenty minutes digging everywhere around the chest, you give up and carry on.",
-          "4": "After spending two hours searching for the key, you give up and carry on without opening the chest."
+          "3": "After 20 minutes of digging all around the little chest, you finally give up and leave it behind.",
+          "4": "After 2 hours of searching, you finally give up and leave the chest behind."
         },
-        "text": "Look around for the key."
+        "text": "Search for the key around the discovery site."
       }
     },
     "text": "While you travel on the Road of Wonders, you find a chest! Unfortunately it's locked..."
@@ -770,27 +770,27 @@
           "1": "You go see the Duke and compliment him. The Duke thanks you and decides to offer you a few coins, telling you to make good use of them, then you go back on your way.",
           "2": "You go to the Duke and try to compliment him, but rhetoric is not your forte and as the Duke gets offended, he locks you up."
         },
-        "text": "Go to the Duke."
+        "text": "Go to see the Duke."
       },
       "end": {
         "outcomes": {
           "0": "You don't feel like partying today, so you decide to turn back and continue your journey quietly.",
-          "1": "You're not ready to party today, so you go back on the road. When you stumble and come face to face with a banana, but it doesn't seem to be any good."
+          "1": "You're not ready to party today, so you go back on the road. You stumble and come face to face with a banana, but it doesn't seem to be any good."
         }
       },
       "gift": {
         "outcomes": {
           "0": "You feel like giving a gift to Duke Benatis, but you can't find anything that would do the trick. You decide to simply give him some of the money you've collected during your adventures. The Duke accepts your gift.",
           "1": "You approach the Duke to give him a gift. Seeing you arrive, the Duke understands your intention and tells you kindly that it's not necessary, so you just chat with him and then leave the party.",
-          "2": "As you go to give a gift to the Duke, the Duke stands up and declares that he has decided to distribute gifts to everyone present. You understand that it would then be useless to give him one, and accept the one handed to you by the servants."
+          "2": "As you go to give a gift to the Duke, the Duke stands up and declares that he has decided to distribute gifts to everyone present. You understand that it would then be useless to give him one, and accept the one that is handed to you by the servants."
         },
         "text": "Give him a present."
       },
       "party": {
         "outcomes": {
-          "0": "You go home and enjoy a party that is going to last for a while.",
-          "1": "The guard sees your dirty shoes and asks you to come back with something more appropriate. Fortunately, a young beggar standing right next to you offers you to wax them for a few coins.",
-          "2": "The party buffet is a feast. You enjoy all these bananas."
+          "0": "You get in and enjoy the party that will last until late at night.",
+          "1": "The guard sees your dirty shoes and asks you to come back with something more appropriate. Fortunately, a young beggar standing right next to you offers you to wax them for a few coins. You can now enjoy the birthday.",
+          "2": "The party buffet is a feast. You feast on all those bananas."
         },
         "text": "Stay at the party."
       },
@@ -902,14 +902,14 @@
       "end": {
         "outcomes": {
           "0": "You don't notice the goat charging towards you and you fall to the ground, dazed.",
-          "1": "The people comes to get you to the table. They force you to eat with them, which gives you energy!"
+          "1": "The people come to get you to the table. They force you to eat with them, which gives you energy!"
         }
       },
       "skip": {
         "outcomes": {
-          "0": "The locals caught sight of you and interpreted your action as disrespect and as such, take all your belongings.",
-          "1": "You get caught by some people, triggered, they wack you instantly.",
-          "2": "You run as you are afraid of social interaction. After a while, you rest as you are exhausted."
+          "0": "The locals see this as a sign of rudeness and steal your purse.",
+          "1": "You continue without paying attention and find a few coins along the way.",
+          "2": "You run for fear that they will come to meet you. Exhausted, you rest."
         },
         "text": "Continue without stopping."
       },
@@ -917,9 +917,9 @@
         "outcomes": {
           "0": "You take advantage of the situation to gather some gold here and there.",
           "1": "You get caught but succeed in running away.",
-          "2": "You get caught. The victims decide to hurt you badly."
+          "2": "You get caught. Enraged, the victims decide to hurt you badly."
         },
-        "text": "Take advantage of the commotion to rob some of them."
+        "text": "Take advantage of the animation to rob people."
       }
     },
     "text": "You arrive in farm in which festivities are conducted. The people seem to receive you with hospitality."
@@ -939,7 +939,7 @@
           "1": "These passers-by cooked a tasty dish for you, worthy of a Gallic potion. As you look closer, you see an object laying at the bottom of the bowl. It could be useful for what will happen after.",
           "2": "Glad to be able to help out, the group leaves to buy you a local dish. Seeing it coming, you make an effort to make it seem like you're enjoying it but it disgusts you: you don't like mushrooms! After what seems to be an eternity, you continue on your way."
         },
-        "text": "Gift of Food."
+        "text": "Gift in food."
       },
       "health": {
         "outcomes": {
