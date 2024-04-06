@@ -886,22 +886,22 @@
           "1": "You bond with the guy sitting next to you who gifts you a present for the sake of it.",
           "2": "As the alcohol kicks in, some people start getting aggressive and you watch a fight happen before going away.",
           "3": "A generous young man insists on giving you a bag of money and something to drink.",
-          "4": "You accept politely and stay for a bit, before faking being in a rush and going."
+          "4": "You accept politely and stay a few minutes, before leaving, pretending to be in a hurry."
         },
         "text": "Sit down to chat."
       },
       "eat": {
         "outcomes": {
-          "0": "This good food makes you full of energy.",
-          "1": "Not your lucky day, you end up eating a part which turned bad.",
+          "0": "This good food makes you full of energy!",
+          "1": "Bad luck! You end up eating a piece of spoiled food and get sick.",
           "2": "You stuff yourself full. You'll need a good time to digest and be ready to resume your adventure.",
-          "3": "You ate very well, you chat with a random person who keeps giving you drinks. You end up passing out."
+          "3": "You ate very well, you chat with your neighbor who keeps serving you drinks. You end up collapsing, drunk."
         },
-        "text": "Have a go at the food."
+        "text": "Take the opportunity to stuff yourself with food."
       },
       "end": {
         "outcomes": {
-          "0": "You don't notice the goat coming right at you, you fall down stunned by the shock.",
+          "0": "You don't notice the goat charging towards you and you fall to the ground, dazed.",
           "1": "The people comes to get you to the table. They force you to eat with them, which gives you energy!"
         }
       },
@@ -945,36 +945,36 @@
         "outcomes": {
           "0": "The group brings you to the valley, where they offer you an invigorating treatment in the thermal waters. Back on your feet, you are ready to hit the road again.",
           "1": "The few people offer you a treatment in a massage center near there. While you are getting a massage, one of the candles hanging on the wall falls into the jar of essential oils, setting the whole establishment on fire. You manage to, after plenty of difficulties, get out of the inferno that was once called a building.",
-          "2": "They did not expect this kind of request and remain doubtful about what they should say. Not wanting to let awkwardness grow, you go on your way."
+          "2": "They did not expect this kind of request and remain doubtful about what they should say. Not wanting to let awkwardness settle down, you go on your way."
         },
-        "text": "Gift of Health."
+        "text": "Gift in health."
       },
       "kind": {
         "outcomes": {
           "0": "The group of friends tells you that they went in search of the ideal gift. Unfortunately, they didn't find anything you fancy. Disappointed, you continue on your way.",
-          "1": "These crafty little fellows decided to pull a prank on you and give you a shady gift. But they didn't expect that a board of needles would be dangerous to unwrap. Furious, you leave to take care of yourself.",
-          "2": "Your generous donors are proud of their gift, found in a market. They give you an object of which the sight excites you greatly."
+          "1": "These smart little ones decided to prank you and give you a petty gift. Yet they did not think that a plank with salient nails would be dangerous to go around. With bloody fingers, you furiously set off to heal yourself.",
+          "2": "Your generous donors are proud of their gift, found in a market. They give you an object which, at first glance, is of great interest to you."
         },
-        "text": "Gift in kind."
+        "text": "Gift in kindness."
       },
       "money": {
         "outcomes": {
-          "0": "Not listening to your answer, they would rather give you an object. For them, money is not a real gift!",
-          "1": "Gathered in a circle, each and every one of them takes out a few coins from their purses. Together, they finally hand you a nice sum, fruit of the entire group's contribution. After advising you to make good use of it, they wish you a good trip and leave.",
-          "2": "The few individuals have contributed to offer you a nice sum. You find their attitude suspicious and you quickly realize that this money originates from a robbery. You decide to honestly approach a guard to return this dirty money. Without you expecting it, the guard questions you and then interrogates you about the details of the case and the role you played in it."
+          "0": "Not listening to your answer, the few people prefer to give you an object. For them, money isn't a real gift!",
+          "1": "Gathered in a circle, they each take out a few coins from their purse. Together, they finally hand you a nice sum, fruit of the entire group's contribution. After advising you to make good use of it, they wish you a good trip and leave.",
+          "2": "The few individuals have contributed to offer you a nice amount of money. You find their attitude suspicious and you quickly realize that this money was stolen. You decide to honestly approach a guard to return the dirty money. Unexpectedly, the guard questions you and then interrogates you about the details of the case and your involvement in it."
         },
-        "text": "Money Gift."
+        "text": "Gift in money."
       }
     },
-    "text": "At the turning point of the road, some passers-by recognize and approach you. They remember the help you once gave them, and insist on thanking you again by offering you a gift. They ask what would make you happy."
+    "text": "At the bend of a street, some passers-by recognize you and approach you. They remember perfectly the help you gave them, and insist on thanking you with a gift. They ask you what would please you most."
   },
   "35": {
     "possibilities": {
       "deny": {
         "outcomes": {
-          "0": "You think that drinking unknown things is a bad idea, so you politely decline the bartender's proposal. However, you order him a good pint of beer, which you empty quietly while chatting with regulars.",
-          "1": "You literally assault the bartender asking him if he thinks you're a dyke trying to get you to drink any filth. He kicks you out of his bar, so you take revenge by lighting it on fire, and then you go on your way.",
-          "2": "You explain to the bartender that you don't want to drink something of which the origins are unknown, let alone be a guinea pig. He reassures you by telling you that he just mixed two alcohols and some plant extracts. So you drink and tell him your impressions."
+          "0": "You don't think it's a good idea to drink unknown things as a test, so you politely decline the bartender's offer. However, you order a good pint of beer, which you quietly drain while chatting to some of the regulars.",
+          "1": "You literally assault the bartender asking him if he thinks you're a guinea pig trying to get you to drink any kind of junk. He kicks you out of his bar, so you take revenge by lighting it on fire, and then you go on your way.",
+          "2": "You explain to the bartender that you don't want to drink something of unknown origins, let alone be a guinea pig. He reassures you by telling you that he just mixed two alcohols and some plant extracts. So you drink and tell him your impressions."
         },
         "text": "Refuse the proposal."
       },
@@ -985,48 +985,48 @@
       },
       "steal": {
         "outcomes": {
-          "0": "You explain to him that you don't really want to be a guinea pig, so the bartender, seemingly disappointed. So you do the thing you've been craving of since you entered the bar: discreetly robbing customers. You pocket three people without worries, but the fourth notices you and shouts at the thief. You run away.",
-          "1": "You explain to him that you don't really want to be a guinea pig, so the bartender, seemingly disappointed. So you do the thing you've been craving of since you entered the bar: discreetly robbing customers. You pocket three people without worries, but the fourth notices you and shouts at the thief. You end up the night in jail and compensate those peoples."
+          "0": "You explain to him that you don't really want to be a guinea pig, so the bartender, seemingly disappointed, leaves you to it. So you do the thing you've been craving of since you entered the bar: discreetly robbing customers. You pick the pockets of three people without any trouble, but the fourth one notices you and shouts \"Stop thief!\". You flee.",
+          "1": "You explain to him that you don't really want to be a guinea pig, so the bartender, seemingly disappointed, leaves you to it. So you do the thing you've been craving of since you entered the bar: discreetly robbing customers. You pick the pockets of three people without any trouble, but the fourth one notices you and shouts \"Stop thief!\". You end up the night in jail and compensate these people."
         },
-        "text": "Refuse, and try to rob other customers."
+        "text": "Refuse, and try to rob people."
       },
       "test": {
         "outcomes": {
-          "0": "You accept his proposal and drink the thick liquid he gives you. It is delicious and spreads a sweet warmth within you.",
-          "1": "You, without further ado, take the mug filled with a thick, greenish liquid he holds out to you. You drink it in one gulp. A few seconds later, you realize how horrible it tastes and you throw up on the floor. The bartender apologizes and gives you a handful of coins as compensation, but you don't feel well.",
-          "2": "You accept his request and he gives you a mug. You drink it and feel a little pleasant aftertaste. You give the bartender your impressions, he thanks you, then you go on your way."
+          "0": "You accept his offer, and drink the thick liquid he hands you. It's delicious, and spreads a gentle warmth through you.",
+          "1": "Without further ado, you take the mug he hands you, filled with a thick, greenish liquid. You drink it in one gulp. A few seconds later, you realize how awful it tastes, and vomit it all onto the floor. The bartender apologizes and gives you a handful of coins as compensation, but you feel sick.",
+          "2": "You accept his request, and he hands you a mug. So you drink it, feeling a pretty good aftertaste. You give the bartender your impressions, he thanks you, and you continue on your way."
         },
-        "text": "Accept the proposal."
+        "text": "Agree to be a guinea pig."
       }
     },
-    "text": "You walk into a bar and the bartender calls out to you, telling you that he would like to \"test new drinks\" on you."
+    "text": "You walk into a bar, and the bartender calls out to you, saying he'd like to \"test some new drinks\" on you."
   },
   "36": {
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "You wait a long time in this square and then merchants start to settle down. It's your lucky day! It's a market, and apples are cheap. You buy some and go on your way.",
+          "0": "You've been waiting for a long time in this square, and all of a sudden merchants start setting up shop. It's your lucky day! This is a market, and apples are very cheap. You buy a few and go on your way.",
           "1": "You wait a little while in this square, then you realize that there is nothing very interesting to do, and go back on your journey."
         }
       },
       "goAway": {
         "outcomes": {
-          "0": "You continue your journey. As you leave the village, you meet a priest whom offers you a piece of bread for your journey."
+          "0": "You continue on your way. As you leave the village, you come across a priest who offers you a piece of bread for your journey."
         },
         "text": "Continue your journey."
       },
       "goInn": {
         "outcomes": {
-          "0": "You arrive at the inn and regain some strength after a good meal and a well deserved nap.",
-          "1": "You arrive at the inn which is fully booked. You still have a take-away meal, and go on your way.",
-          "2": "Unfortunately the inn is closed and you decide to hit the road, hungry and tired."
+          "0": "You arrive at the inn and regain some energy with a good meal and a well-deserved nap.",
+          "1": "You arrive at the inn which is unfortunately fully booked. You still have a take-away meal, and go on your way.",
+          "2": "Unfortunately the inn is closed, so you decide to hit the road, hungry and tired."
         },
-        "text": "Go to rest at the inn."
+        "text": "Go to the inn for a rest."
       },
       "stealJeweler": {
         "outcomes": {
-          "0": "You trust your infiltration abilities. You go to the jewelry store and, fortunately, the old man is absent. You manage to steal the contents of one of the crates and run away.",
-          "1": "You arrive in front of the shop and you enter in order to rob the jeweler. As you grab the jeweler's money, a personal guard knocks you out. You wake up a few hours later, on the side of a road."
+          "0": "You trust your infiltration abilities. So you go to the jewelry store and, fortunately, the old man is absent. You manage to steal the contents of one of the crates and scram.",
+          "1": "You arrive in front of the shop and enter in order to rob the jeweler. As you grab the jeweler's money, a personal guard knocks you out. You wake up a few hours later, on the side of a road."
         },
         "text": "Try to rob the jeweler."
       },
