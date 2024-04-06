@@ -418,9 +418,9 @@
       "alert": {
         "outcomes": {
           "0": "The guards follow you and arrest the corrupt guard. The woman gives you an object as a token of her appreciation.",
-          "1": "The guards, also being criminals, strike you on your hip, but leave you alive."
+          "1": "Unfortunately, the guards you tried to alert don't care about their colleague's evil deeds. At your insistence, they engage you in a fight. You win the battle despite some wounds, but it's too late. The woman lies on the ground alongside two guards."
         },
-        "text": "Contact another guard and warn them of the corrupt guard."
+        "text": "Contact other guards to warn them about their colleague's deeds."
       },
       "end": {
         "outcomes": {
@@ -430,16 +430,16 @@
       },
       "skip": {
         "outcomes": {
-          "0": "You ignore the guard.",
-          "1": "As you pass by, you fall to the ground."
+          "0": "You do not pay attention to the situation and continue your journey.",
+          "1": "As you pass by, you stumble and fall to the ground."
         },
         "text": "Keep walking."
       },
       "surpriseAttack": {
         "outcomes": {
-          "0": "You succeed in knocking out the guard and taking the precious object he was carrying.",
-          "1": "The guard dodges and the woman manages to run away. After all of that, you find her back out of danger. To greet you, she offers you some gold coins.",
-          "2": "The guard dodges, and the woman manages to escape. She finds you further away, out of danger, thanking you with some gold coins."
+          "0": "You manage to stun the guard and retrieve a precious object he was carrying.",
+          "1": "At the last moment, the guard turns around and attacks you. After a fierce battle during which the woman escaped, you failed to deflect one of their attacks. Victorious, the guard nevertheless leaves you alive and also flees.",
+          "2": "The guard dodges, and the woman manages to escape. After scaring off the guard, she finds you further away, out of danger. To thank you, she offers you a few gold coins."
         },
         "text": "Attack the guard to help the lady."
       }
