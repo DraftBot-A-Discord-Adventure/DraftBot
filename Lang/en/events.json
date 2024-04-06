@@ -922,29 +922,29 @@
         "text": "Take advantage of the animation to rob people."
       }
     },
-    "text": "You arrive in farm in which festivities are conducted. The people seem to receive you with hospitality."
+    "text": "You arrive at a farm where a great feast is taking place. The people look welcoming."
   },
   "34": {
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "Faced with your lack of response, the group of friends decides to go and get you a gift. As you wait for them politely, you become more and more anxious at the idea of wasting time. The eventuality of not being able to save the princess scares you and even makes you sick... so much that you end up fainting. On their way back, the honest people discovered you and leaned you against a tree to let you rest, while still unconscious, they leave ou with a gift before you set out on your journey.",
-          "1": "The quidams, seeing you inactive, decide to not insist further. You continue on your way without caring.",
-          "2": "Seeing you hesitating for so long, the young men finally decide to offer you some money to allow you to buy some random toys. You thank them before going back on your way."
+          "0": "In the absence of any response from you, the group of friends decide to go and get you a present anyway. As you wait politely for them, you become increasingly anxious at the thought of wasting time. The risk of not being able to save the princess obsesses you, even sickens you... and you end up fainting. Discovering you lifeless on your way back, the honest men lean you against a tree to let you rest, and leave you this gift, before setting off again.",
+          "1": "Faced with your lack of reaction, the people decide to not insist further. You continue on your way without paying attention to it.",
+          "2": "Seeing you hesitate too long, the young men finally decide to offer you some money to buy a few trinkets. You thank them before continuing on your way."
         }
       },
       "food": {
         "outcomes": {
-          "0": "One of them hands you a rather appetizing soup. You drink it carelessly. Those scoundrels set up a trap for you! They had waited for a long time to plunder you, the drink contained just enough fly agaric to make you sick. You feel increasingly ill while seeing your pockets being stripped leaving you helpless.",
-          "1": "These passers-by cooked a tasty dish for you, worthy of a Gallic potion. As you look closer, you see an object laying at the bottom of the bowl. It could be useful for what will happen after.",
-          "2": "Glad to be able to help out, the group leaves to buy you a local dish. Seeing it coming, you make an effort to make it seem like you're enjoying it but it disgusts you: you don't like mushrooms! After what seems to be an eternity, you continue on your way."
+          "0": "One of them hands you a rather appetizing soup. You drink it carelessly. Those scoundrels set up a trap for you! They had waited for a long time to plunder you, the drink contained just enough fly agaric to make you sick. You feel increasingly ill while helplessly seeing your pockets being stripped.",
+          "1": "These passers-by cooked a tasty dish for you, worthy of a Gallic potion. As you look closer, you see an object laying at the bottom of the bowl. It could be useful in the future.",
+          "2": "Delighted to be doing you a favor, the group heads off to buy you the local specialty. Seeing the dish arrive, you put on a brave face, but taste it with a certain disgust: you don't like mushrooms! Not without trouble, you continue on your way."
         },
         "text": "Gift in food."
       },
       "health": {
         "outcomes": {
           "0": "The group brings you to the valley, where they offer you an invigorating treatment in the thermal waters. Back on your feet, you are ready to hit the road again.",
-          "1": "The few people offer you a treatment in a massage center near there. While you are getting a massage, one of the candles hanging on the wall falls into the jar of essential oils, setting the whole establishment on fire. You manage to, after plenty of difficulties, get out of the inferno that was once called a building.",
+          "1": "The few people offer you a treatment in a massage center near there. While you are getting a massage, one of the candles hanging on the wall falls into the jar of essential oils, setting the whole establishment on fire. With some difficulty, you manage to get out of the blaze that emanates from the building.",
           "2": "They did not expect this kind of request and remain doubtful about what they should say. Not wanting to let awkwardness settle down, you go on your way."
         },
         "text": "Gift in health."
@@ -972,7 +972,7 @@
     "possibilities": {
       "deny": {
         "outcomes": {
-          "0": "You don't think it's a good idea to drink unknown things as a test, so you politely decline the bartender's offer. However, you order a good pint of beer, which you quietly drain while chatting to some of the regulars.",
+          "0": "You don't think it's a good idea to drink unknown things as a test, so you politely decline the bartender's offer. However, you order a good pint of beer, which you quietly drain while chatting to some regulars.",
           "1": "You literally assault the bartender asking him if he thinks you're a guinea pig trying to get you to drink any kind of junk. He kicks you out of his bar, so you take revenge by lighting it on fire, and then you go on your way.",
           "2": "You explain to the bartender that you don't want to drink something of unknown origins, let alone be a guinea pig. He reassures you by telling you that he just mixed two alcohols and some plant extracts. So you drink and tell him your impressions."
         },
@@ -1071,49 +1071,49 @@
       "buyCheap": {
         "outcomes": {
           "0": "You buy an inexpensive item in exchange for a few gold coins. You're satisfied with the item he's sold you and put it back in your bag.",
-          "1": "You decide to buy a cheap item. However, as you inspect its quality, you realize that it is in very poor condition. You were taken advantage of, and that guy already fled the scene while you were busy with the item. You swear not to be fooled this way again."
+          "1": "You decide to buy a cheap item. However, as you inspect its quality, you realize that it is in very poor condition. You were taken advantage of, and that guy already fled the scene while you were busy with the item. You swear not to be fooled by this guy again."
         },
-        "text": "Buy a cheap item."
+        "text": "Accept to buy a cheap item."
       },
       "buyExpensive": {
         "outcomes": {
-          "0": "You decide to buy one of his most expensive items so as to be well prepared. He gives you a beautiful one and you pocket it. You send him off warmly as he leaves.",
+          "0": "You decide to buy one of his most expensive items in order to be the best equipped in exchange for a certain amount of gold. He gives you a superb item and you put it in your bag. You greet the seller warmly before he leaves.",
           "1": "You buy a rather expensive item of very good quality. Satisfied, you then resume your adventure.",
-          "2": "As you decide to buy one his most expensive items, you find it to be an old rusty sword covered in paint. Unfortunately it is now too late as the man already left when you were inspecting your sword... Frustrated, you swear ruthlessly to behead him the next time you see him."
+          "2": "You buy one of his most expensive items, but when you inspect it you realize he's sold you a rusty sword covered in paint. Unfortunately, it's too late and the scammer has left, taking advantage of the moment when you were inspecting your sword... Angry, you vow to avenge this affront at the earliest opportunity."
         },
-        "text": "Try your luck by buying one of his most expensive ones."
+        "text": "Buy one of his most expensive items."
       },
       "deny": {
         "outcomes": {
           "0": "You politely refuse his proposal and continue on your way."
         },
-        "text": "Decline his offer."
+        "text": "Decline."
       },
       "end": {
         "outcomes": {
-          "0": "Not wishing to do business with him, you overtake him by giving him a simple nod but he retains you to promote each of his articles. Since you don't want to offend the merchant, you wait until the merchant has finished to tell him gently but firmly that you are not planning to buy anything.",
-          "1": "You end up walking up to him. You finally befriend him after talking for a long time and he offers you a small item that he thinks could be helpful for your adventure.",
-          "2": "You chat with him for a long time. However as the sun starts to set, it's time for you to part. You send him off and then end up leaving."
+          "0": "Not wishing to do business with him, you overtake him by giving him a simple nod but he retains you to promote each of his articles. Since you don't want to offend the merchant, you wait until the merchant has finished before telling him gently but firmly that you are not planning to buy anything.",
+          "1": "You end up seeing the merchant, you talk to him for a long time, and befriend him. Before leaving, he offers you a small item that could be useful to you during your journey.",
+          "2": "You chat with the merchant for a while, making friends, and as the sun begins to set, he tells you it's time for him to go. You greet each other, and go your separate ways."
         }
       },
       "steal": {
         "outcomes": {
-          "0": "You discreetly steal one of his items and flee.",
-          "1": "He catches you red-handed and asks you to return his goods. He lets you go out of kindness of heart and you do so gladly.",
+          "0": "You discreetly steal one of his items and promptly flee.",
+          "1": "The merchant notices what you're trying to do, so he asks you to return his merchandise. Out of mercy, he decides to let you go, which you do without asking for anything else.",
           "2": "The merchant notices you as you start robbing him. He knocks your teeth out with a punch then leaves."
         },
-        "text": "Attempt to rob him."
+        "text": "Steal his merchandise."
       }
     },
-    "text": "On your way, you meet a travelling merchant. He says that he possesses some nice items that might interest you, for cheap."
+    "text": "Along the way, you come across an itinerant merchant, who calls out to you. He says he has some items you might be interested in, at very affordable prices."
   },
   "39": {
     "possibilities": {
       "convoy": {
         "outcomes": {
-          "0": "For a little money, he agrees to come with you. You leave, and shortly afterwards you come across a shiny sword stuck within a rock. You try to pull it out, but you aren't successful. Price tries too, and he manages to dislodge the weapon from its stony shell. Knowing that he wouldn't have gotten it without you, he gives you much more money than you paid him as a thank you. The rest of the trip being uneventful, you split up after a few days.",
-          "1": "For a little money, he agrees to come with you. During your journey, you come across an abandoned satchel along the way. Happy with this discovery, you decide to share its contents with Price. You thus obtain a small sum of money, and an item which you think will be useful for your adventure.",
-          "2": "For a little money, he agrees to come with you. You walk together for a little while without anything special happening, except for a small incident with thieves which didn't last long with Price's help. You then split up.",
+          "0": "For a little money, he agrees to come with you. You leave, and shortly afterwards you come across a shiny sword stuck within a rock. You try to pull it out, but you aren't successful. Price tries too, and he manages to dislodge the weapon from its stony shell. Knowing that he wouldn't have gotten it without you, he gives you much more money than you paid him as a thank you. The rest of the trip being uneventful, you split up after a few dozen kilometers.",
+          "1": "For a little money, he agrees to accompany you. During your journey, you come across an abandoned satchel along the way. Delighted by this discovery, you decide to share its content with Price. You thus obtain a small sum of money, and an item which you think will be useful for your adventure.",
+          "2": "For a little money, he agrees to accompany you. You walk together for a little while without anything special happening, except for a small incident with thieves which didn't last long with Price's help. You then split up.",
           "3": "You give him a few coins to accompany you until the next town. You leave quickly, and when the sun goes down, you bivouac and then you set. You are suddenly woken up by the sound of metal clattering together, and it takes a few seconds to realize that Price is taking your money away. Without thinking twice about it, determined to stop him, you run to him. He violently punches you into the temple, and runs away with your possessions while you are dizzy."
         },
         "text": "Pay him to accompany you to your next destination."
@@ -1126,20 +1126,20 @@
       },
       "meal": {
         "outcomes": {
-          "0": "You offer Price something to eat together, which he gladly accepts. You talk for a while, drink a little, laugh a lot, exchange tips, and get to know each other. It is with a slight twinge of heart, that Price bids you farewell after a few hours, having to go and honour a contract.",
-          "1": "You ask Price if he wants to come eat with you at the local tavern. He declines, telling you he has work to do, and takes his leave."
+          "0": "You offer Price something to eat together, which he gladly accepts. You talk for a while, drink a little, laugh a lot, exchange tips, and get to know each other. It is with a slight twinge that Price bids you farewell after a few hours, having to go and honor a contract.",
+          "1": "You ask Price if he'd like to come and eat with you at the local tavern. He declines, saying he has work to do, and leaves."
         },
         "text": "Get to know each other over a good meal."
       },
       "steal": {
         "outcomes": {
-          "0": "You try to steal from him, but he notices your undoing and knocks you out cold.",
-          "1": "He notices your attempted theft immediately, but lets you go, yet not without giving you a look of disdain. You run away quickly, fearful of what he might have done to you."
+          "0": "You try to rob him, but he notices you and knocks you out cleanly.",
+          "1": "He notices you immediately, but lets you go, not without giving you a look of disdain. You storm off, intimidated."
         },
         "text": "Try to steal money from him."
       }
     },
-    "text": "During your journey you arrive in a seaside town. There you meet a man, who says that his name is Price and that he is a mercenary."
+    "text": "On your journey, you arrive in a seaside town. There you meet a man claiming to be a mercenary named Price."
   },
   "4": {
     "possibilities": {
@@ -1159,7 +1159,7 @@
       "wish": {
         "outcomes": {
           "0": "You make a wish and close your eyes... When you open them back up, you discover a bag filled with money in front of you! Spending those 10 minutes was worth it!",
-          "1": "You make a wish and close your eyes... When you open them back up you don't discover anything! After wasting 10 minutes on nothing you walk away.",
+          "1": "You make a wish and close your eyes... Reopening them, you discover... nothing at all! After waiting 10 minutes for nothing, you leave.",
           "2": "You make a wish and close your eyes... When you reopen them, you discover that nothing happened! After waiting 10 minutes for nothing, you leave.",
           "3": "You make a wish and close your eyes... Reopening them, you discover... nothing at all! After waiting 10 minutes for nothing, you leave.",
           "4": "You make a wish and close your eyes... It's usually better not to keep walking with your eyes closed. You hurt yourself stumbling on a rock and lose 10 minutes before being able to continue."
@@ -1173,9 +1173,9 @@
     "possibilities": {
       "askAdvices": {
         "outcomes": {
-          "0": "You go in to Xetrix and wait for him. He comes home shortly afterwards, and you ask him for some advice, especially about the location of the nearest town. He shows you one path and you thank him before following it. After many hours of walking, you realize that the hermit has played you for a fool and, having nothing else to do, you continue on your way.",
+          "0": "You enter Xetrix's house and wait for him. After he comes home, and you ask him for some advice, especially about the location of the nearest town. He shows you one path and you thank him before following it. After many hours of walking, you realize that the hermit has played you for a fool and, having nothing else to do, you continue on your way.",
           "1": "You enter the man's house, wait for him, and ask him for some advice on how to cook a meal using the forest's ingredients. He gives you a recipe that you follow meticulously. You end up eating a fairly good meal and leave sated.",
-          "2": "You see him come in, so you go after him to ask for advices. Eventually you hit it off and he invites you over for dinner. During the meal you drink a little too much and end up drunk."
+          "2": "You see him come in, so you go after him to ask for advices. Eventually you sympathize, and he invites you over for dinner. During the meal you drink a little too much and end up drunk."
         },
         "text": "Ask the hermit for advices."
       },
@@ -1183,7 +1183,7 @@
         "outcomes": {
           "0": "You think about it, and then realize that breaking into the house is possible. You thus decide to do so and steal a few coins before leaving as fast as possible.",
           "1": "You decide to get into this Xetrix's house, and are stealing him as he comes in... He sees and rushes to you but you manage to escape after some struggle, you're more agile than him. However, you are injured and have lost all of your loot in the altercation.",
-          "2": "You enter the house to wait for the man. Once he's there, you talk and he invites you to dinner. After a delicious meal, you leave with a full stomach and in great shape."
+          "2": "You enter the house to wait for the man. Once he's there, you chat with him and he invites you to dinner. After a delicious meal, you leave with a full stomach and in great shape."
         },
         "text": "Break into his house."
       },
@@ -1195,10 +1195,10 @@
       },
       "goBack": {
         "outcomes": {
-          "0": "You decide to go back the way you came from and find a few coins on the road, next to a holed bag.",
-          "1": "You leave, and soon after that you find an injured man. While trying to help him, you find out it's an ambush! Men appear and dispossess you, then leave."
+          "0": "You decide to go back the way you came, and on the way you find a few coins on the ground, next to a purse with a hole in it.",
+          "1": "You set off again when you find a wounded man. As you try to help him, you discover that you've been ambushed! Some men appear and rob you, before setting off again."
         },
-        "text": "Go back the way you came from."
+        "text": "Go back the way you came."
       }
     },
     "text": "As you go deep into a dark forest, you see the silhouette of a man in the distance. While going closer, you realize he's a hermit, out for the picking. You approach his house, on which you read the inscription \"Xetrix\", which is probably his name. You're thinking about what to do..."
