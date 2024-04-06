@@ -444,16 +444,16 @@
         "text": "Attack the guard to help the lady."
       }
     },
-    "text": "while walking peacefully in a village, you see a guard stealing from a poor woman."
+    "text": "While walking peacefully in a village, you notice a guard stealing from a poor woman."
   },
   "21": {
     "possibilities": {
       "crossBridge": {
         "outcomes": {
-          "0": "The bridge seems unsafe, but you have no time to waste, so cross. After 5 minutes on the bridge you reach the end, safe and sound.",
-          "1": "While crossing the bridge you see a small sack. When you open it, you notice a large amount of coins.",
+          "0": "The crossing seems risky, but you have no time to lose, so you cross. After a 5-minute walk across the bridge, you reach the end safe and sound.",
+          "1": "While crossing the bridge you see a small bag. When you open it, you notice a large amount of coins.",
           "2": "While crossing the bridge, you hear some small cracks, and suddenly, a plank snaps and falls, and you with it.",
-          "3": "While crossing, a plank snaps out from under you. Fortunately, you manage to hang on to another, more reliable board. After a few minutes spent recovering your emotions, you continue on your way."
+          "3": "While crossing, a plank snaps out from under you. Fortunately, you manage to hang on to another, sturdier board. After a few minutes spent getting back from your emotions, you continue on your way."
         },
         "text": "Take a risk crossing the bridge."
       },
@@ -469,17 +469,17 @@
           "1": "During your journey, you notice a little crate and open it. Inside, you find an object that appears to be useful. You take it and continue on your way.",
           "2": "You notice a bridge and rush to cross it as quickly as possible. However, you stumble on a trunk and injure yourself."
         },
-        "text": "Find another way forward."
+        "text": "Search for another path a little further."
       }
     },
-    "text": "Continuing your trip, you arrive in front of a dilapidated bridge above a enormous chasm."
+    "text": "Continuing your trip, you arrive in front of a dilapidated bridge above an enormous chasm."
   },
   "22": {
     "possibilities": {
       "buy": {
         "outcomes": {
-          "0": "You approach the farmer and ask him for fruit. He gives you some in exchange for a few coins. About fifteen minutes later, you notice they were poisoned and fall to the ground.",
-          "1": "The farmer agrees to sell you 2 apples for a few coins. After leaving, you eat them, regaining your energy.",
+          "0": "You approach the farmer and ask for some fruit, which he gives you in exchange for a few coins. Fifteen minutes later, you notice that they've been poisoned and fall to the ground.",
+          "1": "The farmer agrees to sell you 2 apples for a few coins. After eating them, you regain a lot of energy and set off again.",
           "2": "The farmer refuses to sell you fruit, so you continue on your way without wasting any more time."
         },
         "text": "Go buy fruit from this man."
@@ -492,7 +492,7 @@
       },
       "skip": {
         "outcomes": {
-          "0": "You carry on with your adventure without worrying about the fruit, however appetizing they may seem."
+          "0": "You simply continue without worrying about these seemingly appealing fruits."
         },
         "text": "Don't worry about it."
       },
@@ -518,17 +518,17 @@
       "help": {
         "outcomes": {
           "0": "You decide to come closer and help them. After spending 45 minutes helping them, these individuals thank you and give you money.",
-          "1": "You spend almost an hour repairing their cart. Once it's repaired, the group of people ambushes you, and steals part of your belongings.",
-          "2": "You repair their cart quickly. Happy, they thank you and offer you a gift that will surely serve you for the rest of your journey."
+          "1": "You spend almost an hour repairing their cart. Once it's repaired, the group of people pounce on you, and steal some of your belongings.",
+          "2": "You quickly repair their cart. Happy, they thank you and offer you a gift that will surely serve you for the rest of your journey."
         },
         "text": "Help these people repair their cart."
       },
       "skip": {
         "outcomes": {
-          "0": "You have no intention of wasting any time, and continue on your journey.",
+          "0": "You don't want to waste any time, and continue on your journey.",
           "1": "When you leave, you stumble into a hole and hurt yourself."
         },
-        "text": "Don't worry about these individuals, they seem suspicious!"
+        "text": "Don't worry about those individuals who seem suspicious."
       }
     },
     "text": "You walk through the forest, when suddenly you see a cart that looks broken. Around, a group of people seems to be in bad shape."
@@ -625,28 +625,28 @@
         "outcomes": {
           "0": "After struggling to get through the crowd, you intervene as quickly as possible and manage to get the man out of there. After running through the village, the man, very grateful, offers you an object that will serve you for the rest of your adventure.",
           "1": "Passing through the crowd, you try to prevent this death, but get ambushed and fall to the ground.",
-          "2": "After succeeding in leaving the site with the man, you get caught and beat up by a group of people. After initially feeling relieved, you notice these people have stolen from you.",
-          "3": "After trying to violently intervene, the executioner grabs you by force. You're struggling, but nothing can change that. You, in turn, are sentenced to death."
+          "2": "After succeeding in leaving the site with the man, you get caught and beaten up by a group of people. After initially feeling relieved, you notice these people have robbed you.",
+          "3": "After trying to violently intervene, the executioner grabs you by force. You're struggling, but nothing can change that. It's your turn to be sentenced to death."
         },
-        "text": "Stand in the way to prevent the man from dying."
+        "text": "Intervene and prevent the man from dying."
       }
     },
-    "text": "While walking through a village, you notice a group of people. Up close, you quickly notice a hanging in progress. After some discussion, you learn this person is sentenced to death for \"words contrary to the values of the church\"."
+    "text": "While walking through a village, you notice a group of people. Up close, you quickly notice that a hanging is in progress. After some discussion, you learn that this person is sentenced to death for \"remarks contrary to the values of the church\"."
   },
   "27": {
     "possibilities": {
       "end": {
         "outcomes": {
           "0": "You blankly stare at the object for 20 minutes, then leave.",
-          "1": "Leaning over the well, you observe the object. It is then that you fall over. Fortunately, you manage to quickly climb back up, but you emerge from this adventure seriously injured."
+          "1": "Leaning over the well, you observe the object. That's when you fall over. Fortunately, you manage to quickly climb back up, but not without being seriously injured."
         }
       },
       "goDown": {
         "outcomes": {
           "0": "You get seriously injured during the descent and get stuck at the bottom for several hours before someone finds you.",
-          "1": "You arrive at the bottom without any problems, get the object, and continue your journey.",
+          "1": "You arrive at the bottom without a hitch, pick up the object, and continue your journey.",
           "2": "You jump into the well but find nothing, so you go back up without wasting any more time.",
-          "3": "Once you get to the bottom, you discover a large quantity of gold coins that you collect before continuing your journey."
+          "3": "Once you get to the bottom, you discover a large amount of gold coins that you collect before continuing your journey."
         },
         "text": "Try to descend and retrieve the object."
       },
@@ -659,7 +659,7 @@
       },
       "useBucket": {
         "outcomes": {
-          "0": "After an hour of trying, you finally get this object, which turns out to be a simple piece of metal.",
+          "0": "After an hour of trying, you finally get this object, which turns out to be a simple piece of scrap metal.",
           "1": "Focused on your goal, you don't realize that a young villager catches you, and pushes you into the well. Stunned, you wake up several minutes later.",
           "2": "Quickly, you get the money from the bottom of the well, and continue your journey."
         },
@@ -672,12 +672,12 @@
     "possibilities": {
       "accept": {
         "outcomes": {
-          "0": "You join them... and lose 3 hours attending a religious ceremony.",
-          "1": "You join them.... but decide to leave after 30 minutes, realizing you still have a princess to save, and that you don't have more time to devote to faith.",
+          "0": "You join them... And you waste 3 hours attending a religious ceremony.",
+          "1": "You join them... But you decide to leave after 30 minutes, realizing that you still have a princess to rescue and no more time to devote to your faith.",
           "2": "Noticing your lack of sensitivity to their speech, the group gets aggressive! It takes you several minutes to escape from them, but not without being hit a few times.",
           "3": "You join them, then leave just as quickly, stealing an object that may be useful to you."
         },
-        "text": "Agree to join them."
+        "text": "Accept to join them."
       },
       "deny": {
         "outcomes": {
@@ -688,7 +688,7 @@
       },
       "end": {
         "outcomes": {
-          "0": "Faced with your bliss, the group quickly tires, and goes to meet another passerby."
+          "0": "Faced with your bliss, the group quickly tires of you and heads off to meet another passer-by."
         }
       }
     },
@@ -698,21 +698,21 @@
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "You stay where you belong in full sunlight for about 15 minutes, then collapse.",
-          "1": "You decide to use your reserves, and continue your journey to not waste time."
+          "0": "You stay in your place, in full sunlight for about 15 minutes, then collapse.",
+          "1": "You decide to draw from your reserves, and continue your way to avoid wasting time."
         }
       },
       "restHere": {
         "outcomes": {
           "0": "You rest, however, the floor is very uncomfortable.",
-          "1": "After your rest, you leave feeling more motivated than ever."
+          "1": "You rest. After a good nap, you leave feeling more motivated than ever."
         },
-        "text": "Rest right here."
+        "text": "Rest on site."
       },
       "restTree": {
         "outcomes": {
-          "0": "You discover a shadowed area under the trees, and decide to go there. After a short hour of sleep, you leave and continue on your way.",
-          "1": "You go to a shaded area where you can rest. But when you wake up, you notice you've been stripped of your belongings."
+          "0": "You discover a shaded area under the trees, and decide to go there. After a short hour of sleep, you leave and continue on your way.",
+          "1": "You head for a shady area, where you rest. But when you wake up, you notice that you've been robbed of your belongings."
         },
         "text": "Rest at the foot of a tree."
       },
@@ -720,19 +720,19 @@
         "outcomes": {
           "0": "You remember passing by a lake, so you go there. When you get there, you enjoy a swim that feels great. You're now refreshed, and in better shape to continue on your journey across the country.",
           "1": "You remember passing by a lake, so you go there... on the way, you find an item that will surely be useful to you. When you arrive, you enjoy a swim that feels great. You are now refreshed, and in better shape to continue your journey across the country.",
-          "2": "You look for a body of water in vain... Because of this fatigue, you fall ill."
+          "2": "You look for a watering hole in vain... You're so tired, you feel faint."
         },
-        "text": "Search the surroundings for a body of water."
+        "text": "Look for a watering hole nearby."
       }
     },
-    "text": "In this period when temperatures exceed 90°F, you get tired, so you decide to look for a way to relax and get back in shape."
+    "text": "Temperatures in excess of 86 °F for several days have been weighing you down. As your strength begins to fail and you are unable to continue your journey, you consider what strategy to follow..."
   },
   "3": {
     "possibilities": {
       "abandon": {
         "outcomes": {
-          "0": "You continue on your way; robbery is wrong, and this chest is not yours!",
-          "1": "You decide not to get closer to the little chest, it's a stop not worth losing precious time over."
+          "0": "You continue on your way: stealing is bad, and this chest is not yours!",
+          "1": "You decide not to get close to the small chest, believing it is not worth a stop that would cause you to waste precious time."
         },
         "text": "Abandon the box where you found it."
       },
@@ -797,13 +797,13 @@
       "steal": {
         "outcomes": {
           "0": "As you're about to leave the farm with your loot, a slave alerts the others and shames you. You end up locked in a cell.",
-          "1": "You discreetly come out with your delicious loot that joins your stomach swiftly.",
-          "2": "To your great misfortune, you didn't notice the writing \"Unfit for sale\" in front of your freshly acquired bananas and they quickly make you sick!"
+          "1": "You discreetly come out with your delicious loot that you swiftly finish eating.",
+          "2": "To your great misfortune, you didn't notice the \"Unsuitable for sale\" sign in front of your newly acquired bananas, which quickly made you sick!"
         },
         "text": "Go and steal bananas from his farm."
       }
     },
-    "text": "You see a castle in the distance. You decide to approach the main entrance, it seems to be that of Duke Benatis. Known for his banana farms, he organizes a party for his 21st birthday. When you approach a little closer, a guard invites you to enter as the Duke wants everyone to participate in the party. When you return, you see a huge feast awaiting the attendees."
+    "text": "You see a castle in the distance. You decide to approach the main entrance, it seems to be that of Duke Benatis, known for his banana farms. He organizes a party for his 21st birthday. When you approach a little closer, a guard invites you to enter as the Duke wants everyone to participate in the party. When you return, you see a huge feast awaiting the attendees."
   },
   "31": {
     "possibilities": {
@@ -814,15 +814,15 @@
       },
       "hide": {
         "outcomes": {
-          "0": "You hide in the bush just in time. This dark knight was about to push you over... You recover your emotions and leave.",
+          "0": "You jump into the bush just in time. This dark knight was about to push you over... You recover your emotions and leave.",
           "1": "You dive into the bush. However, you didn't notice that it was actually brambles...",
           "2": "After diving into the bush, you watch the mysterious knight pass by and see an object falling out of his satchel. You pick it up."
         },
-        "text": "Hide in a bush at the roadside."
+        "text": "Hide in a bush by the roadside."
       },
       "keepGoing": {
         "outcomes": {
-          "0": "The knight hits you at full speed. You fly over 5 metres before crashing to the ground. The knight is already gone, only a cloud of dust remains...",
+          "0": "The knight hits you at full speed. You fly over 5 meters before crashing to the ground. The knight is already gone, all that's left is a cloud of dust...",
           "1": "As the knight approaches you, he sees your difficulty walking under the blazing sun. He offers you a little water from his gourd and continues on his way.",
           "2": "The knight catches up to you and asks you for directions. You show him a route and continue on your way."
         },
@@ -830,22 +830,22 @@
       },
       "wave": {
         "outcomes": {
-          "0": "As he notices you waving, the knight comes to a halt by your side. You quickly realise that he his very friendly.",
+          "0": "As he notices you waving, the knight comes to a halt by your side. You quickly realize that he is very friendly. You chat for about an hour, before you both set off again.",
           "1": "The knight comes to a halt next to you and violently hits you, you fall to the ground and pass out. When you wake up, you discover that your pockets have been emptied...",
-          "2": "The knight passes you by. Perhaps he didn't see your sign, or had no time to waste."
+          "2": "The knight passes you by. He probably didn't see your sign or doesn't have time to waste."
         },
-        "text": "Motion to him to stop."
+        "text": "Signal him to stop."
       }
     },
-    "text": "You hear the rhythm of a gallop from far away. You turn back and see a black armoured knight with a coat of arms that you do not recognise."
+    "text": "You hear a galloping sound from far away. You turn back and see a black armored knight with an unknown coat of arms."
   },
   "32": {
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "You continue on your way without paying attention to the man. You decide to stop by a tree and find some gold coins on the way.",
+          "0": "Continuing on your way, you decide to stop by a tree and find a few gold coins.",
           "1": "You leave as fast as you can, people see you and decide to chase you. You run for a while and only stop after making sure they lost sight of you.",
-          "2": "You continue on as if nothing happened.",
+          "2": "You continue on your way as if nothing happened.",
           "3": "As you are getting away, you encounter a group of poachers who decide to rob you."
         }
       },
@@ -853,39 +853,39 @@
         "outcomes": {
           "0": "You run in the forest in search of medicinal plants, you find some and you heal the man. He thanks you with a few coins and you go back on your way.",
           "1": "You decide to fetch medicinal plants in the forest, unfortunately you can't cure him, you go back on your way, head down.",
-          "2": "You go to the nearest village for help. Now accompanied, you return to the person, but your companion decides to knock you out. When you wake up, you find the person dead and you're butt-naked.",
-          "3": "You rush to the nearest city in order to search for tools to heal the man. Once you get back to him, you heal him, he survives and decides to give you compensation for your help. When you leave, you realize that you hurt yourself when treating him."
+          "2": "You go to the nearest village for help. Accompanied, you return to the person, but your companion decides to knock you out. When you wake up, you find the person dead and you've been robbed.",
+          "3": "You rush to the nearest city in order to search for tools to heal the man. Once you get back to him, you heal him, he survives and decides to give you compensation for your help. When you leave, you realize that you hurt yourself while healing him."
         },
         "text": "Try to find something to heal the wounded man."
       },
       "kill": {
         "outcomes": {
-          "0": "You draw your sword and finish the wounded. However, passers-by who witnessed your horrid acts are revolted and attack you fiercely.",
-          "1": "You decide to kill the injured person but get interrupted by a bystander. He convinces you to give up this idea and you continue on your way.",
-          "2": "When you draw your sword, the man screams for help in vain, you kill him before..."
+          "0": "You draw your sword and finish off the wounded man. However, this was without taking into account the witnesses to the scene who, revolted by your action, attack you savagely.",
+          "1": "You were about to kill the injured person when you were interrupted by a passer-by, so you decide to abandon the idea and continue on your way.",
+          "2": "When you draw your sword, the man cries out but nobody hears him, so you kill him before stripping him of his belongings."
         },
-        "text": "Shorten the man's suffering to steal his equipment."
+        "text": "Finish the man off to steal his equipment."
       },
       "yell": {
         "outcomes": {
           "0": "You scream frantically and finally someone comes and helps you. To thank you, the wounded man gives you a little something before you leave.",
-          "1": "You scream frantically. Unfortunately, no one comes, but you attract animals and a wild boar charges right at you.",
+          "1": "You scream frantically. Unfortunately, no one comes, but you attract animals: a wild boar arrives and charges you.",
           "2": "You scream frantically. Unfortunately, no one comes and the person dies. Feeling helpless, you go back on your way.",
           "3": "Because of your screams, people from the nearby camp hear you and decide to come to take care of the man. As they thought you tried to assassinate him, they bring you back to their camp by threatening you. After a long discussion, you manage to settle the misunderstanding and they offer you to rest in the camp. You gladly accept their proposal."
         },
-        "text": "Yell and try to alert people."
+        "text": "Shout to alert people."
       }
     },
-    "text": "You are walking quietly in a forest when you hear a scream. The voice seems to be that of a man, you decide to go towards the direction of the scream where you find a seriously injured man near a kind of camp."
+    "text": "You continue on your way quietly through a forest, when you hear a scream. The voice seems to be that of a man, so you decide to go towards the cry and find a badly wounded man near some sort of camp."
   },
   "33": {
     "possibilities": {
       "chat": {
         "outcomes": {
-          "0": "Time goes by quickly as you chat during 2 hour with a farmer about the countryside.",
-          "1": "You bond with the guy sitting next to you whom gifts you a present for the sake of it.",
-          "2": "As the alcohol kicks in, some people starts getting aggressive and you watch a fight happen before going away.",
-          "3": "A generous young man insists on giving you a bag of money and some drinks.",
+          "0": "Time goes by quickly as you chat during 2 hours with a farmer about the countryside.",
+          "1": "You bond with the guy sitting next to you who gifts you a present for the sake of it.",
+          "2": "As the alcohol kicks in, some people start getting aggressive and you watch a fight happen before going away.",
+          "3": "A generous young man insists on giving you a bag of money and something to drink.",
           "4": "You accept politely and stay for a bit, before faking being in a rush and going."
         },
         "text": "Sit down to chat."
