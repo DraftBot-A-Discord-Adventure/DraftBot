@@ -14,7 +14,7 @@
     }
   },
   "idea": {
-    "description": "Share with us your idea to improve the game.",
+    "description": "Send a suggestion to improve the game.",
     "name": "idea"
   },
   "inventory": {
@@ -32,7 +32,7 @@
     }
   },
   "invite": {
-    "description": "Add the bot on your server.",
+    "description": "Add the bot to your server.",
     "name": "invitedraftbot"
   },
   "language": {
@@ -98,8 +98,8 @@
     "name": "report"
   },
   "scopes": {
-    "global": "🏆 Global ranking.",
-    "server": "🚩 Server ranking."
+    "global": "🏆 Global ranking",
+    "server": "🚩 Server ranking"
   },
   "test": {
     "description": "Cheat command for testers (TEST MODE ONLY).",
@@ -120,7 +120,7 @@
     "name": "vote"
   },
   "map": {
-    "description": "Affiche la carte pour indiquer où vous allez.",
-    "name": "carte"
+    "description": "Displays the map to indicate where you are going.",
+    "name": "map"
   }
 }

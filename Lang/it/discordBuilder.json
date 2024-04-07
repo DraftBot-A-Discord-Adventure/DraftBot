@@ -44,15 +44,15 @@
     "name": "ping"
   },
   "pet": {
-    "description": "Afficher les informations du familier d'un joueur.",
+    "description": "Visualizza le informazioni sull'animale domestico di un giocatore.",
     "name": "animale di compagnia",
     "options": {
       "rank": {
-        "description": "Le classement du joueur dont le familier doit être affiché.",
+        "description": "La classifica del giocatore di cui si vuole visualizzare l'animale.",
         "name": "classifica"
       },
       "user": {
-        "description": "L'utilisateur dont le familier doit être affiché.",
+        "description": "L'utente di cui si vuole visualizzare l'animale domestico.",
         "name": "utilizzatore"
       }
     }
@@ -120,7 +120,7 @@
     "name": "voto"
   },
   "map": {
-    "description": "Affiche la carte pour indiquer où vous allez.",
-    "name": "carte"
+    "description": "Visualizza la mappa per mostrare dove si sta andando.",
+    "name": "mappa"
   }
 }
