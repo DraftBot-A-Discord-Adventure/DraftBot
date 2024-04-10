@@ -1207,24 +1207,24 @@
     "possibilities": {
       "corrupt": {
         "outcomes": {
-          "0": "The jailer accepts your bribe and lets you go. However, he does not notice that your cellmate steals the bribe from him right after.",
-          "1": "The corrupt jailer accepts your bribe, he brings you a delicious meal. You eat well, then he frees you.",
-          "2": "The jailer accepts your bribe and sets you free. However, it was a trap. He convinced some guards that you escaped and they start to chase after you, ultimately putting you back in jail.",
-          "3": "The jailer tells you he is not this type of a person and leaves you in the cell. You eventually are freed a few hours later after straightening the confusion.",
-          "4": "The jailer refuses your money without equivocation. You keep on waiting and eventually fall asleep."
+          "0": "The jailer accepts your bribe and lets you go. However, he does not notice that your cellmate steals it from him immediately afterwards.",
+          "1": "The corrupt jailer accepts your bribe, he brings you a delicious meal. You eat your fill, then he sets you free.",
+          "2": "The guard accepts your money and sets you free. However, it was all a trap, so he makes you believe you've escaped and decides to chase you down, beat you up and put you back in your cell.",
+          "3": "The jailer tells you he is not this type of person and leaves you in the cell. You are eventually freed a few hours later after having settled the matter.",
+          "4": "The guard flatly refuses your money. You wait too long and end up falling asleep."
         },
-        "text": "Try to bribe the jailer."
+        "text": "Attempt to bribe the jailer."
       },
       "end": {
         "outcomes": {
-          "0": "To pass the time, you talk with your cellmate. A few hours later, you are free to leave.",
-          "1": "You wait calmly for your release. While chatting with the jailer, you understand that you are accused of witchcraft. About an hour later, you are exculpated, and the real culprit is locked up.",
-          "2": "You ponder around your cell for some time. After a while, you fall asleep, and then wake up in some woods."
+          "0": "To pass the time, you decide to chat with another prisoner. A few hours later you're free.",
+          "1": "You wait quietly for them to release you, but as you talk to the guard you realize that you've been accused of witchcraft. Nearly an hour later, you're exonerated and the real culprit locked up.",
+          "2": "You walk around the cell as much as you can. After a while you fall asleep, and when you wake up you find yourself in the woods."
         }
       },
       "escape": {
         "outcomes": {
-          "0": "You try to escape, you tell yourself that your cellmate will be a burden so you decide to not tell him your plans. While looking for something that could be useful, you find a broken wooden slat. You try to widen the opening, without success. You abandon the idea of escaping.",
+          "0": "You try to escape, you tell yourself that your cellmate will be a burden for you so you decide not to inform him about your evasion. While looking for something that could be useful, you find a broken wooden slat. You try to enlarge the opening, in vain, so you abandon this idea.",
           "1": "You decide to notify your cellmate of your plan, you make a diversion and he steals the keys from the jailer's pockets. He opens the cell when the jailer realizes the trickery. A fight ensue but your cellmate decides to help free you. You then go away very far, where you will take a delicious hot meal.",
           "2": "You try to press on the door which seems fragile. You succeed in opening it when the jailer sees you. He starts to fight to put you back in your cell, you defend yourself at the best of your ability but you are no match for his strength."
         },
