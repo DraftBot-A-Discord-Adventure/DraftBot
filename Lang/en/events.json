@@ -1316,14 +1316,14 @@
           "1": "You run screaming at the strange figure. However, as you get closer, you realize it's a hunter setting his traps. Confused, you decide to help him, to compensate him for the fright you've caused him.",
           "2": "You draw your sword, the man turns and sees you advancing towards him. He threatens to shoot an arrow if you take another step. You apologize, explaining that you've mistaken him for a demon from afar, and then go on your way, sheepish."
         },
-        "text": "Oppose the mysterious man."
+        "text": "Confront the creature."
       },
       "goBack": {
         "outcomes": {
-          "0": "You prefer to turn back around quietly. Once you've gone far enough away, you run at full speed and take refuge in the nearest village.",
-          "1": "You slowly back away, but you misstep on a twig by accident, breaking it apart with a loud snapping sound. Frightened, you start running like a madman. During your panicked get away you trip and fall to the ground, seriously grazing your knee in the process. But because of all the adrenaline in your blood, you don't realize the severity of the wound and keep on running like a lunatic."
+          "0": "You prefer to turn back discreetly. Once you've gone far enough away, you run at full speed and take refuge in the nearest village.",
+          "1": "You slowly back away, but you step on a twig, cracking it. Frightened, you start running like a madman, but trip and fall to the ground, seriously grazing your knee in the process. Hovewer, under the adrenaline's effects, you don't realize the severity of the wound and keep on running like a lunatic."
         },
-        "text": "Turn back around."
+        "text": "Turn around."
       },
       "shelter": {
         "outcomes": {
