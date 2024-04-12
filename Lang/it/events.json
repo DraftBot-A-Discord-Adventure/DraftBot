@@ -48,60 +48,60 @@
         "outcomes": {
           "0": "Non avete un minuto da perdere per aiutare un semplice pescatore ! Continuate avanti."
         },
-        "text": "Continuate a muovervi, non c'è tempo da perdere!"
+        "text": "Continuate ad andare avanti, non c'è tempo da perdere!"
       }
     },
-    "text": "Passando accanto a uno specchio d'acqua, notate un uomo che sembra avere problemi con la pesca!"
+    "text": "Passando accanto a uno laghetto, notate un uomo che sembra avere problemi con la pesca!"
   },
   "11": {
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "Avete passato molto tempo a chiacchierare con la sconosciuta e finalmente siete ripartiti! Seguendo le sue indicazioni, arrivate presto a destinazione."
+          "0": "Avete passato molto tempo a chiacchierare con la sconosciuta e finalmente siete ripartiti ! Seguendo le sue indicazioni, arrivate presto a destinazione."
         }
       },
       "followHint": {
         "outcomes": {
-          "0": "Era davvero una scorciatoia!",
-          "1": "Siete caduti in un'imboscata! Dopo avervi derubato di tutti i vostri averi, i briganti fuggono vigliaccamente, lasciandovi gravemente feriti e svenuti."
+          "0": "Era davvero una scorciatoia !",
+          "1": "Siete caduti in un'imboscata ! Dopo avervi derubato di tutti i vostri beni, i briganti fuggono vigliaccamente, lasciandovi grave ferite e svenuto."
         },
-        "text": "Seguite il consiglio dello sconosciuto."
+        "text": "Seguite il consiglio dell'sconosciuto."
       },
       "forest": {
         "outcomes": {
           "0": "Vi perdete nella foresta per diverse ore, ma alla fine ne uscite indenni.",
-          "1": "Perdi molto tempo per attraversare la foresta, ma alla fine ce la fai! All'uscita, raccogliete un oggetto che potrebbe tornarvi utile!",
-          "2": "Mentre vi fate strada nella foresta, fate una grossa caduta in un fosso: la ferita è profonda e dovete assolutamente essere curati!"
+          "1": "Perdete molto tempo per attraversare la foresta, ma alla fine ce la fate ! All'uscita, raccogliete un oggetto che potrebbe tornarvi utile!",
+          "2": "Mentre attraversate la foresta, fate una grossa caduta in un fosso, la ferita è profonda e dovete assolutamente curarvi !"
         },
         "text": "Attraversate comunque la foresta."
       },
       "oppositeSide": {
         "outcomes": {
-          "0": "Non siete sicuri del perché abbiate preso una strada 10 volte più lunga di quella che avevate previsto inizialmente, ma alla fine siete arrivati a destinazione."
+          "0": "Non siete sicuro del perché abbiate preso una strada 10 volte più lunga di quella che avevate previsto inizialmente, ma alla fine siete arrivati a destinazione."
         },
         "text": "Evitare la foresta partendo dal lato opposto a quello indicato."
       }
     },
-    "text": "Proprio mentre state per entrare in una foresta, uno sconosciuto vi dice che c'è un percorso più breve verso ovest."
+    "text": "Proprio mentre state per entrare in foresta, una sconosciuta vi dice che c'è un percorso più breve verso ovest."
   },
   "12": {
     "possibilities": {
       "craftBoat": {
         "outcomes": {
-          "0": "Mentre cercate di costruire la vostra barca, vi ferite leggermente! Decidete di abbandonare la costruzione dopo averci passato diverse ore e di partire in un'altra direzione.",
+          "0": "Mentre cercate di costruire la vostra barca, vi ferite leggermente ! Decidete di abbandonare la costruzione dopo averci passato diverse ore e di partire in un'altra direzione.",
           "1": "Dopo aver trascorso diverse ore a costruire la vostra barca, partite per il fiume... solo per affondare miseramente nel mezzo. L'acqua è gelida, ma riuscite ad arrivare all'altra sponda, congelati e indeboliti. Dovrete prendervi cura di voi stessi prima di continuare!",
           "2": "Bastano poche ore per costruire una piccola barca e raggiungere facilmente l'altra sponda. Quando scenderete dalla vostra barca, raccoglierete un oggetto che, se non utile, sarà facile da vendere!"
         },
-        "text": "Cimentatevi nella costruzione di una piccola barca."
+        "text": "Provate a costruire una piccola barca."
       },
       "end": {
         "outcomes": {
-          "0": "Dopo qualche ora in riva al fiume, si finisce per partire in una direzione a caso."
+          "0": "Dopo qualche ora in riva al fiume, finite per partire in una direzione a caso."
         }
       },
       "otherWay": {
         "outcomes": {
-          "0": "Decidete di andare dall'altra parte, ma vi ci vuole un'ora buona per trovare la direzione che fa per voi!"
+          "0": "Decidete di andare da una altra parte, ma vi ci vuole un'ora buona per trovare la direzione che vi conviene !"
         },
         "text": "Andare in un'altra direzione."
       },
@@ -109,8 +109,8 @@
         "outcomes": {
           "0": "Dopo 30 minuti, finalmente vi arrendete e prendete un'altra direzione...",
           "1": "Dopo 60 minuti, finalmente trovate un guado. Decidete di non tornare al villaggio, ormai troppo lontano, e ripartite.",
-          "2": "Dopo pochi minuti si arriva a un piccolo ponte di legno e si raggiunge il villaggio dove la gente del posto, felice di incontrare uno straniero per la prima volta dopo anni, vi offre qualche moneta.",
-          "3": "Dopo qualche minuto si arriva a un piccolo ponte di legno. Purtroppo è in stato di abbandono, perché nessuno lo usa da anni, e dopo pochi passi un'asse crolla sotto il vostro peso! Riuscite a malapena ad aggrapparvi alla ringhiera e a trovare un terreno solido. Stordito, dovrai andare a farti curare!"
+          "2": "Dopo pochi minuti si arriva a un piccolo ponte di legno e si raggiunge il villaggio dove la gente del posto, felici d'incontrare uno straniero per la prima volta dopo anni, vi offre qualche moneta.",
+          "3": "Dopo qualche minuto si arriva a un piccolo ponte di legno. Purtroppo è in stato di abbandono, perché nessuno lo usa da anni, e dopo pochi passi un'asse crolla sotto il vostro peso ! Riuscite a malapena ad aggrapparvi alla ringhiera e a trovare un terreno solido. Stordito, dovrete andare a farvi curare!"
         },
         "text": "Cercate un ponte più avanti."
       },
