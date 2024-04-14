@@ -49,5 +49,76 @@
   "titleCanceled": "{{pseudo}}, annulation prise en compte !",
   "titleDidntWork": "{{pseudo}}, hmmm... Cela n'a pas fonctionné !",
   "guildDoesntExist": "La guilde demandée n'existe pas",
-  "unexpectedError": "Une erreur est survenue :("
+  "unexpectedError": "Une erreur est survenue :(",
+  "notPossibleWithoutStatus": "Vous n'avez pas besoin de nos services actuellement",
+  "pleaseWaitForHeal": "Veuillez attendre la fin des soins de votre altération d'état pour continuer à jouer : {{time}}\n\nℹ️ Vous pouvez utiliser la commande /shop pour acheter un soin.",
+  "pleaseWaitForHisHeal": "Veuillez attendre la fin des soins de son altération d'état : {{time}}",
+  "effects": {
+    "not_started": {
+      "self": "{{pseudo}}, vous n'avez pas commencé l'aventure !",
+      "hintSelf": "Utilisez la commande /report pour commencer votre aventure !",
+      "other": "{{pseudo}} semble ne pas avoir commencé l'aventure !"
+    },
+    "dead": {
+      "self": "{{pseudo}}, vous êtes actuellement K.O !",
+      "hintSelf": "Vous pouvez revivre en utilisant la commande /respawn pour pouvoir continuer à jouer.",
+      "other": "{{pseudo}} est actuellement K.O !"
+    },
+    "injured": {
+      "self": "{{pseudo}}, vous êtes actuellement gravement blessé !",
+      "other": "{{pseudo}} est actuellement blessé !"
+    },
+    "scared": {
+      "self": "{{pseudo}}, vous êtes actuellement apeuré !",
+      "other": "{{pseudo}} est actuellement apeuré !"
+    },
+    "sick": {
+      "self": "{{pseudo}}, vous êtes actuellement malade !",
+      "other": "{{pseudo}} est actuellement malade !"
+    },
+    "jailed": {
+      "self": "{{pseudo}}, vous êtes actuellement enfermé !",
+      "other": "{{pseudo}} est actuellement enfermé !"
+    },
+    "freezing": {
+      "self": "{{pseudo}}, vous êtes actuellement gelé !",
+      "other": "{{pseudo}} est actuellement gelé !"
+    },
+    "starving": {
+      "self": "{{pseudo}}, vous êtes actuellement affamé !",
+      "other": "{{pseudo}} est actuellement affamé !"
+    },
+    "drunk": {
+      "self": "{{pseudo}}, vous êtes actuellement ivre !",
+      "other": "{{pseudo}} est actuellement ivre !"
+    },
+    "hurt": {
+      "self": "{{pseudo}}, vous êtes actuellement blessé !",
+      "other": "{{pseudo}} est actuellement blessé !"
+    },
+    "confounded": {
+      "self": "{{pseudo}}, vous êtes actuellement confus !",
+      "other": "{{pseudo}} est actuellement confus !"
+    },
+    "lost": {
+      "self": "{{pseudo}}, vous êtes actuellement perdu !",
+      "other": "{{pseudo}} est actuellement perdu !"
+    },
+    "fished": {
+      "self": "{{pseudo}}, vous êtes actuellement empoissonné !",
+      "other": "{{pseudo}} est actuellement empoissonné !"
+    },
+    "sleeping": {
+      "self": "{{pseudo}}, vous êtes actuellement endormi !",
+      "other": "{{pseudo}} est actuellement endormi !"
+    },
+    "occupied": {
+      "self": "{{pseudo}}, vous êtes actuellement occupé !",
+      "other": "{{pseudo}} est actuellement occupé !"
+    },
+    "none": {
+      "self": "{{pseudo}}, vous n'êtes pas atteint par une altération d'état !",
+      "other": "{{pseudo}} n'est pas atteint par une altération d'état !"
+    }
+  }
 }

@@ -5,15 +5,27 @@ export class CommandReportPacketReq extends DraftBotPacket {
 }
 
 export class CommandReportTravelSummaryRes extends DraftBotPacket {
-	startMap!: number;
+	startMap!: {
+		id: number,
+		type: string
+	};
 
-	endMap!: number;
+	endMap!: {
+		id: number,
+		type: string
+	};
+
+	startTime!: number;
 
 	arriveTime!: number;
 
 	nextStopTime!: number;
 
+	isOnBoat!: boolean;
+
 	effect?: string;
+
+	effectDuration?: number;
 
 	effectEndTime?: number;
 

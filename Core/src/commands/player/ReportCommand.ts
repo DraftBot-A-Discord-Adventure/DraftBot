@@ -425,10 +425,14 @@ async function sendTravelPath(player: Player, response: DraftBotPacket[], date: 
 	const timeData = await TravelTime.getTravelData(player, date);
 	const showEnergy = Maps.isOnPveIsland(player) || Maps.isOnBoat(player);
 	const lastMiniEvent = await PlayerSmallEvents.getLastOfPlayer(player.id);
+	const endMap = player.getDestination();
+	const startMap = player.getPreviousMap();
 	response.push(makePacket(CommandReportTravelSummaryRes, {
 		effect: effectId,
+		startTime: timeData.travelStartTime,
 		arriveTime: timeData.travelEndTime,
 		effectEndTime: effectId ? timeData.effectEndTime : null,
+		effectDuration: timeData.effectDuration,
 		points: {
 			show: !showEnergy,
 			cumulated: !showEnergy ? await PlayerSmallEvents.calculateCurrentScore(player) : 0
@@ -438,10 +442,17 @@ async function sendTravelPath(player: Player, response: DraftBotPacket[], date: 
 			current: showEnergy ? player.getCumulativeFightPoint() : 0,
 			max: showEnergy ? player.getMaxCumulativeFightPoint() : 0
 		},
-		endMap: player.getDestinationId(),
+		endMap: {
+			id: endMap.id,
+			type: endMap.type
+		},
 		nextStopTime: timeData.nextSmallEventTime,
 		lastSmallEventId: lastMiniEvent ? lastMiniEvent.eventType : null,
-		startMap: player.getPreviousMapId()
+		startMap: {
+			id: startMap.id,
+			type: startMap.type
+		},
+		isOnBoat: Maps.isOnBoat(player)
 	}));
 }
 
@@ -596,11 +607,11 @@ async function executeSmallEvent(context: PacketContext, player: Player, respons
 		const updatedKeys = [];
 		for (const key of keys) {
 			const file = await import(`../../core/smallEvents/${key}.js`);
-			if (!file.smallEvent?.canBeExecuted) {
+			if (!file.smallEventFuncs?.canBeExecuted) {
 				response.push(makePacket(ErrorPacket, {message: `${key} doesn't contain a canBeExecuted function`}));
 				return;
 			}
-			if (await file.smallEvent.canBeExecuted(player)) {
+			if (await file.smallEventFuncs.canBeExecuted(player)) {
 				updatedKeys.push(key);
 				totalSmallEventsRarity += SmallEventDataController.instance.getById(key).rarity;
 			}

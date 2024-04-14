@@ -1492,7 +1492,7 @@ export function initModel(sequelize: Sequelize): void {
 			type: DataTypes.DATE,
 			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.LAST_PET_FREE
 		},
-		effect: {
+		effectId: {
 			type: DataTypes.STRING(32), // eslint-disable-line new-cap
 			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.EFFECT
 		},

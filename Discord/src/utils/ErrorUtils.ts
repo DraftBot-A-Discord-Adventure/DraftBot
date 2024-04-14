@@ -4,6 +4,11 @@ import {Language} from "../../../Lib/src/Language";
 import {DraftbotInteraction} from "../messages/DraftbotInteraction";
 import i18n from "../translations/i18n";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
+import {escapeUsername} from "../../../Lib/src/utils/StringUtils";
+import {KeycloakUser} from "../../../Lib/src/keycloak/KeycloakUser";
+import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
+import {millisecondsToMinutes, minutesDisplay} from "../../../Lib/src/utils/TimeUtils";
+import {Effect} from "../../../Lib/src/enums/Effect";
 
 /**
  * Reply to an interaction with a given error
@@ -51,4 +56,42 @@ export async function sendInteractionNotForYou(
 		],
 		ephemeral: true
 	});
+}
+
+/**
+ * Send an error message if the user has an effect
+ * @param user
+ * @param language
+ * @param self
+ * @param effectId
+ * @param effectRemainingTime
+ */
+export function effectsErrorTextValue(user: KeycloakUser, language: string, self: boolean, effectId: string, effectRemainingTime: number): { title: string, description: string } {
+	const translationKey = self ? `error:effects.${effectId}.self` : `error:effects.${effectId}.other`;
+	const errorMessageObject: { title: string, description: string } = {
+		title: i18n.t(translationKey, {
+			lng: language,
+			pseudo: escapeUsername(user.attributes.gameUsername[0])
+		}),
+		description: `${DraftBotIcons.effects[effectId]} `
+	};
+	const timeEffect = minutesDisplay(millisecondsToMinutes(effectRemainingTime));
+
+	switch (effectId) {
+	case Effect.NO_EFFECT.id:
+		errorMessageObject.description += i18n.t("error:notPossibleWithoutStatus", { lng: language });
+		break;
+	case Effect.NOT_STARTED.id:
+	case Effect.DEAD.id:
+		errorMessageObject.description += i18n.t(self ? `error:effects.${effectId}.self` : `error:effects.${effectId}.other`, { lng: language });
+		break;
+	default:
+		errorMessageObject.description += i18n.t(self ? "error:pleaseWaitForHeal" : "error:pleaseWaitForHisHeal", { lng: language, time: timeEffect });
+	}
+
+	if (self) {
+		errorMessageObject.title = errorMessageObject.title.charAt(8).toUpperCase() + errorMessageObject.title.slice(9);
+	}
+
+	return errorMessageObject;
 }
