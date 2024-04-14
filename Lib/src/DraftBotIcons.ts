@@ -497,12 +497,15 @@ export const DraftBotIcons: {
 			"otherWay": "🚶"
 		},
 		"56": {
-			"": "🏖️",
+			"beach": "🏖",
+			"drinkBlack": "⚫",
+			"drinkRandom": "🍸",
 			"end": {
 				"0": "💥",
 				"1": "😶",
 				"2": "🍵"
-			}
+			},
+			"refuse": "❌"
 		},
 		"57": {
 			"continue": "🌊",
