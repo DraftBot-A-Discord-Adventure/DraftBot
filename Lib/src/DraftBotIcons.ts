@@ -12,6 +12,12 @@ export const DraftBotIcons: {
 	},
 	small_events: {
 		[smallEventId: string]: string
+	},
+	pets: {
+		[petId: string]: {
+			emoteFemale: string,
+			emoteMale: string
+		}
 	}
 } = {
 	"effects": {
@@ -755,5 +761,299 @@ export const DraftBotIcons: {
 		"winHealth": "❤️",
 		"winPersonalXP": "⭐",
 		"witch": "🧹"
+	},
+	"pets": {
+		"0": {
+			"emoteFemale": "❌",
+			"emoteMale": "❌"
+		},
+		"1": {
+			"emoteFemale": "🐕",
+			"emoteMale": "🐕"
+		},
+		"10": {
+			"emoteFemale": "🐔",
+			"emoteMale": "🐓"
+		},
+		"11": {
+			"emoteFemale": "🐦",
+			"emoteMale": "🐦"
+		},
+		"12": {
+			"emoteFemale": "🦆",
+			"emoteMale": "🦆"
+		},
+		"13": {
+			"emoteFemale": "🐎",
+			"emoteMale": "🐎"
+		},
+		"14": {
+			"emoteFemale": "🐢",
+			"emoteMale": "🐢"
+		},
+		"15": {
+			"emoteFemale": "🐍",
+			"emoteMale": "🐍"
+		},
+		"16": {
+			"emoteFemale": "🦎",
+			"emoteMale": "🦎"
+		},
+		"17": {
+			"emoteFemale": "🐑",
+			"emoteMale": "🐏"
+		},
+		"18": {
+			"emoteFemale": "🐐",
+			"emoteMale": "🐐"
+		},
+		"19": {
+			"emoteFemale": "🦃",
+			"emoteMale": "🦃"
+		},
+		"2": {
+			"emoteFemale": "🐩",
+			"emoteMale": "🐩"
+		},
+		"20": {
+			"emoteFemale": "🦊",
+			"emoteMale": "🦊"
+		},
+		"21": {
+			"emoteFemale": "🐻",
+			"emoteMale": "🐻"
+		},
+		"22": {
+			"emoteFemale": "🐨",
+			"emoteMale": "🐨"
+		},
+		"23": {
+			"emoteFemale": "🐸",
+			"emoteMale": "🐸"
+		},
+		"24": {
+			"emoteFemale": "🐒",
+			"emoteMale": "🐒"
+		},
+		"25": {
+			"emoteFemale": "🐧",
+			"emoteMale": "🐧"
+		},
+		"26": {
+			"emoteFemale": "🦉",
+			"emoteMale": "🦉"
+		},
+		"27": {
+			"emoteFemale": "🦇",
+			"emoteMale": "🦇"
+		},
+		"28": {
+			"emoteFemale": "🐺",
+			"emoteMale": "🐺"
+		},
+		"29": {
+			"emoteFemale": "🐗",
+			"emoteMale": "🐗"
+		},
+		"3": {
+			"emoteFemale": "🐈",
+			"emoteMale": "🐈"
+		},
+		"30": {
+			"emoteFemale": "🦭",
+			"emoteMale": "🦭"
+		},
+		"31": {
+			"emoteFemale": "🦛",
+			"emoteMale": "🦛"
+		},
+		"32": {
+			"emoteFemale": "🦙",
+			"emoteMale": "🦙"
+		},
+		"33": {
+			"emoteFemale": "🦢",
+			"emoteMale": "🦢"
+		},
+		"34": {
+			"emoteFemale": "🦩",
+			"emoteMale": "🦩"
+		},
+		"35": {
+			"emoteFemale": "🦝",
+			"emoteMale": "🦝"
+		},
+		"36": {
+			"emoteFemale": "🦨",
+			"emoteMale": "🦨"
+		},
+		"37": {
+			"emoteFemale": "🦡",
+			"emoteMale": "🦡"
+		},
+		"38": {
+			"emoteFemale": "🦫",
+			"emoteMale": "🦫"
+		},
+		"39": {
+			"emoteFemale": "🦥",
+			"emoteMale": "🦥"
+		},
+		"4": {
+			"emoteFemale": "🐈‍⬛",
+			"emoteMale": "🐈‍⬛"
+		},
+		"40": {
+			"emoteFemale": "🐿️",
+			"emoteMale": "🐿️"
+		},
+		"41": {
+			"emoteFemale": "🦔️",
+			"emoteMale": "🦔"
+		},
+		"42": {
+			"emoteFemale": "🐻‍❄️",
+			"emoteMale": "🐻‍❄️"
+		},
+		"43": {
+			"emoteFemale": "🐼",
+			"emoteMale": "🐼"
+		},
+		"44": {
+			"emoteFemale": "🦂",
+			"emoteMale": "🦂"
+		},
+		"45": {
+			"emoteFemale": "🐊",
+			"emoteMale": "🐊"
+		},
+		"46": {
+			"emoteFemale": "🐘",
+			"emoteMale": "🐘"
+		},
+		"47": {
+			"emoteFemale": "🦓",
+			"emoteMale": "🦓"
+		},
+		"48": {
+			"emoteFemale": "🦏",
+			"emoteMale": "🦏"
+		},
+		"49": {
+			"emoteFemale": "🐪",
+			"emoteMale": "🐪"
+		},
+		"5": {
+			"emoteFemale": "🐁",
+			"emoteMale": "🐁"
+		},
+		"50": {
+			"emoteFemale": "🐫",
+			"emoteMale": "🐫"
+		},
+		"51": {
+			"emoteFemale": "🦒",
+			"emoteMale": "🦒"
+		},
+		"52": {
+			"emoteFemale": "🦘",
+			"emoteMale": "🦘"
+		},
+		"53": {
+			"emoteFemale": "🦚",
+			"emoteMale": "🦚"
+		},
+		"54": {
+			"emoteFemale": "🦜",
+			"emoteMale": "🦜"
+		},
+		"55": {
+			"emoteFemale": "🦦",
+			"emoteMale": "🦦"
+		},
+		"56": {
+			"emoteFemale": "🐅",
+			"emoteMale": "🐅"
+		},
+		"57": {
+			"emoteFemale": "🦁",
+			"emoteMale": "🦁"
+		},
+		"58": {
+			"emoteFemale": "🦅",
+			"emoteMale": "🦅"
+		},
+		"59": {
+			"emoteFemale": "🦤",
+			"emoteMale": "🦤"
+		},
+		"6": {
+			"emoteFemale": "🐹",
+			"emoteMale": "🐹"
+		},
+		"60": {
+			"emoteFemale": "🐆",
+			"emoteMale": "🐆"
+		},
+		"61": {
+			"emoteFemale": "🦣",
+			"emoteMale": "🦣"
+		},
+		"62": {
+			"emoteFemale": "🕊️",
+			"emoteMale": "🕊️"
+		},
+		"63": {
+			"emoteFemale": "🦄️",
+			"emoteMale": "🦄️"
+		},
+		"64": {
+			"emoteFemale": "🐉️",
+			"emoteMale": "🐉️"
+		},
+		"65": {
+			"emoteFemale": "🦖️",
+			"emoteMale": "🦖️"
+		},
+		"66": {
+			"emoteFemale": "🟣",
+			"emoteMale": "🔵"
+		},
+		"67": {
+			"emoteFemale": "⛄",
+			"emoteMale": "⛄"
+		},
+		"68": {
+			"emoteFemale": "🦆",
+			"emoteMale": "🦆"
+		},
+		"69": {
+			"emoteFemale": "☃️",
+			"emoteMale": "☃️"
+		},
+		"7": {
+			"emoteFemale": "🐇",
+			"emoteMale": "🐇"
+		},
+		"70": {
+			"emoteFemale": "👽",
+			"emoteMale": "👽"
+		},
+		"71": {
+			"emoteFemale": "🐙",
+			"emoteMale": "🐙"
+		},
+		"72": {
+			"emoteFemale": "🐧",
+			"emoteMale": "🐧"
+		},
+		"8": {
+			"emoteFemale": "🐄",
+			"emoteMale": "🐂"
+		},
+		"9": {
+			"emoteFemale": "🐖",
+			"emoteMale": "🐖"
+		}
 	}
 };

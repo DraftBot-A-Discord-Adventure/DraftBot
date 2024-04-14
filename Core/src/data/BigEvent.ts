@@ -23,7 +23,7 @@ export class BigEvent extends Data<number> {
 	public readonly tags: string[];
 
 	/**
-	 * The possibilities condition are checked to choose to allow the possibility or not
+	 * The possibility condition is checked to choose to allow the possibility or not
 	 * @param player
 	 */
 	public async getPossibilities(player: Player): Promise<[string, Possibility][]> {

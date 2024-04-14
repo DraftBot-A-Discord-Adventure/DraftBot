@@ -14,7 +14,7 @@
     }
   },
   "idea": {
-    "description": "Share with us your idea to improve the game.",
+    "description": "Send a suggestion to improve the game.",
     "name": "idea"
   },
   "inventory": {
@@ -32,7 +32,7 @@
     }
   },
   "invite": {
-    "description": "Add the bot on your server.",
+    "description": "Add the bot to your server.",
     "name": "invitedraftbot"
   },
   "language": {
@@ -42,6 +42,20 @@
   "ping": {
     "description": "Displays the ping of the bot and allow the player to check if the bot is online.",
     "name": "ping"
+  },
+  "pet": {
+    "description": "Displays information about the pet of a player.",
+    "name": "pet",
+    "options": {
+      "rank": {
+        "description": "The rank of the player whose pet should be displayed.",
+        "name": "rank"
+      },
+      "user": {
+        "description": "The user whose pet should be displayed.",
+        "name": "user"
+      }
+    }
   },
   "guild": {
     "description": "Displays information about a guild.",
@@ -84,8 +98,8 @@
     "name": "report"
   },
   "scopes": {
-    "global": "🏆 Global ranking.",
-    "server": "🚩 Server ranking."
+    "global": "🏆 Global ranking",
+    "server": "🚩 Server ranking"
   },
   "test": {
     "description": "Cheat command for testers (TEST MODE ONLY).",
@@ -104,5 +118,9 @@
   "vote": {
     "description": "Displays the link to vote for the bot.",
     "name": "vote"
+  },
+  "map": {
+    "description": "Displays the map to indicate where you are going.",
+    "name": "map"
   }
 }

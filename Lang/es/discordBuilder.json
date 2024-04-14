@@ -36,28 +36,42 @@
     "name": "invitacióndraftbot"
   },
   "language": {
-    "description": "Changer la langue du bot dans le serveur discord ou la commande a été exécutée.",
-    "name": "langage"
+    "description": "Cambia el idioma del bot en el servidor de discordia donde se ejecutó el comando.",
+    "name": "idioma"
   },
   "ping": {
     "description": "Muestra la latencia del bot y permite al jugador comprobar si el bot está en línea.",
     "name": "ping"
   },
-  "guild": {
-    "description": "Affiche des informations sur une guilde.",
-    "name": "guilde",
+  "pet": {
+    "description": "Muestra información sobre la mascota de un jugador.",
+    "name": "familiar",
     "options": {
       "rank": {
-        "description": "Le classement du joueur dont la guilde doit être affichée.",
-        "name": "classement"
+        "description": "La clasificación del jugador cuya mascota debe mostrarse.",
+        "name": "clasificación"
       },
       "user": {
-        "description": "L'utilisateur dont la guilde doit être affichée.",
-        "name": "utilisateur"
+        "description": "El usuario cuya mascota debe mostrarse.",
+        "name": "usuario"
+      }
+    }
+  },
+  "guild": {
+    "description": "Muestra información sobre un gremio.",
+    "name": "gremio",
+    "options": {
+      "rank": {
+        "description": "La clasificación del jugador cuyo gremio se va a mostrar.",
+        "name": "clasificación"
+      },
+      "user": {
+        "description": "El usuario cuyo gremio se va a mostrar.",
+        "name": "usuario"
       },
       "guildName": {
-        "description": "Le nom de la guilde dont les informations doivent être affichées.",
-        "name": "guilde"
+        "description": "Nombre del gremio cuya información se desea mostrar.",
+        "name": "gremio"
       }
     }
   },
@@ -104,5 +118,9 @@
   "vote": {
     "description": "Muestra el enlace para votar por el bot.",
     "name": "vote"
+  },
+  "map": {
+    "description": "Muestra el mapa para indicarte por dónde vas.",
+    "name": "tarjeta"
   }
 }

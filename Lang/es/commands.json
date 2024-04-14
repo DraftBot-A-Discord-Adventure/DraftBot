@@ -3,9 +3,36 @@
     "description": "Las insignias son difíciles de obtener y se han creado para recompensar a las personas que más han contribuido al desarrollo del bot. La lista de insignias está disponible en la guía del bot.\n(a través de este enlace: https://guide.draftbot.com/notions-avancees/badges)",
     "title": ":military_medal: Información detallada:"
   },
+  "pet": {
+    "embedTitle": "Familiarizado con {{pseudo}} :",
+    "petField": "**Tipo:** {{emote}} {{typeName}}\n**Nombre:** {{nickname}}\n\n**Rareza:** {{rarity}}\n**Género:** {{sex}}\n**Mentalidad:** {{loveLevel}}",
+    "noNickname": "Sin apodo",
+    "loveLevels": {
+      "0_male": ":smirk_cat: Fiable",
+      "0_female": ":smirk_cat: Fielleuse",
+      "1_male": ":pouting_cat: Sauvage",
+      "1_female": ":pouting_cat: Sauvage",
+      "2_male": ":scream_cat: Temeroso",
+      "2_female": ":scream_cat: Temeroso",
+      "3_male": ":smiley_cat: Domado",
+      "3_female": ":smiley_cat: Domado",
+      "4_male": ":heart_eyes_cat: Vestido",
+      "4_female": ":heart_eyes_cat: Vestido"
+    },
+    "hungry": "🤤 hambre",
+    "diet": {
+      "diet_null": "🥪 Omnívoro",
+      "diet_herbivorous": "🥬 Herbívoro",
+      "diet_carnivorous": "🥩 Carnívoro"
+    },
+    "sexDisplay": {
+      "female": "Mujer",
+      "male": "Hombre"
+    }
+  },
   "guild": {
-    "embedTitle": "Guilde {{guildName}} | Niveau {{level}}",
-    "description": ":scroll: `{{description}}`",
+    "embedTitle": "Gremio {{guildName}} | Nivel {{level}}",
+    "description": ":scroll:{{description}}`",
     "emojis": {
       "chief": "👑",
       "elder": "🎖️",
@@ -18,13 +45,13 @@
     "separator": " | ",
     "memberInfos": "{{icon}} - **{{pseudo}}** ({{ranking}} :trophy: | {{score}} :medal:{{islandStatusIcon}})\n",
     "members": ":person_pouting: {{memberCount}}/{{maxGuildMembers}} membres",
-    "infoTitle": "Informations",
+    "infoTitle": "Información",
     "islandInfo": ":island: Nombre d'alliés sur l'île mystérieuse : {{membersOnPveIsland}\n",
-    "info": ":star: {{experience}} | :mirror_ball: {{guildPoints}} | :trophy: {{ranking}}",
+    "info": ":star: {{experience}} | :mirror_ball: {{guildPoints}} :trophy: {{ranking}}",
     "xpNeeded": "{{xp}} / {{xpToLevelUp}}",
     "xpMax": "Max",
     "ranking": "{{rank}} / {{rankTotal}}",
-    "notRanked": "Non classée"
+    "notRanked": "No clasificado"
   },
   "help": {
     "aliasFieldTitle": "Alias",
@@ -224,37 +251,37 @@
     }
   },
   "language": {
-    "description": "Utilisez le menu ci-dessous pour changer la langue utilisée par le bot sur ce serveur. Cette commande est réservée aux administrateurs du serveur.",
+    "description": "Utilice el menú de abajo para cambiar el idioma utilizado por el bot en este servidor. Este comando está reservado a los administradores del servidor.",
     "languages": {
       "de": {
         "emoji": "🇩🇪",
-        "name": "Allemand"
+        "name": "Alemán"
       },
       "en": {
         "emoji": "🇬🇧",
-        "name": "Anglais"
+        "name": "Inglés"
       },
       "es": {
         "emoji": "🇪🇸",
-        "name": "Espagnol"
+        "name": "Español"
       },
       "fr": {
         "emoji": "🇫🇷",
-        "name": "Français"
+        "name": "Francés"
       },
       "it": {
         "emoji": "🇮🇹",
-        "name": "Italien"
+        "name": "Italiano"
       },
       "pt": {
         "emoji": "🇵🇹",
-        "name": "Portugais"
+        "name": "Portugués"
       }
     },
-    "newLanguageSetDescription": "DraftBot vous parlera désormais en français ! 🥖",
-    "newLanguageSetTitle": "Langue changée",
-    "selectLanguage": "Sélectionnez une langue",
-    "title": ":earth_africa: Sélection de la langue"
+    "newLanguageSetDescription": "¡DraftBot ahora te hablará en francés! 🥖",
+    "newLanguageSetTitle": "Cambio de idioma",
+    "selectLanguage": "Seleccione un idioma",
+    "title": ":earth_africa: Selección de idioma"
   },
   "ping": {
     "discord": {
@@ -399,5 +426,12 @@
   "vote": {
     "description": "Aquí está el enlace para apoyar el bot:\nhttps://top.gg/bot/448110812801007618",
     "title": ":ballot_box: Vote"
+  },
+  "map": {
+    "title": "{{pseudo}}Aquí está el mapa.",
+    "description": {
+      "ongoing": "Actualmente se dirige a {{particle}} **{{emote}} {{destination}}**.\n> {{description}}",
+      "arrived": "Has llegado a tu destino.\n> **{{emote}} {{destination}}**.\n> {{description}}"
+    }
   }
 }

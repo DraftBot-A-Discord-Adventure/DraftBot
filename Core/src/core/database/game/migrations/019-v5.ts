@@ -43,6 +43,7 @@ clientSecret = "secret"
 	}
 
 	await context.renameColumn("players", "effect", "effectId");
+	await context.renameColumn("pet_entities", "petId", "typeId");
 
 	await context.dropTable("armors");
 	await context.dropTable("classes");
@@ -211,4 +212,6 @@ export async function down({context}: { context: QueryInterface }): Promise<void
 	await context.createTable("pets", petAttributes001);
 	await context.createTable("potions", itemAttributes001);
 	await context.createTable("weapons", itemAttributes001);
+
+	await context.renameColumn("pet_entities", "typeId", "petId");
 }

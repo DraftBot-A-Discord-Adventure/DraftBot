@@ -1,34 +1,30 @@
 import {DataControllerNumber} from "./DataController";
 import {Data} from "./Data";
-import {PetEntityConstants} from "../../../Lib/src/constants/PetEntityConstants";
+import {PetConstants} from "../../../Lib/src/constants/PetConstants";
 import {RandomUtils} from "../core/utils/RandomUtils";
 
 export class Pet extends Data<number> {
 	declare readonly rarity: number;
 
-	declare readonly emoteMale: string;
-
-	declare readonly emoteFemale: string;
-
 	declare readonly diet: string;
 
 
 	public getRarityDisplay(): string {
-		return PetEntityConstants.EMOTE.RARITY.repeat(this.rarity);
+		return PetConstants.ICONS.RARITY.repeat(this.rarity);
 	}
 
 	/**
      * Returns true if the pet can eat meat
      */
 	public canEatMeat(): boolean {
-		return this.diet === PetEntityConstants.RESTRICTIVES_DIETS.CARNIVOROUS || !this.diet;
+		return this.diet === PetConstants.RESTRICTIVES_DIETS.CARNIVOROUS || !this.diet;
 	}
 
 	/**
      * Returns true if the pet can eat vegetables
      */
 	public canEatVegetables(): boolean {
-		return this.diet === PetEntityConstants.RESTRICTIVES_DIETS.HERBIVOROUS || !this.diet;
+		return this.diet === PetConstants.RESTRICTIVES_DIETS.HERBIVOROUS || !this.diet;
 	}
 }
 

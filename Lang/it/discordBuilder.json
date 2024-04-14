@@ -43,6 +43,20 @@
     "description": "Locandina della latenza del bot e permette ai giocatori di verificare se il bot è connesso.",
     "name": "ping"
   },
+  "pet": {
+    "description": "Visualizza le informazioni sull'animale domestico di un giocatore.",
+    "name": "animale di compagnia",
+    "options": {
+      "rank": {
+        "description": "La classifica del giocatore di cui si vuole visualizzare l'animale.",
+        "name": "classifica"
+      },
+      "user": {
+        "description": "L'utente di cui si vuole visualizzare l'animale domestico.",
+        "name": "utilizzatore"
+      }
+    }
+  },
   "guild": {
     "description": "Visualizza le informazioni su una gilda.",
     "name": "gilda",
@@ -104,5 +118,9 @@
   "vote": {
     "description": "Visualizzare il link per votare il bot.",
     "name": "voto"
+  },
+  "map": {
+    "description": "Visualizza la mappa per mostrare dove si sta andando.",
+    "name": "mappa"
   }
 }

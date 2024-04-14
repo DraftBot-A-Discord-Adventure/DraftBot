@@ -11,13 +11,13 @@ prefix = ""
 # The host (ip or DNS) of the database
 host = "127.0.0.1"
 # The port of the database
-port = 8080
+port = 3306
 # The user of the database
-user = ""
+user = "draftbot"
 # The password of the user of the database
-password = ""
+password = "secret_password"
 # The root password, used to create the databases
-root_password = ""
+root_password = "super_secret_password"
 
 
 [discord_bot_list]

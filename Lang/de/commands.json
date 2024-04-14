@@ -3,6 +3,33 @@
     "description": "Bei den Auszeichnungen handelt es sich um komplizierte Unterscheidungen, die geschaffen wurden, um diejenigen zu belohnen, die die Entwicklung des Bots am stärksten unterstützt haben. Die Liste der Badges ist auf dem Bot Guide erhältlich.\n(über diesen Link: https://guide.draftbot.com/notions-avancees/badges)",
     "title": ":military_medal: Detaillierte Informationen:"
   },
+  "pet": {
+    "embedTitle": "Familier de {{pseudo}} :",
+    "petField": "**Type :** {{emote}} {{typeName}}\n**Surnom :** {{nickname}}\n\n**Rareté :** {{rarity}}\n**Sexe :** {{sex}}\n**Mentalité :** {{loveLevel}}",
+    "noNickname": "Aucun surnom",
+    "loveLevels": {
+      "0_male": ":smirk_cat: Fielleux",
+      "0_female": ":smirk_cat: Fielleuse",
+      "1_male": ":pouting_cat: Sauvage",
+      "1_female": ":pouting_cat: Sauvage",
+      "2_male": ":scream_cat: Craintif",
+      "2_female": ":scream_cat: Craintive",
+      "3_male": ":smiley_cat: Apprivoisé",
+      "3_female": ":smiley_cat: Apprivoisée",
+      "4_male": ":heart_eyes_cat: Dressé",
+      "4_female": ":heart_eyes_cat: Dressée"
+    },
+    "hungry": "🤤 affamé",
+    "diet": {
+      "diet_null": "🥪 Omnivore",
+      "diet_herbivorous": "🥬 Herbivore",
+      "diet_carnivorous": "🥩 Carnivore"
+    },
+    "sexDisplay": {
+      "female": "Femelle",
+      "male": "Mâle"
+    }
+  },
   "guild": {
     "embedTitle": "Guilde {{guildName}} | Niveau {{level}}",
     "description": ":scroll: `{{description}}`",
@@ -399,5 +426,12 @@
   "vote": {
     "description": "Dies ist der Link zur Unterstützung des Bot-Bots:\nhttps://top.gg/bot/448110812801007618",
     "title": ":ballot_box: Voter"
+  },
+  "map": {
+    "title": "{{pseudo}}, voici la carte !",
+    "description": {
+      "ongoing": "Actuellement, vous vous dirigez {{particle}} **{{emote}} {{destination}}**.\n> {{description}}",
+      "arrived": "Vous êtes arrivé à votre destination.\n> **{{emote}} {{destination}}**.\n> {{description}}"
+    }
   }
 }

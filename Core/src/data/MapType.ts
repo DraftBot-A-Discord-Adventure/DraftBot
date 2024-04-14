@@ -1,8 +1,6 @@
 import {DataControllerString} from "./DataController";
 import {Data} from "./Data";
-export class MapType extends Data<string> {
-	declare readonly emote: string;
-}
+export class MapType extends Data<string> {}
 
 export class MapTypeDataController extends DataControllerString<MapType> {
 	static readonly instance: MapTypeDataController = new MapTypeDataController("mapTypes");

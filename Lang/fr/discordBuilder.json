@@ -43,6 +43,20 @@
     "description": "Affiche la latence du bot et permet au joueur de vérifier si le bot est en ligne.",
     "name": "ping"
   },
+  "pet": {
+    "description": "Afficher les informations du familier d'un joueur.",
+    "name": "familier",
+    "options": {
+      "rank": {
+        "description": "Le classement du joueur dont le familier doit être affiché.",
+        "name": "classement"
+      },
+      "user": {
+        "description": "L'utilisateur dont le familier doit être affiché.",
+        "name": "utilisateur"
+      }
+    }
+  },
   "guild": {
     "description": "Affiche des informations sur une guilde.",
     "name": "guilde",
@@ -104,5 +118,9 @@
   "vote": {
     "description": "Afficher le lien permettant de voter pour le bot.",
     "name": "vote"
+  },
+  "map": {
+    "description": "Affiche la carte pour indiquer où vous allez.",
+    "name": "carte"
   }
 }

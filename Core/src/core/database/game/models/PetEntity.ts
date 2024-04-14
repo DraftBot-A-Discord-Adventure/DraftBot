@@ -1,9 +1,8 @@
 import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
 import {RandomUtils} from "../../../utils/RandomUtils";
 import {MissionsController} from "../../../missions/MissionsController";
-import {PET_ENTITY_GIVE_RETURN, PetEntityConstants} from "../../../../../../Lib/src/constants/PetEntityConstants";
+import {PET_ENTITY_GIVE_RETURN, PetConstants} from "../../../../../../Lib/src/constants/PetConstants";
 import {Player, PlayerEditValueParameters} from "./Player";
-import {PetConstants} from "../../../../../../Lib/src/constants/PetConstants";
 import {Guild, Guilds} from "./Guild";
 import {GuildPets} from "./GuildPet";
 import {Pet, PetDataController} from "../../../../data/Pet";
@@ -15,7 +14,7 @@ import moment = require("moment");
 export class PetEntity extends Model {
 	declare readonly id: number;
 
-	declare petId: number;
+	declare typeId: number;
 
 	declare sex: string;
 
@@ -38,10 +37,6 @@ export class PetEntity extends Model {
 		}
 		return PetConstants.BREED_COOLDOWN * petModel.rarity -
 			(new Date().valueOf() - this.hungrySince.valueOf());
-	}
-
-	public getPetEmote(petModel: Pet): string {
-		return this.sex === "m" ? petModel.emoteMale : petModel.emoteFemale;
 	}
 
 	public getLoveLevelNumber(): number {
@@ -78,7 +73,7 @@ export class PetEntity extends Model {
 
 	/**
 	 * Give the pet entity to a player, if no space then in their guild and if no space, don't give it.
-	 * Send an embed only if send generic message is true
+	 * Send an embed only if send a generic message is true
 	 * @param player The player
 	 * @param response
 	 */
@@ -89,7 +84,7 @@ export class PetEntity extends Model {
 			giveInGuild: false,
 			giveInPlayerInv: false,
 			noRoomInGuild: false,
-			petId: this.petId,
+			petTypeId: this.typeId,
 			petSex: this.sex
 		};
 
@@ -136,9 +131,9 @@ export class PetEntities {
 		});
 	}
 
-	static createPet(petId: number, sex: string, nickname: string): PetEntity {
+	static createPet(typeId: number, sex: string, nickname: string): PetEntity {
 		return PetEntity.build({
-			petId,
+			typeId,
 			sex,
 			nickname,
 			lovePoints: PetConstants.BASE_LOVE
@@ -153,14 +148,14 @@ export class PetEntities {
 
 		// Calculate max probability value
 		for (rarity = minRarity; rarity <= maxRarity; ++rarity) {
-			totalProbabilities += PetEntityConstants.PROBABILITIES[levelTier][rarity - 1];
+			totalProbabilities += PetConstants.PROBABILITIES[levelTier][rarity - 1];
 		}
 
 		let randomTier = RandomUtils.draftbotRandom.real(0, totalProbabilities, true);
 
 		// Remove the rarity probabilities and stop when going under 0 to pick a rarity
 		for (rarity = minRarity; rarity <= maxRarity; ++rarity) {
-			randomTier -= PetEntityConstants.PROBABILITIES[levelTier][rarity - 1];
+			randomTier -= PetConstants.PROBABILITIES[levelTier][rarity - 1];
 			if (randomTier <= 0) {
 				break;
 			}
@@ -172,7 +167,7 @@ export class PetEntities {
 		}
 		const pet = PetDataController.instance.getRandom(rarity);
 		return PetEntity.build({
-			petId: pet.id,
+			typeId: pet.id,
 			sex,
 			nickname: null,
 			lovePoints: PetConstants.BASE_LOVE
@@ -237,7 +232,7 @@ export function initModel(sequelize: Sequelize): void {
 			primaryKey: true,
 			autoIncrement: true
 		},
-		petId: {
+		typeId: {
 			type: DataTypes.INTEGER
 		},
 		sex: {
