@@ -1861,7 +1861,7 @@
   },
   "56": {
     "possibilities": {
-      "": {
+      "beach": {
         "outcomes": {
           "0": "You approach the turquoise sea with the firm intention of taking a midnight swim. Leaving your belongings at the water's edge, you will swim a few fathoms before returning to the sand. You see with anger the disappearance of a part of your money as well as the tent of the charlatan.",
           "1": "As you wander among the rocks, you spot a horde of these little crustaceans famous for their great presence on this beach. You observe them for a few moments before heading back.",
@@ -1869,12 +1869,36 @@
         },
         "text": "Ignore the alchemist and go enjoy the beach."
       },
+      "drinkBlack": {
+        "outcomes": {
+          "0": "Considering that it's easy money, you serve as a gruffo guinea pig. This gives you a steaming, blackish liquid. After having drunk a few unsavory sips of it and having waited for what seems like an eternity, you suddenly vomit and then have violent convulsions. It will take you almost forty minutes to come back to your minds to continue your adventure.",
+          "1": "Considering that this is easy money, you agree to serve as Gruffo's guinea pig. He gives you a vial containing carbonated liquid. Once drunk, the liquid immediately plunges you into a deep sleep. You wake up three hours later, comfortably installed on a branch of a coconut tree. At the foot of it, you discover an enamelled purse filled with gold!"
+        },
+        "text": "Drink the black potion."
+      },
+      "drinkRandom": {
+        "outcomes": {
+          "0": "Not without a hint of concern, you accept Gruffo's proposal. He gives you a tanned colored vial. Thinking of the financial compensation, you decide to drink it all at once. Immediately, a burning sensation invades your throat. At the end of ten minutes, you stammered, see trouble. You are completely drunk! Seized with strong nausea, you try to strike a blow at Gruffo who easily dodges it. No grudge for a penny, this one makes you comfortable on his bench. You harp the stunted charlatan alchemist for a moment before he deigns to hold his end of the march.",
+          "1": "You accept impulsively while refusing a sum of money from Gruffo. Indeed, participating in a potential scientific discovery swells you with honor! The alchemist hands you a tiny vial filled with a crimson liquid. It takes only one sip to empty the contents, and you will feel a pleasant warmth spreading throughout your body. Here you are in much better shape!",
+          "2": "Lured by the greed, you enthusiastically accept Gruffo's proposal. You quietly drink the scarlet liquid handed to you by the alchemist. Once done, Gruffo gives you a disappointed look while justifying that his experimental drink is effective immediately. While promising you that you will not be sick, he throws you out of his tent. A little bitter not to see the shadow of a penny, you feel good to continue your journey.",
+          "3": "With suspicion and apprehension, you decide to drink in one go the sapphire-colored beverage that Gruffo hands you. Immediately, a freezing cold grips your entire body. As you painfully apostrophe Gruffo shriveled charlatan, he settles you into a heap of warm blankets."
+        },
+        "text": "Drink a random potion."
+      },
       "end": {
         "outcomes": {
           "0": "You end up accepting Gruffo's enticing offer. This one asks you to wait a little, the time it brings you your liquid. While you are carefully studying a still, a powerful blow falls on your pretty skull.",
           "1": "In front of your inert air, Gruffo gets impatient and throws you out of his tent, making you pay for his wasted time. You get back on your road without any delay!",
           "2": "Faced with your inability to make up your mind, Gruffo does not insist and offers you a cup of black tea. You discuss for many minutes everything except alchemy! You resume your way as the moon shyly lights up the beach."
         }
+      },
+      "refuse": {
+        "outcomes": {
+          "0": "You prefer to politely decline Gruffo's offer while wondering how to find a safe place to sleep. Seeing your worried face, Gruffo suggests that you stay in his tent while the sun rises. You accept wholeheartedly and fall asleep, serene.",
+          "1": "You refuse to serve as a guinea pig for the alchemist. He then offers you to make your own potion and taken aback by this new proposal, you accept. After some research, you end up making a translucent liquid. You hesitate a few moments before drinking your mixture all at once. Long minutes later, you are seized with dizziness and funny hallucinations where you see your dear princess. Almost an hour of rest will be necessary to allow you to resume your adventure.",
+          "2": "You categorically refuse the alchemist's proposal. He seems disappointed, so you decide to have a chat with him for a while. During the discussion, you ask him where all his alchemical knowledge comes from and it is with a touch of bitterness that he gives you the name of this famous minstrel known throughout the all country: Périssien. However, Gruffo will not answer you about the location of his master. Not wanting to insist, you thank him for this interesting conversation and decide to get back on your way."
+        },
+        "text": "Refuse Gruffo's proposal."
       }
     },
     "text": "You approach Sentinel Beach, the fresh air fills your lungs and the salty smell of the sea reaches your nostrils. As you go forward, the sea wind strengthens and the sound of seagulls can be heard. The sun is starting to set, you need to find a safe place for the night. A few more steps allow you to discern a tent pitched at the top of a dune. Upon entering, a man called Gruffo explains to you that he is an alchemist looking for a guinea pig to test his new substances, in exchange for a substantial sum of money."
