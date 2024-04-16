@@ -1861,13 +1861,29 @@
   },
   "56": {
     "possibilities": {
-      "": {
+      "beach": {
         "outcomes": {
-          "0": "Te acercas al mar turquesa con la firme intención de darte un chapuzón a medianoche. Dejas tus pertenencias en la orilla y nadas unas brazas antes de volver a la arena. Enfadado, te das cuenta de que parte de tu dinero ha desaparecido, junto con la tienda del charlatán.",
-          "1": "Mientras pasea por las rocas, divisa una horda de estos pequeños crustáceos, famosos por su presencia en la playa. Los observas unos instantes antes de emprender el camino de vuelta.",
-          "2": "Como aún no has comido, decides aprovechar los recursos de la playa para llenar tu estómago vacío. Mientras escarbas bajo una roca en busca de crustáceos, un gran pájaro levanta el vuelo y coge el cangrejo ermitaño que acabas de ver. Sorprendido, saltas hacia atrás, tu pie resbala y te tuerces el tobillo contra las rocas."
+          "0": "Vous vous approchez de la mer turquoise avec la ferme intention d'y prendre un bain de minuit. Laissant vos affaires au bord de l'eau, vous allez nager quelques brasses avant de revenir sur le sable. Vous constatez avec colère la disparition d'une partie de votre argent ainsi que la tente du charlatan.",
+          "1": "Alors que vous vagabondez dans les rochers, vous apercevez une horde de ces petits crustacés célèbres pour leur grande présence sur cette plage. Vous les observez quelques instants avant de prendre le chemin du retour.",
+          "2": "N'ayant pas encore mangé, vous décidez de tirer profit des ressources de cette plage afin de remplir un peu votre estomac vide. Tandis que vous fouillez sous une pierre à la recherche de crustacés, un grand oiseau prend son envol et vient attraper le bernard l'ermite que vous veniez d'apercevoir. Surpris, vous faites un mouvement de recul, votre pied dérape et vous vous foulez la cheville dans les rochers."
         },
-        "text": "Ignora al alquimista y vete a disfrutar de la playa."
+        "text": "Ignorer l'alchimiste et aller profiter de la plage."
+      },
+      "drinkBlack": {
+        "outcomes": {
+          "0": "Considérant que c'est de l'argent facile, vous acceptez de servir de cobaye à Gruffo. Celui-ci vous donne une décoction fumante et noirâtre. Après en voir bu quelques gorgées peu ragoûtantes et avoir patienté ce qui vous semble être une éternité, vous êtes soudain pris de vomissements puis de violentes convulsions. Il vous faudra presque quarante minutes pour reprendre vos esprits afin de poursuivre votre aventure.",
+          "1": "Considérant que c'est de l'argent facile, vous acceptez de servir de cobaye à Gruffo. Celui-ci vous donne une fiole contenant un liquide charbonné. Une fois bu, la décoction vous plonge immédiatement dans un profond sommeil. Vous vous réveillez trois heures plus tard, confortablement installé sur une branche d'un cocotier. Au pied de celui-ci, vous découvrez une bourse émaillée remplie d'or !"
+        },
+        "text": "Boire la potion noire."
+      },
+      "drinkRandom": {
+        "outcomes": {
+          "0": "Non sans une pointe d'inquiétude, vous acceptez la proposition de Gruffo. Celui-ci vous tend une fiole de couleur tannée. Pensant à la compensation financière, vous décidez de la boire d'une traite. Immédiatement, une sensation de brûlure envahit votre gorge. Au bout d'une dizaine de minutes, vous balbutiez, voyez trouble. Vous êtes complètement ivre ! Pris de fortes nausées, vous tentez de porter un coup à Gruffo qui l'esquive aisément. Pas rancunier pour un sou, celui-ci vous installe confortablement sur sa paillasse. Vous harpaillez l'alchimiste de charlatan rabougri pendant un moment avant qu'il ne daigne tenir sa part du marché.",
+          "1": "Vous acceptez avec impulsivité tout en refusant une quelconque somme d'argent de la part de Gruffo. En effet, participer à une potentielle découverte scientifique vous gonfle d'honneur ! L'alchimiste vous tend une minuscule fiole remplie d'un liquide cramoisi. Une seule gorgée est nécessaire pour en vider le contenu, vous sentez alors une agréable chaleur se répandre dans l'ensemble de votre corps. Vous voilà en bien meilleure forme !",
+          "2": "Alléché par l'appât du gain, vous acceptez avec enthousiasme la proposition de Gruffo. Vous buvez tranquillement le liquide écarlate que vous tend l'alchimiste. Une fois fait, Gruffo vous lance un regard dépité tout en vous justifiant que son breuvage expérimental est à effet immédiat. Tout en vous promettant que vous ne serez pas malade, il vous jette au dehors de sa tente. Un peu amer de ne pas voir l'ombre d'un sou, vous jugez bon de continuer votre périple.",
+          "3": "Avec méfiance et appréhension, vous décidez de boire d'une traite le breuvage couleur saphir que Gruffo vous tend. Immédiatement, un froid glacial saisit l'entièreté de votre corps. Alors que vous apostrophez péniblement Gruffo de charlatan racorni, celui-ci vous installe dans un monceau de couvertures chaudes."
+        },
+        "text": "Boire une potion au hasard."
       },
       "end": {
         "outcomes": {
@@ -1875,6 +1891,14 @@
           "1": "Gruffo se impacienta contigo y te echa de su tienda, no sin cobrarte por el tiempo que acabas de perder. Enseguida vuelves a la carretera.",
           "2": "Ante tu incapacidad para decidirte, Gruffo no insiste y te ofrece una taza de té negro. Habláis durante varios minutos de todo menos de alquimia. Continuáis vuestro camino mientras la luna ilumina tímidamente la playa."
         }
+      },
+      "refuse": {
+        "outcomes": {
+          "0": "Vous préférez refuser poliment l'offre de Gruffo tout en vous demandant comment trouver un endroit sûr où dormir. En voyant votre mine inquiète, Gruffo vous propose de rester dans sa tente le temps que le soleil se lève. Vous acceptez de bon coeur et vous endormez, serein.",
+          "1": "Vous refusez de servir de cobaye à l'alchimiste. Celui-ci vous propose alors de réaliser votre propre potion et interloqué par cette nouvelle proposition, vous acceptez. Après quelques recherches, vous finissez par réaliser une décoction translucide. Vous hésitez quelques instants avant de boire votre mélange d'un trait. De longues minutes plus tard, vous êtes pris de vertige et d'hallucinations cocasses où vous voyez votre chère princesse. Presque une heure de repos sera nécessaire pour vous permettre de reprendre votre aventure.",
+          "2": "Vous refusez catégoriquement la proposition de l'alchimiste. Celui-ci semble déçu, si bien que vous décidez de converser un moment avec lui. Au fil de la discussion, vous lui demandez d'où lui viennent toutes ses connaissances alchimiques et c'est avec une pointe d'amertume qu'il vous donne le nom de ce célèbre ménestrel connu à travers tout le pays : Périssien. Gruffo ne vous répondra pourtant pas quant à la localisation de son maître. Ne voulant pas insister, vous le remerciez pour cette intéressante conversation et décidez de reprendre votre route."
+        },
+        "text": "Refuser la proposition de Gruffo."
       }
     },
     "text": "Al acercarse a la playa de Sentinel, el aire fresco llena los pulmones y el aroma yodado del mar llega a las fosas nasales. A medida que avanza, la brisa marina se hace más fuerte y se oye el sonido de las gaviotas. Pero cuando el sol empieza a ponerse, necesitas encontrar un lugar seguro para pasar la noche. Unos pasos más y distingues una tienda en lo alto de una duna. Al entrar, un hombre llamado Gruffo te explica que es un alquimista que busca un conejillo de indias para probar sus nuevas sustancias, a cambio de una importante suma de dinero."
