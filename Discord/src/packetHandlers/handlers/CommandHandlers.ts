@@ -17,8 +17,11 @@ import {handleCommandRarityPacketRes} from "../../commands/player/RarityCommand"
 import {handleCommandTestPacketRes} from "../../commands/admin/TestCommand";
 import {handleCommandGuildPacketRes} from "../../commands/guild/GuildCommand";
 import {CommandGuildPacketRes} from "../../../../Lib/src/packets/commands/CommandGuildPacket";
-import {reportResult} from "../../commands/player/ReportCommand";
-import {CommandReportBigEventResultRes} from "../../../../Lib/src/packets/commands/CommandReportPacket";
+import {reportResult, reportTravelSummary} from "../../commands/player/ReportCommand";
+import {
+	CommandReportBigEventResultRes,
+	CommandReportTravelSummaryRes
+} from "../../../../Lib/src/packets/commands/CommandReportPacket";
 import {CommandMapDisplayRes} from "../../../../Lib/src/packets/commands/CommandMapPacket";
 import {handleCommandMapDisplayRes} from "../../commands/player/MapCommand";
 import { CommandPetPacketRes } from "../../../../Lib/src/packets/commands/CommandPetPacket";
@@ -77,6 +80,11 @@ export default class CommandHandlers {
 	@packetHandler(CommandReportBigEventResultRes)
 	async reportResultRes(socket: WebSocket, packet: CommandReportBigEventResultRes, context: PacketContext): Promise<void> {
 		await reportResult(packet, context);
+	}
+
+	@packetHandler(CommandReportTravelSummaryRes)
+	async reportTravelSummaryRes(socket: WebSocket, packet: CommandReportTravelSummaryRes, context: PacketContext): Promise<void> {
+		await reportTravelSummary(packet, context);
 	}
 
 	@packetHandler(CommandMapDisplayRes)

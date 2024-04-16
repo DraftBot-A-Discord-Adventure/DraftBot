@@ -4,7 +4,7 @@ import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {
 	CommandReportBigEventResultRes,
-	CommandReportPacketReq
+	CommandReportPacketReq, CommandReportTravelSummaryRes
 } from "../../../../Lib/src/packets/commands/CommandReportPacket";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {
@@ -24,10 +24,15 @@ import {
 } from "discord.js";
 import {DiscordCache} from "../../bot/DiscordCache";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
-import {sendInteractionNotForYou} from "../../utils/ErrorUtils";
+import {effectsErrorTextValue, sendInteractionNotForYou} from "../../utils/ErrorUtils";
 import {Constants} from "../../../../Lib/src/constants/Constants";
 import {Effect} from "../../../../Lib/src/enums/Effect";
-import {minutesDisplay} from "../../../../Lib/src/utils/TimeUtils";
+import {
+	millisecondsToHours,
+	millisecondsToMinutes,
+	minutesDisplay,
+	printTimeBeforeDate
+} from "../../../../Lib/src/utils/TimeUtils";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {ReactionCollectorChooseDestinationReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorChooseDestination";
 import {Language} from "../../../../Lib/src/Language";
@@ -232,6 +237,154 @@ export async function chooseDestinationCollector(packet: ReactionCollectorCreati
 			DiscordCollectorUtils.sendReaction(packet, context, user, firstReaction, parseInt(firstReaction.customId));
 		}
 	});
+}
+
+function isCurrentlyInEffect(packet: CommandReportTravelSummaryRes, now: number): boolean {
+	const effectStartTime = packet.effectEndTime && packet.effectDuration ? packet.effectEndTime - packet.effectDuration : 0;
+	return !(now < effectStartTime || now > (packet.effectEndTime ?? 0));
+}
+
+/**
+ * Generates a string representing the player walking form a map to another
+ * @param packet
+ * @param now
+ * @returns {Promise<string>}
+ */
+function generateTravelPathString(packet: CommandReportTravelSummaryRes, now: number): string {
+	// Calculate trip duration
+	const tripDuration = packet.arriveTime - packet.startTime - (packet.effectDuration ?? 0);
+
+	// Player travelled time
+	let playerTravelledTime = now - packet.startTime;
+	const isInEffectTime = isCurrentlyInEffect(packet, now);
+	const effectStartTime = packet.effectEndTime && packet.effectDuration ? packet.effectEndTime - packet.effectDuration : 0;
+	if (now > (packet.effectEndTime ?? 0)) {
+		playerTravelledTime -= packet.effectDuration ?? 0;
+	}
+	else if (isInEffectTime) {
+		playerTravelledTime -= now - effectStartTime;
+	}
+
+	const playerRemainingTravelTime = tripDuration - playerTravelledTime;
+
+	let percentage = playerTravelledTime / tripDuration;
+
+	const remainingHours = Math.floor(millisecondsToHours(playerRemainingTravelTime));
+	let remainingMinutes = Math.floor(millisecondsToMinutes(playerRemainingTravelTime - remainingHours * 3600000));
+	if (remainingMinutes === 60) {
+		remainingMinutes = 59;
+	}
+	if (remainingMinutes === remainingHours && remainingHours === 0) {
+		remainingMinutes++;
+	}
+	const timeRemainingString = `**[${remainingHours}h${remainingMinutes < 10 ? "0" : ""}${remainingMinutes}]**`;
+	if (percentage > 1) {
+		percentage = 1;
+	}
+	let index = Constants.REPORT.PATH_SQUARE_COUNT * percentage;
+
+	index = Math.floor(index);
+
+	let str = `${DraftBotIcons.map_types[packet.startMap.type]} `;
+
+	for (let j = 0; j < Constants.REPORT.PATH_SQUARE_COUNT; ++j) {
+		if (j === index) {
+			if (!isInEffectTime) {
+				str += packet.isOnBoat ? "🚢" : "🧍";
+			}
+			else {
+				str += DraftBotIcons.effects[packet.effect!];
+			}
+		}
+		else {
+			str += "■";
+		}
+		if (j === Math.floor(Constants.REPORT.PATH_SQUARE_COUNT / 2) - 1) {
+			str += timeRemainingString;
+		}
+	}
+
+	return `${str} ${DraftBotIcons.map_types[packet.endMap.type]}`;
+}
+
+export async function reportTravelSummary(packet: CommandReportTravelSummaryRes, context: PacketContext): Promise<void> {
+	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
+	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
+
+	if (interaction) {
+		const now = Date.now();
+		const travelEmbed = new DraftBotEmbed();
+		travelEmbed.formatAuthor(i18n.t("commands:report.travelPathTitle", { lng: interaction.userLanguage }), interaction.user);
+		travelEmbed.setDescription(generateTravelPathString(packet, now));
+		travelEmbed.addFields({
+			name: i18n.t("commands:report.startPoint", { lng: interaction.userLanguage }),
+			value: `${DraftBotIcons.map_types[packet.startMap.type]} ${i18n.t(`models:map_locations.${packet.startMap.id}.name`, {lng: interaction.userLanguage})}`,
+			inline: true
+		});
+		travelEmbed.addFields({
+			name: i18n.t("commands:report.endPoint", { lng: interaction.userLanguage }),
+			value: `${DraftBotIcons.map_types[packet.endMap.type]} ${i18n.t(`models:map_locations.${packet.endMap.id}.name`, {lng: interaction.userLanguage})}`,
+			inline: true
+		});
+
+		if (isCurrentlyInEffect(packet, now)) {
+			const errorMessageObject = effectsErrorTextValue(user, interaction.userLanguage, true, packet.effect!, packet.effectEndTime! - now);
+			travelEmbed.addFields({
+				name: errorMessageObject.title,
+				value: errorMessageObject.description,
+				inline: false
+			});
+		}
+		else if (packet.nextStopTime > packet.arriveTime) {
+			// If there is no small event before the big event, do not display anything
+			travelEmbed.addFields({
+				name: i18n.t("commands:report.travellingTitle", { lng: interaction.userLanguage }),
+				value: i18n.t("commands:report.travellingDescriptionEndTravel", { lng: interaction.userLanguage })
+			});
+		}
+		else {
+			const timeBeforeSmallEvent = printTimeBeforeDate(packet.nextStopTime);
+			travelEmbed.addFields({
+				name: i18n.t("commands:report.travellingTitle", { lng: interaction.userLanguage }),
+				value: packet.lastSmallEventId
+					?
+					i18n.t("commands:report.travellingDescription", {
+						lng: interaction.userLanguage,
+						smallEventEmoji: DraftBotIcons.small_events[packet.lastSmallEventId],
+						time: timeBeforeSmallEvent,
+						interpolation: { escapeValue: false }
+					}) :
+					i18n.t("commands:report.travellingDescriptionWithoutSmallEvent", {
+						lng: interaction.userLanguage,
+						time: timeBeforeSmallEvent,
+						interpolation: { escapeValue: false }
+					})
+			});
+		}
+
+		if (packet.energy.show) {
+			travelEmbed.addFields({
+				name: i18n.t("commands:report.remainingEnergyTitle", { lng: interaction.userLanguage }),
+				value: `⚡ ${packet.energy.current} / ${packet.energy.max}`,
+				inline: true
+			});
+		}
+		if (packet.points.show) {
+			travelEmbed.addFields({
+				name: i18n.t("commands:report.collectedPointsTitle", { lng: interaction.userLanguage }),
+				value: `🏅 ${packet.points.cumulated}`,
+				inline: true
+			});
+		}
+
+		const advices = i18n.t("advices:advices", { returnObjects: true, lng: interaction.userLanguage });
+		travelEmbed.addFields({
+			name: i18n.t("commands:report.adviceTitle", { lng: interaction.userLanguage }),
+			value: advices[Math.floor(Math.random() * advices.length)],
+			inline: true
+		});
+		await interaction.editReply({embeds: [travelEmbed]});
+	}
 }
 
 export const commandInfo: ICommand = {

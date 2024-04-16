@@ -10,6 +10,9 @@ export const DraftBotIcons: {
 	map_types: {
 		[mapType: string]: string
 	},
+	small_events: {
+		[smallEventId: string]: string
+	},
 	pets: {
 		[petId: string]: {
 			emoteFemale: string,
@@ -503,12 +506,15 @@ export const DraftBotIcons: {
 			"otherWay": "🚶"
 		},
 		"56": {
-			"": "🏖️",
+			"beach": "🏖",
+			"drinkBlack": "⚫",
+			"drinkRandom": "🍸",
 			"end": {
 				"0": "💥",
 				"1": "😶",
 				"2": "🍵"
-			}
+			},
+			"refuse": "❌"
 		},
 		"57": {
 			"continue": "🌊",
@@ -721,6 +727,40 @@ export const DraftBotIcons: {
 		"tundra": "🌲",
 		"vi": "🛖",
 		"volcano": "🌋"
+	},
+	"small_events": {
+		"advanceTime": "⌛",
+		"bigBadEvent": "😱",
+		"boatAdvice": "⛴️",
+		"bonusGuildPVEIsland": "😱",
+		"botFacts": "💮",
+		"botVote": "🗳️",
+		"cart": "🚗",
+		"class": "🔖",
+		"doNothing": "🚶",
+		"epicItemShop": "🌟",
+		"fightPet": "😾",
+		"findItem": "❕",
+		"findMission": "📜",
+		"findPet": "🐕",
+		"findPotions": "⚗️",
+		"goToPVEIsland": "⛴️",
+		"gobletsGame": "🥛",
+		"interactOtherPlayers": "💬",
+		"leagueReward": "✨",
+		"lottery": "🎰",
+		"pet": "🐕‍🦺",
+		"shop": "🛒",
+		"smallBadEvent": "😖",
+		"space": "🪐",
+		"staffMember": "📖",
+		"ultimateFoodMerchant": "🍲",
+		"winEnergy": "⚡",
+		"winFightPoints": "🔋",
+		"winGuildXP": "⭐",
+		"winHealth": "❤️",
+		"winPersonalXP": "⭐",
+		"witch": "🧹"
 	},
 	"pets": {
 		"0": {

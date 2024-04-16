@@ -41,6 +41,12 @@ import * as deEvents from "../../../Lang/de/events.json";
 import * as esEvents from "../../../Lang/es/events.json";
 import * as ptEvents from "../../../Lang/pt/events.json";
 import * as itEvents from "../../../Lang/it/events.json";
+import * as enAdvices from "../../../Lang/en/advices.json";
+import * as frAdvices from "../../../Lang/fr/advices.json";
+import * as deAdvices from "../../../Lang/de/advices.json";
+import * as esAdvices from "../../../Lang/es/advices.json";
+import * as ptAdvices from "../../../Lang/pt/advices.json";
+import * as itAdvices from "../../../Lang/it/advices.json";
 import {LANGUAGE} from "../../../Lib/src/Language";
 
 // Todo load automatically modules
@@ -55,7 +61,8 @@ i18next.init({
 			error: enError,
 			items: enItems,
 			models: enModels,
-			events: enEvents
+			events: enEvents,
+			advices: enAdvices
 		},
 		fr: {
 			bot: frBot,
@@ -64,7 +71,8 @@ i18next.init({
 			error: frError,
 			items: frItems,
 			models: frModels,
-			events: frEvents
+			events: frEvents,
+			advices: frAdvices
 		},
 		de: {
 			bot: deBot,
@@ -73,7 +81,8 @@ i18next.init({
 			error: deError,
 			items: deItems,
 			models: deModels,
-			events: deEvents
+			events: deEvents,
+			advices: deAdvices
 		},
 		es: {
 			bot: esBot,
@@ -82,7 +91,8 @@ i18next.init({
 			error: esError,
 			items: esItems,
 			models: esModels,
-			events: esEvents
+			events: esEvents,
+			advices: esAdvices
 		},
 		pt: {
 			bot: ptBot,
@@ -91,7 +101,8 @@ i18next.init({
 			error: ptError,
 			items: ptItems,
 			models: ptModels,
-			events: ptEvents
+			events: ptEvents,
+			advices: ptAdvices
 		},
 		it: {
 			bot: itBot,
@@ -100,7 +111,8 @@ i18next.init({
 			error: itError,
 			items: itItems,
 			models: itModels,
-			events: itEvents
+			events: itEvents,
+			advices: itAdvices
 		}
 	}
 }).then();
