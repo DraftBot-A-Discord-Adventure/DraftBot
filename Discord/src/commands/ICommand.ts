@@ -16,7 +16,7 @@ export interface ICommand {
 	requirements: {
 		requiredLevel?: number,
 		disallowEffects?: Effect[],
-		allowEffects?: string[],
+		allowEffects?: Effect[],
 		userPermission?: string,
 		guildRequired?: boolean,
 		guildPermissions?: number
