@@ -12,7 +12,7 @@ export class CommandPetPacketRes extends DraftBotPacket {
 
 	data?: {
 		nickname: string,
-		typeId: number,
+		petTypeId: number,
 		rarity: number,
 		sex: string,
 		loveLevel: number
