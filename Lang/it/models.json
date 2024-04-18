@@ -825,7 +825,7 @@
     "petEarnHealth": "Ottenere della vita con un animale domestico",
     "reachGlory": "Avere {{objective}} punti gloria o più",
     "reachLevel": "Raggiungere il livello {{objective}}",
-    "reachScore": "Punteggio superiore a {{objective}}🏅",
+    "reachScore": "Avere un punteggio superiore a {{objective}} 🏅",
     "recoverAlteration_one": "Recuperarsi da {{objective}} alterazione di stato",
     "recoverAlteration_other": "Recuperarsi da {{objective}} alterazione di stato",
     "sellItemWithGivenCost_one": "Vendere {{objective}} attrezzatura per più di {{variantText}}💰",

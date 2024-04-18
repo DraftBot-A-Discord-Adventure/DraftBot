@@ -1207,123 +1207,123 @@
     "possibilities": {
       "corrupt": {
         "outcomes": {
-          "0": "The jailer accepts your bribe and lets you go. However, he does not notice that your cellmate steals the bribe from him right after.",
-          "1": "The corrupt jailer accepts your bribe, he brings you a delicious meal. You eat well, then he frees you.",
-          "2": "The jailer accepts your bribe and sets you free. However, it was a trap. He convinced some guards that you escaped and they start to chase after you, ultimately putting you back in jail.",
-          "3": "The jailer tells you he is not this type of a person and leaves you in the cell. You eventually are freed a few hours later after straightening the confusion.",
-          "4": "The jailer refuses your money without equivocation. You keep on waiting and eventually fall asleep."
+          "0": "The jailer accepts your bribe and lets you go. However, he does not notice that your cellmate steals it from him immediately afterwards.",
+          "1": "The corrupt jailer accepts your bribe, he brings you a delicious meal. You eat your fill, then he sets you free.",
+          "2": "The guard accepts your money and sets you free. However, it was all a trap, so he makes you believe you've escaped and decides to chase you down, beat you up and put you back in your cell.",
+          "3": "The jailer tells you he is not this type of person and leaves you in the cell. You are eventually freed a few hours later after having settled the matter.",
+          "4": "The guard flatly refuses your money. You wait too long and end up falling asleep."
         },
-        "text": "Try to bribe the jailer."
+        "text": "Attempt to bribe the jailer."
       },
       "end": {
         "outcomes": {
-          "0": "To pass the time, you talk with your cellmate. A few hours later, you are free to leave.",
-          "1": "You wait calmly for your release. While chatting with the jailer, you understand that you are accused of witchcraft. About an hour later, you are exculpated, and the real culprit is locked up.",
-          "2": "You ponder around your cell for some time. After a while, you fall asleep, and then wake up in some woods."
+          "0": "To pass the time, you decide to chat with another prisoner. A few hours later you're free.",
+          "1": "You wait quietly for them to release you, but as you talk to the guard you realize that you've been accused of witchcraft. Nearly an hour later, you're exonerated and the real culprit locked up.",
+          "2": "You walk around the cell as much as you can. After a while you fall asleep, and when you wake up you find yourself in the woods."
         }
       },
       "escape": {
         "outcomes": {
-          "0": "You try to escape, you tell yourself that your cellmate will be a burden so you decide to not tell him your plans. While looking for something that could be useful, you find a broken wooden slat. You try to widen the opening, without success. You abandon the idea of escaping.",
-          "1": "You decide to notify your cellmate of your plan, you make a diversion and he steals the keys from the jailer's pockets. He opens the cell when the jailer realizes the trickery. A fight ensue but your cellmate decides to help free you. You then go away very far, where you will take a delicious hot meal.",
-          "2": "You try to press on the door which seems fragile. You succeed in opening it when the jailer sees you. He starts to fight to put you back in your cell, you defend yourself at the best of your ability but you are no match for his strength."
+          "0": "You try to escape, you tell yourself that your cellmate will be a burden for you so you decide not to inform him about your evasion. While looking for something that could be useful, you find a broken wooden slat. You try to enlarge the opening, in vain, so you abandon this idea.",
+          "1": "You decide to alert your cellmate about the escape, you make a diversion to let him steal the keys from the jailer's pockets. He opens the cell when the jailer realizes the trickery. A fight ensues but your cellmate decides to set you free. You then head off to a far-off place, where you enjoy a delicious hot meal.",
+          "2": "You try to knock on the fragile-looking door. You manage to break it down successfully, when the guard sees you. He starts a fight with you to get you back into the cell, and you do your best to defend yourself, but you're no match for him."
         },
-        "text": "Try to escape."
+        "text": "Attempt to escape."
       },
       "explain": {
         "outcomes": {
-          "0": "You start explaining yourself and talk and talk However, the guard wants none of it and decides to gag you with a piece of cloth. Some hours later, you are released, and the jailer apologizes profusely, for he mistook you for a fugitive.",
-          "1": "You keep on talking, and talking. After a long time, the jailer had enough and decides to leave you alone to not hear your rambling anymore. Some hours later, you are released. On your way out the city, you find some coins on the ground near the gate.",
-          "2": "You have a lengthy talk with the jailer. When he finally understands your plight, he decides to free you and he hides you, so you can leave the city safely.",
-          "3": "You try to speak with the jailer. After 15 minutes, he loses his temper and hits you with his weapon to quiet you down."
+          "0": "You talk and talk. However, the guard doesn't want to hear it and decides to gag you. A few hours later, you're released and the guard apologizes for mistaking you for a fugitive.",
+          "1": "You talk and talk, and finally the guard decides to leave the room so as not to hear you again. A few hours later you're released and on your way out of town you find a few coins on the ground.",
+          "2": "You have a long talk with the guard. When he understands your distress, he decides to free you and hide you so that you can leave town discreetly.",
+          "3": "You try to argue with the guard. After 15 minutes, he loses his temper and hits you with his weapon to silence you."
         },
-        "text": "Try to explain yourself."
+        "text": "Try to explain."
       },
       "playDead": {
         "outcomes": {
-          "0": "You feign death in hope the jailer will throw you away so you will be able to get on your way. Everything goes according to plan. Once out and up, you decide to go rest at a nearby hostel since you are very tired due to all the commotion.",
-          "1": "The jailer does not notice you at first, but when he eventually does, he decides to check if you are truly dead. Being the bad actor you are, he easily notices you are feigning it and leaves you to rot in the cell a little bit more as a form of punishment.",
-          "2": "The jailer examines your body and you succeed in fooling him. He disposes you and once he is gone you get up and go on your way."
+          "0": "You pretend to be dead in the hope that the guard will discard your corpse and you can leave. As expected, the guard complies. Once relieved, you decide to go to the inn, as you're quite tired.",
+          "1": "The guard doesn't notice you right away, but as soon as he sees you, he decides to check if you're really dead. Poor actor that you are, he realizes this and decides to leave you in the cell for some extra time.",
+          "2": "The guard examines your body and you manage to deceive him. He disposes of your corpse. Once you've left, you get up and set off again."
         },
-        "text": "Feign death."
+        "text": "Play possum."
       },
       "wait": {
         "outcomes": {
-          "0": "You wait. As time passes on minutes start to feel like hours. Only, your jailer does not seem ready to free you quite yet.",
-          "1": "You wait, time goes slowly. After a few hours, the jailer decides to free you and make excuses for the misunderstanding.",
-          "2": "As you are waiting, the jailer starts to speak to you and you start playing together. He understands that your situation is indeed a misunderstanding, which is why he decides to invite you to dinner."
+          "0": "You wait. As time passes, the minutes seem like hours. But the person watching you doesn't seem ready to release you any time soon.",
+          "1": "You wait, the time seems long. After a few hours, the guard decides to release you and apologizes for the misunderstanding.",
+          "2": "As you are waiting, you and the guard start talking, and you start playing together. He understands that your situation is indeed a misunderstanding, which is why he invites you to dinner."
         },
         "text": "Wait for something to happen."
       }
     },
-    "text": "As you continue your journey, you reach a city. Soon after, a group of men approaches you, abducts you, and brings you inside a building. The group throws you into a cell with another person already detained in it. You quickly understand that you are in a jail and victim of a misunderstanding."
+    "text": "As you continue on your way, you come to a town. Immediately afterwards, a group of men arrive and grab you, then take you into a building. They throw you into a cell with an inmate, and you soon realize that you're in a prison and that you've been the victim of a misunderstanding."
   },
   "42": {
     "possibilities": {
       "ask": {
         "outcomes": {
-          "0": "She tells you that she happens to own one and invites you to follow her. You accept and after walking for several minutes you arrive at the destination. You are very much surprised to find out the hostel is built on the side of a cliff, into a cave. You progress confidently towards the bottom from where arise the heavenly scent of a probably delicious stew. Suddenly, you hear a muffle sound. You turn around and see a portcullis being lowered. More than a dozen thugs appear on the other side. It was a trap and you fell for it. Too weak to negotiate with an empty stomach you decide to take a sip of the stew first. Your head gets heavy as you hear a roar of laughter from the thugs. You fall unconscious. You wake up next to a river, your pockets much lighter than you remember.",
-          "1": "She provides the direction for a tavern a few kilometres from here. You go there, eat well and rest well. After paying your bill, you get back on the road."
+          "0": "She kindly replies that she runs one herself and invites you to drop in. You accept, and after a few minutes of wandering, you arrive at the inn. You're surprised to discover that it's built right into a cave. You step confidently towards the back of the cave, where an intoxicatingly fragrant soup is simmering. Then you hear a thud. You turn and see a portcullis being lowered. Fifteen or so people appear on the other side. It was a trap and you've fallen into it. Too weak to argue, you decide to taste the soup first. Your head becomes heavy, you hear the thugs laughing, and sink into a deep sleep. You wake up by a river, your pockets lighter than you remember.",
+          "1": "She provides the direction for a tavern a few kilometers from here. You go there, fill your stomach and rest. After paying your bill, you get back on the road."
         },
-        "text": "Ask her for the nearest hostel."
+        "text": "Ask for the nearest inn."
       },
       "end": {
         "outcomes": {
-          "0": "You ignore her entirely and go on your way. You arrive in a delightful little town whose lovely name is Tardans. Wandering the small streets, you come across a small money bag filled with money and an object, which could be useful for the future of your journey.",
-          "1": "You decide to leave. On the road you find some mushrooms, pick them up and eat them. However, they were inedible and so you get ill."
+          "0": "You ignore her entirely and go on your way. You arrive in a delightful little town with the lovely name of Tardans. As you enter, you come across a small money bag filled with money and an object that could be useful for the rest of your journey!",
+          "1": "You decide to leave. On the road you find some mushrooms, pick them up and swallow them. However, you fall ill because they weren't edible."
         }
       },
       "feign": {
         "outcomes": {
-          "0": "After exploring the cave for an hour you abandon the search and leave empty-handed.",
-          "1": "Backtracking to the cave you do not notice the rope between two roots. You trip over it and find yourself suddenly hanging upside down. Some thieves, alerted by the noise, swiftly rob you. The time it takes you to free yourself, the thieves are already far with your stuff.",
-          "2": "While backtracking, you get sight of what looks like another cave. You approach slowly and sniff a delicious smell. You tip-toe cautiously and succeed in stealing some food. Then, you quickly leave, afraid of being caught by a bystander witness of your crime.",
-          "3": "You enter the cave one small step at a time and start to explore it. After a dozen meters, you get sight of an imposing bear which charges you. You start to fight. After a fierce battle you slay the beast with a strong hit to the head. You skin the deceased animal, cook its meat and eat it. After filling your stomach, you get to the closest bourg to sell the bearskin."
+          "0": "After searching the cave for an hour, you give up and leave empty-handed.",
+          "1": "As you retrace your steps, you don't notice the rope stretched between two roots. You trip over it and find yourself suspended in the air. Some looters, alerted by the noise, run up and pick your pocket. By the time you set yourself free, they're long gone with their loot.",
+          "2": "Retracing your steps, you see what could be a cave in the distance. You step forward slowly and inhale the sweet smell. Tiptoeing closer, you manage to snatch a bit of food. You then set off again quickly for fear of being caught by someone who may have witnessed your petty theft.",
+          "3": "You enter the cave in small steps and begin to explore. After about fifteen meters, you come face to face with an imposing bear, which lunges at you. You engage it in combat and, after a fierce fight, manage to knock it down with a blow to the skull. You then skin it and cook the meat. Once you're satisfied, you set off in search of a merchant to whom you can sell the bear's skin."
         },
-        "text": "Feign to go on your way with the plan to come back explore alone."
+        "text": "Pretend to walk away and come back alone to search the cave."
       },
       "help": {
         "outcomes": {
-          "0": "You go to explore the cave with your torch in hand. Unfortunately, it turns out the young woman has the plague. She touches you, you're now infected.",
-          "1": "After a few minutes, you arrive next to the entrance of the cave. You progress confidently towards the bottom. Suddenly, you hear a muffle sound. You turn around and see a portcullis being lowered. More than a dozen thugs appear on the other side. It was a trap and you fell for it. After a few hours negotiating with your tormentors, they decide to let you go in exchange for a good amount of your money. You leave sheepishly, swearing endlessly that you will never be caught again.",
-          "2": "You progress with care, ready to face any trouble. It turns out that the cave is deeper than you thought, you spend a good hour looking for the bottom. Just as you decided to go back, a shiny metallic object catch your eye. Getting a closer look at it, you notice that it is a locked chest that has been wrapped in a rope. You pull on the rope which clears the lock easily. You open the chest: it contains an incredible amount of coins alongside an interesting object that you proudly claim. Out of the cave, you reassure the woman of its safety and go back on the road, satisfied of your loot.",
-          "3": "You enter the cave one small step at a time and start to explore it. After a dozen meters, you get sight of an imposing bear which charges you. You start to fight but soon get overcome. You run away as soon as you can, bloody and sweaty, passing by the astonished look of the woman."
+          "0": "You set off to explore her cave, torch in hand. Unfortunately, it turns out that the young woman had the plague and you caught it from her.",
+          "1": "After a few minutes, you arrive at the cave in question. You step confidently towards the cave floor. Then you hear a thud. You turn around and see a portcullis being lowered. Fifteen or so people appear on the other side. It was a trap, and you've fallen right into it. After several hours of parleying with your torturers, they decide to release you for a large sum of coins. You then leave, sheepishly swearing that you won't be caught again.",
+          "2": "You advance at a brisk pace, prepared for any eventuality. It turns out that the cave in question is very deep, and you spend a good hour searching for the bottom. Just as you decide to turn back, you catch a glimpse of a metallic reflection out of the corner of your eye. As you get closer, you realize that it's a chest fastened with a simple rope. You pull on the rope, which is easily removed. Then you open the chest: it contains an unimaginable quantity of coins and an object which you proudly seize. Back outside the cave, you reassure the young woman of her safety and leave, happy with your loot.",
+          "3": "You enter the cave in small steps and begin to explore. After about fifteen meters, you come face to face with an imposing bear, which lunges at you. You start to fight, but are quickly struck down. You then flee, bleeding and dripping with sweat, under the stunned gaze of the damsel."
         },
         "text": "Rush to help her."
       }
     },
-    "text": "At the bend of a road on which you have been walking, a young woman appears. You do not quite understand what she is saying, but it seems she needs help to explore a cave."
+    "text": "At the bend of a road on which you have been walking, a young woman appears. You do not quite understand what she is saying at first, but eventually realize that she needs help exploring a cave."
   },
   "43": {
     "possibilities": {
       "continue": {
         "outcomes": {
-          "0": "You continue down the road. As you pass the mysterious figure, you realize that he is a Nordic hunter. You greet each other, and you watch him set his traps. You realize that this is probably where the red liquid dripping down from his hand comes from.",
-          "1": "Curious, you approach the person, which turns out to be a Nordic hunter setting up some of his traps. You greet each other and offer him your help, which he gladly accepts. After helping him set up all his traps, he asks if you would like to spend the evening at his place. The hunter cooks some venison he had captured, you enjoy a good lamb leg in front of the fireplace. He then lets you rest some time on his bed. You leave at dawn, thanking him by giving him a few coins."
+          "0": "You continue on your way and realize that he's really just a Nordic hunter. You greet each other, and watch as he sets his traps. You realize that this is where the liquid dripping from his hand comes from.",
+          "1": "Curious, you approach the person. He's a Nordic hunter who's setting his traps. You greet each other and offer to help, which he gladly accepts. After helping him set all his traps, he asks if you'd like to spend the evening at his place. The hunter cooks the game he's caught, you revive yourself by eating a good leg of lamb in front of the fire in his fireplace, and then he lets you rest on his bed. You leave at dawn. You thank him by giving him a few coins."
         },
-        "text": "Continue down the road."
+        "text": "Continue on your way."
       },
       "end": {
         "outcomes": {
-          "0": "You ignore the person in front of you and continue along the road. A little further down you find a shiny object that you put in your bag.",
-          "1": "Out of fear you turn back around and make a detour in order to avoid crossing the creature.",
-          "2": "You run without looking any closer what it actually was. You trip over a rock in the dark which sends you falling onto your arms, now full of scratches."
+          "0": "You ignore the person in front of you, and a little further down the road you find a shiny object which you put in your bag.",
+          "1": "Out of fear, you turn back and make a detour to avoid running into the creature.",
+          "2": "You run without looking to see what it was, but you stumble in the dark over a stone. You fall on your arms, all flayed."
         }
       },
       "fight": {
         "outcomes": {
-          "0": "You start running and screaming, the man turns around and charges at you to spot your act. After you explain to him what you were thinking him to be, he tells you that you've gotten it the wrong way: he is a hunter checking his traps, not some demonic creature! You quickly apologize, and leave.",
-          "1": "You run screaming at the strange character. However, after getting closer, you realize that it's a hunter collecting some of his traps. Confused and embarrassed, you decide to help him, in order to compensate for the scene, you just caused.",
-          "2": "You draw your sword, the man turns around and sees you coming towards him. He threatens to you with an arrow if you even take a single step closer. You apologize and explain to him that you thought he was a demon and then continue on your way, full of shame."
+          "0": "You start to run screaming, but the man turns and stops you. After you explain what you're thinking, he tells you that you're on the wrong track: he's a hunter checking his traps, not some demonic creature! You quickly apologize and leave.",
+          "1": "You run screaming at the strange figure. However, as you get closer, you realize it's a hunter setting his traps. Confused, you decide to help him, to compensate him for the fright you've caused him.",
+          "2": "You draw your sword, the man turns and sees you advancing towards him. He threatens to shoot an arrow if you take another step. You apologize, explaining that you've mistaken him for a demon from afar, and then go on your way, sheepish."
         },
-        "text": "Oppose the mysterious man."
+        "text": "Confront the creature."
       },
       "goBack": {
         "outcomes": {
-          "0": "You prefer to turn back around quietly. Once you've gone far enough away, you run at full speed and take refuge in the nearest village.",
-          "1": "You slowly back away, but you misstep on a twig by accident, breaking it apart with a loud snapping sound. Frightened, you start running like a madman. During your panicked get away you trip and fall to the ground, seriously grazing your knee in the process. But because of all the adrenaline in your blood, you don't realize the severity of the wound and keep on running like a lunatic."
+          "0": "You prefer to turn back discreetly. Once you've gone far enough away, you run at full speed and take refuge in the nearest village.",
+          "1": "You slowly back away, but you step on a twig, cracking it. Frightened, you start running like a madman, but trip and fall to the ground, seriously grazing your knee in the process. Hovewer, under the adrenaline's effects, you don't realize the severity of the wound and keep on running like a lunatic."
         },
-        "text": "Turn back around."
+        "text": "Turn around."
       },
       "shelter": {
         "outcomes": {

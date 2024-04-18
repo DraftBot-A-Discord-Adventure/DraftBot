@@ -1861,13 +1861,29 @@
   },
   "56": {
     "possibilities": {
-      "": {
+      "beach": {
         "outcomes": {
-          "0": "Te acercas al mar turquesa con la firme intención de darte un chapuzón a medianoche. Dejas tus pertenencias en la orilla y nadas unas brazas antes de volver a la arena. Enfadado, te das cuenta de que parte de tu dinero ha desaparecido, junto con la tienda del charlatán.",
+          "0": "Te acercas al mar turquesa con la firme intención de darte un chapuzón a medianoche. Dejas tus pertenencias al borde del agua, te das un chapuzón antes de volver a la arena. Compruebas con rabia que parte de tu dinero ha desaparecido, junto con la tienda del charlatán.",
           "1": "Mientras pasea por las rocas, divisa una horda de estos pequeños crustáceos, famosos por su presencia en la playa. Los observas unos instantes antes de emprender el camino de vuelta.",
-          "2": "Como aún no has comido, decides aprovechar los recursos de la playa para llenar tu estómago vacío. Mientras escarbas bajo una roca en busca de crustáceos, un gran pájaro levanta el vuelo y coge el cangrejo ermitaño que acabas de ver. Sorprendido, saltas hacia atrás, tu pie resbala y te tuerces el tobillo contra las rocas."
+          "2": "Como aún no has comido, decides aprovechar los recursos de la playa para llenar tu estómago vacío. Mientras escarbas bajo una roca en busca de crustáceos, un gran pájaro vuela y coge el cangrejo ermitaño que acabas de ver. Sorprendido, saltas hacia atrás, tu pie resbala y te tuerces el tobillo contra las rocas."
         },
         "text": "Ignora al alquimista y vete a disfrutar de la playa."
+      },
+      "drinkBlack": {
+        "outcomes": {
+          "0": "Pensando que es dinero fácil, aceptas hacer de conejillo de indias de Gruffo. Te da un brebaje humeante y negruzco. Tras beber unos sorbos de mal sabor y esperar lo que parece una eternidad, de repente empiezas a vomitar, seguido de violentas convulsiones. Tardas casi cuarenta minutos en recobrar el sentido y continuar la aventura.",
+          "1": "Pensando que es dinero fácil, aceptas hacer de conejillo de indias de Gruffo. Te da un frasco que contiene un líquido de carbón vegetal. Una vez bebido, la decocción te duerme profundamente. Te despiertas tres horas más tarde, cómodamente instalado en la rama de un cocotero. Al pie del árbol, descubres un monedero esmaltado lleno de oro."
+        },
+        "text": "Bebe la poción negra."
+      },
+      "drinkRandom": {
+        "outcomes": {
+          "0": "No sin cierto temor, aceptas la propuesta de Gruffo. Te entrega un frasco de color canela. Pensando en la compensación económica, decides bebértelo de un trago. Inmediatamente, una sensación de ardor invade tu garganta. Al cabo de unos diez minutos, tartamudeas y estás confuso. ¡Estás completamente borracho! Sintiendo muchas náuseas, intentas asestar un golpe a Gruffo, que lo esquiva fácilmente. Como no es rencoroso, te acomoda en su banco. Le das la lata durante un rato antes de que se digne a cumplir su parte del trato.",
+          "1": "Aceptas impulsivamente, pero te niegas a aceptar dinero de Gruffo. Es un honor formar parte de un posible descubrimiento científico. El alquimista te entrega un pequeño frasco lleno de un líquido carmesí. Basta un sorbo para vaciar el contenido y sientes un agradable calor que se extiende por todo tu cuerpo. ¡Estás mucho mejor!",
+          "2": "Atraído por el señuelo de la ganancia, aceptas con entusiasmo la propuesta de Gruffo. Bebes tranquilamente el líquido escarlata que te entrega el alquimista. Una vez lo has hecho, Gruffo te mira abatido mientras te explica que su bebida experimental tiene un efecto inmediato. Prometiéndote que no enfermarás, te echa de su tienda. Un poco amargado por no haber visto ni un céntimo, decides continuar tu viaje.",
+          "3": "Con desconfianza y aprensión, decides beber de un trago la bebida de color zafiro que Gruffo te tiende. Inmediatamente, sientes un frío glacial por todo el cuerpo. Mientras llamas charlatán arrugado a Gruffo, éste te acomoda en un montón de mantas calientes."
+        },
+        "text": "Bebe una poción al azar."
       },
       "end": {
         "outcomes": {
@@ -1875,6 +1891,14 @@
           "1": "Gruffo se impacienta contigo y te echa de su tienda, no sin cobrarte por el tiempo que acabas de perder. Enseguida vuelves a la carretera.",
           "2": "Ante tu incapacidad para decidirte, Gruffo no insiste y te ofrece una taza de té negro. Habláis durante varios minutos de todo menos de alquimia. Continuáis vuestro camino mientras la luna ilumina tímidamente la playa."
         }
+      },
+      "refuse": {
+        "outcomes": {
+          "0": "Rechazas educadamente la oferta de Gruffo, preguntándote cómo puedes encontrar un lugar seguro para dormir. Al ver tu expresión de preocupación, Gruffo te ofrece quedarte en su tienda hasta que salga el sol. Aceptas de buen grado y te quedas dormido.",
+          "1": "Te niegas a ser el conejillo de indias del alquimista. El alquimista te sugiere que elabores tu propia poción, y te sorprende esta nueva propuesta. Tras investigar un poco, acabas preparando una decocción translúcida. Dudas unos instantes antes de beberte la mezcla de un trago. Largos minutos después, te invaden mareos y alucinaciones cómicas en las que ves a tu amada princesa. Necesitas casi una hora de descanso para reanudar tu aventura.",
+          "2": "Rechazas categóricamente la propuesta del alquimista. Parece decepcionado, así que decides charlar un rato con él. A medida que avanza la conversación, le preguntas de dónde ha sacado todos sus conocimientos de alquimia y, con un toque de amargura, te da el nombre de ese famoso juglar conocido en todo el país: Perissian. Pero Gruffo no te dice dónde está su maestro. No queriendo insistir, le das las gracias por esta interesante conversación y decides continuar tu camino."
+        },
+        "text": "Rechaza la propuesta de Gruffo."
       }
     },
     "text": "Al acercarse a la playa de Sentinel, el aire fresco llena los pulmones y el aroma yodado del mar llega a las fosas nasales. A medida que avanza, la brisa marina se hace más fuerte y se oye el sonido de las gaviotas. Pero cuando el sol empieza a ponerse, necesitas encontrar un lugar seguro para pasar la noche. Unos pasos más y distingues una tienda en lo alto de una duna. Al entrar, un hombre llamado Gruffo te explica que es un alquimista que busca un conejillo de indias para probar sus nuevas sustancias, a cambio de una importante suma de dinero."
