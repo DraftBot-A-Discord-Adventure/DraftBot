@@ -12,7 +12,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 		await context.sequelize.query(`UPDATE players SET discordId = "${id[1]}" WHERE discordId = "${id[0]}"`);
 	}
 
-	await context.renameColumn("players", "gameId", "keycloakId");
+	await context.renameColumn("players", "discordId", "keycloakId");
 
 	// Change alterations name in logs
 	for (const effect of Effect.getAll()) {

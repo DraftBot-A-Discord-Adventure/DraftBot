@@ -12,27 +12,31 @@ import {LANGUAGE} from "../../../../../../Lib/src/Language";
 import {Effect} from "../../../../../../Lib/src/enums/Effect";
 
 export async function up({context}: { context: QueryInterface }): Promise<void> {
-	const configPath = `${process.cwd()}/config/keycloak.toml`;
-	if (!existsSync(configPath)) {
-		console.error(`Please first backup your database. Then, in order to migrate from v4 to v5, please create a file at '${configPath}' with the following format:
+	const players = await context.select(null, "players") as { [key: string]: unknown }[];
+
+	if (players.length !== 0) {
+		const configPath = `${process.cwd()}/config/keycloak.toml`;
+		if (!existsSync(configPath)) {
+			console.error(`Please first backup your database. Then, in order to migrate from v4 to v5, please create a file at '${configPath}' with the following format:
 [keycloak]
 realm = "DraftBot"
 url = "http://127.0.0.1:8080"
 clientId = "discord"
 clientSecret = "secret"
 		`);
-		process.exit(1);
-	}
+			process.exit(1);
+		}
 
-	const config: { keycloak: KeycloakConfig } = parse(readFileSync(configPath, "utf-8")) as { keycloak: KeycloakConfig };
+		const config: { keycloak: KeycloakConfig } = parse(readFileSync(configPath, "utf-8")) as {
+			keycloak: KeycloakConfig
+		};
 
-	const players = await context.select(null, "players") as { [key: string]: unknown }[];
-
-	for (let i = 0; i < players.length; ++i) {
-		const player = players[i];
-		const user = await KeycloakUtils.getOrRegisterDiscordUser(config.keycloak, player.discordUserId as string, player.discordUserId as string, LANGUAGE.DEFAULT_LANGUAGE);
-		await context.sequelize.query(`UPDATE players SET discordUserId = "${user.id}" WHERE discordUserId = "${player.discordUserId}"`);
-		logsV5NewIds.set(player.discordUserId as string, user.id);
+		for (let i = 0; i < players.length; ++i) {
+			const player = players[i];
+			const user = await KeycloakUtils.getOrRegisterDiscordUser(config.keycloak, player.discordUserId as string, player.discordUserId as string, LANGUAGE.DEFAULT_LANGUAGE);
+			await context.sequelize.query(`UPDATE players SET discordUserId = "${user.id}" WHERE discordUserId = "${player.discordUserId}"`);
+			logsV5NewIds.set(player.discordUserId as string, user.id);
+		}
 	}
 
 	await context.renameColumn("players", "discordUserId", "keycloakId");
