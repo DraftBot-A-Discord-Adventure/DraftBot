@@ -4,7 +4,7 @@ import {PetConstants} from "../../../Lib/src/constants/PetConstants";
 import i18n from "../translations/i18n";
 
 export type PetData = {
-	typeId: number,
+	petTypeId: number,
 	nickname: string,
 	sex: string,
 	rarity: number,
@@ -27,8 +27,8 @@ export class PetUtils {
 		}`;
 		return i18n.t("commands:pet.petField", {
 			lng: language,
-			emote: PetUtils.getPetIcon(petData.typeId, petData.sex),
-			typeName: PetUtils.getPetTypeName(language, petData.typeId, petData.sex),
+			emote: PetUtils.getPetIcon(petData.petTypeId, petData.sex),
+			typeName: PetUtils.getPetTypeName(language, petData.petTypeId, petData.sex),
 			nickname: PetUtils.displayNickname(language, petData.nickname),
 			rarity: PetUtils.getRarityDisplay(petData.rarity),
 			sex: sexDisplay,

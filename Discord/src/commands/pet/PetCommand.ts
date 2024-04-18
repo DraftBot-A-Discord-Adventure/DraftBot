@@ -56,13 +56,7 @@ export async function handleCommandPetPacketRes(packet: CommandPetPacketRes, con
 			return;
 		}
 
-		const petData: PetData = {
-			typeId: packet.data!.typeId,
-			nickname: packet.data!.nickname,
-			sex: packet.data!.sex,
-			rarity: packet.data!.rarity,
-			loveLevel: packet.data!.loveLevel
-		};
+		const petData: PetData = packet.data!;
 
 		const PetCommandEmbed = new DraftBotEmbed()
 			.formatAuthor(
