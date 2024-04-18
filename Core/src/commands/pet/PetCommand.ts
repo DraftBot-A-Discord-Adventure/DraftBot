@@ -23,7 +23,7 @@ export default class PetCommand {
 				foundPet: true,
 				data: {
 					nickname: pet.nickname,
-					typeId: petModel.id,
+					petTypeId: petModel.id,
 					rarity: petModel.rarity,
 					sex: pet.sex,
 					loveLevel: pet.getLoveLevelNumber()
