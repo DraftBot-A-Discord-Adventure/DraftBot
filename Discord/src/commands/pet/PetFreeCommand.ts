@@ -19,7 +19,7 @@ function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser)
 }
 
 
-export async function handleCommandPetPacketRes(packet: CommandPetFreePacketRes, context: PacketContext): Promise<void> {
+export async function handleCommandPetFreePacketRes(packet: CommandPetFreePacketRes, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 
 	if (interaction) {
