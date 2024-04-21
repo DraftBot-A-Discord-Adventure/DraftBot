@@ -10,10 +10,12 @@ export class CommandPetFreePacketRes extends DraftBotPacket {
 	petCanBeFreed!: boolean;
 
 	data?: {
-		petId: number,
-		petName: string,
-		petEffect: string,
-		petEffectDuration: number,
-		petEffectEndTime: number
+		nickname: string,
+		petTypeId: number,
+		rarity: number,
+		sex: string,
+		loveLevel: number
 	};
+
+	luckyMeat?: boolean;
 }
