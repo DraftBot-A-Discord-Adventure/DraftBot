@@ -1,9 +1,9 @@
 {
   "advices": [
-    "You want to learn how to play? Read the player's guide! https://guide.draftbot.com/",
-    "If you are looking for tips on how to progress, go here: https://guide.draftbot.com/",
-    "The `/friendlyfight` command does not exist anymore, but it is possible to start a friendly fight through the {command:fight} command.",
-    "When you think you're in a bind or don't know what action to take, it may be worth not reacting to the event.",
+    "You want to learn how to play? Read the player's guide! https://guide.draftbot.com/v/en",
+    "If you are looking for tips on how to progress, go here: https://guide.draftbot.com/v/en",
+    "The `/friendlyfight` command does not exist anymore, but it is possible to start a friendly fight using the {command:fight} command.",
+    "When you think you're at an impasse or don't know what action to take, it can be a good idea not to react to the event.",
     "If you want to kick someone out of your guild who has no server in common with you or the bot, use their ranking.",
     "It is possible to get pets in guild rewards.",
     "The list of existing commands can be obtained with the {command:help} command.",
