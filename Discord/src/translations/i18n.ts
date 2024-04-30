@@ -47,6 +47,12 @@ import * as deAdvices from "../../../Lang/de/advices.json";
 import * as esAdvices from "../../../Lang/es/advices.json";
 import * as ptAdvices from "../../../Lang/pt/advices.json";
 import * as itAdvices from "../../../Lang/it/advices.json";
+import * as enSmallEvents from "../../../Lang/en/smallEvents.json";
+import * as frSmallEvents from "../../../Lang/fr/smallEvents.json";
+import * as deSmallEvents from "../../../Lang/de/smallEvents.json";
+import * as esSmallEvents from "../../../Lang/es/smallEvents.json";
+import * as ptSmallEvents from "../../../Lang/pt/smallEvents.json";
+import * as itSmallEvents from "../../../Lang/it/smallEvents.json";
 import {LANGUAGE} from "../../../Lib/src/Language";
 
 // Todo load automatically modules
@@ -62,7 +68,8 @@ i18next.init({
 			items: enItems,
 			models: enModels,
 			events: enEvents,
-			advices: enAdvices
+			advices: enAdvices,
+			smallEvents: enSmallEvents
 		},
 		fr: {
 			bot: frBot,
@@ -72,7 +79,8 @@ i18next.init({
 			items: frItems,
 			models: frModels,
 			events: frEvents,
-			advices: frAdvices
+			advices: frAdvices,
+			smallEvents: frSmallEvents
 		},
 		de: {
 			bot: deBot,
@@ -82,7 +90,8 @@ i18next.init({
 			items: deItems,
 			models: deModels,
 			events: deEvents,
-			advices: deAdvices
+			advices: deAdvices,
+			smallEvents: deSmallEvents
 		},
 		es: {
 			bot: esBot,
@@ -92,7 +101,8 @@ i18next.init({
 			items: esItems,
 			models: esModels,
 			events: esEvents,
-			advices: esAdvices
+			advices: esAdvices,
+			smallEvents: esSmallEvents
 		},
 		pt: {
 			bot: ptBot,
@@ -102,7 +112,8 @@ i18next.init({
 			items: ptItems,
 			models: ptModels,
 			events: ptEvents,
-			advices: ptAdvices
+			advices: ptAdvices,
+			smallEvents: ptSmallEvents
 		},
 		it: {
 			bot: itBot,
@@ -112,7 +123,8 @@ i18next.init({
 			items: itItems,
 			models: itModels,
 			events: itEvents,
-			advices: itAdvices
+			advices: itAdvices,
+			smallEvents: itSmallEvents
 		}
 	}
 }).then();
