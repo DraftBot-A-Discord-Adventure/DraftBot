@@ -214,7 +214,7 @@ export class CommandsManager {
 			if (this.isAMessageFromMassOrMissPing(message) || !this.shouldSendHelpMessage(message, client)) {
 				return;
 			}
-			const user = await KeycloakUtils.getOrRegisterDiscordUser(keycloakConfig, message.author.id, message.author.username, LANGUAGE.DEFAULT_LANGUAGE);
+			const user = await KeycloakUtils.getOrRegisterDiscordUser(keycloakConfig, message.author.id, message.author.displayName, LANGUAGE.DEFAULT_LANGUAGE);
 			message.channel.send({
 				content: `${i18n.t("bot:mentionHelp", {
 					lng: KeycloakUtils.getUserLanguage(user),
