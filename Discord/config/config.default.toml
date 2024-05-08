@@ -32,7 +32,7 @@ english_announcements_channel_id = ""
 
 [keycloak]
 # Keycloak realm
-realm = "Draftbot"
+realm = "DraftBot"
 # Keycloak URL
 url = "http://127.0.0.1:8080"
 # Keycloak client ID
