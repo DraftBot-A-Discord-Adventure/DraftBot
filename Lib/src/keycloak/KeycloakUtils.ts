@@ -10,52 +10,6 @@ export class KeycloakUtils {
 
 	private static keycloakDiscordToIdMap = new Map<string, string>();
 
-	private static async checkAndQueryToken(keycloakConfig: KeycloakConfig): Promise<void> {
-		if (this.keycloakToken === null || this.keycloakTokenExpirationDate! < Date.now()) {
-			const res = await fetch(`${keycloakConfig.url}/realms/${keycloakConfig.realm}/protocol/openid-connect/token`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/x-www-form-urlencoded"
-				},
-				body: new URLSearchParams({
-					"client_id": keycloakConfig.clientId,
-					"client_secret": keycloakConfig.clientSecret,
-					"grant_type": "client_credentials"
-				})
-			});
-
-			if (!res.ok) {
-				throw new Error(`Keycloak login error: '${JSON.stringify(await res.json())}'`);
-			}
-
-			const obj = await res.json();
-			this.keycloakToken = obj.access_token;
-			this.keycloakTokenExpirationDate = Date.now() + obj.expires_in - Math.ceil(0.1 * obj.expires_in); // -10% of seconds to be sure that the token hasn't expired
-		}
-	}
-
-	private static async updateGameUsername(user: KeycloakUser, newGameUsername: string, keycloakConfig: KeycloakConfig): Promise<void> {
-		await this.checkAndQueryToken(keycloakConfig);
-
-		const attributes = user.attributes;
-		attributes.gameUsername = newGameUsername;
-
-		const res = await fetch(`${keycloakConfig.url}/admin/realms/${keycloakConfig.realm}/users/${user.id}`, {
-			method: "PUT",
-			headers: {
-				"Authorization": `Bearer ${this.keycloakToken}`,
-				"Content-Type": "application/json"
-			},
-			body: JSON.stringify({
-				attributes
-			})
-		});
-
-		if (!res.ok) {
-			throw new Error(`Keycloak update game username for user '${user.id}' tp '${newGameUsername}' error: '${JSON.stringify(await res.json())}'`);
-		}
-	}
-
 	public static async getUserByKeycloakId(keycloakConfig: KeycloakConfig, keycloakId: string): Promise<KeycloakUser | null> {
 		await this.checkAndQueryToken(keycloakConfig);
 
@@ -102,7 +56,7 @@ export class KeycloakUtils {
 		await this.checkAndQueryToken(keycloakConfig);
 
 		// Populate attributes
-		const attributes: { [key:string]: string[] } = {};
+		const attributes: { [key: string]: string[] } = {};
 		attributes.language = [registerParams.language];
 		attributes.gameUsername = [registerParams.gameUsername];
 		if (registerParams.discordId) {
@@ -168,7 +122,12 @@ export class KeycloakUtils {
 		const obj = await res.json();
 		let user: KeycloakUser;
 		if (obj.length === 0) {
-			user = await this.registerUser(keycloakConfig, { keycloakUsername: `discord/${discordId}`, gameUsername, discordId, language });
+			user = await this.registerUser(keycloakConfig, {
+				keycloakUsername: `discord-${discordId}`,
+				gameUsername,
+				discordId,
+				language
+			});
 		}
 		else {
 			user = obj[0] as KeycloakUser;
@@ -181,22 +140,6 @@ export class KeycloakUtils {
 		KeycloakUtils.keycloakDiscordToIdMap.set(discordId, user.id);
 
 		return user;
-	}
-
-	/**
-	 * Send a get request to keycloak to retrieve a user from it's discordId
-	 * @param keycloakConfig
-	 * @param discordId
-	 * @private
-	 */
-	private static async getUserFromDiscordId(keycloakConfig: KeycloakConfig, discordId: string) : Promise<Response> {
-		return await fetch(`${keycloakConfig.url}/admin/realms/${keycloakConfig.realm}/users?q=discordId:${discordId}`, {
-			method: "GET",
-			headers: {
-				"Authorization": `Bearer ${this.keycloakToken}`,
-				"Content-Type": "application/json"
-			}
-		});
 	}
 
 	public static async getKeycloakIdFromDiscordId(keycloakConfig: KeycloakConfig, discordId: string, gameUsername: string | null): Promise<string | null> {
@@ -258,5 +201,67 @@ export class KeycloakUtils {
 	 */
 	public static getUserLanguage(user: KeycloakUser): Language {
 		return user.attributes.language[0];
+	}
+
+	private static async checkAndQueryToken(keycloakConfig: KeycloakConfig): Promise<void> {
+		if (this.keycloakToken === null || this.keycloakTokenExpirationDate! < Date.now()) {
+			const res = await fetch(`${keycloakConfig.url}/realms/${keycloakConfig.realm}/protocol/openid-connect/token`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/x-www-form-urlencoded"
+				},
+				body: new URLSearchParams({
+					"client_id": keycloakConfig.clientId,
+					"client_secret": keycloakConfig.clientSecret,
+					"grant_type": "client_credentials"
+				})
+			});
+
+			if (!res.ok) {
+				throw new Error(`Keycloak login error: '${JSON.stringify(await res.json())}'`);
+			}
+
+			const obj = await res.json();
+			this.keycloakToken = obj.access_token;
+			this.keycloakTokenExpirationDate = Date.now() + obj.expires_in - Math.ceil(0.1 * obj.expires_in); // -10% of seconds to be sure that the token hasn't expired
+		}
+	}
+
+	private static async updateGameUsername(user: KeycloakUser, newGameUsername: string, keycloakConfig: KeycloakConfig): Promise<void> {
+		await this.checkAndQueryToken(keycloakConfig);
+
+		const attributes = user.attributes;
+		attributes.gameUsername = newGameUsername;
+
+		const res = await fetch(`${keycloakConfig.url}/admin/realms/${keycloakConfig.realm}/users/${user.id}`, {
+			method: "PUT",
+			headers: {
+				"Authorization": `Bearer ${this.keycloakToken}`,
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+				attributes
+			})
+		});
+
+		if (!res.ok) {
+			throw new Error(`Keycloak update game username for user '${user.id}' tp '${newGameUsername}' error: '${JSON.stringify(await res.json())}'`);
+		}
+	}
+
+	/**
+	 * Send a get request to keycloak to retrieve a user from it's discordId
+	 * @param keycloakConfig
+	 * @param discordId
+	 * @private
+	 */
+	private static async getUserFromDiscordId(keycloakConfig: KeycloakConfig, discordId: string): Promise<Response> {
+		return await fetch(`${keycloakConfig.url}/admin/realms/${keycloakConfig.realm}/users?q=discordId:${discordId}`, {
+			method: "GET",
+			headers: {
+				"Authorization": `Bearer ${this.keycloakToken}`,
+				"Content-Type": "application/json"
+			}
+		});
 	}
 }
