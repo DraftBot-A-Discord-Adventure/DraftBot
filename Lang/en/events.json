@@ -2443,147 +2443,147 @@
         "text": "Accept and rob him under the cover of night."
       }
     },
-    "text": "As you walk through the Kings' Valley's iconic desert, you notice an oasis. Your throat is parched by your travels, so you run to the small pool of water, and drink from it. As you are drinking, a peal of laughter erupts, startling you. You turn around, and end up facing a bearded old man, his face hidden under a large hood. He tells you his name's Xirtex, and he resides in this oasis. He then offers to welcome you in his home so that you can recover from your journey, and share your adventures."
+    "text": "As you cross the Kings' Valley, you catch sight of an oasis. Thirsty from your journey, you rush to the small body of water to drink. As you take a drink, you are startled by the sound of laughter behind you. As you turn around, a bearded old man with a large hood over his face faces you. He says his name is Xirtex and that he lives in this oasis. He offers to put you up in his home to help you recover from your journey, and to share your misadventures."
   },
   "72": {
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "At first unsure, you finally feel boosted by the crowd's clamor, ignore the judge and choose to join in the festivities rather than the competition. You cheer for hours, witnessing the varied events.",
-          "1": "Thinking about it, you end up with the realization that your own life holds much more worth than the ephemereal glory from any tournament. You turn back, unwilling to participate in these most dangerous activities."
+          "0": "Hesitantly, but finally galvanized by the din of the crowd, you ignore the judge and join in the general enthusiasm. You cheer the participants in the various events for hours!",
+          "1": "Your own life is far more important to you than the ephemeral glory of some tournament victory. You thank the judge and tell him that you won't be taking part in the tournament after all."
         }
       },
       "joinArchery": {
         "outcomes": {
-          "0": "This event seems a bit hard: you need to fire three arrows straight into a paillon sitting some fifty meters away from you. All three of your arrows manage to etch themselves into the straw target, winning you the first place. Yseldia, ghe local lord's wife, comes to you with a hefty sack full of gold coins. As she gives it to you, you're distracted by her ruby-set crown.",
-          "1": "This event seems a bit hard: you need to fire three arrows straight into a paillon sitting some fifty meters away from you. You aren't really deft, and two of your arrows miss the target entirely. You end up last but, still happy from partaking in the festivities, you resume your journey with a smile on your lips.",
-          "2": "As you notch your first arrow, a loud sneeze disrupts your moves. Your bow slips out of your hands, and the arrow flies straight towards a brawny knight, etching itself into a wooden panel, infinitely close to his head. The knight glances at you with a deathly stare, and starts moving towards you. You suddenly feel a great call for adventure, and quickly go away, resuming your usual journeying."
+          "0": "The test seems a little difficult: you have to shoot three arrows at a straw target some 50 meters away. All three arrows land in the middle of the straw target. You're the winner! The beautiful Lady of the local Lord, Yseldia, comes to offer you a heavy purse, while you are dazzled by her ruby-set crown.",
+          "1": "The test seems a little difficult: you have to shoot three arrows at a straw placed about fifty meters away from you. You're not very skillful, so you miss two out of the three arrows and come last in the ranking! Happy to have been part of the general euphoria, you happily set off again.",
+          "2": "As you notch your first arrow, a sneeze startles you. You drop your bow, and your arrow comes to rest near the head of a muscular knight. He glares at you and starts to rush towards you. Adventure doesn't wait: you're back on the road in no time!"
         },
-        "text": "Join the archery tournament."
+        "text": "Participate in the archery test."
       },
       "joinJoust": {
         "outcomes": {
-          "0": "After winning three consecutive jousts, you end up in finals against the Count of the neighboring region. He knocks you off your horses with bewildering ease and extreme nimbleness. You are thus the second place on the podium. As the lord's wife, named Yseldia, gives you a heavy sack, you are captivated by her ruby-set crown. You absentmindedly take your prize from her fine hands.",
-          "1": "A new joust is about to start. A groom gives you a grey cob, whose previous master died recently. You now face Yvan, a renowned knight. As you start galloping, so does your foe. He knocks you off your horse with ease and, as you violently smash onto the dusty floor, your mount unfortunately steps on a collarbone, which lets out a nasty crunch.",
-          "2": "After noticing an unsupervised bay nag, you take it in order to joust. You end up as the grand winner! The local lord's spouse, Yseldia, hand-delivers your prizes.",
-          "3": "As you feel the high of jousting taking over you, you realize you have no steed, and thus cannot partake in the event. With much disappointment, you choose to continue your journey, grumbling."
+          "0": "After winning three jousts, you find yourself in the final against the Count of the neighboring region. He unhorses you with suppleness and ease. You finish second on the podium. As you are transfixed by the ruby-set crown of Yseldia, wife of the local lord, you absently accept a heavy purse from her delicate hands.",
+          "1": "A new jousting event is about to begin, and a groom has given you the gift of a gray double pony whose previous owner sadly passed away shortly before. You face Yvain, a renowned knight. You begin to gallop along with your adversary, who unhorses you with ease. As you land with a clatter on the dusty ground, your mount accidentally steps on one of your collarbones, making a sinister cracking sound. ",
+          "2": "After spotting an unattended bay nag, you seize it to take part in the jousting. You're the winner! The local lord's wife, nicknamed Yseldia, gives you your rewards in person. ",
+          "3": "Just as you feel the exhilaration of jousting on horseback beckoning, you remember that you don't have a horse to take part in this event. Disappointed, you grumble and continue on your way."
         },
-        "text": "Join the joust."
+        "text": "Take part in the jousting test."
       },
       "joinMelee": {
         "outcomes": {
-          "0": "Upon seeing the sharp and shimmering weapons of the other competitors, your courage quickly melts away, much like snow under the sun. You chose to sneakily get away before being forced to depart from this world with unfinished business.",
-          "1": "After narrowly escaping an otherwise-fatal halberd attack, from a finely decorated weapon set with green gems, you manage to defeat its wielder. The Herald of Arms announces your victory, and the Lord's spouse, Yseldia, hands you your prize in person. While thanking her, you carefully study her magnificent ruby-set crown.",
-          "2": "After easily getting rid of most of the competitors, you feel greatly tired, and lose your fight against the last standing person. You then notice a nasty gash in your hand, so you go to see the city's healer. He bandages your wound and insists on letting you rest properly.",
-          "3": "You greatly underestimated your foes' might, and one of them knocks you down. Ignoring your pleas for mercy, your enemy, wielding an emerald-set halberd, snickers before tearing a deep gash in your arm."
+          "0": "As you see the other participants' gleaming, sharp weapons, your courage melts like snow in the sun. You decide to slip away quietly before your unfinished life is snatched from you. ",
+          "1": "After nearly dying with a blow from a halberd encrusted with green gems, you finally put your last opponent out of action. The Weapon Herald announces your crushing victory! The Lady of the Lord, named Yseldia, brings you your reward in person. As you thank her, you study her delicate face, the top of which is adorned with a sumptuous ruby-set crown.",
+          "2": "After easily defeating almost all your opponents, you start to tire and lose your last fight! You notice a nasty gash on your hand, and head off in the direction of the town's bone-setter. He dresses your wound and insists that you rest for a while.",
+          "3": "You've underestimated the level of your opponents and, as a result, one of them knocks you down. Despite your pleas, your opponent, armed with a halberd adorned with emeralds, sneers and lacerates your arm up to the shoulder."
         },
         "text": "Join the melee fight."
       },
       "joinPoetry": {
         "outcomes": {
-          "0": "The crowd is captivated by your poem's rythm, rhymes, as well as its tone. You are crowned the ultimate winner. Yseldia, the Lord's spouse, hands you your prize, still moved by your art.",
-          "1": "A few minutes before the reveal of the results, you notice the sad disappearance of your purse. You guess it was stolen from you sometime during the event. Thankfully, you only had on you a small part of your funds! Still heartbroken by this loss, you go back to your travels without continuing on with the festivities.",
-          "2": "As you deliver your poem with great poise, you notice a lovely lady eyeing you with much fervor. Just as you're finished with your bit, this lady holds your hand and runs away with you. A few streets away, the lady stops and kisses you passionately. You, however, are on the quest for the Princess, so you quickly explain to the lady that your heart already belongs to someone... As you bid this lady farewell, she insists on giving you an item so that you would remember her forever."
+          "0": "The rhythm, rhymes and sounds of your poem captivate the crowd. You're acclaimed the winner! Yseldia, wife of the local Lord, presents you with your prize, not without a touch of emotion.",
+          "1": "A few minutes before the results are announced, you notice that your purse is missing. You've probably had it stolen before you got there. Good thing you didn't have all your gold on you! You leave without waiting for the rest of the festivities, empty-handed.",
+          "2": "As you loudly proclaim your poem in a lilting voice, you notice a damsel eyeing you with much fervor. Just as you've finished your tirade, the young woman grabs your hand and starts running! A few alleys further on, the young lady kisses you! She's not your Princess, but you don't let her distract you, and explain that your heart's already in the right place. As you bid her farewell, she gives you an object that may prove useful in your further adventures."
         },
-        "text": "Join the poetry contest."
+        "text": "Take part in the poetry test."
       },
       "searchFood": {
         "outcomes": {
-          "0": "You find a street food stall, managed by a mixed-race woman. She's named Lucya, which strangely rings a bell... As you converse, she tells you she's worked for the famous Boug-Coton inn. She left because of her great thirst for adventure, and is now one of the travellers who, like you, roams the country doing various things, in the hope of winning the princess' hand. Happy with how your chat went, Lucya gives you a small flask of spiced mead. You feel revitalized, and ready to continue roaming on your own.",
-          "1": "You do not stumble upon any street food stall: an entertainer passing by tells you that a great feast will happen in a few hours. Unwilling to waste that much time, you get out of the city.",
-          "2": "You find a street food stall, managed by a mixed-race woman. She's named Lucya, which strangely rings a bell... A few minutes into chatting with her, she tells you she plans to open her own inn a few years later, should her life as an adventurer be unsuccessful. Finding you quite nice to talk to, Lucya gives you an honey-coated biscuit, which you greatly enjoy."
+          "0": "You manage to find a street kitchen owned by a mixed-race woman. Her first name, Lucya, rings a bell. Over the course of the conversation, Lucya explains that she used to work at the famous Boug-Coton inn. However, she was far too thirsty for exciting adventure to accept this sedentary lifestyle. Delighted by your interest, the woman offers you a small vial of spiced mead. You're now refreshed and ready for your own adventures.",
+          "1": "You can't find any street food stall: an entertainer tells you that a big banquet is planned for much later. Disappointed by this news, you decide to leave town. ",
+          "2": "You manage to find a street kitchen owned by a mixed-race woman. Her first name, Lucya, rings a bell. Shortly after starting up a conversation with her, you learn that she intends to open her own inn if she becomes bored with her life as a culinary adventurer. Thinking you're a very nice person, Lucya offers you a homemade wafer. This singular honey-tasting cookie delights your palate. "
         },
-        "text": "Change your mind and seek a food stall."
+        "text": "Change your mind and go in search of a food stall."
       }
     },
-    "text": "As you near Claire de Ville, you notice that the usually busy city is now almost entirely focused on the outsides of its great walls: a tournament is taking place there! In the hoards attached to the walls, jesters, troubadours, minstrels, heralds, bards, and tellers bellow with joy. They cheer at each strike, whether it be from a sword, lance, or even mace. Overjoyed in the midst of all this spirited mess, you choose to join in and partake in this tournament. You go to the tournament's overseer, who accepts your participation, and asks you to choose a category in which to compete."
+    "text": "As you arrive on the outskirts of Claire de Ville, you discover that many of its inhabitants have moved outside the great walls: a seigneurial tournament is in full swing! On the hoardings attached to the walls, jesters, troubadours, minstrels, heralds, bards and storytellers vociferate with joy, cheering each blow of sword, lance or mace. Enthralled by the mayhem and general cheerfulness, you decide to try your luck. You spot the storytelling judge, who accepts your entry and asks you which test you'd like to take part in."
   },
   "73": {
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "You get out of the mass of people, and swiftly make your way towards the fatman's chariot. Inside this place, you see a cat with its children, and immediately understand the scam! You approach the trainer and negotiate a good price in return for your silence regarding the scam.",
-          "1": "Fascinated by those adorable babies, you sneak towards the back of the trainer's chariot to see if there are more of them, so you can steal one and sell it for a good price. However, only a cat is present, nursing its children. In despair, you grab the cutest kitten and hide it in your bag. As clever as you are, you quickly find someone who accepts the exchange.",
-          "2": "You get away from the mass, hoping to find a better spot from which to see the show. Fully focused on the spectacle, you do not pay attention to where you put your feet, and fall into a wide open case that was randomly laying in the middle of the road. That the case closes itself on you, before you even get a chance to understand what's happening. You end up all dizzy."
+          "0": "You leave the crowd to slip discreetly into the back of the overweight man's cart. Inside his modest home on wheels, you spot a cat with her kittens and immediately understand the deception! You approach the trainer and demand money in exchange for your silence.",
+          "1": "Fascinated by these adorable babies, you sneak around to the back of the trainer's cart to see if there are any others, so you can steal one to sell at a good price. However, only a nursing cat is present. Out of spite, you grab the prettiest kitten and hide it in your pouch. Clever as you are, you quickly find someone willing to make the exchange.",
+          "2": "You move away from the crowd to find a better place to watch the show. Absorbed by the spectacle, you don't look where your feet are landing, and fall into a heavy open trunk, carelessly abandoned in the middle of the path. Before you know what's happening, the trunk closes on you, knocking you unconscious. You don't wake up until much later."
         }
       },
       "goAway": {
         "outcomes": {
-          "0": "You feel nothing but pure indifference towards this show, and choose to quickly leave the crowd before falling victim to any of the usual thieves. Those people, in fact, never let go of any opportunity to stealthily take riches from others, whether a lord or a peasant. Moreover, their shady endeavors are rendered easier by those kind of events where people are closely packed.",
-          "1": "You immediately go back to your travels. You cannot lose any time on such clownery. After a while, you realize you went the wrong way, so you turn around, deeply affected by the loss of those precious minutes.",
-          "2": "You promptly leave the gathering, and stumble on a bag left to lay on the ground. You are slightly hurt. The bag is of a slightly-faded brown color, and even though its material is worn out, it is still in a pretty good state. You choose to explore the contents of this bag, hoping to find something to compensate your hurting leg. You discover a small bag of coins, as well as a maybe-useful item.",
-          "3": "You decide to continue your journey, indifferent to the crowd's merriment."
+          "0": "You're totally uninterested in this spectacle and prefer to flee the crowd to avoid the usual thieves of all kinds. They never miss an opportunity to rob rich and poor alike, at events such as this where onlookers crowd together, facilitating their misdeeds.",
+          "1": "You immediately get back on the road. You don't have time for this kind of clowning. It takes you a long time to realize that you've gone the wrong way, so you turn back, cursing the loss of precious time.",
+          "2": "You quickly leave the show and trip over a bag carelessly left by a spectator. As you fall, you injure yourself very slightly. The bag is a faded brown, and although the leather is worn, it's in relatively good condition. You decide to rummage through the bag in the hope of finding some sort of compensation, and discover a small purse and an object that seems to be quite useful.",
+          "3": "You decide to continue your adventure, indifferent to the spectacle and the cheers of the crowd."
         },
         "text": "Leave."
       },
       "look": {
         "outcomes": {
-          "0": "You choose to stay here and see those spectacular animals, awed by the sheer cuteness they emit. You found this performance deeply pleasurable, so you give some coins to the trainer.",
-          "1": "You wish to spectate this show, but it ends mere moments after your arrival. Even though you are deeply disappointed, you leave this place.",
-          "2": "You glance at the training but, after all of your adventures, this isn't really anything impressive. You quickly leave the crowded area and continue your travels."
+          "0": "You stay to watch the show, amazed by all the cuteness. You've really enjoyed watching this magnificent and grandiose performance, so you offer the trainer a few coins.",
+          "1": "You're eager to see the show, but it ends just as you arrive. Although your disappointment is immense, you leave.",
+          "2": "You watch the training, but after all you've been through since the start of your adventure, you're not impressed. You promptly leave the crowd and return to your adventurous life."
         },
-        "text": "Revel in the rare sight."
+        "text": "Attend the show."
       },
       "shame": {
         "outcomes": {
-          "0": "You immediately understand the \"rare beasts\" are nothing but kitten. You are sure of this fact as you already encountered actual tigers before, and their cubs are way bigger. You start and call out the scandalous scam, and demand that the scammers compensate you a great sum, or else you'll tell everyone about it. They accept your conditions, hoping you quickly get out of here.",
+          "0": "You soon realize that these are kittens. There's no doubt about it, as you've had the good fortune to come across tigers before, and they give birth to much larger tiger cubs. You declare this outrageous, and demand financial compensation from the crooks. They agree, on condition that you leave immediately.",
           "1": "You watch the trainer, whip in hand, ready to attack a young tiger. Like a good defender of lost causes, you rush at him, screaming for him to stop and release these poor tigers. Before you can reach him, the man flogs you, to the applause of the furious crowd.",
-          "2": "The show is ending as you came and, as a great businessman, the trainer offers that, for a small fee, members of the crowd come up and pet the tigers. You shout with all of your strength, warning everyone that it is a massive scam and the \"beasts\" are mere kitten, but no one pays attention to you. You continue screaming your head off, but eventually take your leave."
+          "2": "The show comes to an end and, like an excellent businessman, the trainer offers to pet the tigers for a few coins. You shout to the audience that it's a scam, that they're just kittens, but nobody listens to you. You scream until you lose your voice, and finally leave."
         },
-        "text": "Call out the shameful act."
+        "text": "Cry shame."
       }
     },
-    "text": "Walking nonchalantly along the Road of Wonders, you approach a motley crew captivated by something out of your sight. As you walk towards them, you notice that they are forming a semi-circle around a heavyset man. You advance further and notice that he is dressed in a tight-fitting red show suit with yellow shoulder patches and blue briefs pulled over his uniform. On his imposing chest is a small royal blue crest, which you are unable to decipher. You make your way through the many onlookers until you reach the front row. You finally notice that it's a lion trainer with a long brown leather whip and, at his feet, two magnificent baby tigers whom he is teaching to perform a few tricks."
+    "text": "Walking nonchalantly along the Road of Wonders, you approach a small group of people in a semicircle around a heavyset man. As you reach them, you notice that he's dressed in a tight-fitting red show suit, with yellow shoulder inserts and blue briefs pulled over the uniform. On his imposing chest is a small royal-blue crest, which you can't quite make out. You make your way through the many onlookers to the front row. The man is a wildcat trainer with a long brown leather whip, teaching two magnificent baby tigers a trick."
   },
   "8": {
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "You rest for a few minutes before slowly leaving for the passes. You end up getting exhausted on the other side, you will have to rest before leaving!"
+          "0": "You rest for a few minutes before slowly leaving towards the passes. You end up exhausted on the other side, so you'll need to rest before setting off again!"
         }
       },
       "forest": {
         "outcomes": {
-          "0": "You cross the forest without too many difficulties, and continue your journey!",
-          "1": "You walk slowly through the firs. On the way, you pick up fir branches and make small objects you can use or sell...",
-          "2": "You are progressing slowly through the forest. Unfortunately, the ground is slippery and you fall to the bottom of a ditch! You manage to come back out but you're hurt!"
+          "0": "You cross the forest without too much difficulty, and continue your journey!",
+          "1": "You walk slowly through the fir trees. On the way, you pick up fir branches and make small objects you can use or sell...",
+          "2": "You make your way slowly through the forest. Unfortunately, the ground is slippery and you fall into a ditch! You manage to climb out, but you're injured!"
         },
         "text": "Continue through the fir forest."
       },
       "plains": {
         "outcomes": {
-          "0": "You finally change your mind and decide to stay on the plains. While less dangerous, this path is also longer, so you lose a lot of time!",
-          "1": "You finally change your mind and decide to stay on the plains. While less dangerous, this path is also longer, so you lose a lot of time! After a few kilometers, you stop to rest in an inn."
+          "0": "In the end, you change your mind and decide to stay on the plains, which is less dangerous but also longer, so you lose a lot of time!",
+          "1": "You finally change your mind and decide to stay on the plains - it's less dangerous, but also longer, and you lose a lot of time! After a few kilometers, you stop to rest at an inn."
         },
-        "text": "Forget climbing to the top and stay close to the plains."
+        "text": "Give up climbing to the top and stay close to the plains."
       }
     },
-    "text": "You decided to take advantage of the summer passing through the mountains as long as the passes aren't too snowy, however, the climb is more difficult than expected..."
+    "text": "You've decided to take advantage of summer to head for the mountains as long as the passes aren't too snow-covered, but the climb is proving more difficult than you expected..."
   },
   "9": {
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "You stare blankly for 15 minutes as the farmer looks for his pitchfork before leaving."
+          "0": "For 15 minutes, you stare dumbly at the farmer fetching his pitchfork before leaving again."
         }
       },
       "help": {
         "outcomes": {
-          "0": "After a quarter hour looking, you find the pitchfork next to a pile of hay. To thank you, the farmer offers you some coins.",
-          "1": "After half an hour of searching, you can not find the pitchfork. You discover, however, an object that may be useful to you!",
-          "2": "Looking for the pitchfork, you step on it and get a nasty cut.",
-          "3": "You look for the pitchfork for almost an hour, but you can't find it. You leave the peasant politely and continue your journey."
+          "0": "After a quarter of an hour's searching, you find the pitchfork next to a pile of hay. To thank you, the farmer offers you a few coins.",
+          "1": "After half an hour's searching, you can't find the pitchfork. You do, however, discover an object that may be of use to you!",
+          "2": "Looking for the pitchfork, you step on it and give yourself a nasty gash.",
+          "3": "You search for the pitchfork for almost an hour but can't find it. You politely leave the farmer and continue on your way."
         },
-        "text": "Help the farmer to find his pitchfork."
+        "text": "Help the farmer find his pitchfork."
       },
       "skip": {
         "outcomes": {
-          "0": "You continue your way without paying attention to the peasant.",
-          "1": "Continuing through the field, you fall on the pitchfork, severely cutting your foot."
+          "0": "You continue on your way without paying any attention to the farmer.",
+          "1": "Continuing across the field, you come across the pitchfork and severely cut your foot."
         },
-        "text": "Carry on."
+        "text": "Move along."
       }
     },
-    "text": "In the middle of a field, you meet a farmer. He lost his pitchfork..."
+    "text": "In the middle of a field, you meet a farmer. He has lost his pitchfork..."
   }
 }
