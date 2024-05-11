@@ -185,36 +185,36 @@
       "goAway": {
         "outcomes": {
           "0": "Partite senza perdere tempo.",
-          "1": "Si continua a girare intorno al prato.",
+          "1": "Continuate il vostro cammino aggirando il prato.",
           "2": "Decidete di continuare a camminare, nonostante la stanchezza. Dopo qualche chilometro, crollate sul ciglio del sentiero."
         },
-        "text": "Non c'è tempo da perdere! Dovete continuare a muovervi!"
+        "text": "Non c'è tempo da perdere! Dovete continuare per la vostra strada!"
       },
       "stayNight": {
         "outcomes": {
-          "0": "Dopo una rapida chiacchierata con l'uomo, questi accetta di ospitarti per la notte. Esausti, crollate sul letto.",
+          "0": "Dopo aver discusso rapidamente con l'uomo, quest'ultimo accetta di accogliervi per la notte. Sfinito, crollate sul letto per la stanchezza.",
           "1": "L'uomo ammette subito di non potervi ospitare per la notte, ma si offre di condividere il suo pasto. Voi rifiutate gentilmente e proseguite per la vostra strada.",
-          "2": "Tutto ciò che si ottiene in risposta è un semplice grugnito. La gente del posto non sembra apprezzare gli stranieri.",
-          "3": "L'uomo rifiuta subito di condividere il suo letto con voi, ma vi offre la sua cena. Affamati ed esausti, accettate la sua offerta."
+          "2": "La sola risposta che ottenete è un semplice grugnito. La gente del posto non sembra apprezzare gli stranieri.",
+          "3": "L'uomo rifiuta subito di condividere il suo letto con voi, ma vi propone di dividere la cena con lui. Affamato ed esausto, accettate la sua offerta."
         },
         "text": "Chiedete di pernottare per riposare e recuperare le forze."
       }
     },
-    "text": "Quando iniziate a sentirvi stanchi, vi imbattete in un piccolo prato con una casetta. Vi avvicinate e scoprite un uomo intento a lavorare su un pezzo di metallo incandescente."
+    "text": "Quando la stanchezza inizia a farsi sentire, vi imbattete in un piccolo prato dove si trova una casetta. Vi avvicinate e scoprite un uomo intento a lavorare su un pezzo di metallo incandescente."
   },
   "15": {
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "Trascorrete lunghi minuti a guardarli mentre allestiscono il loro bivacco, prima di tornare in sé e proseguire il cammino."
+          "0": "Trascorrete un bel po' di tempo a guardarli stupidamente mentre allestiscono il loro bivacco, prima di tornare in voi e proseguire il vostro cammino."
         }
       },
       "skip": {
         "outcomes": {
-          "0": "La strada da percorrere è ancora lunga e non c'è tempo per fermarsi!",
-          "1": "Potete continuare il vostro percorso senza perdere altro tempo!",
+          "0": "La strada è ancora lunga, non c'è tempo di fermarsi!",
+          "1": "Continuate il vostro percorso senza perdere altro tempo!",
           "2": "Continuate il vostro cammino senza fermarvi.",
-          "3": "Continuate a non fermarvi, snodandovi per le strade strette. All'angolo di una di esse, venite selvaggiamente strattonati da un uomo che fugge rapidamente."
+          "3": "Continuate senza fermarvi, snodandovi per le strade strette. All'angolo di una di esse, venite selvaggiamente spinti da un uomo che fugge rapidamente."
         },
         "text": "Continuate il vostro cammino senza perdere tempo."
       },
@@ -222,7 +222,7 @@
         "outcomes": {
           "0": "Raccogliete qualche moneta e scappate il più velocemente possibile senza provare il minimo rimorso.",
           "1": "Purtroppo non c'è nulla da rubare. Tuttavia, il vostro tentativo non è passato inosservato! Per la vergogna, risarcite i proprietari e tornate in strada.",
-          "2": "Preso con le mani nel sacco! Di fronte ai 5 uomini imponenti che vi circondano, vi pentite amaramente della vostra sfortunata azione. Dopo aver pagato il risarcimento, ve ne andate intontiti."
+          "2": "Preso con le mani nel sacco! Di fronte ai 5 uomini imponenti che vi circondano, vi pentite amaramente della vostra sfortunata azione. Ve ne andate intontiti dopo aver pagato il risarcimento."
         },
         "text": "Prendete con discrezione qualche moneta dalla cassa."
       },
