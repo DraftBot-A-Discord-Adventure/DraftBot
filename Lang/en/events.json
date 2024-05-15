@@ -2401,46 +2401,46 @@
           "0": "You decide to ignore the trapdoor: you feel it would be far too dangerous to explore an underground passage. The sandy gusts have subsided, which is a godsend for you!",
           "1": "You decide to ignore the trapdoor and continue on your way, but the sandstorm becomes even more virulent. Without the slightest hesitation, you turn back for shelter. You decide to rest here until the storm is over.",
           "2": "The gusts are getting stronger, so you tear off a piece of your top to protect your respiratory tracts. With difficulty, you take a few steps and spot several cacti, some with fruit. After picking up two of them, you quickly find a dune where you can take shelter. Once peeled, you discover that the fruit is delicious. Many minutes later, the storm has died down. You resume your adventure.",
-          "3": "After carefully closing the trapdoor, you continue on your way. Suddenly, the ground caves in under your yeet. You find yourself in one of the catacomb's rooms. Your thigh got slashed in the fall. Thankfully, you easily get out of there."
+          "3": "After carefully closing the trapdoor, you continue on your way. Suddenly, the ground gives way beneath your feet. You fall into one of the underground rooms. In your fall, you cut your thigh. Fortunately, you get out with ease."
         },
-        "text": "Ignore it entirely."
+        "text": "Continue on your way."
       }
     },
-    "text": "As you are crossing The Dune, the air starts getting drier. Your eyes get itchy, forcing you to squint, overwhelmed by dust and sand. Under your step, a dull thump resounds. Interested, you push aside the sand with your feet, revealing a trapdoor carved in stone, which you open. A gigantic maze lays before your eyes."
+    "text": "As you travel through the Dune, the air seems to grow drier and drier. As you move forward, grains of sand whirl around, forcing you to squint. Suddenly, you feel the ground firm up beneath your feet for the space of a step. Surprised, you push the sand aside to reveal a trapdoor and open it. A gigantic labyrinth is revealed before your astonished eyes."
   },
   "71": {
     "possibilities": {
       "accept": {
         "outcomes": {
-          "0": "You follow the old man to the tent he calls home, and let him serve you a strange mix which, he assures you, is a delicious peyotl soup. Out of courtesy, you drink it. In just a few moments, the effects of this demonic soup reveal themselves to you: your vision becomes filled with a gaudy and dazzling dreamworld, and everything sways. Suddenly full of fright regarding the mad hermit, you flee in the nightly desert. As morning comes, you wake up to an atrocious headache. The peyotl's effects will take some more time before truly fading away.",
-          "1": "You follow the old man to the tent he calls home, and share a meal around a bonfire, all the while he tells you his story. He explains that both his brother and himself are the only survivors of a disaster that befell their family, and they afterwards separated to live as hermits. You feel deeply touched by their story, and another hermit whith a name starting in \"X\" floats to your memory... The desert is freezing cold as you fall asleep next to the fire, along with the hermit. By morning, as you wake up, you find a beautiful scorpion in one of your shoes. You get rid of it, and continue your travels.",
-          "2": "You follow the old man to the tent he calls home, and share a meal around a bonfire, recounting your adventures. After getting your fill and thanking the hermit, you resume your desert-traveling activities, traversing the meandering dunes of the nighttime desert."
+          "0": "You follow the old man to the tent that serves as his home, and let him serve you a strange mixture that he says is a delicious peyote soup. Out of politeness, you drink it. It only takes a few moments for you to feel the effects of this demonic soup: your vision blurs, and the world sways. Suddenly frightened by the mad hermit, you flee into the desert. In the early hours of the morning, you wake up with a splitting headache, the effects of the peyote taking a while to wear off completely.",
+          "1": "You follow the old man to the tent that serves as his home and share a meal together around the fire, while he tells you his story. He explains that he and his brother separated for their hermitage following a disaster that killed their entire family, the only survivors being him and his brother. His story touches you deeply, and the name of another hermit whose name begins with an X sounds familiar... The desert is icy cold as you fall asleep by the fire with the hermit. When you wake up in the morning, you find a beautiful scorpion in one of your shoes. You throw it away and continue on your way.",
+          "2": "You follow the old man to the tent that serves as his home, and share a meal together around the fire as you recount your adventures. Once you've eaten your fill and thanked the hermit, you resume your journey through the desert, heading deeper into the wilderness."
         },
-        "text": "Accept and join him."
+        "text": "Agree to join him."
       },
       "deny": {
         "outcomes": {
-          "0": "You politely decline the hermit's offer, and continue crossing the desert.",
-          "1": "Catching on to your hesitation, the old man takes your arm and guides you to his tent. He gives you some tea, and you chat with him while sipping the drink. A little while later, you bid the old man farewell, and resume your journey.",
-          "2": "Seeing that you hesitate to accept, the old man decides to offer you \"an object from his personal collection.\" You accept the gift but remain reserved about staying in his company and decide to take your leave quickly.",
-          "3": "You decline his offer, but, as you start walking again, he interrupts you and starts rambling about some random nonsense. After a bit, you find him a tad too strange and, thinking he might be laying a trap, you chose to stop his unending monologue and get out of there as fast as possible."
+          "0": "You politely decline the hermit's offer and continue your journey.",
+          "1": "Seeing that you're reluctant to accept, the old man pulls you by the arm and invites you to tea, where you chat with him as you sip the beverage. After a short while, you bid farewell to the old man and set off again.",
+          "2": "Seeing that you are reluctant to accept, the old man decides to offer you \"an object from his personal collection\". You accept the gift but remain reserved about staying in his company and decide to take your leave quickly.",
+          "3": "You decline his offer, but just as you're about to set off again, he calls out to you again, talking about anything and everything. After a while, finding him far too suspicious and thinking he's trying to set a trap for you, you decide to cut short his interminable monologue before fleeing as quickly as possible."
         },
-        "text": "Decline the offer."
+        "text": "Decline his offer and move on."
       },
       "end": {
         "outcomes": {
-          "0": "This person seems really suspicious, and his approach his deceitful. As he reach out with his arm, concerned about your well-being, you abruptly shove him into the water, before hurrying away from the oasis.",
-          "1": "Seeing you unresponsive, the old man feels vexed, shouts at you and throws a bunch of sand to your face, before going away. Blinded, you go towards the small puddle of water and rinse your eyes of the sand. A few minutes later, you feel better and continue on your planned road."
+          "0": "The man looks suspicious and his gait is deceitful. As he stretches out his arm to ask if you're feeling well, you grab hold of him and shove him into the water before scurrying away.",
+          "1": "Seeing you reactionless, the old man gets offended, yells at you and throws a handful of sand in your face before walking away. Completely blinded, you head for the small body of water to rinse the sand from your eyes. After a few minutes, you feel better and go on your way."
         }
       },
       "steal": {
         "outcomes": {
-          "0": "You let the man guide you to his tent, and covertly pick up a big stone, while behind him. You then powerfully smash the back of his hooded skull. The hermit collapses, and blood spills on the cracked earth of the oasis. You let the corpse lay there and focus on the tent. Inside, you find jewel-sets chests, and a great variety of items. You leave with a sizeable sum of money, as well as an hastily-chosen item. You quickly resume your walk across the desert, unwilling to be associated with the murder.",
-          "1": "You let the man guide you to his tent, and covertly pick up a big stone, while behind him. As you prepare to hit him with the rock, the hermit suddenly turns around, taking out a dagger from his sleeve, and manages to profoundly slash open your torso. You run aways immediatly, trying your best to contain the bleeding. As you flee, you hear demented laughs escape from the crazed hermit's mouth.",
-          "2": "You follow the man as he guides you to his tent, and with much stealth, pick up a big stone. You then powerfully smash the back of his hooded skull. The hermit collapses, and you suddenly feel deeply remorseful. You bandage the old man's head, lay him down on his mat, and wait for him to recover. Once he wakes up, you apologize profusely, and give him some money as compensation for your wicked act.",
-          "3": "As you follow the oldster, you pick up a stone. However, stealth is not your forte, and the hermit quickly picks up your suspicious silence. Guessing what's going on, he repudiates you from his kyutchen with a transcendental punch."
+          "0": "You let the man guide you to his tent and discreetly pick up a large stone while his back is turned to you. You then land a heavy blow on his hooded skull. The hermit collapses, blood spilling onto the cracked oasis floor. You decide to leave him like that, and head off to take a look inside the tent. Inside, you discover trunks set with jewels and objects in great quantity. You leave with a substantial sum of money, as well as an item you grabbed in a hurry. You quickly resume your crossing, unwilling to be caught red-handed.",
+          "1": "You let the man guide you to his tent and discreetly pick up a large stone while his back is turned to you. Just as you're about to hit him, he turns and pulls a dagger from his sleeve, cutting deep into your chest. You scramble for cover, doing your best to stop the blood flowing. As you flee, you hear the crazy old man's demented laughter.",
+          "2": "You let the man guide you to his tent and discreetly pick up a large stone while his back is turned to you. You land a heavy blow on his hooded head, the hermit collapses to the ground, and you are immediately overcome with remorse. You bandage the old man's head and lay him down on his mat to recover. When he wakes up, you apologize and give him some money in compensation for your misdeed.",
+          "3": "As you follow the old man, you pick up a stone from the ground behind his back. Discretion is not your strong suit, and the hermit immediately notices your suspicious silence. Realizing the situation, he repudiates you from his kyutchen with a punch the likes of which you've never received."
         },
-        "text": "Accept and rob him under the cover of night."
+        "text": "Accept and take advantage of the night to steal his belongings."
       }
     },
     "text": "As you cross the Kings' Valley, you catch sight of an oasis. Thirsty from your journey, you rush to the small body of water to drink. As you take a drink, you are startled by the sound of laughter behind you. As you turn around, a bearded old man with a large hood over his face faces you. He says his name is Xirtex and that he lives in this oasis. He offers to put you up in his home to help you recover from your journey, and to share your misadventures."
