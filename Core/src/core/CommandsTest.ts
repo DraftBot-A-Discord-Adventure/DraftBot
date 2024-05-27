@@ -1,10 +1,9 @@
 import {readdir} from "fs/promises";
 import {readdirSync} from "fs";
 import {isAnId, isAnEmoji} from "../../../Lib/src/utils/StringUtils";
-import {DraftBotPacket, makePacket} from "../../../Lib/src/packets/DraftBotPacket";
-import Player, {Players} from "./database/game/models/Player";
-import {Client} from "../../../Lib/src/instances/Client";
-import {CommandTestPacketRes} from "../../../Lib/src/packets/commands/CommandTestPacket";
+import {DraftBotPacket, PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
+import Player from "./database/game/models/Player";
+import {WebsocketClient} from "../../../Lib/src/instances/WebsocketClient";
 
 type Checker = (v: string) => boolean;
 
@@ -32,7 +31,7 @@ export interface ITestCommand {
 	category?: string
 }
 
-export type ExecuteTestCommandLike = (player: Player, args: string[], response: DraftBotPacket[], client: Client) => string | Promise<string>;
+export type ExecuteTestCommandLike = (player: Player, args: string[], response: DraftBotPacket[], context: PacketContext, client: WebsocketClient) => string | Promise<string>;
 
 /**
  * @class
