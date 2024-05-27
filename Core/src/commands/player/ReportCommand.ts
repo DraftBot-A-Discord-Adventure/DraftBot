@@ -57,7 +57,7 @@ import {MapLocationDataController} from "../../data/MapLocation";
 
 export default class ReportCommand {
 	@packetHandler(CommandReportPacketReq)
-	async execute(
+	static async execute(
 		client: WebsocketClient,
 		packet: CommandReportPacketReq,
 		context: PacketContext,

@@ -40,7 +40,12 @@ export async function handleCommandTestPacketRes(packet: CommandTestPacketRes, c
 				.setDescription(packet.result)
 				.setColor(<HexColorString> ColorConstants.SUCCESSFUL);
 
-			await interaction.editReply({embeds: [embedTestSuccessful]});
+			if (interaction.replied) {
+				await interaction.channel.send({embeds: [embedTestSuccessful]});
+			}
+			else {
+				await interaction.editReply({embeds: [embedTestSuccessful]});
+			}
 		}
 	}
 }
