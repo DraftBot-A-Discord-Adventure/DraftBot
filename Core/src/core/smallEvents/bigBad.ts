@@ -8,6 +8,7 @@ import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {SmallEventBigBadPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventBigBadPacket";
 import {Maps} from "../maps/Maps";
 import {Effect} from "../../../../Lib/src/enums/Effect";
+import {SmallEventBigBadKind} from "../../../../Lib/src/enums/SmallEventBigBadKind";
 
 type BigBadProperties = {
 	"alterationStories": {
@@ -21,17 +22,18 @@ type BigBadProperties = {
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnContinent,
 	executeSmallEvent: async (context, response, player): Promise<void> => {
-		const outRand = RandomUtils.draftbotRandom.integer(0, 2);
-		let lifeLoss, seFallen, moneyLoss;
-		const bigBadProperties = SmallEventDataController.instance.getById("bigBadEvent").getProperties<BigBadProperties>();
+		const outRand: SmallEventBigBadKind = RandomUtils.draftbotRandom.integer(0, 2);
+		let lifeLoss, seFallen, moneyLoss, effect;
+		const bigBadProperties = SmallEventDataController.instance.getById("bigBad").getProperties<BigBadProperties>();
 		switch (outRand) {
-		case 0:
+		case SmallEventBigBadKind.LIFE_LOSS:
 			lifeLoss = RandomUtils.rangedInt(SmallEventConstants.BIG_BAD.HEALTH);
 			await player.addHealth(-lifeLoss, response, NumberChangeReason.SMALL_EVENT);
 			break;
-		case 1:
+		case SmallEventBigBadKind.ALTERATION:
 			seFallen = RandomUtils.draftbotRandom.pick(Object.keys(bigBadProperties.alterationStories));
-			await TravelTime.applyEffect(player, Effect.getById(bigBadProperties.alterationStories[seFallen].alte), 0, new Date(), NumberChangeReason.SMALL_EVENT);
+			effect = bigBadProperties.alterationStories[seFallen].alte;
+			await TravelTime.applyEffect(player, Effect.getById(effect), 0, new Date(), NumberChangeReason.SMALL_EVENT);
 			if (bigBadProperties.alterationStories[seFallen].tags) {
 				for (const tag of bigBadProperties.alterationStories[seFallen].tags) {
 					await MissionsController.update(player, response, {
@@ -54,7 +56,8 @@ export const smallEventFuncs: SmallEventFuncs = {
 			kind: outRand,
 			lifeLost: lifeLoss,
 			receivedStory: seFallen,
-			moneyLost: moneyLoss
+			moneyLost: moneyLoss,
+			effectId: effect
 		}));
 		await player.killIfNeeded(response, NumberChangeReason.SMALL_EVENT);
 		await player.save();
