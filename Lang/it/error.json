@@ -51,6 +51,6 @@
   "guildDoesntExist": "Nessuna gilda corrispondente è stata trovata.",
   "petDoesntExist": "Nessuno animale domestico e stato trovato.",
   "unexpectedError": "Si è verificato un errore :(",
-  "pleaseWaitForHeal": "Veuillez attendre la fin des soins de votre altération d'état pour continuer à jouer : {{time}}\n\n:information_source: Vous pouvez utiliser la commande /shop pour acheter un soin.",
-  "pleaseWaitForHisHeal": "Veuillez attendre la fin des soins de son altération d'état : {{time}}"
+  "pleaseWaitForHeal": "Prima di continuare a giocare, attendere di aver terminato la guarigione della propria alterazione di stato: {{time}}\n\n:information_source: È possibile utilizzare il comando /shop per acquistare una guarigione.",
+  "pleaseWaitForHisHeal": "{{time}}Per favore, aspettate fino alla fine delle cure per il deterioramento delle sue condizioni:"
 }
