@@ -730,7 +730,7 @@ export const DraftBotIcons: {
 	},
 	"small_events": {
 		"advanceTime": "⌛",
-		"bigBadEvent": "😱",
+		"bigBad": "😱",
 		"boatAdvice": "⛴️",
 		"bonusGuildPVEIsland": "😱",
 		"botFacts": "💮",

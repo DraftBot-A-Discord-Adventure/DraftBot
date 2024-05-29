@@ -30,5 +30,34 @@
       "vous êtes surpris par le passage d'un lapin au pelage immaculé, qui se faufile entre vos jambes. Interloqué tout d'abord, vous tentez de le rattraper. C'est peine perdue, il ne faut pas longtemps au petit animal pour vous semer. Ces péripéties vous auront fait gagner **{{time}} Min :hourglass:**.",
       "vous entendez l'appel d'une femme derrière vous. Quand vous vous retournez, vous remarquez immédiatement l'objet aux reflets métalliques dans sa main. Paniqué, vous prenez la fuite. Après être arrivé dans un endroit plus sûr, vous remarquez que vous avez pris **{{time}} Min :hourglass:** d'avance sur votre temps de voyage."
     ]
+  },
+  "bigBad": {
+    "lifeLoss": [
+      "vous entendez un bruit strident venant du ciel. Vous levez les yeux mais trop tard : un oiseau aux griffes acérées vous fonce dessus. Au moment où celui-ci vous griffe, il se rend compte que vous n'êtes pas sa proie habituelle et repart aussitôt. Vous contemplez votre blessure, elle a l'air profonde. Vous perdez **{{lifeLoss}} 💔**.",
+      "alors que vous arpentez un sentier escarpé, vous dérapez et vous tordez la cheville droite. Vous perdez **{{lifeLoss}} 💔**.",
+      "vous voyez une mouche tourner autour de vous. Vous sortez votre arme dans l'espoir de la tuer, mais vous n'arrivez qu'à vous entailler légèrement le poignet, perdant au passage **{{lifeLoss}} 💔**."
+    ],
+    "moneyLoss": [
+      "vous vous rendez compte que votre sac est déchiré. Après vérification, vous constatez que votre bourse a disparu, vous avez perdu **{{moneyLost}} 💸**.",
+      "vous prenez conscience de l'absence de votre bourse en votre sac. Vous vous souvenez soudain l'avoir oubliée dans la précédente taverne, vous avez perdu **{{moneyLost}} 💸**.",
+      "des voyageurs passent à côté de vous en vous bousculant, puis vous relèvent en s'excusant grossièrement. Quelques minutes plus tard, vous vous apercevez que votre bourse a disparu, vous avez perdu **{{moneyLost}} 💸**."
+    ],
+    "alterationStories": {
+      "badBerries": "vous apercevez des baies. Votre estomac vous rappelant que cela fait plusieurs heures que vous n'avez pas mangé, vous vous sentez poussé à les goûter. Très vite vous vous sentez mal.",
+      "gentleBreeze": "vous sentez la brise vous bercer peu à peu. Fatigué par votre route, vous n'êtes pas long à vous endormir.",
+      "mysteriousBottle": "vous passez non loin d'un marchand, et celui-ci vous interpelle. Il vous propose de vous donner une bouteille mystérieuse qu'il ne parvient pas à vendre et ne souhaite pas voir s'abîmer. Vous acceptez et buvez goulûment son contenu.",
+      "strangeLiquid": "vous apercevez au loin un objet brillant. En vous approchant vous découvrez une bouteille contenant un liquide étrange. Intrigué, vous décidez de goûter le mélange douteux. Vous regrettez cela immédiatement.",
+      "expiredProvisions": "vous prenez conscience que des provisions traînent depuis un moment en vos sacs. Vous ne souhaitez cependant pas les jeter et choisissez de tout de même les manger. Cela s'avère être une mauvaise idée, il semble que les vivres étaient déjà périmés.",
+      "unexpectedRider": "vous êtes surpris par un cavalier qui surgit derrière vous sans crier gare. Il vous renverse et poursuit son chemin sans prêter attention à vous. Sonné, vous vous relevez avec difficulté.",
+      "fallingBranch": "vous êtes assommé par une immense branche tombant de l'arbre mort sous lequel vous étiez. Blessé, il vous faudra un peu de temps pour repartir.",
+      "precipiceFall": "vous êtes surpris par un profond précipice. Malgré tous vos efforts pour vous rattraper vous ne parvenez pas à éviter la chute.",
+      "ambushedByGroup": "un groupe vous arrête, et ses membres exigent que vous leur donniez vos possessions. Vous n'êtes pas intimidé, et brandissez votre arme pour les faire fuir. Cependant, l'un d'eux profite de la panique générale pour vous assommer, avant de s'enfuir.",
+      "cowStampede": "vous traversez un chemin quand un troupeau de vaches surgit brusquement. Apeuré par la masse d'animaux qui vient de vous frôler, vous mettez un peu de temps à vous remettre de vos émotions.",
+      "trippedOverRoot": "vous vous prenez les pieds dans une racine et tombez tête la première. Blessé, il vous faudra vous soigner.",
+      "encounterWithBearCub": "vous apercevez un ourson quelques mètres plus loin. Apeuré par l'idée de vous faire surprendre par sa mère vous fuyez aussi vite que vous le pouvez.",
+      "wrongDirection": "vous vous rendez compte que vous avez pris la mauvaise direction à la dernière intersection. Vous décidez de ne pas faire demi-tour et de trouver votre propre chemin vers votre destination... Vous vous perdez complètement.",
+      "chilledByColdNights": "vous vous faîtes surprendre par les nuits froides de la région. Sans vêtements adaptés à ce climat, vous vous refroidissez rapidement.",
+      "mistakenIdentity": "vous êtes appréhendé par des gardes vous accusant d'être un criminel recherché activement dans le royaume. Vous constatez en effet que l'homme sur l'affiche vous ressemble, et tentez de vous expliquer. Les gardes ne vous écoutent pas, vous embarquent et vous jettent en prison."
+    }
   }
 }
