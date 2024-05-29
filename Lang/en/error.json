@@ -50,5 +50,7 @@
   "titleDidntWork": "{{pseudo}}, hmmm... That didn't work!",
   "guildDoesntExist": "No guild was found.",
   "petDoesntExist": "No pet was found.",
-  "unexpectedError": "An error occurred. :("
+  "unexpectedError": "An error occurred. :(",
+  "pleaseWaitForHeal": "Please wait for the healing end of your state to continue playing: {{time}}\n\n:information_source: You can use the /shop command to purchase care.",
+  "pleaseWaitForHisHeal": "Please wait for the end of healing of its state elevation: {{time}}"
 }
