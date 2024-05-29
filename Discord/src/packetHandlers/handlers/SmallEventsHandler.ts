@@ -10,6 +10,7 @@ import {SmallEventBigBadPacket} from "../../../../Lib/src/packets/smallEvents/Sm
 import {SmallEventBigBadKind} from "../../../../Lib/src/enums/SmallEventBigBadKind";
 import i18n from "../../translations/i18n";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
+import {SmallEventBoatAdvicePacket} from "../../../../Lib/src/packets/smallEvents/SmallEventBoatAdvicePacket";
 
 function getRandomIntro(language: Language): string {
 	return StringUtils.getRandomTranslation("smallEvents:intro", language);
@@ -24,7 +25,7 @@ export default class SmallEventsHandler {
 			await interaction.editReply({ embeds: [new DraftbotSmallEventEmbed("advanceTime", description)]});
 		}
 	}
-  
+
 	@packetHandler(SmallEventBigBadPacket)
 	async smallEventBigBad(socket: WebSocket, packet: SmallEventBigBadPacket, context: PacketContext): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
@@ -32,20 +33,33 @@ export default class SmallEventsHandler {
 			let story: string;
 			switch (packet.kind) {
 			case SmallEventBigBadKind.LIFE_LOSS:
-				story = StringUtils.getRandomTranslation("smallEvents:bigBad.lifeLoss", interaction.userLanguage, { lifeLoss: packet.lifeLost });
+				story = StringUtils.getRandomTranslation("smallEvents:bigBad.lifeLoss", interaction.userLanguage, {lifeLoss: packet.lifeLost});
 				break;
 			case SmallEventBigBadKind.ALTERATION:
 				story = `${i18n.t(`smallEvents:bigBad.alterationStories.${packet.receivedStory}`, {lng: interaction.userLanguage})} ${DraftBotIcons.effects[packet.effectId!]}`;
 				break;
 			case SmallEventBigBadKind.MONEY_LOSS:
-				story = StringUtils.getRandomTranslation("smallEvents:bigBad.moneyLoss", interaction.userLanguage, { moneyLost: packet.moneyLost });
+				story = StringUtils.getRandomTranslation("smallEvents:bigBad.moneyLoss", interaction.userLanguage, {moneyLost: packet.moneyLost});
 				break;
 			default:
 				story = "";
 			}
 
 			const description = getRandomIntro(interaction.userLanguage) + story;
-			await interaction.editReply({ embeds: [new DraftbotSmallEventEmbed("bigBad", description)]});
+			await interaction.editReply({embeds: [new DraftbotSmallEventEmbed("bigBad", description)]});
+		}
+	}
+
+	@packetHandler(SmallEventBoatAdvicePacket)
+	async smallEventBoatAdvice(socket: WebSocket, packet: SmallEventBoatAdvicePacket, context: PacketContext): Promise<void> {
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		if (interaction) {
+			const description = StringUtils.getRandomTranslation(
+				"smallEvents:boatAdvice.intro",
+				interaction.userLanguage,
+				{ advice: StringUtils.getRandomTranslation("smallEvents:boatAdvice.advices", interaction.userLanguage) }
+			);
+			await interaction.editReply({ embeds: [new DraftbotSmallEventEmbed("boatAdvice", description)]});
 		}
 	}
 }
