@@ -51,6 +51,6 @@
   "guildDoesntExist": "No se han encontrado gremios.",
   "petDoesntExist": "No se encontraron mascotas.",
   "unexpectedError": "Se ha producido un error :(",
-  "pleaseWaitForHeal": "Veuillez attendre la fin des soins de votre altération d'état pour continuer à jouer : {{time}}\n\n:information_source: Vous pouvez utiliser la commande /shop pour acheter un soin.",
-  "pleaseWaitForHisHeal": "Veuillez attendre la fin des soins de son altération d'état : {{time}}"
+  "pleaseWaitForHeal": "Por favor, espera hasta que hayas terminado de curar tu alteración de estado antes de continuar jugando: {{time}}\n\n:information_source: Puedes usar el comando /shop para comprar una curación.",
+  "pleaseWaitForHisHeal": "{{time}}Por favor, espere hasta el final de la atención para su estado de deterioro:"
 }
