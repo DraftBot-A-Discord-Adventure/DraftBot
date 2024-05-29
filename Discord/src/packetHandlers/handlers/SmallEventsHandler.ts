@@ -24,7 +24,7 @@ export default class SmallEventsHandler {
 			await interaction.editReply({ embeds: [new DraftbotSmallEventEmbed("advanceTime", description)]});
 		}
 	}
-
+  
 	@packetHandler(SmallEventBigBadPacket)
 	async smallEventBigBad(socket: WebSocket, packet: SmallEventBigBadPacket, context: PacketContext): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);

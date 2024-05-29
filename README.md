@@ -96,12 +96,12 @@ docker run -d --name mariadb -e MARIADB_USER=draftbot -e MARIADB_PASSWORD=secret
 ```sh
 # Copy files with default values
 cp $DRAFTBOT_ROOT/Core/config/config.default.toml $DRAFTBOT_ROOT/Core/config/config.toml
-cp $DRAFTBOT_ROOT/Core/config/config.default.toml $DRAFTBOT_ROOT/Core/config/config.toml
+cp $DRAFTBOT_ROOT/Discord/config/config.default.toml $DRAFTBOT_ROOT/Discord/config/config.toml
 # The Core module also need access to the Keycloak server on the first launch
 touch $DRAFTBOT_ROOT/Core/config/keycloak.toml # 🐧
 New-Item $DRAFTBOT_ROOT/Core/config/keycloak.toml # 🪟
-# You can copy and paste the content of the keycloak section from the config.toml file in the Discord folder in the keycloak.toml file
 ```
+You can copy and paste the content of the keycloak section from the config.toml file in the Discord folder in the keycloak.toml file.
 
 5. Run projects
 
