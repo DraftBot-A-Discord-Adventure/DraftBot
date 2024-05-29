@@ -1,0 +1,98 @@
+{
+  "intro": [
+    "While you are travelling peacefully, ",
+    "While you're progressing peacefully on your track, ",
+    "As you plan to get back on track after a short break, ",
+    "Reaching a turn, ",
+    "As you walk quietly, ",
+    "Following a meal break, ",
+    "After long hours walking, ",
+    "During a short break against a tree, ",
+    "As you continue your adventure, ",
+    "Following your path, ",
+    "Contemplating the edge of the road, ",
+    "Moving on after a quick stop, ",
+    "As you walk, tired by your long hours walking, ",
+    "Near a path, "
+  ],
+  "advanceTime": {
+    "stories": [
+      "you see a person bearing a strange ressemblance to Pérotin. You run up to him, but he starts running too, probably out of fear. You manage to catch him up, only to realise you got the wrong person. You hurriedly apologise. However, you have gained **{{time}} Min :hourglass:** on your way.",
+      "you hear a cart behind you. The man in the vehicle offers to let you ride along. You accept and tell him your destination. After driving a few kilometers, the man tells you that he has to go in a different direction than yours, so he drops you off and you thank him. You save **{{time}} Min :hourglass:** on your journey.",
+      "you see a carriage in the distance. The princess may be on board! You decide to go talk to her and therefore run as fast as possible. Once close enough, you discover with frustration that you cannot approach it further, because the vehicle is protected by a platoon of cavalrymen. However, you have gained **{{time}} Min :hourglass:** on your journey.",
+      "you are having a small snack when all of a sudden a shadow rushes to you and steals your food. You pursue it immediately, but unable to catch up with it you give up. This misadventure has nevertheless saved you **{{time}} Min :hourglass:** on your journey.",
+      "you see a person bearing a strange ressemblance to Gruffo. You run up to him, but he starts running too, probably out of fear. After catching up with him, you ask him what he is doing there, before realising that the person isn't Gruffo at all. However, you have gained **{{time}} Min :hourglass:** on your journey.",
+      "a bright point catches your attention. Your curiosity prompts you to run towards the light source. Upon arriving close to it, you realise it's just a vulgar piece of copper, but it saved you **{{time}} Min :hourglass:** on your journey.",
+      "a massive fawn-colored dog emerges from a large grove. It growls, shows sharp canines, and it looks like it wants to bite your leg. Strongly appreciating the idea of keeping your limbs in one piece, you feel compelled to run at full speed. It ends up saving you **{{time}} Min :hourglass:** on your journey!",
+      "a voluminous wasp's nest falls from a nearby tree and end up at your feet. You run until your lungs beg you to stop. Not a single wasp has managed to sting you. This mishap saved you **{{time}} Min :hourglass:** on your itinerary!",
+      "you enjoy a pleasant spring weather. Your break is however short-lived: bandits armed with clubs and chipped swords tear through the bushes to your left and chuckle as they advance quietly towards you. Without even taking the time to think, your body acts by itself and you quickly flee. It saves you **{{time}} Min :hourglass:** on your course.",
+      "a young boy walks past you and, in the process, pushes you aside. Overcome by a bad feeling, you check your pockets: your purse has disappeared! Now you start a frantic race to catch up with this young miscreant. Once done, you realize that it got you **{{time}} Min :hourglass:** ahead of your route.",
+      "you are surprised by the passage of a rabbit with an immaculate coat, which sneaks between your legs. Confused at first, you quickly try to catch up with him. It's a waste of time, as it doesn't take long for the little animal to throw you off. This adventure nonetheless saved you **{{time}} Min :hourglass:**.",
+      "you hear the call of a woman behind you. When you turn around, you immediately notice the shimmer of a metallic object in her hand. Panicked, you take flight. After getting to a safer place, you notice that you now are **{{time}} Min :hourglass:** ahead of your travel time."
+    ]
+  },
+  "bigBad": {
+    "lifeLoss": [
+      "you hear a strident sound from the sky. You raise your eyes but too late: a dull claw bird drops at you. At the moment he claws you, he realises that you did not have his usual prey and leaves immediately. You look at your wound, it looks deep. You lose **{{lifeLoss}}💔**.",
+      "while riding a steep path, swing and twisting the right ankle. You lose **{{lifeLoss}}💔**.",
+      "you see a fly around you. You pull out your weapon in the hope of killing it, but you can only cut your wrist, losing at **{{lifeLoss}}💔**."
+    ],
+    "moneyLoss": [
+      "you realize that your bag is torn off. After checking, you notice that your purse has disappeared, you have lost **{{moneyLost}} 💸**.",
+      "you are aware of the absence of your purse in your bag. You suddenly remember having forgotten him in the previous tavern, you lost **{{moneyLost}}💸**.",
+      "travelers pass next to you, hustling you, then they get up and apologize roughly. A few minutes later, you notice that your wallet has disappeared, you lost **{{moneyLost}} 💸**."
+    ],
+    "alterationStories": {
+      "badBerries": "You see berries. Your stomach reminds you that you have not eaten for several hours, you feel you have been growing them up. Soon you feel bad.",
+      "gentleBreeze": "you feel the breeze slowly falling in your feet. Tired by your road, you have to fall asleep.",
+      "mysteriousBottle": "you pass not far from a merchant, and this one is asking you. He proposes to give you a mysterical bottle that he cannot sell and does not wish to see fit to do. You accept and drink its content.",
+      "strangeLiquid": "see a shiny object in the distance. As you approach you will discover a bottle containing a strange fluid. Intrigue, you decide to taste the dubious mixing. You regret this immeditation.",
+      "expiredProvisions": "you realize that supplies have been in your bags for a while. However, you do not want to throw them away and choose to eat them at all. This was a bad idea, it seems that the food was already being used.",
+      "unexpectedRider": "you are surprised by a rider who appears behind you without shouting a station. It overturns you and continues its journey without paying attention to you.",
+      "fallingBranch": "you stunned by a huge branch falling from the dead tree under which you were — hurt, you will need a little time to leave.",
+      "precipiceFall": "you are surprised by a deep precipice. Malgrained all your efforts to catch up you do not manage to avoid fall.",
+      "ambushedByGroup": "a group stops you, and its members require you to give them your possessions. You were not intimidated, and wield your weapon to make them flee. However, one of them takes advantage of the huge panic to knock you down, before escaping.",
+      "cowStampede": "you cross a path when a herd of cows suddenly emerges. Apured by the mass of animals that just frozen, you take a little time to get back from your emotions.",
+      "trippedOverRoot": "you take your feet into a root and fall in the first place. Wassed you will need to heal.",
+      "encounterWithBearCub": "you can see a bear a few meters further. Powered by the idea of making you surprise by his meme you flee as fast as you can.",
+      "wrongDirection": "you realize that you have taken the wrong direction at the last intersection. You decide not to turn around and find your own path to your destination... You get completely lost.",
+      "chilledByColdNights": "You will be surprised by the cold nights of the area, without clothing adapted to this climate, you will cool quickly.",
+      "mistakenIdentity": "you were apprehended by guards accusing you of a criminal actively searching in the kingdom. You can see that the man on the poster looks like you and try to explain. The guards do not listen to you, board you and throw you into prison."
+    }
+  },
+  "boatAdvice": {
+    "intro": [
+      "You climb up the bridge and talk to a crew member. It gives you advice to help you on your Island adventure:\n**{{advice}}**.",
+      "You climb on the maitre to admire the horizon. A man lowers his length and wants to give you this advice before your departure for Ile\n**{{advice}}**.",
+      "In the joys of a meal in the fresh wind of the sea, you discuss with the sailors. Your table neighbor gives you the following advice about Ile\n**{{advice}}**."
+    ],
+    "advices": [
+      "There are many more events waiting for you on the mystery island",
+      "Every trip on the mystery island is composed of more stops",
+      "If you fight animals during mini-winds, the end of the journey monster will be easier to beat",
+      "Going to the island at the same time as other guild members guarantee you exclusive bonuses",
+      "Your energy does not regain on the island. Make sure you have the most before venturing into the island.",
+      "Once your energy has reached 0, you will be brought back to the continent",
+      "The journey to the island can be done only once a week for free. It's possible to go 2 times more, but you'll have to pay gems",
+      "End of Ride monsters are strong, and the last one in the island is even stronger",
+      "Beating end-of-trip monsters gives guild points, which determine guild ranking",
+      "Monsters have different stats: some will have a lot of defense, attack, speed or total health",
+      "An island is composed of a finished number of places. Once the last place is visited, you will be brought back to the main continent",
+      "Mystery Island changes every week",
+      "When fighting a monster, if the maximum number of turns is exceeded, the monster will quickly become thirteen strong",
+      "If a guild member wants to join you on the boat, they can run /joinboat",
+      "Actions available during battles against animals depend on your stats, items, pets, etc.",
+      "The hostility of the island will not give you any gifts with regard to the difficulties. But by going many with members of your guild, you will be much stronger together",
+      "The /map command shows the map of the island",
+      "You can choose to leave the island after each monster battle. If your energy is low, it is more integrated to leave while still aware",
+      "Some actions like drinking a potion, accessing the store or getting daily bonuses are unavailable on the island",
+      "Your level does not influence the number of guild points, but influences other rewards",
+      "Earning against a monster further in the island will earn more guild points than the start points",
+      "It is said that if several members of a single guild are on the island at the same time, it is possible to combine each other's forces to perform a devastating attack",
+      "Your guild members can help you fight monsters when you visit a mysterious island",
+      "It is possible to see your guild members who are on a mystery using the /guild command",
+      "The /guild command allows you to see the number of rows that will help you on the mystery island",
+      "An \"allied\" is a member of your guild who is currently on the mystery, or who has recently left it"
+    ]
+  }
+}
