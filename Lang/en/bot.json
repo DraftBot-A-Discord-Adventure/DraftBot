@@ -15,7 +15,7 @@
   "notAuthorizedError": "You do not have the required permissions to do that command in your guild, please ask a superior if needed.",
   "notInAGuild": "You have to be in a guild to use this command.",
   "resetIsNow": ":trophy: The weekly ranking is currently being reinitialized. The winner will soon be announced on the bot's server! The game will resume in less than 5 minutes!",
-  "seasonEndAnnouncement": ":sparkles: **The fighting season is over! The winner is:** {{mention}}",
+  "seasonEndAnnouncement": ":sparkles: **The combat season has come to an end! The winner is:** {{mention}}",
   "seasonEndIsNow": ":sparkles: The combat season is currently being restored! The winner will soon be announced on the bot's server! The game will resume in less than 20 minutes!",
   "serverList": "**:outbox_tray: Server {{count}} :** `{{guild}}` | :bust_in_silhouette: : `{{humans}}` | :robot: : `{{robots}}` | Bot/human ratio : `{{ratio}}` % | Validation : {{validation}}",
   "supportAlert": ":love_letter: | **New DM received!** \n`Author: {{username}} (id : {{id}})\n\n`",
