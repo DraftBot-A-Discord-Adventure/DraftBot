@@ -5,6 +5,8 @@ import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/inter
 import { ReactionCollectorBigEventData} from "../../../../Lib/src/packets/interaction/ReactionCollectorBigEvent";
 import {chooseDestinationCollector, createBigEventCollector} from "../../commands/player/ReportCommand";
 import {ReactionCollectorChooseDestinationData} from "../../../../Lib/src/packets/interaction/ReactionCollectorChooseDestination";
+import {ReactionCollectorGoToPVEIslandData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGoToPVEIsland";
+import {goToPVEIslandCollector} from "../../smallEvents/goToPVEIsland";
 
 export default class ReactionCollectorHandler {
 	@packetHandler(ReactionCollectorCreationPacket)
@@ -15,6 +17,9 @@ export default class ReactionCollectorHandler {
 			break;
 		case ReactionCollectorChooseDestinationData.name:
 			await chooseDestinationCollector(packet, context);
+			break;
+		case ReactionCollectorGoToPVEIslandData.name:
+			await goToPVEIslandCollector(packet, context);
 			break;
 		default:
 			throw `Unknown collector with data: ${packet.data.type}`; // Todo error embed
