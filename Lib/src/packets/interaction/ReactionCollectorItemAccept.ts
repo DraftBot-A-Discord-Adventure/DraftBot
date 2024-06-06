@@ -1,5 +1,4 @@
 import {ReactionCollector, ReactionCollectorCreationPacket, ReactionCollectorData, ReactionCollectorReaction} from "./ReactionCollectorPacket";
-import {makePacket} from "../DraftBotPacket";
 
 export class ReactionCollectorItemAcceptData extends ReactionCollectorData {
 	itemCategory!: number;

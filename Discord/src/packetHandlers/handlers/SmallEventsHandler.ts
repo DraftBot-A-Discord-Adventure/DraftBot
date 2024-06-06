@@ -11,8 +11,14 @@ import {SmallEventBigBadKind} from "../../../../Lib/src/enums/SmallEventBigBadKi
 import i18n from "../../translations/i18n";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 import {SmallEventBoatAdvicePacket} from "../../../../Lib/src/packets/smallEvents/SmallEventBoatAdvicePacket";
+import {
+	SmallEventGoToPVEIslandAcceptPacket, SmallEventGoToPVEIslandNotEnoughGemsPacket,
+	SmallEventGoToPVEIslandRefusePacket
+} from "../../../../Lib/src/packets/smallEvents/SmallEventGoToPVEIslandPacket";
+import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
+import {keycloakConfig} from "../../bot/DraftBotShard";
 
-function getRandomIntro(language: Language): string {
+export function getRandomSmallEventIntro(language: Language): string {
 	return StringUtils.getRandomTranslation("smallEvents:intro", language);
 }
 
@@ -21,8 +27,8 @@ export default class SmallEventsHandler {
 	async smallEventAdvanceTime(socket: WebSocket, packet: SmallEventAdvanceTimePacket, context: PacketContext): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (interaction) {
-			const description = getRandomIntro(interaction.userLanguage) + StringUtils.getRandomTranslation("smallEvents:advanceTime.stories", interaction.userLanguage, { time: packet.amount });
-			await interaction.editReply({ embeds: [new DraftbotSmallEventEmbed("advanceTime", description)]});
+			const description = getRandomSmallEventIntro(interaction.userLanguage) + StringUtils.getRandomTranslation("smallEvents:advanceTime.stories", interaction.userLanguage, { time: packet.amount });
+			await interaction.editReply({ embeds: [new DraftbotSmallEventEmbed("advanceTime", description, interaction.user, interaction.userLanguage)]});
 		}
 	}
 
@@ -45,8 +51,8 @@ export default class SmallEventsHandler {
 				story = "";
 			}
 
-			const description = getRandomIntro(interaction.userLanguage) + story;
-			await interaction.editReply({embeds: [new DraftbotSmallEventEmbed("bigBad", description)]});
+			const description = getRandomSmallEventIntro(interaction.userLanguage) + story;
+			await interaction.editReply({embeds: [new DraftbotSmallEventEmbed("bigBad", description, interaction.user, interaction.userLanguage)]});
 		}
 	}
 
@@ -59,7 +65,57 @@ export default class SmallEventsHandler {
 				interaction.userLanguage,
 				{ advice: StringUtils.getRandomTranslation("smallEvents:boatAdvice.advices", interaction.userLanguage) }
 			);
-			await interaction.editReply({ embeds: [new DraftbotSmallEventEmbed("boatAdvice", description)]});
+			await interaction.editReply({ embeds: [new DraftbotSmallEventEmbed("boatAdvice", description, interaction.user, interaction.userLanguage)]});
+		}
+	}
+
+	@packetHandler(SmallEventGoToPVEIslandAcceptPacket)
+	async smallEventGoToPVEIslandAccept(socket: WebSocket, packet: SmallEventGoToPVEIslandAcceptPacket, context: PacketContext): Promise<void> {
+		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
+		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+		if (interaction) {
+			await interaction.editReply({ embeds: [
+				new DraftbotSmallEventEmbed(
+					"goToPVEIsland",
+					i18n.t(
+						packet.alone
+							? "smallEvents:goToPVEIsland.endStoryAccept"
+							: "smallEvents:goToPVEIsland.endStoryAcceptWithMember",
+						{ lng: user.attributes.language[0] }
+					),
+					interaction.user,
+					user.attributes.language[0]
+				)]});
+		}
+	}
+
+	@packetHandler(SmallEventGoToPVEIslandRefusePacket)
+	async smallEventGoToPVEIslandRefuse(socket: WebSocket, packet: SmallEventGoToPVEIslandRefusePacket, context: PacketContext): Promise<void> {
+		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
+		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+		if (interaction) {
+			await interaction.editReply({ embeds: [
+				new DraftbotSmallEventEmbed(
+					"goToPVEIsland",
+					i18n.t("smallEvents:goToPVEIsland.endStoryRefuse", { lng: user.attributes.language[0] }),
+					interaction.user,
+					user.attributes.language[0]
+				)]});
+		}
+	}
+
+	@packetHandler(SmallEventGoToPVEIslandNotEnoughGemsPacket)
+	async smallEventGoToPVEIslandNotEnoughGems(socket: WebSocket, packet: SmallEventGoToPVEIslandNotEnoughGemsPacket, context: PacketContext): Promise<void> {
+		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
+		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+		if (interaction) {
+			await interaction.editReply({ embeds: [
+				new DraftbotSmallEventEmbed(
+					"goToPVEIsland",
+					i18n.t("smallEvents:goToPVEIsland.notEnoughGems", { lng: user.attributes.language[0] }),
+					interaction.user,
+					user.attributes.language[0]
+				)]});
 		}
 	}
 }
