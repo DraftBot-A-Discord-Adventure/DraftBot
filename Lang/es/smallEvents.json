@@ -97,17 +97,17 @@
   },
   "goToPVEIsland": {
     "stories": [
-      "vous remarquez un bateau arrêté sur le bas-côté. Le capitaine vous interpelle et vous propose une aventure des plus trépidantes sur une île infestée de monstres. Il vous indique également que {{priceText}}.",
-      "un homme vous approche et vous demande si vous seriez intéressé par ses services. Il précise qu'il est capitaine d'un navire faisant la liaison entre le continent et une île mystérieuse, pleine de monstres. Il dit pouvoir vous y amener si vous cherchez une aventure mouvementée, et rajoute que {{priceText}}.",
-      "vous êtes interpellé par un homme en habits de marin, et arborant l'emblème du roi. Il vous explique chercher à envoyer certains des aventuriers concurrents pour la main de la princesse sur une île pleine de monstres, dont il serait utile au royaume de se débarrasser. Il dit aussi qu'un bateau est prêt à partir pour cette île, et vous demande si vous êtes partant, en précisant que {{priceText}}.",
-      "vous êtes accosté par un grand homme barbu, se présentant comme le chef d'un groupe de mercenaires réputé dans la région. Il vous dit pouvoir vous présenter une incroyable offre. Il s'agirait pour vous de vous rendre sur une nouvelle et mystérieuse île, où cohabitent opportunités et dangers, en tant que chasseur de monstres. Il ajoute aussi que {{priceText}}."
+      "te fijas en un barco parado al borde de la carretera. El capitán te llama y te ofrece una emocionante aventura en una isla infestada de monstruos. {{priceText}}También te dice que .",
+      "Un hombre se te acerca y te pregunta si estás interesado en sus servicios. Te explica que es el capitán de un barco que navega entre el continente y una misteriosa isla llena de monstruos. {{priceText}}Dice que puede llevarte allí si buscas una aventura emocionante, y añade que .",
+      "se te acerca un hombre vestido de marinero, que lleva el emblema del rey. Te explica que está intentando enviar a algunos de los aventureros que compiten por la mano de la princesa a una isla llena de monstruos, de los que el reino podría deshacerse. {{priceText}}También dice que un barco está listo para partir hacia esta isla, y te pregunta si te apuntas, señalando que .",
+      "te aborda un hombre alto con barba, que se presenta como el líder de un grupo de mercenarios de renombre en la región. Te dice que puede hacerte una oferta increíble. La oferta consiste en que viajes como cazador de monstruos a una nueva y misteriosa isla, donde hay tanto oportunidades como peligros. {{priceText}}También añade que ."
     ],
-    "priceFree": "le voyage **est gratuit**",
-    "priceMoney": "le voyage **coûtera {{price}} 💎**",
-    "confirm": "Voulez-vous partir sur l'île ? Vous avez ⚡ **{{fightPoints}} / {{fightPointsMax}}**.",
-    "endStoryAccept": "Vous acceptez et embarquez sur le bateau en direction de l'île.",
-    "endStoryAcceptWithMember": "Vous acceptez et au moment d'embarquez, vous remarquez qu'un membre de votre guilde se trouve déjà sur le bateau, vous le rejoignez et partez en direction de l'île.",
-    "endStoryRefuse": "Vous refusez poliment l'offre et continuez votre route.",
-    "notEnoughGems": "Vous acceptez mais au moment de payer, vous vous rendez compte que vous n'avez pas assez pour payer. Vous partez donc déçu."
+    "priceFree": "el viaje **es gratis**.",
+    "priceMoney": "{{price}} el viaje **costará 💎**",
+    "confirm": "Quieres ir a la isla?{{fightPoints}} {{fightPointsMax}}Tienes ⚡ ** / **.",
+    "endStoryAccept": "Aceptas y subes al barco rumbo a la isla.",
+    "endStoryAcceptWithMember": "Aceptas y, al subir a bordo, te das cuenta de que un miembro de tu gremio ya está en el barco, así que te unes a él y partís hacia la isla.",
+    "endStoryRefuse": "Declinas amablemente la oferta y continúas tu camino.",
+    "notEnoughGems": "Aceptas, pero cuando llega el momento de pagar, te das cuenta de que no tienes suficiente para hacerlo. Así que te vas decepcionado."
   }
 }
