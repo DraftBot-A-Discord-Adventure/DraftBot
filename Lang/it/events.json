@@ -116,105 +116,105 @@
       },
       "swim": {
         "outcomes": {
-          "0": "L'acqua è gelida! Si prende coraggio e ci si tuffa. Una volta sull'altra sponda, vi rendete conto del vostro errore. Siete congelati e indeboliti. Dovete prendervi cura di voi stessi prima di continuare!",
-          "1": "È facile raggiungere l'altra sponda e, quando si arriva al villaggio, la gente ci accoglie e ci offre qualcosa da mangiare."
+          "0": "L'acqua È gelida! Prendete il coraggio a due mani e tuffatevi. Una volta raggiunta l'altra sponda, vi rendete conto del vostro errore. Siete congelato e indebolito. Dovrete curarvi prima di continuare!",
+          "1": "Raggiungete l'altra sponda facilmente, arrivate al villaggio, la gente vi accoglie e vi offre da mangiare."
         },
         "text": "Attraversare il fiume a nuoto."
       }
     },
-    "text": "Davanti a voi c'è un fiume, dall'altra parte della riva c'è un villaggio."
+    "text": "Vedete un fiume davanti a voi, dall'altra parte della riva, intravedete un villaggio."
   },
   "13": {
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "Si visita la città per alcune ore prima di proseguire il viaggio."
+          "0": "Visitate la città per molte ore prima di continuare per la vostra strada."
         }
       },
       "goAway": {
         "outcomes": {
-          "0": "Ci vorrà mezz'ora per attraversare il piccolo villaggio e proseguire il cammino.",
-          "1": "Si perde un'ora buona per girare la città, ma si può tornare sulla strada in tutta comodità."
+          "0": "Attraversate il piccolo borgo in mezz'ora e continuate il vostro percorso.",
+          "1": "Perdete un'ora buona per fare il giro della città, ma riprendete il vostro cammino tranquillamente."
         },
-        "text": "Tornare indietro."
+        "text": "Partite di nuovo."
       },
       "goForge": {
         "outcomes": {
-          "0": "Non c'è nulla di interessante in questa fucina... Lasciate rapidamente il locale e proseguite per la vostra strada.",
+          "0": "Non c'è nulla d'interessante in questa fucina... Lasciate rapidamente il locale e proseguite per la vostra strada.",
           "1": "Provando una spada, rompete la finestra della fucina e il fabbro vi chiede un rimborso!",
           "2": "Non c'è nessuno nella fucina, che sembra abbandonata da anni. Prima di uscire, però, notate un oggetto che potrebbe esservi utile per il resto della vostra avventura...",
-          "3": "La fucina sembra essere abbandonata da anni. Così si riparte.",
-          "4": "Entrate e salutate il fabbro. Dopo una rapida ispezione del suo lavoro, vi rendete conto che non troverete nulla di interessante qui. Continuate per la vostra strada."
+          "3": "La fucina sembra essere abbandonata da anni. Così ripartite.",
+          "4": "Entrate e salutate il fabbro. Dopo una rapida ispezione del suo lavoro, vi rendete conto che non troverete nulla d'interessante qui. Continuate per la vostra strada."
         },
         "text": "Andate alla fucina."
       },
       "goInn": {
         "outcomes": {
-          "0": "Dopo aver parlato per due ore con l'oste, finalmente scoprite che non ci sono camere disponibili per la notte! Ripartite, frustrati per non essere riusciti a riposare bene.",
-          "1": "Pagate una stanza per la notte e cadete sul letto. Dovrete dormire un po' prima di riprendere la vostra avventura.",
-          "2": "La locanda sembra essere abbandonata da diversi anni... Continuate per la vostra strada senza fare altre domande."
+          "0": "Dopo aver parlato per due ore con l'oste, finite per scoprire che non c'è alcuna camera disponibile per la notte! Riprendete il vostro cammino, frustrato per non essere riuscito a godere di una buona notte di riposo.",
+          "1": "Pagate una stanza per la notte e cadete sfinito sul letto. Dovrete dormire prima di riprendere l'avventura.",
+          "2": "La locanda sembra essere abbandonata da diversi anni... Continuate per la vostra strada senza farvi più domande."
         },
         "text": "Andare all'ostello."
       },
       "goMarket": {
         "outcomes": {
-          "0": "Ci vogliono 30 minuti per esplorare il mercato prima di scoprire un piccolo oggetto a terra che potrebbe esservi utile...",
-          "1": "Dopo aver perso 60 minuti a girovagare tra le bancarelle, si finisce per lasciare la città senza aver trovato nulla di interessante.",
-          "2": "Proprio quando la vostra attenzione era al minimo nel mercato, ricevete un violento colpo alla nuca e crollate a terra... Dopo quel momento, non ricordate più nulla. Dovrete essere curati prima di poter andare avanti!"
+          "0": "Esplorate il mercato in 30 minuti prima di scoprire un piccolo oggetto a terra che potrebbe esservi utile...",
+          "1": "Dopo aver perso 60 minuti a girovagare tra le bancarelle, finite per lasciare la città senza aver trovato alcunché d'interessante.",
+          "2": "Mentre la vostra attenzione era al minimo nel mercato, ricevete un violento colpo alla nuca e crollate a terra... Dopo quel momento, non ricordate più nulla. Dovrete essere curato prima di poter continuare ad andare avanti!"
         },
         "text": "Andare al mercato."
       }
     },
-    "text": "Dopo aver trascorso diverse settimane a camminare senza incontrare un solo essere umano, finalmente si arriva in una piccola città che sembra piuttosto vivace."
+    "text": "Dopo aver trascorso diverse settimane a camminare senza incontrare un solo essere umano, arrivate, infine, in una piccola borgata che sembra piuttosto vivace."
   },
   "14": {
     "possibilities": {
       "chatWorker": {
         "outcomes": {
-          "0": "L'uomo vi nota e si offre di creare un oggetto con voi. Dopo quasi un'ora, la vostra creazione è terminata. L'uomo ve la regala come ricompensa!",
-          "1": "Si osserva l'operaio mentre costruisce un'ascia per una decina di minuti prima di decidere di ripartire.",
-          "2": "L'operaio vi nota e si offre di aiutarvi a costruire una spada. Eccitato dalla prospettiva di una nuova arma, accetti. In modo maldestro, non ci vuole molto per far cadere la pesante creazione sul piede. Ferito gravemente, rinunci all'idea di creare la tua arma."
+          "0": "L'uomo vi nota e vi propone di fabbricarvi un oggetto con lui. Dopo quasi un'ora, la vostra creazione è terminata. L'uomo ve la regala come ricompensa!",
+          "1": "Guardate l'operaio costruire un'ascia per una decina di minuti prima di decidervi a ripartire.",
+          "2": "L'operaio vi nota e vi propone di costruirvi una spada insieme a lui. Entusiasta all'idea di ottenere una nuova arma, accettate. Maldestro, non ci mettete molto a far cadere la vostra pesante creazione sul piede. Ferito gravemente, abbandonate l'idea di creare la vostra propria arma."
         },
-        "text": "Parlare con il lavoratore."
+        "text": "Discutete con il lavoratore."
       },
       "end": {
         "outcomes": {
-          "0": "Si aggira la casa e si prosegue per la strada."
+          "0": "Fate il giro della casa e prosegui per la vostra strada."
         }
       },
       "goAway": {
         "outcomes": {
-          "0": "Si parte senza perdere tempo.",
-          "1": "Si continua a girare intorno al prato.",
+          "0": "Partite senza perdere tempo.",
+          "1": "Continuate il vostro cammino aggirando il prato.",
           "2": "Decidete di continuare a camminare, nonostante la stanchezza. Dopo qualche chilometro, crollate sul ciglio del sentiero."
         },
-        "text": "Non c'è tempo da perdere! Dovete continuare a muovervi!"
+        "text": "Non c'è tempo da perdere! Dovete continuare per la vostra strada!"
       },
       "stayNight": {
         "outcomes": {
-          "0": "Dopo una rapida chiacchierata con l'uomo, questi accetta di ospitarti per la notte. Esausti, crollate sul letto.",
+          "0": "Dopo aver discusso rapidamente con l'uomo, quest'ultimo accetta di accogliervi per la notte. Sfinito, crollate sul letto per la stanchezza.",
           "1": "L'uomo ammette subito di non potervi ospitare per la notte, ma si offre di condividere il suo pasto. Voi rifiutate gentilmente e proseguite per la vostra strada.",
-          "2": "Tutto ciò che si ottiene in risposta è un semplice grugnito. La gente del posto non sembra apprezzare gli stranieri.",
-          "3": "L'uomo rifiuta subito di condividere il suo letto con voi, ma vi offre la sua cena. Affamati ed esausti, accettate la sua offerta."
+          "2": "La sola risposta che ottenete è un semplice grugnito. La gente del posto non sembra apprezzare gli stranieri.",
+          "3": "L'uomo rifiuta subito di condividere il suo letto con voi, ma vi propone di dividere la cena con lui. Affamato ed esausto, accettate la sua offerta."
         },
         "text": "Chiedete di pernottare per riposare e recuperare le forze."
       }
     },
-    "text": "Quando iniziate a sentirvi stanchi, vi imbattete in un piccolo prato con una casetta. Vi avvicinate e scoprite un uomo intento a lavorare su un pezzo di metallo incandescente."
+    "text": "Quando la stanchezza inizia a farsi sentire, vi imbattete in un piccolo prato dove si trova una casetta. Vi avvicinate e scoprite un uomo intento a lavorare su un pezzo di metallo incandescente."
   },
   "15": {
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "Trascorrete lunghi minuti a guardarli mentre allestiscono il loro bivacco, prima di tornare in sé e proseguire il cammino."
+          "0": "Trascorrete un bel po' di tempo a guardarli stupidamente mentre allestiscono il loro bivacco, prima di tornare in voi e proseguire il vostro cammino."
         }
       },
       "skip": {
         "outcomes": {
-          "0": "La strada da percorrere è ancora lunga e non c'è tempo per fermarsi!",
-          "1": "Potete continuare il vostro percorso senza perdere altro tempo!",
+          "0": "La strada è ancora lunga, non c'è tempo di fermarsi!",
+          "1": "Continuate il vostro percorso senza perdere altro tempo!",
           "2": "Continuate il vostro cammino senza fermarvi.",
-          "3": "Continuate a non fermarvi, snodandovi per le strade strette. All'angolo di una di esse, venite selvaggiamente strattonati da un uomo che fugge rapidamente."
+          "3": "Continuate senza fermarvi, snodandovi per le strade strette. All'angolo di una di esse, venite selvaggiamente spinti da un uomo che fugge rapidamente."
         },
         "text": "Continuate il vostro cammino senza perdere tempo."
       },
@@ -222,7 +222,7 @@
         "outcomes": {
           "0": "Raccogliete qualche moneta e scappate il più velocemente possibile senza provare il minimo rimorso.",
           "1": "Purtroppo non c'è nulla da rubare. Tuttavia, il vostro tentativo non è passato inosservato! Per la vergogna, risarcite i proprietari e tornate in strada.",
-          "2": "Preso con le mani nel sacco! Di fronte ai 5 uomini imponenti che vi circondano, vi pentite amaramente della vostra sfortunata azione. Dopo aver pagato il risarcimento, ve ne andate intontiti."
+          "2": "Preso con le mani nel sacco! Di fronte ai 5 uomini imponenti che vi circondano, vi pentite amaramente della vostra sfortunata azione. Ve ne andate intontiti dopo aver pagato il risarcimento."
         },
         "text": "Prendete con discrezione qualche moneta dalla cassa."
       },
