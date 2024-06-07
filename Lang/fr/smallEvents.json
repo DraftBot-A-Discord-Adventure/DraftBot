@@ -94,5 +94,20 @@
       "La commande /guild vous permet de voir le nombre d'alliés qui vous aideront sur l'île mystérieuse",
       "Un \"allié\" est un membre de votre guilde qui est actuellement sur l'île mystérieuse ou qui en est récemment parti"
     ]
+  },
+  "goToPVEIsland": {
+    "stories": [
+      "vous remarquez un bateau arrêté sur le bas-côté. Le capitaine vous interpelle et vous propose une aventure des plus trépidantes sur une île infestée de monstres. Il vous indique également que {{priceText}}.",
+      "un homme vous approche et vous demande si vous seriez intéressé par ses services. Il précise qu'il est capitaine d'un navire faisant la liaison entre le continent et une île mystérieuse, pleine de monstres. Il dit pouvoir vous y amener si vous cherchez une aventure mouvementée, et rajoute que {{priceText}}.",
+      "vous êtes interpellé par un homme en habits de marin, et arborant l'emblème du roi. Il vous explique chercher à envoyer certains des aventuriers concurrents pour la main de la princesse sur une île pleine de monstres, dont il serait utile au royaume de se débarrasser. Il dit aussi qu'un bateau est prêt à partir pour cette île, et vous demande si vous êtes partant, en précisant que {{priceText}}.",
+      "vous êtes accosté par un grand homme barbu, se présentant comme le chef d'un groupe de mercenaires réputé dans la région. Il vous dit pouvoir vous présenter une incroyable offre. Il s'agirait pour vous de vous rendre sur une nouvelle et mystérieuse île, où cohabitent opportunités et dangers, en tant que chasseur de monstres. Il ajoute aussi que {{priceText}}."
+    ],
+    "priceFree": "le voyage **est gratuit**",
+    "priceMoney": "le voyage **coûtera {{price}} 💎**",
+    "confirm": "Voulez-vous partir sur l'île ? Vous avez ⚡ **{{fightPoints}} / {{fightPointsMax}}**.",
+    "endStoryAccept": "Vous acceptez et embarquez sur le bateau en direction de l'île.",
+    "endStoryAcceptWithMember": "Vous acceptez et au moment d'embarquez, vous remarquez qu'un membre de votre guilde se trouve déjà sur le bateau, vous le rejoignez et partez en direction de l'île.",
+    "endStoryRefuse": "Vous refusez poliment l'offre et continuez votre route.",
+    "notEnoughGems": "Vous acceptez mais au moment de payer, vous vous rendez compte que vous n'avez pas assez pour payer. Vous partez donc déçu."
   }
 }
