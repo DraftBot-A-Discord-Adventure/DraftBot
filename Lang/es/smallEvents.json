@@ -1,1 +1,113 @@
-{}
+{
+  "intro": [
+    "Mientras viajas en paz, ",
+    "Mientras avanzas tranquilamente por la carretera, ",
+    "Mientras se prepara para volver a partir tras un breve descanso, ",
+    "En la curva de la carretera, ",
+    "Mientras paseas tranquilamente, ",
+    "Después de una breve parada, ",
+    "Después de largas horas de caminata, ",
+    "Durante un breve descanso contra un árbol, ",
+    "Mientras continúas tu aventura, ",
+    "Sigue tu propio camino, ",
+    "Contemplando el borde de la carretera, ",
+    "Volviendo a la carretera tras una rápida parada, ",
+    "A medida que avanzan, cansados por las largas horas de marcha, ",
+    "Al borde de un camino, "
+  ],
+  "advanceTime": {
+    "stories": [
+      "ves a alguien que se parece extrañamente a Pérotin. Corres hacia él, pero él también acelera, probablemente por miedo. Logras alcanzarle y te das cuenta de que te has equivocado de persona. Rápidamente te disculpas.{{time}} :hourglass:Sin embargo, has ganado ** Min ** en tu camino.",
+      "oyes un carro detrás de ti. El hombre del vehículo se ofrece a llevarte a donde quieras. Aceptas y le indicas tu destino. Después de conducir unos kilómetros, el hombre te dice que tiene que ir en una dirección diferente a la tuya, así que te lleva y le das las gracias.{{time}} :hourglass:Ganas ** Min ** en tu viaje.",
+      "ves un carruaje a lo lejos. Puede que la princesa esté a bordo. Decides ir a hablar con ella y corres tan rápido como puedes. Una vez que estás lo suficientemente cerca, te decepciona descubrir que no puedes acercarte a ella porque el vehículo está protegido por una procesión de jinetes.{{time}} :hourglass:Sin embargo, has ganado ** Min ** sobre tu destino.",
+      "Estás comiendo un bocadillo cuando, de repente, una sombra se precipita hacia ti y te lo arrebata. La persigues, pero no consigues alcanzarla y te rindes.{{time}} :hourglass:Sin embargo, este percance te ha hecho ganar ** Min ** en tu viaje.",
+      "ves a alguien que se parece sospechosamente a Gruffo. Corres hacia él, pero él también acelera, probablemente por miedo. Una vez que le has alcanzado, te das cuenta de que no es en absoluto la persona que creías.{{time}} :hourglass:Sin embargo, has ganado ** Min ** en el camino.",
+      "Un punto brillante te llama la atención. Tu curiosidad te impulsa a correr hacia la fuente de la luz.{{time}} :hourglass:No es más que una moneda de cobre corriente, pero te ha salvado ** Min ** en tu viaje.",
+      "un enorme perro de color leonado emerge de una gran arboleda. Gruñe, mostrando afilados caninos, y parece como si quisiera morderte las piernas.{{time}} :hourglass:Apreciando la idea de que te dejen de una pieza, te echan a correr a toda velocidad, ¡ganándote ** Min ** en el camino!",
+      "un gran nido de avispas se desprende del árbol bajo el que estabas y cae a tus pies. Corres hasta que tus pulmones te ruegan que reanudes la marcha. Ni una avispa ha conseguido picarte.{{time}} :hourglass:¡Este percance te ha ahorrado ** Min ** en tu ruta!",
+      "Estás disfrutando del agradable tiempo primaveral. Sin embargo, tu descanso dura poco, ya que unos bandidos armados con garrotes y espadas astilladas se abren paso entre los arbustos a tu izquierda, cacareando mientras avanzan silenciosamente hacia ti.{{time}} :hourglass:Antes incluso de que tengas tiempo de pensar, tu cuerpo te lleva a una carrera precipitada, que te hace ganar ** Min ** por el camino.",
+      "un niño te empuja al pasar. Con un mal presentimiento en las tripas, compruebas el contenido de tus bolsillos: ¡tu monedero ha desaparecido! Al alcanzarle tras una frenética carrera, recuperas lo que te pertenece y dejas al malhechor en una cuneta, habiéndole castigado como se merecía.{{time}} :hourglass:Te das cuenta de que este suceso te habrá valido ** Min ** en tu ruta.",
+      "te sobresalta un conejo de pelaje inmaculado, que se cuela entre tus piernas. Desconcertado al principio, intentas alcanzarlo. Pero es inútil: el animalito no tarda en perderte.{{time}} :hourglass:Estas aventuras te habrán valido ** Min **.",
+      "oyes a una mujer que llama detrás de ti. Cuando te das la vuelta, te fijas inmediatamente en el objeto metálico que lleva en la mano. Presa del pánico, huyes.{{time}} :hourglass:Cuando llegas a un lugar más seguro, te das cuenta de que estás ** Min ** adelantado."
+    ]
+  },
+  "bigBad": {
+    "lifeLoss": [
+      "oyes un ruido estridente que viene del cielo. Levantas la vista, pero demasiado tarde: un pájaro con garras afiladas se abalanza sobre ti. Al arañarte, se da cuenta de que no eres su presa habitual y se marcha inmediatamente. Te miras la herida, parece profunda.{{lifeLoss}} Pierdes ** 💔**.",
+      "Estás caminando por un sendero empinado cuando resbalas y te tuerces el tobillo derecho.{{lifeLoss}} Pierdes ** 💔**.",
+      "ves una mosca dando vueltas a tu alrededor.{{lifeLoss}} Sacas tu pistola con la esperanza de matarla, pero sólo consigues mellarte ligeramente la muñeca, perdiendo ** 💔** en el proceso."
+    ],
+    "moneyLoss": [
+      "te das cuenta de que tu bolso está roto.{{moneyLost}} Tras comprobarlo, ves que tu bolso ha desaparecido, has perdido ** 💸**.",
+      "te das cuenta de que te falta el monedero del bolso.{{moneyLost}} De repente recuerdas que lo olvidaste en la taberna anterior, lo perdiste ** 💸**.",
+      "Unos viajeros pasan a tu lado, te empujan, luego te levantan y se disculpan groseramente.{{moneyLost}} Unos minutos después, te das cuenta de que tu bolso ha desaparecido, has perdido ** 💸**."
+    ],
+    "alterationStories": {
+      "badBerries": "ves unas bayas. Tu estómago te recuerda que llevas varias horas sin comer, así que te sientes obligado a probarlas. Pronto te sientes mal.",
+      "gentleBreeze": "sientes cómo la brisa te arrulla poco a poco. Cansado del viaje, no tardas en quedarte dormido.",
+      "mysteriousBottle": "Pasas junto a un mercader que te llama. Te ofrece una botella misteriosa que no puede vender y que no quiere estropear. Aceptas y te la bebes.",
+      "strangeLiquid": "ves un objeto brillante a lo lejos. Al acercarte, descubres una botella que contiene un extraño líquido. Intrigado, decides probar la dudosa mezcla. Inmediatamente te arrepientes.",
+      "expiredProvisions": "te das cuenta de que hace tiempo que tienes comida en la bolsa. Sin embargo, no quieres tirarlos y decides comértelos de todos modos. Resulta ser una mala idea, porque parece que los alimentos ya han caducado.",
+      "unexpectedRider": "te sorprende un ciclista que aparece detrás de ti sin previo aviso. Te derriba y sigue su camino sin prestarte atención. Aturdido, te pones en pie con dificultad.",
+      "fallingBranch": "quedas inconsciente por la caída de una enorme rama del árbol muerto bajo el que estabas. Herido, tardarás algún tiempo en volver a ponerte en marcha.",
+      "precipiceFall": "te ves atrapado por un profundo precipicio. A pesar de tus esfuerzos por agarrarte, no puedes evitar la caída.",
+      "ambushedByGroup": "Un grupo te detiene y te exige que le entregues tus pertenencias. No te dejas intimidar y blandes tu arma para ahuyentarlos. Sin embargo, uno de ellos aprovecha el pánico general para noquearte antes de huir.",
+      "cowStampede": "Estás cruzando un camino cuando aparece de repente un rebaño de vacas. Asustado por la masa de animales que acaba de pasar rozándote, tardas un rato en recuperarte de tus emociones.",
+      "trippedOverRoot": "tropiezas con una raíz y caes de cabeza. Necesitarás atención médica.",
+      "encounterWithBearCub": "ves un osezno a pocos metros. Temeroso de ser atrapado por su madre, huyes lo más rápido que puedes.",
+      "wrongDirection": "te das cuenta de que te has equivocado de camino en el último cruce. Decides no volver atrás y encontrar tu propio camino hacia tu destino... Te pierdes por completo.",
+      "chilledByColdNights": "le sorprenderán las frías noches de la región. Si no lleva ropa adecuada para este clima, pasará frío rápidamente.",
+      "mistakenIdentity": "te detienen unos guardias que te acusan de ser un criminal buscado activamente en el reino. Te das cuenta de que el hombre del cartel se parece a ti e intentas explicarte. Los guardias no te escuchan, te llevan y te meten en prisión."
+    }
+  },
+  "boatAdvice": {
+    "intro": [
+      "Subes a cubierta y charlas con un miembro de la tripulación.\n{{advice}}Te da algunos consejos para ayudarte en tu aventura en la isla: ** **.",
+      "Subes al mástil para admirar el horizonte.\n{{advice}}Un hombre baja su catalejo y te da este consejo antes de partir hacia la isla: ** **.",
+      "Disfrutando de una comida con la brisa fresca del mar, charlas con los marineros.\n{{advice}}Tu compañero de mesa te da los siguientes consejos sobre la isla: ** **."
+    ],
+    "advices": [
+      "Hay muchos más acontecimientos esperándole en la Isla Misteriosa",
+      "Cada viaje por la misteriosa isla se compone de más paradas",
+      "Si luchas contra animales durante los minieventos, el monstruo del final del viaje será más fácil de derrotar.",
+      "Ir a la isla al mismo tiempo que otros miembros de tu gremio te garantiza bonificaciones exclusivas",
+      "Tu energía no se regenera en la isla. Asegúrate de estar a tope antes de aventurarte.",
+      "Cuando tu energía esté a 0, volverás al continente.",
+      "Sólo puedes viajar a la isla una vez a la semana, de forma gratuita. Es posible ir 2 veces más, pero tendrás que pagar gemas.",
+      "Los monstruos del final del viaje son muy fuertes, y el último de la isla lo es aún más.",
+      "Al derrotar monstruos al final de un viaje se obtienen puntos de gremio, que determinan la clasificación de los gremios.",
+      "Los monstruos tienen diferentes estadísticas: algunos tendrán un alto nivel de defensa, ataque, velocidad o vida total.",
+      "Una isla está formada por un número finito de lugares. Una vez que hayas visitado el último lugar, volverás a tierra firme.",
+      "La isla misteriosa cambia cada semana",
+      "Al luchar contra un monstruo, si se supera el número máximo de turnos, el monstruo se volverá rápidamente muy poderoso.",
+      "Si un miembro de tu gremio quiere unirse a ti en el barco, puede ejecutar /joinboat",
+      "Las acciones disponibles al luchar contra animales dependen de tus estadísticas, objetos, mascotas, etc.",
+      "La hostilidad de la isla no te hará ningún favor a la hora de vivir aventuras. Pero si unes fuerzas con miembros de tu gremio, juntos seréis mucho más fuertes.",
+      "El comando /map muestra un mapa de la isla",
+      "Puedes elegir abandonar la isla después de cada combate contra monstruos. Si tienes poca energía, es mejor que te vayas mientras estés consciente.",
+      "Ciertas acciones, como beber una poción, acceder a la tienda u obtener bonificaciones diarias, no están disponibles en la isla.",
+      "Tu nivel no afecta al número de puntos de gremio, pero sí a otras recompensas",
+      "Ganar contra un monstruo más lejos en la isla te hará ganar más puntos de gremio que los que ganaste al principio.",
+      "Se dice que si varios miembros del mismo gremio se encuentran en la isla al mismo tiempo, es posible combinar las fuerzas de cada uno para realizar un ataque devastador.",
+      "Los miembros de tu gremio pueden ayudarte a luchar contra los monstruos cuando visites una isla misteriosa.",
+      "Puedes utilizar el comando /guild para ver qué miembros de tu gremio se encuentran en una isla misteriosa.",
+      "El comando /guild te permite ver cuántos aliados te ayudarán en la isla misteriosa.",
+      "Un \"aliado\" es un miembro de tu gremio que se encuentra actualmente en la isla misteriosa o que la ha abandonado recientemente."
+    ]
+  },
+  "goToPVEIsland": {
+    "stories": [
+      "vous remarquez un bateau arrêté sur le bas-côté. Le capitaine vous interpelle et vous propose une aventure des plus trépidantes sur une île infestée de monstres. Il vous indique également que {{priceText}}.",
+      "un homme vous approche et vous demande si vous seriez intéressé par ses services. Il précise qu'il est capitaine d'un navire faisant la liaison entre le continent et une île mystérieuse, pleine de monstres. Il dit pouvoir vous y amener si vous cherchez une aventure mouvementée, et rajoute que {{priceText}}.",
+      "vous êtes interpellé par un homme en habits de marin, et arborant l'emblème du roi. Il vous explique chercher à envoyer certains des aventuriers concurrents pour la main de la princesse sur une île pleine de monstres, dont il serait utile au royaume de se débarrasser. Il dit aussi qu'un bateau est prêt à partir pour cette île, et vous demande si vous êtes partant, en précisant que {{priceText}}.",
+      "vous êtes accosté par un grand homme barbu, se présentant comme le chef d'un groupe de mercenaires réputé dans la région. Il vous dit pouvoir vous présenter une incroyable offre. Il s'agirait pour vous de vous rendre sur une nouvelle et mystérieuse île, où cohabitent opportunités et dangers, en tant que chasseur de monstres. Il ajoute aussi que {{priceText}}."
+    ],
+    "priceFree": "le voyage **est gratuit**",
+    "priceMoney": "le voyage **coûtera {{price}} 💎**",
+    "confirm": "Voulez-vous partir sur l'île ? Vous avez ⚡ **{{fightPoints}} / {{fightPointsMax}}**.",
+    "endStoryAccept": "Vous acceptez et embarquez sur le bateau en direction de l'île.",
+    "endStoryAcceptWithMember": "Vous acceptez et au moment d'embarquez, vous remarquez qu'un membre de votre guilde se trouve déjà sur le bateau, vous le rejoignez et partez en direction de l'île.",
+    "endStoryRefuse": "Vous refusez poliment l'offre et continuez votre route.",
+    "notEnoughGems": "Vous acceptez mais au moment de payer, vous vous rendez compte que vous n'avez pas assez pour payer. Vous partez donc déçu."
+  }
+}
