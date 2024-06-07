@@ -1,4 +1,10 @@
-import {ReactionCollector, ReactionCollectorCreationPacket, ReactionCollectorData, ReactionCollectorReaction} from "./ReactionCollectorPacket";
+import {
+	ReactionCollector,
+	ReactionCollectorAcceptReaction,
+	ReactionCollectorCreationPacket,
+	ReactionCollectorData,
+	ReactionCollectorRefuseReaction
+} from "./ReactionCollectorPacket";
 
 export class ReactionCollectorGoToPVEIslandData extends ReactionCollectorData {
 	price!: number;
@@ -7,14 +13,6 @@ export class ReactionCollectorGoToPVEIslandData extends ReactionCollectorData {
 		current: number,
 		max: number
 	};
-}
-
-export class ReactionCollectorGoToPVEIslandAcceptReaction extends ReactionCollectorReaction {
-
-}
-
-export class ReactionCollectorGoToPVEIslandRefuseReaction extends ReactionCollectorReaction {
-
 }
 
 export class ReactionCollectorGoToPVEIsland extends ReactionCollector {
@@ -36,8 +34,8 @@ export class ReactionCollectorGoToPVEIsland extends ReactionCollector {
 			id,
 			endTime,
 			reactions: [
-				this.buildReaction(ReactionCollectorGoToPVEIslandAcceptReaction, {}),
-				this.buildReaction(ReactionCollectorGoToPVEIslandRefuseReaction, {})
+				this.buildReaction(ReactionCollectorAcceptReaction, {}),
+				this.buildReaction(ReactionCollectorRefuseReaction, {})
 			],
 			data: this.buildData(ReactionCollectorGoToPVEIslandData, {
 				price: this.price,

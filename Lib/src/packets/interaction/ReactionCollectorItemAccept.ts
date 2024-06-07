@@ -1,17 +1,15 @@
-import {ReactionCollector, ReactionCollectorCreationPacket, ReactionCollectorData, ReactionCollectorReaction} from "./ReactionCollectorPacket";
+import {
+	ReactionCollector,
+	ReactionCollectorAcceptReaction,
+	ReactionCollectorCreationPacket,
+	ReactionCollectorData,
+	ReactionCollectorRefuseReaction
+} from "./ReactionCollectorPacket";
 
 export class ReactionCollectorItemAcceptData extends ReactionCollectorData {
 	itemCategory!: number;
 
 	itemId!: number;
-}
-
-export class ReactionCollectorItemAcceptAcceptReaction extends ReactionCollectorReaction {
-
-}
-
-export class ReactionCollectorItemAcceptRefuseReaction extends ReactionCollectorReaction {
-
 }
 
 export class ReactionCollectorItemAccept extends ReactionCollector {
@@ -30,8 +28,8 @@ export class ReactionCollectorItemAccept extends ReactionCollector {
 			id,
 			endTime,
 			reactions: [
-				this.buildReaction(ReactionCollectorItemAcceptAcceptReaction, {}),
-				this.buildReaction(ReactionCollectorItemAcceptRefuseReaction, {})
+				this.buildReaction(ReactionCollectorAcceptReaction, {}),
+				this.buildReaction(ReactionCollectorRefuseReaction, {})
 			],
 			data: this.buildData(ReactionCollectorItemAcceptData, {
 				itemId: this.itemId,

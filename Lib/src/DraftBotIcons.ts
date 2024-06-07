@@ -18,6 +18,10 @@ export const DraftBotIcons: {
 			emoteFemale: string,
 			emoteMale: string
 		}
+	},
+	collectors: {
+		accept: string,
+		refuse: string
 	}
 } = {
 	"effects": {
@@ -1055,5 +1059,9 @@ export const DraftBotIcons: {
 			"emoteFemale": "🐖",
 			"emoteMale": "🐖"
 		}
+	},
+	collectors: {
+		"accept": "✅",
+		"refuse": "❌"
 	}
 };

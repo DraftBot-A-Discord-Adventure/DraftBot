@@ -20,6 +20,14 @@ export abstract class ReactionCollectorData {
 
 }
 
+export class ReactionCollectorAcceptReaction extends ReactionCollectorReaction {
+
+}
+
+export class ReactionCollectorRefuseReaction extends ReactionCollectorReaction {
+
+}
+
 export class ReactionCollectorCreationPacket extends DraftBotPacket {
 	id!: string;
 

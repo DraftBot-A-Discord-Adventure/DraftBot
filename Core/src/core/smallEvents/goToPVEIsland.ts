@@ -18,10 +18,8 @@ import {LogsReadRequests} from "../database/logs/LogsReadRequests";
 import {EndCallback, ReactionCollectorInstance} from "../utils/ReactionsCollector";
 import {BlockingUtils} from "../utils/BlockingUtils";
 import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
-import {
-	ReactionCollectorGoToPVEIsland,
-	ReactionCollectorGoToPVEIslandAcceptReaction
-} from "../../../../Lib/src/packets/interaction/ReactionCollectorGoToPVEIsland";
+import { ReactionCollectorGoToPVEIsland } from "../../../../Lib/src/packets/interaction/ReactionCollectorGoToPVEIsland";
+import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 
 async function startBoatTravel(player: Player, price: number, anotherMemberOnBoat: Player | null, startTravelTimestamp: number, response: DraftBotPacket[]): Promise<boolean> {
 	const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
@@ -71,7 +69,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 		const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
 			const reaction = collector.getFirstReaction();
 
-			if (reaction && reaction.reaction.type === ReactionCollectorGoToPVEIslandAcceptReaction.name) {
+			if (reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name) {
 				const isGoneOnIsland = await startBoatTravel(player, price, anotherMemberOnBoat[0], travelTimestamp, response);
 				if (isGoneOnIsland) {
 					await MissionsController.update(player, response, {

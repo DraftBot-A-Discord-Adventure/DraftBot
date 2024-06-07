@@ -20,7 +20,8 @@ import {ItemAcceptPacket} from "../../../../Lib/src/packets/notifications/ItemAc
 import {ItemFoundPacket} from "../../../../Lib/src/packets/notifications/ItemFoundPacket";
 import {ReactionCollectorItemChoice, ReactionCollectorItemChoiceItemReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorItemChoice";
 import {EndCallback, ReactionCollectorInstance} from "./ReactionsCollector";
-import {ReactionCollectorItemAccept, ReactionCollectorItemAcceptAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorItemAccept";
+import {ReactionCollectorItemAccept} from "../../../../Lib/src/packets/interaction/ReactionCollectorItemAccept";
+import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 
 /**
  * Get the value of an item
@@ -325,7 +326,7 @@ export const giveItemToPlayer = async function(
 
 	const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
 		const reaction = collector.getFirstReaction();
-		const isValidated = reaction && reaction.reaction instanceof ReactionCollectorItemAcceptAcceptReaction;
+		const isValidated = reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name;
 		player = await Players.getById(player.id);
 		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.ACCEPT_ITEM);
 		await sellOrKeepItem(

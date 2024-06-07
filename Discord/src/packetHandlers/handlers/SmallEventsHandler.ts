@@ -27,7 +27,8 @@ export default class SmallEventsHandler {
 	async smallEventAdvanceTime(socket: WebSocket, packet: SmallEventAdvanceTimePacket, context: PacketContext): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (interaction) {
-			const description = getRandomSmallEventIntro(interaction.userLanguage) + StringUtils.getRandomTranslation("smallEvents:advanceTime.stories", interaction.userLanguage, { time: packet.amount });
+			const description = getRandomSmallEventIntro(interaction.userLanguage)
+				+ StringUtils.getRandomTranslation("smallEvents:advanceTime.stories", interaction.userLanguage, { time: packet.amount });
 			await interaction.editReply({ embeds: [new DraftbotSmallEventEmbed("advanceTime", description, interaction.user, interaction.userLanguage)]});
 		}
 	}
