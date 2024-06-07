@@ -97,17 +97,17 @@
   },
   "goToPVEIsland": {
     "stories": [
-      "vous remarquez un bateau arrêté sur le bas-côté. Le capitaine vous interpelle et vous propose une aventure des plus trépidantes sur une île infestée de monstres. Il vous indique également que {{priceText}}.",
-      "un homme vous approche et vous demande si vous seriez intéressé par ses services. Il précise qu'il est capitaine d'un navire faisant la liaison entre le continent et une île mystérieuse, pleine de monstres. Il dit pouvoir vous y amener si vous cherchez une aventure mouvementée, et rajoute que {{priceText}}.",
-      "vous êtes interpellé par un homme en habits de marin, et arborant l'emblème du roi. Il vous explique chercher à envoyer certains des aventuriers concurrents pour la main de la princesse sur une île pleine de monstres, dont il serait utile au royaume de se débarrasser. Il dit aussi qu'un bateau est prêt à partir pour cette île, et vous demande si vous êtes partant, en précisant que {{priceText}}.",
-      "vous êtes accosté par un grand homme barbu, se présentant comme le chef d'un groupe de mercenaires réputé dans la région. Il vous dit pouvoir vous présenter une incroyable offre. Il s'agirait pour vous de vous rendre sur une nouvelle et mystérieuse île, où cohabitent opportunités et dangers, en tant que chasseur de monstres. Il ajoute aussi que {{priceText}}."
+      "you notice a boat stopped on the lower side. The captain calls you and offers you an exciting adventure on a monster-infested island. It also tells you that {{priceText}}.",
+      "a man approaches you and asks you if you would be integrated by his services. He predicts that he is captain of a ship linking the continent to a mystery, full of monsters. He says he can take you there if you are looking for a moving adventure, and adds that {{priceText}}.",
+      "you were called by a man wearing sailor's clothes, and wearing the king's emblem. He explains how to send some of the competing adventurers for the princess's hand to a monster filled with monsters, from which it would be useful for the kingdom to escape. He also says that a boat is ready to leave for this island, and asks you if you are leaving by saying that {{priceText}}.",
+      "you were greeted by a great barbu, presenting himself as the leader of a group of mercenaries recognized in the area. He tells you that he can present you with an incredible offer. It would be for you to go to a new and mystery, or to live together opportunely and dangerously as a monster hunter. It also adds that {{priceText}}."
     ],
-    "priceFree": "le voyage **est gratuit**",
-    "priceMoney": "le voyage **coûtera {{price}} 💎**",
-    "confirm": "Voulez-vous partir sur l'île ? Vous avez ⚡ **{{fightPoints}} / {{fightPointsMax}}**.",
-    "endStoryAccept": "Vous acceptez et embarquez sur le bateau en direction de l'île.",
-    "endStoryAcceptWithMember": "Vous acceptez et au moment d'embarquez, vous remarquez qu'un membre de votre guilde se trouve déjà sur le bateau, vous le rejoignez et partez en direction de l'île.",
-    "endStoryRefuse": "Vous refusez poliment l'offre et continuez votre route.",
-    "notEnoughGems": "Vous acceptez mais au moment de payer, vous vous rendez compte que vous n'avez pas assez pour payer. Vous partez donc déçu."
+    "priceFree": "**is free** travel",
+    "priceMoney": "the trip **will take {{price}}💎**",
+    "confirm": "Do you want to leave on the island? You have ⚡ **{{fightPoints}} / {{fightPointsMax}}**.",
+    "endStoryAccept": "You accept and board the boat towards the island.",
+    "endStoryAcceptWithMember": "You agree and at the time of boarding, you notice that your guild member is already on the boat, you join it and head towards the island.",
+    "endStoryRefuse": "You politely refuse the offer and continue your journey.",
+    "notEnoughGems": "You agree but at the time of payment, you realize that you do not have enough to pay. So you are leaving."
   }
 }
