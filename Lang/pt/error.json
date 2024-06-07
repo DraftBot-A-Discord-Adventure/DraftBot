@@ -50,5 +50,7 @@
   "titleDidntWork": "{{pseudo}}, hmmm... Cela n'a pas fonctionné !",
   "guildDoesntExist": "Aucune guilde n'a été trouvée.",
   "petDoesntExist": "Aucun familier n'a été trouvé.",
-  "unexpectedError": "Une erreur est survenue :("
+  "unexpectedError": "Une erreur est survenue :(",
+  "pleaseWaitForHeal": "Veuillez attendre la fin des soins de votre altération d'état pour continuer à jouer : {{time}}\n\n:information_source: Vous pouvez utiliser la commande /shop pour acheter un soin.",
+  "pleaseWaitForHisHeal": "Veuillez attendre la fin des soins de son altération d'état : {{time}}"
 }
