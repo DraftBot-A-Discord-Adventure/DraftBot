@@ -7,15 +7,25 @@ export class CommandPetFreePacketReq extends DraftBotPacket {
 export class CommandPetFreePacketRes extends DraftBotPacket {
 	foundPet!: boolean;
 
-	petCanBeFreed!: boolean;
+	petCanBeFreed?: boolean;
 
-	data?: {
-		nickname: string,
-		petTypeId: number,
-		rarity: number,
-		sex: string,
-		loveLevel: number
-	};
+	missingMoney?: number;
 
-	luckyMeat?: boolean;
+	cooldownRemainingTimeMs?: number;
+}
+
+export class CommandPetFreeRefusePacketRes extends DraftBotPacket {
+
+}
+
+export class CommandPetFreeAcceptPacketRes extends DraftBotPacket {
+	petId!: number;
+
+	petSex!: string;
+
+	petNickname?: string;
+
+	freeCost!: number;
+
+	luckyMeat!: boolean;
 }

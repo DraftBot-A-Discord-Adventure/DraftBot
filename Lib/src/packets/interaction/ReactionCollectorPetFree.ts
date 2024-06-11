@@ -1,32 +1,52 @@
-import {ReactionCollector, ReactionCollectorCreationPacket, ReactionCollectorData, ReactionCollectorReaction} from "./ReactionCollectorPacket";
+import {
+	ReactionCollector,
+	ReactionCollectorAcceptReaction,
+	ReactionCollectorCreationPacket,
+	ReactionCollectorData,
+	ReactionCollectorRefuseReaction
+} from "./ReactionCollectorPacket";
 
-export class ReactionCollectorGobletsGameMetalReaction extends ReactionCollectorReaction {
+export class ReactionCollectorPetFreeData extends ReactionCollectorData {
+	petId!: number;
 
-}
+	petSex!: string;
 
-export class ReactionCollectorGobletsGameBiggestReaction extends ReactionCollectorReaction {
+	petNickname?: string;
 
-}
-
-export class ReactionCollectorGobletsGameSparklingReaction extends ReactionCollectorReaction {
-
-}
-
-export class ReactionCollectorGobletsGameData extends ReactionCollectorData {
-
+	freeCost!: number;
 }
 
 export class ReactionCollectorPetFree extends ReactionCollector {
+	private readonly petId: number;
+
+	private readonly petSex: string;
+
+	private readonly petNickname: string | undefined;
+
+	private readonly freeCost: number;
+
+	constructor(petId: number, petSex: string, petNickname: string | undefined, freeCost: number) {
+		super();
+		this.petId = petId;
+		this.petSex = petSex;
+		this.petNickname = petNickname;
+		this.freeCost = freeCost;
+	}
+
 	creationPacket(id: string, endTime: number): ReactionCollectorCreationPacket {
 		return {
 			id,
 			endTime,
 			reactions: [
-				this.buildReaction(ReactionCollectorGobletsGameMetalReaction, {}),
-				this.buildReaction(ReactionCollectorGobletsGameBiggestReaction, {}),
-				this.buildReaction(ReactionCollectorGobletsGameSparklingReaction, {})
+				this.buildReaction(ReactionCollectorAcceptReaction, {}),
+				this.buildReaction(ReactionCollectorRefuseReaction, {})
 			],
-			data: this.buildData(ReactionCollectorGobletsGameData, {})
+			data: this.buildData(ReactionCollectorPetFreeData, {
+				petId: this.petId,
+				petSex: this.petSex,
+				petNickname: this.petNickname,
+				freeCost: this.freeCost
+			})
 		};
 	}
 }
