@@ -239,6 +239,10 @@ export class Player extends Model {
 		return this;
 	}
 
+	/**
+	 * Only for use when the player is spending money, this must not be used when the player is losing money
+	 * @param parameters
+	 */
 	public async spendMoney(parameters: EditValueParameters): Promise<Player> {
 		await MissionsController.update(this, parameters.response, {
 			missionId: "spendMoney",
