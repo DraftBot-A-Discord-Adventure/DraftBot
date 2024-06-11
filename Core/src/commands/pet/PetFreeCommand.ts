@@ -103,5 +103,62 @@ export default class PetFreeCommand {
 			}));
 			return;
 		}
+
+		// Check cooldown
+		const cooldownRemainingTimeMs = this.getCooldownRemainingTimeMs(player);
+		if (cooldownRemainingTimeMs > 0) {
+			response.push(makePacket(CommandPetFreePacketRes, {
+				foundPet: true,
+				petCanBeFreed: true,
+				cooldownRemainingTimeMs
+			}));
+			return;
+		}
+
+		// Check money
+		const missingMoney = this.getMissingMoneyToFreePet(player, playerPet);
+		if (missingMoney > 0) {
+			response.push(makePacket(CommandPetFreePacketRes, {
+				foundPet: true,
+				petCanBeFreed: true,
+				missingMoney
+			}));
+			return;
+		}
+
+		// Send collector
+		const collector = new ReactionCollectorPetFree(
+			playerPet.typeId,
+			playerPet.sex,
+			playerPet.nickname,
+			playerPet.isFeisty() ? PetFreeConstants.FREE_FEISTY_COST : 0
+		);
+
+		const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
+			const reaction = collector.getFirstReaction();
+
+			if (reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name) {
+				await this.acceptPetFree(player, playerPet, response);
+			}
+			else {
+				response.push(makePacket(CommandPetFreeRefusePacketRes, {}));
+			}
+
+			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.PET_FREE);
+		};
+
+		const collectorPacket = new ReactionCollectorInstance(
+			collector,
+			context,
+			{
+				allowedPlayerKeycloakIds: [player.keycloakId],
+				reactionLimit: 1
+			},
+			endCallback
+		)
+			.block(player.id, BlockingConstants.REASONS.PET_FREE)
+			.build();
+
+		response.push(collectorPacket);
 	}
 }
