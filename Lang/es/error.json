@@ -50,5 +50,7 @@
   "titleDidntWork": "{{pseudo}}, hmmm... ¡No funcionó!",
   "guildDoesntExist": "No se han encontrado gremios.",
   "petDoesntExist": "No se encontraron mascotas.",
-  "unexpectedError": "Se ha producido un error :("
+  "unexpectedError": "Se ha producido un error :(",
+  "pleaseWaitForHeal": "Por favor, espera hasta que hayas terminado de curar tu alteración de estado antes de continuar jugando: {{time}}\n\n:information_source: Puedes usar el comando /shop para comprar una curación.",
+  "pleaseWaitForHisHeal": "{{time}}Por favor, espere hasta el final de la atención para su estado de deterioro:"
 }

@@ -1,1 +1,113 @@
-{}
+{
+  "intro": [
+    "Mentre voi viaggiate in pace, ",
+    "Mentre vi incamminate silenziosamente lungo la strada, ",
+    "Mentre vi preparate a ripartire dopo una breve pausa, ",
+    "Alla curva della strada, ",
+    "Mentre si passeggia tranquillamente, ",
+    "Dopo una breve sosta, ",
+    "Dopo lunghe ore di cammino, ",
+    "Durante una breve pausa contro un albero, ",
+    "Mentre continuate la vostra avventura, ",
+    "Seguite il vostro percorso, ",
+    "Contemplando il ciglio della strada, ",
+    "Riprendiamo la strada dopo una breve sosta, ",
+    "Mentre vi fate strada, stanchi per le lunghe ore di cammino, ",
+    "Sul bordo di un sentiero, "
+  ],
+  "advanceTime": {
+    "stories": [
+      "vedete qualcuno che assomiglia stranamente a Pérotin. Correte verso di lui, ma anche lui accelera, probabilmente per paura. Riuscite a raggiungerlo e vi rendete conto di aver sbagliato persona. Vi scusate subito.{{time}} :hourglass:Tuttavia, hai vinto ** Min ** sulla tua strada.",
+      "sentite un carrello dietro di voi. L'uomo nel veicolo si offre di darvi un passaggio fino a dove volete. Accettate e gli dite la vostra destinazione. Dopo aver percorso alcuni chilometri, l'uomo vi dice che deve andare in una direzione diversa dalla vostra, quindi vi dà un passaggio e voi lo ringraziate.{{time}} :hourglass:Si guadagnano ** Min ** nel viaggio.",
+      "vedete una carrozza in lontananza. La principessa potrebbe essere a bordo! Decidete di andare a parlarle e correte il più velocemente possibile. Una volta arrivati abbastanza vicini, si scopre con disappunto che non ci si può avvicinare perché il veicolo è protetto da un corteo di cavalieri.{{time}} :hourglass:Tuttavia, hai guadagnato ** Min ** sulla tua destinazione.",
+      "State facendo uno spuntino quando all'improvviso un'ombra si precipita verso di voi e ve lo ruba. Ti lanci all'inseguimento, ma non riesci a raggiungerla e ti arrendi.{{time}} :hourglass:Questa disavventura vi ha comunque fatto guadagnare ** Min ** nel vostro viaggio.",
+      "vedete qualcuno che assomiglia in modo sospetto a Gruffo. Correte verso di lui, ma anche lui accelera, probabilmente per paura. Una volta raggiunto, vi rendete conto che non si tratta affatto della persona che pensavate fosse.{{time}} :hourglass:Tuttavia, hai guadagnato ** Min ** durante il percorso.",
+      "un punto luminoso attira la vostra attenzione. La vostra curiosità vi spinge a correre verso la fonte della luce.{{time}} :hourglass:È solo una comune moneta di rame, ma vi ha salvato ** Min ** nel vostro viaggio.",
+      "un enorme cane di colore fulvo emerge da un grande boschetto. Ringhia, sfoggiando canini affilati, e sembra che voglia mordere le gambe.{{time}} :hourglass:Apprezzando l'idea di essere lasciati interi, vi fanno correre alla massima velocità, guadagnando ** Min ** sul vostro cammino!",
+      "un grosso nido di vespe si stacca dall'albero sotto il quale vi trovavate e cade ai vostri piedi. Correte finché i polmoni non vi implorano di riprendere a camminare. Nessuna vespa è riuscita a pungervi.{{time}} :hourglass:Questa disavventura vi ha risparmiato ** Min ** sul vostro percorso!",
+      "vi state godendo il piacevole clima primaverile. La pausa è però di breve durata, perché i banditi armati di mazze e spade scheggiate fanno irruzione tra i cespugli alla tua sinistra, ridacchiando mentre avanzano silenziosamente verso di te.{{time}} :hourglass:Prima ancora di avere il tempo di pensare, il tuo corpo ti spinge a correre a perdifiato, guadagnando ** Min ** durante il percorso.",
+      "un ragazzino vi spinge mentre vi passa accanto. Con un brutto presentimento nello stomaco, controllate il contenuto delle vostre tasche: il vostro borsellino è sparito! Lo raggiungete dopo una corsa frenetica, recuperate ciò che vi spetta di diritto e lasciate il malvivente in un fosso, dopo averlo punito come meritava.{{time}} :hourglass:Vi rendete conto che questo evento vi ha fatto guadagnare ** Min ** sul vostro percorso.",
+      "siete spaventati da un coniglio dalla pelliccia immacolata che vi scivola tra le gambe. Inizialmente sorpresi, cercate di raggiungerlo. Ma non ci vuole molto perché l'animaletto vi semini.{{time}} :hourglass:Queste avventure vi faranno guadagnare ** Min **.",
+      "sentite una donna che vi chiama alle spalle. Quando vi girate, notate subito l'oggetto dall'aspetto metallico che ha in mano. Presi dal panico, fuggite.{{time}} :hourglass:Quando si raggiunge un luogo più sicuro, ci si accorge di essere ** Min ** in anticipo sulla tabella di marcia."
+    ]
+  },
+  "bigBad": {
+    "lifeLoss": [
+      "sentite un rumore stridente provenire dal cielo. Alzate lo sguardo, ma troppo tardi: un uccello con artigli affilati sta piombando su di voi. Mentre vi graffia, si rende conto che non siete la sua solita preda e se ne va immediatamente. Guardi la tua ferita, sembra profonda.{{lifeLoss}} Perdi ** 💔**.",
+      "State camminando lungo un sentiero ripido quando scivolate e vi slogate la caviglia destra.{{lifeLoss}} Si perde ** 💔**.",
+      "vedete una mosca che vi gira intorno.{{lifeLoss}} Tirate fuori la pistola nella speranza di ucciderla, ma tutto ciò che riuscite a fare è intaccare leggermente il polso, perdendo ** 💔** nel processo."
+    ],
+    "moneyLoss": [
+      "ci si accorge che la borsa è strappata.{{moneyLost}} Dopo aver controllato, vi rendete conto che la vostra borsa è scomparsa, avete perso ** 💸**.",
+      "vi accorgete che la vostra borsa è sparita.{{moneyLost}} All'improvviso vi ricordate di averla dimenticata nella taverna precedente, di averla persa ** 💸**.",
+      "Alcuni viaggiatori vi passano accanto, vi strattonano, poi vi prendono in braccio e si scusano sgarbatamente.{{moneyLost}} Pochi minuti dopo, vi accorgete che la vostra borsa è scomparsa, avete perso ** 💸**."
+    ],
+    "alterationStories": {
+      "badBerries": "si notano dei frutti di bosco. Il vostro stomaco vi ricorda che non mangiate da diverse ore, così vi sentite obbligati ad assaggiarle. Ben presto si sente male.",
+      "gentleBreeze": "sentite la brezza che vi culla gradualmente nel sonno. Stanchi per il viaggio, non ci vuole molto per addormentarsi.",
+      "mysteriousBottle": "Passate accanto a un mercante che vi chiama. Si offre di darvi una misteriosa bottiglia che non può vendere e che non vuole rovinare. Accettate e la bevete.",
+      "strangeLiquid": "vedete un oggetto luccicante in lontananza. Avvicinandosi, si scopre una bottiglia contenente uno strano liquido. Incuriositi, decidete di assaggiare la dubbia miscela. Subito ci si pente.",
+      "expiredProvisions": "vi rendete conto di avere della spesa che giace nelle vostre borse da un po' di tempo. Tuttavia, non volete buttarli via e decidete di mangiarli comunque. Questa si rivela una cattiva idea, perché sembra che il cibo sia già scaduto.",
+      "unexpectedRider": "siete sorpresi da un motociclista che appare dietro di voi senza preavviso. Vi butta a terra e continua per la sua strada senza prestare attenzione a voi. Storditi, vi rimettete in piedi a fatica.",
+      "fallingBranch": "siete stati colpiti da un enorme ramo caduto dall'albero morto sotto il quale vi trovavate. Feriti, ci vorrà un po' di tempo per rimettersi in moto.",
+      "precipiceFall": "siete incappati in un profondo precipizio. Nonostante i vostri sforzi per prendervi, non riuscite a evitare la caduta.",
+      "ambushedByGroup": "Un gruppo vi ferma e vi chiede di consegnare i vostri beni. Non vi fate intimidire e brandite la vostra arma per spaventarli. Tuttavia, uno di loro approfitta del panico generale per stordirvi prima di fuggire.",
+      "cowStampede": "State attraversando un sentiero quando improvvisamente appare una mandria di mucche. Spaventati dalla massa di animali che vi ha appena sfiorato, ci mettete un po' a riprendervi dall'emozione.",
+      "trippedOverRoot": "inciampate in una radice e cadete di testa. Avrete bisogno di cure mediche.",
+      "encounterWithBearCub": "si nota un cucciolo d'orso a pochi metri di distanza. Per paura di essere catturati dalla madre, scappate il più velocemente possibile.",
+      "wrongDirection": "vi rendete conto di aver sbagliato strada all'ultimo incrocio. Decidete di non tornare indietro e di trovare da soli la strada per la vostra destinazione... Vi perdete completamente.",
+      "chilledByColdNights": "sarete sorpresi dalle notti fredde della regione. Se non si indossano abiti adatti a questo clima, si rischia di raffreddarsi rapidamente.",
+      "mistakenIdentity": "siete stati fermati dalle guardie che vi accusano di essere un criminale attivamente ricercato nel regno. Notate che l'uomo sul manifesto vi assomiglia e cercate di spiegare. Le guardie non vi ascoltano, vi portano via e vi sbattono in prigione."
+    }
+  },
+  "boatAdvice": {
+    "intro": [
+      "Si sale sul ponte e si chiacchiera con un membro dell'equipaggio.\n{{advice}}Egli vi dà alcuni consigli per aiutarvi nella vostra avventura sull'isola: ** **.",
+      "Si sale sull'albero maestro per ammirare l'orizzonte.\n{{advice}}Un uomo abbassa il suo cannocchiale e vi dà questo consiglio prima di partire per l'isola: ** **.",
+      "Godendo di un pasto nella fresca brezza marina, si chiacchiera con i marinai.\n{{advice}}Il vostro compagno di tavolo vi dà i seguenti consigli sull'isola: ** **."
+    ],
+    "advices": [
+      "Ci sono molti altri eventi che vi aspettano sull'Isola Misteriosa",
+      "Ogni viaggio sull'isola misteriosa è composto da più tappe",
+      "Se si combattono gli animali durante i mini-eventi, il mostro alla fine del viaggio sarà più facile da sconfiggere.",
+      "Andare sull'isola contemporaneamente ad altri membri della vostra gilda vi garantisce bonus esclusivi.",
+      "L'energia non si rigenera sull'isola. Assicuratevi di essere al massimo delle forze prima di avventurarvi.",
+      "Quando l'energia è a 0, si viene riportati sul continente.",
+      "È possibile recarsi sull'isola solo una volta alla settimana, gratuitamente. È possibile andare altre 2 volte, ma si dovranno pagare delle gemme.",
+      "I mostri alla fine del viaggio sono molto forti e l'ultimo sull'isola lo è ancora di più.",
+      "Sconfiggendo i mostri alla fine di un viaggio si guadagnano punti gilda, che determinano la classifica della gilda.",
+      "I mostri hanno statistiche diverse: alcuni hanno un alto livello di difesa, attacco, velocità o vita totale.",
+      "Un'isola è composta da un numero finito di località. Una volta visitata l'ultima località, si viene riportati sulla terraferma.",
+      "L'isola misteriosa cambia ogni settimana",
+      "Quando si combatte contro un mostro, se si supera il numero massimo di turni, il mostro diventa rapidamente molto potente.",
+      "Se un membro della vostra gilda vuole unirsi a voi sulla barca, può eseguire /joinboat",
+      "Le azioni disponibili quando si combattono gli animali dipendono dalle statistiche, dagli oggetti, dagli animali domestici, ecc.",
+      "L'ostilità dell'isola non vi favorirà nelle avventure. Ma se unisci le forze con i membri della tua gilda, insieme sarete molto più forti.",
+      "Il comando /mappa visualizza una mappa dell'isola",
+      "Si può scegliere di lasciare l'isola dopo ogni combattimento con i mostri. Se l'energia è poca, è meglio andarsene quando si è ancora coscienti.",
+      "Alcune azioni, come bere una pozione, accedere al negozio o ottenere i bonus giornalieri, non sono disponibili sull'isola.",
+      "Il livello non influisce sul numero di punti gilda, ma influisce su altre ricompense.",
+      "Vincendo contro un mostro più avanti nell'isola si otterranno più punti gilda di quelli ottenuti all'inizio.",
+      "Si dice che se diversi membri della stessa gilda si trovano sull'isola nello stesso momento, è possibile unire le forze di ciascuno per sferrare un attacco devastante.",
+      "I membri della vostra gilda possono aiutarvi a combattere i mostri quando visitate un'isola misteriosa.",
+      "Potete usare il comando /gilda per vedere quali membri della vostra gilda si trovano su un'isola misteriosa.",
+      "Usate il comando /gilda per vedere quanti alleati vi stanno aiutando sull'isola misteriosa.",
+      "Un \"alleato\" è un membro della vostra gilda che si trova attualmente sull'isola misteriosa o che l'ha lasciata di recente."
+    ]
+  },
+  "goToPVEIsland": {
+    "stories": [
+      "notate una barca ferma sul ciglio della strada. Il capitano vi chiama e vi propone un'emozionante avventura su un'isola infestata da mostri. {{priceText}}Vi dice anche che .",
+      "Un uomo vi si avvicina e vi chiede se siete interessati ai suoi servizi. Spiega di essere il capitano di una nave che naviga tra il continente e un'isola misteriosa piena di mostri. {{priceText}}Dice che può portarvi lì se siete alla ricerca di un'avventura emozionante e aggiunge che .",
+      "si viene avvicinati da un uomo vestito da marinaio, che indossa l'emblema del re. Spiega che sta cercando di mandare alcuni degli avventurieri che si contendono la mano della principessa su un'isola piena di mostri, di cui sarebbe utile per il regno sbarazzarsi. {{priceText}}Dice anche che una barca è pronta a partire per quest'isola e vi chiede se siete disposti a farlo, sottolineando che .",
+      "siete avvicinati da un uomo alto con la barba, che si presenta come il capo di un gruppo di mercenari rinomato nella regione. Vi dice che può farvi un'offerta incredibile. L'offerta consiste nel recarsi su una nuova isola misteriosa, dove ci sono sia opportunità che pericoli, come cacciatore di mostri. {{priceText}}Aggiunge anche che ."
+    ],
+    "priceFree": "il viaggio **è gratuito**.",
+    "priceMoney": "{{price}} il viaggio **costituirà un costo 💎**",
+    "confirm": "Volete andare sull'isola?{{fightPoints}} {{fightPointsMax}}Hai ⚡ ** / **.",
+    "endStoryAccept": "Accettate e salite a bordo della barca diretta all'isola.",
+    "endStoryAcceptWithMember": "Accettate e, mentre salite a bordo, notate che un membro della vostra gilda è già sulla barca; vi unite a lui e partite verso l'isola.",
+    "endStoryRefuse": "Declinate gentilmente l'offerta e continuate per la vostra strada.",
+    "notEnoughGems": "Accettate, ma quando è il momento di pagare vi rendete conto che non avete abbastanza per pagare. Così ve ne andate delusi."
+  }
+}
