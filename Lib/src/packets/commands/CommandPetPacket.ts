@@ -1,7 +1,10 @@
 import {DraftBotPacket} from "../DraftBotPacket";
 
 export class CommandPetPacketReq extends DraftBotPacket {
-	keycloakId!: string;
+	askedPlayer!: {
+		rank?: number,
+		keycloakId?: string
+	};
 }
 
 export class CommandPetPacketRes extends DraftBotPacket {
