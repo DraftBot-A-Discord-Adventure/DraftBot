@@ -86,7 +86,9 @@ export abstract class SmallEventConstants {
 			MONEY: "money",
 			GUILD_XP: "guildXp",
 			POINTS: "points"
-		}
+		},
+
+		MONEY_MALUS: -175
 	};
 
 	static readonly ULTIMATE_FOOD_MERCHANT = {

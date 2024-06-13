@@ -338,6 +338,16 @@ export class Guilds {
 			offset: minRank - 1
 		});
 	}
+
+	static async ofPlayer(player: Player): Promise<Guild> {
+		try {
+			return await Guilds.getById(player.guildId);
+		}
+		catch {
+			return null;
+		}
+	}
+
 }
 
 export function initModel(sequelize: Sequelize): void {
