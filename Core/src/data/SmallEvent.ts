@@ -2,7 +2,6 @@ import {DataControllerString} from "./DataController";
 import {Data} from "./Data";
 import {readdirSync} from "fs";
 import Player from "../core/database/game/models/Player";
-import {WebsocketClient} from "../../../Lib/src/instances/WebsocketClient";
 import {DraftBotPacket, PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
 
 export class SmallEvent extends Data<string> {

@@ -87,7 +87,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 					return;
 				}
 
-				let rewardTypes = Object.keys(SmallEventConstants.LOTTERY.REWARD_TYPES);
+				let rewardTypes = Object.values(SmallEventConstants.LOTTERY.REWARD_TYPES);
 				const guild = await Guilds.ofPlayer(player);
 				if (guild === null || guild.isAtMaxLevel()) {
 					rewardTypes = rewardTypes.filter(r => r !== SmallEventConstants.LOTTERY.REWARD_TYPES.GUILD_XP);
@@ -106,7 +106,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 							response,
 							reason: NumberChangeReason.SMALL_EVENT
 						});
-						response.push(makePacket(SmallEventLotteryWinPacket, { xp: SmallEventConstants.LOTTERY.REWARDS.EXPERIENCE * coefficient, lostTime }));
+						response.push(makePacket(SmallEventLotteryWinPacket, { xp: SmallEventConstants.LOTTERY.REWARDS.EXPERIENCE * coefficient, lostTime, level: levelKey }));
 						break;
 					case SmallEventConstants.LOTTERY.REWARD_TYPES.MONEY:
 						await player.addMoney({
@@ -114,12 +114,12 @@ export const smallEventFuncs: SmallEventFuncs = {
 							response,
 							reason: NumberChangeReason.SMALL_EVENT
 						});
-						response.push(makePacket(SmallEventLotteryWinPacket, { money: SmallEventConstants.LOTTERY.REWARDS.MONEY * coefficient, lostTime }));
+						response.push(makePacket(SmallEventLotteryWinPacket, { money: SmallEventConstants.LOTTERY.REWARDS.MONEY * coefficient, lostTime, level: levelKey }));
 						break;
 					case SmallEventConstants.LOTTERY.REWARD_TYPES.GUILD_XP:
 						await guild.addExperience(SmallEventConstants.LOTTERY.REWARDS.GUILD_EXPERIENCE * coefficient, response, NumberChangeReason.SMALL_EVENT);
 						await guild.save();
-						response.push(makePacket(SmallEventLotteryWinPacket, { guildXp: SmallEventConstants.LOTTERY.REWARDS.GUILD_EXPERIENCE * coefficient, lostTime }));
+						response.push(makePacket(SmallEventLotteryWinPacket, { guildXp: SmallEventConstants.LOTTERY.REWARDS.GUILD_EXPERIENCE * coefficient, lostTime, level: levelKey }));
 						break;
 					case SmallEventConstants.LOTTERY.REWARD_TYPES.POINTS:
 						await player.addScore({
@@ -127,7 +127,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 							response,
 							reason: NumberChangeReason.SMALL_EVENT
 						});
-						response.push(makePacket(SmallEventLotteryWinPacket, { points: SmallEventConstants.LOTTERY.REWARDS.POINTS * coefficient, lostTime }));
+						response.push(makePacket(SmallEventLotteryWinPacket, { points: SmallEventConstants.LOTTERY.REWARDS.POINTS * coefficient, lostTime, level: levelKey }));
 						break;
 					default:
 						throw new Error("lottery reward type not found");
@@ -142,10 +142,10 @@ export const smallEventFuncs: SmallEventFuncs = {
 						reason: NumberChangeReason.SMALL_EVENT
 					});
 					await player.save();
-					response.push(makePacket(SmallEventLotteryLosePacket, { moneyLost: Math.abs(SmallEventConstants.LOTTERY.MONEY_MALUS), lostTime }));
+					response.push(makePacket(SmallEventLotteryLosePacket, { moneyLost: Math.abs(SmallEventConstants.LOTTERY.MONEY_MALUS), lostTime, level: levelKey }));
 				}
 				else {
-					response.push(makePacket(SmallEventLotteryLosePacket, { moneyLost: Math.abs(SmallEventConstants.LOTTERY.MONEY_MALUS), lostTime }));
+					response.push(makePacket(SmallEventLotteryLosePacket, { moneyLost: 0, lostTime, level: levelKey }));
 				}
 			}
 		};
