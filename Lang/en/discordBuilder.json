@@ -57,6 +57,10 @@
       }
     }
   },
+  "petFree": {
+    "description": "Free a pet.",
+    "name": "petfree"
+  },
   "guild": {
     "description": "Displays information about a guild.",
     "name": "guild",

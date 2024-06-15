@@ -433,5 +433,8 @@
       "ongoing": "Actuellement, vous vous dirigez {{particle}} **{{emote}} {{destination}}**.\n> {{description}}",
       "arrived": "Vous êtes arrivé à votre destination.\n> **{{emote}} {{destination}}**.\n> {{description}}"
     }
+  },
+  "petFree": {
+    "title": "{{pseudo}}, libération d'un familier"
   }
 }
