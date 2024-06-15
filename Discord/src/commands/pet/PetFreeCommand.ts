@@ -11,7 +11,10 @@ import {DiscordCache} from "../../bot/DiscordCache";
 import {DraftBotErrorEmbed} from "../../messages/DraftBotErrorEmbed";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {Effect} from "../../../../Lib/src/enums/Effect";
-import {millisecondsToMinutes} from "../../../../Lib/src/utils/TimeUtils";
+import {printTimeBeforeDate} from "../../../../Lib/src/utils/TimeUtils";
+import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
+import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 
 /**
  * Destroy a pet forever... RIP
@@ -23,7 +26,6 @@ function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser)
 
 export async function handleCommandPetFreePacketRes(packet: CommandPetFreePacketRes, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
-
 	if (interaction) {
 		if (!packet.foundPet) {
 			await interaction.reply({
@@ -31,7 +33,7 @@ export async function handleCommandPetFreePacketRes(packet: CommandPetFreePacket
 					new DraftBotErrorEmbed(
 						interaction.user,
 						interaction,
-						i18n.t("error:PetDoesntExist", {lng: interaction.userLanguage})
+						i18n.t("error:petDoesntExist", {lng: interaction.userLanguage})
 					)
 				]
 			});
@@ -49,22 +51,32 @@ export async function handleCommandPetFreePacketRes(packet: CommandPetFreePacket
 					]
 				});
 			}
-			else {
-				await interaction.reply({
-					embeds: [
-						new DraftBotErrorEmbed(
-							interaction.user,
-							interaction,
-							i18n.t("error:cooldownPetFree", {
-								lng: interaction.userLanguage,
-								remainingTime: millisecondsToMinutes(packet.cooldownRemainingTimeMs!)
-							})
-						)
-					]
-				});
-			}
+			await interaction.reply({
+				embeds: [
+					new DraftBotErrorEmbed(
+						interaction.user,
+						interaction,
+						i18n.t("error:cooldownPetFree", {
+							lng: interaction.userLanguage,
+							remainingTime: printTimeBeforeDate(packet.cooldownRemainingTimeMs! + new Date().valueOf())
+						})
+					)
+				]
+			});
 		}
 	}
+}
+
+export async function createPetFreeCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
+	// Const data = packet.data.data as ReactionCollectorPetFreeData;
+
+	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:petFree.title", {
+		lng: interaction.userLanguage,
+		pseudo: interaction.user.displayName
+	}), interaction.user);
+
+	await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
 }
 
 export const commandInfo: ICommand = {

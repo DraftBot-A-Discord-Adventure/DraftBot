@@ -57,6 +57,10 @@
       }
     }
   },
+  "petFree": {
+    "description": "Libérer son familier.",
+    "name": "libererfamilier",
+  },
   "guild": {
     "description": "Affiche des informations sur une guilde.",
     "name": "guilde",

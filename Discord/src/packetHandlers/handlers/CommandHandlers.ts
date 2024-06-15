@@ -26,6 +26,8 @@ import {CommandMapDisplayRes} from "../../../../Lib/src/packets/commands/Command
 import {handleCommandMapDisplayRes} from "../../commands/player/MapCommand";
 import { CommandPetPacketRes } from "../../../../Lib/src/packets/commands/CommandPetPacket";
 import {handleCommandPetPacketRes} from "../../commands/pet/PetCommand";
+import {handleCommandPetFreePacketRes} from "../../commands/pet/PetFreeCommand";
+import {CommandPetFreePacketRes} from "../../../../Lib/src/packets/commands/CommandPetFreePacket";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
@@ -50,6 +52,11 @@ export default class CommandHandlers {
 	@packetHandler(CommandPetPacketRes)
 	async petRes(socket: WebSocket, packet: CommandPetPacketRes, context: PacketContext): Promise<void> {
 		await handleCommandPetPacketRes(packet, context);
+	}
+
+	@packetHandler(CommandPetPacketRes)
+	async petFreeRes(socket: WebSocket, packet: CommandPetFreePacketRes, context: PacketContext): Promise<void> {
+		await handleCommandPetFreePacketRes(packet, context);
 	}
 
 	@packetHandler(CommandGuildPacketRes)
