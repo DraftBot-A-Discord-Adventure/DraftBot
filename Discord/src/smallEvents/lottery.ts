@@ -1,10 +1,7 @@
-import {
-	ReactionCollectorCreationPacket, ReactionCollectorRefuseReaction
-} from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { ReactionCollectorCreationPacket } from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
 import {DiscordCache} from "../bot/DiscordCache";
 import {DraftbotSmallEventEmbed} from "../messages/DraftbotSmallEventEmbed";
-import {getRandomSmallEventIntro} from "../packetHandlers/handlers/SmallEventsHandler";
 import i18n from "../translations/i18n";
 import {DiscordCollectorUtils} from "../utils/DiscordCollectorUtils";
 import {
