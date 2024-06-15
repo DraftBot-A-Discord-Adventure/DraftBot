@@ -21,7 +21,12 @@ export const DraftBotIcons: {
 	},
 	collectors: {
 		accept: string,
-		refuse: string
+		refuse: string,
+		lottery: {
+			easy: string,
+			medium: string,
+			hard: string
+		}
 	}
 } = {
 	"effects": {
@@ -1062,6 +1067,11 @@ export const DraftBotIcons: {
 	},
 	collectors: {
 		"accept": "✅",
-		"refuse": "❌"
+		"refuse": "❌",
+		"lottery": {
+			"easy": "🪙",
+			"medium": "💵",
+			"hard": "💰"
+		}
 	}
 };

@@ -14,10 +14,14 @@ export class SmallEventLotteryWinPacket extends SmallEventPacket {
 	guildXp?: number;
 
 	xp?: number;
+
+	level!: string;
 }
 
 export class SmallEventLotteryLosePacket extends SmallEventPacket {
 	moneyLost!: number;
 
 	lostTime!: number;
+
+	level!: "easy" | "medium" | "hard";
 }

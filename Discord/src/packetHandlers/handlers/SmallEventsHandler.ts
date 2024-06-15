@@ -17,6 +17,11 @@ import {
 } from "../../../../Lib/src/packets/smallEvents/SmallEventGoToPVEIslandPacket";
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
+import {
+	SmallEventLotteryLosePacket,
+	SmallEventLotteryNoAnswerPacket,
+	SmallEventLotteryPoorPacket, SmallEventLotteryWinPacket
+} from "../../../../Lib/src/packets/smallEvents/SmallEventLotteryPacket";
 
 export function getRandomSmallEventIntro(language: Language): string {
 	return StringUtils.getRandomTranslation("smallEvents:intro", language);
@@ -114,6 +119,78 @@ export default class SmallEventsHandler {
 				new DraftbotSmallEventEmbed(
 					"goToPVEIsland",
 					i18n.t("smallEvents:goToPVEIsland.notEnoughGems", { lng: user.attributes.language[0] }),
+					interaction.user,
+					user.attributes.language[0]
+				)]});
+		}
+	}
+
+	@packetHandler(SmallEventLotteryNoAnswerPacket)
+	async smallEventLotteryNoAnswer(socket: WebSocket, packet: SmallEventLotteryNoAnswerPacket, context: PacketContext): Promise<void> {
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		if (interaction) {
+			await interaction.editReply({
+				embeds: [
+					new DraftbotSmallEventEmbed("lottery", i18n.t("smallEvents:lottery.end", { lng: interaction.userLanguage }), interaction.user, interaction.userLanguage)
+				]
+			});
+		}
+	}
+
+	@packetHandler(SmallEventLotteryPoorPacket)
+	async smallEventLotteryPoor(socket: WebSocket, packet: SmallEventLotteryPoorPacket, context: PacketContext): Promise<void> {
+		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
+		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+		if (interaction) {
+			await interaction.editReply({ embeds: [
+				new DraftbotSmallEventEmbed(
+					"lottery",
+					i18n.t("smallEvents:lottery.poor", { lng: user.attributes.language[0] }),
+					interaction.user,
+					user.attributes.language[0]
+				)]});
+		}
+	}
+
+	@packetHandler(SmallEventLotteryLosePacket)
+	async smallEventLotteryLose(socket: WebSocket, packet: SmallEventLotteryLosePacket, context: PacketContext): Promise<void> {
+		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
+		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+		if (interaction) {
+			const failKey = packet.moneyLost && packet.moneyLost > 0 ? "failWithMalus" : "fail";
+			await interaction.editReply({ embeds: [
+				new DraftbotSmallEventEmbed(
+					"lottery",
+					i18n.t(`smallEvents:lottery.${packet.level}.${failKey}`, { lng: user.attributes.language[0], lostTime: packet.lostTime, money: packet.moneyLost }),
+					interaction.user,
+					user.attributes.language[0]
+				)]});
+		}
+	}
+
+	@packetHandler(SmallEventLotteryWinPacket)
+	async smallEventLotteryWin(socket: WebSocket, packet: SmallEventLotteryWinPacket, context: PacketContext): Promise<void> {
+		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
+		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+		if (interaction) {
+			let rewardDesc: string;
+			if (packet.xp) {
+				rewardDesc = i18n.t("smallEvents:lottery.rewardTypeText.xp", { lng: user.attributes.language[0], xpWon: packet.xp });
+			}
+			else if (packet.money) {
+				rewardDesc = i18n.t("smallEvents:lottery.rewardTypeText.money", { lng: user.attributes.language[0], moneyWon: packet.money });
+			}
+			else if (packet.guildXp) {
+				rewardDesc = i18n.t("smallEvents:lottery.rewardTypeText.guildXp", { lng: user.attributes.language[0], guildXpWon: packet.guildXp });
+			}
+			else {
+				rewardDesc = i18n.t("smallEvents:lottery.rewardTypeText.points", { lng: user.attributes.language[0], pointsWon: packet.points });
+			}
+
+			await interaction.editReply({ embeds: [
+				new DraftbotSmallEventEmbed(
+					"lottery",
+					i18n.t(`smallEvents:lottery.${packet.level}.success`, { lng: user.attributes.language[0], lostTime: packet.lostTime }) + rewardDesc,
 					interaction.user,
 					user.attributes.language[0]
 				)]});
