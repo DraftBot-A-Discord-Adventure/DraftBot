@@ -98,16 +98,40 @@
   "goToPVEIsland": {
     "stories": [
       "you notice a boat stopped on the lower side. The captain calls you and offers you an exciting adventure on a monster-infested island. It also tells you that {{priceText}}.",
-      "a man approaches you and asks you if you would be integrated by his services. He predicts that he is captain of a ship linking the continent to a mystery, full of monsters. He says he can take you there if you are looking for a moving adventure, and adds that {{priceText}}.",
-      "you were called by a man wearing sailor's clothes, and wearing the king's emblem. He explains how to send some of the competing adventurers for the princess's hand to a monster filled with monsters, from which it would be useful for the kingdom to escape. He also says that a boat is ready to leave for this island, and asks you if you are leaving by saying that {{priceText}}.",
-      "you were greeted by a great barbu, presenting himself as the leader of a group of mercenaries recognized in the area. He tells you that he can present you with an incredible offer. It would be for you to go to a new and mystery, or to live together opportunely and dangerously as a monster hunter. It also adds that {{priceText}}."
+      "a man approaches you and asks if you'd be interested in his services. He explains that he is the captain of a ship sailing between the main continent and a mysterious island full of monsters. He says he can take you there if you're looking for a rollicking adventure, and adds that {{priceText}}.",
+      "you are approached by a man in sailor's clothing, bearing the king's emblem. He tells you he's trying to send some of the adventurers competing for the princess's hand to an island full of monsters, which would be useful for the kingdom to get rid of. He also says that a ship is ready to leave for this island, and asks you if you're up for it, pointing out that {{priceText}}.",
+      "you're accosted by a tall, bearded man, introducing himself as the leader of a mercenary group renowned in the region. He tells you that he can make you an incredible offer. The offer is for you to travel to a mysterious new island, where opportunity and danger coexist, as a monster hunter. He also adds that {{priceText}}."
     ],
-    "priceFree": "**is free** travel",
-    "priceMoney": "the trip **will take {{price}}💎**",
-    "confirm": "Do you want to leave on the island? You have ⚡ **{{fightPoints}} / {{fightPointsMax}}**.",
+    "priceFree": "the trip **is free**",
+    "priceMoney": "the trip **will cost {{price}}💎**",
+    "confirm": "Do you want to go to the island? You have ⚡ **{{fightPoints}} / {{fightPointsMax}}**.",
     "endStoryAccept": "You accept and board the boat towards the island.",
-    "endStoryAcceptWithMember": "You agree and at the time of boarding, you notice that your guild member is already on the boat, you join it and head towards the island.",
-    "endStoryRefuse": "You politely refuse the offer and continue your journey.",
-    "notEnoughGems": "You agree but at the time of payment, you realize that you do not have enough to pay. So you are leaving."
+    "endStoryAcceptWithMember": "You accept, and just as you're about to embark, you notice that a member of your guild is already on the boat, so you join him and head for the island.",
+    "endStoryRefuse": "You politely decline the offer and continue on your way.",
+    "notEnoughGems": "You accept, but when it's time to pay, you realize you don't have enough to pay. You leave disappointed."
+  },
+  "lottery": {
+    "intro": "You cross the path of a man who questions you. Curious, you stop. He offers you to participate in a game of chance that he has created. You can choose between multiple reward levels.\n\n:coin: Small reward\n:dollar: average reward\n:moneybag: Big reward\n",
+    "easy": {
+      "success": "You participate and win a prize that the man gives you before leaving.",
+      "fail": "You lose in the game of man, however the participation was free, so you decide to get back to your way."
+    },
+    "medium": {
+      "success": "You try your luck and win the game. The man gets you the right rewards. However you lose **{{lostTime}} Min :clock2:**.",
+      "fail": "You are participating in the human game, however you do not win, so go back and expect to be more lucky next time. Participating in the lottery will cause you to lose **{{lostTime}} Min :clock2:**."
+    },
+    "hard": {
+      "success": "You win in the man's game. As a result, this rewards you gracefully. However, you lose **{{lostTime}} Min :clock2:**.",
+      "fail": "You seize your chance. Unfortunately you don't win, you may have more luck next time. Participating in the lottery will cause you to lose **{{lostTime}} Min :clock2:**.",
+      "failWithMalus": "You are betting about 100 coins on the human game. However, you are losing and leaving, quickly losing **{{money}}** 💸. Participating in the lottery will also cause you to lose **{{lostTime}} Min :clock2:**."
+    },
+    "poor": "You try to play the attention of the man and bet a large amount. Unfortunately for you, the merchant doubtful of your good faith, and unable to attest any wealth, you were rejected without improvement.",
+    "end": "Without paying more attention to the individual, you continue your journey.",
+    "rewardTypeText": {
+      "xp": " You earned **{{xpWon}}⭐**.",
+      "money": " You won **{{money}}💰**!",
+      "guildXp": " Your guild wins **{{guildXpWon}}⭐**.",
+      "points": " You won **{{pointsWon}}🏅**."
+    }
   }
 }
