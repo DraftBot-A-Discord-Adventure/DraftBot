@@ -9,7 +9,7 @@ import {
 	ReactionCollectorLotteryHardReaction,
 	ReactionCollectorLotteryMediumReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorLottery";
-import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
+import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {
 	SmallEventLotteryLosePacket,
 	SmallEventLotteryNoAnswerPacket,
@@ -17,7 +17,7 @@ import {
 	SmallEventLotteryWinPacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventLotteryPacket";
 import {SmallEventConstants} from "../../../../Lib/src/constants/SmallEventConstants";
-import {Guilds} from "../database/game/models/Guild";
+import {Guild, Guilds} from "../database/game/models/Guild";
 import {TravelTime} from "../maps/TravelTime";
 import {Effect} from "../../../../Lib/src/enums/Effect";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
@@ -51,10 +51,69 @@ async function effectIfGoodRisk(levelKey: LotteryLevelKey, player: Player, dataL
 	return 0;
 }
 
+// eslint-disable-next-line max-params
+async function giveRewardToPlayer(
+	rewardType: string,
+	player: Player,
+	coefficient: number,
+	response: DraftBotPacket[],
+	lostTime: number,
+	levelKey: "easy" | "hard" | "medium",
+	guild: Guild
+): Promise<void> {
+	switch (rewardType) {
+	case SmallEventConstants.LOTTERY.REWARD_TYPES.XP:
+		await player.addExperience({
+			amount: SmallEventConstants.LOTTERY.REWARDS.EXPERIENCE * coefficient,
+			response,
+			reason: NumberChangeReason.SMALL_EVENT
+		});
+		response.push(makePacket(SmallEventLotteryWinPacket, {
+			xp: SmallEventConstants.LOTTERY.REWARDS.EXPERIENCE * coefficient,
+			lostTime,
+			level: levelKey
+		}));
+		break;
+	case SmallEventConstants.LOTTERY.REWARD_TYPES.MONEY:
+		await player.addMoney({
+			amount: SmallEventConstants.LOTTERY.REWARDS.MONEY * coefficient,
+			response,
+			reason: NumberChangeReason.SMALL_EVENT
+		});
+		response.push(makePacket(SmallEventLotteryWinPacket, {
+			money: SmallEventConstants.LOTTERY.REWARDS.MONEY * coefficient,
+			lostTime,
+			level: levelKey
+		}));
+		break;
+	case SmallEventConstants.LOTTERY.REWARD_TYPES.GUILD_XP:
+		await guild.addExperience(SmallEventConstants.LOTTERY.REWARDS.GUILD_EXPERIENCE * coefficient, response, NumberChangeReason.SMALL_EVENT);
+		await guild.save();
+		response.push(makePacket(SmallEventLotteryWinPacket, {
+			guildXp: SmallEventConstants.LOTTERY.REWARDS.GUILD_EXPERIENCE * coefficient,
+			lostTime,
+			level: levelKey
+		}));
+		break;
+	case SmallEventConstants.LOTTERY.REWARD_TYPES.POINTS:
+		await player.addScore({
+			amount: SmallEventConstants.LOTTERY.REWARDS.POINTS * coefficient,
+			response,
+			reason: NumberChangeReason.SMALL_EVENT
+		});
+		response.push(makePacket(SmallEventLotteryWinPacket, {
+			points: SmallEventConstants.LOTTERY.REWARDS.POINTS * coefficient,
+			lostTime,
+			level: levelKey
+		}));
+		break;
+	default:
+		throw new Error("lottery reward type not found");
+	}
+}
+
 export const smallEventFuncs: SmallEventFuncs = {
-	canBeExecuted(player: Player): Promise<boolean> {
-		return Promise.resolve(Maps.isOnContinent(player));
-	},
+	canBeExecuted: (player: Player): Promise<boolean> => Promise.resolve(Maps.isOnContinent(player)),
 
 	executeSmallEvent(context, response, player): void {
 		const dataLottery = SmallEventDataController.instance.getById("lottery").getProperties<LotteryProperties>();
@@ -82,7 +141,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 					levelKey = "easy";
 				}
 
-				if (player.money < 175 && levelKey === "hard") {
+				if (player.money < SmallEventConstants.LOTTERY.MONEY_MALUS && levelKey === "hard") {
 					response.push(makePacket(SmallEventLotteryPoorPacket, {}));
 					return;
 				}
@@ -99,45 +158,13 @@ export const smallEventFuncs: SmallEventFuncs = {
 
 				if (RandomUtils.draftbotRandom.bool(dataLottery.successRate[levelKey]) && (guild || rewardType !== SmallEventConstants.LOTTERY.REWARD_TYPES.GUILD_XP)) {
 					const coefficient = dataLottery.coefficients[levelKey];
-					switch (rewardType) {
-					case SmallEventConstants.LOTTERY.REWARD_TYPES.XP:
-						await player.addExperience({
-							amount: SmallEventConstants.LOTTERY.REWARDS.EXPERIENCE * coefficient,
-							response,
-							reason: NumberChangeReason.SMALL_EVENT
-						});
-						response.push(makePacket(SmallEventLotteryWinPacket, { xp: SmallEventConstants.LOTTERY.REWARDS.EXPERIENCE * coefficient, lostTime, level: levelKey }));
-						break;
-					case SmallEventConstants.LOTTERY.REWARD_TYPES.MONEY:
-						await player.addMoney({
-							amount: SmallEventConstants.LOTTERY.REWARDS.MONEY * coefficient,
-							response,
-							reason: NumberChangeReason.SMALL_EVENT
-						});
-						response.push(makePacket(SmallEventLotteryWinPacket, { money: SmallEventConstants.LOTTERY.REWARDS.MONEY * coefficient, lostTime, level: levelKey }));
-						break;
-					case SmallEventConstants.LOTTERY.REWARD_TYPES.GUILD_XP:
-						await guild.addExperience(SmallEventConstants.LOTTERY.REWARDS.GUILD_EXPERIENCE * coefficient, response, NumberChangeReason.SMALL_EVENT);
-						await guild.save();
-						response.push(makePacket(SmallEventLotteryWinPacket, { guildXp: SmallEventConstants.LOTTERY.REWARDS.GUILD_EXPERIENCE * coefficient, lostTime, level: levelKey }));
-						break;
-					case SmallEventConstants.LOTTERY.REWARD_TYPES.POINTS:
-						await player.addScore({
-							amount: SmallEventConstants.LOTTERY.REWARDS.POINTS * coefficient,
-							response,
-							reason: NumberChangeReason.SMALL_EVENT
-						});
-						response.push(makePacket(SmallEventLotteryWinPacket, { points: SmallEventConstants.LOTTERY.REWARDS.POINTS * coefficient, lostTime, level: levelKey }));
-						break;
-					default:
-						throw new Error("lottery reward type not found");
-					}
+					await giveRewardToPlayer(rewardType, player, coefficient, response, lostTime, levelKey, guild);
 
 					await player.save();
 				}
 				else if (levelKey === "hard" && RandomUtils.draftbotRandom.bool(dataLottery.successRate[levelKey])) {
 					await player.addMoney({
-						amount: SmallEventConstants.LOTTERY.MONEY_MALUS,
+						amount: -SmallEventConstants.LOTTERY.MONEY_MALUS,
 						response,
 						reason: NumberChangeReason.SMALL_EVENT
 					});
