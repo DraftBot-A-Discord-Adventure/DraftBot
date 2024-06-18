@@ -111,27 +111,27 @@
     "notEnoughGems": "Aceptas, pero cuando llega el momento de pagar, te das cuenta de que no tienes suficiente para hacerlo. Así que te vas decepcionado."
   },
   "lottery": {
-    "intro": "Vous croisez le chemin d'un homme qui vous interpelle. Curieux, vous vous arrêtez. Celui-ci vous propose de participer à un jeu de hasard qu'il a créé. Vous pouvez choisir entre plusieurs niveaux de récompense.\n\n:coin: Petite récompense\n:dollar: Moyenne récompense\n:moneybag: Grosse récompense\n",
+    "intro": "Te cruzas con un hombre que te llama. Curioso, te detienes. Te ofrece participar en un juego de azar que ha creado. Puedes elegir entre varios niveles de recompensa.\n\n:coin:\n:dollar:\n:moneybag:\nPequeña recompensa Mediana recompensa Grande recompensa",
     "easy": {
-      "success": "Vous participez et réussissez à remporter un lot que l'homme vous remet avant de partir.",
-      "fail": "Vous perdez au jeu de l'homme, cependant la participation était gratuite. Vous décidez donc de reprendre votre route."
+      "success": "Participas y consigues ganar un premio, que el hombre te entrega antes de marcharse.",
+      "fail": "Pierdes el partido del hombre, pero la participación era gratuita. Así que decides volver a la carretera."
     },
     "medium": {
-      "success": "Vous tentez votre chance et gagnez au jeu. L'homme vous récompense comme il se doit. Cependant vous perdez **{{lostTime}} Min :clock2:**.",
-      "fail": "Vous participez au jeu de l'homme, cependant vous ne gagnez pas, et repartez donc en espérant avoir plus de chance la prochaine fois. Participer à la loterie vous aura fait perdre **{{lostTime}} Min :clock2:**."
+      "success": "Pruebas suerte y ganas la partida. El hombre te recompensa adecuadamente.{{lostTime}} :clock2:Sin embargo, pierdes ** Min **.",
+      "fail": "Participas en el juego del hombre, pero no ganas, así que te vas con la esperanza de tener más suerte la próxima vez.{{lostTime}} :clock2:Participar en la lotería te habrá costado ** Min **."
     },
     "hard": {
-      "success": "Vous gagnez au jeu de l'homme. En conséquence, celui-ci vous récompense gracieusement. Cependant, vous perdez **{{lostTime}} Min :clock2:**.",
-      "fail": "Vous saisissez votre chance. Malheureusement vous ne gagnez pas, vous aurez peut-être plus de chance la prochaine fois. Participer à la loterie vous aura fait perdre **{{lostTime}} Min :clock2:**.",
-      "failWithMalus": "Vous misez une centaine de pièces au jeu de l'homme. Vous perdez cependant et repartez, dépité d'avoir perdu **{{money}}** 💸. Participer à la loterie vous aura de plus fait perdre **{{lostTime}} Min :clock2:**."
+      "success": "Ganas el juego del hombre. Como resultado, él te recompensa generosamente.{{lostTime}} :clock2:Sin embargo, pierdes ** Min **.",
+      "fail": "Te arriesgas. Desgraciadamente no ganas, pero quizá tengas más suerte la próxima vez.{{lostTime}} :clock2:Participar en la lotería te habrá costado ** Min **.",
+      "failWithMalus": "Apuestas cien monedas en el juego del hombre.{{money}}Sin embargo, pierdes y te vas, decepcionado por haber perdido ** ** 💸.{{lostTime}} :clock2:Participar en la lotería también te habrá costado ** Min **."
     },
-    "poor": "Vous tentez de vous jouer de l'attention de l'homme et misez une somme importante. Malheureusement pour vous, le commerçant doute de votre bonne foi, et incapable d'attester de quelconque richesse, vous êtes rejeté sans ménagement.",
-    "end": "Sans prêter plus d'attention à l'individu, vous continuez votre route.",
+    "poor": "Intentas engañar al hombre para que te pague una gran suma de dinero. Por desgracia para ti, el tendero duda de tu buena fe y, al no poder demostrar ninguna riqueza, te rechaza sin contemplaciones.",
+    "end": "Sin prestar más atención al individuo, continúa su camino.",
     "rewardTypeText": {
-      "xp": " Vous avez gagné **{{xpWon}} ⭐**.",
-      "money": " Vous avez gagné **{{money}} 💰** !",
-      "guildXp": " Votre guilde gagne **{{guildXpWon}} ⭐**.",
-      "points": " Vous avez gagné **{{pointsWon}} 🏅**."
+      "xp": " {{xpWon}} Has ganado ** ⭐**.",
+      "money": " {{money}} ¡Has ganado ** 💰**!",
+      "guildXp": " {{guildXpWon}} Tu gremio gana ** ⭐**.",
+      "points": " {{pointsWon}} Has ganado ** 🏅**."
     }
   }
 }
