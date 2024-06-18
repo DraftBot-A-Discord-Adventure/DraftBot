@@ -58,7 +58,7 @@ async function giveRewardToPlayer(
 	coefficient: number,
 	response: DraftBotPacket[],
 	lostTime: number,
-	levelKey: "easy" | "hard" | "medium",
+	levelKey: LotteryLevelKey,
 	guild: Guild
 ): Promise<void> {
 	switch (rewardType) {
