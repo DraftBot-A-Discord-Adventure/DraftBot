@@ -15,7 +15,7 @@ export class SmallEventLotteryWinPacket extends SmallEventPacket {
 
 	xp?: number;
 
-	level!: string;
+	level!: "easy" | "medium" | "hard";
 }
 
 export class SmallEventLotteryLosePacket extends SmallEventPacket {
