@@ -88,7 +88,7 @@ export abstract class SmallEventConstants {
 			POINTS: "points"
 		},
 
-		MONEY_MALUS: -175
+		MONEY_MALUS: 175
 	};
 
 	static readonly ULTIMATE_FOOD_MERCHANT = {
