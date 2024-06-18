@@ -109,5 +109,29 @@
     "endStoryAcceptWithMember": "You accept, and just as you're about to embark, you notice that a member of your guild is already on the boat, so you join him and head for the island.",
     "endStoryRefuse": "You politely decline the offer and continue on your way.",
     "notEnoughGems": "You accept, but when it's time to pay, you realize you don't have enough to pay. You leave disappointed."
+  },
+  "lottery": {
+    "intro": "You cross the path of a man who questions you. Curious, you stop. He offers you to participate in a game of chance that he has created. You can choose between multiple reward levels.\n\n:coin: Small reward\n:dollar: average reward\n:moneybag: Big reward\n",
+    "easy": {
+      "success": "You participate and win a prize that the man gives you before leaving.",
+      "fail": "You lose in the game of man, however the participation was free, so you decide to get back to your way."
+    },
+    "medium": {
+      "success": "You try your luck and win the game. The man gets you the right rewards. However you lose **{{lostTime}} Min :clock2:**.",
+      "fail": "You are participating in the human game, however you do not win, so go back and expect to be more lucky next time. Participating in the lottery will cause you to lose **{{lostTime}} Min :clock2:**."
+    },
+    "hard": {
+      "success": "You win in the man's game. As a result, this rewards you gracefully. However, you lose **{{lostTime}} Min :clock2:**.",
+      "fail": "You seize your chance. Unfortunately you don't win, you may have more luck next time. Participating in the lottery will cause you to lose **{{lostTime}} Min :clock2:**.",
+      "failWithMalus": "You are betting about 100 coins on the human game. However, you are losing and leaving, quickly losing **{{money}}** 💸. Participating in the lottery will also cause you to lose **{{lostTime}} Min :clock2:**."
+    },
+    "poor": "You try to play the attention of the man and bet a large amount. Unfortunately for you, the merchant doubtful of your good faith, and unable to attest any wealth, you were rejected without improvement.",
+    "end": "Without paying more attention to the individual, you continue your journey.",
+    "rewardTypeText": {
+      "xp": " You earned **{{xpWon}}⭐**.",
+      "money": " You won **{{money}}💰**!",
+      "guildXp": " Your guild wins **{{guildXpWon}}⭐**.",
+      "points": " You won **{{pointsWon}}🏅**."
+    }
   }
 }
