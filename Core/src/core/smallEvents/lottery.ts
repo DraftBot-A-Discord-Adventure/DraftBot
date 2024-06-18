@@ -113,7 +113,7 @@ async function giveRewardToPlayer(
 }
 
 export const smallEventFuncs: SmallEventFuncs = {
-	canBeExecuted: (player: Player): Promise<boolean> => Promise.resolve(Maps.isOnContinent(player)),
+	canBeExecuted: Maps.isOnContinent,
 
 	executeSmallEvent(context, response, player): void {
 		const dataLottery = SmallEventDataController.instance.getById("lottery").getProperties<LotteryProperties>();
