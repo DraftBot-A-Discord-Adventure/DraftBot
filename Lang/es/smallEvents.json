@@ -109,5 +109,29 @@
     "endStoryAcceptWithMember": "Aceptas y, al subir a bordo, te das cuenta de que un miembro de tu gremio ya está en el barco, así que te unes a él y partís hacia la isla.",
     "endStoryRefuse": "Declinas amablemente la oferta y continúas tu camino.",
     "notEnoughGems": "Aceptas, pero cuando llega el momento de pagar, te das cuenta de que no tienes suficiente para hacerlo. Así que te vas decepcionado."
+  },
+  "lottery": {
+    "intro": "Te cruzas con un hombre que te llama. Curioso, te detienes. Te ofrece participar en un juego de azar que ha creado. Puedes elegir entre varios niveles de recompensa.\n\n:coin:\n:dollar:\n:moneybag:\nPequeña recompensa Mediana recompensa Grande recompensa",
+    "easy": {
+      "success": "Participas y consigues ganar un premio, que el hombre te entrega antes de marcharse.",
+      "fail": "Pierdes el partido del hombre, pero la participación era gratuita. Así que decides volver a la carretera."
+    },
+    "medium": {
+      "success": "Pruebas suerte y ganas la partida. El hombre te recompensa adecuadamente.{{lostTime}} :clock2:Sin embargo, pierdes ** Min **.",
+      "fail": "Participas en el juego del hombre, pero no ganas, así que te vas con la esperanza de tener más suerte la próxima vez.{{lostTime}} :clock2:Participar en la lotería te habrá costado ** Min **."
+    },
+    "hard": {
+      "success": "Ganas el juego del hombre. Como resultado, él te recompensa generosamente.{{lostTime}} :clock2:Sin embargo, pierdes ** Min **.",
+      "fail": "Te arriesgas. Desgraciadamente no ganas, pero quizá tengas más suerte la próxima vez.{{lostTime}} :clock2:Participar en la lotería te habrá costado ** Min **.",
+      "failWithMalus": "Apuestas cien monedas en el juego del hombre.{{money}}Sin embargo, pierdes y te vas, decepcionado por haber perdido ** ** 💸.{{lostTime}} :clock2:Participar en la lotería también te habrá costado ** Min **."
+    },
+    "poor": "Intentas engañar al hombre para que te pague una gran suma de dinero. Por desgracia para ti, el tendero duda de tu buena fe y, al no poder demostrar ninguna riqueza, te rechaza sin contemplaciones.",
+    "end": "Sin prestar más atención al individuo, continúa su camino.",
+    "rewardTypeText": {
+      "xp": " {{xpWon}} Has ganado ** ⭐**.",
+      "money": " {{money}} ¡Has ganado ** 💰**!",
+      "guildXp": " {{guildXpWon}} Tu gremio gana ** ⭐**.",
+      "points": " {{pointsWon}} Has ganado ** 🏅**."
+    }
   }
 }

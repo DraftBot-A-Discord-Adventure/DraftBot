@@ -109,5 +109,29 @@
     "endStoryAcceptWithMember": "Accettate e, mentre salite a bordo, notate che un membro della vostra gilda è già sulla barca; vi unite a lui e partite verso l'isola.",
     "endStoryRefuse": "Declinate gentilmente l'offerta e continuate per la vostra strada.",
     "notEnoughGems": "Accettate, ma quando è il momento di pagare vi rendete conto che non avete abbastanza per pagare. Così ve ne andate delusi."
+  },
+  "lottery": {
+    "intro": "Incrociate un uomo che vi chiama. Incuriositi, vi fermate. Vi offre la possibilità di partecipare a un gioco d'azzardo da lui creato. Potete scegliere tra diversi livelli di ricompensa.\n\n:coin:\n:dollar:\n:moneybag:\nRicompensa piccola Ricompensa media Ricompensa grande",
+    "easy": {
+      "success": "Partecipate e riuscite a vincere un premio, che l'uomo vi consegna prima di andarsene.",
+      "fail": "Perdete il gioco dell'uomo, ma la partecipazione era gratuita. Così si decide di rimettersi in viaggio."
+    },
+    "medium": {
+      "success": "Tentate la fortuna e vincete la partita. L'uomo vi ricompensa adeguatamente.{{lostTime}} :clock2:Tuttavia, si perde ** Min **.",
+      "fail": "Partecipate al gioco dell'uomo, ma non vincete, quindi ve ne andate sperando di essere più fortunati la prossima volta.{{lostTime}} :clock2:Partecipare alla lotteria vi sarà costato ** Min **."
+    },
+    "hard": {
+      "success": "Vincete il gioco dell'uomo. Di conseguenza, vi ricompensa profumatamente.{{lostTime}} :clock2:Tuttavia, si perde ** Min **.",
+      "fail": "Si coglie l'occasione. Purtroppo non si vince, ma forse la prossima volta si sarà più fortunati.{{lostTime}} :clock2:Partecipare alla lotteria vi sarà costato ** Min **.",
+      "failWithMalus": "Si scommette un centinaio di monete sul gioco dell'uomo.{{money}}Tuttavia, perdete e ve ne andate, delusi per aver perso ** ** 💸.{{lostTime}} :clock2:Partecipare alla lotteria vi sarà costato anche ** Min **."
+    },
+    "poor": "Cercate di ingannare l'uomo per fargli pagare una grossa somma di denaro. Sfortunatamente, il negoziante dubita della vostra buona fede e, non potendo dimostrare alcuna ricchezza, vi respinge senza pietà.",
+    "end": "Senza prestare ulteriore attenzione all'individuo, continuate per la vostra strada.",
+    "rewardTypeText": {
+      "xp": " {{xpWon}} Avete vinto ** ⭐**.",
+      "money": " {{money}} Hai vinto ** 💰**!",
+      "guildXp": " {{guildXpWon}} La tua gilda vince ** ⭐**.",
+      "points": " {{pointsWon}} Hai vinto ** 🏅**."
+    }
   }
 }
