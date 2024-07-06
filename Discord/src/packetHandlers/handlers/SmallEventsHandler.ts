@@ -12,7 +12,8 @@ import i18n from "../../translations/i18n";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 import {SmallEventBoatAdvicePacket} from "../../../../Lib/src/packets/smallEvents/SmallEventBoatAdvicePacket";
 import {
-	SmallEventGoToPVEIslandAcceptPacket, SmallEventGoToPVEIslandNotEnoughGemsPacket,
+	SmallEventGoToPVEIslandAcceptPacket,
+	SmallEventGoToPVEIslandNotEnoughGemsPacket,
 	SmallEventGoToPVEIslandRefusePacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventGoToPVEIslandPacket";
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
@@ -20,7 +21,8 @@ import {keycloakConfig} from "../../bot/DraftBotShard";
 import {
 	SmallEventLotteryLosePacket,
 	SmallEventLotteryNoAnswerPacket,
-	SmallEventLotteryPoorPacket, SmallEventLotteryWinPacket
+	SmallEventLotteryPoorPacket,
+	SmallEventLotteryWinPacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventLotteryPacket";
 
 export function getRandomSmallEventIntro(language: Language): string {
@@ -33,8 +35,8 @@ export default class SmallEventsHandler {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (interaction) {
 			const description = getRandomSmallEventIntro(interaction.userLanguage)
-				+ StringUtils.getRandomTranslation("smallEvents:advanceTime.stories", interaction.userLanguage, { time: packet.amount });
-			await interaction.editReply({ embeds: [new DraftbotSmallEventEmbed("advanceTime", description, interaction.user, interaction.userLanguage)]});
+				+ StringUtils.getRandomTranslation("smallEvents:advanceTime.stories", interaction.userLanguage, {time: packet.amount});
+			await interaction.editReply({embeds: [new DraftbotSmallEventEmbed("advanceTime", description, interaction.user, interaction.userLanguage)]});
 		}
 	}
 
@@ -69,9 +71,9 @@ export default class SmallEventsHandler {
 			const description = StringUtils.getRandomTranslation(
 				"smallEvents:boatAdvice.intro",
 				interaction.userLanguage,
-				{ advice: StringUtils.getRandomTranslation("smallEvents:boatAdvice.advices", interaction.userLanguage) }
+				{advice: StringUtils.getRandomTranslation("smallEvents:boatAdvice.advices", interaction.userLanguage)}
 			);
-			await interaction.editReply({ embeds: [new DraftbotSmallEventEmbed("boatAdvice", description, interaction.user, interaction.userLanguage)]});
+			await interaction.editReply({embeds: [new DraftbotSmallEventEmbed("boatAdvice", description, interaction.user, interaction.userLanguage)]});
 		}
 	}
 
@@ -80,18 +82,20 @@ export default class SmallEventsHandler {
 		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 		if (interaction) {
-			await interaction.editReply({ embeds: [
-				new DraftbotSmallEventEmbed(
-					"goToPVEIsland",
-					i18n.t(
-						packet.alone
-							? "smallEvents:goToPVEIsland.endStoryAccept"
-							: "smallEvents:goToPVEIsland.endStoryAcceptWithMember",
-						{ lng: user.attributes.language[0] }
-					),
-					interaction.user,
-					user.attributes.language[0]
-				)]});
+			await interaction.editReply({
+				embeds: [
+					new DraftbotSmallEventEmbed(
+						"goToPVEIsland",
+						i18n.t(
+							packet.alone
+								? "smallEvents:goToPVEIsland.endStoryAccept"
+								: "smallEvents:goToPVEIsland.endStoryAcceptWithMember",
+							{lng: user.attributes.language[0]}
+						),
+						interaction.user,
+						user.attributes.language[0]
+					)]
+			});
 		}
 	}
 
@@ -100,13 +104,15 @@ export default class SmallEventsHandler {
 		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 		if (interaction) {
-			await interaction.editReply({ embeds: [
-				new DraftbotSmallEventEmbed(
-					"goToPVEIsland",
-					i18n.t("smallEvents:goToPVEIsland.endStoryRefuse", { lng: user.attributes.language[0] }),
-					interaction.user,
-					user.attributes.language[0]
-				)]});
+			await interaction.editReply({
+				embeds: [
+					new DraftbotSmallEventEmbed(
+						"goToPVEIsland",
+						i18n.t("smallEvents:goToPVEIsland.endStoryRefuse", {lng: user.attributes.language[0]}),
+						interaction.user,
+						user.attributes.language[0]
+					)]
+			});
 		}
 	}
 
@@ -115,13 +121,15 @@ export default class SmallEventsHandler {
 		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 		if (interaction) {
-			await interaction.editReply({ embeds: [
-				new DraftbotSmallEventEmbed(
-					"goToPVEIsland",
-					i18n.t("smallEvents:goToPVEIsland.notEnoughGems", { lng: user.attributes.language[0] }),
-					interaction.user,
-					user.attributes.language[0]
-				)]});
+			await interaction.editReply({
+				embeds: [
+					new DraftbotSmallEventEmbed(
+						"goToPVEIsland",
+						i18n.t("smallEvents:goToPVEIsland.notEnoughGems", {lng: user.attributes.language[0]}),
+						interaction.user,
+						user.attributes.language[0]
+					)]
+			});
 		}
 	}
 
@@ -131,7 +139,7 @@ export default class SmallEventsHandler {
 		if (interaction) {
 			await interaction.editReply({
 				embeds: [
-					new DraftbotSmallEventEmbed("lottery", i18n.t("smallEvents:lottery.end", { lng: interaction.userLanguage }), interaction.user, interaction.userLanguage)
+					new DraftbotSmallEventEmbed("lottery", i18n.t("smallEvents:lottery.end", {lng: interaction.userLanguage}), interaction.user, interaction.userLanguage)
 				]
 			});
 		}
@@ -142,13 +150,15 @@ export default class SmallEventsHandler {
 		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 		if (interaction) {
-			await interaction.editReply({ embeds: [
-				new DraftbotSmallEventEmbed(
-					"lottery",
-					i18n.t("smallEvents:lottery.poor", { lng: user.attributes.language[0] }),
-					interaction.user,
-					user.attributes.language[0]
-				)]});
+			await interaction.editReply({
+				embeds: [
+					new DraftbotSmallEventEmbed(
+						"lottery",
+						i18n.t("smallEvents:lottery.poor", {lng: user.attributes.language[0]}),
+						interaction.user,
+						user.attributes.language[0]
+					)]
+			});
 		}
 	}
 
@@ -158,13 +168,19 @@ export default class SmallEventsHandler {
 		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 		if (interaction) {
 			const failKey = packet.moneyLost && packet.moneyLost > 0 ? "failWithMalus" : "fail";
-			await interaction.editReply({ embeds: [
-				new DraftbotSmallEventEmbed(
-					"lottery",
-					i18n.t(`smallEvents:lottery.${packet.level}.${failKey}`, { lng: user.attributes.language[0], lostTime: packet.lostTime, money: packet.moneyLost }),
-					interaction.user,
-					user.attributes.language[0]
-				)]});
+			await interaction.editReply({
+				embeds: [
+					new DraftbotSmallEventEmbed(
+						"lottery",
+						i18n.t(`smallEvents:lottery.${packet.level}.${failKey}`, {
+							lng: user.attributes.language[0],
+							lostTime: packet.lostTime,
+							money: packet.moneyLost
+						}),
+						interaction.user,
+						user.attributes.language[0]
+					)]
+			});
 		}
 	}
 
@@ -175,25 +191,42 @@ export default class SmallEventsHandler {
 		if (interaction) {
 			let rewardDesc: string;
 			if (packet.xp) {
-				rewardDesc = i18n.t("smallEvents:lottery.rewardTypeText.xp", { lng: user.attributes.language[0], xpWon: packet.xp });
+				rewardDesc = i18n.t("smallEvents:lottery.rewardTypeText.xp", {
+					lng: user.attributes.language[0],
+					xpWon: packet.xp
+				});
 			}
 			else if (packet.money) {
-				rewardDesc = i18n.t("smallEvents:lottery.rewardTypeText.money", { lng: user.attributes.language[0], moneyWon: packet.money });
+				rewardDesc = i18n.t("smallEvents:lottery.rewardTypeText.money", {
+					lng: user.attributes.language[0],
+					moneyWon: packet.money
+				});
 			}
 			else if (packet.guildXp) {
-				rewardDesc = i18n.t("smallEvents:lottery.rewardTypeText.guildXp", { lng: user.attributes.language[0], guildXpWon: packet.guildXp });
+				rewardDesc = i18n.t("smallEvents:lottery.rewardTypeText.guildXp", {
+					lng: user.attributes.language[0],
+					guildXpWon: packet.guildXp
+				});
 			}
 			else {
-				rewardDesc = i18n.t("smallEvents:lottery.rewardTypeText.points", { lng: user.attributes.language[0], pointsWon: packet.points });
+				rewardDesc = i18n.t("smallEvents:lottery.rewardTypeText.points", {
+					lng: user.attributes.language[0],
+					pointsWon: packet.points
+				});
 			}
 
-			await interaction.editReply({ embeds: [
-				new DraftbotSmallEventEmbed(
-					"lottery",
-					i18n.t(`smallEvents:lottery.${packet.level}.success`, { lng: user.attributes.language[0], lostTime: packet.lostTime }) + rewardDesc,
-					interaction.user,
-					user.attributes.language[0]
-				)]});
+			await interaction.editReply({
+				embeds: [
+					new DraftbotSmallEventEmbed(
+						"lottery",
+						i18n.t(`smallEvents:lottery.${packet.level}.success`, {
+							lng: user.attributes.language[0],
+							lostTime: packet.lostTime
+						}) + rewardDesc,
+						interaction.user,
+						user.attributes.language[0]
+					)]
+			});
 		}
 	}
 }
