@@ -19,11 +19,11 @@
       "4_male": ":heart_eyes_cat: Dressé",
       "4_female": ":heart_eyes_cat: Dressée"
     },
-    "hungry": "\uD83E\uDD24 affamé",
+    "hungry": "🤤 affamé",
     "diet": {
-      "diet_null": "\uD83E\uDD6A Omnivore",
-      "diet_herbivorous": "\uD83E\uDD6C Herbivore",
-      "diet_carnivorous": "\uD83E\uDD69 Carnivore"
+      "diet_null": "🥪 Omnivore",
+      "diet_herbivorous": "🥬 Herbivore",
+      "diet_carnivorous": "🥩 Carnivore"
     },
     "sexDisplay": {
       "female": "Femelle",
