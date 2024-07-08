@@ -4,6 +4,7 @@ import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
 import i18n from "../../translations/i18n";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {
+	CommandPetFreeAcceptPacketRes,
 	CommandPetFreePacketReq,
 	CommandPetFreePacketRes,
 	CommandPetFreeRefusePacketRes
@@ -85,6 +86,25 @@ export async function createPetFreeCollector(packet: ReactionCollectorCreationPa
 }
 
 export async function handleCommandPetFreeRefusePacketRes(packet: CommandPetFreeRefusePacketRes, context: PacketContext): Promise<void> {
+	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
+	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+	if (buttonInteraction && originalInteraction) {
+		await buttonInteraction.editReply({
+			embeds: [
+				new DraftBotEmbed().formatAuthor(i18n.t("commands:petFree.canceledTitle", {
+					lng: originalInteraction.userLanguage,
+					pseudo: originalInteraction.user.displayName
+				}), originalInteraction.user)
+					.setDescription(
+						i18n.t("commands:petFree.canceled", {lng: originalInteraction.userLanguage})
+					)
+					.setErrorColor()
+			]
+		});
+	}
+}
+
+export async function handleCommandPetFreeAcceptPacketRes(packet: CommandPetFreeAcceptPacketRes, context: PacketContext): Promise<void> {
 	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 	if (buttonInteraction && originalInteraction) {
