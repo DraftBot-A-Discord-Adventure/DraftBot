@@ -104,27 +104,29 @@ export class DiscordCollectorUtils {
 		// Collector end
 		buttonCollector.on("end", async (collected) => {
 			const firstReaction = collected.first() as ButtonInteraction;
-			await firstReaction.deferReply();
+			if (firstReaction) {
+				await firstReaction.deferReply();
 
-			// Accept collector
-			if (firstReaction && firstReaction.customId === acceptCustomId) {
-				DiscordCollectorUtils.sendReaction(
-					reactionCollectorCreationPacket,
-					context,
-					user,
-					firstReaction,
-					reactionCollectorCreationPacket.reactions.findIndex((reaction) => reaction.type === ReactionCollectorAcceptReaction.name)
-				);
-			}
-			// Refuse collector
-			else {
-				DiscordCollectorUtils.sendReaction(
-					reactionCollectorCreationPacket,
-					context,
-					user,
-					firstReaction,
-					reactionCollectorCreationPacket.reactions.findIndex((reaction) => reaction.type === ReactionCollectorRefuseReaction.name)
-				);
+				// Accept collector
+				if (firstReaction && firstReaction.customId === acceptCustomId) {
+					DiscordCollectorUtils.sendReaction(
+						reactionCollectorCreationPacket,
+						context,
+						user,
+						firstReaction,
+						reactionCollectorCreationPacket.reactions.findIndex((reaction) => reaction.type === ReactionCollectorAcceptReaction.name)
+					);
+				}
+				// Refuse collector
+				else {
+					DiscordCollectorUtils.sendReaction(
+						reactionCollectorCreationPacket,
+						context,
+						user,
+						firstReaction,
+						reactionCollectorCreationPacket.reactions.findIndex((reaction) => reaction.type === ReactionCollectorRefuseReaction.name)
+					);
+				}
 			}
 		});
 	}
