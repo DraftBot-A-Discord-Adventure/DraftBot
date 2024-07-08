@@ -9,7 +9,9 @@ import {ReactionCollectorGoToPVEIslandData} from "../../../../Lib/src/packets/in
 import {goToPVEIslandCollector} from "../../smallEvents/goToPVEIsland";
 import {ReactionCollectorLotteryData} from "../../../../Lib/src/packets/interaction/ReactionCollectorLottery";
 import {lotteryCollector} from "../../smallEvents/lottery";
-import {ReactionCollectorPetFree} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFree";
+import {
+	ReactionCollectorPetFreeData
+} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFree";
 import {createPetFreeCollector} from "../../commands/pet/PetFreeCommand";
 
 export default class ReactionCollectorHandler {
@@ -25,7 +27,7 @@ export default class ReactionCollectorHandler {
 		case ReactionCollectorGoToPVEIslandData.name:
 			await goToPVEIslandCollector(packet, context);
 			break;
-		case ReactionCollectorPetFree.name:
+		case ReactionCollectorPetFreeData.name:
 			await createPetFreeCollector(packet, context);
 			break;
 		case ReactionCollectorLotteryData.name:

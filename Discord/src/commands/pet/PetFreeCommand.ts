@@ -52,24 +52,27 @@ export async function handleCommandPetFreePacketRes(packet: CommandPetFreePacket
 					]
 				});
 			}
-			await interaction.reply({
-				embeds: [
-					new DraftBotErrorEmbed(
-						interaction.user,
-						interaction,
-						i18n.t("error:cooldownPetFree", {
-							lng: interaction.userLanguage,
-							remainingTime: printTimeBeforeDate(packet.cooldownRemainingTimeMs! + new Date().valueOf())
-						})
-					)
-				]
-			});
+			if (packet.cooldownRemainingTimeMs! > 0) {
+				await interaction.reply({
+					embeds: [
+						new DraftBotErrorEmbed(
+							interaction.user,
+							interaction,
+							i18n.t("error:cooldownPetFree", {
+								lng: interaction.userLanguage,
+								remainingTime: printTimeBeforeDate(packet.cooldownRemainingTimeMs! + new Date().valueOf())
+							})
+						)
+					]
+				});
+			}
 		}
 	}
 }
 
 export async function createPetFreeCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
+	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorPetFreeData;
 
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:petFree.title", {
