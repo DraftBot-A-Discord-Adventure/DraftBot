@@ -8,7 +8,7 @@ export class DraftbotSmallEventEmbed extends DraftBotEmbed {
 	constructor(smallEventId: keyof typeof DraftBotIcons.small_events, description: string, user: User, language: Language) {
 		super();
 		this.setAuthor({
-			name: i18n.t("commands:report.journal", { lng: language, pseudo: user.displayName }),
+			name: i18n.t("commands:report.journal", {lng: language, pseudo: user.displayName}),
 			iconURL: user.displayAvatarURL()
 		});
 		this.setDescription(`${DraftBotIcons.small_events[smallEventId]} ${description}`);
