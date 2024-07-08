@@ -26,8 +26,11 @@ import {CommandMapDisplayRes} from "../../../../Lib/src/packets/commands/Command
 import {handleCommandMapDisplayRes} from "../../commands/player/MapCommand";
 import { CommandPetPacketRes } from "../../../../Lib/src/packets/commands/CommandPetPacket";
 import {handleCommandPetPacketRes} from "../../commands/pet/PetCommand";
-import {handleCommandPetFreePacketRes} from "../../commands/pet/PetFreeCommand";
-import {CommandPetFreePacketRes} from "../../../../Lib/src/packets/commands/CommandPetFreePacket";
+import {handleCommandPetFreePacketRes, handleCommandPetFreeRefusePacketRes} from "../../commands/pet/PetFreeCommand";
+import {
+	CommandPetFreePacketRes,
+	CommandPetFreeRefusePacketRes
+} from "../../../../Lib/src/packets/commands/CommandPetFreePacket";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
@@ -57,6 +60,11 @@ export default class CommandHandlers {
 	@packetHandler(CommandPetFreePacketRes)
 	async petFreeRes(socket: WebSocket, packet: CommandPetFreePacketRes, context: PacketContext): Promise<void> {
 		await handleCommandPetFreePacketRes(packet, context);
+	}
+
+	@packetHandler(CommandPetFreeRefusePacketRes)
+	async petFreeRefuseRes(socket: WebSocket, packet: CommandPetFreeRefusePacketRes, context: PacketContext): Promise<void> {
+		await handleCommandPetFreeRefusePacketRes(packet, context);
 	}
 
 	@packetHandler(CommandGuildPacketRes)

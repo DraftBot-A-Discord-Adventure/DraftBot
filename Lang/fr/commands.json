@@ -435,6 +435,8 @@
     }
   },
   "petFree": {
-    "title": "{{pseudo}}, libération d'un familier"
+    "title": "{{pseudo}}, libération d'un familier",
+    "canceledTitle" : "{{pseudo}}, annulation de la libération.",
+    "canceled": "Le familier n'a pas été libéré."
   }
 }
