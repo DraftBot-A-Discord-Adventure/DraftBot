@@ -129,7 +129,7 @@
     "end": "Without paying more attention to the individual, you continue your journey.",
     "rewardTypeText": {
       "xp": " You earned **{{xpWon}}⭐**.",
-      "money": " You won **{{money}}💰**!",
+      "money": " You won **{{moneyWon}}💰**!",
       "guildXp": " Your guild wins **{{guildXpWon}}⭐**.",
       "points": " You won **{{pointsWon}}🏅**."
     }
