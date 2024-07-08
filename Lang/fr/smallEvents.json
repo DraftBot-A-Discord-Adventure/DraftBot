@@ -129,7 +129,7 @@
     "end": "Sans prêter plus d'attention à l'individu, vous continuez votre route.",
     "rewardTypeText": {
       "xp": " Vous avez gagné **{{xpWon}} ⭐**.",
-      "money": " Vous avez gagné **{{money}} 💰** !",
+      "money": " Vous avez gagné **{{moneyWon}} 💰** !",
       "guildXp": " Votre guilde gagne **{{guildXpWon}} ⭐**.",
       "points": " Vous avez gagné **{{pointsWon}} 🏅**."
     }
