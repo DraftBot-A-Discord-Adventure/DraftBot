@@ -15,6 +15,7 @@ import {printTimeBeforeDate} from "../../../../Lib/src/utils/TimeUtils";
 import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
+import {ReactionCollectorPetFreeData} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFree";
 
 /**
  * Destroy a pet forever... RIP
@@ -69,7 +70,7 @@ export async function handleCommandPetFreePacketRes(packet: CommandPetFreePacket
 
 export async function createPetFreeCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
-	// Const data = packet.data.data as ReactionCollectorPetFreeData;
+	const data = packet.data.data as ReactionCollectorPetFreeData;
 
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:petFree.title", {
 		lng: interaction.userLanguage,

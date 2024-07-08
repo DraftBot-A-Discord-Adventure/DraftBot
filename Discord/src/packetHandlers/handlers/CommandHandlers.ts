@@ -54,7 +54,7 @@ export default class CommandHandlers {
 		await handleCommandPetPacketRes(packet, context);
 	}
 
-	@packetHandler(CommandPetPacketRes)
+	@packetHandler(CommandPetFreePacketRes)
 	async petFreeRes(socket: WebSocket, packet: CommandPetFreePacketRes, context: PacketContext): Promise<void> {
 		await handleCommandPetFreePacketRes(packet, context);
 	}
