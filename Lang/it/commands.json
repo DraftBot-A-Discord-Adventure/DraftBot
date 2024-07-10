@@ -350,7 +350,7 @@
     },
     "pet": {
       "fieldName": "Animale di compagnia :",
-      "fieldValue": "Rarità: {{rarity}}\n{{emote}} {{nickname}}"
+      "fieldValue": "Rarità: {{rarity}}\n"
     },
     "playerClass": {
       "fieldName": "Classe :",

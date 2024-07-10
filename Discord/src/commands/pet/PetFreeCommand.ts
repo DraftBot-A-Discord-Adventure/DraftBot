@@ -18,6 +18,7 @@ import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/inter
 import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {ReactionCollectorPetFreeData} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFree";
+import {PetUtils} from "../../utils/PetUtils";
 
 /**
  * Destroy a pet forever... RIP
@@ -84,7 +85,13 @@ export async function createPetFreeCollector(packet: ReactionCollectorCreationPa
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:petFree.title", {
 		lng: interaction.userLanguage,
 		pseudo: interaction.user.displayName
-	}), interaction.user);
+	}), interaction.user)
+		.setDescription(
+			i18n.t("commands:petFree.confirmDesc", {
+				lng: interaction.userLanguage,
+				pet: PetUtils.petToShortString(interaction.userLanguage, data.petNickname, data.petId, data.petSex)
+			})
+		);
 
 	await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
 }
@@ -121,7 +128,7 @@ export async function handleCommandPetFreeAcceptPacketRes(packet: CommandPetFree
 					.setDescription(
 						i18n.t("commands:petFree.acceptedDesc", {
 							lng: originalInteraction.userLanguage,
-							pet: packet.petNickname
+							pet: PetUtils.petToShortString(originalInteraction.userLanguage, packet.petNickname, packet.petId, packet.petSex)
 						})
 					)
 			]

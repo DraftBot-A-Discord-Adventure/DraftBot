@@ -204,9 +204,8 @@ function generateFields(packet: CommandProfilePacketRes, language: Language): Em
 			value: i18n.t("commands:profile.pet.fieldValue", {
 				lng: language,
 				emote: PetUtils.getPetIcon(packet.data.pet.typeId, packet.data.pet.sex),
-				rarity: PetUtils.getRarityDisplay(packet.data.pet.rarity),
-				nickname: packet.data.pet.nickname ?? PetUtils.getPetTypeName(language, packet.data.pet.typeId, packet.data.pet.sex)
-			}),
+				rarity: PetUtils.getRarityDisplay(packet.data.pet.rarity)
+			}) + PetUtils.petToShortString(language, packet.data.pet.nickname, packet.data.pet.typeId, packet.data.pet.sex),
 			inline: false
 		});
 	}

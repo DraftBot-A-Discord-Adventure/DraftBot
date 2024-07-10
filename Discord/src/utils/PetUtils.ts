@@ -37,6 +37,21 @@ export class PetUtils {
 	}
 
 	/**
+	 * Generate a short pet string containing only the pet emote and the nickname (or type name if the pet has no nickname)
+	 * @param language
+	 * @param nickname - can be undefined if the pet has no nickname
+	 * @param typeId
+	 * @param sex
+	 */
+	static petToShortString(language: Language, nickname: string | undefined, typeId: number, sex :string): string {
+		return i18n.t("commands:pet.shortPetField", {
+			lng: language,
+			emote: PetUtils.getPetIcon(typeId, sex),
+			name: nickname ?? PetUtils.getPetTypeName(language, typeId, sex)
+		});
+	}
+
+	/**
 	 * Get the icon of a pet from its type and sex
 	 * @param typeId
 	 * @param sex
