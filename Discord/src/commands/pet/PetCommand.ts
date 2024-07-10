@@ -49,7 +49,7 @@ export async function handleCommandPetPacketRes(packet: CommandPetPacketRes, con
 					new DraftBotErrorEmbed(
 						interaction.user,
 						interaction,
-						i18n.t("error:PetDoesntExist", {lng: interaction.userLanguage})
+						i18n.t("error:petDoesntExist", {lng: interaction.userLanguage})
 					)
 				]
 			});
