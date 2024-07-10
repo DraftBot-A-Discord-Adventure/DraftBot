@@ -48,7 +48,7 @@ function getMissingMoneyToFreePet(player: Player, playerPet: PetEntity): number 
  * @param pPet
  */
 function generateLuckyMeat(guild: Guild, pPet: PetEntity): boolean {
-	return guild.carnivorousFood + 1 <= GuildConstants.MAX_PET_FOOD[getFoodIndexOf(Constants.PET_FOOD.CARNIVOROUS_FOOD)]
+	return guild && guild.carnivorousFood + 1 <= GuildConstants.MAX_PET_FOOD[getFoodIndexOf(Constants.PET_FOOD.CARNIVOROUS_FOOD)]
 		&& RandomUtils.draftbotRandom.realZeroToOneInclusive() <= PetFreeConstants.GIVE_MEAT_PROBABILITY
 		&& !pPet.isFeisty();
 }
@@ -76,17 +76,17 @@ async function acceptPetFree(player: Player, playerPet: PetEntity, response: Dra
 	await player.save();
 
 	let guild: Guild;
+	let luckyMeat = false;
 	try {
 		guild = await Guilds.getById(player.guildId);
+		luckyMeat = generateLuckyMeat(guild, playerPet);
+		if (luckyMeat) {
+			guild!.carnivorousFood += PetFreeConstants.MEAT_GIVEN;
+			await guild!.save();
+		}
 	}
 	catch (error) {
 		guild = null;
-	}
-
-	const luckyMeat = generateLuckyMeat(guild, playerPet);
-	if (guild !== null && luckyMeat) {
-		guild.carnivorousFood += PetFreeConstants.MEAT_GIVEN;
-		await guild.save();
 	}
 
 	response.push(makePacket(CommandPetFreeAcceptPacketRes, {
@@ -103,7 +103,6 @@ export default class PetFreeCommand {
 	@packetHandler(CommandPetFreePacketReq)
 	async execute(client: WebsocketClient, packet: CommandPetFreePacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
 		const player = await Players.getByKeycloakId(packet.keycloakId);
-		console.log(packet.keycloakId);
 		if (BlockingUtils.appendBlockedPacket(player, response)) {
 			return;
 		}
@@ -121,7 +120,7 @@ export default class PetFreeCommand {
 		if (cooldownRemainingTimeMs > 0) {
 			response.push(makePacket(CommandPetFreePacketRes, {
 				foundPet: true,
-				petCanBeFreed: true,
+				petCanBeFreed: false,
 				cooldownRemainingTimeMs
 			}));
 			return;
@@ -132,7 +131,7 @@ export default class PetFreeCommand {
 		if (missingMoney > 0) {
 			response.push(makePacket(CommandPetFreePacketRes, {
 				foundPet: true,
-				petCanBeFreed: true,
+				petCanBeFreed: false,
 				missingMoney
 			}));
 			return;

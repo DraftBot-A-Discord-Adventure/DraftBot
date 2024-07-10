@@ -49,7 +49,10 @@ export async function handleCommandPetFreePacketRes(packet: CommandPetFreePacket
 						new DraftBotErrorEmbed(
 							interaction.user,
 							interaction,
-							i18n.t("error:notEnoughMoney", {lng: interaction.userLanguage, money: packet.missingMoney})
+							i18n.t("error:notEnoughMoney", {
+								lng: interaction.userLanguage,
+								money: packet.missingMoney
+							})
 						)
 					]
 				});
@@ -62,7 +65,8 @@ export async function handleCommandPetFreePacketRes(packet: CommandPetFreePacket
 							interaction,
 							i18n.t("error:cooldownPetFree", {
 								lng: interaction.userLanguage,
-								remainingTime: printTimeBeforeDate(packet.cooldownRemainingTimeMs! + new Date().valueOf())
+								remainingTime: printTimeBeforeDate(packet.cooldownRemainingTimeMs! + new Date().valueOf()),
+								interpolation: {escapeValue: false}
 							})
 						)
 					]
@@ -96,7 +100,7 @@ export async function handleCommandPetFreeRefusePacketRes(packet: CommandPetFree
 					pseudo: originalInteraction.user.displayName
 				}), originalInteraction.user)
 					.setDescription(
-						i18n.t("commands:petFree.canceled", {lng: originalInteraction.userLanguage})
+						i18n.t("commands:petFree.canceledDesc", {lng: originalInteraction.userLanguage})
 					)
 					.setErrorColor()
 			]
@@ -110,14 +114,16 @@ export async function handleCommandPetFreeAcceptPacketRes(packet: CommandPetFree
 	if (buttonInteraction && originalInteraction) {
 		await buttonInteraction.editReply({
 			embeds: [
-				new DraftBotEmbed().formatAuthor(i18n.t("commands:petFree.canceledTitle", {
+				new DraftBotEmbed().formatAuthor(i18n.t("commands:petFree.title", {
 					lng: originalInteraction.userLanguage,
 					pseudo: originalInteraction.user.displayName
 				}), originalInteraction.user)
 					.setDescription(
-						i18n.t("commands:petFree.canceled", {lng: originalInteraction.userLanguage})
+						i18n.t("commands:petFree.acceptedDesc", {
+							lng: originalInteraction.userLanguage,
+							pet: packet.petNickname
+						})
 					)
-					.setErrorColor()
 			]
 		});
 	}

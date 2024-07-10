@@ -54,5 +54,5 @@
   "pleaseWaitForHeal": "Veuillez attendre la fin des soins de votre altération d'état pour continuer à jouer : {{time}}\n\n:information_source: Vous pouvez utiliser la commande /shop pour acheter un soin.",
   "pleaseWaitForHisHeal": "Veuillez attendre la fin des soins de son altération d'état : {{time}}",
   "notEnoughMoney": "Vous n'avez pas assez d'argent pour effectuer cette action. Il vous manque {{money}} 💰.",
-  "cooldownPetFree": "Vous ne pouvez libérer qu'un familier par heure. Vous pourrez en libérer un autre {{time}}."
+  "cooldownPetFree": "Vous ne pouvez libérer qu'un familier par heure. Vous pourrez en libérer un autre {{remainingTime}}."
 }
