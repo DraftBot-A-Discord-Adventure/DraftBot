@@ -28,7 +28,8 @@
     "sexDisplay": {
       "female": "Femelle",
       "male": "Mâle"
-    }
+    },
+    "shortPetField": "{{emote}} {{name}}"
   },
   "guild": {
     "embedTitle": "Guilde {{guildName}} | Niveau {{level}}",
@@ -350,7 +351,7 @@
     },
     "pet": {
       "fieldName": "Home:",
-      "fieldValue": "Rarität: {{rarity}}\n{{emote}} {{nickname}}"
+      "fieldValue": "Rarität: {{rarity}}\n"
     },
     "playerClass": {
       "fieldName": "Klasse:",
@@ -433,5 +434,12 @@
       "ongoing": "Actuellement, vous vous dirigez {{particle}} **{{emote}} {{destination}}**.\n> {{description}}",
       "arrived": "Vous êtes arrivé à votre destination.\n> **{{emote}} {{destination}}**.\n> {{description}}"
     }
+  },
+  "petFree": {
+    "title": "{{pseudo}}, libération d'un familier",
+    "canceledTitle": "{{pseudo}}, annulation de la libération.",
+    "canceledDesc": "Le familier n'a pas été libéré.",
+    "confirmDesc": ":warning: Êtes-vous sur de vouloir libérer **{{pet}}** ? Il n'est pas possible d'annuler une fois l'action effectuée.",
+    "acceptedDesc": "Adieu **{{pet}}**..."
   }
 }
