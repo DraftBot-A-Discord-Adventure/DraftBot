@@ -28,7 +28,8 @@
     "sexDisplay": {
       "female": "Mujer",
       "male": "Hombre"
-    }
+    },
+    "shortPetField": "{{emote}} {{name}}"
   },
   "guild": {
     "embedTitle": "Gremio {{guildName}} | Nivel {{level}}",
@@ -350,7 +351,7 @@
     },
     "pet": {
       "fieldName": "Familiar :",
-      "fieldValue": "Rareza: {{rarity}}\n{{emote}} {{nickname}}"
+      "fieldValue": "Rareza: {{rarity}}\n"
     },
     "playerClass": {
       "fieldName": "Clase :",
@@ -433,5 +434,12 @@
       "ongoing": "Actualmente se dirige a {{particle}} **{{emote}} {{destination}}**.\n> {{description}}",
       "arrived": "Has llegado a tu destino.\n> **{{emote}} {{destination}}**.\n> {{description}}"
     }
+  },
+  "petFree": {
+    "title": "{{pseudo}}liberar a un familiar",
+    "canceledTitle": "{{pseudo}}cancelación de la liberación.",
+    "canceledDesc": "La mascota no ha sido liberada.",
+    "confirmDesc": ":warning:{{pet}}¿Está seguro de que desea liberar ** **? No es posible cancelar una vez que la acción se ha completado.",
+    "acceptedDesc": "{{pet}}Adiós ** **..."
   }
 }
