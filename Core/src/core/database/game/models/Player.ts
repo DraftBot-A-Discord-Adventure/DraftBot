@@ -240,7 +240,7 @@ export class Player extends Model {
 	}
 
 	/**
-	 * Only for use when the player is spending money, this must not be used when the player is losing money
+	 * Only use when the player is spending money, this must not be used when the player is losing money
 	 * @param parameters
 	 */
 	public async spendMoney(parameters: EditValueParameters): Promise<Player> {
