@@ -28,7 +28,8 @@
     "sexDisplay": {
       "female": "Femmina",
       "male": "Maschio"
-    }
+    },
+    "shortPetField": "{{emote}} {{name}}"
   },
   "guild": {
     "embedTitle": "Gilda {{guildName}} | Livello {{level}}",
@@ -350,7 +351,7 @@
     },
     "pet": {
       "fieldName": "Animale di compagnia :",
-      "fieldValue": "Rarità: {{rarity}}\n{{emote}} {{nickname}}"
+      "fieldValue": "Rarità: {{rarity}}\n"
     },
     "playerClass": {
       "fieldName": "Classe :",
@@ -433,5 +434,12 @@
       "ongoing": "Vi state attualmente dirigendo verso {{particle}} **{{emote}} {{destination}}**.\n> {{description}}",
       "arrived": "Siete arrivati a destinazione.\n> **{{emote}} {{destination}}**.\n> {{description}}"
     }
+  },
+  "petFree": {
+    "title": "{{pseudo}}liberare un familiare",
+    "canceledTitle": "{{pseudo}}cancellazione del rilascio.",
+    "canceledDesc": "L'animale non è stato rilasciato.",
+    "confirmDesc": ":warning:{{pet}}Siete sicuri di voler rilasciare ** **? Non è possibile annullare una volta completata l'azione.",
+    "acceptedDesc": "{{pet}}Addio ** **..."
   }
 }
