@@ -28,7 +28,8 @@
     "sexDisplay": {
       "female": "Female",
       "male": "Male"
-    }
+    },
+    "shortPetField": "{{emote}} {{name}}"
   },
   "guild": {
     "embedTitle": "{{guildName}} Guild | Level {{level}}",
@@ -350,7 +351,7 @@
     },
     "pet": {
       "fieldName": "Pet:",
-      "fieldValue": "Rarity: {{rarity}}\n{{emote}} {{nickname}}"
+      "fieldValue": "Rarity: {{rarity}}\n"
     },
     "playerClass": {
       "fieldName": "Class:",
@@ -433,5 +434,12 @@
       "ongoing": "You are currently going in the direction {{particle}} **{{emote}} {{destination}}**.\n> {{description}}",
       "arrived": "You arrived at your destination.\n> **{{emote}} {{destination}}**.\n> {{description}}"
     }
+  },
+  "petFree": {
+    "title": "{{pseudo}}, pet lib",
+    "canceledTitle": "{{pseudo}}, cancellation of liberation.",
+    "canceledDesc": "Pet was not reached.",
+    "confirmDesc": ":warning: Are you sure you want to link **{{pet}}**? It is not possible to undo after the action is done.",
+    "acceptedDesc": "Farewell **{{pet}}**..."
   }
 }
