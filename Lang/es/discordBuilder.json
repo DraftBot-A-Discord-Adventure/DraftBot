@@ -57,6 +57,10 @@
       }
     }
   },
+  "petFree": {
+    "description": "Libérer son familier.",
+    "name": "libererfamilier"
+  },
   "guild": {
     "description": "Muestra información sobre un gremio.",
     "name": "gremio",
