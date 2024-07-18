@@ -114,12 +114,12 @@ export class MapLocationDataController extends DataControllerNumber<MapLocation>
 	 * @param playerId
 	 */
 	public async getPlayersOnMap(mapId: number, previousMapId: number, playerId: number): Promise<{
-		id: string
+		keycloakId: string
 	}[]> {
 		const mapLink1 = MapLinkDataController.instance.getLinkByLocations(previousMapId, mapId);
 		const mapLink2 = MapLinkDataController.instance.getLinkByLocations(mapId, previousMapId);
 
-		const query = `SELECT id
+		const query = `SELECT keycloakId
 					   FROM players 
 					   WHERE players.id != :playerId
 						 AND players.mapLinkId = :id1
