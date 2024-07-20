@@ -57,6 +57,10 @@
       }
     }
   },
+  "petFree": {
+    "description": "Libérer son familier.",
+    "name": "liberatorefamiliare"
+  },
   "guild": {
     "description": "Visualizza le informazioni su una gilda.",
     "name": "gilda",
