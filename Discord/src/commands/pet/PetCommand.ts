@@ -87,7 +87,7 @@ export const commandInfo: ICommand = {
 				.setRequired(false)) as SlashCommandBuilder,
 	getPacket,
 	requirements: {
-		disallowEffects: [Effect.NOT_STARTED]
+		disallowEffects: [Effect.NOT_STARTED, Effect.DEAD]
 	},
 	mainGuildCommand: false
 };

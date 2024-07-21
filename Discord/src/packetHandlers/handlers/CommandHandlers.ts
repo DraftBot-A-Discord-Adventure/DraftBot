@@ -36,6 +36,8 @@ import {
 	CommandPetFreePacketRes,
 	CommandPetFreeRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandPetFreePacket";
+import {CommandPetNickPacketRes} from "../../../../Lib/src/packets/commands/CommandPetNickPacket";
+import {handleCommandPetNickPacketRes} from "../../commands/pet/PetNickCommand";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
@@ -75,6 +77,11 @@ export default class CommandHandlers {
 	@packetHandler(CommandPetFreeAcceptPacketRes)
 	async petFreeAcceptRes(socket: WebSocket, packet: CommandPetFreeAcceptPacketRes, context: PacketContext): Promise<void> {
 		await handleCommandPetFreeAcceptPacketRes(packet, context);
+	}
+
+	@packetHandler(CommandPetNickPacketRes)
+	async PetNickPacketRes(socket: WebSocket, packet: CommandPetNickPacketRes, context: PacketContext): Promise<void> {
+		await handleCommandPetNickPacketRes(packet, context);
 	}
 
 	@packetHandler(CommandGuildPacketRes)

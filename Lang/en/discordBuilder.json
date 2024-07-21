@@ -61,6 +61,16 @@
     "description": "Free a pet.",
     "name": "petfree"
   },
+  "petNick": {
+    "description": "Give a nickname to your pet.",
+    "name": "petnickname",
+    "options": {
+      "nickname": {
+        "description": "The nickname you want to give to your pet. (keep empty to remove the nickname)",
+        "name": "nickname"
+      }
+    }
+  },
   "guild": {
     "description": "Displays information about a guild.",
     "name": "guild",
