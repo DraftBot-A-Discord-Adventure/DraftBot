@@ -43,9 +43,9 @@ export function progressBar(value: number, maxValue: number): string {
 }
 
 /**
- * Check if a name is valid (his is used to check guilds names and descriptions)
- * @param name - the name to check
- * @param range
+ * Check if a name is valid (is used to check guilds or pet names and guild descriptions)
+ * @param name - the string to check
+ * @param range - custom range for the name length
  */
 export function checkNameString(name: string, range: ConstantRange): boolean {
 	// Here are the characters that are allowed in a name or description
@@ -76,10 +76,7 @@ export function discordIdToMention(id: string): string {
  * @return {boolean}
  */
 export function isAnId(variable: string): boolean {
-	if (typeof variable === "string") {
-		return /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/u.test(variable);
-	}
-	return false;
+	return /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/u.test(variable);
 }
 
 /**
@@ -97,10 +94,7 @@ export function isAnEmoji(variable: string): boolean {
  * @return {String} The id of the mention
  */
 export function getIdFromMention(variable: string): string {
-	if (typeof variable === "string") {
-		return "".concat(...variable.split("").filter((c) => /[0-9]/.test(c)));
-	}
-	return "";
+	return "".concat(...variable.split("").filter((c) => /[0-9]/.test(c)));
 }
 
 /**
