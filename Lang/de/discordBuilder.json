@@ -58,8 +58,18 @@
     }
   },
   "petFree": {
-    "description": "Libérer son familier.",
+    "description": "Libérer un familier.",
     "name": "libererfamilier"
+  },
+  "petNick": {
+    "description": "Donner un nom à votre familier.",
+    "name": "surnomfamilier",
+    "options": {
+      "nickname": {
+        "description": "Le surnom que vous voulez donner à votre familier. (Laissez vide pour supprimer le surnom)",
+        "name": "surnom"
+      }
+    }
   },
   "guild": {
     "description": "Affiche des informations sur une guilde.",
