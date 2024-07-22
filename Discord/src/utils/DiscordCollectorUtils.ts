@@ -51,7 +51,9 @@ export class DiscordCollectorUtils {
 		interaction: DraftbotInteraction,
 		messageContentOrEmbed: DraftBotEmbed | string,
 		reactionCollectorCreationPacket: ReactionCollectorCreationPacket,
-		context: PacketContext
+		context: PacketContext,
+		acceptEmoji = DraftBotIcons.collectors.accept,
+		refuseEmoji = DraftBotIcons.collectors.refuse
 	): Promise<void> {
 		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 
@@ -60,13 +62,13 @@ export class DiscordCollectorUtils {
 		// Create buttons
 		const acceptCustomId = "accept";
 		const buttonAccept = new ButtonBuilder()
-			.setEmoji(parseEmoji(DraftBotIcons.collectors.accept)!)
+			.setEmoji(parseEmoji(acceptEmoji)!)
 			.setCustomId(acceptCustomId)
 			.setStyle(ButtonStyle.Secondary);
 		row.addComponents(buttonAccept);
 
 		const buttonRefuse = new ButtonBuilder()
-			.setEmoji(parseEmoji(DraftBotIcons.collectors.refuse)!)
+			.setEmoji(parseEmoji(refuseEmoji)!)
 			.setCustomId("refuse")
 			.setStyle(ButtonStyle.Secondary);
 		row.addComponents(buttonRefuse);
