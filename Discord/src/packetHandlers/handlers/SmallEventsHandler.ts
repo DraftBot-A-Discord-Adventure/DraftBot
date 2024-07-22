@@ -24,6 +24,11 @@ import {
 	SmallEventLotteryPoorPacket,
 	SmallEventLotteryWinPacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventLotteryPacket";
+import {
+	InteractOtherPlayerInteraction, SmallEventInteractOtherPlayersAcceptToGivePoorPacket,
+	SmallEventInteractOtherPlayersPacket, SmallEventInteractOtherPlayersRefuseToGivePoorPacket
+} from "../../../../Lib/src/packets/smallEvents/SmallEventInteractOtherPlayers";
+import {interactOtherPlayerGetPlayerDisplay} from "../../smallEvents/interactOtherPlayers";
 
 export function getRandomSmallEventIntro(language: Language): string {
 	return StringUtils.getRandomTranslation("smallEvents:intro", language);
@@ -223,6 +228,102 @@ export default class SmallEventsHandler {
 							lng: user.attributes.language[0],
 							lostTime: packet.lostTime
 						}) + rewardDesc,
+						interaction.user,
+						user.attributes.language[0]
+					)]
+			});
+		}
+	}
+
+	@packetHandler(SmallEventInteractOtherPlayersPacket)
+	async smallEventInteractOtherPlayers(socket: WebSocket, packet: SmallEventInteractOtherPlayersPacket, context: PacketContext): Promise<void> {
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		if (interaction) {
+			if (!packet.keycloakId) {
+				await interaction.editReply({
+					embeds: [
+						new DraftbotSmallEventEmbed(
+							"interactOtherPlayers",
+							StringUtils.getRandomTranslation("smallEvents:interactOtherPlayers.no_one", interaction.userLanguage),
+							interaction.user,
+							interaction.userLanguage
+						)]
+				});
+			}
+			else if (packet.data) {
+				const playerDisplay = await interactOtherPlayerGetPlayerDisplay(packet.keycloakId, packet.data.rank, interaction.userLanguage);
+				if (packet.playerInteraction === InteractOtherPlayerInteraction.EFFECT) {
+					await interaction.editReply({
+						embeds: [
+							new DraftbotSmallEventEmbed(
+								"interactOtherPlayers",
+								StringUtils.getRandomTranslation(`smallEvents:interactOtherPlayers.effect.${packet.data.effectId}`, interaction.userLanguage, {playerDisplay}),
+								interaction.user,
+								interaction.userLanguage
+							)]
+					});
+				}
+				else {
+					await interaction.editReply({
+						embeds: [
+							new DraftbotSmallEventEmbed(
+								"interactOtherPlayers",
+								StringUtils.getRandomTranslation(
+									`smallEvents:interactOtherPlayers.${InteractOtherPlayerInteraction[packet.playerInteraction!].toLowerCase()}`,
+									interaction.userLanguage,
+									{
+										playerDisplay,
+										level: packet.data.level,
+										class: `${DraftBotIcons.classes[packet.data.classId]} ${i18n.t(`models:classes.${packet.data.classId}`, {lng: interaction.userLanguage})}`,
+										advice: StringUtils.getRandomTranslation("advices:advices", interaction.userLanguage),
+										petEmote: packet.data.petId ? DraftBotIcons.pets[packet.data.petId] : "",
+										petName: packet.data.petName,
+										guildName: packet.data.guildName,
+										weapon: `${DraftBotIcons.weapons[packet.data.weaponId]} ${i18n.t(`models:weapons.${packet.data.weaponId}`, {lng: interaction.userLanguage})}`,
+										armor: `${DraftBotIcons.armors[packet.data.armorId]} ${i18n.t(`models:armors.${packet.data.armorId}`, {lng: interaction.userLanguage})}`,
+										potion: `${DraftBotIcons.potions[packet.data.potionId]} ${i18n.t(`models:potions.${packet.data.potionId}`, {lng: interaction.userLanguage})}`,
+										object: `${DraftBotIcons.objects[packet.data.objectId]} ${i18n.t(`models:objects.${packet.data.objectId}`, {lng: interaction.userLanguage})}`
+									}
+								),
+								interaction.user,
+								interaction.userLanguage
+							)]
+					});
+				}
+			}
+			else {
+				throw new Error("No packet data defined in InteractOtherPlayers small event");
+			}
+		}
+	}
+
+	@packetHandler(SmallEventInteractOtherPlayersAcceptToGivePoorPacket)
+	async smallEventInteractOtherPlayersAcceptToGivePoor(socket: WebSocket, packet: SmallEventInteractOtherPlayersAcceptToGivePoorPacket, context: PacketContext): Promise<void> {
+		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
+		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+		if (interaction) {
+			await interaction.editReply({
+				embeds: [
+					new DraftbotSmallEventEmbed(
+						"interactOtherPlayers",
+						StringUtils.getRandomTranslation("smallEvents:interactOtherPlayers.poor_give_money", user.attributes.language[0]),
+						interaction.user,
+						user.attributes.language[0]
+					)]
+			});
+		}
+	}
+
+	@packetHandler(SmallEventInteractOtherPlayersRefuseToGivePoorPacket)
+	async smallEventInteractOtherPlayersRefuseToGivePoor(socket: WebSocket, packet: SmallEventInteractOtherPlayersRefuseToGivePoorPacket, context: PacketContext): Promise<void> {
+		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
+		const interaction = context.discord!.buttonInteraction ? DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!) : DiscordCache.getInteraction(context.discord!.interaction!);
+		if (interaction) {
+			await interaction.editReply({
+				embeds: [
+					new DraftbotSmallEventEmbed(
+						"interactOtherPlayers",
+						StringUtils.getRandomTranslation("smallEvents:interactOtherPlayers.poor_dont_give_money", user.attributes.language[0]),
 						interaction.user,
 						user.attributes.language[0]
 					)]

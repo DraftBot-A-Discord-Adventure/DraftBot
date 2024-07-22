@@ -13,6 +13,8 @@ import {
 	ReactionCollectorPetFreeData
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFree";
 import {createPetFreeCollector} from "../../commands/pet/PetFreeCommand";
+import {ReactionCollectorInteractOtherPlayersPoorData} from "../../../../Lib/src/packets/interaction/ReactionCollectorInteractOtherPlayers";
+import {interactOtherPlayersCollector} from "../../smallEvents/interactOtherPlayers";
 
 export default class ReactionCollectorHandler {
 	@packetHandler(ReactionCollectorCreationPacket)
@@ -32,6 +34,9 @@ export default class ReactionCollectorHandler {
 			break;
 		case ReactionCollectorLotteryData.name:
 			await lotteryCollector(packet, context);
+			break;
+		case ReactionCollectorInteractOtherPlayersPoorData.name:
+			await interactOtherPlayersCollector(packet, context);
 			break;
 		default:
 			throw `Unknown collector with data: ${packet.data.type}`; // Todo error embed
