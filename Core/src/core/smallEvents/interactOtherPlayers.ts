@@ -263,18 +263,20 @@ async function getAvailableInteractions(otherPlayer: Player, player: Player, num
  * @param response
  */
 async function sendACoin(otherPlayer: Player, player: Player, response: DraftBotPacket[]): Promise<void> {
-	await otherPlayer.addMoney({
-		amount: 1,
-		response,
-		reason: NumberChangeReason.RECEIVE_COIN
-	});
-	await otherPlayer.save();
-	await player.spendMoney({
-		amount: 1,
-		response,
-		reason: NumberChangeReason.SMALL_EVENT
-	});
-	await player.save();
+	await Promise.all([
+		otherPlayer.addMoney({
+			amount: 1,
+			response,
+			reason: NumberChangeReason.RECEIVE_COIN
+		}),
+		player.spendMoney({
+			amount: 1,
+			response,
+			reason: NumberChangeReason.SMALL_EVENT
+		}),
+		otherPlayer.save(),
+		player.save()
+	]);
 }
 
 export const smallEventFuncs: SmallEventFuncs = {
