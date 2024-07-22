@@ -441,5 +441,10 @@
     "canceledDesc": "Le familier n'a pas été libéré.",
     "confirmDesc": ":warning: Êtes-vous sur de vouloir libérer **{{pet}}** ? Il n'est pas possible d'annuler une fois l'action effectuée.",
     "acceptedDesc": "Adieu **{{pet}}**..."
+  },
+  "petNick": {
+    "successTitle": "{{pseudo}}, changement du surnom du familier",
+    "success": "Surnom du familier changé en **{{name}}** !",
+    "successNoName": "Votre familier n'a désormais plus de surnom !"
   }
 }
