@@ -54,5 +54,6 @@
   "pleaseWaitForHeal": "Por favor, espera hasta que hayas terminado de curar tu alteración de estado antes de continuar jugando: {{time}}\n\n:information_source: Puedes usar el comando /shop para comprar una curación.",
   "pleaseWaitForHisHeal": "{{time}}Por favor, espere hasta el final de la atención para su estado de deterioro:",
   "notEnoughMoney": "No tienes dinero suficiente para llevar a cabo esta acción. {{money}} Te falta dinero 💰.",
-  "cooldownPetFree": "Sólo puedes liberar una mascota por hora. {{remainingTime}}Puedes liberar otra ."
+  "cooldownPetFree": "Sólo puedes liberar una mascota por hora. {{remainingTime}}Puedes liberar otra .",
+  "unknownPlayer": "Nombre de usuario 404"
 }
