@@ -111,26 +111,26 @@
     "notEnoughGems": "You accept, but when it's time to pay, you realize you don't have enough to pay. You leave disappointed."
   },
   "lottery": {
-    "intro": "You cross the path of a man who questions you. Curious, you stop. He offers you to participate in a game of chance that he has created. You can choose between multiple reward levels.\n\n:coin: Small reward\n:dollar: average reward\n:moneybag: Big reward\n",
+    "intro": "You cross paths with a man who calls out to you. Curious, you stop. He suggests you take part in a game of chance he's created. You can choose between several levels of reward.\n\n:coin: Small reward\n:dollar: Medium reward\n:moneybag: Large reward\n",
     "easy": {
-      "success": "You participate and win a prize that the man gives you before leaving.",
-      "fail": "You lose in the game of man, however the participation was free, so you decide to get back to your way."
+      "success": "You take part and win a prize, which the man hands over to you before leaving.",
+      "fail": "You lose the man's game, but participation was free. So you decide to continue on your way."
     },
     "medium": {
-      "success": "You try your luck and win the game. The man gets you the right rewards. However you lose **{{lostTime}} Min :clock2:**.",
-      "fail": "You are participating in the human game, however you do not win, so go back and expect to be more lucky next time. Participating in the lottery will cause you to lose **{{lostTime}} Min :clock2:**."
+      "success": "You try your luck and win the game. The man rewards you appropriately. However, you lose **{{lostTime}} Min :clock2:**.",
+      "fail": "You take part in the man's game, but you don't win, so you leave hoping for better luck next time. Taking part in the lottery will have cost you **{{lostTime}} Min :clock2:**."
     },
     "hard": {
-      "success": "You win in the man's game. As a result, this rewards you gracefully. However, you lose **{{lostTime}} Min :clock2:**.",
-      "fail": "You seize your chance. Unfortunately you don't win, you may have more luck next time. Participating in the lottery will cause you to lose **{{lostTime}} Min :clock2:**.",
-      "failWithMalus": "You are betting about 100 coins on the human game. However, you are losing and leaving, quickly losing **{{money}}** 💸. Participating in the lottery will also cause you to lose **{{lostTime}} Min :clock2:**."
+      "success": "You win the man's game. As a result, he rewards you graciously. However, you lose **{{lostTime}} Min :clock2:**.",
+      "fail": "You take a chance. Unfortunately you don't win, maybe you'll be luckier next time. Taking part in the lottery will have cost you **{{lostTime}} Min :clock2:**.",
+      "failWithMalus": "You bet a hundred coins on the man's game. However, you lose and leave, disappointed at having lost **{{money}}** 💸. Taking part in the lottery will also have cost you **{{lostTime}} Min :clock2:**."
     },
-    "poor": "You try to play the attention of the man and bet a large amount. Unfortunately for you, the merchant doubtful of your good faith, and unable to attest any wealth, you were rejected without improvement.",
-    "end": "Without paying more attention to the individual, you continue your journey.",
+    "poor": "You try to trick the man into paying you a large sum of money. Unfortunately for you, the shopkeeper doubts your good faith, and unable to prove any wealth, you are ruthlessly rejected.",
+    "end": "Without paying any further attention to the individual, you continue on your way.",
     "rewardTypeText": {
       "xp": " You earned **{{xpWon}}⭐**.",
       "money": " You won **{{moneyWon}}💰**!",
-      "guildXp": " Your guild wins **{{guildXpWon}}⭐**.",
+      "guildXp": " Your guild earns **{{guildXpWon}}⭐**.",
       "points": " You won **{{pointsWon}}🏅**."
     }
   },
