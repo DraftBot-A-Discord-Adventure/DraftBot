@@ -62,9 +62,9 @@
   },
   "boatAdvice": {
     "intro": [
-      "Subes a cubierta y charlas con un miembro de la tripulación.\n{{advice}}Te da algunos consejos para ayudarte en tu aventura en la isla: ** **.",
-      "Subes al mástil para admirar el horizonte.\n{{advice}}Un hombre baja su catalejo y te da este consejo antes de partir hacia la isla: ** **.",
-      "Disfrutando de una comida con la brisa fresca del mar, charlas con los marineros.\n{{advice}}Tu compañero de mesa te da los siguientes consejos sobre la isla: ** **."
+      "Subes a cubierta y charlas con un miembro de la tripulación.\n{{{advice}}}Te da algunos consejos para ayudarte en tu aventura en la isla: ** **.",
+      "Subes al mástil para admirar el horizonte.\n{{{advice}}}Un hombre baja su catalejo y te da este consejo antes de partir hacia la isla: ** **.",
+      "Disfrutando de una comida con la brisa fresca del mar, charlas con los marineros.\n{{{advice}}}Tu compañero de mesa te da los siguientes consejos sobre la isla: ** **."
     ],
     "advices": [
       "Hay muchos más acontecimientos esperándole en la Isla Misteriosa",
@@ -132,6 +132,217 @@
       "money": " {{moneyWon}} ¡Has ganado ** 💰**!",
       "guildXp": " {{guildXpWon}} Tu gremio gana ** ⭐**.",
       "points": " {{pointsWon}} Has ganado ** 🏅**."
+    }
+  },
+  "interactOtherPlayers": {
+    "playerDisplayRanked": "{{pseudo}}{{rank}} ** ** ( 🏆)",
+    "playerDisplayUnranked": "{{pseudo}}** ** (No clasificado)",
+    "no_one": [
+      "Continúas tu camino en la mayor calma. No hay ni un gato a la vista.",
+      "Estás solo, así que sigues tu camino con total tranquilidad.",
+      "Los rayos de sol que se abren paso entre las nubes te calientan mientras continúas tu viaje por esta carretera desierta."
+    ],
+    "top1": [
+      "{{playerDisplay}} Pasarás de largo, ¡el mejor jugador del mundo en este momento!",
+      "{{playerDisplay}}Mientras camina, se cruza con . Está en lo más alto de la clasificación. Con los ojos llenos de admiración, decides no obstaculizar su progreso y continúas tu camino.",
+      "¡Dios mío! ¡Es increíble! {{playerDisplay}}¡Es el legendario, el más grande luchador de hoy! Pasas junto a él y charláis un momento. Te da algunos consejos para tu aventura.",
+      "{{playerDisplay}}Abran paso a , ¡el número uno mundial de DraftBot! Pasa junto a esta persona y sigue caminando para llegar a tu destino."
+    ],
+    "top10": [
+      "Por el camino, conocerás a alguien muy importante. {{playerDisplay}} ¡está en el top 10!",
+      "¡Increíble! ¡Vas caminando por un sendero y te cruzas con uno de los héroes del momento! {{playerDisplay}} Seguro que has oído hablar de él: ¡lo has visto en el top 10! Este acontecimiento te alegrará el día.",
+      "Estás hablando con una figura muy conocida entre los aventureros que compiten por la mano de la princesa. {{playerDisplay}}¡Es , que está entre los 10 primeros!"
+    ],
+    "top50": [
+      "Te encuentras con alguien cuyo nombre te suena... {{playerDisplay}} ¡ha entrado entre los 50 primeros!",
+      "{{playerDisplay}}Al patear una piedra, te das cuenta de que golpea el zapato de un transeúnte, pero no es cualquiera, es , ¡lo has visto en las listas de los torneos clandestinos! Mantienes una rápida charla con él y continúas tu camino.",
+      "{{playerDisplay}}\"Un gran poder conlleva una gran responsabilidad\", dice , un aventurero de los 50 que conoces en tu viaje."
+    ],
+    "top100": [
+      "{{playerDisplay}} La perseverancia conduce al éxito, eso es lo que le dice uno de los 100 mejores. A continuación, sigue su camino hacia su destino.",
+      "Woah, reconoces a uno de los principiantes de los torneos, ya te lo habías cruzado en un pueblo al norte, pero sí... {{playerDisplay}} ¡Es él!",
+      "{{playerDisplay}}Mientras trabajas para conseguir tu objetivo, conoces a , una estrella emergente en DraftBot. De hecho, ¡está entre los 100 primeros!"
+    ],
+    "powerful_guild": [
+      "{{playerDisplay}}que te encuentras por casualidad en el camino, ¡forma parte de un poderoso gremio! Eso es lo que concluyes cuando ves su brillante insignia.",
+      "{{playerDisplay}}Ves una multitud a lo lejos. Te apresuras a comprobarlo y oyes: \"¡Abran paso a \"! Efectivamente, ¡está en un gremio bastante poderoso!",
+      "Se rumorea que un miembro de un poderoso gremio sigue el mismo camino que tú. {{playerDisplay}} ¡Puedes verle pasar a lo lejos!"
+    ],
+    "beginner": [
+      "¡Todo tiene un principio! {{playerDisplay}} Conoce como comienza su aventura dedicada a la princesa.",
+      "{{playerDisplay}}Pasa un transeúnte y enseguida lo reconoces: es . Un chico nuevo en el barrio, ¡pero agradable y simpático!",
+      "Te tomas un descanso de 5 minutos para despejarte. {{playerDisplay}}Para ello, entrenas a , que acaba de empezar el partido."
+    ],
+    "advanced": [
+      "{{playerDisplay}} Las canas son el testimonio de la experiencia acumulada.{{level}}¡Es de nivel ** ** ! Continúa su camino.",
+      "{{playerDisplay}}Mientras deambulas, te encuentras con .{{level}}¡Es un héroe poderoso - nivel ** ** !",
+      "{{playerDisplay}} no para de subir de nivel y es uno de los mejores jugadores del juego.{{level}}Actualmente es de nivel ** **. Estarás en camino después de este encuentro."
+    ],
+    "same_class": [
+      "{{playerDisplay}}Por el camino, reconocerás el atuendo de 's.{{class}}Es igual que tú.",
+      "{{playerDisplay}}Te fijas en él y observas rápidamente su atuendo y sus modales familiares.{{class}}Es ** **, ¡igual que tú! Continúa su camino.",
+      "{{class}} {{playerDisplay}}Saluda a uno de sus colegas ** **, que pasa por allí. Sin tiempo para detenerse, continúa su camino."
+    ],
+    "same_guild": [
+      "Te cruzas con una cara muy familiar en tu camino... {{playerDisplay}} De hecho, ¡es un miembro de tu gremio!",
+      "Te acercas a alguien, su cara familiar te recuerda cosas... ¡Sí, es él! {{playerDisplay}} ¡Es uno de los miembros de tu gremio!",
+      "{{playerDisplay}} Reúnete con los de tu gremio. Realiza el apretón de manos secreto del gremio y tomad caminos separados."
+    ],
+    "staff_member": [
+      "{{playerDisplay}}\n\n{{advice}}\n\nque forma parte del personal de DraftBot, tiene algunos consejos para la siguiente etapa de su aventura: A continuación, puede continuar su camino.",
+      "{{advice}}\" \". {{playerDisplay}}Eso es lo que te dijo uno de los famosos empleados del bot cuando te lo encontraste por el camino.",
+      "{{playerDisplay}}\n\n{{advice}}Hablas con , un miembro del equipo de DraftBot, que te da algunos buenos consejos para la siguiente etapa de tu aventura:"
+    ],
+    "top_week": [
+      "{{playerDisplay}}Se ve en la carretera, sin aliento. No descansa: de hecho, ¡está en el top 5 de esta semana!",
+      "Uno de los héroes de esta semana viene a verte. {{playerDisplay}}Es , ¡está en el top ten de esta semana!",
+      "{{playerDisplay}}Habla de sus puntos con . Ha progresado mucho esta semana, ¡e incluso está en el top 5 de esta semana!"
+    ],
+    "low_hp": [
+      "{{playerDisplay}}Usted pasa, que está cojeando ... No tiene muy buen aspecto... Se cae a un lado de la carretera y decides ayudarle a levantarse.",
+      "{{playerDisplay}}Te encuentras con . Se ve en mal estado....",
+      "{{playerDisplay}} Incluso una flecha en la rodilla es capaz de acabar con , que avanza lentamente por su camino. ¡Una poción curativa le vendría muy bien!"
+    ],
+    "full_hp": [
+      "{{playerDisplay}}Rara vez se ha visto a alguien tan enérgico como ... ¡Parece estar en plena forma!",
+      "{{playerDisplay}} En su camino, se cruza con , que parece estar en plena forma. De hecho, ¡tiene toda la vida por delante!",
+      "{{playerDisplay}} ¡Casi acaba en el suelo mientras corre a tu lado! Es muy enérgico porque su vida está en su apogeo."
+    ],
+    "unranked": [
+      "{{playerDisplay}}Te encuentras con un jugador que no parece estar clasificado... Te vas preguntando qué le llevó a venir aquí y rendirse tan rápido.",
+      "{{playerDisplay}}Mientras caminas, te cruzas con . Este jugador no parece ir bien en la competición. Te marchas después de explicarle los fundamentos del juego."
+    ],
+    "lower_rank_than_them": [
+      "{{playerDisplay}}Te encuentras con un jugador con más reputación que tú... Pero no te rindas. Puede que algún día lo alcances.",
+      "{{playerDisplay}} Mientras caminas, tropiezas y caes, ¡y se ríe de ti porque está clasificado más alto que tú!",
+      "{{playerDisplay}} Hablas con él sobre tu clasificación. Él va un paso por delante de ti: ¡está mejor clasificado!",
+      "{{playerDisplay}} Aunque se jacten de que su clasificación es superior a la tuya, mantén la humildad durante la conversación."
+    ],
+    "better_rank_than_them": [
+      "{{playerDisplay}}Te encuentras con . Este tiene un rango inferior... Pero ten cuidado, ¡podría alcanzarte algún día!",
+      "{{playerDisplay}}Un jugador viene a verte al . Te pide consejo para mejorar y luego pasa de ti.",
+      "{{playerDisplay}} Hablas con él sobre tu clasificación. ¡Estás mejor clasificado que él!"
+    ],
+    "rich": [
+      "{{playerDisplay}} ¡Te tapas los ojos para dejar de deslumbrarte por el sol que se refleja en el oro que lleva ! Continúas tu camino, con los ojos doloridos.",
+      "¿Es Scrooge? ¡No, no lo es! {{playerDisplay}} ¡Es él! ¡Tiene tanto oro que te deslumbra! Continúas tu camino, frotándote los ojos.",
+      "{{playerDisplay}}Las monedas caen de los bolsillos de 's, tan llenos están. Ni siquiera parece importarle. Un animal las recoge antes de que puedas alcanzarlas. Continúas tu camino, un poco decepcionado."
+    ],
+    "poor": [
+      "{{playerDisplay}}Viendo la ropa que lleva, parece que tiene problemas de dinero... Crees que se alegraría si le dieras una moneda.\n\n\n🪙 Dale una moneda ❌ No le des una moneda",
+      "{{playerDisplay}}Mientras caminas, te encuentras con este pobre vagabundo de .\n\n\nTe pide unas monedas: 🪙 Dale una moneda, que ya tienes bastante ❌ No le des una moneda.",
+      "{{playerDisplay}} La pobreza toca a todos un día, y hoy es quien apenas puede permitirse una comida.\n\n\n🪙 Dale una moneda ❌ No le des una moneda"
+    ],
+    "poor_give_money": [
+      "Te sientes bien después de hacer este gesto humanitario.",
+      "El bien se contagia haciendo el bien\", dijo un cura que conociste una vez. Le das una moneda y él te sonríe antes de seguir su camino.",
+      "Es una buena acción por su parte. Se irá a casa con una moneda extra para poder comprar su próxima comida."
+    ],
+    "poor_dont_give_money": [
+      "No hay pequeños ahorros... Decides quedarte con tu dinero.",
+      "¡Está triste y se va llorando!",
+      "Lo ignoras, o al menos te obligas a hacerlo. Te vas y esperas que no te remuerda la conciencia."
+    ],
+    "pet": [
+      "{{playerDisplay}}{{petEmote}}{{petName}}pasa a tu lado con su mascota ** ** **. ¡Acaricias a este valiente animal y continúas tu camino de buen humor!",
+      "{{playerDisplay}}{{petEmote}}{{petName}}pasa a tu lado y te enseña su mascota ** ** ** **. La acaricias y te pones de nuevo en marcha, ¡buen viaje!",
+      "{{playerDisplay}}{{petEmote}}{{petName}}pasa a tu lado con ** ** ** ** ** en su correa. Lo miras asombrado y te dices que a ti también te encantaría tener este animal."
+    ],
+    "guild_chief": [
+      "¡Que no cunda el pánico! {{playerDisplay}}{{guildName}}Usted está pasando , líder del gremio ** **.",
+      "{{playerDisplay}}{{guildName}}¡Pasas de largo , es el líder del gremio ** ** !",
+      "Reconoces a la persona que pasa a tu lado... {{playerDisplay}}{{guildName}}¡Es , el líder del gremio ** ** !"
+    ],
+    "guild_elder": [
+      "{{playerDisplay}}{{guildName}}habla de su gremio ** ** contigo. Te enteras de que es el mayor.",
+      "{{playerDisplay}}{{guildName}}¡Usted pasa , es el miembro más antiguo del gremio ** ** !",
+      "{{guildName}} {{playerDisplay}}La mano derecha del Gremio ** **, , te saluda y sigue su camino."
+    ],
+    "class": [
+      "{{playerDisplay}}Te rozas con .{{class}}Te das cuenta de que es uno de los ** s**. Hablas un rato con él y sigues tu camino.",
+      "{{playerDisplay}}{{class}}clase ** ** pasa a tu lado, le saludas y continúas tu camino.",
+      "{{playerDisplay}}{{class}}Chocas accidentalmente con el brazo del honorable ** **. Ambos se disculpan y continúan su camino."
+    ],
+    "weapon": [
+      "{{playerDisplay}}{{weapon}} Te encuentras con quien te muestra su arma \"** **\".",
+      "{{playerDisplay}}{{weapon}}¡Un transeúnte viene a lucirse a tu lado, es y te enseña su pistola \"** **\"!",
+      "{{playerDisplay}}{{weapon}}¡Wow! blande su magnífica arma \" \" delante de ti. Sigues tu camino asombrado."
+    ],
+    "armor": [
+      "{{playerDisplay}}{{armor}} Te encuentras con quien te muestra su magnífica \" \" armadura.",
+      "{{playerDisplay}}{{armor}}Un guardia se te acerca: ¡es , ha venido a enseñarte su armadura \"** **\"!",
+      "{{playerDisplay}}{{armor}}te reta a probar \"** **\", que sirve de protección. Una vez que hayas probado su eficacia, estarás en camino."
+    ],
+    "potion": [
+      "{{playerDisplay}}{{potion}} Te encuentras con quien te muestra su magnífica poción \"** **\".",
+      "{{playerDisplay}}{{potion}}¡viene a hablar contigo, viene a enseñarte su potoin \"** **\"!",
+      "{{playerDisplay}}que te encuentras por el camino, te dice que tiene en sus manos una poción infernal.{{potion}} Así que te muestra \"** **\"."
+    ],
+    "object": [
+      "{{playerDisplay}}{{object}} Te encuentras con quien te muestra su magnífico objeto \"** **\".",
+      "{{playerDisplay}}{{object}}¡Al hablar con , te muestra su objeto \"** **\" !",
+      "{{playerDisplay}}Un jugador que camina por la misma calle que tú saca un objeto de su colección.{{object}} Te muestra con orgullo \"** **\"."
+    ],
+    "effect": {
+      "sick": [
+        "Oyes un ruido a lo lejos... {{playerDisplay}} Está vomitando en un arbusto... Continúas tu camino, angustiado.",
+        "{{playerDisplay}} vomita en un arbusto. ¡Así que ese es el ruido que has estado oyendo! Continúas tu camino, esperando no vomitar después de ver eso.",
+        "{{playerDisplay}} no puede contenerse y vomita a tus pies. Esquivas el ataque por los pelos y aceleras el paso para alejarte de la masacre."
+      ],
+      "hurt": [
+        "¡Puedes ver una momia a lo lejos! {{playerDisplay}} Oh no, sólo está cubierta de vendas...",
+        "{{playerDisplay}}En su camino, se encuentra con . Está cubierto de vendas. ¿Qué le ha pasado?",
+        "{{playerDisplay}} Mientras corres hacia tu destino, te pide que le aprietes las vendas de la cabeza. Lo haces y te asombras de que alguien pueda estar tan herido."
+      ],
+      "injured": [
+        "{{playerDisplay}} Tropiezas con un hombre que está inconsciente en el suelo. Le das un golpecito para despertarle, pero es en vano.",
+        "{{playerDisplay}} No era una rata muerta lo que había en el suelo. Le preguntas si se encuentra bien. No contesta, así que continúas tu camino.",
+        "Una persona está inconsciente en medio de la carretera. {{playerDisplay}}Es . Haces todo lo posible por devolverle la consciencia, pero sin éxito. Así que lo dejas en el arcén para evitar que sufra más lesiones."
+      ],
+      "starving": [
+        "Un rugido sordo llega a tus oídos. {{playerDisplay}}Descubres que es el vientre de . Por desgracia, hace poco que te has terminado la comida que te sobraba.",
+        "{{playerDisplay}}Aparentemente no ha comido lo suficiente. Le ruge la barriga. Sin nada que ofrecerle, continúas tu camino hacia nuevos horizontes.",
+        "{{playerDisplay}} Ves , que está en una loca búsqueda de comida. Corre de un lado a otro buscando algo que comer. Sin nada que ofrecerle, continúas tu camino."
+      ],
+      "sleeping": [
+        "{{playerDisplay}} Se cruza dormido en el arcén. Decides dejarle dormir, ya que probablemente lo necesite.",
+        "{{playerDisplay}} Está claro que anoche no durmió lo suficiente: está tirado en el arcén.",
+        "El borde de la carretera parece un buen lugar para descansar. {{playerDisplay}} Eso es lo que te dices a ti mismo después de ver dormir allí."
+      ],
+      "freezing": [
+        "Sientes mucho frío cuando caminas. {{playerDisplay}}¡Es , que está cerca de la hipotermia!",
+        "{{playerDisplay}} parece tener frío, lo calientas un poco y te pones en marcha de nuevo.",
+        "Un chasquido redundante te molesta. {{playerDisplay}}Descubres que son los dientes de ... ¡Éste está congelado! Reanudas tu viaje sin más dilación."
+      ],
+      "confounded": [
+        "{{playerDisplay}}Puede ponerse en contacto con . Lo intentas. Sus palabras son bastante incoherentes, así que continúas tu camino, algo turbado.",
+        "{{playerDisplay}} dice muchas cosas incoherentes. Te parece extraño, así que te vas rápidamente, ¡confundido!",
+        "{{playerDisplay}} Le ves completamente fuera de sí. Tras intentar devolverle a la realidad en vano, continúas tu camino para recuperar el tiempo perdido."
+      ],
+      "drunk": [
+        "{{playerDisplay}} zigzaguea a lo largo de tu ruta, parece que ha bebido un poco (demasiado). Continúa su viaje.",
+        "{{playerDisplay}}No parece haber entendido que el alcohol debe consumirse con moderación. Continúas tu camino tras este inesperado encuentro.",
+        "{{playerDisplay}} Se le ve bastante achispado, por decirlo suavemente. Parece estar disfrutando... él solo. Haces lo que puedes para ignorarlo y continúas tu camino."
+      ],
+      "scared": [
+        "{{playerDisplay}} Se cruza con alguien que parece correr hacia usted. Le persiguen unos ladrones en busca de su dinero. Le acompañas por el camino para ayudarle a recuperar la calma. Una vez tranquilizado, le dejas y reemprendes la marcha.",
+        "{{playerDisplay}} A lo lejos, ves correr a toda velocidad para escapar de una manada de lobos. Corres en su ayuda y obligas a las fieras a retirarse.",
+        "{{playerDisplay}}Te encuentras con . Parece completamente aterrorizado. Le preguntas por qué está tan alterado. Te cuenta que acaba de ser perseguido por un dragón, pero que ha conseguido escapar, perdiendo algunos pelos en el proceso."
+      ],
+      "occupied": [
+        "{{playerDisplay}} Le ves y le invitas a charlar, pero te explica que está ocupado. Es solo un aplazamiento y cada uno sigue su camino.",
+        "{{playerDisplay}} Al cruzar, te cruzas con , que está muy ocupado... Intentas charlar un poco con él, pero es inútil y te pide que le ayudes con su trabajo.",
+        "{{playerDisplay}} En su camino, se cruza con , que parece muy ocupado. Intentas averiguar algo más, pero sin éxito, antes de continuar tu camino."
+      ],
+      "jailed": [
+        "{{playerDisplay}}Mientras pasea tranquilamente hacia su destino, ve a unos guardias poniéndole las esposas . Curioso, te acercas y oyes que se dirige directamente a la prisión. Te pones de nuevo en marcha, preguntándote qué habrá estado haciendo este hombre.",
+        "Mientras avanzas con cuidado por un sendero, te cruzas con un convoy de prisioneros escoltados por guardias armados. {{playerDisplay}}Mientras suben la cuesta, ves a los pobres desgraciados, entre los que se encuentra , que está llorando. Sientes un poco de lástima por él, pero olvidas rápidamente ese sentimiento, diciéndote a ti mismo que seguramente no está ahí por casualidad."
+      ],
+      "lost": [
+        "{{playerDisplay}}Te cruzas con , que parece perdido y se apresura a preguntarte qué camino tomar para llegar a su destino. Por desgracia, no puedes ayudarle, así que le consuelas un poco antes de continuar tu camino.",
+        "{{playerDisplay}}Te cruzas con , que parece haberse perdido, claramente desorientado. Te mira expectante, buscando ayuda para encontrar el camino de vuelta.",
+        "{{playerDisplay}} Observas que está dando vueltas en círculo, habiéndote cruzado con él varias veces por el camino. Te acercas a él y le preguntas si necesita ayuda. Te explica que se ha perdido y te pide que le acompañes a su destino."
+      ]
     }
   }
 }
