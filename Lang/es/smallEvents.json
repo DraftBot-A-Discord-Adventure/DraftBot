@@ -347,14 +347,25 @@
   },
   "leagueReward": {
     "intrigue": [
-      "vous apercevez du coin de l'œil une grande affiche...",
-      "vous glissez sur le bas-côté et vous étalez à terre. En vous relevant, vous remarquez un petit parchemin...",
-      "un oiseau s'approche de vous et dépose dans votre main un minuscule message...",
-      "vous découvrez une vieille cabane en bois abandonnée, vous décidez de l'explorer et n'y découvrez qu'un vieux grimoire qui semble traîner ici depuis des années..."
+      "por el rabillo del ojo ve un gran cartel...",
+      "resbalas en el arcén y caes al suelo. Al levantarte, ves un pequeño pergamino...",
+      "un pájaro se te acerca y te pone un pequeño mensaje en la mano...",
+      "Descubres una vieja cabaña de madera abandonada, decides explorarla y sólo descubres un viejo grimorio que parece llevar años tirado por ahí..."
     ],
-    "reward": ":moneybag: Argent: **{{money}}**\n:star: XP : **{{xp}}**\n:medal: Points : **Le nombre de points dépendra de votre classement final.**\n:gift: Un équipement aléatoire.",
-    "endMessage": "\n\n:newspaper: \"À l'aventurier appartenant à la {{league}} qui trouvera ce texte, **si vous maintenez votre gloire jusqu’à la fin de la saison**, vous pourrez remporter ces récompenses :\n\n{{rewards}}\"\n\nVous reprenez votre route, tout en vous réjouissant de pouvoir récupérer votre bonus {{time}}.",
-    "notEnoughFight": "\n\n:newspaper: \"À l'aventurier appartenant à la {{league}} qui trouvera ce texte, **si vous réalisez quelques combats à l'aide de la commande /fight**, vous pourrez remporter ces récompenses :\n\n{{rewards}}\"\n\nVous reprenez vite votre route, craignant de ne pas parvenir à combattre suffisamment de joueurs avant la fin de la saison {{time}}.",
-    "rewardToday": "\n\n:newspaper: \"**Les récompenses de ligues sont disponibles !** Récupérez votre récompense avant la fin de la semaine grâce à la commande /leaguebonus !\"\n\nVous reprenez votre route, tout en vous réjouissant de pouvoir récupérer votre bonus."
+    "reward": ":moneybag: Plata:{{money}}\n:star: ** ** XP :{{xp}}\n:medal: ** Puntos:\n:gift: **El número de puntos dependerá de tu clasificación final ** Equipo aleatorio.",
+    "endMessage": "\n\n:newspaper: {{league}}\n\n{{rewards}}\n\n {{time}}\"Al aventurero perteneciente a quien encuentre este texto, **si mantienes tu gloria hasta el final de la temporada**, podrás ganar estas recompensas: \" Te pones de nuevo en marcha, deseando cobrar tu bonificación .",
+    "notEnoughFight": "\n\n:newspaper: {{league}}\n\n{{rewards}}\n\n {{time}}\"Al aventurero perteneciente a quien encuentre este texto, **si lleva a cabo unos cuantos combates utilizando el comando /fight**, podrá ganar estas recompensas: \" Rápidamente te pones de nuevo en marcha, temiendo no poder luchar contra suficientes jugadores antes del final de la temporada .",
+    "rewardToday": "\n\n:newspaper: \"¡Consigue tu recompensa antes de que acabe la semana usando el comando /leaguebonus!\n\nYa estás de nuevo en camino, deseando cobrar tu bonificación."
+  },
+  "winGuildXP": {
+    "stories": [
+      "{{guild}}La reputación de ** ** parece precederte. Al enterarse de que eres miembro del gremio, los aventureros que te han estado siguiendo durante las últimas millas te rinden su más profundo respeto.",
+      "{{guild}}Tras unos cuantos encuentros victoriosos, aplicas la marca del gremio ** ** a los restos de tus atacantes. Cualquiera que pase por allí la reconocerá.",
+      "Tus buenas acciones en la región han conquistado a gran parte de la población.{{guild}}Cuando te preguntan cómo pueden agradecértelo, les pides que recuerden el nombre ** **.",
+      "¡Felicidades!{{guild}}A lo largo de los años, tu gremio, ** **, se ha hecho un nombre en todo el reino.",
+      "{{guild}}¡** ** es cada vez más popular a medida que pasa el tiempo! Esperamos que sigas haciéndolo, ¡y por eso te ofrecemos esta bonificación de xp!",
+      "{{guild}}Al entrar en una posada, el propietario reconoce el emblema de tu escudo, el símbolo del gremio ** **. Decide ofrecer una ronda general de bebidas en tu honor, con gran éxito entre los demás clientes."
+    ],
+    "end": " {{xp}} :star:Tu gremio gana ** ** ."
   }
 }
