@@ -441,5 +441,10 @@
     "canceledDesc": "La mascota no ha sido liberada.",
     "confirmDesc": ":warning:{{pet}}¿Está seguro de que desea liberar ** **? No es posible cancelar una vez que la acción se ha completado.",
     "acceptedDesc": "{{pet}}Adiós ** **..."
+  },
+  "petNick": {
+    "successTitle": "{{pseudo}}cambiar el apodo de la mascota",
+    "success": "{{name}}¡Apodo de mascota cambiado a ** ** !",
+    "successNoName": "Tu mascota ya no tiene apodo."
   }
 }
