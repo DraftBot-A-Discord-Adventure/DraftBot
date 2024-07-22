@@ -55,5 +55,7 @@
   "pleaseWaitForHisHeal": "{{time}}Por favor, espere hasta el final de la atención para su estado de deterioro:",
   "notEnoughMoney": "No tienes dinero suficiente para llevar a cabo esta acción. {{money}} Te falta dinero 💰.",
   "cooldownPetFree": "Sólo puedes liberar una mascota por hora. {{remainingTime}}Puedes liberar otra .",
-  "unknownPlayer": "Nombre de usuario 404"
+  "unknownPlayer": "Nombre de usuario 404",
+  "petNickNotValid": "Las normas para poner nombre a una mascota son las siguientes:\n$t(error:stringRules)",
+  "stringRules": "\n\n\n {{min}} {{max}} - Utilice al menos una letra - No utilice más de 2 espacios consecutivos - No se admiten caracteres especiales - Entre y caracteres"
 }
