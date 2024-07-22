@@ -436,10 +436,10 @@
     }
   },
   "petFree": {
-    "title": "{{pseudo}}, pet lib",
-    "canceledTitle": "{{pseudo}}, cancellation of liberation.",
-    "canceledDesc": "Pet was not reached.",
-    "confirmDesc": ":warning: Are you sure you want to link **{{pet}}**? It is not possible to undo after the action is done.",
+    "title": "{{pseudo}}, pet release",
+    "canceledTitle": "{{pseudo}}, cancellation of the release.",
+    "canceledDesc": "The pet has not been released.",
+    "confirmDesc": ":warning: Are you sure you want to release **{{pet}}**? It is not possible to undo once the action has been done.",
     "acceptedDesc": "Farewell **{{pet}}**..."
   }
 }
