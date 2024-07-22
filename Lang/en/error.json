@@ -55,5 +55,7 @@
   "pleaseWaitForHisHeal": "Please wait until the end of healing of its state alteration: {{time}}",
   "notEnoughMoney": "You don't have enough money to perform this action. You are missing {{money}}💰.",
   "cooldownPetFree": "You can only release one pet per hour. You will be able to release another one {{remainingTime}}.",
-  "unknownPlayer": "Nickname 404"
+  "unknownPlayer": "Nickname 404",
+  "petNickNotValid": "Pet names are as follows:\n$t(error:stringRules)",
+  "stringRules": "- Use at least one letter\n- Do not put more than 2 consecutive spaces\n- Specific characters are not allowed\n- Between {{min}} and {{max}} characters"
 }
