@@ -29,6 +29,8 @@ import {
 	SmallEventInteractOtherPlayersPacket, SmallEventInteractOtherPlayersRefuseToGivePoorPacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventInteractOtherPlayers";
 import {interactOtherPlayerGetPlayerDisplay} from "../../smallEvents/interactOtherPlayers";
+import {SmallEventLeagueRewardPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventLeagueReward";
+import {printTimeBeforeDate} from "../../../../Lib/src/utils/TimeUtils";
 
 export function getRandomSmallEventIntro(language: Language): string {
 	return StringUtils.getRandomTranslation("smallEvents:intro", language);
@@ -327,6 +329,37 @@ export default class SmallEventsHandler {
 						interaction.user,
 						user.attributes.language[0]
 					)]
+			});
+		}
+	}
+
+	@packetHandler(SmallEventLeagueRewardPacket)
+	async smallEventLeagueReward(socket: WebSocket, packet: SmallEventLeagueRewardPacket, context: PacketContext): Promise<void> {
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		if (interaction) {
+			let endMessage;
+			if (packet.rewardToday) {
+				endMessage = i18n.t("smallEvents:leagueReward.rewardToday", {lng: interaction.userLanguage});
+			}
+			else {
+				endMessage = i18n.t(packet.enoughFights ? "smallEvents:leagueReward.endMessage" : "smallEvents:leagueReward.notEnoughFight", {
+					lng: interaction.userLanguage,
+					interpolation: { escapeValue: false },
+					league: i18n.t(`models:leagues.${packet.leagueId}`, {lng: interaction.userLanguage}),
+					rewards: i18n.t("smallEvents:leagueReward.reward", {lng: interaction.userLanguage, money: packet.money, xp: packet.xp}),
+					time: printTimeBeforeDate(packet.nextRewardDate)
+				});
+			}
+
+			await interaction.editReply({
+				embeds: [
+					new DraftbotSmallEventEmbed(
+						"leagueReward",
+						getRandomSmallEventIntro(interaction.userLanguage) + StringUtils.getRandomTranslation("smallEvents:leagueReward.intrigue", interaction.userLanguage) + endMessage,
+						interaction.user,
+						interaction.userLanguage
+					)
+				]
 			});
 		}
 	}
