@@ -273,7 +273,9 @@ async function sendACoin(otherPlayer: Player, player: Player, response: DraftBot
 			amount: 1,
 			response,
 			reason: NumberChangeReason.SMALL_EVENT
-		}),
+		})
+	]);
+	await Promise.all([
 		otherPlayer.save(),
 		player.save()
 	]);
