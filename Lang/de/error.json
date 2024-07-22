@@ -55,5 +55,7 @@
   "pleaseWaitForHisHeal": "Veuillez attendre la fin des soins de son altération d'état : {{time}}",
   "notEnoughMoney": "Vous n'avez pas assez d'argent pour effectuer cette action. Il vous manque {{money}} 💰.",
   "cooldownPetFree": "Vous ne pouvez libérer qu'un familier par heure. Vous pourrez en libérer un autre {{remainingTime}}.",
-  "unknownPlayer": "Pseudo 404"
+  "unknownPlayer": "Pseudo 404",
+  "petNickNotValid": "Les règles pour le nom d'un familier sont les suivantes:\n$t(error:stringRules)",
+  "stringRules": "- Utiliser au moins une lettre\n- Ne pas mettre plus de 2 espaces consécutifs\n- Les caractères spéciaux ne sont pas autorisés\n- Entre {{min}} et {{max}} caractères"
 }
