@@ -356,5 +356,16 @@
     "endMessage": "\n\n:newspaper: \"À l'aventurier appartenant à la {{league}} qui trouvera ce texte, **si vous maintenez votre gloire jusqu’à la fin de la saison**, vous pourrez remporter ces récompenses :\n\n{{rewards}}\"\n\nVous reprenez votre route, tout en vous réjouissant de pouvoir récupérer votre bonus {{time}}.",
     "notEnoughFight": "\n\n:newspaper: \"À l'aventurier appartenant à la {{league}} qui trouvera ce texte, **si vous réalisez quelques combats à l'aide de la commande /fight**, vous pourrez remporter ces récompenses :\n\n{{rewards}}\"\n\nVous reprenez vite votre route, craignant de ne pas parvenir à combattre suffisamment de joueurs avant la fin de la saison {{time}}.",
     "rewardToday": "\n\n:newspaper: \"**Les récompenses de ligues sont disponibles !** Récupérez votre récompense avant la fin de la semaine grâce à la commande /leaguebonus !\"\n\nVous reprenez votre route, tout en vous réjouissant de pouvoir récupérer votre bonus."
+  },
+  "winGuildXP":{
+    "stories": [
+      "La renommée de **{{guild}}** semble vous précéder. En apprenant que vous faites partie de la guilde, les aventuriers qui vous suivaient depuis quelques kilomètres vous transmettent leur plus profond respect.",
+      "Suite à quelques affrontements dont vous sortez victorieux, vous appliquez sur les dépouilles de vos agresseurs la marque de la guilde **{{guild}}**. Tous ceux qui passeront par ici la reconnaitront.",
+      "Vos bonnes actions dans la région ont séduit une bonne partie de la population. Lorsqu'ils vous demandent comment ils pourraient vous remercier, vous leur demandez de se souvenir du nom de **{{guild}}**.",
+      "Félicitations ! Au fil du temps, votre guilde, **{{guild}}**, se fait connaître à travers tout le royaume.",
+      "**{{guild}}** se fait connaître davantage au fil du temps et possède une popularité qui ne cesse de s'accroître ! Nous vous souhaitons de continuer ainsi et c'est pour cela que nous vous offrons ce gain d'xp !",
+      "Alors que vous entrez dans une auberge, le tenancier reconnaît l'emblème sur votre bouclier, symbole de la guilde **{{guild}}**. Il décide d'offrir une tournée générale en votre honneur, du meilleur effet auprès des autres clients."
+    ],
+    "end": " Votre guilde remporte **{{xp}}** :star:."
   }
 }

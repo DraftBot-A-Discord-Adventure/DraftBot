@@ -31,6 +31,7 @@ import {
 import {interactOtherPlayerGetPlayerDisplay} from "../../smallEvents/interactOtherPlayers";
 import {SmallEventLeagueRewardPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventLeagueReward";
 import {printTimeBeforeDate} from "../../../../Lib/src/utils/TimeUtils";
+import {SmallEventWinGuildXPPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinGuildXPPacket";
 
 export function getRandomSmallEventIntro(language: Language): string {
 	return StringUtils.getRandomTranslation("smallEvents:intro", language);
@@ -356,6 +357,24 @@ export default class SmallEventsHandler {
 					new DraftbotSmallEventEmbed(
 						"leagueReward",
 						getRandomSmallEventIntro(interaction.userLanguage) + StringUtils.getRandomTranslation("smallEvents:leagueReward.intrigue", interaction.userLanguage) + endMessage,
+						interaction.user,
+						interaction.userLanguage
+					)
+				]
+			});
+		}
+	}
+
+	@packetHandler(SmallEventWinGuildXPPacket)
+	async smallEventWinGuildXp(socket: WebSocket, packet: SmallEventWinGuildXPPacket, context: PacketContext): Promise<void> {
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		if (interaction) {
+			await interaction.editReply({
+				embeds: [
+					new DraftbotSmallEventEmbed(
+						"winGuildXP",
+						StringUtils.getRandomTranslation("smallEvents:winGuildXP.stories", interaction.userLanguage, { guild: packet.guildName })
+						+ i18n.t("smallEvents:winGuildXP.end", {lng: interaction.userLanguage, xp: packet.amount}),
 						interaction.user,
 						interaction.userLanguage
 					)
