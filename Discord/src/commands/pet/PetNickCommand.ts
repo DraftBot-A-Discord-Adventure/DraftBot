@@ -13,13 +13,14 @@ import {
 	CommandPetNickPacketRes
 } from "../../../../Lib/src/packets/commands/CommandPetNickPacket";
 import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
+import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 
 /**
  * Change the nickname of a player pet.
  */
 function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser): CommandPetNickPacketReq {
 
-	const newNameOption = interaction.options.get("name");
+	const newNameOption = interaction.options.get("nickname");
 
 	let newNickname;
 	if (newNameOption) {
@@ -67,11 +68,27 @@ export async function handleCommandPetNickPacketRes(packet: CommandPetNickPacket
 		if (!packet.newNickname) {
 			await interaction.reply({
 				embeds: [
-					new DraftBotErrorEmbed(
-						interaction.user,
-						interaction,
-						i18n.t("error:petDoesntExist", {lng: interaction.userLanguage})
-					)
+					new DraftBotEmbed()
+						.formatAuthor(i18n.t("commands:petNick.successTitle", {
+							lng: interaction.userLanguage,
+							pseudo: interaction.user.username
+						}), interaction.user)
+						.setDescription(i18n.t("commands:petNick.successNoName", {lng: interaction.userLanguage}))
+				]
+			});
+		}
+		else {
+			await interaction.reply({
+				embeds: [
+					new DraftBotEmbed()
+						.formatAuthor(i18n.t("commands:petNick.successTitle", {
+							lng: interaction.userLanguage,
+							pseudo: interaction.user.username
+						}), interaction.user)
+						.setDescription(i18n.t("commands:petNick.success", {
+							lng: interaction.userLanguage,
+							name: packet.newNickname
+						}))
 				]
 			});
 		}

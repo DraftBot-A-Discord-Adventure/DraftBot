@@ -25,32 +25,34 @@ export default class PetNickCommand {
 			return;
 		}
 
-		const petNicknameUntested = packet.newNickname;
+		const newPetNickName = packet.newNickname;
 
-		if (!petNicknameUntested) {
+		if (!newPetNickName) {
 			// No nickname provided, reset the nickname to None
 			response.push(makePacket(CommandPetNickPacketRes, {
 				foundPet: true,
-				newNickname: null
+				newNickname: null,
+				nickNameIsAcceptable: true
 			}));
 		}
 		else {
-			if (!checkNameString(petNicknameUntested, PetConstants.NICKNAME_LENGTH_RANGE)) {
+			if (!checkNameString(newPetNickName, PetConstants.NICKNAME_LENGTH_RANGE)) {
 				response.push(makePacket(CommandPetNickPacketRes, {
 					foundPet: true,
-					newNickname: petNicknameUntested,
+					newNickname: newPetNickName,
 					nickNameIsAcceptable: false
 				}));
 				return;
 			}
 			response.push(makePacket(CommandPetNickPacketRes, {
 				foundPet: true,
-				newNickname: petNicknameUntested,
+				newNickname: newPetNickName,
 				nickNameIsAcceptable: true
 			}));
 		}
 
-		playerPet.nickname = petNicknameUntested;
+		playerPet.nickname = newPetNickName ? newPetNickName : null;
 		await playerPet.save();
+		console.log(playerPet);
 	}
 }
