@@ -441,5 +441,10 @@
     "canceledDesc": "The pet has not been released.",
     "confirmDesc": ":warning: Are you sure you want to release **{{pet}}**? It is not possible to undo once the action has been done.",
     "acceptedDesc": "Farewell **{{pet}}**..."
+  },
+  "petNick": {
+    "successTitle": "{{pseudo}}, changing pet's nickname",
+    "success": "Pet nickname changed to **{{name}}**!",
+    "successNoName": "[EMPTY SLOT - No need to translate this line]"
   }
 }
