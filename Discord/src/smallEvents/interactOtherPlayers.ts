@@ -13,7 +13,7 @@ import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
 
 export async function interactOtherPlayerGetPlayerDisplay(keycloakId: string, rank: number | undefined, language: Language): Promise<string> {
 	const keycloakUser = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, keycloakId);
-	const playerName = keycloakUser && keycloakUser.attributes.gameUsername ? keycloakUser.attributes.gameUsername : i18n.t("error:unknownPlayer", {lng: language});
+	const playerName = keycloakUser?.attributes.gameUsername ? keycloakUser.attributes.gameUsername : i18n.t("error:unknownPlayer", {lng: language});
 	return rank
 		? i18n.t("smallEvents:interactOtherPlayers.playerDisplayRanked", {lng: language, pseudo: playerName, rank })
 		: i18n.t("smallEvents:interactOtherPlayers.playerDisplayUnranked", {lng: language, pseudo: playerName });
