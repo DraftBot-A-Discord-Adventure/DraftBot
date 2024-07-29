@@ -1,6 +1,8 @@
-import {DraftBotPacket} from "../DraftBotPacket";
+import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
 
-export interface GuildLevelUpPacket extends DraftBotPacket {
-    guildName: string,
-    level: number
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class GuildLevelUpPacket extends DraftBotPacket {
+	guildName!: string;
+
+	level!: number;
 }

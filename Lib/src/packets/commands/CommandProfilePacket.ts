@@ -1,5 +1,6 @@
-import {DraftBotPacket} from "../DraftBotPacket";
+import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
 
+@sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandProfilePacketReq extends DraftBotPacket {
 	askedPlayer!: {
 		rank?: number,
@@ -7,6 +8,7 @@ export class CommandProfilePacketReq extends DraftBotPacket {
 	};
 }
 
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandProfilePacketRes extends DraftBotPacket {
 	foundPlayer!: boolean;
 

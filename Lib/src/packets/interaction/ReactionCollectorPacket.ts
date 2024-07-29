@@ -1,5 +1,6 @@
-import {DraftBotPacket} from "../DraftBotPacket";
+import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
 
+@sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class ReactionCollectorReactPacket extends DraftBotPacket {
 	id!: string;
 
@@ -8,6 +9,7 @@ export class ReactionCollectorReactPacket extends DraftBotPacket {
 	reactionIndex!: number;
 }
 
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class ReactionCollectorEnded extends DraftBotPacket {
 
 }
@@ -28,6 +30,7 @@ export class ReactionCollectorRefuseReaction extends ReactionCollectorReaction {
 
 }
 
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class ReactionCollectorCreationPacket extends DraftBotPacket {
 	id!: string;
 

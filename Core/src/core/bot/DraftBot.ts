@@ -13,6 +13,7 @@ import {getNextDay2AM} from "../../../../Lib/src/utils/TimeUtils";
 import {TIMEOUT_FUNCTIONS} from "../../../../Lib/src/constants/TimeoutFunctionsConstants";
 import {MapCache} from "../maps/MapCache";
 import {registerAllPacketHandlers} from "../packetHandlers/PacketHandler";
+import {PacketDirection, verifyPacketsImplementation} from "../../../../Lib/src/packets/DraftBotPacket";
 
 export class DraftBot {
 	public readonly packetListener: PacketListenerServer;
@@ -244,6 +245,7 @@ export class DraftBot {
 
 	async init(): Promise<void> {
 		await registerAllPacketHandlers();
+		verifyPacketsImplementation(this.packetListener.getImplementedPackets(), PacketDirection.FRONT_TO_BACK);
 		await this.gameDatabase.init();
 		await this.logsDatabase.init();
 		await MapCache.init();

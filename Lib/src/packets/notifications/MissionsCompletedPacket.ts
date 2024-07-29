@@ -1,6 +1,7 @@
-import {DraftBotPacket} from "../DraftBotPacket";
+import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
 import {CompletedMission} from "../../interfaces/CompletedMission";
 
-export interface MissionsCompletedPacket extends DraftBotPacket {
-    missions: CompletedMission[]
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class MissionsCompletedPacket extends DraftBotPacket {
+	missions!: CompletedMission[];
 }

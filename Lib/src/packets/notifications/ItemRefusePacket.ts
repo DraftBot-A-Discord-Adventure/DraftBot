@@ -1,7 +1,10 @@
-import {DraftBotPacket} from "../DraftBotPacket";
+import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
 
-export interface ItemRefusePacket extends DraftBotPacket {
-    id: number,
-    category: number,
-    autoSell: boolean
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class ItemRefusePacket extends DraftBotPacket {
+	id!: number;
+
+	category!: number;
+
+	autoSell!: boolean;
 }

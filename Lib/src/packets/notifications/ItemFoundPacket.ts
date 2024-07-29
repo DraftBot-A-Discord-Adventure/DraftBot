@@ -1,6 +1,8 @@
-import {DraftBotPacket} from "../DraftBotPacket";
+import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
 
-export interface ItemFoundPacket extends DraftBotPacket {
-    id: number,
-    category: number
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class ItemFoundPacket extends DraftBotPacket {
+	id!: number;
+
+	category!: number;
 }

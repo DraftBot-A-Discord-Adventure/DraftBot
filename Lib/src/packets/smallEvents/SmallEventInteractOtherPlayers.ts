@@ -1,4 +1,5 @@
 import {SmallEventPacket} from "./SmallEventPacket";
+import {PacketDirection, sendablePacket} from "../DraftBotPacket";
 
 export enum InteractOtherPlayerInteraction {
 	TOP1,
@@ -30,6 +31,7 @@ export enum InteractOtherPlayerInteraction {
 	CLASS
 }
 
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class SmallEventInteractOtherPlayersPacket extends SmallEventPacket {
 	keycloakId?: string;
 
@@ -50,6 +52,8 @@ export class SmallEventInteractOtherPlayersPacket extends SmallEventPacket {
 	};
 }
 
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class SmallEventInteractOtherPlayersRefuseToGivePoorPacket extends SmallEventPacket {}
 
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class SmallEventInteractOtherPlayersAcceptToGivePoorPacket extends SmallEventPacket {}
