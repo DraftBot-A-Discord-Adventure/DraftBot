@@ -1,9 +1,11 @@
-import {DraftBotPacket} from "../DraftBotPacket";
+import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
 
+@sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandReportPacketReq extends DraftBotPacket {
 	keycloakId!: string;
 }
 
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandReportTravelSummaryRes extends DraftBotPacket {
 	startMap!: {
 		id: number,
@@ -43,6 +45,7 @@ export class CommandReportTravelSummaryRes extends DraftBotPacket {
 	lastSmallEventId?: string;
 }
 
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandReportMonsterRewardRes extends DraftBotPacket {
 	money!: number;
 
@@ -53,14 +56,17 @@ export class CommandReportMonsterRewardRes extends DraftBotPacket {
 	guildPoints!: number;
 }
 
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandReportErrorNoMonsterRes extends DraftBotPacket {
 
 }
 
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandReportRefusePveFightRes extends DraftBotPacket {
 
 }
 
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandReportChooseDestinationRes extends DraftBotPacket {
 	mapId!: number;
 
@@ -69,6 +75,7 @@ export class CommandReportChooseDestinationRes extends DraftBotPacket {
 	tripDuration!: number;
 }
 
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandReportBigEventResultRes extends DraftBotPacket {
 	eventId!: number;
 

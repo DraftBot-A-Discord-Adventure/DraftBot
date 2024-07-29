@@ -1,6 +1,7 @@
-import {DraftBotPacket} from "../DraftBotPacket";
+import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
 import {ItemNature, ItemRarity} from "../../constants/ItemConstants";
 
+@sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandInventoryPacketReq extends DraftBotPacket {
 	askedPlayer!: {
 		rank?: number,
@@ -33,6 +34,7 @@ export interface SupportItemDisplayPacket {
 	maxPower: number
 }
 
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandInventoryPacketRes extends DraftBotPacket {
 	foundPlayer!: boolean;
 

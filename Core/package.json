@@ -8,7 +8,7 @@
 	},
 	"engineStrict": true,
 	"scripts": {
-		"start": "tsc && node dist/Core/src/index.js",
+		"start": "yarn run tsc && node dist/Core/src/index.js",
 		"cd": "cd",
 		"eslint": "eslint src",
 		"eslintFix": "eslint src --fix",

@@ -1,5 +1,6 @@
-import {DraftBotPacket} from "../DraftBotPacket";
+import {DraftBotPacket, sendablePacket, PacketDirection} from "../DraftBotPacket";
 
+@sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandGuildPacketReq extends DraftBotPacket {
 	askedPlayer!: {
 		rank?: number,
@@ -23,6 +24,7 @@ export interface GuildMemberPacket {
 	}
 }
 
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandGuildPacketRes extends DraftBotPacket {
 	foundGuild!: boolean;
 

@@ -1,6 +1,8 @@
-import {DraftBotPacket} from "../DraftBotPacket";
+import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
 
-export interface PlayerLeavePveIslandPacket extends DraftBotPacket {
-    moneyLost: number,
-    guildPointsLost: number
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class PlayerLeavePveIslandPacket extends DraftBotPacket {
+	moneyLost!: number;
+
+	guildPointsLost!: number;
 }

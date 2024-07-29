@@ -1,8 +1,7 @@
-import {ReactionCollectorCreationPacket} from "../interaction/ReactionCollectorPacket";
 import {SmallEventPacket} from "./SmallEventPacket";
+import {PacketDirection, sendablePacket} from "../DraftBotPacket";
 
-export class SmallEventWitchCollectorCreationPacket extends ReactionCollectorCreationPacket {}
-
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class SmallEventWitchResultPacket extends SmallEventPacket {
 	outcome!: number;
 }

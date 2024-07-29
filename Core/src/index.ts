@@ -1,6 +1,11 @@
 import {DraftBot} from "./core/bot/DraftBot";
 import {loadConfig} from "./core/bot/DraftBotConfig";
-import {DraftBotPacket, makePacket} from "../../Lib/src/packets/DraftBotPacket";
+import {
+	DraftBotPacket,
+	makePacket,
+	PacketDirection,
+	verifyPacketsImplementation
+} from "../../Lib/src/packets/DraftBotPacket";
 import {sendPacket} from "../../Lib/src/packets/PacketUtils";
 import {WebsocketClient} from "../../Lib/src/instances/WebsocketClient";
 import {Logger} from "../../Lib/src/instances/Logger";

@@ -1,10 +1,11 @@
-import {DraftBotPacket} from "../DraftBotPacket";
+import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
 
-export interface MissionsExpiredPacket extends DraftBotPacket {
-    missions: {
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class MissionsExpiredPacket extends DraftBotPacket {
+	missions!: {
         missionId: string,
         objective: number
         variant: number,
         numberDone: number
-    }[]
+    }[];
 }

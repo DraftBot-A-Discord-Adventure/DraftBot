@@ -2,9 +2,8 @@
 	"name": "draftbot_lib",
 	"version": "5.0.0",
 	"description": "Lib package of DaftBot, used my multiple module",
-	"private": "true",
 	"scripts": {
-		"start": "tsc && node dist/src/index.js",
+		"start": "tsc && node dist/index.js",
 		"test": "tsc && jest dist/test",
 		"eslint": "eslint src",
 		"eslintFix": "eslint src --fix",

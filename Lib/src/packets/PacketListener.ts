@@ -16,6 +16,10 @@ export class PacketListenerServer {
 	public getListener(packet: string): PacketListenerCallbackServer<DraftBotPacket> {
 		return this.packetCallbacks.get(packet)!;
 	}
+
+	public getImplementedPackets(): string[] {
+		return Array.from(this.packetCallbacks.keys());
+	}
 }
 
 export type PacketListenerCallbackServer<T extends DraftBotPacket> = (socket: WebsocketClient, packet: T, context: PacketContext, response: DraftBotPacket[]) => void | Promise<void>;
@@ -33,6 +37,10 @@ export class PacketListenerClient {
 
 	public getListener(packet: string): PacketListenerCallbackClient<DraftBotPacket> | undefined {
 		return this.packetCallbacks.get(packet);
+	}
+
+	public getImplementedPackets(): string[] {
+		return Array.from(this.packetCallbacks.keys());
 	}
 }
 
