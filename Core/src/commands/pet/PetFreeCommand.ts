@@ -60,6 +60,15 @@ function generateLuckyMeat(guild: Guild, pPet: PetEntity): boolean {
  * @param response
  */
 async function acceptPetFree(player: Player, playerPet: PetEntity, response: DraftBotPacket[]): Promise<void> {
+
+	await player.reload(); // Let's make sure the player has not lost money in the meantime
+	// Check money again just in case
+	const missingMoney = getMissingMoneyToFreePet(player, playerPet);
+	if (missingMoney > 0) {
+		response.push(makePacket(CommandPetFreeRefusePacketRes, {}));
+		return;
+	}
+
 	if (playerPet.isFeisty()) {
 		await player.addMoney({
 			amount: -PetFreeConstants.FREE_FEISTY_COST,

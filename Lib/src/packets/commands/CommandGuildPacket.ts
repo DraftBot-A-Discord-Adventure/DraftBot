@@ -28,6 +28,8 @@ export interface GuildMemberPacket {
 export class CommandGuildPacketRes extends DraftBotPacket {
 	foundGuild!: boolean;
 
+	askedPlayerKeycloakId?: string;
+
 	data?: {
 		name: string,
 		description?: string,
