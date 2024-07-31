@@ -1,16 +1,25 @@
 import {packetHandler} from "../../core/packetHandlers/PacketHandler";
 import {WebsocketClient} from "../../../../Lib/src/instances/WebsocketClient";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {Players} from "../../core/database/game/models/Player";
+import {Player, Players} from "../../core/database/game/models/Player";
 import {Guilds} from "../../core/database/game/models/Guild";
-import {Maps} from "../../core/maps/Maps";
-import {MapCache} from "../../core/maps/MapCache";
 import {
 	CommandGuildCreatePacketReq,
-	CommandGuildCreatePacketRes
+	CommandGuildCreatePacketRes,
+	CommandGuildCreateRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildCreatePacket";
 import {checkNameString} from "../../../../Lib/src/utils/StringUtils";
 import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants";
+import {ReactionCollectorGuildCreate} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildCreate";
+import {GuildCreateConstants} from "../../../../Lib/src/constants/GuildCreateConstants";
+import {EndCallback, ReactionCollectorInstance} from "../../core/utils/ReactionsCollector";
+import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
+
+async function acceptGuildCreate(player: Player, response: DraftBotPacket[]) {
+
+}
 
 export default class GuildCreateCommand {
 	@packetHandler(CommandGuildCreatePacketReq)
@@ -58,49 +67,37 @@ export default class GuildCreateCommand {
 		}));
 
 
-		const members = await Players.getByGuild(guild.id);
-		const rank = await guild.getRanking();
-		const numberOfGuilds = await Guilds.getTotalRanked();
-		const membersPveAlliesIds = (await Maps.getGuildMembersOnPveIsland(player)).map((player) => player.id);
-		const isUnranked = rank > -1;
+		// Send collector
+		const collector = new ReactionCollectorGuildCreate(
+			packet.askedGuildName,
+			GuildCreateConstants.PRICE
+		);
 
-		response.push(makePacket(CommandGuildPacketRes, {
-			foundGuild: true,
-			askedPlayerKeycloakId: player.keycloakId,
-			data: {
-				name: guild.name,
-				description: guild.guildDescription,
-				chiefId: guild.chiefId,
-				elderId: guild.elderId,
-				level: guild.level,
-				isMaxLevel: guild.isAtMaxLevel(),
-				experience: {
-					value: guild.experience,
-					max: guild.getExperienceNeededToLevelUp()
-				},
-				rank: {
-					unranked: isUnranked,
-					rank,
-					numberOfGuilds,
-					score: guild.score
-				},
-				members: await Promise.all(
-					members.map(async member => ({
-						id: member.id,
-						keycloakId: member.keycloakId,
-						rank: await Players.getRankById(member.id),
-						score: member.score,
-						islandStatus: {
-							isOnPveIsland: Maps.isOnPveIsland(member),
-							isOnBoat: MapCache.boatEntryMapLinks.includes(member.mapLinkId),
-							isPveIslandAlly: membersPveAlliesIds.includes(member.id),
-							isInactive: member.isInactive(),
-							cannotBeJoinedOnBoat: member.isNotActiveEnoughToBeJoinedInTheBoat()
-						}
-					}))
-				)
+		const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
+			const reaction = collector.getFirstReaction();
+
+			if (reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name) {
+				await acceptGuildCreate(player, response);
 			}
-		}));
+			else {
+				response.push(makePacket(CommandGuildCreateRefusePacketRes, {}));
+			}
 
+			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.PET_FREE);
+		};
+
+		const collectorPacket = new ReactionCollectorInstance(
+			collector,
+			context,
+			{
+				allowedPlayerKeycloakIds: [player.keycloakId],
+				reactionLimit: 1
+			},
+			endCallback
+		)
+			.block(player.id, BlockingConstants.REASONS.PET_FREE)
+			.build();
+
+		response.push(collectorPacket);
 	}
 }
