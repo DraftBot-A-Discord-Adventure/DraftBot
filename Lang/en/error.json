@@ -54,5 +54,8 @@
   "pleaseWaitForHeal": "Please wait until your state alteration has been cured before continuing to play: {{time}}\n\n:information_source: You can use the /shop command to buy a treatment.",
   "pleaseWaitForHisHeal": "Please wait until the end of healing of its state alteration: {{time}}",
   "notEnoughMoney": "You don't have enough money to perform this action. You are missing {{money}}💰.",
-  "cooldownPetFree": "You can only libe one pet per hour. You will be able to libe another {{remainingTime}}."
+  "cooldownPetFree": "You can only release one pet per hour. You will be able to release another one {{remainingTime}}.",
+  "unknownPlayer": "Nickname 404",
+  "petNickNotValid": "The rules for naming a pet are as follows:\n$t(error:stringRules)",
+  "stringRules": "- Use at least one letter\n- Do not put more than 2 consecutive spaces\n- Special characters are not allowed\n- Between {{min}} and {{max}} characters"
 }
