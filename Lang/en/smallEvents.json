@@ -350,21 +350,21 @@
       "you notice a large poster from the corner of your eye...",
       "you slip on the lower side of the road and fall to the ground. As you get back up, you notice a small scroll...",
       "a bird approaches you and drops a tiny message in your hand...",
-      "discover an old wooden hut, you decide to explore it and discover only an old grimoire that seems to have been here for years..."
+      "you discover an old, abandoned wooden hut, you decide to explore it and discover only an old grimoire that seems to have been lying around for years..."
     ],
-    "reward": ":moneybag: Money: **{{money}}**\n:star: XP: **{{xp}}**\n:medal: Points: **The number of points will depend on your final ranking. *\n:gift: A random equipment.",
-    "endMessage": "\n\n:newspaper: \"Adventurers belonging to {{league}} who will find this text **if you maintain your glory until the end of the season**, you will be able to win these rewards:\n\n{{rewards}}\"\n\nYou will be back on your way, while enjoying your {{time}} bonus .",
-    "notEnoughFight": "\n\n:newspaper: \"Adventurers belonging to {{league}} who will find this text **if you perform some battles using the /fight command**, you will be able to win these rewards:\n\n{{rewards}}\"\n\nYou will quickly get back on your way Fear of failing to fight enough players before the end of the {{time}} season.",
-    "rewardToday": "\n\n:newspaper: \"**League rewards are available! * Receive your reward before the end of the week thanks to the command /leaguebonus!\n\nYou get back on your way, while enjoying your bonus."
+    "reward": ":moneybag: Money: **{{money}}**\n:star: XP: **{{xp}}**\n:medal: Points: **The number of points will depend on your final ranking.**\n:gift: A random equipment.",
+    "endMessage": "\n\n:newspaper: \"To the adventurer belonging to the {{league}} who will find this text, **if you maintain your glory until the end of the season**, you will be able to win these rewards:\n\n{{rewards}}\"\n\nYou resume your journey, while enjoying your bonus {{time}}.",
+    "notEnoughFight": "\n\n:newspaper: \"To the adventurer belonging to the {{league}} who will find this text, **if you perform some battles using the /fight command**, you will be able to win these rewards:\n\n{{rewards}}\"\n\nYou quickly set off again, feazring that you won't manage to fight enough players before the end of the season {{time}}.",
+    "rewardToday": "\n\n:newspaper: \"**League rewards are available!** Receive your reward before the end of the week thanks to the /leaguebonus command!\"\n\nYou get back on your way, while looking forward to receiving your bonus."
   },
   "winGuildXP": {
     "stories": [
-      "Renaming **{{guild}}** seems to prepare. By learning that you are part of the guild, adventurers who have been following you for a few kilometres give you their greatest respect.",
-      "As a result of a few battles that you emerge victorious, you apply the guild mark **{{guild}}** to the remains of your attackers. Anyone who passes through this House will recognise it.",
-      "Your good actions in the area have helped a large part of the population. When they ask you how they could thank you, you ask them to remember the name **{{guild}}**.",
-      "Congratulations! Over time, your guild, **{{guild}}**, is known throughout the kingdom.",
-      "**{{guild}}** gets more known over time and has a growing popularity! We want you to continue this way and that is why we offer you this xp gain!",
-      "As you enter an inn, the tenantor recognizes the emblem on your shield, the symbol of the **{{guild}}** guild. It is decided to offer a big turn in your honour, the best effect of other customers."
+      "**{{guild}}**'s reputation seems to precede you. By learning that you are part of the guild, adventurers who have been following you for a few kilometers give you their greatest respect.",
+      "As a result of a few battles that you are victorious, you apply the **{{guild}}** guild's mark on your opponents' remains. All those who will pass here will recognize it.",
+      "Your good actions in the area have helped a large part of the population. When they ask you how they could thank you, you ask them to remember **{{guild}}**'s name.",
+      "Congratulations! Over time, your guild, **{{guild}}**, becomes known throughout the whole kingdom.",
+      "**{{guild}}** is becoming more and more popular as time goes by! We hope you continue to do so, and that's why we're offering you this xp bonus!",
+      "As you enter an inn, the tenant recognizes the emblem on your shield, the symbol of the **{{guild}}** guild. He decides to offer a general round of drinks in your honor, to great effect with the other customers."
     ],
     "end": " Your guild wins **{{xp}}** :star:."
   }
