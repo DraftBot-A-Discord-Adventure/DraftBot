@@ -13,3 +13,13 @@ export class CommandGuildCreatePacketRes extends DraftBotPacket {
 
 	guildNameIsAcceptable?: boolean;
 }
+
+export class CommandGuildCreateRefusePacketRes extends DraftBotPacket {
+
+}
+
+export class CommandGuildCreateAcceptPacketRes extends DraftBotPacket {
+	guildName!: string;
+
+	price!: number;
+}
