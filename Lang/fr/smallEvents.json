@@ -367,5 +367,115 @@
       "Alors que vous entrez dans une auberge, le tenancier reconnaît l'emblème sur votre bouclier, symbole de la guilde **{{guild}}**. Il décide d'offrir une tournée générale en votre honneur, du meilleur effet auprès des autres clients."
     ],
     "end": " Votre guilde remporte **{{xp}}** :star:."
+  },
+  "winEnergy": {
+    "stories": [
+      "vous rencontrez une jeune dame qui se présente comme Hilda la guérisseuse. Après un rapide échange vous acceptez qu'elle essaie sur vous son dernier remède. **Vous récupérez toute votre énergie** :zap:",
+      "vous croisez une jeune femme qui vous propose de vous soigner. Vous acceptez et recevez donc un délicieux breuvage. **Vous récupérez toute votre énergie** :zap:",
+      "vous tombez nez à nez avec avec une jeune femme accompagnée d'une chèvre. Elle vous propose un remède miracle. Curieux vous acceptez, contre toute attente vous vous sentez immédiatement mieux. **Vous récupérez toute votre énergie** :zap:",
+      "vous rencontrez une jeune femme qui vous propose de vous soigner. Vous acceptez et vous sentez immédiatement mieux. **Vous récupérez toute votre énergie** :zap:",
+      "vous rencontrez une femme tout de blanc vêtue qui vous propose de vous soigner. Vous acceptez le traitement de la rebouteuse. **Vous récupérez toute votre énergie** :zap:",
+      "vous faites la connaissance d'une femme qui se décrit comme une guérisseuse. Après quelques discussions, vous apprenez que cette dernière est en route vers les pâturages et propose des services de soin sur la route. Vous acceptez un remède mystérieux. **Vous récupérez toute votre énergie** :zap:",
+      "vous croisez une jeune femme qui vous propose de vous soigner. Vous acceptez et vous sentez immédiatement mieux. **Vous récupérez toute votre énergie** :zap:"
+    ]
+  },
+  "doNothing": {
+    "stories": [
+      "Aucun incident ni évènement notable à signaler.",
+      "Il ne s'est rien passé de particulier depuis le précédent rapport.",
+      "Vous n'avez rencontré aucune difficulté à progresser durant ces derniers temps, vous continuez d'avancer tranquillement.",
+      "Rien à signaler, vous continuez d'avancer.",
+      "Pas d'obstacle en vue, rien ne semble être contre vous en ce moment. Vous continuez d'avancer.",
+      "La voie est libre, aucune raison de s'arrêter, vous continuez d'avancer.",
+      "Rien d'important ne s'est passé depuis le rapport précédent.",
+      "Pas d'évènement notable depuis la dernière fois.",
+      "Les chiens aboient et la caravane passe. Vous continuez tranquillement votre route.",
+      "La princesse se rapproche de vous ! Du moins c'est l'impression que vous avez... Vous continuez votre route."
+    ]
+  },
+  "winFightPoints": {
+    "stories": [
+      "vous voyez un banc sur le bord du chemin et vous vous asseyez quelques minutes. Cela vous rend ⚡ **{{fightPoints}}**.",
+      "vous détachez votre gourde de votre ceinture et vous vous désaltérez. Vous gagnez ⚡ **{{fightPoints}}**.",
+      "vous sortez un fruit que vous gardiez dans un tissu et le mangez. Cela vous rend ⚡ **{{fightPoints}}**.",
+      "vous vous arrêtez quelques secondes pour reprendre votre souffle. Vous repartez un peu plus endurant et gagnez ⚡ **{{fightPoints}}**.",
+      "vous sortez un morceau de pain et vous vous rassasiez avec celui-ci. Cela vous rend ⚡ **{{fightPoints}}**.",
+      "vous vous asseyez quelques minutes et vous méditez pour apaiser votre esprit. Vous récupérez ⚡ **{{fightPoints}}**.",
+      "vous sentez vos muscles se tendre et vous vous arrêtez quelques instants pour les étirer. Vous récupérez ⚡ **{{fightPoints}}**."
+    ]
+  },
+  "winHealth": {
+    "stories": [
+      "vous découvrez un arbre dont les fruits semblent appétissants. Curieux, vous en mangez quelques uns, et reprenez votre route. Vous gagnez **{{health}} :heart:**.",
+      "vous trouvez une fiole presque vide. Comme son contenu ne semble pas dangereux, vous finissez de le boire avant de continuer votre chemin. Vous gagnez **{{health}} :heart:**.",
+      "vous découvrez un bâtiment abandonné. Vous décidez de l'explorer et trouvez rapidement un peu de nourriture. Vous gagnez **{{health}} :heart:**.",
+      "vous rencontrez une femme qui se vante de pouvoir soigner tous vos maux. Vous décidez de lui faire confiance et lui laissez réciter des incantations pendant quelques minutes. Vous gagnez **{{health}} :heart:**.",
+      "vous faites la rencontre d'un groupe d'enfants partageant les fruits de leur récoltes. Ils vous offrent quelques poires avant que vous ne repreniez votre route. Vous gagnez **{{health}} :heart:**.",
+      "votre regard est attiré par ce qui semble être un étroit passage entre les buissons. Vous le suivez et trouvez quelques champignons sur le sol. Ces derniers n'ont pas l'air dangereux, alors vous prenez le risque de les goûter. Vous gagnez **{{health}} :heart:**.",
+      "vous entendez le bruissement d'un tout petit cours d'eau. Vous décidez de vous y rendre et buvez un peu de son eau qui s'avère être très fraîche. Vous gagnez **{{health}} :heart:**.",
+      "vous découvrez des paniers entiers de nourriture près d'un feu de camp. Vous hésitez quelques secondes avant de vous empresser d'en manger autant que vous le pouvez. Repu, vous vous sentez bien mieux à présent. Vous gagnez **{{health}} :heart:**.",
+      "vous apercevez une hutte abandonnée. Vous décidez d'entrer dans celle-ci, quand un flacon brillant vous attire. Intrépide, vous buvez son contenu. Vous gagnez **{{health}} :heart:**.",
+      "vous trouvez une petite ferme avec un feu de cheminée récemment éteint. Vous vous dépêchez de voler quelques légumes avant que les propriétaires ne reviennent et vous les mangez. Vous gagnez **{{health}} :heart:**.",
+      "vous rencontrez un moine avec qui vous discutez. Celui-ci, impressionné par votre quête pour la princesse, décide de vous dédier une prière. Vous gagnez **{{health}} :heart:**.",
+      "vous trouvez quelques fraises des bois ! Après vous être régalé, vous poursuivez votre route. Vous gagnez **{{health}} :heart:**.",
+      "vous apercevez un paquet abandonné au sol. Vous l'ouvrez et y découvrez des vivres que vous consommez avant de reprendre votre route. Vous gagnez **{{health}} :heart:**.",
+      "vous trouvez une cascade et décidez de vous y désaltérer. Vous gagnez **{{health}} :heart:**.",
+      "vous croisez un vieillard qui dit posséder un élixir qu'il serait prêt à vous céder gratuitement. Curieux, vous l'acceptez et le buvez. Vous gagnez **{{health}} :heart:**.",
+      "vous trouvez une gourde d'eau dans une charrette abandonnée. Vous buvez l'eau et vous vous sentez mieux. Vous gagnez **{{health}} :heart:**"
+    ]
+  },
+  "winPersonalXP": {
+    "stories": [
+      "Grâce à un subterfuge digne des meilleurs chevaliers, vous arrivez à vous défaire d'un animal étrange qui vous attaquait depuis un moment, ce après quoi vous repartez guilleret.",
+      "Sur votre route, vous croisez un animal étrange. Tandis que vous passez proche de lui, celui-ci vous saute dessus ! Vous dégainez votre épée, et le pourfendez instantanément. Vous reprenez votre route, sur vos gardes.",
+      "Alors que vous vous faites attaquer par des brigands, vous profitez d'un instant d'inattention pour leur échapper. Vous hâtez le pas pendant quelques heures avant de vous sentir à nouveau en sécurité.",
+      "Au détour d'un virage, une ombre se jette sur vous ! Après une terrible bataille, vous écrasez votre adversaire sous un rocher. Fier de votre réussite, vous reprenez votre route.",
+      "Au détour d'un bosquet, un homme vêtu entièrement de noir vous attaque, sûrement pour vous dérober votre argent. Vous sortez votre arme, et réussissez à le neutraliser.",
+      "Vous marchez tranquillement en observant le paysage. Soudain, une bête enragée fait un bond prodigieux, vous plaquant au sol avec force. Vous parvenez à reprendre le dessus sur la bête en l'étranglant à l'aide d'un bâton.",
+      "Tout en longeant un petit cours d'eau, un chien errant vous saute dessus. Vous réussissez à vous en défaire après quelques minutes de lutte.",
+      "Sur votre chemin, vous rencontrez une bête qui ne semble pas commode. Vous décidez de prendre la fuite, mais elle vous course et vous rattrape rapidement. Vous faites alors volte-face et lui assénez un coup violent. Cette action suffisante à vous débarrasser de votre adversaire, vous reprenez votre route.",
+      "Du coin de l'œil, vous remarquez une sacoche pleine d'or tomber de la poche d'un aventurier marchant devant vous. Vous l'alertez immédiatement et lui rendez la sacoche. Celui-ci vous remercie pour votre bonté."
+    ],
+    "end": " Vous remportez **{{xp}}** :star:."
+  },
+  "staffMember": {
+    "context": [
+      "En contournant un ravin, vous rencontrez un barde. Pendant que vous marchez, il vous raconte l'histoire de **{{pseudo}}**, \"{{sentence}}\".",
+      "Alors que vous cheminez tranquillement, vous remarquez une grande affiche. Elle semble louer les exploits de **{{pseudo}}**... \"{{sentence}}\".",
+      "Durant l'une de vos aventures, vous entendez une histoire, \"{{sentence}}\", mais n'en connaissez pas le héros. Après quelques recherches, vous vous rendez compte qu'elle parle de **{{pseudo}}** ! Son nom vous semble familier...",
+      "En entrant dans un bâtiment le long de votre chemin, vous discutez quelques temps avec le gérant de l'établissement. Vous lui demandez de vous conter les légendes locales. Il vous décrit alors **{{pseudo}}**, \"{{sentence}}\".",
+      "Sur votre chemin, vous faites la rencontre d'un vieil homme que vous décidez d'accompagner. Durant votre bout de chemin ensemble, celui-ci vous raconte l'histoire de **{{pseudo}}** : \"{{sentence}}\".",
+      "En marchant le long de la route, vous apercevez un livre en mauvais état par terre. Intitulé **{{pseudo}}**, vous l'ouvrez et lisez les premières phrases... \"{{sentence}}\".",
+      "Après une longue et monotone marche, vous rencontrez une personne chantant en l'honneur de **{{pseudo}}**... :musical_note: \"{{sentence}}\" :musical_note:.",
+      "Sur votre voyage, un nuage de poussière apparaît au loin. Quelques minutes plus tard, un cavalier s'arrête devant vous, il dit chercher **{{pseudo}}**. À votre regard inquisiteur, il ajoute : \"{{sentence}}\"."
+    ],
+    "members": {
+      "Nysvaa": "un prétendant à la main de la princesse qui ne compte pas la gagner par le combat mais en prouvant sa réflexion lors de ses péripéties (et par sa chance un peu... beaucoup)",
+      "Thero1st": "un des premiers compétiteurs pour la main de la princesse et grand chef cuisinier spécialisé dans les brochettes au poulpe, ce combattant prend pourtant le concours à la légère, préférant passer du temps dans ses stands avec ses animaux",
+      "Oscar": "un piètre guerrier qui, à son apogée, d'un ancien temps révolu, dominait le classement de par ses points et ses connaissances",
+      "QQtin": "un fidèle chevalier terrassant de nombreux ennemis grâce au cadeau du ciel et qui a contribué à ce que ce monde devienne meilleur",
+      "LePourfendeur": "un aventurier expérimenté, adepte des économies, peut-être un peu trop. Auparavant très actif, il se fait maintenant plus discret mais reste parmi les meilleurs",
+      "Ines": "une combattante des débuts de ce monde, qui malheureusement se bat de moins en moins pour lui par manque de temps, mais qui reste dans la course à la princesse, enfin plutôt au prince. Fidèle partisane du Kyutisme",
+      "romain22222": "un grand intellect, cherchant autant à résoudre les situations de façon optimale, qu'à les créer. Celui-ci discute trop, bien trop, avec les ménestrels et ses adorateurs, et évite les tentes dans les forêts",
+      "Asemerald": "un aventurier se laissant porter par sa chance, connu pour sa puissance de feu dépassant l'imaginable",
+      "Izuku": "un riche inventeur qui créa une potion d'amour pour la belle princesse mais qui se la fit voler par un marchand",
+      "Draft": "un ancien dieu créateur du monde dans lequel tous évoluent. Épaté par les capacités de son peuple, il erre parmi eux tandis qu'il travaille à perfectionner leur expérience",
+      "Royal": "un entrepreneur aguerri qui privilégie l'argent à la morale. Friand de tournois, il n'hésitera pas à se battre pour la princesse",
+      "Max": "un inventeur fou, amoureux du voyage. Il est le seul à avoir, un jour, parcouru la terre des dragons. La légende raconte que ses projets ont presque tous mené l'humanité au bord de l'extinction",
+      "Eagle": "un éleveur de dragon, qui a mené les premiers coups d'état du royaume",
+      "DeadAngelV6": "un humain banal aimant la vie, manger est l'une de ses passions. Donnez lui à manger quand vous le croisez",
+      "Kyusaki": "le premier Grand prêtre du Kyutisme, il mène une route de méditation incognito parmi les aventuriers du monde, donnant souvent conseil à ceux qui en font la demande",
+      "Greninja_san": "un batracien à l'intellect hors normes, il usa de ses connaissances multiples pour s'intégrer à la vie humaine, et apprendre les préceptes de leur magie",
+      "nwcubeok": "un célèbre magicien qui parcourt la contrée afin de promouvoir ses talents en magie. Il espère que la princesse saura les apprécier",
+      "SuperBananeNinja": "un mage discret sillonnant les terres, généralement solitaire, souvent salutaire, avec ses manières hétéroclites et ses tours déconcertants, mais toujours droit dans ses bottes",
+      "Hitori": "une artiste complètement incohérente se démarquant par son dynamisme hors du commun. Elle demande à ceux qui veulent bien l'entendre s'ils savent où se cachent les Dieux et est tristement célèbre pour sa malchance exceptionnelle ayant provoqué la destruction de nombreux édifices",
+      "Pietagorh": "le directeur d'une association aidant les jeunes aventuriers à s'améliorer. Les rumeurs racontent qu'il est capable de déterminer les limites de ce monde",
+      "Doctor": "un grand aventurier qui parcourt le royaume à la recherche d'un adversaire à sa taille. Si vous le croisez, vous pouvez essayer de le combattre, mais peu sont ceux qui ont réussi à survivre à son premier coup",
+      "KirIcare": "un personnage discret mais intriguant. Il attise la curiosité de par sa présence effacée suscitant ainsi l'intérêt d'une certaine artiste et d'un chasseur de dragon de renom qui se sont donnés pour quête de l'acquérir",
+      "symsym": "un jeune aventurier curieux et avide de rencontres. Certains racontent qu'il aurait fondé une taverne au fin fond de la route marécageuse",
+      "Pagotortoise": "un kaijū qui, malgré son apparence, explore la contrée en quête de personnes à aider, et ne veut aucun mal. Il est prêt à vous guider en cas de besoin, profitez-en donc pour lui demander quelques conseils",
+      "Voltou": "le plus grand voleur que ce monde ait porté, on raconte que sa fortune égalerait celle du roi et qu’il l’aurait caché aux 4 coins du royaume. Si vous le croisez, pensez à bien vérifier vos poches",
+      "Aiko": "une patate sauvage faisant de tous ses ennemis de la purée, visant les plus hautes étoiles de cet univers"
+    }
   }
 }
