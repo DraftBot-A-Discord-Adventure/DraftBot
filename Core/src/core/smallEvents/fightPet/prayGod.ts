@@ -2,7 +2,7 @@ import {FightPetActionFunc} from "../../../data/FightPetAction";
 import {SmallEventConstants} from "../../../../../Lib/src/constants/SmallEventConstants";
 import {InventorySlots} from "../../database/game/models/InventorySlot";
 import {ItemConstants} from "../../../../../Lib/src/constants/ItemConstants";
-import {RandomUtils} from "../../utils/RandomUtils";
+import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
 
 export const fightPetAction: FightPetActionFunc = async (player, pet) =>
 	// This action has 10% times how many holy items the player has times the rarity of the pet

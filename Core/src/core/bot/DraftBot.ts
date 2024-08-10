@@ -7,7 +7,7 @@ import {Settings} from "../database/game/models/Setting";
 import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
 import {Op} from "sequelize";
 import PetEntity from "../database/game/models/PetEntity";
-import {RandomUtils} from "../utils/RandomUtils";
+import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {PotionDataController} from "../../data/Potion";
 import {getNextDay2AM} from "../../../../Lib/src/utils/TimeUtils";
 import {TIMEOUT_FUNCTIONS} from "../../../../Lib/src/constants/TimeoutFunctionsConstants";

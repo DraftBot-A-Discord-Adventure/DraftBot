@@ -1,4 +1,4 @@
-import {RandomUtils} from "./RandomUtils";
+import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {
 	ReactionCollector,
 	ReactionCollectorCreationPacket,

@@ -20,7 +20,7 @@ import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import Guild, {Guilds} from "../../core/database/game/models/Guild";
 import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants";
 import {getFoodIndexOf} from "../../core/utils/FoodUtils";
-import {RandomUtils} from "../../core/utils/RandomUtils";
+import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {Constants} from "../../../../Lib/src/constants/Constants";
 
 

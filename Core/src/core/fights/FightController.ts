@@ -1,7 +1,7 @@
 import {Fighter} from "./fighter/Fighter";
 import {FightState} from "./FightState";
 import {FightView} from "./FightView";
-import {RandomUtils} from "../utils/RandomUtils";
+import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
 import {FighterStatus} from "./FighterStatus";
 import {FightWeather, FightWeatherEnum} from "./FightWeather";

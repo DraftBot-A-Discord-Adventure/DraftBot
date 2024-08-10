@@ -1,5 +1,5 @@
 import {MapConstants} from "../../../../Lib/src/constants/MapConstants";
-import {RandomUtils} from "../utils/RandomUtils";
+import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {LogsMapLinks} from "../database/logs/models/LogsMapLinks";
 import {Op, Sequelize} from "sequelize";
 import {MapLinkDataController} from "../../data/MapLink";

@@ -1,5 +1,5 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {RandomUtils} from "../../../../utils/RandomUtils";
+import {RandomUtils} from "../../../../../../../Lib/src/utils/RandomUtils";
 import {FightActionFunc} from "../../../../../data/FightAction";
 import {defaultFailFightActionResult} from "../../../../../../../Lib/src/interfaces/FightActionResult";
 import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTemplate";

@@ -1,7 +1,7 @@
 import {ItemCategory, ItemNature, ItemRarity} from "../../../Lib/src/constants/ItemConstants";
 import {ItemDataController} from "./DataController";
 import {SupportItem} from "./SupportItem";
-import {RandomUtils} from "../core/utils/RandomUtils";
+import {RandomUtils} from "../../../Lib/src/utils/RandomUtils";
 import {ObjectItem} from "./ObjectItem";
 import {SupportItemDisplayPacket} from "../../../Lib/src/packets/commands/CommandInventoryPacket";
 

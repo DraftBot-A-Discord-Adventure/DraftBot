@@ -1,6 +1,6 @@
 import InventorySlot, {InventorySlots} from "../database/game/models/InventorySlot";
 import {MissionsController} from "../missions/MissionsController";
-import {RandomUtils} from "./RandomUtils";
+import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import Player, {Players} from "../database/game/models/Player";

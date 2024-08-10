@@ -31,7 +31,7 @@ import {EndCallback, ReactionCollectorInstance} from "../../core/utils/Reactions
 import {FightOvertimeBehavior} from "../../core/fights/FightOvertimeBehavior";
 import {ClassDataController} from "../../data/Class";
 import {PlayerSmallEvents} from "../../core/database/game/models/PlayerSmallEvent";
-import {RandomUtils} from "../../core/utils/RandomUtils";
+import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {
 	ReactionCollectorPveFight,
 	ReactionCollectorPveFightReactionValidate

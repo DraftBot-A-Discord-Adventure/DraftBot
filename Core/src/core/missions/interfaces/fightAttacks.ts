@@ -1,5 +1,5 @@
 import {IMission} from "../IMission";
-import {RandomUtils} from "../../utils/RandomUtils";
+import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
 import {FightActionController} from "../../fights/actions/FightActionController";
 import {ClassDataController} from "../../../data/Class";
 

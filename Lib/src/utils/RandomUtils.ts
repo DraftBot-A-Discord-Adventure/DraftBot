@@ -1,5 +1,5 @@
 import {Random} from "random-js";
-import {ConstantRange} from "../../../../Lib/src/constants/Constants";
+import {ConstantRange} from "../constants/Constants";
 
 /**
  * Functions concerning pseudo-randomness
@@ -39,7 +39,7 @@ export class RandomUtils {
 	/**
 	 * Pick a random element from an enum
 	 */
-	public static enumPick = <T>(anEnum: T): T[keyof T] => {
+	public static enumPick = <T extends object>(anEnum: T): T[keyof T] => {
 		const enumValues = (Object.keys(anEnum)
 			.map(n => Number.parseInt(n))
 			.filter(n => !Number.isNaN(n)) as unknown) as T[keyof T][];

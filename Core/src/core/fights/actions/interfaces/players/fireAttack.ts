@@ -1,7 +1,7 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
 import {FightAlterations} from "../../FightAlterations";
-import {RandomUtils} from "../../../../utils/RandomUtils";
+import {RandomUtils} from "../../../../../../../Lib/src/utils/RandomUtils";
 import {FightActionFunc} from "../../../../../data/FightAction";
 import {FightActionResult} from "../../../../../../../Lib/src/interfaces/FightActionResult";
 

@@ -3,7 +3,7 @@ import {QueryTypes} from "sequelize";
 import {MapLinkDataController} from "./MapLink";
 import Player from "../core/database/game/models/Player";
 import {Data} from "./Data";
-import {RandomUtils} from "../core/utils/RandomUtils";
+import {RandomUtils} from "../../../Lib/src/utils/RandomUtils";
 
 export class MapLocation extends Data<number> {
 	declare readonly type: string;

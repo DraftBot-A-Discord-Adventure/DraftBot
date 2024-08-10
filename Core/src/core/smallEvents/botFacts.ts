@@ -1,6 +1,6 @@
 import {SmallEventDataController, SmallEventFuncs} from "../../data/SmallEvent";
 import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
-import {RandomUtils} from "../utils/RandomUtils";
+import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {Players} from "../database/game/models/Player";
 import {PetEntities} from "../database/game/models/PetEntity";
 import {Guilds} from "../database/game/models/Guild";

@@ -21,7 +21,7 @@ import {Guild, Guilds} from "../database/game/models/Guild";
 import {TravelTime} from "../maps/TravelTime";
 import {Effect} from "../../../../Lib/src/enums/Effect";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import {RandomUtils} from "../utils/RandomUtils";
+import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 
 type LotteryProperties = {
 	successRate: {

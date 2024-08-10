@@ -1,4 +1,4 @@
-import {RandomUtils} from "../utils/RandomUtils";
+import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {Fighter} from "./fighter/Fighter";
 
 export class FightWeatherEnum {

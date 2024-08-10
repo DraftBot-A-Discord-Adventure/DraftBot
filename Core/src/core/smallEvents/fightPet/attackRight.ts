@@ -1,5 +1,5 @@
 import Player from "../../database/game/models/Player";
-import {RandomUtils} from "../../utils/RandomUtils";
+import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
 import {SmallEventConstants} from "../../../../../Lib/src/constants/SmallEventConstants";
 import {FightPetActionFunc} from "../../../data/FightPetAction";
 

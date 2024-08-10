@@ -1,6 +1,6 @@
 import {SmallEventDataController, SmallEventFuncs} from "../../data/SmallEvent";
 import {SmallEventConstants} from "../../../../Lib/src/constants/SmallEventConstants";
-import {RandomUtils} from "../utils/RandomUtils";
+import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {TravelTime} from "../maps/TravelTime";
 import {MissionsController} from "../missions/MissionsController";

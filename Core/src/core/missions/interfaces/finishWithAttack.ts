@@ -1,6 +1,6 @@
 import {IMission} from "../IMission";
 import {FightActionController} from "../../fights/actions/FightActionController";
-import {RandomUtils} from "../../utils/RandomUtils";
+import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
 import {ClassDataController} from "../../../data/Class";
 
 export const missionInterface: IMission = {

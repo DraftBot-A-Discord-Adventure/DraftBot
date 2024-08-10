@@ -1,6 +1,6 @@
 import {DataControllerString} from "./DataController";
 import {Data} from "./Data";
-import {RandomUtils} from "../core/utils/RandomUtils";
+import {RandomUtils} from "../../../Lib/src/utils/RandomUtils";
 import {PVEConstants} from "../../../Lib/src/constants/PVEConstants";
 
 export class Monster extends Data<string> {

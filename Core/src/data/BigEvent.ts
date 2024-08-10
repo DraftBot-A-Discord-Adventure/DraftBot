@@ -3,7 +3,7 @@ import {Data} from "./Data";
 import {BigEventTrigger, verifyTrigger} from "./events/BigEventTrigger";
 import {Possibility} from "./events/Possibility";
 import Player from "../core/database/game/models/Player";
-import {RandomUtils} from "../core/utils/RandomUtils";
+import {RandomUtils} from "../../../Lib/src/utils/RandomUtils";
 import {verifyPossibilityCondition} from "./events/PossibilityCondition";
 
 export class BigEvent extends Data<number> {
