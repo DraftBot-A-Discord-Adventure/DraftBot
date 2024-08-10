@@ -32,6 +32,18 @@ import {interactOtherPlayerGetPlayerDisplay} from "../../smallEvents/interactOth
 import {SmallEventLeagueRewardPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventLeagueReward";
 import {printTimeBeforeDate} from "../../../../Lib/src/utils/TimeUtils";
 import {SmallEventWinGuildXPPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinGuildXPPacket";
+import {SmallEventBonusGuildPVEIslandPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventBonusGuildPVEIslandPacket";
+import {SmallEventBotFactsPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventBotFactsPacket";
+import {SmallEventDoNothingPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventDoNothingPacket";
+import {SmallEventFightPetPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFightPetPacket";
+import {SmallEventGobletsGamePacket} from "../../../../Lib/src/packets/smallEvents/SmallEventGobletsGamePacket";
+import {SmallEventShopPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventShopPacket";
+import {SmallEventStaffMemberPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventStaffMemberPacket";
+import {SmallEventWinEnergyPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinEnergyPacket";
+import {SmallEventWinFightPointsPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinFightPointsPacket";
+import {SmallEventWinHealthPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinHealthPacket";
+import {SmallEventWinPersonalXPPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinPersonalXPPacket";
+import {SmallEventWitchResultPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWitchPacket";
 
 export function getRandomSmallEventIntro(language: Language): string {
 	return StringUtils.getRandomTranslation("smallEvents:intro", language);
@@ -381,5 +393,65 @@ export default class SmallEventsHandler {
 				]
 			});
 		}
+	}
+
+	@packetHandler(SmallEventBonusGuildPVEIslandPacket)
+	async smallEventBonusGuildPVEIsland(socket: WebSocket, packet: SmallEventBonusGuildPVEIslandPacket, context: PacketContext): Promise<void> {
+		// Todo
+	}
+
+	@packetHandler(SmallEventBotFactsPacket)
+	async smallEventBotFacts(socket: WebSocket, packet: SmallEventBotFactsPacket, context: PacketContext): Promise<void> {
+		// Todo
+	}
+
+	@packetHandler(SmallEventDoNothingPacket)
+	async smallEventDoNothing(socket: WebSocket, packet: SmallEventDoNothingPacket, context: PacketContext): Promise<void> {
+		// Todo
+	}
+
+	@packetHandler(SmallEventFightPetPacket)
+	async smallEventFightPet(socket: WebSocket, packet: SmallEventFightPetPacket, context: PacketContext): Promise<void> {
+		// Todo
+	}
+
+	@packetHandler(SmallEventGobletsGamePacket)
+	async smallEventGobletsGame(socket: WebSocket, packet: SmallEventGobletsGamePacket, context: PacketContext): Promise<void> {
+		// Todo
+	}
+
+	@packetHandler(SmallEventShopPacket)
+	async smallEventShop(socket: WebSocket, packet: SmallEventShopPacket, context: PacketContext): Promise<void> {
+		// Todo
+	}
+
+	@packetHandler(SmallEventStaffMemberPacket)
+	async smallEventStaffMember(socket: WebSocket, packet: SmallEventStaffMemberPacket, context: PacketContext): Promise<void> {
+		// Todo
+	}
+
+	@packetHandler(SmallEventWinEnergyPacket)
+	async smallEventWinEnergy(socket: WebSocket, packet: SmallEventWinEnergyPacket, context: PacketContext): Promise<void> {
+		// Todo
+	}
+
+	@packetHandler(SmallEventWinFightPointsPacket)
+	async smallEventWinFightPoints(socket: WebSocket, packet: SmallEventWinFightPointsPacket, context: PacketContext): Promise<void> {
+		// Todo
+	}
+
+	@packetHandler(SmallEventWinHealthPacket)
+	async smallEventWinHealth(socket: WebSocket, packet: SmallEventWinHealthPacket, context: PacketContext): Promise<void> {
+		// Todo
+	}
+
+	@packetHandler(SmallEventWinPersonalXPPacket)
+	async smallEventWinPersonalXP(socket: WebSocket, packet: SmallEventWinPersonalXPPacket, context: PacketContext): Promise<void> {
+		// Todo
+	}
+
+	@packetHandler(SmallEventWitchResultPacket)
+	async smallEventWitchResult(socket: WebSocket, packet: SmallEventWitchResultPacket, context: PacketContext): Promise<void> {
+		// Todo
 	}
 }

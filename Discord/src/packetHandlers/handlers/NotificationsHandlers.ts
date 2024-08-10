@@ -9,6 +9,13 @@ import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 import {minutesToHours} from "../../../../Lib/src/utils/TimeUtils";
+import {GuildLevelUpPacket} from "../../../../Lib/src/packets/notifications/GuildLevelUpPacket";
+import {MissionsCompletedPacket} from "../../../../Lib/src/packets/notifications/MissionsCompletedPacket";
+import {MissionsExpiredPacket} from "../../../../Lib/src/packets/notifications/MissionsExpiredPacket";
+import {PlayerDeathPacket} from "../../../../Lib/src/packets/notifications/PlayerDeathPacket";
+import {PlayerLeavePveIslandPacket} from "../../../../Lib/src/packets/notifications/PlayerLeavePveIslandPacket";
+import {PlayerLevelUpPacket} from "../../../../Lib/src/packets/notifications/PlayerLevelUpPacket";
+import {PlayerReceivePetPacket} from "../../../../Lib/src/packets/notifications/PlayerReceivePetPacket";
 
 export default class NotificationsHandlers {
 	@packetHandler(CommandReportChooseDestinationRes)
@@ -50,4 +57,41 @@ export default class NotificationsHandlers {
 			}
 		}
 	}
+
+	@packetHandler(GuildLevelUpPacket)
+	async guildLevelUp(socket: WebSocket, packet: GuildLevelUpPacket, context: PacketContext): Promise<void> {
+		// Todo
+	}
+
+	@packetHandler(MissionsCompletedPacket)
+	async missionsCompleted(socket: WebSocket, packet: MissionsCompletedPacket, context: PacketContext): Promise<void> {
+		// Todo
+	}
+
+	@packetHandler(MissionsExpiredPacket)
+	async missionsExpired(socket: WebSocket, packet: MissionsExpiredPacket, context: PacketContext): Promise<void> {
+		// Todo
+	}
+
+	@packetHandler(PlayerDeathPacket)
+	async playerDeath(socket: WebSocket, packet: PlayerDeathPacket, context: PacketContext): Promise<void> {
+		// Todo
+	}
+
+	@packetHandler(PlayerLeavePveIslandPacket)
+	async playerLeavePveIsland(socket: WebSocket, packet: PlayerLeavePveIslandPacket, context: PacketContext): Promise<void> {
+		// Todo
+	}
+
+	@packetHandler(PlayerLevelUpPacket)
+	async playerLevelUp(socket: WebSocket, packet: PlayerLevelUpPacket, context: PacketContext): Promise<void> {
+		// Todo
+	}
+
+	@packetHandler(PlayerReceivePetPacket)
+	async playerReceivePet(socket: WebSocket, packet: PlayerReceivePetPacket, context: PacketContext): Promise<void> {
+		// Todo
+	}
+
+
 }

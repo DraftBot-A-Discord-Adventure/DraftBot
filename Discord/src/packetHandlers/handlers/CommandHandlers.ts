@@ -20,6 +20,9 @@ import {CommandGuildPacketRes} from "../../../../Lib/src/packets/commands/Comman
 import {reportResult, reportTravelSummary} from "../../commands/player/ReportCommand";
 import {
 	CommandReportBigEventResultRes,
+	CommandReportErrorNoMonsterRes,
+	CommandReportMonsterRewardRes,
+	CommandReportRefusePveFightRes,
 	CommandReportTravelSummaryRes
 } from "../../../../Lib/src/packets/commands/CommandReportPacket";
 import {CommandMapDisplayRes} from "../../../../Lib/src/packets/commands/CommandMapPacket";
@@ -122,5 +125,20 @@ export default class CommandHandlers {
 	@packetHandler(CommandMapDisplayRes)
 	async mapRes(socket: WebSocket, packet: CommandMapDisplayRes, context: PacketContext): Promise<void> {
 		await handleCommandMapDisplayRes(packet, context);
+	}
+
+	@packetHandler(CommandReportMonsterRewardRes)
+	async reportMonsterRewardRes(socket: WebSocket, packet: CommandReportMonsterRewardRes, context: PacketContext): Promise<void> {
+		// TODO
+	}
+
+	@packetHandler(CommandReportErrorNoMonsterRes)
+	async reportErrorNoMonsterRes(socket: WebSocket, packet: CommandReportErrorNoMonsterRes, context: PacketContext): Promise<void> {
+		// TODO
+	}
+
+	@packetHandler(CommandReportRefusePveFightRes)
+	async reportRefusePveFightRes(socket: WebSocket, packet: CommandReportRefusePveFightRes, context: PacketContext): Promise<void> {
+		// TODO
 	}
 }

@@ -2,7 +2,7 @@ import {discordConfig} from "./DraftBotShard";
 import {PacketListenerClient} from "../../../Lib/src/packets/PacketListener";
 import {WebSocket} from "ws";
 import {registerAllPacketHandlers} from "../packetHandlers/PacketHandler";
-import {makePacket, PacketDirection, verifyPacketsImplementation} from "../../../Lib/src/packets/DraftBotPacket";
+import {makePacket, PacketDirection} from "../../../Lib/src/packets/DraftBotPacket";
 import {ErrorPacket} from "../../../Lib/src/packets/commands/ErrorPacket";
 
 export class DiscordWebSocket {
@@ -14,7 +14,6 @@ export class DiscordWebSocket {
 	static async init(): Promise<void> {
 		// Register packets
 		await registerAllPacketHandlers();
-		verifyPacketsImplementation(DiscordWebSocket.packetListener.getImplementedPackets(), PacketDirection.BACK_TO_FRONT);
 
 		DiscordWebSocket.socket = new WebSocket(discordConfig.WEBSOCKET_URL);
 
