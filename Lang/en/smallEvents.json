@@ -367,5 +367,115 @@
       "As you enter an inn, the tenant recognizes the emblem on your shield, the symbol of the **{{guild}}** guild. He decides to offer a general round of drinks in your honor, to great effect with the other customers."
     ],
     "end": " Your guild wins **{{xp}}** :star:."
+  },
+  "winEnergy": {
+    "stories": [
+      "meet a young lady who presents herself as Hilda the pride. After a quick exchange, you agree that it is trying its last remedition on you. **You will receive all your power** :zap:",
+      "you meet a young woman who offers you to heal yourself. You accept and receive a delicious beverage. **You will receive all your energy** :zap:",
+      "You fall nose with a young woman accompanied by a shirt and she offers you a miracle remedy! Curious you accept, against any expectation you feel better immeditated. **You will recover all your energy** :zap:",
+      "you meet a young woman who offers you to heal. You accept and feel immeditated better. **You will regain all your energy** :zap:",
+      "you meet a woman of white vetue who proposes to treat you. You agree to process the bottle. **You will receive all your energy** :zap:",
+      "you meet a woman who describes herself as a pride. After a few discussions, you learn that the latter is on its way to the patrimony and offers care services on the road. You agree to a mystery. **You will receive all your energy** :zap:",
+      "you meet a young woman who offers you to heal. You accept and feel immeditated better. **You will regain all your energy** :zap:"
+    ]
+  },
+  "doNothing": {
+    "stories": [
+      "No incidents or events noticeable to report.",
+      "Nothing special happened since the previous report.",
+      "You have not encountered any difficulties in advancing in recent times, you continue to move forward quietly.",
+      "Nothing to report, you keep moving forward.",
+      "No obstacles in sight, nothing seems to be against you right now. You keep moving forward.",
+      "The way is clear, no reason to stop, you keep moving forward.",
+      "Nothing significant has happened since the previous report.",
+      "No notable events since the last time.",
+      "The dogs bark and the caravan passes by. You continue quietly on your way.",
+      "The princess got closer to you! At least that's the impression you got... You carry on."
+    ]
+  },
+  "winFightPoints": {
+    "stories": [
+      "you see a bench on the edge of the road and sit a few minutes. This makes you ⚡ **{{fightPoints}}**.",
+      "you detach your waistband from your belt and cut yourself off. You win ⚡ **{{fightPoints}}**.",
+      "you pull out a fruit that you keep in a cloth and eat it. This makes you ⚡ **{{fightPoints}}**.",
+      "you stop for a few seconds to catch your breath. You go back a little harder and win ⚡ **{{fightPoints}}**.",
+      "you pull out a piece of bread and sit back with it. This makes you ⚡ **{{fightPoints}}**.",
+      "you sit a few minutes and meditate to soothe your mind. You start ⚡ **{{fightPoints}}**.",
+      "feel your muscles stretching and stopping for a few moments to stretch them. You start ⚡ **{{fightPoints}}**."
+    ]
+  },
+  "winHealth": {
+    "stories": [
+      "discover a tree whose fruits seem appealing. Curious, you eat some of them, and return to your road. You gain **{{health}} :heart:**.",
+      "you find a vial almost empty. Since its content doesn't seem dangerous, you finish drinking it before continuing your way. You earn **{{health}} :heart:**.",
+      "discover an abandoned bathing facility. You decide to explore and quickly find some food. You gain **{{health}} :heart:**.",
+      "You meet a woman who boasts of being able to cure all your ills. You decide to trust him and let him incite for a few minutes. You gain **{{health}} :heart:**.",
+      "meet a group of children sharing the fruits of their crops. They offer you a few pears before you start your journey. You earn **{{health}} :heart:**.",
+      "Your look is attracted by what seems to be a narrow passage between the bushes. You follow it and find some mushrooms on the ground. They don't look dangerous, so you take the risk of eating them. You earn **{{health}} :heart:**.",
+      "you hear the rustling of a tiny stream. You decide to go there and drink a little of its fresh water. You earn **{{health}} :heart:**.",
+      "you can find whole baskets of food from a campfire. You take a few seconds before you hurry to eat as much as you can. Reput, you feel much better ahead of time. You earn **{{health}} :heart:**.",
+      "you notice an abandoned hut. You decide to enter it, when a shiny bottle attracts you. Intrepid you drink its content. You gain **{{health}} :heart:**.",
+      "you find a small farm with a recently turned off fireplace. You should steal some legumes before the owners return and eat them. You will earn **{{health}} :heart:**.",
+      "you meet a monk you are talking to. This one, impressed by your queen for the princess, decides to give you a prayer. You earn **{{health}} :heart:**.",
+      "you find some strawberries from the wood! Aprese you are equal, continue your way. You win **{{health}} :heart:**.",
+      "you see a packet abandoned on the ground. You open it and find out some of the supplies you consume before you start your journey. You gain **{{health}} :heart:**.",
+      "you find a waterfall and decide to do it. You win **{{health}} :heart:**.",
+      "you meet an old man who says he has an Elixir that he would prefer to cede to you for free. Curious, you accept it and drink it. You earn **{{health}} :heart:**.",
+      "you find a water bottle in an abandoned cart. You drink water and feel better. You earn **{{health}} :heart:**"
+    ]
+  },
+  "winPersonalXP": {
+    "stories": [
+      "Grade a subterfuge worthy of the best knights, you arrive at a strange animal that had been attacking you for a while, after which you go back and forth guilleret.",
+      "On your way, you see a strange animal. As you move close to him, it jumps you up! You uncover your spell, and grab it instantly. You get back on your way, on your guard.",
+      "As you get attacked by bandits, you enjoy a moment of inattention to escape them. You take the step for a few hours before feeling secure again.",
+      "Around a bend, a shadow pounces on you ! After a hard battle, you crush your opponent under a rock. Proud of yourself, you get back on your road.",
+      "Around a grove, a black man is attacking you, surely, to steal your money. You pull out your weapon, and get rid of it.",
+      "You walk quietly while watching the landscape. Suddenly, an enraged beast leaps you into the ground with strength. You manage to regain the upper hand over the beast by strangling it with a bath.",
+      "As you walk along a small stream, a stray dog jumps on you. You manage to get rid of it after a few minutes of struggle.",
+      "On your road, you meet a beast which seems not friendly. You decides to run away, but it follows you and catch you up fast. You flip-flop and gaves it a violent blow. This enough action clears you from your opponent, you continue your way.",
+      "From the corner of the eye, you notice a gold bag falling from the pocket of an adventurer walking in front of you. You immediately alert him and give him the bag. He thanks you for your goodness."
+    ],
+    "end": " You win **{{xp}}** :star:."
+  },
+  "staffMember": {
+    "context": [
+      "By bypassing a ravine, you encounter a bard. While you walk, it tells you the story of **{{pseudo}}**, \"{{sentence}}\".",
+      "As you walk quietly, you notice a large poster. It seems to rent the exploits of **{{pseudo}}**... \"{{sentence}}\".",
+      "During one of your adventures, you hear a story, \"{{sentence}}\", but you don't know its heeros. After a few searches, you realize that she is talking about **{{pseudo}}**! Her name seems familiar to you...",
+      "By entering a bathing area along your path, you will be able to chat with the facility manager for a while. You ask them to tell you the local legends. They then describe you **{{pseudo}}**, \"{{sentence}}\".",
+      "On your way, you meet an old man whom you decide to go along. On your way together, this story tells you about **{{pseudo}}**: \"{{sentence}}\".",
+      "As you walk along the road, you see a book in bad condition on the ground. Called **{{pseudo}}**, you open it and read the first sentences... \"{{sentence}}\".",
+      "After a long, monotonous walk, you meet someone singing in honour of **{{pseudo}}**... :musical_note: \"{{sentence}}\" :musical_note:.",
+      "On your journey, a cloud of dust appears in the distance. A few minutes later, a rider stops in front of you, says he's looking for **{{pseudo}}**. After your inquisitor eyes, he adds: \"{{sentence}}\"."
+    ],
+    "members": {
+      "Nysvaa": "one of the princess' suitors who doesn't intend to win her by fighting but rather by prouving their ability to think during their adventures (and by their luck a little... a lot)",
+      "Thero1st": "one of the first suitors of the princess and a great chef specializing in octopus skewers. However, this fighter takes the contest lightly, preferring to spend time in their stands with their animals",
+      "Oscar": "a poor warrior who, in their prime, from a forgotten time, dominated the ranking with their points and their knowledge",
+      "QQtin": "a faithful knight defeating numerous enemies thanks to the grace of heaven and who helped make this world a better place",
+      "LePourfendeur": "an experienced adventurer, perhaps a bit too much. Previously active he is now more discreet but remains one of the best",
+      "Ines": "a fighter from the beginning of this world, who unfortunately is fighting less and less for him because of lack of time but still in the race to the princess, finally more to the prince. Faithful to Kyutism",
+      "romain22222": "a great thinker, seeking as much to resolve situations optimally as to create them. He talks too much, far too much, with the minstrels and his worshippers, and avoids the tents in the forests",
+      "Asemerald": "an adventurer let himself be carried by his luck, known for his firepower beyond imaginable",
+      "Izuku": "a rich inventor who created a love potion for the beautiful princess but was stolen by a merchant",
+      "Draft": "a former god creator of the world in which all develop. Stated by the abilities of his people, he wanders among them while working to improve their experience",
+      "Royal": "a seasoned entrepreneur who deprives money to morale. Tournament Friend, he'll not be fighting for the princess",
+      "Max": "a crazy inventor, in love with travel, he is the only one to have travelled the land of the dragons. The legend tells that her projects almost all led mankind to the edge of extinction",
+      "Eagle": "a dragon breeder, who led the first state moves of the kingdom",
+      "DeadAngelV6": "a common human loving life, eating is one of his passions. Give him food when you meet him",
+      "Kyusaki": "the first Great prey of Kyutism, it metrics an incognito meditation road among adventurers of the world often give advice to those making the request",
+      "Greninja_san": "a batracian has an unstandard intellect he used his multiple knowledge to integrate with human life, and learn the precepts of their magic",
+      "nwcubeok": "a famous wizard travelling the country to advertize his magical skills. He hopes the princess will appreciate them",
+      "SuperBananeNinja": "a discreet mage crisscrossing the land, generally solitary, often salutary, with his heterogeneous manners and disconcerting tricks, but always straight in his boots",
+      "Hitori": "a completely unrelated artist stands out for her extraordinary dynamism. She asks those who want to hear it if they know whether they are hiding the Gods and is sadly this for her exceptional misfortune, having caused the destruction of many buildings",
+      "Pietagorh": "the director of an association helping young adventurers improve. Rumors say that he is able to determine the boundaries of this world",
+      "Doctor": "a great adventurer who travels through the realm in search of an opponent at its size. If you cross it, you can try to fight it, but few have survived its first hit",
+      "KirIcare": "a discrete but intriguing character. It attracts curiosities due to its erased presence, thus creating the innermost nature of a certain artist and a renowned dragon hunter who gave themselves to the acqueer",
+      "symsym": "a curious and hungry young adventurer. Some say that he would have founded a tavern at the bottom of the lady road",
+      "Pagotortoise": "a kaiju<unk> who disgraced his appearance, explored the counterpart in the quee of people to help, and wants no harm. It is ready to guide you if needed, so take advantage of it to ask for some advice",
+      "Voltou": "the largest thief this world has carried, it is said that his fortune would be equal to that of the king and that he would have hidden it from the four corners of the kingdom. If you cross it, think carefully check your pockets",
+      "Aiko": "a wild potato making all its enemies of purity, targeting the highest stars of this universe"
+    }
   }
 }
