@@ -441,5 +441,10 @@
     "canceledDesc": "L'animale non è stato rilasciato.",
     "confirmDesc": ":warning:{{pet}}Siete sicuri di voler rilasciare ** **? Non è possibile annullare una volta completata l'azione.",
     "acceptedDesc": "{{pet}}Addio ** **..."
+  },
+  "petNick": {
+    "successTitle": "{{pseudo}}cambiare il soprannome dell'animale domestico",
+    "success": "{{name}}Il soprannome dell'animale domestico è stato cambiato in ** ** !",
+    "successNoName": "Il vostro animale non ha più un soprannome!"
   }
 }
