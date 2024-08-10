@@ -1,6 +1,6 @@
 import {Fighter} from "./Fighter";
 import {FightView} from "../FightView";
-import {RandomUtils} from "../../utils/RandomUtils";
+import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
 import {PVEConstants} from "../../../../../Lib/src/constants/PVEConstants";
 import {FighterStatus} from "../FighterStatus";
 import {Monster} from "../../../data/Monster";

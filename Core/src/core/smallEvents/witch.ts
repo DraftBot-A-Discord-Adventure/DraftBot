@@ -7,7 +7,7 @@ import {Constants} from "../../../../Lib/src/constants/Constants";
 import {SmallEventConstants} from "../../../../Lib/src/constants/SmallEventConstants";
 import {BlockingUtils} from "../utils/BlockingUtils";
 import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
-import {RandomUtils} from "../utils/RandomUtils";
+import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {SmallEventWitchResultPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWitchPacket";
 import {generateRandomItem, giveItemToPlayer} from "../utils/ItemUtils";
 import {ItemCategory, ItemNature, ItemRarity} from "../../../../Lib/src/constants/ItemConstants";

@@ -1,7 +1,7 @@
 import {DataControllerNumber} from "./DataController";
 import {Data} from "./Data";
 import {PetConstants} from "../../../Lib/src/constants/PetConstants";
-import {RandomUtils} from "../core/utils/RandomUtils";
+import {RandomUtils} from "../../../Lib/src/utils/RandomUtils";
 
 export class Pet extends Data<number> {
 	declare readonly rarity: number;

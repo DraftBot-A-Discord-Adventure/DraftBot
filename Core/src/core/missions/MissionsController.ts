@@ -6,7 +6,7 @@ import {hoursToMilliseconds} from "../../../../Lib/src/utils/TimeUtils";
 import {MissionDifficulty} from "./MissionDifficulty";
 import {Campaign} from "./Campaign";
 import {Constants} from "../../../../Lib/src/constants/Constants";
-import {RandomUtils} from "../utils/RandomUtils";
+import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import PlayerMissionsInfo, {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
 import {DraftBotPacket} from "../../../../Lib/src/packets/DraftBotPacket";

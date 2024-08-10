@@ -1,4 +1,4 @@
-import {RandomUtils} from "../../../../utils/RandomUtils";
+import {RandomUtils} from "../../../../../../../Lib/src/utils/RandomUtils";
 import {FightActionDataController, FightActionFunc} from "../../../../../data/FightAction";
 import {FightActionController} from "../../FightActionController";
 import {Monster, MonsterDataController} from "../../../../../data/Monster";

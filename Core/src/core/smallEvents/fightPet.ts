@@ -9,7 +9,7 @@ import {BlockingUtils} from "../utils/BlockingUtils";
 import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import {RandomUtils} from "../utils/RandomUtils";
+import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {EndCallback, ReactionCollectorInstance} from "../utils/ReactionsCollector";
 import {ReactionCollectorFightPet, ReactionCollectorFightPetReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorFightPet";
 import {SmallEventFightPetPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFightPetPacket";

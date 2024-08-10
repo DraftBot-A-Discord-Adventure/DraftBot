@@ -1,5 +1,5 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {RandomUtils} from "../../../../utils/RandomUtils";
+import {RandomUtils} from "../../../../../../../Lib/src/utils/RandomUtils";
 import {FightAlterationFunc} from "../../../../../data/FightAlteration";
 import {defaultDamageFightAlterationResult, defaultFightAlterationResult, defaultHealFightAlterationResult} from "../../../FightController";
 import {attackInfo, statsInfo} from "../../FightActionController";

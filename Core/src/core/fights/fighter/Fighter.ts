@@ -1,6 +1,6 @@
 import {FighterStatus} from "../FighterStatus";
 import {FightView} from "../FightView";
-import {RandomUtils} from "../../utils/RandomUtils";
+import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
 import {PVEConstants} from "../../../../../Lib/src/constants/PVEConstants";
 import {FightStatModifierOperation} from "../../../../../Lib/src/interfaces/FightStatModifierOperation";
 import {FightAlteration} from "../../../data/FightAlteration";

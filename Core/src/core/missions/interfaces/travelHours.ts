@@ -1,6 +1,6 @@
 import {IMission} from "../IMission";
 import {MissionDifficulty} from "../MissionDifficulty";
-import {RandomUtils} from "../../utils/RandomUtils";
+import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
 
 export const missionInterface: IMission = {
 	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: unknown }): boolean {

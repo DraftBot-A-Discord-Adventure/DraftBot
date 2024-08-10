@@ -2,7 +2,7 @@ import {DataControllerString} from "./DataController";
 import {Data} from "./Data";
 import Player from "../core/database/game/models/Player";
 import {readdirSync} from "fs";
-import {RandomUtils} from "../core/utils/RandomUtils";
+import {RandomUtils} from "../../../Lib/src/utils/RandomUtils";
 import {Pet} from "./Pet";
 
 /**

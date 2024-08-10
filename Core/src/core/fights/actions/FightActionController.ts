@@ -1,5 +1,5 @@
 import {FightConstants} from "../../../../../Lib/src/constants/FightConstants";
-import {RandomUtils} from "../../utils/RandomUtils";
+import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
 import {Fighter} from "../fighter/Fighter";
 import {FightActionStatus} from "../../../../../Lib/src/interfaces/FightActionStatus";
 import {defaultFightActionResult, FightActionBuff, FightActionResult, FightAlterationApplied, FightStatBuffed} from "../../../../../Lib/src/interfaces/FightActionResult";

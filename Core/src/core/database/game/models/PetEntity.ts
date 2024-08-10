@@ -1,5 +1,5 @@
 import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
-import {RandomUtils} from "../../../utils/RandomUtils";
+import {RandomUtils} from "../../../../../../Lib/src/utils/RandomUtils";
 import {MissionsController} from "../../../missions/MissionsController";
 import {PET_ENTITY_GIVE_RETURN, PetConstants} from "../../../../../../Lib/src/constants/PetConstants";
 import {Player, PlayerEditValueParameters} from "./Player";

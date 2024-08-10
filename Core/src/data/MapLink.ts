@@ -1,5 +1,5 @@
 import {DataControllerNumber} from "./DataController";
-import {RandomUtils} from "../core/utils/RandomUtils";
+import {RandomUtils} from "../../../Lib/src/utils/RandomUtils";
 import {MapLocationDataController} from "./MapLocation";
 import {Data} from "./Data";
 

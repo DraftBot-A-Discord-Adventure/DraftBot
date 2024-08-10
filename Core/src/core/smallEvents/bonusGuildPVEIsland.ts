@@ -4,7 +4,7 @@ import {SmallEventBonusGuildPVEIslandPacket} from "../../../../Lib/src/packets/s
 import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {Maps} from "../maps/Maps";
 import Player from "../database/game/models/Player";
-import {RandomUtils} from "../utils/RandomUtils";
+import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {Guilds} from "../database/game/models/Guild";
 

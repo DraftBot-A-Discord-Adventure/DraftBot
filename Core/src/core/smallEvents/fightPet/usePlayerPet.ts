@@ -2,7 +2,7 @@ import {PetEntities} from "../../database/game/models/PetEntity";
 import {FightPetActionFunc} from "../../../data/FightPetAction";
 import {PetConstants} from "../../../../../Lib/src/constants/PetConstants";
 import {SmallEventConstants} from "../../../../../Lib/src/constants/SmallEventConstants";
-import {RandomUtils} from "../../utils/RandomUtils";
+import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
 import {PetDataController} from "../../../data/Pet";
 
 export const fightPetAction: FightPetActionFunc = async (player, pet) => {

@@ -12,7 +12,7 @@ import {getDayNumber} from "../../../../../Lib/src/utils/TimeUtils";
 import {NumberChangeReason} from "../../../../../Lib/src/constants/LogsConstants";
 import {FighterStatus} from "../FighterStatus";
 import {Maps} from "../../maps/Maps";
-import {RandomUtils} from "../../utils/RandomUtils";
+import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
 import {PVEConstants} from "../../../../../Lib/src/constants/PVEConstants";
 import {Class} from "../../../data/Class";
 import {FightAction, FightActionDataController} from "../../../data/FightAction";

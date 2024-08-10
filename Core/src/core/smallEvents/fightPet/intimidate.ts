@@ -1,6 +1,6 @@
 import {FightPetActionFunc} from "../../../data/FightPetAction";
 import {SmallEventConstants} from "../../../../../Lib/src/constants/SmallEventConstants";
-import {RandomUtils} from "../../utils/RandomUtils";
+import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
 
 export const fightPetAction: FightPetActionFunc = (player, pet) =>
 	// Chances of success is based on the level of the player and the rarity of the pet

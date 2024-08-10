@@ -1,6 +1,6 @@
 import {SmallEventFuncs} from "../../data/SmallEvent";
 import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
-import {RandomUtils} from "../utils/RandomUtils";
+import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {PVEConstants} from "../../../../Lib/src/constants/PVEConstants";
 import {SmallEventWinFightPointsPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinFightPointsPacket";
 import {Maps} from "../maps/Maps";

@@ -44,6 +44,7 @@ import {SmallEventWinFightPointsPacket} from "../../../../Lib/src/packets/smallE
 import {SmallEventWinHealthPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinHealthPacket";
 import {SmallEventWinPersonalXPPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinPersonalXPPacket";
 import {SmallEventWitchResultPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWitchPacket";
+import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 
 export function getRandomSmallEventIntro(language: Language): string {
 	return StringUtils.getRandomTranslation("smallEvents:intro", language);
@@ -407,7 +408,19 @@ export default class SmallEventsHandler {
 
 	@packetHandler(SmallEventDoNothingPacket)
 	async smallEventDoNothing(socket: WebSocket, packet: SmallEventDoNothingPacket, context: PacketContext): Promise<void> {
-		// Todo
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		if (interaction) {
+			await interaction.editReply({
+				embeds: [
+					new DraftbotSmallEventEmbed(
+						"doNothing",
+						StringUtils.getRandomTranslation("smallEvents:doNothing.stories", interaction.userLanguage),
+						interaction.user,
+						interaction.userLanguage
+					)
+				]
+			});
+		}
 	}
 
 	@packetHandler(SmallEventFightPetPacket)
@@ -427,27 +440,99 @@ export default class SmallEventsHandler {
 
 	@packetHandler(SmallEventStaffMemberPacket)
 	async smallEventStaffMember(socket: WebSocket, packet: SmallEventStaffMemberPacket, context: PacketContext): Promise<void> {
-		// Todo
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		if (interaction) {
+			const staffMember = RandomUtils.draftbotRandom.pick(Object.keys(i18n.t("smallEvents:staffMember.members", {returnObjects: true, lng: interaction.userLanguage})));
+			await interaction.editReply({
+				embeds: [
+					new DraftbotSmallEventEmbed(
+						"staffMember",
+						getRandomSmallEventIntro(interaction.userLanguage)
+						+ StringUtils.getRandomTranslation("smallEvents:staffMember.context", interaction.userLanguage, {
+							pseudo: staffMember,
+							sentence: i18n.t(`smallEvents:staffMember.members.${staffMember}`, {
+								lng: interaction.userLanguage,
+								interpolation: { escapeValue: false }
+							})
+						}),
+						interaction.user,
+						interaction.userLanguage
+					)
+				]
+			});
+		}
 	}
 
 	@packetHandler(SmallEventWinEnergyPacket)
 	async smallEventWinEnergy(socket: WebSocket, packet: SmallEventWinEnergyPacket, context: PacketContext): Promise<void> {
-		// Todo
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		if (interaction) {
+			await interaction.editReply({
+				embeds: [
+					new DraftbotSmallEventEmbed(
+						"winEnergy",
+						getRandomSmallEventIntro(interaction.userLanguage) + StringUtils.getRandomTranslation("smallEvents:winEnergy.stories", interaction.userLanguage),
+						interaction.user,
+						interaction.userLanguage
+					)
+				]
+			});
+		}
 	}
 
 	@packetHandler(SmallEventWinFightPointsPacket)
 	async smallEventWinFightPoints(socket: WebSocket, packet: SmallEventWinFightPointsPacket, context: PacketContext): Promise<void> {
-		// Todo
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		if (interaction) {
+			await interaction.editReply({
+				embeds: [
+					new DraftbotSmallEventEmbed(
+						"winFightPoints",
+						getRandomSmallEventIntro(interaction.userLanguage)
+						+ StringUtils.getRandomTranslation("smallEvents:winFightPoints.stories", interaction.userLanguage, { fightPoints: packet.amount }),
+						interaction.user,
+						interaction.userLanguage
+					)
+				]
+			});
+		}
 	}
 
 	@packetHandler(SmallEventWinHealthPacket)
 	async smallEventWinHealth(socket: WebSocket, packet: SmallEventWinHealthPacket, context: PacketContext): Promise<void> {
-		// Todo
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		if (interaction) {
+			await interaction.editReply({
+				embeds: [
+					new DraftbotSmallEventEmbed(
+						"winHealth",
+						getRandomSmallEventIntro(interaction.userLanguage)
+						+ StringUtils.getRandomTranslation("smallEvents:winHealth.stories", interaction.userLanguage, { health: packet.amount }),
+						interaction.user,
+						interaction.userLanguage
+					)
+				]
+			});
+		}
 	}
 
 	@packetHandler(SmallEventWinPersonalXPPacket)
 	async smallEventWinPersonalXP(socket: WebSocket, packet: SmallEventWinPersonalXPPacket, context: PacketContext): Promise<void> {
-		// Todo
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		if (interaction) {
+			await interaction.editReply({
+				embeds: [
+					new DraftbotSmallEventEmbed(
+						"winPersonalXP",
+						getRandomSmallEventIntro(interaction.userLanguage)
+						+ StringUtils.getRandomTranslation("smallEvents:winPersonalXP.stories", interaction.userLanguage)
+						+ i18n.t("smallEvents:winPersonalXP.end", {lng: interaction.userLanguage, xp: packet.amount}),
+						interaction.user,
+						interaction.userLanguage
+					)
+				]
+			});
+		}
 	}
 
 	@packetHandler(SmallEventWitchResultPacket)

@@ -1,7 +1,7 @@
 import {DataControllerString} from "./DataController";
 import {Data} from "./Data";
 import {MissionDifficulty} from "../core/missions/MissionDifficulty";
-import {RandomUtils} from "../core/utils/RandomUtils";
+import {RandomUtils} from "../../../Lib/src/utils/RandomUtils";
 
 export class Mission extends Data<string> {
 	public readonly campaignOnly: boolean;

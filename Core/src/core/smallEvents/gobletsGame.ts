@@ -4,7 +4,7 @@ import {Maps} from "../maps/Maps";
 import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
 import Player from "../database/game/models/Player";
 import {SmallEventConstants} from "../../../../Lib/src/constants/SmallEventConstants";
-import {RandomUtils} from "../utils/RandomUtils";
+import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {BlockingUtils} from "../utils/BlockingUtils";
 import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";

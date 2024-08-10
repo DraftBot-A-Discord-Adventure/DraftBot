@@ -3,7 +3,7 @@ import {Maps} from "../maps/Maps";
 import Player, {Players} from "../database/game/models/Player";
 import {Op} from "sequelize";
 import {MapLocationDataController} from "../../data/MapLocation";
-import {RandomUtils} from "../utils/RandomUtils";
+import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {
 	InteractOtherPlayerInteraction,

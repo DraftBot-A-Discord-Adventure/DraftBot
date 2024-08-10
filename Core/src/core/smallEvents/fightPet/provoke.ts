@@ -1,7 +1,7 @@
 import {FightPetActionFunc} from "../../../data/FightPetAction";
 import {InventorySlots} from "../../database/game/models/InventorySlot";
 import {ItemCategory} from "../../../../../Lib/src/constants/ItemConstants";
-import {RandomUtils} from "../../utils/RandomUtils";
+import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
 
 export const fightPetAction: FightPetActionFunc = async (player, pet) =>
 // Succeeds if the player has an attack greater than his level times the rarity of the animal and if random > level / 100 OR if the player has the "insults" object in his inventory

@@ -1,5 +1,5 @@
 import {SmallEventConstants} from "../../../../../Lib/src/constants/SmallEventConstants";
-import {RandomUtils} from "../../utils/RandomUtils";
+import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
 import {FightPetActionFunc} from "../../../data/FightPetAction";
 
 /**

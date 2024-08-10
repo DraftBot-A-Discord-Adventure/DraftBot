@@ -1,6 +1,6 @@
 import {SmallEventFuncs} from "../../data/SmallEvent";
 import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
-import {RandomUtils} from "../utils/RandomUtils";
+import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {TravelTime} from "../maps/TravelTime";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {SmallEventAdvanceTimePacket} from "../../../../Lib/src/packets/smallEvents/SmallEventAdvanceTimePacket";
