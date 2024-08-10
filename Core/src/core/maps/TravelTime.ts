@@ -5,7 +5,6 @@ import {Maps} from "./Maps";
 import {PVEConstants} from "../../../../Lib/src/constants/PVEConstants";
 import {MapLinkDataController} from "../../data/MapLink";
 import {draftBotInstance} from "../../index";
-import {TravelEndPushPacket} from "../../../../Lib/src/packets/push/TravelEndPushPacket";
 import {Effect} from "../../../../Lib/src/enums/Effect";
 import { Constants } from "../../../../Lib/src/constants/Constants";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
@@ -174,9 +173,7 @@ export class TravelTime {
 		const date = new Date();
 		const playerEndTime = TravelTime.getTravelDataSimplified(player, date).travelEndTime;
 		if (playerEndTime <= date.valueOf() && playerEndTime >= date.valueOf() - timeMs) { // Check if the player arrived with this potion
-			const packet: TravelEndPushPacket = {
-				destinationId: player.getDestinationId()
-			};
+			// Todo send notification
 		}
 		// Log
 		draftBotInstance.logsDatabase.logTimeWarp(player.keycloakId, millisecondsToMinutes(time), reason)
