@@ -25,8 +25,10 @@ import {
 	SmallEventLotteryWinPacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventLotteryPacket";
 import {
-	InteractOtherPlayerInteraction, SmallEventInteractOtherPlayersAcceptToGivePoorPacket,
-	SmallEventInteractOtherPlayersPacket, SmallEventInteractOtherPlayersRefuseToGivePoorPacket
+	InteractOtherPlayerInteraction,
+	SmallEventInteractOtherPlayersAcceptToGivePoorPacket,
+	SmallEventInteractOtherPlayersPacket,
+	SmallEventInteractOtherPlayersRefuseToGivePoorPacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventInteractOtherPlayers";
 import {interactOtherPlayerGetPlayerDisplay} from "../../smallEvents/interactOtherPlayers";
 import {SmallEventLeagueRewardPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventLeagueReward";
@@ -45,6 +47,9 @@ import {SmallEventWinHealthPacket} from "../../../../Lib/src/packets/smallEvents
 import {SmallEventWinPersonalXPPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinPersonalXPPacket";
 import {SmallEventWitchResultPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWitchPacket";
 import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
+import {witchResult} from "../../smallEvents/witch";
+import {DisplayUtils} from "../../utils/DisplayUtils";
+import {ItemCategory} from "../../../../Lib/src/constants/ItemConstants";
 
 export function getRandomSmallEventIntro(language: Language): string {
 	return StringUtils.getRandomTranslation("smallEvents:intro", language);
@@ -295,10 +300,10 @@ export default class SmallEventsHandler {
 										petEmote: packet.data.petId ? DraftBotIcons.pets[packet.data.petId] : "",
 										petName: packet.data.petName,
 										guildName: packet.data.guildName,
-										weapon: `${DraftBotIcons.weapons[packet.data.weaponId]} ${i18n.t(`models:weapons.${packet.data.weaponId}`, {lng: interaction.userLanguage})}`,
-										armor: `${DraftBotIcons.armors[packet.data.armorId]} ${i18n.t(`models:armors.${packet.data.armorId}`, {lng: interaction.userLanguage})}`,
-										potion: `${DraftBotIcons.potions[packet.data.potionId]} ${i18n.t(`models:potions.${packet.data.potionId}`, {lng: interaction.userLanguage})}`,
-										object: `${DraftBotIcons.objects[packet.data.objectId]} ${i18n.t(`models:objects.${packet.data.objectId}`, {lng: interaction.userLanguage})}`
+										weapon: DisplayUtils.getWeaponDisplay(packet.data.weaponId, interaction.userLanguage),
+										armor: DisplayUtils.getArmorDisplay(packet.data.armorId, interaction.userLanguage),
+										object: DisplayUtils.getObjectDisplay(packet.data.objectId, interaction.userLanguage),
+										potion: DisplayUtils.getPotionDisplay(packet.data.potionId, interaction.userLanguage)
 									}
 								),
 								interaction.user,
@@ -537,6 +542,6 @@ export default class SmallEventsHandler {
 
 	@packetHandler(SmallEventWitchResultPacket)
 	async smallEventWitchResult(socket: WebSocket, packet: SmallEventWitchResultPacket, context: PacketContext): Promise<void> {
-		// Todo
+		await witchResult(socket, packet, context);
 	}
 }

@@ -4,7 +4,6 @@
 		"effect": 5,
 		"nothing": 10
 	},
-	"effectName": ":sick:",
-	"isIngredient": true,
-	"emoji": "🦂"
+	"effectName": "sick",
+	"isIngredient": true
 }

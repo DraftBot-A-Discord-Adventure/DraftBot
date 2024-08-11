@@ -7,4 +7,6 @@ export class ItemRefusePacket extends DraftBotPacket {
 	category!: number;
 
 	autoSell!: boolean;
+
+	soldMoney!: number;
 }

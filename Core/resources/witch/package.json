@@ -3,7 +3,6 @@
 		"potion": 45,
 		"effect": 5
 	},
-	"effectName": ":sick:",
-	"isIngredient": true,
-	"emoji": "📦"
+	"effectName": "sick",
+	"isIngredient": true
 }

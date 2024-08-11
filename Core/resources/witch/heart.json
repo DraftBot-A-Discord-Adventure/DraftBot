@@ -2,6 +2,5 @@
 	"outcomeProbabilities": {
 		"potion": 50
 	},
-	"isIngredient": true,
-	"emoji": "🫀"
+	"isIngredient": true
 }

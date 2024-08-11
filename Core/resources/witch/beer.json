@@ -6,7 +6,6 @@
 	"tags": [
 		"drinkAlcohol"
 	],
-	"effectName": ":zany_face:",
-	"isIngredient": true,
-	"emoji": "🍺"
+	"effectName": "drunk",
+	"isIngredient": true
 }

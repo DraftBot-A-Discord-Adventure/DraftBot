@@ -33,7 +33,10 @@ export const DraftBotIcons: {
 	},
 	classes: {
 		[classId: string]: string
-	}
+	},
+	witch_small_event: {
+		[ingredient: string]: string
+	},
 	collectors: {
 		accept: string,
 		refuse: string,
@@ -1455,6 +1458,42 @@ export const DraftBotIcons: {
 		"7": "🛡",
 		"8": "🪨",
 		"9": "🦾"
+	},
+	"witch_small_event": {
+		"bat": "🦇",
+		"beer": "🍺",
+		"bigWait": "🕙",
+		"bigWarm": "🔥",
+		"blood": "🩸",
+		"bone": "🦴",
+		"book": "📖",
+		"cobweb": "🕸️",
+		"chicken": "🐔",
+		"cool": "❄️",
+		"crystalBall": "🔮",
+		"distiller": "⚗️",
+		"eye": "👁️",
+		"frog": "🐸",
+		"greenApple": "🍏",
+		"heart": "🫀",
+		"mushroom": "🍄",
+		"nothing": "🤷",
+		"package": "📦",
+		"rat": "🐀",
+		"redApple": "🍎",
+		"rose": "🌹",
+		"scorpion": "🦂",
+		"smallWait": "⏳",
+		"smallWarm": "🌡️",
+		"snake": "🐍",
+		"spider": "🕷️",
+		"stir": "🥄",
+		"teeth": "🦷",
+		"testTube": "🧪",
+		"turtle": "🐢",
+		"wand": "🪄",
+		"wiltedRose": "🥀",
+		"worm": "🪱"
 	},
 	collectors: {
 		"accept": "✅",

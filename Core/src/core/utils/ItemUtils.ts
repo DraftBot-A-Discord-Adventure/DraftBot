@@ -8,7 +8,7 @@ import {InventoryInfos} from "../database/game/models/InventoryInfo";
 import {ItemCategory, ItemConstants, ItemNature, ItemRarity} from "../../../../Lib/src/constants/ItemConstants";
 import {GenericItem} from "../../data/GenericItem";
 import {BlockingUtils} from "./BlockingUtils";
-import {DraftBotPacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {Potion, PotionDataController} from "../../data/Potion";
 import {WeaponDataController} from "../../data/Weapon";
 import {ArmorDataController} from "../../data/Armor";
@@ -125,8 +125,9 @@ const sellOrKeepItem = async function(
 		item = itemToReplaceInstance;
 		resaleMultiplier = resaleMultiplierActual;
 	}
+	let money = 0;
 	if (item.getCategory() !== ItemCategory.POTION) {
-		const money = Math.round(getItemValue(item) * resaleMultiplier);
+		money = Math.round(getItemValue(item) * resaleMultiplier);
 		await player.addMoney({
 			amount: money,
 			response,
@@ -143,7 +144,8 @@ const sellOrKeepItem = async function(
 	const packet: ItemRefusePacket = {
 		id: item.id,
 		category: item.getCategory(),
-		autoSell
+		autoSell,
+		soldMoney: money
 	};
 	response.push(packet);
 	await MissionsController.update(player, response, {missionId: "findOrBuyItem"});
@@ -261,10 +263,10 @@ export const giveItemToPlayer = async function(
 	resaleMultiplierActual = 1
 ): Promise<void> {
 	const resaleMultiplier = resaleMultiplierNew;
-	const foundPacket: ItemFoundPacket = {
+	const foundPacket = makePacket(ItemFoundPacket, {
 		id: item.id,
 		category: item.getCategory()
-	};
+	});
 	response.push(foundPacket);
 
 	if (await player.giveItem(item) === true) {

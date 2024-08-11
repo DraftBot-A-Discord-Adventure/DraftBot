@@ -3,6 +3,5 @@
 		"potion": 15,
 		"nothing": 35
 	},
-	"isIngredient": true,
-	"emoji": "🕷️"
+	"isIngredient": true
 }

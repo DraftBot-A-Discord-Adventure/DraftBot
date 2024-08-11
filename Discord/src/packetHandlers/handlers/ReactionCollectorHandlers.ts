@@ -15,6 +15,11 @@ import {
 import {createPetFreeCollector} from "../../commands/pet/PetFreeCommand";
 import {ReactionCollectorInteractOtherPlayersPoorData} from "../../../../Lib/src/packets/interaction/ReactionCollectorInteractOtherPlayers";
 import {interactOtherPlayersCollector} from "../../smallEvents/interactOtherPlayers";
+import {ReactionCollectorWitchData} from "../../../../Lib/src/packets/interaction/ReactionCollectorWitch";
+import {witchCollector} from "../../smallEvents/witch";
+import {ReactionCollectorItemChoiceData} from "../../../../Lib/src/packets/interaction/ReactionCollectorItemChoice";
+import {itemAcceptCollector, itemChoiceCollector} from "../../inventory/ItemCollectors";
+import {ReactionCollectorItemAccept} from "../../../../Lib/src/packets/interaction/ReactionCollectorItemAccept";
 
 export default class ReactionCollectorHandler {
 	@packetHandler(ReactionCollectorCreationPacket)
@@ -37,6 +42,15 @@ export default class ReactionCollectorHandler {
 			break;
 		case ReactionCollectorInteractOtherPlayersPoorData.name:
 			await interactOtherPlayersCollector(packet, context);
+			break;
+		case ReactionCollectorWitchData.name:
+			await witchCollector(packet, context);
+			break;
+		case ReactionCollectorItemChoiceData.name:
+			await itemChoiceCollector(packet, context);
+			break;
+		case ReactionCollectorItemAccept.name:
+			await itemAcceptCollector(packet, context);
 			break;
 		default:
 			throw `Unknown collector with data: ${packet.data.type}`; // Todo error embed

@@ -4,6 +4,5 @@
 	},
 	"timePenalty": 55,
 	"forceEffect": true,
-	"isIngredient": false,
-	"emoji": "⚗️"
+	"isIngredient": false
 }

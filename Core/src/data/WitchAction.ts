@@ -9,14 +9,7 @@ import {DraftBotPacket} from "../../../Lib/src/packets/DraftBotPacket";
 import {TravelTime} from "../core/maps/TravelTime";
 import {NumberChangeReason} from "../../../Lib/src/constants/LogsConstants";
 import {Effect} from "../../../Lib/src/enums/Effect";
-
-
-export enum WitchActionOutcomeType {
-	POTION="potion",
-	EFFECT="effect",
-	LIFE_LOSS="lifeLoss",
-	NOTHING="nothing"
-}
+import {WitchActionOutcomeType} from "../../../Lib/src/enums/WitchActionOutcomeType";
 
 /**
  * The base class for the different events that can happen after the player encounters a feral pet
@@ -32,12 +25,20 @@ export class WitchAction extends Data<string> {
 
 	private outcomeProbabilities: OutcomeProbabilities;
 
-	public generatePotionWitchAction(): PotionParameters {
-		return WitchActionDataController.getWitchActionFunction(this.id)?.generatePotion();
+	public generatePotionWitchAction(): PotionParameters | null {
+		const withActionFunctions = WitchActionDataController.getWitchActionFunction(this.id);
+		if (withActionFunctions && withActionFunctions.generatePotion) {
+			return withActionFunctions.generatePotion();
+		}
+
+		return null;
 	}
 
 	public async checkMissionsWitchAction(player: Player, outcome: WitchActionOutcomeType, response: DraftBotPacket[]): Promise<void> {
-		await WitchActionDataController.getWitchActionFunction(this.id)?.checkMissions(player, outcome, response, this.tags);
+		const withActionFunctions = WitchActionDataController.getWitchActionFunction(this.id);
+		if (withActionFunctions && withActionFunctions.checkMissions) {
+			await withActionFunctions.checkMissions(player, outcome, response, this.tags);
+		}
 	}
 
 	public async giveEffect(player: Player): Promise<void> {
@@ -51,13 +52,15 @@ export class WitchAction extends Data<string> {
 	}
 
 	public generateOutcome(): WitchActionOutcomeType {
+		const outcomeTypesKeys = Object.keys(WitchActionOutcomeType).map(k => k.toLowerCase());
 		let outcome = 0;
-		let seed = RandomUtils.randInt(0, SmallEventConstants.WITCH.MAX_PROBABILITY) - this.outcomeProbabilities[WitchActionOutcomeType.POTION];
+		let seed = RandomUtils.randInt(0, SmallEventConstants.WITCH.MAX_PROBABILITY)
+			- this.outcomeProbabilities[outcomeTypesKeys[WitchActionOutcomeType.POTION] as keyof WitchActionOutcomeType] ?? 0;
 		while (seed > 0) {
-			seed -= this.outcomeProbabilities[Object.values(WitchActionOutcomeType)[outcome]] ?? 0;
+			seed -= this.outcomeProbabilities[outcomeTypesKeys[outcome] as keyof WitchActionOutcomeType] ?? 0;
 			outcome++;
 		}
-		return Object.values(WitchActionOutcomeType)[outcome];
+		return outcome;
 	}
 
 	public checkOutcomeProbabilities(): void {
@@ -72,7 +75,7 @@ export class WitchAction extends Data<string> {
 }
 
 type OutcomeProbabilities = {
-	[outcome in WitchActionOutcomeType]?: number;
+	[key in keyof WitchActionOutcomeType]?: number;
 }
 
 export type WitchActionFuncs = {
@@ -96,9 +99,9 @@ export class WitchActionDataController extends DataControllerString<WitchAction>
 	private static witchActionsFunctionsCache: Map<string, WitchActionFuncs>;
 
 	public static getWitchActionFunction(id: string): WitchActionFuncs {
-		if (WitchActionDataController.witchActionsFunctionsCache === null) {
+		if (!WitchActionDataController.witchActionsFunctionsCache) {
 			WitchActionDataController.witchActionsFunctionsCache = new Map<string, WitchActionFuncs>();
-			WitchActionDataController.loadWitchActionsFromFolder("dist/src/Core/smallEvents/witch", "TODO replace with the right one");
+			WitchActionDataController.loadWitchActionsFromFolder("dist/Core/src/core/smallEvents/witch", "../core/smallEvents/witch");
 			WitchActionDataController.instance.getValuesArray().forEach((witchAction) => {
 				witchAction.checkOutcomeProbabilities();
 			});

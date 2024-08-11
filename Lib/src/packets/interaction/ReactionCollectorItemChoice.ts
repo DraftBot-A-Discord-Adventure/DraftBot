@@ -8,6 +8,10 @@ export class ReactionCollectorItemChoiceData extends ReactionCollectorData {
 
 export class ReactionCollectorItemChoiceItemReaction extends ReactionCollectorReaction {
 	slot!: number;
+
+	itemCategory!: number;
+
+	itemId!: number;
 }
 
 export class ReactionCollectorItemChoiceRefuseReaction extends ReactionCollectorReaction {

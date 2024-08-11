@@ -132,4 +132,92 @@ export class DiscordCollectorUtils {
 			}
 		});
 	}
+
+	private static choiceListEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣", "7⃣", "8⃣", "9⃣"];
+
+	static async createChoiceListCollector(
+		interaction: DraftbotInteraction,
+		messageContentOrEmbed: DraftBotEmbed | string,
+		reactionCollectorCreationPacket: ReactionCollectorCreationPacket,
+		context: PacketContext,
+		items: string[],
+		canRefuse: boolean
+	): Promise<void> {
+		if (items.length > DiscordCollectorUtils.choiceListEmotes.length) {
+			throw "Too many items to display";
+		}
+
+		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
+
+		let choiceDesc = "";
+		const row = new ActionRowBuilder<ButtonBuilder>();
+		// Create buttons
+		for (let i = 0; i < items.length; ++i) {
+			const button = new ButtonBuilder()
+				.setEmoji(parseEmoji(DiscordCollectorUtils.choiceListEmotes[i])!)
+				.setCustomId(i.toString())
+				.setStyle(ButtonStyle.Secondary);
+			row.addComponents(button);
+			choiceDesc += `${DiscordCollectorUtils.choiceListEmotes[i]} - ${items[i]}\n`;
+		}
+
+		if (canRefuse) {
+			const buttonRefuse = new ButtonBuilder()
+				.setEmoji(parseEmoji(DraftBotIcons.collectors.refuse)!)
+				.setCustomId("refuse")
+				.setStyle(ButtonStyle.Secondary);
+			row.addComponents(buttonRefuse);
+		}
+
+		// Add choice description to the embed
+		if (messageContentOrEmbed instanceof DraftBotEmbed) {
+			messageContentOrEmbed.setDescription(messageContentOrEmbed.data.description + choiceDesc);
+		}
+		else {
+			messageContentOrEmbed += choiceDesc;
+		}
+
+		// Edit message
+		let msg: Message;
+		if (messageContentOrEmbed instanceof DraftBotEmbed) {
+			msg = await interaction?.editReply({
+				embeds: [messageContentOrEmbed],
+				components: [row]
+			}) as Message;
+		}
+		else {
+			msg = await interaction?.editReply({
+				content: messageContentOrEmbed,
+				components: [row]
+			}) as Message;
+		}
+
+		// Create button collector
+		const buttonCollector = msg.createMessageComponentCollector({
+			time: reactionCollectorCreationPacket.endTime - Date.now()
+		});
+
+		// Send an error if someone uses the collector that is not intended for them and stop if it's the owner
+		buttonCollector.on("collect", async (i: ButtonInteraction) => {
+			if (i.user.id !== context.discord?.user) {
+				await sendInteractionNotForYou(i.user, i, interaction.userLanguage);
+				return;
+			}
+
+			buttonCollector.stop();
+		});
+
+		// Collector end
+		buttonCollector.on("end", async (collected) => {
+			const firstReaction = collected.first() as ButtonInteraction;
+
+			if (firstReaction && firstReaction.customId !== "refuse") {
+				await firstReaction.deferReply();
+				DiscordCollectorUtils.sendReaction(reactionCollectorCreationPacket, context, user, firstReaction, parseInt(firstReaction.customId));
+			}
+			else {
+				DiscordCollectorUtils.sendReaction(reactionCollectorCreationPacket, context, user, firstReaction, items.length);
+			}
+		});
+	}
 }
