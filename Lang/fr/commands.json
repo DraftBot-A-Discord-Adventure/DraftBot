@@ -54,6 +54,14 @@
     "ranking": "{{rank}} / {{rankTotal}}",
     "notRanked": "Non classée"
   },
+  "guildCreate": {
+    "title": "{pseudo}, création d'une guilde",
+    "canceledTitle": "{{pseudo}}, annulation de la libération.",
+    "canceledDesc": "La création de votre guilde a été annulée.",
+    "confirmDesc": ":question: Confirmer la création de la guilde **{guildName}** pour `{price}` :moneybag: ?",
+    "acceptedFooter": "Attention, le staff se réserve le droit de renommer votre guilde.",
+    "acceptedDesc": "La guilde **{guildName}** a été créée !"
+  },
   "help": {
     "aliasFieldTitle": "Alias",
     "aliasesFieldTitle": "Alias",

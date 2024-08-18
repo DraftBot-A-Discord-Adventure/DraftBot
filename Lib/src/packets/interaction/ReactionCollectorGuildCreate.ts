@@ -8,19 +8,14 @@ import {
 
 export class ReactionCollectorGuildCreateData extends ReactionCollectorData {
 	guildName!: string;
-
-	price!: number;
 }
 
 export class ReactionCollectorGuildCreate extends ReactionCollector {
 	private readonly guildName: string;
 
-	private readonly price: number;
-
-	constructor(guildName: string, price: number) {
+	constructor(guildName: string) {
 		super();
 		this.guildName = guildName;
-		this.price = price;
 	}
 
 	creationPacket(id: string, endTime: number): ReactionCollectorCreationPacket {
@@ -33,7 +28,6 @@ export class ReactionCollectorGuildCreate extends ReactionCollector {
 			],
 			data: this.buildData(ReactionCollectorGuildCreateData, {
 				guildName: this.guildName,
-				price: this.price
 			})
 		};
 	}
