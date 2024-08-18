@@ -7,26 +7,18 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {DiscordCache} from "../../bot/DiscordCache";
 import {DraftBotErrorEmbed} from "../../messages/DraftBotErrorEmbed";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
-import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
-import {keycloakConfig} from "../../bot/DraftBotShard";
 import {Effect} from "../../../../Lib/src/enums/Effect";
 import {
+	CommandGuildCreateAcceptPacketRes,
 	CommandGuildCreatePacketReq,
 	CommandGuildCreatePacketRes, CommandGuildCreateRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildCreatePacket";
-import {printTimeBeforeDate} from "../../../../Lib/src/utils/TimeUtils";
-import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
 import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants";
 import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {ReactionCollectorPetFreeData} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFree";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
-import {PetUtils} from "../../utils/PetUtils";
 import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
-import {
-	CommandPetFreeAcceptPacketRes,
-	CommandPetFreeRefusePacketRes
-} from "../../../../Lib/src/packets/commands/CommandPetFreePacket";
 import {ReactionCollectorGuildCreateData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildCreate";
+import {GuildCreateConstants} from "../../../../Lib/src/constants/GuildCreateConstants";
 
 /**
  * Create a new guild
@@ -40,6 +32,21 @@ async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): 
 export async function handleCommandGuildCreatePacketRes(packet: CommandGuildCreatePacketRes, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 	if (interaction) {
+		if(packet.playerMoney < GuildCreateConstants.PRICE) {
+			await interaction.reply({
+				embeds: [
+					new DraftBotErrorEmbed(
+						interaction.user,
+						interaction,
+						i18n.t("error:notEnoughMoney", {
+							lng: interaction.userLanguage,
+							money: GuildCreateConstants.PRICE-packet.playerMoney
+						})
+					)
+				]
+			});
+			return;
+		}
 		if (!packet.foundGuild) {
 			await interaction.reply({
 				embeds: [
@@ -96,7 +103,7 @@ export async function createGuildCreateCollector(packet: ReactionCollectorCreati
 		.setDescription(
 			i18n.t("commands:guildCreate.confirmDesc", {
 				lng: interaction.userLanguage,
-				pet: PetUtils.petToShortString(interaction.userLanguage, data.petNickname, data.petId, data.petSex)
+				price: GuildCreateConstants.PRICE
 			})
 		);
 
@@ -109,12 +116,12 @@ export async function handleCommandGuildCreateRefusePacketRes(packet: CommandGui
 	if (buttonInteraction && originalInteraction) {
 		await buttonInteraction.editReply({
 			embeds: [
-				new DraftBotEmbed().formatAuthor(i18n.t("commands:petFree.canceledTitle", {
+				new DraftBotEmbed().formatAuthor(i18n.t("commands:guildCreate.canceledTitle", {
 					lng: originalInteraction.userLanguage,
 					pseudo: originalInteraction.user.displayName
 				}), originalInteraction.user)
 					.setDescription(
-						i18n.t("commands:petFree.canceledDesc", {lng: originalInteraction.userLanguage})
+						i18n.t("commands:guildCreate.canceledDesc", {lng: originalInteraction.userLanguage})
 					)
 					.setErrorColor()
 			]
@@ -122,21 +129,24 @@ export async function handleCommandGuildCreateRefusePacketRes(packet: CommandGui
 	}
 }
 
-export async function handleCommandGuildCreateAcceptPacketRes(packet: CommandPetFreeAcceptPacketRes, context: PacketContext): Promise<void> {
+export async function handleCommandGuildCreateAcceptPacketRes(packet: CommandGuildCreateAcceptPacketRes, context: PacketContext): Promise<void> {
 	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 	if (buttonInteraction && originalInteraction) {
 		await buttonInteraction.editReply({
 			embeds: [
-				new DraftBotEmbed().formatAuthor(i18n.t("commands:petFree.title", {
+				new DraftBotEmbed().formatAuthor(i18n.t("commands:guildCreate.title", {
 					lng: originalInteraction.userLanguage,
 					pseudo: originalInteraction.user.displayName
 				}), originalInteraction.user)
 					.setDescription(
-						i18n.t("commands:petFree.acceptedDesc", {
+						i18n.t("commands:guildCreate.acceptedDesc", {
 							lng: originalInteraction.userLanguage,
-							pet: PetUtils.petToShortString(originalInteraction.userLanguage, packet.petNickname, packet.petId, packet.petSex)
+							guildName: packet.guildName
 						})
+					)
+					.setFooter(
+						i18n.t("commands:guildCreate.acceptedFooter", {lng: originalInteraction.userLanguage})
 					)
 			]
 		});
@@ -150,7 +160,8 @@ export const commandInfo: ICommand = {
 				.setRequired(true)) as SlashCommandBuilder,
 	getPacket,
 	requirements: {
-		disallowEffects: [Effect.NOT_STARTED]
+		requiredLevel: GuildConstants.REQUIRED_LEVEL,
+		disallowEffects: [Effect.NOT_STARTED, Effect.DEAD]
 	},
 	mainGuildCommand: false
 };

@@ -18,6 +18,7 @@ import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 async function acceptGuildCreate(player: Player, response: DraftBotPacket[]) {
+	await player.reload();
 
 }
 
@@ -28,9 +29,10 @@ export default class GuildCreateCommand {
 
 		const player = await Players.getByKeycloakId(packet.keycloakId);
 		const guild = player.guildId ? await Guilds.getById(player.guildId) : null;
-
+		const playerMoney = player.money;
 		if (guild) {
 			response.push(makePacket(CommandGuildCreatePacketRes, {
+				playerMoney,
 				foundGuild: true
 			}));
 			return;
@@ -46,6 +48,7 @@ export default class GuildCreateCommand {
 		if (existingGuild) {
 			// A guild with this name already exists
 			response.push(makePacket(CommandGuildCreatePacketRes, {
+				playerMoney,
 				foundGuild: false,
 				guildNameIsAvailable: false
 			}));
@@ -54,6 +57,7 @@ export default class GuildCreateCommand {
 
 		if (!checkNameString(packet.askedGuildName, GuildConstants.GUILD_NAME_LENGTH_RANGE)) {
 			response.push(makePacket(CommandGuildCreatePacketRes, {
+				playerMoney,
 				foundGuild: false,
 				guildNameIsAvailable: true,
 				guildNameIsAcceptable: false
@@ -61,6 +65,7 @@ export default class GuildCreateCommand {
 			return;
 		}
 		response.push(makePacket(CommandGuildCreatePacketRes, {
+			playerMoney,
 			foundGuild: false,
 			guildNameIsAvailable: true,
 			guildNameIsAcceptable: true
@@ -69,8 +74,7 @@ export default class GuildCreateCommand {
 
 		// Send collector
 		const collector = new ReactionCollectorGuildCreate(
-			packet.askedGuildName,
-			GuildCreateConstants.PRICE
+			packet.askedGuildName
 		);
 
 		const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
@@ -83,7 +87,7 @@ export default class GuildCreateCommand {
 				response.push(makePacket(CommandGuildCreateRefusePacketRes, {}));
 			}
 
-			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.PET_FREE);
+			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.GUILD_CREATE);
 		};
 
 		const collectorPacket = new ReactionCollectorInstance(
@@ -95,7 +99,7 @@ export default class GuildCreateCommand {
 			},
 			endCallback
 		)
-			.block(player.id, BlockingConstants.REASONS.PET_FREE)
+			.block(player.id, BlockingConstants.REASONS.GUILD_CREATE)
 			.build();
 
 		response.push(collectorPacket);
