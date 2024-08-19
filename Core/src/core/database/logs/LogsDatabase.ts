@@ -929,7 +929,7 @@ export class LogsDatabase extends Database {
 	 * @param creatorKeycloakId
 	 * @param guild
 	 */
-	public async logGuildCreation(creatorKeycloakId: string, guild: Guild): Promise<void> {
+	public static async logGuildCreation(creatorKeycloakId: string, guild: Guild): Promise<void> {
 		const creator = await LogsDatabase.findOrCreatePlayer(creatorKeycloakId);
 		const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
 		await LogsGuildsCreations.create({
