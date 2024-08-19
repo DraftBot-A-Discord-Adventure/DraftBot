@@ -23,7 +23,7 @@ import {GuildCreateConstants} from "../../../../Lib/src/constants/GuildCreateCon
 /**
  * Create a new guild
  */
-async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandGuildCreatePacketReq | null> {
+function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): CommandGuildCreatePacketReq {
 	const guildNameOption = interaction.options.get("guildName");
 	const askedGuildName = guildNameOption ? <string>guildNameOption.value : "";
 	return makePacket(CommandGuildCreatePacketReq, {keycloakId: user.id, askedGuildName});

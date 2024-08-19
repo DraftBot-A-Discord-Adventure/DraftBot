@@ -54,7 +54,7 @@ function generateLuckyMeat(guild: Guild, pPet: PetEntity): boolean {
 }
 
 /**
- * Accept the petfree request and free the pet
+ * Accept the pet free request and free the pet
  * @param player
  * @param playerPet
  * @param response
@@ -95,7 +95,6 @@ async function acceptPetFree(player: Player, playerPet: PetEntity, response: Dra
 		}
 	}
 	catch (error) {
-		guild = null;
 	}
 
 	response.push(makePacket(CommandPetFreeAcceptPacketRes, {
