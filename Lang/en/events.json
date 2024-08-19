@@ -2200,58 +2200,58 @@
       },
       "hopeItem": {
         "outcomes": {
-          "0": "You open your gift and take out an equipment. It is a powerful object that you add to your collection. You leave the castle happy to have received this gift."
+          "0": "You open your gift and take out a piece of equipment. It's a powerful item that you add to your collection. You leave the castle happy to have received this gift."
         },
-        "text": "Wait and hope to get a new object."
+        "text": "Wait and hope for a new object."
       },
       "hopeMoney": {
         "outcomes": {
-          "0": "You open your gift and see coins glowing at the bottom of the box. You take them and add them to your purse. You leave the castle happy to have received this gift."
+          "0": "You open your gift and see some coins shining at the bottom of the box. You take them and add them to your purse. You leave the castle happy to have received this gift."
         },
-        "text": "Wait and hope to get money."
+        "text": "Wait and hope for money."
       },
       "hopePet": {
         "outcomes": {
           "0": "You open your gift and find a pet inside. You decide to take it with you on your great adventures on the continent. You leave the castle happy to have received this gift."
         },
-        "text": "Wait and hope to get a pet."
+        "text": "Wait and hope for a companion."
       },
       "hopeWeapon": {
         "outcomes": {
-          "0": "You open your gift and pull out a piece of equipment. It is a powerful weapon that you add to your collection. You leave the castle happy to have received this gift."
+          "0": "You open your gift and take out a piece of equipment. It's a powerful weapon that you add to your collection. You leave the castle happy to have received this gift."
         },
-        "text": "Wait and hope to get a new weapon."
+        "text": "Wait and hope for a new weapon."
       },
       "hopeXP": {
         "outcomes": {
-          "0": "You open your gift and pick up a book that was inside. It explains survival techniques that you are eager to put into practice. You leave the castle happy to have received this gift."
+          "0": "You open your gift and pick up a book that was inside. It explains survival techniques that you can't wait to put into practice. You leave the castle happy to have received this gift."
         },
-        "text": "Wait and hope to get experience."
+        "text": "Wait and hope for experience."
       }
     },
-    "text": "You arrive in the reception hall of the King's castle, like many other adventurers in the middle of the hall stands a gigantic fir tree protecting thousands of gifts with its long thorny branches. After a delicious meal, the King takes the stage and announces that the night before, a man in a red suit was seen in the night and that when he left, thousands of gifts with the names of the adventurers were strewn under the tree. He asks you to sit tight and wait for a servant to come and give you your due."
+    "text": "Like many other adventurers, you arrive in the reception hall of the King's castle. In the middle of the hall stands a gigantic fir tree, protecting thousands of gifts with its long, thorny branches. After a delicious meal, the King takes the stage and announces that the night before, a man in a red suit was seen in the night, and that when he left, thousands of gifts with the names of adventurers were strewn under the tree. He asks you to remain seated and wait for a waiter to come and drop off what you're owed."
   },
   "66": {
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "Suddenly, you are lying on the floor, the crew leaning over you. The captain explains that you are passed out. They grab you and, like a package, throw you overboard; before quickly walking away.",
-          "1": "Suddenly, you are lying on the floor, the crew bent over you. The captain explains that you are passed out. He gives you a few more tips before letting you go to the island."
+          "0": "Suddenly, you're lying on the floor, the crew leaning over you. The captain explains that you've fainted. They seize you and, like a bundle, throw you overboard; then quickly walk away.",
+          "1": "Suddenly, you're lying on the floor, the crew leaning over you. The captain explains that you've fainted. He gives you a few more words of advice before letting you leave for the island."
         }
       },
       "hints": {
         "outcomes": {
-          "0": "You slowly turn to the captain and ask him if he would be so kind as to provide you with some additional information. He gives you some and you leave more ready than ever to face the island.",
+          "0": "You slowly turn to the captain to ask him if he would be so kind as to provide you with any further information. He gives you some, and you set off, ready as ever to face the island.",
           "1": "Worried, you look at the captain and politely thank him for the crossing. You express your fears and ask for some advice. He gives you some and you leave more ready than ever to face the island."
         },
-        "text": "Request more information."
+        "text": "Ask for more information."
       },
       "run": {
         "outcomes": {
-          "0": "You suddenly jump over the deck of the boat and run straight ahead, like an animal, without looking back. All this under the stunned eyes of the crew members.",
+          "0": "You leap abruptly over the boat's deck and run straight ahead, like an animal, without looking back. All this while the crew looks on in amazement.",
           "1": "While thanking the crew for this wonderful crossing, you disembark. You walk away, confident and sure-footed."
         },
-        "text": "Run to the island."
+        "text": "Head for the island."
       }
     },
     "text": "After a brief crossing, the captain moors his ship at what appears to be a pier. You are far too absorbed in your contemplation of the island to care. It seems to you at the same time tiny and immense, warm and cold. A strange sensation seizes you, between anguish and admiration. A movement on the ship pulls you out of your observation."
@@ -2267,14 +2267,14 @@
       },
       "deny": {
         "outcomes": {
-          "0": "You're not in the mood to drink after this perilous adventure. Not wanting to leave you in your uncomfortable position, the captain offers you, without you really having a choice, a cosy bed in his cabin. The motion of the boat lulls you to sleep, and you soon feel your mind wandering to your adventures, falling asleep a few minutes later.",
-          "1": "As this has been a trying journey, you refuse to drink to avoid further dehydration. Instead, you ask the ship's master for water. However, you don't realize that you're falling into a deep sleep until he returns."
+          "0": "You're not in the mood to drink after this perilous adventure. Not wanting to leave you in your uncomfortable position, the captain offers you, without you really having a choice, a cozy bed in his cabin. The motion of the boat lulls you to sleep, and you soon feel your mind wandering to your adventures, falling asleep a few minutes later.",
+          "1": "You've been through a lot on this trip, so you refuse, as you don't want to get any more dehydrated. Instead, you ask the ship's master for some water. But you don't realize you're falling into a deep sleep until he returns."
         },
         "text": "Politely refuse the gift."
       },
       "end": {
         "outcomes": {
-          "0": "The captain is waiting for you to take the gift he's offering you. However, you fall asleep in a split second, which he quickly notices. So he goes back to steering his boat, leaving you to sleep where you are."
+          "0": "The captain is waiting for you to take his gift. But you've fallen asleep in a fraction of a second, which he quickly realizes. So he goes back to steering his boat, leaving you to sleep where you are."
         }
       }
     },
@@ -2284,47 +2284,47 @@
     "possibilities": {
       "checkDate": {
         "outcomes": {
-          "0": "You look at the calendar, and discover the existence of a tournament that will shortly start! You thus decide to go there and, after a few hours of battling, you reach the finals. However, your opponent is simply too strong, and you lose the fight. As you still made it to the finals, you win a purse full of gold, before continuing on your way.",
+          "0": "You look at the calendar, and discover that a tournament is about to start! You thus decide to go there and, after a few hours of battling, you reach the finals. However, your opponent is simply too strong, and you lose the fight. As you still made it to the finals, you win a purse full of gold, before continuing on your way.",
           "1": "You look at the calendar, and notice that you are in Lapland, the 6th month of the year. You then decide to go out and eat a pancake at a nearby stand. This food is so good you feel really happy. You resume your journey, well sated.",
-          "2": "When you see the calendar, you remember the posters on the street talking about a treasure hunt. You choose to participate. However, after two hours of maniacal search, you can't find anything. You decide to go back to your journey.",
-          "3": "You are looking at the calendar, and you notice something of interest in today's entry: Mead competition! Confident in your strong alcohol resistance, you decide to give it a try. You end up winning the contest, as well as a reward! You are also totally drunk."
+          "2": "When you see the calendar, you remember the posters in the streets talking about a treasure hunt. You decide to take part. After two hours of searching, you can't find anything. You decide to turn back.",
+          "3": "You are looking at the calendar, and you notice something of interest in today's entry: Mead competition! Confident in your strong alcohol resistance, you decide to give it a try. You end up winning the contest, as well as a reward! You are also totally drunk, however."
         },
-        "text": "Check the calendar."
+        "text": "Look at the calendar."
       },
       "end": {
         "outcomes": {
-          "0": "You roam through the library, totally unaware of the time rushing by. When it closing time arrives, you go out and realize that it is already late in the afternoon. You resume your journey without further delay.",
-          "1": "You are amazed as you face the numerous books, and feel the amount of knowledge that they contain. Soon however, the librarian signals a sad fact: the library is about to close. Disappointed, you turn around, and continue your adventures.",
-          "2": "You stay in the library for several minutes, amazed by all the knowledge held within. You sit down, thoughtful. Suddenly, a reader comes by and disturb your thoughts, \"Hansel and Gretel\" by the brothers Grimm in hand. He asks that you give him your seat, as you are in his most favourite spot. Confused, you leave."
+          "0": "You hang around the library and don't notice the minutes passing. At closing time, you step outside and realize that it's already late. You set off again without further ado.",
+          "1": "You're amazed at the number of books and the wealth of knowledge that emanates from these premises. Shortly afterwards, the librarian beckons: the building is about to close. Disappointed, you turn back to continue your adventures.",
+          "2": "You stay in the library for several minutes, amazed by all the knowledge held within. You sit down, thoughtful. Suddenly, a reader comes by and disturb your thoughts, \"Hansel and Gretel\" by the brothers Grimm in hand. He asks that you give him your seat, as you are in his most favourite spot. Confused, you leave, without any new knowledge."
         }
       },
       "read": {
         "outcomes": {
-          "0": "You decide to read a book. It is about cooking, and delicious meals to prepare. You write down the recipe before looking for the ingredients. Once these are found, you follow the instructions down to a t! You taste your dish, and feel its benefits, then resume your journey.",
-          "1": "You pick a random book and start reading it. The book is about number theory. However, it has never been your strong suit. 10 minutes later, you choose to put down the book, before continuing on your way.",
-          "2": "You start reading a cooking book. It is about a delicious dish. Intrigued, you decide to prepare the dish. You however diverge somewhat strongly from the marked-down steps of the book, and end up feeling quite ill once you taste the final result.",
+          "0": "You decide to read a book. It's about cooking and preparing delicious meals. You write down the recipe before going to find the ingredients. Once you've found them, you follow the instructions to the letter. You taste your dish before feeling its benefits, then set off again.",
+          "1": "You pick up a book and start reading. The book is about arithmetic. However, this has never been your strong point: almost 10 minutes later, you decide to put the book down and continue on your way.",
+          "2": "You're reading a cookbook. It talks about a delicious dish. Aroused, you decide to prepare the dish. But you don't quite follow the instructions, and after eating, you don't feel well...",
           "3": "You pick up the first book you come across. It is about alchemy and the diverse benefits of some plants. After carefully studying its content, you put it down, convinced that it will be useful on your following adventures."
         },
         "text": "Read a book."
       },
       "steal": {
         "outcomes": {
-          "0": "You manage to steal a dusty old book and discreetly exit the building, in order to find a buyer in the main avenues of the city. However, you notice nobody is interested in the book, specifically because it is badly worn, and even has some torn pages. You decide to give up and leave it in a corner, before resuming your journey.",
+          "0": "You manage to steal a dusty old book and sneak out of the building to find a buyer on the city's main avenues. However, you notice that no one is interested in the book, not least because it's badly damaged and even has torn pages. So you abandon it and move on.",
           "1": "You sneak out of the library without anyone noticing you. You managed to steal a book, and now try to sell it to passers-by. A man decides to buy it for a few gold coins. Once the transaction is completed, you get back on track.",
-          "2": "You try to steal a book discreetly, but the librarian caught you red-handed. You run away with the book, but stumble over a stone, after which the librarian catches up to you. She requires that you give back the precious, golden-covered book along with compensation! Disappointed, and quite sheepish, you give the book back to her, a large part of your savings, all in order to avoid prison..."
+          "2": "You try to steal a golden book discreetly, but the librarian catches you red-handed. She demands that you return the precious book, and with it, compensation! Disappointed and ashamed, you return the book and compensate her with a large handful of your savings to avoid going to prison..."
         },
-        "text": "Try to steal a book and resell it."
+        "text": "Attempt to steal a book and resell it."
       }
     },
-    "text": "After strolling through the streets of Claire de Ville, you see a building whose entrance is framed by two stone statues of owls. As you get closer, you realize it is the city's library. You decide to come in to spend some time. As you enter, you see a large calendar held together by a leather strap, hanging on the wall."
+    "text": "After strolling through the streets of Claire de Ville, you come across a building whose entrance is framed by two stone owl statues. As you approach, you realize that this is the town's library. You decide to enter the building to pass the time. On one of the entrance walls hangs a calendar made of large leaves bound together by a leather strap."
   },
   "69": {
     "possibilities": {
       "accept": {
         "outcomes": {
           "0": "You feel like you're participating in a knighthood ceremony, since Donia puts the end of the staff on both your shoulders - first on the left one, then on the right - to give you her blessings. Either way, you don't feel that much different from before.",
-          "1": "You feel empowered by her blessing, but the effect soon disappears after Donia leaves you alone in the forest. You try to find her and ask for some kind of compensation, but are unable to locate her. You leave, annoyed to have been fooled, and swearing to yourself you're not going to fall for her tricks again, should you meet Donia on your path in some different place.",
-          "2": "As soon as Donia uses her blessing on you, she also throw some strange blue powder in your face. You get drowsy and she helps you to walk to one of the nearest trees, where you fall asleep. You dream of being in the royal palace, during a social event. You see the princess approaching you, with her face hidden by a dark veil, since you are actually oblivious to her physical appearance. You spend the rest of the dream dancing with her. You sleep a few hours feeling refreshed."
+          "1": "You feel overpowered after her blessing... until Donia leaves. You try to find her, embarrassed to have believed such folly, but you can't. You leave, ashamed and confused, and swear, a little too late, that she won't fool you again.",
+          "2": "As soon as Donia uses her \"blessing\" on you, she also throw some strange blue powder in your face. You get drowsy and she helps you to walk to one of the nearest trees, where you fall asleep. You dream of being in the royal palace, during a social event. You see the princess approaching you, with her face hidden by a dark veil, since you are actually oblivious to her physical appearance. You spend the rest of the dream dancing with her. You sleep a few hours feeling refreshed."
         },
         "text": "Accept her offer."
       },
