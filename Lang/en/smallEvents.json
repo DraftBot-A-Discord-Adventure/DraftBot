@@ -395,46 +395,46 @@
   },
   "winFightPoints": {
     "stories": [
-      "you see a bench on the edge of the road and sit a few minutes. This makes you ⚡ **{{fightPoints}}**.",
-      "you detach your waistband from your belt and cut yourself off. You win ⚡ **{{fightPoints}}**.",
-      "you pull out a fruit that you keep in a cloth and eat it. This makes you ⚡ **{{fightPoints}}**.",
-      "you stop for a few seconds to catch your breath. You go back a little harder and win ⚡ **{{fightPoints}}**.",
-      "you pull out a piece of bread and sit back with it. This makes you ⚡ **{{fightPoints}}**.",
-      "you sit a few minutes and meditate to soothe your mind. You start ⚡ **{{fightPoints}}**.",
-      "feel your muscles stretching and stopping for a few moments to stretch them. You start ⚡ **{{fightPoints}}**."
+      "you see a bench on the side of the road and sit down for a few minutes. It gives you back **{{fightPoints}}**⚡.",
+      "you detach your water bottle from your belt and quench your thirst. You earn **{{fightPoints}}**⚡.",
+      "you pull out a fruit that you've been keeping in a cloth and eat it. This gives you **{{fightPoints}}**⚡.",
+      "you stop for a few seconds to catch your breath. You leave with a little more stamina and earn **{{fightPoints}}**⚡.",
+      "you take out a piece of bread and satiate yourself with it. It makes you **{{fightPoints}}**⚡.",
+      "you sit for a few minutes and meditate to calm your mind. You recover **{{fightPoints}}**⚡.",
+      "you feel your muscles tense up and stop for a moment to stretch them. You recover **{{fightPoints}}**⚡."
     ]
   },
   "winHealth": {
     "stories": [
-      "discover a tree whose fruits seem appealing. Curious, you eat some of them, and return to your road. You gain **{{health}} :heart:**.",
-      "you find a vial almost empty. Since its content doesn't seem dangerous, you finish drinking it before continuing your way. You earn **{{health}} :heart:**.",
-      "discover an abandoned bathing facility. You decide to explore and quickly find some food. You gain **{{health}} :heart:**.",
-      "You meet a woman who boasts of being able to cure all your ills. You decide to trust him and let him incite for a few minutes. You gain **{{health}} :heart:**.",
-      "meet a group of children sharing the fruits of their crops. They offer you a few pears before you start your journey. You earn **{{health}} :heart:**.",
-      "Your look is attracted by what seems to be a narrow passage between the bushes. You follow it and find some mushrooms on the ground. They don't look dangerous, so you take the risk of eating them. You earn **{{health}} :heart:**.",
-      "you hear the rustling of a tiny stream. You decide to go there and drink a little of its fresh water. You earn **{{health}} :heart:**.",
-      "you can find whole baskets of food from a campfire. You take a few seconds before you hurry to eat as much as you can. Reput, you feel much better ahead of time. You earn **{{health}} :heart:**.",
-      "you notice an abandoned hut. You decide to enter it, when a shiny bottle attracts you. Intrepid you drink its content. You gain **{{health}} :heart:**.",
-      "you find a small farm with a recently turned off fireplace. You should steal some legumes before the owners return and eat them. You will earn **{{health}} :heart:**.",
-      "you meet a monk you are talking to. This one, impressed by your queen for the princess, decides to give you a prayer. You earn **{{health}} :heart:**.",
-      "you find some strawberries from the wood! Aprese you are equal, continue your way. You win **{{health}} :heart:**.",
-      "you see a packet abandoned on the ground. You open it and find out some of the supplies you consume before you start your journey. You gain **{{health}} :heart:**.",
-      "you find a waterfall and decide to do it. You win **{{health}} :heart:**.",
-      "you meet an old man who says he has an Elixir that he would prefer to cede to you for free. Curious, you accept it and drink it. You earn **{{health}} :heart:**.",
+      "you come across a tree whose fruit looks appetizing. Curious, you eat a few and continue on your way. You gain **{{health}} :heart:**.",
+      "you find an almost empty vial. As its contents do not seem dangerous, you finish drinking it before continuing on your way. You earn **{{health}} :heart:**.",
+      "you discover an abandoned building. You decide to explore it and quickly find some food. You gain **{{health}} :heart:**.",
+      "you meet a woman who claims to be able to cure all your ills. You decide to trust her and let her recite some incantations for a few minutes. You gain **{{health}} :heart:**.",
+      "you meet a group of children sharing the fruits of their harvest. They offer you some pears before you set off again. You earn **{{health}} :heart:**.",
+      "your gaze is drawn to what appears to be a narrow passageway between the bushes. You follow it and find some mushrooms on the ground. They don't look dangerous, so you take the risk of tasting them. You earn **{{health}} :heart:**.",
+      "you hear the rustle of a tiny stream. You decide to go there and drink some of the water, which turns out to be very cool. You earn **{{health}} :heart:**.",
+      "you discover whole baskets of food by a campfire. You hesitate for a few seconds before rushing to eat as much as you can. Full, you feel much better now. You earn **{{health}} :heart:**.",
+      "you see an abandoned hut. You decide to enter the hut, when a shiny bottle attracts you. Fearless, you drink the contents. You gain **{{health}} :heart:**.",
+      "you find a small farmhouse with a recently extinguished open fire. You hurry to steal some vegetables before the owners return and eat them. You earn **{{health}} :heart:**.",
+      "you meet and chat with a monk. Impressed by your quest for the princess, he decides to dedicate a prayer to you. You earn **{{health}} :heart:**.",
+      "you find some wild strawberries! After enjoying them, you continue on your way. You earn **{{health}} :heart:**.",
+      "you see a package abandoned on the ground. You open it and discover some food, which you eat before continuing on your way. You gain **{{health}} :heart:**.",
+      "you find a waterfall and decide to quench your thirst. You gain **{{health}} :heart:**.",
+      "you come across an old man who says he has an elixir he'd be willing to give you for free. Curious, you accept and drink it. You earn **{{health}} :heart:**.",
       "you find a water bottle in an abandoned cart. You drink water and feel better. You earn **{{health}} :heart:**"
     ]
   },
   "winPersonalXP": {
     "stories": [
-      "Grade a subterfuge worthy of the best knights, you arrive at a strange animal that had been attacking you for a while, after which you go back and forth guilleret.",
-      "On your way, you see a strange animal. As you move close to him, it jumps you up! You uncover your spell, and grab it instantly. You get back on your way, on your guard.",
-      "As you get attacked by bandits, you enjoy a moment of inattention to escape them. You take the step for a few hours before feeling secure again.",
-      "Around a bend, a shadow pounces on you ! After a hard battle, you crush your opponent under a rock. Proud of yourself, you get back on your road.",
-      "Around a grove, a black man is attacking you, surely, to steal your money. You pull out your weapon, and get rid of it.",
-      "You walk quietly while watching the landscape. Suddenly, an enraged beast leaps you into the ground with strength. You manage to regain the upper hand over the beast by strangling it with a bath.",
-      "As you walk along a small stream, a stray dog jumps on you. You manage to get rid of it after a few minutes of struggle.",
-      "On your road, you meet a beast which seems not friendly. You decides to run away, but it follows you and catch you up fast. You flip-flop and gaves it a violent blow. This enough action clears you from your opponent, you continue your way.",
-      "From the corner of the eye, you notice a gold bag falling from the pocket of an adventurer walking in front of you. You immediately alert him and give him the bag. He thanks you for your goodness."
+      "Thanks to a subterfuge worthy of the best knights, you manage to get rid of a strange animal that's been attacking you for some time, after which you're off again.",
+      "On your way, you come across a strange animal. As you pass close to it, it jumps at you! You draw your sword and slay it instantly. You continue on your way, on your guard.",
+      "As you are attacked by bandits, you take advantage of a moment's inattention to escape. You hurry along for a few hours before you feel safe again.",
+      "At the bend in the road, a shadow throws itself at you! After a terrible battle, you crush your opponent under a boulder. Proud of your achievement, you set off again.",
+      "At the bend in a grove, a man dressed entirely in black attacks you, probably to rob you of your money. You draw your gun and manage to neutralize him.",
+      "You walk quietly, observing the landscape. Suddenly, an enraged beast makes a prodigious leap, forcefully tackling you to the ground. You manage to regain the upper hand by strangling the beast with a stick.",
+      "As you walk along a small stream, a stray dog jumps out at you. After a few minutes' struggle, you manage to get rid of it.",
+      "On your way, you come across a beast that doesn't seem very friendly. You decide to run away, but it quickly catches up with you. You then turn around and strike a blow. That's enough to get rid of your adversary, and you're on your way.",
+      "Out of the corner of your eye, you notice a satchel full of gold fall from the pocket of an adventurer walking ahead of you. You immediately alert him and return the satchel. The adventurer thanks you for your kindness."
     ],
     "end": " You win **{{xp}}** :star:."
   },
