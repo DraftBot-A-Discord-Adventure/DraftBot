@@ -111,27 +111,371 @@
     "notEnoughGems": "You accept, but when it's time to pay, you realize you don't have enough to pay. You leave disappointed."
   },
   "lottery": {
-    "intro": "You cross the path of a man who questions you. Curious, you stop. He offers you to participate in a game of chance that he has created. You can choose between multiple reward levels.\n\n:coin: Small reward\n:dollar: average reward\n:moneybag: Big reward\n",
+    "intro": "You cross paths with a man who calls out to you. Curious, you stop. He suggests you take part in a game of chance he's created. You can choose between several levels of reward.\n\n:coin: Small reward\n:dollar: Medium reward\n:moneybag: Large reward\n",
     "easy": {
-      "success": "You participate and win a prize that the man gives you before leaving.",
-      "fail": "You lose in the game of man, however the participation was free, so you decide to get back to your way."
+      "success": "You take part and win a prize, which the man hands over to you before leaving.",
+      "fail": "You lose the man's game, but participation was free. So you decide to continue on your way."
     },
     "medium": {
-      "success": "You try your luck and win the game. The man gets you the right rewards. However you lose **{{lostTime}} Min :clock2:**.",
-      "fail": "You are participating in the human game, however you do not win, so go back and expect to be more lucky next time. Participating in the lottery will cause you to lose **{{lostTime}} Min :clock2:**."
+      "success": "You try your luck and win the game. The man rewards you appropriately. However, you lose **{{lostTime}} Min :clock2:**.",
+      "fail": "You take part in the man's game, but you don't win, so you leave hoping for better luck next time. Taking part in the lottery will have cost you **{{lostTime}} Min :clock2:**."
     },
     "hard": {
-      "success": "You win in the man's game. As a result, this rewards you gracefully. However, you lose **{{lostTime}} Min :clock2:**.",
-      "fail": "You seize your chance. Unfortunately you don't win, you may have more luck next time. Participating in the lottery will cause you to lose **{{lostTime}} Min :clock2:**.",
-      "failWithMalus": "You are betting about 100 coins on the human game. However, you are losing and leaving, quickly losing **{{money}}** 💸. Participating in the lottery will also cause you to lose **{{lostTime}} Min :clock2:**."
+      "success": "You win the man's game. As a result, he rewards you graciously. However, you lose **{{lostTime}} Min :clock2:**.",
+      "fail": "You take a chance. Unfortunately you don't win, maybe you'll be luckier next time. Taking part in the lottery will have cost you **{{lostTime}} Min :clock2:**.",
+      "failWithMalus": "You bet a hundred coins on the man's game. However, you lose and leave, disappointed at having lost **{{money}}** 💸. Taking part in the lottery will also have cost you **{{lostTime}} Min :clock2:**."
     },
-    "poor": "You try to play the attention of the man and bet a large amount. Unfortunately for you, the merchant doubtful of your good faith, and unable to attest any wealth, you were rejected without improvement.",
-    "end": "Without paying more attention to the individual, you continue your journey.",
+    "poor": "You try to trick the man into paying you a large sum of money. Unfortunately for you, the shopkeeper doubts your good faith, and unable to prove any wealth, you are ruthlessly rejected.",
+    "end": "Without paying any further attention to the individual, you continue on your way.",
     "rewardTypeText": {
       "xp": " You earned **{{xpWon}}⭐**.",
       "money": " You won **{{moneyWon}}💰**!",
-      "guildXp": " Your guild wins **{{guildXpWon}}⭐**.",
+      "guildXp": " Your guild earns **{{guildXpWon}}⭐**.",
       "points": " You won **{{pointsWon}}🏅**."
+    }
+  },
+  "interactOtherPlayers": {
+    "playerDisplayRanked": "**{{pseudo}}** ({{rank}}🏆)",
+    "playerDisplayUnranked": "**{{pseudo}}** (Unranked)",
+    "no_one": [
+      "You continue your path in the greatest calm. Nobody's on your way.",
+      "You're on your own, so you continue on your way in the greatest calm.",
+      "The sun's rays breaking through the clouds warm you up as you continue your journey on this deserted road."
+    ],
+    "top1": [
+      "You are passing by {{playerDisplay}} on your way, the best player at the moment!",
+      "As you walk along, you come across {{playerDisplay}}. He's currently at the top of the leaderboard. Your eyes filled with admiration, you decide not to hinder his progress, and continue on your way.",
+      "Oh my god! It's incredible! It's the legendary {{playerDisplay}}, the greatest fighter for now! You pass him by and chat for a while. He gives you a few tips for your adventure!",
+      "Make way for {{playerDisplay}}, DraftBot's best player in the world! You pass this person and keep walking to reach your destination."
+    ],
+    "top10": [
+      "In your way, you meet someone who is important. Indeed, {{playerDisplay}} is in the top 10!",
+      "Incredible! Walking along a path you meet one of the heroes of the moment! You probably know him - {{playerDisplay}} - you've seen him in the top 10! This event brightens up your day.",
+      "You speak with a famous figure among the princess's competing adventurers. It's {{playerDisplay}}, who's in the top 10!"
+    ],
+    "top50": [
+      "You meet someone whose name sounds familiar... Indeed, {{playerDisplay}} made a place in the top 50!",
+      "As you kick a pebble, you realize that it hits the shoe of a passer-by, but it's not just anyone, it's {{playerDisplay}}, you've seen him on the underground tournament lists! You chat with him for a while, then continue on your way.",
+      "\"With great power comes great responsibility\", says {{playerDisplay}}, a top-50 adventurer you meet on your journey."
+    ],
+    "top100": [
+      "Perseverance leads to success - that's what {{playerDisplay}}, one of the top 100 players, tells you! You then continue on your way to your destination.",
+      "Wow, you recognize one of the tournament newbies, you've seen him before in a village up north, but yes... It's {{playerDisplay}}!",
+      "As you work towards your goal, you meet {{playerDisplay}}, a rising star on DraftBot. Indeed, he's in the top 100!"
+    ],
+    "powerful_guild": [
+      "{{playerDisplay}}, who you meet by chance on your way, is a member of a powerful guild! This is what you conclude when you see his sparkling badge.",
+      "You see a crowd in the distance. You hurry to check it out, and you hear: \"Make way for {{playerDisplay}}\"! Indeed, he's in a rather powerful guild!",
+      "Rumor has it that a member of a powerful guild is making his way along the same path as yours. Indeed, you can see {{playerDisplay}} passing in the distance!"
+    ],
+    "beginner": [
+      "There's a beginning to everything! You meet {{playerDisplay}} as he begins his adventure dedicated to the princess.",
+      "A passer-by quickly recognizes you: it's {{playerDisplay}}. A newcomer, but a nice, friendly one!",
+      "You take a 5-minute break to clear your head. To do so, you train {{playerDisplay}}, who has just started the game."
+    ],
+    "advanced": [
+      "{{playerDisplay}}'s gray hair is a testament to the experience he has accumulated. He is indeed level **{{level}}**! You then continue on your way.",
+      "While out and about, you come across {{playerDisplay}}. He's a powerful hero, and is indeed level **{{level}}**!",
+      "{{playerDisplay}} is one of the best players in the game! He is currently level **{{level}}**. You're on your way after this encounter."
+    ],
+    "same_class": [
+      "On your way, you can't fail to recognize {{playerDisplay}}. He's a **{{class}}** just like you!",
+      "You notice {{playerDisplay}}, and quickly observe his familiar attire and mannerisms. He's a **{{class}}**, just like you! You then continue on your way.",
+      "You say hello to one of your **{{class}}** colleagues, {{playerDisplay}}, who is passing by. No time to stop, you continue on your way."
+    ],
+    "same_guild": [
+      "You come across a very familiar face on your way... Indeed, {{playerDisplay}} is a member of your guild!",
+      "You approach someone, their familiar face reminds you of somebody... Of course! It's {{playerDisplay}}, one of your guild members!",
+      "You meet {{playerDisplay}} from your guild! You perform the guild's secret handshake and go your separate ways."
+    ],
+    "staff_member": [
+      "{{playerDisplay}}, a member of the DraftBot staff, gives you some advice for the rest of your adventure:\n\n{{advice}}\n\nYou then go on your way.",
+      "\"{{advice}}\". That's what {{playerDisplay}}, one of the bot's famous staff members, told you when you came across him along the way!",
+      "You talk to {{playerDisplay}}, a member of the DraftBot team, who has some good advice for the rest of your adventure:\n\n{{advice}}"
+    ],
+    "top_week": [
+      "You see {{playerDisplay}} on your way, out of breath. He's not resting: in fact, he's in this week's top 5!",
+      "One of this week's heroes comes to see you. It's {{playerDisplay}}, he's in this week's top!",
+      "You talk about your points with {{playerDisplay}}. This one has made good progress this week, and is even in the top 5 for the week!"
+    ],
+    "low_hp": [
+      "You come across {{playerDisplay}}, who is limping... He doesn't seem to be in shape... He falls to the side of the road, and you decide to help him up.",
+      "You come across {{playerDisplay}}. He seems to be in a rough shape....",
+      "Even an arrow in the knee is capable of finishing off {{playerDisplay}}, who is moving slowly along his path. A healing potion would do him a great favor!"
+    ],
+    "full_hp": [
+      "You've rarely seen anyone as energetic as {{playerDisplay}}... He seems to be in great shape!",
+      "On your way, you come across {{playerDisplay}}, who seems to be in great shape. Indeed, he's in full health!",
+      "You almost end up on the floor as {{playerDisplay}} runs past you! He's very energetic because his life is at its maximum."
+    ],
+    "unranked": [
+      "You come across {{playerDisplay}}, a player who doesn't seem to be ranked... You leave wondering what took him to come here to give up so quickly.",
+      "While walking, you come across {{playerDisplay}}. This player doesn't seem to be doing well in the competition. You leave after explaining the basics of the game to him."
+    ],
+    "lower_rank_than_them": [
+      "You come across {{playerDisplay}}, a player with more reputation than you... But don't give up! You may catch up with him one day.",
+      "As you walk, you stumble and fall, and {{playerDisplay}} laughs at you because he's ranked higher than you!",
+      "You chat with {{playerDisplay}} about your ranking. He's one step ahead of you: he's ranked higher!",
+      "Even though he might brag about his higher ranking than yours, {{playerDisplay}} remains humble during your conversation."
+    ],
+    "better_rank_than_them": [
+      "You come across {{playerDisplay}}. This one has a lower ranking... But be careful, he could very well catch up with you one day!",
+      "A player comes to see you. It's {{playerDisplay}}. He asks you for a few tips on how to progress and then moves on!",
+      "You chat with {{playerDisplay}} about your ranking. You're ranked higher than him!"
+    ],
+    "rich": [
+      "You cover your eyes to stop being dazzled by the sun reflecting off the gold worn by {{playerDisplay}} ! You continue on your way, your eyes aching.",
+      "Is it Scrooge? No, it's {{playerDisplay}}! He's got so much gold that you're dazzled! You continue on your way, rubbing your eyes.",
+      "Coins are falling out of {{playerDisplay}}'s pockets because of how full they are. He doesn't even seem to worry about it. An animal picks them up before you can get your hands on them. You continue on your way, a little disappointed."
+    ],
+    "poor": [
+      "Looking at the clothes {{playerDisplay}} is wearing, he seems to have money problems... You think he'd be happy if you gave him a coin.\n\n🪙 Give him a coin\n❌ Don't give him a coin",
+      "While walking, you meet this poor wanderer, {{playerDisplay}}. He asks you for a few coins:\n\n🪙 Give him a coin, as you already have enough\n❌ Don't give him a coin",
+      "Misery touches everyone one day, and today it's {{playerDisplay}} who can barely afford a meal.\n\n🪙 Give him a coin\n❌ Don't give him a coin"
+    ],
+    "poor_give_money": [
+      "You feel good after making this humanitarian gesture.",
+      "It's by doing good that good spreads, said a priest you once met! You give him a coin, and he gives you a smile before continuing on his way!",
+      "Now that's a good deed on your part! He leaves with an extra coin to buy his next meal."
+    ],
+    "poor_dont_give_money": [
+      "There are no small savings... You decide to keep your money.",
+      "He's sad and leaves crying!",
+      "You ignore it, or at least you force yourself to. You leave and hope your conscience won't bother you."
+    ],
+    "pet": [
+      "{{playerDisplay}} passes by you with his pet **{{petEmote}}** **{{petName}}**. You pet this brave beast and continue on your way in a good mood!",
+      "{{playerDisplay}} passes you by and shows you his pet **{{petEmote}}** **{{petName}}**. You pet him and leave, have a nice trip!",
+      "{{playerDisplay}} crosses your path with **{{petEmote}}** **{{petName}}** on his leash. You look at him in amazement and say to yourself that you'd love to have this animal too!"
+    ],
+    "guild_chief": [
+      "Don't panic! You pass by {{playerDisplay}}, the leader of the **{{guildName}}** guild.",
+      "You pass by {{playerDisplay}}, he is the leader of the **{{guildName}}** guild!",
+      "You recognize the person passing in your path... It's {{playerDisplay}}, the guild leader **{{guildName}}** !"
+    ],
+    "guild_elder": [
+      "{{playerDisplay}} discusses his guild **{{guildName}}** with you. You learn that he's the guild's elder!",
+      "You pass by {{playerDisplay}}, he is the elder of the **{{guildName}}** guild!",
+      "The **{{guildName}}** guild's right-hand man, {{playerDisplay}}, greets you and continues on his way."
+    ],
+    "class": [
+      "You brush up against {{playerDisplay}}. You notice that he is part of the circle of **{{class}}s**. You talk to him for a while and then continue on your way.",
+      "{{playerDisplay}} whose class is **{{class}}** passes you by, you greet him and continue on your way.",
+      "You accidentally bump into the arm of {{playerDisplay}}, an honorable **{{class}}**. You both apologize and continue on your way."
+    ],
+    "weapon": [
+      "You meet {{playerDisplay}}, who shows you his \"**{{weapon}}**\" weapon.",
+      "A passer-by comes to show off next to you, it's {{playerDisplay}} and he shows you his \"**{{weapon}}**\" weapon!",
+      "Wow! {{playerDisplay}} brandishes his magnificent \"**{{weapon}}**\" weapon at you. You go on your way in astonishment."
+    ],
+    "armor": [
+      "You meet {{playerDisplay}}, who shows you his magnificent \"**{{armor}}**\" armor.",
+      "A guard approaches you: it's {{playerDisplay}}, he's come to show you his \"**{{armor}}**\" armor!",
+      "{{playerDisplay}} challenges you to test his \"**{{armor}}**\", which serves as its protection. Once you've tested its effectiveness, you're on your way."
+    ],
+    "potion": [
+      "You meet {{playerDisplay}} who shows you his magnificent \"**{{potion}}**\" potion.",
+      "{{playerDisplay}} comes to talk to you, he comes to show you his \"**{{potion}}**\" potion!",
+      "{{playerDisplay}} whom you meet along the way, tells you he's got his hands on one hell of a potion. So he shows you his \"**{{potion}}**\"."
+    ],
+    "object": [
+      "You meet {{playerDisplay}}, who shows you his magnificent \"**{{object}}**\" item.",
+      "Talking with {{playerDisplay}}, he shows you his \"**{{object}}**\" item!",
+      "{{playerDisplay}}, a player walking along the same road as you, pulls out an item from his collection. He proudly shows you his \"**{{object}}**\"."
+    ],
+    "effect": {
+      "sick": [
+        "You hear a noise in the distance... It's {{playerDisplay}} throwing up in a bush... You continue on your way, distraught.",
+        "{{playerDisplay}} vomits into a bush. So that's the noise you've been hearing for a while! You continue on your way, hoping you won't throw up after seeing this.",
+        "{{playerDisplay}} can't hold back and vomits at your feet. You narrowly dodge the attack and pick up your pace to get away from the massacre."
+      ],
+      "hurt": [
+        "You can see a mummy in the distance! Oh no, it's only {{playerDisplay}} who's covered in bandages...",
+        "On your way, you come across {{playerDisplay}}. He's covered in bandages - what happened to him?",
+        "As you race to your destination, {{playerDisplay}} asks you to tighten the bandages on his head. You do so, and are surprised that anyone could be so badly hurt."
+      ],
+      "injured": [
+        "You stumble on {{playerDisplay}} who is unconscious on the floor. You give him small taps to wake him up, without success.",
+        "It wasn't a dead rat on the floor, it was just {{playerDisplay}}. You ask him if he's okay. He doesn't answer, so you continue on your way.",
+        "A person is unconscious in the middle of the road. It's {{playerDisplay}}. You do what you can to bring him back to consciousness, in vain. You put him down on the side of the road to avoid further injury."
+      ],
+      "starving": [
+        "A dull rumbling reaches your ears. You discover that it's {{playerDisplay}}'s stomach. Unfortunately, you recently finished your leftover food.",
+        "Apparently, {{playerDisplay}} hasn't eaten enough. Their stomach is rumbling! With nothing to offer, you continue on your way to other horizons.",
+        "You can see {{playerDisplay}}, who is in a frenzy to find food. He's running around looking for something to eat. With nothing on you to offer him, you continue on your way."
+      ],
+      "sleeping": [
+        "You pass {{playerDisplay}} sleeping on the side of the road. You decide to let him sleep, as he surely needs some rest.",
+        "Obviously {{playerDisplay}} did not sleep enough last night: he's lying on the roadside.",
+        "The roadside looks like a good place to rest. That's what you tell yourself after seeing {{playerDisplay}} sleeping there."
+      ],
+      "freezing": [
+        "You feel very cold when you walk. That's {{playerDisplay}}, who's close to hypothermia!",
+        "{{playerDisplay}} seems to be cold, you warm him up a little and then leave.",
+        "A redundant clicking sound annoys you. You discover that it's {{playerDisplay}}'s teeth... He's frozen! Without further ado, you resume your journey."
+      ],
+      "confounded": [
+        "You chat with {{playerDisplay}}. At least, you're trying to. His words are rather incoherent, so you continue on your way somewhat confused.",
+        "{{playerDisplay}} makes a lot of incoherent comments. It seems strange to you, so you leave quickly, confused!",
+        "You see {{playerDisplay}} looking completely out of it. After trying to bring him back to reality to no avail, you continue your journey at a faster pace to make up for lost time."
+      ],
+      "drunk": [
+        "{{playerDisplay}} zigzags across your path, it seems he drank a little (too much). You continue your journey.",
+        "{{playerDisplay}} doesn't seem to have understood that alcohol should be consumed with moderation. You continue on your way after this unexpected encounter.",
+        "You can see {{playerDisplay}} is quite tipsy, to put it mildly. He seems to be enjoying himself... all by himself. You do what you can to ignore him and continue on your way."
+      ],
+      "scared": [
+        "You come across {{playerDisplay}} running towards you. He's being chased by robbers after his money. You accompany him along the road so that he can regain his composure. Once reassured, you leave him and set off again.",
+        "In the distance, you spot {{playerDisplay}} running at full speed to escape a pack of wolves. You rush to his aid and make the wild beasts retreat.",
+        "You meet {{playerDisplay}}. He seems completely panicked. You ask him what's got him so worked up. He tells you he's just been chased by a dragon, but managed to get away, losing a few hairs in the process."
+      ],
+      "occupied": [
+        "You spot {{playerDisplay}} and invite him to have a chat, but he tells you he's busy. It's only a postponement, and you each continue on your way.",
+        "While crossing the river, you come across {{playerDisplay}}, who is quite busy... You try to chat with him, but to no avail. Instead, he asks you to help him with his work.",
+        "On your way, you come across {{playerDisplay}}, who seems very busy. You try to find out more, to no avail, before continuing on your way."
+      ],
+      "jailed": [
+        "As you stroll leisurely to your destination, you spot guards handcuffing {{playerDisplay}}. Curious, you approach and hear that he's heading straight for the jail. You leave, wondering what this man has been up to.",
+        "As you carefully make your way down a path, you come across a convoy of prisoners escorted by armed guards. As they trudge up the slope, you catch a glimpse of the poor buggers, including {{playerDisplay}}, who are in tears. You feel a little sorry for them, but quickly forget this feeling, telling yourself that he's surely not here by chance."
+      ],
+      "lost": [
+        "You come across {{playerDisplay}}, who seems to be lost and asks you which way to go to reach his destination. Unfortunately, you can't help him, so you comfort him a little before resuming your journey.",
+        "You come across {{playerDisplay}}, who seems to have lost his way, obviously disorientated. He looks at you expectantly, seeking help to find his way back.",
+        "You notice that {{playerDisplay}} is walking in circles, having passed him several times on the way. You approach him and ask if he needs help. He explains that he's lost and asks you to accompany him to his destination."
+      ]
+    }
+  },
+  "leagueReward": {
+    "intrigue": [
+      "you notice a large poster from the corner of your eye...",
+      "you slip on the lower side of the road and fall to the ground. As you get back up, you notice a small scroll...",
+      "a bird approaches you and drops a tiny message in your hand...",
+      "you discover an old, abandoned wooden hut, you decide to explore it and discover only an old grimoire that seems to have been lying around for years..."
+    ],
+    "reward": ":moneybag: Money: **{{money}}**\n:star: XP: **{{xp}}**\n:medal: Points: **The number of points will depend on your final ranking.**\n:gift: A random equipment.",
+    "endMessage": "\n\n:newspaper: \"To the adventurer belonging to the {{league}} who will find this text, **if you maintain your glory until the end of the season**, you will be able to win these rewards:\n\n{{rewards}}\"\n\nYou resume your journey, while enjoying your bonus {{time}}.",
+    "notEnoughFight": "\n\n:newspaper: \"To the adventurer belonging to the {{league}} who will find this text, **if you perform some battles using the /fight command**, you will be able to win these rewards:\n\n{{rewards}}\"\n\nYou quickly set off again, feazring that you won't manage to fight enough players before the end of the season {{time}}.",
+    "rewardToday": "\n\n:newspaper: \"**League rewards are available!** Receive your reward before the end of the week thanks to the /leaguebonus command!\"\n\nYou get back on your way, while looking forward to receiving your bonus."
+  },
+  "winGuildXP": {
+    "stories": [
+      "**{{guild}}**'s reputation seems to precede you. By learning that you are part of the guild, adventurers who have been following you for a few kilometers give you their greatest respect.",
+      "As a result of a few battles that you are victorious, you apply the **{{guild}}** guild's mark on your opponents' remains. All those who will pass here will recognize it.",
+      "Your good actions in the area have helped a large part of the population. When they ask you how they could thank you, you ask them to remember **{{guild}}**'s name.",
+      "Congratulations! Over time, your guild, **{{guild}}**, becomes known throughout the whole kingdom.",
+      "**{{guild}}** is becoming more and more popular as time goes by! We hope you continue to do so, and that's why we're offering you this xp bonus!",
+      "As you enter an inn, the tenant recognizes the emblem on your shield, the symbol of the **{{guild}}** guild. He decides to offer a general round of drinks in your honor, to great effect with the other customers."
+    ],
+    "end": " Your guild wins **{{xp}}** :star:."
+  },
+  "winEnergy": {
+    "stories": [
+      "you meet a young lady who introduces herself as Hilda the healer. After a quick chat, you agree to let her try her latest remedy on you. **You recover all your energy** :zap:",
+      "you come across a young woman who offers to treat you. You accept and receive a delicious beverage. **You recover all your energy** :zap:",
+      "you come face to face with a young woman accompanied by a goat. She offers you a miracle cure. Curious, you accept and, against all odds, you immediately feel better. **Your energy is restored** :zap:",
+      "you meet a young woman who offers to treat you. You accept and immediately feel better. **You recover all your energy** :zap:",
+      "you meet a woman dressed all in white who offers to treat you. You accept her treatment. **Your energy is restored** :zap:",
+      "you meet a woman who describes herself as a healer. After some discussion, you learn that she is on her way to the pastures, offering healing services along the way. You accept a mysterious remedy. **You recover all your energy** :zap:",
+      "you come across a young woman who offers to treat you. You accept and immediately feel better. **You recover all your energy** :zap:"
+    ]
+  },
+  "doNothing": {
+    "stories": [
+      "No incidents or notable events to report.",
+      "Nothing special has happened since the previous report.",
+      "You've had no trouble making progress recently, and you're continuing to make good progress.",
+      "Nothing to report, you keep moving forward.",
+      "No obstacles in sight, nothing seems to be against you at the moment. You keep moving forward.",
+      "The way is clear, there's no reason to stop, you keep moving forward.",
+      "Nothing significant has happened since the previous report.",
+      "No notable events since last time.",
+      "The dogs bark and the caravan passes by. You continue quietly on your way.",
+      "The princess is closing in on you! At least that's the impression you get... You continue on your way."
+    ]
+  },
+  "winFightPoints": {
+    "stories": [
+      "you see a bench on the side of the road and sit down for a few minutes. It gives you back **{{fightPoints}}**⚡.",
+      "you detach your water bottle from your belt and quench your thirst. You earn **{{fightPoints}}**⚡.",
+      "you pull out a fruit that you've been keeping in a cloth and eat it. This gives you **{{fightPoints}}**⚡.",
+      "you stop for a few seconds to catch your breath. You leave with a little more stamina and earn **{{fightPoints}}**⚡.",
+      "you take out a piece of bread and satiate yourself with it. It makes you **{{fightPoints}}**⚡.",
+      "you sit for a few minutes and meditate to calm your mind. You recover **{{fightPoints}}**⚡.",
+      "you feel your muscles tense up and stop for a moment to stretch them. You recover **{{fightPoints}}**⚡."
+    ]
+  },
+  "winHealth": {
+    "stories": [
+      "you come across a tree whose fruit looks appetizing. Curious, you eat a few and continue on your way. You gain **{{health}} :heart:**.",
+      "you find an almost empty vial. As its contents do not seem dangerous, you finish drinking it before continuing on your way. You earn **{{health}} :heart:**.",
+      "you discover an abandoned building. You decide to explore it and quickly find some food. You gain **{{health}} :heart:**.",
+      "you meet a woman who claims to be able to cure all your ills. You decide to trust her and let her recite some incantations for a few minutes. You gain **{{health}} :heart:**.",
+      "you meet a group of children sharing the fruits of their harvest. They offer you some pears before you set off again. You earn **{{health}} :heart:**.",
+      "your gaze is drawn to what appears to be a narrow passageway between the bushes. You follow it and find some mushrooms on the ground. They don't look dangerous, so you take the risk of tasting them. You earn **{{health}} :heart:**.",
+      "you hear the rustle of a tiny stream. You decide to go there and drink some of the water, which turns out to be very cool. You earn **{{health}} :heart:**.",
+      "you discover whole baskets of food by a campfire. You hesitate for a few seconds before rushing to eat as much as you can. Full, you feel much better now. You earn **{{health}} :heart:**.",
+      "you see an abandoned hut. You decide to enter the hut, when a shiny bottle attracts you. Fearless, you drink the contents. You gain **{{health}} :heart:**.",
+      "you find a small farmhouse with a recently extinguished open fire. You hurry to steal some vegetables before the owners return and eat them. You earn **{{health}} :heart:**.",
+      "you meet and chat with a monk. Impressed by your quest for the princess, he decides to dedicate a prayer to you. You earn **{{health}} :heart:**.",
+      "you find some wild strawberries! After enjoying them, you continue on your way. You earn **{{health}} :heart:**.",
+      "you see a package abandoned on the ground. You open it and discover some food, which you eat before continuing on your way. You gain **{{health}} :heart:**.",
+      "you find a waterfall and decide to quench your thirst. You gain **{{health}} :heart:**.",
+      "you come across an old man who says he has an elixir he'd be willing to give you for free. Curious, you accept and drink it. You earn **{{health}} :heart:**.",
+      "you find a water bottle in an abandoned cart. You drink water and feel better. You earn **{{health}} :heart:**"
+    ]
+  },
+  "winPersonalXP": {
+    "stories": [
+      "Thanks to a subterfuge worthy of the best knights, you manage to get rid of a strange animal that's been attacking you for some time, after which you're off again.",
+      "On your way, you come across a strange animal. As you pass close to it, it jumps at you! You draw your sword and slay it instantly. You continue on your way, on your guard.",
+      "As you are attacked by bandits, you take advantage of a moment's inattention to escape. You hurry along for a few hours before you feel safe again.",
+      "At the bend in the road, a shadow throws itself at you! After a terrible battle, you crush your opponent under a boulder. Proud of your achievement, you set off again.",
+      "At the bend in a grove, a man dressed entirely in black attacks you, probably to rob you of your money. You draw your gun and manage to neutralize him.",
+      "You walk quietly, observing the landscape. Suddenly, an enraged beast makes a prodigious leap, forcefully tackling you to the ground. You manage to regain the upper hand by strangling the beast with a stick.",
+      "As you walk along a small stream, a stray dog jumps out at you. After a few minutes' struggle, you manage to get rid of it.",
+      "On your way, you come across a beast that doesn't seem very friendly. You decide to run away, but it quickly catches up with you. You then turn around and strike a blow. That's enough to get rid of your adversary, and you're on your way.",
+      "Out of the corner of your eye, you notice a satchel full of gold fall from the pocket of an adventurer walking ahead of you. You immediately alert him and return the satchel. The adventurer thanks you for your kindness."
+    ],
+    "end": " You win **{{xp}}** :star:."
+  },
+  "staffMember": {
+    "context": [
+      "Rounding a ravine, you meet a bard. As you walk, he tells you the story of **{{pseudo}}**, \"{{sentence}}\".",
+      "As you walk along, you notice a large poster. It seems to praise the exploits of **{{pseudo}}**... \"{{sentence}}\".",
+      "During one of your adventures, you hear a story, \"{{sentence}}\", but you don't know the hero. After some research, you realize that it's about **{{pseudo}}**! The name sounds familiar...",
+      "Entering a building along the way, you chat for a while with the manager of the establishment. You ask him to tell you about the local legends. He describes **{{pseudo}}**, \"{{sentence}}\".",
+      "Along the way, you meet an old man whom you decide to accompany. During your journey together, he tells you the story of **{{pseudo}}**: \"{{sentence}}\".",
+      "Walking along the road, you spot a battered book on the ground. Entitled **{{pseudo}}**, you open it and read the first few sentences... \"{{sentence}}\".",
+      "After a long, monotonous walk, you come across someone singing in honor of **{{pseudo}}**.... :musical_note: \"{{sentence}}\" :musical_note:.",
+      "On your journey, a cloud of dust appears in the distance. A few minutes later, a rider stops in front of you, saying he's looking for **{{pseudo}}**. To your inquisitive look, he adds: \"{{sentence}}\"."
+    ],
+    "members": {
+      "Nysvaa": "a suitor for the hand of the princess who doesn't intend to win her by fighting, but by proving his thoughtfulness during his adventures (and by his luck a little... a lot)",
+      "Thero1st": "one of the first competitors for the hand of the princess and a great chef specializing in octopus skewers, this fighter nevertheless takes the competition lightly, preferring to spend time in his stands with his animals",
+      "Oscar": "a mediocre warrior who, in his heyday, a bygone era, dominated the rankings on points and knowledge",
+      "QQtin": "a faithful knight who overcame many enemies thanks to the gift of heaven and helped make the world a better place",
+      "LePourfendeur": "an experienced adventurer, adept at saving money, perhaps a little too much so. Previously very active, he is now more discreet, but remains among the best",
+      "Ines": "a fighter from the beginning of this world, who unfortunately fights less and less for him due to lack of time, but remains in the race for the princess, or rather the prince. Loyal supporter of Kyutism",
+      "romain22222": "a great thinker, seeking as much to resolve situations optimally as to create them. He talks too much, far too much, with the minstrels and his worshippers, and avoids the tents in the forests",
+      "Asemerald": "a down-on-his-luck adventurer known for his unimaginable firepower",
+      "Izuku": "a rich inventor who created a love potion for the beautiful princess, only to have it stolen by a merchant",
+      "Draft": "an ancient god who created the world in which they all live. Amazed by the his people's abilities, he wanders among them as he works to improve their experience",
+      "Royal": "a seasoned entrepreneur favors money over morality. Fond of tournaments, he won't hesitate to fight for the princess",
+      "Max": "a mad inventor who loves to travel. He is the only person ever to have traveled the land of dragons. Legend has it that almost all his projects have brought mankind to the brink of extinction",
+      "Eagle": "a dragon breeder, who led the kingdom's first coups",
+      "DeadAngelV6": "an ordinary human who loves life, eating is one of his passions. Feed him when you see him",
+      "Kyusaki": "the first High Priest of Kyutism, he leads an incognito path of meditation among the adventurers of the world, often giving advice to those who ask for it",
+      "Greninja_san": "a batrachian with an extraordinary intellect, he used his extensive knowledge to integrate into human life and learn the precepts of their magic",
+      "nwcubeok": "a famous magician who travels the country promoting his magical talents. He hopes the princess will appreciate them",
+      "SuperBananeNinja": "a discreet mage who roams the lands, usually solitary, often salutary, with his motley ways and disconcerting tricks, but always right in his boots",
+      "Hitori": "a completely incoherent artist with an uncommon dynamism. She asks anyone who will listen if they know where the gods are hiding, and is infamous for her exceptional bad luck, which has led to the destruction of numerous buildings",
+      "Pietagorh": "the director of an association that helps young adventurers improve their skills. Rumor has it that he can determine the limits of this world",
+      "Doctor": "a great adventurer who roams the kingdom in search of a worthy adversary. If you come across him, you can try to fight him, but few have managed to survive his first blow",
+      "KirIcare": "a discreet but intriguing character. His self-effacing presence arouses the curiosity of a certain artist and a renowned dragon hunter, who have made it their quest to acquire him",
+      "symsym": "a young adventurer, curious and eager to meet new people. Some say he founded a tavern at the end of the swampy road",
+      "Pagotortoise": "a kaijū who, despite his appearance, explores the land in search of people to help, and means no harm. He's ready to guide you if the need arises, so take the opportunity to ask him for some advice",
+      "Voltou": "the greatest thief this world has ever known, his fortune is said to equal that of the king, and he hid it in every corner of the kingdom. If you come across him, be sure to check your pockets",
+      "Aiko": "a wild potato making mincemeat of all her enemies, aiming for the highest stars in the universe"
     }
   }
 }

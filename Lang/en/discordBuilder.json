@@ -58,7 +58,7 @@
     }
   },
   "petFree": {
-    "description": "Free a pet.",
+    "description": "Release a pet.",
     "name": "petfree"
   },
   "petNick": {
@@ -66,7 +66,7 @@
     "name": "petnickname",
     "options": {
       "nickname": {
-        "description": "The nickname you want to give to your pet. (keep empty to remove the nickname)",
+        "description": "The nickname you want to give your pet. (Leave blank to delete nickname)",
         "name": "nickname"
       }
     }
