@@ -138,6 +138,7 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
      */
     public async reply(options: OptionLike, fallback?: () => void | Promise<void>): Promise<Message> {
         return await DraftbotInteraction.prototype.commonSendCommand(CommandInteraction.prototype.reply.bind(this), options as ReplyOptionsSpecial, fallback ?? (() => {
+            // Do nothing by default if no fallback is provided
         })) as Message;
     }
 
@@ -148,6 +149,7 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
      */
     public async followUp(options: OptionLike, fallback?: () => void | Promise<void>): Promise<Message> {
         return await DraftbotInteraction.prototype.commonSendCommand(CommandInteraction.prototype.followUp.bind(this), options, fallback ?? (() => {
+            // Do nothing by default if no fallback is provided
         })) as Message;
     }
 
@@ -217,13 +219,14 @@ export class DraftbotChannel extends ChannelTypeWithoutSend {
      * @param fallback function to execute if the bot can't send the message
      */
     public async send(options: string | MessageCreateOptions, fallback?: () => void | Promise<void>): Promise<Message | null> {
-        fallback ??= (() => {
-        });
         try {
             return await BaseGuildTextChannel.prototype.send.bind(this)(options);
         } catch (e) {
             console.error(`Weird Permission Error ${(e as Error).stack}`);
             DraftbotChannel.prototype.manageFallback.bind(this)();
+            fallback ??= (() => {
+                // Do nothing by default if no fallback is provided
+            });
             await fallback();
             return null;
         }
