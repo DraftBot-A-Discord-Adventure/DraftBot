@@ -95,6 +95,7 @@ async function acceptPetFree(player: Player, playerPet: PetEntity, response: Dra
 		}
 	}
 	catch (error) {
+		// Continue regardless of error
 	}
 
 	response.push(makePacket(CommandPetFreeAcceptPacketRes, {
