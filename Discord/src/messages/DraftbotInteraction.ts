@@ -27,6 +27,7 @@ type ReplyFunctionLike<OptionValue> = (options: OptionValue) => Promise<Message>
 
 export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands {
 	public userLanguage: Language = LANGUAGE.DEFAULT_LANGUAGE;
+
 	// @ts-expect-error - Property 'options' is initialized in the caster, which is the only normal way to create a DraftbotInteraction
 	public options: CommandInteractionOptionResolver;
 
@@ -73,62 +74,103 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 
 	private static properCastOptions(options: CommandInteractionOptionResolver): CommandInteractionOptionResolver {
 		// Not present in class AutoCompleteInteraction | MessageContextMenuInteraction
-		options.getUser ??= (() => {
-			throw new Error("DraftbotInteraction: interaction.options.getUser is not defined for this interaction, probably trying to use it on either an autocomplete or a message context menu")
-		});
+		// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+		options.getUser ??= () => {
+			throw new Error("DraftbotInteraction: interaction.options.getUser is not defined for this interaction.");
+		};
 
 		// Not present in class AutoCompleteInteraction
-		options.getMember ??= (() => {
-			throw new Error("DraftbotInteraction: interaction.options.getMember is not defined for this interaction, probably trying to use it on an autocomplete")
-		});
+		// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+		options.getMember ??= () => {
+			throw new Error("DraftbotInteraction: interaction.options.getMember is not defined for this interaction.");
+		};
 
 		// Not present in class ChatInputCommandInteraction | AutocompleteInteraction | UserContextMenuCommandInteraction
-		options.getMessage ??= (() => {
-			throw new Error("DraftbotInteraction: interaction.options.getMessage is not defined for this interaction, probably trying to use it on either a chat input, an autocomplete or a user context menu")
-		});
+		// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+		options.getMessage ??= () => {
+			throw new Error("DraftbotInteraction: interaction.options.getMessage is not defined for this interaction.");
+		};
 
 		// Not present in class ChatInputCommandInteraction | MessageContextMenuInteraction | UserContextMenuCommandInteraction
-		options.getFocused ??= (() => {
-			throw new Error("DraftbotInteraction: interaction.options.getFocused is not defined for this interaction, probably trying to use it on either a chat input, a message context menu or a user context menu")
-		});
+		// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+		options.getFocused ??= () => {
+			throw new Error("DraftbotInteraction: interaction.options.getFocused is not defined for this interaction.");
+		};
 
 		// Not present in AutoCompleteInteraction | UserContextMenuCommandInteraction
-		options.getChannel ??= (() => {
-			throw new Error("DraftbotInteraction: interaction.options.getChannel is not defined for this interaction, probably trying to use it on either an autocomplete or a user context menu")
-		});
+		// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+		options.getChannel ??= () => {
+			throw new Error(
+				"DraftbotInteraction: interaction.options.getChannel is not defined for this interaction."
+			);
+		};
 
 		// Not present in class AutoCompleteInteraction | MessageContextMenuInteraction | UserContextMenuCommandInteraction
-		options.getAttachment ??= (() => {
-			throw new Error("DraftbotInteraction: interaction.options.getAttachment is not defined for this interaction, probably trying to use it on either an autocomplete, a message context menu or a user context menu")
-		});
-		options.getMentionable ??= (() => {
-			throw new Error("DraftbotInteraction: interaction.options.getMentionable is not defined for this interaction, probably trying to use it on either an autocomplete, a message context menu or a user context menu")
-		});
-		options.getRole ??= (() => {
-			throw new Error("DraftbotInteraction: interaction.options.getRole is not defined for this interaction, probably trying to use it on either an autocomplete, a message context menu or a user context menu")
-		});
+		// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+		options.getAttachment ??= () => {
+			throw new Error(
+				"DraftbotInteraction: interaction.options.getAttachment is not defined for this interaction."
+			);
+		};
+
+		// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+		options.getMentionable ??= () => {
+			throw new Error(
+				"DraftbotInteraction: interaction.options.getMentionable is not defined for this interaction."
+			);
+		};
+
+		// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+		options.getRole ??= () => {
+			throw new Error(
+				"DraftbotInteraction: interaction.options.getRole is not defined for this interaction."
+			);
+		};
 
 		// Not present in class MessageContextMenuInteraction | UserContextMenuCommandInteraction
-		options.getNumber ??= (() => {
-			throw new Error("DraftbotInteraction: interaction.options.getNumber is not defined for this interaction, probably trying to use it on either a message context menu or a user context menu")
-		});
-		options.getInteger ??= (() => {
-			throw new Error("DraftbotInteraction: interaction.options.getInteger is not defined for this interaction, probably trying to use it on either a message context menu or a user context menu")
-		});
-		options.getString ??= (() => {
-			throw new Error("DraftbotInteraction: interaction.options.getString is not defined for this interaction, probably trying to use it on either a message context menu or a user context menu")
-		});
-		options.getBoolean ??= (() => {
-			throw new Error("DraftbotInteraction: interaction.options.getBoolean is not defined for this interaction, probably trying to use it on either a message context menu or a user context menu")
-		});
-		options.getSubcommandGroup ??= (() => {
-			throw new Error("DraftbotInteraction: interaction.options.getSubcommandGroup is not defined for this interaction, probably trying to use it on either a message context menu or a user context menu")
-		});
-		options.getSubcommand ??= (() => {
-			throw new Error("DraftbotInteraction: interaction.options.getSubcommand is not defined for this interaction, probably trying to use it on either a message context menu or a user context menu")
-		});
+		// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+		options.getNumber ??= () => {
+			throw new Error(
+				"DraftbotInteraction: interaction.options.getNumber is not defined for this interaction."
+			);
+		};
 
-		return options
+		// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+		options.getInteger ??= () => {
+			throw new Error(
+				"DraftbotInteraction: interaction.options.getInteger is not defined for this interaction."
+			);
+		};
+
+		// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+		options.getString ??= () => {
+			throw new Error(
+				"DraftbotInteraction: interaction.options.getString is not defined for this interaction."
+			);
+		};
+
+		// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+		options.getBoolean ??= () => {
+			throw new Error(
+				"DraftbotInteraction: interaction.options.getBoolean is not defined for this interaction."
+			);
+		};
+
+		// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+		options.getSubcommandGroup ??= () => {
+			throw new Error(
+				"DraftbotInteraction: interaction.options.getSubcommandGroup is not defined for this interaction."
+			);
+		};
+
+		// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+		options.getSubcommand ??= () => {
+			throw new Error(
+				"DraftbotInteraction: interaction.options.getSubcommand is not defined for this interaction."
+			);
+		};
+
+		return options;
 	}
 
 	/**
@@ -165,7 +207,8 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 	 * @param fallback function to execute if the bot can't send the message
 	 * @private
 	 */
-	private async commonSendCommand<OptionType extends OptionLike>(functionPrototype: ReplyFunctionLike<OptionType>, options: OptionType, fallback: () => void | Promise<void>): Promise<Message | null> {
+	private async commonSendCommand<OptionType extends OptionLike>(functionPrototype: ReplyFunctionLike<OptionType>, options: OptionType, fallback: () => void | Promise<void>)
+		: Promise<Message | null> {
 		try {
 			return await functionPrototype(options);
 		}
@@ -228,9 +271,9 @@ export class DraftbotChannel extends ChannelTypeWithoutSend {
 		catch (e) {
 			console.error(`Weird Permission Error ${(e as Error).stack}`);
 			DraftbotChannel.prototype.manageFallback.bind(this)();
-			fallback ??= (() => {
+			fallback ??= (): void => {
 				// Do nothing by default if no fallback is provided
-			});
+			};
 			await fallback();
 			return null;
 		}
@@ -241,7 +284,7 @@ export class DraftbotChannel extends ChannelTypeWithoutSend {
 	 * @private
 	 */
 	private manageFallback(): void {
-		// We can't send ephemeral message nor send message in DM
+		// We can't send ephemeral message nor send messages in DM
 		console.log(`Unable to alert user of no speak permission : c:${this.id} / u:N/A`);
 	}
 }
