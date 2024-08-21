@@ -79,9 +79,9 @@ async function canCreateGuild(player: Player, guildName: string, response: Draft
 	return true;
 }
 
-async function acceptGuildCreate(player: Player, guildName: string, response: DraftBotPacket[]) {
+async function acceptGuildCreate(player: Player, guildName: string, response: DraftBotPacket[]) : Promise<void> {
 	await player.reload();
-	// do all necessary checks again just in case something changed during the menu
+	// Do all necessary checks again just in case something changed during the menu
 	if (!await canCreateGuild(player, guildName, response)) {
 		return;
 	}
