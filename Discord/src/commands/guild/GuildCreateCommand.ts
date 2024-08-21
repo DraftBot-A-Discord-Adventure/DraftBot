@@ -25,67 +25,52 @@ import {GuildCreateConstants} from "../../../../Lib/src/constants/GuildCreateCon
  * Create a new guild
  */
 function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): CommandGuildCreatePacketReq {
-	const askedGuildName = <string>interaction.options.get("name",true).value;
+	const askedGuildName = <string>interaction.options.get("name", true).value;
 	return makePacket(CommandGuildCreatePacketReq, {keycloakId: user.id, askedGuildName});
 }
+
+async function replyErrorEmbed(context: PacketContext, errorKey: string, formatParams: Record<string, unknown> = {}): Promise<void> {
+	const interaction = DiscordCache.getInteraction(context.discord!.interaction!);
+	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+	formatParams.lng = interaction?.userLanguage;
+	const params = {
+		embeds: [
+			new DraftBotErrorEmbed(
+				interaction!.user,
+				interaction!,
+				i18n.t(errorKey, formatParams)
+			)
+		]
+	};
+	if (interaction && buttonInteraction)
+		await buttonInteraction.editReply(params);
+	else if (interaction)
+		await interaction.reply(params);
+}
+
 
 export async function handleCommandGuildCreatePacketRes(packet: CommandGuildCreatePacketRes, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 	if (interaction) {
 		if (packet.playerMoney < GuildCreateConstants.PRICE) {
-			await interaction.reply({
-				embeds: [
-					new DraftBotErrorEmbed(
-						interaction.user,
-						interaction,
-						i18n.t("error:notEnoughMoney", {
-							lng: interaction.userLanguage,
-							money: GuildCreateConstants.PRICE - packet.playerMoney
-						})
-					)
-				]
+			await replyErrorEmbed(context, "error:notEnoughMoney", {
+				money: GuildCreateConstants.PRICE - packet.playerMoney,
 			});
 			return;
 		}
 		if (packet.foundGuild) {
-			await interaction.reply({
-				embeds: [
-					new DraftBotErrorEmbed(
-						interaction.user,
-						interaction,
-						i18n.t("error:alreadyInAGuild", {lng: interaction.userLanguage})
-					)
-				]
-			});
+			await replyErrorEmbed(context, "error:alreadyInAGuild");
 			return;
 		}
 		if (!packet.guildNameIsAvailable) {
-			await interaction.reply({
-				embeds: [
-					new DraftBotErrorEmbed(
-						interaction.user,
-						interaction,
-						i18n.t("error:guildAlreadyExist", {lng: interaction.userLanguage})
-					)
-				]
-			});
+			await replyErrorEmbed(context, "error:guildAlreadyExist");
 			return;
 		}
 		if (!packet.guildNameIsAcceptable) {
-			await interaction.reply({
-				embeds: [
-					new DraftBotErrorEmbed(
-						interaction.user,
-						interaction,
-						i18n.t("error:guildNameNotValid", {
-							lng: interaction.userLanguage,
-							min: GuildConstants.GUILD_NAME_LENGTH_RANGE.MIN,
-							max: GuildConstants.GUILD_NAME_LENGTH_RANGE.MAX
-						})
-					)
-				]
+			await replyErrorEmbed(context, "error:guildNameNotValid", {
+				min: GuildConstants.GUILD_NAME_LENGTH_RANGE.MIN,
+				max: GuildConstants.GUILD_NAME_LENGTH_RANGE.MAX
 			});
-
 		}
 	}
 }

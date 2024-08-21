@@ -21,9 +21,22 @@ import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {LogsDatabase} from "../../core/database/logs/LogsDatabase";
 import {MissionsController} from "../../core/missions/MissionsController";
 
-async function acceptGuildCreate(player: Player, guildName: string, response: DraftBotPacket[]): Promise<void> {
-	await player.reload();
+/**
+ * Check if the player can create a guild with the given name at this exact moment
+ * @param player
+ * @param guildName
+ * @param response
+ */
+async function canCreateGuild(player: Player, guildName: string, response: DraftBotPacket[]): Promise<boolean> {
 	const guild = player.guildId ? await Guilds.getById(player.guildId) : null;
+	const playerMoney = player.money;
+	if (guild) {
+		response.push(makePacket(CommandGuildCreatePacketRes, {
+			playerMoney,
+			foundGuild: true
+		}));
+		return false;
+	}
 	let existingGuild;
 	try {
 		existingGuild = await Guilds.getByName(guildName);
@@ -31,11 +44,45 @@ async function acceptGuildCreate(player: Player, guildName: string, response: Dr
 	catch (error) {
 		existingGuild = null;
 	}
-	// Do all necessary checks again just in case something changed during the menu
-	if (existingGuild || guild || player.money < GuildCreateConstants.PRICE || !checkNameString(guildName, GuildConstants.GUILD_NAME_LENGTH_RANGE)) {
-		response.push(makePacket(CommandGuildCreateRefusePacketRes, {})); // Generic error,
-		// If the player wants the exact error,
-		// He can do the command again
+
+	if (existingGuild) {
+		// A guild with this name already exists
+		response.push(makePacket(CommandGuildCreatePacketRes, {
+			playerMoney,
+			foundGuild: false,
+			guildNameIsAvailable: false
+		}));
+		return false;
+	}
+
+	if (!checkNameString(guildName, GuildConstants.GUILD_NAME_LENGTH_RANGE)) {
+		response.push(makePacket(CommandGuildCreatePacketRes, {
+			playerMoney,
+			foundGuild: false,
+			guildNameIsAvailable: true,
+			guildNameIsAcceptable: false
+		}));
+		return false;
+	}
+
+
+	if (playerMoney < GuildCreateConstants.PRICE) {
+		response.push(makePacket(CommandGuildCreatePacketRes, {
+			playerMoney,
+			foundGuild: false,
+			guildNameIsAvailable: true,
+			guildNameIsAcceptable: true
+		}));
+		return false;
+	}
+
+	return true;
+}
+
+async function acceptGuildCreate(player: Player, guildName: string, response: DraftBotPacket[]) {
+	await player.reload();
+	// do all necessary checks again just in case something changed during the menu
+	if (!await canCreateGuild(player, guildName, response)) {
 		return;
 	}
 
@@ -69,55 +116,16 @@ export default class GuildCreateCommand {
 	async execute(client: WebsocketClient, packet: CommandGuildCreatePacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
 
 		const player = await Players.getByKeycloakId(packet.keycloakId);
-		const guild = player.guildId ? await Guilds.getById(player.guildId) : null;
-		const playerMoney = player.money;
-		if (guild) {
-			response.push(makePacket(CommandGuildCreatePacketRes, {
-				playerMoney,
-				foundGuild: true
-			}));
-			return;
-		}
-		let existingGuild;
-		try {
-			existingGuild = await Guilds.getByName(packet.askedGuildName);
-		}
-		catch (error) {
-			existingGuild = null;
-		}
-
-		if (existingGuild) {
-			// A guild with this name already exists
-			response.push(makePacket(CommandGuildCreatePacketRes, {
-				playerMoney,
-				foundGuild: false,
-				guildNameIsAvailable: false
-			}));
-			return;
-		}
-
-		if (!checkNameString(packet.askedGuildName, GuildConstants.GUILD_NAME_LENGTH_RANGE)) {
-			console.log(packet.askedGuildName);
-			console.log(checkNameString(packet.askedGuildName, GuildConstants.GUILD_NAME_LENGTH_RANGE));
-			response.push(makePacket(CommandGuildCreatePacketRes, {
-				playerMoney,
-				foundGuild: false,
-				guildNameIsAvailable: true,
-				guildNameIsAcceptable: false
-			}));
+		if (!await canCreateGuild(player, packet.askedGuildName, response)) {
 			return;
 		}
 
 		response.push(makePacket(CommandGuildCreatePacketRes, {
-			playerMoney,
+			playerMoney: player.money,
 			foundGuild: false,
 			guildNameIsAvailable: true,
 			guildNameIsAcceptable: true
 		}));
-
-		if (playerMoney < GuildCreateConstants.PRICE) {
-			return; // We don't want to send the menu if the player does not have enough money
-		}
 
 		// Send collector
 		const collector = new ReactionCollectorGuildCreate(
