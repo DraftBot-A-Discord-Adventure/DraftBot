@@ -72,32 +72,32 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
      */
 
     private static properCastOptions(options: CommandInteractionOptionResolver): CommandInteractionOptionResolver {
-        // not present in class AutoCompleteInteraction | MessageContextMenuInteraction
+        // Not present in class AutoCompleteInteraction | MessageContextMenuInteraction
         options.getUser ??= (() => {
             throw new Error("DraftbotInteraction: interaction.options.getUser is not defined for this interaction, probably trying to use it on either an autocomplete or a message context menu")
         });
 
-        // not present in class AutoCompleteInteraction
+        // Not present in class AutoCompleteInteraction
         options.getMember ??= (() => {
             throw new Error("DraftbotInteraction: interaction.options.getMember is not defined for this interaction, probably trying to use it on an autocomplete")
         });
 
-        // not present in class ChatInputCommandInteraction | AutocompleteInteraction | UserContextMenuCommandInteraction
+        // Not present in class ChatInputCommandInteraction | AutocompleteInteraction | UserContextMenuCommandInteraction
         options.getMessage ??= (() => {
             throw new Error("DraftbotInteraction: interaction.options.getMessage is not defined for this interaction, probably trying to use it on either a chat input, an autocomplete or a user context menu")
         });
 
-        // not present in class ChatInputCommandInteraction | MessageContextMenuInteraction | UserContextMenuCommandInteraction
+        // Not present in class ChatInputCommandInteraction | MessageContextMenuInteraction | UserContextMenuCommandInteraction
         options.getFocused ??= (() => {
             throw new Error("DraftbotInteraction: interaction.options.getFocused is not defined for this interaction, probably trying to use it on either a chat input, a message context menu or a user context menu")
         });
 
-        // not present in AutoCompleteInteraction | UserContextMenuCommandInteraction
+        // Not present in AutoCompleteInteraction | UserContextMenuCommandInteraction
         options.getChannel ??= (() => {
             throw new Error("DraftbotInteraction: interaction.options.getChannel is not defined for this interaction, probably trying to use it on either an autocomplete or a user context menu")
         });
 
-        // not present in class AutoCompleteInteraction | MessageContextMenuInteraction | UserContextMenuCommandInteraction
+        // Not present in class AutoCompleteInteraction | MessageContextMenuInteraction | UserContextMenuCommandInteraction
         options.getAttachment ??= (() => {
             throw new Error("DraftbotInteraction: interaction.options.getAttachment is not defined for this interaction, probably trying to use it on either an autocomplete, a message context menu or a user context menu")
         });
@@ -108,7 +108,7 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
             throw new Error("DraftbotInteraction: interaction.options.getRole is not defined for this interaction, probably trying to use it on either an autocomplete, a message context menu or a user context menu")
         });
 
-        // not present in class MessageContextMenuInteraction | UserContextMenuCommandInteraction
+        // Not present in class MessageContextMenuInteraction | UserContextMenuCommandInteraction
         options.getNumber ??= (() => {
             throw new Error("DraftbotInteraction: interaction.options.getNumber is not defined for this interaction, probably trying to use it on either a message context menu or a user context menu")
         });
