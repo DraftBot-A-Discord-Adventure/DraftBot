@@ -14,16 +14,16 @@ host = "127.0.0.1"
 port = 3306
 # The user of the database
 user = "draftbot"
-# The password of the user of the database
+# The password of a database user.
 password = "secret_password"
 # The root password, used to create the databases
-root_password = "your_new_password"#"super_secret_password"
+root_password = "super_secret_password"
 
 
 [discord_bot_list]
 # Put the port of the DBL Webhook
 webhook_port = 0
-# Put the url of the DBL Webhook. Choose a difficult URL to avoid it being found
+# Put the url of the DBL Webhook. Choose a challenging URL to avoid it being found
 webhook_url = "/secret_url"
 # Put the id of the role won by a vote on DBL
 vote_role_id = ""
@@ -34,11 +34,11 @@ token = ""
 
 
 [backups]
-# Enabled backups. May contain LOCAL and DROPBOX and must be separated with commas (e.g. LOCAL,DROPBOX)
+# Enabled backups. May contain LOCAL and DROPBOX and must be separated with commas (e.g., LOCAL, DROPBOX)
 enabled = ""
 # Zip backup archive password
 archive_password = ""
-# The dropbox token used to backup the database
+# The dropbox token used to back up the database
 dropbox_token = ""
 
 
