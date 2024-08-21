@@ -21,15 +21,16 @@ type ChannelTypeWithoutSend = new(client: Client<true>, data: RawWebhookData) =>
 const GuildTextBasedChannel: GuildTextBasedChannel = BaseGuildTextChannel as unknown as GuildTextBasedChannel;
 const ChannelTypeWithoutSend: ChannelTypeWithoutSend = GuildTextBasedChannel as unknown as ChannelTypeWithoutSend;
 
-type OptionLike = string | InteractionReplyOptions;
-type ReplyFunctionLike = (options: OptionLike) => Promise<Message>;
+type ReplyOptionsSpecial = InteractionReplyOptions & { fetchReply: true };
+type OptionLike = string | InteractionReplyOptions | ReplyOptionsSpecial;
+type ReplyFunctionLike<OptionValue> = (options: OptionValue) => Promise<Message>;
 
 export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands {
     public userLanguage: Language = LANGUAGE.DEFAULT_LANGUAGE;
-    // @ts-ignore
+    // @ts-expect-error - Property 'options' is initialized in the caster, which is the only normal way to create a DraftbotInteraction
     public options: CommandInteractionOptionResolver;
 
-    // @ts-ignore
+    // @ts-expect-error - Property '_channel' is initialized in the caster, which is the only normal way to create a DraftbotInteraction
     private _channel: DraftbotChannel;
 
     /**
@@ -51,8 +52,8 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
      */
     static cast(discordInteraction: CommandInteraction): DraftbotInteraction {
         discordInteraction.followUp = DraftbotInteraction.prototype.followUp.bind(discordInteraction);
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
+
+        // @ts-expect-error - We aim at changing the signature of the reply function to add a fallback parameter, so ts is not happy with it
         discordInteraction.reply = DraftbotInteraction.prototype.reply.bind(discordInteraction);
         discordInteraction.editReply = DraftbotInteraction.prototype.editReply.bind(discordInteraction);
         const interaction = discordInteraction as unknown as DraftbotInteraction;
@@ -136,9 +137,8 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
      * @param fallback function to execute if the bot can't send the message
      */
     public async reply(options: OptionLike, fallback?: () => void | Promise<void>): Promise<Message> {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        return await DraftbotInteraction.prototype.commonSendCommand(CommandInteraction.prototype.reply.bind(this), options, fallback ?? ((): null => null));
+        return await DraftbotInteraction.prototype.commonSendCommand(CommandInteraction.prototype.reply.bind(this), options as ReplyOptionsSpecial, fallback ?? (() => {
+        })) as Message;
     }
 
     /**
@@ -147,9 +147,8 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
      * @param fallback function to execute if the bot can't send the message
      */
     public async followUp(options: OptionLike, fallback?: () => void | Promise<void>): Promise<Message> {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        return await DraftbotInteraction.prototype.commonSendCommand(CommandInteraction.prototype.followUp.bind(this), options, fallback ?? ((): null => null));
+        return await DraftbotInteraction.prototype.commonSendCommand(CommandInteraction.prototype.followUp.bind(this), options, fallback ?? (() => {
+        })) as Message;
     }
 
     editReply = async (options: string | MessagePayload | InteractionEditReplyOptions): Promise<Message> => {
@@ -164,13 +163,11 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
      * @param fallback function to execute if the bot can't send the message
      * @private
      */
-    private async commonSendCommand(functionPrototype: ReplyFunctionLike, options: OptionLike, fallback: () => void | Promise<void>): Promise<Message | null> {
+    private async commonSendCommand<OptionType extends OptionLike>(functionPrototype: ReplyFunctionLike<OptionType>, options: OptionType, fallback: () => void | Promise<void>): Promise<Message | null> {
         try {
             return await functionPrototype(options);
         } catch (e) {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            console.error(`Weird Permission Error ${e.stack}`);
+            console.error(`Weird Permission Error ${(e as Error).stack}`);
             await DraftbotInteraction.prototype.manageFallback.bind(this)(functionPrototype);
             await fallback();
             return null;
@@ -181,12 +178,11 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
      * Manage the fallback of both reply and followUp functions
      * @private
      */
-    private async manageFallback(functionPrototype: ReplyFunctionLike): Promise<void> {
+    private async manageFallback<OptionType extends OptionLike>(functionPrototype: ReplyFunctionLike<OptionType>): Promise<void> {
         const errorText = i18n.t("bot:noSpeakPermission", {lng: this.channel.language});
         try {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            await functionPrototype.call({
+            // @ts-expect-error - We consider that the functionPrototype is a function that can be called with these parameters (i.e, accepts a InteractionReplyOptions)
+            await functionPrototype.call(this, {
                 ephemeral: true,
                 content: errorText
             });
@@ -202,8 +198,7 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 }
 
 export class DraftbotChannel extends ChannelTypeWithoutSend {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    // @ts-expect-error - Property 'language' starts undefined and is initialized if we are sure the channel is a valid channel
     public language: Language;
 
     /**
@@ -211,8 +206,7 @@ export class DraftbotChannel extends ChannelTypeWithoutSend {
      * @param channel
      */
     static cast(channel: GuildTextBasedChannel): DraftbotChannel {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
+        // @ts-expect-error - We aim at changing the signature of the send function to add a fallback parameter, so ts is not happy with it
         channel.send = DraftbotChannel.prototype.send.bind(channel);
         return channel as unknown as DraftbotChannel;
     }
@@ -223,18 +217,13 @@ export class DraftbotChannel extends ChannelTypeWithoutSend {
      * @param fallback function to execute if the bot can't send the message
      */
     public async send(options: string | MessageCreateOptions, fallback?: () => void | Promise<void>): Promise<Message | null> {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        fallback = fallback ?? ((): null => null);
+        fallback ??= (() => {
+        });
         try {
             return await BaseGuildTextChannel.prototype.send.bind(this)(options);
         } catch (e) {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            console.error(`Weird Permission Error ${e.stack}`);
+            console.error(`Weird Permission Error ${(e as Error).stack}`);
             DraftbotChannel.prototype.manageFallback.bind(this)();
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
             await fallback();
             return null;
         }
