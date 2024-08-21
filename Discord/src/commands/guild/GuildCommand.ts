@@ -25,7 +25,7 @@ import {Effect} from "../../../../Lib/src/enums/Effect";
  */
 async function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser): Promise<CommandGuildPacketReq | null> {
 
-	const guildNameOption = interaction.options.get("guildName");
+	const guildNameOption = interaction.options.get("guild");
 	const askedGuildName = guildNameOption ? <string>guildNameOption.value : undefined;
 
 
