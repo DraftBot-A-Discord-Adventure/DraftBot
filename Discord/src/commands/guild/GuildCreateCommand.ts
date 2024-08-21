@@ -11,7 +11,8 @@ import {Effect} from "../../../../Lib/src/enums/Effect";
 import {
 	CommandGuildCreateAcceptPacketRes,
 	CommandGuildCreatePacketReq,
-	CommandGuildCreatePacketRes, CommandGuildCreateRefusePacketRes
+	CommandGuildCreatePacketRes,
+	CommandGuildCreateRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildCreatePacket";
 import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants";
 import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
@@ -24,15 +25,14 @@ import {GuildCreateConstants} from "../../../../Lib/src/constants/GuildCreateCon
  * Create a new guild
  */
 function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): CommandGuildCreatePacketReq {
-	const guildNameOption = interaction.options.get("guildName");
-	const askedGuildName = guildNameOption ? <string>guildNameOption.value : "";
+	const askedGuildName = <string>interaction.options.get("name",true).value;
 	return makePacket(CommandGuildCreatePacketReq, {keycloakId: user.id, askedGuildName});
 }
 
 export async function handleCommandGuildCreatePacketRes(packet: CommandGuildCreatePacketRes, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 	if (interaction) {
-		if(packet.playerMoney < GuildCreateConstants.PRICE) {
+		if (packet.playerMoney < GuildCreateConstants.PRICE) {
 			await interaction.reply({
 				embeds: [
 					new DraftBotErrorEmbed(
@@ -40,14 +40,14 @@ export async function handleCommandGuildCreatePacketRes(packet: CommandGuildCrea
 						interaction,
 						i18n.t("error:notEnoughMoney", {
 							lng: interaction.userLanguage,
-							money: GuildCreateConstants.PRICE-packet.playerMoney
+							money: GuildCreateConstants.PRICE - packet.playerMoney
 						})
 					)
 				]
 			});
 			return;
 		}
-		if (!packet.foundGuild) {
+		if (packet.foundGuild) {
 			await interaction.reply({
 				embeds: [
 					new DraftBotErrorEmbed(
@@ -85,7 +85,7 @@ export async function handleCommandGuildCreatePacketRes(packet: CommandGuildCrea
 					)
 				]
 			});
-			return;
+
 		}
 	}
 }
@@ -103,6 +103,7 @@ export async function createGuildCreateCollector(packet: ReactionCollectorCreati
 		.setDescription(
 			i18n.t("commands:guildCreate.confirmDesc", {
 				lng: interaction.userLanguage,
+				guildName: data.guildName,
 				price: GuildCreateConstants.PRICE
 			})
 		);
@@ -145,9 +146,10 @@ export async function handleCommandGuildCreateAcceptPacketRes(packet: CommandGui
 							guildName: packet.guildName
 						})
 					)
-					.setFooter(
-						i18n.t("commands:guildCreate.acceptedFooter", {lng: originalInteraction.userLanguage})
-					)
+					.setFooter({
+						text:
+							i18n.t("commands:guildCreate.acceptedFooter", {lng: originalInteraction.userLanguage})
+					})
 			]
 		});
 	}

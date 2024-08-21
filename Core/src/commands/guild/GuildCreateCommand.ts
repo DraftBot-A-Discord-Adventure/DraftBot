@@ -21,7 +21,7 @@ import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {LogsDatabase} from "../../core/database/logs/LogsDatabase";
 import {MissionsController} from "../../core/missions/MissionsController";
 
-async function acceptGuildCreate(player: Player, guildName: string, response: DraftBotPacket[]) {
+async function acceptGuildCreate(player: Player, guildName: string, response: DraftBotPacket[]): Promise<void> {
 	await player.reload();
 	const guild = player.guildId ? await Guilds.getById(player.guildId) : null;
 	let existingGuild;
@@ -31,13 +31,15 @@ async function acceptGuildCreate(player: Player, guildName: string, response: Dr
 	catch (error) {
 		existingGuild = null;
 	}
-	// do all necessary checks again just in case something changed during the menu
+	// Do all necessary checks again just in case something changed during the menu
 	if (existingGuild || guild || player.money < GuildCreateConstants.PRICE || !checkNameString(guildName, GuildConstants.GUILD_NAME_LENGTH_RANGE)) {
-		response.push(makePacket(CommandGuildCreateRefusePacketRes, {})); // generic error, if the player want's the exact error, he can do the command again
+		response.push(makePacket(CommandGuildCreateRefusePacketRes, {})); // Generic error,
+		// If the player wants the exact error,
+		// He can do the command again
 		return;
 	}
 
-	// everything is valid, start guild creation process:
+	// Everything is valid, start a guild creation process:
 	const newGuild = await Guild.create({
 		name: guildName,
 		chiefId: player.id
@@ -95,6 +97,8 @@ export default class GuildCreateCommand {
 		}
 
 		if (!checkNameString(packet.askedGuildName, GuildConstants.GUILD_NAME_LENGTH_RANGE)) {
+			console.log(packet.askedGuildName);
+			console.log(checkNameString(packet.askedGuildName, GuildConstants.GUILD_NAME_LENGTH_RANGE));
 			response.push(makePacket(CommandGuildCreatePacketRes, {
 				playerMoney,
 				foundGuild: false,
@@ -103,6 +107,7 @@ export default class GuildCreateCommand {
 			}));
 			return;
 		}
+
 		response.push(makePacket(CommandGuildCreatePacketRes, {
 			playerMoney,
 			foundGuild: false,
@@ -111,7 +116,7 @@ export default class GuildCreateCommand {
 		}));
 
 		if (playerMoney < GuildCreateConstants.PRICE) {
-			return; // we don't want to send the menu if the player do not have enough money
+			return; // We don't want to send the menu if the player does not have enough money
 		}
 
 		// Send collector
