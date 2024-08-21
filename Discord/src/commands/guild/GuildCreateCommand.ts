@@ -42,10 +42,12 @@ async function replyErrorEmbed(context: PacketContext, errorKey: string, formatP
 			)
 		]
 	};
-	if (interaction && buttonInteraction)
+	if (interaction && buttonInteraction) {
 		await buttonInteraction.editReply(params);
-	else if (interaction)
+	}
+	else if (interaction) {
 		await interaction.reply(params);
+	}
 }
 
 
@@ -54,7 +56,7 @@ export async function handleCommandGuildCreatePacketRes(packet: CommandGuildCrea
 	if (interaction) {
 		if (packet.playerMoney < GuildCreateConstants.PRICE) {
 			await replyErrorEmbed(context, "error:notEnoughMoney", {
-				money: GuildCreateConstants.PRICE - packet.playerMoney,
+				money: GuildCreateConstants.PRICE - packet.playerMoney
 			});
 			return;
 		}
