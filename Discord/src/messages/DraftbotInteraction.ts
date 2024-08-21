@@ -1,7 +1,6 @@
 import {
 	BaseGuildTextChannel,
-	Client,
-	CommandInteraction,
+	Client, CommandInteraction,
 	GuildTextBasedChannel,
 	InteractionEditReplyOptions,
 	InteractionReplyOptions,
