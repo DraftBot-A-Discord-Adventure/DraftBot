@@ -1,6 +1,6 @@
 import {
-	BaseGuildTextChannel, ChatInputCommandInteraction,
-	Client,
+	BaseGuildTextChannel,
+	Client, CommandInteraction,
 	GuildTextBasedChannel,
 	InteractionEditReplyOptions,
 	InteractionReplyOptions,
@@ -12,8 +12,8 @@ import {RawInteractionData, RawWebhookData} from "discord.js/typings/rawDataType
 import i18n from "../translations/i18n";
 import {LANGUAGE, Language} from "../../../Lib/src/Language";
 
-type DraftbotInteractionWithoutSendCommands = new(client: Client<true>, data: RawInteractionData) => Omit<ChatInputCommandInteraction, "reply" | "followUp" | "channel">;
-const DraftbotInteractionWithoutSendCommands: DraftbotInteractionWithoutSendCommands = ChatInputCommandInteraction as unknown as DraftbotInteractionWithoutSendCommands;
+type DraftbotInteractionWithoutSendCommands = new(client: Client<true>, data: RawInteractionData) => Omit<CommandInteraction, "reply" | "followUp" | "channel">;
+const DraftbotInteractionWithoutSendCommands: DraftbotInteractionWithoutSendCommands = CommandInteraction as unknown as DraftbotInteractionWithoutSendCommands;
 
 type ChannelTypeWithoutSend = new(client: Client<true>, data: RawWebhookData) => Omit<BaseGuildTextChannel, "send">;
 const GuildTextBasedChannel: GuildTextBasedChannel = BaseGuildTextChannel as unknown as GuildTextBasedChannel;
@@ -40,10 +40,10 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 
 
 	/**
-	 * Cast a ChatInputCommandInteraction to a DraftbotInteraction
+	 * Cast a CommandInteraction to a DraftbotInteraction
 	 * @param discordInteraction
 	 */
-	static cast(discordInteraction: ChatInputCommandInteraction): DraftbotInteraction {
+	static cast(discordInteraction: CommandInteraction): DraftbotInteraction {
 		discordInteraction.followUp = DraftbotInteraction.prototype.followUp.bind(discordInteraction);
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
@@ -62,7 +62,7 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 	public async reply(options: OptionLike, fallback?: () => void | Promise<void>): Promise<Message> {
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
-		return await DraftbotInteraction.prototype.commonSendCommand(ChatInputCommandInteraction.prototype.reply.bind(this), options, fallback ?? ((): null => null));
+		return await DraftbotInteraction.prototype.commonSendCommand(CommandInteraction.prototype.reply.bind(this), options, fallback ?? ((): null => null));
 	}
 
 	/**
@@ -73,7 +73,7 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 	public async followUp(options: OptionLike, fallback?: () => void | Promise<void>): Promise<Message> {
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
-		return await DraftbotInteraction.prototype.commonSendCommand(ChatInputCommandInteraction.prototype.followUp.bind(this), options, fallback ?? ((): null => null));
+		return await DraftbotInteraction.prototype.commonSendCommand(CommandInteraction.prototype.followUp.bind(this), options, fallback ?? ((): null => null));
 	}
 
 	/**
@@ -114,7 +114,7 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 		catch (e) {
 			// We can't send ephemeral message, so we send the message in DM
 			try {
-				await ChatInputCommandInteraction.prototype.user.send.bind(this.user)({content: errorText});
+				await CommandInteraction.prototype.user.send.bind(this.user)({content: errorText});
 			}
 			catch (e) {
 				console.log(`Unable to alert user of no speak permission : c:${this.channel.id} / u:${this.user.id}`);
@@ -124,7 +124,7 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 
 	editReply = async (options: string | MessagePayload | InteractionEditReplyOptions): Promise<Message> => {
 		this._replyEdited = true;
-		return await ChatInputCommandInteraction.prototype.editReply.bind(this)(options);
+		return await CommandInteraction.prototype.editReply.bind(this)(options);
 	};
 
 	public get replyEdited(): boolean {
