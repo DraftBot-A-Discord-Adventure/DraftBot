@@ -55,12 +55,12 @@
     "notRanked": "No clasificado"
   },
   "guildCreate": {
-    "title": "{{pseudo}}, création d'une guilde",
-    "canceledTitle": "{{pseudo}}, annulation de la création d'une guilde.",
-    "canceledDesc": "La création de votre guilde a été annulée.",
-    "confirmDesc": ":question: Confirmer la création de la guilde **{{guildName}}** pour `{{price}}` :moneybag: ?",
-    "acceptedFooter": "Attention, le staff se réserve le droit de renommer votre guilde.",
-    "acceptedDesc": "La guilde **{{guildName}}** a été créée !"
+    "title": "{{pseudo}}crear un gremio",
+    "canceledTitle": "{{pseudo}}anulación de la creación de un gremio.",
+    "canceledDesc": "La creación de tu gremio ha sido cancelada.",
+    "confirmDesc": ":question:{{guildName}}{{price}} :moneybag: Confirmar la creación del gremio ** ** para ` ` ?",
+    "acceptedFooter": "Ten en cuenta que el personal se reserva el derecho a cambiar el nombre de tu gremio.",
+    "acceptedDesc": "{{guildName}}¡El gremio ** ** ha sido creado!"
   },
   "help": {
     "aliasFieldTitle": "Alias",
