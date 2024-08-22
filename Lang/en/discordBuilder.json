@@ -71,6 +71,16 @@
       }
     }
   },
+  "guildCreate": {
+    "description": "Create a new guild.",
+    "name": "guildcreate",
+    "options": {
+      "guildName": {
+        "description": "The name of the guild.",
+        "name": "name"
+      }
+    }
+  },
   "guild": {
     "description": "Displays information about a guild.",
     "name": "guild",
