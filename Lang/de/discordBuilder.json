@@ -71,6 +71,16 @@
       }
     }
   },
+  "guildCreate": {
+    "description": "Créer une nouvelle guilde.",
+    "name": "creationguilde",
+    "options": {
+      "guildName": {
+        "description": "Le nom de la guilde.",
+        "name": "nom"
+      }
+    }
+  },
   "guild": {
     "description": "Affiche des informations sur une guilde.",
     "name": "guilde",
