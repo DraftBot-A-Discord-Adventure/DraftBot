@@ -54,6 +54,14 @@
     "ranking": "{{rank}} / {{rankTotal}}",
     "notRanked": "Non Classificato"
   },
+  "guildCreate": {
+    "title": "{{pseudo}}creare una gilda",
+    "canceledTitle": "{{pseudo}}l'annullamento della creazione di una gilda.",
+    "canceledDesc": "La creazione della vostra gilda è stata annullata.",
+    "confirmDesc": ":question:{{guildName}}{{price}} :moneybag: Confermare la creazione della gilda ** ** per ` `?",
+    "acceptedFooter": "Lo staff si riserva il diritto di rinominare la gilda.",
+    "acceptedDesc": "{{guildName}}La gilda ** ** è stata creata!"
+  },
   "help": {
     "aliasFieldTitle": "Alias",
     "aliasesFieldTitle": "Alias",
