@@ -71,6 +71,16 @@
       }
     }
   },
+  "guildCreate": {
+    "description": "Creare una nuova gilda.",
+    "name": "creazioneguilda",
+    "options": {
+      "guildName": {
+        "description": "Il nome della gilda.",
+        "name": "nome"
+      }
+    }
+  },
   "guild": {
     "description": "Visualizza le informazioni su una gilda.",
     "name": "gilda",

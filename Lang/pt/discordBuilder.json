@@ -1,140 +1,150 @@
 {
   "badges": {
-    "description": "Affiche des informations sur les badges et leur fonctionnement.",
-    "name": "badges"
+    "description": "Apresenta informações sobre os crachás e o seu funcionamento.",
+    "name": "distintivos"
   },
   "help": {
-    "description": "Affiche la liste des commandes disponibles ou les informations détaillées sur une commande.",
-    "name": "aide",
+    "description": "Apresenta a lista de comandos disponíveis ou informações detalhadas sobre um comando.",
+    "name": "ajuda",
     "options": {
       "commandName": {
-        "description": "La commande dont les informations doivent être affichées.",
-        "name": "commande"
+        "description": "O comando cujas informações devem ser visualizadas.",
+        "name": "ordem"
       }
     }
   },
   "idea": {
-    "description": "Envoyer une suggestion pour améliorer le jeu.",
-    "name": "suggestion"
+    "description": "Enviar uma sugestão para melhorar o jogo.",
+    "name": "sugestão"
   },
   "inventory": {
-    "description": "Affiche l'inventaire du joueur.",
-    "name": "inventaire",
+    "description": "Apresenta o inventário do jogador.",
+    "name": "inventário",
     "options": {
       "rank": {
-        "description": "Le classement du joueur dont l'inventaire doit être affiché.",
-        "name": "classement"
+        "description": "A classificação do jogador cujo inventário deve ser apresentado.",
+        "name": "classificação"
       },
       "user": {
-        "description": "L'utilisateur dont l'inventaire doit être affiché.",
-        "name": "utilisateur"
+        "description": "O utilizador cujo inventário deve ser apresentado.",
+        "name": "utilizador"
       }
     }
   },
   "invite": {
-    "description": "Ajouter le bot sur votre serveur.",
+    "description": "Adicione o bot ao seu servidor.",
     "name": "invitationdraftbot"
   },
   "language": {
-    "description": "Changer la langue du bot dans le serveur discord ou la commande a été exécutée.",
-    "name": "langage"
+    "description": "Alterar o idioma do bot no servidor discord onde o comando foi executado.",
+    "name": "língua"
   },
   "ping": {
-    "description": "Affiche la latence du bot et permet au joueur de vérifier si le bot est en ligne.",
+    "description": "Mostra a latência do bot e permite ao jogador verificar se o bot está online.",
     "name": "ping"
   },
   "pet": {
-    "description": "Afficher les informations du familier d'un joueur.",
-    "name": "familier",
+    "description": "Mostra informações sobre a mascote de um jogador.",
+    "name": "familiar",
     "options": {
       "rank": {
-        "description": "Le classement du joueur dont le familier doit être affiché.",
-        "name": "classement"
+        "description": "A classificação do jogador cujo animal de estimação deve ser apresentado.",
+        "name": "classificação"
       },
       "user": {
-        "description": "L'utilisateur dont le familier doit être affiché.",
-        "name": "utilisateur"
+        "description": "O utilizador cujo animal de estimação deve ser apresentado.",
+        "name": "utilizador"
       }
     }
   },
   "petFree": {
-    "description": "Libérer un familier.",
-    "name": "libererfamilier"
+    "description": "Libertar um animal de estimação.",
+    "name": "libertador familiar"
   },
   "petNick": {
-    "description": "Donner un nom à votre familier.",
-    "name": "surnomfamilier",
+    "description": "Dê um nome ao seu animal de estimação.",
+    "name": "apelidofamiliar",
     "options": {
       "nickname": {
-        "description": "Le surnom que vous voulez donner à votre familier. (Laissez vide pour supprimer le surnom)",
-        "name": "surnom"
+        "description": "A alcunha que pretende dar ao seu animal de estimação. (Deixe em branco para apagar a alcunha)",
+        "name": "alcunha"
+      }
+    }
+  },
+  "guildCreate": {
+    "description": "Criar um novo grémio.",
+    "name": "criaçãoguilde",
+    "options": {
+      "guildName": {
+        "description": "O nome do grémio.",
+        "name": "nome"
       }
     }
   },
   "guild": {
-    "description": "Affiche des informations sur une guilde.",
-    "name": "guilde",
+    "description": "Apresenta informações sobre um grémio.",
+    "name": "grémio",
     "options": {
       "rank": {
-        "description": "Le classement du joueur dont la guilde doit être affichée.",
-        "name": "classement"
+        "description": "A classificação do jogador cujo grémio deve ser apresentado.",
+        "name": "classificação"
       },
       "user": {
-        "description": "L'utilisateur dont la guilde doit être affichée.",
-        "name": "utilisateur"
+        "description": "O utilizador cujo grémio deve ser apresentado.",
+        "name": "utilizador"
       },
       "guildName": {
-        "description": "Le nom de la guilde dont les informations doivent être affichées.",
-        "name": "guilde"
+        "description": "O nome do grémio cujas informações devem ser visualizadas.",
+        "name": "grémio"
       }
     }
   },
   "profile": {
-    "description": "Afficher le profil d'un joueur.",
-    "name": "profil",
+    "description": "Ver o perfil de um jogador.",
+    "name": "perfil",
     "options": {
       "rank": {
-        "description": "Le classement du joueur dont le profil doit être affiché.",
-        "name": "classement"
+        "description": "A classificação do jogador cujo perfil deve ser apresentado.",
+        "name": "classificação"
       },
       "user": {
-        "description": "L'utilisateur dont le profil doit être affiché.",
-        "name": "utilisateur"
+        "description": "O utilizador cujo perfil deve ser apresentado.",
+        "name": "utilizador"
       }
     }
   },
   "rarity": {
-    "description": "Affiche les différentes raretés des équipements.",
-    "name": "rarete"
+    "description": "Apresenta as diferentes raridades do equipamento.",
+    "name": "raridade"
   },
   "report": {
-    "description": "Obtenir un rapport sur la situation de votre personnage.",
-    "name": "rapport"
+    "description": "Obter um relatório sobre a situação da sua personagem.",
+    "name": "relatório"
   },
   "scopes": {
-    "global": "🏆 Classement général",
-    "server": "🚩 Classement du serveur"
+    "global": "🏆 Classificação geral",
+    "server": "🚩 Classificação dos servidores"
   },
   "test": {
-    "description": "Commande de triche pour les testeurs (MODE TEST UNIQUEMENT).",
-    "name": "test",
+    "description": "Controlo de fraude para testadores (APENAS MODO DE TESTE).",
+    "name": "teste",
     "options": {
       "commandName": {
-        "description": "Commande test à exécuter.",
-        "name": "commande"
+        "description": "Comando de teste a ser executado.",
+        "name": "ordem"
       }
     }
   },
   "update": {
-    "description": "Affiche la version actuelle du bot.",
-    "name": "nouveautes"
+    "description": "Apresenta a versão atual do bot.",
+    "name": "novos produtos"
   },
   "vote": {
-    "description": "Afficher le lien permettant de voter pour le bot.",
-    "name": "vote"
+    "description": "Mostrar a ligação para votar no bot.",
+    "name": "votação"
   },
   "map": {
-    "description": "Affiche la carte pour indiquer où vous allez.",
-    "name": "carte"
+    "description": "Apresenta o mapa para mostrar para onde está a ir.",
+    "name": "cartão"
   }
 }

@@ -1,39 +1,39 @@
 {
   "badges": {
-    "description": "Les badges sont des distinctions difficiles à obtenir qui ont été créées pour récompenser les personnes ayant le plus soutenu le développement du bot. La liste des badges est disponible sur le guide du bot.\n(via ce lien : https://guide.draftbot.com/notions-avancees/badges)",
-    "title": ":military_medal: Informations détaillées :"
+    "description": "Os emblemas são difíceis de obter e foram criados para recompensar as pessoas que mais apoiaram o desenvolvimento do bot.\nA lista de distintivos está disponível no guia do bot (através deste link: https://guide.draftbot.com/notions-avancees/badges)",
+    "title": ":military_medal: Informações pormenorizadas:"
   },
   "pet": {
-    "embedTitle": "Familier de {{pseudo}} :",
-    "petField": "**Type :** {{emote}} {{typeName}}\n**Surnom :** {{nickname}}\n\n**Rareté :** {{rarity}}\n**Sexe :** {{sex}}\n**Mentalité :** {{loveLevel}}",
-    "noNickname": "Aucun surnom",
+    "embedTitle": "{{pseudo}} Familiarizado com :",
+    "petField": "{{emote}} {{typeName}}\n {{nickname}}\n\n {{rarity}}\n {{sex}}\n {{loveLevel}}**Tipo:** **Nome:** **Raridade:** **Género:** **Mentalidade:**",
+    "noNickname": "Sem alcunha",
     "loveLevels": {
-      "0_male": ":smirk_cat: Fielleux",
+      "0_male": ":smirk_cat: Fiável",
       "0_female": ":smirk_cat: Fielleuse",
       "1_male": ":pouting_cat: Sauvage",
       "1_female": ":pouting_cat: Sauvage",
-      "2_male": ":scream_cat: Craintif",
-      "2_female": ":scream_cat: Craintive",
-      "3_male": ":smiley_cat: Apprivoisé",
-      "3_female": ":smiley_cat: Apprivoisée",
-      "4_male": ":heart_eyes_cat: Dressé",
-      "4_female": ":heart_eyes_cat: Dressée"
+      "2_male": ":scream_cat: Medo",
+      "2_female": ":scream_cat: Medo",
+      "3_male": ":smiley_cat: Domesticado",
+      "3_female": ":smiley_cat: Domesticado",
+      "4_male": ":heart_eyes_cat: Vestido",
+      "4_female": ":heart_eyes_cat: Vestido"
     },
-    "hungry": "🤤 affamé",
+    "hungry": "🤤 com fome",
     "diet": {
-      "diet_null": "🥪 Omnivore",
-      "diet_herbivorous": "🥬 Herbivore",
-      "diet_carnivorous": "🥩 Carnivore"
+      "diet_null": "Omnívoro",
+      "diet_herbivorous": "Herbívoro",
+      "diet_carnivorous": "🥩 Carnívoro"
     },
     "sexDisplay": {
-      "female": "Femelle",
-      "male": "Mâle"
+      "female": "Feminino",
+      "male": "Masculino"
     },
     "shortPetField": "{{emote}} {{name}}"
   },
   "guild": {
-    "embedTitle": "Guilde {{guildName}} | Niveau {{level}}",
-    "description": ":scroll: `{{description}}`",
+    "embedTitle": "{{guildName}} {{level}}Guilda | Nível",
+    "description": ":scroll:{{description}}`",
     "emojis": {
       "chief": "👑",
       "elder": "🎖️",
@@ -44,407 +44,415 @@
       "cannotBeJoinedOnBoat": "👻"
     },
     "separator": " | ",
-    "memberInfos": "{{icon}} - **{{pseudo}}** ({{ranking}} :trophy: | {{score}} :medal:{{islandStatusIcon}})\n",
+    "memberInfos": "{{icon}}{{pseudo}}{{ranking}} :trophy: {{score}} :medal:{{islandStatusIcon}}\n- ** ** ( | )",
     "members": ":person_pouting: {{memberCount}}/{{maxGuildMembers}} membres",
-    "infoTitle": "Informations",
+    "infoTitle": "Informações",
     "islandInfo": ":island: Nombre d'alliés sur l'île mystérieuse : {{membersOnPveIsland}\n",
-    "info": ":star: {{experience}} | :mirror_ball: {{guildPoints}} | :trophy: {{ranking}}",
+    "info": ":star: {{experience}} :mirror_ball: {{guildPoints}} :trophy: {{ranking}}|",
     "xpNeeded": "{{xp}} / {{xpToLevelUp}}",
-    "xpMax": "Max",
+    "xpMax": "Máximo",
     "ranking": "{{rank}} / {{rankTotal}}",
-    "notRanked": "Non classée"
+    "notRanked": "Não classificado"
+  },
+  "guildCreate": {
+    "title": "{{pseudo}}criar uma guilda",
+    "canceledTitle": "{{pseudo}}anulação da criação de um grémio.",
+    "canceledDesc": "A criação do teu grémio foi cancelada.",
+    "confirmDesc": ":question:{{guildName}}{{price}} :moneybag: Confirmar a criação do grémio ** ** para ` ` ?",
+    "acceptedFooter": "A equipa reserva-se o direito de mudar o nome da tua guilda.",
+    "acceptedDesc": "{{guildName}}O grémio ** ** foi criado!"
   },
   "help": {
-    "aliasFieldTitle": "Alias",
-    "aliasesFieldTitle": "Alias",
-    "commandEmbedTitle": "{{emote}} Informations détaillées :",
+    "aliasFieldTitle": "Apelido",
+    "aliasesFieldTitle": "Apelido",
+    "commandEmbedTitle": "{{emote}} Informações pormenorizadas:",
     "commands": {
       "BADGES": {
-        "description": "Les badges sont des distinctions difficiles à obtenir qui ont été créées pour récompenser les personnes ayant le plus soutenu le développement du bot. La liste des badges est disponible sur le guide du bot.\n(via ce lien : https://guide.draftbot.com/notions-avancees/badges)"
+        "description": "Os emblemas são difíceis de obter e foram criados para recompensar as pessoas que mais apoiaram o desenvolvimento do bot.\nA lista de distintivos está disponível no guia do bot (através deste link: https://guide.draftbot.com/notions-avancees/badges)"
       },
       "CLASSES": {
-        "description": "Permet de changer de classe. Plus d'informations sur les classes sont disponibles sur le guide du joueur : https://guide.draftbot.com"
+        "description": "Permite-te mudar de classe. Mais informações sobre as classes estão disponíveis no guia do jogador: https://guide.draftbot.com"
       },
       "CLASSES_INFO": {
-        "description": "Permet de lire une comparaison rapide des statistiques et des informations des classes qui sont accessible à l'utilisateur effectuant la commande."
+        "description": "Permite uma comparação rápida das estatísticas das turmas e das informações a ler pelo utilizador que efectua a encomenda."
       },
       "DAILY_BONUS": {
-        "description": "Certains items vous donnent un bonus journalier. Utilisez cette commande pour récupérer ces bonus. Pour savoir si un item vous donne un bonus journalier, effectuez la commande {command:inventory}."
+        "description": "Alguns itens dão-lhe um bónus diário. Utilize este comando para obter estes bónus. {command:inventory}Para saber se um item lhe dá um bónus diário, utilize o comando ."
       },
       "DRINK": {
-        "description": "Cette commande permet de consommer la potion que vous transportez. Certaines potions ne peuvent pas être bues et sont consommées automatiquement lors d'un combat."
+        "description": "Este comando permite-te consumir a poção que transportas. Algumas poções não podem ser bebidas e são consumidas automaticamente durante o combate."
       },
       "FIGHT": {
-        "description": "Utilisez cette commande pour défier les autres joueurs qui se trouvent sur le même serveur que vous.\nLes combats se déroulent tour par tour. À chaque tour, vous pouvez choisir une action à effectuer.\n\nPour plus d'informations vous pouvez aller voir la page du guide : https://guide.draftbot.com/notions-principale/combats",
+        "description": "Utiliza este comando para desafiar outros jogadores no mesmo servidor que tu.\nAs batalhas têm lugar numa base de turno a turno. Em cada turno, podes escolher uma ação para executar.\n\nPara mais informações, consulta a página do guia: https://guide.draftbot.com/notions-principale/combats",
         "image": "https://draftbot.com/public/ressources/fighthelp/fr/4.5.2.png"
       },
       "GLORY_TOP": {
-        "description": "Affiche le classement glorieux du jeu par tranche de 15 joueurs. La ligue des joueurs est également affichée. Les joueurs dans le même serveur que vous sont marqués par une pastille bleue."
+        "description": "Apresenta a classificação gloriosa do jogo para cada 15 jogadores. A liga dos jogadores também é apresentada. Os jogadores no mesmo servidor que tu estão marcados com um ponto azul."
       },
       "GUILD": {
-        "description": "Permet d'afficher les informations sur une guilde."
+        "description": "Apresenta informações sobre um grémio."
       },
       "GUILD_CREATE": {
-        "description": "Permet de créer une guilde. Créer une guilde coûte 5000 :moneybag:."
+        "description": "Criar um grémio. :moneybag:Criar um grémio custa 5.000 ."
       },
       "GUILD_DAILY_BONUS": {
-        "description": "Permet de récupérer des récompenses quotidiennes de guilde."
+        "description": "Recolher recompensas diárias da guilda."
       },
       "GUILD_DESCRIPTION": {
-        "description": "Permet de modifier la description de la guilde, nécessite d'être chef de guilde."
+        "description": "Permite-te modificar a descrição do grémio, requer que sejas um líder do grémio."
       },
       "GUILD_ELDER": {
-        "description": "Permet d'ajouter un aîné à la guilde, nécessite d'être chef de guilde."
+        "description": "Permite-te adicionar um ancião ao grémio, mas é necessário que sejas líder do grémio."
       },
       "GUILD_ELDER_REMOVE": {
-        "description": "Permet de supprimer l'aîné de la guilde, nécessite d'être chef de guilde."
+        "description": "Remove o membro mais velho da guilda, requer que sejas um líder da guilda."
       },
       "GUILD_INVITE": {
-        "description": "Permet d'ajouter un utilisateur à une guilde, nécessite d'être chef ou aîné de guilde."
+        "description": "Permite-te adicionar um utilizador a uma guilda. Tens de ser o líder ou o ancião da guilda."
       },
       "GUILD_KICK": {
-        "description": "Permet d'expulser un membre d'une guilde, nécessite d'être chef de guilde."
+        "description": "Permite-te expulsar um membro de um grémio, requer que sejas o líder do grémio."
       },
       "GUILD_LEAVE": {
-        "description": "Permet de quitter votre guilde."
+        "description": "Permite-te sair do teu grémio."
       },
       "GUILD_SHELTER": {
-        "description": "Affiche le refuge d'animaux de la guilde."
+        "description": "Apresenta o abrigo para animais do grémio."
       },
       "GUILD_SHOP": {
-        "description": "Affiche le magasin de votre guilde."
+        "description": "Apresenta a loja da tua guilda."
       },
       "GUILD_STORAGE": {
-        "description": "Affiche le contenu de l'entrepôt de la guilde."
+        "description": "Mostra o conteúdo do armazém do grém."
       },
       "GUILD_TOP": {
-        "description": "Affiche le classement des guildes par tranche de 15 guildes. Les guildes sont classées en fonctions des points récoltés sur les îles mystérieuses."
+        "description": "Apresenta as classificações dos grémios em incrementos de 15 grémios. Os grémios são classificados de acordo com os pontos obtidos nas ilhas misteriosas."
       },
       "HELP": {
         "description": ":expressionless:"
       },
       "IDEA": {
-        "description": "Permet d'obtenir un lien afin de suggérer une idée ou alors de voter pour celles déjà existantes."
+        "description": "Utilize esta ligação para sugerir uma ideia ou votar nas já existentes."
       },
       "INVENTORY": {
-        "description": "Affiche le contenu de votre inventaire qui peut contenir 4 types d'objets :\n```\n-armes\n-armures\n-potions\n-items\n```\nLa commande affiche également le contenu de la réserve qui dispose de stockage supplémentaire."
+        "description": "\n\n\n\n\n\n\nMostra o conteúdo do seu inventário, que pode conter 4 tipos de itens: ``` -armas -armaduras -poções -itens ``` O comando também mostra o conteúdo da reserva, que tem armazenamento adicional."
       },
       "INVITE_DRAFTBOT": {
-        "description": "Cette commande vous permet d'obtenir un lien permettant de rejoindre le serveur d'aide !"
+        "description": "Este comando fornece um link para o servidor de ajuda!"
       },
       "JOIN_BOAT": {
-        "description": "Permet de rejoindre un membre de la guilde dans un bateau allant sur une île mystérieuse."
+        "description": "Junte-se a um membro da Guilda num barco com destino a uma ilha misteriosa."
       },
       "LANGUAGE": {
-        "description": "Change la langue utilisée par le bot pour l'anglais. Utilisable si vous êtes administrateur sur un serveur."
+        "description": "Altera o idioma usado pelo bot para inglês. Pode ser usado se for um administrador num servidor."
       },
       "LEAGUE_BONUS": {
-        "description": "Permet d'obtenir une récompense de ligue chaque dimanche."
+        "description": "Receber um prémio da liga todos os domingos."
       },
       "MAP": {
-        "description": "Affiche des informations sur votre destination, ainsi que la carte."
+        "description": "Apresenta informações sobre o seu destino, bem como o mapa."
       },
       "MISSIONS": {
-        "description": "Affiche la liste des missions qui vous sont proposées."
+        "description": "Apresenta a lista de missões disponíveis."
       },
       "MISSIONS_SHOP": {
-        "description": "Affiche le magasin des missions."
+        "description": "Apresenta a loja da missão."
       },
       "NOTIFICATIONS": {
-        "description": "Permet d'activer ou de désactiver les notifications du bot."
+        "description": "Ativa ou desactiva as notificações de bots."
       },
       "PET": {
-        "description": "Affiche les informations relatives à votre familier."
+        "description": "Apresenta informações sobre o seu animal de estimação."
       },
       "PET_FEED": {
-        "description": "Donner de la nourriture à votre familier."
+        "description": "Alimente o seu animal de estimação."
       },
       "PET_FREE": {
-        "description": "Libère votre familier. Attention, une fois libéré, il sera effacé à tout jamais et donc impossible de le récupérer. Cette commande ne peut être effectuée qu'une fois par heure."
+        "description": "Liberta o teu animal de estimação. Atenção que, uma vez libertado, será apagado para sempre, sendo impossível recuperá-lo. Este comando só pode ser utilizado uma vez por hora."
       },
       "PET_NICKNAME": {
-        "description": "Change le surnom de votre familier. Si aucun nom n'est fourni, le nom actuel sera effacé."
+        "description": "Altera a alcunha do seu animal de estimação. Se não for fornecido um nome, o nome atual será eliminado."
       },
       "PET_SELL": {
-        "description": "Permet de vendre un familier. Les conditions suivantes s'appliquent : \n - le prix de vente doit être être supérieur à `{{petSellMinPrice}}💰` et inférieur à `{{petSellMaxPrice}}💰`. \n- Le vendeur ne gagnera pas d'argent lors de la transaction, mais de l'expérience de guilde. \n- Le vendeur et l'acheteur ne peuvent pas faire partie de la même guilde."
+        "description": "Permite-lhe vender um animal de estimação. Aplicam-se as seguintes condições: \n{{petSellMinPrice}}{{petSellMaxPrice}}- o preço de venda deve ser maior que ` 💰` e menor que ` 💰`. \n- O vendedor não ganhará dinheiro com a transação, apenas experiência de guilda. \n- O vendedor e o comprador não podem ser membros da mesma guilda."
       },
       "PET_TRADE": {
-        "description": "Propose un échange de vos animaux avec la personne mentionnée."
+        "description": "Proponha uma troca dos seus animais com a pessoa mencionada."
       },
       "PET_TRANSFER": {
-        "description": "Permet de transférer un familier depuis ou vers la guilde. Si aucun numéro n'est fourni, le familier de votre inventaire sera déplacé vers le refuge de la guilde. Sinon, il sera échangé avec celui de la guilde dont la position correspond au numéro donné."
+        "description": "Permite-te transferir uma mascote de ou para o Grémio. Se não for dado um número, a mascote no teu inventário será movida para a cabana da guilda. Caso contrário, ela será trocada com a mascote da guilda cuja localização corresponda ao número dado."
       },
       "PING": {
-        "description": "Permet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. :clock1:"
+        "description": "Mostra se o bot está online.\n\n(Nota: O tempo mostrado é o tempo de resposta do bot e não o seu ping: um tempo de resposta correto será inferior a 500ms. :clock1:"
       },
       "PREFIX": {
-        "description": "Cette fonctionnalité a été supprimée du jeu suite à une mise à jour des fonctionnalités proposées par Discord."
+        "description": "Esta caraterística foi removida do jogo na sequência de uma atualização da funcionalidade do Discord."
       },
       "PROFILE": {
-        "description": "Affiche des informations sur votre personnage :\n\n😃 État de santé | Pseudo | Level\n\n឵឵឵Informations :\n❤️ Vie | ⭐ XP | 💰 Argent\n\nStatistiques :\n⚡ Énergie | 🗡️ Attaque | 🛡️ Défense | 🚀 Vitesse | 🌬️ Souffle | 🫁 Récupération\n\nMissions :\n💎 Gemmes | 📖 Avancé de la campagne %\n\nClassement et score :\n🏆 Classement | 🏅 Score\n\nClasse :\nVoir {{classesCommandMention}}\n\nGloire et Ligue :\n✨ Gloire | Voir {{topGloryCommandMention}}\n\nGuilde :\n🏟️ Guilde\n\nDestination :\nVoir {{mapCommandMention}}\n\nFamilier :\nVoir {{petCommandMention}}\n\n💡-Les badges sont affichés sur votre profil sous forme de réaction."
+        "description": "\n\n\n\n\n\n\nMostra informações sobre o seu personagem: 😃 Estado de saúde | Apelido | Nível ឵឵Informações: ❤️ Vida | ⭐ XP | 💰 Dinheiro Estatísticas :\n\n\n⚡ Energia | 🗡️ Ataque | 🛡️ Defesa | 🚀 Velocidade | 🌬️ Respiração | 🫁 Recuperação Missões :\n\n\n\n\n\n\n {{classesCommandMention}}\n\n\n {{topGloryCommandMention}}\n\n\n\n\n\n {{mapCommandMention}}\n\n\n {{petCommandMention}}\n\n💎 Gemas | 📖 Campanha avançada % Classificação e pontuação: 🏆 Classificação | 🏅 Pontuação Classe: Ver Glória e Liga: ✨ Glória | Ver Grémio: 🏟️ Destino do Grémio: Ver Familiar: Ver 💡-Os emblemas são apresentados no teu perfil como uma reação."
       },
       "RARITY": {
-        "description": "Permet de voir la probabilité d'avoir un item selon sa rareté."
+        "description": "Mostra a probabilidade de ter um item de acordo com a sua raridade."
       },
       "REPORT": {
-        "description": "Permet de collecter les informations et les ressources collectées par votre personnage durant votre absence. De temps en temps, des évènements se déclenchent et demandent des actions particulières."
+        "description": "Permite-te recolher informações e recursos recolhidos pela tua personagem durante a tua ausência. De tempos a tempos, são desencadeados eventos que requerem acções específicas."
       },
       "RESPAWN": {
-        "description": "Permet de recommencer à jouer après avoir été mis K.O."
+        "description": "Permite-te recomeçar a jogar depois de seres eliminado."
       },
       "SELL": {
-        "description": "Permet de vendre l'objet qui se trouve dans votre réserve, la valeur de l'objet est déterminée en fonction de sa puissance. Les potions n'ont pas de valeur de revente, mais peuvent être jetées grace à cette commande."
+        "description": "Permite-te vender o item no teu esconderijo. O valor do item é determinado pelo seu poder. As poções não têm valor de revenda, mas podem ser descartadas com este comando."
       },
       "SHOP": {
-        "description": "Cette commande permet de dépenser votre argent pour faciliter votre aventure. En plus des 4 choix de base qui seront disponible de façon permanente, vous pourrez, chaque jour, profiter d'une potion exclusive, disponible à la vente durant 24 heures uniquement."
+        "description": "Esta ordem permite-te gastar o teu dinheiro para facilitar a tua aventura. Para além das 4 escolhas básicas que estarão permanentemente disponíveis, poderás desfrutar de uma poção exclusiva todos os dias, disponível para venda apenas durante 24 horas."
       },
       "SWITCH": {
-        "description": "Échange l'item qui se trouve dans votre réserve avec l'item qui se trouve dans la case \"item\" de votre inventaire."
+        "description": "Troca o item na tua reserva com o item na caixa \"item\" do teu inventário."
       },
       "TOP": {
-        "description": "Affiche le classement général du jeu par tranche de 15 joueurs. Les joueurs dans le même serveur que vous sont marqués par une pastille bleue."
+        "description": "Mostra a classificação geral do jogo para cada 15 jogadores. Os jogadores no mesmo servidor que tu estão marcados com um ponto azul."
       },
       "UNLOCK": {
-        "description": "Permet de payer une caution pour libérer quelqu'un de prison."
+        "description": "Utilizado para pagar a caução para libertar alguém da prisão."
       },
       "UPDATE": {
-        "description": "Permet de visionner le changelog."
+        "description": "Permite-lhe ver o registo de alterações."
       },
       "VOTE": {
-        "description": "Permet d'obtenir le lien pour voter pour le bot."
+        "description": "Fornece a ligação para votar no bot."
       }
     },
-    "forMoreHelp": ":arrow_forward: Pour plus d'aide : ",
-    "forMoreHelpValue": "Vous pouvez vous rendre sur le [wiki](https://guide.draftbot.com/) du bot !",
-    "guildCommands": ":stadium: Guilde :",
-    "helpEmbedDescription": ":arrow_forward: Si vous voulez plus d'informations sur une commande en particulier, cliquez ici : {{helpCommandMention}}, et donnez la commande qui vous pose problème en paramètre. :wink:",
-    "helpEmbedTitle": "{{pseudo}}, voici la liste des commandes disponibles :",
-    "missionCommands": ":scroll: Mission :",
-    "petCommands": ":dog: Animaux :",
-    "playerCommands": ":bust_in_silhouette: Joueur :",
-    "serverCommands": ":gear: Serveur :",
-    "usageFieldTitle": "Utilisation",
-    "utilCommands": ":question: Utiles :"
+    "forMoreHelp": ":arrow_forward: Para mais ajuda : ",
+    "forMoreHelpValue": "Podes visitar o [wiki] do bot (https://guide.draftbot.com/)!",
+    "guildCommands": ":stadium: Grémio :",
+    "helpEmbedDescription": ":arrow_forward: Se pretender obter mais informações sobre um determinado comando, clique aqui : {{helpCommandMention}}e introduza o comando com o qual está a ter problemas como parâmetro. :wink:",
+    "helpEmbedTitle": "{{pseudo}}Eis a lista de comandos disponíveis:",
+    "missionCommands": ":scroll: Missão:",
+    "petCommands": ":dog: Animais :",
+    "playerCommands": ":bust_in_silhouette: Jogador :",
+    "serverCommands": ":gear: Servidor :",
+    "usageFieldTitle": "Utilização",
+    "utilCommands": ":question: Informações úteis:"
   },
   "idea": {
-    "description": "Vous pouvez proposer des suggestions et voter pour vos idées préférées via ce lien:\nhttps://feedback.draftbot.com/",
-    "title": ":bulb: Idées"
+    "description": "\nPode fazer sugestões e votar nas suas ideias favoritas através desta ligação: https://feedback.draftbot.com/",
+    "title": ":bulb: Ideias"
   },
   "inventory": {
-    "armors_one": "Armure/Bouclier ({{count}}/{{max}}) :",
-    "armors_other": "Armures/Boucliers ({{count}}/{{max}}) :",
-    "emptySlot": ":black_large_square: **Emplacement vide**",
-    "noSlot": ":x: Aucun emplacement disponible. Achetez-en plus dans le magasin !",
-    "objects_one": "Objet ({{count}}/{{max}}) :",
-    "objects_other": "Objets ({{count}}/{{max}}) :",
-    "potions_one": "Potion ({{count}}/{{max}}) :",
-    "potions_other": "Potions ({{count}}/{{max}}) :",
-    "seeBackupItems": "🔄 Voir la réserve",
-    "seeEquippedItems": "🔄 Voir l'inventaire principal",
-    "stockTitle": ":package: **Réserve d'objets de {{pseudo}}**",
-    "title": ":briefcase: **Inventaire de {{pseudo}}**",
-    "weapons_one": "Arme ({{count}}/{{max}}) :",
-    "weapons_other": "Armes ({{count}}/{{max}}) :"
+    "armors_one": "{{count}}{{max}}Armadura/Escudo ( / ) :",
+    "armors_other": "{{count}}{{max}}Armaduras / Escudos ( / ) :",
+    "emptySlot": ":black_large_square: **Ranhura vazia",
+    "noSlot": ":x: Não há espaço disponível. Comprar mais na loja!",
+    "objects_one": "{{count}}{{max}}Objeto ( / ):",
+    "objects_other": "{{count}}{{max}}Objectos ( / ) :",
+    "potions_one": "{{count}}{{max}}Poção ( / ):",
+    "potions_other": "{{count}}{{max}}Poções ( / ) :",
+    "seeBackupItems": "Ver a reserva",
+    "seeEquippedItems": "🔄 Ver inventário principal",
+    "stockTitle": ":package: {{pseudo}}**Reservar itens de **",
+    "title": ":briefcase: {{pseudo}}** ** Inventário",
+    "weapons_one": "{{count}}{{max}}Arma ( / ):",
+    "weapons_other": "{{count}}{{max}}Armas ( / ) :"
   },
   "invite": {
     "discord": {
-      "main": "Rejoignez la communauté ! Utilisez ce lien : https://discord.gg/acGNvzEY92 :smiley:"
+      "main": "Junte-se à comunidade! :smiley:Utilize esta ligação: https://discord.gg/acGNvzEY92"
     }
   },
   "language": {
-    "description": "Utilisez le menu ci-dessous pour changer la langue utilisée par le bot sur ce serveur. Cette commande est réservée aux administrateurs du serveur.",
+    "description": "Utilize o menu abaixo para alterar o idioma utilizado pelo bot neste servidor. Este comando é reservado aos administradores do servidor.",
     "languages": {
       "de": {
         "emoji": "🇩🇪",
-        "name": "Allemand"
+        "name": "alemão"
       },
       "en": {
         "emoji": "🇬🇧",
-        "name": "Anglais"
+        "name": "Inglês"
       },
       "es": {
         "emoji": "🇪🇸",
-        "name": "Espagnol"
+        "name": "espanhol"
       },
       "fr": {
         "emoji": "🇫🇷",
-        "name": "Français"
+        "name": "francês"
       },
       "it": {
         "emoji": "🇮🇹",
-        "name": "Italien"
+        "name": "italiano"
       },
       "pt": {
         "emoji": "🇵🇹",
-        "name": "Portugais"
+        "name": "Português"
       }
     },
-    "newLanguageSetDescription": "DraftBot vous parlera désormais en français ! 🥖",
-    "newLanguageSetTitle": "Langue changée",
-    "selectLanguage": "Sélectionnez une langue",
-    "title": ":earth_africa: Sélection de la langue"
+    "newLanguageSetDescription": "O DraftBot agora fala consigo em francês! 🥖",
+    "newLanguageSetTitle": "Língua alterada",
+    "selectLanguage": "Selecionar uma língua",
+    "title": ":earth_africa: Seleção da língua"
   },
   "ping": {
     "discord": {
       "create": ":ping_pong: Pong",
-      "edit": ":ping_pong: Pong\n\n**Latence totale :** {{totalLatency}} ms\n**Latence Discord :** {{discordApiLatency}} ms\n**Numéro du shard :** {{shardId}}\n**Nombre de shards :** {{totalShards}} (+main shard)"
+      "edit": ":ping_pong:\n\n {{totalLatency}}\n {{discordApiLatency}}\n {{shardId}}\n {{totalShards}} Pong **Latência total :** ms **Latência de descarga :** ms **Número de fragmentos :** **Número de fragmentos :** (+ fragmento principal)"
     }
   },
   "profile": {
     "badgeDisplay": {
-      "numberBadge_one": "\n Ce joueur possède {{badge}} badge au total !",
-      "numberBadge_other": "\n Ce joueur possède {{badge}} badges au total !",
-      "title": "Liste des badges de {{pseudo}}"
+      "numberBadge_one": "\n {{badge}} Este jogador tem um total de emblemas!",
+      "numberBadge_other": "\n {{badge}} Este jogador tem um total de emblemas!",
+      "title": "{{pseudo}}Lista de distintivos"
     },
     "badges": {
-      "⚔️": ":crossed_swords: `Vainqueur d'un tournoi`",
-      "⚙️": ":gear: `Équipe technique`",
-      "⛑️": ":helmet_with_cross: `Personne faisant partie des 20 premières à avoir rejoint le serveur du bot`",
-      "✨": ":sparkles: `Personne ayant remporté le plus de gloire durant une saison de combat`",
-      "❤️": ":heart: `Personne ayant le grade Soutien sur le serveur du bot`",
-      "🌍": ":earth_africa: `Traducteur`",
-      "🌟": ":star2: `Personne ayant aidé à mettre le bot sur un serv de plus de 2000 membres`",
-      "🍀": ":four_leaf_clover: `Badge pouvant être gagné de temps en temps dans des concours sur le serveur du bot ou sur twitter`",
-      "🎄": ":christmas_tree: `Badge pouvant être gagné chaque noël lors d'un concours`",
-      "🎗️": ":reminder_ribbon: `Personne ayant dominé un classement de la semaine`",
-      "🎰": ":slot_machine: `Badge donné de manière totalement random`",
-      "🏅": ":medal: `Joueur dans le top 10 au reset de la 1.0`",
-      "🏆": ":trophy: `Meilleur joueur au moment du reset de la 1.0`",
-      "🐞": ":lady_beetle: `Personne ayant signalé des bugs majeurs`",
-      "👑": ":crown: `Propriétaire du bot`",
-      "💍": ":ring: `Badge acheté dans le shop des Missions`",
-      "💎": ":gem: `Membre d'une guilde puissante`",
-      "💞": ":revolving_hearts: `Joueur ayant dressé un familier légendaire`",
-      "💸": ":money_with_wings: `Donateur`",
-      "🔖": ":bookmark: `Adopteur de classes de la première heure`",
-      "🕊️": ":dove: `Personne ayant rapporté un bug exploitable sans en profiter`",
-      "🖋️": ":pen_fountain: `Rédacteur du bot`",
-      "🗳️": ":ballot_box: `Personne ayant voté dans les 12 dernières heures`",
-      "😂": ":joy: `Badge offert à une personne drôle`",
-      "🤑": ":money_mouth: `Badge acheté dans le shop`",
-      "🥇": ":first_place: `Personne ayant atteint la première place du classement après le reset`",
-      "🪩": ":mirror_ball: `Membre d'une guilde très puissante`"
+      "⚔️": ":crossed_swords: Vencedor do torneio",
+      "⚙️": ":gear: Equipa técnica",
+      "⛑️": ":helmet_with_cross: Uma das primeiras 20 pessoas a juntar-se ao servidor bot.",
+      "✨": ":sparkles: A pessoa que ganhou mais glória durante uma época de combates.",
+      "❤️": ":heart: `Pessoa com posto de Suporte no servidor do bot`.",
+      "🌍": ":earth_africa: Tradutor",
+      "🌟": ":star2: Pessoa que ajudou a colocar o bot num serviço com mais de 2000 membros`",
+      "🍀": ":four_leaf_clover: Os crachás podem ser ganhos de vez em quando em competições no servidor do bot ou no twitter.",
+      "🎄": ":christmas_tree: Distintivo que pode ser ganho todos os Natais num concurso.",
+      "🎗️": ":reminder_ribbon: Pessoa que dominou uma classificação da semana`.",
+      "🎰": ":slot_machine: Crachá distribuído de forma completamente aleatória",
+      "🏅": ":medal: Os 10 melhores jogadores na reposição 1.0",
+      "🏆": ":trophy: Melhor jogador na altura da reposição 1.0",
+      "🐞": ":lady_beetle: Pessoas que comunicaram erros graves",
+      "👑": ":crown: Proprietário do bot",
+      "💍": ":ring: Distintivo comprado na loja das Missões",
+      "💎": ":gem: Membro de um grémio poderoso",
+      "💞": ":revolving_hearts: Jogador que treinou um animal de estimação lendário",
+      "💸": ":money_with_wings: Doador",
+      "🔖": ":bookmark: Adoção precoce das aulas",
+      "🕊️": ":dove: Pessoa que comunicou uma falha explorável sem tirar partido dela`.",
+      "🖋️": ":pen_fountain: editor de bots",
+      "🗳️": ":ballot_box: Quem votou nas últimas 12 horas?",
+      "😂": ":joy: Distintivo dado a uma pessoa engraçada",
+      "🤑": ":money_mouth: Distintivo comprado na loja",
+      "🥇": ":first_place: Pessoa que atingiu o topo da classificação após o reset`.",
+      "🪩": ":mirror_ball: Membro de um grémio muito poderoso"
     },
     "fightRanking": {
-      "fieldName": "Gloire et ligue :",
-      "fieldValue": ":sparkles: {{gloryPoints}} | {{league}}"
+      "fieldName": "Glória e campeonato :",
+      "fieldValue": ":sparkles: {{gloryPoints}} {{league}}|"
     },
     "guild": {
-      "fieldName": "Guilde :",
+      "fieldName": "Grémio :",
       "fieldValue": ":stadium: {{guild}}"
     },
     "information": {
-      "fieldName": "Informations :",
-      "fieldValue": ":heart: {{health}}/{{maxHealth}} | :star: {{experience}}/{{experienceNeededToLevelUp}} | :moneybag: {{money}}"
+      "fieldName": "Mais informações :",
+      "fieldValue": ":heart: {{health}}{{maxHealth}} :star: {{experience}}{{experienceNeededToLevelUp}} :moneybag: {{money}}/ | / |"
     },
     "map": {
-      "fieldName": "Destination :",
+      "fieldName": "Destino :",
       "fieldValue": "{{mapEmote}} {{mapName}}"
     },
     "mission": {
-      "fieldName": "Missions :",
-      "fieldValue": ":gem: {{gems}} | :book: {{campaign}}% "
+      "fieldName": "Tarefas :",
+      "fieldValue": ":gem: {{gems}} :book: {{campaign}}| % "
     },
     "noTimeLeft": {
-      "fieldName": "Temps restant :",
-      "fieldValue": ":hospital: Reprise du jeu possible"
+      "fieldName": "Tempo restante :",
+      "fieldValue": ":hospital: Possibilidade de reinício do jogo"
     },
     "pet": {
-      "fieldName": "Familier :",
-      "fieldValue": "Rareté: {{rarity}}\n"
+      "fieldName": "Familiar :",
+      "fieldValue": "{{rarity}}\nRaridade:"
     },
     "playerClass": {
       "fieldName": "Classe :",
       "fieldValue": "{{class}}"
     },
     "ranking": {
-      "fieldName": "Classement et Score :",
-      "fieldValue": ":trophy: {{rank}}/{{numberOfPlayer}} | :medal: {{score}}",
-      "fieldValueUnranked": ":trophy: Non classé | :medal: {{score}}"
+      "fieldName": "Classificação e pontuação :",
+      "fieldValue": ":trophy: {{rank}}{{numberOfPlayer}} :medal: {{score}}/ |",
+      "fieldValueUnranked": ":trophy: :medal: {{score}}Sem categoria"
     },
     "statistics": {
-      "fieldName": "Statistiques :",
-      "fieldValue": ":zap: {{cumulativeHealth}} / {{cumulativeMaxHealth}} | :dagger: {{cumulativeAttack}} | :shield: {{cumulativeDefense}} | :rocket: {{cumulativeSpeed}} | :wind_blowing_face: {{baseBreath}} / {{maxBreath}} | :lungs: {{breathRegen}}"
+      "fieldName": "Estatísticas :",
+      "fieldValue": ":zap: {{cumulativeHealth}} {{cumulativeMaxHealth}} :dagger: {{cumulativeAttack}} :shield: {{cumulativeDefense}} :rocket: {{cumulativeSpeed}} :wind_blowing_face: {{baseBreath}} {{maxBreath}} :lungs: {{breathRegen}}/ | | | | / |"
     },
     "timeLeft": {
-      "fieldName": "Temps restant :",
+      "fieldName": "Tempo restante :",
       "fieldValue": "{{effect}} {{timeLeft}}"
     },
-    "title": "{{effect}} | {{pseudo}} | Niveau {{level}}"
+    "title": "{{effect}} {{pseudo}} {{level}}| | Nível"
   },
   "rarity": {
-    "rarities": ":small_orange_diamond: Basique | Possédé en début de jeu\n:large_orange_diamond: Commun | {{common}}%\n:fire: Peu commun | {{uncommon}}%\n:trident: Exotique | {{exotic}}%\n:comet: Rare | {{rare}}%\n:dizzy: Spécial | {{special}}%\n:star: Épique | {{epic}}%\n:star2: Légendaire | {{legendary}}%\n:gem: Mythique | {{unique}}%",
-    "title": ":slot_machine: Rareté des équipements"
+    "rarities": ":small_orange_diamond:\n:large_orange_diamond: {{common}}\n:fire: {{uncommon}}\n:trident: {{exotic}}\n:comet: {{rare}}\n:dizzy: {{special}}\n:star: {{epic}}\n:star2: {{legendary}}\n:gem: {{unique}}Básico | Possuído no início do jogo Comum | % Incomum | % Exótico | % Raro | % Especial | % Épico | % Lendário | % Mítico | %",
+    "title": ":slot_machine: Escassez de equipamento"
   },
   "report": {
-    "adviceTitle": "Conseil :",
-    "chooseDestinationIndications": "Choisissez une destination pour votre voyage:",
-    "choseMapMinutes_one": "Vous avez décidé de partir en direction {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. Ce trajet durera environ **{{time}} minute**.",
-    "choseMapMinutes_other": "Vous avez décidé de partir en direction {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. Ce trajet durera environ **{{time}} minutes**.",
-    "choseMap_one": "Vous avez décidé de partir en direction {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. Ce trajet durera environ **{{time}} heure**.",
-    "choseMap_other": "Vous avez décidé de partir en direction {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. Ce trajet durera environ **{{time}} heures**.",
-    "collectedPointsTitle": "Points récoltés :",
-    "commandDescription": "Obtenir un rapport sur la situation de votre personnage.",
-    "commandName": "rapport",
-    "destinationTitle": "{{pseudo}}, destination du voyage",
+    "adviceTitle": "Conselhos :",
+    "chooseDestinationIndications": "Escolha um destino para a sua viagem:",
+    "choseMapMinutes_one": "{{mapPrefix}} {{mapType}} {{mapEmote}}{{mapName}}Decidiu dirigir-se para ** **.{{time}} Esta viagem demorará aproximadamente ** minuto**.",
+    "choseMapMinutes_other": "{{mapPrefix}} {{mapType}} {{mapEmote}}{{mapName}}Decidiu dirigir-se para ** **.{{time}} Esta viagem demorará aproximadamente ** minutos**.",
+    "choseMap_one": "{{mapPrefix}} {{mapType}} {{mapEmote}}{{mapName}}Decidiu dirigir-se para ** **.{{time}} Esta viagem demorará aproximadamente ** hora**.",
+    "choseMap_other": "{{mapPrefix}} {{mapType}} {{mapEmote}}{{mapName}}Decidiu dirigir-se para ** **.{{time}} A viagem demorará aproximadamente ** horas**.",
+    "collectedPointsTitle": "Pontos recolhidos :",
+    "commandDescription": "Obter um relatório sobre a situação da sua personagem.",
+    "commandName": "relatório",
+    "destinationTitle": "{{pseudo}}destino de viagem",
     "doChoice": "{{emoji}} {{choiceText}}\n",
-    "doEvent": ":newspaper: **Journal de {{pseudo}} :** {{event}}\n*- Utilisez les réactions pour effectuer une action ⚠️ Ne pas répondre est considéré comme un choix à part.*",
+    "doEvent": ":newspaper: {{pseudo}} {{event}}\n** :** *- Utilizar reacções para realizar uma ação ⚠️ Não responder é considerado uma escolha separada.",
     "doPossibility": ":newspaper: **Journal de {{pseudo}} {{result}}** | {{emoji}}{{event}}{{alte}}",
     "encounterMonster": [
-      "Vous arrivez à votre destination quand soudain, vous entendez un bruit derrière vous... Un monstre vous attaque !"
+      "Chegas ao teu destino quando, de repente, ouves um barulho atrás de ti... Um monstro está a atacar-vos!"
     ],
-    "encounterMonsterStats": "> **{{emoji}} {{monsterName}} **| **Niveau {{level}}**\n> {{description}}\n\n⚡ {{fightPoints}} | 🗡 {{attack}} | 🛡 {{defense}} | 🚀 {{speed}}",
-    "endPoint": "Point d'arrivée :",
-    "energy": "** | :zap: Énergie gagnée : **{{energy}}",
-    "experience": "** | :star: XP gagné : **{{experience}}",
-    "gems": "** | :gem: Gemmes gagnées : **{{gems}}",
-    "health": "** | :heart: Vie gagnée : **{{health}}",
-    "healthLoose": "** | :broken_heart: Vie perdue : **{{health}}",
-    "journal": "Journal de {{pseudo}}",
-    "money": "** | :moneybag: Argent gagné : **{{money}}",
-    "moneyLoose": "** | :money_with_wings: Argent perdu : **{{money}}",
-    "monsterRewardGuildXp": "\n:star: XP de guilde gagnée: **{{guildXp}}**",
-    "monsterRewardsDescription": ":moneybag: Argent gagné : **{{money}}**\n:star: XP gagnée : **{{experience}}**",
-    "monsterRewardsGuildPoints": "\n:mirror_ball: Points de guilde gagnés : **{{guildPoints}}**",
-    "monsterRewardsTitle": "{{pseudo}}, récompenses de combat",
-    "newBigEvent": ":flag_fr: Vous êtes arrivé à **{{destination}}** !",
-    "noFight": ":newspaper: **Journal de {{pseudo}} :** {{waitABitReaction}} | Vous vous enfuyez rapidement et trouvez une petite cachette ! Le monstre vous attend patiemment dehors...",
-    "points": ":** :medal: Points gagnés : **{{score}}",
-    "pveEvent": ":newspaper: **Journal de {{pseudo}} :** {{event}}\n\n{{monsterDisplay}}\n\n{{startTheFightReaction}} Commencer le combat\n{{waitABitReaction}} Attendre un peu avant de commencer le combat\n\n*- Utilisez les réactions pour effectuer une action*",
-    "remainingEnergyTitle": "Énergie restante :",
-    "startPoint": "Point de départ :",
-    "timeLost": "** | :clock10: Temps perdu : **{{timeLost}}",
-    "travelPathTitle": "Voyage actuel :",
-    "travellingDescription": "Tout se passe bien depuis votre dernière aventure {{smallEventEmoji}}. Prochain arrêt prévu {{time}}.",
-    "travellingDescriptionEndTravel": "Tout se passe bien dans votre aventure, vous arriverez bientôt à destination.",
-    "travellingDescriptionWithoutSmallEvent": "Tout se passe bien dans votre aventure. Prochain arrêt prévu {{time}}.",
-    "travellingTitle": "Vous êtes actuellement en train d'avancer !"
+    "encounterMonsterStats": "{{emoji}} {{monsterName}} {{level}}\n {{description}}\n\n {{fightPoints}} {{attack}} {{defense}} {{speed}}> ** **| **Nível ** > ⚡ | 🗡 | 🛡 | 🚀",
+    "endPoint": "Ponto de chegada :",
+    "energy": ":zap: ** Poupança de energia :{{energy}}**",
+    "experience": ":star: | XP ganho :{{experience}}**",
+    "gems": ":gem: ** Gemas ganhas :{{gems}}**",
+    "health": ":heart: | Vida ganha :{{health}}**",
+    "healthLoose": ":broken_heart: | Vida perdida :{{health}}**",
+    "journal": "{{pseudo}}Diário de",
+    "money": ":moneybag: ** Dinheiro ganho :{{money}}**",
+    "moneyLoose": ":money_with_wings:{{money}}** Dinheiro perdido: **",
+    "monsterRewardGuildXp": "\n:star: XP de guilda ganho:{{guildXp}}** **",
+    "monsterRewardsDescription": ":moneybag: Prata ganha :{{money}}\n:star: ** ** XP ganho :{{experience}}** **",
+    "monsterRewardsGuildPoints": "\n:mirror_ball: Pontos de guilda ganhos :{{guildPoints}}** **",
+    "monsterRewardsTitle": "{{pseudo}}recompensas de combate",
+    "newBigEvent": ":flag_fr:{{destination}}Chegou a !",
+    "noFight": ":newspaper: {{pseudo}} {{waitABitReaction}} ** Fazes uma fuga rápida e encontras um pequeno esconderijo! O monstro está à espera pacientemente lá fora...",
+    "points": ":medal: :** Pontos ganhos :{{score}}**",
+    "pveEvent": ":newspaper: {{pseudo}} {{event}}\n\n{{monsterDisplay}}\n\n{{startTheFightReaction}}\n{{waitABitReaction}}\n\n** log:** Iniciar o combate Esperar um pouco antes de iniciar o combate *- Utilizar reacções para realizar uma ação*.",
+    "remainingEnergyTitle": "Energia restante :",
+    "startPoint": "Ponto de partida :",
+    "timeLost": ":clock10:{{timeLost}}| Tempo perdido :",
+    "travelPathTitle": "Viagem atual :",
+    "travellingDescription": "{{smallEventEmoji}}Tudo está a correr bem desde a vossa última aventura. {{time}}Próxima paragem .",
+    "travellingDescriptionEndTravel": "Tudo está a correr bem na vossa aventura e em breve chegarão ao vosso destino.",
+    "travellingDescriptionWithoutSmallEvent": "A vossa aventura está a correr bem. {{time}}Próxima paragem .",
+    "travellingTitle": "Está a fazer progressos!"
   },
   "update": {
-    "description": "La version actuelle du noyau du bot est la **{{coreVersion}}**. Celle du module Discord est la **{{discordModuleVersion}}**.\n\nToutes les informations concernant les mises à jour sont disponibles ici :\nhttps://guide.draftbot.com/lore/historique-des-mises-a-jour",
-    "title": ":scroll: Mises à jour"
+    "description": "{{coreVersion}}A versão atual do núcleo do bot é ** **.{{discordModuleVersion}}A versão do módulo Discord é ** **.\n\n\nTodas as informações sobre actualizações estão disponíveis aqui: https://guide.draftbot.com/lore/historique-des-mises-a-jour",
+    "title": ":scroll: Actualizações"
   },
   "vote": {
-    "description": "Voici le lien permettant de soutenir le bot :\nhttps://top.gg/bot/448110812801007618",
-    "title": ":ballot_box: Voter"
+    "description": "\nAqui está o link para apoiar o bot: https://top.gg/bot/448110812801007618",
+    "title": ":ballot_box: Votação"
   },
   "map": {
-    "title": "{{pseudo}}, voici la carte !",
+    "title": "{{pseudo}}Aqui está o mapa!",
     "description": {
-      "ongoing": "Actuellement, vous vous dirigez {{particle}} **{{emote}} {{destination}}**.\n> {{description}}",
-      "arrived": "Vous êtes arrivé à votre destination.\n> **{{emote}} {{destination}}**.\n> {{description}}"
+      "ongoing": "{{particle}}{{emote}} {{destination}}Está atualmente a dirigir-se para ** **.\n {{description}}>",
+      "arrived": "Chegou ao seu destino.\n{{emote}} {{destination}}> ** **.\n {{description}}>"
     }
   },
   "petFree": {
-    "title": "{{pseudo}}, libération d'un familier",
-    "canceledTitle": "{{pseudo}}, annulation de la libération.",
-    "canceledDesc": "Le familier n'a pas été libéré.",
-    "confirmDesc": ":warning: Êtes-vous sur de vouloir libérer **{{pet}}** ? Il n'est pas possible d'annuler une fois l'action effectuée.",
-    "acceptedDesc": "Adieu **{{pet}}**..."
+    "title": "{{pseudo}}libertar um familiar",
+    "canceledTitle": "{{pseudo}}cancelamento da libertação.",
+    "canceledDesc": "O animal de estimação não foi libertado.",
+    "confirmDesc": ":warning:{{pet}}Tem a certeza de que pretende libertar ** **? Não é possível cancelar uma vez que a ação tenha sido concluída.",
+    "acceptedDesc": "{{pet}}Adeus ** **..."
   },
   "petNick": {
-    "successTitle": "{{pseudo}}, changement du surnom du familier",
-    "success": "Surnom du familier changé en **{{name}}** !",
-    "successNoName": "Votre familier n'a désormais plus de surnom !"
+    "successTitle": "{{pseudo}}alterar a alcunha do animal de estimação",
+    "success": "{{name}}Alcunha do animal de estimação alterada para ** ** !",
+    "successNoName": "O seu animal de estimação já não tem alcunha!"
   }
 }
