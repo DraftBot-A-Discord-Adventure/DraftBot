@@ -27,7 +27,7 @@ export class ReactionCollectorGuildCreate extends ReactionCollector {
 				this.buildReaction(ReactionCollectorRefuseReaction, {})
 			],
 			data: this.buildData(ReactionCollectorGuildCreateData, {
-				guildName: this.guildName,
+				guildName: this.guildName
 			})
 		};
 	}
