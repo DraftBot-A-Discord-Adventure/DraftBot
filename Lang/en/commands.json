@@ -55,12 +55,12 @@
     "notRanked": "Unranked"
   },
   "guildCreate": {
-    "title": "{{pseudo}}, création d'une guilde",
-    "canceledTitle": "{{pseudo}}, annulation de la création d'une guilde.",
-    "canceledDesc": "La création de votre guilde a été annulée.",
-    "confirmDesc": ":question: Confirmer la création de la guilde **{{guildName}}** pour `{{price}}` :moneybag: ?",
-    "acceptedFooter": "Attention, le staff se réserve le droit de renommer votre guilde.",
-    "acceptedDesc": "La guilde **{{guildName}}** a été créée !"
+    "title": "{{pseudo}}, creating a guild",
+    "canceledTitle": "{{pseudo}}, canceled creating a guild.",
+    "canceledDesc": "Your guild creation has been cancelled.",
+    "confirmDesc": ":question: Confirm guild creation **{{guildName}}** for `{{price}}` :moneybag:?",
+    "acceptedFooter": "Warning, the staff reserves the right to rename your guild.",
+    "acceptedDesc": "The **{{guildName}}** guild has been created!"
   },
   "help": {
     "aliasFieldTitle": "Alias",
