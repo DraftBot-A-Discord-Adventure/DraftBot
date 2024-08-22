@@ -1,481 +1,481 @@
 {
   "intro": [
-    "Alors que vous voyagez tranquillement, ",
-    "Tandis que vous avancez tranquillement sur votre route, ",
-    "Alors que vous vous apprêtez à vous remettre en marche après une courte pause, ",
-    "Au détour d'un virage, ",
-    "Alors que vous vous baladez tranquillement, ",
-    "Suite à une courte halte, ",
-    "Après de longues heures de marche, ",
-    "Au cours d'une petite pause contre un arbre, ",
-    "Alors que vous continuez votre aventure, ",
-    "En suivant votre chemin, ",
-    "Contemplant les abords de la route, ",
-    "En reprenant la route après une rapide halte, ",
-    "Tout en avançant, fatigué par vos longues heures de marche, ",
-    "Aux abords d'un chemin, "
+    "Enquanto viaja em paz, ",
+    "Enquanto se faz o caminho calmamente ao longo da estrada, ",
+    "Enquanto se prepara para partir de novo depois de uma pequena pausa, ",
+    "Na curva da estrada, ",
+    "Enquanto passeia tranquilamente, ",
+    "Depois de uma breve paragem, ",
+    "Depois de longas horas de caminhada, ",
+    "Durante uma pequena pausa contra uma árvore, ",
+    "Enquanto continua a sua aventura, ",
+    "Segue o teu próprio caminho, ",
+    "Contemplando a berma da estrada, ",
+    "Regressar à estrada depois de uma paragem rápida, ",
+    "Ao longo do caminho, cansados das longas horas de caminhada, ",
+    "À beira de um caminho, "
   ],
   "advanceTime": {
     "stories": [
-      "vous voyez une personne ressemblant étrangement à Pérotin. Vous accourez vers lui, mais celui-ci accélère également, sûrement de peur. Vous réussissez à le rattraper, et réalisez alors que vous vous êtes trompé de personne. Vous vous excusez promptement. Vous avez cependant gagné **{{time}} Min :hourglass:** sur votre chemin.",
-      "vous entendez une charrette derrière vous. L'homme dans le véhicule vous propose de vous déposer là où vous le souhaitez. Vous acceptez et lui indiquez votre destination. Après avoir parcouru quelques kilomètres, l'homme vous dit qu'il doit aller dans une autre direction que la vôtre, il vous dépose donc et vous le remerciez. Vous gagnez **{{time}} Min :hourglass:** sur votre trajet.",
-      "vous apercevez un carrosse au loin. La princesse est peut-être à bord ! Vous décidez d'aller lui parler et courez donc aussi vite que possible. Une fois assez proche, vous découvrez avec dépit que vous ne pouvez l'approcher car le véhicule est protégé par un cortège de cavaliers. Vous avez cependant gagné **{{time}} Min :hourglass:** sur votre destination.",
-      "vous prenez une petite collation quand soudain une ombre se précipite sur vous et la dérobe. Vous la poursuivez aussitôt mais incapable de la rattraper vous abandonnez. Cette mésaventure vous a néanmoins fait gagner **{{time}} Min :hourglass:** sur votre trajet.",
-      "vous voyez une personne ressemblant étrangement à Gruffo. Vous accourez vers lui, mais celui-ci accélère également, sûrement de peur. Après l'avoir rattrapé, vous vous rendez compte qu'il ne s'agit pas du tout de la personne à laquelle vous pensiez. Vous avez cependant gagné **{{time}} Min :hourglass:** sur votre trajet.",
-      "un point brillant attire votre attention. Votre curiosité vous pousse à courir vers la source lumineuse. Ce n'est qu'une vulgaire pièce de cuivre mais elle vous a fait gagner **{{time}} Min :hourglass:** sur votre trajet.",
-      "un chien massif de couleur fauve surgit d'un large bosquet. Il grogne, montre des canines acérées, et semble vouloir vous mordre les jambes. Appréciant l'idée de rester en un seul morceau, voilà qu'elles vous poussent à courir à toute vitesse et vous font gagner **{{time}} Min :hourglass:** sur votre trajet !",
-      "un volumineux nid de guêpes se détache de l'arbre sous lequel vous étiez et tombe à vos pieds. Vous courez jusqu'à ce que vos poumons vous supplient de vous remettre à marcher. Pas une guêpe n'a réussi à vous piquer. Cette mésaventure vous a fait gagner **{{time}} Min :hourglass:** sur votre itinéraire !",
-      "vous savourez un agréable temps printanier. Votre pause est cependant de courte durée : des bandits armés de gourdins et d'épées ébréchées déchirent les buissons à votre gauche et ricanent en avançant tranquillement vers vous. Avant même que vous n'ayez le temps de réfléchir, votre corps vous emporte dans une fuite vers l'avant, si bien que cela vous fait gagner **{{time}} Min :hourglass:** sur votre parcours.",
-      "un jeune garçon vous bouscule en vous doublant. Envahi d'un mauvais pressentiment, vous vérifiez le contenu de vos poches : votre bourse a disparu ! Parvenant à le rattraper après une course effrénée, vous récupérez ce qui vous revient de droit et laissez le mécréant dans un fossé non sans l'avoir puni comme il le méritait. Vous vous rendez compte que cet événement vous aura permis de gagner **{{time}} Min :hourglass:** sur votre itinéraire.",
-      "vous êtes surpris par le passage d'un lapin au pelage immaculé, qui se faufile entre vos jambes. Interloqué tout d'abord, vous tentez de le rattraper. C'est peine perdue, il ne faut pas longtemps au petit animal pour vous semer. Ces péripéties vous auront fait gagner **{{time}} Min :hourglass:**.",
-      "vous entendez l'appel d'une femme derrière vous. Quand vous vous retournez, vous remarquez immédiatement l'objet aux reflets métalliques dans sa main. Paniqué, vous prenez la fuite. Après être arrivé dans un endroit plus sûr, vous remarquez que vous avez pris **{{time}} Min :hourglass:** d'avance sur votre temps de voyage."
+      "vê alguém que se parece estranhamente com Pérotin. Corre em direção a ele, mas ele também acelera, provavelmente por medo. Consegue alcançá-lo e apercebe-se que apanhou a pessoa errada. Pede rapidamente desculpa.{{time}} :hourglass:No entanto, ganhaste ** Min ** no teu caminho.",
+      "ouve uma carroça atrás de si. O homem do veículo oferece-lhe uma boleia para onde quiser. Você aceita e diz-lhe o seu destino. Depois de percorrer alguns quilómetros, o homem diz-lhe que tem de ir numa direção diferente da sua, por isso dá-lhe boleia e você agradece-lhe.{{time}} :hourglass:Ganha ** Min ** na sua viagem.",
+      "vê-se uma carruagem ao longe. A princesa pode estar a bordo! Decide ir falar com ela e corre o mais depressa que pode. Quando se aproxima, fica desiludido ao descobrir que não pode aproximar-se dela porque o veículo está protegido por um cortejo de cavaleiros.{{time}} :hourglass:No entanto, ganhou ** Min ** no seu destino.",
+      "Estás a comer um lanche quando, de repente, uma sombra vem a correr na tua direção e rouba-te o lanche. Persegue-o, mas não o consegue apanhar e desiste.{{time}} :hourglass:Este contratempo valeu-lhe, no entanto, **Min** na sua viagem.",
+      "vês alguém que se parece suspeitamente com o Gruffo. Corres em direção a ele, mas ele também acelera, provavelmente por medo. Depois de o alcançares, apercebes-te de que não é de todo a pessoa que pensavas.{{time}} :hourglass:No entanto, ganhaste **Min ** no caminho.",
+      "um ponto luminoso chama a tua atenção. A tua curiosidade leva-te a correr para a fonte da luz.{{time}} :hourglass:É apenas uma moeda de cobre vulgar, mas que te salvou ** Min ** na tua viagem.",
+      "um enorme cão de cor fulva emerge de um grande bosque. Rosna, mostrando caninos afiados, e parece querer morder-vos as pernas.{{time}} :hourglass:Apreciando a ideia de ser deixado inteiro, mandam-no correr a toda a velocidade, ganhando-lhe ** Min ** no seu caminho!",
+      "um grande ninho de vespas solta-se da árvore debaixo da qual se encontrava e cai a seus pés. Corre até os seus pulmões lhe pedirem para recomeçar a andar. Nem uma vespa conseguiu picá-lo.{{time}} :hourglass:Este contratempo poupou-lhe **Min** no seu percurso!",
+      "está a desfrutar do agradável tempo de primavera. No entanto, a tua pausa é curta, pois bandidos armados com paus e espadas lascadas rasgam os arbustos à tua esquerda, cacarejando enquanto avançam silenciosamente na tua direção.{{time}} :hourglass:Antes mesmo de teres tempo para pensar, o teu corpo leva-te numa corrida precipitada, que te faz ganhar ** Min ** pelo caminho.",
+      "um rapazinho empurra-a quando passa por si. Com um mau pressentimento, verifica os seus bolsos: a sua bolsa desapareceu! Depois de uma corrida frenética, recupera o que é seu por direito e deixa o malfeitor numa vala, depois de o ter castigado como ele merecia.{{time}} :hourglass:Apercebe-se de que este acontecimento lhe valeu **Men ** no seu percurso.",
+      "um coelho de pelo imaculado, que escorrega por entre as suas pernas, assusta-o. Inicialmente surpreendido, tenta apanhá-lo. Mas não demora muito para que o pequeno animal te perca.{{time}} :hourglass:Estas aventuras ter-te-ão valido ** Min **.",
+      "ouve uma mulher a chamar atrás de si. Quando se vira, repara imediatamente no objeto de aspeto metálico que ela tem na mão. Em pânico, foge.{{time}} :hourglass:Quando chega a um local mais seguro, repara que está ** Min ** adiantado."
     ]
   },
   "bigBad": {
     "lifeLoss": [
-      "vous entendez un bruit strident venant du ciel. Vous levez les yeux mais trop tard : un oiseau aux griffes acérées vous fonce dessus. Au moment où celui-ci vous griffe, il se rend compte que vous n'êtes pas sa proie habituelle et repart aussitôt. Vous contemplez votre blessure, elle a l'air profonde. Vous perdez **{{lifeLoss}} 💔**.",
-      "alors que vous arpentez un sentier escarpé, vous dérapez et vous tordez la cheville droite. Vous perdez **{{lifeLoss}} 💔**.",
-      "vous voyez une mouche tourner autour de vous. Vous sortez votre arme dans l'espoir de la tuer, mais vous n'arrivez qu'à vous entailler légèrement le poignet, perdant au passage **{{lifeLoss}} 💔**."
+      "ouves um ruído estridente vindo do céu. Olhas para cima, mas já é tarde demais: um pássaro com garras afiadas está a cair em cima de ti. Ao arranhar-te, apercebe-se de que não és a sua presa habitual e vai-se embora imediatamente. Olhas para a tua ferida, parece profunda.{{lifeLoss}} Perdeste ** 💔**.",
+      "Estás a caminhar por um caminho íngreme quando escorregas e torces o tornozelo direito.{{lifeLoss}} Perdes ** 💔**.",
+      "vê uma mosca a circular à sua volta.{{lifeLoss}} Puxa da arma na esperança de a matar, mas apenas consegue cortar ligeiramente o pulso, perdendo ** 💔** no processo."
     ],
     "moneyLoss": [
-      "vous vous rendez compte que votre sac est déchiré. Après vérification, vous constatez que votre bourse a disparu, vous avez perdu **{{moneyLost}} 💸**.",
-      "vous prenez conscience de l'absence de votre bourse en votre sac. Vous vous souvenez soudain l'avoir oubliée dans la précédente taverne, vous avez perdu **{{moneyLost}} 💸**.",
-      "des voyageurs passent à côté de vous en vous bousculant, puis vous relèvent en s'excusant grossièrement. Quelques minutes plus tard, vous vous apercevez que votre bourse a disparu, vous avez perdu **{{moneyLost}} 💸**."
+      "apercebe-se de que a sua mala está rasgada.{{moneyLost}} Depois de verificar, vê que a sua bolsa desapareceu, perdeu ** 💸**.",
+      "apercebes-te de que a tua bolsa desapareceu do teu saco.{{moneyLost}} De repente, lembras-te de te teres esquecido dela na taberna anterior, perdeste ** 💸**.",
+      "Alguns viajantes passam por si, empurrando-o, depois pegam em si e pedem desculpa de forma rude.{{moneyLost}} Alguns minutos depois, apercebe-se que a sua mala desapareceu, perdeu ** 💸**."
     ],
     "alterationStories": {
-      "badBerries": "vous apercevez des baies. Votre estomac vous rappelant que cela fait plusieurs heures que vous n'avez pas mangé, vous vous sentez poussé à les goûter. Très vite vous vous sentez mal.",
-      "gentleBreeze": "vous sentez la brise vous bercer peu à peu. Fatigué par votre route, vous n'êtes pas long à vous endormir.",
-      "mysteriousBottle": "vous passez non loin d'un marchand, et celui-ci vous interpelle. Il vous propose de vous donner une bouteille mystérieuse qu'il ne parvient pas à vendre et ne souhaite pas voir s'abîmer. Vous acceptez et buvez goulûment son contenu.",
-      "strangeLiquid": "vous apercevez au loin un objet brillant. En vous approchant vous découvrez une bouteille contenant un liquide étrange. Intrigué, vous décidez de goûter le mélange douteux. Vous regrettez cela immédiatement.",
-      "expiredProvisions": "vous prenez conscience que des provisions traînent depuis un moment en vos sacs. Vous ne souhaitez cependant pas les jeter et choisissez de tout de même les manger. Cela s'avère être une mauvaise idée, il semble que les vivres étaient déjà périmés.",
-      "unexpectedRider": "vous êtes surpris par un cavalier qui surgit derrière vous sans crier gare. Il vous renverse et poursuit son chemin sans prêter attention à vous. Sonné, vous vous relevez avec difficulté.",
-      "fallingBranch": "vous êtes assommé par une immense branche tombant de l'arbre mort sous lequel vous étiez. Blessé, il vous faudra un peu de temps pour repartir.",
-      "precipiceFall": "vous êtes surpris par un profond précipice. Malgré tous vos efforts pour vous rattraper vous ne parvenez pas à éviter la chute.",
-      "ambushedByGroup": "un groupe vous arrête, et ses membres exigent que vous leur donniez vos possessions. Vous n'êtes pas intimidé, et brandissez votre arme pour les faire fuir. Cependant, l'un d'eux profite de la panique générale pour vous assommer, avant de s'enfuir.",
-      "cowStampede": "vous traversez un chemin quand un troupeau de vaches surgit brusquement. Apeuré par la masse d'animaux qui vient de vous frôler, vous mettez un peu de temps à vous remettre de vos émotions.",
-      "trippedOverRoot": "vous vous prenez les pieds dans une racine et tombez tête la première. Blessé, il vous faudra vous soigner.",
-      "encounterWithBearCub": "vous apercevez un ourson quelques mètres plus loin. Apeuré par l'idée de vous faire surprendre par sa mère vous fuyez aussi vite que vous le pouvez.",
-      "wrongDirection": "vous vous rendez compte que vous avez pris la mauvaise direction à la dernière intersection. Vous décidez de ne pas faire demi-tour et de trouver votre propre chemin vers votre destination... Vous vous perdez complètement.",
-      "chilledByColdNights": "vous vous faîtes surprendre par les nuits froides de la région. Sans vêtements adaptés à ce climat, vous vous refroidissez rapidement.",
-      "mistakenIdentity": "vous êtes appréhendé par des gardes vous accusant d'être un criminel recherché activement dans le royaume. Vous constatez en effet que l'homme sur l'affiche vous ressemble, et tentez de vous expliquer. Les gardes ne vous écoutent pas, vous embarquent et vous jettent en prison."
+      "badBerries": "vê algumas bagas. O seu estômago lembra-lhe que não come há várias horas, por isso sente-se obrigado a prová-las. Em breve se sente mal.",
+      "gentleBreeze": "sente a brisa a embalá-lo gradualmente até adormecer. Cansado da viagem, não demora muito a adormecer.",
+      "mysteriousBottle": "Passas por um comerciante que te chama. Oferece-se para te dar uma garrafa misteriosa que não pode vender e que não quer estragar. Aceita e bebe-a.",
+      "strangeLiquid": "vê um objeto brilhante ao longe. Ao aproximares-te, descobres uma garrafa com um líquido estranho. Intrigado, decide provar a mistura duvidosa. Arrepende-se imediatamente.",
+      "expiredProvisions": "apercebe-se de que tem algumas compras nos seus sacos há algum tempo. No entanto, não quer deitá-las fora e decide comê-las na mesma. Mas a ideia acaba por ser má, pois parece que os alimentos já estão fora de prazo.",
+      "unexpectedRider": "é surpreendido por um motociclista que aparece atrás de si sem o avisar. Ele derruba-o e continua o seu caminho sem lhe prestar qualquer atenção. Aturdido, esforça-se por se levantar.",
+      "fallingBranch": "é posto inconsciente por um enorme ramo que cai da árvore morta debaixo da qual se encontrava. Ferido, vai demorar algum tempo a recuperar.",
+      "precipiceFall": "é apanhado por um precipício profundo. Apesar dos teus esforços para te segurares, não consegues evitar a queda.",
+      "ambushedByGroup": "Um grupo detém-no e exige-lhe que entregue os seus bens. Não te deixas intimidar e brandes a tua arma para os afugentar. No entanto, um deles aproveita o pânico geral para te derrubar antes de fugir.",
+      "cowStampede": "Está a atravessar um caminho quando, de repente, aparece uma manada de vacas. Assustado com a massa de animais que acaba de passar por si, demora algum tempo a recuperar das suas emoções.",
+      "trippedOverRoot": "tropeça numa raiz e cai de cabeça. Precisará de cuidados médicos.",
+      "encounterWithBearCub": "vês uma cria de urso a alguns metros de distância. Com medo de ser apanhado pela mãe, foge o mais depressa que pode.",
+      "wrongDirection": "No último cruzamento, apercebemo-nos de que tomámos o caminho errado. Decide não voltar para trás e encontrar o caminho para o seu destino... Perde-se completamente.",
+      "chilledByColdNights": "vai ficar surpreendido com as noites frias da região. Se não usar roupa adaptada a este clima, vai ficar rapidamente com frio.",
+      "mistakenIdentity": "és detido por guardas que te acusam de ser um criminoso que é ativamente procurado no reino. Reparas que o homem do cartaz é parecido contigo e tentas explicar-te. Os guardas não te ouvem, levam-te e atiram-te para a prisão."
     }
   },
   "boatAdvice": {
     "intro": [
-      "Vous montez sur le pont et vous discutez avec un membre de l'équipage. Il vous donne un conseil pour vous aider dans votre aventure sur l'île :\n**{{{advice}}}**.",
-      "Vous grimpez sur le mât pour admirer l'horizon. Un homme baisse sa longue-vue et tient à vous donner ce conseil avant votre départ pour l'île :\n**{{{advice}}}**.",
-      "Dans les joies d'un repas au vent frais de la mer, vous discutez avec les matelots. Votre voisin de table vous donne le conseil suivant à propos de l'île :\n**{{{advice}}}**."
+      "Sobe ao convés e conversa com um membro da tripulação.\n{{{advice}}}Ele dá-te alguns conselhos para te ajudar na tua aventura na ilha: ** **.",
+      "Sobe ao mastro para admirar o horizonte.\n{{{advice}}}Um homem baixa a sua luneta e dá-lhe este conselho antes de partir para a ilha: ** **.",
+      "Apreciando uma refeição ao sabor da brisa fresca do mar, conversa com os marinheiros.\n{{{advice}}}O seu companheiro de mesa dá-lhe os seguintes conselhos sobre a ilha: ** **."
     ],
     "advices": [
-      "Il y a beaucoup plus d'évènements qui vous attendent sur l'île mystérieuse",
-      "Chaque trajet sur l'île mystérieuse est composé d'arrêts plus nombreux",
-      "Si vous combattez des animaux pendant les mini-évents, le monstre de fin de trajet sera plus simple à battre",
-      "Aller sur l'île en même temps que d'autres membres de votre guilde vous garantit des bonus exclusifs",
-      "Votre énergie ne se régénère pas sur l'île. Vérifiez que vous êtes au maximum avant de vous y aventurer",
-      "Une fois votre énergie à 0, vous serez ramené sur le continent",
-      "Le trajet vers l'île peut être fait qu'une seule fois par semaine gratuitement. Il est possible d'y aller 2 fois de plus, mais il faudra payer des gemmes",
-      "Les monstres de fin de trajet sont très forts, et le dernier de l'île l'est d'autant plus",
-      "Battre des monstres de fin de trajet donne des points de guilde, qui déterminent le classement de guildes",
-      "Les monstres ont des statistiques différentes : certains vont avoir beaucoup de défense, d'attaque, de vitesse ou de vie totale",
-      "Une île est composée d'un nombre fini de lieux. Une fois le dernier lieu visité, vous serez ramené sur le continent principal",
-      "L'île mystérieuse change chaque semaine",
-      "Lors d'un combat contre un monstre, si le maximum de tour est dépassé, le monstre deviendra très vite très puissant",
-      "Si un membre de votre guilde souhaite vous rejoindre sur le bateau, il peut exécuter /joinboat",
-      "Les actions disponibles pendant les combats contre des animaux dépendent de vos statistiques, vos objets, vos familiers etc",
-      "L'hostilité de l'île ne vous fera pas de cadeau vis-à-vis des péripéties. Mais en y allant à plusieurs avec des membres de votre guilde, vous serez bien plus forts ensembles",
-      "La commande /map permet de voir la carte de l'île",
-      "Vous pouvez choisir de quitter l'île après chaque combat de monstre. Si votre énergie est faible, il est plus intéressant de partir en étant encore conscient",
-      "Certaines actions comme boire une potion, accéder au magasin ou encore obtenir les bonus quotidiens sont indisponibles sur l'île",
-      "Votre niveau n'influence pas le nombre de points de guilde, mais influence les autres récompenses",
-      "Gagner contre un monstre plus loin dans l'île rapportera plus de points de guilde que ceux du début",
-      "On raconte que si plusieurs membres d'une même guilde sont sur l'île en même temps, il est possible de combiner les forces de chacun pour faire une attaque dévastatrice",
-      "Les membres de votre guilde peuvent vous aider à combattre les monstres lorsque vous vous rendez sur une île mystérieuse",
-      "Il est possible de voir les membres de votre guilde qui sont sur une île mystérieuse à l'aide de la commande /guild",
-      "La commande /guild vous permet de voir le nombre d'alliés qui vous aideront sur l'île mystérieuse",
-      "Un \"allié\" est un membre de votre guilde qui est actuellement sur l'île mystérieuse ou qui en est récemment parti"
+      "Há muitos outros eventos à sua espera em Mysterious Island",
+      "Cada viagem na ilha misteriosa é composta por mais paragens",
+      "Se combateres animais durante os mini-eventos, o monstro no final da viagem será mais fácil de vencer.",
+      "Ir à ilha ao mesmo tempo que outros membros da tua guilda garante-te bónus exclusivos",
+      "A tua energia não é regenerada na ilha. Certifica-te de que estás com a força total antes de te aventurares.",
+      "Quando a tua energia estiver a 0, serás levado de volta ao continente",
+      "Só podes ir à ilha uma vez por semana gratuitamente. É possível ir mais 2 vezes, mas terá de pagar jóias.",
+      "Os monstros no final da viagem são muito fortes, e o último na ilha é ainda mais forte.",
+      "Derrotar monstros no final de uma jornada ganha pontos de grémio, que determinam a classificação do grémio.",
+      "Os monstros têm estatísticas diferentes: alguns têm um nível elevado de defesa, ataque, velocidade ou vida total.",
+      "Uma ilha é composta por um número finito de locais. Depois de visitares o último local, serás levado de volta ao continente.",
+      "A Ilha Misteriosa muda todas as semanas",
+      "Ao lutar contra um monstro, se o número máximo de turnos for ultrapassado, o monstro tornar-se-á rapidamente muito poderoso.",
+      "Se um membro da tua guilda quiser juntar-se a ti no barco, pode executar /joinboat",
+      "As acções disponíveis quando se luta contra animais dependem das suas estatísticas, itens, animais de estimação, etc.",
+      "A hostilidade da ilha não te favorecerá em nada quando se trata de aventuras. Mas se juntares forças com os membros do teu grémio, juntos serão muito mais fortes.",
+      "O comando /map apresenta um mapa da ilha",
+      "Podes optar por abandonar a ilha depois de cada combate com monstros. Se a tua energia estiver baixa, é melhor ires embora enquanto ainda estás consciente.",
+      "Certas acções, como beber uma poção, aceder à loja ou obter bónus diários, não estão disponíveis na ilha.",
+      "O seu nível não afecta o número de pontos de guilda, mas afecta outras recompensas",
+      "Se ganhares a um monstro mais afastado da ilha, ganhas mais pontos de guilda do que os que ganhaste no início.",
+      "Diz-se que se vários membros do mesmo grémio estiverem na ilha ao mesmo tempo, é possível combinar as forças de cada um para fazer um ataque devastador.",
+      "Os membros do teu grémio podem ajudar-te a combater monstros quando visitas uma ilha misteriosa.",
+      "Podes usar o comando /guild para ver que membros da tua guilda estão numa ilha misteriosa.",
+      "O comando /guild permite-te ver quantos aliados te vão ajudar na ilha misteriosa.",
+      "Um \"aliado\" é um membro do teu grémio que está atualmente na ilha misteriosa ou que partiu recentemente."
     ]
   },
   "goToPVEIsland": {
     "stories": [
-      "vous remarquez un bateau arrêté sur le bas-côté. Le capitaine vous interpelle et vous propose une aventure des plus trépidantes sur une île infestée de monstres. Il vous indique également que {{priceText}}.",
-      "un homme vous approche et vous demande si vous seriez intéressé par ses services. Il précise qu'il est capitaine d'un navire faisant la liaison entre le continent et une île mystérieuse, pleine de monstres. Il dit pouvoir vous y amener si vous cherchez une aventure mouvementée, et rajoute que {{priceText}}.",
-      "vous êtes interpellé par un homme en habits de marin, et arborant l'emblème du roi. Il vous explique chercher à envoyer certains des aventuriers concurrents pour la main de la princesse sur une île pleine de monstres, dont il serait utile au royaume de se débarrasser. Il dit aussi qu'un bateau est prêt à partir pour cette île, et vous demande si vous êtes partant, en précisant que {{priceText}}.",
-      "vous êtes accosté par un grand homme barbu, se présentant comme le chef d'un groupe de mercenaires réputé dans la région. Il vous dit pouvoir vous présenter une incroyable offre. Il s'agirait pour vous de vous rendre sur une nouvelle et mystérieuse île, où cohabitent opportunités et dangers, en tant que chasseur de monstres. Il ajoute aussi que {{priceText}}."
+      "reparas num barco parado na berma da estrada. O capitão chama-o e oferece-lhe uma aventura emocionante numa ilha infestada de monstros. {{priceText}}Ele também te diz que .",
+      "Um homem aproxima-se de ti e pergunta-te se estás interessado nos seus serviços. Ele explica que é o capitão de um navio que navega entre o continente e uma ilha misteriosa cheia de monstros. {{priceText}}Diz que pode levar-te até lá se estiveres à procura de uma aventura emocionante e acrescenta que .",
+      "és abordado por um homem vestido de marinheiro, com o emblema do rei. Ele explica que está a tentar enviar alguns dos aventureiros que competem pela mão da princesa para uma ilha cheia de monstros, que seria útil para o reino se livrar deles. {{priceText}}Diz também que um barco está pronto para partir para essa ilha e pergunta-te se estás disposto a fazê-lo, lembrando-te que .",
+      "és abordado por um homem alto, de barba, que se apresenta como líder de um grupo de mercenários de renome na região. Ele diz-te que te pode fazer uma oferta incrível. A oferta é para viajares para uma nova ilha misteriosa, onde há oportunidades e perigos, como caçador de monstros. {{priceText}}Acrescenta ainda que ."
     ],
-    "priceFree": "le voyage **est gratuit**",
-    "priceMoney": "le voyage **coûtera {{price}} 💎**",
-    "confirm": "Voulez-vous partir sur l'île ? Vous avez ⚡ **{{fightPoints}} / {{fightPointsMax}}**.",
-    "endStoryAccept": "Vous acceptez et embarquez sur le bateau en direction de l'île.",
-    "endStoryAcceptWithMember": "Vous acceptez et au moment d'embarquez, vous remarquez qu'un membre de votre guilde se trouve déjà sur le bateau, vous le rejoignez et partez en direction de l'île.",
-    "endStoryRefuse": "Vous refusez poliment l'offre et continuez votre route.",
-    "notEnoughGems": "Vous acceptez mais au moment de payer, vous vous rendez compte que vous n'avez pas assez pour payer. Vous partez donc déçu."
+    "priceFree": "a viagem **é gratuita**.",
+    "priceMoney": "{{price}} a viagem **custa 💎**",
+    "confirm": "Queres ir para a ilha?{{fightPoints}} {{fightPointsMax}}Tens ⚡ ** / **.",
+    "endStoryAccept": "Aceita e embarca no barco com destino à ilha.",
+    "endStoryAcceptWithMember": "Aceitas e, ao embarcares, reparas que um membro da tua guilda já está no barco, juntas-te a ele e partem em direção à ilha.",
+    "endStoryRefuse": "Recusa educadamente a oferta e segue o seu caminho.",
+    "notEnoughGems": "Aceita, mas quando chega a altura de pagar, apercebe-se de que não tem dinheiro suficiente para pagar. Por isso, vai-se embora desiludido."
   },
   "lottery": {
-    "intro": "Vous croisez le chemin d'un homme qui vous interpelle. Curieux, vous vous arrêtez. Celui-ci vous propose de participer à un jeu de hasard qu'il a créé. Vous pouvez choisir entre plusieurs niveaux de récompense.\n\n:coin: Petite récompense\n:dollar: Moyenne récompense\n:moneybag: Grosse récompense\n",
+    "intro": "Cruzas-te com um homem que te chama. Curioso, pára. Ele oferece-te a possibilidade de participares num jogo de azar que ele criou. Podes escolher entre vários níveis de recompensa.\n\n:coin:\n:dollar:\n:moneybag:\nPrémio pequeno Prémio médio Prémio grande",
     "easy": {
-      "success": "Vous participez et réussissez à remporter un lot que l'homme vous remet avant de partir.",
-      "fail": "Vous perdez au jeu de l'homme, cependant la participation était gratuite. Vous décidez donc de reprendre votre route."
+      "success": "Participa e consegue ganhar um prémio, que o homem lhe entrega antes de sair.",
+      "fail": "Perdeu o jogo do homem, mas a participação foi gratuita. Por isso, decide voltar à estrada."
     },
     "medium": {
-      "success": "Vous tentez votre chance et gagnez au jeu. L'homme vous récompense comme il se doit. Cependant vous perdez **{{lostTime}} Min :clock2:**.",
-      "fail": "Vous participez au jeu de l'homme, cependant vous ne gagnez pas, et repartez donc en espérant avoir plus de chance la prochaine fois. Participer à la loterie vous aura fait perdre **{{lostTime}} Min :clock2:**."
+      "success": "Tentas a tua sorte e ganhas o jogo. O homem recompensa-o adequadamente.{{lostTime}} :clock2:No entanto, perde ** Min **.",
+      "fail": "Participa no jogo do homem, mas não ganha, pelo que se vai embora na esperança de ter mais sorte da próxima vez.{{lostTime}} :clock2:A participação na lotaria ter-lhe-á custado ** Min **."
     },
     "hard": {
-      "success": "Vous gagnez au jeu de l'homme. En conséquence, celui-ci vous récompense gracieusement. Cependant, vous perdez **{{lostTime}} Min :clock2:**.",
-      "fail": "Vous saisissez votre chance. Malheureusement vous ne gagnez pas, vous aurez peut-être plus de chance la prochaine fois. Participer à la loterie vous aura fait perdre **{{lostTime}} Min :clock2:**.",
-      "failWithMalus": "Vous misez une centaine de pièces au jeu de l'homme. Vous perdez cependant et repartez, dépité d'avoir perdu **{{money}}** 💸. Participer à la loterie vous aura de plus fait perdre **{{lostTime}} Min :clock2:**."
+      "success": "Ganhaste o jogo do homem. Como resultado, ele recompensa-o generosamente.{{lostTime}} :clock2:No entanto, perde ** Min **.",
+      "fail": "Aproveita a sua oportunidade. Infelizmente não ganhaste, mas talvez tenhas mais sorte da próxima vez.{{lostTime}} :clock2:Participar na lotaria ter-lhe-á custado ** Min **.",
+      "failWithMalus": "Aposta cem moedas no jogo do homem.{{money}}No entanto, perde e vai-se embora, desiludido por ter perdido ** ** 💸.{{lostTime}} :clock2:Participar na lotaria também lhe terá custado ** Min **."
     },
-    "poor": "Vous tentez de vous jouer de l'attention de l'homme et misez une somme importante. Malheureusement pour vous, le commerçant doute de votre bonne foi, et incapable d'attester de quelconque richesse, vous êtes rejeté sans ménagement.",
-    "end": "Sans prêter plus d'attention à l'individu, vous continuez votre route.",
+    "poor": "Tenta enganar o homem para que lhe pague uma grande quantia de dinheiro. Infelizmente para ti, o lojista duvida da tua boa fé e, incapaz de provar qualquer riqueza, és impiedosamente rejeitado.",
+    "end": "Sem prestar mais atenção ao indivíduo, continua o seu caminho.",
     "rewardTypeText": {
-      "xp": " Vous avez gagné **{{xpWon}} ⭐**.",
-      "money": " Vous avez gagné **{{moneyWon}} 💰** !",
-      "guildXp": " Votre guilde gagne **{{guildXpWon}} ⭐**.",
-      "points": " Vous avez gagné **{{pointsWon}} 🏅**."
+      "xp": " {{xpWon}} Ganhou ** ⭐**.",
+      "money": " {{moneyWon}} Ganhou ** 💰**!",
+      "guildXp": " {{guildXpWon}} A tua guilda ganha ** ⭐**.",
+      "points": " {{pointsWon}} Ganhou ** 🏅**."
     }
   },
   "interactOtherPlayers": {
-    "playerDisplayRanked": "**{{pseudo}}** ({{rank}} 🏆)",
-    "playerDisplayUnranked": "**{{pseudo}}** (Non classé)",
+    "playerDisplayRanked": "{{pseudo}}{{rank}} ** ** ( 🏆)",
+    "playerDisplayUnranked": "{{pseudo}}** ** (Não classificado)",
     "no_one": [
-      "Vous continuez votre chemin dans le plus grand calme. Il n'y a pas un chat sur votre route.",
-      "Vous êtes seul, vous continuez donc votre route dans le plus grand calme.",
-      "Les rayons du soleil traversant les nuages vous réchauffent alors que vous continuez votre voyage sur cette route déserte."
+      "Continuam o vosso caminho na maior das calmas. Não há um gato à vista.",
+      "Está sozinho, por isso continua o seu caminho com toda a tranquilidade.",
+      "Os raios de sol que atravessam as nuvens aquecem-no enquanto continua a sua viagem ao longo desta estrada deserta."
     ],
     "top1": [
-      "Vous passez près de {{playerDisplay}} sur votre route, le meilleur joueur actuellement !",
-      "Alors que vous marchez, vous rencontrez {{playerDisplay}}. Il est actuellement à la tête du classement. Les yeux emplis d'admiration, vous décidez de ne pas gêner sa progression, et vous continuez votre route.",
-      "Oh mon dieu ! C'est incroyable ! C'est le légendaire {{playerDisplay}}, le plus grand combattant actuellement ! Vous passez à côté de celui-ci et discutez un moment. Il vous donne quelques conseils pour votre aventure !",
-      "Faites place à {{playerDisplay}}, le premier mondial de DraftBot ! Vous croisez effectivement cette personne et continuez à marcher pour atteindre votre destination."
+      "{{playerDisplay}} Vais passar por , o melhor jogador da atualidade!",
+      "{{playerDisplay}}Enquanto caminha, encontra . Ele está atualmente no topo da classificação. Com os olhos cheios de admiração, decide não impedir o seu progresso e continua o seu caminho.",
+      "Oh, meu Deus! Isto é incrível! {{playerDisplay}}É o lendário, o maior lutador da atualidade! Passam por ele e conversam um pouco. Ele dá-te alguns conselhos para a tua aventura!",
+      "{{playerDisplay}}Abram alas para o número um do mundo do DraftBot! Passa por esta pessoa e continua a caminhar para chegar ao seu destino."
     ],
     "top10": [
-      "Sur votre chemin, vous rencontrez quelqu'un d'important. En effet, {{playerDisplay}} est dans le top 10 !",
-      "Incroyable ! En marchant sur un chemin vous rencontrez un des héros du moment ! Vous le connaissez sûrement c'est {{playerDisplay}} vous l'avez vu dans le top 10 ! Cet événement égaie votre journée.",
-      "Vous parlez avec une figure connue parmi les aventuriers concurrents à la main de la princesse. C'est {{playerDisplay}}, qui est dans le top 10 !"
+      "Pelo caminho, vais conhecer alguém importante. {{playerDisplay}} está no top 10!",
+      "Incrível! Está a passear por um caminho e depara-se com um dos heróis do momento! {{playerDisplay}} Provavelmente já ouviu falar dele: - já o viu no top 10! Este acontecimento vai alegrar o seu dia.",
+      "Está a falar com uma figura conhecida entre os aventureiros que disputam a mão da princesa. {{playerDisplay}}É o , que está entre os 10 primeiros!"
     ],
     "top50": [
-      "Vous rencontrez une personne dont le nom vous dit quelque chose... En effet, {{playerDisplay}} s'est fait une place dans le top 50 !",
-      "En frappant dans un caillou, vous vous rendez compte que celui-ci heurte la chaussure d'un passant, mais ce n'est pas n'importe qui, c'est {{playerDisplay}}, vous l'avez vu sur les listes des tournois clandestins ! Vous discutez un peu avec lui puis continuez votre chemin.",
-      "\"Un grand pouvoir implique de grandes responsabilités\", vous dit {{playerDisplay}}, aventurier figurant dans le top 50, que vous croisez lors de votre voyage."
+      "Conhece alguém cujo nome lhe diz alguma coisa... {{playerDisplay}} entrou no top 50!",
+      "{{playerDisplay}}Ao pontapear uma pedra, apercebe-se de que ela atinge o sapato de um transeunte, mas não é qualquer um, é o , que já viu nas listas dos torneios clandestinos! Conversa um pouco com ele e depois continua o seu caminho.",
+      "{{playerDisplay}}\"Com grande poder vem grande responsabilidade\", diz , um aventureiro do top 50 que encontra na sua viagem."
     ],
     "top100": [
-      "La persévérance mène à la réussite, c'est ce que vous dit {{playerDisplay}} qui fait partie du top 100 ! Vous continuez ensuite votre route vers votre destination.",
-      "Woah, vous reconnaissez un des débutants des tournois, vous l'aviez déjà croisé dans un village au nord, mais si... C'est {{playerDisplay}} !",
-      "Alors que vous progressez vers votre but, vous faites la rencontre de {{playerDisplay}}, une étoile montante de DraftBot. En effet, il est dans le top 100 !"
+      "{{playerDisplay}} A perseverança leva ao sucesso - é o que lhe diz , um dos 100 melhores! Depois, continua o seu caminho até ao seu destino.",
+      "Uau, reconheces um dos principiantes dos torneios, já o tinhas encontrado numa aldeia a norte, mas sim... {{playerDisplay}} É ele!",
+      "{{playerDisplay}}Enquanto trabalhas para atingir o teu objetivo, conheces o , uma estrela em ascensão no DraftBot. De facto, ele está no top 100!"
     ],
     "powerful_guild": [
-      "{{playerDisplay}}, que vous rencontrez par hasard sur votre chemin, fait partie d'une guilde puissante ! C'est ce que vous concluez en voyant son badge étincelant.",
-      "Vous voyez un attroupement au loin. vous vous dépêchez d'aller voir, et vous entendez : \"faites place à {{playerDisplay}}\" ! En effet celui-ci est dans une guilde plutôt puissante !",
-      "La rumeur court qu'un membre d'une guilde puissante trace son chemin sur le même que le vôtre. En effet, vous voyez {{playerDisplay}} passer au loin !"
+      "{{playerDisplay}}que encontras por acaso pelo caminho, faz parte de um grémio poderoso! É o que se conclui quando se vê o seu distintivo brilhante.",
+      "{{playerDisplay}}Vês uma multidão ao longe, apressas-te a ir ver e ouves: \"Abram alas para \"! De facto, ele pertence a um grémio bastante poderoso!",
+      "Há rumores de que um membro de uma poderosa guilda está a seguir o mesmo caminho que tu. {{playerDisplay}} Podes ver a passagem ao longe!"
     ],
     "beginner": [
-      "Il y a un début à tout ! Vous faites la connaissance de {{playerDisplay}} qui débute dans son aventure dédiée à la princesse.",
-      "Un passant passe à côté de vous, vous le reconnaissez rapidement : c'est {{playerDisplay}}. Un petit nouveau, mais agréable et sympathique !",
-      "Vous faites une pause de 5 minutes pour vous changer les idées. Pour cela, vous entraînez {{playerDisplay}}, qui vient de commencer le jeu."
+      "Há um começo para tudo! {{playerDisplay}} Conhece-a enquanto ela começa a sua aventura dedicada à princesa.",
+      "{{playerDisplay}}Um transeunte passa e rapidamente o reconhecemos: é o . Um miúdo novo no bairro, mas agradável e simpático!",
+      "Faz um intervalo de 5 minutos para desanuviar a cabeça. {{playerDisplay}}Para isso, treina o , que acabou de começar o jogo."
     ],
     "advanced": [
-      "Les cheveux gris de {{playerDisplay}} témoignent de l'expérience qu'il a accumulée. Il est en effet niveau **{{level}}** ! Vous continuez ensuite votre route.",
-      "En vous baladant, vous croisez {{playerDisplay}}. C'est un héros puissant, il est en effet niveau **{{level}}** !",
-      "{{playerDisplay}} ne s'arrête pas de monter en niveau et est l'un des meilleurs joueurs du jeu ! Il est actuellement niveau **{{level}}**. Vous reprenez votre chemin après cette rencontre."
+      "{{playerDisplay}} Os cabelos grisalhos de J. M. são o testemunho da experiência que acumulou.{{level}}Ele é de nível ** ** ! Depois, continua o seu caminho.",
+      "{{playerDisplay}}Enquanto vagueia, encontra .{{level}}Ele é um herói poderoso - nível ** ** !",
+      "{{playerDisplay}} está a subir de nível a toda a hora e é um dos melhores jogadores do jogo!{{level}}Atualmente, está no nível ** **. Depois deste encontro, seguirás o teu caminho."
     ],
     "same_class": [
-      "Sur votre chemin, vous ne manquez pas de reconnaître l'accoutrement de {{playerDisplay}}. Il est **{{class}}** tout comme vous !",
-      "Vous remarquez {{playerDisplay}}, et observez rapidement son accoutrement et ses manières qui vous sont familières. Il est **{{class}}**, tout comme vous ! Vous reprenez ensuite votre route.",
-      "Vous saluez l'un de vos confrère **{{class}}**, {{playerDisplay}}, qui passe dans le coin. Pas le temps de vous arrêter, vous continuez votre route."
+      "{{playerDisplay}}Ao longo do caminho, vais reconhecer a roupa do 's.{{class}}Ele é ** ** tal como tu!",
+      "{{playerDisplay}}Repara em , e rapidamente observa o seu traje e maneirismos familiares.{{class}}Ele é ** **, tal como tu! Depois continua o seu caminho.",
+      "{{class}} {{playerDisplay}}Diz olá a um dos seus colegas ** **, que está a passar. Sem tempo para parar, continua o seu caminho."
     ],
     "same_guild": [
-      "Vous croisez sur votre chemin une tête très familière... En effet, {{playerDisplay}} fait partie de votre guilde !",
-      "Vous vous approchez de quelqu'un, sa tête familière vous rappelle des choses... Mais oui ! C'est {{playerDisplay}} un des membres de votre guilde !",
-      "Vous rencontrez {{playerDisplay}} de votre guilde ! Vous réalisez la poignée de main secrète de la guilde et repartez chacun sur vos chemins respectifs."
+      "Depara-se com uma cara muito familiar no seu caminho... {{playerDisplay}} De facto, é um membro do vosso grémio!",
+      "Aproximamo-nos de alguém, o seu rosto familiar faz-nos lembrar coisas... Sim, é ele! {{playerDisplay}} É um dos membros do teu grémio!",
+      "{{playerDisplay}} Encontra-te com o teu grémio! Dêem o aperto de mão secreto do grémio e sigam caminhos diferentes."
     ],
     "staff_member": [
-      "{{playerDisplay}}, qui fait partie du staff de DraftBot, vous donne un conseil pour la suite de votre aventure :\n\n{{advice}}\n\nVous reprenez ensuite votre chemin.",
-      "\"{{advice}}\". C'est ce que vous a dit {{playerDisplay}}, un des célèbres staff du bot, que vous croisez au detour d'un chemin !",
-      "Vous discutez avec {{playerDisplay}} qui fait partie de l'équipe DraftBot, et qui a de bons conseils pour la suite de votre aventure:\n\n{{advice}}"
+      "{{playerDisplay}}\n\n{{advice}}\n\nque faz parte da equipa do DraftBot, tem alguns conselhos para a próxima etapa da sua aventura: Pode então continuar o seu caminho.",
+      "{{advice}}\" \". {{playerDisplay}}Foi o que lhe disse um dos famosos funcionários do bot quando se cruzou com ele pelo caminho!",
+      "{{playerDisplay}}\n\n{{advice}}Falas com , um membro da equipa DraftBot, que tem alguns bons conselhos para a próxima etapa da tua aventura:"
     ],
     "top_week": [
-      "Vous voyez sur votre route {{playerDisplay}}, essoufflé. Il ne se repose pas : en effet, il est dans le top 5 de la semaine !",
-      "Un des héros de la semaine vient vous voir. C'est {{playerDisplay}}, il est dans le top de la semaine !",
-      "Vous parlez de vos points avec {{playerDisplay}}. Celui-ci a bien progressé cette semaine, il est même dans le top 5 de la semaine !"
+      "{{playerDisplay}}Vê-se na estrada, sem fôlego. Ele não está a descansar: de facto, está no top 5 desta semana!",
+      "Um dos heróis desta semana vem visitar-vos. {{playerDisplay}}É , ele está no top 10 desta semana!",
+      "{{playerDisplay}}Fala dos seus pontos com . Fez bons progressos esta semana, e está mesmo no top 5 desta semana!"
     ],
     "low_hp": [
-      "Vous croisez {{playerDisplay}}, qui boîte... Il n'a pas l'air en forme... Il tombe sur le bas côté, et vous décidez de l'aider à se relever.",
-      "Vous croisez {{playerDisplay}}. Il semble mal en point....",
-      "Une flèche même dans le genou est capable de finir {{playerDisplay}} qui avance lentement sur son chemin. Une potion de soin lui ferait le plus grand bien !"
+      "{{playerDisplay}}Passa por , que está a coxear... Não parece estar muito bem... Ele cai na berma da estrada e tu decides ajudá-lo a levantar-se.",
+      "{{playerDisplay}}Depara-se com . Ele parece estar em má forma....",
+      "{{playerDisplay}} Até mesmo uma flecha no joelho é capaz de acabar com , que está a avançar lentamente no seu caminho. Uma poção curativa far-lhe-ia muito bem!"
     ],
     "full_hp": [
-      "Vous avez rarement vu quelqu'un d'aussi énergique que {{playerDisplay}}... Il semble en pleine forme !",
-      "Sur votre route, vous croisez {{playerDisplay}} qui semble en forme. En effet, il a toute sa vie !",
-      "Vous manquez de peu de finir par terre car {{playerDisplay}} est passé en courant près de vous ! Il est très énergique car sa vie est à son maximum."
+      "{{playerDisplay}}Raramente se vê alguém tão enérgico como ... Ele parece estar em grande forma!",
+      "{{playerDisplay}} No seu caminho, passa por , que parece estar em grande forma. De facto, ele tem a vida toda pela frente!",
+      "{{playerDisplay}} Quase acaba no chão quando passa a correr por si! Ele é muito enérgico porque a sua vida está no auge."
     ],
     "unranked": [
-      "Vous croisez {{playerDisplay}}, un joueur qui ne semble pas être classé... Vous repartez en vous demandant ce qui lui a pris de venir ici pour abandonner aussi vite.",
-      "En marchant, vous rencontrez {{playerDisplay}}. Ce joueur ne semble pas bien s'en sortir dans la compétition. Vous repartez après lui avoir expliqué les bases du jeu."
+      "{{playerDisplay}}Deparamo-nos com um jogador que não parece estar classificado... Ficamos a pensar o que o terá levado a vir para cá e a desistir tão depressa.",
+      "{{playerDisplay}}Enquanto caminha, depara-se com . Este jogador não parece estar a ir bem na competição. Depois de lhe ter explicado as regras básicas do jogo, vai-se embora."
     ],
     "lower_rank_than_them": [
-      "Vous croisez {{playerDisplay}}, un joueur ayant plus de réputation que vous... Mais n'abandonnez pas ! Vous pourrez peut-être le rattraper un jour.",
-      "En marchant vous trébuchez et tombez, {{playerDisplay}} se moque de vous, car il est mieux classé que vous !",
-      "Vous papotez avec {{playerDisplay}} de votre classement. Il a une longueur d'avance sur vous : il est mieux classé !",
-      "Même s'il pourrait se vanter de son classement plus élevé que le vôtre, {{playerDisplay}} reste humble pendant votre conversation."
+      "{{playerDisplay}}Depara-se com um jogador com uma reputação melhor do que a sua... Mas não desistas! Talvez um dia o consigas alcançar.",
+      "{{playerDisplay}} Enquanto caminha, tropeça e cai, e ri-se de si porque está mais bem classificado do que você!",
+      "{{playerDisplay}} Conversa com ele sobre a sua classificação. Ele está um passo à sua frente: está mais bem classificado!",
+      "{{playerDisplay}} Mesmo que eles se vangloriem de que a classificação deles é superior à sua, mantenha-se humilde durante a conversa."
     ],
     "better_rank_than_them": [
-      "Vous croisez {{playerDisplay}}. Celui-ci a un moins bon classement... Mais attention il peut très bien vous rattraper un jour !",
-      "Un joueur vient vous voir, c'est {{playerDisplay}}. Il vous demande quelques conseils pour progresser et passe son chemin !",
-      "Vous papotez avec {{playerDisplay}} de votre classement. Vous êtes mieux classé que lui !"
+      "{{playerDisplay}}Depara-se com . Este tem uma classificação mais baixa... Mas cuidado, ele pode muito bem apanhar-te um dia!",
+      "{{playerDisplay}}Um jogador vem visitar-te no . Pede-lhe alguns conselhos para melhorar e depois passa!",
+      "{{playerDisplay}} Conversa com ele sobre a sua classificação. A tua classificação é superior à dele!"
     ],
     "rich": [
-      "Vous vous cachez les yeux pour arrêter d'être ébloui par le soleil qui se reflète sur l'or que porte {{playerDisplay}} ! Vous continuez votre route en ayant mal aux yeux.",
-      "Est-ce Picsou ? Mais non ! C'est {{playerDisplay}} ! Il possède tellement d'or que vous en êtes ébloui ! Vous continuez votre chemin en vous frottant les yeux.",
-      "Des pièces tombent des poches de {{playerDisplay}}, tellement elles en sont remplies. Cela ne semble même pas l'inquiéter. Un animal vient les prendre avant que vous puissiez mettre la main dessus. Vous continuez votre route un peu déçu."
+      "{{playerDisplay}} Tapa os olhos para não se deslumbrar com o reflexo do sol no ouro usado por ! Continua o seu caminho, com os olhos a doer.",
+      "É o Scrooge? Não, não é! {{playerDisplay}} É sim! Ele tem tanto ouro que ficas deslumbrado! Continua o seu caminho, esfregando os olhos.",
+      "{{playerDisplay}}As moedas estão a cair dos bolsos de 's, de tão cheios que estão. Ele nem sequer parece importar-se. Um animal apanha-as antes que as consigas apanhar. Continua o seu caminho, um pouco desiludido."
     ],
     "poor": [
-      "À la vue des vêtements que porte {{playerDisplay}}, celui-ci semble avoir des problèmes d'argent... Vous pensez qu'il serait heureux si vous lui donniez une pièce.\n\n🪙 Lui donner une pièce\n❌ Ne pas lui donner une pièce",
-      "En marchant, vous rencontrez ce pauvre vagabond de {{playerDisplay}}. Celui-ci vous demande quelques pièces:\n\n🪙 Donner une pièce, car vous en avez déjà assez\n❌ Ne pas lui donner une pièce",
-      "La misère touche tout le monde un jour, et aujourd'hui c'est {{playerDisplay}} qui peut à peine se payer un repas.\n\n🪙 Lui donner une pièce\n❌ Ne pas lui donner une pièce"
+      "{{playerDisplay}}Olhando para a roupa que traz vestida, parece ter problemas de dinheiro... Achas que ele ficaria feliz se lhe desses uma moeda.\n\n\nDá-lhe uma moeda ❌ Não lhe dês uma moeda",
+      "{{playerDisplay}}Enquanto caminhas, encontras um pobre vagabundo de .\n\n\nEle pede-te algumas moedas: 🪙 Dá-lhe uma moeda, pois já tens o suficiente ❌ Não lhe dês uma moeda",
+      "{{playerDisplay}} A pobreza atinge toda a gente um dia, e hoje é quem mal consegue pagar uma refeição.\n\n\nDá-lhe uma moeda ❌ Não lhe dês uma moeda"
     ],
     "poor_give_money": [
-      "Vous vous sentez bien après avoir fait ce geste humanitaire.",
-      "C'est en faisant le bien que celui-ci se répand a dit un jour un prêtre que vous avez rencontré ! Vous lui donnez une pièce, et il vous fait un sourire avant de continuer son chemin !",
-      "Voici une bonne action de votre part ! Il repart avec une pièce en plus pour pouvoir acheter son prochain repas."
+      "Sente-se bem depois de ter feito este gesto humanitário.",
+      "É fazendo o bem que o bem se espalha\", dizia um padre que conheceste! Dás-lhe uma moeda e ele sorri antes de continuar o seu caminho!",
+      "É uma boa ação da sua parte! Ele vai para casa com uma moeda extra para poder comprar a sua próxima refeição."
     ],
     "poor_dont_give_money": [
-      "Il n'y a pas de petites économies... Vous décidez de garder votre argent.",
-      "Il est triste et part en pleurant !",
-      "Vous l'ignorez, du moins vous vous forcez à le faire. Vous partez et espérez que votre conscience ne viendra pas vous embêter."
+      "Não há pequenas poupanças... Decide ficar com o seu dinheiro.",
+      "Ele está triste e vai-se embora a chorar!",
+      "Ignora-se, ou pelo menos força-se a fazê-lo. Vai-se embora e espera que a sua consciência não o incomode."
     ],
     "pet": [
-      "{{playerDisplay}} passe près de vous avec son animal **{{petEmote}}** **{{petName}}**. Vous caressez cette brave bête et continuez votre chemin de bonne humeur !",
-      "{{playerDisplay}} passe près de vous et vous montre son animal **{{petEmote}}** **{{petName}}**. Vous le caressez et repartez, bonne route !",
-      "{{playerDisplay}} passe sur votre route avec **{{petEmote}}** **{{petName}}** au bout de sa laisse. Vous le regardez stupéfait et vous vous dites que vous aimeriez bien avoir cet animal aussi !"
+      "{{playerDisplay}}{{petEmote}}{{petName}}passa por si com o seu animal de estimação ** ** **. Acaricia este animal corajoso e continua o seu caminho com boa disposição!",
+      "{{playerDisplay}}{{petEmote}}{{petName}}passa por si e mostra-lhe o seu animal de estimação ** ** ** ** **. Acariciamo-lo e partimos de novo, bon voyage!",
+      "{{playerDisplay}}{{petEmote}}{{petName}}passa por si com ** ** ** ** ** na sua trela. Olhamos para ele com espanto e dizemos para nós próprios que também gostaríamos de ter este animal!"
     ],
     "guild_chief": [
-      "Ne paniquez pas ! Vous passez à côté de {{playerDisplay}}, chef de la guilde **{{guildName}}**.",
-      "Vous passez près de {{playerDisplay}}, il est le chef de la guilde **{{guildName}}** !",
-      "Vous reconnaissez la personne qui passe sur votre chemin... C'est {{playerDisplay}}, le chef de la guilde **{{guildName}}** !"
+      "Não entres em pânico! {{playerDisplay}}{{guildName}}Estás a passar, líder da guilda ** **.",
+      "{{playerDisplay}}{{guildName}}Passas por ele, ele é o líder do grémio ** ** !",
+      "Reconhecem a pessoa que passa no vosso caminho... {{playerDisplay}}{{guildName}}É o líder do grémio!"
     ],
     "guild_elder": [
-      "{{playerDisplay}} discute de sa guilde **{{guildName}}** avec vous. Vous apprenez qu'il en est l'aîné !",
-      "Vous passez près de {{playerDisplay}}, il est aîné de la guilde **{{guildName}}** !",
-      "Le bras droit de la guilde **{{guildName}}**, {{playerDisplay}}, vous salue et continue son chemin."
+      "{{playerDisplay}}{{guildName}}discute o seu grémio ** ** contigo. Descobre que ele é o mais velho!",
+      "{{playerDisplay}}{{guildName}}Passa por ele, é o membro mais velho do grémio ** ** !",
+      "{{guildName}} {{playerDisplay}}O braço direito do Grémio ** **, cumprimenta-o e continua o seu caminho."
     ],
     "class": [
-      "Vous frôlez {{playerDisplay}}. Vous constatez qu'il fait partie du cercle des **{{class}}s**. Vous parlez un peu avec lui et reprenez votre route paisiblement.",
-      "{{playerDisplay}} de classe **{{class}}** passe près de vous, vous le saluez et poursuivez votre route.",
-      "Vous heurtez malencontreusement le bras de {{playerDisplay}}, honorable **{{class}}**. Vous vous excusez tous les deux et continuez votre route."
+      "{{playerDisplay}}Esbarra com .{{class}}Apercebe-se de que ele é um dos ** s**. Fala com ele durante algum tempo e depois continua o seu caminho.",
+      "{{playerDisplay}}{{class}}A classe ** ** passa por si, cumprimenta-o e continua o seu caminho.",
+      "{{playerDisplay}}{{class}}Esbarra acidentalmente no braço de , o ilustre ** **. Ambos pedem desculpa e continuam o seu caminho."
     ],
     "weapon": [
-      "Vous rencontrez {{playerDisplay}} qui vous montre son arme \"**{{weapon}}**\".",
-      "Un passant vient frimer à côté de vous, c'est {{playerDisplay}} et il vous montre son arme \"**{{weapon}}**\" !",
-      "Wow ! {{playerDisplay}} brandit sa magnifique arme \"**{{weapon}}**\" devant vous. Vous reprenez votre chemin étonné."
+      "{{playerDisplay}}{{weapon}} Encontra um homem que lhe mostra a sua arma \"** **\".",
+      "{{playerDisplay}}{{weapon}}Um transeunte vem exibir-se ao seu lado, é e mostra-lhe a sua arma \"** **\"!",
+      "{{playerDisplay}}{{weapon}}Uau! brandindo a sua magnífica arma \" \" à tua frente. Tu segues o teu caminho, estupefacto."
     ],
     "armor": [
-      "Vous rencontrez {{playerDisplay}} qui vous montre sa magnifique armure \"**{{armor}}**\".",
-      "Un garde vous aborde : c'est {{playerDisplay}}, il vient vous montrer son armure \"**{{armor}}**\" !",
-      "{{playerDisplay}} vous met au défi de tester \"**{{armor}}**\", qui lui sert de protection. Après avoir testé son efficacité, vous reprenez votre chemin."
+      "{{playerDisplay}}{{armor}} Conhece quem lhe mostra a sua magnífica \" \" armadura.",
+      "{{playerDisplay}}{{armor}}Um guarda aproxima-se de ti: é , ele veio mostrar-te a sua armadura \"** **\"!",
+      "{{playerDisplay}}{{armor}}desafia-o a testar \"** **\", que serve de proteção. Depois de ter testado a sua eficácia, está no bom caminho."
     ],
     "potion": [
-      "Vous rencontrez {{playerDisplay}} qui vous montre sa magnifique potion \"**{{potion}}**\".",
-      "{{playerDisplay}} vient vous parler, il vient vous montrer sa potoin \"**{{potion}}**\" !",
-      "{{playerDisplay}}, que vous rencontrez sur votre parcours, vous dit qu'il a mis la main sur une sacrée potion. Il vous montre donc \"**{{potion}}**\"."
+      "{{playerDisplay}}{{potion}} Encontra um homem que lhe mostra a sua magnífica poção \"** **\".",
+      "{{playerDisplay}}{{potion}}vem falar consigo, vem mostrar-lhe a sua potoin \"** **\"!",
+      "{{playerDisplay}}que encontras pelo caminho, diz-te que tem nas mãos uma poção dos diabos.{{potion}} Então ele mostra-te \"** **\"."
     ],
     "object": [
-      "Vous rencontrez {{playerDisplay}} qui vous montre son magnifique object \"**{{object}}**\".",
-      "En parlant avec {{playerDisplay}}, il vous montre son object \"**{{object}}**\" !",
-      "{{playerDisplay}}, un joueur marchant sur la même route que vous, sort un objet de sa collection. Il vous montre fièrement \"**{{object}}**\"."
+      "{{playerDisplay}}{{object}} Encontra um homem que lhe mostra o seu magnífico objeto \"** **\".",
+      "{{playerDisplay}}{{object}}Ao falar com , ele mostra-lhe o seu objeto \"** **\" !",
+      "{{playerDisplay}}Um jogador que caminha na mesma rua que tu tira um objeto da sua coleção.{{object}} Ele mostra-te com orgulho \"** **\"."
     ],
     "effect": {
       "sick": [
-        "Vous entendez un bruit au loin... C'est {{playerDisplay}} qui vomit dans un buisson... Vous reprenez votre route bouleversé.",
-        "{{playerDisplay}} vomit dans un buisson. C'est donc ça, le bruit que vous entendez depuis tout à l'heure ! Vous reprenez votre route en espérant ne pas vomir à votre tour après avoir vu ça.",
-        "{{playerDisplay}} ne peut se retenir et vomit à vos pieds. Vous esquivez de justesse l'attaque et accélérez votre cadence pour vous éloigner du massacre."
+        "Ouve-se um barulho ao longe... {{playerDisplay}} Está a vomitar num arbusto... Continua o seu caminho, perturbado.",
+        "{{playerDisplay}} vomita para um arbusto. Então era esse o barulho que estavas a ouvir! Continua o seu caminho, esperando não vomitar depois de ver aquilo.",
+        "{{playerDisplay}} não se consegue conter e vomita a teus pés. Desvia-se por pouco do ataque e acelera o passo para se afastar do massacre."
       ],
       "hurt": [
-        "Vous apercevez une momie au loin ! Ah non, ce n'est que {{playerDisplay}} recouvert de bandages...",
-        "Sur votre chemin, vous croisez {{playerDisplay}}. Il est recouvert de bandages, que lui est-il arrivé ?",
-        "Alors que vous vous êtes élancé pour atteindre votre destination, {{playerDisplay}} vous demande de bien vouloir resserrer les bandages sur sa tête. Vous le faites et vous étonnez que quelqu'un puisse être autant blessé."
+        "Vê-se uma múmia ao longe! {{playerDisplay}} Oh não, está apenas coberta de ligaduras...",
+        "{{playerDisplay}}No seu caminho, encontra . Ele está coberto de ligaduras - o que é que lhe aconteceu?",
+        "{{playerDisplay}} Enquanto correm para o vosso destino, ele pede-vos para apertarem as ligaduras na sua cabeça. Fazes isso e ficas espantado por alguém poder estar tão ferido."
       ],
       "injured": [
-        "Vous trébuchez sur {{playerDisplay}} qui est inconscient sur le sol. Vous lui donnez de petites tapes pour le réveiller, sans succès.",
-        "Ce n'était pas un rat mort par terre, c'était juste {{playerDisplay}} Vous lui demandez s'il va bien. Il ne répond pas, alors vous continuez votre route.",
-        "Une personne est inconsciente au milieu de la route. C'est {{playerDisplay}}. Vous faites ce que vous pouvez pour le ramener à la conscience, sans succès. Vous le déposez donc sur le bord de la route pour éviter qu'il ne soit encore plus blessé."
+        "{{playerDisplay}} Tropeça num homem que está inconsciente no chão. Bate-lhe para o acordar, mas sem sucesso.",
+        "{{playerDisplay}} Não era uma ratazana morta no chão, era apenas um rato morto. Ele não responde e tu continuas o teu caminho.",
+        "Uma pessoa está inconsciente no meio da estrada. {{playerDisplay}}É . Faz tudo o que pode para o trazer de volta à consciência, mas sem sucesso. Por isso, deita-o na berma da estrada para evitar mais ferimentos."
       ],
       "starving": [
-        "Un grondement sourd atteint vos oreilles. Vous découvrez que c'est le ventre de {{playerDisplay}}. Malheureusement, vous avez terminé récemment vos restes de nourriture.",
-        "Apparemment, {{playerDisplay}}, n'as pas assez mangé. Son ventre gargouille ! N'ayant rien à lui offrir, vous continuez votre chemin vers d'autres horizons.",
-        "Vous apercevez {{playerDisplay}} qui est dans une folie afin de trouver de la nourriture. Il court dans tous les sens pour trouver de quoi manger. N'ayant rien sur vous à lui offrir, vous continuez votre route."
+        "Um rugido surdo chega aos vossos ouvidos. {{playerDisplay}}Descobre que é a barriga de . Infelizmente, acabaste de comer os teus restos de comida.",
+        "{{playerDisplay}}Parece que não comeu o suficiente. A barriga dela está a roncar! Sem nada para lhe oferecer, continua o seu caminho em direção a novos horizontes.",
+        "{{playerDisplay}} Vês o , que está numa busca louca de comida. Anda de um lado para o outro à procura de algo para comer. Sem nada para lhe oferecer, continua o seu caminho."
       ],
       "sleeping": [
-        "Vous croisez {{playerDisplay}} endormi sur le côté de la route. Vous décidez de le laisser dormir, il a sûrement besoin de sommeil.",
-        "Visiblement {{playerDisplay}} n'a pas assez dormi la nuit dernière : il est allongé sur le bord de la route.",
-        "Le bord de la route semble être un bon endroit pour se reposer. C'est ce que vous vous dites après avoir vu {{playerDisplay}} dormir là."
+        "{{playerDisplay}} Passa por ele a dormir na berma da estrada. Decide deixá-lo dormir, pois ele deve estar a precisar.",
+        "{{playerDisplay}} É evidente que não dormiu o suficiente na noite passada: está deitado na berma da estrada.",
+        "A berma da estrada parece ser um bom sítio para descansar. {{playerDisplay}} É o que diz a si próprio depois de ver dormir ali."
       ],
       "freezing": [
-        "Vous ressentez un grand froid en marchant. C'est {{playerDisplay}}, qui est proche de l'hypothermie !",
-        "{{playerDisplay}} semble avoir froid, vous le réchauffez un peu puis repartez.",
-        "Un claquement redondant vous agace. Vous découvrez que ce sont les dents de {{playerDisplay}}... Celui-ci est gelé ! Vous reprenez sans plus tarder votre voyage."
+        "Sente-se muito frio quando se caminha. {{playerDisplay}}É , o que está próximo da hipotermia!",
+        "{{playerDisplay}} parece estar com frio, aquece-o um pouco e depois vai-se embora.",
+        "Um estalido redundante incomoda-o. {{playerDisplay}}Descobre que são os dentes de ... Este está congelado! Retoma a sua viagem sem mais demoras."
       ],
       "confounded": [
-        "Vous tentez de discuter avec {{playerDisplay}}. Tentez. Ses propos sont assez incohérents, vous continuez donc votre chemin quelque peu perturbé.",
-        "{{playerDisplay}} tient de nombreux propos incohérents. Cela vous semble bizarre, vous repartez donc rapidement, perturbé !",
-        "Vous voyez {{playerDisplay}} qui a l'air complètement à l'ouest. Après avoir essayé de le ramener à la réalité en vain, vous continuez votre route plus vite afin de rattraper le temps perdu."
+        "{{playerDisplay}}Pode contactar . Tenta. As palavras dele são um pouco incoerentes, por isso continua o seu caminho, um pouco perturbado.",
+        "{{playerDisplay}} diz uma série de coisas incoerentes. Tudo lhe parece estranho e, por isso, vai-se embora rapidamente, confuso!",
+        "{{playerDisplay}} Vê-se que parece completamente fora de si. Depois de tentar trazê-lo de volta à realidade, sem sucesso, continua o seu caminho para recuperar o tempo perdido."
       ],
       "drunk": [
-        "{{playerDisplay}} zigzague sur votre route, il semblerait qu'il ait un peu (trop) bu. Vous continuez votre périple.",
-        "{{playerDisplay}}, n'a pas l'air d'avoir compris que l'alcool se consomme avec modération. Vous reprenez votre chemin après cette rencontre inattendue.",
-        "Vous voyez {{playerDisplay}} assez éméché, pour ne pas dire de terme plus fort. Celui-ci semble bien s'amuser... tout seul. Vous faites ce que vous pouvez pour l'ignorer et continuez votre route."
+        "{{playerDisplay}} ziguezagueia ao longo do vosso percurso, parece que bebeu um pouco (demasiado). Continua a sua viagem.",
+        "{{playerDisplay}}Ele parece não ter compreendido que o álcool deve ser consumido com moderação. Continua o seu caminho depois deste encontro inesperado.",
+        "{{playerDisplay}} Vê-se que está bastante embriagado, para dizer o mínimo. Ele parece estar a divertir-se... sozinho. Faz o que pode para o ignorar e continua o seu caminho."
       ],
       "scared": [
-        "Vous croisez {{playerDisplay}} qui semble courir en votre direction. En effet celui-ci est pourchassé par des brigands en voulant après son argent. Vous l'accompagnez sur un bout de chemin afin qu'il regagne son calme. Une fois rassuré, vous le quittez et reprenez route.",
-        "Vous apercevez au loin {{playerDisplay}} courant à toutes jambes pour fuir une meute de loups. Vous vous empressez de lui venir en aide et faites battre en retrait les bêtes sauvages.",
-        "Vous rencontrez {{playerDisplay}}. Celui-ci semble complètement paniqué. Vous lui demandez ce qui le met dans tout ses états. Il vous raconte qu'il vient de se faire poursuivre par un dragon, mais qu'il a réussi à s'en sortir, perdant quelques poils au passage."
+        "{{playerDisplay}} Passa por um homem que parece estar a correr na sua direção. Está a ser perseguido por ladrões atrás do seu dinheiro. Acompanha-o ao longo da estrada para o ajudar a recuperar a calma. Depois de o ter tranquilizado, deixa-o e parte de novo.",
+        "{{playerDisplay}} Ao longe, vê-se um homem a correr a toda a velocidade para escapar a uma matilha de lobos. Corres em seu auxílio e obrigas os animais selvagens a bater em retirada.",
+        "{{playerDisplay}}Encontra-se com . Ele parece completamente em pânico. Perguntas-lhe por que está tão perturbado. Ele diz-te que acabou de ser perseguido por um dragão, mas que conseguiu fugir, perdendo alguns cabelos no processo."
       ],
       "occupied": [
-        "Vous apercevez {{playerDisplay}} et l'invitez à discuter mais celui-ci vous explique qu'il est occupé. Ce n'est que partie remise, vous continuez chacun votre route.",
-        "Dans votre traversée, vous trouvez {{playerDisplay}} qui est bien occupé... Vous tentez de converser un peu avec lui en vain, et il vous demande plutôt à ce que vous l'aidiez dans son occupation.",
-        "Sur votre chemin, vous rencontrez {{playerDisplay}} qui semble fort occupé. Vous tentez d'en savoir plus, en vain, avant de poursuivre votre route."
+        "{{playerDisplay}} Vê-o e convida-o para uma conversa, mas ele explica que está ocupado. É apenas um adiamento e cada um de vós continua o seu caminho.",
+        "{{playerDisplay}} Ao atravessar, cruza-se com , que está muito ocupado... Tenta conversar um pouco com ele, mas em vão, e ele pede-lhe que o ajude no seu trabalho.",
+        "{{playerDisplay}} No seu caminho, cruza-se com , que parece muito ocupado. Tenta saber mais, mas sem sucesso, antes de continuar o seu caminho."
       ],
       "jailed": [
-        "En vous promenant tranquillement jusqu'à votre destination, vous apercevez des gardes en train d'enfiler des menottes à {{playerDisplay}}. Curieux, vous vous approchez et entendez qu'il se dirige droit vers la case prison. Vous repartez en vous demandant ce qu'a bien pu faire cet homme.",
-        "Tandis que vous descendez prudemment un chemin, vous croisez un convoi de prisonniers escorté par des gardes armés. Alors qu'ils montent péniblement la pente, vous avez le temps de dévisager les pauvres bougres, dont {{playerDisplay}}, qui est en pleurs. Vous avez un peu pitié mais oubliez rapidement ce sentiment en vous disant qu'il n'est sûrement pas là par hasard."
+        "{{playerDisplay}}Enquanto se dirige calmamente para o seu destino, vê um guarda a colocar-lhe algemas. Curioso, aproxima-se e ouve que ele se dirige diretamente para a prisão. Volta a pôr-se a caminho, perguntando-se o que terá andado a fazer este homem.",
+        "Ao desceres cuidadosamente um caminho, deparas-te com um comboio de prisioneiros escoltados por guardas armados. {{playerDisplay}}Enquanto eles sobem a encosta, avistas os pobres coitados, incluindo o , que está a chorar. Sente um pouco de pena dele, mas rapidamente esquece esse sentimento, dizendo a si próprio que ele não está ali por acaso."
       ],
       "lost": [
-        "Vous croisez {{playerDisplay}}, qui semble perdu et s'empresse de vous demander quel chemin emprunter pour arriver à destination. Malheureusement, vous ne pouvez pas l'aider, et le réconfortez un peu avant de reprendre votre route.",
-        "Vous croisez {{playerDisplay}}, qui semble s'être égaré, visiblement désorienté. Il vous regarde avec espoir, cherchant de l'aide pour retrouver son chemin.",
-        "Vous remarquez que {{playerDisplay}} tourne en rond, après l'avoir croisé plusieurs fois en chemin. Vous vous approchez de lui et lui demandez s'il a besoin d'aide. Il vous explique qu'il est perdu et vous demande de l'accompagner vers sa destination."
+        "{{playerDisplay}}Passa por um homem que parece perdido e que se apressa a perguntar-lhe qual o caminho a seguir para chegar ao seu destino. Infelizmente, não o pode ajudar, por isso conforta-o um pouco antes de continuar o seu caminho.",
+        "{{playerDisplay}}Passa por , que parece ter-se perdido, claramente desorientado. Ele olha para ti com expetativa, procurando ajuda para encontrar o caminho de volta.",
+        "{{playerDisplay}} Repara que está a andar em círculos, tendo passado por ele várias vezes no caminho. Aproxima-se dele e pergunta-lhe se precisa de ajuda. Ele explica que está perdido e pede-lhe que o acompanhe até ao seu destino."
       ]
     }
   },
   "leagueReward": {
     "intrigue": [
-      "vous apercevez du coin de l'œil une grande affiche...",
-      "vous glissez sur le bas-côté et vous étalez à terre. En vous relevant, vous remarquez un petit parchemin...",
-      "un oiseau s'approche de vous et dépose dans votre main un minuscule message...",
-      "vous découvrez une vieille cabane en bois abandonnée, vous décidez de l'explorer et n'y découvrez qu'un vieux grimoire qui semble traîner ici depuis des années..."
+      "Pelo canto do olho, vê um grande cartaz...",
+      "escorregas na berma da estrada e cais no chão. Ao levantar-se, repara num pequeno pergaminho...",
+      "um pássaro aproxima-se de si e coloca uma pequena mensagem na sua mão...",
+      "Descobre uma velha cabana de madeira abandonada, decide explorá-la e descobre apenas um velho grimório que parece ter sido abandonado há anos..."
     ],
-    "reward": ":moneybag: Argent: **{{money}}**\n:star: XP : **{{xp}}**\n:medal: Points : **Le nombre de points dépendra de votre classement final.**\n:gift: Un équipement aléatoire.",
-    "endMessage": "\n\n:newspaper: \"À l'aventurier appartenant à la {{league}} qui trouvera ce texte, **si vous maintenez votre gloire jusqu’à la fin de la saison**, vous pourrez remporter ces récompenses :\n\n{{rewards}}\"\n\nVous reprenez votre route, tout en vous réjouissant de pouvoir récupérer votre bonus {{time}}.",
-    "notEnoughFight": "\n\n:newspaper: \"À l'aventurier appartenant à la {{league}} qui trouvera ce texte, **si vous réalisez quelques combats à l'aide de la commande /fight**, vous pourrez remporter ces récompenses :\n\n{{rewards}}\"\n\nVous reprenez vite votre route, craignant de ne pas parvenir à combattre suffisamment de joueurs avant la fin de la saison {{time}}.",
-    "rewardToday": "\n\n:newspaper: \"**Les récompenses de ligues sont disponibles !** Récupérez votre récompense avant la fin de la semaine grâce à la commande /leaguebonus !\"\n\nVous reprenez votre route, tout en vous réjouissant de pouvoir récupérer votre bonus."
+    "reward": ":moneybag: Prata:{{money}}\n:star: ** ** XP :{{xp}}\n:medal: ** Pontos:\n:gift: ** O número de pontos dependerá da tua classificação final ** Equipamento aleatório.",
+    "endMessage": "\n\n:newspaper: {{league}}\n\n{{rewards}}\n\n {{time}}\"Ao aventureiro pertencente a quem encontrar este texto, **se mantiver a sua glória até ao fim da época**, pode ganhar estas recompensas: \" Partiu de novo, ansioso por receber o seu bónus .",
+    "notEnoughFight": "\n\n:newspaper: {{league}}\n\n{{rewards}}\n\n {{time}}\"Ao aventureiro pertencente a quem encontrar este texto, **se realizar alguns combates com o comando /fight**, poderá ganhar estas recompensas: \" Rapidamente, volta a partir, temendo não conseguir combater um número suficiente de jogadores antes do final da época .",
+    "rewardToday": "\n\n:newspaper: \"Recebe a tua recompensa antes do fim da semana, utilizando o comando /leaguebonus!\n\nParte de novo, ansioso por receber o seu bónus."
   },
   "winGuildXP": {
     "stories": [
-      "La renommée de **{{guild}}** semble vous précéder. En apprenant que vous faites partie de la guilde, les aventuriers qui vous suivaient depuis quelques kilomètres vous transmettent leur plus profond respect.",
-      "Suite à quelques affrontements dont vous sortez victorieux, vous appliquez sur les dépouilles de vos agresseurs la marque de la guilde **{{guild}}**. Tous ceux qui passeront par ici la reconnaitront.",
-      "Vos bonnes actions dans la région ont séduit une bonne partie de la population. Lorsqu'ils vous demandent comment ils pourraient vous remercier, vous leur demandez de se souvenir du nom de **{{guild}}**.",
-      "Félicitations ! Au fil du temps, votre guilde, **{{guild}}**, se fait connaître à travers tout le royaume.",
-      "**{{guild}}** se fait connaître davantage au fil du temps et possède une popularité qui ne cesse de s'accroître ! Nous vous souhaitons de continuer ainsi et c'est pour cela que nous vous offrons ce gain d'xp !",
-      "Alors que vous entrez dans une auberge, le tenancier reconnaît l'emblème sur votre bouclier, symbole de la guilde **{{guild}}**. Il décide d'offrir une tournée générale en votre honneur, du meilleur effet auprès des autres clients."
+      "{{guild}}A reputação de ** ** parece preceder-vos. Ao saberem que és membro do grémio, os aventureiros que te seguiram durante os últimos quilómetros prestam-te o seu mais profundo respeito.",
+      "{{guild}}Após alguns encontros vitoriosos, aplicas a marca da guilda ** ** nos restos mortais dos teus atacantes. Qualquer pessoa que passe por ali reconhecê-la-á.",
+      "As suas boas acções na região conquistaram uma grande parte da população.{{guild}}Quando lhe perguntam como lhe podem agradecer, pede-lhes que se lembrem do nome ** **.",
+      "Parabéns!{{guild}}Ao longo dos anos, o vosso grémio, ** **, ganhou fama em todo o reino.",
+      "{{guild}}** ** está a tornar-se cada vez mais popular com o passar do tempo! Esperamos que continue a fazê-lo, e é por isso que lhe oferecemos este bónus xp!",
+      "{{guild}}Ao entrar numa estalagem, o proprietário reconhece o emblema no seu escudo, o símbolo do grémio ** **. Decide oferecer uma rodada geral de bebidas em tua honra, com grande efeito junto dos outros clientes."
     ],
-    "end": " Votre guilde remporte **{{xp}}** :star:."
+    "end": " {{xp}} :star:A tua guilda ganha ** ** ."
   },
   "winEnergy": {
     "stories": [
-      "vous rencontrez une jeune dame qui se présente comme Hilda la guérisseuse. Après un rapide échange vous acceptez qu'elle essaie sur vous son dernier remède. **Vous récupérez toute votre énergie** :zap:",
-      "vous croisez une jeune femme qui vous propose de vous soigner. Vous acceptez et recevez donc un délicieux breuvage. **Vous récupérez toute votre énergie** :zap:",
-      "vous tombez nez à nez avec avec une jeune femme accompagnée d'une chèvre. Elle vous propose un remède miracle. Curieux vous acceptez, contre toute attente vous vous sentez immédiatement mieux. **Vous récupérez toute votre énergie** :zap:",
-      "vous rencontrez une jeune femme qui vous propose de vous soigner. Vous acceptez et vous sentez immédiatement mieux. **Vous récupérez toute votre énergie** :zap:",
-      "vous rencontrez une femme tout de blanc vêtue qui vous propose de vous soigner. Vous acceptez le traitement de la rebouteuse. **Vous récupérez toute votre énergie** :zap:",
-      "vous faites la connaissance d'une femme qui se décrit comme une guérisseuse. Après quelques discussions, vous apprenez que cette dernière est en route vers les pâturages et propose des services de soin sur la route. Vous acceptez un remède mystérieux. **Vous récupérez toute votre énergie** :zap:",
-      "vous croisez une jeune femme qui vous propose de vous soigner. Vous acceptez et vous sentez immédiatement mieux. **Vous récupérez toute votre énergie** :zap:"
+      "conhece uma jovem que se apresenta como Hilda, a curandeira. Depois de uma conversa rápida, aceita que ela experimente o seu último remédio em si. :zap:**Recuperas toda a tua energia",
+      "encontra uma jovem que se oferece para o tratar. Aceitas e recebes uma bebida deliciosa. :zap:**Recuperas toda a tua energia",
+      "depara-se com uma jovem mulher acompanhada por uma cabra. Ela oferece-lhe uma cura milagrosa. Curioso, aceita e, contra todas as probabilidades, sente-se imediatamente melhor. :zap:**Recupera toda a sua energia",
+      "conhece uma jovem que se oferece para o tratar. Aceita e sente-se imediatamente melhor. :zap:**Recupera toda a sua energia",
+      "encontra uma mulher vestida de branco que se oferece para o tratar. Aceita o seu tratamento. :zap:**Recuperas toda a tua energia",
+      "conhece uma mulher que se descreve como uma curandeira. Depois de alguma conversa, ficas a saber que ela está a caminho das pastagens e que oferece serviços de cura pelo caminho. Aceitas um remédio misterioso. :zap:**Recuperas toda a tua energia",
+      "encontra uma jovem que se oferece para o tratar. Aceita e sente-se imediatamente melhor. :zap:**Recupera toda a sua energia"
     ]
   },
   "doNothing": {
     "stories": [
-      "Aucun incident ni évènement notable à signaler.",
-      "Il ne s'est rien passé de particulier depuis le précédent rapport.",
-      "Vous n'avez rencontré aucune difficulté à progresser durant ces derniers temps, vous continuez d'avancer tranquillement.",
-      "Rien à signaler, vous continuez d'avancer.",
-      "Pas d'obstacle en vue, rien ne semble être contre vous en ce moment. Vous continuez d'avancer.",
-      "La voie est libre, aucune raison de s'arrêter, vous continuez d'avancer.",
-      "Rien d'important ne s'est passé depuis le rapport précédent.",
-      "Pas d'évènement notable depuis la dernière fois.",
-      "Les chiens aboient et la caravane passe. Vous continuez tranquillement votre route.",
-      "La princesse se rapproche de vous ! Du moins c'est l'impression que vous avez... Vous continuez votre route."
+      "Não há incidentes ou acontecimentos dignos de registo.",
+      "Não se registou nada de especial desde o relatório anterior.",
+      "Não teve problemas em progredir recentemente e continua a progredir bem.",
+      "Não há nada a reportar, por isso continuem a andar.",
+      "Não há obstáculos à vista, nada parece estar contra si neste momento. Continua a avançar.",
+      "O caminho está livre, não há razão para parar, basta seguir em frente.",
+      "Não se registou nada de significativo desde o relatório anterior.",
+      "Não houve acontecimentos significativos desde a última vez.",
+      "Os cães ladram e a caravana passa. Continua calmamente o seu caminho.",
+      "A princesa está a aproximar-se de ti! Pelo menos é essa a impressão que tens... Continua o seu caminho."
     ]
   },
   "winFightPoints": {
     "stories": [
-      "vous voyez un banc sur le bord du chemin et vous vous asseyez quelques minutes. Cela vous rend ⚡ **{{fightPoints}}**.",
-      "vous détachez votre gourde de votre ceinture et vous vous désaltérez. Vous gagnez ⚡ **{{fightPoints}}**.",
-      "vous sortez un fruit que vous gardiez dans un tissu et le mangez. Cela vous rend ⚡ **{{fightPoints}}**.",
-      "vous vous arrêtez quelques secondes pour reprendre votre souffle. Vous repartez un peu plus endurant et gagnez ⚡ **{{fightPoints}}**.",
-      "vous sortez un morceau de pain et vous vous rassasiez avec celui-ci. Cela vous rend ⚡ **{{fightPoints}}**.",
-      "vous vous asseyez quelques minutes et vous méditez pour apaiser votre esprit. Vous récupérez ⚡ **{{fightPoints}}**.",
-      "vous sentez vos muscles se tendre et vous vous arrêtez quelques instants pour les étirer. Vous récupérez ⚡ **{{fightPoints}}**."
+      "vê um banco na berma da estrada e senta-se durante alguns minutos.{{fightPoints}}Isto faz-te ⚡ ** **.",
+      "retira a sua garrafa de água do cinto e sacia a sua sede.{{fightPoints}}Ganhaste ⚡ ** **.",
+      "tira um pedaço de fruta que tem guardado num pano e come-o.{{fightPoints}}Isto faz-te ⚡ ** **.",
+      "Paras durante alguns segundos para recuperar o fôlego.{{fightPoints}}Começa de novo com um pouco mais de resistência e ganha ⚡ ** **.",
+      "tira-se um pedaço de pão e enche-se com ele.{{fightPoints}}Isso faz-nos ⚡ ** **.",
+      "senta-se durante alguns minutos e medita para acalmar a sua mente.{{fightPoints}}Recupera ⚡ ** **.",
+      "sente os seus músculos tensos e pára por alguns momentos para os esticar.{{fightPoints}}Recupera ⚡ ** **."
     ]
   },
   "winHealth": {
     "stories": [
-      "vous découvrez un arbre dont les fruits semblent appétissants. Curieux, vous en mangez quelques uns, et reprenez votre route. Vous gagnez **{{health}} :heart:**.",
-      "vous trouvez une fiole presque vide. Comme son contenu ne semble pas dangereux, vous finissez de le boire avant de continuer votre chemin. Vous gagnez **{{health}} :heart:**.",
-      "vous découvrez un bâtiment abandonné. Vous décidez de l'explorer et trouvez rapidement un peu de nourriture. Vous gagnez **{{health}} :heart:**.",
-      "vous rencontrez une femme qui se vante de pouvoir soigner tous vos maux. Vous décidez de lui faire confiance et lui laissez réciter des incantations pendant quelques minutes. Vous gagnez **{{health}} :heart:**.",
-      "vous faites la rencontre d'un groupe d'enfants partageant les fruits de leur récoltes. Ils vous offrent quelques poires avant que vous ne repreniez votre route. Vous gagnez **{{health}} :heart:**.",
-      "votre regard est attiré par ce qui semble être un étroit passage entre les buissons. Vous le suivez et trouvez quelques champignons sur le sol. Ces derniers n'ont pas l'air dangereux, alors vous prenez le risque de les goûter. Vous gagnez **{{health}} :heart:**.",
-      "vous entendez le bruissement d'un tout petit cours d'eau. Vous décidez de vous y rendre et buvez un peu de son eau qui s'avère être très fraîche. Vous gagnez **{{health}} :heart:**.",
-      "vous découvrez des paniers entiers de nourriture près d'un feu de camp. Vous hésitez quelques secondes avant de vous empresser d'en manger autant que vous le pouvez. Repu, vous vous sentez bien mieux à présent. Vous gagnez **{{health}} :heart:**.",
-      "vous apercevez une hutte abandonnée. Vous décidez d'entrer dans celle-ci, quand un flacon brillant vous attire. Intrépide, vous buvez son contenu. Vous gagnez **{{health}} :heart:**.",
-      "vous trouvez une petite ferme avec un feu de cheminée récemment éteint. Vous vous dépêchez de voler quelques légumes avant que les propriétaires ne reviennent et vous les mangez. Vous gagnez **{{health}} :heart:**.",
-      "vous rencontrez un moine avec qui vous discutez. Celui-ci, impressionné par votre quête pour la princesse, décide de vous dédier une prière. Vous gagnez **{{health}} :heart:**.",
-      "vous trouvez quelques fraises des bois ! Après vous être régalé, vous poursuivez votre route. Vous gagnez **{{health}} :heart:**.",
-      "vous apercevez un paquet abandonné au sol. Vous l'ouvrez et y découvrez des vivres que vous consommez avant de reprendre votre route. Vous gagnez **{{health}} :heart:**.",
-      "vous trouvez une cascade et décidez de vous y désaltérer. Vous gagnez **{{health}} :heart:**.",
-      "vous croisez un vieillard qui dit posséder un élixir qu'il serait prêt à vous céder gratuitement. Curieux, vous l'acceptez et le buvez. Vous gagnez **{{health}} :heart:**.",
-      "vous trouvez une gourde d'eau dans une charrette abandonnée. Vous buvez l'eau et vous vous sentez mieux. Vous gagnez **{{health}} :heart:**"
+      "encontra uma árvore cujos frutos lhe parecem apetitosos. Curioso, come alguns e põe-se de novo a caminho.{{health}} :heart:Ganhaste ** **.",
+      "encontra um frasco quase vazio. Como o seu conteúdo não parece perigoso, acaba de o beber antes de continuar o seu caminho.{{health}} :heart:Ganhaste ** **.",
+      "descobre um edifício abandonado. Decide explorá-lo e encontra rapidamente comida.{{health}} :heart:Ganhaste ** **.",
+      "conhece uma mulher que diz ser capaz de curar todos os seus males. Decide confiar nela e deixa-a recitar alguns encantamentos durante alguns minutos.{{health}} :heart:Ganhaste ** **.",
+      "encontra um grupo de crianças que partilham os frutos da sua colheita. Oferecem-te algumas peras antes de partires de novo.{{health}} :heart:Ganhaste ** **.",
+      "O teu olhar é atraído para o que parece ser uma passagem estreita entre os arbustos. Segue-a e encontra alguns cogumelos no chão. Não parecem perigosos, por isso arrisca-se e experimenta-os.{{health}} :heart:Ganhaste ** **.",
+      "ouves o ruído de um pequeno riacho. Decide ir até lá e beber um pouco da água, que acaba por ser muito fresca.{{health}} :heart:Ganhaste ** **.",
+      "descobre cestos inteiros de comida junto a uma fogueira. Hesita durante alguns segundos antes de se apressar a comer tudo o que pode. Cheio, sentes-te muito melhor agora.{{health}} :heart:Ganhaste ** **.",
+      "avista uma cabana abandonada. Decide entrar na cabana quando se sente atraído por uma garrafa brilhante. Sem medo, bebe o conteúdo.{{health}} :heart:Ganhaste ** **.",
+      "Encontra uma pequena casa de campo com uma fogueira recentemente apagada. Rouba rapidamente alguns legumes antes que os donos regressem e os comam.{{health}} :heart:Ganhaste ** **.",
+      "encontras e falas com um monge. Impressionado com a tua busca pela princesa, ele decide dedicar-te uma oração.{{health}} :heart:Ganhaste ** **.",
+      "encontrar alguns morangos silvestres! Depois de te fartares, continua o teu caminho.{{health}} :heart:Ganhaste ** **.",
+      "vê um pacote abandonado no chão. Abre-o e encontra comida, que come antes de partir de novo.{{health}} :heart:Ganhaste ** **.",
+      "Encontra uma cascata e decide saciar a sua sede.{{health}} :heart:Ganhaste ** **.",
+      "encontras um velhote que diz ter um elixir que está disposto a dar-te de graça. Curioso, aceita e bebe-o.{{health}} :heart:Ganhaste ** **.",
+      "encontra um frasco de água numa carroça abandonada. Bebe a água e sente-se melhor.{{health}} :heart:Ganhaste ** **"
     ]
   },
   "winPersonalXP": {
     "stories": [
-      "Grâce à un subterfuge digne des meilleurs chevaliers, vous arrivez à vous défaire d'un animal étrange qui vous attaquait depuis un moment, ce après quoi vous repartez guilleret.",
-      "Sur votre route, vous croisez un animal étrange. Tandis que vous passez proche de lui, celui-ci vous saute dessus ! Vous dégainez votre épée, et le pourfendez instantanément. Vous reprenez votre route, sur vos gardes.",
-      "Alors que vous vous faites attaquer par des brigands, vous profitez d'un instant d'inattention pour leur échapper. Vous hâtez le pas pendant quelques heures avant de vous sentir à nouveau en sécurité.",
-      "Au détour d'un virage, une ombre se jette sur vous ! Après une terrible bataille, vous écrasez votre adversaire sous un rocher. Fier de votre réussite, vous reprenez votre route.",
-      "Au détour d'un bosquet, un homme vêtu entièrement de noir vous attaque, sûrement pour vous dérober votre argent. Vous sortez votre arme, et réussissez à le neutraliser.",
-      "Vous marchez tranquillement en observant le paysage. Soudain, une bête enragée fait un bond prodigieux, vous plaquant au sol avec force. Vous parvenez à reprendre le dessus sur la bête en l'étranglant à l'aide d'un bâton.",
-      "Tout en longeant un petit cours d'eau, un chien errant vous saute dessus. Vous réussissez à vous en défaire après quelques minutes de lutte.",
-      "Sur votre chemin, vous rencontrez une bête qui ne semble pas commode. Vous décidez de prendre la fuite, mais elle vous course et vous rattrape rapidement. Vous faites alors volte-face et lui assénez un coup violent. Cette action suffisante à vous débarrasser de votre adversaire, vous reprenez votre route.",
-      "Du coin de l'œil, vous remarquez une sacoche pleine d'or tomber de la poche d'un aventurier marchant devant vous. Vous l'alertez immédiatement et lui rendez la sacoche. Celui-ci vous remercie pour votre bonté."
+      "Graças a um subterfúgio digno dos melhores cavaleiros, consegue livrar-se de um estranho animal que o ataca há algum tempo e, em seguida, põe-se a caminho.",
+      "No teu caminho, encontras um animal estranho. Quando passas perto dele, ele salta para ti! Desembainhas a tua espada e mata-o instantaneamente. Continuas o teu caminho, atento.",
+      "Quando és atacado por bandidos, aproveitas um momento de desatenção para fugir. Apressas-te durante algumas horas até te sentires novamente seguro.",
+      "Na curva da estrada, uma sombra ataca-te! Depois de uma batalha terrível, esmagas o teu adversário debaixo de uma pedra. Orgulhoso do seu sucesso, parte de novo.",
+      "Na curva de um bosque, um homem vestido de preto ataca-o, provavelmente para lhe roubar o dinheiro. Sacas da tua arma e consegues neutralizá-lo.",
+      "Caminhas calmamente, apreciando a paisagem. De repente, uma fera furiosa dá um salto prodigioso, atirando-te com força para o chão. Consegues levar a melhor sobre o animal, estrangulando-o com um pau.",
+      "Enquanto caminha ao longo de um pequeno riacho, um cão vadio salta-lhe em cima. Consegue livrar-se dele após alguns minutos de luta.",
+      "No teu caminho, encontras uma fera que não te parece muito amigável. Decides fugir, mas ele alcança-te rapidamente. Viras-te e dás-lhe um golpe forte. É o suficiente para te livrares do teu adversário e voltares ao teu caminho.",
+      "Pelo canto do olho, reparas que uma mochila cheia de ouro cai do bolso de um aventureiro que caminha à tua frente. Avisa-o imediatamente e devolve-lhe a bolsa. O aventureiro agradece-lhe a sua gentileza."
     ],
-    "end": " Vous remportez **{{xp}}** :star:."
+    "end": " {{xp}} :star:Ganha ** ** ."
   },
   "staffMember": {
     "context": [
-      "En contournant un ravin, vous rencontrez un barde. Pendant que vous marchez, il vous raconte l'histoire de **{{pseudo}}**, \"{{sentence}}\".",
-      "Alors que vous cheminez tranquillement, vous remarquez une grande affiche. Elle semble louer les exploits de **{{pseudo}}**... \"{{sentence}}\".",
-      "Durant l'une de vos aventures, vous entendez une histoire, \"{{sentence}}\", mais n'en connaissez pas le héros. Après quelques recherches, vous vous rendez compte qu'elle parle de **{{pseudo}}** ! Son nom vous semble familier...",
-      "En entrant dans un bâtiment le long de votre chemin, vous discutez quelques temps avec le gérant de l'établissement. Vous lui demandez de vous conter les légendes locales. Il vous décrit alors **{{pseudo}}**, \"{{sentence}}\".",
-      "Sur votre chemin, vous faites la rencontre d'un vieil homme que vous décidez d'accompagner. Durant votre bout de chemin ensemble, celui-ci vous raconte l'histoire de **{{pseudo}}** : \"{{sentence}}\".",
-      "En marchant le long de la route, vous apercevez un livre en mauvais état par terre. Intitulé **{{pseudo}}**, vous l'ouvrez et lisez les premières phrases... \"{{sentence}}\".",
-      "Après une longue et monotone marche, vous rencontrez une personne chantant en l'honneur de **{{pseudo}}**... :musical_note: \"{{sentence}}\" :musical_note:.",
-      "Sur votre voyage, un nuage de poussière apparaît au loin. Quelques minutes plus tard, un cavalier s'arrête devant vous, il dit chercher **{{pseudo}}**. À votre regard inquisiteur, il ajoute : \"{{sentence}}\"."
+      "Enquanto caminhas à volta de uma ravina, encontras um bardo.{{pseudo}}{{sentence}}Enquanto caminhas, ele conta-te a história de ** **, \" \".",
+      "Enquanto caminha, repara num grande cartaz.{{pseudo}}Parece elogiar as proezas de ** **...{{sentence}}\" \".",
+      "{{sentence}}Durante uma das tuas aventuras, ouves uma história, \" \", mas não conheces o herói.{{pseudo}}Depois de um pouco de pesquisa, apercebes-te que a história é sobre ** ** ! O nome parece-me familiar...",
+      "Ao entrar num edifício ao longo do caminho, conversa um pouco com o gerente do estabelecimento. Pede-lhe que lhe fale das lendas locais.{{pseudo}}{{sentence}}Ele descreve-as ** **, \" \".",
+      "Pelo caminho, encontra um velhote que decide acompanhar.{{pseudo}}{{sentence}}Enquanto caminham juntos, ele conta-lhe a história de ** ** : \" \".",
+      "Enquanto caminha pela estrada, encontra um livro maltratado no chão.{{pseudo}}Com o título ** **, abre-o e lê as primeiras frases...{{sentence}}\"",
+      "{{pseudo}}Depois de uma longa e monótona caminhada, encontra alguém a cantar em honra de ** **... :musical_note:{{sentence}} :musical_note:\"",
+      "Enquanto viajas, uma nuvem de poeira aparece ao longe.{{pseudo}}Alguns minutos depois, um cavaleiro pára à vossa frente, dizendo que procura ** **.{{sentence}}Ao teu olhar inquisitivo, acrescenta: \" \"."
     ],
     "members": {
-      "Nysvaa": "un prétendant à la main de la princesse qui ne compte pas la gagner par le combat mais en prouvant sa réflexion lors de ses péripéties (et par sa chance un peu... beaucoup)",
-      "Thero1st": "un des premiers compétiteurs pour la main de la princesse et grand chef cuisinier spécialisé dans les brochettes au poulpe, ce combattant prend pourtant le concours à la légère, préférant passer du temps dans ses stands avec ses animaux",
-      "Oscar": "un piètre guerrier qui, à son apogée, d'un ancien temps révolu, dominait le classement de par ses points et ses connaissances",
-      "QQtin": "un fidèle chevalier terrassant de nombreux ennemis grâce au cadeau du ciel et qui a contribué à ce que ce monde devienne meilleur",
-      "LePourfendeur": "un aventurier expérimenté, adepte des économies, peut-être un peu trop. Auparavant très actif, il se fait maintenant plus discret mais reste parmi les meilleurs",
-      "Ines": "une combattante des débuts de ce monde, qui malheureusement se bat de moins en moins pour lui par manque de temps, mais qui reste dans la course à la princesse, enfin plutôt au prince. Fidèle partisane du Kyutisme",
-      "romain22222": "un grand intellect, cherchant autant à résoudre les situations de façon optimale, qu'à les créer. Celui-ci discute trop, bien trop, avec les ménestrels et ses adorateurs, et évite les tentes dans les forêts",
-      "Asemerald": "un aventurier se laissant porter par sa chance, connu pour sa puissance de feu dépassant l'imaginable",
-      "Izuku": "un riche inventeur qui créa une potion d'amour pour la belle princesse mais qui se la fit voler par un marchand",
-      "Draft": "un ancien dieu créateur du monde dans lequel tous évoluent. Épaté par les capacités de son peuple, il erre parmi eux tandis qu'il travaille à perfectionner leur expérience",
-      "Royal": "un entrepreneur aguerri qui privilégie l'argent à la morale. Friand de tournois, il n'hésitera pas à se battre pour la princesse",
-      "Max": "un inventeur fou, amoureux du voyage. Il est le seul à avoir, un jour, parcouru la terre des dragons. La légende raconte que ses projets ont presque tous mené l'humanité au bord de l'extinction",
-      "Eagle": "un éleveur de dragon, qui a mené les premiers coups d'état du royaume",
-      "DeadAngelV6": "un humain banal aimant la vie, manger est l'une de ses passions. Donnez lui à manger quand vous le croisez",
-      "Kyusaki": "le premier Grand prêtre du Kyutisme, il mène une route de méditation incognito parmi les aventuriers du monde, donnant souvent conseil à ceux qui en font la demande",
-      "Greninja_san": "un batracien à l'intellect hors normes, il usa de ses connaissances multiples pour s'intégrer à la vie humaine, et apprendre les préceptes de leur magie",
-      "nwcubeok": "un célèbre magicien qui parcourt la contrée afin de promouvoir ses talents en magie. Il espère que la princesse saura les apprécier",
-      "SuperBananeNinja": "un mage discret sillonnant les terres, généralement solitaire, souvent salutaire, avec ses manières hétéroclites et ses tours déconcertants, mais toujours droit dans ses bottes",
-      "Hitori": "une artiste complètement incohérente se démarquant par son dynamisme hors du commun. Elle demande à ceux qui veulent bien l'entendre s'ils savent où se cachent les Dieux et est tristement célèbre pour sa malchance exceptionnelle ayant provoqué la destruction de nombreux édifices",
-      "Pietagorh": "le directeur d'une association aidant les jeunes aventuriers à s'améliorer. Les rumeurs racontent qu'il est capable de déterminer les limites de ce monde",
-      "Doctor": "un grand aventurier qui parcourt le royaume à la recherche d'un adversaire à sa taille. Si vous le croisez, vous pouvez essayer de le combattre, mais peu sont ceux qui ont réussi à survivre à son premier coup",
-      "KirIcare": "un personnage discret mais intriguant. Il attise la curiosité de par sa présence effacée suscitant ainsi l'intérêt d'une certaine artiste et d'un chasseur de dragon de renom qui se sont donnés pour quête de l'acquérir",
-      "symsym": "un jeune aventurier curieux et avide de rencontres. Certains racontent qu'il aurait fondé une taverne au fin fond de la route marécageuse",
-      "Pagotortoise": "un kaijū qui, malgré son apparence, explore la contrée en quête de personnes à aider, et ne veut aucun mal. Il est prêt à vous guider en cas de besoin, profitez-en donc pour lui demander quelques conseils",
-      "Voltou": "le plus grand voleur que ce monde ait porté, on raconte que sa fortune égalerait celle du roi et qu’il l’aurait caché aux 4 coins du royaume. Si vous le croisez, pensez à bien vérifier vos poches",
-      "Aiko": "une patate sauvage faisant de tous ses ennemis de la purée, visant les plus hautes étoiles de cet univers"
+      "Nysvaa": "um pretendente à mão da princesa que não pretende conquistá-la lutando, mas provando a sua esperteza durante as suas aventuras (e a sua sorte um pouco... muito)",
+      "Thero1st": "um dos primeiros concorrentes à mão da princesa e um grande cozinheiro especializado em espetadas de polvo, este lutador não leva a competição a sério, preferindo passar o tempo nas suas bancas com os seus animais",
+      "Oscar": "um guerreiro medíocre que, no seu apogeu, numa época passada, dominava as classificações em termos de pontos e de conhecimentos",
+      "QQtin": "um cavaleiro fiel que venceu muitos inimigos graças à dádiva do céu e ajudou a tornar o mundo um lugar melhor",
+      "LePourfendeur": "um aventureiro experiente, adepto da poupança, talvez um pouco excessiva. Anteriormente muito ativo, é agora mais discreto, mas continua a ser um dos melhores.",
+      "Ines": "um lutador dos primeiros tempos deste mundo, que infelizmente luta cada vez menos por ele devido à falta de tempo, mas que continua na corrida pela princesa, ou melhor, pelo príncipe. Um fiel apoiante do Kyutismo",
+      "romain22222": "um grande intelecto, que procura tanto resolver situações da melhor forma como criá-las. Fala demasiado, demasiado, com os trovadores e os seus adoradores, e evita as tendas nas florestas.",
+      "Asemerald": "um aventureiro sem sorte conhecido pelo seu poder de fogo inimaginável",
+      "Izuku": "um rico inventor que criou uma poção do amor para a bela princesa, mas que foi roubada por um comerciante",
+      "Draft": "um deus antigo que criou o mundo em que todos eles vivem. Espantado com as capacidades do seu povo, ele vagueia entre eles enquanto trabalha para aperfeiçoar a sua experiência.",
+      "Royal": "um empresário experiente que põe o dinheiro à frente da moral. Fã de torneios, não hesitará em lutar pela princesa.",
+      "Max": "um inventor louco que adora viajar. É a única pessoa que alguma vez viajou pela terra dos dragões. Diz a lenda que quase todos os seus projectos levaram a humanidade à beira da extinção.",
+      "Eagle": "um criador de dragões, que liderou os primeiros golpes de estado do reino",
+      "DeadAngelV6": "um homem comum que ama a vida, comer é uma das suas paixões. Dê-lhe algo para comer quando o vir",
+      "Kyusaki": "o primeiro Sumo Sacerdote do Kyutismo, conduz um caminho incógnito de meditação entre os aventureiros do mundo, dando frequentemente conselhos a quem lhos pede",
+      "Greninja_san": "um batráquio com um intelecto extraordinário, usou o seu vasto conhecimento para se integrar na vida humana e aprender os preceitos da sua magia.",
+      "nwcubeok": "um mágico famoso que viaja pelo país a promover os seus talentos mágicos. Ele espera que a princesa os aprecie.",
+      "SuperBananeNinja": "um mago discreto que viaja pela terra, geralmente solitário, muitas vezes salutar, com os seus modos heterogéneos e truques desconcertantes, mas sempre correto nas suas botas",
+      "Hitori": "uma artista completamente incoerente que se distingue pelo seu extraordinário dinamismo. Pergunta a todos os que a ouvem se sabem onde se escondem os Deuses e é famosa pelo seu excecional azar, que levou à destruição de numerosos edifícios.",
+      "Pietagorh": "o diretor de uma associação que ajuda jovens aventureiros a melhorar as suas capacidades. Há rumores de que ele pode determinar os limites deste mundo.",
+      "Doctor": "um grande aventureiro que percorre o reino em busca de um adversário à altura. Se o encontrares, podes tentar lutar contra ele, mas poucos conseguiram sobreviver ao seu primeiro golpe.",
+      "KirIcare": "um personagem discreto mas intrigante. Desperta a curiosidade com a sua presença modesta, suscitando o interesse de um certo artista e de um célebre caçador de dragões que se propuseram adquiri-lo.",
+      "symsym": "um jovem aventureiro, curioso e desejoso de conhecer novas pessoas. Há quem diga que fundou uma taberna no fim da estrada pantanosa.",
+      "Pagotortoise": "um kaijū que, apesar da sua aparência, explora a terra em busca de pessoas para ajudar, e não quer fazer mal. Ele está pronto a guiar-te se precisares de ajuda, por isso aproveita a oportunidade para lhe pedires alguns conselhos.",
+      "Voltou": "O maior ladrão que este mundo já conheceu, diz-se que a sua fortuna é igual à do rei, e escondeu-a em todos os cantos do reino. Se o encontrares, não te esqueças de verificar os teus bolsos.",
+      "Aiko": "uma batata selvagem que faz carne picada de todos os seus inimigos, apontando para as estrelas mais altas do universo"
     }
   }
 }
