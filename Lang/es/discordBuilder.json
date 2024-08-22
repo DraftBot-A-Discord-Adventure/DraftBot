@@ -71,6 +71,16 @@
       }
     }
   },
+  "guildCreate": {
+    "description": "Crear un nuevo gremio.",
+    "name": "creaciónguilde",
+    "options": {
+      "guildName": {
+        "description": "El nombre del gremio.",
+        "name": "nombre"
+      }
+    }
+  },
   "guild": {
     "description": "Muestra información sobre un gremio.",
     "name": "gremio",
