@@ -56,10 +56,10 @@
   },
   "guildCreate": {
     "title": "{{pseudo}}, creating a guild",
-    "canceledTitle": "{{pseudo}}, canceled creating a guild.",
+    "canceledTitle": "{{pseudo}}, cancelling guild creation.",
     "canceledDesc": "Your guild creation has been cancelled.",
-    "confirmDesc": ":question: Confirm guild creation **{{guildName}}** for `{{price}}` :moneybag:?",
-    "acceptedFooter": "Warning, the staff reserves the right to rename your guild.",
+    "confirmDesc": ":question: Confirm the creation of the **{{guildName}}** guild for `{{price}}` :moneybag:?",
+    "acceptedFooter": "Caution: the staff reserves the right to rename your guild.",
     "acceptedDesc": "The **{{guildName}}** guild has been created!"
   },
   "help": {
