@@ -1,5 +1,5 @@
 import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
-import {ItemNature, ItemRarity} from "../../constants/ItemConstants";
+import {MainItemDisplayPacket, SupportItemDisplayPacket} from "../../interfaces/ItemDisplayPacket";
 
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandInventoryPacketReq extends DraftBotPacket {
@@ -7,31 +7,6 @@ export class CommandInventoryPacketReq extends DraftBotPacket {
 		rank?: number,
 		keycloakId?: string
 	};
-}
-
-export interface MainItemDisplayPacket {
-	id: number,
-	rarity: ItemRarity,
-	attack: {
-		value: number,
-		maxValue: number
-	},
-	defense: {
-		value: number,
-		maxValue: number
-	},
-	speed: {
-		value: number,
-		maxValue: number
-	},
-}
-
-export interface SupportItemDisplayPacket {
-	id: number,
-	rarity: number,
-	nature: ItemNature,
-	power: number,
-	maxPower: number
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)

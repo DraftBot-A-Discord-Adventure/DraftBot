@@ -13,10 +13,11 @@ import {Language} from "../../../../Lib/src/Language";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
-import {CommandInventoryPacketReq, CommandInventoryPacketRes, MainItemDisplayPacket, SupportItemDisplayPacket} from "../../../../Lib/src/packets/commands/CommandInventoryPacket";
+import {CommandInventoryPacketReq, CommandInventoryPacketRes} from "../../../../Lib/src/packets/commands/CommandInventoryPacket";
 import {DiscordItemUtils} from "../../utils/DiscordItemUtils";
 import {sendInteractionNotForYou} from "../../utils/ErrorUtils";
 import {Effect} from "../../../../Lib/src/enums/Effect";
+import {MainItemDisplayPacket, SupportItemDisplayPacket} from "../../../../Lib/src/interfaces/ItemDisplayPacket";
 
 async function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser): Promise<CommandInventoryPacketReq | null> {
 	let askedPlayer: { keycloakId?: string, rank?: number } = {keycloakId: keycloakUser.id};
