@@ -73,7 +73,7 @@ export async function createBigEventCollector(packet: ReactionCollectorCreationP
 		components: [row]
 	}) as Message;
 
-	let responded = false; // To avoid concurrence between buttons controller and reactions controller
+	let responded = false; // To avoid concurrence between the button controllers and reaction controllers
 	const respondToEvent = (possibilityName: string, buttonInteraction: ButtonInteraction | null): void => {
 		if (!responded) {
 			responded = true;
@@ -166,6 +166,24 @@ export async function reportResult(packet: CommandReportBigEventResultRes, conte
 	else {
 		await interaction.channel.send({ content });
 	}
+}
+
+// TODO: extract the const below into constants
+const destinationChoiceEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣", "7⃣", "8⃣", "9⃣"];
+
+/**
+ * Creates the description for a chooseDestination embed
+ * @param reactions
+ * @param language
+ */
+function createDescriptionChooseDestination(reactions: ReactionCollectorChooseDestinationReaction[], language: Language): string {
+	let desc = `${i18n.t("commands:report.chooseDestinationIndications", { lng: language })}\n`;
+	for (let i = 0; i < reactions.length; ++i) {
+		const reaction = reactions[i];
+		const duration = reaction.tripDuration ? minutesDisplay(reaction.tripDuration) : "?h";
+		desc += `${destinationChoiceEmotes[i]} - ${DraftBotIcons.map_types[reaction.mapTypeId]} ${i18n.t(`models:map_locations.${reaction.mapId}.name`, { lng: language })} (${duration})\n`;
+	}
+	return desc;
 }
 
 export async function chooseDestinationCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
