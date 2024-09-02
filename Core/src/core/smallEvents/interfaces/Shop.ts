@@ -34,8 +34,10 @@ export abstract class Shop<T extends SmallEventAnyShopPacket> {
 		this.itemPrice = Math.round(getItemValue(this.randomItem) * this.itemMultiplier);
 
 		const collector = new ReactionCollectorMerchant({
-			itemCategory: this.randomItem.getCategory(),
-			itemId: this.randomItem.id,
+			item: {
+				category: this.randomItem.getCategory(),
+				id: this.randomItem.id
+			},
 			price: this.itemPrice
 		});
 

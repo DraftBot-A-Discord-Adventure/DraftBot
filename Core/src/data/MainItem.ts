@@ -23,7 +23,7 @@ export abstract class MainItem extends GenericItem {
 		if (this.rawSpeed > 0) {
 			before = 1.15053 * Math.pow(this.multiplier(), 2.3617) * Math.pow(1.0569 + 0.1448 / this.multiplier(), this.rawSpeed);
 		}
-		return Math.round(before * 0.5) + this.speed;
+		return Math.round(before * 0.5) + (this.speed ?? 0);
 	}
 
 	/**

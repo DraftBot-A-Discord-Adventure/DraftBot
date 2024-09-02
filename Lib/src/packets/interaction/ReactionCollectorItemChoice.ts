@@ -1,17 +1,15 @@
 import {ReactionCollector, ReactionCollectorCreationPacket, ReactionCollectorData, ReactionCollectorReaction} from "./ReactionCollectorPacket";
+import {Item} from "../../interfaces/Item";
+import {ItemWithDetails} from "../../interfaces/ItemWithDetails";
 
 export class ReactionCollectorItemChoiceData extends ReactionCollectorData {
-	itemCategory!: number;
-
-	itemId!: number;
+	item!: Item;
 }
 
 export class ReactionCollectorItemChoiceItemReaction extends ReactionCollectorReaction {
 	slot!: number;
 
-	itemCategory!: number;
-
-	itemId!: number;
+	itemWithDetails!: ItemWithDetails;
 }
 
 export class ReactionCollectorItemChoiceRefuseReaction extends ReactionCollectorReaction {

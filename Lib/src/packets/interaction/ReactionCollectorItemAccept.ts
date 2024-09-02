@@ -5,22 +5,19 @@ import {
 	ReactionCollectorData,
 	ReactionCollectorRefuseReaction
 } from "./ReactionCollectorPacket";
+import {Item} from "../../interfaces/Item";
+import {ItemWithDetails} from "../../interfaces/ItemWithDetails";
 
 export class ReactionCollectorItemAcceptData extends ReactionCollectorData {
-	itemCategory!: number;
-
-	itemId!: number;
+	itemWithDetails!: ItemWithDetails;
 }
 
 export class ReactionCollectorItemAccept extends ReactionCollector {
-	private readonly itemId: number;
+	private readonly itemWithDetails: ItemWithDetails;
 
-	private readonly itemCategory: number;
-
-	constructor(itemId: number, itemCategory: number) {
+	constructor(itemWithDetails: ItemWithDetails) {
 		super();
-		this.itemId = itemId;
-		this.itemCategory = itemCategory;
+		this.itemWithDetails = itemWithDetails;
 	}
 
 	creationPacket(id: string, endTime: number): ReactionCollectorCreationPacket {
@@ -32,8 +29,7 @@ export class ReactionCollectorItemAccept extends ReactionCollector {
 				this.buildReaction(ReactionCollectorRefuseReaction, {})
 			],
 			data: this.buildData(ReactionCollectorItemAcceptData, {
-				itemId: this.itemId,
-				itemCategory: this.itemCategory
+				itemWithDetails: this.itemWithDetails
 			})
 		};
 	}

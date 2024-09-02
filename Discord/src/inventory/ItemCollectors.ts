@@ -13,8 +13,6 @@ import {
 } from "../../../Lib/src/packets/interaction/ReactionCollectorItemAccept";
 import {ItemCategory} from "../../../Lib/src/constants/ItemConstants";
 
-// todo display with stats
-
 export async function itemChoiceCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 
@@ -30,7 +28,7 @@ export async function itemChoiceCollector(packet: ReactionCollectorCreationPacke
 		context,
 		packet.reactions.filter(reaction => reaction.type === ReactionCollectorItemChoiceItemReaction.name).map((reaction) => {
 			const itemReaction = reaction.data as ReactionCollectorItemChoiceItemReaction;
-			return DisplayUtils.getItemDisplay(itemReaction.itemCategory, itemReaction.itemId, interaction.userLanguage);
+			return DisplayUtils.getItemDisplayWithStats(itemReaction.itemWithDetails, interaction.userLanguage);
 		}),
 		true
 	);
@@ -42,12 +40,12 @@ export async function itemAcceptCollector(packet: ReactionCollectorCreationPacke
 
 	const embed = new DraftBotEmbed()
 		.formatAuthor(
-			data.itemCategory === ItemCategory.POTION
+			data.itemWithDetails.category === ItemCategory.POTION
 				? i18n.t("commands:inventory.randomItemFooterPotion", { lng: interaction.userLanguage })
 				: i18n.t("commands:inventory.randomItemFooter", { lng: interaction.userLanguage }),
 			interaction.user
 		)
-		.setDescription(DisplayUtils.getItemDisplay(data.itemCategory, data.itemId, interaction.userLanguage));
+		.setDescription(DisplayUtils.getItemDisplayWithStats(data.itemWithDetails, interaction.userLanguage));
 
 	await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
 }

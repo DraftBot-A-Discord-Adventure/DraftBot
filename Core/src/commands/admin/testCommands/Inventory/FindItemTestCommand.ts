@@ -16,7 +16,7 @@ export const commandInfo: ITestCommand = {
 /**
  * Set the weapon of the player
  */
-const findItemTestCommand: ExecuteTestCommandLike = async (player, args, response) => {
+const findItemTestCommand: ExecuteTestCommandLike = async (player, args, response, context) => {
 	const category = parseInt(args[0], 10);
 	const itemId = parseInt(args[1], 10);
 	if (category < 0 || category > 3) {
@@ -26,8 +26,8 @@ const findItemTestCommand: ExecuteTestCommandLike = async (player, args, respons
 	if (!item) {
 		throw Error("Aucun objet n'existe dans cette catégorie avec cet id");
 	}
-	// TODO : replace context with the right one
-	ItemUtils.giveItemToPlayer(player, item, response[0], response, await InventorySlots.getOfPlayer(player.id)).finally(() => null);
+
+	await ItemUtils.giveItemToPlayer(player, item, context, response, await InventorySlots.getOfPlayer(player.id));
 	return `Vous avez trouvé l'objet d'id ${itemId} de la catégorie n°${category}.`;
 };
 

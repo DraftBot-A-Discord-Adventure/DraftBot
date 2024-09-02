@@ -171,7 +171,7 @@ export class DiscordCollectorUtils {
 
 		// Add choice description to the embed
 		if (messageContentOrEmbed instanceof DraftBotEmbed) {
-			messageContentOrEmbed.setDescription(messageContentOrEmbed.data.description + choiceDesc);
+			messageContentOrEmbed.setDescription((messageContentOrEmbed.data.description ?? "") + choiceDesc);
 		}
 		else {
 			messageContentOrEmbed += choiceDesc;
@@ -211,13 +211,15 @@ export class DiscordCollectorUtils {
 		buttonCollector.on("end", async (collected) => {
 			const firstReaction = collected.first() as ButtonInteraction;
 
-			if (firstReaction && firstReaction.customId !== "refuse") {
+			if (firstReaction) {
 				await firstReaction.deferReply();
-				DiscordCollectorUtils.sendReaction(reactionCollectorCreationPacket, context, user, firstReaction, parseInt(firstReaction.customId));
+				if (firstReaction.customId !== "refuse") {
+					DiscordCollectorUtils.sendReaction(reactionCollectorCreationPacket, context, user, firstReaction, parseInt(firstReaction.customId));
+					return;
+				}
 			}
-			else {
-				DiscordCollectorUtils.sendReaction(reactionCollectorCreationPacket, context, user, firstReaction, items.length);
-			}
+
+			DiscordCollectorUtils.sendReaction(reactionCollectorCreationPacket, context, user, firstReaction, items.length);
 		});
 	}
 }

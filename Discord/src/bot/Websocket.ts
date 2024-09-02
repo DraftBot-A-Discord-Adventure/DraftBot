@@ -2,7 +2,7 @@ import {discordConfig} from "./DraftBotShard";
 import {PacketListenerClient} from "../../../Lib/src/packets/PacketListener";
 import {WebSocket} from "ws";
 import {registerAllPacketHandlers} from "../packetHandlers/PacketHandler";
-import {makePacket, PacketDirection} from "../../../Lib/src/packets/DraftBotPacket";
+import {makePacket} from "../../../Lib/src/packets/DraftBotPacket";
 import {ErrorPacket} from "../../../Lib/src/packets/commands/ErrorPacket";
 
 export class DiscordWebSocket {

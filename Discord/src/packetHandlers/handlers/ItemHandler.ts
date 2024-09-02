@@ -17,7 +17,7 @@ export default class ItemHandler {
 		if (interaction) {
 			const menuEmbed = new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:inventory.acceptedTitle", { lng: interaction.userLanguage, pseudo: interaction.user.username }), interaction.user)
-				.setDescription(DisplayUtils.getItemDisplay(packet.category, packet.id, interaction.userLanguage));
+				.setDescription(DisplayUtils.getItemDisplayWithStats(packet.itemWithDetails, interaction.userLanguage));
 			await interaction.channel.send({ embeds: [menuEmbed] });
 		}
 	}
@@ -30,7 +30,7 @@ export default class ItemHandler {
 				embeds: [
 					new DraftBotEmbed()
 						.formatAuthor(i18n.t("commands:inventory.randomItemTitle", {lng: interaction.userLanguage, pseudo: interaction.user.username}), interaction.user)
-						.setDescription(DisplayUtils.getItemDisplay(packet.category, packet.id, interaction.userLanguage))
+						.setDescription(DisplayUtils.getItemDisplayWithStats(packet.itemWithDetails, interaction.userLanguage))
 				]
 			});
 		}
@@ -41,7 +41,7 @@ export default class ItemHandler {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (interaction) {
 			const menuEmbed = new DraftBotEmbed();
-			if (packet.category === ItemCategory.POTION) {
+			if (packet.item.category !== ItemCategory.POTION) {
 				menuEmbed
 					.formatAuthor(
 						packet.autoSell
@@ -51,8 +51,9 @@ export default class ItemHandler {
 					)
 					.setDescription(i18n.t("commands:sell.soldMessage", {
 						lng: interaction.userLanguage,
-						item: DisplayUtils.getItemDisplay(packet.category, packet.id, interaction.userLanguage),
-						money: packet.soldMoney
+						item: DisplayUtils.getItemDisplay(packet.item, interaction.userLanguage),
+						money: packet.soldMoney,
+						interpolation: { escapeValue: false }
 					}));
 			}
 			else {
@@ -65,10 +66,18 @@ export default class ItemHandler {
 					)
 					.setDescription(i18n.t("commands:sell.potionDestroyedMessage", {
 						lng: interaction.userLanguage,
-						item: DisplayUtils.getItemDisplay(packet.category, packet.id, interaction.userLanguage)
+						item: DisplayUtils.getItemDisplay(packet.item, interaction.userLanguage),
+						interpolation: { escapeValue: false }
 					}));
 			}
-			await interaction.channel.send({embeds: [menuEmbed]});
+
+			const buttonInteraction = context.discord!.buttonInteraction ? DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!) : null;
+			if (buttonInteraction && !buttonInteraction.replied) {
+				await buttonInteraction.editReply({embeds: [menuEmbed]});
+			}
+			else {
+				await interaction.channel.send({embeds: [menuEmbed]});
+			}
 		}
 	}
 }

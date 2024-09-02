@@ -19,7 +19,7 @@ import {ReactionCollectorWitchData} from "../../../../Lib/src/packets/interactio
 import {witchCollector} from "../../smallEvents/witch";
 import {ReactionCollectorItemChoiceData} from "../../../../Lib/src/packets/interaction/ReactionCollectorItemChoice";
 import {itemAcceptCollector, itemChoiceCollector} from "../../inventory/ItemCollectors";
-import {ReactionCollectorItemAccept} from "../../../../Lib/src/packets/interaction/ReactionCollectorItemAccept";
+import {ReactionCollectorItemAcceptData} from "../../../../Lib/src/packets/interaction/ReactionCollectorItemAccept";
 
 export default class ReactionCollectorHandler {
 	@packetHandler(ReactionCollectorCreationPacket)
@@ -49,7 +49,7 @@ export default class ReactionCollectorHandler {
 		case ReactionCollectorItemChoiceData.name:
 			await itemChoiceCollector(packet, context);
 			break;
-		case ReactionCollectorItemAccept.name:
+		case ReactionCollectorItemAcceptData.name:
 			await itemAcceptCollector(packet, context);
 			break;
 		default:
