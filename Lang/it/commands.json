@@ -252,7 +252,12 @@
     "stockTitle": ":package: **Riserva d'oggetti di {{pseudo}}**",
     "title": ":briefcase: **Inventario di {{pseudo}}**",
     "weapons_one": "Arma ({{count}}/{{max}}) :",
-    "weapons_other": "Armi ({{count}}/{{max}}) :"
+    "weapons_other": "Armi ({{count}}/{{max}}) :",
+    "randomItemTitle": "{{pseudo}}avete trovato qualcosa!",
+    "randomItemFooter": "Possedete già un'attrezzatura e volete venderla?",
+    "randomItemFooterPotion": "Volete distruggere la vostra pozione attuale?",
+    "acceptedTitle": "{{pseudo}}Sei stato equipaggiato!",
+    "chooseItemToReplaceTitle": "Scegliere un oggetto da sostituire"
   },
   "invite": {
     "discord": {
@@ -454,5 +459,23 @@
     "successTitle": "{{pseudo}}cambiare il soprannome dell'animale domestico",
     "success": "{{name}}Il soprannome dell'animale domestico è stato cambiato in ** ** !",
     "successNoName": "Il vostro animale non ha più un soprannome!"
+  },
+  "sell": {
+    "commandName": "vendere",
+    "commandDescription": "Vendita di attrezzature.",
+    "noItemToSell": "Purtroppo non hai nessun articolo nella tua scorta!",
+    "confirmSell": "{{item}}{{money}} :moneybag: Sei sicuro di volerti separare da ** **?",
+    "sellCanceled": "La vendita è stata annullata!",
+    "sellTitle": "{{pseudo}}conferma :",
+    "soldMessage": "{{item}}{{money}} :moneybag: Avete venduto per ** ** !",
+    "soldMessageTitle": "{{pseudo}}avete venduto un'apparecchiatura.",
+    "potionDestroyedTitle": "Hai distrutto una pozione.",
+    "potionDestroyedMessage": "{{item}}La pozione è stata versata in un lavandino.",
+    "soldMessageAlreadyOwnTitle": "{{pseudo}}Avete ricevuto un'apparecchiatura che già possedevate.",
+    "titleChoiceEmbed": "{{pseudo}}vendita di oggetti",
+    "sellField": "{{name}} {{value}} {moneyIcon}|",
+    "throwAwayField": "{{name}} | {{throwEmote}}",
+    "confirmThrowAway": "Êtes-vous sûr de vouloir jeter {{item}} ?",
+    "sellIndication": "Choisissez un objet à vendre dans la liste ci-dessous :"
   }
 }
