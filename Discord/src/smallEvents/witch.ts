@@ -99,7 +99,7 @@ export async function witchResult(socket: WebSocket, packet: SmallEventWitchResu
 		const timeOutro = packet.effectId === Effect.OCCUPIED.id && packet.timeLost > 0
 			? StringUtils.getRandomTranslation("smallEvents:witch.witchEventResults.outcomes.2.time", user.attributes.language[0], { lostTime: packet.timeLost })
 			: "";
-		const outcomeTranslationToLoad = packet.outcome === WitchActionOutcomeType.EFFECT ?
+		const outcomeTranslationToLoad = packet.forceEffect || packet.outcome === WitchActionOutcomeType.EFFECT ?
 			`smallEvents:witch.witchEventResults.outcomes.2.${packet.effectId}` : `smallEvents:witch.witchEventResults.outcomes.${packet.outcome + 1}`;
 
 		await interaction.editReply({

@@ -43,7 +43,7 @@ export class DisplayUtils {
 		case ItemCategory.WEAPON:
 			return `${DraftBotIcons.weapons[itemWithDetails.id]}  ${this.getMainItemDisplayWithStats("weapons", itemWithDetails, language)}`;
 		case ItemCategory.ARMOR:
-			return `${DraftBotIcons.armors[itemWithDetails.id]}  ${this.getMainItemDisplayWithStats("armor", itemWithDetails, language)}`;
+			return `${DraftBotIcons.armors[itemWithDetails.id]}  ${this.getMainItemDisplayWithStats("armors", itemWithDetails, language)}`;
 		case ItemCategory.POTION:
 			return `${DraftBotIcons.potions[itemWithDetails.id]}  ${this.getPotionDisplayWithStats(itemWithDetails, language)}`;
 		case ItemCategory.OBJECT:
@@ -66,7 +66,7 @@ export class DisplayUtils {
 		}
 	}
 
-	private static getMainItemDisplayWithStats(itemType: "weapons" | "armor", itemWithDetails: ItemWithDetails, language: Language): string {
+	private static getMainItemDisplayWithStats(itemType: "weapons" | "armors", itemWithDetails: ItemWithDetails, language: Language): string {
 		const values: string[] = [];
 		this.getStringValueFor(values, itemWithDetails.maxStats?.attack ?? null, itemWithDetails.detailsMainItem!.stats.attack, "attack", language);
 		this.getStringValueFor(values, itemWithDetails.maxStats?.defense ?? null, itemWithDetails.detailsMainItem!.stats.defense, "defense", language);

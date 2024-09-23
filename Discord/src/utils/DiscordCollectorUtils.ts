@@ -180,13 +180,13 @@ export class DiscordCollectorUtils {
 		// Edit message
 		let msg: Message;
 		if (messageContentOrEmbed instanceof DraftBotEmbed) {
-			msg = await interaction?.editReply({
+			msg = await interaction?.channel.send({
 				embeds: [messageContentOrEmbed],
 				components: [row]
 			}) as Message;
 		}
 		else {
-			msg = await interaction?.editReply({
+			msg = await interaction?.channel.send({
 				content: messageContentOrEmbed,
 				components: [row]
 			}) as Message;

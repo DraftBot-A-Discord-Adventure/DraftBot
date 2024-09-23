@@ -177,7 +177,7 @@ export async function chooseDestinationCollector(packet: ReactionCollectorCreati
 		lng: interaction.userLanguage,
 		pseudo: user.attributes.gameUsername
 	}), interaction.user);
-	embed.setDescription(`${i18n.t("commands:report.chooseDestinationIndications", { lng: interaction.userLanguage })}`);
+	embed.setDescription(`${i18n.t("commands:report.chooseDestinationIndications", { lng: interaction.userLanguage })}\n\n`);
 
 	await DiscordCollectorUtils.createChoiceListCollector(interaction, embed, packet, context, packet.reactions.map((reaction) => {
 		const destinationReaction = reaction.data as ReactionCollectorChooseDestinationReaction;

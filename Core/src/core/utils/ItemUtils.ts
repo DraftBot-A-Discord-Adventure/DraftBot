@@ -228,8 +228,8 @@ function manageMoreThan2ItemsSwitching(
 	const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
 		const reaction = collector.getFirstReaction();
 
-		if (reaction && reaction.reaction instanceof ReactionCollectorItemChoiceItemReaction) {
-			const itemReaction = reaction.reaction as ReactionCollectorItemChoiceItemReaction;
+		if (reaction && reaction.reaction.type === ReactionCollectorItemChoiceItemReaction.name) {
+			const itemReaction = reaction.reaction.data as ReactionCollectorItemChoiceItemReaction;
 			const invSlot = items.find((item) => item.slot === itemReaction.slot);
 
 			player = await Players.getById(player.id);
