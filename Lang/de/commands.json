@@ -475,7 +475,7 @@
     "titleChoiceEmbed": "{{pseudo}}Verkauf von Gegenständen",
     "sellField": "{{name}} | {{value}} {moneyIcon}",
     "throwAwayField": "{{name}} | {{throwEmote}}",
-    "confirmThrowAway": "Êtes-vous sûr de vouloir jeter {{item}} ?",
-    "sellIndication": "Choisissez un objet à vendre dans la liste ci-dessous :"
+    "confirmThrowAway": "Sind Sie sicher, dass Sie {{item}} wegwerfen möchten?",
+    "sellIndication": "Wählen Sie aus der folgenden Liste einen Gegenstand zum Verkaufen aus:"
   }
 }
