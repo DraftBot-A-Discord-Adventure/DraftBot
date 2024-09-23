@@ -252,7 +252,12 @@
     "stockTitle": ":package: ** Reserven für Objekte von {{pseudo}}**",
     "title": ":briefcase: ** Inventar von {{pseudo}}**",
     "weapons_one": "Waffe ({{count}}/{{max}}):",
-    "weapons_other": "Waffen ({{count}}/{{max}}):"
+    "weapons_other": "Waffen ({{count}}/{{max}}):",
+    "randomItemTitle": "{{pseudo}}Sie haben etwas gefunden!",
+    "randomItemFooter": "Sie haben bereits eine Ausrüstung, möchten Sie diese verkaufen?",
+    "randomItemFooterPotion": "Möchten Sie Ihren aktuellen Trank zerstören?",
+    "acceptedTitle": "{{pseudo}}Sie haben eine Ausrüstung erhalten!",
+    "chooseItemToReplaceTitle": "Wählen Sie ein zu ersetzendes Objekt"
   },
   "invite": {
     "discord": {
@@ -454,5 +459,23 @@
     "successTitle": "{{pseudo}}Änderung des Spitznamens des Vertrauten",
     "success": "Spitzname des Vertrauten geändert in **{{name}}**!",
     "successNoName": "Ihr Vertrauter hat nun keinen Spitznamen mehr!"
+  },
+  "sell": {
+    "commandName": "verkaufen",
+    "commandDescription": "Eine Ausrüstung verkaufen.",
+    "noItemToSell": "Sie haben leider keine Gegenstände in Ihrem Vorrat!",
+    "confirmSell": "Sind Sie sicher, dass Sie sich von {{item}} für **{{money}}** :moneybag: trennen wollen?",
+    "sellCanceled": "Der Verkauf wurde tatsächlich storniert!",
+    "sellTitle": "{{pseudo}}Bestätigung :",
+    "soldMessage": "Sie haben {{item}} für **{{money}}** :moneybag: verkauft!",
+    "soldMessageTitle": "{{pseudo}}Sie haben eine Ausrüstung verkauft.",
+    "potionDestroyedTitle": "Sie haben einen Trank zerstört.",
+    "potionDestroyedMessage": "Der Trank \"{{item}}\" wurde in ein Waschbecken geschüttet.",
+    "soldMessageAlreadyOwnTitle": "{{pseudo}}Sie haben eine Ausrüstung erhalten, die Sie bereits besessen haben.",
+    "titleChoiceEmbed": "{{pseudo}}Verkauf von Gegenständen",
+    "sellField": "{{name}} | {{value}} {moneyIcon}",
+    "throwAwayField": "{{name}} | {{throwEmote}}",
+    "confirmThrowAway": "Êtes-vous sûr de vouloir jeter {{item}} ?",
+    "sellIndication": "Choisissez un objet à vendre dans la liste ci-dessous :"
   }
 }
