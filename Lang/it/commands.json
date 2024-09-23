@@ -474,8 +474,8 @@
     "soldMessageAlreadyOwnTitle": "{{pseudo}}Avete ricevuto un'apparecchiatura che già possedevate.",
     "titleChoiceEmbed": "{{pseudo}}vendita di oggetti",
     "sellField": "{{name}} {{value}} {moneyIcon}|",
-    "throwAwayField": "{{name}} | {{throwEmote}}",
-    "confirmThrowAway": "Êtes-vous sûr de vouloir jeter {{item}} ?",
-    "sellIndication": "Choisissez un objet à vendre dans la liste ci-dessous :"
+    "throwAwayField": "{{name}} {{throwEmote}}|",
+    "confirmThrowAway": "{{item}} Sei sicuro di voler buttare via tutto?",
+    "sellIndication": "Scegliete un articolo da vendere dall'elenco sottostante:"
   }
 }
