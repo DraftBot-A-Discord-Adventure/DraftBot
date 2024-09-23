@@ -58,8 +58,28 @@
     }
   },
   "petFree": {
-    "description": "Libérer son familier.",
+    "description": "Libera una mascota.",
     "name": "libererfamilier"
+  },
+  "petNick": {
+    "description": "Ponle un nombre a tu mascota.",
+    "name": "apodofamiliar",
+    "options": {
+      "nickname": {
+        "description": "El apodo que desea dar a su mascota. (Déjelo en blanco para eliminar el apodo)",
+        "name": "apodo"
+      }
+    }
+  },
+  "guildCreate": {
+    "description": "Crear un nuevo gremio.",
+    "name": "creaciónguilde",
+    "options": {
+      "guildName": {
+        "description": "El nombre del gremio.",
+        "name": "nombre"
+      }
+    }
   },
   "guild": {
     "description": "Muestra información sobre un gremio.",

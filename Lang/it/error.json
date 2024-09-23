@@ -49,10 +49,16 @@
   "titleCanceled": "{{pseudo}}, cancellazione presa in conto !",
   "titleDidntWork": "{{pseudo}}, hmmm... Questo non ha funzionato !",
   "guildDoesntExist": "Nessuna gilda corrispondente è stata trovata.",
+  "guildAlreadyExist": "Il nome della gilda che avete scelto è già in uso.",
+  "guildNameNotValid": "Le regole per dare un nome a una gilda sono le seguenti:\n$t(error:stringRules)",
+  "alreadyInAGuild": "Fai già parte di una gilda.",
   "petDoesntExist": "Nessuno animale domestico e stato trovato.",
   "unexpectedError": "Si è verificato un errore :(",
   "pleaseWaitForHeal": "Prima di continuare a giocare, attendere di aver terminato la guarigione della propria alterazione di stato: {{time}}\n\n:information_source: È possibile utilizzare il comando /shop per acquistare una guarigione.",
   "pleaseWaitForHisHeal": "{{time}}Per favore, aspettate fino alla fine delle cure per il deterioramento delle sue condizioni:",
   "notEnoughMoney": "Non avete abbastanza soldi per realizzare questa azione. {{money}} Siete a corto di denaro 💰.",
-  "cooldownPetFree": "È possibile liberare un solo animale domestico all'ora. {{remainingTime}}È possibile liberare un altro ."
+  "cooldownPetFree": "È possibile liberare un solo animale domestico all'ora. {{remainingTime}}È possibile liberare un altro .",
+  "unknownPlayer": "Nome utente 404",
+  "petNickNotValid": "Le regole per dare un nome a un animale domestico sono le seguenti:\n$t(error:stringRules)",
+  "stringRules": "\n\n\n {{min}} {{max}} - Utilizzare almeno una lettera - Non utilizzare più di 2 spazi consecutivi - I caratteri speciali non sono ammessi - Tra e caratteri"
 }

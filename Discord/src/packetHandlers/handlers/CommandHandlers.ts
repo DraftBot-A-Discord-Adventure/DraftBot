@@ -17,6 +17,11 @@ import {handleCommandRarityPacketRes} from "../../commands/player/RarityCommand"
 import {handleCommandTestPacketRes} from "../../commands/admin/TestCommand";
 import {handleCommandGuildPacketRes} from "../../commands/guild/GuildCommand";
 import {CommandGuildPacketRes} from "../../../../Lib/src/packets/commands/CommandGuildPacket";
+import {
+	handleCommandGuildCreateAcceptPacketRes,
+	handleCommandGuildCreatePacketRes,
+	handleCommandGuildCreateRefusePacketRes
+} from "../../commands/guild/GuildCreateCommand";
 import {reportResult, reportTravelSummary} from "../../commands/player/ReportCommand";
 import {
 	CommandReportBigEventResultRes,
@@ -41,6 +46,11 @@ import {
 } from "../../../../Lib/src/packets/commands/CommandPetFreePacket";
 import {CommandPetNickPacketRes} from "../../../../Lib/src/packets/commands/CommandPetNickPacket";
 import {handleCommandPetNickPacketRes} from "../../commands/pet/PetNickCommand";
+import {
+	CommandGuildCreateAcceptPacketRes,
+	CommandGuildCreatePacketRes,
+	CommandGuildCreateRefusePacketRes
+} from "../../../../Lib/src/packets/commands/CommandGuildCreatePacket";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
@@ -91,6 +101,22 @@ export default class CommandHandlers {
 	async guildRes(socket: WebSocket, packet: CommandGuildPacketRes, context: PacketContext): Promise<void> {
 		await handleCommandGuildPacketRes(packet, context);
 	}
+
+	@packetHandler(CommandGuildCreatePacketRes)
+	async guildCreateRes(socket: WebSocket, packet: CommandGuildCreatePacketRes, context: PacketContext): Promise<void> {
+		await handleCommandGuildCreatePacketRes(packet, context);
+	}
+
+	@packetHandler(CommandGuildCreateRefusePacketRes)
+	async guildCreatRefuseRes(socket: WebSocket, packet: CommandGuildCreateRefusePacketRes, context: PacketContext): Promise<void> {
+		await handleCommandGuildCreateRefusePacketRes(packet, context);
+	}
+
+	@packetHandler(CommandGuildCreateAcceptPacketRes)
+	async guildCreatAcceptRes(socket: WebSocket, packet: CommandGuildCreateAcceptPacketRes, context: PacketContext): Promise<void> {
+		await handleCommandGuildCreateAcceptPacketRes(packet, context);
+	}
+
 
 	@packetHandler(CommandInventoryPacketRes)
 	async inventoryRes(socket: WebSocket, packet: CommandInventoryPacketRes, context: PacketContext): Promise<void> {

@@ -54,6 +54,14 @@
     "ranking": "{{rank}} / {{rankTotal}}",
     "notRanked": "Non Classificato"
   },
+  "guildCreate": {
+    "title": "{{pseudo}}creare una gilda",
+    "canceledTitle": "{{pseudo}}l'annullamento della creazione di una gilda.",
+    "canceledDesc": "La creazione della vostra gilda è stata annullata.",
+    "confirmDesc": ":question:{{guildName}}{{price}} :moneybag: Confermare la creazione della gilda ** ** per ` `?",
+    "acceptedFooter": "Lo staff si riserva il diritto di rinominare la gilda.",
+    "acceptedDesc": "{{guildName}}La gilda ** ** è stata creata!"
+  },
   "help": {
     "aliasFieldTitle": "Alias",
     "aliasesFieldTitle": "Alias",
@@ -441,5 +449,10 @@
     "canceledDesc": "L'animale non è stato rilasciato.",
     "confirmDesc": ":warning:{{pet}}Siete sicuri di voler rilasciare ** **? Non è possibile annullare una volta completata l'azione.",
     "acceptedDesc": "{{pet}}Addio ** **..."
+  },
+  "petNick": {
+    "successTitle": "{{pseudo}}cambiare il soprannome dell'animale domestico",
+    "success": "{{name}}Il soprannome dell'animale domestico è stato cambiato in ** ** !",
+    "successNoName": "Il vostro animale non ha più un soprannome!"
   }
 }

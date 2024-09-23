@@ -36,46 +36,66 @@
     "name": "invitationdraftbot"
   },
   "language": {
-    "description": "Changer la langue du bot dans le serveur discord ou la commande a été exécutée.",
-    "name": "langage"
+    "description": "Ändern Sie die Sprache des Bots im Discord-Server, auf dem der Befehl ausgeführt wurde.",
+    "name": "Sprache"
   },
   "ping": {
     "description": "Zeigt die Latenzzeit des Bots an und ermöglicht dem Spieler, zu prüfen, ob der Bot online ist.",
     "name": "Ping"
   },
   "pet": {
-    "description": "Afficher les informations du familier d'un joueur.",
-    "name": "familier",
+    "description": "Informationen über den Vertrauten eines Spielers anzeigen.",
+    "name": "vertraut",
     "options": {
       "rank": {
-        "description": "Le classement du joueur dont le familier doit être affiché.",
-        "name": "classement"
+        "description": "Die Rangliste des Spielers, dessen Vertrauter angezeigt werden soll.",
+        "name": "Rangliste"
       },
       "user": {
-        "description": "L'utilisateur dont le familier doit être affiché.",
-        "name": "utilisateur"
+        "description": "Der Nutzer, dessen Vertrauter angezeigt werden soll.",
+        "name": "Benutzer"
       }
     }
   },
   "petFree": {
-    "description": "Libérer son familier.",
+    "description": "Einen Vertrauten befreien.",
     "name": "libererfamilier"
   },
+  "petNick": {
+    "description": "Geben Sie Ihrem Vertrauten einen Namen.",
+    "name": "Spitznamefamilier",
+    "options": {
+      "nickname": {
+        "description": "Der Spitzname, den du deinem Begleiter geben möchtest. (Lassen Sie ihn leer, um den Spitznamen zu löschen)",
+        "name": "Spitzname"
+      }
+    }
+  },
+  "guildCreate": {
+    "description": "Eine neue Gilde gründen.",
+    "name": "creationguilde",
+    "options": {
+      "guildName": {
+        "description": "Der Name der Gilde.",
+        "name": "Name"
+      }
+    }
+  },
   "guild": {
-    "description": "Affiche des informations sur une guilde.",
-    "name": "guilde",
+    "description": "Zeigt Informationen über eine Gilde an.",
+    "name": "Gilde",
     "options": {
       "rank": {
-        "description": "Le classement du joueur dont la guilde doit être affichée.",
-        "name": "classement"
+        "description": "Die Rangliste des Spielers, dessen Gilde angezeigt werden soll.",
+        "name": "Rangliste"
       },
       "user": {
-        "description": "L'utilisateur dont la guilde doit être affichée.",
-        "name": "utilisateur"
+        "description": "Der Benutzer, dessen Gilde angezeigt werden soll.",
+        "name": "Benutzer"
       },
       "guildName": {
-        "description": "Le nom de la guilde dont les informations doivent être affichées.",
-        "name": "guilde"
+        "description": "Der Name der Gilde, deren Informationen angezeigt werden sollen.",
+        "name": "Gilde"
       }
     }
   },
@@ -124,7 +144,7 @@
     "name": "Abstimmung"
   },
   "map": {
-    "description": "Affiche la carte pour indiquer où vous allez.",
-    "name": "carte"
+    "description": "Zeigt die Karte an, um anzuzeigen, wohin du gehst.",
+    "name": "Karte"
   }
 }

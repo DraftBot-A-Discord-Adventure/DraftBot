@@ -21,7 +21,7 @@
     "@types/i18next": "^13.0.0",
     "@types/node": "20.4.8",
     "@types/ws": "^8.5.10",
-    "discord.js": "^14.14.1",
+    "discord.js": "14.15.3",
     "i18next": "^23.7.6",
     "i18next-resources-for-ts": "^1.4.0",
     "random-js": "^2.1.0",

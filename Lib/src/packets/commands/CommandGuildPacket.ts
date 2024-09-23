@@ -28,7 +28,7 @@ export interface GuildMemberPacket {
 export class CommandGuildPacketRes extends DraftBotPacket {
 	foundGuild!: boolean;
 
-	askedPlayerKeycloakId? : string;
+	askedPlayerKeycloakId?: string;
 
 	data?: {
 		name: string,

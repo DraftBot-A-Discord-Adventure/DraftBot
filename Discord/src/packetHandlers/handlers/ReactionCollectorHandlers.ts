@@ -20,6 +20,8 @@ import {witchCollector} from "../../smallEvents/witch";
 import {ReactionCollectorItemChoiceData} from "../../../../Lib/src/packets/interaction/ReactionCollectorItemChoice";
 import {itemAcceptCollector, itemChoiceCollector} from "../../inventory/ItemCollectors";
 import {ReactionCollectorItemAcceptData} from "../../../../Lib/src/packets/interaction/ReactionCollectorItemAccept";
+import {ReactionCollectorGuildCreateData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildCreate";
+import {createGuildCreateCollector} from "../../commands/guild/GuildCreateCommand";
 
 export default class ReactionCollectorHandler {
 	@packetHandler(ReactionCollectorCreationPacket)
@@ -36,6 +38,9 @@ export default class ReactionCollectorHandler {
 			break;
 		case ReactionCollectorPetFreeData.name:
 			await createPetFreeCollector(packet, context);
+			break;
+		case ReactionCollectorGuildCreateData.name:
+			await createGuildCreateCollector(packet, context);
 			break;
 		case ReactionCollectorLotteryData.name:
 			await lotteryCollector(packet, context);

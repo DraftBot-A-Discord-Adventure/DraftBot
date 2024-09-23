@@ -4,35 +4,35 @@
     "title": ":military_medal: Detaillierte Informationen:"
   },
   "pet": {
-    "embedTitle": "Familier de {{pseudo}} :",
-    "petField": "**Type :** {{emote}} {{typeName}}\n**Surnom :** {{nickname}}\n\n**Rareté :** {{rarity}}\n**Sexe :** {{sex}}\n**Mentalité :** {{loveLevel}}",
-    "noNickname": "Aucun surnom",
+    "embedTitle": "Vertraut mit {{pseudo}} :",
+    "petField": "**Typ:** {{emote}} {{typeName}}\n**Spitzname:** {{nickname}}\n\n**Rarität:** {{rarity}}\n**Geschlecht:** {{sex}}\n**Mentalität:** {{loveLevel}}",
+    "noNickname": "Keine Spitznamen",
     "loveLevels": {
-      "0_male": ":smirk_cat: Fielleux",
-      "0_female": ":smirk_cat: Fielleuse",
-      "1_male": ":pouting_cat: Sauvage",
-      "1_female": ":pouting_cat: Sauvage",
-      "2_male": ":scream_cat: Craintif",
-      "2_female": ":scream_cat: Craintive",
-      "3_male": ":smiley_cat: Apprivoisé",
-      "3_female": ":smiley_cat: Apprivoisée",
-      "4_male": ":heart_eyes_cat: Dressé",
-      "4_female": ":heart_eyes_cat: Dressée"
+      "0_male": ":smirk_cat: Geizig",
+      "0_female": ":smirk_cat: Köchin",
+      "1_male": ":pouting_cat: Wild",
+      "1_female": ":pouting_cat: Wild",
+      "2_male": ":scream_cat: Ängstlich",
+      "2_female": ":scream_cat: Ängstlich",
+      "3_male": ":smiley_cat: Gezähmt",
+      "3_female": ":smiley_cat: Gezähmt",
+      "4_male": ":heart_eyes_cat: Aufgerichtet",
+      "4_female": ":heart_eyes_cat: Aufgerichtet"
     },
-    "hungry": "🤤 affamé",
+    "hungry": "🤤 hungrig",
     "diet": {
-      "diet_null": "🥪 Omnivore",
-      "diet_herbivorous": "🥬 Herbivore",
-      "diet_carnivorous": "🥩 Carnivore"
+      "diet_null": "🥪 Allesfresser",
+      "diet_herbivorous": "🥬 Herbivor",
+      "diet_carnivorous": "🥩 Fleischfresser"
     },
     "sexDisplay": {
-      "female": "Femelle",
-      "male": "Mâle"
+      "female": "Weiblich",
+      "male": "Männlich"
     },
     "shortPetField": "{{emote}} {{name}}"
   },
   "guild": {
-    "embedTitle": "Guilde {{guildName}} | Niveau {{level}}",
+    "embedTitle": "Gilde {{guildName}} | Level {{level}}",
     "description": ":scroll: `{{description}}`",
     "emojis": {
       "chief": "👑",
@@ -46,13 +46,21 @@
     "separator": " | ",
     "memberInfos": "{{icon}} - **{{pseudo}}** ({{ranking}} :trophy: | {{score}} :medal:{{islandStatusIcon}})\n",
     "members": ":person_pouting: {{memberCount}}/{{maxGuildMembers}} membres",
-    "infoTitle": "Informations",
+    "infoTitle": "Informationen",
     "islandInfo": ":island: Nombre d'alliés sur l'île mystérieuse : {{membersOnPveIsland}\n",
     "info": ":star: {{experience}} | :mirror_ball: {{guildPoints}} | :trophy: {{ranking}}",
     "xpNeeded": "{{xp}} / {{xpToLevelUp}}",
     "xpMax": "Max",
     "ranking": "{{rank}} / {{rankTotal}}",
-    "notRanked": "Non classée"
+    "notRanked": "Nicht klassifiziert"
+  },
+  "guildCreate": {
+    "title": "{{pseudo}}Gründung einer Gilde",
+    "canceledTitle": "{{pseudo}}Die Gründung einer Gilde wird rückgängig gemacht.",
+    "canceledDesc": "Die Gründung Ihrer Gilde wurde abgebrochen.",
+    "confirmDesc": ":question: Bestätigen Sie die Gründung der Gilde **{{guildName}}** für `{{price}}` :moneybag: ?",
+    "acceptedFooter": "Achtung: Der Staff behält sich das Recht vor, Ihre Gilde umzubenennen.",
+    "acceptedDesc": "Die Gilde **{{guildName}}** wurde gegründet!"
   },
   "help": {
     "aliasFieldTitle": "Alias",
@@ -181,7 +189,7 @@
         "description": "Diese Funktion wurde aus dem Spiel entfernt, als eine Aktualisierung der von Discord angebotenen Funktionen."
       },
       "PROFILE": {
-        "description": "Affiche des informations sur votre personnage :\n\n😃 État de santé | Pseudo | Level\n\n឵឵឵Informations :\n❤️ Vie | ⭐ XP | 💰 Argent\n\nStatistiques :\n⚡ Énergie | 🗡️ Attaque | 🛡️ Défense | 🚀 Vitesse | 🌬️ Souffle | 🫁 Récupération\n\nMissions :\n💎 Gemmes | 📖 Avancé de la campagne %\n\nClassement et score :\n🏆 Classement | 🏅 Score\n\nClasse :\nVoir {{classesCommandMention}}\n\nGloire et Ligue :\n✨ Gloire | Voir {{topGloryCommandMention}}\n\nGuilde :\n🏟️ Guilde\n\nDestination :\nVoir {{mapCommandMention}}\n\nFamilier :\nVoir {{petCommandMention}}\n\n💡-Les badges sont affichés sur votre profil sous forme de réaction."
+        "description": "Zeigt Informationen über deinen Charakter an:\n\n😃 Gesundheitszustand | Nickname | Level\n\n឵឵Informationen:\n❤️ Leben | ⭐ XP | 💰 Geld\n\nStatistiken :\n⚡ Energie | 🗡️ Angriff | 🛡️ Verteidigung | 🚀 Geschwindigkeit | 🌬️ Atem | 🫁 Erholung\n\nAufgaben:\n💎 Gemmen | 📖 Kampagnenfortschritt %\n\nRangliste und Punktzahl:\n🏆 Rangliste | 🏅 Punktzahl\n\nKlasse:\nSiehe {{classesCommandMention}}\n\nRuhm und Liga:\n✨ Ruhm | Siehe {{topGloryCommandMention}}\n\nGilde:\n🏟️ Gilde\n\nReiseziel:\nSiehe {{mapCommandMention}}\n\nVertraut:\nSiehe {{petCommandMention}}\n\n💡-Die Abzeichen werden in deinem Profil als Reaktion angezeigt."
       },
       "RARITY": {
         "description": "Wählen Sie diese Option aus, um die Wahrscheinlichkeit eines item nach der Knappheit zu erkennen."
@@ -252,37 +260,37 @@
     }
   },
   "language": {
-    "description": "Utilisez le menu ci-dessous pour changer la langue utilisée par le bot sur ce serveur. Cette commande est réservée aux administrateurs du serveur.",
+    "description": "Verwenden Sie das untenstehende Menü, um die Sprache zu ändern, die der Bot auf diesem Server verwendet. Dieser Befehl ist nur für Administratoren des Servers gedacht.",
     "languages": {
       "de": {
         "emoji": "🇩🇪",
-        "name": "Allemand"
+        "name": "Deutsch"
       },
       "en": {
         "emoji": "🇬🇧",
-        "name": "Anglais"
+        "name": "Englisch"
       },
       "es": {
         "emoji": "🇪🇸",
-        "name": "Espagnol"
+        "name": "Spanisch"
       },
       "fr": {
         "emoji": "🇫🇷",
-        "name": "Français"
+        "name": "Französisch"
       },
       "it": {
         "emoji": "🇮🇹",
-        "name": "Italien"
+        "name": "Italienisch"
       },
       "pt": {
         "emoji": "🇵🇹",
-        "name": "Portugais"
+        "name": "Portugiesisch"
       }
     },
-    "newLanguageSetDescription": "DraftBot vous parlera désormais en français ! 🥖",
-    "newLanguageSetTitle": "Langue changée",
-    "selectLanguage": "Sélectionnez une langue",
-    "title": ":earth_africa: Sélection de la langue"
+    "newLanguageSetDescription": "DraftBot wird ab sofort auf Deutsch mit Ihnen sprechen! 🥖",
+    "newLanguageSetTitle": "Sprache geändert",
+    "selectLanguage": "Wählen Sie eine Sprache",
+    "title": ":earth_africa: Auswahl der Sprache"
   },
   "ping": {
     "discord": {
@@ -373,7 +381,7 @@
     "title": "{{effect}} | {{pseudo}} | Stufe {{level}}"
   },
   "rarity": {
-    "rarities": ":small_orange_diamond: Basique | Possédé en début de jeu\n:large_orange_diamond: Commun | {{common}}%\n:fire: Peu commun | {{uncommon}}%\n:trident: Exotique | {{exotic}}%\n:comet: Rare | {{rare}}%\n:dizzy: Spécial | {{special}}%\n:star: Épique | {{epic}}%\n:star2: Légendaire | {{legendary}}%\n:gem: Mythique | {{unique}}%",
+    "rarities": ":small_orange_diamond: Grundlegend | Zu Beginn des Spiels besessen\n:large_orange_diamond: Häufig | {{common}}%\n:fire: Ungewöhnlich | {{uncommon}}%\n:trident: Exotisch | {{exotic}}%\n:comet: Selten | {{rare}}%\n:dizzy: Besonders | {{special}}%\n:star: Episch | {{epic}}%\n:star2: Legendär | {{legendary}}%\n:gem: Mythisch | {{unique}}%",
     "title": ":slot_machine: Schlechtigkeit der Ausrüstung"
   },
   "report": {
@@ -429,17 +437,22 @@
     "title": ":ballot_box: Voter"
   },
   "map": {
-    "title": "{{pseudo}}, voici la carte !",
+    "title": "{{pseudo}}hier ist die Karte!",
     "description": {
-      "ongoing": "Actuellement, vous vous dirigez {{particle}} **{{emote}} {{destination}}**.\n> {{description}}",
-      "arrived": "Vous êtes arrivé à votre destination.\n> **{{emote}} {{destination}}**.\n> {{description}}"
+      "ongoing": "Derzeit richten Sie sich {{particle}} **{{emote}} {{destination}}**.\n> {{description}}",
+      "arrived": "Sie sind an Ihrem Ziel angekommen.\n> **{{emote}} {{destination}}**.\n> {{description}}"
     }
   },
   "petFree": {
-    "title": "{{pseudo}}, libération d'un familier",
-    "canceledTitle": "{{pseudo}}, annulation de la libération.",
-    "canceledDesc": "Le familier n'a pas été libéré.",
-    "confirmDesc": ":warning: Êtes-vous sur de vouloir libérer **{{pet}}** ? Il n'est pas possible d'annuler une fois l'action effectuée.",
+    "title": "{{pseudo}}Befreiung eines Vertrauten",
+    "canceledTitle": "{{pseudo}}Die Befreiung wird aufgehoben.",
+    "canceledDesc": "Der Vertraute wurde nicht befreit.",
+    "confirmDesc": ":warning: Sind Sie sicher, dass Sie **{{pet}}** befreien wollen? Es ist nicht möglich, eine einmal durchgeführte Aktion rückgängig zu machen.",
     "acceptedDesc": "Adieu **{{pet}}**..."
+  },
+  "petNick": {
+    "successTitle": "{{pseudo}}Änderung des Spitznamens des Vertrauten",
+    "success": "Spitzname des Vertrauten geändert in **{{name}}**!",
+    "successNoName": "Ihr Vertrauter hat nun keinen Spitznamen mehr!"
   }
 }

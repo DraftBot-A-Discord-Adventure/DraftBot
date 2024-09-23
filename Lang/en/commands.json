@@ -54,6 +54,14 @@
     "ranking": "{{rank}} / {{rankTotal}}",
     "notRanked": "Unranked"
   },
+  "guildCreate": {
+    "title": "{{pseudo}}, creating a guild",
+    "canceledTitle": "{{pseudo}}, cancelling guild creation.",
+    "canceledDesc": "Your guild creation has been cancelled.",
+    "confirmDesc": ":question: Confirm the creation of the **{{guildName}}** guild for `{{price}}` :moneybag:?",
+    "acceptedFooter": "Caution: the staff reserves the right to rename your guild.",
+    "acceptedDesc": "The **{{guildName}}** guild has been created!"
+  },
   "help": {
     "aliasFieldTitle": "Alias",
     "aliasesFieldTitle": "Aliases",
@@ -436,10 +444,15 @@
     }
   },
   "petFree": {
-    "title": "{{pseudo}}, pet lib",
-    "canceledTitle": "{{pseudo}}, cancellation of liberation.",
-    "canceledDesc": "Pet was not reached.",
-    "confirmDesc": ":warning: Are you sure you want to link **{{pet}}**? It is not possible to undo after the action is done.",
+    "title": "{{pseudo}}, pet release",
+    "canceledTitle": "{{pseudo}}, cancellation of the release.",
+    "canceledDesc": "The pet has not been released.",
+    "confirmDesc": ":warning: Are you sure you want to release **{{pet}}**? It is not possible to undo once the action has been done.",
     "acceptedDesc": "Farewell **{{pet}}**..."
+  },
+  "petNick": {
+    "successTitle": "{{pseudo}}, changing the pet's nickname",
+    "success": "Pet nickname changed to **{{name}}**!",
+    "successNoName": "Your pet no longer has a nickname!"
   }
 }

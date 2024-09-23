@@ -54,6 +54,14 @@
     "ranking": "{{rank}} / {{rankTotal}}",
     "notRanked": "No clasificado"
   },
+  "guildCreate": {
+    "title": "{{pseudo}}crear un gremio",
+    "canceledTitle": "{{pseudo}}anulación de la creación de un gremio.",
+    "canceledDesc": "La creación de tu gremio ha sido cancelada.",
+    "confirmDesc": ":question:{{guildName}}{{price}} :moneybag: Confirmar la creación del gremio ** ** para ` ` ?",
+    "acceptedFooter": "Ten en cuenta que el personal se reserva el derecho a cambiar el nombre de tu gremio.",
+    "acceptedDesc": "{{guildName}}¡El gremio ** ** ha sido creado!"
+  },
   "help": {
     "aliasFieldTitle": "Alias",
     "aliasesFieldTitle": "Alias",
@@ -441,5 +449,10 @@
     "canceledDesc": "La mascota no ha sido liberada.",
     "confirmDesc": ":warning:{{pet}}¿Está seguro de que desea liberar ** **? No es posible cancelar una vez que la acción se ha completado.",
     "acceptedDesc": "{{pet}}Adiós ** **..."
+  },
+  "petNick": {
+    "successTitle": "{{pseudo}}cambiar el apodo de la mascota",
+    "success": "{{name}}¡Apodo de mascota cambiado a ** ** !",
+    "successNoName": "Tu mascota ya no tiene apodo."
   }
 }

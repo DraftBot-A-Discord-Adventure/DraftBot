@@ -49,10 +49,16 @@
   "titleCanceled": "{{pseudo}}¡cancelación tenida en cuenta!",
   "titleDidntWork": "{{pseudo}}, hmmm... ¡No funcionó!",
   "guildDoesntExist": "No se han encontrado gremios.",
+  "guildAlreadyExist": "El nombre de gremio que has elegido ya está en uso.",
+  "guildNameNotValid": "Las normas para dar nombre a un gremio son las siguientes:\n$t(error:stringRules)",
+  "alreadyInAGuild": "Ya perteneces a un gremio.",
   "petDoesntExist": "No se encontraron mascotas.",
   "unexpectedError": "Se ha producido un error :(",
   "pleaseWaitForHeal": "Por favor, espera hasta que hayas terminado de curar tu alteración de estado antes de continuar jugando: {{time}}\n\n:information_source: Puedes usar el comando /shop para comprar una curación.",
   "pleaseWaitForHisHeal": "{{time}}Por favor, espere hasta el final de la atención para su estado de deterioro:",
   "notEnoughMoney": "No tienes dinero suficiente para llevar a cabo esta acción. {{money}} Te falta dinero 💰.",
-  "cooldownPetFree": "Sólo puedes liberar una mascota por hora. {{remainingTime}}Puedes liberar otra ."
+  "cooldownPetFree": "Sólo puedes liberar una mascota por hora. {{remainingTime}}Puedes liberar otra .",
+  "unknownPlayer": "Nombre de usuario 404",
+  "petNickNotValid": "Las normas para poner nombre a una mascota son las siguientes:\n$t(error:stringRules)",
+  "stringRules": "\n\n\n {{min}} {{max}} - Utilice al menos una letra - No utilice más de 2 espacios consecutivos - No se admiten caracteres especiales - Entre y caracteres"
 }

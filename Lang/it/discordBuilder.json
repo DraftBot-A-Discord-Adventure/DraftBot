@@ -58,8 +58,28 @@
     }
   },
   "petFree": {
-    "description": "Libérer son familier.",
+    "description": "Liberare un animale domestico.",
     "name": "liberatorefamiliare"
+  },
+  "petNick": {
+    "description": "Date un nome al vostro animale.",
+    "name": "nicknamefamiliare",
+    "options": {
+      "nickname": {
+        "description": "Il soprannome che si vuole dare al proprio animale domestico. (Lasciare in bianco per eliminare il soprannome)",
+        "name": "soprannome"
+      }
+    }
+  },
+  "guildCreate": {
+    "description": "Creare una nuova gilda.",
+    "name": "creazioneguilda",
+    "options": {
+      "guildName": {
+        "description": "Il nome della gilda.",
+        "name": "nome"
+      }
+    }
   },
   "guild": {
     "description": "Visualizza le informazioni su una gilda.",
