@@ -8,7 +8,7 @@ import {InventoryInfos} from "../database/game/models/InventoryInfo";
 import {ItemCategory, ItemConstants, ItemNature, ItemRarity} from "../../../../Lib/src/constants/ItemConstants";
 import {GenericItem} from "../../data/GenericItem";
 import {BlockingUtils} from "./BlockingUtils";
-import {DraftBotPacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {Potion, PotionDataController} from "../../data/Potion";
 import {WeaponDataController} from "../../data/Weapon";
 import {ArmorDataController} from "../../data/Armor";
@@ -22,6 +22,9 @@ import {ReactionCollectorItemChoice, ReactionCollectorItemChoiceItemReaction} fr
 import {EndCallback, ReactionCollectorInstance} from "./ReactionsCollector";
 import {ReactionCollectorItemAccept} from "../../../../Lib/src/packets/interaction/ReactionCollectorItemAccept";
 import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import {ItemWithDetails} from "../../../../Lib/src/interfaces/ItemWithDetails";
+import {MainItem} from "../../data/MainItem";
+import {SupportItem} from "../../data/SupportItem";
 
 /**
  * Get the value of an item
@@ -71,6 +74,43 @@ export const checkDrinkPotionMissions = async function(response: DraftBotPacket[
 	});
 };
 
+const getSupportItemDetails = function(item: SupportItem): { nature: ItemNature, power: number } {
+	return {
+		nature: item.nature,
+		power: item.power
+	};
+};
+
+const getMainItemDetails = function(item: MainItem): { stats: { attack: number, defense: number, speed: number } } {
+	return {
+		stats: {
+			attack: item.getAttack(),
+			defense: item.getDefense(),
+			speed: item.getSpeed()
+		}
+	};
+};
+
+export const toItemWithDetails = function(item: GenericItem): ItemWithDetails {
+	const category = item.getCategory();
+	return {
+		id: item.id,
+		category,
+		rarity: item.rarity,
+		detailsSupportItem: category === ItemCategory.POTION ?
+			getSupportItemDetails(PotionDataController.instance.getById(item.id))
+			: category === ItemCategory.OBJECT ?
+				getSupportItemDetails(ObjectItemDataController.instance.getById(item.id))
+				: null,
+		detailsMainItem: category === ItemCategory.WEAPON ?
+			getMainItemDetails(WeaponDataController.instance.getById(item.id))
+			: category === ItemCategory.ARMOR ?
+				getMainItemDetails(ArmorDataController.instance.getById(item.id))
+				: null,
+		maxStats: null
+	};
+};
+
 /**
  * Sells or keep the item depending on the parameters
  * @param player
@@ -99,10 +139,9 @@ const sellOrKeepItem = async function(
 ): Promise<void> {
 	player = await Players.getById(player.id);
 	if (!keepOriginal) {
-		const packet: ItemAcceptPacket = {
-			id: item.id,
-			category: item.getCategory()
-		};
+		const packet = makePacket(ItemAcceptPacket, {
+			itemWithDetails: toItemWithDetails(item)
+		});
 		response.push(packet);
 		await InventorySlot.update(
 			{
@@ -125,8 +164,9 @@ const sellOrKeepItem = async function(
 		item = itemToReplaceInstance;
 		resaleMultiplier = resaleMultiplierActual;
 	}
+	let money = 0;
 	if (item.getCategory() !== ItemCategory.POTION) {
-		const money = Math.round(getItemValue(item) * resaleMultiplier);
+		money = Math.round(getItemValue(item) * resaleMultiplier);
 		await player.addMoney({
 			amount: money,
 			response,
@@ -140,11 +180,11 @@ const sellOrKeepItem = async function(
 		draftBotInstance.logsDatabase.logItemSell(player.keycloakId, item)
 			.then();
 	}
-	const packet: ItemRefusePacket = {
-		id: item.id,
-		category: item.getCategory(),
-		autoSell
-	};
+	const packet = makePacket(ItemRefusePacket, {
+		item: { id: item.id, category: item.getCategory() },
+		autoSell,
+		soldMoney: money
+	});
 	response.push(packet);
 	await MissionsController.update(player, response, {missionId: "findOrBuyItem"});
 	player = await Players.getById(player.id);
@@ -181,15 +221,15 @@ function manageMoreThan2ItemsSwitching(
 	items.sort((a: InventorySlot, b: InventorySlot) => (a.slot > b.slot ? 1 : b.slot > a.slot ? -1 : 0));
 
 	const collector = new ReactionCollectorItemChoice(
-		{ itemId: item.id, itemCategory: item.getCategory() },
-		items.map((item) => ({ slot: item.slot, itemCategory: item.itemCategory, itemId: item.itemId }))
+		{ item: { id: item.id, category: item.getCategory() } },
+		items.map((item) => ({ slot: item.slot, itemWithDetails: toItemWithDetails(item.getItem()) }))
 	);
 
 	const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
 		const reaction = collector.getFirstReaction();
 
-		if (reaction && reaction.reaction instanceof ReactionCollectorItemChoiceItemReaction) {
-			const itemReaction = reaction.reaction as ReactionCollectorItemChoiceItemReaction;
+		if (reaction && reaction.reaction.type === ReactionCollectorItemChoiceItemReaction.name) {
+			const itemReaction = reaction.reaction.data as ReactionCollectorItemChoiceItemReaction;
 			const invSlot = items.find((item) => item.slot === itemReaction.slot);
 
 			player = await Players.getById(player.id);
@@ -261,10 +301,9 @@ export const giveItemToPlayer = async function(
 	resaleMultiplierActual = 1
 ): Promise<void> {
 	const resaleMultiplier = resaleMultiplierNew;
-	const foundPacket: ItemFoundPacket = {
-		id: item.id,
-		category: item.getCategory()
-	};
+	const foundPacket = makePacket(ItemFoundPacket, {
+		itemWithDetails: toItemWithDetails(item)
+	});
 	response.push(foundPacket);
 
 	if (await player.giveItem(item) === true) {
@@ -320,8 +359,7 @@ export const giveItemToPlayer = async function(
 	const itemToReplaceInstance = itemToReplace.getItem();
 
 	const collector = new ReactionCollectorItemAccept(
-		item.id,
-		item.getCategory()
+		toItemWithDetails(itemToReplaceInstance)
 	);
 
 	const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {

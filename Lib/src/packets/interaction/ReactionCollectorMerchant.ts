@@ -1,9 +1,8 @@
 import {ReactionCollector, ReactionCollectorCreationPacket, ReactionCollectorData, ReactionCollectorReaction} from "./ReactionCollectorPacket";
+import {Item} from "../../interfaces/Item";
 
 export class ReactionCollectorMerchantData extends ReactionCollectorData {
-	itemCategory!: number;
-
-	itemId!: number;
+	item!: Item;
 
 	price!: number;
 }

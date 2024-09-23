@@ -2,9 +2,8 @@
 	"outcomeProbabilities": {
 		"potion": 25,
 		"effect": 0,
-		"lifeLoss": 25,
+		"life_loss": 25,
 		"nothing": 0
 	},
-	"isIngredient": true,
-	"emoji": "🍄"
+	"isIngredient": true
 }

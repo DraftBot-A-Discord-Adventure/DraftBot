@@ -2,10 +2,9 @@
 	"outcomeProbabilities": {
 		"potion": 20,
 		"effect": 15,
-		"lifeLoss": 0,
+		"life_loss": 0,
 		"nothing": 15
 	},
-	"effectName": ":cold_face:",
-	"isIngredient": false,
-	"emoji": "❄️"
+	"effectName": "freezing",
+	"isIngredient": false
 }

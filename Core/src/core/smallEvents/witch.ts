@@ -2,7 +2,7 @@ import {SmallEventFuncs} from "../../data/SmallEvent";
 import {Maps} from "../maps/Maps";
 import {EndCallback, ReactionCollectorInstance} from "../utils/ReactionsCollector";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {WitchAction, WitchActionDataController, WitchActionOutcomeType} from "../../data/WitchAction";
+import {WitchAction, WitchActionDataController} from "../../data/WitchAction";
 import {Constants} from "../../../../Lib/src/constants/Constants";
 import {SmallEventConstants} from "../../../../Lib/src/constants/SmallEventConstants";
 import {BlockingUtils} from "../utils/BlockingUtils";
@@ -16,6 +16,8 @@ import {GenericItem} from "../../data/GenericItem";
 import {InventorySlots} from "../database/game/models/InventorySlot";
 import {ReactionCollectorWitch, ReactionCollectorWitchReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorWitch";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
+import {WitchActionOutcomeType} from "../../../../Lib/src/enums/WitchActionOutcomeType";
+import {Effect} from "../../../../Lib/src/enums/Effect";
 
 
 type WitchEventSelection = {
@@ -114,7 +116,13 @@ function getEndCallback(player: Player): EndCallback {
 		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.WITCH_CHOOSE);
 
 		const resultPacket = makePacket(SmallEventWitchResultPacket,{
-			outcome: Object.values(WitchActionOutcomeType).indexOf(outcome)
+			outcome,
+			ingredientId: selectedEvent.id,
+			isIngredient: selectedEvent.isIngredient,
+			effectId: selectedEvent.effectType ?? Effect.OCCUPIED.id,
+			timeLost: selectedEvent.timePenalty,
+			lifeLoss: SmallEventConstants.WITCH.BASE_LIFE_POINTS_REMOVED_AMOUNT,
+			forceEffect: selectedEvent.forceEffect ?? false
 		});
 
 		// There is a chance that the player will get a no effect potion, no matter what he chose
@@ -122,7 +130,8 @@ function getEndCallback(player: Player): EndCallback {
 			if (selectedEvent.forceEffect) {
 				await selectedEvent.giveEffect(player);
 			}
-			resultPacket.outcome = Object.values(WitchActionOutcomeType).indexOf(WitchActionOutcomeType.POTION);
+			resultPacket.outcome = WitchActionOutcomeType.POTION;
+			response.push(resultPacket);
 			const potionToGive = generateRandomItem(
 				ItemCategory.POTION,
 				ItemRarity.COMMON,
@@ -132,6 +141,8 @@ function getEndCallback(player: Player): EndCallback {
 			await givePotion(collector.context, player, potionToGive, response);
 			return;
 		}
+
+		response.push(resultPacket);
 
 		await applyOutcome(outcome, selectedEvent, collector.context, player, response);
 

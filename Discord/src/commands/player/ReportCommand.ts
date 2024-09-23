@@ -8,7 +8,7 @@ import {
 } from "../../../../Lib/src/packets/commands/CommandReportPacket";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {
-	ReactionCollectorCreationPacket,
+	ReactionCollectorCreationPacket
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {
 	ReactionCollectorBigEventData,
@@ -35,7 +35,6 @@ import {
 } from "../../../../Lib/src/utils/TimeUtils";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {ReactionCollectorChooseDestinationReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorChooseDestination";
-import {Language} from "../../../../Lib/src/Language";
 import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
 
 async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandReportPacketReq> {
@@ -169,23 +168,6 @@ export async function reportResult(packet: CommandReportBigEventResultRes, conte
 	}
 }
 
-const destinationChoiceEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣", "7⃣", "8⃣", "9⃣"];
-
-/**
- * Creates the description for a chooseDestination embed
- * @param reactions
- * @param language
- */
-function createDescriptionChooseDestination(reactions: ReactionCollectorChooseDestinationReaction[], language: Language): string {
-	let desc = `${i18n.t("commands:report.chooseDestinationIndications", { lng: language })}\n`;
-	for (let i = 0; i < reactions.length; ++i) {
-		const reaction = reactions[i];
-		const duration = reaction.tripDuration ? minutesDisplay(reaction.tripDuration) : "?h";
-		desc += `${destinationChoiceEmotes[i]} - ${DraftBotIcons.map_types[reaction.mapTypeId]} ${i18n.t(`models:map_locations.${reaction.mapId}.name`, { lng: language })} (${duration})\n`;
-	}
-	return desc;
-}
-
 export async function chooseDestinationCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
 	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
@@ -195,48 +177,13 @@ export async function chooseDestinationCollector(packet: ReactionCollectorCreati
 		lng: interaction.userLanguage,
 		pseudo: user.attributes.gameUsername
 	}), interaction.user);
-	embed.setDescription(
-		createDescriptionChooseDestination(
-			packet.reactions.map(reaction => reaction.data) as ReactionCollectorChooseDestinationReaction[],
-			interaction.userLanguage
-		)
-	);
+	embed.setDescription(`${i18n.t("commands:report.chooseDestinationIndications", { lng: interaction.userLanguage })}\n\n`);
 
-	const row = new ActionRowBuilder<ButtonBuilder>();
-
-	for (let i = 0; i < packet.reactions.length; ++i) {
-		const button = new ButtonBuilder()
-			.setEmoji(parseEmoji(destinationChoiceEmotes[i])!)
-			.setCustomId(i.toString())
-			.setStyle(ButtonStyle.Secondary);
-		row.addComponents(button);
-	}
-
-	const msg = await interaction?.channel.send({
-		embeds: [embed],
-		components: [row]
-	}) as Message;
-
-	const buttonCollector = msg.createMessageComponentCollector({
-		time: packet.endTime - Date.now()
-	});
-
-	buttonCollector.on("collect", async (buttonInteraction: ButtonInteraction) => {
-		if (buttonInteraction.user.id !== context.discord?.user) {
-			await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, interaction.userLanguage);
-			return;
-		}
-
-		buttonCollector.stop();
-	});
-	buttonCollector.on("end", async (collected) => {
-		const firstReaction = collected.first() as ButtonInteraction;
-
-		if (firstReaction) {
-			await firstReaction.deferReply();
-			DiscordCollectorUtils.sendReaction(packet, context, user, firstReaction, parseInt(firstReaction.customId));
-		}
-	});
+	await DiscordCollectorUtils.createChoiceListCollector(interaction, embed, packet, context, packet.reactions.map((reaction) => {
+		const destinationReaction = reaction.data as ReactionCollectorChooseDestinationReaction;
+		const duration = destinationReaction.tripDuration ? minutesDisplay(destinationReaction.tripDuration) : "?h";
+		return `${DraftBotIcons.map_types[destinationReaction.mapTypeId]} ${i18n.t(`models:map_locations.${destinationReaction.mapId}.name`, { lng: interaction.userLanguage })} (${duration})`;
+	}), false);
 }
 
 function isCurrentlyInEffect(packet: CommandReportTravelSummaryRes, now: number): boolean {

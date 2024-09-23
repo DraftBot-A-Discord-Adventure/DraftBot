@@ -4,6 +4,5 @@
 		"nothing": 35
 	},
 	"timePenalty": 45,
-	"isIngredient": false,
-	"emoji": "🕙"
+	"isIngredient": false
 }

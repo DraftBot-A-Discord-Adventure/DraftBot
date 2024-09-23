@@ -1,5 +1,6 @@
-import {WitchActionFuncs, WitchActionOutcomeType} from "../../../data/WitchAction";
+import {WitchActionFuncs} from "../../../data/WitchAction";
 import {MissionsController} from "../../missions/MissionsController";
+import {WitchActionOutcomeType} from "../../../../../Lib/src/enums/WitchActionOutcomeType";
 
 export const witchSmallEvent: WitchActionFuncs = {
 	checkMissions: async (player, outcome, response, tags) => {
