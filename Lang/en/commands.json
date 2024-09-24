@@ -177,7 +177,7 @@
         "description": "Allows to sell a pet. The following conditions apply: \n - The selling price must be higher than `{{petSellMinPrice}}💰` and lower than `{{petSellMaxPrice}}💰`. \n- The seller will not earn money for the transaction, but guild experience. \n- The seller and the buyer cannot be part of the same guild."
       },
       "PET_TRADE": {
-        "description": "Offers to exchange your pet with the mentioned player's."
+        "description": "Offers to exchange your pet with the mentioned player."
       },
       "PET_TRANSFER": {
         "description": "Transfer a pet to or from a guild. If no number is given, your current pet will be transferred to the guild's shelter. Otherwise, your pet will be switched for the pet which position corresponds to the given number."
@@ -261,7 +261,7 @@
   },
   "invite": {
     "discord": {
-      "main": "Join the community! Use this link: https://discord.gg/acGNvzEY92 :smiley:"
+      "main": "Join the community ! Use this link: https://discord.gg/acGNvzEY92 :smiley:"
     }
   },
   "language": {
@@ -292,7 +292,7 @@
         "name": "Portuguese"
       }
     },
-    "newLanguageSetDescription": "DraftBot will now speak in English with you! 🇬🇧",
+    "newLanguageSetDescription": "DraftBot will now speak in English with you ! 🇬🇧",
     "newLanguageSetTitle": "Language changed",
     "selectLanguage": "Select a language",
     "title": ":earth_africa: Language selection"
