@@ -257,7 +257,7 @@
     "randomItemFooter": "Possedete già un'attrezzatura, volete venderla ?",
     "randomItemFooterPotion": "Volete distruggere la vostra pozione attuale ?",
     "acceptedTitle": "{{pseudo}}, avete ricevuto un equipaggiamento !",
-    "chooseItemToReplaceTitle": "Scegliere un oggetto da sostituire"
+    "chooseItemToReplaceTitle": "Scegliete un oggetto da sostituire"
   },
   "invite": {
     "discord": {
@@ -449,10 +449,10 @@
     }
   },
   "petFree": {
-    "title": "{{pseudo}}liberare un familiare",
-    "canceledTitle": "{{pseudo}}cancellazione del rilascio.",
+    "title": "{{pseudo}}, liberare un animale di compagnia",
+    "canceledTitle": "{{pseudo}}, cancellazione del rilascio.",
     "canceledDesc": "L'animale non è stato rilasciato.",
-    "confirmDesc": ":warning:{{pet}}Siete sicuri di voler rilasciare ** **? Non è possibile annullare una volta completata l'azione.",
+    "confirmDesc": ":warning: Siete sicuri di voler rilasciare **{{pet}}** ? Non è possibile annullare una volta completata l'azione.",
     "acceptedDesc": "{{pet}}Addio ** **..."
   },
   "petNick": {
