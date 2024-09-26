@@ -55,12 +55,12 @@
     "notRanked": "Non Classificato"
   },
   "guildCreate": {
-    "title": "{{pseudo}}creare una gilda",
-    "canceledTitle": "{{pseudo}}l'annullamento della creazione di una gilda.",
-    "canceledDesc": "La creazione della vostra gilda è stata annullata.",
-    "confirmDesc": ":question:{{guildName}}{{price}} :moneybag: Confermare la creazione della gilda ** ** per ` `?",
+    "title": "{{pseudo}}, creare una gilda",
+    "canceledTitle": "{{pseudo}}, creazione delle gilda annullata.",
+    "canceledDesc": "La Creazione della vostra Gilda è stata annullata.",
+    "confirmDesc": ":question: Confermare la creazione della gilda **{{guildName}}** per `{{price}}` :moneybag: ?",
     "acceptedFooter": "Lo staff si riserva il diritto di rinominare la gilda.",
-    "acceptedDesc": "{{guildName}}La gilda ** ** è stata creata!"
+    "acceptedDesc": "La gilda **{{guildName}}** è stata creata !"
   },
   "help": {
     "aliasFieldTitle": "Alias",
@@ -253,10 +253,10 @@
     "title": ":briefcase: **Inventario di {{pseudo}}**",
     "weapons_one": "Arma ({{count}}/{{max}}) :",
     "weapons_other": "Armi ({{count}}/{{max}}) :",
-    "randomItemTitle": "{{pseudo}}avete trovato qualcosa!",
-    "randomItemFooter": "Possedete già un'attrezzatura e volete venderla?",
-    "randomItemFooterPotion": "Volete distruggere la vostra pozione attuale?",
-    "acceptedTitle": "{{pseudo}}Sei stato equipaggiato!",
+    "randomItemTitle": "{{pseudo}}, avete trovato qualcosa !",
+    "randomItemFooter": "Possedete già un'attrezzatura, volete venderla ?",
+    "randomItemFooterPotion": "Volete distruggere la vostra pozione attuale ?",
+    "acceptedTitle": "{{pseudo}}, avete ricevuto un equipaggiamento !",
     "chooseItemToReplaceTitle": "Scegliere un oggetto da sostituire"
   },
   "invite": {
