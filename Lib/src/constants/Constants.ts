@@ -152,40 +152,6 @@ export class Constants {
 		DAILY_MISSION_POINTS_MULTIPLIER: 3.5
 	};
 
-	static readonly BADGES = {
-		POWERFUL_GUILD: "💎",
-		VERY_POWERFUL_GUILD: "🪩",
-		STAFF_MEMBER: "⚙️",
-		QUEST_MASTER: "💍",
-		RICH_PERSON: "🤑",
-		PET_TAMER: "💞",
-		LIST_FOR_GIVE_BADGE_COMMAND: [
-			"🏅",
-			"⚙️",
-			"✨",
-			"❤️",
-			"🍀",
-			"💸",
-			"🐞",
-			"🎰",
-			"🥇",
-			"🤑",
-			"🌟",
-			"🖋️",
-			"🌍",
-			"🎗️",
-			"🎄",
-			"😂",
-			"💎",
-			"⚔️",
-			"🗳️",
-			"💞",
-			"💍",
-			"🪩",
-			"🕊️"
-		]
-	};
-
 	static readonly PET_FOOD = {
 		COMMON_FOOD: "commonFood",
 		CARNIVOROUS_FOOD: "carnivorousFood",
@@ -221,9 +187,6 @@ export class Constants {
 	};
 
 	static readonly MINIMAL_PLAYER_SCORE = 100;
-
-
-	static readonly MAX_DAILY_POTION_BUYOUTS: number = 5;
 
 	static EXCLUDED_TRANSLATION_MODULES = [
 		"classes.",
