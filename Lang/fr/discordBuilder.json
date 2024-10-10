@@ -147,6 +147,10 @@
     "description": "Affiche la carte pour indiquer où vous allez.",
     "name": "carte"
   },
+  "shop": {
+    "description": "Affiche le magasin.",
+    "name": "magasin"
+  },
   "classesInfo": {
     "description": "Affiche des informations sur les classes sélectionnables pour votre personnage.",
     "name": "infosclasses"
