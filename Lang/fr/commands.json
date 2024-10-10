@@ -477,5 +477,41 @@
     "throwAwayField": "{{name}} | {{throwEmote}}",
     "confirmThrowAway": "Êtes-vous sûr de vouloir jeter {{item}} ?",
     "sellIndication": "Choisissez un objet à vendre dans la liste ci-dessous :"
+  },
+  "shop": {
+    "closeShop": "Vous avez fermé le magasin.",
+    "closeShopTitle": "{{pseudo}}, fermeture du magasin",
+    "noAlterationToHeal": "Vous n'êtes victime d'aucune altération d'état. 🙂",
+    "success": "{{pseudo}}, transaction réussie !",
+    "healAlteration": "🏥 Vos altérations d'état ont été supprimées.",
+    "tooManyEnergyBought": "Vous avez acheté la quantité maximale de récupération d'énergie pour cette semaine.",
+    "noEnergyToHeal": "Vous disposez de toute votre énergie de combat. ⚡",
+    "fullRegen": "💓 Vous avez été complétement soigné.",
+    "alreadyHaveBadge": "Vous possédez déjà ce badge.",
+    "badgeBought": "Vous avez reçu un nouveau badge : {{badge}} !",
+    "notEnoughMoney": "Vous n'avez pas assez d'argent pour acheter cet objet ! Il vous manque `{{missingMoney}} 💰`.",
+    "boughtTooMuchDailyPotions": "Il n'y a plus aucune potion du jour disponible à la vente... Revenez demain !",
+    "title": "🛒 Affichage du Magasin",
+    "currentMoney": "Vous avez `{{money}}💰`.",
+    "shopItemsDisplay": "**{{name}}** | `{{price}}💰`",
+    "shopSelectPlaceholder": "Sélectionnez un objet à acheter",
+    "buyCategorySlotSuccess": "Vous avez acheté un nouvel emplacement d'inventaire !",
+    "shopItemsSelectDescription": "{{price}}💰",
+    "closeShopButton": "❌ Fermer le magasin",
+    "shopCategories": {
+      "permanentItem": "Ventes permanentes",
+      "dailyPotion_zero": "Potion du jour (rupture de stock)",
+      "dailyPotion_one": "Potion du jour ({{count}} disponible)",
+      "dailyPotion_other": "Potion du jour ({{count}} disponibles)",
+      "inventory": "Extensions d'inventaire"
+    },
+    "shopItems": {
+      "randomItem": "❓ Un équipement aléatoire",
+      "healAlteration": "🏥 Soin des altérations d'état",
+      "healEnergy": "⚡ Récupération d'énergie",
+      "regen": "💓 Régen complète de la vie",
+      "moneyMouthBadge": "🤑 Badge \"Money Mouth\"",
+      "inventoryExtension": "📦 Nouvel emplacement d'inventaire"
+    }
   }
 }

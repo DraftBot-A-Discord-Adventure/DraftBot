@@ -22,6 +22,8 @@ import {itemAcceptCollector, itemChoiceCollector} from "../../inventory/ItemColl
 import {ReactionCollectorItemAcceptData} from "../../../../Lib/src/packets/interaction/ReactionCollectorItemAccept";
 import {ReactionCollectorGuildCreateData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildCreate";
 import {createGuildCreateCollector} from "../../commands/guild/GuildCreateCommand";
+import {ReactionCollectorShopData} from "../../../../Lib/src/packets/interaction/ReactionCollectorShop";
+import {shopCollector} from "../../commands/player/ShopCommand";
 
 export default class ReactionCollectorHandler {
 	@packetHandler(ReactionCollectorCreationPacket)
@@ -56,6 +58,9 @@ export default class ReactionCollectorHandler {
 			break;
 		case ReactionCollectorItemAcceptData.name:
 			await itemAcceptCollector(packet, context);
+			break;
+		case ReactionCollectorShopData.name:
+			await shopCollector(packet, context);
 			break;
 		default:
 			throw `Unknown collector with data: ${packet.data.type}`; // Todo error embed
