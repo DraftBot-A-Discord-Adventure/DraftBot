@@ -19,6 +19,8 @@ import {itemAcceptCollector, itemChoiceCollector} from "../../inventory/ItemColl
 import {ReactionCollectorItemAcceptData} from "../../../../Lib/src/packets/interaction/ReactionCollectorItemAccept";
 import {ReactionCollectorGuildCreateData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildCreate";
 import {createGuildCreateCollector} from "../../commands/guild/GuildCreateCommand";
+import {ReactionCollectorShopData} from "../../../../Lib/src/packets/interaction/ReactionCollectorShop";
+import {shopCollector} from "../../commands/player/ShopCommand";
 import {ReactionCollectorCartData} from "../../../../Lib/src/packets/interaction/ReactionCollectorCart";
 import {cartCollector} from "../../smallEvents/cart";
 
@@ -55,6 +57,9 @@ export default class ReactionCollectorHandler {
 			break;
 		case ReactionCollectorItemAcceptData.name:
 			await itemAcceptCollector(packet, context);
+			break;
+		case ReactionCollectorShopData.name:
+			await shopCollector(packet, context);
 			break;
 		case ReactionCollectorCartData.name:
 			await cartCollector(packet, context);
