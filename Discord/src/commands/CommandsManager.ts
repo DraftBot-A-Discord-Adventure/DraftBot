@@ -323,6 +323,7 @@ export class CommandsManager {
 	 */
 	private static async sendHelperMessage(message: Message | DraftbotInteraction): Promise<void> {
 		const author = message instanceof DraftbotInteraction ? message.user : message.author;
+		const sendMessage = message instanceof DraftbotInteraction ? message.channel.send : message.author.send;
 		const helpMessage = new DraftBotReactionMessageBuilder()
 			.allowUserId(author.id)
 			.addReaction(new DraftBotReaction(Constants.REACTIONS.ENGLISH_FLAG))
@@ -332,7 +333,7 @@ export class CommandsManager {
 					return;
 				}
 				const language = msg!.getFirstReaction()!.emoji.name === Constants.REACTIONS.ENGLISH_FLAG ? LANGUAGE.ENGLISH : LANGUAGE.FRENCH;
-				message.channel.send({
+				sendMessage({
 					embeds: [new DraftBotEmbed()
 						.formatAuthor(i18n.t("bot:dmHelpMessageTitle", {
 							lng: language,
