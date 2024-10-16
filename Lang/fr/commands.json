@@ -477,5 +477,15 @@
     "throwAwayField": "{{name}} | {{throwEmote}}",
     "confirmThrowAway": "Êtes-vous sûr de vouloir jeter {{item}} ?",
     "sellIndication": "Choisissez un objet à vendre dans la liste ci-dessous :"
+  },
+  "classesInfo": {
+    "title": {
+      "list": ":bookmark: Liste des classes",
+      "class": "**{{class}}**"
+    },
+    "description": {
+      "list": "Voici la liste des classes disponibles pour votre personnage et leurs statistiques. Pour plus d'informations sur une classe, sélectionnez celle-ci parmi les choix ci-dessous. Pour changer de classe, exécutez {command:classes}.",
+      "end": "\n\n**Attaques disponibles pour cette classe :**"
+    }
   }
 }

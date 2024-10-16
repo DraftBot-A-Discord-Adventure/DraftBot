@@ -51,6 +51,8 @@ import {
 	CommandGuildCreatePacketRes,
 	CommandGuildCreateRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildCreatePacket";
+import {CommandClassesInfoPacketRes} from "../../../../Lib/src/packets/commands/CommandClassesInfoPacket";
+import {handleCommandClassesInfoPacketRes} from "../../commands/player/ClassesInfoCommand";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
@@ -166,5 +168,10 @@ export default class CommandHandlers {
 	@packetHandler(CommandReportRefusePveFightRes)
 	async reportRefusePveFightRes(socket: WebSocket, packet: CommandReportRefusePveFightRes, context: PacketContext): Promise<void> {
 		// TODO
+	}
+
+	@packetHandler(CommandClassesInfoPacketRes)
+	async classesInfoRes(socket: WebSocket, packet: CommandClassesInfoPacketRes, context: PacketContext): Promise<void> {
+		await handleCommandClassesInfoPacketRes(packet, context);
 	}
 }
