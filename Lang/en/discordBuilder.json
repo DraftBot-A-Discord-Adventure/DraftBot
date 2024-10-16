@@ -146,5 +146,9 @@
   "map": {
     "description": "Displays the map to indicate where you are going.",
     "name": "map"
+  },
+  "classesInfo": {
+    "description": "Displays information about selectable classes.",
+    "name": "classesinfo"
   }
 }
