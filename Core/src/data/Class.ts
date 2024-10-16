@@ -97,6 +97,24 @@ export class ClassDataController extends DataControllerNumber<Class> {
 		return this.data.size;
 	}
 
+	/**
+	 * Get the classes by their group id
+	 * @param classGroup
+	 */
+	public getByGroup(classGroup: number): Class[] {
+		return this.getValuesArray()
+			.filter((classInstance) => classInstance.classGroup === classGroup);
+	}
+
+	/**
+	 * Get the class by its emoji
+	 * @param emoji
+	 */
+	public getByEmoji(emoji: string): Class | undefined {
+		return this.getValuesArray()
+			.find((classInstance) => classInstance.emoji === emoji);
+	}
+
 	getRandomClass(): Class {
 		return RandomUtils.draftbotRandom.pick(Array.from(this.data.values()));
 
