@@ -22,8 +22,7 @@ export default class InventoryCommand {
 		}
 		else {
 			const maxStatsValues = player.getMaxStatsValue();
-			const items = await InventorySlots.getOfPlayer(player.id);
-			const invInfo = await InventoryInfos.getOfPlayer(player.id);
+			const [items, invInfo] = await Promise.all([InventorySlots.getOfPlayer(player.id), InventoryInfos.getOfPlayer(player.id)]);
 
 			response.push(makePacket(CommandInventoryPacketRes, {
 				foundPlayer: true,

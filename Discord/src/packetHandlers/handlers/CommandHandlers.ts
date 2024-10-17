@@ -51,6 +51,8 @@ import {
 	CommandGuildCreatePacketRes,
 	CommandGuildCreateRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildCreatePacket";
+import {CommandSwitchPacketRes} from "../../../../Lib/src/packets/commands/CommandSwitchPacket";
+import {handleCommandSwitchPacketRes} from "../../commands/player/SwitchCommand";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
@@ -117,10 +119,14 @@ export default class CommandHandlers {
 		await handleCommandGuildCreateAcceptPacketRes(packet, context);
 	}
 
-
 	@packetHandler(CommandInventoryPacketRes)
 	async inventoryRes(socket: WebSocket, packet: CommandInventoryPacketRes, context: PacketContext): Promise<void> {
 		await handleCommandInventoryPacketRes(packet, context);
+	}
+
+	@packetHandler(CommandSwitchPacketRes)
+	async switchRes(socket: WebSocket, packet: CommandSwitchPacketRes, context: PacketContext): Promise<void> {
+		await handleCommandSwitchPacketRes(packet, context);
 	}
 
 	@packetHandler(CommandUpdatePacketRes)
