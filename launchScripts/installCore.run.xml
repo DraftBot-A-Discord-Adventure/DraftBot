@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="installCore" type="js.build_tools.npm">
+    <package-json value="$PROJECT_DIR$/Core/package.json" />
+    <command value="run" />
+    <scripts>
+      <script value="yarnInstall" />
+    </scripts>
+    <node-interpreter value="project" />
+    <envs />
+    <method v="2" />
+  </configuration>
+</component>
