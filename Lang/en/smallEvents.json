@@ -477,5 +477,125 @@
       "Voltou": "the greatest thief this world has ever known, his fortune is said to equal that of the king, and he hid it in every corner of the kingdom. If you come across him, be sure to check your pockets",
       "Aiko": "a wild potato making mincemeat of all her enemies, aiming for the highest stars in the universe"
     }
+  },
+  "witch": {
+    "intro": [
+      "you meet an old lady who seems to want you to follow her. ",
+      "you see an old woman and decide to approach it. ",
+      "you notice a woman who signs you. ",
+      "you notice the silhouette of an old lady and you decide to go see what she does. "
+    ],
+    "description": [
+      "It looks great, free, with a long and fine nose. ",
+      "His clothes are in a pitiful state, they seem to fall into pieces, as dust. ",
+      "She is yours, skeleton, but her eyes seem malicious. ",
+      "It is made of tarnished and dirty fabrics. ",
+      "You remember rumors about a clumsy witch who would wander through the kingdom. ",
+      "Completely silent, it seems capable by the years, it is fine, bony and its almost grey skin. ",
+      "She seems not to understand what you tell her. "
+    ],
+    "situation": [
+      "You enter what seems to be her hut and discover that she is preparing a potion...",
+      "You find that a cauldron is boiling on fire and the old lady seems to be preparing a potion...",
+      "You are approaching and discover that his preparation of a potion does not seem to happen as expected...",
+      "You observe the old lady prepare a potion, but you notice that her content almost borders with the cauldron...",
+      "The old lady is preparing a potion, but she seems to be having trouble getting a satisfactory result...",
+      "It looks like she is preparing a strange mixture in a huge cauldron..."
+    ],
+    "witchEventResults": {
+      "ingredientIntros": [
+        "You choose **{{witchEvent}}** to potion in the hope of improving...",
+        "You take the decision of **{{witchEvent}}** from the potion while the witch turns back...",
+        "You advise the witch of **{{witchEvent}}** to his potion...",
+        "Following your advice, the witch decides **{{witchEvent}}** to his potion...",
+        "You follow your instinct and choose **{{witchEvent}}** to the dubious mixture...",
+        "You decide from **{{witchEvent}}** to the potion, since this will improve the result...",
+        "You dare **{{witchEvent}}** to the potion...",
+        "After studying the contents of the pot, you decide to **{{witchEvent}}** to the list of metrics..."
+      ],
+      "adviceIntros": [
+        "Take mercy, advise them of **{{witchEvent}}** in order to get a better result...",
+        "You decide to help the witch by advising her of **{{witchEvent}}**..."
+      ],
+      "outcomes": {
+        "1": [
+          "Once the potion is over, the witch gives you a drink. You decide to keep that for the rest of your adventure.",
+          "Thanks to your intervention, the potion looks drinkable. You want to keep some for the rest of your adventure.",
+          "After having finished the potion, the old lady pours a game into a bottle she gives you back. You are happy to accept it before you get back on your way.",
+          "The result obtained has a strange taste, but you decide to keep some potion for the continuation of your adventure."
+        ],
+        "2": {
+          "time": [
+            "By taking your route, you realize that this stop was longer than you had anticipated. You lose **{{lostTime}} Min :clock2:**",
+            "As you leave, you realize all the time wasted on this preparation. You lose **{{lostTime}} Min :clock2:**",
+            "By going back on your steps, you start regretting the lost time to wait for this preparation. You lose **{{lostTime}} Min :clock2:**"
+          ],
+          "scared": [
+            "Once the potion is finished, you decide to drink a small taste. Immediately, you were carrying through intense hallucination. Your future does not seem promising... :scream:",
+            "You are already enjoying the liquid. Taking a panic attack, you didn't regret your choice. :scream:"
+          ],
+          "drunk": [
+            "You decide to taste the potion and regret it quickly... It looks like one of the ingredients stays in your throat. :zany_face:",
+            "It looks like the potion has a surprising effect. You feel a little drunk... :zany_face:"
+          ],
+          "sick": [
+            "Unfortunately, the smell of the potion was a herald of its effects. You quickly regret trusting the old witch's talent. :sick:",
+            "Unfortunately your intervention, the potion doesn't seem to have been improved. You feel uncomfortable... :sick:"
+          ],
+          "cold": [
+            "You decide to taste the potion that is cold. The feeling of cold does not disappear, however, and you feel helpless each of your members cold... :cold_face:",
+            "As you were about to finish the potion, you fell into the ice-filled chasm in which you were planning to drop the pot. :cold_face:"
+          ]
+        },
+        "3": [
+          "Once the potion is finished, the witch hands you a drink. Another burning, you clumsily escaped it on your foot. You lose **{{lifeLoss}} :broken_heart:**.",
+          "As you finished the potion, you were the victim of the old witch's clumsy who escaped the cauldron on you. You lose **{{lifeLoss}} :broken_heart:**.",
+          "Despite the good smell of the potion, the potion is not as good for health as you might have expected. You lose **{{lifeLoss}} :broken_heart:**.",
+          "The taste of the potion is weird. Maybe you should have listened to your instinct and not taste it. . You lose **{{lifeLoss}} :broken_heart:**.",
+          "The potion vapors will have made you sick. You leave without asking for your remainder but not without the advice of inhaling these steams. You lose **{{lifeLoss}} :broken_heart:**.",
+          "As the old lady apprehendes to pour the last drop into the pot a muffled sound is heard. It looks like the cauldron has exploded. You lose **{{lifeLoss}} :broken_heart:**."
+        ],
+        "4": [
+          "Unfortunately, the potion seems completely charred and undrinkable. You decide not to take the risk of drinking it and leave quickly.",
+          "You finish the potion with the old lady, but choose not to consume it, preferring to keep your health for the rest of your adventure."
+        ]
+      }
+    },
+    "witchEventNames": {
+      "bat": "Add Bat",
+      "beer": "Add bee",
+      "bigWait": "Let rest the potion",
+      "bigWarm": "Boil the potion long",
+      "blood": "Add Blood",
+      "book": "Speak Spellbook",
+      "bone": "Add Bone",
+      "cobweb": "Add Ringnee Canvas",
+      "cool": "Let the potion cool down",
+      "chicken": "Add Chicken",
+      "crystalBall": "Recite a magic formula",
+      "distiller": "Distille potion",
+      "eye": "Add an eye",
+      "frog": "Add frog",
+      "greenApple": "Add green apple",
+      "heart": "Add Core",
+      "mushroom": "Add Mushroom",
+      "nothing": "Do nothing",
+      "package": "Add mystery interference",
+      "rat": "Add Rat",
+      "redApple": "Add Red Apple",
+      "rose": "Add a rose",
+      "scorpion": "Add Scorpion",
+      "smallWait": "Let the potion rest a little bit",
+      "smallWarm": "Warm the pot a little bit",
+      "snake": "Add a snake",
+      "spider": "Add Ring",
+      "stir": "Mixing potion",
+      "teeth": "Add a tooth",
+      "testTube": "Add a test tube",
+      "turtle": "Add turtle",
+      "wand": "cast a spell",
+      "wiltedRose": "Add a faded rose",
+      "worm": "Add worm"
+    }
   }
 }

@@ -477,5 +477,125 @@
       "Voltou": "Il più grande ladro che questo mondo abbia mai conosciuto, si dice che la sua fortuna fosse pari a quella del re e che la nascondesse ai quattro angoli del regno. Se lo incontrate, assicuratevi di controllare le vostre tasche.",
       "Aiko": "una patata selvatica che fa carne da macello di tutti i suoi nemici, puntando alle stelle più alte dell'universo"
     }
+  },
+  "witch": {
+    "intro": [
+      "incontrate un'anziana signora che sembra volere che la seguiate. ",
+      "si nota una donna anziana e si decide di avvicinarsi a lei. ",
+      "notate una donna anziana che vi saluta. ",
+      "notate la figura di un'anziana signora e decidete di andare a vedere cosa sta facendo. "
+    ],
+    "description": [
+      "Sembra vecchia, fragile, con un naso lungo e sottile. ",
+      "I suoi vestiti sono in uno stato pietoso. Sembrano cadere a pezzi, come se fossero fatti di polvere. ",
+      "È china e scheletrica, ma si vede la malizia nei suoi occhi. ",
+      "È vestita con brandelli di tessuto opaco e sporco. ",
+      "Ricorderete le voci su una strega maldestra che vagava per il regno. ",
+      "Completamente muta, sembra danneggiata dagli anni, magra e ossuta, con la pelle quasi grigia. ",
+      "Sembra che non capisca quello che dici. "
+    ],
+    "situation": [
+      "Entrate in quella che sembra essere la sua cabina e scoprite che sta preparando una pozione...",
+      "Si scopre che un calderone bolle sul fuoco e che l'anziana signora sembra preparare una pozione...",
+      "Vi avvicinate a lei e scoprite che la preparazione della pozione non sembra andare secondo i piani...",
+      "Guardate la vecchia preparare una pozione, ma notate che il contenuto sta quasi per fuoriuscire dal calderone...",
+      "L'anziana signora sta preparando una pozione, ma sembra avere difficoltà a ottenere un risultato soddisfacente...",
+      "Sembra che stia preparando uno strano intruglio in un enorme calderone..."
+    ],
+    "witchEventResults": {
+      "ingredientIntros": [
+        "{{witchEvent}}Si decide di aggiungere ** alla pozione nella speranza di migliorarla...",
+        "{{witchEvent}}Si decide di prendere la pozione mentre la strega è di spalle...",
+        "{{witchEvent}}Consigliate alla strega di ** ** la sua pozione...",
+        "{{witchEvent}}Seguendo il tuo consiglio, la strega decide di aggiungere ** alla sua pozione...",
+        "{{witchEvent}}Seguite il vostro istinto e decidete di ** ** la dubbia miscela...",
+        "{{witchEvent}}Si decide di aggiungere ** alla pozione, sperando che migliori il risultato...",
+        "{{witchEvent}}Osi ** ** la pozione...",
+        "{{witchEvent}}Dopo aver studiato il contenuto della pentola, si decide di dare un'occhiata alla lista degli ingredienti..."
+      ],
+      "adviceIntros": [
+        "{{witchEvent}}Impietosito, le consigli di fare ** ** per ottenere un risultato migliore...",
+        "{{witchEvent}}Decidete di aiutare la strega consigliandole di ** **..."
+      ],
+      "outcomes": {
+        "1": [
+          "Una volta terminata la pozione, la strega vi porge un bicchiere. Decidete di tenerlo per il resto della vostra avventura.",
+          "Grazie al vostro intervento, la pozione sembra potabile. Decidete di tenerne un po' per il resto della vostra avventura.",
+          "Dopo aver finito la pozione, l'anziana signora ne versa un po' in una bottiglia e ve la porge. La accettate volentieri, prima di continuare il vostro cammino.",
+          "Il risultato ha un sapore strano, ma decidete di conservare una parte della pozione per il resto della vostra avventura."
+        ],
+        "2": {
+          "time": [
+            "Quando si riprende il viaggio, ci si rende conto che la sosta è stata più lunga del previsto.{{lostTime}} :clock2:Si perde ** Min **",
+            "Mentre si riparte, ci si rende conto di quanto tempo si è perso in questa preparazione.{{lostTime}} :clock2:Avete perso ** Min **",
+            "Tornando sui propri passi, si inizia a rimpiangere il tempo sprecato in attesa di questa preparazione.{{lostTime}} :clock2:Si perde ** Min **"
+          ],
+          "scared": [
+            "Una volta terminata la pozione, decidete di berne un sorso. Immediatamente si viene trasportati in un'intensa allucinazione. Il vostro futuro non sembra molto promettente... :scream:",
+            "Appena pronunciata la formula, si assaggia il liquido. Non ci vuole molto perché ci si penta della propria scelta. :scream:"
+          ],
+          "drunk": [
+            "Decidete di provare la pozione, ma presto ve ne pentite... Sembra che uno degli ingredienti si sia bloccato in gola. :zany_face:",
+            "Sembra che la pozione abbia un effetto sorprendente. Ti senti un po' ubriaco... :zany_face:"
+          ],
+          "sick": [
+            "Purtroppo, l'odore della pozione era foriero dei suoi effetti. Ben presto ci si pente di aver riposto la propria fiducia nel talento della vecchia strega. :sick:",
+            "Nonostante il vostro intervento, la pozione non sembra essere migliorata. Ti senti a disagio... :sick:"
+          ],
+          "cold": [
+            "Decidete di provare la pozione, che è molto fredda. Ma la sensazione di freddo non scompare e si sente che ogni parte del corpo diventa più fredda... :cold_face:",
+            "Proprio mentre stavate per finire la pozione, inciampate e cadete nella voragine piena di ghiaccio in cui avevate intenzione di mettere il vaso. :cold_face:"
+          ]
+        },
+        "3": [
+          "Quando la pozione è finita, la strega vi porge un bicchiere. Ancora bruciacchiato, lo fai cadere maldestramente sul piede.{{lifeLoss}} :broken_heart:Si perde ** **.",
+          "Proprio mentre stai per finire la pozione, la vecchia strega ti fa cadere maldestramente il calderone addosso.{{lifeLoss}} :broken_heart:Si perde ** **.",
+          "Sebbene la pozione abbia un buon profumo, non è così salutare come si sperava.{{lifeLoss}} :broken_heart:Si perde ** **.",
+          "Il sapore della pozione è molto strano. Forse avresti dovuto ascoltare il tuo istinto e non assaggiarla...{{lifeLoss}} :broken_heart:Perdi ** **.",
+          "I fumi della pozione sono sufficienti a farvi ammalare. Te ne vai senza chiedere aiuto, ma non senza subire le conseguenze dell'inalazione dei fumi.{{lifeLoss}} :broken_heart:Si perde ** **.",
+          "Proprio quando l'anziana signora sta per versare l'ultima goccia nel calderone, si sente un tonfo. Il calderone sembra essere esploso.{{lifeLoss}} :broken_heart:Si perde ** **."
+        ],
+        "4": [
+          "Purtroppo la pozione sembra completamente carbonizzata e imbevibile. Decidete di non rischiare di berla e ve ne andate in fretta.",
+          "Finite la pozione con l'anziana signora, ma decidete di non consumarla, preferendo conservare la vostra salute per il resto della vostra avventura."
+        ]
+      }
+    },
+    "witchEventNames": {
+      "bat": "Aggiungere un pipistrello",
+      "beer": "Aggiungere birra",
+      "bigWait": "Lasciare riposare la pozione",
+      "bigWarm": "Far bollire a lungo la pozione",
+      "blood": "Aggiungere sangue",
+      "book": "Pronunciare un incantesimo dal libro degli incantesimi",
+      "bone": "Aggiungere un osso",
+      "cobweb": "Aggiungere una ragnatela",
+      "cool": "Lasciare raffreddare la pozione",
+      "chicken": "Aggiungere un pollo",
+      "crystalBall": "Recitare una formula magica",
+      "distiller": "Distillare la pozione",
+      "eye": "Aggiungere un occhio",
+      "frog": "Aggiungere una rana",
+      "greenApple": "Aggiungere una mela verde",
+      "heart": "Aggiungere un cuore",
+      "mushroom": "Aggiungere un fungo",
+      "nothing": "Non fare nulla",
+      "package": "Aggiungere un ingrediente misterioso",
+      "rat": "Aggiungere un ratto",
+      "redApple": "Aggiungere una mela rossa",
+      "rose": "Aggiungere una rosa",
+      "scorpion": "Aggiungere uno scorpione",
+      "smallWait": "Lasciare riposare la pozione per un po' di tempo.",
+      "smallWarm": "Scaldare un po' la pentola",
+      "snake": "Aggiungere un serpente",
+      "spider": "Aggiungere un ragno",
+      "stir": "Mescolare la pozione",
+      "teeth": "Aggiungere un dente",
+      "testTube": "Aggiungere una provetta",
+      "turtle": "Aggiungi una tartaruga",
+      "wand": "Lanciare un incantesimo",
+      "wiltedRose": "Aggiungere una rosa appassita",
+      "worm": "Aggiungere un verme"
+    }
   }
 }

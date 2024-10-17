@@ -477,5 +477,125 @@
       "Voltou": "O maior ladrão que este mundo já conheceu, diz-se que a sua fortuna é igual à do rei, e escondeu-a em todos os cantos do reino. Se o encontrares, não te esqueças de verificar os teus bolsos.",
       "Aiko": "uma batata selvagem que faz carne picada de todos os seus inimigos, apontando para as estrelas mais altas do universo"
     }
+  },
+  "witch": {
+    "intro": [
+      "encontra uma senhora idosa que parece querer que a siga. ",
+      "vê uma mulher idosa e decide aproximar-se dela. ",
+      "repara numa mulher idosa que lhe acena. ",
+      "repara na figura de uma senhora idosa e decide ir ver o que ela está a fazer. "
+    ],
+    "description": [
+      "Parece velha, frágil, com um nariz comprido e fino. ",
+      "As suas roupas estão num estado lastimável. Parecem estar a desfazer-se, como se fossem feitas de pó. ",
+      "Ela é curvada e esquelética, mas consegue-se ver a malícia nos seus olhos. ",
+      "Está vestida com retalhos de tecido baço e sujo. ",
+      "Lembrar-se-ão dos rumores sobre uma bruxa desajeitada que vagueava pelo reino. ",
+      "Completamente muda, parece danificada pelos anos, magra e ossuda, com a pele quase cinzenta. ",
+      "Ela parece não entender o que está a dizer. "
+    ],
+    "situation": [
+      "Entramos no que parece ser a sua cabana e descobrimos que ela está a preparar uma poção...",
+      "Descobre que um caldeirão está a borbulhar no fogo e que a velhota parece estar a preparar uma poção...",
+      "Aproxima-se dela e descobre que a preparação da poção não parece estar a correr como planeado...",
+      "Observa a velhota a preparar uma poção, mas repara que o conteúdo está quase a transbordar do caldeirão...",
+      "A velhota está a preparar uma poção, mas parece estar a ter dificuldade em obter um resultado satisfatório...",
+      "Parece que ela está a preparar uma mistura estranha num caldeirão enorme..."
+    ],
+    "witchEventResults": {
+      "ingredientIntros": [
+        "{{witchEvent}}Decide adicionar ** à poção na esperança de a melhorar...",
+        "{{witchEvent}}Decide tomar a poção em ** enquanto a bruxa está de costas...",
+        "{{witchEvent}}Aconselha a bruxa a ** ** a sua poção...",
+        "{{witchEvent}}Seguindo o teu conselho, a bruxa decide acrescentar ** à sua poção...",
+        "{{witchEvent}}Segue os seus instintos e decide ** ** a mistura duvidosa...",
+        "{{witchEvent}}Decide acrescentar ** à poção, na esperança de que melhore o resultado...",
+        "{{witchEvent}}Atreves-te a ** ** a poção...",
+        "{{witchEvent}}Depois de estudar o conteúdo do pote, decide ** ** olhar para a lista de ingredientes..."
+      ],
+      "adviceIntros": [
+        "{{witchEvent}}Com pena dela, aconselha-a a ** ** para obter um melhor resultado...",
+        "{{witchEvent}}Decide ajudar a bruxa, aconselhando-a a ** **..."
+      ],
+      "outcomes": {
+        "1": [
+          "Quando acabas de beber a poção, a bruxa dá-te um copo. Decides guardá-lo para o resto da tua aventura.",
+          "Graças à tua intervenção, a poção parece poder ser bebida. Decides guardar um pouco para o resto da tua aventura.",
+          "Depois de terminar a poção, a velhota deita um pouco dela num frasco e entrega-to. Aceita-a de bom grado, antes de continuar o seu caminho.",
+          "O resultado tem um sabor estranho, mas decides guardar um pouco da poção para o resto da tua aventura."
+        ],
+        "2": {
+          "time": [
+            "Ao retomar a viagem, apercebe-se de que esta paragem foi mais longa do que tinha previsto.{{lostTime}} :clock2:Perde ** Min **",
+            "Ao partir de novo, apercebe-se de quanto tempo perdeu com esta preparação.{{lostTime}} :clock2:Perde ** Min **",
+            "Ao refazer os seus passos, começa a arrepender-se do tempo que perdeu à espera desta preparação.{{lostTime}} :clock2:Perde ** Min **"
+          ],
+          "scared": [
+            "Depois de terminares a poção, decides tomar um gole. De imediato, és transportado para uma alucinação intensa. O teu futuro não parece muito promissor... :scream:",
+            "Assim que se diz a fórmula, prova-se o líquido. Não demora muito a arrepender-se da sua escolha. :scream:"
+          ],
+          "drunk": [
+            "Decides experimentar a poção, mas depressa te arrependes... Parece que um dos ingredientes ficou preso na tua garganta. :zany_face:",
+            "Parece que a poção tem um efeito surpreendente. Estás a sentir-te um pouco bêbado... :zany_face:"
+          ],
+          "sick": [
+            "Infelizmente, o cheiro da poção era um prenúncio dos seus efeitos. Depressa te arrependeste de ter confiado no talento da velha bruxa. :sick:",
+            "Apesar da tua intervenção, a poção não parece ter melhorado. Sente-se desconfortável... :sick:"
+          ],
+          "cold": [
+            "Decides experimentar a poção, que é muito fria. Mas a sensação de frio não passa e sentes cada parte do teu corpo a ficar mais fria... :cold_face:",
+            "Quando estavas prestes a terminar a poção, tropeçaste e caíste no abismo cheio de gelo onde planeavas colocar o pote. :cold_face:"
+          ]
+        },
+        "3": [
+          "Quando a poção está pronta, a bruxa dá-te um copo. Ainda a arder, deixas cair o copo desajeitadamente no teu pé.{{lifeLoss}} :broken_heart:Perdes ** **.",
+          "Quando estás prestes a terminar a poção, a bruxa velha deixa cair o caldeirão em cima de ti.{{lifeLoss}} :broken_heart:Perdes ** **.",
+          "Embora a poção cheire bem, não é tão saudável como esperavas.{{lifeLoss}} :broken_heart:Perdes ** **.",
+          "O sabor da poção é muito estranho. Talvez devesses ter ouvido os teus instintos e não a provasses...{{lifeLoss}} :broken_heart:Perdeste ** **.",
+          "Os vapores da poção são suficientes para o deixar doente. Sai sem pedir ajuda, mas não sem sofrer as consequências da inalação dos vapores.{{lifeLoss}} :broken_heart:Perdes ** **.",
+          "No momento em que a velhota está prestes a deitar a última gota no caldeirão, ouve-se um estrondo. O caldeirão parece ter explodido.{{lifeLoss}} :broken_heart:Perdeste ** **."
+        ],
+        "4": [
+          "Infelizmente, a poção parece estar completamente carbonizada e não pode ser bebida. Decide não se arriscar a bebê-la e vai-se embora rapidamente.",
+          "Termina a poção com a velhota, mas decide não a consumir, preferindo poupar a sua saúde para o resto da sua aventura."
+        ]
+      }
+    },
+    "witchEventNames": {
+      "bat": "Adicionar um taco",
+      "beer": "Adicionar cerveja",
+      "bigWait": "Deixar a poção repousar",
+      "bigWarm": "Ferver a poção durante muito tempo",
+      "blood": "Adicionar sangue",
+      "book": "Dizer um encantamento do livro de feitiços",
+      "bone": "Adicionar um osso",
+      "cobweb": "Adicionar uma teia de aranha",
+      "cool": "Deixar arrefecer a poção",
+      "chicken": "Adicionar um frango",
+      "crystalBall": "Recitar uma fórmula mágica",
+      "distiller": "Destilar a poção",
+      "eye": "Adicionar um olho",
+      "frog": "Adicionar uma rã",
+      "greenApple": "Adicionar uma maçã verde",
+      "heart": "Adicionar um coração",
+      "mushroom": "Adicionar um cogumelo",
+      "nothing": "Não fazer nada",
+      "package": "Adicionar um ingrediente misterioso",
+      "rat": "Adicionar um rato",
+      "redApple": "Adicionar uma maçã vermelha",
+      "rose": "Adicionar uma rosa",
+      "scorpion": "Adicionar um escorpião",
+      "smallWait": "Deixar a poção repousar durante algum tempo",
+      "smallWarm": "Aquecer um pouco a panela",
+      "snake": "Adicionar uma cobra",
+      "spider": "Adicionar uma aranha",
+      "stir": "Misturar a poção",
+      "teeth": "Adicionar um dente",
+      "testTube": "Adicionar um tubo de ensaio",
+      "turtle": "Adicionar uma tartaruga",
+      "wand": "Lançar um feitiço",
+      "wiltedRose": "Adicionar uma rosa murcha",
+      "worm": "Adicionar uma minhoca"
+    }
   }
 }

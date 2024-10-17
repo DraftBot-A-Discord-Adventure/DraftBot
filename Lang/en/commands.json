@@ -177,7 +177,7 @@
         "description": "Allows to sell a pet. The following conditions apply: \n - The selling price must be higher than `{{petSellMinPrice}}💰` and lower than `{{petSellMaxPrice}}💰`. \n- The seller will not earn money for the transaction, but guild experience. \n- The seller and the buyer cannot be part of the same guild."
       },
       "PET_TRADE": {
-        "description": "Offers to exchange your pet with the mentioned player's."
+        "description": "Offers to exchange your pet with the mentioned player."
       },
       "PET_TRANSFER": {
         "description": "Transfer a pet to or from a guild. If no number is given, your current pet will be transferred to the guild's shelter. Otherwise, your pet will be switched for the pet which position corresponds to the given number."
@@ -252,11 +252,16 @@
     "stockTitle": ":package: **{{pseudo}}'s items stock**",
     "title": ":briefcase: **{{pseudo}}'s inventory**",
     "weapons_one": "Weapon ({{count}}/{{max}}):",
-    "weapons_other": "Weapons ({{count}}/{{max}}):"
+    "weapons_other": "Weapons ({{count}}/{{max}}):",
+    "randomItemTitle": "{{pseudo}}, you found something!",
+    "randomItemFooter": "You already have a equipment, would you like to sell it?",
+    "randomItemFooterPotion": "Do you want to destroy your current potion?",
+    "acceptedTitle": "{{pseudo}}, you have received an equipment!",
+    "chooseItemToReplaceTitle": "Choose an object to replace"
   },
   "invite": {
     "discord": {
-      "main": "Join the community! Use this link: https://discord.gg/acGNvzEY92 :smiley:"
+      "main": "Join the community ! Use this link: https://discord.gg/acGNvzEY92 :smiley:"
     }
   },
   "language": {
@@ -287,7 +292,7 @@
         "name": "Portuguese"
       }
     },
-    "newLanguageSetDescription": "DraftBot will now speak in English with you! 🇬🇧",
+    "newLanguageSetDescription": "DraftBot will now speak in English with you ! 🇬🇧",
     "newLanguageSetTitle": "Language changed",
     "selectLanguage": "Select a language",
     "title": ":earth_africa: Language selection"
@@ -454,5 +459,23 @@
     "successTitle": "{{pseudo}}, changing the pet's nickname",
     "success": "Pet nickname changed to **{{name}}**!",
     "successNoName": "Your pet no longer has a nickname!"
+  },
+  "sell": {
+    "commandName": "sell",
+    "commandDescription": "Sell a equipment.",
+    "noItemToSell": "Unfortunately you don't have any items in your reserve!",
+    "confirmSell": "Are you sure you want to separate from {{item}} for **{{money}}** :moneybag:?",
+    "sellCanceled": "The sale was successfully cancelled!",
+    "sellTitle": "{{pseudo}}, confirmation:",
+    "soldMessage": "You sold {{item}} for **{{money}}** :moneybag:!",
+    "soldMessageTitle": "{{pseudo}}, you sold a equipment.",
+    "potionDestroyedTitle": "You have destroyed a potion.",
+    "potionDestroyedMessage": "The potion \"{{item}}\" has been poured into a sink.",
+    "soldMessageAlreadyOwnTitle": "{{pseudo}}, you have received a piece of equipment that you already have.",
+    "titleChoiceEmbed": "{{pseudo}}, Item Sale",
+    "sellField": "{{name}} | {{value}} {moneyIcon}",
+    "throwAwayField": "{{name}} | {{throwEmote}}",
+    "confirmThrowAway": "Are you sure you want to throw {{item}}?",
+    "sellIndication": "Choose an item for sale from the list below:"
   }
 }

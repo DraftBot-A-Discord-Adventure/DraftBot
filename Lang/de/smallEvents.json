@@ -477,5 +477,125 @@
       "Voltou": "Der größte Dieb, den die Welt je gesehen hat. Man sagt, sein Vermögen sei so groß wie das des Königs und er habe es in allen Ecken des Königreichs versteckt. Wenn Sie ihm begegnen, denken Sie daran, Ihre Taschen genau zu überprüfen.",
       "Aiko": "eine wilde Kartoffel, die alle ihre Feinde zu Brei macht und auf die höchsten Sterne dieses Universums zielt"
     }
+  },
+  "witch": {
+    "intro": [
+      "treffen Sie auf eine alte Frau, die anscheinend möchte, dass Sie ihr folgen. ",
+      "sehen Sie eine alte Frau und beschließen, sich ihr zu nähern. ",
+      "bemerken Sie eine ältere Frau, die Ihnen zuwinkt. ",
+      "fällt Ihnen die Silhouette einer alten Frau auf und Sie beschließen, nachzusehen, was sie macht. "
+    ],
+    "description": [
+      "Sie erscheint Ihnen alt und gebrechlich mit einer langen, dünnen Nase. ",
+      "Seine Kleidung ist in schlechtem Zustand. Sie scheinen in Stücke zu fallen und wie aus Staub zu bestehen. ",
+      "Sie ist gebeugt und skelettiert, aber ihr Blick erscheint Ihnen schelmisch. ",
+      "Sie ist mit stumpfen und schmutzigen Stofffetzen bekleidet. ",
+      "Sie erinnern sich an Gerüchte über eine tollpatschige Hexe, die durch das Königreich wandern soll. ",
+      "Sie ist dünn, knochig und hat eine fast graue Haut. ",
+      "Sie scheint nicht zu verstehen, was Sie zu ihr sagen. "
+    ],
+    "situation": [
+      "Du betrittst das, was anscheinend ihre Hütte ist, und entdeckst, dass sie einen Trank zubereitet...",
+      "Du entdeckst, dass ein Kessel auf dem Feuer brodelt und die alte Dame offenbar einen Trank zubereitet...",
+      "Du näherst dich und entdeckst, dass seine Zubereitung eines Tranks nicht wie geplant zu verlaufen scheint...",
+      "Du beobachtest, wie die alte Frau einen Trank zubereitet, stellst aber fest, dass der Inhalt fast über den Kessel hinausläuft...",
+      "Die alte Dame ist dabei, einen Trank zu brauen, aber es scheint ihr schwer zu fallen, ein zufriedenstellendes Ergebnis zu erzielen...",
+      "Es scheint, als würde sie in einem riesigen Kessel eine seltsame Mixtur zubereiten..."
+    ],
+    "witchEventResults": {
+      "ingredientIntros": [
+        "Du entscheidest dich für **{{witchEvent}}** den Trank in der Hoffnung, ihn zu verbessern...",
+        "Du triffst die Entscheidung, **{{witchEvent}}** an den Trank zu gehen, während die Hexe den Rücken...",
+        "Sie raten der Hexe, **{{witchEvent}}** zu ihrem Trank...",
+        "Ihrem Rat folgend beschließt die Hexe, **{{witchEvent}}** zu ihrem Zaubertrank...",
+        "Du folgst deinem Instinkt und entscheidest dich für **{{witchEvent}}** mit einer fragwürdigen Mischung...",
+        "Du entscheidest dich für **{{witchEvent}}** den Trank, in der Hoffnung, dass das Ergebnis dadurch besser wird...",
+        "Sie wagen es, **{{witchEvent}}** an den Trank...",
+        "Nachdem Sie den Inhalt des Kochtopfes untersucht haben, entscheiden Sie sich **{{witchEvent}}** für die Zutatenliste..."
+      ],
+      "adviceIntros": [
+        "Aus Mitleid raten Sie ihm, **{{witchEvent}}** zu wählen, um ein besseres Ergebnis zu erzielen...",
+        "Sie beschließen, der Hexe zu helfen, indem Sie ihr raten, **{{witchEvent}}**..."
+      ],
+      "outcomes": {
+        "1": [
+          "Nachdem der Trank fertig ist, reicht Ihnen die Hexe ein Glas. Sie beschließen, dieses für den Rest Ihres Abenteuers aufzuheben.",
+          "Dank Ihres Eingreifens scheint der Trank trinkbar zu sein. Du beschließt, etwas davon für den Rest deines Abenteuers aufzuheben.",
+          "Nachdem die alte Frau den Trank fertiggestellt hat, schüttet sie einen Teil davon in ein Fläschchen, das sie Ihnen überreicht. Sie nehmen ihn freudig an, bevor Sie sich wieder auf den Weg machen.",
+          "Das erhaltene Ergebnis schmeckt seltsam, aber du beschließt, etwas von dem Trank für dein weiteres Abenteuer aufzuheben."
+        ],
+        "2": {
+          "time": [
+            "Als Sie Ihre Fahrt fortsetzen, stellen Sie fest, dass dieser Stopp länger gedauert hat, als Sie erwartet hatten. Sie verlieren **{{lostTime}} Min :clock2:**.",
+            "Während Sie sich auf den Weg machen, fällt Ihnen auf, wie viel Zeit Sie mit der Vorbereitung verschwendet haben. Sie verlieren **{{lostTime}} Min :clock2:**",
+            "Wenn Sie zurückgehen, beginnen Sie die Zeit zu bereuen, die Sie mit dem Warten auf diese Vorbereitung verschwendet haben. Sie verlieren **{{lostTime}} Min :clock2:**"
+          ],
+          "scared": [
+            "Nachdem der Trank fertig ist, beschließen Sie, einen kleinen Schluck zu trinken. Sofort werden Sie durch eine intensive Halluzination transportiert. Ihre Zukunft scheint nicht sehr vielversprechend zu sein... :scream:",
+            "Kaum haben Sie die Formel ausgesprochen, probieren Sie auch schon die Flüssigkeit. Sie werden von einer Panikattacke gepackt und bereuen Ihre Entscheidung bald. :scream:"
+          ],
+          "drunk": [
+            "Du beschließt, den Trank zu probieren und bereust es schnell... Es scheint, als würde Ihnen eine der Zutaten im Hals stecken bleiben. :zany_face:",
+            "Es scheint, dass der Trank eine überraschende Wirkung hat. Sie fühlen sich ein wenig betrunken... :zany_face:"
+          ],
+          "sick": [
+            "Leider kündigte der Geruch des Tranks seine Wirkung an. Sie bereuen schnell, dass Sie sich auf das Talent der alten Hexe verlassen haben. :sick:",
+            "Trotz Ihres Eingreifens scheint der Trank nicht besser geworden zu sein. Sie fühlen sich unwohl... :sick:"
+          ],
+          "cold": [
+            "Sie beschließen, den Trank zu probieren, der sehr kalt ist. Das Kältegefühl verschwindet jedoch nicht und Sie spüren hilflos, wie jedes Ihrer Glieder kalt wird... :cold_face:",
+            "Gerade als du den Trank fertigstellen willst, stolperst du und fällst in den eisgefüllten Abgrund, in dem du den Topf abstellen wolltest. :cold_face:"
+          ]
+        },
+        "3": [
+          "Nachdem der Trank fertig ist, reicht dir die Hexe ein Glas. Das Glas ist noch glühend heiß und du lässt es ungeschickt auf deinen Fuß fallen. Sie verlieren **{{lifeLoss}} :broken_heart:**.",
+          "Als Sie den Trank fertigstellen wollten, wurden Sie Opfer der Ungeschicklichkeit der alten Hexe, die den Kessel auf Sie fallen ließ. Sie verlieren **{{lifeLoss}} :broken_heart:**.",
+          "Obwohl der Trank gut riecht, ist er nicht so gesundheitsfördernd, wie Sie vielleicht erwartet hätten. Sie verlieren **{{lifeLoss}} :broken_heart:**.",
+          "Der Geschmack des Tranks ist sehr seltsam. Vielleicht hätten Sie auf Ihren Instinkt hören und ihn nicht probieren sollen... Sie verlieren **{{lifeLoss}} :broken_heart:**.",
+          "Die Dämpfe des Tranks haben ausgereicht, um Sie krank zu machen. Sie gehen ohne zu fragen, aber nicht ohne die Folgen des Einatmens der Dämpfe zu spüren. Sie verlieren **{{lifeLoss}} :broken_heart:**.",
+          "Als die alte Frau den letzten Tropfen in den Topf gießen will, ist ein dumpfer Knall zu hören. Es scheint, als sei der Kessel explodiert. Du verlierst **{{lifeLoss}} :broken_heart:**."
+        ],
+        "4": [
+          "Leider scheint der Trank völlig verkohlt und ungenießbar zu sein. Sie beschließen, nicht das Risiko einzugehen, ihn zu trinken, und machen sich schnell wieder auf den Weg.",
+          "Sie beenden den Trank mit der alten Frau, entscheiden sich aber, ihn nicht zu konsumieren, da Sie Ihre Gesundheit lieber für den Rest Ihres Abenteuers aufsparen möchten."
+        ]
+      }
+    },
+    "witchEventNames": {
+      "bat": "Fledermaus hinzufügen",
+      "beer": "Bier hinzufügen",
+      "bigWait": "Den Trank stehen lassen",
+      "bigWarm": "Den Trank lange kochen",
+      "blood": "Blut hinzufügen",
+      "book": "Einen Zauberspruch aus dem Zauberbuch sprechen",
+      "bone": "Knochen hinzufügen",
+      "cobweb": "Spinnennetz hinzufügen",
+      "cool": "Den Trank abkühlen lassen",
+      "chicken": "Ein Huhn hinzufügen",
+      "crystalBall": "Eine Zauberformel aufsagen",
+      "distiller": "Den Trank destillieren",
+      "eye": "Auge hinzufügen",
+      "frog": "Einen Frosch hinzufügen",
+      "greenApple": "Einen grünen Apfel hinzufügen",
+      "heart": "Ein Herz hinzufügen",
+      "mushroom": "Einen Pilz hinzufügen",
+      "nothing": "Nichts tun",
+      "package": "Eine geheimnisvolle Zutat hinzufügen",
+      "rat": "Ratte hinzufügen",
+      "redApple": "Einen roten Apfel hinzufügen",
+      "rose": "Eine Rose hinzufügen",
+      "scorpion": "Skorpion hinzufügen",
+      "smallWait": "Den Trank ein ganz klein wenig stehen lassen",
+      "smallWarm": "Den Topf ein wenig aufwärmen",
+      "snake": "Schlange hinzufügen",
+      "spider": "Spinne hinzufügen",
+      "stir": "Den Trank mischen",
+      "teeth": "Einen Zahn hinzufügen",
+      "testTube": "Ein Reagenzglas hinzufügen",
+      "turtle": "Schildkröte hinzufügen",
+      "wand": "Einen Zauberspruch sprechen",
+      "wiltedRose": "Eine verwelkte Rose hinzufügen",
+      "worm": "Einen Wurm hinzufügen"
+    }
   }
 }

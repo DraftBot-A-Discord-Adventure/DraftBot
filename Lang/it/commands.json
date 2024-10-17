@@ -55,12 +55,12 @@
     "notRanked": "Non Classificato"
   },
   "guildCreate": {
-    "title": "{{pseudo}}creare una gilda",
-    "canceledTitle": "{{pseudo}}l'annullamento della creazione di una gilda.",
-    "canceledDesc": "La creazione della vostra gilda è stata annullata.",
-    "confirmDesc": ":question:{{guildName}}{{price}} :moneybag: Confermare la creazione della gilda ** ** per ` `?",
+    "title": "{{pseudo}}, creare una gilda",
+    "canceledTitle": "{{pseudo}}, creazione delle gilda annullata.",
+    "canceledDesc": "La Creazione della vostra Gilda è stata annullata.",
+    "confirmDesc": ":question: Confermare la creazione della gilda **{{guildName}}** per `{{price}}` :moneybag: ?",
     "acceptedFooter": "Lo staff si riserva il diritto di rinominare la gilda.",
-    "acceptedDesc": "{{guildName}}La gilda ** ** è stata creata!"
+    "acceptedDesc": "La gilda **{{guildName}}** è stata creata !"
   },
   "help": {
     "aliasFieldTitle": "Alias",
@@ -252,7 +252,12 @@
     "stockTitle": ":package: **Riserva d'oggetti di {{pseudo}}**",
     "title": ":briefcase: **Inventario di {{pseudo}}**",
     "weapons_one": "Arma ({{count}}/{{max}}) :",
-    "weapons_other": "Armi ({{count}}/{{max}}) :"
+    "weapons_other": "Armi ({{count}}/{{max}}) :",
+    "randomItemTitle": "{{pseudo}}, avete trovato qualcosa !",
+    "randomItemFooter": "Possedete già un'attrezzatura, volete venderla ?",
+    "randomItemFooterPotion": "Volete distruggere la vostra pozione attuale ?",
+    "acceptedTitle": "{{pseudo}}, avete ricevuto un equipaggiamento !",
+    "chooseItemToReplaceTitle": "Scegliete un oggetto da sostituire"
   },
   "invite": {
     "discord": {
@@ -444,15 +449,33 @@
     }
   },
   "petFree": {
-    "title": "{{pseudo}}liberare un familiare",
-    "canceledTitle": "{{pseudo}}cancellazione del rilascio.",
+    "title": "{{pseudo}}, liberare un animale di compagnia",
+    "canceledTitle": "{{pseudo}}, cancellazione del rilascio.",
     "canceledDesc": "L'animale non è stato rilasciato.",
-    "confirmDesc": ":warning:{{pet}}Siete sicuri di voler rilasciare ** **? Non è possibile annullare una volta completata l'azione.",
+    "confirmDesc": ":warning: Siete sicuri di voler rilasciare **{{pet}}** ? Non è possibile annullare una volta completata l'azione.",
     "acceptedDesc": "{{pet}}Addio ** **..."
   },
   "petNick": {
     "successTitle": "{{pseudo}}cambiare il soprannome dell'animale domestico",
     "success": "{{name}}Il soprannome dell'animale domestico è stato cambiato in ** ** !",
     "successNoName": "Il vostro animale non ha più un soprannome!"
+  },
+  "sell": {
+    "commandName": "vendere",
+    "commandDescription": "Vendita di attrezzature.",
+    "noItemToSell": "Purtroppo non hai nessun articolo nella tua scorta!",
+    "confirmSell": "{{item}}{{money}} :moneybag: Sei sicuro di volerti separare da ** **?",
+    "sellCanceled": "La vendita è stata annullata!",
+    "sellTitle": "{{pseudo}}conferma :",
+    "soldMessage": "{{item}}{{money}} :moneybag: Avete venduto per ** ** !",
+    "soldMessageTitle": "{{pseudo}}avete venduto un'apparecchiatura.",
+    "potionDestroyedTitle": "Hai distrutto una pozione.",
+    "potionDestroyedMessage": "{{item}}La pozione è stata versata in un lavandino.",
+    "soldMessageAlreadyOwnTitle": "{{pseudo}}Avete ricevuto un'apparecchiatura che già possedevate.",
+    "titleChoiceEmbed": "{{pseudo}}vendita di oggetti",
+    "sellField": "{{name}} {{value}} {moneyIcon}|",
+    "throwAwayField": "{{name}} {{throwEmote}}|",
+    "confirmThrowAway": "{{item}} Sei sicuro di voler buttare via tutto?",
+    "sellIndication": "Scegliete un articolo da vendere dall'elenco sottostante:"
   }
 }
