@@ -17,7 +17,7 @@ export class DiscordMQTT {
 		DiscordMQTT.mqttClient = connect(discordConfig.MQTT_HOST);
 
 		DiscordMQTT.mqttClient.on("connect", () => {
-			DiscordMQTT.mqttClient.subscribe("draftbot_front", (err) => {
+			DiscordMQTT.mqttClient.subscribe("draftbot_discord", (err) => {
 				if (err) {
 					console.error(err);
 				}
