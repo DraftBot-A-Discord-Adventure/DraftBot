@@ -1,5 +1,4 @@
 import {packetHandler} from "../PacketHandler";
-import {WebSocket} from "ws";
 import {PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {DiscordCache} from "../../bot/DiscordCache";
 import i18n from "../../translations/i18n";
@@ -11,7 +10,7 @@ import {keycloakConfig} from "../../bot/DraftBotShard";
 
 export default class ErrorHandler {
 	@packetHandler(ErrorPacket)
-	async errorHandler(socket: WebSocket, packet: ErrorPacket, context: PacketContext): Promise<void> {
+	async errorHandler(packet: ErrorPacket, context: PacketContext): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		const embed = new DraftBotEmbed()
 			.setErrorColor()
@@ -22,7 +21,7 @@ export default class ErrorHandler {
 	}
 
 	@packetHandler(BlockedPacket)
-	async blockedHandler(socket: WebSocket, packet: BlockedPacket, context: PacketContext): Promise<void> {
+	async blockedHandler(packet: BlockedPacket, context: PacketContext): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		const otherPlayer = context.keycloakId !== packet.keycloakId;
 		const originalUser = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;

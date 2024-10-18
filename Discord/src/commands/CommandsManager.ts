@@ -28,11 +28,12 @@ import {DraftBotReactionMessageBuilder} from "../messages/DraftBotReactionMessag
 import {DraftBotReaction} from "../messages/DraftBotReaction";
 import {KeycloakUtils} from "../../../Lib/src/keycloak/KeycloakUtils";
 import {DraftbotChannel, DraftbotInteraction} from "../messages/DraftbotInteraction";
-import {DiscordWebSocket} from "../bot/Websocket";
+import {DiscordMQTT} from "../bot/Websocket";
 import {PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
 import {DiscordCache} from "../bot/DiscordCache";
 import {BotUtils} from "../utils/BotUtils";
 import {LANGUAGE} from "../../../Lib/src/Language";
+import {PacketUtils} from "../utils/PacketUtils";
 
 export class CommandsManager {
 	static commands = new Map<string, ICommand>();
@@ -389,13 +390,8 @@ export class CommandsManager {
 					language: interaction.userLanguage
 				}
 			};
-			DiscordWebSocket.socket!.send(JSON.stringify({
-				packet: {
-					name: packet.constructor.name,
-					data: packet
-				},
-				context
-			}));
+
+			PacketUtils.sendPacketToBackend(context, packet);
 		}
 	}
 

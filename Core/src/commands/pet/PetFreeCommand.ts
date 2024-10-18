@@ -1,5 +1,4 @@
 import {packetHandler} from "../../core/packetHandlers/PacketHandler";
-import {WebsocketClient} from "../../../../Lib/src/instances/WebsocketClient";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {Player, Players} from "../../core/database/game/models/Player";
 import {PetEntities, PetEntity} from "../../core/database/game/models/PetEntity";
@@ -110,7 +109,7 @@ async function acceptPetFree(player: Player, playerPet: PetEntity, response: Dra
 export default class PetFreeCommand {
 
 	@packetHandler(CommandPetFreePacketReq)
-	async execute(client: WebsocketClient, packet: CommandPetFreePacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
+	async execute(packet: CommandPetFreePacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
 		const player = await Players.getByKeycloakId(packet.keycloakId);
 		if (BlockingUtils.appendBlockedPacket(player, response)) {
 			return;

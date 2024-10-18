@@ -1,6 +1,4 @@
 import {DraftBotPacket, PacketContext} from "./DraftBotPacket";
-import {WebsocketClient} from "../instances/WebsocketClient";
-import {WebSocket} from "ws";
 
 export class PacketListenerServer {
 	private packetCallbacks: Map<string, PacketListenerCallbackServer<DraftBotPacket>> = new Map<string, PacketListenerCallbackServer<DraftBotPacket>>();
@@ -22,7 +20,7 @@ export class PacketListenerServer {
 	}
 }
 
-export type PacketListenerCallbackServer<T extends DraftBotPacket> = (socket: WebsocketClient, packet: T, context: PacketContext, response: DraftBotPacket[]) => void | Promise<void>;
+export type PacketListenerCallbackServer<T extends DraftBotPacket> = (packet: T, context: PacketContext, response: DraftBotPacket[]) => void | Promise<void>;
 
 export class PacketListenerClient {
 	private packetCallbacks: Map<string, PacketListenerCallbackClient<DraftBotPacket>> = new Map<string, PacketListenerCallbackClient<DraftBotPacket>>();
@@ -44,4 +42,4 @@ export class PacketListenerClient {
 	}
 }
 
-export type PacketListenerCallbackClient<T extends DraftBotPacket> = (socket: WebSocket, packet: T, context: PacketContext) => Promise<void>;
+export type PacketListenerCallbackClient<T extends DraftBotPacket> = (packet: T, context: PacketContext) => Promise<void>;

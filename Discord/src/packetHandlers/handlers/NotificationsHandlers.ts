@@ -1,5 +1,4 @@
 import {packetHandler} from "../PacketHandler";
-import {WebSocket} from "ws";
 import {PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {DiscordCache} from "../../bot/DiscordCache";
 import i18n from "../../translations/i18n";
@@ -19,7 +18,7 @@ import {PlayerReceivePetPacket} from "../../../../Lib/src/packets/notifications/
 
 export default class NotificationsHandlers {
 	@packetHandler(CommandReportChooseDestinationRes)
-	async chooseDestinationRes(socket: WebSocket, packet: CommandReportChooseDestinationRes, context: PacketContext): Promise<void> {
+	async chooseDestinationRes(packet: CommandReportChooseDestinationRes, context: PacketContext): Promise<void> {
 		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 
@@ -59,37 +58,37 @@ export default class NotificationsHandlers {
 	}
 
 	@packetHandler(GuildLevelUpPacket)
-	async guildLevelUp(socket: WebSocket, packet: GuildLevelUpPacket, context: PacketContext): Promise<void> {
+	async guildLevelUp(packet: GuildLevelUpPacket, context: PacketContext): Promise<void> {
 		// Todo
 	}
 
 	@packetHandler(MissionsCompletedPacket)
-	async missionsCompleted(socket: WebSocket, packet: MissionsCompletedPacket, context: PacketContext): Promise<void> {
+	async missionsCompleted(packet: MissionsCompletedPacket, context: PacketContext): Promise<void> {
 		// Todo
 	}
 
 	@packetHandler(MissionsExpiredPacket)
-	async missionsExpired(socket: WebSocket, packet: MissionsExpiredPacket, context: PacketContext): Promise<void> {
+	async missionsExpired(packet: MissionsExpiredPacket, context: PacketContext): Promise<void> {
 		// Todo
 	}
 
 	@packetHandler(PlayerDeathPacket)
-	async playerDeath(socket: WebSocket, packet: PlayerDeathPacket, context: PacketContext): Promise<void> {
+	async playerDeath(packet: PlayerDeathPacket, context: PacketContext): Promise<void> {
 		// Todo
 	}
 
 	@packetHandler(PlayerLeavePveIslandPacket)
-	async playerLeavePveIsland(socket: WebSocket, packet: PlayerLeavePveIslandPacket, context: PacketContext): Promise<void> {
+	async playerLeavePveIsland(packet: PlayerLeavePveIslandPacket, context: PacketContext): Promise<void> {
 		// Todo
 	}
 
 	@packetHandler(PlayerLevelUpPacket)
-	async playerLevelUp(socket: WebSocket, packet: PlayerLevelUpPacket, context: PacketContext): Promise<void> {
+	async playerLevelUp(packet: PlayerLevelUpPacket, context: PacketContext): Promise<void> {
 		// Todo
 	}
 
 	@packetHandler(PlayerReceivePetPacket)
-	async playerReceivePet(socket: WebSocket, packet: PlayerReceivePetPacket, context: PacketContext): Promise<void> {
+	async playerReceivePet(packet: PlayerReceivePetPacket, context: PacketContext): Promise<void> {
 		// Todo
 	}
 

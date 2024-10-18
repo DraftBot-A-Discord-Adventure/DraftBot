@@ -4,6 +4,9 @@ maintenance = false
 # Boolean to tell if the bot is under test mode
 test_mode = false
 
+[mqtt]
+# The MQTT server host
+host = "mqtt://127.0.0.1"
 
 [database]
 # Database name prefix

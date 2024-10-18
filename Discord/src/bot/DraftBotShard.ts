@@ -5,7 +5,7 @@ import i18n from "../translations/i18n";
 import {BotUtils} from "../utils/BotUtils";
 import {KeycloakConfig} from "../../../Lib/src/keycloak/KeycloakConfig";
 import {CommandsManager} from "../commands/CommandsManager";
-import {DiscordWebSocket} from "./Websocket";
+import {DiscordMQTT} from "./Websocket";
 
 process.on("uncaughtException", function(error) {
 	console.log(error);
@@ -134,7 +134,7 @@ async function main(): Promise<void> {
 	await client.login(discordConfig.DISCORD_CLIENT_TOKEN);
 
 	await CommandsManager.register(client, shardId === 0);
-	await DiscordWebSocket.init();
+	await DiscordMQTT.init();
 }
 
 main().then();

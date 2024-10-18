@@ -18,14 +18,13 @@
 	},
 	"dependencies": {
 		"@types/node": "20.4.8",
-		"@types/ws": "^8.5.10",
 		"mariadb": "3.0.2",
+		"mqtt": "^5.10.1",
 		"random-js": "^2.1.0",
 		"sequelize": "6.32.1",
 		"source-map-support": "^0.5.21",
 		"toml": "3.0.0",
-		"umzug": "3.2.1",
-		"ws": "^8.14.2"
+		"umzug": "3.2.1"
 	},
 	"devDependencies": {
 		"@typescript-eslint/eslint-plugin": "^6.21.0",

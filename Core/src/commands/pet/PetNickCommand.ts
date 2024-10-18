@@ -1,5 +1,4 @@
 import {packetHandler} from "../../core/packetHandlers/PacketHandler";
-import {WebsocketClient} from "../../../../Lib/src/instances/WebsocketClient";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {Players} from "../../core/database/game/models/Player";
 import {PetEntities} from "../../core/database/game/models/PetEntity";
@@ -14,7 +13,7 @@ import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
 export default class PetNickCommand {
 
 	@packetHandler(CommandPetNickPacketReq)
-	async execute(client: WebsocketClient, packet: CommandPetNickPacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
+	async execute(packet: CommandPetNickPacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
 		const player = await Players.getByKeycloakId(packet.keycloakId);
 		const playerPet = await PetEntities.getById(player.petId);
 

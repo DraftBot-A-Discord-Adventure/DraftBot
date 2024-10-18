@@ -26,13 +26,13 @@ const smallEventsKeysLower = smallEventsKeys.map(seName => seName.toLowerCase())
 /**
  * Force a small event with a given event name
  */
-const smallEventTestCommand: ExecuteTestCommandLike = async (player, args, response, context, client) => {
+const smallEventTestCommand: ExecuteTestCommandLike = async (player, args, response, context) => {
 	const keyPos = smallEventsKeysLower.indexOf(args[0].toLowerCase());
 	if (keyPos === -1) {
 		throw new Error(`Erreur smallEvent : le mini-event ${args[0]} n'existe pas. Veuillez vous référer à la commande "test help smallEvent" pour plus d'informations`);
 	}
 
-	await ReportCommand.execute(client, makePacket(CommandReportPacketReq, {keycloakId: player.keycloakId}), context, response, null, args[0]);
+	await ReportCommand.execute(makePacket(CommandReportPacketReq, {keycloakId: player.keycloakId}), context, response, null, args[0]);
 	return `Mini event \`${smallEventsKeys[keyPos]}\` forcé !`;
 };
 

@@ -1,5 +1,4 @@
 import {packetHandler} from "../../core/packetHandlers/PacketHandler";
-import {WebsocketClient} from "../../../../Lib/src/instances/WebsocketClient";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {Players} from "../../core/database/game/models/Player";
 import {Guild, Guilds} from "../../core/database/game/models/Guild";
@@ -9,7 +8,7 @@ import {MapCache} from "../../core/maps/MapCache";
 
 export default class GuildCommand {
 	@packetHandler(CommandGuildPacketReq)
-	async execute(client: WebsocketClient, packet: CommandGuildPacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
+	async execute(packet: CommandGuildPacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
 		let guild: Guild;
 		const player = packet.askedPlayer.keycloakId ? await Players.getByKeycloakId(packet.askedPlayer.keycloakId) : await Players.getByRank(packet.askedPlayer.rank);
 		if (packet.askedGuildName) {

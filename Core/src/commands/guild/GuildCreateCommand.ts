@@ -1,5 +1,4 @@
 import {packetHandler} from "../../core/packetHandlers/PacketHandler";
-import {WebsocketClient} from "../../../../Lib/src/instances/WebsocketClient";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {Player, Players} from "../../core/database/game/models/Player";
 import {Guild, Guilds} from "../../core/database/game/models/Guild";
@@ -113,7 +112,7 @@ async function acceptGuildCreate(player: Player, guildName: string, response: Dr
 
 export default class GuildCreateCommand {
 	@packetHandler(CommandGuildCreatePacketReq)
-	async execute(client: WebsocketClient, packet: CommandGuildCreatePacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
+	async execute(packet: CommandGuildCreatePacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
 
 		const player = await Players.getByKeycloakId(packet.keycloakId);
 		if (!await canCreateGuild(player, packet.askedGuildName, response)) {

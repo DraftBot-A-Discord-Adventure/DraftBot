@@ -12,7 +12,6 @@ import {sendInteractionNotForYou} from "../utils/ErrorUtils";
 import {ReactionCollectorWitchReaction} from "../../../Lib/src/packets/interaction/ReactionCollectorWitch";
 import {getRandomSmallEventIntro} from "../packetHandlers/handlers/SmallEventsHandler";
 import {StringUtils} from "../utils/StringUtils";
-import {WebSocket} from "ws";
 import {SmallEventWitchResultPacket} from "../../../Lib/src/packets/smallEvents/SmallEventWitchPacket";
 import {Effect} from "../../../Lib/src/enums/Effect";
 import {WitchActionOutcomeType} from "../../../Lib/src/enums/WitchActionOutcomeType";
@@ -91,7 +90,7 @@ export async function witchCollector(packet: ReactionCollectorCreationPacket, co
 	});
 }
 
-export async function witchResult(socket: WebSocket, packet: SmallEventWitchResultPacket, context: PacketContext): Promise<void> {
+export async function witchResult(packet: SmallEventWitchResultPacket, context: PacketContext): Promise<void> {
 	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 	const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 	if (interaction) {

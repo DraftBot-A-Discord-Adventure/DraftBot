@@ -13,6 +13,7 @@ import {getNextDay2AM} from "../../../../Lib/src/utils/TimeUtils";
 import {TIMEOUT_FUNCTIONS} from "../../../../Lib/src/constants/TimeoutFunctionsConstants";
 import {MapCache} from "../maps/MapCache";
 import {registerAllPacketHandlers} from "../packetHandlers/PacketHandler";
+import { Logger } from "../../../../Lib/src/instances/Logger";
 
 export class DraftBot {
 	public readonly packetListener: PacketListenerServer;
@@ -20,6 +21,8 @@ export class DraftBot {
 	public readonly gameDatabase: GameDatabase;
 
 	public readonly logsDatabase: LogsDatabase;
+
+	public readonly logger = Logger.getInstance("DraftBot");
 
 	private config: DraftBotConfig;
 

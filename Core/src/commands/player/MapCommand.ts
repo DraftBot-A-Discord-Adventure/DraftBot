@@ -1,7 +1,6 @@
 import {packetHandler} from "../../core/packetHandlers/PacketHandler";
 import {CommandMapDisplayRes, CommandMapPacketReq} from "../../../../Lib/src/packets/commands/CommandMapPacket";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {WebsocketClient} from "../../../../Lib/src/instances/WebsocketClient";
 import {Player, Players} from "../../core/database/game/models/Player";
 import {MapLocation} from "../../data/MapLocation";
 import {Language} from "../../../../Lib/src/Language";
@@ -55,7 +54,7 @@ function getMapInformation(player: Player, destination: MapLocation, isInEvent: 
 
 export class MapCommand {
 	@packetHandler(CommandMapPacketReq)
-	async execute(client: WebsocketClient, packet: CommandMapPacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
+	async execute(packet: CommandMapPacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
 		const player = await Players.getByKeycloakId(packet.keycloakId);
 
 		if (!player) {

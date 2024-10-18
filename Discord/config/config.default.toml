@@ -5,8 +5,10 @@ token = ""
 main_server_id = ""
 # Test mode
 test_mode = false
-# Websocket URL
-websocket_url = "http://127.0.0.1:7071"
+
+[mqtt]
+# MQTT host
+host = "mqtt://127.0.0.1"
 
 [users]
 # The bot will use this to check if you can use admins commands
