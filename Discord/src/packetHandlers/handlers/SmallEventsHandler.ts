@@ -554,7 +554,7 @@ export default class SmallEventsHandler {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (interaction) {
 			let translationKey;
-			if (packet.isPetReceived) {
+			if (!packet.isPetReceived) {
 				translationKey = packet.isPetFood ? "smallEvents:findPet.food" : "smallEvents:findPet.noFood";
 			}
 			else {
