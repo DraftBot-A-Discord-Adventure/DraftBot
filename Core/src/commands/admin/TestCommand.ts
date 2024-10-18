@@ -3,12 +3,11 @@ import {CommandTestPacketReq, CommandTestPacketRes} from "../../../../Lib/src/pa
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {CommandsTest} from "../../core/CommandsTest";
 import {packetHandler} from "../../core/packetHandlers/PacketHandler";
-import {WebsocketClient} from "../../../../Lib/src/instances/WebsocketClient";
 import {Players} from "../../core/database/game/models/Player";
 
 export default class TestCommand {
 	@packetHandler(CommandTestPacketReq)
-	async execute(client: WebsocketClient, packet: CommandTestPacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
+	async execute(packet: CommandTestPacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
 		if (!botConfig.TEST_MODE) {
 			return;
 		}
@@ -56,7 +55,7 @@ export default class TestCommand {
 				// Last, we execute the test command
 				try {
 					const player = await Players.getOrRegister(packet.keycloakId);
-					const messageToDisplay = await commandTestCurrent.execute(player, argsTest, response, context, client);
+					const messageToDisplay = await commandTestCurrent.execute(player, argsTest, response, context);
 
 					response.push(makePacket(CommandTestPacketRes, {
 						commandName: testCommand,

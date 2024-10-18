@@ -1,5 +1,4 @@
 import {packetHandler} from "../PacketHandler";
-import {WebSocket} from "ws";
 import {PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {SmallEventAdvanceTimePacket} from "../../../../Lib/src/packets/smallEvents/SmallEventAdvanceTimePacket";
 import {DiscordCache} from "../../bot/DiscordCache";
@@ -49,7 +48,6 @@ import {SmallEventWitchResultPacket} from "../../../../Lib/src/packets/smallEven
 import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {witchResult} from "../../smallEvents/witch";
 import {DisplayUtils} from "../../utils/DisplayUtils";
-import {ItemCategory} from "../../../../Lib/src/constants/ItemConstants";
 
 export function getRandomSmallEventIntro(language: Language): string {
 	return StringUtils.getRandomTranslation("smallEvents:intro", language);
@@ -57,7 +55,7 @@ export function getRandomSmallEventIntro(language: Language): string {
 
 export default class SmallEventsHandler {
 	@packetHandler(SmallEventAdvanceTimePacket)
-	async smallEventAdvanceTime(socket: WebSocket, packet: SmallEventAdvanceTimePacket, context: PacketContext): Promise<void> {
+	async smallEventAdvanceTime(packet: SmallEventAdvanceTimePacket, context: PacketContext): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (interaction) {
 			const description = getRandomSmallEventIntro(interaction.userLanguage)
@@ -67,7 +65,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventBigBadPacket)
-	async smallEventBigBad(socket: WebSocket, packet: SmallEventBigBadPacket, context: PacketContext): Promise<void> {
+	async smallEventBigBad(packet: SmallEventBigBadPacket, context: PacketContext): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (interaction) {
 			let story: string;
@@ -91,7 +89,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventBoatAdvicePacket)
-	async smallEventBoatAdvice(socket: WebSocket, packet: SmallEventBoatAdvicePacket, context: PacketContext): Promise<void> {
+	async smallEventBoatAdvice(packet: SmallEventBoatAdvicePacket, context: PacketContext): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (interaction) {
 			const description = StringUtils.getRandomTranslation(
@@ -104,7 +102,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventGoToPVEIslandAcceptPacket)
-	async smallEventGoToPVEIslandAccept(socket: WebSocket, packet: SmallEventGoToPVEIslandAcceptPacket, context: PacketContext): Promise<void> {
+	async smallEventGoToPVEIslandAccept(packet: SmallEventGoToPVEIslandAcceptPacket, context: PacketContext): Promise<void> {
 		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 		if (interaction) {
@@ -126,7 +124,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventGoToPVEIslandRefusePacket)
-	async smallEventGoToPVEIslandRefuse(socket: WebSocket, packet: SmallEventGoToPVEIslandRefusePacket, context: PacketContext): Promise<void> {
+	async smallEventGoToPVEIslandRefuse(packet: SmallEventGoToPVEIslandRefusePacket, context: PacketContext): Promise<void> {
 		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 		if (interaction) {
@@ -143,7 +141,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventGoToPVEIslandNotEnoughGemsPacket)
-	async smallEventGoToPVEIslandNotEnoughGems(socket: WebSocket, packet: SmallEventGoToPVEIslandNotEnoughGemsPacket, context: PacketContext): Promise<void> {
+	async smallEventGoToPVEIslandNotEnoughGems(packet: SmallEventGoToPVEIslandNotEnoughGemsPacket, context: PacketContext): Promise<void> {
 		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 		if (interaction) {
@@ -160,7 +158,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventLotteryNoAnswerPacket)
-	async smallEventLotteryNoAnswer(socket: WebSocket, packet: SmallEventLotteryNoAnswerPacket, context: PacketContext): Promise<void> {
+	async smallEventLotteryNoAnswer(packet: SmallEventLotteryNoAnswerPacket, context: PacketContext): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (interaction) {
 			await interaction.editReply({
@@ -172,7 +170,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventLotteryPoorPacket)
-	async smallEventLotteryPoor(socket: WebSocket, packet: SmallEventLotteryPoorPacket, context: PacketContext): Promise<void> {
+	async smallEventLotteryPoor(packet: SmallEventLotteryPoorPacket, context: PacketContext): Promise<void> {
 		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 		if (interaction) {
@@ -189,7 +187,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventLotteryLosePacket)
-	async smallEventLotteryLose(socket: WebSocket, packet: SmallEventLotteryLosePacket, context: PacketContext): Promise<void> {
+	async smallEventLotteryLose(packet: SmallEventLotteryLosePacket, context: PacketContext): Promise<void> {
 		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 		if (interaction) {
@@ -211,7 +209,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventLotteryWinPacket)
-	async smallEventLotteryWin(socket: WebSocket, packet: SmallEventLotteryWinPacket, context: PacketContext): Promise<void> {
+	async smallEventLotteryWin(packet: SmallEventLotteryWinPacket, context: PacketContext): Promise<void> {
 		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 		if (interaction) {
@@ -257,7 +255,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventInteractOtherPlayersPacket)
-	async smallEventInteractOtherPlayers(socket: WebSocket, packet: SmallEventInteractOtherPlayersPacket, context: PacketContext): Promise<void> {
+	async smallEventInteractOtherPlayers(packet: SmallEventInteractOtherPlayersPacket, context: PacketContext): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (interaction) {
 			if (!packet.keycloakId) {
@@ -319,7 +317,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventInteractOtherPlayersAcceptToGivePoorPacket)
-	async smallEventInteractOtherPlayersAcceptToGivePoor(socket: WebSocket, packet: SmallEventInteractOtherPlayersAcceptToGivePoorPacket, context: PacketContext): Promise<void> {
+	async smallEventInteractOtherPlayersAcceptToGivePoor(packet: SmallEventInteractOtherPlayersAcceptToGivePoorPacket, context: PacketContext): Promise<void> {
 		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 		if (interaction) {
@@ -336,7 +334,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventInteractOtherPlayersRefuseToGivePoorPacket)
-	async smallEventInteractOtherPlayersRefuseToGivePoor(socket: WebSocket, packet: SmallEventInteractOtherPlayersRefuseToGivePoorPacket, context: PacketContext): Promise<void> {
+	async smallEventInteractOtherPlayersRefuseToGivePoor(packet: SmallEventInteractOtherPlayersRefuseToGivePoorPacket, context: PacketContext): Promise<void> {
 		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = context.discord!.buttonInteraction ? DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!) : DiscordCache.getInteraction(context.discord!.interaction!);
 		if (interaction) {
@@ -353,7 +351,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventLeagueRewardPacket)
-	async smallEventLeagueReward(socket: WebSocket, packet: SmallEventLeagueRewardPacket, context: PacketContext): Promise<void> {
+	async smallEventLeagueReward(packet: SmallEventLeagueRewardPacket, context: PacketContext): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (interaction) {
 			let endMessage;
@@ -384,7 +382,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventWinGuildXPPacket)
-	async smallEventWinGuildXp(socket: WebSocket, packet: SmallEventWinGuildXPPacket, context: PacketContext): Promise<void> {
+	async smallEventWinGuildXp(packet: SmallEventWinGuildXPPacket, context: PacketContext): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (interaction) {
 			await interaction.editReply({
@@ -402,17 +400,17 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventBonusGuildPVEIslandPacket)
-	async smallEventBonusGuildPVEIsland(socket: WebSocket, packet: SmallEventBonusGuildPVEIslandPacket, context: PacketContext): Promise<void> {
+	async smallEventBonusGuildPVEIsland(packet: SmallEventBonusGuildPVEIslandPacket, context: PacketContext): Promise<void> {
 		// Todo
 	}
 
 	@packetHandler(SmallEventBotFactsPacket)
-	async smallEventBotFacts(socket: WebSocket, packet: SmallEventBotFactsPacket, context: PacketContext): Promise<void> {
+	async smallEventBotFacts(packet: SmallEventBotFactsPacket, context: PacketContext): Promise<void> {
 		// Todo
 	}
 
 	@packetHandler(SmallEventDoNothingPacket)
-	async smallEventDoNothing(socket: WebSocket, packet: SmallEventDoNothingPacket, context: PacketContext): Promise<void> {
+	async smallEventDoNothing(packet: SmallEventDoNothingPacket, context: PacketContext): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (interaction) {
 			await interaction.editReply({
@@ -429,22 +427,22 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventFightPetPacket)
-	async smallEventFightPet(socket: WebSocket, packet: SmallEventFightPetPacket, context: PacketContext): Promise<void> {
+	async smallEventFightPet(packet: SmallEventFightPetPacket, context: PacketContext): Promise<void> {
 		// Todo
 	}
 
 	@packetHandler(SmallEventGobletsGamePacket)
-	async smallEventGobletsGame(socket: WebSocket, packet: SmallEventGobletsGamePacket, context: PacketContext): Promise<void> {
+	async smallEventGobletsGame(packet: SmallEventGobletsGamePacket, context: PacketContext): Promise<void> {
 		// Todo
 	}
 
 	@packetHandler(SmallEventShopPacket)
-	async smallEventShop(socket: WebSocket, packet: SmallEventShopPacket, context: PacketContext): Promise<void> {
+	async smallEventShop(packet: SmallEventShopPacket, context: PacketContext): Promise<void> {
 		// Todo
 	}
 
 	@packetHandler(SmallEventStaffMemberPacket)
-	async smallEventStaffMember(socket: WebSocket, packet: SmallEventStaffMemberPacket, context: PacketContext): Promise<void> {
+	async smallEventStaffMember(packet: SmallEventStaffMemberPacket, context: PacketContext): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (interaction) {
 			const staffMember = RandomUtils.draftbotRandom.pick(Object.keys(i18n.t("smallEvents:staffMember.members", {returnObjects: true, lng: interaction.userLanguage})));
@@ -469,7 +467,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventWinEnergyPacket)
-	async smallEventWinEnergy(socket: WebSocket, packet: SmallEventWinEnergyPacket, context: PacketContext): Promise<void> {
+	async smallEventWinEnergy(packet: SmallEventWinEnergyPacket, context: PacketContext): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (interaction) {
 			await interaction.editReply({
@@ -486,7 +484,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventWinFightPointsPacket)
-	async smallEventWinFightPoints(socket: WebSocket, packet: SmallEventWinFightPointsPacket, context: PacketContext): Promise<void> {
+	async smallEventWinFightPoints(packet: SmallEventWinFightPointsPacket, context: PacketContext): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (interaction) {
 			await interaction.editReply({
@@ -504,7 +502,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventWinHealthPacket)
-	async smallEventWinHealth(socket: WebSocket, packet: SmallEventWinHealthPacket, context: PacketContext): Promise<void> {
+	async smallEventWinHealth(packet: SmallEventWinHealthPacket, context: PacketContext): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (interaction) {
 			await interaction.editReply({
@@ -522,7 +520,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventWinPersonalXPPacket)
-	async smallEventWinPersonalXP(socket: WebSocket, packet: SmallEventWinPersonalXPPacket, context: PacketContext): Promise<void> {
+	async smallEventWinPersonalXP(packet: SmallEventWinPersonalXPPacket, context: PacketContext): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (interaction) {
 			await interaction.editReply({
@@ -541,7 +539,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventWitchResultPacket)
-	async smallEventWitchResult(socket: WebSocket, packet: SmallEventWitchResultPacket, context: PacketContext): Promise<void> {
-		await witchResult(socket, packet, context);
+	async smallEventWitchResult(packet: SmallEventWitchResultPacket, context: PacketContext): Promise<void> {
+		await witchResult(packet, context);
 	}
 }

@@ -8,9 +8,8 @@ import {
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {BlockingUtils} from "./BlockingUtils";
-import {sendPacketsToContext} from "../../../../Lib/src/packets/PacketUtils";
-import {WebsocketClient} from "../../../../Lib/src/instances/WebsocketClient";
 import {Constants} from "../../../../Lib/src/constants/Constants";
+import {PacketUtils} from "./PacketUtils";
 
 type CollectCallback = (collector: ReactionCollectorInstance, reaction: ReactionCollectorReaction, keycloakId: string, response: DraftBotPacket[]) => void | Promise<void>;
 
@@ -116,7 +115,7 @@ export class ReactionCollectorInstance {
 			}
 			await this.endCallback(this, response);
 			if (!isResponseProvided && response.length !== 0) {
-				sendPacketsToContext(this._context, response);
+				PacketUtils.sendPackets(this._context, response);
 			}
 		}
 	}
@@ -162,7 +161,7 @@ export class ReactionCollectorInstance {
 }
 
 export class ReactionCollectorController {
-	public static async reactPacket(_client: WebsocketClient, packet: ReactionCollectorReactPacket, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
+	public static async reactPacket(packet: ReactionCollectorReactPacket, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
 		const collector: ReactionCollectorInstance = collectors.get(packet.id);
 		if (!collector || collector.hasEnded) {
 			const packet: ReactionCollectorEnded = makePacket(ReactionCollectorEnded, {});

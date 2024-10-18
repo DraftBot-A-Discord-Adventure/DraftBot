@@ -2,11 +2,10 @@ import {CommandRarityPacketReq, CommandRarityPacketRes} from "../../../../Lib/sr
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {ItemConstants} from "../../../../Lib/src/constants/ItemConstants";
 import {packetHandler} from "../../core/packetHandlers/PacketHandler";
-import {WebsocketClient} from "../../../../Lib/src/instances/WebsocketClient";
 
 export default class RarityCommand {
 	@packetHandler(CommandRarityPacketReq)
-	execute(client: WebsocketClient, packet: CommandRarityPacketReq, context: PacketContext, response: DraftBotPacket[]): void {
+	execute(packet: CommandRarityPacketReq, context: PacketContext, response: DraftBotPacket[]): void {
 		const maxValue = ItemConstants.RARITY.GENERATOR.MAX_VALUE;
 		const raritiesGenerator = ItemConstants.RARITY.GENERATOR.VALUES;
 		response.push(makePacket(CommandRarityPacketRes, {

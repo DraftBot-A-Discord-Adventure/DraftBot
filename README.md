@@ -82,14 +82,37 @@ cd $DRAFTBOT_ROOT/Discord && yarn install
 cd $DRAFTBOT_ROOT/Lib && yarn install
 ```
 
-3. Setup database and Keycloak
+3. Setup database, Keycloak and an MQTT broker
+
+#### Keycloak
 
 For Keycloak, follow instructions in [README.md](./keycloak/README.md) in the keycloak folder.
 
+#### Database
+
+For the database, you can use a mariadb container with the following command:
 ```sh
 # Run mariadb database with docker
 docker run -d --name mariadb -e MARIADB_USER=draftbot -e MARIADB_PASSWORD=secret_password -e MARIADB_ROOT_PASSWORD=super_secret_password -v /path/to/volumes/mariadb:/var/lib/mysql -p 3306:3306 mariadb:latest
 ```
+
+#### MQTT broker
+
+You can use any MQTT broker, but we recommend using Mosquitto.
+
+You can use [this guide](https://github.com/sukesh-ak/setup-mosquitto-with-docker) to install it with docker. Step 1, 2, 3 and 5 are enough to have a working MQTT broker.
+
+The following config file can be used:
+
+```
+allow_anonymous true
+listener 1883
+persistence true
+persistence_file mosquitto.db
+persistence_location /mosquitto/data/
+```
+
+The only thing important is to allow anonymous connections.
 
 4. Fill config files
 

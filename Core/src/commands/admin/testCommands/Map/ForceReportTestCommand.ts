@@ -13,8 +13,8 @@ export const commandInfo: ITestCommand = {
 /**
  * Force a report with a given event id
  */
-const forceReportTestCommand: ExecuteTestCommandLike = async (player, args, response, context, client) => {
-	await CommandsTest.getTestCommand("atravel").execute(player, ["5000"], response, context, client);
+const forceReportTestCommand: ExecuteTestCommandLike = async (player, args, response, context) => {
+	await CommandsTest.getTestCommand("atravel").execute(player, ["5000"], response, context);
 	// TODO : replace with the new way of executing commands
 	// Await CommandsManager.executeCommandWithParameters("report", interaction, language, player, parseInt(args[0], 10));
 	return `Event ${args[0] === "-1" ? "aléatoire" : args[0]} forcé !`;

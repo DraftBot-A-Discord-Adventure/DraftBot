@@ -3,7 +3,6 @@ import PlayerMissionsInfo, {PlayerMissionsInfos} from "../../core/database/game/
 import {InventorySlots} from "../../core/database/game/models/InventorySlot";
 import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
 import {packetHandler} from "../../core/packetHandlers/PacketHandler";
-import {WebsocketClient} from "../../../../Lib/src/instances/WebsocketClient";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {CommandProfilePacketReq, CommandProfilePacketRes} from "../../../../Lib/src/packets/commands/CommandProfilePacket";
 import {Campaign} from "../../core/missions/Campaign";
@@ -23,7 +22,7 @@ function getCampaignProgression(missionsInfo: PlayerMissionsInfo): number {
 
 export default class ProfileCommand {
 	@packetHandler(CommandProfilePacketReq)
-	async execute(client: WebsocketClient, packet: CommandProfilePacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
+	async execute(packet: CommandProfilePacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
 		const player = packet.askedPlayer.keycloakId ? await Players.getByKeycloakId(packet.askedPlayer.keycloakId) : await Players.getByRank(packet.askedPlayer.rank);
 
 		if (!player) {

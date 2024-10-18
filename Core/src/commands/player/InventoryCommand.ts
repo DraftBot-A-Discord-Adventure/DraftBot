@@ -1,5 +1,4 @@
 import {packetHandler} from "../../core/packetHandlers/PacketHandler";
-import {WebsocketClient} from "../../../../Lib/src/instances/WebsocketClient";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {Players} from "../../core/database/game/models/Player";
 import {CommandInventoryPacketReq, CommandInventoryPacketRes} from "../../../../Lib/src/packets/commands/CommandInventoryPacket";
@@ -12,7 +11,7 @@ import {InventoryInfos} from "../../core/database/game/models/InventoryInfo";
 
 export default class InventoryCommand {
 	@packetHandler(CommandInventoryPacketReq)
-	async execute(client: WebsocketClient, packet: CommandInventoryPacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
+	async execute(packet: CommandInventoryPacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
 		const player = packet.askedPlayer.keycloakId ? await Players.getByKeycloakId(packet.askedPlayer.keycloakId) : await Players.getByRank(packet.askedPlayer.rank);
 
 		if (!player) {

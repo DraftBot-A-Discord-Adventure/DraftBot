@@ -5,7 +5,7 @@ import {
 	ReactionCollectorReactPacket, ReactionCollectorRefuseReaction
 } from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {DiscordCache} from "../bot/DiscordCache";
-import {DiscordWebSocket} from "../bot/Websocket";
+import {DiscordMQTT} from "../bot/Websocket";
 import {KeycloakUser} from "../../../Lib/src/keycloak/KeycloakUser";
 import {ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, Message, parseEmoji} from "discord.js";
 import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
@@ -14,6 +14,7 @@ import {DraftbotInteraction} from "../messages/DraftbotInteraction";
 import {sendInteractionNotForYou} from "./ErrorUtils";
 import {KeycloakUtils} from "../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../bot/DraftBotShard";
+import {PacketUtils} from "./PacketUtils";
 
 export class DiscordCollectorUtils {
 	static sendReaction(packet: ReactionCollectorCreationPacket, context: PacketContext, user: KeycloakUser, button: ButtonInteraction | null, reactionIndex: number): void {
@@ -29,22 +30,20 @@ export class DiscordCollectorUtils {
 		if (button) {
 			DiscordCache.cacheButtonInteraction(button);
 		}
-		DiscordWebSocket.socket!.send(JSON.stringify({
-			packet: {
-				name: responsePacket.constructor.name,
-				data: responsePacket
-			},
-			context: {
-				keycloakId: user.id,
-				discord: {
-					user: context.discord!.user,
-					channel: context.discord!.channel,
-					interaction: context.discord!.interaction,
-					buttonInteraction: button?.id,
-					language: context.discord!.language
-				}
+
+		PacketUtils.sendPacketToBackend({
+			keycloakId: user.id,
+			discord: {
+				user: context.discord!.user,
+				channel: context.discord!.channel,
+				interaction: context.discord!.interaction,
+				buttonInteraction: button?.id,
+				language: context.discord!.language
 			}
-		}));
+		}, {
+			name: responsePacket.constructor.name,
+			data: responsePacket
+		});
 	}
 
 	static async createAcceptRefuseCollector(

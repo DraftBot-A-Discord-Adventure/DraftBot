@@ -4,68 +4,52 @@ import {
 	DraftBotPacket,
 	makePacket
 } from "../../Lib/src/packets/DraftBotPacket";
-import {sendPacket} from "../../Lib/src/packets/PacketUtils";
-import {WebsocketClient} from "../../Lib/src/instances/WebsocketClient";
-import {Logger} from "../../Lib/src/instances/Logger";
-import {WebSocketServer} from "ws";
-import {CommandsTest} from "./core/CommandsTest";
 import {ErrorPacket} from "../../Lib/src/packets/commands/ErrorPacket";
+import { connect } from "mqtt";
+import {PacketUtils} from "./core/utils/PacketUtils";
 
 export const botConfig = loadConfig();
 export let draftBotInstance: DraftBot = null;
 
-const webSocketServer = new WebSocketServer({ port: 7071 });
-
 console.log("Running DraftBot 5.0.0");
 
-webSocketServer.on("connection", async (socket): Promise<void> => {
-	const client: WebsocketClient = {
-		webSocket: socket,
-		logger: Logger.getInstance("Core")
-	};
-	client.logger.log("Client connected");
+export const mqttClient = connect(botConfig.MQTT_HOST);
 
-	if (botConfig.TEST_MODE) {
-		client.logger.mode = "console";
-		await CommandsTest.init();
-	}
-
-	client.webSocket.addEventListener("message", async (event): Promise<void> => {
-		// TODO log commands
-		client.logger.log(`PR: ${event.data}`);
-		const dataJson = JSON.parse("" + event.data);
-		if (!Object.hasOwn(dataJson, "packet") || !Object.hasOwn(dataJson, "context")) {
-			client.logger.log(`Wrong packet format : ${event.data}`);
-			return;
-		}
-		const response: DraftBotPacket[] = [];
-		const listener = draftBotInstance.packetListener.getListener(dataJson.packet.name);
-		if (!listener) {
-			const errorMessage = `No listener found for packet '${dataJson.packet.name}'`;
-			console.error(errorMessage);
-			response.push(makePacket(ErrorPacket, { message: errorMessage }));
+mqttClient.on("connect", () => {
+	mqttClient.subscribe("draftbot_core", (err) => {
+		if (err) {
+			console.error(err);
 		}
 		else {
-			await draftBotInstance.packetListener.getListener(dataJson.packet.name)(client, dataJson.packet.data, dataJson.context, response);
+			console.log("Connected to MQTT");
 		}
-		const responsePacket = {
-			context: dataJson.context,
-			packets: response.map((responsePacket) => ({
-				name: responsePacket.constructor.name,
-				packet: responsePacket
-			}))
-		};
-		client.logger.log(`RS: ${JSON.stringify(responsePacket)}`);
-		sendPacket(client.webSocket, responsePacket);
 	});
+});
 
-	client.webSocket.addEventListener("close", (event) => {
-		console.log(`Socket ${event.target} disconnected due to '${event.reason}'`);
-	});
+// todo log commands
+mqttClient.on("message", async (topic, message) => {
+	const messageString = message.toString();
+	console.log(`Received message from topic ${topic}: ${messageString}`);
+
+	const dataJson = JSON.parse("" + message);
+	if (!Object.hasOwn(dataJson, "packet") || !Object.hasOwn(dataJson, "context")) {
+		draftBotInstance.logger.log(`Wrong packet format : ${messageString}`);
+		return;
+	}
+	const response: DraftBotPacket[] = [];
+	const listener = draftBotInstance.packetListener.getListener(dataJson.packet.name);
+	if (!listener) {
+		const errorMessage = `No listener found for packet '${dataJson.packet.name}'`;
+		console.error(errorMessage);
+		response.push(makePacket(ErrorPacket, { message: errorMessage }));
+	}
+	else {
+		await draftBotInstance.packetListener.getListener(dataJson.packet.name)(dataJson.packet.data, dataJson.context, response);
+	}
+
+	PacketUtils.sendPackets(dataJson.context, response);
 });
 
 require("source-map-support").install();
 draftBotInstance = new DraftBot(loadConfig());
 draftBotInstance.init().then();
-
-// https://ably.com/blog/web-app-websockets-nodejs

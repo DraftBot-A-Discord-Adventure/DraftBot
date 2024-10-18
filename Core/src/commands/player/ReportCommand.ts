@@ -1,6 +1,5 @@
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {packetHandler} from "../../core/packetHandlers/PacketHandler";
-import {WebsocketClient} from "../../../../Lib/src/instances/WebsocketClient";
 import {
 	CommandReportBigEventResultRes,
 	CommandReportChooseDestinationRes,
@@ -58,7 +57,6 @@ import {MapLocationDataController} from "../../data/MapLocation";
 export default class ReportCommand {
 	@packetHandler(CommandReportPacketReq)
 	static async execute(
-		client: WebsocketClient,
 		packet: CommandReportPacketReq,
 		context: PacketContext,
 		response: DraftBotPacket[],

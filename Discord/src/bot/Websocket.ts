@@ -1,13 +1,12 @@
 import {discordConfig} from "./DraftBotShard";
 import {PacketListenerClient} from "../../../Lib/src/packets/PacketListener";
-import {WebSocket} from "ws";
 import {registerAllPacketHandlers} from "../packetHandlers/PacketHandler";
 import {makePacket} from "../../../Lib/src/packets/DraftBotPacket";
 import {ErrorPacket} from "../../../Lib/src/packets/commands/ErrorPacket";
+import {connect, MqttClient} from "mqtt";
 
-export class DiscordWebSocket {
-
-	static socket: WebSocket | null = null;
+export class DiscordMQTT {
+	static mqttClient: MqttClient;
 
 	static packetListener: PacketListenerClient = new PacketListenerClient();
 
@@ -15,27 +14,35 @@ export class DiscordWebSocket {
 		// Register packets
 		await registerAllPacketHandlers();
 
-		DiscordWebSocket.socket = new WebSocket(discordConfig.WEBSOCKET_URL);
+		DiscordMQTT.mqttClient = connect(discordConfig.MQTT_HOST);
 
-		DiscordWebSocket.socket.on("error", (err) => {
-			console.error(`WebSocket error: '${err.message}'`);
+		DiscordMQTT.mqttClient.on("connect", () => {
+			DiscordMQTT.mqttClient.subscribe("draftbot_front", (err) => {
+				if (err) {
+					console.error(err);
+				}
+				else {
+					console.log("Connected to MQTT");
+				}
+			});
 		});
 
-		// Register events
-		DiscordWebSocket.socket.on("message", async (data) => {
-			console.log(`PR: ${data}`);
-			const dataJson = JSON.parse(data.toString());
+		DiscordMQTT.mqttClient.on("message", async (topic, message) => {
+			// todo ignore if not the right shard
+			const messageString = message.toString();
+			console.log(`Received message from topic ${topic}: ${messageString}`);
+			const dataJson = JSON.parse(messageString);
 			if (!Object.hasOwn(dataJson, "packets") || !Object.hasOwn(dataJson, "context")) {
-				console.log(`Wrong packet format : ${data}`);
+				console.log(`Wrong packet format : ${messageString}`);
 				return;
 			}
 			for (const packet of dataJson.packets) {
-				let listener = DiscordWebSocket.packetListener.getListener(packet.name);
+				let listener = DiscordMQTT.packetListener.getListener(packet.name);
 				if (!listener) {
 					packet.packet = makePacket(ErrorPacket, { message: `No packet listener found for received packet '${packet.name}'.\n\nData:\n${JSON.stringify(packet.packet)}` });
-					listener = DiscordWebSocket.packetListener.getListener("ErrorPacket")!;
+					listener = DiscordMQTT.packetListener.getListener("ErrorPacket")!;
 				}
-				await listener(DiscordWebSocket.socket!, packet.packet, dataJson.context);
+				await listener(packet.packet, dataJson.context);
 			}
 		});
 	}

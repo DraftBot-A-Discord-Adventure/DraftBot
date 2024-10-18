@@ -1,7 +1,6 @@
 import {packetHandler} from "../PacketHandler";
 import {PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {CommandPingPacketRes} from "../../../../Lib/src/packets/commands/CommandPingPacket";
-import {WebSocket} from "ws";
 import {DiscordCache} from "../../bot/DiscordCache";
 import i18n from "../../translations/i18n";
 import {draftBotClient, shardId} from "../../bot/DraftBotShard";
@@ -54,7 +53,7 @@ import {
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
-	async pingRes(socket: WebSocket, packet: CommandPingPacketRes, context: PacketContext): Promise<void> {
+	async pingRes(packet: CommandPingPacketRes, context: PacketContext): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		await interaction?.editReply({
 			content: i18n.t("commands:ping.discord.edit", {
@@ -68,103 +67,103 @@ export default class CommandHandlers {
 	}
 
 	@packetHandler(CommandProfilePacketRes)
-	async profileRes(socket: WebSocket, packet: CommandProfilePacketRes, context: PacketContext): Promise<void> {
+	async profileRes(packet: CommandProfilePacketRes, context: PacketContext): Promise<void> {
 		await handleCommandProfilePacketRes(packet, context);
 	}
 
 	@packetHandler(CommandPetPacketRes)
-	async petRes(socket: WebSocket, packet: CommandPetPacketRes, context: PacketContext): Promise<void> {
+	async petRes(packet: CommandPetPacketRes, context: PacketContext): Promise<void> {
 		await handleCommandPetPacketRes(packet, context);
 	}
 
 	@packetHandler(CommandPetFreePacketRes)
-	async petFreeRes(socket: WebSocket, packet: CommandPetFreePacketRes, context: PacketContext): Promise<void> {
+	async petFreeRes(packet: CommandPetFreePacketRes, context: PacketContext): Promise<void> {
 		await handleCommandPetFreePacketRes(packet, context);
 	}
 
 	@packetHandler(CommandPetFreeRefusePacketRes)
-	async petFreeRefuseRes(socket: WebSocket, packet: CommandPetFreeRefusePacketRes, context: PacketContext): Promise<void> {
+	async petFreeRefuseRes(packet: CommandPetFreeRefusePacketRes, context: PacketContext): Promise<void> {
 		await handleCommandPetFreeRefusePacketRes(packet, context);
 	}
 
 	@packetHandler(CommandPetFreeAcceptPacketRes)
-	async petFreeAcceptRes(socket: WebSocket, packet: CommandPetFreeAcceptPacketRes, context: PacketContext): Promise<void> {
+	async petFreeAcceptRes(packet: CommandPetFreeAcceptPacketRes, context: PacketContext): Promise<void> {
 		await handleCommandPetFreeAcceptPacketRes(packet, context);
 	}
 
 	@packetHandler(CommandPetNickPacketRes)
-	async PetNickPacketRes(socket: WebSocket, packet: CommandPetNickPacketRes, context: PacketContext): Promise<void> {
+	async PetNickPacketRes(packet: CommandPetNickPacketRes, context: PacketContext): Promise<void> {
 		await handleCommandPetNickPacketRes(packet, context);
 	}
 
 	@packetHandler(CommandGuildPacketRes)
-	async guildRes(socket: WebSocket, packet: CommandGuildPacketRes, context: PacketContext): Promise<void> {
+	async guildRes(packet: CommandGuildPacketRes, context: PacketContext): Promise<void> {
 		await handleCommandGuildPacketRes(packet, context);
 	}
 
 	@packetHandler(CommandGuildCreatePacketRes)
-	async guildCreateRes(socket: WebSocket, packet: CommandGuildCreatePacketRes, context: PacketContext): Promise<void> {
+	async guildCreateRes(packet: CommandGuildCreatePacketRes, context: PacketContext): Promise<void> {
 		await handleCommandGuildCreatePacketRes(packet, context);
 	}
 
 	@packetHandler(CommandGuildCreateRefusePacketRes)
-	async guildCreatRefuseRes(socket: WebSocket, packet: CommandGuildCreateRefusePacketRes, context: PacketContext): Promise<void> {
+	async guildCreatRefuseRes(packet: CommandGuildCreateRefusePacketRes, context: PacketContext): Promise<void> {
 		await handleCommandGuildCreateRefusePacketRes(packet, context);
 	}
 
 	@packetHandler(CommandGuildCreateAcceptPacketRes)
-	async guildCreatAcceptRes(socket: WebSocket, packet: CommandGuildCreateAcceptPacketRes, context: PacketContext): Promise<void> {
+	async guildCreatAcceptRes(packet: CommandGuildCreateAcceptPacketRes, context: PacketContext): Promise<void> {
 		await handleCommandGuildCreateAcceptPacketRes(packet, context);
 	}
 
 
 	@packetHandler(CommandInventoryPacketRes)
-	async inventoryRes(socket: WebSocket, packet: CommandInventoryPacketRes, context: PacketContext): Promise<void> {
+	async inventoryRes(packet: CommandInventoryPacketRes, context: PacketContext): Promise<void> {
 		await handleCommandInventoryPacketRes(packet, context);
 	}
 
 	@packetHandler(CommandUpdatePacketRes)
-	async updateRes(socket: WebSocket, packet: CommandUpdatePacketRes, context: PacketContext): Promise<void> {
+	async updateRes(packet: CommandUpdatePacketRes, context: PacketContext): Promise<void> {
 		await handleCommandUpdatePacketRes(packet, context);
 	}
 
 	@packetHandler(CommandTestPacketRes)
-	async testRes(socket: WebSocket, packet: CommandTestPacketRes, context: PacketContext): Promise<void> {
+	async testRes(packet: CommandTestPacketRes, context: PacketContext): Promise<void> {
 		await handleCommandTestPacketRes(packet, context);
 	}
 
 	@packetHandler(CommandRarityPacketRes)
-	async rarityRes(socket: WebSocket, packet: CommandRarityPacketRes, context: PacketContext): Promise<void> {
+	async rarityRes(packet: CommandRarityPacketRes, context: PacketContext): Promise<void> {
 		await handleCommandRarityPacketRes(packet, context);
 	}
 
 	@packetHandler(CommandReportBigEventResultRes)
-	async reportResultRes(socket: WebSocket, packet: CommandReportBigEventResultRes, context: PacketContext): Promise<void> {
+	async reportResultRes(packet: CommandReportBigEventResultRes, context: PacketContext): Promise<void> {
 		await reportResult(packet, context);
 	}
 
 	@packetHandler(CommandReportTravelSummaryRes)
-	async reportTravelSummaryRes(socket: WebSocket, packet: CommandReportTravelSummaryRes, context: PacketContext): Promise<void> {
+	async reportTravelSummaryRes(packet: CommandReportTravelSummaryRes, context: PacketContext): Promise<void> {
 		await reportTravelSummary(packet, context);
 	}
 
 	@packetHandler(CommandMapDisplayRes)
-	async mapRes(socket: WebSocket, packet: CommandMapDisplayRes, context: PacketContext): Promise<void> {
+	async mapRes(packet: CommandMapDisplayRes, context: PacketContext): Promise<void> {
 		await handleCommandMapDisplayRes(packet, context);
 	}
 
 	@packetHandler(CommandReportMonsterRewardRes)
-	async reportMonsterRewardRes(socket: WebSocket, packet: CommandReportMonsterRewardRes, context: PacketContext): Promise<void> {
+	async reportMonsterRewardRes(packet: CommandReportMonsterRewardRes, context: PacketContext): Promise<void> {
 		// TODO
 	}
 
 	@packetHandler(CommandReportErrorNoMonsterRes)
-	async reportErrorNoMonsterRes(socket: WebSocket, packet: CommandReportErrorNoMonsterRes, context: PacketContext): Promise<void> {
+	async reportErrorNoMonsterRes(packet: CommandReportErrorNoMonsterRes, context: PacketContext): Promise<void> {
 		// TODO
 	}
 
 	@packetHandler(CommandReportRefusePveFightRes)
-	async reportRefusePveFightRes(socket: WebSocket, packet: CommandReportRefusePveFightRes, context: PacketContext): Promise<void> {
+	async reportRefusePveFightRes(packet: CommandReportRefusePveFightRes, context: PacketContext): Promise<void> {
 		// TODO
 	}
 }
