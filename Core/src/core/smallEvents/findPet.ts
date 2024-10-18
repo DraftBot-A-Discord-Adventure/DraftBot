@@ -26,7 +26,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 		response.push(makePacket(SmallEventFindPetPacket, {
 			isPetReceived: giveReturn !== PET_ENTITY_GIVE_RETURN.NO_SLOT, // Fail because no space
 			isGuildOrPlayer: giveReturn === PET_ENTITY_GIVE_RETURN.GUILD, // Give to the guild or the player
-			isPetFood: RandomUtils.draftbotRandom.bool() && !!guild,
+			isPetFood: RandomUtils.draftbotRandom.bool() && Boolean(guild),
 			petID: pet.typeId,
 			petGenre: pet.sex
 		}));
