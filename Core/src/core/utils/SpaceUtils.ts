@@ -1,4 +1,4 @@
-import * as https from "https";
+import {get} from "https";
 
 /* eslint-disable camelcase */
 
@@ -57,7 +57,7 @@ export class SpaceUtils {
 			return Promise.resolve(this.cachedNeoFeed);
 		}
 		return new Promise((resolve) => {
-			https.get("https://www.neowsapp.com/rest/v1/feed/today", res => {
+			get("https://www.neowsapp.com/rest/v1/feed/today", res => {
 				let data = "";
 				res.on("data", chunk => {
 					data += chunk;
