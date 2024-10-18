@@ -118,7 +118,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 			const t0 = performance.now();
 			const result = await spaceFunctions[specificEvent]();
 			const timeLeft = Math.max(SpaceConstants.WAIT_TIME_BEFORE_SEARCH - (performance.now() - t0), 0);
-			setTimeout(function() {
+			setTimeout(() => {
 				PacketUtils.sendPackets(context, [makePacket(SmallEventSpaceResultPacket, {
 					chosenEvent: specificEvent,
 					values: result
