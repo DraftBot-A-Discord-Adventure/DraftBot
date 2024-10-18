@@ -13,7 +13,7 @@ export abstract class PacketUtils {
 
 		if (context.discord !== null) {
 			const response = JSON.stringify(responsePacket);
-			mqttClient.publish("draftbot_front", response);
+			mqttClient.publish("draftbot_discord", response);
 			console.log(`Sent ${response} to discord front`);
 		}
 		else {
