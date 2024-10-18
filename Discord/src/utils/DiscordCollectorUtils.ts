@@ -5,7 +5,6 @@ import {
 	ReactionCollectorReactPacket, ReactionCollectorRefuseReaction
 } from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {DiscordCache} from "../bot/DiscordCache";
-import {DiscordMQTT} from "../bot/Websocket";
 import {KeycloakUser} from "../../../Lib/src/keycloak/KeycloakUser";
 import {ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, Message, parseEmoji} from "discord.js";
 import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";

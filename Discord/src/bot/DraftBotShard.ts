@@ -5,7 +5,7 @@ import i18n from "../translations/i18n";
 import {BotUtils} from "../utils/BotUtils";
 import {KeycloakConfig} from "../../../Lib/src/keycloak/KeycloakConfig";
 import {CommandsManager} from "../commands/CommandsManager";
-import {DiscordMQTT} from "./Websocket";
+import {DiscordMQTT} from "./DiscordMQTT";
 
 process.on("uncaughtException", function(error) {
 	console.log(error);

@@ -19,7 +19,6 @@ export interface DraftBotConfig {
 	KEYCLOAK_CLIENT_ID: string;
 	KEYCLOAK_CLIENT_SECRET: string;
 	TEST_MODE: boolean;
-	WEBSOCKET_URL: string;
 	MQTT_HOST: string;
 }
 
@@ -28,7 +27,6 @@ type ConfigStructure = {
 		token: string;
 		main_server_id: string;
 		test_mode: boolean;
-		websocket_url: string;
 	};
 	roles: {
 		badge_manager_ids: string;
@@ -75,7 +73,6 @@ export function loadConfig(): DraftBotConfig {
 		KEYCLOAK_CLIENT_ID: config.keycloak.clientId,
 		KEYCLOAK_CLIENT_SECRET: config.keycloak.clientSecret,
 		TEST_MODE: config.general.test_mode,
-		WEBSOCKET_URL: config.general.websocket_url,
 		MQTT_HOST: config.mqtt.host
 	};
 }

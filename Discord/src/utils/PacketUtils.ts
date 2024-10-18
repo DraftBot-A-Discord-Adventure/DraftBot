@@ -1,5 +1,5 @@
 import {DraftBotPacket, PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
-import {DiscordMQTT} from "../bot/Websocket";
+import {DiscordMQTT} from "../bot/DiscordMQTT";
 
 export abstract class PacketUtils {
 	static sendPacketToBackend(context: PacketContext, packet: DraftBotPacket): void {

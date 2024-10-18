@@ -28,7 +28,6 @@ import {DraftBotReactionMessageBuilder} from "../messages/DraftBotReactionMessag
 import {DraftBotReaction} from "../messages/DraftBotReaction";
 import {KeycloakUtils} from "../../../Lib/src/keycloak/KeycloakUtils";
 import {DraftbotChannel, DraftbotInteraction} from "../messages/DraftbotInteraction";
-import {DiscordMQTT} from "../bot/Websocket";
 import {PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
 import {DiscordCache} from "../bot/DiscordCache";
 import {BotUtils} from "../utils/BotUtils";
