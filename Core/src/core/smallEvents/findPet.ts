@@ -13,7 +13,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 		const pet = PetEntities.generateRandomPetEntityNotGuild();
 		let guild;
 
-		// Search if user has a guild
+		// Search if the user has a guild
 		try {
 			guild = await Guilds.getById(player.guildId);
 		}
@@ -25,11 +25,11 @@ export const smallEventFuncs: SmallEventFuncs = {
 		const giveReturn = await pet.giveToPlayer(player, response);
 
 		response.push(makePacket(SmallEventFindPetPacket, {
-			isPetReceived: giveReturn !== PET_ENTITY_GIVE_RETURN.NO_SLOT, // Fail because no space
-			isGuildOrPlayer: giveReturn === PET_ENTITY_GIVE_RETURN.GUILD, // Give to the guild or the player
-			isPetFood: RandomUtils.draftbotRandom.bool() && Boolean(guild),
-			petID: pet.typeId,
-			petGenre: pet.sex
+			isPetReceived: giveReturn !== PET_ENTITY_GIVE_RETURN.NO_SLOT, // No pet received because of lack of space
+			petIsReceivedByGuild: giveReturn === PET_ENTITY_GIVE_RETURN.GUILD, // Give to the guild or the player
+			isPetFood: RandomUtils.draftbotRandom.bool() && Boolean(guild), // 50 % chance if the player is in a guild
+			petTypeID: pet.typeId,
+			petSex: pet.sex
 		}));
 	}
 };

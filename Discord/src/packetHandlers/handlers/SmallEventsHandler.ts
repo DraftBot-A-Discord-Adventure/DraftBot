@@ -53,6 +53,7 @@ import {
 	SmallEventSpaceResultPacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventSpacePacket";
 import {SmallEventFindPetPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFindPetPacket";
+import {PetUtils} from "../../utils/PetUtils";
 
 export function getRandomSmallEventIntro(language: Language): string {
 	return StringUtils.getRandomTranslation("smallEvents:intro", language);
@@ -552,18 +553,32 @@ export default class SmallEventsHandler {
 	async smallEventFindPet(packet: SmallEventFindPetPacket, context: PacketContext): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (interaction) {
+			let translationKey;
+			if (packet.isPetReceived) {
+				translationKey = packet.isPetFood ? "smallEvents:findPet.noRoom.food" : "smallEvents:findPet.noRoom.noFood";
+			}
+			else {
+				translationKey = packet.petIsReceivedByGuild ? "smallEvents:findPet.givePetPlayer" : "smallEvents:findPet.givePetGuild";
+			}
+
 			await interaction.editReply({
 				embeds: [
 					new DraftbotSmallEventEmbed(
 						"findPet",
 						getRandomSmallEventIntro(interaction.userLanguage)
-						+ StringUtils.getRandomTranslation("smallEvents:findPet.stories", interaction.userLanguage)
-						+ i18n.t("smallEvents:findPet.end", {lng: interaction.userLanguage, xp: packet.amount}),
+						+ StringUtils.getRandomTranslation(
+							translationKey,
+							interaction.userLanguage,
+							{
+								context: packet.petSex,
+								pet: PetUtils.petToShortString(interaction.userLanguage, undefined, packet.petTypeID, packet.petSex)
+							}
+						),
 						interaction.user,
 						interaction.userLanguage
 					)
 				]
-			})
+			});
 		}
 	}
 

@@ -5,11 +5,11 @@ import {PacketDirection, sendablePacket} from "../DraftBotPacket";
 export class SmallEventFindPetPacket extends SmallEventPacket {
 	isPetReceived!: boolean;
 
-	isGuildOrPlayer!: boolean;
+	petIsReceivedByGuild!: boolean; // If false, the player receives the pet
 
-	petID!: number;
+	petTypeID!: number;
 
-	petGenre!: string;
+	petSex!: string;
 
 	isPetFood!: boolean;
 }
