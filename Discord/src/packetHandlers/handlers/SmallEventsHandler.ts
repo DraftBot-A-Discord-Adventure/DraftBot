@@ -555,7 +555,7 @@ export default class SmallEventsHandler {
 		if (interaction) {
 			let translationKey;
 			if (packet.isPetReceived) {
-				translationKey = packet.isPetFood ? "smallEvents:findPet.noRoom.food" : "smallEvents:findPet.noRoom.noFood";
+				translationKey = packet.isPetFood ? "smallEvents:findPet.food" : "smallEvents:findPet.noFood";
 			}
 			else {
 				translationKey = packet.petIsReceivedByGuild ? "smallEvents:findPet.givePetPlayer" : "smallEvents:findPet.givePetGuild";
