@@ -5,21 +5,20 @@ import {readFileSync} from "fs";
  * Represents the main constants of the bot
  */
 export interface DraftBotConfig {
-    DBL_WEBHOOK_PORT: number;
-    DBL_WEBHOOK_URL: string;
-    DBL_VOTE_ROLE: string;
-    DBL_LOGS_CHANNEL: string;
-    DBL_TOKEN: string;
-    MODE_MAINTENANCE: boolean;
-    NASA_API_KEY: string;
-    TEST_MODE: boolean;
-    MARIADB_HOST: string;
-    MARIADB_USER: string;
-    MARIADB_PASSWORD: string;
-    MARIADB_ROOT_PASSWORD: string;
-    MARIADB_PORT: number;
-    MARIADB_PREFIX: string;
-    WEBSERVER_PORT: number;
+	DBL_WEBHOOK_PORT: number;
+	DBL_WEBHOOK_URL: string;
+	DBL_VOTE_ROLE: string;
+	DBL_LOGS_CHANNEL: string;
+	DBL_TOKEN: string;
+	MODE_MAINTENANCE: boolean;
+	TEST_MODE: boolean;
+	MARIADB_HOST: string;
+	MARIADB_USER: string;
+	MARIADB_PASSWORD: string;
+	MARIADB_ROOT_PASSWORD: string;
+	MARIADB_PORT: number;
+	MARIADB_PREFIX: string;
+	WEBSERVER_PORT: number;
 	MQTT_HOST: string;
 }
 
@@ -64,7 +63,6 @@ export function loadConfig(): DraftBotConfig {
 		DBL_WEBHOOK_PORT: config.discord_bot_list.webhook_port,
 		DBL_WEBHOOK_URL: config.discord_bot_list.webhook_url,
 		MODE_MAINTENANCE: config.bot.maintenance,
-		NASA_API_KEY: config.others.nasa_api_key,
 		TEST_MODE: config.bot.test_mode,
 		MARIADB_HOST: config.database.host,
 		MARIADB_USER: config.database.user,

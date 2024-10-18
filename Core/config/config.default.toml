@@ -43,8 +43,3 @@ enabled = ""
 archive_password = ""
 # The dropbox token used to back up the database
 dropbox_token = ""
-
-
-[others]
-# The API key for the nasa API
-nasa_api_key = ""

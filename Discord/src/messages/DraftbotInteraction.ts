@@ -179,6 +179,7 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 	 * @param fallback function to execute if the bot can't send the message
 	 */
 	public async reply(options: OptionLike, fallback?: () => void | Promise<void>): Promise<Message> {
+		// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 		return await DraftbotInteraction.prototype.commonSendCommand(CommandInteraction.prototype.reply.bind(this), options as ReplyOptionsSpecial, fallback ?? (() => {
 			// Do nothing by default if no fallback is provided
 		})) as Message;
@@ -190,6 +191,7 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 	 * @param fallback function to execute if the bot can't send the message
 	 */
 	public async followUp(options: OptionLike, fallback?: () => void | Promise<void>): Promise<Message> {
+		// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 		return await DraftbotInteraction.prototype.commonSendCommand(CommandInteraction.prototype.followUp.bind(this), options, fallback ?? (() => {
 			// Do nothing by default if no fallback is provided
 		})) as Message;

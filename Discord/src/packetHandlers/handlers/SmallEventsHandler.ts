@@ -48,6 +48,10 @@ import {SmallEventWitchResultPacket} from "../../../../Lib/src/packets/smallEven
 import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {witchResult} from "../../smallEvents/witch";
 import {DisplayUtils} from "../../utils/DisplayUtils";
+import {
+	SmallEventSpaceInitialPacket,
+	SmallEventSpaceResultPacket
+} from "../../../../Lib/src/packets/smallEvents/SmallEventSpacePacket";
 
 export function getRandomSmallEventIntro(language: Language): string {
 	return StringUtils.getRandomTranslation("smallEvents:intro", language);
@@ -361,9 +365,13 @@ export default class SmallEventsHandler {
 			else {
 				endMessage = i18n.t(packet.enoughFights ? "smallEvents:leagueReward.endMessage" : "smallEvents:leagueReward.notEnoughFight", {
 					lng: interaction.userLanguage,
-					interpolation: { escapeValue: false },
+					interpolation: {escapeValue: false},
 					league: i18n.t(`models:leagues.${packet.leagueId}`, {lng: interaction.userLanguage}),
-					rewards: i18n.t("smallEvents:leagueReward.reward", {lng: interaction.userLanguage, money: packet.money, xp: packet.xp}),
+					rewards: i18n.t("smallEvents:leagueReward.reward", {
+						lng: interaction.userLanguage,
+						money: packet.money,
+						xp: packet.xp
+					}),
 					time: printTimeBeforeDate(packet.nextRewardDate)
 				});
 			}
@@ -389,7 +397,7 @@ export default class SmallEventsHandler {
 				embeds: [
 					new DraftbotSmallEventEmbed(
 						"winGuildXP",
-						StringUtils.getRandomTranslation("smallEvents:winGuildXP.stories", interaction.userLanguage, { guild: packet.guildName })
+						StringUtils.getRandomTranslation("smallEvents:winGuildXP.stories", interaction.userLanguage, {guild: packet.guildName})
 						+ i18n.t("smallEvents:winGuildXP.end", {lng: interaction.userLanguage, xp: packet.amount}),
 						interaction.user,
 						interaction.userLanguage
@@ -445,7 +453,10 @@ export default class SmallEventsHandler {
 	async smallEventStaffMember(packet: SmallEventStaffMemberPacket, context: PacketContext): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (interaction) {
-			const staffMember = RandomUtils.draftbotRandom.pick(Object.keys(i18n.t("smallEvents:staffMember.members", {returnObjects: true, lng: interaction.userLanguage})));
+			const staffMember = RandomUtils.draftbotRandom.pick(Object.keys(i18n.t("smallEvents:staffMember.members", {
+				returnObjects: true,
+				lng: interaction.userLanguage
+			})));
 			await interaction.editReply({
 				embeds: [
 					new DraftbotSmallEventEmbed(
@@ -455,7 +466,7 @@ export default class SmallEventsHandler {
 							pseudo: staffMember,
 							sentence: i18n.t(`smallEvents:staffMember.members.${staffMember}`, {
 								lng: interaction.userLanguage,
-								interpolation: { escapeValue: false }
+								interpolation: {escapeValue: false}
 							})
 						}),
 						interaction.user,
@@ -492,7 +503,7 @@ export default class SmallEventsHandler {
 					new DraftbotSmallEventEmbed(
 						"winFightPoints",
 						getRandomSmallEventIntro(interaction.userLanguage)
-						+ StringUtils.getRandomTranslation("smallEvents:winFightPoints.stories", interaction.userLanguage, { fightPoints: packet.amount }),
+						+ StringUtils.getRandomTranslation("smallEvents:winFightPoints.stories", interaction.userLanguage, {fightPoints: packet.amount}),
 						interaction.user,
 						interaction.userLanguage
 					)
@@ -510,7 +521,7 @@ export default class SmallEventsHandler {
 					new DraftbotSmallEventEmbed(
 						"winHealth",
 						getRandomSmallEventIntro(interaction.userLanguage)
-						+ StringUtils.getRandomTranslation("smallEvents:winHealth.stories", interaction.userLanguage, { health: packet.amount }),
+						+ StringUtils.getRandomTranslation("smallEvents:winHealth.stories", interaction.userLanguage, {health: packet.amount}),
 						interaction.user,
 						interaction.userLanguage
 					)
@@ -541,5 +552,70 @@ export default class SmallEventsHandler {
 	@packetHandler(SmallEventWitchResultPacket)
 	async smallEventWitchResult(packet: SmallEventWitchResultPacket, context: PacketContext): Promise<void> {
 		await witchResult(packet, context);
+	}
+
+	@packetHandler(SmallEventSpaceInitialPacket)
+	async smallEventSpaceInitial(packet: SmallEventSpaceInitialPacket, context: PacketContext): Promise<void> {
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		if (interaction) {
+			await interaction.editReply({
+				embeds: [
+					new DraftbotSmallEventEmbed(
+						"space",
+						i18n.t("smallEvents:space.before_search_format", {
+							lng: interaction.userLanguage,
+							seIntro: getRandomSmallEventIntro(interaction.userLanguage),
+							intro: StringUtils.getRandomTranslation("smallEvents:space.intro", interaction.userLanguage, {
+								name: StringUtils.getRandomTranslation("smallEvents:space.names", interaction.userLanguage)
+							}),
+							searchAction: StringUtils.getRandomTranslation("smallEvents:space.searchAction", interaction.userLanguage),
+							search: StringUtils.getRandomTranslation("smallEvents:space.search", interaction.userLanguage),
+							interpolation: {escapeValue: false}
+						}),
+						interaction.user,
+						interaction.userLanguage
+					)
+				]
+			});
+		}
+	}
+
+	@packetHandler(SmallEventSpaceResultPacket)
+	async smallEventSpaceResult(packet: SmallEventSpaceResultPacket, context: PacketContext): Promise<void> {
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		if (interaction) {
+			const oldMessage = (await interaction.fetchReply()).embeds[0]?.data.description;
+			if (!oldMessage) {
+				return;
+			}
+			await interaction.editReply({
+				embeds: [
+					new DraftbotSmallEventEmbed(
+						"space",
+						i18n.t("smallEvents:space.after_search_format", {
+							lng: interaction.userLanguage,
+							oldMessage: oldMessage.split(" ").slice(1)
+								.join(" "),
+							actionIntro: StringUtils.getRandomTranslation("smallEvents:space.actionIntro", interaction.userLanguage),
+							action: StringUtils.getRandomTranslation("smallEvents:space.action", interaction.userLanguage),
+							specific: StringUtils.getRandomTranslation(`smallEvents:space.specific.${packet.chosenEvent}`, interaction.userLanguage, {
+								mainValue: packet.chosenEvent === "moonPhase" ? i18n.t("smallEvents:space.moonPhases", {
+									returnObjects: true,
+									lng: interaction.userLanguage
+								})[packet.values.mainValue] : packet.values.mainValue,
+								mainValuePlural: packet.values.mainValue > 1 ? "s" : "",
+								randomObjectName: packet.values.randomObjectName,
+								randomObjectDistance: packet.values.randomObjectDistance,
+								randomObjectDiameter: packet.values.randomObjectDiameter
+							}),
+							outro: StringUtils.getRandomTranslation("smallEvents:space.outro", interaction.userLanguage),
+							interpolation: {escapeValue: false}
+						}),
+						interaction.user,
+						interaction.userLanguage
+					)
+				]
+			});
+		}
 	}
 }

@@ -34,4 +34,16 @@ export abstract class SpaceConstants {
 	};
 
 	static readonly WAIT_TIME_BEFORE_SEARCH = 5000;
+
+	static readonly PARTIAL_LUNAR_ECLIPSE = "partial";
+
+	static readonly TOTAL_LUNAR_ECLIPSE = "total";
+
+	static readonly FUNCTIONS = {
+		neoWS: "neoWS",
+		moonPhase: "moonPhase",
+		nextFullMoon: "nextFullMoon",
+		nextPartialLunarEclipse: "nextPartialLunarEclipse",
+		nextTotalLunarEclipse: "nextTotalLunarEclipse"
+	};
 }

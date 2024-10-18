@@ -1,5 +1,9 @@
-import {ReactionCollector, ReactionCollectorCreationPacket, ReactionCollectorData, ReactionCollectorReaction} from "./ReactionCollectorPacket";
-import {makePacket} from "../DraftBotPacket";
+import {
+	ReactionCollector,
+	ReactionCollectorCreationPacket,
+	ReactionCollectorData,
+	ReactionCollectorReaction
+} from "./ReactionCollectorPacket";
 
 export class ReactionCollectorPveFightData extends ReactionCollectorData {
 	monster!: {

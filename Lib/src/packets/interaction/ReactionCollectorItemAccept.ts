@@ -5,7 +5,6 @@ import {
 	ReactionCollectorData,
 	ReactionCollectorRefuseReaction
 } from "./ReactionCollectorPacket";
-import {Item} from "../../interfaces/Item";
 import {ItemWithDetails} from "../../interfaces/ItemWithDetails";
 
 export class ReactionCollectorItemAcceptData extends ReactionCollectorData {

@@ -42,6 +42,7 @@ process.on("message", async (message: { type: string, data: { shardId: number } 
 			.send(`:robot: **DraftBot** - v${process.env.npm_package_version} - Shard ${shardId}`)
 			.catch(console.error);
 	}
+	return true;
 });
 
 export abstract class Intents {
