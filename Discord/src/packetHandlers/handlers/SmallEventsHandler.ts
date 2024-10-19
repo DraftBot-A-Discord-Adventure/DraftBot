@@ -55,6 +55,7 @@ import {
 import {SmallEventFindPetPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFindPetPacket";
 import {PetUtils} from "../../utils/PetUtils";
 import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
+import {ClassUtils} from "../../utils/ClassUtils";
 
 export function getRandomSmallEventIntro(language: Language): string {
 	return StringUtils.getRandomTranslation("smallEvents:intro", language);
@@ -415,11 +416,6 @@ export default class SmallEventsHandler {
 		// Todo
 	}
 
-	@packetHandler(SmallEventBotFactsPacket)
-	async smallEventBotFacts(packet: SmallEventBotFactsPacket, context: PacketContext): Promise<void> {
-		// Todo
-	}
-
 	@packetHandler(SmallEventDoNothingPacket)
 	async smallEventDoNothing(packet: SmallEventDoNothingPacket, context: PacketContext): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
@@ -647,6 +643,30 @@ export default class SmallEventsHandler {
 							outro: StringUtils.getRandomTranslation("smallEvents:space.outro", interaction.userLanguage),
 							interpolation: {escapeValue: false}
 						}),
+						interaction.user,
+						interaction.userLanguage
+					)
+				]
+			});
+		}
+	}
+
+	@packetHandler(SmallEventBotFactsPacket)
+	async smallEventBotFacts(packet: SmallEventBotFactsPacket, context: PacketContext): Promise<void> {
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		if (interaction) {
+			await interaction.editReply({
+				embeds: [
+					new DraftbotSmallEventEmbed(
+						"botFacts",
+						getRandomSmallEventIntro(interaction.userLanguage)
+						+ StringUtils.getRandomTranslation("smallEvents:botFacts.stories", interaction.userLanguage, {
+								botFact: i18n.t(`smallEvents:botFacts.possibleInfos.${packet.information}`, interaction.userLanguage, {
+									infoResult: packet.infoResult,
+									infoComplement: ClassUtils.classToString(interaction.userLanguage, packet.infoComplement ? packet.infoComplement : 0)
+								})
+							}
+						),
 						interaction.user,
 						interaction.userLanguage
 					)
