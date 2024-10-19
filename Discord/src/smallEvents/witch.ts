@@ -105,13 +105,10 @@ export async function witchResult(packet: SmallEventWitchResultPacket, context: 
 		await interaction.editReply({
 			embeds: [new DraftbotSmallEventEmbed(
 				"witch",
-				StringUtils.getRandomTranslation(introToLoad, user.attributes.language[0], {
+				`${StringUtils.getRandomTranslation(introToLoad, user.attributes.language[0], {
 					witchEvent: `${i18n.t(`smallEvents:witch.witchEventNames.${packet.ingredientId}`, {lng: user.attributes.language[0]})} ${DraftBotIcons.witch_small_event[packet.ingredientId]}`
 						.toLowerCase()
-				})
-				+ " "
-				+ StringUtils.getRandomTranslation(outcomeTranslationToLoad, user.attributes.language[0], {lostLife: packet.lifeLoss})
-				+ timeOutro,
+				})} ${StringUtils.getRandomTranslation(outcomeTranslationToLoad, user.attributes.language[0], {lostLife: packet.lifeLoss})}${timeOutro}`,
 				interaction.user,
 				user.attributes.language[0]
 			)]
