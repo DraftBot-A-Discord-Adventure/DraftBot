@@ -103,6 +103,10 @@ const spaceFunctions = {
 	nextTotalLunarEclipse
 };
 
+/**
+ * Second part of the small event, where the astronomer is looking to the sky
+ * @param context
+ */
 async function astronomyEvent(context: PacketContext): Promise<void> {
 	let availableSpaceFunctions = Object.keys(spaceFunctions);
 	if (nextFullMoon().mainValue === 0) {
