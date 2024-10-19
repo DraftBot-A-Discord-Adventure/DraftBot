@@ -716,44 +716,44 @@
   },
   "findPet": {
     "food_m": [
-      "vous trouvez un **{{pet}}** qui semble être blessé. Malheureusement, ayant déjà un compagnon et plus de place au sein de votre guilde pour l'accueillir, vous décidez de l'achever rapidement afin de récupérer sa carcasse.",
-      "vous trouvez un **{{pet}}**. N'ayant pas la possibilité de l'accueillir, vous le donnez à un marchand qui passe par là. En échange, il vous offre un peu de viande."
+      "you find a **{{pet}}** that looks wounded. Unfortunately, having already a companion and more room in your guild to welcome it, you decide to finish quickly in order to recover its carcass.",
+      "you find a **{{pet}}**. You don't have the opportunity to welcome it, you give it to a merchant who passes through it. In return, it offers you some meat."
     ],
     "food_f": [
-      "vous trouvez une **{{pet}}** qui semble être blessée. Malheureusement, ayant déjà un compagnon et plus de place au sein de votre guilde pour l'accueillir, vous décidez de l'achever rapidement afin de récupérer sa carcasse.",
-      "vous trouvez une **{{pet}}**. N'ayant pas la possibilité de l'accueillir, vous la donnez à un marchand qui passe par là. En échange, il vous offre un peu de viande."
+      "you find a **{{pet}}** that appears to be injured. Unfortunately, having already a companion and more room in your guild to welcome it, you decide to finish quickly in order to recover its carcass.",
+      "you find a **{{pet}}**. You don't have the opportunity to welcome it, you give it to a merchant who passes through it. In return, it offers you some meat."
     ],
     "noFood_m": [
-      "vous trouvez un **{{pet}}**. N'ayant pas la possibilité de l'accueillir, vous le donnez à un marchand qui passe par là. Celui-ci refuse et le laisse partir.",
-      "vous trouvez un **{{pet}}**. N'ayant pas la possibilité de l'accueillir, vous le donnez à un marchand qui passe par là. Il accepte volontiers de s'en occuper.",
-      "vous apercevez une vieille dame qui cherche à faire descendre un **{{pet}}** d'un arbre. Vous acceptez de l'aider et arrivez rapidement à le convaincre de descendre. Pensant qu'il s'agit de son animal vous lui tendez mais découvrez qu'il ne lui appartient pas. N'ayant plus de place dans votre refuge, vous ne pouvez pas le prendre avec vous."
+      "you find a **{{pet}}**. You don't have the opportunity to welcome it, you give it to a merchant who passes through it. He refuses and lets him go.",
+      "you find a **{{pet}}**. You don't have the opportunity to welcome it, you give it to a merchant who passes through it. He is happy to take care of it.",
+      "you see an old lady looking to bring down a **{{pet}}** from a tree. You agree to help him and quickly convince him to come down. Thinking it is his animal you stretch it but find it does not belong to him. No more room in your shelter, you cannot take it with you."
     ],
     "noFood_f": [
-      "vous trouvez une **{{pet}}**. N'ayant pas la possibilité de l'accueillir, vous la donnez à un marchand qui passe par là. Celui-ci refuse et la laisse partir.",
-      "vous trouvez une **{{pet}}**. N'ayant pas la possibilité de l'accueillir, vous la donnez à un marchand qui passe par là. Il accepte volontiers de s'en occuper.",
-      "vous apercevez une vieille dame qui cherche à faire descendre une **{{pet}}** d'un arbre. Vous acceptez de l'aider et arrivez rapidement à la convaincre de descendre. Pensant qu'il s'agit de son animal vous lui tendez mais découvrez qu'elle ne lui appartient pas. N'ayant plus de place dans votre refuge, vous ne pouvez pas la prendre avec vous."
+      "you find a **{{pet}}**. You don't have the opportunity to welcome it, you give it to a merchant who passes through it. He refuses and lets her go.",
+      "you find a **{{pet}}**. You don't have the opportunity to welcome it, you give it to a merchant who passes through it. He is happy to take care of it.",
+      "you see an old lady looking to bring down a **{{pet}}** from a tree. You agree to help him and quickly convince him to come down. Thinking it is his animal you stretch it but find it does not belong to him. No more room in your shelter, you cannot take it with you."
     ],
     "givePetPlayer_m": [
-      "vous apercevez un **{{pet}}** perdu. Ayant toujours voulu avoir un compagnon, vous tombez sous son charme, et décidez de vous en occuper.",
-      "vous apercevez une vieille dame qui cherche à faire descendre un **{{pet}}** d'un arbre. Vous acceptez de l'aider et arrivez rapidement à le convaincre de descendre. Pensant qu'il s'agit de son animal vous lui tendez mais découvrez qu'il ne lui appartient pas. Vous décidez donc de le prendre avec vous.",
-      "vous entendez du bruit provenant d'un buisson, curieux, vous décidez d'aller voir. Vous découvrez un **{{pet}}** qui vous regarde fixement dans les yeux puis se met à vous suivre, Vous décidez donc de l'adopter.",
-      "vous décidez de faire un petit somme, lorsque quelque chose vous réveille, un **{{pet}}** était en train de fouiller dans votre sacoche ! Mais il semble ne pas vouloir vous attaquer et semble même vous apprécier, vous décidez donc de le garder."
+      "you see a lost **{{pet}}**. Having always wanted to have a companion, you fall under its charm, and decide to take care of it.",
+      "you see an old lady looking to bring down a **{{pet}}** from a tree. You agree to help him and quickly convince him to come down. Thinking that it is his pet you stretch out to him but find that he does not belong to him, so you decide to take it with you.",
+      "you hear noise from a curious bush, you decide to go see. You will find a **{{pet}}** that looks at you tightly in your eyes and then starts following you, so you decide to adopt it.",
+      "you decide to make a small amount, when something wakes up, a **{{pet}}** was digging into your bag! But it seems not to want to attack you and seems to even grasp you, so you decide to keep it."
     ],
     "givePetPlayer_f": [
-      "vous apercevez une **{{pet}}** perdue. Ayant toujours voulu avoir un compagnon, vous tombez sous son charme, et décidez de vous en occuper.",
-      "vous apercevez une vieille dame qui cherche à faire descendre une **{{pet}}** d'un arbre. Vous acceptez de l'aider et arrivez rapidement à la convaincre de descendre. Pensant qu'il s'agit de son animal vous lui tendez mais découvrez qu'elle ne lui appartient pas. Vous décidez donc de la prendre avec vous.",
-      "vous entendez du bruit provenant d'un buisson, curieux, vous décidez d'aller voir. Vous découvrez une **{{pet}}** qui vous regarde fixement dans les yeux puis se met à vous suivre, Vous décidez donc de l'adopter.",
-      "vous décidez de faire un petit somme, lorsque quelque chose vous réveille, une **{{pet}}** était en train de fouiller dans votre sacoche ! Mais elle semble ne pas vouloir vous attaquer et semble même vous apprécier, vous décidez donc de la garder."
+      "you see a lost **{{pet}}**. Having always wanted to have a companion, you fall under its charm, and decide to take care of it.",
+      "you see an old lady looking to bring down a **{{pet}}** from a tree. You agree to help him and quickly convince him to come down. Thinking it is his pet you stretch it but find it does not belong to him, so you decide to take it with you.",
+      "you hear noise from a curious bush, you decide to go see. You find a **{{pet}}** that looks at you tightly in your eyes and then starts following you, so you decide to adopt it.",
+      "you decide to make a small amount, when something wakes up, a **{{pet}}** was digging into your bag! But she seems not to want to attack you and seems to even grasp you, so you decide to keep it."
     ],
     "givePetGuild_m": [
-      "vous apercevez un **{{pet}}** perdu. Bien que vous ayez déjà un compagnon, vous décidez de le ramener au sein de votre guilde afin que quelqu'un en prenne soin.",
-      "vous apercevez un **{{pet}}** errant qui semble affamé. Vous lui donnez donc les restes de votre dernier repas. Il apprécie et semble vouloir vous suivre dans votre périple. Ayant un compagnon, vous le laissez aux bons soins de votre guilde.",
-      "vous voyez un groupe d'enfants en cercle. Vous vous rapprochez et découvrez qu'ils sont en train de malmener un pauvre petit **{{pet}}**. Vous les faites partir, mais il est trop mal en point. Vous réussissez à le remettre d'aplomb et lui laissez un peu de repos dans votre refuge."
+      "you see a lost **{{pet}}**. Although you already have a companion, you must bring it back to your guild so that someone can take care of it.",
+      "you see a **{{pet}}** roaming that looks hungry, so you give them the remains of your last meal. He is apprehended and seems to want to follow you in your search. Having a companion, you leave it to the good care of your guild.",
+      "you see a group of children in a circle. You come closer and find that they are abusing a poor **{{pet}}**. You make them go, but it is too bad in point. You managed to put it back and leave it a little rest in your shelter."
     ],
     "givePetGuild_f": [
-      "vous apercevez une **{{pet}}** perdue. Bien que vous ayez déjà un compagnon, vous décidez de la ramener au sein de votre guilde afin que quelqu'un en prenne soin.",
-      "vous apercevez une **{{pet}}** errante qui semble affamée. Vous lui donnez donc les restes de votre dernier repas. Elle apprécie et semble vouloir vous suivre dans votre périple. Ayant un compagnon, vous la laissez aux bons soins de votre guilde.",
-      "vous voyez un groupe d'enfants en cercle. Vous vous rapprochez et découvrez qu'ils sont en train de malmener une pauvre petite **{{pet}}**. Vous les faites partir, mais elle est trop mal en point. Vous réussissez à la remettre d'aplomb et lui laissez un peu de repos dans votre refuge."
+      "you see a lost **{{pet}}**. Although you already have a companion, you decide to bring it back to your guild for someone to take care of it.",
+      "you see a **{{pet}}** roaming that looks hungry, so you give them the leftovers of your last meal. She is apprehended and seems to want to follow you in your search. Having a companion, you leave it to the good care of your guild.",
+      "you see a group of children in a circle. You come closer and find that they are abusing a poor **{{pet}}**. You make them go, but it is too bad in point. You managed to put it back and leave it a little rest in your shelter."
     ]
   }
 }
