@@ -5,19 +5,15 @@ import {Players} from "../database/game/models/Player";
 import {PetEntities} from "../database/game/models/PetEntity";
 import {Guilds} from "../database/game/models/Guild";
 import {ClassDataController} from "../../data/Class";
-import {readdirSync} from "fs";
 import {SmallEventBotFactsPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventBotFactsPacket";
 import {Maps} from "../maps/Maps";
 
 type BotFactsProperties = {
-    "properties": {
-		"possibleInfos": string[]
-	}
+	"possibleInfos": string[]
 }
 
 const getNbPlayersWithGivenClass = async (): Promise<[number, number]> => {
-	const classToCheck = ClassDataController.instance.getById(parseInt(RandomUtils.draftbotRandom.pick(readdirSync("resources/text/classes")) // TODO: Rework, We musn't
-		.slice(0, -5), 10));
+	const classToCheck = ClassDataController.instance.getRandomClass();
 	return [await Players.getNbPlayersWithClass(classToCheck), classToCheck.id];
 };
 
@@ -25,7 +21,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnContinent,
 	executeSmallEvent: async (context, response, player): Promise<void> => {
 		const botFactsProperties = SmallEventDataController.instance.getById("botFacts").getProperties<BotFactsProperties>();
-		const information = RandomUtils.draftbotRandom.pick(Object.keys(botFactsProperties.properties.possibleInfos));
+		const information = RandomUtils.draftbotRandom.pick(Object.keys(botFactsProperties.possibleInfos));
 		const packet: SmallEventBotFactsPacket = {information, infoResult: 0};
 
 		let array = [];

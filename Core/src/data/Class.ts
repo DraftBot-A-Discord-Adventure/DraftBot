@@ -1,6 +1,7 @@
 import {DataControllerNumber} from "./DataController";
 import {ClassStats} from "../../../Lib/src/interfaces/ClassStats";
 import {Data} from "./Data";
+import {RandomUtils} from "../../../Lib/src/utils/RandomUtils";
 
 export class Class extends Data<number> {
 	public readonly attack: number;
@@ -90,5 +91,10 @@ export class ClassDataController extends DataControllerNumber<Class> {
 
 	getClassMaxId(): number {
 		return this.data.size;
+	}
+
+	getRandomClass(): Class {
+		return RandomUtils.draftbotRandom.pick(Array.from(this.data.values()));
+
 	}
 }
