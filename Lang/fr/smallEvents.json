@@ -755,38 +755,5 @@
       "vous apercevez une **{{pet}}** errante qui semble affamée. Vous lui donnez donc les restes de votre dernier repas. Elle apprécie et semble vouloir vous suivre dans votre périple. Ayant un compagnon, vous la laissez aux bons soins de votre guilde.",
       "vous voyez un groupe d'enfants en cercle. Vous vous rapprochez et découvrez qu'ils sont en train de malmener une pauvre petite **{{pet}}**. Vous les faites partir, mais elle est trop mal en point. Vous réussissez à la remettre d'aplomb et lui laissez un peu de repos dans votre refuge."
     ]
-  },
-  "botFacts": {
-    "stories" : [
-      "vous recevez une missive du roi. Ce dernier vous écrit à propos de la compétition pour la main de la princesse à laquelle vous participez. Vous découvrez à la lecture de la lettre que {{botFact}} vous reprenez votre route.",
-      "vous croisez un paysan en charrette semblant enjoué. Intrigué par son attitude, vous le questionnez à propos de sa bonne humeur. Il vous explique que {{botFact}} vous reprenez votre route.",
-      "vous apercevez le campement d'un aventurier au bord d'un sentier. Vous vous arrêtez un instant pour lui demander conseil sur le chemin à suivre et celui-ci vous pointe en retour la bonne direction en ajoutant que {{botFact}} vous reprenez la route.",
-      "vous voyez un panneau d'informations. Sur celui-ci, plusieurs affiches sont accrochées et évoquent des fêtes et autres évènements alentour. L'une d'elles parle du récent discours du roi, qui racontait que {{botFact}} vous continuez votre chemin.",
-      "vous croisez un attroupement de personnes et entendez parmi les bruits de la foule un orateur annonçant que {{botFact}} vous continuez votre chemin sans écouter la suite de ses dires.",
-      "vous apercevez au loin un mendiant adossé contre le tronc d'un arbre, en vous approchant pour lui donner une pièce vous entendez ses propos étranges, celui-ci répète en boucle que {{botFact}} vous vous éloignez au plus vite de cet individu suspect."
-    ],
-    "possibleInfo": {
-      "nbMeanPoints": "d'après un comptage des points effectué récemment par les organisateurs, les candidats ont en moyenne un score de **{{infoNumber}} :medal:**. Encouragé par cette nouvelle,",
-      "meanWeeklyScore": "d'après un comptage des points effectué récemment par les organisateurs, les candidats ont récolté en moyenne **{{infoNumber}} :medal: cette semaine**. Attristé par cette nouvelle,",
-      "levelMean": "le dernier recensement avait noté que les aventuriers ont atteint en moyenne le **niveau {{infoNumber}}**. Sans savoir que faire de cette information,",
-      "nbMeanMoney": "la banque du pays a compté une moyenne de **{{infoNumber}} :moneybag:** dans les bourses de ses clients. Amusé par cette nouvelle,",
-      "sumAllMoney": "la banque du pays compte **{{infoNumber}} :moneybag:** en circulation à cette heure-ci. Surpris par cette nouvelle,",
-      "richestPlayer": "la banque du pays a évalué que l'aventurier le plus riche a actuellement **{{infoNumber}} :moneybag:** sur son compte. Ébahi par cette nouvelle,",
-      "feistyPets": "la SPAC, ou Société Protectrice des Animaux de la Contrée, milite pour aider les **animaux fielleux** à obtenir une meilleure vie. Ils en ont recensé **{{infoNumber}}**. À la fois déçu et réconforté par cette nouvelle,",
-      "percentMalePets": "la SPAC, ou Société Protectrice des Animaux de la Contrée, a découvert que **{{infoNumber}}%** des animaux sur le territoire sont des mâles. Ravi de cette nouvelle,",
-      "percentFemalePets": "la SPAC, ou Société Protectrice des Animaux de la Contrée, a découvert que **{{infoNumber}}%** des animaux sur le territoire sont des femelles. Ravi de cette nouvelle,",
-      "guildLevelMean": "l'AGC, ou Agence des Guildes de la Contrée, a noté que les guildes actuelles ont atteint en moyenne le **niveau {{infoNumber}}**. Intrigué par cette information,",
-      "nbPlayersHaventStartedTheAdventure_zero": "le SAFAC, ou Service Anti-Fraude des Aventuriers de la Contrée, a découvert qu'**aucun aventurier** ne s'est volatilisé juste après avoir obtenu leur licence d'aventurier. Admiratif de tous ces valeureux aventuriers,",
-      "nbPlayersHaventStartedTheAdventure_one": "le SAFAC, ou Service Anti-Fraude des Aventuriers de la Contrée, a découvert qu'**un aventurier** s'est volatilisé juste après avoir obtenu sa licence d'aventurier. Indigné par l'action de cette personne,",
-      "nbPlayersHaventStartedTheAdventure_other": "le SAFAC, ou Service Anti-Fraude des Aventuriers de la Contrée, a découvert que **{{infoNumber}} aventuriers** se sont volatilisés juste après avoir obtenu leur licence d'aventurier. Indigné par l'action de ces personnes,",
-      "trainedPets_one": "la SPAC, ou Société Protectrice des Animaux de la Contrée, souhaite féliciter le dresseur du **seul animal dressé**. Impressionné par cet exploit,",
-      "trainedPets_other": "la SPAC, ou Société Protectrice des Animaux de la Contrée, souhaite féliciter les dresseurs des **{{infoNumber}} animaux dressés**. Impressionné par cet exploit,",
-      "nbPlayersWithGivenClass_zero": "d'après un récent recensement des aventuriers, il n'y aurait aucun joueur avec la classe **{{infoComplement}}**. Époustouflé par cette nouvelle,",
-      "nbPlayersWithGivenClass_one": "d'après un récent recensement des aventuriers, il n'y aurait qu'un seul joueur avec la classe **{{infoComplement}}**. Impressionné par cette nouvelle,",
-      "nbPlayersWithGivenClass_other": "d'après un récent recensement des aventuriers, il y aurait **{{infoNumber}}** joueurs avec la classe **{{infoComplement}}**. Étonné par cette nouvelle,",
-      "nbPlayersOnYourMap_zero": "les chevaliers aux alentours n'ont croisé **personne d'autre que vous** sur cette route. Surpris par cette nouvelle,",
-      "nbPlayersOnYourMap_one": "les chevaliers aux alentours ont n'ont croisé qu'**une personne** en train de circuler sur votre route. Surpris par cette nouvelle,",
-      "nbPlayersOnYourMap_other": "les chevaliers alentour ont compté **{infoNumber} personnes** en train de circuler sur votre route. Surpris par cette nouvelle,"
-    }
   }
 }
