@@ -348,7 +348,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 			response.push(packet);
 		}
 		else {
-			const otherPat = await PetEntities.getById(otherPlayer.petId);
+			const otherPet = await PetEntities.getById(otherPlayer.petId);
 			response.push(makePacket(SmallEventInteractOtherPlayersPacket, {
 				keycloakId: otherPlayer.keycloakId,
 				playerInteraction: interaction,
@@ -356,9 +356,9 @@ export const smallEventFuncs: SmallEventFuncs = {
 					rank: otherPlayerRank,
 					level: otherPlayer.level,
 					classId: otherPlayer.class,
-					petName: otherPlayer.petId ? otherPat.nickname : undefined,
+					petName: otherPlayer.petId ? otherPet.nickname : undefined,
 					petId: otherPlayer.petId,
-					petSex: otherPlayer.petId ? otherPat.sex : undefined,
+					petSex: otherPlayer.petId ? otherPet.sex : undefined,
 					guildName: guild ? guild.name : undefined,
 					weaponId: inventorySlots.find((slot) => slot.isWeapon() && slot.isEquipped()).itemId,
 					armorId: inventorySlots.find((slot) => slot.isArmor() && slot.isEquipped()).itemId,
