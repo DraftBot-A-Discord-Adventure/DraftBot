@@ -1,7 +1,8 @@
-import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
+import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
 import {Language} from "../../../Lib/src/Language";
 import {PetConstants} from "../../../Lib/src/constants/PetConstants";
 import i18n from "../translations/i18n";
+import {translateEmojiToDiscord} from "./EmoteUtils";
 
 export type PetData = {
 	petTypeId: number,
@@ -43,7 +44,7 @@ export class PetUtils {
 	 * @param typeId
 	 * @param sex
 	 */
-	static petToShortString(language: Language, nickname: string | undefined, typeId: number, sex :string): string {
+	static petToShortString(language: Language, nickname: string | undefined, typeId: number, sex: string): string {
 		return i18n.t("commands:pet.shortPetField", {
 			lng: language,
 			emote: PetUtils.getPetIcon(typeId, sex),
@@ -56,8 +57,8 @@ export class PetUtils {
 	 * @param typeId
 	 * @param sex
 	 */
-	static getPetIcon(typeId: number, sex:string): string {
-		return sex === PetConstants.SEX.MALE ? DraftBotIcons.pets[typeId].emoteMale : DraftBotIcons.pets[typeId].emoteFemale;
+	static getPetIcon(typeId: number, sex: string): string {
+		return translateEmojiToDiscord(sex === PetConstants.SEX.MALE ? DraftBotIcons.pets[typeId].emoteMale : DraftBotIcons.pets[typeId].emoteFemale);
 	}
 
 	/**

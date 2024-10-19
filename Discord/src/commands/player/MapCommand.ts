@@ -10,6 +10,7 @@ import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import i18n from "../../translations/i18n";
 import {MapConstants} from "../../../../Lib/src/constants/MapConstants";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
+import {translateEmojiToDiscord} from "../../utils/EmoteUtils";
 
 function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandMapPacketReq> {
 	return Promise.resolve(makePacket(CommandMapPacketReq, {keycloakId: user.id, language: interaction.userLanguage}));
@@ -20,7 +21,11 @@ function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promis
  * @param embed
  * @param mapLink
  */
-async function setEmbedMap(embed: DraftBotEmbed, mapLink: {name: string, fallback?: string, forced: boolean}): Promise<void> {
+async function setEmbedMap(embed: DraftBotEmbed, mapLink: {
+	name: string,
+	fallback?: string,
+	forced: boolean
+}): Promise<void> {
 	if (mapLink.forced && !mapLink.fallback) {
 		embed.setImage(MapConstants.FORCED_MAPS_URL.replace("{name}", mapLink.name));
 	}
@@ -76,7 +81,7 @@ export async function handleCommandMapDisplayRes(packet: CommandMapDisplayRes, c
 
 		const mapName = i18n.t(`models:map_locations.${packet.data?.mapId}.name`, {
 			lng: interaction.userLanguage,
-			interpolation: { escapeValue: false }
+			interpolation: {escapeValue: false}
 		});
 
 		const mapParticle = i18n.t(`models:map_locations.${packet.data?.mapId}.particle`, {
@@ -85,7 +90,7 @@ export async function handleCommandMapDisplayRes(packet: CommandMapDisplayRes, c
 
 		const mapDescription = i18n.t(`models:map_locations.${packet.data?.mapId}.description`, {
 			lng: interaction.userLanguage,
-			interpolation: { escapeValue: false }
+			interpolation: {escapeValue: false}
 		});
 
 		embed.setDescription(i18n.t(packet.data!.inEvent
@@ -94,9 +99,9 @@ export async function handleCommandMapDisplayRes(packet: CommandMapDisplayRes, c
 			lng: interaction.userLanguage,
 			destination: mapName,
 			particle: mapParticle,
-			emote: DraftBotIcons.map_types[packet.data!.mapType],
+			emote: translateEmojiToDiscord(DraftBotIcons.map_types[packet.data!.mapType]),
 			description: mapDescription,
-			interpolation: { escapeValue: false }
+			interpolation: {escapeValue: false}
 		}));
 
 		await interaction.reply({embeds: [embed]});

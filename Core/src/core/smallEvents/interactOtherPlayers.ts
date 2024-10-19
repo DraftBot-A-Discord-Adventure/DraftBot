@@ -305,7 +305,11 @@ export const smallEventFuncs: SmallEventFuncs = {
 			missionId: "meetDifferentPlayers",
 			params: {metPlayerKeycloakId: otherPlayer.keycloakId}
 		});
-		const {guild, inventorySlots, interactionsList} = await getAvailableInteractions(otherPlayer, player, numberOfPlayers);
+		const {
+			guild,
+			inventorySlots,
+			interactionsList
+		} = await getAvailableInteractions(otherPlayer, player, numberOfPlayers);
 		const interaction = RandomUtils.draftbotRandom.pick(interactionsList);
 		const otherPlayerRank = await Players.getRankById(otherPlayer.id) > numberOfPlayers ? undefined : await Players.getRankById(otherPlayer.id);
 
@@ -344,6 +348,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 			response.push(packet);
 		}
 		else {
+			const otherPat = await PetEntities.getById(otherPlayer.petId);
 			response.push(makePacket(SmallEventInteractOtherPlayersPacket, {
 				keycloakId: otherPlayer.keycloakId,
 				playerInteraction: interaction,
@@ -351,8 +356,9 @@ export const smallEventFuncs: SmallEventFuncs = {
 					rank: otherPlayerRank,
 					level: otherPlayer.level,
 					classId: otherPlayer.class,
-					petName: otherPlayer.petId ? (await PetEntities.getById(otherPlayer.petId)).nickname : undefined,
+					petName: otherPlayer.petId ? otherPat.nickname : undefined,
 					petId: otherPlayer.petId,
+					petSex: otherPlayer.petId ? otherPat.sex : undefined,
 					guildName: guild ? guild.name : undefined,
 					weaponId: inventorySlots.find((slot) => slot.isWeapon() && slot.isEquipped()).itemId,
 					armorId: inventorySlots.find((slot) => slot.isArmor() && slot.isEquipped()).itemId,

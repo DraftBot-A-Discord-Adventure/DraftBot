@@ -3,7 +3,10 @@ import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPac
 import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
 import i18n from "../../translations/i18n";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {CommandProfilePacketReq, CommandProfilePacketRes} from "../../../../Lib/src/packets/commands/CommandProfilePacket";
+import {
+	CommandProfilePacketReq,
+	CommandProfilePacketRes
+} from "../../../../Lib/src/packets/commands/CommandProfilePacket";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {ColorResolvable, EmbedField, Message, MessageReaction} from "discord.js";
@@ -18,6 +21,7 @@ import {keycloakConfig} from "../../bot/DraftBotShard";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 import {Effect} from "../../../../Lib/src/enums/Effect";
 import {PetUtils} from "../../utils/PetUtils";
+import {translateEmojiToDiscord} from "../../utils/EmoteUtils";
 
 /**
  * Display the profile of a player
@@ -29,10 +33,10 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 	if (user) {
 		const keycloakId = await KeycloakUtils.getKeycloakIdFromDiscordId(keycloakConfig, user.id, user.displayName);
 		if (!keycloakId) {
-			await interaction.reply({embeds: [new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("error:playerDoesntExist", { lng: interaction.userLanguage }))]});
+			await interaction.reply({embeds: [new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("error:playerDoesntExist", {lng: interaction.userLanguage}))]});
 			return null;
 		}
-		askedPlayer = { keycloakId };
+		askedPlayer = {keycloakId};
 	}
 	const rank = interaction.options.get("rank");
 	if (rank) {
@@ -77,7 +81,7 @@ function generateFields(packet: CommandProfilePacketRes, language: Language): Em
 	const fields: EmbedField[] = [];
 
 	fields.push({
-		name: i18n.t("commands:profile.information.fieldName", { lng: language }),
+		name: i18n.t("commands:profile.information.fieldName", {lng: language}),
 		value: i18n.t("commands:profile.information.fieldValue", {
 			lng: language,
 			health: packet.data?.health.value,
@@ -145,7 +149,7 @@ function generateFields(packet: CommandProfilePacketRes, language: Language): Em
 			name: i18n.t("commands:profile.timeLeft.fieldName", {lng: language}),
 			value: i18n.t("commands:profile.timeLeft.fieldValue", {
 				lng: language,
-				effect: DraftBotIcons.effects[packet.data.effect.effect],
+				effect: translateEmojiToDiscord(DraftBotIcons.effects[packet.data.effect.effect]),
 				timeLeft: packet.data.effect.timeLeft
 			}),
 			inline: false
@@ -192,7 +196,7 @@ function generateFields(packet: CommandProfilePacketRes, language: Language): Em
 			value: i18n.t("commands:profile.map.fieldValue", {
 				lng: language,
 				mapEmote: "TODO EMOTE", // Todo
-				mapName: i18n.t(`models:map_locations.${packet.data.destination}.name`, { lng: language })
+				mapName: i18n.t(`models:map_locations.${packet.data.destination}.name`, {lng: language})
 			}),
 			inline: false
 		});

@@ -43,6 +43,7 @@ export class SmallEventInteractOtherPlayersPacket extends SmallEventPacket {
 		classId: number,
 		petId?: number,
 		petName?: string,
+		petSex?: string,
 		guildName?: string,
 		weaponId: number,
 		armorId: number,
@@ -53,7 +54,9 @@ export class SmallEventInteractOtherPlayersPacket extends SmallEventPacket {
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
-export class SmallEventInteractOtherPlayersRefuseToGivePoorPacket extends SmallEventPacket {}
+export class SmallEventInteractOtherPlayersRefuseToGivePoorPacket extends SmallEventPacket {
+}
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
-export class SmallEventInteractOtherPlayersAcceptToGivePoorPacket extends SmallEventPacket {}
+export class SmallEventInteractOtherPlayersAcceptToGivePoorPacket extends SmallEventPacket {
+}
