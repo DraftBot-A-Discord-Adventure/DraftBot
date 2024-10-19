@@ -597,5 +597,121 @@
       "wiltedRose": "Add a faded rose",
       "worm": "Add worm"
     }
+  },
+  "space": {
+    "before_search_format": "{{seIntro}}{{intro}}. {{searchAction}}.\n\n:telescope: *{{search}}*.",
+    "after_search_format": "{{oldMessage}}\n\n{{actionIntro}}, {{action}} **{{specific}}**. {{outro}}.",
+    "intro": [
+      "you meet an oracle who pretends to be called **{{name}}**",
+      "un homme vous semble étrange, alors vous allez à sa rencontre. Il dit être un oracle du nom de **{{name}}**",
+      "you meet an oracle named **{{name}}**",
+      "vous passez à côté d'un oracle qui vous interpelle. Il dit s'appeler **{{name}}**",
+      "you are called out by a man who says to be called **{{name}}**",
+      "un oracle du nom de **{{name}}** vous apostrophe",
+      "un étranger prétendant s'appeler **{{name}}** vous demande d'approcher",
+      "un homme surgissant de nulle part court vers vous et se présente sous le nom de **{{name}}**",
+      "un inconnu suspect vous demande d'approcher, ce après quoi il vous dit s'appeler **{{name}}**"
+    ],
+    "searchAction": [
+      "Il vous dit qu'il peut vous donner des informations sur le ciel, mais qu'il a besoin de temps pour l'observer",
+      "He says he is able to give you information about the sky as long as you give him a little time",
+      "He tells you that if you give him time, he would be able to give you information about the sky",
+      "He says he can give information about the sky if he is given the necessary time",
+      "Celui-ci prétend pouvoir lire dans les étoiles à condition que vous lui en laissiez le temps",
+      "He claims to be able to give you information about the sky if you give him some of your time"
+    ],
+    "search": [
+      "The man looks at the sky in a small device",
+      "He lies on the ground and looks at the sky",
+      "The man begins to contemplate the sky",
+      "He seems focused on looking at something in the sky",
+      "Leaning on his refracting telescope, he observes the celestial vault with attention",
+      "The oracle observes the sky with attention",
+      "He lifts his head to carefully contemplate the sky",
+      "He starts to scrutinize intensely at the stars",
+      "The man sits against a tree and contemplate the sky",
+      "The man lies on the ground and looks up to the sky"
+    ],
+    "actionIntro": [
+      "After a few minutes",
+      "Short time after",
+      "A couple of minutes later",
+      "After making you wait a few minutes",
+      "After a little wait",
+      "A few moments later",
+      "After waiting a handful of seconds"
+    ],
+    "action": [
+      "il vous informe que",
+      "il vous met au courant que",
+      "he informs you that",
+      "il vous dit que",
+      "il se met à vous dire que",
+      "il déclare que"
+    ],
+    "outro": [
+      "Vous repartez ébahi par cette nouvelle",
+      "Vous reprenez votre chemin rêveur",
+      "Vous le remerciez et repartez heureux d'avoir appris cette nouvelle",
+      "Vous le quittez plein d'étoiles dans les yeux",
+      "Vous repartez sans regretter de vous être arrêté",
+      "Vous reprenez votre route perplexe"
+    ],
+    "specific": {
+      "neoWS": [
+        "{{mainValue}} objet{{mainValuePlural}} traverseront le ciel aujourd'hui",
+        "l'objet nommé \"{{randomObjectName}}\" avec un diamètre d'environ {{randomObjectDiameter}} mètres passe proche de la planète aujourd'hui",
+        "l'objet nommé \"{{randomObjectName}}\" passe à une distance d'environ {{randomObjectDistance}} millions de kilomètres de la planète",
+        "l'astéroïde du nom de \"{{randomObjectName}}\" dépasse notre planète d'environ {{randomObjectDistance}} millions de kilomètres",
+        "l'astéroïde du nom de \"{{randomObjectName}}\" sera peut-être visible aujourd'hui",
+        "l'astéroïde nommé \"{{randomObjectName}}\" passera à proximité de la planète",
+        "l'astéroïde nommé \"{{randomObjectName}}\" passera à {{randomObjectDistance}} millions de kilomètres de nous"
+      ],
+      "moonPhase": [
+        "c'est {{mainValue}} en ce moment",
+        "{{mainValue}} éclaire actuellement le ciel",
+        "derrière les nuages se cache {{mainValue}}",
+        "le ciel parcimonieux laisse entrevoir {{mainValue}}"
+      ],
+      "nextFullMoon": [
+        "la prochaine pleine lune est dans {{mainValue}} jour{{mainValuePlural}}",
+        "la pleine lune brillera dans {{mainValue}} jour{{mainValuePlural}}",
+        "nous apercevrons la pleine lune dans {{mainValue}} jour{{mainValuePlural}}",
+        "dans {{mainValue}} jour{{mainValuePlural}} on pourra observer la pleine lune"
+      ],
+      "nextPartialLunarEclipse": [
+        "la prochaine éclipse lunaire partielle est dans {{mainValue}} jour{{mainValuePlural}}",
+        "dans {{mainValue}} jour{{mainValuePlural}} on pourra apercevoir une éclipse de lune partielle",
+        "dans les {{mainValue}} jour{{mainValuePlural}} qui viennent vous aurez la chance d'assister à une éclipse lunaire partielle",
+        "le temps avant d'apercevoir la prochaine éclipse de lune partielle est de {{mainValue}} jour{{mainValuePlural}}"
+      ],
+      "nextTotalLunarEclipse": [
+        "la prochaine éclipse lunaire totale est dans {{mainValue}} jour{{mainValuePlural}}",
+        "d'ici {{mainValue}} jour{{mainValuePlural}} vous apercevrez une éclipse lunaire complète",
+        "dans les {{mainValue}} jour{{mainValuePlural}} qui viennent vous aurez la chance d'assister à une éclipse lunaire totale",
+        "si vous observez le ciel dans {{mainValue}} jour{{mainValuePlural}} vous pourrez contempler une éclipse lunaire totale"
+      ]
+    },
+    "moonPhases": [
+      "la nouvelle Lune",
+      "le premier quartier de la Lune",
+      "la pleine Lune",
+      "le dernier quartier de la Lune"
+    ],
+    "names": [
+      "Claude",
+      "Pierre Alphonse",
+      "Friedrich",
+      "Wilhelm",
+      "Nicolas",
+      "Clyde",
+      "Tycho",
+      "Giordano",
+      "Johannes",
+      "Jean-Dominique",
+      "Isaac",
+      "Edwin",
+      "Albert"
+    ]
   }
 }
