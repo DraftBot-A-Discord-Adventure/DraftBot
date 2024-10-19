@@ -2,7 +2,8 @@ import {makePacket, PacketContext} from "../../../Lib/src/packets/DraftBotPacket
 import {
 	ReactionCollectorAcceptReaction,
 	ReactionCollectorCreationPacket,
-	ReactionCollectorReactPacket, ReactionCollectorRefuseReaction
+	ReactionCollectorReactPacket,
+	ReactionCollectorRefuseReaction
 } from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {DiscordCache} from "../bot/DiscordCache";
 import {KeycloakUser} from "../../../Lib/src/keycloak/KeycloakUser";
@@ -16,6 +17,8 @@ import {keycloakConfig} from "../bot/DraftBotShard";
 import {PacketUtils} from "./PacketUtils";
 
 export class DiscordCollectorUtils {
+	private static choiceListEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣", "7⃣", "8⃣", "9⃣"];
+
 	static sendReaction(packet: ReactionCollectorCreationPacket, context: PacketContext, user: KeycloakUser, button: ButtonInteraction | null, reactionIndex: number): void {
 		const responsePacket = makePacket(
 			ReactionCollectorReactPacket,
@@ -39,10 +42,7 @@ export class DiscordCollectorUtils {
 				buttonInteraction: button?.id,
 				language: context.discord!.language
 			}
-		}, {
-			name: responsePacket.constructor.name,
-			data: responsePacket
-		});
+		}, responsePacket);
 	}
 
 	static async createAcceptRefuseCollector(
@@ -130,8 +130,6 @@ export class DiscordCollectorUtils {
 			}
 		});
 	}
-
-	private static choiceListEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣", "7⃣", "8⃣", "9⃣"];
 
 	static async createChoiceListCollector(
 		interaction: DraftbotInteraction,

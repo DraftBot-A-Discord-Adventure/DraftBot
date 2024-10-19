@@ -15,6 +15,7 @@ import {PlayerDeathPacket} from "../../../../Lib/src/packets/notifications/Playe
 import {PlayerLeavePveIslandPacket} from "../../../../Lib/src/packets/notifications/PlayerLeavePveIslandPacket";
 import {PlayerLevelUpPacket} from "../../../../Lib/src/packets/notifications/PlayerLevelUpPacket";
 import {PlayerReceivePetPacket} from "../../../../Lib/src/packets/notifications/PlayerReceivePetPacket";
+import {translateEmojiToDiscord} from "../../utils/EmoteUtils";
 
 export default class NotificationsHandlers {
 	@packetHandler(CommandReportChooseDestinationRes)
@@ -41,10 +42,10 @@ export default class NotificationsHandlers {
 			embed.setDescription(i18n.t(i18nTr, {
 				count: time,
 				lng: interaction.userLanguage,
-				mapPrefix: i18n.t(`models:map_types.${packet.mapTypeId}.prefix`, { lng: interaction.userLanguage }),
-				mapType: (i18n.t(`models:map_types.${packet.mapTypeId}.name`, { lng: interaction.userLanguage }) as string).toLowerCase(),
-				mapEmote: DraftBotIcons.map_types[packet.mapTypeId],
-				mapName: i18n.t(`models:map_locations.${packet.mapId}.name`, { lng: interaction.userLanguage }),
+				mapPrefix: i18n.t(`models:map_types.${packet.mapTypeId}.prefix`, {lng: interaction.userLanguage}),
+				mapType: (i18n.t(`models:map_types.${packet.mapTypeId}.name`, {lng: interaction.userLanguage}) as string).toLowerCase(),
+				mapEmote: translateEmojiToDiscord(DraftBotIcons.map_types[packet.mapTypeId]),
+				mapName: i18n.t(`models:map_locations.${packet.mapId}.name`, {lng: interaction.userLanguage}),
 				time
 			}));
 

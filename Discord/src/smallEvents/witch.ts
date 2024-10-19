@@ -1,4 +1,4 @@
-import { ReactionCollectorCreationPacket } from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import {ReactionCollectorCreationPacket} from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
 import {DiscordCache} from "../bot/DiscordCache";
 import {DraftbotSmallEventEmbed} from "../messages/DraftbotSmallEventEmbed";
@@ -15,6 +15,7 @@ import {StringUtils} from "../utils/StringUtils";
 import {SmallEventWitchResultPacket} from "../../../Lib/src/packets/smallEvents/SmallEventWitchPacket";
 import {Effect} from "../../../Lib/src/enums/Effect";
 import {WitchActionOutcomeType} from "../../../Lib/src/enums/WitchActionOutcomeType";
+import {translateEmojiToDiscord} from "../utils/EmoteUtils";
 
 export async function witchCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
@@ -24,8 +25,8 @@ export async function witchCollector(packet: ReactionCollectorCreationPacket, co
 	const reactions: [string, string][] = [];
 	for (const reaction of packet.reactions) {
 		const ingredientId = (reaction.data as ReactionCollectorWitchReaction).id;
-		const emoji = DraftBotIcons.witch_small_event[ingredientId];
-		witchIngredients += `${emoji} ${i18n.t(`smallEvents:witch.witchEventNames.${ingredientId}`, { lng: interaction.userLanguage })}\n`;
+		const emoji = translateEmojiToDiscord(DraftBotIcons.witch_small_event[ingredientId]);
+		witchIngredients += `${emoji} ${i18n.t(`smallEvents:witch.witchEventNames.${ingredientId}`, {lng: interaction.userLanguage})}\n`;
 		reactions.push([ingredientId, emoji]);
 	}
 
@@ -96,7 +97,7 @@ export async function witchResult(packet: SmallEventWitchResultPacket, context: 
 	if (interaction) {
 		const introToLoad = packet.isIngredient ? "smallEvents:witch.witchEventResults.ingredientIntros" : "smallEvents:witch.witchEventResults.adviceIntros";
 		const timeOutro = packet.effectId === Effect.OCCUPIED.id && packet.timeLost > 0
-			? StringUtils.getRandomTranslation("smallEvents:witch.witchEventResults.outcomes.2.time", user.attributes.language[0], { lostTime: packet.timeLost })
+			? StringUtils.getRandomTranslation("smallEvents:witch.witchEventResults.outcomes.2.time", user.attributes.language[0], {lostTime: packet.timeLost})
 			: "";
 		const outcomeTranslationToLoad = packet.forceEffect || packet.outcome === WitchActionOutcomeType.EFFECT ?
 			`smallEvents:witch.witchEventResults.outcomes.2.${packet.effectId}` : `smallEvents:witch.witchEventResults.outcomes.${packet.outcome + 1}`;
@@ -108,9 +109,9 @@ export async function witchResult(packet: SmallEventWitchResultPacket, context: 
 					witchEvent: `${i18n.t(`smallEvents:witch.witchEventNames.${packet.ingredientId}`, {lng: user.attributes.language[0]})} ${DraftBotIcons.witch_small_event[packet.ingredientId]}`
 						.toLowerCase()
 				})
-					+ " "
-					+ StringUtils.getRandomTranslation(outcomeTranslationToLoad, user.attributes.language[0], { lostLife: packet.lifeLoss })
-					+ timeOutro,
+				+ " "
+				+ StringUtils.getRandomTranslation(outcomeTranslationToLoad, user.attributes.language[0], {lostLife: packet.lifeLoss})
+				+ timeOutro,
 				interaction.user,
 				user.attributes.language[0]
 			)]

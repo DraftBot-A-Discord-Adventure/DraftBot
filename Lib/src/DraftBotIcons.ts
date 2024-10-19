@@ -1,12 +1,14 @@
+type EventPossibilities = {
+	"end": { [outcomeId: string]: string };
+} & Record<string, string | { [outcomeId: string]: string }>
+
 export const DraftBotIcons: {
 	effects: {
 		[effectId: string]: string
 	},
 	events: {
-		[eventId: string]: {
-			[possibilityName: string]: string | { [outcomeId: string]: string }
-		}
-	}
+		[eventId: string]: EventPossibilities;
+	},
 	map_types: {
 		[mapType: string]: string
 	},
