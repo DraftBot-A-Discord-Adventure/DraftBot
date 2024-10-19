@@ -21,7 +21,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnContinent,
 	executeSmallEvent: async (context, response, player): Promise<void> => {
 		const botFactsProperties = SmallEventDataController.instance.getById("botFacts").getProperties<BotFactsProperties>();
-		const information = RandomUtils.draftbotRandom.pick(Object.keys(botFactsProperties.possibleInfos));
+		const information = RandomUtils.draftbotRandom.pick(Object.values(botFactsProperties.possibleInfos));
 		const packet: SmallEventBotFactsPacket = {information, infoNumber: 0};
 
 		let array = [];

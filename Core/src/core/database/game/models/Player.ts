@@ -1324,7 +1324,7 @@ export class Players {
 	static async getNbPlayersHaventStartedTheAdventure(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
 		               FROM players
-		               WHERE effect = ":baby:"`;
+		               WHERE effectId = "${Effect.NOT_STARTED.id}"`;
 		return (<{
 			count: number
 		}[]>(await Player.sequelize.query(query, {
