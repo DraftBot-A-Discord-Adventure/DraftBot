@@ -5,7 +5,7 @@ import {PacketDirection, sendablePacket} from "../DraftBotPacket";
 export class SmallEventBotFactsPacket extends SmallEventPacket {
 	information!: string;
 
-	infoResult!: number;
+	infoNumber!: number;
 
 	infoComplement?: number;
 }
