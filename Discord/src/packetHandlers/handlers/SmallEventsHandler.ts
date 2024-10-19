@@ -554,11 +554,11 @@ export default class SmallEventsHandler {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (interaction) {
 			let translationKey;
-			if (!packet.isPetReceived) {
-				translationKey = packet.isPetFood ? "smallEvents:findPet.food" : "smallEvents:findPet.noFood";
+			if (packet.isPetReceived) {
+				translationKey = packet.petIsReceivedByGuild ? "smallEvents:findPet.givePetGuild" : "smallEvents:findPet.givePetPlayer";
 			}
 			else {
-				translationKey = packet.petIsReceivedByGuild ? "smallEvents:findPet.givePetPlayer" : "smallEvents:findPet.givePetGuild";
+				translationKey = packet.isPetFood ? "smallEvents:findPet.food" : "smallEvents:findPet.noFood";
 			}
 
 			await interaction.editReply({
