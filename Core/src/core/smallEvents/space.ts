@@ -4,7 +4,7 @@ import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {SpaceConstants} from "../../../../Lib/src/constants/SpaceConstants";
 import {NearEarthObject, SpaceUtils} from "../utils/SpaceUtils";
 import {MoonPhase, NextLunarEclipse, SearchLunarEclipse, SearchMoonQuarter} from "../utils/Astronomy";
-import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
+import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {
 	SmallEventSpaceInitialPacket,
 	SmallEventSpaceResultPacket,
@@ -103,27 +103,28 @@ const spaceFunctions = {
 	nextTotalLunarEclipse
 };
 
+async function astronomyEvent(context: PacketContext): Promise<void> {
+	let availableSpaceFunctions = Object.keys(spaceFunctions);
+	if (nextFullMoon().mainValue === 0) {
+		availableSpaceFunctions = availableSpaceFunctions.filter(e => e !== SpaceConstants.FUNCTIONS.nextFullMoon);
+	}
+	const specificEvent = RandomUtils.draftbotRandom.pick(availableSpaceFunctions) as keyof typeof spaceFunctions;
+	const t0 = performance.now();
+	const result = await spaceFunctions[specificEvent]();
+	const timeLeft = Math.max(SpaceConstants.WAIT_TIME_BEFORE_SEARCH - (performance.now() - t0), 0);
+	setTimeout(() => {
+		PacketUtils.sendPackets(context, [makePacket(SmallEventSpaceResultPacket, {
+			chosenEvent: specificEvent,
+			values: result
+		})]);
+	}, timeLeft);
+}
+
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnContinent,
 
 	executeSmallEvent(context, response): void {
 		response.push(makePacket(SmallEventSpaceInitialPacket, {}));
-		new Promise(() => {
-			let availableSpaceFunctions = Object.keys(spaceFunctions);
-			if (nextFullMoon().mainValue === 0) {
-				availableSpaceFunctions = availableSpaceFunctions.filter(e => e !== SpaceConstants.FUNCTIONS.nextFullMoon);
-			}
-
-			const specificEvent = RandomUtils.draftbotRandom.pick(availableSpaceFunctions) as keyof typeof spaceFunctions;
-			const t0 = performance.now();
-			const result = await spaceFunctions[specificEvent]();
-			const timeLeft = Math.max(SpaceConstants.WAIT_TIME_BEFORE_SEARCH - (performance.now() - t0), 0);
-			setTimeout(() => {
-				PacketUtils.sendPackets(context, [makePacket(SmallEventSpaceResultPacket, {
-					chosenEvent: specificEvent,
-					values: result
-				})]);
-			}, timeLeft);
-		}).then();
+		astronomyEvent(context).then();
 	}
 };
