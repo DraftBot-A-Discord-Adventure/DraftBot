@@ -52,6 +52,8 @@ import {
 	SmallEventSpaceInitialPacket,
 	SmallEventSpaceResultPacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventSpacePacket";
+import {SmallEventFindPetPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFindPetPacket";
+import {PetUtils} from "../../utils/PetUtils";
 
 export function getRandomSmallEventIntro(language: Language): string {
 	return StringUtils.getRandomTranslation("smallEvents:intro", language);
@@ -365,13 +367,9 @@ export default class SmallEventsHandler {
 			else {
 				endMessage = i18n.t(packet.enoughFights ? "smallEvents:leagueReward.endMessage" : "smallEvents:leagueReward.notEnoughFight", {
 					lng: interaction.userLanguage,
-					interpolation: {escapeValue: false},
+					interpolation: { escapeValue: false },
 					league: i18n.t(`models:leagues.${packet.leagueId}`, {lng: interaction.userLanguage}),
-					rewards: i18n.t("smallEvents:leagueReward.reward", {
-						lng: interaction.userLanguage,
-						money: packet.money,
-						xp: packet.xp
-					}),
+					rewards: i18n.t("smallEvents:leagueReward.reward", {lng: interaction.userLanguage, money: packet.money, xp: packet.xp}),
 					time: printTimeBeforeDate(packet.nextRewardDate)
 				});
 			}
@@ -397,7 +395,7 @@ export default class SmallEventsHandler {
 				embeds: [
 					new DraftbotSmallEventEmbed(
 						"winGuildXP",
-						StringUtils.getRandomTranslation("smallEvents:winGuildXP.stories", interaction.userLanguage, {guild: packet.guildName})
+						StringUtils.getRandomTranslation("smallEvents:winGuildXP.stories", interaction.userLanguage, { guild: packet.guildName })
 						+ i18n.t("smallEvents:winGuildXP.end", {lng: interaction.userLanguage, xp: packet.amount}),
 						interaction.user,
 						interaction.userLanguage
@@ -453,10 +451,7 @@ export default class SmallEventsHandler {
 	async smallEventStaffMember(packet: SmallEventStaffMemberPacket, context: PacketContext): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (interaction) {
-			const staffMember = RandomUtils.draftbotRandom.pick(Object.keys(i18n.t("smallEvents:staffMember.members", {
-				returnObjects: true,
-				lng: interaction.userLanguage
-			})));
+			const staffMember = RandomUtils.draftbotRandom.pick(Object.keys(i18n.t("smallEvents:staffMember.members", {returnObjects: true, lng: interaction.userLanguage})));
 			await interaction.editReply({
 				embeds: [
 					new DraftbotSmallEventEmbed(
@@ -466,7 +461,7 @@ export default class SmallEventsHandler {
 							pseudo: staffMember,
 							sentence: i18n.t(`smallEvents:staffMember.members.${staffMember}`, {
 								lng: interaction.userLanguage,
-								interpolation: {escapeValue: false}
+								interpolation: { escapeValue: false }
 							})
 						}),
 						interaction.user,
@@ -503,7 +498,7 @@ export default class SmallEventsHandler {
 					new DraftbotSmallEventEmbed(
 						"winFightPoints",
 						getRandomSmallEventIntro(interaction.userLanguage)
-						+ StringUtils.getRandomTranslation("smallEvents:winFightPoints.stories", interaction.userLanguage, {fightPoints: packet.amount}),
+						+ StringUtils.getRandomTranslation("smallEvents:winFightPoints.stories", interaction.userLanguage, { fightPoints: packet.amount }),
 						interaction.user,
 						interaction.userLanguage
 					)
@@ -521,7 +516,7 @@ export default class SmallEventsHandler {
 					new DraftbotSmallEventEmbed(
 						"winHealth",
 						getRandomSmallEventIntro(interaction.userLanguage)
-						+ StringUtils.getRandomTranslation("smallEvents:winHealth.stories", interaction.userLanguage, {health: packet.amount}),
+						+ StringUtils.getRandomTranslation("smallEvents:winHealth.stories", interaction.userLanguage, { health: packet.amount }),
 						interaction.user,
 						interaction.userLanguage
 					)
@@ -552,6 +547,39 @@ export default class SmallEventsHandler {
 	@packetHandler(SmallEventWitchResultPacket)
 	async smallEventWitchResult(packet: SmallEventWitchResultPacket, context: PacketContext): Promise<void> {
 		await witchResult(packet, context);
+	}
+
+	@packetHandler(SmallEventFindPetPacket)
+	async smallEventFindPet(packet: SmallEventFindPetPacket, context: PacketContext): Promise<void> {
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		if (interaction) {
+			let translationKey;
+			if (packet.isPetReceived) {
+				translationKey = packet.petIsReceivedByGuild ? "smallEvents:findPet.givePetGuild" : "smallEvents:findPet.givePetPlayer";
+			}
+			else {
+				translationKey = packet.isPetFood ? "smallEvents:findPet.food" : "smallEvents:findPet.noFood";
+			}
+
+			await interaction.editReply({
+				embeds: [
+					new DraftbotSmallEventEmbed(
+						"findPet",
+						getRandomSmallEventIntro(interaction.userLanguage)
+						+ StringUtils.getRandomTranslation(
+							translationKey,
+							interaction.userLanguage,
+							{
+								context: packet.petSex,
+								pet: PetUtils.petToShortString(interaction.userLanguage, undefined, packet.petTypeID, packet.petSex)
+							}
+						),
+						interaction.user,
+						interaction.userLanguage
+					)
+				]
+			});
+		}
 	}
 
 	@packetHandler(SmallEventSpaceInitialPacket)
