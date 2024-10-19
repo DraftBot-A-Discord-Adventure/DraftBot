@@ -765,7 +765,7 @@
       "vous croisez un attroupement de personnes et entendez parmi les bruits de la foule un orateur annonçant que {{botFact}} vous continuez votre chemin sans écouter la suite de ses dires.",
       "vous apercevez au loin un mendiant adossé contre le tronc d'un arbre, en vous approchant pour lui donner une pièce vous entendez ses propos étranges, celui-ci répète en boucle que {{botFact}} vous vous éloignez au plus vite de cet individu suspect."
     ],
-    "possiblesInfos": {
+    "possibleInfo": {
       "nbMeanPoints": "d'après un comptage des points effectué récemment par les organisateurs, les candidats ont en moyenne un score de **{{infoNumber}} :medal:**. Encouragé par cette nouvelle,",
       "meanWeeklyScore": "d'après un comptage des points effectué récemment par les organisateurs, les candidats ont récolté en moyenne **{{infoNumber}} :medal: cette semaine**. Attristé par cette nouvelle,",
       "levelMean": "le dernier recensement avait noté que les aventuriers ont atteint en moyenne le **niveau {{infoNumber}}**. Sans savoir que faire de cette information,",
@@ -776,10 +776,9 @@
       "percentMalePets": "la SPAC, ou Société Protectrice des Animaux de la Contrée, a découvert que **{{infoNumber}}%** des animaux sur le territoire sont des mâles. Ravi de cette nouvelle,",
       "percentFemalePets": "la SPAC, ou Société Protectrice des Animaux de la Contrée, a découvert que **{{infoNumber}}%** des animaux sur le territoire sont des femelles. Ravi de cette nouvelle,",
       "guildLevelMean": "l'AGC, ou Agence des Guildes de la Contrée, a noté que les guildes actuelles ont atteint en moyenne le **niveau {{infoNumber}}**. Intrigué par cette information,",
-
       "nbPlayersHaventStartedTheAdventure_zero": "le SAFAC, ou Service Anti-Fraude des Aventuriers de la Contrée, a découvert qu'**aucun aventurier** ne s'est volatilisé juste après avoir obtenu leur licence d'aventurier. Admiratif de tous ces valeureux aventuriers,",
-      "nbPlayersHaventStartedTheAdventure_one": "le SAFAC, ou Service Anti-Fraude des Aventuriers de la Contrée, a découvert que **{infoNumber} aventurier** s'est volatilisé juste après avoir obtenu leur licence d'aventurier. Indigné par l'action de cette personne,",
-      "nbPlayersHaventStartedTheAdventure_other": "le SAFAC, ou Service Anti-Fraude des Aventuriers de la Contrée, a découvert que **{infoNumber} aventuriers** se sont volatilisés juste après avoir obtenu leur licence d'aventurier. Indigné par l'action de ces personnes,",
+      "nbPlayersHaventStartedTheAdventure_one": "le SAFAC, ou Service Anti-Fraude des Aventuriers de la Contrée, a découvert qu'**un aventurier** s'est volatilisé juste après avoir obtenu sa licence d'aventurier. Indigné par l'action de cette personne,",
+      "nbPlayersHaventStartedTheAdventure_other": "le SAFAC, ou Service Anti-Fraude des Aventuriers de la Contrée, a découvert que **{{infoNumber}} aventuriers** se sont volatilisés juste après avoir obtenu leur licence d'aventurier. Indigné par l'action de ces personnes,",
       "trainedPets_one": "la SPAC, ou Société Protectrice des Animaux de la Contrée, souhaite féliciter le dresseur du **seul animal dressé**. Impressionné par cet exploit,",
       "trainedPets_other": "la SPAC, ou Société Protectrice des Animaux de la Contrée, souhaite féliciter les dresseurs des **{{infoNumber}} animaux dressés**. Impressionné par cet exploit,",
       "nbPlayersWithGivenClass_zero": "d'après un récent recensement des aventuriers, il n'y aurait aucun joueur avec la classe **{{infoComplement}}**. Époustouflé par cette nouvelle,",
