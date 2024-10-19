@@ -597,5 +597,163 @@
       "wiltedRose": "Aggiungere una rosa appassita",
       "worm": "Aggiungere un verme"
     }
+  },
+  "space": {
+    "before_search_format": "{{seIntro}}{{intro}} {{searchAction}}. .\n\n:telescope:{{search}}* *.",
+    "after_search_format": "{{oldMessage}}\n\n{{actionIntro}} {{action}}{{specific}} {{outro}}** **. .",
+    "intro": [
+      "{{name}}si incontra un oracolo che afferma di chiamarsi ** ** ** **",
+      "Un uomo vi sembra strano, così andate a incontrarlo.{{name}}Sostiene di essere un oracolo di nome ** **.",
+      "{{name}}si incontra un oracolo chiamato ** ** **",
+      "passate accanto a un oracolo che vi chiama.{{name}}Dice che il suo nome è ** ** **",
+      "{{name}}si viene avvicinati da un uomo che dice di chiamarsi ** ** **.",
+      "{{name}}un oracolo di nome ** ** vi chiama a raccolta",
+      "{{name}}uno sconosciuto che sostiene di chiamarsi ** ** vi chiede di avvicinarvi",
+      "{{name}}un uomo appare dal nulla, corre verso di voi e si presenta come ** ** **",
+      "{{name}}uno sconosciuto sospettoso vi chiede di avvicinarvi, dopodiché vi dice che il suo nome è ** ** **."
+    ],
+    "searchAction": [
+      "Vi dice che può darvi informazioni sul cielo, ma che ha bisogno di tempo per osservarlo.",
+      "Sostiene di essere in grado di fornire informazioni sul cielo, a patto che gli si conceda un po' di tempo.",
+      "Vi dice che se gli date abbastanza tempo, sarà in grado di darvi informazioni sul cielo.",
+      "Dice che può dare informazioni sul cielo se gli si concede abbastanza tempo.",
+      "Questo sostiene di essere in grado di leggere le stelle se gli si dà abbastanza tempo.",
+      "Sostiene di potervi dare informazioni sul cielo se gli dedicate un po' del vostro tempo."
+    ],
+    "search": [
+      "L'uomo guarda il cielo in una piccola macchina fotografica",
+      "Si sdraia a terra e guarda il cielo",
+      "L'uomo inizia a contemplare il cielo",
+      "Sembra che sia concentrato a guardare qualcosa nel cielo.",
+      "Appoggiato al telescopio, osserva con attenzione la volta celeste.",
+      "L'oracolo osserva attentamente il cielo",
+      "Alza la testa per guardare bene il cielo.",
+      "Inizia a scrutare intensamente le stelle",
+      "L'uomo si siede contro un albero e contempla il cielo",
+      "L'uomo si sdraia a terra e guarda il cielo"
+    ],
+    "actionIntro": [
+      "Dopo qualche minuto",
+      "Poco dopo",
+      "Pochi minuti dopo",
+      "Dopo avervi fatto aspettare per qualche minuto",
+      "Dopo una breve attesa",
+      "Pochi istanti dopo",
+      "Dopo aver atteso qualche secondo"
+    ],
+    "action": [
+      "informa che",
+      "informa che",
+      "annuncia che",
+      "vi dice che",
+      "inizia a dirvi che",
+      "dichiara che"
+    ],
+    "outro": [
+      "Questa notizia vi lascerà a bocca aperta",
+      "Riprendete il vostro viaggio onirico",
+      "Lo ringraziate e ve ne andate felici di aver appreso la notizia.",
+      "Lo lasci con le stelle negli occhi",
+      "Partirete senza rimpiangere la vostra sosta",
+      "Continuate il vostro cammino perplesso"
+    ],
+    "specific": {
+      "neoWS": [
+        "{{mainValue}}{{mainValuePlural}} oggetto che attraverserà il cielo oggi",
+        "{{randomObjectName}} {{randomObjectDiameter}} l'oggetto denominato \" \", con un diametro di circa metri, sta passando oggi vicino al pianeta",
+        "{{randomObjectName}} {{randomObjectDistance}} l'oggetto denominato \" \" passa a una distanza di circa un milione di chilometri dal pianeta",
+        "{{randomObjectName}} {{randomObjectDistance}} l'asteroide denominato \" \" supera il nostro pianeta di qualche milione di chilometri",
+        "{{randomObjectName}}l'asteroide denominato \" \" potrebbe essere visibile oggi",
+        "{{randomObjectName}}l'asteroide denominato \" \" passerà vicino al pianeta",
+        "{{randomObjectName}} {{randomObjectDistance}} l'asteroide chiamato \" \" passerà a un milione di chilometri da noi"
+      ],
+      "moonPhase": [
+        "{{mainValue}} è al momento",
+        "{{mainValue}} sta attualmente illuminando il cielo",
+        "{{mainValue}}dietro le nuvole è",
+        "{{mainValue}}il cielo rado lascia intravedere"
+      ],
+      "nextFullMoon": [
+        "{{mainValue}}{{mainValuePlural}}la prossima luna piena è in",
+        "{{mainValue}}{{mainValuePlural}}la luna piena risplenderà su",
+        "{{mainValue}}{{mainValuePlural}}vedremo la luna piena il",
+        "{{mainValue}}{{mainValuePlural}} su si può vedere la luna piena"
+      ],
+      "nextPartialLunarEclipse": [
+        "{{mainValue}}{{mainValuePlural}}la prossima eclissi lunare parziale è in",
+        "{{mainValue}}{{mainValuePlural}} un'eclissi lunare parziale può essere osservata su",
+        "{{mainValue}}{{mainValuePlural}} nei prossimi giorni avrete la possibilità di assistere a un'eclissi lunare parziale",
+        "{{mainValue}}{{mainValuePlural}}il momento per vedere la prossima eclissi lunare parziale è il giorno"
+      ],
+      "nextTotalLunarEclipse": [
+        "{{mainValue}}{{mainValuePlural}}la prossima eclissi lunare totale è in",
+        "{{mainValue}}{{mainValuePlural}} da si assisterà a un'eclissi lunare completa",
+        "{{mainValue}}{{mainValuePlural}} nei prossimi giorni avrete la possibilità di assistere a un'eclissi lunare totale",
+        "{{mainValue}}{{mainValuePlural}} se si osserva il cielo si può vedere un'eclissi lunare totale"
+      ]
+    },
+    "moonPhases": [
+      "la Luna nuova",
+      "il primo quarto di Luna",
+      "la Luna piena",
+      "l'ultimo quarto di Luna"
+    ],
+    "names": [
+      "Claude",
+      "Pierre Alphonse",
+      "Friedrich",
+      "Wilhelm",
+      "Nicolas",
+      "Clyde",
+      "Tycho",
+      "Giordano",
+      "Johannes",
+      "Jean-Dominique",
+      "Isacco",
+      "Edwin",
+      "Alberto"
+    ]
+  },
+  "findPet": {
+    "food_m": [
+      "vous trouvez un **{{pet}}** qui semble être blessé. Malheureusement, ayant déjà un compagnon et plus de place au sein de votre guilde pour l'accueillir, vous décidez de l'achever rapidement afin de récupérer sa carcasse.",
+      "vous trouvez un **{{pet}}**. N'ayant pas la possibilité de l'accueillir, vous le donnez à un marchand qui passe par là. En échange, il vous offre un peu de viande."
+    ],
+    "food_f": [
+      "vous trouvez une **{{pet}}** qui semble être blessée. Malheureusement, ayant déjà un compagnon et plus de place au sein de votre guilde pour l'accueillir, vous décidez de l'achever rapidement afin de récupérer sa carcasse.",
+      "vous trouvez une **{{pet}}**. N'ayant pas la possibilité de l'accueillir, vous la donnez à un marchand qui passe par là. En échange, il vous offre un peu de viande."
+    ],
+    "noFood_m": [
+      "vous trouvez un **{{pet}}**. N'ayant pas la possibilité de l'accueillir, vous le donnez à un marchand qui passe par là. Celui-ci refuse et le laisse partir.",
+      "vous trouvez un **{{pet}}**. N'ayant pas la possibilité de l'accueillir, vous le donnez à un marchand qui passe par là. Il accepte volontiers de s'en occuper.",
+      "vous apercevez une vieille dame qui cherche à faire descendre un **{{pet}}** d'un arbre. Vous acceptez de l'aider et arrivez rapidement à le convaincre de descendre. Pensant qu'il s'agit de son animal vous lui tendez mais découvrez qu'il ne lui appartient pas. N'ayant plus de place dans votre refuge, vous ne pouvez pas le prendre avec vous."
+    ],
+    "noFood_f": [
+      "vous trouvez une **{{pet}}**. N'ayant pas la possibilité de l'accueillir, vous la donnez à un marchand qui passe par là. Celui-ci refuse et la laisse partir.",
+      "vous trouvez une **{{pet}}**. N'ayant pas la possibilité de l'accueillir, vous la donnez à un marchand qui passe par là. Il accepte volontiers de s'en occuper.",
+      "vous apercevez une vieille dame qui cherche à faire descendre une **{{pet}}** d'un arbre. Vous acceptez de l'aider et arrivez rapidement à la convaincre de descendre. Pensant qu'il s'agit de son animal vous lui tendez mais découvrez qu'elle ne lui appartient pas. N'ayant plus de place dans votre refuge, vous ne pouvez pas la prendre avec vous."
+    ],
+    "givePetPlayer_m": [
+      "vous apercevez un **{{pet}}** perdu. Ayant toujours voulu avoir un compagnon, vous tombez sous son charme, et décidez de vous en occuper.",
+      "vous apercevez une vieille dame qui cherche à faire descendre un **{{pet}}** d'un arbre. Vous acceptez de l'aider et arrivez rapidement à le convaincre de descendre. Pensant qu'il s'agit de son animal vous lui tendez mais découvrez qu'il ne lui appartient pas. Vous décidez donc de le prendre avec vous.",
+      "vous entendez du bruit provenant d'un buisson, curieux, vous décidez d'aller voir. Vous découvrez un **{{pet}}** qui vous regarde fixement dans les yeux puis se met à vous suivre, Vous décidez donc de l'adopter.",
+      "vous décidez de faire un petit somme, lorsque quelque chose vous réveille, un **{{pet}}** était en train de fouiller dans votre sacoche ! Mais il semble ne pas vouloir vous attaquer et semble même vous apprécier, vous décidez donc de le garder."
+    ],
+    "givePetPlayer_f": [
+      "vous apercevez une **{{pet}}** perdue. Ayant toujours voulu avoir un compagnon, vous tombez sous son charme, et décidez de vous en occuper.",
+      "vous apercevez une vieille dame qui cherche à faire descendre une **{{pet}}** d'un arbre. Vous acceptez de l'aider et arrivez rapidement à la convaincre de descendre. Pensant qu'il s'agit de son animal vous lui tendez mais découvrez qu'elle ne lui appartient pas. Vous décidez donc de la prendre avec vous.",
+      "vous entendez du bruit provenant d'un buisson, curieux, vous décidez d'aller voir. Vous découvrez une **{{pet}}** qui vous regarde fixement dans les yeux puis se met à vous suivre, Vous décidez donc de l'adopter.",
+      "vous décidez de faire un petit somme, lorsque quelque chose vous réveille, une **{{pet}}** était en train de fouiller dans votre sacoche ! Mais elle semble ne pas vouloir vous attaquer et semble même vous apprécier, vous décidez donc de la garder."
+    ],
+    "givePetGuild_m": [
+      "vous apercevez un **{{pet}}** perdu. Bien que vous ayez déjà un compagnon, vous décidez de le ramener au sein de votre guilde afin que quelqu'un en prenne soin.",
+      "vous apercevez un **{{pet}}** errant qui semble affamé. Vous lui donnez donc les restes de votre dernier repas. Il apprécie et semble vouloir vous suivre dans votre périple. Ayant un compagnon, vous le laissez aux bons soins de votre guilde.",
+      "vous voyez un groupe d'enfants en cercle. Vous vous rapprochez et découvrez qu'ils sont en train de malmener un pauvre petit **{{pet}}**. Vous les faites partir, mais il est trop mal en point. Vous réussissez à le remettre d'aplomb et lui laissez un peu de repos dans votre refuge."
+    ],
+    "givePetGuild_f": [
+      "vous apercevez une **{{pet}}** perdue. Bien que vous ayez déjà un compagnon, vous décidez de la ramener au sein de votre guilde afin que quelqu'un en prenne soin.",
+      "vous apercevez une **{{pet}}** errante qui semble affamée. Vous lui donnez donc les restes de votre dernier repas. Elle apprécie et semble vouloir vous suivre dans votre périple. Ayant un compagnon, vous la laissez aux bons soins de votre guilde.",
+      "vous voyez un groupe d'enfants en cercle. Vous vous rapprochez et découvrez qu'ils sont en train de malmener une pauvre petite **{{pet}}**. Vous les faites partir, mais elle est trop mal en point. Vous réussissez à la remettre d'aplomb et lui laissez un peu de repos dans votre refuge."
+    ]
   }
 }
