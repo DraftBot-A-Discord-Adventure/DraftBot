@@ -661,8 +661,9 @@ export default class SmallEventsHandler {
 						"botFacts",
 						getRandomSmallEventIntro(interaction.userLanguage)
 						+ StringUtils.getRandomTranslation("smallEvents:botFacts.stories", interaction.userLanguage, {
-							botFact: i18n.t(`smallEvents:botFacts.banane.${packet.information}`, interaction.userLanguage, {
-								infoResult: packet.infoResult,
+							botFact: i18n.t(`smallEvents:botFacts.possibleInfos.${packet.information}`, interaction.userLanguage, {
+								count: packet.infoNumber,
+								infoNumber: packet.infoNumber,
 								infoComplement: ClassUtils.classToString(interaction.userLanguage, packet.infoComplement ? packet.infoComplement : 0)
 							})
 						}),

@@ -22,52 +22,52 @@ export const smallEventFuncs: SmallEventFuncs = {
 	executeSmallEvent: async (context, response, player): Promise<void> => {
 		const botFactsProperties = SmallEventDataController.instance.getById("botFacts").getProperties<BotFactsProperties>();
 		const information = RandomUtils.draftbotRandom.pick(Object.keys(botFactsProperties.possibleInfos));
-		const packet: SmallEventBotFactsPacket = {information, infoResult: 0};
+		const packet: SmallEventBotFactsPacket = {information, infoNumber: 0};
 
 		let array = [];
 		switch (information) {
 		case "nbMeanPoints":
-			packet.infoResult = await Players.getNbMeanPoints();
+			packet.infoNumber = await Players.getNbMeanPoints();
 			break;
 		case "meanWeeklyScore":
-			packet.infoResult = await Players.getMeanWeeklyScore();
+			packet.infoNumber = await Players.getMeanWeeklyScore();
 			break;
 		case "nbPlayersHaventStartedTheAdventure":
-			packet.infoResult = await Players.getNbPlayersHaventStartedTheAdventure();
+			packet.infoNumber = await Players.getNbPlayersHaventStartedTheAdventure();
 			break;
 		case "levelMean":
-			packet.infoResult = await Players.getLevelMean();
+			packet.infoNumber = await Players.getLevelMean();
 			break;
 		case "nbMeanMoney":
-			packet.infoResult = await Players.getNbMeanMoney();
+			packet.infoNumber = await Players.getNbMeanMoney();
 			break;
 		case "sumAllMoney":
-			packet.infoResult = await Players.getSumAllMoney();
+			packet.infoNumber = await Players.getSumAllMoney();
 			break;
 		case "richestPlayer":
-			packet.infoResult = await Players.getRichestPlayer();
+			packet.infoNumber = await Players.getRichestPlayer();
 			break;
 		case "trainedPets":
-			packet.infoResult = await PetEntities.getNbTrainedPets();
+			packet.infoNumber = await PetEntities.getNbTrainedPets();
 			break;
 		case "percentMalePets":
-			packet.infoResult = Math.round(await PetEntities.getNbPetsGivenSex("m") / await PetEntities.getNbPets() * 10000) / 100;
+			packet.infoNumber = Math.round(await PetEntities.getNbPetsGivenSex("m") / await PetEntities.getNbPets() * 10000) / 100;
 			break;
 		case "percentFemalePets":
-			packet.infoResult = Math.round(await PetEntities.getNbPetsGivenSex("f") / await PetEntities.getNbPets() * 10000) / 100;
+			packet.infoNumber = Math.round(await PetEntities.getNbPetsGivenSex("f") / await PetEntities.getNbPets() * 10000) / 100;
 			break;
 		case "guildLevelMean":
-			packet.infoResult = await Guilds.getGuildLevelMean();
+			packet.infoNumber = await Guilds.getGuildLevelMean();
 			break;
 		case "feistyPets":
-			packet.infoResult = await PetEntities.getNbFeistyPets();
+			packet.infoNumber = await PetEntities.getNbFeistyPets();
 			break;
 		case "nbPlayersOnYourMap":
-			packet.infoResult = await player.getNbPlayersOnYourMap();
+			packet.infoNumber = await player.getNbPlayersOnYourMap();
 			break;
 		default:
 			array = await getNbPlayersWithGivenClass();
-			packet.infoResult = array[0];
+			packet.infoNumber = array[0];
 			packet.infoComplement = array[1];
 		}
 
