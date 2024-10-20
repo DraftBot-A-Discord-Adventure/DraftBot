@@ -21,11 +21,11 @@ export class RandomUtils {
 	/**
 	 * Generates a random number in the range (both interval bounds included)
 	 * @param range - typically something in constants as {MIN: number, MAX: number}
-	 * @param minAdd - Amount to add to range.MIN ; Default : 1
-	 * @param maxAdd - Amount to add to range.MAX ; Default : 1
+	 * @param minAdd - Amount to add to range.MIN ; Default : 0
+	 * @param maxAdd - Amount to add to range.MAX ; Default : 0
 	 * @returns a random number in [MIN, MAX]
 	 */
-	public static rangedInt = (range: ConstantRange, minAdd = 0, maxAdd = 1): number =>
+	public static rangedInt = (range: ConstantRange, minAdd = 0, maxAdd = 0): number =>
 		RandomUtils.draftbotRandom.integer(range.MIN + minAdd, range.MAX + maxAdd);
 
 	/**

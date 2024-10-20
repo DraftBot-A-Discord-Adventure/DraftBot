@@ -32,7 +32,7 @@ import {
 } from "../../../../Lib/src/packets/smallEvents/SmallEventInteractOtherPlayers";
 import {interactOtherPlayerGetPlayerDisplay} from "../../smallEvents/interactOtherPlayers";
 import {SmallEventLeagueRewardPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventLeagueReward";
-import {printTimeBeforeDate} from "../../../../Lib/src/utils/TimeUtils";
+import {minutesDisplay, printTimeBeforeDate} from "../../../../Lib/src/utils/TimeUtils";
 import {SmallEventWinGuildXPPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinGuildXPPacket";
 import {SmallEventBonusGuildPVEIslandPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventBonusGuildPVEIslandPacket";
 import {SmallEventBotFactsPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventBotFactsPacket";
@@ -58,6 +58,7 @@ import {PetUtils} from "../../utils/PetUtils";
 import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
 import {ClassUtils} from "../../utils/ClassUtils";
 
+
 export function getRandomSmallEventIntro(language: Language): string {
 	return StringUtils.getRandomTranslation("smallEvents:intro", language);
 }
@@ -65,6 +66,8 @@ export function getRandomSmallEventIntro(language: Language): string {
 export default // @ts-ignore
 // @ts-ignore
 class SmallEventsHandler {
+	private TimeUtils: any;
+
 	@packetHandler(SmallEventAdvanceTimePacket)
 	async smallEventAdvanceTime(packet: SmallEventAdvanceTimePacket, context: PacketContext): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
@@ -685,10 +688,31 @@ class SmallEventsHandler {
 	async SmallEventSmallBad(packet: SmallEventSmallBadPacket, context: PacketContext): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (interaction) {
+			let translationKey;
+			let infoNumber;
+			if (packet.moneyLost === 0 && packet.timeLost === 0) {
+				translationKey = translationKey = "smallEvents:smallBad.healthLost.stories";
+				infoNumber = packet.healthLost;
+			}
+			else if (packet.healthLost === 0 && packet.timeLost === 0) {
+				translationKey = "smallEvents:smallBad.moneyLost.stories";
+				infoNumber = packet.moneyLost;
+			}
+			else {
+				translationKey = "smallEvents:smallBad.timeLost.stories";
+				infoNumber = minutesDisplay(packet.timeLost);
+			}
+
 			await interaction.editReply({
 				embeds: [
 					new DraftbotSmallEventEmbed(
-			}
+						"smallBad",
+						getRandomSmallEventIntro(interaction.userLanguage)
+						+ StringUtils.getRandomTranslation(translationKey, interaction.userLanguage, {infoNumber: infoNumber}),
+						interaction.user,
+						interaction.userLanguage
+					)]
+			});
 		}
 	}
 }

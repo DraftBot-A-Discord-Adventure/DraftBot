@@ -12,7 +12,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnContinent,
 	executeSmallEvent: async (context, response, player): Promise<void> => {
 		const issue = RandomUtils.draftbotRandom.integer(0, 2);
-		let healthLost, moneyLost, timeLost;
+		let healthLost = 0, moneyLost = 0, timeLost = 0;
 
 		switch (issue) {
 		case 0:

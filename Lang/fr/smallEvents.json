@@ -788,5 +788,35 @@
       "nbPlayersOnYourMap_one": "les chevaliers aux alentours ont n'ont croisé qu'**une personne** en train de circuler sur votre route. Surpris par cette nouvelle,",
       "nbPlayersOnYourMap_other": "les chevaliers alentour ont compté **{infoNumber} personnes** en train de circuler sur votre route. Surpris par cette nouvelle,"
     }
+  },
+
+  "smallBad": {
+    "healthLost": {
+      "stories": [
+        "vos pieds se prennent dans une racine. Blessé, vous perdez **{{infoNumber}} :broken_heart:**.",
+        "plongé dans vos pensées, vous ne prêtez guère attention au sol sous vos pieds et trébuchez malencontreusement contre un caillou. Vous vous êtes blessé au genou. Ce n'est pas très grave, bien que douloureux. Vous perdez **{{infoNumber}} :broken_heart:**.",
+        "vous sifflotez en marchant. Tout à coup, quelque chose entre dans votre champ de vision : il s'agit d'un chien, et il fonce droit sur vous ! Avant que vous n'ayez le temps de comprendre plus en détail ce qu'il se passe, l'animal entre en collision avec vous, mais repart aussitôt. Heureusement, vous n'avez été que légèrement blessé, et perdez seulement **{{infoNumber}} :broken_heart:**.",
+        "vous percutez un cheval arrivant au galop, mais vous n'êtes blessé que superficiellement. Vous perdez **{{infoNumber}} :broken_heart:**.",
+        "vous êtes violemment percuté par une harde de sangliers. Vous vous relevez non sans peine, et reprenez votre route en ayant perdu **{{infoNumber}} :broken_heart:**."
+      ]
+    },
+    "timeLost": {
+      "stories": [
+        "vous marchez sur un piège. L'instant d'après vous êtes suspendu par le pied. Vous défaire de ce piège risque d'être long... vous perdez **{{infoNumber}} :clock2:**.",
+        "il se met à pleuvoir. Vous vous apprêtez à courir pour ne pas être trempé, mais vous apercevez un superbe arc-en-ciel. Vous ne pensez plus à la pluie et vous vous laissez absorber par le spectacle durant **{{infoNumber}} :clock2:**.",
+        "vous tombez de fatigue. Vos aventures vous ont épuisé, c'est pour cela que vous décidez de vous reposer durant **{{infoNumber}} :clock2:**.",
+        "en marchant plongé dans vos pensées, vous ne remarquez pas la branche au sol. Vous trébuchez dessus et vos affaires s'éparpillent. Vous perdez **{{infoNumber}} :clock2:**.",
+        "vous entendez un bruit sourd et fracassant provenant d'un sous-bois. Votre curiosité a été piquée au vif : vous voulez savoir de quoi il s'agit, et allez inspecter la zone. Après **{{infoNumber}} :clock2:** vous abandonnez sans avoir trouvé ni compris l'origine de ce bruit qui vous a fait sursauter."
+      ]
+    },
+    "moneyLost": {
+      "stories": [
+        "traversant une foule, vous sentez une main vous fouiller vivement et alléger vos poches. Vous n'avez pas le temps de répliquer que votre détrousseur a disparu. Vous avez perdu **{{infoNumber}} :money_with_wings:**.",
+        "vous croisez un mendiant vous demandant un peu d'argent pour subvenir à ses besoins. Pris d'un élan de pitié, vous décidez de lui donner **{{infoNumber}} :money_with_wings:**.",
+        "un homme masqué vous interpelle, et vous menace de son arme. Afin qu'il vous laisse la vie sauve, vous lui donnez les **{{infoNumber}} :money_with_wings:** pièces que vous avez dans la poche, ainsi que les clés de votre charrette.",
+        "vous vous souvenez soudainement avoir oublié votre bourse dans la chambre de la dernière auberge par laquelle vous êtes passé. Vous avez perdu **{{infoNumber}} :money_with_wings:**.",
+        "vous croisez une charrette dont le chargement dépasse et déchire votre sac. Pendant que vous rassemblez vos affaires un groupe d'enfants passe et vous dérobe de l'argent. Vous perdez **{{infoNumber}} :money_with_wings:**."
+      ]
+    }
   }
 }
