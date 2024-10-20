@@ -6,6 +6,7 @@ import {DraftbotSmallEventEmbed} from "../../messages/DraftbotSmallEventEmbed";
 import {Language} from "../../../../Lib/src/Language";
 import {StringUtils} from "../../utils/StringUtils";
 import {SmallEventBigBadPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventBigBadPacket";
+import {SmallEventSmallBadPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventSmallBadPacket";
 import {SmallEventBigBadKind} from "../../../../Lib/src/enums/SmallEventBigBadKind";
 import i18n from "../../translations/i18n";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
@@ -61,7 +62,9 @@ export function getRandomSmallEventIntro(language: Language): string {
 	return StringUtils.getRandomTranslation("smallEvents:intro", language);
 }
 
-export default class SmallEventsHandler {
+export default // @ts-ignore
+// @ts-ignore
+class SmallEventsHandler {
 	@packetHandler(SmallEventAdvanceTimePacket)
 	async smallEventAdvanceTime(packet: SmallEventAdvanceTimePacket, context: PacketContext): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
@@ -675,6 +678,17 @@ export default class SmallEventsHandler {
 					)
 				]
 			});
+		}
+	}
+
+	@packetHandler(SmallEventSmallBadPacket)
+	async SmallEventSmallBad(packet: SmallEventSmallBadPacket, context: PacketContext): Promise<void> {
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		if (interaction) {
+			await interaction.editReply({
+				embeds: [
+					new DraftbotSmallEventEmbed(
+			}
 		}
 	}
 }
