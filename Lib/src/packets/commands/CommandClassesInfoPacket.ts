@@ -9,8 +9,6 @@ export class CommandClassesInfoPacketReq extends DraftBotPacket {
 	keycloakId!: string;
 
 	language!: Language;
-
-	chosenClass?: string;
 }
 
 /**
@@ -26,7 +24,7 @@ export class CommandClassesInfoPacketRes extends DraftBotPacket {
 		classesStats: {
 			id: number;
 			emoji: string;
-			lng: string;
+			lng: Language;
 			health: number;
 			attack: number;
 			defense: number;
@@ -35,17 +33,14 @@ export class CommandClassesInfoPacketRes extends DraftBotPacket {
 			maxBreath: number;
 			breathRegen: number;
 			fightPoint: number;
-		}[];
-
-		classesList?: string[];
-
-		chosenClass?: {
-			name: string;
 			description: string;
 			attacks: {
-				name: string;
-				description: string;
-			}[]
-		}
+				id: string,
+				cost: number,
+				emoji: string
+			}[];
+
+			classesList?: string[];
+		}[];
 	};
 }
