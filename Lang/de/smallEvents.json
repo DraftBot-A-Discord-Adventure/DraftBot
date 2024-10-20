@@ -755,5 +755,38 @@
       "sehen Sie eine **{{pet}}** umherirrende Frau, die hungrig zu sein scheint. Sie geben ihr die Reste Ihrer letzten Mahlzeit. Sie genießt es und scheint Ihnen auf Ihrer Reise folgen zu wollen. Da Sie einen Gefährten haben, überlassen Sie sie der Obhut Ihrer Gilde.",
       "sehen Sie eine Gruppe von Kindern, die im Kreis stehen. Sie gehen näher heran und entdecken, dass sie gerade ein armes kleines Mädchen **{{pet}}** misshandeln. Sie können sie wegschicken, aber sie ist in einem zu schlechten Zustand. Du schaffst es, sie wieder aufzurichten und lässt sie sich in deinem Unterschlupf ausruhen."
     ]
+  },
+  "botFacts": {
+    "stories": [
+      "erhalten Sie einen Brief vom König. Der König schreibt Ihnen einen Brief über den Wettbewerb um die Hand der Prinzessin, an dem Sie teilnehmen. Als Sie den Brief lesen, stellen Sie fest, dass {{botFact}} Sie sich wieder auf den Weg machen.",
+      "Sie begegnen einem Bauern auf einem Karren, der fröhlich zu sein scheint. Sie sind fasziniert von seiner Haltung und fragen ihn nach seiner guten Laune. Er erklärt Ihnen, dass {{botFact}} Sie sich wieder auf den Weg machen.",
+      "Sie sehen das Lager eines Abenteurers am Rande eines Pfades. Sie bleiben kurz stehen, um ihn um Rat zu fragen, wie Sie weitergehen sollen. Er weist Ihnen den richtigen Weg zurück und fügt hinzu, dass {{botFact}} Sie den Weg fortsetzen werden.",
+      "sehen Sie eine Informationstafel. Auf dieser hängen mehrere Plakate, die von Festen und anderen Ereignissen in der Umgebung berichten. Eines davon handelt von der jüngsten Rede des Königs, der erzählte, dass {{botFact}} Sie Ihren Weg fortsetzen.",
+      "Sie kommen an einer Menschenansammlung vorbei und hören zwischen den Geräuschen der Menge einen Redner, der ankündigt, dass {{botFact}} Sie Ihren Weg fortsetzen, ohne auf seine weiteren Ausführungen zu hören.",
+      "Sie sehen in der Ferne einen Bettler, der sich gegen einen Baumstamm lehnt. Als Sie sich ihm nähern, um ihm eine Münze zu geben, hören Sie seine seltsamen Worte. Er wiederholt in einer Endlosschleife, dass {{botFact}} Sie sich so schnell wie möglich von dieser verdächtigen Person entfernen."
+    ],
+    "possibleInfo": {
+      "nbMeanPoints": "laut einer kürzlich von den Organisatoren durchgeführten Punktezählung haben die Kandidaten im Durchschnitt eine Punktzahl von **{{infoNumber}} :medal:**. Ermutigt durch diese Nachricht",
+      "meanWeeklyScore": "laut einer kürzlich von den Organisatoren durchgeführten Punktezählung haben die Kandidaten in dieser Woche durchschnittlich **{{infoNumber}} :medal: ** gesammelt. Traurig über diese Nachricht",
+      "levelMean": "die letzte Volkszählung hatte festgestellt, dass Abenteurer im Durchschnitt die **Ebene {{infoNumber}}** erreicht haben. Ohne zu wissen, was sie mit dieser Information anfangen sollten,",
+      "nbMeanMoney": "zählte die Bank des Landes durchschnittlich **{{infoNumber}} :moneybag:** in den Geldbeuteln ihrer Kunden. Amüsiert über diese Nachricht",
+      "sumAllMoney": "die Bank des Landes zählt **{{infoNumber}} :moneybag:**, die zu dieser Stunde im Umlauf sind. Überrascht von dieser Nachricht",
+      "richestPlayer": "die Bank des Landes hat geschätzt, dass der reichste Abenteurer derzeit **{{infoNumber}} :moneybag:** auf seinem Konto hat. Verblüfft über diese Nachricht",
+      "feistyPets": "Die SPAC, die Société Protectrice des Animaux de la Contrée, setzt sich dafür ein, dass **Gifttiere** ein besseres Leben bekommen. Sie haben **{{infoNumber}}** gezählt. Enttäuscht und getröstet von dieser Nachricht,",
+      "percentMalePets": "die SPAC, oder Société Protectrice des Animaux de la Contrée, hat herausgefunden, dass **{{infoNumber}}%** der Tiere im Gebiet männlich sind. Erfreut über diese Nachricht,",
+      "percentFemalePets": "die SPAC, oder Société Protectrice des Animaux de la Contrée, hat herausgefunden, dass **{{infoNumber}}%** der Tiere im Gebiet weiblich sind. Erfreut über diese Nachricht,",
+      "guildLevelMean": "die AGC, oder Agentur für die Gilden des Landes, stellte fest, dass die derzeitigen Gilden im Durchschnitt die **Ebene {{infoNumber}}** erreicht haben. Fasziniert von dieser Information",
+      "nbPlayersHaventStartedTheAdventure_zero": "Die Betrugsbekämpfungsstelle für Abenteurer des Landes (SAFAC) hat herausgefunden, dass **keiner der Abenteurer** direkt nach dem Erwerb der Abenteurerlizenz verschwunden ist. Bewunderung für all diese tapferen Abenteurer,",
+      "nbPlayersHaventStartedTheAdventure_one": "Die Betrugsbekämpfungsstelle für Abenteurer des Landes (SAFAC) hat herausgefunden, dass **ein Abenteurer** sich kurz nach Erhalt seiner Abenteurerlizenz in Luft aufgelöst hat. Empört über die Handlung dieser Person",
+      "nbPlayersHaventStartedTheAdventure_other": "der SAFAC, oder Aventurische Betrugsbekämpfungsdienst des Landes, hat herausgefunden, dass **{{infoNumber}} Abenteurer** sich direkt nach Erhalt ihrer Abenteurerlizenz in Luft aufgelöst haben. Empört über das Handeln dieser Personen",
+      "trainedPets_one": "Die SPAC, die Société Protectrice des Animaux de la Contrée, möchte dem Trainer des **einzigen dressierten Tieres** gratulieren. Beeindruckt von dieser Leistung",
+      "trainedPets_other": "die SPAC, oder Société Protectrice des Animaux de la Contrée, möchte den Trainern der **{{infoNumber}} dressierten Tiere** gratulieren. Beeindruckt von dieser Leistung",
+      "nbPlayersWithGivenClass_zero": "laut einer kürzlich durchgeführten Zählung der Abenteurer gibt es keine Spieler mit der Klasse **{{infoComplement}}**. Erstaunt über diese Nachricht,",
+      "nbPlayersWithGivenClass_one": "laut einer kürzlich durchgeführten Zählung der Abenteurer gibt es nur einen Spieler mit der Klasse **{{infoComplement}}**. Beeindruckt von dieser Nachricht",
+      "nbPlayersWithGivenClass_other": "laut einer aktuellen Zählung der Abenteurer gibt es **{{infoNumber}}** Spieler mit der Klasse **{{infoComplement}}**. Erstaunt über diese Nachricht",
+      "nbPlayersOnYourMap_zero": "die Ritter in der Umgebung haben auf dieser Route **niemanden außer euch** getroffen. Überrascht von dieser Nachricht",
+      "nbPlayersOnYourMap_one": "die Ritter in der Umgebung haben nur **eine Person** getroffen, die auf Ihrem Weg unterwegs war. Überrascht von dieser Nachricht",
+      "nbPlayersOnYourMap_other": "die umliegenden Ritter haben **{infoNumber} Personen** gezählt, die sich auf Ihrer Route bewegen. Überrascht von dieser Nachricht"
+    }
   }
 }
