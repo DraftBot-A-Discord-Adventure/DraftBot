@@ -4,7 +4,6 @@ import {
 	CommandClassesInfoPacketReq,
 	CommandClassesInfoPacketRes
 } from "../../../../Lib/src/packets/commands/CommandClassesInfoPacket";
-import {WebsocketClient} from "../../../../Lib/src/instances/WebsocketClient";
 
 import {ClassDataController} from "../../data/Class";
 import {Players} from "../../core/database/game/models/Player";
@@ -12,7 +11,7 @@ import {FightActionDataController} from "../../data/FightAction";
 
 export default class ClassesInfoCommand {
 	@packetHandler(CommandClassesInfoPacketReq)
-	async execute(socket: WebsocketClient, packet: CommandClassesInfoPacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
+	async execute(packet: CommandClassesInfoPacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
 		const player = await Players.getByKeycloakId(packet.keycloakId);
 
 		if (!player) {
