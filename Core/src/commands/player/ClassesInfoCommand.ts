@@ -52,7 +52,7 @@ export default class ClassesInfoCommand {
 					breathRegen: stats.breathRegen,
 					fightPoint: stats.fightPoint,
 					attacks: attackList,
-					attackStats: attackStats,
+					attackStats,
 					description: "Todo"
 				});
 			}
