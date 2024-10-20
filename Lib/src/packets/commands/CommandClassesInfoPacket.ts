@@ -1,5 +1,4 @@
 import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
-import {Language} from "../../Language";
 
 /**
  * Packet sent by the bot to gather information about selectable classes
