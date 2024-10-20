@@ -8,6 +8,7 @@ import {WebsocketClient} from "../../../../Lib/src/instances/WebsocketClient";
 
 import {ClassDataController} from "../../data/Class";
 import {Players} from "../../core/database/game/models/Player";
+import {FightActionDataController} from "../../data/FightAction";
 
 export default class ClassesInfoCommand {
 	@packetHandler(CommandClassesInfoPacketReq)
@@ -26,6 +27,19 @@ export default class ClassesInfoCommand {
 			const classesLineDisplay = [];
 			for (const classToShow of classes) {
 				const stats = classToShow.getClassStats(player.level);
+
+				const attacks = classToShow.fightActionsIds;
+				const attackStats = FightActionDataController.instance.getListById(attacks);
+
+				const attackList = [];
+				for (const attack of attacks) {
+					const attackStat = attackStats.find((attackStat) => attackStat.id === attack);
+					attackList.push({
+						id: attack,
+						cost: attackStat.breath,
+						emoji: attackStat.emote
+					});
+				}
 				classesLineDisplay.push({
 					id: classToShow.id,
 					emoji: classToShow.emoji,
@@ -37,7 +51,10 @@ export default class ClassesInfoCommand {
 					baseBreath: stats.baseBreath,
 					maxBreath: stats.maxBreath,
 					breathRegen: stats.breathRegen,
-					fightPoint: stats.fightPoint
+					fightPoint: stats.fightPoint,
+					attacks: attackList,
+					attackStats: attackStats,
+					description: "Todo"
 				});
 			}
 
