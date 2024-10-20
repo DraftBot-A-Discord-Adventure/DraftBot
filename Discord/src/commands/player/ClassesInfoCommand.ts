@@ -21,15 +21,14 @@ import {
 	StringSelectMenuOptionBuilder
 } from "discord.js";
 import {sendInteractionNotForYou} from "../../utils/ErrorUtils";
+import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 
 function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandClassesInfoPacketReq> {
-	return Promise.resolve(makePacket(CommandClassesInfoPacketReq, {keycloakId: user.id, language: interaction.userLanguage}));
+	return Promise.resolve(makePacket(CommandClassesInfoPacketReq, {keycloakId: user.id}));
 }
 
 function getListEmbed(packet: CommandClassesInfoPacketRes, language: Language, classList: {
 	id: number,
-	emoji: string,
-	lng: Language,
 	health: number,
 	attack: number,
 	defense: number,
@@ -38,11 +37,9 @@ function getListEmbed(packet: CommandClassesInfoPacketRes, language: Language, c
 	maxBreath: number,
 	breathRegen: number,
 	fightPoint: number,
-	description: string,
 	attacks: {
 		id: string,
-		cost: number,
-		emoji: string
+		cost: number
 	}[]
 }[]): DraftBotEmbed {
 	const embed = new DraftBotEmbed().setTitle(i18n.t("commands:classesInfo.title.list", {
@@ -51,18 +48,27 @@ function getListEmbed(packet: CommandClassesInfoPacketRes, language: Language, c
 
 	const classesList = [];
 	for (const classStats of classList) {
-		classesList.push(ClassInfoConstants.FIELDS_VALUE
-			.replace("{name}", `${classStats.emoji} ${i18n.t(`models:classes.${classStats.id}`, {
-				lng: classStats.lng
-			})}`)
-			.replace("{health}", classStats.health.toString())
-			.replace("{attack}", classStats.attack.toString())
-			.replace("{defense}", classStats.defense.toString())
-			.replace("{speed}", classStats.speed.toString())
-			.replace("{baseBreath}", classStats.baseBreath.toString())
-			.replace("{maxBreath}", classStats.maxBreath.toString())
-			.replace("{breathRegen}", classStats.breathRegen.toString())
-			.replace("{fightPoint}", classStats.fightPoint.toString()));
+		classesList.push(`${
+			i18n.t("commands:classesInfo.displays.class.name", {
+				lng: language,
+				emoji: DraftBotIcons.classes[classStats.id],
+				name: i18n.t(`models:classes.${classStats.id}`, {
+					lng: language
+				})
+			})
+		}\n${
+			i18n.t("commands:classesInfo.displays.class.stats", {
+				lng: language,
+				health: classStats.health,
+				attack: classStats.attack,
+				defense: classStats.defense,
+				speed: classStats.speed,
+				baseBreath: classStats.baseBreath,
+				maxBreath: classStats.maxBreath,
+				breathRegen: classStats.breathRegen,
+				fightPoint: classStats.fightPoint
+			})
+		}`);
 	}
 
 	embed.setDescription(`${i18n.t("commands:classesInfo.description.list", {
@@ -72,35 +78,40 @@ function getListEmbed(packet: CommandClassesInfoPacketRes, language: Language, c
 	return embed;
 }
 
-// Todo: edit the function's instructions to match the actual implementation
 function getDetailsEmbed(packet: CommandClassesInfoPacketRes, language: Language, classDetails: {
 	name: string,
 	description: string,
 	attacks: {
+		id: string,
 		name: string,
 		description: string,
-		cost: number,
-		emoji: string
+		cost: number
 	}[]
 }): DraftBotEmbed {
 	const embed = new DraftBotEmbed().setTitle(classDetails.name);
 
 	const attackDisplays = [];
 	for (const attack of classDetails.attacks) {
-		const attackDisplay = `### ${attack.emoji} ${i18n.t(attack.name, {
-			lng: language
-		})} | ${attack.cost} :wind_blowing_face:\n${i18n.t(attack.description, {
-			lng: language
-		})}`;
-
-		attackDisplays.push(attackDisplay);
+		attackDisplays.push(`${
+			i18n.t("commands:classesInfo.displays.attack.name", {
+				lng: language,
+				emoji: DraftBotIcons.fight_actions[attack.id],
+				name: attack.name,
+				cost: attack.cost
+			})
+		}\n${
+			i18n.t("commands:classesInfo.displays.attack.description", {
+				lng: language,
+				description: attack.description
+			})
+		}`);
 	}
 
 	embed.setDescription(`${classDetails.description}${
 		i18n.t("commands:classesInfo.description.attacks", {
 			lng: language
 		})
-	}\n${attackDisplays.join("\n")}`);
+	}\n\n${attackDisplays.join("\n")}`);
 	return embed;
 }
 
@@ -110,22 +121,20 @@ export async function handleCommandClassesInfoPacketRes(packet: CommandClassesIn
 	if (interaction) {
 		if (!packet.foundPlayer) {
 			await interaction.reply({
-				content: "commands:error.playerDoesntExist",
+				content: i18n.t("error.playerDoesntExist", {
+					lng: interaction.userLanguage
+				}),
 				ephemeral: true
 			});
 		}
 
 		const classListEmbed = getListEmbed(packet, interaction.userLanguage, packet.data!.classesStats);
 
-		// With menu
-		const classMenuId = "classSelectionMenu";
-		const listOptionId = "listOption";
-
 		const classesMenuOptions = packet.data!.classesStats.map((classStats) => new StringSelectMenuOptionBuilder()
 			.setLabel(`${i18n.t(`models:classes.${classStats.id}`, {
-				lng: classStats.lng
+				lng: interaction.userLanguage
 			})}`)
-			.setEmoji(classStats.emoji)
+			.setEmoji(DraftBotIcons.classes[classStats.id])
 			.setValue(classStats.id.toString()));
 
 		const classSelectionMenuOption = new StringSelectMenuOptionBuilder()
@@ -133,12 +142,12 @@ export async function handleCommandClassesInfoPacketRes(packet: CommandClassesIn
 				lng: interaction.userLanguage
 			}))
 			.setEmoji(ClassInfoConstants.LIST_EMOTE)
-			.setValue(listOptionId);
+			.setValue(ClassInfoConstants.MENU_IDS.LIST_OPTION);
 
 		classesMenuOptions.unshift(classSelectionMenuOption);
 
 		const classSelectionMenu = new StringSelectMenuBuilder()
-			.setCustomId(classMenuId)
+			.setCustomId(ClassInfoConstants.MENU_IDS.CLASS_SELECTION)
 			.setPlaceholder(i18n.t("commands:classesInfo.mainOption.placeholder", {
 				lng: interaction.userLanguage
 			}))
@@ -153,7 +162,7 @@ export async function handleCommandClassesInfoPacketRes(packet: CommandClassesIn
 		});
 
 		const collector = msg.createMessageComponentCollector({
-			filter: menuInteraction => menuInteraction.customId === classMenuId,
+			filter: menuInteraction => menuInteraction.customId === ClassInfoConstants.MENU_IDS.CLASS_SELECTION,
 			time: Constants.MESSAGES.COLLECTOR_TIME
 		});
 
@@ -163,7 +172,7 @@ export async function handleCommandClassesInfoPacketRes(packet: CommandClassesIn
 				return;
 			}
 
-			if (menuInteraction.values[0] === listOptionId) {
+			if (menuInteraction.values[0] === ClassInfoConstants.MENU_IDS.LIST_OPTION) {
 				await menuInteraction.update({
 					embeds: [classListEmbed],
 					components: [row]
@@ -175,21 +184,21 @@ export async function handleCommandClassesInfoPacketRes(packet: CommandClassesIn
 
 				for (const attack of chosenClass!.attacks) {
 					attackList.push({
+						id: attack.id,
 						name: `${i18n.t(`models:fight_actions.${attack.id}.name_one`, {
 							lng: interaction.userLanguage
 						})}`,
 						description: `${i18n.t(`models:fight_actions.${attack.id}.description`, {
 							lng: interaction.userLanguage
 						})}`,
-						cost: attack.cost,
-						emoji: attack.emoji
+						cost: attack.cost
 					});
 				}
 
 				const classDetailsEmbed = getDetailsEmbed(packet, interaction.userLanguage, {
-					name: `${chosenClass!.emoji} ${i18n.t(`models:classes.${parseInt(menuInteraction.values[0])}`, {
+					name: i18n.t(`models:classes.${parseInt(menuInteraction.values[0])}`, {
 						lng: interaction.userLanguage
-					})}`,
+					}),
 					description: i18n.t(`models:class_descriptions.${parseInt(menuInteraction.values[0])}`, {
 						lng: interaction.userLanguage
 					}),

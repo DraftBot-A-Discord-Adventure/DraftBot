@@ -8,6 +8,7 @@ import {
 import {ClassDataController} from "../../data/Class";
 import {Players} from "../../core/database/game/models/Player";
 import {FightActionDataController} from "../../data/FightAction";
+import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 
 export default class ClassesInfoCommand {
 	@packetHandler(CommandClassesInfoPacketReq)
@@ -36,13 +37,12 @@ export default class ClassesInfoCommand {
 					attackList.push({
 						id: attack,
 						cost: attackStat.breath,
-						emoji: attackStat.emote
+						emoji: DraftBotIcons.fight_actions[attack]
 					});
 				}
 				classesLineDisplay.push({
 					id: classToShow.id,
-					emoji: classToShow.emoji,
-					lng: packet.language,
+					emoji: DraftBotIcons.classes[classToShow.id],
 					health: stats.health,
 					attack: stats.attack,
 					defense: stats.defense,
@@ -52,8 +52,7 @@ export default class ClassesInfoCommand {
 					breathRegen: stats.breathRegen,
 					fightPoint: stats.fightPoint,
 					attacks: attackList,
-					attackStats,
-					description: "Todo"
+					attackStats
 				});
 			}
 

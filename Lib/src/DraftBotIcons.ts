@@ -48,6 +48,9 @@ export const DraftBotIcons: {
 			hard: string
 		},
 		interactPoorCoin: string
+	},
+	fight_actions: {
+		[actionId: string]: string
 	}
 } = {
 	"effects": {
@@ -1506,5 +1509,35 @@ export const DraftBotIcons: {
 			"hard": "💰"
 		},
 		"interactPoorCoin": "🪙"
+	},
+	"fight_actions": {
+		"benediction": ":angel:",
+		"boomerangAttack": ":boomerang:",
+		"breathTakingAttack": ":dash:",
+		"canonAttack": ":gun:",
+		"chargeChargingAttack": ":magnet:",
+		"chargeUltimateAttack": ":comet:",
+		"chargingAttack": ":magnet:",
+		"concentration": ":dart:",
+		"counterAttack": ":boxing_glove:",
+		"cursedAttack": ":smiling_imp:",
+		"darkAttack": ":eight_pointed_black_star:",
+		"defenseBuff": ":man_in_lotus_position:",
+		"divineAttack": ":pray:",
+		"energeticAttack": ":zap:",
+		"fireAttack": ":fire:",
+		"heavyAttack": ":hammer:",
+		"intenseAttack": ":triumph:",
+		"piercingAttack": ":sewing_needle:",
+		"poisonousAttack": ":test_tube:",
+		"powerfulAttack": ":axe:",
+		"protection": ":man_gesturing_no:",
+		"quickAttack": ":dagger:",
+		"ramAttack": ":ram:",
+		"resting": ":bed:",
+		"sabotageAttack": ":tools:",
+		"shieldAttack": ":shield:",
+		"simpleAttack": ":crossed_swords:",
+		"ultimaateAttack": ":comet:"
 	}
 };

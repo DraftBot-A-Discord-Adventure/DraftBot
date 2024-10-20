@@ -66,7 +66,9 @@ export async function handleCommandMapDisplayRes(packet: CommandMapDisplayRes, c
 	if (interaction) {
 		if (!packet.foundPlayer) {
 			await interaction.reply({
-				content: "commands:error.playerDoesntExist",
+				content: i18n.t("error.playerDoesntExist", {
+					lng: interaction.userLanguage
+				}),
 				ephemeral: true
 			});
 			return;
