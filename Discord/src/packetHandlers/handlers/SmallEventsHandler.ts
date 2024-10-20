@@ -6,6 +6,7 @@ import {DraftbotSmallEventEmbed} from "../../messages/DraftbotSmallEventEmbed";
 import {Language} from "../../../../Lib/src/Language";
 import {StringUtils} from "../../utils/StringUtils";
 import {SmallEventBigBadPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventBigBadPacket";
+import {SmallEventSmallBadPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventSmallBadPacket";
 import {SmallEventBigBadKind} from "../../../../Lib/src/enums/SmallEventBigBadKind";
 import i18n from "../../translations/i18n";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
@@ -31,7 +32,7 @@ import {
 } from "../../../../Lib/src/packets/smallEvents/SmallEventInteractOtherPlayers";
 import {interactOtherPlayerGetPlayerDisplay} from "../../smallEvents/interactOtherPlayers";
 import {SmallEventLeagueRewardPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventLeagueReward";
-import {printTimeBeforeDate} from "../../../../Lib/src/utils/TimeUtils";
+import {minutesDisplay, printTimeBeforeDate} from "../../../../Lib/src/utils/TimeUtils";
 import {SmallEventWinGuildXPPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinGuildXPPacket";
 import {SmallEventBonusGuildPVEIslandPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventBonusGuildPVEIslandPacket";
 import {SmallEventBotFactsPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventBotFactsPacket";
@@ -56,6 +57,7 @@ import {SmallEventFindPetPacket} from "../../../../Lib/src/packets/smallEvents/S
 import {PetUtils} from "../../utils/PetUtils";
 import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
 import {ClassUtils} from "../../utils/ClassUtils";
+
 
 export function getRandomSmallEventIntro(language: Language): string {
 	return StringUtils.getRandomTranslation("smallEvents:intro", language);
@@ -674,6 +676,38 @@ export default class SmallEventsHandler {
 						interaction.userLanguage
 					)
 				]
+			});
+		}
+	}
+
+	@packetHandler(SmallEventSmallBadPacket)
+	async SmallEventSmallBad(packet: SmallEventSmallBadPacket, context: PacketContext): Promise<void> {
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		if (interaction) {
+			let translationKey;
+			let amount;
+			if (packet.moneyLost === 0 && packet.timeLost === 0) {
+				translationKey = translationKey = "smallEvents:smallBad.healthLost.stories";
+				amount = packet.healthLost;
+			}
+			else if (packet.healthLost === 0 && packet.timeLost === 0) {
+				translationKey = "smallEvents:smallBad.moneyLost.stories";
+				amount = packet.moneyLost;
+			}
+			else {
+				translationKey = "smallEvents:smallBad.timeLost.stories";
+				amount = minutesDisplay(packet.timeLost);
+			}
+
+			await interaction.editReply({
+				embeds: [
+					new DraftbotSmallEventEmbed(
+						"smallBad",
+						getRandomSmallEventIntro(interaction.userLanguage)
+						+ StringUtils.getRandomTranslation(translationKey, interaction.userLanguage, {amount}),
+						interaction.user,
+						interaction.userLanguage
+					)]
 			});
 		}
 	}

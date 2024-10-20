@@ -781,7 +781,7 @@ export const DraftBotIcons: {
 		"lottery": "🎰",
 		"pet": "🐕‍🦺",
 		"shop": "🛒",
-		"smallBadEvent": "😖",
+		"smallBad": "😖",
 		"space": "🪐",
 		"staffMember": "📖",
 		"ultimateFoodMerchant": "🍲",
