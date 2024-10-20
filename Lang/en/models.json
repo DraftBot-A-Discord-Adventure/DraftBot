@@ -90,6 +90,33 @@
     "8": "Rock thrower",
     "9": "Slinger"
   },
+  "class_descriptions": {
+    "0": "A simple class. Somewhat balanced.",
+    "1": "A simple class. Somewhat balanced.",
+    "10": "A class focused on speed. Low hitpoints and energy but high speed and attack.",
+    "11": "A class focused on speed. Low hitpoints and energy but high speed and attack.",
+    "12": "A powerful but balanced class. Pretty versatile.",
+    "13": "A powerful but balanced class. Pretty versatile.",
+    "14": "A powerful but balanced class. Pretty versatile.",
+    "15": "A powerful but balanced class. Pretty versatile.",
+    "16": "A class focused on defense with no bonus hitpoints but with higher attack than a tank.",
+    "17": "A class with very good stats but with a significant hitpoints penalty.",
+    "18": "A simple class. Somewhat balanced.",
+    "19": "A class focused on defense. Poor combat performance but extra life for adventuring.",
+    "2": "A simple class. Somewhat balanced.",
+    "20": "A class focused on speed. Low hitpoints and energy but high speed and attack.",
+    "21": "A powerful but balanced class. Pretty versatile.",
+    "22": "A class focused on defense with no bonus hitpoints but with higher attack than a tank.",
+    "23": "A class with very good stats but with a significant hitpoints penalty.",
+    "24": "A versatile class focused on unique combat mechanics.",
+    "3": "A simple class. Somewhat balanced.",
+    "4": "A class focused on defense. Poor combat performance but extra life for adventuring.",
+    "5": "A class focused on defense. Poor combat performance but extra life for adventuring.",
+    "6": "A class focused on defense. Poor combat performance but extra life for adventuring.",
+    "7": "A class focused on defense. Poor combat performance but extra life for adventuring.",
+    "8": "A class focused on speed. Low hitpoints and energy but high speed and attack.",
+    "9": "A class focused on speed. Low hitpoints and energy but high speed and attack."
+  },
   "fight_actions": {
     "benediction": {
       "description": "Part of the \"actions of the gods\" group. Fails if 1 god action has already been performed in the fight. Increases all the caster's stats. The later in the fight the blessing is used, the greater the increase in stats.",

@@ -466,8 +466,12 @@
       "class": "**{{class}}**"
     },
     "description": {
-      "list": "Here is a list of all the classes available in the game. To get more information about a specific class, select one below. To change your class, use {command:class}.",
-      "end": "\n\n**Available attacks:**"
+      "list": "Here is a list of all the classes available in the game. To get more information about a specific class, select one below. To change your class, use {command:classes}.",
+      "attacks": "\n\n## **Available attacks:**"
+    },
+    "mainOption": {
+      "name": "Class list",
+      "placeholder": "Select a class"
     }
   },
   "sell": {
