@@ -755,5 +755,38 @@
       "{{pet}}vês um animal vadio ** ** que parece ter fome. Então, dá-lhe os restos da sua última refeição. Ela agradece e parece disposta a seguir-te na tua viagem. Tendo uma companheira, deixa-a ao cuidado da tua guilda.",
       "vê um grupo de crianças em círculo.{{pet}}Aproxima-se e descobre que estão a maltratar uma pobre menina ** **. Fazes com que eles se vão embora, mas ela está com demasiados problemas. Consegue pô-la de pé e dá-lhe um pouco de descanso no seu refúgio."
     ]
+  },
+  "botFacts": {
+    "stories": [
+      "recebes uma carta do rei. Ele escreve-te sobre o concurso para a mão da princesa em que estás a participar. {{botFact}} Quando lês a carta, descobres que estás de novo a caminho.",
+      "passa por um camponês numa carroça que parece estar de bom humor. Intrigado com a sua atitude, pergunta-lhe o porquê do seu bom humor. {{botFact}} Ele explica-lhe que está a caminho.",
+      "avistas um acampamento de aventureiros à beira de um caminho. {{botFact}} Paras por um momento para lhe pedir conselho sobre o caminho a seguir e ele indica-te a direção certa, acrescentando que é esse o caminho a seguir.",
+      "verá um quadro informativo. Nele estão afixados vários cartazes sobre festas e outros eventos na zona. {{botFact}} Um deles fala do recente discurso do Rei, no qual ele diz que devem continuar o vosso caminho.",
+      "{{botFact}} Passa por uma multidão de pessoas e, por cima do barulho da multidão, ouve um orador a anunciar que vai continuar o seu caminho sem ouvir o que ele tem para dizer.",
+      "{{botFact}} Vês um mendigo encostado ao tronco de uma árvore ao longe e, quando te aproximas dele para lhe dar uma moeda, ouves as suas estranhas palavras. Ele repete vezes sem conta que deves afastar-te o mais possível deste indivíduo suspeito."
+    ],
+    "possibleInfo": {
+      "nbMeanPoints": "{{infoNumber}} :medal:De acordo com uma recente contagem de pontos efectuada pelos organizadores, os candidatos têm uma pontuação média de ** **. Esta notícia é animadora,",
+      "meanWeeklyScore": "{{infoNumber}} :medal: De acordo com uma contagem de pontos recentemente efectuada pelos organizadores, os candidatos obtiveram uma média de ** esta semana**. É com tristeza que recebemos esta notícia,",
+      "levelMean": "{{infoNumber}}O último recenseamento registou que os aventureiros tinham atingido, em média, o **nível **. Sem saber o que fazer com esta informação,",
+      "nbMeanMoney": "{{infoNumber}} :moneybag:o banco do país contou uma média de ** ** nas carteiras dos seus clientes. Divertido com esta notícia,",
+      "sumAllMoney": "{{infoNumber}} :moneybag:o banco do país tem ** ** em circulação neste momento. Surpreendido com esta notícia,",
+      "richestPlayer": "{{infoNumber}} :moneybag:o banco do país calculou que o aventureiro mais rico tem atualmente ** ** na sua conta. Atónito com esta notícia,",
+      "feistyPets": "A SPAC, ou Société Protectrice des Animaux de la Contrée, está a fazer uma campanha para ajudar os **animaux fielleux** a terem uma vida melhor.{{infoNumber}}Eles contaram ** **. Fiquei simultaneamente desiludido e reconfortado com esta notícia,",
+      "percentMalePets": "{{infoNumber}}A SPAC, ou Société Protectrice des Animaux de la Contrée, descobriu que ** %** dos animais da zona são machos. Fico muito contente com esta notícia,",
+      "percentFemalePets": "{{infoNumber}}A SPAC, ou Société Protectrice des Animaux de la Contrée, descobriu que ** %** dos animais da zona são fêmeas. Fico muito contente com esta notícia,",
+      "guildLevelMean": "{{infoNumber}}a AGC, ou Agence des Guildes de la Contrée, constatou que os grémios actuais atingiram, em média, o **nível **. Intrigado com esta informação,",
+      "nbPlayersHaventStartedTheAdventure_zero": "O SAFAC, ou Service Anti-Fraude des Aventuriers de la Contrée, descobriu que **nenhum aventureiro** desapareceu no ar imediatamente após ter obtido a sua licença de aventureiro. Estou admirado com todos estes corajosos aventureiros,",
+      "nbPlayersHaventStartedTheAdventure_one": "O SAFAC, ou Serviço Anti-Fraude dos Aventureiros da Contramão, descobriu que **um aventureiro** desapareceu no ar logo após ter obtido a sua licença de aventureiro. Estamos indignados com os actos desta pessoa,",
+      "nbPlayersHaventStartedTheAdventure_other": "{{infoNumber}} O SAFAC, ou Serviço Anti-Fraude dos Aventureiros da Contramão, descobriu que ** aventureiros** desapareceram no ar logo após terem obtido a sua licença de aventureiro. Estou indignado com o comportamento destas pessoas,",
+      "trainedPets_one": "A SPAC, Société Protectrice des Animaux de la Contrée, gostaria de felicitar o treinador do **único animal treinado**. Impressionado com esta proeza,",
+      "trainedPets_other": "{{infoNumber}} A SPAC, Société Protectrice des Animaux de la Contrée, gostaria de felicitar os treinadores dos **animais treinados**. Impressionados com esta conquista,",
+      "nbPlayersWithGivenClass_zero": "{{infoComplement}}de acordo com um censo recente de aventureiros, não há jogadores com a classe ** **. Esta notícia deixou-me estupefacto,",
+      "nbPlayersWithGivenClass_one": "{{infoComplement}}de acordo com um censo recente de aventureiros, existe apenas um jogador com a classe ** **. Impressionado com esta notícia,",
+      "nbPlayersWithGivenClass_other": "{{infoNumber}}{{infoComplement}}de acordo com um censo recente de aventureiros, existem ** ** jogadores com a classe ** **. Espantado com esta notícia,",
+      "nbPlayersOnYourMap_zero": "os cavaleiros da zona não encontraram **ninguém a não ser tu** nessa estrada. Surpreendido com esta notícia,",
+      "nbPlayersOnYourMap_one": "os cavaleiros das redondezas só encontraram **uma pessoa** a cavalgar na vossa direção. Surpreendidos com esta notícia,",
+      "nbPlayersOnYourMap_other": "{infoNumber} os cavaleiros da zona contaram **pessoas** a viajar na vossa direção. Surpreendidos com esta notícia,"
+    }
   }
 }
