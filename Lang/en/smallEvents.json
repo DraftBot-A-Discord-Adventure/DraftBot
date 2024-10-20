@@ -597,5 +597,196 @@
       "wiltedRose": "Add a faded rose",
       "worm": "Add worm"
     }
+  },
+  "space": {
+    "before_search_format": "{{seIntro}}{{intro}}. {{searchAction}}.\n\n:telescope: *{{search}}*.",
+    "after_search_format": "{{oldMessage}}\n\n{{actionIntro}}, {{action}} **{{specific}}**. {{outro}}.",
+    "intro": [
+      "you meet an oracle who pretends to be called **{{name}}**",
+      "a man seems strange to you, so you will meet him. He says an oracle by the name of **{{name}}**",
+      "you meet an oracle named **{{name}}**",
+      "you passed by an oracle that is calling you. It says it's called **{{name}}**",
+      "you are called out by a man who says to be called **{{name}}**",
+      "an oracle named **{{name}}** apostrophe you",
+      "a foreigner calling himself **{{name}}** asks you to approach",
+      "a man who emerges from nowhere runs towards you and stands as **{{name}}**",
+      "a suspicious unknown asks you to approach, after which he tells you to be called **{{name}}**"
+    ],
+    "searchAction": [
+      "He tells you he can give you information about the sky, but he needs time to observe it",
+      "He says he is able to give you information about the sky as long as you give him a little time",
+      "He tells you that if you give him time, he would be able to give you information about the sky",
+      "He says he can give information about the sky if he is given the necessary time",
+      "The user pretends to be able to read in the stars provided that you give him time",
+      "He claims to be able to give you information about the sky if you give him some of your time"
+    ],
+    "search": [
+      "The man looks at the sky in a small device",
+      "He lies on the ground and looks at the sky",
+      "The man begins to contemplate the sky",
+      "He seems focused on looking at something in the sky",
+      "Leaning on his refracting telescope, he observes the celestial vault with attention",
+      "The oracle observes the sky with attention",
+      "He lifts his head to carefully contemplate the sky",
+      "He starts to scrutinize intensely at the stars",
+      "The man sits against a tree and contemplate the sky",
+      "The man lies on the ground and looks up to the sky"
+    ],
+    "actionIntro": [
+      "After a few minutes",
+      "Short time after",
+      "A couple of minutes later",
+      "After making you wait a few minutes",
+      "After a little wait",
+      "A few moments later",
+      "After waiting a handful of seconds"
+    ],
+    "action": [
+      "he informs you that",
+      "he informs you that",
+      "he informs you that",
+      "he tells you that",
+      "he starts to tell you that",
+      "he declares that"
+    ],
+    "outro": [
+      "You are leaving with this news",
+      "You resume your way dreaming",
+      "You thank him and leave happy to know this news",
+      "You leave him full of stars in your eyes",
+      "You leave without regretting having stopped",
+      "You go back on your way perplexed"
+    ],
+    "specific": {
+      "neoWS": [
+        "{{mainValue}} item{{mainValuePlural}} will cross the sky today",
+        "object named \"{{randomObjectName}}\" with diameter of about {{randomObjectDiameter}} meters passes close to planet today",
+        "object named \"{{randomObjectName}}\" passes at a distance of about {{randomObjectDistance}} million kilometers from the planet",
+        "asteroi<unk> of the name \"{{randomObjectName}}\" exceeds our planet's about {{randomObjectDistance}} million kilometers",
+        "the asteroid of the name \"{{randomObjectName}}\" may be visible today",
+        "the asteroid named \"{{randomObjectName}}\" will pass near the planet",
+        "the asteroid named \"{{randomObjectName}}\" will pass to {{randomObjectDistance}} million kilometers of us"
+      ],
+      "moonPhase": [
+        "it's {{mainValue}} right now",
+        "{{mainValue}} currently lights up the sky",
+        "behind the clouds hides {{mainValue}}",
+        "the parsimonious sky gives a glimpse of {{mainValue}}"
+      ],
+      "nextFullMoon": [
+        "the next full moon is in {{mainValue}} day{{mainValuePlural}}",
+        "the full moon will shine in {{mainValue}} day{{mainValuePlural}}",
+        "we will see the full moon in {{mainValue}} day{{mainValuePlural}}",
+        "in {{mainValue}} day{{mainValuePlural}} we will be able to observe the full moon"
+      ],
+      "nextPartialLunarEclipse": [
+        "next partial lunar eclipse is in {{mainValue}} day{{mainValuePlural}}",
+        "in {{mainValue}} day{{mainValuePlural}} a partial moon eclipse can be seen",
+        "in the {{mainValue}} day{{mainValuePlural}} that come you will have the chance to attend a partial lunar eclipse",
+        "the time before seeing the next partial moon eclipse is {{mainValue}} day{{mainValuePlural}}"
+      ],
+      "nextTotalLunarEclipse": [
+        "the next total lunar eclipse is in {{mainValue}} day{{mainValuePlural}}",
+        "by {{mainValue}}{{mainValuePlural}} you'll see a complete lunar eclipse",
+        "in the {{mainValue}} day{{mainValuePlural}} that come you will have the chance to attend a total lunar eclipse",
+        "if you observe the sky in {{mainValue}} day{{mainValuePlural}} you can contemplate a total lunar eclipse"
+      ]
+    },
+    "moonPhases": [
+      "the new Moon",
+      "the first quarter of the moon",
+      "the Full Moon",
+      "the last quarter of the moon"
+    ],
+    "names": [
+      "Claude",
+      "Pierre Alphonse",
+      "Friedrich",
+      "Wilhelm",
+      "Nicolas",
+      "Clyde",
+      "Tycho",
+      "Giordano",
+      "Johannes",
+      "Jean-Dominique",
+      "Isaac",
+      "Edwin",
+      "Albert"
+    ]
+  },
+  "findPet": {
+    "food_m": [
+      "you find a **{{pet}}** that looks wounded. Unfortunately, having already a companion and more room in your guild to welcome it, you decide to finish quickly in order to recover its carcass.",
+      "you find a **{{pet}}**. You don't have the opportunity to welcome it, you give it to a merchant who passes through it. In return, it offers you some meat."
+    ],
+    "food_f": [
+      "you find a **{{pet}}** that appears to be injured. Unfortunately, having already a companion and more room in your guild to welcome it, you decide to finish quickly in order to recover its carcass.",
+      "you find a **{{pet}}**. You don't have the opportunity to welcome it, you give it to a merchant who passes through it. In return, it offers you some meat."
+    ],
+    "noFood_m": [
+      "you find a **{{pet}}**. You don't have the opportunity to welcome it, you give it to a merchant who passes through it. He refuses and lets him go.",
+      "you find a **{{pet}}**. You don't have the opportunity to welcome it, you give it to a merchant who passes through it. He is happy to take care of it.",
+      "you see an old lady looking to bring down a **{{pet}}** from a tree. You agree to help him and quickly convince him to come down. Thinking it is his animal you stretch it but find it does not belong to him. No more room in your shelter, you cannot take it with you."
+    ],
+    "noFood_f": [
+      "you find a **{{pet}}**. You don't have the opportunity to welcome it, you give it to a merchant who passes through it. He refuses and lets her go.",
+      "you find a **{{pet}}**. You don't have the opportunity to welcome it, you give it to a merchant who passes through it. He is happy to take care of it.",
+      "you see an old lady looking to bring down a **{{pet}}** from a tree. You agree to help him and quickly convince him to come down. Thinking it is his animal you stretch it but find it does not belong to him. No more room in your shelter, you cannot take it with you."
+    ],
+    "givePetPlayer_m": [
+      "you see a lost **{{pet}}**. Having always wanted to have a companion, you fall under its charm, and decide to take care of it.",
+      "you see an old lady looking to bring down a **{{pet}}** from a tree. You agree to help him and quickly convince him to come down. Thinking that it is his pet you stretch out to him but find that he does not belong to him, so you decide to take it with you.",
+      "you hear noise from a curious bush, you decide to go see. You will find a **{{pet}}** that looks at you tightly in your eyes and then starts following you, so you decide to adopt it.",
+      "you decide to make a small amount, when something wakes up, a **{{pet}}** was digging into your bag! But it seems not to want to attack you and seems to even grasp you, so you decide to keep it."
+    ],
+    "givePetPlayer_f": [
+      "you see a lost **{{pet}}**. Having always wanted to have a companion, you fall under its charm, and decide to take care of it.",
+      "you see an old lady looking to bring down a **{{pet}}** from a tree. You agree to help him and quickly convince him to come down. Thinking it is his pet you stretch it but find it does not belong to him, so you decide to take it with you.",
+      "you hear noise from a curious bush, you decide to go see. You find a **{{pet}}** that looks at you tightly in your eyes and then starts following you, so you decide to adopt it.",
+      "you decide to make a small amount, when something wakes up, a **{{pet}}** was digging into your bag! But she seems not to want to attack you and seems to even grasp you, so you decide to keep it."
+    ],
+    "givePetGuild_m": [
+      "you see a lost **{{pet}}**. Although you already have a companion, you must bring it back to your guild so that someone can take care of it.",
+      "you see a **{{pet}}** roaming that looks hungry, so you give them the remains of your last meal. He is apprehended and seems to want to follow you in your search. Having a companion, you leave it to the good care of your guild.",
+      "you see a group of children in a circle. You come closer and find that they are abusing a poor **{{pet}}**. You make them go, but it is too bad in point. You managed to put it back and leave it a little rest in your shelter."
+    ],
+    "givePetGuild_f": [
+      "you see a lost **{{pet}}**. Although you already have a companion, you decide to bring it back to your guild for someone to take care of it.",
+      "you see a **{{pet}}** roaming that looks hungry, so you give them the leftovers of your last meal. She is apprehended and seems to want to follow you in your search. Having a companion, you leave it to the good care of your guild.",
+      "you see a group of children in a circle. You come closer and find that they are abusing a poor **{{pet}}**. You make them go, but it is too bad in point. You managed to put it back and leave it a little rest in your shelter."
+    ]
+  },
+  "botFacts": {
+    "stories": [
+      "you receive a letter from the king, who is writing to you about the skill for the hand of the princess in which you participate. You can read the letter that {{botFact}} is back on your way.",
+      "you meet a farmer in a cart, seemingly cheerful. Intrigued by his attitude, you ask him about his good mood. He tells you that {{botFact}} is back on your way.",
+      "you will see the camp of an adventurer by a trail. You stop for a moment and ask them for advice on the road and they point you in the right direction by adding that {{botFact}} you are back on the road.",
+      "you see an information panel. On it, multiple posters are hanging and evoke feats and other events around. One of them talks about the King's recent speech, which told {{botFact}} you are continuing your way.",
+      "you meet a crowd of people and hear a speaker from the crowd announcing that {{botFact}} will continue your way without listening to the rest of his words.",
+      "you see in the distance a beggar clad against the trunk of a tree, approaching to give it a piece you hear his strange words, this loop spells {{botFact}} you move as soon as possible from this suspicious individual."
+    ],
+    "possibleInfo": {
+      "nbMeanPoints": "after a points count has been performed recently by the organizers, candidates have an average score of **{{infoNumber}} :medal:**. Encouraged by this news,",
+      "meanWeeklyScore": "after a points count was performed recently by the organizers, the candidates received an average of **{{infoNumber}} :medal: this week**. Attract by this news,",
+      "levelMean": "the last census noted that adventurers averaged **level {{infoNumber}}**. Without knowing what to do with this information",
+      "nbMeanMoney": "the country bank had an average of **{{infoNumber}} :moneybag:** in its customers' stock exchanges. Loved by this news,",
+      "sumAllMoney": "country bank has **{{infoNumber}} :moneybag:** in circulation at this time. Surprised by this news,",
+      "richestPlayer": "the country bank evaluated that the richest adventurer currently has **{{infoNumber}} :moneybag:** in their account. Abandoned by this news,",
+      "feistyPets": "SPAC, or the Counterfeiters Animal Protector, is campaigning to help **fielky animals** get a better life. They listed **{{infoNumber}}**. Both comfort and comfort from this news,",
+      "percentMalePets": "the SPAC, or the Counterfeiter Animal Protector, discovered that **{{infoNumber}}%** of the animals in the territory are mates. Happy with this news,",
+      "percentFemalePets": "the SPAC, or the Counterfeiter Animal Protector, discovered that **{{infoNumber}}%** of the animals in the territory are females. Happy with this news,",
+      "guildLevelMean": "the AGC, or Counterfeit Guild Agency, noted that the current guilds averaged **level {{infoNumber}}**. Intrigued by this information,",
+      "nbPlayersHaventStartedTheAdventure_zero": "the SAFAC, or Anti-Fraud Service of the Counterfeit Adventurers, discovered that **no adventurer** disappeared just after they obtained their adventure license. Admirable of all these valuable adventurers,",
+      "nbPlayersHaventStartedTheAdventure_one": "the SAFAC, or Anti-Fraud Service of Adventurers of the Counterfeit, discovered that **an adventurer** disappeared just after he obtained his adventure license. Indignified by this person's action,",
+      "nbPlayersHaventStartedTheAdventure_other": "SAFAC, or Anti-Fraud Service of Counterfeiter Adventurers, discovered that **{{infoNumber}} adventurers** disappeared just after they obtained their adventure license. Indignified by the action of these people,",
+      "trainedPets_one": "the SPAC, or the Counterfeiter Animal Protector, wishes to congratulate the trainer of the **only trained animal**. Impressed by this achievement,",
+      "trainedPets_other": "the SPAC, or the Counterfeiter Animal Protector, wishes to congratulate the trainers of the **{{infoNumber}} animals trained**. Impressed by this achievement,",
+      "nbPlayersWithGivenClass_zero": "after a recency of adventurers there would be no players with the **{{infoComplement}}** class. The new one,",
+      "nbPlayersWithGivenClass_one": "from an adventurers' census, there would be only one player with the **{{infoComplement}}** class. Impressed by this new one,",
+      "nbPlayersWithGivenClass_other": "from a recency of adventurers there would be **{{infoNumber}}** players with the **{{infoComplement}}** class. Interested by this news,",
+      "nbPlayersOnYourMap_zero": "knights nearby met **no one other than you** on this route. Surprised by this news,",
+      "nbPlayersOnYourMap_one": "knights nearby only met **one person** on your way. Surprised by this news,",
+      "nbPlayersOnYourMap_other": "nearby knights counted **{infoNumber} people** circulating on your road. Surprised by this news,"
+    }
   }
 }

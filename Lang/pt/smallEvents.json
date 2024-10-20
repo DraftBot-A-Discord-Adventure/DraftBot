@@ -597,5 +597,196 @@
       "wiltedRose": "Adicionar uma rosa murcha",
       "worm": "Adicionar uma minhoca"
     }
+  },
+  "space": {
+    "before_search_format": "{{seIntro}}{{intro}} {{searchAction}}. .\n\n:telescope:{{search}}* *.",
+    "after_search_format": "{{oldMessage}}\n\n{{actionIntro}} {{action}}{{specific}} {{outro}}** **. .",
+    "intro": [
+      "{{name}}encontra um oráculo que diz chamar-se ** **",
+      "Um homem parece-lhe estranho, por isso vai ao seu encontro.{{name}}Ele diz ser um oráculo de nome ** **",
+      "{{name}}encontra um oráculo chamado ** **",
+      "passas por um oráculo que te chama.{{name}}Ele diz que o seu nome é ** **",
+      "{{name}}é abordado por um homem que diz chamar-se ** **",
+      "{{name}}um oráculo de nome ** ** chama por si",
+      "{{name}}um estranho que diz chamar-se ** ** pede-lhe para se aproximar",
+      "{{name}}um homem aparece do nada, corre na sua direção e apresenta-se como ** **",
+      "{{name}}um estranho suspeito pede-lhe para se aproximar e depois diz-lhe que se chama ** **"
+    ],
+    "searchAction": [
+      "Diz-lhe que pode dar-lhe informações sobre o céu, mas que precisa de tempo para o observar.",
+      "Afirma ser capaz de lhe dar informações sobre o céu, desde que lhe dê algum tempo.",
+      "Ele diz-te que, se lhe deres tempo suficiente, poderá dar-te informações sobre o céu.",
+      "Ele diz que pode dar informações sobre o céu se lhe deres tempo suficiente.",
+      "Este afirma ser capaz de ler as estrelas se lhe derem tempo suficiente.",
+      "Ele afirma ser capaz de lhe dar informações sobre o céu se lhe der um pouco do seu tempo."
+    ],
+    "search": [
+      "O homem olha para o céu numa pequena câmara",
+      "Deita-se no chão e olha para o céu",
+      "O homem começa a contemplar o céu",
+      "Ele parece estar concentrado a olhar para algo no céu",
+      "Inclinado sobre o seu telescópio, observa a abóbada celeste com atenção",
+      "O oráculo observa o céu com atenção",
+      "Levanta a cabeça para olhar bem para o céu",
+      "Começa a observar intensamente as estrelas",
+      "O homem senta-se contra uma árvore e contempla o céu",
+      "O homem deita-se no chão e olha para o céu"
+    ],
+    "actionIntro": [
+      "Após alguns minutos",
+      "Pouco tempo depois",
+      "Alguns minutos mais tarde",
+      "Depois de o deixar à espera durante alguns minutos",
+      "Após uma breve espera",
+      "Alguns momentos depois",
+      "Depois de esperar alguns segundos"
+    ],
+    "action": [
+      "informa-o de que",
+      "informa-o de que",
+      "anuncia que",
+      "diz-lhe que",
+      "ele começa a dizer que",
+      "ele declara que"
+    ],
+    "outro": [
+      "Vai ficar surpreendido com esta notícia",
+      "Retoma a sua viagem de sonho",
+      "Agradece-lhe e sai feliz por ter ouvido a notícia.",
+      "Deixa-o com estrelas nos olhos",
+      "Irá embora sem se arrepender da sua paragem",
+      "Continua o seu caminho perplexo"
+    ],
+    "specific": {
+      "neoWS": [
+        "{{mainValue}}{{mainValuePlural}} objeto vai atravessar o céu hoje",
+        "{{randomObjectName}} {{randomObjectDiameter}} o objeto denominado \" \", com um diâmetro de cerca de metros, está a passar hoje perto do planeta",
+        "{{randomObjectName}} {{randomObjectDistance}} o objeto denominado \" \" passa a uma distância de cerca de um milhão de quilómetros do planeta",
+        "{{randomObjectName}} {{randomObjectDistance}} o asteroide chamado \" \" passa o nosso planeta a alguns milhões de quilómetros",
+        "{{randomObjectName}}o asteroide chamado \" \" pode ser visível hoje",
+        "{{randomObjectName}}o asteroide chamado \" \" vai passar perto do planeta",
+        "{{randomObjectName}} {{randomObjectDistance}} o asteroide chamado \" \" passará a um milhão de quilómetros de nós"
+      ],
+      "moonPhase": [
+        "{{mainValue}} é neste momento",
+        "{{mainValue}} está atualmente a iluminar o céu",
+        "{{mainValue}}por detrás das nuvens está",
+        "{{mainValue}}o céu esparso dá um vislumbre de"
+      ],
+      "nextFullMoon": [
+        "{{mainValue}}{{mainValuePlural}}a próxima lua cheia é em",
+        "a {{mainValue}}{{mainValuePlural}}lua cheia brilhará",
+        "{{mainValue}}{{mainValuePlural}}veremos a lua cheia em",
+        "{{mainValue}}{{mainValuePlural}} em que se pode ver a lua cheia"
+      ],
+      "nextPartialLunarEclipse": [
+        "{{mainValue}}{{mainValuePlural}}o próximo eclipse lunar parcial é em",
+        "{{mainValue}}{{mainValuePlural}} um eclipse lunar parcial pode ser visto em",
+        "{{mainValue}}{{mainValuePlural}} nos próximos dias, terá a oportunidade de assistir a um eclipse lunar parcial",
+        "{{mainValue}}{{mainValuePlural}}a altura para ver o próximo eclipse lunar parcial é o dia"
+      ],
+      "nextTotalLunarEclipse": [
+        "{{mainValue}}{{mainValuePlural}}o próximo eclipse lunar total é em",
+        "{{mainValue}}{{mainValuePlural}} por verá um eclipse lunar completo",
+        "{{mainValue}}{{mainValuePlural}} nos próximos dias, terá a oportunidade de assistir a um eclipse lunar total",
+        "{{mainValue}}{{mainValuePlural}} se observarmos o céu, podemos ver um eclipse lunar total"
+      ]
+    },
+    "moonPhases": [
+      "a lua nova",
+      "o primeiro quarto da Lua",
+      "a lua cheia",
+      "o último quarto da Lua"
+    ],
+    "names": [
+      "Claude",
+      "Pierre Alphonse",
+      "Friedrich",
+      "Wilhelm",
+      "Nicolas",
+      "Clyde",
+      "Tycho",
+      "Giordano",
+      "Johannes",
+      "Jean-Dominique",
+      "Isaac",
+      "Edwin",
+      "Albert"
+    ]
+  },
+  "findPet": {
+    "food_m": [
+      "{{pet}}encontras um ** ** que parece estar ferido. Infelizmente, já tens um companheiro e não há lugar para ele na tua guilda, por isso decides acabar com ele rapidamente para poderes salvar a sua carcaça.",
+      "{{pet}}encontra um ** **. Não o podendo acolher, entrega-o a um comerciante que passa. Em troca, ele oferece-te carne."
+    ],
+    "food_f": [
+      "{{pet}}encontras um ** ** que parece estar ferido. Infelizmente, já tens uma companheira e não há lugar para ela no teu grémio, por isso decides acabar com ela rapidamente para recuperares a sua carcaça.",
+      "{{pet}}encontra uma ** **. Não podendo acolhê-la, entrega-a a um comerciante que passa. Em troca, ele oferece-te carne."
+    ],
+    "noFood_m": [
+      "{{pet}}encontra um ** **. Não o podendo acolher, dá-o a um comerciante que passa. O comerciante recusa e deixa-o ir.",
+      "{{pet}}encontra um ** **. Como não tem espaço para o acolher, dá-o a um comerciante de passagem. Ele fica feliz por cuidar dele.",
+      "{{pet}}vê uma senhora idosa a tentar fazer descer um ** ** de uma árvore. Concorda em ajudá-la e rapidamente a convence a descer. Pensando que se trata do seu animal de estimação, entrega-o, mas descobre que não lhe pertence. Como não há mais espaço no teu refúgio, não podes levá-lo contigo."
+    ],
+    "noFood_f": [
+      "{{pet}}encontra uma ** **. Não podendo acolhê-la, entrega-a a um comerciante que passa. Ele recusa e deixa-a ir.",
+      "{{pet}}encontra uma ** **. Como não tem espaço para a acolher, dá-a a um comerciante de passagem. Ele fica feliz por tomar conta dela.",
+      "{{pet}}vê uma senhora idosa a tentar fazer descer um ** ** de uma árvore. Concorda em ajudá-la e rapidamente a convence a descer. Pensando que é o seu animal de estimação, entrega-lho, mas descobre que não lhe pertence. Como já não há espaço no teu abrigo, não o podes levar contigo."
+    ],
+    "givePetPlayer_m": [
+      "{{pet}}encontra um ** ** perdido. Tendo sempre desejado um companheiro, cai no seu feitiço e decide cuidar dele.",
+      "{{pet}}vê uma senhora idosa a tentar fazer descer um ** ** de uma árvore. Concorda em ajudá-la e rapidamente a convence a descer. Pensando que se trata do seu animal de estimação, entrega-lho, mas descobre que não lhe pertence. Decide levá-lo consigo.",
+      "Ouve um barulho vindo de um arbusto e, curioso, decide ir ver.{{pet}}Descobre um ** ** que olha fixamente para os seus olhos e começa a segui-lo. Decide então adoptá-lo.",
+      "{{pet}}Decides fazer uma pequena sesta, quando algo te acorda: um ** ** estava a remexer na tua mochila! Mas ele não parece querer atacar-te e até parece gostar de ti, por isso decides ficar com ele."
+    ],
+    "givePetPlayer_f": [
+      "{{pet}}encontra um ** ** perdido. Tendo sempre desejado um companheiro, cai no seu feitiço e decide cuidar dele.",
+      "{{pet}}vê uma senhora idosa a tentar fazer descer um ** ** de uma árvore. Concorda em ajudá-la e rapidamente a convence a descer. Pensando que se trata do seu animal de estimação, entrega-lho, mas descobre que não lhe pertence. Decide levá-lo consigo.",
+      "Ouve um barulho vindo de um arbusto e, curioso, decide ir ver.{{pet}}Descobre um ** ** que olha fixamente para os seus olhos e começa a segui-lo. Decide então adoptá-lo.",
+      "{{pet}}Decides fazer uma pequena sesta, quando algo te acorda: um ** ** estava a remexer na tua mochila! Mas ele não parece querer atacar-te e até parece gostar de ti, por isso decides ficar com ele."
+    ],
+    "givePetGuild_m": [
+      "{{pet}}encontras um ** ** perdido. Embora já tenhas um companheiro, decides levá-lo para o teu grémio para que alguém possa tomar conta dele.",
+      "{{pet}}vês um ** ** errante que parece ter fome. Dá-lhe os restos da sua última refeição. Ele agradece e parece disposto a seguir-te na tua viagem. Tendo um companheiro, deixas-o ao cuidado da tua guilda.",
+      "vê um grupo de crianças em círculo.{{pet}}Aproxima-se e descobre que elas estão a maltratar um pobre coitadinho. Fazes com que se vão embora, mas ele está muito mal. Consegue pô-lo de pé e dá-lhe um pouco de descanso no seu refúgio."
+    ],
+    "givePetGuild_f": [
+      "{{pet}}encontras um ** ** perdido. Embora já tenhas um companheiro, decides levá-lo para o teu grémio para que alguém possa tomar conta dele.",
+      "{{pet}}vês um animal vadio ** ** que parece ter fome. Então, dá-lhe os restos da sua última refeição. Ela agradece e parece disposta a seguir-te na tua viagem. Tendo uma companheira, deixa-a ao cuidado da tua guilda.",
+      "vê um grupo de crianças em círculo.{{pet}}Aproxima-se e descobre que estão a maltratar uma pobre menina ** **. Fazes com que eles se vão embora, mas ela está com demasiados problemas. Consegue pô-la de pé e dá-lhe um pouco de descanso no seu refúgio."
+    ]
+  },
+  "botFacts": {
+    "stories": [
+      "recebes uma carta do rei. Ele escreve-te sobre o concurso para a mão da princesa em que estás a participar. {{botFact}} Quando lês a carta, descobres que estás de novo a caminho.",
+      "passa por um camponês numa carroça que parece estar de bom humor. Intrigado com a sua atitude, pergunta-lhe o porquê do seu bom humor. {{botFact}} Ele explica-lhe que está a caminho.",
+      "avistas um acampamento de aventureiros à beira de um caminho. {{botFact}} Paras por um momento para lhe pedir conselho sobre o caminho a seguir e ele indica-te a direção certa, acrescentando que é esse o caminho a seguir.",
+      "verá um quadro informativo. Nele estão afixados vários cartazes sobre festas e outros eventos na zona. {{botFact}} Um deles fala do recente discurso do Rei, no qual ele diz que devem continuar o vosso caminho.",
+      "{{botFact}} Passa por uma multidão de pessoas e, por cima do barulho da multidão, ouve um orador a anunciar que vai continuar o seu caminho sem ouvir o que ele tem para dizer.",
+      "{{botFact}} Vês um mendigo encostado ao tronco de uma árvore ao longe e, quando te aproximas dele para lhe dar uma moeda, ouves as suas estranhas palavras. Ele repete vezes sem conta que deves afastar-te o mais possível deste indivíduo suspeito."
+    ],
+    "possibleInfo": {
+      "nbMeanPoints": "{{infoNumber}} :medal:De acordo com uma recente contagem de pontos efectuada pelos organizadores, os candidatos têm uma pontuação média de ** **. Esta notícia é animadora,",
+      "meanWeeklyScore": "{{infoNumber}} :medal: De acordo com uma contagem de pontos recentemente efectuada pelos organizadores, os candidatos obtiveram uma média de ** esta semana**. É com tristeza que recebemos esta notícia,",
+      "levelMean": "{{infoNumber}}O último recenseamento registou que os aventureiros tinham atingido, em média, o **nível **. Sem saber o que fazer com esta informação,",
+      "nbMeanMoney": "{{infoNumber}} :moneybag:o banco do país contou uma média de ** ** nas carteiras dos seus clientes. Divertido com esta notícia,",
+      "sumAllMoney": "{{infoNumber}} :moneybag:o banco do país tem ** ** em circulação neste momento. Surpreendido com esta notícia,",
+      "richestPlayer": "{{infoNumber}} :moneybag:o banco do país calculou que o aventureiro mais rico tem atualmente ** ** na sua conta. Atónito com esta notícia,",
+      "feistyPets": "A SPAC, ou Société Protectrice des Animaux de la Contrée, está a fazer uma campanha para ajudar os **animaux fielleux** a terem uma vida melhor.{{infoNumber}}Eles contaram ** **. Fiquei simultaneamente desiludido e reconfortado com esta notícia,",
+      "percentMalePets": "{{infoNumber}}A SPAC, ou Société Protectrice des Animaux de la Contrée, descobriu que ** %** dos animais da zona são machos. Fico muito contente com esta notícia,",
+      "percentFemalePets": "{{infoNumber}}A SPAC, ou Société Protectrice des Animaux de la Contrée, descobriu que ** %** dos animais da zona são fêmeas. Fico muito contente com esta notícia,",
+      "guildLevelMean": "{{infoNumber}}a AGC, ou Agence des Guildes de la Contrée, constatou que os grémios actuais atingiram, em média, o **nível **. Intrigado com esta informação,",
+      "nbPlayersHaventStartedTheAdventure_zero": "O SAFAC, ou Service Anti-Fraude des Aventuriers de la Contrée, descobriu que **nenhum aventureiro** desapareceu no ar imediatamente após ter obtido a sua licença de aventureiro. Estou admirado com todos estes corajosos aventureiros,",
+      "nbPlayersHaventStartedTheAdventure_one": "O SAFAC, ou Serviço Anti-Fraude dos Aventureiros da Contramão, descobriu que **um aventureiro** desapareceu no ar logo após ter obtido a sua licença de aventureiro. Estamos indignados com os actos desta pessoa,",
+      "nbPlayersHaventStartedTheAdventure_other": "{{infoNumber}} O SAFAC, ou Serviço Anti-Fraude dos Aventureiros da Contramão, descobriu que ** aventureiros** desapareceram no ar logo após terem obtido a sua licença de aventureiro. Estou indignado com o comportamento destas pessoas,",
+      "trainedPets_one": "A SPAC, Société Protectrice des Animaux de la Contrée, gostaria de felicitar o treinador do **único animal treinado**. Impressionado com esta proeza,",
+      "trainedPets_other": "{{infoNumber}} A SPAC, Société Protectrice des Animaux de la Contrée, gostaria de felicitar os treinadores dos **animais treinados**. Impressionados com esta conquista,",
+      "nbPlayersWithGivenClass_zero": "{{infoComplement}}de acordo com um censo recente de aventureiros, não há jogadores com a classe ** **. Esta notícia deixou-me estupefacto,",
+      "nbPlayersWithGivenClass_one": "{{infoComplement}}de acordo com um censo recente de aventureiros, existe apenas um jogador com a classe ** **. Impressionado com esta notícia,",
+      "nbPlayersWithGivenClass_other": "{{infoNumber}}{{infoComplement}}de acordo com um censo recente de aventureiros, existem ** ** jogadores com a classe ** **. Espantado com esta notícia,",
+      "nbPlayersOnYourMap_zero": "os cavaleiros da zona não encontraram **ninguém a não ser tu** nessa estrada. Surpreendido com esta notícia,",
+      "nbPlayersOnYourMap_one": "os cavaleiros das redondezas só encontraram **uma pessoa** a cavalgar na vossa direção. Surpreendidos com esta notícia,",
+      "nbPlayersOnYourMap_other": "{infoNumber} os cavaleiros da zona contaram **pessoas** a viajar na vossa direção. Surpreendidos com esta notícia,"
+    }
   }
 }

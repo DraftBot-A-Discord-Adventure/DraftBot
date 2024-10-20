@@ -368,7 +368,7 @@
     },
     "playerClass": {
       "fieldName": "Clase :",
-      "fieldValue": "{{class}}"
+      "fieldValue": "{{emote}} {{className}}"
     },
     "ranking": {
       "fieldName": "Clasificación y puntuación :",

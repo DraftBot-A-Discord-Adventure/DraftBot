@@ -597,5 +597,196 @@
       "wiltedRose": "Eine verwelkte Rose hinzufügen",
       "worm": "Einen Wurm hinzufügen"
     }
+  },
+  "space": {
+    "before_search_format": "{{seIntro}}{{intro}}. {{searchAction}}.\n\n:telescope: *{{search}}*.",
+    "after_search_format": "{{oldMessage}}\n\n{{actionIntro}} {{action}} **{{specific}}**. {{outro}}.",
+    "intro": [
+      "treffen Sie auf ein Orakel, das vorgibt, sich **{{name}}** zu nennen.",
+      "ein Mann kommt Ihnen seltsam vor, also gehen Sie auf ihn zu. Er behauptet, ein Orakel mit dem Namen **{{name}}** zu sein.",
+      "treffen Sie auf ein Orakel mit dem Namen **{{name}}**",
+      "gehen Sie an einem Orakel vorbei, das Sie anspricht. Er sagt, sein Name sei **{{name}}**.",
+      "werden Sie von einem Mann angesprochen, der sagt, dass er **{{name}}** heißt.",
+      "ein Orakel mit dem Namen **{{name}}** apostrophiert Sie",
+      "ein Fremder, der behauptet, sein Name sei **{{name}}**, bittet Sie, näher zu treten",
+      "läuft ein Mann aus dem Nichts auf Sie zu und stellt sich als **{{name}}** vor.",
+      "ein verdächtiger Fremder bittet Sie, näher zu kommen, woraufhin er Ihnen sagt, dass sein Name **{{name}}** ist"
+    ],
+    "searchAction": [
+      "Er sagt Ihnen, dass er Ihnen Informationen über den Himmel geben kann, aber er braucht Zeit, um ihn zu beobachten",
+      "Er behauptet, er könne Ihnen Informationen über den Himmel geben, wenn Sie ihm ein wenig Zeit geben",
+      "Er sagt Ihnen, dass er, wenn Sie ihm die Zeit lassen, in der Lage wäre, Ihnen Informationen über den Himmel zu geben.",
+      "Er sagt, er könne Informationen über den Himmel geben, wenn man ihm die nötige Zeit dafür einräume.",
+      "Dieser behauptet, er könne in den Sternen lesen, wenn Sie ihm nur die Zeit dazu geben.",
+      "Dieser behauptet, er könne Ihnen Informationen über den Himmel geben, wenn Sie ihm ein wenig Zeit schenken"
+    ],
+    "search": [
+      "Der Mann schaut in einem kleinen Gerät in den Himmel",
+      "Er legt sich auf den Boden und schaut in den Himmel",
+      "Der Mensch beginnt, den Himmel zu betrachten",
+      "Er scheint konzentriert auf etwas am Himmel zu schauen",
+      "Sich über sein Fernrohr beugend, beobachtet er aufmerksam den Sternenhimmel",
+      "Das Orakel beobachtet den Himmel genau",
+      "Er hebt seinen Kopf, um den Himmel aufmerksam zu betrachten.",
+      "Er beginnt, intensiv nach den Sternen zu suchen",
+      "Der Mensch setzt sich an einen Baum und betrachtet den Himmel",
+      "Der Mann legt sich auf den Boden und hebt seine Augen zum Himmel."
+    ],
+    "actionIntro": [
+      "Nach einigen Minuten",
+      "Kurze Zeit später",
+      "Einige Minuten später",
+      "Nachdem er Sie einige Minuten warten ließ",
+      "Nach einer kurzen Wartezeit",
+      "Einige Augenblicke später",
+      "Nachdem Sie eine Handvoll Sekunden gewartet hatten"
+    ],
+    "action": [
+      "er informiert Sie, dass",
+      "er Sie aufklärt, dass",
+      "er teilt Ihnen mit, dass",
+      "er sagt Ihnen, dass",
+      "fängt er an, Ihnen zu sagen, dass",
+      "erklärt er, dass"
+    ],
+    "outro": [
+      "Sie gehen verblüfft von dieser Neuigkeit nach Hause",
+      "Sie nehmen Ihren verträumten Weg wieder auf",
+      "Sie bedanken sich bei ihm und gehen glücklich nach Hause, weil Sie diese Neuigkeit erfahren haben",
+      "Sie verlassen ihn voller Sterne in den Augen",
+      "Sie fahren weiter, ohne zu bereuen, dass Sie angehalten haben",
+      "Sie setzen Ihren Weg ratlos fort"
+    ],
+    "specific": {
+      "neoWS": [
+        "{{mainValue}} Objekt{{mainValuePlural}} wird heute den Himmel überqueren",
+        "das Objekt mit dem Namen \"{{randomObjectName}}\" mit einem Durchmesser von etwa {{randomObjectDiameter}} Metern passiert heute in der Nähe des Planeten",
+        "das Objekt mit dem Namen \"{{randomObjectName}}\" in einer Entfernung von etwa {{randomObjectDistance}} Millionen Kilometern am Planeten vorbeizieht",
+        "der Asteroid mit dem Namen \"{{randomObjectName}}\" unseren Planeten um etwa {{randomObjectDistance}} Millionen Kilometer überholt",
+        "der Asteroid mit dem Namen \"{{randomObjectName}}\" könnte heute sichtbar sein",
+        "der Asteroid mit dem Namen \"{{randomObjectName}}\" wird in der Nähe des Planeten vorbeifliegen",
+        "der Asteroid mit dem Namen \"{{randomObjectName}}\" wird in einer Entfernung von {{randomObjectDistance}} Millionen Kilometern an uns vorbeifliegen"
+      ],
+      "moonPhase": [
+        "das ist {{mainValue}} im Moment",
+        "{{mainValue}} beleuchtet derzeit den Himmel",
+        "hinter den Wolken verbirgt sich {{mainValue}}",
+        "der spärliche Himmel lässt einen Blick auf {{mainValue}}zu."
+      ],
+      "nextFullMoon": [
+        "der nächste Vollmond ist in {{mainValue}} Tag{{mainValuePlural}}",
+        "der Vollmond wird in {{mainValue}} Tag{{mainValuePlural}}scheinen",
+        "wir werden den Vollmond in {{mainValue}} Tag{{mainValuePlural}}erblicken",
+        "in {{mainValue}} Tag{{mainValuePlural}} wird man den Vollmond beobachten können"
+      ],
+      "nextPartialLunarEclipse": [
+        "die nächste partielle Mondfinsternis ist in {{mainValue}} Tag{{mainValuePlural}}",
+        "in {{mainValue}} Tag{{mainValuePlural}} wird eine partielle Mondfinsternis zu sehen sein",
+        "in den nächsten {{mainValue}} Tagen{{mainValuePlural}} haben Sie die Chance, eine partielle Mondfinsternis zu beobachten",
+        "die Zeit, bis die nächste partielle Mondfinsternis zu sehen ist, beträgt {{mainValue}} Tag{{mainValuePlural}}"
+      ],
+      "nextTotalLunarEclipse": [
+        "die nächste totale Mondfinsternis ist in {{mainValue}} Tag{{mainValuePlural}}",
+        "innerhalb von {{mainValue}} Tag{{mainValuePlural}} werden Sie eine vollständige Mondfinsternis erblicken",
+        "in den nächsten {{mainValue}} Tagen{{mainValuePlural}} haben Sie die Chance, eine totale Mondfinsternis zu erleben",
+        "wenn Sie den Himmel in {{mainValue}} Tag{{mainValuePlural}} beobachten, können Sie eine totale Mondfinsternis betrachten"
+      ]
+    },
+    "moonPhases": [
+      "der neue Mond",
+      "das erste Viertel des Mondes",
+      "der Vollmond",
+      "das letzte Viertel des Mondes"
+    ],
+    "names": [
+      "Claude",
+      "Pierre Alphonse",
+      "Friedrich",
+      "Wilhelm",
+      "Nicolas",
+      "Clyde",
+      "Tycho",
+      "Giordano",
+      "Johannes",
+      "Jean-Dominique",
+      "Isaac",
+      "Edwin",
+      "Albert"
+    ]
+  },
+  "findPet": {
+    "food_m": [
+      "finden Sie einen **{{pet}}**, der verletzt zu sein scheint. Leider haben Sie bereits einen Gefährten und keinen Platz mehr in Ihrer Gilde, um ihn aufzunehmen, sodass Sie sich dazu entschließen, ihn schnell zu erledigen, um seinen Kadaver zu erhalten.",
+      "finden Sie einen **{{pet}}**. Da Sie keine Möglichkeit haben, ihn aufzunehmen, geben Sie ihn einem Händler, der gerade vorbeikommt. Im Gegenzug bietet er Ihnen ein wenig Fleisch an."
+    ],
+    "food_f": [
+      "finden Sie eine **{{pet}}**, die verletzt zu sein scheint. Leider haben Sie bereits einen Gefährten und keinen Platz mehr in Ihrer Gilde, um ihn aufzunehmen, sodass Sie sich dazu entschließen, ihn schnell zu erledigen, um seinen Kadaver zu erhalten.",
+      "finden Sie eine **{{pet}}**. Da Sie keine Möglichkeit haben, sie aufzunehmen, geben Sie sie einem Händler, der gerade vorbeikommt. Im Gegenzug bietet er Ihnen ein wenig Fleisch an."
+    ],
+    "noFood_m": [
+      "finden Sie einen **{{pet}}**. Da Sie keine Möglichkeit haben, ihn aufzunehmen, geben Sie ihn einem Händler, der gerade vorbeikommt. Dieser lehnt ab und lässt ihn gehen.",
+      "finden Sie einen **{{pet}}**. Da Sie keine Möglichkeit haben, ihn aufzunehmen, geben Sie ihn einem Händler, der gerade vorbeikommt. Er nimmt ihn gerne an.",
+      "Sie sehen eine alte Frau, die versucht, einen **{{pet}}** von einem Baum herunterzuholen. Sie erklären sich bereit, ihr zu helfen und können sie schnell davon überzeugen, herunterzukommen. Sie glauben, dass es sich um ihr Haustier handelt und halten es ihr hin, müssen aber feststellen, dass es ihr nicht gehört. Da Sie keinen Platz mehr in Ihrem Tierheim haben, können Sie das Tier nicht mitnehmen."
+    ],
+    "noFood_f": [
+      "finden Sie eine **{{pet}}**. Da Sie keine Möglichkeit haben, sie aufzunehmen, geben Sie sie einem Händler, der gerade vorbeikommt. Dieser lehnt ab und lässt sie gehen.",
+      "finden Sie eine **{{pet}}**. Da Sie keine Möglichkeit haben, sie aufzunehmen, geben Sie sie einem Händler, der gerade vorbeikommt. Er nimmt sie gerne an.",
+      "Sie sehen eine alte Frau, die versucht, eine **{{pet}}** von einem Baum herunterzuholen. Sie erklären sich bereit, ihr zu helfen und können sie schnell davon überzeugen, herunterzukommen. Sie glauben, dass es sich um ihr Haustier handelt und halten es ihr hin, müssen aber feststellen, dass es ihr nicht gehört. Da Sie keinen Platz mehr in Ihrem Tierheim haben, können Sie das Tier nicht mitnehmen."
+    ],
+    "givePetPlayer_m": [
+      "sehen Sie einen **{{pet}}**, der sich verlaufen hat. Da Sie sich schon immer einen Begleiter gewünscht haben, verlieben Sie sich in ihn und beschließen, sich um ihn zu kümmern.",
+      "Sie sehen eine alte Frau, die versucht, einen **{{pet}}** von einem Baum herunterzuholen. Sie erklären sich bereit, ihr zu helfen und können sie schnell davon überzeugen, herunterzukommen. Sie glauben, dass es sich um ihr Haustier handelt und halten es ihr hin, stellen aber fest, dass es ihr nicht gehört. Sie beschließen, es mitzunehmen.",
+      "Sie hören ein Geräusch aus einem Busch. Sie sind neugierig und beschließen, nachzusehen. Sie entdecken einen **{{pet}}**, der Ihnen fest in die Augen schaut und dann beginnt, Ihnen zu folgen.",
+      "Sie beschließen, ein Nickerchen zu machen, als Sie von etwas geweckt werden. Ein **{{pet}}** war dabei, in Ihrer Tasche zu wühlen! Er scheint Sie jedoch nicht angreifen zu wollen und scheint Sie sogar zu mögen, sodass Sie beschließen, ihn zu behalten."
+    ],
+    "givePetPlayer_f": [
+      "Sie sehen eine verirrte **{{pet}}**. Da Sie sich schon immer einen Begleiter gewünscht haben, verlieben Sie sich in ihn und beschließen, sich um ihn zu kümmern.",
+      "Sie sehen eine alte Frau, die versucht, eine **{{pet}}** von einem Baum herunterzuholen. Sie erklären sich bereit, ihr zu helfen und können sie schnell davon überzeugen, herunterzukommen. Sie glauben, dass es sich um ihr Haustier handelt und halten es ihr hin, müssen aber feststellen, dass es ihr nicht gehört. Sie beschließen, es mitzunehmen.",
+      "Sie hören ein Geräusch aus einem Busch. Sie sind neugierig und beschließen, nachzusehen. Sie entdecken eine **{{pet}}**, die Ihnen fest in die Augen schaut und Ihnen dann folgt.",
+      "Sie beschließen, ein Nickerchen zu machen, als Sie von etwas geweckt werden. Eine **{{pet}}** war gerade dabei, in Ihrer Tasche zu wühlen! Sie scheint Sie aber nicht anzugreifen und scheint Sie sogar zu mögen, also beschließen Sie, sie zu behalten."
+    ],
+    "givePetGuild_m": [
+      "erblicken Sie einen **{{pet}}**, der sich verlaufen hat. Obwohl du bereits einen Begleiter hast, beschließt du, ihn in deine Gilde zu bringen, damit sich jemand um ihn kümmert.",
+      "sehen Sie einen umherirrenden **{{pet}}**, der hungrig zu sein scheint. Sie geben ihm die Reste Ihrer letzten Mahlzeit. Er genießt es und scheint Ihnen auf Ihrer Reise folgen zu wollen. Da Sie einen Gefährten haben, überlassen Sie ihn der Fürsorge Ihrer Gilde.",
+      "sehen Sie eine Gruppe von Kindern, die im Kreis stehen. Sie gehen näher heran und entdecken, dass sie einen armen, kleinen **{{pet}}** Jungen misshandeln. Sie schicken die Kinder weg, aber er ist in einem zu schlechten Zustand. Sie schaffen es, ihn wieder aufzurichten und lassen ihn in Ihrem Unterschlupf ein wenig ausruhen."
+    ],
+    "givePetGuild_f": [
+      "sehen Sie eine **{{pet}}**, die sich verlaufen hat. Obwohl du bereits einen Begleiter hast, beschließt du, sie in deine Gilde zu bringen, damit sich jemand um sie kümmern kann.",
+      "sehen Sie eine **{{pet}}** umherirrende Frau, die hungrig zu sein scheint. Sie geben ihr die Reste Ihrer letzten Mahlzeit. Sie genießt es und scheint Ihnen auf Ihrer Reise folgen zu wollen. Da Sie einen Gefährten haben, überlassen Sie sie der Obhut Ihrer Gilde.",
+      "sehen Sie eine Gruppe von Kindern, die im Kreis stehen. Sie gehen näher heran und entdecken, dass sie gerade ein armes kleines Mädchen **{{pet}}** misshandeln. Sie können sie wegschicken, aber sie ist in einem zu schlechten Zustand. Du schaffst es, sie wieder aufzurichten und lässt sie sich in deinem Unterschlupf ausruhen."
+    ]
+  },
+  "botFacts": {
+    "stories": [
+      "erhalten Sie einen Brief vom König. Der König schreibt Ihnen einen Brief über den Wettbewerb um die Hand der Prinzessin, an dem Sie teilnehmen. Als Sie den Brief lesen, stellen Sie fest, dass {{botFact}} Sie sich wieder auf den Weg machen.",
+      "Sie begegnen einem Bauern auf einem Karren, der fröhlich zu sein scheint. Sie sind fasziniert von seiner Haltung und fragen ihn nach seiner guten Laune. Er erklärt Ihnen, dass {{botFact}} Sie sich wieder auf den Weg machen.",
+      "Sie sehen das Lager eines Abenteurers am Rande eines Pfades. Sie bleiben kurz stehen, um ihn um Rat zu fragen, wie Sie weitergehen sollen. Er weist Ihnen den richtigen Weg zurück und fügt hinzu, dass {{botFact}} Sie den Weg fortsetzen werden.",
+      "sehen Sie eine Informationstafel. Auf dieser hängen mehrere Plakate, die von Festen und anderen Ereignissen in der Umgebung berichten. Eines davon handelt von der jüngsten Rede des Königs, der erzählte, dass {{botFact}} Sie Ihren Weg fortsetzen.",
+      "Sie kommen an einer Menschenansammlung vorbei und hören zwischen den Geräuschen der Menge einen Redner, der ankündigt, dass {{botFact}} Sie Ihren Weg fortsetzen, ohne auf seine weiteren Ausführungen zu hören.",
+      "Sie sehen in der Ferne einen Bettler, der sich gegen einen Baumstamm lehnt. Als Sie sich ihm nähern, um ihm eine Münze zu geben, hören Sie seine seltsamen Worte. Er wiederholt in einer Endlosschleife, dass {{botFact}} Sie sich so schnell wie möglich von dieser verdächtigen Person entfernen."
+    ],
+    "possibleInfo": {
+      "nbMeanPoints": "laut einer kürzlich von den Organisatoren durchgeführten Punktezählung haben die Kandidaten im Durchschnitt eine Punktzahl von **{{infoNumber}} :medal:**. Ermutigt durch diese Nachricht",
+      "meanWeeklyScore": "laut einer kürzlich von den Organisatoren durchgeführten Punktezählung haben die Kandidaten in dieser Woche durchschnittlich **{{infoNumber}} :medal: ** gesammelt. Traurig über diese Nachricht",
+      "levelMean": "die letzte Volkszählung hatte festgestellt, dass Abenteurer im Durchschnitt die **Ebene {{infoNumber}}** erreicht haben. Ohne zu wissen, was sie mit dieser Information anfangen sollten,",
+      "nbMeanMoney": "zählte die Bank des Landes durchschnittlich **{{infoNumber}} :moneybag:** in den Geldbeuteln ihrer Kunden. Amüsiert über diese Nachricht",
+      "sumAllMoney": "die Bank des Landes zählt **{{infoNumber}} :moneybag:**, die zu dieser Stunde im Umlauf sind. Überrascht von dieser Nachricht",
+      "richestPlayer": "die Bank des Landes hat geschätzt, dass der reichste Abenteurer derzeit **{{infoNumber}} :moneybag:** auf seinem Konto hat. Verblüfft über diese Nachricht",
+      "feistyPets": "Die SPAC, die Société Protectrice des Animaux de la Contrée, setzt sich dafür ein, dass **Gifttiere** ein besseres Leben bekommen. Sie haben **{{infoNumber}}** gezählt. Enttäuscht und getröstet von dieser Nachricht,",
+      "percentMalePets": "die SPAC, oder Société Protectrice des Animaux de la Contrée, hat herausgefunden, dass **{{infoNumber}}%** der Tiere im Gebiet männlich sind. Erfreut über diese Nachricht,",
+      "percentFemalePets": "die SPAC, oder Société Protectrice des Animaux de la Contrée, hat herausgefunden, dass **{{infoNumber}}%** der Tiere im Gebiet weiblich sind. Erfreut über diese Nachricht,",
+      "guildLevelMean": "die AGC, oder Agentur für die Gilden des Landes, stellte fest, dass die derzeitigen Gilden im Durchschnitt die **Ebene {{infoNumber}}** erreicht haben. Fasziniert von dieser Information",
+      "nbPlayersHaventStartedTheAdventure_zero": "Die Betrugsbekämpfungsstelle für Abenteurer des Landes (SAFAC) hat herausgefunden, dass **keiner der Abenteurer** direkt nach dem Erwerb der Abenteurerlizenz verschwunden ist. Bewunderung für all diese tapferen Abenteurer,",
+      "nbPlayersHaventStartedTheAdventure_one": "Die Betrugsbekämpfungsstelle für Abenteurer des Landes (SAFAC) hat herausgefunden, dass **ein Abenteurer** sich kurz nach Erhalt seiner Abenteurerlizenz in Luft aufgelöst hat. Empört über die Handlung dieser Person",
+      "nbPlayersHaventStartedTheAdventure_other": "der SAFAC, oder Aventurische Betrugsbekämpfungsdienst des Landes, hat herausgefunden, dass **{{infoNumber}} Abenteurer** sich direkt nach Erhalt ihrer Abenteurerlizenz in Luft aufgelöst haben. Empört über das Handeln dieser Personen",
+      "trainedPets_one": "Die SPAC, die Société Protectrice des Animaux de la Contrée, möchte dem Trainer des **einzigen dressierten Tieres** gratulieren. Beeindruckt von dieser Leistung",
+      "trainedPets_other": "die SPAC, oder Société Protectrice des Animaux de la Contrée, möchte den Trainern der **{{infoNumber}} dressierten Tiere** gratulieren. Beeindruckt von dieser Leistung",
+      "nbPlayersWithGivenClass_zero": "laut einer kürzlich durchgeführten Zählung der Abenteurer gibt es keine Spieler mit der Klasse **{{infoComplement}}**. Erstaunt über diese Nachricht,",
+      "nbPlayersWithGivenClass_one": "laut einer kürzlich durchgeführten Zählung der Abenteurer gibt es nur einen Spieler mit der Klasse **{{infoComplement}}**. Beeindruckt von dieser Nachricht",
+      "nbPlayersWithGivenClass_other": "laut einer aktuellen Zählung der Abenteurer gibt es **{{infoNumber}}** Spieler mit der Klasse **{{infoComplement}}**. Erstaunt über diese Nachricht",
+      "nbPlayersOnYourMap_zero": "die Ritter in der Umgebung haben auf dieser Route **niemanden außer euch** getroffen. Überrascht von dieser Nachricht",
+      "nbPlayersOnYourMap_one": "die Ritter in der Umgebung haben nur **eine Person** getroffen, die auf Ihrem Weg unterwegs war. Überrascht von dieser Nachricht",
+      "nbPlayersOnYourMap_other": "die umliegenden Ritter haben **{infoNumber} Personen** gezählt, die sich auf Ihrer Route bewegen. Überrascht von dieser Nachricht"
+    }
   }
 }
