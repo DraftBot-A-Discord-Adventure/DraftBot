@@ -7,8 +7,6 @@ import {Language} from "../../Language";
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandClassesInfoPacketReq extends DraftBotPacket {
 	keycloakId!: string;
-
-	language!: Language;
 }
 
 /**
@@ -18,13 +16,9 @@ export class CommandClassesInfoPacketReq extends DraftBotPacket {
 export class CommandClassesInfoPacketRes extends DraftBotPacket {
 	foundPlayer!: boolean;
 
-	keycloakId?: string;
-
 	data?: {
 		classesStats: {
 			id: number;
-			emoji: string;
-			lng: Language;
 			health: number;
 			attack: number;
 			defense: number;
@@ -33,14 +27,10 @@ export class CommandClassesInfoPacketRes extends DraftBotPacket {
 			maxBreath: number;
 			breathRegen: number;
 			fightPoint: number;
-			description: string;
 			attacks: {
 				id: string,
-				cost: number,
-				emoji: string
+				cost: number
 			}[];
-
-			classesList?: string[];
 		}[];
 	};
 }

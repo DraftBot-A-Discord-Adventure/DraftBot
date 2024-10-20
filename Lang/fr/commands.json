@@ -484,12 +484,22 @@
       "class": "**{{class}}**"
     },
     "description": {
-      "list": "Voici la liste des classes disponibles pour votre personnage et leurs statistiques. Pour plus d'informations sur une classe, sélectionnez celle-ci parmi les choix ci-dessous. Pour changer de classe, exécutez {command:classes}.",
+      "list": "Voici la liste des classes disponibles pour votre personnage et leurs statistiques. Pour plus d'informations sur une classe, sélectionnez celle-ci parmi les choix ci-dessous.",
       "attacks": "\n\n## **Attaques disponibles pour cette classe :**"
     },
     "mainOption": {
       "name": "Liste des classes",
       "placeholder": "Sélectionnez une classe"
+    },
+    "displays": {
+      "class": {
+        "name": "### {{emoji}} {{name}}",
+        "stats": ":zap: {{fightPoint}} | :dagger: {{attack}} | :shield: {{defense}} | :rocket: {{speed}} | :wind_blowing_face: {{baseBreath}} / {{maxBreath}} | :lungs: {{breathRegen}} | :heart: {{health}}"
+      },
+      "attack": {
+        "name": "### {{emoji}} {{name}} | {{cost}} :wind_blowing_face:",
+        "description": "> {{description}}"
+      }
     }
   }
 }
