@@ -63,11 +63,7 @@ export function getRandomSmallEventIntro(language: Language): string {
 	return StringUtils.getRandomTranslation("smallEvents:intro", language);
 }
 
-export default // @ts-ignore
-// @ts-ignore
-class SmallEventsHandler {
-	private TimeUtils: any;
-
+export default class SmallEventsHandler {
 	@packetHandler(SmallEventAdvanceTimePacket)
 	async smallEventAdvanceTime(packet: SmallEventAdvanceTimePacket, context: PacketContext): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
