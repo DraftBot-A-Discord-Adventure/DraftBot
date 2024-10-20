@@ -755,5 +755,38 @@
       "{{pet}}si individua una randagia ** ** che sembra affamata. Così le date i resti del vostro ultimo pasto. Lei lo apprezza e sembra intenzionata a seguirvi nel vostro viaggio. Avendo una compagna, la lasciate alle cure della vostra gilda.",
       "si vede un gruppo di bambini in cerchio.{{pet}}Ci si avvicina e si scopre che stanno maltrattando una povera bambina ** **. Li convincete ad andarsene, ma lei è troppo in difficoltà. Riuscite a rimetterla in piedi e a farla riposare nel vostro rifugio."
     ]
+  },
+  "botFacts": {
+    "stories": [
+      "ricevete una lettera dal re. Vi scrive a proposito del concorso per la mano della principessa a cui state partecipando. {{botFact}} Quando leggete la lettera, scoprite che siete di nuovo in viaggio.",
+      "passate accanto a un contadino su un carro che sembra essere di buon umore. Incuriositi dal suo atteggiamento, gli chiedete ragione del suo buon umore. {{botFact}} Lui vi spiega che state arrivando.",
+      "si nota un accampamento di avventurieri sul ciglio di un sentiero. {{botFact}} Vi fermate un attimo per chiedergli un consiglio su quale strada prendere e lui vi indica la direzione giusta, aggiungendo che quella è la strada da seguire.",
+      "vedrete un pannello informativo. Su di esso sono affissi diversi manifesti su festival e altri eventi della zona. {{botFact}} Uno di questi parla del recente discorso del Re, in cui ha detto che dovreste continuare il vostro cammino.",
+      "{{botFact}} passate davanti a una folla di persone e nel rumore della folla sentite un oratore che annuncia che continuerete per la vostra strada senza ascoltare ciò che ha da dire.",
+      "{{botFact}} Vedete in lontananza un mendicante appoggiato al tronco di un albero e, mentre vi avvicinate per dargli una moneta, sentite le sue strane parole: ripete più volte che dovete allontanarvi il più possibile da questo individuo sospetto."
+    ],
+    "possibleInfo": {
+      "nbMeanPoints": "{{infoNumber}} :medal:Secondo un recente conteggio dei punti effettuato dagli organizzatori, i candidati hanno un punteggio medio di ** **. Incoraggiati da questa notizia,",
+      "meanWeeklyScore": "{{infoNumber}} :medal: Secondo un recente conteggio dei punti effettuato dagli organizzatori, i candidati hanno raccolto una media di ** questa settimana**. Siamo rattristati da questa notizia,",
+      "levelMean": "{{infoNumber}}L'ultimo censimento ha rilevato che gli avventurieri hanno raggiunto in media il **livello **. Senza sapere cosa fare di questa informazione,",
+      "nbMeanMoney": "{{infoNumber}} :moneybag:la banca del Paese ha contato una media di ** ** nei portafogli dei suoi clienti. Divertito da questa notizia,",
+      "sumAllMoney": "{{infoNumber}} :moneybag:la banca del Paese ha ** ** in circolazione in questo momento. Sono sorpreso da questa notizia,",
+      "richestPlayer": "{{infoNumber}} :moneybag:la banca del Paese ha stimato che il più ricco avventuriero ha attualmente ** ** sul suo conto. Stupito da questa notizia,",
+      "feistyPets": "La SPAC, Société Protectrice des Animaux de la Contrée, si batte per aiutare gli **animaux fielleux** ad avere una vita migliore.{{infoNumber}}Hanno contato ** **. Questa notizia mi ha deluso e confortato allo stesso tempo,",
+      "percentMalePets": "{{infoNumber}}La SPAC, Société Protectrice des Animaux de la Contrée, ha scoperto che il ** %** degli animali della zona sono maschi. Sono lieto di apprendere questa notizia,",
+      "percentFemalePets": "{{infoNumber}}La SPAC, Société Protectrice des Animaux de la Contrée, ha scoperto che il ** %** degli animali presenti nell'area sono femmine. Sono lieto di apprendere questa notizia,",
+      "guildLevelMean": "{{infoNumber}}l'AGC, o Agenzia per le Gilde del Contry, ha notato che le gilde attuali hanno raggiunto in media il **livello **. Incuriosito da questa informazione,",
+      "nbPlayersHaventStartedTheAdventure_zero": "Il SAFAC, o Service Anti-Fraude des Aventuriers de la Contrée, ha scoperto che **nessun avventuriero** è svanito nel nulla subito dopo aver ottenuto la licenza di avventuriero. Sono in soggezione per tutti questi coraggiosi avventurieri,",
+      "nbPlayersHaventStartedTheAdventure_one": "Il SAFAC, o Servizio Anti-Frode degli Avventurieri della Contrée, ha scoperto che **un avventuriero** è scomparso nel nulla subito dopo aver ottenuto la licenza di avventuriero. Siamo indignati dalle azioni di questa persona,",
+      "nbPlayersHaventStartedTheAdventure_other": "{{infoNumber}} Il SAFAC, o Servizio Anti-Frode degli Avventurieri della Contrée, ha scoperto che ** avventurieri** sono spariti nel nulla subito dopo aver ottenuto la licenza di avventuriero. Sono indignato dalle azioni di queste persone,",
+      "trainedPets_one": "La SPAC, o Société Protectrice des Animaux de la Contrée, desidera congratularsi con l'addestratore dell'**unico animale addestrato**. Impressionati da questa impresa,",
+      "trainedPets_other": "{{infoNumber}} La SPAC, o Société Protectrice des Animaux de la Contrée, desidera congratularsi con gli addestratori degli **animali addestrati**. Impressionati da questo risultato,",
+      "nbPlayersWithGivenClass_zero": "{{infoComplement}}Secondo un recente censimento degli avventurieri, non ci sono giocatori con la classe ** **. Questa notizia mi ha spiazzato,",
+      "nbPlayersWithGivenClass_one": "{{infoComplement}}Secondo un recente censimento degli avventurieri, c'è un solo giocatore con la classe ** **. Impressionato da questa notizia,",
+      "nbPlayersWithGivenClass_other": "{{infoNumber}}{{infoComplement}}Secondo un recente censimento degli avventurieri, ci sono ** ** giocatori con la classe ** **. Stupito da questa notizia,",
+      "nbPlayersOnYourMap_zero": "i cavalieri della zona non hanno incontrato **altri che te** su quella strada. Sono sorpreso da questa notizia,",
+      "nbPlayersOnYourMap_one": "i cavalieri nelle vicinanze hanno incontrato solo **una persona** che sta percorrendo la vostra strada. Sono sorpreso da questa notizia,",
+      "nbPlayersOnYourMap_other": "{infoNumber} i cavalieri della zona hanno contato ** persone** che viaggiavano sulla vostra strada. Sorpresi da questa notizia,"
+    }
   }
 }
