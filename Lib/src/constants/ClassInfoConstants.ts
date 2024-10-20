@@ -21,4 +21,9 @@ export abstract class ClassInfoConstants {
 			Constants.CLASSES.POWERFUL_INFANTRYMAN,
 			Constants.CLASSES.INFANTRYMAN
 		];
+
+	static readonly MENU_IDS = {
+		CLASS_SELECTION: "classSelectionMenu",
+		LIST_OPTION: "listOption"
+	};
 }
