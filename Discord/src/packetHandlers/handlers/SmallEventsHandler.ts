@@ -685,7 +685,7 @@ export default class SmallEventsHandler {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (interaction) {
 			let translationKey;
-			let infoNumber;
+			let amount;
 			if (packet.moneyLost === 0 && packet.timeLost === 0) {
 				translationKey = translationKey = "smallEvents:smallBad.healthLost.stories";
 				amount = packet.healthLost;
