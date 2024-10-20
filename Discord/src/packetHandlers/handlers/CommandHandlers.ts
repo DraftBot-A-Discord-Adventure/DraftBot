@@ -170,7 +170,7 @@ export default class CommandHandlers {
 	}
 
 	@packetHandler(CommandClassesInfoPacketRes)
-	async classesInfoRes(socket: WebSocket, packet: CommandClassesInfoPacketRes, context: PacketContext): Promise<void> {
+	async classesInfoRes(packet: CommandClassesInfoPacketRes, context: PacketContext): Promise<void> {
 		await handleCommandClassesInfoPacketRes(packet, context);
 	}
 }
