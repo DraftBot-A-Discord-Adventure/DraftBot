@@ -688,15 +688,15 @@ export default class SmallEventsHandler {
 			let infoNumber;
 			if (packet.moneyLost === 0 && packet.timeLost === 0) {
 				translationKey = translationKey = "smallEvents:smallBad.healthLost.stories";
-				infoNumber = packet.healthLost;
+				amount = packet.healthLost;
 			}
 			else if (packet.healthLost === 0 && packet.timeLost === 0) {
 				translationKey = "smallEvents:smallBad.moneyLost.stories";
-				infoNumber = packet.moneyLost;
+				amount = packet.moneyLost;
 			}
 			else {
 				translationKey = "smallEvents:smallBad.timeLost.stories";
-				infoNumber = minutesDisplay(packet.timeLost);
+				amount = minutesDisplay(packet.timeLost);
 			}
 
 			await interaction.editReply({
@@ -704,7 +704,7 @@ export default class SmallEventsHandler {
 					new DraftbotSmallEventEmbed(
 						"smallBad",
 						getRandomSmallEventIntro(interaction.userLanguage)
-						+ StringUtils.getRandomTranslation(translationKey, interaction.userLanguage, {infoNumber: infoNumber}),
+						+ StringUtils.getRandomTranslation(translationKey, interaction.userLanguage, {amount}),
 						interaction.user,
 						interaction.userLanguage
 					)]
