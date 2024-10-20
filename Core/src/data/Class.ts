@@ -39,7 +39,7 @@ export class Class extends Data<number> {
 			fightPoint: this.getMaxCumulativeFightPointValue(level),
 			baseBreath: this.baseBreath,
 			maxBreath: this.maxBreath,
-			breathRegen: this.breathRegen,
+			breathRegen: this.breathRegen
 		};
 	}
 
