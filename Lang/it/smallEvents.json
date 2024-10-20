@@ -788,5 +788,34 @@
       "nbPlayersOnYourMap_one": "i cavalieri nelle vicinanze hanno incontrato solo **una persona** che sta percorrendo la vostra strada. Sono sorpreso da questa notizia,",
       "nbPlayersOnYourMap_other": "{infoNumber} i cavalieri della zona hanno contato ** persone** che viaggiavano sulla vostra strada. Sorpresi da questa notizia,"
     }
+  },
+  "smallBad": {
+    "healthLost": {
+      "stories": [
+        "i tuoi piedi si impigliano in una radice.{{amount}} :broken_heart:Ferito, perdi ** **.",
+        "Immersi nei vostri pensieri, prestate poca attenzione al terreno sotto i vostri piedi e inciampate in un sasso. Vi siete fatti male al ginocchio. Non è grave, ma fa male.{{amount}} :broken_heart:Si perde ** **.",
+        "fischiate mentre camminate. All'improvviso, qualcosa entra nel vostro campo visivo: è un cane e si dirige verso di voi! Prima che possiate capire cosa sta succedendo, l'animale si scontra con voi, ma riparte subito.{{amount}} :broken_heart:Fortunatamente, siete solo leggermente feriti e perdete solo ** **.",
+        "Ci si scontra con un cavallo al galoppo, ma ci si ferisce solo superficialmente.{{amount}} :broken_heart:Si perde ** **.",
+        "si viene violentemente colpiti da un branco di cinghiali.{{amount}} :broken_heart:Non è facile rialzarsi e si riprende il viaggio avendo perso ** **."
+      ]
+    },
+    "timeLost": {
+      "stories": [
+        "stai calpestando una trappola. Subito dopo ti ritrovi appeso per un piede.{{amount}} :clock2:Uscire da questa trappola potrebbe richiedere molto tempo... si perde ** **.",
+        "inizia a piovere. Si sta per correre per evitare di inzupparsi, ma si vede un superbo arcobaleno.{{amount}} :clock2:Si smette di pensare alla pioggia e ci si lascia assorbire dallo spettacolo per ** **.",
+        "siete stanchi.{{amount}} :clock2:Le vostre avventure vi hanno stremato, quindi decidete di riposare per ** **.",
+        "Mentre camminate, immersi nei vostri pensieri, non notate il ramo a terra. Si inciampa e le proprie cose si disperdono.{{amount}} :clock2:Si perde ** **.",
+        "sentite un forte rumore di schianto provenire dal sottobosco. La vostra curiosità è stata stuzzicata: volete sapere di cosa si tratta e andate a ispezionare la zona.{{amount}} :clock2:Dopo ** ** vi arrendete senza aver trovato o capito la fonte del rumore che vi ha spaventato."
+      ]
+    },
+    "moneyLost": {
+      "stories": [
+        "Mentre camminate tra la folla, sentite una mano infilarsi in tasca e alleggerirvi le tasche. Non avete il tempo di rispondere che il vostro Raccoglitore è scomparso.{{amount}} :money_with_wings:Avete perso ** **.",
+        "vi imbattete in un mendicante che vi chiede un po' di denaro per coprire i suoi bisogni.{{amount}} :money_with_wings:Per pietà, decidete di dargli ** **.",
+        "Un uomo mascherato vi ferma e vi punta contro una pistola.{{amount}} :money_with_wings:Per salvarvi la vita, gli date le monete che avete in tasca e le chiavi del carrello.",
+        "improvvisamente ci si ricorda di aver lasciato la borsa nella stanza dell'ultimo ostello in cui si è passati.{{amount}} :money_with_wings:Avete perso ** **.",
+        "vi imbattete in un carretto il cui carico fuoriesce, strappando la vostra borsa. Mentre raccogliete le vostre cose, un gruppo di bambini passa e vi ruba del denaro.{{amount}} :money_with_wings:Si perde ** **."
+      ]
+    }
   }
 }

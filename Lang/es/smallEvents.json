@@ -788,5 +788,34 @@
       "nbPlayersOnYourMap_one": "los caballeros de los alrededores sólo se han cruzado con **una persona** cabalgando hacia ti. Sorprendidos por esta noticia,",
       "nbPlayersOnYourMap_other": "{infoNumber} los caballeros de la zona contaron ** personas** viajando en tu dirección. Sorprendidos por esta noticia,"
     }
+  },
+  "smallBad": {
+    "healthLost": {
+      "stories": [
+        "tus pies quedan atrapados en una raíz.{{amount}} :broken_heart:Herido, pierdes ** **.",
+        "Sumido en tus pensamientos, apenas prestas atención al suelo bajo tus pies y tropiezas con un guijarro. Te has hecho daño en la rodilla. No es demasiado grave, pero duele.{{amount}} :broken_heart:Pierdes ** **.",
+        "silbas mientras caminas. De repente, algo entra en tu campo de visión: es un perro, ¡y se dirige directamente hacia ti! Antes de que te des cuenta, el animal choca contra ti, pero enseguida se da a la fuga.{{amount}} :broken_heart:Afortunadamente, sólo sufres heridas leves y pierdes ** **.",
+        "Chocas con un caballo al galope, pero sólo resultas herido superficialmente.{{amount}} :broken_heart:Pierdes ** **.",
+        "eres golpeado violentamente por una manada de jabalíes.{{amount}} :broken_heart:No es fácil volver a levantarse, y reanudas el viaje habiendo perdido ** **."
+      ]
+    },
+    "timeLost": {
+      "stories": [
+        "estás pisando una trampa. Lo siguiente que sabes es que estás colgando de tu pie.{{amount}} :clock2:Salir de esta trampa podría tomar mucho tiempo... pierdes ** **.",
+        "empieza a llover. Estás a punto de correr para no empaparte, pero ves un arco iris soberbio.{{amount}} :clock2:Dejas de pensar en la lluvia y te dejas absorber por el espectáculo durante ** **.",
+        "te estás cansando{{amount}} :clock2:Tus aventuras te han agotado, así que decides descansar durante ** **.",
+        "Mientras caminas, sumido en tus pensamientos, no reparas en la rama que hay en el suelo. Tropiezas con ella y tus pertenencias se desparraman.{{amount}} :clock2:Pierdes ** **.",
+        "oyes un fuerte ruido que proviene de la maleza. Te pica la curiosidad: quieres saber de qué se trata y vas a inspeccionar la zona.{{amount}} :clock2:Después de ** ** te das por vencido sin haber encontrado ni comprendido el origen del ruido que te ha sobresaltado."
+      ]
+    },
+    "moneyLost": {
+      "stories": [
+        "Mientras caminas entre la multitud, sientes que una mano te mete la mano en el bolsillo y te aligera los bolsillos. No tienes tiempo de responder cuando tu Reunidor ha desaparecido.{{amount}} :money_with_wings:Has perdido a ** **.",
+        "te encuentras con un mendigo que te pide un poco de dinero para cubrir sus necesidades.{{amount}} :money_with_wings:Por piedad, decides darle ** **.",
+        "Un hombre enmascarado te detiene y te apunta con una pistola.{{amount}} :money_with_wings:Para salvar tu vida, le das las monedas que llevas en el bolsillo y las llaves de tu carro.",
+        "de repente recuerdas que te dejaste el bolso en la habitación del último hostal por el que pasaste.{{amount}} :money_with_wings:Has perdido ** **.",
+        "te cruzas con un carro cuya carga sobresale, rompiendo tu bolsa. Mientras recoges tus cosas, pasa un grupo de niños y te roban algo de dinero.{{amount}} :money_with_wings:Pierdes ** **."
+      ]
+    }
   }
 }

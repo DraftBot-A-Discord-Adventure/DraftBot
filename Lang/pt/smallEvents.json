@@ -788,5 +788,34 @@
       "nbPlayersOnYourMap_one": "os cavaleiros das redondezas só encontraram **uma pessoa** a cavalgar na vossa direção. Surpreendidos com esta notícia,",
       "nbPlayersOnYourMap_other": "{infoNumber} os cavaleiros da zona contaram **pessoas** a viajar na vossa direção. Surpreendidos com esta notícia,"
     }
+  },
+  "smallBad": {
+    "healthLost": {
+      "stories": [
+        "os teus pés ficam presos numa raiz.{{amount}} :broken_heart:Ferido, perde ** **.",
+        "Em plena reflexão, presta pouca atenção ao chão sob os seus pés e tropeça numa pedra. Magoou o joelho. Não é muito grave, mas dói.{{amount}} :broken_heart:Perdeste ** **.",
+        "assobia enquanto caminha. De repente, algo entra no teu campo de visão: é um cão e vem direito a ti! Antes que possas perceber o que se passa, o animal choca contigo, mas arranca de imediato.{{amount}} :broken_heart:Felizmente, só ficaste ligeiramente ferido e perdeste apenas ** **.",
+        "Choca com um cavalo a galope, mas sofre apenas ferimentos superficiais.{{amount}} :broken_heart:Perde ** **.",
+        "é violentamente atingido por uma manada de javalis.{{amount}} :broken_heart:Não é fácil voltar a levantar-se e retoma a sua viagem tendo perdido **."
+      ]
+    },
+    "timeLost": {
+      "stories": [
+        "está a pisar uma armadilha. Quando dás por ti, estás pendurado pelo teu pé.{{amount}} :clock2:Sair desta armadilha pode demorar muito tempo... perde ** **.",
+        "Começa a chover. Está prestes a correr para evitar ficar encharcado, mas vê um arco-íris soberbo.{{amount}} :clock2:Deixa de pensar na chuva e deixa-se absorver pelo espetáculo durante ** **.",
+        "estás a ficar cansado.{{amount}} :clock2:As tuas aventuras deixaram-te exausto, por isso decides descansar durante ** **.",
+        "Enquanto caminha, profundamente pensativo, não repara no ramo que está no chão. Tropeça nele e os seus pertences espalham-se.{{amount}} :clock2:Perdes ** **.",
+        "ouve um barulho de estrondo vindo dos arbustos. A sua curiosidade foi despertada: quer saber do que se trata e vai inspecionar o local.{{amount}} :clock2:Depois de ** ** desiste sem ter encontrado ou compreendido a origem do barulho que o assustou."
+      ]
+    },
+    "moneyLost": {
+      "stories": [
+        "Enquanto caminhas no meio de uma multidão, sentes uma mão a tocar-te no bolso e a aliviar-te os bolsos. Não tens tempo para responder quando o teu Coletor desaparece.{{amount}} :money_with_wings:Perdeste ** **.",
+        "encontra um mendigo que lhe pede um pouco de dinheiro para cobrir as suas necessidades.{{amount}} :money_with_wings:Por pena, decides dar-lhe ** **.",
+        "Um homem mascarado manda-o parar e aponta-lhe uma arma.{{amount}} :money_with_wings:Para salvar a sua vida, dá-lhe as moedas que tem no bolso e as chaves do seu carrinho.",
+        "de repente, lembra-se de ter deixado a sua mala no quarto do último albergue por onde passou.{{amount}} :money_with_wings:Perdeste ** **.",
+        "depara-se com uma carroça cuja carga está a sair, rasgando o seu saco. Enquanto recolhe as suas coisas, um grupo de crianças passa e rouba-lhe algum dinheiro.{{amount}} :money_with_wings:Perdes ** **."
+      ]
+    }
   }
 }

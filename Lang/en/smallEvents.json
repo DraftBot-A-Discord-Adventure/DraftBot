@@ -788,5 +788,34 @@
       "nbPlayersOnYourMap_one": "knights nearby only met **one person** on your way. Surprised by this news,",
       "nbPlayersOnYourMap_other": "nearby knights counted **{infoNumber} people** circulating on your road. Surprised by this news,"
     }
+  },
+  "smallBad": {
+    "healthLost": {
+      "stories": [
+        "your feet stumble on a root. Wounded, you loose **{{amount}}:broken_heart:**.",
+        "plunged into your thoughts, you don't care about the ground under your feet and tread a peel with mischief. You hurt yourself at the knee. This is not serious, though painful. You lose **{{amount}} :broken_heart:**.",
+        "you whistle while walking. Suddenly, something enters into your field of vision: it's a dog, and it's running straight at you! Before you have time to understand what is happening, the animal collides with you. but immediately leaves. Fortunately, you are only slightly injured. and only lose **{{amount}} :broken_heart:**.",
+        "you hit a horse arriving at the gallop, but were only injured superficially. You lose **{{amount}} :broken_heart:**.",
+        "you were violently hit by a boar herd. You stand up and get back on your way and lose **{{amount}} :broken_heart:**."
+      ]
+    },
+    "timeLost": {
+      "stories": [
+        "you walk on a piece. The moment after you were suspended from the foot. You need to make this piece may take a long time... you lose **{{amount}} :clock2:**.",
+        "If you are interested in running for not being soaked, you will see a beautiful rainbow. You don't think about the rain anymore and get absorbed by the show during **{{amount}} :clock2:**.",
+        "you fall from fatigue. Your adventures have been exhausted, which is why you decide to rest for **{{amount}} :clock2:**.",
+        "walking dipped in your thoughts, you don't notice the branch on the ground. You start on it and your stuff spread. You lose **{{amount}} :clock2:**.",
+        "you hear a loud and shattering noise from a subwood. Your curiosite was blown up: you want to know what it is about, and go inspecting the area.{{amount}} :clock2:** you give up without finding or understanding the origin of this noise that caused you to jump."
+      ]
+    },
+    "moneyLost": {
+      "stories": [
+        "crossing a crowd, you feel a hand to search and go your pockets. You don't have the time to repeat that your Gatherer has disappeared. You lost **{{amount}} :money_with_wings:**.",
+        "you meet a beggar asking for some money to support his needs. Taking a momentum of mercy, you decide to give it **{{amount}} :money_with_wings:**.",
+        "a masked man calls you and threatens you with his weapon. To keep your life alive, you give them the **{{amount}} :money_with_wings:** pieces you have in your pocket, and the keys of your cart.",
+        "you suddenly remember forgetting your purse in the room of the last inn you passed by. You lose **{{amount}} :money_with_wings:**.",
+        "you see a cart that loads over and over your bag. While you gather your belongings a group of children is passing and you are robbing money. You are losing **{{amount}} :money_with_wings:**."
+      ]
+    }
   }
 }
