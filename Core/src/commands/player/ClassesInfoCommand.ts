@@ -42,7 +42,6 @@ export default class ClassesInfoCommand {
 				}
 				classesLineDisplay.push({
 					id: classToShow.id,
-					emoji: DraftBotIcons.classes[classToShow.id],
 					health: stats.health,
 					attack: stats.attack,
 					defense: stats.defense,
@@ -51,8 +50,7 @@ export default class ClassesInfoCommand {
 					maxBreath: stats.maxBreath,
 					breathRegen: stats.breathRegen,
 					fightPoint: stats.fightPoint,
-					attacks: attackList,
-					attackStats
+					attacks: attackList
 				});
 			}
 
