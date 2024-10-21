@@ -788,5 +788,34 @@
       "nbPlayersOnYourMap_one": "die Ritter in der Umgebung haben nur **eine Person** getroffen, die auf Ihrem Weg unterwegs war. Überrascht von dieser Nachricht",
       "nbPlayersOnYourMap_other": "die umliegenden Ritter haben **{infoNumber} Personen** gezählt, die sich auf Ihrer Route bewegen. Überrascht von dieser Nachricht"
     }
+  },
+  "smallBad": {
+    "healthLost": {
+      "stories": [
+        "Ihre Füße bleiben in einer Wurzel stecken. Verletzt verlieren Sie **{{amount}} :broken_heart:**.",
+        "Sie sind in Gedanken versunken, achten kaum auf den Boden unter Ihren Füßen und stolpern unglücklich über einen Kieselstein. Sie haben sich das Knie verletzt. Es ist nicht schlimm, wenn auch schmerzhaft. Sie verlieren **{{amount}} :broken_heart:**.",
+        "Sie pfeifen, während Sie gehen. Plötzlich kommt etwas in Ihr Blickfeld - ein Hund - und er kommt direkt auf Sie zu! Bevor Sie genauer wissen, was los ist, stößt das Tier mit Ihnen zusammen, rennt aber sofort wieder weg. Glücklicherweise wurden Sie nur leicht verletzt und verlieren nur **{{amount}} :broken_heart:**.",
+        "Sie prallen mit einem galoppierenden Pferd zusammen, werden aber nur oberflächlich verletzt. Sie verlieren **{{amount}} :broken_heart:**.",
+        "Sie werden von einer Herde Wildschweine gerammt. Sie kommen wieder auf die Beine und setzen Ihren Weg mit einem Verlust von **{{amount}} :broken_heart:** fort."
+      ]
+    },
+    "timeLost": {
+      "stories": [
+        "treten Sie in eine Falle. Im nächsten Moment hängen Sie an Ihrem Fuß. Sie verlieren **{{amount}} :clock2:**.",
+        "fängt es an zu regnen. Sie wollen gerade losrennen, um nicht nass zu werden, doch dann sehen Sie einen wunderschönen Regenbogen. Sie denken nicht mehr an den Regen und lassen sich während **{{amount}} :clock2:** von dem Schauspiel absorbieren.",
+        "Sie fallen vor Müdigkeit um. Deine Abenteuer haben dich erschöpft, weshalb du beschließt, dich während **{{amount}} :clock2:** auszuruhen.",
+        "Während Sie in Gedanken versunken durch die Gegend laufen, bemerken Sie den Ast am Boden nicht. Du stolperst darüber und deine Sachen werden verstreut. Du verlierst **{{amount}} :clock2:**.",
+        "hören Sie ein lautes, krachendes Geräusch aus dem Unterholz. Ihre Neugier ist geweckt: Sie wollen wissen, was das ist, und sehen sich in der Gegend um. Nach **{{amount}} :clock2:** geben Sie auf, ohne den Ursprung des Geräusches, das Sie aufgeschreckt hat, gefunden oder verstanden zu haben."
+      ]
+    },
+    "moneyLost": {
+      "stories": [
+        "als Sie durch eine Menschenmenge gehen, spüren Sie, wie eine Hand Sie kräftig durchsucht und Ihre Taschen leichter macht. Sie haben keine Zeit, etwas zu erwidern, da ist Ihr Sammler auch schon verschwunden. Sie haben **{{amount}} :money_with_wings:** verloren.",
+        "Sie treffen auf einen Bettler, der Sie um etwas Geld für seinen Lebensunterhalt bittet. In einem Anflug von Mitleid beschließen Sie, ihm **{{amount}} :money_with_wings:** zu geben.",
+        "Ein maskierter Mann spricht Sie an und bedroht Sie mit einer Waffe. Damit er dich am Leben lässt, gibst du ihm die **{{amount}} :money_with_wings:** Münzen, die du in deiner Tasche hast, sowie die Schlüssel zu deinem Karren.",
+        "erinnern Sie sich plötzlich daran, dass Sie Ihren Geldbeutel im Zimmer des letzten Gasthauses, durch das Sie gekommen sind, vergessen haben. Sie haben **{{amount}} :money_with_wings:** verloren.",
+        "Sie begegnen einem Karren, dessen Ladung über Sie hinausragt und Ihre Tasche zerreißt. Während Sie Ihre Sachen zusammenpacken, kommt eine Gruppe von Kindern vorbei und stiehlt Ihnen Geld. Sie verlieren **{{amount}} :money_with_wings:**."
+      ]
+    }
   }
 }
