@@ -56,16 +56,12 @@ function getListEmbed(packet: CommandClassesInfoPacketRes, language: Language, c
 	const classesList = [];
 	for (const classStats of classList) {
 		classesList.push(`${
-			i18n.t("commands:classesInfo.displays.class.name", {
+			i18n.t("commands:classesInfo.displays.class", {
 				lng: language,
 				emoji: DraftBotIcons.classes[classStats.id],
 				name: i18n.t(`models:classes.${classStats.id}`, {
 					lng: language
-				})
-			})
-		}\n${
-			i18n.t("commands:classesInfo.displays.class.stats", {
-				lng: language,
+				}),
 				health: classStats.health,
 				attack: classStats.attack,
 				defense: classStats.defense,
@@ -78,9 +74,13 @@ function getListEmbed(packet: CommandClassesInfoPacketRes, language: Language, c
 		}`);
 	}
 
-	embed.setDescription(`${i18n.t("commands:classesInfo.description.list", {
-		lng: language
-	})}\n\n${classesList.join("\n")}`);
+	embed.setDescription(i18n.t("commands:classesInfo.displays.listing", {
+		lng: language,
+		headerText: i18n.t("commands:classesInfo.description.list", {
+			lng: language
+		}),
+		classesList: classesList.join("\n")
+	}));
 
 	return embed;
 }
@@ -106,25 +106,24 @@ function getDetailsEmbed(packet: CommandClassesInfoPacketRes, language: Language
 	const attackDisplays = [];
 	for (const attack of classDetails.attacks) {
 		attackDisplays.push(`${
-			i18n.t("commands:classesInfo.displays.attack.name", {
+			i18n.t("commands:classesInfo.displays.attack", {
 				lng: language,
 				emoji: DraftBotIcons.fight_actions[attack.id],
 				name: attack.name,
-				cost: attack.cost
-			})
-		}\n${
-			i18n.t("commands:classesInfo.displays.attack.description", {
-				lng: language,
+				cost: attack.cost,
 				description: attack.description
 			})
 		}`);
 	}
 
-	embed.setDescription(`${classDetails.description}${
-		i18n.t("commands:classesInfo.description.attacks", {
+	embed.setDescription(i18n.t("commands:classesInfo.displays.details", {
+		lng: language,
+		classDetails: classDetails.description,
+		attacksHeader: i18n.t("commands:classesInfo.description.attacks", {
 			lng: language
-		})
-	}\n\n${attackDisplays.join("\n")}`);
+		}),
+		attacksList: attackDisplays.join("\n")
+	}));
 	return embed;
 }
 
@@ -207,7 +206,7 @@ export async function handleCommandClassesInfoPacketRes(packet: CommandClassesIn
 							lng: interaction.userLanguage
 						})}`,
 						description: `${i18n.t(`models:fight_actions.${attack.id}.description`, {
-							lng: interaction.userLanguage
+							lng: interaction.userLanguage,
 						})}`,
 						cost: attack.cost
 					});

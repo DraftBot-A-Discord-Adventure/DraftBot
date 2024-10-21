@@ -492,14 +492,10 @@
       "placeholder": "Sélectionnez une classe"
     },
     "displays": {
-      "class": {
-        "name": "### {{emoji}} {{name}}",
-        "stats": ":zap: {{fightPoint}} | :dagger: {{attack}} | :shield: {{defense}} | :rocket: {{speed}} | :wind_blowing_face: {{baseBreath}} / {{maxBreath}} | :lungs: {{breathRegen}} | :heart: {{health}}"
-      },
-      "attack": {
-        "name": "### {{emoji}} {{name}} | {{cost}} :wind_blowing_face:",
-        "description": "> {{description}}"
-      }
+      "listing": "{{headerText}}\n\n{{classesList}}",
+      "details": "{{classDetails}}{{attacksHeader}}\n{{attacksList}}",
+      "class": "### {{emoji}} {{name}}\n:zap: {{fightPoint}} | :dagger: {{attack}} | :shield: {{defense}} | :rocket: {{speed}} | :wind_blowing_face: {{baseBreath}} / {{maxBreath}} | :lungs: {{breathRegen}} | :heart: {{health}}",
+      "attack": "### {{emoji}} {{name}} | {{cost}} :wind_blowing_face:\n{{description}}"
     }
   }
 }
