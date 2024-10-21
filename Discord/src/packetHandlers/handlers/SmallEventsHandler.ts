@@ -622,31 +622,36 @@ export default class SmallEventsHandler {
 			if (!oldMessage) {
 				return;
 			}
+			const lng = interaction.userLanguage;
 			await interaction.editReply({
 				embeds: [
 					new DraftbotSmallEventEmbed(
 						"space",
 						i18n.t("smallEvents:space.after_search_format", {
-							lng: interaction.userLanguage,
+							lng,
 							oldMessage: oldMessage.split(" ").slice(1)
 								.join(" "),
-							actionIntro: StringUtils.getRandomTranslation("smallEvents:space.actionIntro", interaction.userLanguage),
-							action: StringUtils.getRandomTranslation("smallEvents:space.action", interaction.userLanguage),
-							specific: StringUtils.getRandomTranslation(`smallEvents:space.specific.${packet.chosenEvent}`, interaction.userLanguage, {
+							actionIntro: StringUtils.getRandomTranslation("smallEvents:space.actionIntro", lng),
+							action: StringUtils.getRandomTranslation("smallEvents:space.action", lng),
+							specific: StringUtils.getRandomTranslation(`smallEvents:space.specific.${packet.chosenEvent}`, lng, {
 								mainValue: packet.chosenEvent === "moonPhase" ? i18n.t("smallEvents:space.moonPhases", {
 									returnObjects: true,
-									lng: interaction.userLanguage
+									lng
 								})[packet.values.mainValue] : packet.values.mainValue,
-								mainValuePlural: packet.values.mainValue > 1 ? "s" : "",
+								objectWhichWillCrossTheSky: i18n.t("smallEvents:space.nObjectsCrossTheSky", {
+									lng,
+									count: packet.values.mainValue
+								}),
+								days: i18n.t("smallEvents:space.days", {lng}),
 								randomObjectName: packet.values.randomObjectName,
 								randomObjectDistance: packet.values.randomObjectDistance,
 								randomObjectDiameter: packet.values.randomObjectDiameter
 							}),
-							outro: StringUtils.getRandomTranslation("smallEvents:space.outro", interaction.userLanguage),
+							outro: StringUtils.getRandomTranslation("smallEvents:space.outro", lng),
 							interpolation: {escapeValue: false}
 						}),
 						interaction.user,
-						interaction.userLanguage
+						lng
 					)
 				]
 			});
