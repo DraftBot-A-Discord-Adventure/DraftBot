@@ -657,9 +657,13 @@
       "You leave without regretting having stopped",
       "You go back on your way perplexed"
     ],
+    "nObjectsCrossTheSky_one": "{{count}} item will travel through",
+    "nObjectsCrossTheSky_other": "{{count}} items will pass through",
+    "days_one": "jour",
+    "days_other": "jours",
     "specific": {
       "neoWS": [
-        "{{mainValue}} item{{mainValuePlural}} will cross the sky today",
+        "{{objectWhichWillCrossTheSky}} sky today",
         "object named \"{{randomObjectName}}\" with diameter of about {{randomObjectDiameter}} meters passes close to planet today",
         "object named \"{{randomObjectName}}\" passes at a distance of about {{randomObjectDistance}} million kilometers from the planet",
         "asteroi<unk> of the name \"{{randomObjectName}}\" exceeds our planet's about {{randomObjectDistance}} million kilometers",
@@ -674,22 +678,22 @@
         "the parsimonious sky gives a glimpse of {{mainValue}}"
       ],
       "nextFullMoon": [
-        "the next full moon is in {{mainValue}} day{{mainValuePlural}}",
-        "the full moon will shine in {{mainValue}} day{{mainValuePlural}}",
-        "we will see the full moon in {{mainValue}} day{{mainValuePlural}}",
-        "in {{mainValue}} day{{mainValuePlural}} we will be able to observe the full moon"
+        "the next full moon is in {{mainValue}} {{days}}",
+        "la pleine lune brillera dans {{mainValue}} {{days}}",
+        "we'll see the full moon in {{mainValue}} {{days}}",
+        "dans {{mainValue}} {{days}} on pourra observer la pleine lune"
       ],
       "nextPartialLunarEclipse": [
-        "next partial lunar eclipse is in {{mainValue}} day{{mainValuePlural}}",
-        "in {{mainValue}} day{{mainValuePlural}} a partial moon eclipse can be seen",
-        "in the {{mainValue}} day{{mainValuePlural}} that come you will have the chance to attend a partial lunar eclipse",
-        "the time before seeing the next partial moon eclipse is {{mainValue}} day{{mainValuePlural}}"
+        "the next partial lunar eclipse is in {{mainValue}} {{days}}",
+        "in {{mainValue}} {{days}} a partial moon eclipse can be seen",
+        "in the {{mainValue}} {{days}} that come you will have the chance to attend a partial lunar eclipse",
+        "the time before seeing the next partial moon eclipse is {{mainValue}} {{days}}"
       ],
       "nextTotalLunarEclipse": [
-        "the next total lunar eclipse is in {{mainValue}} day{{mainValuePlural}}",
-        "by {{mainValue}}{{mainValuePlural}} you'll see a complete lunar eclipse",
-        "in the {{mainValue}} day{{mainValuePlural}} that come you will have the chance to attend a total lunar eclipse",
-        "if you observe the sky in {{mainValue}} day{{mainValuePlural}} you can contemplate a total lunar eclipse"
+        "the next total lunar eclipse is in {{mainValue}} {{days}}",
+        "by {{mainValue}} {{days}} you will see a full lunar eclipse",
+        "in the {{mainValue}} {{days}} that come you will have the chance to attend a total lunar eclipse",
+        "if you look at the sky in {{mainValue}} {{days}} you can see a total lunar eclipse"
       ]
     },
     "moonPhases": [
