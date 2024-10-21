@@ -657,9 +657,13 @@
       "Partirete senza rimpiangere la vostra sosta",
       "Continuate il vostro cammino perplesso"
     ],
+    "nObjectsCrossTheSky_one": "{{count}} objet traversera",
+    "nObjectsCrossTheSky_other": "{{count}} objets traverseront",
+    "days_one": "jour",
+    "days_other": "jours",
     "specific": {
       "neoWS": [
-        "{{mainValue}}{{mainValuePlural}} oggetto che attraverserà il cielo oggi",
+        "{{objectWhichWillCrossTheSky}} le ciel aujourd'hui",
         "{{randomObjectName}} {{randomObjectDiameter}} l'oggetto denominato \" \", con un diametro di circa metri, sta passando oggi vicino al pianeta",
         "{{randomObjectName}} {{randomObjectDistance}} l'oggetto denominato \" \" passa a una distanza di circa un milione di chilometri dal pianeta",
         "{{randomObjectName}} {{randomObjectDistance}} l'asteroide denominato \" \" supera il nostro pianeta di qualche milione di chilometri",
@@ -674,22 +678,22 @@
         "{{mainValue}}il cielo rado lascia intravedere"
       ],
       "nextFullMoon": [
-        "{{mainValue}}{{mainValuePlural}}la prossima luna piena è in",
-        "{{mainValue}}{{mainValuePlural}}la luna piena risplenderà su",
-        "{{mainValue}}{{mainValuePlural}}vedremo la luna piena il",
-        "{{mainValue}}{{mainValuePlural}} su si può vedere la luna piena"
+        "la prochaine pleine lune est dans {{mainValue}} {{days}}",
+        "la pleine lune brillera dans {{mainValue}} {{days}}",
+        "nous apercevrons la pleine lune dans {{mainValue}} {{days}}",
+        "dans {{mainValue}} {{days}} on pourra observer la pleine lune"
       ],
       "nextPartialLunarEclipse": [
-        "{{mainValue}}{{mainValuePlural}}la prossima eclissi lunare parziale è in",
-        "{{mainValue}}{{mainValuePlural}} un'eclissi lunare parziale può essere osservata su",
-        "{{mainValue}}{{mainValuePlural}} nei prossimi giorni avrete la possibilità di assistere a un'eclissi lunare parziale",
-        "{{mainValue}}{{mainValuePlural}}il momento per vedere la prossima eclissi lunare parziale è il giorno"
+        "la prochaine éclipse lunaire partielle est dans {{mainValue}} {{days}}",
+        "dans {{mainValue}} {{days}} on pourra apercevoir une éclipse de lune partielle",
+        "dans les {{mainValue}} {{days}} qui viennent vous aurez la chance d'assister à une éclipse lunaire partielle",
+        "le temps avant d'apercevoir la prochaine éclipse de lune partielle est de {{mainValue}} {{days}}"
       ],
       "nextTotalLunarEclipse": [
-        "{{mainValue}}{{mainValuePlural}}la prossima eclissi lunare totale è in",
-        "{{mainValue}}{{mainValuePlural}} da si assisterà a un'eclissi lunare completa",
-        "{{mainValue}}{{mainValuePlural}} nei prossimi giorni avrete la possibilità di assistere a un'eclissi lunare totale",
-        "{{mainValue}}{{mainValuePlural}} se si osserva il cielo si può vedere un'eclissi lunare totale"
+        "la prochaine éclipse lunaire totale est dans {{mainValue}} {{days}}",
+        "d'ici {{mainValue}} {{days}} vous apercevrez une éclipse lunaire complète",
+        "dans les {{mainValue}} {{days}} qui viennent vous aurez la chance d'assister à une éclipse lunaire totale",
+        "si vous observez le ciel dans {{mainValue}} {{days}} vous pourrez contempler une éclipse lunaire totale"
       ]
     },
     "moonPhases": [
