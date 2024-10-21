@@ -159,7 +159,7 @@ function generateFields(packet: CommandProfilePacketRes, language: Language): Em
 	if (packet.data?.class) {
 		fields.push({
 			name: i18n.t("commands:profile.playerClass.fieldName", {lng: language}),
-			value: i18n.t("commands:profile.playerClass.fieldValue", {
+			value: i18n.t("commands:profile:playerClass.fieldValue", {
 				lng: language,
 				class: packet.data.class
 			}),

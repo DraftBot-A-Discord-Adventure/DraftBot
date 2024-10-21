@@ -58,7 +58,7 @@ export class ShopUtils {
 			},
 			endCallback
 		)
-			.block(player.id, BlockingConstants.REASONS.REPORT)
+			.block(player.id, BlockingConstants.REASONS.SHOP)
 			.build();
 
 		response.push(packet);

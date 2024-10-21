@@ -793,7 +793,6 @@
       "nbPlayersOnYourMap_other": "les chevaliers alentour ont compté **{infoNumber} personnes** en train de circuler sur votre route. Surpris par cette nouvelle,"
     }
   },
-
   "smallBad": {
     "healthLost": {
       "stories": [
