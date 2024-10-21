@@ -659,8 +659,8 @@
     ],
     "nObjectsCrossTheSky_one": "{{count}} item will travel through",
     "nObjectsCrossTheSky_other": "{{count}} items will pass through",
-    "days_one": "jour",
-    "days_other": "jours",
+    "days_one": "day",
+    "days_other": "days",
     "specific": {
       "neoWS": [
         "{{objectWhichWillCrossTheSky}} sky today",
@@ -679,9 +679,9 @@
       ],
       "nextFullMoon": [
         "the next full moon is in {{mainValue}} {{days}}",
-        "la pleine lune brillera dans {{mainValue}} {{days}}",
+        "the full moon will glow in {{mainValue}} {{days}}",
         "we'll see the full moon in {{mainValue}} {{days}}",
-        "dans {{mainValue}} {{days}} on pourra observer la pleine lune"
+        "in {{mainValue}} {{days}} we will be able to observe the full moon"
       ],
       "nextPartialLunarEclipse": [
         "the next partial lunar eclipse is in {{mainValue}} {{days}}",
