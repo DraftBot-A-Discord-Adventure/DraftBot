@@ -13,7 +13,7 @@ import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 export default class ClassesInfoCommand {
 	@packetHandler(CommandClassesInfoPacketReq)
 	async execute(packet: CommandClassesInfoPacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
-		const player = await Players.getByKeycloakId(packet.keycloakId);
+		const player = await Players.getByKeycloakId(context.keycloakId);
 
 		if (!player) {
 			response.push(makePacket(CommandClassesInfoPacketRes, {

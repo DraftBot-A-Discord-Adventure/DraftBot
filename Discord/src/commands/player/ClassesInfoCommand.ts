@@ -1,5 +1,3 @@
-import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
-import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {
 	CommandClassesInfoPacketReq,
 	CommandClassesInfoPacketRes
@@ -23,10 +21,19 @@ import {
 import {sendInteractionNotForYou} from "../../utils/ErrorUtils";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 
-function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandClassesInfoPacketReq> {
-	return Promise.resolve(makePacket(CommandClassesInfoPacketReq, {keycloakId: user.id}));
+/**
+ * Get the packet
+ */
+function getPacket(): Promise<CommandClassesInfoPacketReq> {
+	return Promise.resolve(makePacket(CommandClassesInfoPacketReq, {}));
 }
 
+/**
+ * Get the list of classes
+ * @param packet
+ * @param language
+ * @param classList
+ */
 function getListEmbed(packet: CommandClassesInfoPacketRes, language: Language, classList: {
 	id: number,
 	health: number,
@@ -78,6 +85,12 @@ function getListEmbed(packet: CommandClassesInfoPacketRes, language: Language, c
 	return embed;
 }
 
+/**
+ * Get the details of a class
+ * @param packet
+ * @param language
+ * @param classDetails
+ */
 function getDetailsEmbed(packet: CommandClassesInfoPacketRes, language: Language, classDetails: {
 	name: string,
 	description: string,
@@ -115,6 +128,11 @@ function getDetailsEmbed(packet: CommandClassesInfoPacketRes, language: Language
 	return embed;
 }
 
+/**
+ * Handle the response packet
+ * @param packet
+ * @param context
+ */
 export async function handleCommandClassesInfoPacketRes(packet: CommandClassesInfoPacketRes, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 
