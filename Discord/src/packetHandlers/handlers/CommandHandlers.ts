@@ -210,57 +210,57 @@ export default class CommandHandlers {
 	}
 
 	@packetHandler(CommandShopClosed)
-	async shopClosed(socket: WebSocket, packet: CommandShopClosed, context: PacketContext): Promise<void> {
+	async shopClosed(packet: CommandShopClosed, context: PacketContext): Promise<void> {
 		await handleCommandShopClosed(context);
 	}
 
 	@packetHandler(CommandShopNoAlterationToHeal)
-	async shopNoAlterationToHeal(socket: WebSocket, packet: CommandShopNoAlterationToHeal, context: PacketContext): Promise<void> {
+	async shopNoAlterationToHeal(packet: CommandShopNoAlterationToHeal, context: PacketContext): Promise<void> {
 		await handleCommandShopNoAlterationToHeal(context);
 	}
 
 	@packetHandler(CommandShopHealAlterationDone)
-	async shopHealAlterationDone(socket: WebSocket, packet: CommandShopHealAlterationDone, context: PacketContext): Promise<void> {
+	async shopHealAlterationDone(packet: CommandShopHealAlterationDone, context: PacketContext): Promise<void> {
 		await handleCommandShopHealAlterationDone(context);
 	}
 
 	@packetHandler(CommandShopTooManyEnergyBought)
-	async shopTooManyEnergyBought(socket: WebSocket, packet: CommandShopTooManyEnergyBought, context: PacketContext): Promise<void> {
+	async shopTooManyEnergyBought(packet: CommandShopTooManyEnergyBought, context: PacketContext): Promise<void> {
 		await handleCommandShopTooManyEnergyBought(context);
 	}
 
 	@packetHandler(CommandShopNoEnergyToHeal)
-	async shopNoEnergyToHeal(socket: WebSocket, packet: CommandShopNoEnergyToHeal, context: PacketContext): Promise<void> {
+	async shopNoEnergyToHeal(packet: CommandShopNoEnergyToHeal, context: PacketContext): Promise<void> {
 		await handleCommandShopNoEnergyToHeal(context);
 	}
 
 	@packetHandler(CommandShopFullRegen)
-	async shopFullRegen(socket: WebSocket, packet: CommandShopFullRegen, context: PacketContext): Promise<void> {
+	async shopFullRegen(packet: CommandShopFullRegen, context: PacketContext): Promise<void> {
 		await handleCommandShopFullRegen(context);
 	}
 
 	@packetHandler(CommandShopAlreadyHaveBadge)
-	async shopAlreadyHaveBadge(socket: WebSocket, packet: CommandShopAlreadyHaveBadge, context: PacketContext): Promise<void> {
+	async shopAlreadyHaveBadge(packet: CommandShopAlreadyHaveBadge, context: PacketContext): Promise<void> {
 		await handleCommandShopAlreadyHaveBadge(context);
 	}
 
 	@packetHandler(CommandShopBadgeBought)
-	async shopBadgeBought(socket: WebSocket, packet: CommandShopBadgeBought, context: PacketContext): Promise<void> {
+	async shopBadgeBought(packet: CommandShopBadgeBought, context: PacketContext): Promise<void> {
 		await handleCommandShopBadgeBought(context);
 	}
 
 	@packetHandler(CommandShopBoughtTooMuchDailyPotions)
-	async shopBoughtTooMuchDailyPotions(socket: WebSocket, packet: CommandShopBoughtTooMuchDailyPotions, context: PacketContext): Promise<void> {
+	async shopBoughtTooMuchDailyPotions(packet: CommandShopBoughtTooMuchDailyPotions, context: PacketContext): Promise<void> {
 		await handleCommandShopBoughtTooMuchDailyPotions(context);
 	}
 
 	@packetHandler(CommandShopNotEnoughMoney)
-	async shopNotEnoughMoney(socket: WebSocket, packet: CommandShopNotEnoughMoney, context: PacketContext): Promise<void> {
+	async shopNotEnoughMoney(packet: CommandShopNotEnoughMoney, context: PacketContext): Promise<void> {
 		await handleCommandShopNotEnoughMoney(context);
 	}
 
 	@packetHandler(ReactionCollectorBuyCategorySlotBuySuccess)
-	async buyCategorySlotBuySuccess(socket: WebSocket, packet: ReactionCollectorBuyCategorySlotBuySuccess, context: PacketContext): Promise<void> {
+	async buyCategorySlotBuySuccess(packet: ReactionCollectorBuyCategorySlotBuySuccess, context: PacketContext): Promise<void> {
 		await handleReactionCollectorBuyCategorySlotBuySuccess(context);
 	}
 }

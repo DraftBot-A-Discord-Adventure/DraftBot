@@ -1,5 +1,4 @@
 import {packetHandler} from "../../core/packetHandlers/PacketHandler";
-import {WebsocketClient} from "../../../../Lib/src/instances/WebsocketClient";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {CommandShopPacketReq} from "../../../../Lib/src/packets/commands/CommandShopPacket";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
@@ -66,7 +65,9 @@ function getRandomItemShopItem(): ShopItem {
 function calculateHealAlterationPrice(player: Player) :number {
 	let price = ShopConstants.ALTERATION_HEAL_BASE_PRICE;
 	const remainingTime = millisecondsToMinutes(player.effectRemainingTime());
-	// If remaining time is under one hour price become degressive until being divided by 8 at the 15 minutes marque then it no longer decrease
+	// If the remaining time is under one hour,
+	// The price becomes degressive until being divided by 8 at the 15-minute marque;
+	// Then it no longer decreases
 	if (remainingTime < ShopConstants.MAX_REDUCTION_TIME) {
 		if (remainingTime <= ShopConstants.MIN_REDUCTION_TIME) {
 			price /= ShopConstants.MAX_PRICE_REDUCTION_DIVISOR;
@@ -284,7 +285,6 @@ async function getSlotExtensionShopItem(player: Player): Promise<ShopItem | null
 export default class ShopCommand {
 	@packetHandler(CommandShopPacketReq)
 	static async execute(
-		client: WebsocketClient,
 		packet: CommandShopPacketReq,
 		context: PacketContext,
 		response: DraftBotPacket[]
