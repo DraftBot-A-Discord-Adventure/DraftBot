@@ -254,7 +254,7 @@
     "weapons_one": "Weapon ({{count}}/{{max}}):",
     "weapons_other": "Weapons ({{count}}/{{max}}):",
     "randomItemTitle": "{{pseudo}}, you found something!",
-    "randomItemFooter": "You already have a equipment, would you like to sell it?",
+    "randomItemFooter": "You already have an equipment, would you like to sell it?",
     "randomItemFooterPotion": "Do you want to destroy your current potion?",
     "acceptedTitle": "{{pseudo}}, you have received an equipment!",
     "chooseItemToReplaceTitle": "Choose an object to replace"
