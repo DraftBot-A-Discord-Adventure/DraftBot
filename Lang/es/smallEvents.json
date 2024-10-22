@@ -657,9 +657,13 @@
       "Se irá sin arrepentirse de su parada",
       "Sigues tu camino perplejo"
     ],
+    "nObjectsCrossTheSky_one": "{{count}} objeto cruzará",
+    "nObjectsCrossTheSky_other": "{{count}} objetos pasarán por",
+    "days_one": "día",
+    "days_other": "días",
     "specific": {
       "neoWS": [
-        "{{mainValue}}{{mainValuePlural}} objeto cruzará el cielo hoy",
+        "{{objectWhichWillCrossTheSky}} el cielo hoy",
         "{{randomObjectName}} {{randomObjectDiameter}} el objeto llamado \" \", de unos metros de diámetro, pasa hoy cerca del planeta",
         "{{randomObjectName}} {{randomObjectDistance}} el objeto llamado \" \" pasa a una distancia de alrededor de un millón de kilómetros del planeta",
         "{{randomObjectName}} {{randomObjectDistance}} el asteroide llamado \" \" pasa a nuestro planeta a unos millones de kilómetros",
@@ -674,22 +678,22 @@
         "{{mainValue}}el escaso cielo deja entrever"
       ],
       "nextFullMoon": [
-        "{{mainValue}}{{mainValuePlural}}la próxima luna llena es en",
-        "{{mainValue}}{{mainValuePlural}}la luna llena brillará",
-        "{{mainValue}}{{mainValuePlural}}veremos la luna llena el",
-        "{{mainValue}}{{mainValuePlural}} se puede ver la luna llena"
+        "{{mainValue}} {{days}}la próxima luna llena es en",
+        "{{mainValue}} {{days}}la luna llena brillará",
+        "{{mainValue}} {{days}}podemos ver la luna llena en",
+        "{{mainValue}} {{days}} en podemos observar la luna llena"
       ],
       "nextPartialLunarEclipse": [
-        "{{mainValue}}{{mainValuePlural}}el próximo eclipse parcial de luna será en",
-        "{{mainValue}}{{mainValuePlural}} un eclipse lunar parcial puede verse en",
-        "{{mainValue}}{{mainValuePlural}} en los próximos días tendrá la oportunidad de presenciar un eclipse parcial de luna",
-        "{{mainValue}}{{mainValuePlural}}el momento para ver el próximo eclipse parcial de luna es el día"
+        "{{mainValue}} {{days}}el próximo eclipse parcial de luna será en",
+        "{{mainValue}} {{days}} mostrará un eclipse lunar parcial",
+        "{{mainValue}} {{days}} en los próximos tendrá la suerte de presenciar un eclipse lunar parcial",
+        "{{mainValue}} {{days}}el momento de ver el próximo eclipse parcial de luna es"
       ],
       "nextTotalLunarEclipse": [
-        "{{mainValue}}{{mainValuePlural}}el próximo eclipse total de luna será en",
-        "{{mainValue}}{{mainValuePlural}} verá un eclipse lunar completo",
-        "{{mainValue}}{{mainValuePlural}} en los próximos días tendrá la oportunidad de presenciar un eclipse total de luna",
-        "{{mainValue}}{{mainValuePlural}} si observa el cielo encendido podrá ver un eclipse lunar total"
+        "{{mainValue}} {{days}}el próximo eclipse total de luna será en",
+        "{{mainValue}} {{days}} verá un eclipse lunar completo",
+        "{{mainValue}} {{days}} en los próximos tendrá la oportunidad de presenciar un eclipse lunar total",
+        "{{mainValue}} {{days}} si miras al cielo en puedes ver un eclipse lunar total"
       ]
     },
     "moonPhases": [

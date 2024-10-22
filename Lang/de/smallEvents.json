@@ -657,9 +657,13 @@
       "Sie fahren weiter, ohne zu bereuen, dass Sie angehalten haben",
       "Sie setzen Ihren Weg ratlos fort"
     ],
+    "nObjectsCrossTheSky_one": "{{count}} Objekt wird durchlaufen",
+    "nObjectsCrossTheSky_other": "{{count}} Objekte werden durchlaufen",
+    "days_one": "Tag",
+    "days_other": "Tage",
     "specific": {
       "neoWS": [
-        "{{mainValue}} Objekt{{mainValuePlural}} wird heute den Himmel überqueren",
+        "{{objectWhichWillCrossTheSky}} der Himmel heute",
         "das Objekt mit dem Namen \"{{randomObjectName}}\" mit einem Durchmesser von etwa {{randomObjectDiameter}} Metern passiert heute in der Nähe des Planeten",
         "das Objekt mit dem Namen \"{{randomObjectName}}\" in einer Entfernung von etwa {{randomObjectDistance}} Millionen Kilometern am Planeten vorbeizieht",
         "der Asteroid mit dem Namen \"{{randomObjectName}}\" unseren Planeten um etwa {{randomObjectDistance}} Millionen Kilometer überholt",
@@ -674,22 +678,22 @@
         "der spärliche Himmel lässt einen Blick auf {{mainValue}}zu."
       ],
       "nextFullMoon": [
-        "der nächste Vollmond ist in {{mainValue}} Tag{{mainValuePlural}}",
-        "der Vollmond wird in {{mainValue}} Tag{{mainValuePlural}}scheinen",
-        "wir werden den Vollmond in {{mainValue}} Tag{{mainValuePlural}}erblicken",
-        "in {{mainValue}} Tag{{mainValuePlural}} wird man den Vollmond beobachten können"
+        "der nächste Vollmond ist in {{mainValue}} {{days}}",
+        "der Vollmond wird in {{mainValue}} {{days}}scheinen",
+        "wir werden den Vollmond in {{mainValue}} {{days}}erblicken",
+        "in {{mainValue}} {{days}} kann man den Vollmond beobachten"
       ],
       "nextPartialLunarEclipse": [
-        "die nächste partielle Mondfinsternis ist in {{mainValue}} Tag{{mainValuePlural}}",
-        "in {{mainValue}} Tag{{mainValuePlural}} wird eine partielle Mondfinsternis zu sehen sein",
-        "in den nächsten {{mainValue}} Tagen{{mainValuePlural}} haben Sie die Chance, eine partielle Mondfinsternis zu beobachten",
-        "die Zeit, bis die nächste partielle Mondfinsternis zu sehen ist, beträgt {{mainValue}} Tag{{mainValuePlural}}"
+        "die nächste partielle Mondfinsternis ist in {{mainValue}} {{days}}",
+        "in {{mainValue}} {{days}} wird eine partielle Mondfinsternis zu sehen sein",
+        "in den nächsten {{mainValue}} {{days}} haben Sie die Chance, eine partielle Mondfinsternis zu beobachten",
+        "die Zeit, bis die nächste partielle Mondfinsternis zu sehen ist, beträgt {{mainValue}} {{days}}"
       ],
       "nextTotalLunarEclipse": [
-        "die nächste totale Mondfinsternis ist in {{mainValue}} Tag{{mainValuePlural}}",
-        "innerhalb von {{mainValue}} Tag{{mainValuePlural}} werden Sie eine vollständige Mondfinsternis erblicken",
-        "in den nächsten {{mainValue}} Tagen{{mainValuePlural}} haben Sie die Chance, eine totale Mondfinsternis zu erleben",
-        "wenn Sie den Himmel in {{mainValue}} Tag{{mainValuePlural}} beobachten, können Sie eine totale Mondfinsternis betrachten"
+        "die nächste totale Mondfinsternis ist in {{mainValue}} {{days}}",
+        "von hier aus {{mainValue}} {{days}} werden Sie eine vollständige Mondfinsternis erblicken",
+        "in den nächsten {{mainValue}} {{days}} haben Sie die Chance, eine totale Mondfinsternis zu beobachten",
+        "wenn Sie den Himmel unter {{mainValue}} {{days}} beobachten, können Sie eine totale Mondfinsternis beobachten"
       ]
     },
     "moonPhases": [
