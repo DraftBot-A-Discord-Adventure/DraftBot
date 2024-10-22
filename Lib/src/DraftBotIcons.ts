@@ -48,6 +48,9 @@ export const DraftBotIcons: {
 			hard: string
 		},
 		interactPoorCoin: string
+	},
+	fight_actions: {
+		[actionId: string]: string
 	}
 } = {
 	"effects": {
@@ -1506,5 +1509,35 @@ export const DraftBotIcons: {
 			"hard": "💰"
 		},
 		"interactPoorCoin": "🪙"
+	},
+	"fight_actions": {
+		"benediction": "👼",
+		"boomerangAttack": "🪃",
+		"breathTakingAttack": "💨",
+		"canonAttack": "🔫",
+		"chargeChargingAttack": "🧲",
+		"chargeUltimateAttack": "☄️",
+		"chargingAttack": "🧲",
+		"concentration": "🎯",
+		"counterAttack": "🥊",
+		"cursedAttack": "😈",
+		"darkAttack": "✴️",
+		"defenseBuff": "🧘",
+		"divineAttack": "🙏",
+		"energeticAttack": "⚡",
+		"fireAttack": "🔥",
+		"heavyAttack": "🔨",
+		"intenseAttack": "😤",
+		"piercingAttack": "🪡",
+		"poisonousAttack": "🧪",
+		"powerfulAttack": "🪓",
+		"protection": "🙅",
+		"quickAttack": "🗡️",
+		"ramAttack": "🐏",
+		"resting": "🛏️",
+		"sabotageAttack": "🛠️",
+		"shieldAttack": "🛡️",
+		"simpleAttack": "⚔️",
+		"ultimaateAttack": "☄️"
 	}
 };

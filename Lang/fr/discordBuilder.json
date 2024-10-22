@@ -146,5 +146,9 @@
   "map": {
     "description": "Affiche la carte pour indiquer où vous allez.",
     "name": "carte"
+  },
+  "classesInfo": {
+    "description": "Affiche des informations sur les classes sélectionnables pour votre personnage.",
+    "name": "infosclasses"
   }
 }

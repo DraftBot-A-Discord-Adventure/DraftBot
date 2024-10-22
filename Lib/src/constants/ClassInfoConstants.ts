@@ -6,7 +6,7 @@ export abstract class ClassInfoConstants {
 	// eslint-disable-next-line max-len
 	static readonly STATS_DISPLAY = ":zap: {fightPoint} | :dagger: {attack} | :shield: {defense} | :rocket: {speed} | :wind_blowing_face: {baseBreath} / {maxBreath} | :lungs: {breathRegen} | :heart: {health}";
 
-	static readonly FIELDS_VALUE = `{name} :\n${ClassInfoConstants.STATS_DISPLAY}`;
+	static readonly FIELDS_VALUE = `### {name} :\n${ClassInfoConstants.STATS_DISPLAY}`;
 
 	static readonly HOLY_CLASSES = [
 		Constants.CLASSES.PIKEMAN,
@@ -21,4 +21,9 @@ export abstract class ClassInfoConstants {
 			Constants.CLASSES.POWERFUL_INFANTRYMAN,
 			Constants.CLASSES.INFANTRYMAN
 		];
+
+	static readonly MENU_IDS = {
+		CLASS_SELECTION: "classSelectionMenu",
+		LIST_OPTION: "listOption"
+	};
 }
