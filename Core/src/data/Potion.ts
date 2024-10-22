@@ -3,7 +3,7 @@ import {ItemDataController} from "./DataController";
 import {SupportItem} from "./SupportItem";
 import {RandomUtils} from "../../../Lib/src/utils/RandomUtils";
 import {ObjectItem} from "./ObjectItem";
-import {SupportItemDisplayPacket} from "../../../Lib/src/packets/commands/CommandInventoryPacket";
+import {SupportItemDisplayPacket} from "../../../Lib/src/interfaces/ItemDisplayPacket";
 
 export class Potion extends SupportItem {
 	categoryName = "potions";
