@@ -1,4 +1,9 @@
-import {ReactionCollector, ReactionCollectorCreationPacket, ReactionCollectorData, ReactionCollectorReaction} from "./ReactionCollectorPacket";
+import {
+	ReactionCollector,
+	ReactionCollectorCreationPacket,
+	ReactionCollectorData,
+	ReactionCollectorReaction
+} from "./ReactionCollectorPacket";
 import {Item} from "../../interfaces/Item";
 import {ItemWithDetails} from "../../interfaces/ItemWithDetails";
 
@@ -27,7 +32,7 @@ export class ReactionCollectorItemChoice extends ReactionCollector {
 		this.items = items;
 	}
 
-	creationPacket(id: string, endTime: number): ReactionCollectorCreationPacket {
+	creationPacket(id: string, endTime: number, mainPacket: boolean = true): ReactionCollectorCreationPacket {
 		const reactions = [];
 		for (const item of this.items) {
 			reactions.push(this.buildReaction(ReactionCollectorItemChoiceItemReaction, item));
@@ -38,7 +43,8 @@ export class ReactionCollectorItemChoice extends ReactionCollector {
 			id,
 			endTime,
 			reactions,
-			data: this.buildData(ReactionCollectorItemChoiceData, this.data)
+			data: this.buildData(ReactionCollectorItemChoiceData, this.data),
+			mainPacket
 		};
 	}
 }
