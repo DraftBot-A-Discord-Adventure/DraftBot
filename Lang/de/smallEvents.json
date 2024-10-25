@@ -821,5 +821,20 @@
         "Sie begegnen einem Karren, dessen Ladung über Sie hinausragt und Ihre Tasche zerreißt. Während Sie Ihre Sachen zusammenpacken, kommt eine Gruppe von Kindern vorbei und stiehlt Ihnen Geld. Sie verlieren **{{amount}} :money_with_wings:**."
       ]
     }
+  },
+  "findPotion": {
+    "stories": [
+      "sehen Sie aus dem Augenwinkel eine glänzende Phiole...",
+      "rutschen Sie über den Seitenstreifen und bleiben auf dem Boden liegen. Als Sie aufstehen, sehen Sie eine seltsame Flasche mit einer Flüssigkeit.",
+      "bemerken Sie eine beschädigte Umhängetasche auf der Straße. Sie öffnen ihn hastig...",
+      "beschließen Sie, einen kleinen Umweg zu machen, um nicht einen Bach überqueren zu müssen. Dabei entdecken Sie ...",
+      "begegnen Sie einem Mann, der von einem beladenen Maultier begleitet wird. Einige Minuten später bemerken Sie, dass etwas von seinem Gepäck heruntergefallen ist. Jetzt ist es zu spät, um ihn einzuholen.",
+      "wird Ihr Blick von der Spiegelung eines Tranks auf dem Boden angezogen.",
+      "stolpern Sie über eine Wurzel. Wütend versetzen Sie der Wurzel einen kräftigen Schlag... Es scheint keine Wurzel zu sein...",
+      "treffen Sie auf ein Kind, das Ihre Sprache nicht zu sprechen scheint. Es wirkt jedoch einladend und reicht Ihnen ein Paket...",
+      "treffen Sie auf einen Mann, der ein beladenes Maultier mit sich führt. Sie beschließen, ihm beim Transport seiner Ladung zu helfen. Als Dankeschön bietet er Ihnen einen Trank an...",
+      "treffen Sie auf eine Frau, die Ihnen anscheinend etwas zu trinken anbieten möchte. Neugierig geworden, nehmen Sie ihr Angebot an...",
+      "Sie entdecken eine Behausung, die Sie schnell erkunden. Dort nehmen Sie eine Flasche auf und machen sich eilig wieder auf den Weg..."
+    ]
   }
 }
