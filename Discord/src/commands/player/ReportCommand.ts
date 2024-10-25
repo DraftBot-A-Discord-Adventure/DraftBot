@@ -31,7 +31,7 @@ import {
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {ReactionCollectorChooseDestinationReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorChooseDestination";
 import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
-import {translateEmojiToDiscord} from "../../utils/EmoteUtils";
+import {EmoteUtils} from "../../utils/EmoteUtils";
 
 async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandReportPacketReq> {
 	await interaction.deferReply();
@@ -51,7 +51,7 @@ export async function createBigEventCollector(packet: ReactionCollectorCreationP
 	})}\n\n`;
 	for (const possibility of reactions) {
 		if (possibility.name !== "end") {
-			const emoji = translateEmojiToDiscord(DraftBotIcons.events[data.eventId.toString()][possibility.name] as string);
+			const emoji = EmoteUtils.translateEmojiToDiscord(DraftBotIcons.events[data.eventId.toString()][possibility.name] as string);
 
 			const button = new ButtonBuilder()
 				.setEmoji(parseEmoji(emoji)!)
@@ -161,10 +161,10 @@ export async function reportResult(packet: CommandReportBigEventResultRes, conte
 		pseudo: user.attributes.gameUsername,
 		result,
 		event: i18n.t(`events:${packet.eventId}.possibilities.${packet.possibilityId}.outcomes.${packet.outcomeId}`, {lng: interaction.userLanguage}),
-		emoji: translateEmojiToDiscord(packet.possibilityId === "end"
+		emoji: EmoteUtils.translateEmojiToDiscord(packet.possibilityId === "end"
 			? DraftBotIcons.events[packet.eventId].end[packet.outcomeId]
 			: DraftBotIcons.events[packet.eventId][packet.possibilityId] as string),
-		alte: translateEmojiToDiscord(packet.effect && packet.effect.name !== Effect.OCCUPIED.id ? DraftBotIcons.effects[packet.effect.name] : "")
+		alte: EmoteUtils.translateEmojiToDiscord(packet.effect && packet.effect.name !== Effect.OCCUPIED.id ? DraftBotIcons.effects[packet.effect.name] : "")
 	});
 
 	const buttonInteraction = context.discord?.buttonInteraction ? DiscordCache.getButtonInteraction(context.discord?.buttonInteraction) : null;
@@ -192,7 +192,7 @@ export async function chooseDestinationCollector(packet: ReactionCollectorCreati
 		const destinationReaction = reaction.data as ReactionCollectorChooseDestinationReaction;
 		const duration = destinationReaction.tripDuration ? minutesDisplay(destinationReaction.tripDuration) : "?h";
 		return `${
-			translateEmojiToDiscord(DraftBotIcons.map_types[destinationReaction.mapTypeId])
+			EmoteUtils.translateEmojiToDiscord(DraftBotIcons.map_types[destinationReaction.mapTypeId])
 		} ${
 			i18n.t(`models:map_locations.${destinationReaction.mapId}.name`, {lng: interaction.userLanguage})} (${duration})`;
 	}), false);
@@ -252,7 +252,7 @@ function generateTravelPathString(packet: CommandReportTravelSummaryRes, now: nu
 				str += packet.isOnBoat ? "🚢" : "🧍";
 			}
 			else {
-				str += translateEmojiToDiscord(DraftBotIcons.effects[packet.effect!]);
+				str += EmoteUtils.translateEmojiToDiscord(DraftBotIcons.effects[packet.effect!]);
 			}
 		}
 		else {
@@ -309,7 +309,7 @@ export async function reportTravelSummary(packet: CommandReportTravelSummaryRes,
 					?
 					i18n.t("commands:report.travellingDescription", {
 						lng: interaction.userLanguage,
-						smallEventEmoji: translateEmojiToDiscord(DraftBotIcons.small_events[packet.lastSmallEventId]),
+						smallEventEmoji: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.small_events[packet.lastSmallEventId]),
 						time: timeBeforeSmallEvent,
 						interpolation: {escapeValue: false}
 					}) :

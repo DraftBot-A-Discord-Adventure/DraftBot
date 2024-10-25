@@ -2,7 +2,7 @@ import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
 import {Language} from "../../../Lib/src/Language";
 import {PetConstants} from "../../../Lib/src/constants/PetConstants";
 import i18n from "../translations/i18n";
-import {translateEmojiToDiscord} from "./EmoteUtils";
+import {EmoteUtils} from "./EmoteUtils";
 
 export type PetData = {
 	petTypeId: number,
@@ -58,7 +58,7 @@ export class PetUtils {
 	 * @param sex
 	 */
 	static getPetIcon(typeId: number, sex: string): string {
-		return translateEmojiToDiscord(sex === PetConstants.SEX.MALE ? DraftBotIcons.pets[typeId].emoteMale : DraftBotIcons.pets[typeId].emoteFemale);
+		return EmoteUtils.translateEmojiToDiscord(sex === PetConstants.SEX.MALE ? DraftBotIcons.pets[typeId].emoteMale : DraftBotIcons.pets[typeId].emoteFemale);
 	}
 
 	/**

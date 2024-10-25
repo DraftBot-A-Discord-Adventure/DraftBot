@@ -10,7 +10,7 @@ import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import i18n from "../../translations/i18n";
 import {MapConstants} from "../../../../Lib/src/constants/MapConstants";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
-import {translateEmojiToDiscord} from "../../utils/EmoteUtils";
+import {EmoteUtils} from "../../utils/EmoteUtils";
 
 function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandMapPacketReq> {
 	return Promise.resolve(makePacket(CommandMapPacketReq, {keycloakId: user.id, language: interaction.userLanguage}));
@@ -99,7 +99,7 @@ export async function handleCommandMapDisplayRes(packet: CommandMapDisplayRes, c
 			lng: interaction.userLanguage,
 			destination: mapName,
 			particle: mapParticle,
-			emote: translateEmojiToDiscord(DraftBotIcons.map_types[packet.data!.mapType]),
+			emote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.map_types[packet.data!.mapType]),
 			description: mapDescription,
 			interpolation: {escapeValue: false}
 		}));

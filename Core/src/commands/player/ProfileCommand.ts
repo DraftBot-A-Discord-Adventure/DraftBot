@@ -4,13 +4,17 @@ import {InventorySlots} from "../../core/database/game/models/InventorySlot";
 import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
 import {packetHandler} from "../../core/packetHandlers/PacketHandler";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {CommandProfilePacketReq, CommandProfilePacketRes} from "../../../../Lib/src/packets/commands/CommandProfilePacket";
+import {
+	CommandProfilePacketReq,
+	CommandProfilePacketRes
+} from "../../../../Lib/src/packets/commands/CommandProfilePacket";
 import {Campaign} from "../../core/missions/Campaign";
 import {Players} from "../../core/database/game/models/Player";
 import {Guilds} from "../../core/database/game/models/Guild";
 import {Constants} from "../../../../Lib/src/constants/Constants";
 import {hoursToMilliseconds} from "../../../../Lib/src/utils/TimeUtils";
 import {PetDataController} from "../../data/Pet";
+import {MapLocationDataController} from "../../data/MapLocation";
 
 /**
  * Get the current campaign progression of the player
@@ -58,7 +62,7 @@ export default class ProfileCommand {
 						score: player.score,
 						unranked: isUnranked
 					},
-					class: player.class,
+					classId: player.class,
 					color: player.getProfileColor(),
 					pet: petEntity ? {
 						typeId: petModel.id,
@@ -66,7 +70,8 @@ export default class ProfileCommand {
 						nickname: petEntity.nickname,
 						rarity: petModel.rarity
 					} : null,
-					destination: destinationId,
+					destinationId: destinationId,
+					mapTypeId: destinationId ? MapLocationDataController.instance.getById(destinationId).type : null,
 					effect: player.checkEffect() ? {
 						effect: player.effectId,
 						timeLeft: player.effectEndDate.valueOf() - Date.now(),

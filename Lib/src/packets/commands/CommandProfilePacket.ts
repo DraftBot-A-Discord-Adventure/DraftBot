@@ -44,13 +44,14 @@ export class CommandProfilePacketRes extends DraftBotPacket {
 			timeLeft: number,
 			effect: string
 		},
-		class?: number,
+		classId?: number,
 		fightRanking?: {
 			glory: number,
 			league: number
 		},
 		guild?: string,
-		destination?: number,
+		destinationId?: number,
+		mapTypeId?: string,
 		pet?: {
 			typeId: number,
 			sex: string,
