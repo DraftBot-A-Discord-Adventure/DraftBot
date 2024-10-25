@@ -1,40 +1,31 @@
 {
-  "armors": {
-    "fieldName": "Armor/Shield:",
-    "fieldValue": "**{{name}}** | {{rarity}} | {{values}}"
-  },
+  "armorsFieldName": "Armor/Shield:",
   "attack": ":dagger: {{value}}",
   "defense": ":shield: {{value}}",
   "nameDisplay": "{{emote}} **{{name}}**",
   "nerfDisplay": "~~{{old}}~~ {{max}}",
-  "objects": {
-    "fieldName": "Item:",
-    "fieldValue": "**{{name}}** | {{rarity}} | {{nature}}",
-    "natures": [
-      ":x: No effect",
-      ":heart: Health + {{power}} per day",
-      ":rocket: Speed + {{power}} during fights",
-      ":crossed_swords: Attack + {{power}} during fights",
-      ":shield: Defense + {{power}} during fights",
-      ":clock1030: Advances time by {{power}} every day",
-      ":moneybag: Money + {{power}} per day",
-      ":zap: Energy + {{power}} per day"
-    ]
-  },
-  "potions": {
-    "fieldName": "Potion:",
-    "fieldValue": "**{{name}}** | {{rarity}} | {{nature}}",
-    "natures": [
-      ":x: No effect",
-      ":heart: Health + {{power}}",
-      ":rocket: Speed + {{power}} during the next fight",
-      ":crossed_swords: Attack + {{power}} during the next fight",
-      ":shield: Defense + {{power}} during the next fight",
-      ":clock1030: Advances time by {{power}}",
-      ":moneybag: Money + {{power}}",
-      ":zap: Energy + {{power}}"
-    ]
-  },
+  "objectsFieldName": "Item:",
+  "objectsNatures": [
+    ":x: No effect",
+    ":heart: Health + {{power}} per day",
+    ":rocket: Speed + {{power}} during fights",
+    ":crossed_swords: Attack + {{power}} during fights",
+    ":shield: Defense + {{power}} during fights",
+    ":clock1030: Advances time by {{power}} every day",
+    ":moneybag: Money + {{power}} per day",
+    ":zap: Energy + {{power}} per day"
+  ],
+  "potionsFieldName": "Potion:",
+  "potionsNatures": [
+    ":x: No effect",
+    ":heart: Health + {{power}}",
+    ":rocket: Speed + {{power}} during the next fight",
+    ":crossed_swords: Attack + {{power}} during the next fight",
+    ":shield: Defense + {{power}} during the next fight",
+    ":clock1030: Advances time by {{power}}",
+    ":moneybag: Money + {{power}}",
+    ":zap: Energy + {{power}}"
+  ],
   "rarities": [
     ":small_orange_diamond: Basic",
     ":large_orange_diamond: Common",
@@ -47,8 +38,6 @@
     ":gem: Mythical"
   ],
   "speed": ":rocket: {{value}}",
-  "weapons": {
-    "fieldName": "Weapon:",
-    "fieldValue": "**{{name}}** | {{rarity}} | {{values}}"
-  }
+  "weaponsFieldName": "Weapon:",
+  "itemsField": "**{{emote}} {{name}}** | {{rarity}} | {{values}}"
 }
