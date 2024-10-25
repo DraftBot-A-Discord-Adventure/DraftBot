@@ -836,5 +836,18 @@
       "encontra uma mulher que parece estar a oferecer-lhe uma bebida. Curioso, aceita a oferta...",
       "descobrem uma habitação que exploram rapidamente. Apanha uma garrafa e apressa-se a partir de novo..."
     ]
+  },
+  "findItem": {
+    "stories": [
+      "vislumbra um objeto brilhante com o canto do olho...",
+      "escorrega na berma da estrada e cai no chão. Ao levantar-se, repara em algo no chão...",
+      "repara num saco danificado na estrada. Abre-o à pressa...",
+      "decide fazer um pequeno desvio para evitar atravessar um riacho. É então que descobre...",
+      "passa por um homem com uma mula carregada. Alguns minutos depois, repara que algo caiu da sua mochila. Agora é demasiado tarde para o apanhar.",
+      "os seus olhos são atraídos para o reflexo de um objeto no chão.",
+      "tropeça numa raiz. Furioso, dá-lhe um golpe... Não parece ser uma raiz...",
+      "encontra uma criança que parece não falar a sua língua. Mas tem um ar simpático e entrega-lhe um pacote...",
+      "encontra um homem com uma mula carregada. Decide ajudá-lo a transportar a carga. Como agradecimento, ele oferece-lhe um objeto..."
+    ]
   }
 }
