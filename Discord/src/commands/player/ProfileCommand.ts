@@ -21,7 +21,8 @@ import {keycloakConfig} from "../../bot/DraftBotShard";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 import {Effect} from "../../../../Lib/src/enums/Effect";
 import {PetUtils} from "../../utils/PetUtils";
-import {translateEmojiToDiscord} from "../../utils/EmoteUtils";
+import {ClassUtils} from "../../utils/ClassUtils";
+import {EmoteUtils} from "../../utils/EmoteUtils";
 
 /**
  * Display the profile of a player
@@ -149,19 +150,19 @@ function generateFields(packet: CommandProfilePacketRes, language: Language): Em
 			name: i18n.t("commands:profile.timeLeft.fieldName", {lng: language}),
 			value: i18n.t("commands:profile.timeLeft.fieldValue", {
 				lng: language,
-				effect: translateEmojiToDiscord(DraftBotIcons.effects[packet.data.effect.effect]),
+				effect: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.effects[packet.data.effect.effect]),
 				timeLeft: packet.data.effect.timeLeft
 			}),
 			inline: false
 		});
 	}
 
-	if (packet.data?.class) {
+	if (packet.data?.classId) {
 		fields.push({
 			name: i18n.t("commands:profile.playerClass.fieldName", {lng: language}),
-			value: i18n.t("commands:profile:playerClass.fieldValue", {
+			value: i18n.t("commands:profile.playerClass.field", {
 				lng: language,
-				class: packet.data.class
+				className: ClassUtils.classToString(language, packet.data.classId)
 			}),
 			inline: false
 		});
@@ -190,13 +191,13 @@ function generateFields(packet: CommandProfilePacketRes, language: Language): Em
 		});
 	}
 
-	if (packet.data?.destination) {
+	if (packet.data?.destinationId && packet.data?.mapTypeId) {
 		fields.push({
 			name: i18n.t("commands:profile.map.fieldName", {lng: language}),
 			value: i18n.t("commands:profile.map.fieldValue", {
 				lng: language,
-				mapEmote: "TODO EMOTE", // Todo
-				mapName: i18n.t(`models:map_locations.${packet.data.destination}.name`, {lng: language})
+				mapEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.map_types[packet.data.mapTypeId]),
+				mapName: i18n.t(`models:map_locations.${packet.data.destinationId}.name`, {lng: language})
 			}),
 			inline: false
 		});

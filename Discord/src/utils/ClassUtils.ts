@@ -1,4 +1,4 @@
-import {translateEmojiToDiscord} from "./EmoteUtils";
+import {EmoteUtils} from "./EmoteUtils";
 import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
 import {Language} from "../../../Lib/src/Language";
 import i18n from "../translations/i18n";
@@ -10,7 +10,7 @@ export class ClassUtils {
 	 * @param classID
 	 */
 	static getClassIcon(classID: number): string {
-		return translateEmojiToDiscord(DraftBotIcons.classes[classID]);
+		return EmoteUtils.translateEmojiToDiscord(DraftBotIcons.classes[classID]);
 	}
 
 	/**

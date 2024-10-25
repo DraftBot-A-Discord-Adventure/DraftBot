@@ -5,6 +5,7 @@ import {Language} from "../../../Lib/src/Language";
 import {ItemWithDetails} from "../../../Lib/src/interfaces/ItemWithDetails";
 import {minutesDisplay} from "../../../Lib/src/utils/TimeUtils";
 import {Item} from "../../../Lib/src/interfaces/Item";
+import {EmoteUtils} from "./EmoteUtils";
 
 export class DisplayUtils {
 	static getItemDisplay(item: Item, language: Language): string {
@@ -23,31 +24,31 @@ export class DisplayUtils {
 	}
 
 	static getWeaponDisplay(weaponId: number, language: Language): string {
-		return `${DraftBotIcons.weapons[weaponId]} ${i18n.t(`models:weapons.${weaponId}`, { lng: language })}`;
+		return `${DraftBotIcons.weapons[weaponId]} ${i18n.t(`models:weapons.${weaponId}`, {lng: language})}`;
 	}
 
 	static getArmorDisplay(armorId: number, language: Language): string {
-		return `${DraftBotIcons.armors[armorId]} ${i18n.t(`models:armors.${armorId}`, { lng: language })}`;
+		return `${DraftBotIcons.armors[armorId]} ${i18n.t(`models:armors.${armorId}`, {lng: language})}`;
 	}
 
 	static getPotionDisplay(potionId: number, language: Language): string {
-		return `${DraftBotIcons.potions[potionId]} ${i18n.t(`models:potions.${potionId}`, { lng: language })}`;
+		return `${DraftBotIcons.potions[potionId]} ${i18n.t(`models:potions.${potionId}`, {lng: language})}`;
 	}
 
 	static getObjectDisplay(objectId: number, language: Language): string {
-		return `${DraftBotIcons.objects[objectId]} ${i18n.t(`models:objects.${objectId}`, { lng: language })}`;
+		return `${DraftBotIcons.objects[objectId]} ${i18n.t(`models:objects.${objectId}`, {lng: language})}`;
 	}
 
 	static getItemDisplayWithStats(itemWithDetails: ItemWithDetails, language: Language): string {
 		switch (itemWithDetails.category) {
 		case ItemCategory.WEAPON:
-			return `${DraftBotIcons.weapons[itemWithDetails.id]}  ${this.getMainItemDisplayWithStats("weapons", itemWithDetails, language)}`;
+			return this.getMainItemDisplayWithStats("weapons", itemWithDetails, language);
 		case ItemCategory.ARMOR:
-			return `${DraftBotIcons.armors[itemWithDetails.id]}  ${this.getMainItemDisplayWithStats("armors", itemWithDetails, language)}`;
+			return this.getMainItemDisplayWithStats("armors", itemWithDetails, language);
 		case ItemCategory.POTION:
-			return `${DraftBotIcons.potions[itemWithDetails.id]}  ${this.getPotionDisplayWithStats(itemWithDetails, language)}`;
+			return this.getPotionDisplayWithStats(itemWithDetails, language);
 		case ItemCategory.OBJECT:
-			return `${DraftBotIcons.objects[itemWithDetails.id]}  ${this.getObjectDisplayWithStats(itemWithDetails, language)}`;
+			return this.getObjectDisplayWithStats(itemWithDetails, language);
 		default:
 			return "Missing no";
 		}
@@ -73,24 +74,29 @@ export class DisplayUtils {
 		this.getStringValueFor(values, itemWithDetails.maxStats?.speed ?? null, itemWithDetails.detailsMainItem!.stats.speed, "speed", language);
 		return i18n.t(`items:${itemType}.fieldValue`, {
 			lng: language,
-			name: i18n.t(`models:${itemType}.` + itemWithDetails.id, { lng: language, interpolation: { escapeValue: false } }),
-			rarity: i18n.t("items:rarities." + itemWithDetails.rarity, { lng: language }),
+			name: i18n.t(`models:${itemType}.` + itemWithDetails.id, {
+				lng: language,
+				interpolation: {escapeValue: false}
+			}),
+			rarity: i18n.t("items:rarities." + itemWithDetails.rarity, {lng: language}),
 			values: values.join(" "),
-			interpolation: { escapeValue: false }
+			interpolation: {escapeValue: false}
 		});
 	}
 
 	private static getPotionDisplayWithStats(itemWithDetails: ItemWithDetails, language: Language): string {
-		const name = i18n.t(`models:potions.${itemWithDetails.id}`, { lng: language, interpolation: { escapeValue: false } });
-		return itemWithDetails.id === 0 ? name : i18n.t("items:potions.fieldValue", {
-			name,
-			rarity: i18n.t("items:rarities." + itemWithDetails.rarity, { lng: language }),
-			nature: i18n.t(`items:potions.natures.${itemWithDetails.detailsSupportItem!.nature}`, {
+		const itemField: string = i18n.t("items:itemsField", {
+			name: i18n.t(`models:potions.${itemWithDetails.id}`, {lng: language, interpolation: {escapeValue: false}}),
+			emote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.potions[itemWithDetails.id]),
+			rarity: i18n.t("items:rarities." + itemWithDetails.rarity, {lng: language}),
+			values: i18n.t(`items:potionsNatures.${itemWithDetails.detailsSupportItem!.nature}`, {
 				power: itemWithDetails.detailsSupportItem!.nature === ItemNature.TIME_SPEEDUP ? minutesDisplay(itemWithDetails.detailsSupportItem!.power) : itemWithDetails.detailsSupportItem!.power,
 				lng: language
 			}),
-			interpolation: { escapeValue: false }
+			interpolation: {escapeValue: false},
+			lng: language
 		});
+		return itemWithDetails.id === 0 ? itemField.split("|")[0] : itemField;
 	}
 
 	private static getObjectNatureTranslation(itemWithDetails: ItemWithDetails, lng: string): string {
@@ -100,7 +106,7 @@ export class DisplayUtils {
 		}
 
 		if (itemWithDetails.detailsSupportItem!.nature === ItemNature.TIME_SPEEDUP) {
-			return i18n.t(`items:objects.natures.${itemWithDetails.detailsSupportItem!.nature}`, {
+			return i18n.t(`items:objectsNatures.${itemWithDetails.detailsSupportItem!.nature}`, {
 				power: minutesDisplay(itemWithDetails.detailsSupportItem!.power),
 				lng
 			});
@@ -112,25 +118,30 @@ export class DisplayUtils {
 				max: maxStatsValue!.speed * 2,
 				lng
 			});
-			return i18n.t(`items:objects.natures.${itemWithDetails.detailsSupportItem!.nature}`, {
+			return i18n.t(`items:objectsNatures.${itemWithDetails.detailsSupportItem!.nature}`, {
 				power: speedDisplay,
 				lng
 			});
 		}
 
-		return i18n.t(`items:objects.natures.${itemWithDetails.detailsSupportItem!.nature}`, {
+		return i18n.t(`items:objectsNatures.${itemWithDetails.detailsSupportItem!.nature}`, {
 			power: itemWithDetails.detailsSupportItem!.power,
 			lng
 		});
 	}
 
 	private static getObjectDisplayWithStats(itemWithDetails: ItemWithDetails, language: Language): string {
-		const name = i18n.t(`models:objects.${itemWithDetails.id}`, { lng: language, interpolation: { escapeValue: false } });
-		return i18n.t("items:objects.fieldValue", {
-			name,
-			rarity: i18n.t("items:rarities." + itemWithDetails.rarity, { lng: language }),
-			nature: DisplayUtils.getObjectNatureTranslation(itemWithDetails, language),
-			interpolation: { escapeValue: false }
+		const itemField: string = i18n.t("items:itemsField", {
+			name: i18n.t(`models:objects.${itemWithDetails.id}`, {
+				lng: language,
+				interpolation: {escapeValue: false}
+			}),
+			emote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.objects[itemWithDetails.id]),
+			rarity: i18n.t("items:rarities." + itemWithDetails.rarity, {lng: language}),
+			values: DisplayUtils.getObjectNatureTranslation(itemWithDetails, language),
+			lng: language,
+			interpolation: {escapeValue: false}
 		});
+		return itemWithDetails.id === 0 ? itemField.split("|")[0] : itemField;
 	}
 }
