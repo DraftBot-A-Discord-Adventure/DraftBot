@@ -71,16 +71,18 @@ export class DiscordCollectorUtils {
 			.setStyle(ButtonStyle.Secondary);
 		row.addComponents(buttonRefuse);
 
+		const sendFunction = reactionCollectorCreationPacket.mainPacket ? interaction.editReply : interaction.channel.send;
+
 		// Edit message
 		let msg: Message;
 		if (messageContentOrEmbed instanceof DraftBotEmbed) {
-			msg = await interaction?.editReply({
+			msg = await sendFunction({
 				embeds: [messageContentOrEmbed],
 				components: [row]
 			}) as Message;
 		}
 		else {
-			msg = await interaction?.editReply({
+			msg = await sendFunction({
 				content: messageContentOrEmbed,
 				components: [row]
 			}) as Message;

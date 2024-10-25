@@ -773,7 +773,7 @@ export const DraftBotIcons: {
 		"findItem": "❕",
 		"findMission": "📜",
 		"findPet": "🐕",
-		"findPotions": "⚗️",
+		"findPotion": "⚗️",
 		"goToPVEIsland": "⛴️",
 		"gobletsGame": "🥛",
 		"interactOtherPlayers": "💬",

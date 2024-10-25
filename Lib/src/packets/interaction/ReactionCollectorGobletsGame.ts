@@ -1,4 +1,9 @@
-import {ReactionCollector, ReactionCollectorCreationPacket, ReactionCollectorData, ReactionCollectorReaction} from "./ReactionCollectorPacket";
+import {
+	ReactionCollector,
+	ReactionCollectorCreationPacket,
+	ReactionCollectorData,
+	ReactionCollectorReaction
+} from "./ReactionCollectorPacket";
 
 export class ReactionCollectorGobletsGameMetalReaction extends ReactionCollectorReaction {
 

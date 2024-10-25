@@ -1,4 +1,9 @@
-import {ReactionCollector, ReactionCollectorCreationPacket, ReactionCollectorData, ReactionCollectorReaction} from "./ReactionCollectorPacket";
+import {
+	ReactionCollector,
+	ReactionCollectorCreationPacket,
+	ReactionCollectorData,
+	ReactionCollectorReaction
+} from "./ReactionCollectorPacket";
 
 export class ReactionCollectorFightPetReaction extends ReactionCollectorReaction {
 	actionId!: string;
@@ -34,7 +39,7 @@ export class ReactionCollectorFightPet extends ReactionCollector {
 			id,
 			endTime,
 			reactions,
-			data: this.buildData(ReactionCollectorFightPetData, { petId: this.petId, isFemale: this.isFemale })
+			data: this.buildData(ReactionCollectorFightPetData, {petId: this.petId, isFemale: this.isFemale})
 		};
 	}
 }

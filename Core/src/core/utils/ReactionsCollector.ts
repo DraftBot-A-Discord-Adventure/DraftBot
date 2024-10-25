@@ -21,6 +21,7 @@ export type CollectorOptions = {
 	time?: number;
 	allowedPlayerKeycloakIds?: string[];
 	reactionLimit?: number;
+	mainPacket?: boolean;
 };
 
 type ReactionInfo = {
@@ -56,22 +57,23 @@ export class ReactionCollectorInstance {
 
 	private readonly reactionLimit: number;
 
-	private _hasEnded: boolean;
-
 	private reactionsHistory: ReactionInfo[] = [];
 
-	private _creationPacket: ReactionCollectorCreationPacket;
+	private readonly mainPacket: boolean;
 
 	public constructor(reactionCollector: ReactionCollector, context: PacketContext, collectorOptions: CollectorOptions, endCallback: EndCallback, collectCallback: CollectCallback = null) {
 		this.model = reactionCollector;
 		this.filter = collectorOptions.allowedPlayerKeycloakIds ? createDefaultFilter(collectorOptions.allowedPlayerKeycloakIds) : (): boolean => true;
 		this.time = collectorOptions.time ?? Constants.MESSAGES.COLLECTOR_TIME;
 		this.endTime = Date.now() + this.time;
+		this.mainPacket = collectorOptions.mainPacket ?? true;
 		this.collectCallback = collectCallback;
 		this._context = context;
 		this.endCallback = endCallback;
 		this.reactionLimit = collectorOptions.reactionLimit ?? 1;
 	}
+
+	private _hasEnded: boolean;
 
 	get hasEnded(): boolean {
 		return this._hasEnded;
@@ -79,6 +81,16 @@ export class ReactionCollectorInstance {
 
 	private set hasEnded(value: boolean) {
 		this._hasEnded = value;
+	}
+
+	private _creationPacket: ReactionCollectorCreationPacket;
+
+	get creationPacket(): ReactionCollectorCreationPacket {
+		return this._creationPacket;
+	}
+
+	get context(): PacketContext {
+		return this._context;
 	}
 
 	public async react(keycloakId: string, index: number, response: DraftBotPacket[]): Promise<void> {
@@ -143,20 +155,12 @@ export class ReactionCollectorInstance {
 		collectors.set(this.id, this);
 		setTimeout(this.end, this.endTime - Date.now());
 
-		this._creationPacket = makePacket(ReactionCollectorCreationPacket, this.model.creationPacket(this.id, this.endTime));
+		this._creationPacket = makePacket(ReactionCollectorCreationPacket, this.model.creationPacket(this.id, this.endTime, this.mainPacket));
 		return this._creationPacket;
 	}
 
 	public isValidReactionIndex(index: number): boolean {
 		return index >= 0 && index < this._creationPacket.reactions.length;
-	}
-
-	get creationPacket(): ReactionCollectorCreationPacket {
-		return this._creationPacket;
-	}
-
-	get context(): PacketContext {
-		return this._context;
 	}
 }
 

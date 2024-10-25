@@ -18,7 +18,10 @@ import {draftBotInstance} from "../../index";
 import {ItemRefusePacket} from "../../../../Lib/src/packets/notifications/ItemRefusePacket";
 import {ItemAcceptPacket} from "../../../../Lib/src/packets/notifications/ItemAcceptPacket";
 import {ItemFoundPacket} from "../../../../Lib/src/packets/notifications/ItemFoundPacket";
-import {ReactionCollectorItemChoice, ReactionCollectorItemChoiceItemReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorItemChoice";
+import {
+	ReactionCollectorItemChoice,
+	ReactionCollectorItemChoiceItemReaction
+} from "../../../../Lib/src/packets/interaction/ReactionCollectorItemChoice";
 import {EndCallback, ReactionCollectorInstance} from "./ReactionsCollector";
 import {ReactionCollectorItemAccept} from "../../../../Lib/src/packets/interaction/ReactionCollectorItemAccept";
 import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
@@ -181,7 +184,7 @@ const sellOrKeepItem = async function(
 			.then();
 	}
 	const packet = makePacket(ItemRefusePacket, {
-		item: { id: item.id, category: item.getCategory() },
+		item: {id: item.id, category: item.getCategory()},
 		autoSell,
 		soldMoney: money
 	});
@@ -221,8 +224,8 @@ function manageMoreThan2ItemsSwitching(
 	items.sort((a: InventorySlot, b: InventorySlot) => (a.slot > b.slot ? 1 : b.slot > a.slot ? -1 : 0));
 
 	const collector = new ReactionCollectorItemChoice(
-		{ item: { id: item.id, category: item.getCategory() } },
-		items.map((item) => ({ slot: item.slot, itemWithDetails: toItemWithDetails(item.getItem()) }))
+		{item: {id: item.id, category: item.getCategory()}},
+		items.map((item) => ({slot: item.slot, itemWithDetails: toItemWithDetails(item.getItem())}))
 	);
 
 	const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
@@ -270,7 +273,8 @@ function manageMoreThan2ItemsSwitching(
 		context,
 		{
 			allowedPlayerKeycloakIds: [player.keycloakId],
-			reactionLimit: 1
+			reactionLimit: 1,
+			mainPacket: false
 		},
 		endCallback
 	)
@@ -386,7 +390,8 @@ export const giveItemToPlayer = async function(
 		context,
 		{
 			allowedPlayerKeycloakIds: [player.keycloakId],
-			reactionLimit: 1
+			reactionLimit: 1,
+			mainPacket: false
 		},
 		endCallback
 	)

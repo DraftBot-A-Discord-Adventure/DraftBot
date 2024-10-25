@@ -204,8 +204,8 @@ async function doPossibility(
 
 	const newMapLink = await applyPossibilityOutcome(event.id, possibility[0], randomOutcome, player, time, context, response);
 
-	if (!await player.killIfNeeded(response, NumberChangeReason.BIG_EVENT) && !newMapLink) {
-		await chooseDestination(context, player, newMapLink, response);
+	if (!await player.killIfNeeded(response, NumberChangeReason.BIG_EVENT)) {
+		await chooseDestination(context, player, newMapLink, response, false);
 	}
 
 	await MissionsController.update(player, response, {missionId: "doReports"});
@@ -336,12 +336,14 @@ async function automaticChooseDestination(forcedLink: MapLink, player: Player, d
  * @param player
  * @param forcedLink Forced map link to go to
  * @param response
+ * @param mainPacket
  */
 async function chooseDestination(
 	context: PacketContext,
 	player: Player,
 	forcedLink: MapLink,
-	response: DraftBotPacket[]
+	response: DraftBotPacket[],
+	mainPacket = true
 ): Promise<void> {
 	await PlayerSmallEvents.removeSmallEventsOfPlayer(player.id);
 	const destinationMaps = Maps.getNextPlayerAvailableMaps(player);
@@ -392,7 +394,8 @@ async function chooseDestination(
 		collector,
 		context,
 		{
-			allowedPlayerKeycloakIds: [player.keycloakId]
+			allowedPlayerKeycloakIds: [player.keycloakId],
+			mainPacket
 		},
 		endCallback
 	)
