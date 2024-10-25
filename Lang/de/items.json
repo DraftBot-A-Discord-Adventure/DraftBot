@@ -1,30 +1,30 @@
 {
-  "armorsFieldName": "Armure/Bouclier :",
+  "armorsFieldName": "Rüstung/Schild :",
   "attack": ":dagger: {{value}}",
   "defense": ":shield: {{value}}",
   "nameDisplay": "{{emote}} **{{{name}}}**",
   "nerfDisplay": "~ ~{{old}}~ ~ {{max}}",
-  "objectsFieldName": "Objet :",
+  "objectsFieldName": "Betreff :",
   "objectsNatures": [
-    ":x: Aucun effet",
-    ":heart: Vie + {{power}} par jour",
-    ":rocket: Vitesse + {{power}} pendant les combats",
-    ":crossed_swords: Attaque + {{power}} pendant les combats",
-    ":shield: Défense + {{power}} pendant les combats",
-    ":clock1030: Avance le temps de {{power}} chaque jour",
-    ":moneybag: Argent + {{power}} par jour",
-    ":zap: Énergie + {{power}} par jour"
+    ":x: Keine Auswirkungen",
+    ":heart: Leben + {{power}} pro Tag",
+    ":rocket: Geschwindigkeit + {{power}} während des Kampfes",
+    ":crossed_swords: Angriff + {{power}} während des Kampfes",
+    ":shield: Verteidigung + {{power}} während des Kampfes",
+    ":clock1030: Spule die Zeit von {{power}} jeden Tag vor",
+    ":moneybag: Geld + {{power}} pro Tag",
+    ":zap: Energie + {{power}} pro Tag"
   ],
-  "potionsFieldName": "Potion :",
+  "potionsFieldName": "Trank:",
   "potionsNatures": [
-    ":x: Aucun effet",
-    ":heart: Vie + {{power}}",
-    ":rocket: Vitesse + {{power}} pendant le prochain combat",
-    ":crossed_swords: Attaque + {{power}} pendant le prochain combat",
-    ":shield: Défense + {{power}} pendant le prochain combat",
-    ":clock1030: Avance le temps de {{power}}",
-    ":moneybag: Argent + {{power}}",
-    ":zap: Énergie + {{power}}"
+    ":x: Keine Auswirkungen",
+    ":heart: Leben + {{power}}",
+    ":rocket: Geschwindigkeit + {{power}} während des nächsten Kampfes",
+    ":crossed_swords: Angriff + {{power}} während des nächsten Kampfes",
+    ":shield: Verteidigung + {{power}} während des nächsten Kampfes",
+    ":clock1030: Verschiebt die Zeit von {{power}}vor.",
+    ":moneybag: Silber + {{power}}",
+    ":zap: Energie + {{power}}"
   ],
   "rarities": [
     ":small_orange_diamond: Basic",
@@ -38,6 +38,6 @@
     ":gem: Mythen"
   ],
   "speed": ":rocket: {{value}}",
-  "weaponsFieldName": "Arme :",
+  "weaponsFieldName": "Waffe:",
   "itemsField": "**{{emote}} {{name}}** | {{rarity}} | {{values}}"
 }
