@@ -822,5 +822,21 @@
         "vous croisez une charrette dont le chargement dépasse et déchire votre sac. Pendant que vous rassemblez vos affaires un groupe d'enfants passe et vous dérobe de l'argent. Vous perdez **{{amount}} :money_with_wings:**."
       ]
     }
+  },
+
+  "findPotion": {
+    "stories": [
+      "vous apercevez du coin de l'œil une fiole brillante...",
+      "vous glissez sur le bas-côté et vous étalez à terre. En vous relevant, vous remarquez un étrange flacon empli de liquide.",
+      "vous remarquez une besace abimée sur la route. Vous l'ouvrez hâtivement...",
+      "vous décidez de faire un petit détour pour éviter de traverser un ruisseau. C'est alors que vous découvrez...",
+      "vous croisez un homme accompagné d'une mule chargée. Quelques minutes plus tard, vous remarquez que quelque chose est tombé de son paquetage. Il est désormais trop tard pour le rattraper.",
+      "votre regard est attiré par le reflet d'une potion sur le sol.",
+      "vous trébuchez sur une racine. Furieux, vous assénez un grand coup à cette dernière... Il semblerait que cela ne soit pas une racine...",
+      "vous rencontrez un enfant qui ne semble pas parler votre langue. Il a l'air cependant accueillant et vous tend un paquet...",
+      "vous croisez un homme accompagné d'une mule chargée. Vous décidez de l'aider à transporter sa cargaison. En remerciement, ce dernier vous offre une potion...",
+      "vous croisez une femme qui semble vouloir vous offrir à boire. Curieux, vous acceptez sa proposition...",
+      "vous découvrez une habitation que vous explorez rapidement. Vous y ramassez une bouteille et repartez hâtivement..."
+    ]
   }
 }
