@@ -821,5 +821,20 @@
         "depara-se com uma carroça cuja carga está a sair, rasgando o seu saco. Enquanto recolhe as suas coisas, um grupo de crianças passa e rouba-lhe algum dinheiro.{{amount}} :money_with_wings:Perdes ** **."
       ]
     }
+  },
+  "findPotion": {
+    "stories": [
+      "Pelo canto do olho, vê um frasco brilhante...",
+      "escorrega na berma da estrada e cai no chão. Ao levantares-te, reparas numa estranha garrafa cheia de líquido.",
+      "repara num saco danificado na estrada. Abre-o à pressa...",
+      "decide fazer um pequeno desvio para evitar atravessar um riacho. É então que descobre...",
+      "passa por um homem com uma mula carregada. Alguns minutos depois, repara que algo caiu da sua mochila. Agora é demasiado tarde para o apanhar.",
+      "o seu olhar é apanhado pelo reflexo de uma poção no chão.",
+      "tropeça numa raiz. Furioso, dá-lhe um golpe... Não parece ser uma raiz...",
+      "encontra uma criança que parece não falar a sua língua. Mas tem um ar simpático e entrega-lhe um pacote...",
+      "encontra um homem com uma mula carregada. Decide ajudá-lo a transportar a carga. Como agradecimento, ele oferece-te uma poção...",
+      "encontra uma mulher que parece estar a oferecer-lhe uma bebida. Curioso, aceita a oferta...",
+      "descobrem uma habitação que exploram rapidamente. Apanha uma garrafa e apressa-se a partir de novo..."
+    ]
   }
 }
