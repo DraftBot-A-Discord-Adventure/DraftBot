@@ -836,5 +836,18 @@
       "you meet a woman who looks like she wants to offer you a drink. Intrigued, you accept her offer...",
       "you discover a house that you quickly explore. You pick up a bottle and leave hastily..."
     ]
+  },
+  "findItem": {
+    "stories": [
+      "you see a shiny object from the corner of your eye...",
+      "you slide on the lower side and you get to the ground. As you rise, you notice an object on the ground...",
+      "you notice a damaged bag on the road. you open it quickly...",
+      "you decide to make a side trip to avoid crossing a river. That's when you discover...",
+      "you meet a man, with a loaded mule. A few minutes later, you notice tat something has fallen form his package. It is now too late to catch him up.",
+      "your look is attracted by an object reflection on the ground.",
+      "you get down on a root. Furious, you sit down to it a big blow... It seems it isn't a root...",
+      "you meet a child who does not seem to speak your language. However, it looks welcoming and tends you a package...",
+      "you meet a man, with a loaded mule. You decide to help him carry his load. As a thanks, he gift you an object..."
+    ]
   }
 }
