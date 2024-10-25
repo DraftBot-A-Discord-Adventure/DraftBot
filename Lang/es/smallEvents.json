@@ -821,5 +821,20 @@
         "te cruzas con un carro cuya carga sobresale, rompiendo tu bolsa. Mientras recoges tus cosas, pasa un grupo de niños y te roban algo de dinero.{{amount}} :money_with_wings:Pierdes ** **."
       ]
     }
+  },
+  "findPotion": {
+    "stories": [
+      "por el rabillo del ojo, ves un frasco brillante...",
+      "resbalas en el arcén y caes al suelo. Al levantarte, observas una extraña botella llena de líquido.",
+      "te fijas en una bolsa estropeada en la carretera. La abres apresuradamente...",
+      "decides desviarte un poco para evitar cruzar un arroyo. Es entonces cuando descubres...",
+      "pasas junto a un hombre con una mula cargada. Unos minutos más tarde, te das cuenta de que se le ha caído algo de la carga. Ya es demasiado tarde para alcanzarle.",
+      "tu mirada es atrapada por el reflejo de una poción en el suelo.",
+      "tropiezas con una raíz. Furioso, le das un golpe... No parece ser una raíz...",
+      "te encuentras con un niño que no parece hablar tu idioma. Pero parece simpático y te entrega un paquete...",
+      "te cruzas con un hombre con una mula cargada. Decides ayudarle a transportar su carga. En agradecimiento, te ofrece una poción...",
+      "te cruzas con una mujer que parece ofrecerte algo de beber. Curioso, aceptas su ofrecimiento...",
+      "descubres una vivienda que exploras rápidamente. Recoges una botella y te apresuras a partir de nuevo..."
+    ]
   }
 }
