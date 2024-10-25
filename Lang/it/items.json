@@ -39,5 +39,5 @@
   ],
   "speed": ":rocket: {{value}}",
   "weaponsFieldName": "Arma :",
-  "itemsField": "**{{emote}} {{name}}** | {{rarity}} | {{values}}"
+  "itemsField": "{{emote}} {{name}} {{rarity}} {{values}}** ** | |"
 }
