@@ -58,6 +58,7 @@ import {PetUtils} from "../../utils/PetUtils";
 import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
 import {ClassUtils} from "../../utils/ClassUtils";
 import {SmallEventFindPotionPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFindPotionPacket";
+import {SmallEventFindItemPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFindItemPacket";
 
 
 export function getRandomSmallEventIntro(language: Language): string {
@@ -728,6 +729,24 @@ export default class SmallEventsHandler {
 						"findPotion",
 						getRandomSmallEventIntro(interaction.userLanguage)
 						+ StringUtils.getRandomTranslation("smallEvents:findPotion.stories", interaction.userLanguage),
+						interaction.user,
+						interaction.userLanguage
+					)
+				]
+			});
+		}
+	}
+
+	@packetHandler(SmallEventFindItemPacket)
+	async smallEventFindItem(packet: SmallEventFindItemPacket, context: PacketContext): Promise<void> {
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		if (interaction) {
+			await interaction.editReply({
+				embeds: [
+					new DraftbotSmallEventEmbed(
+						"findItem",
+						getRandomSmallEventIntro(interaction.userLanguage)
+						+ StringUtils.getRandomTranslation("smallEvents:findItem.stories", interaction.userLanguage),
 						interaction.user,
 						interaction.userLanguage
 					)
