@@ -19,7 +19,7 @@ export class ReactionCollectorItemAccept extends ReactionCollector {
 		this.itemWithDetails = itemWithDetails;
 	}
 
-	creationPacket(id: string, endTime: number, mainPacket: boolean = true): ReactionCollectorCreationPacket {
+	creationPacket(id: string, endTime: number, mainPacket = true): ReactionCollectorCreationPacket {
 		return {
 			id,
 			endTime,

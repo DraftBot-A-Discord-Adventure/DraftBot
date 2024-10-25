@@ -32,7 +32,7 @@ export class ReactionCollectorItemChoice extends ReactionCollector {
 		this.items = items;
 	}
 
-	creationPacket(id: string, endTime: number, mainPacket: boolean = true): ReactionCollectorCreationPacket {
+	creationPacket(id: string, endTime: number, mainPacket = true): ReactionCollectorCreationPacket {
 		const reactions = [];
 		for (const item of this.items) {
 			reactions.push(this.buildReaction(ReactionCollectorItemChoiceItemReaction, item));

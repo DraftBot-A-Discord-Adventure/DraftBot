@@ -70,7 +70,7 @@ export default class ProfileCommand {
 						nickname: petEntity.nickname,
 						rarity: petModel.rarity
 					} : null,
-					destinationId: destinationId,
+					destinationId,
 					mapTypeId: destinationId ? MapLocationDataController.instance.getById(destinationId).type : null,
 					effect: player.checkEffect() ? {
 						effect: player.effectId,
