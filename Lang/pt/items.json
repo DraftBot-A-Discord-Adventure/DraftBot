@@ -1,30 +1,30 @@
 {
-  "armorsFieldName": "Armure/Bouclier :",
+  "armorsFieldName": "Armadura/Escudo :",
   "attack": ":dagger: {{value}}",
   "defense": ":shield: {{value}}",
   "nameDisplay": "{{emote}}{{{name}}}** **",
   "nerfDisplay": "{{old}} {{max}}~~ ~~",
-  "objectsFieldName": "Objet :",
+  "objectsFieldName": "Assunto :",
   "objectsNatures": [
-    ":x: Aucun effet",
-    ":heart: Vie + {{power}} par jour",
-    ":rocket: Vitesse + {{power}} pendant les combats",
-    ":crossed_swords: Attaque + {{power}} pendant les combats",
-    ":shield: Défense + {{power}} pendant les combats",
-    ":clock1030: Avance le temps de {{power}} chaque jour",
-    ":moneybag: Argent + {{power}} par jour",
-    ":zap: Énergie + {{power}} par jour"
+    ":x: Sem efeito",
+    ":heart: {{power}} Vida + por dia",
+    ":rocket: {{power}} Velocidade + em combate",
+    ":crossed_swords: {{power}} Ataque + durante o combate",
+    ":shield: {{power}} Defesa + em combate",
+    ":clock1030: {{power}} Avanço rápido para cada dia",
+    ":moneybag: {{power}} Dinheiro + por dia",
+    ":zap: {{power}} Energia + por dia"
   ],
-  "potionsFieldName": "Potion :",
+  "potionsFieldName": "Poção :",
   "potionsNatures": [
-    ":x: Aucun effet",
-    ":heart: Vie + {{power}}",
-    ":rocket: Vitesse + {{power}} pendant le prochain combat",
-    ":crossed_swords: Attaque + {{power}} pendant le prochain combat",
-    ":shield: Défense + {{power}} pendant le prochain combat",
-    ":clock1030: Avance le temps de {{power}}",
-    ":moneybag: Argent + {{power}}",
-    ":zap: Énergie + {{power}}"
+    ":x: Sem efeito",
+    ":heart: {{power}}Vida +",
+    ":rocket: {{power}} Velocidade + durante o próximo combate",
+    ":crossed_swords: {{power}} Ataque + durante o próximo combate",
+    ":shield: {{power}} Defesa + durante o próximo combate",
+    ":clock1030: {{power}}Tempo de avanço",
+    ":moneybag: {{power}}Prata +",
+    ":zap: {{power}}Energia +"
   ],
   "rarities": [
     ":small_orange_diamond: Básico",
@@ -38,6 +38,6 @@
     ":gem: Mítico"
   ],
   "speed": ":rocket: {{value}}",
-  "weaponsFieldName": "Arme :",
-  "itemsField": "**{{emote}} {{name}}** | {{rarity}} | {{values}}"
+  "weaponsFieldName": "Arma :",
+  "itemsField": "{{emote}} {{name}} {{rarity}} {{values}}** ** | |"
 }
