@@ -1,40 +1,31 @@
 {
-  "armors": {
-    "fieldName": "Armadura/Escudo :",
-    "fieldValue": "**{{name}}** | {{rarity}} | {{values}}"
-  },
+  "armorsFieldName": "Armure/Bouclier :",
   "attack": ":dagger: {{value}}",
   "defense": ":shield: {{value}}",
   "nameDisplay": "{{emote}} **{{{name}}}**",
   "nerfDisplay": "~~{{old}}~~ {{max}}",
-  "objects": {
-    "fieldName": "Asunto :",
-    "fieldValue": "**{{name}}** | {{rarity}} | {{nature}}",
-    "natures": [
-      ":x: Sin efecto",
-      ":heart: Vida + {{power}} al día",
-      ":rocket: Velocidad + {{power}} durante el combate",
-      ":crossed_swords: Ataque + {{power}} durante el combate",
-      ":shield: Defensa + {{power}} durante el combate",
-      ":clock1030: Avance rápido a {{power}} cada día",
-      ":moneybag: Dinero + {{power}} al día",
-      ":zap: Energía + {{power}} al día"
-    ]
-  },
-  "potions": {
-    "fieldName": "Poción :",
-    "fieldValue": "**{{name}}** | {{rarity}} | {{nature}}",
-    "natures": [
-      ":x: Sin efecto",
-      ":heart: Vida + {{power}}",
-      ":rocket: Velocidad + {{power}} durante el siguiente combate",
-      ":crossed_swords: Ataque + {{power}} durante el siguiente combate",
-      ":shield: Defensa + {{power}} durante el siguiente combate",
-      ":clock1030: Tiempo de antelación {{power}}",
-      ":moneybag: Plata + {{power}}",
-      ":zap: Energía + {{power}}"
-    ]
-  },
+  "objectsFieldName": "Objet :",
+  "objectsNatures": [
+    ":x: Aucun effet",
+    ":heart: Vie + {{power}} par jour",
+    ":rocket: Vitesse + {{power}} pendant les combats",
+    ":crossed_swords: Attaque + {{power}} pendant les combats",
+    ":shield: Défense + {{power}} pendant les combats",
+    ":clock1030: Avance le temps de {{power}} chaque jour",
+    ":moneybag: Argent + {{power}} par jour",
+    ":zap: Énergie + {{power}} par jour"
+  ],
+  "potionsFieldName": "Potion :",
+  "potionsNatures": [
+    ":x: Aucun effet",
+    ":heart: Vie + {{power}}",
+    ":rocket: Vitesse + {{power}} pendant le prochain combat",
+    ":crossed_swords: Attaque + {{power}} pendant le prochain combat",
+    ":shield: Défense + {{power}} pendant le prochain combat",
+    ":clock1030: Avance le temps de {{power}}",
+    ":moneybag: Argent + {{power}}",
+    ":zap: Énergie + {{power}}"
+  ],
   "rarities": [
     ":small_orange_diamond: Básico",
     ":large_orange_diamond: Común",
@@ -47,8 +38,6 @@
     ":gem: Mítico"
   ],
   "speed": ":rocket: {{value}}",
-  "weapons": {
-    "fieldName": "Arma :",
-    "fieldValue": "**{{name}}** | {{rarity}} | {{values}}"
-  }
+  "weaponsFieldName": "Arme :",
+  "itemsField": "**{{emote}} {{name}}** | {{rarity}} | {{values}}"
 }
