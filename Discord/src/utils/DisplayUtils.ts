@@ -137,7 +137,7 @@ export class DisplayUtils {
 				interpolation: {escapeValue: false}
 			}),
 			emote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.objects[itemWithDetails.id]),
-			rarity: i18n.t("items:rarities." + itemWithDetails.rarity, {lng: language}),
+			rarity: i18n.t(`items:rarities.${itemWithDetails.rarity}`, {lng: language}),
 			values: DisplayUtils.getObjectNatureTranslation(itemWithDetails, language),
 			lng: language,
 			interpolation: {escapeValue: false}
