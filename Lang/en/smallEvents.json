@@ -821,5 +821,20 @@
         "you see a cart that loads over and over your bag. While you gather your belongings a group of children is passing and you are robbing money. You are losing **{{amount}} :money_with_wings:**."
       ]
     }
+  },
+  "findPotion": {
+    "stories": [
+      "you see a shiny vial from the corner of your eye...",
+      "you slide on the lower side and you get to the ground. As you rise, you notice a strange bottle filled with liquid.",
+      "you notice a damaged bag on the road. you open it quickly...",
+      "you decide to make a side trip to avoid crossing a river. That's when you discover...",
+      "you meet a man, with a loaded mule. A few minutes later, you notice tat something has fallen form his package. It is now too late to catch him up.",
+      "your eyes are attracted by the reflection of a potion on the ground.",
+      "you start on a root. Furious, you sit a big blow at the root... It seems it isn't a root...",
+      "you meet a child who doesn't seem to speak your language. It looks welcome, however, and tends you a package...",
+      "you come across a man with a loaded mule. You decide to help him carry his load. As a thanks, he offers you a potion...",
+      "you meet a woman who looks like she wants to offer you a drink. Intrigued, you accept her offer...",
+      "you discover a house that you quickly explore. You pick up a bottle and leave hastily..."
+    ]
   }
 }
