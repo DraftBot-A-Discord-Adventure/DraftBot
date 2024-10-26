@@ -1,3 +1,8 @@
+export type PetInteraction = {
+	name:string,
+	probabilityWeight:number
+}
+
 export abstract class PetConstants {
 	static readonly IS_FOOD = 1;
 
@@ -13,7 +18,7 @@ export abstract class PetConstants {
 		FEMALE_FULL: "female"
 	};
 
-	static readonly PET_INTERACTIONS = {
+	static readonly PET_INTERACTIONS_NAMES = {
 		WIN_MONEY: "money",
 		WIN_HEALTH: "gainLife",
 		WIN_LOVE: "gainLove",
@@ -27,7 +32,43 @@ export abstract class PetConstants {
 		LOSE_MONEY: "loseMoney",
 		LOSE_TIME: "loseTime",
 		PET_FLEE: "petFlee",
-		LOSE_LOVE: "loseLove"
+		LOSE_LOVE: "loseLove",
+		WIN_ITEM: "item"
+	};
+
+	static readonly PET_INTERACTIONS: {PET_NORMAL:{[interactionKey:string]:PetInteraction}[], PET_FEISTY:{[interactionKey:string]:PetInteraction}} = {
+		PET_NORMAL: [
+			{},
+			{
+				WIN_ENERGY: {name: this.PET_INTERACTIONS_NAMES.WIN_ENERGY, probabilityWeight: 9},
+				WIN_FOOD: {name: this.PET_INTERACTIONS_NAMES.WIN_FOOD, probabilityWeight: 5},
+				NOTHING: {name: this.PET_INTERACTIONS_NAMES.NOTHING, probabilityWeight: 15},
+				WIN_POINTS: {name: this.PET_INTERACTIONS_NAMES.WIN_POINTS, probabilityWeight: 5}
+			},
+			{
+				WIN_LOVE: {name: this.PET_INTERACTIONS_NAMES.WIN_LOVE, probabilityWeight: 6}
+			},
+			{
+				WIN_MONEY: {name: this.PET_INTERACTIONS_NAMES.WIN_MONEY, probabilityWeight: 9},
+				WIN_TIME: {name: this.PET_INTERACTIONS_NAMES.WIN_TIME, probabilityWeight: 4}
+			},
+			{
+				WIN_HEALTH: {name: this.PET_INTERACTIONS_NAMES.WIN_HEALTH, probabilityWeight: 5}
+			},
+			{
+				WIN_ITEM: {name: this.PET_INTERACTIONS_NAMES.WIN_ITEM, probabilityWeight: 3}
+			},
+			{
+				WIN_BADGE: {name: this.PET_INTERACTIONS_NAMES.WIN_BADGE, probabilityWeight: 1}
+			}
+		],
+		PET_FEISTY: {
+			LOSE_HEALTH: {name: this.PET_INTERACTIONS_NAMES.LOSE_HEALTH, probabilityWeight: 5},
+			LOSE_MONEY: {name: this.PET_INTERACTIONS_NAMES.LOSE_MONEY, probabilityWeight: 5},
+			LOSE_TIME: {name: this.PET_INTERACTIONS_NAMES.LOSE_TIME, probabilityWeight: 5},
+			PET_FLEE: {name: this.PET_INTERACTIONS_NAMES.PET_FLEE, probabilityWeight: 1},
+			LOSE_LOVE: {name: this.PET_INTERACTIONS_NAMES.LOSE_LOVE, probabilityWeight: 5}
+		}
 	};
 
 	static readonly BREED_COOLDOWN = 60 * 60 * 1000; // 1 hour

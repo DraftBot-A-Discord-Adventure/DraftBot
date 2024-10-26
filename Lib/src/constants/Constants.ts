@@ -291,6 +291,8 @@ export class Constants {
 	};
 
 	static readonly DEFAULT_HEALED_EFFECT = ":hospital:";
+
+	static readonly DEFAULT_ERROR = "error";
 }
 
 export type ConstantRange = { MIN: number, MAX: number };
