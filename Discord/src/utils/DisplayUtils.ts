@@ -72,12 +72,13 @@ export class DisplayUtils {
 		this.getStringValueFor(values, itemWithDetails.maxStats?.attack ?? null, itemWithDetails.detailsMainItem!.stats.attack, "attack", language);
 		this.getStringValueFor(values, itemWithDetails.maxStats?.defense ?? null, itemWithDetails.detailsMainItem!.stats.defense, "defense", language);
 		this.getStringValueFor(values, itemWithDetails.maxStats?.speed ?? null, itemWithDetails.detailsMainItem!.stats.speed, "speed", language);
-		return i18n.t(`items:${itemType}.fieldValue`, {
+		return i18n.t("items:itemsField", {
 			lng: language,
 			name: i18n.t(`models:${itemType}.` + itemWithDetails.id, {
 				lng: language,
 				interpolation: {escapeValue: false}
 			}),
+			emote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons[itemType][itemWithDetails.id]),
 			rarity: i18n.t("items:rarities." + itemWithDetails.rarity, {lng: language}),
 			values: values.join(" "),
 			interpolation: {escapeValue: false}

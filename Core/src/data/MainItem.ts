@@ -26,30 +26,30 @@ export abstract class MainItem extends GenericItem {
 		return Math.round(before * 0.5) + (this.speed ?? 0);
 	}
 
+	public getDisplayPacket(maxStatsValue: MaxStatsValues): MainItemDisplayPacket {
+		return {
+			attack: {
+				value: this.getAttack(),
+				maxValue: maxStatsValue.attack
+			},
+			defense: {
+				value: this.getDefense(),
+				maxValue: maxStatsValue.defense
+			},
+			speed: {
+				value: this.getSpeed(),
+				maxValue: maxStatsValue.speed
+			},
+			rarity: this.rarity,
+			id: this.id
+		};
+	}
+
 	/**
 	 * Get the multiplier for the item depending on its rarity
 	 * @protected
 	 */
 	protected multiplier(): number {
 		return InventoryConstants.ITEMS_MAPPER[this.rarity];
-	}
-
-	public getDisplayPacket(maxStatsValue: MaxStatsValues): MainItemDisplayPacket {
-		return {
-			attack: {
-				value: this.attack ? this.getAttack() : 0,
-				maxValue: maxStatsValue.attack
-			},
-			defense: {
-				value: this.defense ? this.getDefense() : 0,
-				maxValue: maxStatsValue.defense
-			},
-			speed: {
-				value: this.speed ? this.getSpeed() : 0,
-				maxValue: maxStatsValue.speed
-			},
-			rarity: this.rarity,
-			id: this.id
-		};
 	}
 }
