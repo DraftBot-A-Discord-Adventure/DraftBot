@@ -1,4 +1,4 @@
-import {ItemCategory, ItemNature} from "../../../Lib/src/constants/ItemConstants";
+import {ItemCategory} from "../../../Lib/src/constants/ItemConstants";
 import {ItemDataController} from "./DataController";
 import {SupportItem} from "./SupportItem";
 import {RandomUtils} from "../../../Lib/src/utils/RandomUtils";
