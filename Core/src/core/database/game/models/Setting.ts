@@ -3,20 +3,18 @@ import {PotionDataController} from "../../../../data/Potion";
 import {MapCache} from "../../../maps/MapCache";
 import moment = require("moment");
 
-class SettingClass<T extends number | string> {
+class SettingClassNumber {
 	private readonly name: string;
 
-	private readonly defaultValue: () => Promise<T>;
+	private readonly defaultValue: () => Promise<number>;
 
-	private readonly junkVariable: T; // Variable only used for typeof. Doesn't contain any value
-
-	constructor(name: string, defaultValue: () => Promise<T>) {
+	constructor(name: string, defaultValue: () => Promise<number>) {
 		this.name = name;
 		this.defaultValue = defaultValue;
 	}
 
-	public async getValue(): Promise<T> {
-		let value: T;
+	public async getValue(): Promise<number> {
+		let value: number;
 
 		const settingInstance = await Setting.findOne({
 			where: {
@@ -25,51 +23,72 @@ class SettingClass<T extends number | string> {
 		});
 
 		if (settingInstance) {
-			if (typeof this.junkVariable === "string") {
-				value = <T>settingInstance.dataString;
-			}
-			else {
-				value = <T>settingInstance.dataNumber;
-			}
+			value = settingInstance.dataNumber;
 		}
 		else {
 			value = await this.defaultValue();
-			if (typeof this.junkVariable === "string") {
-				await Setting.create({
-					name: this.name,
-					dataString: value
-				});
-			}
-			else {
-				await Setting.create({
-					name: this.name,
-					dataNumber: value
-				});
-			}
+			await Setting.create({
+				name: this.name,
+				dataNumber: value
+			});
 		}
 
 		return value;
 	}
 
-	public async setValue(value: T): Promise<void> {
-		if (typeof this.junkVariable === "string") {
-			await Setting.update({
-				dataString: value
-			}, {
-				where: {
-					name: this.name
-				}
-			});
+	public async setValue(value: number): Promise<void> {
+		await Setting.update({
+			dataNumber: value
+		}, {
+			where: {
+				name: this.name
+			}
+		});
+	}
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+class SettingClassString {
+	private readonly name: string;
+
+	private readonly defaultValue: () => Promise<string>;
+
+	constructor(name: string, defaultValue: () => Promise<string>) {
+		this.name = name;
+		this.defaultValue = defaultValue;
+	}
+
+	public async getValue(): Promise<string> {
+		let value: string;
+
+		const settingInstance = await Setting.findOne({
+			where: {
+				name: this.name
+			}
+		});
+
+		if (settingInstance) {
+			value = settingInstance.dataString;
 		}
 		else {
-			await Setting.update({
-				dataNumber: value
-			}, {
-				where: {
-					name: this.name
-				}
+			value = await this.defaultValue();
+			await Setting.create({
+				name: this.name,
+				dataString: value
 			});
 		}
+
+		return value;
+	}
+
+	public async setValue(value: string): Promise<void> {
+		await Setting.update({
+			dataString: value
+		}, {
+			where: {
+				name: this.name
+			}
+		});
 	}
 }
 
@@ -86,14 +105,29 @@ export class Setting extends Model {
 }
 
 export class Settings {
-	public static readonly SHOP_POTION: SettingClass<number> = new SettingClass(
+	public static readonly SHOP_POTION = new SettingClassNumber(
 		"shopPotion",
 		async (): Promise<number> => (await PotionDataController.instance.randomShopPotion()).id
 	);
 
-	public static readonly PVE_ISLAND: SettingClass<number> = new SettingClass(
+	public static readonly PVE_ISLAND = new SettingClassNumber(
 		"pveIslandLink",
 		(): Promise<number> => Promise.resolve(MapCache.randomPveBoatLinkId())
+	);
+
+	public static readonly NEXT_WEEKLY_RESET = new SettingClassNumber(
+		"nextWeeklyReset",
+		(): Promise<number> => Promise.resolve(0)
+	);
+
+	public static readonly NEXT_SEASON_RESET = new SettingClassNumber(
+		"nextSeasonReset",
+		(): Promise<number> => Promise.resolve(0)
+	);
+
+	public static readonly NEXT_DAILY_RESET = new SettingClassNumber(
+		"nextDailyReset",
+		(): Promise<number> => Promise.resolve(0)
 	);
 }
 
@@ -108,7 +142,7 @@ export function initModel(sequelize: Sequelize): void {
 			allowNull: true
 		},
 		dataNumber: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.BIGINT,
 			allowNull: true
 		},
 		updatedAt: {

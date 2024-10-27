@@ -7,6 +7,7 @@ import {
 import {ErrorPacket} from "../../Lib/src/packets/commands/ErrorPacket";
 import { connect } from "mqtt";
 import {PacketUtils} from "./core/utils/PacketUtils";
+import {MqttConstants} from "../../Lib/src/constants/MqttConstants";
 
 export const botConfig = loadConfig();
 export let draftBotInstance: DraftBot = null;
@@ -16,7 +17,7 @@ console.log("Running DraftBot 5.0.0");
 export const mqttClient = connect(botConfig.MQTT_HOST);
 
 mqttClient.on("connect", () => {
-	mqttClient.subscribe("draftbot_core", (err) => {
+	mqttClient.subscribe(MqttConstants.CORE_TOPIC, (err) => {
 		if (err) {
 			console.error(err);
 		}
