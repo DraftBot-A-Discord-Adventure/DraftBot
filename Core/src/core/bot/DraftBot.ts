@@ -5,16 +5,25 @@ import {LogsDatabase} from "../database/logs/LogsDatabase";
 import {draftBotInstance} from "../../index";
 import {Settings} from "../database/game/models/Setting";
 import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
-import {Op} from "sequelize";
+import {Op, Sequelize} from "sequelize";
 import PetEntity from "../database/game/models/PetEntity";
 import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {PotionDataController} from "../../data/Potion";
-import {getNextDay2AM} from "../../../../Lib/src/utils/TimeUtils";
+import {getNextDay2AM, getNextSaturdayMidnight, getNextSundayMidnight} from "../../../../Lib/src/utils/TimeUtils";
 import {TIMEOUT_FUNCTIONS} from "../../../../Lib/src/constants/TimeoutFunctionsConstants";
 import {MapCache} from "../maps/MapCache";
 import {registerAllPacketHandlers} from "../packetHandlers/PacketHandler";
 import {Logger} from "../../../../Lib/src/instances/Logger";
 import {CommandsTest} from "../CommandsTest";
+import Player from "../database/game/models/Player";
+import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
+import {LeagueInfoConstants} from "../../../../Lib/src/constants/LeagueInfoConstants";
+import {PacketUtils} from "../utils/PacketUtils";
+import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
+import {TopWeekAnnouncementPacket} from "../../../../Lib/src/packets/announcements/TopWeekAnnouncementPacket";
+import {MqttConstants} from "../../../../Lib/src/constants/MqttConstants";
+import {TopWeekFightAnnouncementPacket} from "../../../../Lib/src/packets/announcements/TopWeekFightAnnouncementPacket";
+import PlayerMissionsInfo from "../database/game/models/PlayerMissionsInfo";
 
 export class DraftBot {
 	public readonly packetListener: PacketListenerServer;
@@ -39,9 +48,36 @@ export class DraftBot {
 	}
 
 	/**
+	 * Launch the program that execute the top week reset
+	 */
+	static programWeeklyTimeout(): void {
+		const millisTill = getNextSundayMidnight().valueOf() - Date.now();
+		if (millisTill === 0) {
+			// Case at 0:00:00
+			setTimeout(DraftBot.programWeeklyTimeout, TIMEOUT_FUNCTIONS.TOP_WEEK_TIMEOUT);
+			return;
+		}
+		setTimeout(DraftBot.weeklyTimeout, millisTill);
+	}
+
+	/**
+	 * Launch the program that execute the season reset
+	 */
+	static programSeasonTimeout(): void {
+		const millisTill = getNextSaturdayMidnight().valueOf() - Date.now();
+		if (millisTill === 0) {
+			// Case at 0:00:00
+			setTimeout(DraftBot.programSeasonTimeout, TIMEOUT_FUNCTIONS.SEASON_TIMEOUT);
+			return;
+		}
+		setTimeout(DraftBot.seasonEnd, millisTill);
+	}
+
+	/**
 	 * Execute all the daily tasks
 	 */
 	static dailyTimeout(): void {
+		Settings.NEXT_DAILY_RESET.setValue(getNextDay2AM().valueOf()).then();
 		DraftBot.randomPotion().finally(() => null);
 		DraftBot.randomLovePointsLoose().then((petLoveChange) => draftBotInstance.logsDatabase.logDailyTimeout(petLoveChange).then());
 		draftBotInstance.logsDatabase.log15BestTopWeek().then();
@@ -102,69 +138,30 @@ export class DraftBot {
 	/**
 	 * End the fight season
 	 */
-	static seasonEnd(): Promise<void> {
-		// TODO reforge this function
-		return null;
-		/* DraftBotInstance.logsDatabase.log15BestSeason().then();
+	static async seasonEnd(): Promise<void> {
+		Settings.NEXT_SEASON_RESET.setValue(getNextSaturdayMidnight().valueOf()).then();
+		draftBotInstance.logsDatabase.log15BestSeason().then();
 		const winner = await DraftBot.findSeasonWinner();
 		if (winner !== null) {
-			await draftBotClient.shard.broadcastEval((client, context: { config: DraftBotConfig, frSentence: string, enSentence: string }) => {
-				client.guilds.fetch(context.config.MAIN_SERVER_ID).then((guild) => {
-					if (guild.shard) {
-						try {
-							guild.channels.fetch(context.config.FRENCH_ANNOUNCEMENT_CHANNEL_ID).then(channel => {
-								(channel as TextChannel).send({
-									content: context.frSentence
-								}).then(message => {
-									message.react("✨").then();
-								});
-							});
-						}
-						catch (e) {
-							console.log(e);
-						}
-						try {
-							guild.channels.fetch(context.config.ENGLISH_ANNOUNCEMENT_CHANNEL_ID).then(channel => {
-								(channel as TextChannel).send({
-									content: context.enSentence
-								}).then(message => {
-									message.react("✨").then();
-								});
-							});
-						}
-						catch (e) {
-							console.log(e);
-						}
-					}
-				});
-			}, {
-				context: {
-					config: botConfig,
-					frSentence: Translations.getModule("bot", Constants.LANGUAGE.FRENCH).format("seasonEndAnnouncement", {
-						mention: winner.getMention()
-					}),
-					enSentence: Translations.getModule("bot", Constants.LANGUAGE.ENGLISH).format("seasonEndAnnouncement", {
-						mention: winner.getMention()
-					})
-				}
-			});
+			PacketUtils.announce(makePacket(TopWeekFightAnnouncementPacket, {winnerKeycloakId: winner.keycloakId}), MqttConstants.DISCORD_TOP_WEEK_FIGHT_ANNOUNCEMENT_TOPIC);
 			winner.addBadge("✨");
 			await winner.save();
+		}
+		else {
+			PacketUtils.announce(makePacket(TopWeekFightAnnouncementPacket, {}), MqttConstants.DISCORD_TOP_WEEK_FIGHT_ANNOUNCEMENT_TOPIC);
 		}
 		await DraftBot.seasonEndQueries();
 
 		console.log("# WARNING # Season has been ended !");
 		DraftBot.programSeasonTimeout();
-		draftBotInstance.logsDatabase.logSeasonEnd().then(); */
+		draftBotInstance.logsDatabase.logSeasonEnd().then();
 	}
 
 	/**
 	 * End the top week
 	 */
-	static topWeekEnd(): Promise<void> {
-		// TODO reforge this function
-		return null;
-		/* DraftBotInstance.logsDatabase.log15BestTopWeek().then();
+	static async topWeekEnd(): Promise<void> {
+		draftBotInstance.logsDatabase.log15BestTopWeek().then();
 		const winner = await Player.findOne({
 			where: {
 				weeklyScore: {
@@ -178,55 +175,73 @@ export class DraftBot {
 			limit: 1
 		});
 		if (winner !== null) {
-			await draftBotClient.shard.broadcastEval((client, context: { config: DraftBotConfig, frSentence: string, enSentence: string }) => {
-				client.guilds.fetch(context.config.MAIN_SERVER_ID).then((guild) => {
-					if (guild.shard) {
-						try {
-							guild.channels.fetch(context.config.FRENCH_ANNOUNCEMENT_CHANNEL_ID).then(channel => {
-								(channel as TextChannel).send({
-									content: context.frSentence
-								}).then(message => {
-									message.react("🏆").then();
-								});
-							});
-						}
-						catch (e) {
-							console.log(e);
-						}
-						try {
-							guild.channels.fetch(context.config.ENGLISH_ANNOUNCEMENT_CHANNEL_ID).then(channel => {
-								(channel as TextChannel).send({
-									content: context.enSentence
-								}).then(message => {
-									message.react("🏆").then();
-								});
-							});
-						}
-						catch (e) {
-							console.log(e);
-						}
-					}
-				});
-			}, {
-				context: {
-					config: botConfig,
-					frSentence: Translations.getModule("bot", Constants.LANGUAGE.FRENCH).format("topWeekAnnouncement", {
-						mention: winner.getMention()
-					}),
-					enSentence: Translations.getModule("bot", Constants.LANGUAGE.ENGLISH).format("topWeekAnnouncement", {
-						mention: winner.getMention()
-					})
-				}
-			});
+			PacketUtils.announce(makePacket(TopWeekAnnouncementPacket, {winnerKeycloakId: winner.keycloakId}), MqttConstants.DISCORD_TOP_WEEK_ANNOUNCEMENT_TOPIC);
 			winner.addBadge("🎗️");
 			await winner.save();
+		}
+		else {
+			PacketUtils.announce(makePacket(TopWeekAnnouncementPacket, {}), MqttConstants.DISCORD_TOP_WEEK_ANNOUNCEMENT_TOPIC);
 		}
 		await Player.update({weeklyScore: 0}, {where: {}});
 		console.log("# WARNING # Weekly leaderboard has been reset !");
 		await PlayerMissionsInfo.resetShopBuyout();
 		console.log("All players can now buy again points from the mission shop !");
 		DraftBot.programWeeklyTimeout();
-		draftBotInstance.logsDatabase.logTopWeekEnd().then(); */
+		draftBotInstance.logsDatabase.logTopWeekEnd().then();
+	}
+
+	/**
+	 * Database queries to execute at the end of the season
+	 * @private
+	 */
+	private static async seasonEndQueries(): Promise<void> {
+		// We set the gloryPointsLastSeason to 0 if the fightCountdown is above the limit because the player was inactive
+		await Player.update(
+			{
+				gloryPointsLastSeason: Sequelize.literal(
+					`CASE WHEN fightCountdown <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE} THEN gloryPoints ELSE 0 END`
+				)
+			},
+			{where: {}}
+		);
+		// We add one to the fightCountdown
+		await Player.update(
+			{
+				fightCountdown: Sequelize.literal(
+					"fightCountdown + 1"
+				)
+			},
+			{where: {fightCountdown: {[Op.lt]: FightConstants.FIGHT_COUNTDOWN_REGEN_LIMIT}}}
+		);
+		// We remove 33% of the glory points above the GLORY_RESET_THRESHOLD
+		await Player.update(
+			{
+				gloryPoints: Sequelize.literal(
+					`gloryPoints - (gloryPoints - ${LeagueInfoConstants.GLORY_RESET_THRESHOLD}) * ${LeagueInfoConstants.SEASON_END_LOSS_PERCENTAGE}`
+				)
+			},
+			{where: {gloryPoints: {[Op.gt]: LeagueInfoConstants.GLORY_RESET_THRESHOLD}}}
+		);
+	}
+
+	/**
+	 * Find the winner of the season
+	 * @private
+	 */
+	private static async findSeasonWinner(): Promise<Player> {
+		return await Player.findOne({
+			where: {
+				fightCountdown: {
+					[Op.lte]: FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE
+				}
+			},
+			order: [
+				["gloryPoints", "DESC"],
+				["level", "DESC"],
+				["score", "DESC"]
+			],
+			limit: 1
+		});
 	}
 
 	/**
@@ -242,6 +257,7 @@ export class DraftBot {
 	 * Execute all the daily tasks
 	 */
 	static weeklyTimeout(): void {
+		Settings.NEXT_WEEKLY_RESET.setValue(getNextSundayMidnight().valueOf()).then();
 		DraftBot.topWeekEnd().then();
 		DraftBot.newPveIsland().then();
 	}
@@ -253,6 +269,27 @@ export class DraftBot {
 		await MapCache.init();
 		if (this.config.TEST_MODE) {
 			await CommandsTest.init();
+		}
+
+		if (await Settings.NEXT_WEEKLY_RESET.getValue() < Date.now()) {
+			DraftBot.weeklyTimeout();
+		}
+		else {
+			DraftBot.programWeeklyTimeout();
+		}
+
+		if (await Settings.NEXT_SEASON_RESET.getValue() < Date.now()) {
+			DraftBot.seasonEnd().then();
+		}
+		else {
+			DraftBot.programSeasonTimeout();
+		}
+
+		if (await Settings.NEXT_DAILY_RESET.getValue() < Date.now()) {
+			DraftBot.dailyTimeout();
+		}
+		else {
+			DraftBot.programDailyTimeout();
 		}
 	}
 }

@@ -16,9 +16,11 @@
   "notInAGuild": "Vous devez appartenir à une guilde pour effectuer cette commande",
   "resetIsNow": ":trophy: Le classement de la semaine est en cours de réinitialisation ! Le gagnant sera annoncé sous peu sur le serveur du bot ! Le jeu reprendra dans moins de 5 minutes !",
   "seasonEndAnnouncement": ":sparkles: **La saison de combat est terminée ! Le gagnant est :** {{mention}}",
+  "seasonEndAnnouncementNoWinner": ":sparkles: **La saison de combat est terminée ! Malheureusement, il n'y a pas de participant et donc de gagnant cette saison.**",
   "seasonEndIsNow": ":sparkles: La saison de combat est en cours de réinitialisation ! Le gagnant sera annoncé sous peu sur le serveur du bot ! Le jeu reprendra dans moins de 20 minutes !",
   "serverList": "**:outbox_tray: Serveur {{count}} :** `{{guild}}` | :bust_in_silhouette: : `{{humans}}` | :robot: : `{{robots}}` | Ratio bot/Humain : `{{ratio}}` % | Validation : {{validation}}",
   "supportAlert": ":love_letter: | **Nouveau message privé reçu !** \n`Auteur: {{username}} (id : {{id}})\n\n`",
   "topWeekAnnouncement": ":trophy: **Le classement de la semaine est terminé ! Le gagnant est :** {{mention}}",
+  "topWeekAnnouncementNoWinner": ":trophy: **Le classement de la semaine est terminé ! Malheureusement, il n'y a pas de participant et donc de gagnant cette semaine.**",
   "totalUsersCount": "**Nombre total d'utilisateurs : `{{count}}`**"
 }
