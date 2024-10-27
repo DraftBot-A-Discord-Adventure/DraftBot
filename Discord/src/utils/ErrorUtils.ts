@@ -45,14 +45,14 @@ export async function sendErrorMessage(
 export async function sendInteractionNotForYou(
 	user: User,
 	interaction: ButtonInteraction | StringSelectMenuInteraction,
-	language: Language
+	lng: Language
 ): Promise<void> {
 	await interaction.reply({
 		embeds: [
 			new DraftBotEmbed()
-				.setDescription(i18n.t("error:interactionNotForYou", { lng: language }))
+				.setDescription(i18n.t("error:interactionNotForYou", {lng}))
 				.setErrorColor()
-				.formatAuthor(i18n.t("error:titleDidntWork", { lng: language, pseudo: user.username }), user)
+				.formatAuthor(i18n.t("error:titleDidntWork", {lng, pseudo: user.username}), user)
 		],
 		ephemeral: true
 	});
@@ -61,16 +61,16 @@ export async function sendInteractionNotForYou(
 /**
  * Send an error message if the user has an effect
  * @param user
- * @param language
+ * @param lng
  * @param self
  * @param effectId
  * @param effectRemainingTime
  */
-export function effectsErrorTextValue(user: KeycloakUser, language: string, self: boolean, effectId: string, effectRemainingTime: number): { title: string, description: string } {
+export function effectsErrorTextValue(user: KeycloakUser, lng: Language, self: boolean, effectId: string, effectRemainingTime: number): { title: string, description: string } {
 	const translationKey = self ? `error:effects.${effectId}.self` : `error:effects.${effectId}.other`;
 	const errorMessageObject: { title: string, description: string } = {
 		title: i18n.t(translationKey, {
-			lng: language,
+			lng,
 			pseudo: escapeUsername(user.attributes.gameUsername[0])
 		}),
 		description: `${DraftBotIcons.effects[effectId]} `
@@ -79,14 +79,14 @@ export function effectsErrorTextValue(user: KeycloakUser, language: string, self
 
 	switch (effectId) {
 	case Effect.NO_EFFECT.id:
-		errorMessageObject.description += i18n.t("error:notPossibleWithoutStatus", { lng: language });
+		errorMessageObject.description += i18n.t("error:notPossibleWithoutStatus", {lng});
 		break;
 	case Effect.NOT_STARTED.id:
 	case Effect.DEAD.id:
-		errorMessageObject.description += i18n.t(self ? `error:effects.${effectId}.self` : `error:effects.${effectId}.other`, { lng: language });
+		errorMessageObject.description += i18n.t(self ? `error:effects.${effectId}.self` : `error:effects.${effectId}.other`, {lng});
 		break;
 	default:
-		errorMessageObject.description += i18n.t(self ? "error:pleaseWaitForHeal" : "error:pleaseWaitForHisHeal", { lng: language, time: timeEffect });
+		errorMessageObject.description += i18n.t(self ? "error:pleaseWaitForHeal" : "error:pleaseWaitForHisHeal", {lng, time: timeEffect});
 	}
 
 	if (self) {

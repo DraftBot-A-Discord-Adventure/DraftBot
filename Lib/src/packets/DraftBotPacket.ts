@@ -1,4 +1,5 @@
-import "../index"; // Import so it will verify decorators if we use DraftBotPacket
+import "../index";
+import {Language} from "../Language"; // Import so it will verify decorators if we use DraftBotPacket
 
 const AllPackets = new Map<string, PacketDirection>();
 
@@ -15,7 +16,8 @@ export function sendablePacket(direction: PacketDirection) {
 	};
 }
 
-export class DraftBotPacket {}
+export class DraftBotPacket {
+}
 
 export interface PacketContext {
 	keycloakId?: string;
@@ -25,12 +27,12 @@ export interface PacketContext {
 		interaction: string,
 		buttonInteraction?: string,
 		channel: string,
-		language: string
+		language: Language
 	}
 }
 
 
-export function makePacket<Packet extends DraftBotPacket>(Packet: {new(): Packet}, {...args}: Packet): Packet {
+export function makePacket<Packet extends DraftBotPacket>(Packet: { new(): Packet }, {...args}: Packet): Packet {
 	const instance = new Packet();
 	Object.assign(instance, args);
 	return instance;

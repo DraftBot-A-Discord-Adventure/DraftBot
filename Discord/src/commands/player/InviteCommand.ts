@@ -6,9 +6,8 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 /**
  * Displays the bot's official server invitation link
  */
-async function getPacket(interaction: DraftbotInteraction): Promise<null> {
-	await interaction.reply({content: i18n.t("commands:invite.discord.main")});
-	return null;
+async function getPacket(interaction: DraftbotInteraction): Promise<void> {
+	await interaction.reply({content: i18n.t("commands:invite.discord.main", {lng: interaction.userLanguage})});
 }
 
 export const commandInfo: ICommand = {

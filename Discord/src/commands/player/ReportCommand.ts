@@ -29,9 +29,12 @@ import {
 	printTimeBeforeDate
 } from "../../../../Lib/src/utils/TimeUtils";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
-import {ReactionCollectorChooseDestinationReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorChooseDestination";
+import {
+	ReactionCollectorChooseDestinationReaction
+} from "../../../../Lib/src/packets/interaction/ReactionCollectorChooseDestination";
 import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
 import {EmoteUtils} from "../../utils/EmoteUtils";
+import {LANGUAGE} from "../../../../Lib/src/Language";
 
 async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandReportPacketReq> {
 	await interaction.deferReply();
@@ -46,7 +49,7 @@ export async function createBigEventCollector(packet: ReactionCollectorCreationP
 
 	const row = new ActionRowBuilder<ButtonBuilder>();
 	let eventText = `${i18n.t(`events:${data.eventId}.text`, {
-		lng: context.discord?.language,
+		lng: context.discord?.language ?? LANGUAGE.ENGLISH,
 		interpolation: {escapeValue: false}
 	})}\n\n`;
 	for (const possibility of reactions) {
@@ -60,7 +63,7 @@ export async function createBigEventCollector(packet: ReactionCollectorCreationP
 			row.addComponents(button);
 
 			const reactionText = `${emoji} ${i18n.t(`events:${data.eventId}.possibilities.${possibility.name}.text`, {
-				lng: context.discord?.language,
+				lng: context.discord?.language ?? LANGUAGE.ENGLISH,
 				interpolation: {escapeValue: false}
 			})}`;
 			eventText += `${reactionText}\n`;

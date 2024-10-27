@@ -13,13 +13,21 @@ import {Language} from "../../../../Lib/src/Language";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
-import {CommandInventoryPacketReq, CommandInventoryPacketRes, MainItemDisplayPacket, SupportItemDisplayPacket} from "../../../../Lib/src/packets/commands/CommandInventoryPacket";
+import {
+	CommandInventoryPacketReq,
+	CommandInventoryPacketRes,
+	MainItemDisplayPacket,
+	SupportItemDisplayPacket
+} from "../../../../Lib/src/packets/commands/CommandInventoryPacket";
 import {DiscordItemUtils} from "../../utils/DiscordItemUtils";
 import {sendInteractionNotForYou} from "../../utils/ErrorUtils";
 import {Effect} from "../../../../Lib/src/enums/Effect";
 
 async function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser): Promise<CommandInventoryPacketReq | null> {
-	let askedPlayer: { keycloakId?: string, rank?: number } = {keycloakId: keycloakUser.id};
+	let askedPlayer: {
+		keycloakId?: string,
+		rank?: number
+	} = {keycloakId: keycloakUser.id};
 
 	const user = interaction.options.getUser("user");
 	if (user) {
@@ -43,16 +51,19 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 }
 
 function getBackupField<T = MainItemDisplayPacket | SupportItemDisplayPacket>(
-	language: Language,
-	items: { display: T, slot: number}[],
+	lng: Language,
+	items: {
+		display: T,
+		slot: number
+	}[],
 	slots: number,
 	toFieldFunc: (displayPacket: T, language: Language) => EmbedField
 ): EmbedField {
-	const formattedTitle = i18n.t("commands:inventory.weapons", { lng: language, count: items.length, max: slots - 1 });
+	const formattedTitle = i18n.t("commands:inventory.weapons", {lng, count: items.length, max: slots - 1});
 	if (slots <= 1) {
 		return {
 			name: formattedTitle,
-			value: i18n.t("commands:inventory.noSlot", { lng: language }),
+			value: i18n.t("commands:inventory.noSlot", {lng}),
 			inline: false
 		};
 	}
@@ -60,10 +71,10 @@ function getBackupField<T = MainItemDisplayPacket | SupportItemDisplayPacket>(
 	for (let i = 1; i < slots; ++i) {
 		const search = items.find(item => item.slot === i);
 		if (!search) {
-			value += i18n.t("commands:inventory.emptySlot", { lng: language });
+			value += i18n.t("commands:inventory.emptySlot", {lng});
 		}
 		else {
-			value += toFieldFunc(search.display, language).value;
+			value += toFieldFunc(search.display, lng).value;
 		}
 		value += "\n";
 	}
@@ -74,36 +85,36 @@ function getBackupField<T = MainItemDisplayPacket | SupportItemDisplayPacket>(
 	};
 }
 
-function getEquippedEmbed(packet: CommandInventoryPacketRes, pseudo: string, language: Language): DraftBotEmbed {
+function getEquippedEmbed(packet: CommandInventoryPacketRes, pseudo: string, lng: Language): DraftBotEmbed {
 	if (packet.data) {
 		return new DraftBotEmbed()
 			.setTitle(i18n.t("commands:inventory.title", {
-				lng: language,
+				lng,
 				pseudo
 			}))
 			.addFields([
-				DiscordItemUtils.getWeaponField(packet.data.weapon, language),
-				DiscordItemUtils.getArmorField(packet.data.armor, language),
-				DiscordItemUtils.getPotionField(packet.data.potion, language),
-				DiscordItemUtils.getObjectField(packet.data.object, language)
+				DiscordItemUtils.getWeaponField(packet.data.weapon, lng),
+				DiscordItemUtils.getArmorField(packet.data.armor, lng),
+				DiscordItemUtils.getPotionField(packet.data.potion, lng),
+				DiscordItemUtils.getObjectField(packet.data.object, lng)
 			]);
 	}
 
 	throw new Error("Inventory packet data must not be undefined");
 }
 
-function getBackupEmbed(packet: CommandInventoryPacketRes, pseudo: string, language: Language): DraftBotEmbed {
+function getBackupEmbed(packet: CommandInventoryPacketRes, pseudo: string, lng: Language): DraftBotEmbed {
 	if (packet.data) {
 		return new DraftBotEmbed()
 			.setTitle(i18n.t("commands:inventory.stockTitle", {
-				lng: language,
+				lng,
 				pseudo
 			}))
 			.addFields([
-				getBackupField(language, packet.data.backupWeapons, packet.data.slots.weapons, DiscordItemUtils.getWeaponField),
-				getBackupField(language, packet.data.backupArmors, packet.data.slots.armors, DiscordItemUtils.getArmorField),
-				getBackupField(language, packet.data.backupPotions, packet.data.slots.potions, DiscordItemUtils.getPotionField),
-				getBackupField(language, packet.data.backupObjects, packet.data.slots.objects, DiscordItemUtils.getObjectField)
+				getBackupField(lng, packet.data.backupWeapons, packet.data.slots.weapons, DiscordItemUtils.getWeaponField),
+				getBackupField(lng, packet.data.backupArmors, packet.data.slots.armors, DiscordItemUtils.getArmorField),
+				getBackupField(lng, packet.data.backupPotions, packet.data.slots.potions, DiscordItemUtils.getPotionField),
+				getBackupField(lng, packet.data.backupObjects, packet.data.slots.objects, DiscordItemUtils.getObjectField)
 			]);
 	}
 

@@ -21,16 +21,17 @@ import {LANGUAGE, Language} from "../../../../Lib/src/Language";
  */
 async function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser): Promise<null> {
 	const selectLanguageMenuId = "languageSelectionMenu";
+	const lng = interaction.userLanguage;
 
 	const selectLanguageMenuOptions = LANGUAGE.LANGUAGES
 		.map((languageCode) => new StringSelectMenuOptionBuilder()
-			.setLabel(i18n.t(`commands:language.languages.${languageCode}.name`, {lng: interaction.userLanguage}))
-			.setEmoji(i18n.t(`commands:language.languages.${languageCode}.emoji`, {lng: interaction.userLanguage}))
+			.setLabel(i18n.t(`commands:language.languages.${languageCode}.name`, {lng}))
+			.setEmoji(i18n.t(`commands:language.languages.${languageCode}.emoji`, {lng}))
 			.setValue(languageCode));
 
 	const languageSelectionMenu = new StringSelectMenuBuilder()
 		.setCustomId(selectLanguageMenuId)
-		.setPlaceholder(i18n.t("commands:language.selectLanguage", {lng: interaction.userLanguage}))
+		.setPlaceholder(i18n.t("commands:language.selectLanguage", {lng}))
 		.addOptions(selectLanguageMenuOptions);
 
 	const row = new ActionRowBuilder<StringSelectMenuBuilder>()
@@ -38,12 +39,8 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 
 	const msg = await interaction.reply({
 		embeds: [new DraftBotEmbed()
-			.setTitle(i18n.t("commands:language.title", {
-				lng: interaction.userLanguage
-			}))
-			.setDescription(i18n.t("commands:language.description", {
-				lng: interaction.userLanguage
-			}))],
+			.setTitle(i18n.t("commands:language.title", {lng}))
+			.setDescription(i18n.t("commands:language.description", {lng}))],
 		components: [row]
 	});
 
@@ -55,7 +52,7 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 	collector.on("collect", async (menuInteraction: StringSelectMenuInteraction) => {
 
 		if (menuInteraction.user.id !== interaction.user.id) {
-			await sendInteractionNotForYou(menuInteraction.user, menuInteraction, interaction.userLanguage);
+			await sendInteractionNotForYou(menuInteraction.user, menuInteraction, lng);
 			return;
 		}
 

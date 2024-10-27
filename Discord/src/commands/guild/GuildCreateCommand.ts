@@ -20,6 +20,7 @@ import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
 import {ReactionCollectorGuildCreateData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildCreate";
 import {GuildCreateConstants} from "../../../../Lib/src/constants/GuildCreateConstants";
+import {LANGUAGE} from "../../../../Lib/src/Language";
 
 /**
  * Create a new guild
@@ -32,13 +33,16 @@ function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Comman
 async function replyErrorEmbed(context: PacketContext, errorKey: string, formatParams: Record<string, unknown> = {}): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!);
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
-	formatParams.lng = interaction?.userLanguage;
+	const replacements = {
+		lng: interaction?.userLanguage ?? LANGUAGE.ENGLISH,
+		...formatParams
+	};
 	const params = {
 		embeds: [
 			new DraftBotErrorEmbed(
 				interaction!.user,
 				interaction!,
-				i18n.t(errorKey, formatParams)
+				i18n.t(errorKey, replacements)
 			)
 		]
 	};

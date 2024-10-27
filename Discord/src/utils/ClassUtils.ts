@@ -15,14 +15,14 @@ export class ClassUtils {
 
 	/**
 	 * Return the string of a class
-	 * @param language
+	 * @param lng
 	 * @param classID
 	 */
-	static classToString(language: Language, classID: number): string {
+	static classToString(lng: Language, classID: number): string {
 		return i18n.t("commands:profile:playerClass.fieldValue", {
-			lng: language,
+			lng,
 			emote: ClassUtils.getClassIcon(classID),
-			className: i18n.t(`models:classes.${classID}`, {lng: language})
+			className: i18n.t(`models:classes.${classID}`, {lng})
 		});
 	}
 }
