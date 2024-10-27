@@ -5,21 +5,20 @@ import {TopWeekAnnouncementPacket} from "../../../Lib/src/packets/announcements/
 import {LANGUAGE} from "../../../Lib/src/Language";
 import {KeycloakUtils} from "../../../Lib/src/keycloak/KeycloakUtils";
 import {TopWeekFightAnnouncementPacket} from "../../../Lib/src/packets/announcements/TopWeekFightAnnouncementPacket";
+import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
 
 export abstract class DiscordAnnouncement {
-	private static readonly TROPHY_EMOJI = "🏆";
-
 	private static async announceTop(messageFr: string, messageEn: string): Promise<void> {
 		try {
 			const frenchChannel = await draftBotClient!.channels.fetch(discordConfig.FRENCH_ANNOUNCEMENT_CHANNEL_ID);
-			await (await (frenchChannel as TextChannel).send({ content: messageFr })).react(DiscordAnnouncement.TROPHY_EMOJI);
+			await (await (frenchChannel as TextChannel).send({ content: messageFr })).react(DraftBotIcons.announcements.trophy);
 		}
 		catch (e) {
 			console.error(e);
 		}
 		try {
 			const englishChannel = await draftBotClient!.channels.fetch(discordConfig.ENGLISH_ANNOUNCEMENT_CHANNEL_ID);
-			await (await (englishChannel as TextChannel).send({ content: messageEn })).react(DiscordAnnouncement.TROPHY_EMOJI);
+			await (await (englishChannel as TextChannel).send({ content: messageEn })).react(DraftBotIcons.announcements.trophy);
 		}
 		catch (e) {
 			console.error(e);

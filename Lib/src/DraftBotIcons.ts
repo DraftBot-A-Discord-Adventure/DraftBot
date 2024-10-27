@@ -48,6 +48,9 @@ export const DraftBotIcons: {
 			hard: string
 		},
 		interactPoorCoin: string
+	},
+	announcements: {
+		trophy: string
 	}
 } = {
 	"effects": {
@@ -1506,5 +1509,8 @@ export const DraftBotIcons: {
 			"hard": "💰"
 		},
 		"interactPoorCoin": "🪙"
+	},
+	announcements: {
+		trophy: "🏆"
 	}
 };
