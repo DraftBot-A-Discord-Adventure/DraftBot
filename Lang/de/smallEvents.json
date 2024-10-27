@@ -80,18 +80,18 @@
       "Eine Insel besteht aus einer endlichen Anzahl von Orten. Sobald Sie den letzten Ort besucht haben, werden Sie auf den Hauptkontinent zurückgebracht",
       "Die geheimnisvolle Insel wechselt jede Woche",
       "Wenn im Kampf gegen ein Monster die maximale Rundenzahl überschritten wird, wird das Monster sehr schnell sehr mächtig.",
-      "Wenn ein Mitglied Ihrer Gilde Sie auf dem Boot begleiten möchte, kann es /joinboat ausführen.",
+      "Wenn ein Mitglied Ihrer Gilde sich Ihnen auf dem Schiff anschließen möchte, kann es {command:joinboat}ausführen.",
       "Die Aktionen, die während des Kampfes gegen Tiere verfügbar sind, hängen von deinen Statistiken, Gegenständen, Vertrauten etc. ab.",
       "Die feindselige Insel wird Ihnen keine Abenteuer schenken. Aber wenn Sie sich mit Ihren Gildenmitgliedern zusammenschließen, werden Sie gemeinsam viel stärker sein.",
-      "Mit dem Befehl /map können Sie sich die Karte der Insel anzeigen lassen",
+      "Mit dem Befehl {command:map} können Sie sich die Karte der Insel ansehen",
       "Sie können sich nach jedem Monsterkampf entscheiden, ob Sie die Insel verlassen möchten. Wenn Ihre Energie niedrig ist, ist es sinnvoller, bei noch vorhandenem Bewusstsein zu gehen",
       "Einige Aktionen wie das Trinken eines Tranks, das Betreten des Ladens oder das Erhalten der täglichen Boni sind auf der Insel nicht verfügbar.",
       "Deine Stufe beeinflusst nicht die Anzahl der Gildenpunkte, aber sie beeinflusst andere Belohnungen",
       "Ein Sieg gegen ein Monster weiter hinten auf der Insel bringt mehr Gildenpunkte als zu Beginn.",
       "Es wird erzählt, dass, wenn mehrere Mitglieder einer Gilde gleichzeitig auf der Insel sind, es möglich ist, die Kräfte der einzelnen Mitglieder zu kombinieren, um einen verheerenden Angriff zu starten",
       "Mitglieder Ihrer Gilde können Ihnen beim Kampf gegen Monster helfen, wenn Sie eine geheimnisvolle Insel besuchen.",
-      "Es ist möglich, die Mitglieder deiner Gilde, die sich auf einer geheimnisvollen Insel befinden, mit dem Befehl /guild zu sehen",
-      "Mit dem Befehl /guild können Sie sehen, wie viele Verbündete Ihnen auf der geheimnisvollen Insel helfen werden.",
+      "Es ist möglich, die Mitglieder Ihrer Gilde, die sich auf einer geheimnisvollen Insel befinden, mit dem Befehl {command:guild}zu sehen.",
+      "Mit dem Befehl {command:guild} können Sie sehen, wie viele Verbündete Ihnen auf der geheimnisvollen Insel helfen werden.",
       "Ein \"Verbündeter\" ist ein Mitglied Ihrer Gilde, das sich derzeit auf der geheimnisvollen Insel aufhält oder sie vor kurzem verlassen hat."
     ]
   },
@@ -354,8 +354,8 @@
     ],
     "reward": ":moneybag: Silber: **{{money}}**\n:star: XP: **{{xp}}**\n:medal: Punkte: **Die Anzahl der Punkte hängt von deiner endgültigen Platzierung ab.**\n:gift: Eine zufällige Ausrüstung.",
     "endMessage": "\n\n:newspaper: \"An den Abenteurer, der zu {{league}} gehört und diesen Text findet: **Wenn du deinen Ruhm bis zum Ende der Saison** aufrechterhältst, kannst du diese Belohnungen gewinnen:\n\n{{rewards}}\"\n\nDu setzt deinen Weg fort und freust dich, dass du deinen Bonus abholen kannst {{time}}.",
-    "notEnoughFight": "\n\n:newspaper: \"An den Abenteurer, der zu {{league}} gehört und diesen Text findet: **Wenn du einige Kämpfe mit dem Befehl /fight** ausführst, kannst du diese Belohnungen gewinnen:\n\n{{rewards}}\"\n\nDu machst dich schnell wieder auf den Weg, da du befürchtest, dass du es nicht schaffen wirst, bis zum Ende der Saison gegen genügend Spieler zu kämpfen {{time}}.",
-    "rewardToday": "\n\n:newspaper: \"**Liga-Boni sind verfügbar!** Holen Sie sich Ihre Belohnung noch vor Ende der Woche mit dem Befehl /leaguebonus!\"\n\nSie setzen Ihre Reise fort und freuen sich darauf, Ihren Bonus abzuholen."
+    "notEnoughFight": "\n\n:newspaper: \"An den Abenteurer, der zu {{league}} gehört und diesen Text findet: **Wenn du einige Kämpfe mit dem Befehl {command:fight}** durchführst, kannst du diese Belohnungen gewinnen:\n\n{{rewards}}\"\n\nDu machst dich schnell wieder auf den Weg, da du befürchtest, dass du es nicht schaffen wirst, vor Ende der Saison gegen genügend Spieler zu kämpfen {{time}}.",
+    "rewardToday": "\n\n:newspaper: \"**Liga-Belohnungen sind verfügbar!** Holen Sie sich Ihre Belohnung mit dem Befehl {command:leaguebonus} noch vor Ende der Woche!\"\n\nSie setzen Ihre Reise fort und freuen sich darauf, Ihren Bonus abzuholen."
   },
   "winGuildXP": {
     "stories": [
