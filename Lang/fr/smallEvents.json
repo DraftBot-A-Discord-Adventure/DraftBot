@@ -761,7 +761,7 @@
     ]
   },
   "botFacts": {
-    "stories" : [
+    "stories": [
       "vous recevez une missive du roi. Ce dernier vous écrit à propos de la compétition pour la main de la princesse à laquelle vous participez. Vous découvrez à la lecture de la lettre que {{botFact}} vous reprenez votre route.",
       "vous croisez un paysan en charrette semblant enjoué. Intrigué par son attitude, vous le questionnez à propos de sa bonne humeur. Il vous explique que {{botFact}} vous reprenez votre route.",
       "vous apercevez le campement d'un aventurier au bord d'un sentier. Vous vous arrêtez un instant pour lui demander conseil sur le chemin à suivre et celui-ci vous pointe en retour la bonne direction en ajoutant que {{botFact}} vous reprenez la route.",
@@ -793,7 +793,6 @@
       "nbPlayersOnYourMap_other": "les chevaliers alentour ont compté **{infoNumber} personnes** en train de circuler sur votre route. Surpris par cette nouvelle,"
     }
   },
-
   "smallBad": {
     "healthLost": {
       "stories": [
@@ -823,7 +822,6 @@
       ]
     }
   },
-
   "findPotion": {
     "stories": [
       "vous apercevez du coin de l'œil une fiole brillante...",
@@ -839,7 +837,6 @@
       "vous découvrez une habitation que vous explorez rapidement. Vous y ramassez une bouteille et repartez hâtivement..."
     ]
   },
-
   "findItem": {
     "stories": [
       "vous apercevez du coin de l'œil un objet brillant...",
@@ -853,8 +850,7 @@
       "vous croisez un homme accompagné d'une mule chargée. Vous décidez de l'aider à transporter sa cargaison. En remerciement, ce dernier vous offre un objet..."
     ]
   },
-
-  "pet" : {
+  "pet": {
     "stories": {
       "money_m": [
         "Vous voyez **{{pet}}** fouiller dans des hautes herbes. Il en ressort **{{amount}}** :moneybag:, que vous gardez pour la suite de votre aventure.",
@@ -877,7 +873,6 @@
         "Vous voyez tout à coup **{{pet}}** sauter dans l'eau. Quelle ne fut pas votre surprise en le voyant ressortir avec un **objet** !",
         "Après avoir fait une petite pause sur votre trajet, vous voyez revenir **{{pet}}** avec un **objet**. Il semblerait bien qu'il l'ait volé à un marchand. Vous décidez de partir avant que celui-ci ne s'en aperçoive."
       ],
-
       "item_f": [
         "Vous voyez **{{pet}}** fouiller dans des hautes herbes. Elle en ressort un **objet**, que vous pouvez éventuellement garder pour la suite de votre aventure.",
         "**{{pet}}** regarde avec insistance le sol et se décide à y creuser un trou. Quelle ne fut pas votre surprise après l'avoir vu en sortir un **objet** !",
@@ -1024,11 +1019,7 @@
         "Vous continuez votre route aux côtés de **{{pet}}**. Rien de spécial ne se passe."
       ]
     },
-    "randomAnimal_m" : [
-      "un **{{randomAnimal}}**"
-    ],
-    "randomAnimal_f" : [
-      "une **{{randomAnimal}}**"
-    ]
+    "randomAnimal_m": "un **{{randomAnimal}}**",
+    "randomAnimal_f": "une **{{randomAnimal}}**"
   }
 }

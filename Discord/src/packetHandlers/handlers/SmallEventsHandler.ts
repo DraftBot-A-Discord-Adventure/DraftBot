@@ -60,6 +60,7 @@ import {ClassUtils} from "../../utils/ClassUtils";
 import {SmallEventFindPotionPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFindPotionPacket";
 import {SmallEventFindItemPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFindItemPacket";
 import {SmallEventPetPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventPetPacket";
+import {Constants} from "../../../../Lib/src/constants/Constants";
 
 
 export function getRandomSmallEventIntro(language: Language): string {
@@ -773,7 +774,7 @@ export default class SmallEventsHandler {
 								pet: PetUtils.petToShortString(interaction.userLanguage, packet.petNickname, packet.petTypeId, packet.petSex),
 								amount: packet.amount,
 								food: packet.food,
-								randomAnimal: i18n.t("smallEvents:pet.randomAnimal", {
+								randomAnimal: i18n.t("smallEvents:pet.randomAnimal", Constants.DEFAULT_ERROR, {
 									lng: interaction.userLanguage,
 									context: packet.randomPetSex,
 									randomAnimal: PetUtils.petToShortString(interaction.userLanguage, undefined, packet.randomPetTypeId, packet.randomPetSex)
