@@ -202,7 +202,11 @@ export async function shopCollector(packet: ReactionCollectorCreationPacket, con
 		.setTitle(i18n.t("commands:shop.title", { lng: interaction.userLanguage }))
 		.setDescription(shopText + i18n.t("commands:shop.currentMoney", { lng: interaction.userLanguage, money: data.availableMoney }));
 
-	await interaction.reply({ embeds: [embed], components: [buttonRow, selectRow] });
+	const msg = await interaction.reply({ embeds: [embed], components: [buttonRow, selectRow] });
+
+	const buttonCollector = msg.createMessageComponentCollector({
+		time: packet.endTime - Date.now()
+	});
 }
 
 export const commandInfo: ICommand = {
