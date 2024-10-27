@@ -766,14 +766,18 @@ export default class SmallEventsHandler {
 					new DraftbotSmallEventEmbed(
 						"pet",
 						StringUtils.getRandomTranslation(
-							packet.interactionName,
+							`smallEvents:pet.stories.${packet.interactionName}`,
 							interaction.userLanguage,
 							{
 								context: packet.petSex,
 								pet: PetUtils.petToShortString(interaction.userLanguage, packet.petNickname, packet.petTypeId, packet.petSex),
 								amount: packet.amount,
 								food: packet.food,
-								randomAnimal: (packet.randomPetSex === "m" ? "un " : "une ") + PetUtils.petToShortString(interaction.userLanguage, undefined, packet.randomPetTypeId, packet.randomPetSex)
+								randomAnimal: i18n.t("smallEvents:pet.randomAnimal", {
+									lng: interaction.userLanguage,
+									context: packet.randomPetSex,
+									randomAnimal: PetUtils.petToShortString(interaction.userLanguage, undefined, packet.randomPetTypeId, packet.randomPetSex)
+								})
 							}
 						),
 						interaction.user,
