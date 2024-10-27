@@ -80,18 +80,18 @@
       "An island is made up of a finite number of locations. Once you've visited the last place, you'll be taken back to the main continent",
       "The mysterious island changes every week",
       "When fighting a monster, if the maximum number of turns is exceeded, the monster will quickly become very powerful",
-      "If a member of your guild wants to join you on the boat, they can use the /joinboat command",
+      "If a member of your guild wants to join you on the boat, they can run {command:joinboat}",
       "The actions available when fighting animals depend on your stats, your items, your pets, etc.",
       "The island's hostility won't do you any favors when it comes to adventure. But if you join forces with members of your guild, you'll be much stronger together",
-      "The /map command displays a map of the island",
+      "The {command:map} order shows the map of the island",
       "You can choose to leave the island after each monster fight. If your energy is low, it's better to leave while you're still conscious",
       "Some actions, such as drinking potions, accessing the store or obtaining daily bonuses, are unavailable on the island",
       "Your level does not influence the number of guild points, but it does influence other rewards",
       "Winning against a monster further out on the island will earn you more guild points than those at the start",
       "It is said that if several members of a single guild are on the island at the same time, it is possible to combine each other's forces to perform a devastating attack",
       "Your guild members can help you fight monsters when you visit a mysterious island",
-      "It is possible to see your guild members who are on a mystery island using the /guild command",
-      "The /guild command lets you see the number of allies who will help you on the mysterious island",
+      "You can see which members of your guild are on a mysterious island by using the command {command:guild}",
+      "The {command:guild} command lets you see the number of allies who will help you on the mysterious island",
       "An \"ally\" is a member of your guild who is currently on the mysterious island or has recently left it"
     ]
   },
@@ -354,8 +354,8 @@
     ],
     "reward": ":moneybag: Money: **{{money}}**\n:star: XP: **{{xp}}**\n:medal: Points: **The number of points will depend on your final ranking.**\n:gift: A random equipment.",
     "endMessage": "\n\n:newspaper: \"To the adventurer belonging to the {{league}} who will find this text, **if you maintain your glory until the end of the season**, you will be able to win these rewards:\n\n{{rewards}}\"\n\nYou resume your journey, while enjoying your bonus {{time}}.",
-    "notEnoughFight": "\n\n:newspaper: \"To the adventurer belonging to the {{league}} who will find this text, **if you perform some battles using the /fight command**, you will be able to win these rewards:\n\n{{rewards}}\"\n\nYou quickly set off again, feazring that you won't manage to fight enough players before the end of the season {{time}}.",
-    "rewardToday": "\n\n:newspaper: \"**League rewards are available!** Receive your reward before the end of the week thanks to the /leaguebonus command!\"\n\nYou get back on your way, while looking forward to receiving your bonus."
+    "notEnoughFight": "\n\n:newspaper: \"Adventurers belonging to {{league}} who will find this text **if you are performing some battles using the {command:fight}command**, you will be able to win these rewards:\n\n{{rewards}}\"\n\nYou will quickly get back on your way Fear of failing to fight enough players before the end of the {{time}} season.",
+    "rewardToday": "\n\n:newspaper: \"**League rewards are available! * Receive your reward before the end of the week thanks to the order {command:leaguebonus} !\n\nYou get back on your way, while enjoying your bonus."
   },
   "winGuildXP": {
     "stories": [
