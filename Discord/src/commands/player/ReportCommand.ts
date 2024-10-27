@@ -29,9 +29,7 @@ import {
 	printTimeBeforeDate
 } from "../../../../Lib/src/utils/TimeUtils";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
-import {
-	ReactionCollectorChooseDestinationReaction
-} from "../../../../Lib/src/packets/interaction/ReactionCollectorChooseDestination";
+import {ReactionCollectorChooseDestinationReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorChooseDestination";
 import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
 import {EmoteUtils} from "../../utils/EmoteUtils";
 import {LANGUAGE} from "../../../../Lib/src/Language";
@@ -247,7 +245,7 @@ function generateTravelPathString(packet: CommandReportTravelSummaryRes, now: nu
 
 	index = Math.floor(index);
 
-	let str = `${DraftBotIcons.map_types[packet.startMap.type]} `;
+	let str = `${EmoteUtils.translateEmojiToDiscord(DraftBotIcons.map_types[packet.startMap.type])} `;
 
 	for (let j = 0; j < Constants.REPORT.PATH_SQUARE_COUNT; ++j) {
 		if (j === index) {
@@ -266,7 +264,7 @@ function generateTravelPathString(packet: CommandReportTravelSummaryRes, now: nu
 		}
 	}
 
-	return `${str} ${DraftBotIcons.map_types[packet.endMap.type]}`;
+	return `${str} ${EmoteUtils.translateEmojiToDiscord(DraftBotIcons.map_types[packet.endMap.type])}`;
 }
 
 export async function reportTravelSummary(packet: CommandReportTravelSummaryRes, context: PacketContext): Promise<void> {
