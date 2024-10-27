@@ -9,6 +9,12 @@ export class SmallEventPetPacket extends SmallEventPacket {
 
 	petSex!: string;
 
+	petNickname! : string | undefined;
+
+	randomPetTypeId!: number;
+
+	randomPetSex!: string;
+
 	amount?: number; // Quantity of win/lose health points,money,energy,etc.
 
 	food?: string; // The name of the food
