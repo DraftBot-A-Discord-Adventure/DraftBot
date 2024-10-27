@@ -139,6 +139,12 @@ export class DraftBot {
 	 * End the fight season
 	 */
 	static async seasonEnd(): Promise<void> {
+		if (!PacketUtils.isMqttConnected()) {
+			console.error("MQTT is not connected, can't announce the end of the season. Trying again in 1 minute");
+			setTimeout(DraftBot.seasonEnd, 60000);
+			return;
+		}
+
 		Settings.NEXT_SEASON_RESET.setValue(getNextSaturdayMidnight().valueOf()).then();
 		draftBotInstance.logsDatabase.log15BestSeason().then();
 		const winner = await DraftBot.findSeasonWinner();
@@ -257,6 +263,12 @@ export class DraftBot {
 	 * Execute all the daily tasks
 	 */
 	static weeklyTimeout(): void {
+		if (!PacketUtils.isMqttConnected()) {
+			console.error("MQTT is not connected, can't announce the end of the week. Trying again in 1 minute");
+			setTimeout(DraftBot.weeklyTimeout, 60000);
+			return;
+		}
+
 		Settings.NEXT_WEEKLY_RESET.setValue(getNextSundayMidnight().valueOf()).then();
 		DraftBot.topWeekEnd().then();
 		DraftBot.newPveIsland().then();

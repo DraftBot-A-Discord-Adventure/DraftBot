@@ -32,4 +32,8 @@ export abstract class PacketUtils {
 		mqttClient.publish(topic, json, { retain: true });
 		console.log(`Sent Discord announcement: ${json}`);
 	}
+
+	static isMqttConnected(): boolean {
+		return mqttClient.connected;
+	}
 }
