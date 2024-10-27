@@ -80,18 +80,18 @@
       "Un'isola è composta da un numero finito di località. Una volta visitata l'ultima località, si viene riportati sulla terraferma.",
       "L'isola misteriosa cambia ogni settimana",
       "Quando si combatte contro un mostro, se si supera il numero massimo di turni, il mostro diventa rapidamente molto potente.",
-      "Se un membro della vostra gilda vuole unirsi a voi sulla barca, può eseguire /joinboat",
+      "{command:joinboat}Se un membro della vostra gilda vuole unirsi a voi sulla barca, può correre .",
       "Le azioni disponibili quando si combattono gli animali dipendono dalle statistiche, dagli oggetti, dagli animali domestici, ecc.",
       "L'ostilità dell'isola non vi favorirà nelle avventure. Ma se unisci le forze con i membri della tua gilda, insieme sarete molto più forti.",
-      "Il comando /mappa visualizza una mappa dell'isola",
+      "{command:map} Clicca per vedere la mappa dell'isola",
       "Si può scegliere di lasciare l'isola dopo ogni combattimento con i mostri. Se l'energia è poca, è meglio andarsene quando si è ancora coscienti.",
       "Alcune azioni, come bere una pozione, accedere al negozio o ottenere i bonus giornalieri, non sono disponibili sull'isola.",
       "Il livello non influisce sul numero di punti gilda, ma influisce su altre ricompense.",
       "Vincendo contro un mostro più avanti nell'isola si otterranno più punti gilda di quelli ottenuti all'inizio.",
       "Si dice che se diversi membri della stessa gilda si trovano sull'isola nello stesso momento, è possibile unire le forze di ciascuno per sferrare un attacco devastante.",
       "I membri della vostra gilda possono aiutarvi a combattere i mostri quando visitate un'isola misteriosa.",
-      "Potete usare il comando /gilda per vedere quali membri della vostra gilda si trovano su un'isola misteriosa.",
-      "Usate il comando /gilda per vedere quanti alleati vi stanno aiutando sull'isola misteriosa.",
+      "{command:guild}Potete usare il comando per vedere quali membri della vostra gilda si trovano su un'isola misteriosa.",
+      "{command:guild} Il comando permette di vedere il numero di alleati che vi aiuteranno sull'isola misteriosa.",
       "Un \"alleato\" è un membro della vostra gilda che si trova attualmente sull'isola misteriosa o che l'ha lasciata di recente."
     ]
   },
@@ -354,8 +354,8 @@
     ],
     "reward": ":moneybag: Argento:{{money}}\n:star: ** ** XP :{{xp}}\n:medal: ** Punti:\n:gift: ** Il numero di punti dipenderà dalla classifica finale ** Equipaggiamento casuale.",
     "endMessage": "\n\n:newspaper: {{league}}\n\n{{rewards}}\n\n {{time}}\"All'avventuriero appartenente a chi trova questo testo, **se manterrà la sua gloria fino alla fine della stagione**, potrà vincere queste ricompense:\" Si riparte, impazienti di riscuotere il proprio bonus.",
-    "notEnoughFight": "\n\n:newspaper: {{league}}\n\n{{rewards}}\n\n {{time}}\"All'avventuriero che troverà questo testo, **se effettuerà alcuni combattimenti usando il comando /combattimento**, potrà vincere queste ricompense:\" Si riparte velocemente, temendo di non riuscire a combattere abbastanza giocatori prima della fine della stagione.",
-    "rewardToday": "\n\n:newspaper: \"Ottieni la tua ricompensa prima della fine della settimana usando il comando /leaguebonus!\n\nSei di nuovo sulla buona strada e non vedi l'ora di riscuotere il tuo bonus."
+    "notEnoughFight": "\n\n:newspaper: {{league}} {command:fight}\n\n{{rewards}}\n\n {{time}}\"All'avventuriero appartenente a chi trova questo testo, **se combatti qualche battaglia usando il comando **, puoi vincere queste ricompense:\" Ti rimetti velocemente in cammino, temendo di non riuscire a combattere abbastanza giocatori prima della fine della stagione.",
+    "rewardToday": "\n\n:newspaper: {command:leaguebonus} \"Ottieni la tua ricompensa prima della fine della settimana ordinando.\"\n\nSiete di nuovo in viaggio, impazienti di riscuotere il vostro bonus."
   },
   "winGuildXP": {
     "stories": [
