@@ -938,7 +938,7 @@
       "gainTime_f": [
         "**{{pet}}** est en forme. Vous montez sur son dos quelques minutes et vous gagnez **{{amount}} Min** :hourglass:.",
         "Dans un virage, **{{pet}}** se met tout à coup à courir. Vous finissez traîné au bout de sa laisse mais vous avez gagné **{{amount}} Min** :hourglass:.",
-        "**{{pet}}** semble être pressé{feminine}, malgré cela, vous arrivez à {determinant} suivre tant bien que mal. Grâce à {accusative} vous gagnez **{{amount}} Min** :hourglass:.",
+        "**{{pet}}** semble être pressée, malgré cela, vous arrivez à {determinant} suivre tant bien que mal. Grâce à elle vous gagnez **{{amount}} Min** :hourglass:.",
         "Le flair de **{{pet}}** vous a permis de trouver un raccourci. Grâce à {accusative}, vous avez gagné **{{amount}} Min** :hourglass:.",
         "Défendre **{{pet}}** contre {{randomAnimal}} sauvage n'a pas été une mince affaire, et cette fois, vous avez trouvé plus fort que vous. Vous décidez de prendre la fuite, et courez à toute vitesse. Grâce à cette mésaventure vous gagnez **{{amount}} Min** :hourglass: sur votre trajet."
       ],
@@ -978,7 +978,7 @@
         "En voulant jouer avec **{{pet}}**, vous lui assenez un coup. Blessé, vous l'amenez vers un soigneur afin de la guérir. Après l'avoir soignée, le guérisseur vous déleste de **{{amount}}** :money_with_wings:."
       ],
       "loseTime_m": [
-        "À force de rappeler **{{pet}}** afin qu'il reste près de vous, vous perdez **{amount} Min** :clock2:.",
+        "À force de rappeler **{{pet}}** afin qu'il reste près de vous, vous perdez **{{amount}} Min** :clock2:.",
         "Vous sentez que **{{pet}}** ne semble pas vouloir bouger. Vous décidez tout de même de le tirer de force. Par sa faute, vous perdez **{amount} Min** :clock2:.",
         "Vous voyez **{{pet}}** venir vers vous en courant poursuivi par {{randomAnimal}} sauvage ! Vous prenez la fuite avec lui. Cette course poursuite vous a fait perdre **{{amount}} Min** :clock2: sur votre trajet.",
         "En entrant dans un village, vous entendez une rumeur portant sur un familier ressemblant à **{{pet}}** qui attaquerait des villageois. En vous voyant, les habitants prennent peur de vous et de votre familier, et vous êtes alors immédiatement chassé du village. Cette mésaventure vous a fait perdre **{{amount}} Min** :clock2: sur votre trajet.",
