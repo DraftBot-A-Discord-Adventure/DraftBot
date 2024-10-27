@@ -54,7 +54,7 @@
   "alreadyInAGuild": "Sie gehören bereits einer Gilde an.",
   "petDoesntExist": "Es wurden keine Vertrauten gefunden.",
   "unexpectedError": "Es ist ein Fehler aufgetreten: (",
-  "pleaseWaitForHeal": "Bitte warten Sie, bis die Pflege Ihrer Zustandsveränderung abgeschlossen ist, bevor Sie weiterspielen: {{time}}\n\n:information_source: Sie können den Befehl /shop verwenden, um eine Heilung zu kaufen.",
+  "pleaseWaitForHeal": "Bitte warten Sie, bis die Heilung Ihrer Zustandsveränderung abgeschlossen ist, bevor Sie weiterspielen: {{time}}\n\n:information_source: Sie können den Befehl {command:shop} verwenden, um eine Heilung zu kaufen.",
   "pleaseWaitForHisHeal": "Bitte warten Sie bis zum Ende der Pflege seines veränderten Zustands: {{time}}",
   "notEnoughMoney": "Sie haben nicht genug Geld, um diese Aktion durchzuführen. Es fehlt Ihnen {{money}}💰.",
   "cooldownPetFree": "Sie können nur einen Begleiter pro Stunde befreien. Sie können einen weiteren befreien {{remainingTime}}.",
