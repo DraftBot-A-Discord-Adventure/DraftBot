@@ -21,16 +21,16 @@ type Value = {
 export class DiscordItemUtils {
 	/**
 	 * Get a stat value of an item into its string form
-	 * @param language
+	 * @param lng
 	 * @param values
 	 * @param value
 	 */
-	static getStringValueFor(language: Language, values: string[], value: Value): void {
+	static getStringValueFor(lng: Language, values: string[], value: Value): void {
 		if (value.value !== 0) {
 			values.push(i18n.t(`items:${value.typeValue}`, {
-				lng: language,
+				lng,
 				value: value.maxValue >= value.value ? value.value : i18n.t("items:nerfDisplay", {
-					lng: language,
+					lng,
 					old: value.value,
 					max: value.maxValue
 				})
@@ -74,16 +74,16 @@ export class DiscordItemUtils {
 		return values.join(" ");
 	}
 
-	static getWeaponField(displayPacket: MainItemDisplayPacket, language: Language): EmbedField {
+	static getWeaponField(displayPacket: MainItemDisplayPacket, lng: Language): EmbedField {
 		const itemField: string = i18n.t("items:itemsField", {
-			lng: language,
+			lng,
 			name: i18n.t(`models:weapons.${displayPacket.id}`, {
-				lng: language,
+				lng,
 				interpolation: {escapeValue: false}
 			}),
 			emote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.weapons[displayPacket.id]),
-			rarity: i18n.t(`items:rarities.${displayPacket.rarity}`, {lng: language}),
-			values: DiscordItemUtils.getValues(displayPacket.attack.value, displayPacket.defense.value, displayPacket.speed.value, language, {
+			rarity: i18n.t(`items:rarities.${displayPacket.rarity}`, {lng}),
+			values: DiscordItemUtils.getValues(displayPacket.attack.value, displayPacket.defense.value, displayPacket.speed.value, lng, {
 				attack: displayPacket.attack.maxValue,
 				defense: displayPacket.defense.maxValue,
 				speed: displayPacket.speed.maxValue
@@ -91,19 +91,19 @@ export class DiscordItemUtils {
 			interpolation: {escapeValue: false}
 		});
 		return {
-			name: i18n.t("items:weaponsFieldName", {lng: language}),
+			name: i18n.t("items:weaponsFieldName", {lng}),
 			value: displayPacket.id === 0 ? itemField.split("|")[0] : itemField,
 			inline: false
 		};
 	}
 
-	static getArmorField(displayPacket: MainItemDisplayPacket, language: Language): EmbedField {
+	static getArmorField(displayPacket: MainItemDisplayPacket, lng: Language): EmbedField {
 		const itemField: string = i18n.t("items:itemsField", {
-			lng: language,
-			name: i18n.t(`models:armors.${displayPacket.id}`, {lng: language, interpolation: {escapeValue: false}}),
+			lng,
+			name: i18n.t(`models:armors.${displayPacket.id}`, {lng, interpolation: {escapeValue: false}}),
 			emote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.armors[displayPacket.id]),
-			rarity: i18n.t(`items:rarities.${displayPacket.rarity}`, {lng: language}),
-			values: DiscordItemUtils.getValues(displayPacket.attack.value, displayPacket.defense.value, displayPacket.speed.value, language, {
+			rarity: i18n.t(`items:rarities.${displayPacket.rarity}`, {lng}),
+			values: DiscordItemUtils.getValues(displayPacket.attack.value, displayPacket.defense.value, displayPacket.speed.value, lng, {
 				attack: displayPacket.attack.maxValue,
 				defense: displayPacket.defense.maxValue,
 				speed: displayPacket.speed.maxValue
@@ -111,66 +111,66 @@ export class DiscordItemUtils {
 			interpolation: {escapeValue: false}
 		});
 		return {
-			name: i18n.t("items:armorsFieldName", {lng: language}),
+			name: i18n.t("items:armorsFieldName", {lng}),
 			value: displayPacket.id === 0 ? itemField.split("|")[0] : itemField,
 			inline: false
 		};
 	}
 
-	static getPotionField(displayPacket: SupportItemDisplayPacket, language: Language): EmbedField {
+	static getPotionField(displayPacket: SupportItemDisplayPacket, lng: Language): EmbedField {
 		const itemField: string = i18n.t("items:itemsField", {
-			lng: language,
+			lng,
 			name: i18n.t(`models:potions.${displayPacket.id}`, {
-				lng: language,
+				lng,
 				interpolation: {escapeValue: false}
 			}),
 			emote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.potions[displayPacket.id]),
-			rarity: i18n.t(`items:rarities.${displayPacket.rarity}`, {lng: language}),
+			rarity: i18n.t(`items:rarities.${displayPacket.rarity}`, {lng}),
 			values: i18n.t(`items:potionsNatures.${displayPacket.nature}`, {
-				lng: language,
-				power: displayPacket.nature === ItemNature.TIME_SPEEDUP ? minutesDisplay(displayPacket.power, language) : displayPacket.power
+				lng,
+				power: displayPacket.nature === ItemNature.TIME_SPEEDUP ? minutesDisplay(displayPacket.power, lng) : displayPacket.power
 			}),
 			interpolation: {escapeValue: false}
 		});
 		return {
-			name: i18n.t("items:potionsFieldName", {lng: language}),
+			name: i18n.t("items:potionsFieldName", {lng}),
 			value: displayPacket.id === 0 ? itemField.split("|")[0] : itemField,
 			inline: false
 		};
 	}
 
-	static getObjectField(displayPacket: SupportItemDisplayPacket, language: Language): EmbedField {
+	static getObjectField(displayPacket: SupportItemDisplayPacket, lng: Language): EmbedField {
 		const natureTrKey = `items:objectsNatures.${displayPacket.nature}`;
 		let nature;
 		if (displayPacket.nature === ItemNature.TIME_SPEEDUP) {
-			nature = i18n.t(natureTrKey, {lng: language, power: minutesDisplay(displayPacket.power, language)});
+			nature = i18n.t(natureTrKey, {lng, power: minutesDisplay(displayPacket.power, lng)});
 		}
 		else if (displayPacket.nature === ItemNature.SPEED) {
 			nature = i18n.t(natureTrKey, {
-				lng: language,
+				lng,
 				power: displayPacket.maxPower >= displayPacket.power ? displayPacket.power : i18n.t("items:nerfDisplay", {
-					lng: language,
+					lng,
 					old: displayPacket.power,
 					max: displayPacket.maxPower
 				})
 			});
 		}
 		else {
-			nature = i18n.t(natureTrKey, {lng: language, power: displayPacket.power});
+			nature = i18n.t(natureTrKey, {lng, power: displayPacket.power});
 		}
 		const itemField: string = i18n.t("items:itemsField", {
-			lng: language,
+			lng,
 			name: i18n.t(`models:objects.${displayPacket.id}`, {
-				lng: language,
+				lng,
 				interpolation: {escapeValue: false}
 			}),
 			emote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.objects[displayPacket.id]),
-			rarity: i18n.t(`items:rarities.${displayPacket.rarity}`, {lng: language}),
+			rarity: i18n.t(`items:rarities.${displayPacket.rarity}`, {lng}),
 			values: nature,
 			interpolation: {escapeValue: false}
 		});
 		return {
-			name: i18n.t("items:objectsFieldName", {lng: language}),
+			name: i18n.t("items:objectsFieldName", {lng}),
 			value: displayPacket.id === 0 ? itemField.split("|")[0] : itemField,
 			inline: false
 		};

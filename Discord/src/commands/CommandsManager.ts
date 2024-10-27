@@ -332,15 +332,15 @@ export class CommandsManager {
 				if (!msg!.getFirstReaction()) {
 					return;
 				}
-				const language = msg!.getFirstReaction()!.emoji.name === Constants.REACTIONS.ENGLISH_FLAG ? LANGUAGE.ENGLISH : LANGUAGE.FRENCH;
+				const lng = msg!.getFirstReaction()!.emoji.name === Constants.REACTIONS.ENGLISH_FLAG ? LANGUAGE.ENGLISH : LANGUAGE.FRENCH;
 				sendMessage({
 					embeds: [new DraftBotEmbed()
 						.formatAuthor(i18n.t("bot:dmHelpMessageTitle", {
-							lng: language,
+							lng,
 							pseudo: escapeUsername(author.username)
 						}), author)
 						.setDescription(i18n.t("bot:dmHelpMessage", {
-							lng: language,
+							lng,
 							commandHelp: BotUtils.commandsMentions.get("help"),
 							commandRespawn: BotUtils.commandsMentions.get("respawn")
 						}))]
@@ -361,19 +361,19 @@ export class CommandsManager {
 	 * @private
 	 */
 	private static async handleCommand(interaction: DraftbotInteraction, user: KeycloakUser): Promise<void> {
-		const language = interaction.userLanguage;
+		const lng = interaction.userLanguage;
 
 		const commandInfo = this.commands.get(interaction.commandName);
 
 		if (!commandInfo) {
-			await replyErrorMessage(interaction, i18n.t("bot:command404", {lng: language}));
+			await replyErrorMessage(interaction, i18n.t("bot:command404", {lng}));
 			console.error(`Command "${interaction.commandName}" is not registered`);
 			return;
 		}
 
 		const channelAccess = this.hasChannelPermission(interaction.channel);
 		if (!channelAccess[0]) {
-			await replyErrorMessage(interaction, i18n.t(channelAccess[1], {lng: language}));
+			await replyErrorMessage(interaction, i18n.t(channelAccess[1], {lng}));
 			return;
 		}
 

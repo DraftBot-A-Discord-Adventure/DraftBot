@@ -78,13 +78,13 @@ async function displayBadges(badges: string[], msg: Message): Promise<void> {
 	}
 }
 
-function generateFields(packet: CommandProfilePacketRes, language: Language): EmbedField[] {
+function generateFields(packet: CommandProfilePacketRes, lng: Language): EmbedField[] {
 	const fields: EmbedField[] = [];
 
 	fields.push({
-		name: i18n.t("commands:profile.information.fieldName", {lng: language}),
+		name: i18n.t("commands:profile.information.fieldName", {lng}),
 		value: i18n.t("commands:profile.information.fieldValue", {
-			lng: language,
+			lng,
 			health: packet.data?.health.value,
 			maxHealth: packet.data?.health.max,
 			money: packet.data?.money,
@@ -96,9 +96,9 @@ function generateFields(packet: CommandProfilePacketRes, language: Language): Em
 
 	if (packet.data?.stats) {
 		fields.push({
-			name: i18n.t("commands:profile.statistics.fieldName", {lng: language}),
+			name: i18n.t("commands:profile.statistics.fieldName", {lng}),
 			value: i18n.t("commands:profile.statistics.fieldValue", {
-				lng: language,
+				lng,
 				baseBreath: packet.data?.stats.breath.base,
 				breathRegen: packet.data?.stats.breath.regen,
 				cumulativeAttack: packet.data?.stats.attack,
@@ -113,9 +113,9 @@ function generateFields(packet: CommandProfilePacketRes, language: Language): Em
 	}
 
 	fields.push({
-		name: i18n.t("commands:profile.mission.fieldName", {lng: language}),
+		name: i18n.t("commands:profile.mission.fieldName", {lng}),
 		value: i18n.t("commands:profile.mission.fieldValue", {
-			lng: language,
+			lng,
 			gems: packet.data?.missions.gems,
 			campaign: packet.data?.missions.campaignProgression
 		}),
@@ -123,12 +123,12 @@ function generateFields(packet: CommandProfilePacketRes, language: Language): Em
 	});
 
 	fields.push({
-		name: i18n.t("commands:profile.ranking.fieldName", {lng: language}),
+		name: i18n.t("commands:profile.ranking.fieldName", {lng}),
 		value: packet.data?.rank.unranked ? i18n.t("commands:profile.ranking.fieldValueUnranked", {
-			lng: language,
+			lng,
 			score: packet.data.rank.score
 		}) : i18n.t("commands:profile.ranking.fieldValue", {
-			lng: language,
+			lng,
 			rank: packet.data?.rank.rank,
 			numberOfPlayer: packet.data?.rank.numberOfPlayers,
 			score: packet.data?.rank.score
@@ -138,18 +138,18 @@ function generateFields(packet: CommandProfilePacketRes, language: Language): Em
 
 	if (packet.data?.effect?.healed) {
 		fields.push({
-			name: i18n.t("commands:profile.noTimeLeft.fieldName", {lng: language}),
+			name: i18n.t("commands:profile.noTimeLeft.fieldName", {lng}),
 			value: i18n.t("commands:profile.noTimeLeft.fieldValue", {
-				lng: language
+				lng
 			}),
 			inline: false
 		});
 	}
 	else if (packet.data?.effect) {
 		fields.push({
-			name: i18n.t("commands:profile.timeLeft.fieldName", {lng: language}),
+			name: i18n.t("commands:profile.timeLeft.fieldName", {lng}),
 			value: i18n.t("commands:profile.timeLeft.fieldValue", {
-				lng: language,
+				lng,
 				effect: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.effects[packet.data.effect.effect]),
 				timeLeft: packet.data.effect.timeLeft
 			}),
@@ -159,10 +159,10 @@ function generateFields(packet: CommandProfilePacketRes, language: Language): Em
 
 	if (packet.data?.classId) {
 		fields.push({
-			name: i18n.t("commands:profile.playerClass.fieldName", {lng: language}),
+			name: i18n.t("commands:profile.playerClass.fieldName", {lng}),
 			value: i18n.t("commands:profile.playerClass.field", {
-				lng: language,
-				className: ClassUtils.classToString(language, packet.data.classId)
+				lng,
+				className: ClassUtils.classToString(lng, packet.data.classId)
 			}),
 			inline: false
 		});
@@ -170,9 +170,9 @@ function generateFields(packet: CommandProfilePacketRes, language: Language): Em
 
 	if (packet.data?.fightRanking) {
 		fields.push({
-			name: i18n.t("commands:profile.fightRanking.fieldName", {lng: language}),
+			name: i18n.t("commands:profile.fightRanking.fieldName", {lng}),
 			value: i18n.t("commands:profile.fightRanking.fieldValue", {
-				lng: language,
+				lng,
 				league: packet.data.fightRanking.league,
 				gloryPoints: packet.data.fightRanking.glory
 			}),
@@ -182,9 +182,9 @@ function generateFields(packet: CommandProfilePacketRes, language: Language): Em
 
 	if (packet.data?.guild) {
 		fields.push({
-			name: i18n.t("commands:profile.guild.fieldName", {lng: language}),
+			name: i18n.t("commands:profile.guild.fieldName", {lng}),
 			value: i18n.t("commands:profile.guild.fieldValue", {
-				lng: language,
+				lng,
 				guild: packet.data.guild
 			}),
 			inline: false
@@ -193,11 +193,11 @@ function generateFields(packet: CommandProfilePacketRes, language: Language): Em
 
 	if (packet.data?.destinationId && packet.data?.mapTypeId) {
 		fields.push({
-			name: i18n.t("commands:profile.map.fieldName", {lng: language}),
+			name: i18n.t("commands:profile.map.fieldName", {lng}),
 			value: i18n.t("commands:profile.map.fieldValue", {
-				lng: language,
+				lng,
 				mapEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.map_types[packet.data.mapTypeId]),
-				mapName: i18n.t(`models:map_locations.${packet.data.destinationId}.name`, {lng: language})
+				mapName: i18n.t(`models:map_locations.${packet.data.destinationId}.name`, {lng})
 			}),
 			inline: false
 		});
@@ -205,12 +205,12 @@ function generateFields(packet: CommandProfilePacketRes, language: Language): Em
 
 	if (packet.data?.pet) {
 		fields.push({
-			name: i18n.t("commands:profile.pet.fieldName", {lng: language}),
+			name: i18n.t("commands:profile.pet.fieldName", {lng}),
 			value: i18n.t("commands:profile.pet.fieldValue", {
-				lng: language,
+				lng,
 				emote: PetUtils.getPetIcon(packet.data.pet.typeId, packet.data.pet.sex),
 				rarity: PetUtils.getRarityDisplay(packet.data.pet.rarity)
-			}) + PetUtils.petToShortString(language, packet.data.pet.nickname, packet.data.pet.typeId, packet.data.pet.sex),
+			}) + PetUtils.petToShortString(lng, packet.data.pet.nickname, packet.data.pet.typeId, packet.data.pet.sex),
 			inline: false
 		});
 	}
@@ -265,7 +265,7 @@ export async function handleCommandProfilePacketRes(packet: CommandProfilePacket
 				await sendMessageAllBadgesTooMuchBadges(keycloakUser.attributes.gameUsername, packet.data!.badges!, interaction);
 			}
 			else {
-				interaction.channel.send({content: i18n.t(`commands:profile.badges.${reaction.emoji.name}`)})
+				interaction.channel.send({content: i18n.t(`commands:profile.badges.${reaction.emoji.name}`, {lng: interaction.userLanguage})})
 					.then((msg: Message | null) => {
 						setTimeout(() => msg?.delete(), ProfileConstants.BADGE_DESCRIPTION_TIMEOUT);
 					});

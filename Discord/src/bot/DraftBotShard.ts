@@ -6,6 +6,7 @@ import {BotUtils} from "../utils/BotUtils";
 import {KeycloakConfig} from "../../../Lib/src/keycloak/KeycloakConfig";
 import {CommandsManager} from "../commands/CommandsManager";
 import {DiscordMQTT} from "./DiscordMQTT";
+import {LANGUAGE, Language} from "../../../Lib/src/Language";
 
 process.on("uncaughtException", function(error) {
 	console.log(error);
@@ -89,10 +90,10 @@ async function main(): Promise<void> {
 	 * Get the message when the bot joins or leaves a guild
 	 * @param {Guild} guild
 	 * @param {boolean} join
-	 * @param {"fr"|"en"} language
+	 * @param {Language} lng
 	 * @return {string}
 	 */
-	function getJoinLeaveMessage(guild: Guild, join: boolean, language: string): string {
+	function getJoinLeaveMessage(guild: Guild, join: boolean, lng: Language): string {
 		const {validation, humans, bots, ratio} = BotUtils.getValidationInfos(guild);
 		return i18n.t(join ? "bot:joinGuild" : "bot:leaveGuild", {
 			guild: guild.name,
@@ -100,7 +101,7 @@ async function main(): Promise<void> {
 			robots: bots,
 			ratio,
 			validation,
-			lng: language
+			lng
 		});
 	}
 
@@ -110,7 +111,7 @@ async function main(): Promise<void> {
 	async function onDiscordGuildCreate(guild: Guild): Promise<void> {
 		// TODO
 		// Const serv = await Servers.getOrRegister(botConfig.MAIN_SERVER_ID);
-		const msg = getJoinLeaveMessage(guild, true, "en");
+		const msg = getJoinLeaveMessage(guild, true, LANGUAGE.ENGLISH);
 		// DraftBotInstance.logsDatabase.logServerJoin(guild.id).then();
 		console.log(msg);
 	}
@@ -121,7 +122,7 @@ async function main(): Promise<void> {
 	async function onDiscordGuildDelete(guild: Guild): Promise<void> {
 		// TODO
 		// Const serv = await Servers.getOrRegister(botConfig.MAIN_SERVER_ID);
-		const msg = getJoinLeaveMessage(guild, false, "en");
+		const msg = getJoinLeaveMessage(guild, false, LANGUAGE.ENGLISH);
 		// DraftBotInstance.logsDatabase.logServerQuit(guild.id).then();
 		console.log(msg);
 	}

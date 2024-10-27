@@ -12,16 +12,16 @@ import {HelpConstants} from "../../../../Lib/src/constants/HelpConstants";
 /**
  * Get the list of commands mention from the command data
  * @param commandData
- * @param language used for the error message in case the command doesn't exist
+ * @param lng used for the error message in case the command doesn't exist
  */
 function getListOfMentionFromCommandData(commandData: [string, {
 	EMOTE: string,
 	NAME: string,
 	CATEGORY: string
-}], language: Language): string {
+}], lng: Language): string {
 	const commandName = commandData[1].NAME;
 	const commandMention = BotUtils.commandsMentions.get(commandName);
-	return commandMention ? commandMention : i18n.t("error:commandDoesntExist", {lng: language});
+	return commandMention ? commandMention : i18n.t("error:commandDoesntExist", {lng});
 }
 
 /**
@@ -145,7 +145,7 @@ function getCommandAliasMap(): Map<string, string> {
  * @param interaction
  */
 function generateReplacementObjectForHelpCommand(interaction: DraftbotInteraction): {
-	lng: string;
+	lng: Language;
 	petSellMinPrice: number;
 	petSellMaxPrice: number;
 	classesCommandMention: string;

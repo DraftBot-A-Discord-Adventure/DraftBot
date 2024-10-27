@@ -23,20 +23,20 @@ export class DisplayUtils {
 		}
 	}
 
-	static getWeaponDisplay(weaponId: number, language: Language): string {
-		return `${DraftBotIcons.weapons[weaponId]} ${i18n.t(`models:weapons.${weaponId}`, {lng: language})}`;
+	static getWeaponDisplay(weaponId: number, lng: Language): string {
+		return `${DraftBotIcons.weapons[weaponId]} ${i18n.t(`models:weapons.${weaponId}`, {lng})}`;
 	}
 
-	static getArmorDisplay(armorId: number, language: Language): string {
-		return `${DraftBotIcons.armors[armorId]} ${i18n.t(`models:armors.${armorId}`, {lng: language})}`;
+	static getArmorDisplay(armorId: number, lng: Language): string {
+		return `${DraftBotIcons.armors[armorId]} ${i18n.t(`models:armors.${armorId}`, {lng})}`;
 	}
 
-	static getPotionDisplay(potionId: number, language: Language): string {
-		return `${DraftBotIcons.potions[potionId]} ${i18n.t(`models:potions.${potionId}`, {lng: language})}`;
+	static getPotionDisplay(potionId: number, lng: Language): string {
+		return `${DraftBotIcons.potions[potionId]} ${i18n.t(`models:potions.${potionId}`, {lng})}`;
 	}
 
-	static getObjectDisplay(objectId: number, language: Language): string {
-		return `${DraftBotIcons.objects[objectId]} ${i18n.t(`models:objects.${objectId}`, {lng: language})}`;
+	static getObjectDisplay(objectId: number, lng: Language): string {
+		return `${DraftBotIcons.objects[objectId]} ${i18n.t(`models:objects.${objectId}`, {lng})}`;
 	}
 
 	static getItemDisplayWithStats(itemWithDetails: ItemWithDetails, language: Language): string {
@@ -67,40 +67,40 @@ export class DisplayUtils {
 		}
 	}
 
-	private static getMainItemDisplayWithStats(itemType: "weapons" | "armors", itemWithDetails: ItemWithDetails, language: Language): string {
+	private static getMainItemDisplayWithStats(itemType: "weapons" | "armors", itemWithDetails: ItemWithDetails, lng: Language): string {
 		const values: string[] = [];
-		this.getStringValueFor(values, itemWithDetails.maxStats?.attack ?? null, itemWithDetails.detailsMainItem!.stats.attack, "attack", language);
-		this.getStringValueFor(values, itemWithDetails.maxStats?.defense ?? null, itemWithDetails.detailsMainItem!.stats.defense, "defense", language);
-		this.getStringValueFor(values, itemWithDetails.maxStats?.speed ?? null, itemWithDetails.detailsMainItem!.stats.speed, "speed", language);
+		this.getStringValueFor(values, itemWithDetails.maxStats?.attack ?? null, itemWithDetails.detailsMainItem!.stats.attack, "attack", lng);
+		this.getStringValueFor(values, itemWithDetails.maxStats?.defense ?? null, itemWithDetails.detailsMainItem!.stats.defense, "defense", lng);
+		this.getStringValueFor(values, itemWithDetails.maxStats?.speed ?? null, itemWithDetails.detailsMainItem!.stats.speed, "speed", lng);
 		return i18n.t("items:itemsField", {
-			lng: language,
+			lng,
 			name: i18n.t(`models:${itemType}.` + itemWithDetails.id, {
-				lng: language,
+				lng,
 				interpolation: {escapeValue: false}
 			}),
 			emote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons[itemType][itemWithDetails.id]),
-			rarity: i18n.t("items:rarities." + itemWithDetails.rarity, {lng: language}),
+			rarity: i18n.t("items:rarities." + itemWithDetails.rarity, {lng}),
 			values: values.join(" "),
 			interpolation: {escapeValue: false}
 		});
 	}
 
-	private static getPotionDisplayWithStats(itemWithDetails: ItemWithDetails, language: Language): string {
+	private static getPotionDisplayWithStats(itemWithDetails: ItemWithDetails, lng: Language): string {
 		const itemField: string = i18n.t("items:itemsField", {
-			name: i18n.t(`models:potions.${itemWithDetails.id}`, {lng: language, interpolation: {escapeValue: false}}),
+			name: i18n.t(`models:potions.${itemWithDetails.id}`, {lng, interpolation: {escapeValue: false}}),
 			emote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.potions[itemWithDetails.id]),
-			rarity: i18n.t("items:rarities." + itemWithDetails.rarity, {lng: language}),
+			rarity: i18n.t("items:rarities." + itemWithDetails.rarity, {lng}),
 			values: i18n.t(`items:potionsNatures.${itemWithDetails.detailsSupportItem!.nature}`, {
 				power: itemWithDetails.detailsSupportItem!.nature === ItemNature.TIME_SPEEDUP ? minutesDisplay(itemWithDetails.detailsSupportItem!.power) : itemWithDetails.detailsSupportItem!.power,
-				lng: language
+				lng
 			}),
 			interpolation: {escapeValue: false},
-			lng: language
+			lng
 		});
 		return itemWithDetails.id === 0 ? itemField.split("|")[0] : itemField;
 	}
 
-	private static getObjectNatureTranslation(itemWithDetails: ItemWithDetails, lng: string): string {
+	private static getObjectNatureTranslation(itemWithDetails: ItemWithDetails, lng: Language): string {
 		let maxStatsValue = itemWithDetails.maxStats ?? null;
 		if (itemWithDetails.maxStats === null) {
 			maxStatsValue = {attack: Infinity, defense: Infinity, speed: Infinity};
@@ -131,16 +131,16 @@ export class DisplayUtils {
 		});
 	}
 
-	private static getObjectDisplayWithStats(itemWithDetails: ItemWithDetails, language: Language): string {
+	private static getObjectDisplayWithStats(itemWithDetails: ItemWithDetails, lng: Language): string {
 		const itemField: string = i18n.t("items:itemsField", {
 			name: i18n.t(`models:objects.${itemWithDetails.id}`, {
-				lng: language,
+				lng,
 				interpolation: {escapeValue: false}
 			}),
 			emote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.objects[itemWithDetails.id]),
-			rarity: i18n.t(`items:rarities.${itemWithDetails.rarity}`, {lng: language}),
-			values: DisplayUtils.getObjectNatureTranslation(itemWithDetails, language),
-			lng: language,
+			rarity: i18n.t(`items:rarities.${itemWithDetails.rarity}`, {lng}),
+			values: DisplayUtils.getObjectNatureTranslation(itemWithDetails, lng),
+			lng,
 			interpolation: {escapeValue: false}
 		});
 		return itemWithDetails.id === 0 ? itemField.split("|")[0] : itemField;
