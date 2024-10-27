@@ -54,7 +54,7 @@
   "alreadyInAGuild": "Já pertences a um grémio.",
   "petDoesntExist": "Não foram encontrados animais de estimação.",
   "unexpectedError": "Ocorreu um erro :(",
-  "pleaseWaitForHeal": "Por favor, espera até teres terminado de curar a tua alteração de estado antes de continuares a jogar: {{time}}\n\n:information_source: Podes usar o comando /shop para comprar uma cura.",
+  "pleaseWaitForHeal": "Por favor, espera até ao fim da cura para a tua alteração de estado antes de continuares a jogar: {{time}}\n\n:information_source: {command:shop} Podes usar o comando para comprar uma cura.",
   "pleaseWaitForHisHeal": "{{time}}Por favor, aguarde até ao fim dos cuidados para o seu estado de deterioração:",
   "notEnoughMoney": "Não tem dinheiro suficiente para levar a cabo esta ação. {{money}} Estás em falta 💰.",
   "cooldownPetFree": "Só é possível libertar um animal de estimação por hora. {{remainingTime}}Pode libertar outro .",

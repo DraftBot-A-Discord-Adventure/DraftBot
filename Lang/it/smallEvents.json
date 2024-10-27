@@ -80,18 +80,18 @@
       "Un'isola è composta da un numero finito di località. Una volta visitata l'ultima località, si viene riportati sulla terraferma.",
       "L'isola misteriosa cambia ogni settimana",
       "Quando si combatte contro un mostro, se si supera il numero massimo di turni, il mostro diventa rapidamente molto potente.",
-      "Se un membro della vostra gilda vuole unirsi a voi sulla barca, può eseguire /joinboat",
+      "{command:joinboat}Se un membro della vostra gilda vuole unirsi a voi sulla barca, può correre .",
       "Le azioni disponibili quando si combattono gli animali dipendono dalle statistiche, dagli oggetti, dagli animali domestici, ecc.",
       "L'ostilità dell'isola non vi favorirà nelle avventure. Ma se unisci le forze con i membri della tua gilda, insieme sarete molto più forti.",
-      "Il comando /mappa visualizza una mappa dell'isola",
+      "{command:map} Clicca per vedere la mappa dell'isola",
       "Si può scegliere di lasciare l'isola dopo ogni combattimento con i mostri. Se l'energia è poca, è meglio andarsene quando si è ancora coscienti.",
       "Alcune azioni, come bere una pozione, accedere al negozio o ottenere i bonus giornalieri, non sono disponibili sull'isola.",
       "Il livello non influisce sul numero di punti gilda, ma influisce su altre ricompense.",
       "Vincendo contro un mostro più avanti nell'isola si otterranno più punti gilda di quelli ottenuti all'inizio.",
       "Si dice che se diversi membri della stessa gilda si trovano sull'isola nello stesso momento, è possibile unire le forze di ciascuno per sferrare un attacco devastante.",
       "I membri della vostra gilda possono aiutarvi a combattere i mostri quando visitate un'isola misteriosa.",
-      "Potete usare il comando /gilda per vedere quali membri della vostra gilda si trovano su un'isola misteriosa.",
-      "Usate il comando /gilda per vedere quanti alleati vi stanno aiutando sull'isola misteriosa.",
+      "{command:guild}Potete usare il comando per vedere quali membri della vostra gilda si trovano su un'isola misteriosa.",
+      "{command:guild} Il comando permette di vedere il numero di alleati che vi aiuteranno sull'isola misteriosa.",
       "Un \"alleato\" è un membro della vostra gilda che si trova attualmente sull'isola misteriosa o che l'ha lasciata di recente."
     ]
   },
@@ -354,8 +354,8 @@
     ],
     "reward": ":moneybag: Argento:{{money}}\n:star: ** ** XP :{{xp}}\n:medal: ** Punti:\n:gift: ** Il numero di punti dipenderà dalla classifica finale ** Equipaggiamento casuale.",
     "endMessage": "\n\n:newspaper: {{league}}\n\n{{rewards}}\n\n {{time}}\"All'avventuriero appartenente a chi trova questo testo, **se manterrà la sua gloria fino alla fine della stagione**, potrà vincere queste ricompense:\" Si riparte, impazienti di riscuotere il proprio bonus.",
-    "notEnoughFight": "\n\n:newspaper: {{league}}\n\n{{rewards}}\n\n {{time}}\"All'avventuriero che troverà questo testo, **se effettuerà alcuni combattimenti usando il comando /combattimento**, potrà vincere queste ricompense:\" Si riparte velocemente, temendo di non riuscire a combattere abbastanza giocatori prima della fine della stagione.",
-    "rewardToday": "\n\n:newspaper: \"Ottieni la tua ricompensa prima della fine della settimana usando il comando /leaguebonus!\n\nSei di nuovo sulla buona strada e non vedi l'ora di riscuotere il tuo bonus."
+    "notEnoughFight": "\n\n:newspaper: {{league}} {command:fight}\n\n{{rewards}}\n\n {{time}}\"All'avventuriero appartenente a chi trova questo testo, **se combatti qualche battaglia usando il comando **, puoi vincere queste ricompense:\" Ti rimetti velocemente in cammino, temendo di non riuscire a combattere abbastanza giocatori prima della fine della stagione.",
+    "rewardToday": "\n\n:newspaper: {command:leaguebonus} \"Ottieni la tua ricompensa prima della fine della settimana ordinando.\"\n\nSiete di nuovo in viaggio, impazienti di riscuotere il vostro bonus."
   },
   "winGuildXP": {
     "stories": [
@@ -657,9 +657,13 @@
       "Partirete senza rimpiangere la vostra sosta",
       "Continuate il vostro cammino perplesso"
     ],
+    "nObjectsCrossTheSky_one": "{{count}} attraverserà",
+    "nObjectsCrossTheSky_other": "{{count}} passerà attraverso",
+    "days_one": "giorno",
+    "days_other": "giorni",
     "specific": {
       "neoWS": [
-        "{{mainValue}}{{mainValuePlural}} oggetto che attraverserà il cielo oggi",
+        "{{objectWhichWillCrossTheSky}} il cielo di oggi",
         "{{randomObjectName}} {{randomObjectDiameter}} l'oggetto denominato \" \", con un diametro di circa metri, sta passando oggi vicino al pianeta",
         "{{randomObjectName}} {{randomObjectDistance}} l'oggetto denominato \" \" passa a una distanza di circa un milione di chilometri dal pianeta",
         "{{randomObjectName}} {{randomObjectDistance}} l'asteroide denominato \" \" supera il nostro pianeta di qualche milione di chilometri",
@@ -674,22 +678,22 @@
         "{{mainValue}}il cielo rado lascia intravedere"
       ],
       "nextFullMoon": [
-        "{{mainValue}}{{mainValuePlural}}la prossima luna piena è in",
-        "{{mainValue}}{{mainValuePlural}}la luna piena risplenderà su",
-        "{{mainValue}}{{mainValuePlural}}vedremo la luna piena il",
-        "{{mainValue}}{{mainValuePlural}} su si può vedere la luna piena"
+        "{{mainValue}} {{days}}la prossima luna piena è in",
+        "{{mainValue}} {{days}}la luna piena risplenderà su",
+        "{{mainValue}} {{days}}possiamo vedere la luna piena su",
+        "{{mainValue}} {{days}} in possiamo osservare la luna piena"
       ],
       "nextPartialLunarEclipse": [
-        "{{mainValue}}{{mainValuePlural}}la prossima eclissi lunare parziale è in",
-        "{{mainValue}}{{mainValuePlural}} un'eclissi lunare parziale può essere osservata su",
-        "{{mainValue}}{{mainValuePlural}} nei prossimi giorni avrete la possibilità di assistere a un'eclissi lunare parziale",
-        "{{mainValue}}{{mainValuePlural}}il momento per vedere la prossima eclissi lunare parziale è il giorno"
+        "{{mainValue}} {{days}}la prossima eclissi lunare parziale è in",
+        "{{mainValue}} {{days}} mostrerà un'eclissi lunare parziale",
+        "{{mainValue}} {{days}} in arrivo avrete la fortuna di assistere a un'eclissi lunare parziale",
+        "{{mainValue}} {{days}}il momento per vedere la prossima eclissi lunare parziale è"
       ],
       "nextTotalLunarEclipse": [
-        "{{mainValue}}{{mainValuePlural}}la prossima eclissi lunare totale è in",
-        "{{mainValue}}{{mainValuePlural}} da si assisterà a un'eclissi lunare completa",
-        "{{mainValue}}{{mainValuePlural}} nei prossimi giorni avrete la possibilità di assistere a un'eclissi lunare totale",
-        "{{mainValue}}{{mainValuePlural}} se si osserva il cielo si può vedere un'eclissi lunare totale"
+        "{{mainValue}} {{days}}la prossima eclissi lunare totale è in",
+        "{{mainValue}} {{days}} da si assisterà a un'eclissi lunare completa",
+        "{{mainValue}} {{days}} in arrivo la possibilità di assistere ad un'eclissi lunare totale",
+        "{{mainValue}} {{days}} se si guarda il cielo si può vedere un'eclissi lunare totale"
       ]
     },
     "moonPhases": [
@@ -817,5 +821,33 @@
         "vi imbattete in un carretto il cui carico fuoriesce, strappando la vostra borsa. Mentre raccogliete le vostre cose, un gruppo di bambini passa e vi ruba del denaro.{{amount}} :money_with_wings:Si perde ** **."
       ]
     }
+  },
+  "findPotion": {
+    "stories": [
+      "Con la coda dell'occhio si nota una fiala luccicante...",
+      "scivolate sul ciglio della strada e cadete a terra. Quando vi rialzate, notate una strana bottiglia piena di liquido.",
+      "notate una borsa danneggiata sulla strada. La aprite frettolosamente...",
+      "decidete di fare una breve deviazione per evitare di attraversare un torrente. In quel momento scoprite...",
+      "passate accanto a un uomo con un mulo carico. Qualche minuto dopo, notate che qualcosa è caduto dal suo zaino. Ormai è troppo tardi per prenderlo.",
+      "lo sguardo viene catturato dal riflesso di una pozione sul pavimento.",
+      "inciampate in una radice. Furioso, gli dai un colpo... Non sembra essere una radice...",
+      "incontrate un bambino che non sembra parlare la vostra lingua. Ma sembra amichevole e vi porge un pacco...",
+      "si incontra un uomo con un mulo carico. Decidete di aiutarlo a trasportare il suo carico. In segno di gratitudine, vi offre una pozione...",
+      "vi imbattete in una donna che sembra offrirvi da bere. Incuriositi, accettate la sua offerta...",
+      "scoprite una dimora che esplorate rapidamente. Raccogliete una bottiglia e ripartite frettolosamente..."
+    ]
+  },
+  "findItem": {
+    "stories": [
+      "intravedete con la coda dell'occhio un oggetto luccicante...",
+      "scivolate sul ciglio della strada e cadete a terra. Mentre vi rialzate, notate qualcosa a terra...",
+      "notate una borsa danneggiata sulla strada. La aprite frettolosamente...",
+      "decidete di fare una breve deviazione per evitare di attraversare un torrente. In quel momento scoprite...",
+      "passate accanto a un uomo con un mulo carico. Qualche minuto dopo, notate che qualcosa è caduto dal suo zaino. Ormai è troppo tardi per prenderlo.",
+      "gli occhi sono attratti dal riflesso di un oggetto a terra.",
+      "inciampate in una radice. Furioso, la colpisci... Non sembra essere una radice...",
+      "incontrate un bambino che non sembra parlare la vostra lingua. Ma sembra amichevole e vi porge un pacco...",
+      "si incontra un uomo con un mulo carico. Decidete di aiutarlo a trasportare il suo carico. In segno di gratitudine, vi offre un oggetto..."
+    ]
   }
 }

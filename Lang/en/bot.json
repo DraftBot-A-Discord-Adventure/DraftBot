@@ -1,6 +1,6 @@
 {
   "command404": "It seems that this command doesn't exist in the bot... Please report it to the DraftBot's staff",
-  "dmHelpMessage": "<:draftbot:529305485963427840> **What is DraftBot? How do I play?**\n\nA preview of the bot is available here: https://draftbot.com\nA complete guide to the bot is available here: https://guide.draftbot.com\n\n:inbox_tray: **How do I add the bot to my server?**\nYou can invite the bot to your server from the bot's official server with this link: https://discord.gg/5JqrMtZ\n\n:skull: **I just died... DraftBot suggested I use {{commandRespawn}} **\n\nCommands wont work in Direct Messages. Run this command on a server where the bot can respond.\n\n:scroll: **I'm looking for the command list.**\n\nThe command list is available if you use the `help` command in a channel the bot has access to.\n\n:question: **I have another question...**\n\nJoin the bot's official Discord and ask away! Our staff is delighted to be of help!\nhttps://discord.gg/5JqrMtZ",
+  "dmHelpMessage": "<:draftbot:529305485963427840> **What is this bot? How to play?**\n\nA quick bot presentation is available here: https://draftbot. om\nA complete guide to discovering the bot is available here: https://guide.draftbot. om\n\n:inbox_tray: **How to add the bot to my server? *\nThe link to add the bot to your server is available on the bot server. https://discord. g/5JqrMtZ\n\n:skull: **I just died, the bot told me to do {command:respawn} **\n\nCommands don't work in private message. Perform this command on a server in which the bot can talk.\n\n:scroll: **I'm looking for the list of commands. *\n\nThe list of commands is available by performing the `help` command in a channel in which the bot can speak.\n\n:question: **I have another question. *\n\nJoin the bot Discord server and ask your question, our staff will be happy to help!\nhttps://discord.gg/5JqrMtZ",
   "dmHelpMessageTitle": "{{pseudo}}, here are some information that could help you.",
   "joinGuild": "**:inbox_tray: Discord server joined :** `{{guild}}` | :bust_in_silhouette: : `{{humans}}` | :robot: : `{{robots}}` | Bot/human ratio : `{{ratio}}` % | Validation : {{validation}}",
   "leaveGuild": "**:outbox_tray: Discord server left :** `{{guild}}` | :bust_in_silhouette: : `{{humans}}` | :robot: : `{{robots}}` | Bot/human ratio : `{{ratio}}` % | Validation : {{validation}}",
@@ -16,9 +16,11 @@
   "notInAGuild": "You have to be in a guild to use this command.",
   "resetIsNow": ":trophy: The weekly ranking is currently being reinitialized. The winner will soon be announced on the bot's server! The game will resume in less than 5 minutes!",
   "seasonEndAnnouncement": ":sparkles: **The combat season has come to an end! The winner is:** {{mention}}",
+  "seasonEndAnnouncementNoWinner": ":sparkles: **The battle season is over! Unfortunately, there is no participant and therefore winner this season.**",
   "seasonEndIsNow": ":sparkles: The combat season is currently being restored! The winner will soon be announced on the bot's server! The game will resume in less than 20 minutes!",
   "serverList": "**:outbox_tray: Server {{count}} :** `{{guild}}` | :bust_in_silhouette: : `{{humans}}` | :robot: : `{{robots}}` | Bot/human ratio : `{{ratio}}` % | Validation : {{validation}}",
   "supportAlert": ":love_letter: | **New DM received!** \n`Author: {{username}} (id : {{id}})\n\n`",
   "topWeekAnnouncement": ":trophy: **The weekly ranking has ended! The winner is:** {{mention}}",
+  "topWeekAnnouncementNoWinner": ":trophy: **The Week Ranking is over! Unfortunately, there are no participants and therefore winners this week.**",
   "totalUsersCount": "**Total users count : `{{count}}`**"
 }

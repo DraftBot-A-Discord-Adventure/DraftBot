@@ -1,6 +1,6 @@
 {
   "command404": "Parece que este comando não existe... Por favor, comunique este erro à equipa do Bot",
-  "dmHelpMessage": "<:draftbot:529305485963427840> **Quel est ce bot ? Comment jouer ?**\n\nUne présentation rapide du bot est disponible ici : https://draftbot.com\nUn guide complet pour découvrir le bot est disponible ici : https://guide.draftbot.com\n\n:inbox_tray: **Comment ajouter le bot à mon serveur ?**\nLe lien pour ajouter le bot sur votre serveur est disponible sur le serveur du bot. https://discord.gg/5JqrMtZ\n\n:skull: **Je viens de mourir, le bot m'a dit de faire {{commandRespawn}} **\n\nLes commandes ne fonctionnent pas en message privé. Effectuez cette commande sur un serveur ou le bot peut parler.\n\n:scroll: **Je cherche la liste des commandes.**\n\nLa liste des commande est disponible en effectuant la commande `help` dans un salon ou le bot peut parler.\n\n:question: **J'ai une autre question.**\n\nRejoignez le serveur Discord du bot et posez votre question, notre staff sera ravi de vous aider !\nhttps://discord.gg/5JqrMtZ",
+  "dmHelpMessage": "<:draftbot:529305485963427840> **O que é este bot?\n\n\n\n\n:inbox_tray:\n\n\n:skull: {command:respawn}\n\nComo é que eu jogo? Uma apresentação rápida do bot está disponível aqui: https://draftbot.com Um guia completo para descobrir o bot está disponível aqui: https://guide.draftbot.com **Como é que eu adiciono o bot ao meu servidor? O link para adicionar o bot ao teu servidor está disponível no servidor do bot. https://discord.gg/5JqrMtZ **Eu acabei de morrer, o bot disse-me para fazer ** Os comandos não funcionam em mensagens privadas. Executa este comando num servidor onde o bot possa falar.\n\n:scroll:\n\n**Estou à procura da lista de comandos ** A lista de comandos está disponível ao executar o comando `help` numa sala onde o bot possa falar.\n\n:question:\n\n\n**Tenho outra pergunta** Entra no servidor Discord do bot e faz a tua pergunta, a nossa equipa terá todo o prazer em ajudar-te! https://discord.gg/5JqrMtZ",
   "dmHelpMessageTitle": "{{pseudo}}Eis algumas informações que o podem ajudar.",
   "joinGuild": ":inbox_tray:{{guild}} :bust_in_silhouette:{{humans}} :robot:{{robots}}{{ratio}} {{validation}}** Servidor de discórdia juntou-se :** ` ` | : ` ` | | : ` ` | Rácio bot/Humano : ` ` % | Validação :",
   "leaveGuild": ":outbox_tray:{{guild}} :bust_in_silhouette:{{humans}} :robot:{{robots}}{ratio} {{validation}}** A discórdia do servidor foi deixada :** ` ` | : ` ` | : ` ` | Rácio bot/Humano : `{ ` % | Validação :",
@@ -16,9 +16,11 @@
   "notInAGuild": "É necessário pertencer a um grémio para efetuar esta encomenda.",
   "resetIsNow": ":trophy: As classificações desta semana estão a ser repostas! O vencedor será anunciado em breve no servidor bot! O jogo será retomado em menos de 5 minutos!",
   "seasonEndAnnouncement": ":sparkles: **A época de combates terminou! {{mention}}O vencedor é: **",
+  "seasonEndAnnouncementNoWinner": ":sparkles: **A época de combates terminou! Infelizmente, não há participantes e, portanto, não há vencedores nesta temporada **.",
   "seasonEndIsNow": ":sparkles: A época de combates está a ser reiniciada! O vencedor será anunciado em breve no servidor bot! O jogo será retomado em menos de 20 minutos!",
   "serverList": ":outbox_tray: {{count}}{{guild}} :bust_in_silhouette:{{humans}} :robot:{{robots}}{{ratio}} {{validation}}** Servidor :** ` ` | ` ` : ` ` | Rácio bot/Humano : ` ` % | Validação :",
   "supportAlert": ":love_letter: \n {{username}} {{id}}\n\n**Nova mensagem privada recebida!** `Autor: (id : ) `",
   "topWeekAnnouncement": ":trophy: **As classificações desta semana terminaram! {{mention}}O vencedor é:**",
+  "topWeekAnnouncementNoWinner": ":trophy: **As classificações desta semana estão completas! Infelizmente, não há participantes e, portanto, não há vencedores esta semana **.",
   "totalUsersCount": "{{count}}**Número total de utilizadores: ` `**"
 }

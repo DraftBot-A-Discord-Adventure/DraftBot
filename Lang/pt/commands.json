@@ -189,7 +189,7 @@
         "description": "Esta caraterística foi removida do jogo na sequência de uma atualização da funcionalidade do Discord."
       },
       "PROFILE": {
-        "description": "\n\n\n\n\n\n\nMostra informações sobre o seu personagem: 😃 Estado de saúde | Apelido | Nível ឵឵Informações: ❤️ Vida | ⭐ XP | 💰 Dinheiro Estatísticas :\n\n\n⚡ Energia | 🗡️ Ataque | 🛡️ Defesa | 🚀 Velocidade | 🌬️ Respiração | 🫁 Recuperação Missões :\n\n\n\n\n\n\n {{classesCommandMention}}\n\n\n {{topGloryCommandMention}}\n\n\n\n\n\n {{mapCommandMention}}\n\n\n {{petCommandMention}}\n\n💎 Gemas | 📖 Campanha avançada % Classificação e pontuação: 🏆 Classificação | 🏅 Pontuação Classe: Ver Glória e Liga: ✨ Glória | Ver Grémio: 🏟️ Destino do Grémio: Ver Familiar: Ver 💡-Os emblemas são apresentados no teu perfil como uma reação."
+        "description": "\n\n\n\n\n\n\nMostra informações sobre o seu personagem: 😃 Estado de saúde | Apelido | Nível ឵឵Informações: ❤️ Vida | ⭐ XP | 💰 Dinheiro Estatísticas :\n\n\n⚡ Energia | 🗡️ Ataque | 🛡️ Defesa | 🚀 Velocidade | 🌬️ Respiração | 🫁 Recuperação Missões :\n\n\n\n\n\n\n {command:classes}\n\n\n {{topGloryCommandMention}}\n\n\n\n\n\n {{mapCommandMention}}\n\n\n {{petCommandMention}}\n\n💎 Gemas | 📖 Campanha avançada % Classificação e pontuação: 🏆 Classificação | 🏅 Pontuação Classe: Ver Glória e Liga: ✨ Glória | Ver Grémio: 🏟️ Destino do Grémio: Ver Familiar: Ver 💡-Os emblemas são apresentados no teu perfil como uma reação."
       },
       "RARITY": {
         "description": "Mostra a probabilidade de ter um item de acordo com a sua raridade."
@@ -368,7 +368,7 @@
     },
     "playerClass": {
       "fieldName": "Classe :",
-      "fieldValue": "{{emote}} {{className}}"
+      "field": "{{className}}"
     },
     "ranking": {
       "fieldName": "Classificação e pontuação :",

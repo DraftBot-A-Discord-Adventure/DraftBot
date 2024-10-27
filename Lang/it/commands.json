@@ -189,7 +189,7 @@
         "description": "Questa funzione è stata rimossa dal gioco in seguito a un aggiornamento delle funzionalità di Discord."
       },
       "PROFILE": {
-        "description": "Visualizza le informazioni sul personaggio:\n\n😃 Stato di salute | Nickname | Livello\n\n឵឵Informazioni:\n❤️ Vita | ⭐ XP | 💰 Denaro\n\nStatistiche :\n⚡ Energia | 🗡️ Attacco | 🛡️ Difesa | 🚀 Velocità | 🌬️ Respirazione | 🫁 Recupero\n\nMissioni :\n💎 Gemme | 📖 Avanzata della campagna %\n\nRango e punteggio:\n🏆 Rango | 🏅 Punteggio\n\nClasse:\nVedi {{classesCommandMention}}\n\nGloria e Lega:\n✨ Gloria | Vedi {{topGloryCommandMention}}\n\nGilda:\n🏟️ Gilda\n\nDestinazione:\nVedi {{mapCommandMention}}\n\nFamiliare:\nVedi {{petCommandMention}}\n\n💡 I distintivi vengono visualizzati sul tuo profilo come reazione."
+        "description": "\n\n\n\n\n\n\nVisualizza le informazioni sul personaggio: 😃 Stato di salute | Nickname | Livello ឵឵Informazioni: ❤️ Vita | ⭐ XP | 💰 Denaro Statistiche :\n\n\n⚡ Energia | 🗡️ Attacco | 🛡️ Difesa | 🚀 Velocità | 🌬️ Respiro | 🫁 Recupero Missioni :\n\n\n\n\n\n\n {command:classes}\n\n\n {{topGloryCommandMention}}\n\n\n\n\n\n {{mapCommandMention}}\n\n\n {{petCommandMention}}\n\n💎 Gemme | 📖 Campagna avanzata % Rango e punteggio: 🏆 Rango | 🏅 Punteggio Classe: Vedi Gloria e Lega: ✨ Gloria | Vedi Gilda: 🏟️ Destinazione Gilda: Vedi Familiare: Vedi 💡 I distintivi vengono visualizzati sul tuo profilo come reazione."
       },
       "RARITY": {
         "description": "Mostra la probabilità di avere un oggetto in base alla sua rarità."
@@ -368,7 +368,7 @@
     },
     "playerClass": {
       "fieldName": "Classe :",
-      "fieldValue": "{{emote}} {{className}}"
+      "field": "{{className}}"
     },
     "ranking": {
       "fieldName": "Classifica e punti :",

@@ -80,18 +80,18 @@
       "Eine Insel besteht aus einer endlichen Anzahl von Orten. Sobald Sie den letzten Ort besucht haben, werden Sie auf den Hauptkontinent zurückgebracht",
       "Die geheimnisvolle Insel wechselt jede Woche",
       "Wenn im Kampf gegen ein Monster die maximale Rundenzahl überschritten wird, wird das Monster sehr schnell sehr mächtig.",
-      "Wenn ein Mitglied Ihrer Gilde Sie auf dem Boot begleiten möchte, kann es /joinboat ausführen.",
+      "Wenn ein Mitglied Ihrer Gilde sich Ihnen auf dem Schiff anschließen möchte, kann es {command:joinboat}ausführen.",
       "Die Aktionen, die während des Kampfes gegen Tiere verfügbar sind, hängen von deinen Statistiken, Gegenständen, Vertrauten etc. ab.",
       "Die feindselige Insel wird Ihnen keine Abenteuer schenken. Aber wenn Sie sich mit Ihren Gildenmitgliedern zusammenschließen, werden Sie gemeinsam viel stärker sein.",
-      "Mit dem Befehl /map können Sie sich die Karte der Insel anzeigen lassen",
+      "Mit dem Befehl {command:map} können Sie sich die Karte der Insel ansehen",
       "Sie können sich nach jedem Monsterkampf entscheiden, ob Sie die Insel verlassen möchten. Wenn Ihre Energie niedrig ist, ist es sinnvoller, bei noch vorhandenem Bewusstsein zu gehen",
       "Einige Aktionen wie das Trinken eines Tranks, das Betreten des Ladens oder das Erhalten der täglichen Boni sind auf der Insel nicht verfügbar.",
       "Deine Stufe beeinflusst nicht die Anzahl der Gildenpunkte, aber sie beeinflusst andere Belohnungen",
       "Ein Sieg gegen ein Monster weiter hinten auf der Insel bringt mehr Gildenpunkte als zu Beginn.",
       "Es wird erzählt, dass, wenn mehrere Mitglieder einer Gilde gleichzeitig auf der Insel sind, es möglich ist, die Kräfte der einzelnen Mitglieder zu kombinieren, um einen verheerenden Angriff zu starten",
       "Mitglieder Ihrer Gilde können Ihnen beim Kampf gegen Monster helfen, wenn Sie eine geheimnisvolle Insel besuchen.",
-      "Es ist möglich, die Mitglieder deiner Gilde, die sich auf einer geheimnisvollen Insel befinden, mit dem Befehl /guild zu sehen",
-      "Mit dem Befehl /guild können Sie sehen, wie viele Verbündete Ihnen auf der geheimnisvollen Insel helfen werden.",
+      "Es ist möglich, die Mitglieder Ihrer Gilde, die sich auf einer geheimnisvollen Insel befinden, mit dem Befehl {command:guild}zu sehen.",
+      "Mit dem Befehl {command:guild} können Sie sehen, wie viele Verbündete Ihnen auf der geheimnisvollen Insel helfen werden.",
       "Ein \"Verbündeter\" ist ein Mitglied Ihrer Gilde, das sich derzeit auf der geheimnisvollen Insel aufhält oder sie vor kurzem verlassen hat."
     ]
   },
@@ -354,8 +354,8 @@
     ],
     "reward": ":moneybag: Silber: **{{money}}**\n:star: XP: **{{xp}}**\n:medal: Punkte: **Die Anzahl der Punkte hängt von deiner endgültigen Platzierung ab.**\n:gift: Eine zufällige Ausrüstung.",
     "endMessage": "\n\n:newspaper: \"An den Abenteurer, der zu {{league}} gehört und diesen Text findet: **Wenn du deinen Ruhm bis zum Ende der Saison** aufrechterhältst, kannst du diese Belohnungen gewinnen:\n\n{{rewards}}\"\n\nDu setzt deinen Weg fort und freust dich, dass du deinen Bonus abholen kannst {{time}}.",
-    "notEnoughFight": "\n\n:newspaper: \"An den Abenteurer, der zu {{league}} gehört und diesen Text findet: **Wenn du einige Kämpfe mit dem Befehl /fight** ausführst, kannst du diese Belohnungen gewinnen:\n\n{{rewards}}\"\n\nDu machst dich schnell wieder auf den Weg, da du befürchtest, dass du es nicht schaffen wirst, bis zum Ende der Saison gegen genügend Spieler zu kämpfen {{time}}.",
-    "rewardToday": "\n\n:newspaper: \"**Liga-Boni sind verfügbar!** Holen Sie sich Ihre Belohnung noch vor Ende der Woche mit dem Befehl /leaguebonus!\"\n\nSie setzen Ihre Reise fort und freuen sich darauf, Ihren Bonus abzuholen."
+    "notEnoughFight": "\n\n:newspaper: \"An den Abenteurer, der zu {{league}} gehört und diesen Text findet: **Wenn du einige Kämpfe mit dem Befehl {command:fight}** durchführst, kannst du diese Belohnungen gewinnen:\n\n{{rewards}}\"\n\nDu machst dich schnell wieder auf den Weg, da du befürchtest, dass du es nicht schaffen wirst, vor Ende der Saison gegen genügend Spieler zu kämpfen {{time}}.",
+    "rewardToday": "\n\n:newspaper: \"**Liga-Belohnungen sind verfügbar!** Holen Sie sich Ihre Belohnung mit dem Befehl {command:leaguebonus} noch vor Ende der Woche!\"\n\nSie setzen Ihre Reise fort und freuen sich darauf, Ihren Bonus abzuholen."
   },
   "winGuildXP": {
     "stories": [
@@ -657,9 +657,13 @@
       "Sie fahren weiter, ohne zu bereuen, dass Sie angehalten haben",
       "Sie setzen Ihren Weg ratlos fort"
     ],
+    "nObjectsCrossTheSky_one": "{{count}} Objekt wird durchlaufen",
+    "nObjectsCrossTheSky_other": "{{count}} Objekte werden durchlaufen",
+    "days_one": "Tag",
+    "days_other": "Tage",
     "specific": {
       "neoWS": [
-        "{{mainValue}} Objekt{{mainValuePlural}} wird heute den Himmel überqueren",
+        "{{objectWhichWillCrossTheSky}} der Himmel heute",
         "das Objekt mit dem Namen \"{{randomObjectName}}\" mit einem Durchmesser von etwa {{randomObjectDiameter}} Metern passiert heute in der Nähe des Planeten",
         "das Objekt mit dem Namen \"{{randomObjectName}}\" in einer Entfernung von etwa {{randomObjectDistance}} Millionen Kilometern am Planeten vorbeizieht",
         "der Asteroid mit dem Namen \"{{randomObjectName}}\" unseren Planeten um etwa {{randomObjectDistance}} Millionen Kilometer überholt",
@@ -674,22 +678,22 @@
         "der spärliche Himmel lässt einen Blick auf {{mainValue}}zu."
       ],
       "nextFullMoon": [
-        "der nächste Vollmond ist in {{mainValue}} Tag{{mainValuePlural}}",
-        "der Vollmond wird in {{mainValue}} Tag{{mainValuePlural}}scheinen",
-        "wir werden den Vollmond in {{mainValue}} Tag{{mainValuePlural}}erblicken",
-        "in {{mainValue}} Tag{{mainValuePlural}} wird man den Vollmond beobachten können"
+        "der nächste Vollmond ist in {{mainValue}} {{days}}",
+        "der Vollmond wird in {{mainValue}} {{days}}scheinen",
+        "wir werden den Vollmond in {{mainValue}} {{days}}erblicken",
+        "in {{mainValue}} {{days}} kann man den Vollmond beobachten"
       ],
       "nextPartialLunarEclipse": [
-        "die nächste partielle Mondfinsternis ist in {{mainValue}} Tag{{mainValuePlural}}",
-        "in {{mainValue}} Tag{{mainValuePlural}} wird eine partielle Mondfinsternis zu sehen sein",
-        "in den nächsten {{mainValue}} Tagen{{mainValuePlural}} haben Sie die Chance, eine partielle Mondfinsternis zu beobachten",
-        "die Zeit, bis die nächste partielle Mondfinsternis zu sehen ist, beträgt {{mainValue}} Tag{{mainValuePlural}}"
+        "die nächste partielle Mondfinsternis ist in {{mainValue}} {{days}}",
+        "in {{mainValue}} {{days}} wird eine partielle Mondfinsternis zu sehen sein",
+        "in den nächsten {{mainValue}} {{days}} haben Sie die Chance, eine partielle Mondfinsternis zu beobachten",
+        "die Zeit, bis die nächste partielle Mondfinsternis zu sehen ist, beträgt {{mainValue}} {{days}}"
       ],
       "nextTotalLunarEclipse": [
-        "die nächste totale Mondfinsternis ist in {{mainValue}} Tag{{mainValuePlural}}",
-        "innerhalb von {{mainValue}} Tag{{mainValuePlural}} werden Sie eine vollständige Mondfinsternis erblicken",
-        "in den nächsten {{mainValue}} Tagen{{mainValuePlural}} haben Sie die Chance, eine totale Mondfinsternis zu erleben",
-        "wenn Sie den Himmel in {{mainValue}} Tag{{mainValuePlural}} beobachten, können Sie eine totale Mondfinsternis betrachten"
+        "die nächste totale Mondfinsternis ist in {{mainValue}} {{days}}",
+        "von hier aus {{mainValue}} {{days}} werden Sie eine vollständige Mondfinsternis erblicken",
+        "in den nächsten {{mainValue}} {{days}} haben Sie die Chance, eine totale Mondfinsternis zu beobachten",
+        "wenn Sie den Himmel unter {{mainValue}} {{days}} beobachten, können Sie eine totale Mondfinsternis beobachten"
       ]
     },
     "moonPhases": [
@@ -817,5 +821,33 @@
         "Sie begegnen einem Karren, dessen Ladung über Sie hinausragt und Ihre Tasche zerreißt. Während Sie Ihre Sachen zusammenpacken, kommt eine Gruppe von Kindern vorbei und stiehlt Ihnen Geld. Sie verlieren **{{amount}} :money_with_wings:**."
       ]
     }
+  },
+  "findPotion": {
+    "stories": [
+      "sehen Sie aus dem Augenwinkel eine glänzende Phiole...",
+      "rutschen Sie über den Seitenstreifen und bleiben auf dem Boden liegen. Als Sie aufstehen, sehen Sie eine seltsame Flasche mit einer Flüssigkeit.",
+      "bemerken Sie eine beschädigte Umhängetasche auf der Straße. Sie öffnen ihn hastig...",
+      "beschließen Sie, einen kleinen Umweg zu machen, um nicht einen Bach überqueren zu müssen. Dabei entdecken Sie ...",
+      "begegnen Sie einem Mann, der von einem beladenen Maultier begleitet wird. Einige Minuten später bemerken Sie, dass etwas von seinem Gepäck heruntergefallen ist. Jetzt ist es zu spät, um ihn einzuholen.",
+      "wird Ihr Blick von der Spiegelung eines Tranks auf dem Boden angezogen.",
+      "stolpern Sie über eine Wurzel. Wütend versetzen Sie der Wurzel einen kräftigen Schlag... Es scheint keine Wurzel zu sein...",
+      "treffen Sie auf ein Kind, das Ihre Sprache nicht zu sprechen scheint. Es wirkt jedoch einladend und reicht Ihnen ein Paket...",
+      "treffen Sie auf einen Mann, der ein beladenes Maultier mit sich führt. Sie beschließen, ihm beim Transport seiner Ladung zu helfen. Als Dankeschön bietet er Ihnen einen Trank an...",
+      "treffen Sie auf eine Frau, die Ihnen anscheinend etwas zu trinken anbieten möchte. Neugierig geworden, nehmen Sie ihr Angebot an...",
+      "Sie entdecken eine Behausung, die Sie schnell erkunden. Dort nehmen Sie eine Flasche auf und machen sich eilig wieder auf den Weg..."
+    ]
+  },
+  "findItem": {
+    "stories": [
+      "Sie aus den Augenwinkeln einen hellen Gegenstand sehen",
+      "rutschen Sie über den Seitenstreifen und bleiben auf dem Boden liegen. Als Sie sich wieder aufrichten, bemerken Sie einen Gegenstand auf dem Boden...",
+      "bemerken Sie eine beschädigte Umhängetasche auf der Straße. Sie öffnen ihn hastig...",
+      "beschließen Sie, einen kleinen Umweg zu machen, um nicht einen Bach überqueren zu müssen. Dabei entdecken Sie ...",
+      "begegnen Sie einem Mann, der von einem beladenen Maultier begleitet wird. Einige Minuten später bemerken Sie, dass etwas von seinem Gepäck heruntergefallen ist. Jetzt ist es zu spät, um ihn einzuholen.",
+      "Ihr Blick wird von der Spiegelung eines Gegenstands auf dem Boden angezogen.",
+      "stolpern Sie über eine Wurzel. Wütend versetzen Sie der Wurzel einen kräftigen Schlag... Es sieht so aus, als ob es sich nicht um eine Wurzel handelt...",
+      "treffen Sie auf ein Kind, das Ihre Sprache nicht zu sprechen scheint. Es wirkt jedoch einladend und reicht Ihnen ein Paket...",
+      "treffen Sie auf einen Mann, der ein beladenes Maultier mit sich führt. Sie beschließen, ihm beim Transport seiner Ladung zu helfen. Als Dankeschön schenkt er Ihnen einen Gegenstand..."
+    ]
   }
 }

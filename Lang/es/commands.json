@@ -189,7 +189,7 @@
         "description": "Esta función se ha eliminado del juego tras una actualización de la funcionalidad de Discord."
       },
       "PROFILE": {
-        "description": "Muestra información sobre tu personaje:\n\n😃 Estado de salud | Apodo | Nivel\n\n឵឵Información:\n❤️ Vida | ⭐ XP | 💰 Dinero\n\nEstadísticas :\n⚡ Energía | 🗡️ Ataque | 🛡️ Defensa | 🚀 Velocidad | 🌬️ Aliento | 🫁 Recuperación\n\nMisiones :\n💎 Gemas | 📖 Campaña avanzada %\n\nRango y puntuación:\n🏆 Rango | 🏅 Puntuación\n\nClase:\nVer {{classesCommandMention}}\n\nGloria y Liga:\n✨ Gloria | Ver {{topGloryCommandMention}}\n\nGremio:\n🏟️ Gremio\n\nDestino:\nVer {{mapCommandMention}}\n\nFamiliar:\nVer {{petCommandMention}}\n\n💡-Las insignias se muestran en tu perfil como reacción."
+        "description": "\n\n\n\n\n\n\nMuestra información sobre tu personaje: 😃 Estado de salud | Apodo | Nivel ឵឵Información: ❤️ Vida | ⭐ XP | 💰 Dinero Estadísticas :\n\n\n⚡ Energía | 🗡️ Ataque | 🛡️ Defensa | 🚀 Velocidad | 🌬️ Aliento | 🫁 Recuperación Misiones :\n\n\n\n\n\n\n {command:classes}\n\n\n {{topGloryCommandMention}}\n\n\n\n\n\n {{mapCommandMention}}\n\n\n {{petCommandMention}}\n\n💎 Gemas | 📖 Campaña avanzada % Rango y puntuación: 🏆 Rango | 🏅 Puntuación Clase: Ver Gloria y Liga: ✨ Gloria | Ver Gremio: 🏟️ Gremio Destino: Ver Familiar: Ver 💡-Las insignias se muestran en tu perfil como reacción."
       },
       "RARITY": {
         "description": "Muestra la probabilidad de tener un objeto según su rareza."
@@ -368,7 +368,7 @@
     },
     "playerClass": {
       "fieldName": "Clase :",
-      "fieldValue": "{{emote}} {{className}}"
+      "field": "{{className}}"
     },
     "ranking": {
       "fieldName": "Clasificación y puntuación :",
