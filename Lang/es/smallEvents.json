@@ -80,18 +80,18 @@
       "Una isla está formada por un número finito de lugares. Una vez que hayas visitado el último lugar, volverás a tierra firme.",
       "La isla misteriosa cambia cada semana",
       "Al luchar contra un monstruo, si se supera el número máximo de turnos, el monstruo se volverá rápidamente muy poderoso.",
-      "Si un miembro de tu gremio quiere unirse a ti en el barco, puede ejecutar /joinboat",
+      "{command:joinboat}Si un miembro de tu gremio quiere acompañarte en el barco, puede correr .",
       "Las acciones disponibles al luchar contra animales dependen de tus estadísticas, objetos, mascotas, etc.",
       "La hostilidad de la isla no te hará ningún favor a la hora de vivir aventuras. Pero si unes fuerzas con miembros de tu gremio, juntos seréis mucho más fuertes.",
-      "El comando /map muestra un mapa de la isla",
+      "{command:map} Haga clic para ver un mapa de la isla",
       "Puedes elegir abandonar la isla después de cada combate contra monstruos. Si tienes poca energía, es mejor que te vayas mientras estés consciente.",
       "Ciertas acciones, como beber una poción, acceder a la tienda u obtener bonificaciones diarias, no están disponibles en la isla.",
       "Tu nivel no afecta al número de puntos de gremio, pero sí a otras recompensas",
       "Ganar contra un monstruo más lejos en la isla te hará ganar más puntos de gremio que los que ganaste al principio.",
       "Se dice que si varios miembros del mismo gremio se encuentran en la isla al mismo tiempo, es posible combinar las fuerzas de cada uno para realizar un ataque devastador.",
       "Los miembros de tu gremio pueden ayudarte a luchar contra los monstruos cuando visites una isla misteriosa.",
-      "Puedes utilizar el comando /guild para ver qué miembros de tu gremio se encuentran en una isla misteriosa.",
-      "El comando /guild te permite ver cuántos aliados te ayudarán en la isla misteriosa.",
+      "{command:guild}Puedes utilizar el comando para ver qué miembros de tu gremio se encuentran en una isla misteriosa.",
+      "{command:guild} El comando te permite ver el número de aliados que te ayudarán en la isla misteriosa.",
       "Un \"aliado\" es un miembro de tu gremio que se encuentra actualmente en la isla misteriosa o que la ha abandonado recientemente."
     ]
   },
@@ -354,8 +354,8 @@
     ],
     "reward": ":moneybag: Plata:{{money}}\n:star: ** ** XP :{{xp}}\n:medal: ** Puntos:\n:gift: **El número de puntos dependerá de tu clasificación final ** Equipo aleatorio.",
     "endMessage": "\n\n:newspaper: {{league}}\n\n{{rewards}}\n\n {{time}}\"Al aventurero perteneciente a quien encuentre este texto, **si mantienes tu gloria hasta el final de la temporada**, podrás ganar estas recompensas: \" Te pones de nuevo en marcha, deseando cobrar tu bonificación .",
-    "notEnoughFight": "\n\n:newspaper: {{league}}\n\n{{rewards}}\n\n {{time}}\"Al aventurero perteneciente a quien encuentre este texto, **si lleva a cabo unos cuantos combates utilizando el comando /fight**, podrá ganar estas recompensas: \" Rápidamente te pones de nuevo en marcha, temiendo no poder luchar contra suficientes jugadores antes del final de la temporada .",
-    "rewardToday": "\n\n:newspaper: \"¡Consigue tu recompensa antes de que acabe la semana usando el comando /leaguebonus!\n\nYa estás de nuevo en camino, deseando cobrar tu bonificación."
+    "notEnoughFight": "\n\n:newspaper: {{league}} {command:fight}\n\n{{rewards}}\n\n {{time}}\"Al aventurero perteneciente a quien encuentre este texto, **si luchas unas cuantas batallas utilizando el comando **, podrás ganar estas recompensas: \" Rápidamente te pones en marcha de nuevo, temiendo no poder luchar contra suficientes jugadores antes del final de la temporada .",
+    "rewardToday": "\n\n:newspaper: {command:leaguebonus} \"Consigue tu recompensa antes de que acabe la semana pidiendo .\"\n\nYa estás de nuevo en camino, deseando cobrar tu gratificación."
   },
   "winGuildXP": {
     "stories": [
