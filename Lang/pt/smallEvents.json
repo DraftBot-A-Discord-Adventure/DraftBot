@@ -80,18 +80,18 @@
       "Uma ilha é composta por um número finito de locais. Depois de visitares o último local, serás levado de volta ao continente.",
       "A Ilha Misteriosa muda todas as semanas",
       "Ao lutar contra um monstro, se o número máximo de turnos for ultrapassado, o monstro tornar-se-á rapidamente muito poderoso.",
-      "Se um membro da tua guilda quiser juntar-se a ti no barco, pode executar /joinboat",
+      "{command:joinboat}Se um membro da tua guilda quiser juntar-se a ti no barco, pode correr .",
       "As acções disponíveis quando se luta contra animais dependem das suas estatísticas, itens, animais de estimação, etc.",
       "A hostilidade da ilha não te favorecerá em nada quando se trata de aventuras. Mas se juntares forças com os membros do teu grémio, juntos serão muito mais fortes.",
-      "O comando /map apresenta um mapa da ilha",
+      "{command:map} Clique para ver um mapa da ilha",
       "Podes optar por abandonar a ilha depois de cada combate com monstros. Se a tua energia estiver baixa, é melhor ires embora enquanto ainda estás consciente.",
       "Certas acções, como beber uma poção, aceder à loja ou obter bónus diários, não estão disponíveis na ilha.",
       "O seu nível não afecta o número de pontos de guilda, mas afecta outras recompensas",
       "Se ganhares a um monstro mais afastado da ilha, ganhas mais pontos de guilda do que os que ganhaste no início.",
       "Diz-se que se vários membros do mesmo grémio estiverem na ilha ao mesmo tempo, é possível combinar as forças de cada um para fazer um ataque devastador.",
       "Os membros do teu grémio podem ajudar-te a combater monstros quando visitas uma ilha misteriosa.",
-      "Podes usar o comando /guild para ver que membros da tua guilda estão numa ilha misteriosa.",
-      "O comando /guild permite-te ver quantos aliados te vão ajudar na ilha misteriosa.",
+      "{command:guild}Podes usar o comando para veres quais os membros da tua guilda que estão numa ilha misteriosa.",
+      "{command:guild} O comando permite-lhe ver o número de aliados que o ajudarão na ilha misteriosa.",
       "Um \"aliado\" é um membro do teu grémio que está atualmente na ilha misteriosa ou que partiu recentemente."
     ]
   },
@@ -354,8 +354,8 @@
     ],
     "reward": ":moneybag: Prata:{{money}}\n:star: ** ** XP :{{xp}}\n:medal: ** Pontos:\n:gift: ** O número de pontos dependerá da tua classificação final ** Equipamento aleatório.",
     "endMessage": "\n\n:newspaper: {{league}}\n\n{{rewards}}\n\n {{time}}\"Ao aventureiro pertencente a quem encontrar este texto, **se mantiver a sua glória até ao fim da época**, pode ganhar estas recompensas: \" Partiu de novo, ansioso por receber o seu bónus .",
-    "notEnoughFight": "\n\n:newspaper: {{league}}\n\n{{rewards}}\n\n {{time}}\"Ao aventureiro pertencente a quem encontrar este texto, **se realizar alguns combates com o comando /fight**, poderá ganhar estas recompensas: \" Rapidamente, volta a partir, temendo não conseguir combater um número suficiente de jogadores antes do final da época .",
-    "rewardToday": "\n\n:newspaper: \"Recebe a tua recompensa antes do fim da semana, utilizando o comando /leaguebonus!\n\nParte de novo, ansioso por receber o seu bónus."
+    "notEnoughFight": "\n\n:newspaper: {{league}} {command:fight}\n\n{{rewards}}\n\n {{time}}\"Ao aventureiro pertencente a quem encontrar este texto, **se travar algumas batalhas utilizando o comando **, poderá ganhar estas recompensas: \" Rapidamente se põe de novo a caminho, receando não conseguir combater um número suficiente de jogadores antes do final da época .",
+    "rewardToday": "\n\n:newspaper: {command:leaguebonus} \"Receba o seu prémio antes do fim da semana, encomendando .\"\n\nEstá de novo a caminho, ansioso por receber o seu bónus."
   },
   "winGuildXP": {
     "stories": [
