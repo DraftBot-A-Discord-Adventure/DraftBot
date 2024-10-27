@@ -16,6 +16,8 @@ import {PlayerLeavePveIslandPacket} from "../../../../Lib/src/packets/notificati
 import {PlayerLevelUpPacket} from "../../../../Lib/src/packets/notifications/PlayerLevelUpPacket";
 import {PlayerReceivePetPacket} from "../../../../Lib/src/packets/notifications/PlayerReceivePetPacket";
 import {EmoteUtils} from "../../utils/EmoteUtils";
+import {GiveFoodToGuildPacket} from "../../../../Lib/src/packets/utils/GiveFoodToGuildPacket";
+import {NoFoodSpaceInGuildPacket} from "../../../../Lib/src/packets/utils/NoFoodSpaceInGuildPacket";
 
 export default class NotificationsHandlers {
 	@packetHandler(CommandReportChooseDestinationRes)
@@ -93,5 +95,13 @@ export default class NotificationsHandlers {
 		// Todo
 	}
 
+	@packetHandler(GiveFoodToGuildPacket)
+	async giveFoodToGuild(packet: GiveFoodToGuildPacket, context: PacketContext): Promise<void> {
+		// Todo
+	}
 
+	@packetHandler(NoFoodSpaceInGuildPacket)
+	async noFoodSpaceInGuild(packet: NoFoodSpaceInGuildPacket, context: PacketContext): Promise<void> {
+		// Todo
+	}
 }
