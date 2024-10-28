@@ -18,6 +18,12 @@ import {ErrorPacket} from "../../../../Lib/src/packets/commands/ErrorPacket";
 import {MissionsController} from "../missions/MissionsController";
 import {giveFoodToGuild} from "../utils/FoodUtils";
 
+/**
+ * Return all possibilities the player can get on this small event.
+ * @param player
+ * @param petEntity
+ * @param pet
+ */
 function generatePossibleIssues(player: Player, petEntity: PetEntity, pet: Pet):PetInteraction[] {
 	if (petEntity.isFeisty()) {
 		return Object.values(PetConstants.PET_INTERACTIONS.PET_FEISTY);
@@ -30,6 +36,10 @@ function generatePossibleIssues(player: Player, petEntity: PetEntity, pet: Pet):
 	return Object.values(interactions);
 }
 
+/**
+ * Choose an interaction at random.
+ * @param possibleIssues
+ */
 function pickRandomInteraction(possibleIssues:PetInteraction[]): string {
 	const totalWeight = possibleIssues.map((pi:PetInteraction):number => pi.probabilityWeight).reduce((a:number, b:number):number => a + b);
 	const randomNb = RandomUtils.randInt(1, totalWeight + 1);
@@ -43,6 +53,14 @@ function pickRandomInteraction(possibleIssues:PetInteraction[]): string {
 	return Constants.DEFAULT_ERROR;
 }
 
+/**
+ * Manage the output for the player according to the interaction.
+ * @param packet
+ * @param response
+ * @param context
+ * @param player
+ * @param petEntity
+ */
 async function managePickedInteraction(packet:SmallEventPetPacket, response:DraftBotPacket[], context: PacketContext, player:Player,petEntity:PetEntity):Promise<void> {
 	switch (packet.interactionName) {
 	case PetConstants.PET_INTERACTIONS_NAMES.WIN_ENERGY:
