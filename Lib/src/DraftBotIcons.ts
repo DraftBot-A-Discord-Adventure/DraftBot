@@ -39,6 +39,9 @@ export const DraftBotIcons: {
 	witch_small_event: {
 		[ingredient: string]: string
 	},
+	foods: {
+		[foodId: string]: string
+	}
 	collectors: {
 		accept: string,
 		refuse: string,
@@ -1500,7 +1503,13 @@ export const DraftBotIcons: {
 		"wiltedRose": "🥀",
 		"worm": "🪱"
 	},
-	collectors: {
+	"foods": {
+		"herbivorousFood": "🥬",
+		"commonFood": "🍬",
+		"carnivorousFood": "🍖",
+		"ultimateFood": "🍲"
+	},
+	"collectors": {
 		"accept": "✅",
 		"refuse": "❌",
 		"lottery": {
@@ -1510,7 +1519,7 @@ export const DraftBotIcons: {
 		},
 		"interactPoorCoin": "🪙"
 	},
-	announcements: {
-		trophy: "🏆"
+	"announcements": {
+		"trophy": "🏆"
 	}
 };

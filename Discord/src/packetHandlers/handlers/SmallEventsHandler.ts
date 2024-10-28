@@ -773,9 +773,9 @@ export default class SmallEventsHandler {
 								context: packet.petSex,
 								pet: PetUtils.petToShortString(interaction.userLanguage, packet.petNickname, packet.petTypeId, packet.petSex),
 								amount: packet.amount,
-								food: packet.food,
+								food: packet.food ? DisplayUtils.displayFood(packet.food, interaction.userLanguage) : null,
 								badge: Constants.BADGES.PET_TAMER,
-								randomAnimal: i18n.t("smallEvents:pet.randomAnimal", Constants.DEFAULT_ERROR, {
+								randomAnimal: i18n.t("smallEvents:pet.randomAnimal", {
 									lng: interaction.userLanguage,
 									context: packet.randomPetSex,
 									randomAnimal: PetUtils.petToShortString(interaction.userLanguage, undefined, packet.randomPetTypeId, packet.randomPetSex)
