@@ -1281,5 +1281,11 @@
     "92": "Game Over",
     "93": "Asciugamano da Cuoco",
     "94": "Polvere di scheletro"
+  },
+  "foods": {
+    "herbivorousFood": "salade",
+    "carnivorousFood": "viande",
+    "ultimateFood": "soupe ultime",
+    "commonFood": "friandise"
   }
 }
