@@ -1281,5 +1281,11 @@
     "92": "Game Over",
     "93": "Kitchen towel",
     "94": "Skeleton powder"
+  },
+  "foods": {
+    "herbivorousFood": "salade",
+    "carnivorousFood": "viande",
+    "ultimateFood": "soupe ultime",
+    "commonFood": "friandise"
   }
 }
