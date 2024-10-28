@@ -1281,5 +1281,11 @@
     "92": "Fim do jogo",
     "93": "Pano de cozinha",
     "94": "Pó de esqueleto"
+  },
+  "foods": {
+    "herbivorousFood": "salade",
+    "carnivorousFood": "viande",
+    "ultimateFood": "soupe ultime",
+    "commonFood": "friandise"
   }
 }
