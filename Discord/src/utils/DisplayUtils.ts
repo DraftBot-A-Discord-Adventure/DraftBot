@@ -8,6 +8,16 @@ import {Item} from "../../../Lib/src/interfaces/Item";
 import {EmoteUtils} from "./EmoteUtils";
 
 export class DisplayUtils {
+
+	/**
+	 * Display food with its icon
+	 * @param foodId String id of the food (herbivorousFood, carnivorousFood, commonFood or ultimateFood)
+	 * @param lng
+	 */
+	static displayFood(foodId: string, lng: Language): string {
+		return `${i18n.t(`models:foods.${foodId}`, {lng})}  ${DraftBotIcons.foods[foodId]}`;
+	}
+
 	static getItemDisplay(item: Item, language: Language): string {
 		switch (item.category) {
 		case ItemCategory.WEAPON:
