@@ -1281,5 +1281,11 @@
     "92": "Se acabó el juego",
     "93": "Trapo de cocina",
     "94": "Polvo de esqueleto"
+  },
+  "foods": {
+    "herbivorousFood": "salade",
+    "carnivorousFood": "viande",
+    "ultimateFood": "soupe ultime",
+    "commonFood": "friandise"
   }
 }
