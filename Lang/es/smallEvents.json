@@ -855,45 +855,45 @@
       "money_m": [
         "{{pet}}Ves a ** ** rebuscando en la hierba alta.{{amount}} :moneybag:Sale ** ** , que guardas para el resto de tu aventura.",
         "{{pet}}Te das cuenta de que ** ** está mirando al suelo y decide cavar un agujero.{{amount}} :moneybag: ¡Qué sorpresa al verlo emerger ** ** !",
-        "Vous découvrez que **{{pet}}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un oeil, et le voir revenir avec **{{amount}}** :moneybag: vous remplit de joie !",
+        "{{pet}}Descubres que ** ** olfatea insistentemente en dirección a un arbusto.{{amount}} :moneybag: Decides echar un vistazo, ¡y verle regresar con ** ** te llena de alegría!",
         "{{pet}}De repente ves a ** ** saltar al agua.{{amount}} :moneybag: ¡Qué sorpresa verle emerger con un bolso de ** ** !",
-        "Après avoir fait une petite pause sur votre trajet, vous voyez revenir **{{pet}}** avec une bourse. Il semblerait bien qu'il l'ait volée à un marchand. Vous décidez de partir avec vos **{{amount}}** :moneybag: avant qu'il ne s'en aperçoive."
+        "{{pet}}Tras hacer un breve descanso en tu viaje, ves a ** ** que regresa con un bolso. Parece que se lo ha robado a un mercader.{{amount}} :moneybag: Decides marcharte con tu ** ** antes de que se dé cuenta."
       ],
       "money_f": [
-        "Vous voyez **{{pet}}** fouiller dans des hautes herbes. Elle en ressort **{{amount}}** :moneybag:, que vous gardez pour la suite de votre aventure.",
+        "{{pet}}Ves a ** ** rebuscando en la hierba alta.{{amount}} :moneybag:Sale ** ** , que guardas para el resto de tu aventura.",
         "{{pet}}Te das cuenta de que ** ** está mirando al suelo y decide cavar un agujero.{{amount}} :moneybag: ¡Qué sorpresa verle emerger ** ** !",
-        "Vous découvrez que **{{pet}}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un oeil, et la voir revenir avec **{{amount}}** :moneybag: vous remplit de joie !",
-        "Vous voyez tout à coup **{{pet}}** sauter dans l'eau. Quelle n'est pas votre surprise en la voyant ressortir avec une bourse de **{{amount}}** :moneybag: !",
+        "{{pet}}Descubres que ** ** olfatea insistentemente en dirección a un arbusto.{{amount}} :moneybag: Decides echar un vistazo, ¡y verla regresar con ** ** te llena de alegría!",
+        "{{pet}}De repente se ve a ** ** saltar al agua.{{amount}} :moneybag: ¡Qué sorpresa verla emerger con un bolso de ** ** !",
         "{{pet}}Tras hacer un breve descanso en tu viaje, ves a ** ** que regresa con un bolso. Parece que se lo ha robado a un comerciante.{{amount}} :moneybag: Decides marcharte con tu ** ** antes de que se dé cuenta."
       ],
       "item_m": [
         "{{pet}}Ves a ** ** rebuscando en la hierba alta. Saca un **objeto**, que puedes conservar durante el resto de tu aventura.",
         "{{pet}}Te das cuenta de que ** ** está mirando al suelo y decide cavar un agujero. ¡Cuál es tu sorpresa cuando ves que saca un **objeto**!",
         "{{pet}}Descubres que ** ** olfatea insistentemente en dirección a un arbusto. Decides echar un vistazo, ¡y verle regresar con un **objeto** te llena de alegría!",
-        "Vous voyez tout à coup **{{pet}}** sauter dans l'eau. Quelle ne fut pas votre surprise en le voyant ressortir avec un **objet** !",
+        "{{pet}}De repente ves a ** ** saltar al agua. ¡Qué sorpresa verle emerger con un **objeto**!",
         "{{pet}}Después de hacer un breve descanso en tu viaje, ves a **** que regresa con un **objeto**. Parece que se lo ha robado a un mercader. Decides marcharte antes de que se dé cuenta."
       ],
       "item_f": [
         "{{pet}}Ves a ** ** rebuscando en la hierba alta. Saca un **objeto**, que puedes conservar durante el resto de tu aventura.",
-        "Vous remarquez que **{{pet}}** regarde avec insistance le sol et se décide à y creuser un trou. Quelle ne fut pas votre surprise après l'avoir vu en sortir un **objet** !",
+        "{{pet}}Te das cuenta de que ** ** está mirando al suelo y decide cavar un agujero. ¡Cuál es tu sorpresa cuando ves que saca un **objeto**!",
         "{{pet}}Descubres que ** ** olfatea insistentemente en dirección a un arbusto. Decides echar un vistazo, ¡y verla volver con un **objeto** te llena de alegría!",
-        "Vous voyez tout à coup **{{pet}}** sauter dans l'eau. Quelle ne fut pas votre surprise en la voyant ressortir avec un **objet** !",
+        "{{pet}}De repente ves a ** ** saltar al agua. ¡Qué sorpresa verla emerger con un **objeto**!",
         "{{pet}}Después de hacer un breve descanso en tu viaje, ves a **** que regresa con un **objeto**. Parece que se lo ha robado a un mercader. Decides marcharte antes de que se dé cuenta."
       ],
       "gainEnergy_m": [
-        "Avoir **{{pet}}** à vos côtés vous rend heureux. Cela vous fait remonter votre moral et vous gagnez **{{amount}}** :zap:.",
-        "Sur le bord de la route, **{{pet}}** se précipite sur de la nourriture qui semble être en bon état et vous la ramène. Vous la mangez avant qu'elle ne se détériore et gagnez **{{amount}}** :zap:.",
+        "{{pet}}Tener ** ** a tu lado te hace feliz.{{amount}} :zap:Te levanta el ánimo y ganas ** ** .",
+        "{{pet}}A un lado de la carretera, ** ** se encuentra con algo de comida que parece estar en buen estado y te la trae.{{amount}} :zap:Te la comes antes de que se eche a perder y ganas ** ** .",
         "{{pet}}Tras marcharse unos instantes, ** ** regresa con una poción casi vacía. Te la bebes antes de que se pierda.{{amount}} :zap:Ganas ** ** ."
       ],
       "gainEnergy_f": [
-        "Avoir **{{pet}}** à vos côtés vous rend heureux. Cela vous fait remonter votre moral et vous gagnez **{{amount}}** :zap:.",
-        "Sur le bord de la route, **{{pet}}** se précipite sur de la nourriture qui semble être en bon état et vous la ramène. Vous la mangez avant qu'elle ne se détériore et gagnez **{{amount}}** :zap:.",
+        "{{pet}}Tener ** ** a tu lado te hace feliz.{{amount}} :zap:Te levanta el ánimo y ganas ** ** .",
+        "{{pet}}A un lado de la carretera, ** ** se encuentra con algo de comida que parece estar en buen estado y te la trae.{{amount}} :zap:Te la comes antes de que se eche a perder y ganas ** ** .",
         "{{pet}}Tras marcharse unos instantes, ** ** regresa con una poción casi vacía. Te la bebes antes de que se pierda.{{amount}} :zap:Ganas ** ** ."
       ],
       "gainLife_m": [
-        "Avoir **{{pet}}** à vos côtés vous rend heureux. Cela vous fait remonter votre moral et vous gagnez **{{amount}}** :heart:.",
+        "{{pet}}Tener ** ** a tu lado te hace feliz.{{amount}} :heart:Te levanta el ánimo y ganas ** ** .",
         "{{pet}}A un lado de la carretera, ** ** se encuentra con algo de comida que parece estar en buen estado y te la trae.{{amount}} :heart:Te la comes antes de que se eche a perder y ganas ** ** .",
-        "Après être parti quelques instants, **{{pet}}** revient avec une potion presque vide. Vous la buvez avant qu'elle ne soit perdue. Vous gagnez ainsi **{{amount}}** :heart:."
+        "{{pet}}Tras marcharse unos instantes, ** ** regresa con una poción casi vacía. Te la bebes antes de que se pierda.{{amount}} :heart:Ganas ** ** ."
       ],
       "gainLife_f": [
         "{{pet}}Tener ** ** a tu lado te hace feliz.{{amount}} :heart:Te levanta el ánimo y ganas ** ** .",
@@ -901,125 +901,125 @@
         "{{pet}}Tras marcharse unos instantes, ** ** regresa con una poción casi vacía. Te la bebes antes de que se pierda.{{amount}} :heart:Ganas ** ** ."
       ],
       "gainLove_m": [
-        "Il semblerait que **{{pet}}** soit heureux de vous avoir en sa compagnie. Il gagne en amour et vous devient plus fidèle.",
-        "Après avoir marché longuement, vous décidez de prendre soin de votre **{{pet}}** en {determinant} caressant. Ce moment passé avec lui a renforcé vos liens.",
-        "Après être parti quelques instants, **{{pet}}** revient avec de la nourriture trouvée plus loin. Vous décidez de la lui donner avant qu'elle ne soit perdue. Il vous aime ainsi davantage.",
-        "Malheureusement, **{{pet}}** semble avoir déclenché les hostilités avec {{randomAnimal}} sauvage ! Vous décidez de le défendre vaillamment. Il vous aime davantage et vous devient plus fidèle.",
-        "Oh comme c'est mignon ! **{{pet}}** est joueur ! Aussi vous décidez de vous amuser avec lui. Cette partie a renforcé vos liens."
+        "{{pet}}Parece que ** ** es feliz de tenerte en su compañía. Gana en amor y se vuelve más fiel a ti.",
+        "{{pet}} {determinant} Después de un largo paseo, decides cuidar de tu ** ** acariciándolo . El tiempo pasado con él ha reforzado vuestro vínculo.",
+        "{{pet}}Tras marcharse unos instantes, ** ** regresa con algo de comida que ha encontrado más adelante. Decides dársela antes de que se pierda. Eso hace que te quiera más.",
+        "{{pet}} {{randomAnimal}} ¡Desafortunadamente, ** ** parece haber comenzado las hostilidades con sauvage! Decides defenderle valientemente. Él te quiere más y se vuelve más leal a ti.",
+        "¡Oh, qué lindo!{{pet}}** ** ¡es juguetón! Así que decides divertirte con él. Este juego ha reforzado vuestro vínculo."
       ],
       "gainLove_f": [
-        "Il semblerait que **{{pet}}** soit heureuse de vous avoir en sa compagnie. Elle gagne en amour et vous devient plus fidèle.",
-        "Après avoir marché longuement, vous décidez de prendre soin de votre **{{pet}}** en la caressant. Ce moment passé avec elle a renforcé vos liens.",
-        "Après être partie quelques instants, **{{pet}}** revient avec de la nourriture trouvée plus loin. Vous décidez de la lui donner avant qu'elle ne soit perdue. Elle vous aime ainsi davantage.",
-        "Malheureusement, **{{pet}}** semble avoir déclenché les hostilités avec {{randomAnimal}} sauvage ! Vous décidez de la défendre vaillamment. Elle vous aime davantage et vous devient plus fidèle.",
-        "Oh comme c'est mignon ! **{{pet}}** est joueuse ! Aussi vous décidez de vous amuser avec elle. Cette partie a renforcé vos liens."
+        "{{pet}}Parece que ** ** está feliz de tenerte en su compañía. Ella gana en amor y se vuelve más fiel a ti.",
+        "{{pet}}Después de un largo paseo, decides cuidar de tu ** ** acariciándola. Este tiempo pasado con ella ha reforzado vuestro vínculo.",
+        "{{pet}}Tras marcharse unos instantes, ** regresa con algo de comida que ha encontrado más adelante. Decides dársela antes de que se pierda. Eso hace que te quiera más.",
+        "{{pet}} {{randomAnimal}} ¡Desafortunadamente, ** ** parece haber comenzado las hostilidades con sauvage! Decides defenderla valientemente. Ella te quiere más y se vuelve más leal a ti.",
+        "¡Oh, qué mono!{{pet}}** Es juguetona. Así que decides divertirte con ella. Esta parte ha reforzado vuestro vínculo."
       ],
       "food_m": [
-        "Le flair de **{{pet}}** vous a permis de trouver une **{{food}}**. Vous rangez cette nourriture et continuez votre route.",
-        "Vous remarquez que **{{pet}}** regarde avec insistance le sol et décide d'y creuser un trou. Quelle n'est pas votre surprise en le voyant en sortir une **{{food}}** !",
-        "Vous découvrez que **{{pet}}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un oeil et vous le voyez revenir avec une **{{food}}** dans la bouche !",
-        "Vous voyez tout à coup **{{pet}}** sauter dans l'eau. Quelle n'est pas votre surprise en le voyant ressortir avec une **{{food}}** !",
-        "Après avoir fait une petite pause sur votre trajet, vous voyez revenir **{{pet}}** avec une **{{food}}**. Il semblerait bien qu'il l'ait volée à un marchand. Vous décidez de partir avant qu'il ne s'en aperçoive."
+        "{{pet}}{{food}}El instinto de ** ** te ha permitido encontrar un ** **. Guardas la comida y continúas tu camino.",
+        "{{pet}}Te das cuenta de que ** ** está mirando al suelo y decide cavar un agujero.{{food}}¡Te sorprende verle sacar un ** ** !",
+        "{{pet}}Descubres que ** ** está olfateando insistentemente en dirección a un arbusto.{{food}}¡Decides echar un vistazo y le ves volver con un ** ** en la boca!",
+        "{{pet}}De repente ves a ** ** saltar al agua.{{food}}¡Qué sorpresa verle emerger con un ** ** !",
+        "{{pet}}{{food}}Después de hacer un breve descanso en tu viaje, ves a ** ** regresando con un ** **. Parece que se lo ha robado a un mercader. Decides marcharte antes de que se dé cuenta."
       ],
       "food_f": [
-        "Le flair de **{{pet}}** vous a permis de trouver une **{{food}}**. Vous rangez cette nourriture et continuez votre route.",
-        "Vous remarquez que **{{pet}}** regarde avec insistance le sol et décide d'y creuser un trou. Quelle n'est pas votre surprise en la voyant en sortir une **{{food}}** !",
-        "Vous découvrez que **{{pet}}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un oeil et vous la voyez revenir avec une **{{food}}** dans la bouche !",
-        "Vous voyez tout à coup **{{pet}}** sauter dans l'eau. Quelle n'est pas votre surprise en la voyant ressortir avec une **{{food}}** !",
-        "Après avoir fait une petite pause sur votre trajet, vous voyez revenir **{{pet}}** avec une **{{food}}**. Il semblerait bien qu'elle l'ait volée à un marchand. Vous décidez de partir avant qu'il ne s'en aperçoive."
+        "{{pet}}{{food}}El instinto de ** ** te ha permitido encontrar un ** **. Guardas la comida y continúas tu camino.",
+        "{{pet}}Te das cuenta de que ** ** está mirando al suelo y decide cavar un agujero.{{food}}¡Te sorprende verla sacar un ** ** !",
+        "{{pet}}Descubres que ** ** está olfateando insistentemente en dirección a un arbusto.{{food}}¡Decides echar un vistazo y la ves volver con un ** ** en la boca!",
+        "{{pet}}De repente ves a ** ** saltar al agua.{{food}}¡Qué sorpresa verla emerger con un ** **!",
+        "{{pet}}{{food}}Después de hacer un breve descanso en tu viaje, ves a ** ** regresando con un ** **. Parece habérselo robado a un mercader. Decides marcharte antes de que se dé cuenta."
       ],
       "gainTime_m": [
-        "Malgré tous les kilomètres, **{{pet}}** est en forme. Vous montez sur son dos quelques minutes et vous gagnez **{{amount}} Min** :hourglass:.",
-        "Dans un virage, **{{pet}}** se met tout à coup à courir. Vous finissez traîné au bout de sa laisse mais vous avez gagné **{{amount}} Min** :hourglass:.",
-        "Quel entrain ! **{{pet}}** semble être pressé, malgré cela, vous arrivez à le suivre tant bien que mal. Grâce à lui vous gagnez **{{amount}} Min** :hourglass:.",
-        "Le flair de **{{pet}}** vous a permis de trouver un raccourci. Grâce à lui, vous avez gagné **{{amount}} Min** :hourglass:.",
-        "Défendre **{{pet}}** contre {{randomAnimal}} sauvage n'a pas été une mince affaire, et cette fois, vous avez trouvé plus fort que vous. Vous décidez de prendre la fuite, et courez à toute vitesse. Grâce à cette mésaventure vous gagnez **{{amount}} Min** :hourglass: sur votre trajet."
+        "{{pet}}A pesar de todos los kilómetros, ** ** está en gran forma.{{amount}} :hourglass:Te subes a su espalda durante unos minutos y ganas ** Min** .",
+        "{{pet}}En una curva de la carretera, ** ** empieza a correr de repente.{{amount}} :hourglass:Acabas siendo arrastrado al final de su ventaja, pero has ganado ** Min** .",
+        "¡Qué energía!{{pet}}** Parece tener prisa, pero consigues seguirle el ritmo.{{amount}} :hourglass:Gracias a él ganas ** Min** .",
+        "{{pet}}El talento de ** ** te ha permitido encontrar un atajo.{{amount}} :hourglass:Gracias a él, has ganado ** Min** .",
+        "{{pet}} {{randomAnimal}} Defenderte ** ** contra los sauvage no ha sido tarea fácil, y esta vez te has encontrado con algo más fuerte que tú. Decides huir, y corres a toda velocidad.{{amount}} :hourglass: Gracias a esta desventura, has ganado ** Min** por el camino."
       ],
       "gainTime_f": [
-        "C'est beau à voir, **{{pet}}** est en forme. Vous montez sur son dos quelques minutes et vous gagnez **{{amount}} Min** :hourglass:.",
-        "Dans un virage, **{{pet}}** se met tout à coup à courir. Vous finissez traîné au bout de sa laisse mais vous avez gagné **{{amount}} Min** :hourglass:.",
-        "Vous remarquez que **{{pet}}** semble être pressée, malgré cela, vous arrivez à {determinant} suivre tant bien que mal. Grâce à elle vous gagnez **{{amount}} Min** :hourglass:.",
-        "Le flair de **{{pet}}** vous a permis de trouver un raccourci. Grâce à {accusative}, vous avez gagné **{{amount}} Min** :hourglass:.",
-        "Défendre **{{pet}}** contre {{randomAnimal}} sauvage n'a pas été une mince affaire, et cette fois, vous avez trouvé plus fort que vous. Vous décidez de prendre la fuite, et courez à toute vitesse. Grâce à cette mésaventure vous gagnez **{{amount}} Min** :hourglass: sur votre trajet."
+        "{{pet}}Es bueno ver, ** ** está en gran forma.{{amount}} :hourglass:Te montas en su espalda durante unos minutos y ganas ** Min** .",
+        "{{pet}}En una curva de la carretera, ** ** empieza a correr de repente.{{amount}} :hourglass:Acabas siendo arrastrado al final de su ventaja, pero has ganado ** Min** .",
+        "{{pet}} {determinant} Te das cuenta de que ** ** parece tener prisa, pero aun así consigues seguirle el ritmo a .{{amount}} :hourglass:Gracias a ella ganas ** Min** .",
+        "{{pet}}El talento de ** ** te ha permitido encontrar un atajo. {accusative}{{amount}} :hourglass:Gracias a , has ganado ** Min** .",
+        "{{pet}} {{randomAnimal}} Defenderte ** ** contra los sauvage no ha sido tarea fácil, y esta vez te has encontrado con algo más fuerte que tú. Decides huir, y corres a toda velocidad.{{amount}} :hourglass: Gracias a este percance, has ganado ** Min** por el camino."
       ],
       "points": [
-        "Les personnes qui vous croisent avec **{{pet}}** ne manquent pas de vous remarquer. Cela améliore votre réputation et vous gagnez donc **{{amount}}** :medal:.",
-        "Raconter vos aventures auprès de **{{pet}}** à un vieil homme semble avoir amélioré votre réputation. Vous gagnez **{{amount}}** :medal:."
+        "{{pet}}Las personas que se crucen contigo con ** ** seguro que se fijan en ti.{{amount}} :medal:Esto mejora tu reputación y por lo tanto ganas ** ** .",
+        "{{pet}}Contarle a un anciano tus aventuras con ** ** parece haber mejorado tu reputación.{{amount}} :medal:Ganas ** ** ."
       ],
       "badge": [
-        "Réussir à dresser **{{pet}}** a été un véritable défi qui prouve votre talent avec les animaux. Vous obtenez le badge {{badge}} !"
+        "{{pet}}Entrenar con éxito a ** ** ha sido un verdadero reto que demuestra tu talento con los animales. {{badge}} ¡Se le otorgará la insignia!"
       ],
       "loseLife_m": [
-        "Alors que vous tentez de caresser **{{pet}}**, il ne se laisse pas faire et vous mord la main. Vous perdez **{{amount}}** :broken_heart:.",
-        "Dans un virage **{{pet}}** se met tout à coup à courir. Vous gardez la laisse tant bien que mal dans les mains mais vous ressortez avec quelques égratignures. Vous perdez **{{amount}}** :broken_heart:.",
-        "Vous voyez **{{pet}}** partir. Il revient quelques minutes après avec de la nourriture. Vous la mangez et le regrettez amèrement quelques minutes plus tard. Vous avez soudainement mal au ventre... Vous perdez **{{amount}}** :broken_heart:.",
-        "**{{pet}}** semble avoir déclenché les hostilités avec {{randomAnimal}} sauvage ! Vous décidez de le défendre mais malheureusement la créature sauvage vous blesse. Vous perdez **{{amount}}** :broken_heart:.",
-        "**{{pet}}** semble vouloir jouer et se jette en haut d'un arbre. Malheureusement, son poids brise la branche et il tombe sur vous. Vous perdez **{{amount}}** :broken_heart:."
+        "{{pet}}Cuando intentas acariciar a ** **, no te deja y te muerde la mano.{{amount}} :broken_heart:Pierdes a ** ** .",
+        "{{pet}}En una curva ** ** empieza a correr de repente. Te mantienes en cabeza lo mejor que puedes pero sales con algunos rasguños.{{amount}} :broken_heart:Pierdes a ** ** .",
+        "{{pet}}Ve salir a ** **. Vuelve unos minutos después con algo de comida. Te la comes y te arrepientes amargamente unos minutos después. De repente se le revuelve el estómago...{{amount}} :broken_heart:Pierdes a ** ** .",
+        "{{pet}} {{randomAnimal}} ** Parece que has desencadenado hostilidades con el sauvage. Decides defenderle pero desgraciadamente la criatura salvaje te hiere.{{amount}} :broken_heart:Pierdes ** ** .",
+        "{{pet}}** Parece que quiere jugar y se sube a un árbol. Desgraciadamente, su peso rompe la rama y cae encima de ti.{{amount}} :broken_heart:Pierdes a ** ** ."
       ],
       "loseLife_f": [
-        "Alors que vous tentez de caresser **{{pet}}**, elle ne se laisse pas faire et vous mord la main. Vous perdez **{{amount}}** :broken_heart:.",
-        "Dans un virage **{{pet}}** se met tout à coup à courir. Vous gardez la laisse tant bien que mal dans les mains mais vous ressortez avec quelques égratignures. Vous perdez **{{amount}}** :broken_heart:.",
-        "Vous voyez **{{pet}}** partir. Elle revient quelques minutes après avec de la nourriture. Vous la mangez et le regrettez amèrement quelques minutes plus tard. Vous avez soudainement mal au ventre... Vous perdez **{{amount}}** :broken_heart:.",
-        "**{{pet}}** semble avoir déclenché les hostilités avec {{randomAnimal}} sauvage ! Vous décidez de la défendre mais malheureusement la créature sauvage vous blesse. Vous perdez **{{amount}}** :broken_heart:.",
-        "**{{pet}}** semble vouloir jouer et se jette en haut d'un arbre. Malheureusement, son poids brise la branche et elle tombe sur vous. Vous perdez **{{amount}}** :broken_heart:."
+        "{{pet}}Cuando intentas acariciar a ** **, ella no te deja y te muerde la mano.{{amount}} :broken_heart:Pierdes ** ** .",
+        "{{pet}}En una curva ** ** empieza a correr de repente. Te mantienes en cabeza lo mejor que puedes pero sales con algunos rasguños.{{amount}} :broken_heart:Pierdes a ** ** .",
+        "{{pet}}Ves salir a ** **. Regresa unos minutos después con algo de comida. Te la comes y te arrepientes amargamente unos minutos después. De repente se le revuelve el estómago...{{amount}} :broken_heart:Pierdes a ** ** .",
+        "{{pet}} {{randomAnimal}} **¡Parece que has desencadenado las hostilidades con la sauvage! Decides defenderla pero desgraciadamente la criatura salvaje te hiere.{{amount}} :broken_heart:Pierdes ** ** .",
+        "{{pet}}** Parece que quiere jugar y se sube a un árbol. Desgraciadamente, su peso rompe la rama y cae encima de ti.{{amount}} :broken_heart:Pierdes a ** ** ."
       ],
       "loseMoney_m": [
-        "Vous sentez que **{{pet}}** vole quelques pièces dans votre bourse et part les cacher plus loin. Vous n'arrivez malheureusement pas à les retrouver. Vous perdez donc **{{amount}}** :money_with_wings:.",
-        "Vous remarquez un large trou dans votre bourse. **{{pet}}** a dû jouer avec durant la nuit ! Après avoir compté ce qu'il vous restait, vous remarquez qu'il vous manque en tout **{{amount}}** :money_with_wings:.",
-        "Alors que vous jouez avec **{{pet}}**, celui-ci vous bouscule et fait tomber votre bourse dans une crevasse. Impossible de récupérer ces **{{amount}}** :money_with_wings: !",
-        "Vous avez l'impression que **{{pet}}** est irrité, il ira même jusqu'à blesser un passant. Après s'être excusé, vous décidez de le dédommager et repartez la tête basse. Vous perdez **{{amount}}** :money_with_wings:.",
-        "En voulant jouer avec **{{pet}}**, vous lui assenez un coup. Blessé, vous l'amenez vers un soigneur afin de le guérir. Après l'avoir soigné, le guérisseur vous déleste de **{{amount}}** :money_with_wings:."
+        "{{pet}}Sientes que ** ** está robando algunas monedas de tu monedero y las esconde más lejos. Desgraciadamente, no puedes encontrarlas.{{amount}} :money_with_wings:Así que pierdes a ** ** .",
+        "Notas un gran agujero en tu bolso.{{pet}}** ** ¡debe de haber estado jugando con él durante la noche!{{amount}} :money_with_wings:Después de contar lo que te quedaba, te das cuenta de que te falta un total de ** ** .",
+        "{{pet}}Mientras estás jugando con ** **, te empuja y deja caer tu bolso en una grieta.{{amount}} :money_with_wings: ¡Es imposible recuperar esos ** **!",
+        "{{pet}}Tienes la impresión de que **** está irritado, e incluso llega a herir a un transeúnte. Después de disculparte, decides compensarle y marcharte con la cabeza gacha.{{amount}} :money_with_wings:Pierdes a ** ** .",
+        "{{pet}}Mientras intentas jugar con ** **, le golpeas. Herido, lo llevas a un sanador para que lo cure.{{amount}} :money_with_wings:Después de curarle, el curandero te libera de ** ** ."
       ],
       "loseMoney_f": [
-        "Vous sentez que **{{pet}}** vole quelques pièces dans votre bourse et part les cacher plus loin. Vous n'arrivez malheureusement pas à les retrouver. Vous perdez donc **{{amount}}** :money_with_wings:.",
-        "Vous remarquez un large trou dans votre bourse. **{{pet}}** a dû jouer avec durant la nuit ! Après avoir compté ce qu'il vous restait, vous remarquez qu'il vous manque en tout **{{amount}}** :money_with_wings:.",
-        "Alors que vous jouez avec **{{pet}}**, celui-ci vous bouscule et fait tomber votre bourse dans une crevasse. Impossible de récupérer ces **{{amount}}** :money_with_wings: !",
-        "Vous avez l'impression que **{{pet}}** est irritée, elle ira même jusqu'à blesser un passant. Après s'être excusé, vous décidez de le dédommager et repartez la tête basse. Vous perdez **{{amount}}** :money_with_wings:.",
-        "En voulant jouer avec **{{pet}}**, vous lui assenez un coup. Blessée, vous l'amenez vers un soigneur afin de la guérir. Après l'avoir soignée, le guérisseur vous déleste de **{{amount}}** :money_with_wings:."
+        "{{pet}}Sientes que ** ** está robando algunas monedas de tu monedero y las esconde más lejos. Desgraciadamente, no puedes encontrarlas.{{amount}} :money_with_wings:Así que pierdes a ** ** .",
+        "Notas un gran agujero en tu bolso.{{pet}}** ** ¡debe de haber estado jugando con él durante la noche!{{amount}} :money_with_wings:Después de contar lo que te quedaba, te das cuenta de que te falta un total de ** ** .",
+        "{{pet}}Mientras estás jugando con ** **, te empuja y deja caer tu bolso en una grieta.{{amount}} :money_with_wings: ¡Es imposible recuperar esos ** **!",
+        "{{pet}}Tienes la impresión de que **** está irritado, e incluso llega a herir a un transeúnte. Después de disculparte, decides compensarle y marcharte con la cabeza gacha.{{amount}} :money_with_wings:Pierdes a ** ** .",
+        "{{pet}}Intentando jugar con ** **, la golpeas. Herida, la llevas a un sanador para que la cure.{{amount}} :money_with_wings:Después de curarla, el curandero te libera de ** ** ."
       ],
       "loseTime_m": [
-        "À force de rappeler **{{pet}}** afin qu'il reste près de vous, vous perdez **{{amount}} Min** :clock2:.",
-        "Vous sentez que **{{pet}}** ne semble pas vouloir bouger. Vous décidez tout de même de le tirer de force. Par sa faute, vous perdez **{amount} Min** :clock2:.",
-        "Vous voyez **{{pet}}** venir vers vous en courant poursuivi par {{randomAnimal}} sauvage ! Vous prenez la fuite avec lui. Cette course poursuite vous a fait perdre **{{amount}} Min** :clock2: sur votre trajet.",
-        "En entrant dans un village, vous entendez une rumeur portant sur un familier ressemblant à **{{pet}}** qui attaquerait des villageois. En vous voyant, les habitants prennent peur de vous et de votre familier, et vous êtes alors immédiatement chassé du village. Cette mésaventure vous a fait perdre **{{amount}} Min** :clock2: sur votre trajet.",
-        "Vous découvrez que **{{pet}}** regarde avec insistance le sol et décide d'y creuser un trou. Il en ressort un coffre fermé. Après plusieurs tentatives, vous réussissez à l'ouvrir, mais celui-ci est vide. Cette mésaventure vous a bien fait perdre **{{amount}} Min** :clock2:."
+        "{{pet}}{{amount}} :clock2:Si sigues llamando a ** ** para que se quede cerca de ti, perderás a ** Min** .",
+        "{{pet}}Sientes que ** ** no parece querer moverse. Decides tirar de él a la fuerza de todos modos.{amount} :clock2:Por su culpa, pierdes a ** Min** .",
+        "{{pet}} {{randomAnimal}} Ves a ** ** corriendo hacia ti, ¡perseguido por sauvage! Huyes con él.{{amount}} :clock2: Esta persecución te ha hecho perder a ** Min** por el camino.",
+        "{{pet}}Al entrar en un pueblo, oyes el rumor de que una mascota parecida a ** ** está atacando a los aldeanos. Al verte, los aldeanos se asustan de ti y de tu mascota, e inmediatamente te echan del pueblo.{{amount}} :clock2: Como resultado de este percance, pierdes a ** Min** por el camino.",
+        "{{pet}}Descubres que ** ** está mirando al suelo y decide cavar un agujero. Sale un cofre cerrado. Tras varios intentos, consigues abrirlo, pero está vacío.{{amount}} :clock2:Este percance te ha costado ** Min** ."
       ],
       "loseTime_f": [
-        "À force de rappeler **{{pet}}** afin qu'elle reste près de vous, vous perdez **{amount} Min** :clock2:.",
-        "Vous sentez que **{{pet}}** ne semble pas vouloir bouger. Vous décidez tout de même de la tirer de force. Par sa faute, vous perdez **{amount} Min** :clock2:.",
-        "Vous voyez **{{pet}}** venir vers vous en courant poursuivi{feminine} par {{randomAnimal}} sauvage ! Vous prenez la fuite avec elle. Cette course poursuite vous a fait perdre **{{amount}} Min** :clock2: sur votre trajet.",
-        "En entrant dans un village, vous entendez une rumeur portant sur un familier ressemblant à **{{pet}}** qui attaquerait des villageois. En vous voyant, les habitants prennent peur de vous et de votre familier, et vous êtes alors immédiatement chassé du village. Cette mésaventure vous a fait perdre **{{amount}} Min** :clock2: sur votre trajet.",
-        "Vous découvrez que **{{pet}}** regarde avec insistance le sol et décide d'y creuser un trou. Elle en ressort un coffre fermé. Après plusieurs tentatives, vous réussissez à l'ouvrir, mais celui-ci est vide. Cette mésaventure vous a bien fait perdre **{{amount}} Min** :clock2:."
+        "{{pet}}{amount} :clock2:Si sigues llamando a ** ** para mantenerla cerca de ti, perderás a ** Min** .",
+        "{{pet}}Sientes que ** ** no parece querer moverse. Decides tirar de ella a la fuerza de todos modos.{amount} :clock2:Por su culpa, pierdes a ** Min** .",
+        "{{pet}}{feminine} {{randomAnimal}} Ves a ** ** corriendo hacia ti, ¡perseguido por sauvage! Sales corriendo con ella.{{amount}} :clock2: Esta persecución te ha hecho perder a ** Min** por el camino.",
+        "{{pet}}Al entrar en un pueblo, oyes el rumor de que una mascota parecida a ** ** está atacando a los aldeanos. Al verte, los aldeanos se asustan de ti y de tu mascota, e inmediatamente te echan del pueblo.{{amount}} :clock2: Como consecuencia de este percance, pierdes a ** Min** por el camino.",
+        "{{pet}}Descubres que ** ** está mirando el suelo y decide cavar un agujero. Saca un cofre cerrado. Tras varios intentos, consigues abrirlo, pero está vacío.{{amount}} :clock2:Este percance te ha costado ** Min** ."
       ],
       "petFlee_m": [
-        "Après tant de mauvais traitements, c'était inévitable.**{{pet}}** ne vous respecte pas et part donc en courant au loin. Vous n'arrivez pas à le retrouver et le perdez à tout jamais...",
-        "Après avoir passé du temps avec vous, **{{pet}}** semble ne plus vous aimer et décide de s'enfuir en courant. Vous ne le reverrez probablement plus jamais.",
-        "Il semblerait que **{{pet}}** ait trouvé l'âme soeur, celui-ci vous abandonne et vous laisse seul. Vous ne le reverrez plus jamais...",
-        "Le manque d'attention envers **{{pet}}** l'a amené à s'enfuir. Vous le perdez de vue très rapidement, il sera impossible de le retrouver."
+        "{{pet}}Después de tanto maltrato, era inevitable. ** no te respeta y huye en la distancia. No puedes encontrarlo y lo pierdes para siempre...",
+        "{{pet}}Después de pasar algún tiempo contigo, ** ** parece que ya no le gustas y decide huir. Probablemente no volverás a verle.",
+        "{{pet}}Parece que ** ** ha encontrado a su alma gemela, que te abandona y te deja sola. Nunca lo volverás a ver...",
+        "{{pet}}Su falta de atención a ** le ha llevado a huir. Se le pierde de vista muy rápidamente y será imposible volver a encontrarle."
       ],
       "petFlee_f": [
-        "Après tant de mauvais traitements, c'était inévitable. **{{pet}}** ne vous respecte pas et part donc en courant au loin. Vous n'arrivez pas à la retrouver et la perdez à tout jamais...",
-        "Après avoir passé du temps avec vous, **{{pet}}** semble ne plus vous aimer et décide de s'enfuir en courant. Vous ne la reverrez probablement plus jamais.",
-        "Il semblerait que **{{pet}}** ait trouvé l'âme soeur, celui-ci vous abandonne et vous laisse seul. Vous ne la reverrez plus jamais...",
-        "Le manque d'attention envers **{{pet}}** l'a amené à s'enfuir. Vous la perdez de vue très rapidement, il sera impossible de la retrouver."
+        "Después de tanto maltrato, era inevitable.{{pet}}** ** no te respeta y huye en la distancia. No puedes encontrarla y la pierdes para siempre...",
+        "{{pet}}Después de pasar algún tiempo contigo, ** ** parece que ya no le gustas y decide huir. Probablemente no volverás a verla.",
+        "{{pet}}Parece que ** ** ha encontrado a su alma gemela, que te abandona y te deja solo. Nunca la volverás a ver...",
+        "{{pet}}Su falta de atención a ** la ha hecho huir. La pierdes de vista muy rápidamente y será imposible volver a encontrarla."
       ],
       "loseLove_m": [
-        "Il semblerait bien que **{{pet}}** ne vous apprécie pas trop... Voyager avec lui détériore d'autant plus cette relation. Il perd un peu en amour.",
-        "Alors que vous vous entrainez à combattre, **{{pet}}** passe par là. Vous lui assénez un coup dans un moment d'inadvertance. Il semble maintenant vous aimer un peu moins.",
-        "Après une longue marche, **{{pet}}** est essoufflé, il semblerait qu'il n'arrive pas à vous suivre. Ne pas l'avoir attendu a détérioré votre relation. Il perd donc un peu en amour...",
-        "À l'approche d'un stand, **{{pet}}** fixe avec insistance la nourriture posée sur une planche. Malgré sa requête, vous décidez de continuer votre route. **{{pet}}** est rancunier, il perd un peu foi en vous."
+        "{{pet}}Parece que a ** ** no le gustas mucho... Viajar con él empeora aún más la relación. Pierde un poco de amor.",
+        "{{pet}}Justo cuando estás practicando tus habilidades de lucha, pasa ** **. Sin querer, le das un golpe. Ahora parece que le gustas un poco menos.",
+        "{{pet}}Después de un largo paseo, ** ** se queda sin aliento y parece que no puede seguir su ritmo. No esperarle ha dañado vuestra relación. Así que está perdiendo un poco de amor...",
+        "{{pet}}Cuando te acercas a un puesto, ** ** se queda mirando la comida en una pizarra. A pesar de su petición, decides continuar tu camino.{{pet}}** ** te guarda rencor y está perdiendo un poco la fe en ti."
       ],
       "loseLove_f": [
-        "Il semblerait bien que **{{pet}}** ne vous apprécie pas trop... Voyager avec elle détériore d'autant plus cette relation. Elle perd un peu en amour.",
-        "Alors que vous vous entrainez à combattre, **{{pet}}** passe par là. Vous lui assénez un coup dans un moment d'inadvertance. Elle semble maintenant vous aimer un peu moins.",
-        "Après une longue marche, **{{pet}}** est essoufflée, il semblerait qu'elle n'arrive pas à vous suivre. Ne pas l'avoir attendu a détérioré votre relation. Elle perd donc un peu en amour...",
-        "À l'approche d'un stand, **{{pet}}** fixe avec insistance la nourriture posée sur une planche. Malgré sa requête, vous décidez de continuer votre route. **{{pet}}** est rancunière, elle perd un peu foi en vous."
+        "{{pet}}Parece que a ** ** no le gustas mucho... Viajar con ella empeora aún más la relación. Ella pierde un poco de amor.",
+        "{{pet}}Justo cuando estás practicando tus habilidades de lucha, pasa ** **. Sin querer, le das un golpe. Ahora parece que le gustas un poco menos.",
+        "{{pet}}Después de un largo paseo, ** ** se queda sin aliento y parece que no puede seguir su ritmo. No esperarla ha dañado vuestra relación. Así que está perdiendo un poco de amor...",
+        "{{pet}}Cuando te acercas a un puesto, ** ** se queda mirando la comida en una pizarra. A pesar de su petición, decides continuar tu camino.{{pet}}** ** está resentida y está perdiendo un poco la fe en ti."
       ],
       "nothing": [
-        "Vous continuez votre route aux côtés de **{{pet}}**. Rien de spécial ne se passe."
+        "{{pet}}Continúas tu viaje junto a ** **. No ocurre nada especial."
       ]
     },
-    "randomAnimal_m": "un **{{randomAnimal}}**",
-    "randomAnimal_f": "une **{{randomAnimal}}**"
+    "randomAnimal_m": "{{randomAnimal}}a ** **",
+    "randomAnimal_f": "{{randomAnimal}}a ** **"
   }
 }
