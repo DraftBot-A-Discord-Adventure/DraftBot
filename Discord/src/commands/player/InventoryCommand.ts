@@ -150,8 +150,8 @@ export async function handleCommandInventoryPacketRes(packet: CommandInventoryPa
 			.setLabel(backupButtonLabel)
 			.setStyle(ButtonStyle.Primary);
 
-		const equippedEmbed = getEquippedEmbed(packet, keycloakUser.attributes.gameUsername, interaction.userLanguage);
-		const backupEmbed = getBackupEmbed(packet, keycloakUser.attributes.gameUsername, interaction.userLanguage);
+		const equippedEmbed = getEquippedEmbed(packet, keycloakUser.attributes.gameUsername[0], interaction.userLanguage);
+		const backupEmbed = getBackupEmbed(packet, keycloakUser.attributes.gameUsername[0], interaction.userLanguage);
 
 		const msg = await interaction.reply({
 			embeds: [equippedEmbed],

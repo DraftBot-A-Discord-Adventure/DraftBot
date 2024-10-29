@@ -262,7 +262,7 @@ export async function handleCommandProfilePacketRes(packet: CommandProfilePacket
 		collector.on("collect", async (reaction) => {
 			if (reaction.emoji.name === Constants.PROFILE.DISPLAY_ALL_BADGE_EMOTE) {
 				collector.stop(); // Only one is allowed to avoid spam
-				await sendMessageAllBadgesTooMuchBadges(keycloakUser.attributes.gameUsername, packet.data!.badges!, interaction);
+				await sendMessageAllBadgesTooMuchBadges(keycloakUser.attributes.gameUsername[0], packet.data!.badges!, interaction);
 			}
 			else {
 				interaction.channel.send({content: i18n.t(`commands:profile.badges.${reaction.emoji.name}`, {lng: interaction.userLanguage})})
