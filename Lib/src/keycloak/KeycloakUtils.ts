@@ -101,7 +101,7 @@ export class KeycloakUtils {
 		const obj = await res.json();
 		const user: KeycloakUser = obj.length === 1 ? obj[0] : null;
 
-		if (gameUsername && user.attributes.gameUsername !== gameUsername) {
+		if (gameUsername && user.attributes.gameUsername[0] !== gameUsername) {
 			await KeycloakUtils.updateGameUsername(user, gameUsername, keycloakConfig);
 		}
 
@@ -132,7 +132,7 @@ export class KeycloakUtils {
 		else {
 			user = obj[0] as KeycloakUser;
 
-			if (gameUsername && user.attributes.gameUsername !== gameUsername) {
+			if (gameUsername && user.attributes.gameUsername[0] !== gameUsername) {
 				await KeycloakUtils.updateGameUsername(user, gameUsername, keycloakConfig);
 			}
 		}
@@ -163,7 +163,7 @@ export class KeycloakUtils {
 		if (user && id) {
 			KeycloakUtils.keycloakDiscordToIdMap.set(discordId, id);
 
-			if (gameUsername && user.attributes.gameUsername !== gameUsername) {
+			if (gameUsername && user.attributes.gameUsername[0] !== gameUsername) {
 				await KeycloakUtils.updateGameUsername(user, gameUsername, keycloakConfig);
 			}
 		}
@@ -231,7 +231,7 @@ export class KeycloakUtils {
 		await this.checkAndQueryToken(keycloakConfig);
 
 		const attributes = user.attributes;
-		attributes.gameUsername = newGameUsername;
+		attributes.gameUsername = [newGameUsername];
 
 		const res = await fetch(`${keycloakConfig.url}/admin/realms/${keycloakConfig.realm}/users/${user.id}`, {
 			method: "PUT",
