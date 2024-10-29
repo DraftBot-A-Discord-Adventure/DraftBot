@@ -20,6 +20,7 @@ import {
 } from "discord.js";
 import {sendInteractionNotForYou} from "../../utils/ErrorUtils";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
+import {ClassStats} from "../../../../Lib/src/interfaces/ClassStats";
 
 /**
  * Get the packet
@@ -36,14 +37,7 @@ function getPacket(): Promise<CommandClassesInfoPacketReq> {
  */
 function getListEmbed(packet: CommandClassesInfoPacketRes, language: Language, classList: {
 	id: number,
-	health: number,
-	attack: number,
-	defense: number,
-	speed: number,
-	baseBreath: number,
-	maxBreath: number,
-	breathRegen: number,
-	fightPoint: number,
+	stats: ClassStats,
 	attacks: {
 		id: string,
 		cost: number
@@ -54,22 +48,22 @@ function getListEmbed(packet: CommandClassesInfoPacketRes, language: Language, c
 	}));
 
 	const classesList = [];
-	for (const classStats of classList) {
+	for (const foundClass of classList) {
 		classesList.push(`${
 			i18n.t("commands:classesInfo.displays.class", {
 				lng: language,
-				emoji: DraftBotIcons.classes[classStats.id],
-				name: i18n.t(`models:classes.${classStats.id}`, {
+				emoji: DraftBotIcons.classes[foundClass.id],
+				name: i18n.t(`models:classes.${foundClass.id}`, {
 					lng: language
 				}),
-				health: classStats.health,
-				attack: classStats.attack,
-				defense: classStats.defense,
-				speed: classStats.speed,
-				baseBreath: classStats.baseBreath,
-				maxBreath: classStats.maxBreath,
-				breathRegen: classStats.breathRegen,
-				fightPoint: classStats.fightPoint
+				health: foundClass.stats.health,
+				attack: foundClass.stats.attack,
+				defense: foundClass.stats.defense,
+				speed: foundClass.stats.speed,
+				baseBreath: foundClass.stats.baseBreath,
+				maxBreath: foundClass.stats.maxBreath,
+				breathRegen: foundClass.stats.breathRegen,
+				fightPoint: foundClass.stats.fightPoint
 			})
 		}`);
 	}
@@ -92,6 +86,7 @@ function getListEmbed(packet: CommandClassesInfoPacketRes, language: Language, c
  * @param classDetails
  */
 function getDetailsEmbed(packet: CommandClassesInfoPacketRes, language: Language, classDetails: {
+	id: number,
 	name: string,
 	description: string,
 	attacks: {
@@ -101,7 +96,11 @@ function getDetailsEmbed(packet: CommandClassesInfoPacketRes, language: Language
 		cost: number
 	}[]
 }): DraftBotEmbed {
-	const embed = new DraftBotEmbed().setTitle(classDetails.name);
+	const embed = new DraftBotEmbed().setTitle(i18n.t("commands:classesInfo.title.class", {
+		lng: language,
+		emoji: DraftBotIcons.classes[classDetails.id],
+		className: classDetails.name
+	}));
 
 	const attackDisplays = [];
 	for (const attack of classDetails.attacks) {
@@ -206,13 +205,14 @@ export async function handleCommandClassesInfoPacketRes(packet: CommandClassesIn
 							lng: interaction.userLanguage
 						})}`,
 						description: `${i18n.t(`models:fight_actions.${attack.id}.description`, {
-							lng: interaction.userLanguage,
+							lng: interaction.userLanguage
 						})}`,
 						cost: attack.cost
 					});
 				}
 
 				const classDetailsEmbed = getDetailsEmbed(packet, interaction.userLanguage, {
+					id: parseInt(menuInteraction.values[0]),
 					name: i18n.t(`models:classes.${parseInt(menuInteraction.values[0])}`, {
 						lng: interaction.userLanguage
 					}),

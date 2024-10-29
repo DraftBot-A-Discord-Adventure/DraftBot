@@ -1,4 +1,5 @@
 import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
+import {ClassStats} from "../../interfaces/ClassStats";
 
 /**
  * Packet sent by the bot to gather information about selectable classes
@@ -18,14 +19,7 @@ export class CommandClassesInfoPacketRes extends DraftBotPacket {
 	data?: {
 		classesStats: {
 			id: number;
-			health: number;
-			attack: number;
-			defense: number;
-			speed: number;
-			baseBreath: number;
-			maxBreath: number;
-			breathRegen: number;
-			fightPoint: number;
+			stats: ClassStats;
 			attacks: {
 				id: string,
 				cost: number
