@@ -42,14 +42,7 @@ export default class ClassesInfoCommand {
 				}
 				classesLineDisplay.push({
 					id: classToShow.id,
-					health: stats.health,
-					attack: stats.attack,
-					defense: stats.defense,
-					speed: stats.speed,
-					baseBreath: stats.baseBreath,
-					maxBreath: stats.maxBreath,
-					breathRegen: stats.breathRegen,
-					fightPoint: stats.fightPoint,
+					stats,
 					attacks: attackList
 				});
 			}
