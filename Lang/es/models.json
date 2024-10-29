@@ -1283,9 +1283,9 @@
     "94": "Polvo de esqueleto"
   },
   "foods": {
-    "herbivorousFood": "salade",
-    "carnivorousFood": "viande",
-    "ultimateFood": "soupe ultime",
-    "commonFood": "friandise"
+    "herbivorousFood": "ensalada",
+    "carnivorousFood": "carne",
+    "ultimateFood": "la sopa definitiva",
+    "commonFood": "tratar"
   }
 }
