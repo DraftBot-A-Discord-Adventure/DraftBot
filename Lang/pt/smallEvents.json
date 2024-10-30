@@ -1021,5 +1021,68 @@
     },
     "randomAnimal_m": "{{randomAnimal}}a ** **",
     "randomAnimal_f": "{{randomAnimal}}a ** **"
+  },
+  "class": {
+    "attack": {
+      "winPotion": [
+        "vê uma luz estranha ao longe. Ao aproximar-se, apercebe-se de que se trata de um frasco com um conteúdo desconhecido. Humedece os lábios com a bebida e sente que a sua força poderia aumentar dez vezes se a engolisse...",
+        "repara numa tenda montada no local. Intrigado, entra e descobre um velho com uma série de poções. Ele pede-te para testares as suas poções. Concordas e, uma vez terminadas as experiências, ele dá-te uma poção de ataque como forma de agradecimento.",
+        "encontrarás uma carroça abandonada. Contém caixas de poções. Apressadamente, roubas uma delas. Depois de fugires, vês que a poção roubada parece ser útil para o teu próximo combate..."
+      ],
+      "winObject": [
+        "decide encostar-se a uma árvore. Ao sentar-se, sente uma dor aguda nas costas. Levanta-se com a velocidade de um relâmpago e descobre o que o arranhou:",
+        "De repente, ouve um barulho infernal a vir na sua direção e só tem tempo de se atirar para o lado quando uma horda de cavaleiros passa a galope por si. Enquanto os observa, vê uma bolsa cair de um dos cavalos. Pegando nela, descobres...",
+        "Um animal esfomeado aproxima-se de ti. Por precaução, decides matá-lo. Escavando nas suas entranhas, encontras um objeto que parece poder ser usado para atacar."
+      ],
+      "winWeapon": [
+        "Conheces um comerciante que te pergunta de que classe és. Quando ele responde, oferece-lhe uma arma que já não usa de graça:",
+        "vê uma arma na berma da estrada e não acredita no que vê! Pergunta-se como foi possível deitar fora uma coisa tão bonita e decide equipar-se com ela. Provavelmente vai dar jeito!",
+        "encontra um antigo forte em ruínas. Ainda à procura de equipamento, decide revistá-lo. Depois de uma rápida visita ao local, parece que apenas o arsenal está intacto. No arsenal, entre os objectos enferrujados e inutilizáveis, encontras uma arma que parece estar em bom estado."
+      ]
+    },
+    "defense": {
+      "winPotion": [
+        "repara numa tenda montada no local. Intrigado, entra e descobre um velho com uma série de poções. Ele pede-te para testares as suas poções. Concordas e, uma vez terminadas as experiências, ele dá-te uma poção de defesa como forma de agradecimento.",
+        "encontrarás uma carroça abandonada. Contém caixas de poções. Apressadamente, roubas uma delas. Depois de fugires, vês que a poção roubada parece ser útil para a tua próxima batalha...",
+        "Ouve-se um forte impacto atrás de si. Viras-te de repente e um velho, estirado no chão debaixo de uma árvore, entra no teu campo de visão. Ficas aliviado ao ver que ele ainda está vivo, pois emite um gemido baixo. Reparas então que uma caixa cheia de poções idênticas caiu com ele. Sabendo que ele não poderia ter sobrevivido com a sua estrutura frágil, deduz que se trata de poções que aumentam as capacidades defensivas do corpo. Não querendo deixar passar esta oportunidade, agarras no único frasco intacto e foges do local, sem te aperceberes das fracas queixas do velho."
+      ],
+      "winObject": [
+        "Um animal esfomeado aproxima-se de ti. Por precaução, decides matá-lo. Escavando nas suas entranhas, encontras um objeto que parece ser usado para te defender.",
+        "Um cavaleiro aproxima-se e propõe um duelo. Ele dá-te o seu objeto de defesa se ganhares. Graças ao teu treino, esta vitória é tua e ganhas o prémio prometido.",
+        "Encontra um agricultor que precisa de ajuda para reparar a sua carroça. Pões a roda no lugar. Como agradecimento, ele dá-te um objeto de defesa forjado pelos melhores artesãos de Claire De Ville."
+      ],
+      "winArmor": [
+        "Encontras um comerciante que te pergunta de que classe és. Depois de responder, o comerciante oferece-te uma armadura gratuita que já não usa:",
+        "vê uma peça de armadura na berma da estrada e não acredita no que vê! Pergunta-se como foi possível deitar fora uma coisa tão bonita e decide vesti-la. Provavelmente vai dar jeito!",
+        "encontra um antigo forte em ruínas. Ainda à procura de equipamento, decide revistá-lo. Depois de um rápido olhar em redor, parece que apenas o arsenal está intacto. No arsenal, entre os objectos enferrujados e inutilizáveis, encontras uma armadura que parece estar em bom estado."
+      ]
+    },
+    "basic": {
+      "winItem": [
+        "Alguns aldeões aproximam-se de si e entregam-lhe um objeto em reconhecimento de um feito de armas recente. Agradece-lhes brevemente e continua o seu caminho.",
+        "Deparas-te com um grupo de crianças a brincar às perseguições. Os pais dele aproximam-se de ti e pedem-te perdão, que lhes concedes, e eles dão-te um objeto que te pode ser útil.",
+        "Uma carroça pára-o, intrigado e ansioso por continuar a sua viagem, aproxima-se do dono que, a princípio irritadiço, lhe diz para sair do caminho e seguir por outra estrada. Isto acalma-o imediatamente. Oferece-lhe qualquer coisa e pede-lhe que espere enquanto retira a carga.",
+        "vê uma multidão de pessoas reunidas. Querendo ver o que se passa, abre caminho por entre o grupo e descobre um objeto ensanguentado, caso contrário a multidão à sua volta já lhe teria tocado. Sai como se nada tivesse acontecido, com o objeto na sua posse."
+      ],
+      "winMoney": [
+        "Passa por cima de um pequeno monte e repara que os seus passos têm um som estranho. Procura no chão e descobre uma arca cheia de ouro.{{amount}} :moneybag:Recebes ** **.",
+        "encontra uma pessoa que parece um pouco desconcertada e receosa... Ao vê-lo, a pessoa pede desculpa e foge. Pensa que o confundiram com outra pessoa.{{amount}} :moneybag:Na sua pressa, o desconhecido deixou cair uma bolsa: abre-a e descobre ** ** !",
+        "decide montar o acampamento com uma tenda e outros objectos. Enquanto cavas os buracos para as estacas da tenda, sentes algo duro no chão.{{amount}} :moneybag:Ao cavar, desenterra uma pequena caixa de madeira danificada pelo tempo e encontra ** ** !"
+      ]
+    },
+    "other": {
+      "winItem": [
+        "prende os pés em algo que sai do chão, depois de se levantar, procura no chão e tira um objeto...",
+        "vê uma forma numa vala. Intrigado, aproxima-se da forma, que acaba por ser um objeto que pode ser útil para o resto da sua aventura...",
+        "decide encostar-se a uma árvore. Ao sentar-se, sente uma dor aguda nas costas. Levanta-se rapidamente e descobre... um objeto!",
+        "Estás a caminhar distraidamente e tropeças em algo! Enquanto se esforça por se levantar depois da queda, descobre um objeto!"
+      ],
+      "winHealth": [
+        "Encontra alguns aldeões que se lembram das suas proezas como pessoa frágil e que lhe entregam um saco com provisões, que come antes de continuar a sua viagem.{{amount}} :heart:Ganhaste ** **.",
+        "Um comerciante aproxima-se de ti e pergunta-te qual é a tua classe, ao que respondes que és um aventureiro frágil. Lembrando-se de que os aventureiros frágeis são pessoas com pouco hp, ele decide dar-te alguns frutos que já não eram viáveis para vender.{{amount}} :heart:Comes a fruta com prazer e ganhas ** ** e depois voltas a partir.",
+        "Uma mulher idosa aproxima-se de ti, dá-te uma maçã vermelha e diz-te que é importante comer bem para te tornares forte.{{amount}} :heart:Ganhaste ** **.",
+        "És abalroado por um arado. O dono do arado aproxima-se e pede desculpa, dizendo que não o tinha visto devido à sua má aparência, e oferece-lhe algumas provisões.{{amount}} :heart:Ganhaste ** **."
+      ]
+    }
   }
 }
