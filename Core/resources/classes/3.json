@@ -9,6 +9,7 @@
 	"maxBreath": 14,
 	"breathRegen": 4,
 	"classGroup": 3,
+  "classKind" : "basic",
 	"fightActionsIds": [
 		"simpleAttack",
 		"piercingAttack",

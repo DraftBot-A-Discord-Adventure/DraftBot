@@ -9,7 +9,8 @@
 	"maxBreath": 25,
 	"breathRegen": 3,
 	"classGroup": 4,
-	"fightActionsIds": [
+  "classKind" : "defense",
+  "fightActionsIds": [
 		"simpleAttack",
 		"ramAttack",
 		"chargeUltimateAttack",

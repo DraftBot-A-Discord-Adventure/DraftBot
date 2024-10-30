@@ -9,7 +9,8 @@
 	"maxBreath": 10,
 	"breathRegen": 5,
 	"classGroup": 3,
-	"fightActionsIds": [
+  "classKind" : "other",
+  "fightActionsIds": [
 		"quickAttack",
 		"energeticAttack",
 		"chargeChargingAttack",

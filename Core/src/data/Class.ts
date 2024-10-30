@@ -2,6 +2,7 @@ import {DataControllerNumber} from "./DataController";
 import {ClassStats} from "../../../Lib/src/interfaces/ClassStats";
 import {Data} from "./Data";
 import {RandomUtils} from "../../../Lib/src/utils/RandomUtils";
+import {ClassKind} from "../../../Lib/src/types/ClassKind";
 
 export class Class extends Data<number> {
 	public readonly attack: number;
@@ -26,6 +27,8 @@ export class Class extends Data<number> {
 
 	public readonly fightActionsIds: string[];
 
+	public readonly classKind: ClassKind;
+
 
 	public getClassStats(level: number): ClassStats {
 		return {
@@ -37,7 +40,8 @@ export class Class extends Data<number> {
 			fightPoint: this.getMaxCumulativeFightPointValue(level),
 			baseBreath: this.baseBreath,
 			maxBreath: this.maxBreath,
-			breathRegen: this.breathRegen
+			breathRegen: this.breathRegen,
+			classKind: this.classKind
 		};
 	}
 
