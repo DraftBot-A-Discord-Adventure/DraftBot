@@ -1021,5 +1021,68 @@
     },
     "randomAnimal_m": "ein **{{randomAnimal}}**",
     "randomAnimal_f": "eine **{{randomAnimal}}**"
+  },
+  "class": {
+    "attack": {
+      "winPotion": [
+        "Sie sehen ein seltsames Licht in der Ferne. Als du dich neugierig näherst, stellst du fest, dass es sich um eine Phiole mit unbekanntem Inhalt handelt. Du befeuchtest deine Lippen mit dem Getränk und spürst, dass deine Kräfte vervielfacht werden könnten, wenn du es zu dir nimmst...",
+        "Sie bemerken ein Zelt, das dort aufgestellt ist. Neugierig geworden, betrittst du es und entdeckst einen alten Mann, der viele Tränke besitzt. Er bittet Sie, seine Tränke zu testen. Du stimmst zu und nachdem du deine Experimente beendet hast, gibt er dir einen Angriffstrank als Dankeschön.",
+        "finden Sie einen verlassenen Karren. Darin befinden sich einige Kisten mit Tränken. Sie stehlen hastig eine davon. Nachdem Sie geflohen sind, sehen Sie, dass der gestohlene Trank für Ihren nächsten Kampf nützlich zu sein scheint..."
+      ],
+      "winObject": [
+        "beschließen Sie, sich an einen Baum zu lehnen. Als Sie sich hinsetzen, spüren Sie einen stechenden Schmerz, der Ihren Rücken durchdringt. Sie stehen blitzschnell auf und entdecken, was Sie gekratzt hat:",
+        "Sie hören plötzlich einen Höllenlärm, der auf Sie zukommt. Sie können sich gerade noch zur Seite werfen, als eine Horde Ritter an Ihnen vorbeigaloppiert, und Sie sehen, wie eine Tasche von einem der Pferde fällt. Als du ihn aufhebst, entdeckst du...",
+        "ein hungriges Tier nähert sich Ihnen. Als Vorsichtsmaßnahme beschließen Sie, es zu töten. Als Sie in seinen Eingeweiden wühlen, finden Sie einen Gegenstand, der offenbar zum Angriff dient."
+      ],
+      "winWeapon": [
+        "Sie treffen einen Händler und werden gefragt, welche Klasse Sie haben. Nachdem Sie ihm geantwortet haben, bietet er Ihnen eine Waffe, die er nicht mehr benutzt, kostenlos an:",
+        "Sie sehen eine Waffe am Straßenrand und trauen Ihren Augen nicht. Sie fragen sich, wie man so etwas Schönes einfach wegwerfen kann und beschließen, sich damit zu schmücken. Sie wird Ihnen wahrscheinlich nützlich sein!",
+        "finden Sie eine alte Festung, die in Trümmern liegt. Da Sie immer noch auf der Suche nach Ausrüstung sind, beschließen Sie, diese zu durchsuchen. Nach einer kurzen Besichtigung des Geländes scheint es, als sei nur die Waffenkammer noch intakt. In dieser finden Sie inmitten von rostigen und unbrauchbaren Gegenständen eine Waffe, die noch in gutem Zustand zu sein scheint."
+      ]
+    },
+    "defense": {
+      "winPotion": [
+        "Sie bemerken ein Zelt, das dort aufgestellt ist. Neugierig geworden, betrittst du es und entdeckst einen alten Mann, der zahlreiche Tränke besitzt. Er bittet Sie, seine Tränke zu testen. Du stimmst zu und nachdem du deine Experimente beendet hast, gibt er dir einen Verteidigungstrank als Dankeschön.",
+        "finden Sie einen verlassenen Karren. Darin befinden sich einige Kisten mit Tränken. Du stiehlst hastig eine davon. Nachdem du geflohen bist, siehst du, dass der gestohlene Trank für deinen nächsten Kampf nützlich zu sein scheint...",
+        "ein schwerer Aufprall ist hinter Ihnen zu hören. Sie drehen sich abrupt um und sehen einen alten Mann, dessen Körper platt auf dem Boden unter einem Baum liegt. Erleichtert stellen Sie fest, dass er noch am Leben ist, da er leise stöhnt. Sie stellen fest, dass mit ihm eine Kiste voller identischer Tränke heruntergefallen ist. Da du weißt, dass er mit seinem schwachen Körperbau nicht hätte überleben können, nimmst du an, dass es sich um Tränke handelt, die die Abwehrkräfte des menschlichen Körpers stärken. Da Sie sich diese Gelegenheit nicht entgehen lassen wollen, schnappen Sie sich die einzige intakte Phiole und flüchten, ohne sich um die schwachen Beschwerden des alten Mannes zu kümmern."
+      ],
+      "winObject": [
+        "ein hungriges Tier nähert sich Ihnen. Als Vorsichtsmaßnahme beschließen Sie, es zu töten. Als Sie in seinen Eingeweiden wühlen, finden Sie einen Gegenstand, der offenbar zum Verteidigen dient.",
+        "ein Ritter nähert sich Ihnen und bietet Ihnen ein Duell an. Er gibt Ihnen seinen Verteidigungsgegenstand, wenn Sie gewinnen. Dank deiner Ausbildung ist dieser Sieg dein und du erhältst den versprochenen Preis.",
+        "Sie finden einen Bauern, der Hilfe bei der Reparatur seines Karrens braucht. Sie bringen das Rad wieder an seinen Platz. Zum Dank gibt er Ihnen einen Verteidigungsgegenstand, der von den besten Arbeitern in Claire De Ville geschmiedet wurde."
+      ],
+      "winArmor": [
+        "Sie treffen einen Händler und werden gefragt, welche Klasse Sie haben. Nachdem Sie ihm geantwortet haben, bietet er Ihnen kostenlos eine Rüstung an, die er nicht mehr benutzt:",
+        "Sie sehen am Straßenrand ein Stück Rüstung und trauen Ihren Augen nicht! Sie fragen sich, wie man so etwas Schönes einfach wegwerfen kann und beschließen, es sich selbst anzuziehen. Es wird Ihnen wahrscheinlich noch nützlich sein!",
+        "finden Sie eine alte Festung, die in Trümmern liegt. Da Sie immer noch auf der Suche nach Ausrüstung sind, beschließen Sie, diese zu durchsuchen. Nach einem kurzen Rundgang durch die Anlage scheint es, als sei nur noch der Raum mit den Rüstungen intakt. In diesem Raum finden Sie inmitten von rostigen und unbrauchbaren Gegenständen eine Rüstung, die noch in gutem Zustand zu sein scheint."
+      ]
+    },
+    "basic": {
+      "winItem": [
+        "Sie bedanken sich kurz und setzen Ihre Reise fort.",
+        "Sie treffen auf eine Gruppe von Kindern, die sich gegenseitig verfolgen. Eines der Kinder stößt Sie an und beginnt zu weinen, seine Eltern kommen hinzu und bitten Sie um Verzeihung.",
+        "Ein Fuhrwerk hindert Sie am Weiterfahren. Neugierig geworden und mit dem Wunsch, Ihren Weg fortzusetzen, nähern Sie sich dem Besitzer, der Sie zunächst unfreundlich auffordert, den Weg zu verlassen und eine andere Straße zu nehmen, woraufhin Sie ihn wütend mit der Waffe bedrohen. Daraufhin beruhigt er sich sofort. Er bietet Ihnen einen Gegenstand an und bittet Sie, so lange zu warten, bis er seine Ladung verlegt hat.",
+        "sehen Sie eine Menge Menschen, die sich versammelt haben. Sie wollen sehen, was los ist, drängen sich durch die Gruppe und entdecken einen blutverschmierten Gegenstand, den die Menge schon längst berührt hätte. Sie gehen mit dem Gegenstand in Ihrem Besitz weiter, als wäre nichts geschehen."
+      ],
+      "winMoney": [
+        "Sie gehen auf eine kleine Anhöhe und bemerken, dass Ihre Schritte seltsam klingen. Sie durchsuchen den Boden und entdecken eine mit Gold gefüllte Truhe. Sie erhalten **{{amount}} :moneybag:**.",
+        "Sie treffen eine Person, die etwas verwirrt und ängstlich wirkt... Als die Person Sie sieht, entschuldigt sie sich und rennt weg. Sie denken, dass sie Sie mit jemandem verwechselt hat. Sie öffnen den Beutel und entdecken **{{amount}} :moneybag:**!",
+        "beschließen Sie, Ihr Lager zu errichten, indem Sie ein Zelt und andere Gegenstände aufstellen. Als du die Löcher zum Einschlagen der Heringe für dein Zelt gräbst, spürst du etwas Hartes im Boden. Beim Graben gräbst du ein kleines, verwittertes Holzkästchen aus und findest darin **{{amount}} :moneybag:**!"
+      ]
+    },
+    "other": {
+      "winItem": [
+        "Sie geraten mit den Füßen in etwas, das aus dem Boden ragt. Nachdem Sie sich aufgerichtet haben, suchen Sie den Boden ab und holen einen Gegenstand heraus...",
+        "Sie sehen eine Form in einem Graben. Neugierig geworden, nähern Sie sich ihr. Die Form entpuppt sich als ein Gegenstand, der Ihnen auf Ihrem weiteren Abenteuer von Nutzen sein könnte...",
+        "Sie beschließen, sich an einen Baum zu lehnen. Als Sie sich hinsetzen, spüren Sie einen stechenden Schmerz in Ihrem Rücken. Sie stehen schnell auf und entdecken ... einen Gegenstand!",
+        "Sie gehen unachtsam und stolpern über etwas! Als Sie sich nach Ihrem Sturz mühsam aufrichten, entdecken Sie einen Gegenstand!"
+      ],
+      "winHealth": [
+        "Sie begegnen Dorfbewohnern, die sich an Ihre Leistungen als gebrechlicher Mensch erinnern und Ihnen eine Tasche mit Lebensmitteln reichen, die Sie essen, bevor Sie weiterreisen. Sie gewinnen **{{amount}} :heart:**.",
+        "Ein Händler kommt auf Sie zu und fragt Sie, welcher Klasse Sie angehören. Sie antworten ihm, dass Sie ein gebrechlicher Abenteurer sind. Da er sich daran erinnert, dass gebrechliche Abenteurer Menschen mit wenig KP sind, beschließt er, Ihnen ein paar Früchte zu geben, die nicht mehr verkaufsfähig waren. Glücklich essen Sie sie, verdienen **{{amount}} :heart:** und setzen Ihren Weg fort.",
+        "Sie werden von einer alten Frau angesprochen, die Ihnen einen roten Apfel reicht und Ihnen sagt, dass gutes Essen wichtig ist, um stark zu werden. Sie essen ihn dankbar, bevor Sie weitergehen. Sie gewinnen **{{amount}} :heart:**.",
+        "Sie werden von einem Pflug angerempelt. Sie werden von seinem Besitzer angesprochen, der sich entschuldigt und sagt, dass er Sie aufgrund Ihres schwachen Aussehens nicht gesehen hat. Er bietet Ihnen etwas Proviant an, Sie essen etwas und setzen dann Ihren Weg fort. Sie gewinnen **{{amount}} :heart:**."
+      ]
+    }
   }
 }
