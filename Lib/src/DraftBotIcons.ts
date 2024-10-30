@@ -1550,7 +1550,7 @@ export const DraftBotIcons: {
 		"sabotageAttack": "🛠️",
 		"shieldAttack": "🛡️",
 		"simpleAttack": "⚔️",
-		"ultimaateAttack": "☄️"
+		"ultimateAttack": "☄️"
 	},
 	"announcements": {
 		"trophy": "🏆"
