@@ -1021,5 +1021,68 @@
     },
     "randomAnimal_m": "{{randomAnimal}}a ** **",
     "randomAnimal_f": "{{randomAnimal}}a ** **"
+  },
+  "class": {
+    "attack": {
+      "winPotion": [
+        "vedete una strana luce in lontananza. Avvicinandosi, ci si rende conto che si tratta di una fiala dal contenuto sconosciuto. Ci si inumidisce le labbra con la bevanda e si sente che la propria forza potrebbe essere decuplicata se la si ingerisse...",
+        "notate una tenda montata lì. Incuriositi, entrate e scoprite un vecchio con una serie di pozioni. Vi chiede di testare le sue pozioni. Accettate e, una volta terminati gli esperimenti, vi dà una pozione d'attacco in segno di ringraziamento.",
+        "troverete un carrello abbandonato. Contiene scatole di pozioni. Ne rubate frettolosamente una. Dopo essere fuggiti, vedete che la pozione rubata sembra essere utile per la prossima battaglia..."
+      ],
+      "winObject": [
+        "decidete di appoggiarvi a un albero. Quando vi sedete, sentite un dolore lancinante alla schiena. Vi alzate con velocità fulminea e scoprite cosa vi ha graffiato:",
+        "Improvvisamente sentite un frastuono infernale venire verso di voi e fate appena in tempo a gettarvi di lato quando un'orda di cavalieri vi passa davanti al galoppo. Mentre li guardate andare via, vedete cadere da uno dei cavalli una sacca. Raccogliendolo, scoprite...",
+        "Un animale affamato si avvicina a voi. Per precauzione, decidete di ucciderlo. Scavando tra le sue viscere, trovate un oggetto che sembra poter essere usato per attaccare."
+      ],
+      "winWeapon": [
+        "Incontrate un mercante che vi chiede di che classe siete. Alla sua risposta, vi offre gratuitamente un'arma che non usa più:",
+        "vedete una pistola sul ciglio della strada e non potete credere ai vostri occhi! Vi chiedete come sia possibile che abbiate buttato via una cosa così bella e decidete di dotarvene. Probabilmente tornerà utile!",
+        "si trova un'antica fortezza in rovina. Ancora alla ricerca di equipaggiamento, decidete di perquisirlo. Dopo un rapido giro dei locali, sembra che solo l'armeria sia ancora intatta. Nell'armeria, tra gli oggetti arrugginiti e inutilizzabili, si trova un'arma che sembra in buone condizioni."
+      ]
+    },
+    "defense": {
+      "winPotion": [
+        "notate una tenda montata lì. Incuriositi, entrate e scoprite un vecchio con una serie di pozioni. Vi chiede di testare le sue pozioni. Accettate e, una volta terminati gli esperimenti, vi dà una pozione di difesa in segno di ringraziamento.",
+        "troverete un carrello abbandonato. Contiene scatole di pozioni. Ne rubate frettolosamente una. Dopo essere fuggiti, vedete che la pozione rubata sembra essere utile per la prossima battaglia...",
+        "Alle vostre spalle si sente un forte impatto. Vi voltate di colpo e un vecchio appiattito a terra sotto un albero entra nel vostro campo visivo. Siete sollevati nel vedere che è ancora vivo, mentre emette un basso lamento. Notate poi che una cassa piena di pozioni identiche è caduta con lui. Sapendo che non sarebbe potuto sopravvivere con la sua fragile struttura, deducete che si tratta di pozioni che aumentano le capacità difensive del corpo. Non volendo perdere un'occasione simile, afferrate l'unica fiala intatta e fuggite dalla scena, incuranti delle deboli lamentele del vecchio."
+      ],
+      "winObject": [
+        "Un animale affamato si avvicina a voi. Per precauzione, decidete di ucciderlo. Scavando tra le sue viscere, trovate un oggetto che sembra servirvi per difendervi.",
+        "Un cavaliere si avvicina e propone un duello. Vi darà il suo oggetto di difesa se vincerete. Grazie al vostro allenamento, la vittoria è vostra e vincete il premio promesso.",
+        "Trovate un contadino che ha bisogno di aiuto per riparare il suo carro. Rimettete a posto la ruota. Per ringraziarvi, vi regala un oggetto difensivo forgiato dai migliori artigiani di Claire De Ville."
+      ],
+      "winArmor": [
+        "Incontrate un mercante che vi chiede di che classe siete. Dopo aver risposto, il mercante vi offre gratuitamente un'armatura che non usa più:",
+        "vedete un'armatura sul ciglio della strada e non potete credere ai vostri occhi! Vi chiedete come sia possibile buttare via una cosa così bella e decidete di indossarla. Probabilmente vi tornerà utile!",
+        "si trova un'antica fortezza in rovina. Ancora alla ricerca di equipaggiamento, decidete di perlustrarlo. Dopo una rapida occhiata in giro, sembra che solo l'armeria sia ancora intatta. Nell'armeria, tra gli oggetti arrugginiti e inutilizzabili, si trova un'armatura che sembra in buone condizioni."
+      ]
+    },
+    "basic": {
+      "winItem": [
+        "Alcuni abitanti del villaggio vi avvicinano e vi consegnano un oggetto come riconoscimento per una recente impresa d'armi. Li ringraziate brevemente e continuate per la vostra strada.",
+        "Vi imbattete in un gruppo di bambini che giocano a rincorrersi. Uno di loro vi urta e si mette a piangere. I suoi genitori si avvicinano e vi chiedono perdono, voi glielo concedete e loro vi danno un oggetto che potrebbe esservi utile.",
+        "Un carretto vi ferma, incuriositi e desiderosi di continuare il vostro viaggio, vi avvicinate al proprietario che, dapprima antipatico, vi dice di togliervi di mezzo e di prendere un'altra strada. Questo lo tranquillizza immediatamente. Vi offre qualcosa e vi chiede di aspettare mentre sposta il suo carico.",
+        "vedete una folla di persone riunite. Volendo vedere cosa sta succedendo, vi fate strada tra il gruppo e scoprite un oggetto insanguinato, altrimenti la folla intorno a voi lo avrebbe già toccato. Ve ne andate come se nulla fosse con l'oggetto in vostro possesso."
+      ],
+      "winMoney": [
+        "Salite su una piccola collina e notate che i vostri passi hanno un suono strano. Si cerca sul terreno e si scopre un forziere pieno d'oro.{{amount}} :moneybag:Si ottiene ** **.",
+        "incontrate una persona che sembra un po' sconcertata e impaurita... Quando vi vede, la persona si scusa e scappa via. Pensate che vi abbia scambiato per qualcun altro.{{amount}} :moneybag:Nella fretta, lo sconosciuto ha fatto cadere una borsa: la aprite e scoprite ** ** ** !",
+        "decidete di accamparvi con una tenda e altri oggetti. Mentre si scavano le buche per i picchetti della tenda, si sente qualcosa di duro nel terreno.{{amount}} :moneybag:Mentre si scava, si porta alla luce una piccola scatola di legno danneggiata dal tempo e si trova ** ** ** !"
+      ]
+    },
+    "other": {
+      "winItem": [
+        "si incastra il piede in qualcosa che sporge dal terreno, dopo essersi rialzati si cerca a terra e si estrae un oggetto...",
+        "vedete una forma in un fosso. Incuriositi, vi avvicinate alla forma, che si rivela essere un oggetto che potrebbe essere utile per il resto della vostra avventura...",
+        "decidete di appoggiarvi a un albero. Quando vi sedete, sentite un forte dolore alla schiena. Ci si alza rapidamente e si scopre... un oggetto!",
+        "camminate distrattamente e inciampate su qualcosa! Mentre lottate per rialzarvi dopo la caduta, scoprite un oggetto!"
+      ],
+      "winHealth": [
+        "Incontrate alcuni abitanti del villaggio che si ricordano della vostra bravura come persona fragile e vi consegnano una borsa con delle provviste, che mangiate prima di continuare il vostro viaggio.{{amount}} :heart:Hai vinto ** **.",
+        "Un mercante si avvicina e vi chiede di che classe siete, al che voi rispondete che siete un avventuriero fragile. Ricordando che gli avventurieri fragili sono persone con pochi hp, decide di darvi della frutta che non era più possibile vendere.{{amount}} :heart:Mangiate volentieri la frutta e vincete ** ** poi ripartite.",
+        "Si viene avvicinati da un'anziana donna, che porge una mela rossa e dice che è importante mangiare bene per diventare forti. La si mangia con gratitudine prima di proseguire il cammino.{{amount}} :heart:Hai vinto ** **.",
+        "Un aratro vi urta. Vi si avvicina il proprietario, che si scusa dicendo che non vi aveva visto a causa del vostro cattivo aspetto e vi offre delle provviste. Mangiate qualcosa e poi ripartite.{{amount}} :heart:Vincete ** **."
+      ]
+    }
   }
 }
