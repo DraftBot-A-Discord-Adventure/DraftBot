@@ -9,7 +9,8 @@
 	"maxBreath": 10,
 	"breathRegen": 4,
 	"classGroup": 2,
-	"fightActionsIds": [
+  "classKind" : "attack",
+  "fightActionsIds": [
 		"quickAttack",
 		"sabotageAttack",
 		"boomerangAttack",

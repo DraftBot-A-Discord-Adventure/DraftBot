@@ -1021,5 +1021,68 @@
     },
     "randomAnimal_m": "un **{{randomAnimal}}**",
     "randomAnimal_f": "une **{{randomAnimal}}**"
+  },
+  "class": {
+    "attack": {
+      "winPotion": [
+        "vous apercevez une lumière étrange dans le lointain. En vous rapprochant, curieux, vous vous rendez compte qu'il s'agit là d'une fiole au contenu inconnu, vous vous humectez les lèvres du breuvage et sentez que vos forces pourraient être décuplées si vous l'ingériez...",
+        "vous remarquez une tente installée là. Intrigué, vous y entrez et y découvrez un vieil homme possédant de nombreuses potions. Celui-ci vous demande de bien vouloir tester ses potions. Vous acceptez, et une fois les expériences finies, il vous donne une potion d'attaque en gage de remerciement.",
+        "vous trouvez une charrette abandonnée. Celle-ci contient des caisses de potions. Vous en volez une à la hâte. Après avoir fui, vous voyez que la potion volée semble être utile pour votre prochain combat..."
+      ],
+      "winObject": [
+        "vous décidez de vous adosser à un arbre. En vous asseyant, vous sentez une douleur vive qui vous transperce le dos. Vous vous relevez à la vitesse d'un éclair et découvrez ce qui vous a égratigné :",
+        "vous entendez soudainement un boucan infernal avancer vers vous, vous avez tout juste le temps de vous jeter sur le côté quand une horde de chevaliers vous dépasse au grand galop, en les regardant s'éloigner vous apercevez une besace tomber de l'un des chevaux. En la ramassant vous y découvrez...",
+        "un animal affamé s'approche de vous. Par précaution, vous décidez de le tuer. En fouillant dans ses entrailles, vous trouvez un objet qui semble servir à attaquer."
+      ],
+      "winWeapon": [
+        "vous rencontrez un marchand, vous demandant quelle classe vous avez. Lui ayant répondu, celui-ci vous propose gratuitement une arme qu'il n'utilise plus :",
+        "vous voyez sur le bas-côté une arme et vous n'en croyez pas vos yeux ! Vous vous demandez comment diable l'on peut jeter une si belle chose et décidez de vous en affubler. Elle vous sera probablement utile !",
+        "vous trouvez un ancien fort en ruines. Toujours à la recherche d'équipement, vous décidez de le fouiller. Après une rapide visite des lieux, il semblerait que seule l'armurerie est encore intacte. Dans celle-ci, au milieu des objets rouillés et inutilisables, vous trouvez une arme qui semble être encore en bon état."
+      ]
+    },
+    "defense": {
+      "winPotion": [
+        "vous remarquez une tente installée là. Intrigué, vous y entrez et y découvrez un vieil homme possédant de nombreuses potions. Celui-ci vous demande de bien vouloir tester ses potions. Vous acceptez, et une fois les expériences finies, il vous donne une potion de défense en gage de remerciement.",
+        "vous trouvez une charrette abandonnée. Celle-ci contient des caisses de potions. Vous en volez une à la hâte. Après avoir fui vous voyez que la potion volée semble être utile pour votre prochain combat...",
+        "un impact lourd se fait entendre derrière vous. Vous vous retournez brusquement, et entre en votre champs de vision un vieil homme au corps aplati au sol, sous un arbre. Vous remarquez avec soulagement qu'il est encore en vie, car il émet de faibles gémissements. Vous constatez alors qu'est tombée avec lui une caisse pleine de potions toutes identiques. Sachant qu'il n'aurait pu survivre avec sa frêle disposition, vous déduisez qu'il s'agit là de potions augmentant les capacités défensives du corps humain. Ne voulant laisser passer une telle opportunité, vous vous emparez de la seule fiole intacte et fuyez les lieux, sans vous préoccuper des faiblissantes plaintes du vieillard."
+      ],
+      "winObject": [
+        "un animal affamé s'approche de vous. Par précaution, vous décidez de le tuer. En fouillant dans ses entrailles, vous trouvez un objet qui semble servir à défendre.",
+        "un chevalier s'approche et vous propose un duel. Il vous donnera son objet de défense si vous gagnez. Grâce à vôtre entrainement, cette victoire est vôtre, et vous remportez le lot promis.",
+        "Vous trouvez un paysan qui a besoin d'aide pour réparer sa charrette. Vous remettez la roue en place. Pour vous remercier, il vous donne un objet défensif forgé par les meilleurs ouvriers de Claire De Ville."
+      ],
+      "winArmor": [
+        "vous rencontrez un marchand, vous demandant quelle classe vous avez. Lui ayant répondu, celui-ci vous propose gratuitement une armure qu'il n'utilise plus :",
+        "vous voyez sur le bas-côté une pièce d'armure et vous n'en croyez pas vos yeux ! Vous vous demandez comment diable l'on peut jeter une si belle chose et décidez de vous en affubler. Elle vous sera probablement utile !",
+        "vous trouvez un ancien fort en ruines. Toujours à la recherche d'équipement, vous décidez de le fouiller. Après une rapide visite des lieux, il semblerait que seule la salle des armures est encore intacte. Dans celle-ci, au milieu des objets rouillés et inutilisables, vous trouvez une armure qui semble être encore en bon état."
+      ]
+    },
+    "basic": {
+      "winItem": [
+        "des villageois vous abordent et vous tendent un objet en reconnaissance d'un récent fait d'arme, vous les remerciez brièvement et continuez votre périple.",
+        "vous croisez un groupe d'enfants jouant à se poursuivre. L'un d'eux vous bouscule et se met à pleurer, ses parents s'approchent et implorent votre pardon, vous le leur accordez et ceux-ci vous font don d'un objet pouvant vous être utile.",
+        "une charrette vous empêche de continuer, intrigué et désireux de poursuivre votre chemin, vous vous approchez du propriétaire, qui, d'abord odieux, vous dit de dégager et prendre une autre route, énervé, vous le menacez de votre arme. Cela a pour effet de le calmer instantanément. Il vous offre un objet et vous demande de patienter le temps de déplacer son chargement.",
+        "vous apercevez une foule de personnes réunies. Voulant voir ce qui se trame, vous vous frayez un chemin à travers le groupe et découvrez un objet ensanglanté, sans quoi la foule autour l'aurait déjà touché. Vous repartez comme si de rien n'était avec l'objet en votre possession."
+      ],
+      "winMoney": [
+        "vous marchez sur une petite butte et remarquez que votre bruit de pas sonne étrangement. Vous fouillez le sol et découvrez un coffre rempli d'or. Vous obtenez **{{amount}} :moneybag:**.",
+        "vous rencontrez une personne ayant l'air un peu déconcertée et peureuse... En vous voyant la personne s'excuse et part en courant. Vous vous dites qu'elle vous a confondu avec quelqu'un d'autre. Dans sa course l'inconnu a fait tomber une bourse : vous l'ouvrez et découvrez **{{amount}} :moneybag:** !",
+        "vous décidez d'établir votre campement en installant une tente et d'autres objets. En creusant les trous pour planter les piquets de votre tente, vous sentez quelque chose de dur dans le sol. En creusant, vous déterrez un petit coffret de bois abîmé par le temps et y trouvez **{{amount}} :moneybag:** !"
+      ]
+    },
+    "other": {
+      "winItem": [
+        "vous vous prenez les pieds dans quelque chose sortant du sol, après vous être relevé, vous fouillez le sol et en sortez un objet...",
+        "vous apercevez une forme dans un fossé. Intrigué, vous vous en approchez, cette forme se révèle être un objet qui pourrait vous servir pour la suite de votre aventure...",
+        "vous décidez de vous adosser à un arbre. En vous asseyant, vous percevez une douleur vive dans votre dos. Vous vous relevez rapidement pour découvrir... un objet !",
+        "vous marchez distraitement et trébuchez sur quelque chose ! En vous relevant péniblement après votre chute, vous découvrez un objet !"
+      ],
+      "winHealth": [
+        "vous croisez des villageois se souvenant de vos prouesses en tant que frêle personne, ils vous tendent un sac contenant des provisions que vous mangez avant de poursuivre votre périple. Vous gagnez **{{amount}} :heart:**.",
+        "un marchand vient à votre rencontre et vous demande à quelle classe vous appartenez, vous lui répondez que vous êtes un frêle aventurier. Se rappelant que les frêles aventuriers sont des personnes avec peu de pv, il décide de vous donner quelques fruits qui n'étaient plus viables pour être vendus. Heureux, vous les mangez et gagnez **{{amount}} :heart:** puis reprenez votre route.",
+        "vous êtes abordé par une vieille femme, celle-ci vous tend une pomme bien rouge en vous précisant qu'il est important de bien manger pour devenir fort vous la mangez avec reconnaissance avant de poursuivre votre route. Vous gagnez **{{amount}} :heart:**.",
+        "vous êtes bousculé par une charrue. Vous êtes interpelé par son propriétaire qui vous présente ses excuses et disant ne pas vous avoir vu à cause de votre apparence chétive et vous offre quelques provisions, vous vous restaurez un peu puis reprenez votre route. Vous gagnez **{{amount}} :heart:**."
+      ]
+    }
   }
 }

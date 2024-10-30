@@ -9,6 +9,7 @@
 	"maxBreath": 15,
 	"breathRegen": 3,
 	"classGroup": 3,
+  "classKind" : "basic",
 	"fightActionsIds": [
 		"simpleAttack",
 		"quickAttack",

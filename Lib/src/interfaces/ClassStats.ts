@@ -1,3 +1,5 @@
+import {ClassKind} from "../types/ClassKind";
+
 export interface ClassStats {
     attack: number,
     defense: number,
@@ -7,5 +9,6 @@ export interface ClassStats {
     fightPoint: number,
     baseBreath: number,
     maxBreath: number,
-    breathRegen: number
+    breathRegen: number,
+	classKind: ClassKind,
 }
