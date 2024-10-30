@@ -1025,63 +1025,63 @@
   "class": {
     "attack": {
       "winPotion": [
-        "vous apercevez une lumière étrange dans le lointain. En vous rapprochant, curieux, vous vous rendez compte qu'il s'agit là d'une fiole au contenu inconnu, vous vous humectez les lèvres du breuvage et sentez que vos forces pourraient être décuplées si vous l'ingériez...",
+        "you see a strange light in the distance. As you get closer, curious, you realize that this is a vial with unknown content, you moose the brewery and feel that your strengths could be increased if you were to ingest it...",
         "you notice a tent set here. Curious, you enter and discover an old man with lots of potions. This one asks you to test them. You agree, and once it's done, he gives you an attack potion as a thanks.",
         "you find an abandoned cart. It contains potion crates. You steal one hastily. After leaving, you see that the stolen potion could be useful for your next battle..."
       ],
       "winObject": [
-        "vous décidez de vous adosser à un arbre. En vous asseyant, vous sentez une douleur vive qui vous transperce le dos. Vous vous relevez à la vitesse d'un éclair et découvrez ce qui vous a égratigné :",
-        "vous entendez soudainement un boucan infernal avancer vers vous, vous avez tout juste le temps de vous jeter sur le côté quand une horde de chevaliers vous dépasse au grand galop, en les regardant s'éloigner vous apercevez une besace tomber de l'un des chevaux. En la ramassant vous y découvrez...",
+        "You decide to back to a tree. By sitting down, you feel a living pain that pierces your back. You get up at the speed of a flash and find out what's scratched you:",
+        "you suddenly hear an infernal goat move towards you, you just have time to throw yourself into the side when a horde of knights passes you to the grand galop, by looking at them away you see a bib fall from one of the horses. When you pick it up, you will discover...",
         "a starving animal approaches. By precaution, you choose to kill it. While searching his guts, you find an Object that seems to be used for attacking."
       ],
       "winWeapon": [
         "you meet a Merchant, who asks your Class. After answering him, he offers you a weapon he no longer uses:",
-        "vous voyez sur le bas-côté une arme et vous n'en croyez pas vos yeux ! Vous vous demandez comment diable l'on peut jeter une si belle chose et décidez de vous en affubler. Elle vous sera probablement utile !",
-        "vous trouvez un ancien fort en ruines. Toujours à la recherche d'équipement, vous décidez de le fouiller. Après une rapide visite des lieux, il semblerait que seule l'armurerie est encore intacte. Dans celle-ci, au milieu des objets rouillés et inutilisables, vous trouvez une arme qui semble être encore en bon état."
+        "You see on the lower side a weapon and you don't believe your eyes! You wonder how the devil can throw out such a beautiful thing and decide to ripe with it. It will probably be useful to you!",
+        "You will find an ancient fort in ruins. After a quick visit to the premises, it seems that only the Armory is still intact. In this one, in the middle of rugged and unusable objects, you find a weapon that still seems to be in good condition."
       ]
     },
     "defense": {
       "winPotion": [
         "you notice a tent set here. Curious, you enter and discover an old man with lots of potions. This one asks you to test them. You agree, and once it's done, he gives you a defense potion as a thanks.",
         "you find an abandoned cart. Which contains boxes full of potions. You rapidly steal one. After fleeing you see the stolen potion may be useful for your next fight...",
-        "un impact lourd se fait entendre derrière vous. Vous vous retournez brusquement, et entre en votre champs de vision un vieil homme au corps aplati au sol, sous un arbre. Vous remarquez avec soulagement qu'il est encore en vie, car il émet de faibles gémissements. Vous constatez alors qu'est tombée avec lui une caisse pleine de potions toutes identiques. Sachant qu'il n'aurait pu survivre avec sa frêle disposition, vous déduisez qu'il s'agit là de potions augmentant les capacités défensives du corps humain. Ne voulant laisser passer une telle opportunité, vous vous emparez de la seule fiole intacte et fuyez les lieux, sans vous préoccuper des faiblissantes plaintes du vieillard."
+        "a heavy impact is being heard behind you. You turn abruptly, and enter your field of sight an old man with flattened body on the ground, under a tree. You notice with relief that it is still alive, as it emits weak giveaments. Then you notice that a crate full of all the same potions fell with him. Knowing that he could not survive with his disposal, you must educate that these are potions that increase the human body's defensive abilities. Not wanting to miss such an opportunity, you grab the only intact vial and flee the place, without worrying about the old man's weak complaints."
       ],
       "winObject": [
         "a starving animal approaches. By precaution, you choose to kill it. While searching his guts, you find an Object that seems to be used for defense.",
-        "un chevalier s'approche et vous propose un duel. Il vous donnera son objet de défense si vous gagnez. Grâce à vôtre entrainement, cette victoire est vôtre, et vous remportez le lot promis.",
-        "Vous trouvez un paysan qui a besoin d'aide pour réparer sa charrette. Vous remettez la roue en place. Pour vous remercier, il vous donne un objet défensif forgé par les meilleurs ouvriers de Claire De Ville."
+        "A knight is approaching and offers you a duel. It will give you its object of challenge if you win. Grade your training, this victory is yours, and you win the prize you promised.",
+        "You find a peasant who needs help repairing his cart. You get the wheel back in place. To thank you, it gives you a defensive item forged by the best workers of Claire De Ville."
       ],
       "winArmor": [
         "you meet a Merchant, who asks your Class. After answering him, he offers you a armor he no longer uses:",
-        "vous voyez sur le bas-côté une pièce d'armure et vous n'en croyez pas vos yeux ! Vous vous demandez comment diable l'on peut jeter une si belle chose et décidez de vous en affubler. Elle vous sera probablement utile !",
-        "vous trouvez un ancien fort en ruines. Toujours à la recherche d'équipement, vous décidez de le fouiller. Après une rapide visite des lieux, il semblerait que seule la salle des armures est encore intacte. Dans celle-ci, au milieu des objets rouillés et inutilisables, vous trouvez une armure qui semble être encore en bon état."
+        "you see on the lower side a piece of armor and you don't believe your eyes! You wonder how the devil can throw out such a beautiful thing and decide to ripe with it. It will probably be useful to you!",
+        "You will find an ancient fort in ruins. After a quick visit to the premises, it seems that only the armour room is still intact. In this one, in the middle of rusty and unusable items, you find armour that still seems to be in good condition."
       ]
     },
     "basic": {
       "winItem": [
-        "des villageois vous abordent et vous tendent un objet en reconnaissance d'un récent fait d'arme, vous les remerciez brièvement et continuez votre périple.",
-        "vous croisez un groupe d'enfants jouant à se poursuivre. L'un d'eux vous bouscule et se met à pleurer, ses parents s'approchent et implorent votre pardon, vous le leur accordez et ceux-ci vous font don d'un objet pouvant vous être utile.",
-        "une charrette vous empêche de continuer, intrigué et désireux de poursuivre votre chemin, vous vous approchez du propriétaire, qui, d'abord odieux, vous dit de dégager et prendre une autre route, énervé, vous le menacez de votre arme. Cela a pour effet de le calmer instantanément. Il vous offre un objet et vous demande de patienter le temps de déplacer son chargement.",
-        "vous apercevez une foule de personnes réunies. Voulant voir ce qui se trame, vous vous frayez un chemin à travers le groupe et découvrez un objet ensanglanté, sans quoi la foule autour l'aurait déjà touché. Vous repartez comme si de rien n'était avec l'objet en votre possession."
+        "villagers approach you and give you an item in recognition of a weapon recent, you thank them very briefly and continue your search.",
+        "you meet a group of children playing to continue. One of them hugs you and cry, his parents approach and beg for your forgiveness, you grant them and they give you an item that may be useful to you.",
+        "a cart takes you to continue, intrigued and eager to continue your path, approaching the owner, which, first odious, tells you to try and take another road, energized, you threaten it with your weapon. This calms it instantly. It gives you an item and asks you to wait for the time to move its load.",
+        "you see a crowd of people together. If you want to see what's going on, you make a way through the group and discover a ensangled object, otherwise the crowd around it would already have touched. You leave as if nothing was with the object in your possession."
       ],
       "winMoney": [
-        "vous marchez sur une petite butte et remarquez que votre bruit de pas sonne étrangement. Vous fouillez le sol et découvrez un coffre rempli d'or. Vous obtenez **{{amount}} :moneybag:**.",
-        "vous rencontrez une personne ayant l'air un peu déconcertée et peureuse... En vous voyant la personne s'excuse et part en courant. Vous vous dites qu'elle vous a confondu avec quelqu'un d'autre. Dans sa course l'inconnu a fait tomber une bourse : vous l'ouvrez et découvrez **{{amount}} :moneybag:** !",
-        "vous décidez d'établir votre campement en installant une tente et d'autres objets. En creusant les trous pour planter les piquets de votre tente, vous sentez quelque chose de dur dans le sol. En creusant, vous déterrez un petit coffret de bois abîmé par le temps et y trouvez **{{amount}} :moneybag:** !"
+        "you walk on a small stump and notice that your pitch noise sounds strangely. You search the ground and find a chest filled with gold. You get **{{amount}} :moneybag:**.",
+        "you meet a person who looks a bit disconcerted and performed... Seeing the person apologizes and runs out. You say that she has confused you with someone else. In his race the unknown dropped a purse: you open it and discover **{{amount}} :moneybag:**!",
+        "you decide to set up your camp by installing a tent and other objects. By digging holes to plant the spikes in your tent, you feel something hard in the ground. By digging you will land a small wooden box that is time-friendly and find **{{amount}} :moneybag:**!"
       ]
     },
     "other": {
       "winItem": [
         "your feet bumps on something coming out of the ground, after getting up, you search the ground and find an item...",
         "you see a shape in a gap. Intrigued, you get closer, this shape is seems to be an item that will be helpful for your adventure...",
-        "vous décidez de vous adosser à un arbre. En vous asseyant, vous percevez une douleur vive dans votre dos. Vous vous relevez rapidement pour découvrir... un objet !",
+        "You decide to back to a tree. By sitting down, you feel a living pain in your back. You get up quickly to discover... an item!",
         "you walk disprocessing and stumble on something ! While getting up after your fall, you discover an item !"
       ],
       "winHealth": [
-        "vous croisez des villageois se souvenant de vos prouesses en tant que frêle personne, ils vous tendent un sac contenant des provisions que vous mangez avant de poursuivre votre périple. Vous gagnez **{{amount}} :heart:**.",
-        "un marchand vient à votre rencontre et vous demande à quelle classe vous appartenez, vous lui répondez que vous êtes un frêle aventurier. Se rappelant que les frêles aventuriers sont des personnes avec peu de pv, il décide de vous donner quelques fruits qui n'étaient plus viables pour être vendus. Heureux, vous les mangez et gagnez **{{amount}} :heart:** puis reprenez votre route.",
-        "vous êtes abordé par une vieille femme, celle-ci vous tend une pomme bien rouge en vous précisant qu'il est important de bien manger pour devenir fort vous la mangez avec reconnaissance avant de poursuivre votre route. Vous gagnez **{{amount}} :heart:**.",
-        "vous êtes bousculé par une charrue. Vous êtes interpelé par son propriétaire qui vous présente ses excuses et disant ne pas vous avoir vu à cause de votre apparence chétive et vous offre quelques provisions, vous vous restaurez un peu puis reprenez votre route. Vous gagnez **{{amount}} :heart:**."
+        "you meet villagers remembering your prowess as a freelance person, they put you a bag containing supplies that you eat before continuing your trip. You earn **{{amount}} :heart:**.",
+        "a merchant comes to your meeting and asks which class you belong to, you answer him that you are an adventurer. Remember, adventurers are people with little pv, it decides to give you some fruit that was no longer viable for sale. Happily, you eat them and earn **{{amount}} :heart:** and then get back on your way.",
+        "you were approached by an old woman, This one gives you a red apple by telling you that it is important to eat well to become strong, you eat it with gratitude before continuing your journey. You earn **{{amount}} :heart:**.",
+        "you have been hurled by a plough. You were questioned by its owner, who apologizes for not seeing you because of your shirt appearance and offers you some provisions, You will be able to eat a little and then go back on your way. You earn **{{amount}} :heart:**."
       ]
     }
   }
