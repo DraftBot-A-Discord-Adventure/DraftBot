@@ -55,6 +55,9 @@ export const DraftBotIcons: {
 	fight_actions: {
 		[actionId: string]: string
 	},
+	class_kinds: {
+		[classKind: string]: string
+	},
 	announcements: {
 		trophy: string
 	}
@@ -1551,6 +1554,12 @@ export const DraftBotIcons: {
 		"shieldAttack": "🛡️",
 		"simpleAttack": "⚔️",
 		"ultimateAttack": "☄️"
+	},
+	"class_kinds": {
+		"basic": "⚖️",
+		"attack": "🗡️",
+		"defense": "🛡️",
+		"other": "⚗️"
 	},
 	"announcements": {
 		"trophy": "🏆"

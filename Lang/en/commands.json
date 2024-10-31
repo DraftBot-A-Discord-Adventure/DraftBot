@@ -463,7 +463,7 @@
   "classesInfo": {
     "title": {
       "list": ":bookmark: Classes list",
-      "class": "**{{emoji}} {{className}}**"
+      "class": "**{{emoji}} {{className}} | {{classKind}}**"
     },
     "description": {
       "list": "Here is a list of all the classes available in the game. To get more information about a specific class, select one below.",

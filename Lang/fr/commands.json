@@ -481,7 +481,7 @@
   "classesInfo": {
     "title": {
       "list": ":bookmark: Liste des classes",
-      "class": "**{{emoji}} {{className}}**"
+      "class": "**{{emoji}} {{className}} | {{classKind}}**"
     },
     "description": {
       "list": "Voici la liste des classes disponibles pour votre personnage et leurs statistiques. Pour plus d'informations sur une classe, sélectionnez celle-ci parmi les choix ci-dessous.",
