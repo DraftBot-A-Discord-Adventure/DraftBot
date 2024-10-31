@@ -21,6 +21,7 @@ import {
 import {sendInteractionNotForYou} from "../../utils/ErrorUtils";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 import {ClassStats} from "../../../../Lib/src/interfaces/ClassStats";
+import {ClassKind} from "../../../../Lib/src/types/ClassKind";
 
 /**
  * Get the packet
@@ -88,6 +89,7 @@ function getListEmbed(packet: CommandClassesInfoPacketRes, language: Language, c
 function getDetailsEmbed(packet: CommandClassesInfoPacketRes, language: Language, classDetails: {
 	id: number,
 	name: string,
+	kind: ClassKind,
 	description: string,
 	attacks: {
 		id: string,
@@ -99,7 +101,8 @@ function getDetailsEmbed(packet: CommandClassesInfoPacketRes, language: Language
 	const embed = new DraftBotEmbed().setTitle(i18n.t("commands:classesInfo.title.class", {
 		lng: language,
 		emoji: DraftBotIcons.classes[classDetails.id],
-		className: classDetails.name
+		className: classDetails.name,
+		classKind: DraftBotIcons.class_kinds[classDetails.kind]
 	}));
 
 	const attackDisplays = [];
@@ -216,6 +219,7 @@ export async function handleCommandClassesInfoPacketRes(packet: CommandClassesIn
 					name: i18n.t(`models:classes.${parseInt(menuInteraction.values[0])}`, {
 						lng: interaction.userLanguage
 					}),
+					kind: chosenClass!.stats.classKind,
 					description: i18n.t(`models:class_descriptions.${parseInt(menuInteraction.values[0])}`, {
 						lng: interaction.userLanguage
 					}),
