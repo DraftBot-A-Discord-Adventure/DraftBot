@@ -1084,5 +1084,37 @@
         "you have been hurled by a plough. You were questioned by its owner, who apologizes for not seeing you because of your shirt appearance and offers you some provisions, You will be able to eat a little and then go back on your way. You earn **{{amount}} :heart:**."
       ]
     }
+  },
+  "ultimateFoodMerchant": {
+    "stories": [
+      "observing the surrounding landscape, you do not notice the man who is in front of you and stroke him. You apologise, and the man being very sympathetic, you were quickly forgiven and engaged in a discussion. It is called \"Gaspard-Jo\", and it is a soup merchant. By his great energy, he rewards the talent of the players he finds on his way. ",
+      "a little roulotte with a path is heading towards you. You take the trouble to greet the merchant politely, who, after a quick discussion in which you learn he is called \"Gaspard-Jo\", have wanted to reward you for your good actions. "
+    ],
+    "rewards": {
+      "ultimateFood_one": [
+        "It tends **an ultimate soup**, which you store carefully."
+      ],
+      "ultimateFood_other": [
+        "It tends **{{count}} ultimate soup**, which you store carefully."
+      ],
+      "fullUltimateFood": [
+        "It offers you the ultimate soups, but unfortunately your store has been full, you have to return them."
+      ],
+      "item": [
+        "It offers you **an item** which, after what he says, might be useful to you."
+      ],
+      "commonFood_one": [
+        "In the belief that you don't have enough power to get its goods for free, they offer you **a treat**."
+      ],
+      "commonFood_other": [
+        "Presuming you don't have enough power to get their goods for free, they offer you **{{count}} treats**."
+      ],
+      "fullCommonFood": [
+        "Seeing you don't have strong treat, it is a sign to offer you some treats, but unfortunately you no longer have enough room to take them. You are on your way back then."
+      ],
+      "money": [
+        "Since you are not in a guild, you cannot store your benefactor's valuable goods. It then gives you **{{count}}** {{moneyEmote}}. You get back on your way, a little bit longer."
+      ]
+    }
   }
 }
