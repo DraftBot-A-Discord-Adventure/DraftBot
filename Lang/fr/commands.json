@@ -497,5 +497,10 @@
       "class": "### {{emoji}} {{name}}\n:zap: {{fightPoint}} | :dagger: {{attack}} | :shield: {{defense}} | :rocket: {{speed}} | :wind_blowing_face: {{baseBreath}} / {{maxBreath}} | :lungs: {{breathRegen}} | :heart: {{health}}",
       "attack": "### {{emoji}} {{name}} | {{cost}} :wind_blowing_face:\n{{description}}"
     }
+  },
+  "respawn": {
+    "response_other": "{{respawnEmote}} | ** {{pseudo}} ** Nous vous avons ressuscité avec succès ! Cependant veuillez noter que {{count}} {{scoreEmote}} ont été retirés de votre score durant l'opération !",
+    "response_one": "{{respawnEmote}} | ** {{pseudo}} ** Nous vous avons ressuscité avec succès ! Cependant veuillez noter qu'1 {{scoreEmote}} a été retiré de votre score durant l'opération !",
+    "alreadyAlive": "Il semblerait que vous ne soyez pas K.O... Vous n'avez pas besoin de nos services."
   }
 }
