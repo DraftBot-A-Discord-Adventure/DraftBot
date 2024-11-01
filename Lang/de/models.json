@@ -90,6 +90,33 @@
     "8": "Steinhacker",
     "9": "Fronch"
   },
+  "class_descriptions": {
+    "0": "Eine einfache Klasse. Ziemlich ausgeglichen.",
+    "1": "Eine einfache Klasse. Ziemlich ausgeglichen.",
+    "10": "Eine auf Geschwindigkeit ausgerichtete Klasse. Wenig Lebens- und Energiepunkte, aber hohe Geschwindigkeit und Angriffsstärke.",
+    "11": "Eine auf Geschwindigkeit ausgerichtete Klasse. Wenig Lebens- und Energiepunkte, aber hohe Geschwindigkeit und Angriffsstärke.",
+    "12": "Eine starke, aber ausgeglichene Klasse. Eher vielseitig.",
+    "13": "Eine starke, aber ausgeglichene Klasse. Eher vielseitig.",
+    "14": "Eine starke, aber ausgeglichene Klasse. Eher vielseitig.",
+    "15": "Eine starke, aber ausgeglichene Klasse. Eher vielseitig.",
+    "16": "Eine defensiv ausgerichtete Klasse ohne Lebenspunktebonus, aber mit einem Angriff, der größer ist als der eines Tanks.",
+    "17": "Eine Klasse mit sehr guten Werten, aber mit einem hohen Malus auf die Lebenspunkte.",
+    "18": "Eine einfache Klasse. Ziemlich ausgeglichen.",
+    "19": "Eine Klasse, die sich auf die Verteidigung konzentriert. Schwache Leistung im Kampf, aber zusätzliches Leben für das Abenteuer.",
+    "2": "Eine einfache Klasse. Ziemlich ausgeglichen.",
+    "20": "Eine auf Geschwindigkeit ausgerichtete Klasse. Wenig Lebens- und Energiepunkte, aber hohe Geschwindigkeit und Angriffsstärke.",
+    "21": "Eine starke, aber ausgeglichene Klasse. Eher vielseitig.",
+    "22": "Eine defensiv ausgerichtete Klasse ohne Lebenspunktebonus, aber mit einem Angriff, der größer ist als der eines Tanks.",
+    "23": "Eine Klasse mit sehr guten Werten, aber mit einem hohen Malus auf die Lebenspunkte.",
+    "24": "Eine vielseitige Klasse, die sich auf eine einzigartige Kampfmechanik konzentriert.",
+    "3": "Eine einfache Klasse. Ziemlich ausgeglichen.",
+    "4": "Eine Klasse, die sich auf die Verteidigung konzentriert. Schwache Leistung im Kampf, aber zusätzliches Leben für das Abenteuer.",
+    "5": "Eine Klasse, die sich auf die Verteidigung konzentriert. Schwache Leistung im Kampf, aber zusätzliches Leben für das Abenteuer.",
+    "6": "Eine Klasse, die sich auf die Verteidigung konzentriert. Schwache Leistung im Kampf, aber zusätzliches Leben für das Abenteuer.",
+    "7": "Eine Klasse, die sich auf die Verteidigung konzentriert. Schwache Leistung im Kampf, aber zusätzliches Leben für das Abenteuer.",
+    "8": "Eine auf Geschwindigkeit ausgerichtete Klasse. Wenig Lebens- und Energiepunkte, aber hohe Geschwindigkeit und Angriffsstärke.",
+    "9": "Eine auf Geschwindigkeit ausgerichtete Klasse. Wenig Lebens- und Energiepunkte, aber hohe Geschwindigkeit und Angriffsstärke."
+  },
   "fight_actions": {
     "benediction": {
       "description": "Teil der Gruppe \"Aktionen der Dieuxten\". Echt, wenn 1 Aktion der Götter bereits im Kampf durchgeführt worden ist. Erhöht alle Statistiken des Werbenden. Je später der Segen im Kampf eingesetzt wird, desto wichtiger ist die Erhöhung der Statistiken.",
