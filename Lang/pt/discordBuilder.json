@@ -152,7 +152,7 @@
     "name": "aulas de informação"
   },
   "respawn": {
-    "description": "Reprendre l'aventure après... \"un accident\".",
-    "name": "revivre"
+    "description": "Retomar a aventura depois de... \"um acidente\".",
+    "name": "reviver"
   }
 }
