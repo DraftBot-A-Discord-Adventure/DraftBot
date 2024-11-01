@@ -152,7 +152,7 @@
     "name": "infosclasses"
   },
   "respawn": {
-    "description": "Reprendre l'aventure après... \"un accident\".",
-    "name": "revivre"
+    "description": "Wiederaufnahme des Abenteuers nach ... \"einem Unfall\".",
+    "name": "wiederbeleben"
   }
 }
