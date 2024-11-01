@@ -63,6 +63,7 @@ import {SmallEventPetPacket} from "../../../../Lib/src/packets/smallEvents/Small
 import {Constants} from "../../../../Lib/src/constants/Constants";
 import {SmallEventClassPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventClassPacket";
 import {SmallEventUltimateFoodMerchantPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventUltimateFoodMerchantPacket";
+import {EmoteUtils} from "../../utils/EmoteUtils";
 
 
 export function getRandomSmallEventIntro(language: Language): string {
@@ -826,7 +827,7 @@ export default class SmallEventsHandler {
 						+ StringUtils.getRandomTranslation("smallEvents:ultimateFoodMerchant.stories", interaction.userLanguage)
 						+ StringUtils.getRandomTranslation(`smallEvents:ultimateFoodMerchant.rewards.${packet.interactionName}`, interaction.userLanguage, {
 							count: packet.amount,
-							amount: packet.amount
+							moneyEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.unitValues.money)
 						}),
 						interaction.user,
 						interaction.userLanguage
