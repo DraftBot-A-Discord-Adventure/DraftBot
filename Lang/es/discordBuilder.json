@@ -152,7 +152,7 @@
     "name": "clases informativas"
   },
   "respawn": {
-    "description": "Reprendre l'aventure après... \"un accident\".",
-    "name": "revivre"
+    "description": "Reanudando la aventura después de... \"un accidente\".",
+    "name": "revivir"
   }
 }
