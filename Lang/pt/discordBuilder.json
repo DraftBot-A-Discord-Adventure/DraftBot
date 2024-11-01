@@ -150,5 +150,9 @@
   "classesInfo": {
     "description": "Apresenta informações sobre as classes que podem ser selecionadas para a sua personagem.",
     "name": "aulas de informação"
+  },
+  "respawn": {
+    "description": "Reprendre l'aventure après... \"un accident\".",
+    "name": "revivre"
   }
 }
