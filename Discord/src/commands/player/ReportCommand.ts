@@ -78,7 +78,7 @@ export async function createBigEventCollector(packet: ReactionCollectorCreationP
 		components: [row]
 	}) as Message;
 
-	let responded = false; // To avoid concurrence between button controller and reactions controller
+	let responded = false; // To avoid concurrence between the button controller and reactions controller
 	const respondToEvent = (possibilityName: string, buttonInteraction: ButtonInteraction | null): void => {
 		if (!responded) {
 			responded = true;
@@ -89,6 +89,7 @@ export async function createBigEventCollector(packet: ReactionCollectorCreationP
 	const buttonCollector = msg.createMessageComponentCollector({
 		time: packet.endTime - Date.now()
 	});
+
 	const endCollector = msg.createReactionCollector({
 		time: packet.endTime - Date.now(),
 		filter: (reaction, user) => reaction.emoji.name === Constants.REACTIONS.NOT_REPLIED_REACTION && user.id === interaction.user.id
