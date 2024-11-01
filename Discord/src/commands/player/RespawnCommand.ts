@@ -15,6 +15,7 @@ import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
 
 /**
  * Get the respawn packet to send to the server
+ * @param interaction
  */
 async function getPacket(interaction: DraftbotInteraction): Promise<CommandRespawnPacketReq> {
 	await interaction.deferReply();
@@ -22,7 +23,9 @@ async function getPacket(interaction: DraftbotInteraction): Promise<CommandRespa
 }
 
 /**
- * Ping command
+ * Handle the response to the respawn
+ * @param packet
+ * @param context
  */
 export async function handleCommandRespawnPacketRes(packet: CommandRespawnPacketRes, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
@@ -38,6 +41,11 @@ export async function handleCommandRespawnPacketRes(packet: CommandRespawnPacket
 	});
 }
 
+/**
+ * Handle the error when the player is already alive
+ * @param packet
+ * @param context
+ */
 export async function handleCommandRespawnErrorAlreadyAlive(packet: CommandRespawnErrorAlreadyAlive, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 	await interaction?.editReply({

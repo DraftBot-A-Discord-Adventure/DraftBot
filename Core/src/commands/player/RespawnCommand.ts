@@ -16,6 +16,13 @@ import {
 } from "../../../../Lib/src/packets/commands/CommandRespawnPacket";
 
 export default class RespawnCommand {
+
+	/**
+	 * Respawn the player
+	 * @param _packet
+	 * @param context
+	 * @param response
+	 */
 	@packetHandler(CommandRespawnPacketReq)
 	async execute(_packet: CommandRespawnPacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
 		const player = await Players.getByKeycloakId(context.keycloakId);
