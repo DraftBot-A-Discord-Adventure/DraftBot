@@ -60,6 +60,12 @@ export const DraftBotIcons: {
 	},
 	announcements: {
 		trophy: string
+	},
+	commands: {
+		[commandId: string]: string
+	},
+	unitValues: {
+		[unitValueId: string]: string
 	}
 } = {
 	"effects": {
@@ -1563,5 +1569,11 @@ export const DraftBotIcons: {
 	},
 	"announcements": {
 		"trophy": "🏆"
+	},
+	"commands": {
+		"respawn": "👼"
+	},
+	"unitValues": {
+		"score": "🏅"
 	}
 };

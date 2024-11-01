@@ -15,6 +15,10 @@ import {CommandRarityPacketRes} from "../../../../Lib/src/packets/commands/Comma
 import {handleCommandRarityPacketRes} from "../../commands/player/RarityCommand";
 import {handleCommandTestPacketRes} from "../../commands/admin/TestCommand";
 import {handleCommandGuildPacketRes} from "../../commands/guild/GuildCommand";
+import {
+	handleCommandRespawnErrorAlreadyAlive,
+	handleCommandRespawnPacketRes
+} from "../../commands/player/RespawnCommand";
 import {CommandGuildPacketRes} from "../../../../Lib/src/packets/commands/CommandGuildPacket";
 import {
 	handleCommandGuildCreateAcceptPacketRes,
@@ -52,6 +56,10 @@ import {
 } from "../../../../Lib/src/packets/commands/CommandGuildCreatePacket";
 import {CommandClassesInfoPacketRes} from "../../../../Lib/src/packets/commands/CommandClassesInfoPacket";
 import {handleCommandClassesInfoPacketRes} from "../../commands/player/ClassesInfoCommand";
+import {
+	CommandRespawnErrorAlreadyAlive,
+	CommandRespawnPacketRes
+} from "../../../../Lib/src/packets/commands/CommandRespawnPacket";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
@@ -172,5 +180,15 @@ export default class CommandHandlers {
 	@packetHandler(CommandClassesInfoPacketRes)
 	async classesInfoRes(packet: CommandClassesInfoPacketRes, context: PacketContext): Promise<void> {
 		await handleCommandClassesInfoPacketRes(packet, context);
+	}
+
+	@packetHandler(CommandRespawnPacketRes)
+	async respawnRes(packet: CommandRespawnPacketRes, context: PacketContext): Promise<void> {
+		await handleCommandRespawnPacketRes(packet, context);
+	}
+
+	@packetHandler(CommandRespawnErrorAlreadyAlive)
+	async respawnErrorAlreadyAlive(packet: CommandRespawnErrorAlreadyAlive, context: PacketContext): Promise<void> {
+		await handleCommandRespawnErrorAlreadyAlive(packet, context);
 	}
 }
