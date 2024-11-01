@@ -17,6 +17,7 @@ import {LogsDatabase} from "../database/logs/LogsDatabase";
 import {ErrorPacket} from "../../../../Lib/src/packets/commands/ErrorPacket";
 import {MissionsController} from "../missions/MissionsController";
 import {giveFoodToGuild} from "../utils/FoodUtils";
+import {BadgeConstants} from "../../../../Lib/src/constants/BadgeConstants";
 
 /**
  * Return all possibilities the player can get on this small event.
@@ -125,11 +126,11 @@ async function managePickedInteraction(packet:SmallEventPetPacket, response:Draf
 		break;
 
 	case PetConstants.PET_INTERACTIONS_NAMES.WIN_BADGE:
-		if (player.badges?.includes(Constants.BADGES.PET_TAMER)) {
+		if (player.badges?.includes(BadgeConstants.PET_TAMER)) {
 			packet.interactionName = PetConstants.PET_INTERACTIONS_NAMES.NOTHING;
 			break;
 		}
-		player.addBadge(Constants.BADGES.PET_TAMER);
+		player.addBadge(BadgeConstants.PET_TAMER);
 		break;
 
 	case PetConstants.PET_INTERACTIONS_NAMES.LOSE_HEALTH:

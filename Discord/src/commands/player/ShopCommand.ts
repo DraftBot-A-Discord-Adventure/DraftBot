@@ -5,18 +5,20 @@ import {CommandShopPacketReq} from "../../../../Lib/src/packets/commands/Command
 import {DiscordCache} from "../../bot/DiscordCache";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import i18n from "../../translations/i18n";
-import {sendErrorMessage} from "../../utils/ErrorUtils";
+import {sendErrorMessage, sendInteractionNotForYou} from "../../utils/ErrorUtils";
 import {BadgeConstants} from "../../../../Lib/src/constants/BadgeConstants";
 import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {
 	ReactionCollectorShopData, ReactionCollectorShopItemReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorShop";
 import {
-	ActionRowBuilder, ButtonBuilder, ButtonStyle,
+	ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle,
 	StringSelectMenuBuilder,
 	StringSelectMenuOptionBuilder
 } from "discord.js";
 import {DisplayUtils} from "../../utils/DisplayUtils";
+import {Constants} from "../../../../Lib/src/constants/Constants";
+import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
 
 function getPacket(): CommandShopPacketReq {
 	return makePacket(CommandShopPacketReq, {});
@@ -151,6 +153,7 @@ export async function shopCollector(packet: ReactionCollectorCreationPacket, con
 		}
 	}
 
+
 	let shopText = "";
 	const select = new StringSelectMenuBuilder()
 		.setCustomId("shop")
@@ -206,6 +209,40 @@ export async function shopCollector(packet: ReactionCollectorCreationPacket, con
 
 	const buttonCollector = msg.createMessageComponentCollector({
 		time: packet.endTime - Date.now()
+	});
+
+	const endCollector = msg.createReactionCollector({
+		time: packet.endTime - Date.now(),
+		filter: (reaction, user) => reaction.emoji.name === Constants.REACTIONS.NOT_REPLIED_REACTION && user.id === interaction.user.id
+	});
+
+	const buySomething = (possibilityName: string, buttonInteraction: ButtonInteraction | null): void => {
+		DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, buttonInteraction, categories.findIndex((reaction) => reaction ));
+	};
+
+	buttonCollector.on("collect", async (i: ButtonInteraction) => {
+		if (i.user.id !== context.discord?.user) {
+			await sendInteractionNotForYou(i.user, i, interaction.userLanguage);
+			return;
+		}
+
+		buttonCollector.stop();
+		endCollector.stop();
+	});
+	buttonCollector.on("end", async (collected) => {
+		const firstReaction = collected.first() as ButtonInteraction;
+
+		if (firstReaction) {
+			await firstReaction.deferReply();
+			buySomething(firstReaction.customId, firstReaction);
+		}
+	});
+
+	endCollector.on("collect", () => {
+		buttonCollector.stop();
+		endCollector.stop();
+
+		buySomething("end", null);
 	});
 }
 
