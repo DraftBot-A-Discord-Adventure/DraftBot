@@ -62,6 +62,7 @@ import {SmallEventFindItemPacket} from "../../../../Lib/src/packets/smallEvents/
 import {SmallEventPetPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventPetPacket";
 import {Constants} from "../../../../Lib/src/constants/Constants";
 import {SmallEventClassPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventClassPacket";
+import {SmallEventUltimateFoodMerchantPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventUltimateFoodMerchantPacket";
 
 
 export function getRandomSmallEventIntro(language: Language): string {
@@ -802,6 +803,29 @@ export default class SmallEventsHandler {
 						"class",
 						getRandomSmallEventIntro(interaction.userLanguage)
 						+ StringUtils.getRandomTranslation(`smallEvents:class.${packet.classKind}.${packet.interactionName}`, interaction.userLanguage, {
+							amount: packet.amount
+						}),
+						interaction.user,
+						interaction.userLanguage
+					)
+				]
+			});
+		}
+	}
+
+	@packetHandler(SmallEventUltimateFoodMerchantPacket)
+	async SmallEventUltimateFoodMerchant(packet: SmallEventUltimateFoodMerchantPacket, context: PacketContext): Promise<void> {
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+
+		if (interaction) {
+			await interaction.editReply({
+				embeds: [
+					new DraftbotSmallEventEmbed(
+						"ultimateFoodMerchant",
+						getRandomSmallEventIntro(interaction.userLanguage)
+						+ StringUtils.getRandomTranslation("smallEvents:ultimateFoodMerchant.stories", interaction.userLanguage)
+						+ StringUtils.getRandomTranslation(`smallEvents:ultimateFoodMerchant.rewards.${packet.interactionName}`, interaction.userLanguage, {
+							count: packet.amount,
 							amount: packet.amount
 						}),
 						interaction.user,
