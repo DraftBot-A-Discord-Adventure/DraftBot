@@ -150,5 +150,9 @@
   "classesInfo": {
     "description": "Displays information about selectable classes.",
     "name": "classesinfo"
+  },
+  "respawn": {
+    "description": "Respawn after... \"an accident\".",
+    "name": "respawn"
   }
 }
