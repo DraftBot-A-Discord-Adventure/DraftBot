@@ -1095,7 +1095,7 @@
         "Il vous tend **une soupe ultime**, que vous rangez soigneusement."
       ],
       "ultimateFood_other": [
-        "Il vous tend **{{amount}} soupes ultimes**, que vous rangez soigneusement."
+        "Il vous tend **{{count}} soupes ultimes**, que vous rangez soigneusement."
       ],
       "fullUltimateFood": [
         "Il vous offre des soupes ultimes. Malheureusement, votre entrepôt étant plein, vous êtes dans l'obligation de les lui rendre."
@@ -1107,13 +1107,13 @@
         "Estimant que vous n'êtes pas assez puissant pour obtenir sa marchandise gratuitement, il vous offre **une friandise**."
       ],
       "commonFood_other": [
-        "Estimant que vous n'êtes pas assez puissant pour obtenir sa marchandise gratuitement, il vous offre **{{amount}} friandises**."
+        "Estimant que vous n'êtes pas assez puissant pour obtenir sa marchandise gratuitement, il vous offre **{{count}} friandises**."
       ],
       "fullCommonFood": [
         "Voyant que vous n'êtes pas très puissant, il se résigne à vous offrir quelques friandises, mais vous n'avez malheureusement plus assez de place pour les prendre. Vous reprenez votre route déçu."
       ],
       "money": [
-        "Comme vous ne faites pas partie d'une guilde, vous ne pouvez pas stocker la précieuse marchandise de votre bienfaiteur. Il vous donne alors **{{amount}}** :moneybag:. Vous reprenez votre route, un peu déçu."
+        "Comme vous ne faites pas partie d'une guilde, vous ne pouvez pas stocker la précieuse marchandise de votre bienfaiteur. Il vous donne alors **{{count}}** {{moneyEmote}}. Vous reprenez votre route, un peu déçu."
       ]
     }
   }

@@ -1574,6 +1574,7 @@ export const DraftBotIcons: {
 		"respawn": "👼"
 	},
 	"unitValues": {
-		"score": "🏅"
+		"score": "🏅",
+		"money": "💰"
 	}
 };
