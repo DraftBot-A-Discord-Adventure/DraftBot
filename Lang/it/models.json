@@ -90,6 +90,33 @@
     "8": "Lanciatore di pietra",
     "9": "Fronda"
   },
+  "class_descriptions": {
+    "0": "Una classe semplice. Abbastanza equilibrata.",
+    "1": "Una classe semplice. Abbastanza equilibrata.",
+    "10": "Una classe incentrata sulla velocità. Bassa salute e punti energia, ma alta velocità e attacco.",
+    "11": "Una classe incentrata sulla velocità. Bassa salute e punti energia, ma alta velocità e attacco.",
+    "12": "Una classe potente ma equilibrata. Piuttosto versatile.",
+    "13": "Una classe potente ma equilibrata. Piuttosto versatile.",
+    "14": "Una classe potente ma equilibrata. Piuttosto versatile.",
+    "15": "Una classe potente ma equilibrata. Piuttosto versatile.",
+    "16": "Una classe incentrata sulla difesa, senza bonus ai punti ferita ma con più attacchi di un tank.",
+    "17": "Una classe con ottime statistiche ma con una significativa penalità ai punti ferita.",
+    "18": "Una classe semplice. Abbastanza equilibrata.",
+    "19": "Una classe incentrata sulla difesa. Scarse prestazioni in combattimento, ma una vita in più per l'avventura.",
+    "2": "Una classe semplice. Abbastanza equilibrata.",
+    "20": "Una classe incentrata sulla velocità. Bassa salute e punti energia, ma alta velocità e attacco.",
+    "21": "Una classe potente ma equilibrata. Piuttosto versatile.",
+    "22": "Una classe incentrata sulla difesa, senza bonus ai punti ferita ma con più attacchi di un tank.",
+    "23": "Una classe con ottime statistiche ma con una significativa penalità ai punti ferita.",
+    "24": "Una classe versatile con meccaniche di combattimento uniche.",
+    "3": "Una classe semplice. Abbastanza equilibrata.",
+    "4": "Una classe incentrata sulla difesa. Scarse prestazioni in combattimento, ma una vita in più per l'avventura.",
+    "5": "Una classe incentrata sulla difesa. Scarse prestazioni in combattimento, ma una vita in più per l'avventura.",
+    "6": "Una classe incentrata sulla difesa. Scarse prestazioni in combattimento, ma una vita in più per l'avventura.",
+    "7": "Una classe incentrata sulla difesa. Scarse prestazioni in combattimento, ma una vita in più per l'avventura.",
+    "8": "Una classe incentrata sulla velocità. Bassa salute e punti energia, ma alta velocità e attacco.",
+    "9": "Una classe incentrata sulla velocità. Bassa salute e punti energia, ma alta velocità e attacco."
+  },
   "fight_actions": {
     "benediction": {
       "description": "Fa parte del gruppo delle \"azione degli Dei\". Fallisce se 1 azione degli Dei è già stata effettuata nel combattimento. Aumenta tutte le statistiche del lanciatore. Più la benedizione è usata tardi nel combattimento più l'aumentazione delle statistiche e grande.",
