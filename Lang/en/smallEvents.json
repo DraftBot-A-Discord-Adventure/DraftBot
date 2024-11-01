@@ -849,5 +849,240 @@
       "you meet a child who does not seem to speak your language. However, it looks welcoming and tends you a package...",
       "you meet a man, with a loaded mule. You decide to help him carry his load. As a thanks, he gift you an object..."
     ]
+  },
+  "pet": {
+    "stories": {
+      "money_m": [
+        "You see **{{pet}}** digging in tall grass. The result is **{{amount}}** :moneybag:, which you keep for the rest of your adventure.",
+        "You notice that **{{pet}}** is watching the ground and deciding to dig a hole. What was your surprise after you saw him coming out **{{amount}}** :moneybag:!",
+        "You discover that **{{pet}}** sniffs insistently towards a bush. You decide to take a look at it, and see it come back with **{{amount}}** :moneybag: fills you with joy!",
+        "You see everything **{{pet}}** jumping into the water. What is your surprise when you see it come out with a bursary of **{{amount}}** :moneybag:!",
+        "After a short break on your ride, you will see **{{pet}}** return with a scholarship. He seems to have robbed him from a merchant. You decide to leave with your **{{amount}}** :moneybag: before they see it."
+      ],
+      "money_f": [
+        "You see **{{pet}}** digging in tall grass. It comes out **{{amount}}** :moneybag:, which you keep for the rest of your adventure.",
+        "You notice that **{{pet}}** is watching the ground and deciding to dig a hole. What was your surprise after you saw him coming out **{{amount}}** :moneybag:!",
+        "You discover that **{{pet}}** sniffs insistently towards a bush. You decide to take a look at it, and see it come back with **{{amount}}** :moneybag: fills you with joy!",
+        "You see everything **{{pet}}** jumping into the water. What is your surprise when you see it come out with a bursary of **{{amount}}** :moneybag:!",
+        "After a short break on your ride, you will see **{{pet}}** return with a scholarship. She seems to have robbed her to a merchant. You decide to leave with your **{{amount}}** :moneybag: before they see it."
+      ],
+      "item_m": [
+        "You see **{{pet}}** digging in tall grass. There is a **item** that you can possibly keep for the rest of your adventure.",
+        "You notice that **{{pet}}** is watching the ground and deciding to dig a hole. What was your surprise after seeing him come out of an **item**!",
+        "You discover that **{{pet}}** sniffs insistently towards a bush. You decide to take a look at it and see it come back with a **item** fills you with joy!",
+        "You see everything **{{pet}}** jumping into the water. What was not your surprise when you saw it come out with a **item**!",
+        "After taking a short break on your ride, you see coming back **{{pet}}** with an **item**. It looks like he flew it to a merchant. You have to leave before the merchant sees it."
+      ],
+      "item_f": [
+        "You see **{{pet}}** digging in tall grass. This shows a **item**, which you can possibly keep for the rest of your adventure.",
+        "You notice that **{{pet}}** is watching the ground and deciding to dig a hole. What was your surprise after seeing him come out of an **item**!",
+        "You discover that **{{pet}}** sniffs insistently towards a bush. You decide to take a look at it, and see it come back with a **item** fills you with joy!",
+        "You see everything **{{pet}}** jumping into the water. What was not your surprise when you saw it come out with a **item**!",
+        "After taking a short break on your ride, you see coming back **{{pet}}** with an **item**. It looks like she flew it to a merchant. You have to leave before the merchant sees it."
+      ],
+      "gainEnergy_m": [
+        "Getting **{{pet}}** on your side makes you happy. This makes you regain your morale and you gain **{{amount}}** :zap:.",
+        "On the edge of the road, **{{pet}}** precipitates on food that seems to be in good condition and you make it. You eat it before it turns off and win **{{amount}}** :zap:.",
+        "Stunned for a few moments, **{{pet}}** comes back with an almost empty potion. You drink it before it is lost. You gain **{{amount}}** :zap:."
+      ],
+      "gainEnergy_f": [
+        "Getting **{{pet}}** on your side makes you happy. This makes you regain your morale and you gain **{{amount}}** :zap:.",
+        "On the edge of the road, **{{pet}}** precipitates on food that seems to be in good condition and you make it. You eat it before it turns off and win **{{amount}}** :zap:.",
+        "Played for a few moments, **{{pet}}** returns with an almost empty potion. You drink it before it is lost. You gain **{{amount}}** :zap:."
+      ],
+      "gainLife_m": [
+        "Getting **{{pet}}** on your side makes you happy. This makes you regain your morale and you gain **{{amount}}** :heart:.",
+        "On the edge of the road, **{{pet}}** precipitates on food that seems to be in good condition and you make it. You eat it before it turns off and win **{{amount}}** :heart:.",
+        "Stunned for a few moments, **{{pet}}** comes back with an almost empty potion. You drink it before it is lost. You gain **{{amount}}** :heart:."
+      ],
+      "gainLife_f": [
+        "Getting **{{pet}}** on your side makes you happy. This makes you regain your morale and you gain **{{amount}}** :heart:.",
+        "On the edge of the road, **{{pet}}** precipitates on food that seems to be in good condition and you make it. You eat it before it turns off and win **{{amount}}** :heart:.",
+        "Played for a few moments, **{{pet}}** returns with an almost empty potion. You drink it before it is lost. You gain **{{amount}}** :heart:."
+      ],
+      "gainLove_m": [
+        "It looks like **{{pet}}** is happy to have you with them. They gain in love and become more loyal.",
+        "After having worked for a long time, you decide to take care of your **{{pet}}** in a strolling {determinant} . That moment passed with him strengthened your links.",
+        "Have gone for a few moments, **{{pet}}** returns with food found further. You decide to give it before it is lost. He likes you more.",
+        "Unfortunately, **{{pet}}** seems to have triggered hostilities with wild {{randomAnimal}} ! You decide to challenge it valid. He loves you more and becomes more trustworthy.",
+        "Oh how cute! **{{pet}}** is a player! Also you decide to have fun with them. This game strengthened your links."
+      ],
+      "gainLove_f": [
+        "It looks like **{{pet}}** is happy to have you with them. She gains in love and becomes more trustworthy.",
+        "After you have worked for a long time, you decide to take care of your **{{pet}}** by touching it. That moment passed with her strengthened your links.",
+        "Stunned for a few moments, **{{pet}}** returns with food found further. You decide to give it before it is lost. She loves you more.",
+        "Unfortunately, **{{pet}}** seems to have triggered hostilities with wild {{randomAnimal}} ! You decide to challenge it valid. She loves you more and becomes more trustworthy.",
+        "Oh how cute! **{{pet}}** is player! Also you decide to have fun with them. This game strengthened your links."
+      ],
+      "food_m": [
+        "The flair of **{{pet}}** has allowed you to find a **{{food}}**. You store this food and continue your journey.",
+        "You notice that **{{pet}}** is watching the ground and deciding to dig a hole into it. What is your surprise when you see him coming out of a **{{food}}**!",
+        "You discover that **{{pet}}** sniffs insistently towards a bush. You decide to take a look and see it come back with a **{{food}}** in your mouth!",
+        "You see everything **{{pet}}** jumping into the water. What is your surprise when you see it coming out with a **{{food}}**!",
+        "After taking a short break on your ride, you will see coming back **{{pet}}** with a **{{food}}**. It looks like he flew it to a merchant. You have to leave before he sees it."
+      ],
+      "food_f": [
+        "The flair of **{{pet}}** has allowed you to find a **{{food}}**. You store this food and continue your journey.",
+        "You notice that **{{pet}}** is watching the ground and deciding to dig a hole into it. What is your surprise when you see it coming out with a **{{food}}**!",
+        "You discover that **{{pet}}** sniffs insistently towards a bush. You decide to take a look and see it come back with a **{{food}}** in your mouth!",
+        "You see everything **{{pet}}** jumping into the water. What is your surprise when you see it coming out with a **{{food}}**!",
+        "After taking a short break on your ride, you will see coming back **{{pet}}** with a **{{food}}**. It looks like she flew her from a merchant. You have to leave before he sees it."
+      ],
+      "gainTime_m": [
+        "Wrong every kilometer, **{{pet}}** is in shape. You climb on their back for a few minutes and you gain **{{amount}} Min** :hourglass:.",
+        "On a corner, **{{pet}}** starts running all the time. You finished at the end of his leash but you won **{{amount}} Min** :hourglass:.",
+        "What a train! **{{pet}}** seems to be under pressure, sorry about that, you manage to follow him as well as evil. Grade from him you win **{{amount}} Min** :hourglass:.",
+        "The flair of **{{pet}}** allowed you to find a shortcut. Thanks to him, you won **{{amount}} Min** :hourglass:.",
+        "Defending **{{pet}}** vs wild {{randomAnimal}} was not a thin deal, and this time you found yourself stronger than you. You decide to flee and run at all speed. Thanks to this adventure you win **{{amount}} Min** :hourglass: on your trip."
+      ],
+      "gainTime_f": [
+        "It's nice to see, **{{pet}}** is in shape. You climb on their back for a few minutes and you earn **{{amount}} Min** :hourglass:.",
+        "On a corner, **{{pet}}** starts running all the time. You finished at the end of his leash but you won **{{amount}} Min** :hourglass:.",
+        "You notice that **{{pet}}** seems to be under pressure, unfortunately, you are able to follow {determinant} as it was. She won **{{amount}} Min** :hourglass:.",
+        "The flair of **{{pet}}** allowed you to find a shortcut. Grade {accusative}earned **{{amount}} Min** :hourglass:.",
+        "Defending **{{pet}}** vs wild {{randomAnimal}} was not a thin deal, and this time you found yourself stronger than you. You decide to flee and run at all speed. Thanks to this adventure you win **{{amount}} Min** :hourglass: on your trip."
+      ],
+      "points": [
+        "People who meet you with **{{pet}}** are sure to notice you. This enhances your reputation so you win **{{amount}}** :medal:.",
+        "Telling your adventures from **{{pet}}** to an old man seems to have improved your reputation. You win **{{amount}}** :medal:."
+      ],
+      "badge": [
+        "Successfully trained **{{pet}}** was a real challenge that proves your talent with the animals. You get the {{badge}} badge!"
+      ],
+      "loseLife_m": [
+        "While you are trying to caress **{{pet}}**, it doesn't get done and bites your hand. You lose **{{amount}}** :broken_heart:.",
+        "On a **{{pet}}** turn everything in the right direction. You keep the leaves in your hands well and badly, but you get out with a few scratches. You lose **{{amount}}** :broken_heart:.",
+        "You see **{{pet}}** leave. It comes back a few minutes after with food. You eat it and regret it improved a few minutes later. You suddenly hurt the belly ... You lose **{{amount}}** :broken_heart:.",
+        "**{{pet}}** seems to have triggered hostilities with wild {{randomAnimal}} ! You decide to skip it, but unfortunately the wild creature hurts you. You lose **{{amount}}** :broken_heart:.",
+        "**{{pet}}** seems to want to play and throw up a tree. Unfortunately, its weight breaks the branch and falls upon you. You lose **{{amount}}** :broken_heart:."
+      ],
+      "loseLife_f": [
+        "While you are trying to caress **{{pet}}**, she doesn't let herself be done and bites your hand. You lose **{{amount}}** :broken_heart:.",
+        "On a **{{pet}}** turn everything in the right direction. You keep the leaves in your hands well and badly, but you get out with a few scratches. You lose **{{amount}}** :broken_heart:.",
+        "You see **{{pet}}** leave. It comes back a few minutes later with food. You eat it and regret it improved a few minutes later. You suddenly hurt the belly ... You lose **{{amount}}** :broken_heart:.",
+        "**{{pet}}** seems to have triggered hostilities with wild {{randomAnimal}} ! You decide to use it, but unfortunately the wild creature hurts you. You lose **{{amount}}** :broken_heart:.",
+        "**{{pet}}** seems to want to play and throw up a tree. Unfortunately, its weight breaks the branch and falls upon you. You lose **{{amount}}** :broken_heart:."
+      ],
+      "loseMoney_m": [
+        "You feel that **{{pet}}** steals a few pieces from your purse and hides them further. Unfortunately, you are unable to find them, so you are losing **{{amount}}** :money_with_wings:.",
+        "You notice a large hole in your purse. **{{pet}}** had to play with during the night! After you noticed what you had left, you notice that you are missing **{{amount}}** :money_with_wings:.",
+        "As you play with **{{pet}}**, this one hugs you and drops your purse into a crevass. Unable to recover these **{{amount}}** :money_with_wings:!",
+        "You feel like **{{pet}}** is irritated, it will even hurt a passer-by. Expected apologies, you decide to compensate and leave the low temperature. You lose **{{amount}}** :money_with_wings:.",
+        "If you want to play with **{{pet}}**, you hit them with a blast and take them to a healer to take them pride. After healing it, the pride you are assigned to **{{amount}}** :money_with_wings:."
+      ],
+      "loseMoney_f": [
+        "You feel that **{{pet}}** steals a few pieces from your purse and hides them further. Unfortunately, you are unable to find them, so you are losing **{{amount}}** :money_with_wings:.",
+        "You notice a large hole in your purse. **{{pet}}** had to play with during the night! After you noticed what you had left, you notice that you are missing **{{amount}}** :money_with_wings:.",
+        "As you play with **{{pet}}**, this one hugs you and drops your purse into a crevass. Unable to recover these **{{amount}}** :money_with_wings:!",
+        "You feel like **{{pet}}** is irritated, it will even hurt a passer-by. Expected apologies, you decide to compensate and leave the low temperature. You lose **{{amount}}** :money_with_wings:.",
+        "If you want to play with **{{pet}}**, you knock them out. Blessed you bring them to a healer to take them to pride. After healing it, the pride you are assigned to **{{amount}}** :money_with_wings:."
+      ],
+      "loseTime_m": [
+        "Force remind **{{pet}}** to keep it ready for you, you lose **{{amount}} Min** :clock2:.",
+        "You feel **{{pet}}** doesn't seem to want to move. You decide to shoot it by force. By its fault, you lose **{amount} Min** :clock2:.",
+        "You see **{{pet}}** coming to you while running pursued by wild {{randomAnimal}} ! You flee with them. This pursuit race has made you lose **{{amount}} Min** :clock2: on your ride.",
+        "When you enter a village, you hear a rumor about a pet that looks like **{{pet}}** that would attack villagers. When you see you, the inhabitants are afraid of you and your pet, and you were immediately hunted out of the village. This experience has made you lose **{{amount}} Min** :clock2: on your ride.",
+        "You need to find out that **{{pet}}** is watching the ground and deciding to dig a hole into it. A closed chest emerges. After several attempts, you have successfully opened it, but it is empty. This experience has made you lose **{{amount}} Min** :clock2:."
+      ],
+      "loseTime_f": [
+        "Force remind **{{pet}}** to keep it ready for you, you lose **{amount} Min** :clock2:.",
+        "You feel **{{pet}}** doesn't seem to want to move. You decide to shoot it by force. By its fault, you lose **{amount} Min** :clock2:.",
+        "You see **{{pet}}** coming to you while running pursued{feminine} by wild {{randomAnimal}} ! You flee with it. This pursuit race has made you lose **{{amount}} Min** :clock2: on your ride.",
+        "When you enter a village, you hear a rumor about a pet that looks like **{{pet}}** that would attack villagers. When you see you, the inhabitants are afraid of you and your pet, and you were immediately hunted out of the village. This experience has made you lose **{{amount}} Min** :clock2: on your ride.",
+        "You need to find out that **{{pet}}** is watching the ground and deciding to dig a hole into it. A closed chest emerges. After several attempts, you have successfully opened it, but it is empty. This experience has made you lose **{{amount}} Min** :clock2:."
+      ],
+      "petFlee_m": [
+        "This was unavoidable.**{{pet}}** doesn't respect you and runs away from you. You can't find it and lose it forever...",
+        "After spending time with you, **{{pet}}** seems to no longer like you and decides to run away. You will probably never see it again.",
+        "It looks like **{{pet}}** found the sister, he abandons you and leaves you alone. You will never see it again...",
+        "The lack of attention to **{{pet}}** led him to flee. You lose sight of it quickly, it will be impossible to find it."
+      ],
+      "petFlee_f": [
+        "This was unavoidable. **{{pet}}** doesn't respect you and runs away from you. You can't find it and lose it forever...",
+        "After spending time with you, **{{pet}}** seems to no longer like you and decides to run away. You will probably never see it again.",
+        "It looks like **{{pet}}** found the sister, he gives up and leaves you alone. You will never see it again...",
+        "The lack of attention to **{{pet}}** led him to flee. You lose sight of it quickly, it will be impossible to find it."
+      ],
+      "loseLove_m": [
+        "It looks like **{{pet}}** is not too easy for you... He loses a little in love.",
+        "As you practice fighting, **{{pet}}** passes through the fight. You sit down to him in a moment of inadvertance. He now seems to love you a little less.",
+        "Having a long walk, **{{pet}}** is running out of breath, it looks like it can't follow you. Did not wait for your relationship so he loses a little in love...",
+        "When approaching a stand, **{{pet}}** insists on the food placed on a board. Wrong its request, you decide to continue your journey. **{{pet}}** is grudging, it loses faith in you."
+      ],
+      "loseLove_f": [
+        "It looks like **{{pet}}** is not too easy for you... Voyager with her deterred this relationship. She loses a little in love.",
+        "As you practice fighting, **{{pet}}** passes through the fight. You sit down to her in a moment of inadvertance. She now seems to love you a little less.",
+        "Having a long walk, **{{pet}}** is running out of breath, it looks like it can't follow you. Not waiting for it has been your relation, so it loses a little in love...",
+        "When approaching a stand, **{{pet}}** insists on the food placed on a board. Wrong its request, you decide to continue your journey. **{{pet}}** is resentful, it loses faith in you."
+      ],
+      "nothing": [
+        "You continue your route along **{{pet}}**. Nothing special happens."
+      ]
+    },
+    "randomAnimal_m": "a **{{randomAnimal}}**",
+    "randomAnimal_f": "a **{{randomAnimal}}**"
+  },
+  "class": {
+    "attack": {
+      "winPotion": [
+        "you see a strange light in the distance. As you get closer, curious, you realize that this is a vial with unknown content, you moose the brewery and feel that your strengths could be increased if you were to ingest it...",
+        "you notice a tent set here. Curious, you enter and discover an old man with lots of potions. This one asks you to test them. You agree, and once it's done, he gives you an attack potion as a thanks.",
+        "you find an abandoned cart. It contains potion crates. You steal one hastily. After leaving, you see that the stolen potion could be useful for your next battle..."
+      ],
+      "winObject": [
+        "You decide to back to a tree. By sitting down, you feel a living pain that pierces your back. You get up at the speed of a flash and find out what's scratched you:",
+        "you suddenly hear an infernal goat move towards you, you just have time to throw yourself into the side when a horde of knights passes you to the grand galop, by looking at them away you see a bib fall from one of the horses. When you pick it up, you will discover...",
+        "a starving animal approaches. By precaution, you choose to kill it. While searching his guts, you find an Object that seems to be used for attacking."
+      ],
+      "winWeapon": [
+        "you meet a Merchant, who asks your Class. After answering him, he offers you a weapon he no longer uses:",
+        "You see on the lower side a weapon and you don't believe your eyes! You wonder how the devil can throw out such a beautiful thing and decide to ripe with it. It will probably be useful to you!",
+        "You will find an ancient fort in ruins. After a quick visit to the premises, it seems that only the Armory is still intact. In this one, in the middle of rugged and unusable objects, you find a weapon that still seems to be in good condition."
+      ]
+    },
+    "defense": {
+      "winPotion": [
+        "you notice a tent set here. Curious, you enter and discover an old man with lots of potions. This one asks you to test them. You agree, and once it's done, he gives you a defense potion as a thanks.",
+        "you find an abandoned cart. Which contains boxes full of potions. You rapidly steal one. After fleeing you see the stolen potion may be useful for your next fight...",
+        "a heavy impact is being heard behind you. You turn abruptly, and enter your field of sight an old man with flattened body on the ground, under a tree. You notice with relief that it is still alive, as it emits weak giveaments. Then you notice that a crate full of all the same potions fell with him. Knowing that he could not survive with his disposal, you must educate that these are potions that increase the human body's defensive abilities. Not wanting to miss such an opportunity, you grab the only intact vial and flee the place, without worrying about the old man's weak complaints."
+      ],
+      "winObject": [
+        "a starving animal approaches. By precaution, you choose to kill it. While searching his guts, you find an Object that seems to be used for defense.",
+        "A knight is approaching and offers you a duel. It will give you its object of challenge if you win. Grade your training, this victory is yours, and you win the prize you promised.",
+        "You find a peasant who needs help repairing his cart. You get the wheel back in place. To thank you, it gives you a defensive item forged by the best workers of Claire De Ville."
+      ],
+      "winArmor": [
+        "you meet a Merchant, who asks your Class. After answering him, he offers you a armor he no longer uses:",
+        "you see on the lower side a piece of armor and you don't believe your eyes! You wonder how the devil can throw out such a beautiful thing and decide to ripe with it. It will probably be useful to you!",
+        "You will find an ancient fort in ruins. After a quick visit to the premises, it seems that only the armour room is still intact. In this one, in the middle of rusty and unusable items, you find armour that still seems to be in good condition."
+      ]
+    },
+    "basic": {
+      "winItem": [
+        "villagers approach you and give you an item in recognition of a weapon recent, you thank them very briefly and continue your search.",
+        "you meet a group of children playing to continue. One of them hugs you and cry, his parents approach and beg for your forgiveness, you grant them and they give you an item that may be useful to you.",
+        "a cart takes you to continue, intrigued and eager to continue your path, approaching the owner, which, first odious, tells you to try and take another road, energized, you threaten it with your weapon. This calms it instantly. It gives you an item and asks you to wait for the time to move its load.",
+        "you see a crowd of people together. If you want to see what's going on, you make a way through the group and discover a ensangled object, otherwise the crowd around it would already have touched. You leave as if nothing was with the object in your possession."
+      ],
+      "winMoney": [
+        "you walk on a small stump and notice that your pitch noise sounds strangely. You search the ground and find a chest filled with gold. You get **{{amount}} :moneybag:**.",
+        "you meet a person who looks a bit disconcerted and performed... Seeing the person apologizes and runs out. You say that she has confused you with someone else. In his race the unknown dropped a purse: you open it and discover **{{amount}} :moneybag:**!",
+        "you decide to set up your camp by installing a tent and other objects. By digging holes to plant the spikes in your tent, you feel something hard in the ground. By digging you will land a small wooden box that is time-friendly and find **{{amount}} :moneybag:**!"
+      ]
+    },
+    "other": {
+      "winItem": [
+        "your feet bumps on something coming out of the ground, after getting up, you search the ground and find an item...",
+        "you see a shape in a gap. Intrigued, you get closer, this shape is seems to be an item that will be helpful for your adventure...",
+        "You decide to back to a tree. By sitting down, you feel a living pain in your back. You get up quickly to discover... an item!",
+        "you walk disprocessing and stumble on something ! While getting up after your fall, you discover an item !"
+      ],
+      "winHealth": [
+        "you meet villagers remembering your prowess as a freelance person, they put you a bag containing supplies that you eat before continuing your trip. You earn **{{amount}} :heart:**.",
+        "a merchant comes to your meeting and asks which class you belong to, you answer him that you are an adventurer. Remember, adventurers are people with little pv, it decides to give you some fruit that was no longer viable for sale. Happily, you eat them and earn **{{amount}} :heart:** and then get back on your way.",
+        "you were approached by an old woman, This one gives you a red apple by telling you that it is important to eat well to become strong, you eat it with gratitude before continuing your journey. You earn **{{amount}} :heart:**.",
+        "you have been hurled by a plough. You were questioned by its owner, who apologizes for not seeing you because of your shirt appearance and offers you some provisions, You will be able to eat a little and then go back on your way. You earn **{{amount}} :heart:**."
+      ]
+    }
   }
 }

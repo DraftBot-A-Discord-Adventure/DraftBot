@@ -189,7 +189,7 @@
         "description": "This feature was removed from the bot after an update to Discord's features."
       },
       "PROFILE": {
-        "description": "Affiche des informations sur votre personnage :\n\n😃 État de santé | Pseudo | Level\n\n឵឵឵Informations :\n❤️ Vie | ⭐ XP | 💰 Argent\n\nStatistiques :\n⚡ Énergie | 🗡️ Attaque | 🛡️ Défense | 🚀 Vitesse | 🌬️ Souffle | 🫁 Récupération\n\nMissions :\n💎 Gemmes | 📖 Avancé de la campagne %\n\nClassement et score :\n🏆 Classement | 🏅 Score\n\nClasse :\nVoir {command:classes}\n\nGloire et Ligue :\n✨ Gloire | Voir {{topGloryCommandMention}}\n\nGuilde :\n🏟️ Guilde\n\nDestination :\nVoir {{mapCommandMention}}\n\nFamilier :\nVoir {{petCommandMention}}\n\n💡-Les badges sont affichés sur votre profil sous forme de réaction."
+        "description": "Displays information about your character:\n\n😃 Health status | Nickname | Level\n\n឵឵឵Information:\n❤️ Life | ⭐ XP | 💰 Money\n\nStatistics :\n⚡ Energy | 🗡️ Attack | 🛡️ Defense | 🚀 Speed | 🌬️ Breath | 🫁 Recovery\n\nMissions :\n💎 Gems | 📖 Advanced campaign %\n\nRank and score:\n🏆 Rank | 🏅 Score\n\nClass:\nSee {command:classes}\n\nGlory and League:\n✨ Glory | See {{topGloryCommandMention}}\n\nGuild:\n🏟️ Guild\n\nDestination:\nSee {{mapCommandMention}}\n\nFamiliar:\nSee {{petCommandMention}}\n\n💡-Badges are displayed on your profile as a reaction."
       },
       "RARITY": {
         "description": "Allows you to see the probability of getting an item by its rarity."
@@ -497,5 +497,25 @@
     "throwAwayField": "{{name}} | {{throwEmote}}",
     "confirmThrowAway": "Are you sure you want to throw {{item}}?",
     "sellIndication": "Choose an item for sale from the list below:"
+  },
+  "classesInfo": {
+    "title": {
+      "list": ":bookmark: Classes list",
+      "class": "**{{emoji}} {{className}}**"
+    },
+    "description": {
+      "list": "Here is a list of all the classes available in the game. To get more information about a specific class, select one below.",
+      "attacks": "\n\n## **Available attacks:**"
+    },
+    "mainOption": {
+      "name": "Class list",
+      "placeholder": "Select a class"
+    },
+    "displays": {
+      "listing": "{{headerText}}\n\n{{classesList}}",
+      "details": "{{classDetails}}{{attacksHeader}}\n{{attacksList}}",
+      "class": "### {{emoji}} {{name}}\n:zap: {{fightPoint}} | :dagger: {{attack}} | :shield: {{defense}} | :rocket: {{speed}} | :wind_blowing_face: {{baseBreath}} / {{maxBreath}} | :lungs: {{breathRegen}} | :heart: {{health}}",
+      "attack": "### {{emoji}} {{name}} | {{cost}} :wind_blowing_face:\n> {{description}}"
+    }
   }
 }

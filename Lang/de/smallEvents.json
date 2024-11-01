@@ -849,5 +849,240 @@
       "treffen Sie auf ein Kind, das Ihre Sprache nicht zu sprechen scheint. Es wirkt jedoch einladend und reicht Ihnen ein Paket...",
       "treffen Sie auf einen Mann, der ein beladenes Maultier mit sich führt. Sie beschließen, ihm beim Transport seiner Ladung zu helfen. Als Dankeschön schenkt er Ihnen einen Gegenstand..."
     ]
+  },
+  "pet": {
+    "stories": {
+      "money_m": [
+        "Sie sehen **{{pet}}** im hohen Gras wühlen. Dabei kommt **{{amount}}** :moneybag:, die du für dein weiteres Abenteuer aufbewahrst, zum Vorschein.",
+        "Sie bemerken, dass **{{pet}}** angestrengt auf den Boden schaut und sich dazu entschließt, ein Loch zu graben. Wie überrascht sind Sie, als Sie sehen, dass er **{{amount}}** :moneybag: herauskommt!",
+        "Sie entdecken, dass **{{pet}}** hartnäckig in Richtung eines Gebüschs schnüffelt. Sie beschließen, es sich anzusehen, und als Sie sehen, dass er mit **{{amount}}** :moneybag: zurückkommt, erfüllt Sie das mit großer Freude!",
+        "Plötzlich sehen Sie **{{pet}}** ins Wasser springen. Sie sind überrascht, als Sie sehen, dass er mit einem Geldbeutel von **{{amount}}** :moneybag: wieder auftaucht.",
+        "Nachdem du auf deiner Reise eine kleine Pause gemacht hast, siehst du **{{pet}}** mit einem Geldbeutel zurückkommen. Es sieht so aus, als hätte er ihn von einem Händler gestohlen. Du beschließt, mit deinen **{{amount}}** :moneybag: zu gehen, bevor er es merkt."
+      ],
+      "money_f": [
+        "Sie sehen **{{pet}}** im hohen Gras wühlen. Sie holt **{{amount}}** :moneybag:, die du für dein weiteres Abenteuer aufbewahrst.",
+        "Sie bemerken, dass **{{pet}}** angestrengt auf den Boden schaut und sich dazu entschließt, ein Loch zu graben. Wie überrascht sind Sie, als Sie sehen, dass er **{{amount}}** :moneybag: herauskommt!",
+        "Sie entdecken, dass **{{pet}}** hartnäckig in Richtung eines Gebüschs schnüffelt. Du beschließt, es dir anzusehen, und als du siehst, dass sie mit **{{amount}}** :moneybag: zurückkommt, erfüllt dich das mit großer Freude!",
+        "Plötzlich sehen Sie **{{pet}}** ins Wasser springen. Wie überrascht sind Sie, als Sie sehen, dass sie mit einem Geldbeutel von **{{amount}}** :moneybag: wieder auftaucht!",
+        "Nachdem du auf deiner Reise eine kleine Pause gemacht hast, siehst du **{{pet}}** mit einem Geldbeutel zurückkommen. Es sieht so aus, als hätte sie ihn einem Händler gestohlen. Sie beschließen, mit Ihren **{{amount}}** :moneybag: zu gehen, bevor er etwas merkt."
+      ],
+      "item_m": [
+        "Sie sehen **{{pet}}** im hohen Gras wühlen. Dabei kommt ein **Gegenstand** zum Vorschein, den Sie eventuell für Ihr weiteres Abenteuer behalten können.",
+        "Sie bemerken, dass **{{pet}}** angestrengt auf den Boden schaut und sich entschließt, ein Loch zu graben. Sie sind überrascht, als Sie sehen, dass er einen **Gegenstand** herausholt.",
+        "Du entdeckst, dass **{{pet}}** hartnäckig in Richtung eines Gebüschs schnüffelt. Du beschließt, es dir anzusehen, und als du siehst, dass er mit einem **Gegenstand** zurückkommt, erfüllt dich das mit Freude!",
+        "Plötzlich siehst du **{{pet}}** ins Wasser springen. Sie sind überrascht, dass er mit einem **Objekt** wieder herauskommt.",
+        "Nachdem du auf deiner Reise eine kleine Pause gemacht hast, siehst du **{{pet}}** mit einem **Gegenstand** zurückkommen. Es scheint, als hätte er es von einem Händler gestohlen. Sie beschließen zu gehen, bevor er es merkt."
+      ],
+      "item_f": [
+        "Sie sehen **{{pet}}** im hohen Gras herumstochern. Sie holt einen **Gegenstand** hervor, den Sie eventuell für Ihr weiteres Abenteuer behalten können.",
+        "Sie bemerken, dass **{{pet}}** angestrengt auf den Boden schaut und sich entschließt, ein Loch zu graben. Sie sind überrascht, als Sie sehen, dass er einen **Gegenstand** herausholt.",
+        "Du entdeckst, dass **{{pet}}** hartnäckig in Richtung eines Gebüschs schnüffelt. Du beschließt, es dir anzusehen, und als du siehst, dass sie mit einem **Gegenstand** zurückkommt, erfüllt dich das mit Freude!",
+        "Plötzlich siehst du **{{pet}}** ins Wasser springen. Du bist überrascht, als du siehst, dass sie mit einem **Objekt** wieder herauskommt.",
+        "Nachdem du auf deiner Reise eine kleine Pause gemacht hast, siehst du **{{pet}}** mit einem **Gegenstand** zurückkommen. Es scheint, als hätte sie es von einem Händler gestohlen. Sie beschließen zu gehen, bevor dieser etwas merkt."
+      ],
+      "gainEnergy_m": [
+        "**{{pet}}** an Ihrer Seite zu haben, macht Sie glücklich. Es hebt Ihre Stimmung und Sie gewinnen **{{amount}}** :zap:.",
+        "Am Straßenrand stürzt sich **{{pet}}** auf Essen, das in gutem Zustand zu sein scheint, und bringt es Ihnen. Sie essen es, bevor es schlecht wird, und gewinnen **{{amount}}** :zap:.",
+        "Nachdem er kurz weggegangen ist, kommt **{{pet}}** mit einem fast leeren Trank zurück. Sie trinken ihn, bevor er verloren geht. Damit gewinnen Sie **{{amount}}** :zap:."
+      ],
+      "gainEnergy_f": [
+        "**{{pet}}** an Ihrer Seite zu haben, macht Sie glücklich. Es hebt Ihre Stimmung und Sie gewinnen **{{amount}}** :zap:.",
+        "Am Straßenrand stürzt sich **{{pet}}** auf Essen, das in gutem Zustand zu sein scheint, und bringt es Ihnen. Sie essen es, bevor es schlecht wird, und gewinnen **{{amount}}** :zap:.",
+        "Nachdem sie kurz weggegangen ist, kommt **{{pet}}** mit einem fast leeren Trank zurück. Du trinkst ihn, bevor er verloren geht. Sie gewinnen damit **{{amount}}** :zap:."
+      ],
+      "gainLife_m": [
+        "**{{pet}}** an Ihrer Seite zu haben, macht Sie glücklich. Es hebt Ihre Stimmung und Sie gewinnen **{{amount}}** :heart:.",
+        "Am Straßenrand stürzt sich **{{pet}}** auf Essen, das in gutem Zustand zu sein scheint, und bringt es Ihnen. Sie essen es, bevor es schlecht wird, und gewinnen **{{amount}}** :heart:.",
+        "Nachdem er kurz weggegangen ist, kommt **{{pet}}** mit einem fast leeren Trank zurück. Sie trinken ihn, bevor er verloren geht. Damit gewinnen Sie **{{amount}}** :heart:."
+      ],
+      "gainLife_f": [
+        "**{{pet}}** an Ihrer Seite zu haben, macht Sie glücklich. Es hebt Ihre Stimmung und Sie gewinnen **{{amount}}** :heart:.",
+        "Am Straßenrand stürzt sich **{{pet}}** auf Essen, das in gutem Zustand zu sein scheint, und bringt es Ihnen. Sie essen es, bevor es schlecht wird, und gewinnen **{{amount}}** :heart:.",
+        "Nachdem sie kurz weggegangen ist, kommt **{{pet}}** mit einem fast leeren Trank zurück. Du trinkst ihn, bevor er verloren geht. Sie gewinnen damit **{{amount}}** :heart:."
+      ],
+      "gainLove_m": [
+        "Es scheint, dass **{{pet}}** glücklich ist, Sie in seiner Gesellschaft zu haben. Er gewinnt an Liebe und wird Ihnen gegenüber treuer.",
+        "Nach einem langen Spaziergang beschließen Sie, sich um Ihren **{{pet}}** zu kümmern, indem Sie {determinant} streicheln. Die Zeit, die Sie mit ihm verbracht haben, hat Ihre Bindung gestärkt.",
+        "Nachdem er kurz weggegangen ist, kommt **{{pet}}** mit etwas Essen zurück, das er weiter weg gefunden hat. Sie beschließen, ihm das Futter zu geben, bevor es verloren geht. Auf diese Weise liebt er Sie noch mehr.",
+        "Leider scheint **{{pet}}** die Feindseligkeiten mit {{randomAnimal}} wild ausgelöst zu haben! Sie beschließen, ihn tapfer zu verteidigen. Er liebt Sie mehr und wird Ihnen gegenüber loyaler.",
+        "Oh wie süß ist das denn! **{{pet}}** ist verspielt! Daher beschließen Sie, mit ihm Spaß zu haben. Dieser Teil hat eure Beziehung gestärkt."
+      ],
+      "gainLove_f": [
+        "Es scheint, dass **{{pet}}** glücklich ist, Sie in ihrer Gesellschaft zu haben. Sie gewinnt an Liebe und wird Ihnen gegenüber treuer.",
+        "Nach einem langen Spaziergang beschließen Sie, sich um Ihre **{{pet}}** zu kümmern und sie zu streicheln. Die Zeit, die Sie mit ihr verbracht haben, hat Ihre Bindung gestärkt.",
+        "Nachdem sie kurz weggegangen ist, kommt **{{pet}}** mit etwas Essen zurück, das sie weiter weg gefunden hat. Sie beschließen, es ihr zu geben, bevor es verloren geht. Auf diese Weise liebt sie Sie noch mehr.",
+        "Leider scheint **{{pet}}** die Feindseligkeiten mit {{randomAnimal}} wild ausgelöst zu haben! Sie beschließen, sie tapfer zu verteidigen. Sie liebt Sie mehr und wird Ihnen gegenüber loyaler.",
+        "Oh wie süß! **{{pet}}** ist verspielt! Daher beschließen Sie, mit ihr Spaß zu haben. Dieser Teil hat eure Beziehung gestärkt."
+      ],
+      "food_m": [
+        "Die Spürnase von **{{pet}}** hat Ihnen geholfen, eine **{{food}}** zu finden. Sie verstauen diese Nahrung und setzen Ihren Weg fort.",
+        "Sie bemerken, dass **{{pet}}** angestrengt auf den Boden schaut und beschließt, ein Loch zu graben. Sie sind überrascht, als er eine **{{food}}** herausholt.",
+        "Sie entdecken, dass **{{pet}}** hartnäckig in Richtung eines Gebüschs schnüffelt. Sie beschließen, einen Blick darauf zu werfen und sehen, wie er mit einem **{{food}}** im Mund zurückkommt!",
+        "Plötzlich siehst du **{{pet}}** ins Wasser springen. Sie sind überrascht, dass er mit einer **{{food}}** wieder auftaucht.",
+        "Nachdem du auf deiner Reise eine kleine Pause gemacht hast, siehst du **{{pet}}** mit einer **{{food}}** zurückkehren. Es sieht ganz so aus, als hätte er sie von einem Händler gestohlen. Sie beschließen zu gehen, bevor er etwas merkt."
+      ],
+      "food_f": [
+        "Die Spürnase von **{{pet}}** hat Ihnen geholfen, eine **{{food}}** zu finden. Sie verstauen diese Nahrung und setzen Ihren Weg fort.",
+        "Sie bemerken, dass **{{pet}}** angestrengt auf den Boden schaut und beschließt, ein Loch zu graben. Sie sind überrascht, als sie eine **{{food}}** herausholt.",
+        "Sie entdecken, dass **{{pet}}** hartnäckig in Richtung eines Gebüschs schnüffelt. Sie beschließen, einen Blick darauf zu werfen und sehen, wie sie mit einem **{{food}}** im Mund zurückkommt!",
+        "Plötzlich siehst du **{{pet}}** ins Wasser springen. Du bist überrascht, dass sie mit einer **{{food}}** wieder auftaucht.",
+        "Nachdem du auf deiner Reise eine kleine Pause gemacht hast, siehst du **{{pet}}** mit einer **{{food}}** zurückkehren. Es sieht ganz so aus, als hätte sie es von einem Händler gestohlen. Sie beschließen zu gehen, bevor er etwas merkt."
+      ],
+      "gainTime_m": [
+        "Trotz der vielen Kilometer ist **{{pet}}** in guter Form. Sie reiten ein paar Minuten auf seinem Rücken und gewinnen **{{amount}} Min** :hourglass:.",
+        "In einer Kurve beginnt **{{pet}}** plötzlich zu rennen. Sie werden an der Leine mitgeschleift, aber Sie haben gewonnen **{{amount}} Min** :hourglass:.",
+        "Was für ein Elan! **{{pet}}** scheint es eilig zu haben, trotzdem schaffen Sie es, mit ihm Schritt zu halten. Dank ihm gewinnen Sie **{{amount}} Min** :hourglass:.",
+        "Der Spürsinn von **{{pet}}** hat Ihnen geholfen, eine Abkürzung zu finden. Dank ihm haben Sie **{{amount}} Min** :hourglass:gewonnen.",
+        "Die Verteidigung von **{{pet}}** gegen {{randomAnimal}} wild war keine leichte Aufgabe, und dieses Mal haben Sie einen Stärkeren als sich selbst gefunden. Sie beschließen, die Flucht zu ergreifen, und rennen so schnell Sie können. Dank dieses Missgeschicks verdienen Sie **{{amount}} Min** :hourglass: auf Ihrer Reise."
+      ],
+      "gainTime_f": [
+        "Es ist schön anzusehen, **{{pet}}** ist in Form. Sie reiten ein paar Minuten auf seinem Rücken und gewinnen **{{amount}} Min** :hourglass:.",
+        "In einer Kurve beginnt **{{pet}}** plötzlich zu rennen. Sie werden an der Leine mitgeschleift, aber Sie haben gewonnen **{{amount}} Min** :hourglass:.",
+        "Sie bemerken, dass **{{pet}}** es eilig zu haben scheint, trotzdem schaffen Sie es, {determinant} so gut es geht zu folgen. Dank ihr gewinnen Sie **{{amount}} Min** :hourglass:.",
+        "Der Spürsinn von **{{pet}}** half Ihnen, eine Abkürzung zu finden. Dank {accusative}, haben Sie **{{amount}} Min** :hourglass:gewonnen.",
+        "Die Verteidigung von **{{pet}}** gegen {{randomAnimal}} wild war keine leichte Aufgabe, und dieses Mal haben Sie einen Stärkeren als sich selbst gefunden. Sie beschließen, die Flucht zu ergreifen, und rennen so schnell Sie können. Dank dieses Missgeschicks verdienen Sie **{{amount}} Min** :hourglass: auf Ihrer Reise."
+      ],
+      "points": [
+        "Menschen, die Ihnen mit **{{pet}}** begegnen, werden Sie unweigerlich bemerken. Das steigert Ihren Ruf und Sie verdienen daher **{{amount}}** :medal:.",
+        "Einem alten Mann von Ihren Abenteuern bei **{{pet}}** zu erzählen, scheint Ihren Ruf verbessert zu haben. Sie gewinnen **{{amount}}** :medal:."
+      ],
+      "badge": [
+        "Die erfolgreiche Dressur von **{{pet}}** war eine echte Herausforderung, die Ihr Talent im Umgang mit Tieren beweist. Sie erhalten das Abzeichen {{badge}} !"
+      ],
+      "loseLife_m": [
+        "Während Sie versuchen, **{{pet}}** zu streicheln, lässt er nicht locker und beißt Ihnen in die Hand. Sie verlieren **{{amount}}** :broken_heart:.",
+        "In einer Kurve **{{pet}}** fängt plötzlich an zu rennen. Sie behalten die Leine so gut es geht in den Händen, kommen aber mit ein paar Kratzern wieder heraus. Sie verlieren **{{amount}}** :broken_heart:.",
+        "Sie sehen **{{pet}}** gehen. Nach ein paar Minuten kommt er mit Essen zurück. Sie essen es und bereuen es einige Minuten später bitterlich. Sie haben plötzlich Bauchschmerzen.... Sie verlieren **{{amount}}** :broken_heart:.",
+        "**{{pet}}** scheint mit {{randomAnimal}} wild die Feindseligkeiten angezettelt zu haben! Du beschließt, ihn zu verteidigen, aber leider verletzt dich die wilde Kreatur. Sie verlieren **{{amount}}** :broken_heart:.",
+        "**{{pet}}** scheint spielen zu wollen und stürzt sich von einem Baum. Leider bricht sein Gewicht den Ast und er fällt auf Sie. Sie verlieren **{{amount}}** :broken_heart:."
+      ],
+      "loseLife_f": [
+        "Während Sie versuchen, **{{pet}}** zu streicheln, lässt sie nicht locker und beißt Ihnen die Hand ab. Sie verlieren **{{amount}}** :broken_heart:.",
+        "In einer Kurve **{{pet}}** fängt plötzlich an zu rennen. Sie behalten die Leine so gut es geht in den Händen, kommen aber mit ein paar Kratzern wieder heraus. Sie verlieren **{{amount}}** :broken_heart:.",
+        "Sie sehen **{{pet}}** gehen. Nach ein paar Minuten kommt sie mit etwas zu essen zurück. Sie essen es und bereuen es einige Minuten später bitterlich. Sie haben plötzlich Bauchschmerzen ... . Sie verlieren **{{amount}}** :broken_heart:.",
+        "**{{pet}}** scheint mit {{randomAnimal}} wild die Feindseligkeiten angezettelt zu haben! Du beschließt, sie zu verteidigen, aber leider verletzt dich die wilde Kreatur. Sie verlieren **{{amount}}** :broken_heart:.",
+        "**{{pet}}** scheint spielen zu wollen und stürzt sich von einem Baum. Leider bricht ihr Gewicht den Ast und sie fällt auf Sie. Sie verlieren **{{amount}}** :broken_heart:."
+      ],
+      "loseMoney_m": [
+        "Du spürst, dass **{{pet}}** ein paar Münzen aus deinem Geldbeutel stiehlt und sie weiter weg versteckt. Leider gelingt es Ihnen nicht, sie zu finden. Sie verlieren also **{{amount}}** :money_with_wings:.",
+        "Sie bemerken ein großes Loch in Ihrem Geldbeutel. **{{pet}}** muss in der Nacht damit gespielt haben! Nachdem du gezählt hast, was du noch übrig hattest, stellst du fest, dass dir insgesamt **{{amount}}** :money_with_wings:fehlt.",
+        "Während du mit **{{pet}}** spielst, rempelt dich dieser an und lässt deinen Geldbeutel in eine Gletscherspalte fallen. Es ist unmöglich, diese **{{amount}}** :money_with_wings: zurückzubekommen!",
+        "Sie haben den Eindruck, dass **{{pet}}** gereizt ist und sogar einen Passanten verletzt. Nachdem er sich entschuldigt hat, beschließen Sie, ihn zu entschädigen und gehen mit gesenktem Kopf weiter. Sie verlieren **{{amount}}** :money_with_wings:.",
+        "Als du mit **{{pet}}** spielen willst, verpasst du ihm einen Schlag. Sie verletzen ihn und bringen ihn zu einem Heiler, um ihn zu heilen. Nachdem er ihn geheilt hat, nimmt der Heiler Ihnen **{{amount}}** :money_with_wings:ab."
+      ],
+      "loseMoney_f": [
+        "Du spürst, dass **{{pet}}** ein paar Münzen aus deinem Geldbeutel stiehlt und sie weiter weg versteckt. Leider gelingt es Ihnen nicht, sie zu finden. Sie verlieren also **{{amount}}** :money_with_wings:.",
+        "Sie bemerken ein großes Loch in Ihrem Geldbeutel. **{{pet}}** muss in der Nacht damit gespielt haben! Nachdem du gezählt hast, was du noch übrig hattest, stellst du fest, dass dir insgesamt **{{amount}}** :money_with_wings:fehlt.",
+        "Während du mit **{{pet}}** spielst, rempelt dich dieser an und lässt deinen Geldbeutel in eine Gletscherspalte fallen. Es ist unmöglich, diese **{{amount}}** :money_with_wings: zurückzubekommen!",
+        "Sie haben den Eindruck, dass **{{pet}}** gereizt ist und sogar so weit geht, einen Passanten zu verletzen. Nachdem er sich entschuldigt hat, beschließen Sie, ihn zu entschädigen und gehen mit gesenktem Kopf weiter. Sie verlieren **{{amount}}** :money_with_wings:.",
+        "Als du mit **{{pet}}** spielen willst, versetzst du ihr einen Schlag. Sie wird verletzt und Sie bringen sie zu einem Heiler, um sie zu heilen. Nachdem der Heiler sie geheilt hat, nimmt er Ihnen **{{amount}}** :money_with_wings:ab."
+      ],
+      "loseTime_m": [
+        "Wenn du immer wieder **{{pet}}** anrufst, damit er in deiner Nähe bleibt, verlierst du **{{amount}} Min** :clock2:.",
+        "Sie spüren, dass **{{pet}}** sich anscheinend nicht bewegen will. Sie beschließen dennoch, ihn mit Gewalt zu ziehen. Durch seine Schuld verlieren Sie **{amount} Min** :clock2:.",
+        "Sie sehen **{{pet}}** auf Sie zugerannt kommen, verfolgt von {{randomAnimal}} wild! Sie ergreifen mit ihm die Flucht. Durch diese Verfolgungsjagd haben Sie **{{amount}} Min** :clock2: auf Ihrem Weg verloren.",
+        "Als Sie in ein Dorf kommen, hören Sie ein Gerücht über einen Vertrauten, der wie **{{pet}}** aussieht und Dorfbewohner angreifen soll. Als die Bewohner Sie sehen, bekommen sie Angst vor Ihnen und Ihrem Vertrauten und Sie werden sofort aus dem Dorf vertrieben. Durch dieses Missgeschick haben Sie auf Ihrer Reise **{{amount}} Min** :clock2: verloren.",
+        "Sie entdecken, dass **{{pet}}** eindringlich auf den Boden schaut und beschließt, ein Loch zu graben. Daraus kommt eine verschlossene Truhe zum Vorschein. Nach mehreren Versuchen gelingt es Ihnen, die Truhe zu öffnen, aber sie ist leer. Dieses Missgeschick hat Sie **{{amount}} Min** :clock2:."
+      ],
+      "loseTime_f": [
+        "Wenn du immer wieder **{{pet}}** anrufst, damit sie in deiner Nähe bleibt, verlierst du **{amount} Min** :clock2:.",
+        "Sie spüren, dass **{{pet}}** sich anscheinend nicht bewegen will. Sie beschließen dennoch, sie mit Gewalt zu ziehen. Durch ihre Schuld verlieren Sie **{amount} Min** :clock2:.",
+        "Sie sehen **{{pet}}** auf Sie zugerannt kommen, verfolgt{feminine} von {{randomAnimal}} wild! Sie ergreifen mit ihr die Flucht. Durch diese Verfolgungsjagd haben Sie **{{amount}} Min** :clock2: auf Ihrem Weg verloren.",
+        "Als Sie in ein Dorf kommen, hören Sie ein Gerücht über einen Vertrauten, der wie **{{pet}}** aussieht und Dorfbewohner angreifen soll. Als die Bewohner Sie sehen, bekommen sie Angst vor Ihnen und Ihrem Vertrauten und Sie werden sofort aus dem Dorf vertrieben. Durch dieses Missgeschick haben Sie auf Ihrer Reise **{{amount}} Min** :clock2: verloren.",
+        "Sie entdecken, dass **{{pet}}** eindringlich auf den Boden schaut und beschließt, ein Loch zu graben. Sie holt eine verschlossene Truhe heraus. Nach mehreren Versuchen gelingt es Ihnen, die Truhe zu öffnen, aber sie ist leer. Dieses Missgeschick hat Sie **{{amount}} Min** :clock2:."
+      ],
+      "petFlee_m": [
+        "Nach so vielen Misshandlungen war das unvermeidlich.**{{pet}}** respektiert Sie nicht und rennt deshalb in die Ferne. Sie können ihn nicht finden und verlieren ihn für immer...",
+        "Nachdem er einige Zeit mit Ihnen verbracht hat, scheint **{{pet}}** Sie nicht mehr zu mögen und beschließt, wegzulaufen. Sie werden ihn wahrscheinlich nie wieder sehen.",
+        "Es scheint, dass **{{pet}}** den Seelenverwandten gefunden hat, dieser verlässt Sie und lässt Sie allein. Sie werden ihn nie wieder sehen ...",
+        "Die mangelnde Aufmerksamkeit gegenüber **{{pet}}** hat ihn zur Flucht veranlasst. Sie verlieren ihn sehr schnell aus den Augen, sodass es unmöglich ist, ihn wiederzufinden."
+      ],
+      "petFlee_f": [
+        "Nach so vielen Misshandlungen war das unvermeidlich. **{{pet}}** respektiert Sie nicht und rennt deshalb in die Ferne. Sie können sie nicht finden und verlieren sie für immer...",
+        "Nachdem sie einige Zeit mit Ihnen verbracht hat, scheint **{{pet}}** Sie nicht mehr zu mögen und beschließt, wegzulaufen. Sie werden sie wahrscheinlich nie wieder sehen.",
+        "Es scheint, dass **{{pet}}** den Seelenverwandten gefunden hat, dieser verlässt Sie und lässt Sie allein. Sie werden sie nie wieder sehen ...",
+        "Die mangelnde Aufmerksamkeit gegenüber **{{pet}}** hat dazu geführt, dass sie weggelaufen ist. Sie verlieren sie sehr schnell aus den Augen, sodass es unmöglich ist, sie wiederzufinden."
+      ],
+      "loseLove_m": [
+        "Es scheint, dass **{{pet}}** Sie nicht besonders mag... Wenn Sie mit ihm reisen, verschlechtert sich die Beziehung noch mehr. Er verliert ein wenig an Liebe.",
+        "Während Sie den Kampf üben, kommt **{{pet}}** vorbei. In einem unbeobachteten Moment versetzen Sie ihm einen Schlag. Er scheint Sie nun etwas weniger zu mögen.",
+        "Nach einem langen Spaziergang ist **{{pet}}** außer Atem, es scheint, als könne er nicht mit Ihnen Schritt halten. Dass Sie nicht auf ihn gewartet haben, hat Ihre Beziehung verschlechtert. Er verliert daher ein wenig an Liebe...",
+        "Als Sie sich einem Stand nähern, starrt **{{pet}}** beharrlich auf das Essen, das auf einem Brett liegt. Trotz seiner Bitte beschließen Sie, Ihren Weg fortzusetzen. **{{pet}}** Er ist nachtragend und verliert ein wenig den Glauben an Sie."
+      ],
+      "loseLove_f": [
+        "Es scheint, dass **{{pet}}** Sie nicht besonders mag... Wenn Sie mit ihr reisen, verschlechtert sich die Beziehung noch mehr. Sie verliert ein wenig an Liebe.",
+        "Während Sie den Kampf üben, kommt **{{pet}}** vorbei. In einem unbeobachteten Moment versetzen Sie ihr einen Schlag. Sie scheint Sie nun etwas weniger zu mögen.",
+        "Nach einem langen Spaziergang ist **{{pet}}** außer Atem, es scheint, als könne sie nicht mit Ihnen Schritt halten. Dass Sie nicht auf sie gewartet haben, hat Ihre Beziehung verschlechtert. Sie verliert daher ein wenig an Liebe...",
+        "Als Sie sich einem Stand nähern, starrt **{{pet}}** beharrlich auf das Essen, das auf einem Brett liegt. Trotz ihrer Bitte beschließen Sie, Ihren Weg fortzusetzen. **{{pet}}** Sie ist nachtragend und verliert ein wenig den Glauben an Sie."
+      ],
+      "nothing": [
+        "Sie setzen Ihren Weg an der Seite von **{{pet}}** fort. Es passiert nichts Besonderes."
+      ]
+    },
+    "randomAnimal_m": "ein **{{randomAnimal}}**",
+    "randomAnimal_f": "eine **{{randomAnimal}}**"
+  },
+  "class": {
+    "attack": {
+      "winPotion": [
+        "Sie sehen ein seltsames Licht in der Ferne. Als du dich neugierig näherst, stellst du fest, dass es sich um eine Phiole mit unbekanntem Inhalt handelt. Du befeuchtest deine Lippen mit dem Getränk und spürst, dass deine Kräfte vervielfacht werden könnten, wenn du es zu dir nimmst...",
+        "Sie bemerken ein Zelt, das dort aufgestellt ist. Neugierig geworden, betrittst du es und entdeckst einen alten Mann, der viele Tränke besitzt. Er bittet Sie, seine Tränke zu testen. Du stimmst zu und nachdem du deine Experimente beendet hast, gibt er dir einen Angriffstrank als Dankeschön.",
+        "finden Sie einen verlassenen Karren. Darin befinden sich einige Kisten mit Tränken. Sie stehlen hastig eine davon. Nachdem Sie geflohen sind, sehen Sie, dass der gestohlene Trank für Ihren nächsten Kampf nützlich zu sein scheint..."
+      ],
+      "winObject": [
+        "beschließen Sie, sich an einen Baum zu lehnen. Als Sie sich hinsetzen, spüren Sie einen stechenden Schmerz, der Ihren Rücken durchdringt. Sie stehen blitzschnell auf und entdecken, was Sie gekratzt hat:",
+        "Sie hören plötzlich einen Höllenlärm, der auf Sie zukommt. Sie können sich gerade noch zur Seite werfen, als eine Horde Ritter an Ihnen vorbeigaloppiert, und Sie sehen, wie eine Tasche von einem der Pferde fällt. Als du ihn aufhebst, entdeckst du...",
+        "ein hungriges Tier nähert sich Ihnen. Als Vorsichtsmaßnahme beschließen Sie, es zu töten. Als Sie in seinen Eingeweiden wühlen, finden Sie einen Gegenstand, der offenbar zum Angriff dient."
+      ],
+      "winWeapon": [
+        "Sie treffen einen Händler und werden gefragt, welche Klasse Sie haben. Nachdem Sie ihm geantwortet haben, bietet er Ihnen eine Waffe, die er nicht mehr benutzt, kostenlos an:",
+        "Sie sehen eine Waffe am Straßenrand und trauen Ihren Augen nicht. Sie fragen sich, wie man so etwas Schönes einfach wegwerfen kann und beschließen, sich damit zu schmücken. Sie wird Ihnen wahrscheinlich nützlich sein!",
+        "finden Sie eine alte Festung, die in Trümmern liegt. Da Sie immer noch auf der Suche nach Ausrüstung sind, beschließen Sie, diese zu durchsuchen. Nach einer kurzen Besichtigung des Geländes scheint es, als sei nur die Waffenkammer noch intakt. In dieser finden Sie inmitten von rostigen und unbrauchbaren Gegenständen eine Waffe, die noch in gutem Zustand zu sein scheint."
+      ]
+    },
+    "defense": {
+      "winPotion": [
+        "Sie bemerken ein Zelt, das dort aufgestellt ist. Neugierig geworden, betrittst du es und entdeckst einen alten Mann, der zahlreiche Tränke besitzt. Er bittet Sie, seine Tränke zu testen. Du stimmst zu und nachdem du deine Experimente beendet hast, gibt er dir einen Verteidigungstrank als Dankeschön.",
+        "finden Sie einen verlassenen Karren. Darin befinden sich einige Kisten mit Tränken. Du stiehlst hastig eine davon. Nachdem du geflohen bist, siehst du, dass der gestohlene Trank für deinen nächsten Kampf nützlich zu sein scheint...",
+        "ein schwerer Aufprall ist hinter Ihnen zu hören. Sie drehen sich abrupt um und sehen einen alten Mann, dessen Körper platt auf dem Boden unter einem Baum liegt. Erleichtert stellen Sie fest, dass er noch am Leben ist, da er leise stöhnt. Sie stellen fest, dass mit ihm eine Kiste voller identischer Tränke heruntergefallen ist. Da du weißt, dass er mit seinem schwachen Körperbau nicht hätte überleben können, nimmst du an, dass es sich um Tränke handelt, die die Abwehrkräfte des menschlichen Körpers stärken. Da Sie sich diese Gelegenheit nicht entgehen lassen wollen, schnappen Sie sich die einzige intakte Phiole und flüchten, ohne sich um die schwachen Beschwerden des alten Mannes zu kümmern."
+      ],
+      "winObject": [
+        "ein hungriges Tier nähert sich Ihnen. Als Vorsichtsmaßnahme beschließen Sie, es zu töten. Als Sie in seinen Eingeweiden wühlen, finden Sie einen Gegenstand, der offenbar zum Verteidigen dient.",
+        "ein Ritter nähert sich Ihnen und bietet Ihnen ein Duell an. Er gibt Ihnen seinen Verteidigungsgegenstand, wenn Sie gewinnen. Dank deiner Ausbildung ist dieser Sieg dein und du erhältst den versprochenen Preis.",
+        "Sie finden einen Bauern, der Hilfe bei der Reparatur seines Karrens braucht. Sie bringen das Rad wieder an seinen Platz. Zum Dank gibt er Ihnen einen Verteidigungsgegenstand, der von den besten Arbeitern in Claire De Ville geschmiedet wurde."
+      ],
+      "winArmor": [
+        "Sie treffen einen Händler und werden gefragt, welche Klasse Sie haben. Nachdem Sie ihm geantwortet haben, bietet er Ihnen kostenlos eine Rüstung an, die er nicht mehr benutzt:",
+        "Sie sehen am Straßenrand ein Stück Rüstung und trauen Ihren Augen nicht! Sie fragen sich, wie man so etwas Schönes einfach wegwerfen kann und beschließen, es sich selbst anzuziehen. Es wird Ihnen wahrscheinlich noch nützlich sein!",
+        "finden Sie eine alte Festung, die in Trümmern liegt. Da Sie immer noch auf der Suche nach Ausrüstung sind, beschließen Sie, diese zu durchsuchen. Nach einem kurzen Rundgang durch die Anlage scheint es, als sei nur noch der Raum mit den Rüstungen intakt. In diesem Raum finden Sie inmitten von rostigen und unbrauchbaren Gegenständen eine Rüstung, die noch in gutem Zustand zu sein scheint."
+      ]
+    },
+    "basic": {
+      "winItem": [
+        "Sie bedanken sich kurz und setzen Ihre Reise fort.",
+        "Sie treffen auf eine Gruppe von Kindern, die sich gegenseitig verfolgen. Eines der Kinder stößt Sie an und beginnt zu weinen, seine Eltern kommen hinzu und bitten Sie um Verzeihung.",
+        "Ein Fuhrwerk hindert Sie am Weiterfahren. Neugierig geworden und mit dem Wunsch, Ihren Weg fortzusetzen, nähern Sie sich dem Besitzer, der Sie zunächst unfreundlich auffordert, den Weg zu verlassen und eine andere Straße zu nehmen, woraufhin Sie ihn wütend mit der Waffe bedrohen. Daraufhin beruhigt er sich sofort. Er bietet Ihnen einen Gegenstand an und bittet Sie, so lange zu warten, bis er seine Ladung verlegt hat.",
+        "sehen Sie eine Menge Menschen, die sich versammelt haben. Sie wollen sehen, was los ist, drängen sich durch die Gruppe und entdecken einen blutverschmierten Gegenstand, den die Menge schon längst berührt hätte. Sie gehen mit dem Gegenstand in Ihrem Besitz weiter, als wäre nichts geschehen."
+      ],
+      "winMoney": [
+        "Sie gehen auf eine kleine Anhöhe und bemerken, dass Ihre Schritte seltsam klingen. Sie durchsuchen den Boden und entdecken eine mit Gold gefüllte Truhe. Sie erhalten **{{amount}} :moneybag:**.",
+        "Sie treffen eine Person, die etwas verwirrt und ängstlich wirkt... Als die Person Sie sieht, entschuldigt sie sich und rennt weg. Sie denken, dass sie Sie mit jemandem verwechselt hat. Sie öffnen den Beutel und entdecken **{{amount}} :moneybag:**!",
+        "beschließen Sie, Ihr Lager zu errichten, indem Sie ein Zelt und andere Gegenstände aufstellen. Als du die Löcher zum Einschlagen der Heringe für dein Zelt gräbst, spürst du etwas Hartes im Boden. Beim Graben gräbst du ein kleines, verwittertes Holzkästchen aus und findest darin **{{amount}} :moneybag:**!"
+      ]
+    },
+    "other": {
+      "winItem": [
+        "Sie geraten mit den Füßen in etwas, das aus dem Boden ragt. Nachdem Sie sich aufgerichtet haben, suchen Sie den Boden ab und holen einen Gegenstand heraus...",
+        "Sie sehen eine Form in einem Graben. Neugierig geworden, nähern Sie sich ihr. Die Form entpuppt sich als ein Gegenstand, der Ihnen auf Ihrem weiteren Abenteuer von Nutzen sein könnte...",
+        "Sie beschließen, sich an einen Baum zu lehnen. Als Sie sich hinsetzen, spüren Sie einen stechenden Schmerz in Ihrem Rücken. Sie stehen schnell auf und entdecken ... einen Gegenstand!",
+        "Sie gehen unachtsam und stolpern über etwas! Als Sie sich nach Ihrem Sturz mühsam aufrichten, entdecken Sie einen Gegenstand!"
+      ],
+      "winHealth": [
+        "Sie begegnen Dorfbewohnern, die sich an Ihre Leistungen als gebrechlicher Mensch erinnern und Ihnen eine Tasche mit Lebensmitteln reichen, die Sie essen, bevor Sie weiterreisen. Sie gewinnen **{{amount}} :heart:**.",
+        "Ein Händler kommt auf Sie zu und fragt Sie, welcher Klasse Sie angehören. Sie antworten ihm, dass Sie ein gebrechlicher Abenteurer sind. Da er sich daran erinnert, dass gebrechliche Abenteurer Menschen mit wenig KP sind, beschließt er, Ihnen ein paar Früchte zu geben, die nicht mehr verkaufsfähig waren. Glücklich essen Sie sie, verdienen **{{amount}} :heart:** und setzen Ihren Weg fort.",
+        "Sie werden von einer alten Frau angesprochen, die Ihnen einen roten Apfel reicht und Ihnen sagt, dass gutes Essen wichtig ist, um stark zu werden. Sie essen ihn dankbar, bevor Sie weitergehen. Sie gewinnen **{{amount}} :heart:**.",
+        "Sie werden von einem Pflug angerempelt. Sie werden von seinem Besitzer angesprochen, der sich entschuldigt und sagt, dass er Sie aufgrund Ihres schwachen Aussehens nicht gesehen hat. Er bietet Ihnen etwas Proviant an, Sie essen etwas und setzen dann Ihren Weg fort. Sie gewinnen **{{amount}} :heart:**."
+      ]
+    }
   }
 }

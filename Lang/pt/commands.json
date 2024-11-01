@@ -477,5 +477,25 @@
     "throwAwayField": "{{name}} {{throwEmote}}|",
     "confirmThrowAway": "{{item}} Tem a certeza de que quer deitar fora?",
     "sellIndication": "Escolha um artigo para vender na lista abaixo:"
+  },
+  "classesInfo": {
+    "title": {
+      "list": ":bookmark: Lista de classes",
+      "class": "{{emoji}} {{className}} {{classKind}}** | **"
+    },
+    "description": {
+      "list": "Aqui está uma lista das classes disponíveis para o teu personagem e as suas estatísticas. Para mais informações sobre uma classe, selecione-a entre as opções abaixo.",
+      "attacks": "\n\n## Ataques disponíveis para esta classe:**"
+    },
+    "mainOption": {
+      "name": "Lista de classes",
+      "placeholder": "Selecionar uma turma"
+    },
+    "displays": {
+      "listing": "{{headerText}}\n\n{{classesList}}",
+      "details": "{{classDetails}}{{attacksHeader}}\n{{attacksList}}",
+      "class": "{{emoji}} {{name}}\n:zap: {{fightPoint}} :dagger: {{attack}} :shield: {{defense}} :rocket: {{speed}} :wind_blowing_face: {{baseBreath}} {{maxBreath}} :lungs: {{breathRegen}} :heart: {{health}}### | | | | / | |",
+      "attack": "# {{emoji}} {{name}} {{cost}} :wind_blowing_face:\n{{description}}##"
+    }
   }
 }

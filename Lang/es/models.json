@@ -90,6 +90,33 @@
     "8": "Lanzapiedras",
     "9": "Recortadora"
   },
+  "class_descriptions": {
+    "0": "Una clase sencilla. Bastante equilibrada.",
+    "1": "Una clase sencilla. Bastante equilibrada.",
+    "10": "Una clase centrada en la velocidad. Pocos puntos de salud y energía, pero mucha velocidad y ataque.",
+    "11": "Una clase centrada en la velocidad. Pocos puntos de salud y energía, pero mucha velocidad y ataque.",
+    "12": "Una clase potente pero equilibrada. Muy versátil.",
+    "13": "Una clase potente pero equilibrada. Muy versátil.",
+    "14": "Una clase potente pero equilibrada. Muy versátil.",
+    "15": "Una clase potente pero equilibrada. Muy versátil.",
+    "16": "Una clase centrada en la defensa sin bonificaciones de puntos de golpe, pero con más ataque que un tanque.",
+    "17": "Una clase con muy buenas estadísticas pero con una importante penalización en puntos de golpe.",
+    "18": "Una clase sencilla. Bastante equilibrada.",
+    "19": "Una clase centrada en la defensa. Poco rendimiento en combate pero vida extra para la aventura.",
+    "2": "Una clase sencilla. Bastante equilibrada.",
+    "20": "Una clase centrada en la velocidad. Pocos puntos de salud y energía, pero mucha velocidad y ataque.",
+    "21": "Una clase potente pero equilibrada. Muy versátil.",
+    "22": "Una clase centrada en la defensa sin bonificaciones de puntos de golpe, pero con más ataque que un tanque.",
+    "23": "Una clase con muy buenas estadísticas pero con una importante penalización en puntos de golpe.",
+    "24": "Una clase versátil con una mecánica de combate única.",
+    "3": "Una clase sencilla. Bastante equilibrada.",
+    "4": "Una clase centrada en la defensa. Poco rendimiento en combate pero vida extra para la aventura.",
+    "5": "Una clase centrada en la defensa. Poco rendimiento en combate pero vida extra para la aventura.",
+    "6": "Una clase centrada en la defensa. Poco rendimiento en combate pero vida extra para la aventura.",
+    "7": "Una clase centrada en la defensa. Poco rendimiento en combate pero vida extra para la aventura.",
+    "8": "Una clase centrada en la velocidad. Pocos puntos de salud y energía, pero mucha velocidad y ataque.",
+    "9": "Una clase centrada en la velocidad. Pocos puntos de salud y energía, pero mucha velocidad y ataque."
+  },
   "fight_actions": {
     "benediction": {
       "description": "Forma parte del grupo \"acciones de los dioses\". Falla si ya se ha realizado 1 acción de los dioses en combate. Aumenta todas las estadísticas del lanzador. Cuanto más tarde en el combate se utilice la bendición, mayor será el aumento de estadísticas.",
@@ -1281,5 +1308,11 @@
     "92": "Se acabó el juego",
     "93": "Trapo de cocina",
     "94": "Polvo de esqueleto"
+  },
+  "foods": {
+    "herbivorousFood": "ensalada",
+    "carnivorousFood": "carne",
+    "ultimateFood": "la sopa definitiva",
+    "commonFood": "tratar"
   }
 }

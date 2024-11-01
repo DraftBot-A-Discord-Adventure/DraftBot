@@ -849,5 +849,240 @@
       "encontra uma criança que parece não falar a sua língua. Mas tem um ar simpático e entrega-lhe um pacote...",
       "encontra um homem com uma mula carregada. Decide ajudá-lo a transportar a carga. Como agradecimento, ele oferece-lhe um objeto..."
     ]
+  },
+  "pet": {
+    "stories": {
+      "money_m": [
+        "{{pet}}Vês ** ** a remexer na erva alta.{{amount}} :moneybag:Ele tira de lá ** ** , que guarda para o resto da sua aventura.",
+        "{{pet}}Repara que ** ** está a olhar para o chão e decide cavar um buraco.{{amount}} :moneybag: Qual não é a sua surpresa ao vê-lo emergir ** ** !",
+        "{{pet}}Descobre que ** ** está a farejar insistentemente na direção de um arbusto.{{amount}} :moneybag: Decide dar uma olhadela e vê-lo regressar com ** ** enche-o de alegria!",
+        "{{pet}}De repente, vê ** ** saltar para a água.{{amount}} :moneybag: Que surpresa vê-lo emergir com uma bolsa de ** ** !",
+        "{{pet}}Depois de fazer uma pequena pausa na sua viagem, vê ** ** regressar com uma bolsa. Parece que ele a roubou de um comerciante.{{amount}} :moneybag: Decide partir com o seu ** ** antes que ele dê por isso."
+      ],
+      "money_f": [
+        "{{pet}}Vês a ** ** a remexer na erva alta.{{amount}} :moneybag:Ela tira de lá ** ** , que guardas para o resto da tua aventura.",
+        "{{pet}}Repara que ** ** está a olhar para o chão e decide cavar um buraco.{{amount}} :moneybag: Qual não é a sua surpresa ao vê-lo emergir ** ** !",
+        "{{pet}}Descobre que ** ** está a farejar insistentemente na direção de um arbusto.{{amount}} :moneybag: Decide dar uma olhadela e vê-la regressar com ** ** enche-o de alegria!",
+        "{{pet}}De repente, vê-se ** ** saltar para a água.{{amount}} :moneybag: Que surpresa vê-la emergir com uma bolsa de ** ** !",
+        "{{pet}}Depois de fazer uma pequena pausa na sua viagem, vê ** ** regressar com uma bolsa. Parece que ela a roubou a um comerciante.{{amount}} :moneybag: Decide partir com o seu ** ** antes que ele dê por isso."
+      ],
+      "item_m": [
+        "{{pet}}Vês ** ** a remexer na erva alta. Ele tira de lá um **objeto**, que podes guardar para o resto da tua aventura.",
+        "{{pet}}Repara que ** ** está a olhar para o chão e decide cavar um buraco. Qual não é a sua surpresa quando o vê tirar um **objeto**!",
+        "{{pet}}Descobre que ** ** está a farejar insistentemente na direção de um arbusto. Decide dar uma olhadela e vê-lo regressar com um **objeto** enche-o de alegria!",
+        "{{pet}}De repente, vê ** ** saltar para a água. Que surpresa vê-lo emergir com um **objeto**!",
+        "{{pet}}Depois de fazer uma pequena pausa na sua viagem, vê ** ** regressar com um **objeto**. Parece que ele o roubou a um comerciante. Decides partir antes que ele dê por isso."
+      ],
+      "item_f": [
+        "{{pet}}Vês ** ** a remexer na erva alta. Ela tira de lá um **objeto**, que podes guardar para o resto da tua aventura.",
+        "{{pet}}Repara que ** ** está a olhar para o chão e decide cavar um buraco. Qual não é a sua surpresa quando o vê tirar um **objeto**!",
+        "{{pet}}Descobre que ** ** está a farejar insistentemente na direção de um arbusto. Decide ir espreitar, e vê-la regressar com um **objeto** enche-o de alegria!",
+        "{{pet}}De repente, vê ** ** saltar para a água. Que surpresa vê-la emergir com um **objeto**!",
+        "{{pet}}Depois de fazer uma pequena pausa na sua viagem, vê ** ** regressar com um **objeto**. Ela parece tê-lo roubado a um comerciante. Decide ir-se embora antes que ele dê por isso."
+      ],
+      "gainEnergy_m": [
+        "{{pet}}Ter ** ** ao teu lado faz-te feliz.{{amount}} :zap:Eleva o seu espírito e você ganha ** ** .",
+        "{{pet}}Na berma da estrada, ** ** apressa-se a encontrar comida que parece estar em boas condições e trá-la de volta para si.{{amount}} :zap:Come-a antes que se estrague e ganha ** ** .",
+        "{{pet}}Depois de se ausentar por alguns instantes, ** ** regressa com uma poção quase vazia. Bebe-a antes que se perca.{{amount}} :zap:Ganhaste ** ** ."
+      ],
+      "gainEnergy_f": [
+        "{{pet}}Ter ** ** ao teu lado faz-te feliz.{{amount}} :zap:Eleva o seu espírito e você ganha ** ** .",
+        "{{pet}}Na berma da estrada, ** ** apressa-se a encontrar comida que parece estar em boas condições e trá-la de volta para si.{{amount}} :zap:Come-a antes que se estrague e ganha ** ** .",
+        "{{pet}}Depois de se ausentar por alguns instantes, ** ** regressa com uma poção quase vazia. Bebe-a antes que se perca.{{amount}} :zap:Ganhaste ** ** ."
+      ],
+      "gainLife_m": [
+        "{{pet}}Ter ** ** ao teu lado faz-te feliz.{{amount}} :heart:Eleva o seu espírito e você ganha ** ** .",
+        "{{pet}}Na berma da estrada, ** ** apressa-se a encontrar comida que parece estar em boas condições e trá-la de volta para si.{{amount}} :heart:Come-a antes que se estrague e ganha ** ** .",
+        "{{pet}}Depois de se ausentar por alguns instantes, ** ** regressa com uma poção quase vazia. Bebe-a antes que se perca.{{amount}} :heart:Ganhaste ** ** ."
+      ],
+      "gainLife_f": [
+        "{{pet}}Ter ** ** ao teu lado faz-te feliz.{{amount}} :heart:Eleva o seu espírito e você ganha ** ** .",
+        "{{pet}}Na berma da estrada, ** ** apressa-se a encontrar comida que parece estar em boas condições e trá-la de volta para si.{{amount}} :heart:Come-a antes que se estrague e ganha ** ** .",
+        "{{pet}}Depois de se ausentar por alguns instantes, ** ** regressa com uma poção quase vazia. Bebe-a antes que se perca.{{amount}} :heart:Ganhaste ** ** ."
+      ],
+      "gainLove_m": [
+        "{{pet}}Parece que ** ** está feliz por a ter na sua companhia. Ele apaixona-se e torna-se mais fiel a si.",
+        "{{pet}} {determinant} Depois de um longo passeio, decide cuidar do seu ** ** fazendo-lhe festas . Este tempo passado com ele reforçou a vossa ligação.",
+        "{{pet}}Depois de se ausentar por alguns instantes, ** ** regressa com alguma comida que encontrou mais à frente. Decide dar-lha antes que ela se perca. Isso faz com que ele te ame mais.",
+        "{{pet}} {{randomAnimal}} Infelizmente, ** ** parece ter iniciado as hostilidades com sauvage! Decides defendê-lo corajosamente. Ele ama-te mais e torna-se mais fiel a ti.",
+        "Que giro!{{pet}}** ** é brincalhão! Por isso, decide divertir-se com ele. Este jogo reforçou a vossa ligação."
+      ],
+      "gainLove_f": [
+        "{{pet}}Parece que ** ** está feliz por o ter na sua companhia. Ela apaixona-se e torna-se mais fiel a si.",
+        "{{pet}}Depois de um longo passeio, decide cuidar da sua ** ** acariciando-a. Este tempo passado com ela reforçou a vossa ligação.",
+        "{{pet}}Depois de ter saído por alguns instantes, ** regressa com um pouco de comida que encontrou mais à frente. Decide dar-lha antes que ela se perca. Isso faz com que ela te ame mais.",
+        "{{pet}} {{randomAnimal}} Infelizmente, ** ** parece ter começado as hostilidades com sauvage! Decide defendê-la corajosamente. Ela ama-te mais e torna-se mais leal a ti.",
+        "Oh, que giro!{{pet}}** ** é brincalhona! Então, decide divertir-se com ela. Esta parte reforçou a vossa ligação."
+      ],
+      "food_m": [
+        "{{pet}}{{food}}O talento de ** ** permitiu-lhe encontrar um ** **. Guarda a comida e continua o seu caminho.",
+        "{{pet}}Repara que ** ** está a olhar para o chão e decide cavar um buraco.{{food}}Fica surpreendido ao vê-lo tirar um ** ** !",
+        "{{pet}}Descobre que ** ** está a farejar insistentemente na direção de um arbusto.{{food}}Decide dar uma olhadela e vê-o voltar com um ** ** na boca!",
+        "{{pet}}De repente, vê-se ** ** saltar para a água.{{food}}Que surpresa vê-lo emergir com um ** ** !",
+        "{{pet}}{{food}}Depois de fazer uma pequena pausa na sua viagem, vê ** ** regressar com um ** **. Ele parece tê-lo roubado de um comerciante. Decide partir antes que ele dê por isso."
+      ],
+      "food_f": [
+        "{{pet}}{{food}}O talento de ** ** permitiu-lhe encontrar um ** **. Guarda a comida e continua o seu caminho.",
+        "{{pet}}Repara que ** ** está a olhar para o chão e decide cavar um buraco.{{food}}Fica surpreendido ao vê-la tirar um ** ** !",
+        "{{pet}}Descobre que ** ** está a farejar insistentemente na direção de um arbusto.{{food}}Decide dar uma olhadela e vê-a voltar com um ** ** na boca!",
+        "{{pet}}De repente, vê-se ** ** saltar para a água.{{food}}Que surpresa vê-la emergir com um ** **!",
+        "{{pet}}{{food}}Depois de fazer uma pequena pausa na sua viagem, vê ** ** regressar com um ** **. Ela parece tê-lo roubado a um comerciante. Decide ir-se embora antes que ele dê por isso."
+      ],
+      "gainTime_m": [
+        "{{pet}}Apesar de todos os quilómetros, ** ** está em grande forma.{{amount}} :hourglass:Sobe-lhe às costas durante alguns minutos e ganha ** Min** .",
+        "{{pet}}Numa curva da estrada, ** ** começa subitamente a correr.{{amount}} :hourglass:Acabas por ser arrastado no fim da sua pista, mas ganhaste ** Min** .",
+        "Que energia!{{pet}}** ** parece estar com pressa, mas consegue acompanhá-lo. Graças a ele, ganha ** Min** .{{amount}} :hourglass:Graças a ele, ganhaste o ** Min** .",
+        "{{pet}}O talento de ** ** permitiu-lhe encontrar um atalho.{{amount}} :hourglass:Graças a ele, ganhaste o ** Min** .",
+        "{{pet}} {{randomAnimal}} Defender ** ** contra o sauvage não tem sido tarefa fácil, e desta vez encontraste algo mais forte do que tu. Decide fugir e corre a toda a velocidade.{{amount}} :hourglass: Graças a esta desventura, ganhaste ** Min** pelo caminho."
+      ],
+      "gainTime_f": [
+        "{{pet}}É bom ver que ** ** está em grande forma.{{amount}} :hourglass:Se montar nas costas dele durante alguns minutos, ganha ** Min** .",
+        "{{pet}}Numa curva da estrada, ** ** começa subitamente a correr.{{amount}} :hourglass:Acabas por ser arrastado no final da sua pista, mas ganhaste ** Min** .",
+        "{{pet}} {determinant} Repara que ** ** parece estar com pressa, mas mesmo assim consegue acompanhar .{{amount}} :hourglass:Graças a ela, ganha ** Min** .",
+        "{{pet}}O talento de ** ** permitiu-lhe encontrar um atalho. {accusative}{{amount}} :hourglass:Graças a , ganhou ** Min** .",
+        "{{pet}} {{randomAnimal}} Defender ** ** contra o sauvage não tem sido tarefa fácil, e desta vez encontraste algo mais forte do que tu. Decide fugir e corre a toda a velocidade.{{amount}} :hourglass: Graças a esta desventura, ganhaste ** Min** pelo caminho."
+      ],
+      "points": [
+        "{{pet}}As pessoas que se cruzam consigo com ** ** não deixarão de o notar.{{amount}} :medal:Isto melhora a sua reputação e, por conseguinte, ganha ** ** .",
+        "{{pet}}Contar a um velho sobre suas aventuras com ** ** parece ter melhorado sua reputação.{{amount}} :medal:Ganhaste ** ** ."
+      ],
+      "badge": [
+        "{{pet}}Treinar com sucesso ** ** foi um verdadeiro desafio que prova o teu talento com os animais. {{badge}} Receberás o distintivo!"
+      ],
+      "loseLife_m": [
+        "{{pet}}Quando tenta acariciar ** **, ele não o deixa e morde-lhe a mão.{{amount}} :broken_heart:Perdes ** ** .",
+        "{{pet}}Numa curva, ** ** começa subitamente a correr. Mantém-se na liderança o melhor que pode, mas sai com alguns arranhões.{{amount}} :broken_heart:Perde ** ** .",
+        "{{pet}}Vê ** ** sair. Ele regressa alguns minutos depois com comida. Come-a e arrepende-se amargamente alguns minutos depois. De repente, sente-se mal do estômago...{{amount}} :broken_heart:Perdes ** ** .",
+        "{{pet}} {{randomAnimal}} ** Parece que desencadeou hostilidades com o sauvage! Decide defendê-lo, mas infelizmente a criatura selvagem fere-o.{{amount}} :broken_heart:Perdeste ** ** .",
+        "{{pet}}** ** parece querer brincar e atira-se para cima de uma árvore. Infelizmente, o seu peso parte o ramo e ele cai em cima de ti.{{amount}} :broken_heart:Perdes ** ** ."
+      ],
+      "loseLife_f": [
+        "{{pet}}Quando tenta acariciar ** **, ela não o deixa e morde-lhe a mão.{{amount}} :broken_heart:Perdes ** ** .",
+        "{{pet}}Numa curva, ** ** começa subitamente a correr. Mantém-se na liderança o melhor que pode, mas sai com alguns arranhões.{{amount}} :broken_heart:Perde ** ** .",
+        "{{pet}}Vê ** ** sair. Ela regressa alguns minutos depois com alguma comida. Come-a e arrepende-se amargamente alguns minutos depois. De repente, sente-se mal do estômago...{{amount}} :broken_heart:Perdes ** ** .",
+        "{{pet}} {{randomAnimal}} ** Parece que desencadeou hostilidades com o sauvage! Decide defendê-la, mas infelizmente a criatura selvagem fere-o.{{amount}} :broken_heart:Perdeste ** ** .",
+        "{{pet}}** ** parece querer brincar e atira-se para cima de uma árvore. Infelizmente, o seu peso parte o ramo e ela cai em cima de ti.{{amount}} :broken_heart:Perdes ** ** ."
+      ],
+      "loseMoney_m": [
+        "{{pet}}Pressente que ** ** está a roubar algumas moedas da sua carteira e esconde-as mais longe. Infelizmente, não as consegues encontrar.{{amount}} :money_with_wings:Por isso, perde ** ** .",
+        "Repara num grande buraco na sua mala.{{pet}}** ** deve ter estado a brincar com ela durante a noite!{{amount}} :money_with_wings:Depois de contar o que lhe restava, verifica que lhe falta um total de ** ** .",
+        "{{pet}}Enquanto brincas com o ** **, ele empurra-te e deixa cair a tua bolsa numa fenda.{{amount}} :money_with_wings: É impossível recuperar esses ** **!",
+        "{{pet}}Tem a impressão de que ** ** está irritado e chega mesmo a magoar um transeunte. Depois de pedir desculpa, decide compensá-lo e sai de cabeça baixa.{{amount}} :money_with_wings:Perde ** ** .",
+        "{{pet}}Ao tentar brincar com ** **, bate-lhe. Ferido, leva-o a um curandeiro para o curar.{{amount}} :money_with_wings:Depois de o curar, o curandeiro liberta-o de ** ** ."
+      ],
+      "loseMoney_f": [
+        "{{pet}}Pressente que ** ** está a roubar algumas moedas da sua carteira e esconde-as mais longe. Infelizmente, não as consegues encontrar.{{amount}} :money_with_wings:Por isso, perde ** ** .",
+        "Repara num grande buraco na sua mala.{{pet}}** ** deve ter andado a brincar com ela durante a noite!{{amount}} :money_with_wings:Depois de contar o que lhe restava, verifica que lhe falta um total de ** ** .",
+        "{{pet}}Enquanto brincas com o ** **, ele empurra-te e deixa cair a tua bolsa numa fenda.{{amount}} :money_with_wings: É impossível recuperar esses ** **!",
+        "{{pet}}Tem a impressão de que ** ** está irritado e chega mesmo a magoar um transeunte. Depois de pedir desculpa, decide compensá-lo e sai de cabeça baixa.{{amount}} :money_with_wings:Perde ** ** .",
+        "{{pet}}Ao tentar brincar com a ** **, bate-lhe. Ferida, leva-a a um curandeiro para a curar.{{amount}} :money_with_wings:Depois de a curar, o curandeiro liberta-o de ** ** ."
+      ],
+      "loseTime_m": [
+        "{{pet}}{{amount}} :clock2:Se continuar a chamar ** ** para que ele fique perto de si, perderá ** Min** .",
+        "{{pet}}Sente que ** ** não parece querer mexer-se. Decide puxá-lo à força na mesma.{amount} :clock2:Por causa dele, perde ** Min** .",
+        "{{pet}} {{randomAnimal}} Vês ** ** a correr na tua direção, perseguido pelo sauvage! Foge com ele.{{amount}} :clock2: Esta perseguição fez com que perdesses ** Min** pelo caminho.",
+        "{{pet}}Ao entrar numa aldeia, ouve um rumor de que um animal de estimação parecido com o ** ** está a atacar os aldeões. Ao ver-te, os aldeões assustam-se contigo e com o teu animal de estimação e és imediatamente expulso da aldeia.{{amount}} :clock2: Como resultado deste contratempo, perdeste o ** Min** pelo caminho.",
+        "{{pet}}Descobre que ** ** está a olhar para o chão e decide cavar um buraco. Sai um cofre fechado. Depois de várias tentativas, consegue abri-lo, mas está vazio.{{amount}} :clock2:Este contratempo custou-lhe ** Min** ."
+      ],
+      "loseTime_f": [
+        "{{pet}}{amount} :clock2:Se continuar a telefonar ** ** para a manter perto de si, perderá ** Min** .",
+        "{{pet}}Sente que ** ** não parece querer mexer-se. Decide puxá-la à força na mesma.{amount} :clock2:Por causa dela, perde ** Min** .",
+        "{{pet}}{feminine} {{randomAnimal}} Vê ** ** a correr na sua direção, perseguido pelo sauvage! Foge com ela.{{amount}} :clock2: Esta perseguição fez com que perdesses ** Min** pelo caminho.",
+        "{{pet}}Ao entrar numa aldeia, ouve um rumor de que um animal de estimação parecido com o ** ** está a atacar os aldeões. Ao ver-te, os aldeões assustam-se contigo e com o teu animal de estimação e és imediatamente expulso da aldeia.{{amount}} :clock2: Como resultado deste contratempo, perdeste o ** Min** pelo caminho.",
+        "{{pet}}Descobre que ** ** está a olhar para o chão e decide cavar um buraco. Ela tira uma arca fechada. Depois de várias tentativas, consegue abri-la, mas está vazia.{{amount}} :clock2:Este contratempo custou-lhe ** Min** ."
+      ],
+      "petFlee_m": [
+        "{{pet}}Depois de tantos maus tratos, era inevitável. ** Não te respeita e foge para longe. Não o consegues encontrar e perdê-lo para sempre...",
+        "{{pet}}Depois de passar algum tempo consigo, ** ** parece já não gostar de si e decide fugir. Provavelmente, nunca mais o verás.",
+        "{{pet}}Parece que ** ** encontrou a sua alma gémea, que te abandona e te deixa sozinha. Nunca mais o verás...",
+        "{{pet}}A sua falta de atenção a ** levou-o a fugir. Perde-o de vista muito rapidamente e será impossível voltar a encontrá-lo."
+      ],
+      "petFlee_f": [
+        "Depois de tantos maus tratos, era inevitável.{{pet}}** Não te respeita e foge para longe. Não a podes encontrar e perdê-la para sempre...",
+        "{{pet}}Depois de passar algum tempo consigo, ** ** parece já não gostar de si e decide fugir. Provavelmente, nunca mais a verás.",
+        "{{pet}}Parece que ** ** encontrou a sua alma gémea, que o abandona e o deixa sozinho. Nunca mais a verás...",
+        "{{pet}}A sua falta de atenção para com ** fê-la fugir. Perde-a de vista muito rapidamente e será impossível voltar a encontrá-la."
+      ],
+      "loseLove_m": [
+        "{{pet}}Parece que ** ** não gosta muito de si... Viajar com ele torna a relação ainda pior. Ele perde um pouco do amor.",
+        "{{pet}}No momento em que estás a praticar as tuas habilidades de combate, ** ** passa por ti. Sem querer, acerta-lhe um golpe. Ele agora parece gostar um pouco menos de ti.",
+        "{{pet}}Depois de uma longa caminhada, ** ** fica sem fôlego e parece não conseguir acompanhá-lo. O facto de não esperar por ele prejudicou a vossa relação. Então, ele está a perder um pouco de amor...",
+        "{{pet}}Quando se aproxima de uma banca, ** ** olha para a comida num tabuleiro. Apesar do seu pedido, decide continuar o seu caminho.{{pet}}** ** guarda rancor e está a perder um pouco de fé em si."
+      ],
+      "loseLove_f": [
+        "{{pet}}Parece que ** ** não gosta muito de si... Viajar com ela torna a relação ainda pior. Ela perde um pouco do amor.",
+        "{{pet}}No momento em que está a praticar as suas capacidades de luta, ** ** passa por si. Sem querer, dá-lhe um golpe. Ela agora parece gostar um pouco menos de ti.",
+        "{{pet}}Depois de uma longa caminhada, ** ** está sem fôlego e parece não conseguir acompanhá-lo. O facto de não esperar por ela prejudicou a vossa relação. Por isso, ela está a perder um pouco de amor...",
+        "{{pet}}Quando se aproxima de uma banca, ** ** olha para a comida num tabuleiro. Apesar do pedido dela, decide continuar o seu caminho.{{pet}}** ** está ressentido e está a perder um pouco de fé em si."
+      ],
+      "nothing": [
+        "{{pet}}Continua a sua viagem ao lado de ** **. Nada de especial acontece."
+      ]
+    },
+    "randomAnimal_m": "{{randomAnimal}}a ** **",
+    "randomAnimal_f": "{{randomAnimal}}a ** **"
+  },
+  "class": {
+    "attack": {
+      "winPotion": [
+        "vê uma luz estranha ao longe. Ao aproximar-se, apercebe-se de que se trata de um frasco com um conteúdo desconhecido. Humedece os lábios com a bebida e sente que a sua força poderia aumentar dez vezes se a engolisse...",
+        "repara numa tenda montada no local. Intrigado, entra e descobre um velho com uma série de poções. Ele pede-te para testares as suas poções. Concordas e, uma vez terminadas as experiências, ele dá-te uma poção de ataque como forma de agradecimento.",
+        "encontrarás uma carroça abandonada. Contém caixas de poções. Apressadamente, roubas uma delas. Depois de fugires, vês que a poção roubada parece ser útil para o teu próximo combate..."
+      ],
+      "winObject": [
+        "decide encostar-se a uma árvore. Ao sentar-se, sente uma dor aguda nas costas. Levanta-se com a velocidade de um relâmpago e descobre o que o arranhou:",
+        "De repente, ouve um barulho infernal a vir na sua direção e só tem tempo de se atirar para o lado quando uma horda de cavaleiros passa a galope por si. Enquanto os observa, vê uma bolsa cair de um dos cavalos. Pegando nela, descobres...",
+        "Um animal esfomeado aproxima-se de ti. Por precaução, decides matá-lo. Escavando nas suas entranhas, encontras um objeto que parece poder ser usado para atacar."
+      ],
+      "winWeapon": [
+        "Conheces um comerciante que te pergunta de que classe és. Quando ele responde, oferece-lhe uma arma que já não usa de graça:",
+        "vê uma arma na berma da estrada e não acredita no que vê! Pergunta-se como foi possível deitar fora uma coisa tão bonita e decide equipar-se com ela. Provavelmente vai dar jeito!",
+        "encontra um antigo forte em ruínas. Ainda à procura de equipamento, decide revistá-lo. Depois de uma rápida visita ao local, parece que apenas o arsenal está intacto. No arsenal, entre os objectos enferrujados e inutilizáveis, encontras uma arma que parece estar em bom estado."
+      ]
+    },
+    "defense": {
+      "winPotion": [
+        "repara numa tenda montada no local. Intrigado, entra e descobre um velho com uma série de poções. Ele pede-te para testares as suas poções. Concordas e, uma vez terminadas as experiências, ele dá-te uma poção de defesa como forma de agradecimento.",
+        "encontrarás uma carroça abandonada. Contém caixas de poções. Apressadamente, roubas uma delas. Depois de fugires, vês que a poção roubada parece ser útil para a tua próxima batalha...",
+        "Ouve-se um forte impacto atrás de si. Viras-te de repente e um velho, estirado no chão debaixo de uma árvore, entra no teu campo de visão. Ficas aliviado ao ver que ele ainda está vivo, pois emite um gemido baixo. Reparas então que uma caixa cheia de poções idênticas caiu com ele. Sabendo que ele não poderia ter sobrevivido com a sua estrutura frágil, deduz que se trata de poções que aumentam as capacidades defensivas do corpo. Não querendo deixar passar esta oportunidade, agarras no único frasco intacto e foges do local, sem te aperceberes das fracas queixas do velho."
+      ],
+      "winObject": [
+        "Um animal esfomeado aproxima-se de ti. Por precaução, decides matá-lo. Escavando nas suas entranhas, encontras um objeto que parece ser usado para te defender.",
+        "Um cavaleiro aproxima-se e propõe um duelo. Ele dá-te o seu objeto de defesa se ganhares. Graças ao teu treino, esta vitória é tua e ganhas o prémio prometido.",
+        "Encontra um agricultor que precisa de ajuda para reparar a sua carroça. Pões a roda no lugar. Como agradecimento, ele dá-te um objeto de defesa forjado pelos melhores artesãos de Claire De Ville."
+      ],
+      "winArmor": [
+        "Encontras um comerciante que te pergunta de que classe és. Depois de responder, o comerciante oferece-te uma armadura gratuita que já não usa:",
+        "vê uma peça de armadura na berma da estrada e não acredita no que vê! Pergunta-se como foi possível deitar fora uma coisa tão bonita e decide vesti-la. Provavelmente vai dar jeito!",
+        "encontra um antigo forte em ruínas. Ainda à procura de equipamento, decide revistá-lo. Depois de um rápido olhar em redor, parece que apenas o arsenal está intacto. No arsenal, entre os objectos enferrujados e inutilizáveis, encontras uma armadura que parece estar em bom estado."
+      ]
+    },
+    "basic": {
+      "winItem": [
+        "Alguns aldeões aproximam-se de si e entregam-lhe um objeto em reconhecimento de um feito de armas recente. Agradece-lhes brevemente e continua o seu caminho.",
+        "Deparas-te com um grupo de crianças a brincar às perseguições. Os pais dele aproximam-se de ti e pedem-te perdão, que lhes concedes, e eles dão-te um objeto que te pode ser útil.",
+        "Uma carroça pára-o, intrigado e ansioso por continuar a sua viagem, aproxima-se do dono que, a princípio irritadiço, lhe diz para sair do caminho e seguir por outra estrada. Isto acalma-o imediatamente. Oferece-lhe qualquer coisa e pede-lhe que espere enquanto retira a carga.",
+        "vê uma multidão de pessoas reunidas. Querendo ver o que se passa, abre caminho por entre o grupo e descobre um objeto ensanguentado, caso contrário a multidão à sua volta já lhe teria tocado. Sai como se nada tivesse acontecido, com o objeto na sua posse."
+      ],
+      "winMoney": [
+        "Passa por cima de um pequeno monte e repara que os seus passos têm um som estranho. Procura no chão e descobre uma arca cheia de ouro.{{amount}} :moneybag:Recebes ** **.",
+        "encontra uma pessoa que parece um pouco desconcertada e receosa... Ao vê-lo, a pessoa pede desculpa e foge. Pensa que o confundiram com outra pessoa.{{amount}} :moneybag:Na sua pressa, o desconhecido deixou cair uma bolsa: abre-a e descobre ** ** !",
+        "decide montar o acampamento com uma tenda e outros objectos. Enquanto cavas os buracos para as estacas da tenda, sentes algo duro no chão.{{amount}} :moneybag:Ao cavar, desenterra uma pequena caixa de madeira danificada pelo tempo e encontra ** ** !"
+      ]
+    },
+    "other": {
+      "winItem": [
+        "prende os pés em algo que sai do chão, depois de se levantar, procura no chão e tira um objeto...",
+        "vê uma forma numa vala. Intrigado, aproxima-se da forma, que acaba por ser um objeto que pode ser útil para o resto da sua aventura...",
+        "decide encostar-se a uma árvore. Ao sentar-se, sente uma dor aguda nas costas. Levanta-se rapidamente e descobre... um objeto!",
+        "Estás a caminhar distraidamente e tropeças em algo! Enquanto se esforça por se levantar depois da queda, descobre um objeto!"
+      ],
+      "winHealth": [
+        "Encontra alguns aldeões que se lembram das suas proezas como pessoa frágil e que lhe entregam um saco com provisões, que come antes de continuar a sua viagem.{{amount}} :heart:Ganhaste ** **.",
+        "Um comerciante aproxima-se de ti e pergunta-te qual é a tua classe, ao que respondes que és um aventureiro frágil. Lembrando-se de que os aventureiros frágeis são pessoas com pouco hp, ele decide dar-te alguns frutos que já não eram viáveis para vender.{{amount}} :heart:Comes a fruta com prazer e ganhas ** ** e depois voltas a partir.",
+        "Uma mulher idosa aproxima-se de ti, dá-te uma maçã vermelha e diz-te que é importante comer bem para te tornares forte.{{amount}} :heart:Ganhaste ** **.",
+        "És abalroado por um arado. O dono do arado aproxima-se e pede desculpa, dizendo que não o tinha visto devido à sua má aparência, e oferece-lhe algumas provisões.{{amount}} :heart:Ganhaste ** **."
+      ]
+    }
   }
 }
