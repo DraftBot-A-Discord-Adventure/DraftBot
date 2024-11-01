@@ -101,6 +101,15 @@ export abstract class SmallEventConstants {
 		COMMON_FOOD: {
 			MULTIPLIER: 6,
 			VARIATION: 4
+		},
+
+		INTERACTIONS_NAMES: {
+			ULTIMATE_FOOD: "ultimateFood",
+			FULL_ULTIMATE_FOOD: "fullUltimateFood",
+			COMMON_FOOD: "commonFood",
+			FULL_COMMON_FOOD: "fullCommonFood",
+			MONEY: "money",
+			ITEM: "item"
 		}
 	};
 
