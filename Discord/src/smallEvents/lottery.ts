@@ -78,7 +78,7 @@ export async function lotteryCollector(packet: ReactionCollectorCreationPacket, 
 				DiscordCollectorUtils.sendReaction(
 					packet,
 					context,
-					user,
+					user.id,
 					firstReaction,
 					packet.reactions.findIndex((reaction) => reaction.type === ReactionCollectorLotteryEasyReaction.name)
 				);
@@ -87,7 +87,7 @@ export async function lotteryCollector(packet: ReactionCollectorCreationPacket, 
 				DiscordCollectorUtils.sendReaction(
 					packet,
 					context,
-					user,
+					user.id,
 					firstReaction,
 					packet.reactions.findIndex((reaction) => reaction.type === ReactionCollectorLotteryMediumReaction.name)
 				);
@@ -96,7 +96,7 @@ export async function lotteryCollector(packet: ReactionCollectorCreationPacket, 
 				DiscordCollectorUtils.sendReaction(
 					packet,
 					context,
-					user,
+					user.id,
 					firstReaction,
 					packet.reactions.findIndex((reaction) => reaction.type === ReactionCollectorLotteryHardReaction.name)
 				);

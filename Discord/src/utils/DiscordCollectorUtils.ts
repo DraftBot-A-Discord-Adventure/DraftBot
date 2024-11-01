@@ -12,19 +12,17 @@ import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {DraftbotInteraction} from "../messages/DraftbotInteraction";
 import {sendInteractionNotForYou} from "./ErrorUtils";
-import {KeycloakUtils} from "../../../Lib/src/keycloak/KeycloakUtils";
-import {keycloakConfig} from "../bot/DraftBotShard";
 import {PacketUtils} from "./PacketUtils";
 
 export class DiscordCollectorUtils {
 	private static choiceListEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣", "7⃣", "8⃣", "9⃣"];
 
-	static sendReaction(packet: ReactionCollectorCreationPacket, context: PacketContext, user: KeycloakUser, button: ButtonInteraction | null, reactionIndex: number): void {
+	static sendReaction(packet: ReactionCollectorCreationPacket, context: PacketContext, userKeycloakId: KeycloakUser["id"], button: ButtonInteraction | null, reactionIndex: number): void {
 		const responsePacket = makePacket(
 			ReactionCollectorReactPacket,
 			{
 				id: packet.id,
-				keycloakId: user.id,
+				keycloakId: userKeycloakId,
 				reactionIndex: reactionIndex
 			}
 		);
@@ -34,7 +32,7 @@ export class DiscordCollectorUtils {
 		}
 
 		PacketUtils.sendPacketToBackend({
-			keycloakId: user.id,
+			keycloakId: userKeycloakId,
 			discord: {
 				user: context.discord!.user,
 				channel: context.discord!.channel,
@@ -53,8 +51,6 @@ export class DiscordCollectorUtils {
 		acceptEmoji = DraftBotIcons.collectors.accept,
 		refuseEmoji = DraftBotIcons.collectors.refuse
 	): Promise<void> {
-		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
-
 		const row = new ActionRowBuilder<ButtonBuilder>();
 
 		// Create buttons
@@ -88,7 +84,7 @@ export class DiscordCollectorUtils {
 			}) as Message;
 		}
 
-		// Create button collector
+		// Create a button collector
 		const buttonCollector = msg.createMessageComponentCollector({
 			time: reactionCollectorCreationPacket.endTime - Date.now()
 		});
@@ -114,7 +110,7 @@ export class DiscordCollectorUtils {
 					DiscordCollectorUtils.sendReaction(
 						reactionCollectorCreationPacket,
 						context,
-						user,
+						context.keycloakId!,
 						firstReaction,
 						reactionCollectorCreationPacket.reactions.findIndex((reaction) => reaction.type === ReactionCollectorAcceptReaction.name)
 					);
@@ -124,7 +120,7 @@ export class DiscordCollectorUtils {
 					DiscordCollectorUtils.sendReaction(
 						reactionCollectorCreationPacket,
 						context,
-						user,
+						context.keycloakId!,
 						firstReaction,
 						reactionCollectorCreationPacket.reactions.findIndex((reaction) => reaction.type === ReactionCollectorRefuseReaction.name)
 					);
@@ -144,8 +140,6 @@ export class DiscordCollectorUtils {
 		if (items.length > DiscordCollectorUtils.choiceListEmotes.length) {
 			throw "Too many items to display";
 		}
-
-		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 
 		let choiceDesc = "";
 		const row = new ActionRowBuilder<ButtonBuilder>();
@@ -167,7 +161,7 @@ export class DiscordCollectorUtils {
 			row.addComponents(buttonRefuse);
 		}
 
-		// Add choice description to the embed
+		// Add a choice description to the embed
 		if (messageContentOrEmbed instanceof DraftBotEmbed) {
 			messageContentOrEmbed.setDescription((messageContentOrEmbed.data.description ?? "") + choiceDesc);
 		}
@@ -212,12 +206,12 @@ export class DiscordCollectorUtils {
 			if (firstReaction) {
 				await firstReaction.deferReply();
 				if (firstReaction.customId !== "refuse") {
-					DiscordCollectorUtils.sendReaction(reactionCollectorCreationPacket, context, user, firstReaction, parseInt(firstReaction.customId));
+					DiscordCollectorUtils.sendReaction(reactionCollectorCreationPacket, context, context.keycloakId!, firstReaction, parseInt(firstReaction.customId));
 					return;
 				}
 			}
 
-			DiscordCollectorUtils.sendReaction(reactionCollectorCreationPacket, context, user, firstReaction, items.length);
+			DiscordCollectorUtils.sendReaction(reactionCollectorCreationPacket, context, context.keycloakId!, firstReaction, items.length);
 		});
 	}
 }

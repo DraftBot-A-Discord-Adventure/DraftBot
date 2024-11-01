@@ -60,8 +60,8 @@ import {ClassUtils} from "../../utils/ClassUtils";
 import {SmallEventFindPotionPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFindPotionPacket";
 import {SmallEventFindItemPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFindItemPacket";
 import {SmallEventPetPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventPetPacket";
-import {Constants} from "../../../../Lib/src/constants/Constants";
 import {SmallEventClassPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventClassPacket";
+import {BadgeConstants} from "../../../../Lib/src/constants/BadgeConstants";
 import {SmallEventUltimateFoodMerchantPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventUltimateFoodMerchantPacket";
 import {EmoteUtils} from "../../utils/EmoteUtils";
 import {SmallEventCartPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventCartPacket";
@@ -779,7 +779,7 @@ export default class SmallEventsHandler {
 								pet: PetUtils.petToShortString(interaction.userLanguage, packet.petNickname, packet.petTypeId, packet.petSex),
 								amount: packet.amount,
 								food: packet.food ? DisplayUtils.displayFood(packet.food, interaction.userLanguage) : null,
-								badge: Constants.BADGES.PET_TAMER,
+								badge: BadgeConstants.PET_TAMER,
 								randomAnimal: i18n.t("smallEvents:pet.randomAnimal", {
 									lng: interaction.userLanguage,
 									context: packet.randomPetSex,

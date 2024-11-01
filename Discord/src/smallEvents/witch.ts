@@ -19,7 +19,6 @@ import {EmoteUtils} from "../utils/EmoteUtils";
 
 export async function witchCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
-	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 
 	let witchIngredients = "\n\n";
 	const reactions: [string, string][] = [];
@@ -83,7 +82,7 @@ export async function witchCollector(packet: ReactionCollectorCreationPacket, co
 			DiscordCollectorUtils.sendReaction(
 				packet,
 				context,
-				user,
+				context.keycloakId!,
 				firstReaction,
 				packet.reactions.findIndex((reaction) => (reaction.data as ReactionCollectorWitchReaction).id === firstReaction.customId)
 			);

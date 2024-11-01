@@ -78,11 +78,11 @@ export async function createBigEventCollector(packet: ReactionCollectorCreationP
 		components: [row]
 	}) as Message;
 
-	let responded = false; // To avoid concurrence between buttons controller and reactions controller
+	let responded = false; // To avoid concurrence between button controller and reactions controller
 	const respondToEvent = (possibilityName: string, buttonInteraction: ButtonInteraction | null): void => {
 		if (!responded) {
 			responded = true;
-			DiscordCollectorUtils.sendReaction(packet, context, user, buttonInteraction, reactions.findIndex((reaction) => reaction.name === possibilityName));
+			DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, buttonInteraction, reactions.findIndex((reaction) => reaction.name === possibilityName));
 		}
 	};
 
@@ -162,7 +162,7 @@ export async function reportResult(packet: CommandReportBigEventResultRes, conte
 		pseudo: user.attributes.gameUsername,
 		result,
 		event: i18n.t(`events:${packet.eventId}.possibilities.${packet.possibilityId}.outcomes.${packet.outcomeId}`, {lng: interaction.userLanguage}),
-		emoji: EmoteUtils.translateEmojiToDiscord(packet.possibilityId === "end"
+		emoji: EmoteUtils.translateEmojiToDiscord(packet.possibilityId === "end" // Todo: ceci devrait être une constante
 			? DraftBotIcons.events[packet.eventId].end[packet.outcomeId]
 			: DraftBotIcons.events[packet.eventId][packet.possibilityId] as string),
 		alte: EmoteUtils.translateEmojiToDiscord(packet.effect && packet.effect.name !== Effect.OCCUPIED.id ? DraftBotIcons.effects[packet.effect.name] : "")
@@ -191,7 +191,7 @@ export async function chooseDestinationCollector(packet: ReactionCollectorCreati
 
 	await DiscordCollectorUtils.createChoiceListCollector(interaction, embed, packet, context, packet.reactions.map((reaction) => {
 		const destinationReaction = reaction.data as ReactionCollectorChooseDestinationReaction;
-		const duration = destinationReaction.tripDuration ? minutesDisplay(destinationReaction.tripDuration) : "?h";
+		const duration = destinationReaction.tripDuration ? minutesDisplay(destinationReaction.tripDuration) : "?h"; // Todo ceci devrait être dans les translations
 		return `${
 			EmoteUtils.translateEmojiToDiscord(DraftBotIcons.map_types[destinationReaction.mapTypeId])
 		} ${
