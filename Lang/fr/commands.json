@@ -488,7 +488,7 @@
     "noEnergyToHeal": "Vous disposez de toute votre énergie de combat. ⚡",
     "fullRegen": "💓 Vous avez été complétement soigné.",
     "alreadyHaveBadge": "Vous possédez déjà ce badge.",
-    "badgeBought": "Vous avez reçu un nouveau badge : {{badge}} !",
+    "badgeBought": "Vous avez reçu un nouveau badge : {emote:badges.richPerson} !",
     "notEnoughMoney": "Vous n'avez pas assez d'argent pour acheter cet objet ! Il vous manque `{{missingMoney}} 💰`.",
     "boughtTooMuchDailyPotions": "Il n'y a plus aucune potion du jour disponible à la vente... Revenez demain !",
     "title": "🛒 Affichage du Magasin",
@@ -508,8 +508,8 @@
     },
     "chooseSlotTitle": "{{pseudo}}, nouvel emplacement d'inventaire",
     "chooseSlotIndication": "Choisissez un nouvel emplacement d'inventaire ou annulez :",
-    "shopCategoryFormat_one": "{{categoryEmote}} **{{category}}** ({{count}}/{{limit}} restant)\n",
-    "shopCategoryFormat_other": "{{categoryEmote}} **{{category}}** ({{count}}/{{limit}} restants)\n",
+    "shopCategoryFormat_one": "{emote:itemKinds.{{categoryId}}} **{{category}}** ({{count}}/{{limit}} restant)\n",
+    "shopCategoryFormat_other": "{emote:itemKinds.{{categoryId}}} **{{category}}** ({{count}}/{{limit}} restants)\n",
     "slotCategoriesKind": [
       "Arme",
       "Armure",
@@ -518,31 +518,31 @@
     ],
     "shopItems": {
       "randomItem": {
-        "name": "{{shopItemEmote}} Un équipement aléatoire",
+        "name": "{emote:shopItems.randomItem} Un équipement aléatoire",
         "info": "Vous recevrez un équipement aléatoire (Arme / Armure / Objet ou Potion) parmi tous ceux présents dans le jeu."
       },
       "healAlteration": {
-        "name": "{{shopItemEmote}} Soin des altérations d'état",
+        "name": "{emote:shopItems.healAlteration} Soin des altérations d'état",
         "info": "Vos altérations d'état seront supprimées et vous reprendrez votre route immédiatement.",
-        "give": "{{shopItemEmote}} Vos altérations d'état ont été supprimées."
+        "give": "{emote:shopItems.healAlteration} Vos altérations d'état ont été supprimées."
       },
       "healEnergy": {
-        "name": "{{shopItemEmote}} Récupération d'énergie",
+        "name": "{emote:shopItems.healEnergy} Récupération d'énergie",
         "info": "Votre énergie de combat sera intégralement restaurée.",
-        "give": "{{shopItemEmote}} Votre énergie a été restaurée."
+        "give": "{emote:shopItems.healEnergy} Votre énergie a été restaurée."
       },
       "regen": {
-        "name": "{{shopItemEmote}} Régen complète de la vie",
+        "name": "{emote:shopItems.regen} Régen complète de la vie",
         "info": "Vous serez immédiatement soigné complétement mais vous conserverez toutes vos altérations d'état.",
-        "give": "{{shopItemEmote}} Vous avez été complétement soigné."
+        "give": "{emote:shopItems.regen} Vous avez été complétement soigné."
       },
       "moneyMouthBadge": {
-        "name": "{{shopItemEmote}} Badge \"Money Mouth\"",
+        "name": "{emote:shopItems.moneyMouthBadge} Badge \"Money Mouth\"",
         "info": "Vous recevrez le badge automatiquement après le paiement. Pour plus d'informations sur les badges utilisez la commande {command:help}.",
         "give": "{{pseudo}}, vous avez reçu un nouveau badge :"
       },
       "inventoryExtension": {
-        "name": "{{shopItemEmote}} Nouvel emplacement d'inventaire",
+        "name": "{emote:shopItems.inventoryExtension} Nouvel emplacement d'inventaire",
         "info": "Vous pourrez choisir une catégorie d'inventaire à laquelle ajouter un emplacement"
       },
       "dailyPotion": {
