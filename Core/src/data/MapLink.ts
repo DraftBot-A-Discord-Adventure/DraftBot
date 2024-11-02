@@ -16,6 +16,18 @@ export class MapLink extends Data<number> {
 export class MapLinkDataController extends DataControllerNumber<MapLink> {
 	static readonly instance: MapLinkDataController = new MapLinkDataController("mapLinks");
 
+	/**
+	 * Generate a random map link different of the current one
+	 * @param currentMapLinkId
+	 */
+	public generateRandomMapLinkDifferentOfCurrent(currentMapLinkId: number): MapLink {
+		let generatedMapLink = this.getRandomLink();
+		if (generatedMapLink.id === currentMapLinkId) { // If the player is already on the destination, get the inverse link
+			generatedMapLink = this.getInverseLinkOf(currentMapLinkId);
+		}
+		return generatedMapLink;
+	}
+
 	newInstance(): MapLink {
 		return new MapLink();
 	}

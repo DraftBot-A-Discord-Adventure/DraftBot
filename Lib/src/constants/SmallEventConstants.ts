@@ -253,4 +253,20 @@ export abstract class SmallEventConstants {
 			ESCAPE: 40
 		}
 	};
+
+	static readonly CART = {
+		// For the threshold a number between 0 and 1 (inclusive) is generated, and then we check for the highest threshold that is lower than the generated number
+		TRANSPARENT_TP_THRESHOLD: 0.35, // 35% chance to have a transparent teleportation
+		HIDDEN_TP_THRESHOLD: 0.65, // 30% chance to have a hidden teleportation
+		SCAM_THRESHOLD: 0.8, // 15% chance to have a scam
+		// 20% chance to have a transparent teleportation with lower cost
+		TRANSPARENT_TP_PRICE: 1200,
+		HIDDEN_TP_PRICE: 500,
+		SCAM_TP_PRICE: 750,
+		RANDOM_PRICE_BONUS: 0.3, // Prices have a random 30% bonus
+		REACTIONS: {
+			ACCEPT: "🚗",
+			REFUSE: "🚶"
+		}
+	};
 }
