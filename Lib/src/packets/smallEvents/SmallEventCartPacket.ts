@@ -10,4 +10,11 @@ export class SmallEventCartPacket extends SmallEventPacket {
 	};
 
 	price!: number;
+
+	isScam: boolean;
+
+	travelDone!: {
+		isAccepted: boolean,
+		hasEnoughMoney: boolean
+	};
 }
