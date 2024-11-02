@@ -1,5 +1,6 @@
 import {
-	CommandShopClosed, CommandShopNotEnoughMoney,
+	CommandShopClosed,
+	CommandShopNotEnoughMoney,
 	ReactionCollectorShop,
 	ReactionCollectorShopCloseReaction,
 	ReactionCollectorShopItemReaction,
@@ -45,6 +46,7 @@ export class ShopUtils {
 							reason: NumberChangeReason.SHOP,
 							response
 						});
+						await player.save();
 					}
 				}
 			}

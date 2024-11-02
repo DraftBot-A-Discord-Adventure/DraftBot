@@ -77,7 +77,8 @@ export const DraftBotIcons: {
 	},
 	badges: {
 		[badgeId: string]: string
-	}
+	},
+	itemKinds: string[]
 } = {
 	"effects": {
 		"not_started": "👶",
@@ -1605,5 +1606,11 @@ export const DraftBotIcons: {
 	},
 	"badges": {
 		"richPerson": "🤑"
-	}
+	},
+	"itemKinds": [
+		"⚔️",
+		"🛡️",
+		"⚗️",
+		"🧸"
+	]
 };

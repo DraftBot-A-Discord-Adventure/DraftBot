@@ -1,6 +1,7 @@
 import {
 	ReactionCollector,
-	ReactionCollectorCreationPacket, ReactionCollectorData,
+	ReactionCollectorCreationPacket,
+	ReactionCollectorData,
 	ReactionCollectorReaction
 } from "./ReactionCollectorPacket";
 import {DraftBotPacket, PacketContext, PacketDirection, sendablePacket} from "../DraftBotPacket";
@@ -13,7 +14,7 @@ export interface ShopItem {
 
 	amounts: number[];
 
-	buyCallback: (context: PacketContext, response: DraftBotPacket[], playerId: number, amount: number) => Promise<boolean>;
+	buyCallback: (context: PacketContext, response: DraftBotPacket[], playerId: number, amount: number) => boolean | Promise<boolean>;
 }
 
 export interface ShopCategory {

@@ -249,8 +249,8 @@ function getBuySlotExtensionShopItemCallback(playerId: number, price: number): E
 async function getSlotExtensionShopItem(player: Player): Promise<ShopItem | null> {
 	const invInfo = await InventoryInfos.getOfPlayer(player.id);
 	const availableCategories = [0, 1, 2, 3]
-		.filter(itemCategory => invInfo.slotLimitForCategory(itemCategory) < ItemConstants.SLOTS.LIMITS[itemCategory]);
-	if (availableCategories.length === 0) {
+		.map(itemCategory => ItemConstants.SLOTS.LIMITS[itemCategory] - invInfo.slotLimitForCategory(itemCategory));
+	if (availableCategories.every(availableCategory => availableCategory <= 0)) {
 		return null;
 	}
 	const totalSlots = invInfo.weaponSlots + invInfo.armorSlots
@@ -263,8 +263,8 @@ async function getSlotExtensionShopItem(player: Player): Promise<ShopItem | null
 		id: "inventoryExtension",
 		price,
 		amounts: [1],
-		buyCallback: (context, response): Promise<boolean> => {
-			const collector = new ReactionCollectorBuyCategorySlot(availableCategories, price);
+		buyCallback: (context, response): boolean => {
+			const collector = new ReactionCollectorBuyCategorySlot(availableCategories);
 
 			const packet = new ReactionCollectorInstance(
 				collector,
@@ -279,7 +279,7 @@ async function getSlotExtensionShopItem(player: Player): Promise<ShopItem | null
 
 			response.push(packet);
 
-			return Promise.resolve(false);
+			return false;
 		}
 	};
 }
