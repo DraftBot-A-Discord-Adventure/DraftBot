@@ -32,6 +32,7 @@ import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 import {EmoteUtils} from "../../utils/EmoteUtils";
 import {Language} from "../../../../Lib/src/Language";
 import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
+import {ReactionCollectorBuyCategorySlotReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorBuyCategorySlot";
 
 function getPacket(): CommandShopPacketReq {
 	return makePacket(CommandShopPacketReq, {});
@@ -133,6 +134,77 @@ export async function handleCommandShopBadgeBought(context: PacketContext): Prom
 	});
 }
 
+export async function shopInventoryExtensionCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+	const interaction = DiscordCache.getInteraction(context.discord!.interaction!)!;
+
+	const row = new ActionRowBuilder<ButtonBuilder>();
+	let slotExtensionText = `${i18n.t("commands:shop.chooseSlotIndication", {lng: interaction.userLanguage})}\n\n`;
+	for (const category of (packet.reactions.filter(reaction => reaction.type === ReactionCollectorBuyCategorySlotReaction.name).map(r => r.data) as ReactionCollectorBuyCategorySlotReaction[])) {
+		const button = new ButtonBuilder()
+			.setCustomId(category.categoryId.toString(10))
+			.setEmoji(parseEmoji(DraftBotIcons.itemKinds[category.categoryId])!)
+			.setStyle(ButtonStyle.Secondary);
+		row.addComponents(button);
+		slotExtensionText += i18n.t("commands:shop.shopCategoryFormat", {
+			lng: interaction.userLanguage,
+			category: i18n.t(`commands:shop.slotCategoriesKind.${category.categoryId.toString(10)}`, {lng: interaction.userLanguage}),
+			count: category.remaining,
+			limit: category.maxSlots,
+			categoryEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.itemKinds[category.categoryId])
+		});
+	}
+	const closeShopButton = new ButtonBuilder()
+		.setCustomId("closeShop")
+		.setLabel(i18n.t("commands:shop.closeShopButton", {lng: interaction.userLanguage}))
+		.setStyle(ButtonStyle.Secondary);
+
+	row.addComponents(closeShopButton);
+
+	const msg = await interaction.followUp({
+		embeds: [
+			new DraftBotEmbed()
+				.formatAuthor(i18n.t("commands:shop.chooseSlotTitle", {
+					lng: interaction.userLanguage,
+					pseudo: interaction.user.username
+				}), interaction.user)
+				.setDescription(slotExtensionText)
+		],
+		components: [row]
+	});
+
+	const buttonCollector = msg.createMessageComponentCollector({
+		time: Constants.MESSAGES.COLLECTOR_TIME
+	});
+
+	buttonCollector.on("collect", async (i: ButtonInteraction) => {
+		if (i.user.id !== context.discord?.user) {
+			await sendInteractionNotForYou(i.user, i, interaction.userLanguage);
+			return;
+		}
+		await i.update({components: []});
+		buttonCollector.stop();
+	});
+
+	buttonCollector.on("end", async (collected) => {
+		if (!collected.first() || collected.first()?.customId === "closeShop") {
+			PacketUtils.sendPacketToBackend(context, makePacket(ChangeBlockingReasonPacket, {
+				oldReason: BlockingConstants.REASONS.SHOP,
+				newReason: BlockingConstants.REASONS.NONE
+			}));
+			await handleCommandShopClosed(context);
+			return;
+		}
+		const firstReaction = collected.first() as ButtonInteraction;
+		PacketUtils.sendPacketToBackend(context, makePacket(ChangeBlockingReasonPacket, {
+			oldReason: BlockingConstants.REASONS.SHOP,
+			newReason: BlockingConstants.REASONS.NONE
+		}));
+		DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, null, packet.reactions.findIndex(r =>
+			r.type === ReactionCollectorBuyCategorySlotReaction.name
+			&& (r.data as ReactionCollectorBuyCategorySlotReaction).categoryId === parseInt(firstReaction.customId, 10)));
+	});
+}
+
 export async function handleReactionCollectorBuyCategorySlotBuySuccess(context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!);
 
@@ -149,26 +221,18 @@ export async function handleReactionCollectorBuyCategorySlotBuySuccess(context: 
 }
 
 export async function handleCommandShopClosed(context: PacketContext): Promise<void> {
-	const interaction = DiscordCache.getInteraction(context.discord!.interaction!);
-
-	await (interaction?.replied ? interaction.followUp({
-		embeds: [
-			new DraftBotEmbed()
-				.formatAuthor(i18n.t("commands:shop.closeShopTitle", {lng: interaction.userLanguage}), interaction.user)
-				.setDescription(i18n.t("commands:shop.closeShop", {lng: interaction.userLanguage}))
-		]
-	}) : interaction?.reply({
+	const interaction = DiscordCache.getInteraction(context.discord!.interaction!)!;
+	const args = {
 		embeds: [
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.closeShopTitle", {
 					lng: interaction.userLanguage,
 					pseudo: interaction.user.username
 				}), interaction.user)
-				.setDescription(i18n.t("commands:shop.closeShop", {
-					lng: interaction.userLanguage
-				}))
+				.setDescription(i18n.t("commands:shop.closeShop", {lng: interaction.userLanguage}))
 		]
-	}));
+	};
+	await (interaction.replied ? interaction.followUp(args) : interaction.reply(args));
 }
 
 async function manageBuyoutConfirmation(packet: ReactionCollectorCreationPacket, context: PacketContext, data: ReactionCollectorShopData, reaction: ReactionCollectorShopItemReaction): Promise<void> {
@@ -293,10 +357,7 @@ export async function shopCollector(packet: ReactionCollectorCreationPacket, con
 			categories.push((reaction.data as ReactionCollectorShopItemReaction).shopCategoryId);
 		}
 	}
-
 	categories.sort((a, b) => a.localeCompare(b));
-
-
 	let shopText = "";
 	const select = new StringSelectMenuBuilder()
 		.setCustomId("shop")
@@ -349,7 +410,7 @@ export async function shopCollector(packet: ReactionCollectorCreationPacket, con
 		time: packet.endTime - Date.now()
 	});
 
-	buttonCollector.on("collect", async (i: ButtonInteraction) => {
+	buttonCollector.on("collect", async (i: MessageComponentInteraction) => {
 		if (i.user.id !== context.discord?.user) {
 			await sendInteractionNotForYou(i.user, i, interaction.userLanguage);
 			return;

@@ -1,4 +1,4 @@
-import {ButtonInteraction, StringSelectMenuInteraction, User} from "discord.js";
+import {MessageComponentInteraction, User} from "discord.js";
 import {DraftBotErrorEmbed} from "../messages/DraftBotErrorEmbed";
 import {Language} from "../../../Lib/src/Language";
 import {DraftbotInteraction} from "../messages/DraftbotInteraction";
@@ -73,7 +73,7 @@ export async function sendErrorMessage(
 
 export async function sendInteractionNotForYou(
 	user: User,
-	interaction: ButtonInteraction | StringSelectMenuInteraction,
+	interaction: MessageComponentInteraction,
 	lng: Language
 ): Promise<void> {
 	await interaction.reply({

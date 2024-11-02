@@ -506,6 +506,16 @@
       "dailyPotion_other": "Potion du jour ({{count}} disponibles)",
       "slotExtension": "Extensions d'inventaire"
     },
+    "chooseSlotTitle": "{{pseudo}}, nouvel emplacement d'inventaire",
+    "chooseSlotIndication": "Choisissez un nouvel emplacement d'inventaire ou annulez :",
+    "shopCategoryFormat_one": "{{categoryEmote}} **{{category}}** ({{count}}/{{limit}} restant)\n",
+    "shopCategoryFormat_other": "{{categoryEmote}} **{{category}}** ({{count}}/{{limit}} restants)\n",
+    "slotCategoriesKind": [
+      "Arme",
+      "Armure",
+      "Potion",
+      "Objet"
+    ],
     "shopItems": {
       "randomItem": {
         "name": "{{shopItemEmote}} Un équipement aléatoire",
