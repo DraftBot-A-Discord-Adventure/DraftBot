@@ -36,5 +36,7 @@ export abstract class BlockingConstants {
 		START_BOSS_FIGHT: "startBossFight",
 		REPORT_COMMAND: "reportCommand",
 		CART_SMALL_EVENT: "cartSmallEvent"
-	};
+	} as const;
 }
+
+export type BlockingReason = (typeof BlockingConstants.REASONS)[keyof typeof BlockingConstants.REASONS];

@@ -1,6 +1,9 @@
-import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
+import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {BlockedPacket} from "../../../../Lib/src/packets/commands/BlockedPacket";
-import Player from "../database/game/models/Player";
+import Player, {Players} from "../database/game/models/Player";
+import {packetHandler} from "../packetHandlers/PacketHandler";
+import {BlockingReason} from "../../../../Lib/src/constants/BlockingConstants";
+import {ChangeBlockingReasonPacket} from "../../../../Lib/src/packets/utils/ChangeBlockingReasonPacket";
 
 /**
  * Functions to call when you want to manage the blocking of a player
@@ -8,7 +11,7 @@ import Player from "../database/game/models/Player";
 export class BlockingUtils {
 	private static spamDelay = 1000;
 
-	private static blockedPlayers: Map<number, { reason: string, limitTimestamp: number }[]> = new Map();
+	private static blockedPlayers: Map<number, { reason: BlockingReason, limitTimestamp: number }[]> = new Map();
 
 	private static spamPlayers: Map<number, number> = new Map();
 
@@ -18,7 +21,7 @@ export class BlockingUtils {
 	 * @param reason
 	 * @param maxTime
 	 */
-	static blockPlayer(playerId: number, reason: string, maxTime = 0): void {
+	static blockPlayer(playerId: number, reason: BlockingReason, maxTime = 0): void {
 		if (!BlockingUtils.blockedPlayers.get(playerId)) {
 			BlockingUtils.blockedPlayers.set(playerId, []);
 		}
@@ -34,7 +37,7 @@ export class BlockingUtils {
 	 * @param reason
 	 * @param endTimestamp
 	 */
-	static blockPlayerUntil(playerId: number, reason: string, endTimestamp: number): void {
+	static blockPlayerUntil(playerId: number, reason: BlockingReason, endTimestamp: number): void {
 		if (!BlockingUtils.blockedPlayers.get(playerId)) {
 			BlockingUtils.blockedPlayers.set(playerId, []);
 		}
@@ -49,7 +52,7 @@ export class BlockingUtils {
 	 * @param playerId
 	 * @param reason
 	 */
-	static unblockPlayer(playerId: number, reason: string): void {
+	static unblockPlayer(playerId: number, reason: BlockingReason): void {
 		const blockedPlayer = BlockingUtils.blockedPlayers.get(playerId);
 		if (blockedPlayer) {
 			BlockingUtils.blockedPlayers.set(playerId, blockedPlayer.filter(v => v.reason !== reason));
@@ -113,10 +116,19 @@ export class BlockingUtils {
 	static appendBlockedPacket(player: Player, packets: DraftBotPacket[]): boolean {
 		const blockingReason = BlockingUtils.getPlayerBlockingReason(player.id);
 		if (blockingReason.length !== 0) {
-			packets.push(makePacket(BlockedPacket, { keycloakId: player.keycloakId, reasons: blockingReason }));
+			packets.push(makePacket(BlockedPacket, {keycloakId: player.keycloakId, reasons: blockingReason}));
 			return true;
 		}
 
 		return false;
+	}
+
+	@packetHandler(ChangeBlockingReasonPacket)
+	static async changeBlockingReason(packet: ChangeBlockingReasonPacket, context: PacketContext): Promise<void> {
+		const player = await Players.getByKeycloakId(context.keycloakId);
+		if (this.getPlayerBlockingReason(player.id).includes(packet.oldReason)) {
+			this.blockPlayer(player.id, packet.newReason);
+			this.unblockPlayer(player.id, packet.oldReason);
+		}
 	}
 }
