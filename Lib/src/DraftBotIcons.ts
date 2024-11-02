@@ -54,7 +54,8 @@ export const DraftBotIcons: {
 			medium: string,
 			hard: string
 		},
-		interactPoorCoin: string
+		interactPoorCoin: string,
+		warning: string,
 	},
 	fight_actions: {
 		[actionId: string]: string
@@ -70,6 +71,12 @@ export const DraftBotIcons: {
 	},
 	unitValues: {
 		[unitValueId: string]: string
+	},
+	shopItems: {
+		[shopItemId: string]: string
+	},
+	badges: {
+		[badgeId: string]: string
 	}
 } = {
 	"effects": {
@@ -1539,7 +1546,8 @@ export const DraftBotIcons: {
 			"medium": "💵",
 			"hard": "💰"
 		},
-		"interactPoorCoin": "🪙"
+		"interactPoorCoin": "🪙",
+		"warning": "⚠️"
 	},
 	"fight_actions": {
 		"benediction": "👼",
@@ -1586,5 +1594,16 @@ export const DraftBotIcons: {
 	"unitValues": {
 		"score": "🏅",
 		"money": "💰"
+	},
+	"shopItems": {
+		"randomItem": "❓",
+		"healAlteration": "🏥",
+		"healEnergy": "⚡",
+		"regen": "💓",
+		"moneyMouthBadge": "🤑",
+		"inventoryExtension": "📦"
+	},
+	"badges": {
+		"richPerson": "🤑"
 	}
 };

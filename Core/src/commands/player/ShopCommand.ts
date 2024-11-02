@@ -8,12 +8,14 @@ import {ShopUtils} from "../../core/utils/ShopUtils";
 import {
 	CommandShopAlreadyHaveBadge,
 	CommandShopBadgeBought,
-	CommandShopBoughtTooMuchDailyPotions, CommandShopClosed,
+	CommandShopBoughtTooMuchDailyPotions,
+	CommandShopClosed,
 	CommandShopFullRegen,
 	CommandShopHealAlterationDone,
 	CommandShopNoAlterationToHeal,
 	CommandShopNoEnergyToHeal,
-	CommandShopTooManyEnergyBought, ReactionCollectorShop,
+	CommandShopTooManyEnergyBought,
+	ReactionCollectorShop,
 	ShopCategory,
 	ShopItem
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorShop";
@@ -26,7 +28,6 @@ import {Effect} from "../../../../Lib/src/enums/Effect";
 import {TravelTime} from "../../core/maps/TravelTime";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {EntityConstants} from "../../../../Lib/src/constants/EntityConstants";
-import {BadgeConstants} from "../../../../Lib/src/constants/BadgeConstants";
 import {Potion, PotionDataController} from "../../data/Potion";
 import {Settings} from "../../core/database/game/models/Setting";
 import {InventorySlots} from "../../core/database/game/models/InventorySlot";
@@ -40,6 +41,7 @@ import {
 	ReactionCollectorBuyCategorySlotCancelReaction,
 	ReactionCollectorBuyCategorySlotReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorBuyCategorySlot";
+import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 
 /**
  * Get the shop item for getting a random item
@@ -62,7 +64,7 @@ function getRandomItemShopItem(): ShopItem {
  * Calculate the price for healing from an alteration
  * @param player
  */
-function calculateHealAlterationPrice(player: Player) :number {
+function calculateHealAlterationPrice(player: Player): number {
 	let price = ShopConstants.ALTERATION_HEAL_BASE_PRICE;
 	const remainingTime = millisecondsToMinutes(player.effectRemainingTime());
 	// If the remaining time is under one hour,
@@ -173,11 +175,11 @@ function getBadgeShopItem(): ShopItem {
 		amounts: [1],
 		buyCallback: async (context, response, playerId): Promise<boolean> => {
 			const player = await Players.getById(playerId);
-			if (player.hasBadge(BadgeConstants.RICH_PERSON)) {
+			if (player.hasBadge(DraftBotIcons.badges.richPerson)) {
 				response.push(makePacket(CommandShopAlreadyHaveBadge, {}));
 				return false;
 			}
-			player.addBadge(BadgeConstants.RICH_PERSON);
+			player.addBadge(DraftBotIcons.badges.richPerson);
 			await player.save();
 			response.push(makePacket(CommandShopBadgeBought, {}));
 			draftBotInstance.logsDatabase.logClassicalShopBuyout(player.keycloakId, ShopItemType.BADGE).then();
@@ -315,8 +317,8 @@ export default class ShopCommand {
 		const slotExtensionItem = await getSlotExtensionShopItem(player);
 		if (slotExtensionItem) {
 			shopCategories.push({
-				id: "inventory",
-				items: []
+				id: "slotExtension",
+				items: [slotExtensionItem]
 			});
 		}
 

@@ -1,8 +1,7 @@
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {BlockedPacket} from "../../../../Lib/src/packets/commands/BlockedPacket";
 import Player, {Players} from "../database/game/models/Player";
-import {packetHandler} from "../packetHandlers/PacketHandler";
-import {BlockingReason} from "../../../../Lib/src/constants/BlockingConstants";
+import {BlockingConstants, BlockingReason} from "../../../../Lib/src/constants/BlockingConstants";
 import {ChangeBlockingReasonPacket} from "../../../../Lib/src/packets/utils/ChangeBlockingReasonPacket";
 
 /**
@@ -123,11 +122,12 @@ export class BlockingUtils {
 		return false;
 	}
 
-	@packetHandler(ChangeBlockingReasonPacket)
 	static async changeBlockingReason(packet: ChangeBlockingReasonPacket, context: PacketContext): Promise<void> {
 		const player = await Players.getByKeycloakId(context.keycloakId);
 		if (this.getPlayerBlockingReason(player.id).includes(packet.oldReason)) {
-			this.blockPlayer(player.id, packet.newReason);
+			if (packet.newReason !== BlockingConstants.REASONS.NONE) {
+				this.blockPlayer(player.id, packet.newReason);
+			}
 			this.unblockPlayer(player.id, packet.oldReason);
 		}
 	}

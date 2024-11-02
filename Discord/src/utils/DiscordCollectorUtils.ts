@@ -7,7 +7,15 @@ import {
 } from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {DiscordCache} from "../bot/DiscordCache";
 import {KeycloakUser} from "../../../Lib/src/keycloak/KeycloakUser";
-import {ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, Message, parseEmoji} from "discord.js";
+import {
+	ActionRowBuilder,
+	ButtonBuilder,
+	ButtonInteraction,
+	ButtonStyle,
+	Message,
+	MessageComponentInteraction,
+	parseEmoji
+} from "discord.js";
 import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {DraftbotInteraction} from "../messages/DraftbotInteraction";
@@ -17,7 +25,7 @@ import {PacketUtils} from "./PacketUtils";
 export class DiscordCollectorUtils {
 	private static choiceListEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣", "7⃣", "8⃣", "9⃣"];
 
-	static sendReaction(packet: ReactionCollectorCreationPacket, context: PacketContext, userKeycloakId: KeycloakUser["id"], button: ButtonInteraction | null, reactionIndex: number): void {
+	static sendReaction(packet: ReactionCollectorCreationPacket, context: PacketContext, userKeycloakId: KeycloakUser["id"], button: MessageComponentInteraction | null, reactionIndex: number): void {
 		const responsePacket = makePacket(
 			ReactionCollectorReactPacket,
 			{
@@ -27,7 +35,7 @@ export class DiscordCollectorUtils {
 			}
 		);
 
-		if (button) {
+		if (button && button.isButton()) {
 			DiscordCache.cacheButtonInteraction(button);
 		}
 

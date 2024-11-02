@@ -493,25 +493,51 @@
     "boughtTooMuchDailyPotions": "Il n'y a plus aucune potion du jour disponible à la vente... Revenez demain !",
     "title": "🛒 Affichage du Magasin",
     "currentMoney": "Vous avez `{{money}}💰`.",
-    "shopItemsDisplay": "**{{name}}** | `{{price}}💰`",
+    "shopItemsDisplay": "{{name}} | `{{price}}💰`",
     "shopSelectPlaceholder": "Sélectionnez un objet à acheter",
     "buyCategorySlotSuccess": "Vous avez acheté un nouvel emplacement d'inventaire !",
     "shopItemsSelectDescription": "{{price}}💰",
     "closeShopButton": "❌ Fermer le magasin",
+    "shopConfirmationTitle": "{{pseudo}}, vous avez sélectionné le produit suivant :",
     "shopCategories": {
       "permanentItem": "Ventes permanentes",
       "dailyPotion_zero": "Potion du jour (rupture de stock)",
       "dailyPotion_one": "Potion du jour ({{count}} disponible)",
       "dailyPotion_other": "Potion du jour ({{count}} disponibles)",
-      "inventory": "Extensions d'inventaire"
+      "slotExtension": "Extensions d'inventaire"
     },
     "shopItems": {
-      "randomItem": "❓ Un équipement aléatoire",
-      "healAlteration": "🏥 Soin des altérations d'état",
-      "healEnergy": "⚡ Récupération d'énergie",
-      "regen": "💓 Régen complète de la vie",
-      "moneyMouthBadge": "🤑 Badge \"Money Mouth\"",
-      "inventoryExtension": "📦 Nouvel emplacement d'inventaire"
+      "randomItem": {
+        "name": "{{shopItemEmote}} Un équipement aléatoire",
+        "info": "Vous recevrez un équipement aléatoire (Arme / Armure / Objet ou Potion) parmi tous ceux présents dans le jeu."
+      },
+      "healAlteration": {
+        "name": "{{shopItemEmote}} Soin des altérations d'état",
+        "info": "Vos altérations d'état seront supprimées et vous reprendrez votre route immédiatement.",
+        "give": "{{shopItemEmote}} Vos altérations d'état ont été supprimées."
+      },
+      "healEnergy": {
+        "name": "{{shopItemEmote}} Récupération d'énergie",
+        "info": "Votre énergie de combat sera intégralement restaurée.",
+        "give": "{{shopItemEmote}} Votre énergie a été restaurée."
+      },
+      "regen": {
+        "name": "{{shopItemEmote}} Régen complète de la vie",
+        "info": "Vous serez immédiatement soigné complétement mais vous conserverez toutes vos altérations d'état.",
+        "give": "{{shopItemEmote}} Vous avez été complétement soigné."
+      },
+      "moneyMouthBadge": {
+        "name": "{{shopItemEmote}} Badge \"Money Mouth\"",
+        "info": "Vous recevrez le badge automatiquement après le paiement. Pour plus d'informations sur les badges utilisez la commande {command:help}.",
+        "give": "{{pseudo}}, vous avez reçu un nouveau badge :"
+      },
+      "inventoryExtension": {
+        "name": "{{shopItemEmote}} Nouvel emplacement d'inventaire",
+        "info": "Vous pourrez choisir une catégorie d'inventaire à laquelle ajouter un emplacement"
+      },
+      "dailyPotion": {
+        "info": "Vous obtiendrez une potion que vous déciderez de garder ou non. Si vous l'avez déjà elle sera jetée sans remboursement !"
+      }
     }
   },
   "classesInfo": {

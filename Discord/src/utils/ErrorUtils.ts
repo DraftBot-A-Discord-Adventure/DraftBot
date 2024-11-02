@@ -22,6 +22,13 @@ export async function replyErrorMessage(interaction: DraftbotInteraction, reason
 	});
 }
 
+export enum SendManner {
+	SEND = "SEND",
+	REPLY = "REPLY",
+	FOLLOWUP = "FOLLOWUP",
+	EDIT_REPLY = "EDIT_REPLY"
+}
+
 /**
  * Sends an error message
  * @param user
@@ -29,17 +36,39 @@ export async function replyErrorMessage(interaction: DraftbotInteraction, reason
  * @param reason
  * @param isCancelling - true if the error is a cancelling error
  * @param isBlockedError - set to false if you don't want the "this user is blocked" message when selecting a different user than the one who invoked the command
+ * @param sendManner
  */
 export async function sendErrorMessage(
 	user: User,
 	interaction: DraftbotInteraction,
 	reason: string,
-	isCancelling = false,
-	isBlockedError = true
+	{
+		isCancelling = false,
+		isBlockedError = true,
+		sendManner = SendManner.SEND
+	}: {
+		isCancelling?: boolean,
+		isBlockedError?: boolean,
+		sendManner?: SendManner
+	} = {}
 ): Promise<void> {
-	await interaction.channel.send({
+	const sendArg = {
 		embeds: [new DraftBotErrorEmbed(user, interaction, reason, isCancelling, isBlockedError)]
-	});
+	};
+	switch (sendManner) {
+	case SendManner.REPLY:
+		await interaction.reply(sendArg);
+		break;
+	case SendManner.EDIT_REPLY:
+		await interaction.editReply(sendArg);
+		break;
+	case SendManner.FOLLOWUP:
+		await interaction.followUp(sendArg);
+		break;
+	default:
+		await interaction.channel.send(sendArg);
+		break;
+	}
 }
 
 export async function sendInteractionNotForYou(
@@ -66,7 +95,10 @@ export async function sendInteractionNotForYou(
  * @param effectId
  * @param effectRemainingTime
  */
-export function effectsErrorTextValue(user: KeycloakUser, lng: Language, self: boolean, effectId: string, effectRemainingTime: number): { title: string, description: string } {
+export function effectsErrorTextValue(user: KeycloakUser, lng: Language, self: boolean, effectId: string, effectRemainingTime: number): {
+	title: string,
+	description: string
+} {
 	const translationKey = self ? `error:effects.${effectId}.self` : `error:effects.${effectId}.other`;
 	const errorMessageObject: { title: string, description: string } = {
 		title: i18n.t(translationKey, {
@@ -86,7 +118,10 @@ export function effectsErrorTextValue(user: KeycloakUser, lng: Language, self: b
 		errorMessageObject.description += i18n.t(self ? `error:effects.${effectId}.self` : `error:effects.${effectId}.other`, {lng});
 		break;
 	default:
-		errorMessageObject.description += i18n.t(self ? "error:pleaseWaitForHeal" : "error:pleaseWaitForHisHeal", {lng, time: timeEffect});
+		errorMessageObject.description += i18n.t(self ? "error:pleaseWaitForHeal" : "error:pleaseWaitForHisHeal", {
+			lng,
+			time: timeEffect
+		});
 	}
 
 	if (self) {
