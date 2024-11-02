@@ -10,6 +10,7 @@ import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/pac
 import {BlockingUtils} from "./BlockingUtils";
 import {Constants} from "../../../../Lib/src/constants/Constants";
 import {PacketUtils} from "./PacketUtils";
+import {BlockingReason} from "../../../../Lib/src/constants/BlockingConstants";
 
 type CollectCallback = (collector: ReactionCollectorInstance, reaction: ReactionCollectorReaction, keycloakId: string, response: DraftBotPacket[]) => void | Promise<void>;
 
@@ -132,7 +133,7 @@ export class ReactionCollectorInstance {
 		}
 	}
 
-	public block(playerId: number, reason: string): this {
+	public block(playerId: number, reason: BlockingReason): this {
 		BlockingUtils.blockPlayerUntil(playerId, reason, this.endTime);
 		return this;
 	}
