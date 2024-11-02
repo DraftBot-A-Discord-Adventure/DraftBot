@@ -3,6 +3,8 @@ import {Language, LANGUAGE} from "../../../Lib/src/Language";
 import {readdirSync} from "fs";
 import {resolve} from "path";
 import {BotUtils} from "../utils/BotUtils";
+import {EmoteUtils} from "../utils/EmoteUtils";
+import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
 
 function getI18nOptions(): i18next.InitOptions<unknown> {
 	const resources: i18next.Resource = {};
@@ -31,6 +33,41 @@ function getI18nOptions(): i18next.InitOptions<unknown> {
  */
 function convertCommandFormat(str: string): string {
 	return str.replace(/{command:(.*?)}/g, (_match, command) => BotUtils.commandsMentions.get(command) ?? `\`COMMAND NOT FOUND : ${command}\``);
+}
+
+/**
+ * Replace in the given string all occurences of "{emote:...}" by the corresponding discord emote
+ * @param str
+ */
+function convertEmoteFormat(str: string): string {
+	return str.replace(/{emote:(.*?)}/g, (_match, emote) => EmoteUtils.translateEmojiToDiscord(getEmote(emote) ?? `EMOTE NOT FOUND : ${emote}`));
+}
+
+type EmotePathFolder = Record<string, unknown> | string[];
+type EmotePath = EmotePathFolder | string;
+
+/**
+ * Get the corresponding to emote for the given emote name
+ * @param emote
+ */
+function getEmote(emote: string): string | null {
+	let basePath: EmotePath = DraftBotIcons as EmotePathFolder;
+	const emotePath = emote.split(".");
+	for (const path of emotePath) {
+		if (typeof basePath === "string") {
+			return null;
+		}
+		basePath = Array.isArray(basePath) ? basePath[parseInt(path)] : basePath[path] as EmotePath;
+	}
+	return typeof basePath === "string" ? basePath : null;
+}
+
+/**
+ * Apply all the draftbot formatting to the given string
+ * @param str
+ */
+function draftbotFormat(str: string): string {
+	return convertCommandFormat(convertEmoteFormat(str));
 }
 
 i18next.init(getI18nOptions()).then();
@@ -71,9 +108,9 @@ export class I18n {
 	} & i18next.TOptions): string | string[] {
 		const value: string | string[] = i18next.t(key, options);
 		if (Array.isArray(value)) {
-			return (value as string[]).map(convertCommandFormat);
+			return (value as string[]).map(draftbotFormat);
 		}
-		return convertCommandFormat(value);
+		return draftbotFormat(value);
 	}
 }
 

@@ -127,8 +127,7 @@ export async function handleCommandShopBadgeBought(context: PacketContext): Prom
 					pseudo: interaction.user.username
 				}), interaction.user)
 				.setDescription(i18n.t("commands:shop.badgeBought", {
-					lng: interaction.userLanguage,
-					badge: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.badges.richPerson)
+					lng: interaction.userLanguage
 				}))
 		]
 	});
@@ -150,7 +149,7 @@ export async function shopInventoryExtensionCollector(packet: ReactionCollectorC
 			category: i18n.t(`commands:shop.slotCategoriesKind.${category.categoryId.toString(10)}`, {lng: interaction.userLanguage}),
 			count: category.remaining,
 			limit: category.maxSlots,
-			categoryEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.itemKinds[category.categoryId])
+			categoryId: category.categoryId
 		});
 	}
 	const closeShopButton = new ButtonBuilder()
@@ -328,8 +327,7 @@ function getShopItemNames(data: ReactionCollectorShopData, shopItemId: string, l
 	}
 	const bothNames = i18n.t(`commands:shop.shopItems.${shopItemId}.name`, {
 		lng,
-		interpolation: {escapeValue: false},
-		shopItemEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.shopItems[shopItemId])
+		interpolation: {escapeValue: false}
 	});
 	return {
 		normal: `**${bothNames}**`,
