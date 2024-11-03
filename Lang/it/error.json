@@ -2,7 +2,7 @@
   "anotherPlayerBlocked": "Non è possibile farlo perché {{username}} ha un'azione in corso ({{reasons}}) !",
   "blockedContext": {
     "acceptItem": "scelta di conservare o no un oggetto",
-    "cartChoose": "scegliere se salire o no sul carrello",
+    "cartSmallEvent": "scegliere se salire o no sul carrello",
     "chiefGuildLeave": "trasferimento del potere",
     "chooseDestination": "scelta della destinazione",
     "class": "cambio di classe",
