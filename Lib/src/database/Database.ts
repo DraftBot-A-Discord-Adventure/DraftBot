@@ -1,30 +1,43 @@
-import {Sequelize, Transaction} from "sequelize";
+import {QueryInterface, Sequelize, Transaction} from "sequelize";
 import {SequelizeStorage, Umzug} from "umzug";
 import {promises} from "fs";
 import {createConnection} from "mariadb";
-import {botConfig} from "../../index";
 import TYPES = Transaction.TYPES;
+import {DatabaseConfiguration} from "./DatabaseConfiguration";
 
 export abstract class Database {
 	/**
 	 * Sequelize instance
 	 */
-	public sequelize: Sequelize;
+	public sequelize!: Sequelize;
 
 	/**
 	 * Umzug instance
-	 * @private
 	 */
-	public umzug: Umzug;
+	public umzug!: Umzug<QueryInterface>;
 
 	/**
-	 * The database name
+	 * The path to the models
 	 * @private
 	 */
-	private readonly databaseName: string;
+	private readonly modelsPath: string;
 
-	protected constructor(databaseName: string) {
-		this.databaseName = databaseName;
+	/**
+	 * The path to the migrations
+	 * @private
+	 */
+	private readonly migrationsPath: string;
+
+	/**
+	 * The connection configuration
+	 * @private
+	 */
+	private readonly databaseConfiguration: DatabaseConfiguration;
+
+	protected constructor(connectionConfiguration: DatabaseConfiguration, modelsPath: string, migrationsPath: string) {
+		this.modelsPath = modelsPath;
+		this.migrationsPath = migrationsPath;
+		this.databaseConfiguration = connectionConfiguration;
 	}
 
 	/**
@@ -48,24 +61,26 @@ export abstract class Database {
 
 		// Initialize the connection
 		const mariadbConnection = await createConnection({
-			host: botConfig.MARIADB_HOST,
-			port: botConfig.MARIADB_PORT,
-			user: "root",
-			password: botConfig.MARIADB_ROOT_PASSWORD
+			host: this.databaseConfiguration.host,
+			port: this.databaseConfiguration.port,
+			user: this.databaseConfiguration.rootUser,
+			password: this.databaseConfiguration.rootPassword
 		});
-		await mariadbConnection.execute(`CREATE DATABASE IF NOT EXISTS ${botConfig.MARIADB_PREFIX}_${this.databaseName} CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;`);
+		await mariadbConnection.execute(`CREATE DATABASE IF NOT EXISTS ${this.databaseConfiguration.prefix}_${this.databaseConfiguration.databaseName} CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;`);
 		try {
-			await mariadbConnection.execute(`GRANT ALL PRIVILEGES ON ${botConfig.MARIADB_PREFIX}_${this.databaseName}.* TO '${botConfig.MARIADB_USER}'@${botConfig.MARIADB_HOST};`);
+			await mariadbConnection.execute(
+				`GRANT ALL PRIVILEGES ON ${this.databaseConfiguration.prefix}_${this.databaseConfiguration.databaseName}.* TO '${this.databaseConfiguration.user}'@${this.databaseConfiguration.host};`
+			);
 		}
 		catch {
-			await mariadbConnection.execute(`GRANT ALL PRIVILEGES ON ${botConfig.MARIADB_PREFIX}_${this.databaseName}.* TO '${botConfig.MARIADB_USER}';`);
+			await mariadbConnection.execute(`GRANT ALL PRIVILEGES ON ${this.databaseConfiguration.prefix}_${this.databaseConfiguration.databaseName}.* TO '${this.databaseConfiguration.user}';`);
 		}
 		await mariadbConnection.end();
 
-		this.sequelize = new Sequelize(`${botConfig.MARIADB_PREFIX}_${this.databaseName}`, botConfig.MARIADB_USER, botConfig.MARIADB_PASSWORD, {
+		this.sequelize = new Sequelize(`${this.databaseConfiguration.prefix}_${this.databaseConfiguration.databaseName}`, this.databaseConfiguration.user, this.databaseConfiguration.userPassword, {
 			dialect: "mariadb",
-			host: botConfig.MARIADB_HOST,
-			port: botConfig.MARIADB_PORT,
+			host: this.databaseConfiguration.host,
+			port: this.databaseConfiguration.port,
 			logging: false,
 			transactionType: TYPES.IMMEDIATE
 		});
@@ -76,8 +91,7 @@ export abstract class Database {
 			context: this.sequelize.getQueryInterface(),
 			logger: console,
 			migrations: {
-				glob: `${__dirname.split("\\")
-					.join("/")}/${this.databaseName}/migrations/*.js`
+				glob: `${this.migrationsPath}/*.js`
 			},
 			storage: new SequelizeStorage({sequelize: this.sequelize})
 		});
@@ -88,7 +102,7 @@ export abstract class Database {
 	 * @private
 	 */
 	private async initModels(): Promise<void> {
-		const modelsFiles = await promises.readdir(`${__dirname}/${this.databaseName}/models`);
+		const modelsFiles = await promises.readdir(this.modelsPath);
 		const models: {
 			initModel: (sequelize: Sequelize) => Promise<void>
 		}[] = [];
@@ -112,7 +126,7 @@ export abstract class Database {
 		if (modelSplit[1] !== "js" || modelSplit.length !== 2) {
 			return;
 		}
-		const model = await import(`./${this.databaseName}/models/${modelName}`);
+		const model = await import(`${this.modelsPath}/${modelName}`);
 		models.push(model);
 		if (model.initModel) {
 			await model.initModel(this.sequelize);

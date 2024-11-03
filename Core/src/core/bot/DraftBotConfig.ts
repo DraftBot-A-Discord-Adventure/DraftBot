@@ -1,5 +1,6 @@
 import {parse} from "toml";
 import {readFileSync} from "fs";
+import {DatabaseConfiguration} from "../../../../Lib/src/database/DatabaseConfiguration";
 
 /**
  * Represents the main constants of the bot
@@ -72,5 +73,18 @@ export function loadConfig(): DraftBotConfig {
 		MARIADB_PREFIX: config.database.prefix,
 		WEBSERVER_PORT: config.others.webserver_port,
 		MQTT_HOST: config.mqtt.host
+	};
+}
+
+export function getDatabaseConfiguration(config: DraftBotConfig, databaseName: string): DatabaseConfiguration {
+	return {
+		host: config.MARIADB_HOST,
+		port: config.MARIADB_PORT,
+		rootUser: "root",
+		rootPassword: config.MARIADB_ROOT_PASSWORD,
+		user: config.MARIADB_USER,
+		userPassword: config.MARIADB_PASSWORD,
+		databaseName,
+		prefix: config.MARIADB_PREFIX
 	};
 }
