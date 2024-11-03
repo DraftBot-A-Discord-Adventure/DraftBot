@@ -478,6 +478,78 @@
     "confirmThrowAway": "{{item}} Tem a certeza de que quer deitar fora?",
     "sellIndication": "Escolha um artigo para vender na lista abaixo:"
   },
+  "shop": {
+    "closeShop": "Vous avez fermé le magasin.",
+    "closeShopTitle": "{{pseudo}}, fermeture du magasin",
+    "noAlterationToHeal": "Não é vítima de qualquer alteração de estado 🙂",
+    "success": "{{pseudo}}, transaction réussie !",
+    "healAlteration": "🏥 Vos altérations d'état ont été supprimées.",
+    "tooManyEnergyBought": "Vous avez acheté la quantité maximale de récupération d'énergie pour cette semaine.",
+    "noEnergyToHeal": "Tens toda a tua energia de combate à tua disposição. ⚡",
+    "fullRegen": "Foi completamente tratado.",
+    "alreadyHaveBadge": "Vous possédez déjà ce badge.",
+    "badgeBought": "Vous avez reçu un nouveau badge : {emote:badges.richPerson} !",
+    "notEnoughMoney": "Vous n'avez pas assez d'argent pour acheter cet objet ! Il vous manque `{{missingMoney}} 💰`.",
+    "boughtTooMuchDailyPotions": "Il n'y a plus aucune potion du jour disponible à la vente... Revenez demain !",
+    "title": "Ecrã da loja",
+    "currentMoney": "Vous avez `{{money}}💰`.",
+    "shopItemsDisplay": "{{name}} | `{{price}}💰`",
+    "shopSelectPlaceholder": "Sélectionnez un objet à acheter",
+    "buyCategorySlotSuccess": "Vous avez acheté un nouvel emplacement d'inventaire !",
+    "shopItemsSelectDescription": "{{price}}💰",
+    "closeShopButton": "❌ Fermer le magasin",
+    "shopConfirmationTitle": "{{pseudo}}selecionou o seguinte produto:",
+    "shopCategories": {
+      "permanentItem": "Ventes permanentes",
+      "dailyPotion_zero": "Poção do dia (esgotado)",
+      "dailyPotion_one": "Potion du jour ({{count}} disponible)",
+      "dailyPotion_other": "Potion du jour ({{count}} disponibles)",
+      "slotExtension": "Extensions d'inventaire"
+    },
+    "chooseSlotTitle": "{{pseudo}}, nouvel emplacement d'inventaire",
+    "chooseSlotIndication": "Choisissez un nouvel emplacement d'inventaire ou annulez :",
+    "shopCategoryFormat_one": "{emote:itemKinds.{{categoryId}}} **{{category}}** ({{count}}/{{limit}} restant)\n",
+    "shopCategoryFormat_other": "{emote:itemKinds.{{categoryId}}}{{category}}{{count}}{{limit}}\n** ** ( / restante)",
+    "slotCategoriesKind": [
+      "Arma",
+      "Armadura",
+      "Potion",
+      "Objeto"
+    ],
+    "shopItems": {
+      "randomItem": {
+        "name": "{emote:shopItems.randomItem} Equipamento aleatório",
+        "info": "Receberás uma peça de equipamento aleatória (Arma / Armadura / Item ou Poção) de todos os presentes no jogo."
+      },
+      "healAlteration": {
+        "name": "{emote:shopItems.healAlteration} Cuidados para estados alterados",
+        "info": "As suas alterações de estado serão removidas e voltará imediatamente à estrada.",
+        "give": "{emote:shopItems.healAlteration} As suas alterações de estado foram removidas."
+      },
+      "healEnergy": {
+        "name": "{emote:shopItems.healEnergy} Récupération d'énergie",
+        "info": "A tua energia de combate será totalmente restaurada.",
+        "give": "{emote:shopItems.healEnergy} Votre énergie a été restaurée."
+      },
+      "regen": {
+        "name": "{emote:shopItems.regen} Regulação completa da vida",
+        "info": "Vous serez immédiatement soigné complétement mais vous conserverez toutes vos altérations d'état.",
+        "give": "{emote:shopItems.regen} Foi completamente tratado."
+      },
+      "moneyMouthBadge": {
+        "name": "{emote:shopItems.moneyMouthBadge} Badge \"Money Mouth\"",
+        "info": "Receberá o crachá automaticamente após o pagamento. {command:help}Para mais informações sobre os crachás, utilize o comando .",
+        "give": "{{pseudo}}Recebeu um novo crachá:"
+      },
+      "inventoryExtension": {
+        "name": "{emote:shopItems.inventoryExtension} Nouvel emplacement d'inventaire",
+        "info": "Vous pourrez choisir une catégorie d'inventaire à laquelle ajouter un emplacement"
+      },
+      "dailyPotion": {
+        "info": "Vous obtiendrez une potion que vous déciderez de garder ou non. Si vous l'avez déjà elle sera jetée sans remboursement !"
+      }
+    }
+  },
   "classesInfo": {
     "title": {
       "list": ":bookmark: Lista de classes",
