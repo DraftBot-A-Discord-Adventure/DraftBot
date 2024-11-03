@@ -478,6 +478,78 @@
     "confirmThrowAway": "Sind Sie sicher, dass Sie {{item}} wegwerfen möchten?",
     "sellIndication": "Wählen Sie aus der folgenden Liste einen Gegenstand zum Verkaufen aus:"
   },
+  "shop": {
+    "closeShop": "Vous avez fermé le magasin.",
+    "closeShopTitle": "{{pseudo}}, fermeture du magasin",
+    "noAlterationToHeal": "Sie sind nicht Opfer einer Zustandsveränderung. 🙂.",
+    "success": "{{pseudo}}, transaction réussie !",
+    "healAlteration": "🏥 Vos altérations d'état ont été supprimées.",
+    "tooManyEnergyBought": "Vous avez acheté la quantité maximale de récupération d'énergie pour cette semaine.",
+    "noEnergyToHeal": "Sie verfügen über Ihre gesamte Kampfenergie. ⚡",
+    "fullRegen": "💓 Sie wurden vollständig versorgt.",
+    "alreadyHaveBadge": "Vous possédez déjà ce badge.",
+    "badgeBought": "Vous avez reçu un nouveau badge : {emote:badges.richPerson} !",
+    "notEnoughMoney": "Vous n'avez pas assez d'argent pour acheter cet objet ! Il vous manque `{{missingMoney}} 💰`.",
+    "boughtTooMuchDailyPotions": "Il n'y a plus aucune potion du jour disponible à la vente... Revenez demain !",
+    "title": "🛒 Anzeige des Magazins",
+    "currentMoney": "Vous avez `{{money}}💰`.",
+    "shopItemsDisplay": "{{name}} | `{{price}}💰`",
+    "shopSelectPlaceholder": "Sélectionnez un objet à acheter",
+    "buyCategorySlotSuccess": "Vous avez acheté un nouvel emplacement d'inventaire !",
+    "shopItemsSelectDescription": "{{price}}💰",
+    "closeShopButton": "❌ Fermer le magasin",
+    "shopConfirmationTitle": "{{pseudo}}Sie haben das folgende Produkt ausgewählt:",
+    "shopCategories": {
+      "permanentItem": "Ventes permanentes",
+      "dailyPotion_zero": "Trank des Tages (ausverkauft)",
+      "dailyPotion_one": "Potion du jour ({{count}} disponible)",
+      "dailyPotion_other": "Potion du jour ({{count}} disponibles)",
+      "slotExtension": "Extensions d'inventaire"
+    },
+    "chooseSlotTitle": "{{pseudo}}, nouvel emplacement d'inventaire",
+    "chooseSlotIndication": "Choisissez un nouvel emplacement d'inventaire ou annulez :",
+    "shopCategoryFormat_one": "{emote:itemKinds.{{categoryId}}} **{{category}}** ({{count}}/{{limit}} restant)\n",
+    "shopCategoryFormat_other": "{emote:itemKinds.{{categoryId}}} **{{category}}** ({{count}}/{{limit}} verbleibende)\n",
+    "slotCategoriesKind": [
+      "Waffe",
+      "Rüstung",
+      "Potion",
+      "Objekt"
+    ],
+    "shopItems": {
+      "randomItem": {
+        "name": "{emote:shopItems.randomItem} Zufällige Ausrüstung",
+        "info": "Du erhältst eine zufällige Ausrüstung (Waffe / Rüstung / Gegenstand oder Trank) aus allen im Spiel vorhandenen."
+      },
+      "healAlteration": {
+        "name": "{emote:shopItems.healAlteration} Pflege von Zustandsveränderungen",
+        "info": "Ihre Zustandsveränderungen werden entfernt und Sie setzen Ihre Reise sofort fort.",
+        "give": "{emote:shopItems.healAlteration} Ihre Zustandsveränderungen wurden entfernt."
+      },
+      "healEnergy": {
+        "name": "{emote:shopItems.healEnergy} Récupération d'énergie",
+        "info": "Ihre Kampfenergie wird vollständig wiederhergestellt.",
+        "give": "{emote:shopItems.healEnergy} Votre énergie a été restaurée."
+      },
+      "regen": {
+        "name": "{emote:shopItems.regen} Vollständige Regeneration des Lebens",
+        "info": "Vous serez immédiatement soigné complétement mais vous conserverez toutes vos altérations d'état.",
+        "give": "{emote:shopItems.regen} Sie wurden vollständig versorgt."
+      },
+      "moneyMouthBadge": {
+        "name": "{emote:shopItems.moneyMouthBadge} Badge \"Money Mouth\"",
+        "info": "Sie erhalten den Abzeichen automatisch nach der Bezahlung. Für weitere Informationen über Abzeichen verwenden Sie den Befehl {command:help}.",
+        "give": "{{pseudo}}Sie haben einen neuen Ausweis erhalten:"
+      },
+      "inventoryExtension": {
+        "name": "{emote:shopItems.inventoryExtension} Nouvel emplacement d'inventaire",
+        "info": "Vous pourrez choisir une catégorie d'inventaire à laquelle ajouter un emplacement"
+      },
+      "dailyPotion": {
+        "info": "Vous obtiendrez une potion que vous déciderez de garder ou non. Si vous l'avez déjà elle sera jetée sans remboursement !"
+      }
+    }
+  },
   "classesInfo": {
     "title": {
       "list": ":bookmark: Liste der Klassen",
