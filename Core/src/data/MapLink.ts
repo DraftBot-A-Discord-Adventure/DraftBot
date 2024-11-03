@@ -32,6 +32,9 @@ export class MapLinkDataController extends DataControllerNumber<MapLink> {
 		return new MapLink();
 	}
 
+	/**
+	 * ⚠️ Return a random MapLink from ANY type (including outside of the main continent even beta MapLink)
+	 */
 	public getRandomLink(): MapLink {
 		return RandomUtils.draftbotRandom.pick(this.getValuesArray());
 	}
