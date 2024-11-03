@@ -15,7 +15,6 @@ import {ReactionCollectorCartData} from "../../../Lib/src/packets/interaction/Re
 
 export async function cartCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
-	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorCartData;
 	const story = data.displayedDestination.isDisplayed ? "knownDestination" : "unknownDestination";
 
@@ -43,7 +42,7 @@ export async function cartResult(packet: SmallEventCartPacket, context: PacketCo
 	const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 
 	let story;
-	if (!packet.travelDone.hasEnoughMoney) {
+	if (!packet.travelDone.hasEnoughMoney && packet.travelDone.isAccepted) {
 		story = "notEnoughMoney";
 	}
 

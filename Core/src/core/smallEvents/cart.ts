@@ -12,6 +12,7 @@ import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/inter
 import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {SmallEventCartPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventCartPacket";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
+import {BlockingUtils} from "../utils/BlockingUtils";
 
 type CartResult = {
 	destination: MapLink,
@@ -40,11 +41,12 @@ function getEndCallback(player: Player, destination: CartResult): EndCallback {
 			}
 			response.push(makePacket(SmallEventCartPacket, packet));
 		}
-
 		else {
 			packet.travelDone.isAccepted = false;
 			response.push(makePacket(SmallEventCartPacket, packet));
 		}
+		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.CART_SMALL_EVENT);
+		await player.save();
 	};
 }
 
@@ -105,7 +107,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 			},
 			getEndCallback(player, randomDestination)
 		)
-			.block(player.id, BlockingConstants.REASONS.WITCH_CHOOSE)
+			.block(player.id, BlockingConstants.REASONS.CART_SMALL_EVENT)
 			.build();
 
 		response.push(packet);
