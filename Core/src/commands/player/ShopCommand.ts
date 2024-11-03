@@ -195,7 +195,7 @@ function getBadgeShopItem(): ShopItem {
 function getDailyPotionShopItem(potion: Potion): ShopItem {
 	return {
 		id: "dailyPotion",
-		price: Math.round(getItemValue(potion) * 0.7),
+		price: Math.round(getItemValue(potion) * ShopConstants.DAILY_POTION_DISCOUNT_MULTIPLIER),
 		amounts: [1],
 		buyCallback: async (context, response, playerId): Promise<boolean> => {
 			const player = await Players.getById(playerId);

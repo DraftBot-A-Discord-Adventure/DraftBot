@@ -14,4 +14,6 @@ export abstract class ShopConstants {
 	static readonly FULL_REGEN_PRICE = 3000;
 
 	static readonly MONEY_MOUTH_BADGE_PRICE = 25000;
+
+	static DAILY_POTION_DISCOUNT_MULTIPLIER = 0.7;
 }
