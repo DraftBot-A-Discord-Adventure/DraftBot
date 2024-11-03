@@ -65,6 +65,7 @@ import {SmallEventClassPacket} from "../../../../Lib/src/packets/smallEvents/Sma
 import {SmallEventUltimateFoodMerchantPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventUltimateFoodMerchantPacket";
 import {EmoteUtils} from "../../utils/EmoteUtils";
 import {SmallEventCartPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventCartPacket";
+import {cartResult} from "../../smallEvents/cart";
 
 
 export function getRandomSmallEventIntro(language: Language): string {
@@ -840,30 +841,6 @@ export default class SmallEventsHandler {
 
 	@packetHandler(SmallEventCartPacket)
 	async SmallEventCart(packet: SmallEventCartPacket, context: PacketContext): Promise<void> {
-		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
-		const story = packet.displayedDestination.isDisplayed ? "knownDestination" : "unknownDestination";
-
-		if (interaction) {
-			await interaction.editReply({
-				embeds: [
-					new DraftbotSmallEventEmbed(
-						"cart",
-						getRandomSmallEventIntro(interaction.userLanguage)
-						+ StringUtils.getRandomTranslation(`smallEvents:cart.${story}`, interaction.userLanguage, {
-							price: packet.price,
-							moneyEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.unitValues.money),
-							destination: packet.displayedDestination.type ?
-								`${DraftBotIcons.map_types[packet.displayedDestination.type]} ${
-									i18n.t(`models:map_locations.${packet.displayedDestination.id}.name`, {lng: interaction.userLanguage})
-								}` :
-								null
-						})
-						+ StringUtils.getRandomTranslation("smallEvents:cart.menu", interaction.userLanguage),
-						interaction.user,
-						interaction.userLanguage
-					)
-				]
-			});
-		}
+		await cartResult(packet, context);
 	}
 }
