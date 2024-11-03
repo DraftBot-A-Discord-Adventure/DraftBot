@@ -2,7 +2,7 @@
   "anotherPlayerBlocked": "You can't do this because {{username}} currently has a pending action ({{reasons}})!",
   "blockedContext": {
     "acceptItem": "choice to keep an item or not",
-    "cartChoose": "choice to get in the cart or not",
+    "cartSmallEvent": "choice to get in the cart or not",
     "chiefGuildLeave": "transfer of authority",
     "chooseDestination": "choice of destination",
     "class": "class change",

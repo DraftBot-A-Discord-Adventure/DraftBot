@@ -2,7 +2,7 @@
   "anotherPlayerBlocked": "¡No puede hacerlo porque {{username}} tiene una acción pendiente ({{reasons}}) !",
   "blockedContext": {
     "acceptItem": "elección de conservar o no un objeto",
-    "cartChoose": "elección de montar o no en el carro",
+    "cartSmallEvent": "elección de montar o no en el carro",
     "chiefGuildLeave": "transferencia de poder",
     "chooseDestination": "elección del destino",
     "class": "cambio de clase",

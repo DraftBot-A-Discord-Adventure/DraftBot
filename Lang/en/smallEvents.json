@@ -111,7 +111,7 @@
     "notEnoughGems": "You accept, but when it's time to pay, you realize you don't have enough to pay. You leave disappointed."
   },
   "lottery": {
-    "intro": "You cross paths with a man who calls out to you. Curious, you stop. He suggests you take part in a game of chance he's created. You can choose between several levels of reward.\n\n:coin: Small reward\n:dollar: Medium reward\n:moneybag: Large reward\n",
+    "intro": "You cross the path of a man who questions you. Curious, you stop. He offers you to participate in a game of chance that he has created. You can choose between multiple reward levels.\n\n:coin: Small reward\n:dollar: average reward\n{{moneyEmote}} Big reward\n",
     "easy": {
       "success": "You take part and win a prize, which the man hands over to you before leaving.",
       "fail": "You lose the man's game, but participation was free. So you decide to continue on your way."
@@ -352,7 +352,7 @@
       "a bird approaches you and drops a tiny message in your hand...",
       "you discover an old, abandoned wooden hut, you decide to explore it and discover only an old grimoire that seems to have been lying around for years..."
     ],
-    "reward": ":moneybag: Money: **{{money}}**\n:star: XP: **{{xp}}**\n:medal: Points: **The number of points will depend on your final ranking.**\n:gift: A random equipment.",
+    "reward": "{{moneyEmote}} Money: **{{money}}**\n:star: XP: **{{xp}}**\n:medal: Points: **The number of points will depend on your final ranking. *\n:gift: A random equipment.",
     "endMessage": "\n\n:newspaper: \"To the adventurer belonging to the {{league}} who will find this text, **if you maintain your glory until the end of the season**, you will be able to win these rewards:\n\n{{rewards}}\"\n\nYou resume your journey, while enjoying your bonus {{time}}.",
     "notEnoughFight": "\n\n:newspaper: \"Adventurers belonging to {{league}} who will find this text **if you are performing some battles using the {command:fight}command**, you will be able to win these rewards:\n\n{{rewards}}\"\n\nYou will quickly get back on your way Fear of failing to fight enough players before the end of the {{time}} season.",
     "rewardToday": "\n\n:newspaper: \"**League rewards are available! * Receive your reward before the end of the week thanks to the order {command:leaguebonus} !\n\nYou get back on your way, while enjoying your bonus."
@@ -773,9 +773,9 @@
       "nbMeanPoints": "after a points count has been performed recently by the organizers, candidates have an average score of **{{infoNumber}} :medal:**. Encouraged by this news,",
       "meanWeeklyScore": "after a points count was performed recently by the organizers, the candidates received an average of **{{infoNumber}} :medal: this week**. Attract by this news,",
       "levelMean": "the last census noted that adventurers averaged **level {{infoNumber}}**. Without knowing what to do with this information",
-      "nbMeanMoney": "the country bank had an average of **{{infoNumber}} :moneybag:** in its customers' stock exchanges. Loved by this news,",
-      "sumAllMoney": "country bank has **{{infoNumber}} :moneybag:** in circulation at this time. Surprised by this news,",
-      "richestPlayer": "the country bank evaluated that the richest adventurer currently has **{{infoNumber}} :moneybag:** in their account. Abandoned by this news,",
+      "nbMeanMoney": "the country bank had an average of **{{infoNumber}} {{moneyEmote}}** in its customers' stock exchanges. Loved by this news,",
+      "sumAllMoney": "country bank has **{{infoNumber}} {{moneyEmote}}** in circulation at this time. Surprised by this news,",
+      "richestPlayer": "the country bank evaluated that the richest adventurer currently has **{{infoNumber}} {{moneyEmote}}** in their account. Abandoned by this news,",
       "feistyPets": "SPAC, or the Counterfeiters Animal Protector, is campaigning to help **fielky animals** get a better life. They listed **{{infoNumber}}**. Both comfort and comfort from this news,",
       "percentMalePets": "the SPAC, or the Counterfeiter Animal Protector, discovered that **{{infoNumber}}%** of the animals in the territory are mates. Happy with this news,",
       "percentFemalePets": "the SPAC, or the Counterfeiter Animal Protector, discovered that **{{infoNumber}}%** of the animals in the territory are females. Happy with this news,",
@@ -853,18 +853,18 @@
   "pet": {
     "stories": {
       "money_m": [
-        "You see **{{pet}}** digging in tall grass. The result is **{{amount}}** :moneybag:, which you keep for the rest of your adventure.",
-        "You notice that **{{pet}}** is watching the ground and deciding to dig a hole. What was your surprise after you saw him coming out **{{amount}}** :moneybag:!",
-        "You discover that **{{pet}}** sniffs insistently towards a bush. You decide to take a look at it, and see it come back with **{{amount}}** :moneybag: fills you with joy!",
-        "You see everything **{{pet}}** jumping into the water. What is your surprise when you see it come out with a bursary of **{{amount}}** :moneybag:!",
-        "After a short break on your ride, you will see **{{pet}}** return with a scholarship. He seems to have robbed him from a merchant. You decide to leave with your **{{amount}}** :moneybag: before they see it."
+        "You see **{{pet}}** digging in tall grass. The result is **{{amount}}** {{moneyEmote}}, which you keep for the rest of your adventure.",
+        "You notice that **{{pet}}** is watching the ground and deciding to dig a hole. What was your surprise after you saw him coming out **{{amount}}** {{moneyEmote}}!",
+        "You discover that **{{pet}}** sniffs insistently towards a bush. You decide to take a look at it, and see it come back with **{{amount}}** {{moneyEmote}} fills you with joy!",
+        "You see everything **{{pet}}** jumping into the water. What is your surprise when you see it come out with a bursary of **{{amount}}** {{moneyEmote}}!",
+        "After a short break on your ride, you will see **{{pet}}** return with a scholarship. He seems to have robbed him from a merchant. You decide to leave with your **{{amount}}** {{moneyEmote}} before they see it."
       ],
       "money_f": [
-        "You see **{{pet}}** digging in tall grass. It comes out **{{amount}}** :moneybag:, which you keep for the rest of your adventure.",
-        "You notice that **{{pet}}** is watching the ground and deciding to dig a hole. What was your surprise after you saw him coming out **{{amount}}** :moneybag:!",
-        "You discover that **{{pet}}** sniffs insistently towards a bush. You decide to take a look at it, and see it come back with **{{amount}}** :moneybag: fills you with joy!",
-        "You see everything **{{pet}}** jumping into the water. What is your surprise when you see it come out with a bursary of **{{amount}}** :moneybag:!",
-        "After a short break on your ride, you will see **{{pet}}** return with a scholarship. She seems to have robbed her to a merchant. You decide to leave with your **{{amount}}** :moneybag: before they see it."
+        "You see **{{pet}}** digging in tall grass. It comes out **{{amount}}** {{moneyEmote}}, which you keep for the rest of your adventure.",
+        "You notice that **{{pet}}** is watching the ground and deciding to dig a hole. What was your surprise after you saw him coming out **{{amount}}** {{moneyEmote}}!",
+        "You discover that **{{pet}}** sniffs insistently towards a bush. You decide to take a look at it, and see it come back with **{{amount}}** {{moneyEmote}} fills you with joy!",
+        "You see everything **{{pet}}** jumping into the water. What is your surprise when you see it come out with a bursary of **{{amount}}** {{moneyEmote}}!",
+        "After a short break on your ride, you will see **{{pet}}** return with a scholarship. She seems to have robbed her to a merchant. You decide to leave with your **{{amount}}** {{moneyEmote}} before they see it."
       ],
       "item_m": [
         "You see **{{pet}}** digging in tall grass. There is a **item** that you can possibly keep for the rest of your adventure.",
@@ -1065,9 +1065,9 @@
         "you see a crowd of people together. If you want to see what's going on, you make a way through the group and discover a ensangled object, otherwise the crowd around it would already have touched. You leave as if nothing was with the object in your possession."
       ],
       "winMoney": [
-        "you walk on a small stump and notice that your pitch noise sounds strangely. You search the ground and find a chest filled with gold. You get **{{amount}} :moneybag:**.",
-        "you meet a person who looks a bit disconcerted and performed... Seeing the person apologizes and runs out. You say that she has confused you with someone else. In his race the unknown dropped a purse: you open it and discover **{{amount}} :moneybag:**!",
-        "you decide to set up your camp by installing a tent and other objects. By digging holes to plant the spikes in your tent, you feel something hard in the ground. By digging you will land a small wooden box that is time-friendly and find **{{amount}} :moneybag:**!"
+        "you walk on a small stump and notice that your pitch noise sounds strangely. You search the ground and find a chest filled with gold. You get **{{amount}} {{moneyEmote}}**.",
+        "you meet a person who looks a bit confused and afraid... On seeing you the person apologizes and runs off. You say to yourself that they have mistaken you for someone else. In his run the stranger dropped a moneybag: you open it and discover **{{amount}} {{moneyEmote}}** !",
+        "you decide to set up camp by putting up a tent and other things. As you dig the holes for your tent pegs, you feel something hard in the ground. While digging, you unearth a small, timeworn wooden case and find **{{amount}} {{moneyEmote}}** !"
       ]
     },
     "other": {
@@ -1084,5 +1084,89 @@
         "you have been hurled by a plough. You were questioned by its owner, who apologizes for not seeing you because of your shirt appearance and offers you some provisions, You will be able to eat a little and then go back on your way. You earn **{{amount}} :heart:**."
       ]
     }
+  },
+  "ultimateFoodMerchant": {
+    "stories": [
+      "observing the surrounding landscape, you do not notice the man who is in front of you and stroke him. You apologise, and the man being very sympathetic, you were quickly forgiven and engaged in a discussion. It is called \"Gaspard-Jo\", and it is a soup merchant. By his great energy, he rewards the talent of the players he finds on his way. ",
+      "a little roulotte with a path is heading towards you. You take the trouble to greet the merchant politely, who, after a quick discussion in which you learn he is called \"Gaspard-Jo\", have wanted to reward you for your good actions. "
+    ],
+    "rewards": {
+      "ultimateFood_one": [
+        "It tends **an ultimate soup**, which you store carefully."
+      ],
+      "ultimateFood_other": [
+        "It tends **{{count}} ultimate soup**, which you store carefully."
+      ],
+      "fullUltimateFood": [
+        "It offers you the ultimate soups, but unfortunately your store has been full, you have to return them."
+      ],
+      "item": [
+        "It offers you **an item** which, after what he says, might be useful to you."
+      ],
+      "commonFood_one": [
+        "In the belief that you don't have enough power to get its goods for free, they offer you **a treat**."
+      ],
+      "commonFood_other": [
+        "Presuming you don't have enough power to get their goods for free, they offer you **{{count}} treats**."
+      ],
+      "fullCommonFood": [
+        "Seeing you don't have strong treat, it is a sign to offer you some treats, but unfortunately you no longer have enough room to take them. You are on your way back then."
+      ],
+      "money": [
+        "Since you are not in a guild, you cannot store your benefactor's valuable goods. It then gives you **{{count}}** {{moneyEmote}}. You get back on your way, a little bit longer."
+      ]
+    }
+  },
+  "cart": {
+    "knownDestination": [
+      "you can see a wagon in the distance, its timber used by time and travel. A man with hirsute hair, the face marked by weather, calls you. It pretends to drive you around **{{destination}}** for **{{price}}** {{moneyEmote}}. His mischievous smile and the rugged brightness in his eyes leave a doubt. You wonder if this rough direction is worth the risk...",
+      "an individual with a shadowy look comes out of the shadow, behind-the-scenes a brinking cart. It is a rogue known for his unforeseen journeys, peeping eyes of malice. It offers you a trip to the surroundings of **{{destination}}** against **{{price}}** {{moneyEmote}}. His confidence and his smile make you wonder about the reliability of his management...",
+      "A well-maintained cart suddenly appears on your way. His owner, a man with a burned face and an enigmatic smile, ensures that it can take you somewhere from **{{destination}}** against **{{price}}** {{moneyEmote}}. His determined look seems to be hiding something. You wonder if this vague direction is as attractive as it looks like...",
+      "you see a man who seems lost. It is a mystical rogue with mottled hair and smarter air, who pretends to be able to drive you around **{{destination}}** in exchange for **{{price}}** {{moneyEmote}}. His eyes shine with a difficult mischief. You are, weighing the pros and cons of this uncertain direction...",
+      "an outsider is approaching you, Offering you a ride in their cart to **{{destination}}** for **{{price}}** {{moneyEmote}}. After a short discussion, you will discover that he is a man whose journeys are as varied as his ruses. His insurance seems a bit too perfect, as if he had everything planned in advance. You wonder what he hids...",
+      "a friendly man offers you a journey in his cart. He is a rogue known for his journeys across the kingdom, hirsut beard and in sharp eye, which offers you a prearranged route of **{{destination}}** for **{{price}}** {{moneyEmote}}. His words are soft, but his eyes are hard. You wonder if you can really trust him...",
+      "You meet a strange individual with a cart. It is a traveler with mystery, hair in battle and pierce eyes. It offers you a trip to **{{destination}}** in exchange for **{{price}}** {{moneyEmote}}. His promises look great, but his pace leaves a doubt. You wonder if you might fall into a piece..."
+    ],
+    "unknownDestination": [
+      "an enigmatic man with a wagon is asking you. He offers you a trip to an unknown place for **{{price}}** {{moneyEmote}}. His stiff gaze and his enigmatic smile leave a doubt...",
+      "a shady individual comes out of the shadow and offers you a trip through his bumpy cart to an unknown destination for **{{price}}** {{moneyEmote}}. His mischievous air and seamless insurance arouse your confidence...",
+      "A man with a burned face appears on your way with a well-kept cart. It offers to take you to an unknown destination for **{{price}}** {{moneyEmote}}. Perhaps his enigmatic smile and his eyes conceal something...",
+      "a mystical rogue crosses you and pretends to be able to take you to an unknown location for **{{price}}** {{moneyEmote}}. Its clever air and shiny eyes of malice make you bewitch...",
+      "a foreigner is approaching you with a proposal to travel in his cart to an unknown destination for **{{price}}** {{moneyEmote}}. His assurance and mischievous eyes awaken your curiosity...",
+      "A friendly man from the hirsute beard offers you a trip to his cart to an unknown place for **{{price}}** {{moneyEmote}}. Despite his soft words, his hard gaze puts you in trouble...",
+      "a mystery-passed traveler offers you a trip to an unknown destination for **{{price}}** {{moneyEmote}}. Its intriguing looks and allegiance promises inspire your integration..."
+    ],
+    "menu": [
+      "\n\n:red_car: Ride in cart\n:person_walking: Pass your way"
+    ],
+    "scamTravelDone": [
+      "After a swift journey, you find yourself in an unknown place. The man looks at you with a sneak smile and moves away with his cart.",
+      "The hirsute hair man has taken you to a completely different place from your intended destination. Before you have time to react, it quickly disappeared into a cloud of dust.",
+      "The trip was passed faster than expected and you find yourself in an unknown place. The man with his mischievous eyes moves away with his cart, leaving you alone and unlocked.",
+      "Soon, you were transported to a familiar place... You quickly realize that this is not the destination that was indicated to you, but it's already too late to respond. The mystery man is already far away.."
+    ],
+    "normalTravelDone": [
+      "You accept the man's offer and ride his cart. Enjoy a peaceful journey, and find yourself close to your intended destination.",
+      "After weighing the pros and cons you have to trust the man and get into his cart. You were relieved to find yourself in the destination indicated.",
+      "You climb up the cart and the hairman gets you to your destination. You arrive safely and safely from the place you prefer.",
+      "You accept the mystical passage's offer and ride his cart. To your surprise, you will find yourself close to your planned destination."
+    ],
+    "unknownDestinationTravelDone": [
+      "You accept the man's offer and ride his cart without any idea of your destination. You will find yourself in a place that seems to be welcoming.",
+      "Despite the uncertainty, you decide to trust the man and get into his cart. With your relief, you will find yourself in a peaceful and pleasant place.",
+      "You climb into the cart, the destination being a mystery. The hairman gets you through a variety of landscapes before heading to a place that looks promising.",
+      "You accept the offer of the traveler to the mystery pass and ride his cart without knowing you will go. To your great surprise, you will find yourself in a picturesque and charming place."
+    ],
+    "travelRefused": [
+      "After a short reflection, you decide not to take the risk and pass your path.",
+      "You politely reject the proposal and continue your way.",
+      "Since you do not need such a service at this time, you have to continue your journey.",
+      "You reject the proposal and continue your path."
+    ],
+    "notEnoughMoney": [
+      "You search in your pockets, but you realize you don't have enough money. The man looks at you and leaves with his cart.",
+      "You count your pieces, but you need them for the journey. The rogue shakes her tone and moves away with her cart.",
+      "You check your purse, but unfortunately you don't have enough money. The stranger nods it and leaves with its cart."
+    ]
   }
 }

@@ -2,7 +2,7 @@
   "anotherPlayerBlocked": "Sie können dies nicht ausführen, da {{username}} eine ausstehende Aktion ({{reasons}}) hat.",
   "blockedContext": {
     "acceptItem": "Auswahl zum Bewahren eines Objekts oder nicht",
-    "cartChoose": "auswählen, um in den Wagen zu montieren oder nicht",
+    "cartSmallEvent": "Wahl, ob Sie in den Karren steigen wollen oder nicht",
     "chiefGuildLeave": "Vergabeverfahren",
     "chooseDestination": "Zielauswahl",
     "class": "Klassenwechsel",

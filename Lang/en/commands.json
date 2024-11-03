@@ -460,26 +460,6 @@
     "success": "Pet nickname changed to **{{name}}**!",
     "successNoName": "Your pet no longer has a nickname!"
   },
-  "classesInfo": {
-    "title": {
-      "list": ":bookmark: Classes list",
-      "class": "**{{emoji}} {{className}} | {{classKind}}**"
-    },
-    "description": {
-      "list": "Here is a list of all the classes available in the game. To get more information about a specific class, select one below.",
-      "attacks": "\n\n## **Available attacks:**"
-    },
-    "mainOption": {
-      "name": "Class list",
-      "placeholder": "Select a class"
-    },
-    "displays": {
-      "listing": "{{headerText}}\n\n{{classesList}}",
-      "details": "{{classDetails}}{{attacksHeader}}\n{{attacksList}}",
-      "class": "### {{emoji}} {{name}}\n:zap: {{fightPoint}} | :dagger: {{attack}} | :shield: {{defense}} | :rocket: {{speed}} | :wind_blowing_face: {{baseBreath}} / {{maxBreath}} | :lungs: {{breathRegen}} | :heart: {{health}}",
-      "attack": "### {{emoji}} {{name}} | {{cost}} :wind_blowing_face:\n> {{description}}"
-    }
-  },
   "sell": {
     "commandName": "sell",
     "commandDescription": "Sell a equipment.",
@@ -517,5 +497,10 @@
       "class": "### {{emoji}} {{name}}\n:zap: {{fightPoint}} | :dagger: {{attack}} | :shield: {{defense}} | :rocket: {{speed}} | :wind_blowing_face: {{baseBreath}} / {{maxBreath}} | :lungs: {{breathRegen}} | :heart: {{health}}",
       "attack": "### {{emoji}} {{name}} | {{cost}} :wind_blowing_face:\n> {{description}}"
     }
+  },
+  "respawn": {
+    "response_other": "{{respawnEmote}} | ** {{pseudo}} ** We resurrected you successfully! However, please note that {{count}} {{scoreEmote}} was removed from your score during the start!",
+    "response_one": "{{respawnEmote}} | ** {{pseudo}} ** We resurrected you successfully! However, please note that 1 {{scoreEmote}} was removed from your score during the start!",
+    "alreadyAlive": "It seems that you are not yet KO'd... You don't need our services."
   }
 }

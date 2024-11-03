@@ -2,7 +2,7 @@
   "anotherPlayerBlocked": "{{username}}{{reasons}}Não pode fazer isto porque tem uma ação pendente ( ) !",
   "blockedContext": {
     "acceptItem": "escolha de manter ou não um objeto",
-    "cartChoose": "escolha de andar ou não no carrinho",
+    "cartSmallEvent": "escolha de andar ou não no carrinho",
     "chiefGuildLeave": "transferência de poder",
     "chooseDestination": "escolha do destino",
     "class": "mudança de classe",

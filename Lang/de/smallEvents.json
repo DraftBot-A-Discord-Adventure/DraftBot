@@ -111,7 +111,7 @@
     "notEnoughGems": "Sie stimmen zu, aber als Sie bezahlen wollen, stellen Sie fest, dass Sie nicht genug Geld haben, um zu bezahlen. Sie gehen also enttäuscht weg."
   },
   "lottery": {
-    "intro": "Sie kreuzen den Weg eines Mannes, der Sie anspricht. Sie sind neugierig und bleiben stehen. Dieser bietet Ihnen an, an einem von ihm entwickelten Glücksspiel teilzunehmen. Sie können zwischen verschiedenen Belohnungsstufen wählen.\n\n:coin: Kleine Belohnung\n:dollar: Mittlere Belohnung\n:moneybag: Große Belohnung\n",
+    "intro": "Sie kreuzen den Weg eines Mannes, der Sie anspricht. Sie sind neugierig und bleiben stehen. Dieser bietet Ihnen an, an einem von ihm entwickelten Glücksspiel teilzunehmen. Sie können zwischen verschiedenen Belohnungsstufen wählen.\n\n:coin: Kleine Belohnung\n:dollar: Mittlere Belohnung\n{{moneyEmote}} Große Belohnung\n",
     "easy": {
       "success": "Sie nehmen teil und schaffen es, einen Preis zu gewinnen, den der Mann Ihnen überreicht, bevor er geht.",
       "fail": "Sie verlieren beim Mensch-ärgere-dich-nicht-Spiel, allerdings war die Teilnahme kostenlos. Sie beschließen daher, Ihre Reise fortzusetzen."
@@ -352,7 +352,7 @@
       "ein Vogel nähert sich Ihnen und legt eine winzige Nachricht in Ihre Hand...",
       "du entdeckst eine alte, verlassene Holzhütte, beschließt, sie zu erforschen und findest nur ein altes Grimoire, das hier schon seit Jahren herumzuliegen scheint..."
     ],
-    "reward": ":moneybag: Silber: **{{money}}**\n:star: XP: **{{xp}}**\n:medal: Punkte: **Die Anzahl der Punkte hängt von deiner endgültigen Platzierung ab.**\n:gift: Eine zufällige Ausrüstung.",
+    "reward": "{{moneyEmote}} Silber: **{{money}}**\n:star: XP: **{{xp}}**\n:medal: Punkte: **Die Anzahl der Punkte hängt von deiner endgültigen Platzierung ab.**\n:gift: Eine zufällige Ausrüstung.",
     "endMessage": "\n\n:newspaper: \"An den Abenteurer, der zu {{league}} gehört und diesen Text findet: **Wenn du deinen Ruhm bis zum Ende der Saison** aufrechterhältst, kannst du diese Belohnungen gewinnen:\n\n{{rewards}}\"\n\nDu setzt deinen Weg fort und freust dich, dass du deinen Bonus abholen kannst {{time}}.",
     "notEnoughFight": "\n\n:newspaper: \"An den Abenteurer, der zu {{league}} gehört und diesen Text findet: **Wenn du einige Kämpfe mit dem Befehl {command:fight}** durchführst, kannst du diese Belohnungen gewinnen:\n\n{{rewards}}\"\n\nDu machst dich schnell wieder auf den Weg, da du befürchtest, dass du es nicht schaffen wirst, vor Ende der Saison gegen genügend Spieler zu kämpfen {{time}}.",
     "rewardToday": "\n\n:newspaper: \"**Liga-Belohnungen sind verfügbar!** Holen Sie sich Ihre Belohnung mit dem Befehl {command:leaguebonus} noch vor Ende der Woche!\"\n\nSie setzen Ihre Reise fort und freuen sich darauf, Ihren Bonus abzuholen."
@@ -773,9 +773,9 @@
       "nbMeanPoints": "laut einer kürzlich von den Organisatoren durchgeführten Punktezählung haben die Kandidaten im Durchschnitt eine Punktzahl von **{{infoNumber}} :medal:**. Ermutigt durch diese Nachricht",
       "meanWeeklyScore": "laut einer kürzlich von den Organisatoren durchgeführten Punktezählung haben die Kandidaten in dieser Woche durchschnittlich **{{infoNumber}} :medal: ** gesammelt. Traurig über diese Nachricht",
       "levelMean": "die letzte Volkszählung hatte festgestellt, dass Abenteurer im Durchschnitt die **Ebene {{infoNumber}}** erreicht haben. Ohne zu wissen, was sie mit dieser Information anfangen sollten,",
-      "nbMeanMoney": "zählte die Bank des Landes durchschnittlich **{{infoNumber}} :moneybag:** in den Geldbeuteln ihrer Kunden. Amüsiert über diese Nachricht",
-      "sumAllMoney": "die Bank des Landes zählt **{{infoNumber}} :moneybag:**, die zu dieser Stunde im Umlauf sind. Überrascht von dieser Nachricht",
-      "richestPlayer": "die Bank des Landes hat geschätzt, dass der reichste Abenteurer derzeit **{{infoNumber}} :moneybag:** auf seinem Konto hat. Verblüfft über diese Nachricht",
+      "nbMeanMoney": "zählte die Bank des Landes durchschnittlich **{{infoNumber}} {{moneyEmote}}** in den Geldbeuteln ihrer Kunden. Amüsiert über diese Nachricht",
+      "sumAllMoney": "die Bank des Landes zählt **{{infoNumber}} {{moneyEmote}}**, die zu dieser Stunde im Umlauf sind. Überrascht von dieser Nachricht",
+      "richestPlayer": "die Bank des Landes hat geschätzt, dass der reichste Abenteurer derzeit **{{infoNumber}} {{moneyEmote}}** auf seinem Konto hat. Verblüfft über diese Nachricht",
       "feistyPets": "Die SPAC, die Société Protectrice des Animaux de la Contrée, setzt sich dafür ein, dass **Gifttiere** ein besseres Leben bekommen. Sie haben **{{infoNumber}}** gezählt. Enttäuscht und getröstet von dieser Nachricht,",
       "percentMalePets": "die SPAC, oder Société Protectrice des Animaux de la Contrée, hat herausgefunden, dass **{{infoNumber}}%** der Tiere im Gebiet männlich sind. Erfreut über diese Nachricht,",
       "percentFemalePets": "die SPAC, oder Société Protectrice des Animaux de la Contrée, hat herausgefunden, dass **{{infoNumber}}%** der Tiere im Gebiet weiblich sind. Erfreut über diese Nachricht,",
@@ -853,18 +853,18 @@
   "pet": {
     "stories": {
       "money_m": [
-        "Sie sehen **{{pet}}** im hohen Gras wühlen. Dabei kommt **{{amount}}** :moneybag:, die du für dein weiteres Abenteuer aufbewahrst, zum Vorschein.",
-        "Sie bemerken, dass **{{pet}}** angestrengt auf den Boden schaut und sich dazu entschließt, ein Loch zu graben. Wie überrascht sind Sie, als Sie sehen, dass er **{{amount}}** :moneybag: herauskommt!",
-        "Sie entdecken, dass **{{pet}}** hartnäckig in Richtung eines Gebüschs schnüffelt. Sie beschließen, es sich anzusehen, und als Sie sehen, dass er mit **{{amount}}** :moneybag: zurückkommt, erfüllt Sie das mit großer Freude!",
-        "Plötzlich sehen Sie **{{pet}}** ins Wasser springen. Sie sind überrascht, als Sie sehen, dass er mit einem Geldbeutel von **{{amount}}** :moneybag: wieder auftaucht.",
-        "Nachdem du auf deiner Reise eine kleine Pause gemacht hast, siehst du **{{pet}}** mit einem Geldbeutel zurückkommen. Es sieht so aus, als hätte er ihn von einem Händler gestohlen. Du beschließt, mit deinen **{{amount}}** :moneybag: zu gehen, bevor er es merkt."
+        "Sie sehen **{{pet}}** im hohen Gras wühlen. Dabei kommt **{{amount}}** {{moneyEmote}}, die du für dein weiteres Abenteuer aufbewahrst, zum Vorschein.",
+        "Sie bemerken, dass **{{pet}}** angestrengt auf den Boden schaut und sich dazu entschließt, ein Loch zu graben. Wie überrascht sind Sie, als Sie sehen, dass er **{{amount}}** {{moneyEmote}} herauskommt!",
+        "Sie entdecken, dass **{{pet}}** hartnäckig in Richtung eines Gebüschs schnüffelt. Sie beschließen, es sich anzusehen, und als Sie sehen, dass er mit **{{amount}}** {{moneyEmote}} zurückkommt, erfüllt Sie das mit großer Freude!",
+        "Plötzlich sehen Sie **{{pet}}** ins Wasser springen. Sie sind überrascht, als Sie sehen, dass er mit einem Geldbeutel von **{{amount}}** {{moneyEmote}} wieder auftaucht.",
+        "Nachdem du auf deiner Reise eine kleine Pause gemacht hast, siehst du **{{pet}}** mit einem Geldbeutel zurückkommen. Es sieht so aus, als hätte er ihn von einem Händler gestohlen. Du beschließt, mit deinen **{{amount}}** {{moneyEmote}} zu gehen, bevor er es merkt."
       ],
       "money_f": [
-        "Sie sehen **{{pet}}** im hohen Gras wühlen. Sie holt **{{amount}}** :moneybag:, die du für dein weiteres Abenteuer aufbewahrst.",
-        "Sie bemerken, dass **{{pet}}** angestrengt auf den Boden schaut und sich dazu entschließt, ein Loch zu graben. Wie überrascht sind Sie, als Sie sehen, dass er **{{amount}}** :moneybag: herauskommt!",
-        "Sie entdecken, dass **{{pet}}** hartnäckig in Richtung eines Gebüschs schnüffelt. Du beschließt, es dir anzusehen, und als du siehst, dass sie mit **{{amount}}** :moneybag: zurückkommt, erfüllt dich das mit großer Freude!",
-        "Plötzlich sehen Sie **{{pet}}** ins Wasser springen. Wie überrascht sind Sie, als Sie sehen, dass sie mit einem Geldbeutel von **{{amount}}** :moneybag: wieder auftaucht!",
-        "Nachdem du auf deiner Reise eine kleine Pause gemacht hast, siehst du **{{pet}}** mit einem Geldbeutel zurückkommen. Es sieht so aus, als hätte sie ihn einem Händler gestohlen. Sie beschließen, mit Ihren **{{amount}}** :moneybag: zu gehen, bevor er etwas merkt."
+        "Sie sehen **{{pet}}** im hohen Gras wühlen. Sie holt **{{amount}}** {{moneyEmote}}, die Sie für Ihr weiteres Abenteuer aufbewahren.",
+        "Sie bemerken, dass **{{pet}}** angestrengt auf den Boden schaut und sich dazu entschließt, ein Loch zu graben. Wie überrascht sind Sie, als Sie sehen, dass er **{{amount}}** {{moneyEmote}} herauskommt!",
+        "Sie entdecken, dass **{{pet}}** hartnäckig in Richtung eines Gebüschs schnüffelt. Du beschließt, es dir anzusehen, und als du siehst, dass sie mit **{{amount}}** {{moneyEmote}} zurückkommt, erfüllt dich das mit großer Freude!",
+        "Plötzlich sehen Sie **{{pet}}** ins Wasser springen. Wie überrascht sind Sie, als Sie sehen, dass sie mit einem Geldbeutel von **{{amount}}** {{moneyEmote}} wieder auftaucht!",
+        "Nachdem du auf deiner Reise eine kleine Pause gemacht hast, siehst du **{{pet}}** mit einem Geldbeutel zurückkommen. Es sieht so aus, als hätte sie ihn einem Händler gestohlen. Sie beschließen, mit Ihren **{{amount}}** {{moneyEmote}} zu gehen, bevor er etwas merkt."
       ],
       "item_m": [
         "Sie sehen **{{pet}}** im hohen Gras wühlen. Dabei kommt ein **Gegenstand** zum Vorschein, den Sie eventuell für Ihr weiteres Abenteuer behalten können.",
@@ -1065,9 +1065,9 @@
         "sehen Sie eine Menge Menschen, die sich versammelt haben. Sie wollen sehen, was los ist, drängen sich durch die Gruppe und entdecken einen blutverschmierten Gegenstand, den die Menge schon längst berührt hätte. Sie gehen mit dem Gegenstand in Ihrem Besitz weiter, als wäre nichts geschehen."
       ],
       "winMoney": [
-        "Sie gehen auf eine kleine Anhöhe und bemerken, dass Ihre Schritte seltsam klingen. Sie durchsuchen den Boden und entdecken eine mit Gold gefüllte Truhe. Sie erhalten **{{amount}} :moneybag:**.",
-        "Sie treffen eine Person, die etwas verwirrt und ängstlich wirkt... Als die Person Sie sieht, entschuldigt sie sich und rennt weg. Sie denken, dass sie Sie mit jemandem verwechselt hat. Sie öffnen den Beutel und entdecken **{{amount}} :moneybag:**!",
-        "beschließen Sie, Ihr Lager zu errichten, indem Sie ein Zelt und andere Gegenstände aufstellen. Als du die Löcher zum Einschlagen der Heringe für dein Zelt gräbst, spürst du etwas Hartes im Boden. Beim Graben gräbst du ein kleines, verwittertes Holzkästchen aus und findest darin **{{amount}} :moneybag:**!"
+        "Sie gehen auf eine kleine Anhöhe und bemerken, dass Ihre Schritte seltsam klingen. Sie durchsuchen den Boden und entdecken eine mit Gold gefüllte Truhe. Sie erhalten **{{amount}} {{moneyEmote}}**.",
+        "Sie treffen eine Person, die etwas verwirrt und ängstlich wirkt... Als die Person Sie sieht, entschuldigt sie sich und rennt weg. Sie denken, dass sie Sie mit jemandem verwechselt hat. Sie öffnen den Beutel und entdecken **{{amount}} {{moneyEmote}}**!",
+        "beschließen Sie, Ihr Lager zu errichten, indem Sie ein Zelt und andere Gegenstände aufstellen. Als du die Löcher zum Einschlagen der Heringe für dein Zelt gräbst, spürst du etwas Hartes im Boden. Beim Graben gräbst du ein kleines, verwittertes Holzkästchen aus und findest darin **{{amount}} {{moneyEmote}}**!"
       ]
     },
     "other": {
@@ -1084,5 +1084,89 @@
         "Sie werden von einem Pflug angerempelt. Sie werden von seinem Besitzer angesprochen, der sich entschuldigt und sagt, dass er Sie aufgrund Ihres schwachen Aussehens nicht gesehen hat. Er bietet Ihnen etwas Proviant an, Sie essen etwas und setzen dann Ihren Weg fort. Sie gewinnen **{{amount}} :heart:**."
       ]
     }
+  },
+  "ultimateFoodMerchant": {
+    "stories": [
+      "Sie beobachten die Landschaft um sich herum, bemerken den Mann vor Ihnen nicht und rempeln ihn an. Sie entschuldigen sich und da der Mann sehr sympathisch ist, wird Ihnen schnell verziehen und Sie werden in ein Gespräch verwickelt. Er heißt \"Gaspard-Jo\" und ist ein Suppenverkäufer. Mit seiner großen Großzügigkeit belohnt er das Talent der Spieler, die er auf seinem Weg findet. ",
+      "ein kleiner Zigeunerwagen mit einem Kamin kommt auf Sie zu. Sie machen sich die Mühe, den Händler höflich zu begrüßen. Nach einem kurzen Gespräch, bei dem Sie erfahren, dass er \"Gaspard-Jo\" heißt, stellt sich heraus, dass er Sie für Ihre guten Taten belohnen möchte. "
+    ],
+    "rewards": {
+      "ultimateFood_one": [
+        "Er reicht Ihnen **eine ultimative Suppe**, die Sie sorgfältig wegpacken."
+      ],
+      "ultimateFood_other": [
+        "Er reicht Ihnen **{{count}} ultimative Suppen**, die Sie sorgfältig aufbewahren."
+      ],
+      "fullUltimateFood": [
+        "Er bietet Ihnen die ultimativen Suppen an. Da Ihr Lagerhaus leider voll ist, sind Sie gezwungen, sie ihm zurückzugeben."
+      ],
+      "item": [
+        "Er bietet Ihnen **einen Gegenstand** an, von dem er sagt, dass er Ihnen nützlich sein könnte."
+      ],
+      "commonFood_one": [
+        "Da er der Meinung ist, dass Sie nicht mächtig genug sind, um seine Ware kostenlos zu erhalten, bietet er Ihnen **eine Süßigkeit** an."
+      ],
+      "commonFood_other": [
+        "Da er der Meinung ist, dass Sie nicht mächtig genug sind, um seine Ware kostenlos zu erhalten, bietet er Ihnen **{{count}} Süßigkeiten** an."
+      ],
+      "fullCommonFood": [
+        "Als er sieht, dass Sie nicht sehr mächtig sind, lässt er sich dazu herab, Ihnen ein paar Leckereien anzubieten, aber Sie haben leider nicht mehr genug Platz, um sie zu nehmen. Enttäuscht setzen Sie Ihren Weg fort."
+      ],
+      "money": [
+        "Da Sie keiner Gilde angehören, können Sie die wertvollen Waren Ihres Wohltäters nicht lagern. Er gibt Ihnen daraufhin **{{count}}** {{moneyEmote}}. Sie setzen Ihren Weg etwas enttäuscht fort."
+      ]
+    }
+  },
+  "cart": {
+    "knownDestination": [
+      "sehen Sie in der Ferne einen heruntergekommenen Karren, dessen Holz von der Zeit und den Reisen abgenutzt ist. Ein Mann mit struppigem Haar und einem von der Witterung gezeichneten Gesicht spricht Sie an. Er behauptet, Sie um **{{destination}}** für **{{price}}** {{moneyEmote}}herumführen zu können. Sein schelmisches Lächeln und das listige Funkeln in seinen Augen lassen Zweifel aufkommen. Sie fragen sich, ob diese ungefähre Richtung das Risiko wert ist...",
+      "Ein zwielichtig aussehender Mann tritt aus dem Schatten und zieht einen klapprigen Karren hinter sich her. Er ist ein Schurke, der für seine unberechenbaren Reisen bekannt ist, und seine Augen funkeln vor Bosheit. Er bietet Ihnen eine Reise in die Gegend von **{{destination}}** gegen **{{price}}** {{moneyEmote}}. Seine Selbstsicherheit und sein schelmisches Lächeln lassen Sie die Zuverlässigkeit seiner Führung in Frage stellen...",
+      "ein gepflegter Karren taucht plötzlich auf Ihrem Weg auf. Sein Besitzer, ein Mann mit gemeißeltem Gesicht und einem rätselhaften Lächeln, versichert Ihnen, dass er Sie gegen **{{price}}** {{moneyEmote}}irgendwo in der Nähe von **{{destination}}** hinbringen kann. Sein entschlossener Blick scheint etwas zu verbergen. Sie fragen sich, ob diese vage Richtung wirklich so attraktiv ist, wie sie aussieht ...",
+      "treffen Sie auf einen Mann, der verloren zu sein scheint. Es ist ein mysteriöser Rowdy mit zerzaustem Haar und klugem Gesichtsausdruck, der behauptet, Sie gegen **{{price}}** {{moneyEmote}}in die Nähe von **{{destination}}** bringen zu können. Seine Augen funkeln mit einer schwer zu definierenden Bosheit. Sie zögern, wägen die Vor- und Nachteile dieser ungewissen Richtung ab...",
+      "werden Sie von einem Fremden angesprochen, der Ihnen eine Fahrt in seinem Karren in die Gegend von **{{destination}}** für **{{price}}** {{moneyEmote}}anbietet. Nach einem kurzen Gespräch finden Sie heraus, dass es sich um einen Mann handelt, dessen Reisen so vielfältig sind wie seine Tricks. Seine Selbstsicherheit wirkt ein wenig zu perfekt, als ob er alles im Voraus geplant hätte. Sie fragen sich, was er zu verbergen hat...",
+      "ein leutseliger Mann bietet Ihnen eine Fahrt mit seinem Karren an. Er ist ein für seine Reisen durch das Königreich bekannter Schurke mit struppigem Bart und listigem Blick, der Ihnen eine Fahrt in der Nähe von **{{destination}}** für **{{price}}** {{moneyEmote}}anbietet. Seine Worte sind sanft, aber sein Blick ist hart. Sie fragen sich, ob Sie ihm wirklich vertrauen können ...",
+      "begegnen Sie einer seltsamen Person mit einem Karren. Es ist ein Reisender mit einer mysteriösen Vergangenheit, wirrem Haar und stechenden Augen. Er bietet Ihnen eine Reise in die Umgebung von **{{destination}}** im Austausch für **{{price}}** {{moneyEmote}}. Seine Versprechungen klingen verlockend, aber sein Auftreten lässt Zweifel aufkommen. Sie fragen sich, ob Sie in eine Falle tappen könnten..."
+    ],
+    "unknownDestination": [
+      "ein rätselhafter Mann mit einem klapprigen Karren spricht Sie an. Er bietet Ihnen eine Reise zu einem unbekannten Ort an, um **{{price}}** {{moneyEmote}}. Sein listiger Blick und sein rätselhaftes Lächeln lassen Zweifel aufkommen ...",
+      "tritt eine zwielichtige Person aus dem Schatten und bietet Ihnen eine Fahrt in seinem holprigen Karren zu einem unbekannten Ziel für **{{price}}** {{moneyEmote}}an. Sein schelmisches Aussehen und seine überbordende Selbstsicherheit wecken Ihr Misstrauen ...",
+      "ein Mann mit einem gemeißelten Gesicht taucht mit einem gepflegten Karren auf Ihrem Weg auf. Er bietet Ihnen an, Sie für **{{price}}** {{moneyEmote}}zu einem unbekannten Ziel zu bringen. Sein rätselhaftes Lächeln und sein entschlossener Blick könnten etwas verbergen ...",
+      "ein geheimnisvoller Ränkeschmied begegnet Ihnen und behauptet, Sie an einen unbekannten Ort bringen zu können, um **{{price}}** {{moneyEmote}}. Sein kluger Gesichtsausdruck und seine vor Bosheit funkelnden Augen lassen Sie zögern ...",
+      "ein Fremder spricht Sie mit dem Vorschlag an, mit seinem Karren zu einem unbekannten Ziel zu fahren, um **{{price}}** {{moneyEmote}}. Sein selbstbewusstes Auftreten und sein schelmischer Blick wecken Ihre Neugier ...",
+      "ein leutseliger Mann mit zottigem Bart bietet Ihnen eine Fahrt in seinem Karren zu einem unbekannten Ort für **{{price}}** {{moneyEmote}}an. Trotz seiner sanften Worte sorgt sein harter Blick dafür, dass Sie sich unwohl fühlen...",
+      "ein Reisender mit geheimnisvoller Vergangenheit bietet Ihnen eine Reise zu einem unbekannten Ziel für **{{price}}** {{moneyEmote}}. Sein faszinierendes Aussehen und seine verlockenden Versprechungen wecken Ihr Interesse ..."
+    ],
+    "menu": [
+      "\n\n:red_car: In den Karren steigen\n:person_walking: Ihren Weg gehen"
+    ],
+    "scamTravelDone": [
+      "Nach einer überraschend schnellen Reise finden Sie sich an einem unbekannten Ort wieder. Der Mann schaut Ihnen mit einem hämischen Grinsen nach und entfernt sich mit seinem Karren.",
+      "Der Mann mit den zotteligen Haaren hat Sie an einen Ort geführt, der sich völlig von Ihrem geplanten Ziel unterscheidet. Bevor Sie reagieren konnten, verschwand er schnell in einer Staubwolke.",
+      "Die Reise ist schneller vergangen als erwartet und Sie finden sich an einem unbekannten Ort wieder. Der Mann mit den bösartigen Augen entfernt sich mit seinem Karren und lässt Sie allein und verwirrt zurück.",
+      "Sehr schnell werden Sie an einen vertrauten Ort transportiert... Sie merken schnell, dass es sich nicht um das Ziel handelt, das Ihnen genannt wurde, aber es ist bereits zu spät, um noch zu reagieren. Der mysteriöse Mann ist bereits weit weg..."
+    ],
+    "normalTravelDone": [
+      "Sie nehmen das Angebot des Mannes an und steigen auf seinen Karren. Nach einer friedlichen Fahrt befinden Sie sich in der Nähe Ihres geplanten Ziels.",
+      "Nachdem Sie die Vor- und Nachteile abgewogen haben, entscheiden Sie sich, dem Mann zu vertrauen und auf seinen Karren zu steigen. Sie sind erleichtert, als Sie sich in der Nähe des angegebenen Ziels befinden.",
+      "Sie steigen in den Karren und der Mann mit den zerzausten Haaren fährt Sie zu Ihrem Ziel. Sie kommen wohlbehalten in der Nähe des vereinbarten Ortes an.",
+      "Sie nehmen das Angebot des Reisenden mit der mysteriösen Vergangenheit an und steigen in seinen Karren. Zu Ihrer Überraschung befinden Sie sich in der Nähe Ihres geplanten Ziels."
+    ],
+    "unknownDestinationTravelDone": [
+      "Sie nehmen das Angebot des Mannes an und steigen in seinen Karren, ohne eine Ahnung, wohin Sie fahren werden. Nach einer friedlichen Fahrt finden Sie sich an einem Ort wieder, der einladend wirkt.",
+      "Trotz der Ungewissheit beschließen Sie, dem Mann zu vertrauen und in seinen Karren zu steigen. Zu Ihrer Erleichterung befinden Sie sich an einem friedlichen und angenehmen Ort.",
+      "Sie steigen in den Karren ein, wobei das Ziel ein Geheimnis ist. Der Mann mit den zerzausten Haaren fährt Sie durch verschiedene Landschaften, bevor er Sie an einem Ort absetzt, der vielversprechend aussieht.",
+      "Sie nehmen das Angebot des Reisenden mit der geheimnisvollen Vergangenheit an und steigen in seinen Karren, ohne zu wissen, wohin Sie fahren werden. Zu Ihrer Überraschung finden Sie sich an einem malerischen Ort voller Charme wieder."
+    ],
+    "travelRefused": [
+      "Nach kurzer Überlegung entscheiden Sie sich, das Risiko nicht einzugehen und weiterzugehen.",
+      "Sie lehnen den Vorschlag höflich ab und setzen Ihren Weg fort.",
+      "Da Sie der Meinung sind, dass Sie zu diesem Zeitpunkt keinen Bedarf haben, beschließen Sie, Ihren Weg fortzusetzen.",
+      "Sie lehnen den Vorschlag ab und setzen Ihren Weg fort."
+    ],
+    "notEnoughMoney": [
+      "Sie kramen in Ihren Taschen, stellen aber fest, dass Sie nicht genug Geld haben. Der Mann schaut Ihnen enttäuscht hinterher und geht mit seinem Karren davon.",
+      "Sie zählen Ihre Münzen, aber es fehlen Ihnen noch welche für die Reise. Der Rochadeur schüttelt den Kopf und zieht mit seinem Karren davon.",
+      "Sie überprüfen Ihren Geldbeutel, aber leider haben Sie nicht genug Geld. Der Fremde nickt und geht mit seinem Karren weg."
+    ]
   }
 }

@@ -497,5 +497,10 @@
       "class": "{{emoji}} {{name}}\n:zap: {{fightPoint}} :dagger: {{attack}} :shield: {{defense}} :rocket: {{speed}} :wind_blowing_face: {{baseBreath}} {{maxBreath}} :lungs: {{breathRegen}} :heart: {{health}}### | | | | / | |",
       "attack": "# {{emoji}} {{name}} {{cost}} :wind_blowing_face:\n{{description}}##"
     }
+  },
+  "respawn": {
+    "response_other": "{{respawnEmote}} {{pseudo}} ** ** ** Ti abbiamo resuscitato con successo! {{count}} {{scoreEmote}} Tuttavia, tieni presente che è stato detratto dal tuo punteggio durante l'operazione!",
+    "response_one": "{{respawnEmote}} {{pseudo}} ** ** ** Ti abbiamo resuscitato con successo! {{scoreEmote}} Tuttavia, si prega di notare che 1 è stato detratto dal tuo punteggio durante l'operazione!",
+    "alreadyAlive": "Sembrerebbe che lei non sia svenuto... Non ha bisogno dei nostri servizi."
   }
 }

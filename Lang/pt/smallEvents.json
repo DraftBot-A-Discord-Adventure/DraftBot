@@ -111,7 +111,7 @@
     "notEnoughGems": "Aceita, mas quando chega a altura de pagar, apercebe-se de que não tem dinheiro suficiente para pagar. Por isso, vai-se embora desiludido."
   },
   "lottery": {
-    "intro": "Cruzas-te com um homem que te chama. Curioso, pára. Ele oferece-te a possibilidade de participares num jogo de azar que ele criou. Podes escolher entre vários níveis de recompensa.\n\n:coin:\n:dollar:\n:moneybag:\nPrémio pequeno Prémio médio Prémio grande",
+    "intro": "Cruza-se com um homem que chama por si. Curioso, pára. Ele oferece-te a possibilidade de participares num jogo de azar que ele criou. Podes escolher entre vários níveis de recompensa.\n\n:coin:\n:dollar:\n{{moneyEmote}}\nPrémio pequeno Prémio médio Prémio grande",
     "easy": {
       "success": "Participa e consegue ganhar um prémio, que o homem lhe entrega antes de sair.",
       "fail": "Perdeu o jogo do homem, mas a participação foi gratuita. Por isso, decide voltar à estrada."
@@ -352,7 +352,7 @@
       "um pássaro aproxima-se de si e coloca uma pequena mensagem na sua mão...",
       "Descobre uma velha cabana de madeira abandonada, decide explorá-la e descobre apenas um velho grimório que parece ter sido abandonado há anos..."
     ],
-    "reward": ":moneybag: Prata:{{money}}\n:star: ** ** XP :{{xp}}\n:medal: ** Pontos:\n:gift: ** O número de pontos dependerá da tua classificação final ** Equipamento aleatório.",
+    "reward": "{{moneyEmote}} Prata:{{money}}\n:star: ** ** XP :{{xp}}\n:medal: ** Pontos:\n:gift: ** O número de pontos dependerá da tua classificação final ** Equipamento aleatório.",
     "endMessage": "\n\n:newspaper: {{league}}\n\n{{rewards}}\n\n {{time}}\"Ao aventureiro pertencente a quem encontrar este texto, **se mantiver a sua glória até ao fim da época**, pode ganhar estas recompensas: \" Partiu de novo, ansioso por receber o seu bónus .",
     "notEnoughFight": "\n\n:newspaper: {{league}} {command:fight}\n\n{{rewards}}\n\n {{time}}\"Ao aventureiro pertencente a quem encontrar este texto, **se travar algumas batalhas utilizando o comando **, poderá ganhar estas recompensas: \" Rapidamente se põe de novo a caminho, receando não conseguir combater um número suficiente de jogadores antes do final da época .",
     "rewardToday": "\n\n:newspaper: {command:leaguebonus} \"Receba o seu prémio antes do fim da semana, encomendando .\"\n\nEstá de novo a caminho, ansioso por receber o seu bónus."
@@ -773,9 +773,9 @@
       "nbMeanPoints": "{{infoNumber}} :medal:De acordo com uma recente contagem de pontos efectuada pelos organizadores, os candidatos têm uma pontuação média de ** **. Esta notícia é animadora,",
       "meanWeeklyScore": "{{infoNumber}} :medal: De acordo com uma contagem de pontos recentemente efectuada pelos organizadores, os candidatos obtiveram uma média de ** esta semana**. É com tristeza que recebemos esta notícia,",
       "levelMean": "{{infoNumber}}O último recenseamento registou que os aventureiros tinham atingido, em média, o **nível **. Sem saber o que fazer com esta informação,",
-      "nbMeanMoney": "{{infoNumber}} :moneybag:o banco do país contou uma média de ** ** nas carteiras dos seus clientes. Divertido com esta notícia,",
-      "sumAllMoney": "{{infoNumber}} :moneybag:o banco do país tem ** ** em circulação neste momento. Surpreendido com esta notícia,",
-      "richestPlayer": "{{infoNumber}} :moneybag:o banco do país calculou que o aventureiro mais rico tem atualmente ** ** na sua conta. Atónito com esta notícia,",
+      "nbMeanMoney": "{{infoNumber}} {{moneyEmote}}o banco do país contou uma média de ** ** nas carteiras dos seus clientes. Divertido com esta notícia,",
+      "sumAllMoney": "{{infoNumber}} {{moneyEmote}}o banco do país tem ** ** em circulação neste momento. Surpreendido com esta notícia,",
+      "richestPlayer": "{{infoNumber}} {{moneyEmote}}o banco do país calculou que o aventureiro mais rico tem atualmente ** ** na sua conta. Atónito com esta notícia,",
       "feistyPets": "A SPAC, ou Société Protectrice des Animaux de la Contrée, está a fazer uma campanha para ajudar os **animaux fielleux** a terem uma vida melhor.{{infoNumber}}Eles contaram ** **. Fiquei simultaneamente desiludido e reconfortado com esta notícia,",
       "percentMalePets": "{{infoNumber}}A SPAC, ou Société Protectrice des Animaux de la Contrée, descobriu que ** %** dos animais da zona são machos. Fico muito contente com esta notícia,",
       "percentFemalePets": "{{infoNumber}}A SPAC, ou Société Protectrice des Animaux de la Contrée, descobriu que ** %** dos animais da zona são fêmeas. Fico muito contente com esta notícia,",
@@ -853,18 +853,18 @@
   "pet": {
     "stories": {
       "money_m": [
-        "{{pet}}Vês ** ** a remexer na erva alta.{{amount}} :moneybag:Ele tira de lá ** ** , que guarda para o resto da sua aventura.",
-        "{{pet}}Repara que ** ** está a olhar para o chão e decide cavar um buraco.{{amount}} :moneybag: Qual não é a sua surpresa ao vê-lo emergir ** ** !",
-        "{{pet}}Descobre que ** ** está a farejar insistentemente na direção de um arbusto.{{amount}} :moneybag: Decide dar uma olhadela e vê-lo regressar com ** ** enche-o de alegria!",
-        "{{pet}}De repente, vê ** ** saltar para a água.{{amount}} :moneybag: Que surpresa vê-lo emergir com uma bolsa de ** ** !",
-        "{{pet}}Depois de fazer uma pequena pausa na sua viagem, vê ** ** regressar com uma bolsa. Parece que ele a roubou de um comerciante.{{amount}} :moneybag: Decide partir com o seu ** ** antes que ele dê por isso."
+        "{{pet}}Vês ** ** a remexer na erva alta.{{amount}} {{moneyEmote}}Ele tira de lá ** ** , que guarda para o resto da sua aventura.",
+        "{{pet}}Repara que ** ** está a olhar para o chão e decide cavar um buraco.{{amount}} {{moneyEmote}} Qual não é a sua surpresa ao vê-lo emergir ** ** !",
+        "{{pet}}Descobre que ** ** está a farejar insistentemente na direção de um arbusto.{{amount}} {{moneyEmote}} Decide dar uma olhadela e vê-lo regressar com ** ** enche-o de alegria!",
+        "{{pet}}De repente, vê ** ** saltar para a água.{{amount}} {{moneyEmote}} Fica surpreendido ao vê-lo sair com uma bolsa de ** ** !",
+        "{{pet}}Depois de fazer uma pequena pausa na sua viagem, vê ** ** regressar com uma bolsa. Parece que ele a roubou de um comerciante.{{amount}} {{moneyEmote}} Decide partir com o seu ** ** antes que ele dê por isso."
       ],
       "money_f": [
-        "{{pet}}Vês a ** ** a remexer na erva alta.{{amount}} :moneybag:Ela tira de lá ** ** , que guardas para o resto da tua aventura.",
-        "{{pet}}Repara que ** ** está a olhar para o chão e decide cavar um buraco.{{amount}} :moneybag: Qual não é a sua surpresa ao vê-lo emergir ** ** !",
-        "{{pet}}Descobre que ** ** está a farejar insistentemente na direção de um arbusto.{{amount}} :moneybag: Decide dar uma olhadela e vê-la regressar com ** ** enche-o de alegria!",
-        "{{pet}}De repente, vê-se ** ** saltar para a água.{{amount}} :moneybag: Que surpresa vê-la emergir com uma bolsa de ** ** !",
-        "{{pet}}Depois de fazer uma pequena pausa na sua viagem, vê ** ** regressar com uma bolsa. Parece que ela a roubou a um comerciante.{{amount}} :moneybag: Decide partir com o seu ** ** antes que ele dê por isso."
+        "{{pet}}Vês a ** ** a remexer na erva alta.{{amount}} {{moneyEmote}}Ela tira de lá ** ** , que guardas para o resto da tua aventura.",
+        "{{pet}}Repara que ** ** está a olhar para o chão e decide cavar um buraco.{{amount}} {{moneyEmote}} Qual não é a sua surpresa ao vê-lo emergir ** ** !",
+        "{{pet}}Descobre que ** ** está a farejar insistentemente na direção de um arbusto.{{amount}} {{moneyEmote}} Decide dar uma olhadela e vê-la regressar com ** ** enche-o de alegria!",
+        "{{pet}}De repente, vê-se ** ** saltar para a água.{{amount}} {{moneyEmote}} Qual não é o seu espanto ao vê-la emergir com uma bolsa de ** ** !",
+        "{{pet}}Depois de fazer uma pequena pausa na sua viagem, vê ** ** regressar com uma bolsa. Parece que ela a roubou de um comerciante.{{amount}} {{moneyEmote}} Decide partir com o seu ** ** antes que ele dê por isso."
       ],
       "item_m": [
         "{{pet}}Vês ** ** a remexer na erva alta. Ele tira de lá um **objeto**, que podes guardar para o resto da tua aventura.",
@@ -1065,9 +1065,9 @@
         "vê uma multidão de pessoas reunidas. Querendo ver o que se passa, abre caminho por entre o grupo e descobre um objeto ensanguentado, caso contrário a multidão à sua volta já lhe teria tocado. Sai como se nada tivesse acontecido, com o objeto na sua posse."
       ],
       "winMoney": [
-        "Passa por cima de um pequeno monte e repara que os seus passos têm um som estranho. Procura no chão e descobre uma arca cheia de ouro.{{amount}} :moneybag:Recebes ** **.",
-        "encontra uma pessoa que parece um pouco desconcertada e receosa... Ao vê-lo, a pessoa pede desculpa e foge. Pensa que o confundiram com outra pessoa.{{amount}} :moneybag:Na sua pressa, o desconhecido deixou cair uma bolsa: abre-a e descobre ** ** !",
-        "decide montar o acampamento com uma tenda e outros objectos. Enquanto cavas os buracos para as estacas da tenda, sentes algo duro no chão.{{amount}} :moneybag:Ao cavar, desenterra uma pequena caixa de madeira danificada pelo tempo e encontra ** ** !"
+        "Sobe uma pequena colina e repara que os seus passos soam estranhos. Procura no chão e descobre uma arca cheia de ouro.{{amount}} {{moneyEmote}}Recebes ** **.",
+        "encontra uma pessoa que parece um pouco desconcertada e receosa... Ao vê-lo, a pessoa pede desculpa e foge. Pensa que o confundiram com outra pessoa.{{amount}} {{moneyEmote}}Na sua pressa, o desconhecido deixou cair uma bolsa: abre-a e descobre ** ** !",
+        "decide montar o acampamento com uma tenda e outros objectos. Ao cavar os buracos para as estacas da tenda, sente algo duro no chão.{{amount}} {{moneyEmote}}Ao cavar, desenterra uma pequena caixa de madeira danificada pelo tempo e encontra ** ** !"
       ]
     },
     "other": {
@@ -1084,5 +1084,89 @@
         "És abalroado por um arado. O dono do arado aproxima-se e pede desculpa, dizendo que não o tinha visto devido à sua má aparência, e oferece-lhe algumas provisões.{{amount}} :heart:Ganhaste ** **."
       ]
     }
+  },
+  "ultimateFoodMerchant": {
+    "stories": [
+      "Ao olhar para a paisagem circundante, não repara no homem que está à sua frente e esbarra nele. Pede desculpa e, como o homem é muito simpático, é rapidamente perdoado e envolvido numa conversa. O seu nome é Gaspard-Jo e é vendedor de sopas. É muito generoso e recompensa o talento dos jogadores que encontra pelo caminho. ",
+      "uma pequena caravana com uma lareira aproxima-se de ti. Dá-se ao trabalho de cumprimentar educadamente o comerciante que, após uma conversa rápida durante a qual fica a saber que o seu nome é \"Gaspard-Jo\", quer recompensá-lo pelas suas boas acções. "
+    ],
+    "rewards": {
+      "ultimateFood_one": [
+        "Ele dá-lhe **a derradeira sopa**, que você guarda cuidadosamente."
+      ],
+      "ultimateFood_other": [
+        "{{count}} Ele dá-lhe ** sopas definitivas**, que você guarda cuidadosamente."
+      ],
+      "fullUltimateFood": [
+        "Ele oferece-lhe as melhores sopas. Infelizmente, o seu armazém está cheio e tem de as devolver."
+      ],
+      "item": [
+        "Ele oferece-lhe **um objeto** que pensa que lhe pode ser útil."
+      ],
+      "commonFood_one": [
+        "Julgando que não és suficientemente poderoso para obteres a sua mercadoria de graça, ele oferece-te **um presente**."
+      ],
+      "commonFood_other": [
+        "{{count}} Pensando que não és suficientemente poderoso para obter os seus bens de graça, ele oferece-te **doces**."
+      ],
+      "fullCommonFood": [
+        "Vendo que não és muito poderoso, resigna-se a oferecer-te alguns doces, mas infelizmente já não tens espaço para os aceitar. Segue o seu caminho, desiludido."
+      ],
+      "money": [
+        "Como não fazes parte de um grémio, não podes guardar a preciosa mercadoria do teu benfeitor.{{count}} {{moneyEmote}}Por isso, ele dá-te ** ** . Partem de novo, um pouco desiludidos."
+      ]
+    }
+  },
+  "cart": {
+    "knownDestination": [
+      "Ao longe, vê uma carroça em ruínas, com a madeira desgastada pelo tempo e pelas viagens. Um homem de cabelo desgrenhado e cara de mau tempo chama-o.{{destination}}{{price}} {{moneyEmote}}Diz que o pode levar até aos arredores de ** ** por ** ** . O seu sorriso malicioso e o brilho astuto dos seus olhos deixam-no na dúvida. Pergunta-se se esta direção aproximada vale o risco...",
+      "um indivíduo de aspeto suspeito emerge das sombras, arrastando atrás de si uma carroça frágil. É um malandro conhecido pelas suas viagens imprevisíveis, com os olhos a brilhar de malícia.{{destination}}{{price}} {{moneyEmote}}Ele oferece-lhe uma viagem até às proximidades de ** ** por ** ** . A sua confiança e o seu sorriso malicioso fazem-no interrogar-se sobre a fiabilidade da sua orientação...",
+      "uma carroça bem cuidada aparece de repente no seu caminho.{{destination}}{{price}} {{moneyEmote}}O seu proprietário, um homem de rosto envelhecido e sorriso enigmático, garante-lhe que o pode levar a um sítio perto de ** ** por ** ** . O seu olhar determinado parece esconder alguma coisa. Pergunta-se se esta direção vaga é tão atraente como parece...",
+      "encontra um homem que parece perdido.{{destination}}{{price}} {{moneyEmote}}É um rufia misterioso, de cabelo despenteado e olhar astuto, que diz poder conduzir-te aos arredores de ** ** em troca de ** ** . Os seus olhos brilham com uma malícia difícil de definir. Hesita, pesando os prós e os contras desta direção incerta...",
+      "{{destination}}{{price}} {{moneyEmote}}um desconhecido aproxima-se de si, oferecendo-lhe uma boleia na sua carroça até aos arredores de ** ** por ** ** . Após uma breve conversa, descobre que se trata de um homem cujas viagens são tão variadas como os seus truques. A sua confiança parece demasiado perfeita, como se tivesse planeado tudo com antecedência. Perguntamo-nos o que estará ele a esconder...",
+      "um homem afável oferece-te uma boleia na sua carroça.{{destination}}{{price}} {{moneyEmote}}É um malandro de barba desgrenhada e aspeto musculado, conhecido pelas suas viagens pelo reino, que vos oferece uma boleia perto de ** ** por ** ** . As suas palavras são suaves, mas o seu olhar é duro. Perguntamo-nos se podemos realmente confiar nele...",
+      "depara-se com um estranho indivíduo com uma carroça. É um viajante com um passado misterioso, cabelo desarrumado e um olhar penetrante.{{destination}}{{price}} {{moneyEmote}}Ele oferece-te uma viagem aos arredores de ** ** em troca de ** ** . As suas promessas parecem tentadoras, mas a sua aparência deixa-te na dúvida. Não sabe se não estará a cair numa armadilha..."
+    ],
+    "unknownDestination": [
+      "É abordado por um homem enigmático com uma carroça em ruínas.{{price}} {{moneyEmote}}Ele oferece-lhe uma viagem a um lugar desconhecido por ** ** . Os seus olhos astutos e o seu sorriso enigmático deixam-no na dúvida...",
+      "{{price}} {{moneyEmote}}um indivíduo sombrio surge das sombras e oferece-lhe uma boleia na sua carroça acidentada para um destino desconhecido por ** ** . O seu olhar malicioso e o seu excesso de confiança despertam a sua suspeita...",
+      "Um homem de rosto envelhecido aparece no seu caminho com uma carroça bem cuidada.{{price}} {{moneyEmote}}Ele oferece-se para o levar a um destino desconhecido por ** ** . O seu sorriso enigmático e o seu olhar determinado podem estar a esconder algo...",
+      "{{price}} {{moneyEmote}}um misterioso malandro cruza-se consigo e afirma poder conduzi-lo a um lugar desconhecido para ** ** . O seu olhar astuto e os seus olhos maliciosos fazem-no hesitar...",
+      "{{price}} {{moneyEmote}}um desconhecido aproxima-se de si com uma oferta para viajar na sua carroça para um destino desconhecido por ** ** . A sua confiança e o seu olhar malicioso despertam a sua curiosidade...",
+      "{{price}} {{moneyEmote}}um homem afável de barba desgrenhada oferece-lhe uma boleia na sua carroça para um lugar desconhecido por ** ** . Apesar das suas palavras gentis, o olhar duro dos seus olhos fá-lo sentir-se desconfortável...",
+      "{{price}} {{moneyEmote}}um viajante com um passado misterioso oferece-lhe uma viagem a um destino desconhecido por ** ** . A sua aparência intrigante e as suas promessas tentadoras despertarão o seu interesse..."
+    ],
+    "menu": [
+      "\n\n:red_car:\n:person_walking: Subir para o carrinho Avançar"
+    ],
+    "scamTravelDone": [
+      "Depois de uma viagem surpreendentemente rápida, encontra-se num local desconhecido. O homem olha para ti com um sorriso e parte no seu carrinho.",
+      "O homem de cabelo desgrenhado conduziu-vos a um local completamente diferente do destino pretendido. Antes que possas reagir, ele desaparece numa nuvem de pó.",
+      "A viagem passou mais depressa do que o previsto e encontra-se num lugar desconhecido. O homem dos olhos maliciosos parte na sua carroça, deixando-o sozinho e desnorteado.",
+      "É rapidamente transportado para um local familiar... Apercebe-se rapidamente de que este não é o destino que lhe foi indicado, mas já é demasiado tarde para reagir. O homem misterioso já está longe..."
+    ],
+    "normalTravelDone": [
+      "Aceita a oferta do homem e sobe para a sua carroça. Depois de uma viagem tranquila, encontra-se perto do seu destino.",
+      "Depois de ponderar os prós e os contras, decide confiar no homem e sobe para o seu carrinho. Fica aliviado por se encontrar perto do seu destino.",
+      "Entra na carroça e o homem de cabelo desgrenhado leva-o até ao seu destino. Chega são e salvo, perto do seu destino.",
+      "Aceita a oferta do viajante com um passado misterioso e sobe para a sua carroça. Para sua surpresa, encontra-se perto do destino pretendido."
+    ],
+    "unknownDestinationTravelDone": [
+      "Aceita a oferta do homem e sobe para a sua carroça, sem fazer ideia do seu destino. Depois de uma viagem tranquila, chega a um lugar que lhe parece acolhedor.",
+      "Apesar da incerteza, decide confiar no homem e sobe para a sua carroça. Para seu alívio, encontra-se num lugar calmo e agradável.",
+      "Subimos para a carroça, o destino é um mistério. O homem desgrenhado leva-o através de uma variedade de paisagens antes de o deixar num local promissor.",
+      "Aceita a oferta do viajante com um passado misterioso e sobe para a sua carroça sem saber para onde vai. Para sua surpresa, encontra-se num lugar pitoresco e encantador."
+    ],
+    "travelRefused": [
+      "Após um momento de reflexão, decide não correr o risco e seguir em frente.",
+      "Recusa educadamente a oferta e segue o seu caminho.",
+      "Julgando que não precisa de tal serviço neste momento, decide continuar o seu caminho.",
+      "Recusa a oferta e segue o seu caminho."
+    ],
+    "notEnoughMoney": [
+      "Mete a mão nos bolsos, mas apercebe-se de que não tem dinheiro suficiente. O homem olha para ti com desilusão e vai-se embora com o carrinho.",
+      "Conta as suas moedas, mas não tem o suficiente para a viagem. A raposa abana a cabeça e parte na sua carroça.",
+      "Verifica a sua carteira, mas infelizmente não tem dinheiro suficiente. O desconhecido acena com a cabeça e sai com o seu carrinho."
+    ]
   }
 }
