@@ -1,4 +1,4 @@
-import {Database} from "../Database";
+import {Database} from "../../../../../Lib/src/database/Database";
 import {LogsPlayersMoney} from "./models/LogsPlayersMoney";
 import {LogsPlayers} from "./models/LogsPlayers";
 import {LogsPlayersHealth} from "./models/LogsPlayersHealth";
@@ -95,6 +95,8 @@ import {PlayerFighter} from "../../fights/fighter/PlayerFighter";
 import {MonsterFighter} from "../../fights/fighter/MonsterFighter";
 import {LogsServers} from "./models/LogsServers";
 import {Effect} from "../../../../../Lib/src/enums/Effect";
+import {getDatabaseConfiguration} from "../../bot/DraftBotConfig";
+import {botConfig} from "../../../index";
 
 /**
  * This class is used to log all the changes in the game database
@@ -102,7 +104,7 @@ import {Effect} from "../../../../../Lib/src/enums/Effect";
 export class LogsDatabase extends Database {
 
 	constructor() {
-		super("logs");
+		super(getDatabaseConfiguration(botConfig, "logs"), `${__dirname}/models`, `${__dirname}/migrations`);
 	}
 
 	/**

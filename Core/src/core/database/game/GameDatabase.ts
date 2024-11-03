@@ -1,10 +1,12 @@
-import {Database} from "../Database";
+import {Database} from "../../../../../Lib/src/database/Database";
 import {DataTypes} from "sequelize";
+import {getDatabaseConfiguration} from "../../bot/DraftBotConfig";
+import {botConfig} from "../../../index";
 
 export class GameDatabase extends Database {
 
 	constructor() {
-		super("game");
+		super(getDatabaseConfiguration(botConfig, "game"), `${__dirname}/models`, `${__dirname}/migrations`);
 	}
 
 	/**
