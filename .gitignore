@@ -2,3 +2,5 @@
 .run
 mqtt5
 **/.yarn
+/*/.pnp.cjs
+/*/.pnp.loader.mjs

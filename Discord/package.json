@@ -3,6 +3,7 @@
   "version": "5.0.0",
   "description": "Discord middleware package of DraftBot",
   "main": "src/index.js",
+  "packageManager": "yarn@4.5.1",
   "engines": {
     "node": ">=18.19.0"
   },
@@ -18,8 +19,10 @@
     "interface": "i18next-resources-for-ts interface -i ../Lang/en -o ./src/@types/resources.d.ts"
   },
   "dependencies": {
+    "@discordjs/builders": "^1.9.0",
     "@types/i18next": "^13.0.0",
     "@types/node": "20.4.8",
+    "discord-api-types": "^0.37.103",
     "discord.js": "14.16.3",
     "i18next": "^23.16.4",
     "i18next-resources-for-ts": "^1.4.0",
