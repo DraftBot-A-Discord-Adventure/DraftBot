@@ -111,7 +111,7 @@
     "notEnoughGems": "Accettate, ma quando è il momento di pagare vi rendete conto che non avete abbastanza per pagare. Così ve ne andate delusi."
   },
   "lottery": {
-    "intro": "Incrociate un uomo che vi chiama. Incuriositi, vi fermate. Vi offre la possibilità di partecipare a un gioco d'azzardo da lui creato. Potete scegliere tra diversi livelli di ricompensa.\n\n:coin:\n:dollar:\n:moneybag:\nRicompensa piccola Ricompensa media Ricompensa grande",
+    "intro": "Incrociate un uomo che vi chiama. Incuriositi, vi fermate. Vi offre la possibilità di partecipare a un gioco d'azzardo da lui creato. Potete scegliere tra diversi livelli di ricompensa.\n\n:coin:\n:dollar:\n{{moneyEmote}}\nRicompensa piccola Ricompensa media Ricompensa grande",
     "easy": {
       "success": "Partecipate e riuscite a vincere un premio, che l'uomo vi consegna prima di andarsene.",
       "fail": "Perdete il gioco dell'uomo, ma la partecipazione era gratuita. Così si decide di rimettersi in viaggio."
@@ -352,7 +352,7 @@
       "un uccello si avvicina a voi e vi mette in mano un piccolo messaggio...",
       "Scoprite una vecchia capanna di legno abbandonata, decidete di esplorarla e scoprite solo un vecchio grimorio che sembra giacere da anni..."
     ],
-    "reward": ":moneybag: Argento:{{money}}\n:star: ** ** XP :{{xp}}\n:medal: ** Punti:\n:gift: ** Il numero di punti dipenderà dalla classifica finale ** Equipaggiamento casuale.",
+    "reward": "{{moneyEmote}} Argento:{{money}}\n:star: ** ** XP :{{xp}}\n:medal: ** Punti:\n:gift: ** Il numero di punti dipenderà dalla classifica finale ** Equipaggiamento casuale.",
     "endMessage": "\n\n:newspaper: {{league}}\n\n{{rewards}}\n\n {{time}}\"All'avventuriero appartenente a chi trova questo testo, **se manterrà la sua gloria fino alla fine della stagione**, potrà vincere queste ricompense:\" Si riparte, impazienti di riscuotere il proprio bonus.",
     "notEnoughFight": "\n\n:newspaper: {{league}} {command:fight}\n\n{{rewards}}\n\n {{time}}\"All'avventuriero appartenente a chi trova questo testo, **se combatti qualche battaglia usando il comando **, puoi vincere queste ricompense:\" Ti rimetti velocemente in cammino, temendo di non riuscire a combattere abbastanza giocatori prima della fine della stagione.",
     "rewardToday": "\n\n:newspaper: {command:leaguebonus} \"Ottieni la tua ricompensa prima della fine della settimana ordinando.\"\n\nSiete di nuovo in viaggio, impazienti di riscuotere il vostro bonus."
@@ -773,9 +773,9 @@
       "nbMeanPoints": "{{infoNumber}} :medal:Secondo un recente conteggio dei punti effettuato dagli organizzatori, i candidati hanno un punteggio medio di ** **. Incoraggiati da questa notizia,",
       "meanWeeklyScore": "{{infoNumber}} :medal: Secondo un recente conteggio dei punti effettuato dagli organizzatori, i candidati hanno raccolto una media di ** questa settimana**. Siamo rattristati da questa notizia,",
       "levelMean": "{{infoNumber}}L'ultimo censimento ha rilevato che gli avventurieri hanno raggiunto in media il **livello **. Senza sapere cosa fare di questa informazione,",
-      "nbMeanMoney": "{{infoNumber}} :moneybag:la banca del Paese ha contato una media di ** ** nei portafogli dei suoi clienti. Divertito da questa notizia,",
-      "sumAllMoney": "{{infoNumber}} :moneybag:la banca del Paese ha ** ** in circolazione in questo momento. Sono sorpreso da questa notizia,",
-      "richestPlayer": "{{infoNumber}} :moneybag:la banca del Paese ha stimato che il più ricco avventuriero ha attualmente ** ** sul suo conto. Stupito da questa notizia,",
+      "nbMeanMoney": "{{infoNumber}} {{moneyEmote}}la banca del Paese ha contato una media di ** ** nei portafogli dei suoi clienti. Divertito da questa notizia,",
+      "sumAllMoney": "{{infoNumber}} {{moneyEmote}}la banca del Paese ha ** ** in circolazione in questo momento. Sono sorpreso da questa notizia,",
+      "richestPlayer": "{{infoNumber}} {{moneyEmote}}la banca del Paese ha stimato che il più ricco avventuriero ha attualmente ** ** sul suo conto. Stupito da questa notizia,",
       "feistyPets": "La SPAC, Société Protectrice des Animaux de la Contrée, si batte per aiutare gli **animaux fielleux** ad avere una vita migliore.{{infoNumber}}Hanno contato ** **. Questa notizia mi ha deluso e confortato allo stesso tempo,",
       "percentMalePets": "{{infoNumber}}La SPAC, Société Protectrice des Animaux de la Contrée, ha scoperto che il ** %** degli animali della zona sono maschi. Sono lieto di apprendere questa notizia,",
       "percentFemalePets": "{{infoNumber}}La SPAC, Société Protectrice des Animaux de la Contrée, ha scoperto che il ** %** degli animali presenti nell'area sono femmine. Sono lieto di apprendere questa notizia,",
@@ -853,18 +853,18 @@
   "pet": {
     "stories": {
       "money_m": [
-        "{{pet}}Vedete ** ** rovistare nell'erba alta.{{amount}} :moneybag:Ne esce ** ** , che si conserva per il resto dell'avventura.",
-        "{{pet}}Si nota che ** ** sta fissando il terreno e decide di scavare una buca.{{amount}} :moneybag: Che sorpresa vederlo emergere ** ** !",
-        "{{pet}}Scoprite che ** ** sta annusando insistentemente in direzione di un cespuglio.{{amount}} :moneybag: Decidete di dare un'occhiata e vederlo tornare con ** ** vi riempie di gioia!",
-        "{{pet}}All'improvviso si vede ** ** saltare in acqua.{{amount}} :moneybag: Che sorpresa vederlo emergere con una borsa di ** ** !",
-        "{{pet}}Dopo aver fatto una breve pausa nel vostro viaggio, vedete ** ** tornare con una borsa. Sembra che l'abbia rubata a un mercante.{{amount}} :moneybag: Decidete di andarvene con ** ** prima che se ne accorga."
+        "{{pet}}Vedete ** ** rovistare nell'erba alta.{{amount}} {{moneyEmote}}Ne esce ** ** , che si conserva per il resto dell'avventura.",
+        "{{pet}}Si nota che ** ** sta fissando il terreno e decide di scavare una buca.{{amount}} {{moneyEmote}} Che sorpresa vederlo emergere ** ** !",
+        "{{pet}}Scoprite che ** ** sta annusando insistentemente in direzione di un cespuglio.{{amount}} {{moneyEmote}} Decidete di dare un'occhiata e vederlo tornare con ** ** vi riempie di gioia!",
+        "{{pet}}All'improvviso si vede ** ** saltare in acqua.{{amount}} {{moneyEmote}} Che sorpresa vederlo emergere con una borsa di ** ** !",
+        "{{pet}}Dopo aver fatto una breve pausa nel vostro viaggio, vedete ** ** tornare con una borsa. Sembra che l'abbia rubata a un mercante.{{amount}} {{moneyEmote}} Decidete di andarvene con ** ** prima che se ne accorga."
       ],
       "money_f": [
-        "{{pet}}Vedete ** ** rovistare nell'erba alta.{{amount}} :moneybag:Ne esce ** ** , che si conserva per il resto dell'avventura.",
-        "{{pet}}Si nota che ** ** sta fissando il terreno e decide di scavare una buca.{{amount}} :moneybag: Che sorpresa vederlo emergere ** ** !",
-        "{{pet}}Scoprite che ** ** sta annusando insistentemente in direzione di un cespuglio.{{amount}} :moneybag: Decidete di dare un'occhiata e vederla tornare con ** ** vi riempie di gioia!",
-        "{{pet}}All'improvviso si vede ** ** saltare in acqua.{{amount}} :moneybag: Che sorpresa vederla emergere con una borsa di ** ** !",
-        "{{pet}}Dopo aver fatto una breve pausa nel vostro viaggio, vedete ** ** tornare con una borsa. Sembra che l'abbia rubata a un mercante.{{amount}} :moneybag: Decidete di andarvene con ** ** prima che se ne accorga."
+        "{{pet}}Vedete ** ** rovistare nell'erba alta.{{amount}} {{moneyEmote}}Ne esce ** ** , che si conserva per il resto dell'avventura.",
+        "{{pet}}Si nota che ** ** sta fissando il terreno e decide di scavare una buca.{{amount}} {{moneyEmote}} Che sorpresa vederlo emergere ** ** !",
+        "{{pet}}Scoprite che ** ** sta annusando insistentemente in direzione di un cespuglio.{{amount}} {{moneyEmote}} Decidete di dare un'occhiata e vederla tornare con ** ** vi riempie di gioia!",
+        "{{pet}}All'improvviso si vede ** ** saltare in acqua.{{amount}} {{moneyEmote}} Che sorpresa vederla emergere con una borsa di ** ** !",
+        "{{pet}}Dopo aver fatto una breve pausa nel vostro viaggio, vedete ** ** tornare con una borsa. Sembra che l'abbia rubata a un mercante.{{amount}} {{moneyEmote}} Decidete di andarvene con ** ** prima che se ne accorga."
       ],
       "item_m": [
         "{{pet}}Vedete ** ** rovistare nell'erba alta. Tira fuori un **oggetto**, che puoi tenere per il resto della tua avventura.",
@@ -1065,9 +1065,9 @@
         "vedete una folla di persone riunite. Volendo vedere cosa sta succedendo, vi fate strada tra il gruppo e scoprite un oggetto insanguinato, altrimenti la folla intorno a voi lo avrebbe già toccato. Ve ne andate come se nulla fosse con l'oggetto in vostro possesso."
       ],
       "winMoney": [
-        "Salite su una piccola collina e notate che i vostri passi hanno un suono strano. Si cerca sul terreno e si scopre un forziere pieno d'oro.{{amount}} :moneybag:Si ottiene ** **.",
-        "incontrate una persona che sembra un po' sconcertata e impaurita... Quando vi vede, la persona si scusa e scappa via. Pensate che vi abbia scambiato per qualcun altro.{{amount}} :moneybag:Nella fretta, lo sconosciuto ha fatto cadere una borsa: la aprite e scoprite ** ** ** !",
-        "decidete di accamparvi con una tenda e altri oggetti. Mentre si scavano le buche per i picchetti della tenda, si sente qualcosa di duro nel terreno.{{amount}} :moneybag:Mentre si scava, si porta alla luce una piccola scatola di legno danneggiata dal tempo e si trova ** ** ** !"
+        "Salite su una piccola collina e notate che i vostri passi hanno un suono strano. Si cerca sul terreno e si scopre un forziere pieno d'oro.{{amount}} {{moneyEmote}}Si ottiene ** **.",
+        "incontrate una persona che sembra un po' sconcertata e impaurita... Quando vi vede, la persona si scusa e scappa via. Pensate che vi abbia scambiato per qualcun altro.{{amount}} {{moneyEmote}}Nella fretta, lo sconosciuto ha fatto cadere una borsa: la aprite e scoprite ** ** ** !",
+        "decidete di accamparvi con una tenda e altri oggetti. Mentre si scavano le buche per i picchetti della tenda, si sente qualcosa di duro nel terreno.{{amount}} {{moneyEmote}}Mentre si scava, si porta alla luce una piccola scatola di legno danneggiata dal tempo e si trova ** ** ** !"
       ]
     },
     "other": {
@@ -1116,5 +1116,57 @@
         "Non facendo parte di una gilda, non potete conservare la preziosa merce del vostro benefattore.{{count}} {{moneyEmote}}Quindi vi dà ** ** . Si riparte, un po' delusi."
       ]
     }
+  },
+  "cart": {
+    "knownDestination": [
+      "In lontananza vedete un carro fatiscente, con il legno consumato dal tempo e dai viaggi. Un uomo con i capelli arruffati e il volto segnato dalle intemperie vi chiama.{{destination}}{{price}} {{moneyEmote}}Sostiene di potervi portare nei dintorni di ** ** per ** ** . Il suo sorriso malizioso e il luccichio astuto dei suoi occhi vi lasciano dubbiosi. Vi chiedete se questa direzione approssimativa valga il rischio...",
+      "un individuo dall'aspetto sospetto emerge dall'ombra, trascinandosi dietro un carretto sgangherato. È un imbroglione noto per i suoi viaggi imprevedibili, con gli occhi che brillano di malizia.{{destination}}{{price}} {{moneyEmote}}Vi offre un viaggio nelle vicinanze di ** ** per ** ** . La sua sicurezza e il suo sorriso malizioso vi fanno dubitare dell'affidabilità delle sue indicazioni...",
+      "un carretto ben tenuto appare improvvisamente sul vostro cammino.{{destination}}{{price}} {{moneyEmote}}Il suo proprietario, un uomo con il volto segnato dalle intemperie e un sorriso enigmatico, vi assicura che può portarvi in un posto vicino a ** ** per ** ** . Il suo sguardo determinato sembra nascondere qualcosa. Vi chiedete se questa direzione vaga sia così attraente come sembra...",
+      "si imbatte in un uomo che sembra essersi perso.{{destination}}{{price}} {{moneyEmote}}È un misterioso ruffiano con i capelli arruffati e lo sguardo furbo, che sostiene di essere in grado di condurvi alla periferia di ** ** in cambio di ** **. I suoi occhi brillano di una malizia difficile da definire. Esitate, valutando i pro e i contro di questa direzione incerta...",
+      "{{destination}}{{price}} {{moneyEmote}}uno sconosciuto vi avvicina, offrendovi un passaggio sul suo carro fino alla periferia di ** ** per ** ** . Dopo una breve chiacchierata, scoprite che si tratta di un uomo i cui viaggi sono tanto vari quanto le sue astuzie. La sua sicurezza sembra un po' troppo perfetta, come se avesse pianificato tutto in anticipo. Ci si chiede cosa stia nascondendo...",
+      "un uomo affabile vi offre un passaggio sul suo carro.{{destination}}{{price}} {{moneyEmote}}È una canaglia dalla barba ispida e dall'aspetto bisbetico, nota per i suoi viaggi in tutto il regno, che vi offre un passaggio vicino a ** ** per ** ** . Le sue parole sono dolci, ma il suo sguardo è duro. Vi chiedete se potete davvero fidarvi di lui...",
+      "si incontra uno strano individuo con un carretto. È un viaggiatore dal passato misterioso, con i capelli scompigliati e lo sguardo penetrante.{{destination}}{{price}} {{moneyEmote}}Vi offre un viaggio nei dintorni di ** ** in cambio di ** ** . Le sue promesse sembrano allettanti, ma il suo aspetto vi lascia dubbiosi. Vi chiedete se non stiate cadendo in una trappola..."
+    ],
+    "unknownDestination": [
+      "Venite avvicinati da un uomo enigmatico con un carro fatiscente.{{price}} {{moneyEmote}}Vi offre un viaggio in un luogo sconosciuto per ** ** . I suoi occhi furbi e il suo sorriso enigmatico vi lasciano nel dubbio...",
+      "{{price}} {{moneyEmote}}un losco individuo emerge dall'ombra e vi offre un passaggio sul suo carretto sconnesso verso una destinazione sconosciuta per ** ** . I suoi sguardi maliziosi e la sua eccessiva sicurezza vi insospettiscono...",
+      "Un uomo con il volto segnato dalle intemperie appare sul vostro cammino con un carretto ben tenuto.{{price}} {{moneyEmote}}Si offre di portarvi a una destinazione sconosciuta per ** ** . Il suo sorriso enigmatico e il suo sguardo determinato potrebbero nascondere qualcosa...",
+      "{{price}} {{moneyEmote}}un misterioso furfante si imbatte in voi e afferma di essere in grado di condurvi in un luogo sconosciuto per ** ** . Il suo sguardo scaltro e i suoi occhi maliziosi vi fanno esitare...",
+      "{{price}} {{moneyEmote}}uno sconosciuto vi avvicina con l'offerta di viaggiare sul suo carro verso una destinazione sconosciuta per ** ** . La sua sicurezza e il suo sguardo malizioso suscitano la vostra curiosità...",
+      "{{price}} {{moneyEmote}}un uomo affabile con la barba ispida vi offre un passaggio sul suo carretto in un luogo sconosciuto per ** ** . Nonostante le sue parole gentili, lo sguardo duro nei suoi occhi vi fa sentire a disagio...",
+      "{{price}} {{moneyEmote}}un viaggiatore dal passato misterioso vi offre un viaggio verso una destinazione sconosciuta per ** ** . Il suo aspetto intrigante e le sue promesse allettanti susciteranno il vostro interesse..."
+    ],
+    "menu": [
+      "\n\n:red_car:\n:person_walking: Salire sul carrello Muoversi"
+    ],
+    "scamTravelDone": [
+      "Dopo un viaggio sorprendentemente veloce, vi ritrovate in un luogo sconosciuto. L'uomo vi guarda con un sorriso e se ne va con il suo carretto.",
+      "L'uomo dai capelli arruffati vi ha condotto in un luogo completamente diverso dalla destinazione prevista. Prima che possiate reagire, scompare in una nuvola di polvere.",
+      "Il viaggio è trascorso più velocemente del previsto e vi trovate in un luogo sconosciuto. L'uomo dagli occhi maliziosi si allontana con il suo carretto, lasciandovi soli e disorientati.",
+      "Si viene presto trasportati in un luogo familiare... Vi rendete subito conto che questa non è la destinazione di cui vi avevano parlato, ma è già troppo tardi per reagire. L'uomo misterioso è già lontano..."
+    ],
+    "normalTravelDone": [
+      "Accettate l'offerta dell'uomo e salite sul suo carro. Dopo un viaggio tranquillo, vi ritrovate vicino alla vostra destinazione.",
+      "Dopo aver valutato i pro e i contro, decidete di fidarvi dell'uomo e salite sul suo carrello. Siete sollevati di trovarvi vicini alla vostra destinazione.",
+      "Salite sul carro e l'uomo con i capelli scompigliati vi conduce a destinazione. Arrivate sani e salvi, vicini alla vostra destinazione.",
+      "Accettate l'offerta del viaggiatore dal passato misterioso e salite sul suo carro. Con grande sorpresa, vi ritrovate vicino alla destinazione prevista."
+    ],
+    "unknownDestinationTravelDone": [
+      "Accettate l'offerta dell'uomo e salite sul suo carro, senza sapere quale sia la vostra destinazione. Dopo un viaggio tranquillo, vi ritrovate in un luogo che sembra accogliente.",
+      "Nonostante l'incertezza, decidete di fidarvi dell'uomo e salite sul suo carro. Con sollievo, vi ritrovate in un luogo tranquillo e piacevole.",
+      "Salite sul carro, la destinazione è un mistero. L'uomo spettinato vi conduce attraverso una varietà di paesaggi prima di lasciarvi in un luogo promettente.",
+      "Accettate l'offerta del viaggiatore dal passato misterioso e salite sul suo carro senza sapere dove state andando. Con grande sorpresa, vi ritrovate in un luogo pittoresco e affascinante."
+    ],
+    "travelRefused": [
+      "Dopo averci pensato un attimo, decidete di non correre il rischio e di andare avanti.",
+      "Declinate gentilmente l'offerta e continuate per la vostra strada.",
+      "Ritenendo di non aver bisogno di tale servizio in questo momento, decidete di proseguire per la vostra strada.",
+      "Rifiutate l'offerta e continuate per la vostra strada."
+    ],
+    "notEnoughMoney": [
+      "Frugate nelle tasche, ma vi rendete conto di non avere abbastanza soldi. L'uomo vi guarda con disappunto e se ne va con il suo carrello.",
+      "Contate le monete, ma non ne avete abbastanza per il viaggio. La volpe scuote la testa e parte con il suo carro.",
+      "Controllate il vostro borsellino, ma purtroppo non avete abbastanza soldi. Lo sconosciuto annuisce e se ne va con il suo carrello."
+    ]
   }
 }
