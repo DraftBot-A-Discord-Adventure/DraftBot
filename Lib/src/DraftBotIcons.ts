@@ -39,6 +39,10 @@ export const DraftBotIcons: {
 	witch_small_event: {
 		[ingredient: string]: string
 	},
+	cart_small_event: {
+		accept: string,
+		refuse: string
+	},
 	foods: {
 		[foodId: string]: string
 	}
@@ -1515,6 +1519,12 @@ export const DraftBotIcons: {
 		"wiltedRose": "🥀",
 		"worm": "🪱"
 	},
+
+	"cart_small_event": {
+		"accept": "🚗",
+		"refuse": "🚶"
+	},
+
 	"foods": {
 		"herbivorousFood": "🥬",
 		"commonFood": "🍬",

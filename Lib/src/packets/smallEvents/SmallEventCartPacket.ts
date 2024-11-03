@@ -3,15 +3,9 @@ import {SmallEventPacket} from "./SmallEventPacket";
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class SmallEventCartPacket extends SmallEventPacket {
-	displayedDestination!: {
-		isDisplayed: boolean,
-		id?: number,
-		type?: string
-	};
+	isScam!: boolean;
 
-	price!: number;
-
-	isScam: boolean;
+	isDisplayed!: boolean;
 
 	travelDone!: {
 		isAccepted: boolean,
