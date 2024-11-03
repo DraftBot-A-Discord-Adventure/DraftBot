@@ -2,7 +2,7 @@
   "anotherPlayerBlocked": "Vous ne pouvez pas effectuer cela car {{username}} a une action en attente ({{reasons}}) !",
   "blockedContext": {
     "acceptItem": "choix de garder un objet ou non",
-    "cartChoose": "choix de monter dans la charrette ou non",
+    "cartSmallEvent": "choix de monter dans la charrette ou non",
     "chiefGuildLeave": "passation de pouvoir",
     "chooseDestination": "choix de la destination",
     "class": "changement de classe",
