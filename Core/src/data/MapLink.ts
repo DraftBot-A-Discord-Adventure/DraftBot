@@ -17,11 +17,11 @@ export class MapLinkDataController extends DataControllerNumber<MapLink> {
 	static readonly instance: MapLinkDataController = new MapLinkDataController("mapLinks");
 
 	/**
-	 * Generate a random map link different of the current one
+	 * Generate a random map link different from the current one
 	 * @param currentMapLinkId
 	 */
 	public generateRandomMapLinkDifferentOfCurrent(currentMapLinkId: number): MapLink {
-		let generatedMapLink = this.getRandomLink();
+		let generatedMapLink = this.getRandomLinkOnMainContinent();
 		if (generatedMapLink.id === currentMapLinkId) { // If the player is already on the destination, get the inverse link
 			generatedMapLink = this.getInverseLinkOf(currentMapLinkId);
 		}
@@ -33,10 +33,16 @@ export class MapLinkDataController extends DataControllerNumber<MapLink> {
 	}
 
 	/**
-	 * ⚠️ Return a random MapLink from ANY type (including outside of the main continent even beta MapLink)
+	 * Return a random MapLink from the main continent
 	 */
-	public getRandomLink(): MapLink {
-		return RandomUtils.draftbotRandom.pick(this.getValuesArray());
+	public getRandomLinkOnMainContinent(): MapLink {
+		const mapLinks = this.getValuesArray()
+			.filter((mapLink) => {
+				const startMap = MapLocationDataController.instance.getById(mapLink.startMap);
+				const endMap = MapLocationDataController.instance.getById(mapLink.endMap);
+				return startMap.attribute === "continent1" && endMap.attribute === "continent1";
+			});
+		return RandomUtils.draftbotRandom.pick(mapLinks);
 	}
 
 	public getLinkByLocations(idStartPoint: number, idEndPoint: number): MapLink {

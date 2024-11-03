@@ -106,7 +106,7 @@ export default class ReportCommand {
 		}
 
 		if (player.mapLinkId === null) {
-			await Maps.startTravel(player, MapLinkDataController.instance.getRandomLink(), Date.now());
+			await Maps.startTravel(player, MapLinkDataController.instance.getRandomLinkOnMainContinent(), Date.now());
 			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.REPORT_COMMAND);
 			return;
 		}
