@@ -23,7 +23,7 @@ const skipTutorialTestCommand: ExecuteTestCommandLike = async (player) => {
 	player.effectEndDate = new Date();
 	player.effectDuration = 0;
 	player.health = player.getMaxHealth();
-	await Maps.startTravel(player, MapLinkDataController.instance.getRandomLink(), 0);
+	await Maps.startTravel(player, MapLinkDataController.instance.getRandomLinkOnMainContinent(), 0);
 	await TravelTime.removeEffect(player, NumberChangeReason.TEST);
 	await player.save();
 

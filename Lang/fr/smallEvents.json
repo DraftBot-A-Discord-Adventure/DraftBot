@@ -1140,33 +1140,33 @@
       "\n\n:red_car: Monter dans la charrette\n:person_walking: Passer votre chemin"
     ],
     "scamTravelDone": [
-      ":blue_car: Après un voyage étonnement rapide, vous vous retrouvez dans un endroit inconnu. L'homme vous regarde avec un sourire narquois et s'éloigne avec sa charrette.",
-      ":blue_car: L'homme aux cheveux hirsutes vous a mené dans un endroit complètement différent de votre destination prévue. Avant que vous n'ayez le temps de réagir, il disparaît rapidement dans un nuage de poussière.",
-      ":blue_car: Le voyage est passé plus vite que prévu et vous vous retrouvez dans un endroit inconnu. L'homme aux yeux malicieux s'éloigne avec sa charrette, vous laissant seul et dérouté.",
-      ":blue_car: Très vite, vous êtes transporté vers un endroit familier... Vous réalisez rapidement qu'il ne s'agit pas de la destination qui vous avait été indiquée mais il est déjà trop tard pour réagir. L'homme mystérieux est déjà loin.."
+      "Après un voyage étonnement rapide, vous vous retrouvez dans un endroit inconnu. L'homme vous regarde avec un sourire narquois et s'éloigne avec sa charrette.",
+      "L'homme aux cheveux hirsutes vous a mené dans un endroit complètement différent de votre destination prévue. Avant que vous n'ayez le temps de réagir, il disparaît rapidement dans un nuage de poussière.",
+      "Le voyage est passé plus vite que prévu et vous vous retrouvez dans un endroit inconnu. L'homme aux yeux malicieux s'éloigne avec sa charrette, vous laissant seul et dérouté.",
+      "Très vite, vous êtes transporté vers un endroit familier... Vous réalisez rapidement qu'il ne s'agit pas de la destination qui vous avait été indiquée mais il est déjà trop tard pour réagir. L'homme mystérieux est déjà loin.."
     ],
     "normalTravelDone": [
-      ":red_car: Vous acceptez l'offre de l'homme et montez dans sa charrette. Après un voyage paisible, vous vous retrouvez près de votre destination prévue.",
-      ":red_car: Après avoir pesé le pour et le contre, vous décidez de faire confiance à l'homme et de monter dans sa charrette. Vous êtes soulagé de vous retrouver près de la destination indiquée.",
-      ":red_car: Vous montez dans la charrette et l'homme aux cheveux ébouriffés vous conduit à votre destination. Vous arrivez sain et sauf, près de l'endroit prévu.",
-      ":red_car: Vous acceptez l'offre du voyageur au passé mystérieux et montez dans sa charrette. À votre grande surprise, vous vous retrouvez près de votre destination prévue."
+      "Vous acceptez l'offre de l'homme et montez dans sa charrette. Après un voyage paisible, vous vous retrouvez près de votre destination prévue.",
+      "Après avoir pesé le pour et le contre, vous décidez de faire confiance à l'homme et de monter dans sa charrette. Vous êtes soulagé de vous retrouver près de la destination indiquée.",
+      "Vous montez dans la charrette et l'homme aux cheveux ébouriffés vous conduit à votre destination. Vous arrivez sain et sauf, près de l'endroit prévu.",
+      "Vous acceptez l'offre du voyageur au passé mystérieux et montez dans sa charrette. À votre grande surprise, vous vous retrouvez près de votre destination prévue."
     ],
     "unknownDestinationTravelDone": [
-      ":red_car: Vous acceptez l'offre de l'homme et montez dans sa charrette sans aucune idée de votre destination. Après un voyage paisible, vous vous retrouvez dans un lieu qui semble accueillant.",
-      ":red_car: Malgré l'incertitude, vous décidez de faire confiance à l'homme et de monter dans sa charrette. À votre soulagement, vous vous retrouvez dans un endroit paisible et agréable.",
-      ":red_car: Vous montez dans la charrette, la destination étant un mystère. L'homme aux cheveux ébouriffés vous conduit à travers des paysages variés avant de vous déposer dans un endroit qui semble prometteur.",
-      ":red_car: Vous acceptez l'offre du voyageur au passé mystérieux et montez dans sa charrette sans savoir où vous vous rendrez. À votre grande surprise, vous vous retrouvez dans un lieu pittoresque et plein de charme."
+      "Vous acceptez l'offre de l'homme et montez dans sa charrette sans aucune idée de votre destination. Après un voyage paisible, vous vous retrouvez dans un lieu qui semble accueillant.",
+      "Malgré l'incertitude, vous décidez de faire confiance à l'homme et de monter dans sa charrette. À votre soulagement, vous vous retrouvez dans un endroit paisible et agréable.",
+      "Vous montez dans la charrette, la destination étant un mystère. L'homme aux cheveux ébouriffés vous conduit à travers des paysages variés avant de vous déposer dans un endroit qui semble prometteur.",
+      "Vous acceptez l'offre du voyageur au passé mystérieux et montez dans sa charrette sans savoir où vous vous rendrez. À votre grande surprise, vous vous retrouvez dans un lieu pittoresque et plein de charme."
     ],
     "travelRefused": [
-      ":person_walking: Après une courte reflexion, vous décidez de ne pas prendre le risque et de passer votre chemin.",
-      ":person_walking: Vous refusez poliment la proposition et continuez votre chemin.",
-      ":person_walking: Jugeant que vous n'avez pas besoin d'un tel service à ce moment, vous décidez de continuer votre route.",
-      ":person_walking: Vous refusez la proposition et continuez votre chemin."
+      "Après une courte reflexion, vous décidez de ne pas prendre le risque et de passer votre chemin.",
+      "Vous refusez poliment la proposition et continuez votre chemin.",
+      "Jugeant que vous n'avez pas besoin d'un tel service à ce moment, vous décidez de continuer votre route.",
+      "Vous refusez la proposition et continuez votre chemin."
     ],
     "notEnoughMoney": [
-      ":person_frowning: Vous fouillez dans vos poches, mais vous réalisez que vous n'avez pas assez d'argent. L'homme vous regarde déçu et part avec sa charrette.",
-      ":person_frowning: Vous comptez vos pièces, mais il vous en manque pour le voyage. Le roublard secoue la tête et s'éloigne avec sa charrette.",
-      ":person_frowning: Vous vérifiez votre bourse, mais malheureusement vous n'avez pas assez d'argent. L'étranger hoche la tête et part avec sa charrette."
+      "Vous fouillez dans vos poches, mais vous réalisez que vous n'avez pas assez d'argent. L'homme vous regarde déçu et part avec sa charrette.",
+      "Vous comptez vos pièces, mais il vous en manque pour le voyage. Le roublard secoue la tête et s'éloigne avec sa charrette.",
+      "Vous vérifiez votre bourse, mais malheureusement vous n'avez pas assez d'argent. L'étranger hoche la tête et part avec sa charrette."
     ]
   }
 }

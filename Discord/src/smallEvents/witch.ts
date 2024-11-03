@@ -59,7 +59,7 @@ export async function witchCollector(packet: ReactionCollectorCreationPacket, co
 		components: [row]
 	}) as Message;
 
-	// Create button collector
+	// Create a button collector
 	const buttonCollector = msg.createMessageComponentCollector({
 		time: packet.endTime - Date.now()
 	});

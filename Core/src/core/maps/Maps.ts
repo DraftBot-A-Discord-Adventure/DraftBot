@@ -17,7 +17,7 @@ export class Maps {
 	 */
 	static getNextPlayerAvailableMaps(player: Player): number[] {
 		if (!player.mapLinkId) {
-			player.mapLinkId = MapLinkDataController.instance.getRandomLink().id;
+			player.mapLinkId = MapLinkDataController.instance.getRandomLinkOnMainContinent().id;
 		}
 
 		const map = player.getDestinationId();
