@@ -89,7 +89,7 @@ const forceStopReason = "force";
 async function getPacket(interaction: DraftbotInteraction): Promise<null> {
 	const notificationsConfiguration = await NotificationsConfigurations.getOrRegister(interaction.user.id);
 
-	await mainPage(interaction, notificationsConfiguration, false, interaction.userLanguage);
+	await mainPage(interaction, notificationsConfiguration, interaction.userLanguage);
 
 	return null;
 }
@@ -101,7 +101,7 @@ function clearCurrentCollector(userId: string): void {
 	}
 }
 
-async function mainPage(interaction: DraftbotInteraction | ButtonInteraction, notificationsConfiguration: NotificationsConfiguration, isButtonInteraction: boolean, lng: Language): Promise<void> {
+async function mainPage(interaction: DraftbotInteraction | ButtonInteraction, notificationsConfiguration: NotificationsConfiguration, lng: Language): Promise<void> {
 	clearCurrentCollector(interaction.user.id);
 
 	// Build the rows and buttons
@@ -132,7 +132,7 @@ async function mainPage(interaction: DraftbotInteraction | ButtonInteraction, no
 		embeds: [embed],
 		components: [row]
 	};
-	if (!isButtonInteraction) {
+	if (!interaction.isButton()) {
 		msg = await interaction.reply(msgOption);
 	}
 	else {
@@ -219,7 +219,7 @@ async function chooseEnabled(buttonInteraction: ButtonInteraction, notifications
 
 		if (collectorButtonInteraction.customId === backButtonCustomId) {
 			buttonCollector.stop(forceStopReason);
-			await mainPage(collectorButtonInteraction, notificationsConfiguration, true, lng);
+			await mainPage(collectorButtonInteraction, notificationsConfiguration, lng);
 			return;
 		}
 
@@ -268,7 +268,7 @@ async function chooseSendType(buttonInteraction: ButtonInteraction, notification
 
 		if (collectorButtonInteraction.customId === backButtonCustomId) {
 			buttonCollector.stop(forceStopReason);
-			await mainPage(collectorButtonInteraction, notificationsConfiguration, true, lng);
+			await mainPage(collectorButtonInteraction, notificationsConfiguration, lng);
 			return;
 		}
 
