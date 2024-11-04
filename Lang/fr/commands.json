@@ -574,5 +574,21 @@
     "response_other": "{{respawnEmote}} | ** {{pseudo}} ** Nous vous avons ressuscité avec succès ! Cependant veuillez noter que {{count}} {{scoreEmote}} ont été retirés de votre score durant l'opération !",
     "response_one": "{{respawnEmote}} | ** {{pseudo}} ** Nous vous avons ressuscité avec succès ! Cependant veuillez noter qu'1 {{scoreEmote}} a été retiré de votre score durant l'opération !",
     "alreadyAlive": "Il semblerait que vous ne soyez pas K.O... Vous n'avez pas besoin de nos services."
+  },
+  "notifications": {
+    "types": {
+      "report": "Rapports",
+      "guildDaily": "Récompenses de guilde"
+    },
+    "enableDisable": "Activer/Désactiver",
+    "sendLocationField": "Endroit d'envoi :",
+    "sendLocation": "Endroit d'envoi",
+    "embedTitle": "Gestion des notifications",
+    "enabledField": "Activées :",
+    "inDM": "En message privé",
+    "inChannel": "Dans le salon {{channel}}",
+    "footerEnableDisable": "Utilisez les boutons ci-dessous pour activer ou désactiver les notifications.",
+    "back": "Retour",
+    "footerSendLocation": "Utilisez les boutons ci-dessous pour choisir où vous souhaitez recevoir les notifications."
   }
 }

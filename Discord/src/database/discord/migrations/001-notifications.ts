@@ -1,5 +1,5 @@
 import {DataTypes, QueryInterface} from "sequelize";
-import {NotificationSendType} from "../../../notifications/NotificationSendType";
+import {NotificationSendTypeEnum} from "../../../notifications/NotificationSendType";
 
 export async function up({context}: { context: QueryInterface }): Promise<void> {
 	await context.createTable("notifications", {
@@ -14,7 +14,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 		},
 		reportSendType: {
 			type: DataTypes.INTEGER,
-			defaultValue: NotificationSendType.DM
+			defaultValue: NotificationSendTypeEnum.DM
 		},
 		reportChannelId: {
 			// eslint-disable-next-line new-cap
@@ -26,7 +26,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 		},
 		guildDailySendType: {
 			type: DataTypes.INTEGER,
-			defaultValue: NotificationSendType.DM
+			defaultValue: NotificationSendTypeEnum.DM
 		},
 		guildDailyChannelId: {
 			// eslint-disable-next-line new-cap
