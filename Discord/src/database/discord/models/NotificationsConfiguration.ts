@@ -1,6 +1,6 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 import moment = require("moment");
-import {NotificationSendType} from "../../../notifications/NotificationSendType";
+import {NotificationSendTypeEnum} from "../../../notifications/NotificationSendType";
 
 export class NotificationsConfiguration extends Model {
 	declare readonly discordId: string;
@@ -47,7 +47,7 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		reportSendType: {
 			type: DataTypes.INTEGER,
-			defaultValue: NotificationSendType.DM
+			defaultValue: NotificationSendTypeEnum.DM
 		},
 		reportChannelId: {
 			// eslint-disable-next-line new-cap
@@ -59,7 +59,7 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		guildDailySendType: {
 			type: DataTypes.INTEGER,
-			defaultValue: NotificationSendType.DM
+			defaultValue: NotificationSendTypeEnum.DM
 		},
 		guildDailyChannelId: {
 			// eslint-disable-next-line new-cap

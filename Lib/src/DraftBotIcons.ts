@@ -78,7 +78,13 @@ export const DraftBotIcons: {
 	badges: {
 		[badgeId: string]: string
 	},
-	itemKinds: string[]
+	itemKinds: string[],
+	notifications: {
+		bell: string,
+		sendLocation: string,
+		back: string,
+		types: { [notificationId: string]: string }
+	}
 } = {
 	"effects": {
 		"not_started": "👶",
@@ -1612,5 +1618,14 @@ export const DraftBotIcons: {
 		"🛡️",
 		"⚗️",
 		"🧸"
-	]
+	],
+	"notifications": {
+		"bell": "🔔",
+		"sendLocation": "📩",
+		"back": "↩️",
+		"types": {
+			"report": "📰",
+			"guildDaily": "🏟️"
+		}
+	}
 };
