@@ -158,5 +158,15 @@
   "respawn": {
     "description": "Riprendere l'avventura dopo... \"un incidente\".",
     "name": "rivivere"
+  },
+  "notifications": {
+    "description": "Gestire le notifiche dei bot.",
+    "name": "notifiche",
+    "options": {
+      "toggle": {
+        "description": "Attivare o disattivare le notifiche di un certo tipo.",
+        "name": "cambiamento"
+      }
+    }
   }
 }
