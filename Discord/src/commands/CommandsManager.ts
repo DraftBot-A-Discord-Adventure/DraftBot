@@ -189,9 +189,11 @@ export class CommandsManager {
 			this.commands.set(commandInfo.slashCommandBuilder.name, commandInfo);
 			if (commandInfo.mainGuildCommand || discordConfig.TEST_MODE) {
 				guildsCommandsToRegister.push(commandInfo.slashCommandBuilder.toJSON());
+				console.log(`Registering guild command ${category}/${commandFile}`);
 			}
 			else {
 				globalCommandsToRegister.push(commandInfo.slashCommandBuilder.toJSON());
+				console.log(`Registering global command ${category}/${commandFile}`);
 			}
 		}
 	}

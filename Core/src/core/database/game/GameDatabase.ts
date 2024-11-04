@@ -12,7 +12,7 @@ export class GameDatabase extends Database {
 	/**
 	 * Initialize a GameDatabase instance
 	 */
-	async init(): Promise<void> {
+	async init(doMigrations: boolean): Promise<void> {
 		await this.connectDatabase();
 
 		const MigrationTable = this.sequelize.define("migrations", {
@@ -39,6 +39,6 @@ export class GameDatabase extends Database {
 		catch { /* Ignore */
 		}
 
-		await super.init();
+		await super.init(doMigrations);
 	}
 }
