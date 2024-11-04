@@ -148,8 +148,8 @@
     "name": "tarjeta"
   },
   "shop": {
-    "description": "Affiche le magasin.",
-    "name": "magasin"
+    "description": "Muestra la tienda.",
+    "name": "tienda"
   },
   "classesInfo": {
     "description": "Muestra información sobre las clases que puedes seleccionar para tu personaje.",
