@@ -68,6 +68,7 @@ installation process
 - Yarn
   - (see package.json of any service for the relevant version)
   - https://yarnpkg.com/getting-started/install
+  - (Beware, if you do this at the root of the project, this will create a new package.json file, you can delete this file)
 
 ### Start guide
 
@@ -77,8 +78,7 @@ Please do not skip any step of this guide; otherwise, the following commands wil
 
 2. Setup projects
 
-Open the project in webstorm and use our "yarn install all" configuration to install all the dependencies.
-Alternatively, you can run the following commands in the terminal (starting from the root of the project):
+Run yarn install in each project folder:
 
 ```sh
 cd Lib && yarn install

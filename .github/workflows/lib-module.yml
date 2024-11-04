@@ -1,10 +1,9 @@
 name: Lib module
-
 on:
   pull_request:
-    branches: 
+    branches:
       - draftbot-v5
-    paths: 
+    paths:
       - Lib/**
 
 jobs:
@@ -20,15 +19,23 @@ jobs:
         with:
           node-version: '18'
 
-      # Repeat the caching step and ESLint check for the Lib subproject
-      - name: Cache Lib dependencies
+      # Setup Yarn stable
+      - name: Setup Yarn
+        run: |
+          corepack enable
+          yarn set version stable
+
+      # Cache Yarn dependencies
+      - name: Cache Yarn dependencies
         uses: actions/cache@v3
         with:
-          path: ./Lib/node_modules
-          key: ${{ runner.os }}-lib-dependencies-${{ hashFiles('./Lib/yarn.lock') }}
+          path: |
+            ./Lib/.yarn/cache  
+            ./Lib/.pnp.cjs
+          key: ${{ runner.os }}-yarn-${{ hashFiles('./Lib/yarn.lock') }}
 
       - name: Install dependencies and Run ESLint in Lib folder
         working-directory: ./Lib
         run: |
-          yarn install    
+          yarn install
           yarn eslint
