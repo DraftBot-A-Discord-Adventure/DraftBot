@@ -158,5 +158,15 @@
   "respawn": {
     "description": "Wiederaufnahme des Abenteuers nach ... \"einem Unfall\".",
     "name": "wiederbeleben"
+  },
+  "notifications": {
+    "description": "Verwalten Sie die Benachrichtigungen des Bots.",
+    "name": "Benachrichtigungen",
+    "options": {
+      "toggle": {
+        "description": "Aktivieren oder deaktivieren Sie Benachrichtigungen eines bestimmten Typs.",
+        "name": "ändern"
+      }
+    }
   }
 }
