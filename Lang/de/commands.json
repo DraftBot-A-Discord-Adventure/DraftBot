@@ -574,5 +574,21 @@
     "response_other": "{{respawnEmote}} | ** {{pseudo}} ** Wir haben Sie erfolgreich wiederbelebt! Bitte beachte jedoch, dass {{count}} {{scoreEmote}} während der Operation von deiner Punktzahl abgezogen wurden!",
     "response_one": "{{respawnEmote}} | ** {{pseudo}} ** Wir haben Sie erfolgreich wiederbelebt! Bitte beachte jedoch, dass dir während der Operation 1 {{scoreEmote}} von deiner Punktzahl abgezogen wurde!",
     "alreadyAlive": "Es scheint, dass Sie nicht k.o. sind... Sie brauchen unsere Dienste nicht."
+  },
+  "notifications": {
+    "types": {
+      "report": "Berichte",
+      "guildDaily": "Gildenbelohnungen"
+    },
+    "enableDisable": "Aktivieren/Deaktivieren",
+    "sendLocationField": "Ort der Versendung :",
+    "sendLocation": "Ort der Versendung",
+    "embedTitle": "Verwaltung von Benachrichtigungen",
+    "enabledField": "Aktiviert :",
+    "inDM": "In einer privaten Nachricht",
+    "inChannel": "Im Wohnzimmer {{channel}}",
+    "footerEnableDisable": "Verwenden Sie die untenstehenden Schaltflächen, um Benachrichtigungen zu aktivieren oder zu deaktivieren.",
+    "back": "Zurück",
+    "footerSendLocation": "Verwenden Sie die untenstehenden Schaltflächen, um auszuwählen, wo Sie Benachrichtigungen erhalten möchten."
   }
 }
