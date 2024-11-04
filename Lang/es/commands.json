@@ -478,6 +478,78 @@
     "confirmThrowAway": "{{item}} ¿Estás seguro de que quieres tirarlo?",
     "sellIndication": "Elija un artículo para vender de la siguiente lista:"
   },
+  "shop": {
+    "closeShop": "Has cerrado la tienda.",
+    "closeShopTitle": "{{pseudo}}cierre de la tienda",
+    "noAlterationToHeal": "No eres víctima de ninguna alteración de la condición 🙂 .",
+    "success": "{{pseudo}}¡Una transacción exitosa!",
+    "healAlteration": "🏥 Tus cambios de estado han sido eliminados.",
+    "tooManyEnergyBought": "Ha adquirido la cantidad máxima de recuperación de energía para esta semana.",
+    "noEnergyToHeal": "Tienes toda tu energía de lucha a tu disposición. ⚡",
+    "fullRegen": "💓 Te han cuidado por completo.",
+    "alreadyHaveBadge": "Ya tienes esta insignia.",
+    "badgeBought": "{emote:badges.richPerson} Has recibido una nueva insignia: .",
+    "notEnoughMoney": "¡No tienes suficiente dinero para comprar este artículo!{{missingMoney}} Te falta ` 💰`.",
+    "boughtTooMuchDailyPotions": "No hay más pociones del día a la venta... ¡Vuelve mañana!",
+    "title": "🛒 Pantalla de la tienda",
+    "currentMoney": "{{money}}Tienes ` 💰`.",
+    "shopItemsDisplay": "{{name}}{{price}}| 💰`",
+    "shopSelectPlaceholder": "Seleccione un artículo para comprar",
+    "buyCategorySlotSuccess": "Has comprado un nuevo espacio de inventario.",
+    "shopItemsSelectDescription": "{{price}}💰",
+    "closeShopButton": "❌ Cerrar tienda",
+    "shopConfirmationTitle": "{{pseudo}}ha seleccionado el siguiente producto:",
+    "shopCategories": {
+      "permanentItem": "Ventas permanentes",
+      "dailyPotion_zero": "Poción del día (agotado)",
+      "dailyPotion_one": "{{count}} Poción del día ( disponible)",
+      "dailyPotion_other": "{{count}} Poción del día ( disponible)",
+      "slotExtension": "Ampliaciones de inventario"
+    },
+    "chooseSlotTitle": "{{pseudo}}nueva ubicación del inventario",
+    "chooseSlotIndication": "Elija una nueva ubicación de inventario o cancele :",
+    "shopCategoryFormat_one": "{emote:itemKinds.{{categoryId}}}{{category}}{{count}}{{limit}}\n** ** ( / remaining)",
+    "shopCategoryFormat_other": "{emote:itemKinds.{{categoryId}}}{{category}}{{count}}{{limit}}\n** ** ( / remaining)",
+    "slotCategoriesKind": [
+      "Arma",
+      "Armadura",
+      "Poción",
+      "Objeto"
+    ],
+    "shopItems": {
+      "randomItem": {
+        "name": "{emote:shopItems.randomItem} Equipo aleatorio",
+        "info": "Recibirás una pieza de equipo aleatoria (Arma / Armadura / Objeto o Poción) de entre todas las presentes en el juego."
+      },
+      "healAlteration": {
+        "name": "{emote:shopItems.healAlteration} Atención a estados alterados",
+        "info": "Sus cambios de estado serán eliminados y volverá a la carretera inmediatamente.",
+        "give": "{emote:shopItems.healAlteration} Tus cambios de estado han sido eliminados."
+      },
+      "healEnergy": {
+        "name": "{emote:shopItems.healEnergy} Recuperación de energía",
+        "info": "Tu energía de combate se restaurará por completo.",
+        "give": "{emote:shopItems.healEnergy} Tu energía ha sido restaurada."
+      },
+      "regen": {
+        "name": "{emote:shopItems.regen} Regulación completa de la vida",
+        "info": "Te curarás por completo inmediatamente, pero conservarás todos tus estados alterados.",
+        "give": "{emote:shopItems.regen} Te han cuidado por completo."
+      },
+      "moneyMouthBadge": {
+        "name": "{emote:shopItems.moneyMouthBadge} Insignia \"Money Mouth",
+        "info": "Recibirá la insignia automáticamente tras el pago. {command:help}Para obtener más información sobre las insignias, utilice el comando .",
+        "give": "{{pseudo}}Has recibido una nueva insignia:"
+      },
+      "inventoryExtension": {
+        "name": "{emote:shopItems.inventoryExtension} Nueva ubicación del inventario",
+        "info": "Puede elegir una categoría de inventario a la que añadir una ubicación"
+      },
+      "dailyPotion": {
+        "info": "Recibirás una poción que podrás decidir si quedarte o no. Si ya la tienes, ¡se tirará sin reembolso!"
+      }
+    }
+  },
   "classesInfo": {
     "title": {
       "list": ":bookmark: Lista de clases",
@@ -502,5 +574,21 @@
     "response_other": "{{respawnEmote}} {{pseudo}} | Te hemos resucitado con éxito. {{count}} {{scoreEmote}} ¡Sin embargo, tenga en cuenta que se dedujo de su puntuación durante la operación!",
     "response_one": "{{respawnEmote}} {{pseudo}} ** ** ¡Te hemos resucitado con éxito! {{scoreEmote}} Sin embargo, ten en cuenta que se te ha descontado 1 de tu puntuación durante la operación.",
     "alreadyAlive": "Parece que no estás noqueado... No necesitas nuestros servicios."
+  },
+  "notifications": {
+    "types": {
+      "report": "Informes",
+      "guildDaily": "Recompensas del gremio"
+    },
+    "enableDisable": "Activar/Desactivar",
+    "sendLocationField": "Dirección de entrega :",
+    "sendLocation": "Lugar de expedición",
+    "embedTitle": "Gestión de notificaciones",
+    "enabledField": "Activado :",
+    "inDM": "Mensaje privado",
+    "inChannel": "{{channel}}En el salón",
+    "footerEnableDisable": "Utilice los botones siguientes para activar o desactivar las notificaciones.",
+    "back": "Volver",
+    "footerSendLocation": "Utilice los botones siguientes para elegir dónde desea recibir las notificaciones."
   }
 }

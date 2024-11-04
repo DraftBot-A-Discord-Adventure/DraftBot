@@ -147,6 +147,10 @@
     "description": "Muestra el mapa para indicarte por dónde vas.",
     "name": "tarjeta"
   },
+  "shop": {
+    "description": "Muestra la tienda.",
+    "name": "tienda"
+  },
   "classesInfo": {
     "description": "Muestra información sobre las clases que puedes seleccionar para tu personaje.",
     "name": "clases informativas"
@@ -154,5 +158,15 @@
   "respawn": {
     "description": "Reanudando la aventura después de... \"un accidente\".",
     "name": "revivir"
+  },
+  "notifications": {
+    "description": "Gestiona las notificaciones de los bots.",
+    "name": "notificaciones",
+    "options": {
+      "toggle": {
+        "description": "Activar o desactivar notificaciones de un determinado tipo.",
+        "name": "cambiar"
+      }
+    }
   }
 }
