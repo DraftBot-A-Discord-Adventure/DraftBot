@@ -1,7 +1,7 @@
 name: Discord module
 on:
   pull_request:
-    branches: 
+    branches:
       - draftbot-v5
     paths:
       - Discord/**
@@ -19,15 +19,23 @@ jobs:
         with:
           node-version: '18'
 
-      # Install and cache dependencies for the Discord subproject
+      # Setup Yarn
+      - name: Setup Yarn
+        run: |
+          corepack enable
+          yarn set version stable
+
+      # Cache Yarn dependencies for Discord module
       - name: Cache Discord dependencies
         uses: actions/cache@v3
         with:
-          path: ./Discord/node_modules
+          path: |
+            ./Discord/.yarn/cache  
+            ./Discord/.pnp.cjs
           key: ${{ runner.os }}-discord-dependencies-${{ hashFiles('./Discord/yarn.lock') }}
 
       - name: Install dependencies and Run ESLint in Discord folder
         working-directory: ./Discord
         run: |
-          yarn install    
+          yarn install
           yarn eslint
