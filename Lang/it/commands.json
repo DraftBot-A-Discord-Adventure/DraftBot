@@ -479,36 +479,36 @@
     "sellIndication": "Scegliete un articolo da vendere dall'elenco sottostante:"
   },
   "shop": {
-    "closeShop": "Vous avez fermé le magasin.",
-    "closeShopTitle": "{{pseudo}}, fermeture du magasin",
+    "closeShop": "Avete chiuso il negozio.",
+    "closeShopTitle": "{{pseudo}}chiusura del negozio",
     "noAlterationToHeal": "Non sei vittima di un'alterazione delle condizioni 🙂",
-    "success": "{{pseudo}}, transaction réussie !",
-    "healAlteration": "🏥 Vos altérations d'état ont été supprimées.",
-    "tooManyEnergyBought": "Vous avez acheté la quantité maximale de récupération d'énergie pour cette semaine.",
+    "success": "{{pseudo}}Una transazione di successo!",
+    "healAlteration": "🏥 Le tue modifiche di stato sono state rimosse.",
+    "tooManyEnergyBought": "Avete acquistato la quantità massima di energia di recupero per questa settimana.",
     "noEnergyToHeal": "Avete a disposizione tutta la vostra energia di combattimento. ⚡",
     "fullRegen": "💓 Sei stato completamente accudito.",
-    "alreadyHaveBadge": "Vous possédez déjà ce badge.",
-    "badgeBought": "Vous avez reçu un nouveau badge : {emote:badges.richPerson} !",
-    "notEnoughMoney": "Vous n'avez pas assez d'argent pour acheter cet objet ! Il vous manque `{{missingMoney}} 💰`.",
-    "boughtTooMuchDailyPotions": "Il n'y a plus aucune potion du jour disponible à la vente... Revenez demain !",
+    "alreadyHaveBadge": "Avete già questo distintivo.",
+    "badgeBought": "{emote:badges.richPerson} Hai ricevuto un nuovo badge: .",
+    "notEnoughMoney": "Non hai abbastanza soldi per acquistare questo articolo!{{missingMoney}} Ti manca ` 💰`.",
+    "boughtTooMuchDailyPotions": "Non ci sono più pozioni del giorno disponibili per la vendita... Tornate domani!",
     "title": "🛒 Display del negozio",
-    "currentMoney": "Vous avez `{{money}}💰`.",
-    "shopItemsDisplay": "{{name}} | `{{price}}💰`",
-    "shopSelectPlaceholder": "Sélectionnez un objet à acheter",
-    "buyCategorySlotSuccess": "Vous avez acheté un nouvel emplacement d'inventaire !",
+    "currentMoney": "{{money}}Avete ` 💰`.",
+    "shopItemsDisplay": "{{name}}{{price}}| 💰`",
+    "shopSelectPlaceholder": "Selezionare un articolo da acquistare",
+    "buyCategorySlotSuccess": "Avete acquistato un nuovo slot d'inventario!",
     "shopItemsSelectDescription": "{{price}}💰",
-    "closeShopButton": "❌ Fermer le magasin",
+    "closeShopButton": "❌ Chiudere il negozio",
     "shopConfirmationTitle": "{{pseudo}}avete selezionato il seguente prodotto:",
     "shopCategories": {
-      "permanentItem": "Ventes permanentes",
+      "permanentItem": "Vendite permanenti",
       "dailyPotion_zero": "Pozione del giorno (esaurito)",
-      "dailyPotion_one": "Potion du jour ({{count}} disponible)",
-      "dailyPotion_other": "Potion du jour ({{count}} disponibles)",
-      "slotExtension": "Extensions d'inventaire"
+      "dailyPotion_one": "{{count}} Pozione del giorno ( disponibile)",
+      "dailyPotion_other": "{{count}} Pozione del giorno ( disponibile)",
+      "slotExtension": "Estensioni dell'inventario"
     },
-    "chooseSlotTitle": "{{pseudo}}, nouvel emplacement d'inventaire",
-    "chooseSlotIndication": "Choisissez un nouvel emplacement d'inventaire ou annulez :",
-    "shopCategoryFormat_one": "{emote:itemKinds.{{categoryId}}} **{{category}}** ({{count}}/{{limit}} restant)\n",
+    "chooseSlotTitle": "{{pseudo}}nuova posizione dell'inventario",
+    "chooseSlotIndication": "Scegliere una nuova posizione dell'inventario o annullare :",
+    "shopCategoryFormat_one": "{emote:itemKinds.{{categoryId}}}{{category}}{{count}}{{limit}}\n** ** ( / rimanente)",
     "shopCategoryFormat_other": "{emote:itemKinds.{{categoryId}}}{{category}}{{count}}{{limit}}\n** ** ( / rimanente)",
     "slotCategoriesKind": [
       "Arma",
@@ -527,26 +527,26 @@
         "give": "{emote:shopItems.healAlteration} Le modifiche al tuo stato sono state rimosse."
       },
       "healEnergy": {
-        "name": "{emote:shopItems.healEnergy} Récupération d'énergie",
+        "name": "{emote:shopItems.healEnergy} Recupero di energia",
         "info": "L'energia di combattimento sarà completamente ripristinata.",
-        "give": "{emote:shopItems.healEnergy} Votre énergie a été restaurée."
+        "give": "{emote:shopItems.healEnergy} La vostra energia è stata ripristinata."
       },
       "regen": {
         "name": "{emote:shopItems.regen} Regolazione completa della vita",
-        "info": "Vous serez immédiatement soigné complétement mais vous conserverez toutes vos altérations d'état.",
+        "info": "Sarete completamente guariti immediatamente, ma manterrete tutti i vostri stati alterati.",
         "give": "{emote:shopItems.regen} Siete stati seguiti in modo completo."
       },
       "moneyMouthBadge": {
-        "name": "{emote:shopItems.moneyMouthBadge} Badge \"Money Mouth\"",
+        "name": "{emote:shopItems.moneyMouthBadge} Distintivo \"Money Mouth",
         "info": "Il badge verrà ricevuto automaticamente dopo il pagamento. {command:help}Per ulteriori informazioni sui badge, utilizzare il comando .",
         "give": "{{pseudo}}Avete ricevuto un nuovo distintivo:"
       },
       "inventoryExtension": {
-        "name": "{emote:shopItems.inventoryExtension} Nouvel emplacement d'inventaire",
-        "info": "Vous pourrez choisir une catégorie d'inventaire à laquelle ajouter un emplacement"
+        "name": "{emote:shopItems.inventoryExtension} Nuova posizione dell'inventario",
+        "info": "È possibile scegliere una categoria d'inventario a cui aggiungere una sede."
       },
       "dailyPotion": {
-        "info": "Vous obtiendrez une potion que vous déciderez de garder ou non. Si vous l'avez déjà elle sera jetée sans remboursement !"
+        "info": "Riceverete una pozione che potrete decidere se tenere o meno. Se la possedete già, verrà gettata via senza alcun rimborso!"
       }
     }
   },
