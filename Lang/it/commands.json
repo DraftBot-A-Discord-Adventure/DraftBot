@@ -574,5 +574,21 @@
     "response_other": "{{respawnEmote}} {{pseudo}} ** ** ** Ti abbiamo resuscitato con successo! {{count}} {{scoreEmote}} Tuttavia, tieni presente che è stato detratto dal tuo punteggio durante l'operazione!",
     "response_one": "{{respawnEmote}} {{pseudo}} ** ** ** Ti abbiamo resuscitato con successo! {{scoreEmote}} Tuttavia, si prega di notare che 1 è stato detratto dal tuo punteggio durante l'operazione!",
     "alreadyAlive": "Sembrerebbe che lei non sia svenuto... Non ha bisogno dei nostri servizi."
+  },
+  "notifications": {
+    "types": {
+      "report": "Rapporti",
+      "guildDaily": "Ricompense di gilda"
+    },
+    "enableDisable": "Abilitazione/Disabilitazione",
+    "sendLocationField": "Indirizzo di consegna :",
+    "sendLocation": "Luogo di spedizione",
+    "embedTitle": "Gestione delle notifiche",
+    "enabledField": "Attivato :",
+    "inDM": "Messaggio privato",
+    "inChannel": "{{channel}}Nel salone",
+    "footerEnableDisable": "Utilizzare i pulsanti sottostanti per attivare o disattivare le notifiche.",
+    "back": "Torna a",
+    "footerSendLocation": "Utilizzate i pulsanti sottostanti per scegliere dove desiderate ricevere le notifiche."
   }
 }
