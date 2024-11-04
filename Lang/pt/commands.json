@@ -574,5 +574,21 @@
     "response_other": "{{respawnEmote}} {{pseudo}} | Conseguimos ressuscitar-te! {{count}} {{scoreEmote}} No entanto, tem em atenção que foi deduzido da tua pontuação durante a operação!",
     "response_one": "{{respawnEmote}} {{pseudo}} | Conseguimos ressuscitar-te! {{scoreEmote}} No entanto, nota que foi deduzido 1 da tua pontuação durante a operação!",
     "alreadyAlive": "Parece que não está inconsciente... Não precisas dos nossos serviços."
+  },
+  "notifications": {
+    "types": {
+      "report": "Relatórios",
+      "guildDaily": "Recompensas da guilda"
+    },
+    "enableDisable": "Ativar/Desativar",
+    "sendLocationField": "Endereço de entrega :",
+    "sendLocation": "Local de expedição",
+    "embedTitle": "Gestão de notificações",
+    "enabledField": "Ativado :",
+    "inDM": "Mensagem privada",
+    "inChannel": "{{channel}}Na sala de estar",
+    "footerEnableDisable": "Utilize os botões abaixo para ativar ou desativar as notificações.",
+    "back": "Voltar a",
+    "footerSendLocation": "Utilize os botões abaixo para escolher onde pretende receber as notificações."
   }
 }
