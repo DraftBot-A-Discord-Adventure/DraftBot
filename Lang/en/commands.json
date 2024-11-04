@@ -574,5 +574,21 @@
     "response_other": "{{respawnEmote}} | ** {{pseudo}} ** We resurrected you successfully! However, please note that {{count}} {{scoreEmote}} was removed from your score during the start!",
     "response_one": "{{respawnEmote}} | ** {{pseudo}} ** We resurrected you successfully! However, please note that 1 {{scoreEmote}} was removed from your score during the start!",
     "alreadyAlive": "It seems that you are not yet KO'd... You don't need our services."
+  },
+  "notifications": {
+    "types": {
+      "report": "Reports",
+      "guildDaily": "Guild Rewards"
+    },
+    "enableDisable": "Toggle",
+    "sendLocationField": "Submission:",
+    "sendLocation": "Send Location",
+    "embedTitle": "Notification management",
+    "enabledField": "Active:",
+    "inDM": "In private message",
+    "inChannel": "In channel {{channel}}",
+    "footerEnableDisable": "Use the buttons below to enable or disable notifications.",
+    "back": "Back",
+    "footerSendLocation": "Use the buttons below to choose or want to receive notifications."
   }
 }
