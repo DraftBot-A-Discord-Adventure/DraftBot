@@ -43,12 +43,14 @@ export abstract class Database {
 	/**
 	 * Initialize the database. Must be called after the constructor
 	 */
-	public async init(): Promise<void> {
+	public async init(doMigrations: boolean): Promise<void> {
 		// Connect to the database
 		await this.connectDatabase();
 
 		// Do migration
-		await this.umzug.up();
+		if (doMigrations) {
+			await this.umzug.up();
+		}
 
 		await this.initModels();
 	}
