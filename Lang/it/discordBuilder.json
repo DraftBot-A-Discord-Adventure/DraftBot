@@ -148,8 +148,8 @@
     "name": "mappa"
   },
   "shop": {
-    "description": "Affiche le magasin.",
-    "name": "magasin"
+    "description": "Visualizza il negozio.",
+    "name": "negozio"
   },
   "classesInfo": {
     "description": "Visualizza le informazioni sulle classi selezionabili per il personaggio.",
