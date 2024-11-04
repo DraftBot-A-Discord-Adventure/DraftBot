@@ -148,8 +148,8 @@
     "name": "cartão"
   },
   "shop": {
-    "description": "Affiche le magasin.",
-    "name": "magasin"
+    "description": "Apresenta a loja.",
+    "name": "loja"
   },
   "classesInfo": {
     "description": "Apresenta informações sobre as classes que podem ser selecionadas para a sua personagem.",
