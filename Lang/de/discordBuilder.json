@@ -148,8 +148,8 @@
     "name": "Karte"
   },
   "shop": {
-    "description": "Affiche le magasin.",
-    "name": "magasin"
+    "description": "Zeigt das Magazin an.",
+    "name": "Laden"
   },
   "classesInfo": {
     "description": "Zeigt Informationen über die auswählbaren Klassen für Ihren Charakter an.",
