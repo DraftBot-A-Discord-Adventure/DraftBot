@@ -158,5 +158,15 @@
   "respawn": {
     "description": "Reanudando la aventura después de... \"un accidente\".",
     "name": "revivir"
+  },
+  "notifications": {
+    "description": "Gestiona las notificaciones de los bots.",
+    "name": "notificaciones",
+    "options": {
+      "toggle": {
+        "description": "Activar o desactivar notificaciones de un determinado tipo.",
+        "name": "cambiar"
+      }
+    }
   }
 }
