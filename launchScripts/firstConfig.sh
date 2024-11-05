@@ -7,7 +7,6 @@ cd "$(dirname "$0")/.." || exit
 LIB_PATH="./Lib"
 DISCORD_PATH="./Discord"
 CORE_PATH="./Core"
-YARN_BASE_VERSION="4.5.1"
 
 # Step 1: Remove node_modules and dist folders if they exist
 echo "Removing node_modules and dist directories if they exist..."
@@ -28,12 +27,14 @@ done
 corepack enable
 
 # Step 3: Set Yarn version to stable if not already set
-YARN_VERSION=$(yarn -v>/dev/null)
-if [ "$YARN_VERSION" != $YARN_BASE_VERSION ]; then
-  echo "Setting Yarn version to stable..."
-  yarn set version stable
+echo "Setting Yarn version to stable..."
+YARN_VERSION=$(yarn -v)
+yarn set version stable
+YARN_NEW_VERSION=$(yarn -v)
+if [ "$YARN_VERSION" != "$YARN_NEW_VERSION" ]; then
+	echo "Yarn version switched from $YARN_VERSION to $YARN_NEW_VERSION"
 else
-  echo "Yarn version is already stable."
+  echo "Yarn version is already stable. ($YARN_VERSION)"
 fi
 
 # Step 4: Remove package.json at the project root if it exists
