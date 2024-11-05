@@ -54,6 +54,16 @@ import {
 	CommandGuildCreatePacketRes,
 	CommandGuildCreateRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildCreatePacket";
+import {
+	CommandGuildInviteAcceptPacketRes,
+	CommandGuildInvitePacketRes,
+	CommandGuildInviteRefusePacketRes
+} from "../../../../Lib/src/packets/commands/CommandGuildInvitePacket.js";
+import {
+	handleCommandGuildInviteAcceptPacketRes,
+	handleCommandGuildInvitePacketRes,
+	handleCommandGuildInviteRefusePacketRes
+} from "../../commands/guild/GuildInviteCommand.js";
 import {CommandClassesInfoPacketRes} from "../../../../Lib/src/packets/commands/CommandClassesInfoPacket";
 import {handleCommandClassesInfoPacketRes} from "../../commands/player/ClassesInfoCommand";
 import {
@@ -183,6 +193,22 @@ export default class CommandHandlers {
 	@packetHandler(CommandGuildCreateRefusePacketRes)
 	async guildCreateRefuseRes(packet: CommandGuildCreateRefusePacketRes, context: PacketContext): Promise<void> {
 		await handleCommandGuildCreateRefusePacketRes(packet, context);
+	}
+
+
+	@packetHandler(CommandGuildInvitePacketRes)
+	async guildInviteRes(packet: CommandGuildInvitePacketRes, context: PacketContext): Promise<void> {
+		await handleCommandGuildInvitePacketRes(packet, context);
+	}
+
+	@packetHandler(CommandGuildInviteRefusePacketRes)
+	async guildInviteRefuseRes(packet: CommandGuildInviteRefusePacketRes, context: PacketContext): Promise<void> {
+		await handleCommandGuildInviteRefusePacketRes(packet, context);
+	}
+
+	@packetHandler(CommandGuildInviteAcceptPacketRes)
+	async guildInviteAcceptRes(packet: CommandGuildInviteAcceptPacketRes, context: PacketContext): Promise<void> {
+		await handleCommandGuildInviteAcceptPacketRes(packet, context);
 	}
 
 	@packetHandler(CommandGuildCreateAcceptPacketRes)

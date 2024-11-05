@@ -760,6 +760,24 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
+	 * Log when a player joins a guild
+	 * @param guild
+	 * @param joinedKeycloakId
+	 * @param inviterKeycloakId
+	 */
+	public static async logsGuildJoin(guild: Guild, joinedKeycloakId: string, inviterKeycloakId: string): Promise<void> {
+		const logGuild = await LogsDatabase.findOrCreateGuild(guild);
+		const joiningPlayer = await LogsDatabase.findOrCreatePlayer(joinedKeycloakId);
+		const invitingPlayer = await LogsDatabase.findOrCreatePlayer(inviterKeycloakId);
+		await LogsGuildsJoins.create({
+			guildId: logGuild.id,
+			adderId: invitingPlayer.id,
+			addedId: joiningPlayer.id,
+			date: getDateLogs()
+		});
+	}
+
+	/**
 	 * Log when anything is bought from the shop
 	 * @param keycloakId
 	 * @param shopItem
