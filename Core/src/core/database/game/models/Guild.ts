@@ -6,7 +6,7 @@ import {GuildPet, GuildPets} from "./GuildPet";
 import PetEntity from "./PetEntity";
 import {draftBotInstance} from "../../../../index";
 import {DraftBotPacket} from "../../../../../../Lib/src/packets/DraftBotPacket";
-import {GuildLevelUpPacket} from "../../../../../../Lib/src/packets/notifications/GuildLevelUpPacket";
+import {GuildLevelUpPacket} from "../../../../../../Lib/src/packets/events/GuildLevelUpPacket";
 import moment = require("moment");
 import {TopConstants} from "../../../../../../Lib/src/constants/TopConstants";
 import { Constants } from "../../../../../../Lib/src/constants/Constants";

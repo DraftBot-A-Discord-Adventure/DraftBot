@@ -6,13 +6,17 @@ import {ErrorPacket} from "../../../Lib/src/packets/commands/ErrorPacket";
 import {connect, MqttClient} from "mqtt";
 import {MqttConstants} from "../../../Lib/src/constants/MqttConstants";
 import {DiscordAnnouncement} from "../announcements/DiscordAnnouncement";
+import {NotificationsHandler} from "../notifications/NotificationsHandler";
+import {NotificationSerializedPacket} from "../../../Lib/src/packets/notifications/NotificationSerializedPacket";
 
 export class DiscordMQTT {
 	static mqttClient: MqttClient;
 
+	static notificationMqttClient: MqttClient;
+
 	static packetListener: PacketListenerClient = new PacketListenerClient();
 
-	static async init(): Promise<void> {
+	static async init(isMainShard: boolean): Promise<void> {
 		// Register packets
 		await registerAllPacketHandlers();
 
@@ -29,6 +33,37 @@ export class DiscordMQTT {
 			DiscordMQTT.mqttClient.subscribe(MqttConstants.DISCORD_TOP_WEEK_FIGHT_ANNOUNCEMENT_TOPIC, err =>
 				err ? console.error(err) : console.log(`Subscribed to topic ${MqttConstants.DISCORD_TOP_WEEK_FIGHT_ANNOUNCEMENT_TOPIC}`));
 		});
+
+		if (isMainShard) {
+			if (isMainShard) {
+				DiscordMQTT.notificationMqttClient = connect(discordConfig.MQTT_HOST, {
+					clientId: MqttConstants.NOTIFICATIONS_CONSUMER,
+					clean: false // Keeps session active even if the client goes offline
+				});
+			}
+
+			DiscordMQTT.notificationMqttClient.on("connect", () => {
+				DiscordMQTT.notificationMqttClient.publish(MqttConstants.NOTIFICATIONS, "", { retain: true }); // Clear the last notification to avoid processing it twice
+
+				// eslint-disable-next-line no-confusing-arrow
+				DiscordMQTT.notificationMqttClient.subscribe(MqttConstants.NOTIFICATIONS, { qos: 2 }, err =>
+					err ? console.error(err) : console.log(`Subscribed to topic ${MqttConstants.NOTIFICATIONS}`));
+			});
+
+			DiscordMQTT.notificationMqttClient.on("message", async (topic, message) => {
+				if (topic === MqttConstants.NOTIFICATIONS) {
+					if (message.toString() === "") {
+						return;
+					}
+
+					const messageString = message.toString();
+					console.log(`Received notification message from topic ${topic}: ${messageString}`);
+
+					const serializedPacket: NotificationSerializedPacket = JSON.parse(messageString);
+					await NotificationsHandler.sendNotification(serializedPacket);
+				}
+			});
+		}
 
 		DiscordMQTT.mqttClient.on("message", async (topic, message) => {
 			if (topic === MqttConstants.DISCORD_TOPIC) {

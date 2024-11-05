@@ -37,9 +37,10 @@ process.on("message", async (message: { type: string, data: { shardId: number } 
 
 	if (message.type === "shardId") {
 		shardId = message.data.shardId;
-		await CommandsManager.register(draftBotClient, shardId === 0);
-		await DiscordMQTT.init();
-		await discordDatabase.init(shardId === 0);
+		const isMainShard = shardId === 0;
+		await CommandsManager.register(draftBotClient, isMainShard);
+		await DiscordMQTT.init(isMainShard);
+		await discordDatabase.init(isMainShard);
 	}
 
 	const guild = draftBotClient?.guilds.cache.get(discordConfig.MAIN_SERVER_ID);

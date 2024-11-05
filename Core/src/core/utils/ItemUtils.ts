@@ -15,9 +15,9 @@ import {ArmorDataController} from "../../data/Armor";
 import {ObjectItemDataController} from "../../data/ObjectItem";
 import {ItemDataController} from "../../data/DataController";
 import {draftBotInstance} from "../../index";
-import {ItemRefusePacket} from "../../../../Lib/src/packets/notifications/ItemRefusePacket";
-import {ItemAcceptPacket} from "../../../../Lib/src/packets/notifications/ItemAcceptPacket";
-import {ItemFoundPacket} from "../../../../Lib/src/packets/notifications/ItemFoundPacket";
+import {ItemRefusePacket} from "../../../../Lib/src/packets/events/ItemRefusePacket";
+import {ItemAcceptPacket} from "../../../../Lib/src/packets/events/ItemAcceptPacket";
+import {ItemFoundPacket} from "../../../../Lib/src/packets/events/ItemFoundPacket";
 import {
 	ReactionCollectorItemChoice,
 	ReactionCollectorItemChoiceItemReaction
