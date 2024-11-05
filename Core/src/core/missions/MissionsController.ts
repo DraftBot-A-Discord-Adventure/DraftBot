@@ -10,10 +10,10 @@ import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import PlayerMissionsInfo, {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
 import {DraftBotPacket} from "../../../../Lib/src/packets/DraftBotPacket";
-import {MissionsExpiredPacket} from "../../../../Lib/src/packets/notifications/MissionsExpiredPacket";
+import {MissionsExpiredPacket} from "../../../../Lib/src/packets/events/MissionsExpiredPacket";
 import {draftBotInstance} from "../../index";
 import {Mission, MissionDataController} from "../../data/Mission";
-import {MissionsCompletedPacket} from "../../../../Lib/src/packets/notifications/MissionsCompletedPacket";
+import {MissionsCompletedPacket} from "../../../../Lib/src/packets/events/MissionsCompletedPacket";
 import {CompletedMission, CompletedMissionType} from "../../../../Lib/src/interfaces/CompletedMission";
 
 type MissionInformations = {

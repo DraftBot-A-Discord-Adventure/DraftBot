@@ -2,6 +2,8 @@ import {DraftBotPacket, PacketContext} from "../../../../Lib/src/packets/DraftBo
 import {mqttClient} from "../../index";
 import {AnnouncementPacket} from "../../../../Lib/src/packets/announcements/AnnouncementPacket";
 import {MqttConstants} from "../../../../Lib/src/constants/MqttConstants";
+import {NotificationPacket} from "../../../../Lib/src/packets/notifications/NotificationPacket";
+import {NotificationSerializedPacket} from "../../../../Lib/src/packets/notifications/NotificationSerializedPacket";
 
 export abstract class PacketUtils {
 	static sendPackets(context: PacketContext, packets: DraftBotPacket[]): void {
@@ -35,5 +37,12 @@ export abstract class PacketUtils {
 
 	static isMqttConnected(): boolean {
 		return mqttClient.connected;
+	}
+
+	static sendNotification(notification: NotificationPacket): void {
+		const serializedPacket: NotificationSerializedPacket = { type: notification.constructor.name, packet: notification };
+		const json = JSON.stringify(serializedPacket);
+		mqttClient.publish(MqttConstants.NOTIFICATIONS, json, { retain: true, qos: 2 });
+		console.log(`Sent notification: ${json}`);
 	}
 }

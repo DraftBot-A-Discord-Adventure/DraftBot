@@ -8,7 +8,7 @@ import {GuildPets} from "./GuildPet";
 import {Pet, PetDataController} from "../../../../data/Pet";
 import {draftBotInstance} from "../../../../index";
 import {DraftBotPacket} from "../../../../../../Lib/src/packets/DraftBotPacket";
-import {PlayerReceivePetPacket} from "../../../../../../Lib/src/packets/notifications/PlayerReceivePetPacket";
+import {PlayerReceivePetPacket} from "../../../../../../Lib/src/packets/events/PlayerReceivePetPacket";
 import moment = require("moment");
 
 export class PetEntity extends Model {
