@@ -40,5 +40,15 @@ export async function interactOtherPlayersCollector(packet: ReactionCollectorCre
 		interaction.userLanguage
 	);
 
-	await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context, EmoteUtils.translateEmojiToDiscord(DraftBotIcons.collectors.interactPoorCoin));
+	await DiscordCollectorUtils.createAcceptRefuseCollector(
+		interaction,
+		embed,
+		packet,
+		context,
+		{},
+		{
+			accept: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.collectors.interactPoorCoin),
+			refuse: DraftBotIcons.collectors.refuse
+		}
+	);
 }
