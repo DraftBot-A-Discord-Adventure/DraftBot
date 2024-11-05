@@ -56,21 +56,39 @@ export class DiscordCollectorUtils {
 		messageContentOrEmbed: DraftBotEmbed | string,
 		reactionCollectorCreationPacket: ReactionCollectorCreationPacket,
 		context: PacketContext,
-		acceptEmoji = DraftBotIcons.collectors.accept,
-		refuseEmoji = DraftBotIcons.collectors.refuse
+		options?: {
+			acceptedUsersId?: string[]
+		},
+		emojis = {
+			accept: DraftBotIcons.collectors.accept,
+			refuse: DraftBotIcons.collectors.refuse
+		}
 	): Promise<void> {
+		let users: KeycloakUser[] = [];
+		if (options?.acceptedUsersId) {
+			for (const id of options.acceptedUsersId) {
+				const user = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, id);
+				if (user) {
+					users.push(user);
+				}
+			}
+		}
+		else {
+			users = [(await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!];
+		}
+
 		const row = new ActionRowBuilder<ButtonBuilder>();
 
 		// Create buttons
 		const acceptCustomId = "accept";
 		const buttonAccept = new ButtonBuilder()
-			.setEmoji(parseEmoji(acceptEmoji)!)
+			.setEmoji(parseEmoji(emojis.accept)!)
 			.setCustomId(acceptCustomId)
 			.setStyle(ButtonStyle.Secondary);
 		row.addComponents(buttonAccept);
 
 		const buttonRefuse = new ButtonBuilder()
-			.setEmoji(parseEmoji(refuseEmoji)!)
+			.setEmoji(parseEmoji(emojis.refuse)!)
 			.setCustomId("refuse")
 			.setStyle(ButtonStyle.Secondary);
 		row.addComponents(buttonRefuse);
@@ -99,7 +117,7 @@ export class DiscordCollectorUtils {
 
 		// Send an error if someone uses the collector that is not intended for them and stop if it's the owner
 		buttonCollector.on("collect", async (i: ButtonInteraction) => {
-			if (i.user.id !== context.discord?.user) {
+			if (!users.find(user => user.attributes.discordId?.includes(i.user.id))) {
 				await sendInteractionNotForYou(i.user, i, interaction.userLanguage);
 				return;
 			}
@@ -110,6 +128,7 @@ export class DiscordCollectorUtils {
 		// Collector end
 		buttonCollector.on("end", async (collected) => {
 			const firstReaction = collected.first() as ButtonInteraction;
+			const user = await KeycloakUtils.getDiscordUser(keycloakConfig, firstReaction.user.id, null);
 			if (firstReaction) {
 				await firstReaction.deferReply();
 
