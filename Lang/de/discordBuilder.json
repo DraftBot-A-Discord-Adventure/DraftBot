@@ -147,6 +147,10 @@
     "description": "Zeigt die Karte an, um anzuzeigen, wohin du gehst.",
     "name": "Karte"
   },
+  "shop": {
+    "description": "Zeigt das Magazin an.",
+    "name": "Laden"
+  },
   "classesInfo": {
     "description": "Zeigt Informationen über die auswählbaren Klassen für Ihren Charakter an.",
     "name": "infosclasses"
@@ -154,5 +158,15 @@
   "respawn": {
     "description": "Wiederaufnahme des Abenteuers nach ... \"einem Unfall\".",
     "name": "wiederbeleben"
+  },
+  "notifications": {
+    "description": "Verwalten Sie die Benachrichtigungen des Bots.",
+    "name": "Benachrichtigungen",
+    "options": {
+      "toggle": {
+        "description": "Aktivieren oder deaktivieren Sie Benachrichtigungen eines bestimmten Typs.",
+        "name": "ändern"
+      }
+    }
   }
 }

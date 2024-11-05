@@ -1,16 +1,18 @@
-import {Database} from "../Database";
+import {Database} from "../../../../../Lib/src/database/Database";
 import {DataTypes} from "sequelize";
+import {getDatabaseConfiguration} from "../../bot/DraftBotConfig";
+import {botConfig} from "../../../index";
 
 export class GameDatabase extends Database {
 
 	constructor() {
-		super("game");
+		super(getDatabaseConfiguration(botConfig, "game"), `${__dirname}/models`, `${__dirname}/migrations`);
 	}
 
 	/**
 	 * Initialize a GameDatabase instance
 	 */
-	async init(): Promise<void> {
+	async init(doMigrations: boolean): Promise<void> {
 		await this.connectDatabase();
 
 		const MigrationTable = this.sequelize.define("migrations", {
@@ -37,6 +39,6 @@ export class GameDatabase extends Database {
 		catch { /* Ignore */
 		}
 
-		await super.init();
+		await super.init(doMigrations);
 	}
 }

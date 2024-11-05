@@ -478,6 +478,78 @@
     "confirmThrowAway": "Are you sure you want to throw {{item}}?",
     "sellIndication": "Choose an item for sale from the list below:"
   },
+  "shop": {
+    "closeShop": "You closed the store.",
+    "closeShopTitle": "{{pseudo}}, store closing",
+    "noAlterationToHeal": "You are not a victim of any state interference. 🙂",
+    "success": "{{pseudo}}, transaction successful!",
+    "healAlteration": "🏥 Your state changes have been deleted.",
+    "tooManyEnergyBought": "You purchased the maximum energy recovery amount for this week.",
+    "noEnergyToHeal": "You have all your combat energy. ⚡",
+    "fullRegen": "💓 You have been fully cared for.",
+    "alreadyHaveBadge": "You already have this badge.",
+    "badgeBought": "You have received a new badge: {emote:badges.richPerson}!",
+    "notEnoughMoney": "You don't have enough money to buy this item! You are missing `{{missingMoney}}💰`.",
+    "boughtTooMuchDailyPotions": "There are no more potions available for sale... Come back tomorrow!",
+    "title": "🛒 Store Display",
+    "currentMoney": "You have `{{money}}💰`.",
+    "shopItemsDisplay": "{{name}} | `{{price}}💰`",
+    "shopSelectPlaceholder": "Select an item to buy",
+    "buyCategorySlotSuccess": "You bought a new inventory slot!",
+    "shopItemsSelectDescription": "{{price}}💰",
+    "closeShopButton": "❌ Close Store",
+    "shopConfirmationTitle": "{{pseudo}}, you selected the following product:",
+    "shopCategories": {
+      "permanentItem": "Permanent Sales",
+      "dailyPotion_zero": "Day Potion (Out of stock)",
+      "dailyPotion_one": "Today's Potion ({{count}} available)",
+      "dailyPotion_other": "Today's Potion ({{count}} available)",
+      "slotExtension": "Inventory Extensions"
+    },
+    "chooseSlotTitle": "{{pseudo}}, New Inventory Location",
+    "chooseSlotIndication": "Choose a new inventory slot or cancel:",
+    "shopCategoryFormat_one": "{emote:itemKinds.{{categoryId}}} **{{category}}** ({{count}}/{{limit}} remaining)\n",
+    "shopCategoryFormat_other": "{emote:itemKinds.{{categoryId}}} **{{category}}** ({{count}}/{{limit}} remaining)\n",
+    "slotCategoriesKind": [
+      "Weapon",
+      "Armor",
+      "Potion",
+      "Subject"
+    ],
+    "shopItems": {
+      "randomItem": {
+        "name": "{emote:shopItems.randomItem} Random Equipment",
+        "info": "You will receive a random Equipment (Weapon/Armour/Item or Potion) from all available in-game."
+      },
+      "healAlteration": {
+        "name": "{emote:shopItems.healAlteration} Status Healing",
+        "info": "Your state changes will be deleted and you will resume your route immediately.",
+        "give": "{emote:shopItems.healAlteration} Your state changes have been deleted."
+      },
+      "healEnergy": {
+        "name": "{emote:shopItems.healEnergy} Power Recovery",
+        "info": "Your combat power will also be restored.",
+        "give": "{emote:shopItems.healEnergy} Your energy has been restored."
+      },
+      "regen": {
+        "name": "{emote:shopItems.regen} complete regen of life",
+        "info": "You will be fully healed but your status will stay unchanged.",
+        "give": "{emote:shopItems.regen} You were completely cared for."
+      },
+      "moneyMouthBadge": {
+        "name": "{emote:shopItems.moneyMouthBadge} Money Mouse Badge",
+        "info": "You will receive the badge automatically after payment. For more information about badges use the {command:help} command.",
+        "give": "{{pseudo}}, you have received a new badge:"
+      },
+      "inventoryExtension": {
+        "name": "{emote:shopItems.inventoryExtension} New Inventory Location",
+        "info": "You will be able to choose an inventory category to add a location"
+      },
+      "dailyPotion": {
+        "info": "You will get a potion that you decide to keep or not. If you already have it discarded without a refund!"
+      }
+    }
+  },
   "classesInfo": {
     "title": {
       "list": ":bookmark: Classes list",
@@ -502,5 +574,21 @@
     "response_other": "{{respawnEmote}} | ** {{pseudo}} ** We resurrected you successfully! However, please note that {{count}} {{scoreEmote}} was removed from your score during the start!",
     "response_one": "{{respawnEmote}} | ** {{pseudo}} ** We resurrected you successfully! However, please note that 1 {{scoreEmote}} was removed from your score during the start!",
     "alreadyAlive": "It seems that you are not yet KO'd... You don't need our services."
+  },
+  "notifications": {
+    "types": {
+      "report": "Reports",
+      "guildDaily": "Guild Rewards"
+    },
+    "enableDisable": "Toggle",
+    "sendLocationField": "Submission:",
+    "sendLocation": "Send Location",
+    "embedTitle": "Notification management",
+    "enabledField": "Active:",
+    "inDM": "In private message",
+    "inChannel": "In channel {{channel}}",
+    "footerEnableDisable": "Use the buttons below to enable or disable notifications.",
+    "back": "Back",
+    "footerSendLocation": "Use the buttons below to choose or want to receive notifications."
   }
 }

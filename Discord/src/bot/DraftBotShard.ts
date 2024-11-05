@@ -7,6 +7,7 @@ import {KeycloakConfig} from "../../../Lib/src/keycloak/KeycloakConfig";
 import {CommandsManager} from "../commands/CommandsManager";
 import {DiscordMQTT} from "./DiscordMQTT";
 import {LANGUAGE, Language} from "../../../Lib/src/Language";
+import {DiscordDatabase} from "../database/discord/DiscordDatabase";
 
 process.on("uncaughtException", function(error) {
 	console.log(error);
@@ -18,7 +19,7 @@ process.on("unhandledRejection", function(err: Error) {
 	console.log(err.stack);
 });
 
-export let draftBotClient: Client | null = null;
+export let draftBotClient!: Client;
 export const discordConfig = loadConfig();
 export const keycloakConfig: KeycloakConfig = {
 	realm: discordConfig.KEYCLOAK_REALM,
@@ -27,6 +28,7 @@ export const keycloakConfig: KeycloakConfig = {
 	clientSecret: discordConfig.KEYCLOAK_CLIENT_SECRET
 };
 export let shardId = -1;
+export const discordDatabase = new DiscordDatabase();
 
 process.on("message", async (message: { type: string, data: { shardId: number } }) => {
 	if (!message.type) {
@@ -35,6 +37,9 @@ process.on("message", async (message: { type: string, data: { shardId: number } 
 
 	if (message.type === "shardId") {
 		shardId = message.data.shardId;
+		await CommandsManager.register(draftBotClient, shardId === 0);
+		await DiscordMQTT.init();
+		await discordDatabase.init(shardId === 0);
 	}
 
 	const guild = draftBotClient?.guilds.cache.get(discordConfig.MAIN_SERVER_ID);
@@ -134,9 +139,6 @@ async function main(): Promise<void> {
 	draftBotClient = client;
 
 	await client.login(discordConfig.DISCORD_CLIENT_TOKEN);
-
-	await CommandsManager.register(client, shardId === 0);
-	await DiscordMQTT.init();
 }
 
 main().then();

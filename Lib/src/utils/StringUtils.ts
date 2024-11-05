@@ -104,3 +104,11 @@ export function getIdFromMention(variable: string): string {
 export function getMention(discordUserId: string): string {
 	return `<@${discordUserId}>`;
 }
+
+/**
+ * Get a channel mention
+ * @param discordChannelId
+ */
+export function getChannelMention(discordChannelId: string): string {
+	return `<#${discordChannelId}>`;
+}

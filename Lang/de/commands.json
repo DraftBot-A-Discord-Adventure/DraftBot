@@ -478,6 +478,78 @@
     "confirmThrowAway": "Sind Sie sicher, dass Sie {{item}} wegwerfen möchten?",
     "sellIndication": "Wählen Sie aus der folgenden Liste einen Gegenstand zum Verkaufen aus:"
   },
+  "shop": {
+    "closeShop": "Sie haben den Laden geschlossen.",
+    "closeShopTitle": "{{pseudo}}, Ladenschluss",
+    "noAlterationToHeal": "Sie sind nicht Opfer einer Zustandsveränderung. 🙂.",
+    "success": "{{pseudo}}Erfolgreiche Transaktion!",
+    "healAlteration": "🏥 Ihre Zustandsveränderungen wurden entfernt.",
+    "tooManyEnergyBought": "Sie haben die maximale Menge an Energierückgewinnung für diese Woche gekauft.",
+    "noEnergyToHeal": "Sie verfügen über Ihre gesamte Kampfenergie. ⚡",
+    "fullRegen": "💓 Sie wurden vollständig versorgt.",
+    "alreadyHaveBadge": "Sie besitzen diesen Ausweis bereits.",
+    "badgeBought": "Sie haben einen neuen Ausweis erhalten: {emote:badges.richPerson} !",
+    "notEnoughMoney": "Sie haben nicht genug Geld, um diesen Gegenstand zu kaufen! Es fehlt Ihnen `{{missingMoney}}💰`.",
+    "boughtTooMuchDailyPotions": "Es gibt keinen Trank des Tages mehr, der zum Verkauf angeboten wird... Kommen Sie morgen wieder!",
+    "title": "🛒 Anzeige des Magazins",
+    "currentMoney": "Sie haben `{{money}}💰`.",
+    "shopItemsDisplay": "{{name}} | `{{price}}💰`",
+    "shopSelectPlaceholder": "Wählen Sie einen Gegenstand zum Kauf aus",
+    "buyCategorySlotSuccess": "Sie haben einen neuen Inventarplatz gekauft!",
+    "shopItemsSelectDescription": "{{price}}💰",
+    "closeShopButton": "❌ Laden schließen",
+    "shopConfirmationTitle": "{{pseudo}}Sie haben das folgende Produkt ausgewählt:",
+    "shopCategories": {
+      "permanentItem": "Ständige Verkäufe",
+      "dailyPotion_zero": "Trank des Tages (ausverkauft)",
+      "dailyPotion_one": "Trank des Tages ({{count}} verfügbar)",
+      "dailyPotion_other": "Trank des Tages ({{count}} verfügbar)",
+      "slotExtension": "Inventarerweiterungen"
+    },
+    "chooseSlotTitle": "{{pseudo}}Neuer Inventarplatz",
+    "chooseSlotIndication": "Wählen Sie einen neuen Inventarort oder brechen Sie ab :",
+    "shopCategoryFormat_one": "{emote:itemKinds.{{categoryId}}} **{{category}}** ({{count}}/{{limit}} übrig)\n",
+    "shopCategoryFormat_other": "{emote:itemKinds.{{categoryId}}} **{{category}}** ({{count}}/{{limit}} verbleibende)\n",
+    "slotCategoriesKind": [
+      "Waffe",
+      "Rüstung",
+      "Trank",
+      "Objekt"
+    ],
+    "shopItems": {
+      "randomItem": {
+        "name": "{emote:shopItems.randomItem} Zufällige Ausrüstung",
+        "info": "Du erhältst eine zufällige Ausrüstung (Waffe / Rüstung / Gegenstand oder Trank) aus allen im Spiel vorhandenen."
+      },
+      "healAlteration": {
+        "name": "{emote:shopItems.healAlteration} Pflege von Zustandsveränderungen",
+        "info": "Ihre Zustandsveränderungen werden entfernt und Sie setzen Ihre Reise sofort fort.",
+        "give": "{emote:shopItems.healAlteration} Ihre Zustandsveränderungen wurden entfernt."
+      },
+      "healEnergy": {
+        "name": "{emote:shopItems.healEnergy} Rückgewinnung von Energie",
+        "info": "Ihre Kampfenergie wird vollständig wiederhergestellt.",
+        "give": "{emote:shopItems.healEnergy} Ihre Energie wurde wiederhergestellt."
+      },
+      "regen": {
+        "name": "{emote:shopItems.regen} Vollständige Regeneration des Lebens",
+        "info": "Sie werden sofort vollständig geheilt, behalten aber alle Ihre Zustandsveränderungen.",
+        "give": "{emote:shopItems.regen} Sie wurden vollständig versorgt."
+      },
+      "moneyMouthBadge": {
+        "name": "{emote:shopItems.moneyMouthBadge} Namensschild \"Money Mouth\" (Geldmaul)",
+        "info": "Sie erhalten den Abzeichen automatisch nach der Bezahlung. Für weitere Informationen über Abzeichen verwenden Sie den Befehl {command:help}.",
+        "give": "{{pseudo}}Sie haben einen neuen Ausweis erhalten:"
+      },
+      "inventoryExtension": {
+        "name": "{emote:shopItems.inventoryExtension} Neuer Inventarplatz",
+        "info": "Sie können eine Inventarkategorie auswählen, zu der ein Ort hinzugefügt werden soll"
+      },
+      "dailyPotion": {
+        "info": "Sie erhalten einen Trank, den Sie behalten oder nicht behalten können. Wenn Sie ihn bereits haben, wird er ohne Rückerstattung weggeworfen!"
+      }
+    }
+  },
   "classesInfo": {
     "title": {
       "list": ":bookmark: Liste der Klassen",
@@ -502,5 +574,21 @@
     "response_other": "{{respawnEmote}} | ** {{pseudo}} ** Wir haben Sie erfolgreich wiederbelebt! Bitte beachte jedoch, dass {{count}} {{scoreEmote}} während der Operation von deiner Punktzahl abgezogen wurden!",
     "response_one": "{{respawnEmote}} | ** {{pseudo}} ** Wir haben Sie erfolgreich wiederbelebt! Bitte beachte jedoch, dass dir während der Operation 1 {{scoreEmote}} von deiner Punktzahl abgezogen wurde!",
     "alreadyAlive": "Es scheint, dass Sie nicht k.o. sind... Sie brauchen unsere Dienste nicht."
+  },
+  "notifications": {
+    "types": {
+      "report": "Berichte",
+      "guildDaily": "Gildenbelohnungen"
+    },
+    "enableDisable": "Aktivieren/Deaktivieren",
+    "sendLocationField": "Ort der Versendung :",
+    "sendLocation": "Ort der Versendung",
+    "embedTitle": "Verwaltung von Benachrichtigungen",
+    "enabledField": "Aktiviert :",
+    "inDM": "In einer privaten Nachricht",
+    "inChannel": "Im Wohnzimmer {{channel}}",
+    "footerEnableDisable": "Verwenden Sie die untenstehenden Schaltflächen, um Benachrichtigungen zu aktivieren oder zu deaktivieren.",
+    "back": "Zurück",
+    "footerSendLocation": "Verwenden Sie die untenstehenden Schaltflächen, um auszuwählen, wo Sie Benachrichtigungen erhalten möchten."
   }
 }

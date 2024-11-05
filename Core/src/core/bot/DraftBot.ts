@@ -276,8 +276,8 @@ export class DraftBot {
 
 	async init(): Promise<void> {
 		await registerAllPacketHandlers();
-		await this.gameDatabase.init();
-		await this.logsDatabase.init();
+		await this.gameDatabase.init(true);
+		await this.logsDatabase.init(true);
 		await MapCache.init();
 		if (this.config.TEST_MODE) {
 			await CommandsTest.init();

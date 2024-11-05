@@ -147,6 +147,10 @@
     "description": "Apresenta o mapa para mostrar para onde está a ir.",
     "name": "cartão"
   },
+  "shop": {
+    "description": "Apresenta a loja.",
+    "name": "loja"
+  },
   "classesInfo": {
     "description": "Apresenta informações sobre as classes que podem ser selecionadas para a sua personagem.",
     "name": "aulas de informação"
@@ -154,5 +158,15 @@
   "respawn": {
     "description": "Retomar a aventura depois de... \"um acidente\".",
     "name": "reviver"
+  },
+  "notifications": {
+    "description": "Gerir notificações de bots.",
+    "name": "notificações",
+    "options": {
+      "toggle": {
+        "description": "Ativar ou desativar notificações de um determinado tipo.",
+        "name": "mudança"
+      }
+    }
   }
 }
