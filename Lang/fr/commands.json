@@ -62,6 +62,13 @@
     "acceptedFooter": "Attention, le staff se réserve le droit de renommer votre guilde.",
     "acceptedDesc": "La guilde **{{guildName}}** a été créée !"
   },
+  "guildInvite": {
+    "title": "{{pseudo}}, vous êtes invité à rejoindre une guilde !",
+    "confirmDesc": ":question: Souhaitez vous rejoindre la guilde `{{guildName}}` ?",
+    "successTitle": "{{pseudo}} a rejoint la guilde {{guildName}} !",
+    "successDesc": "Le délai avant la prochaine récompense journalière de guilde a été réinitialisé.",
+    "refusedTitle": "Vous n'avez pas rejoint la guilde {{guildName}} !"
+  },
   "guildKick": {
     "title": "Expulsion de la guilde",
     "confirmDesc": "{emote:guildKick.question} Êtes vous sur de vouloir expulser {{kickedPseudo}} de la guilde `{{guildName}}`?",

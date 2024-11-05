@@ -81,6 +81,16 @@
       }
     }
   },
+  "guildInvite": {
+    "description": "Invite a new member in your guild.",
+    "name": "guildinvite",
+    "options": {
+      "user": {
+        "description": "The user concerned by the command.",
+        "name": "user"
+      }
+    }
+  },
   "guild": {
     "description": "Displays information about a guild.",
     "name": "guild",

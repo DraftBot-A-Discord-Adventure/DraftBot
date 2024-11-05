@@ -81,6 +81,16 @@
       }
     }
   },
+  "guildInvite": {
+    "description": "Recruter un nouveau membre dans votre guilde.",
+    "name": "invitationguilde",
+    "options": {
+      "user": {
+        "description": "L'utilisateur concerné par la commande.",
+        "name": "utilisateur"
+      }
+    }
+  },
   "guild": {
     "description": "Affiche des informations sur une guilde.",
     "name": "guilde",
