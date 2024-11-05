@@ -72,7 +72,7 @@ This guide will help you run DraftBot on your computer. We provide instructions 
 not specified, the command is the same for all OS.
 Please do not skip any step of this guide; otherwise, the following commands will not work.
 
-> For step 1 and 2, you can either do it manually or use [this script](./launchScripts/firstConfig.sh) to do it
+> For step 1 and 2, you can either do it manually or use [this script](./launchScripts/firstConfig.sh) to do it (Linux and MacOS only)
 
 1. Install Yarn
 
