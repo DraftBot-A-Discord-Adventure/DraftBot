@@ -65,16 +65,20 @@ installation process
   - 🐧: https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating
 - Node
   - (see package.json of any service for the relevant version)
-- Yarn
-  - (see package.json of any service for the relevant version)
-  - https://yarnpkg.com/getting-started/install
-  - (Beware, if you do this at the root of the project, this will create a new package.json file, you can delete this file)
 
 ### Start guide
 
 This guide will help you run DraftBot on your computer. We provide instructions for Linux, MacOS (🐧) and Windows (🪟). If
 not specified, the command is the same for all OS.
 Please do not skip any step of this guide; otherwise, the following commands will not work.
+
+> For step 1 and 2, you can either do it manually or use [this script](./launchScripts/firstConfig.sh) to do it
+
+1. Install Yarn
+
+- Check package.json of any service for the relevant version
+- Follow the provided guide to install yarn https://yarnpkg.com/getting-started/install
+> Beware, if you do this at the root of the project, this will create a new package.json file, you can delete this file
 
 2. Setup projects
 
