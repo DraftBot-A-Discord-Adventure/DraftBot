@@ -32,7 +32,7 @@ export class DiscordMQTT {
 
 		DiscordMQTT.mqttClient.on("message", async (topic, message) => {
 			if (topic === MqttConstants.DISCORD_TOPIC) {
-				// todo ignore if not the right shard
+				// Todo ignore if not the right shard
 				const messageString = message.toString();
 				console.log(`Received message from topic ${topic}: ${messageString}`);
 				const dataJson = JSON.parse(messageString);
