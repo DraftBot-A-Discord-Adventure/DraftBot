@@ -69,9 +69,10 @@ async function giveRewardToPlayer(
 			reason: NumberChangeReason.SMALL_EVENT
 		});
 		response.push(makePacket(SmallEventLotteryWinPacket, {
-			xp: SmallEventConstants.LOTTERY.REWARDS.EXPERIENCE * coefficient,
+			winAmount: SmallEventConstants.LOTTERY.REWARDS.EXPERIENCE * coefficient,
 			lostTime,
-			level: levelKey
+			level: levelKey,
+			winReward: "xp"
 		}));
 		break;
 	case SmallEventConstants.LOTTERY.REWARD_TYPES.MONEY:
@@ -81,18 +82,20 @@ async function giveRewardToPlayer(
 			reason: NumberChangeReason.SMALL_EVENT
 		});
 		response.push(makePacket(SmallEventLotteryWinPacket, {
-			money: SmallEventConstants.LOTTERY.REWARDS.MONEY * coefficient,
+			winAmount: SmallEventConstants.LOTTERY.REWARDS.MONEY * coefficient,
 			lostTime,
-			level: levelKey
+			level: levelKey,
+			winReward: "money"
 		}));
 		break;
 	case SmallEventConstants.LOTTERY.REWARD_TYPES.GUILD_XP:
 		await guild.addExperience(SmallEventConstants.LOTTERY.REWARDS.GUILD_EXPERIENCE * coefficient, response, NumberChangeReason.SMALL_EVENT);
 		await guild.save();
 		response.push(makePacket(SmallEventLotteryWinPacket, {
-			guildXp: SmallEventConstants.LOTTERY.REWARDS.GUILD_EXPERIENCE * coefficient,
+			winAmount: SmallEventConstants.LOTTERY.REWARDS.GUILD_EXPERIENCE * coefficient,
 			lostTime,
-			level: levelKey
+			level: levelKey,
+			winReward: "guildXp"
 		}));
 		break;
 	case SmallEventConstants.LOTTERY.REWARD_TYPES.POINTS:
@@ -102,9 +105,10 @@ async function giveRewardToPlayer(
 			reason: NumberChangeReason.SMALL_EVENT
 		});
 		response.push(makePacket(SmallEventLotteryWinPacket, {
-			points: SmallEventConstants.LOTTERY.REWARDS.POINTS * coefficient,
+			winAmount: SmallEventConstants.LOTTERY.REWARDS.POINTS * coefficient,
 			lostTime,
-			level: levelKey
+			level: levelKey,
+			winReward: "points"
 		}));
 		break;
 	default:
@@ -169,10 +173,14 @@ export const smallEventFuncs: SmallEventFuncs = {
 						reason: NumberChangeReason.SMALL_EVENT
 					});
 					await player.save();
-					response.push(makePacket(SmallEventLotteryLosePacket, { moneyLost: Math.abs(SmallEventConstants.LOTTERY.MONEY_MALUS), lostTime, level: levelKey }));
+					response.push(makePacket(SmallEventLotteryLosePacket, {
+						moneyLost: Math.abs(SmallEventConstants.LOTTERY.MONEY_MALUS),
+						lostTime,
+						level: levelKey
+					}));
 				}
 				else {
-					response.push(makePacket(SmallEventLotteryLosePacket, { moneyLost: 0, lostTime, level: levelKey }));
+					response.push(makePacket(SmallEventLotteryLosePacket, {moneyLost: 0, lostTime, level: levelKey}));
 				}
 			}
 		};

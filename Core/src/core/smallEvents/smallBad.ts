@@ -6,31 +6,34 @@ import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {TravelTime} from "../maps/TravelTime";
 import {Effect} from "../../../../Lib/src/enums/Effect";
 import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
-import {SmallEventSmallBadPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventSmallBadPacket";
+import {
+	SmallEventBadIssue,
+	SmallEventSmallBadPacket
+} from "../../../../Lib/src/packets/smallEvents/SmallEventSmallBadPacket";
 
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnContinent,
 	executeSmallEvent: async (context, response, player): Promise<void> => {
-		const issue = RandomUtils.draftbotRandom.integer(0, 2);
-		let healthLost = 0, moneyLost = 0, timeLost = 0;
+		const packet: SmallEventSmallBadPacket = new SmallEventSmallBadPacket();
+		packet.issue = RandomUtils.draftbotRandom.pick(Object.values(SmallEventBadIssue)) as SmallEventBadIssue;
 
-		switch (issue) {
-		case 0:
-			healthLost = RandomUtils.rangedInt(SmallEventConstants.SMALL_BAD.HEALTH);
-			await player.addHealth(-healthLost, response, NumberChangeReason.SMALL_EVENT);
+		switch (packet.issue) {
+		case SmallEventBadIssue.HEALTH:
+			packet.amount = RandomUtils.rangedInt(SmallEventConstants.SMALL_BAD.HEALTH);
+			await player.addHealth(-packet.amount, response, NumberChangeReason.SMALL_EVENT);
 			break;
 
-		case 1:
-			moneyLost = RandomUtils.rangedInt(SmallEventConstants.SMALL_BAD.MONEY);
-			await player.addMoney({amount: -moneyLost, response, reason: NumberChangeReason.SMALL_EVENT});
+		case SmallEventBadIssue.MONEY:
+			packet.amount = RandomUtils.rangedInt(SmallEventConstants.SMALL_BAD.MONEY);
+			await player.addMoney({amount: -packet.amount, response, reason: NumberChangeReason.SMALL_EVENT});
 			break;
 
 		default:
-			timeLost = RandomUtils.rangedInt(SmallEventConstants.SMALL_BAD.TIME) * 5;
-			await TravelTime.applyEffect(player, Effect.OCCUPIED, timeLost, new Date(), NumberChangeReason.SMALL_EVENT);
+			packet.amount = RandomUtils.rangedInt(SmallEventConstants.SMALL_BAD.TIME) * 5;
+			await TravelTime.applyEffect(player, Effect.OCCUPIED, packet.amount, new Date(), NumberChangeReason.SMALL_EVENT);
 			break;
 		}
-		response.push(makePacket(SmallEventSmallBadPacket, {moneyLost, healthLost, timeLost}));
+		response.push(makePacket(SmallEventSmallBadPacket, packet));
 
 		await player.killIfNeeded(response, NumberChangeReason.SMALL_EVENT);
 		await player.save();
