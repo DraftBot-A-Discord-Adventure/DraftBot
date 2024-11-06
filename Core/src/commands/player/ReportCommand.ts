@@ -202,7 +202,12 @@ async function doPossibility(
 
 	draftBotInstance.logsDatabase.logBigEvent(player.keycloakId, event.id, possibility[0], randomOutcome[0]).then();
 
-	const newMapLink = await applyPossibilityOutcome(event.id, possibility[0], randomOutcome, player, time, context, response);
+	const newMapLink = await applyPossibilityOutcome({
+		eventId: event.id,
+		possibilityName: possibility[0],
+		outcome: randomOutcome,
+		time
+	}, player, context, response);
 
 	if (!await player.killIfNeeded(response, NumberChangeReason.BIG_EVENT)) {
 		await chooseDestination(context, player, newMapLink, response, false);

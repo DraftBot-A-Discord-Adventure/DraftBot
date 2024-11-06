@@ -2,21 +2,15 @@ import {IMission} from "../IMission";
 import {getDayNumber} from "../../../../../Lib/src/utils/TimeUtils";
 
 export const missionInterface: IMission = {
-	areParamsMatchingVariantAndSave(): boolean {
-		return true;
-	},
+	areParamsMatchingVariantAndSave: () => true,
 
-	generateRandomVariant(): Promise<number> {
-		return Promise.resolve(0);
-	},
+	generateRandomVariant: () => 0,
 
-	initialNumberDone(): Promise<number> {
-		return Promise.resolve(0);
-	},
+	initialNumberDone: () => 0,
 
-	updateSaveBlob(): Promise<Buffer> {
+	updateSaveBlob: () => {
 		const buffer = Buffer.alloc(4);
 		buffer.writeInt32LE(getDayNumber());
-		return Promise.resolve(buffer);
+		return buffer;
 	}
 };

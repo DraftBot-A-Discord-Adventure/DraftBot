@@ -25,7 +25,7 @@ const setCampaignTestCommand: ExecuteTestCommandLike = async (player, args) => {
 	campaign.missionId = campaignMission.missionId;
 	campaign.missionObjective = campaignMission.missionObjective;
 	campaign.missionVariant = campaignMission.missionVariant;
-	campaign.numberDone = await MissionsController.getMissionInterface(campaign.missionId).initialNumberDone(player, campaign.missionVariant);
+	campaign.numberDone = await MissionsController.getMissionInterface(campaign.missionId).initialNumberDone(player, campaign.missionVariant) as number;
 	campaign.xpToWin = campaignMission.xpToWin;
 	campaign.gemsToWin = campaignMission.gemsToWin;
 	campaign.moneyToWin = campaignMission.moneyToWin;

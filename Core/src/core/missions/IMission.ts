@@ -1,6 +1,10 @@
 import {MissionDifficulty} from "./MissionDifficulty";
 import Player from "../database/game/models/Player";
 
+export type MissionParams = {
+	[key: string]: unknown;
+}
+
 export type IMission = {
 
 	/**
@@ -8,7 +12,7 @@ export type IMission = {
 	 * @param difficulty - the difficulty of the mission
 	 * @param player - the player from which the mission is generated
 	 */
-	generateRandomVariant(difficulty: MissionDifficulty, player: Player): number | Promise<number>;
+	generateRandomVariant(difficulty: MissionDifficulty, player: Player): number;
 
 	/**
 	 * Check if the params are matching the variant
@@ -16,7 +20,7 @@ export type IMission = {
 	 * @param params - the params of the mission
 	 * @param saveBlob - some binary data to save in the mission
 	 */
-	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: unknown }, saveBlob: Buffer): boolean;
+	areParamsMatchingVariantAndSave(variant: number, params: MissionParams, saveBlob: Buffer): boolean;
 
 	/**
 	 * Get the advancement of the mission at the beginning of the mission (maybe the player has already done it)
@@ -31,7 +35,5 @@ export type IMission = {
 	 * @param saveBlob - the binary data to save
 	 * @param params - identical to the update of the mission
 	 */
-	updateSaveBlob(variant: number, saveBlob: Buffer, params: {
-		[key: string]: unknown
-	}): Buffer | Promise<Buffer>;
+	updateSaveBlob(variant: number, saveBlob: Buffer, params: MissionParams): Buffer;
 }

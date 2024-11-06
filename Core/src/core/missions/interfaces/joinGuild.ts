@@ -1,14 +1,11 @@
 import {IMission} from "../IMission";
-import Player from "../../database/game/models/Player";
 
 export const missionInterface: IMission = {
-	generateRandomVariant: () => Promise.resolve(0),
+	generateRandomVariant: () => 0,
 
 	areParamsMatchingVariantAndSave: () => true,
 
-	initialNumberDone: (player: Player) => Promise.resolve(player.guildId ? 1 : 0),
+	initialNumberDone: (player) => (player.guildId ? 1 : 0),
 
-	updateSaveBlob(): Promise<Buffer> {
-		return Promise.resolve(null);
-	}
+	updateSaveBlob: () => null
 };

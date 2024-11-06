@@ -29,6 +29,12 @@ type CompletedSpecialMissions = {
 	completedCampaign: boolean
 }
 
+export type GeneratedMission = {
+	mission: Mission,
+	index: number,
+	variant: number
+}
+
 export class MissionsController {
 	static getMissionInterface(missionId: string): IMission {
 		try {
@@ -212,21 +218,13 @@ export class MissionsController {
 		await player.save();
 	}
 
-	public static async generateRandomDailyMissionProperties(): Promise<{
-		mission: Mission,
-		index: number,
-		variant: number
-	}> {
+	public static generateRandomDailyMissionProperties(): GeneratedMission {
 		const mission = MissionDataController.instance.getRandomDailyMission();
-		return await this.generateMissionProperties(mission.id, MissionDifficulty.EASY, mission, true);
+		return this.generateMissionProperties(mission.id, MissionDifficulty.EASY, mission, true);
 	}
 
-	public static async generateMissionProperties(missionId: string, difficulty: MissionDifficulty, mission: Mission = null, daily = false, player: Player = null)
-		: Promise<{
-		mission: Mission,
-		index: number,
-		variant: number
-	} | null> {
+	public static generateMissionProperties(missionId: string, difficulty: MissionDifficulty, mission: Mission = null, daily = false, player: Player = null)
+		: GeneratedMission {
 		if (!mission) {
 			mission = MissionDataController.instance.getById(missionId);
 			if (!mission) {
@@ -234,44 +232,45 @@ export class MissionsController {
 			}
 		}
 
-		let index;
+		const generatedMission: GeneratedMission = {
+			mission,
+			index: 0,
+			variant: 0
+		};
+
 		if (!daily) {
 			switch (difficulty) {
 			case MissionDifficulty.EASY:
 				if (!mission.canBeEasy()) {
 					return null;
 				}
-				index = RandomUtils.draftbotRandom.pick(mission.difficulties.easy);
+				generatedMission.index = RandomUtils.draftbotRandom.pick(mission.difficulties.easy);
 				break;
 			case MissionDifficulty.MEDIUM:
 				if (!mission.canBeMedium()) {
 					return null;
 				}
-				index = RandomUtils.draftbotRandom.pick(mission.difficulties.medium);
+				generatedMission.index = RandomUtils.draftbotRandom.pick(mission.difficulties.medium);
 				break;
 			case MissionDifficulty.HARD:
 				if (!mission.canBeHard()) {
 					return null;
 				}
-				index = RandomUtils.draftbotRandom.pick(mission.difficulties.hard);
+				generatedMission.index = RandomUtils.draftbotRandom.pick(mission.difficulties.hard);
 				break;
 			default:
 				return null;
 			}
 		}
 		else {
-			index = RandomUtils.draftbotRandom.pick(mission.dailyIndexes);
+			generatedMission.index = RandomUtils.draftbotRandom.pick(mission.dailyIndexes);
 		}
-		return {
-			mission,
-			index,
-			variant: await this.getMissionInterface(mission.id)
-				.generateRandomVariant(difficulty, player)
-		};
+		generatedMission.variant = this.getMissionInterface(mission.id).generateRandomVariant(difficulty, player);
+		return generatedMission;
 	}
 
 	public static async addMissionToPlayer(player: Player, missionId: string, difficulty: MissionDifficulty, mission: Mission = null): Promise<MissionSlot> {
-		const prop = await this.generateMissionProperties(missionId, difficulty, mission, false, player);
+		const prop = this.generateMissionProperties(missionId, difficulty, mission, false, player);
 		const missionData = MissionDataController.instance.getById(missionId);
 		const missionSlot = await MissionSlot.create({
 			playerId: player.id,
@@ -279,8 +278,7 @@ export class MissionsController {
 			missionVariant: prop.variant,
 			missionObjective: missionData.objectives[prop.index],
 			expiresAt: new Date(Date.now() + hoursToMilliseconds(missionData.expirations[prop.index])),
-			numberDone: await this.getMissionInterface(missionId)
-				.initialNumberDone(player, prop.variant),
+			numberDone: await this.getMissionInterface(missionId).initialNumberDone(player, prop.variant),
 			gemsToWin: missionData.gems[prop.index],
 			pointsToWin: missionData.points[prop.index],
 			xpToWin: missionData.xp[prop.index],
@@ -373,7 +371,7 @@ export class MissionsController {
 	 * @private
 	 */
 	private static async updateBlob(missionInterface: IMission, mission: MissionSlot, missionInformations: MissionInformations): Promise<void> {
-		const saveBlob = await missionInterface.updateSaveBlob(mission.missionVariant, mission.saveBlob, missionInformations.params);
+		const saveBlob = missionInterface.updateSaveBlob(mission.missionVariant, mission.saveBlob, missionInformations.params);
 		if (saveBlob !== mission.saveBlob) {
 			mission.saveBlob = saveBlob;
 			await mission.save();
