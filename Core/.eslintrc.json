@@ -38,7 +38,13 @@
     ],
     "no-undef": "off",
     "@typescript-eslint/no-var-requires": "off",
-    "@typescript-eslint/no-extra-parens": "warn",
+    "no-extra-parens": [
+      "warn",
+      "all",
+      {
+        "enforceForArrowConditionals": false
+      }
+    ],
     "block-scoped-var": "warn",
     "curly": "warn",
     "default-case": "error",
@@ -115,7 +121,12 @@
     "switch-colon-spacing": "warn",
     "arrow-body-style": "warn",
     "arrow-spacing": "warn",
-    "no-confusing-arrow": "warn",
+    "no-confusing-arrow": [
+      "warn",
+      {
+        "allowParens": true
+      }
+    ],
     "no-duplicate-imports": "error",
     "no-var": "error",
     "prefer-const": "warn",
