@@ -1,9 +1,9 @@
 import {IMission} from "../IMission";
 
 export const missionInterface: IMission = {
-	generateRandomVariant: () => Promise.resolve(0),
+	generateRandomVariant: () => 0,
 
-	areParamsMatchingVariantAndSave: (variant: number, params: { [key: string]: unknown }, saveBlob: Buffer) => {
+	areParamsMatchingVariantAndSave: (variant, params, saveBlob) => {
 		if (!saveBlob) {
 			return true;
 		}
@@ -11,12 +11,12 @@ export const missionInterface: IMission = {
 			.includes(params.placeId.toString());
 	},
 
-	initialNumberDone: () => Promise.resolve(0),
+	initialNumberDone: () => 0,
 
-	updateSaveBlob(variant: number, saveBlob: Buffer, params: { [key: string]: unknown }): Promise<Buffer> {
+	updateSaveBlob: (variant, saveBlob, params) => {
 		if (!saveBlob) {
-			return Promise.resolve(Buffer.from(params.placeId.toString()));
+			return Buffer.from(params.placeId.toString());
 		}
-		return Promise.resolve(Buffer.concat([saveBlob, Buffer.from(`,${params.placeId.toString()}`)]));
+		return Buffer.concat([saveBlob, Buffer.from(`,${params.placeId.toString()}`)]);
 	}
 };

@@ -2,7 +2,6 @@ import MissionSlot, {MissionSlots} from "../database/game/models/MissionSlot";
 import {MissionsController} from "./MissionsController";
 import Player from "../database/game/models/Player";
 import PlayerMissionsInfo, {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
-import {MissionDataController} from "../../data/Mission";
 import {draftBotInstance} from "../../index";
 import {CampaignData} from "../../data/Campaign";
 import {CompletedMission, CompletedMissionType} from "../../../../Lib/src/interfaces/CompletedMission";
@@ -46,7 +45,7 @@ export class Campaign {
 				campaign.gemsToWin = prop.gemsToWin as number;
 				campaign.xpToWin = prop.xpToWin as number;
 				campaign.numberDone = await MissionsController.getMissionInterface(prop.missionId as string)
-					.initialNumberDone(player, prop.missionVariant as number);
+					.initialNumberDone(player, prop.missionVariant as number) as number;
 				campaign.missionId = prop.missionId as string;
 				campaign.missionObjective = prop.missionObjective as number;
 				campaign.moneyToWin = prop.moneyToWin as number;

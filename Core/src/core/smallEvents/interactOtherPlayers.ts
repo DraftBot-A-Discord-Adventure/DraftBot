@@ -21,7 +21,6 @@ import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants
 import {ReactionCollectorInteractOtherPlayersPoor} from "../../../../Lib/src/packets/interaction/ReactionCollectorInteractOtherPlayers";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import Guild, {Guilds} from "../database/game/models/Guild";
-import {Constants} from "../../../../Lib/src/constants/Constants";
 import {BadgeConstants} from "../../../../Lib/src/constants/BadgeConstants";
 
 /**

@@ -1,4 +1,4 @@
-import {IMission} from "./IMission";
+import {IMission, MissionParams} from "./IMission";
 
 export class MissionTag implements IMission {
 
@@ -8,28 +8,24 @@ export class MissionTag implements IMission {
 		this.tagNames = tagsToProc;
 	}
 
-	areParamsMatchingVariantAndSave(variant: number, params: { [p: string]: string[] }): boolean {
+	areParamsMatchingVariantAndSave(variant: number, params: MissionParams): boolean {
 		for (const tag in this.tagNames) {
-			if (tag in params.tags) {
+			if (tag in (params.tags as string[])) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	generateRandomVariant(): Promise<number> {
-		return Promise.resolve(0);
+	generateRandomVariant(): number {
+		return 0;
 	}
 
-	getVariantFormatVariable(): Promise<string> {
-		return Promise.resolve("");
+	initialNumberDone(): number {
+		return 0;
 	}
 
-	initialNumberDone(): Promise<number> {
-		return Promise.resolve(0);
-	}
-
-	updateSaveBlob(): Promise<Buffer> {
-		return Promise.resolve(null);
+	updateSaveBlob(): Buffer {
+		return null;
 	}
 }

@@ -1,13 +1,11 @@
 import {IMission} from "../IMission";
 
 export const missionInterface: IMission = {
-	generateRandomVariant: () => Promise.resolve(0),
+	generateRandomVariant: () => 0,
 
-	areParamsMatchingVariantAndSave: (variant: number, params: { [key: string]: unknown }) => (params.rarity as number) >= variant,
+	areParamsMatchingVariantAndSave: (variant, params) => (params.rarity as number) >= variant,
 
-	initialNumberDone: () => Promise.resolve(0),
+	initialNumberDone: () => 0,
 
-	updateSaveBlob(): Promise<Buffer> {
-		return Promise.resolve(null);
-	}
+	updateSaveBlob: () => null
 };

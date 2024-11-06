@@ -47,7 +47,7 @@ export class DailyMissions {
 	}
 
 	static async regenerateDailyMission(): Promise<DailyMission> {
-		const prop = await MissionsController.generateRandomDailyMissionProperties();
+		const prop = MissionsController.generateRandomDailyMissionProperties();
 		let dailyMission = await DailyMissions.queryDailyMission();
 		const missionData = MissionDataController.instance.getById(prop.mission.id);
 		if (dailyMission) {

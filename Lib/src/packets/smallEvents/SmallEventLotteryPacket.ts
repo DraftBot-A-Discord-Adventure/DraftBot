@@ -2,22 +2,20 @@ import {SmallEventPacket} from "./SmallEventPacket";
 import {PacketDirection, sendablePacket} from "../DraftBotPacket";
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
-export class SmallEventLotteryNoAnswerPacket extends SmallEventPacket {}
+export class SmallEventLotteryNoAnswerPacket extends SmallEventPacket {
+}
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
-export class SmallEventLotteryPoorPacket extends SmallEventPacket {}
+export class SmallEventLotteryPoorPacket extends SmallEventPacket {
+}
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class SmallEventLotteryWinPacket extends SmallEventPacket {
 	lostTime!: number;
 
-	money?: number;
+	winAmount!: number;
 
-	points?: number;
-
-	guildXp?: number;
-
-	xp?: number;
+	winReward!: "money" | "xp" | "points" | "guildXp";
 
 	level!: "easy" | "medium" | "hard";
 }

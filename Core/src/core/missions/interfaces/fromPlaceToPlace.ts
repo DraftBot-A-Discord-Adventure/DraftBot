@@ -15,7 +15,12 @@ const dataFromSaveBlob = function(saveBlob: Buffer): { startTimestamp: number, s
 	};
 };
 
-const paramsFromVariant = function(variant: number): { fromMap: number, toMap: number, time: number, orderMatter: boolean } {
+const paramsFromVariant = function(variant: number): {
+	fromMap: number,
+	toMap: number,
+	time: number,
+	orderMatter: boolean
+} {
 	return {
 		fromMap: variant >> 20 & 0x3ff,
 		toMap: variant >> 10 & 0x3ff,
@@ -26,7 +31,7 @@ const paramsFromVariant = function(variant: number): { fromMap: number, toMap: n
 
 
 export const missionInterface: IMission = {
-	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: unknown }, saveBlob: Buffer): boolean {
+	areParamsMatchingVariantAndSave: (variant, params, saveBlob) => {
 		if (!saveBlob) {
 			return false;
 		}
@@ -41,32 +46,28 @@ export const missionInterface: IMission = {
 			&& saveData.startTimestamp + hoursToMilliseconds(variantParams.time) > Date.now();
 	},
 
-	generateRandomVariant(): Promise<number> {
-		return Promise.resolve(0);
-	},
+	generateRandomVariant: () => 0,
 
-	initialNumberDone(): Promise<number> {
-		return Promise.resolve(0);
-	},
+	initialNumberDone: () => 0,
 
-	updateSaveBlob(variant: number, saveBlob: Buffer, params: { [key: string]: unknown }): Promise<Buffer> {
+	updateSaveBlob: (variant, saveBlob, params) => {
 		const variantParams = paramsFromVariant(variant);
 		if (!saveBlob) {
 			if (params.mapId === variantParams.fromMap || !variantParams.orderMatter && params.mapId === variantParams.toMap) {
-				return Promise.resolve(saveBlobFromData(Date.now(), params.mapId));
+				return saveBlobFromData(Date.now(), params.mapId);
 			}
-			return Promise.resolve(null);
+			return null;
 		}
 		const saveData = dataFromSaveBlob(saveBlob);
 		if (saveData.startMap === params.mapId) {
-			return Promise.resolve(saveBlobFromData(Date.now(), params.mapId));
+			return saveBlobFromData(Date.now(), params.mapId);
 		}
 		if (saveData.startTimestamp + hoursToMilliseconds(variantParams.time) < Date.now()) {
 			if (saveData.startMap === params.mapId) {
-				return Promise.resolve(saveBlobFromData(Date.now(), params.mapId));
+				return saveBlobFromData(Date.now(), params.mapId);
 			}
-			return Promise.resolve(null);
+			return null;
 		}
-		return Promise.resolve(saveBlob);
+		return saveBlob;
 	}
 };

@@ -3,26 +3,20 @@ import {MissionDifficulty} from "../MissionDifficulty";
 import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
 
 export const missionInterface: IMission = {
-	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: unknown }): boolean {
-		return (params.travelTime as number) >= variant;
-	},
+	areParamsMatchingVariantAndSave: (variant, params) => (params.travelTime as number) >= variant,
 
-	generateRandomVariant(difficulty: MissionDifficulty): Promise<number> {
+	generateRandomVariant: (difficulty) => {
 		switch (difficulty) {
 		case MissionDifficulty.MEDIUM:
-			return Promise.resolve(RandomUtils.draftbotRandom.integer(5, 7));
+			return RandomUtils.draftbotRandom.integer(5, 7);
 		case MissionDifficulty.HARD:
-			return Promise.resolve(9);
+			return 9;
 		default:
-			return Promise.resolve(RandomUtils.draftbotRandom.integer(2, 3));
+			return RandomUtils.draftbotRandom.integer(2, 3);
 		}
 	},
 
-	initialNumberDone(): Promise<number> {
-		return Promise.resolve(0);
-	},
+	initialNumberDone: () => 0,
 
-	updateSaveBlob(): Promise<Buffer> {
-		return Promise.resolve(null);
-	}
+	updateSaveBlob: () => null
 };

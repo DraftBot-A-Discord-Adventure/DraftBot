@@ -195,40 +195,46 @@ function getNextMapLink(outcome: PossibilityOutcome, player: Player): MapLink {
 	return null;
 }
 
+type ApplyOutcome = {
+	eventId: number;
+	possibilityName: string;
+	outcome: [string, PossibilityOutcome];
+	time: number;
+}
+
 /**
  * Apply a possibility outcome to a player
- * @param outcome
+ * @param possibilityOutcome
  * @param player
- * @param time
  * @param context
  * @param response
  */
-export async function applyPossibilityOutcome(eventId: number, possibilityName: string, outcome: [string, PossibilityOutcome], player: Player, time: number, context: PacketContext, response: DraftBotPacket[]): Promise<MapLink> {
+export async function applyPossibilityOutcome(possibilityOutcome: ApplyOutcome, player: Player, context: PacketContext, response: DraftBotPacket[]): Promise<MapLink> {
 	// Score
-	const score = await applyOutcomeScore(outcome[1], time, player, response);
+	const score = await applyOutcomeScore(possibilityOutcome.outcome[1], possibilityOutcome.time, player, response);
 
 	// Money
-	const money = await applyOutcomeMoney(outcome[1], time, player, response);
+	const money = await applyOutcomeMoney(possibilityOutcome.outcome[1], possibilityOutcome.time, player, response);
 
 	// Health
-	const health = await applyOutcomeHealth(outcome[1], player, response);
+	const health = await applyOutcomeHealth(possibilityOutcome.outcome[1], player, response);
 
 	// Energy
-	const energy = applyOutcomeEnergy(outcome[1], player);
+	const energy = applyOutcomeEnergy(possibilityOutcome.outcome[1], player);
 
 	// Gems
-	const gems = await applyOutcomeGems(outcome[1], player);
+	const gems = await applyOutcomeGems(possibilityOutcome.outcome[1], player);
 
 	// Experience
-	const experience = await applyOutcomeExperience(outcome[1], player, response);
+	const experience = await applyOutcomeExperience(possibilityOutcome.outcome[1], player, response);
 
 	// Effect + lost time
-	const effect = await applyOutcomeEffect(outcome[1], player);
+	const effect = await applyOutcomeEffect(possibilityOutcome.outcome[1], player);
 
 	const packet = makePacket(CommandReportBigEventResultRes, {
-		eventId,
-		possibilityId: possibilityName,
-		outcomeId: outcome[0],
+		eventId: possibilityOutcome.eventId,
+		possibilityId: possibilityOutcome.possibilityName,
+		outcomeId: possibilityOutcome.outcome[0],
 		score,
 		money,
 		health,
@@ -236,25 +242,25 @@ export async function applyPossibilityOutcome(eventId: number, possibilityName: 
 		gems,
 		experience,
 		effect,
-		oneshot: outcome[1].oneshot ?? false
+		oneshot: possibilityOutcome.outcome[1].oneshot ?? false
 	});
 
 	response.push(packet);
 
 	// Random item
-	await applyOutcomeRandomItem(outcome[1], player, context, response);
+	await applyOutcomeRandomItem(possibilityOutcome.outcome[1], player, context, response);
 
 	// Random pet
-	await applyOutcomeRandomPet(outcome[1], player, response);
+	await applyOutcomeRandomPet(possibilityOutcome.outcome[1], player, response);
 
 	// Next event
-	applyOutcomeNextEvent(outcome[1], player);
+	applyOutcomeNextEvent(possibilityOutcome.outcome[1], player);
 
 	// Oneshot
-	await applyOutcomeOneshot(outcome[1], player, response);
+	await applyOutcomeOneshot(possibilityOutcome.outcome[1], player, response);
 
 	// Forced link
-	return getNextMapLink(outcome[1], player);
+	return getNextMapLink(possibilityOutcome.outcome[1], player);
 }
 
 export interface PossibilityOutcome {

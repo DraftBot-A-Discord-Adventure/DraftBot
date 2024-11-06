@@ -1,21 +1,21 @@
 import {IMission} from "../IMission";
 
 export const missionInterface: IMission = {
-	generateRandomVariant: () => Promise.resolve(0),
+	generateRandomVariant: () => 0,
 
-	areParamsMatchingVariantAndSave: (variant: number, params: { [key: string]: string }, saveBlob: Buffer) => {
+	areParamsMatchingVariantAndSave: (variant, params, saveBlob) => {
 		if (!saveBlob) {
 			return true;
 		}
-		return !saveBlob.toString().includes(params.metPlayerKeycloakId);
+		return !saveBlob.toString().includes(`${params.metPlayerKeycloakId}`);
 	},
 
-	initialNumberDone: () => Promise.resolve(0),
+	initialNumberDone: () => 0,
 
-	updateSaveBlob(variant: number, saveBlob: Buffer, params: { [key: string]: string }): Promise<Buffer> {
+	updateSaveBlob: (variant, saveBlob, params) => {
 		if (!saveBlob) {
-			return Promise.resolve(Buffer.from(params.metPlayerKeycloakId));
+			return Buffer.from(`${params.metPlayerKeycloakId}`);
 		}
-		return Promise.resolve(Buffer.concat([saveBlob, Buffer.from(`,${params.metPlayerKeycloakId}`)]));
+		return Buffer.concat([saveBlob, Buffer.from(`,${params.metPlayerKeycloakId}`)]);
 	}
 };

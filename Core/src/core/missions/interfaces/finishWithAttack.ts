@@ -4,19 +4,11 @@ import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
 import {ClassDataController} from "../../../data/Class";
 
 export const missionInterface: IMission = {
-	areParamsMatchingVariantAndSave(variant: number, params: { [key: string]: unknown }): boolean {
-		return params.lastAttack === FightActionController.variantToFightActionId(variant);
-	},
+	areParamsMatchingVariantAndSave: (variant, params) => params.lastAttack === FightActionController.variantToFightActionId(variant),
 
-	generateRandomVariant(difficulty, player): number {
-		return FightActionController.fightActionIdToVariant(RandomUtils.draftbotRandom.pick(ClassDataController.instance.getById(player.class).fightActionsIds));
-	},
+	generateRandomVariant: (difficulty, player) => FightActionController.fightActionIdToVariant(RandomUtils.draftbotRandom.pick(ClassDataController.instance.getById(player.class).fightActionsIds)),
 
-	initialNumberDone(): Promise<number> {
-		return Promise.resolve(0);
-	},
+	initialNumberDone: () => 0,
 
-	updateSaveBlob(): Promise<Buffer> {
-		return Promise.resolve(null);
-	}
+	updateSaveBlob: () => null
 };
