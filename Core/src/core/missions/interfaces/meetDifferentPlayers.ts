@@ -3,7 +3,7 @@ import {IMission} from "../IMission";
 export const missionInterface: IMission = {
 	generateRandomVariant: () => 0,
 
-	areParamsMatchingVariantAndSave: (variant, params, saveBlob) => {
+	areParamsMatchingVariantAndBlob: (variant, params, saveBlob) => {
 		if (!saveBlob) {
 			return true;
 		}

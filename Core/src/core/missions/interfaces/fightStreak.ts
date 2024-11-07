@@ -2,7 +2,7 @@ import {IMission} from "../IMission";
 import {getDayNumber} from "../../../../../Lib/src/utils/TimeUtils";
 
 export const missionInterface: IMission = {
-	areParamsMatchingVariantAndSave: () => true,
+	areParamsMatchingVariantAndBlob: () => true,
 
 	generateRandomVariant: () => 0,
 

@@ -2,7 +2,7 @@ import {IMission} from "../IMission";
 import {ClassDataController} from "../../../data/Class";
 
 export const missionInterface: IMission = {
-	areParamsMatchingVariantAndSave: (variant, params) => (params.tier as number) >= variant,
+	areParamsMatchingVariantAndBlob: (variant, params) => (params.tier as number) >= variant,
 
 	generateRandomVariant: () => 0,
 
