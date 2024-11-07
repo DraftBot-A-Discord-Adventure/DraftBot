@@ -19,10 +19,10 @@ export const commandInfo: ITestCommand = {
  */
 const sendNotificationTestCommand: ExecuteTestCommandLike = (player, args) => {
 	if (args[0] === "report") {
-		PacketUtils.sendNotification(makePacket(ReachDestinationNotificationPacket, {
+		PacketUtils.sendNotifications([makePacket(ReachDestinationNotificationPacket, {
 			keycloakId: player.keycloakId,
 			mapId: MapLocationDataController.instance.getRandomGotoableMap().id
-		}));
+		})]);
 	}
 	else {
 		throw "Type de notification inconnu";

@@ -170,11 +170,7 @@ export class TravelTime {
 				await lastSmallEvent.save();
 			}
 		}
-		const date = new Date();
-		const playerEndTime = TravelTime.getTravelDataSimplified(player, date).travelEndTime;
-		if (playerEndTime <= date.valueOf() && playerEndTime >= date.valueOf() - timeMs) { // Check if the player arrived with this potion
-			// Todo send notification
-		}
+
 		// Log
 		draftBotInstance.logsDatabase.logTimeWarp(player.keycloakId, millisecondsToMinutes(time), reason)
 			.then();

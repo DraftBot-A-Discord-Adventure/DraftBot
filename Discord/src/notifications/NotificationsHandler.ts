@@ -1,7 +1,8 @@
-import {NotificationSerializedPacket} from "../../../Lib/src/packets/notifications/NotificationSerializedPacket";
+import {NotificationsSerializedPacket} from "../../../Lib/src/packets/notifications/NotificationsSerializedPacket";
 
 export abstract class NotificationsHandler {
-	static async sendNotification(notificationSerializedPacket: NotificationSerializedPacket): Promise<void> {
-		console.log(`Received notification: ${JSON.stringify(notificationSerializedPacket)}`);
+	static async sendNotifications(notificationSerializedPacket: NotificationsSerializedPacket): Promise<void> {
+		console.log(`Received notifications: ${JSON.stringify(notificationSerializedPacket)}`);
+		// todo
 	}
 }

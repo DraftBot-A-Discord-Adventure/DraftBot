@@ -24,6 +24,8 @@ import {TopWeekAnnouncementPacket} from "../../../../Lib/src/packets/announcemen
 import {MqttConstants} from "../../../../Lib/src/constants/MqttConstants";
 import {TopWeekFightAnnouncementPacket} from "../../../../Lib/src/packets/announcements/TopWeekFightAnnouncementPacket";
 import PlayerMissionsInfo from "../database/game/models/PlayerMissionsInfo";
+import {ScheduledReportNotifications} from "../database/game/models/ScheduledReportNotification";
+import {ReachDestinationNotificationPacket} from "../../../../Lib/src/packets/notifications/ReachDestinationNotificationPacket";
 
 export class DraftBot {
 	public readonly packetListener: PacketListenerServer;
@@ -274,6 +276,24 @@ export class DraftBot {
 		DraftBot.newPveIsland().then();
 	}
 
+	static async reportNotifications(): Promise<void> {
+		if (PacketUtils.isMqttConnected()) {
+			const notifications = await ScheduledReportNotifications.getNotificationsBeforeDate(new Date());
+			if (notifications.length !== 0) {
+				PacketUtils.sendNotifications(notifications.map(notification => makePacket(ReachDestinationNotificationPacket, {
+					keycloakId: notification.keycloakId,
+					mapId: notification.mapId
+				})));
+				await ScheduledReportNotifications.bulkDelete(notifications);
+			}
+		}
+		else {
+			console.error(`MQTT is not connected, can't do report notifications. Trying again in ${TIMEOUT_FUNCTIONS.REPORT_NOTIFICATIONS} ms`);
+		}
+
+		setTimeout(DraftBot.reportNotifications, TIMEOUT_FUNCTIONS.REPORT_NOTIFICATIONS);
+	}
+
 	async init(): Promise<void> {
 		await registerAllPacketHandlers();
 		await this.gameDatabase.init(true);
@@ -303,5 +323,7 @@ export class DraftBot {
 		else {
 			DraftBot.programDailyTimeout();
 		}
+
+		DraftBot.reportNotifications().then();
 	}
 }

@@ -7,7 +7,7 @@ import {connect, MqttClient} from "mqtt";
 import {MqttConstants} from "../../../Lib/src/constants/MqttConstants";
 import {DiscordAnnouncement} from "../announcements/DiscordAnnouncement";
 import {NotificationsHandler} from "../notifications/NotificationsHandler";
-import {NotificationSerializedPacket} from "../../../Lib/src/packets/notifications/NotificationSerializedPacket";
+import {NotificationsSerializedPacket} from "../../../Lib/src/packets/notifications/NotificationsSerializedPacket";
 
 export class DiscordMQTT {
 	static mqttClient: MqttClient;
@@ -59,8 +59,8 @@ export class DiscordMQTT {
 					const messageString = message.toString();
 					console.log(`Received notification message from topic ${topic}: ${messageString}`);
 
-					const serializedPacket: NotificationSerializedPacket = JSON.parse(messageString);
-					await NotificationsHandler.sendNotification(serializedPacket);
+					const serializedPacket: NotificationsSerializedPacket = JSON.parse(messageString);
+					await NotificationsHandler.sendNotifications(serializedPacket);
 				}
 			});
 		}
