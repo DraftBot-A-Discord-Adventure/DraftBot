@@ -3,7 +3,7 @@ import {countNbOfPotions} from "../../utils/ItemUtils";
 import {InventorySlots} from "../../database/game/models/InventorySlot";
 
 export const missionInterface: IMission = {
-	areParamsMatchingVariantAndSave: () => true,
+	areParamsMatchingVariantAndBlob: () => true,
 
 	generateRandomVariant: () => 0,
 

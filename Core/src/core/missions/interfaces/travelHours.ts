@@ -3,7 +3,7 @@ import {MissionDifficulty} from "../MissionDifficulty";
 import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
 
 export const missionInterface: IMission = {
-	areParamsMatchingVariantAndSave: (variant, params) => (params.travelTime as number) >= variant,
+	areParamsMatchingVariantAndBlob: (variant, params) => (params.travelTime as number) >= variant,
 
 	generateRandomVariant: (difficulty) => {
 		switch (difficulty) {

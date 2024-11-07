@@ -2,7 +2,7 @@ import {IMission} from "../IMission";
 import {Guilds} from "../../database/game/models/Guild";
 
 export const missionInterface: IMission = {
-	areParamsMatchingVariantAndSave: () => true,
+	areParamsMatchingVariantAndBlob: () => true,
 
 	generateRandomVariant: () => 0,
 

@@ -31,7 +31,7 @@ const paramsFromVariant = function(variant: number): {
 
 
 export const missionInterface: IMission = {
-	areParamsMatchingVariantAndSave: (variant, params, saveBlob) => {
+	areParamsMatchingVariantAndBlob: (variant, params, saveBlob) => {
 		if (!saveBlob) {
 			return false;
 		}

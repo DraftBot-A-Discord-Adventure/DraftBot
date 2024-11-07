@@ -9,8 +9,8 @@ import {Constants} from "../../../../Lib/src/constants/Constants";
 import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import PlayerMissionsInfo, {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
-import {DraftBotPacket} from "../../../../Lib/src/packets/DraftBotPacket";
-import {MissionsExpiredPacket} from "../../../../Lib/src/packets/events/MissionsExpiredPacket";
+import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
+import {MissionsExpiredPacket} from "../../../../Lib/src/packets/notifications/MissionsExpiredPacket";
 import {draftBotInstance} from "../../index";
 import {Mission, MissionDataController} from "../../data/Mission";
 import {MissionsCompletedPacket} from "../../../../Lib/src/packets/events/MissionsCompletedPacket";
@@ -24,10 +24,6 @@ type MissionInformations = {
 	},
 	set?: boolean
 }
-type CompletedSpecialMissions = {
-	completedDaily: boolean,
-	completedCampaign: boolean
-}
 
 export type GeneratedMission = {
 	mission: Mission,
@@ -35,12 +31,23 @@ export type GeneratedMission = {
 	variant: number
 }
 
+type GenerateMissionPropertiesOptions = {
+	mission?: Mission,
+	daily?: boolean,
+	player?: Player
+}
+
+type SpecialMissionCompletion = {
+	daily: boolean,
+	campaign: boolean
+}
+
 export class MissionsController {
 	static getMissionInterface(missionId: string): IMission {
 		try {
-			return <IMission>((require(`./interfaces/${missionId}`) as {
+			return (require(`./interfaces/${missionId}`) as {
 				missionInterface: IMission
-			}).missionInterface);
+			}).missionInterface;
 		}
 		catch {
 			return require("./DefaultInterface").missionInterface;
@@ -53,24 +60,22 @@ export class MissionsController {
 	 * @param missionSlots
 	 * @param missionInfo
 	 * @param response the response packets
-	 * @param completedDaily
-	 * @param completedCampaign
+	 * @param specialMissionCompletion
 	 */
 	static async checkCompletedMissions(
 		player: Player,
 		missionSlots: MissionSlot[],
 		missionInfo: PlayerMissionsInfo,
 		response: DraftBotPacket[],
-		{completedDaily, completedCampaign}: CompletedSpecialMissions = {
-			completedDaily: false,
-			completedCampaign: false
+		specialMissionCompletion: SpecialMissionCompletion = {
+			daily: false,
+			campaign: false
 		}
 	): Promise<Player> {
-		const completedMissions = await MissionsController.completeAndUpdateMissions(player, missionSlots, completedDaily, completedCampaign);
+		const completedMissions = await MissionsController.completeAndUpdateMissions(player, missionSlots, specialMissionCompletion);
 		if (completedMissions.length !== 0) {
 			player = await MissionsController.updatePlayerStats(player, missionInfo, completedMissions, response);
-			const packet: MissionsCompletedPacket = {missions: completedMissions};
-			response.push(packet);
+			response.push(makePacket(MissionsCompletedPacket, {missions: completedMissions}));
 		}
 		return player;
 	}
@@ -94,16 +99,13 @@ export class MissionsController {
 		const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
 
 		await MissionsController.handleExpiredMissions(player, missionSlots, response);
-		const [completedDaily, completedCampaign] = await MissionsController.updateMissionsCounts({
+		const specialMissionCompletion = await MissionsController.updateMissionsCounts({
 			missionId,
 			count,
 			params,
 			set
 		}, missionSlots, missionInfo);
-		player = await MissionsController.checkCompletedMissions(player, missionSlots, missionInfo, response, {
-			completedDaily,
-			completedCampaign
-		});
+		player = await MissionsController.checkCompletedMissions(player, missionSlots, missionInfo, response, specialMissionCompletion);
 
 		await player.save();
 		return player;
@@ -113,42 +115,28 @@ export class MissionsController {
 	 * Complete and update mission of a user
 	 * @param player
 	 * @param missionSlots
-	 * @param completedDailyMission
-	 * @param completedCampaign
+	 * @param specialMissionCompletion
 	 */
-	static async completeAndUpdateMissions(player: Player, missionSlots: MissionSlot[], completedDailyMission: boolean, completedCampaign: boolean): Promise<CompletedMission[]> {
+	static async completeAndUpdateMissions(player: Player, missionSlots: MissionSlot[], specialMissionCompletion: SpecialMissionCompletion): Promise<CompletedMission[]> {
 		const completedMissions: CompletedMission[] = [];
-		completedMissions.push(...await Campaign.updatePlayerCampaign(completedCampaign, player));
-		for (const mission of missionSlots) {
-			if (mission.isCompleted() && !mission.isCampaign()) {
-				completedMissions.push({
-					completedMissionType: CompletedMissionType.NORMAL,
-					gems: 0, // Don't win gems in secondary missions
-					missionId: mission.missionId,
-					money: mission.moneyToWin,
-					numberDone: mission.numberDone,
-					objective: mission.missionObjective,
-					points: mission.pointsToWin,
-					variant: mission.missionVariant,
-					xp: mission.xpToWin
-				});
-				draftBotInstance.logsDatabase.logMissionFinished(player.keycloakId, mission.missionId, mission.missionVariant, mission.missionObjective)
-					.then();
-				await mission.destroy();
-			}
+		completedMissions.push(...await Campaign.updatePlayerCampaign(specialMissionCompletion.campaign, player));
+		for (const mission of missionSlots.filter((mission) => mission.isCompleted() && !mission.isCampaign())) {
+			completedMissions.push({
+				completedMissionType: CompletedMissionType.NORMAL,
+				...mission.toJSON(),
+				gemsToWin: 0 // Don't win gems in secondary missions
+			});
+			draftBotInstance.logsDatabase.logMissionFinished(player.keycloakId, mission.missionId, mission.missionVariant, mission.missionObjective)
+				.then();
+			await mission.destroy();
 		}
-		if (completedDailyMission) {
+		if (specialMissionCompletion.daily) {
 			const dailyMission = await DailyMissions.getOrGenerate();
 			completedMissions.push({
 				completedMissionType: CompletedMissionType.DAILY,
-				gems: dailyMission.gemsToWin,
-				missionId: dailyMission.missionId,
-				money: Math.round(dailyMission.moneyToWin * Constants.MISSIONS.DAILY_MISSION_MONEY_MULTIPLIER), // Daily missions gives less money than secondary missions
-				numberDone: dailyMission.objective,
-				objective: dailyMission.objective,
-				points: Math.round(dailyMission.pointsToWin * Constants.MISSIONS.DAILY_MISSION_POINTS_MULTIPLIER), // Daily missions give more points than secondary missions
-				variant: dailyMission.variant,
-				xp: dailyMission.xpToWin
+				...dailyMission.toJSON(),
+				moneyToWin: Math.round(dailyMission.moneyToWin * Constants.MISSIONS.DAILY_MISSION_MONEY_MULTIPLIER), // Daily missions gives less money than secondary missions
+				pointsToWin: Math.round(dailyMission.pointsToWin * Constants.MISSIONS.DAILY_MISSION_POINTS_MULTIPLIER) // Daily missions give more points than secondary missions
 			});
 			draftBotInstance.logsDatabase.logMissionDailyFinished(player.keycloakId)
 				.then();
@@ -158,32 +146,24 @@ export class MissionsController {
 	}
 
 	static async updatePlayerStats(player: Player, missionInfo: PlayerMissionsInfo, completedMissions: CompletedMission[], response: DraftBotPacket[]): Promise<Player> {
-		let gemsToWin = 0;
-		let xpToWin = 0;
-		let pointsToWin = 0;
-		let moneyToWin = 0;
+		const totalizer = <K extends keyof CompletedMission>(key: K & (CompletedMission[K] extends number ? K : never)): number => completedMissions.map(
+			(mission) => mission[key]
+		).reduce((a, b) => a + b, 0);
 
-		for (const completedMission of completedMissions) {
-			gemsToWin += completedMission.gems;
-			xpToWin += completedMission.xp;
-			pointsToWin += completedMission.points;
-			moneyToWin += completedMission.money;
-		}
-
-		await missionInfo.addGems(gemsToWin, player.keycloakId, NumberChangeReason.MISSION_FINISHED);
+		await missionInfo.addGems(totalizer("gemsToWin"), player.keycloakId, NumberChangeReason.MISSION_FINISHED);
 
 		player = await player.addExperience({
-			amount: xpToWin,
+			amount: totalizer("xpToWin"),
 			response,
 			reason: NumberChangeReason.MISSION_FINISHED
 		});
 		player = await player.addMoney({
-			amount: moneyToWin,
+			amount: totalizer("moneyToWin"),
 			response,
 			reason: NumberChangeReason.MISSION_FINISHED
 		});
 		player = await player.addScore({
-			amount: pointsToWin,
+			amount: totalizer("pointsToWin"),
 			response,
 			reason: NumberChangeReason.MISSION_FINISHED
 		});
@@ -207,23 +187,22 @@ export class MissionsController {
 
 		const packet: MissionsExpiredPacket = {missions: []};
 		for (const mission of expiredMissions) {
-			packet.missions.push({
-				missionId: mission.missionId,
-				variant: mission.missionVariant,
-				numberDone: mission.numberDone,
-				objective: mission.missionObjective
-			});
+			packet.missions.push(mission.toJSON());
 		}
-		response.push(packet);
+		response.push(makePacket(MissionsExpiredPacket, packet));
 		await player.save();
 	}
 
 	public static generateRandomDailyMissionProperties(): GeneratedMission {
 		const mission = MissionDataController.instance.getRandomDailyMission();
-		return this.generateMissionProperties(mission.id, MissionDifficulty.EASY, mission, true);
+		return this.generateMissionProperties(mission.id, MissionDifficulty.EASY, {mission, daily: true});
 	}
 
-	public static generateMissionProperties(missionId: string, difficulty: MissionDifficulty, mission: Mission = null, daily = false, player: Player = null)
+	public static generateMissionProperties(missionId: string, difficulty: MissionDifficulty, {
+		mission = null,
+		daily = false,
+		player = null
+	}: GenerateMissionPropertiesOptions)
 		: GeneratedMission {
 		if (!mission) {
 			mission = MissionDataController.instance.getById(missionId);
@@ -231,46 +210,20 @@ export class MissionsController {
 				return null;
 			}
 		}
-
-		const generatedMission: GeneratedMission = {
+		const generatedMission = {
 			mission,
-			index: 0,
-			variant: 0
+			index: RandomUtils.draftbotRandom.pick(mission.dailyIndexes),
+			variant: this.getMissionInterface(mission.id).generateRandomVariant(difficulty, player)
 		};
-
-		if (!daily) {
-			switch (difficulty) {
-			case MissionDifficulty.EASY:
-				if (!mission.canBeEasy()) {
-					return null;
-				}
-				generatedMission.index = RandomUtils.draftbotRandom.pick(mission.difficulties.easy);
-				break;
-			case MissionDifficulty.MEDIUM:
-				if (!mission.canBeMedium()) {
-					return null;
-				}
-				generatedMission.index = RandomUtils.draftbotRandom.pick(mission.difficulties.medium);
-				break;
-			case MissionDifficulty.HARD:
-				if (!mission.canBeHard()) {
-					return null;
-				}
-				generatedMission.index = RandomUtils.draftbotRandom.pick(mission.difficulties.hard);
-				break;
-			default:
-				return null;
-			}
+		if (daily) {
+			return generatedMission;
 		}
-		else {
-			generatedMission.index = RandomUtils.draftbotRandom.pick(mission.dailyIndexes);
-		}
-		generatedMission.variant = this.getMissionInterface(mission.id).generateRandomVariant(difficulty, player);
-		return generatedMission;
+		generatedMission.index = this.generateMissionIndex(mission, difficulty);
+		return generatedMission.index === null ? null : generatedMission;
 	}
 
 	public static async addMissionToPlayer(player: Player, missionId: string, difficulty: MissionDifficulty, mission: Mission = null): Promise<MissionSlot> {
-		const prop = this.generateMissionProperties(missionId, difficulty, mission, false, player);
+		const prop = this.generateMissionProperties(missionId, difficulty, {mission, daily: false, player});
 		const missionData = MissionDataController.instance.getById(missionId);
 		const missionSlot = await MissionSlot.create({
 			playerId: player.id,
@@ -300,11 +253,28 @@ export class MissionsController {
 			const probability = Constants.MISSIONS.SLOTS_LEVEL_PROBABILITIES[i];
 			if (player.level >= probability.LEVEL) {
 				const randomNumber = RandomUtils.draftbotRandom.realZeroToOneInclusive();
-				return randomNumber < probability.EASY ? MissionDifficulty.EASY : randomNumber < probability.MEDIUM + probability.EASY ? MissionDifficulty.MEDIUM : MissionDifficulty.HARD;
+				return randomNumber < probability.EASY
+					? MissionDifficulty.EASY
+					: randomNumber < probability.MEDIUM + probability.EASY
+						? MissionDifficulty.MEDIUM
+						: MissionDifficulty.HARD;
 			}
 		}
 
 		return MissionDifficulty.EASY;
+	}
+
+	private static generateMissionIndex(mission: Mission, difficulty: MissionDifficulty): number {
+		if (difficulty === MissionDifficulty.EASY && mission.canBeEasy()) {
+			return RandomUtils.draftbotRandom.pick(mission.difficulties.easy);
+		}
+		if (difficulty === MissionDifficulty.MEDIUM && mission.canBeMedium()) {
+			return RandomUtils.draftbotRandom.pick(mission.difficulties.medium);
+		}
+		if (difficulty === MissionDifficulty.HARD && mission.canBeHard()) {
+			return RandomUtils.draftbotRandom.pick(mission.difficulties.hard);
+		}
+		return null;
 	}
 
 	/**
@@ -315,18 +285,19 @@ export class MissionsController {
 	 * @private
 	 * @return true if the daily mission is finished and needs to be said to the player
 	 */
-	private static async updateMissionsCounts(missionInformation: MissionInformations, missionSlots: MissionSlot[], missionInfo: PlayerMissionsInfo): Promise<boolean[]> {
+	private static async updateMissionsCounts(missionInformation: MissionInformations, missionSlots: MissionSlot[], missionInfo: PlayerMissionsInfo): Promise<SpecialMissionCompletion> {
 		const missionInterface = this.getMissionInterface(missionInformation.missionId);
-		const completedCampaign = await this.checkMissionSlots(missionInterface, missionInformation, missionSlots);
+		const specialMissionCompletion: SpecialMissionCompletion = {
+			daily: false,
+			campaign: await this.checkMissionSlots(missionInterface, missionInformation, missionSlots)
+		};
 		if (missionInfo.hasCompletedDailyMission()) {
-			return [false, completedCampaign];
+			return specialMissionCompletion;
 		}
 		const dailyMission = await DailyMissions.getOrGenerate();
-		if (dailyMission.missionId !== missionInformation.missionId) {
-			return [false, completedCampaign];
-		}
-		if (!missionInterface.areParamsMatchingVariantAndSave(dailyMission.variant, missionInformation.params, null)) {
-			return [false, completedCampaign];
+		if (dailyMission.missionId !== missionInformation.missionId
+			|| !missionInterface.areParamsMatchingVariantAndBlob(dailyMission.variant, missionInformation.params, null)) {
+			return specialMissionCompletion;
 		}
 		missionInfo.dailyMissionNumberDone += missionInformation.count;
 		if (missionInfo.dailyMissionNumberDone > dailyMission.objective) {
@@ -336,9 +307,10 @@ export class MissionsController {
 		if (missionInfo.dailyMissionNumberDone >= dailyMission.objective) {
 			missionInfo.lastDailyMissionCompleted = new Date();
 			await missionInfo.save();
-			return [true, completedCampaign];
+			specialMissionCompletion.daily = true;
+			return specialMissionCompletion;
 		}
-		return [false, completedCampaign];
+		return specialMissionCompletion;
 	}
 
 	/**
@@ -351,10 +323,11 @@ export class MissionsController {
 	private static async checkMissionSlots(missionInterface: IMission, missionInformations: MissionInformations, missionSlots: MissionSlot[]): Promise<boolean> {
 		let completedCampaign = false;
 		for (const mission of missionSlots.filter((missionSlot) => missionSlot.missionId === missionInformations.missionId)) {
-			if (missionInterface.areParamsMatchingVariantAndSave(mission.missionVariant, missionInformations.params, mission.saveBlob)
+			if (missionInterface.areParamsMatchingVariantAndBlob(...mission)
 				&& !mission.hasExpired() && !mission.isCompleted()
 			) {
-				completedCampaign = await this.updateMission(mission, missionInformations, completedCampaign);
+				await this.updateMission(mission, missionInformations);
+				completedCampaign = completedCampaign || mission.isCampaign() && mission.isCompleted();
 			}
 			if (!mission.isCompleted()) {
 				await this.updateBlob(missionInterface, mission, missionInformations);
@@ -382,18 +355,10 @@ export class MissionsController {
 	 * Updates the progression of the mission
 	 * @param mission
 	 * @param missionInformations
-	 * @param completedCampaign
 	 * @private
 	 */
-	private static async updateMission(mission: MissionSlot, missionInformations: MissionInformations, completedCampaign: boolean): Promise<boolean> {
-		mission.numberDone = missionInformations.set ? missionInformations.count : mission.numberDone + missionInformations.count;
-		if (mission.numberDone > mission.missionObjective) {
-			mission.numberDone = mission.missionObjective;
-		}
-		if (mission.isCampaign() && mission.isCompleted()) {
-			completedCampaign = true;
-		}
+	private static async updateMission(mission: MissionSlot, missionInformations: MissionInformations): Promise<void> {
+		mission.numberDone = Math.min(mission.missionObjective, missionInformations.set ? missionInformations.count : mission.numberDone + missionInformations.count);
 		await mission.save();
-		return completedCampaign;
 	}
 }

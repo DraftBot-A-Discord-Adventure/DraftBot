@@ -1,7 +1,7 @@
 import {IMission} from "../IMission";
 
 export const missionInterface: IMission = {
-	areParamsMatchingVariantAndSave: () => true,
+	areParamsMatchingVariantAndBlob: () => true,
 
 	generateRandomVariant: () => 0,
 

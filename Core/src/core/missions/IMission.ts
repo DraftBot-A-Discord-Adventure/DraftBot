@@ -20,7 +20,7 @@ export type IMission = {
 	 * @param params - the params of the mission
 	 * @param saveBlob - some binary data to save in the mission
 	 */
-	areParamsMatchingVariantAndSave(variant: number, params: MissionParams, saveBlob: Buffer): boolean;
+	areParamsMatchingVariantAndBlob(variant: number, params: MissionParams, saveBlob: Buffer): boolean;
 
 	/**
 	 * Get the advancement of the mission at the beginning of the mission (maybe the player has already done it)

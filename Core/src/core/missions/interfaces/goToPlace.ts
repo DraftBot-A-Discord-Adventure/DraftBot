@@ -2,7 +2,7 @@ import {IMission} from "../IMission";
 import {MapLocationDataController} from "../../../data/MapLocation";
 
 export const missionInterface: IMission = {
-	areParamsMatchingVariantAndSave: (variant, params) => variant === params.mapId,
+	areParamsMatchingVariantAndBlob: (variant, params) => variant === params.mapId,
 
 	generateRandomVariant: () => MapLocationDataController.instance.getRandomGotoableMap().id,
 

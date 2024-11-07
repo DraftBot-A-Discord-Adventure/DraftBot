@@ -8,7 +8,7 @@ export class MissionTag implements IMission {
 		this.tagNames = tagsToProc;
 	}
 
-	areParamsMatchingVariantAndSave(variant: number, params: MissionParams): boolean {
+	areParamsMatchingVariantAndBlob(variant: number, params: MissionParams): boolean {
 		for (const tag in this.tagNames) {
 			if (tag in (params.tags as string[])) {
 				return true;

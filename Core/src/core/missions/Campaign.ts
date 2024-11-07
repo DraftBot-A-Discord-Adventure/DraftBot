@@ -9,6 +9,9 @@ import {CompletedMission, CompletedMissionType} from "../../../../Lib/src/interf
 export class Campaign {
 	private static maxCampaignCache = -1;
 
+	/**
+	 * Get the maximum number of campaign missions
+	 */
 	static getMaxCampaignNumber(): number {
 		if (this.maxCampaignCache === -1) {
 			this.maxCampaignCache = CampaignData.getMissions().length;
@@ -16,8 +19,20 @@ export class Campaign {
 		return this.maxCampaignCache;
 	}
 
-	static hasNextCampaign(campaignIndex: number): boolean {
-		return campaignIndex < this.getMaxCampaignNumber();
+	/**
+	 * Check if the given campaign blob has a next mission to complete
+	 * @param campaignBlob
+	 */
+	static hasNextCampaign(campaignBlob: string): boolean {
+		return campaignBlob.includes("0");
+	}
+
+	/**
+	 * Find the next campaign index to complete in the given campaign blob
+	 * @param campaignBlob
+	 */
+	static findNextCampaignIndex(campaignBlob: string): number {
+		return campaignBlob.indexOf("0");
 	}
 
 	public static async completeCampaignMissions(player: Player, missionInfo: PlayerMissionsInfo, completedCampaign: boolean, campaign: MissionSlot): Promise<CompletedMission[]> {
@@ -27,51 +42,36 @@ export class Campaign {
 			if (completedCampaign || firstMissionChecked) {
 				completedMissions.push({
 					completedMissionType: CompletedMissionType.CAMPAIGN,
-					gems: campaign.gemsToWin,
-					missionId: campaign.missionId,
-					money: campaign.moneyToWin,
-					numberDone: campaign.numberDone,
-					objective: campaign.missionObjective,
-					points: 0, // Campaign doesn't give points
-					variant: campaign.missionVariant,
-					xp: campaign.xpToWin
+					...campaign.toJSON(),
+					pointsToWin: 0 // Campaign doesn't give points
 				});
+				missionInfo.campaignBlob = `${missionInfo.campaignBlob.slice(0, missionInfo.campaignProgression - 1)}1${missionInfo.campaignBlob.slice(missionInfo.campaignProgression)}`;
+				missionInfo.campaignProgression = this.hasNextCampaign(missionInfo.campaignBlob) ? this.findNextCampaignIndex(missionInfo.campaignBlob) + 1 : 0;
 				draftBotInstance.logsDatabase.logMissionCampaignProgress(player.keycloakId, missionInfo.campaignProgression)
 					.then();
 			}
-			if (this.hasNextCampaign(missionInfo.campaignProgression)) {
-				const prop = CampaignData.getMissions()[missionInfo.campaignProgression];
-				campaign.missionVariant = prop.missionVariant as number;
-				campaign.gemsToWin = prop.gemsToWin as number;
-				campaign.xpToWin = prop.xpToWin as number;
-				campaign.numberDone = await MissionsController.getMissionInterface(prop.missionId as string)
-					.initialNumberDone(player, prop.missionVariant as number) as number;
-				campaign.missionId = prop.missionId as string;
-				campaign.missionObjective = prop.missionObjective as number;
-				campaign.moneyToWin = prop.moneyToWin as number;
-				campaign.saveBlob = null;
-				missionInfo.campaignProgression++;
-			}
-			else {
+			if (!this.hasNextCampaign(missionInfo.campaignBlob)) {
 				break;
 			}
+			const prop = CampaignData.getMissions()[missionInfo.campaignProgression - 1];
+			campaign = {
+				...campaign.toJSON(),
+				...prop
+			};
+			campaign.numberDone = await MissionsController.getMissionInterface(prop.missionId).initialNumberDone(player, prop.missionVariant) as number;
+			campaign.saveBlob = null;
 			firstMissionChecked = true;
 		}
 		if (completedMissions.length !== 0 || !completedCampaign) {
-			await campaign.save();
-			await missionInfo.save();
+			await Promise.all([campaign.save(), missionInfo.save()]);
 		}
 		return completedMissions;
 	}
 
 	public static async updatePlayerCampaign(completedCampaign: boolean, player: Player): Promise<CompletedMission[]> {
 		const campaign = await MissionSlots.getCampaignOfPlayer(player.id);
-		if (!campaign) {
-			const campaignJson = CampaignData.getMissions()[0];
-			return this.updatePlayerCampaign(completedCampaign, player);
-		}
 		const missionsInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
-		if (completedCampaign || Campaign.hasNextCampaign(missionsInfo.campaignProgression)) {
+		if (completedCampaign || Campaign.hasNextCampaign(missionsInfo.campaignBlob)) {
 			return await this.completeCampaignMissions(player, missionsInfo, completedCampaign, campaign);
 		}
 		return [];
