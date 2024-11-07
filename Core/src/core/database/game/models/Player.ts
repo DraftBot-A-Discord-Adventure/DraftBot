@@ -39,6 +39,8 @@ import {MapConstants} from "../../../../../../Lib/src/constants/MapConstants";
 import {BlockingConstants} from "../../../../../../Lib/src/constants/BlockingConstants";
 import moment = require("moment");
 import {Effect} from "../../../../../../Lib/src/enums/Effect";
+import {ScheduledReportNotifications} from "./ScheduledReportNotification";
+import {PacketUtils} from "../../../utils/PacketUtils";
 
 export type PlayerEditValueParameters = {
 	player: Player,
@@ -1554,6 +1556,27 @@ export function initModel(sequelize: Sequelize): void {
 	Player.beforeSave(instance => {
 		instance.updatedAt = moment()
 			.toDate();
+	});
+
+	Player.afterSave(instance => {
+		const handleNotifications = async (): Promise<void> => {
+			const now = new Date();
+			const travelEndDate = new Date(TravelTime.getTravelDataSimplified(instance, now).travelEndTime);
+			const destinationId = instance.getDestinationId();
+			if (travelEndDate > now) {
+				await ScheduledReportNotifications.scheduleNotification(instance.id, instance.keycloakId, destinationId, travelEndDate);
+			}
+			else {
+				const pendingNotification = await ScheduledReportNotifications.getPendingNotification(instance.id);
+				if (pendingNotification) {
+					const notificationArray = [pendingNotification];
+					PacketUtils.sendNotifications(notificationArray);
+					await ScheduledReportNotifications.bulkDelete(notificationArray);
+				}
+			}
+		};
+
+		handleNotifications().then();
 	});
 }
 
