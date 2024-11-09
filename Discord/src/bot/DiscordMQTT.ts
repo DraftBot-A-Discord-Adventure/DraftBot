@@ -17,54 +17,18 @@ export class DiscordMQTT {
 	static packetListener: PacketListenerClient = new PacketListenerClient();
 
 	static async init(isMainShard: boolean): Promise<void> {
-		// Register packets
 		await registerAllPacketHandlers();
 
-		DiscordMQTT.mqttClient = connect(discordConfig.MQTT_HOST);
-
-		DiscordMQTT.mqttClient.on("connect", () => {
-			// eslint-disable-next-line no-confusing-arrow
-			DiscordMQTT.mqttClient.subscribe(MqttConstants.DISCORD_TOPIC, err =>
-				err ? console.error(err) : console.log(`Subscribed to topic ${MqttConstants.DISCORD_TOPIC}`));
-			// eslint-disable-next-line no-confusing-arrow
-			DiscordMQTT.mqttClient.subscribe(MqttConstants.DISCORD_TOP_WEEK_ANNOUNCEMENT_TOPIC, err =>
-				err ? console.error(err) : console.log(`Subscribed to topic ${MqttConstants.DISCORD_TOP_WEEK_ANNOUNCEMENT_TOPIC}`));
-			// eslint-disable-next-line no-confusing-arrow
-			DiscordMQTT.mqttClient.subscribe(MqttConstants.DISCORD_TOP_WEEK_FIGHT_ANNOUNCEMENT_TOPIC, err =>
-				err ? console.error(err) : console.log(`Subscribed to topic ${MqttConstants.DISCORD_TOP_WEEK_FIGHT_ANNOUNCEMENT_TOPIC}`));
-		});
+		this.connectAndSubscribeGlobal();
 
 		if (isMainShard) {
-			if (isMainShard) {
-				DiscordMQTT.notificationMqttClient = connect(discordConfig.MQTT_HOST, {
-					clientId: MqttConstants.NOTIFICATIONS_CONSUMER,
-					clean: false // Keeps session active even if the client goes offline
-				});
-			}
-
-			DiscordMQTT.notificationMqttClient.on("connect", () => {
-				DiscordMQTT.notificationMqttClient.publish(MqttConstants.NOTIFICATIONS, "", { retain: true }); // Clear the last notification to avoid processing it twice
-
-				// eslint-disable-next-line no-confusing-arrow
-				DiscordMQTT.notificationMqttClient.subscribe(MqttConstants.NOTIFICATIONS, { qos: 2 }, err =>
-					err ? console.error(err) : console.log(`Subscribed to topic ${MqttConstants.NOTIFICATIONS}`));
-			});
-
-			DiscordMQTT.notificationMqttClient.on("message", async (topic, message) => {
-				if (topic === MqttConstants.NOTIFICATIONS) {
-					if (message.toString() === "") {
-						return;
-					}
-
-					const messageString = message.toString();
-					console.log(`Received notification message from topic ${topic}: ${messageString}`);
-
-					const serializedPacket: NotificationsSerializedPacket = JSON.parse(messageString);
-					await NotificationsHandler.sendNotifications(serializedPacket);
-				}
-			});
+			this.connectSubscribeAndHandleNotifications();
 		}
 
+		this.handleGlobalMqttMessage();
+	}
+
+	private static handleGlobalMqttMessage(): void {
 		DiscordMQTT.mqttClient.on("message", async (topic, message) => {
 			if (topic === MqttConstants.DISCORD_TOPIC) {
 				// Todo ignore if not the right shard
@@ -94,7 +58,7 @@ export class DiscordMQTT {
 					await DiscordAnnouncement.announceTopWeek(JSON.parse(message.toString()));
 
 					// Clear the announcement so it doesn't get processed again
-					DiscordMQTT.mqttClient.publish(MqttConstants.DISCORD_TOP_WEEK_ANNOUNCEMENT_TOPIC, "", { retain: true });
+					DiscordMQTT.mqttClient.publish(MqttConstants.DISCORD_TOP_WEEK_ANNOUNCEMENT_TOPIC, "", {retain: true});
 				}
 			}
 			else if (topic === MqttConstants.DISCORD_TOP_WEEK_FIGHT_ANNOUNCEMENT_TOPIC) {
@@ -107,9 +71,54 @@ export class DiscordMQTT {
 					await DiscordAnnouncement.announceTopWeekFight(JSON.parse(message.toString()));
 
 					// Clear the announcement so it doesn't get processed again
-					DiscordMQTT.mqttClient.publish(MqttConstants.DISCORD_TOP_WEEK_FIGHT_ANNOUNCEMENT_TOPIC, "", { retain: true });
+					DiscordMQTT.mqttClient.publish(MqttConstants.DISCORD_TOP_WEEK_FIGHT_ANNOUNCEMENT_TOPIC, "", {retain: true});
 				}
 			}
+		});
+	}
+
+	private static connectSubscribeAndHandleNotifications(): void {
+		DiscordMQTT.notificationMqttClient = connect(discordConfig.MQTT_HOST, {
+			clientId: MqttConstants.NOTIFICATIONS_CONSUMER,
+			clean: false // Keeps session active even if the client goes offline
+		});
+
+		DiscordMQTT.notificationMqttClient.on("connect", () => {
+			DiscordMQTT.notificationMqttClient.publish(MqttConstants.NOTIFICATIONS, "", {retain: true}); // Clear the last notification to avoid processing it twice
+
+			// eslint-disable-next-line no-confusing-arrow
+			DiscordMQTT.notificationMqttClient.subscribe(MqttConstants.NOTIFICATIONS, {qos: 2}, err =>
+				err ? console.error(err) : console.log(`Subscribed to topic ${MqttConstants.NOTIFICATIONS}`));
+		});
+
+		DiscordMQTT.notificationMqttClient.on("message", async (topic, message) => {
+			if (topic === MqttConstants.NOTIFICATIONS) {
+				if (message.toString() === "") {
+					return;
+				}
+
+				const messageString = message.toString();
+				console.log(`Received notification message from topic ${topic}: ${messageString}`);
+
+				const serializedPacket: NotificationsSerializedPacket = JSON.parse(messageString);
+				await NotificationsHandler.sendNotifications(serializedPacket);
+			}
+		});
+	}
+
+	private static connectAndSubscribeGlobal(): void {
+		DiscordMQTT.mqttClient = connect(discordConfig.MQTT_HOST);
+
+		DiscordMQTT.mqttClient.on("connect", () => {
+			// eslint-disable-next-line no-confusing-arrow
+			DiscordMQTT.mqttClient.subscribe(MqttConstants.DISCORD_TOPIC, err =>
+				err ? console.error(err) : console.log(`Subscribed to topic ${MqttConstants.DISCORD_TOPIC}`));
+			// eslint-disable-next-line no-confusing-arrow
+			DiscordMQTT.mqttClient.subscribe(MqttConstants.DISCORD_TOP_WEEK_ANNOUNCEMENT_TOPIC, err =>
+				err ? console.error(err) : console.log(`Subscribed to topic ${MqttConstants.DISCORD_TOP_WEEK_ANNOUNCEMENT_TOPIC}`));
+			// eslint-disable-next-line no-confusing-arrow
+			DiscordMQTT.mqttClient.subscribe(MqttConstants.DISCORD_TOP_WEEK_FIGHT_ANNOUNCEMENT_TOPIC, err =>
+				err ? console.error(err) : console.log(`Subscribed to topic ${MqttConstants.DISCORD_TOP_WEEK_FIGHT_ANNOUNCEMENT_TOPIC}`));
 		});
 	}
 }
