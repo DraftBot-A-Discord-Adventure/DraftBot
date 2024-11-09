@@ -9,11 +9,18 @@ import {ClassDataController} from "../../data/Class";
 import {Players} from "../../core/database/game/models/Player";
 import {FightActionDataController} from "../../data/FightAction";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
+import {CommandUtils} from "../../core/utils/CommandUtils";
+import {Effect} from "../../../../Lib/src/enums/Effect";
+import {ClassConstants} from "../../../../Lib/src/constants/ClassConstants";
 
 export default class ClassesInfoCommand {
 	@packetHandler(CommandClassesInfoPacketReq)
 	async execute(packet: CommandClassesInfoPacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
 		const player = await Players.getByKeycloakId(context.keycloakId);
+
+		if (!await CommandUtils.verifyCommandRequirements(player, context, response, { disallowedEffects: [Effect.NOT_STARTED, Effect.DEAD ], level: ClassConstants.REQUIRED_LEVEL })) {
+			return;
+		}
 
 		if (!player) {
 			response.push(makePacket(CommandClassesInfoPacketRes, {

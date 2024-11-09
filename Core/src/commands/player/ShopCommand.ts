@@ -42,6 +42,7 @@ import {
 	ReactionCollectorBuyCategorySlotReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorBuyCategorySlot";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
+import {CommandUtils} from "../../core/utils/CommandUtils";
 
 /**
  * Get the shop item for getting a random item
@@ -294,6 +295,12 @@ export default class ShopCommand {
 		const player = await Players.getByKeycloakId(context.keycloakId);
 
 		if (BlockingUtils.appendBlockedPacket(player, response)) {
+			return;
+		}
+
+		if (!await CommandUtils.verifyCommandRequirements(player, context, response, {
+			disallowedEffects: [Effect.NOT_STARTED, Effect.DEAD, Effect.JAILED]
+		})) {
 			return;
 		}
 

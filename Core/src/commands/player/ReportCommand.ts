@@ -53,6 +53,7 @@ import {applyPossibilityOutcome} from "../../data/events/PossibilityOutcome";
 import {ErrorPacket} from "../../../../Lib/src/packets/commands/ErrorPacket";
 import {Effect} from "../../../../Lib/src/enums/Effect";
 import {MapLocationDataController} from "../../data/MapLocation";
+import {CommandUtils} from "../../core/utils/CommandUtils";
 
 export default class ReportCommand {
 	@packetHandler(CommandReportPacketReq)
@@ -64,6 +65,11 @@ export default class ReportCommand {
 		forceSmallEvent: string = null
 	): Promise<void> {
 		const player = await Players.getByKeycloakId(packet.keycloakId);
+
+		if (!await CommandUtils.verifyNotDead(player, response)) {
+			return;
+		}
+
 		if (player.score === 0 && player.effectId === Effect.NOT_STARTED.id) {
 			await initiateNewPlayerOnTheAdventure(player);
 		}

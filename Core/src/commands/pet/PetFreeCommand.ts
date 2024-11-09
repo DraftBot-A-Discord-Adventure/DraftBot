@@ -21,6 +21,7 @@ import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants";
 import {getFoodIndexOf} from "../../core/utils/FoodUtils";
 import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {Constants} from "../../../../Lib/src/constants/Constants";
+import {CommandUtils} from "../../core/utils/CommandUtils";
 
 
 /**
@@ -112,6 +113,10 @@ export default class PetFreeCommand {
 	async execute(packet: CommandPetFreePacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
 		const player = await Players.getByKeycloakId(packet.keycloakId);
 		if (BlockingUtils.appendBlockedPacket(player, response)) {
+			return;
+		}
+
+		if (!await CommandUtils.verifyNoEffect(player, response)) {
 			return;
 		}
 

@@ -15,6 +15,7 @@ import {Constants} from "../../../../Lib/src/constants/Constants";
 import {hoursToMilliseconds} from "../../../../Lib/src/utils/TimeUtils";
 import {PetDataController} from "../../data/Pet";
 import {MapLocationDataController} from "../../data/MapLocation";
+import {CommandUtils} from "../../core/utils/CommandUtils";
 
 /**
  * Get the current campaign progression of the player
@@ -27,7 +28,17 @@ function getCampaignProgression(missionsInfo: PlayerMissionsInfo): number {
 export default class ProfileCommand {
 	@packetHandler(CommandProfilePacketReq)
 	async execute(packet: CommandProfilePacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
-		const player = packet.askedPlayer.keycloakId ? await Players.getByKeycloakId(packet.askedPlayer.keycloakId) : await Players.getByRank(packet.askedPlayer.rank);
+		const initiator = await Players.getByKeycloakId(context.keycloakId);
+
+		if (!await CommandUtils.verifyStarted(initiator, response)) {
+			return;
+		}
+
+		const player = packet.askedPlayer.keycloakId
+			? packet.askedPlayer.keycloakId === context.keycloakId
+				? initiator
+				: await Players.getByKeycloakId(packet.askedPlayer.keycloakId)
+			: await Players.getByRank(packet.askedPlayer.rank);
 
 		if (!player) {
 			response.push(makePacket(CommandProfilePacketRes, {

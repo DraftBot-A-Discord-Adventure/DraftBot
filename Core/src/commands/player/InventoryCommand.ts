@@ -12,11 +12,21 @@ import {Potion} from "../../data/Potion";
 import {ObjectItem} from "../../data/ObjectItem";
 import {InventoryInfos} from "../../core/database/game/models/InventoryInfo";
 import {MainItem} from "../../data/MainItem";
+import {CommandUtils} from "../../core/utils/CommandUtils";
 
 export default class InventoryCommand {
 	@packetHandler(CommandInventoryPacketReq)
 	async execute(packet: CommandInventoryPacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
-		const player = packet.askedPlayer.keycloakId ? await Players.getByKeycloakId(packet.askedPlayer.keycloakId) : await Players.getByRank(packet.askedPlayer.rank);
+		const initiator = await Players.getByKeycloakId(context.keycloakId);
+		if (!await CommandUtils.verifyStartedAndNotDead(initiator, response)) {
+			return;
+		}
+
+		const player = packet.askedPlayer.keycloakId
+			? packet.askedPlayer.keycloakId === context.keycloakId
+				? initiator
+				: await Players.getByKeycloakId(packet.askedPlayer.keycloakId)
+			: await Players.getByRank(packet.askedPlayer.rank);
 
 		if (!player) {
 			response.push(makePacket(CommandInventoryPacketRes, {

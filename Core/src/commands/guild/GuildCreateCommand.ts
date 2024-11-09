@@ -19,6 +19,8 @@ import {GuildCreateConstants} from "../../../../Lib/src/constants/GuildCreateCon
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {LogsDatabase} from "../../core/database/logs/LogsDatabase";
 import {MissionsController} from "../../core/missions/MissionsController";
+import {CommandUtils} from "../../core/utils/CommandUtils";
+import {Effect} from "../../../../Lib/src/enums/Effect";
 
 /**
  * Check if the player can create a guild with the given name at this exact moment
@@ -113,8 +115,12 @@ async function acceptGuildCreate(player: Player, guildName: string, response: Dr
 export default class GuildCreateCommand {
 	@packetHandler(CommandGuildCreatePacketReq)
 	async execute(packet: CommandGuildCreatePacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
-
 		const player = await Players.getByKeycloakId(packet.keycloakId);
+
+		if (!await CommandUtils.verifyCommandRequirements(player, context, response, { disallowedEffects: [Effect.NOT_STARTED, Effect.DEAD ], level: GuildConstants.REQUIRED_LEVEL })) {
+			return;
+		}
+
 		if (!await canCreateGuild(player, packet.askedGuildName, response)) {
 			return;
 		}

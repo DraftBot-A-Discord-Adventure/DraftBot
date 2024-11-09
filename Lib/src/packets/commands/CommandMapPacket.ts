@@ -17,21 +17,15 @@ export class CommandMapPacketReq extends DraftBotPacket {
  */
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandMapDisplayRes extends DraftBotPacket {
-	foundPlayer!: boolean;
+	mapId!: number;
 
-	keycloakId?: string;
+	mapType!: string;
 
-	data?: {
-		mapId: number;
-
-		mapType: string;
-
-		mapLink: {
-			name: string;
-			fallback?: string;
-			forced: boolean;
-		};
-
-		inEvent: boolean;
+	mapLink!: {
+		name: string;
+		fallback?: string;
+		forced: boolean;
 	};
+
+	inEvent!: boolean;
 }
