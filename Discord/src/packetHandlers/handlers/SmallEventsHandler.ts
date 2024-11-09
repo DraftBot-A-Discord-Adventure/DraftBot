@@ -319,12 +319,12 @@ export default class SmallEventsHandler {
 	async smallEventInteractOtherPlayersRefuseToGivePoor(packet: SmallEventInteractOtherPlayersRefuseToGivePoorPacket, context: PacketContext): Promise<void> {
 		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = context.discord!.buttonInteraction ? DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!) : DiscordCache.getInteraction(context.discord!.interaction!);
-		await interaction.editReply({
+		await interaction!.editReply({
 			embeds: [
 				new DraftbotSmallEventEmbed(
 					"interactOtherPlayers",
 					StringUtils.getRandomTranslation("smallEvents:interactOtherPlayers.poor_dont_give_money", user.attributes.language[0]),
-					interaction.user,
+					interaction!.user,
 					user.attributes.language[0]
 				)]
 		});

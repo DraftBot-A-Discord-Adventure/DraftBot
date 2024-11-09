@@ -36,4 +36,6 @@ export abstract class ClassConstants {
 			ClassConstants.CLASS_SMALL_EVENT_INTERACTIONS_NAMES.WIN_HEALTH
 		]
 	};
+
+	static readonly REQUIRED_LEVEL = 10;
 }

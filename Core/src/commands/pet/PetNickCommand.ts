@@ -8,6 +8,7 @@ import {
 } from "../../../../Lib/src/packets/commands/CommandPetNickPacket";
 import {checkNameString} from "../../../../Lib/src/utils/StringUtils";
 import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
+import {CommandUtils} from "../../core/utils/CommandUtils";
 
 
 export default class PetNickCommand {
@@ -15,6 +16,11 @@ export default class PetNickCommand {
 	@packetHandler(CommandPetNickPacketReq)
 	async execute(packet: CommandPetNickPacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
 		const player = await Players.getByKeycloakId(packet.keycloakId);
+
+		if (!await CommandUtils.verifyStartedAndNotDead(player, response)) {
+			return;
+		}
+
 		const playerPet = await PetEntities.getById(player.petId);
 
 		if (!playerPet) {

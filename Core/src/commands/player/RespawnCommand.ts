@@ -14,6 +14,7 @@ import {
 	CommandRespawnPacketReq,
 	CommandRespawnPacketRes
 } from "../../../../Lib/src/packets/commands/CommandRespawnPacket";
+import {CommandUtils} from "../../core/utils/CommandUtils";
 
 export default class RespawnCommand {
 
@@ -29,6 +30,11 @@ export default class RespawnCommand {
 		if (BlockingUtils.appendBlockedPacket(player, response)) {
 			return;
 		}
+
+		if (!await CommandUtils.verifyStarted(player, response)) {
+			return;
+		}
+
 		if (player.effectId !== Effect.DEAD.id) {
 			response.push(makePacket(CommandRespawnErrorAlreadyAlive, {}));
 			return;

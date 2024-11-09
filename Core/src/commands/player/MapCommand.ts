@@ -5,6 +5,7 @@ import {Player, Players} from "../../core/database/game/models/Player";
 import {MapLocation} from "../../data/MapLocation";
 import {Language} from "../../../../Lib/src/Language";
 import {MapLinkDataController} from "../../data/MapLink";
+import {CommandUtils} from "../../core/utils/CommandUtils";
 
 /**
  * Get the map information for the player
@@ -57,27 +58,20 @@ export class MapCommand {
 	async execute(packet: CommandMapPacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
 		const player = await Players.getByKeycloakId(packet.keycloakId);
 
-		if (!player) {
-			response.push(makePacket(CommandMapDisplayRes, {
-				foundPlayer: false
-			}));
+		if (!await CommandUtils.verifyStartedAndNotDead(player, response)) {
+			return;
 		}
-		else {
-			const isInEvent = player.isInEvent();
-			const destinationMap = player.getDestination();
 
-			const mapInformation = getMapInformation(player, destinationMap, isInEvent, packet.language);
+		const isInEvent = player.isInEvent();
+		const destinationMap = player.getDestination();
 
-			response.push(makePacket(CommandMapDisplayRes, {
-				foundPlayer: true,
-				keycloakId: player.keycloakId,
-				data: {
-					mapId: destinationMap.id,
-					mapLink: mapInformation,
-					mapType: destinationMap.type,
-					inEvent: isInEvent
-				}
-			}));
-		}
+		const mapInformation = getMapInformation(player, destinationMap, isInEvent, packet.language);
+
+		response.push(makePacket(CommandMapDisplayRes, {
+			mapId: destinationMap.id,
+			mapLink: mapInformation,
+			mapType: destinationMap.type,
+			inEvent: isInEvent
+		}));
 	}
 }

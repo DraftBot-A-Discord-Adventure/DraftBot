@@ -5,12 +5,23 @@ import {Guild, Guilds} from "../../core/database/game/models/Guild";
 import {CommandGuildPacketReq, CommandGuildPacketRes} from "../../../../Lib/src/packets/commands/CommandGuildPacket";
 import {Maps} from "../../core/maps/Maps";
 import {MapCache} from "../../core/maps/MapCache";
+import {CommandUtils} from "../../core/utils/CommandUtils";
 
 export default class GuildCommand {
 	@packetHandler(CommandGuildPacketReq)
 	async execute(packet: CommandGuildPacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
+		const initiatorPlayer = await Players.getByKeycloakId(context.keycloakId);
+
+		if (!await CommandUtils.verifyStartedAndNotDead(initiatorPlayer, response)) {
+			return;
+		}
+
 		let guild: Guild;
-		const player = packet.askedPlayer.keycloakId ? await Players.getByKeycloakId(packet.askedPlayer.keycloakId) : await Players.getByRank(packet.askedPlayer.rank);
+		const player = packet.askedPlayer.keycloakId
+			? packet.askedPlayer.keycloakId === context.keycloakId
+				? initiatorPlayer
+				: await Players.getByKeycloakId(packet.askedPlayer.keycloakId)
+			: await Players.getByRank(packet.askedPlayer.rank);
 		if (packet.askedGuildName) {
 			try {
 				guild = await Guilds.getByName(packet.askedGuildName);
