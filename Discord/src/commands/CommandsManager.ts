@@ -12,7 +12,6 @@ import {
 	PermissionsBitField,
 	REST,
 	RouteLike,
-	Routes,
 	Snowflake
 } from "discord.js";
 import {RESTPostAPIChatInputApplicationCommandsJSONBody} from "discord-api-types/v10";
@@ -85,8 +84,8 @@ export class CommandsManager {
 		try {
 			const allCommandToRegister = await this.getAllCommandsToRegister();
 			if (isMainShard) {
-				await CommandsManager.registerCommands(client.application!.id, allCommandToRegister[1], Routes.applicationGuildCommands);
-				await CommandsManager.registerCommands(client.application!.id, allCommandToRegister[0], Routes.applicationCommands);
+				// await CommandsManager.registerCommands(client.application!.id, allCommandToRegister[1], Routes.applicationGuildCommands);
+				// await CommandsManager.registerCommands(client.application!.id, allCommandToRegister[0], Routes.applicationCommands);
 			}
 			await this.refreshCommands(client);
 		}

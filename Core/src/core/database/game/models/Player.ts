@@ -1565,14 +1565,14 @@ export function initModel(sequelize: Sequelize): void {
 			const destinationId = instance.getDestinationId();
 			if (travelEndDate > now) {
 				await ScheduledReportNotifications.scheduleNotification(instance.id, instance.keycloakId, destinationId, travelEndDate);
+				return;
 			}
-			else {
-				const pendingNotification = await ScheduledReportNotifications.getPendingNotification(instance.id);
-				if (pendingNotification) {
-					const notificationArray = [pendingNotification];
-					PacketUtils.sendNotifications(notificationArray);
-					await ScheduledReportNotifications.bulkDelete(notificationArray);
-				}
+
+			const pendingNotification = await ScheduledReportNotifications.getPendingNotification(instance.id);
+			if (pendingNotification) {
+				const notificationArray = [pendingNotification];
+				PacketUtils.sendNotifications(notificationArray);
+				await ScheduledReportNotifications.bulkDelete(notificationArray);
 			}
 		};
 
