@@ -63,5 +63,76 @@
   "cooldownPetFree": "Sólo puedes liberar una mascota por hora. {{remainingTime}}Puedes liberar otra .",
   "unknownPlayer": "Nombre de usuario 404",
   "petNickNotValid": "Las normas para poner nombre a una mascota son las siguientes:\n$t(error:stringRules)",
-  "stringRules": "\n\n\n {{min}} {{max}} - Utilice al menos una letra - No utilice más de 2 espacios consecutivos - No se admiten caracteres especiales - Entre y caracteres"
+  "stringRules": "\n\n\n {{min}} {{max}} - Utilice al menos una letra - No utilice más de 2 espacios consecutivos - No se admiten caracteres especiales - Entre y caracteres",
+  "notInAGuild": "Debes pertenecer a un gremio para realizar este pedido.",
+  "notAuthorizedError": "No tienes los permisos necesarios para realizar este pedido dentro de tu gremio, así que pregunta a uno de tus superiores si lo necesitas.",
+  "levelTooLow": "{{level}}Debes ser **nivel ** para usar este comando. Vuelve más tarde.",
+  "notAuthorizedRight": "No dispone de los permisos necesarios para ejecutar este comando.",
+  "notPossibleWithoutStatus": "Actualmente no necesita nuestros servicios",
+  "effects": {
+    "not_started": {
+      "self": "{{pseudo}}¡Aún no has empezado!",
+      "other": "{{pseudo}} ¡todavía no ha empezado!"
+    },
+    "dead": {
+      "self": "{{pseudo}}¡actualmente estás noqueado!",
+      "other": "{{pseudo}} ¡está actualmente noqueado!"
+    },
+    "sleeping": {
+      "self": "{{pseudo}}¡Estás durmiendo!",
+      "other": "{{pseudo}} está durmiendo."
+    },
+    "drunk": {
+      "self": "{{pseudo}}¡estás borracho de verdad!",
+      "other": "{{pseudo}} ¡está borracho!"
+    },
+    "freezing": {
+      "self": "{{pseudo}}¡Estás congelado!",
+      "other": "{{pseudo}} está congelado."
+    },
+    "hurt": {
+      "self": "{{pseudo}}¡Estás lesionado!",
+      "other": "{{pseudo}} está lesionado."
+    },
+    "sick": {
+      "self": "{{pseudo}}¡estás realmente enfermo!",
+      "other": "{{pseudo}} está enfermo."
+    },
+    "jailed": {
+      "self": "{{pseudo}}Estás encerrado.",
+      "other": "{{pseudo}} ¡está actualmente encerrado!"
+    },
+    "injured": {
+      "self": "{{pseudo}}¡estás gravemente herido!",
+      "other": "{{pseudo}} está gravemente herido."
+    },
+    "occupied": {
+      "self": "{{pseudo}}¡Estás ocupado en este momento!",
+      "other": "{{pseudo}} ¡está actualmente ocupado!"
+    },
+    "starving": {
+      "self": "{{pseudo}}¡Te mueres de hambre!",
+      "other": "{{pseudo}} se está muriendo de hambre."
+    },
+    "confounded": {
+      "self": "{{pseudo}}¡Realmente estás confundido!",
+      "other": "{{pseudo}} ¡está confundido!"
+    },
+    "scared": {
+      "self": "{{pseudo}}¡Realmente estás asustado!",
+      "other": "{{pseudo}} ¡está asustado!"
+    },
+    "lost": {
+      "self": "{{pseudo}}¡ahora estás perdido!",
+      "other": "{{pseudo}} ¡ahora está perdido!"
+    },
+    "notStartedHint": {
+      "self": "{command:report} ¡Utiliza el mando para comenzar tu aventura!",
+      "other": "Imposible realizar esta acción."
+    },
+    "deadHint": {
+      "self": "{command:respawn} Puedes utilizar el comando para seguir jugando.",
+      "other": "Imposible realizar esta acción."
+    }
+  }
 }
