@@ -63,5 +63,76 @@
   "cooldownPetFree": "È possibile liberare un solo animale domestico all'ora. {{remainingTime}}È possibile liberare un altro .",
   "unknownPlayer": "Nome utente 404",
   "petNickNotValid": "Le regole per dare un nome a un animale domestico sono le seguenti:\n$t(error:stringRules)",
-  "stringRules": "\n\n\n {{min}} {{max}} - Utilizzare almeno una lettera - Non utilizzare più di 2 spazi consecutivi - I caratteri speciali non sono ammessi - Tra e caratteri"
+  "stringRules": "\n\n\n {{min}} {{max}} - Utilizzare almeno una lettera - Non utilizzare più di 2 spazi consecutivi - I caratteri speciali non sono ammessi - Tra e caratteri",
+  "notInAGuild": "Dovete essere in una gilda per Effettuare questo comando",
+  "notAuthorizedError": "Non avete le permissione necessarie per Effettuare questo commando in vostra gilda, chiedete a un dei vostri superiori se bisogno.",
+  "levelTooLow": "{{level}}Dovete essere di **livello ** per usare questo comando! Tornate più tardi!",
+  "notAuthorizedRight": "Non si dispone delle autorizzazioni necessarie per eseguire questo comando.",
+  "notPossibleWithoutStatus": "Non avete attualmente bisogno dei nostri servizi",
+  "effects": {
+    "not_started": {
+      "self": "{{pseudo}}Non hai ancora iniziato!",
+      "other": "{{pseudo}} non è ancora iniziato!"
+    },
+    "dead": {
+      "self": "{{pseudo}}sei attualmente al tappeto!",
+      "other": "{{pseudo}} è attualmente al tappeto!"
+    },
+    "sleeping": {
+      "self": "{{pseudo}}Al momento stai dormendo!",
+      "other": "{{pseudo}} è attualmente addormentato!"
+    },
+    "drunk": {
+      "self": "{{pseudo}}sei davvero ubriaco!",
+      "other": "{{pseudo}} è attualmente ubriaco!"
+    },
+    "freezing": {
+      "self": "{{pseudo}}Al momento sei congelato!",
+      "other": "{{pseudo}} è attualmente congelato!"
+    },
+    "hurt": {
+      "self": "{{pseudo}}Sei attualmente ferito!",
+      "other": "{{pseudo}} è attualmente infortunato!"
+    },
+    "sick": {
+      "self": "{{pseudo}}sei davvero malato!",
+      "other": "{{pseudo}} è attualmente malato!"
+    },
+    "jailed": {
+      "self": "{{pseudo}}Sei attualmente bloccato!",
+      "other": "{{pseudo}} è attualmente rinchiuso!"
+    },
+    "injured": {
+      "self": "{{pseudo}}sei attualmente gravemente ferito!",
+      "other": "{{pseudo}} è attualmente gravemente ferito!"
+    },
+    "occupied": {
+      "self": "{{pseudo}}Sei impegnato in questo momento!",
+      "other": "{{pseudo}} è attualmente occupato!"
+    },
+    "starving": {
+      "self": "{{pseudo}}Stai morendo di fame!",
+      "other": "{{pseudo}} sta morendo di fame!"
+    },
+    "confounded": {
+      "self": "{{pseudo}}Sei davvero confuso!",
+      "other": "{{pseudo}} è attualmente confuso!"
+    },
+    "scared": {
+      "self": "{{pseudo}}Hai davvero paura!",
+      "other": "{{pseudo}} è attualmente spaventato!"
+    },
+    "lost": {
+      "self": "{{pseudo}}ora sei perduto!",
+      "other": "{{pseudo}} è ormai perduto!"
+    },
+    "notStartedHint": {
+      "self": "{command:report} Utilizzate il comando per iniziare la vostra avventura!",
+      "other": "Impossibile eseguire questa azione."
+    },
+    "deadHint": {
+      "self": "{command:respawn} È possibile utilizzare il comando per continuare a giocare.",
+      "other": "Impossibile eseguire questa azione."
+    }
+  }
 }
