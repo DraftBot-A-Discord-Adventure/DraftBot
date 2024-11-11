@@ -1,6 +1,6 @@
 import "../index"; // Import so it will verify decorators if we use DraftBotPacket
 import {Language} from "../Language";
-import {Right} from "../enums/Right";
+import {RightGroup} from "../enums/RightGroup";
 
 const AllPackets = new Map<string, PacketDirection>();
 
@@ -31,7 +31,7 @@ export interface PacketContext {
 		language: Language
 	}
 
-	rights?: Right[];
+	rightGroups?: RightGroup[];
 }
 
 

@@ -1,3 +1,3 @@
-export enum Right {
+export enum RightGroup {
 	MAINTENANCE = "maintenance"
 }
