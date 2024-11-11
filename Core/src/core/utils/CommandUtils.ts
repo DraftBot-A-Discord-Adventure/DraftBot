@@ -1,7 +1,7 @@
 import Player from "../database/game/models/Player";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {Effect} from "../../../../Lib/src/enums/Effect";
-import {Right} from "../../../../Lib/src/enums/Right";
+import {RightGroup} from "../../../../Lib/src/enums/RightGroup";
 import {RequirementEffectPacket} from "../../../../Lib/src/packets/commands/requirements/RequirementEffectPacket";
 import {RequirementLevelPacket} from "../../../../Lib/src/packets/commands/requirements/RequirementLevelPacket";
 import {GuildRole} from "../../../../Lib/src/enums/GuildRole";
@@ -29,7 +29,7 @@ export abstract class CommandUtils {
 			return false;
 		}
 
-		if (!allowedEffects.includes(playerEffect)) {
+		if (allowedEffects.length !== 0 && !allowedEffects.includes(playerEffect)) {
 			response.push(makePacket(RequirementEffectPacket, {
 				currentEffectId: player.effectId,
 				remainingTime: player.effectRemainingTime()
@@ -89,7 +89,7 @@ export abstract class CommandUtils {
 		disallowedEffects?: Effect[];
 		allowedEffects?: Effect[];
 		level?: number;
-		right?: Right;
+		rightRole?: RightGroup;
 		guildNeeded?: boolean;
 		guildRoleNeeded?: GuildRole;
 	}): Promise<boolean> {
@@ -104,7 +104,7 @@ export abstract class CommandUtils {
 			return false;
 		}
 
-		if (requirements.right && !context.rights.includes(requirements.right)) {
+		if (requirements.rightRole && !context.rightGroups.includes(requirements.rightRole)) {
 			response.push(makePacket(RequirementRightPacket, {}));
 			return false;
 		}

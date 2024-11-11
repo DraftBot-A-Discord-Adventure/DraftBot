@@ -10,6 +10,45 @@ export class KeycloakUtils {
 
 	private static keycloakDiscordToIdMap = new Map<string, string>();
 
+	private static keycloakUserGroupsMap = new Map<string, string[]>();
+
+	private static readonly cacheCleanInterval = 1000 * 60 * 10; // 10 minutes
+
+	private static nextCacheClean: Date;
+
+	public static async getUserGroups(keycloakConfig: KeycloakConfig, keycloakId: string): Promise<string[]> {
+		if (!this.nextCacheClean || this.nextCacheClean < new Date()) {
+			this.keycloakUserGroupsMap.clear();
+			this.nextCacheClean = new Date(Date.now() + this.cacheCleanInterval);
+		}
+		else {
+			const groups = this.keycloakUserGroupsMap.get(keycloakId);
+			if (groups) {
+				return groups;
+			}
+		}
+
+		await this.checkAndQueryToken(keycloakConfig);
+
+		const res = await fetch(`${keycloakConfig.url}/admin/realms/${keycloakConfig.realm}/users/${keycloakId}/groups`, {
+			method: "GET",
+			headers: {
+				"Authorization": `Bearer ${this.keycloakToken}`,
+				"Content-Type": "application/json"
+			}
+		});
+
+		if (!res.ok) {
+			throw new Error(`Keycloak retrieve user groups with keycloak ID '${keycloakId}' error: '${JSON.stringify(await res.json())}'`);
+		}
+
+		const groups = (await res.json() as { name: string }[]).map(group => group.name);
+
+		this.keycloakUserGroupsMap.set(keycloakId, groups);
+
+		return groups;
+	}
+
 	public static async getUserByKeycloakId(keycloakConfig: KeycloakConfig, keycloakId: string): Promise<KeycloakUser | null> {
 		await this.checkAndQueryToken(keycloakConfig);
 

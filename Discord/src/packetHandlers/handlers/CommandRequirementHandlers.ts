@@ -10,13 +10,24 @@ import i18n from "../../translations/i18n";
 import {RequirementGuildRolePacket} from "../../../../Lib/src/packets/commands/requirements/RequirementGuildRolePacket";
 import {RequirementLevelPacket} from "../../../../Lib/src/packets/commands/requirements/RequirementLevelPacket";
 import {RequirementRightPacket} from "../../../../Lib/src/packets/commands/requirements/RequirementRightPacket";
+import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 
 export default class CommandRequirementHandlers {
 	@packetHandler(RequirementEffectPacket)
 	async requirementEffect(packet: RequirementEffectPacket, context: PacketContext): Promise<void> {
 		const keycloakUser = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!);
-		if (keycloakUser && context.discord?.language) {
-			effectsErrorTextValue(keycloakUser, context.discord?.language, true, packet.currentEffectId, packet.remainingTime);
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		if (keycloakUser) {
+			const effectsText = effectsErrorTextValue(keycloakUser, context.discord!.language!, true, packet.currentEffectId, packet.remainingTime);
+			interaction?.reply({
+				embeds: [
+					new DraftBotEmbed()
+						.setErrorColor()
+						.setTitle(effectsText.title)
+						.setDescription(effectsText.description)
+				],
+				ephemeral: true
+			});
 		}
 	}
 

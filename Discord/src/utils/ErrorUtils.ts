@@ -114,8 +114,10 @@ export function effectsErrorTextValue(user: KeycloakUser, lng: Language, self: b
 		errorMessageObject.description += i18n.t("error:notPossibleWithoutStatus", {lng});
 		break;
 	case Effect.NOT_STARTED.id:
+		errorMessageObject.description += i18n.t(self ? "error:effects.notStartedHint.self" : "error:effects.notStartedHint.other", {lng});
+		break;
 	case Effect.DEAD.id:
-		errorMessageObject.description += i18n.t(self ? `error:effects.${effectId}.self` : `error:effects.${effectId}.other`, {lng});
+		errorMessageObject.description += i18n.t(self ? "error:effects.deadHint.self" : "error:effects.deadHint.other", {lng});
 		break;
 	default:
 		errorMessageObject.description += i18n.t(self ? "error:pleaseWaitForHeal" : "error:pleaseWaitForHisHeal", {

@@ -33,6 +33,7 @@ import {DiscordCache} from "../bot/DiscordCache";
 import {BotUtils} from "../utils/BotUtils";
 import {LANGUAGE} from "../../../Lib/src/Language";
 import {PacketUtils} from "../utils/PacketUtils";
+import {RightGroup} from "../../../Lib/src/enums/RightGroup";
 
 export class CommandsManager {
 	static commands = new Map<string, ICommand>();
@@ -389,7 +390,8 @@ export class CommandsManager {
 					channel: interaction.channel.id,
 					interaction: interaction.id,
 					language: interaction.userLanguage
-				}
+				},
+				rightGroups: await KeycloakUtils.getUserGroups(keycloakConfig, user.id) as RightGroup[]
 			};
 
 			PacketUtils.sendPacketToBackend(context, packet);
