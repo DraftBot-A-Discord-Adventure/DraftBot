@@ -1604,7 +1604,8 @@ export const DraftBotIcons: {
 	"unitValues": {
 		"score": "🏅",
 		"money": "💰",
-		"xp": "⭐"
+		"xp": "⭐",
+		"gem": "💎"
 	},
 	"shopItems": {
 		"randomItem": "❓",
@@ -1633,6 +1634,10 @@ export const DraftBotIcons: {
 		}
 	},
 	"missions": {
-		"expired": "📤"
+		"expired": "📤",
+		"daily": "📅",
+		"campaign": "📖",
+		"sideMission": "📜",
+		"total": "🧾"
 	}
 };

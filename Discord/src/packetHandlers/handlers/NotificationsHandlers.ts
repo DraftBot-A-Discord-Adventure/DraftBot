@@ -19,6 +19,7 @@ import {EmoteUtils} from "../../utils/EmoteUtils";
 import {GiveFoodToGuildPacket} from "../../../../Lib/src/packets/utils/GiveFoodToGuildPacket";
 import {NoFoodSpaceInGuildPacket} from "../../../../Lib/src/packets/utils/NoFoodSpaceInGuildPacket";
 import {MissionUtils} from "../../utils/MissionUtils";
+import {CompletedMissionType} from "../../../../Lib/src/interfaces/CompletedMission";
 
 export default class NotificationsHandlers {
 	@packetHandler(CommandReportChooseDestinationRes)
@@ -68,7 +69,80 @@ export default class NotificationsHandlers {
 
 	@packetHandler(MissionsCompletedPacket)
 	async missionsCompleted(packet: MissionsCompletedPacket, context: PacketContext): Promise<void> {
-		// Todo
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId!))!;
+		if (!user.attributes.discordId) {
+			throw new Error(`User of keycloakId ${packet.keycloakId} has no discordId`);
+		}
+		const discordUser = draftBotClient.users.cache.get(user.attributes.discordId[0]);
+		if (!interaction || !discordUser) {
+			return;
+		}
+
+		const completedMissionsEmbed = new DraftBotEmbed();
+		completedMissionsEmbed.formatAuthor(i18n.t("notifications:missions.completed.title", {
+			lng: interaction.userLanguage,
+			count: packet.missions.length,
+			pseudo: discordUser.username
+		}), discordUser);
+
+		let sideMissions = "";
+		let dailyMission = "";
+		let campaignMissions = "";
+		let totalGems = 0;
+		let totalXP = 0;
+		for (const mission of packet.missions) {
+			totalGems += mission.gemsToWin;
+			totalXP += mission.xpToWin;
+			if (mission.completedMissionType === CompletedMissionType.NORMAL) {
+				sideMissions += MissionUtils.formatCompletedMission(mission, interaction.userLanguage);
+			}
+			else if (mission.completedMissionType === CompletedMissionType.CAMPAIGN) {
+				campaignMissions += MissionUtils.formatCompletedMission(mission, interaction.userLanguage);
+			}
+			else {
+				dailyMission += MissionUtils.formatCompletedMission(mission, interaction.userLanguage);
+			}
+		}
+		if (campaignMissions.length !== 0) {
+			completedMissionsEmbed.addFields({
+				name: i18n.t("notifications:missions.completed.campaign", {
+					lng: interaction.userLanguage,
+					count: packet.missions.filter(mission => mission.completedMissionType === CompletedMissionType.CAMPAIGN).length
+				}),
+				value: campaignMissions
+			});
+		}
+		if (dailyMission.length !== 0) {
+			completedMissionsEmbed.addFields({
+				name: i18n.t("notifications:missions.completed.daily", {
+					lng: interaction.userLanguage,
+					count: packet.missions.filter(mission => mission.completedMissionType === CompletedMissionType.DAILY).length
+				}),
+				value: dailyMission
+			});
+		}
+		if (sideMissions.length !== 0) {
+			completedMissionsEmbed.addFields({
+				name: i18n.t("notifications:missions.completed.sideMissions", {
+					lng: interaction.userLanguage,
+					count: packet.missions.filter(mission => mission.completedMissionType === CompletedMissionType.NORMAL).length
+				}),
+				value: sideMissions
+			});
+		}
+		if (packet.missions.length > 1) {
+			completedMissionsEmbed.addFields({
+				name: i18n.t("notifications:missions.completed.totalRewards", {
+					lng: interaction.userLanguage
+				}),
+				value: i18n.t("notifications:missions.completed.totalDisplay", {
+					lng: interaction.userLanguage,
+					gems: totalGems,
+					xp: totalXP
+				})
+			});
+		}
 	}
 
 	@packetHandler(MissionsExpiredPacket)

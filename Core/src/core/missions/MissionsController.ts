@@ -76,7 +76,7 @@ export class MissionsController {
 		const completedMissions = await MissionsController.completeAndUpdateMissions(player, missionSlots, specialMissionCompletion);
 		if (completedMissions.length !== 0) {
 			player = await MissionsController.updatePlayerStats(player, missionInfo, completedMissions, response);
-			response.push(makePacket(MissionsCompletedPacket, {missions: completedMissions}));
+			response.push(makePacket(MissionsCompletedPacket, {missions: completedMissions, keycloakId: player.keycloakId}));
 		}
 		return player;
 	}
