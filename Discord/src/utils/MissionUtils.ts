@@ -1,4 +1,4 @@
-import {BaseMission} from "../../../Lib/src/interfaces/CompletedMission";
+import {BaseMission, CompletedMission} from "../../../Lib/src/interfaces/CompletedMission";
 import {Language} from "../../../Lib/src/Language";
 import i18n from "../translations/i18n";
 import {MissionUtils as MissionUtilsLib} from "../../../Lib/src/utils/MissionUtils";
@@ -16,6 +16,33 @@ export class MissionUtils {
 			lng,
 			count: mission.missionObjective,
 			variantText: this.getVariantText(mission, lng)
+		});
+	}
+
+	/**
+	 * Get the displayable version of a completed mission
+	 * @param mission
+	 * @param lng
+	 */
+	static formatCompletedMission(mission: CompletedMission, lng: Language): string {
+		const rewards = [
+			{ value: mission.pointsToWin, key: "pointsDisplay" },
+			{ value: mission.gemsToWin, key: "gemsDisplay"},
+			{ value: mission.moneyToWin, key: "moneyDisplay"},
+			{ value: mission.xpToWin, key: "xpDisplay" }
+		];
+
+		const rewardDisplays = rewards
+			.filter(reward => reward.value > 0)
+			.map(reward => i18n.t(`notifications:missions.completed.${reward.key}`, {
+				count: reward.value,
+				lng
+			}));
+
+		return i18n.t("notifications:missions.completed.missionDisplay", {
+			lng,
+			missionDescription: this.formatBaseMission(mission, lng),
+			missionsReward: rewardDisplays.length === 0 ? "" : ` (${rewardDisplays.join(", ")})`
 		});
 	}
 
