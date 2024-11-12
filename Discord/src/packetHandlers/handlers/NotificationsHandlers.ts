@@ -5,7 +5,7 @@ import i18n from "../../translations/i18n";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {CommandReportChooseDestinationRes} from "../../../../Lib/src/packets/commands/CommandReportPacket";
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
-import {keycloakConfig} from "../../bot/DraftBotShard";
+import {draftBotClient, keycloakConfig} from "../../bot/DraftBotShard";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 import {minutesToHours} from "../../../../Lib/src/utils/TimeUtils";
 import {GuildLevelUpPacket} from "../../../../Lib/src/packets/events/GuildLevelUpPacket";
@@ -18,6 +18,7 @@ import {PlayerReceivePetPacket} from "../../../../Lib/src/packets/events/PlayerR
 import {EmoteUtils} from "../../utils/EmoteUtils";
 import {GiveFoodToGuildPacket} from "../../../../Lib/src/packets/utils/GiveFoodToGuildPacket";
 import {NoFoodSpaceInGuildPacket} from "../../../../Lib/src/packets/utils/NoFoodSpaceInGuildPacket";
+import {MissionUtils} from "../../utils/MissionUtils";
 
 export default class NotificationsHandlers {
 	@packetHandler(CommandReportChooseDestinationRes)
@@ -72,7 +73,33 @@ export default class NotificationsHandlers {
 
 	@packetHandler(MissionsExpiredPacket)
 	async missionsExpired(packet: MissionsExpiredPacket, context: PacketContext): Promise<void> {
-		// Todo
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId!))!;
+		if (!user.attributes.discordId) {
+			throw new Error(`User of keycloakId ${packet.keycloakId} has no discordId`);
+		}
+		const discordUser = draftBotClient.users.cache.get(user.attributes.discordId[0]);
+		if (!interaction || !discordUser) {
+			return;
+		}
+		let missionsExpiredDescription = "";
+		for (const mission of packet.missions) {
+			missionsExpiredDescription += `- ${MissionUtils.formatBaseMission(mission, interaction.userLanguage)} (${mission.numberDone}/${mission.missionObjective})\n`;
+		}
+		await interaction.channel.send({
+			embeds: [
+				new DraftBotEmbed()
+					.formatAuthor(i18n.t("notifications:missions.expired.title", {
+						count: packet.missions.length,
+						lng: interaction.userLanguage,
+						pseudo: user.username
+					}), discordUser)
+					.setDescription(i18n.t("notifications:missions.expired.description", {
+						lng: interaction.userLanguage,
+						count: packet.missions.length,
+						missionsExpired: missionsExpiredDescription
+					}))]
+		});
 	}
 
 	@packetHandler(PlayerDeathPacket)

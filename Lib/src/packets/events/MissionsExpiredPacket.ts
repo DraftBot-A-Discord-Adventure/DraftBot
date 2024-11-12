@@ -1,11 +1,9 @@
 import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
+import {BaseMission} from "../../interfaces/CompletedMission";
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class MissionsExpiredPacket extends DraftBotPacket {
-	missions!: {
-        missionId: string,
-        objective: number
-        variant: number,
-        numberDone: number
-    }[];
+	keycloakId!: string;
+
+	missions!: BaseMission[];
 }

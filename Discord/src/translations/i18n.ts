@@ -72,14 +72,14 @@ function draftbotFormat(str: string): string {
 
 i18next.init(getI18nOptions()).then();
 
-export class I18n {
+export class I18nDraftbot {
 
 	/**
 	 * Translate the given key with the given options and returns all the objects found
 	 * @param key
 	 * @param options
 	 */
-	static t(key: string, options: {
+	static t(key: string | string[], options: {
 		lng: Language,
 		returnObjects: true
 	} & i18next.TOptions): string[];
@@ -89,7 +89,7 @@ export class I18n {
 	 * @param key
 	 * @param options
 	 */
-	static t(key: string, options: {
+	static t(key: string | string[], options: {
 		lng: Language,
 		returnObjects?: false
 	} & i18next.TOptions): string;
@@ -103,7 +103,7 @@ export class I18n {
 	 * @param key
 	 * @param options
 	 */
-	static t(key: string, options: {
+	static t(key: string | string[], options: {
 		lng: Language
 	} & i18next.TOptions): string | string[] {
 		const value: string | string[] = i18next.t(key, options);
@@ -114,6 +114,6 @@ export class I18n {
 	}
 }
 
-const i18n = I18n;
+const i18n = I18nDraftbot;
 
 export default i18n;

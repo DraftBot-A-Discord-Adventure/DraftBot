@@ -1,0 +1,10 @@
+{
+  "missions": {
+    "expired": {
+      "title_one": "{pseudo}, une mission a expiré",
+      "title_other": "{pseudo}, des missions ont expiré",
+      "description_one": "{emote:missions.expired} **La mission suivante a expiré :**\n{missionsExpired}",
+      "description_other": "{emote:missions.expired} **Les missions suivantes ont expiré :**\n{missionsExpired}"
+    }
+  }
+}
