@@ -84,7 +84,10 @@ export const DraftBotIcons: {
 		sendLocation: string,
 		back: string,
 		types: { [notificationId: string]: string }
-	}
+	},
+	missions: {
+		[missionId: string]: string
+	},
 } = {
 	"effects": {
 		"not_started": "👶",
@@ -1600,7 +1603,8 @@ export const DraftBotIcons: {
 	},
 	"unitValues": {
 		"score": "🏅",
-		"money": "💰"
+		"money": "💰",
+		"xp": "⭐"
 	},
 	"shopItems": {
 		"randomItem": "❓",
@@ -1627,5 +1631,8 @@ export const DraftBotIcons: {
 			"report": "📰",
 			"guildDaily": "🏟️"
 		}
+	},
+	"missions": {
+		"expired": "📤"
 	}
 };

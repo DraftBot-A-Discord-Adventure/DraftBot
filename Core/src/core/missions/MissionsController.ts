@@ -15,6 +15,7 @@ import {draftBotInstance} from "../../index";
 import {Mission, MissionDataController} from "../../data/Mission";
 import {MissionsCompletedPacket} from "../../../../Lib/src/packets/events/MissionsCompletedPacket";
 import {CompletedMission, CompletedMissionType} from "../../../../Lib/src/interfaces/CompletedMission";
+import {FightActionController} from "../fights/actions/FightActionController";
 
 type MissionInformations = {
 	missionId: string,
@@ -146,24 +147,22 @@ export class MissionsController {
 	}
 
 	static async updatePlayerStats(player: Player, missionInfo: PlayerMissionsInfo, completedMissions: CompletedMission[], response: DraftBotPacket[]): Promise<Player> {
-		const totalizer = <K extends keyof CompletedMission>(key: K & (CompletedMission[K] extends number ? K : never)): number => completedMissions.map(
-			(mission) => mission[key]
-		).reduce((a, b) => a + b, 0);
+		const totalizer = (mapper: (m: CompletedMission) => number): number => completedMissions.map(mapper).reduce((a, b) => a + b);
 
-		await missionInfo.addGems(totalizer("gemsToWin"), player.keycloakId, NumberChangeReason.MISSION_FINISHED);
+		await missionInfo.addGems(totalizer((m) => m.gemsToWin), player.keycloakId, NumberChangeReason.MISSION_FINISHED);
 
 		player = await player.addExperience({
-			amount: totalizer("xpToWin"),
+			amount: totalizer((m) => m.xpToWin),
 			response,
 			reason: NumberChangeReason.MISSION_FINISHED
 		});
 		player = await player.addMoney({
-			amount: totalizer("moneyToWin"),
+			amount: totalizer((m) => m.moneyToWin),
 			response,
 			reason: NumberChangeReason.MISSION_FINISHED
 		});
 		player = await player.addScore({
-			amount: totalizer("pointsToWin"),
+			amount: totalizer((m) => m.pointsToWin),
 			response,
 			reason: NumberChangeReason.MISSION_FINISHED
 		});
@@ -185,10 +184,16 @@ export class MissionsController {
 			return;
 		}
 
-		const packet: MissionsExpiredPacket = {missions: []};
+		const packet: MissionsExpiredPacket = {missions: [], keycloakId: player.keycloakId};
 		for (const mission of expiredMissions) {
 			packet.missions.push(mission.toJSON());
 		}
+		packet.missions.forEach((mission) => {
+			// Manage the case where the mission needs a fight action id
+			if (["fightAttacks", "finishWithAttack"].includes(mission.missionId)) {
+				mission.fightAction = FightActionController.variantToFightActionId(mission.missionVariant);
+			}
+		});
 		response.push(makePacket(MissionsExpiredPacket, packet));
 		await player.save();
 	}
@@ -323,7 +328,7 @@ export class MissionsController {
 	private static async checkMissionSlots(missionInterface: IMission, missionInformations: MissionInformations, missionSlots: MissionSlot[]): Promise<boolean> {
 		let completedCampaign = false;
 		for (const mission of missionSlots.filter((missionSlot) => missionSlot.missionId === missionInformations.missionId)) {
-			if (missionInterface.areParamsMatchingVariantAndBlob(...mission)
+			if (missionInterface.areParamsMatchingVariantAndBlob(mission.missionVariant, missionInformations.params, mission.saveBlob)
 				&& !mission.hasExpired() && !mission.isCompleted()
 			) {
 				await this.updateMission(mission, missionInformations);

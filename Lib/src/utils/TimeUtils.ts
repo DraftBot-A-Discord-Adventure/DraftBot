@@ -4,7 +4,13 @@ import {LANGUAGE} from "../Language";
  * Get the elements to display a remaining time in the given language
  * @param language
  */
-function getMinutesDisplayStringConstants(language: string): { hoursDisplay: string; minutesDisplay: string; secondsDisplay: string; plural: string; linkWord: string } {
+function getMinutesDisplayStringConstants(language: string): {
+	hoursDisplay: string;
+	minutesDisplay: string;
+	secondsDisplay: string;
+	plural: string;
+	linkWord: string
+} {
 	return language === "" ? {
 		hoursDisplay: "H",
 		minutesDisplay: "Min",
@@ -104,6 +110,14 @@ export function millisecondsToHours(milliseconds: number): number {
  */
 export function millisecondsToSeconds(milliseconds: number): number {
 	return milliseconds / 1000;
+}
+
+/**
+ * Convert hours to seconds
+ * @param seconds
+ */
+export function hoursToSeconds(seconds: number): number {
+	return seconds * 3600;
 }
 
 /**

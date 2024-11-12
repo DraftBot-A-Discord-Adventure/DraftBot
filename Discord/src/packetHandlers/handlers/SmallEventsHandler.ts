@@ -66,6 +66,7 @@ import {SmallEventUltimateFoodMerchantPacket} from "../../../../Lib/src/packets/
 import {EmoteUtils} from "../../utils/EmoteUtils";
 import {SmallEventCartPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventCartPacket";
 import {cartResult} from "../../smallEvents/cart";
+import {SmallEventFindMissionPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFindMissionPacket";
 
 
 export function getRandomSmallEventIntro(language: Language): string {
@@ -319,7 +320,7 @@ export default class SmallEventsHandler {
 	async smallEventInteractOtherPlayersRefuseToGivePoor(packet: SmallEventInteractOtherPlayersRefuseToGivePoorPacket, context: PacketContext): Promise<void> {
 		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = context.discord!.buttonInteraction ? DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!) : DiscordCache.getInteraction(context.discord!.interaction!);
-		await interaction!.editReply({
+		await interaction?.editReply({
 			embeds: [
 				new DraftbotSmallEventEmbed(
 					"interactOtherPlayers",
@@ -754,5 +755,10 @@ export default class SmallEventsHandler {
 	@packetHandler(SmallEventShopPacket)
 	async smallEventShop(packet: SmallEventShopPacket, context: PacketContext): Promise<void> {
 		// Todo
+	}
+
+	@packetHandler(SmallEventFindMissionPacket)
+	async smallEventFindMission(packet: SmallEventFindMissionPacket, context: PacketContext): Promise<void> {
+		// TODO
 	}
 }

@@ -54,12 +54,17 @@ export class Campaign {
 				break;
 			}
 			const prop = CampaignData.getMissions()[missionInfo.campaignProgression - 1];
-			campaign = {
-				...campaign.toJSON(),
-				...prop
-			};
-			campaign.numberDone = await MissionsController.getMissionInterface(prop.missionId).initialNumberDone(player, prop.missionVariant) as number;
-			campaign.saveBlob = null;
+			Object.assign(campaign, {
+				...campaign,
+				missionVariant: prop.missionVariant,
+				gemsToWin: prop.gemsToWin,
+				xpToWin: prop.xpToWin,
+				numberDone: await MissionsController.getMissionInterface(prop.missionId).initialNumberDone(player, prop.missionVariant) as number,
+				missionId: prop.missionId,
+				missionObjective: prop.missionObjective,
+				moneyToWin: prop.moneyToWin,
+				saveBlob: null
+			});
 			firstMissionChecked = true;
 		}
 		if (completedMissions.length !== 0 || !completedCampaign) {
