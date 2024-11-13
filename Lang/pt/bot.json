@@ -20,5 +20,10 @@
   "supportAlert": ":love_letter: \n {{username}} {{id}}\n\n**Nova mensagem privada recebida!** `Autor: (id : ) `",
   "topWeekAnnouncement": ":trophy: **As classificações desta semana terminaram! {{mention}}O vencedor é:**",
   "topWeekAnnouncementNoWinner": ":trophy: **As classificações desta semana estão completas! Infelizmente, não há participantes e, portanto, não há vencedores esta semana **.",
-  "totalUsersCount": "{{count}}**Número total de utilizadores: ` `**"
+  "totalUsersCount": "{{count}}**Número total de utilizadores: ` `**",
+  "notificationTitle": "Notificação",
+  "notificationFooter": "Está a receber esta mensagem porque as notificações estão activadas. {command:notifications}Para alterar esta definição, utilize o comando",
+  "notificationsNoChannelAccess": "Parece que o bot não tem mais acesso à sua sala de notificação, as notificações agora serão em mensagens privadas. {command:notifications}Para alterar o modo de notificação, por favor, execute o comando .",
+  "notificationReachDestination": "{{destination}}Chegou a !",
+  "notificationGuildDaily": "{{pseudo}}** ** recolheu o bónus diário da sua guilda.{{reward}}A recompensa é ** **."
 }
