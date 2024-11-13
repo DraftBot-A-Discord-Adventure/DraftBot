@@ -91,7 +91,7 @@ export class DiscordMQTT {
 				err ? console.error(err) : console.log(`Subscribed to topic ${MqttConstants.NOTIFICATIONS}`));
 		});
 
-		DiscordMQTT.notificationMqttClient.on("message", async (topic, message) => {
+		DiscordMQTT.notificationMqttClient.on("message", (topic, message) => {
 			if (topic === MqttConstants.NOTIFICATIONS) {
 				if (message.toString() === "") {
 					return;
@@ -101,7 +101,7 @@ export class DiscordMQTT {
 				console.log(`Received notification message from topic ${topic}: ${messageString}`);
 
 				const serializedPacket: NotificationsSerializedPacket = JSON.parse(messageString);
-				await NotificationsHandler.sendNotifications(serializedPacket);
+				NotificationsHandler.sendNotifications(serializedPacket);
 			}
 		});
 	}

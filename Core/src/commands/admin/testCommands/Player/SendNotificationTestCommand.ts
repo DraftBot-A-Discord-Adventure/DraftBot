@@ -3,6 +3,7 @@ import {PacketUtils} from "../../../../core/utils/PacketUtils";
 import {makePacket} from "../../../../../../Lib/src/packets/DraftBotPacket";
 import {ReachDestinationNotificationPacket} from "../../../../../../Lib/src/packets/notifications/ReachDestinationNotificationPacket";
 import {MapLocationDataController} from "../../../../data/MapLocation";
+import {GuildDailyNotificationPacket} from "../../../../../../Lib/src/packets/notifications/GuildDailyNotificationPacket";
 
 export const commandInfo: ITestCommand = {
 	name: "sendnotification",
@@ -19,9 +20,17 @@ export const commandInfo: ITestCommand = {
  */
 const sendNotificationTestCommand: ExecuteTestCommandLike = (player, args) => {
 	if (args[0] === "report") {
+		const map = MapLocationDataController.instance.getRandomGotoableMap();
 		PacketUtils.sendNotifications([makePacket(ReachDestinationNotificationPacket, {
 			keycloakId: player.keycloakId,
-			mapId: MapLocationDataController.instance.getRandomGotoableMap().id
+			mapType: map.type,
+			mapId: map.id
+		})]);
+	}
+	else if (args[0] === "gd") {
+		PacketUtils.sendNotifications([makePacket(GuildDailyNotificationPacket, {
+			keycloakId: player.keycloakId,
+			keycloakIdOfExecutor: player.keycloakId
 		})]);
 	}
 	else {

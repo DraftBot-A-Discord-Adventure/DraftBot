@@ -26,6 +26,7 @@ import {TopWeekFightAnnouncementPacket} from "../../../../Lib/src/packets/announ
 import PlayerMissionsInfo from "../database/game/models/PlayerMissionsInfo";
 import {ScheduledReportNotifications} from "../database/game/models/ScheduledReportNotification";
 import {ReachDestinationNotificationPacket} from "../../../../Lib/src/packets/notifications/ReachDestinationNotificationPacket";
+import {MapLocationDataController} from "../../data/MapLocation";
 
 export class DraftBot {
 	public readonly packetListener: PacketListenerServer;
@@ -282,6 +283,7 @@ export class DraftBot {
 			if (notifications.length !== 0) {
 				PacketUtils.sendNotifications(notifications.map(notification => makePacket(ReachDestinationNotificationPacket, {
 					keycloakId: notification.keycloakId,
+					mapType: MapLocationDataController.instance.getById(notification.mapId).type,
 					mapId: notification.mapId
 				})));
 				await ScheduledReportNotifications.bulkDelete(notifications);

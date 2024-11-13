@@ -22,6 +22,7 @@ import {Language} from "../../../../Lib/src/Language";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {sendInteractionNotForYou} from "../../utils/ErrorUtils";
 import {NotificationSendType, NotificationSendTypeEnum} from "../../notifications/NotificationSendType";
+import {NotificationsTypes} from "../../notifications/NotificationType";
 
 /**
  * Map of the current notification configuration collectors
@@ -33,55 +34,7 @@ import {NotificationSendType, NotificationSendTypeEnum} from "../../notification
 // eslint-disable-next-line func-call-spacing
 const currentCollectors = new Map<string, () => void>();
 
-type NotificationType = {
-	emote: string,
-	customId: string,
-	i18nKey: string,
-	value: (notificationsConfiguration: NotificationsConfiguration) => {
-		enabled: boolean,
-		sendType: NotificationSendTypeEnum,
-		channelId?: string
-	},
-	toggleCallback: (notificationsConfiguration: NotificationsConfiguration) => void;
-	changeSendTypeCallback: (notificationsConfiguration: NotificationsConfiguration, sendType: NotificationSendTypeEnum, channelId: string) => void;
-}
 
-const notificationTypes: NotificationType[] = [
-	{
-		emote: DraftBotIcons.notifications.types.report,
-		customId: "report",
-		i18nKey: "commands:notifications.types.report",
-		value: (notificationsConfiguration) => ({
-			enabled: notificationsConfiguration.reportEnabled,
-			sendType: notificationsConfiguration.reportSendType,
-			channelId: notificationsConfiguration.reportChannelId
-		}),
-		toggleCallback: (notificationsConfiguration): void => {
-			notificationsConfiguration.reportEnabled = !notificationsConfiguration.reportEnabled;
-		},
-		changeSendTypeCallback: (notificationsConfiguration, sendType, channelId): void => {
-			notificationsConfiguration.reportSendType = sendType;
-			notificationsConfiguration.reportChannelId = channelId;
-		}
-	},
-	{
-		emote: DraftBotIcons.notifications.types.guildDaily,
-		customId: "guildDaily",
-		i18nKey: "commands:notifications.types.guildDaily",
-		value: (notificationsConfiguration) => ({
-			enabled: notificationsConfiguration.guildDailyEnabled,
-			sendType: notificationsConfiguration.guildDailySendType,
-			channelId: notificationsConfiguration.guildDailyChannelId
-		}),
-		toggleCallback: (notificationsConfiguration): void => {
-			notificationsConfiguration.guildDailyEnabled = !notificationsConfiguration.guildDailyEnabled;
-		},
-		changeSendTypeCallback: (notificationsConfiguration, sendType, channelId): void => {
-			notificationsConfiguration.guildDailySendType = sendType;
-			notificationsConfiguration.guildDailyChannelId = channelId;
-		}
-	}
-];
 
 const backButtonCustomId = "back";
 const forceStopReason = "force";
@@ -116,7 +69,7 @@ async function mainPage(interaction: DraftbotInteraction | ButtonInteraction, no
 		.setCustomId(chooseEnabledCustomId)
 		.setLabel(i18n.t("commands:notifications.enableDisable", { lng }))
 		.setStyle(ButtonStyle.Secondary));
-	const allTypesDisabled = notificationTypes.every(notificationType => !notificationType.value(notificationsConfiguration).enabled);
+	const allTypesDisabled = NotificationsTypes.ALL.every(notificationType => !notificationType.value(notificationsConfiguration).enabled);
 	if (!allTypesDisabled) {
 		row.addComponents(new ButtonBuilder()
 			.setEmoji(parseEmoji(chooseSendTypeEmoji)!)
@@ -174,7 +127,7 @@ async function mainPage(interaction: DraftbotInteraction | ButtonInteraction, no
 
 function getSettingsRows(notificationsConfiguration: NotificationsConfiguration, keepOnlyEnabled: boolean, lng: Language): ActionRowBuilder<ButtonBuilder>[] {
 	const rowNotifications = new ActionRowBuilder<ButtonBuilder>();
-	notificationTypes.forEach(notificationType => {
+	NotificationsTypes.ALL.forEach(notificationType => {
 		if (keepOnlyEnabled && !notificationType.value(notificationsConfiguration).enabled) {
 			return;
 		}
@@ -223,7 +176,7 @@ async function chooseEnabled(buttonInteraction: ButtonInteraction, notifications
 			return;
 		}
 
-		const notificationType = notificationTypes.find(notificationType => notificationType.customId === collectorButtonInteraction.customId);
+		const notificationType = NotificationsTypes.ALL.find(notificationType => notificationType.customId === collectorButtonInteraction.customId);
 		if (notificationType) {
 			notificationType.toggleCallback(notificationsConfiguration);
 			const embed = getNotificationsEmbed(notificationsConfiguration, collectorButtonInteraction.user, lng, i18n.t("commands:notifications.footerEnableDisable", { lng }));
@@ -272,7 +225,7 @@ async function chooseSendType(buttonInteraction: ButtonInteraction, notification
 			return;
 		}
 
-		const notificationType = notificationTypes.find(notificationType => notificationType.customId === collectorButtonInteraction.customId);
+		const notificationType = NotificationsTypes.ALL.find(notificationType => notificationType.customId === collectorButtonInteraction.customId);
 		if (notificationType) {
 			notificationType.changeSendTypeCallback(
 				notificationsConfiguration,
@@ -300,7 +253,7 @@ async function chooseSendType(buttonInteraction: ButtonInteraction, notification
 
 function getNotificationsEmbed(notificationsConfiguration: NotificationsConfiguration, user: User, lng: Language, footer?: string): DraftBotEmbed {
 	let description = "";
-	notificationTypes.forEach(notificationType => {
+	NotificationsTypes.ALL.forEach(notificationType => {
 		const notificationTypeValue = notificationType.value(notificationsConfiguration);
 		const sendLocation = NotificationSendType.toString(notificationTypeValue.sendType, lng, notificationTypeValue.channelId);
 		description +=
