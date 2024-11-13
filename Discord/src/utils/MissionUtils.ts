@@ -56,27 +56,26 @@ export class MissionUtils {
 		if (mission.missionId === "fromPlaceToPlace") {
 			return this.manageFromPlaceToPlaceVariant(mission, lng);
 		}
-		if (["fightAttacks", "finishWithAttack"].includes(mission.missionId)) {
-			// TODO: remove above if and below if, before release : throw if fightAction is not set
-			if (!mission.fightAction) {
-				throw new Error("fightAction is not set for a fight mission");
-			}
-			if (mission.missionId === "fightAttacks") {
-				return i18n.t("models:missionsVariants.fightAttacks", {
-					lng,
-					count: mission.missionObjective,
-					variant: mission.fightAction
-				});
-			}
-			return i18n.t("models:missionsVariants.finishWithAttack", {
+		if (!MissionUtilsLib.isRequiredFightActionId(mission)) {
+			return i18n.t(`models:missionsVariants.${mission.missionId}`, {
 				lng,
-				variant: mission.fightAction
-			}).toLowerCase();
+				variant: mission.missionVariant
+			});
 		}
-		return i18n.t(`models:missionsVariants.${mission.missionId}`, {
+		if (!mission.fightAction) {
+			throw new Error("fightAction is not set for a fight mission");
+		}
+		if (mission.missionId === "fightAttacks") {
+			return i18n.t("models:missionsVariants.fightAttacks", {
+				lng,
+				count: mission.missionObjective,
+				variant: mission.fightAction
+			});
+		}
+		return i18n.t("models:missionsVariants.finishWithAttack", {
 			lng,
-			variant: mission.missionVariant
-		});
+			variant: mission.fightAction
+		}).toLowerCase();
 	}
 
 	/**

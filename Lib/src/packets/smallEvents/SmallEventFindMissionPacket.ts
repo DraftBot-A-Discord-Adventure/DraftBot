@@ -4,5 +4,5 @@ import {BaseMission} from "../../interfaces/CompletedMission";
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class SmallEventFindMissionPacket extends SmallEventPacket {
-	foundMission!: BaseMission;
+	mission!: BaseMission;
 }
