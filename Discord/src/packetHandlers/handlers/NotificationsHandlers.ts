@@ -27,38 +27,37 @@ export default class NotificationsHandlers {
 		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 
-		if (interaction) {
-			const embed = new DraftBotEmbed();
-			embed.formatAuthor(i18n.t("commands:report.destinationTitle", {
-				lng: interaction.userLanguage,
-				pseudo: user.attributes.gameUsername
-			}), interaction.user);
-
-			let time = packet.tripDuration;
-			let i18nTr: string;
-			if (time < 60) {
-				i18nTr = "commands:report.choseMapMinutes";
-			}
-			else {
-				time = Math.round(minutesToHours(packet.tripDuration));
-				i18nTr = "commands:report.choseMap";
-			}
-			embed.setDescription(i18n.t(i18nTr, {
-				count: time,
-				lng: interaction.userLanguage,
-				mapPrefix: i18n.t(`models:map_types.${packet.mapTypeId}.prefix`, {lng: interaction.userLanguage}),
-				mapType: (i18n.t(`models:map_types.${packet.mapTypeId}.name`, {lng: interaction.userLanguage}) as string).toLowerCase(),
-				mapEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.map_types[packet.mapTypeId]),
-				mapName: i18n.t(`models:map_locations.${packet.mapId}.name`, {lng: interaction.userLanguage}),
-				time
-			}));
-
-			if (context.discord?.buttonInteraction) {
-				await DiscordCache.getButtonInteraction(context.discord?.buttonInteraction)?.editReply({embeds: [embed]});
-			}
-			else {
-				await interaction?.channel.send({embeds: [embed]});
-			}
+		if (!interaction) {
+			return;
+		}
+		const embed = new DraftBotEmbed();
+		embed.formatAuthor(i18n.t("commands:report.destinationTitle", {
+			lng: interaction.userLanguage,
+			pseudo: user.attributes.gameUsername
+		}), interaction.user);
+		let time = packet.tripDuration;
+		let i18nTr: string;
+		if (time < 60) {
+			i18nTr = "commands:report.choseMapMinutes";
+		}
+		else {
+			time = Math.round(minutesToHours(packet.tripDuration));
+			i18nTr = "commands:report.choseMap";
+		}
+		embed.setDescription(i18n.t(i18nTr, {
+			count: time,
+			lng: interaction.userLanguage,
+			mapPrefix: i18n.t(`models:map_types.${packet.mapTypeId}.prefix`, {lng: interaction.userLanguage}),
+			mapType: (i18n.t(`models:map_types.${packet.mapTypeId}.name`, {lng: interaction.userLanguage}) as string).toLowerCase(),
+			mapEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.map_types[packet.mapTypeId]),
+			mapName: i18n.t(`models:map_locations.${packet.mapId}.name`, {lng: interaction.userLanguage}),
+			time
+		}));
+		if (context.discord!.buttonInteraction) {
+			await DiscordCache.getButtonInteraction(context.discord!.buttonInteraction)?.editReply({embeds: [embed]});
+		}
+		else {
+			await interaction.channel.send({embeds: [embed]});
 		}
 	}
 
@@ -79,56 +78,31 @@ export default class NotificationsHandlers {
 			return;
 		}
 
-		const completedMissionsEmbed = new DraftBotEmbed();
-		completedMissionsEmbed.formatAuthor(i18n.t("notifications:missions.completed.title", {
+		const completedMissionsEmbed = new DraftBotEmbed().formatAuthor(i18n.t("notifications:missions.completed.title", {
 			lng: interaction.userLanguage,
 			count: packet.missions.length,
 			pseudo: discordUser.username
 		}), discordUser);
 
-		let sideMissions = "";
-		let dailyMission = "";
-		let campaignMissions = "";
+		const missionLists: Record<CompletedMissionType, string[]> = {
+			[CompletedMissionType.CAMPAIGN]: [],
+			[CompletedMissionType.DAILY]: [],
+			[CompletedMissionType.NORMAL]: []
+		};
 		let totalGems = 0;
 		let totalXP = 0;
 		for (const mission of packet.missions) {
 			totalGems += mission.gemsToWin;
 			totalXP += mission.xpToWin;
-			if (mission.completedMissionType === CompletedMissionType.NORMAL) {
-				sideMissions += MissionUtils.formatCompletedMission(mission, interaction.userLanguage);
-			}
-			else if (mission.completedMissionType === CompletedMissionType.CAMPAIGN) {
-				campaignMissions += MissionUtils.formatCompletedMission(mission, interaction.userLanguage);
-			}
-			else {
-				dailyMission += MissionUtils.formatCompletedMission(mission, interaction.userLanguage);
-			}
+			missionLists[mission.completedMissionType].push(MissionUtils.formatCompletedMission(mission, interaction.userLanguage));
 		}
-		if (campaignMissions.length !== 0) {
+		for (const [missionType, missions] of Object.entries(missionLists).filter(entry => entry[1].length !== 0)) {
 			completedMissionsEmbed.addFields({
-				name: i18n.t("notifications:missions.completed.campaign", {
+				name: i18n.t(`notifications:missions.completed.subcategories.${missionType}`, {
 					lng: interaction.userLanguage,
-					count: packet.missions.filter(mission => mission.completedMissionType === CompletedMissionType.CAMPAIGN).length
+					count: missions.length
 				}),
-				value: campaignMissions
-			});
-		}
-		if (dailyMission.length !== 0) {
-			completedMissionsEmbed.addFields({
-				name: i18n.t("notifications:missions.completed.daily", {
-					lng: interaction.userLanguage,
-					count: packet.missions.filter(mission => mission.completedMissionType === CompletedMissionType.DAILY).length
-				}),
-				value: dailyMission
-			});
-		}
-		if (sideMissions.length !== 0) {
-			completedMissionsEmbed.addFields({
-				name: i18n.t("notifications:missions.completed.sideMissions", {
-					lng: interaction.userLanguage,
-					count: packet.missions.filter(mission => mission.completedMissionType === CompletedMissionType.NORMAL).length
-				}),
-				value: sideMissions
+				value: missions.join("\n")
 			});
 		}
 		if (packet.missions.length > 1) {
@@ -143,6 +117,7 @@ export default class NotificationsHandlers {
 				})
 			});
 		}
+		await interaction.channel.send({embeds: [completedMissionsEmbed]});
 	}
 
 	@packetHandler(MissionsExpiredPacket)

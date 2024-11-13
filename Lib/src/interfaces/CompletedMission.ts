@@ -1,7 +1,7 @@
 export enum CompletedMissionType {
-	NORMAL,
-	DAILY,
-	CAMPAIGN
+	NORMAL = "sideMissions",
+	DAILY = "daily",
+	CAMPAIGN = "campaign"
 }
 
 export interface CompletedMission extends BaseMission {

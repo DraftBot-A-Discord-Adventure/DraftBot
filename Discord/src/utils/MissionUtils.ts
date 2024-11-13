@@ -26,10 +26,10 @@ export class MissionUtils {
 	 */
 	static formatCompletedMission(mission: CompletedMission, lng: Language): string {
 		const rewards = [
-			{ value: mission.pointsToWin, key: "pointsDisplay" },
-			{ value: mission.gemsToWin, key: "gemsDisplay"},
-			{ value: mission.moneyToWin, key: "moneyDisplay"},
-			{ value: mission.xpToWin, key: "xpDisplay" }
+			{value: mission.pointsToWin, key: "pointsDisplay"},
+			{value: mission.gemsToWin, key: "gemsDisplay"},
+			{value: mission.moneyToWin, key: "moneyDisplay"},
+			{value: mission.xpToWin, key: "xpDisplay"}
 		];
 
 		const rewardDisplays = rewards
