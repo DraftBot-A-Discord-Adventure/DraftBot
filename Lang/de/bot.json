@@ -20,5 +20,10 @@
   "supportAlert": ":love_letter: | ** Neue private Nachricht erhalten! ** \n' Verfasser: {{username}} (id : {{id}})",
   "topWeekAnnouncement": ":trophy: ** Die Rangliste der Woche ist beendet! Der Gewinner ist: ** {{mention}}",
   "topWeekAnnouncementNoWinner": ":trophy: **Die Rangliste der Woche ist fertig! Leider gibt es diese Woche keine Teilnehmer und somit auch keinen Gewinner.**",
-  "totalUsersCount": "** Gesamtzahl der Benutzer: '{{count}} ` * *"
+  "totalUsersCount": "** Gesamtzahl der Benutzer: '{{count}} ` * *",
+  "notificationTitle": "Benachrichtigung",
+  "notificationFooter": "Sie erhalten diese Nachricht, weil die Benachrichtigungen aktiviert sind. Um diese Einstellung zu ändern, verwenden Sie den Befehl {command:notifications}",
+  "notificationsNoChannelAccess": "❌ Es scheint, dass der Bot nicht mehr auf Ihren Benachrichtigungsraum zugreifen kann, die Benachrichtigungen werden nun in Form von privaten Nachrichten erfolgen. Um den Benachrichtigungsmodus zu ändern, führen Sie bitte den Befehl {command:notifications}.",
+  "notificationReachDestination": "Sie sind bei **{{destination}}** angekommen!",
+  "notificationGuildDaily": "**{{pseudo}}** hat den täglichen Bonus Ihrer Gilde abgeholt. Die Belohnung ist **{{reward}}**."
 }
