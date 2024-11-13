@@ -16,6 +16,7 @@ import {Mission, MissionDataController} from "../../data/Mission";
 import {MissionsCompletedPacket} from "../../../../Lib/src/packets/events/MissionsCompletedPacket";
 import {CompletedMission, CompletedMissionType} from "../../../../Lib/src/interfaces/CompletedMission";
 import {FightActionController} from "../fights/actions/FightActionController";
+import {MissionUtils} from "../../../../Lib/src/utils/MissionUtils";
 
 type MissionInformations = {
 	missionId: string,
@@ -76,7 +77,10 @@ export class MissionsController {
 		const completedMissions = await MissionsController.completeAndUpdateMissions(player, missionSlots, specialMissionCompletion);
 		if (completedMissions.length !== 0) {
 			player = await MissionsController.updatePlayerStats(player, missionInfo, completedMissions, response);
-			response.push(makePacket(MissionsCompletedPacket, {missions: completedMissions, keycloakId: player.keycloakId}));
+			response.push(makePacket(MissionsCompletedPacket, {
+				missions: completedMissions,
+				keycloakId: player.keycloakId
+			}));
 		}
 		return player;
 	}
@@ -127,6 +131,9 @@ export class MissionsController {
 				...mission.toJSON(),
 				gemsToWin: 0 // Don't win gems in secondary missions
 			});
+			if (MissionUtils.isRequiredFightActionId(mission)) {
+				completedMissions[completedMissions.length - 1].fightAction = FightActionController.variantToFightActionId(mission.missionVariant);
+			}
 			draftBotInstance.logsDatabase.logMissionFinished(player.keycloakId, mission.missionId, mission.missionVariant, mission.missionObjective)
 				.then();
 			await mission.destroy();
@@ -139,6 +146,9 @@ export class MissionsController {
 				moneyToWin: Math.round(dailyMission.moneyToWin * Constants.MISSIONS.DAILY_MISSION_MONEY_MULTIPLIER), // Daily missions gives less money than secondary missions
 				pointsToWin: Math.round(dailyMission.pointsToWin * Constants.MISSIONS.DAILY_MISSION_POINTS_MULTIPLIER) // Daily missions give more points than secondary missions
 			});
+			if (MissionUtils.isRequiredFightActionId(dailyMission as MissionSlot)) {
+				completedMissions[completedMissions.length - 1].fightAction = FightActionController.variantToFightActionId(dailyMission.variant);
+			}
 			draftBotInstance.logsDatabase.logMissionDailyFinished(player.keycloakId)
 				.then();
 		}

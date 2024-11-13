@@ -67,6 +67,7 @@ import {EmoteUtils} from "../../utils/EmoteUtils";
 import {SmallEventCartPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventCartPacket";
 import {cartResult} from "../../smallEvents/cart";
 import {SmallEventFindMissionPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFindMissionPacket";
+import {MissionUtils} from "../../utils/MissionUtils";
 
 
 export function getRandomSmallEventIntro(language: Language): string {
@@ -759,6 +760,22 @@ export default class SmallEventsHandler {
 
 	@packetHandler(SmallEventFindMissionPacket)
 	async smallEventFindMission(packet: SmallEventFindMissionPacket, context: PacketContext): Promise<void> {
-		// TODO
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		await interaction?.editReply({
+			embeds: [
+				new DraftbotSmallEventEmbed(
+					"findMission",
+					`${
+						getRandomSmallEventIntro(interaction.userLanguage)
+					}${
+						StringUtils.getRandomTranslation("smallEvents:findMission.intrigue", interaction.userLanguage)
+					}\n\n**${
+						MissionUtils.formatBaseMission(packet.mission)
+					}**`,
+					interaction.user,
+					interaction.userLanguage
+				)
+			]
+		});
 	}
 }

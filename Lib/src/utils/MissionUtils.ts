@@ -1,3 +1,5 @@
+import {BaseMission} from "../interfaces/CompletedMission";
+
 export type FromPlaceToPlaceBlobData = { startTimestamp: number, startMap: number };
 export type FromPlaceToPlaceParams = { fromMap: number, toMap: number, time: number, orderMatter: boolean };
 
@@ -16,5 +18,9 @@ export class MissionUtils {
 			time: variant & 0x3ff,
 			orderMatter: (variant & 0x40000000) !== 0
 		};
+	}
+
+	static isRequiredFightActionId(mission: BaseMission): boolean {
+		return ["fightAttacks", "finishWithAttack"].includes(mission.missionId);
 	}
 }
