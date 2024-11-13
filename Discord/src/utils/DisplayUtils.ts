@@ -155,4 +155,8 @@ export class DisplayUtils {
 		});
 		return itemWithDetails.id === 0 ? itemField.split("|")[0] : itemField;
 	}
+
+	static getMapLocationDisplay(mapType: string, mapLocationId: number, lng: Language): string {
+		return `${DraftBotIcons.map_types[mapType]} ${i18n.t(`models:map_locations.${mapLocationId}.name`, {lng})}`;
+	}
 }
