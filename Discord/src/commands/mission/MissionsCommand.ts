@@ -77,13 +77,13 @@ export async function handleCommandMissionsPacketRes(packet: CommandMissionsPack
 	const discordUser = draftBotClient.users.cache.get(keycloakUser.attributes.discordId[0]) as User;
 	const missionCommandEmbed = new DraftBotEmbed();
 
-	missionCommandEmbed.formatAuthor(i18n.t("commands.missions.title", {
+	missionCommandEmbed.formatAuthor(i18n.t("commands:missions.title", {
 		lng: interaction.userLanguage,
 		pseudo: discordUser.username
 	}), discordUser);
 
 	const campaignMission = packet.missions.find(mission => mission.missionType === MissionType.CAMPAIGN);
-	const campaignMissionDescription = `${i18n.t("commands.missions.subcategories.campaign", {
+	const campaignMissionDescription = `${i18n.t("commands:missions.subcategories.campaign", {
 		lng: interaction.userLanguage,
 		current: packet.campaignProgression,
 		max: packet.maxCampaignNumber,
@@ -95,12 +95,13 @@ ${i18n.t("commands:missions.missionDisplay", {
 		progressionBar: MissionUtils.generateDisplayProgression(campaignMission.numberDone, campaignMission.missionObjective),
 		current: campaignMission.numberDone,
 		objective: campaignMission.missionObjective,
-		context: "campaign"
+		context: "campaign",
+		interpolation: {escapeValue: false}
 	})}` : ""}`;
 
 	const dailyMission = packet.missions.find(mission => mission.missionType === MissionType.DAILY) as BaseMission;
 
-	const dailyMissionDescription = `${i18n.t("commands.missions.subcategories.daily", {
+	const dailyMissionDescription = `${i18n.t("commands:missions.subcategories.daily", {
 		lng: interaction.userLanguage
 	})}
 ${i18n.t(`commands:missions.${datesAreOnSameDay(new Date(), dailyMission.expireAt ?? new Date(0)) ? "dailyFinished" : "missionDisplay"}`, {
@@ -110,7 +111,8 @@ ${i18n.t(`commands:missions.${datesAreOnSameDay(new Date(), dailyMission.expireA
 		progressionBar: MissionUtils.generateDisplayProgression(dailyMission.numberDone, dailyMission.missionObjective),
 		current: dailyMission.numberDone,
 		objective: dailyMission.missionObjective,
-		context: "daily"
+		context: "other",
+		interpolation: {escapeValue: false}
 	})}`;
 
 	const sideMissions = packet.missions.filter(mission => mission.missionType === MissionType.NORMAL);
@@ -121,11 +123,12 @@ ${i18n.t(`commands:missions.${datesAreOnSameDay(new Date(), dailyMission.expireA
 			progressionBar: MissionUtils.generateDisplayProgression(mission.numberDone, mission.missionObjective),
 			current: mission.numberDone,
 			objective: mission.missionObjective,
-			context: "sideMission"
-		})).join("\n") : i18n.t("commands.missions.noCurrentMissions", {
+			context: "other",
+			interpolation: {escapeValue: false}
+		})).join("\n") : i18n.t("commands:missions.noCurrentMissions", {
 			lng: interaction.userLanguage
 		});
-	const sideMissionsDescription = `${i18n.t("commands.missions.subcategories.sideMissions", {
+	const sideMissionsDescription = `${i18n.t("commands:missions.subcategories.sideMissions", {
 		lng: interaction.userLanguage,
 		current: sideMissions.length,
 		max: packet.maxSideMissionSlots
