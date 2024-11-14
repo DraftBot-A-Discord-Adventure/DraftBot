@@ -128,6 +128,11 @@ export async function handleCommandMissionsPacketRes(packet: CommandMissionsPack
 		current: sideMissions.length,
 		max: packet.maxSideMissionSlots
 	}) + "\n" + sideMissionsList;
+
+	missionCommandEmbed.setDescription([campaignMissionDescription, dailyMissionDescription, sideMissionsDescription].join("\n"));
+	await interaction?.reply({
+		embeds: [missionCommandEmbed]
+	});
 }
 
 export const commandInfo: ICommand = {
