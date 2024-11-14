@@ -19,7 +19,7 @@ import {EmoteUtils} from "../../utils/EmoteUtils";
 import {GiveFoodToGuildPacket} from "../../../../Lib/src/packets/utils/GiveFoodToGuildPacket";
 import {NoFoodSpaceInGuildPacket} from "../../../../Lib/src/packets/utils/NoFoodSpaceInGuildPacket";
 import {MissionUtils} from "../../utils/MissionUtils";
-import {CompletedMissionType} from "../../../../Lib/src/interfaces/CompletedMission";
+import {MissionType} from "../../../../Lib/src/interfaces/CompletedMission";
 
 export default class NotificationsHandlers {
 	@packetHandler(CommandReportChooseDestinationRes)
@@ -84,17 +84,17 @@ export default class NotificationsHandlers {
 			pseudo: discordUser.username
 		}), discordUser);
 
-		const missionLists: Record<CompletedMissionType, string[]> = {
-			[CompletedMissionType.CAMPAIGN]: [],
-			[CompletedMissionType.DAILY]: [],
-			[CompletedMissionType.NORMAL]: []
+		const missionLists: Record<MissionType, string[]> = {
+			[MissionType.CAMPAIGN]: [],
+			[MissionType.DAILY]: [],
+			[MissionType.NORMAL]: []
 		};
 		let totalGems = 0;
 		let totalXP = 0;
 		for (const mission of packet.missions) {
 			totalGems += mission.gemsToWin;
 			totalXP += mission.xpToWin;
-			missionLists[mission.completedMissionType].push(MissionUtils.formatCompletedMission(mission, interaction.userLanguage));
+			missionLists[mission.missionType].push(MissionUtils.formatCompletedMission(mission, interaction.userLanguage));
 		}
 		for (const [missionType, missions] of Object.entries(missionLists).filter(entry => entry[1].length !== 0)) {
 			completedMissionsEmbed.addFields({

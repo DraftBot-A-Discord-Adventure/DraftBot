@@ -47,6 +47,24 @@ export class MissionUtils {
 	}
 
 	/**
+	 * Get the progression bar corresponding to the progression of the mission
+	 * @param current
+	 * @param objective
+	 * @private
+	 */
+	static generateDisplayProgression(current: number, objective: number): string {
+		let progression = current / objective;
+		if (progression < 0) {
+			return "ERROR:PROGRESS_BAR_NEGATIVE";
+		}
+		if (progression > 1) {
+			progression = 1;
+		}
+		const squareToDisplay = Math.floor(progression * 10);
+		return `[${"■".repeat(squareToDisplay)}${"□".repeat(10 - squareToDisplay)}]`;
+	}
+
+	/**
 	 * Get the text version of a mission variant
 	 * @param mission
 	 * @param lng

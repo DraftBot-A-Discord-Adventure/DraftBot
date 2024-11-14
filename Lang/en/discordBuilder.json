@@ -182,5 +182,19 @@
         "name": "save"
       }
     }
+  },
+  "missions": {
+    "description": "List the missions of a player.",
+    "name": "missions",
+    "options": {
+      "rank": {
+        "description": "The rank of the player whose missions will be displayed.",
+        "name": "rank"
+      },
+      "user": {
+        "description": "The user whose missions will be displayed.",
+        "name": "user"
+      }
+    }
   }
 }
