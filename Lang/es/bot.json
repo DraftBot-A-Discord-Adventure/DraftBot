@@ -12,8 +12,6 @@
   "noReacPermission": ":x:  | ¡Hola! Estás recibiendo este mensaje porque has intentado utilizar uno de mis comandos en una sala en la que tengo permiso para ver mensajes, pero no para publicar reacciones!**\n\nPor lo tanto, tu solicitud ha sido cancelada. Para resolver este problema, envía un mensaje al propietario del servidor en el que has intentado utilizarme. ¡Si no puedes resolver este problema, por favor lee la guía del bot disponible en la siguiente dirección: https://guide.draftbot.com !",
   "noSpeakInThreadPermission": ":zipper_mouth:  | ¡Hola! Estás recibiendo este mensaje porque has intentado utilizar uno de mis comandos en un hilo en el que tengo permiso para ver mensajes, pero no para enviar ninguno!**\n\nPor lo tanto, tu solicitud ha sido cancelada. Para resolver este problema, envía un mensaje al propietario del servidor en el que has intentado utilizarme. ¡Si no puedes resolver este problema, por favor únete al discord de soporte del bot, que está disponible en la siguiente dirección: https://guide.draftbot.com !",
   "noSpeakPermission": ":zipper_mouth:  | ¡Hola! Estás recibiendo este mensaje porque has intentado utilizar uno de mis comandos en una sala en la que tengo permiso para ver mensajes, pero no para enviar ninguno!**\n\nPor lo tanto, tu solicitud ha sido cancelada. Para resolver este problema, envía un mensaje al propietario del servidor en el que has intentado utilizarme. ¡Si no puedes resolver este problema, por favor únete al discord de soporte del bot, que está disponible en la siguiente dirección: https://guide.draftbot.com !",
-  "notAuthorizedError": "No tienes los permisos necesarios para realizar este pedido dentro de tu gremio, así que pregunta a uno de tus superiores si lo necesitas.",
-  "notInAGuild": "Debes pertenecer a un gremio para realizar este pedido.",
   "resetIsNow": ":trophy: ¡Se restablecen las clasificaciones de esta semana! El ganador se anunciará en breve en el servidor de bots. El juego se reanudará en menos de 5 minutos.",
   "seasonEndAnnouncement": ":sparkles: **¡La temporada de lucha ha terminado! El ganador es:** {{mention}}",
   "seasonEndAnnouncementNoWinner": ":sparkles: **¡La temporada de combates ha terminado! Desafortunadamente, no hay participantes y por lo tanto no hay ganadores esta temporada **.",
@@ -22,5 +20,10 @@
   "supportAlert": ":love_letter: **¡Nuevo mensaje privado recibido!** \n`Autor: {{username}} (id : {{id}})\n\n`",
   "topWeekAnnouncement": ":trophy: **¡La clasificación de esta semana ha terminado! El ganador es:** {{mention}}",
   "topWeekAnnouncementNoWinner": ":trophy: **¡Las clasificaciones de esta semana ya están completas! Desafortunadamente, no hay participantes y por lo tanto no hay ganadores esta semana **.",
-  "totalUsersCount": "**Número total de usuarios: `{{count}}`**"
+  "totalUsersCount": "**Número total de usuarios: `{{count}}`**",
+  "notificationTitle": "Notificación",
+  "notificationFooter": "Está recibiendo este mensaje porque las notificaciones están activadas. {command:notifications}Para cambiar esta configuración, utilice el comando",
+  "notificationsNoChannelAccess": "❌ Parece que el bot ya no tiene acceso a tu sala de notificaciones, ahora las notificaciones serán en mensajes privados. {command:notifications}Para cambiar el modo de notificación, por favor ejecute el comando .",
+  "notificationReachDestination": "{{destination}}¡Has llegado a ** ** !",
+  "notificationGuildDaily": "{{pseudo}}** ** ha recogido la bonificación diaria de su gremio.{{reward}}La recompensa es ** **."
 }

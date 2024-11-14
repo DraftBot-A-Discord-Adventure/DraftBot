@@ -12,8 +12,6 @@
   "noReacPermission": ":x:  | **Hallo ! Sie erhalten diese Nachricht, weil Sie versucht haben, einen meiner Befehle in einem Lounge zu verwenden, in dem ich zwar Nachrichten lesen, aber keine Reaktionen darauf hinzufügen darf !**\n\nIhre Abfrage wurde infolgedessen abgebrochen. Um dieses Problem zu beheben, senden Sie eine Nachricht an den Eigner des Servers, auf dem Sie versucht haben, mich zu verwenden. Wenn Sie dieses Problem nicht lösen können, lade ich Sie ein, den Leitfaden zu lesen, der unter https://guide.draftbot.com verfügbar ist !",
   "noSpeakInThreadPermission": ":zipper_mouth:  | **Hallo ! Sie erhalten diese Nachricht, weil Sie versucht haben, einen meiner Befehle in einem Thread zu verwenden, in dem ich die Erlaubnis habe, Nachrichten zu sehen, aber nicht, welche zu senden !**\n\nIhre Anfrage wurde infolgedessen abgebrochen. Um dieses Problem zu lösen, senden Sie bitte eine Nachricht an den Besitzer des Servers, auf dem Sie versucht haben, mich zu benutzen. Wenn Sie dieses Problem nicht lösen können, bitte ich Sie, dem Support-Discord des Bots beizutreten, der unter folgender Adresse erreichbar ist: https://guide.draftbot.com !",
   "noSpeakPermission": ":zipper_mouth:  | **Hallo ! Sie erhalten diese Nachricht, weil Sie versucht haben, einen meiner Befehle in einem Lounge zu verwenden, in dem ich die Erlaubnis habe, Nachrichten zu sehen, aber nicht, welche zu senden !**\n\nIhre Anfrage wurde infolgedessen abgebrochen. Um dieses Problem zu lösen, senden Sie bitte eine Nachricht an den Besitzer des Servers, auf dem Sie versucht haben, mich zu benutzen. Wenn Sie dieses Problem nicht lösen können, bitte ich Sie, dem Support-Discord des Bots beizutreten, der unter folgender Adresse erreichbar ist: https://guide.draftbot.com !",
-  "notAuthorizedError": "Sie haben nicht die erforderlichen Berechtigungen, um diese Bestellung innerhalb Ihrer Gilde durchzuführen. Fragen Sie ggf. einen Ihrer Vorgesetzten.",
-  "notInAGuild": "Sie müssen zu einer Gilde gehören, um diesen Befehl ausführen zu können",
   "resetIsNow": ":trophy: Die Rangliste der Woche wird zurückgesetzt! Der Gewinner wird in Kürze auf dem Bot-Server bekannt gegeben! Das Spiel wird in weniger als 5 Minuten fortgesetzt!",
   "seasonEndAnnouncement": ":sparkles: ** Die Kampfsaison ist vorbei! Der Gewinner ist: ** {{mention}}",
   "seasonEndAnnouncementNoWinner": ":sparkles: **Die Kampfsaison ist vorbei! Leider gibt es in dieser Saison keinen Teilnehmer und somit auch keinen Gewinner.**",
@@ -22,5 +20,10 @@
   "supportAlert": ":love_letter: | ** Neue private Nachricht erhalten! ** \n' Verfasser: {{username}} (id : {{id}})",
   "topWeekAnnouncement": ":trophy: ** Die Rangliste der Woche ist beendet! Der Gewinner ist: ** {{mention}}",
   "topWeekAnnouncementNoWinner": ":trophy: **Die Rangliste der Woche ist fertig! Leider gibt es diese Woche keine Teilnehmer und somit auch keinen Gewinner.**",
-  "totalUsersCount": "** Gesamtzahl der Benutzer: '{{count}} ` * *"
+  "totalUsersCount": "** Gesamtzahl der Benutzer: '{{count}} ` * *",
+  "notificationTitle": "Benachrichtigung",
+  "notificationFooter": "Sie erhalten diese Nachricht, weil die Benachrichtigungen aktiviert sind. Um diese Einstellung zu ändern, verwenden Sie den Befehl {command:notifications}",
+  "notificationsNoChannelAccess": "❌ Es scheint, dass der Bot nicht mehr auf Ihren Benachrichtigungsraum zugreifen kann, die Benachrichtigungen werden nun in Form von privaten Nachrichten erfolgen. Um den Benachrichtigungsmodus zu ändern, führen Sie bitte den Befehl {command:notifications}.",
+  "notificationReachDestination": "Sie sind bei **{{destination}}** angekommen!",
+  "notificationGuildDaily": "**{{pseudo}}** hat den täglichen Bonus Ihrer Gilde abgeholt. Die Belohnung ist **{{reward}}**."
 }

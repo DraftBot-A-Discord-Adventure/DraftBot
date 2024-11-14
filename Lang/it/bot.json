@@ -12,8 +12,6 @@
   "noReacPermission": ":x: | **Ciao ! Avete ricevuto questo messaggio perché avete provato di utilizzare uno dei miei comandi in un chat dove ho la permissione di vedere i messagi, ma non di mettere delle reazione !**\n\nVostra richiesta e allora stata annullata, per risolvere questo problema grazie di inviare un messagio al proprietario del server sul quale avete provato di utilizarmi. Se non riucite a risolvere questo problema, vi propongo di andare nel discord di supporto disponibile qui : https://guide.draftbot.com !",
   "noSpeakInThreadPermission": ":zipper_mouth: | **Ciao ! Avete ricevuto questo messaggio perché avete provato di utilizzare uno dei miei comandi in un thread dove ho la permissione di vedere i messagi, ma non di inviarni !**\n\nVostra richiesta e allora stata annullata, per risolvere questo problema grazie di inviare un messagio al proprietario del server sul quale avete provato di utilizarmi. Se non riucite a risolvere questo problema, vi propongo di andare nel discord di supporto disponibile qui : https://guide.draftbot.com !",
   "noSpeakPermission": ":zipper_mouth: | **Ciao ! Avete ricevuto questo messaggio perché avete provato di utilizzare uno dei miei comandi in un thread dove ho la permissione di vedere i messagi, ma non di inviarni !**\n\nVostra richiesta e allora stata annullata, per risolvere questo problema grazie di inviare un messagio al proprietario del server sul quale avete provato di utilizarmi. Se non riucite a risolvere questo problema, vi propongo di andare nel discord di supporto disponibile qui : https://guide.draftbot.com !",
-  "notAuthorizedError": "Non avete le permissione necessarie per Effettuare questo commando in vostra gilda, chiedete a un dei vostri superiori se bisogno.",
-  "notInAGuild": "Dovete essere in una gilda per Effettuare questo comando",
   "resetIsNow": ":trophy: Le classifiche della settimana sono in corso di reimpostazione ! Il vincitore sarà annunciato tra poco sul server del bot ! Il gioco riprenderà tra 5 minuti !",
   "seasonEndAnnouncement": ":sparkles: **La stagione di combattimento e finita ! Il vincitore e :** {{mention}}",
   "seasonEndAnnouncementNoWinner": ":sparkles: **La stagione dei combattimenti è finita! Purtroppo non ci sono partecipanti e quindi non ci sono vincitori per questa stagione **.",
@@ -22,5 +20,10 @@
   "supportAlert": ":love_letter: | **Nuovo messaggio privato ricevuto !** \n`Autore: {{username}} (id : {{id}})",
   "topWeekAnnouncement": ":trophy: **La classifica della settimana e finita ! Il vincitore e :** {{mention}}",
   "topWeekAnnouncementNoWinner": ":trophy: **Le classifiche di questa settimana sono ora complete! Purtroppo questa settimana non ci sono partecipanti e quindi non ci sono vincitori **.",
-  "totalUsersCount": "**Numero totale di utilizzatori : `{{count}}`**"
+  "totalUsersCount": "**Numero totale di utilizzatori : `{{count}}`**",
+  "notificationTitle": "Notifica",
+  "notificationFooter": "Si riceve questo messaggio perché le notifiche sono abilitate. {command:notifications}Per modificare questa impostazione, utilizzare il comando",
+  "notificationsNoChannelAccess": "Sembra che il bot non abbia più accesso alla sala notifiche, le notifiche saranno ora nei messaggi privati. {command:notifications}Per cambiare la modalità di notifica, eseguire il comando .",
+  "notificationReachDestination": "Avete raggiunto **{{destination}}** !",
+  "notificationGuildDaily": "{{pseudo}}** ** ha raccolto il bonus giornaliero della tua gilda.{{reward}}La ricompensa è ** **."
 }

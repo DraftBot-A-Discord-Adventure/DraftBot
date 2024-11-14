@@ -63,5 +63,76 @@
   "cooldownPetFree": "You can only release one pet per hour. You will be able to release another one {{remainingTime}}.",
   "unknownPlayer": "Nickname 404",
   "petNickNotValid": "The rules for naming a pet are as follows:\n$t(error:stringRules)",
-  "stringRules": "- Use at least one letter\n- Do not put more than 2 consecutive spaces\n- Special characters are not allowed\n- Between {{min}} and {{max}} characters"
+  "stringRules": "- Use at least one letter\n- Do not put more than 2 consecutive spaces\n- Special characters are not allowed\n- Between {{min}} and {{max}} characters",
+  "notInAGuild": "You have to be in a guild to use this command.",
+  "notAuthorizedError": "You do not have the required permissions to do that command in your guild, please ask a superior if needed.",
+  "levelTooLow": "You must **Level {{level}}** to use this command! Come back later!",
+  "notAuthorizedRight": "You do not have permission to perform this command.",
+  "notPossibleWithoutStatus": "You don't need our services right now",
+  "effects": {
+    "not_started": {
+      "self": "{{pseudo}}, you didn't start the adventure!",
+      "other": "{{pseudo}} hasn't started the adventure yet!"
+    },
+    "dead": {
+      "self": "{{pseudo}}, you are currently K.O!",
+      "other": "{{pseudo}} is currently K.O!"
+    },
+    "sleeping": {
+      "self": "{{pseudo}}, you are currently sleeping!",
+      "other": "{{pseudo}} is currently sleeping!"
+    },
+    "drunk": {
+      "self": "{{pseudo}}, you are currently drunk!",
+      "other": "{{pseudo}} is currently drunk!"
+    },
+    "freezing": {
+      "self": "{{pseudo}}, you are currently frozen!",
+      "other": "{{pseudo}} is currently frozen!"
+    },
+    "hurt": {
+      "self": "{{pseudo}}, you are currently injured!",
+      "other": "{{pseudo}} is currently injured!"
+    },
+    "sick": {
+      "self": "{{pseudo}}, you are currently ill!",
+      "other": "{{pseudo}} is currently ill!"
+    },
+    "jailed": {
+      "self": "{{pseudo}}, you are currently closed!",
+      "other": "{{pseudo}} is currently closed!"
+    },
+    "injured": {
+      "self": "{{pseudo}}, you are currently seriously injured!",
+      "other": "{{pseudo}} is currently seriously injured!"
+    },
+    "occupied": {
+      "self": "{{pseudo}}, you are currently busy!",
+      "other": "{{pseudo}} is currently busy!"
+    },
+    "starving": {
+      "self": "{{pseudo}}, you are currently starving!",
+      "other": "{{pseudo}} is currently hungry!"
+    },
+    "confounded": {
+      "self": "{{pseudo}}, you are currently confused!",
+      "other": "{{pseudo}} is currently confused!"
+    },
+    "scared": {
+      "self": "{{pseudo}}, you are currently sorted!",
+      "other": "{{pseudo}} is currently dormant!"
+    },
+    "lost": {
+      "self": "{{pseudo}}, you are currently lost!",
+      "other": "{{pseudo}} is currently lost!"
+    },
+    "notStartedHint": {
+      "self": "Use the {command:report} command to start your adventure!",
+      "other": "Unable to perform this action."
+    },
+    "deadHint": {
+      "self": "You can relive by using the {command:respawn} command to continue playing.",
+      "other": "Unable to perform this action."
+    }
+  }
 }
