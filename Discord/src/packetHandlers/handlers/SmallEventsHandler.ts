@@ -770,7 +770,7 @@ export default class SmallEventsHandler {
 					}${
 						StringUtils.getRandomTranslation("smallEvents:findMission.intrigue", interaction.userLanguage)
 					}\n\n**${
-						MissionUtils.formatBaseMission(packet.mission)
+						MissionUtils.formatBaseMission(packet.mission, interaction.userLanguage)
 					}**`,
 					interaction.user,
 					interaction.userLanguage
