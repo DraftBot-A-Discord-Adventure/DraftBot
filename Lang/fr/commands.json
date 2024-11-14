@@ -595,5 +595,18 @@
     "title": "Maintenance",
     "on": "Le bot a été mis en maintenance avec succès.",
     "off": "Le bot a été sorti de maintenance avec succès."
+  },
+  "missions": {
+    "title": "Missions de {{pseudo}}",
+    "subcategories": {
+      "campaign_current": "{emote:missions.campaign} **Campagne ({{current}}/{{max}})**",
+      "campaign_completed": "{emote:missions.campaign} **Campagne terminée**",
+      "daily": "{emote:missions.daily} **Mission quotidienne**",
+      "sideMission": "{emote:missions.sideMission} **Missions secondaires ({{current}}/{{max}})**"
+    },
+    "dailyFinished": "Vous avez complété la mission du jour ! Revenez {{time}}.",
+    "noCurrentMissions": "Vous pouvez occasionnellement trouver des missions supplémentaires à réaliser en demandant un rapport.",
+    "missionDisplay_campaign": "{{mission}}\n{{progressionBar}} {{current}}/{{objective}}",
+    "missionDisplay_other": "{{mission}} (expire {{time}})\n{{progressionDisplay}} {{current}}/{{objective}}"
   }
 }

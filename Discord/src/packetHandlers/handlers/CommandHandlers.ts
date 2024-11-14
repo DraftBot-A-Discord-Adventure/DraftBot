@@ -61,12 +61,20 @@ import {
 	CommandRespawnPacketRes
 } from "../../../../Lib/src/packets/commands/CommandRespawnPacket";
 import {
-	CommandShopAlreadyHaveBadge, CommandShopBadgeBought, CommandShopBoughtTooMuchDailyPotions,
-	CommandShopClosed, CommandShopFullRegen, CommandShopHealAlterationDone,
-	CommandShopNoAlterationToHeal, CommandShopNoEnergyToHeal, CommandShopNotEnoughMoney, CommandShopTooManyEnergyBought
+	CommandShopAlreadyHaveBadge,
+	CommandShopBadgeBought,
+	CommandShopBoughtTooMuchDailyPotions,
+	CommandShopClosed,
+	CommandShopFullRegen,
+	CommandShopHealAlterationDone,
+	CommandShopNoAlterationToHeal,
+	CommandShopNoEnergyToHeal,
+	CommandShopNotEnoughMoney,
+	CommandShopTooManyEnergyBought
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorShop";
 import {
-	handleCommandShopAlreadyHaveBadge, handleCommandShopBadgeBought,
+	handleCommandShopAlreadyHaveBadge,
+	handleCommandShopBadgeBought,
 	handleCommandShopBoughtTooMuchDailyPotions,
 	handleCommandShopClosed,
 	handleCommandShopFullRegen,
@@ -74,13 +82,22 @@ import {
 	handleCommandShopNoAlterationToHeal,
 	handleCommandShopNoEnergyToHeal,
 	handleCommandShopNotEnoughMoney,
-	handleCommandShopTooManyEnergyBought, handleReactionCollectorBuyCategorySlotBuySuccess
+	handleCommandShopTooManyEnergyBought,
+	handleReactionCollectorBuyCategorySlotBuySuccess
 } from "../../commands/player/ShopCommand";
 import {ReactionCollectorBuyCategorySlotBuySuccess} from "../../../../Lib/src/packets/interaction/ReactionCollectorBuyCategorySlot";
 import {
 	CommandMaintenancePacketRes
 } from "../../../../Lib/src/packets/commands/CommandMaintenancePacket";
 import {handleCommandMaintenancePacketRes} from "../../commands/admin/MaintenanceCommand";
+import {
+	handleCommandMissionPlayerNotFoundPacket,
+	handleCommandMissionsPacketRes
+} from "../../commands/mission/MissionsCommand";
+import {
+	CommandMissionPlayerNotFoundPacket,
+	CommandMissionsPacketRes
+} from "../../../../Lib/src/packets/commands/CommandMissionsPacket";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
@@ -271,5 +288,15 @@ export default class CommandHandlers {
 	@packetHandler(CommandMaintenancePacketRes)
 	async maintenanceReq(packet: CommandMaintenancePacketRes, context: PacketContext): Promise<void> {
 		await handleCommandMaintenancePacketRes(packet, context);
+	}
+
+	@packetHandler(CommandMissionPlayerNotFoundPacket)
+	async commandMissionPlayerNotFound(packet: CommandMissionPlayerNotFoundPacket, context: PacketContext): Promise<void> {
+		await handleCommandMissionPlayerNotFoundPacket(packet, context);
+	}
+
+	@packetHandler(CommandMissionsPacketRes)
+	async missionsCommandRes(packet: CommandMissionsPacketRes, context: PacketContext): Promise<void> {
+		await handleCommandMissionsPacketRes(packet, context);
 	}
 }

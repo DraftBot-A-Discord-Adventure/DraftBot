@@ -10,11 +10,11 @@ import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import PlayerMissionsInfo, {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
 import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
-import {MissionsExpiredPacket} from "../../../../Lib/src/packets/notifications/MissionsExpiredPacket";
+import {MissionsExpiredPacket} from "../../../../Lib/src/packets/events/MissionsExpiredPacket";
 import {draftBotInstance} from "../../index";
 import {Mission, MissionDataController} from "../../data/Mission";
 import {MissionsCompletedPacket} from "../../../../Lib/src/packets/events/MissionsCompletedPacket";
-import {CompletedMission, CompletedMissionType} from "../../../../Lib/src/interfaces/CompletedMission";
+import {CompletedMission, MissionType} from "../../../../Lib/src/interfaces/CompletedMission";
 import {FightActionController} from "../fights/actions/FightActionController";
 import {MissionUtils} from "../../../../Lib/src/utils/MissionUtils";
 
@@ -117,7 +117,7 @@ export class MissionsController {
 	}
 
 	/**
-	 * Complete and update mission of a user
+	 * Complete and update the missions of a user
 	 * @param player
 	 * @param missionSlots
 	 * @param specialMissionCompletion
@@ -127,11 +127,11 @@ export class MissionsController {
 		completedMissions.push(...await Campaign.updatePlayerCampaign(specialMissionCompletion.campaign, player));
 		for (const mission of missionSlots.filter((mission) => mission.isCompleted() && !mission.isCampaign())) {
 			completedMissions.push({
-				completedMissionType: CompletedMissionType.NORMAL,
+				missionType: MissionType.NORMAL,
 				...mission.toJSON(),
 				gemsToWin: 0 // Don't win gems in secondary missions
 			});
-			if (MissionUtils.isRequiredFightActionId(mission)) {
+			if (MissionUtils.isRequiredFightActionId(completedMissions[completedMissions.length - 1])) {
 				completedMissions[completedMissions.length - 1].fightAction = FightActionController.variantToFightActionId(mission.missionVariant);
 			}
 			draftBotInstance.logsDatabase.logMissionFinished(player.keycloakId, mission.missionId, mission.missionVariant, mission.missionObjective)
@@ -141,12 +141,12 @@ export class MissionsController {
 		if (specialMissionCompletion.daily) {
 			const dailyMission = await DailyMissions.getOrGenerate();
 			completedMissions.push({
-				completedMissionType: CompletedMissionType.DAILY,
+				missionType: MissionType.DAILY,
 				...dailyMission.toJSON(),
 				moneyToWin: Math.round(dailyMission.moneyToWin * Constants.MISSIONS.DAILY_MISSION_MONEY_MULTIPLIER), // Daily missions gives less money than secondary missions
 				pointsToWin: Math.round(dailyMission.pointsToWin * Constants.MISSIONS.DAILY_MISSION_POINTS_MULTIPLIER) // Daily missions give more points than secondary missions
 			});
-			if (MissionUtils.isRequiredFightActionId(dailyMission as MissionSlot)) {
+			if (MissionUtils.isRequiredFightActionId(completedMissions[completedMissions.length - 1])) {
 				completedMissions[completedMissions.length - 1].fightAction = FightActionController.variantToFightActionId(dailyMission.variant);
 			}
 			draftBotInstance.logsDatabase.logMissionDailyFinished(player.keycloakId)
@@ -157,6 +157,7 @@ export class MissionsController {
 	}
 
 	static async updatePlayerStats(player: Player, missionInfo: PlayerMissionsInfo, completedMissions: CompletedMission[], response: DraftBotPacket[]): Promise<Player> {
+		// Totalizer function to sum the values of the completed missions
 		const totalizer = (mapper: (m: CompletedMission) => number): number => completedMissions.map(mapper).reduce((a, b) => a + b);
 
 		await missionInfo.addGems(totalizer((m) => m.gemsToWin), player.keycloakId, NumberChangeReason.MISSION_FINISHED);
@@ -196,7 +197,10 @@ export class MissionsController {
 
 		const packet: MissionsExpiredPacket = {missions: [], keycloakId: player.keycloakId};
 		for (const mission of expiredMissions) {
-			packet.missions.push(mission.toJSON());
+			packet.missions.push({
+				...mission.toJSON(),
+				missionType: MissionType.NORMAL
+			});
 		}
 		packet.missions.forEach((mission) => {
 			// Manage the case where the mission needs a fight action id

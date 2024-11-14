@@ -19,7 +19,7 @@ export default class InventoryCommand {
 	async execute(packet: CommandInventoryPacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
 		const initiator = await Players.getByKeycloakId(context.keycloakId);
 		if (!await CommandUtils.verifyStartedAndNotDead(initiator, response)) {
-			return;
+			return; // TODO: check si c'est pas censé être géré par les commands requirements ???
 		}
 
 		const player = packet.askedPlayer.keycloakId

@@ -558,7 +558,7 @@ export class Player extends Model {
 	 * Check if a player has an empty mission slot
 	 */
 	public hasEmptyMissionSlot(missionSlots: MissionSlot[]): boolean {
-		return missionSlots.filter(slot => !slot.isCampaign()).length < this.getMissionSlots();
+		return missionSlots.filter(slot => !slot.isCampaign()).length < this.getMissionSlotsNumber();
 	}
 
 	/**
@@ -584,9 +584,9 @@ export class Player extends Model {
 	}
 
 	/**
-	 * Get the amount of secondary mission a player can have at maximum
+	 * Get the number of secondary missions a player can have at maximum
 	 */
-	public getMissionSlots(): number {
+	public getMissionSlotsNumber(): number {
 		return this.level >= Constants.MISSIONS.SLOT_3_LEVEL ? 3 : this.level >= Constants.MISSIONS.SLOT_2_LEVEL ? 2 : 1;
 	}
 

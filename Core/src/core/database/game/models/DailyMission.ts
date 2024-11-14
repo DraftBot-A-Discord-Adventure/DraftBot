@@ -35,6 +35,9 @@ export class DailyMissions {
 		return await DailyMission.findOne();
 	}
 
+	/**
+	 * Get the daily mission of the player or generate a new one if it doesn't exist or if the last date is not today
+	 */
 	static async getOrGenerate(): Promise<DailyMission> {
 		let dailyMission = await DailyMissions.queryDailyMission();
 		if (!dailyMission || !datesAreOnSameDay(dailyMission.lastDate, new Date())) {
