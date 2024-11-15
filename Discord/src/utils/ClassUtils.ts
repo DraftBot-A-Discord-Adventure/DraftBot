@@ -19,10 +19,6 @@ export class ClassUtils {
 	 * @param classID
 	 */
 	static classToString(lng: Language, classID: number): string {
-		return i18n.t("commands:profile:playerClass.fieldValue", {
-			lng,
-			emote: ClassUtils.getClassIcon(classID),
-			className: i18n.t(`models:classes.${classID}`, {lng})
-		});
+		return i18n.t("models:classFormat", {lng, id: classID});
 	}
 }

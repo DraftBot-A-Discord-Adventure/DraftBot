@@ -15,7 +15,8 @@ export class MissionUtils {
 		return i18n.t(`models:missions.${mission.missionId}`, {
 			lng,
 			count: mission.missionObjective,
-			variantText: this.getVariantText(mission, lng)
+			variantText: this.getVariantText(mission, lng),
+			interpolation: {escapeValue: false}
 		});
 	}
 
@@ -42,7 +43,8 @@ export class MissionUtils {
 		return i18n.t("notifications:missions.completed.missionDisplay", {
 			lng,
 			missionDescription: this.formatBaseMission(mission, lng),
-			missionsReward: rewardDisplays.length === 0 ? "" : ` (${rewardDisplays.join(", ")})`
+			missionsReward: rewardDisplays.length === 0 ? "" : ` (${rewardDisplays.join(", ")})`,
+			interpolation: {escapeValue: false}
 		});
 	}
 
@@ -75,22 +77,23 @@ export class MissionUtils {
 			return this.manageFromPlaceToPlaceVariant(mission, lng);
 		}
 		if (!MissionUtilsLib.isRequiredFightActionId(mission)) {
-			return i18n.t(`models:missionsVariants.${mission.missionId}`, {
+			return i18n.t([`models:missionVariants.${mission.missionId}`, "models:missionVariants.default"], {
 				lng,
-				variant: mission.missionVariant
+				variant: mission.missionVariant,
+				mapType: mission.mapType
 			});
 		}
 		if (!mission.fightAction) {
 			throw new Error("fightAction is not set for a fight mission");
 		}
 		if (mission.missionId === "fightAttacks") {
-			return i18n.t("models:missionsVariants.fightAttacks", {
+			return i18n.t("models:missionVariants.fightAttacks", {
 				lng,
 				count: mission.missionObjective,
 				variant: mission.fightAction
 			});
 		}
-		return i18n.t("models:missionsVariants.finishWithAttack", {
+		return i18n.t("models:missionVariants.finishWithAttack", {
 			lng,
 			variant: mission.fightAction
 		}).toLowerCase();
@@ -106,7 +109,7 @@ export class MissionUtils {
 		const params = MissionUtilsLib.fromPlaceToPlaceParamsFromVariant(mission.missionVariant);
 		const saveData = MissionUtilsLib.fromPlaceToPlaceDataFromSaveBlob(mission.saveBlob);
 		if (!saveData || saveData.startTimestamp + hoursToMilliseconds(params.time) < Date.now()) {
-			return i18n.t("models:missionsVariants.fromPlaceToPlace", {
+			return i18n.t("models:missionVariants.fromPlaceToPlace", {
 				lng,
 				place1: i18n.t(`models:map_locations.${params.fromMap}.name`, {lng}),
 				place2: i18n.t(`models:map_locations.${params.toMap}.name`, {lng}),
@@ -114,10 +117,11 @@ export class MissionUtils {
 				context: params.orderMatter ? "order" : "noOrder"
 			});
 		}
-		return i18n.t("models:missionsVariants.fromPlaceToPlace_secondPart", {
+		return i18n.t("models:missionVariants.fromPlaceToPlace_secondPart", {
 			lng,
 			place: i18n.t(`models:map_locations.${saveData.startMap === params.fromMap ? params.toMap : params.fromMap}.name`, {lng}),
-			timestamp: Math.round(millisecondsToSeconds(saveData.startTimestamp)) + hoursToSeconds(params.time)
+			timestamp: Math.round(millisecondsToSeconds(saveData.startTimestamp)) + hoursToSeconds(params.time),
+			interpolation: {escapeValue: false}
 		});
 	}
 }

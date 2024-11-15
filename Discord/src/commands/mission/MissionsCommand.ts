@@ -17,7 +17,7 @@ import {
 import {Effect} from "../../../../Lib/src/enums/Effect";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {User} from "discord.js";
-import {BaseMission, MissionType} from "../../../../Lib/src/interfaces/CompletedMission";
+import {MissionType} from "../../../../Lib/src/interfaces/CompletedMission";
 import {MissionUtils} from "../../utils/MissionUtils";
 import {datesAreOnSameDay, finishInTimeDisplay, getTomorrowMidnight} from "../../../../Lib/src/utils/TimeUtils";
 
@@ -88,23 +88,25 @@ export async function handleCommandMissionsPacketRes(packet: CommandMissionsPack
 		current: packet.campaignProgression,
 		max: packet.maxCampaignNumber,
 		context: campaignMission ? "current" : "completed"
-	})}${campaignMission ? `
-${i18n.t("commands:missions.missionDisplay", {
-		lng: interaction.userLanguage,
-		mission: MissionUtils.formatBaseMission(campaignMission, interaction.userLanguage),
-		progressionBar: MissionUtils.generateDisplayProgression(campaignMission.numberDone, campaignMission.missionObjective),
-		current: campaignMission.numberDone,
-		objective: campaignMission.missionObjective,
-		context: "campaign",
-		interpolation: {escapeValue: false}
-	})}` : ""}`;
+	})}${campaignMission
+		? `\n${i18n.t("commands:missions.missionDisplay", {
+			lng: interaction.userLanguage,
+			mission: MissionUtils.formatBaseMission(campaignMission, interaction.userLanguage),
+			progressionBar: MissionUtils.generateDisplayProgression(campaignMission.numberDone, campaignMission.missionObjective),
+			current: campaignMission.numberDone,
+			objective: campaignMission.missionObjective,
+			context: "campaign",
+			interpolation: {escapeValue: false}
+		})}`
+		: ""
+	}`;
 
-	const dailyMission = packet.missions.find(mission => mission.missionType === MissionType.DAILY) as BaseMission;
+	const dailyMission = packet.missions.find(mission => mission.missionType === MissionType.DAILY)!;
 
 	const dailyMissionDescription = `${i18n.t("commands:missions.subcategories.daily", {
 		lng: interaction.userLanguage
 	})}
-${i18n.t(`commands:missions.${datesAreOnSameDay(new Date(), dailyMission.expireAt ?? new Date(0)) ? "dailyFinished" : "missionDisplay"}`, {
+${i18n.t(`commands:missions.${datesAreOnSameDay(new Date(), new Date(dailyMission.expiresAt!) ?? new Date(0)) ? "dailyFinished" : "missionDisplay"}`, {
 		lng: interaction.userLanguage,
 		time: finishInTimeDisplay(getTomorrowMidnight()),
 		mission: MissionUtils.formatBaseMission(dailyMission, interaction.userLanguage),
@@ -116,16 +118,18 @@ ${i18n.t(`commands:missions.${datesAreOnSameDay(new Date(), dailyMission.expireA
 	})}`;
 
 	const sideMissions = packet.missions.filter(mission => mission.missionType === MissionType.NORMAL);
-	const sideMissionsList: string = sideMissions.length > 0 ?
-		sideMissions.map(mission => i18n.t("commands:missions.missionDisplay", {
+	const sideMissionsList: string = sideMissions.length > 0
+		? sideMissions.map(mission => i18n.t("commands:missions.missionDisplay", {
 			lng: interaction.userLanguage,
 			mission: MissionUtils.formatBaseMission(mission, interaction.userLanguage),
 			progressionBar: MissionUtils.generateDisplayProgression(mission.numberDone, mission.missionObjective),
 			current: mission.numberDone,
 			objective: mission.missionObjective,
+			time: finishInTimeDisplay(new Date(mission.expiresAt!)),
 			context: "other",
 			interpolation: {escapeValue: false}
-		})).join("\n") : i18n.t("commands:missions.noCurrentMissions", {
+		})).join("\n")
+		: i18n.t("commands:missions.noCurrentMissions", {
 			lng: interaction.userLanguage
 		});
 	const sideMissionsDescription = `${i18n.t("commands:missions.subcategories.sideMissions", {

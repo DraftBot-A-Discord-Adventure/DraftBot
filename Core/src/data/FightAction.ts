@@ -75,8 +75,8 @@ export class FightActionDataController extends DataControllerString<FightAction>
 		return this.getById("none");
 	}
 
-	getAllKeys(): string[] {
-		return Object.keys(this.data);
+	getAllKeys(): IterableIterator<string> {
+		return this.data.keys();
 	}
 
 	getListById(fightActionsIds: string[]): FightAction[] {

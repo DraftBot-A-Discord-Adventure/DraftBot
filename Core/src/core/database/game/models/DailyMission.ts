@@ -11,9 +11,9 @@ export class DailyMission extends Model {
 
 	declare missionId: string;
 
-	declare objective: number;
+	declare missionObjective: number;
 
-	declare variant: number;
+	declare missionVariant: number;
 
 	declare gemsToWin: number;
 
@@ -55,8 +55,8 @@ export class DailyMissions {
 		const missionData = MissionDataController.instance.getById(prop.mission.id);
 		if (dailyMission) {
 			dailyMission.missionId = prop.mission.id;
-			dailyMission.objective = missionData.objectives[prop.index];
-			dailyMission.variant = prop.variant;
+			dailyMission.missionObjective = missionData.objectives[prop.index];
+			dailyMission.missionVariant = prop.variant;
 			dailyMission.pointsToWin = missionData.points[prop.index];
 			dailyMission.gemsToWin = missionData.gems[prop.index];
 			dailyMission.xpToWin = missionData.xp[prop.index];
@@ -77,7 +77,7 @@ export class DailyMissions {
 				lastDate: new Date()
 			}, {returning: true});
 		}
-		draftBotInstance.logsDatabase.logMissionDailyRefreshed(dailyMission.missionId, dailyMission.variant, dailyMission.objective)
+		draftBotInstance.logsDatabase.logMissionDailyRefreshed(dailyMission.missionId, dailyMission.missionVariant, dailyMission.missionObjective)
 			.then();
 		return await this.queryDailyMission();
 	}
@@ -92,10 +92,10 @@ export function initModel(sequelize: Sequelize): void {
 		missionId: {
 			type: DataTypes.TEXT
 		},
-		objective: {
+		missionObjective: {
 			type: DataTypes.INTEGER
 		},
-		variant: {
+		missionVariant: {
 			type: DataTypes.INTEGER
 		},
 		gemsToWin: {

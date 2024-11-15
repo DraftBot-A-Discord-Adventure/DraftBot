@@ -141,12 +141,13 @@ export default class NotificationsHandlers {
 					.formatAuthor(i18n.t("notifications:missions.expired.title", {
 						count: packet.missions.length,
 						lng: interaction.userLanguage,
-						pseudo: user.username
+						pseudo: user.attributes.gameUsername[0]
 					}), discordUser)
 					.setDescription(i18n.t("notifications:missions.expired.description", {
 						lng: interaction.userLanguage,
 						count: packet.missions.length,
-						missionsExpired: missionsExpiredDescription
+						missionsExpired: missionsExpiredDescription,
+						interpolation: {escapeValue: false}
 					}))]
 		});
 	}
