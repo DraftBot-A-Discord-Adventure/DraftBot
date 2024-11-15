@@ -1,5 +1,5 @@
 export enum MissionType {
-	NORMAL = "sideMissions",
+	NORMAL = "sideMission",
 	DAILY = "daily",
 	CAMPAIGN = "campaign"
 }
@@ -18,6 +18,7 @@ export type BaseMission = {
 	numberDone: number
 	saveBlob: Buffer
 	missionType: MissionType,
-	expireAt?: Date,
-	fightAction?: string
+	expiresAt?: string,
+	fightAction?: string,
+	mapType?: string,
 }

@@ -14,9 +14,10 @@ import {MissionsExpiredPacket} from "../../../../Lib/src/packets/events/Missions
 import {draftBotInstance} from "../../index";
 import {Mission, MissionDataController} from "../../data/Mission";
 import {MissionsCompletedPacket} from "../../../../Lib/src/packets/events/MissionsCompletedPacket";
-import {CompletedMission, MissionType} from "../../../../Lib/src/interfaces/CompletedMission";
+import {BaseMission, CompletedMission, MissionType} from "../../../../Lib/src/interfaces/CompletedMission";
 import {FightActionController} from "../fights/actions/FightActionController";
 import {MissionUtils} from "../../../../Lib/src/utils/MissionUtils";
+import {MapLocationDataController} from "../../data/MapLocation";
 
 type MissionInformations = {
 	missionId: string,
@@ -78,7 +79,7 @@ export class MissionsController {
 		if (completedMissions.length !== 0) {
 			player = await MissionsController.updatePlayerStats(player, missionInfo, completedMissions, response);
 			response.push(makePacket(MissionsCompletedPacket, {
-				missions: completedMissions,
+				missions: MissionsController.prepareBaseMissions(completedMissions),
 				keycloakId: player.keycloakId
 			}));
 		}
@@ -131,9 +132,6 @@ export class MissionsController {
 				...mission.toJSON(),
 				gemsToWin: 0 // Don't win gems in secondary missions
 			});
-			if (MissionUtils.isRequiredFightActionId(completedMissions[completedMissions.length - 1])) {
-				completedMissions[completedMissions.length - 1].fightAction = FightActionController.variantToFightActionId(mission.missionVariant);
-			}
 			draftBotInstance.logsDatabase.logMissionFinished(player.keycloakId, mission.missionId, mission.missionVariant, mission.missionObjective)
 				.then();
 			await mission.destroy();
@@ -146,9 +144,6 @@ export class MissionsController {
 				moneyToWin: Math.round(dailyMission.moneyToWin * Constants.MISSIONS.DAILY_MISSION_MONEY_MULTIPLIER), // Daily missions gives less money than secondary missions
 				pointsToWin: Math.round(dailyMission.pointsToWin * Constants.MISSIONS.DAILY_MISSION_POINTS_MULTIPLIER) // Daily missions give more points than secondary missions
 			});
-			if (MissionUtils.isRequiredFightActionId(completedMissions[completedMissions.length - 1])) {
-				completedMissions[completedMissions.length - 1].fightAction = FightActionController.variantToFightActionId(dailyMission.variant);
-			}
 			draftBotInstance.logsDatabase.logMissionDailyFinished(player.keycloakId)
 				.then();
 		}
@@ -202,14 +197,35 @@ export class MissionsController {
 				missionType: MissionType.NORMAL
 			});
 		}
-		packet.missions.forEach((mission) => {
-			// Manage the case where the mission needs a fight action id
-			if (["fightAttacks", "finishWithAttack"].includes(mission.missionId)) {
-				mission.fightAction = FightActionController.variantToFightActionId(mission.missionVariant);
-			}
-		});
+		packet.missions = MissionsController.prepareBaseMissions(packet.missions);
 		response.push(makePacket(MissionsExpiredPacket, packet));
 		await player.save();
+	}
+
+	/**
+	 * Prepare a mission to be sent to the front-end
+	 * @param mission
+	 */
+	public static prepareBaseMission(mission: BaseMission): BaseMission {
+		if (mission.expiresAt) {
+			mission.expiresAt = new Date(mission.expiresAt).toString();
+		}
+		if (MissionUtils.isRequiredFightActionId(mission)) {
+			mission.fightAction = FightActionController.variantToFightActionId(mission.missionVariant);
+		}
+		if (MissionUtils.isRequiredMapLocationMapType(mission)) {
+			mission.mapType = MapLocationDataController.instance.getById(mission.missionVariant).type;
+		}
+		return mission;
+	}
+
+	/**
+	 * Prepare the missions to be sent to the front-end
+	 * @param missionSlots
+	 */
+	public static prepareBaseMissions(missionSlots: BaseMission[]): BaseMission[] {
+		missionSlots.forEach((mission) => MissionsController.prepareBaseMission(mission));
+		return missionSlots;
 	}
 
 	public static generateRandomDailyMissionProperties(): GeneratedMission {
@@ -231,14 +247,14 @@ export class MissionsController {
 		}
 		const generatedMission = {
 			mission,
-			index: RandomUtils.draftbotRandom.pick(mission.dailyIndexes),
+			index: this.generateMissionIndex(mission, difficulty),
 			variant: this.getMissionInterface(mission.id).generateRandomVariant(difficulty, player)
 		};
-		if (daily) {
-			return generatedMission;
+		if (!daily) {
+			return generatedMission.index === null ? null : generatedMission;
 		}
-		generatedMission.index = this.generateMissionIndex(mission, difficulty);
-		return generatedMission.index === null ? null : generatedMission;
+		generatedMission.index = RandomUtils.draftbotRandom.pick(mission.dailyIndexes);
+		return generatedMission;
 	}
 
 	public static async addMissionToPlayer(player: Player, missionId: string, difficulty: MissionDifficulty, mission: Mission = null): Promise<MissionSlot> {
@@ -315,15 +331,15 @@ export class MissionsController {
 		}
 		const dailyMission = await DailyMissions.getOrGenerate();
 		if (dailyMission.missionId !== missionInformation.missionId
-			|| !missionInterface.areParamsMatchingVariantAndBlob(dailyMission.variant, missionInformation.params, null)) {
+			|| !missionInterface.areParamsMatchingVariantAndBlob(dailyMission.missionVariant, missionInformation.params, null)) {
 			return specialMissionCompletion;
 		}
 		missionInfo.dailyMissionNumberDone += missionInformation.count;
-		if (missionInfo.dailyMissionNumberDone > dailyMission.objective) {
-			missionInfo.dailyMissionNumberDone = dailyMission.objective;
+		if (missionInfo.dailyMissionNumberDone > dailyMission.missionObjective) {
+			missionInfo.dailyMissionNumberDone = dailyMission.missionObjective;
 		}
 		await missionInfo.save();
-		if (missionInfo.dailyMissionNumberDone >= dailyMission.objective) {
+		if (missionInfo.dailyMissionNumberDone >= dailyMission.missionObjective) {
 			missionInfo.lastDailyMissionCompleted = new Date();
 			await missionInfo.save();
 			specialMissionCompletion.daily = true;

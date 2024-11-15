@@ -160,7 +160,7 @@ function generateFields(packet: CommandProfilePacketRes, lng: Language): EmbedFi
 	if (packet.data?.classId) {
 		fields.push({
 			name: i18n.t("commands:profile.playerClass.fieldName", {lng}),
-			value: i18n.t("commands:profile.playerClass.field", {
+			value: i18n.t("commands:profile.playerClass.fieldValue", {
 				lng,
 				className: ClassUtils.classToString(lng, packet.data.classId)
 			}),

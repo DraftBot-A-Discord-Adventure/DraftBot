@@ -5,8 +5,6 @@ import PlayerMissionsInfo, {PlayerMissionsInfos} from "../database/game/models/P
 import {draftBotInstance} from "../../index";
 import {CampaignData} from "../../data/Campaign";
 import {CompletedMission, MissionType} from "../../../../Lib/src/interfaces/CompletedMission";
-import {MissionUtils} from "../../../../Lib/src/utils/MissionUtils";
-import {FightActionController} from "../fights/actions/FightActionController";
 
 export class Campaign {
 	private static maxCampaignCache = -1;
@@ -47,9 +45,6 @@ export class Campaign {
 					...campaign.toJSON(),
 					pointsToWin: 0 // Campaign doesn't give points
 				});
-				if (MissionUtils.isRequiredFightActionId(completedMissions[completedMissions.length - 1])) {
-					completedMissions[completedMissions.length - 1].fightAction = FightActionController.variantToFightActionId(campaign.missionVariant);
-				}
 				missionInfo.campaignBlob = `${missionInfo.campaignBlob.slice(0, missionInfo.campaignProgression - 1)}1${missionInfo.campaignBlob.slice(missionInfo.campaignProgression)}`;
 				missionInfo.campaignProgression = this.hasNextCampaign(missionInfo.campaignBlob) ? this.findNextCampaignIndex(missionInfo.campaignBlob) + 1 : 0;
 				draftBotInstance.logsDatabase.logMissionCampaignProgress(player.keycloakId, missionInfo.campaignProgression)

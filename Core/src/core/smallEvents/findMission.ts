@@ -25,10 +25,10 @@ export const smallEventFuncs: SmallEventFuncs = {
 	executeSmallEvent: async (context: PacketContext, response: DraftBotPacket[], player: Player): Promise<void> => {
 		const missionSlot = await MissionsController.addRandomMissionToPlayer(player, MissionsController.getRandomDifficulty(player));
 		response.push(makePacket(SmallEventFindMissionPacket, {
-			mission: {
-				...missionSlot,
+			mission: MissionsController.prepareBaseMission({
+				...missionSlot.toJSON(),
 				missionType: MissionType.NORMAL
-			}
+			})
 		}));
 	}
 };

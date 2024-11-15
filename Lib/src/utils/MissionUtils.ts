@@ -23,4 +23,8 @@ export class MissionUtils {
 	static isRequiredFightActionId(mission: BaseMission): boolean {
 		return ["fightAttacks", "finishWithAttack"].includes(mission.missionId);
 	}
+
+	static isRequiredMapLocationMapType(mission: BaseMission): boolean {
+		return ["goToPlace"].includes(mission.missionId);
+	}
 }

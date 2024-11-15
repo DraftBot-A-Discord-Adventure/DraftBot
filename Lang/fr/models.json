@@ -90,6 +90,7 @@
     "8": "Lanceur de pierre",
     "9": "Frondeur"
   },
+  "classFormat": "{emote:classes.{{id}}} $t(models:classes.{{id}})",
   "class_descriptions": {
     "0": "Une classe simple. Plutôt équilibrée.",
     "1": "Une classe simple. Plutôt équilibrée.",
@@ -873,12 +874,12 @@
     "default": "{{variant}}",
     "drinkPotionRarity": "$t(items:rarities.{{variant}})",
     "haveItemRarity": "$t(items:rarities.{{variant}})",
-    "fromPlaceToPlace_order": "Faire {place1}-{place2} en moins de {time} heures",
-    "fromPlaceToPlace_noOrder": "Faire {place1}-{place2} (ou l'inverse) en moins de {time} heures",
-    "fromPlaceToPlace_secondPart": "Atteindre {place1} avant le <t:{timestamp}:f>",
-    "goToPlace": "$t(map_locations.{{variant}}.particle}) $t(map_locations.{{variant}}.name)",
-    "fightAttacks": "{emote:fight_actions.{{variant}}} $t(fight_actions.{{variant}}.name, {count})",
-    "finishWithAttack": "{emote:fight_actions.{{variant}}} $t(fight_actions.{{variant}}.name, {count})"
+    "fromPlaceToPlace_order": "Faire {{place1}}-{{place2}} en moins de {{time}} heures",
+    "fromPlaceToPlace_noOrder": "Faire {{place1}}-{{place2}} (ou l'inverse) en moins de {{time}} heures",
+    "fromPlaceToPlace_secondPart": "Atteindre {{place1}} avant le <t:{{timestamp}}:f>",
+    "goToPlace": "{emote:map_types.{{mapType}}} $t(models:map_locations.{{variant}}.name)",
+    "fightAttacks": "{emote:fight_actions.{{variant}}} $t(models:fight_actions.{{variant}}.name, {\"count\": {{count}}})",
+    "finishWithAttack": "{emote:fight_actions.{{variant}}} $t(models:fight_actions.{{variant}}.name, {\"count\": {{count}}})"
   },
   "monsters": {
     "forestTroll": "Troll de la forêt",
