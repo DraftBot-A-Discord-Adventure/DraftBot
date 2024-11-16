@@ -134,5 +134,7 @@
       "self": "Vous pouvez revivre en utilisant la commande {command:respawn} pour pouvoir continuer à jouer.",
       "other": "Impossible d'effectuer cette action."
     }
-  }
+  },
+  "maintenanceTitle": "Maintenance",
+  "maintenance": "Le jeu est actuellement en maintenance, veuillez réessayer plus tard.\n\nPour plus d'informations, rendez-vous sur le serveur Discord officiel : https://discord.gg/AP3Wmzb"
 }
