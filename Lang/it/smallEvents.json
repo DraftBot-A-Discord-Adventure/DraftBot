@@ -1168,5 +1168,18 @@
       "Contate le monete, ma non ne avete abbastanza per il viaggio. La volpe scuote la testa e parte con il suo carro.",
       "Controllate il vostro borsellino, ma purtroppo non avete abbastanza soldi. Lo sconosciuto annuisce e se ne va con il suo carrello."
     ]
+  },
+  "findMission": {
+    "intrigue": [
+      "Un messaggero viene verso di voi con il fiatone. Vi consegna una lettera del re che vi chiede di svolgere la seguente missione:",
+      "si trova una tabella di missioni. Le si esamina una per una e se ne trova una di proprio gradimento:",
+      "decidete di porvi un nuovo obiettivo per progredire rispetto agli altri avventurieri:",
+      "Un piccione viaggiatore vola verso di voi. Sulla sua zampa destra troverete una lettera scritta in caratteri dorati che descrive una missione molto interessante:",
+      "uno sconosciuto vi chiama e vi sfida:",
+      "Un passante davanti a voi lascia cadere un foglio di missione. La missione indicata è molto interessante, quindi decidete di svolgerla:",
+      "Passate davanti a una capanna dall'aspetto abbandonato e rovistate nel mucchio di carte davanti alla porta. Lì scoprite una proposta di missione. Si prende coraggio e si va avanti:",
+      "Il vento vi fa volare una pergamena sul viso. Interrotti dal viaggio, decidete di leggerla. Dopo un'attenta riflessione, decidete di portare a termine la missione scritta sul foglio:",
+      "un vecchio avventuriero racconta le sue storie a chiunque lo ascolti. Vi fermate ad ascoltarlo per un po'. Qualche istante dopo, si accorge di voi e vi chiede se potete completare una missione per lui. Accettate:"
+    ]
   }
 }
