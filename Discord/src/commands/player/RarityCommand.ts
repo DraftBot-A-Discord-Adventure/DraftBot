@@ -37,6 +37,5 @@ export async function handleCommandRarityPacketRes(packet: CommandRarityPacketRe
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("rarity"),
 	getPacket,
-	requirements: {},
 	mainGuildCommand: false
 };

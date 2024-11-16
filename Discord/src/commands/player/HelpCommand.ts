@@ -233,6 +233,5 @@ export const commandInfo: ICommand = {
 		.addStringOption(option => SlashCommandBuilderGenerator.generateOption("help", "commandName", option)
 			.setRequired(false)) as SlashCommandBuilder,
 	getPacket,
-	requirements: {},
 	mainGuildCommand: false
 };

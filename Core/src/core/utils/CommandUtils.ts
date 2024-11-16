@@ -89,7 +89,7 @@ export abstract class CommandUtils {
 		disallowedEffects?: Effect[];
 		allowedEffects?: Effect[];
 		level?: number;
-		rightRole?: RightGroup;
+		rightGroup?: RightGroup;
 		guildNeeded?: boolean;
 		guildRoleNeeded?: GuildRole;
 	}): Promise<boolean> {
@@ -104,7 +104,7 @@ export abstract class CommandUtils {
 			return false;
 		}
 
-		if (requirements.rightRole && !context.rightGroups.includes(requirements.rightRole)) {
+		if (requirements.rightGroup && !context.rightGroups.includes(requirements.rightGroup)) {
 			response.push(makePacket(RequirementRightPacket, {}));
 			return false;
 		}

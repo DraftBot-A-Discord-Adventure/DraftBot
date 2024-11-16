@@ -2,12 +2,13 @@ import {DraftBot} from "./core/bot/DraftBot";
 import {loadConfig} from "./core/bot/DraftBotConfig";
 import {
 	DraftBotPacket,
-	makePacket
+	makePacket, PacketContext
 } from "../../Lib/src/packets/DraftBotPacket";
-import {ErrorPacket} from "../../Lib/src/packets/commands/ErrorPacket";
+import {ErrorMaintenancePacket, ErrorPacket} from "../../Lib/src/packets/commands/ErrorPacket";
 import { connect } from "mqtt";
 import {PacketUtils} from "./core/utils/PacketUtils";
 import {MqttConstants} from "../../Lib/src/constants/MqttConstants";
+import {RightGroup} from "../../Lib/src/enums/RightGroup";
 
 export const botConfig = loadConfig();
 export let draftBotInstance: DraftBot = null;
@@ -38,19 +39,25 @@ mqttClient.on("message", async (topic, message) => {
 		return;
 	}
 	const response: DraftBotPacket[] = [];
-	const listener = draftBotInstance.packetListener.getListener(dataJson.packet.name);
-	if (!listener) {
-		const errorMessage = `No listener found for packet '${dataJson.packet.name}'`;
-		console.error(errorMessage);
-		response.push(makePacket(ErrorPacket, { message: errorMessage }));
+
+	if (botConfig.MODE_MAINTENANCE && !(dataJson.context as PacketContext).rightGroups.includes(RightGroup.MAINTENANCE)) {
+		response.push(makePacket(ErrorMaintenancePacket, {}));
 	}
 	else {
-		await draftBotInstance.packetListener.getListener(dataJson.packet.name)(dataJson.packet.data, dataJson.context, response);
+		const listener = draftBotInstance.packetListener.getListener(dataJson.packet.name);
+		if (!listener) {
+			const errorMessage = `No listener found for packet '${dataJson.packet.name}'`;
+			console.error(errorMessage);
+			response.push(makePacket(ErrorPacket, { message: errorMessage }));
+		}
+		else {
+			await draftBotInstance.packetListener.getListener(dataJson.packet.name)(dataJson.packet.data, dataJson.context, response);
+		}
 	}
 
 	PacketUtils.sendPackets(dataJson.context, response);
 });
 
 require("source-map-support").install();
-draftBotInstance = new DraftBot(loadConfig());
+draftBotInstance = new DraftBot();
 draftBotInstance.init().then();

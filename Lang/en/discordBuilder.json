@@ -168,5 +168,19 @@
         "name": "toggle"
       }
     }
+  },
+  "maintenance": {
+    "description": "Set the bot in maintenance mode.",
+    "name": "maintenance",
+    "options": {
+      "enable": {
+        "description": "Enable or disable maintenance mode.",
+        "name": "enable"
+      },
+      "save": {
+        "description": "Save the maintenance mode to the configuration file.",
+        "name": "save"
+      }
+    }
   }
 }

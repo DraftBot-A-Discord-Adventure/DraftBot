@@ -152,9 +152,5 @@ export const commandInfo: ICommand = {
 			SlashCommandBuilderGenerator.generateOption("guildCreate", "guildName", option)
 				.setRequired(true)) as SlashCommandBuilder,
 	getPacket,
-	requirements: {
-		requiredLevel: GuildConstants.REQUIRED_LEVEL,
-		disallowEffects: [Effect.NOT_STARTED, Effect.DEAD]
-	},
 	mainGuildCommand: false
 };
