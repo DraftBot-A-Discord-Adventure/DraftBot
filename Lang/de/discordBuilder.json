@@ -168,5 +168,19 @@
         "name": "ändern"
       }
     }
+  },
+  "maintenance": {
+    "description": "Schalten Sie den Bot in den Wartungsmodus.",
+    "name": "Wartung",
+    "options": {
+      "enable": {
+        "description": "Aktiviert oder deaktiviert den Wartungsmodus.",
+        "name": "aktivieren"
+      },
+      "save": {
+        "description": "Speichern Sie den Wartungsmodus in der Konfigurationsdatei.",
+        "name": "speichern"
+      }
+    }
   }
 }
