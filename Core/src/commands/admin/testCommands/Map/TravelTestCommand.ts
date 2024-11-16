@@ -24,7 +24,7 @@ const travelTestCommand: ExecuteTestCommandLike = async (player, args) => {
 
 	const link = MapLinkDataController.instance.getLinkByLocations(mapStart, mapEnd);
 	if (!link) {
-		const connectedMapsWithStartLinks = MapLinkDataController.instance.getLinksByMapStart(mapEnd);
+		const connectedMapsWithStartLinks = MapLinkDataController.instance.getLinksByMapStart(mapStart);
 		const conMapsWthStart = [];
 		for (const l of connectedMapsWithStartLinks) {
 			conMapsWthStart.push(l.endMap);
