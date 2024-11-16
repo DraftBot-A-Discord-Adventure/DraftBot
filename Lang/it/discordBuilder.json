@@ -182,5 +182,19 @@
         "name": "salvare"
       }
     }
+  },
+  "missions": {
+    "description": "Lister les missions d'un joueur.",
+    "name": "missione",
+    "options": {
+      "rank": {
+        "description": "Le classement du joueur dont les missions doivent être affichées.",
+        "name": "classifica"
+      },
+      "user": {
+        "description": "L'utilisateur dont les missions doivent être affichées.",
+        "name": "utilizzatore"
+      }
+    }
   }
 }
