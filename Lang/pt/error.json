@@ -134,5 +134,7 @@
       "self": "{command:respawn} Pode utilizar o comando para continuar a jogar.",
       "other": "Não é possível realizar esta ação."
     }
-  }
+  },
+  "maintenanceTitle": "Manutenção",
+  "maintenance": "O jogo está atualmente em manutenção, por favor tente novamente mais tarde.\n\nPara mais informações, visita o servidor oficial do Discord: https://discord.gg/AP3Wmzb"
 }
