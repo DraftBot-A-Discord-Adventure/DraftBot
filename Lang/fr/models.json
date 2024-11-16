@@ -833,7 +833,7 @@
     "fromPlaceToPlace": "{{variantText}}",
     "gainRage_one": "Gagner {{count}} point de rage en battant des animaux sauvages",
     "gainRage_other": "Gagner {{count}} points de rage en battant des animaux sauvages",
-    "goToPlace": "Voyager jusqu'{{variantText}}",
+    "goToPlace": "Voyager jusqu'à {{variantText}}",
     "guildDailyFromSomeoneElse": "Recevoir une récompense de guilde sans l'avoir réclamée",
     "guildDaily_one": "Recevoir {{count}} récompense de guilde",
     "guildDaily_other": "Recevoir {{count}} récompenses de guilde",

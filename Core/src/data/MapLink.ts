@@ -45,22 +45,41 @@ export class MapLinkDataController extends DataControllerNumber<MapLink> {
 		return RandomUtils.draftbotRandom.pick(mapLinks);
 	}
 
+	/**
+	 * Get a MapLink by its start and end points
+	 * @param idStartPoint
+	 * @param idEndPoint
+	 */
 	public getLinkByLocations(idStartPoint: number, idEndPoint: number): MapLink {
 		return this.getValuesArray()
 			.find((mapLink) => mapLink.startMap === idStartPoint && mapLink.endMap === idEndPoint);
 	}
 
+	/**
+	 * Get all the links starting from a map
+	 * @param idStartPoint
+	 */
 	public getLinksByMapStart(idStartPoint: number): MapLink[] {
 		return this.getValuesArray()
 			.filter((mapLink) => mapLink.startMap === idStartPoint);
 	}
 
+	/**
+	 * Get the inverse link of a map link (where start and end are inverted)
+	 * @param idMapLink
+	 */
 	public getInverseLinkOf(idMapLink: number): MapLink {
 		const currMapLink = this.data.get(idMapLink);
 		return this.getValuesArray()
 			.find((mapLink) => mapLink.startMap === currMapLink.endMap && mapLink.endMap === currMapLink.startMap);
 	}
 
+	/**
+	 * Get all the links starting from a map with specific types, also support a banlisted map
+	 * @param mapTypes
+	 * @param startMapId
+	 * @param blacklistMapId
+	 */
 	public getMapLinksWithMapTypes(mapTypes: string[], startMapId: number, blacklistMapId: number): MapLink[] {
 		const blackListId = blacklistMapId ?? -1;
 		return this.getValuesArray()
@@ -71,6 +90,11 @@ export class MapLinkDataController extends DataControllerNumber<MapLink> {
 			);
 	}
 
+	/**
+	 * Get all the links starting from a map with specific types that have a specific attribute
+	 * @param attributeFrom
+	 * @param attributeTo
+	 */
 	public getFromAttributeToAttribute(attributeFrom: string, attributeTo: string): MapLink[] {
 		return this.getValuesArray()
 			.filter(
