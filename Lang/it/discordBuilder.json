@@ -168,5 +168,33 @@
         "name": "cambiamento"
       }
     }
+  },
+  "maintenance": {
+    "description": "Mettere il bot in modalità di manutenzione.",
+    "name": "manutenzione",
+    "options": {
+      "enable": {
+        "description": "Attiva o disattiva la modalità di manutenzione.",
+        "name": "attivare"
+      },
+      "save": {
+        "description": "Salvare la modalità di manutenzione nel file di configurazione.",
+        "name": "salvare"
+      }
+    }
+  },
+  "missions": {
+    "description": "Elenca le missioni di un giocatore.",
+    "name": "missione",
+    "options": {
+      "rank": {
+        "description": "La classifica del giocatore di cui si vogliono visualizzare le missioni.",
+        "name": "classifica"
+      },
+      "user": {
+        "description": "L'utente i cui compiti devono essere visualizzati.",
+        "name": "utilizzatore"
+      }
+    }
   }
 }
