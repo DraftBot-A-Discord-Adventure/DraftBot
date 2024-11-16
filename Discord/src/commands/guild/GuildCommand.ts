@@ -18,31 +18,18 @@ import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
 import {progressBar} from "../../../../Lib/src/utils/StringUtils";
-import {Effect} from "../../../../Lib/src/enums/Effect";
+import {PacketUtils} from "../../utils/PacketUtils";
 
 /**
  * Display all the information about a guild
  */
 async function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser): Promise<CommandGuildPacketReq | null> {
-
 	const guildNameOption = interaction.options.get("guild");
 	const askedGuildName = guildNameOption ? <string>guildNameOption.value : undefined;
 
-
-	let askedPlayer: { keycloakId?: string, rank?: number } = {keycloakId: keycloakUser.id};
-	const user = interaction.options.getUser("user");
-	if (user) {
-		const keycloakId = await KeycloakUtils.getKeycloakIdFromDiscordId(keycloakConfig, user.id, user.displayName);
-		if (!keycloakId) {
-			await interaction.reply({embeds: [new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("error:playerDoesntExist", {lng: interaction.userLanguage}))]});
-			return null;
-		}
-		askedPlayer = {keycloakId};
-	}
-
-	const rankOption = interaction.options.get("rank");
-	if (rankOption) {
-		askedPlayer = {rank: <number>rankOption.value};
+	const askedPlayer = await PacketUtils.prepareAskedPlayer(interaction, keycloakUser);
+	if (!askedPlayer) {
+		return null;
 	}
 
 	return makePacket(CommandGuildPacketReq, {askedPlayer, askedGuildName});

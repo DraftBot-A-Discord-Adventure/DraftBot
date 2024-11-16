@@ -19,31 +19,19 @@ import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
-import {Effect} from "../../../../Lib/src/enums/Effect";
 import {PetUtils} from "../../utils/PetUtils";
 import {ClassUtils} from "../../utils/ClassUtils";
 import {EmoteUtils} from "../../utils/EmoteUtils";
+import {PacketUtils} from "../../utils/PacketUtils";
 
 /**
  * Display the profile of a player
  */
 async function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser): Promise<CommandProfilePacketReq | null> {
-	let askedPlayer: { keycloakId?: string, rank?: number } = {keycloakId: keycloakUser.id};
-
-	const user = interaction.options.getUser("user");
-	if (user) {
-		const keycloakId = await KeycloakUtils.getKeycloakIdFromDiscordId(keycloakConfig, user.id, user.displayName);
-		if (!keycloakId) {
-			await interaction.reply({embeds: [new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("error:playerDoesntExist", {lng: interaction.userLanguage}))]});
-			return null;
-		}
-		askedPlayer = {keycloakId};
+	const askedPlayer = await PacketUtils.prepareAskedPlayer(interaction, keycloakUser);
+	if (!askedPlayer) {
+		return null;
 	}
-	const rank = interaction.options.get("rank");
-	if (rank) {
-		askedPlayer = {rank: <number>rank.value};
-	}
-
 	return makePacket(CommandProfilePacketReq, {askedPlayer});
 }
 

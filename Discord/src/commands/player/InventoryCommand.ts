@@ -21,30 +21,12 @@ import {
 } from "../../../../Lib/src/packets/commands/CommandInventoryPacket";
 import {DiscordItemUtils} from "../../utils/DiscordItemUtils";
 import {sendInteractionNotForYou} from "../../utils/ErrorUtils";
-import {Effect} from "../../../../Lib/src/enums/Effect";
+import {PacketUtils} from "../../utils/PacketUtils";
 
 async function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser): Promise<CommandInventoryPacketReq | null> {
-	let askedPlayer: {
-		keycloakId?: string,
-		rank?: number
-	} = {keycloakId: keycloakUser.id};
-
-	const user = interaction.options.getUser("user");
-	if (user) {
-		const keycloakId = await KeycloakUtils.getKeycloakIdFromDiscordId(keycloakConfig, user.id, user.displayName);
-		if (!keycloakId) {
-			await interaction.reply({
-				embeds: [
-					new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("error:playerDoesntExist", {lng: interaction.userLanguage}))
-				]
-			});
-			return null;
-		}
-		askedPlayer = {keycloakId};
-	}
-	const rank = interaction.options.get("rank");
-	if (rank) {
-		askedPlayer = {rank: <number>rank.value};
+	const askedPlayer = await PacketUtils.prepareAskedPlayer(interaction, keycloakUser);
+	if (!askedPlayer) {
+		return null;
 	}
 
 	return makePacket(CommandInventoryPacketReq, {askedPlayer});
