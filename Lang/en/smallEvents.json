@@ -1168,5 +1168,18 @@
       "You count your pieces, but you need them for the journey. The rogue shakes her tone and moves away with her cart.",
       "You check your purse, but unfortunately you don't have enough money. The stranger nods it and leaves with its cart."
     ]
+  },
+  "findMission": {
+    "intrigue": [
+      "a courier arrives towards you running out of breath. He tends you a letter from the king asking you to perform the following mission:",
+      "you find a board of missions. You peel them one by one, and among them you find one that suits you:",
+      "you decide to set a new goal to advance over other adventurers:",
+      "a pigeon traveler flies straight to you. On its right leg, you find a letter written in gold letters that describes a very integrated mission:",
+      "a stranger calls you and throws you a challenge:",
+      "a pass ahead drops you a mission sheet. Since the mission is an integral one, you decide to do it:",
+      "pass in front of a hut that looks abandoned and search in the pile of papers located in front of the door. Here you will find a proposal for a mission. You take your courage in two hands and run it through:",
+      "The wind makes a scroll fly up to your face. Cut in your journey, you decide to read it. You decide to perform the mission on the sheet:",
+      "An old adventurer tells his stories who wants to hear them. You stop listening to him a bit. A few moments later, he notices you and asks if you can complete a mission for him. You agree:"
+    ]
   }
 }
