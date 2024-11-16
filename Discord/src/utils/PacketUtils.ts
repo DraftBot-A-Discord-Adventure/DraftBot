@@ -24,6 +24,11 @@ export abstract class PacketUtils {
 		}));
 	}
 
+	/**
+	 * Prepare the asked player from the draftbot   interaction
+	 * @param interaction
+	 * @param keycloakUser
+	 */
 	static async prepareAskedPlayer(interaction: DraftbotInteraction, keycloakUser: KeycloakUser): Promise<AskedPlayer | null> {
 		let askedPlayer: AskedPlayer = {keycloakId: keycloakUser.id};
 
