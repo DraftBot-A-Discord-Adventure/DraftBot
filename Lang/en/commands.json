@@ -368,7 +368,7 @@
     },
     "playerClass": {
       "fieldName": "Class:",
-      "field": "{{className}}"
+      "fieldValue": "{{className}}"
     },
     "ranking": {
       "fieldName": "Ranking and score:",
@@ -590,5 +590,23 @@
     "footerEnableDisable": "Use the buttons below to enable or disable notifications.",
     "back": "Back",
     "footerSendLocation": "Use the buttons below to choose or want to receive notifications."
+  },
+  "maintenance": {
+    "title": "Maintenance",
+    "on": "Bot has been upgraded to succeed.",
+    "off": "The bot was released from maintenance with success."
+  },
+  "missions": {
+    "title": "{{pseudo}} missions",
+    "subcategories": {
+      "campaign_current": "{emote:missions.campaign} **Campaign ({{current}}/{{max}})**",
+      "campaign_completed": "{emote:missions.campaign} **Campaign Completed**",
+      "daily": "\n{emote:missions.daily} **Daily Mission**",
+      "sideMissions": "\n{emote:missions.sideMission} **Secondary missions ({{current}}/{{max}})**"
+    },
+    "dailyFinished": "You've completed today's mission! Check back {{time}}.",
+    "noCurrentMissions": "You can occasionally find additional missions to perform by requesting a report.",
+    "missionDisplay_campaign": "{{mission}}\n{{progressionBar}} {{current}}/{{objective}}",
+    "missionDisplay_other": "{{mission}} (expires {{time}})\n{{progressionBar}} {{current}}/{{objective}}"
   }
 }

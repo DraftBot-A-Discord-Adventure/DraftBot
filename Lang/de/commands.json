@@ -368,7 +368,7 @@
     },
     "playerClass": {
       "fieldName": "Klasse:",
-      "field": "{{className}}"
+      "fieldValue": "{{className}}"
     },
     "ranking": {
       "fieldName": "Bewertung und Score:",
@@ -590,5 +590,23 @@
     "footerEnableDisable": "Verwenden Sie die untenstehenden Schaltflächen, um Benachrichtigungen zu aktivieren oder zu deaktivieren.",
     "back": "Zurück",
     "footerSendLocation": "Verwenden Sie die untenstehenden Schaltflächen, um auszuwählen, wo Sie Benachrichtigungen erhalten möchten."
+  },
+  "maintenance": {
+    "title": "Wartung",
+    "on": "Der Bot wurde erfolgreich in die Wartung gegeben.",
+    "off": "Der Bot wurde erfolgreich aus der Wartung geholt."
+  },
+  "missions": {
+    "title": "Aufgaben von {{pseudo}}",
+    "subcategories": {
+      "campaign_current": "{emote:missions.campaign} **Land ({{current}}/{{max}})**",
+      "campaign_completed": "{emote:missions.campaign} **Kampagne beendet**",
+      "daily": "\n{emote:missions.daily} **Täglicher Auftrag**",
+      "sideMissions": "\n{emote:missions.sideMission} **Nebenmissionen ({{current}}/{{max}})**"
+    },
+    "dailyFinished": "Sie haben die heutige Mission abgeschlossen! Kehren Sie zurück {{time}}.",
+    "noCurrentMissions": "Gelegentlich finden Sie zusätzliche Aufgaben, die Sie erledigen können, wenn Sie einen Bericht anfordern.",
+    "missionDisplay_campaign": "{{mission}}\n{{progressionBar}} {{current}}/{{objective}}",
+    "missionDisplay_other": "{{mission}} (expire {{time}})\n{{progressionBar}} {{current}}/{{objective}}"
   }
 }

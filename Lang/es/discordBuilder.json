@@ -168,5 +168,33 @@
         "name": "cambiar"
       }
     }
+  },
+  "maintenance": {
+    "description": "Pon el bot en modo mantenimiento.",
+    "name": "mantenimiento",
+    "options": {
+      "enable": {
+        "description": "Activar o desactivar el modo de mantenimiento.",
+        "name": "activar"
+      },
+      "save": {
+        "description": "Guarde el modo de mantenimiento en el archivo de configuración.",
+        "name": "guardar"
+      }
+    }
+  },
+  "missions": {
+    "description": "Enumerar las misiones de un jugador.",
+    "name": "misiones",
+    "options": {
+      "rank": {
+        "description": "La clasificación del jugador cuyas misiones deben mostrarse.",
+        "name": "clasificación"
+      },
+      "user": {
+        "description": "El usuario cuyas tareas deben mostrarse.",
+        "name": "usuario"
+      }
+    }
   }
 }
