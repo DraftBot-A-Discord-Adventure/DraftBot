@@ -135,6 +135,8 @@
       "other": "Impossible d'effectuer cette action."
     }
   },
+  "errorOccurredTitle": "Une erreur est survenue",
+  "errorOccurred": "Une erreur est survenue lors de l'exécution de cette commande :(\n\nMerci de rapporter ce problème à un membre de l'équipe, en précisant l'heure ainsi que le serveur sur lequel vous avez rencontré ce problème.\n\nN'hésitez pas à rejoindre notre serveur de support pour obtenir de l'aide : https://discord.gg/5JqrMtZ"
   "maintenanceTitle": "Maintenance",
   "maintenance": "Le jeu est actuellement en maintenance, veuillez réessayer plus tard.\n\nPour plus d'informations, rendez-vous sur le serveur Discord officiel : https://discord.gg/AP3Wmzb"
 }
