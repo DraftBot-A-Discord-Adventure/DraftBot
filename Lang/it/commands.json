@@ -368,7 +368,7 @@
     },
     "playerClass": {
       "fieldName": "Classe :",
-      "field": "{{className}}"
+      "fieldValue": "{{className}}"
     },
     "ranking": {
       "fieldName": "Classifica e punti :",
@@ -595,5 +595,18 @@
     "title": "Manutenzione",
     "on": "Il bot è stato messo in manutenzione con successo.",
     "off": "Il bot è stato rilasciato con successo dalla manutenzione."
+  },
+  "missions": {
+    "title": "Missions de {{pseudo}}",
+    "subcategories": {
+      "campaign_current": "{emote:missions.campaign} **Campagne ({{current}}/{{max}})**",
+      "campaign_completed": "{emote:missions.campaign} **Campagne terminée**",
+      "daily": "\n{emote:missions.daily} **Mission quotidienne**",
+      "sideMissions": "\n{emote:missions.sideMission} **Missions secondaires ({{current}}/{{max}})**"
+    },
+    "dailyFinished": "Vous avez complété la mission du jour ! Revenez {{time}}.",
+    "noCurrentMissions": "Vous pouvez occasionnellement trouver des missions supplémentaires à réaliser en demandant un rapport.",
+    "missionDisplay_campaign": "{{mission}}\n{{progressionBar}} {{current}}/{{objective}}",
+    "missionDisplay_other": "{{mission}} (expire {{time}})\n{{progressionBar}} {{current}}/{{objective}}"
   }
 }
