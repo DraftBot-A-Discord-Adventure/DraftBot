@@ -368,7 +368,7 @@
     },
     "playerClass": {
       "fieldName": "Classe :",
-      "field": "{{className}}"
+      "fieldValue": "{{className}}"
     },
     "ranking": {
       "fieldName": "Classifica e punti :",
@@ -590,5 +590,23 @@
     "footerEnableDisable": "Utilizzare i pulsanti sottostanti per attivare o disattivare le notifiche.",
     "back": "Torna a",
     "footerSendLocation": "Utilizzate i pulsanti sottostanti per scegliere dove desiderate ricevere le notifiche."
+  },
+  "maintenance": {
+    "title": "Manutenzione",
+    "on": "Il bot è stato messo in manutenzione con successo.",
+    "off": "Il bot è stato rilasciato con successo dalla manutenzione."
+  },
+  "missions": {
+    "title": "Missions de {{pseudo}}",
+    "subcategories": {
+      "campaign_current": "{emote:missions.campaign}{{current}}{{max}}**Campagna ( / )**",
+      "campaign_completed": "{emote:missions.campaign} **La campagna è terminata.",
+      "daily": "\n{emote:missions.daily} **Missione giornaliera",
+      "sideMissions": "\n{emote:missions.sideMission}{{current}}{{max}}**Missioni secondarie ( / )**"
+    },
+    "dailyFinished": "Hai completato la missione di oggi! {{time}}Tornate a .",
+    "noCurrentMissions": "Occasionalmente, è possibile trovare ulteriori compiti da completare richiedendo un rapporto.",
+    "missionDisplay_campaign": "{{mission}}\n{{progressionBar}} {{current}}{{objective}}/",
+    "missionDisplay_other": "{{mission}} {{time}}\n{{progressionBar}} {{current}}{{objective}}(scadere ) /"
   }
 }
