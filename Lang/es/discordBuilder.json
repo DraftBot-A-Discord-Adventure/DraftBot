@@ -182,5 +182,19 @@
         "name": "guardar"
       }
     }
+  },
+  "missions": {
+    "description": "Lister les missions d'un joueur.",
+    "name": "missions",
+    "options": {
+      "rank": {
+        "description": "Le classement du joueur dont les missions doivent être affichées.",
+        "name": "classement"
+      },
+      "user": {
+        "description": "L'utilisateur dont les missions doivent être affichées.",
+        "name": "utilisateur"
+      }
+    }
   }
 }
