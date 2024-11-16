@@ -134,5 +134,7 @@
       "self": "You can relive by using the {command:respawn} command to continue playing.",
       "other": "Unable to perform this action."
     }
-  }
+  },
+  "maintenanceTitle": "Maintenance",
+  "maintenance": "The game is currently under maintenance, please try again later.\n\nFor more information, go to the official Discord server: https://discord.gg/AP3Wmzb"
 }
