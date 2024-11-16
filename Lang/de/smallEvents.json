@@ -1168,5 +1168,18 @@
       "Sie zählen Ihre Münzen, aber es fehlen Ihnen noch welche für die Reise. Der Rochadeur schüttelt den Kopf und zieht mit seinem Karren davon.",
       "Sie überprüfen Ihren Geldbeutel, aber leider haben Sie nicht genug Geld. Der Fremde nickt und geht mit seinem Karren weg."
     ]
+  },
+  "findMission": {
+    "intrigue": [
+      "ein Bote kommt atemlos auf Sie zu. Er überreicht Ihnen einen Brief vom König, in dem er Sie bittet, folgende Aufgabe zu erfüllen:",
+      "finden Sie eine Tabelle mit Missionen. Sie gehen sie eine nach der anderen durch und unter ihnen finden Sie eine, die Ihnen gefällt:",
+      "Sie beschließen, sich ein neues Ziel zu setzen, um sich im Vergleich zu den anderen Abenteurern zu verbessern:",
+      "eine Brieftaube fliegt direkt auf Sie zu. Auf ihrem rechten Bein finden Sie einen in goldenen Buchstaben geschriebenen Brief, der eine äußerst interessante Mission beschreibt:",
+      "ein Unbekannter spricht Sie an und fordert Sie heraus:",
+      "ein Passant vor Ihnen lässt einen Missionszettel fallen. Da der angegebene Auftrag sehr interessant ist, beschließen Sie, ihn zu erledigen:",
+      "Sie kommen an einer verlassen aussehenden Hütte vorbei und durchsuchen den Papierstapel vor der Tür. Dort finden Sie einen Vorschlag für eine Mission. Sie nehmen all Ihren Mut zusammen und machen sich auf den Weg, um den Auftrag auszuführen:",
+      "Der Wind weht ein Pergament über Ihr Gesicht. In Ihrer Reise unterbrochen, beschließen Sie, es zu lesen. Nach reiflicher Überlegung beschließen Sie, die Aufgabe zu erfüllen, die auf dem Blatt steht:",
+      "Ein alter Abenteurer erzählt seine Geschichten jedem, der sie hören will. Sie bleiben stehen und hören ihm zu. Einige Augenblicke später bemerkt er Sie und fragt, ob Sie einen Auftrag für ihn beenden könnten. Sie stimmen zu :"
+    ]
   }
 }
