@@ -590,5 +590,10 @@
     "footerEnableDisable": "Use the buttons below to enable or disable notifications.",
     "back": "Back",
     "footerSendLocation": "Use the buttons below to choose or want to receive notifications."
+  },
+  "maintenance": {
+    "title": "Maintenance",
+    "on": "Bot has been upgraded to succeed.",
+    "off": "The bot was released from maintenance with success."
   }
 }
