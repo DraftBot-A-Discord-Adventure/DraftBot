@@ -1,6 +1,6 @@
 import {IMission} from "../IMission";
 import {hoursToMilliseconds} from "../../../../../Lib/src/utils/TimeUtils";
-import {MissionUtils} from "../../../../../Lib/src/utils/MissionUtils";
+import {FromPlaceToPlaceParams, MissionUtils} from "../../../../../Lib/src/utils/MissionUtils";
 
 const saveBlobFromData = function(startTimestamp: number, startMap: number): Buffer {
 	const saveBlob = Buffer.alloc(10);
@@ -9,6 +9,10 @@ const saveBlobFromData = function(startTimestamp: number, startMap: number): Buf
 	return saveBlob;
 };
 
+function checkLink(variantParams: FromPlaceToPlaceParams, startMap: number, endMap: number): boolean {
+	return variantParams.fromMap === startMap && variantParams.toMap === endMap;
+}
+
 export const missionInterface: IMission = {
 	areParamsMatchingVariantAndBlob: (variant, params, saveBlob) => {
 		if (!saveBlob) {
@@ -16,13 +20,11 @@ export const missionInterface: IMission = {
 		}
 		const variantParams = MissionUtils.fromPlaceToPlaceParamsFromVariant(variant);
 		const saveData = MissionUtils.fromPlaceToPlaceDataFromSaveBlob(saveBlob);
-		if (variantParams.orderMatter) {
-			return variantParams.toMap === params.mapId && variantParams.fromMap === saveData.startMap
-				&& saveData.startTimestamp + hoursToMilliseconds(variantParams.time) > Date.now();
-		}
-		return (variantParams.toMap === params.mapId && variantParams.fromMap === saveData.startMap
-				|| variantParams.fromMap === params.mapId && variantParams.toMap === saveData.startMap)
-			&& saveData.startTimestamp + hoursToMilliseconds(variantParams.time) > Date.now();
+		const otherMap = params.mapId as number;
+
+		return saveData.startTimestamp + hoursToMilliseconds(variantParams.time) > Date.now()
+			&& (checkLink(variantParams, saveData.startMap, otherMap)
+				|| !variantParams.orderMatter && checkLink(variantParams, otherMap, saveData.startMap));
 	},
 
 	generateRandomVariant: () => 0,
