@@ -590,5 +590,10 @@
     "footerEnableDisable": "Utilizzare i pulsanti sottostanti per attivare o disattivare le notifiche.",
     "back": "Torna a",
     "footerSendLocation": "Utilizzate i pulsanti sottostanti per scegliere dove desiderate ricevere le notifiche."
+  },
+  "maintenance": {
+    "title": "Manutenzione",
+    "on": "Il bot è stato messo in manutenzione con successo.",
+    "off": "Il bot è stato rilasciato con successo dalla manutenzione."
   }
 }
