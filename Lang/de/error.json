@@ -134,5 +134,7 @@
       "self": "Sie können mit dem Befehl {command:respawn} wiederbelebt werden, um weiterspielen zu können.",
       "other": "Es ist nicht möglich, diese Aktion auszuführen."
     }
-  }
+  },
+  "maintenanceTitle": "Wartung",
+  "maintenance": "Das Spiel wird derzeit gewartet, bitte versuchen Sie es später noch einmal.\n\nWeitere Informationen finden Sie auf dem offiziellen Discord-Server: https://discord.gg/AP3Wmzb"
 }
