@@ -590,5 +590,10 @@
     "footerEnableDisable": "Verwenden Sie die untenstehenden Schaltflächen, um Benachrichtigungen zu aktivieren oder zu deaktivieren.",
     "back": "Zurück",
     "footerSendLocation": "Verwenden Sie die untenstehenden Schaltflächen, um auszuwählen, wo Sie Benachrichtigungen erhalten möchten."
+  },
+  "maintenance": {
+    "title": "Wartung",
+    "on": "Der Bot wurde erfolgreich in die Wartung gegeben.",
+    "off": "Der Bot wurde erfolgreich aus der Wartung geholt."
   }
 }
