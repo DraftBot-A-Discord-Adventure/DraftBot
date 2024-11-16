@@ -168,5 +168,19 @@
         "name": "cambiar"
       }
     }
+  },
+  "maintenance": {
+    "description": "Pon el bot en modo mantenimiento.",
+    "name": "mantenimiento",
+    "options": {
+      "enable": {
+        "description": "Activar o desactivar el modo de mantenimiento.",
+        "name": "activar"
+      },
+      "save": {
+        "description": "Guarde el modo de mantenimiento en el archivo de configuración.",
+        "name": "guardar"
+      }
+    }
   }
 }
