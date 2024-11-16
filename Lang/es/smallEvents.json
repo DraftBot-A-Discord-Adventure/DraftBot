@@ -1168,5 +1168,18 @@
       "Cuenta sus monedas, pero no tiene suficientes para el viaje. El zorro sacude la cabeza y se marcha en su carro.",
       "Revisa su bolso, pero por desgracia no tiene suficiente dinero. El desconocido asiente y se marcha con su carrito."
     ]
+  },
+  "findMission": {
+    "intrigue": [
+      "Un mensajero se acerca a ti sin aliento. Te entrega una carta del rey pidiéndote que lleves a cabo la siguiente misión:",
+      "encuentras una tabla de misiones. Las revisas una a una y encuentras una que te guste:",
+      "decides fijarte un nuevo objetivo para progresar con respecto a los demás aventureros:",
+      "Una paloma mensajera vuela directamente hacia ti. En su pata derecha, encontrarás una carta escrita en letras doradas que describe una misión muy interesante:",
+      "un desconocido te llama y te desafía:",
+      "Un transeúnte que pasa por delante de ti deja caer una hoja de misión. La misión indicada es muy interesante, así que decides llevarla a cabo:",
+      "Pasas junto a una cabaña de aspecto abandonado y rebuscas entre la pila de papeles que hay frente a la puerta. Allí descubres una propuesta de misión. Te armas de valor y vas a por ella:",
+      "El viento te pasa un pergamino por la cara. Aislado de tu viaje, decides leerlo. Tras pensarlo detenidamente, decides llevar a cabo la misión escrita en la hoja:",
+      "un viejo aventurero cuenta sus historias a quien quiera escucharle. Te detienes a escucharle un rato. Unos instantes después, se fija en ti y te pregunta si puedes completar una misión para él. Aceptas:"
+    ]
   }
 }
