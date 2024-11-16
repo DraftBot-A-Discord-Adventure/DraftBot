@@ -1168,5 +1168,18 @@
       "Conta as suas moedas, mas não tem o suficiente para a viagem. A raposa abana a cabeça e parte na sua carroça.",
       "Verifica a sua carteira, mas infelizmente não tem dinheiro suficiente. O desconhecido acena com a cabeça e sai com o seu carrinho."
     ]
+  },
+  "findMission": {
+    "intrigue": [
+      "Um mensageiro vem na tua direção, sem fôlego. Entrega-te uma carta do rei que te pede para cumprires a seguinte missão:",
+      "encontra uma tabela de missões. Percorre-as uma a uma e encontra uma que lhe agrade:",
+      "decide estabelecer um novo objetivo para progredir em relação aos outros aventureiros:",
+      "Um pombo-correio voa na tua direção. Na sua pata direita, encontra uma carta escrita em letras douradas que descreve uma missão muito interessante:",
+      "um estranho chama por si e desafia-o:",
+      "Um transeunte que passa à tua frente deixa cair uma folha de missão. A missão indicada é muito interessante, pelo que decides cumpri-la:",
+      "Passa por uma cabana de aspeto abandonado e remexe na pilha de papéis em frente à porta. Aí descobre uma proposta de missão. Ganha coragem e avança:",
+      "O vento sopra um pergaminho no teu rosto. Desligado da sua viagem, decide lê-lo. Depois de uma cuidadosa reflexão, decides cumprir a missão escrita na folha:",
+      "um velho aventureiro conta as suas histórias a quem o quiser ouvir. Paras para o ouvir durante algum tempo. Alguns momentos depois, ele repara em ti e pergunta-te se podes completar uma missão para ele. Aceitas:"
+    ]
   }
 }
