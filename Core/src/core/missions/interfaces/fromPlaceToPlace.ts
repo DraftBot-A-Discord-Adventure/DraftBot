@@ -9,6 +9,12 @@ const saveBlobFromData = function(startTimestamp: number, startMap: number): Buf
 	return saveBlob;
 };
 
+/**
+ * Check if the link matches the variant params
+ * @param variantParams
+ * @param startMap
+ * @param endMap
+ */
 function checkLink(variantParams: FromPlaceToPlaceParams, startMap: number, endMap: number): boolean {
 	return variantParams.fromMap === startMap && variantParams.toMap === endMap;
 }
