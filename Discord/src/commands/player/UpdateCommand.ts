@@ -34,6 +34,5 @@ export async function handleCommandUpdatePacketRes(packet: CommandUpdatePacketRe
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("update"),
 	getPacket,
-	requirements: {},
 	mainGuildCommand: false
 };

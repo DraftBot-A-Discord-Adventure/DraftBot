@@ -77,6 +77,10 @@ import {
 	handleCommandShopTooManyEnergyBought, handleReactionCollectorBuyCategorySlotBuySuccess
 } from "../../commands/player/ShopCommand";
 import {ReactionCollectorBuyCategorySlotBuySuccess} from "../../../../Lib/src/packets/interaction/ReactionCollectorBuyCategorySlot";
+import {
+	CommandMaintenancePacketRes
+} from "../../../../Lib/src/packets/commands/CommandMaintenancePacket";
+import {handleCommandMaintenancePacketRes} from "../../commands/admin/MaintenanceCommand";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
@@ -262,5 +266,10 @@ export default class CommandHandlers {
 	@packetHandler(ReactionCollectorBuyCategorySlotBuySuccess)
 	async buyCategorySlotBuySuccess(packet: ReactionCollectorBuyCategorySlotBuySuccess, context: PacketContext): Promise<void> {
 		await handleReactionCollectorBuyCategorySlotBuySuccess(context);
+	}
+
+	@packetHandler(CommandMaintenancePacketRes)
+	async maintenanceReq(packet: CommandMaintenancePacketRes, context: PacketContext): Promise<void> {
+		await handleCommandMaintenancePacketRes(packet, context);
 	}
 }

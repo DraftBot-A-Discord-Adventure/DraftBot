@@ -13,6 +13,5 @@ async function getPacket(interaction: DraftbotInteraction): Promise<void> {
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("invite"),
 	getPacket,
-	requirements: {},
 	mainGuildCommand: false
 };

@@ -103,8 +103,5 @@ export async function handleCommandMapDisplayRes(packet: CommandMapDisplayRes, c
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("map"),
 	getPacket,
-	requirements: {
-		disallowEffects: [Effect.DEAD, Effect.NOT_STARTED]
-	},
 	mainGuildCommand: false
 };

@@ -56,8 +56,5 @@ export async function handleCommandRespawnErrorAlreadyAlive(packet: CommandRespa
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("respawn"),
 	getPacket,
-	requirements: {
-		disallowEffects: [Effect.NOT_STARTED]
-	},
 	mainGuildCommand: false
 };

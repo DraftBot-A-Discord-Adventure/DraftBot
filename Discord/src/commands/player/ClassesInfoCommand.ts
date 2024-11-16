@@ -238,9 +238,5 @@ export async function handleCommandClassesInfoPacketRes(packet: CommandClassesIn
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("classesInfo"),
 	getPacket,
-	requirements: {
-		disallowEffects: [Effect.DEAD, Effect.NOT_STARTED],
-		requiredLevel: Constants.CLASS.REQUIRED_LEVEL
-	},
 	mainGuildCommand: false
 };

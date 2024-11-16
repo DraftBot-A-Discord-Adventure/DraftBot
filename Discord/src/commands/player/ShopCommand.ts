@@ -444,6 +444,5 @@ export async function shopCollector(packet: ReactionCollectorCreationPacket, con
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("shop"),
 	getPacket,
-	requirements: {},
 	mainGuildCommand: false
 };

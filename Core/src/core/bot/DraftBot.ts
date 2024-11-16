@@ -1,8 +1,7 @@
-import {DraftBotConfig} from "./DraftBotConfig";
 import {PacketListenerServer} from "../../../../Lib/src/packets/PacketListener";
 import {GameDatabase} from "../database/game/GameDatabase";
 import {LogsDatabase} from "../database/logs/LogsDatabase";
-import {draftBotInstance} from "../../index";
+import {botConfig, draftBotInstance} from "../../index";
 import {Settings} from "../database/game/models/Setting";
 import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
 import {Op, Sequelize} from "sequelize";
@@ -27,6 +26,7 @@ import PlayerMissionsInfo from "../database/game/models/PlayerMissionsInfo";
 import {ScheduledReportNotifications} from "../database/game/models/ScheduledReportNotification";
 import {ReachDestinationNotificationPacket} from "../../../../Lib/src/packets/notifications/ReachDestinationNotificationPacket";
 import {MapLocationDataController} from "../../data/MapLocation";
+import * as fs from "fs";
 
 export class DraftBot {
 	public readonly packetListener: PacketListenerServer;
@@ -37,11 +37,7 @@ export class DraftBot {
 
 	public readonly logger = Logger.getInstance("DraftBot");
 
-	private config: DraftBotConfig;
-
-	constructor(config: DraftBotConfig) {
-		this.config = config;
-
+	constructor() {
 		// Register commands
 		this.packetListener = new PacketListenerServer();
 
@@ -296,12 +292,39 @@ export class DraftBot {
 		setTimeout(DraftBot.reportNotifications, TIMEOUT_FUNCTIONS.REPORT_NOTIFICATIONS);
 	}
 
+	/**
+	 * Sets the maitenance mode of the bot
+	 * @param enable
+	 * @param saveToConfig Save the maintenance state to the config file
+	 * @throws
+	 */
+	public setMaintenance(enable: boolean, saveToConfig: boolean): void {
+		// Do it before setting the maintenance mode: if it fails, the mode will not be changed
+		if (saveToConfig) {
+			// Read the config file
+			const currentConfig = fs.readFileSync(`${process.cwd()}/config/config.toml`, "utf-8");
+			const regexMaintenance = /(maintenance *= *)(true|false)/g;
+			// Search for the maintenance field
+			if (regexMaintenance.test(currentConfig)) {
+				// Replace the value of the field. $1 is the group without true or false
+				const newConfig = currentConfig.replace(regexMaintenance, `$1${enable}`);
+				// Write the config
+				fs.writeFileSync(`${process.cwd()}/config/config.toml`, newConfig, "utf-8");
+			}
+			else {
+				throw new Error("Unable to get the maintenance field in the config file");
+			}
+		}
+
+		botConfig.MODE_MAINTENANCE = enable;
+	}
+
 	async init(): Promise<void> {
 		await registerAllPacketHandlers();
 		await this.gameDatabase.init(true);
 		await this.logsDatabase.init(true);
 		await MapCache.init();
-		if (this.config.TEST_MODE) {
+		if (botConfig.TEST_MODE) {
 			await CommandsTest.init();
 		}
 

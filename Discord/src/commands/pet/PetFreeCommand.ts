@@ -139,8 +139,5 @@ export async function handleCommandPetFreeAcceptPacketRes(packet: CommandPetFree
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("petFree"),
 	getPacket,
-	requirements: {
-		allowEffects: [Effect.NO_EFFECT]
-	},
 	mainGuildCommand: false
 };

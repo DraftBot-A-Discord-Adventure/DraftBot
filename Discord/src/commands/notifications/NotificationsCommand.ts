@@ -278,6 +278,5 @@ function getNotificationsEmbed(notificationsConfiguration: NotificationsConfigur
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("notifications"),
 	getPacket,
-	requirements: {},
 	mainGuildCommand: false
 };

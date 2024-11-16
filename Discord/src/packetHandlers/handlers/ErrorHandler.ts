@@ -2,7 +2,7 @@ import {packetHandler} from "../PacketHandler";
 import {PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {DiscordCache} from "../../bot/DiscordCache";
 import i18n from "../../translations/i18n";
-import {ErrorPacket} from "../../../../Lib/src/packets/commands/ErrorPacket";
+import {ErrorMaintenancePacket, ErrorPacket} from "../../../../Lib/src/packets/commands/ErrorPacket";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {BlockedPacket} from "../../../../Lib/src/packets/commands/BlockedPacket";
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
@@ -51,6 +51,21 @@ export default class ErrorHandler {
 		}
 		else {
 			interaction?.channel.send({embeds: [embed]});
+		}
+	}
+
+	@packetHandler(ErrorMaintenancePacket)
+	async maintenanceHandler(packet: ErrorMaintenancePacket, context: PacketContext): Promise<void> {
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+
+		if (interaction) {
+			const lng = context.discord?.language ?? LANGUAGE.ENGLISH;
+			const embed = new DraftBotEmbed()
+				.setErrorColor()
+				.formatAuthor(i18n.t("error:maintenanceTitle", {lng}), interaction?.user)
+				.setDescription(i18n.t("error:maintenance", {lng}));
+
+			await interaction?.channel.send({embeds: [embed]});
 		}
 	}
 }

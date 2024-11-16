@@ -17,6 +17,5 @@ async function getPacket(interaction: DraftbotInteraction): Promise<CommandPingP
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("ping"),
 	getPacket,
-	requirements: {},
 	mainGuildCommand: false
 };

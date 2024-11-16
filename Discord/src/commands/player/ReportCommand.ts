@@ -351,8 +351,5 @@ export async function reportTravelSummary(packet: CommandReportTravelSummaryRes,
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("report"),
 	getPacket,
-	requirements: {
-		disallowEffects: [Effect.DEAD]
-	},
 	mainGuildCommand: false
 };

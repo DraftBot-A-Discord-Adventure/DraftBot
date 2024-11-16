@@ -187,8 +187,5 @@ export const commandInfo: ICommand = {
 			SlashCommandBuilderGenerator.generateOption("inventory", "rank", option)
 				.setRequired(false)) as SlashCommandBuilder,
 	getPacket,
-	requirements: {
-		disallowEffects: [Effect.NOT_STARTED, Effect.DEAD]
-	},
 	mainGuildCommand: false
 };

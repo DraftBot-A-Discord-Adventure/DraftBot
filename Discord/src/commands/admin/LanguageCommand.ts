@@ -74,6 +74,5 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("language"),
 	getPacket,
-	requirements: {},
 	mainGuildCommand: false
 };
