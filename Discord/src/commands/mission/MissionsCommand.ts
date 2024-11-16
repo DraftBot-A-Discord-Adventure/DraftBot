@@ -106,7 +106,10 @@ export async function handleCommandMissionsPacketRes(packet: CommandMissionsPack
 	const dailyMissionDescription = `${i18n.t("commands:missions.subcategories.daily", {
 		lng: interaction.userLanguage
 	})}
-${i18n.t(`commands:missions.${datesAreOnSameDay(new Date(), new Date(dailyMission.expiresAt!) ?? new Date(0)) ? "dailyFinished" : "missionDisplay"}`, {
+${i18n.t(`commands:missions.${datesAreOnSameDay(
+		new Date(), // Current date
+		new Date(dailyMission.expiresAt ?? 0) // Date of the daily mission or 0 if it's not set
+	) ? "dailyFinished" : "missionDisplay"}`, {
 		lng: interaction.userLanguage,
 		time: finishInTimeDisplay(getTomorrowMidnight()),
 		mission: MissionUtils.formatBaseMission(dailyMission, interaction.userLanguage),
