@@ -60,16 +60,15 @@ export class DiscordMQTT {
 					const context = dataJson.context as PacketContext;
 					const lng = context.discord?.language ?? LANGUAGE.ENGLISH;
 					if (context.discord?.channel) {
-						draftBotClient.channels.fetch(context.discord.channel).then(channel => {
-							if (channel) {
-								(channel as TextChannel).send({ embeds: [
-									new DraftBotEmbed()
-										.setErrorColor()
-										.setTitle(i18n.t("error:errorOccurredTitle", {lng}))
-										.setDescription(i18n.t("error:errorOccurred", {lng}))
-								]});
-							}
-						});
+						const channel = await draftBotClient.channels.fetch(context.discord.channel);
+						if (channel instanceof TextChannel) {
+							await channel.send({ embeds: [
+								new DraftBotEmbed()
+									.setErrorColor()
+									.setTitle(i18n.t("error:errorOccurredTitle", {lng}))
+									.setDescription(i18n.t("error:errorOccurred", {lng}))
+							]});
+						}
 					}
 				}
 			}
