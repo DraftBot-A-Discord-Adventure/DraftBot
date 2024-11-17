@@ -135,6 +135,8 @@
       "other": "Es ist nicht möglich, diese Aktion auszuführen."
     }
   },
+  "errorOccurredTitle": "Ein Fehler ist aufgetreten",
+  "errorOccurred": "Bei der Ausführung dieses Befehls ist ein Fehler aufgetreten:(\n\nBitte melden Sie dieses Problem einem Teammitglied und geben Sie die Uhrzeit und den Server an, auf dem Sie das Problem festgestellt haben.\n\nBitte zögern Sie nicht, unseren Support-Server zu erreichen, um Hilfe zu erhalten: https://discord.gg/5JqrMtZ",
   "maintenanceTitle": "Wartung",
   "maintenance": "Das Spiel wird derzeit gewartet, bitte versuchen Sie es später noch einmal.\n\nWeitere Informationen finden Sie auf dem offiziellen Discord-Server: https://discord.gg/AP3Wmzb"
 }
