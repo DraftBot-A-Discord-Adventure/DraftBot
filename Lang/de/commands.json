@@ -493,18 +493,22 @@
     "boughtTooMuchDailyPotions": "Es gibt keinen Trank des Tages mehr, der zum Verkauf angeboten wird... Kommen Sie morgen wieder!",
     "title": "🛒 Anzeige des Magazins",
     "currentMoney": "Sie haben `{{money}}💰`.",
-    "shopItemsDisplay": "{{name}} | `{{price}}💰`",
+    "shopItemsDisplaySingle": "{{name}} | `{{price}}💰`",
+    "shopItemsDisplayMultiple": "**{{amount}}x** {{name}} | `{{price}}💰`",
     "shopSelectPlaceholder": "Wählen Sie einen Gegenstand zum Kauf aus",
     "buyCategorySlotSuccess": "Sie haben einen neuen Inventarplatz gekauft!",
     "shopItemsSelectDescription": "{{price}}💰",
     "closeShopButton": "❌ Laden schließen",
     "shopConfirmationTitle": "{{pseudo}}Sie haben das folgende Produkt ausgewählt:",
+    "shopConfirmationTitleMultiple": "{{pseudo}}Wählen Sie eine Menge für dieses Produkt:",
     "shopCategories": {
       "permanentItem": "Ständige Verkäufe",
       "dailyPotion_zero": "Trank des Tages (ausverkauft)",
       "dailyPotion_one": "Trank des Tages ({{count}} verfügbar)",
       "dailyPotion_other": "Trank des Tages ({{count}} verfügbar)",
-      "slotExtension": "Inventarerweiterungen"
+      "slotExtension": "Inventarerweiterungen",
+      "food": "Nahrung für Begleiter",
+      "guildXp": "Erfahrung in der Gilde"
     },
     "chooseSlotTitle": "{{pseudo}}Neuer Inventarplatz",
     "chooseSlotIndication": "Wählen Sie einen neuen Inventarort oder brechen Sie ab :",
@@ -547,6 +551,30 @@
       },
       "dailyPotion": {
         "info": "Sie erhalten einen Trank, den Sie behalten oder nicht behalten können. Wenn Sie ihn bereits haben, wird er ohne Rückerstattung weggeworfen!"
+      },
+      "smallGuildXp": {
+        "name": "{emote:shopItems.smallGuildXp} Ein bisschen xp für deine Gilde",
+        "info": "Sie erhalten eine zufällige Menge an Gilden-Xp, die zwischen 50 und 450 liegt."
+      },
+      "bigGuildXp": {
+        "name": "{emote:shopItems.bigGuildXp} Viele xp für deine Gilde",
+        "info": "Sie erhalten eine zufällige Menge an Gilden-Xp, die zwischen 750 und 6750 liegt."
+      },
+      "commonFood": {
+        "name": "{emote:foods.commonFood} Süßigkeit",
+        "info": "Sie erhalten ein Leckerli für Ihre Vertrauten."
+      },
+      "herbivorousFood": {
+        "name": "{emote:foods.herbivorousFood} Salat",
+        "info": "Sie erhalten Salat für Ihre Begleiter."
+      },
+      "carnivorousFood": {
+        "name": "{emote:foods.carnivorousFood} Fleisch",
+        "info": "Sie erhalten Fleisch für Ihre Begleiter."
+      },
+      "ultimateFood": {
+        "name": "{emote:foods.ultimateFood} Ultimative Suppe",
+        "info": "Sie erhalten eine ultimative Suppe für Ihre Vertrauten."
       }
     }
   },
@@ -608,5 +636,11 @@
     "noCurrentMissions": "Gelegentlich finden Sie zusätzliche Aufgaben, die Sie erledigen können, wenn Sie einen Bericht anfordern.",
     "missionDisplay_campaign": "{{mission}}\n{{progressionBar}} {{current}}/{{objective}}",
     "missionDisplay_other": "{{mission}} (expire {{time}})\n{{progressionBar}} {{current}}/{{objective}}"
+  },
+  "guildShop": {
+    "noFoodStorageSpace": "Sie haben nicht genug Platz in Ihrem Lagerraum, um diese Lebensmittel zu lagern.",
+    "empty": "Es gibt im Moment nichts mehr zu kaufen. Ihre Gilde hat die höchste Stufe erreicht und das Nahrungslager ist voll.",
+    "giveXpTitle": "Erfolg des Kaufs",
+    "giveXp": "{emote:unitValues.xp} Ihre Gilde hat **{{xp}}** Erfahrungspunkte erhalten."
   }
 }
