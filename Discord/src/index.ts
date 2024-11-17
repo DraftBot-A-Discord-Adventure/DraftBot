@@ -1,5 +1,6 @@
 import {loadConfig} from "./config/DiscordConfig";
 import {ShardingManager} from "discord.js";
+import AutoPoster from "topgg-autoposter";
 
 const shardCount = "auto";
 
@@ -27,7 +28,13 @@ function main(): void {
 		shard.on("error", (err) => console.error(`Shard ${shard.id} an error occurred ${err}`));
 	});
 
-	// TODO DBL post server count
+	// Auto posting stats to top.gg
+	if (config.DBL_TOKEN !== "" && config.DBL_TOKEN !== null) {
+		// eslint-disable-next-line new-cap
+		AutoPoster(config.DBL_TOKEN, shardingManager).on("posted", (data) => {
+			console.log(`Successfully posted following data to DBL: ${data}`);
+		});
+	}
 
 	shardingManager.spawn({
 		amount: shardCount

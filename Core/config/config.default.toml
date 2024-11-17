@@ -23,19 +23,6 @@ password = "secret_password"
 root_password = "super_secret_password"
 
 
-[discord_bot_list]
-# Put the port of the DBL Webhook
-webhook_port = 0
-# Put the url of the DBL Webhook. Choose a challenging URL to avoid it being found
-webhook_url = "/secret_url"
-# Put the id of the role won by a vote on DBL
-vote_role_id = ""
-# Put the channel id of the vote logs
-channel_id = ""
-# Put the DBL server token
-token = ""
-
-
 [backups]
 # Enabled backups. May contain LOCAL and DROPBOX and must be separated with commas (e.g., LOCAL, DROPBOX)
 enabled = ""

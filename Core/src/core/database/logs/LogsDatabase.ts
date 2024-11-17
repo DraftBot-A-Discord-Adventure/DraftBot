@@ -525,14 +525,6 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * Log a player's vote
-	 * @param keycloakId
-	 */
-	public logVote(keycloakId: string): Promise<void> {
-		return LogsDatabase.logSimplePlayerDate(keycloakId, LogsPlayersVotes);
-	}
-
-	/**
 	 * Log when a player does not succeed a mission
 	 * @param keycloakId
 	 * @param missionId

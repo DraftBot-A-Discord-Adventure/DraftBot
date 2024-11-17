@@ -55,3 +55,7 @@ url = "http://127.0.0.1:8080"
 clientId = "discord"
 # Keycloak client secret
 clientSecret = ""
+
+[discord_bot_list]
+# Put the DBL server token
+token = ""

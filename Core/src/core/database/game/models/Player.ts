@@ -90,8 +90,6 @@ export class Player extends Model {
 
 	declare guildId: number;
 
-	declare topggVoteAt: Date;
-
 	declare nextEvent: number;
 
 	declare petId: number;
@@ -1483,10 +1481,6 @@ export function initModel(sequelize: Sequelize): void {
 		guildId: {
 			type: DataTypes.INTEGER,
 			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.GUILD_ID
-		},
-		topggVoteAt: {
-			type: DataTypes.DATE,
-			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.TOP_GG_VOTE_AT
 		},
 		nextEvent: {
 			type: DataTypes.INTEGER

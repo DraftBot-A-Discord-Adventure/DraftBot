@@ -6,11 +6,6 @@ import {DatabaseConfiguration} from "../../../../Lib/src/database/DatabaseConfig
  * Represents the main constants of the bot
  */
 export interface DraftBotConfig {
-	DBL_WEBHOOK_PORT: number;
-	DBL_WEBHOOK_URL: string;
-	DBL_VOTE_ROLE: string;
-	DBL_LOGS_CHANNEL: string;
-	DBL_TOKEN: string;
 	MODE_MAINTENANCE: boolean;
 	TEST_MODE: boolean;
 	MARIADB_HOST: string;
@@ -24,13 +19,6 @@ export interface DraftBotConfig {
 }
 
 type ConfigStructure = {
-	discord_bot_list: {
-		webhook_url: string;
-		webhook_port: number;
-		channel_id: string;
-		vote_role_id: string;
-		token: string;
-	};
 	bot: {
 		maintenance: boolean;
 		test_mode: boolean;
@@ -58,11 +46,6 @@ type ConfigStructure = {
 export function loadConfig(): DraftBotConfig {
 	const config = parse(readFileSync(`${process.cwd()}/config/config.toml`, "utf-8")) as ConfigStructure;
 	return {
-		DBL_LOGS_CHANNEL: config.discord_bot_list.channel_id,
-		DBL_TOKEN: config.discord_bot_list.token,
-		DBL_VOTE_ROLE: config.discord_bot_list.vote_role_id,
-		DBL_WEBHOOK_PORT: config.discord_bot_list.webhook_port,
-		DBL_WEBHOOK_URL: config.discord_bot_list.webhook_url,
 		MODE_MAINTENANCE: config.bot.maintenance,
 		TEST_MODE: config.bot.test_mode,
 		MARIADB_HOST: config.database.host,

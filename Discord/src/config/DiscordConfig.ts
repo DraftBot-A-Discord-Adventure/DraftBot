@@ -27,6 +27,7 @@ export interface DraftBotConfig {
 	MARIADB_ROOT_PASSWORD: string;
 	MARIADB_PORT: number;
 	MARIADB_PREFIX: string;
+	DBL_TOKEN: string;
 }
 
 type ConfigStructure = {
@@ -66,6 +67,9 @@ type ConfigStructure = {
 		port: number;
 		prefix: string;
 	};
+	discord_bot_list: {
+		token: string;
+	};
 }
 
 /**
@@ -94,7 +98,8 @@ export function loadConfig(): DraftBotConfig {
 		MARIADB_PASSWORD: config.database.password,
 		MARIADB_ROOT_PASSWORD: config.database.root_password,
 		MARIADB_PORT: config.database.port,
-		MARIADB_PREFIX: config.database.prefix
+		MARIADB_PREFIX: config.database.prefix,
+		DBL_TOKEN: config.discord_bot_list.token
 	};
 }
 

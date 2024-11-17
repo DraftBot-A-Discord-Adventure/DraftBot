@@ -7,12 +7,6 @@ export class Constants {
 		DEFAULT_REACTION_LIMIT: 1
 	};
 
-	static readonly TOPGG = {
-		BADGE: "🗳️",
-		BADGE_DURATION: 12,
-		ROLE_DURATION: 24
-	};
-
 	static readonly XP = {
 		BASE_VALUE: 325,
 		COEFFICIENT: 1.041,

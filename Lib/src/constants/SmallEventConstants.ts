@@ -25,13 +25,6 @@ export abstract class SmallEventConstants {
 		MAX: 80
 	};
 
-	static readonly VOTE = {
-		MONEY: {
-			MIN: 150,
-			MAX: 250
-		}
-	};
-
 	static readonly SMALL_BAD = {
 		HEALTH: {
 			MIN: 1,
