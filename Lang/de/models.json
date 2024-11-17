@@ -1322,9 +1322,13 @@
     "94": "Pulver und Lösungsmittel zur Herstellung einer Injektionslösung"
   },
   "foods": {
-    "herbivorousFood": "Salat",
-    "carnivorousFood": "Fleisch",
-    "ultimateFood": "ultimative Suppe",
-    "commonFood": "Süßigkeit"
+    "herbivorousFood_one": "Salat",
+    "herbivorousFood_other": "Salate",
+    "carnivorousFood_one": "Fleisch",
+    "carnivorousFood_other": "Fleisch",
+    "ultimateFood_one": "ultimative Suppe",
+    "ultimateFood_other": "ultimative Suppen",
+    "commonFood_one": "Süßigkeit",
+    "commonFood_other": "Süßigkeiten"
   }
 }
