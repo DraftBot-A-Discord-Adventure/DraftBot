@@ -24,5 +24,9 @@
       "moneyDisplay": "+{{count}} {emote:unitValues.money}",
       "xpDisplay": "+{{count}} {emote:unitValues.xp}"
     }
+  },
+  "guildFood": {
+    "receivedFoodTitle": "Your guild has received food",
+    "receivedFoodDescription": "{emote:foods.{{foodId}}} Your guild has recovered: **{{amount}}x {{foodName}}**"
   }
 }
