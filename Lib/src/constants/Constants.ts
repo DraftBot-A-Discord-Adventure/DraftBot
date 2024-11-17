@@ -152,40 +152,6 @@ export class Constants {
 		DAILY_MISSION_POINTS_MULTIPLIER: 3.5
 	};
 
-	static readonly PET_FOOD = {
-		COMMON_FOOD: "commonFood",
-		CARNIVOROUS_FOOD: "carnivorousFood",
-		HERBIVOROUS_FOOD: "herbivorousFood",
-		ULTIMATE_FOOD: "ultimateFood"
-	};
-
-	static readonly PET_FOOD_GUILD_SHOP = {
-		TYPE: [
-			"commonFood",
-			"herbivorousFood",
-			"carnivorousFood",
-			"ultimateFood"
-		],
-		EMOTE: [
-			"\uD83C\uDF6C",
-			"\uD83E\uDD6C",
-			"\uD83E\uDD69",
-			"\uD83C\uDF72"
-		],
-		PRICE: [
-			20,
-			250,
-			250,
-			600
-		],
-		EFFECT: [
-			1,
-			3,
-			3,
-			5
-		]
-	};
-
 	static readonly MINIMAL_PLAYER_SCORE = 100;
 
 	static EXCLUDED_TRANSLATION_MODULES = [

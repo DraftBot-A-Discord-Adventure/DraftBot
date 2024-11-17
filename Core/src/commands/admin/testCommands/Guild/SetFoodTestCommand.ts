@@ -1,7 +1,7 @@
 import Guild from "../../../../core/database/game/models/Guild";
 import {getFoodIndexOf} from "../../../../core/utils/FoodUtils";
-import {Constants} from "../../../../../../Lib/src/constants/Constants";
 import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
+import {PetConstants} from "../../../../../../Lib/src/constants/PetConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "setfood",
@@ -23,7 +23,7 @@ const setFoodTestCommand: ExecuteTestCommandLike = async (player, args) => {
 		throw new Error("Erreur sf : vous n'êtes pas dans une guilde !");
 	}
 	if (getFoodIndexOf(args[0]) === -1) {
-		throw new Error(`Erreur sf : mauvaise nourriture entrée, nourritures autorisées : ${Constants.PET_FOOD_GUILD_SHOP.TYPE.toString()}`);
+		throw new Error(`Erreur sf : mauvaise nourriture entrée, nourritures autorisées : ${PetConstants.PET_FOOD_BY_ID.toString()}`);
 	}
 	guild.setDataValue(args[0], args[1]);
 	await guild.save();
