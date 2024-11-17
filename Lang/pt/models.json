@@ -1322,9 +1322,13 @@
     "94": "Pó de esqueleto"
   },
   "foods": {
-    "herbivorousFood": "salada",
-    "carnivorousFood": "carne",
-    "ultimateFood": "a melhor sopa",
-    "commonFood": "tratar"
+    "herbivorousFood_one": "salada",
+    "herbivorousFood_other": "saladas",
+    "carnivorousFood_one": "carne",
+    "carnivorousFood_other": "carnes",
+    "ultimateFood_one": "a melhor sopa",
+    "ultimateFood_other": "sopas definitivas",
+    "commonFood_one": "tratar",
+    "commonFood_other": "doces"
   }
 }
