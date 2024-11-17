@@ -11,7 +11,6 @@ export abstract class PlayersConstants {
 		CLASS: 0,
 		BADGES: null as unknown as string,
 		GUILD_ID: null as unknown as number,
-		TOP_GG_VOTE_AT: new Date(0),
 		LAST_PET_FREE: new Date(0),
 		EFFECT: Effect.NOT_STARTED.id,
 		EFFECT_DURATION: Effect.NOT_STARTED.timeMinutes,

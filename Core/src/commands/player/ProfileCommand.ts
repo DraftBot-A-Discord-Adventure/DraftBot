@@ -12,7 +12,6 @@ import {Campaign} from "../../core/missions/Campaign";
 import {Players} from "../../core/database/game/models/Player";
 import {Guilds} from "../../core/database/game/models/Guild";
 import {Constants} from "../../../../Lib/src/constants/Constants";
-import {hoursToMilliseconds} from "../../../../Lib/src/utils/TimeUtils";
 import {PetDataController} from "../../data/Pet";
 import {MapLocationDataController} from "../../data/MapLocation";
 import {CommandUtils} from "../../core/utils/CommandUtils";
@@ -55,9 +54,6 @@ export default class ProfileCommand {
 			const missionsInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
 			const playerActiveObjects = await InventorySlots.getMainSlotsItems(player.id);
 			const badges = player.badges === "" || !player.badges ? [] : player.badges.split("-");
-			if (new Date().valueOf() - player.topggVoteAt.valueOf() < hoursToMilliseconds(Constants.TOPGG.BADGE_DURATION)) {
-				badges.push(Constants.TOPGG.BADGE);
-			}
 			const destinationId = player.getDestinationId();
 
 			response.push(makePacket(CommandProfilePacketRes, {
