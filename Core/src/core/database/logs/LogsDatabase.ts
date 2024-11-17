@@ -18,7 +18,6 @@ import {LogsPlayersStandardAlterations} from "./models/LogsPlayersStandardAltera
 import {LogsPlayersOccupiedAlterations} from "./models/LogsPlayersOccupiedAlterations";
 import {LogsUnlocks} from "./models/LogsUnlocks";
 import {LogsPlayersClassChanges} from "./models/LogsPlayersClassChanges";
-import {LogsPlayersVotes} from "./models/LogsPlayersVotes";
 import {LogsPlayersTravels} from "./models/LogsPlayersTravels";
 import {LogsMapLinks} from "./models/LogsMapLinks";
 import {LogsMissionsFailed} from "./models/LogsMissionsFailed";
