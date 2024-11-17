@@ -135,6 +135,8 @@
       "other": "Unable to perform this action."
     }
   },
+  "errorOccurredTitle": "An error occurred",
+  "errorOccurred": "An error occurred while executing this command :(\n\nPlease report this issue to a team member, specifying the time and server on which you encountered this problem.\n\nPlease do not join our support server for help: https://discord.gg/5JqrMtZ",
   "maintenanceTitle": "Maintenance",
   "maintenance": "The game is currently under maintenance, please try again later.\n\nFor more information, go to the official Discord server: https://discord.gg/AP3Wmzb"
 }
