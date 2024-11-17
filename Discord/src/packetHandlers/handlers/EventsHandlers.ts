@@ -20,8 +20,9 @@ import {GiveFoodToGuildPacket} from "../../../../Lib/src/packets/utils/GiveFoodT
 import {NoFoodSpaceInGuildPacket} from "../../../../Lib/src/packets/utils/NoFoodSpaceInGuildPacket";
 import {MissionUtils} from "../../utils/MissionUtils";
 import {MissionType} from "../../../../Lib/src/interfaces/CompletedMission";
+import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
 
-export default class NotificationsHandlers {
+export default class EventsHandlers {
 	@packetHandler(CommandReportChooseDestinationRes)
 	async chooseDestinationRes(packet: CommandReportChooseDestinationRes, context: PacketContext): Promise<void> {
 		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
@@ -174,7 +175,26 @@ export default class NotificationsHandlers {
 
 	@packetHandler(GiveFoodToGuildPacket)
 	async giveFoodToGuild(packet: GiveFoodToGuildPacket, context: PacketContext): Promise<void> {
-		// Todo
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		const foodId = PetConstants.PET_FOOD_BY_ID[packet.selectedFoodIndex];
+
+		interaction?.followUp({
+			embeds: [
+				new DraftBotEmbed()
+					.formatAuthor(i18n.t("notifications:guildFood.receivedFoodTitle", {lng: interaction.userLanguage}), interaction.user)
+					.setDescription(
+						i18n.t("notifications:guildFood.receivedFoodDescription", {
+							lng: interaction.userLanguage,
+							foodId,
+							amount: packet.quantity,
+							foodName: i18n.t(`models:foods.${foodId}`, {
+								lng: interaction.userLanguage,
+								count: packet.quantity
+							})
+						})
+					)
+			]
+		});
 	}
 
 	@packetHandler(NoFoodSpaceInGuildPacket)

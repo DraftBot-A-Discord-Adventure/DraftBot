@@ -98,6 +98,14 @@ import {
 	CommandMissionPlayerNotFoundPacket,
 	CommandMissionsPacketRes
 } from "../../../../Lib/src/packets/commands/CommandMissionsPacket";
+import {
+	CommandGuildShopEmpty, CommandGuildShopGiveXp,
+	CommandGuildShopNoFoodStorageSpace
+} from "../../../../Lib/src/packets/commands/CommandGuildShopPacket";
+import {
+	handleCommandGuildShopEmpty, handleCommandGuildShopGiveXp,
+	handleCommandGuildShopNoFoodStorageSpace
+} from "../../commands/guild/GuildShopCommand";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
@@ -298,5 +306,21 @@ export default class CommandHandlers {
 	@packetHandler(CommandMissionsPacketRes)
 	async missionsCommandRes(packet: CommandMissionsPacketRes, context: PacketContext): Promise<void> {
 		await handleCommandMissionsPacketRes(packet, context);
+	}
+
+	@packetHandler(CommandGuildShopNoFoodStorageSpace)
+	async guildShopNoFoodStorageSpace(packet: CommandGuildShopNoFoodStorageSpace, context: PacketContext): Promise<void> {
+		await handleCommandGuildShopNoFoodStorageSpace(context);
+	}
+
+	@packetHandler(CommandGuildShopEmpty)
+	async guildShopEmpty(packet: CommandGuildShopEmpty, context: PacketContext): Promise<void> {
+		await handleCommandGuildShopEmpty(context);
+
+	}
+
+	@packetHandler(CommandGuildShopGiveXp)
+	async guildShopGiveXp(packet: CommandGuildShopGiveXp, context: PacketContext): Promise<void> {
+		await handleCommandGuildShopGiveXp(packet, context);
 	}
 }

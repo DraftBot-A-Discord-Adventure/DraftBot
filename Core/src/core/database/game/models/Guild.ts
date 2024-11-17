@@ -5,7 +5,7 @@ import Player, {Players} from "./Player";
 import {GuildPet, GuildPets} from "./GuildPet";
 import PetEntity from "./PetEntity";
 import {draftBotInstance} from "../../../../index";
-import {DraftBotPacket} from "../../../../../../Lib/src/packets/DraftBotPacket";
+import {DraftBotPacket, makePacket} from "../../../../../../Lib/src/packets/DraftBotPacket";
 import {GuildLevelUpPacket} from "../../../../../../Lib/src/packets/events/GuildLevelUpPacket";
 import moment = require("moment");
 import {TopConstants} from "../../../../../../Lib/src/constants/TopConstants";
@@ -145,11 +145,10 @@ export class Guild extends Model {
 			.then();
 		draftBotInstance.logsDatabase.logGuildExperienceChange(this, NumberChangeReason.LEVEL_UP)
 			.then();
-		const levelUpPacket: GuildLevelUpPacket = {
+		response.push(makePacket(GuildLevelUpPacket, {
 			guildName: this.name,
 			level: this.level
-		};
-		response.push(levelUpPacket);
+		}));
 		for (const member of await Players.getByGuild(this.id)) {
 			await MissionsController.update(member, response, {
 				missionId: "guildLevel",

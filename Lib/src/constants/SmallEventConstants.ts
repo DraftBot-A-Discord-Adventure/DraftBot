@@ -1,5 +1,5 @@
-import {Constants} from "./Constants";
 import {ItemRarity} from "./ItemConstants";
+import {PetConstants} from "./PetConstants";
 
 export abstract class SmallEventConstants {
 	static readonly HEALTH = {
@@ -213,7 +213,7 @@ export abstract class SmallEventConstants {
 	};
 
 	static readonly FIND_PET = {
-		FOOD_GIVEN_NO_PLACE: Constants.PET_FOOD.CARNIVOROUS_FOOD
+		FOOD_GIVEN_NO_PLACE: PetConstants.PET_FOOD.CARNIVOROUS_FOOD
 	};
 
 	static readonly PET = {

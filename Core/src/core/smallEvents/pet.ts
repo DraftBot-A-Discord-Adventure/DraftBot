@@ -78,7 +78,7 @@ async function managePickedInteraction(packet:SmallEventPetPacket, response:Draf
 			packet.interactionName = PetConstants.PET_INTERACTIONS_NAMES.NOTHING;
 			break;
 		}
-		packet.food = RandomUtils.draftbotRandom.pick(Object.values(Constants.PET_FOOD));
+		packet.food = RandomUtils.draftbotRandom.pick(Object.values(PetConstants.PET_FOOD));
 		await giveFoodToGuild(response, player, packet.food, 1, NumberChangeReason.SMALL_EVENT);
 		break;
 

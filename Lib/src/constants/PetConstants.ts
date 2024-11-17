@@ -138,6 +138,20 @@ export abstract class PetConstants {
 		CARNIVOROUS: "carnivorous",
 		HERBIVOROUS: "herbivorous"
 	};
+
+	static readonly PET_FOOD = {
+		COMMON_FOOD: "commonFood",
+		CARNIVOROUS_FOOD: "carnivorousFood",
+		HERBIVOROUS_FOOD: "herbivorousFood",
+		ULTIMATE_FOOD: "ultimateFood"
+	};
+
+	static readonly PET_FOOD_BY_ID = [
+		PetConstants.PET_FOOD.COMMON_FOOD,
+		PetConstants.PET_FOOD.HERBIVOROUS_FOOD,
+		PetConstants.PET_FOOD.CARNIVOROUS_FOOD,
+		PetConstants.PET_FOOD.ULTIMATE_FOOD
+	];
 }
 
 export enum PET_ENTITY_GIVE_RETURN {

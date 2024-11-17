@@ -20,8 +20,8 @@ import Guild, {Guilds} from "../../core/database/game/models/Guild";
 import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants";
 import {getFoodIndexOf} from "../../core/utils/FoodUtils";
 import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
-import {Constants} from "../../../../Lib/src/constants/Constants";
 import {CommandUtils} from "../../core/utils/CommandUtils";
+import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
 
 
 /**
@@ -48,7 +48,7 @@ function getMissingMoneyToFreePet(player: Player, playerPet: PetEntity): number 
  * @param pPet
  */
 function generateLuckyMeat(guild: Guild, pPet: PetEntity): boolean {
-	return guild && guild.carnivorousFood + 1 <= GuildConstants.MAX_PET_FOOD[getFoodIndexOf(Constants.PET_FOOD.CARNIVOROUS_FOOD)]
+	return guild && guild.carnivorousFood + 1 <= GuildConstants.MAX_PET_FOOD[getFoodIndexOf(PetConstants.PET_FOOD.CARNIVOROUS_FOOD)]
 		&& RandomUtils.draftbotRandom.realZeroToOneInclusive() <= PetFreeConstants.GIVE_MEAT_PROBABILITY
 		&& !pPet.isFeisty();
 }

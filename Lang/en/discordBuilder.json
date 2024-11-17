@@ -196,5 +196,9 @@
         "name": "user"
       }
     }
+  },
+  "guildShop": {
+    "description": "Displays the guild shop.",
+    "name": "guildshop"
   }
 }

@@ -1613,7 +1613,9 @@ export const DraftBotIcons: {
 		"healEnergy": "⚡",
 		"regen": "💓",
 		"moneyMouthBadge": "🤑",
-		"inventoryExtension": "📦"
+		"inventoryExtension": "📦",
+		"smallGuildXp": "⭐",
+		"bigGuildXp": "🌟"
 	},
 	"badges": {
 		"richPerson": "🤑"

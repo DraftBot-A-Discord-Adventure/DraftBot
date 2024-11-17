@@ -246,12 +246,29 @@ async function manageBuyoutConfirmation(packet: ReactionCollectorCreationPacket,
 	}
 	const shopItemId = reaction.shopItemId;
 
+	const amounts = packet.reactions.filter(r => {
+		const shopData = r.data as ReactionCollectorShopItemReaction;
+		return r.type === ReactionCollectorShopItemReaction.name && shopData.shopItemId === reaction.shopItemId;
+	}).map(r => (r.data as ReactionCollectorShopItemReaction).amount);
+
 	const row = new ActionRowBuilder<ButtonBuilder>();
-	const buttonAccept = new ButtonBuilder()
-		.setEmoji(parseEmoji(DraftBotIcons.collectors.accept)!)
-		.setCustomId("accept")
-		.setStyle(ButtonStyle.Secondary);
-	row.addComponents(buttonAccept);
+
+	if (amounts.length === 1 && amounts[0] === 1) {
+		const buttonAccept = new ButtonBuilder()
+			.setEmoji(parseEmoji(DraftBotIcons.collectors.accept)!)
+			.setCustomId("accept")
+			.setStyle(ButtonStyle.Secondary);
+		row.addComponents(buttonAccept);
+	}
+	else {
+		for (const amount of amounts) {
+			const buttonAccept = new ButtonBuilder()
+				.setLabel(amount.toString(10))
+				.setCustomId(amount.toString(10))
+				.setStyle(ButtonStyle.Secondary);
+			row.addComponents(buttonAccept);
+		}
+	}
 
 	const buttonRefuse = new ButtonBuilder()
 		.setEmoji(parseEmoji(DraftBotIcons.collectors.refuse)!)
@@ -264,12 +281,12 @@ async function manageBuyoutConfirmation(packet: ReactionCollectorCreationPacket,
 	const msg = await interaction.followUp({
 		embeds: [
 			new DraftBotEmbed()
-				.formatAuthor(i18n.t("commands:shop.shopConfirmationTitle", {
+				.formatAuthor(i18n.t(amounts.length === 1 && amounts[0] === 1 ? "commands:shop.shopConfirmationTitle" : "commands:shop.shopConfirmationTitleMultiple", {
 					lng: interaction.userLanguage,
 					pseudo: interaction.user.username
 				}), interaction.user)
 				.setDescription(`${
-					getShopItemDisplay(data, reaction, interaction.userLanguage, shopItemNames)
+					getShopItemDisplay(data, reaction, interaction.userLanguage, shopItemNames, amounts)
 				}\n${EmoteUtils.translateEmojiToDiscord(DraftBotIcons.collectors.warning)}${
 					i18n.t(`commands:shop.shopItems.${shopItemId}.info`, {
 						lng: interaction.userLanguage
@@ -305,7 +322,8 @@ async function manageBuyoutConfirmation(packet: ReactionCollectorCreationPacket,
 		}
 		DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, null, packet.reactions.findIndex(r =>
 			r.type === ReactionCollectorShopItemReaction.name
-			&& (r.data as ReactionCollectorShopItemReaction).shopItemId === reaction.shopItemId));
+			&& (r.data as ReactionCollectorShopItemReaction).shopItemId === reaction.shopItemId
+			&& (amounts.length === 1 || (r.data as ReactionCollectorShopItemReaction).amount === parseInt(collectedInteraction!.customId, 10))));
 	});
 
 }
@@ -335,14 +353,27 @@ function getShopItemNames(data: ReactionCollectorShopData, shopItemId: string, l
 	};
 }
 
-function getShopItemDisplay(data: ReactionCollectorShopData, reaction: ReactionCollectorShopItemReaction, lng: Language, shopItemNames: ShopItemNames): string {
-	return `${i18n.t("commands:shop.shopItemsDisplay", {
-		lng,
-		name: shopItemNames.normal,
-		price: reaction.price,
-		interpolation: {escapeValue: false},
-		remainingPotions: data.remainingPotions
-	})}\n`;
+function getShopItemDisplay(data: ReactionCollectorShopData, reaction: ReactionCollectorShopItemReaction, lng: Language, shopItemNames: ShopItemNames, amounts: number[]): string {
+	if (amounts.length === 1 && amounts[0] === 1) {
+		return `${i18n.t("commands:shop.shopItemsDisplaySingle", {
+			lng,
+			name: shopItemNames.normal,
+			price: reaction.price,
+			interpolation: {escapeValue: false},
+			remainingPotions: data.remainingPotions
+		})}\n`;
+	}
+
+	let desc = "";
+	for (const amount of amounts) {
+		desc += `${i18n.t("commands:shop.shopItemsDisplayMultiple", {
+			lng,
+			name: shopItemNames.normal,
+			amount,
+			price: reaction.price * amount
+		})}\n`;
+	}
+	return desc;
 }
 
 export async function shopCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
@@ -361,15 +392,19 @@ export async function shopCollector(packet: ReactionCollectorCreationPacket, con
 		.setCustomId("shop")
 		.setPlaceholder(i18n.t("commands:shop.shopSelectPlaceholder", {lng: interaction.userLanguage}));
 	for (const categoryId of categories) {
-		const categoryItems = packet.reactions.filter(
+		let categoryItemsIds = packet.reactions.filter(
 			reaction => reaction.type === ReactionCollectorShopItemReaction.name && (reaction.data as ReactionCollectorShopItemReaction).shopCategoryId === categoryId
-		);
+		)
+			.map(reaction => (reaction.data as ReactionCollectorShopItemReaction).shopItemId);
+		// Remove duplicates from categoryItemsIds (in case of multiple amounts for the same item)
+		categoryItemsIds = categoryItemsIds.filter((item, index) => categoryItemsIds.indexOf(item) === index);
+
 		shopText += `${`**${i18n.t(`commands:shop.shopCategories.${categoryId}`, {
 			lng: interaction.userLanguage,
 			count: data.remainingPotions
 		})}** :\n`
-			.concat(...categoryItems.map(item => {
-				const reaction = (item.data as ReactionCollectorShopItemReaction);
+			.concat(...categoryItemsIds.map(id => {
+				const reaction = packet.reactions.find(reaction => (reaction.data as ReactionCollectorShopItemReaction).shopItemId === id)!.data as ReactionCollectorShopItemReaction;
 				const shopItemName = getShopItemNames(data, reaction.shopItemId, interaction.userLanguage);
 
 				select.addOptions(new StringSelectMenuOptionBuilder()
@@ -379,8 +414,8 @@ export async function shopCollector(packet: ReactionCollectorCreationPacket, con
 						price: reaction.price
 					}))
 					.setValue(reaction.shopItemId));
-				return getShopItemDisplay(data, reaction, interaction.userLanguage, shopItemName);
-			}))}\n\n`;
+				return getShopItemDisplay(data, reaction, interaction.userLanguage, shopItemName, [1]);
+			}))}\n`;
 	}
 
 	const closeShopButton = new ButtonBuilder()
