@@ -196,5 +196,9 @@
         "name": "Benutzer"
       }
     }
+  },
+  "guildShop": {
+    "description": "Zeigt den Gildenladen an.",
+    "name": "magasinguilde"
   }
 }
