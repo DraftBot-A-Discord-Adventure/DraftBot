@@ -493,18 +493,22 @@
     "boughtTooMuchDailyPotions": "Il n'y a plus aucune potion du jour disponible à la vente... Revenez demain !",
     "title": "🛒 Affichage du Magasin",
     "currentMoney": "Vous avez `{{money}}💰`.",
-    "shopItemsDisplay": "{{name}} | `{{price}}💰`",
+    "shopItemsDisplaySingle": "{{name}} | `{{price}}💰`",
+    "shopItemsDisplayMultiple": "**{{amount}}x** {{name}} | `{{price}}💰`",
     "shopSelectPlaceholder": "Sélectionnez un objet à acheter",
     "buyCategorySlotSuccess": "Vous avez acheté un nouvel emplacement d'inventaire !",
     "shopItemsSelectDescription": "{{price}}💰",
     "closeShopButton": "❌ Fermer le magasin",
     "shopConfirmationTitle": "{{pseudo}}, vous avez sélectionné le produit suivant :",
+    "shopConfirmationTitleMultiple": "{{pseudo}}, sélectionnez une quantité pour ce produit :",
     "shopCategories": {
       "permanentItem": "Ventes permanentes",
       "dailyPotion_zero": "Potion du jour (rupture de stock)",
       "dailyPotion_one": "Potion du jour ({{count}} disponible)",
       "dailyPotion_other": "Potion du jour ({{count}} disponibles)",
-      "slotExtension": "Extensions d'inventaire"
+      "slotExtension": "Extensions d'inventaire",
+      "food": "Nourriture pour familiers",
+      "guildXp": "Expérience de guilde"
     },
     "chooseSlotTitle": "{{pseudo}}, nouvel emplacement d'inventaire",
     "chooseSlotIndication": "Choisissez un nouvel emplacement d'inventaire ou annulez :",
@@ -547,6 +551,30 @@
       },
       "dailyPotion": {
         "info": "Vous obtiendrez une potion que vous déciderez de garder ou non. Si vous l'avez déjà elle sera jetée sans remboursement !"
+      },
+      "smallGuildXp": {
+        "name": "{emote:shopItems.smallGuildXp} Un peu d'xp pour votre guilde",
+        "info": "Vous recevrez une quantité aléatoire d'xp de guilde, comprise entre 50 et 450."
+      },
+      "bigGuildXp": {
+        "name": "{emote:shopItems.bigGuildXp} Beaucoup d'xp pour votre guilde",
+        "info": "Vous recevrez une quantité aléatoire d'xp de guilde, comprise entre 750 et 6750."
+      },
+      "commonFood": {
+        "name": "{emote:foods.commonFood} Friandise",
+        "info": "Vous recevrez une friandise pour vos familiers."
+      },
+      "herbivorousFood": {
+        "name": "{emote:foods.herbivorousFood} Salade",
+        "info": "Vous recevrez de la salade pour vos familiers."
+      },
+      "carnivorousFood": {
+        "name": "{emote:foods.carnivorousFood} Viande",
+        "info": "Vous recevrez de la viande pour vos familiers."
+      },
+      "ultimateFood": {
+        "name": "{emote:foods.ultimateFood} Soupe ultime",
+        "info": "Vous recevrez une soupe ultime pour vos familiers."
       }
     }
   },
@@ -608,5 +636,11 @@
     "noCurrentMissions": "Vous pouvez occasionnellement trouver des missions supplémentaires à réaliser en demandant un rapport.",
     "missionDisplay_campaign": "{{mission}}\n{{progressionBar}} {{current}}/{{objective}}",
     "missionDisplay_other": "{{mission}} (expire {{time}})\n{{progressionBar}} {{current}}/{{objective}}"
+  },
+  "guildShop": {
+    "noFoodStorageSpace": "Vous n'avez pas assez de place dans votre réserve pour stocker cette nourriture.",
+    "empty": "Il n'y a plus rien à acheter pour le moment. Votre guilde est au niveau maximum et son stockde nourriture est plein.",
+    "giveXpTitle": "Succès de l'achat",
+    "giveXp": "{emote:unitValues.xp} Votre guilde a reçu **{{xp}}** points d'expérience."
   }
 }
