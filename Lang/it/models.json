@@ -1322,9 +1322,13 @@
     "94": "Polvere di scheletro"
   },
   "foods": {
-    "herbivorousFood": "insalata",
-    "carnivorousFood": "carne",
-    "ultimateFood": "zuppa definitiva",
-    "commonFood": "trattamento"
+    "herbivorousFood_one": "insalata",
+    "herbivorousFood_other": "insalate",
+    "carnivorousFood_one": "carne",
+    "carnivorousFood_other": "carni",
+    "ultimateFood_one": "zuppa definitiva",
+    "ultimateFood_other": "zuppe definitive",
+    "commonFood_one": "trattamento",
+    "commonFood_other": "dolci"
   }
 }
