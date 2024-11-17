@@ -196,5 +196,9 @@
         "name": "utilisateur"
       }
     }
+  },
+  "guildShop": {
+    "description": "Affiche le magasin de guilde.",
+    "name": "magasinguilde"
   }
 }
