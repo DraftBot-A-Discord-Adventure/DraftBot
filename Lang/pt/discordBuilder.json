@@ -196,5 +196,9 @@
         "name": "utilizador"
       }
     }
+  },
+  "guildShop": {
+    "description": "Apresenta a loja do grémio.",
+    "name": "magasinguilde"
   }
 }
