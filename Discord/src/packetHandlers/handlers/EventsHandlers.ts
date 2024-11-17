@@ -178,7 +178,7 @@ export default class EventsHandlers {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		const foodId = PetConstants.PET_FOOD_BY_ID[packet.selectedFoodIndex];
 
-		interaction?.followUp({
+		await interaction?.followUp({
 			embeds: [
 				new DraftBotEmbed()
 					.formatAuthor(i18n.t("notifications:guildFood.receivedFoodTitle", {lng: interaction.userLanguage}), interaction.user)
