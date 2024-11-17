@@ -493,18 +493,22 @@
     "boughtTooMuchDailyPotions": "Non ci sono più pozioni del giorno disponibili per la vendita... Tornate domani!",
     "title": "🛒 Display del negozio",
     "currentMoney": "{{money}}Avete ` 💰`.",
-    "shopItemsDisplay": "{{name}}{{price}}| 💰`",
+    "shopItemsDisplaySingle": "{{name}}{{price}}| 💰`",
+    "shopItemsDisplayMultiple": "{{amount}} {{name}}{{price}}** x** | ` 💰`",
     "shopSelectPlaceholder": "Selezionare un articolo da acquistare",
     "buyCategorySlotSuccess": "Avete acquistato un nuovo slot d'inventario!",
     "shopItemsSelectDescription": "{{price}}💰",
     "closeShopButton": "❌ Chiudere il negozio",
     "shopConfirmationTitle": "{{pseudo}}avete selezionato il seguente prodotto:",
+    "shopConfirmationTitleMultiple": "{{pseudo}}Selezionare una quantità per questo prodotto:",
     "shopCategories": {
       "permanentItem": "Vendite permanenti",
       "dailyPotion_zero": "Pozione del giorno (esaurito)",
       "dailyPotion_one": "{{count}} Pozione del giorno ( disponibile)",
       "dailyPotion_other": "{{count}} Pozione del giorno ( disponibile)",
-      "slotExtension": "Estensioni dell'inventario"
+      "slotExtension": "Estensioni dell'inventario",
+      "food": "Cibo per animali",
+      "guildXp": "Esperienza di gilda"
     },
     "chooseSlotTitle": "{{pseudo}}nuova posizione dell'inventario",
     "chooseSlotIndication": "Scegliere una nuova posizione dell'inventario o annullare :",
@@ -547,6 +551,30 @@
       },
       "dailyPotion": {
         "info": "Riceverete una pozione che potrete decidere se tenere o meno. Se la possedete già, verrà gettata via senza alcun rimborso!"
+      },
+      "smallGuildXp": {
+        "name": "{emote:shopItems.smallGuildXp} Un po' di xp per la tua gilda",
+        "info": "Riceverete una quantità casuale di XP di gilda, compresa tra 50 e 450."
+      },
+      "bigGuildXp": {
+        "name": "{emote:shopItems.bigGuildXp} Tanti xp per la tua gilda",
+        "info": "Riceverete una quantità casuale di XP di gilda, compresa tra 750 e 6750."
+      },
+      "commonFood": {
+        "name": "{emote:foods.commonFood} Dolci",
+        "info": "Riceverete un premio per i vostri animali domestici."
+      },
+      "herbivorousFood": {
+        "name": "{emote:foods.herbivorousFood} Insalata",
+        "info": "Riceverete un'insalata per i vostri animali domestici."
+      },
+      "carnivorousFood": {
+        "name": "{emote:foods.carnivorousFood} Carne",
+        "info": "Riceverete carne per i vostri animali domestici."
+      },
+      "ultimateFood": {
+        "name": "{emote:foods.ultimateFood} Zuppa finale",
+        "info": "Riceverete una zuppa definitiva per i vostri animali domestici."
       }
     }
   },
@@ -608,5 +636,11 @@
     "noCurrentMissions": "Occasionalmente, è possibile trovare ulteriori compiti da completare richiedendo un rapporto.",
     "missionDisplay_campaign": "{{mission}}\n{{progressionBar}} {{current}}{{objective}}/",
     "missionDisplay_other": "{{mission}} {{time}}\n{{progressionBar}} {{current}}{{objective}}(scadere ) /"
+  },
+  "guildShop": {
+    "noFoodStorageSpace": "Non avete abbastanza spazio nel vostro magazzino per conservare questo cibo.",
+    "empty": "Al momento non c'è più nulla da comprare. La tua gilda è al livello massimo e le sue scorte di cibo sono piene.",
+    "giveXpTitle": "Acquisto riuscito",
+    "giveXp": "{emote:unitValues.xp}{{xp}}La tua gilda ha ricevuto ** ** punti esperienza."
   }
 }
