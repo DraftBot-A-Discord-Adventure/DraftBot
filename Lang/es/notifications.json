@@ -24,5 +24,9 @@
       "moneyDisplay": "{{count}} {emote:unitValues.money}+",
       "xpDisplay": "{{count}} {emote:unitValues.xp}+"
     }
+  },
+  "guildFood": {
+    "receivedFoodTitle": "Tu gremio ha recibido alimentos",
+    "receivedFoodDescription": "{emote:foods.{{foodId}}} Tu gremio ha recibido :{{amount}} {{foodName}}** x **"
   }
 }

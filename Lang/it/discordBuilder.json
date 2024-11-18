@@ -196,5 +196,9 @@
         "name": "utilizzatore"
       }
     }
+  },
+  "guildShop": {
+    "description": "Visualizza il negozio della gilda.",
+    "name": "magasinguilde"
   }
 }

@@ -493,18 +493,22 @@
     "boughtTooMuchDailyPotions": "No hay más pociones del día a la venta... ¡Vuelve mañana!",
     "title": "🛒 Pantalla de la tienda",
     "currentMoney": "{{money}}Tienes ` 💰`.",
-    "shopItemsDisplay": "{{name}}{{price}}| 💰`",
+    "shopItemsDisplaySingle": "{{name}}{{price}}| 💰`",
+    "shopItemsDisplayMultiple": "{{amount}} {{name}}{{price}}** x** | ` 💰`",
     "shopSelectPlaceholder": "Seleccione un artículo para comprar",
     "buyCategorySlotSuccess": "Has comprado un nuevo espacio de inventario.",
     "shopItemsSelectDescription": "{{price}}💰",
     "closeShopButton": "❌ Cerrar tienda",
     "shopConfirmationTitle": "{{pseudo}}ha seleccionado el siguiente producto:",
+    "shopConfirmationTitleMultiple": "{{pseudo}}Seleccione una cantidad para este producto:",
     "shopCategories": {
       "permanentItem": "Ventas permanentes",
       "dailyPotion_zero": "Poción del día (agotado)",
       "dailyPotion_one": "{{count}} Poción del día ( disponible)",
       "dailyPotion_other": "{{count}} Poción del día ( disponible)",
-      "slotExtension": "Ampliaciones de inventario"
+      "slotExtension": "Ampliaciones de inventario",
+      "food": "Alimentos para mascotas",
+      "guildXp": "Experiencia gremial"
     },
     "chooseSlotTitle": "{{pseudo}}nueva ubicación del inventario",
     "chooseSlotIndication": "Elija una nueva ubicación de inventario o cancele :",
@@ -547,6 +551,30 @@
       },
       "dailyPotion": {
         "info": "Recibirás una poción que podrás decidir si quedarte o no. Si ya la tienes, ¡se tirará sin reembolso!"
+      },
+      "smallGuildXp": {
+        "name": "{emote:shopItems.smallGuildXp} Un poco de xp para tu gremio",
+        "info": "Recibirás una cantidad aleatoria de xp de gremio, entre 50 y 450."
+      },
+      "bigGuildXp": {
+        "name": "{emote:shopItems.bigGuildXp} Mucha xp para tu gremio",
+        "info": "Recibirás una cantidad aleatoria de xp de gremio, entre 750 y 6750."
+      },
+      "commonFood": {
+        "name": "{emote:foods.commonFood} Dulces",
+        "info": "Recibirá una golosina para sus mascotas."
+      },
+      "herbivorousFood": {
+        "name": "{emote:foods.herbivorousFood} Ensalada",
+        "info": "Recibirás ensalada para tus mascotas."
+      },
+      "carnivorousFood": {
+        "name": "{emote:foods.carnivorousFood} Carne",
+        "info": "Recibirá carne para sus mascotas."
+      },
+      "ultimateFood": {
+        "name": "{emote:foods.ultimateFood} La sopa definitiva",
+        "info": "Recibirá una sopa definitiva para sus mascotas."
       }
     }
   },
@@ -608,5 +636,11 @@
     "noCurrentMissions": "Ocasionalmente, puede encontrar tareas adicionales que realizar solicitando un informe.",
     "missionDisplay_campaign": "{{mission}}\n{{progressionBar}} {{current}}{{objective}}/",
     "missionDisplay_other": "{{mission}} {{time}}\n{{progressionBar}} {{current}}{{objective}}(caduca ) /"
+  },
+  "guildShop": {
+    "noFoodStorageSpace": "No tienes espacio suficiente en tu almacén para guardar esta comida.",
+    "empty": "De momento no queda nada que comprar. Tu gremio está al máximo nivel y sus reservas de comida están llenas.",
+    "giveXpTitle": "Compra con éxito",
+    "giveXp": "{emote:unitValues.xp}{{xp}}Tu gremio ha recibido ** ** puntos de experiencia."
   }
 }

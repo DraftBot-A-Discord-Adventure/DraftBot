@@ -493,18 +493,22 @@
     "boughtTooMuchDailyPotions": "There are no more potions available for sale... Come back tomorrow!",
     "title": "🛒 Store Display",
     "currentMoney": "You have `{{money}}💰`.",
-    "shopItemsDisplay": "{{name}} | `{{price}}💰`",
+    "shopItemsDisplaySingle": "{{name}} | `{{price}}💰`",
+    "shopItemsDisplayMultiple": "**{{amount}}x** {{name}} | `{{price}}💰`",
     "shopSelectPlaceholder": "Select an item to buy",
     "buyCategorySlotSuccess": "You bought a new inventory slot!",
     "shopItemsSelectDescription": "{{price}}💰",
     "closeShopButton": "❌ Close Store",
     "shopConfirmationTitle": "{{pseudo}}, you selected the following product:",
+    "shopConfirmationTitleMultiple": "{{pseudo}}, select a quantity for this product:",
     "shopCategories": {
       "permanentItem": "Permanent Sales",
       "dailyPotion_zero": "Day Potion (Out of stock)",
       "dailyPotion_one": "Today's Potion ({{count}} available)",
       "dailyPotion_other": "Today's Potion ({{count}} available)",
-      "slotExtension": "Inventory Extensions"
+      "slotExtension": "Inventory Extensions",
+      "food": "Pet Food",
+      "guildXp": "Guild Experience"
     },
     "chooseSlotTitle": "{{pseudo}}, New Inventory Location",
     "chooseSlotIndication": "Choose a new inventory slot or cancel:",
@@ -547,6 +551,30 @@
       },
       "dailyPotion": {
         "info": "You will get a potion that you decide to keep or not. If you already have it discarded without a refund!"
+      },
+      "smallGuildXp": {
+        "name": "{emote:shopItems.smallGuildXp} A bit of xp for your guild",
+        "info": "You will receive a random amount of guild XP between 50 and 450."
+      },
+      "bigGuildXp": {
+        "name": "{emote:shopItems.bigGuildXp} Many xp for your guild",
+        "info": "You will receive a random amount of guild XP between 750 and 6750."
+      },
+      "commonFood": {
+        "name": "{emote:foods.commonFood} Treat",
+        "info": "You will receive a treat for your pets."
+      },
+      "herbivorousFood": {
+        "name": "{emote:foods.herbivorousFood} Salad",
+        "info": "You will receive salad for your pets."
+      },
+      "carnivorousFood": {
+        "name": "{emote:foods.carnivorousFood} Meat",
+        "info": "You will receive meat for your pets."
+      },
+      "ultimateFood": {
+        "name": "{emote:foods.ultimateFood} Ultimate Soup",
+        "info": "You will receive the ultimate soup for your pets."
       }
     }
   },
@@ -608,5 +636,11 @@
     "noCurrentMissions": "You can occasionally find additional missions to perform by requesting a report.",
     "missionDisplay_campaign": "{{mission}}\n{{progressionBar}} {{current}}/{{objective}}",
     "missionDisplay_other": "{{mission}} (expires {{time}})\n{{progressionBar}} {{current}}/{{objective}}"
+  },
+  "guildShop": {
+    "noFoodStorageSpace": "You don't have enough room in your reserve to store this food.",
+    "empty": "There is nothing left to buy at the moment. Your guild is at maximum level and its food storage is full.",
+    "giveXpTitle": "Purchase Success",
+    "giveXp": "{emote:unitValues.xp} Your guild has recovered **{{xp}}** experience points."
   }
 }

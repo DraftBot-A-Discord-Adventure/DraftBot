@@ -135,6 +135,8 @@
       "other": "Impossibile eseguire questa azione."
     }
   },
+  "errorOccurredTitle": "Si è verificato un errore",
+  "errorOccurred": "\n\nSi è verificato un errore durante l'esecuzione di questo comando:( Si prega di segnalare il problema a un membro del team, specificando l'ora e il server in cui si è verificato il problema.\n\nNon esitate a contattare il nostro server di supporto per ricevere assistenza: https://discord.gg/5JqrMtZ.",
   "maintenanceTitle": "Manutenzione",
   "maintenance": "Il gioco è attualmente in manutenzione, si prega di riprovare più tardi.\n\nPer ulteriori informazioni, visita il server Discord ufficiale: https://discord.gg/AP3Wmzb"
 }

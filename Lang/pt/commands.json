@@ -493,18 +493,22 @@
     "boughtTooMuchDailyPotions": "Não há mais poções do dia disponíveis para venda... Volta amanhã!",
     "title": "Ecrã da loja",
     "currentMoney": "{{money}}Tem ` 💰`.",
-    "shopItemsDisplay": "{{name}}{{price}}| 💰`",
+    "shopItemsDisplaySingle": "{{name}}{{price}}| 💰`",
+    "shopItemsDisplayMultiple": "{{amount}} {{name}}{{price}}** x** | ` 💰`",
     "shopSelectPlaceholder": "Selecionar um artigo para comprar",
     "buyCategorySlotSuccess": "Comprou uma nova ranhura de inventário!",
     "shopItemsSelectDescription": "{{price}}💰",
     "closeShopButton": "Fechar a loja",
     "shopConfirmationTitle": "{{pseudo}}selecionou o seguinte produto:",
+    "shopConfirmationTitleMultiple": "{{pseudo}}Selecionar uma quantidade para este produto:",
     "shopCategories": {
       "permanentItem": "Vendas permanentes",
       "dailyPotion_zero": "Poção do dia (esgotado)",
       "dailyPotion_one": "{{count}} Poção do dia ( disponível)",
       "dailyPotion_other": "{{count}} Poção do dia ( disponível)",
-      "slotExtension": "Extensões de inventário"
+      "slotExtension": "Extensões de inventário",
+      "food": "Alimentos para animais de estimação",
+      "guildXp": "Experiência de grémio"
     },
     "chooseSlotTitle": "{{pseudo}}nova localização do inventário",
     "chooseSlotIndication": "Selecionar uma nova localização de inventário ou cancelar :",
@@ -547,6 +551,30 @@
       },
       "dailyPotion": {
         "info": "Receberás uma poção que poderás decidir se queres ou não guardar. Se já a tiveres, será deitada fora sem direito a reembolso!"
+      },
+      "smallGuildXp": {
+        "name": "{emote:shopItems.smallGuildXp} Um pouco de xp para a tua guilda",
+        "info": "Receberás uma quantidade aleatória de xp da guilda, entre 50 e 450."
+      },
+      "bigGuildXp": {
+        "name": "{emote:shopItems.bigGuildXp} Muitos xp para a tua guilda",
+        "info": "Receberás uma quantidade aleatória de xp da guilda, entre 750 e 6750."
+      },
+      "commonFood": {
+        "name": "{emote:foods.commonFood} Doces",
+        "info": "Receberão um mimo para os vossos animais de estimação."
+      },
+      "herbivorousFood": {
+        "name": "{emote:foods.herbivorousFood} Salada",
+        "info": "Receberá salada para os seus animais de estimação."
+      },
+      "carnivorousFood": {
+        "name": "{emote:foods.carnivorousFood} Carne",
+        "info": "Receberá carne para os seus animais de estimação."
+      },
+      "ultimateFood": {
+        "name": "{emote:foods.ultimateFood} A melhor sopa",
+        "info": "Receberá uma sopa definitiva para os seus animais de estimação."
       }
     }
   },
@@ -608,5 +636,11 @@
     "noCurrentMissions": "Ocasionalmente, é possível encontrar tarefas adicionais a realizar solicitando um relatório.",
     "missionDisplay_campaign": "{{mission}}\n{{progressionBar}} {{current}}{{objective}}/",
     "missionDisplay_other": "{{mission}} {{time}}\n{{progressionBar}} {{current}}{{objective}}(expirar ) /"
+  },
+  "guildShop": {
+    "noFoodStorageSpace": "Não tem espaço suficiente no seu armazém para guardar estes alimentos.",
+    "empty": "Não há mais nada para comprar neste momento. O teu grémio está no nível máximo e o seu stock de comida está cheio.",
+    "giveXpTitle": "Compra bem sucedida",
+    "giveXp": "{emote:unitValues.xp}{{xp}}A tua guilda recebeu ** ** pontos de experiência."
   }
 }

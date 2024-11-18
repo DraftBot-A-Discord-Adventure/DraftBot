@@ -1322,9 +1322,13 @@
     "94": "Skeleton powder"
   },
   "foods": {
-    "herbivorousFood": "salad",
-    "carnivorousFood": "meat",
-    "ultimateFood": "ultimate soup",
-    "commonFood": "candy"
+    "herbivorousFood_one": "salad",
+    "herbivorousFood_other": "salads",
+    "carnivorousFood_one": "meat",
+    "carnivorousFood_other": "meats",
+    "ultimateFood_one": "ultimate soup",
+    "ultimateFood_other": "ultimate soups",
+    "commonFood_one": "candy",
+    "commonFood_other": "sweets"
   }
 }
