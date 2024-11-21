@@ -1,212 +1,89 @@
 {
   "properties": {
-    "events": {
-      "0": {
-        "success": {
-          "withGuild": {
-            "malus": {
-              "name": "expOrPointsGuild",
-              "min": 25,
-              "max": 100
-            }
-          },
-          "solo": {
-            "malus": {
-              "name": "exp",
-              "min": 20,
-              "max": 25
-            }
-          }
-        },
-        "lose": {
-          "withGuild": {
-            "malus": {
-              "name":"money",
-              "min": 25,
-              "max": 50
-            }
-          },
-          "solo": {
-            "malus": {
-              "name":"life",
-              "min": 3,
-              "max": 10
-            }
-          }
-        }
+    "ranges": {
+      "expOrPointsGuild": {
+        "min": 25,
+        "max": 100
       },
-      "1": {
-        "success": {
-          "withGuild": {
-            "malus": {
-              "name": "expOrPointsGuild",
-              "min": 25,
-              "max": 100
-            }
-          },
-          "solo": {
-            "malus": {
-              "name": "exp",
-              "min": 20,
-              "max": 25
-            }
-          }
-        },
-        "lose": {
-          "withGuild": {
-            "malus": {
-              "name":"energy",
-              "min": 10,
-              "max": 25
-            }
-          },
-          "solo": {
-            "malus": {
-              "name":"life",
-              "min": 3,
-              "max": 10
-            }
-          }
-        }
+      "experience": {
+        "min": 20,
+        "max": 25
       },
-      "2": {
-        "success": {
-          "withGuild": {
-            "malus": {
-              "name": "expOrPointsGuild",
-              "min": 25,
-              "max": 100
-            }
-          },
-          "solo": {
-            "malus": {
-              "name": "exp",
-              "min": 20,
-              "max": 25
-            }
-          }
-        },
-        "lose": {
-          "withGuild": {
-            "malus": {
-              "name":"money",
-              "min": 25,
-              "max": 50
-            }
-          },
-          "solo": {
-            "malus": {
-              "name":"life",
-              "min": 3,
-              "max": 10
-            }
-          }
-        }
+      "money": {
+        "min": 25,
+        "max": 50
       },
-      "3": {
-        "success": {
-          "withGuild": {
-            "malus": {
-              "name": "expOrPointsGuild",
-              "min": 25,
-              "max": 100
-            }
-          },
-          "solo": {
-            "malus": {
-              "name": "exp",
-              "min": 20,
-              "max": 25
-            }
-          }
-        },
-        "lose": {
-          "withGuild": {
-            "malus": {
-              "name":"life",
-              "min": 3,
-              "max": 10
-            }
-          },
-          "solo": {
-            "malus": {
-              "name":"life",
-              "min": 3,
-              "max": 10
-            }
-          }
-        }
+      "life": {
+        "min": 3,
+        "max": 10
       },
-      "4": {
-        "success": {
-          "withGuild": {
-            "malus": {
-              "name": "expOrPointsGuild",
-              "min": 25,
-              "max": 100
-            }
-          },
-          "solo": {
-            "malus": {
-              "name": "exp",
-              "min": 20,
-              "max": 25
-            }
-          }
-        },
-        "lose": {
-          "withGuild": {
-            "malus": {
-              "name":"money",
-              "min": 25,
-              "max": 50
-            }
-          },
-          "solo": {
-            "malus": {
-              "name":"life",
-              "min": 3,
-              "max": 10
-            }
-          }
-        }
-      },
-      "5": {
-        "success": {
-          "withGuild": {
-            "malus": {
-              "name": "expOrPointsGuild",
-              "min": 25,
-              "max": 100
-            }
-          },
-          "solo": {
-            "malus": {
-              "name": "exp",
-              "min": 20,
-              "max": 25
-            }
-          }
-        },
-        "lose": {
-          "withGuild": {
-            "malus": {
-              "name":"energy",
-              "min": 10,
-              "max": 25
-            }
-          },
-          "solo": {
-            "malus": {
-              "name":"energy",
-              "min": 10,
-              "max": 25
-            }
-          }
-        }
+      "energy": {
+        "min": 10,
+        "max": 25
       }
     },
-    "rarity": 8,
-    "emote": ":scream:"
+    "events": [
+      {
+        "success": {
+          "withGuild": "expOrPointsGuild",
+          "solo": "experience"
+        },
+        "lose": {
+          "withGuild": "money",
+          "solo": "life"
+        }
+      },
+      {
+        "success": {
+          "withGuild": "expOrPointsGuild",
+          "solo": "experience"
+        },
+        "lose": {
+          "withGuild": "energy",
+          "solo": "life"
+        }
+      },
+      {
+        "success": {
+          "withGuild": "expOrPointsGuild",
+          "solo": "experience"
+        },
+        "lose": {
+          "withGuild": "money",
+          "solo": "life"
+        }
+      },
+      {
+        "success": {
+          "withGuild": "expOrPointsGuild",
+          "solo": "experience"
+        },
+        "lose": {
+          "withGuild": "life",
+          "solo": "life"
+        }
+      },
+      {
+        "success": {
+          "withGuild": "expOrPointsGuild",
+          "solo": "experience"
+        },
+        "lose": {
+          "withGuild": "money",
+          "solo": "life"
+        }
+      },
+      {
+        "success": {
+          "withGuild": "expOrPointsGuild",
+          "solo": "experience"
+        },
+        "lose": {
+          "withGuild": "energy",
+          "solo": "energy"
+        }
+      }
+    ],
+    "rarity": 8
   }
 }

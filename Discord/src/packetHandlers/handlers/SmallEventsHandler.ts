@@ -740,7 +740,24 @@ export default class SmallEventsHandler {
 
 	@packetHandler(SmallEventBonusGuildPVEIslandPacket)
 	async smallEventBonusGuildPVEIsland(packet: SmallEventBonusGuildPVEIslandPacket, context: PacketContext): Promise<void> {
-		// Todo
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		await interaction?.editReply({
+			embeds: [
+				new DraftbotSmallEventEmbed(
+					"bonusGuildPVEIsland",
+					`${
+						getRandomSmallEventIntro(interaction.userLanguage) + i18n.t(`smallEvents:bonusGuildPVEIsland.events.${packet.event}.intro`, {lng: interaction.userLanguage})
+					}\n\n${
+						i18n.t(`smallEvents:bonusGuildPVEIsland.events.${packet.event}.${packet.result}.${packet.surrounding}`, {
+							lng: interaction.userLanguage,
+							amount: packet.amount,
+							emoteKey: packet.isExperienceGain ? "xp" : "guildPoint"
+						})}`,
+					interaction.user,
+					interaction.userLanguage
+				)
+			]
+		});
 	}
 
 	@packetHandler(SmallEventFightPetPacket)
