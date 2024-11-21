@@ -1610,7 +1610,7 @@ export const DraftBotIcons: {
 		"guildPoint": "🪩",
 		"health": "❤️",
 		"lostHealth": "💔",
-		"energy": "⚡",
+		"energy": "⚡"
 	},
 	"shopItems": {
 		"randomItem": "❓",

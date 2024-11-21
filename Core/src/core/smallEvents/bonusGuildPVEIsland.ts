@@ -105,7 +105,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 					player.isInGuild()
 						? SmallEventBonusGuildPVEIslandOutcomeSurrounding.WITH_GUILD
 						: SmallEventBonusGuildPVEIslandOutcomeSurrounding.SOLO
-					])
+				])
 		}));
 	}
 };

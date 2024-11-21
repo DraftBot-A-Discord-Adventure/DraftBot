@@ -45,7 +45,7 @@ export abstract class NotificationsHandler {
 						notificationContent = i18n.t("bot:notificationGuildDaily", {
 							lng,
 							pseudo: (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakIdOfExecutor))!.attributes.gameUsername[0],
-							reward: "TODO" // todo
+							reward: "TODO" // Todo
 						});
 						notificationType = NotificationsTypes.GUILD_DAILY;
 						break;
