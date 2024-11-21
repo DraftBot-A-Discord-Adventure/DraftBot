@@ -24,6 +24,8 @@ import {shopCollector, shopInventoryExtensionCollector} from "../../commands/pla
 import {ReactionCollectorBuyCategorySlotData} from "../../../../Lib/src/packets/interaction/ReactionCollectorBuyCategorySlot";
 import {ReactionCollectorCartData} from "../../../../Lib/src/packets/interaction/ReactionCollectorCart";
 import {cartCollector} from "../../smallEvents/cart";
+import {ReactionCollectorFightPetData} from "../../../../Lib/src/packets/interaction/ReactionCollectorFightPet";
+import {fightPetCollector} from "../../smallEvents/fightPet";
 
 export default class ReactionCollectorHandler {
 	@packetHandler(ReactionCollectorCreationPacket)
@@ -67,6 +69,9 @@ export default class ReactionCollectorHandler {
 			break;
 		case ReactionCollectorCartData.name:
 			await cartCollector(packet, context);
+			break;
+		case ReactionCollectorFightPetData.name:
+			await fightPetCollector(packet, context);
 			break;
 		default:
 			throw `Unknown collector with data: ${packet.data.type}`; // Todo error embed

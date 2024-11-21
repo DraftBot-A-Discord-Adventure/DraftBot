@@ -762,7 +762,22 @@ export default class SmallEventsHandler {
 
 	@packetHandler(SmallEventFightPetPacket)
 	async smallEventFightPet(packet: SmallEventFightPetPacket, context: PacketContext): Promise<void> {
-		// Todo
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		await interaction?.editReply({
+			embeds: [
+				new DraftbotSmallEventEmbed(
+					"fightPet",
+					i18n.t(`smallevents:fightPet.${packet.fightPetActionId}.${packet.isSuccess ? "success" : "failure"}`, {
+						lng: interaction.userLanguage
+					}) + (packet.isSuccess ? i18n.t("smallevents:fightPet.rageUpFormat", {
+						lng: interaction.userLanguage,
+						rageUpDescription: StringUtils.getRandomTranslation("smallevents:fightPet.rageUpDescriptions", interaction.userLanguage),
+					}) : ""),
+					interaction.user,
+					interaction.userLanguage
+				)
+			]
+		});
 	}
 
 	@packetHandler(SmallEventGobletsGamePacket)

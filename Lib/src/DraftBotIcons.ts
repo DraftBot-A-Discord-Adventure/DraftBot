@@ -88,6 +88,12 @@ export const DraftBotIcons: {
 	missions: {
 		[missionId: string]: string
 	},
+	messages: {
+		[messageId: string]: string
+	},
+	fightPetActions: {
+		[actionId: string]: string
+	}
 } = {
 	"effects": {
 		"not_started": "👶",
@@ -1610,7 +1616,8 @@ export const DraftBotIcons: {
 		"guildPoint": "🪩",
 		"health": "❤️",
 		"lostHealth": "💔",
-		"energy": "⚡"
+		"energy": "⚡",
+		"rage": "💢",
 	},
 	"shopItems": {
 		"randomItem": "❓",
@@ -1646,5 +1653,29 @@ export const DraftBotIcons: {
 		"campaign": "📖",
 		"sideMission": "📜",
 		"total": "🧾"
+	},
+	"messages": {
+		"validate": "✅",
+		"refuse": "❌",
+		"notReplied": "🔚",
+	},
+	"fightPetActions": {
+		"fistHit": "👊",
+		"runAway": "🏃",
+		"focusEnergy": "⚡",
+		"intimidate": "💪",
+		"baitWithMeat": "🍖",
+		"provoke": "😤",
+		"baitWithVegetables": "🥕",
+		"doNothing": "🤷",
+		"lastEffort": "🔥",
+		"protect": "🛡️",
+		"usePlayerPet": "🐾",
+		"playDead": "💀",
+		"scream": "😱",
+		"prayGod": "🙏",
+		"attackLeft": "🤛",
+		"attackRight": "🤜",
+		"helpFromMates": "🏟️"
 	}
 };
