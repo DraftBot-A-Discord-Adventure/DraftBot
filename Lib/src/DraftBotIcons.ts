@@ -1604,8 +1604,13 @@ export const DraftBotIcons: {
 	"unitValues": {
 		"score": "🏅",
 		"money": "💰",
+		"lostMoney": "💸",
 		"xp": "⭐",
-		"gem": "💎"
+		"gem": "💎",
+		"guildPoint": "🪩",
+		"health": "❤️",
+		"lostHealth": "💔",
+		"energy": "⚡",
 	},
 	"shopItems": {
 		"randomItem": "❓",
