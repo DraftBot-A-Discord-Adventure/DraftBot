@@ -80,7 +80,7 @@ async function canCreateGuild(player: Player, guildName: string, response: Draft
 	return true;
 }
 
-async function acceptGuildCreate(player: Player, guildName: string, response: DraftBotPacket[]) : Promise<void> {
+async function acceptGuildCreate(player: Player, guildName: string, response: DraftBotPacket[]): Promise<void> {
 	await player.reload();
 	// Do all necessary checks again just in case something changed during the menu
 	if (!await canCreateGuild(player, guildName, response)) {
@@ -117,20 +117,16 @@ export default class GuildCreateCommand {
 	async execute(packet: CommandGuildCreatePacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
 		const player = await Players.getByKeycloakId(packet.keycloakId);
 
-		if (!await CommandUtils.verifyCommandRequirements(player, context, response, { disallowedEffects: [Effect.NOT_STARTED, Effect.DEAD ], level: GuildConstants.REQUIRED_LEVEL })) {
+		if (!await CommandUtils.verifyCommandRequirements(player, context, response, {
+			disallowedEffects: [Effect.NOT_STARTED, Effect.DEAD],
+			level: GuildConstants.REQUIRED_LEVEL
+		})) {
 			return;
 		}
 
 		if (!await canCreateGuild(player, packet.askedGuildName, response)) {
 			return;
 		}
-
-		response.push(makePacket(CommandGuildCreatePacketRes, {
-			playerMoney: player.money,
-			foundGuild: false,
-			guildNameIsAvailable: true,
-			guildNameIsAcceptable: true
-		}));
 
 		// Send collector
 		const collector = new ReactionCollectorGuildCreate(
