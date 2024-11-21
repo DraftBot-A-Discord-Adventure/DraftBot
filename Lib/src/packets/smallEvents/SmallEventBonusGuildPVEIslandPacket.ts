@@ -3,11 +3,26 @@ import {PacketDirection, sendablePacket} from "../DraftBotPacket";
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class SmallEventBonusGuildPVEIslandPacket extends SmallEventPacket {
-	hasEnoughMemberOnPVEIsland!: boolean;
+	event!: number;
 
-	eventName!: string;
+	result!: SmallEventBonusGuildPVEIslandResultType;
 
-	amount!: string;
+	surrounding!: SmallEventBonusGuildPVEIslandOutcomeSurrounding;
 
-	isXp!: boolean;
+	amount!: number;
+
+	isExperienceGain!: boolean;
+}
+
+export enum SmallEventBonusGuildPVEIslandOutcomeSurrounding {
+	WITH_GUILD = "withGuild",
+	SOLO_WITH_GUILD = "soloWithGuild",
+	SOLO = "solo"
+}
+
+
+export enum SmallEventBonusGuildPVEIslandResultType {
+	SUCCESS = "success",
+	ESCAPE = "escape",
+	LOSE = "lose"
 }

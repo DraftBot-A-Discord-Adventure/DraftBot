@@ -240,7 +240,7 @@ export abstract class SmallEventConstants {
 		}
 	};
 
-	static readonly BONUS_GUILD_PVE_ISLANDS: {
+	static readonly BONUS_GUILD_PVE_ISLANDS = {
 		PROBABILITIES: {
 			SUCCESS: 10,
 			ESCAPE: 40
