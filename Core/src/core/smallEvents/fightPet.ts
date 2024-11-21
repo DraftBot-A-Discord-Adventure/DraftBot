@@ -11,7 +11,10 @@ import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {EndCallback, ReactionCollectorInstance} from "../utils/ReactionsCollector";
-import {ReactionCollectorFightPet, ReactionCollectorFightPetReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorFightPet";
+import {
+	ReactionCollectorFightPet,
+	ReactionCollectorFightPetReaction
+} from "../../../../Lib/src/packets/interaction/ReactionCollectorFightPet";
 import {SmallEventFightPetPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFightPetPacket";
 
 /**
@@ -63,7 +66,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 		const collector = new ReactionCollectorFightPet(
 			pet.id,
 			isFemale,
-			getRandomFightPetActions(player).map((fightAction) => ({ actionId: fightAction.id }))
+			getRandomFightPetActions(player).map((fightAction) => ({actionId: fightAction.id}))
 		);
 
 		const endCallback: EndCallback = async (collector, response) => {
@@ -73,8 +76,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 			await player.addRage(outcomeIsSuccess ? 1 : 0, NumberChangeReason.FIGHT_PET_SMALL_EVENT);
 			await player.save();
 			response.push(makePacket(SmallEventFightPetPacket, {
-				outcomeIsSuccess,
-				petId: pet.id,
+				isSuccess: outcomeIsSuccess,
 				fightPetActionId: selectedFightPetAction.id
 			}));
 		};
