@@ -129,7 +129,7 @@ export class Maps {
 	 */
 	static async getGuildMembersOnPveIsland(player: Player): Promise<Player[]> {
 		if (!player.guildId) {
-			return Promise.resolve([]);
+			return [];
 		}
 
 		const membersThatWere = await LogsReadRequests.getGuildMembersThatWereOnPveIsland(player);

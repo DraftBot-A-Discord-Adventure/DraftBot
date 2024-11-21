@@ -14,7 +14,6 @@ export interface DraftBotConfig {
 	MARIADB_ROOT_PASSWORD: string;
 	MARIADB_PORT: number;
 	MARIADB_PREFIX: string;
-	WEBSERVER_PORT: number;
 	MQTT_HOST: string;
 }
 
@@ -54,7 +53,6 @@ export function loadConfig(): DraftBotConfig {
 		MARIADB_ROOT_PASSWORD: config.database.root_password,
 		MARIADB_PORT: config.database.port,
 		MARIADB_PREFIX: config.database.prefix,
-		WEBSERVER_PORT: config.others.webserver_port,
 		MQTT_HOST: config.mqtt.host
 	};
 }

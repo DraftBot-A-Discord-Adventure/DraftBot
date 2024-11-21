@@ -1,11 +1,10 @@
 {
-	"properties": {
-		"malusTypes": [
-			"life",
-			"time",
-			"nothing"
-		]
-	},
-	"rarity": 2,
-	"emote": ":milk:"
+  "properties": {
+    "malusTypes": [
+      "life",
+      "time",
+      "nothing"
+    ]
+  },
+  "rarity": 2
 }
