@@ -5,9 +5,8 @@ import Player from "../core/database/game/models/Player";
 import {DraftBotPacket, PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
 
 export class SmallEvent extends Data<string> {
-	private readonly properties: { [key: string]: unknown };
-
 	public readonly rarity: number;
+	private readonly properties: { [key: string]: unknown };
 
 	async execute(context: PacketContext, response: DraftBotPacket[], player: Player): Promise<void> {
 		const smallEventFunction = SmallEventDataController.getSmallEventFunction(this.id);
@@ -15,7 +14,7 @@ export class SmallEvent extends Data<string> {
 	}
 
 	getProperties<T>(): T {
-		return <T> this.properties;
+		return <T>this.properties;
 	}
 }
 
@@ -32,24 +31,26 @@ export class SmallEventDataController extends DataControllerString<SmallEvent> {
 
 	private static smallEventsFunctionsCache: Map<string, SmallEventFuncs> = null;
 
-	private static initCache(): void {
-		if (SmallEventDataController.smallEventsFunctionsCache === null) {
-			SmallEventDataController.smallEventsFunctionsCache = new Map<string, SmallEventFuncs>();
-			SmallEventDataController.loadSmallEventsFromFolder("dist/Core/src/core/smallEvents", "../core/smallEvents");
-		}
-	}
-
 	public static getSmallEventFunction(id: string): SmallEventFuncs {
 		SmallEventDataController.initCache();
 
 		return SmallEventDataController.smallEventsFunctionsCache.get(id);
 	}
 
+	private static initCache(): void {
+		if (!SmallEventDataController.smallEventsFunctionsCache) {
+			SmallEventDataController.smallEventsFunctionsCache = new Map<string, SmallEventFuncs>();
+			SmallEventDataController.loadSmallEventsFromFolder("dist/Core/src/core/smallEvents", "../core/smallEvents");
+		}
+	}
+
 	private static loadSmallEventsFromFolder(path: string, relativePath: string): void {
 		const files = readdirSync(path);
 		for (const file of files) {
 			if (file.endsWith(".js")) {
-				const smallEventFuncs = (<{smallEventFuncs: SmallEventFuncs}>require(`${relativePath}/${file.substring(0, file.length - 3)}`)).smallEventFuncs;
+				const smallEventFuncs = (<{
+					smallEventFuncs: SmallEventFuncs
+				}>require(`${relativePath}/${file.substring(0, file.length - 3)}`)).smallEventFuncs;
 				SmallEventDataController.smallEventsFunctionsCache.set(
 					file.substring(0, file.length - 3),
 					smallEventFuncs

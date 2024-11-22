@@ -111,7 +111,7 @@ export default class ReportCommand {
 			return;
 		}
 
-		if (player.mapLinkId === null) {
+		if (!player.mapLinkId) {
 			await Maps.startTravel(player, MapLinkDataController.instance.getRandomLinkOnMainContinent(), Date.now());
 			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.REPORT_COMMAND);
 			return;
@@ -604,6 +604,37 @@ async function doPVEBoss(
 }
 
 /**
+ * Get a random small event
+ * @param response
+ * @param player
+ */
+async function getRandomSmallEvent(response: DraftBotPacket[], player: Player) {
+	const keys = SmallEventDataController.instance.getKeys();
+	let totalSmallEventsRarity = 0;
+	const updatedKeys = [];
+	for (const key of keys) {
+		const file = await import(`../../core/smallEvents/${key}.js`);
+		if (!file.smallEventFuncs?.canBeExecuted) {
+			response.push(makePacket(ErrorPacket, {message: `${key} doesn't contain a canBeExecuted function`}));
+			return null;
+		}
+		if (await file.smallEventFuncs.canBeExecuted(player)) {
+			updatedKeys.push(key);
+			totalSmallEventsRarity += SmallEventDataController.instance.getById(key).rarity;
+		}
+	}
+	const randomNb = RandomUtils.randInt(1, totalSmallEventsRarity + 1);
+	let sum = 0;
+	for (const updatedKey of updatedKeys) {
+		sum += SmallEventDataController.instance.getById(updatedKey).rarity;
+		if (sum >= randomNb) {
+			return updatedKey;
+		}
+	}
+	return null;
+}
+
+/**
  * Executes a small event
  * @param context
  * @param player
@@ -612,34 +643,10 @@ async function doPVEBoss(
  */
 async function executeSmallEvent(context: PacketContext, player: Player, response: DraftBotPacket[], forced: string): Promise<void> {
 	// Pick random event
-	let event: string;
-	if (forced === null) {
-		const keys = SmallEventDataController.instance.getKeys();
-		let totalSmallEventsRarity = 0;
-		const updatedKeys = [];
-		for (const key of keys) {
-			const file = await import(`../../core/smallEvents/${key}.js`);
-			if (!file.smallEventFuncs?.canBeExecuted) {
-				response.push(makePacket(ErrorPacket, {message: `${key} doesn't contain a canBeExecuted function`}));
-				return;
-			}
-			if (await file.smallEventFuncs.canBeExecuted(player)) {
-				updatedKeys.push(key);
-				totalSmallEventsRarity += SmallEventDataController.instance.getById(key).rarity;
-			}
-		}
-		const randomNb = RandomUtils.randInt(1, totalSmallEventsRarity + 1);
-		let sum = 0;
-		for (const updatedKey of updatedKeys) {
-			sum += SmallEventDataController.instance.getById(updatedKey).rarity;
-			if (sum >= randomNb) {
-				event = updatedKey;
-				break;
-			}
-		}
-	}
-	else {
-		event = forced;
+	const event: string = forced ? forced : await getRandomSmallEvent(response, player);
+	if (!event) {
+		response.push(makePacket(ErrorPacket, {message: "No small event can be executed..."}));
+		return;
 	}
 
 	// Execute the event

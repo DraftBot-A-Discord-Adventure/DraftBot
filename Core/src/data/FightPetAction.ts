@@ -23,9 +23,9 @@ export class FightPetActionDataController extends DataControllerString<FightPetA
 	private static fightPetActionsFunctionsCache: Map<string, FightPetActionFunc>;
 
 	public static getFightPetActionFunction(id: string): FightPetActionFunc {
-		if (FightPetActionDataController.fightPetActionsFunctionsCache === null) {
+		if (!FightPetActionDataController.fightPetActionsFunctionsCache) {
 			FightPetActionDataController.fightPetActionsFunctionsCache = new Map<string, FightPetActionFunc>();
-			FightPetActionDataController.loadFightPetActionsFromFolder("dist/src/Core/smallEvents/fightPet", "TODO replace with the right one");
+			FightPetActionDataController.loadFightPetActionsFromFolder("dist/Core/src/core/smallEvents/fightPet", "../core/smallEvents/fightPet");
 		}
 		return FightPetActionDataController.fightPetActionsFunctionsCache.get(id);
 	}
@@ -34,7 +34,7 @@ export class FightPetActionDataController extends DataControllerString<FightPetA
 		const files = readdirSync(path);
 		for (const file of files) {
 			if (file.endsWith(".js")) {
-				const defaultFunc = require(`${relativePath}/${file.substring(0, file.length - 3)}`).default;
+				const defaultFunc = require(`${relativePath}/${file.substring(0, file.length - 3)}`).fightPetAction;
 				const fightPetActionName = file.substring(0, file.length - 3);
 				FightPetActionDataController.fightPetActionsFunctionsCache.set(fightPetActionName, defaultFunc);
 			}
