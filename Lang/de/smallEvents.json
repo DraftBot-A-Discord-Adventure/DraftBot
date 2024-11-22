@@ -987,7 +987,7 @@
       "loseTime_f": [
         "Wenn du immer wieder **{{pet}}** anrufst, damit sie in deiner Nähe bleibt, verlierst du **{{amount}} Min** :clock2:.",
         "Sie spüren, dass **{{pet}}** sich anscheinend nicht bewegen will. Sie beschließen dennoch, sie mit Gewalt zu ziehen. Durch ihre Schuld verlieren Sie **{{amount}} Min** :clock2:.",
-        "Vous voyez **{{pet}}** venir vers vous en courant poursuivie par {{randomAnimal}} sauvage ! Vous prenez la fuite avec elle. Cette course poursuite vous a fait perdre **{{amount}} Min** :clock2: sur votre trajet.",
+        "Sie sehen **{{pet}}** auf Sie zugerannt kommen, verfolgt von {{randomAnimal}} wild! Sie ergreifen mit ihr die Flucht. Durch diese Verfolgungsjagd haben Sie **{{amount}} Min** :clock2: auf Ihrem Weg verloren.",
         "Als Sie in ein Dorf kommen, hören Sie ein Gerücht über einen Vertrauten, der wie **{{pet}}** aussieht und Dorfbewohner angreifen soll. Als die Bewohner Sie sehen, bekommen sie Angst vor Ihnen und Ihrem Vertrauten und Sie werden sofort aus dem Dorf vertrieben. Durch dieses Missgeschick haben Sie auf Ihrer Reise **{{amount}} Min** :clock2: verloren.",
         "Sie entdecken, dass **{{pet}}** eindringlich auf den Boden schaut und beschließt, ein Loch zu graben. Sie holt eine verschlossene Truhe heraus. Nach mehreren Versuchen gelingt es Ihnen, die Truhe zu öffnen, aber sie ist leer. Dieses Missgeschick hat Sie **{{amount}} Min** :clock2:."
       ],
@@ -1284,197 +1284,197 @@
   },
   "fightPet": {
     "intro_male": [
-      "vous tombez nez à nez avec un {{feralPet}} !",
-      "vous rencontrez un {{feralPet}}.",
-      "vous croisez un {{feralPet}} qui ne semble pas vouloir vous laisser passer.",
-      "vous poussez soudain un couinement terrifié : un {{feralPet}} se tient juste devant vous !",
-      "vous restez interdit à la vue d'un {{feralPet}}.",
-      "vous apercevez un nuage de poussière à l'horizon qui se rapproche dangereusement... C'est un {{feralPet}} !",
-      "vous remarquez un mécanisme mystérieux... Curieux, vous décidez de l'activer. Vous ne mettez pas longtemps à regretter votre geste quand un {{feralPet}} surgit de nulle part !",
-      "vous entendez un bruit sourd derrière vous. Vous vous retournez et découvrez un {{feralPet}} qui vous fixe avec insistance."
+      "stolpern Sie Nase an Nase mit einem {{feralPet}} !",
+      "treffen Sie auf eine {{feralPet}}.",
+      "treffen Sie auf einen {{feralPet}} , der Sie anscheinend nicht passieren lassen will.",
+      "stoßen Sie plötzlich ein erschrockenes Quietschen aus: Ein {{feralPet}} steht direkt vor Ihnen!",
+      "Sie beim Anblick eines {{feralPet}}verboten bleiben.",
+      "sehen Sie am Horizont eine Staubwolke, die sich gefährlich nähert... Es ist eine {{feralPet}} !",
+      "bemerken Sie einen geheimnisvollen Mechanismus. Neugierig geworden, beschließen Sie, ihn zu aktivieren. Es dauert nicht lange, bis Sie Ihre Tat bereuen, denn wie aus dem Nichts taucht ein {{feralPet}} auf!",
+      "hören Sie ein dumpfes Geräusch hinter sich. Sie drehen sich um und entdecken einen {{feralPet}} , der Sie eindringlich anstarrt."
     ],
     "intro_female": [
-      "vous tombez nez à nez avec une {{feralPet}} !",
-      "vous rencontrez une {{feralPet}}.",
-      "vous croisez une {{feralPet}} qui ne semble pas vouloir vous laisser passer.",
-      "vous poussez soudain un couinement terrifié : une {{feralPet}} se tient juste devant vous !",
-      "vous restez interdit à la vue d'une {{feralPet}}.",
-      "vous apercevez un nuage de poussière à l'horizon qui se rapproche dangereusement... C'est une {{feralPet}} !",
-      "vous remarquez un mécanisme mystérieux... Curieux, vous décidez de l'activer. Vous ne mettez pas longtemps à regretter votre geste quand une {{feralPet}} surgit de nulle part !",
-      "vous entendez un bruit sourd derrière vous. Vous vous retournez et découvrez une {{feralPet}} qui vous fixe avec insistance."
+      "stolpern Sie Nase an Nase mit einer {{feralPet}} !",
+      "treffen Sie auf eine {{feralPet}}.",
+      "treffen Sie auf eine {{feralPet}} , die Sie anscheinend nicht passieren lassen will.",
+      "stoßen Sie plötzlich ein erschrockenes Quietschen aus: Eine {{feralPet}} steht direkt vor Ihnen!",
+      "Sie beim Anblick einer {{feralPet}}verboten bleiben.",
+      "sehen Sie am Horizont eine Staubwolke, die sich gefährlich nähert... Es ist eine {{feralPet}} !",
+      "bemerken Sie einen geheimnisvollen Mechanismus. Neugierig geworden, beschließen Sie, ihn zu aktivieren. Es dauert nicht lange, bis Sie Ihre Tat bereuen, denn wie aus dem Nichts taucht eine {{feralPet}} auf!",
+      "hören Sie ein dumpfes Geräusch hinter sich. Sie drehen sich um und entdecken eine {{feralPet}} , die Sie eindringlich anstarrt."
     ],
     "situation": [
-      "La bête vous semble impossible à calmer... Vous tentez de vous calmer et réfléchissez à un plan d'action pour vous défaire de cet animal.",
-      "Absolument terrifié, vous commencez à réfléchir à vos différentes options pour vous débarrasser de cette bête.",
-      "Impossible de ne pas réagir, il vous faut prendre une décision pour sauver votre vie...",
-      "Distrait par les deux yeux rouges de l'animal qui vous fixent avec insistance, vous tentez de vous concentrer sur un plan d'action.",
-      "L'haleine fétide de l'animal vous fait tourner la tête. Vous tentez de vous concentrer...",
-      "Vous vous demandez si vous ne devriez pas vous enfuir en courant, mais vous vous dites que vous pourriez peut-être vous en sortir si vous réfléchissez à un plan d'action.",
-      "Vous raffermissez votre prise sur la garde de votre épée et, un peu rassuré, réfléchissez à ce que vous devez faire.",
-      "Pétrifié par la peur, vous regardez l'animal foncer vers vous, essayant de forcer votre cerveau tétanisé à trouver une solution.",
-      "Affolé, vous cherchez désespérément une solution qui vous maintiendra en vie."
+      "Das Tier scheint Ihnen unmöglich zu beruhigen... Sie versuchen, sich zu beruhigen und überlegen sich einen Plan, wie Sie das Tier loswerden können.",
+      "Absolut verängstigt fangen Sie an, über Ihre verschiedenen Möglichkeiten nachzudenken, wie Sie das Tier loswerden können.",
+      "Es ist unmöglich, nicht zu reagieren. Sie müssen eine Entscheidung treffen, um Ihr Leben zu retten...",
+      "Abgelenkt von den beiden roten Augen des Tieres, die Sie eindringlich anstarren, versuchen Sie, sich auf einen Handlungsplan zu konzentrieren.",
+      "Der faulig riechende Atem des Tieres lässt Sie den Kopf drehen. Sie versuchen, sich zu konzentrieren...",
+      "Sie fragen sich, ob Sie nicht weglaufen sollten, aber Sie denken sich, dass Sie es vielleicht schaffen können, wenn Sie sich einen Aktionsplan überlegen.",
+      "Sie festigen Ihren Griff um den Griff Ihres Schwertes und denken, etwas beruhigt, darüber nach, was Sie tun sollen.",
+      "Versteinert vor Angst beobachten Sie, wie das Tier auf Sie zukommt, und versuchen, Ihr tetanisiertes Gehirn dazu zu zwingen, eine Lösung zu finden.",
+      "In Panik suchen Sie verzweifelt nach einer Lösung, die Sie am Leben erhält."
     ],
     "rageUpDescriptions": [
-      "Heureux de vous en être sorti, vous sentez votre rage monter contre les créatures possédées de cette île.",
-      "Fort de votre victoire, vous vous sentez plein de rage contre les créatures maléfiques de cette île.",
-      "Vous vous sentez plus fort que jamais et votre rage contre les créatures maléfiques de cette île augmente.",
-      "Fier de vous, vous sentez votre rage contre les créatures maléfiques de cette île augmenter.",
-      "Plus personne ne pourra vous arrêter ! Votre rage contre les créatures maléfiques n'est que renforcée par cet évènement."
+      "Glücklich darüber, dass du es geschafft hast, spürst du, wie deine Wut auf die besessenen Kreaturen auf dieser Insel steigt.",
+      "Gestärkt durch Ihren Sieg fühlen Sie sich voller Wut auf die bösen Kreaturen auf dieser Insel.",
+      "Sie fühlen sich stärker als je zuvor und Ihre Wut auf die bösen Kreaturen auf dieser Insel wächst.",
+      "Stolz auf sich selbst, spüren Sie, wie Ihre Wut auf die bösen Kreaturen auf dieser Insel wächst.",
+      "Niemand kann Sie mehr aufhalten! Ihre Wut auf die bösen Kreaturen wird durch dieses Ereignis nur noch verstärkt."
     ],
-    "rageUpFormat": " {{rageUpDescription}} {emote:unitValues.rage} **Rage ++**",
+    "rageUpFormat": " {{rageUpDescription}} {emote:unitValues.rage} **Wut ++**",
     "customPetDisplay_male": "{emote:pets.{{petId}}.emoteMale} **{{petName}} {{adjective}}**",
     "customPetDisplay_female": "{emote:pets.{{petId}}.emoteFemale} **{{petName}} {{adjective}}**",
     "adjectives_male": [
       "faché",
-      "affamé",
-      "enragé",
-      "furieux",
-      "méchant",
-      "énervé",
-      "agressif",
-      "violent",
-      "hostile",
-      "irrité",
-      "en colère",
+      "hungrig",
+      "wutentbrannt",
+      "wütend",
+      "böse",
+      "genervt",
+      "aggressiv",
+      "heftig",
+      "feindlich",
+      "gereizt",
+      "wütend",
       "furax",
-      "sauvage",
-      "malfaisant",
+      "wild",
+      "bösartig",
       "brutal",
-      "menaçant",
-      "barbare",
-      "atroce",
-      "farouche",
-      "impitoyable",
-      "bagarreur",
-      "pas content",
-      "maléfique",
-      "corrompu",
-      "louche",
-      "fou",
-      "destructeur",
-      "maudit",
-      "machiavélique",
-      "malveillant",
-      "féroce"
+      "bedrohlich",
+      "Barbar",
+      "grässlich",
+      "grimmig",
+      "erbarmungslos",
+      "Schläger",
+      "nicht zufrieden",
+      "bösartig",
+      "korrupt",
+      "Schöpfkelle",
+      "verrückt",
+      "Aktenvernichter",
+      "verflucht",
+      "machiavellistisch",
+      "bösartig",
+      "heftig"
     ],
     "adjectives_female": [
       "fachée",
-      "affamée",
-      "enragée",
-      "furieuse",
-      "méchante",
-      "énervée",
-      "agressive",
-      "violente",
-      "hostile",
-      "irritée",
-      "en colère",
+      "hungrig",
+      "wütend",
+      "furioso",
+      "böse",
+      "genervt",
+      "aggressiv",
+      "gewalttätig",
+      "feindlich",
+      "gereizt",
+      "wütend",
       "furax",
-      "sauvage",
-      "malfaisante",
-      "brutale",
-      "menaçante",
-      "barbare",
-      "atroce",
-      "farouche",
-      "impitoyable",
-      "bagarreuse",
-      "pas contente",
-      "maléfique",
-      "corrompue",
-      "louche",
-      "folle",
-      "destructrice",
-      "maudite",
-      "machiavélique",
-      "malveillante",
-      "féroce"
+      "wild",
+      "bösartig",
+      "brutal",
+      "bedrohlich",
+      "Barbar",
+      "grässlich",
+      "grimmig",
+      "erbarmungslos",
+      "streitlustig",
+      "nicht zufrieden",
+      "bösartig",
+      "korrupt",
+      "Schöpfkelle",
+      "verrückt",
+      "zerstörerisch",
+      "verflucht",
+      "machiavellistisch",
+      "böswillig",
+      "grimmig"
     ],
     "fightPetActions": {
       "fistHit": {
-        "name": "Coup de poing",
-        "success": "Vous frappez l'animal d'un grand coup de poing ! Il recule, surpris. Vous en profitez pour prendre la fuite !",
-        "failure": "Vous frappez l'animal d'un coup de poing faiblard ! Il recule, surpris mais ce n'est pas suffisant pour vous débarrasser de lui. Vous subissez une attaque farouche avant de parvenir à vous enfuir !"
+        "name": "Faustschlag",
+        "success": "Sie schlagen mit einem kräftigen Schlag auf das Tier ein! Es weicht überrascht zurück. Sie nutzen die Gelegenheit, um zu fliehen!",
+        "failure": "Sie schlagen das Tier mit einem schwachen Faustschlag! Es weicht überrascht zurück, aber das reicht nicht aus, um es loszuwerden. Sie müssen einen heftigen Angriff über sich ergehen lassen, bevor Sie fliehen können."
       },
       "runAway": {
-        "name": "Fuir",
-        "success": "Vous ne réfléchissez pas une seule seconde et partez immédiatement en courant ! L'animal vous poursuit mais vous parvenez à vous en défaire.",
-        "failure": "Vous tentez de prendre la fuite, mais vous êtes rapidement rattrapé par la bête qui vous assène un coup violent avant de vous laisser seul."
+        "name": "Flucht",
+        "success": "Sie denken nicht eine Sekunde lang nach und rennen sofort los! Das Tier verfolgt Sie, aber es gelingt Ihnen, sich von ihm loszureißen.",
+        "failure": "Sie versuchen zu fliehen, werden aber schnell von der Bestie eingeholt, die Ihnen einen heftigen Schlag versetzt und Sie dann allein zurücklässt."
       },
       "focusEnergy": {
-        "name": "Concentrer son énergie et attaquer",
-        "success": "Vous ralentissez votre respiration et vous sentez votre énergie parcourir vos bras ! Vous libérez cette énergie dans un coup brutal qui fait fuir l'animal !",
-        "failure": "Vous tentez de vous concentrer mais vous être trop fatigué pour cela ! Vous vacillez par terre, mais cela a tout de même comme effet de calmer la bête, qui s'en va."
+        "name": "Energie bündeln und angreifen",
+        "success": "Sie verlangsamen Ihre Atmung und spüren, wie Ihre Energie durch Ihre Arme fließt! Sie setzen diese Energie in einem brutalen Schlag frei, der das Tier in die Flucht schlägt!",
+        "failure": "Sie versuchen, sich zu konzentrieren, aber Sie sind zu müde dafür! Sie wanken auf dem Boden, aber das hat immerhin den Effekt, dass sich das Tier beruhigt und weggeht."
       },
       "intimidate": {
-        "name": "Intimider la créature",
-        "success": "Vous démontrez votre force devant l'animal, qui recule vivement et fuit à vive à l'allure à l'horizon !",
-        "failure": "Vous bombez le torse en face de l'animal, ce qui n'a pour effet que de l'énerver d'autant plus. Dans la colère il rate son attaque, et vous en profitez pour déguerpir rapidement !"
+        "name": "Die Kreatur einschüchtern",
+        "success": "Sie demonstrieren Ihre Stärke vor dem Tier, das scharf zurückweicht und am Horizont in hohem Tempo flieht!",
+        "failure": "Sie werfen sich vor dem Tier auf die Brust, was es nur noch wütender macht. In seiner Wut verfehlt es seinen Angriff und Sie nutzen die Gelegenheit, um sich schnell zu verziehen!"
       },
       "baitWithMeat": {
-        "name": "Distraire la bête avec de la viande",
-        "success": "Vous sortez un morceau de viande de votre sac et le lancez à l'animal, qui se jette dessus avec avidité. Vous en profitez pour vous enfuir.",
-        "failure": "Vous essayez maladroitement de lancer un morceau de viande vers la bête afin de la distraire. Cependant, avant que vous n'ayez pu initier votre manoeuvre, l'animal se rapproche et vous assène un coup violent avant de vous laisser seul."
+        "name": "Das Tier mit Fleisch ablenken",
+        "success": "Sie ziehen ein Stück Fleisch aus Ihrer Tasche und werfen es dem Tier zu, das sich gierig darauf stürzt. Sie nutzen die Gelegenheit, um wegzulaufen.",
+        "failure": "Sie versuchen unbeholfen, ein Stück Fleisch in Richtung des Tieres zu werfen, um es abzulenken. Doch bevor Sie Ihr Manöver einleiten können, kommt das Tier näher und verpasst Ihnen einen heftigen Schlag, bevor es Sie allein lässt."
       },
       "baitWithVegetables": {
-        "name": "Distraire la bête avec un légume",
-        "success": "Vous sortez un légume de votre sac et le lancez à l'animal, qui le renifle avec intérêt. Cela vous laisse suffisamment de temps pour vous échapper.",
-        "failure": "Vous sortez un légume de votre sac et le lancez à l'animal, qui le renifle avec dégoût. Encore plus enragée qu'auparavant, la bête vous surprend d'un assaut fulgurant ! Vous n'avez aucun moyen de vous en défaire et vous subissez l'attaque violente de plein fouet."
+        "name": "Das Tier mit einem Gemüse ablenken",
+        "success": "Sie nehmen ein Gemüse aus Ihrer Tasche und werfen es dem Tier zu, das interessiert daran schnüffelt. So haben Sie genügend Zeit, um zu entkommen.",
+        "failure": "Du ziehst ein Gemüse aus deiner Tasche und wirfst es dem Tier zu, das angewidert daran schnüffelt. Noch wütender als zuvor überrascht Sie das Tier mit einem fulminanten Angriff! Sie haben keine Möglichkeit, sich ihm zu entziehen und bekommen den heftigen Angriff mit voller Wucht zu spüren."
       },
       "provoke": {
-        "name": "Provoquer la bête",
-        "success": "Vous vous approchez de l'animal et le provoquez en lui faisant des grimaces. Celui-ci fonce sur vous ! Vous vous écartez au dernier moment et il s'écrase contre un arbre. Vous le finissez d'un coup de pied et reprenez votre route.",
-        "failure": "Vous vous approchez de l'animal et le provoquez en lui faisant des grimaces. Il se met à grogner et vous assène un coup violent avant de vous laisser seul."
+        "name": "Die Bestie provozieren",
+        "success": "Sie nähern sich dem Tier und provozieren es, indem Sie Grimassen schneiden. Dieses rennt auf Sie zu! Sie weichen im letzten Moment aus und es kracht gegen einen Baum. Sie erledigen es mit einem Tritt und setzen Ihren Weg fort.",
+        "failure": "Sie gehen auf das Tier zu und provozieren es, indem Sie Grimassen schneiden. Es beginnt zu knurren und verpasst Ihnen einen heftigen Schlag, bevor es Sie allein lässt."
       },
       "doNothing": {
-        "name": "Ne rien faire",
-        "success": "Vous ne bougez pas d'un pouce, et l'animal semble vous ignorer. Vous en profitez pour vous éclipser, ravi d'avoir eu autant de chance.",
-        "failure": "Vous ne bougez pas d'un pouce, mais l'animal ne se laisse pas tromper et vous assène un coup violent avant de vous laisser seul. Vous reprenez la route honteux d'avoir pu imaginé que cette stratégie fonctionnerait."
+        "name": "Nichts tun",
+        "success": "Sie bewegen sich keinen Zentimeter und das Tier scheint Sie zu ignorieren. Sie nutzen die Gelegenheit, um sich zu verdrücken und freuen sich, dass Sie so viel Glück hatten.",
+        "failure": "Sie rühren sich keinen Zentimeter, aber das Tier lässt sich nicht täuschen und verpasst Ihnen einen heftigen Schlag, bevor es Sie allein lässt. Sie machen sich wieder auf den Weg und schämen sich, dass Sie sich vorstellen konnten, dass diese Strategie funktionieren würde."
       },
       "lastEffort": {
-        "name": "Utiliser toutes vos forces pour attaquer",
-        "success": "Vous vous concentrez et rassemblez toutes vos forces pour attaquer l'animal. Vous le frappez d'un coup violent qui le fait fuir !",
-        "failure": "Vous vous concentrez et rassemblez toutes vos forces pour attaquer l'animal. Vous le frappez d'un coup violent, mais cela ne suffit pas à le faire fuir. Vous subissez une attaque farouche avant de parvenir à vous enfuir !"
+        "name": "All Ihre Kraft für einen Angriff einsetzen",
+        "success": "Sie konzentrieren sich und nehmen all Ihre Kraft zusammen, um das Tier anzugreifen. Sie schlagen mit einem heftigen Schlag zu, der das Tier in die Flucht schlägt!",
+        "failure": "Sie konzentrieren sich und nehmen all Ihre Kraft zusammen, um das Tier anzugreifen. Sie schlagen mit einem kräftigen Schlag zu, aber das reicht nicht aus, um das Tier zu vertreiben. Sie müssen einen heftigen Angriff über sich ergehen lassen, bevor Sie fliehen können!"
       },
       "usePlayerPet": {
-        "name": "Faire appel à votre familier",
-        "success": "Après tant d'aventure en commun il est enfin temps de faire appel à votre fidèle compagnon pour un combat épique. Ce dernier n'aura cependant pas lieu puisque l'animal sauvage, surpris par l'arrivée de votre familier prend la fuite sans demander son reste !",
-        "failure": "En un instant et avant que vous n'ayez pu appeler quelconque autre animal dans le champ de bataille, vous vous retrouvez au sol, assommé par la bête sauvage qui vous laisse seul, sans même vous accorder un regard."
+        "name": "Ihren Vertrauten heranziehen",
+        "success": "Nach so vielen gemeinsamen Abenteuern ist es endlich an der Zeit, Ihren treuen Gefährten zu einem epischen Kampf aufzurufen. Dieser wird jedoch nicht stattfinden, da das wilde Tier, das von der Ankunft Ihres Vertrauten überrascht wurde, ohne zu fragen die Flucht ergreift!",
+        "failure": "Innerhalb eines Augenblicks und bevor Sie irgendein anderes Tier auf dem Schlachtfeld rufen können, finden Sie sich auf dem Boden wieder, niedergeschlagen von dem wilden Tier, das Sie allein lässt, ohne Sie auch nur eines Blickes zu würdigen."
       },
       "protect": {
-        "name": "Se protéger",
-        "success": "Vous levez votre bouclier haut devant vous, prêt à encaisser le coup de la bête. Elle se rue sur vous, vous gardez les pieds au sol tant bien que mal et vous finissez par repousser l'assaut. L'animal prend alors la fuite après avoir subi cet échec.",
-        "failure": "Vous mettez votre bouclier devant vous, prêt à encaisser le coup de la bête mais l'assaut s'avère brutal. Votre défense ne tient pas, et vous valsez sur quelques mètres. Persuadé de vous avoir mis hors d'état de nuire, l'animal s'en va au loin."
+        "name": "Sich schützen",
+        "success": "Sie heben Ihren Schild hoch vor sich, bereit, den Schlag der Bestie einzustecken. Das Tier stürmt auf Sie zu, Sie halten Ihre Füße so gut es geht auf dem Boden und wehren den Angriff schließlich ab. Das Tier flüchtet, nachdem es eine Niederlage erlitten hat.",
+        "failure": "Sie halten Ihren Schild vor sich, bereit, den Schlag der Bestie zu verkraften, doch der Angriff erweist sich als brutal. Ihre Verteidigung hält nicht und Sie taumeln einige Meter weit. Das Tier ist überzeugt, dass es Sie ausgeschaltet hat, und zieht sich zurück."
       },
       "playDead": {
-        "name": "Faire le mort",
-        "success": "Alors que l'animal vous dévisage, vous faites mine de tomber par terre et vous ne bougez plus. Après vous observer inerte par terre pendant quelques temps, il s'éloigne et vous laisser tranquille.",
-        "failure": "Alors que l'animal vous dévisage, vous faites mine de tomber par terre et vous ne bougez plus. Il s'approche de vous et vous renifle, et constate que vous ne faites que semblant. Vous déconcertez la créature en vous levant rapidement et vous prenez vos jambes à votre cou, avant de finir mort pour de vrai."
+        "name": "Sich tot stellen",
+        "success": "Als das Tier Sie anstarrt, tun Sie so, als würden Sie auf den Boden fallen und sich nicht mehr bewegen. Nachdem es Sie einige Zeit lang regungslos auf dem Boden beobachtet hat, entfernt es sich und lässt Sie in Ruhe.",
+        "failure": "Während das Tier Sie anstarrt, tun Sie so, als würden Sie auf den Boden fallen und sich nicht mehr bewegen. Es nähert sich Ihnen, schnüffelt an Ihnen und stellt fest, dass Sie nur so tun, als ob. Sie verwirren die Kreatur, indem Sie schnell aufstehen und die Beine in die Hand nehmen, bevor Sie wirklich tot sind."
       },
       "scream": {
-        "name": "Crier",
-        "success": "Vous poussez un cri strident qui fait fuir l'animal. Vous reprenez votre route, soulagé d'avoir pu vous en sortir sans encombre.",
-        "failure": "Vous poussez un cri strident qui fait fuir l'animal. Cependant, celui-ci revient à la charge et vous assène un coup violent avant de vous laisser seul."
+        "name": "Schreien",
+        "success": "Sie stoßen einen schrillen Schrei aus, der das Tier vertreibt. Sie setzen Ihren Weg fort und sind erleichtert, dass Sie alles gut überstanden haben.",
+        "failure": "Sie stoßen einen schrillen Schrei aus, der das Tier zur Flucht veranlasst. Das Tier kommt jedoch zurück und verpasst Ihnen einen heftigen Schlag, bevor es Sie allein lässt."
       },
       "prayGod": {
-        "name": "Prier Dieu",
-        "success": "Vous priez Dieu de vous venir en aide. Il vous entend et vous protège de l'attaque de l'animal. Vous reprenez votre route, soulagé d'avoir pu vous en sortir sans encombre.",
-        "failure": "Vous priez Dieu de vous venir en aide. L'animal vous charge et vos mains jointes ne vous protègent pas de son attaque. Vous reprenez votre route, honteux d'avoir pu imaginer que cette stratégie fonctionnerait."
+        "name": "Zu Gott beten",
+        "success": "Sie beten zu Gott, dass er Ihnen hilft. Er erhört Sie und beschützt Sie vor dem Angriff des Tieres. Sie setzen Ihren Weg fort und sind erleichtert, dass Sie heil aus der Sache herausgekommen sind.",
+        "failure": "Sie beten zu Gott, dass er Ihnen hilft. Das Tier greift Sie an und Ihre gefalteten Hände können Sie nicht vor seinem Angriff schützen. Sie setzen Ihren Weg fort und schämen sich dafür, dass Sie sich vorstellen konnten, dass diese Strategie funktionieren würde."
       },
       "attackLeft": {
-        "name": "Attaquer par la gauche",
-        "success": "Vous vous élancez du côté gauche de l'animal et lui portez un coup violent. Choqué par la douleur, l'animal fuit et vous laisse tranquille.",
-        "failure": "Vous vous élancez du côté gauche de l'animal et tentez de lui porter un coup. Cependant, vous échouez et vous êtes à portée de l'animal, qui contre attaque violemment avant de partir en vous laissant gisant sur le sol."
+        "name": "Von links angreifen",
+        "success": "Sie stürzen sich auf die linke Seite des Tieres und verpassen ihm einen heftigen Schlag. Geschockt von den Schmerzen flieht das Tier und lässt Sie in Ruhe.",
+        "failure": "Sie springen auf die linke Seite des Tieres und versuchen, ihm einen Schlag zu versetzen. Das Tier greift Sie an, bevor es sich zurückzieht und Sie auf dem Boden liegen lässt."
       },
       "attackRight": {
-        "name": "Attaquer par la droite",
-        "success": "Vous vous élancez du côté droit de l'animal et lui portez un coup violent. Choqué par la douleur, l'animal fuit et vous laisse tranquille.",
-        "failure": "Vous vous élancez du côté droit de l'animal et tentez de lui porter un coup. Cependant, vous échouez et vous êtes à portée de l'animal, qui contre attaque violemment avant de partir en vous laissant gisant sur le sol."
+        "name": "Von rechts angreifen",
+        "success": "Sie stürzen sich auf die rechte Seite des Tieres und verpassen ihm einen heftigen Schlag. Geschockt von den Schmerzen flieht das Tier und lässt Sie in Ruhe.",
+        "failure": "Sie springen auf die rechte Seite des Tieres und versuchen, ihm einen Schlag zu versetzen. Das Tier kontert mit einem heftigen Angriff und lässt Sie am Boden liegen."
       },
       "helpFromMates": {
-        "name": "Faire appel aux membres de votre guilde",
-        "success": "Vous faites appel à vos coéquipiers, qui arrivent rapidement sur les lieux. L'animal, surpris par l'arrivée de ces renforts, prend la fuite sans demander son reste !",
-        "failure": "Vous faites appel à vos coéquipiers, mais ces derniers sont trop loin pour vous entendre. L'animal, rapide, vous assomme avant de repartir au loin."
+        "name": "An die Mitglieder Ihrer Gilde appellieren",
+        "success": "Sie rufen Ihre Teamkollegen an, die schnell am Tatort eintreffen. Das Tier, das von der Ankunft der Verstärkung überrascht ist, flüchtet ohne zu fragen!",
+        "failure": "Sie rufen nach Ihren Teamkollegen, aber die sind zu weit weg, um Sie zu hören. Das Tier ist schnell und schlägt Sie nieder, bevor es sich wieder in die Ferne begibt."
       }
     }
   }
