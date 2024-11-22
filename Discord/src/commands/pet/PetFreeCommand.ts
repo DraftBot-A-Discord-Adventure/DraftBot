@@ -12,7 +12,6 @@ import {
 import {DiscordCache} from "../../bot/DiscordCache";
 import {DraftBotErrorEmbed} from "../../messages/DraftBotErrorEmbed";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
-import {Effect} from "../../../../Lib/src/enums/Effect";
 import {printTimeBeforeDate} from "../../../../Lib/src/utils/TimeUtils";
 import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";

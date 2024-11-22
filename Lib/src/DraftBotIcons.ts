@@ -1617,7 +1617,7 @@ export const DraftBotIcons: {
 		"health": "❤️",
 		"lostHealth": "💔",
 		"energy": "⚡",
-		"rage": "💢",
+		"rage": "💢"
 	},
 	"shopItems": {
 		"randomItem": "❓",
@@ -1657,7 +1657,7 @@ export const DraftBotIcons: {
 	"messages": {
 		"validate": "✅",
 		"refuse": "❌",
-		"notReplied": "🔚",
+		"notReplied": "🔚"
 	},
 	"fightPetActions": {
 		"fistHit": "👊",

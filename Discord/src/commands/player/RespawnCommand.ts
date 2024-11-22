@@ -10,7 +10,6 @@ import {DiscordCache} from "../../bot/DiscordCache";
 import i18n from "../../translations/i18n";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 import {EmoteUtils} from "../../utils/EmoteUtils";
-import {Effect} from "../../../../Lib/src/enums/Effect";
 import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
 
 /**
