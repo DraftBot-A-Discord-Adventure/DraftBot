@@ -771,7 +771,7 @@ export default class SmallEventsHandler {
 						lng: interaction.userLanguage
 					}) + (packet.isSuccess ? i18n.t("smallEvents:fightPet.rageUpFormat", {
 						lng: interaction.userLanguage,
-						rageUpDescription: StringUtils.getRandomTranslation("smallEvents:fightPet.rageUpDescriptions", interaction.userLanguage),
+						rageUpDescription: StringUtils.getRandomTranslation("smallEvents:fightPet.rageUpDescriptions", interaction.userLanguage)
 					}) : ""),
 					interaction.user,
 					interaction.userLanguage

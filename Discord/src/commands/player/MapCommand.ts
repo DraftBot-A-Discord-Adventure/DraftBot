@@ -4,7 +4,6 @@ import {CommandMapDisplayRes, CommandMapPacketReq} from "../../../../Lib/src/pac
 import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {Effect} from "../../../../Lib/src/enums/Effect";
 import {DiscordCache} from "../../bot/DiscordCache";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import i18n from "../../translations/i18n";

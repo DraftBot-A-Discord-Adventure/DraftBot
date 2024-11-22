@@ -26,7 +26,7 @@ function getFightPetMenu(interaction: DraftbotInteraction, reactions: ReactionCo
 	const result: FightPetActionMenu = {
 		menu: "\n\n",
 		actions: []
-	}
+	};
 	for (const reaction of reactions) {
 		const actionId = reaction.actionId;
 		const emoji = EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fightPetActions[actionId]);
@@ -43,8 +43,8 @@ export async function fightPetCollector(packet: ReactionCollectorCreationPacket,
 
 	const formatBaseOptions = {
 		lng: interaction.userLanguage,
-		context: genre,
-	}
+		context: genre
+	};
 
 	const menu = getFightPetMenu(interaction, packet.reactions.map(reaction => reaction.data as ReactionCollectorFightPetReaction));
 
@@ -71,7 +71,7 @@ export async function fightPetCollector(packet: ReactionCollectorCreationPacket,
 							petId: data.petId,
 							petName: i18n.t(`models:pets.${data.petId}`, formatBaseOptions),
 							adjective: StringUtils.getRandomTranslation("smallEvents:fightPet.adjectives", interaction.userLanguage, formatBaseOptions)
-						}),
+						})
 					})} ${StringUtils.getRandomTranslation("smallEvents:fightPet.situation", interaction.userLanguage)}${menu.menu}`,
 				interaction.user,
 				interaction.userLanguage
@@ -97,15 +97,14 @@ export async function fightPetCollector(packet: ReactionCollectorCreationPacket,
 		buttonCollector.stop();
 	});
 
-	reactionCollector.on("collect", async (reaction) => {
+	reactionCollector.on("collect", (reaction) => {
 		if (reaction.emoji.name === DraftBotIcons.messages.notReplied) {
 			reactionCollector.stop();
 			buttonCollector.stop();
-			return;
 		}
 	});
 
-	buttonCollector.on("end", async (collected) => {
+	buttonCollector.on("end", (collected) => {
 		DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, null, packet.reactions.findIndex((reaction) =>
 			reaction.type === ReactionCollectorFightPetReaction.name
 			&& (reaction.data as ReactionCollectorFightPetReaction).actionId === collected.first()?.customId));

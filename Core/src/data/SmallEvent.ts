@@ -6,6 +6,7 @@ import {DraftBotPacket, PacketContext} from "../../../Lib/src/packets/DraftBotPa
 
 export class SmallEvent extends Data<string> {
 	public readonly rarity: number;
+
 	private readonly properties: { [key: string]: unknown };
 
 	async execute(context: PacketContext, response: DraftBotPacket[], player: Player): Promise<void> {
@@ -14,7 +15,7 @@ export class SmallEvent extends Data<string> {
 	}
 
 	getProperties<T>(): T {
-		return <T>this.properties;
+		return <T> this.properties;
 	}
 }
 

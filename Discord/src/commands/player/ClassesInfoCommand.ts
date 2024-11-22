@@ -8,8 +8,7 @@ import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import i18n from "../../translations/i18n";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {Effect} from "../../../../Lib/src/enums/Effect";
-import { Constants } from "../../../../Lib/src/constants/Constants";
+import {Constants} from "../../../../Lib/src/constants/Constants";
 import {ClassInfoConstants} from "../../../../Lib/src/constants/ClassInfoConstants";
 import {Language} from "../../../../Lib/src/Language";
 import {
