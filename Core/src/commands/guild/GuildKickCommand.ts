@@ -1,7 +1,7 @@
 import {packetHandler} from "../../core/packetHandlers/PacketHandler";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {Player, Players} from "../../core/database/game/models/Player";
-import {Guild, Guilds} from "../../core/database/game/models/Guild";
+import {Guilds} from "../../core/database/game/models/Guild";
 import {
 	CommandGuildKickAcceptPacketRes,
 	CommandGuildKickPacketReq,
@@ -13,44 +13,36 @@ import {EndCallback, ReactionCollectorInstance} from "../../core/utils/Reactions
 import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
-import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {LogsDatabase} from "../../core/database/logs/LogsDatabase";
-import {MissionsController} from "../../core/missions/MissionsController";
 import {CommandUtils} from "../../core/utils/CommandUtils";
 import {Effect} from "../../../../Lib/src/enums/Effect";
 import {GuildRole} from "../../../../Lib/src/enums/GuildRole";
 import {ReactionCollectorGuildKick} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildKick";
+import {draftBotInstance} from "../../index";
 
 async function acceptGuildKick(player: Player, kickedPlayer: Player, response: DraftBotPacket[]): Promise<void> {
 	await player.reload();
 	// Do all necessary checks again just in case something changed during the menu
-	if (!await canKickGuild(player, guildName, response)) {
+	if (await isNotEligible(player, kickedPlayer, response)) {
 		return;
 	}
 
-	// Everything is valid, start a guild creation process:
-	const newGuild = await Guild.create({
-		name: guildName,
-		chiefId: player.id
-	});
-	player.guildId = newGuild.id;
-	await player.spendMoney({
-		amount: GuildKickConstants.PRICE,
-		response,
-		reason: NumberChangeReason.GUILD_CREATE
-	});
-	newGuild.updateLastDailyAt();
-	await newGuild.save();
-	await player.save();
-	LogsDatabase.logGuildCreation(player.keycloakId, newGuild).then();
-	await MissionsController.update(player, response, {missionId: "joinGuild"});
-	await MissionsController.update(player, response, {
-		missionId: "guildLevel",
-		count: newGuild.level,
-		set: true
-	});
+	const guild = await Guilds.getById(player.guildId);
+	kickedPlayer.guildId = null;
 
-	response.push(makePacket(CommandGuildKickAcceptPacketRes, {guildName}));
+	if (guild.elderId === kickedPlayer.id) {
+		guild.elderId = null;
+	}
+	await Promise.all([
+		kickedPlayer.save(),
+		guild.save()
+	]);
+	draftBotInstance.logsDatabase.logGuildKick(player.keycloakId, guild).then();
+
+	response.push(makePacket(CommandGuildKickAcceptPacketRes, {
+		kickedKeycloakId: kickedPlayer.keycloakId,
+		guildName: guild.name
+	}));
 }
 
 /**
@@ -120,7 +112,7 @@ export default class GuildKickCommand {
 				: await Players.getByKeycloakId(packet.askedPlayer.keycloakId)
 			: await Players.getByRank(packet.askedPlayer.rank);
 
-		if (!await isNotEligible(player, kickedPlayer, response)) {
+		if (await isNotEligible(player, kickedPlayer, response)) {
 			return;
 		}
 
