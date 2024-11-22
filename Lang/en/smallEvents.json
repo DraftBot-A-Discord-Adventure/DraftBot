@@ -1284,12 +1284,12 @@
   },
   "fightPet": {
     "intro_male": [
-      "vous tombez nez à nez avec un {{feralPet}} !",
-      "vous rencontrez un {{feralPet}}.",
+      "you fall nose with an {{feralPet}}!",
+      "you encounter an {{feralPet}}.",
       "you see an {{feralPet}} that doesn't seem to want to let you pass.",
-      "vous poussez soudain un couinement terrifié : un {{feralPet}} se tient juste devant vous !",
-      "vous restez interdit à la vue d'un {{feralPet}}.",
-      "vous apercevez un nuage de poussière à l'horizon qui se rapproche dangereusement... C'est un {{feralPet}} !",
+      "you suddenly push a terrifying couple: an {{feralPet}} stands right in front of you!",
+      "you are not allowed to see an {{feralPet}}.",
+      "you see a cloud of dust on the horizon that is approaching dangerously... It's an {{feralPet}}!",
       "you notice a mysterical mecanism... Curious, you decide to activate it. You don't take long to regret your gesture when an {{feralPet}} appears from nowhere!",
       "you hear a muted sound behind you. You turn around and find an {{feralPet}} that stunts you."
     ],
@@ -1299,182 +1299,182 @@
       "you see an {{feralPet}} that doesn't seem to want to let you pass.",
       "you suddenly push a terrifying couple: an {{feralPet}} stands right in front of you!",
       "you are not allowed to see an {{feralPet}}.",
-      "vous apercevez un nuage de poussière à l'horizon qui se rapproche dangereusement... C'est une {{feralPet}} !",
-      "vous remarquez un mécanisme mystérieux... Curieux, vous décidez de l'activer. Vous ne mettez pas longtemps à regretter votre geste quand une {{feralPet}} surgit de nulle part !",
-      "vous entendez un bruit sourd derrière vous. Vous vous retournez et découvrez une {{feralPet}} qui vous fixe avec insistance."
+      "you see a cloud of dust on the horizon that is approaching dangerously... It's an {{feralPet}}!",
+      "you notice a mysterious mechanism... Curious, you decide to activate it. It doesn't take you long to regret your decision, however, when a {{feralPet}} appears out of nowhere!",
+      "you hear a muted sound behind you. You turn around and find an {{feralPet}} that sticks to you."
     ],
     "situation": [
       "The beast seems impossible to calm down ... You are trying to calm down and reflect an action plan for you to undo this animal.",
-      "Absolument terrifié, vous commencez à réfléchir à vos différentes options pour vous débarrasser de cette bête.",
+      "Absolutely terrified, you are starting to reflect your different options to get you out of this beast.",
       "Impossible not to react, you have to take a decision to save your life...",
       "Distracted by the two red eyes of the animal that insist on you, you try to focus on an action plan.",
       "The fetide breath of the animal makes you spin the sky. You are trying to concentrate...",
-      "Vous vous demandez si vous ne devriez pas vous enfuir en courant, mais vous vous dites que vous pourriez peut-être vous en sortir si vous réfléchissez à un plan d'action.",
+      "You wonder if you should not run away, but you think you could get out of it if you reflect an action plan.",
       "You tighten your grip on the guard of your spell, and a little reassured, reflect what you need to do.",
       "Petrified by fear, you look at the animal sinking towards you, trying to force your tetaneous brain to find a solution.",
-      "Affolé, vous cherchez désespérément une solution qui vous maintiendra en vie."
+      "You are looking for a solution that will keep you alive."
     ],
     "rageUpDescriptions": [
-      "Heureux de vous en être sorti, vous sentez votre rage monter contre les créatures possédées de cette île.",
-      "Fort de votre victoire, vous vous sentez plein de rage contre les créatures maléfiques de cette île.",
-      "Vous vous sentez plus fort que jamais et votre rage contre les créatures maléfiques de cette île augmente.",
-      "Fier de vous, vous sentez votre rage contre les créatures maléfiques de cette île augmenter.",
-      "Plus personne ne pourra vous arrêter ! Votre rage contre les créatures maléfiques n'est que renforcée par cet évènement."
+      "Happy to get out of you, you feel your rage against the creatures of this island.",
+      "With your victory, you feel full of rage against the evil creatures of this island.",
+      "You feel stronger than ever and your rage against the evil creatures of this island is increasing.",
+      "Proud of you, you feel your rage against the evil creatures of this island increase.",
+      "No one can stop you! Your rage against evil creatures is only reinforced by this event."
     ],
     "rageUpFormat": " {{rageUpDescription}} {emote:unitValues.rage} **Rage ++**",
     "customPetDisplay_male": "{emote:pets.{{petId}}.emoteMale} **{{petName}} {{adjective}}**",
     "customPetDisplay_female": "{emote:pets.{{petId}}.emoteFemale} **{{petName}} {{adjective}}**",
     "adjectives_male": [
-      "faché",
-      "affamé",
-      "enragé",
-      "furieux",
-      "méchant",
-      "énervé",
-      "agressif",
+      "fachee",
+      "hungry",
+      "enraged",
+      "furious",
+      "mechant",
+      "energized",
+      "aggressive",
       "violent",
       "hostile",
-      "irrité",
-      "en colère",
+      "irritated",
+      "in school",
       "furax",
-      "sauvage",
-      "malfaisant",
+      "wild",
+      "malpractice",
       "brutal",
-      "menaçant",
-      "barbare",
-      "atroce",
-      "farouche",
-      "impitoyable",
-      "bagarreur",
-      "pas content",
-      "maléfique",
-      "corrompu",
-      "louche",
-      "fou",
-      "destructeur",
-      "maudit",
-      "machiavélique",
-      "malveillant",
-      "féroce"
+      "threatening",
+      "barbarian",
+      "atrocious",
+      "fierce",
+      "ruthless",
+      "brawler",
+      "not happy",
+      "evil",
+      "corrupted",
+      "dusty",
+      "crazy",
+      "destructor",
+      "cursed",
+      "machiavelic",
+      "malicious",
+      "feeroce"
     ],
     "adjectives_female": [
-      "fachée",
-      "affamée",
-      "enragée",
-      "furieuse",
-      "méchante",
-      "énervée",
-      "agressive",
-      "violente",
+      "facie",
+      "affamee",
+      "raged",
+      "furious",
+      "mechant",
+      "Powered",
+      "aggressive",
+      "violent",
       "hostile",
-      "irritée",
-      "en colère",
+      "irritated",
+      "in school",
       "furax",
-      "sauvage",
-      "malfaisante",
-      "brutale",
-      "menaçante",
-      "barbare",
-      "atroce",
-      "farouche",
-      "impitoyable",
-      "bagarreuse",
-      "pas contente",
-      "maléfique",
-      "corrompue",
-      "louche",
-      "folle",
-      "destructrice",
-      "maudite",
-      "machiavélique",
-      "malveillante",
-      "féroce"
+      "wild",
+      "malicious",
+      "brutal",
+      "threatening",
+      "barbarian",
+      "atrocious",
+      "fierce",
+      "ruthless",
+      "brawler",
+      "not happy",
+      "evil",
+      "corrupt",
+      "dusty",
+      "crazy",
+      "destructive",
+      "cursed",
+      "machiavelic",
+      "malicious",
+      "feeroce"
     ],
     "fightPetActions": {
       "fistHit": {
-        "name": "Coup de poing",
-        "success": "Vous frappez l'animal d'un grand coup de poing ! Il recule, surpris. Vous en profitez pour prendre la fuite !",
-        "failure": "Vous frappez l'animal d'un coup de poing faiblard ! Il recule, surpris mais ce n'est pas suffisant pour vous débarrasser de lui. Vous subissez une attaque farouche avant de parvenir à vous enfuir !"
+        "name": "Punch",
+        "success": "You punch the animal with a big punch! He slips back, surprised. You take advantage of it to flee!",
+        "failure": "You hit the animal with a weak punch! It slips, surprised, but it's not enough to get rid of it. You are under a fierce attack before you get away!"
       },
       "runAway": {
-        "name": "Fuir",
-        "success": "Vous ne réfléchissez pas une seule seconde et partez immédiatement en courant ! L'animal vous poursuit mais vous parvenez à vous en défaire.",
-        "failure": "Vous tentez de prendre la fuite, mais vous êtes rapidement rattrapé par la bête qui vous assène un coup violent avant de vous laisser seul."
+        "name": "Escape",
+        "success": "You do not reflect for a second and start running! The pet is continuing with you but you manage to do so.",
+        "failure": "You try to flee, but you quickly caught up with the beast that sits at you a violent blow before leaving yourself alone."
       },
       "focusEnergy": {
-        "name": "Concentrer son énergie et attaquer",
-        "success": "Vous ralentissez votre respiration et vous sentez votre énergie parcourir vos bras ! Vous libérez cette énergie dans un coup brutal qui fait fuir l'animal !",
-        "failure": "Vous tentez de vous concentrer mais vous être trop fatigué pour cela ! Vous vacillez par terre, mais cela a tout de même comme effet de calmer la bête, qui s'en va."
+        "name": "Focus power and attack",
+        "success": "You slow down your breath and feel your energy walking your arms! You get this energy in a brutal blow that makes the animal flee!",
+        "failure": "You are trying to concentrate but you are too tired to do that! You are shaking on the ground, but it all has the effect of calming the beast, which is leaving."
       },
       "intimidate": {
-        "name": "Intimider la créature",
-        "success": "Vous démontrez votre force devant l'animal, qui recule vivement et fuit à vive à l'allure à l'horizon !",
-        "failure": "Vous bombez le torse en face de l'animal, ce qui n'a pour effet que de l'énerver d'autant plus. Dans la colère il rate son attaque, et vous en profitez pour déguerpir rapidement !"
+        "name": "Intimize Creature",
+        "success": "You show your strength in front of the animal, which is pulling back and escaping alive at the pace of the horizon!",
+        "failure": "You bomb the chest in front of the animal, which only makes it more energetic. In the school he misses his attack, and you can take advantage of it to get started quickly!"
       },
       "baitWithMeat": {
-        "name": "Distraire la bête avec de la viande",
-        "success": "Vous sortez un morceau de viande de votre sac et le lancez à l'animal, qui se jette dessus avec avidité. Vous en profitez pour vous enfuir.",
-        "failure": "Vous essayez maladroitement de lancer un morceau de viande vers la bête afin de la distraire. Cependant, avant que vous n'ayez pu initier votre manoeuvre, l'animal se rapproche et vous assène un coup violent avant de vous laisser seul."
+        "name": "Distract beats with meat",
+        "success": "You pull a piece of meat out of your bag and throw it at the animal, which throws on it greedily. You take advantage of it to escape.",
+        "failure": "You are clumsily trying to throw a piece of meat into the body to distract it. However, before you have been able to initiate your maneuver, the animal moves closer and sits at you a violent blow before leaving you alone."
       },
       "baitWithVegetables": {
-        "name": "Distraire la bête avec un légume",
-        "success": "Vous sortez un légume de votre sac et le lancez à l'animal, qui le renifle avec intérêt. Cela vous laisse suffisamment de temps pour vous échapper.",
-        "failure": "Vous sortez un légume de votre sac et le lancez à l'animal, qui le renifle avec dégoût. Encore plus enragée qu'auparavant, la bête vous surprend d'un assaut fulgurant ! Vous n'avez aucun moyen de vous en défaire et vous subissez l'attaque violente de plein fouet."
+        "name": "Distract yourself with a legume",
+        "success": "You pull a legume out of your bag and throw it at the animal, which sniffs it with integrity. This allows you enough time to escape.",
+        "failure": "You pull a legume out of your bag and throw it at the animal, which sniffs it with disguise. Even more enraged than before, the beast surprises you with an overwhelming assault! You have no way to get rid of it and you are under the violent attack with full force."
       },
       "provoke": {
-        "name": "Provoquer la bête",
-        "success": "Vous vous approchez de l'animal et le provoquez en lui faisant des grimaces. Celui-ci fonce sur vous ! Vous vous écartez au dernier moment et il s'écrase contre un arbre. Vous le finissez d'un coup de pied et reprenez votre route.",
-        "failure": "Vous vous approchez de l'animal et le provoquez en lui faisant des grimaces. Il se met à grogner et vous assène un coup violent avant de vous laisser seul."
+        "name": "Taunt",
+        "success": "You approach the animal and provoke it by making grimaces. This one runs on you! You deviate at the last moment and it crushed against a tree. You finish it with a kick and get back on your way.",
+        "failure": "You approach the animal and provoke it by making grimaces. He grunts himself and sits at you a violent blow before leaving you alone."
       },
       "doNothing": {
-        "name": "Ne rien faire",
-        "success": "Vous ne bougez pas d'un pouce, et l'animal semble vous ignorer. Vous en profitez pour vous éclipser, ravi d'avoir eu autant de chance.",
-        "failure": "Vous ne bougez pas d'un pouce, mais l'animal ne se laisse pas tromper et vous assène un coup violent avant de vous laisser seul. Vous reprenez la route honteux d'avoir pu imaginé que cette stratégie fonctionnerait."
+        "name": "Do nothing",
+        "success": "You are not moving one inch, and the animal seems to ignore you. You take advantage of it to overshadow yourself, glad to have been so lucky.",
+        "failure": "You don't move one inch, but the animal doesn't allow itself to be deceived and you sit a violent blow before leaving yourself alone. You are going back to the shameful road of being able to imagine that this strategy would work."
       },
       "lastEffort": {
-        "name": "Utiliser toutes vos forces pour attaquer",
-        "success": "Vous vous concentrez et rassemblez toutes vos forces pour attaquer l'animal. Vous le frappez d'un coup violent qui le fait fuir !",
-        "failure": "Vous vous concentrez et rassemblez toutes vos forces pour attaquer l'animal. Vous le frappez d'un coup violent, mais cela ne suffit pas à le faire fuir. Vous subissez une attaque farouche avant de parvenir à vous enfuir !"
+        "name": "Use all your forces to attack",
+        "success": "You focus and gather all your forces to attack the animal. You hit it with a violent blow that makes it flee!",
+        "failure": "You focus and gather all your forces to attack the animal. You hit him violently, but it is not enough to make him flee. You are under a fierce attack before you get away!"
       },
       "usePlayerPet": {
-        "name": "Faire appel à votre familier",
-        "success": "Après tant d'aventure en commun il est enfin temps de faire appel à votre fidèle compagnon pour un combat épique. Ce dernier n'aura cependant pas lieu puisque l'animal sauvage, surpris par l'arrivée de votre familier prend la fuite sans demander son reste !",
-        "failure": "En un instant et avant que vous n'ayez pu appeler quelconque autre animal dans le champ de bataille, vous vous retrouvez au sol, assommé par la bête sauvage qui vous laisse seul, sans même vous accorder un regard."
+        "name": "Call your pet",
+        "success": "It is time to call on your friend for an epic fight. The pet will not take place, however, since the wild animal, surprised by your pet's arrival, flees without asking for the remainder!",
+        "failure": "In a moment and before you could call any other animal in the battlefield, you find yourself on the ground, stunned by the wild beast that leaves you alone, without even giving you a look."
       },
       "protect": {
-        "name": "Se protéger",
-        "success": "Vous levez votre bouclier haut devant vous, prêt à encaisser le coup de la bête. Elle se rue sur vous, vous gardez les pieds au sol tant bien que mal et vous finissez par repousser l'assaut. L'animal prend alors la fuite après avoir subi cet échec.",
-        "failure": "Vous mettez votre bouclier devant vous, prêt à encaisser le coup de la bête mais l'assaut s'avère brutal. Votre défense ne tient pas, et vous valsez sur quelques mètres. Persuadé de vous avoir mis hors d'état de nuire, l'animal s'en va au loin."
+        "name": "Protect yourself",
+        "success": "You raise your shield high in front of you, ready to take off the beast. She sits on you, you keep her feet on the ground as well as badly and you end up repeating the assault. The animal then leaks after suffering this failure.",
+        "failure": "You put your shield in front of you, ready to take the blow of beast, but the assault was brutal. Your challenge does not hold up, and you are worth a few meters. Persuaded by having put you out of the state of harm, the animal is away from the distance."
       },
       "playDead": {
-        "name": "Faire le mort",
-        "success": "Alors que l'animal vous dévisage, vous faites mine de tomber par terre et vous ne bougez plus. Après vous observer inerte par terre pendant quelques temps, il s'éloigne et vous laisser tranquille.",
-        "failure": "Alors que l'animal vous dévisage, vous faites mine de tomber par terre et vous ne bougez plus. Il s'approche de vous et vous renifle, et constate que vous ne faites que semblant. Vous déconcertez la créature en vous levant rapidement et vous prenez vos jambes à votre cou, avant de finir mort pour de vrai."
+        "name": "Play possum",
+        "success": "As the animal looks at you, you mine to fall to the ground and you no longer move. Apres observe you inert on the ground for a while, it moves away and leaves you alone.",
+        "failure": "As the animal looks at you, you mine to fall to the ground and you no longer move. He approaches you and sniffs, and finds that you are only pretending. You unfold the creature by getting up quickly and take your legs to your neck before you finish dead for real."
       },
       "scream": {
-        "name": "Crier",
-        "success": "Vous poussez un cri strident qui fait fuir l'animal. Vous reprenez votre route, soulagé d'avoir pu vous en sortir sans encombre.",
-        "failure": "Vous poussez un cri strident qui fait fuir l'animal. Cependant, celui-ci revient à la charge et vous assène un coup violent avant de vous laisser seul."
+        "name": "Shout",
+        "success": "You push a strident cry that runs away from the animal. You get back on your way, relieved that you could get out of it without hindrance.",
+        "failure": "You spawn a strident cry that runs away from the animal. However, it comes back to the load and sits a violent blow before leaving you alone."
       },
       "prayGod": {
-        "name": "Prier Dieu",
-        "success": "Vous priez Dieu de vous venir en aide. Il vous entend et vous protège de l'attaque de l'animal. Vous reprenez votre route, soulagé d'avoir pu vous en sortir sans encombre.",
-        "failure": "Vous priez Dieu de vous venir en aide. L'animal vous charge et vos mains jointes ne vous protègent pas de son attaque. Vous reprenez votre route, honteux d'avoir pu imaginer que cette stratégie fonctionnerait."
+        "name": "Pray to God",
+        "success": "You pray to God to help you. He hears you and protects you from the animal attack. You are back on your way, relieved that you could get out of it without hindrance.",
+        "failure": "You pray to God to help you. The animal charges you and your hands do not protect you from its attack. You are back on your way, shameful to have imagined that this strategy would work."
       },
       "attackLeft": {
-        "name": "Attaquer par la gauche",
-        "success": "Vous vous élancez du côté gauche de l'animal et lui portez un coup violent. Choqué par la douleur, l'animal fuit et vous laisse tranquille.",
-        "failure": "Vous vous élancez du côté gauche de l'animal et tentez de lui porter un coup. Cependant, vous échouez et vous êtes à portée de l'animal, qui contre attaque violemment avant de partir en vous laissant gisant sur le sol."
+        "name": "Attack Left",
+        "success": "You run from the left side of the animal and hit it violently, shocked by the pain, the animal flees and leaves you alone.",
+        "failure": "You run from the left side of the animal and try to hit it. However, you failed and you were wearing the animal, which against a violent attack before leaving by lying on the ground."
       },
       "attackRight": {
-        "name": "Attaquer par la droite",
-        "success": "Vous vous élancez du côté droit de l'animal et lui portez un coup violent. Choqué par la douleur, l'animal fuit et vous laisse tranquille.",
-        "failure": "Vous vous élancez du côté droit de l'animal et tentez de lui porter un coup. Cependant, vous échouez et vous êtes à portée de l'animal, qui contre attaque violemment avant de partir en vous laissant gisant sur le sol."
+        "name": "Attack Right",
+        "success": "You run from the right side of the animal and hit it violently; shocked by the pain, the animal flees and leaves you alone.",
+        "failure": "You run from the right side of the animal and try to hit it. However, you failed and you were wearing the animal, which against a violent attack before leaving by lying on the ground."
       },
       "helpFromMates": {
-        "name": "Faire appel aux membres de votre guilde",
-        "success": "Vous faites appel à vos coéquipiers, qui arrivent rapidement sur les lieux. L'animal, surpris par l'arrivée de ces renforts, prend la fuite sans demander son reste !",
-        "failure": "Vous faites appel à vos coéquipiers, mais ces derniers sont trop loin pour vous entendre. L'animal, rapide, vous assomme avant de repartir au loin."
+        "name": "Call on your guild members",
+        "success": "You call on your teammates, who arrive quickly on the spot. The animal, surprised by the arrival of these reinforcements, flees without asking the rest of them!",
+        "failure": "You call on your teammates, but they are too far away to hear you. The animal, fast, knocks you down before you go again."
       }
     }
   }
