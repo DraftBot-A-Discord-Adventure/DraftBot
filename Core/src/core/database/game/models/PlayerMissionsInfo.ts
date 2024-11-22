@@ -57,7 +57,7 @@ export class PlayerMissionsInfos {
 				playerId
 			}
 		}))[0];
-		if (missionsInfo.campaignBlob === null || !missionsInfo.campaignBlob) {
+		if (!missionsInfo.campaignBlob) {
 			missionsInfo.campaignBlob = Campaign.getDefaultCampaignBlob();
 		}
 		return missionsInfo;

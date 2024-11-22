@@ -17,7 +17,7 @@ export const commandInfo: ITestCommand = {
  */
 const petLovePointsTestCommand: ExecuteTestCommandLike = async (player, args, response) => {
 	const pet = await PetEntities.getById(player.petId);
-	if (pet === null) {
+	if (!pet) {
 		throw new Error("Erreur petlp : vous n'avez pas de pet !");
 	}
 	const lovePoints = parseInt(args[0], 10);

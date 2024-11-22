@@ -12,7 +12,7 @@ export const commandInfo: ITestCommand = {
  * Same as petfree command, but doesn't care about cooldown
  */
 const petFreeTestCommand: ExecuteTestCommandLike = async (player) => {
-	if (player.petId === null) {
+	if (!player.petId) {
 		throw new Error("Erreur petfree : vous n'avez pas de pet !");
 	}
 	const playerPet = await PetEntities.getById(player.petId);

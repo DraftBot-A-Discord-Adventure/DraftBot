@@ -13,7 +13,7 @@ export const commandInfo: ITestCommand = {
  */
 const forceGuildOwnerTestCommand: ExecuteTestCommandLike = async (player) => {
 	const guild = await Guild.findOne({where: {id: player.guildId}});
-	if (guild === null) {
+	if (!guild) {
 		throw new Error("Erreur forceguildowner : vous n'êtes pas dans une guilde !");
 	}
 	draftBotInstance.logsDatabase.logGuildChiefChange(guild, player.id).then();

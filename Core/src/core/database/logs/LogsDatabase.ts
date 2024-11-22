@@ -182,6 +182,21 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
+	 * Log when a guild is created
+	 * @param creatorKeycloakId
+	 * @param guild
+	 */
+	public static async logGuildCreation(creatorKeycloakId: string, guild: Guild): Promise<void> {
+		const creator = await LogsDatabase.findOrCreatePlayer(creatorKeycloakId);
+		const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
+		await LogsGuildsCreations.create({
+			guildId: guildInstance.id,
+			creatorId: creator.id,
+			date: getDateLogs()
+		});
+	}
+
+	/**
 	 * Find or create a pet entity in the log database
 	 * @param petEntity
 	 * @private
@@ -636,7 +651,9 @@ export class LogsDatabase extends Database {
 	 * @param item
 	 */
 	public logItemGain(keycloakId: string, item: GenericItem): Promise<unknown> {
-		let itemCategoryDatabase: { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> };
+		let itemCategoryDatabase: {
+			create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>>
+		};
 		switch (item.categoryName) {
 		case "weapons":
 			itemCategoryDatabase = LogsItemGainsWeapon;
@@ -681,7 +698,9 @@ export class LogsDatabase extends Database {
 	 * @param item
 	 */
 	public logItemSell(keycloakId: string, item: GenericItem): Promise<unknown> {
-		let itemCategoryDatabase: { create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>> };
+		let itemCategoryDatabase: {
+			create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>>
+		};
 		switch (item.categoryName) {
 		case "weapons":
 			itemCategoryDatabase = LogsItemSellsWeapon;
@@ -918,21 +937,6 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * Log when a guild is created
-	 * @param creatorKeycloakId
-	 * @param guild
-	 */
-	public static async logGuildCreation(creatorKeycloakId: string, guild: Guild): Promise<void> {
-		const creator = await LogsDatabase.findOrCreatePlayer(creatorKeycloakId);
-		const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
-		await LogsGuildsCreations.create({
-			guildId: guildInstance.id,
-			creatorId: creator.id,
-			date: getDateLogs()
-		});
-	}
-
-	/**
 	 * Log when a player joins a guild
 	 * @param adderKeycloakId
 	 * @param addedKeycloakId
@@ -1026,7 +1030,7 @@ export class LogsDatabase extends Database {
 				monsterDefense: monsterStats.defense,
 				monsterSpeed: monsterStats.speed,
 				turn: fight.turn,
-				winner: winner === null ? 0 : winner === player ? 1 : 2,
+				winner: !winner ? 0 : winner === player ? 1 : 2,
 				date: getDateLogs()
 			});
 			const fightActionsUsed: { [action: string]: number } = {};

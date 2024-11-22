@@ -20,7 +20,7 @@ export const commandInfo: ITestCommand = {
  */
 const guildRewardTestCommand: ExecuteTestCommandLike = async (player, args) => {
 	const guild = await Guild.findOne({where: {id: player.guildId}});
-	if (guild === null) {
+	if (!guild) {
 		throw new Error("Erreur greward : vous n'êtes pas dans une guilde !");
 	}
 

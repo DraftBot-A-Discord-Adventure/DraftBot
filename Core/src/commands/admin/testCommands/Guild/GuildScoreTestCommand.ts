@@ -18,7 +18,7 @@ export const commandInfo: ITestCommand = {
  */
 const guildScoreTestCommand: ExecuteTestCommandLike = async (player, args) => {
 	const guild = await Guild.findOne({where: {id: player.guildId}});
-	if (guild === null) {
+	if (!guild) {
 		throw new Error("Erreur gpoints : vous n'êtes pas dans une guilde !");
 	}
 	const guildScore = parseInt(args[0], 10);

@@ -40,7 +40,7 @@ function foodAmount(player: Player, currentFoodLevel: number, ultimate: boolean)
 	const food = ultimate ? SmallEventConstants.ULTIMATE_FOOD_MERCHANT.ULTIMATE_FOOD : SmallEventConstants.ULTIMATE_FOOD_MERCHANT.COMMON_FOOD;
 	return Math.max(Math.min(
 		Math.ceil(food.MULTIPLIER * Math.tanh(player.level / 100))
-			+ RandomUtils.variationInt(food.VARIATION),
+		+ RandomUtils.variationInt(food.VARIATION),
 		(ultimate ? GuildConstants.MAX_ULTIMATE_PET_FOOD : GuildConstants.MAX_COMMON_PET_FOOD) - currentFoodLevel
 	), 1);
 }
@@ -50,8 +50,8 @@ function foodAmount(player: Player, currentFoodLevel: number, ultimate: boolean)
  * @param player
  * @param guild
  */
-function generateReward(player: Player, guild:Guild): string {
-	if (guild === null) {
+function generateReward(player: Player, guild: Guild): string {
+	if (!guild) {
 		return SmallEventConstants.ULTIMATE_FOOD_MERCHANT.INTERACTIONS_NAMES.MONEY;
 	}
 	if (player.level >= SmallEventConstants.ULTIMATE_FOOD_MERCHANT.MINIMUM_LEVEL_GOOD_PLAYER) {
@@ -77,7 +77,7 @@ function generateReward(player: Player, guild:Guild): string {
  * @param player
  * @param guild
  */
-async function giveReward(packet:SmallEventUltimateFoodMerchantPacket, response:DraftBotPacket[], context: PacketContext, player:Player, guild: Guild): Promise<void> {
+async function giveReward(packet: SmallEventUltimateFoodMerchantPacket, response: DraftBotPacket[], context: PacketContext, player: Player, guild: Guild): Promise<void> {
 	switch (packet.interactionName) {
 	case SmallEventConstants.ULTIMATE_FOOD_MERCHANT.INTERACTIONS_NAMES.ULTIMATE_FOOD:
 		packet.amount = foodAmount(player, guild.ultimateFood, true);
@@ -115,12 +115,12 @@ export const smallEventFuncs: SmallEventFuncs = {
 		catch {
 			guild = null;
 		}
-		const packet: SmallEventUltimateFoodMerchantPacket = {interactionName: generateReward(player,guild)};
-		await giveReward(packet,response,context,player,guild);
+		const packet: SmallEventUltimateFoodMerchantPacket = {interactionName: generateReward(player, guild)};
+		await giveReward(packet, response, context, player, guild);
 		if (packet.interactionName === Constants.DEFAULT_ERROR) {
 			response.push(makePacket(ErrorPacket, {message: "SmallEvent Ultimate Food Merchant : cannot determine an interaction for the user"}));
 			return;
 		}
-		response.push(makePacket(SmallEventUltimateFoodMerchantPacket,packet));
+		response.push(makePacket(SmallEventUltimateFoodMerchantPacket, packet));
 	}
 };

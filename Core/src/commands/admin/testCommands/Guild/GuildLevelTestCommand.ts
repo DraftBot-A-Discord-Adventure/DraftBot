@@ -17,7 +17,7 @@ export const commandInfo: ITestCommand = {
  */
 const guildLevelTestCommand: ExecuteTestCommandLike = async (player, args) => {
 	const guild = await Guild.findOne({where: {id: player.guildId}});
-	if (guild === null) {
+	if (!guild) {
 		throw new Error("Erreur glvl : vous n'êtes pas dans une guilde !");
 	}
 	const guildLvl = parseInt(args[0], 10);

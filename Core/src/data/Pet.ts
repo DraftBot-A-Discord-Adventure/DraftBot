@@ -14,15 +14,15 @@ export class Pet extends Data<number> {
 	}
 
 	/**
-     * Returns true if the pet can eat meat
-     */
+	 * Returns true if the pet can eat meat
+	 */
 	public canEatMeat(): boolean {
 		return this.diet === PetConstants.RESTRICTIVES_DIETS.CARNIVOROUS || !this.diet;
 	}
 
 	/**
-     * Returns true if the pet can eat vegetables
-     */
+	 * Returns true if the pet can eat vegetables
+	 */
 	public canEatVegetables(): boolean {
 		return this.diet === PetConstants.RESTRICTIVES_DIETS.HERBIVOROUS || !this.diet;
 	}
@@ -38,7 +38,7 @@ export class PetDataController extends DataControllerNumber<Pet> {
 	}
 
 	public getMaxId(): number {
-		if (this.maxIdCache === null) {
+		if (!this.maxIdCache) {
 			this.maxIdCache = Math.max(...[...this.data.keys()].map(armor => armor));
 		}
 
@@ -46,8 +46,8 @@ export class PetDataController extends DataControllerNumber<Pet> {
 	}
 
 	/**
-     * Get a random pet
-     */
+	 * Get a random pet
+	 */
 	public getRandom(rarity: number = -1): Pet {
 		let pets = this.getValuesArray();
 		if (rarity !== -1) {

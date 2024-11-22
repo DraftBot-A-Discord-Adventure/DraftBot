@@ -18,7 +18,7 @@ export const commandInfo: ITestCommand = {
  */
 const forceJoinGuildTestCommand: ExecuteTestCommandLike = async (player, args) => {
 	const guildToJoin = await Guild.findOne({where: {id: args[0]}});
-	if (guildToJoin === null) {
+	if (!guildToJoin) {
 		throw new Error("Erreur forcejoinguild : pas de guilde avec cet id !");
 	}
 
