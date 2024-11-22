@@ -1,0 +1,161 @@
+import {ICommand} from "../ICommand";
+import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
+import i18n from "../../translations/i18n";
+import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {SlashCommandBuilder} from "@discordjs/builders";
+import {DiscordCache} from "../../bot/DiscordCache";
+import {DraftBotErrorEmbed} from "../../messages/DraftBotErrorEmbed";
+import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
+import {
+	CommandGuildKickAcceptPacketRes,
+	CommandGuildKickPacketReq,
+	CommandGuildKickPacketRes,
+	CommandGuildKickRefusePacketRes
+} from "../../../../Lib/src/packets/commands/CommandGuildKickPacket";
+import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
+import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
+import {ReactionCollectorGuildKickData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildKick";
+import {PacketUtils} from "../../utils/PacketUtils";
+import {CommandProfilePacketReq} from "../../../../Lib/src/packets/commands/CommandProfilePacket";
+import {sendErrorMessage, SendManner} from "../../utils/ErrorUtils";
+
+/**
+ * Kick a player from a guild
+ */
+async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandProfilePacketReq | null> {
+	const askedPlayer = await PacketUtils.prepareAskedPlayer(interaction, user);
+	if (!askedPlayer) {
+		return null;
+	}
+	return makePacket(CommandGuildKickPacketReq, {keycloakId: user.id, askedPlayer});
+}
+
+/**
+ * Handle the response of the server after a guild kick,
+ * this packet is only sent if the kick cannot be done for some reason
+ * @param packet
+ * @param context
+ */
+export async function handleCommandGuildKickPacketRes(packet: CommandGuildKickPacketRes, context: PacketContext): Promise<void> {
+	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+	if (interaction) {
+		if (!packet.foundPlayer) {
+			await sendErrorMessage(
+				interaction.user,
+				interaction,
+				i18n.t("commands:guildKick.noPlayer", {lng: interaction.userLanguage}),
+				{sendManner: SendManner.REPLY}
+			);
+			return;
+		}
+		if (!packet.sameGuild) {
+			await sendErrorMessage(
+				interaction.user,
+				interaction,
+				i18n.t("commands:guildKick.notSameGuild", {lng: interaction.userLanguage}),
+				{sendManner: SendManner.REPLY}
+			);
+			return;
+		}
+		if (packet.himself) {
+			await sendErrorMessage(
+				interaction.user,
+				interaction,
+				i18n.t("commands:guildKick.himself", {lng: interaction.userLanguage}),
+				{sendManner: SendManner.REPLY}
+			);
+		}
+	}
+}
+
+/**
+ * Create a collector to confirm the guild kick
+ * @param packet
+ * @param context
+ */
+export async function createGuildKickCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
+	await interaction.deferReply();
+	const data = packet.data.data as ReactionCollectorGuildKickData;
+
+	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:guildKick.title", {
+		lng: interaction.userLanguage,
+		pseudo: interaction.user.displayName
+	}), interaction.user)
+		.setDescription(
+			i18n.t("commands:guildKick.confirmDesc", {
+				lng: interaction.userLanguage,
+				guildName: data.guildName
+			})
+		);
+
+	await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
+}
+
+/**
+ * Handle the response of the server after a guild kick,
+ * this packet is only sent if the kick is refused
+ * @param packet
+ * @param context
+ */
+export async function handleCommandGuildKickRefusePacketRes(packet: CommandGuildKickRefusePacketRes, context: PacketContext): Promise<void> {
+	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
+	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+	if (buttonInteraction && originalInteraction) {
+		await buttonInteraction.editReply({
+			embeds: [
+				new DraftBotEmbed().formatAuthor(i18n.t("commands:guildKick.canceledTitle", {
+					lng: originalInteraction.userLanguage,
+					pseudo: originalInteraction.user.displayName
+				}), originalInteraction.user)
+					.setDescription(
+						i18n.t("commands:guildKick.canceledDesc", {lng: originalInteraction.userLanguage})
+					)
+					.setErrorColor()
+			]
+		});
+	}
+}
+
+/**
+ * Handle the response of the server after a guild kick,
+ * this packet is only sent if the kick is accepted
+ * @param packet
+ * @param context
+ */
+export async function handleCommandGuildKickAcceptPacketRes(packet: CommandGuildKickAcceptPacketRes, context: PacketContext): Promise<void> {
+	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
+	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+	if (buttonInteraction && originalInteraction) {
+		await buttonInteraction.editReply({
+			embeds: [
+				new DraftBotEmbed().formatAuthor(i18n.t("commands:guildKick.title", {
+					lng: originalInteraction.userLanguage,
+					pseudo: originalInteraction.user.displayName
+				}), originalInteraction.user)
+					.setDescription(
+						i18n.t("commands:guildKick.acceptedDesc", {
+							lng: originalInteraction.userLanguage,
+							kickedPlayer: packet.kickedPlayer,
+							guildName: packet.guildName
+						})
+					)
+					.setFooter({
+						text:
+							i18n.t("commands:guildKick.acceptedFooter", {lng: originalInteraction.userLanguage})
+					})
+			]
+		});
+	}
+}
+
+export const commandInfo: ICommand = {
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("guildKick")
+		.addStringOption(option =>
+			SlashCommandBuilderGenerator.generateOption("guildKick", "guildName", option)
+				.setRequired(true)) as SlashCommandBuilder,
+	getPacket,
+	mainGuildCommand: false
+};

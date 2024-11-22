@@ -11,11 +11,11 @@ import {millisecondsToMinutes, minutesDisplay} from "../../../Lib/src/utils/Time
 import {Effect} from "../../../Lib/src/enums/Effect";
 
 /**
- * Reply to an interaction with a given error
+ * Reply to an interaction with an ephemeral error PREFER {@link sendErrorMessage} for most cases
  * @param interaction
  * @param reason
  */
-export async function replyErrorMessage(interaction: DraftbotInteraction, reason: string): Promise<void> {
+export async function replyEphemeralErrorMessage(interaction: DraftbotInteraction, reason: string): Promise<void> {
 	await interaction.reply({
 		embeds: [new DraftBotErrorEmbed(interaction.user, interaction, reason)],
 		ephemeral: true

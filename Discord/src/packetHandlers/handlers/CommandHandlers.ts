@@ -86,9 +86,7 @@ import {
 	handleReactionCollectorBuyCategorySlotBuySuccess
 } from "../../commands/player/ShopCommand";
 import {ReactionCollectorBuyCategorySlotBuySuccess} from "../../../../Lib/src/packets/interaction/ReactionCollectorBuyCategorySlot";
-import {
-	CommandMaintenancePacketRes
-} from "../../../../Lib/src/packets/commands/CommandMaintenancePacket";
+import {CommandMaintenancePacketRes} from "../../../../Lib/src/packets/commands/CommandMaintenancePacket";
 import {handleCommandMaintenancePacketRes} from "../../commands/admin/MaintenanceCommand";
 import {
 	handleCommandMissionPlayerNotFoundPacket,
@@ -99,11 +97,13 @@ import {
 	CommandMissionsPacketRes
 } from "../../../../Lib/src/packets/commands/CommandMissionsPacket";
 import {
-	CommandGuildShopEmpty, CommandGuildShopGiveXp,
+	CommandGuildShopEmpty,
+	CommandGuildShopGiveXp,
 	CommandGuildShopNoFoodStorageSpace
 } from "../../../../Lib/src/packets/commands/CommandGuildShopPacket";
 import {
-	handleCommandGuildShopEmpty, handleCommandGuildShopGiveXp,
+	handleCommandGuildShopEmpty,
+	handleCommandGuildShopGiveXp,
 	handleCommandGuildShopNoFoodStorageSpace
 } from "../../commands/guild/GuildShopCommand";
 import {
@@ -114,6 +114,16 @@ import {
 	handleCommandGuildDailyCooldownErrorPacket, handleCommandGuildDailyPveIslandErrorPacket,
 	handleCommandGuildDailyRewardPacket
 } from "../../commands/guild/GuildDailyCommand";
+import {
+	CommandGuildKickAcceptPacketRes,
+	CommandGuildKickPacketRes,
+	CommandGuildKickRefusePacketRes
+} from "../../../../Lib/src/packets/commands/CommandGuildKickPacket";
+import {
+	handleCommandGuildKickAcceptPacketRes,
+	handleCommandGuildKickPacketRes,
+	handleCommandGuildKickRefusePacketRes
+} from "../../commands/guild/GuildKickCommand";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
@@ -171,13 +181,28 @@ export default class CommandHandlers {
 	}
 
 	@packetHandler(CommandGuildCreateRefusePacketRes)
-	async guildCreatRefuseRes(packet: CommandGuildCreateRefusePacketRes, context: PacketContext): Promise<void> {
+	async guildCreateRefuseRes(packet: CommandGuildCreateRefusePacketRes, context: PacketContext): Promise<void> {
 		await handleCommandGuildCreateRefusePacketRes(packet, context);
 	}
 
 	@packetHandler(CommandGuildCreateAcceptPacketRes)
-	async guildCreatAcceptRes(packet: CommandGuildCreateAcceptPacketRes, context: PacketContext): Promise<void> {
+	async guildCreateAcceptRes(packet: CommandGuildCreateAcceptPacketRes, context: PacketContext): Promise<void> {
 		await handleCommandGuildCreateAcceptPacketRes(packet, context);
+	}
+
+	@packetHandler(CommandGuildKickPacketRes)
+	async guildKickRes(packet: CommandGuildKickPacketRes, context: PacketContext): Promise<void> {
+		await handleCommandGuildKickPacketRes(packet, context);
+	}
+
+	@packetHandler(CommandGuildKickRefusePacketRes)
+	async guildKickRefuseRes(packet: CommandGuildKickRefusePacketRes, context: PacketContext): Promise<void> {
+		await handleCommandGuildKickRefusePacketRes(packet, context);
+	}
+
+	@packetHandler(CommandGuildKickAcceptPacketRes)
+	async guildKickAcceptRes(packet: CommandGuildKickAcceptPacketRes, context: PacketContext): Promise<void> {
+		await handleCommandGuildKickAcceptPacketRes(packet, context);
 	}
 
 

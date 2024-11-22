@@ -1,7 +1,7 @@
 import {packetHandler} from "../PacketHandler";
 import {RequirementEffectPacket} from "../../../../Lib/src/packets/commands/requirements/RequirementEffectPacket";
 import {PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {effectsErrorTextValue, replyErrorMessage} from "../../utils/ErrorUtils";
+import {effectsErrorTextValue, replyEphemeralErrorMessage} from "../../utils/ErrorUtils";
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
 import {RequirementGuildNeededPacket} from "../../../../Lib/src/packets/commands/requirements/RequirementGuildNeededPacket";
@@ -38,7 +38,7 @@ export default class CommandRequirementHandlers {
 			return;
 		}
 
-		await replyErrorMessage(interaction, i18n.t("error:notInAGuild", {lng: interaction.userLanguage}));
+		await replyEphemeralErrorMessage(interaction, i18n.t("error:notInAGuild", {lng: interaction.userLanguage}));
 	}
 
 	@packetHandler(RequirementGuildRolePacket)
@@ -48,7 +48,7 @@ export default class CommandRequirementHandlers {
 			return;
 		}
 
-		await replyErrorMessage(interaction, i18n.t("error:notAuthorizedError", {lng: interaction.userLanguage}));
+		await replyEphemeralErrorMessage(interaction, i18n.t("error:notAuthorizedError", {lng: interaction.userLanguage}));
 	}
 
 	@packetHandler(RequirementLevelPacket)
@@ -58,7 +58,7 @@ export default class CommandRequirementHandlers {
 			return;
 		}
 
-		await replyErrorMessage(interaction, i18n.t("error:levelTooLow", {lng: interaction.userLanguage, level: packet.requiredLevel}));
+		await replyEphemeralErrorMessage(interaction, i18n.t("error:levelTooLow", {lng: interaction.userLanguage, level: packet.requiredLevel}));
 	}
 
 	@packetHandler(RequirementRightPacket)
@@ -68,6 +68,6 @@ export default class CommandRequirementHandlers {
 			return;
 		}
 
-		await replyErrorMessage(interaction, i18n.t("error:notAuthorizedRight", {lng: interaction.userLanguage}));
+		await replyEphemeralErrorMessage(interaction, i18n.t("error:notAuthorizedRight", {lng: interaction.userLanguage}));
 	}
 }

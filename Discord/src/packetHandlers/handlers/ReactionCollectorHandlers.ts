@@ -27,6 +27,8 @@ import {cartCollector} from "../../smallEvents/cart";
 import {ReactionCollectorFightPetData} from "../../../../Lib/src/packets/interaction/ReactionCollectorFightPet";
 import {fightPetCollector} from "../../smallEvents/fightPet";
 import {PacketListenerCallbackClient} from "../../../../Lib/src/packets/PacketListener";
+import {ReactionCollectorGuildKickData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildKick";
+import {createGuildKickCollector} from "../../commands/guild/GuildKickCommand";
 
 export default class ReactionCollectorHandler {
 
@@ -39,6 +41,7 @@ export default class ReactionCollectorHandler {
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorGoToPVEIslandData.name, goToPVEIslandCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorPetFreeData.name, createPetFreeCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorGuildCreateData.name, createGuildCreateCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorGuildKickData.name, createGuildKickCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorLotteryData.name, lotteryCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorInteractOtherPlayersPoorData.name, interactOtherPlayersCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorWitchData.name, witchCollector);
