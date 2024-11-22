@@ -646,7 +646,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * Log when a player gain a new item
+	 * Log when a player gains a new item
 	 * @param keycloakId
 	 * @param item
 	 */
@@ -674,7 +674,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * Log when a player receive a time boost
+	 * Log when a player receives a time boost
 	 * @param keycloakId
 	 * @param time
 	 * @param reason
@@ -693,7 +693,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * Log when a player sell an item
+	 * Log when a player sells an item
 	 * @param keycloakId
 	 * @param item
 	 */
@@ -721,7 +721,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * Log when a player rename its pet
+	 * Log when a player renames its pet
 	 * @param petRenamed
 	 */
 	public async logPetNickname(petRenamed: PetEntity): Promise<void> {
@@ -734,7 +734,7 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * Log when the shop refresh the daily potion
+	 * Log when the shop refreshes the daily potion
 	 * @param potionId
 	 */
 	public async logDailyPotion(potionId: number): Promise<void> {
@@ -746,10 +746,10 @@ export class LogsDatabase extends Database {
 
 	/**
 	 * Log when a player is kicked from a guild
-	 * @param guild
 	 * @param kickedKeycloakId
+	 * @param guild
 	 */
-	public async logGuildKick(guild: Guild, kickedKeycloakId: string): Promise<void> {
+	public async logGuildKick(kickedKeycloakId: string, guild: Guild): Promise<void> {
 		const logGuild = await LogsDatabase.findOrCreateGuild(guild);
 		const kickedPlayer = await LogsDatabase.findOrCreatePlayer(kickedKeycloakId);
 		await LogsGuildsKicks.create({
