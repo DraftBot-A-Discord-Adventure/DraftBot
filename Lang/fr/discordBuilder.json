@@ -200,5 +200,9 @@
   "guildShop": {
     "description": "Affiche le magasin de guilde.",
     "name": "magasinguilde"
+  },
+  "guildDaily": {
+    "description": "Récupérer la récompense journalière de la guilde.",
+    "name": "bonusjournalierguilde"
   }
 }
