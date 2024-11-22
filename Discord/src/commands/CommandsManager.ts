@@ -19,7 +19,7 @@ import {discordConfig, draftBotClient, keycloakConfig} from "../bot/DraftBotShar
 import {KeycloakUser} from "../../../Lib/src/keycloak/KeycloakUser";
 import {readdirSync} from "fs";
 import i18n from "../translations/i18n";
-import {replyErrorMessage} from "../utils/ErrorUtils";
+import {replyEphemeralErrorMessage} from "../utils/ErrorUtils";
 import {Constants} from "../../../Lib/src/constants/Constants";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {escapeUsername} from "../../../Lib/src/utils/StringUtils";
@@ -270,7 +270,7 @@ export class CommandsManager {
 			const interaction: DraftbotInteraction = DraftbotInteraction.cast(discordInteraction);
 			interaction.userLanguage = KeycloakUtils.getUserLanguage(user);
 			if (!interaction.channel) {
-				replyErrorMessage(
+				replyEphemeralErrorMessage(
 					interaction,
 					i18n.t("bot:noChannelAccess", {lng: interaction.userLanguage})
 				)
@@ -368,14 +368,14 @@ export class CommandsManager {
 		const commandInfo = this.commands.get(interaction.commandName);
 
 		if (!commandInfo) {
-			await replyErrorMessage(interaction, i18n.t("bot:command404", {lng}));
+			await replyEphemeralErrorMessage(interaction, i18n.t("bot:command404", {lng}));
 			console.error(`Command "${interaction.commandName}" is not registered`);
 			return;
 		}
 
 		const channelAccess = this.hasChannelPermission(interaction.channel);
 		if (!channelAccess[0]) {
-			await replyErrorMessage(interaction, i18n.t(channelAccess[1], {lng}));
+			await replyEphemeralErrorMessage(interaction, i18n.t(channelAccess[1], {lng}));
 			return;
 		}
 

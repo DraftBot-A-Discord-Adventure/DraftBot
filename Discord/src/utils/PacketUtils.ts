@@ -25,7 +25,7 @@ export abstract class PacketUtils {
 	}
 
 	/**
-	 * Prepare the asked player from the draftbot   interaction
+	 * Prepare the asked player from the draftbot interaction
 	 * @param interaction
 	 * @param keycloakUser
 	 */
