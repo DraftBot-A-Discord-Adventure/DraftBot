@@ -26,55 +26,39 @@ import {ReactionCollectorCartData} from "../../../../Lib/src/packets/interaction
 import {cartCollector} from "../../smallEvents/cart";
 import {ReactionCollectorFightPetData} from "../../../../Lib/src/packets/interaction/ReactionCollectorFightPet";
 import {fightPetCollector} from "../../smallEvents/fightPet";
+import {PacketListenerCallbackClient} from "../../../../Lib/src/packets/PacketListener";
 
 export default class ReactionCollectorHandler {
+
+	static collectorMap: Map<string, PacketListenerCallbackClient<ReactionCollectorCreationPacket>>;
+
+	static initCollectorMap(): void {
+		ReactionCollectorHandler.collectorMap = new Map();
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorBigEventData.name, createBigEventCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorChooseDestinationData.name, chooseDestinationCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorGoToPVEIslandData.name, goToPVEIslandCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorPetFreeData.name, createPetFreeCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorGuildCreateData.name, createGuildCreateCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorLotteryData.name, lotteryCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorInteractOtherPlayersPoorData.name, interactOtherPlayersCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorWitchData.name, witchCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorItemChoiceData.name, itemChoiceCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorItemAcceptData.name, itemAcceptCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorShopData.name, shopCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorBuyCategorySlotData.name, shopInventoryExtensionCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorCartData.name, cartCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorFightPetData.name, fightPetCollector);
+	}
+
 	@packetHandler(ReactionCollectorCreationPacket)
 	async collectorCreation(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
-		switch (packet.data.type) {
-		case ReactionCollectorBigEventData.name:
-			await createBigEventCollector(packet, context);
-			break;
-		case ReactionCollectorChooseDestinationData.name:
-			await chooseDestinationCollector(packet, context);
-			break;
-		case ReactionCollectorGoToPVEIslandData.name:
-			await goToPVEIslandCollector(packet, context);
-			break;
-		case ReactionCollectorPetFreeData.name:
-			await createPetFreeCollector(packet, context);
-			break;
-		case ReactionCollectorGuildCreateData.name:
-			await createGuildCreateCollector(packet, context);
-			break;
-		case ReactionCollectorLotteryData.name:
-			await lotteryCollector(packet, context);
-			break;
-		case ReactionCollectorInteractOtherPlayersPoorData.name:
-			await interactOtherPlayersCollector(packet, context);
-			break;
-		case ReactionCollectorWitchData.name:
-			await witchCollector(packet, context);
-			break;
-		case ReactionCollectorItemChoiceData.name:
-			await itemChoiceCollector(packet, context);
-			break;
-		case ReactionCollectorItemAcceptData.name:
-			await itemAcceptCollector(packet, context);
-			break;
-		case ReactionCollectorShopData.name:
-			await shopCollector(packet, context);
-			break;
-		case ReactionCollectorBuyCategorySlotData.name:
-			await shopInventoryExtensionCollector(packet, context);
-			break;
-		case ReactionCollectorCartData.name:
-			await cartCollector(packet, context);
-			break;
-		case ReactionCollectorFightPetData.name:
-			await fightPetCollector(packet, context);
-			break;
-		default:
+		if (!ReactionCollectorHandler.collectorMap) {
+			ReactionCollectorHandler.initCollectorMap();
+		}
+		const collector = ReactionCollectorHandler.collectorMap.get(packet.data.type);
+		if (!collector) {
 			throw `Unknown collector with data: ${packet.data.type}`; // Todo error embed
 		}
+		await collector(packet, context);
 	}
 }

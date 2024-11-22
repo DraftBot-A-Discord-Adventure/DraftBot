@@ -608,7 +608,7 @@ async function doPVEBoss(
  * @param response
  * @param player
  */
-async function getRandomSmallEvent(response: DraftBotPacket[], player: Player): string {
+async function getRandomSmallEvent(response: DraftBotPacket[], player: Player): Promise<string> {
 	const keys = SmallEventDataController.instance.getKeys();
 	let totalSmallEventsRarity = 0;
 	const updatedKeys = [];
