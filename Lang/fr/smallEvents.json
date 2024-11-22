@@ -1284,24 +1284,24 @@
   },
   "fightPet": {
     "intro_male": [
-      "vous tombez nez à nez avec un {{feralPet}} ! ",
-      "vous rencontrez un {{feralPet}}. ",
-      "vous croisez un {{feralPet}} qui ne semble pas vouloir vous laisser passer. ",
-      "vous poussez soudain un couinement terrifié : un {{feralPet}} se tient juste devant vous ! ",
-      "vous restez interdit à la vue d'un {{feralPet}}. ",
-      "vous apercevez un nuage de poussière à l'horizon qui se rapproche dangereusement... C'est un {{feralPet}} ! ",
-      "vous remarquez un mécanisme mystérieux... Curieux, vous décidez de l'activer. Vous ne mettez pas longtemps à regretter votre geste quand un {{feralPet}} surgit de nulle part ! ",
-      "vous entendez un bruit sourd derrière vous. Vous vous retournez et découvrez un {{feralPet}} qui vous fixe avec insistance. "
+      "vous tombez nez à nez avec un {{feralPet}} !",
+      "vous rencontrez un {{feralPet}}.",
+      "vous croisez un {{feralPet}} qui ne semble pas vouloir vous laisser passer.",
+      "vous poussez soudain un couinement terrifié : un {{feralPet}} se tient juste devant vous !",
+      "vous restez interdit à la vue d'un {{feralPet}}.",
+      "vous apercevez un nuage de poussière à l'horizon qui se rapproche dangereusement... C'est un {{feralPet}} !",
+      "vous remarquez un mécanisme mystérieux... Curieux, vous décidez de l'activer. Vous ne mettez pas longtemps à regretter votre geste quand un {{feralPet}} surgit de nulle part !",
+      "vous entendez un bruit sourd derrière vous. Vous vous retournez et découvrez un {{feralPet}} qui vous fixe avec insistance."
     ],
     "intro_female": [
-      "vous tombez nez à nez avec une {{feralPet}} ! ",
-      "vous rencontrez une {{feralPet}}. ",
-      "vous croisez une {{feralPet}} qui ne semble pas vouloir vous laisser passer. ",
-      "vous poussez soudain un couinement terrifié : une {{feralPet}} se tient juste devant vous ! ",
-      "vous restez interdit à la vue d'une {{feralPet}}. ",
-      "vous apercevez un nuage de poussière à l'horizon qui se rapproche dangereusement... C'est une {{feralPet}} ! ",
-      "vous remarquez un mécanisme mystérieux... Curieux, vous décidez de l'activer. Vous ne mettez pas longtemps à regretter votre geste quand une {{feralPet}} surgit de nulle part ! ",
-      "vous entendez un bruit sourd derrière vous. Vous vous retournez et découvrez une {{feralPet}} qui vous fixe avec insistance. "
+      "vous tombez nez à nez avec une {{feralPet}} !",
+      "vous rencontrez une {{feralPet}}.",
+      "vous croisez une {{feralPet}} qui ne semble pas vouloir vous laisser passer.",
+      "vous poussez soudain un couinement terrifié : une {{feralPet}} se tient juste devant vous !",
+      "vous restez interdit à la vue d'une {{feralPet}}.",
+      "vous apercevez un nuage de poussière à l'horizon qui se rapproche dangereusement... C'est une {{feralPet}} !",
+      "vous remarquez un mécanisme mystérieux... Curieux, vous décidez de l'activer. Vous ne mettez pas longtemps à regretter votre geste quand une {{feralPet}} surgit de nulle part !",
+      "vous entendez un bruit sourd derrière vous. Vous vous retournez et découvrez une {{feralPet}} qui vous fixe avec insistance."
     ],
     "situation": [
       "La bête vous semble impossible à calmer... Vous tentez de vous calmer et réfléchissez à un plan d'action pour vous défaire de cet animal.",

@@ -63,17 +63,16 @@ export async function fightPetCollector(packet: ReactionCollectorCreationPacket,
 		embeds: [
 			new DraftbotSmallEventEmbed(
 				"fightPet",
-				getRandomSmallEventIntro(interaction.userLanguage)
-				+ StringUtils.getRandomTranslation("smallEvents:fightPet.intro", interaction.userLanguage, {
-					...formatBaseOptions,
-					feralPet: i18n.t("smallEvents:fightPet.customPetDisplay", {
+				`${getRandomSmallEventIntro(interaction.userLanguage)}${
+					StringUtils.getRandomTranslation("smallEvents:fightPet.intro", interaction.userLanguage, {
 						...formatBaseOptions,
-						petId: data.petId,
-						petName: i18n.t(`models:pets.${data.petId}`, formatBaseOptions),
-						adjective: StringUtils.getRandomTranslation("smallEvents:fightPet.adjectives", interaction.userLanguage, formatBaseOptions)
-					}),
-				})
-				+ menu.menu,
+						feralPet: i18n.t("smallEvents:fightPet.customPetDisplay", {
+							...formatBaseOptions,
+							petId: data.petId,
+							petName: i18n.t(`models:pets.${data.petId}`, formatBaseOptions),
+							adjective: StringUtils.getRandomTranslation("smallEvents:fightPet.adjectives", interaction.userLanguage, formatBaseOptions)
+						}),
+					})} ${StringUtils.getRandomTranslation("smallEvents:fightPet.situation", interaction.userLanguage)}${menu.menu}`,
 				interaction.user,
 				interaction.userLanguage
 			)

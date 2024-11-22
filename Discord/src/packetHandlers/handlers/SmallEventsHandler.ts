@@ -763,15 +763,15 @@ export default class SmallEventsHandler {
 	@packetHandler(SmallEventFightPetPacket)
 	async smallEventFightPet(packet: SmallEventFightPetPacket, context: PacketContext): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
-		await interaction?.editReply({
+		await interaction?.channel.send({
 			embeds: [
 				new DraftbotSmallEventEmbed(
 					"fightPet",
-					i18n.t(`smallevents:fightPet.${packet.fightPetActionId}.${packet.isSuccess ? "success" : "failure"}`, {
+					i18n.t(`smallEvents:fightPet.fightPetActions.${packet.fightPetActionId}.${packet.isSuccess ? "success" : "failure"}`, {
 						lng: interaction.userLanguage
-					}) + (packet.isSuccess ? i18n.t("smallevents:fightPet.rageUpFormat", {
+					}) + (packet.isSuccess ? i18n.t("smallEvents:fightPet.rageUpFormat", {
 						lng: interaction.userLanguage,
-						rageUpDescription: StringUtils.getRandomTranslation("smallevents:fightPet.rageUpDescriptions", interaction.userLanguage),
+						rageUpDescription: StringUtils.getRandomTranslation("smallEvents:fightPet.rageUpDescriptions", interaction.userLanguage),
 					}) : ""),
 					interaction.user,
 					interaction.userLanguage
