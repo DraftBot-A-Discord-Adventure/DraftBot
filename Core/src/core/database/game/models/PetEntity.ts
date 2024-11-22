@@ -96,7 +96,7 @@ export class PetEntity extends Model {
 			guild = null;
 		}
 
-		const noRoomInGuild = guild === null ? true : guild.isPetShelterFull(await GuildPets.getOfGuild(guild.id));
+		const noRoomInGuild = guild?.isPetShelterFull(await GuildPets.getOfGuild(guild?.id)) ?? true;
 
 		if (noRoomInGuild && player.petId !== null) {
 			packet.noRoomInGuild = true;
@@ -180,8 +180,8 @@ export class PetEntities {
 
 	static async getNbTrainedPets(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-					   FROM pet_entities
-					   WHERE lovePoints = ${PetConstants.MAX_LOVE_POINTS}`;
+		               FROM pet_entities
+		               WHERE lovePoints = ${PetConstants.MAX_LOVE_POINTS}`;
 		return (<{
 			count: number
 		}[]>(await PetEntity.sequelize.query(query, {
@@ -191,8 +191,8 @@ export class PetEntities {
 
 	static async getNbFeistyPets(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-					   FROM pet_entities
-					   WHERE lovePoints <= ${PetConstants.LOVE_LEVELS[0]}`;
+		               FROM pet_entities
+		               WHERE lovePoints <= ${PetConstants.LOVE_LEVELS[0]}`;
 		return (<{
 			count: number
 		}[]>(await PetEntity.sequelize.query(query, {
@@ -202,8 +202,8 @@ export class PetEntities {
 
 	static async getNbPetsGivenSex(sex: string): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-					   FROM pet_entities
-					   WHERE sex = :sex`;
+		               FROM pet_entities
+		               WHERE sex = :sex`;
 		return (<{
 			count: number
 		}[]>(await PetEntity.sequelize.query(query, {
@@ -216,7 +216,7 @@ export class PetEntities {
 
 	static async getNbPets(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-					   FROM pet_entities`;
+		               FROM pet_entities`;
 		return (<{
 			count: number
 		}[]>(await PetEntity.sequelize.query(query, {

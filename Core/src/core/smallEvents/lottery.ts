@@ -152,7 +152,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 
 				let rewardTypes = Object.values(SmallEventConstants.LOTTERY.REWARD_TYPES);
 				const guild = await Guilds.ofPlayer(player);
-				if (guild === null || guild.isAtMaxLevel()) {
+				if (!guild || guild.isAtMaxLevel()) {
 					rewardTypes = rewardTypes.filter(r => r !== SmallEventConstants.LOTTERY.REWARD_TYPES.GUILD_XP);
 				}
 

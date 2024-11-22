@@ -35,7 +35,7 @@ export abstract class DataController<T extends string | number, U extends Data<n
 	}
 
 	protected getValuesArray(): U[] {
-		if (this.valuesArrayCache === null) {
+		if (!this.valuesArrayCache) {
 			this.valuesArrayCache = Array.from(this.data.values());
 		}
 
@@ -76,7 +76,7 @@ export abstract class ItemDataController<U extends GenericItem> extends DataCont
 	private idsForRarityCache: Map<number, number[]> = new Map();
 
 	public getMaxId(): number {
-		if (this.maxIdCache === null) {
+		if (!this.maxIdCache) {
 			this.maxIdCache = Math.max(...[...this.data.keys()].map(armor => armor));
 		}
 

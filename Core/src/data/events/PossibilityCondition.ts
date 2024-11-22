@@ -17,7 +17,7 @@ async function verifyConditionCanAcceptPet(condition: PossibilityCondition, play
 		guild = null;
 	}
 
-	const noRoomInGuild = guild === null ? true : guild.isPetShelterFull(await GuildPets.getOfGuild(guild.id));
+	const noRoomInGuild = !guild ? true : guild.isPetShelterFull(await GuildPets.getOfGuild(guild.id));
 
 	return !(noRoomInGuild && player.petId !== null);
 }

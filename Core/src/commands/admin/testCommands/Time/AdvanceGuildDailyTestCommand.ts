@@ -16,7 +16,7 @@ export const commandInfo: ITestCommand = {
  */
 const advanceGuildDailyTestCommand: ExecuteTestCommandLike = async (player, args) => {
 	const guild = await Guild.findOne({where: {id: player.guildId}});
-	if (guild === null) {
+	if (!guild) {
 		throw new Error("Erreur agd : vous n'êtes pas dans une guilde !");
 	}
 	guild.lastDailyAt = new Date(guild.lastDailyAt.valueOf() - parseInt(args[0], 10) * 60000);

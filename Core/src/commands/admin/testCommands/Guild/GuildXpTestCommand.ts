@@ -17,7 +17,7 @@ export const commandInfo: ITestCommand = {
  */
 const guildXpTestCommand: ExecuteTestCommandLike = async (player, args, response) => {
 	const guild = await Guild.findOne({where: {id: player.guildId}});
-	if (guild === null) {
+	if (!guild) {
 		throw new Error("Erreur gxp : vous n'êtes pas dans une guilde !");
 	}
 	const xp = parseInt(args[0], 10);

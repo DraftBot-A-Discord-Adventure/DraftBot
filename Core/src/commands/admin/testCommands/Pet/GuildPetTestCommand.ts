@@ -20,7 +20,7 @@ export const commandInfo: ITestCommand = {
  */
 const guildPetTestCommand: ExecuteTestCommandLike = async (player, args) => {
 	const guild = await Guilds.getById(player.guildId);
-	if (guild === null) {
+	if (!guild) {
 		throw new Error("Erreur guildpet : Vous n'avez pas de guilde !");
 	}
 

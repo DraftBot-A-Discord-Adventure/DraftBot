@@ -19,7 +19,7 @@ export const commandInfo: ITestCommand = {
  */
 const setFoodTestCommand: ExecuteTestCommandLike = async (player, args) => {
 	const guild = await Guild.findOne({where: {id: player.guildId}});
-	if (guild === null) {
+	if (!guild) {
 		throw new Error("Erreur sf : vous n'êtes pas dans une guilde !");
 	}
 	if (getFoodIndexOf(args[0]) === -1) {

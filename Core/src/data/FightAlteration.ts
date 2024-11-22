@@ -22,7 +22,7 @@ export class FightAlterationDataController extends DataControllerString<FightAlt
 	private static fightAlterationsFunctionsCache: Map<string, FightAlterationFunc>;
 
 	public static getFightAlterationFunction(id: string): FightAlterationFunc {
-		if (FightAlterationDataController.fightAlterationsFunctionsCache === null) {
+		if (!FightAlterationDataController.fightAlterationsFunctionsCache) {
 			FightAlterationDataController.fightAlterationsFunctionsCache = new Map<string, FightAlterationFunc>();
 			FightAlterationDataController.loadFightAlterationsFromFolder("dist/src/Core/fights/actions/interfaces/alterations", "TODO replace with the right one");
 		}
