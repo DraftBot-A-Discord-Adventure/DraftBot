@@ -12,6 +12,7 @@ import {ReachDestinationNotificationPacket} from "../../../Lib/src/packets/notif
 import {KeycloakUtils} from "../../../Lib/src/keycloak/KeycloakUtils";
 import {DisplayUtils} from "../utils/DisplayUtils";
 import {GuildDailyNotificationPacket} from "../../../Lib/src/packets/notifications/GuildDailyNotificationPacket";
+import {getCommandGuildDailyRewardPacketString} from "../commands/guild/GuildDailyCommand";
 
 export abstract class NotificationsHandler {
 	/**
@@ -45,7 +46,7 @@ export abstract class NotificationsHandler {
 						notificationContent = i18n.t("bot:notificationGuildDaily", {
 							lng,
 							pseudo: (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakIdOfExecutor))!.attributes.gameUsername[0],
-							reward: "TODO" // Todo
+							rewards: getCommandGuildDailyRewardPacketString((notification.packet as GuildDailyNotificationPacket).reward, lng)
 						});
 						notificationType = NotificationsTypes.GUILD_DAILY;
 						break;

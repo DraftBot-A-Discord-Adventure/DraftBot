@@ -106,6 +106,14 @@ import {
 	handleCommandGuildShopEmpty, handleCommandGuildShopGiveXp,
 	handleCommandGuildShopNoFoodStorageSpace
 } from "../../commands/guild/GuildShopCommand";
+import {
+	CommandGuildDailyCooldownErrorPacket, CommandGuildDailyPveIslandErrorPacket,
+	CommandGuildDailyRewardPacket
+} from "../../../../Lib/src/packets/commands/CommandGuildDailyPacket";
+import {
+	handleCommandGuildDailyCooldownErrorPacket, handleCommandGuildDailyPveIslandErrorPacket,
+	handleCommandGuildDailyRewardPacket
+} from "../../commands/guild/GuildDailyCommand";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
@@ -322,5 +330,20 @@ export default class CommandHandlers {
 	@packetHandler(CommandGuildShopGiveXp)
 	async guildShopGiveXp(packet: CommandGuildShopGiveXp, context: PacketContext): Promise<void> {
 		await handleCommandGuildShopGiveXp(packet, context);
+	}
+
+	@packetHandler(CommandGuildDailyRewardPacket)
+	async guildDailyReward(packet: CommandGuildDailyRewardPacket, context: PacketContext): Promise<void> {
+		await handleCommandGuildDailyRewardPacket(packet, context);
+	}
+
+	@packetHandler(CommandGuildDailyCooldownErrorPacket)
+	async guildDailyCooldownError(packet: CommandGuildDailyCooldownErrorPacket, context: PacketContext): Promise<void> {
+		await handleCommandGuildDailyCooldownErrorPacket(packet, context);
+	}
+
+	@packetHandler(CommandGuildDailyPveIslandErrorPacket)
+	async guildDailyPveIslandError(packet: CommandGuildDailyPveIslandErrorPacket, context: PacketContext): Promise<void> {
+		await handleCommandGuildDailyPveIslandErrorPacket(packet, context);
 	}
 }

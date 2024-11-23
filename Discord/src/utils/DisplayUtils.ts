@@ -6,6 +6,7 @@ import {ItemWithDetails} from "../../../Lib/src/interfaces/ItemWithDetails";
 import {minutesDisplay} from "../../../Lib/src/utils/TimeUtils";
 import {Item} from "../../../Lib/src/interfaces/Item";
 import {EmoteUtils} from "./EmoteUtils";
+import {PetConstants} from "../../../Lib/src/constants/PetConstants";
 
 export class DisplayUtils {
 
@@ -158,5 +159,15 @@ export class DisplayUtils {
 
 	static getMapLocationDisplay(mapType: string, mapLocationId: number, lng: Language): string {
 		return `${DraftBotIcons.map_types[mapType]} ${i18n.t(`models:map_locations.${mapLocationId}.name`, {lng})}`;
+	}
+
+	static getPetIcon(petId: number, petSex: string): string {
+		return DraftBotIcons.pets[petId][petSex === PetConstants.SEX.MALE ? "emoteMale" : "emoteFemale"];
+	}
+
+	static getPetDisplay(petId: number, petSex: string, lng: Language): string {
+		return DisplayUtils.getPetIcon(petId, petSex)
+			+ " "
+			+ i18n.t(`models:pets.${petId}`, {lng, context: petSex === PetConstants.SEX.MALE ? PetConstants.SEX.MALE_FULL : PetConstants.SEX.FEMALE_FULL});
 	}
 }
