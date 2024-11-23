@@ -642,5 +642,25 @@
     "empty": "Il n'y a plus rien à acheter pour le moment. Votre guilde est au niveau maximum et son stockde nourriture est plein.",
     "giveXpTitle": "Succès de l'achat",
     "giveXp": "{emote:unitValues.xp} Votre guilde a reçu **{{xp}}** points d'expérience."
+  },
+  "guildDaily": {
+    "rewardTitle": "Récompense de la guilde {{guildName}} :",
+    "coolDown": "La récompense de guilde n'est disponible qu'une fois toutes les {{coolDownTime}} heures. L'ajout d'un nouveau membre à la guilde réinitialise le compteur. Prochaine récompense {{time}}.",
+    "pveIslandError": "La récompense de guilde ne peut pas être obtenue car un des membres est actuellement sur une île mystérieuse !",
+    "rewards": {
+      "personalXP": "{emote:unitValues.xp} | Les membres de la guilde ont reçu de l'expérience. `+ {{xp}} {emote:unitValues.xp}`.",
+      "guildXP": "{emote:unitValues.xp} | La guilde a reçu de l'expérience. `+ {{xp}} {emote:unitValues.xp}`",
+      "money": "{emote:unitValues.money} | Les membres de la guilde ont reçu `{{money}} {emote:unitValues.money}`.",
+      "item": "{emote:rewards:item} | Les membres de la guilde ont reçu un objet au hasard.",
+      "badge": "{emote:badges.guildBadge} | Les membres de la guilde ont reçu un badge.",
+      "superBadge": "{emote:badges.superGuildBadge} | Les membres de la guilde ont reçu un badge.",
+      "fullHeal": "{emote:shopItems.regen} | Les membres de la guilde ont été soignés complètement.",
+      "advanceTime": "{emote:unitValues.time} | Les membres de la guilde ont avancé de {{timeMoved}}h.",
+      "partialHeal": "{emote:rewards.partialHeal} | Les membres de la guilde ont été partiellement soignés. `+ {{healthWon}} {emote:unitValues.health}`",
+      "alterationHeal": "{emote:shopItems.healAlteration} | Les altérations d'état des membres de la guilde ont été supprimées. Les membres en bonne santé ont été partiellement soignés. `+ {{healthWon}} {emote:unitValues.health}`",
+      "alterationNoHeal": "{emote:shopItems.healAlteration} | Les altérations d'état des membres de la guilde ont été supprimées.",
+      "petFood": "{emote.foods.commonFood} {{quantity}} friandises ont été rajoutées à l'inventaire de votre guilde.",
+      "pet": "{{emote}} | Un familier a rejoint le refuge de la guilde: **{{pet}}**"
+    }
   }
 }

@@ -93,6 +93,9 @@ export const DraftBotIcons: {
 	},
 	fightPetActions: {
 		[actionId: string]: string
+	},
+	rewards: {
+		[rewardId: string]: string
 	}
 } = {
 	"effects": {
@@ -1617,7 +1620,8 @@ export const DraftBotIcons: {
 		"health": "❤️",
 		"lostHealth": "💔",
 		"energy": "⚡",
-		"rage": "💢"
+		"rage": "💢",
+		"time": "🕜"
 	},
 	"shopItems": {
 		"randomItem": "❓",
@@ -1630,7 +1634,9 @@ export const DraftBotIcons: {
 		"bigGuildXp": "🌟"
 	},
 	"badges": {
-		"richPerson": "🤑"
+		"richPerson": "🤑",
+		"guildBadge": "💎",
+		"superGuildBadge": "🪩"
 	},
 	"itemKinds": [
 		"⚔️",
@@ -1677,5 +1683,9 @@ export const DraftBotIcons: {
 		"attackLeft": "🤛",
 		"attackRight": "🤜",
 		"helpFromMates": "🏟️"
+	},
+	"rewards": {
+		"item": "🎁",
+		"partialHeal": "💟"
 	}
 };
