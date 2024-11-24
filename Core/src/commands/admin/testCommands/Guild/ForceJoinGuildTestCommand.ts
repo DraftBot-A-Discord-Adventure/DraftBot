@@ -8,7 +8,7 @@ export const commandInfo: ITestCommand = {
 	aliases: ["fjg"],
 	commandFormat: "<guildToJoin>",
 	typeWaited: {
-		guildToJoin: TypeKey.INTEGER
+		guildToJoin: TypeKey.STRING
 	},
 	description: "Vous fait changer de guilde de force. Votre nouvelle guilde sera la guilde passée en paramètre"
 };
@@ -17,7 +17,7 @@ export const commandInfo: ITestCommand = {
  * Set your new guild
  */
 const forceJoinGuildTestCommand: ExecuteTestCommandLike = async (player, args) => {
-	const guildToJoin = await Guild.findOne({where: {id: args[0]}});
+	const guildToJoin = await Guild.findOne({where: {name: args[0]}});
 	if (!guildToJoin) {
 		throw new Error("Erreur forcejoinguild : pas de guilde avec cet id !");
 	}

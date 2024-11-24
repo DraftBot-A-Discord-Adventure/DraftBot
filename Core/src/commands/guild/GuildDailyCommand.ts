@@ -313,9 +313,10 @@ async function notifyAndUpdatePlayers(initiatorKeycloakId: string, members: Play
 				reward: rewardPacket
 			}));
 		}
-		PacketUtils.sendNotifications(notifications);
 		await MissionsController.update(member, response, {missionId: "guildDaily"});
 	}
+
+	PacketUtils.sendNotifications(notifications);
 }
 
 
