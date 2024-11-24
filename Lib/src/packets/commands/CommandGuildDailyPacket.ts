@@ -5,6 +5,8 @@ export class CommandGuildDailyPacketReq extends DraftBotPacket {}
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandGuildDailyRewardPacket extends DraftBotPacket {
+	guildName!: string;
+
 	pet?: {
 		typeId: number;
 		sex: string;
