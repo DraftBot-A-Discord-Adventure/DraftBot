@@ -386,7 +386,7 @@ async function generateAndGiveReward(guild: Guild, members: Player[], forcedRewa
 	const guildLike = {guild, members};
 
 	const rewardType = forcedReward ?? generateRandomProperty(guild);
-	const rewardPacket = makePacket(CommandGuildDailyRewardPacket, {});
+	const rewardPacket = makePacket(CommandGuildDailyRewardPacket, { guildName: guild.name });
 	await linkToFunction.get(rewardType)(guildLike, response, rewardPacket); // Give the award
 
 	if (!guildLike.guild.isPetShelterFull(await GuildPets.getOfGuild(guildLike.guild.id)) && RandomUtils.draftbotRandom.realZeroToOneInclusive() <= GuildDailyConstants.PET_DROP_CHANCE) {
@@ -420,7 +420,7 @@ export default class GuildDailyCommand {
 		if (millisecondsToHours(time) < GuildDailyConstants.TIME_BETWEEN_DAILIES && !forcedReward) {
 			response.push(makePacket(CommandGuildDailyCooldownErrorPacket, {
 				totalTime: GuildDailyConstants.TIME_BETWEEN_DAILIES,
-				remainingTime: hoursToMilliseconds(GuildDailyConstants.TIME_BETWEEN_DAILIES - time)
+				remainingTime: hoursToMilliseconds(GuildDailyConstants.TIME_BETWEEN_DAILIES) - time
 			}));
 			return;
 		}
@@ -437,6 +437,7 @@ export default class GuildDailyCommand {
 
 		// Generate and give the rewards
 		const rewardPacket = await generateAndGiveReward(guild, members, forcedReward, response);
+		response.push(rewardPacket);
 
 		// Send notifications and update players missions
 		await notifyAndUpdatePlayers(player.keycloakId, members, response, rewardPacket);

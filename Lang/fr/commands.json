@@ -659,7 +659,7 @@
       "partialHeal": "{emote:rewards.partialHeal} | Les membres de la guilde ont été partiellement soignés. `+ {{healthWon}} {emote:unitValues.health}`",
       "alterationHeal": "{emote:shopItems.healAlteration} | Les altérations d'état des membres de la guilde ont été supprimées. Les membres en bonne santé ont été partiellement soignés. `+ {{healthWon}} {emote:unitValues.health}`",
       "alterationNoHeal": "{emote:shopItems.healAlteration} | Les altérations d'état des membres de la guilde ont été supprimées.",
-      "petFood": "{emote.foods.commonFood} {{quantity}} friandises ont été rajoutées à l'inventaire de votre guilde.",
+      "petFood": "{emote:foods.commonFood} {{quantity}} friandises ont été rajoutées à l'inventaire de votre guilde.",
       "pet": "{{emote}} | Un familier a rejoint le refuge de la guilde: **{{pet}}**"
     }
   }

@@ -28,10 +28,10 @@ export function getCommandGuildDailyRewardPacketString(packet: CommandGuildDaily
 		desc += i18n.t("commands:guildDaily.rewards.advanceTime", { lng, timeMoved: packet.advanceTime }) + "\n";
 	}
 	if (packet.personalXp) {
-		desc += i18n.t("commands:guildDaily.rewards.personalXP", { lng, xp: packet.personalXp }) + "\n";
+		desc += i18n.t("commands:guildDaily.rewards.personalXP", { lng, xp: packet.personalXp, interpolation: { escapeValue: false } }) + "\n";
 	}
 	if (packet.guildXp) {
-		desc += i18n.t("commands:guildDaily.rewards.guildXP", { lng, xp: packet.guildXp }) + "\n";
+		desc += i18n.t("commands:guildDaily.rewards.guildXP", { lng, xp: packet.guildXp, interpolation: { escapeValue: false } }) + "\n";
 	}
 	if (packet.superBadge) {
 		desc += i18n.t("commands:guildDaily.rewards.superBadge", { lng }) + "\n";
@@ -47,20 +47,21 @@ export function getCommandGuildDailyRewardPacketString(packet: CommandGuildDaily
 	}
 	if (packet.alteration) {
 		if (packet.alteration.healAmount) {
-			desc += i18n.t("commands:guildDaily.rewards.alterationHeal", {lng, healthWon: packet.alteration.healAmount}) + "\n";
+			desc += i18n.t("commands:guildDaily.rewards.alterationHeal", {lng, healthWon: packet.alteration.healAmount, interpolation: { escapeValue: false }}) + "\n";
 		}
 		else {
-			desc += i18n.t("commands:guildDaily.rewards.alterationNoHeal", {lng}) + "\n";
+			desc += i18n.t("commands:guildDaily.rewards.alterationNoHeal", {lng, interpolation: { escapeValue: false }}) + "\n";
 		}
 	}
 	if (packet.commonFood) {
-		desc += i18n.t("commands:guildDaily.rewards.petFood", { lng, quantity: packet.commonFood }) + "\n";
+		desc += i18n.t("commands:guildDaily.rewards.petFood", { lng, quantity: packet.commonFood, interpolation: { escapeValue: false } }) + "\n";
 	}
 	if (packet.pet) {
 		desc += i18n.t("commands:guildDaily.rewards.pet", {
 			lng,
 			emote: DisplayUtils.getPetIcon(packet.pet.typeId, packet.pet.sex),
-			pet: DisplayUtils.getPetDisplay(packet.pet.typeId, packet.pet.sex, lng)
+			pet: DisplayUtils.getPetDisplay(packet.pet.typeId, packet.pet.sex, lng),
+			interpolation: { escapeValue: false }
 		}) + "\n";
 	}
 
@@ -69,10 +70,10 @@ export function getCommandGuildDailyRewardPacketString(packet: CommandGuildDaily
 
 export async function handleCommandGuildDailyRewardPacket(packet: CommandGuildDailyRewardPacket, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!)!;
-	await interaction.followUp({
+	await interaction.reply({
 		embeds: [
 			new DraftBotEmbed()
-				.formatAuthor(i18n.t("commands:guildDaily.rewardTitle", { lng: context.discord!.language }), interaction.user)
+				.formatAuthor(i18n.t("commands:guildDaily.rewardTitle", { lng: context.discord!.language, guildName: packet.guildName }), interaction.user)
 				.setDescription(getCommandGuildDailyRewardPacketString(packet, context.discord!.language))
 		]
 	});
@@ -80,7 +81,7 @@ export async function handleCommandGuildDailyRewardPacket(packet: CommandGuildDa
 
 export async function handleCommandGuildDailyCooldownErrorPacket(packet: CommandGuildDailyCooldownErrorPacket, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!)!;
-	await interaction.followUp({
+	await interaction.reply({
 		embeds: [
 			new DraftBotErrorEmbed(
 				interaction.user,
@@ -90,7 +91,8 @@ export async function handleCommandGuildDailyCooldownErrorPacket(packet: Command
 					{
 						lng: context.discord!.language,
 						coolDownTime: packet.totalTime,
-						time: finishInTimeDisplay(new Date(Date.now() + packet.remainingTime))
+						time: finishInTimeDisplay(new Date(Date.now() + packet.remainingTime)),
+						interpolation: { escapeValue: false }
 					}
 				)
 			)
@@ -100,7 +102,7 @@ export async function handleCommandGuildDailyCooldownErrorPacket(packet: Command
 
 export async function handleCommandGuildDailyPveIslandErrorPacket(packet: CommandGuildDailyPveIslandErrorPacket, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!)!;
-	await interaction.followUp({
+	await interaction.reply({
 		embeds: [
 			new DraftBotErrorEmbed(
 				interaction.user,
@@ -112,7 +114,7 @@ export async function handleCommandGuildDailyPveIslandErrorPacket(packet: Comman
 }
 
 export const commandInfo: ICommand = {
-	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("guilddaily") as SlashCommandBuilder,
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("guildDaily") as SlashCommandBuilder,
 	getPacket,
 	mainGuildCommand: false
 };

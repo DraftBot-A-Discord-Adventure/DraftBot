@@ -4,6 +4,7 @@ import {makePacket} from "../../../../../../Lib/src/packets/DraftBotPacket";
 import {ReachDestinationNotificationPacket} from "../../../../../../Lib/src/packets/notifications/ReachDestinationNotificationPacket";
 import {MapLocationDataController} from "../../../../data/MapLocation";
 import {GuildDailyNotificationPacket} from "../../../../../../Lib/src/packets/notifications/GuildDailyNotificationPacket";
+import {CommandGuildDailyRewardPacket} from "../../../../../../Lib/src/packets/commands/CommandGuildDailyPacket";
 
 export const commandInfo: ITestCommand = {
 	name: "sendnotification",
@@ -30,7 +31,21 @@ const sendNotificationTestCommand: ExecuteTestCommandLike = (player, args) => {
 	else if (args[0] === "gd") {
 		PacketUtils.sendNotifications([makePacket(GuildDailyNotificationPacket, {
 			keycloakId: player.keycloakId,
-			keycloakIdOfExecutor: player.keycloakId
+			keycloakIdOfExecutor: player.keycloakId,
+			reward: makePacket(CommandGuildDailyRewardPacket, {
+				guildName: "Test",
+				money: 666,
+				personalXp: 666,
+				badge: true,
+				superBadge: true,
+				fullHeal: true,
+				heal: 666,
+				alteration: {healAmount: 666},
+				guildXp: 666,
+				commonFood: 666,
+				pet: {typeId: 1, sex: "f"},
+				advanceTime: 666
+			})
 		})]);
 	}
 	else {

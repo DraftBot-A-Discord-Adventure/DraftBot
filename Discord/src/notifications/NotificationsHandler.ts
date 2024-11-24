@@ -46,7 +46,8 @@ export abstract class NotificationsHandler {
 						notificationContent = i18n.t("bot:notificationGuildDaily", {
 							lng,
 							pseudo: (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakIdOfExecutor))!.attributes.gameUsername[0],
-							rewards: getCommandGuildDailyRewardPacketString((notification.packet as GuildDailyNotificationPacket).reward, lng)
+							rewards: getCommandGuildDailyRewardPacketString((notification.packet as GuildDailyNotificationPacket).reward, lng),
+							interpolation: { escapeValue: false }
 						});
 						notificationType = NotificationsTypes.GUILD_DAILY;
 						break;
