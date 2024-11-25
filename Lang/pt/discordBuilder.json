@@ -200,5 +200,9 @@
   "guildShop": {
     "description": "Apresenta a loja do grémio.",
     "name": "magasinguilde"
+  },
+  "guildDaily": {
+    "description": "Receber a recompensa diária da guilda.",
+    "name": "bónusjornalierguilde"
   }
 }
