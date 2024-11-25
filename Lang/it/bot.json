@@ -25,5 +25,5 @@
   "notificationFooter": "Si riceve questo messaggio perché le notifiche sono abilitate. {command:notifications}Per modificare questa impostazione, utilizzare il comando",
   "notificationsNoChannelAccess": "Sembra che il bot non abbia più accesso alla sala notifiche, le notifiche saranno ora nei messaggi privati. {command:notifications}Per cambiare la modalità di notifica, eseguire il comando .",
   "notificationReachDestination": "Avete raggiunto **{{destination}}** !",
-  "notificationGuildDaily": "{{pseudo}}** ** ha raccolto il bonus giornaliero della tua gilda.{{reward}}La ricompensa è ** **."
+  "notificationGuildDaily": "{{pseudo}}\n\n{{rewards}}** ** ha raccolto il bonus giornaliero della tua gilda:"
 }
