@@ -642,5 +642,26 @@
     "empty": "Não há mais nada para comprar neste momento. O teu grémio está no nível máximo e o seu stock de comida está cheio.",
     "giveXpTitle": "Compra bem sucedida",
     "giveXp": "{emote:unitValues.xp}{{xp}}A tua guilda recebeu ** ** pontos de experiência."
+  },
+  "guildDaily": {
+    "rewardTitle": "{{guildName}} Recompensa do grémio :",
+    "coolDown": "{{coolDownTime}} A recompensa do grémio só está disponível uma vez por hora. Se adicionares um novo membro à guilda, o contador é reiniciado. {{time}}Próxima recompensa .",
+    "pveIslandError": "A recompensa da guilda não pode ser obtida porque um dos membros está atualmente numa ilha misteriosa!",
+    "rewards": {
+      "personalXP": "{emote:unitValues.xp} {{quantity}} {emote:unitValues.xp}| Os membros do Grémio ganharam experiência `+ `.",
+      "guildXP": "{emote:unitValues.xp} {{quantity}} {emote:unitValues.xp}| O grémio ganhou experiência `+ `",
+      "money": "{emote:unitValues.money}{{quantity}} {emote:unitValues.money}| Os membros do Grémio receberam ` `.",
+      "item": "{emote:rewards:item} | Os membros do Grémio receberam um artigo ao acaso.",
+      "badge": "{emote:badges.guildBadge} | Os membros do Grémio receberam um crachá.",
+      "superBadge": "{emote:badges.superGuildBadge} | Os membros do Grémio receberam um crachá.",
+      "fullHeal": "{emote:shopItems.regen} | Os membros da guilda estão completamente curados.",
+      "advanceTime": "{emote:unitValues.time} {{quantity}}| h.",
+      "partialHeal": "{emote:rewards.partialHeal} {{quantity}} {emote:unitValues.health}| Os membros da Guilda foram parcialmente curados `+ `",
+      "alterationHeal": "{emote:shopItems.healAlteration} | As mudanças de status dos membros da guilda foram removidas. {{quantity}} {emote:unitValues.health}Membros saudáveis foram parcialmente curados.",
+      "alterationNoHeal": "{emote:shopItems.healAlteration} | As alterações de estado dos membros da guilda foram removidas.",
+      "petFood": "{emote:foods.commonFood} {{quantity}} foram adicionados ao inventário do teu grémio.",
+      "pet_male": "{{petId}}{emote:pets. .emoteMale} | Uma mascote juntou-se ao refúgio da guilda:{{pet}}** **",
+      "pet_female": "{{petId}}{emote:pets. .emoteFemale} | Uma mascote juntou-se ao refúgio da guilda:{{pet}}** **"
+    }
   }
 }
