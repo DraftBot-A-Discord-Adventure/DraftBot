@@ -200,5 +200,9 @@
   "guildShop": {
     "description": "Zeigt den Gildenladen an.",
     "name": "magasinguilde"
+  },
+  "guildDaily": {
+    "description": "Sammelt die tägliche Belohnung der Gilde ein.",
+    "name": "bonusjournalgilde"
   }
 }
