@@ -40,7 +40,7 @@ async function awardGuildWithNewPet(guild: Guild, rewardPacket: CommandGuildDail
 	await GuildPets.addPet(guild, pet, true).save();
 	rewardPacket.pet = {
 		typeId: pet.typeId,
-		sex: pet.sex
+		isFemale: pet.isFemale()
 	};
 }
 

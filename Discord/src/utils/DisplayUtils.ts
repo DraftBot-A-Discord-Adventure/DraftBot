@@ -161,13 +161,13 @@ export class DisplayUtils {
 		return `${DraftBotIcons.map_types[mapType]} ${i18n.t(`models:map_locations.${mapLocationId}.name`, {lng})}`;
 	}
 
-	static getPetIcon(petId: number, petSex: string): string {
-		return DraftBotIcons.pets[petId][petSex === PetConstants.SEX.MALE ? "emoteMale" : "emoteFemale"];
+	static getPetIcon(petId: number, isFemale: boolean): string {
+		return DraftBotIcons.pets[petId][isFemale ? "emoteFemale" : "emoteMale"];
 	}
 
-	static getPetDisplay(petId: number, petSex: string, lng: Language): string {
-		return DisplayUtils.getPetIcon(petId, petSex)
+	static getPetDisplay(petId: number, isFemale: boolean, lng: Language): string {
+		return DisplayUtils.getPetIcon(petId, isFemale)
 			+ " "
-			+ i18n.t(`models:pets.${petId}`, {lng, context: petSex === PetConstants.SEX.MALE ? PetConstants.SEX.MALE_FULL : PetConstants.SEX.FEMALE_FULL});
+			+ i18n.t(`models:pets.${petId}`, {lng, context: isFemale ? PetConstants.SEX.FEMALE_FULL : PetConstants.SEX.MALE_FULL});
 	}
 }

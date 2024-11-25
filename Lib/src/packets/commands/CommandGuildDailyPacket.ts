@@ -9,7 +9,7 @@ export class CommandGuildDailyRewardPacket extends DraftBotPacket {
 
 	pet?: {
 		typeId: number;
-		sex: string;
+		isFemale: boolean;
 	};
 
 	money?: number;
