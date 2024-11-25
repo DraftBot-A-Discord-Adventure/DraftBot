@@ -25,5 +25,5 @@
   "notificationFooter": "Está recibiendo este mensaje porque las notificaciones están activadas. {command:notifications}Para cambiar esta configuración, utilice el comando",
   "notificationsNoChannelAccess": "❌ Parece que el bot ya no tiene acceso a tu sala de notificaciones, ahora las notificaciones serán en mensajes privados. {command:notifications}Para cambiar el modo de notificación, por favor ejecute el comando .",
   "notificationReachDestination": "{{destination}}¡Has llegado a ** ** !",
-  "notificationGuildDaily": "{{pseudo}}** ** ha recogido la bonificación diaria de su gremio.{{reward}}La recompensa es ** **."
+  "notificationGuildDaily": "{{pseudo}}\n\n{{rewards}}** ** ha cobrado la bonificación diaria de su gremio:"
 }
