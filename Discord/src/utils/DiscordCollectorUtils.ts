@@ -21,6 +21,8 @@ import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {DraftbotInteraction} from "../messages/DraftbotInteraction";
 import {sendInteractionNotForYou} from "./ErrorUtils";
 import {PacketUtils} from "./PacketUtils";
+import {keycloakConfig} from "../bot/DraftBotShard.js";
+import {KeycloakUtils} from "../../../Lib/src/keycloak/KeycloakUtils.js";
 
 export class DiscordCollectorUtils {
 	private static choiceListEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣", "7⃣", "8⃣", "9⃣"];

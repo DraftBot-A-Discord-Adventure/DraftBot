@@ -55,6 +55,7 @@ export default class ReactionCollectorHandler {
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorBuyCategorySlotData.name, shopInventoryExtensionCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorCartData.name, cartCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorFightPetData.name, fightPetCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorGuildInviteData.name, createGuildInviteCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorGobletsGameData.name, gobletsGameCollector);
 	}
 

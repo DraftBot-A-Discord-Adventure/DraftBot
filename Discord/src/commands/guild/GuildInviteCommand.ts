@@ -20,7 +20,6 @@ import {ICommand} from "../ICommand.js";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator.js";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants.js";
-import {Effect} from "../../../../Lib/src/enums/Effect.js";
 
 async function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser): Promise<CommandGuildInvitePacketReq | null> {
 
@@ -70,6 +69,11 @@ export async function handleCommandGuildInvitePacketRes(packet: CommandGuildInvi
 
 	if (packet.invitingPlayerNotInGuild) {
 		await replyErrorEmbed(context, "error:notInAGuild");
+		return;
+	}
+
+	if (packet.levelTooLow) {
+		await replyErrorEmbed(context, "error:targetLevelTooLow", {level: GuildConstants.REQUIRED_LEVEL});
 		return;
 	}
 
@@ -165,10 +169,5 @@ export const commandInfo: ICommand = {
 			SlashCommandBuilderGenerator.generateOption("guildInvite", "user", option)
 				.setRequired(true)) as SlashCommandBuilder,
 	getPacket,
-	requirements: {
-		disallowEffects: [Effect.DEAD, Effect.NOT_STARTED],
-		guildRequired: true,
-		guildPermissions: GuildConstants.PERMISSION_LEVEL.ELDER
-	},
 	mainGuildCommand: false
 };

@@ -28,6 +28,8 @@ export class CommandGuildInvitePacketRes extends DraftBotPacket {
 	invitedPlayerIsOnPveIsland?: boolean;
 
 	alreadyInAGuild?: boolean;
+
+	levelTooLow?: boolean;
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
