@@ -642,5 +642,26 @@
     "empty": "De momento no queda nada que comprar. Tu gremio está al máximo nivel y sus reservas de comida están llenas.",
     "giveXpTitle": "Compra con éxito",
     "giveXp": "{emote:unitValues.xp}{{xp}}Tu gremio ha recibido ** ** puntos de experiencia."
+  },
+  "guildDaily": {
+    "rewardTitle": "{{guildName}} Recompensa del gremio :",
+    "coolDown": "{{coolDownTime}} La recompensa del gremio sólo está disponible una vez cada hora. Al añadir un nuevo miembro al gremio se reinicia el contador. {{time}}Siguiente recompensa .",
+    "pveIslandError": "La recompensa del gremio no puede obtenerse porque uno de sus miembros se encuentra en una isla misteriosa.",
+    "rewards": {
+      "personalXP": "{emote:unitValues.xp} {{quantity}} {emote:unitValues.xp}| Los miembros del Gremio adquirieron experiencia `+ `.",
+      "guildXP": "{emote:unitValues.xp} {{quantity}} {emote:unitValues.xp}| El gremio ha ganado experiencia `+ `",
+      "money": "{emote:unitValues.money}{{quantity}} {emote:unitValues.money}| Los miembros del Gremio han recibido ``.",
+      "item": "{emote:rewards:item} | Los miembros del Gremio recibieron un objeto al azar.",
+      "badge": "{emote:badges.guildBadge} | Los miembros del Gremio han recibido una insignia.",
+      "superBadge": "{emote:badges.superGuildBadge} | Los miembros del Gremio han recibido una insignia.",
+      "fullHeal": "{emote:shopItems.regen} | Los miembros del gremio se han curado por completo.",
+      "advanceTime": "{emote:unitValues.time} {{quantity}}| h.",
+      "partialHeal": "{emote:rewards.partialHeal} {{quantity}} {emote:unitValues.health}| Los miembros del gremio han sido parcialmente curados.",
+      "alterationHeal": "{emote:shopItems.healAlteration} | Se han eliminado los cambios de estado de los miembros del gremio. {{quantity}} {emote:unitValues.health}Los miembros sanos han sido parcialmente curados. `+ `",
+      "alterationNoHeal": "{emote:shopItems.healAlteration} | Se han eliminado los cambios de estado de los miembros del gremio.",
+      "petFood": "{emote:foods.commonFood} {{quantity}} Se han añadido golosinas al inventario de tu gremio.",
+      "pet_male": "{{petId}}{emote:pets. .emoteMale} | Una mascota se ha unido al refugio del gremio:{{pet}}** **",
+      "pet_female": "{{petId}}{emote:pets. .emoteFemale} | Una mascota se ha unido al refugio del gremio:{{pet}}** **"
+    }
   }
 }
