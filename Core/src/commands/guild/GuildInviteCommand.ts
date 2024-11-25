@@ -16,6 +16,8 @@ import {BlockingUtils} from "../../core/utils/BlockingUtils.js";
 import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants.js";
 import {LogsDatabase} from "../../core/database/logs/LogsDatabase.js";
 import {MissionsController} from "../../core/missions/MissionsController.js";
+import {CommandUtils} from "../../core/utils/CommandUtils.js";
+import {Effect} from "../../../../Lib/src/enums/Effect.js";
 
 export default class GuildInviteCommand {
 	@packetHandler(CommandGuildInvitePacketReq)
@@ -25,6 +27,14 @@ export default class GuildInviteCommand {
 		const guild = invitingPlayer.guildId ? await Guilds.getById(invitingPlayer.guildId) : null;
 
 		if (!await canSendInvite(invitingPlayer, invitedPlayer, guild, response)) {
+			return;
+		}
+
+		if (!await CommandUtils.verifyCommandRequirements(invitingPlayer, context, response, {
+			disallowedEffects: [Effect.DEAD, Effect.NOT_STARTED],
+			guildNeeded: true,
+			guildRoleNeeded: GuildConstants.PERMISSION_LEVEL.ELDER
+		})) {
 			return;
 		}
 
@@ -84,6 +94,16 @@ async function canSendInvite(invitingPlayer: Player, invitedPlayer: Player, guil
 		}));
 		return false;
 	}
+
+	/*
+	If (invitedPlayer.level < GuildConstants.REQUIRED_LEVEL) {
+		response.push(makePacket(CommandGuildInvitePacketRes, {
+			...basePacketData,
+			levelTooLow: true
+		}));
+		return false;
+	}
+*/
 
 	if (invitedPlayer.isInGuild()) {
 		response.push(makePacket(CommandGuildInvitePacketRes, {
