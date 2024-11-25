@@ -642,5 +642,26 @@
     "empty": "There is nothing left to buy at the moment. Your guild is at maximum level and its food storage is full.",
     "giveXpTitle": "Purchase Success",
     "giveXp": "{emote:unitValues.xp} Your guild has recovered **{{xp}}** experience points."
+  },
+  "guildDaily": {
+    "rewardTitle": "Guild {{guildName}} Reward:",
+    "coolDown": "Guild reward is only available once every {{coolDownTime}} hours. Adding a new member to the guild reinitializes the counter. Next rewards {{time}}.",
+    "pveIslandError": "The guild reward cannot be obtained because one of the members is currently on a mystery!",
+    "rewards": {
+      "personalXP": "{emote:unitValues.xp} | Guild members received expedition. `+ {{quantity}} {emote:unitValues.xp}`.",
+      "guildXP": "{emote:unitValues.xp} | The guild has received the expedition. `+ {{quantity}} {emote:unitValues.xp}`",
+      "money": "{emote:unitValues.money} | Guild members got `{{quantity}} {emote:unitValues.money}`.",
+      "item": "{emote:rewards:item} | Guild members picked up a random item.",
+      "badge": "{emote:badges.guildBadge} | Guild members have received a badge.",
+      "superBadge": "{emote:badges.superGuildBadge} | Guild members have received a badge.",
+      "fullHeal": "{emote:shopItems.regen} | Guild members have been fully healed.",
+      "advanceTime": "{emote:unitValues.time} | Guild members advanced {{quantity}}h.",
+      "partialHeal": "{emote:rewards.partialHeal} | Guild members have been partially healed. `+ {{quantity}} {emote:unitValues.health}`",
+      "alterationHeal": "{emote:shopItems.healAlteration} | The status changes of the guild members have been deleted. Healthy members have been partially cared for. `+ {{quantity}} {emote:unitValues.health}`",
+      "alterationNoHeal": "{emote:shopItems.healAlteration} | The status changes of the guild members have been deleted.",
+      "petFood": "{emote:foods.commonFood} {{quantity}} sweets have been added to your guild's inventory.",
+      "pet_male": "{emote:pets.{{petId}}.emoteMale} | A pet has joined the guild shelter: **{{pet}}**",
+      "pet_female": "{emote:pets.{{petId}}.emoteFemale} | A pet has joined the guild shelter: **{{pet}}**"
+    }
   }
 }
