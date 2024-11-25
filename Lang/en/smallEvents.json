@@ -352,7 +352,7 @@
       "a bird approaches you and drops a tiny message in your hand...",
       "you discover an old, abandoned wooden hut, you decide to explore it and discover only an old grimoire that seems to have been lying around for years..."
     ],
-    "reward": "{{moneyEmote}} Money: **{{money}}**\n:star: XP: **{{xp}}**\n:medal: Points: **The number of points will depend on your final ranking. *\n:gift: A random equipment.",
+    "reward": "{{moneyEmote}} Money: **{{money}}**\n{emote:unitValues.xp} XP: **{{xp}}**\n:medal: Points: **The number of points will depend on your final ranking. *\n:gift: A random equipment.",
     "endMessage": "\n\n:newspaper: \"To the adventurer belonging to the {{league}} who will find this text, **if you maintain your glory until the end of the season**, you will be able to win these rewards:\n\n{{rewards}}\"\n\nYou resume your journey, while enjoying your bonus {{time}}.",
     "notEnoughFight": "\n\n:newspaper: \"Adventurers belonging to {{league}} who will find this text **if you are performing some battles using the {command:fight}command**, you will be able to win these rewards:\n\n{{rewards}}\"\n\nYou will quickly get back on your way Fear of failing to fight enough players before the end of the {{time}} season.",
     "rewardToday": "\n\n:newspaper: \"**League rewards are available! * Receive your reward before the end of the week thanks to the order {command:leaguebonus} !\n\nYou get back on your way, while enjoying your bonus."
@@ -366,17 +366,17 @@
       "**{{guild}}** is becoming more and more popular as time goes by! We hope you continue to do so, and that's why we're offering you this xp bonus!",
       "As you enter an inn, the tenant recognizes the emblem on your shield, the symbol of the **{{guild}}** guild. He decides to offer a general round of drinks in your honor, to great effect with the other customers."
     ],
-    "end": " Your guild wins **{{xp}}** :star:."
+    "end": " Your guild wins **{{xp}}** {emote:unitValues.xp}."
   },
   "winEnergy": {
     "stories": [
-      "you meet a young lady who introduces herself as Hilda the healer. After a quick chat, you agree to let her try her latest remedy on you. **You recover all your energy** :zap:",
-      "you come across a young woman who offers to treat you. You accept and receive a delicious beverage. **You recover all your energy** :zap:",
-      "you come face to face with a young woman accompanied by a goat. She offers you a miracle cure. Curious, you accept and, against all odds, you immediately feel better. **Your energy is restored** :zap:",
-      "you meet a young woman who offers to treat you. You accept and immediately feel better. **You recover all your energy** :zap:",
-      "you meet a woman dressed all in white who offers to treat you. You accept her treatment. **Your energy is restored** :zap:",
-      "you meet a woman who describes herself as a healer. After some discussion, you learn that she is on her way to the pastures, offering healing services along the way. You accept a mysterious remedy. **You recover all your energy** :zap:",
-      "you come across a young woman who offers to treat you. You accept and immediately feel better. **You recover all your energy** :zap:"
+      "you meet a young lady who introduces herself as Hilda the healer. After a quick chat, you agree to let her try her latest remedy on you. **You recover all your energy** {emote:unitValues.energy}",
+      "you come across a young woman who offers to treat you. You accept and receive a delicious beverage. **You recover all your energy** {emote:unitValues.energy}",
+      "you come face to face with a young woman accompanied by a goat. She offers you a miracle cure. Curious, you accept and, against all odds, you immediately feel better. **Your energy is restored** {emote:unitValues.energy}",
+      "you meet a young woman who offers to treat you. You accept and immediately feel better. **You recover all your energy** {emote:unitValues.energy}",
+      "you meet a woman dressed all in white who offers to treat you. You accept her treatment. **Your energy is restored** {emote:unitValues.energy}",
+      "you meet a woman who describes herself as a healer. After some discussion, you learn that she is on her way to the pastures, offering healing services along the way. You accept a mysterious remedy. **You recover all your energy** {emote:unitValues.energy}",
+      "you come across a young woman who offers to treat you. You accept and immediately feel better. **You recover all your energy** {emote:unitValues.energy}"
     ]
   },
   "doNothing": {
@@ -436,7 +436,7 @@
       "On your way, you come across a beast that doesn't seem very friendly. You decide to run away, but it quickly catches up with you. You then turn around and strike a blow. That's enough to get rid of your adversary, and you're on your way.",
       "Out of the corner of your eye, you notice a satchel full of gold fall from the pocket of an adventurer walking ahead of you. You immediately alert him and return the satchel. The adventurer thanks you for your kindness."
     ],
-    "end": " You win **{{xp}}** :star:."
+    "end": " You win **{{xp}}** {emote:unitValues.xp}."
   },
   "staffMember": {
     "context": [
@@ -548,12 +548,12 @@
           ]
         },
         "3": [
-          "Once the potion is finished, the witch hands you a drink. Another burning, you clumsily escaped it on your foot. You lose **{{lifeLoss}} :broken_heart:**.",
-          "As you finished the potion, you were the victim of the old witch's clumsy who escaped the cauldron on you. You lose **{{lifeLoss}} :broken_heart:**.",
-          "Despite the good smell of the potion, the potion is not as good for health as you might have expected. You lose **{{lifeLoss}} :broken_heart:**.",
-          "The taste of the potion is weird. Maybe you should have listened to your instinct and not taste it. . You lose **{{lifeLoss}} :broken_heart:**.",
-          "The potion vapors will have made you sick. You leave without asking for your remainder but not without the advice of inhaling these steams. You lose **{{lifeLoss}} :broken_heart:**.",
-          "As the old lady apprehendes to pour the last drop into the pot a muffled sound is heard. It looks like the cauldron has exploded. You lose **{{lifeLoss}} :broken_heart:**."
+          "Once the potion is finished, the witch hands you a drink. Another burning, you clumsily escaped it on your foot. You lose **{{lifeLoss}} {emote:unitValues.lostHealth}**.",
+          "As you finished the potion, you were the victim of the old witch's clumsy who escaped the cauldron on you. You lose **{{lifeLoss}} {emote:unitValues.lostHealth}**.",
+          "Despite the good smell of the potion, the potion is not as good for health as you might have expected. You lose **{{lifeLoss}} {emote:unitValues.lostHealth}**.",
+          "The taste of the potion is weird. Maybe you should have listened to your instinct and not taste it. . You lose **{{lifeLoss}} {emote:unitValues.lostHealth}**.",
+          "The potion vapors will have made you sick. You leave without asking for your remainder but not without the advice of inhaling these steams. You lose **{{lifeLoss}} {emote:unitValues.lostHealth}**.",
+          "As the old lady apprehendes to pour the last drop into the pot a muffled sound is heard. It looks like the cauldron has exploded. You lose **{{lifeLoss}} {emote:unitValues.lostHealth}**."
         ],
         "4": [
           "Unfortunately, the potion seems completely charred and undrinkable. You decide not to take the risk of drinking it and leave quickly.",
@@ -796,11 +796,11 @@
   "smallBad": {
     "healthLost": {
       "stories": [
-        "your feet stumble on a root. Wounded, you loose **{{amount}}:broken_heart:**.",
-        "plunged into your thoughts, you don't care about the ground under your feet and tread a peel with mischief. You hurt yourself at the knee. This is not serious, though painful. You lose **{{amount}} :broken_heart:**.",
-        "you whistle while walking. Suddenly, something enters into your field of vision: it's a dog, and it's running straight at you! Before you have time to understand what is happening, the animal collides with you. but immediately leaves. Fortunately, you are only slightly injured. and only lose **{{amount}} :broken_heart:**.",
-        "you hit a horse arriving at the gallop, but were only injured superficially. You lose **{{amount}} :broken_heart:**.",
-        "you were violently hit by a boar herd. You stand up and get back on your way and lose **{{amount}} :broken_heart:**."
+        "your feet stumble on a root. Wounded, you loose **{{amount}}{emote:unitValues.lostHealth}**.",
+        "plunged into your thoughts, you don't care about the ground under your feet and tread a peel with mischief. You hurt yourself at the knee. This is not serious, though painful. You lose **{{amount}} {emote:unitValues.lostHealth}**.",
+        "you whistle while walking. Suddenly, something enters into your field of vision: it's a dog, and it's running straight at you! Before you have time to understand what is happening, the animal collides with you. but immediately leaves. Fortunately, you are only slightly injured. and only lose **{{amount}} {emote:unitValues.lostHealth}**.",
+        "you hit a horse arriving at the gallop, but were only injured superficially. You lose **{{amount}} {emote:unitValues.lostHealth}**.",
+        "you were violently hit by a boar herd. You stand up and get back on your way and lose **{{amount}} {emote:unitValues.lostHealth}**."
       ]
     },
     "timeLost": {
@@ -814,11 +814,11 @@
     },
     "moneyLost": {
       "stories": [
-        "crossing a crowd, you feel a hand to search and go your pockets. You don't have the time to repeat that your Gatherer has disappeared. You lost **{{amount}} :money_with_wings:**.",
-        "you meet a beggar asking for some money to support his needs. Taking a momentum of mercy, you decide to give it **{{amount}} :money_with_wings:**.",
-        "a masked man calls you and threatens you with his weapon. To keep your life alive, you give them the **{{amount}} :money_with_wings:** pieces you have in your pocket, and the keys of your cart.",
-        "you suddenly remember forgetting your purse in the room of the last inn you passed by. You lose **{{amount}} :money_with_wings:**.",
-        "you see a cart that loads over and over your bag. While you gather your belongings a group of children is passing and you are robbing money. You are losing **{{amount}} :money_with_wings:**."
+        "crossing a crowd, you feel a hand to search and go your pockets. You don't have the time to repeat that your Gatherer has disappeared. You lost **{{amount}} {emote:unitValues.lostMoney}**.",
+        "you meet a beggar asking for some money to support his needs. Taking a momentum of mercy, you decide to give it **{{amount}} {emote:unitValues.lostMoney}**.",
+        "a masked man calls you and threatens you with his weapon. In order for it to save you, you give it the **{{amount}} {emote:unitValues.lostMoney}** pieces you have in your pocket, and the keys of your cart.",
+        "you suddenly remember forgetting your purse in the room of the last inn you passed by. You lose **{{amount}} {emote:unitValues.lostMoney}**.",
+        "you see a cart that loads over and over your bag. While you gather your belongings a group of children passes through and you get money going. You lose **{{amount}} {emote:unitValues.lostMoney}**."
       ]
     }
   },
@@ -881,14 +881,14 @@
         "After taking a short break on your ride, you see coming back **{{pet}}** with an **item**. It looks like she flew it to a merchant. You have to leave before the merchant sees it."
       ],
       "gainEnergy_m": [
-        "Getting **{{pet}}** on your side makes you happy. This makes you regain your morale and you gain **{{amount}}** :zap:.",
-        "On the edge of the road, **{{pet}}** precipitates on food that seems to be in good condition and you make it. You eat it before it turns off and win **{{amount}}** :zap:.",
-        "Stunned for a few moments, **{{pet}}** comes back with an almost empty potion. You drink it before it is lost. You gain **{{amount}}** :zap:."
+        "Having **{{pet}}** on your side makes you happy. This makes you regain your morale and you gain **{{amount}}** {emote:unitValues.energy}.",
+        "On the edge of the road, **{{pet}}** precipitates on food that seems to be in good condition and you make it. You eat it before it turns off and win **{{amount}}** {emote:unitValues.energy}.",
+        "Stunned for a few moments, **{{pet}}** comes back with an almost empty potion. You drink it before it is lost. This way you gain **{{amount}}** {emote:unitValues.energy}."
       ],
       "gainEnergy_f": [
-        "Getting **{{pet}}** on your side makes you happy. This makes you regain your morale and you gain **{{amount}}** :zap:.",
-        "On the edge of the road, **{{pet}}** precipitates on food that seems to be in good condition and you make it. You eat it before it turns off and win **{{amount}}** :zap:.",
-        "Played for a few moments, **{{pet}}** returns with an almost empty potion. You drink it before it is lost. You gain **{{amount}}** :zap:."
+        "Having **{{pet}}** on your side makes you happy. This makes you regain your morale and you gain **{{amount}}** {emote:unitValues.energy}.",
+        "On the edge of the road, **{{pet}}** precipitates on food that seems to be in good condition and you make it. You eat it before it turns off and win **{{amount}}** {emote:unitValues.energy}.",
+        "Played for a few moments, **{{pet}}** returns with an almost empty potion. You drink it before it is lost. This way you gain **{{amount}}** {emote:unitValues.energy}."
       ],
       "gainLife_m": [
         "Getting **{{pet}}** on your side makes you happy. This makes you regain your morale and you gain **{{amount}}** :heart:.",
@@ -950,44 +950,44 @@
         "Successfully trained **{{pet}}** was a real challenge that proves your talent with the animals. You get the {{badge}} badge!"
       ],
       "loseLife_m": [
-        "While you are trying to caress **{{pet}}**, it doesn't get done and bites your hand. You lose **{{amount}}** :broken_heart:.",
-        "On a **{{pet}}** turn everything in the right direction. You keep the leaves in your hands well and badly, but you get out with a few scratches. You lose **{{amount}}** :broken_heart:.",
-        "You see **{{pet}}** leave. It comes back a few minutes after with food. You eat it and regret it improved a few minutes later. You suddenly hurt the belly ... You lose **{{amount}}** :broken_heart:.",
-        "**{{pet}}** seems to have triggered hostilities with wild {{randomAnimal}} ! You decide to skip it, but unfortunately the wild creature hurts you. You lose **{{amount}}** :broken_heart:.",
-        "**{{pet}}** seems to want to play and throw up a tree. Unfortunately, its weight breaks the branch and falls upon you. You lose **{{amount}}** :broken_heart:."
+        "While you are trying to caress **{{pet}}**, it doesn't get done and bites your hand. You lose **{{amount}}** {emote:unitValues.lostHealth}.",
+        "On a **{{pet}}** turn everything in the right direction. You keep it in your hands as well as badly, but you get out with a few scratches. You lose **{{amount}}** {emote:unitValues.lostHealth}.",
+        "You see **{{pet}}** leave. It comes back a few minutes after with food. You eat it and regret it improved a few minutes later. You suddenly hurt the belly ... You lose **{{amount}}** {emote:unitValues.lostHealth}.",
+        "**{{pet}}** seems to have triggered hostilities with wild {{randomAnimal}} ! You decide to skip it, but unfortunately the wild creature hurts you. You lose **{{amount}}** {emote:unitValues.lostHealth}.",
+        "**{{pet}}** seems to want to play and throw up a tree. Unfortunately, its weight breaks the branch and falls upon you. You lose **{{amount}}** {emote:unitValues.lostHealth}."
       ],
       "loseLife_f": [
-        "While you are trying to caress **{{pet}}**, she doesn't let herself be done and bites your hand. You lose **{{amount}}** :broken_heart:.",
-        "On a **{{pet}}** turn everything in the right direction. You keep the leaves in your hands well and badly, but you get out with a few scratches. You lose **{{amount}}** :broken_heart:.",
-        "You see **{{pet}}** leave. It comes back a few minutes later with food. You eat it and regret it improved a few minutes later. You suddenly hurt the belly ... You lose **{{amount}}** :broken_heart:.",
-        "**{{pet}}** seems to have triggered hostilities with wild {{randomAnimal}} ! You decide to use it, but unfortunately the wild creature hurts you. You lose **{{amount}}** :broken_heart:.",
-        "**{{pet}}** seems to want to play and throw up a tree. Unfortunately, its weight breaks the branch and falls upon you. You lose **{{amount}}** :broken_heart:."
+        "While you are trying to caress **{{pet}}**, she doesn't let herself be done and bites your hand. You lose **{{amount}}** {emote:unitValues.lostHealth}.",
+        "On a **{{pet}}** turn everything in the right direction. You keep it in your hands as well as badly, but you get out with a few scratches. You lose **{{amount}}** {emote:unitValues.lostHealth}.",
+        "You see **{{pet}}** leave. It comes back a few minutes later with food. You eat it and regret it improved a few minutes later. You suddenly hurt the belly ... You lose **{{amount}}** {emote:unitValues.lostHealth}.",
+        "**{{pet}}** seems to have triggered hostilities with wild {{randomAnimal}} ! You decide to use it, but unfortunately the wild creature hurts you. You lose **{{amount}}** {emote:unitValues.lostHealth}.",
+        "**{{pet}}** seems to want to play and throw up a tree. Unfortunately, its weight breaks the branch and falls upon you. You lose **{{amount}}** {emote:unitValues.lostHealth}."
       ],
       "loseMoney_m": [
-        "You feel that **{{pet}}** steals a few pieces from your purse and hides them further. Unfortunately, you are unable to find them, so you are losing **{{amount}}** :money_with_wings:.",
-        "You notice a large hole in your purse. **{{pet}}** had to play with during the night! After you noticed what you had left, you notice that you are missing **{{amount}}** :money_with_wings:.",
-        "As you play with **{{pet}}**, this one hugs you and drops your purse into a crevass. Unable to recover these **{{amount}}** :money_with_wings:!",
-        "You feel like **{{pet}}** is irritated, it will even hurt a passer-by. Expected apologies, you decide to compensate and leave the low temperature. You lose **{{amount}}** :money_with_wings:.",
-        "If you want to play with **{{pet}}**, you hit them with a blast and take them to a healer to take them pride. After healing it, the pride you are assigned to **{{amount}}** :money_with_wings:."
+        "You feel that **{{pet}}** steals a few pieces from your purse and hides them further. Unfortunately you can't find them again. So you lose **{{amount}}** {emote:unitValues.lostMoney}.",
+        "You notice a large hole in your purse. **{{pet}}** had to play with during the night! After you had counted what you had left, you notice that you are missing **{{amount}}** {emote:unitValues.lostMoney}.",
+        "As you play with **{{pet}}**, this one hugs you and drops your purse into a crevass. Unable to recover these **{{amount}}** {emote:unitValues.lostMoney}!",
+        "You feel like **{{pet}}** is irritated, it will even hurt a passer-by. Excuse apologized, you decide to compensate it and leave the low temperature. You lose **{{amount}}** {emote:unitValues.lostMoney}.",
+        "If you want to play with **{{pet}}**, you hit them with a blast and take them to a healer to take them pride. After healing it, the pride you are assigned to **{{amount}}** {emote:unitValues.lostMoney}."
       ],
       "loseMoney_f": [
-        "You feel that **{{pet}}** steals a few pieces from your purse and hides them further. Unfortunately, you are unable to find them, so you are losing **{{amount}}** :money_with_wings:.",
-        "You notice a large hole in your purse. **{{pet}}** had to play with during the night! After you noticed what you had left, you notice that you are missing **{{amount}}** :money_with_wings:.",
-        "As you play with **{{pet}}**, this one hugs you and drops your purse into a crevass. Unable to recover these **{{amount}}** :money_with_wings:!",
-        "You feel like **{{pet}}** is irritated, it will even hurt a passer-by. Expected apologies, you decide to compensate and leave the low temperature. You lose **{{amount}}** :money_with_wings:.",
-        "If you want to play with **{{pet}}**, you knock them out. Blessed you bring them to a healer to take them to pride. After healing it, the pride you are assigned to **{{amount}}** :money_with_wings:."
+        "You feel that **{{pet}}** steals a few pieces from your purse and hides them further. Unfortunately you can't find them again. So you lose **{{amount}}** {emote:unitValues.lostMoney}.",
+        "You notice a large hole in your purse. **{{pet}}** had to play with during the night! After you had counted what you had left, you notice that you are missing **{{amount}}** {emote:unitValues.lostMoney}.",
+        "As you play with **{{pet}}**, this one hugs you and drops your purse into a crevass. Unable to recover these **{{amount}}** {emote:unitValues.lostMoney}!",
+        "You feel like **{{pet}}** is irritated, it will even hurt a passer-by. Excuse apologized, you decide to compensate it and leave the low temperature. You lose **{{amount}}** {emote:unitValues.lostMoney}.",
+        "If you want to play with **{{pet}}**, you knock them out. Blessed you bring them to a healer to take them to pride. After healing it, the pride you are assigned to **{{amount}}** {emote:unitValues.lostMoney}."
       ],
       "loseTime_m": [
         "Force remind **{{pet}}** to keep it ready for you, you lose **{{amount}} Min** :clock2:.",
-        "You feel **{{pet}}** doesn't seem to want to move. You decide to shoot it by force. By its fault, you lose **{amount} Min** :clock2:.",
+        "You feel **{{pet}}** doesn't seem to want to move. You decide to shoot it by force. By its fault, you lose **{{amount}} Min** :clock2:.",
         "You see **{{pet}}** coming to you while running pursued by wild {{randomAnimal}} ! You flee with them. This pursuit race has made you lose **{{amount}} Min** :clock2: on your ride.",
         "When you enter a village, you hear a rumor about a pet that looks like **{{pet}}** that would attack villagers. When you see you, the inhabitants are afraid of you and your pet, and you were immediately hunted out of the village. This experience has made you lose **{{amount}} Min** :clock2: on your ride.",
         "You need to find out that **{{pet}}** is watching the ground and deciding to dig a hole into it. A closed chest emerges. After several attempts, you have successfully opened it, but it is empty. This experience has made you lose **{{amount}} Min** :clock2:."
       ],
       "loseTime_f": [
-        "Force remind **{{pet}}** to keep it ready for you, you lose **{amount} Min** :clock2:.",
-        "You feel **{{pet}}** doesn't seem to want to move. You decide to shoot it by force. By its fault, you lose **{amount} Min** :clock2:.",
-        "You see **{{pet}}** coming to you while running pursued{feminine} by wild {{randomAnimal}} ! You flee with it. This pursuit race has made you lose **{{amount}} Min** :clock2: on your ride.",
+        "Force remind **{{pet}}** to keep it ready for you, you lose **{{amount}} Min** :clock2:.",
+        "You feel **{{pet}}** doesn't seem to want to move. You decide to shoot it by force. By its fault, you lose **{{amount}} Min** :clock2:.",
+        "You see **{{pet}}** coming to you running while pursued by wild {{randomAnimal}} ! You flee with it. This pursuit race has made you lose **{{amount}} Min** :clock2: on your ride.",
         "When you enter a village, you hear a rumor about a pet that looks like **{{pet}}** that would attack villagers. When you see you, the inhabitants are afraid of you and your pet, and you were immediately hunted out of the village. This experience has made you lose **{{amount}} Min** :clock2: on your ride.",
         "You need to find out that **{{pet}}** is watching the ground and deciding to dig a hole into it. A closed chest emerges. After several attempts, you have successfully opened it, but it is empty. This experience has made you lose **{{amount}} Min** :clock2:."
       ],
@@ -1181,5 +1181,301 @@
       "The wind makes a scroll fly up to your face. Cut in your journey, you decide to read it. You decide to perform the mission on the sheet:",
       "An old adventurer tells his stories who wants to hear them. You stop listening to him a bit. A few moments later, he notices you and asks if you can complete a mission for him. You agree:"
     ]
+  },
+  "bonusGuildPVEIsland": {
+    "events": [
+      {
+        "intro": "The sky is grey, the temperature is average. It is an ideal time to walk and move forward in your adventure. However, after a few steps, the ground frees under your feet and you fall into a hole.",
+        "success": {
+          "withGuild": "Thanks to your guild comrades, you manage to get out of this crevasse and save them in turn. This event overridden strengthened your links, your guild recovers **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "soloWithGuild": "Not losing your coldblood, you immeditate your guild teachings and easily climb the wall. Your guild gets **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "solo": "Not losing your coldblood, you apply what you learned during your adventures and easily manage to climb the wall. You receive **{{amount}} {emote:unitValues.xp}**."
+        },
+        "escape": {
+          "withGuild": "Not wasting time, you and your companions hurry to examine this crevasse, which has a cave. A bit of blind walking later, you manage to get out of this hole further.",
+          "solo": "Only after a few minutes you will notice the narrow leads to your left at the bottom of this crevasse. You were taken to this land that had decided to lock you, you come out in the open air."
+        },
+        "lose": {
+          "withGuild": "Thanks to your guild comrades, you manage to get out of this crevasse and save them in turn. However, the one who had your stock exchange was last raised, and unfortunately let the money fall during the escalation. You lose **{{amount}} {emote:unitValues.lostMoney}**.",
+          "solo": "As you try to climb the wall, the earth crumbles under your fingers and feet and causes a slide. Thanks to him, you manage to get out of this crevasse but you are well removed. You lose **{{amount}} {emote:unitValues.lostHealth}**."
+        }
+      },
+      {
+        "intro": "You decide to rest a little after an intense crossing on the island. But when you lie down on the ground, the earth began to tremble.",
+        "success": {
+          "withGuild": "However, you clench each other so that you do not get any of you from a potential digging. The shake ends, and you are all healthy and safe. Your guild gets **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "soloWithGuild": "You are following the instructions given to you in the event of your guild seism; and decide to shelter under a structure that fortunately did not fall on you. You promise to thank your guild for your expedition return. Your guild wins **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "solo": "Attempted to keep the jolt untouched. Fortunately, it did not cause any degae around, you continue to rest a little while admiring the sky and surroundings. You receive **{{amount}} {emote:unitValues.xp}**."
+        },
+        "escape": {
+          "withGuild": "Caught in panic, your guild is trying to find a higher place to avoid any unwanted problems on one of you. After several minutes round because at least one of the members believes that this place is not superior, you no longer feel the shape. Nevertheless you are trying to regain your trust for what will follow in your journey of the...",
+          "solo": "Panic you are trying to dodge the potential hazards of the earthquake. After a few moments, the shake is no longer felt. On your way back to the place where you wanted to rest, you can see the rest of the earthquakes."
+        },
+        "lose": {
+          "withGuild": "You say that this earthquake will be short, and ask the rest of the guild to brave it. What a mistake! A rock crashed on you and knocked you. You lose **{{amount}} {emote:unitValues.energy}**.",
+          "solo": "Tell you that there will be only a small amount of trouble, you continue to rest. However, a crevasse is forming under your body. For fear of falling into it, you try to run as far as possible, but you get off and cut your arm. You lose **{{amount}} {emote:unitValues.lostHealth}**."
+        }
+      },
+      {
+        "intro": "You move quietly on your adventure (with your guild companions) when your instinct points you to danger. Small in size, an almost opaque white fog rises from the rugged ground and falls from the sky to surround you. You quickly don't see anything around you anymore.",
+        "success": {
+          "withGuild": "Many pairs of eyes are better than one! Thanks to the cooking of your visions, your companions and you manage to move between the rocks and the crevasses without one being wounded or lost. Your guild gets **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "soloWithGuild": "In this urgent situation, you keep your cold blood and use the tracking techniques learned from your guild to get out of the trouble without hindrance. Your guild gets **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "solo": "In this urgent situation, you keep your cold blood and use tracking techniques learned a little more to get out of this trink. You receive **{{amount}} {emote:unitValues.xp}**."
+        },
+        "escape": {
+          "withGuild": "Completely lost in this dense and threatening fog, your companions and you decide to gather to parry the chill, waiting for the wind to disperse the mist.",
+          "solo": "Completely weathered by the anguish of this almost supernatural phenomenon, you panic, your pulse wraps and disgusted the coolness you feel the wetness of your blue forehead sinking one to one, until the fog is dissolved by the wind."
+        },
+        "lose": {
+          "withGuild": "Since your party has not been complete, your guild companions and you are panicking in the face of this event. Everyone flees from their side and you don't ask for your rest to run in turn. But in the precipitation you drop **{{amount}} {emote:unitValues.lostMoney}**.",
+          "solo": "Completely panicked in front of this almost menacing mist, you take your legs to your neck and run straight in front of you. This is a serious error because you are on the ground very quickly because of the fog. You lose **{{amount}} {emote:unitValues.lostHealth}**."
+        }
+      },
+      {
+        "intro": "You quietly advance on new adventures when a sneaky pebble insolent and sharp decided to make you his victim and cruelly cut you the ankle.",
+        "success": {
+          "withGuild": "Luckily for you, your guild mates heal your wound and quickly get you back on their feet. Your guild gets **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "soloWithGuild": "Despite the pain, you can remember the teachings of your guild and get this knowledge to heal you quickly. Your guild gets **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "solo": "Despite the pain, you manage to infect and bandage the wound in order to get back on your way as soon as possible. You receive **{{amount}} {emote:unitValues.xp}**."
+        },
+        "escape": {
+          "withGuild": "Wanting to avoid delays, your guild mates will cause you to wear you to heal you once you arrive at your destination.",
+          "solo": "Malgrained the pain, you manage to continue walking as you close."
+        },
+        "lose": {
+          "withGuild": "Completely helpless face to this injury, your companions heal you as they can, but the wound infects and the pain becomes unsustainable. You lose **{{amount}} {emote:unitValues.lostHealth}**.",
+          "solo": "Single, twisting you in the middle of the path, You curse this stone and endure the terrible pain to continue your adventure. You lose **{{amount}} {emote:unitValues.lostHealth}**."
+        }
+      },
+      {
+        "intro": "You walk quietly towards your destination when large black clouds are forming in the area. The darkness is total.",
+        "success": {
+          "withGuild": "Your guild mates are sight-seeing, however, and one of them pulls a torch out of their bag to help light your way. Your guild gets **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "soloWithGuild": "Luckily you had a torch in your bag, and one of your guild mates gave you your departure! So you can easily see your way and continue your way. Your guild gets **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "solo": "Fortunately you had a torch in your pocket, ready before your departure! This way you can easily see your way and continue your road. You receive **{{amount}} {emote:unitValues.xp}**."
+        },
+        "escape": {
+          "withGuild": "Completely blinded you and your companions advance in full black, helping each other to avoid obstacles, until this strange night leaves as fast as it had come.",
+          "solo": "Completely blind, you progress in full black until this strange night leaves as fast as it had come."
+        },
+        "lose": {
+          "withGuild": "Completely lost to this sudden one, you and your companions panic and run straight in front of you until this strange night leaves as fast as it had come. But in the precipitation you lost **{{amount}} {emote:unitValues.lostMoney}**.",
+          "solo": "Single and completely lost face to this sudden one, you start to panic and move straight ahead without noticing the sneaky pebble that was waiting for you at that time. You pick up from the ground and lose **{{amount}} {emote:unitValues.lostHealth}**."
+        }
+      },
+      {
+        "intro": "You have been walking for some time on a path that seems to you never end when you suddenly miss the forces and you fall tired.",
+        "success": {
+          "withGuild": "Seeing your discomfort, your companions rush to support you and offer you the power you need to rise and continue to advance in your queen. Your guild gets **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "soloWithGuild": "Wrong this unease, you use the amount of energy left to get out of your inventory some of the food your guild offers to regain strength and continue your queen. Your guild gets **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "solo": "Wrong this unease, you use the amount of energy left to get out of your inventory some prepared food in advance to regain strength and continue your queen. You receive **{{amount}} {emote:unitValues.xp}**."
+        },
+        "escape": {
+          "withGuild": "Fortunately, it was only a passing unease, and encouraged by your guild companions, take your route back with them after a few minutes of rest.",
+          "solo": "Fortunately for you, it was only a passing discomfort, and you can get back to your road after a few minutes of rest."
+        },
+        "lose": {
+          "withGuild": "Face this sudden unease, your guild companions, not knowing how to help you, decides to take you to the next stage, but the exhaustion hits you and vanishes. You lose **{{amount}} {emote:unitValues.energy}**.",
+          "solo": "Completely exhausted, the sky starts to turn around around you. You are trying to stand up, but the forces you are missing and feeling like you are on a shallow sea, you will feel right in the middle of the road. You lose **{{amount}} {emote:unitValues.energy}**."
+        }
+      }
+    ]
+  },
+  "fightPet": {
+    "intro_male": [
+      "you fall nose with an {{feralPet}}!",
+      "you encounter an {{feralPet}}.",
+      "you see an {{feralPet}} that doesn't seem to want to let you pass.",
+      "you suddenly push a terrifying couple: an {{feralPet}} stands right in front of you!",
+      "you are not allowed to see an {{feralPet}}.",
+      "you see a cloud of dust on the horizon that is approaching dangerously... It's an {{feralPet}}!",
+      "you notice a mysterical mecanism... Curious, you decide to activate it. You don't take long to regret your gesture when an {{feralPet}} appears from nowhere!",
+      "you hear a muted sound behind you. You turn around and find an {{feralPet}} that stunts you."
+    ],
+    "intro_female": [
+      "you fall nose with an {{feralPet}}!",
+      "you encounter an {{feralPet}}.",
+      "you see an {{feralPet}} that doesn't seem to want to let you pass.",
+      "you suddenly push a terrifying couple: an {{feralPet}} stands right in front of you!",
+      "you are not allowed to see an {{feralPet}}.",
+      "you see a cloud of dust on the horizon that is approaching dangerously... It's an {{feralPet}}!",
+      "you notice a mysterious mechanism... Curious, you decide to activate it. It doesn't take you long to regret your decision, however, when a {{feralPet}} appears out of nowhere!",
+      "you hear a muted sound behind you. You turn around and find an {{feralPet}} that sticks to you."
+    ],
+    "situation": [
+      "The beast seems impossible to calm down ... You are trying to calm down and reflect an action plan for you to undo this animal.",
+      "Absolutely terrified, you are starting to reflect your different options to get you out of this beast.",
+      "Impossible not to react, you have to take a decision to save your life...",
+      "Distracted by the two red eyes of the animal that insist on you, you try to focus on an action plan.",
+      "The fetide breath of the animal makes you spin the sky. You are trying to concentrate...",
+      "You wonder if you should not run away, but you think you could get out of it if you reflect an action plan.",
+      "You tighten your grip on the guard of your spell, and a little reassured, reflect what you need to do.",
+      "Petrified by fear, you look at the animal sinking towards you, trying to force your tetaneous brain to find a solution.",
+      "You are looking for a solution that will keep you alive."
+    ],
+    "rageUpDescriptions": [
+      "Happy to get out of you, you feel your rage against the creatures of this island.",
+      "With your victory, you feel full of rage against the evil creatures of this island.",
+      "You feel stronger than ever and your rage against the evil creatures of this island is increasing.",
+      "Proud of you, you feel your rage against the evil creatures of this island increase.",
+      "No one can stop you! Your rage against evil creatures is only reinforced by this event."
+    ],
+    "rageUpFormat": " {{rageUpDescription}} {emote:unitValues.rage} **Rage ++**",
+    "customPetDisplay_male": "{emote:pets.{{petId}}.emoteMale} **{{petName}} {{adjective}}**",
+    "customPetDisplay_female": "{emote:pets.{{petId}}.emoteFemale} **{{petName}} {{adjective}}**",
+    "adjectives_male": [
+      "fachee",
+      "hungry",
+      "enraged",
+      "furious",
+      "mechant",
+      "energized",
+      "aggressive",
+      "violent",
+      "hostile",
+      "irritated",
+      "in school",
+      "furax",
+      "wild",
+      "malpractice",
+      "brutal",
+      "threatening",
+      "barbarian",
+      "atrocious",
+      "fierce",
+      "ruthless",
+      "brawler",
+      "not happy",
+      "evil",
+      "corrupted",
+      "dusty",
+      "crazy",
+      "destructor",
+      "cursed",
+      "machiavelic",
+      "malicious",
+      "feeroce"
+    ],
+    "adjectives_female": [
+      "facie",
+      "affamee",
+      "raged",
+      "furious",
+      "mechant",
+      "Powered",
+      "aggressive",
+      "violent",
+      "hostile",
+      "irritated",
+      "in school",
+      "furax",
+      "wild",
+      "malicious",
+      "brutal",
+      "threatening",
+      "barbarian",
+      "atrocious",
+      "fierce",
+      "ruthless",
+      "brawler",
+      "not happy",
+      "evil",
+      "corrupt",
+      "dusty",
+      "crazy",
+      "destructive",
+      "cursed",
+      "machiavelic",
+      "malicious",
+      "feeroce"
+    ],
+    "fightPetActions": {
+      "fistHit": {
+        "name": "Punch",
+        "success": "You punch the animal with a big punch! He slips back, surprised. You take advantage of it to flee!",
+        "failure": "You hit the animal with a weak punch! It slips, surprised, but it's not enough to get rid of it. You are under a fierce attack before you get away!"
+      },
+      "runAway": {
+        "name": "Escape",
+        "success": "You do not reflect for a second and start running! The pet is continuing with you but you manage to do so.",
+        "failure": "You try to flee, but you quickly caught up with the beast that sits at you a violent blow before leaving yourself alone."
+      },
+      "focusEnergy": {
+        "name": "Focus power and attack",
+        "success": "You slow down your breath and feel your energy walking your arms! You get this energy in a brutal blow that makes the animal flee!",
+        "failure": "You are trying to concentrate but you are too tired to do that! You are shaking on the ground, but it all has the effect of calming the beast, which is leaving."
+      },
+      "intimidate": {
+        "name": "Intimize Creature",
+        "success": "You show your strength in front of the animal, which is pulling back and escaping alive at the pace of the horizon!",
+        "failure": "You bomb the chest in front of the animal, which only makes it more energetic. In the school he misses his attack, and you can take advantage of it to get started quickly!"
+      },
+      "baitWithMeat": {
+        "name": "Distract beats with meat",
+        "success": "You pull a piece of meat out of your bag and throw it at the animal, which throws on it greedily. You take advantage of it to escape.",
+        "failure": "You are clumsily trying to throw a piece of meat into the body to distract it. However, before you have been able to initiate your maneuver, the animal moves closer and sits at you a violent blow before leaving you alone."
+      },
+      "baitWithVegetables": {
+        "name": "Distract yourself with a legume",
+        "success": "You pull a legume out of your bag and throw it at the animal, which sniffs it with integrity. This allows you enough time to escape.",
+        "failure": "You pull a legume out of your bag and throw it at the animal, which sniffs it with disguise. Even more enraged than before, the beast surprises you with an overwhelming assault! You have no way to get rid of it and you are under the violent attack with full force."
+      },
+      "provoke": {
+        "name": "Taunt",
+        "success": "You approach the animal and provoke it by making grimaces. This one runs on you! You deviate at the last moment and it crushed against a tree. You finish it with a kick and get back on your way.",
+        "failure": "You approach the animal and provoke it by making grimaces. He grunts himself and sits at you a violent blow before leaving you alone."
+      },
+      "doNothing": {
+        "name": "Do nothing",
+        "success": "You are not moving one inch, and the animal seems to ignore you. You take advantage of it to overshadow yourself, glad to have been so lucky.",
+        "failure": "You don't move one inch, but the animal doesn't allow itself to be deceived and you sit a violent blow before leaving yourself alone. You are going back to the shameful road of being able to imagine that this strategy would work."
+      },
+      "lastEffort": {
+        "name": "Use all your forces to attack",
+        "success": "You focus and gather all your forces to attack the animal. You hit it with a violent blow that makes it flee!",
+        "failure": "You focus and gather all your forces to attack the animal. You hit him violently, but it is not enough to make him flee. You are under a fierce attack before you get away!"
+      },
+      "usePlayerPet": {
+        "name": "Call your pet",
+        "success": "It is time to call on your friend for an epic fight. The pet will not take place, however, since the wild animal, surprised by your pet's arrival, flees without asking for the remainder!",
+        "failure": "In a moment and before you could call any other animal in the battlefield, you find yourself on the ground, stunned by the wild beast that leaves you alone, without even giving you a look."
+      },
+      "protect": {
+        "name": "Protect yourself",
+        "success": "You raise your shield high in front of you, ready to take off the beast. She sits on you, you keep her feet on the ground as well as badly and you end up repeating the assault. The animal then leaks after suffering this failure.",
+        "failure": "You put your shield in front of you, ready to take the blow of beast, but the assault was brutal. Your challenge does not hold up, and you are worth a few meters. Persuaded by having put you out of the state of harm, the animal is away from the distance."
+      },
+      "playDead": {
+        "name": "Play possum",
+        "success": "As the animal looks at you, you mine to fall to the ground and you no longer move. Apres observe you inert on the ground for a while, it moves away and leaves you alone.",
+        "failure": "As the animal looks at you, you mine to fall to the ground and you no longer move. He approaches you and sniffs, and finds that you are only pretending. You unfold the creature by getting up quickly and take your legs to your neck before you finish dead for real."
+      },
+      "scream": {
+        "name": "Shout",
+        "success": "You push a strident cry that runs away from the animal. You get back on your way, relieved that you could get out of it without hindrance.",
+        "failure": "You spawn a strident cry that runs away from the animal. However, it comes back to the load and sits a violent blow before leaving you alone."
+      },
+      "prayGod": {
+        "name": "Pray to God",
+        "success": "You pray to God to help you. He hears you and protects you from the animal attack. You are back on your way, relieved that you could get out of it without hindrance.",
+        "failure": "You pray to God to help you. The animal charges you and your hands do not protect you from its attack. You are back on your way, shameful to have imagined that this strategy would work."
+      },
+      "attackLeft": {
+        "name": "Attack Left",
+        "success": "You run from the left side of the animal and hit it violently, shocked by the pain, the animal flees and leaves you alone.",
+        "failure": "You run from the left side of the animal and try to hit it. However, you failed and you were wearing the animal, which against a violent attack before leaving by lying on the ground."
+      },
+      "attackRight": {
+        "name": "Attack Right",
+        "success": "You run from the right side of the animal and hit it violently; shocked by the pain, the animal flees and leaves you alone.",
+        "failure": "You run from the right side of the animal and try to hit it. However, you failed and you were wearing the animal, which against a violent attack before leaving by lying on the ground."
+      },
+      "helpFromMates": {
+        "name": "Call on your guild members",
+        "success": "You call on your teammates, who arrive quickly on the spot. The animal, surprised by the arrival of these reinforcements, flees without asking the rest of them!",
+        "failure": "You call on your teammates, but they are too far away to hear you. The animal, fast, knocks you down before you go again."
+      }
+    }
   }
 }
