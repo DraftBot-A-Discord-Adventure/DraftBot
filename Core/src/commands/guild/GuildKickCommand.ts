@@ -13,7 +13,6 @@ import {EndCallback, ReactionCollectorInstance} from "../../core/utils/Reactions
 import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
-import {LogsDatabase} from "../../core/database/logs/LogsDatabase";
 import {CommandUtils} from "../../core/utils/CommandUtils";
 import {Effect} from "../../../../Lib/src/enums/Effect";
 import {GuildRole} from "../../../../Lib/src/enums/GuildRole";
@@ -130,7 +129,9 @@ export default class GuildKickCommand {
 				await acceptGuildKick(player, kickedPlayer, response);
 			}
 			else {
-				response.push(makePacket(CommandGuildKickRefusePacketRes, {}));
+				response.push(makePacket(CommandGuildKickRefusePacketRes, {
+					kickedKeycloakId: kickedPlayer.keycloakId
+				}));
 			}
 			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.GUILD_KICK);
 		};

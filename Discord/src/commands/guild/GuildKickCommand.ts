@@ -5,7 +5,6 @@ import i18n from "../../translations/i18n";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {DiscordCache} from "../../bot/DiscordCache";
-import {DraftBotErrorEmbed} from "../../messages/DraftBotErrorEmbed";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {
 	CommandGuildKickAcceptPacketRes,
@@ -20,6 +19,8 @@ import {ReactionCollectorGuildKickData} from "../../../../Lib/src/packets/intera
 import {PacketUtils} from "../../utils/PacketUtils";
 import {CommandProfilePacketReq} from "../../../../Lib/src/packets/commands/CommandProfilePacket";
 import {sendErrorMessage, SendManner} from "../../utils/ErrorUtils";
+import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
+import {keycloakConfig} from "../../bot/DraftBotShard";
 
 /**
  * Kick a player from a guild
@@ -79,7 +80,7 @@ export async function createGuildKickCollector(packet: ReactionCollectorCreation
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorGuildKickData;
-
+	const kickedPlayer = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, data.kickedKeycloakId))!;
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:guildKick.title", {
 		lng: interaction.userLanguage,
 		pseudo: interaction.user.displayName
@@ -87,6 +88,7 @@ export async function createGuildKickCollector(packet: ReactionCollectorCreation
 		.setDescription(
 			i18n.t("commands:guildKick.confirmDesc", {
 				lng: interaction.userLanguage,
+				kickedPseudo: kickedPlayer.attributes.gameUsername,
 				guildName: data.guildName
 			})
 		);
@@ -103,6 +105,7 @@ export async function createGuildKickCollector(packet: ReactionCollectorCreation
 export async function handleCommandGuildKickRefusePacketRes(packet: CommandGuildKickRefusePacketRes, context: PacketContext): Promise<void> {
 	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+	const kickedPlayer = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.kickedKeycloakId))!;
 	if (buttonInteraction && originalInteraction) {
 		await buttonInteraction.editReply({
 			embeds: [
@@ -111,7 +114,10 @@ export async function handleCommandGuildKickRefusePacketRes(packet: CommandGuild
 					pseudo: originalInteraction.user.displayName
 				}), originalInteraction.user)
 					.setDescription(
-						i18n.t("commands:guildKick.canceledDesc", {lng: originalInteraction.userLanguage})
+						i18n.t("commands:guildKick.canceledDesc", {
+							lng: originalInteraction.userLanguage,
+							kickedPseudo: kickedPlayer.attributes.gameUsername
+						})
 					)
 					.setErrorColor()
 			]
@@ -128,6 +134,7 @@ export async function handleCommandGuildKickRefusePacketRes(packet: CommandGuild
 export async function handleCommandGuildKickAcceptPacketRes(packet: CommandGuildKickAcceptPacketRes, context: PacketContext): Promise<void> {
 	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+	const kickedPlayer = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.kickedKeycloakId!))!;
 	if (buttonInteraction && originalInteraction) {
 		await buttonInteraction.editReply({
 			embeds: [
@@ -138,7 +145,7 @@ export async function handleCommandGuildKickAcceptPacketRes(packet: CommandGuild
 					.setDescription(
 						i18n.t("commands:guildKick.acceptedDesc", {
 							lng: originalInteraction.userLanguage,
-							kickedPlayer: packet.kickedPlayer,
+							kickedPlayerPseudo: kickedPlayer.attributes.gameUsername,
 							guildName: packet.guildName
 						})
 					)
@@ -153,9 +160,12 @@ export async function handleCommandGuildKickAcceptPacketRes(packet: CommandGuild
 
 export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("guildKick")
-		.addStringOption(option =>
-			SlashCommandBuilderGenerator.generateOption("guildKick", "guildName", option)
-				.setRequired(true)) as SlashCommandBuilder,
+		.addUserOption(option =>
+			SlashCommandBuilderGenerator.generateOption("guildKick", "user", option)
+				.setRequired(false))
+		.addIntegerOption(option =>
+			SlashCommandBuilderGenerator.generateOption("guildKick", "rank", option)
+				.setRequired(false)) as SlashCommandBuilder,
 	getPacket,
 	mainGuildCommand: false
 };
