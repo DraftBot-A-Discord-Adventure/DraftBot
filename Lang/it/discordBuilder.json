@@ -200,5 +200,9 @@
   "guildShop": {
     "description": "Visualizza il negozio della gilda.",
     "name": "magasinguilde"
+  },
+  "guildDaily": {
+    "description": "Raccogliere la ricompensa giornaliera della gilda.",
+    "name": "bonusgiornaleerguilde"
   }
 }
