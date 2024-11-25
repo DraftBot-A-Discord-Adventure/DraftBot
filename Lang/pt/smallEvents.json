@@ -352,7 +352,7 @@
       "um pássaro aproxima-se de si e coloca uma pequena mensagem na sua mão...",
       "Descobre uma velha cabana de madeira abandonada, decide explorá-la e descobre apenas um velho grimório que parece ter sido abandonado há anos..."
     ],
-    "reward": "{{moneyEmote}} Prata:{{money}}\n:star: ** ** XP :{{xp}}\n:medal: ** Pontos:\n:gift: ** O número de pontos dependerá da tua classificação final ** Equipamento aleatório.",
+    "reward": "{{moneyEmote}} Prata:{{money}}\n{emote:unitValues.xp} ** ** XP :{{xp}}\n:medal: ** Pontos:\n:gift: ** O número de pontos dependerá da tua classificação final ** Equipamento aleatório.",
     "endMessage": "\n\n:newspaper: {{league}}\n\n{{rewards}}\n\n {{time}}\"Ao aventureiro pertencente a quem encontrar este texto, **se mantiver a sua glória até ao fim da época**, pode ganhar estas recompensas: \" Partiu de novo, ansioso por receber o seu bónus .",
     "notEnoughFight": "\n\n:newspaper: {{league}} {command:fight}\n\n{{rewards}}\n\n {{time}}\"Ao aventureiro pertencente a quem encontrar este texto, **se travar algumas batalhas utilizando o comando **, poderá ganhar estas recompensas: \" Rapidamente se põe de novo a caminho, receando não conseguir combater um número suficiente de jogadores antes do final da época .",
     "rewardToday": "\n\n:newspaper: {command:leaguebonus} \"Receba o seu prémio antes do fim da semana, encomendando .\"\n\nEstá de novo a caminho, ansioso por receber o seu bónus."
@@ -366,17 +366,17 @@
       "{{guild}}** ** está a tornar-se cada vez mais popular com o passar do tempo! Esperamos que continue a fazê-lo, e é por isso que lhe oferecemos este bónus xp!",
       "{{guild}}Ao entrar numa estalagem, o proprietário reconhece o emblema no seu escudo, o símbolo do grémio ** **. Decide oferecer uma rodada geral de bebidas em tua honra, com grande efeito junto dos outros clientes."
     ],
-    "end": " {{xp}} :star:A tua guilda ganha ** ** ."
+    "end": " {{xp}} {emote:unitValues.xp}A tua guilda ganha ** ** ."
   },
   "winEnergy": {
     "stories": [
-      "conhece uma jovem que se apresenta como Hilda, a curandeira. Depois de uma conversa rápida, aceita que ela experimente o seu último remédio em si. :zap:**Recuperas toda a tua energia",
-      "encontra uma jovem que se oferece para o tratar. Aceitas e recebes uma bebida deliciosa. :zap:**Recuperas toda a tua energia",
-      "depara-se com uma jovem mulher acompanhada por uma cabra. Ela oferece-lhe uma cura milagrosa. Curioso, aceita e, contra todas as probabilidades, sente-se imediatamente melhor. :zap:**Recupera toda a sua energia",
-      "conhece uma jovem que se oferece para o tratar. Aceita e sente-se imediatamente melhor. :zap:**Recupera toda a sua energia",
-      "encontra uma mulher vestida de branco que se oferece para o tratar. Aceita o seu tratamento. :zap:**Recuperas toda a tua energia",
-      "conhece uma mulher que se descreve como uma curandeira. Depois de alguma conversa, ficas a saber que ela está a caminho das pastagens e que oferece serviços de cura pelo caminho. Aceitas um remédio misterioso. :zap:**Recuperas toda a tua energia",
-      "encontra uma jovem que se oferece para o tratar. Aceita e sente-se imediatamente melhor. :zap:**Recupera toda a sua energia"
+      "conhece uma jovem que se apresenta como Hilda, a curandeira. Depois de uma conversa rápida, aceita que ela experimente o seu último remédio em si. {emote:unitValues.energy}**Recuperas toda a tua energia",
+      "encontra uma jovem que se oferece para o tratar. Aceitas e recebes uma bebida deliciosa. {emote:unitValues.energy}**Recuperas toda a tua energia",
+      "depara-se com uma jovem mulher acompanhada por uma cabra. Ela oferece-lhe uma cura milagrosa. Curioso, aceita e, contra todas as probabilidades, sente-se imediatamente melhor. {emote:unitValues.energy}**Recuperas toda a tua energia",
+      "conhece uma jovem que se oferece para o tratar. Aceita e sente-se imediatamente melhor. {emote:unitValues.energy}**Recupera toda a sua energia",
+      "encontra uma mulher vestida de branco que se oferece para o tratar. Aceita o seu tratamento. {emote:unitValues.energy}**Recuperas toda a tua energia",
+      "conhece uma mulher que se descreve como uma curandeira. Depois de alguma conversa, ficas a saber que ela está a caminho das pastagens e que oferece serviços de cura pelo caminho. Aceitas um remédio misterioso. {emote:unitValues.energy}**Recuperas toda a tua energia",
+      "encontra uma jovem que se oferece para o tratar. Aceita e sente-se imediatamente melhor. {emote:unitValues.energy}**Recupera toda a sua energia"
     ]
   },
   "doNothing": {
@@ -436,7 +436,7 @@
       "No teu caminho, encontras uma fera que não te parece muito amigável. Decides fugir, mas ele alcança-te rapidamente. Viras-te e dás-lhe um golpe forte. É o suficiente para te livrares do teu adversário e voltares ao teu caminho.",
       "Pelo canto do olho, reparas que uma mochila cheia de ouro cai do bolso de um aventureiro que caminha à tua frente. Avisa-o imediatamente e devolve-lhe a bolsa. O aventureiro agradece-lhe a sua gentileza."
     ],
-    "end": " {{xp}} :star:Ganha ** ** ."
+    "end": " {{xp}} {emote:unitValues.xp}Ganha ** ** ."
   },
   "staffMember": {
     "context": [
@@ -548,12 +548,12 @@
           ]
         },
         "3": [
-          "Quando a poção está pronta, a bruxa dá-te um copo. Ainda a arder, deixas cair o copo desajeitadamente no teu pé.{{lifeLoss}} :broken_heart:Perdes ** **.",
-          "Quando estás prestes a terminar a poção, a bruxa velha deixa cair o caldeirão em cima de ti.{{lifeLoss}} :broken_heart:Perdes ** **.",
-          "Embora a poção cheire bem, não é tão saudável como esperavas.{{lifeLoss}} :broken_heart:Perdes ** **.",
-          "O sabor da poção é muito estranho. Talvez devesses ter ouvido os teus instintos e não a provasses...{{lifeLoss}} :broken_heart:Perdeste ** **.",
-          "Os vapores da poção são suficientes para o deixar doente. Sai sem pedir ajuda, mas não sem sofrer as consequências da inalação dos vapores.{{lifeLoss}} :broken_heart:Perdes ** **.",
-          "No momento em que a velhota está prestes a deitar a última gota no caldeirão, ouve-se um estrondo. O caldeirão parece ter explodido.{{lifeLoss}} :broken_heart:Perdeste ** **."
+          "Quando a poção está pronta, a bruxa dá-te um copo. Ainda a arder, deixa-o cair desajeitadamente no seu pé.{{lifeLoss}} {emote:unitValues.lostHealth}Perdes ** **.",
+          "Quando estás prestes a terminar a poção, a bruxa velha deixa cair o caldeirão em cima de ti.{{lifeLoss}} {emote:unitValues.lostHealth}Perdes ** **.",
+          "Embora a poção cheire bem, não é tão saudável como esperavas.{{lifeLoss}} {emote:unitValues.lostHealth}Perdes ** **.",
+          "O sabor da poção é muito estranho. Talvez devesses ter ouvido os teus instintos e não a provasses...{{lifeLoss}} {emote:unitValues.lostHealth}Perdeste ** **.",
+          "Os vapores da poção são suficientes para o deixar doente. Sai sem pedir ajuda, mas não sem sofrer as consequências da inalação dos vapores.{{lifeLoss}} {emote:unitValues.lostHealth}Perdes ** **.",
+          "No momento em que a velhota está prestes a deitar a última gota no caldeirão, ouve-se um estrondo. O caldeirão parece ter explodido.{{lifeLoss}} {emote:unitValues.lostHealth}Perdeste ** **."
         ],
         "4": [
           "Infelizmente, a poção parece estar completamente carbonizada e não pode ser bebida. Decide não se arriscar a bebê-la e vai-se embora rapidamente.",
@@ -796,11 +796,11 @@
   "smallBad": {
     "healthLost": {
       "stories": [
-        "os teus pés ficam presos numa raiz.{{amount}} :broken_heart:Ferido, perde ** **.",
-        "Em plena reflexão, presta pouca atenção ao chão sob os seus pés e tropeça numa pedra. Magoou o joelho. Não é muito grave, mas dói.{{amount}} :broken_heart:Perdeste ** **.",
-        "assobia enquanto caminha. De repente, algo entra no teu campo de visão: é um cão e vem direito a ti! Antes que possas perceber o que se passa, o animal choca contigo, mas arranca de imediato.{{amount}} :broken_heart:Felizmente, só ficaste ligeiramente ferido e perdeste apenas ** **.",
-        "Choca com um cavalo a galope, mas sofre apenas ferimentos superficiais.{{amount}} :broken_heart:Perde ** **.",
-        "é violentamente atingido por uma manada de javalis.{{amount}} :broken_heart:Não é fácil voltar a levantar-se e retoma a sua viagem tendo perdido **."
+        "os teus pés ficam presos numa raiz.{{amount}} {emote:unitValues.lostHealth}Ferido, perde ** **.",
+        "Em pensamento, presta pouca atenção ao chão sob os seus pés e tropeça num calhau. Magoou o joelho. Não é muito grave, mas dói.{{amount}} {emote:unitValues.lostHealth}Perdeste ** **.",
+        "assobia enquanto caminha. De repente, algo entra no teu campo de visão: é um cão e vem direito a ti! Antes que possas perceber o que se passa, o animal choca contigo, mas arranca de imediato.{{amount}} {emote:unitValues.lostHealth}Felizmente, só ficaste ligeiramente ferido e perdeste apenas ** **.",
+        "Choca com um cavalo a galope, mas sofre apenas ferimentos superficiais.{{amount}} {emote:unitValues.lostHealth}Perde ** **.",
+        "é violentamente atingido por uma manada de javalis.{{amount}} {emote:unitValues.lostHealth}Não é fácil voltar a levantar-se e retoma a sua viagem tendo perdido **."
       ]
     },
     "timeLost": {
@@ -814,11 +814,11 @@
     },
     "moneyLost": {
       "stories": [
-        "Enquanto caminhas no meio de uma multidão, sentes uma mão a tocar-te no bolso e a aliviar-te os bolsos. Não tens tempo para responder quando o teu Coletor desaparece.{{amount}} :money_with_wings:Perdeste ** **.",
-        "encontra um mendigo que lhe pede um pouco de dinheiro para cobrir as suas necessidades.{{amount}} :money_with_wings:Por pena, decides dar-lhe ** **.",
-        "Um homem mascarado manda-o parar e aponta-lhe uma arma.{{amount}} :money_with_wings:Para salvar a sua vida, dá-lhe as moedas que tem no bolso e as chaves do seu carrinho.",
-        "de repente, lembra-se de ter deixado a sua mala no quarto do último albergue por onde passou.{{amount}} :money_with_wings:Perdeste ** **.",
-        "depara-se com uma carroça cuja carga está a sair, rasgando o seu saco. Enquanto recolhe as suas coisas, um grupo de crianças passa e rouba-lhe algum dinheiro.{{amount}} :money_with_wings:Perdes ** **."
+        "Enquanto caminhas no meio de uma multidão, sentes uma mão a tocar-te no bolso e a aliviar-te os bolsos. Não tens tempo para responder quando o teu Coletor desaparece.{{amount}} {emote:unitValues.lostMoney}Perdeste ** **.",
+        "encontra um mendigo que lhe pede um pouco de dinheiro para cobrir as suas necessidades.{{amount}} {emote:unitValues.lostMoney}Por pena, decides dar-lhe ** **.",
+        "Um homem mascarado manda-o parar e aponta-lhe uma arma.{{amount}} {emote:unitValues.lostMoney}Para salvar a sua vida, dá-lhe as moedas que tem no bolso e as chaves do seu carrinho.",
+        "lembra-se de repente de ter deixado a sua mala no quarto do último albergue por onde passou.{{amount}} {emote:unitValues.lostMoney}Perdeste ** **.",
+        "depara-se com uma carroça cuja carga está a sair, rasgando o seu saco. Enquanto recolhe as suas coisas, um grupo de crianças passa e rouba-lhe algum dinheiro.{{amount}} {emote:unitValues.lostMoney}Perdes ** **."
       ]
     }
   },
@@ -881,14 +881,14 @@
         "{{pet}}Depois de fazer uma pequena pausa na sua viagem, vê ** ** regressar com um **objeto**. Ela parece tê-lo roubado a um comerciante. Decide ir-se embora antes que ele dê por isso."
       ],
       "gainEnergy_m": [
-        "{{pet}}Ter ** ** ao teu lado faz-te feliz.{{amount}} :zap:Eleva o seu espírito e você ganha ** ** .",
-        "{{pet}}Na berma da estrada, ** ** apressa-se a encontrar comida que parece estar em boas condições e trá-la de volta para si.{{amount}} :zap:Come-a antes que se estrague e ganha ** ** .",
-        "{{pet}}Depois de se ausentar por alguns instantes, ** ** regressa com uma poção quase vazia. Bebe-a antes que se perca.{{amount}} :zap:Ganhaste ** ** ."
+        "{{pet}}Ter ** ** ao teu lado faz-te feliz.{{amount}} {emote:unitValues.energy}Eleva o seu espírito e você ganha ** ** .",
+        "{{pet}}Na berma da estrada, ** ** apressa-se a encontrar comida que parece estar em boas condições e trá-la de volta para si.{{amount}} {emote:unitValues.energy}Come-a antes que se estrague e ganha ** ** .",
+        "{{pet}}Depois de se ausentar por alguns instantes, ** ** regressa com uma poção quase vazia. Bebe-a antes que se perca.{{amount}} {emote:unitValues.energy}Ganhaste ** ** ."
       ],
       "gainEnergy_f": [
-        "{{pet}}Ter ** ** ao teu lado faz-te feliz.{{amount}} :zap:Eleva o seu espírito e você ganha ** ** .",
-        "{{pet}}Na berma da estrada, ** ** apressa-se a encontrar comida que parece estar em boas condições e trá-la de volta para si.{{amount}} :zap:Come-a antes que se estrague e ganha ** ** .",
-        "{{pet}}Depois de se ausentar por alguns instantes, ** ** regressa com uma poção quase vazia. Bebe-a antes que se perca.{{amount}} :zap:Ganhaste ** ** ."
+        "{{pet}}Ter ** ** ao teu lado faz-te feliz.{{amount}} {emote:unitValues.energy}Eleva o seu espírito e você ganha ** ** .",
+        "{{pet}}Na berma da estrada, ** ** apressa-se a encontrar comida que parece estar em boas condições e trá-la de volta para si.{{amount}} {emote:unitValues.energy}Come-a antes que se estrague e ganha ** ** .",
+        "{{pet}}Depois de se ausentar por alguns instantes, ** ** regressa com uma poção quase vazia. Bebe-a antes que se perca.{{amount}} {emote:unitValues.energy}Ganhaste ** ** ."
       ],
       "gainLife_m": [
         "{{pet}}Ter ** ** ao teu lado faz-te feliz.{{amount}} :heart:Eleva o seu espírito e você ganha ** ** .",
@@ -950,44 +950,44 @@
         "{{pet}}Treinar com sucesso ** ** foi um verdadeiro desafio que prova o teu talento com os animais. {{badge}} Receberás o distintivo!"
       ],
       "loseLife_m": [
-        "{{pet}}Quando tenta acariciar ** **, ele não o deixa e morde-lhe a mão.{{amount}} :broken_heart:Perdes ** ** .",
-        "{{pet}}Numa curva, ** ** começa subitamente a correr. Mantém-se na liderança o melhor que pode, mas sai com alguns arranhões.{{amount}} :broken_heart:Perde ** ** .",
-        "{{pet}}Vê ** ** sair. Ele regressa alguns minutos depois com comida. Come-a e arrepende-se amargamente alguns minutos depois. De repente, sente-se mal do estômago...{{amount}} :broken_heart:Perdes ** ** .",
-        "{{pet}} {{randomAnimal}} ** Parece que desencadeou hostilidades com o sauvage! Decide defendê-lo, mas infelizmente a criatura selvagem fere-o.{{amount}} :broken_heart:Perdeste ** ** .",
-        "{{pet}}** ** parece querer brincar e atira-se para cima de uma árvore. Infelizmente, o seu peso parte o ramo e ele cai em cima de ti.{{amount}} :broken_heart:Perdes ** ** ."
+        "{{pet}}Quando tenta acariciar ** **, ele não o deixa e morde-lhe a mão.{{amount}} {emote:unitValues.lostHealth}Perdes ** ** .",
+        "{{pet}}Numa curva, ** ** começa subitamente a correr. Mantém-se na liderança o melhor que pode, mas sai com alguns arranhões.{{amount}} {emote:unitValues.lostHealth}Perde ** ** .",
+        "{{pet}}Vê ** ** sair. Ele regressa alguns minutos depois com comida. Come-a e arrepende-se amargamente alguns minutos depois. De repente, sente-se mal do estômago...{{amount}} {emote:unitValues.lostHealth}Perdes ** ** .",
+        "{{pet}} {{randomAnimal}} ** Parece que desencadeou hostilidades com o sauvage! Decide defendê-lo, mas infelizmente a criatura selvagem fere-o.{{amount}} {emote:unitValues.lostHealth}Perdeste ** ** .",
+        "{{pet}}** ** parece querer brincar e atira-se para cima de uma árvore. Infelizmente, o seu peso parte o ramo e ele cai em cima de ti.{{amount}} {emote:unitValues.lostHealth}Perdes ** ** ."
       ],
       "loseLife_f": [
-        "{{pet}}Quando tenta acariciar ** **, ela não o deixa e morde-lhe a mão.{{amount}} :broken_heart:Perdes ** ** .",
-        "{{pet}}Numa curva, ** ** começa subitamente a correr. Mantém-se na liderança o melhor que pode, mas sai com alguns arranhões.{{amount}} :broken_heart:Perde ** ** .",
-        "{{pet}}Vê ** ** sair. Ela regressa alguns minutos depois com alguma comida. Come-a e arrepende-se amargamente alguns minutos depois. De repente, sente-se mal do estômago...{{amount}} :broken_heart:Perdes ** ** .",
-        "{{pet}} {{randomAnimal}} ** Parece que desencadeou hostilidades com o sauvage! Decide defendê-la, mas infelizmente a criatura selvagem fere-o.{{amount}} :broken_heart:Perdeste ** ** .",
-        "{{pet}}** ** parece querer brincar e atira-se para cima de uma árvore. Infelizmente, o seu peso parte o ramo e ela cai em cima de ti.{{amount}} :broken_heart:Perdes ** ** ."
+        "{{pet}}Quando tenta acariciar ** **, ela não o deixa e morde-lhe a mão.{{amount}} {emote:unitValues.lostHealth}Perdes ** ** .",
+        "{{pet}}Numa curva, ** ** começa subitamente a correr. Mantém-se na liderança o melhor que pode, mas sai com alguns arranhões.{{amount}} {emote:unitValues.lostHealth}Perde ** ** .",
+        "{{pet}}Vê ** ** sair. Ela regressa alguns minutos depois com alguma comida. Come-a e arrepende-se amargamente alguns minutos depois. De repente, sente-se mal do estômago...{{amount}} {emote:unitValues.lostHealth}Perdes ** ** .",
+        "{{pet}} {{randomAnimal}} ** Parece que desencadeou hostilidades com o sauvage! Decide defendê-la, mas infelizmente a criatura selvagem fere-o.{{amount}} {emote:unitValues.lostHealth}Perdeste ** ** .",
+        "{{pet}}** ** parece querer brincar e atira-se para cima de uma árvore. Infelizmente, o seu peso parte o ramo e ela cai em cima de ti.{{amount}} {emote:unitValues.lostHealth}Perdes ** ** ."
       ],
       "loseMoney_m": [
-        "{{pet}}Pressente que ** ** está a roubar algumas moedas da sua carteira e esconde-as mais longe. Infelizmente, não as consegues encontrar.{{amount}} :money_with_wings:Por isso, perde ** ** .",
-        "Repara num grande buraco na sua mala.{{pet}}** ** deve ter estado a brincar com ela durante a noite!{{amount}} :money_with_wings:Depois de contar o que lhe restava, verifica que lhe falta um total de ** ** .",
-        "{{pet}}Enquanto brincas com o ** **, ele empurra-te e deixa cair a tua bolsa numa fenda.{{amount}} :money_with_wings: É impossível recuperar esses ** **!",
-        "{{pet}}Tem a impressão de que ** ** está irritado e chega mesmo a magoar um transeunte. Depois de pedir desculpa, decide compensá-lo e sai de cabeça baixa.{{amount}} :money_with_wings:Perde ** ** .",
-        "{{pet}}Ao tentar brincar com ** **, bate-lhe. Ferido, leva-o a um curandeiro para o curar.{{amount}} :money_with_wings:Depois de o curar, o curandeiro liberta-o de ** ** ."
+        "{{pet}}Pressente que ** ** está a roubar algumas moedas da sua carteira e esconde-as mais longe. Infelizmente, não as consegues encontrar.{{amount}} {emote:unitValues.lostMoney}Por isso, perde ** ** .",
+        "Repara num grande buraco na sua mala.{{pet}}** ** deve ter andado a brincar com ela durante a noite!{{amount}} {emote:unitValues.lostMoney}Depois de contar o que lhe restava, verifica que lhe falta um total de ** ** .",
+        "{{pet}}Enquanto brincas com o ** **, ele empurra-te e deixa cair a tua bolsa numa fenda.{{amount}} {emote:unitValues.lostMoney} É impossível recuperar esses ** **!",
+        "{{pet}}Tem a impressão de que ** ** está irritado e chega mesmo a magoar um transeunte. Depois de pedir desculpa, decide compensá-lo e sai de cabeça baixa.{{amount}} {emote:unitValues.lostMoney}Perde ** ** .",
+        "{{pet}}Enquanto tentava brincar com ** **, bateu-lhe. Ferido, leva-o a um curandeiro para o curar.{{amount}} {emote:unitValues.lostMoney}Depois de o curar, o curandeiro liberta-o de ** ** ."
       ],
       "loseMoney_f": [
-        "{{pet}}Pressente que ** ** está a roubar algumas moedas da sua carteira e esconde-as mais longe. Infelizmente, não as consegues encontrar.{{amount}} :money_with_wings:Por isso, perde ** ** .",
-        "Repara num grande buraco na sua mala.{{pet}}** ** deve ter andado a brincar com ela durante a noite!{{amount}} :money_with_wings:Depois de contar o que lhe restava, verifica que lhe falta um total de ** ** .",
-        "{{pet}}Enquanto brincas com o ** **, ele empurra-te e deixa cair a tua bolsa numa fenda.{{amount}} :money_with_wings: É impossível recuperar esses ** **!",
-        "{{pet}}Tem a impressão de que ** ** está irritado e chega mesmo a magoar um transeunte. Depois de pedir desculpa, decide compensá-lo e sai de cabeça baixa.{{amount}} :money_with_wings:Perde ** ** .",
-        "{{pet}}Ao tentar brincar com a ** **, bate-lhe. Ferida, leva-a a um curandeiro para a curar.{{amount}} :money_with_wings:Depois de a curar, o curandeiro liberta-o de ** ** ."
+        "{{pet}}Pressente que ** ** está a roubar algumas moedas da sua carteira e esconde-as mais longe. Infelizmente, não as consegues encontrar.{{amount}} {emote:unitValues.lostMoney}Por isso, perde ** ** .",
+        "Repara num grande buraco na sua mala.{{pet}}** ** deve ter andado a brincar com ela durante a noite!{{amount}} {emote:unitValues.lostMoney}Depois de contar o que lhe resta, verifica que lhe falta um total de ** ** .",
+        "{{pet}}Enquanto brincas com o ** **, ele empurra-te e deixa cair a tua bolsa numa fenda.{{amount}} {emote:unitValues.lostMoney} É impossível recuperar esses ** **!",
+        "{{pet}}Tem a impressão de que ** ** está irritado e chega mesmo a magoar um transeunte. Depois de pedir desculpa, decide compensá-lo e sai de cabeça baixa.{{amount}} {emote:unitValues.lostMoney}Perde ** ** .",
+        "{{pet}}Ao tentar brincar com a ** **, bate-lhe. Ferida, leva-a a um curandeiro para a curar.{{amount}} {emote:unitValues.lostMoney}Depois de a curar, o curandeiro liberta-o de ** ** ."
       ],
       "loseTime_m": [
         "{{pet}}{{amount}} :clock2:Se continuar a chamar ** ** para que ele fique perto de si, perderá ** Min** .",
-        "{{pet}}Sente que ** ** não parece querer mexer-se. Decide puxá-lo à força na mesma.{amount} :clock2:Por causa dele, perde ** Min** .",
+        "{{pet}}Sente que ** ** não parece querer mexer-se. Decide puxá-lo à força na mesma.{{amount}} :clock2:Por causa dele, perde ** Min** .",
         "{{pet}} {{randomAnimal}} Vês ** ** a correr na tua direção, perseguido pelo sauvage! Foge com ele.{{amount}} :clock2: Esta perseguição fez com que perdesses ** Min** pelo caminho.",
         "{{pet}}Ao entrar numa aldeia, ouve um rumor de que um animal de estimação parecido com o ** ** está a atacar os aldeões. Ao ver-te, os aldeões assustam-se contigo e com o teu animal de estimação e és imediatamente expulso da aldeia.{{amount}} :clock2: Como resultado deste contratempo, perdeste o ** Min** pelo caminho.",
         "{{pet}}Descobre que ** ** está a olhar para o chão e decide cavar um buraco. Sai um cofre fechado. Depois de várias tentativas, consegue abri-lo, mas está vazio.{{amount}} :clock2:Este contratempo custou-lhe ** Min** ."
       ],
       "loseTime_f": [
-        "{{pet}}{amount} :clock2:Se continuar a telefonar ** ** para a manter perto de si, perderá ** Min** .",
-        "{{pet}}Sente que ** ** não parece querer mexer-se. Decide puxá-la à força na mesma.{amount} :clock2:Por causa dela, perde ** Min** .",
-        "{{pet}}{feminine} {{randomAnimal}} Vê ** ** a correr na sua direção, perseguido pelo sauvage! Foge com ela.{{amount}} :clock2: Esta perseguição fez com que perdesses ** Min** pelo caminho.",
+        "{{pet}}{{amount}} :clock2:Se continuar a telefonar ** ** para a manter perto de si, perderá ** Min** .",
+        "{{pet}}Sente que ** ** não parece querer mexer-se. Decide puxá-la à força na mesma.{{amount}} :clock2:Por causa dela, perde ** Min** .",
+        "{{pet}} {{randomAnimal}} Vês ** ** a correr na tua direção, perseguido pelo sauvage! Foge com ela.{{amount}} :clock2: Esta perseguição fez com que perdesses ** Min** pelo caminho.",
         "{{pet}}Ao entrar numa aldeia, ouve um rumor de que um animal de estimação parecido com o ** ** está a atacar os aldeões. Ao ver-te, os aldeões assustam-se contigo e com o teu animal de estimação e és imediatamente expulso da aldeia.{{amount}} :clock2: Como resultado deste contratempo, perdeste o ** Min** pelo caminho.",
         "{{pet}}Descobre que ** ** está a olhar para o chão e decide cavar um buraco. Ela tira uma arca fechada. Depois de várias tentativas, consegue abri-la, mas está vazia.{{amount}} :clock2:Este contratempo custou-lhe ** Min** ."
       ],
@@ -1181,5 +1181,301 @@
       "O vento sopra um pergaminho no teu rosto. Desligado da sua viagem, decide lê-lo. Depois de uma cuidadosa reflexão, decides cumprir a missão escrita na folha:",
       "um velho aventureiro conta as suas histórias a quem o quiser ouvir. Paras para o ouvir durante algum tempo. Alguns momentos depois, ele repara em ti e pergunta-te se podes completar uma missão para ele. Aceitas:"
     ]
+  },
+  "bonusGuildPVEIsland": {
+    "events": [
+      {
+        "intro": "O céu está cinzento e a temperatura é média. É o tempo ideal para caminhar e continuar a sua aventura. No entanto, após alguns passos, o chão frágil cede sob os seus pés e cai num buraco.",
+        "success": {
+          "withGuild": "Com a ajuda dos teus companheiros de grupo, consegues sair da fenda e salvá-los.{{amount}} Esta provação fortaleceu os vossos laços e a vossa guilda recebe ** {emote:unitValues.{{emoteKey}}}**.",
+          "soloWithGuild": "Sem perder a calma, aplicas imediatamente os ensinamentos do teu grémio e consegues subir facilmente a parede.{{amount}} A tua guilda recebe ** {emote:unitValues.{{emoteKey}}}**.",
+          "solo": "Sem nunca perder a calma, aplica o que aprendeu nas suas aventuras e escala a parede com facilidade.{{amount}} {emote:unitValues.xp}Receberás ** **."
+        },
+        "escape": {
+          "withGuild": "Sem perder tempo, tu e os teus companheiros apressam-se a examinar esta fenda, que se revela ser uma gruta. Depois de uma caminhada às cegas, consegue sair do buraco mais à frente.",
+          "solo": "Desesperado, sozinho no fundo desta fenda, só passados alguns minutos é que se apercebe da passagem estreita à sua esquerda. Depois de lutar contra a terra que tinha decidido aprisioná-lo, emerge para o ar livre."
+        },
+        "lose": {
+          "withGuild": "Com a ajuda dos teus colegas de grupo, consegues sair da fenda e salvá-los também. No entanto, o colega que tinha a tua bolsa foi o último a subir e deixou cair o dinheiro acidentalmente durante a subida.{{amount}} {emote:unitValues.lostMoney}Perdeste ** **.",
+          "solo": "Ao tentar trepar a parede, a terra desmorona-se sob os seus dedos e pés, provocando um deslizamento de terras. Graças a ele, consegues sair da fenda, mas estás gravemente ferido.{{amount}} {emote:unitValues.lostHealth}Perdes ** **."
+        }
+      },
+      {
+        "intro": "Decides descansar um pouco depois de uma intensa travessia da ilha. Mas no momento em que te deitaste no chão, a terra começou a tremer.",
+        "success": {
+          "withGuild": "No entanto, agarram-se uns aos outros para evitar uma potencial fenda que poderia fazer com que um de vós caísse. O tremor termina e ficam todos sãos e salvos.{{amount}} A tua equipa ganha ** {emote:unitValues.{{emoteKey}}}**.",
+          "soloWithGuild": "Segues as instruções dadas pela tua guilda em caso de terramoto e decides abrigar-te debaixo de uma estrutura que, felizmente, não se desmoronou em cima de ti. Sãos e salvos, prometes agradecer ao teu clube assim que regressares da tua expedição.{{amount}} O teu grémio ganha ** {emote:unitValues.{{emoteKey}}}**.",
+          "solo": "Tenta aguentar-se apesar do tremor. Felizmente, não causou danos à sua volta, por isso continua a descansar um pouco, admirando o céu e os arredores.{{amount}} {emote:unitValues.xp}Recebeu ** **."
+        },
+        "escape": {
+          "withGuild": "Em pânico, o teu grupo tenta encontrar um local mais seguro para evitar que algum de vós sofra danos. Depois de vários minutos a andar em círculos porque pelo menos um dos membros pensa que um determinado local não é seguro, já não sentes o tremor. No entanto, tentam recuperar a confiança para o que está para vir enquanto percorrem a ilha...",
+          "solo": "Em pânico, tenta desviar-se dos danos potenciais do terramoto. Passados alguns instantes, deixa de sentir o tremor. Quando regressas ao local onde querias descansar, reparas nos estragos causados pelo terramoto. Ainda bem que não tinhas ficado ali..."
+        },
+        "lose": {
+          "withGuild": "Diz a si próprio que este terramoto será de curta duração e pede ao resto do grupo para o enfrentar. Mas que erro! Um pedregulho choca contra ti e deixa-te inconsciente.{{amount}} {emote:unitValues.energy}Perdeste ** **.",
+          "solo": "Dizendo a si próprio que os danos são mínimos, continua a descansar. No entanto, forma-se uma fenda por baixo do teu corpo. Com medo de cair, tenta correr o mais que pode, mas tropeça e corta o braço.{{amount}} {emote:unitValues.lostHealth}Perdes ** **."
+        }
+      },
+      {
+        "intro": "Tu (e os teus companheiros de guilda) estás a viver calmamente a tua aventura quando os teus instintos te dizem que estás em perigo. Gradualmente, uma névoa esbranquiçada, quase opaca, sobe do chão irregular e cai do céu para vos rodear. Em breve não consegues ver nada à tua volta.",
+        "success": {
+          "withGuild": "Mais vale ter vários pares de olhos do que um! Graças à cooperação das tuas visões, tu e os teus companheiros podem passar por entre rochas e fendas sem que ninguém se magoe ou se perca.{{amount}} A tua guilda recebe ** {emote:unitValues.{{emoteKey}}}**.",
+          "soloWithGuild": "Nesta situação urgente, manténs a calma e usas as técnicas de localização que aprendeste com o teu grupo para saíres desta confusão em segurança.{{amount}} A tua guilda recebe ** {emote:unitValues.{{emoteKey}}}**.",
+          "solo": "Nesta situação urgente, mantém a calma e utiliza as técnicas de localização que aprendeste anteriormente para saíres desta confusão em segurança.{{amount}} {emote:unitValues.xp}Recebes ** **."
+        },
+        "escape": {
+          "withGuild": "Completamente perdidos no nevoeiro denso e ameaçador, tu e os teus companheiros decidiram juntar-se para se protegerem do frio, esperando que o vento dispersasse a névoa.",
+          "solo": "Completamente paralisado pela angústia deste fenómeno quase sobrenatural, entra em pânico, o seu pulso acelera e, apesar da frescura, sente o suor da sua testa pálida escorrer um a um, até que a névoa se dispersa com o vento."
+        },
+        "lose": {
+          "withGuild": "O teu grupo não está completo, e tu e os teus companheiros de guilda entram em pânico perante esta provação. Cada um segue o seu caminho e tu não pedes mais tempo para voltar a correr.{{amount}} {emote:unitValues.lostMoney}Mas, na tua pressa, deixas cair ** **.",
+          "solo": "Completamente em pânico com o nevoeiro quase ameaçador, agarra nas pernas e corre em frente. Um grande erro, pois acabas por cair no chão, no meio do nevoeiro.{{amount}} {emote:unitValues.lostHealth}Perdes ** **."
+        }
+      },
+      {
+        "intro": "Está-se a avançar calmamente para novas aventuras quando uma pedrinha sorrateira, atrevida e pontiaguda decide fazer de si a sua vítima e corta-lhe cruelmente o tornozelo.",
+        "success": {
+          "withGuild": "Felizmente para ti, os teus companheiros de grupo vão tratar da tua ferida e pôr-te de pé num instante.{{amount}} A tua guilda recebe ** {emote:unitValues.{{emoteKey}}}**.",
+          "soloWithGuild": "Apesar da dor, consegues lembrar-te dos ensinamentos do teu grémio e usar esse conhecimento para te curares rapidamente.{{amount}} A tua guilda recebe ** {emote:unitValues.{{emoteKey}}}**.",
+          "solo": "Apesar das dores, consegue desinfetar e fazer um penso na ferida para poder voltar à estrada o mais rapidamente possível.{{amount}} {emote:unitValues.xp}Recebeu ** **."
+        },
+        "escape": {
+          "withGuild": "Não querendo atrasar-se, os seus companheiros de guilda decidem levá-lo ao colo para poderem tratá-lo quando chegar ao seu destino.",
+          "solo": "Apesar da dor, consegue continuar a coxear."
+        },
+        "lose": {
+          "withGuild": "Completamente impotentes perante esta ferida, os teus companheiros tratam-te o melhor que podem, mas a ferida infecta e a dor torna-se insuportável.{{amount}} {emote:unitValues.lostHealth}Perdes ** **.",
+          "solo": "Sozinho, contorcendo-se de dor no meio do caminho, amaldiçoa a pedra orgulhosa e suporta a dor terrível para continuar a sua aventura.{{amount}} {emote:unitValues.lostHealth}Perdeste ** **."
+        }
+      },
+      {
+        "intro": "Está a caminhar calmamente em direção ao seu destino quando grandes nuvens negras se formam sobre a região. Está escuro como breu.",
+        "success": {
+          "withGuild": "No entanto, os teus companheiros de grupo são clarividentes e um deles tira uma tocha do saco para te iluminar o caminho.{{amount}} A tua guilda recebe ** {emote:unitValues.{{emoteKey}}}**.",
+          "soloWithGuild": "Felizmente, tinhas uma lanterna no teu alforge, que um dos teus companheiros de guilda te deu quando partiste! Assim, podes ver facilmente o teu caminho e continuar a tua viagem.{{amount}} O teu grupo recebe ** {emote:unitValues.{{emoteKey}}}**.",
+          "solo": "Felizmente, tinha uma lanterna no bolso, preparada antes de partir! Assim, podes ver facilmente o teu caminho e continuar a tua viagem.{{amount}} {emote:unitValues.xp}Receberá ** **."
+        },
+        "escape": {
+          "withGuild": "Completamente cegos, tu e os teus companheiros tateiam o caminho através da escuridão total, ajudando-se mutuamente a evitar obstáculos, até que a estranha noite passa tão depressa como chegou.",
+          "solo": "Completamente cego, tateia o seu caminho através da escuridão total até que a estranha noite regressa tão rapidamente como veio."
+        },
+        "lose": {
+          "withGuild": "Completamente perdidos perante esta cegueira súbita, tu e os teus companheiros entram em pânico e correm em frente até que esta estranha noite volte tão depressa como veio.{{amount}} {emote:unitValues.lostMoney}Mas, na vossa pressa, perderam ** **.",
+          "solo": "Sozinho e completamente perdido face a esta cegueira súbita, começa a entrar em pânico e caminha em frente, sem reparar na pequena pedra sorrateira que o espreitava nessa altura.{{amount}} {emote:unitValues.lostHealth}Ao levantar-se do chão, perde ** **."
+        }
+      },
+      {
+        "intro": "Já andas há algum tempo por um caminho que parece não ter fim, quando de repente as forças te faltam e desmaias de cansaço.",
+        "success": {
+          "withGuild": "Ao verem o teu desconforto, os teus companheiros apressam-se a apoiar-te e a oferecer-te a energia de que precisas para te recompores e continuares a tua missão.{{amount}} A tua guilda recebe ** {emote:unitValues.{{emoteKey}}}**.",
+          "soloWithGuild": "Apesar do teu desconforto, usas o pouco de energia que te resta para tirar alguma comida do teu inventário, doada pela tua equipa, para recuperares as tuas forças e continuares a tua missão.{{amount}} A tua guilda recebe ** {emote:unitValues.{{emoteKey}}}**.",
+          "solo": "Apesar do seu desconforto, usa a pouca energia que lhe resta para tirar alguma comida pré-preparada do seu inventário para recuperar as suas forças e continuar a sua missão.{{amount}} {emote:unitValues.xp}Recebeu ** **."
+        },
+        "escape": {
+          "withGuild": "Felizmente, foi apenas um incómodo momentâneo e, encorajado pelos seus companheiros de guilda, voltou a partir com eles após alguns minutos de descanso.",
+          "solo": "Felizmente para si, foi apenas um desconforto momentâneo, e conseguiu voltar à estrada após alguns minutos de descanso."
+        },
+        "lose": {
+          "withGuild": "Perante este mal-estar súbito, os teus companheiros de guilda, sem saberem como te ajudar, decidem levar-te para a fase seguinte, mas o cansaço faz-se sentir e desmaias.{{amount}} {emote:unitValues.energy}Perdes ** **.",
+          "solo": "Completamente exausto, o céu começa a girar à sua volta. Tenta levantar-se de novo, mas está tão exausto que se sente como se estivesse num mar tempestuoso que desmaia no meio da estrada.{{amount}} {emote:unitValues.energy}Perdes ** **."
+        }
+      }
+    ]
+  },
+  "fightPet": {
+    "intro_male": [
+      "{{feralPet}} se depara com um !",
+      "{{feralPet}}encontra um .",
+      "{{feralPet}} se encontrar um que parece não o querer deixar passar.",
+      "{{feralPet}} de repente, solta um guincho aterrorizado: um está mesmo à sua frente!",
+      "{{feralPet}}não suporta a visão de um .",
+      "vê-se uma nuvem de poeira no horizonte que se aproxima perigosamente... {{feralPet}} É !",
+      "repara num mecanismo misterioso... Curioso, decide activá-lo. {{feralPet}} No entanto, não demora muito a arrepender-se da sua decisão, quando aparece um monstro do nada!",
+      "ouve-se um estrondo atrás de si. {{feralPet}} Vira-se para ver que está a olhar para si."
+    ],
+    "intro_female": [
+      "{{feralPet}} se depara com um !",
+      "{{feralPet}}encontra um .",
+      "{{feralPet}} se encontrar um que parece não o querer deixar passar.",
+      "{{feralPet}} de repente, solta um guincho aterrorizado: um está mesmo à sua frente!",
+      "{{feralPet}}não suporta a visão de um .",
+      "vê-se uma nuvem de poeira no horizonte que se aproxima perigosamente... {{feralPet}} É um !",
+      "repara num mecanismo misterioso... Curioso, decide activá-lo. {{feralPet}} No entanto, não demora muito a arrepender-se da sua decisão, quando aparece um monstro do nada!",
+      "ouve-se um estrondo atrás de si. {{feralPet}} Vira-se para ver que está a olhar para si."
+    ],
+    "situation": [
+      "A fera parece impossível de acalmar... Tenta acalmar-se e pensar num plano de ação para se livrar deste animal.",
+      "Absolutamente aterrorizado, começa a pensar nas suas várias opções para se livrar desta fera.",
+      "É impossível não reagir; é preciso tomar uma decisão para salvar a vida...",
+      "Distraído pelos dois olhos vermelhos do animal que o olham fixamente, tenta concentrar-se num plano de ação.",
+      "O hálito pestilento do animal faz-te girar a cabeça. Tentas concentrar-te...",
+      "Está a pensar se deve fugir, mas acha que pode ser capaz de se safar se pensar num plano de ação.",
+      "Aperta com força o punho da sua espada e, um pouco mais tranquilo, pensa no que fazer.",
+      "Petrificado de medo, observa o animal a avançar na sua direção, tentando forçar o seu cérebro tetanizado a encontrar uma solução.",
+      "Está desesperado para encontrar uma solução que o mantenha vivo."
+    ],
+    "rageUpDescriptions": [
+      "Feliz por ter escapado, sente a sua raiva aumentar contra as criaturas possuídas desta ilha.",
+      "Com a tua vitória, estás cheio de raiva contra as criaturas maléficas desta ilha.",
+      "Sentes-te mais forte do que nunca e a tua raiva contra as criaturas maléficas desta ilha está a aumentar.",
+      "Orgulhoso de si próprio, sente crescer a sua raiva contra as criaturas maléficas desta ilha.",
+      "Serás imparável! A tua fúria contra as criaturas maléficas só se fortalece com este evento."
+    ],
+    "rageUpFormat": " {{rageUpDescription}} {emote:unitValues.rage} **Raiva ++**",
+    "customPetDisplay_male": "{{petId}}{emote:pets. .emoteMale}{{petName}} {{adjective}}** **",
+    "customPetDisplay_female": "{{petId}}{emote:pets. .emoteFemale}{{petName}} {{adjective}}** **",
+    "adjectives_male": [
+      "fachada",
+      "faminto",
+      "enfurecido",
+      "furioso",
+      "maroto",
+      "zangado",
+      "agressivo",
+      "violento",
+      "hostil",
+      "irritado",
+      "zangado",
+      "furax",
+      "selvagem",
+      "maligno",
+      "brutal",
+      "ameaçador",
+      "bárbaro",
+      "atroz",
+      "feroz",
+      "implacável",
+      "lutador",
+      "não contente",
+      "maligno",
+      "corrupto",
+      "concha",
+      "louco",
+      "triturador",
+      "amaldiçoado",
+      "Maquiavélico",
+      "malicioso",
+      "feroz"
+    ],
+    "adjectives_female": [
+      "defeituoso",
+      "faminto",
+      "enfurecido",
+      "furioso",
+      "maroto",
+      "zangado",
+      "agressivo",
+      "violento",
+      "hostil",
+      "irritado",
+      "zangado",
+      "furax",
+      "selvagem",
+      "maligno",
+      "brutal",
+      "ameaçador",
+      "bárbaro",
+      "atroz",
+      "feroz",
+      "implacável",
+      "lutador",
+      "não contente",
+      "maligno",
+      "corrupto",
+      "concha",
+      "louco",
+      "destrutivo",
+      "amaldiçoado",
+      "Maquiavélico",
+      "malicioso",
+      "feroz"
+    ],
+    "fightPetActions": {
+      "fistHit": {
+        "name": "Soco",
+        "success": "Atingiste o animal com um grande murro! O animal recua de surpresa. Aproveitas a oportunidade para fugir!",
+        "failure": "Atingiste o animal com um murro fraco! Ele recua de surpresa, mas não é suficiente para se livrar dele. Sofre um ataque feroz antes de conseguir fugir!"
+      },
+      "runAway": {
+        "name": "Fuga",
+        "success": "Não pensas nem um segundo e pões-te imediatamente a correr! O animal persegue-te, mas tu consegues fugir.",
+        "failure": "Tentas fugir, mas és rapidamente apanhado pela fera, que te dá um forte golpe antes de te deixar em paz."
+      },
+      "focusEnergy": {
+        "name": "Concentra a tua energia e ataca",
+        "success": "Abrandas a tua respiração e sentes a energia a fluir nos teus braços! Libertas essa energia num golpe brutal que põe o animal em fuga!",
+        "failure": "Tentas concentrar-te, mas estás demasiado cansado para o fazer! Balança-se no chão, mas isso acalma a fera, que se vai embora."
+      },
+      "intimidate": {
+        "name": "Intimidar a criatura",
+        "success": "Demonstra a sua força perante o animal, que recua rapidamente e foge a toda a velocidade em direção ao horizonte!",
+        "failure": "Arqueia o tronco em frente do animal, o que só o deixa mais furioso. Na sua raiva, ele falha o ataque e tu aproveitas para sair rapidamente do caminho!"
+      },
+      "baitWithMeat": {
+        "name": "Distrair a besta com carne",
+        "success": "Tira um pedaço de carne do seu saco e atira-o ao animal, que o abocanha com avidez. Aproveita a oportunidade para fugir.",
+        "failure": "Tentas desajeitadamente atirar um pedaço de carne à fera para a distrair. No entanto, antes que possas iniciar a tua manobra, o animal aproxima-se de ti e dá-te um golpe violento antes de te deixar em paz."
+      },
+      "baitWithVegetables": {
+        "name": "Distrair a fera com um vegetal",
+        "success": "Tiras um legume do teu saco e atira-lo ao animal, que o cheira com interesse. Isto dá-te tempo suficiente para fugires.",
+        "failure": "Tiras um legume do teu saco e atira-lo ao animal, que o cheira com nojo. Ainda mais furioso do que antes, o animal surpreende-te com um ataque relâmpago! Não há nada que possas fazer para fugir e sofres toda a força do seu violento ataque."
+      },
+      "provoke": {
+        "name": "Provocar a fera",
+        "success": "Aproximas-te do animal e provocas-o fazendo-lhe caretas. Ele atira-se a ti! Afasta-se no último momento e ele embate contra uma árvore. Acabas com ele com um pontapé e segues o teu caminho.",
+        "failure": "Aproximas-te do animal e provocas-o fazendo-lhe caretas. Ele rosna e dá-te um golpe forte antes de te deixar em paz."
+      },
+      "doNothing": {
+        "name": "Não fazer nada",
+        "success": "Não se mexe nem um centímetro e o animal parece ignorá-lo. Aproveita a oportunidade para se afastar, feliz por ter tido tanta sorte.",
+        "failure": "Não se mexe nem um centímetro, mas o animal não se deixa enganar e dá-lhe um golpe violento antes de o deixar em paz. Parte de novo, envergonhado por ter pensado que esta estratégia iria funcionar."
+      },
+      "lastEffort": {
+        "name": "Usa toda a tua força para atacar",
+        "success": "Concentra-te e reúne todas as tuas forças para atacar o animal. Atinge-o com um golpe violento que o faz fugir!",
+        "failure": "Concentra-te e reúne todas as tuas forças para atacar o animal. Atinge-o com um golpe forte, mas não é suficiente para o fazer fugir. Sofre um ataque feroz antes de conseguir fugir!"
+      },
+      "usePlayerPet": {
+        "name": "Chamar o seu animal de estimação",
+        "success": "Depois de tantas aventuras juntos, é finalmente altura de chamar o teu fiel companheiro para uma batalha épica. Mas não vai ser assim, pois o animal selvagem, surpreendido pela chegada do teu animal de estimação, foge sem pensar duas vezes!",
+        "failure": "Num instante, e antes que possas chamar qualquer outro animal para o campo de batalha, dás por ti no chão, desmaiado pela fera que te deixa em paz, sem sequer te olhar."
+      },
+      "protect": {
+        "name": "Proteger-se",
+        "success": "Levantas o teu escudo bem alto à tua frente, pronto para receber o golpe da besta. Ele avança em direção a ti, mas tu manténs os pés no chão o melhor que podes e acabas por repelir o ataque. O animal foge depois de sofrer este revés.",
+        "failure": "Colocas o teu escudo à tua frente, pronto para aguentar o golpe da besta, mas o ataque é brutal. A tua defesa falha e cais alguns metros. Convencido de que foste posto fora de combate, o animal foge para longe."
+      },
+      "playDead": {
+        "name": "Fingir de morto",
+        "success": "Enquanto o animal olha para ti, finges cair no chão e não te mexes. Depois de te ver inerte no chão durante algum tempo, o animal afasta-se e deixa-te em paz.",
+        "failure": "Enquanto o animal olha para ti, finges cair no chão e não te mexes. Ele aproxima-se e cheira-te, percebendo que estás apenas a fingir. Desconcertas a criatura levantando-te rapidamente e fugindo, antes de acabares morto de verdade."
+      },
+      "scream": {
+        "name": "Gritar",
+        "success": "Solta um grito agudo que afugenta o animal. Continua o seu caminho, aliviado por ter escapado ileso.",
+        "failure": "Solta um grito agudo que faz o animal fugir. No entanto, ele volta a atacar-te com um golpe violento antes de te deixar em paz."
+      },
+      "prayGod": {
+        "name": "Rezar a Deus",
+        "success": "Rezas a Deus para te ajudar. Ele ouve-te e protege-te do ataque do animal. Voltas a partir, aliviado por teres escapado ileso.",
+        "failure": "Rezas a Deus para que te ajude. O animal avança contra ti e as tuas mãos fechadas não te protegem do ataque. Voltas a partir, envergonhado por teres pensado que esta estratégia ia funcionar."
+      },
+      "attackLeft": {
+        "name": "Ataque pela esquerda",
+        "success": "Atinge o lado esquerdo do animal e bate-lhe com força. Chocado com a dor, o animal foge e deixa-o em paz.",
+        "failure": "Atinge o lado esquerdo do animal e tenta desferir um golpe. No entanto, falha e fica ao alcance do animal, que contra-ataca violentamente antes de fugir, deixando-o estendido no chão."
+      },
+      "attackRight": {
+        "name": "Ataque pela direita",
+        "success": "Atinge o lado direito do animal e bate-lhe com força. Chocado com a dor, o animal foge e deixa-o em paz.",
+        "failure": "Atira-se para a direita do animal e tenta desferir um golpe. No entanto, falha e fica ao alcance do animal, que contra-ataca violentamente antes de fugir, deixando-o estendido no chão."
+      },
+      "helpFromMates": {
+        "name": "Convide os membros da sua associação",
+        "success": "Chama os seus companheiros de equipa, que chegam rapidamente ao local. O animal, surpreendido com a chegada destes reforços, foge sem pensar duas vezes!",
+        "failure": "Chamas pelos teus companheiros de equipa, mas eles estão demasiado longe para te ouvirem. O animal veloz deixa-te inconsciente antes de fugir para longe."
+      }
+    }
   }
 }
