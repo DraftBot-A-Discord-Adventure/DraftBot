@@ -43,7 +43,7 @@ const sendNotificationTestCommand: ExecuteTestCommandLike = (player, args) => {
 				alteration: {healAmount: 666},
 				guildXp: 666,
 				commonFood: 666,
-				pet: {typeId: 1, sex: "f"},
+				pet: {typeId: 1, isFemale: false},
 				advanceTime: 666
 			})
 		})]);

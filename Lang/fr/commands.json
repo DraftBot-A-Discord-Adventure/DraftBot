@@ -660,7 +660,8 @@
       "alterationHeal": "{emote:shopItems.healAlteration} | Les altérations d'état des membres de la guilde ont été supprimées. Les membres en bonne santé ont été partiellement soignés. `+ {{healthWon}} {emote:unitValues.health}`",
       "alterationNoHeal": "{emote:shopItems.healAlteration} | Les altérations d'état des membres de la guilde ont été supprimées.",
       "petFood": "{emote:foods.commonFood} {{quantity}} friandises ont été rajoutées à l'inventaire de votre guilde.",
-      "pet": "{{emote}} | Un familier a rejoint le refuge de la guilde: **{{pet}}**"
+      "pet_male": "{emote:pets.{{petId}}.emoteMale} | Un familier a rejoint le refuge de la guilde: **{{pet}}**",
+      "pet_female": "{emote:pets.{{petId}}.emoteFemale} | Un familier a rejoint le refuge de la guilde: **{{pet}}**"
     }
   }
 }

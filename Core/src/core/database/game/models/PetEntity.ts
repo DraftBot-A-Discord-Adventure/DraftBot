@@ -120,6 +120,14 @@ export class PetEntity extends Model {
 
 		return returnValue;
 	}
+
+	public isFemale(): boolean {
+		return this.sex === PetConstants.SEX.FEMALE;
+	}
+
+	public isMale(): boolean {
+		return this.sex === PetConstants.SEX.MALE;
+	}
 }
 
 export class PetEntities {
