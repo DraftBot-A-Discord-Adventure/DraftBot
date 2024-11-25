@@ -642,5 +642,26 @@
     "empty": "Al momento non c'è più nulla da comprare. La tua gilda è al livello massimo e le sue scorte di cibo sono piene.",
     "giveXpTitle": "Acquisto riuscito",
     "giveXp": "{emote:unitValues.xp}{{xp}}La tua gilda ha ricevuto ** ** punti esperienza."
+  },
+  "guildDaily": {
+    "rewardTitle": "{{guildName}} Ricompensa della gilda :",
+    "coolDown": "{{coolDownTime}} La ricompensa della gilda è disponibile solo una volta ogni ora. L'aggiunta di un nuovo membro alla gilda azzera il contatore. {{time}}Prossima ricompensa .",
+    "pveIslandError": "La ricompensa della gilda non può essere ottenuta perché uno dei membri si trova attualmente su un'isola misteriosa!",
+    "rewards": {
+      "personalXP": "{emote:unitValues.xp} {{quantity}} {emote:unitValues.xp}| I membri della Gilda hanno acquisito esperienza `+ `.",
+      "guildXP": "{emote:unitValues.xp} {{quantity}} {emote:unitValues.xp}| La gilda ha acquisito esperienza `+ `",
+      "money": "{emote:unitValues.money}{{quantity}} {emote:unitValues.money}| I membri della Gilda hanno ricevuto ` `.",
+      "item": "{emote:rewards:item} | I membri della Gilda hanno ricevuto un oggetto a caso.",
+      "badge": "{emote:badges.guildBadge} | I membri della Gilda hanno ricevuto un distintivo.",
+      "superBadge": "{emote:badges.superGuildBadge} | I membri della Gilda hanno ricevuto un distintivo.",
+      "fullHeal": "{emote:shopItems.regen} | I membri della gilda sono completamente guariti.",
+      "advanceTime": "{emote:unitValues.time} {{quantity}}| h.",
+      "partialHeal": "{emote:rewards.partialHeal} {{quantity}} {emote:unitValues.health}| I membri della gilda sono stati parzialmente guariti. `+ `",
+      "alterationHeal": "{emote:shopItems.healAlteration} | Le modifiche allo stato dei membri della gilda sono state rimosse. {{quantity}} {emote:unitValues.health}I membri sani sono stati parzialmente guariti. `+ `",
+      "alterationNoHeal": "{emote:shopItems.healAlteration} | Le modifiche allo stato dei membri della gilda sono state rimosse.",
+      "petFood": "{emote:foods.commonFood} {{quantity}} sono stati aggiunti all'inventario della gilda.",
+      "pet_male": "{{petId}}{emote:pets. .emoteMale} | Un animale domestico si è unito al rifugio della gilda:{{pet}}** **",
+      "pet_female": "{{petId}}{emote:pets. .emoteFemale} | Un animale domestico si è unito al rifugio della gilda:{{pet}}** **"
+    }
   }
 }
