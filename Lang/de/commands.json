@@ -642,5 +642,26 @@
     "empty": "Es gibt im Moment nichts mehr zu kaufen. Ihre Gilde hat die höchste Stufe erreicht und das Nahrungslager ist voll.",
     "giveXpTitle": "Erfolg des Kaufs",
     "giveXp": "{emote:unitValues.xp} Ihre Gilde hat **{{xp}}** Erfahrungspunkte erhalten."
+  },
+  "guildDaily": {
+    "rewardTitle": "Gildenbelohnung {{guildName}} :",
+    "coolDown": "Die Gildenbelohnung ist nur einmal alle {{coolDownTime}} Stunden verfügbar. Wenn ein neues Mitglied zur Gilde hinzugefügt wird, wird der Zähler zurückgesetzt. Nächste Belohnung {{time}}.",
+    "pveIslandError": "Die Gildenbelohnung kann nicht erlangt werden, da sich ein Mitglied derzeit auf einer mysteriösen Insel befindet!",
+    "rewards": {
+      "personalXP": "{emote:unitValues.xp} | Die Mitglieder der Gilde haben Erfahrung erhalten. `+ {{quantity}} {emote:unitValues.xp}`.",
+      "guildXP": "{emote:unitValues.xp} | Die Gilde hat Erfahrung erhalten. `+ {{quantity}} {emote:unitValues.xp}`",
+      "money": "{emote:unitValues.money} | Die Mitglieder der Gilde haben `{{quantity}} {emote:unitValues.money}` erhalten.",
+      "item": "{emote:rewards:item} | Die Mitglieder der Gilde haben einen zufälligen Gegenstand erhalten.",
+      "badge": "{emote:badges.guildBadge} | Die Mitglieder der Gilde haben ein Abzeichen erhalten.",
+      "superBadge": "{emote:badges.superGuildBadge} | Die Mitglieder der Gilde haben ein Abzeichen erhalten.",
+      "fullHeal": "{emote:shopItems.regen} | Die Mitglieder der Gilde wurden vollständig geheilt.",
+      "advanceTime": "{emote:unitValues.time} | Die Mitglieder der Gilde sind um {{quantity}}h vorgerückt.",
+      "partialHeal": "{emote:rewards.partialHeal} | Die Mitglieder der Gilde wurden teilweise geheilt. `+ {{quantity}} {emote:unitValues.health}`",
+      "alterationHeal": "{emote:shopItems.healAlteration} | Die Zustandsveränderungen von Gildenmitgliedern wurden entfernt. Gesunde Mitglieder wurden teilweise geheilt. `+ {{quantity}} {emote:unitValues.health}`",
+      "alterationNoHeal": "{emote:shopItems.healAlteration} | Die Statusveränderungen von Gildenmitgliedern wurden entfernt.",
+      "petFood": "{emote:foods.commonFood} {{quantity}} Süßigkeiten wurden dem Inventar Ihrer Gilde hinzugefügt.",
+      "pet_male": "{emote:pets.{{petId}}.emoteMale} | Ein Vertrauter hat sich der Gildenhütte angeschlossen: **{{pet}}**",
+      "pet_female": "{emote:pets.{{petId}}.emoteFemale} | Ein Vertrauter hat sich der Gildenhütte angeschlossen: **{{pet}}**"
+    }
   }
 }
