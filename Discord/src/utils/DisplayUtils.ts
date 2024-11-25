@@ -1,7 +1,7 @@
 import {ItemCategory, ItemNature} from "../../../Lib/src/constants/ItemConstants";
 import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
 import i18n from "../translations/i18n";
-import {Language} from "../../../Lib/src/Language";
+import {LANGUAGE, Language} from "../../../Lib/src/Language";
 import {ItemWithDetails} from "../../../Lib/src/interfaces/ItemWithDetails";
 import {minutesDisplay} from "../../../Lib/src/utils/TimeUtils";
 import {Item} from "../../../Lib/src/interfaces/Item";
@@ -63,6 +63,30 @@ export class DisplayUtils {
 		default:
 			return "Missing no";
 		}
+	}
+
+	static getMapLocationDisplay(mapType: string, mapLocationId: number, lng: Language): string {
+		return i18n.t("{emote:map_types{{mapType}}} $t(models:map_locations.{{mapLocationId}}.name)", {
+			lng,
+			mapLocationId,
+			mapType
+		});
+	}
+
+	static getPetIcon(petId: number, isFemale: boolean): string {
+		return i18n.t(`{emote:pets.{{petId}}.emote${isFemale ? "Female" : "Male"}}`, {
+			lng: LANGUAGE.DEFAULT_LANGUAGE,
+			petId
+		});
+	}
+
+	static getPetDisplay(petId: number, isFemale: boolean, lng: Language): string {
+		const context = isFemale ? PetConstants.SEX.FEMALE_FULL : PetConstants.SEX.MALE_FULL;
+		return i18n.t(`{emote:pets.{{petId}}.emote${context[0].toUpperCase() + context.slice(1)}} $t(models:pets.{{petId}})`, {
+			lng,
+			context,
+			petId
+		});
 	}
 
 	private static getStringValueFor(values: string[], maxValue: number | null, value: number, typeValue: "attack" | "defense" | "speed", lng: Language): void {
@@ -155,19 +179,5 @@ export class DisplayUtils {
 			interpolation: {escapeValue: false}
 		});
 		return itemWithDetails.id === 0 ? itemField.split("|")[0] : itemField;
-	}
-
-	static getMapLocationDisplay(mapType: string, mapLocationId: number, lng: Language): string {
-		return `${DraftBotIcons.map_types[mapType]} ${i18n.t(`models:map_locations.${mapLocationId}.name`, {lng})}`;
-	}
-
-	static getPetIcon(petId: number, isFemale: boolean): string {
-		return DraftBotIcons.pets[petId][isFemale ? "emoteFemale" : "emoteMale"];
-	}
-
-	static getPetDisplay(petId: number, isFemale: boolean, lng: Language): string {
-		return DisplayUtils.getPetIcon(petId, isFemale)
-			+ " "
-			+ i18n.t(`models:pets.${petId}`, {lng, context: isFemale ? PetConstants.SEX.FEMALE_FULL : PetConstants.SEX.MALE_FULL});
 	}
 }
