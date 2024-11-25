@@ -1,7 +1,7 @@
-import {PacketDirection, sendablePacket} from "../DraftBotPacket";
+import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
 
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
-export class CommandGuildKickPacketReq {
+export class CommandGuildKickPacketReq extends DraftBotPacket {
 	keycloakId!: string;
 
 	askedPlayer!: {
@@ -11,7 +11,7 @@ export class CommandGuildKickPacketReq {
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
-export class CommandGuildKickPacketRes {
+export class CommandGuildKickPacketRes extends DraftBotPacket {
 	foundPlayer!: boolean;
 
 	sameGuild!: boolean;
@@ -20,12 +20,12 @@ export class CommandGuildKickPacketRes {
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
-export class CommandGuildKickRefusePacketRes {
-
+export class CommandGuildKickRefusePacketRes extends DraftBotPacket {
+	kickedKeycloakId!: string;
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
-export class CommandGuildKickAcceptPacketRes {
+export class CommandGuildKickAcceptPacketRes extends DraftBotPacket {
 	kickedKeycloakId!: string;
 
 	guildName!: string;

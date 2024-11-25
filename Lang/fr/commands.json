@@ -662,6 +662,16 @@
       "petFood": "{emote:foods.commonFood} {{quantity}} friandises ont été rajoutées à l'inventaire de votre guilde.",
       "pet_male": "{emote:pets.{{petId}}.emoteMale} | Un familier a rejoint le refuge de la guilde: **{{pet}}**",
       "pet_female": "{emote:pets.{{petId}}.emoteFemale} | Un familier a rejoint le refuge de la guilde: **{{pet}}**"
+    },
+    "guildKick": {
+      "title": "Expulsion de la guilde",
+      "confirmDesc": "{emote:guildKick.question} Are you sure you want to kick {{kickedPseudo}} from the guild `{{guildName}}`?",
+      "acceptedDesc": "{{kickedPseudo}} has been kicked from the guild!",
+      "canceledTitle": "Expulsion annulée",
+      "canceledDesc": "{{kickedPseudo}} was not kicked from the guild!",
+      "noPlayer": "Le joueur n'est pas dans la guilde.",
+      "notSameGuild": "Vous ne pouvez pas expulser un joueur qui n'est pas dans votre guilde.",
+      "himself": "Vous ne pouvez pas vous expulser vous-même de la guilde."
     }
   }
 }
