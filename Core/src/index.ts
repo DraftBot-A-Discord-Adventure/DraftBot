@@ -9,18 +9,22 @@ import { connect } from "mqtt";
 import {PacketUtils} from "./core/utils/PacketUtils";
 import {MqttConstants} from "../../Lib/src/constants/MqttConstants";
 import {RightGroup} from "../../Lib/src/enums/RightGroup";
+import * as process from "node:process";
 
 export const botConfig = loadConfig();
 export let draftBotInstance: DraftBot = null;
 
 console.log("Running DraftBot 5.0.0");
 
-export const mqttClient = connect(botConfig.MQTT_HOST);
+export const mqttClient = connect(botConfig.MQTT_HOST, {
+	connectTimeout: 10 * 1000
+});
 
 mqttClient.on("connect", () => {
 	mqttClient.subscribe(MqttConstants.CORE_TOPIC, (err) => {
 		if (err) {
 			console.error(err);
+			process.exit(1);
 		}
 		else {
 			console.log("Connected to MQTT");
@@ -56,6 +60,10 @@ mqttClient.on("message", async (topic, message) => {
 	}
 
 	PacketUtils.sendPackets(dataJson.context, response);
+});
+
+mqttClient.on("error", (error) => {
+	console.error(error);
 });
 
 require("source-map-support").install();

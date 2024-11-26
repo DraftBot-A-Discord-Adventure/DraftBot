@@ -12,6 +12,7 @@ import {LANGUAGE} from "../../../Lib/src/Language";
 import {TextChannel} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import i18n from "../translations/i18n";
+import * as process from "node:process";
 
 export class DiscordMQTT {
 	static mqttClient: MqttClient;
@@ -101,8 +102,21 @@ export class DiscordMQTT {
 		});
 	}
 
+	private static subscribeTo(mqttClient: MqttClient, topic: string): void {
+		mqttClient.subscribe(topic, err => {
+			if (err) {
+				console.error(err);
+				process.exit(1);
+			}
+			else {
+				console.log(`Subscribed to topic ${topic}`);
+			}
+		});
+	}
+
 	private static connectSubscribeAndHandleNotifications(): void {
 		DiscordMQTT.notificationMqttClient = connect(discordConfig.MQTT_HOST, {
+			connectTimeout: 10 * 1000,
 			clientId: MqttConstants.NOTIFICATIONS_CONSUMER,
 			clean: false // Keeps session active even if the client goes offline
 		});
@@ -110,9 +124,7 @@ export class DiscordMQTT {
 		DiscordMQTT.notificationMqttClient.on("connect", () => {
 			DiscordMQTT.notificationMqttClient.publish(MqttConstants.NOTIFICATIONS, "", {retain: true}); // Clear the last notification to avoid processing it twice
 
-			// eslint-disable-next-line no-confusing-arrow
-			DiscordMQTT.notificationMqttClient.subscribe(MqttConstants.NOTIFICATIONS, {qos: 2}, err =>
-				err ? console.error(err) : console.log(`Subscribed to topic ${MqttConstants.NOTIFICATIONS}`));
+			DiscordMQTT.subscribeTo(DiscordMQTT.notificationMqttClient, MqttConstants.NOTIFICATIONS);
 		});
 
 		DiscordMQTT.notificationMqttClient.on("message", (topic, message) => {
@@ -131,18 +143,14 @@ export class DiscordMQTT {
 	}
 
 	private static connectAndSubscribeGlobal(): void {
-		DiscordMQTT.mqttClient = connect(discordConfig.MQTT_HOST);
+		DiscordMQTT.mqttClient = connect(discordConfig.MQTT_HOST, {
+			connectTimeout: 10 * 1000
+		});
 
 		DiscordMQTT.mqttClient.on("connect", () => {
-			// eslint-disable-next-line no-confusing-arrow
-			DiscordMQTT.mqttClient.subscribe(MqttConstants.DISCORD_TOPIC, err =>
-				err ? console.error(err) : console.log(`Subscribed to topic ${MqttConstants.DISCORD_TOPIC}`));
-			// eslint-disable-next-line no-confusing-arrow
-			DiscordMQTT.mqttClient.subscribe(MqttConstants.DISCORD_TOP_WEEK_ANNOUNCEMENT_TOPIC, err =>
-				err ? console.error(err) : console.log(`Subscribed to topic ${MqttConstants.DISCORD_TOP_WEEK_ANNOUNCEMENT_TOPIC}`));
-			// eslint-disable-next-line no-confusing-arrow
-			DiscordMQTT.mqttClient.subscribe(MqttConstants.DISCORD_TOP_WEEK_FIGHT_ANNOUNCEMENT_TOPIC, err =>
-				err ? console.error(err) : console.log(`Subscribed to topic ${MqttConstants.DISCORD_TOP_WEEK_FIGHT_ANNOUNCEMENT_TOPIC}`));
+			DiscordMQTT.subscribeTo(DiscordMQTT.mqttClient, MqttConstants.DISCORD_TOPIC);
+			DiscordMQTT.subscribeTo(DiscordMQTT.mqttClient, MqttConstants.DISCORD_TOP_WEEK_ANNOUNCEMENT_TOPIC);
+			DiscordMQTT.subscribeTo(DiscordMQTT.mqttClient, MqttConstants.DISCORD_TOP_WEEK_FIGHT_ANNOUNCEMENT_TOPIC);
 		});
 	}
 }
