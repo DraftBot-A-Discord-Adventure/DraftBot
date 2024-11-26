@@ -352,7 +352,7 @@
       "ein Vogel nähert sich Ihnen und legt eine winzige Nachricht in Ihre Hand...",
       "du entdeckst eine alte, verlassene Holzhütte, beschließt, sie zu erforschen und findest nur ein altes Grimoire, das hier schon seit Jahren herumzuliegen scheint..."
     ],
-    "reward": "{{moneyEmote}} Silber: **{{money}}**\n:star: XP: **{{xp}}**\n:medal: Punkte: **Die Anzahl der Punkte hängt von deiner endgültigen Platzierung ab.**\n:gift: Eine zufällige Ausrüstung.",
+    "reward": "{{moneyEmote}} Silber: **{{money}}**\n{emote:unitValues.xp} XP: **{{xp}}**\n:medal: Punkte: **Die Anzahl der Punkte hängt von deiner endgültigen Platzierung ab.**\n:gift: Eine zufällige Ausrüstung.",
     "endMessage": "\n\n:newspaper: \"An den Abenteurer, der zu {{league}} gehört und diesen Text findet: **Wenn du deinen Ruhm bis zum Ende der Saison** aufrechterhältst, kannst du diese Belohnungen gewinnen:\n\n{{rewards}}\"\n\nDu setzt deinen Weg fort und freust dich, dass du deinen Bonus abholen kannst {{time}}.",
     "notEnoughFight": "\n\n:newspaper: \"An den Abenteurer, der zu {{league}} gehört und diesen Text findet: **Wenn du einige Kämpfe mit dem Befehl {command:fight}** durchführst, kannst du diese Belohnungen gewinnen:\n\n{{rewards}}\"\n\nDu machst dich schnell wieder auf den Weg, da du befürchtest, dass du es nicht schaffen wirst, vor Ende der Saison gegen genügend Spieler zu kämpfen {{time}}.",
     "rewardToday": "\n\n:newspaper: \"**Liga-Belohnungen sind verfügbar!** Holen Sie sich Ihre Belohnung mit dem Befehl {command:leaguebonus} noch vor Ende der Woche!\"\n\nSie setzen Ihre Reise fort und freuen sich darauf, Ihren Bonus abzuholen."
@@ -366,17 +366,17 @@
       "**{{guild}}** wird im Laufe der Zeit immer bekannter und hat eine stetig wachsende Popularität! Wir wünschen dir, dass du so weitermachst und deshalb bieten wir dir diesen xp-Gewinn an!",
       "Als Sie ein Gasthaus betreten, erkennt der Wirt das Emblem auf Ihrem Schild, das Symbol der Gilde **{{guild}}**. Er beschließt, Ihnen zu Ehren eine Runde auszugeben, was bei den anderen Gästen gut ankommt."
     ],
-    "end": " Ihre Gilde gewinnt **{{xp}}** :star:."
+    "end": " Ihre Gilde gewinnt **{{xp}}** {emote:unitValues.xp}."
   },
   "winEnergy": {
     "stories": [
-      "treffen Sie auf eine junge Frau, die sich als Hilda, die Heilerin, vorstellt. Nach einem kurzen Gespräch erklären Sie sich damit einverstanden, dass sie ihre neueste Medizin an Ihnen ausprobiert. **Sie erhalten Ihre gesamte Energie zurück** :zap:",
-      "treffen Sie auf eine junge Frau, die Ihnen anbietet, Sie zu heilen. Sie nehmen an und erhalten ein köstliches Getränk. **Sie erhalten Ihre gesamte Energie zurück** :zap:",
-      "Sie stoßen auf eine junge Frau, die von einer Ziege begleitet wird. Sie bietet Ihnen ein Wundermittel an. Sie sind neugierig und nehmen das Angebot an. Entgegen aller Erwartungen fühlen Sie sich sofort besser. **Sie gewinnen all Ihre Energie zurück** :zap:",
-      "treffen Sie eine junge Frau, die Ihnen anbietet, Sie zu behandeln. Sie nehmen an und fühlen sich sofort besser. **Sie gewinnen Ihre gesamte Energie zurück** :zap:",
-      "treffen Sie auf eine ganz in weiß gekleidete Frau, die Ihnen anbietet, Sie zu behandeln. Sie nehmen die Behandlung der Heilerin an. **Sie erhalten Ihre gesamte Energie zurück** :zap:",
-      "lernen Sie eine Frau kennen, die sich selbst als Heilerin bezeichnet. Nach einigen Gesprächen erfahren Sie, dass diese auf dem Weg zu den Weiden ist und auf dem Weg Heilungsdienste anbietet. Sie nehmen ein geheimnisvolles Heilmittel an. **Sie erhalten Ihre gesamte Energie zurück** :zap:",
-      "treffen Sie auf eine junge Frau, die Ihnen anbietet, Sie zu behandeln. Sie nehmen an und fühlen sich sofort besser. **Sie erhalten Ihre gesamte Energie zurück** :zap:"
+      "treffen Sie auf eine junge Frau, die sich als Hilda, die Heilerin, vorstellt. Nach einem kurzen Gespräch erklären Sie sich damit einverstanden, dass sie ihre neueste Medizin an Ihnen ausprobiert. **Sie erhalten Ihre gesamte Energie zurück** {emote:unitValues.energy}",
+      "treffen Sie auf eine junge Frau, die Ihnen anbietet, Sie zu heilen. Sie nehmen an und erhalten ein köstliches Getränk. **Sie erhalten Ihre gesamte Energie zurück** {emote:unitValues.energy}",
+      "Sie stoßen auf eine junge Frau, die von einer Ziege begleitet wird. Sie bietet Ihnen ein Wundermittel an. Sie sind neugierig und nehmen das Angebot an. Entgegen aller Erwartungen fühlen Sie sich sofort besser. **Sie gewinnen all Ihre Energie zurück** {emote:unitValues.energy}",
+      "treffen Sie eine junge Frau, die Ihnen anbietet, Sie zu behandeln. Sie nehmen an und fühlen sich sofort besser. **Sie erhalten Ihre gesamte Energie zurück** {emote:unitValues.energy}",
+      "treffen Sie auf eine ganz in Weiß gekleidete Frau, die Ihnen anbietet, Sie zu behandeln. Sie nehmen die Behandlung der Heilerin an. **Sie erhalten Ihre gesamte Energie zurück** {emote:unitValues.energy}",
+      "lernen Sie eine Frau kennen, die sich selbst als Heilerin bezeichnet. Nach einigen Gesprächen erfahren Sie, dass diese auf dem Weg zu den Weiden ist und auf dem Weg Heilungsdienste anbietet. Sie nehmen ein geheimnisvolles Heilmittel an. **Sie erhalten Ihre gesamte Energie zurück** {emote:unitValues.energy}",
+      "treffen Sie auf eine junge Frau, die Ihnen anbietet, Sie zu behandeln. Sie nehmen an und fühlen sich sofort besser. **Sie erhalten Ihre gesamte Energie zurück** {emote:unitValues.energy}"
     ]
   },
   "doNothing": {
@@ -436,7 +436,7 @@
       "Auf Ihrem Weg begegnen Sie einer Bestie, die nicht bequem zu sein scheint. Sie beschließen zu fliehen, aber es rennt Ihnen hinterher und holt Sie schnell ein. Sie drehen sich um und versetzen dem Tier einen heftigen Schlag. Damit sind Sie Ihren Gegner los und setzen Ihren Weg fort.",
       "Aus den Augenwinkeln bemerken Sie, wie einem vor Ihnen gehenden Abenteurer ein Beutel voller Gold aus der Tasche fällt. Sie machen ihn sofort darauf aufmerksam und geben ihm den Beutel zurück. Er dankt Ihnen für Ihre Freundlichkeit."
     ],
-    "end": " Sie gewinnen **{{xp}}** :star:."
+    "end": " Sie gewinnen **{{xp}}** {emote:unitValues.xp}."
   },
   "staffMember": {
     "context": [
@@ -548,12 +548,12 @@
           ]
         },
         "3": [
-          "Nachdem der Trank fertig ist, reicht dir die Hexe ein Glas. Das Glas ist noch glühend heiß und du lässt es ungeschickt auf deinen Fuß fallen. Sie verlieren **{{lifeLoss}} :broken_heart:**.",
-          "Als Sie den Trank fertigstellen wollten, wurden Sie Opfer der Ungeschicklichkeit der alten Hexe, die den Kessel auf Sie fallen ließ. Sie verlieren **{{lifeLoss}} :broken_heart:**.",
-          "Obwohl der Trank gut riecht, ist er nicht so gesundheitsfördernd, wie Sie vielleicht erwartet hätten. Sie verlieren **{{lifeLoss}} :broken_heart:**.",
-          "Der Geschmack des Tranks ist sehr seltsam. Vielleicht hätten Sie auf Ihren Instinkt hören und ihn nicht probieren sollen... Sie verlieren **{{lifeLoss}} :broken_heart:**.",
-          "Die Dämpfe des Tranks haben ausgereicht, um Sie krank zu machen. Sie gehen ohne zu fragen, aber nicht ohne die Folgen des Einatmens der Dämpfe zu spüren. Sie verlieren **{{lifeLoss}} :broken_heart:**.",
-          "Als die alte Frau den letzten Tropfen in den Topf gießen will, ist ein dumpfer Knall zu hören. Es scheint, als sei der Kessel explodiert. Du verlierst **{{lifeLoss}} :broken_heart:**."
+          "Nachdem der Trank fertig ist, reicht dir die Hexe ein Glas. Das Glas ist noch glühend heiß und du lässt es ungeschickt auf deinen Fuß fallen. Sie verlieren **{{lifeLoss}} {emote:unitValues.lostHealth}**.",
+          "Als Sie den Trank fertigstellen wollten, wurden Sie Opfer der Ungeschicklichkeit der alten Hexe, die den Kessel auf Sie fallen ließ. Sie verlieren **{{lifeLoss}} {emote:unitValues.lostHealth}**.",
+          "Obwohl der Trank gut riecht, ist er nicht so gesundheitsfördernd, wie Sie es sich erhofft hatten. Sie verlieren **{{lifeLoss}} {emote:unitValues.lostHealth}**.",
+          "Der Geschmack des Tranks ist sehr seltsam. Vielleicht hätten Sie auf Ihren Instinkt hören und ihn nicht probieren sollen... Sie verlieren **{{lifeLoss}} {emote:unitValues.lostHealth}**.",
+          "Die Dämpfe des Tranks haben ausgereicht, um Sie krank zu machen. Sie gehen ohne zu fragen, aber nicht ohne die Folgen des Einatmens der Dämpfe zu spüren. Sie verlieren **{{lifeLoss}} {emote:unitValues.lostHealth}**.",
+          "Als die alte Frau gerade den letzten Tropfen in den Topf gießen wollte, war ein dumpfer Knall zu hören. Es sieht so aus, als wäre der Kessel explodiert. Du verlierst **{{lifeLoss}} {emote:unitValues.lostHealth}**."
         ],
         "4": [
           "Leider scheint der Trank völlig verkohlt und ungenießbar zu sein. Sie beschließen, nicht das Risiko einzugehen, ihn zu trinken, und machen sich schnell wieder auf den Weg.",
@@ -796,11 +796,11 @@
   "smallBad": {
     "healthLost": {
       "stories": [
-        "Ihre Füße bleiben in einer Wurzel stecken. Verletzt verlieren Sie **{{amount}} :broken_heart:**.",
-        "Sie sind in Gedanken versunken, achten kaum auf den Boden unter Ihren Füßen und stolpern unglücklich über einen Kieselstein. Sie haben sich das Knie verletzt. Es ist nicht schlimm, wenn auch schmerzhaft. Sie verlieren **{{amount}} :broken_heart:**.",
-        "Sie pfeifen, während Sie gehen. Plötzlich kommt etwas in Ihr Blickfeld - ein Hund - und er kommt direkt auf Sie zu! Bevor Sie genauer wissen, was los ist, stößt das Tier mit Ihnen zusammen, rennt aber sofort wieder weg. Glücklicherweise wurden Sie nur leicht verletzt und verlieren nur **{{amount}} :broken_heart:**.",
-        "Sie prallen mit einem galoppierenden Pferd zusammen, werden aber nur oberflächlich verletzt. Sie verlieren **{{amount}} :broken_heart:**.",
-        "Sie werden von einer Herde Wildschweine gerammt. Sie kommen wieder auf die Beine und setzen Ihren Weg mit einem Verlust von **{{amount}} :broken_heart:** fort."
+        "Ihre Füße verfangen sich in einer Wurzel. Verletzt verlieren Sie **{{amount}} {emote:unitValues.lostHealth}**.",
+        "Sie sind in Gedanken versunken, achten kaum auf den Boden unter Ihren Füßen und stolpern unglücklich über einen Kieselstein. Sie haben sich das Knie verletzt. Es ist nicht schlimm, wenn auch schmerzhaft. Sie verlieren **{{amount}} {emote:unitValues.lostHealth}**.",
+        "Sie pfeifen, während Sie gehen. Plötzlich kommt etwas in Ihr Blickfeld - ein Hund - und er kommt direkt auf Sie zu! Bevor Sie genauer wissen, was los ist, stößt das Tier mit Ihnen zusammen, rennt aber sofort wieder weg. Glücklicherweise wurden Sie nur leicht verletzt und verlieren nur **{{amount}} {emote:unitValues.lostHealth}**.",
+        "Sie prallen mit einem galoppierenden Pferd zusammen, werden aber nur oberflächlich verletzt. Sie verlieren **{{amount}} {emote:unitValues.lostHealth}**.",
+        "Sie werden von einer Herde Wildschweine gerammt. Sie kommen wieder auf die Beine und setzen Ihren Weg mit einem Verlust von **{{amount}} {emote:unitValues.lostHealth}** fort."
       ]
     },
     "timeLost": {
@@ -814,11 +814,11 @@
     },
     "moneyLost": {
       "stories": [
-        "als Sie durch eine Menschenmenge gehen, spüren Sie, wie eine Hand Sie kräftig durchsucht und Ihre Taschen leichter macht. Sie haben keine Zeit, etwas zu erwidern, da ist Ihr Sammler auch schon verschwunden. Sie haben **{{amount}} :money_with_wings:** verloren.",
-        "Sie treffen auf einen Bettler, der Sie um etwas Geld für seinen Lebensunterhalt bittet. In einem Anflug von Mitleid beschließen Sie, ihm **{{amount}} :money_with_wings:** zu geben.",
-        "Ein maskierter Mann spricht Sie an und bedroht Sie mit einer Waffe. Damit er dich am Leben lässt, gibst du ihm die **{{amount}} :money_with_wings:** Münzen, die du in deiner Tasche hast, sowie die Schlüssel zu deinem Karren.",
-        "erinnern Sie sich plötzlich daran, dass Sie Ihren Geldbeutel im Zimmer des letzten Gasthauses, durch das Sie gekommen sind, vergessen haben. Sie haben **{{amount}} :money_with_wings:** verloren.",
-        "Sie begegnen einem Karren, dessen Ladung über Sie hinausragt und Ihre Tasche zerreißt. Während Sie Ihre Sachen zusammenpacken, kommt eine Gruppe von Kindern vorbei und stiehlt Ihnen Geld. Sie verlieren **{{amount}} :money_with_wings:**."
+        "als Sie durch eine Menschenmenge gehen, spüren Sie, wie eine Hand Sie kräftig durchsucht und Ihre Taschen leichter macht. Sie haben keine Zeit, etwas zu erwidern, da ist Ihr Sammler auch schon verschwunden. Sie haben **{{amount}} {emote:unitValues.lostMoney}** verloren.",
+        "Sie treffen auf einen Bettler, der Sie um etwas Geld für seinen Lebensunterhalt bittet. In einem Anflug von Mitleid beschließen Sie, ihm **{{amount}} {emote:unitValues.lostMoney}** zu geben.",
+        "Ein maskierter Mann spricht Sie an und bedroht Sie mit einer Waffe. Damit er dich am Leben lässt, gibst du ihm die **{{amount}} {emote:unitValues.lostMoney}** Münzen, die du in deiner Tasche hast, sowie die Schlüssel zu deinem Karren.",
+        "erinnern Sie sich plötzlich daran, dass Sie Ihren Geldbeutel im Zimmer des letzten Gasthauses, durch das Sie gekommen sind, vergessen haben. Sie haben **{{amount}} {emote:unitValues.lostMoney}** verloren.",
+        "Sie begegnen einem Karren, dessen Ladung über Sie hinausragt und Ihre Tasche zerreißt. Während Sie Ihre Sachen zusammenpacken, kommt eine Gruppe von Kindern vorbei und stiehlt Ihnen Geld. Sie verlieren **{{amount}} {emote:unitValues.lostMoney}**."
       ]
     }
   },
@@ -881,14 +881,14 @@
         "Nachdem du auf deiner Reise eine kleine Pause gemacht hast, siehst du **{{pet}}** mit einem **Gegenstand** zurückkommen. Es scheint, als hätte sie es von einem Händler gestohlen. Sie beschließen zu gehen, bevor dieser etwas merkt."
       ],
       "gainEnergy_m": [
-        "**{{pet}}** an Ihrer Seite zu haben, macht Sie glücklich. Es hebt Ihre Stimmung und Sie gewinnen **{{amount}}** :zap:.",
-        "Am Straßenrand stürzt sich **{{pet}}** auf Essen, das in gutem Zustand zu sein scheint, und bringt es Ihnen. Sie essen es, bevor es schlecht wird, und gewinnen **{{amount}}** :zap:.",
-        "Nachdem er kurz weggegangen ist, kommt **{{pet}}** mit einem fast leeren Trank zurück. Sie trinken ihn, bevor er verloren geht. Damit gewinnen Sie **{{amount}}** :zap:."
+        "**{{pet}}** an Ihrer Seite zu haben, macht Sie glücklich. Es hebt Ihre Stimmung und Sie gewinnen **{{amount}}** {emote:unitValues.energy}.",
+        "Am Straßenrand stürzt sich **{{pet}}** auf Essen, das in gutem Zustand zu sein scheint, und bringt es Ihnen. Sie essen es, bevor es schlecht wird, und gewinnen **{{amount}}** {emote:unitValues.energy}.",
+        "Nachdem er kurz weggegangen ist, kommt **{{pet}}** mit einem fast leeren Trank zurück. Sie trinken ihn, bevor er verloren geht. Sie gewinnen damit **{{amount}}** {emote:unitValues.energy}."
       ],
       "gainEnergy_f": [
-        "**{{pet}}** an Ihrer Seite zu haben, macht Sie glücklich. Es hebt Ihre Stimmung und Sie gewinnen **{{amount}}** :zap:.",
-        "Am Straßenrand stürzt sich **{{pet}}** auf Essen, das in gutem Zustand zu sein scheint, und bringt es Ihnen. Sie essen es, bevor es schlecht wird, und gewinnen **{{amount}}** :zap:.",
-        "Nachdem sie kurz weggegangen ist, kommt **{{pet}}** mit einem fast leeren Trank zurück. Du trinkst ihn, bevor er verloren geht. Sie gewinnen damit **{{amount}}** :zap:."
+        "**{{pet}}** an Ihrer Seite zu haben, macht Sie glücklich. Es hebt Ihre Stimmung und Sie gewinnen **{{amount}}** {emote:unitValues.energy}.",
+        "Am Straßenrand stürzt sich **{{pet}}** auf Essen, das in gutem Zustand zu sein scheint, und bringt es Ihnen. Sie essen es, bevor es schlecht wird, und gewinnen **{{amount}}** {emote:unitValues.energy}.",
+        "Nachdem sie kurz weggegangen ist, kommt **{{pet}}** mit einem fast leeren Trank zurück. Du trinkst ihn, bevor er verloren geht. Sie gewinnen damit **{{amount}}** {emote:unitValues.energy}."
       ],
       "gainLife_m": [
         "**{{pet}}** an Ihrer Seite zu haben, macht Sie glücklich. Es hebt Ihre Stimmung und Sie gewinnen **{{amount}}** :heart:.",
@@ -950,44 +950,44 @@
         "Die erfolgreiche Dressur von **{{pet}}** war eine echte Herausforderung, die Ihr Talent im Umgang mit Tieren beweist. Sie erhalten das Abzeichen {{badge}} !"
       ],
       "loseLife_m": [
-        "Während Sie versuchen, **{{pet}}** zu streicheln, lässt er nicht locker und beißt Ihnen in die Hand. Sie verlieren **{{amount}}** :broken_heart:.",
-        "In einer Kurve **{{pet}}** fängt plötzlich an zu rennen. Sie behalten die Leine so gut es geht in den Händen, kommen aber mit ein paar Kratzern wieder heraus. Sie verlieren **{{amount}}** :broken_heart:.",
-        "Sie sehen **{{pet}}** gehen. Nach ein paar Minuten kommt er mit Essen zurück. Sie essen es und bereuen es einige Minuten später bitterlich. Sie haben plötzlich Bauchschmerzen.... Sie verlieren **{{amount}}** :broken_heart:.",
-        "**{{pet}}** scheint mit {{randomAnimal}} wild die Feindseligkeiten angezettelt zu haben! Du beschließt, ihn zu verteidigen, aber leider verletzt dich die wilde Kreatur. Sie verlieren **{{amount}}** :broken_heart:.",
-        "**{{pet}}** scheint spielen zu wollen und stürzt sich von einem Baum. Leider bricht sein Gewicht den Ast und er fällt auf Sie. Sie verlieren **{{amount}}** :broken_heart:."
+        "Während Sie versuchen, **{{pet}}** zu streicheln, lässt er nicht locker und beißt Ihnen in die Hand. Sie verlieren **{{amount}}** {emote:unitValues.lostHealth}.",
+        "In einer Kurve **{{pet}}** fängt plötzlich an zu rennen. Sie behalten die Leine so gut es geht in den Händen, kommen aber mit ein paar Kratzern wieder heraus. Sie verlieren **{{amount}}** {emote:unitValues.lostHealth}.",
+        "Sie sehen **{{pet}}** gehen. Nach ein paar Minuten kommt er mit Essen zurück. Sie essen es und bereuen es einige Minuten später bitterlich. Sie haben plötzlich Bauchschmerzen.... Sie verlieren **{{amount}}** {emote:unitValues.lostHealth}.",
+        "**{{pet}}** scheint mit {{randomAnimal}} wild die Feindseligkeiten angezettelt zu haben! Du beschließt, ihn zu verteidigen, aber leider verletzt dich die wilde Kreatur. Sie verlieren **{{amount}}** {emote:unitValues.lostHealth}.",
+        "**{{pet}}** scheint spielen zu wollen und stürzt sich von einem Baum. Leider bricht sein Gewicht den Ast und er fällt auf Sie. Sie verlieren **{{amount}}** {emote:unitValues.lostHealth}."
       ],
       "loseLife_f": [
-        "Während Sie versuchen, **{{pet}}** zu streicheln, lässt sie nicht locker und beißt Ihnen die Hand ab. Sie verlieren **{{amount}}** :broken_heart:.",
-        "In einer Kurve **{{pet}}** fängt plötzlich an zu rennen. Sie behalten die Leine so gut es geht in den Händen, kommen aber mit ein paar Kratzern wieder heraus. Sie verlieren **{{amount}}** :broken_heart:.",
-        "Sie sehen **{{pet}}** gehen. Nach ein paar Minuten kommt sie mit etwas zu essen zurück. Sie essen es und bereuen es einige Minuten später bitterlich. Sie haben plötzlich Bauchschmerzen ... . Sie verlieren **{{amount}}** :broken_heart:.",
-        "**{{pet}}** scheint mit {{randomAnimal}} wild die Feindseligkeiten angezettelt zu haben! Du beschließt, sie zu verteidigen, aber leider verletzt dich die wilde Kreatur. Sie verlieren **{{amount}}** :broken_heart:.",
-        "**{{pet}}** scheint spielen zu wollen und stürzt sich von einem Baum. Leider bricht ihr Gewicht den Ast und sie fällt auf Sie. Sie verlieren **{{amount}}** :broken_heart:."
+        "Während Sie versuchen, **{{pet}}** zu streicheln, lässt sie nicht locker und beißt Ihnen die Hand ab. Sie verlieren **{{amount}}** {emote:unitValues.lostHealth}.",
+        "In einer Kurve **{{pet}}** fängt plötzlich an zu rennen. Sie behalten die Leine so gut es geht in den Händen, kommen aber mit ein paar Kratzern wieder heraus. Sie verlieren **{{amount}}** {emote:unitValues.lostHealth}.",
+        "Sie sehen **{{pet}}** gehen. Nach ein paar Minuten kommt sie mit etwas zu essen zurück. Sie essen es und bereuen es einige Minuten später bitterlich. Sie haben plötzlich Bauchschmerzen ... . Sie verlieren **{{amount}}** {emote:unitValues.lostHealth}.",
+        "**{{pet}}** scheint mit {{randomAnimal}} wild die Feindseligkeiten angezettelt zu haben! Du beschließt, sie zu verteidigen, aber leider verletzt dich die wilde Kreatur. Sie verlieren **{{amount}}** {emote:unitValues.lostHealth}.",
+        "**{{pet}}** scheint spielen zu wollen und stürzt sich von einem Baum. Leider bricht ihr Gewicht den Ast und sie fällt auf Sie. Sie verlieren **{{amount}}** {emote:unitValues.lostHealth}."
       ],
       "loseMoney_m": [
-        "Du spürst, dass **{{pet}}** ein paar Münzen aus deinem Geldbeutel stiehlt und sie weiter weg versteckt. Leider gelingt es Ihnen nicht, sie zu finden. Sie verlieren also **{{amount}}** :money_with_wings:.",
-        "Sie bemerken ein großes Loch in Ihrem Geldbeutel. **{{pet}}** muss in der Nacht damit gespielt haben! Nachdem du gezählt hast, was du noch übrig hattest, stellst du fest, dass dir insgesamt **{{amount}}** :money_with_wings:fehlt.",
-        "Während du mit **{{pet}}** spielst, rempelt dich dieser an und lässt deinen Geldbeutel in eine Gletscherspalte fallen. Es ist unmöglich, diese **{{amount}}** :money_with_wings: zurückzubekommen!",
-        "Sie haben den Eindruck, dass **{{pet}}** gereizt ist und sogar einen Passanten verletzt. Nachdem er sich entschuldigt hat, beschließen Sie, ihn zu entschädigen und gehen mit gesenktem Kopf weiter. Sie verlieren **{{amount}}** :money_with_wings:.",
-        "Als du mit **{{pet}}** spielen willst, verpasst du ihm einen Schlag. Sie verletzen ihn und bringen ihn zu einem Heiler, um ihn zu heilen. Nachdem er ihn geheilt hat, nimmt der Heiler Ihnen **{{amount}}** :money_with_wings:ab."
+        "Du spürst, dass **{{pet}}** ein paar Münzen aus deinem Geldbeutel stiehlt und sie weiter weg versteckt. Leider gelingt es Ihnen nicht, sie zu finden. Sie verlieren also **{{amount}}** {emote:unitValues.lostMoney}.",
+        "Sie bemerken ein großes Loch in Ihrem Geldbeutel. **{{pet}}** muss in der Nacht damit gespielt haben! Nachdem du gezählt hast, was du noch übrig hattest, stellst du fest, dass dir insgesamt **{{amount}}** {emote:unitValues.lostMoney}fehlt.",
+        "Während du mit **{{pet}}** spielst, rempelt dich dieser an und lässt deinen Geldbeutel in eine Gletscherspalte fallen. Es ist unmöglich, diese **{{amount}}** {emote:unitValues.lostMoney} zurückzubekommen!",
+        "Sie haben den Eindruck, dass **{{pet}}** gereizt ist und sogar einen Passanten verletzt. Nachdem er sich entschuldigt hat, beschließen Sie, ihn zu entschädigen und gehen mit gesenktem Kopf weiter. Sie verlieren **{{amount}}** {emote:unitValues.lostMoney}.",
+        "Als du mit **{{pet}}** spielen willst, verpasst du ihm einen Schlag. Sie verletzen ihn und bringen ihn zu einem Heiler, um ihn zu heilen. Nachdem er ihn geheilt hat, nimmt der Heiler Ihnen **{{amount}}** {emote:unitValues.lostMoney}ab."
       ],
       "loseMoney_f": [
-        "Du spürst, dass **{{pet}}** ein paar Münzen aus deinem Geldbeutel stiehlt und sie weiter weg versteckt. Leider gelingt es Ihnen nicht, sie zu finden. Sie verlieren also **{{amount}}** :money_with_wings:.",
-        "Sie bemerken ein großes Loch in Ihrem Geldbeutel. **{{pet}}** muss in der Nacht damit gespielt haben! Nachdem du gezählt hast, was du noch übrig hattest, stellst du fest, dass dir insgesamt **{{amount}}** :money_with_wings:fehlt.",
-        "Während du mit **{{pet}}** spielst, rempelt dich dieser an und lässt deinen Geldbeutel in eine Gletscherspalte fallen. Es ist unmöglich, diese **{{amount}}** :money_with_wings: zurückzubekommen!",
-        "Sie haben den Eindruck, dass **{{pet}}** gereizt ist und sogar so weit geht, einen Passanten zu verletzen. Nachdem er sich entschuldigt hat, beschließen Sie, ihn zu entschädigen und gehen mit gesenktem Kopf weiter. Sie verlieren **{{amount}}** :money_with_wings:.",
-        "Als du mit **{{pet}}** spielen willst, versetzst du ihr einen Schlag. Sie wird verletzt und Sie bringen sie zu einem Heiler, um sie zu heilen. Nachdem der Heiler sie geheilt hat, nimmt er Ihnen **{{amount}}** :money_with_wings:ab."
+        "Du spürst, dass **{{pet}}** ein paar Münzen aus deinem Geldbeutel stiehlt und sie weiter weg versteckt. Leider gelingt es Ihnen nicht, sie zu finden. Sie verlieren also **{{amount}}** {emote:unitValues.lostMoney}.",
+        "Sie bemerken ein großes Loch in Ihrem Geldbeutel. **{{pet}}** muss in der Nacht damit gespielt haben! Nachdem du gezählt hast, was du noch übrig hattest, stellst du fest, dass dir insgesamt **{{amount}}** {emote:unitValues.lostMoney}fehlt.",
+        "Während du mit **{{pet}}** spielst, rempelt dich dieser an und lässt deinen Geldbeutel in eine Gletscherspalte fallen. Es ist unmöglich, diese **{{amount}}** {emote:unitValues.lostMoney} zurückzubekommen!",
+        "Sie haben den Eindruck, dass **{{pet}}** gereizt ist und sogar so weit geht, einen Passanten zu verletzen. Nachdem er sich entschuldigt hat, beschließen Sie, ihn zu entschädigen und gehen mit gesenktem Kopf weiter. Sie verlieren **{{amount}}** {emote:unitValues.lostMoney}.",
+        "Als du mit **{{pet}}** spielen willst, versetzst du ihr einen Schlag. Sie wird verletzt und Sie bringen sie zu einem Heiler, um sie zu heilen. Nachdem der Heiler sie geheilt hat, nimmt er Ihnen **{{amount}}** {emote:unitValues.lostMoney}ab."
       ],
       "loseTime_m": [
         "Wenn du immer wieder **{{pet}}** anrufst, damit er in deiner Nähe bleibt, verlierst du **{{amount}} Min** :clock2:.",
-        "Sie spüren, dass **{{pet}}** sich anscheinend nicht bewegen will. Sie beschließen dennoch, ihn mit Gewalt zu ziehen. Durch seine Schuld verlieren Sie **{amount} Min** :clock2:.",
+        "Sie spüren, dass **{{pet}}** sich anscheinend nicht bewegen will. Sie beschließen dennoch, ihn mit Gewalt zu ziehen. Durch seine Schuld verlieren Sie **{{amount}} Min** :clock2:.",
         "Sie sehen **{{pet}}** auf Sie zugerannt kommen, verfolgt von {{randomAnimal}} wild! Sie ergreifen mit ihm die Flucht. Durch diese Verfolgungsjagd haben Sie **{{amount}} Min** :clock2: auf Ihrem Weg verloren.",
         "Als Sie in ein Dorf kommen, hören Sie ein Gerücht über einen Vertrauten, der wie **{{pet}}** aussieht und Dorfbewohner angreifen soll. Als die Bewohner Sie sehen, bekommen sie Angst vor Ihnen und Ihrem Vertrauten und Sie werden sofort aus dem Dorf vertrieben. Durch dieses Missgeschick haben Sie auf Ihrer Reise **{{amount}} Min** :clock2: verloren.",
         "Sie entdecken, dass **{{pet}}** eindringlich auf den Boden schaut und beschließt, ein Loch zu graben. Daraus kommt eine verschlossene Truhe zum Vorschein. Nach mehreren Versuchen gelingt es Ihnen, die Truhe zu öffnen, aber sie ist leer. Dieses Missgeschick hat Sie **{{amount}} Min** :clock2:."
       ],
       "loseTime_f": [
-        "Wenn du immer wieder **{{pet}}** anrufst, damit sie in deiner Nähe bleibt, verlierst du **{amount} Min** :clock2:.",
-        "Sie spüren, dass **{{pet}}** sich anscheinend nicht bewegen will. Sie beschließen dennoch, sie mit Gewalt zu ziehen. Durch ihre Schuld verlieren Sie **{amount} Min** :clock2:.",
-        "Sie sehen **{{pet}}** auf Sie zugerannt kommen, verfolgt{feminine} von {{randomAnimal}} wild! Sie ergreifen mit ihr die Flucht. Durch diese Verfolgungsjagd haben Sie **{{amount}} Min** :clock2: auf Ihrem Weg verloren.",
+        "Wenn du immer wieder **{{pet}}** anrufst, damit sie in deiner Nähe bleibt, verlierst du **{{amount}} Min** :clock2:.",
+        "Sie spüren, dass **{{pet}}** sich anscheinend nicht bewegen will. Sie beschließen dennoch, sie mit Gewalt zu ziehen. Durch ihre Schuld verlieren Sie **{{amount}} Min** :clock2:.",
+        "Sie sehen **{{pet}}** auf Sie zugerannt kommen, verfolgt von {{randomAnimal}} wild! Sie ergreifen mit ihr die Flucht. Durch diese Verfolgungsjagd haben Sie **{{amount}} Min** :clock2: auf Ihrem Weg verloren.",
         "Als Sie in ein Dorf kommen, hören Sie ein Gerücht über einen Vertrauten, der wie **{{pet}}** aussieht und Dorfbewohner angreifen soll. Als die Bewohner Sie sehen, bekommen sie Angst vor Ihnen und Ihrem Vertrauten und Sie werden sofort aus dem Dorf vertrieben. Durch dieses Missgeschick haben Sie auf Ihrer Reise **{{amount}} Min** :clock2: verloren.",
         "Sie entdecken, dass **{{pet}}** eindringlich auf den Boden schaut und beschließt, ein Loch zu graben. Sie holt eine verschlossene Truhe heraus. Nach mehreren Versuchen gelingt es Ihnen, die Truhe zu öffnen, aber sie ist leer. Dieses Missgeschick hat Sie **{{amount}} Min** :clock2:."
       ],
@@ -1181,5 +1181,301 @@
       "Der Wind weht ein Pergament über Ihr Gesicht. In Ihrer Reise unterbrochen, beschließen Sie, es zu lesen. Nach reiflicher Überlegung beschließen Sie, die Aufgabe zu erfüllen, die auf dem Blatt steht:",
       "Ein alter Abenteurer erzählt seine Geschichten jedem, der sie hören will. Sie bleiben stehen und hören ihm zu. Einige Augenblicke später bemerkt er Sie und fragt, ob Sie einen Auftrag für ihn beenden könnten. Sie stimmen zu :"
     ]
+  },
+  "bonusGuildPVEIsland": {
+    "events": [
+      {
+        "intro": "Der Himmel ist grau und die Temperatur ist durchschnittlich. Es ist ein ideales Wetter, um zu wandern und auf Ihrem Abenteuer voranzukommen. Nach ein paar Schritten gibt der brüchige Boden jedoch unter Ihren Füßen nach und Sie fallen in ein Loch.",
+        "success": {
+          "withGuild": "Mit der Hilfe deiner Gildenkameraden gelingt es dir, dich aus der Gletscherspalte zu ziehen und sie ebenfalls zu retten. Diese überstandene Prüfung hat eure Bande gestärkt, eure Gilde erhält **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "soloWithGuild": "Sie verlieren nicht die Nerven, sondern wenden sofort die Lehren Ihrer Gilde an und schaffen es mit Leichtigkeit, die Wand hochzuklettern. Ihre Gilde erhält **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "solo": "Sie verlieren nicht die Nerven, wenden an, was Sie während Ihrer Abenteuer gelernt haben, und schaffen es mit Leichtigkeit, die Wand hochzuklettern. Sie erhalten **{{amount}} {emote:unitValues.xp}**."
+        },
+        "escape": {
+          "withGuild": "Sie und Ihre Begleiter verlieren keine Zeit und beeilen sich, den Spalt zu untersuchen, der sich als Höhle entpuppt. Nach einer Weile des Blindlaufs gelingt es Ihnen, aus dem Loch wieder herauszukommen.",
+          "solo": "Verzweifelt und allein am Boden der Spalte stehend, bemerken Sie erst nach einigen Minuten den schmalen Schacht zu Ihrer Linken. Nachdem Sie sich gegen die Erde gewehrt haben, die beschlossen hatte, Sie einzusperren, kommen Sie wieder an die frische Luft."
+        },
+        "lose": {
+          "withGuild": "Mit der Hilfe Ihrer Gildenkameraden gelingt es Ihnen, sich aus der Gletscherspalte zu ziehen und sie ebenfalls zu retten. Derjenige, der Ihren Geldbeutel hatte, kletterte jedoch als Letzter nach oben und ließ das Geld beim Klettern versehentlich fallen. Sie verlieren **{{amount}} {emote:unitValues.lostMoney}**.",
+          "solo": "Als Sie versuchen, die Wand zu erklimmen, bröckelt die Erde unter Ihren Fingern und Füßen und verursacht einen Erdrutsch. Mit seiner Hilfe gelingt es Ihnen, aus der Spalte zu klettern, aber Sie sind ziemlich angeschlagen. Sie verlieren **{{amount}} {emote:unitValues.lostHealth}**."
+        }
+      },
+      {
+        "intro": "Sie beschließen, sich nach einer intensiven Überfahrt über die Insel ein wenig auszuruhen. Doch gerade als Sie sich auf den Boden legen, beginnt die Erde zu beben.",
+        "success": {
+          "withGuild": "Sie halten sich jedoch gegenseitig fest, um zu verhindern, dass eine potenzielle Spalte einen von Ihnen zu Fall bringt. Die Erschütterung endet und Sie sind alle in Sicherheit. Ihre Gilde gewinnt **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "soloWithGuild": "Sie befolgen die Anweisungen, die Ihnen Ihre Gilde für den Fall eines Erdbebens gegeben hat, und beschließen, unter einem Gebäude Schutz zu suchen, das glücklicherweise nicht über Ihnen zusammengebrochen ist. Sie versprechen, sich bei Ihrer Gilde zu bedanken, sobald Sie von Ihrer Expedition zurückkehren. Ihre Gilde gewinnt **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "solo": "Sie versuchen, sich trotz der Erschütterung zu halten. Glücklicherweise hat es in der Umgebung keinen Schaden angerichtet, sodass Sie sich weiter ausruhen und den Himmel und die Umgebung bewundern können. Sie erhalten **{{amount}} {emote:unitValues.xp}**."
+        },
+        "escape": {
+          "withGuild": "In Panik versucht Ihre Gilde, einen sichereren Ort zu finden, um zu verhindern, dass einer von Ihnen Schaden erleidet. Nach mehreren Minuten, in denen Sie sich im Kreis drehen, weil mindestens ein Mitglied der Meinung ist, dass dieser Ort nicht sicher ist, spüren Sie die Erschütterung nicht mehr. Trotzdem versuchen Sie, wieder Vertrauen für das zu gewinnen, was auf Ihrem Weg über die Insel noch kommen wird...",
+          "solo": "In Panik versuchen Sie, den möglichen Schäden des Erdbebens auszuweichen. Nach einer Weile ist das Beben nicht mehr spürbar. Als Sie zu dem Ort zurückkehren, an dem Sie sich ausruhen wollten, sehen Sie die Schäden des Bebens. Gut, dass Sie nicht dort geblieben sind..."
+        },
+        "lose": {
+          "withGuild": "Sie denken, dass das Erdbeben nur kurz sein wird, und bitten den Rest der Gilde, ihm zu trotzen. Was für ein Fehler! Ein Felsbrocken stürzt auf Sie und schlägt Sie nieder. Sie verlieren **{{amount}} {emote:unitValues.energy}**.",
+          "solo": "Da Sie sich einreden, dass es nur wenig Schaden geben wird, ruhen Sie sich weiter aus. Allerdings bildet sich unter Ihrem Körper eine Spalte. Aus Angst, hineinzufallen, versuchen Sie, so weit wie möglich wegzulaufen, stolpern aber und schneiden sich in den Arm. Sie verlieren **{{amount}} {emote:unitValues.lostHealth}**."
+        }
+      },
+      {
+        "intro": "Sie schreiten (zusammen mit Ihren Gildenkameraden) gemächlich durch Ihr Abenteuer, als Ihr Instinkt Sie vor einer Gefahr warnt. Nach und nach steigt ein weißlicher, fast undurchsichtiger Nebel aus dem unebenen Boden auf und fällt vom Himmel, um Sie zu umzingeln. Sie sehen schnell nichts mehr um sich herum.",
+        "success": {
+          "withGuild": "Mehrere Augenpaare sind besser als eins! Durch die Zusammenarbeit Ihrer Visionen schaffen Sie und Ihre Gefährten es, zwischen Felsen und Spalten voranzukommen, ohne dass einer von ihnen verletzt wird oder verloren geht. Ihre Gilde erhält **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "soloWithGuild": "In dieser dringenden Situation behältst du einen kühlen Kopf und nutzt die von deiner Gilde erlernten Techniken des Spurenlesens, um sicher aus dem Schlamassel herauszukommen. Ihre Gilde erhält **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "solo": "In dieser dringenden Situation behalten Sie einen kühlen Kopf und setzen die etwas früher erlernten Techniken des Spurenlesens ein, um sicher aus dem Schlamassel herauszukommen. Sie erhalten **{{amount}} {emote:unitValues.xp}**."
+        },
+        "escape": {
+          "withGuild": "Völlig verloren in diesem dichten und bedrohlichen Nebel beschlossen Sie und Ihre Gefährten, sich zusammenzuschließen, um die Kühle abzuwehren, und warteten darauf, dass der Wind den Nebel zerstreute.",
+          "solo": "Völlig gelähmt von der Angst vor diesem fast übernatürlichen Phänomen, gerätst du in Panik, dein Puls rast und trotz der Kühle spürst du, wie die Feuchtigkeit auf deiner bleichen Stirn eine nach der anderen herunterläuft, bis der Nebel vom Wind zerstreut wird."
+        },
+        "lose": {
+          "withGuild": "Da Ihre Gruppe nicht vollzählig ist, geraten Sie und Ihre Gildenkameraden angesichts dieser Herausforderung in Panik. Jeder flüchtet in seine Richtung und Sie bitten nicht um eine Sekunde, um ebenfalls zu rennen. In der Eile lassen Sie jedoch **{{amount}} {emote:unitValues.lostMoney}** fallen.",
+          "solo": "Völlig in Panik vor dem fast schon bedrohlichen Nebel nehmen Sie die Beine in die Hand und rennen geradeaus. Das war ein großer Fehler, da Sie wegen des Nebels schnell wieder auf dem Boden landen. Sie verlieren **{{amount}} {emote:unitValues.lostHealth}**."
+        }
+      },
+      {
+        "intro": "Sie sind auf dem Weg zu neuen Abenteuern, als ein hinterhältiger, frecher und spitzer kleiner Stein Sie zu seinem Opfer macht und Ihnen den Knöchel aufschlitzt.",
+        "success": {
+          "withGuild": "Zum Glück für Sie verbinden Ihre Gildenkameraden Ihre Wunde und bringen Sie schnell wieder auf die Beine. Ihre Gilde erhält **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "soloWithGuild": "Trotz der Schmerzen gelingt es Ihnen, sich an die Lehren Ihrer Gilde zu erinnern, und mit diesem Wissen gelingt es Ihnen, sich schnell zu heilen. Ihre Gilde erhält **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "solo": "Trotz der Schmerzen gelingt es Ihnen, die Wunde zu desinfizieren und zu verbinden, damit Sie Ihre Reise so schnell wie möglich fortsetzen können. Sie erhalten **{{amount}} {emote:unitValues.xp}**."
+        },
+        "escape": {
+          "withGuild": "Ihre Gildenkameraden wollen Sie nicht aufhalten und beschließen, Sie zu tragen, damit Sie am Zielort geheilt werden können.",
+          "solo": "Trotz der Schmerzen gelingt es Ihnen, weiter zu gehen und zu humpeln."
+        },
+        "lose": {
+          "withGuild": "Völlig hilflos angesichts dieser Wunde versorgen Ihre Mitschüler Sie, so gut sie können, aber die Wunde infiziert sich und die Schmerzen werden unerträglich. Sie verlieren **{{amount}} {emote:unitValues.lostHealth}**.",
+          "solo": "Allein, sich vor Schmerzen windend, mitten auf dem Weg, verfluchen Sie den stolzen Stein und erdulden den schrecklichen Schmerz, um Ihr Abenteuer fortzusetzen. Sie verlieren **{{amount}} {emote:unitValues.lostHealth}**."
+        }
+      },
+      {
+        "intro": "Sie gehen gemütlich in Richtung Ihres Ziels, als sich über der Region große schwarze Wolken zusammenziehen. Es herrscht völlige Dunkelheit.",
+        "success": {
+          "withGuild": "Ihre Gildenkameraden sind jedoch vorausschauend und einer von ihnen holt eine Fackel aus seiner Tasche, um Ihnen den Weg zu beleuchten. Ihre Gilde erhält **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "soloWithGuild": "Zum Glück hatten Sie eine Fackel in Ihrer Satteltasche, die Ihnen einer Ihrer Gildenkameraden bei Ihrer Abreise gegeben hat! So können Sie leicht Ihren Weg sehen und Ihre Reise fortsetzen. Ihre Gilde erhält **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "solo": "Zum Glück hatten Sie eine Fackel in Ihrer Tasche, die Sie vor Ihrer Abreise vorbereitet hatten! So können Sie leicht Ihren Weg sehen und Ihre Reise fortsetzen. Sie erhalten **{{amount}} {emote:unitValues.xp}**."
+        },
+        "escape": {
+          "withGuild": "Völlig geblendet tasten Sie und Ihre Begleiter sich in völliger Dunkelheit vorwärts und helfen sich gegenseitig, Hindernissen auszuweichen, bis die seltsame Nacht so schnell wieder vorbei ist, wie sie gekommen war.",
+          "solo": "Völlig geblendet tasten Sie sich in völliger Dunkelheit vorwärts, bis die seltsame Nacht so schnell wieder verschwindet, wie sie gekommen war."
+        },
+        "lose": {
+          "withGuild": "Völlig verloren angesichts der plötzlichen Blindheit, geraten Sie und Ihre Begleiter in Panik und rennen geradeaus, bis die seltsame Nacht so schnell wieder vorbei ist, wie sie gekommen ist. Doch in der Eile haben Sie **{{amount}} {emote:unitValues.lostMoney}** verloren.",
+          "solo": "Allein und völlig verloren angesichts der plötzlichen Blindheit, geraten Sie in Panik und gehen geradeaus weiter, ohne den kleinen, hinterhältigen Stein zu bemerken, der in diesem Moment auf Sie lauert. Als Sie sich vom Boden aufheben, verlieren Sie **{{amount}} {emote:unitValues.lostHealth}**."
+        }
+      },
+      {
+        "intro": "Sie sind schon eine Weile auf einem Weg gelaufen, der scheinbar nie endet, als Ihnen plötzlich die Kraft ausgeht und Sie vor Erschöpfung zusammenbrechen.",
+        "success": {
+          "withGuild": "Als sie sehen, wie schlecht es Ihnen geht, eilen Ihre Mitstreiter herbei, um Sie zu unterstützen, und bieten Ihnen etwas an, um die Energie zu sammeln, die Sie brauchen, um wieder aufzustehen und Ihre Quest fortzusetzen. Ihre Gilde erhält **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "soloWithGuild": "Trotz dieses Unwohlseins nutzen Sie die wenige Energie, die Sie noch haben, um aus Ihrem Inventar etwas Essen zu holen, das Ihnen Ihre Gilde geschenkt hat, um wieder zu Kräften zu kommen und Ihre Quest fortzusetzen. Ihre Gilde erhält **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "solo": "Trotz dieses Unwohlseins nutzen Sie die wenige Energie, die Sie noch haben, um etwas vorbereitetes Essen aus Ihrem Inventar zu holen, um wieder zu Kräften zu kommen und Ihre Quest fortzusetzen. Sie erhalten **{{amount}} {emote:unitValues.xp}**."
+        },
+        "escape": {
+          "withGuild": "Zum Glück war es nur ein vorübergehendes Unwohlsein, und ermutigt von Ihren Gildenkameraden setzen Sie nach ein paar Minuten Pause Ihren Weg mit ihnen fort.",
+          "solo": "Zu Ihrem Glück war es nur ein vorübergehendes Unwohlsein und Sie schaffen es nach einigen Minuten Pause, Ihren Weg fortzusetzen."
+        },
+        "lose": {
+          "withGuild": "Ihre Gildenkameraden wissen nicht, wie sie Ihnen helfen können, und beschließen, Sie zum nächsten Schritt zu tragen, aber die Erschöpfung macht Ihnen zu schaffen, und Sie werden ohnmächtig. Sie verlieren **{{amount}} {emote:unitValues.energy}**.",
+          "solo": "Völlig erschöpft beginnt sich der Himmel um Sie herum zu drehen. Sie versuchen, sich aufzurichten, aber Sie haben keine Kraft mehr und fühlen sich wie auf einer stürmischen See, sodass Sie mitten auf dem Weg ohnmächtig werden. Sie verlieren **{{amount}} {emote:unitValues.energy}**."
+        }
+      }
+    ]
+  },
+  "fightPet": {
+    "intro_male": [
+      "stolpern Sie Nase an Nase mit einem {{feralPet}} !",
+      "treffen Sie auf eine {{feralPet}}.",
+      "treffen Sie auf einen {{feralPet}} , der Sie anscheinend nicht passieren lassen will.",
+      "stoßen Sie plötzlich ein erschrockenes Quietschen aus: Ein {{feralPet}} steht direkt vor Ihnen!",
+      "Sie beim Anblick eines {{feralPet}}verboten bleiben.",
+      "sehen Sie am Horizont eine Staubwolke, die sich gefährlich nähert... Es ist eine {{feralPet}} !",
+      "bemerken Sie einen geheimnisvollen Mechanismus. Neugierig geworden, beschließen Sie, ihn zu aktivieren. Es dauert nicht lange, bis Sie Ihre Tat bereuen, denn wie aus dem Nichts taucht ein {{feralPet}} auf!",
+      "hören Sie ein dumpfes Geräusch hinter sich. Sie drehen sich um und entdecken einen {{feralPet}} , der Sie eindringlich anstarrt."
+    ],
+    "intro_female": [
+      "stolpern Sie Nase an Nase mit einer {{feralPet}} !",
+      "treffen Sie auf eine {{feralPet}}.",
+      "treffen Sie auf eine {{feralPet}} , die Sie anscheinend nicht passieren lassen will.",
+      "stoßen Sie plötzlich ein erschrockenes Quietschen aus: Eine {{feralPet}} steht direkt vor Ihnen!",
+      "Sie beim Anblick einer {{feralPet}}verboten bleiben.",
+      "sehen Sie am Horizont eine Staubwolke, die sich gefährlich nähert... Es ist eine {{feralPet}} !",
+      "bemerken Sie einen geheimnisvollen Mechanismus. Neugierig geworden, beschließen Sie, ihn zu aktivieren. Es dauert nicht lange, bis Sie Ihre Tat bereuen, denn wie aus dem Nichts taucht eine {{feralPet}} auf!",
+      "hören Sie ein dumpfes Geräusch hinter sich. Sie drehen sich um und entdecken eine {{feralPet}} , die Sie eindringlich anstarrt."
+    ],
+    "situation": [
+      "Das Tier scheint Ihnen unmöglich zu beruhigen... Sie versuchen, sich zu beruhigen und überlegen sich einen Plan, wie Sie das Tier loswerden können.",
+      "Absolut verängstigt fangen Sie an, über Ihre verschiedenen Möglichkeiten nachzudenken, wie Sie das Tier loswerden können.",
+      "Es ist unmöglich, nicht zu reagieren. Sie müssen eine Entscheidung treffen, um Ihr Leben zu retten...",
+      "Abgelenkt von den beiden roten Augen des Tieres, die Sie eindringlich anstarren, versuchen Sie, sich auf einen Handlungsplan zu konzentrieren.",
+      "Der faulig riechende Atem des Tieres lässt Sie den Kopf drehen. Sie versuchen, sich zu konzentrieren...",
+      "Sie fragen sich, ob Sie nicht weglaufen sollten, aber Sie denken sich, dass Sie es vielleicht schaffen können, wenn Sie sich einen Aktionsplan überlegen.",
+      "Sie festigen Ihren Griff um den Griff Ihres Schwertes und denken, etwas beruhigt, darüber nach, was Sie tun sollen.",
+      "Versteinert vor Angst beobachten Sie, wie das Tier auf Sie zukommt, und versuchen, Ihr tetanisiertes Gehirn dazu zu zwingen, eine Lösung zu finden.",
+      "In Panik suchen Sie verzweifelt nach einer Lösung, die Sie am Leben erhält."
+    ],
+    "rageUpDescriptions": [
+      "Glücklich darüber, dass du es geschafft hast, spürst du, wie deine Wut auf die besessenen Kreaturen auf dieser Insel steigt.",
+      "Gestärkt durch Ihren Sieg fühlen Sie sich voller Wut auf die bösen Kreaturen auf dieser Insel.",
+      "Sie fühlen sich stärker als je zuvor und Ihre Wut auf die bösen Kreaturen auf dieser Insel wächst.",
+      "Stolz auf sich selbst, spüren Sie, wie Ihre Wut auf die bösen Kreaturen auf dieser Insel wächst.",
+      "Niemand kann Sie mehr aufhalten! Ihre Wut auf die bösen Kreaturen wird durch dieses Ereignis nur noch verstärkt."
+    ],
+    "rageUpFormat": " {{rageUpDescription}} {emote:unitValues.rage} **Wut ++**",
+    "customPetDisplay_male": "{emote:pets.{{petId}}.emoteMale} **{{petName}} {{adjective}}**",
+    "customPetDisplay_female": "{emote:pets.{{petId}}.emoteFemale} **{{petName}} {{adjective}}**",
+    "adjectives_male": [
+      "faché",
+      "hungrig",
+      "wutentbrannt",
+      "wütend",
+      "böse",
+      "genervt",
+      "aggressiv",
+      "heftig",
+      "feindlich",
+      "gereizt",
+      "wütend",
+      "furax",
+      "wild",
+      "bösartig",
+      "brutal",
+      "bedrohlich",
+      "Barbar",
+      "grässlich",
+      "grimmig",
+      "erbarmungslos",
+      "Schläger",
+      "nicht zufrieden",
+      "bösartig",
+      "korrupt",
+      "Schöpfkelle",
+      "verrückt",
+      "Aktenvernichter",
+      "verflucht",
+      "machiavellistisch",
+      "bösartig",
+      "heftig"
+    ],
+    "adjectives_female": [
+      "fachée",
+      "hungrig",
+      "wütend",
+      "furioso",
+      "böse",
+      "genervt",
+      "aggressiv",
+      "gewalttätig",
+      "feindlich",
+      "gereizt",
+      "wütend",
+      "furax",
+      "wild",
+      "bösartig",
+      "brutal",
+      "bedrohlich",
+      "Barbar",
+      "grässlich",
+      "grimmig",
+      "erbarmungslos",
+      "streitlustig",
+      "nicht zufrieden",
+      "bösartig",
+      "korrupt",
+      "Schöpfkelle",
+      "verrückt",
+      "zerstörerisch",
+      "verflucht",
+      "machiavellistisch",
+      "böswillig",
+      "grimmig"
+    ],
+    "fightPetActions": {
+      "fistHit": {
+        "name": "Faustschlag",
+        "success": "Sie schlagen mit einem kräftigen Schlag auf das Tier ein! Es weicht überrascht zurück. Sie nutzen die Gelegenheit, um zu fliehen!",
+        "failure": "Sie schlagen das Tier mit einem schwachen Faustschlag! Es weicht überrascht zurück, aber das reicht nicht aus, um es loszuwerden. Sie müssen einen heftigen Angriff über sich ergehen lassen, bevor Sie fliehen können."
+      },
+      "runAway": {
+        "name": "Flucht",
+        "success": "Sie denken nicht eine Sekunde lang nach und rennen sofort los! Das Tier verfolgt Sie, aber es gelingt Ihnen, sich von ihm loszureißen.",
+        "failure": "Sie versuchen zu fliehen, werden aber schnell von der Bestie eingeholt, die Ihnen einen heftigen Schlag versetzt und Sie dann allein zurücklässt."
+      },
+      "focusEnergy": {
+        "name": "Energie bündeln und angreifen",
+        "success": "Sie verlangsamen Ihre Atmung und spüren, wie Ihre Energie durch Ihre Arme fließt! Sie setzen diese Energie in einem brutalen Schlag frei, der das Tier in die Flucht schlägt!",
+        "failure": "Sie versuchen, sich zu konzentrieren, aber Sie sind zu müde dafür! Sie wanken auf dem Boden, aber das hat immerhin den Effekt, dass sich das Tier beruhigt und weggeht."
+      },
+      "intimidate": {
+        "name": "Die Kreatur einschüchtern",
+        "success": "Sie demonstrieren Ihre Stärke vor dem Tier, das scharf zurückweicht und am Horizont in hohem Tempo flieht!",
+        "failure": "Sie werfen sich vor dem Tier auf die Brust, was es nur noch wütender macht. In seiner Wut verfehlt es seinen Angriff und Sie nutzen die Gelegenheit, um sich schnell zu verziehen!"
+      },
+      "baitWithMeat": {
+        "name": "Das Tier mit Fleisch ablenken",
+        "success": "Sie ziehen ein Stück Fleisch aus Ihrer Tasche und werfen es dem Tier zu, das sich gierig darauf stürzt. Sie nutzen die Gelegenheit, um wegzulaufen.",
+        "failure": "Sie versuchen unbeholfen, ein Stück Fleisch in Richtung des Tieres zu werfen, um es abzulenken. Doch bevor Sie Ihr Manöver einleiten können, kommt das Tier näher und verpasst Ihnen einen heftigen Schlag, bevor es Sie allein lässt."
+      },
+      "baitWithVegetables": {
+        "name": "Das Tier mit einem Gemüse ablenken",
+        "success": "Sie nehmen ein Gemüse aus Ihrer Tasche und werfen es dem Tier zu, das interessiert daran schnüffelt. So haben Sie genügend Zeit, um zu entkommen.",
+        "failure": "Du ziehst ein Gemüse aus deiner Tasche und wirfst es dem Tier zu, das angewidert daran schnüffelt. Noch wütender als zuvor überrascht Sie das Tier mit einem fulminanten Angriff! Sie haben keine Möglichkeit, sich ihm zu entziehen und bekommen den heftigen Angriff mit voller Wucht zu spüren."
+      },
+      "provoke": {
+        "name": "Die Bestie provozieren",
+        "success": "Sie nähern sich dem Tier und provozieren es, indem Sie Grimassen schneiden. Dieses rennt auf Sie zu! Sie weichen im letzten Moment aus und es kracht gegen einen Baum. Sie erledigen es mit einem Tritt und setzen Ihren Weg fort.",
+        "failure": "Sie gehen auf das Tier zu und provozieren es, indem Sie Grimassen schneiden. Es beginnt zu knurren und verpasst Ihnen einen heftigen Schlag, bevor es Sie allein lässt."
+      },
+      "doNothing": {
+        "name": "Nichts tun",
+        "success": "Sie bewegen sich keinen Zentimeter und das Tier scheint Sie zu ignorieren. Sie nutzen die Gelegenheit, um sich zu verdrücken und freuen sich, dass Sie so viel Glück hatten.",
+        "failure": "Sie rühren sich keinen Zentimeter, aber das Tier lässt sich nicht täuschen und verpasst Ihnen einen heftigen Schlag, bevor es Sie allein lässt. Sie machen sich wieder auf den Weg und schämen sich, dass Sie sich vorstellen konnten, dass diese Strategie funktionieren würde."
+      },
+      "lastEffort": {
+        "name": "All Ihre Kraft für einen Angriff einsetzen",
+        "success": "Sie konzentrieren sich und nehmen all Ihre Kraft zusammen, um das Tier anzugreifen. Sie schlagen mit einem heftigen Schlag zu, der das Tier in die Flucht schlägt!",
+        "failure": "Sie konzentrieren sich und nehmen all Ihre Kraft zusammen, um das Tier anzugreifen. Sie schlagen mit einem kräftigen Schlag zu, aber das reicht nicht aus, um das Tier zu vertreiben. Sie müssen einen heftigen Angriff über sich ergehen lassen, bevor Sie fliehen können!"
+      },
+      "usePlayerPet": {
+        "name": "Ihren Vertrauten heranziehen",
+        "success": "Nach so vielen gemeinsamen Abenteuern ist es endlich an der Zeit, Ihren treuen Gefährten zu einem epischen Kampf aufzurufen. Dieser wird jedoch nicht stattfinden, da das wilde Tier, das von der Ankunft Ihres Vertrauten überrascht wurde, ohne zu fragen die Flucht ergreift!",
+        "failure": "Innerhalb eines Augenblicks und bevor Sie irgendein anderes Tier auf dem Schlachtfeld rufen können, finden Sie sich auf dem Boden wieder, niedergeschlagen von dem wilden Tier, das Sie allein lässt, ohne Sie auch nur eines Blickes zu würdigen."
+      },
+      "protect": {
+        "name": "Sich schützen",
+        "success": "Sie heben Ihren Schild hoch vor sich, bereit, den Schlag der Bestie einzustecken. Das Tier stürmt auf Sie zu, Sie halten Ihre Füße so gut es geht auf dem Boden und wehren den Angriff schließlich ab. Das Tier flüchtet, nachdem es eine Niederlage erlitten hat.",
+        "failure": "Sie halten Ihren Schild vor sich, bereit, den Schlag der Bestie zu verkraften, doch der Angriff erweist sich als brutal. Ihre Verteidigung hält nicht und Sie taumeln einige Meter weit. Das Tier ist überzeugt, dass es Sie ausgeschaltet hat, und zieht sich zurück."
+      },
+      "playDead": {
+        "name": "Sich tot stellen",
+        "success": "Als das Tier Sie anstarrt, tun Sie so, als würden Sie auf den Boden fallen und sich nicht mehr bewegen. Nachdem es Sie einige Zeit lang regungslos auf dem Boden beobachtet hat, entfernt es sich und lässt Sie in Ruhe.",
+        "failure": "Während das Tier Sie anstarrt, tun Sie so, als würden Sie auf den Boden fallen und sich nicht mehr bewegen. Es nähert sich Ihnen, schnüffelt an Ihnen und stellt fest, dass Sie nur so tun, als ob. Sie verwirren die Kreatur, indem Sie schnell aufstehen und die Beine in die Hand nehmen, bevor Sie wirklich tot sind."
+      },
+      "scream": {
+        "name": "Schreien",
+        "success": "Sie stoßen einen schrillen Schrei aus, der das Tier vertreibt. Sie setzen Ihren Weg fort und sind erleichtert, dass Sie alles gut überstanden haben.",
+        "failure": "Sie stoßen einen schrillen Schrei aus, der das Tier zur Flucht veranlasst. Das Tier kommt jedoch zurück und verpasst Ihnen einen heftigen Schlag, bevor es Sie allein lässt."
+      },
+      "prayGod": {
+        "name": "Zu Gott beten",
+        "success": "Sie beten zu Gott, dass er Ihnen hilft. Er erhört Sie und beschützt Sie vor dem Angriff des Tieres. Sie setzen Ihren Weg fort und sind erleichtert, dass Sie heil aus der Sache herausgekommen sind.",
+        "failure": "Sie beten zu Gott, dass er Ihnen hilft. Das Tier greift Sie an und Ihre gefalteten Hände können Sie nicht vor seinem Angriff schützen. Sie setzen Ihren Weg fort und schämen sich dafür, dass Sie sich vorstellen konnten, dass diese Strategie funktionieren würde."
+      },
+      "attackLeft": {
+        "name": "Von links angreifen",
+        "success": "Sie stürzen sich auf die linke Seite des Tieres und verpassen ihm einen heftigen Schlag. Geschockt von den Schmerzen flieht das Tier und lässt Sie in Ruhe.",
+        "failure": "Sie springen auf die linke Seite des Tieres und versuchen, ihm einen Schlag zu versetzen. Das Tier greift Sie an, bevor es sich zurückzieht und Sie auf dem Boden liegen lässt."
+      },
+      "attackRight": {
+        "name": "Von rechts angreifen",
+        "success": "Sie stürzen sich auf die rechte Seite des Tieres und verpassen ihm einen heftigen Schlag. Geschockt von den Schmerzen flieht das Tier und lässt Sie in Ruhe.",
+        "failure": "Sie springen auf die rechte Seite des Tieres und versuchen, ihm einen Schlag zu versetzen. Das Tier kontert mit einem heftigen Angriff und lässt Sie am Boden liegen."
+      },
+      "helpFromMates": {
+        "name": "An die Mitglieder Ihrer Gilde appellieren",
+        "success": "Sie rufen Ihre Teamkollegen an, die schnell am Tatort eintreffen. Das Tier, das von der Ankunft der Verstärkung überrascht ist, flüchtet ohne zu fragen!",
+        "failure": "Sie rufen nach Ihren Teamkollegen, aber die sind zu weit weg, um Sie zu hören. Das Tier ist schnell und schlägt Sie nieder, bevor es sich wieder in die Ferne begibt."
+      }
+    }
   }
 }
