@@ -33,7 +33,9 @@ COPY ./Lang ../Lang
 COPY ./Discord/src ./src
 
 # Install the lib dependencies
-RUN cd ../Lib && yarn workspaces focus --production && yarn install && cd ../Discord
+WORKDIR /draftbot/Lib
+RUN yarn workspaces focus --production && yarn install
+WORKDIR /draftbot/Discord
 
 # Compile the source code
 RUN yarn interface
