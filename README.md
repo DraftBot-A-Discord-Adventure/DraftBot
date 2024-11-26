@@ -153,6 +153,15 @@ database and keycloak running.
 Starting order is important, start with the database container and keycloak, then the Core and finally the Discord
 module.
 
+# Docker container
+
+You can also compile the bot in a docker container. To do so, you can use the following commands **at the root of the project**:
+
+```sh
+docker build . -f Discord/Dockerfile -t draftbot/core
+docker build . -f Discord/Dockerfile -t draftbot/discord
+```
+
 # Screenshots
 
 ![image](https://user-images.githubusercontent.com/56274541/120916573-ad599000-c6aa-11eb-9e6f-ccc804bc63b2.png)
