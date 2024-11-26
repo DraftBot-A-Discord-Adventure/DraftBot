@@ -116,7 +116,7 @@ export class DiscordMQTT {
 
 	private static connectSubscribeAndHandleNotifications(): void {
 		DiscordMQTT.notificationMqttClient = connect(discordConfig.MQTT_HOST, {
-			connectTimeout: 10 * 1000,
+			connectTimeout: MqttConstants.CONNECTION_TIMEOUT,
 			clientId: MqttConstants.NOTIFICATIONS_CONSUMER,
 			clean: false // Keeps session active even if the client goes offline
 		});
@@ -144,7 +144,7 @@ export class DiscordMQTT {
 
 	private static connectAndSubscribeGlobal(): void {
 		DiscordMQTT.mqttClient = connect(discordConfig.MQTT_HOST, {
-			connectTimeout: 10 * 1000
+			connectTimeout: MqttConstants.CONNECTION_TIMEOUT
 		});
 
 		DiscordMQTT.mqttClient.on("connect", () => {

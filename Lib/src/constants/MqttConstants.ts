@@ -10,4 +10,6 @@ export abstract class MqttConstants {
 	static readonly NOTIFICATIONS = "draftbot_notifications";
 
 	static readonly NOTIFICATIONS_CONSUMER = "notifications-consumer";
+
+	static readonly CONNECTION_TIMEOUT = 10 * 1000;
 }
