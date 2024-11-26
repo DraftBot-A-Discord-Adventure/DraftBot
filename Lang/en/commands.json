@@ -62,6 +62,16 @@
     "acceptedFooter": "Caution: the staff reserves the right to rename your guild.",
     "acceptedDesc": "The **{{guildName}}** guild has been created!"
   },
+  "guildKick": {
+    "title": "Kick Guild",
+    "confirmDesc": "{emote:guildKick.question} Are you sure you want to kick {{kickedPseudo}} from the guild `{{guildName}}`?",
+    "acceptedDesc": "{{kickedPseudo}} a bien été expulsé de la guilde !",
+    "canceledTitle": "Kick canceled",
+    "canceledDesc": "{{kickedPseudo}} was not kicked from the guild!",
+    "noPlayer": "Player is not in guild.",
+    "notSameGuild": "You cannot kick a player who is not in your guild.",
+    "himself": "You cannot kick yourself from the guild."
+  },
   "help": {
     "aliasFieldTitle": "Alias",
     "aliasesFieldTitle": "Aliases",
