@@ -60,5 +60,9 @@ RUN yarn install
 # Copy the builded app from the builder
 COPY --from=builder /draftbot/Discord/dist ./dist
 
+# Setup permissions
+RUN mkdir -p /.cache/node/corepack
+RUN chmod -R 777 /.cache/node/corepack
+
 # Command used to start the app
 CMD [ "yarn", "dockerStart" ]
