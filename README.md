@@ -158,7 +158,7 @@ module.
 You can also compile the bot in a docker container. To do so, you can use the following commands **at the root of the project**:
 
 ```sh
-docker build . -f Discord/Dockerfile -t draftbot/core
+docker build . -f Core/Dockerfile -t draftbot/core
 docker build . -f Discord/Dockerfile -t draftbot/discord
 ```
 
