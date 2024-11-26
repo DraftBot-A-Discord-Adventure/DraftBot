@@ -12,7 +12,6 @@ import {LANGUAGE} from "../../../Lib/src/Language";
 import {TextChannel} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import i18n from "../translations/i18n";
-import * as process from "node:process";
 
 export class DiscordMQTT {
 	static mqttClient: MqttClient;

@@ -46,7 +46,7 @@ export class Logger {
 		}
 		if (this.canWrite === LogWritingState.BUILDING || !this.fileStream!.writable) {
 			console.error("Can't write to log file (the file is not ready or the permission is denied)");
-			console.error("Logged text : " + loggedText);
+			console.error(`Logged text : ${loggedText}`);
 			return;
 		}
 		const toSave = `${loggedText}\n----------------------------------------`;

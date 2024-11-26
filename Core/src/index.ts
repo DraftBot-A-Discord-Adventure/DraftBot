@@ -9,7 +9,6 @@ import { connect } from "mqtt";
 import {PacketUtils} from "./core/utils/PacketUtils";
 import {MqttConstants} from "../../Lib/src/constants/MqttConstants";
 import {RightGroup} from "../../Lib/src/enums/RightGroup";
-import * as process from "node:process";
 
 export const botConfig = loadConfig();
 export let draftBotInstance: DraftBot = null;
