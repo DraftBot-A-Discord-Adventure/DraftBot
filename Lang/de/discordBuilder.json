@@ -201,6 +201,20 @@
     "description": "Zeigt den Gildenladen an.",
     "name": "magasinguilde"
   },
+  "guildKick": {
+    "description": "Exclure un membre de la guilde.",
+    "name": "exclureguilde",
+    "options": {
+      "rank": {
+        "description": "Le classement du joueur à exclure de la guilde.",
+        "name": "classement"
+      },
+      "user": {
+        "description": "L'utilisateur à exclure de la guilde.",
+        "name": "utilisateur"
+      }
+    }
+  },
   "guildDaily": {
     "description": "Sammelt die tägliche Belohnung der Gilde ein.",
     "name": "bonusjournalgilde"
