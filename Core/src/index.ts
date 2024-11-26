@@ -17,7 +17,7 @@ export let draftBotInstance: DraftBot = null;
 console.log("Running DraftBot 5.0.0");
 
 export const mqttClient = connect(botConfig.MQTT_HOST, {
-	connectTimeout: 10 * 1000
+	connectTimeout: MqttConstants.CONNECTION_TIMEOUT
 });
 
 mqttClient.on("connect", () => {
