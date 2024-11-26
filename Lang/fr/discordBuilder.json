@@ -81,20 +81,6 @@
       }
     }
   },
-  "guildKick": {
-    "description": "Exclure un membre de la guilde.",
-    "name": "exclureguilde",
-    "options": {
-      "rank": {
-        "description": "Le classement du joueur à exclure de la guilde.",
-        "name": "classement"
-      },
-      "user": {
-        "description": "L'utilisateur à exclure de la guilde.",
-        "name": "utilisateur"
-      }
-    }
-  },
   "guild": {
     "description": "Affiche des informations sur une guilde.",
     "name": "guilde",
@@ -214,6 +200,20 @@
   "guildShop": {
     "description": "Affiche le magasin de guilde.",
     "name": "magasinguilde"
+  },
+  "guildKick": {
+    "description": "Exclure un membre de la guilde.",
+    "name": "exclureguilde",
+    "options": {
+      "rank": {
+        "description": "Le classement du joueur à exclure de la guilde.",
+        "name": "classement"
+      },
+      "user": {
+        "description": "L'utilisateur à exclure de la guilde.",
+        "name": "utilisateur"
+      }
+    }
   },
   "guildDaily": {
     "description": "Récupérer la récompense journalière de la guilde.",

@@ -96,6 +96,9 @@ export const DraftBotIcons: {
 	},
 	rewards: {
 		[rewardId: string]: string
+	},
+	guildKick: {
+		question: string,
 	}
 } = {
 	"effects": {
@@ -1687,5 +1690,8 @@ export const DraftBotIcons: {
 	"rewards": {
 		"item": "🎁",
 		"partialHeal": "💟"
+	},
+	"guildKick": {
+		"question": "❓"
 	}
 };
