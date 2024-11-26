@@ -63,6 +63,8 @@ COPY --from=builder /draftbot/Discord/dist ./dist
 # Setup permissions
 RUN mkdir -p /.cache/node/corepack
 RUN chmod -R 777 /.cache/node/corepack
+RUN chmod o+rx /root
+RUN chmod -R o+rx /root/.yarn
 
 # Command used to start the app
 CMD [ "yarn", "dockerStart" ]
