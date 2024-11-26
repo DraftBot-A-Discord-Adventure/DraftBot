@@ -62,6 +62,16 @@
     "acceptedFooter": "Attention, le staff se réserve le droit de renommer votre guilde.",
     "acceptedDesc": "La guilde **{{guildName}}** a été créée !"
   },
+  "guildKick": {
+    "title": "Expulsion de la guilde",
+    "confirmDesc": "{emote:guildKick.question} Êtes vous sur de vouloir expulser {{kickedPseudo}} de la guilde `{{guildName}}`?",
+    "acceptedDesc": "{{kickedPseudo}} a bien été expulsé de la guilde !",
+    "canceledTitle": "Expulsion annulée",
+    "canceledDesc": "{{kickedPseudo}} n'a pas été expulsé de la guilde !",
+    "noPlayer": "Le joueur n'est pas dans la guilde.",
+    "notSameGuild": "Vous ne pouvez pas expulser un joueur qui n'est pas dans votre guilde.",
+    "himself": "Vous ne pouvez pas vous expulser vous-même de la guilde."
+  },
   "help": {
     "aliasFieldTitle": "Alias",
     "aliasesFieldTitle": "Alias",
