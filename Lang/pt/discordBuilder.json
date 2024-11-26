@@ -201,6 +201,20 @@
     "description": "Apresenta a loja do grémio.",
     "name": "magasinguilde"
   },
+  "guildKick": {
+    "description": "Exclure un membre de la guilde.",
+    "name": "exclureguilde",
+    "options": {
+      "rank": {
+        "description": "Le classement du joueur à exclure de la guilde.",
+        "name": "classement"
+      },
+      "user": {
+        "description": "L'utilisateur à exclure de la guilde.",
+        "name": "utilisateur"
+      }
+    }
+  },
   "guildDaily": {
     "description": "Receber a recompensa diária da guilda.",
     "name": "bónusjornalierguilde"
