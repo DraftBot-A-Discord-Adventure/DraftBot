@@ -5,7 +5,7 @@
 	"main": "src/index.js",
 	"packageManager": "yarn@4.5.1",
 	"engines": {
-		"node": ">=18.19.0"
+		"node": ">=23.0.0"
 	},
 	"engineStrict": true,
 	"scripts": {
@@ -15,7 +15,7 @@
 		"eslintFix": "eslint src --fix",
 		"tsc": "tsc",
 		"yarnInstall": "yarn install",
-		"dockerStart": "node dist/src/index.js"
+		"dockerStart": "node dist/Core/src/index.js"
 	},
 	"dependencies": {
 		"@types/node": "20.4.8",
