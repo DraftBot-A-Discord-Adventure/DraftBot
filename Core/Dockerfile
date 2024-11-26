@@ -31,7 +31,9 @@ COPY ./Core/src ./src
 COPY ./Core/resources ./resources
 
 # Install the lib dependencies
-RUN cd ../Lib && yarn workspaces focus --production && yarn install && cd ../Core
+WORKDIR /draftbot/Lib
+RUN yarn workspaces focus --production && yarn install
+WORKDIR /draftbot/Core
 
 # Compile the source code
 RUN yarn run tsc
