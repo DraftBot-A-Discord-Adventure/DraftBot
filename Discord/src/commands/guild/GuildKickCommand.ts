@@ -145,14 +145,10 @@ export async function handleCommandGuildKickAcceptPacketRes(packet: CommandGuild
 					.setDescription(
 						i18n.t("commands:guildKick.acceptedDesc", {
 							lng: originalInteraction.userLanguage,
-							kickedPlayerPseudo: kickedPlayer.attributes.gameUsername,
+							kickedPseudo: kickedPlayer.attributes.gameUsername,
 							guildName: packet.guildName
 						})
 					)
-					.setFooter({
-						text:
-							i18n.t("commands:guildKick.acceptedFooter", {lng: originalInteraction.userLanguage})
-					})
 			]
 		});
 	}

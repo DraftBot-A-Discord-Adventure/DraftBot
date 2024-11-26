@@ -99,20 +99,6 @@
       }
     }
   },
-  "guildKick": {
-    "description": "Kick a player from the guild.",
-    "name": "guildkick",
-    "options": {
-      "rank": {
-        "description": "The rank of the player who must be kicked from the guild.",
-        "name": "rank"
-      },
-      "user": {
-        "description": "The user who must be kicked from the guild.",
-        "name": "user"
-      }
-    }
-  },
   "profile": {
     "description": "Displays the profile of a player.",
     "name": "profile",
@@ -214,6 +200,20 @@
   "guildShop": {
     "description": "Displays the guild shop.",
     "name": "guildshop"
+  },
+  "guildKick": {
+    "description": "Kick a player from the guild.",
+    "name": "guildkick",
+    "options": {
+      "rank": {
+        "description": "The rank of the player who must be kicked from the guild.",
+        "name": "rank"
+      },
+      "user": {
+        "description": "The user who must be kicked from the guild.",
+        "name": "user"
+      }
+    }
   },
   "guildDaily": {
     "description": "Get the guild's daily reward.",
