@@ -1477,5 +1477,28 @@
         "failure": "You call on your teammates, but they are too far away to hear you. The animal, fast, knocks you down before you go again."
       }
     }
+  },
+  "gobletsGame": {
+    "intro": "you meet a man who seems suspicious to you. Indeed, it approaches you and pushes you to a table, where three mystery goblets are laid. The instructions given to you are simple: you must pull a cup at random and receive the prize of any kind. While you observe the objects on the table, the man slips into your back and doesn't seem to want to let you go. To get out of this situation, you can choose a cup.",
+    "goblets": {
+      "metal": {
+        "description": "The meteor, seemingly ancient tree, engraved with a dragon's tone",
+        "name": "in metal"
+      },
+      "biggest": {
+        "description": "The largest of the three, of a subject you fail to identify",
+        "name": "largest"
+      },
+      "sparkling": {
+        "description": "The last, sculpt in a blue wood, and glittering so much that it seemed enchanted",
+        "name": "glittering"
+      }
+    },
+    "results": {
+      "life": "You gently raise the cup $t(smallEvents:gobletsGame.goblets.{{goblet}}. ame) and notice that there is nothing underneath. Deep, and bad loser, you hit the remaining cups that fly in the air. Noting that there was nothing in the other goblets either, you turn to the scammer. Unfortunately it hits the first. You lose **{{quantity}} {emote:unitValues.lostHealth}**.",
+      "time": "You gently raise the cup $t(smallEvents:gobletsGame.goblets.{{goblet}}. ame) and discover with pleasure a little piece! Unfortunately, the man behind you does not seem to want to let you leave with your reward. You lose **{{quantity}} Min {emote:unitValues.time}** to shop with him before giving up and getting back on your way.",
+      "nothing": "You gently raise the cup $t(smallEvents:gobletsGame.goblets.{{goblet}}.name) and notice that there is nothing below. If so, you are leaving again sadly saying that you may have more luck another time.",
+      "end": "Faced with your lack of response, the man has the wrong idea of trying to steal you. Noting his manoeuvre, you intervene, but you were quickly surprised by the strength of the man who manages to deal with an abrupt movement, before escaping. You are dealing with a **{{quantity}} {emote:unitValues.lostHealth}**."
+    }
   }
 }
