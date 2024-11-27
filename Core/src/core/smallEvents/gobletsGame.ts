@@ -1,4 +1,4 @@
-import {SmallEventDataController, SmallEventFuncs} from "../../data/SmallEvent";
+import {SmallEventFuncs} from "../../data/SmallEvent";
 import {MapConstants} from "../../../../Lib/src/constants/MapConstants";
 import {Maps} from "../maps/Maps";
 import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
@@ -9,41 +9,49 @@ import {BlockingUtils} from "../utils/BlockingUtils";
 import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {TravelTime} from "../maps/TravelTime";
-import {SmallEventGobletsGamePacket} from "../../../../Lib/src/packets/smallEvents/SmallEventGobletsGamePacket";
+import {
+	SmallEventGobletsGameMalus,
+	SmallEventGobletsGamePacket
+} from "../../../../Lib/src/packets/smallEvents/SmallEventGobletsGamePacket";
 import {EndCallback, ReactionCollectorInstance} from "../utils/ReactionsCollector";
-import {ReactionCollectorGobletsGame} from "../../../../Lib/src/packets/interaction/ReactionCollectorGobletsGame";
+import {
+	ReactionCollectorGobletsGame,
+	ReactionCollectorGobletsGameReaction
+} from "../../../../Lib/src/packets/interaction/ReactionCollectorGobletsGame";
 import {ReactionCollectorReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {Effect} from "../../../../Lib/src/enums/Effect";
 
-type GobletsGameProperties = {
-	"malusTypes": string[]
+function computeLostValue(level: number, modifiers: {
+	LEVEL_MULTIPLIER: number,
+	BASE: number,
+	VARIATION: number
+}): number {
+	return Math.round(level * modifiers.LEVEL_MULTIPLIER) + modifiers.BASE + RandomUtils.variationInt(modifiers.VARIATION);
 }
-const properties = SmallEventDataController.instance.getById("gobletsGame").getProperties<GobletsGameProperties>();
+
 async function applyMalus(response: DraftBotPacket[], player: Player, reaction: ReactionCollectorReaction): Promise<void> {
-	const malus = !reaction ? "end" : RandomUtils.draftbotRandom.pick(properties.malusTypes);
-	const packet = makePacket(SmallEventGobletsGamePacket,{
+	const malus = !reaction ? SmallEventGobletsGameMalus.END : RandomUtils.draftbotRandom.pick(Object.values(SmallEventGobletsGameMalus).filter(m => m !== SmallEventGobletsGameMalus.END));
+	const packet = makePacket(SmallEventGobletsGamePacket, {
 		malus,
-		goblet: reaction.constructor.name,
+		goblet: (reaction as { data: ReactionCollectorGobletsGameReaction })?.data.id,
 		value: 0
 	});
 	switch (malus) {
-	case "life":
-	case "end":
-		packet.value = Math.round(player.level * SmallEventConstants.GOBLETS_GAME.HEALTH_LOST.END_LEVEL_MULTIPLIER) + SmallEventConstants.GOBLETS_GAME.HEALTH_LOST.BASE
-			+ RandomUtils.variationInt(SmallEventConstants.GOBLETS_GAME.HEALTH_LOST.VARIATION);
+	case SmallEventGobletsGameMalus.LIFE:
+	case SmallEventGobletsGameMalus.END:
+		packet.value = computeLostValue(player.level, SmallEventConstants.GOBLETS_GAME.HEALTH_LOST);
 		await player.addHealth(-packet.value, response, NumberChangeReason.SMALL_EVENT);
+		await player.killIfNeeded(response, NumberChangeReason.SMALL_EVENT);
 		break;
-	case "time":
-		packet.value = Math.round(player.level * SmallEventConstants.GOBLETS_GAME.TIME_LOST.LEVEL_MULTIPLIER) + SmallEventConstants.GOBLETS_GAME.TIME_LOST.BASE
-			+ RandomUtils.variationInt(SmallEventConstants.GOBLETS_GAME.TIME_LOST.VARIATION);
+	case SmallEventGobletsGameMalus.TIME:
+		packet.value = computeLostValue(player.level, SmallEventConstants.GOBLETS_GAME.TIME_LOST);
 		await TravelTime.applyEffect(player, Effect.OCCUPIED, packet.value, new Date(), NumberChangeReason.SMALL_EVENT);
 		break;
-	case "nothing":
+	case SmallEventGobletsGameMalus.NOTHING:
 		break;
 	default:
 		throw new Error("reward type not found");
 	}
-	await player.killIfNeeded(response, NumberChangeReason.SMALL_EVENT);
 	await player.save();
 	response.push(packet);
 }
@@ -53,26 +61,21 @@ export const smallEventFuncs: SmallEventFuncs = {
 		const destination = player.getDestination();
 		const origin = player.getPreviousMap();
 		return Maps.isOnContinent(player) &&
-			!(destination.id === MapConstants.LOCATIONS_IDS.ROAD_OF_WONDERS
-				|| destination.id === MapConstants.LOCATIONS_IDS.MARSHY_ROAD
-				|| origin.id === MapConstants.LOCATIONS_IDS.ROAD_OF_WONDERS
-				|| origin.id === MapConstants.LOCATIONS_IDS.MARSHY_ROAD
-			);
+			!([destination.id, origin.id].some(mapId =>
+				[MapConstants.LOCATIONS_IDS.ROAD_OF_WONDERS, MapConstants.LOCATIONS_IDS.MARSHY_ROAD].includes(mapId)));
 	},
 	executeSmallEvent: (context, response, player) => {
 		const collector = new ReactionCollectorGobletsGame();
 
 		const endCallback: EndCallback = async (collector, response) => {
-			await applyMalus(response, player, collector.getFirstReaction().reaction);
+			await applyMalus(response, player, collector.getFirstReaction()?.reaction);
 			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.GOBLET_CHOOSE);
 		};
 
 		const packet = new ReactionCollectorInstance(
 			collector,
 			context,
-			{
-				allowedPlayerKeycloakIds: [player.keycloakId]
-			},
+			{},
 			endCallback
 		)
 			.block(player.id, BlockingConstants.REASONS.GOBLET_CHOOSE)

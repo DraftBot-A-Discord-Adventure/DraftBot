@@ -97,6 +97,9 @@ export const DraftBotIcons: {
 	rewards: {
 		[rewardId: string]: string
 	},
+	goblets: {
+		[gobletId: string]: string
+	},
 	guildKick: {
 		question: string,
 	}
@@ -1690,6 +1693,11 @@ export const DraftBotIcons: {
 	"rewards": {
 		"item": "🎁",
 		"partialHeal": "💟"
+	},
+	"goblets": {
+		"metal": "🐲",
+		"biggest": "🪣",
+		"sparkling": "✨"
 	},
 	"guildKick": {
 		"question": "❓"

@@ -68,6 +68,7 @@ import {SmallEventCartPacket} from "../../../../Lib/src/packets/smallEvents/Smal
 import {cartResult} from "../../smallEvents/cart";
 import {SmallEventFindMissionPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFindMissionPacket";
 import {MissionUtils} from "../../utils/MissionUtils";
+import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 
 
 export function getRandomSmallEventIntro(language: Language): string {
@@ -771,7 +772,8 @@ export default class SmallEventsHandler {
 						lng: interaction.userLanguage
 					}) + (packet.isSuccess ? i18n.t("smallEvents:fightPet.rageUpFormat", {
 						lng: interaction.userLanguage,
-						rageUpDescription: StringUtils.getRandomTranslation("smallEvents:fightPet.rageUpDescriptions", interaction.userLanguage)
+						rageUpDescription: StringUtils.getRandomTranslation("smallEvents:fightPet.rageUpDescriptions", interaction.userLanguage),
+						interpolation: {escapeValue: false}
 					}) : ""),
 					interaction.user,
 					interaction.userLanguage
@@ -782,8 +784,27 @@ export default class SmallEventsHandler {
 
 	@packetHandler(SmallEventGobletsGamePacket)
 	async smallEventGobletsGame(packet: SmallEventGobletsGamePacket, context: PacketContext): Promise<void> {
-		// Todo
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		await interaction?.channel.send({
+			embeds: [
+				new DraftBotEmbed()
+					.formatAuthor(i18n.t("commands:report.journal", {
+							lng: interaction.userLanguage,
+							pseudo: interaction.user.displayName
+						}),
+						interaction.user
+					)
+					.setDescription(
+						i18n.t(`{emote:goblets.{{goblet}}} $t(smallEvents:gobletsGame.results.${packet.malus})`, {
+							lng: interaction.userLanguage,
+							quantity: packet.value,
+							goblet: packet.goblet ?? RandomUtils.draftbotRandom.pick(Object.keys(DraftBotIcons.goblets))
+						})
+					)
+			]
+		});
 	}
+
 
 	@packetHandler(SmallEventShopPacket)
 	async smallEventShop(packet: SmallEventShopPacket, context: PacketContext): Promise<void> {

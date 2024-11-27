@@ -29,6 +29,8 @@ import {fightPetCollector} from "../../smallEvents/fightPet";
 import {PacketListenerCallbackClient} from "../../../../Lib/src/packets/PacketListener";
 import {ReactionCollectorGuildKickData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildKick";
 import {createGuildKickCollector} from "../../commands/guild/GuildKickCommand";
+import {ReactionCollectorGobletsGameData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGobletsGame";
+import {gobletsGameCollector} from "../../smallEvents/gobletsGame";
 
 export default class ReactionCollectorHandler {
 
@@ -51,6 +53,7 @@ export default class ReactionCollectorHandler {
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorBuyCategorySlotData.name, shopInventoryExtensionCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorCartData.name, cartCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorFightPetData.name, fightPetCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorGobletsGameData.name, gobletsGameCollector);
 	}
 
 	@packetHandler(ReactionCollectorCreationPacket)
