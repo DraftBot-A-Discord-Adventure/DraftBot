@@ -32,6 +32,11 @@ export class DraftbotButtonReactionMessage {
 
 	private readonly _messageOptions: DraftbotButtonReactionMessageOptions;
 
+	/**
+	 * Create a new button reaction message : a message consisting of an embed and a list of buttons, one of which must be clicked
+	 * @param interaction
+	 * @param messageOptions
+	 */
 	constructor(interaction: DraftbotInteraction, messageOptions: DraftbotButtonReactionMessageOptions) {
 		this._buttonRow = new ActionRowBuilder<ButtonBuilder>();
 		this._buttonRow.addComponents(messageOptions.reactions.map((
@@ -39,12 +44,11 @@ export class DraftbotButtonReactionMessage {
 				emote,
 				buttonStyle,
 				customId
-			}) => {
-			return new ButtonBuilder()
+			}) =>
+			new ButtonBuilder()
 				.setCustomId(customId)
 				.setStyle(buttonStyle ?? ButtonStyle.Secondary)
-				.setEmoji(emote);
-		}));
+				.setEmoji(emote)));
 		this._embed = messageOptions.embed;
 		this._embed.setDescription(this._embed.toJSON().description + this.createMenuDescription(messageOptions.reactions));
 		this._interaction = interaction;
@@ -98,9 +102,15 @@ export class DraftbotButtonReactionMessage {
 
 	}
 
-	private createMenuDescription(reactions: DraftbotButtonReaction[]) {
-		return `\n\n${reactions.map(({emote, description}) => {
-			return `${EmoteUtils.translateEmojiToDiscord(emote)} ${description}`;
-		}).join("\n")}`;
+	/**
+	 * Create the menu text
+	 * @param reactions
+	 * @private
+	 */
+	private createMenuDescription(reactions: DraftbotButtonReaction[]): string {
+		return `\n\n${reactions.map(
+			({emote, description}) =>
+				`${EmoteUtils.translateEmojiToDiscord(emote)} ${description}`).join("\n")
+		}`;
 	}
 }
