@@ -47,7 +47,7 @@ export async function handleCommandUnlockPacketRes(packet: CommandUnlockPacketRe
 			await sendErrorMessage(
 				interaction.user,
 				interaction,
-				i18n.t("commands:unlock.noPlayer", {lng: interaction.userLanguage}),
+				i18n.t("error:playerDoesntExist", {lng: interaction.userLanguage}),
 				{sendManner: SendManner.REPLY}
 			);
 			return;
@@ -56,9 +56,9 @@ export async function handleCommandUnlockPacketRes(packet: CommandUnlockPacketRe
 			await sendErrorMessage(
 				interaction.user,
 				interaction,
-				i18n.t("commands:unlock.notEnoughMoney", {
+				i18n.t("error:notEnoughMoney", {
 					lng: interaction.userLanguage,
-					missingMoney: UnlockConstants.PRICE_FOR_UNLOCK - packet.money
+					money: UnlockConstants.PRICE_FOR_UNLOCK - packet.money
 				}),
 				{sendManner: SendManner.REPLY}
 			);
