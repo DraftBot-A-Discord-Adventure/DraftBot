@@ -5,16 +5,21 @@ import {
 	ReactionCollectorReaction
 } from "./ReactionCollectorPacket";
 
-export class ReactionCollectorGobletsGameMetalReaction extends ReactionCollectorReaction {
 
+export abstract class ReactionCollectorGobletsGameReaction extends ReactionCollectorReaction {
+	id?: string;
 }
 
-export class ReactionCollectorGobletsGameBiggestReaction extends ReactionCollectorReaction {
-
+export class ReactionCollectorGobletsGameMetalReaction extends ReactionCollectorGobletsGameReaction {
+	id? = "metal";
 }
 
-export class ReactionCollectorGobletsGameSparklingReaction extends ReactionCollectorReaction {
+export class ReactionCollectorGobletsGameBiggestReaction extends ReactionCollectorGobletsGameReaction {
+	id? = "biggest";
+}
 
+export class ReactionCollectorGobletsGameSparklingReaction extends ReactionCollectorGobletsGameReaction {
+	id? = "sparkling";
 }
 
 export class ReactionCollectorGobletsGameData extends ReactionCollectorData {

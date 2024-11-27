@@ -31,7 +31,7 @@ export class DiscordCollectorUtils {
 			{
 				id: packet.id,
 				keycloakId: userKeycloakId,
-				reactionIndex: reactionIndex
+				reactionIndex
 			}
 		);
 
