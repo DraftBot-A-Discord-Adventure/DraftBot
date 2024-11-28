@@ -1479,26 +1479,26 @@
     }
   },
   "gobletsGame": {
-    "intro": "vous croisez un homme qui vous paraît suspect. En effet, celui-ci s'approche de vous, et vous pousse sans ménagement vers une table, sur laquelle sont posés trois mystérieux gobelets. Les consignes qui vous sont données sont simples : vous devez tirer un gobelet au hasard, et recevoir la récompense, quelle qu'elle soit. Pendant que vous observez les objets disposés sur la table, l'homme se glisse dans votre dos et ne semble pas vouloir vous laisser partir. Pour vous sortir de cette situation, vous vous résignez à choisir un gobelet.",
+    "intro": "vi imbattete in un uomo dall'aria sospetta. Si avvicina a voi e vi spinge verso un tavolo con tre misteriose tazze. Le istruzioni che vi vengono date sono semplici: dovete pescare una tazza a caso e ricevere la ricompensa, qualunque essa sia. Mentre guardate gli oggetti sul tavolo, l'uomo si insinua dietro di voi e sembra non volervi lasciare andare. Per uscire da questa situazione, vi rassegnate a scegliere una tazza.",
     "goblets": {
       "metal": {
-        "description": "Celui en métal, semblant très ancien, gravé d'une tête de dragon",
-        "name": "en métal"
+        "description": "Quello in metallo, che sembra molto antico, è inciso con una testa di drago.",
+        "name": "metallo"
       },
       "biggest": {
-        "description": "Le plus grand des trois, d'une matière que vous parvenez pas à identifier",
-        "name": "le plus grand"
+        "description": "Il più grande dei tre, fatto di un materiale che non è possibile identificare.",
+        "name": "il più grande"
       },
       "sparkling": {
-        "description": "Le dernier, sculpté dans un bois bleu, et scintillant à tel point qu'il paraît enchanté",
-        "name": "scintillant"
+        "description": "L'ultimo, intagliato in legno blu e scintillante a tal punto da sembrare incantato, è il più grande dei due.",
+        "name": "scintillante"
       }
     },
     "results": {
-      "life": "Vous soulevez doucement le gobelet $t(smallEvents:gobletsGame.goblets.{{goblet}}.name) et remarquez qu'il n'y a rien dessous. Déçu, et mauvais perdant, vous frappez les gobelets restants qui volent dans les airs. Remarquant qu'il n'y avait rien non plus dans les autres gobelets, vous vous retournez vers l'arnaqueur. Malheureusement celui-ci frappe le premier. Vous perdez **{{quantity}} {emote:unitValues.lostHealth}**.",
-      "time": "Vous soulevez doucement le gobelet $t(smallEvents:gobletsGame.goblets.{{goblet}}.name) et découvrez avec plaisir une petite pièce ! Malheureusement, l'homme derrière vous ne semble pas vouloir vous laisser partir avec votre récompense. Vous perdez **{{quantity}} Min {emote:unitValues.time}** à négocier avec lui avant d'abandonner et de reprendre votre route.",
-      "nothing": "Vous soulevez doucement le gobelet $t(smallEvents:gobletsGame.goblets.{{goblet}}.name) et remarquez qu'il n'y a rien dessous. Déçu, vous repartez tristement en vous disant que vous aurez peut-être plus de chance une autre fois.",
-      "end": "Devant votre manque de réaction, l'homme a la mauvaise idée d'essayer de vous voler. Remarquant sa manoeuvre, vous intervenez, mais vous êtes rapidement surpris de la force de l'homme qui parvient à se dégager d'un brusque mouvement, avant de s'enfuir. Vous vous en sortez avec une légère blessure **{{quantity}} {emote:unitValues.lostHealth}**."
+      "life": "$t(smallEvents:gobletsGame.goblets.{{goblet}}.name) Si solleva delicatamente la tazza e si nota che sotto non c'è nulla. Delusi e arrabbiati, date un calcio alle tazze rimanenti, che volano in aria. Notando che anche nelle altre tazze non c'era nulla, vi voltate verso il truffatore. Sfortunatamente, egli colpisce per primo.{{quantity}} {emote:unitValues.lostHealth}Si perde ** **.",
+      "time": "$t(smallEvents:gobletsGame.goblets.{{goblet}}.name) Sollevate delicatamente la tazza e scoprite con piacere una piccola moneta! Purtroppo, l'uomo dietro di voi non sembra voler lasciarvi andare con la vostra ricompensa.{{quantity}} {emote:unitValues.time}Passate ** Min ** a negoziare con lui prima di arrendervi e continuare il vostro cammino.",
+      "nothing": "$t(smallEvents:gobletsGame.goblets.{{goblet}}.name) Sollevate delicatamente la tazza e notate che sotto non c'è nulla. Delusi, ve ne andate mestamente, pensando che forse sarete più fortunati un'altra volta.",
+      "end": "Vedendo la vostra mancanza di reazione, l'uomo ha la pessima idea di tentare di derubarvi. Notando la sua manovra, intervenite, ma siete subito sorpresi dalla forza dell'uomo, che riesce a togliersi di mezzo con un movimento improvviso, prima di fuggire.{{quantity}} {emote:unitValues.lostHealth}Si fugge con una leggera ferita ** **."
     }
   }
 }
