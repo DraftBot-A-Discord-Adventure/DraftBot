@@ -72,7 +72,6 @@ export default class GuildInviteCommand {
 			collector,
 			context,
 			{
-				allowedPlayerKeycloakIds: [invitedPlayer.keycloakId],
 				reactionLimit: 1
 			},
 			endCallback
@@ -94,7 +93,7 @@ export default class GuildInviteCommand {
 async function canSendInvite(invitedPlayer: Player, guild: Guild, response: DraftBotPacket[]): Promise<boolean> {
 	const packetData = {
 		invitedPlayerKeycloakId: invitedPlayer.keycloakId,
-		guildName: guild.name
+		guildName: guild?.name
 	};
 
 	if (!guild) {
