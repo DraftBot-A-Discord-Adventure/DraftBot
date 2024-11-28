@@ -1479,26 +1479,26 @@
     }
   },
   "gobletsGame": {
-    "intro": "vous croisez un homme qui vous paraît suspect. En effet, celui-ci s'approche de vous, et vous pousse sans ménagement vers une table, sur laquelle sont posés trois mystérieux gobelets. Les consignes qui vous sont données sont simples : vous devez tirer un gobelet au hasard, et recevoir la récompense, quelle qu'elle soit. Pendant que vous observez les objets disposés sur la table, l'homme se glisse dans votre dos et ne semble pas vouloir vous laisser partir. Pour vous sortir de cette situation, vous vous résignez à choisir un gobelet.",
+    "intro": "encontra um homem que parece suspeito. Ele aproxima-se de ti e empurra-te para uma mesa com três taças misteriosas. As instruções que lhe são dadas são simples: deve tirar uma chávena ao acaso e receber a recompensa, seja ela qual for. Enquanto olha para os objectos sobre a mesa, o homem aproxima-se por trás de si e parece não o querer largar. Para sair desta situação, resigna-se a escolher uma chávena.",
     "goblets": {
       "metal": {
-        "description": "Celui en métal, semblant très ancien, gravé d'une tête de dragon",
-        "name": "en métal"
+        "description": "O de metal, que parece muito antigo, tem gravada a cabeça de um dragão.",
+        "name": "metal"
       },
       "biggest": {
-        "description": "Le plus grand des trois, d'une matière que vous parvenez pas à identifier",
-        "name": "le plus grand"
+        "description": "O maior dos três, feito de um material que não se consegue identificar",
+        "name": "o maior"
       },
       "sparkling": {
-        "description": "Le dernier, sculpté dans un bois bleu, et scintillant à tel point qu'il paraît enchanté",
-        "name": "scintillant"
+        "description": "O último, esculpido em madeira azul e que brilha de tal forma que parece encantado",
+        "name": "cintilante"
       }
     },
     "results": {
-      "life": "Vous soulevez doucement le gobelet $t(smallEvents:gobletsGame.goblets.{{goblet}}.name) et remarquez qu'il n'y a rien dessous. Déçu, et mauvais perdant, vous frappez les gobelets restants qui volent dans les airs. Remarquant qu'il n'y avait rien non plus dans les autres gobelets, vous vous retournez vers l'arnaqueur. Malheureusement celui-ci frappe le premier. Vous perdez **{{quantity}} {emote:unitValues.lostHealth}**.",
-      "time": "Vous soulevez doucement le gobelet $t(smallEvents:gobletsGame.goblets.{{goblet}}.name) et découvrez avec plaisir une petite pièce ! Malheureusement, l'homme derrière vous ne semble pas vouloir vous laisser partir avec votre récompense. Vous perdez **{{quantity}} Min {emote:unitValues.time}** à négocier avec lui avant d'abandonner et de reprendre votre route.",
-      "nothing": "Vous soulevez doucement le gobelet $t(smallEvents:gobletsGame.goblets.{{goblet}}.name) et remarquez qu'il n'y a rien dessous. Déçu, vous repartez tristement en vous disant que vous aurez peut-être plus de chance une autre fois.",
-      "end": "Devant votre manque de réaction, l'homme a la mauvaise idée d'essayer de vous voler. Remarquant sa manoeuvre, vous intervenez, mais vous êtes rapidement surpris de la force de l'homme qui parvient à se dégager d'un brusque mouvement, avant de s'enfuir. Vous vous en sortez avec une légère blessure **{{quantity}} {emote:unitValues.lostHealth}**."
+      "life": "$t(smallEvents:gobletsGame.goblets.{{goblet}}.name) Levantas o copo com cuidado e vês que não há nada por baixo. Desapontado, e como quem perde, dá um pontapé nos restantes copos, que voam pelo ar. Ao reparar que também não havia nada nas outras chávenas, volta-se para o vigarista. Infelizmente, ele ataca primeiro.{{quantity}} {emote:unitValues.lostHealth}Perdeste ** **.",
+      "time": "$t(smallEvents:gobletsGame.goblets.{{goblet}}.name) Levanta suavemente a chávena e fica encantado por descobrir uma pequena moeda! Infelizmente, o homem atrás de si não parece querer deixá-lo partir com a sua recompensa.{{quantity}} {emote:unitValues.time}Passa ** Min ** a negociar com ele antes de desistir e continuar o seu caminho.",
+      "nothing": "$t(smallEvents:gobletsGame.goblets.{{goblet}}.name) Levanta suavemente a chávena e verifica que não há nada por baixo. Desapontado, vai-se embora com tristeza, pensando que talvez tenha mais sorte noutra altura.",
+      "end": "Ao ver a tua falta de reação, o homem tem a má ideia de te tentar roubar. Apercebendo-se da sua manobra, intervém, mas é rapidamente surpreendido pela força do homem, que consegue sair do caminho com um movimento brusco, antes de fugir.{{quantity}} {emote:unitValues.lostHealth}Escapou com um ferimento ligeiro ** **."
     }
   }
 }
