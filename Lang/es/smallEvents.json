@@ -1482,23 +1482,23 @@
     "intro": "te cruzas con un hombre que parece sospechoso. Se te acerca y te empuja hacia una mesa en la que hay tres misteriosas copas. Las instrucciones que te da son sencillas: debes sacar una copa al azar y recibir la recompensa, sea cual sea. Mientras observas los objetos de la mesa, el hombre se acerca sigilosamente por detrás y no parece querer dejarte marchar. Para salir de esta situación, te resignas a elegir una taza.",
     "goblets": {
       "metal": {
-        "description": "Celui en métal, semblant très ancien, gravé d'une tête de dragon",
-        "name": "en métal"
+        "description": "La de metal, que parece muy antigua, lleva grabada una cabeza de dragón.",
+        "name": "metal"
       },
       "biggest": {
-        "description": "Le plus grand des trois, d'une matière que vous parvenez pas à identifier",
-        "name": "le plus grand"
+        "description": "El mayor de los tres, hecho de un material que no puedes identificar",
+        "name": "el mayor"
       },
       "sparkling": {
-        "description": "Le dernier, sculpté dans un bois bleu, et scintillant à tel point qu'il paraît enchanté",
-        "name": "scintillant"
+        "description": "El último, tallado en madera azul y reluciente hasta tal punto que parece encantado",
+        "name": "espumoso"
       }
     },
     "results": {
-      "life": "Vous soulevez doucement le gobelet $t(smallEvents:gobletsGame.goblets.{{goblet}}.name) et remarquez qu'il n'y a rien dessous. Déçu, et mauvais perdant, vous frappez les gobelets restants qui volent dans les airs. Remarquant qu'il n'y avait rien non plus dans les autres gobelets, vous vous retournez vers l'arnaqueur. Malheureusement celui-ci frappe le premier. Vous perdez **{{quantity}} {emote:unitValues.lostHealth}**.",
-      "time": "Vous soulevez doucement le gobelet $t(smallEvents:gobletsGame.goblets.{{goblet}}.name) et découvrez avec plaisir une petite pièce ! Malheureusement, l'homme derrière vous ne semble pas vouloir vous laisser partir avec votre récompense. Vous perdez **{{quantity}} Min {emote:unitValues.time}** à négocier avec lui avant d'abandonner et de reprendre votre route.",
-      "nothing": "Vous soulevez doucement le gobelet $t(smallEvents:gobletsGame.goblets.{{goblet}}.name) et remarquez qu'il n'y a rien dessous. Déçu, vous repartez tristement en vous disant que vous aurez peut-être plus de chance une autre fois.",
-      "end": "Devant votre manque de réaction, l'homme a la mauvaise idée d'essayer de vous voler. Remarquant sa manoeuvre, vous intervenez, mais vous êtes rapidement surpris de la force de l'homme qui parvient à se dégager d'un brusque mouvement, avant de s'enfuir. Vous vous en sortez avec une légère blessure **{{quantity}} {emote:unitValues.lostHealth}**."
+      "life": "$t(smallEvents:gobletsGame.goblets.{{goblet}}.name) Levantas suavemente la taza y ves que no hay nada debajo. Decepcionado y mal perdedor, patea las demás tazas, que vuelan por los aires. Al ver que tampoco había nada en las otras tazas, te vuelves hacia el estafador. Por desgracia, él golpea primero.{{quantity}} {emote:unitValues.lostHealth}Pierdes ** **.",
+      "time": "$t(smallEvents:gobletsGame.goblets.{{goblet}}.name) Levanta la taza con cuidado y descubre una pequeña moneda. Por desgracia, el hombre que te sigue no parece querer dejarte marchar con tu recompensa.{{quantity}} {emote:unitValues.time}Pasas ** Min ** negociando con él antes de darte por vencido y continuar tu camino.",
+      "nothing": "$t(smallEvents:gobletsGame.goblets.{{goblet}}.name) Levanta suavemente la taza y comprueba que no hay nada debajo. Decepcionado, te marchas con tristeza, pensando que tal vez tengas más suerte en otra ocasión.",
+      "end": "Al ver tu falta de reacción, el hombre tiene la mala idea de intentar robarte. Al percatarte de su maniobra, intervienes, pero rápidamente te sorprende la fuerza del hombre, que consigue zafarse con un brusco movimiento, antes de huir.{{quantity}} {emote:unitValues.lostHealth}Escapas con una herida leve ** **."
     }
   }
 }
