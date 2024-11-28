@@ -59,6 +59,7 @@ export class DiscordCollectorUtils {
 		reactionCollectorCreationPacket: ReactionCollectorCreationPacket,
 		context: PacketContext,
 		options?: {
+			canInitiatorRefuse?: boolean,
 			acceptedUsersId?: string[],
 			emojis?: {
 				accept?: string,
@@ -122,7 +123,8 @@ export class DiscordCollectorUtils {
 
 		// Send an error if someone uses the collector that is not intended for them and stop if it's the owner
 		buttonCollector.on("collect", async (i: ButtonInteraction) => {
-			if (!userDiscordIds.find(userDiscordId => userDiscordId === i.user.id)) {
+			if ((!options?.canInitiatorRefuse || i.user.id !== context.discord?.user || i.customId !== "refuse")
+				&& !userDiscordIds.find(userDiscordId => userDiscordId === i.user.id)) {
 				await sendInteractionNotForYou(i.user, i, interaction.userLanguage);
 				return;
 			}
@@ -131,18 +133,18 @@ export class DiscordCollectorUtils {
 
 		// Collector end
 		buttonCollector.on("end", async (collected) => {
-			const firstReaction = collected.first() as ButtonInteraction;
-			if (!firstReaction) {
+			const lastReaction = collected.last();
+			if (!lastReaction) {
 				return;
 			}
-			await firstReaction.deferReply();
+			await lastReaction.deferReply();
 			DiscordCollectorUtils.sendReaction(
 				reactionCollectorCreationPacket,
 				context,
 				context.keycloakId!,
-				firstReaction,
+				lastReaction,
 				reactionCollectorCreationPacket.reactions.findIndex((reaction) =>
-					reaction.type === (firstReaction && firstReaction.customId === acceptCustomId
+					reaction.type === (lastReaction.customId === acceptCustomId
 						? ReactionCollectorAcceptReaction.name
 						: ReactionCollectorRefuseReaction.name)
 				)

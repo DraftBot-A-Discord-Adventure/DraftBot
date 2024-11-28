@@ -77,7 +77,10 @@ export async function createGuildInviteCollector(packet: ReactionCollectorCreati
 			})
 		);
 
-	await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context, {acceptedUsersId: [invitedKeycloakId!]});
+	await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context, {
+		acceptedUsersId: [invitedKeycloakId!],
+		canInitiatorRefuse: true
+	});
 }
 
 export async function handleCommandGuildInviteRefusePacketRes(packet: CommandGuildInviteRefusePacketRes, context: PacketContext): Promise<void> {
