@@ -19,7 +19,7 @@ function getGobletsGameReactions(interaction: DraftbotInteraction): DraftbotButt
 			customId,
 			emote,
 			description: i18n.t(`smallEvents:gobletsGame.goblets.${customId}.description`, {
-				lng: interaction.userLanguage,
+				lng: interaction.userLanguage
 			})
 		});
 	}

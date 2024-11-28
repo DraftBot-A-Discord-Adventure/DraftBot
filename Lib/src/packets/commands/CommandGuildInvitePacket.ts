@@ -2,12 +2,13 @@ import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket
 
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandGuildInvitePacketReq extends DraftBotPacket {
-	invitedPlayerkeycloakId!: string
+	invitedPlayerkeycloakId!: string;
 }
 
 @sendablePacket(PacketDirection.NONE)
 export class CommandGuildInviteErrorPacket extends DraftBotPacket {
 	invitedPlayerKeycloakId!: string;
+
 	guildName!: string;
 }
 

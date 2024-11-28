@@ -39,12 +39,7 @@ export class DraftbotButtonReactionMessage {
 	 */
 	constructor(interaction: DraftbotInteraction, messageOptions: DraftbotButtonReactionMessageOptions) {
 		this._buttonRow = new ActionRowBuilder<ButtonBuilder>();
-		this._buttonRow.addComponents(messageOptions.reactions.map((
-			{
-				emote,
-				buttonStyle,
-				customId
-			}) =>
+		this._buttonRow.addComponents(messageOptions.reactions.map(({emote, buttonStyle, customId}) =>
 			new ButtonBuilder()
 				.setCustomId(customId)
 				.setStyle(buttonStyle ?? ButtonStyle.Secondary)
@@ -96,7 +91,7 @@ export class DraftbotButtonReactionMessage {
 				this._messageOptions.context.keycloakId!,
 				null,
 				indexes.findIndex((r) => r === collected.first()?.customId)
-			)
+			);
 		});
 
 
@@ -108,9 +103,8 @@ export class DraftbotButtonReactionMessage {
 	 * @private
 	 */
 	private createMenuDescription(reactions: DraftbotButtonReaction[]): string {
-		return `\n\n${reactions.map(
-			({emote, description}) =>
-				`${EmoteUtils.translateEmojiToDiscord(emote)} ${description}`).join("\n")
+		return `\n\n${reactions.map(({emote, description}) =>
+			`${EmoteUtils.translateEmojiToDiscord(emote)} ${description}`).join("\n")
 		}`;
 	}
 }

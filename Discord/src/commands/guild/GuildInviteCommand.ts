@@ -1,5 +1,4 @@
 import {DraftbotInteraction} from "../../messages/DraftbotInteraction.js";
-import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser.js";
 import {
 	CommandGuildInviteAcceptPacketRes,
 	CommandGuildInviteErrorPacket,
@@ -21,7 +20,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator.js";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants.js";
 
-async function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser): Promise<CommandGuildInvitePacketReq | null> {
+async function getPacket(interaction: DraftbotInteraction): Promise<CommandGuildInvitePacketReq | null> {
 	const invitedUser = interaction.options.getUser("user")!;
 	const invitedPlayerRawKeycloakId = await KeycloakUtils.getKeycloakIdFromDiscordId(keycloakConfig, invitedUser.id, invitedUser.displayName);
 	if (!invitedPlayerRawKeycloakId) {
