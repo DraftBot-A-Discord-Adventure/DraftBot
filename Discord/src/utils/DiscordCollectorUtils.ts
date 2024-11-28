@@ -59,24 +59,27 @@ export class DiscordCollectorUtils {
 		reactionCollectorCreationPacket: ReactionCollectorCreationPacket,
 		context: PacketContext,
 		options?: {
-			acceptedUsersId?: string[]
+			acceptedUsersId?: string[],
+			emojis?: {
+				accept?: string,
+				refuse?: string
+			}
 		},
-		emojis = {
-			accept: DraftBotIcons.collectors.accept,
-			refuse: DraftBotIcons.collectors.refuse
-		}
 	): Promise<void> {
-		let users: KeycloakUser[] = [];
+		const emojis = {
+			accept: DraftBotIcons.collectors.accept,
+			refuse: DraftBotIcons.collectors.refuse,
+			...options?.emojis
+		};
+		const userDiscordIds: string[] = [context.discord!.user];
 		if (options?.acceptedUsersId) {
+			userDiscordIds.pop();
 			for (const id of options.acceptedUsersId) {
 				const user = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, id);
 				if (user) {
-					users.push(user);
+					userDiscordIds.push(user.attributes.discordId![0]);
 				}
 			}
-		}
-		else {
-			users = [(await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!];
 		}
 
 		const row = new ActionRowBuilder<ButtonBuilder>();
@@ -119,42 +122,31 @@ export class DiscordCollectorUtils {
 
 		// Send an error if someone uses the collector that is not intended for them and stop if it's the owner
 		buttonCollector.on("collect", async (i: ButtonInteraction) => {
-			if (!users.find(user => user.attributes.discordId?.includes(i.user.id))) {
+			if (!userDiscordIds.find(userDiscordId => userDiscordId === i.user.id)) {
 				await sendInteractionNotForYou(i.user, i, interaction.userLanguage);
 				return;
 			}
-
 			buttonCollector.stop();
 		});
 
 		// Collector end
 		buttonCollector.on("end", async (collected) => {
 			const firstReaction = collected.first() as ButtonInteraction;
-			const user = await KeycloakUtils.getDiscordUser(keycloakConfig, firstReaction.user.id, null);
-			if (firstReaction) {
-				await firstReaction.deferReply();
-
-				// Accept collector
-				if (firstReaction && firstReaction.customId === acceptCustomId) {
-					DiscordCollectorUtils.sendReaction(
-						reactionCollectorCreationPacket,
-						context,
-						context.keycloakId!,
-						firstReaction,
-						reactionCollectorCreationPacket.reactions.findIndex((reaction) => reaction.type === ReactionCollectorAcceptReaction.name)
-					);
-				}
-				// Refuse collector
-				else {
-					DiscordCollectorUtils.sendReaction(
-						reactionCollectorCreationPacket,
-						context,
-						context.keycloakId!,
-						firstReaction,
-						reactionCollectorCreationPacket.reactions.findIndex((reaction) => reaction.type === ReactionCollectorRefuseReaction.name)
-					);
-				}
+			if (!firstReaction) {
+				return;
 			}
+			await firstReaction.deferReply();
+			DiscordCollectorUtils.sendReaction(
+				reactionCollectorCreationPacket,
+				context,
+				context.keycloakId!,
+				firstReaction,
+				reactionCollectorCreationPacket.reactions.findIndex((reaction) =>
+					reaction.type === (firstReaction && firstReaction.customId === acceptCustomId
+						? ReactionCollectorAcceptReaction.name
+						: ReactionCollectorRefuseReaction.name)
+				)
+			);
 		});
 	}
 

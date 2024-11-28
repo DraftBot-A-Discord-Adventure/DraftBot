@@ -66,7 +66,7 @@ export class DisplayUtils {
 	}
 
 	static getMapLocationDisplay(mapType: string, mapLocationId: number, lng: Language): string {
-		return i18n.t("{emote:map_types{{mapType}}} $t(models:map_locations.{{mapLocationId}}.name)", {
+		return i18n.t("{emote:map_types.{{mapType}}} $t(models:map_locations.{{mapLocationId}}.name)", {
 			lng,
 			mapLocationId,
 			mapType

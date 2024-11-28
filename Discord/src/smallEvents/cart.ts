@@ -34,7 +34,12 @@ export async function cartCollector(packet: ReactionCollectorCreationPacket, con
 		interaction.userLanguage
 	);
 
-	await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context, {}, {accept: DraftBotIcons.cart_small_event.accept, refuse: DraftBotIcons.cart_small_event.refuse});
+	await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context, {
+		emojis: {
+			accept: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.cart_small_event.accept),
+			refuse: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.cart_small_event.refuse)
+		}
+	});
 }
 
 export async function cartResult(packet: SmallEventCartPacket, context: PacketContext): Promise<void> {
