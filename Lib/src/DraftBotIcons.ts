@@ -56,6 +56,7 @@ export const DraftBotIcons: {
 		},
 		interactPoorCoin: string,
 		warning: string,
+		question: string
 	},
 	fight_actions: {
 		[actionId: string]: string
@@ -99,9 +100,6 @@ export const DraftBotIcons: {
 	},
 	goblets: {
 		[gobletId: string]: string
-	},
-	guildKick: {
-		question: string,
 	}
 } = {
 	"effects": {
@@ -1572,7 +1570,8 @@ export const DraftBotIcons: {
 			"hard": "💰"
 		},
 		"interactPoorCoin": "🪙",
-		"warning": "⚠️"
+		"warning": "⚠️",
+		"question": "❓",
 	},
 	"fight_actions": {
 		"benediction": "👼",
@@ -1698,8 +1697,5 @@ export const DraftBotIcons: {
 		"metal": "🐲",
 		"biggest": "🪣",
 		"sparkling": "✨"
-	},
-	"guildKick": {
-		"question": "❓"
 	}
 };

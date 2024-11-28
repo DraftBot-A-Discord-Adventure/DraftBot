@@ -56,12 +56,17 @@ import {
 } from "../../../../Lib/src/packets/commands/CommandGuildCreatePacket";
 import {
 	CommandGuildInviteAcceptPacketRes,
-	CommandGuildInvitePacketRes,
+	CommandGuildInviteAlreadyInAGuild,
+	CommandGuildInviteGuildIsFull,
+	CommandGuildInviteInvitedPlayerIsDead,
+	CommandGuildInviteInvitedPlayerIsOnPveIsland,
+	CommandGuildInviteInvitingPlayerNotInGuild,
+	CommandGuildInviteLevelTooLow,
 	CommandGuildInviteRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildInvitePacket.js";
 import {
 	handleCommandGuildInviteAcceptPacketRes,
-	handleCommandGuildInvitePacketRes,
+	handleCommandGuildInviteError,
 	handleCommandGuildInviteRefusePacketRes
 } from "../../commands/guild/GuildInviteCommand.js";
 import {CommandClassesInfoPacketRes} from "../../../../Lib/src/packets/commands/CommandClassesInfoPacket";
@@ -117,11 +122,13 @@ import {
 	handleCommandGuildShopNoFoodStorageSpace
 } from "../../commands/guild/GuildShopCommand";
 import {
-	CommandGuildDailyCooldownErrorPacket, CommandGuildDailyPveIslandErrorPacket,
+	CommandGuildDailyCooldownErrorPacket,
+	CommandGuildDailyPveIslandErrorPacket,
 	CommandGuildDailyRewardPacket
 } from "../../../../Lib/src/packets/commands/CommandGuildDailyPacket";
 import {
-	handleCommandGuildDailyCooldownErrorPacket, handleCommandGuildDailyPveIslandErrorPacket,
+	handleCommandGuildDailyCooldownErrorPacket,
+	handleCommandGuildDailyPveIslandErrorPacket,
 	handleCommandGuildDailyRewardPacket
 } from "../../commands/guild/GuildDailyCommand";
 import {
@@ -195,10 +202,34 @@ export default class CommandHandlers {
 		await handleCommandGuildCreateRefusePacketRes(packet, context);
 	}
 
+	@packetHandler(CommandGuildInviteInvitedPlayerIsDead)
+	async guildInviteInvitedPlayerIsDead(packet: CommandGuildInviteInvitedPlayerIsDead, context: PacketContext): Promise<void> {
+		await handleCommandGuildInviteError(packet, context, "error:effects.dead.other");
+	}
 
-	@packetHandler(CommandGuildInvitePacketRes)
-	async guildInviteRes(packet: CommandGuildInvitePacketRes, context: PacketContext): Promise<void> {
-		await handleCommandGuildInvitePacketRes(packet, context);
+	@packetHandler(CommandGuildInviteInvitingPlayerNotInGuild)
+	async guildInviteInvitingPlayerNotInGuild(packet: CommandGuildInviteInvitingPlayerNotInGuild, context: PacketContext): Promise<void> {
+		await handleCommandGuildInviteError(packet, context, "error:notInAGuild");
+	}
+
+	@packetHandler(CommandGuildInviteLevelTooLow)
+	async guildInviteLevelTooLow(packet: CommandGuildInviteLevelTooLow, context: PacketContext): Promise<void> {
+		await handleCommandGuildInviteError(packet, context, "error:targetLevelTooLow");
+	}
+
+	@packetHandler(CommandGuildInviteGuildIsFull)
+	async guildInviteGuildIsFull(packet: CommandGuildInviteGuildIsFull, context: PacketContext): Promise<void> {
+		await handleCommandGuildInviteError(packet, context, "commands:guildInvite.errors.guildIsFull");
+	}
+
+	@packetHandler(CommandGuildInviteInvitedPlayerIsOnPveIsland)
+	async guildInviteInvitedPlayerIsOnPveIsland(packet: CommandGuildInviteInvitedPlayerIsOnPveIsland, context: PacketContext): Promise<void> {
+		await handleCommandGuildInviteError(packet, context, "commands:guildInvite.errors.playerIsOnPveIsland");
+	}
+
+	@packetHandler(CommandGuildInviteAlreadyInAGuild)
+	async guildInviteAlreadyInAGuild(packet: CommandGuildInviteAlreadyInAGuild, context: PacketContext): Promise<void> {
+		await handleCommandGuildInviteError(packet, context, "commands:guildInvite.errors.playerIsAlreadyInAGuild");
 	}
 
 	@packetHandler(CommandGuildInviteRefusePacketRes)

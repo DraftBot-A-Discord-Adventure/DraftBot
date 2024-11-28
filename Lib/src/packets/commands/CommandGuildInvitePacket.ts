@@ -2,34 +2,37 @@ import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket
 
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandGuildInvitePacketReq extends DraftBotPacket {
-	invitingPlayer!: {
-		keycloakId?: string
-	};
+	invitedPlayerkeycloakId!: string
+}
 
-	invitedPlayer!: {
-		keycloakId?: string
-	};
+@sendablePacket(PacketDirection.NONE)
+export class CommandGuildInviteErrorPacket extends DraftBotPacket {
+	invitedPlayerKeycloakId!: string;
+	guildName!: string;
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
-export class CommandGuildInvitePacketRes extends DraftBotPacket {
-	invitingPlayerKeycloakId!: string;
+export class CommandGuildInviteInvitingPlayerNotInGuild extends CommandGuildInviteErrorPacket {
+}
 
-	invitedPlayerKeycloakId!: string;
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class CommandGuildInviteLevelTooLow extends CommandGuildInviteErrorPacket {
+}
 
-	guildName!: string;
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class CommandGuildInviteGuildIsFull extends CommandGuildInviteErrorPacket {
+}
 
-	invitingPlayerNotInGuild?: boolean;
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class CommandGuildInviteInvitedPlayerIsDead extends CommandGuildInviteErrorPacket {
+}
 
-	guildIsFull?: boolean;
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class CommandGuildInviteInvitedPlayerIsOnPveIsland extends CommandGuildInviteErrorPacket {
+}
 
-	invitedPlayerIsDead?: boolean;
-
-	invitedPlayerIsOnPveIsland?: boolean;
-
-	alreadyInAGuild?: boolean;
-
-	levelTooLow?: boolean;
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class CommandGuildInviteAlreadyInAGuild extends CommandGuildInviteErrorPacket {
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)

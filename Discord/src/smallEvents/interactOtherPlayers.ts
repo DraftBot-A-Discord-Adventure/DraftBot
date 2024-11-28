@@ -5,9 +5,7 @@ import i18n from "../translations/i18n";
 import {DraftbotSmallEventEmbed} from "../messages/DraftbotSmallEventEmbed";
 import {StringUtils} from "../utils/StringUtils";
 import {DiscordCollectorUtils} from "../utils/DiscordCollectorUtils";
-import {
-	ReactionCollectorInteractOtherPlayersPoorData
-} from "../../../Lib/src/packets/interaction/ReactionCollectorInteractOtherPlayers";
+import {ReactionCollectorInteractOtherPlayersPoorData} from "../../../Lib/src/packets/interaction/ReactionCollectorInteractOtherPlayers";
 import {KeycloakUtils} from "../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../bot/DraftBotShard";
 import {Language} from "../../../Lib/src/Language";
@@ -45,10 +43,11 @@ export async function interactOtherPlayersCollector(packet: ReactionCollectorCre
 		embed,
 		packet,
 		context,
-		{},
 		{
-			accept: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.collectors.interactPoorCoin),
-			refuse: DraftBotIcons.collectors.refuse
+			emojis: {
+				accept: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.collectors.interactPoorCoin),
+				refuse: DraftBotIcons.collectors.refuse
+			}
 		}
 	);
 }

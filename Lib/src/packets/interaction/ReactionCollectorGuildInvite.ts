@@ -2,7 +2,8 @@ import {
 	ReactionCollector,
 	ReactionCollectorAcceptReaction,
 	ReactionCollectorCreationPacket,
-	ReactionCollectorData, ReactionCollectorRefuseReaction
+	ReactionCollectorData,
+	ReactionCollectorRefuseReaction
 } from "./ReactionCollectorPacket.js";
 
 export class ReactionCollectorGuildInviteData extends ReactionCollectorData {
@@ -14,12 +15,12 @@ export class ReactionCollectorGuildInviteData extends ReactionCollectorData {
 export class ReactionCollectorGuildInvite extends ReactionCollector {
 	private readonly guildName: string;
 
-	private readonly inviterKeycloakId: string;
+	private readonly invitedKeycloakId: string;
 
-	constructor(guildName: string, inviterId: string) {
+	constructor(guildName: string, invitedId: string) {
 		super();
 		this.guildName = guildName;
-		this.inviterKeycloakId = inviterId;
+		this.invitedKeycloakId = invitedId;
 	}
 
 	creationPacket(id: string, endTime: number): ReactionCollectorCreationPacket {
@@ -31,7 +32,7 @@ export class ReactionCollectorGuildInvite extends ReactionCollector {
 				this.buildReaction(ReactionCollectorRefuseReaction, {})
 			],
 			data: this.buildData(ReactionCollectorGuildInviteData, {
-				invitedPlayerKeycloakId: this.inviterKeycloakId,
+				invitedPlayerKeycloakId: this.invitedKeycloakId,
 				guildName: this.guildName
 			})
 

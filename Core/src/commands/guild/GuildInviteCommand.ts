@@ -1,8 +1,14 @@
 import {packetHandler} from "../../core/packetHandlers/PacketHandler.js";
 import {
 	CommandGuildInviteAcceptPacketRes,
+	CommandGuildInviteAlreadyInAGuild,
+	CommandGuildInviteGuildIsFull,
+	CommandGuildInviteInvitedPlayerIsDead,
+	CommandGuildInviteInvitedPlayerIsOnPveIsland,
+	CommandGuildInviteInvitingPlayerNotInGuild,
+	CommandGuildInviteLevelTooLow,
 	CommandGuildInvitePacketReq,
-	CommandGuildInvitePacketRes, CommandGuildInviteRefusePacketRes
+	CommandGuildInviteRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildInvitePacket.js";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket.js";
 import {Player, Players} from "../../core/database/game/models/Player.js";
@@ -22,11 +28,11 @@ import {Effect} from "../../../../Lib/src/enums/Effect.js";
 export default class GuildInviteCommand {
 	@packetHandler(CommandGuildInvitePacketReq)
 	async execute(packet: CommandGuildInvitePacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
-		const invitingPlayer = await Players.getByKeycloakId(packet.invitingPlayer.keycloakId);
-		const invitedPlayer = await Players.getByKeycloakId(packet.invitedPlayer.keycloakId);
+		const invitingPlayer = await Players.getByKeycloakId(context.keycloakId);
+		const invitedPlayer = await Players.getByKeycloakId(packet.invitedPlayerkeycloakId);
 		const guild = invitingPlayer.guildId ? await Guilds.getById(invitingPlayer.guildId) : null;
 
-		if (!await canSendInvite(invitingPlayer, invitedPlayer, guild, response)) {
+		if (!await canSendInvite(invitedPlayer, guild, response)) {
 			return;
 		}
 
@@ -45,16 +51,21 @@ export default class GuildInviteCommand {
 
 		const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
 			const reaction = collector.getFirstReaction();
-			if (reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name) {
-				await acceptInvitation(invitedPlayer, invitingPlayer, guild, response);
-			}
-			else {
+			await invitedPlayer.reload();
+			await invitingPlayer.reload();
+			BlockingUtils.unblockPlayer(invitedPlayer.id, BlockingConstants.REASONS.GUILD_ADD);
+			BlockingUtils.unblockPlayer(invitingPlayer.id, BlockingConstants.REASONS.GUILD_ADD);
+			if (!reaction || reaction.reaction.type !== ReactionCollectorAcceptReaction.name) {
 				response.push(makePacket(CommandGuildInviteRefusePacketRes, {
-					invitedPlayerKeycloakId: packet.invitedPlayer.keycloakId,
+					invitedPlayerKeycloakId: invitedPlayer.keycloakId,
 					guildName: guild.name
 				}));
+				return;
 			}
-			BlockingUtils.unblockPlayer(invitedPlayer.id, BlockingConstants.REASONS.GUILD_ADD);
+			if (!await canSendInvite(invitedPlayer, guild, response)) {
+				return;
+			}
+			await acceptInvitation(invitedPlayer, invitingPlayer, guild, response);
 		};
 
 		const collectorPacket = new ReactionCollectorInstance(
@@ -67,6 +78,7 @@ export default class GuildInviteCommand {
 			endCallback
 		)
 			.block(invitedPlayer.id, BlockingConstants.REASONS.GUILD_ADD)
+			.block(invitingPlayer.id, BlockingConstants.REASONS.GUILD_ADD)
 			.build();
 
 		response.push(collectorPacket);
@@ -75,83 +87,54 @@ export default class GuildInviteCommand {
 
 /**
  * Check if the invitation can be sent
- * @param invitingPlayer
  * @param invitedPlayer
  * @param guild
  * @param response
  */
-async function canSendInvite(invitingPlayer: Player, invitedPlayer: Player, guild: Guild, response: DraftBotPacket[]): Promise<boolean> {
-	const basePacketData = {
+async function canSendInvite(invitedPlayer: Player, guild: Guild, response: DraftBotPacket[]): Promise<boolean> {
+	const packetData = {
 		invitedPlayerKeycloakId: invitedPlayer.keycloakId,
-		invitingPlayerKeycloakId: invitingPlayer.keycloakId,
 		guildName: guild.name
 	};
 
 	if (!guild) {
-		response.push(makePacket(CommandGuildInvitePacketRes, {
-			...basePacketData,
-			invitingPlayerNotInGuild: true
-		}));
+		response.push(makePacket(CommandGuildInviteInvitingPlayerNotInGuild, packetData));
 		return false;
 	}
 
-	/*
-	If (invitedPlayer.level < GuildConstants.REQUIRED_LEVEL) {
-		response.push(makePacket(CommandGuildInvitePacketRes, {
-			...basePacketData,
-			levelTooLow: true
-		}));
+	if (invitedPlayer.level < GuildConstants.REQUIRED_LEVEL) {
+		response.push(makePacket(CommandGuildInviteLevelTooLow, packetData));
 		return false;
 	}
-*/
 
 	if (invitedPlayer.isInGuild()) {
-		response.push(makePacket(CommandGuildInvitePacketRes, {
-			...basePacketData,
-			alreadyInAGuild: true
-		}));
+		response.push(makePacket(CommandGuildInviteAlreadyInAGuild, packetData));
 		return false;
 	}
 
 	if ((await Players.getByGuild(guild.id)).length === GuildConstants.MAX_GUILD_MEMBERS) {
-		response.push(makePacket(CommandGuildInvitePacketRes, {
-			...basePacketData,
-			guildIsFull: true
-		}));
+		response.push(makePacket(CommandGuildInviteGuildIsFull, packetData));
 		return false;
 	}
 
 	if (invitedPlayer.isDead()) {
-		response.push(makePacket(CommandGuildInvitePacketRes, {
-			...basePacketData,
-			invitedPlayerIsDead: true
-		}));
+		response.push(makePacket(CommandGuildInviteInvitedPlayerIsDead, packetData));
 		return false;
 	}
 
 	if (Maps.isOnPveIsland(invitedPlayer)) {
-		response.push(makePacket(CommandGuildInvitePacketRes, {
-			...basePacketData,
-			invitedPlayerIsOnPveIsland: true
-		}));
+		response.push(makePacket(CommandGuildInviteInvitedPlayerIsOnPveIsland, packetData));
 		return false;
 	}
-
-	response.push(makePacket(CommandGuildInvitePacketRes, {
-		...basePacketData
-	}));
 	return true;
 }
 
 async function acceptInvitation(invitedPlayer: Player, invitingPlayer: Player, guild: Guild, response: DraftBotPacket[]): Promise<void> {
-	await invitedPlayer.reload();
-	await invitingPlayer.reload();
-
 	invitedPlayer.guildId = guild.id;
 	guild.updateLastDailyAt();
 	await guild.save();
 	await invitedPlayer.save();
-	await LogsDatabase.logsGuildJoin(guild, invitedPlayer.keycloakId, invitingPlayer.keycloakId);
+	LogsDatabase.logsGuildJoin(guild, invitedPlayer.keycloakId, invitingPlayer.keycloakId).then();
 	await MissionsController.update(invitedPlayer, response, {
 		missionId: "guildLevel",
 		count: guild.level,
