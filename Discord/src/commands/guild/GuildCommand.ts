@@ -134,10 +134,11 @@ export async function handleCommandGuildPacketRes(packet: CommandGuildPacketRes,
 			membersOnPveIsland: packet.data!.members.filter(member => member.islandStatus.isPveIslandAlly).length
 		}) :
 		"";
-	const experienceInfo: string = packet.data!.isMaxLevel ? i18n.t("commands:guild.xpMax", {
+	const experienceInfo: string = packet.data!.isMaxLevel
+		? i18n.t("commands:guild.xpMax", {
 			lng: interaction.userLanguage
-		}) :
-		i18n.t("commands:guild.xpNeeded", {
+		})
+		: i18n.t("commands:guild.xpNeeded", {
 			lng: interaction.userLanguage,
 			xp: packet.data!.experience.value,
 			xpToLevelUp: packet.data!.experience.max

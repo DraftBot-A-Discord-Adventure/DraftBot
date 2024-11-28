@@ -65,7 +65,7 @@ export class DiscordCollectorUtils {
 				accept?: string,
 				refuse?: string
 			}
-		},
+		}
 	): Promise<void> {
 		const emojis = {
 			accept: DraftBotIcons.collectors.accept,
@@ -146,8 +146,7 @@ export class DiscordCollectorUtils {
 				reactionCollectorCreationPacket.reactions.findIndex((reaction) =>
 					reaction.type === (lastReaction.customId === acceptCustomId
 						? ReactionCollectorAcceptReaction.name
-						: ReactionCollectorRefuseReaction.name)
-				)
+						: ReactionCollectorRefuseReaction.name))
 			);
 		});
 	}

@@ -1571,7 +1571,7 @@ export const DraftBotIcons: {
 		},
 		"interactPoorCoin": "🪙",
 		"warning": "⚠️",
-		"question": "❓",
+		"question": "❓"
 	},
 	"fight_actions": {
 		"benediction": "👼",

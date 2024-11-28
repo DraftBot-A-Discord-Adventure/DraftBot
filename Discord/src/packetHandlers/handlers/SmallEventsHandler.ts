@@ -788,7 +788,8 @@ export default class SmallEventsHandler {
 		await interaction?.channel.send({
 			embeds: [
 				new DraftBotEmbed()
-					.formatAuthor(i18n.t("commands:report.journal", {
+					.formatAuthor(
+						i18n.t("commands:report.journal", {
 							lng: interaction.userLanguage,
 							pseudo: interaction.user.displayName
 						}),
