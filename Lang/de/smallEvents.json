@@ -1477,5 +1477,28 @@
         "failure": "Sie rufen nach Ihren Teamkollegen, aber die sind zu weit weg, um Sie zu hören. Das Tier ist schnell und schlägt Sie nieder, bevor es sich wieder in die Ferne begibt."
       }
     }
+  },
+  "gobletsGame": {
+    "intro": "Sie begegnen einem Mann, der Ihnen verdächtig vorkommt. Er kommt auf Sie zu und drängt Sie zu einem Tisch, auf dem drei mysteriöse Becher stehen. Die Anweisungen, die Sie erhalten, sind einfach: Ziehen Sie einen Becher nach dem Zufallsprinzip und nehmen Sie die Belohnung entgegen, was auch immer das sein mag. Während Sie die Gegenstände auf dem Tisch betrachten, schleicht sich der Mann hinter Ihrem Rücken an und scheint Sie nicht gehen lassen zu wollen. Um aus dieser Situation herauszukommen, finden Sie sich damit ab, einen Becher auszuwählen.",
+    "goblets": {
+      "metal": {
+        "description": "Der aus Metall, der sehr alt aussieht und mit einem Drachenkopf graviert ist.",
+        "name": "aus Metall"
+      },
+      "biggest": {
+        "description": "Der größte der drei, aus einem Material, das Sie nicht identifizieren können",
+        "name": "der größte"
+      },
+      "sparkling": {
+        "description": "Der letzte, aus blauem Holz geschnitzt und so glitzernd, dass er wie verzaubert wirkt",
+        "name": "glitzernd"
+      }
+    },
+    "results": {
+      "life": "Sie heben den Becher $t(smallEvents:gobletsGame.goblets.{{goblet}}.name) vorsichtig an und bemerken, dass sich darunter nichts befindet. Enttäuscht und als schlechter Verlierer schlagen Sie gegen die restlichen Becher, die durch die Luft fliegen. Als Sie bemerken, dass sich auch in den anderen Bechern nichts befindet, wenden Sie sich wieder dem Betrüger zu. Leider schlägt dieser zuerst zu. Sie verlieren **{{quantity}} {emote:unitValues.lostHealth}**.",
+      "time": "Sie heben den Becher $t(smallEvents:gobletsGame.goblets.{{goblet}}.name) vorsichtig an und entdecken mit Freude eine kleine Münze! Leider scheint der Mann hinter Ihnen nicht gewillt zu sein, Sie mit Ihrer Belohnung gehen zu lassen. Sie verlieren **{{quantity}} Min {emote:unitValues.time}** dabei, mit ihm zu verhandeln, bevor Sie aufgeben und Ihren Weg fortsetzen.",
+      "nothing": "Sie heben den Becher $t(smallEvents:gobletsGame.goblets.{{goblet}}.name) vorsichtig an und bemerken, dass sich darunter nichts befindet. Enttäuscht machen Sie sich traurig auf den Weg und sagen sich, dass Sie vielleicht ein anderes Mal mehr Glück haben werden.",
+      "end": "Als Sie nicht reagieren, kommt der Mann auf die schlechte Idee, Sie ausrauben zu wollen. Sie bemerken sein Manöver und greifen ein, werden aber schnell von der Stärke des Mannes überrascht, der sich mit einer plötzlichen Bewegung befreien kann und dann wegläuft. Sie kommen mit einer leichten Verletzung davon **{{quantity}} {emote:unitValues.lostHealth}**."
+    }
   }
 }
