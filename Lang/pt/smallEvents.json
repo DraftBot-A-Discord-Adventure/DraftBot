@@ -1477,5 +1477,28 @@
         "failure": "Chamas pelos teus companheiros de equipa, mas eles estão demasiado longe para te ouvirem. O animal veloz deixa-te inconsciente antes de fugir para longe."
       }
     }
+  },
+  "gobletsGame": {
+    "intro": "encontra um homem que parece suspeito. Ele aproxima-se de ti e empurra-te para uma mesa com três taças misteriosas. As instruções que lhe são dadas são simples: deve tirar uma chávena ao acaso e receber a recompensa, seja ela qual for. Enquanto olha para os objectos sobre a mesa, o homem aproxima-se por trás de si e parece não o querer largar. Para sair desta situação, resigna-se a escolher uma chávena.",
+    "goblets": {
+      "metal": {
+        "description": "O de metal, que parece muito antigo, tem gravada a cabeça de um dragão.",
+        "name": "metal"
+      },
+      "biggest": {
+        "description": "O maior dos três, feito de um material que não se consegue identificar",
+        "name": "o maior"
+      },
+      "sparkling": {
+        "description": "O último, esculpido em madeira azul e que brilha de tal forma que parece encantado",
+        "name": "cintilante"
+      }
+    },
+    "results": {
+      "life": "$t(smallEvents:gobletsGame.goblets.{{goblet}}.name) Levantas o copo com cuidado e vês que não há nada por baixo. Desapontado, e como quem perde, dá um pontapé nos restantes copos, que voam pelo ar. Ao reparar que também não havia nada nas outras chávenas, volta-se para o vigarista. Infelizmente, ele ataca primeiro.{{quantity}} {emote:unitValues.lostHealth}Perdeste ** **.",
+      "time": "$t(smallEvents:gobletsGame.goblets.{{goblet}}.name) Levanta suavemente a chávena e fica encantado por descobrir uma pequena moeda! Infelizmente, o homem atrás de si não parece querer deixá-lo partir com a sua recompensa.{{quantity}} {emote:unitValues.time}Passa ** Min ** a negociar com ele antes de desistir e continuar o seu caminho.",
+      "nothing": "$t(smallEvents:gobletsGame.goblets.{{goblet}}.name) Levanta suavemente a chávena e verifica que não há nada por baixo. Desapontado, vai-se embora com tristeza, pensando que talvez tenha mais sorte noutra altura.",
+      "end": "Ao ver a tua falta de reação, o homem tem a má ideia de te tentar roubar. Apercebendo-se da sua manobra, intervém, mas é rapidamente surpreendido pela força do homem, que consegue sair do caminho com um movimento brusco, antes de fugir.{{quantity}} {emote:unitValues.lostHealth}Escapou com um ferimento ligeiro ** **."
+    }
   }
 }
