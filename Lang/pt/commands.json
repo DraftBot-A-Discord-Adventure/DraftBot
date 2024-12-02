@@ -58,9 +58,31 @@
     "title": "{{pseudo}}criar uma guilda",
     "canceledTitle": "{{pseudo}}anulação da criação de um grémio.",
     "canceledDesc": "A criação do teu grémio foi cancelada.",
-    "confirmDesc": ":question:{{guildName}}{{price}} :moneybag: Confirmar a criação do grémio ** ** para ` ` ?",
+    "confirmDesc": "{emote:collectors.question}{{guildName}}{{price}} :moneybag: Confirmar a criação do grémio ** ** para ` ` ?",
     "acceptedFooter": "A equipa reserva-se o direito de mudar o nome da tua guilda.",
     "acceptedDesc": "{{guildName}}O grémio ** ** foi criado!"
+  },
+  "guildInvite": {
+    "title": "{{pseudo}}Está convidado a juntar-se a um grémio!",
+    "confirmDesc": "{emote:collectors.question}{{guildName}}Gostarias de te juntar ao grémio?",
+    "successTitle": "{{pseudo}} {{guildName}} juntou-se à associação!",
+    "successDesc": "O atraso antes da próxima recompensa diária da guilda foi reiniciado.",
+    "refusedTitle": "{{guildName}} Ainda não entraste para a guilda!",
+    "errors": {
+      "guildIsFull": "A tua guilda está cheia e não pode aceitar mais membros.",
+      "playerIsAlreadyInAGuild": "{{guildName}}Este jogador já pertence ao grémio.",
+      "playerIsOnPveIsland": "{{pseudo}} {{pseudo}} não podem juntar-se à guilda porque estão num barco ou numa ilha misteriosa. devem estar localizados no continente principal para se juntarem a uma guilda."
+    }
+  },
+  "guildKick": {
+    "title": "Expulsion de la guilde",
+    "confirmDesc": "{emote:collectors.question} {{kickedPseudo}}{{guildName}}Tens a certeza de que queres ser expulso do grémio?",
+    "acceptedDesc": "{{kickedPseudo}} a bien été expulsé de la guilde !",
+    "canceledTitle": "Expulsion annulée",
+    "canceledDesc": "{{kickedPseudo}} n'a pas été expulsé de la guilde !",
+    "noPlayer": "Le joueur n'est pas dans la guilde.",
+    "notSameGuild": "Vous ne pouvez pas expulser un joueur qui n'est pas dans votre guilde.",
+    "himself": "Vous ne pouvez pas vous expulser vous-même de la guilde."
   },
   "help": {
     "aliasFieldTitle": "Apelido",
@@ -232,7 +254,7 @@
     "playerCommands": ":bust_in_silhouette: Jogador :",
     "serverCommands": ":gear: Servidor :",
     "usageFieldTitle": "Utilização",
-    "utilCommands": ":question: Informações úteis:"
+    "utilCommands": "{emote:collectors.question} Informações úteis:"
   },
   "idea": {
     "description": "\nPode fazer sugestões e votar nas suas ideias favoritas através desta ligação: https://feedback.draftbot.com/",
