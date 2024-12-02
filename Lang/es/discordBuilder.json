@@ -81,6 +81,16 @@
       }
     }
   },
+  "guildInvite": {
+    "description": "Recluta a un nuevo miembro para tu gremio.",
+    "name": "invitaciónguilde",
+    "options": {
+      "user": {
+        "description": "El usuario afectado por la orden.",
+        "name": "usuario"
+      }
+    }
+  },
   "guild": {
     "description": "Muestra información sobre un gremio.",
     "name": "gremio",
@@ -200,6 +210,20 @@
   "guildShop": {
     "description": "Muestra la tienda del gremio.",
     "name": "magasinguilde"
+  },
+  "guildKick": {
+    "description": "Exclure un membre de la guilde.",
+    "name": "exclureguilde",
+    "options": {
+      "rank": {
+        "description": "Le classement du joueur à exclure de la guilde.",
+        "name": "classement"
+      },
+      "user": {
+        "description": "L'utilisateur à exclure de la guilde.",
+        "name": "utilisateur"
+      }
+    }
   },
   "guildDaily": {
     "description": "Recoge la recompensa diaria del gremio.",
