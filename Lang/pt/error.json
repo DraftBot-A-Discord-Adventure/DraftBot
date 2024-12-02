@@ -21,7 +21,7 @@
     "guildLeave": "saída de um grémio",
     "guildShop": "escolha na loja da guilda",
     "guildShopConfirmation": "confirmação da escolha na loja da guilda",
-    "lottery": "lotaria de mini-ventos",
+    "lottery": "mini-évent loterie",
     "merchant": "escolha do retalhista",
     "missionShop": "escolher na loja da missão",
     "missionShopConfirmation": "confirmar a sua escolha na loja da missão",
@@ -67,6 +67,7 @@
   "notInAGuild": "É necessário pertencer a um grémio para efetuar esta encomenda.",
   "notAuthorizedError": "Não tens as permissões necessárias para fazer esta encomenda na tua guilda, por isso pede a um dos teus superiores se precisares.",
   "levelTooLow": "{{level}}Tens de ter **nível ** para utilizar este comando! Volte mais tarde!",
+  "targetLevelTooLow": "{{level}}Este jogador tem de ter **nível ** para poder utilizar este comando!",
   "notAuthorizedRight": "Não tem as permissões necessárias para efetuar este comando.",
   "notPossibleWithoutStatus": "Não necessita atualmente dos nossos serviços",
   "effects": {
