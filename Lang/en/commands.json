@@ -58,13 +58,25 @@
     "title": "{{pseudo}}, creating a guild",
     "canceledTitle": "{{pseudo}}, cancelling guild creation.",
     "canceledDesc": "Your guild creation has been cancelled.",
-    "confirmDesc": ":question: Confirm the creation of the **{{guildName}}** guild for `{{price}}` :moneybag:?",
+    "confirmDesc": "{emote:collectors.question} Confirm the creation of the **{{guildName}}** guild for `{{price}}` :moneybag:?",
     "acceptedFooter": "Caution: the staff reserves the right to rename your guild.",
     "acceptedDesc": "The **{{guildName}}** guild has been created!"
   },
+  "guildInvite": {
+    "title": "{{pseudo}}, vous êtes invité à rejoindre une guilde !",
+    "confirmDesc": "{emote:collectors.question} Souhaitez vous rejoindre la guilde `{{guildName}}` ?",
+    "successTitle": "{{pseudo}} a rejoint la guilde {{guildName}} !",
+    "successDesc": "Le délai avant la prochaine récompense journalière de guilde a été réinitialisé.",
+    "refusedTitle": "Vous n'avez pas rejoint la guilde {{guildName}} !",
+    "errors": {
+      "guildIsFull": "Votre guilde est pleine et ne peut pas accueillir plus de membres.",
+      "playerIsAlreadyInAGuild": "Ce joueur appartient déjà à la guilde `{{guildName}}`.",
+      "playerIsOnPveIsland": "{{pseudo}} ne peut pas rejoindre la guilde car il est actuellement sur un bateau ou une île mystérieuse. {{pseudo}} doit se situer sur le continent principal afin de rejoindre une guilde."
+    }
+  },
   "guildKick": {
     "title": "Kick Guild",
-    "confirmDesc": "{emote:guildKick.question} Are you sure you want to kick {{kickedPseudo}} from the guild `{{guildName}}`?",
+    "confirmDesc": "{emote:collectors.question} Êtes vous sur de vouloir expulser {{kickedPseudo}} de la guilde `{{guildName}}`?",
     "acceptedDesc": "{{kickedPseudo}} a bien été expulsé de la guilde !",
     "canceledTitle": "Kick canceled",
     "canceledDesc": "{{kickedPseudo}} was not kicked from the guild!",
@@ -242,7 +254,7 @@
     "playerCommands": ":bust_in_silhouette: Player:",
     "serverCommands": ":gear: Server:",
     "usageFieldTitle": "Usage",
-    "utilCommands": ":question: Utility:"
+    "utilCommands": "{emote:collectors.question} Utility:"
   },
   "idea": {
     "description": "You can submit suggestions and vote for your favorites via this link:\nhttps://feedback.draftbot.com/",
