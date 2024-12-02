@@ -67,6 +67,7 @@
   "notInAGuild": "Debes pertenecer a un gremio para realizar este pedido.",
   "notAuthorizedError": "No tienes los permisos necesarios para realizar este pedido dentro de tu gremio, así que pregunta a uno de tus superiores si lo necesitas.",
   "levelTooLow": "{{level}}Debes ser **nivel ** para usar este comando. Vuelve más tarde.",
+  "targetLevelTooLow": "{{level}}¡Este jugador debe ser **nivel ** para que puedas usar este comando!",
   "notAuthorizedRight": "No dispone de los permisos necesarios para ejecutar este comando.",
   "notPossibleWithoutStatus": "Actualmente no necesita nuestros servicios",
   "effects": {
