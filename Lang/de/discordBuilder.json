@@ -81,6 +81,16 @@
       }
     }
   },
+  "guildInvite": {
+    "description": "Werben Sie ein neues Mitglied für Ihre Gilde.",
+    "name": "Einladungguilde",
+    "options": {
+      "user": {
+        "description": "Der Nutzer, der von der Bestellung betroffen ist.",
+        "name": "Benutzer"
+      }
+    }
+  },
   "guild": {
     "description": "Zeigt Informationen über eine Gilde an.",
     "name": "Gilde",
