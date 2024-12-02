@@ -67,6 +67,7 @@
   "notInAGuild": "You have to be in a guild to use this command.",
   "notAuthorizedError": "You do not have the required permissions to do that command in your guild, please ask a superior if needed.",
   "levelTooLow": "You must **Level {{level}}** to use this command! Come back later!",
+  "targetLevelTooLow": "Ce joueur doit être **niveau {{level}}** pour que vous puissiez utiliser cette commande !",
   "notAuthorizedRight": "You do not have permission to perform this command.",
   "notPossibleWithoutStatus": "You don't need our services right now",
   "effects": {
