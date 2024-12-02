@@ -58,9 +58,31 @@
     "title": "{{pseudo}}crear un gremio",
     "canceledTitle": "{{pseudo}}anulación de la creación de un gremio.",
     "canceledDesc": "La creación de tu gremio ha sido cancelada.",
-    "confirmDesc": ":question:{{guildName}}{{price}} :moneybag: Confirmar la creación del gremio ** ** para ` ` ?",
+    "confirmDesc": "{emote:collectors.question}{{guildName}}{{price}} :moneybag: Confirmar la creación del gremio ** ** para ` ` ?",
     "acceptedFooter": "Ten en cuenta que el personal se reserva el derecho a cambiar el nombre de tu gremio.",
     "acceptedDesc": "{{guildName}}¡El gremio ** ** ha sido creado!"
+  },
+  "guildInvite": {
+    "title": "{{pseudo}}¡Estás invitado a unirte a un gremio!",
+    "confirmDesc": "{emote:collectors.question}{{guildName}}¿Quieres unirte al gremio?",
+    "successTitle": "{{pseudo}} {{guildName}} ¡se ha unido al gremio!",
+    "successDesc": "Se ha restablecido el retraso antes de la siguiente recompensa diaria de clan.",
+    "refusedTitle": "{{guildName}} ¡No te has unido al gremio!",
+    "errors": {
+      "guildIsFull": "Tu gremio está completo y no puede aceptar más miembros.",
+      "playerIsAlreadyInAGuild": "{{guildName}}Este jugador ya pertenece al gremio.",
+      "playerIsOnPveIsland": "{{pseudo}} {{pseudo}} no pueden unirse al gremio porque se encuentran en un barco o en una isla misteriosa. deben encontrarse en el continente principal para poder unirse a un gremio."
+    }
+  },
+  "guildKick": {
+    "title": "Expulsion de la guilde",
+    "confirmDesc": "{emote:collectors.question} {{kickedPseudo}}{{guildName}}¿Estás seguro de que quieres expulsar del gremio?",
+    "acceptedDesc": "{{kickedPseudo}} a bien été expulsé de la guilde !",
+    "canceledTitle": "Expulsion annulée",
+    "canceledDesc": "{{kickedPseudo}} n'a pas été expulsé de la guilde !",
+    "noPlayer": "Le joueur n'est pas dans la guilde.",
+    "notSameGuild": "Vous ne pouvez pas expulser un joueur qui n'est pas dans votre guilde.",
+    "himself": "Vous ne pouvez pas vous expulser vous-même de la guilde."
   },
   "help": {
     "aliasFieldTitle": "Alias",
@@ -232,7 +254,7 @@
     "playerCommands": ":bust_in_silhouette: Jugador :",
     "serverCommands": ":gear: Servidor :",
     "usageFieldTitle": "Utilice",
-    "utilCommands": ":question: Información útil:"
+    "utilCommands": "{emote:collectors.question} Información útil:"
   },
   "idea": {
     "description": "Puede hacer sugerencias y votar sus ideas favoritas a través de este enlace:\nhttps://feedback.draftbot.com/",
