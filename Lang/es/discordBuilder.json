@@ -81,6 +81,16 @@
       }
     }
   },
+  "guildInvite": {
+    "description": "Recluta a un nuevo miembro para tu gremio.",
+    "name": "invitaciónguilde",
+    "options": {
+      "user": {
+        "description": "El usuario afectado por la orden.",
+        "name": "usuario"
+      }
+    }
+  },
   "guild": {
     "description": "Muestra información sobre un gremio.",
     "name": "gremio",
