@@ -67,6 +67,7 @@
   "notInAGuild": "Dovete essere in una gilda per Effettuare questo comando",
   "notAuthorizedError": "Non avete le permissione necessarie per Effettuare questo commando in vostra gilda, chiedete a un dei vostri superiori se bisogno.",
   "levelTooLow": "{{level}}Dovete essere di **livello ** per usare questo comando! Tornate più tardi!",
+  "targetLevelTooLow": "{{level}}Questo giocatore deve essere di **livello ** prima di poter usare questo comando!",
   "notAuthorizedRight": "Non si dispone delle autorizzazioni necessarie per eseguire questo comando.",
   "notPossibleWithoutStatus": "Non avete attualmente bisogno dei nostri servizi",
   "effects": {
