@@ -67,6 +67,7 @@
   "notInAGuild": "Sie müssen zu einer Gilde gehören, um diesen Befehl ausführen zu können",
   "notAuthorizedError": "Sie haben nicht die erforderlichen Berechtigungen, um diese Bestellung innerhalb Ihrer Gilde durchzuführen. Fragen Sie ggf. einen Ihrer Vorgesetzten.",
   "levelTooLow": "Sie müssen **level {{level}}** sein, um diesen Befehl zu verwenden! Kommen Sie später wieder!",
+  "targetLevelTooLow": "Dieser Spieler muss **Level {{level}}** sein, damit du diesen Befehl verwenden kannst!",
   "notAuthorizedRight": "Sie haben nicht die erforderlichen Berechtigungen, um diesen Befehl auszuführen.",
   "notPossibleWithoutStatus": "Sie benötigen unsere Dienste derzeit nicht",
   "effects": {
