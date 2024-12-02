@@ -81,6 +81,16 @@
       }
     }
   },
+  "guildInvite": {
+    "description": "Recluta un nuovo membro nella tua gilda.",
+    "name": "invitoguilde",
+    "options": {
+      "user": {
+        "description": "L'utente interessato dall'ordine.",
+        "name": "utilizzatore"
+      }
+    }
+  },
   "guild": {
     "description": "Visualizza le informazioni su una gilda.",
     "name": "gilda",
@@ -200,6 +210,20 @@
   "guildShop": {
     "description": "Visualizza il negozio della gilda.",
     "name": "magasinguilde"
+  },
+  "guildKick": {
+    "description": "Exclure un membre de la guilde.",
+    "name": "exclureguilde",
+    "options": {
+      "rank": {
+        "description": "Le classement du joueur à exclure de la guilde.",
+        "name": "classifica"
+      },
+      "user": {
+        "description": "L'utilisateur à exclure de la guilde.",
+        "name": "utilizzatore"
+      }
+    }
   },
   "guildDaily": {
     "description": "Raccogliere la ricompensa giornaliera della gilda.",
