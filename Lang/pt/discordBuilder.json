@@ -81,6 +81,16 @@
       }
     }
   },
+  "guildInvite": {
+    "description": "Recruta um novo membro para a tua guilda.",
+    "name": "conviteguilde",
+    "options": {
+      "user": {
+        "description": "O utilizador a quem a ordem diz respeito.",
+        "name": "utilizador"
+      }
+    }
+  },
   "guild": {
     "description": "Apresenta informações sobre um grémio.",
     "name": "grémio",
