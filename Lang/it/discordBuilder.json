@@ -81,6 +81,16 @@
       }
     }
   },
+  "guildInvite": {
+    "description": "Recluta un nuovo membro nella tua gilda.",
+    "name": "invitoguilde",
+    "options": {
+      "user": {
+        "description": "L'utente interessato dall'ordine.",
+        "name": "utilizzatore"
+      }
+    }
+  },
   "guild": {
     "description": "Visualizza le informazioni su una gilda.",
     "name": "gilda",
