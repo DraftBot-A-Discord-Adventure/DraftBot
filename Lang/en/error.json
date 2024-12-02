@@ -21,7 +21,7 @@
     "guildLeave": "guild departure",
     "guildShop": "guild's shop",
     "guildShopConfirmation": "guild store choice confirmation",
-    "lottery": "lottery small event",
+    "lottery": "mini-event lottery",
     "merchant": "merchant",
     "missionShop": "missions shop",
     "missionShopConfirmation": "mission store selection confirmation",
@@ -67,6 +67,7 @@
   "notInAGuild": "You have to be in a guild to use this command.",
   "notAuthorizedError": "You do not have the required permissions to do that command in your guild, please ask a superior if needed.",
   "levelTooLow": "You must **Level {{level}}** to use this command! Come back later!",
+  "targetLevelTooLow": "This player must be **level {{level}}** for you to use this command!",
   "notAuthorizedRight": "You do not have permission to perform this command.",
   "notPossibleWithoutStatus": "You don't need our services right now",
   "effects": {
