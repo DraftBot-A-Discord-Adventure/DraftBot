@@ -448,17 +448,17 @@ export default class CommandHandlers {
 
 	@packetHandler(CommandDailyBonusObjectDoNothing)
 	async dailyBonusObjectDoNothing(_packet: CommandDailyBonusObjectDoNothing, context: PacketContext): Promise<void> {
-		await handleDailyBonusClassicError(context, "commands:daily.errors.objectDoNothingError")
+		await handleDailyBonusClassicError(context, "commands:daily.errors.objectDoNothingError");
 	}
 
 	@packetHandler(CommandDailyBonusObjectIsActiveDuringFights)
 	async dailyBonusObjectIsActiveDuringFights(_packet: CommandDailyBonusObjectIsActiveDuringFights, context: PacketContext): Promise<void> {
-		await handleDailyBonusClassicError(context, "commands:daily.errors.objectIsActiveDuringFights")
+		await handleDailyBonusClassicError(context, "commands:daily.errors.objectIsActiveDuringFights");
 	}
 
 	@packetHandler(CommandDailyBonusNoActiveObject)
 	async dailyBonusNoActiveObject(_packet: CommandDailyBonusNoActiveObject, context: PacketContext): Promise<void> {
-		await handleDailyBonusClassicError(context, "commands:daily.errors.noActiveObject")
+		await handleDailyBonusClassicError(context, "commands:daily.errors.noActiveObject");
 	}
 
 	@packetHandler(CommandDailyBonusInCooldown)

@@ -26,11 +26,11 @@ export abstract class CommandUtils {
 		NOT_DEAD: [Effect.DEAD],
 		STARTED: [Effect.NOT_STARTED],
 		STARTED_AND_NOT_DEAD: [Effect.NOT_STARTED, Effect.DEAD]
-	}
+	};
 
 	static readonly ALLOWED_EFFECTS = {
 		NO_EFFECT: [Effect.NO_EFFECT]
-	}
+	};
 
 	/**
 	 * Check if the player has the required effects
@@ -175,11 +175,11 @@ export abstract class CommandUtils {
 	}
 }
 
-export const CommandRequires = <T extends DraftBotPacket>(requirements: Requirements) =>
+export const commandRequires = <T extends DraftBotPacket>(requirements: Requirements) =>
 	(target: unknown, prop: string, descriptor: TypedPropertyDescriptor<AsyncPacketListenerCallbackServer<T>>): TypedPropertyDescriptor<AsyncPacketListenerCallbackServer<T>> => {
 		const originalMethod = descriptor.value;
 
-		descriptor.value = async function(_packet: DraftBotPacket, context: PacketContext, response: DraftBotPacket[]) {
+		descriptor.value = async function(_packet: DraftBotPacket, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
 			const player = await Players.getByKeycloakId(context.keycloakId);
 			if (BlockingUtils.appendBlockedPacket(player, response)) {
 				return;
@@ -188,6 +188,9 @@ export const CommandRequires = <T extends DraftBotPacket>(requirements: Requirem
 			if (!await CommandUtils.verifyCommandRequirements(player, context, response, requirements)) {
 				return;
 			}
+			// Normally, we should precise a rest parameter to the original method, but we can't do it here
+			// So instead of passing manually each parameter, we pass the arguments object (normally not recommended, but here it's okay)
+			// eslint-disable-next-line prefer-rest-params
 			await originalMethod.apply(this, arguments);
 		};
 
