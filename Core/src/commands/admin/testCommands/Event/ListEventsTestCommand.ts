@@ -10,7 +10,7 @@ export const commandInfo: ITestCommand = {
 /**
  * List all available events for each map
  */
-const listEventsTestCommand: ExecuteTestCommandLike = (_player) => {
+const listEventsTestCommand: ExecuteTestCommandLike = () => {
 	let str = "";
 	// Let's display for every map all available events
 	for (const map of Maps.getMaps()) {

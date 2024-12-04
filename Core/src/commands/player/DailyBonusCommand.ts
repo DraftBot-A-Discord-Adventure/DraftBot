@@ -1,6 +1,6 @@
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {Player, Players} from "../../core/database/game/models/Player";
-import {CommandRequires, CommandUtils} from "../../core/utils/CommandUtils";
+import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 import {
 	CommandDailyBonusInCooldown,
 	CommandDailyBonusNoActiveObject,
@@ -21,7 +21,12 @@ import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {TravelTime} from "../../core/maps/TravelTime";
 import {packetHandler} from "../../core/packetHandlers/PacketHandler";
 
-async function isWrongObjectForDaily(activeObject: ObjectItem, response: DraftBotPacket[]): Promise<boolean> {
+/**
+ * Check if the active object is wrong for the daily bonus
+ * @param activeObject
+ * @param response
+ */
+function isWrongObjectForDaily(activeObject: ObjectItem, response: DraftBotPacket[]): boolean {
 	if (activeObject.nature === ItemNature.NONE) {
 		response.push(makePacket(activeObject.id === InventoryConstants.OBJECT_DEFAULT_ID ? CommandDailyBonusNoActiveObject : CommandDailyBonusObjectDoNothing, {}));
 		return true;
@@ -33,6 +38,11 @@ async function isWrongObjectForDaily(activeObject: ObjectItem, response: DraftBo
 	return false;
 }
 
+/**
+ * Check if the player is ready to get his daily bonus
+ * @param player
+ * @param response
+ */
 async function dailyNotReady(player: Player, response: DraftBotPacket[]): Promise<boolean> {
 	const inventoryInfo = await InventoryInfos.getOfPlayer(player.id);
 	const lastDailyTimestamp = inventoryInfo.getLastDailyAtTimestamp();
@@ -46,7 +56,13 @@ async function dailyNotReady(player: Player, response: DraftBotPacket[]): Promis
 	return false;
 }
 
-async function activateDailyItem(player: Player, activeObject: ObjectItem, response: DraftBotPacket[]) {
+/**
+ * Activate the daily item
+ * @param player
+ * @param activeObject
+ * @param response
+ */
+async function activateDailyItem(player: Player, activeObject: ObjectItem, response: DraftBotPacket[]): Promise<void> {
 	const packet = makePacket(CommandDailyBonusPacketRes, {
 		value: activeObject.power,
 		itemNature: activeObject.nature
@@ -62,7 +78,7 @@ async function activateDailyItem(player: Player, activeObject: ObjectItem, respo
 	case ItemNature.TIME_SPEEDUP:
 		await TravelTime.timeTravel(player, activeObject.power, NumberChangeReason.DAILY);
 		break;
-	case ItemNature.MONEY:
+	default:
 		await player.addMoney({
 			amount: activeObject.power,
 			response,
@@ -81,13 +97,13 @@ async function activateDailyItem(player: Player, activeObject: ObjectItem, respo
 export default class DailyBonusCommand {
 
 	/**
-	 * Respawn the player
+	 * Handle the daily bonus command
 	 * @param _packet
 	 * @param context
 	 * @param response
 	 */
 	@packetHandler(CommandDailyBonusPacketReq)
-	@CommandRequires({
+	@commandRequires({
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD
 	})
 	async execute(_packet: CommandDailyBonusPacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
@@ -100,7 +116,7 @@ export default class DailyBonusCommand {
 
 		const activeObject: ObjectItem = activeObjectSlot.getItem() as ObjectItem;
 
-		if (await isWrongObjectForDaily(activeObject, response) || await dailyNotReady(player, response)) {
+		if (isWrongObjectForDaily(activeObject, response) || await dailyNotReady(player, response)) {
 			return;
 		}
 
