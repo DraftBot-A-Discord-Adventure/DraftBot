@@ -19,11 +19,17 @@ export default class CommandRequirementHandlers {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (keycloakUser) {
 			const effectsText = effectsErrorTextValue(keycloakUser, context.discord!.language!, true, packet.currentEffectId, packet.remainingTime);
-			interaction?.reply({
+			if (!interaction) {
+				return;
+			}
+			if (interaction.deferred) {
+				interaction.deleteReply();
+			}
+			interaction?.followUp({
 				embeds: [
 					new DraftBotEmbed()
 						.setErrorColor()
-						.setTitle(effectsText.title)
+						.formatAuthor(effectsText.title, interaction.user)
 						.setDescription(effectsText.description)
 				],
 				ephemeral: true
@@ -58,7 +64,10 @@ export default class CommandRequirementHandlers {
 			return;
 		}
 
-		await replyEphemeralErrorMessage(interaction, i18n.t("error:levelTooLow", {lng: interaction.userLanguage, level: packet.requiredLevel}));
+		await replyEphemeralErrorMessage(interaction, i18n.t("error:levelTooLow", {
+			lng: interaction.userLanguage,
+			level: packet.requiredLevel
+		}));
 	}
 
 	@packetHandler(RequirementRightPacket)

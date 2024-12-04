@@ -39,9 +39,10 @@ function getBackupField<T = MainItemDisplayPacket | SupportItemDisplayPacket>(
 		slot: number
 	}[],
 	slots: number,
-	toFieldFunc: (displayPacket: T, language: Language) => EmbedField
+	toFieldFunc: (displayPacket: T, language: Language) => EmbedField,
+	itemKind: string
 ): EmbedField {
-	const formattedTitle = i18n.t("commands:inventory.weapons", {lng, count: items.length, max: slots - 1});
+	const formattedTitle = i18n.t(`commands:inventory.${itemKind}`, {lng, count: items.length, max: slots - 1});
 	if (slots <= 1) {
 		return {
 			name: formattedTitle,
@@ -93,10 +94,10 @@ function getBackupEmbed(packet: CommandInventoryPacketRes, pseudo: string, lng: 
 				pseudo
 			}))
 			.addFields([
-				getBackupField(lng, packet.data.backupWeapons, packet.data.slots.weapons, DiscordItemUtils.getWeaponField),
-				getBackupField(lng, packet.data.backupArmors, packet.data.slots.armors, DiscordItemUtils.getArmorField),
-				getBackupField(lng, packet.data.backupPotions, packet.data.slots.potions, DiscordItemUtils.getPotionField),
-				getBackupField(lng, packet.data.backupObjects, packet.data.slots.objects, DiscordItemUtils.getObjectField)
+				getBackupField(lng, packet.data.backupWeapons, packet.data.slots.weapons, DiscordItemUtils.getWeaponField, "weapons"),
+				getBackupField(lng, packet.data.backupArmors, packet.data.slots.armors, DiscordItemUtils.getArmorField, "armors"),
+				getBackupField(lng, packet.data.backupPotions, packet.data.slots.potions, DiscordItemUtils.getPotionField, "potions"),
+				getBackupField(lng, packet.data.backupObjects, packet.data.slots.objects, DiscordItemUtils.getObjectField, "objects")
 			]);
 	}
 

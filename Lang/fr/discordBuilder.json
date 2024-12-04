@@ -228,5 +228,9 @@
   "guildDaily": {
     "description": "Récupérer la récompense journalière de la guilde.",
     "name": "bonusjournalierguilde"
+  },
+  "daily": {
+    "description": "Utiliser votre objet équipé pour obtenir un bonus journalier.",
+    "name": "bonusjournalier"
   }
 }

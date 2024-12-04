@@ -1,4 +1,4 @@
-import Player from "../database/game/models/Player";
+import Player, {Players} from "../database/game/models/Player";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {Effect} from "../../../../Lib/src/enums/Effect";
 import {RightGroup} from "../../../../Lib/src/enums/RightGroup";
@@ -9,8 +9,29 @@ import {Guilds} from "../database/game/models/Guild";
 import {RequirementGuildNeededPacket} from "../../../../Lib/src/packets/commands/requirements/RequirementGuildNeededPacket";
 import {RequirementGuildRolePacket} from "../../../../Lib/src/packets/commands/requirements/RequirementGuildRolePacket";
 import {RequirementRightPacket} from "../../../../Lib/src/packets/commands/requirements/RequirementRightPacket";
+import {AsyncPacketListenerCallbackServer} from "../../../../Lib/src/packets/PacketListener";
+import {BlockingUtils} from "./BlockingUtils";
+
+type Requirements = {
+	disallowedEffects?: Effect[];
+	allowedEffects?: Effect[];
+	level?: number;
+	rightGroup?: RightGroup;
+	guildNeeded?: boolean;
+	guildRoleNeeded?: GuildRole;
+};
 
 export abstract class CommandUtils {
+	static readonly DISALLOWED_EFFECTS = {
+		NOT_DEAD: [Effect.DEAD],
+		STARTED: [Effect.NOT_STARTED],
+		STARTED_AND_NOT_DEAD: [Effect.NOT_STARTED, Effect.DEAD]
+	}
+
+	static readonly ALLOWED_EFFECTS = {
+		NO_EFFECT: [Effect.NO_EFFECT]
+	}
+
 	/**
 	 * Check if the player has the required effects
 	 * @param player
@@ -85,14 +106,7 @@ export abstract class CommandUtils {
 	 * @param response
 	 * @param requirements
 	 */
-	static async verifyCommandRequirements(player: Player, context: PacketContext, response: DraftBotPacket[], requirements: {
-		disallowedEffects?: Effect[];
-		allowedEffects?: Effect[];
-		level?: number;
-		rightGroup?: RightGroup;
-		guildNeeded?: boolean;
-		guildRoleNeeded?: GuildRole;
-	}): Promise<boolean> {
+	static async verifyCommandRequirements(player: Player, context: PacketContext, response: DraftBotPacket[], requirements: Requirements): Promise<boolean> {
 		if (!CommandUtils.checkEffects(player, response, requirements.allowedEffects ?? [], requirements.disallowedEffects ?? [])) {
 			return false;
 		}
@@ -160,3 +174,23 @@ export abstract class CommandUtils {
 		});
 	}
 }
+
+export const CommandRequires = <T extends DraftBotPacket>(requirements: Requirements) =>
+	(target: unknown, prop: string, descriptor: TypedPropertyDescriptor<AsyncPacketListenerCallbackServer<T>>): TypedPropertyDescriptor<AsyncPacketListenerCallbackServer<T>> => {
+		const originalMethod = descriptor.value;
+
+		descriptor.value = async function(_packet: DraftBotPacket, context: PacketContext, response: DraftBotPacket[]) {
+			const player = await Players.getByKeycloakId(context.keycloakId);
+			if (BlockingUtils.appendBlockedPacket(player, response)) {
+				return;
+			}
+
+			if (!await CommandUtils.verifyCommandRequirements(player, context, response, requirements)) {
+				return;
+			}
+			await originalMethod.apply(this, arguments);
+		};
+
+		return descriptor;
+	};
+

@@ -30,6 +30,7 @@ export class PacketListenerServer {
 	}
 }
 
+export type AsyncPacketListenerCallbackServer<T extends DraftBotPacket> = (packet: T, context: PacketContext, response: DraftBotPacket[]) => Promise<void>;
 export type PacketListenerCallbackServer<T extends DraftBotPacket> = (packet: T, context: PacketContext, response: DraftBotPacket[]) => void | Promise<void>;
 
 export class PacketListenerClient {
