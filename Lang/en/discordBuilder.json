@@ -228,5 +228,9 @@
   "guildDaily": {
     "description": "Get the guild's daily reward.",
     "name": "guilddailybonus"
+  },
+  "daily": {
+    "description": "Use your equipped item to get a daily bonus.",
+    "name": "dailybonus"
   }
 }

@@ -685,5 +685,21 @@
       "pet_male": "{emote:pets.{{petId}}.emoteMale} | Un familier a rejoint le refuge de la guilde: **{{pet}}**",
       "pet_female": "{emote:pets.{{petId}}.emoteFemale} | Un familier a rejoint le refuge de la guilde: **{{pet}}**"
     }
+  },
+  "daily": {
+    "errors": {
+      "objectDoNothingError": "Vous tentez d'utiliser le pouvoir de l'objet que vous transportez... Mais cela n'a aucun effet !",
+      "objectIsActiveDuringFights": "Le pouvoir de l'objet que vous transportez est actif automatiquement durant les combats !",
+      "noActiveObject": "Vous n'avez malheureusement aucun objet actif dans votre inventaire !",
+      "cooldown": "Vous ne pouvez utiliser votre objet quotidien que toutes les {{cooldownTime}} heures. Revenez {{time}}."
+    },
+    "title": "{{pseudo}}, vous avez reçu votre récompense journalière !",
+    "description": "{emote:unitValues.{{nature}}} $t(commands:daily.natureText.{{nature}}) **{{value}}**!",
+    "natureText": {
+      "health": "Vie gagnée :",
+      "energy": "Énergie gagnée :",
+      "money": "Argent gagné :",
+      "time": "Vous avez avancé de"
+    }
   }
 }

@@ -6,7 +6,6 @@ import i18n from "../translations/i18n";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {escapeUsername} from "../../../Lib/src/utils/StringUtils";
 import {KeycloakUser} from "../../../Lib/src/keycloak/KeycloakUser";
-import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
 import {millisecondsToMinutes, minutesDisplay} from "../../../Lib/src/utils/TimeUtils";
 import {Effect} from "../../../Lib/src/enums/Effect";
 
@@ -88,6 +87,24 @@ export async function sendInteractionNotForYou(
 }
 
 /**
+ * Get the translation key for the description of an effect
+ * @param effectId
+ * @param self
+ */
+function getDescriptionTranslationKey(effectId: string, self: boolean): string {
+	switch (effectId) {
+	case Effect.NO_EFFECT.id:
+		return "error:notPossibleWithoutStatus";
+	case Effect.NOT_STARTED.id:
+		return `error:effects.notStartedHint.${self ? "self" : "other"}`;
+	case Effect.DEAD.id:
+		return `error:effects.deadHint.${self ? "self" : "other"}`;
+	default:
+		return self ? "error:pleaseWaitForHeal" : "error:pleaseWaitForHisHeal";
+	}
+}
+
+/**
  * Send an error message if the user has an effect
  * @param user
  * @param lng
@@ -99,36 +116,14 @@ export function effectsErrorTextValue(user: KeycloakUser, lng: Language, self: b
 	title: string,
 	description: string
 } {
-	const translationKey = self ? `error:effects.${effectId}.self` : `error:effects.${effectId}.other`;
-	const errorMessageObject: { title: string, description: string } = {
-		title: i18n.t(translationKey, {
+	return {
+		title: i18n.t(`error:effects.${effectId}.${self ? "self" : "other"}`, {
 			lng,
 			pseudo: escapeUsername(user.attributes.gameUsername[0])
 		}),
-		description: `${DraftBotIcons.effects[effectId]} `
-	};
-	const timeEffect = minutesDisplay(millisecondsToMinutes(effectRemainingTime));
-
-	switch (effectId) {
-	case Effect.NO_EFFECT.id:
-		errorMessageObject.description += i18n.t("error:notPossibleWithoutStatus", {lng});
-		break;
-	case Effect.NOT_STARTED.id:
-		errorMessageObject.description += i18n.t(self ? "error:effects.notStartedHint.self" : "error:effects.notStartedHint.other", {lng});
-		break;
-	case Effect.DEAD.id:
-		errorMessageObject.description += i18n.t(self ? "error:effects.deadHint.self" : "error:effects.deadHint.other", {lng});
-		break;
-	default:
-		errorMessageObject.description += i18n.t(self ? "error:pleaseWaitForHeal" : "error:pleaseWaitForHisHeal", {
+		description: i18n.t(`{emote:effects.${effectId}} $t(${getDescriptionTranslationKey(effectId, self)})`, {
 			lng,
-			time: timeEffect
-		});
-	}
-
-	if (self) {
-		errorMessageObject.title = errorMessageObject.title.charAt(8).toUpperCase() + errorMessageObject.title.slice(9);
-	}
-
-	return errorMessageObject;
+			time: minutesDisplay(millisecondsToMinutes(effectRemainingTime))
+		})
+	};
 }

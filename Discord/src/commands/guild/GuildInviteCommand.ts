@@ -39,8 +39,8 @@ export async function handleCommandGuildInviteError(packet: CommandGuildInviteEr
 	const params = {
 		embeds: [
 			new DraftBotErrorEmbed(
-				interaction!.user,
-				interaction!,
+				interaction.user,
+				interaction,
 				i18n.t(errorKey, {
 					level: GuildConstants.REQUIRED_LEVEL,
 					guildName: packet.guildName,
@@ -50,12 +50,11 @@ export async function handleCommandGuildInviteError(packet: CommandGuildInviteEr
 			)
 		]
 	};
-	if (interaction && buttonInteraction) {
+	if (buttonInteraction) {
 		await buttonInteraction.editReply(params);
+		return;
 	}
-	else if (interaction) {
-		await interaction.reply(params);
-	}
+	await interaction.reply(params);
 }
 
 export async function createGuildInviteCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {

@@ -141,6 +141,18 @@ import {
 	handleCommandGuildKickPacketRes,
 	handleCommandGuildKickRefusePacketRes
 } from "../../commands/guild/GuildKickCommand";
+import {
+	CommandDailyBonusInCooldown,
+	CommandDailyBonusNoActiveObject,
+	CommandDailyBonusObjectDoNothing,
+	CommandDailyBonusObjectIsActiveDuringFights,
+	CommandDailyBonusPacketRes
+} from "../../../../Lib/src/packets/commands/CommandDailyBonusPacket";
+import {
+	handleDailyBonusClassicError,
+	handleDailyBonusCooldownError,
+	handleDailyBonusRes
+} from "../../commands/player/DailyBonusCommand";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
@@ -427,5 +439,30 @@ export default class CommandHandlers {
 	@packetHandler(CommandGuildDailyPveIslandErrorPacket)
 	async guildDailyPveIslandError(packet: CommandGuildDailyPveIslandErrorPacket, context: PacketContext): Promise<void> {
 		await handleCommandGuildDailyPveIslandErrorPacket(packet, context);
+	}
+
+	@packetHandler(CommandDailyBonusPacketRes)
+	async dailyBonusRes(packet: CommandDailyBonusPacketRes, context: PacketContext): Promise<void> {
+		await handleDailyBonusRes(context, packet);
+	}
+
+	@packetHandler(CommandDailyBonusObjectDoNothing)
+	async dailyBonusObjectDoNothing(_packet: CommandDailyBonusObjectDoNothing, context: PacketContext): Promise<void> {
+		await handleDailyBonusClassicError(context, "commands:daily.errors.objectDoNothingError")
+	}
+
+	@packetHandler(CommandDailyBonusObjectIsActiveDuringFights)
+	async dailyBonusObjectIsActiveDuringFights(_packet: CommandDailyBonusObjectIsActiveDuringFights, context: PacketContext): Promise<void> {
+		await handleDailyBonusClassicError(context, "commands:daily.errors.objectIsActiveDuringFights")
+	}
+
+	@packetHandler(CommandDailyBonusNoActiveObject)
+	async dailyBonusNoActiveObject(_packet: CommandDailyBonusNoActiveObject, context: PacketContext): Promise<void> {
+		await handleDailyBonusClassicError(context, "commands:daily.errors.noActiveObject")
+	}
+
+	@packetHandler(CommandDailyBonusInCooldown)
+	async dailyBonusInCooldown(packet: CommandDailyBonusInCooldown, context: PacketContext): Promise<void> {
+		await handleDailyBonusCooldownError(context, packet.lastDailyTimestamp, packet.timeBetweenDailies);
 	}
 }
