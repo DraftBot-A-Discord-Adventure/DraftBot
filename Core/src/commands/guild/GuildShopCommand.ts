@@ -1,14 +1,12 @@
-import {packetHandler} from "../../core/packetHandlers/PacketHandler";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {
-	CommandGuildShopEmpty, CommandGuildShopGiveXp,
+	CommandGuildShopEmpty,
+	CommandGuildShopGiveXp,
 	CommandGuildShopNoFoodStorageSpace,
 	CommandGuildShopPacketReq
 } from "../../../../Lib/src/packets/commands/CommandGuildShopPacket";
-import {Players} from "../../core/database/game/models/Player";
-import {CommandUtils} from "../../core/utils/CommandUtils";
-import {Effect} from "../../../../Lib/src/enums/Effect";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import {Player, Players} from "../../core/database/game/models/Player";
+import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 import {
 	ReactionCollectorShop,
 	ShopCategory,
@@ -101,25 +99,17 @@ function getFoodShopItem(name: string, amounts: number[]): ShopItem {
 
 
 export default class GuildShopCommand {
-	@packetHandler(CommandGuildShopPacketReq)
+	@commandRequires(CommandGuildShopPacketReq, {
+		blocking: true,
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD_OR_JAILED,
+		guildNeeded: true
+	})
 	static async execute(
-		packet: CommandGuildShopPacketReq,
-		context: PacketContext,
-		response: DraftBotPacket[]
+		response: DraftBotPacket[],
+		player: Player,
+		_packet: CommandGuildShopPacketReq,
+		context: PacketContext
 	): Promise<void> {
-		const player = await Players.getOrRegister(context.keycloakId);
-
-		if (BlockingUtils.appendBlockedPacket(player, response)) {
-			return;
-		}
-
-		if (!await CommandUtils.verifyCommandRequirements(player, context, response, {
-			disallowedEffects: [Effect.NOT_STARTED, Effect.DEAD, Effect.JAILED],
-			guildNeeded: true
-		})) {
-			return;
-		}
-
 		const shopCategories: ShopCategory[] = [];
 
 		const guild = await Guilds.getById(player.guildId);

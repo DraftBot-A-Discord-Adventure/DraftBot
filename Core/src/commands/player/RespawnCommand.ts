@@ -1,7 +1,5 @@
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {packetHandler} from "../../core/packetHandlers/PacketHandler";
-import {Players} from "../../core/database/game/models/Player";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
+import {Player} from "../../core/database/game/models/Player";
 import {Effect} from "../../../../Lib/src/enums/Effect";
 import {RespawnConstants} from "../../../../Lib/src/constants/RespawnConstants";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
@@ -14,27 +12,20 @@ import {
 	CommandRespawnPacketReq,
 	CommandRespawnPacketRes
 } from "../../../../Lib/src/packets/commands/CommandRespawnPacket";
-import {CommandUtils} from "../../core/utils/CommandUtils";
+import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 
 export default class RespawnCommand {
 
 	/**
 	 * Respawn the player
-	 * @param _packet
-	 * @param context
 	 * @param response
+	 * @param player
 	 */
-	@packetHandler(CommandRespawnPacketReq)
-	async execute(_packet: CommandRespawnPacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
-		const player = await Players.getByKeycloakId(context.keycloakId);
-		if (BlockingUtils.appendBlockedPacket(player, response)) {
-			return;
-		}
-
-		if (!await CommandUtils.verifyStarted(player, response)) {
-			return;
-		}
-
+	@commandRequires(CommandRespawnPacketReq, {
+		blocking: true,
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED,
+	})
+	async execute(response: DraftBotPacket[], player: Player): Promise<void> {
 		if (player.effectId !== Effect.DEAD.id) {
 			response.push(makePacket(CommandRespawnErrorAlreadyAlive, {}));
 			return;

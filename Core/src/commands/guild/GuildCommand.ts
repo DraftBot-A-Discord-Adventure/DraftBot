@@ -1,27 +1,18 @@
-import {packetHandler} from "../../core/packetHandlers/PacketHandler";
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {Players} from "../../core/database/game/models/Player";
+import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
+import {Player, Players} from "../../core/database/game/models/Player";
 import {Guild, Guilds} from "../../core/database/game/models/Guild";
 import {CommandGuildPacketReq, CommandGuildPacketRes} from "../../../../Lib/src/packets/commands/CommandGuildPacket";
 import {Maps} from "../../core/maps/Maps";
 import {MapCache} from "../../core/maps/MapCache";
-import {CommandUtils} from "../../core/utils/CommandUtils";
+import {commandRequires} from "../../core/utils/CommandUtils";
 
 export default class GuildCommand {
-	@packetHandler(CommandGuildPacketReq)
-	async execute(packet: CommandGuildPacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
-		const initiatorPlayer = await Players.getByKeycloakId(context.keycloakId);
-
-		if (!await CommandUtils.verifyStartedAndNotDead(initiatorPlayer, response)) {
-			return;
-		}
-
+	@commandRequires(CommandGuildPacketReq, {
+		blocking: false
+	})
+	async execute(response: DraftBotPacket[], player: Player, packet: CommandGuildPacketReq): Promise<void> {
 		let guild: Guild;
-		const player = packet.askedPlayer.keycloakId
-			? packet.askedPlayer.keycloakId === context.keycloakId
-				? initiatorPlayer
-				: await Players.getByKeycloakId(packet.askedPlayer.keycloakId)
-			: await Players.getByRank(packet.askedPlayer.rank);
+		const toCheckPlayer = await Players.getAskedPlayer(packet.askedPlayer, player);
 		if (packet.askedGuildName) {
 			try {
 				guild = await Guilds.getByName(packet.askedGuildName);
@@ -31,7 +22,7 @@ export default class GuildCommand {
 			}
 		}
 		else {
-			guild = player.guildId ? await Guilds.getById(player.guildId) : null;
+			guild = toCheckPlayer.guildId ? await Guilds.getById(toCheckPlayer.guildId) : null;
 		}
 
 		if (!guild) {
@@ -43,12 +34,12 @@ export default class GuildCommand {
 			const members = await Players.getByGuild(guild.id);
 			const rank = await guild.getRanking();
 			const numberOfGuilds = await Guilds.getTotalRanked();
-			const membersPveAlliesIds = (await Maps.getGuildMembersOnPveIsland(player)).map((player) => player.id);
+			const membersPveAlliesIds = (await Maps.getGuildMembersOnPveIsland(toCheckPlayer)).map((player) => player.id);
 			const isUnranked = rank > -1;
 
 			response.push(makePacket(CommandGuildPacketRes, {
 				foundGuild: true,
-				askedPlayerKeycloakId: player.keycloakId,
+				askedPlayerKeycloakId: toCheckPlayer.keycloakId,
 				data: {
 					name: guild.name,
 					description: guild.guildDescription,

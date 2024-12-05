@@ -1,12 +1,11 @@
-import {packetHandler} from "../../core/packetHandlers/PacketHandler";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {Players} from "../../core/database/game/models/Player";
+import {Player, Players} from "../../core/database/game/models/Player";
 import {
 	CommandMissionPlayerNotFoundPacket,
 	CommandMissionsPacketReq,
 	CommandMissionsPacketRes
 } from "../../../../Lib/src/packets/commands/CommandMissionsPacket";
-import {CommandUtils} from "../../core/utils/CommandUtils";
+import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 import {MissionSlots} from "../../core/database/game/models/MissionSlot";
 import {PlayerMissionsInfos} from "../../core/database/game/models/PlayerMissionsInfo";
 import {BaseMission, MissionType} from "../../../../Lib/src/interfaces/CompletedMission";
@@ -15,29 +14,27 @@ import {Campaign} from "../../core/missions/Campaign";
 import {MissionsController} from "../../core/missions/MissionsController";
 
 export default class MissionsCommand {
-	@packetHandler(CommandMissionsPacketReq)
-	async execute(packet: CommandMissionsPacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
-		const initiator = await Players.getByKeycloakId(context.keycloakId);
-		if (!await CommandUtils.verifyStartedAndNotDead(initiator, response)) {
-			return; // TODO: check si c'est pas censé être géré par les commands requirements ???
-		}
-
-		const player = packet.askedPlayer.keycloakId
+	@commandRequires(CommandMissionsPacketReq, {
+		blocking: false,
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD
+	})
+	async execute(response: DraftBotPacket[], player: Player, packet: CommandMissionsPacketReq, context: PacketContext): Promise<void> {
+		const toCheckPlayer = packet.askedPlayer.keycloakId
 			? packet.askedPlayer.keycloakId === context.keycloakId
-				? initiator
+				? player
 				: await Players.getByKeycloakId(packet.askedPlayer.keycloakId)
 			: await Players.getByRank(packet.askedPlayer.rank);
 
-		if (!player) {
+		if (!toCheckPlayer) {
 			response.push(makePacket(CommandMissionPlayerNotFoundPacket, {}));
 			return;
 		}
 
-		if (player.id === initiator.id) {
-			await MissionsController.update(initiator, response, {missionId: "commandMission"});
+		if (toCheckPlayer.id === player.id) {
+			await MissionsController.update(player, response, {missionId: "commandMission"});
 		}
 
-		const missionSlots = await MissionSlots.getOfPlayer(player.id);
+		const missionSlots = await MissionSlots.getOfPlayer(toCheckPlayer.id);
 
 		// Loading secondary missions and campaign
 		const missions: BaseMission[] = missionSlots.map((missionSlot): BaseMission => ({
@@ -45,7 +42,7 @@ export default class MissionsCommand {
 			missionType: missionSlot.expiresAt ? MissionType.NORMAL : MissionType.CAMPAIGN
 		}));
 
-		const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
+		const missionInfo = await PlayerMissionsInfos.getOfPlayer(toCheckPlayer.id);
 		// Loading daily mission
 		missions.push({
 			...(await DailyMissions.getOrGenerate()).toJSON(),
@@ -57,11 +54,11 @@ export default class MissionsCommand {
 		});
 
 		response.push(makePacket(CommandMissionsPacketRes, {
-			keycloakId: player.keycloakId,
+			keycloakId: toCheckPlayer.keycloakId,
 			missions: MissionsController.prepareBaseMissions(missions),
 			maxCampaignNumber: Campaign.getMaxCampaignNumber(),
 			campaignProgression: missionInfo.campaignProgression,
-			maxSideMissionSlots: player.getMissionSlotsNumber()
+			maxSideMissionSlots: toCheckPlayer.getMissionSlotsNumber()
 		}));
 	}
 }

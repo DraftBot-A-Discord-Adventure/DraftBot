@@ -1,6 +1,5 @@
-import {packetHandler} from "../../core/packetHandlers/PacketHandler";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {Player, Players} from "../../core/database/game/models/Player";
+import {Player} from "../../core/database/game/models/Player";
 import {PetEntities, PetEntity} from "../../core/database/game/models/PetEntity";
 import {
 	CommandPetFreeAcceptPacketRes,
@@ -20,7 +19,7 @@ import Guild, {Guilds} from "../../core/database/game/models/Guild";
 import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants";
 import {getFoodIndexOf} from "../../core/utils/FoodUtils";
 import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
-import {CommandUtils} from "../../core/utils/CommandUtils";
+import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
 
 
@@ -109,17 +108,11 @@ async function acceptPetFree(player: Player, playerPet: PetEntity, response: Dra
 
 export default class PetFreeCommand {
 
-	@packetHandler(CommandPetFreePacketReq)
-	async execute(packet: CommandPetFreePacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
-		const player = await Players.getByKeycloakId(packet.keycloakId);
-		if (BlockingUtils.appendBlockedPacket(player, response)) {
-			return;
-		}
-
-		if (!await CommandUtils.verifyNoEffect(player, response)) {
-			return;
-		}
-
+	@commandRequires(CommandPetFreePacketReq, {
+		blocking: true,
+		allowedEffects: CommandUtils.ALLOWED_EFFECTS.NO_EFFECT,
+	})
+	async execute(response: DraftBotPacket[], player: Player, _packet: CommandPetFreePacketReq, context: PacketContext): Promise<void> {
 		const playerPet = await PetEntities.getById(player.petId);
 		if (!playerPet) {
 			response.push(makePacket(CommandPetFreePacketRes, {

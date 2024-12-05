@@ -30,7 +30,8 @@ export abstract class CommandUtils {
 	static readonly DISALLOWED_EFFECTS = {
 		NOT_DEAD: [Effect.DEAD],
 		STARTED: [Effect.NOT_STARTED],
-		STARTED_AND_NOT_DEAD: [Effect.NOT_STARTED, Effect.DEAD]
+		STARTED_AND_NOT_DEAD: [Effect.NOT_STARTED, Effect.DEAD],
+		STARTED_AND_NOT_DEAD_OR_JAILED: [Effect.NOT_STARTED, Effect.DEAD, Effect.JAILED]
 	};
 
 	static readonly ALLOWED_EFFECTS = {
@@ -180,11 +181,11 @@ export abstract class CommandUtils {
 	}
 }
 
-type AsyncWithPlayerPacketListenerCallbackServer<T extends DraftBotPacket> = (packet: T, context: PacketContext, response: DraftBotPacket[], player: Player) => Promise<void>;
+type WithPlayerPacketListenerCallbackServer<T extends DraftBotPacket> = (response: DraftBotPacket[], player: Player, packet: T, context: PacketContext) => void | Promise<void>;
 
 export const commandRequires = <T extends DraftBotPacket>(packet: { new(): T }, requirements: TmpRequirements) =>
-	(target: unknown, prop: string, descriptor: TypedPropertyDescriptor<AsyncWithPlayerPacketListenerCallbackServer<T>>): void => {
-		draftBotInstance.packetListener.addPacketListener<T>(packet, async function(packet: T, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
+	(target: unknown, prop: string, descriptor: TypedPropertyDescriptor<WithPlayerPacketListenerCallbackServer<T>>): void => {
+		draftBotInstance.packetListener.addPacketListener<T>(packet, async function(response: DraftBotPacket[], packet: T, context: PacketContext): Promise<void> {
 			const player = await Players.getByKeycloakId(context.keycloakId);
 			// Warning: order of the checks is important, as appendBlockedPacket can add a packet to the response
 			if (!requirements.blocking && BlockingUtils.appendBlockedPacket(player, response)) {
@@ -194,7 +195,7 @@ export const commandRequires = <T extends DraftBotPacket>(packet: { new(): T }, 
 			if (!await CommandUtils.verifyCommandRequirements(player, context, response, requirements)) {
 				return;
 			}
-			await descriptor.value(packet, context, response, player);
+			await descriptor.value(response, packet, player, context);
 		});
 		console.log(`[${packet.name}] Registered packet handler (function '${prop}' in class '${target!.constructor.name}')`);
 	};

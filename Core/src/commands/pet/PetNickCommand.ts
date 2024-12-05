@@ -1,6 +1,4 @@
-import {packetHandler} from "../../core/packetHandlers/PacketHandler";
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {Players} from "../../core/database/game/models/Player";
+import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {PetEntities} from "../../core/database/game/models/PetEntity";
 import {
 	CommandPetNickPacketReq,
@@ -8,18 +6,17 @@ import {
 } from "../../../../Lib/src/packets/commands/CommandPetNickPacket";
 import {checkNameString} from "../../../../Lib/src/utils/StringUtils";
 import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
-import {CommandUtils} from "../../core/utils/CommandUtils";
+import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
+import Player from "../../core/database/game/models/Player";
 
 
 export default class PetNickCommand {
 
-	@packetHandler(CommandPetNickPacketReq)
-	async execute(packet: CommandPetNickPacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
-		const player = await Players.getByKeycloakId(packet.keycloakId);
-
-		if (!await CommandUtils.verifyStartedAndNotDead(player, response)) {
-			return;
-		}
+	@commandRequires(CommandPetNickPacketReq, {
+		blocking: true,
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD
+	})
+	async execute(response: DraftBotPacket[], player: Player, packet: CommandPetNickPacketReq): Promise<void> {
 
 		const playerPet = await PetEntities.getById(player.petId);
 

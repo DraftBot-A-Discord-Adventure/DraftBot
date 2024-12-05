@@ -1,4 +1,4 @@
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {Player} from "../../core/database/game/models/Player";
 import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 import {
@@ -97,8 +97,6 @@ export default class DailyBonusCommand {
 
 	/**
 	 * Handle the daily bonus command
-	 * @param _packet
-	 * @param context
 	 * @param response
 	 * @param player
 	 */
@@ -106,7 +104,7 @@ export default class DailyBonusCommand {
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD,
 		blocking: true
 	})
-	async execute(_packet: CommandDailyBonusPacketReq, context: PacketContext, response: DraftBotPacket[], player: Player): Promise<void> {
+	async execute(response: DraftBotPacket[], player: Player): Promise<void> {
 		const activeObjectSlot = await InventorySlots.getMainObjectSlot(player.id);
 		if (!activeObjectSlot) {
 			response.push(makePacket(CommandDailyBonusNoActiveObject, {}));

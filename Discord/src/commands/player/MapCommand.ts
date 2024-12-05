@@ -1,5 +1,4 @@
 import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
-import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {CommandMapDisplayRes, CommandMapPacketReq} from "../../../../Lib/src/packets/commands/CommandMapPacket";
 import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {ICommand} from "../ICommand";
@@ -11,8 +10,8 @@ import {MapConstants} from "../../../../Lib/src/constants/MapConstants";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 import {EmoteUtils} from "../../utils/EmoteUtils";
 
-function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandMapPacketReq> {
-	return Promise.resolve(makePacket(CommandMapPacketReq, {keycloakId: user.id, language: interaction.userLanguage}));
+function getPacket(interaction: DraftbotInteraction): Promise<CommandMapPacketReq> {
+	return Promise.resolve(makePacket(CommandMapPacketReq, {language: interaction.userLanguage}));
 }
 
 /**

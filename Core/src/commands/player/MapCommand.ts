@@ -1,11 +1,10 @@
-import {packetHandler} from "../../core/packetHandlers/PacketHandler";
 import {CommandMapDisplayRes, CommandMapPacketReq} from "../../../../Lib/src/packets/commands/CommandMapPacket";
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {Player, Players} from "../../core/database/game/models/Player";
+import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
+import {Player} from "../../core/database/game/models/Player";
 import {MapLocation} from "../../data/MapLocation";
 import {Language} from "../../../../Lib/src/Language";
 import {MapLinkDataController} from "../../data/MapLink";
-import {CommandUtils} from "../../core/utils/CommandUtils";
+import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 
 /**
  * Get the map information for the player
@@ -54,14 +53,11 @@ function getMapInformation(player: Player, destination: MapLocation, isInEvent: 
 }
 
 export class MapCommand {
-	@packetHandler(CommandMapPacketReq)
-	async execute(packet: CommandMapPacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
-		const player = await Players.getByKeycloakId(packet.keycloakId);
-
-		if (!await CommandUtils.verifyStartedAndNotDead(player, response)) {
-			return;
-		}
-
+	@commandRequires(CommandMapPacketReq, {
+		blocking: false,
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD
+	})
+	async execute(response: DraftBotPacket[], player: Player, packet: CommandMapPacketReq): Promise<void> {
 		const isInEvent = player.isInEvent();
 		const destinationMap = player.getDestination();
 

@@ -14,8 +14,6 @@ export class CommandClassesInfoPacketReq extends DraftBotPacket {
  */
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandClassesInfoPacketRes extends DraftBotPacket {
-	foundPlayer!: boolean;
-
 	data?: {
 		classesStats: {
 			id: number;
