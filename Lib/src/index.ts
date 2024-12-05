@@ -54,7 +54,7 @@ function checkForPacketHandlers(filePath: string, array: Array<string>): void {
 	const sourceFile = ts.createSourceFile(filePath, sourceCode, ts.ScriptTarget.ESNext, true);
 
 	function visit(node: ts.Node): void {
-		if (ts.isCallExpression(node) && node.expression.getText() === "packetHandler") {
+		if (ts.isCallExpression(node) && ["packetHandler", "commandRequires"].some((v) => v === node.expression.getText())) {
 			// eslint-disable-next-line
 			const packetType = (node as any).arguments[0].escapedText;
 			array.push(packetType);

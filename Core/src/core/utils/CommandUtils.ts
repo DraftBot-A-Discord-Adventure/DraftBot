@@ -9,8 +9,8 @@ import {Guilds} from "../database/game/models/Guild";
 import {RequirementGuildNeededPacket} from "../../../../Lib/src/packets/commands/requirements/RequirementGuildNeededPacket";
 import {RequirementGuildRolePacket} from "../../../../Lib/src/packets/commands/requirements/RequirementGuildRolePacket";
 import {RequirementRightPacket} from "../../../../Lib/src/packets/commands/requirements/RequirementRightPacket";
-import {AsyncPacketListenerCallbackServer} from "../../../../Lib/src/packets/PacketListener";
 import {BlockingUtils} from "./BlockingUtils";
+import {draftBotInstance} from "../../index";
 
 type Requirements = {
 	disallowedEffects?: Effect[];
@@ -19,7 +19,12 @@ type Requirements = {
 	rightGroup?: RightGroup;
 	guildNeeded?: boolean;
 	guildRoleNeeded?: GuildRole;
+	blocking?: boolean;
 };
+
+type TmpRequirements = Omit<Requirements, "blocking"> & {
+	blocking: boolean;
+}
 
 export abstract class CommandUtils {
 	static readonly DISALLOWED_EFFECTS = {
@@ -175,25 +180,21 @@ export abstract class CommandUtils {
 	}
 }
 
-export const commandRequires = <T extends DraftBotPacket>(requirements: Requirements) =>
-	(target: unknown, prop: string, descriptor: TypedPropertyDescriptor<AsyncPacketListenerCallbackServer<T>>): TypedPropertyDescriptor<AsyncPacketListenerCallbackServer<T>> => {
-		const originalMethod = descriptor.value;
+type AsyncWithPlayerPacketListenerCallbackServer<T extends DraftBotPacket> = (packet: T, context: PacketContext, response: DraftBotPacket[], player: Player) => Promise<void>;
 
-		descriptor.value = async function(_packet: DraftBotPacket, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
+export const commandRequires = <T extends DraftBotPacket>(packet: { new(): T }, requirements: TmpRequirements) =>
+	(target: unknown, prop: string, descriptor: TypedPropertyDescriptor<AsyncWithPlayerPacketListenerCallbackServer<T>>): void => {
+		draftBotInstance.packetListener.addPacketListener<T>(packet, async function(packet: T, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
 			const player = await Players.getByKeycloakId(context.keycloakId);
-			if (BlockingUtils.appendBlockedPacket(player, response)) {
+			// Warning: order of the checks is important, as appendBlockedPacket can add a packet to the response
+			if (!requirements.blocking && BlockingUtils.appendBlockedPacket(player, response)) {
 				return;
 			}
 
 			if (!await CommandUtils.verifyCommandRequirements(player, context, response, requirements)) {
 				return;
 			}
-			// Normally, we should precise a rest parameter to the original method, but we can't do it here
-			// So instead of passing manually each parameter, we pass the arguments object (normally not recommended, but here it's okay)
-			// eslint-disable-next-line prefer-rest-params
-			await originalMethod.apply(this, arguments);
-		};
-
-		return descriptor;
+			await descriptor.value(packet, context, response, player);
+		});
+		console.log(`[${packet.name}] Registered packet handler (function '${prop}' in class '${target!.constructor.name}')`);
 	};
-
