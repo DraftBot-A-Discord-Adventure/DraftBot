@@ -1,4 +1,3 @@
-import {packetHandler} from "../../core/packetHandlers/PacketHandler.js";
 import {
 	CommandGuildInviteAcceptPacketRes,
 	CommandGuildInviteAlreadyInAGuild,
@@ -22,25 +21,20 @@ import {BlockingUtils} from "../../core/utils/BlockingUtils.js";
 import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants.js";
 import {LogsDatabase} from "../../core/database/logs/LogsDatabase.js";
 import {MissionsController} from "../../core/missions/MissionsController.js";
-import {CommandUtils} from "../../core/utils/CommandUtils.js";
-import {Effect} from "../../../../Lib/src/enums/Effect.js";
+import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils.js";
 
 export default class GuildInviteCommand {
-	@packetHandler(CommandGuildInvitePacketReq)
-	async execute(packet: CommandGuildInvitePacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
-		const invitingPlayer = await Players.getByKeycloakId(context.keycloakId);
+	@commandRequires(CommandGuildInvitePacketReq, {
+		blocking: false,
+		guildNeeded: true,
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD,
+		guildRoleNeeded: GuildConstants.PERMISSION_LEVEL.ELDER
+	})
+	async execute(response: DraftBotPacket[], player: Player, packet: CommandGuildInvitePacketReq, context: PacketContext): Promise<void> {
 		const invitedPlayer = await Players.getByKeycloakId(packet.invitedPlayerkeycloakId);
-		const guild = invitingPlayer.guildId ? await Guilds.getById(invitingPlayer.guildId) : null;
+		const guild = player.guildId ? await Guilds.getById(player.guildId) : null;
 
 		if (!await canSendInvite(invitedPlayer, guild, response)) {
-			return;
-		}
-
-		if (!await CommandUtils.verifyCommandRequirements(invitingPlayer, context, response, {
-			disallowedEffects: [Effect.DEAD, Effect.NOT_STARTED],
-			guildNeeded: true,
-			guildRoleNeeded: GuildConstants.PERMISSION_LEVEL.ELDER
-		})) {
 			return;
 		}
 
@@ -52,9 +46,9 @@ export default class GuildInviteCommand {
 		const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
 			const reaction = collector.getFirstReaction();
 			await invitedPlayer.reload();
-			await invitingPlayer.reload();
+			await player.reload();
 			BlockingUtils.unblockPlayer(invitedPlayer.id, BlockingConstants.REASONS.GUILD_ADD);
-			BlockingUtils.unblockPlayer(invitingPlayer.id, BlockingConstants.REASONS.GUILD_ADD);
+			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.GUILD_ADD);
 			if (!reaction || reaction.reaction.type !== ReactionCollectorAcceptReaction.name) {
 				response.push(makePacket(CommandGuildInviteRefusePacketRes, {
 					invitedPlayerKeycloakId: invitedPlayer.keycloakId,
@@ -65,7 +59,7 @@ export default class GuildInviteCommand {
 			if (!await canSendInvite(invitedPlayer, guild, response)) {
 				return;
 			}
-			await acceptInvitation(invitedPlayer, invitingPlayer, guild, response);
+			await acceptInvitation(invitedPlayer, player, guild, response);
 		};
 
 		const collectorPacket = new ReactionCollectorInstance(
@@ -77,7 +71,7 @@ export default class GuildInviteCommand {
 			endCallback
 		)
 			.block(invitedPlayer.id, BlockingConstants.REASONS.GUILD_ADD)
-			.block(invitingPlayer.id, BlockingConstants.REASONS.GUILD_ADD)
+			.block(player.id, BlockingConstants.REASONS.GUILD_ADD)
 			.build();
 
 		response.push(collectorPacket);

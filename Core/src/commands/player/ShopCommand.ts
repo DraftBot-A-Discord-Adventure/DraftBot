@@ -1,4 +1,3 @@
-import {packetHandler} from "../../core/packetHandlers/PacketHandler";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {CommandShopPacketReq} from "../../../../Lib/src/packets/commands/CommandShopPacket";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
@@ -42,7 +41,7 @@ import {
 	ReactionCollectorBuyCategorySlotReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorBuyCategorySlot";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
-import {CommandUtils} from "../../core/utils/CommandUtils";
+import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 
 /**
  * Get the shop item for getting a random item
@@ -286,24 +285,16 @@ async function getSlotExtensionShopItem(player: Player): Promise<ShopItem | null
 }
 
 export default class ShopCommand {
-	@packetHandler(CommandShopPacketReq)
+	@commandRequires(CommandShopPacketReq, {
+		blocking: true,
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD_OR_JAILED
+	})
 	static async execute(
-		packet: CommandShopPacketReq,
-		context: PacketContext,
-		response: DraftBotPacket[]
+		response: DraftBotPacket[],
+		player: Player,
+		_packet: CommandShopPacketReq,
+		context: PacketContext
 	): Promise<void> {
-		const player = await Players.getByKeycloakId(context.keycloakId);
-
-		if (BlockingUtils.appendBlockedPacket(player, response)) {
-			return;
-		}
-
-		if (!await CommandUtils.verifyCommandRequirements(player, context, response, {
-			disallowedEffects: [Effect.NOT_STARTED, Effect.DEAD, Effect.JAILED]
-		})) {
-			return;
-		}
-
 		const healEnergyAlreadyPurchased = await LogsReadRequests.getAmountOfHealEnergyBoughtByPlayerThisWeek(player.keycloakId);
 		const potion = PotionDataController.instance.getById(await Settings.SHOP_POTION.getValue());
 

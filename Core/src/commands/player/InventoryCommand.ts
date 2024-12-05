@@ -1,6 +1,5 @@
-import {packetHandler} from "../../core/packetHandlers/PacketHandler";
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {Players} from "../../core/database/game/models/Player";
+import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
+import {Player, Players} from "../../core/database/game/models/Player";
 import {
 	CommandInventoryPacketReq,
 	CommandInventoryPacketRes
@@ -12,56 +11,50 @@ import {Potion} from "../../data/Potion";
 import {ObjectItem} from "../../data/ObjectItem";
 import {InventoryInfos} from "../../core/database/game/models/InventoryInfo";
 import {MainItem} from "../../data/MainItem";
-import {CommandUtils} from "../../core/utils/CommandUtils";
+import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 
 export default class InventoryCommand {
-	@packetHandler(CommandInventoryPacketReq)
-	async execute(packet: CommandInventoryPacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
-		const initiator = await Players.getByKeycloakId(context.keycloakId);
-		if (!await CommandUtils.verifyStartedAndNotDead(initiator, response)) {
-			return; // TODO: check si c'est pas censé être géré par les commands requirements ???
-		}
+	@commandRequires(CommandInventoryPacketReq, {
+		blocking: false,
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD
+	})
+	async execute(response: DraftBotPacket[], player: Player, packet: CommandInventoryPacketReq): Promise<void> {
 
-		const player = packet.askedPlayer.keycloakId
-			? packet.askedPlayer.keycloakId === context.keycloakId
-				? initiator
-				: await Players.getByKeycloakId(packet.askedPlayer.keycloakId)
-			: await Players.getByRank(packet.askedPlayer.rank);
+		const toCheckPlayer = await Players.getAskedPlayer(packet.askedPlayer, player);
 
-		if (!player) {
+		if (!toCheckPlayer) {
 			response.push(makePacket(CommandInventoryPacketRes, {
 				foundPlayer: false
 			}));
+			return;
 		}
-		else {
-			const maxStatsValues = player.getMaxStatsValue();
-			const items = await InventorySlots.getOfPlayer(player.id);
-			const invInfo = await InventoryInfos.getOfPlayer(player.id);
+		const maxStatsValues = toCheckPlayer.getMaxStatsValue();
+		const items = await InventorySlots.getOfPlayer(toCheckPlayer.id);
+		const invInfo = await InventoryInfos.getOfPlayer(toCheckPlayer.id);
 
-			response.push(makePacket(CommandInventoryPacketRes, {
-				foundPlayer: true,
-				keycloakId: player.keycloakId,
-				data: {
-					weapon: (items.find((item) => item.isWeapon() && item.isEquipped()).getItem() as MainItem).getDisplayPacket(maxStatsValues),
-					armor: (items.find((item) => item.isArmor() && item.isEquipped()).getItem() as MainItem).getDisplayPacket(maxStatsValues),
-					potion: (items.find((item) => item.isPotion() && item.isEquipped()).getItem() as ObjectItem).getDisplayPacket(maxStatsValues),
-					object: (items.find((item) => item.isObject() && item.isEquipped()).getItem() as ObjectItem).getDisplayPacket(maxStatsValues),
-					backupWeapons: items.filter((item) => item.isWeapon() && !item.isEquipped()).map((item) =>
-						({display: (item.getItem() as Weapon).getDisplayPacket(maxStatsValues), slot: item.slot})),
-					backupArmors: items.filter((item) => item.isArmor() && !item.isEquipped()).map((item) =>
-						({display: (item.getItem() as Armor).getDisplayPacket(maxStatsValues), slot: item.slot})),
-					backupPotions: items.filter((item) => item.isPotion() && !item.isEquipped()).map((item) =>
-						({display: (item.getItem() as Potion).getDisplayPacket(), slot: item.slot})),
-					backupObjects: items.filter((item) => item.isObject() && !item.isEquipped()).map((item) =>
-						({display: (item.getItem() as ObjectItem).getDisplayPacket(maxStatsValues), slot: item.slot})),
-					slots: {
-						weapons: invInfo.weaponSlots,
-						armors: invInfo.armorSlots,
-						potions: invInfo.potionSlots,
-						objects: invInfo.objectSlots
-					}
+		response.push(makePacket(CommandInventoryPacketRes, {
+			foundPlayer: true,
+			keycloakId: toCheckPlayer.keycloakId,
+			data: {
+				weapon: (items.find((item) => item.isWeapon() && item.isEquipped()).getItem() as MainItem).getDisplayPacket(maxStatsValues),
+				armor: (items.find((item) => item.isArmor() && item.isEquipped()).getItem() as MainItem).getDisplayPacket(maxStatsValues),
+				potion: (items.find((item) => item.isPotion() && item.isEquipped()).getItem() as ObjectItem).getDisplayPacket(maxStatsValues),
+				object: (items.find((item) => item.isObject() && item.isEquipped()).getItem() as ObjectItem).getDisplayPacket(maxStatsValues),
+				backupWeapons: items.filter((item) => item.isWeapon() && !item.isEquipped()).map((item) =>
+					({display: (item.getItem() as Weapon).getDisplayPacket(maxStatsValues), slot: item.slot})),
+				backupArmors: items.filter((item) => item.isArmor() && !item.isEquipped()).map((item) =>
+					({display: (item.getItem() as Armor).getDisplayPacket(maxStatsValues), slot: item.slot})),
+				backupPotions: items.filter((item) => item.isPotion() && !item.isEquipped()).map((item) =>
+					({display: (item.getItem() as Potion).getDisplayPacket(), slot: item.slot})),
+				backupObjects: items.filter((item) => item.isObject() && !item.isEquipped()).map((item) =>
+					({display: (item.getItem() as ObjectItem).getDisplayPacket(maxStatsValues), slot: item.slot})),
+				slots: {
+					weapons: invInfo.weaponSlots,
+					armors: invInfo.armorSlots,
+					potions: invInfo.potionSlots,
+					objects: invInfo.objectSlots
 				}
-			}));
-		}
+			}
+		}));
 	}
 }

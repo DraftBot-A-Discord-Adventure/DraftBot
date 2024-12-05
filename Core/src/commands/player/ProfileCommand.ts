@@ -2,19 +2,18 @@ import {PetEntities} from "../../core/database/game/models/PetEntity";
 import PlayerMissionsInfo, {PlayerMissionsInfos} from "../../core/database/game/models/PlayerMissionsInfo";
 import {InventorySlots} from "../../core/database/game/models/InventorySlot";
 import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
-import {packetHandler} from "../../core/packetHandlers/PacketHandler";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {
 	CommandProfilePacketReq,
 	CommandProfilePacketRes
 } from "../../../../Lib/src/packets/commands/CommandProfilePacket";
 import {Campaign} from "../../core/missions/Campaign";
-import {Players} from "../../core/database/game/models/Player";
+import {Player, Players} from "../../core/database/game/models/Player";
 import {Guilds} from "../../core/database/game/models/Guild";
 import {Constants} from "../../../../Lib/src/constants/Constants";
 import {PetDataController} from "../../data/Pet";
 import {MapLocationDataController} from "../../data/MapLocation";
-import {CommandUtils} from "../../core/utils/CommandUtils";
+import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 
 /**
  * Get the current campaign progression of the player
@@ -25,98 +24,90 @@ function getCampaignProgression(missionsInfo: PlayerMissionsInfo): number {
 }
 
 export default class ProfileCommand {
-	@packetHandler(CommandProfilePacketReq)
-	async execute(packet: CommandProfilePacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
-		const initiator = await Players.getByKeycloakId(context.keycloakId);
+	@commandRequires(CommandProfilePacketReq, {
+		blocking: false,
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED
+	})
+	async execute(response: DraftBotPacket[], player: Player, packet: CommandProfilePacketReq, context: PacketContext,): Promise<void> {
+		const toCheckPlayer = await Players.getAskedPlayer(packet.askedPlayer, player);
 
-		if (!await CommandUtils.verifyStarted(initiator, response)) {
-			return;
-		}
-
-		const player = packet.askedPlayer.keycloakId
-			? packet.askedPlayer.keycloakId === context.keycloakId
-				? initiator
-				: await Players.getByKeycloakId(packet.askedPlayer.keycloakId)
-			: await Players.getByRank(packet.askedPlayer.rank);
-
-		if (!player) {
+		if (!toCheckPlayer) {
 			response.push(makePacket(CommandProfilePacketRes, {
 				foundPlayer: false
 			}));
+			return;
 		}
-		else {
-			const guild = player.guildId ? await Guilds.getById(player.guildId) : null;
-			const rank = await Players.getRankById(player.id);
-			const numberOfPlayers = await Players.getNbPlayersHaveStartedTheAdventure();
-			const isUnranked = rank > numberOfPlayers;
-			const petEntity = player.petId ? await PetEntities.getById(player.petId) : null;
-			const petModel = player.petId ? PetDataController.instance.getById(petEntity.typeId) : null;
-			const missionsInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
-			const playerActiveObjects = await InventorySlots.getMainSlotsItems(player.id);
-			const badges = player.badges === "" || !player.badges ? [] : player.badges.split("-");
-			const destinationId = player.getDestinationId();
+		const guild = toCheckPlayer.guildId ? await Guilds.getById(toCheckPlayer.guildId) : null;
+		const rank = await Players.getRankById(toCheckPlayer.id);
+		const numberOfPlayers = await Players.getNbPlayersHaveStartedTheAdventure();
+		const isUnranked = rank > numberOfPlayers;
+		const petEntity = toCheckPlayer.petId ? await PetEntities.getById(toCheckPlayer.petId) : null;
+		const petModel = toCheckPlayer.petId ? PetDataController.instance.getById(petEntity.typeId) : null;
+		const missionsInfo = await PlayerMissionsInfos.getOfPlayer(toCheckPlayer.id);
+		const playerActiveObjects = await InventorySlots.getMainSlotsItems(toCheckPlayer.id);
+		const badges = toCheckPlayer.badges === "" || !toCheckPlayer.badges ? [] : toCheckPlayer.badges.split("-");
+		const destinationId = toCheckPlayer.getDestinationId();
 
-			response.push(makePacket(CommandProfilePacketRes, {
-				foundPlayer: true,
-				keycloakId: player.keycloakId,
-				data: {
-					badges,
-					guild: guild?.name,
-					level: player.level,
-					rank: {
-						rank: isUnranked ? -1 : rank,
-						numberOfPlayers,
-						score: player.score,
-						unranked: isUnranked
+		response.push(makePacket(CommandProfilePacketRes, {
+			foundPlayer: true,
+			keycloakId: toCheckPlayer.keycloakId,
+			data: {
+				badges,
+				guild: guild?.name,
+				level: toCheckPlayer.level,
+				rank: {
+					rank: isUnranked ? -1 : rank,
+					numberOfPlayers,
+					score: toCheckPlayer.score,
+					unranked: isUnranked
+				},
+				classId: toCheckPlayer.class,
+				color: toCheckPlayer.getProfileColor(),
+				pet: petEntity ? {
+					typeId: petModel.id,
+					sex: petEntity.sex,
+					nickname: petEntity.nickname,
+					rarity: petModel.rarity
+				} : null,
+				destinationId,
+				mapTypeId: destinationId ? MapLocationDataController.instance.getById(destinationId).type : null,
+				effect: toCheckPlayer.checkEffect() ? {
+					effect: toCheckPlayer.effectId,
+					timeLeft: toCheckPlayer.effectEndDate.valueOf() - Date.now(),
+					healed: new Date() >= toCheckPlayer.effectEndDate
+				} : null,
+				fightRanking: toCheckPlayer.level >= FightConstants.REQUIRED_LEVEL ? {
+					glory: toCheckPlayer.gloryPoints,
+					league: toCheckPlayer.getLeague().id
+				} : null,
+				missions: {
+					gems: missionsInfo.gems,
+					campaignProgression: getCampaignProgression(missionsInfo)
+				},
+				stats: toCheckPlayer.level >= Constants.CLASS.REQUIRED_LEVEL ? {
+					attack: toCheckPlayer.getCumulativeAttack(playerActiveObjects),
+					defense: toCheckPlayer.getCumulativeDefense(playerActiveObjects),
+					speed: toCheckPlayer.getCumulativeSpeed(playerActiveObjects),
+					energy: {
+						value: toCheckPlayer.getCumulativeFightPoint(),
+						max: toCheckPlayer.getMaxCumulativeFightPoint()
 					},
-					classId: player.class,
-					color: player.getProfileColor(),
-					pet: petEntity ? {
-						typeId: petModel.id,
-						sex: petEntity.sex,
-						nickname: petEntity.nickname,
-						rarity: petModel.rarity
-					} : null,
-					destinationId,
-					mapTypeId: destinationId ? MapLocationDataController.instance.getById(destinationId).type : null,
-					effect: player.checkEffect() ? {
-						effect: player.effectId,
-						timeLeft: player.effectEndDate.valueOf() - Date.now(),
-						healed: new Date() >= player.effectEndDate
-					} : null,
-					fightRanking: player.level >= FightConstants.REQUIRED_LEVEL ? {
-						glory: player.gloryPoints,
-						league: player.getLeague().id
-					} : null,
-					missions: {
-						gems: missionsInfo.gems,
-						campaignProgression: getCampaignProgression(missionsInfo)
-					},
-					stats: player.level >= Constants.CLASS.REQUIRED_LEVEL ? {
-						attack: player.getCumulativeAttack(playerActiveObjects),
-						defense: player.getCumulativeDefense(playerActiveObjects),
-						speed: player.getCumulativeSpeed(playerActiveObjects),
-						energy: {
-							value: player.getCumulativeFightPoint(),
-							max: player.getMaxCumulativeFightPoint()
-						},
-						breath: {
-							base: player.getBaseBreath(),
-							max: player.getMaxBreath(),
-							regen: player.getBreathRegen()
-						}
-					} : null,
-					experience: {
-						value: player.experience,
-						max: player.getExperienceNeededToLevelUp()
-					},
-					health: {
-						value: player.health,
-						max: player.getMaxHealth()
-					},
-					money: player.money
-				}
-			}));
-		}
+					breath: {
+						base: toCheckPlayer.getBaseBreath(),
+						max: toCheckPlayer.getMaxBreath(),
+						regen: toCheckPlayer.getBreathRegen()
+					}
+				} : null,
+				experience: {
+					value: toCheckPlayer.experience,
+					max: toCheckPlayer.getExperienceNeededToLevelUp()
+				},
+				health: {
+					value: toCheckPlayer.health,
+					max: toCheckPlayer.getMaxHealth()
+				},
+				money: toCheckPlayer.money
+			}
+		}));
 	}
 }

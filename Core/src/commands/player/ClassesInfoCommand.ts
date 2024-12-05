@@ -1,65 +1,53 @@
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {packetHandler} from "../../core/packetHandlers/PacketHandler";
+import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {
 	CommandClassesInfoPacketReq,
 	CommandClassesInfoPacketRes
 } from "../../../../Lib/src/packets/commands/CommandClassesInfoPacket";
 
 import {ClassDataController} from "../../data/Class";
-import {Players} from "../../core/database/game/models/Player";
 import {FightActionDataController} from "../../data/FightAction";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
-import {CommandUtils} from "../../core/utils/CommandUtils";
-import {Effect} from "../../../../Lib/src/enums/Effect";
+import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 import {ClassConstants} from "../../../../Lib/src/constants/ClassConstants";
+import Player from "../../core/database/game/models/Player";
 
 export default class ClassesInfoCommand {
-	@packetHandler(CommandClassesInfoPacketReq)
-	async execute(packet: CommandClassesInfoPacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
-		const player = await Players.getByKeycloakId(context.keycloakId);
+	@commandRequires(CommandClassesInfoPacketReq, {
+		blocking: false,
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD,
+		level: ClassConstants.REQUIRED_LEVEL
+	})
+	async execute(response: DraftBotPacket[], player: Player): Promise<void> {
+		const classGroup = player.getClassGroup();
+		const classes = ClassDataController.instance.getByGroup(classGroup);
 
-		if (!await CommandUtils.verifyCommandRequirements(player, context, response, { disallowedEffects: [Effect.NOT_STARTED, Effect.DEAD ], level: ClassConstants.REQUIRED_LEVEL })) {
-			return;
-		}
+		const classesLineDisplay = [];
+		for (const classToShow of classes) {
+			const stats = classToShow.getClassStats(player.level);
 
-		if (!player) {
-			response.push(makePacket(CommandClassesInfoPacketRes, {
-				foundPlayer: false
-			}));
-		}
-		else {
-			const classGroup = player.getClassGroup();
-			const classes = ClassDataController.instance.getByGroup(classGroup);
+			const attacks = classToShow.fightActionsIds;
+			const attackStats = FightActionDataController.instance.getListById(attacks);
 
-			const classesLineDisplay = [];
-			for (const classToShow of classes) {
-				const stats = classToShow.getClassStats(player.level);
-
-				const attacks = classToShow.fightActionsIds;
-				const attackStats = FightActionDataController.instance.getListById(attacks);
-
-				const attackList = [];
-				for (const attack of attacks) {
-					const attackStat = attackStats.find((attackStat) => attackStat.id === attack);
-					attackList.push({
-						id: attack,
-						cost: attackStat.breath,
-						emoji: DraftBotIcons.fight_actions[attack]
-					});
-				}
-				classesLineDisplay.push({
-					id: classToShow.id,
-					stats,
-					attacks: attackList
+			const attackList = [];
+			for (const attack of attacks) {
+				const attackStat = attackStats.find((attackStat) => attackStat.id === attack);
+				attackList.push({
+					id: attack,
+					cost: attackStat.breath,
+					emoji: DraftBotIcons.fight_actions[attack]
 				});
 			}
-
-			response.push(makePacket(CommandClassesInfoPacketRes, {
-				foundPlayer: true,
-				data: {
-					classesStats: classesLineDisplay
-				}
-			}));
+			classesLineDisplay.push({
+				id: classToShow.id,
+				stats,
+				attacks: attackList
+			});
 		}
+
+		response.push(makePacket(CommandClassesInfoPacketRes, {
+			data: {
+				classesStats: classesLineDisplay
+			}
+		}));
 	}
 }

@@ -2,12 +2,12 @@ import {botConfig} from "../../index";
 import {CommandTestPacketReq, CommandTestPacketRes} from "../../../../Lib/src/packets/commands/CommandTestPacket";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {CommandsTest} from "../../core/CommandsTest";
-import {packetHandler} from "../../core/packetHandlers/PacketHandler";
-import {Players} from "../../core/database/game/models/Player";
+import {Player} from "../../core/database/game/models/Player";
+import {commandRequires} from "../../core/utils/CommandUtils";
 
 export default class TestCommand {
-	@packetHandler(CommandTestPacketReq)
-	async execute(packet: CommandTestPacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
+	@commandRequires(CommandTestPacketReq, {blocking: false})
+	async execute(response: DraftBotPacket[], player: Player, packet: CommandTestPacketReq, context: PacketContext): Promise<void> {
 		if (!botConfig.TEST_MODE) {
 			return;
 		}
@@ -54,7 +54,6 @@ export default class TestCommand {
 			else {
 				// Last, we execute the test command
 				try {
-					const player = await Players.getOrRegister(packet.keycloakId);
 					const messageToDisplay = await commandTestCurrent.execute(player, argsTest, response, context);
 
 					response.push(makePacket(CommandTestPacketRes, {

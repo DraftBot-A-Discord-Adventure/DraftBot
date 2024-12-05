@@ -1,4 +1,3 @@
-import {packetHandler} from "../../core/packetHandlers/PacketHandler";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {Player, Players} from "../../core/database/game/models/Player";
 import {Guilds} from "../../core/database/game/models/Guild";
@@ -13,8 +12,7 @@ import {EndCallback, ReactionCollectorInstance} from "../../core/utils/Reactions
 import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
-import {CommandUtils} from "../../core/utils/CommandUtils";
-import {Effect} from "../../../../Lib/src/enums/Effect";
+import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 import {GuildRole} from "../../../../Lib/src/enums/GuildRole";
 import {ReactionCollectorGuildKick} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildKick";
 import {draftBotInstance} from "../../index";
@@ -92,24 +90,15 @@ async function isNotEligible(player: Player, kickedPlayer: Player, response: Dra
 }
 
 export default class GuildKickCommand {
-	@packetHandler(CommandGuildKickPacketReq)
-	async execute(packet: CommandGuildKickPacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
-		const player = await Players.getByKeycloakId(packet.keycloakId);
-
-		if (!await CommandUtils.verifyCommandRequirements(player, context, response, {
-			disallowedEffects: [Effect.NOT_STARTED, Effect.DEAD],
-			level: GuildConstants.REQUIRED_LEVEL,
-			guildNeeded: true,
-			guildRoleNeeded: GuildRole.CHIEF
-		})) {
-			return;
-		}
-
-		const kickedPlayer = packet.askedPlayer.keycloakId
-			? packet.askedPlayer.keycloakId === context.keycloakId
-				? player
-				: await Players.getByKeycloakId(packet.askedPlayer.keycloakId)
-			: await Players.getByRank(packet.askedPlayer.rank);
+	@commandRequires(CommandGuildKickPacketReq, {
+		blocking: true,
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD,
+		level: GuildConstants.REQUIRED_LEVEL,
+		guildNeeded: true,
+		guildRoleNeeded: GuildRole.CHIEF
+	})
+	async execute(response: DraftBotPacket[], player: Player, packet: CommandGuildKickPacketReq, context: PacketContext): Promise<void> {
+		const kickedPlayer = await Players.getAskedPlayer(packet.askedPlayer, player);
 
 		if (await isNotEligible(player, kickedPlayer, response)) {
 			return;

@@ -37,10 +37,10 @@ import {ClassInfoConstants} from "../../../../../../Lib/src/constants/ClassInfoC
 import {GuildConstants} from "../../../../../../Lib/src/constants/GuildConstants";
 import {MapConstants} from "../../../../../../Lib/src/constants/MapConstants";
 import {BlockingConstants} from "../../../../../../Lib/src/constants/BlockingConstants";
-import moment = require("moment");
 import {Effect} from "../../../../../../Lib/src/enums/Effect";
 import {ScheduledReportNotifications} from "./ScheduledReportNotification";
 import {PacketUtils} from "../../../utils/PacketUtils";
+import moment = require("moment");
 
 export type PlayerEditValueParameters = {
 	player: Player,
@@ -543,7 +543,7 @@ export class Player extends Model {
 		attack: number,
 		defense: number,
 		speed: number
-		} {
+	} {
 		const playerClass = ClassDataController.instance.getById(this.class);
 		return {
 			attack: playerClass.getAttackValue(this.level),
@@ -1067,6 +1067,22 @@ export class Players {
 				}
 			}
 		));
+	}
+
+	/**
+	 * Manage a player parameter to get the interesting player
+	 * @param askedPlayer
+	 * @param originalPlayer
+	 */
+	static async getAskedPlayer(askedPlayer: {
+		keycloakId?: string,
+		rank?: number
+	}, originalPlayer: Player) {
+		return askedPlayer.keycloakId
+			? askedPlayer.keycloakId === originalPlayer.keycloakId
+				? originalPlayer
+				: await Players.getByKeycloakId(askedPlayer.keycloakId)
+			: await Players.getByRank(askedPlayer.rank);
 	}
 
 	/**

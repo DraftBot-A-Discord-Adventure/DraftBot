@@ -2,19 +2,11 @@ import {ICommand} from "../ICommand";
 import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
-import {
-	CommandDailyBonusPacketReq,
-	CommandDailyBonusPacketRes
-} from "../../../../Lib/src/packets/commands/CommandDailyBonusPacket";
+import {CommandDailyBonusPacketReq, CommandDailyBonusPacketRes} from "../../../../Lib/src/packets/commands/CommandDailyBonusPacket";
 import {DiscordCache} from "../../bot/DiscordCache";
 import {DraftBotErrorEmbed} from "../../messages/DraftBotErrorEmbed";
 import i18n from "../../translations/i18n";
-import {
-	hoursToMilliseconds,
-	millisecondsToHours,
-	minutesDisplay,
-	printTimeBeforeDate
-} from "../../../../Lib/src/utils/TimeUtils";
+import {hoursToMilliseconds, minutesDisplay, printTimeBeforeDate} from "../../../../Lib/src/utils/TimeUtils";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {ItemConstants, ItemNature} from "../../../../Lib/src/constants/ItemConstants";
 
@@ -56,7 +48,7 @@ export async function handleDailyBonusCooldownError(context: PacketContext, last
 				interaction,
 				i18n.t("commands:daily.errors.cooldown", {
 					cooldownTime,
-					time: printTimeBeforeDate(Date.now() + hoursToMilliseconds(cooldownTime - millisecondsToHours(Date.now() - lastDailyTimestamp))),
+					time: printTimeBeforeDate(hoursToMilliseconds(cooldownTime) - lastDailyTimestamp),
 					lng: interaction.userLanguage,
 					interpolation: {escapeValue: false}
 				})

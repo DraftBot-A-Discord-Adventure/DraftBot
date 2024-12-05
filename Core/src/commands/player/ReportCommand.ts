@@ -1,5 +1,4 @@
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {packetHandler} from "../../core/packetHandlers/PacketHandler";
 import {
 	CommandReportBigEventResultRes,
 	CommandReportChooseDestinationRes,
@@ -53,29 +52,24 @@ import {applyPossibilityOutcome} from "../../data/events/PossibilityOutcome";
 import {ErrorPacket} from "../../../../Lib/src/packets/commands/ErrorPacket";
 import {Effect} from "../../../../Lib/src/enums/Effect";
 import {MapLocationDataController} from "../../data/MapLocation";
-import {CommandUtils} from "../../core/utils/CommandUtils";
+import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 
 export default class ReportCommand {
-	@packetHandler(CommandReportPacketReq)
+	@commandRequires(CommandReportPacketReq, {
+		blocking: true,
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_DEAD,
+	})
 	static async execute(
+		response: DraftBotPacket[],
+		player: Player,
 		packet: CommandReportPacketReq,
 		context: PacketContext,
-		response: DraftBotPacket[],
 		forceSpecificEvent: number = null,
 		forceSmallEvent: string = null
 	): Promise<void> {
-		const player = await Players.getByKeycloakId(packet.keycloakId);
-
-		if (!await CommandUtils.verifyNotDead(player, response)) {
-			return;
-		}
 
 		if (player.score === 0 && player.effectId === Effect.NOT_STARTED.id) {
 			await initiateNewPlayerOnTheAdventure(player);
-		}
-
-		if (BlockingUtils.appendBlockedPacket(player, response)) {
-			return;
 		}
 
 		BlockingUtils.blockPlayer(player.id, BlockingConstants.REASONS.REPORT_COMMAND, Constants.MESSAGES.COLLECTOR_TIME * 3); // MaxTime here is to prevent any accident permanent blocking

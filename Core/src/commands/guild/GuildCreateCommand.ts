@@ -1,6 +1,5 @@
-import {packetHandler} from "../../core/packetHandlers/PacketHandler";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {Player, Players} from "../../core/database/game/models/Player";
+import {Player} from "../../core/database/game/models/Player";
 import {Guild, Guilds} from "../../core/database/game/models/Guild";
 import {
 	CommandGuildCreateAcceptPacketRes,
@@ -19,8 +18,7 @@ import {GuildCreateConstants} from "../../../../Lib/src/constants/GuildCreateCon
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {LogsDatabase} from "../../core/database/logs/LogsDatabase";
 import {MissionsController} from "../../core/missions/MissionsController";
-import {CommandUtils} from "../../core/utils/CommandUtils";
-import {Effect} from "../../../../Lib/src/enums/Effect";
+import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 
 /**
  * Check if the player can create a guild with the given name at this exact moment
@@ -113,17 +111,12 @@ async function acceptGuildCreate(player: Player, guildName: string, response: Dr
 }
 
 export default class GuildCreateCommand {
-	@packetHandler(CommandGuildCreatePacketReq)
-	async execute(packet: CommandGuildCreatePacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
-		const player = await Players.getByKeycloakId(packet.keycloakId);
-
-		if (!await CommandUtils.verifyCommandRequirements(player, context, response, {
-			disallowedEffects: [Effect.NOT_STARTED, Effect.DEAD],
-			level: GuildConstants.REQUIRED_LEVEL
-		})) {
-			return;
-		}
-
+	@commandRequires(CommandGuildCreatePacketReq, {
+		blocking: true,
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD,
+		level: GuildConstants.REQUIRED_LEVEL
+	})
+	async execute(response: DraftBotPacket[], player: Player, packet: CommandGuildCreatePacketReq, context: PacketContext): Promise<void> {
 		if (!await canCreateGuild(player, packet.askedGuildName, response)) {
 			return;
 		}

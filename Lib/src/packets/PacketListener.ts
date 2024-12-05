@@ -10,9 +10,9 @@ export class PacketListenerServer {
 		const instance = new cls();
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
-		this.packetCallbacks.set(instance.constructor.name, async (packet: V, context: PacketContext, response: DraftBotPacket[]) => {
+		this.packetCallbacks.set(instance.constructor.name, async (response, packet: T, context): Promise<void> => {
 			try {
-				await callback(packet, context, response);
+				await callback(response, packet, context);
 			}
 			catch (e) {
 				console.error(`${PacketListenerServer.name} : Error while handling packet ${instance.constructor.name}: ${(e as Error).stack}`);
@@ -30,7 +30,7 @@ export class PacketListenerServer {
 	}
 }
 
-export type PacketListenerCallbackServer<T extends DraftBotPacket> = (packet: T, context: PacketContext, response: DraftBotPacket[]) => void | Promise<void>;
+export type PacketListenerCallbackServer<T extends DraftBotPacket> = (response: DraftBotPacket[], packet: T, context: PacketContext) => void | Promise<void>;
 
 export class PacketListenerClient {
 	private packetCallbacks: Map<string, PacketListenerCallbackClient<DraftBotPacket>> = new Map<string, PacketListenerCallbackClient<DraftBotPacket>>();

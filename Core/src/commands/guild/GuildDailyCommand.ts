@@ -1,8 +1,9 @@
-import {packetHandler} from "../../core/packetHandlers/PacketHandler";
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {
 	CommandGuildDailyCooldownErrorPacket,
-	CommandGuildDailyPacketReq, CommandGuildDailyPveIslandErrorPacket, CommandGuildDailyRewardPacket
+	CommandGuildDailyPacketReq,
+	CommandGuildDailyPveIslandErrorPacket,
+	CommandGuildDailyRewardPacket
 } from "../../../../Lib/src/packets/commands/CommandGuildDailyPacket";
 import Guild, {Guilds} from "../../core/database/game/models/Guild";
 import {PetEntities} from "../../core/database/game/models/PetEntity";
@@ -20,7 +21,7 @@ import {hoursToMilliseconds, hoursToMinutes, millisecondsToHours} from "../../..
 import {MissionsController} from "../../core/missions/MissionsController";
 import {GuildDailyNotificationPacket} from "../../../../Lib/src/packets/notifications/GuildDailyNotificationPacket";
 import {PacketUtils} from "../../core/utils/PacketUtils";
-import {CommandUtils} from "../../core/utils/CommandUtils";
+import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {Maps} from "../../core/maps/Maps";
 import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
@@ -138,7 +139,7 @@ async function alterationHealEveryMember(guildLike: GuildLike, response: DraftBo
 		return;
 	}
 
-	rewardPacket.alteration = healthWon > 0 ? { healAmount: healthWon } : {};
+	rewardPacket.alteration = healthWon > 0 ? {healAmount: healthWon} : {};
 
 	draftBotInstance.logsDatabase.logGuildDaily(guildLike.guild, GuildDailyConstants.REWARD_TYPES.ALTERATION).then();
 }
@@ -383,12 +384,11 @@ function verifyMembers(members: Player[], response: DraftBotPacket[]): boolean {
 	return true;
 }
 
-async function generateAndGiveReward(guild: Guild, members: Player[], forcedReward: string, response: DraftBotPacket[]): Promise<CommandGuildDailyRewardPacket> {
+async function generateAndGiveReward(guild: Guild, members: Player[], response: DraftBotPacket[]): Promise<CommandGuildDailyRewardPacket> {
 	const guildLike = {guild, members};
 
-	const rewardType = forcedReward ?? generateRandomProperty(guild);
-	const rewardPacket = makePacket(CommandGuildDailyRewardPacket, { guildName: guild.name });
-	await linkToFunction.get(rewardType)(guildLike, response, rewardPacket); // Give the award
+	const rewardPacket = makePacket(CommandGuildDailyRewardPacket, {guildName: guild.name});
+	await linkToFunction.get(generateRandomProperty(guild))(guildLike, response, rewardPacket); // Give the award
 
 	if (!guildLike.guild.isPetShelterFull(await GuildPets.getOfGuild(guildLike.guild.id)) && RandomUtils.draftbotRandom.realZeroToOneInclusive() <= GuildDailyConstants.PET_DROP_CHANCE) {
 		await awardGuildWithNewPet(guildLike.guild, rewardPacket);
@@ -398,27 +398,18 @@ async function generateAndGiveReward(guild: Guild, members: Player[], forcedRewa
 }
 
 export default class GuildDailyCommand {
-	@packetHandler(CommandGuildDailyPacketReq)
-	async execute(packet: CommandGuildDailyPacketReq, context: PacketContext, response: DraftBotPacket[], forcedReward?: string): Promise<void> {
-		const player = await Players.getByKeycloakId(context.keycloakId);
-
-		if (BlockingUtils.appendBlockedPacket(player, response)) {
-			return;
-		}
-
-		if (!await CommandUtils.verifyCommandRequirements(player, context, response, {
-			level: GuildConstants.REQUIRED_LEVEL,
-			disallowedEffects: [Effect.NOT_STARTED, Effect.DEAD],
-			guildNeeded: true
-		})) {
-			return;
-		}
-
+	@commandRequires(CommandGuildDailyPacketReq, {
+		blocking: true,
+		level: GuildConstants.REQUIRED_LEVEL,
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD,
+		guildNeeded: true
+	})
+	async execute(response: DraftBotPacket[], player: Player): Promise<void> {
 		const guild = await Guilds.getById(player.guildId);
 
 		// Verify if the cooldown is over
 		const time = Date.now() - guild.lastDailyAt.valueOf();
-		if (millisecondsToHours(time) < GuildDailyConstants.TIME_BETWEEN_DAILIES && !forcedReward) {
+		if (millisecondsToHours(time) < GuildDailyConstants.TIME_BETWEEN_DAILIES) {
 			response.push(makePacket(CommandGuildDailyCooldownErrorPacket, {
 				totalTime: GuildDailyConstants.TIME_BETWEEN_DAILIES,
 				remainingTime: hoursToMilliseconds(GuildDailyConstants.TIME_BETWEEN_DAILIES) - time
@@ -437,7 +428,7 @@ export default class GuildDailyCommand {
 		await guild.save();
 
 		// Generate and give the rewards
-		const rewardPacket = await generateAndGiveReward(guild, members, forcedReward, response);
+		const rewardPacket = await generateAndGiveReward(guild, members, response);
 		response.push(rewardPacket);
 
 		// Send notifications and update players missions

@@ -6,8 +6,6 @@ import {Language} from "../../Language";
  */
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandMapPacketReq extends DraftBotPacket {
-	keycloakId!: string;
-
 	language!: Language;
 }
 
