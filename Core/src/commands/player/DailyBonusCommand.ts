@@ -1,5 +1,5 @@
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {Player, Players} from "../../core/database/game/models/Player";
+import {Player} from "../../core/database/game/models/Player";
 import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 import {
 	CommandDailyBonusInCooldown,
@@ -19,7 +19,6 @@ import {millisecondsToHours} from "../../../../Lib/src/utils/TimeUtils";
 import {DailyConstants} from "../../../../Lib/src/constants/DailyConstants";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {TravelTime} from "../../core/maps/TravelTime";
-import {packetHandler} from "../../core/packetHandlers/PacketHandler";
 
 /**
  * Check if the active object is wrong for the daily bonus
@@ -101,13 +100,13 @@ export default class DailyBonusCommand {
 	 * @param _packet
 	 * @param context
 	 * @param response
+	 * @param player
 	 */
-	@packetHandler(CommandDailyBonusPacketReq)
-	@commandRequires({
-		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD
+	@commandRequires(CommandDailyBonusPacketReq, {
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD,
+		blocking: true
 	})
-	async execute(_packet: CommandDailyBonusPacketReq, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
-		const player = await Players.getByKeycloakId(context.keycloakId);
+	async execute(_packet: CommandDailyBonusPacketReq, context: PacketContext, response: DraftBotPacket[], player: Player): Promise<void> {
 		const activeObjectSlot = await InventorySlots.getMainObjectSlot(player.id);
 		if (!activeObjectSlot) {
 			response.push(makePacket(CommandDailyBonusNoActiveObject, {}));
@@ -121,7 +120,8 @@ export default class DailyBonusCommand {
 		}
 
 		await activateDailyItem(player, activeObject, response);
-		draftBotInstance.logsDatabase.logPlayerDaily(player.keycloakId, activeObject).then();
+		draftBotInstance.logsDatabase.logPlayerDaily(player.keycloakId, activeObject)
+			.then();
 	}
 }
 
