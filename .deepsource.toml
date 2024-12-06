@@ -11,4 +11,4 @@ name = "javascript"
 enabled = true
 
 [analyzers.meta]
-skip_doc_coverage = ["class-expression"]
+skip_doc_coverage = ["class-expression", "class-declaration"]

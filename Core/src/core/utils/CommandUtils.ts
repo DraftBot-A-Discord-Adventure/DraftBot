@@ -22,6 +22,8 @@ type Requirements = {
 	notBlocked: boolean;
 };
 
+type RequirementsWithoutBlocked = Omit<Requirements, "notBlocked">;
+
 export abstract class CommandUtils {
 	static readonly DISALLOWED_EFFECTS = {
 		NOT_DEAD: [Effect.DEAD],
@@ -108,7 +110,7 @@ export abstract class CommandUtils {
 	 * @param response
 	 * @param requirements
 	 */
-	static async verifyCommandRequirements(player: Player, context: PacketContext, response: DraftBotPacket[], requirements: Requirements): Promise<boolean> {
+	static async verifyCommandRequirements(player: Player, context: PacketContext, response: DraftBotPacket[], requirements: RequirementsWithoutBlocked): Promise<boolean> {
 		if (!CommandUtils.checkEffects(player, response, requirements.allowedEffects ?? [], requirements.disallowedEffects ?? [])) {
 			return false;
 		}
@@ -179,9 +181,9 @@ export abstract class CommandUtils {
 
 type WithPlayerPacketListenerCallbackServer<T extends DraftBotPacket> = (response: DraftBotPacket[], player: Player, packet: T, context: PacketContext) => void | Promise<void>;
 
-export const commandRequires = <T extends DraftBotPacket>(packet: { new(): T }, requirements: Requirements) =>
+export const commandRequires = <T extends DraftBotPacket>(packet: PacketLike<T>, requirements: Requirements) =>
 	(target: unknown, prop: string, descriptor: TypedPropertyDescriptor<WithPlayerPacketListenerCallbackServer<T>>): void => {
-		draftBotInstance.packetListener.addPacketListener<T>(packet, async function(response: DraftBotPacket[], packet: T, context: PacketContext): Promise<void> {
+		draftBotInstance.packetListener.addPacketListener<T>(packet, async (response: DraftBotPacket[], packet: T, context: PacketContext): Promise<void> => {
 			const player = await Players.getByKeycloakId(context.keycloakId);
 			// Warning: order of the checks is important, as appendBlockedPacket can add a packet to the response
 			if (!requirements.notBlocked && BlockingUtils.appendBlockedPacket(player, response)) {
@@ -191,7 +193,7 @@ export const commandRequires = <T extends DraftBotPacket>(packet: { new(): T }, 
 			if (!await CommandUtils.verifyCommandRequirements(player, context, response, requirements)) {
 				return;
 			}
-			await descriptor.value(response, packet, player, context);
+			await descriptor.value(response, player, packet, context);
 		});
 		console.log(`[${packet.name}] Registered packet handler (function '${prop}' in class '${target!.constructor.name}')`);
 	};

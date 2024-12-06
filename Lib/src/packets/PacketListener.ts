@@ -1,11 +1,9 @@
-import {DraftBotPacket, PacketContext} from "./DraftBotPacket";
+import {DraftBotPacket, PacketContext, PacketLike} from "./DraftBotPacket";
 
 export class PacketListenerServer {
 	private packetCallbacks: Map<string, PacketListenerCallbackServer<DraftBotPacket>> = new Map<string, PacketListenerCallbackServer<DraftBotPacket>>();
 
-	public addPacketListener<T extends DraftBotPacket>(cls: {
-		new(): T
-	}, callback: PacketListenerCallbackServer<T>): void {
+	public addPacketListener<T extends DraftBotPacket>(cls: PacketLike<T>, callback: PacketListenerCallbackServer<T>): void {
 		// eslint-disable-next-line new-cap
 		const instance = new cls();
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -35,9 +33,7 @@ export type PacketListenerCallbackServer<T extends DraftBotPacket> = (response: 
 export class PacketListenerClient {
 	private packetCallbacks: Map<string, PacketListenerCallbackClient<DraftBotPacket>> = new Map<string, PacketListenerCallbackClient<DraftBotPacket>>();
 
-	public addPacketListener<T extends DraftBotPacket>(cls: {
-		new(): T
-	}, callback: PacketListenerCallbackClient<T>): void {
+	public addPacketListener<T extends DraftBotPacket>(cls: PacketLike<T>, callback: PacketListenerCallbackClient<T>): void {
 		// eslint-disable-next-line new-cap
 		const instance = new cls();
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
