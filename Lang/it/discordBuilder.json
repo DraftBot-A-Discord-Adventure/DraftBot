@@ -228,5 +228,9 @@
   "guildDaily": {
     "description": "Raccogliere la ricompensa giornaliera della gilda.",
     "name": "bonusgiornaleerguilde"
+  },
+  "daily": {
+    "description": "Usa l'oggetto equipaggiato per ottenere un bonus giornaliero.",
+    "name": "bonus giornaliero"
   }
 }
