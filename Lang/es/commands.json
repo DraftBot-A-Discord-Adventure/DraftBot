@@ -685,5 +685,21 @@
       "pet_male": "{{petId}}{emote:pets. .emoteMale} | Una mascota se ha unido al refugio del gremio:{{pet}}** **",
       "pet_female": "{{petId}}{emote:pets. .emoteFemale} | Una mascota se ha unido al refugio del gremio:{{pet}}** **"
     }
+  },
+  "daily": {
+    "errors": {
+      "objectDoNothingError": "Intentas usar el poder del objeto que llevas... ¡Pero no tiene ningún efecto!",
+      "objectIsActiveDuringFights": "¡El poder del objeto que llevas se activa automáticamente durante el combate!",
+      "noActiveObject": "Lamentablemente, ¡no tienes ningún objeto activo en tu inventario!",
+      "cooldown": "{{cooldownTime}} Sólo puedes usar tu objeto diario cada hora. {{time}}Volver a ."
+    },
+    "title": "{{pseudo}}Has recibido tu recompensa diaria.",
+    "description": "{emote:unitValues.{{nature}}} $t(commands:daily.natureText.{{nature}}){{value}}¡** **!",
+    "natureText": {
+      "health": "Vida ganada :",
+      "energy": "Energía ahorrada :",
+      "money": "Dinero ganado :",
+      "time": "Has avanzado por"
+    }
   }
 }
