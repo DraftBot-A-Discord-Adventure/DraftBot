@@ -10,7 +10,7 @@ import {RightGroup} from "../../../../Lib/src/enums/RightGroup";
 import Player from "../../core/database/game/models/Player";
 
 export default class MaintenanceCommand {
-	@commandRequires(CommandMaintenancePacketReq, {rightGroup: RightGroup.MAINTENANCE, blocking: false})
+	@commandRequires(CommandMaintenancePacketReq, {rightGroup: RightGroup.MAINTENANCE, notBlocked: false})
 	execute(response: DraftBotPacket[], _player: Player, packet: CommandMaintenancePacketReq): void {
 		try {
 			draftBotInstance.setMaintenance(packet.enable, packet.save);

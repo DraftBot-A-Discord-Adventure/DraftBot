@@ -8,7 +8,7 @@ import {commandRequires} from "../../core/utils/CommandUtils";
 
 export default class GuildCommand {
 	@commandRequires(CommandGuildPacketReq, {
-		blocking: false
+		notBlocked: false
 	})
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandGuildPacketReq): Promise<void> {
 		let guild: Guild;

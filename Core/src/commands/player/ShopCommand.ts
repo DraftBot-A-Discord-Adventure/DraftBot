@@ -286,7 +286,7 @@ async function getSlotExtensionShopItem(player: Player): Promise<ShopItem | null
 
 export default class ShopCommand {
 	@commandRequires(CommandShopPacketReq, {
-		blocking: true,
+		notBlocked: true,
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD_OR_JAILED
 	})
 	static async execute(

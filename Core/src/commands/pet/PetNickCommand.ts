@@ -13,7 +13,7 @@ import Player from "../../core/database/game/models/Player";
 export default class PetNickCommand {
 
 	@commandRequires(CommandPetNickPacketReq, {
-		blocking: true,
+		notBlocked: true,
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD
 	})
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandPetNickPacketReq): Promise<void> {

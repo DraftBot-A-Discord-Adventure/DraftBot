@@ -5,7 +5,7 @@ import {commandRequires} from "../../core/utils/CommandUtils";
 
 export default class PingCommand {
 	@commandRequires(CommandPingPacketReq, {
-		blocking: false
+		notBlocked: false
 	})
 	execute(response: DraftBotPacket[], _player: Player, packet: CommandPingPacketReq): void {
 		response.push(makePacket(CommandPingPacketRes, {

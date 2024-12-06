@@ -5,7 +5,7 @@ import {commandRequires} from "../../core/utils/CommandUtils";
 
 export default class RarityCommand {
 	@commandRequires(CommandRarityPacketReq, {
-		blocking: false
+		notBlocked: false
 	})
 	execute(response: DraftBotPacket[]): void {
 		const maxValue = ItemConstants.RARITY.GENERATOR.MAX_VALUE;

@@ -56,8 +56,8 @@ import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 
 export default class ReportCommand {
 	@commandRequires(CommandReportPacketReq, {
-		blocking: true,
-		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_DEAD,
+		notBlocked: true,
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_DEAD
 	})
 	static async execute(
 		response: DraftBotPacket[],

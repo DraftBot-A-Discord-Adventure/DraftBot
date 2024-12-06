@@ -109,8 +109,8 @@ async function acceptPetFree(player: Player, playerPet: PetEntity, response: Dra
 export default class PetFreeCommand {
 
 	@commandRequires(CommandPetFreePacketReq, {
-		blocking: true,
-		allowedEffects: CommandUtils.ALLOWED_EFFECTS.NO_EFFECT,
+		notBlocked: true,
+		allowedEffects: CommandUtils.ALLOWED_EFFECTS.NO_EFFECT
 	})
 	async execute(response: DraftBotPacket[], player: Player, _packet: CommandPetFreePacketReq, context: PacketContext): Promise<void> {
 		const playerPet = await PetEntities.getById(player.petId);

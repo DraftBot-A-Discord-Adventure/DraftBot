@@ -6,7 +6,7 @@ import {Player} from "../../core/database/game/models/Player";
 import {commandRequires} from "../../core/utils/CommandUtils";
 
 export default class TestCommand {
-	@commandRequires(CommandTestPacketReq, {blocking: false})
+	@commandRequires(CommandTestPacketReq, {notBlocked: false})
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandTestPacketReq, context: PacketContext): Promise<void> {
 		if (!botConfig.TEST_MODE) {
 			return;

@@ -91,7 +91,7 @@ async function isNotEligible(player: Player, kickedPlayer: Player, response: Dra
 
 export default class GuildKickCommand {
 	@commandRequires(CommandGuildKickPacketReq, {
-		blocking: true,
+		notBlocked: true,
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD,
 		level: GuildConstants.REQUIRED_LEVEL,
 		guildNeeded: true,
