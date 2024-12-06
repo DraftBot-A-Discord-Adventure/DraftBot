@@ -685,5 +685,21 @@
       "pet_male": "{emote:pets.{{petId}}.emoteMale} | Ein Vertrauter hat sich der Gildenhütte angeschlossen: **{{pet}}**",
       "pet_female": "{emote:pets.{{petId}}.emoteFemale} | Ein Vertrauter hat sich der Gildenhütte angeschlossen: **{{pet}}**"
     }
+  },
+  "daily": {
+    "errors": {
+      "objectDoNothingError": "Du versuchst, die Kraft des Gegenstandes, den du mit dir herumträgst, zu nutzen... Aber es hat keine Wirkung!",
+      "objectIsActiveDuringFights": "Die Kraft des Gegenstandes, den Sie mit sich führen, ist während der Kämpfe automatisch aktiv!",
+      "noActiveObject": "Sie haben leider keine aktiven Gegenstände in Ihrem Inventar!",
+      "cooldown": "Sie können Ihren Alltagsgegenstand nur alle {{cooldownTime}} Stunden verwenden. Besuchen Sie wieder {{time}}."
+    },
+    "title": "{{pseudo}}Sie haben Ihre tägliche Belohnung erhalten!",
+    "description": "{emote:unitValues.{{nature}}} $t(commands:daily.natureText.{{nature}}) **{{value}}**!",
+    "natureText": {
+      "health": "Gewonnenes Leben :",
+      "energy": "Gewonnene Energie :",
+      "money": "Verdientes Geld :",
+      "time": "Sie haben sich um"
+    }
   }
 }
