@@ -34,9 +34,13 @@ export interface PacketContext {
 	rightGroups?: RightGroup[];
 }
 
+export interface PacketLike<Packet extends DraftBotPacket> {
+	new(): Packet;
+}
 
-export function makePacket<Packet extends DraftBotPacket>(Packet: { new(): Packet }, {...args}: Packet): Packet {
-	const instance = new Packet();
+
+export function makePacket<Packet extends DraftBotPacket>(packet: PacketLike<Packet>, {...args}: Packet): Packet {
+	const instance = new packet();
 	Object.assign(instance, args);
 	return instance;
 }

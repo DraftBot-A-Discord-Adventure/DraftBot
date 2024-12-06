@@ -1,4 +1,4 @@
-import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
+import {DraftBotPacket, PacketDirection, PacketLike, sendablePacket} from "../DraftBotPacket";
 
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class ReactionCollectorReactPacket extends DraftBotPacket {
@@ -50,7 +50,7 @@ export class ReactionCollectorCreationPacket extends DraftBotPacket {
 }
 
 export abstract class ReactionCollector {
-	buildData<T extends ReactionCollectorData>(Packet: { new(): T }, {...args}: T): {
+	buildData<T extends ReactionCollectorData>(Packet: PacketLike<T>, {...args}: T): {
 		type: string,
 		data: T
 	} {
@@ -62,7 +62,7 @@ export abstract class ReactionCollector {
 		};
 	}
 
-	buildReaction<T extends ReactionCollectorReaction>(Packet: { new(): T }, {...args}: T): {
+	buildReaction<T extends ReactionCollectorReaction>(Packet: PacketLike<T>, {...args}: T): {
 		type: string,
 		data: T
 	} {
