@@ -1,8 +1,6 @@
 import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
 import {SmallEventDataController} from "../../../../data/SmallEvent";
 import ReportCommand from "../../../player/ReportCommand";
-import {makePacket} from "../../../../../../Lib/src/packets/DraftBotPacket";
-import {CommandReportPacketReq} from "../../../../../../Lib/src/packets/commands/CommandReportPacket";
 
 const smallEventsKeys = SmallEventDataController.instance.getKeys();
 
@@ -32,7 +30,7 @@ const smallEventTestCommand: ExecuteTestCommandLike = async (player, args, respo
 		throw new Error(`Erreur smallEvent : le mini-event ${args[0]} n'existe pas. Veuillez vous référer à la commande "test help smallEvent" pour plus d'informations`);
 	}
 
-	await ReportCommand.execute(makePacket(CommandReportPacketReq, {keycloakId: player.keycloakId}), context, response, null, args[0]);
+	await ReportCommand.execute(response, player, {}, context, args[0]);
 	return `Mini event \`${smallEventsKeys[keyPos]}\` forcé !`;
 };
 

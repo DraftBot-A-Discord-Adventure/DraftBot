@@ -39,8 +39,8 @@ export interface PacketLike<Packet extends DraftBotPacket> {
 }
 
 
-export function makePacket<Packet extends DraftBotPacket>(packet: PacketLike<Packet>, {...args}: Packet): Packet {
-	const instance = new packet();
+export function makePacket<Packet extends DraftBotPacket>(PacketObject: PacketLike<Packet>, {...args}: Packet): Packet {
+	const instance = new PacketObject();
 	Object.assign(instance, args);
 	return instance;
 }

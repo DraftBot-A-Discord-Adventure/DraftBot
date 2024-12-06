@@ -1,5 +1,5 @@
 import Player, {Players} from "../database/game/models/Player";
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import {DraftBotPacket, makePacket, PacketContext, PacketLike} from "../../../../Lib/src/packets/DraftBotPacket";
 import {Effect} from "../../../../Lib/src/enums/Effect";
 import {RightGroup} from "../../../../Lib/src/enums/RightGroup";
 import {RequirementEffectPacket} from "../../../../Lib/src/packets/commands/requirements/RequirementEffectPacket";
@@ -26,10 +26,10 @@ type RequirementsWithoutBlocked = Omit<Requirements, "notBlocked">;
 
 export abstract class CommandUtils {
 	static readonly DISALLOWED_EFFECTS = {
-		NOT_DEAD: [Effect.DEAD],
-		STARTED: [Effect.NOT_STARTED],
-		STARTED_AND_NOT_DEAD: [Effect.NOT_STARTED, Effect.DEAD],
-		STARTED_AND_NOT_DEAD_OR_JAILED: [Effect.NOT_STARTED, Effect.DEAD, Effect.JAILED]
+		DEAD: [Effect.DEAD],
+		NOT_STARTED: [Effect.NOT_STARTED],
+		NOT_STARTED_OR_DEAD: [Effect.NOT_STARTED, Effect.DEAD],
+		NOT_STARTED_OR_DEAD_OR_JAILED: [Effect.NOT_STARTED, Effect.DEAD, Effect.JAILED]
 	};
 
 	static readonly ALLOWED_EFFECTS = {
@@ -181,6 +181,11 @@ export abstract class CommandUtils {
 
 type WithPlayerPacketListenerCallbackServer<T extends DraftBotPacket> = (response: DraftBotPacket[], player: Player, packet: T, context: PacketContext) => void | Promise<void>;
 
+/**
+ * Core command decorator to register a command handler with its requirements
+ * @param packet
+ * @param requirements
+ */
 export const commandRequires = <T extends DraftBotPacket>(packet: PacketLike<T>, requirements: Requirements) =>
 	(target: unknown, prop: string, descriptor: TypedPropertyDescriptor<WithPlayerPacketListenerCallbackServer<T>>): void => {
 		draftBotInstance.packetListener.addPacketListener<T>(packet, async (response: DraftBotPacket[], packet: T, context: PacketContext): Promise<void> => {

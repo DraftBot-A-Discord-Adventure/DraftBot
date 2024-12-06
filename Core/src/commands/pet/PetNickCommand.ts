@@ -14,7 +14,7 @@ export default class PetNickCommand {
 
 	@commandRequires(CommandPetNickPacketReq, {
 		notBlocked: true,
-		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD
 	})
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandPetNickPacketReq): Promise<void> {
 

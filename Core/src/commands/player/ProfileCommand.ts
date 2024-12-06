@@ -26,7 +26,7 @@ function getCampaignProgression(missionsInfo: PlayerMissionsInfo): number {
 export default class ProfileCommand {
 	@commandRequires(CommandProfilePacketReq, {
 		notBlocked: false,
-		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED
 	})
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandProfilePacketReq): Promise<void> {
 		const toCheckPlayer = await Players.getAskedPlayer(packet.askedPlayer, player);

@@ -2,7 +2,6 @@ import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket
 
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandReportPacketReq extends DraftBotPacket {
-	keycloakId!: string;
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)

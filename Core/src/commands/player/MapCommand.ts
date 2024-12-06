@@ -55,7 +55,7 @@ function getMapInformation(player: Player, destination: MapLocation, isInEvent: 
 export class MapCommand {
 	@commandRequires(CommandMapPacketReq, {
 		notBlocked: false,
-		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD
 	})
 	execute(response: DraftBotPacket[], player: Player, packet: CommandMapPacketReq): void {
 		const isInEvent = player.isInEvent();

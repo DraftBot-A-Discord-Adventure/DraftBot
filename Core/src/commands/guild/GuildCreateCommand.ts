@@ -113,7 +113,7 @@ async function acceptGuildCreate(player: Player, guildName: string, response: Dr
 export default class GuildCreateCommand {
 	@commandRequires(CommandGuildCreatePacketReq, {
 		notBlocked: true,
-		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD,
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD,
 		level: GuildConstants.REQUIRED_LEVEL
 	})
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandGuildCreatePacketReq, context: PacketContext): Promise<void> {

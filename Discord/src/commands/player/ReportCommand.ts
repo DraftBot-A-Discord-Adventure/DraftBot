@@ -7,7 +7,6 @@ import {
 	CommandReportPacketReq,
 	CommandReportTravelSummaryRes
 } from "../../../../Lib/src/packets/commands/CommandReportPacket";
-import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {
 	ReactionCollectorBigEventData,
@@ -34,9 +33,9 @@ import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
 import {EmoteUtils} from "../../utils/EmoteUtils";
 import {LANGUAGE} from "../../../../Lib/src/Language";
 
-async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandReportPacketReq> {
+async function getPacket(interaction: DraftbotInteraction): Promise<CommandReportPacketReq> {
 	await interaction.deferReply();
-	return Promise.resolve(makePacket(CommandReportPacketReq, {keycloakId: user.id}));
+	return Promise.resolve(makePacket(CommandReportPacketReq, {}));
 }
 
 export async function createBigEventCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {

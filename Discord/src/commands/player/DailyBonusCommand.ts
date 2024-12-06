@@ -2,7 +2,10 @@ import {ICommand} from "../ICommand";
 import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
-import {CommandDailyBonusPacketReq, CommandDailyBonusPacketRes} from "../../../../Lib/src/packets/commands/CommandDailyBonusPacket";
+import {
+	CommandDailyBonusPacketReq,
+	CommandDailyBonusPacketRes
+} from "../../../../Lib/src/packets/commands/CommandDailyBonusPacket";
 import {DiscordCache} from "../../bot/DiscordCache";
 import {DraftBotErrorEmbed} from "../../messages/DraftBotErrorEmbed";
 import i18n from "../../translations/i18n";
@@ -39,6 +42,12 @@ export async function handleDailyBonusClassicError(context: PacketContext, error
 	});
 }
 
+/**
+ * Handle daily bonus cooldown error
+ * @param context
+ * @param lastDailyTimestamp
+ * @param cooldownTime
+ */
 export async function handleDailyBonusCooldownError(context: PacketContext, lastDailyTimestamp: number, cooldownTime: number): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 	await interaction?.editReply({
@@ -57,6 +66,11 @@ export async function handleDailyBonusCooldownError(context: PacketContext, last
 	});
 }
 
+/**
+ * Handle daily bonus success
+ * @param context
+ * @param packet
+ */
 export async function handleDailyBonusRes(context: PacketContext, packet: CommandDailyBonusPacketRes): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 	await interaction?.editReply({

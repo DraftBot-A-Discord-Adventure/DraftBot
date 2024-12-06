@@ -27,7 +27,7 @@ export default class GuildInviteCommand {
 	@commandRequires(CommandGuildInvitePacketReq, {
 		notBlocked: false,
 		guildNeeded: true,
-		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD,
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD,
 		guildRoleNeeded: GuildConstants.PERMISSION_LEVEL.ELDER
 	})
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandGuildInvitePacketReq, context: PacketContext): Promise<void> {
