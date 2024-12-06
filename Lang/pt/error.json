@@ -72,59 +72,59 @@
   "notPossibleWithoutStatus": "Não necessita atualmente dos nossos serviços",
   "effects": {
     "not_started": {
-      "self": "{{pseudo}}Ainda nem sequer começaste!",
+      "self": "Ainda nem sequer começaste!",
       "other": "{{pseudo}} ainda não começou!"
     },
     "dead": {
-      "self": "{{pseudo}}está atualmente nocauteado!",
+      "self": "Neste momento, estás inconsciente!",
       "other": "{{pseudo}} está atualmente nocauteado!"
     },
     "sleeping": {
-      "self": "{{pseudo}}Está a dormir!",
+      "self": "Está a dormir!",
       "other": "{{pseudo}} está atualmente a dormir!"
     },
     "drunk": {
-      "self": "{{pseudo}}estás mesmo bêbedo!",
+      "self": "Estás mesmo bêbado!",
       "other": "{{pseudo}} está atualmente bêbedo!"
     },
     "freezing": {
-      "self": "{{pseudo}}Está atualmente congelado!",
+      "self": "Está atualmente congelado!",
       "other": "{{pseudo}} está atualmente congelado!"
     },
     "hurt": {
-      "self": "{{pseudo}}Está atualmente ferido!",
+      "self": "Está atualmente ferido!",
       "other": "{{pseudo}} está atualmente ferido!"
     },
     "sick": {
-      "self": "{{pseudo}}estás mesmo doente!",
+      "self": "Estás mesmo doente!",
       "other": "{{pseudo}} está atualmente doente!"
     },
     "jailed": {
-      "self": "{{pseudo}}Está atualmente bloqueado!",
+      "self": "Está atualmente bloqueado!",
       "other": "{{pseudo}} está atualmente preso!"
     },
     "injured": {
-      "self": "{{pseudo}}está gravemente ferido!",
+      "self": "Está gravemente ferido!",
       "other": "{{pseudo}} está atualmente gravemente ferido!"
     },
     "occupied": {
-      "self": "{{pseudo}}De momento, está ocupado!",
+      "self": "De momento, está ocupado!",
       "other": "{{pseudo}} está atualmente ocupado!"
     },
     "starving": {
-      "self": "{{pseudo}}Estás a morrer de fome!",
+      "self": "Estás a morrer de fome!",
       "other": "{{pseudo}} está atualmente a passar fome!"
     },
     "confounded": {
-      "self": "{{pseudo}}Estás mesmo confuso!",
+      "self": "Estás confuso!",
       "other": "{{pseudo}} está atualmente confuso!"
     },
     "scared": {
-      "self": "{{pseudo}}Estás mesmo assustado!",
+      "self": "Estás mesmo assustado!",
       "other": "{{pseudo}} está atualmente assustado!"
     },
     "lost": {
-      "self": "{{pseudo}}agora estás perdido!",
+      "self": "Neste momento está perdido!",
       "other": "{{pseudo}} está agora perdido!"
     },
     "notStartedHint": {
