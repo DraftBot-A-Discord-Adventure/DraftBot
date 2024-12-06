@@ -72,59 +72,59 @@
   "notPossibleWithoutStatus": "You don't need our services right now",
   "effects": {
     "not_started": {
-      "self": "{{pseudo}}, you didn't start the adventure!",
+      "self": "You haven't started the adventure!",
       "other": "{{pseudo}} hasn't started the adventure yet!"
     },
     "dead": {
-      "self": "{{pseudo}}, you are currently K.O!",
+      "self": "You are currently K.O!",
       "other": "{{pseudo}} is currently K.O!"
     },
     "sleeping": {
-      "self": "{{pseudo}}, you are currently sleeping!",
+      "self": "You are currently sleeping!",
       "other": "{{pseudo}} is currently sleeping!"
     },
     "drunk": {
-      "self": "{{pseudo}}, you are currently drunk!",
+      "self": "You are currently drunk!",
       "other": "{{pseudo}} is currently drunk!"
     },
     "freezing": {
-      "self": "{{pseudo}}, you are currently frozen!",
+      "self": "You are currently frozen!",
       "other": "{{pseudo}} is currently frozen!"
     },
     "hurt": {
-      "self": "{{pseudo}}, you are currently injured!",
+      "self": "You are currently injured!",
       "other": "{{pseudo}} is currently injured!"
     },
     "sick": {
-      "self": "{{pseudo}}, you are currently ill!",
+      "self": "You are currently ill!",
       "other": "{{pseudo}} is currently ill!"
     },
     "jailed": {
-      "self": "{{pseudo}}, you are currently closed!",
+      "self": "You are currently closed!",
       "other": "{{pseudo}} is currently closed!"
     },
     "injured": {
-      "self": "{{pseudo}}, you are currently seriously injured!",
+      "self": "You are currently seriously injured!",
       "other": "{{pseudo}} is currently seriously injured!"
     },
     "occupied": {
-      "self": "{{pseudo}}, you are currently busy!",
+      "self": "You are currently busy!",
       "other": "{{pseudo}} is currently busy!"
     },
     "starving": {
-      "self": "{{pseudo}}, you are currently starving!",
+      "self": "You are currently hungry!",
       "other": "{{pseudo}} is currently hungry!"
     },
     "confounded": {
-      "self": "{{pseudo}}, you are currently confused!",
+      "self": "You are currently confused!",
       "other": "{{pseudo}} is currently confused!"
     },
     "scared": {
-      "self": "{{pseudo}}, you are currently sorted!",
+      "self": "You are currently supported!",
       "other": "{{pseudo}} is currently dormant!"
     },
     "lost": {
-      "self": "{{pseudo}}, you are currently lost!",
+      "self": "You are currently lost!",
       "other": "{{pseudo}} is currently lost!"
     },
     "notStartedHint": {
