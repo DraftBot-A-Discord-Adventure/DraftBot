@@ -72,59 +72,59 @@
   "notPossibleWithoutStatus": "Sie benötigen unsere Dienste derzeit nicht",
   "effects": {
     "not_started": {
-      "self": "{{pseudo}}Sie haben das Abenteuer nicht begonnen!",
+      "self": "Sie haben das Abenteuer nicht begonnen!",
       "other": "{{pseudo}} hat das Abenteuer noch nicht begonnen!"
     },
     "dead": {
-      "self": "{{pseudo}}Sie sind derzeit k.o.",
+      "self": "Sie sind derzeit k.o.!",
       "other": "{{pseudo}} ist derzeit k.o.!"
     },
     "sleeping": {
-      "self": "{{pseudo}}Wenn Sie sich in einem anderen Land aufhalten, sind Sie derzeit in einem Schlafzustand!",
+      "self": "Sie sind derzeit schlafend!",
       "other": "{{pseudo}} ist derzeit schlafend!"
     },
     "drunk": {
-      "self": "{{pseudo}}Sie sind derzeit betrunken!",
+      "self": "Sie sind derzeit betrunken!",
       "other": "{{pseudo}} ist derzeit betrunken!"
     },
     "freezing": {
-      "self": "{{pseudo}}Sie sind derzeit eingefroren!",
+      "self": "Sie sind derzeit eingefroren!",
       "other": "{{pseudo}} ist derzeit eingefroren!"
     },
     "hurt": {
-      "self": "{{pseudo}}Sie sind derzeit verletzt!",
+      "self": "Sie sind derzeit verletzt!",
       "other": "{{pseudo}} ist derzeit verletzt!"
     },
     "sick": {
-      "self": "{{pseudo}}Sie sind derzeit krank!",
+      "self": "Sie sind derzeit krank!",
       "other": "{{pseudo}} ist derzeit krank!"
     },
     "jailed": {
-      "self": "{{pseudo}}Sie sind derzeit eingesperrt!",
+      "self": "Sie sind derzeit eingesperrt!",
       "other": "{{pseudo}} derzeit eingesperrt ist!"
     },
     "injured": {
-      "self": "{{pseudo}}Sie sind derzeit schwer verletzt!",
+      "self": "Sie sind derzeit schwer verletzt!",
       "other": "{{pseudo}} ist derzeit schwer verletzt!"
     },
     "occupied": {
-      "self": "{{pseudo}}Sie sind derzeit beschäftigt!",
+      "self": "Sie sind derzeit beschäftigt!",
       "other": "{{pseudo}} ist derzeit besetzt!"
     },
     "starving": {
-      "self": "{{pseudo}}Sie sind derzeit am Verhungern!",
+      "self": "Sie sind derzeit hungrig!",
       "other": "{{pseudo}} ist derzeit hungrig!"
     },
     "confounded": {
-      "self": "{{pseudo}}Sie sind derzeit verwirrt!",
+      "self": "Sie sind derzeit verwirrt!",
       "other": "{{pseudo}} ist derzeit verwirrend!"
     },
     "scared": {
-      "self": "{{pseudo}}Wenn Sie sich in einer Situation befinden, in der Sie sich nicht sicher sind, sind Sie derzeit verängstigt.",
+      "self": "Sie sind derzeit verängstigt!",
       "other": "{{pseudo}} ist derzeit verängstigt!"
     },
     "lost": {
-      "self": "{{pseudo}}Sie sind derzeit verloren!",
+      "self": "Sie sind derzeit verloren!",
       "other": "{{pseudo}} ist derzeit verloren!"
     },
     "notStartedHint": {
