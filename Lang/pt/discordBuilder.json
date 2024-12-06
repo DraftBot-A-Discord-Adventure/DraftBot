@@ -228,5 +228,9 @@
   "guildDaily": {
     "description": "Receber a recompensa diária da guilda.",
     "name": "bónusjornalierguilde"
+  },
+  "daily": {
+    "description": "Utilize o seu item equipado para obter um bónus diário.",
+    "name": "bónus diário"
   }
 }
