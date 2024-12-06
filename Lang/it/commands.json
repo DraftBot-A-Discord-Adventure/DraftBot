@@ -685,5 +685,21 @@
       "pet_male": "{{petId}}{emote:pets. .emoteMale} | Un animale domestico si è unito al rifugio della gilda:{{pet}}** **",
       "pet_female": "{{petId}}{emote:pets. .emoteFemale} | Un animale domestico si è unito al rifugio della gilda:{{pet}}** **"
     }
+  },
+  "daily": {
+    "errors": {
+      "objectDoNothingError": "Cerchi di usare il potere dell'oggetto che stai trasportando... Ma non ha alcun effetto!",
+      "objectIsActiveDuringFights": "Il potere dell'oggetto che si porta con sé si attiva automaticamente durante il combattimento!",
+      "noActiveObject": "Purtroppo non hai nessun oggetto attivo nell'inventario!",
+      "cooldown": "{{cooldownTime}} È possibile utilizzare l'oggetto giornaliero solo ogni ora. {{time}}Torna a ."
+    },
+    "title": "{{pseudo}}Avete ricevuto la vostra ricompensa giornaliera!",
+    "description": "{emote:unitValues.{{nature}}} $t(commands:daily.natureText.{{nature}}){{value}}** **!",
+    "natureText": {
+      "health": "Vita guadagnata :",
+      "energy": "Energia risparmiata :",
+      "money": "Soldi guadagnati :",
+      "time": "Siete avanzati di"
+    }
   }
 }
