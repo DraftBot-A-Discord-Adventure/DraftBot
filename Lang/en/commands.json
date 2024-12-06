@@ -685,5 +685,21 @@
       "pet_male": "{emote:pets.{{petId}}.emoteMale} | A pet has joined the guild shelter: **{{pet}}**",
       "pet_female": "{emote:pets.{{petId}}.emoteFemale} | A pet has joined the guild shelter: **{{pet}}**"
     }
+  },
+  "daily": {
+    "errors": {
+      "objectDoNothingError": "You are trying to use the power of the item you are carrying ... but it has no effect!",
+      "objectIsActiveDuringFights": "The power of the item you transport is active automatically during battles!",
+      "noActiveObject": "Unfortunately you don't have any active items in your inventory!",
+      "cooldown": "You can only use your daily item every {{cooldownTime}} hours. Check back {{time}}."
+    },
+    "title": "{{pseudo}}, you received your daily reward!",
+    "description": "{emote:unitValues.{{nature}}} $t(commands:daily.natureText.{{nature}})**{{value}}**!",
+    "natureText": {
+      "health": "Life won:",
+      "energy": "Energy earned:",
+      "money": "Money won:",
+      "time": "You have advanced by"
+    }
   }
 }
