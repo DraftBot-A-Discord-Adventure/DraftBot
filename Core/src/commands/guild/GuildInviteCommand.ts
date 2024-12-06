@@ -25,7 +25,7 @@ import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils.js";
 
 export default class GuildInviteCommand {
 	@commandRequires(CommandGuildInvitePacketReq, {
-		blocking: false,
+		notBlocked: false,
 		guildNeeded: true,
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD,
 		guildRoleNeeded: GuildConstants.PERMISSION_LEVEL.ELDER

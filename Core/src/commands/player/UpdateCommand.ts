@@ -4,7 +4,7 @@ import {commandRequires} from "../../core/utils/CommandUtils";
 
 export default class UpdateCommand {
 	@commandRequires(CommandUpdatePacketReq, {
-		blocking: false
+		notBlocked: false
 	})
 	execute(response: DraftBotPacket[]): void {
 		response.push(makePacket(CommandUpdatePacketRes, {

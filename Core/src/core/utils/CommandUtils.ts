@@ -19,12 +19,8 @@ type Requirements = {
 	rightGroup?: RightGroup;
 	guildNeeded?: boolean;
 	guildRoleNeeded?: GuildRole;
-	blocking?: boolean;
+	notBlocked: boolean;
 };
-
-type TmpRequirements = Omit<Requirements, "blocking"> & {
-	blocking: boolean;
-}
 
 export abstract class CommandUtils {
 	static readonly DISALLOWED_EFFECTS = {
@@ -183,12 +179,12 @@ export abstract class CommandUtils {
 
 type WithPlayerPacketListenerCallbackServer<T extends DraftBotPacket> = (response: DraftBotPacket[], player: Player, packet: T, context: PacketContext) => void | Promise<void>;
 
-export const commandRequires = <T extends DraftBotPacket>(packet: { new(): T }, requirements: TmpRequirements) =>
+export const commandRequires = <T extends DraftBotPacket>(packet: { new(): T }, requirements: Requirements) =>
 	(target: unknown, prop: string, descriptor: TypedPropertyDescriptor<WithPlayerPacketListenerCallbackServer<T>>): void => {
 		draftBotInstance.packetListener.addPacketListener<T>(packet, async function(response: DraftBotPacket[], packet: T, context: PacketContext): Promise<void> {
 			const player = await Players.getByKeycloakId(context.keycloakId);
 			// Warning: order of the checks is important, as appendBlockedPacket can add a packet to the response
-			if (!requirements.blocking && BlockingUtils.appendBlockedPacket(player, response)) {
+			if (!requirements.notBlocked && BlockingUtils.appendBlockedPacket(player, response)) {
 				return;
 			}
 

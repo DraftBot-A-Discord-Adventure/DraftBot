@@ -399,7 +399,7 @@ async function generateAndGiveReward(guild: Guild, members: Player[], response: 
 
 export default class GuildDailyCommand {
 	@commandRequires(CommandGuildDailyPacketReq, {
-		blocking: true,
+		notBlocked: true,
 		level: GuildConstants.REQUIRED_LEVEL,
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD,
 		guildNeeded: true

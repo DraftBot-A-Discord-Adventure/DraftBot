@@ -102,7 +102,7 @@ export default class DailyBonusCommand {
 	 */
 	@commandRequires(CommandDailyBonusPacketReq, {
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD,
-		blocking: true
+		notBlocked: true
 	})
 	async execute(response: DraftBotPacket[], player: Player): Promise<void> {
 		const activeObjectSlot = await InventorySlots.getMainObjectSlot(player.id);

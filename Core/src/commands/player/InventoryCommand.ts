@@ -15,7 +15,7 @@ import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 
 export default class InventoryCommand {
 	@commandRequires(CommandInventoryPacketReq, {
-		blocking: false,
+		notBlocked: false,
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD
 	})
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandInventoryPacketReq): Promise<void> {

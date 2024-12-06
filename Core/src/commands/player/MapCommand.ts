@@ -54,10 +54,10 @@ function getMapInformation(player: Player, destination: MapLocation, isInEvent: 
 
 export class MapCommand {
 	@commandRequires(CommandMapPacketReq, {
-		blocking: false,
+		notBlocked: false,
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD
 	})
-	async execute(response: DraftBotPacket[], player: Player, packet: CommandMapPacketReq): Promise<void> {
+	execute(response: DraftBotPacket[], player: Player, packet: CommandMapPacketReq): void {
 		const isInEvent = player.isInEvent();
 		const destinationMap = player.getDestination();
 

@@ -2,7 +2,7 @@ import {PetEntities} from "../../core/database/game/models/PetEntity";
 import PlayerMissionsInfo, {PlayerMissionsInfos} from "../../core/database/game/models/PlayerMissionsInfo";
 import {InventorySlots} from "../../core/database/game/models/InventorySlot";
 import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {
 	CommandProfilePacketReq,
 	CommandProfilePacketRes
@@ -25,10 +25,10 @@ function getCampaignProgression(missionsInfo: PlayerMissionsInfo): number {
 
 export default class ProfileCommand {
 	@commandRequires(CommandProfilePacketReq, {
-		blocking: false,
+		notBlocked: false,
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED
 	})
-	async execute(response: DraftBotPacket[], player: Player, packet: CommandProfilePacketReq, context: PacketContext,): Promise<void> {
+	async execute(response: DraftBotPacket[], player: Player, packet: CommandProfilePacketReq): Promise<void> {
 		const toCheckPlayer = await Players.getAskedPlayer(packet.askedPlayer, player);
 
 		if (!toCheckPlayer) {

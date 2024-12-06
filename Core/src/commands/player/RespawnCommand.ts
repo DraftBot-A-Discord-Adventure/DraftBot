@@ -22,8 +22,8 @@ export default class RespawnCommand {
 	 * @param player
 	 */
 	@commandRequires(CommandRespawnPacketReq, {
-		blocking: true,
-		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED,
+		notBlocked: true,
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED
 	})
 	async execute(response: DraftBotPacket[], player: Player): Promise<void> {
 		if (player.effectId !== Effect.DEAD.id) {

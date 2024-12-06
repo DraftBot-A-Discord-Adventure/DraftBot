@@ -543,7 +543,7 @@ export class Player extends Model {
 		attack: number,
 		defense: number,
 		speed: number
-	} {
+		} {
 		const playerClass = ClassDataController.instance.getById(this.class);
 		return {
 			attack: playerClass.getAttackValue(this.level),
@@ -1077,7 +1077,7 @@ export class Players {
 	static async getAskedPlayer(askedPlayer: {
 		keycloakId?: string,
 		rank?: number
-	}, originalPlayer: Player) {
+	}, originalPlayer: Player): Promise<Player | null> {
 		return askedPlayer.keycloakId
 			? askedPlayer.keycloakId === originalPlayer.keycloakId
 				? originalPlayer

@@ -13,11 +13,11 @@ import Player from "../../core/database/game/models/Player";
 
 export default class ClassesInfoCommand {
 	@commandRequires(CommandClassesInfoPacketReq, {
-		blocking: false,
+		notBlocked: false,
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD,
 		level: ClassConstants.REQUIRED_LEVEL
 	})
-	async execute(response: DraftBotPacket[], player: Player): Promise<void> {
+	execute(response: DraftBotPacket[], player: Player): void {
 		const classGroup = player.getClassGroup();
 		const classes = ClassDataController.instance.getByGroup(classGroup);
 

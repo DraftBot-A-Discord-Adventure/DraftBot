@@ -100,7 +100,7 @@ function getFoodShopItem(name: string, amounts: number[]): ShopItem {
 
 export default class GuildShopCommand {
 	@commandRequires(CommandGuildShopPacketReq, {
-		blocking: true,
+		notBlocked: true,
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD_OR_JAILED,
 		guildNeeded: true
 	})

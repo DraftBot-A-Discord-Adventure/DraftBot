@@ -15,7 +15,7 @@ import {MissionsController} from "../../core/missions/MissionsController";
 
 export default class MissionsCommand {
 	@commandRequires(CommandMissionsPacketReq, {
-		blocking: false,
+		notBlocked: false,
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD
 	})
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandMissionsPacketReq, context: PacketContext): Promise<void> {
