@@ -228,5 +228,9 @@
   "guildDaily": {
     "description": "Sammelt die tägliche Belohnung der Gilde ein.",
     "name": "bonusjournalgilde"
+  },
+  "daily": {
+    "description": "Benutzen Sie Ihren ausgerüsteten Gegenstand, um einen täglichen Bonus zu erhalten.",
+    "name": "Bonustag"
   }
 }
