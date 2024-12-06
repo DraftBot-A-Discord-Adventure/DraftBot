@@ -14,7 +14,7 @@ import Player from "../../core/database/game/models/Player";
 export default class ClassesInfoCommand {
 	@commandRequires(CommandClassesInfoPacketReq, {
 		notBlocked: false,
-		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD,
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD,
 		level: ClassConstants.REQUIRED_LEVEL
 	})
 	execute(response: DraftBotPacket[], player: Player): void {

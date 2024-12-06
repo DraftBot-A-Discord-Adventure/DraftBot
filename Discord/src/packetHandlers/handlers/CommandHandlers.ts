@@ -418,7 +418,6 @@ export default class CommandHandlers {
 	@packetHandler(CommandGuildShopEmpty)
 	async guildShopEmpty(packet: CommandGuildShopEmpty, context: PacketContext): Promise<void> {
 		await handleCommandGuildShopEmpty(context);
-
 	}
 
 	@packetHandler(CommandGuildShopGiveXp)

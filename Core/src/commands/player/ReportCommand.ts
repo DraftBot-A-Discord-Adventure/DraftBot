@@ -57,14 +57,13 @@ import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 export default class ReportCommand {
 	@commandRequires(CommandReportPacketReq, {
 		notBlocked: true,
-		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_DEAD
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.DEAD
 	})
 	static async execute(
 		response: DraftBotPacket[],
 		player: Player,
-		packet: CommandReportPacketReq,
+		_packet: CommandReportPacketReq,
 		context: PacketContext,
-		forceSpecificEvent: number = null,
 		forceSmallEvent: string = null
 	): Promise<void> {
 
@@ -82,12 +81,12 @@ export default class ReportCommand {
 			await MissionsController.update(player, response, {missionId: "recoverAlteration"});
 		}
 
-		if (forceSpecificEvent || Maps.isArrived(player, currentDate)) {
+		if (Maps.isArrived(player, currentDate)) {
 			if (Maps.isOnPveIsland(player)) {
 				await doPVEBoss(player, response, context);
 			}
 			else {
-				await doRandomBigEvent(context, response, player, forceSpecificEvent);
+				await doRandomBigEvent(context, response, player);
 			}
 			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.REPORT_COMMAND);
 			return;
@@ -278,24 +277,21 @@ async function doEvent(event: BigEvent, player: Player, time: number, context: P
  * @param context
  * @param response
  * @param player
- * @param forceSpecificEvent
  */
 async function doRandomBigEvent(
 	context: PacketContext,
 	response: DraftBotPacket[],
 	player: Player,
-	forceSpecificEvent: number
 ): Promise<void> {
 	await completeMissionsBigEvent(player, response);
 	const travelData = TravelTime.getTravelDataSimplified(player, new Date());
-	let time = forceSpecificEvent
-		? ReportConstants.TIME_MAXIMAL + 1
-		: millisecondsToMinutes(travelData.playerTravelledTime);
+	let time = millisecondsToMinutes(travelData.playerTravelledTime);
 	if (time > ReportConstants.TIME_LIMIT) {
 		time = ReportConstants.TIME_LIMIT;
 	}
 
 	let event;
+	let forceSpecificEvent;
 
 	// NextEvent is defined ?
 	if (player.nextEvent) {

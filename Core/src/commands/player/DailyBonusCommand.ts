@@ -101,7 +101,7 @@ export default class DailyBonusCommand {
 	 * @param player
 	 */
 	@commandRequires(CommandDailyBonusPacketReq, {
-		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD,
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD,
 		notBlocked: true
 	})
 	async execute(response: DraftBotPacket[], player: Player): Promise<void> {

@@ -401,7 +401,7 @@ export default class GuildDailyCommand {
 	@commandRequires(CommandGuildDailyPacketReq, {
 		notBlocked: true,
 		level: GuildConstants.REQUIRED_LEVEL,
-		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.STARTED_AND_NOT_DEAD,
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD,
 		guildNeeded: true
 	})
 	async execute(response: DraftBotPacket[], player: Player): Promise<void> {
