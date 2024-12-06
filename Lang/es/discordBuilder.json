@@ -228,5 +228,9 @@
   "guildDaily": {
     "description": "Recoge la recompensa diaria del gremio.",
     "name": "bonusjournalierguilde"
+  },
+  "daily": {
+    "description": "Utiliza tu objeto equipado para obtener una bonificación diaria.",
+    "name": "bonificación diaria"
   }
 }
