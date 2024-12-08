@@ -30,7 +30,7 @@ services:
       DB_USER: keycloak
       DB_PASSWORD: password
       JGROUPS_DISCOVERY_PROTOCOL: JDBC_PING
-			QUARKUS_TRANSACTION_MANAGER_OBJECT_STORE_DIRECTORY: /tmp
+      QUARKUS_TRANSACTION_MANAGER_OBJECT_STORE_DIRECTORY: /tmp
     depends_on:
       - mariadb_keycloak
     command:
