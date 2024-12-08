@@ -12,7 +12,7 @@ export default class CoreHandlers {
 	}
 
 	@packetHandler(ChangeBlockingReasonPacket)
-	async changeBlockingReason(response: DraftBotPacket[], packet: ChangeBlockingReasonPacket, context: PacketContext): Promise<void> {
+	async changeBlockingReason(_response: DraftBotPacket[], packet: ChangeBlockingReasonPacket, context: PacketContext): Promise<void> {
 		await BlockingUtils.changeBlockingReason(packet, context);
 	}
 }
