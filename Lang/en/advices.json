@@ -53,7 +53,7 @@
     "It's a good idea to keep some money aside so you can take care of yourself.",
     "Each week, a ranking is made to determine which player has earned the most points. To view this ranking, use the {command:top score} command and specify the `timing` option.",
     "Money is one of the game's most important resources, and you can earn it through reports ({command:report}), daily bonus items ({command:dailybonus}) or daily guild rewards ({command:guilddailybonus}).",
-    "Out of HP? Before buying healing at 3000 💰, make sure the shop doesn't contain any more profitable potions!",
+    "Out of HP? Before buying healing at 3000 {emote:unitValues.money}, make sure the shop doesn't contain any more profitable potions!",
     "The potions sold in the shop are often available at very attractive prices.",
     "To top the weekly leaderboard and win a badge, be diligent in your reporting and don't be afraid to fight.",
     "The overall ranking is available using the {command:top score} command.",

@@ -53,7 +53,7 @@
     "Geld beiseite zu legen ist sinnvoll, um sich selbst behandeln zu können.",
     "Jede Woche wird eine Rangliste erstellt, um den Spieler der Woche zu ermitteln, der die meisten Punkte gewonnen hat. Um diese Rangliste einzusehen, verwenden Sie den Befehl {command:top score} und geben Sie die Option `Dauer` an.",
     "Geld ist eine der wichtigsten Ressourcen im Spiel. Verdienen Sie es durch Berichte ({command:report}), Items mit täglichen Effekten ({command:dailybonus}) oder tägliche Gildenbelohnungen ({command:guilddailybonus}).",
-    "Haben Sie zu wenig Lebenspunkte? Bevor du die Pflege für 3000 💰 kaufst, überprüfe, ob es im Laden nicht einen profitableren Trank gibt!",
+    "Haben Sie zu wenig Lebenspunkte? Bevor du die Pflege für 3000 {emote:unitValues.money} kaufst, überprüfe, ob es im Laden nicht einen profitableren Trank gibt!",
     "Die im Laden verkauften Tränke sind oft zu sehr attraktiven Preisen erhältlich.",
     "Um der Erste in der Wochenwertung zu sein und ein Abzeichen zu gewinnen, berichten Sie fleißig und scheuen Sie keine Kämpfe.",
     "Die Gesamtwertung ist mit dem Befehl {command:top score}verfügbar.",

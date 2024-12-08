@@ -129,7 +129,7 @@
     "end": "Ohne der Person weitere Beachtung zu schenken, setzen Sie Ihren Weg fort.",
     "rewardTypeText": {
       "xp": " Sie haben gewonnen **{{xpWon}}⭐**.",
-      "money": " Sie haben gewonnen **{{moneyWon}}💰**!",
+      "money": " Sie haben gewonnen **{{moneyWon}}{emote:unitValues.money}**!",
       "guildXp": " Deine Gilde gewinnt **{{guildXpWon}}⭐**.",
       "points": " Sie haben gewonnen **{{pointsWon}}🏅**."
     }

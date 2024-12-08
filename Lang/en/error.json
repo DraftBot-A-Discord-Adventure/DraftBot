@@ -59,7 +59,7 @@
   "unexpectedError": "An error occurred. :(",
   "pleaseWaitForHeal": "Please wait for the healing end of your state to continue playing: {{time}}\n\n:information_source: You can use the {command:shop} command to purchase care.",
   "pleaseWaitForHisHeal": "Please wait until the end of healing of its state alteration: {{time}}",
-  "notEnoughMoney": "You don't have enough money to perform this action. You are missing {{money}}💰.",
+  "notEnoughMoney": "You don't have enough money to perform this action. You are missing {{money}}{emote:unitValues.money}.",
   "cooldownPetFree": "You can only release one pet per hour. You will be able to release another one {{remainingTime}}.",
   "unknownPlayer": "Nickname 404",
   "petNickNotValid": "The rules for naming a pet are as follows:\n$t(error:stringRules)",

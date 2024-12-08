@@ -196,7 +196,7 @@
         "description": "Change your pet's nickname. If no name is given, the nickname will be cleared."
       },
       "PET_SELL": {
-        "description": "Allows to sell a pet. The following conditions apply: \n - The selling price must be higher than `{{petSellMinPrice}}💰` and lower than `{{petSellMaxPrice}}💰`. \n- The seller will not earn money for the transaction, but guild experience. \n- The seller and the buyer cannot be part of the same guild."
+        "description": "Allows to sell a pet. The following conditions apply: \n - The selling price must be higher than `{{petSellMinPrice}}{emote:unitValues.money}` and lower than `{{petSellMaxPrice}}{emote:unitValues.money}`. \n- The seller will not earn money for the transaction, but guild experience. \n- The seller and the buyer cannot be part of the same guild."
       },
       "PET_TRADE": {
         "description": "Offers to exchange your pet with the mentioned player."
@@ -211,7 +211,7 @@
         "description": "This feature was removed from the bot after an update to Discord's features."
       },
       "PROFILE": {
-        "description": "Displays information about your character:\n\n😃 Health status | Nickname | Level\n\n឵឵឵Information:\n❤️ Life | ⭐ XP | 💰 Money\n\nStatistics :\n⚡ Energy | 🗡️ Attack | 🛡️ Defense | 🚀 Speed | 🌬️ Breath | 🫁 Recovery\n\nMissions :\n💎 Gems | 📖 Advanced campaign %\n\nRank and score:\n🏆 Rank | 🏅 Score\n\nClass:\nSee {command:classes}\n\nGlory and League:\n✨ Glory | See {{topGloryCommandMention}}\n\nGuild:\n🏟️ Guild\n\nDestination:\nSee {{mapCommandMention}}\n\nFamiliar:\nSee {{petCommandMention}}\n\n💡-Badges are displayed on your profile as a reaction."
+        "description": "Displays information about your character:\n\n😃 Health status | Nickname | Level\n\n឵឵឵Information:\n❤️ Life | ⭐ XP | {emote:unitValues.money} Money\n\nStatistics :\n⚡ Energy | 🗡️ Attack | 🛡️ Defense | 🚀 Speed | 🌬️ Breath | 🫁 Recovery\n\nMissions :\n💎 Gems | 📖 Advanced campaign %\n\nRank and score:\n🏆 Rank | 🏅 Score\n\nClass:\nSee {command:classes}\n\nGlory and League:\n✨ Glory | See {{topGloryCommandMention}}\n\nGuild:\n🏟️ Guild\n\nDestination:\nSee {{mapCommandMention}}\n\nFamiliar:\nSee {{petCommandMention}}\n\n💡-Badges are displayed on your profile as a reaction."
       },
       "RARITY": {
         "description": "Allows you to see the probability of getting an item by its rarity."
@@ -511,15 +511,15 @@
     "fullRegen": "💓 You have been fully cared for.",
     "alreadyHaveBadge": "You already have this badge.",
     "badgeBought": "You have received a new badge: {emote:badges.richPerson}!",
-    "notEnoughMoney": "You don't have enough money to buy this item! You are missing `{{missingMoney}}💰`.",
+    "notEnoughMoney": "You don't have enough money to buy this item! You are missing `{{missingMoney}}{emote:unitValues.money}`.",
     "boughtTooMuchDailyPotions": "There are no more potions available for sale... Come back tomorrow!",
     "title": "🛒 Store Display",
-    "currentMoney": "You have `{{money}}💰`.",
-    "shopItemsDisplaySingle": "{{name}} | `{{price}}💰`",
-    "shopItemsDisplayMultiple": "**{{amount}}x** {{name}} | `{{price}}💰`",
+    "currentMoney": "You have `{{money}}{emote:unitValues.money}`.",
+    "shopItemsDisplaySingle": "{{name}} | `{{price}}{emote:unitValues.money}`",
+    "shopItemsDisplayMultiple": "**{{amount}}x** {{name}} | `{{price}}{emote:unitValues.money}`",
     "shopSelectPlaceholder": "Select an item to buy",
     "buyCategorySlotSuccess": "You bought a new inventory slot!",
-    "shopItemsSelectDescription": "{{price}}💰",
+    "shopItemsSelectDescription": "{{price}}{emote:unitValues.money}",
     "closeShopButton": "❌ Close Store",
     "shopConfirmationTitle": "{{pseudo}}, you selected the following product:",
     "shopConfirmationTitleMultiple": "{{pseudo}}, select a quantity for this product:",
