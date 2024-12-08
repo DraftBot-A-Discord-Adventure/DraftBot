@@ -4,10 +4,10 @@ import {
 	ReactionCollectorData,
 	ReactionCollectorReaction
 } from "./ReactionCollectorPacket";
-import {Item} from "../../interfaces/Item";
+import {ItemWithDetails} from "../../interfaces/ItemWithDetails";
 
 export class ReactionCollectorMerchantData extends ReactionCollectorData {
-	item!: Item;
+	item!: ItemWithDetails;
 
 	price!: number;
 }
