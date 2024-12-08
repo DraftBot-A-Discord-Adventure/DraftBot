@@ -9,6 +9,7 @@ import {RandomUtils} from "../../../Lib/src/utils/RandomUtils";
 import {KeycloakUtils} from "../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../bot/DraftBotShard";
 import {SmallEventShopPacket} from "../../../Lib/src/packets/smallEvents/SmallEventShopPacket";
+import {DisplayUtils} from "../utils/DisplayUtils";
 
 export async function shopCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
@@ -20,7 +21,7 @@ export async function shopCollector(packet: ReactionCollectorCreationPacket, con
 		"shop",
 		StringUtils.getRandomTranslation("smallEvents:shop.intro", interaction.userLanguage, {context: gender, name})
 		+ StringUtils.getRandomTranslation("smallEvents:shop.end", interaction.userLanguage, {
-			item: /* TODO: Renvoyer l'item avec ses stats etc */,
+			item: DisplayUtils.getItemDisplayWithStats(data.item,interaction.userLanguage),
 			price: data.price,
 			type: data.item.category
 		}),

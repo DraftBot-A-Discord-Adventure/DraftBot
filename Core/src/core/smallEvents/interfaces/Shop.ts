@@ -2,7 +2,7 @@ import {GenericItem} from "../../../data/GenericItem";
 import Player from "../../database/game/models/Player";
 import {Maps} from "../../maps/Maps";
 import {ExecuteSmallEventLike} from "../../../data/SmallEvent";
-import {getItemValue, giveItemToPlayer} from "../../utils/ItemUtils";
+import {getItemValue, giveItemToPlayer, toItemWithDetails} from "../../utils/ItemUtils";
 import {EndCallback, ReactionCollectorInstance} from "../../utils/ReactionsCollector";
 import {BlockingConstants} from "../../../../../Lib/src/constants/BlockingConstants";
 import {BlockingUtils} from "../../utils/BlockingUtils";
@@ -34,10 +34,7 @@ export abstract class Shop<T extends SmallEventAnyShopPacket> {
 		this.itemPrice = Math.round(getItemValue(this.randomItem) * this.itemMultiplier);
 
 		const collector = new ReactionCollectorMerchant({
-			item: {
-				category: this.randomItem.getCategory(),
-				id: this.randomItem.id
-			},
+			item: toItemWithDetails(this.randomItem),
 			price: this.itemPrice
 		});
 
