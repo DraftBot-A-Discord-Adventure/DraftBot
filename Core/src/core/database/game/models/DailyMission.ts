@@ -68,8 +68,8 @@ export class DailyMissions {
 			dailyMission = await DailyMission.create({
 				id: 0,
 				missionId: prop.mission.id,
-				objective: missionData.objectives[prop.index],
-				variant: prop.variant,
+				missionObjective: missionData.objectives[prop.index],
+				missionVariant: prop.variant,
 				pointsToWin: missionData.points[prop.index],
 				gemsToWin: missionData.gems[prop.index],
 				xpToWin: missionData.xp[prop.index],
