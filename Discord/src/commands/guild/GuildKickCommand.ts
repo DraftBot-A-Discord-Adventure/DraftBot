@@ -6,12 +6,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {DiscordCache} from "../../bot/DiscordCache";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
-import {
-	CommandGuildKickAcceptPacketRes,
-	CommandGuildKickPacketReq,
-	CommandGuildKickPacketRes,
-	CommandGuildKickRefusePacketRes
-} from "../../../../Lib/src/packets/commands/CommandGuildKickPacket";
+import {CommandGuildKickAcceptPacketRes, CommandGuildKickPacketReq, CommandGuildKickPacketRes, CommandGuildKickRefusePacketRes} from "../../../../Lib/src/packets/commands/CommandGuildKickPacket";
 import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
@@ -30,7 +25,7 @@ async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): 
 	if (!askedPlayer) {
 		return null;
 	}
-	return makePacket(CommandGuildKickPacketReq, {keycloakId: user.id, askedPlayer});
+	return makePacket(CommandGuildKickPacketReq, {askedPlayer});
 }
 
 /**
@@ -41,33 +36,34 @@ async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): 
  */
 export async function handleCommandGuildKickPacketRes(packet: CommandGuildKickPacketRes, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
-	if (interaction) {
-		if (!packet.foundPlayer) {
-			await sendErrorMessage(
-				interaction.user,
-				interaction,
-				i18n.t("commands:guildKick.noPlayer", {lng: interaction.userLanguage}),
-				{sendManner: SendManner.REPLY}
-			);
-			return;
-		}
-		if (!packet.sameGuild) {
-			await sendErrorMessage(
-				interaction.user,
-				interaction,
-				i18n.t("commands:guildKick.notSameGuild", {lng: interaction.userLanguage}),
-				{sendManner: SendManner.REPLY}
-			);
-			return;
-		}
-		if (packet.himself) {
-			await sendErrorMessage(
-				interaction.user,
-				interaction,
-				i18n.t("commands:guildKick.himself", {lng: interaction.userLanguage}),
-				{sendManner: SendManner.REPLY}
-			);
-		}
+	if (!interaction) {
+		return;
+	}
+	if (!packet.foundPlayer) {
+		await sendErrorMessage(
+			interaction.user,
+			interaction,
+			i18n.t("commands:guildKick.noPlayer", {lng: interaction.userLanguage}),
+			{sendManner: SendManner.REPLY}
+		);
+		return;
+	}
+	if (!packet.sameGuild) {
+		await sendErrorMessage(
+			interaction.user,
+			interaction,
+			i18n.t("commands:guildKick.notSameGuild", {lng: interaction.userLanguage}),
+			{sendManner: SendManner.REPLY}
+		);
+		return;
+	}
+	if (packet.himself) {
+		await sendErrorMessage(
+			interaction.user,
+			interaction,
+			i18n.t("commands:guildKick.himself", {lng: interaction.userLanguage}),
+			{sendManner: SendManner.REPLY}
+		);
 	}
 }
 
@@ -104,25 +100,26 @@ export async function createGuildKickCollector(packet: ReactionCollectorCreation
  */
 export async function handleCommandGuildKickRefusePacketRes(packet: CommandGuildKickRefusePacketRes, context: PacketContext): Promise<void> {
 	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
+	if (!originalInteraction) {
+		return;
+	}
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 	const kickedPlayer = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.kickedKeycloakId))!;
-	if (buttonInteraction && originalInteraction) {
-		await buttonInteraction.editReply({
-			embeds: [
-				new DraftBotEmbed().formatAuthor(i18n.t("commands:guildKick.canceledTitle", {
-					lng: originalInteraction.userLanguage,
-					pseudo: originalInteraction.user.displayName
-				}), originalInteraction.user)
-					.setDescription(
-						i18n.t("commands:guildKick.canceledDesc", {
-							lng: originalInteraction.userLanguage,
-							kickedPseudo: kickedPlayer.attributes.gameUsername
-						})
-					)
-					.setErrorColor()
-			]
-		});
-	}
+	await buttonInteraction?.editReply({
+		embeds: [
+			new DraftBotEmbed().formatAuthor(i18n.t("commands:guildKick.canceledTitle", {
+				lng: originalInteraction.userLanguage,
+				pseudo: originalInteraction.user.displayName
+			}), originalInteraction.user)
+				.setDescription(
+					i18n.t("commands:guildKick.canceledDesc", {
+						lng: originalInteraction.userLanguage,
+						kickedPseudo: kickedPlayer.attributes.gameUsername
+					})
+				)
+				.setErrorColor()
+		]
+	});
 }
 
 /**
