@@ -7,12 +7,12 @@ import {BlockingUtils} from "../../utils/BlockingUtils";
 
 export default class CoreHandlers {
 	@packetHandler(ReactionCollectorReactPacket)
-	async reactionCollector(packet: ReactionCollectorReactPacket, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
+	async reactionCollector(response: DraftBotPacket[], packet: ReactionCollectorReactPacket, context: PacketContext): Promise<void> {
 		await ReactionCollectorController.reactPacket(packet, context, response);
 	}
 
 	@packetHandler(ChangeBlockingReasonPacket)
-	async changeBlockingReason(packet: ChangeBlockingReasonPacket, context: PacketContext): Promise<void> {
+	async changeBlockingReason(response: DraftBotPacket[], packet: ChangeBlockingReasonPacket, context: PacketContext): Promise<void> {
 		await BlockingUtils.changeBlockingReason(packet, context);
 	}
 }
