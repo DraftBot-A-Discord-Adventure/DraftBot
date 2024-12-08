@@ -6,12 +6,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {DiscordCache} from "../../bot/DiscordCache";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
-import {
-	CommandUnlockAcceptPacketRes,
-	CommandUnlockPacketReq,
-	CommandUnlockPacketRes,
-	CommandUnlockRefusePacketRes
-} from "../../../../Lib/src/packets/commands/CommandUnlockPacket";
+import {CommandUnlockAcceptPacketRes, CommandUnlockPacketReq, CommandUnlockPacketRes, CommandUnlockRefusePacketRes} from "../../../../Lib/src/packets/commands/CommandUnlockPacket";
 import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
@@ -31,7 +26,7 @@ async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): 
 	if (!askedPlayer) {
 		return null;
 	}
-	return makePacket(CommandUnlockPacketReq, {keycloakId: user.id, askedPlayer});
+	return makePacket(CommandUnlockPacketReq, {askedPlayer});
 }
 
 /**
@@ -42,36 +37,37 @@ async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): 
  */
 export async function handleCommandUnlockPacketRes(packet: CommandUnlockPacketRes, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
-	if (interaction) {
-		if (!packet.foundPlayer) {
-			await sendErrorMessage(
-				interaction.user,
-				interaction,
-				i18n.t("error:playerDoesntExist", {lng: interaction.userLanguage}),
-				{sendManner: SendManner.REPLY}
-			);
-			return;
-		}
-		if (packet.money < UnlockConstants.PRICE_FOR_UNLOCK) {
-			await sendErrorMessage(
-				interaction.user,
-				interaction,
-				i18n.t("error:notEnoughMoney", {
-					lng: interaction.userLanguage,
-					money: UnlockConstants.PRICE_FOR_UNLOCK - packet.money
-				}),
-				{sendManner: SendManner.REPLY}
-			);
-			return;
-		}
-		if (packet.himself) {
-			await sendErrorMessage(
-				interaction.user,
-				interaction,
-				i18n.t("commands:unlock.himself", {lng: interaction.userLanguage}),
-				{sendManner: SendManner.REPLY}
-			);
-		}
+	if (!interaction) {
+		return;
+	}
+	if (!packet.foundPlayer) {
+		await sendErrorMessage(
+			interaction.user,
+			interaction,
+			i18n.t("error:playerDoesntExist", {lng: interaction.userLanguage}),
+			{sendManner: SendManner.REPLY}
+		);
+		return;
+	}
+	if (packet.money < UnlockConstants.PRICE_FOR_UNLOCK) {
+		await sendErrorMessage(
+			interaction.user,
+			interaction,
+			i18n.t("error:notEnoughMoney", {
+				lng: interaction.userLanguage,
+				money: UnlockConstants.PRICE_FOR_UNLOCK - packet.money
+			}),
+			{sendManner: SendManner.REPLY}
+		);
+		return;
+	}
+	if (packet.himself) {
+		await sendErrorMessage(
+			interaction.user,
+			interaction,
+			i18n.t("commands:unlock.himself", {lng: interaction.userLanguage}),
+			{sendManner: SendManner.REPLY}
+		);
 	}
 }
 
@@ -106,23 +102,24 @@ export async function createUnlockCollector(packet: ReactionCollectorCreationPac
  */
 export async function handleCommandUnlockRefusePacketRes(packet: CommandUnlockRefusePacketRes, context: PacketContext): Promise<void> {
 	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
-	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
-	if (buttonInteraction && originalInteraction) {
-		await buttonInteraction.editReply({
-			embeds: [
-				new DraftBotEmbed().formatAuthor(i18n.t("commands:unlock.canceledTitle", {
-					lng: originalInteraction.userLanguage,
-					pseudo: originalInteraction.user.displayName
-				}), originalInteraction.user)
-					.setDescription(
-						i18n.t("commands:unlock.canceledDesc", {
-							lng: originalInteraction.userLanguage
-						})
-					)
-					.setErrorColor()
-			]
-		});
+	if (!originalInteraction) {
+		return;
 	}
+	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+	await buttonInteraction?.editReply({
+		embeds: [
+			new DraftBotEmbed().formatAuthor(i18n.t("commands:unlock.canceledTitle", {
+				lng: originalInteraction.userLanguage,
+				pseudo: originalInteraction.user.displayName
+			}), originalInteraction.user)
+				.setDescription(
+					i18n.t("commands:unlock.canceledDesc", {
+						lng: originalInteraction.userLanguage
+					})
+				)
+				.setErrorColor()
+		]
+	});
 }
 
 /**
@@ -133,24 +130,26 @@ export async function handleCommandUnlockRefusePacketRes(packet: CommandUnlockRe
  */
 export async function handleCommandUnlockAcceptPacketRes(packet: CommandUnlockAcceptPacketRes, context: PacketContext): Promise<void> {
 	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
+	if (!originalInteraction) {
+		return;
+	}
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 	const unlockedPlayer = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.unlockedKeycloakId!))!;
-	if (buttonInteraction && originalInteraction) {
-		await buttonInteraction.editReply({
-			embeds: [
-				new DraftBotEmbed().formatAuthor(i18n.t("commands:unlock.title", {
-					lng: originalInteraction.userLanguage,
-					pseudo: originalInteraction.user.displayName
-				}), originalInteraction.user)
-					.setDescription(
-						i18n.t("commands:unlock.acceptedDesc", {
-							lng: originalInteraction.userLanguage,
-							kickedPseudo: unlockedPlayer.attributes.gameUsername
-						})
-					)
-			]
-		});
-	}
+	await buttonInteraction?.editReply({
+		embeds: [
+			new DraftBotEmbed().formatAuthor(i18n.t("commands:unlock.title", {
+				lng: originalInteraction.userLanguage,
+				pseudo: originalInteraction.user.displayName
+			}), originalInteraction.user)
+				.setDescription(
+					i18n.t("commands:unlock.acceptedDesc", {
+						lng: originalInteraction.userLanguage,
+						kickedPseudo: unlockedPlayer.attributes.gameUsername
+					})
+				)
+		]
+	});
+
 }
 
 export const commandInfo: ICommand = {

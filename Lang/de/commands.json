@@ -196,7 +196,7 @@
         "description": "Ändern Sie den Spitznamen Ihres Vertrauten. Wenn kein Name angegeben wird, wird der aktuelle Name gelöscht."
       },
       "PET_SELL": {
-        "description": "Verkauft einen Begleiter. Die folgenden Bedingungen gelten: \n -Der Verkaufspreis muss höher sein als `{{petSellMinPrice}}💰` und kleiner als '{{petSellMaxPrice}}💰`. \n-Der Verkäufer wird bei der Transaktion kein Geld verdienen, sondern von der Gilde-Erfahrung. \n-Der Verkäufer und der Käufer können nicht zu derselben Gilde gehören."
+        "description": "Verkauft einen Begleiter. Die folgenden Bedingungen gelten: \n -Der Verkaufspreis muss höher sein als `{{petSellMinPrice}}{emote:unitValues.money}` und kleiner als '{{petSellMaxPrice}}{emote:unitValues.money}`. \n-Der Verkäufer wird bei der Transaktion kein Geld verdienen, sondern von der Gilde-Erfahrung. \n-Der Verkäufer und der Käufer können nicht zu derselben Gilde gehören."
       },
       "PET_TRADE": {
         "description": "Stellt einen Austausch Ihrer Tiere mit der genannten Person bereit."
@@ -211,7 +211,7 @@
         "description": "Diese Funktion wurde aus dem Spiel entfernt, als eine Aktualisierung der von Discord angebotenen Funktionen."
       },
       "PROFILE": {
-        "description": "Zeigt Informationen über deinen Charakter an:\n\n😃 Gesundheitszustand | Nickname | Level\n\n឵឵Informationen:\n❤️ Leben | ⭐ XP | 💰 Geld\n\nStatistiken :\n⚡ Energie | 🗡️ Angriff | 🛡️ Verteidigung | 🚀 Geschwindigkeit | 🌬️ Atem | 🫁 Erholung\n\nAufgaben:\n💎 Gemmen | 📖 Kampagnenfortschritt %\n\nRangliste und Punktzahl:\n🏆 Rangliste | 🏅 Punktzahl\n\nKlasse:\nSiehe {command:classes}\n\nRuhm und Liga:\n✨ Ruhm | Siehe {{topGloryCommandMention}}\n\nGilde:\n🏟️ Gilde\n\nReiseziel:\nSiehe {{mapCommandMention}}\n\nVertraut:\nSiehe {{petCommandMention}}\n\n💡-Die Abzeichen werden in deinem Profil als Reaktion angezeigt."
+        "description": "Zeigt Informationen über deinen Charakter an:\n\n😃 Gesundheitszustand | Nickname | Level\n\n឵឵Informationen:\n❤️ Leben | ⭐ XP | {emote:unitValues.money} Geld\n\nStatistiken :\n⚡ Energie | 🗡️ Angriff | 🛡️ Verteidigung | 🚀 Geschwindigkeit | 🌬️ Atem | 🫁 Erholung\n\nAufgaben:\n💎 Gemmen | 📖 Kampagnenfortschritt %\n\nRangliste und Punktzahl:\n🏆 Rangliste | 🏅 Punktzahl\n\nKlasse:\nSiehe {command:classes}\n\nRuhm und Liga:\n✨ Ruhm | Siehe {{topGloryCommandMention}}\n\nGilde:\n🏟️ Gilde\n\nReiseziel:\nSiehe {{mapCommandMention}}\n\nVertraut:\nSiehe {{petCommandMention}}\n\n💡-Die Abzeichen werden in deinem Profil als Reaktion angezeigt."
       },
       "RARITY": {
         "description": "Wählen Sie diese Option aus, um die Wahrscheinlichkeit eines item nach der Knappheit zu erkennen."
@@ -511,15 +511,15 @@
     "fullRegen": "💓 Sie wurden vollständig versorgt.",
     "alreadyHaveBadge": "Sie besitzen diesen Ausweis bereits.",
     "badgeBought": "Sie haben einen neuen Ausweis erhalten: {emote:badges.richPerson} !",
-    "notEnoughMoney": "Sie haben nicht genug Geld, um diesen Gegenstand zu kaufen! Es fehlt Ihnen `{{missingMoney}}💰`.",
+    "notEnoughMoney": "Sie haben nicht genug Geld, um diesen Gegenstand zu kaufen! Es fehlt Ihnen `{{missingMoney}}{emote:unitValues.money}`.",
     "boughtTooMuchDailyPotions": "Es gibt keinen Trank des Tages mehr, der zum Verkauf angeboten wird... Kommen Sie morgen wieder!",
     "title": "🛒 Anzeige des Magazins",
-    "currentMoney": "Sie haben `{{money}}💰`.",
-    "shopItemsDisplaySingle": "{{name}} | `{{price}}💰`",
-    "shopItemsDisplayMultiple": "**{{amount}}x** {{name}} | `{{price}}💰`",
+    "currentMoney": "Sie haben `{{money}}{emote:unitValues.money}`.",
+    "shopItemsDisplaySingle": "{{name}} | `{{price}}{emote:unitValues.money}`",
+    "shopItemsDisplayMultiple": "**{{amount}}x** {{name}} | `{{price}}{emote:unitValues.money}`",
     "shopSelectPlaceholder": "Wählen Sie einen Gegenstand zum Kauf aus",
     "buyCategorySlotSuccess": "Sie haben einen neuen Inventarplatz gekauft!",
-    "shopItemsSelectDescription": "{{price}}💰",
+    "shopItemsSelectDescription": "{{price}}{emote:unitValues.money}",
     "closeShopButton": "❌ Laden schließen",
     "shopConfirmationTitle": "{{pseudo}}Sie haben das folgende Produkt ausgewählt:",
     "shopConfirmationTitleMultiple": "{{pseudo}}Wählen Sie eine Menge für dieses Produkt:",

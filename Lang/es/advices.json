@@ -53,7 +53,7 @@
     "Es una buena idea reservar algo de dinero para el tratamiento.",
     "Cada semana se elabora una clasificación para determinar qué jugador ha ganado más puntos. Para ver esta clasificación, utilice el comando {command:top score} y especifique la opción `duration`.",
     "El dinero es uno de los recursos más importantes del juego, y puedes ganarlo a través de informes ({command:report}), objetos de efecto diario ({command:dailybonus}) o recompensas diarias de gremio ({command:guilddailybonus}).",
-    "¿Te quedas sin PV? Antes de comprar el tratamiento de 3000 💰, ¡comprueba que en la tienda no haya una poción más rentable!",
+    "¿Te quedas sin PV? Antes de comprar el tratamiento de 3000 {emote:unitValues.money}, ¡comprueba que en la tienda no haya una poción más rentable!",
     "Las pociones que se venden en la tienda suelen estar disponibles a precios muy atractivos.",
     "Para encabezar la clasificación semanal y ganar una insignia, sé diligente en tus informes y no temas una pelea.",
     "{command:top score}La clasificación general está disponible mediante el comando .",

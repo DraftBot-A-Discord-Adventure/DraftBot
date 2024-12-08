@@ -129,7 +129,7 @@
     "end": "Sem prestar mais atenção ao indivíduo, continua o seu caminho.",
     "rewardTypeText": {
       "xp": " {{xpWon}} Ganhou ** ⭐**.",
-      "money": " {{moneyWon}} Ganhou ** 💰**!",
+      "money": " {{moneyWon}} Ganhou ** {emote:unitValues.money}**!",
       "guildXp": " {{guildXpWon}} A tua guilda ganha ** ⭐**.",
       "points": " {{pointsWon}} Ganhou ** 🏅**."
     }

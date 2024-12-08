@@ -59,7 +59,7 @@
   "unexpectedError": "Si è verificato un errore :(",
   "pleaseWaitForHeal": "Attendere la fine della guarigione per la modifica dello stato prima di continuare a giocare: {{time}}\n\n:information_source: {command:shop} È possibile utilizzare il comando per acquistare una guarigione.",
   "pleaseWaitForHisHeal": "{{time}}Per favore, aspettate fino alla fine delle cure per il deterioramento delle sue condizioni:",
-  "notEnoughMoney": "Non avete abbastanza soldi per realizzare questa azione. {{money}} Siete a corto di denaro 💰.",
+  "notEnoughMoney": "Non avete abbastanza soldi per realizzare questa azione. {{money}} Siete a corto di denaro {emote:unitValues.money}.",
   "cooldownPetFree": "È possibile liberare un solo animale domestico all'ora. {{remainingTime}}È possibile liberare un altro .",
   "unknownPlayer": "Nome utente 404",
   "petNickNotValid": "Le regole per dare un nome a un animale domestico sono le seguenti:\n$t(error:stringRules)",
