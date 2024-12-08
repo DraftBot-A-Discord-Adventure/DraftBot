@@ -21,7 +21,7 @@
     "guildLeave": "partenza di una gilda",
     "guildShop": "scelta nel negozio della gilda",
     "guildShopConfirmation": "conferma della scelta nel negozio della gilda",
-    "lottery": "mini-evento lotteria",
+    "lottery": "mini-évent loterie",
     "merchant": "scelta dal mercante",
     "missionShop": "scelta nel negozio di missione",
     "missionShopConfirmation": "confermate la vostra scelta nel negozio delle missioni",
@@ -67,63 +67,64 @@
   "notInAGuild": "Dovete essere in una gilda per Effettuare questo comando",
   "notAuthorizedError": "Non avete le permissione necessarie per Effettuare questo commando in vostra gilda, chiedete a un dei vostri superiori se bisogno.",
   "levelTooLow": "{{level}}Dovete essere di **livello ** per usare questo comando! Tornate più tardi!",
+  "targetLevelTooLow": "{{level}}Questo giocatore deve essere di **livello ** prima di poter usare questo comando!",
   "notAuthorizedRight": "Non si dispone delle autorizzazioni necessarie per eseguire questo comando.",
   "notPossibleWithoutStatus": "Non avete attualmente bisogno dei nostri servizi",
   "effects": {
     "not_started": {
-      "self": "{{pseudo}}Non hai ancora iniziato!",
+      "self": "Non hai ancora iniziato!",
       "other": "{{pseudo}} non è ancora iniziato!"
     },
     "dead": {
-      "self": "{{pseudo}}sei attualmente al tappeto!",
+      "self": "Al momento sei al tappeto!",
       "other": "{{pseudo}} è attualmente al tappeto!"
     },
     "sleeping": {
-      "self": "{{pseudo}}Al momento stai dormendo!",
+      "self": "Al momento stai dormendo!",
       "other": "{{pseudo}} è attualmente addormentato!"
     },
     "drunk": {
-      "self": "{{pseudo}}sei davvero ubriaco!",
+      "self": "Sei davvero ubriaco!",
       "other": "{{pseudo}} è attualmente ubriaco!"
     },
     "freezing": {
-      "self": "{{pseudo}}Al momento sei congelato!",
+      "self": "Al momento sei congelato!",
       "other": "{{pseudo}} è attualmente congelato!"
     },
     "hurt": {
-      "self": "{{pseudo}}Sei attualmente ferito!",
+      "self": "Sei attualmente ferito!",
       "other": "{{pseudo}} è attualmente infortunato!"
     },
     "sick": {
-      "self": "{{pseudo}}sei davvero malato!",
+      "self": "Sei davvero malato!",
       "other": "{{pseudo}} è attualmente malato!"
     },
     "jailed": {
-      "self": "{{pseudo}}Sei attualmente bloccato!",
+      "self": "Sei attualmente bloccato!",
       "other": "{{pseudo}} è attualmente rinchiuso!"
     },
     "injured": {
-      "self": "{{pseudo}}sei attualmente gravemente ferito!",
+      "self": "Sei gravemente ferito!",
       "other": "{{pseudo}} è attualmente gravemente ferito!"
     },
     "occupied": {
-      "self": "{{pseudo}}Sei impegnato in questo momento!",
+      "self": "Sei impegnato in questo momento!",
       "other": "{{pseudo}} è attualmente occupato!"
     },
     "starving": {
-      "self": "{{pseudo}}Stai morendo di fame!",
+      "self": "Stai morendo di fame!",
       "other": "{{pseudo}} sta morendo di fame!"
     },
     "confounded": {
-      "self": "{{pseudo}}Sei davvero confuso!",
+      "self": "Sei confuso!",
       "other": "{{pseudo}} è attualmente confuso!"
     },
     "scared": {
-      "self": "{{pseudo}}Hai davvero paura!",
+      "self": "Hai davvero paura!",
       "other": "{{pseudo}} è attualmente spaventato!"
     },
     "lost": {
-      "self": "{{pseudo}}ora sei perduto!",
+      "self": "Al momento ti sei perso!",
       "other": "{{pseudo}} è ormai perduto!"
     },
     "notStartedHint": {

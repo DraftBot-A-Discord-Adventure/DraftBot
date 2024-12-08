@@ -58,9 +58,31 @@
     "title": "{{pseudo}}, creare una gilda",
     "canceledTitle": "{{pseudo}}, creazione delle gilda annullata.",
     "canceledDesc": "La Creazione della vostra Gilda è stata annullata.",
-    "confirmDesc": ":question: Confermare la creazione della gilda **{{guildName}}** per `{{price}}` :moneybag: ?",
+    "confirmDesc": "{emote:collectors.question} Confermare la creazione della gilda **{{guildName}}** per `{{price}}` :moneybag: ?",
     "acceptedFooter": "Lo staff si riserva il diritto di rinominare la gilda.",
     "acceptedDesc": "La gilda **{{guildName}}** è stata creata !"
+  },
+  "guildInvite": {
+    "title": "{{pseudo}}Siete invitati a unirvi a una gilda!",
+    "confirmDesc": "{emote:collectors.question}{{guildName}}Volete unirvi alla gilda?",
+    "successTitle": "{{pseudo}} {{guildName}} si è unito alla gilda!",
+    "successDesc": "Il ritardo prima della prossima ricompensa giornaliera della gilda è stato azzerato.",
+    "refusedTitle": "{{guildName}} Non sei entrato nella gilda!",
+    "errors": {
+      "guildIsFull": "La tua gilda è piena e non può accettare altri membri.",
+      "playerIsAlreadyInAGuild": "{{guildName}}Questo giocatore appartiene già alla gilda.",
+      "playerIsOnPveIsland": "{{pseudo}} {{pseudo}} non possono unirsi alla gilda perché al momento si trovano su una nave o su un'isola misteriosa. devono trovarsi nel continente principale per potersi unire a una gilda."
+    }
+  },
+  "guildKick": {
+    "title": "Expulsion de la guilde",
+    "confirmDesc": "{emote:collectors.question} {{kickedPseudo}}{{guildName}}Sei sicuro di voler espellere dalla gilda?",
+    "acceptedDesc": "{{kickedPseudo}} a bien été expulsé de la guilde !",
+    "canceledTitle": "Expulsion annulée",
+    "canceledDesc": "{{kickedPseudo}} n'a pas été expulsé de la guilde !",
+    "noPlayer": "Le joueur n'est pas dans la guilde.",
+    "notSameGuild": "Vous ne pouvez pas expulser un joueur qui n'est pas dans votre guilde.",
+    "himself": "Vous ne pouvez pas vous expulser vous-même de la guilde."
   },
   "help": {
     "aliasFieldTitle": "Alias",
@@ -232,7 +254,7 @@
     "playerCommands": ":bust_in_silhouette: Giocatore :",
     "serverCommands": ":gear: Server :",
     "usageFieldTitle": "Utilizzo",
-    "utilCommands": ":question: Utili :"
+    "utilCommands": "{emote:collectors.question} Utili :"
   },
   "idea": {
     "description": "Potete fare proposte e votare per le vostre idee preferite a questo link:\nhttps://feedback.draftbot.com/",
@@ -662,6 +684,22 @@
       "petFood": "{emote:foods.commonFood} {{quantity}} sono stati aggiunti all'inventario della gilda.",
       "pet_male": "{{petId}}{emote:pets. .emoteMale} | Un animale domestico si è unito al rifugio della gilda:{{pet}}** **",
       "pet_female": "{{petId}}{emote:pets. .emoteFemale} | Un animale domestico si è unito al rifugio della gilda:{{pet}}** **"
+    }
+  },
+  "daily": {
+    "errors": {
+      "objectDoNothingError": "Cerchi di usare il potere dell'oggetto che stai trasportando... Ma non ha alcun effetto!",
+      "objectIsActiveDuringFights": "Il potere dell'oggetto che si porta con sé si attiva automaticamente durante il combattimento!",
+      "noActiveObject": "Purtroppo non hai nessun oggetto attivo nell'inventario!",
+      "cooldown": "{{cooldownTime}} È possibile utilizzare l'oggetto giornaliero solo ogni ora. {{time}}Torna a ."
+    },
+    "title": "{{pseudo}}Avete ricevuto la vostra ricompensa giornaliera!",
+    "description": "{emote:unitValues.{{nature}}} $t(commands:daily.natureText.{{nature}}){{value}}** **!",
+    "natureText": {
+      "health": "Vita guadagnata :",
+      "energy": "Energia risparmiata :",
+      "money": "Soldi guadagnati :",
+      "time": "Siete avanzati di"
     }
   }
 }

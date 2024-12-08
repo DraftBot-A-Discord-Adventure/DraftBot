@@ -81,6 +81,16 @@
       }
     }
   },
+  "guildInvite": {
+    "description": "Recruta um novo membro para a tua guilda.",
+    "name": "conviteguilde",
+    "options": {
+      "user": {
+        "description": "O utilizador a quem a ordem diz respeito.",
+        "name": "utilizador"
+      }
+    }
+  },
   "guild": {
     "description": "Apresenta informações sobre um grémio.",
     "name": "grémio",
@@ -201,8 +211,26 @@
     "description": "Apresenta a loja do grémio.",
     "name": "magasinguilde"
   },
+  "guildKick": {
+    "description": "Exclure un membre de la guilde.",
+    "name": "exclureguilde",
+    "options": {
+      "rank": {
+        "description": "Le classement du joueur à exclure de la guilde.",
+        "name": "classement"
+      },
+      "user": {
+        "description": "L'utilisateur à exclure de la guilde.",
+        "name": "utilisateur"
+      }
+    }
+  },
   "guildDaily": {
     "description": "Receber a recompensa diária da guilda.",
     "name": "bónusjornalierguilde"
+  },
+  "daily": {
+    "description": "Utilize o seu item equipado para obter um bónus diário.",
+    "name": "bónus diário"
   }
 }

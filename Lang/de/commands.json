@@ -58,9 +58,31 @@
     "title": "{{pseudo}}Gründung einer Gilde",
     "canceledTitle": "{{pseudo}}Die Gründung einer Gilde wird rückgängig gemacht.",
     "canceledDesc": "Die Gründung Ihrer Gilde wurde abgebrochen.",
-    "confirmDesc": ":question: Bestätigen Sie die Gründung der Gilde **{{guildName}}** für `{{price}}` :moneybag: ?",
+    "confirmDesc": "{emote:collectors.question} Bestätigen Sie die Gründung der Gilde **{{guildName}}** für `{{price}}` :moneybag: ?",
     "acceptedFooter": "Achtung: Der Staff behält sich das Recht vor, Ihre Gilde umzubenennen.",
     "acceptedDesc": "Die Gilde **{{guildName}}** wurde gegründet!"
+  },
+  "guildInvite": {
+    "title": "{{pseudo}}Wenn Sie sich für eine Gilde entscheiden, werden Sie eingeladen, einer Gilde beizutreten.",
+    "confirmDesc": "{emote:collectors.question} Möchten Sie der Gilde `{{guildName}}` beitreten?",
+    "successTitle": "{{pseudo}} hat sich der Gilde angeschlossen {{guildName}} !",
+    "successDesc": "Die Zeit bis zur nächsten täglichen Gildenbelohnung wurde zurückgesetzt.",
+    "refusedTitle": "Sie sind der Gilde nicht beigetreten {{guildName}} !",
+    "errors": {
+      "guildIsFull": "Ihre Gilde ist voll und kann keine weiteren Mitglieder mehr aufnehmen.",
+      "playerIsAlreadyInAGuild": "Dieser Spieler gehört bereits der Gilde `{{guildName}}` an.",
+      "playerIsOnPveIsland": "{{pseudo}} kann der Gilde nicht beitreten, da er sich derzeit auf einem Schiff oder einer mysteriösen Insel befindet. {{pseudo}} muss sich auf dem Hauptkontinent befinden, um einer Gilde beitreten zu können."
+    }
+  },
+  "guildKick": {
+    "title": "Expulsion de la guilde",
+    "confirmDesc": "{emote:collectors.question} Sind Sie sicher, dass Sie {{kickedPseudo}} aus der Gilde `{{guildName}}` ausschließen wollen?",
+    "acceptedDesc": "{{kickedPseudo}} a bien été expulsé de la guilde !",
+    "canceledTitle": "Expulsion annulée",
+    "canceledDesc": "{{kickedPseudo}} n'a pas été expulsé de la guilde !",
+    "noPlayer": "Le joueur n'est pas dans la guilde.",
+    "notSameGuild": "Vous ne pouvez pas expulser un joueur qui n'est pas dans votre guilde.",
+    "himself": "Vous ne pouvez pas vous expulser vous-même de la guilde."
   },
   "help": {
     "aliasFieldTitle": "Alias",
@@ -232,7 +254,7 @@
     "playerCommands": ":bust_in_silhouette: Joucher:",
     "serverCommands": ":gear: Server:",
     "usageFieldTitle": "Verwendung",
-    "utilCommands": ":question: Utilien:"
+    "utilCommands": "{emote:collectors.question} Nützliches :"
   },
   "idea": {
     "description": "Sie können Vorschläge unterbreiten und für Ihre Lieblingsideen über diesen Link wählen:\nhttps://feedback.draftbot.com/",
@@ -662,6 +684,22 @@
       "petFood": "{emote:foods.commonFood} {{quantity}} Süßigkeiten wurden dem Inventar Ihrer Gilde hinzugefügt.",
       "pet_male": "{emote:pets.{{petId}}.emoteMale} | Ein Vertrauter hat sich der Gildenhütte angeschlossen: **{{pet}}**",
       "pet_female": "{emote:pets.{{petId}}.emoteFemale} | Ein Vertrauter hat sich der Gildenhütte angeschlossen: **{{pet}}**"
+    }
+  },
+  "daily": {
+    "errors": {
+      "objectDoNothingError": "Du versuchst, die Kraft des Gegenstandes, den du mit dir herumträgst, zu nutzen... Aber es hat keine Wirkung!",
+      "objectIsActiveDuringFights": "Die Kraft des Gegenstandes, den Sie mit sich führen, ist während der Kämpfe automatisch aktiv!",
+      "noActiveObject": "Sie haben leider keine aktiven Gegenstände in Ihrem Inventar!",
+      "cooldown": "Sie können Ihren Alltagsgegenstand nur alle {{cooldownTime}} Stunden verwenden. Besuchen Sie wieder {{time}}."
+    },
+    "title": "{{pseudo}}Sie haben Ihre tägliche Belohnung erhalten!",
+    "description": "{emote:unitValues.{{nature}}} $t(commands:daily.natureText.{{nature}}) **{{value}}**!",
+    "natureText": {
+      "health": "Gewonnenes Leben :",
+      "energy": "Gewonnene Energie :",
+      "money": "Verdientes Geld :",
+      "time": "Sie haben sich um"
     }
   }
 }
