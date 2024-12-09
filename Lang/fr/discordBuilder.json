@@ -232,5 +232,19 @@
   "daily": {
     "description": "Utiliser votre objet équipé pour obtenir un bonus journalier.",
     "name": "bonusjournalier"
+  },
+  "unlock": {
+    "description": "Délivrer un autre joueur de la prison.",
+    "name": "delivrer",
+    "options": {
+      "rank": {
+        "description": "Le classement du joueur à délivrer.",
+        "name": "classement"
+      },
+      "user": {
+        "description": "L'utilisateur à délivrer.",
+        "name": "utilisateur"
+      }
+    }
   }
 }

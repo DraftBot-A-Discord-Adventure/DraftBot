@@ -511,7 +511,7 @@ export class LogsDatabase extends Database {
 	 * @param buyerKeycloakId
 	 * @param releasedKeycloakId
 	 */
-	public async logUnlocks(buyerKeycloakId: string, releasedKeycloakId: string): Promise<void> {
+	public async logUnlock(buyerKeycloakId: string, releasedKeycloakId: string): Promise<void> {
 		const [buyer] = await LogsPlayers.findOrCreate({
 			where: {
 				keycloakId: buyerKeycloakId

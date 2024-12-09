@@ -153,6 +153,16 @@ import {
 	handleDailyBonusCooldownError,
 	handleDailyBonusRes
 } from "../../commands/player/DailyBonusCommand";
+import {
+	CommandUnlockAcceptPacketRes,
+	CommandUnlockPacketRes,
+	CommandUnlockRefusePacketRes
+} from "../../../../Lib/src/packets/commands/CommandUnlockPacket";
+import {
+	handleCommandUnlockAcceptPacketRes,
+	handleCommandUnlockPacketRes,
+	handleCommandUnlockRefusePacketRes
+} from "../../commands/player/UnlockCommand";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
@@ -463,5 +473,20 @@ export default class CommandHandlers {
 	@packetHandler(CommandDailyBonusInCooldown)
 	async dailyBonusInCooldown(packet: CommandDailyBonusInCooldown, context: PacketContext): Promise<void> {
 		await handleDailyBonusCooldownError(context, packet.lastDailyTimestamp, packet.timeBetweenDailies);
+	}
+
+	@packetHandler(CommandUnlockPacketRes)
+	async unlockRes(packet: CommandUnlockPacketRes, context: PacketContext): Promise<void> {
+		await handleCommandUnlockPacketRes(packet, context);
+	}
+
+	@packetHandler(CommandUnlockRefusePacketRes)
+	async unlockRefuseRes(packet: CommandUnlockRefusePacketRes, context: PacketContext): Promise<void> {
+		await handleCommandUnlockRefusePacketRes(packet, context);
+	}
+
+	@packetHandler(CommandUnlockAcceptPacketRes)
+	async unlockAcceptRes(packet: CommandUnlockAcceptPacketRes, context: PacketContext): Promise<void> {
+		await handleCommandUnlockAcceptPacketRes(packet, context);
 	}
 }

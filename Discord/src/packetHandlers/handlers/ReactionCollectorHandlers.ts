@@ -33,6 +33,8 @@ import {ReactionCollectorGuildKickData} from "../../../../Lib/src/packets/intera
 import {createGuildKickCollector} from "../../commands/guild/GuildKickCommand";
 import {ReactionCollectorGobletsGameData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGobletsGame";
 import {gobletsGameCollector} from "../../smallEvents/gobletsGame";
+import {createUnlockCollector} from "../../commands/player/UnlockCommand";
+import {ReactionCollectorUnlockData} from "../../../../Lib/src/packets/interaction/ReactionCollectorUnlock";
 
 export default class ReactionCollectorHandler {
 
@@ -57,6 +59,7 @@ export default class ReactionCollectorHandler {
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorFightPetData.name, fightPetCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorGuildInviteData.name, createGuildInviteCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorGobletsGameData.name, gobletsGameCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorUnlockData.name, createUnlockCollector);
 	}
 
 	@packetHandler(ReactionCollectorCreationPacket)
