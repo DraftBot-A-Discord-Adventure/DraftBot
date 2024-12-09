@@ -57,7 +57,7 @@ function unlockCannotBeDone(player: Player, freedPlayer: Player, response: Draft
 			foundPlayer: freedPlayer === null,
 			notInJail: freedPlayer?.effectId !== Effect.JAILED.id,
 			money: player.money,
-			himself: player.id === freedPlayer.id
+			himself: player.id === freedPlayer?.id
 		}));
 		return true;
 	}
