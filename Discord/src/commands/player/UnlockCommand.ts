@@ -49,6 +49,15 @@ export async function handleCommandUnlockPacketRes(packet: CommandUnlockPacketRe
 		);
 		return;
 	}
+	if (packet.notInJail) {
+		await sendErrorMessage(
+			interaction.user,
+			interaction,
+			i18n.t("commands:unlock.notInJail", {lng: interaction.userLanguage}),
+			{sendManner: SendManner.REPLY}
+		);
+		return;
+	}
 	if (packet.money < UnlockConstants.PRICE_FOR_UNLOCK) {
 		await sendErrorMessage(
 			interaction.user,
@@ -153,7 +162,7 @@ export async function handleCommandUnlockAcceptPacketRes(packet: CommandUnlockAc
 }
 
 export const commandInfo: ICommand = {
-	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("Unlock")
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("unlock")
 		.addUserOption(option =>
 			SlashCommandBuilderGenerator.generateOption("unlock", "user", option)
 				.setRequired(false))

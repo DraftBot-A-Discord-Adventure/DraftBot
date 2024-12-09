@@ -12,6 +12,8 @@ export class CommandUnlockPacketReq extends DraftBotPacket {
 export class CommandUnlockPacketRes extends DraftBotPacket {
 	foundPlayer!: boolean;
 
+	notInJail!: boolean;
+
 	money!: number;
 
 	himself!: boolean;

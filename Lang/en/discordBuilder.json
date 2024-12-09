@@ -232,5 +232,19 @@
   "daily": {
     "description": "Use your equipped item to get a daily bonus.",
     "name": "dailybonus"
+  },
+  "unlock": {
+    "description": "Free a player from jail.",
+    "name": "unlock",
+    "options": {
+      "rank": {
+        "description": "The rank of the player who must be unlocked.",
+        "name": "rank"
+      },
+      "user": {
+        "description": "The user who must be unlocked.",
+        "name": "user"
+      }
+    }
   }
 }
