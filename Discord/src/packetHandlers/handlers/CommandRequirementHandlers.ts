@@ -25,7 +25,7 @@ export default class CommandRequirementHandlers {
 			if (interaction.deferred) {
 				interaction.deleteReply();
 			}
-			interaction?.followUp({
+			await (interaction.replied ? interaction.followUp : interaction.reply)({
 				embeds: [
 					new DraftBotEmbed()
 						.setErrorColor()

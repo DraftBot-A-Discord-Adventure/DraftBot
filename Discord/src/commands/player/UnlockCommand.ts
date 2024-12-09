@@ -6,7 +6,12 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {DiscordCache} from "../../bot/DiscordCache";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
-import {CommandUnlockAcceptPacketRes, CommandUnlockPacketReq, CommandUnlockPacketRes, CommandUnlockRefusePacketRes} from "../../../../Lib/src/packets/commands/CommandUnlockPacket";
+import {
+	CommandUnlockAcceptPacketRes,
+	CommandUnlockPacketReq,
+	CommandUnlockPacketRes,
+	CommandUnlockRefusePacketRes
+} from "../../../../Lib/src/packets/commands/CommandUnlockPacket";
 import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
