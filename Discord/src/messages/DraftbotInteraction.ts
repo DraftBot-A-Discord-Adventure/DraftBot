@@ -178,7 +178,7 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 	 */
 	public async reply(options: OptionLike, fallback?: () => void | Promise<void>): Promise<Message> {
 		// @ts-expect-error - We consider that the following function passed as argument has the correct typing
-		return await DraftbotInteraction.prototype.commonSendCommand.call(this, CommandInteraction.prototype.reply.bind(this), options, fallback ?? (() => {
+		return await DraftbotInteraction.prototype.commonSendCommand.call(this, CommandInteraction.prototype.reply.bind(this), options, fallback ?? ((): void => {
 			// Do nothing by default if no fallback is provided
 		})) as Message;
 	}
@@ -189,7 +189,7 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 	 * @param fallback function to execute if the bot can't send the message
 	 */
 	public async followUp(options: OptionLike, fallback?: () => void | Promise<void>): Promise<Message> {
-		return await DraftbotInteraction.prototype.commonSendCommand.call(this, CommandInteraction.prototype.followUp.bind(this), options, fallback ?? (() => {
+		return await DraftbotInteraction.prototype.commonSendCommand.call(this, CommandInteraction.prototype.followUp.bind(this), options, fallback ?? ((): void => {
 			// Do nothing by default if no fallback is provided
 		})) as Message;
 	}
@@ -234,7 +234,7 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 		}
 		catch (e) {
 			if (functionPrototype !== DraftbotChannel.prototype.send) {
-				// try again to manage fallback with the send function
+				// Try again to manage fallback with the send function
 				// @ts-expect-error - We consider that the functionPrototype is a function that can be called with these parameters (i.e, accepts a InteractionReplyOptions)
 				await DraftbotInteraction.prototype.manageFallback.bind(this)(BaseGuildTextChannel.prototype.send.bind(this.channel));
 				return;

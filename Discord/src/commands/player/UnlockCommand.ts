@@ -102,7 +102,8 @@ export async function createUnlockCollector(packet: ReactionCollectorCreationPac
 		.setDescription(
 			i18n.t("commands:unlock.confirmDesc", {
 				lng: interaction.userLanguage,
-				kickedPseudo: unlockedPlayer.attributes.gameUsername
+				pseudo: unlockedPlayer.attributes.gameUsername,
+				price: UnlockConstants.PRICE_FOR_UNLOCK
 			})
 		);
 
@@ -158,7 +159,7 @@ export async function handleCommandUnlockAcceptPacketRes(packet: CommandUnlockAc
 				.setDescription(
 					i18n.t("commands:unlock.acceptedDesc", {
 						lng: originalInteraction.userLanguage,
-						kickedPseudo: unlockedPlayer.attributes.gameUsername
+						pseudo: unlockedPlayer.attributes.gameUsername
 					})
 				)
 		]

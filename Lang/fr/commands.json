@@ -706,9 +706,9 @@
     "himself": "Vous ne pouvez pas vous libérer vous-même, demandez à un ami de le faire.",
     "notInJail": "Ce joueur n'est pas en prison.",
     "title": "Libération de {{pseudo}}",
-    "confirmDesc": "Êtes-vous sûr de vouloir libérer **{{pseudo}}** ?",
+    "confirmDesc": "Êtes-vous sûr de vouloir libérer **{{pseudo}}** pour **{{price}} {emote:unitValues.money}**?",
     "canceledTitle": "Libération annulée",
-    "canceledDesc": "La libération de **{{pseudo}}** a été annulée.",
+    "canceledDesc": "La libération a été annulée.",
     "acceptedDesc": "Vous avez libéré **{{pseudo}}** !"
   }
 }
