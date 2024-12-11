@@ -4,7 +4,10 @@ import {CommandPingPacketRes} from "../../../../Lib/src/packets/commands/Command
 import {DiscordCache} from "../../bot/DiscordCache";
 import i18n from "../../translations/i18n";
 import {draftBotClient, shardId} from "../../bot/DraftBotShard";
-import {CommandProfilePacketRes} from "../../../../Lib/src/packets/commands/CommandProfilePacket";
+import {
+	CommandProfilePacketRes,
+	CommandProfilePlayerNotFound
+} from "../../../../Lib/src/packets/commands/CommandProfilePacket";
 import {handleCommandProfilePacketRes} from "../../commands/player/ProfileCommand";
 import {CommandInventoryPacketRes} from "../../../../Lib/src/packets/commands/CommandInventoryPacket";
 import {handleCommandInventoryPacketRes} from "../../commands/player/InventoryCommand";
@@ -173,6 +176,11 @@ export default class CommandHandlers {
 				totalShards: draftBotClient!.shard!.count - 1
 			})
 		});
+	}
+
+	@packetHandler(CommandProfilePlayerNotFound)
+	async profilePlayerNotFound(_packet: CommandProfilePlayerNotFound, context: PacketContext): Promise<void> {
+		await handleClassicError(context, "error:playerDoesntExist");
 	}
 
 	@packetHandler(CommandProfilePacketRes)

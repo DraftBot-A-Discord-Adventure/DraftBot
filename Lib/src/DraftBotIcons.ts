@@ -117,7 +117,8 @@ export const DraftBotIcons: {
 		"starving": "🤤",
 		"confounded": "😖",
 		"scared:": "😱",
-		"lost": "🧐"
+		"lost": "🧐",
+		"healed": "🏥"
 	},
 	"events": {
 		"1": {
@@ -1626,7 +1627,13 @@ export const DraftBotIcons: {
 		"lostHealth": "💔",
 		"energy": "⚡",
 		"rage": "💢",
-		"time": "🕜"
+		"time": "🕜",
+		"attack": "🗡️",
+		"defense": "🛡️",
+		"speed": "🚀",
+		"breath": "🌬️",
+		"breathRegen": "🫁",
+		"petRarity": "⭐"
 	},
 	"shopItems": {
 		"randomItem": "❓",

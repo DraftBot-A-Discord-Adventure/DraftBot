@@ -44,11 +44,11 @@
       "cannotBeJoinedOnBoat": "👻"
     },
     "separator": " | ",
-    "memberInfos": "{{icon}} - **{{pseudo}}** ({{ranking}} :trophy: | {{score}} :medal:{{islandStatusIcon}})\n",
+    "memberInfos": "{{icon}} - **{{pseudo}}** ({{ranking}} {emote:announcements.trophy} | {{score}} {emote:unitValues.score}{{islandStatusIcon}})\n",
     "members": ":person_pouting: {{memberCount}} / {{maxGuildMembers}} membres",
     "infoTitle": "Informations",
     "islandInfo": ":island: Nombre d'alliés sur l'île mystérieuse : {{membersOnPveIsland}}\n",
-    "info": ":star: {{experience}} | :mirror_ball: {{guildPoints}} | :trophy: {{ranking}}",
+    "info": ":star: {{experience}} | :mirror_ball: {{guildPoints}} | {emote:announcements.trophy} {{ranking}}",
     "xpNeeded": "{{xp}} / {{xpToLevelUp}}",
     "xpMax": "Max",
     "ranking": "{{rank}} / {{rankTotal}}",
@@ -336,15 +336,15 @@
       "⚙️": ":gear: `Équipe technique`",
       "⛑️": ":helmet_with_cross: `Personne faisant partie des 20 premières à avoir rejoint le serveur du bot`",
       "✨": ":sparkles: `Personne ayant remporté le plus de gloire durant une saison de combat`",
-      "❤️": ":heart: `Personne ayant le grade Soutien sur le serveur du bot`",
+      "❤️": "{emote:unitValues.health} `Personne ayant le grade Soutien sur le serveur du bot`",
       "🌍": ":earth_africa: `Traducteur`",
       "🌟": ":star2: `Personne ayant aidé à mettre le bot sur un serv de plus de 2000 membres`",
       "🍀": ":four_leaf_clover: `Badge pouvant être gagné de temps en temps dans des concours sur le serveur du bot ou sur twitter`",
       "🎄": ":christmas_tree: `Badge pouvant être gagné chaque noël lors d'un concours`",
       "🎗️": ":reminder_ribbon: `Personne ayant dominé un classement de la semaine`",
       "🎰": ":slot_machine: `Badge donné de manière totalement random`",
-      "🏅": ":medal: `Joueur dans le top 10 au reset de la 1.0`",
-      "🏆": ":trophy: `Meilleur joueur au moment du reset de la 1.0`",
+      "🏅": "{emote:unitValues.score} `Joueur dans le top 10 au reset de la 1.0`",
+      "🏆": "{emote:announcements.trophy} `Meilleur joueur au moment du reset de la 1.0`",
       "🐞": ":lady_beetle: `Personne ayant signalé des bugs majeurs`",
       "👑": ":crown: `Propriétaire du bot`",
       "💍": ":ring: `Badge acheté dans le shop des Missions`",
@@ -370,11 +370,11 @@
     },
     "information": {
       "fieldName": "Informations :",
-      "fieldValue": ":heart: {{health}}/{{maxHealth}} | :star: {{experience}}/{{experienceNeededToLevelUp}} | :moneybag: {{money}}"
+      "fieldValue": "{emote:unitValues.health} {{health}}/{{maxHealth}} | :star: {{experience}}/{{experienceNeededToLevelUp}} | :moneybag: {{money}}"
     },
     "map": {
       "fieldName": "Destination :",
-      "fieldValue": "{{mapEmote}} {{mapName}}"
+      "fieldValue": "{emote:map_types.{{mapTypeId}}} $t(models:map_locations.{{mapName}}.name)"
     },
     "mission": {
       "fieldName": "Missions :",
@@ -382,30 +382,33 @@
     },
     "noTimeLeft": {
       "fieldName": "Temps restant :",
-      "fieldValue": ":hospital: Reprise du jeu possible"
+      "fieldValue": "{emote:effects.healed} Reprise du jeu possible"
     },
     "pet": {
       "fieldName": "Familier :",
-      "fieldValue": "Rareté: {{rarity}}\n"
+      "fieldValue": "Rareté: {{rarity}}\n$t(commands:pet.shortPetField)"
     },
     "playerClass": {
       "fieldName": "Classe :",
-      "fieldValue": "{{className}}"
+      "fieldValue": "$t(models:classFormat)"
     },
     "ranking": {
       "fieldName": "Classement et Score :",
-      "fieldValue": ":trophy: {{rank}}/{{numberOfPlayer}} | :medal: {{score}}",
-      "fieldValueUnranked": ":trophy: Non classé | :medal: {{score}}"
+      "fieldValue": "{emote:announcements.trophy} {{rank}}/{{numberOfPlayer}} | {emote:unitValues.score} {{score}}"
+    },
+    "unranked": {
+      "fieldName": "Classement et Score :",
+      "fieldValue": "{emote:announcements.trophy} Non classé | {emote:unitValues.score} {{score}}"
     },
     "statistics": {
       "fieldName": "Statistiques :",
-      "fieldValue": ":zap: {{cumulativeHealth}} / {{cumulativeMaxHealth}} | :dagger: {{cumulativeAttack}} | :shield: {{cumulativeDefense}} | :rocket: {{cumulativeSpeed}} | :wind_blowing_face: {{baseBreath}} / {{maxBreath}} | :lungs: {{breathRegen}}"
+      "fieldValue": "{emote:unitValues.energy} {{cumulativeHealth}} / {{cumulativeMaxHealth}} | {emote:unitValues.attack} {{cumulativeAttack}} | {emote:unitValues.defense} {{cumulativeDefense}} | {emote:unitValues.speed} {{cumulativeSpeed}} | {emote:unitValues.breath} {{baseBreath}} / {{maxBreath}} | {emote:unitValues.breathRegen} {{breathRegen}}"
     },
     "timeLeft": {
       "fieldName": "Temps restant :",
-      "fieldValue": "{{effect}} {{timeLeft}}"
+      "fieldValue": "{emote:effects.{{effectId}}} {{timeLeft}}"
     },
-    "title": "{{effect}} | {{pseudo}} | Niveau {{level}}"
+    "title": "{emote:effects.{{effectId}}} | {{pseudo}} | Niveau {{level}}"
   },
   "rarity": {
     "rarities": ":small_orange_diamond: Basique | Possédé en début de jeu\n:large_orange_diamond: Commun | {{common}}%\n:fire: Peu commun | {{uncommon}}%\n:trident: Exotique | {{exotic}}%\n:comet: Rare | {{rare}}%\n:dizzy: Spécial | {{special}}%\n:star: Épique | {{epic}}%\n:star2: Légendaire | {{legendary}}%\n:gem: Mythique | {{unique}}%",
@@ -430,10 +433,10 @@
     ],
     "encounterMonsterStats": "> **{{emoji}} {{monsterName}} **| **Niveau {{level}}**\n> {{description}}\n\n⚡ {{fightPoints}} | 🗡 {{attack}} | 🛡 {{defense}} | 🚀 {{speed}}",
     "endPoint": "Point d'arrivée :",
-    "energy": "** | :zap: Énergie gagnée : **{{energy}}",
+    "energy": "** | {emote:unitValues.energy} Énergie gagnée : **{{energy}}",
     "experience": "** | :star: XP gagné : **{{experience}}",
     "gems": "** | :gem: Gemmes gagnées : **{{gems}}",
-    "health": "** | :heart: Vie gagnée : **{{health}}",
+    "health": "** | {emote:unitValues.health} Vie gagnée : **{{health}}",
     "healthLoose": "** | :broken_heart: Vie perdue : **{{health}}",
     "journal": "Journal de {{pseudo}}",
     "money": "** | :moneybag: Argent gagné : **{{money}}",
@@ -444,7 +447,7 @@
     "monsterRewardsTitle": "{{pseudo}}, récompenses de combat",
     "newBigEvent": ":flag_fr: Vous êtes arrivé à **{{destination}}** !",
     "noFight": ":newspaper: **Journal de {{pseudo}} :** {{waitABitReaction}} | Vous vous enfuyez rapidement et trouvez une petite cachette ! Le monstre vous attend patiemment dehors...",
-    "points": ":** :medal: Points gagnés : **{{score}}",
+    "points": ":** {emote:unitValues.score} Points gagnés : **{{score}}",
     "pveEvent": ":newspaper: **Journal de {{pseudo}} :** {{event}}\n\n{{monsterDisplay}}\n\n{{startTheFightReaction}} Commencer le combat\n{{waitABitReaction}} Attendre un peu avant de commencer le combat\n\n*- Utilisez les réactions pour effectuer une action*",
     "remainingEnergyTitle": "Énergie restante :",
     "startPoint": "Point de départ :",
@@ -616,7 +619,7 @@
     "displays": {
       "listing": "{{headerText}}\n\n{{classesList}}",
       "details": "{{classDetails}}{{attacksHeader}}\n{{attacksList}}",
-      "class": "### {{emoji}} {{name}}\n:zap: {{fightPoint}} | :dagger: {{attack}} | :shield: {{defense}} | :rocket: {{speed}} | :wind_blowing_face: {{baseBreath}} / {{maxBreath}} | :lungs: {{breathRegen}} | :heart: {{health}}",
+      "class": "### {{emoji}} {{name}}\n{emote:unitValues.energy} {{fightPoint}} | {emote:unitValues.attack} {{attack}} | {emote:unitValues.defense} {{defense}} | {emote:unitValues.speed} {{speed}} | :wind_blowing_face: {{baseBreath}} / {{maxBreath}} | {emote:unitValues.breathRegen} {{breathRegen}} | {emote:unitValues.health} {{health}}",
       "attack": "### {{emoji}} {{name}} | {{cost}} :wind_blowing_face:\n{{description}}"
     }
   },

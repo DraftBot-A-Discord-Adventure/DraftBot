@@ -193,7 +193,7 @@ async function checkGuildResponsibilities(otherPlayer: Player, guild: Guild, int
  * @param interactionsList
  */
 function checkEffects(otherPlayer: Player, interactionsList: InteractOtherPlayerInteraction[]): void {
-	if (!otherPlayer.checkEffect()) {
+	if (otherPlayer.isUnderEffect()) {
 		interactionsList.push(InteractOtherPlayerInteraction.EFFECT);
 	}
 }

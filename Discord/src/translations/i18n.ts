@@ -46,6 +46,10 @@ function convertEmoteFormat(str: string): string {
 type EmotePathFolder = Record<string, unknown> | string[];
 type EmotePath = EmotePathFolder | string;
 
+export type TranslationOption = {
+	lng: Language
+} & i18next.TOptions;
+
 /**
  * Get the corresponding to emote for the given emote name
  * @param emote
@@ -103,9 +107,7 @@ export class I18nDraftbot {
 	 * @param key
 	 * @param options
 	 */
-	static t(key: string | string[], options: {
-		lng: Language
-	} & i18next.TOptions): string | string[] {
+	static t(key: string | string[], options: TranslationOption): string | string[] {
 		const value: string | string[] = i18next.t(key, options);
 		if (Array.isArray(value)) {
 			return (value as string[]).map(draftbotFormat);

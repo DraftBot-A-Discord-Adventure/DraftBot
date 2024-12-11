@@ -9,12 +9,14 @@ export class CommandProfilePacketReq extends DraftBotPacket {
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class CommandProfilePlayerNotFound extends DraftBotPacket {
+}
+
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandProfilePacketRes extends DraftBotPacket {
-	foundPlayer!: boolean;
+	keycloakId!: string;
 
-	keycloakId?: string;
-
-	data?: {
+	playerData!: {
 		stats?: {
 			energy: {
 				value: number,
@@ -39,10 +41,11 @@ export class CommandProfilePacketRes extends DraftBotPacket {
 			numberOfPlayers: number,
 			score: number
 		},
-		effect?: {
+		effect: {
 			healed: boolean,
 			timeLeft: number,
-			effect: string
+			effect: string,
+			hasTimeDisplay: boolean
 		},
 		classId?: number,
 		fightRanking?: {
@@ -56,7 +59,7 @@ export class CommandProfilePacketRes extends DraftBotPacket {
 			typeId: number,
 			sex: string,
 			rarity: number,
-			nickname?: string
+			nickname: string
 		},
 		color: string,
 		level: number,

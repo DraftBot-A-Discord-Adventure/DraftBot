@@ -1,4 +1,4 @@
-import {LANGUAGE} from "../Language";
+import {Language, LANGUAGE} from "../Language";
 
 /**
  * Get the elements to display a remaining time in the given language
@@ -275,7 +275,7 @@ export function getTimeFromXHoursAgo(hours: number): Date {
  * @param minutes - the time in minutes
  * @param language
  */
-export function minutesDisplay(minutes: number, language = ""): string {
+export function minutesDisplay(minutes: number, language: Language = LANGUAGE.DEFAULT_LANGUAGE): string {
 	const hours = Math.floor(minutesToHours(minutes));
 	minutes = Math.floor(minutes % 60);
 	const displayConstantValues = getMinutesDisplayStringConstants(language);
