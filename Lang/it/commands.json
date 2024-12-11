@@ -196,7 +196,7 @@
         "description": "Modifica il soprannome dell'animale domestico. Se non viene fornito alcun nome, il nome attuale verrà cancellato."
       },
       "PET_SELL": {
-        "description": "Permette di vendere un animale domestico. Si applicano le seguenti condizioni: \n - il prezzo di vendita deve essere superiore a `{{petSellMinPrice}}💰` e inferiore a `{{petSellMaxPrice}}💰`. \n- Il venditore non guadagnerà denaro dalla transazione, ma solo esperienza di gilda. \n- Il venditore e l'acquirente non possono essere membri della stessa gilda."
+        "description": "Permette di vendere un animale domestico. Si applicano le seguenti condizioni: \n - il prezzo di vendita deve essere superiore a `{{petSellMinPrice}}{emote:unitValues.money}` e inferiore a `{{petSellMaxPrice}}{emote:unitValues.money}`. \n- Il venditore non guadagnerà denaro dalla transazione, ma solo esperienza di gilda. \n- Il venditore e l'acquirente non possono essere membri della stessa gilda."
       },
       "PET_TRADE": {
         "description": "Proponete uno scambio di animali con la persona indicata."
@@ -211,7 +211,7 @@
         "description": "Questa funzione è stata rimossa dal gioco in seguito a un aggiornamento delle funzionalità di Discord."
       },
       "PROFILE": {
-        "description": "\n\n\n\n\n\n\nVisualizza le informazioni sul personaggio: 😃 Stato di salute | Nickname | Livello ឵឵Informazioni: ❤️ Vita | ⭐ XP | 💰 Denaro Statistiche :\n\n\n⚡ Energia | 🗡️ Attacco | 🛡️ Difesa | 🚀 Velocità | 🌬️ Respiro | 🫁 Recupero Missioni :\n\n\n\n\n\n\n {command:classes}\n\n\n {{topGloryCommandMention}}\n\n\n\n\n\n {{mapCommandMention}}\n\n\n {{petCommandMention}}\n\n💎 Gemme | 📖 Campagna avanzata % Rango e punteggio: 🏆 Rango | 🏅 Punteggio Classe: Vedi Gloria e Lega: ✨ Gloria | Vedi Gilda: 🏟️ Destinazione Gilda: Vedi Familiare: Vedi 💡 I distintivi vengono visualizzati sul tuo profilo come reazione."
+        "description": "\n\n\n\n\n\n\nVisualizza le informazioni sul personaggio: 😃 Stato di salute | Nickname | Livello ឵឵Informazioni: ❤️ Vita | ⭐ XP | {emote:unitValues.money} Denaro Statistiche :\n\n\n⚡ Energia | 🗡️ Attacco | 🛡️ Difesa | 🚀 Velocità | 🌬️ Respiro | 🫁 Recupero Missioni :\n\n\n\n\n\n\n {command:classes}\n\n\n {{topGloryCommandMention}}\n\n\n\n\n\n {{mapCommandMention}}\n\n\n {{petCommandMention}}\n\n💎 Gemme | 📖 Campagna avanzata % Rango e punteggio: 🏆 Rango | 🏅 Punteggio Classe: Vedi Gloria e Lega: ✨ Gloria | Vedi Gilda: 🏟️ Destinazione Gilda: Vedi Familiare: Vedi 💡 I distintivi vengono visualizzati sul tuo profilo come reazione."
       },
       "RARITY": {
         "description": "Mostra la probabilità di avere un oggetto in base alla sua rarità."
@@ -394,8 +394,11 @@
     },
     "ranking": {
       "fieldName": "Classifica e punti :",
-      "fieldValue": ":trophy: {{rank}}/{{numberOfPlayer}} | :medal: {{score}}",
-      "fieldValueUnranked": ":trophy: Non estimato | :medal: {{score}}"
+      "fieldValue": ":trophy: {{rank}}/{{numberOfPlayer}} | :medal: {{score}}"
+    },
+    "unranked": {
+      "fieldName": "Classifica e punti :",
+      "fieldValue": "{emote:announcements.trophy} Non estimato | {emote:unitValues.score} {{score}}"
     },
     "statistics": {
       "fieldName": "Statistiche :",
@@ -511,15 +514,15 @@
     "fullRegen": "💓 Sei stato completamente accudito.",
     "alreadyHaveBadge": "Avete già questo distintivo.",
     "badgeBought": "{emote:badges.richPerson} Hai ricevuto un nuovo badge: .",
-    "notEnoughMoney": "Non hai abbastanza soldi per acquistare questo articolo!{{missingMoney}} Ti manca ` 💰`.",
+    "notEnoughMoney": "Non hai abbastanza soldi per acquistare questo articolo!{{missingMoney}} Ti manca ` {emote:unitValues.money}`.",
     "boughtTooMuchDailyPotions": "Non ci sono più pozioni del giorno disponibili per la vendita... Tornate domani!",
     "title": "🛒 Display del negozio",
-    "currentMoney": "{{money}}Avete ` 💰`.",
-    "shopItemsDisplaySingle": "{{name}}{{price}}| 💰`",
-    "shopItemsDisplayMultiple": "{{amount}} {{name}}{{price}}** x** | ` 💰`",
+    "currentMoney": "{{money}}Avete ` {emote:unitValues.money}`.",
+    "shopItemsDisplaySingle": "{{name}}{{price}}| {emote:unitValues.money}`",
+    "shopItemsDisplayMultiple": "{{amount}} {{name}}{{price}}** x** | ` {emote:unitValues.money}`",
     "shopSelectPlaceholder": "Selezionare un articolo da acquistare",
     "buyCategorySlotSuccess": "Avete acquistato un nuovo slot d'inventario!",
-    "shopItemsSelectDescription": "{{price}}💰",
+    "shopItemsSelectDescription": "{{price}}{emote:unitValues.money}",
     "closeShopButton": "❌ Chiudere il negozio",
     "shopConfirmationTitle": "{{pseudo}}avete selezionato il seguente prodotto:",
     "shopConfirmationTitleMultiple": "{{pseudo}}Selezionare una quantità per questo prodotto:",
@@ -701,5 +704,14 @@
       "money": "Soldi guadagnati :",
       "time": "Siete avanzati di"
     }
+  },
+  "unlock": {
+    "himself": "Se non riuscite a liberarvi da soli, chiedete a un amico di farlo per voi.",
+    "notInJail": "Questo giocatore non è in prigione.",
+    "title": "{{pseudo}}Liberazione di",
+    "confirmDesc": "{{pseudo}}{{price}} {emote:unitValues.money}Sei sicuro di voler rilasciare ** ** per ** **?",
+    "canceledTitle": "Rilascio annullato",
+    "canceledDesc": "L'uscita è stata annullata.",
+    "acceptedDesc": "{{pseudo}}Avete liberato ** ** !"
   }
 }
