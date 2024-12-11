@@ -129,7 +129,7 @@
     "end": "Without paying any further attention to the individual, you continue on your way.",
     "rewardTypeText": {
       "xp": " You earned **{{xpWon}}⭐**.",
-      "money": " You won **{{moneyWon}}💰**!",
+      "money": " You won **{{moneyWon}}{emote:unitValues.money}**!",
       "guildXp": " Your guild earns **{{guildXpWon}}⭐**.",
       "points": " You won **{{pointsWon}}🏅**."
     }
