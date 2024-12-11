@@ -232,5 +232,19 @@
   "daily": {
     "description": "Utiliza tu objeto equipado para obtener una bonificación diaria.",
     "name": "bonificación diaria"
+  },
+  "unlock": {
+    "description": "Libera a otro jugador de la prisión.",
+    "name": "Entregar",
+    "options": {
+      "rank": {
+        "description": "La clasificación del jugador que se emitirá.",
+        "name": "clasificación"
+      },
+      "user": {
+        "description": "El usuario a entregar.",
+        "name": "usuario"
+      }
+    }
   }
 }
