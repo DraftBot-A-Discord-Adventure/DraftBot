@@ -27,6 +27,10 @@ const typeVariableFormatLike: Map<TypeKey, string> = new Map<TypeKey, string>([
 	[TypeKey.STRING, "texte"]
 ]);
 
+/**
+ * Format the type waited for the command
+ * @param typeWaited
+ */
 export function formatTypeWaited(typeWaited: TypeKey): string {
 	return `\`${typeWaited}\`(${typeVariableFormatLike.get(typeWaited)})`;
 }

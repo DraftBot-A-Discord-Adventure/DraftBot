@@ -40,6 +40,7 @@ import {BlockingConstants} from "../../../../../../Lib/src/constants/BlockingCon
 import {Effect} from "../../../../../../Lib/src/enums/Effect";
 import {ScheduledReportNotifications} from "./ScheduledReportNotification";
 import {PacketUtils} from "../../../utils/PacketUtils";
+import {StatValues} from "../../../../../../Lib/src/types/StatValues";
 import moment = require("moment");
 
 export type PlayerEditValueParameters = {
@@ -539,11 +540,7 @@ export class Player extends Model {
 		);
 	}
 
-	public getMaxStatsValue(): {
-		attack: number,
-		defense: number,
-		speed: number
-	} {
+	public getMaxStatsValue(): StatValues {
 		const playerClass = ClassDataController.instance.getById(this.class);
 		return {
 			attack: playerClass.getAttackValue(this.level),

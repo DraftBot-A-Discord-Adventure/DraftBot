@@ -28,6 +28,7 @@ import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/inter
 import {ItemWithDetails} from "../../../../Lib/src/interfaces/ItemWithDetails";
 import {MainItem} from "../../data/MainItem";
 import {SupportItem} from "../../data/SupportItem";
+import {StatValues} from "../../../../Lib/src/types/StatValues";
 
 /**
  * Get the value of an item
@@ -84,7 +85,7 @@ const getSupportItemDetails = function(item: SupportItem): { nature: ItemNature,
 	};
 };
 
-const getMainItemDetails = function(item: MainItem): { stats: { attack: number, defense: number, speed: number } } {
+const getMainItemDetails = function(item: MainItem): { stats: StatValues } {
 	return {
 		stats: {
 			attack: item.getAttack(),

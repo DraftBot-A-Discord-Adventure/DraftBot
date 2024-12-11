@@ -281,7 +281,7 @@ async function doEvent(event: BigEvent, player: Player, time: number, context: P
 async function doRandomBigEvent(
 	context: PacketContext,
 	response: DraftBotPacket[],
-	player: Player,
+	player: Player
 ): Promise<void> {
 	await completeMissionsBigEvent(player, response);
 	const travelData = TravelTime.getTravelDataSimplified(player, new Date());
