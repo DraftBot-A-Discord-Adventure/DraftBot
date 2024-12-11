@@ -1,4 +1,10 @@
-import {CommandsTest, ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
+import {
+	CommandsTest,
+	ExecuteTestCommandLike,
+	formatTypeWaited,
+	ITestCommand,
+	TypeKey
+} from "../../../../core/CommandsTest";
 
 export const commandInfo: ITestCommand = {
 	name: "help",
@@ -29,7 +35,7 @@ ${helpOnCommand.description}
 **Utilisation :** \`test ${helpOnCommand.name}${helpOnCommand.commandFormat === "" ? "" : ` ${helpOnCommand.commandFormat}`}\`
 ${hasArguments ? `**Argument${argsAmount === 1 ? "" : "s"} attendu${argsAmount === 1 ? "" : "s"} :**` : ""}
 ${hasArguments ? Object.keys(helpOnCommand.typeWaited)
-		.map((arg) => `- \`<${arg}>\` : ${helpOnCommand.typeWaited[arg]}`)
+		.map((arg) => `- \`<${arg}>\` : ${formatTypeWaited(helpOnCommand.typeWaited[arg])}`)
 		.join("\n") : ""}
 ${hasAliases ? `**Alias :** \`${helpOnCommand.aliases.join("`, `")}\`` : ""}`;
 };

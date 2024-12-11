@@ -1,6 +1,6 @@
 import {readdir} from "fs/promises";
 import {readdirSync} from "fs";
-import {isAnId, isAnEmoji} from "../../../Lib/src/utils/StringUtils";
+import {isAnEmoji, isAnId} from "../../../Lib/src/utils/StringUtils";
 import {DraftBotPacket, PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
 import Player from "./database/game/models/Player";
 
@@ -14,11 +14,22 @@ export enum TypeKey {
 }
 
 const typeVariableChecks: Map<TypeKey, Checker> = new Map<TypeKey, Checker>([
-	[TypeKey.INTEGER, (v: string): boolean => !isNaN(parseInt(v, 10))],
 	[TypeKey.ID, (v: string): boolean => isAnId(v)],
+	[TypeKey.INTEGER, (v: string): boolean => !isNaN(parseInt(v, 10))],
 	[TypeKey.EMOJI, (v: string): boolean => isAnEmoji(v)],
 	[TypeKey.STRING, (): boolean => false]
 ]);
+
+const typeVariableFormatLike: Map<TypeKey, string> = new Map<TypeKey, string>([
+	[TypeKey.ID, "0a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c (voir `/test command:myids`)"],
+	[TypeKey.INTEGER, "###"],
+	[TypeKey.EMOJI, "<:emoteName:123456789012345678>"],
+	[TypeKey.STRING, "texte"]
+]);
+
+export function formatTypeWaited(typeWaited: TypeKey): string {
+	return `\`${typeWaited}\`(${typeVariableFormatLike.get(typeWaited)})`;
+}
 
 export interface ITestCommand {
 	name: string,
@@ -88,8 +99,8 @@ export class CommandsTest {
 					description: `❌ Mauvais argument pour la commande test ${commandTest.name}
 
 **Format attendu** : \`test ${commandTest.name} ${commandTest.commandFormat}\`
-**Format de l'argument** \`<${commandTypeKeys[i]}>\` : ${commandTest.typeWaited[commandTypeKeys[i]]}
-**Format reçu** : ${CommandsTest.getTypeOf(args[i])}`
+**Format de l'argument** \`<${commandTypeKeys[i]}>\` : ${formatTypeWaited(commandTest.typeWaited[commandTypeKeys[i]])}
+**Format reçu** : ${formatTypeWaited(CommandsTest.getTypeOf(args[i]))}`
 				};
 			}
 		}

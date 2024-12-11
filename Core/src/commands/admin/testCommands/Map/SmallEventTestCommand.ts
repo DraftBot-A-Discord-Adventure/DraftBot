@@ -12,6 +12,7 @@ smallEventsKeys
 
 export const commandInfo: ITestCommand = {
 	name: "smallEvent",
+	aliases: ["se"],
 	commandFormat: "<seName>",
 	typeWaited: {
 		seName: TypeKey.STRING

@@ -8,6 +8,6 @@ export const commandInfo: ITestCommand = {
 /**
  * Show your player's ID
  */
-const myIDTestCommand: ExecuteTestCommandLike = (player) => `Player id: ${player.id}`;
+const myIDTestCommand: ExecuteTestCommandLike = (player) => `Player id: ${player.id}\nKeycloak id: ${player.keycloakId}`;
 
 commandInfo.execute = myIDTestCommand;
