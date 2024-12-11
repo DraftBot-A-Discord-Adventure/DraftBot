@@ -88,7 +88,7 @@ export class PetUtils {
 		const sexStringContext: string = sex === PetConstants.SEX.MALE ? PetConstants.SEX.MALE_FULL : PetConstants.SEX.FEMALE_FULL;
 		return i18n.t(
 			`models:pets:${typeId}`,
-			{lng, context: sexStringContext as unknown}
+			{lng, context: sexStringContext}
 		);
 	}
 

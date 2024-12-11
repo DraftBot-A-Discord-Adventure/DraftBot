@@ -415,8 +415,8 @@ export class Player extends Model {
 	/**
 	 * Check if the player is under some effect (except dead or baby)
 	 */
-	public checkEffect(): boolean {
-		return [Effect.NOT_STARTED.id, Effect.NO_EFFECT.id, Effect.DEAD.id].indexOf(this.effectId) !== -1;
+	public isUnderEffect(): boolean {
+		return [Effect.NOT_STARTED.id, Effect.NO_EFFECT.id, Effect.DEAD.id].indexOf(this.effectId) === -1;
 	}
 
 	/**
@@ -543,7 +543,7 @@ export class Player extends Model {
 		attack: number,
 		defense: number,
 		speed: number
-		} {
+	} {
 		const playerClass = ClassDataController.instance.getById(this.class);
 		return {
 			attack: playerClass.getAttackValue(this.level),

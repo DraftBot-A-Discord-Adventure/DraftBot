@@ -5,7 +5,8 @@ import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
 import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {
 	CommandProfilePacketReq,
-	CommandProfilePacketRes
+	CommandProfilePacketRes,
+	CommandProfilePlayerNotFound
 } from "../../../../Lib/src/packets/commands/CommandProfilePacket";
 import {Campaign} from "../../core/missions/Campaign";
 import {Player, Players} from "../../core/database/game/models/Player";
@@ -32,9 +33,7 @@ export default class ProfileCommand {
 		const toCheckPlayer = await Players.getAskedPlayer(packet.askedPlayer, player);
 
 		if (!toCheckPlayer) {
-			response.push(makePacket(CommandProfilePacketRes, {
-				foundPlayer: false
-			}));
+			response.push(makePacket(CommandProfilePlayerNotFound, {}));
 			return;
 		}
 		const guild = toCheckPlayer.guildId ? await Guilds.getById(toCheckPlayer.guildId) : null;
@@ -49,9 +48,8 @@ export default class ProfileCommand {
 		const destinationId = toCheckPlayer.getDestinationId();
 
 		response.push(makePacket(CommandProfilePacketRes, {
-			foundPlayer: true,
 			keycloakId: toCheckPlayer.keycloakId,
-			data: {
+			playerData: {
 				badges,
 				guild: guild?.name,
 				level: toCheckPlayer.level,
@@ -71,11 +69,12 @@ export default class ProfileCommand {
 				} : null,
 				destinationId,
 				mapTypeId: destinationId ? MapLocationDataController.instance.getById(destinationId).type : null,
-				effect: toCheckPlayer.checkEffect() ? {
+				effect: {
 					effect: toCheckPlayer.effectId,
 					timeLeft: toCheckPlayer.effectEndDate.valueOf() - Date.now(),
-					healed: new Date() >= toCheckPlayer.effectEndDate
-				} : null,
+					healed: new Date() >= toCheckPlayer.effectEndDate,
+					hasTimeDisplay: toCheckPlayer.isUnderEffect()
+				},
 				fightRanking: toCheckPlayer.level >= FightConstants.REQUIRED_LEVEL ? {
 					glory: toCheckPlayer.gloryPoints,
 					league: toCheckPlayer.getLeague().id

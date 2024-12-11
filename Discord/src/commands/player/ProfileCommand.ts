@@ -1,7 +1,7 @@
 import {ICommand} from "../ICommand";
 import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
-import i18n from "../../translations/i18n";
+import i18n, {TranslationOption} from "../../translations/i18n";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {
 	CommandProfilePacketReq,
@@ -12,17 +12,16 @@ import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {ColorResolvable, EmbedField, Message, MessageReaction} from "discord.js";
 import {Constants} from "../../../../Lib/src/constants/Constants";
 import {DiscordCache} from "../../bot/DiscordCache";
-import {DraftBotErrorEmbed} from "../../messages/DraftBotErrorEmbed";
 import {ProfileConstants} from "../../../../Lib/src/constants/ProfileConstants";
 import {Language} from "../../../../Lib/src/Language";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
-import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 import {PetUtils} from "../../utils/PetUtils";
-import {ClassUtils} from "../../utils/ClassUtils";
-import {EmoteUtils} from "../../utils/EmoteUtils";
 import {PacketUtils} from "../../utils/PacketUtils";
+import {EmoteUtils} from "../../utils/EmoteUtils";
+import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
+import {millisecondsToMinutes, minutesDisplay} from "../../../../Lib/src/utils/TimeUtils";
 
 /**
  * Display the profile of a player
@@ -56,152 +55,103 @@ async function sendMessageAllBadgesTooMuchBadges(gameUsername: string, badges: s
 async function displayBadges(badges: string[], msg: Message): Promise<void> {
 	if (badges.length >= Constants.PROFILE.MAX_EMOTE_DISPLAY_NUMBER) {
 		await msg.react(Constants.PROFILE.DISPLAY_ALL_BADGE_EMOTE);
+		return;
 	}
-	else {
-		for (const badgeId in badges) {
-			if (Object.prototype.hasOwnProperty.call(badges, badgeId)) {
-				await msg.react(badges[badgeId]);
-			}
-		}
+	for (const badgeId in badges) {
+		await msg.react(badges[badgeId]);
+	}
+}
+
+/**
+ * Add a field to the profile embed
+ * @param fields
+ * @param fieldKey
+ * @param shouldBeFielded
+ * @param replacements
+ */
+function addField(fields: EmbedField[], fieldKey: string, shouldBeFielded: boolean, replacements: TranslationOption & {
+	returnObjects?: false
+}): void {
+	if (shouldBeFielded) {
+		fields.push({
+			name: i18n.t(`commands:profile.${fieldKey}.fieldName`, replacements),
+			value: i18n.t(`commands:profile.${fieldKey}.fieldValue`, replacements),
+			inline: false
+		});
 	}
 }
 
 function generateFields(packet: CommandProfilePacketRes, lng: Language): EmbedField[] {
 	const fields: EmbedField[] = [];
-
-	fields.push({
-		name: i18n.t("commands:profile.information.fieldName", {lng}),
-		value: i18n.t("commands:profile.information.fieldValue", {
-			lng,
-			health: packet.data?.health.value,
-			maxHealth: packet.data?.health.max,
-			money: packet.data?.money,
-			experience: packet.data?.experience.value,
-			experienceNeededToLevelUp: packet.data?.experience.max
-		}),
-		inline: false
+	addField(fields, "information", true, {
+		lng,
+		health: packet.playerData.health.value,
+		maxHealth: packet.playerData.health.max,
+		money: packet.playerData.money,
+		experience: packet.playerData.experience.value,
+		experienceNeededToLevelUp: packet.playerData.experience.max
 	});
 
-	if (packet.data?.stats) {
-		fields.push({
-			name: i18n.t("commands:profile.statistics.fieldName", {lng}),
-			value: i18n.t("commands:profile.statistics.fieldValue", {
-				lng,
-				baseBreath: packet.data?.stats.breath.base,
-				breathRegen: packet.data?.stats.breath.regen,
-				cumulativeAttack: packet.data?.stats.attack,
-				cumulativeDefense: packet.data?.stats.defense,
-				cumulativeHealth: packet.data.stats.energy.value,
-				cumulativeSpeed: packet.data.stats.speed,
-				cumulativeMaxHealth: packet.data.stats.energy.max,
-				maxBreath: packet.data.stats.breath.max
-			}),
-			inline: false
-		});
-	}
-
-	fields.push({
-		name: i18n.t("commands:profile.mission.fieldName", {lng}),
-		value: i18n.t("commands:profile.mission.fieldValue", {
-			lng,
-			gems: packet.data?.missions.gems,
-			campaign: packet.data?.missions.campaignProgression
-		}),
-		inline: false
+	addField(fields, "statistics", Boolean(packet.playerData.stats), {
+		lng,
+		baseBreath: packet.playerData.stats?.breath.base,
+		breathRegen: packet.playerData.stats?.breath.regen,
+		cumulativeAttack: packet.playerData.stats?.attack,
+		cumulativeDefense: packet.playerData.stats?.defense,
+		cumulativeHealth: packet.playerData.stats?.energy.value,
+		cumulativeSpeed: packet.playerData.stats?.speed,
+		cumulativeMaxHealth: packet.playerData.stats?.energy.max,
+		maxBreath: packet.playerData.stats?.breath.max
 	});
 
-	fields.push({
-		name: i18n.t("commands:profile.ranking.fieldName", {lng}),
-		value: packet.data?.rank.unranked ? i18n.t("commands:profile.ranking.fieldValueUnranked", {
-			lng,
-			score: packet.data.rank.score
-		}) : i18n.t("commands:profile.ranking.fieldValue", {
-			lng,
-			rank: packet.data?.rank.rank,
-			numberOfPlayer: packet.data?.rank.numberOfPlayers,
-			score: packet.data?.rank.score
-		}),
-		inline: false
+	addField(fields, "mission", true, {
+		lng,
+		gems: packet.playerData.missions.gems,
+		campaign: packet.playerData.missions.campaignProgression
 	});
 
-	if (packet.data?.effect?.healed) {
-		fields.push({
-			name: i18n.t("commands:profile.noTimeLeft.fieldName", {lng}),
-			value: i18n.t("commands:profile.noTimeLeft.fieldValue", {
-				lng
-			}),
-			inline: false
-		});
-	}
-	else if (packet.data?.effect) {
-		fields.push({
-			name: i18n.t("commands:profile.timeLeft.fieldName", {lng}),
-			value: i18n.t("commands:profile.timeLeft.fieldValue", {
-				lng,
-				effect: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.effects[packet.data.effect.effect]),
-				timeLeft: packet.data.effect.timeLeft
-			}),
-			inline: false
-		});
-	}
+	addField(fields, packet.playerData.rank.unranked ? "unranked" : "ranking", true, {
+		lng,
+		score: packet.playerData.rank.score,
+		rank: packet.playerData.rank.rank,
+		numberOfPlayer: packet.playerData.rank.numberOfPlayers
+	})
 
-	if (packet.data?.classId) {
-		fields.push({
-			name: i18n.t("commands:profile.playerClass.fieldName", {lng}),
-			value: i18n.t("commands:profile.playerClass.fieldValue", {
-				lng,
-				className: ClassUtils.classToString(lng, packet.data.classId)
-			}),
-			inline: false
-		});
-	}
+	addField(fields, packet.playerData.effect.healed ? "noTimeLeft" : "timeLeft", Boolean(packet.playerData.effect.hasTimeDisplay), {
+		lng,
+		effectId: packet.playerData.effect.effect,
+		timeLeft: minutesDisplay(millisecondsToMinutes(packet.playerData.effect.timeLeft), lng)
+	});
 
-	if (packet.data?.fightRanking) {
-		fields.push({
-			name: i18n.t("commands:profile.fightRanking.fieldName", {lng}),
-			value: i18n.t("commands:profile.fightRanking.fieldValue", {
-				lng,
-				league: packet.data.fightRanking.league,
-				gloryPoints: packet.data.fightRanking.glory
-			}),
-			inline: false
-		});
-	}
+	addField(fields, "playerClass", Boolean(packet.playerData.classId), {
+		lng,
+		id: packet.playerData.classId
+	});
 
-	if (packet.data?.guild) {
-		fields.push({
-			name: i18n.t("commands:profile.guild.fieldName", {lng}),
-			value: i18n.t("commands:profile.guild.fieldValue", {
-				lng,
-				guild: packet.data.guild
-			}),
-			inline: false
-		});
-	}
+	addField(fields, "fightRanking", Boolean(packet.playerData.fightRanking), {
+		lng,
+		league: packet.playerData.fightRanking?.league,
+		gloryPoints: packet.playerData.fightRanking?.glory
+	});
 
-	if (packet.data?.destinationId && packet.data?.mapTypeId) {
-		fields.push({
-			name: i18n.t("commands:profile.map.fieldName", {lng}),
-			value: i18n.t("commands:profile.map.fieldValue", {
-				lng,
-				mapEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.map_types[packet.data.mapTypeId]),
-				mapName: i18n.t(`models:map_locations.${packet.data.destinationId}.name`, {lng})
-			}),
-			inline: false
-		});
-	}
+	addField(fields, "guild", Boolean(packet.playerData.guild), {
+		lng,
+		guild: packet.playerData.guild
+	});
 
-	if (packet.data?.pet) {
-		fields.push({
-			name: i18n.t("commands:profile.pet.fieldName", {lng}),
-			value: i18n.t("commands:profile.pet.fieldValue", {
-				lng,
-				emote: PetUtils.getPetIcon(packet.data.pet.typeId, packet.data.pet.sex),
-				rarity: PetUtils.getRarityDisplay(packet.data.pet.rarity)
-			}) + PetUtils.petToShortString(lng, packet.data.pet.nickname, packet.data.pet.typeId, packet.data.pet.sex),
-			inline: false
-		});
-	}
+	addField(fields, "map", Boolean(packet.playerData.destinationId && packet.playerData.mapTypeId), {
+		lng,
+		mapTypeId: packet.playerData.mapTypeId,
+		mapName: packet.playerData.destinationId,
+		interpolation: {escapeValue: false}
+	});
+
+	addField(fields, "pet", Boolean(packet.playerData.pet), {
+		lng,
+		rarity: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.unitValues.petRarity).repeat(packet.playerData.pet?.rarity ?? 0),
+		emote: packet.playerData.pet ? PetUtils.getPetIcon(packet.playerData.pet?.typeId, packet.playerData.pet?.sex) : "",
+		name: packet.playerData.pet ? packet.playerData.pet?.nickname ?? PetUtils.getPetTypeName(lng, packet.playerData.pet?.typeId, packet.playerData.pet?.sex) : ""
+	});
 
 	return fields;
 }
@@ -209,60 +159,44 @@ function generateFields(packet: CommandProfilePacketRes, lng: Language): EmbedFi
 export async function handleCommandProfilePacketRes(packet: CommandProfilePacketRes, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 
-	if (interaction) {
-		if (!packet.foundPlayer) {
-			await interaction.reply({
-				embeds: [
-					new DraftBotErrorEmbed(
-						interaction.user,
-						interaction,
-						i18n.t("error:playerDoesntExist", {lng: interaction.userLanguage})
-					)
-				]
-			});
-			return;
+	if (!interaction) {
+		return;
+	}
+	const keycloakUser = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId))!;
+	const titleEffect = packet.playerData.effect.healed ? "healed" : packet.playerData.effect.effect;
+	const reply = await interaction.reply({
+		embeds: [
+			new DraftBotEmbed()
+				.setColor(<ColorResolvable>packet.playerData!.color)
+				.setTitle(i18n.t("commands:profile.title", {
+					lng: interaction.userLanguage,
+					effectId: titleEffect,
+					pseudo: keycloakUser.attributes.gameUsername,
+					level: packet.playerData?.level
+				}))
+				.addFields(generateFields(packet, interaction.userLanguage))
+		],
+		fetchReply: true
+	}) as Message;
+	const collector = reply.createReactionCollector({
+		filter: (reaction: MessageReaction) => reaction.me && !reaction.users.cache.last()!.bot,
+		time: Constants.MESSAGES.COLLECTOR_TIME,
+		max: ProfileConstants.BADGE_MAXIMUM_REACTION
+	});
+	collector.on("collect", async (reaction) => {
+		if (reaction.emoji.name === Constants.PROFILE.DISPLAY_ALL_BADGE_EMOTE) {
+			collector.stop(); // Only one is allowed to avoid spam
+			await sendMessageAllBadgesTooMuchBadges(keycloakUser.attributes.gameUsername[0], packet.playerData!.badges!, interaction);
 		}
-
-		const keycloakUser = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId!))!;
-
-		const titleEffect = packet.data?.effect?.healed ? Constants.DEFAULT_HEALED_EFFECT : packet.data?.effect;
-		const reply = await interaction.reply({
-			embeds: [
-				new DraftBotEmbed()
-					.setColor(<ColorResolvable>packet.data!.color)
-					.setTitle(i18n.t("commands:profile.title", {
-						lng: interaction.userLanguage,
-						effect: titleEffect,
-						pseudo: keycloakUser.attributes.gameUsername,
-						level: packet.data?.level
-					}))
-					.addFields(generateFields(packet, interaction.userLanguage))
-			],
-			fetchReply: true
-		}) as Message;
-
-		const collector = reply.createReactionCollector({
-			filter: (reaction: MessageReaction) => reaction.me && !reaction.users.cache.last()!.bot,
-			time: Constants.MESSAGES.COLLECTOR_TIME,
-			max: ProfileConstants.BADGE_MAXIMUM_REACTION
-		});
-
-		collector.on("collect", async (reaction) => {
-			if (reaction.emoji.name === Constants.PROFILE.DISPLAY_ALL_BADGE_EMOTE) {
-				collector.stop(); // Only one is allowed to avoid spam
-				await sendMessageAllBadgesTooMuchBadges(keycloakUser.attributes.gameUsername[0], packet.data!.badges!, interaction);
-			}
-			else {
-				interaction.channel.send({content: i18n.t(`commands:profile.badges.${reaction.emoji.name}`, {lng: interaction.userLanguage})})
-					.then((msg: Message | null) => {
-						setTimeout(() => msg?.delete(), ProfileConstants.BADGE_DESCRIPTION_TIMEOUT);
-					});
-			}
-		});
-
-		if (packet.data?.badges.length !== 0) {
-			await displayBadges(packet.data!.badges, reply);
+		else {
+			interaction.channel.send({content: i18n.t(`commands:profile.badges.${reaction.emoji.name}`, {lng: interaction.userLanguage})})
+				.then((msg: Message | null) => {
+					setTimeout(() => msg?.delete(), ProfileConstants.BADGE_DESCRIPTION_TIMEOUT);
+				});
 		}
+	});
+	if (packet.playerData?.badges.length !== 0) {
+		await displayBadges(packet.playerData!.badges, reply);
 	}
 }
 
