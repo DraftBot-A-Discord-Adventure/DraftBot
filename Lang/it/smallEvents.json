@@ -129,7 +129,7 @@
     "end": "Senza prestare ulteriore attenzione all'individuo, continuate per la vostra strada.",
     "rewardTypeText": {
       "xp": " {{xpWon}} Avete vinto ** ⭐**.",
-      "money": " {{moneyWon}} Hai vinto ** 💰**!",
+      "money": " {{moneyWon}} Hai vinto ** {emote:unitValues.money}**!",
       "guildXp": " {{guildXpWon}} La tua gilda vince ** ⭐**.",
       "points": " {{pointsWon}} Hai vinto ** 🏅**."
     }
