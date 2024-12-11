@@ -34,6 +34,12 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 	return makePacket(CommandProfilePacketReq, {askedPlayer});
 }
 
+/**
+ * Send a message with all the badges of the player in case there are too many
+ * @param gameUsername
+ * @param badges
+ * @param interaction
+ */
 async function sendMessageAllBadgesTooMuchBadges(gameUsername: string, badges: string[], interaction: DraftbotInteraction): Promise<void> {
 	let content = "";
 	for (const badgeSentence of badges) {
@@ -52,13 +58,18 @@ async function sendMessageAllBadgesTooMuchBadges(gameUsername: string, badges: s
 	});
 }
 
+/**
+ * Display the badges of the player as reactions
+ * @param badges
+ * @param msg
+ */
 async function displayBadges(badges: string[], msg: Message): Promise<void> {
 	if (badges.length >= Constants.PROFILE.MAX_EMOTE_DISPLAY_NUMBER) {
 		await msg.react(Constants.PROFILE.DISPLAY_ALL_BADGE_EMOTE);
 		return;
 	}
-	for (const badgeId in badges) {
-		await msg.react(badges[badgeId]);
+	for (const badgeId of badges) {
+		await msg.react(badgeId);
 	}
 }
 
@@ -81,6 +92,11 @@ function addField(fields: EmbedField[], fieldKey: string, shouldBeFielded: boole
 	}
 }
 
+/**
+ * Generate the fields of the profile embed
+ * @param packet
+ * @param lng
+ */
 function generateFields(packet: CommandProfilePacketRes, lng: Language): EmbedField[] {
 	const fields: EmbedField[] = [];
 	addField(fields, "information", true, {
@@ -115,7 +131,7 @@ function generateFields(packet: CommandProfilePacketRes, lng: Language): EmbedFi
 		score: packet.playerData.rank.score,
 		rank: packet.playerData.rank.rank,
 		numberOfPlayer: packet.playerData.rank.numberOfPlayers
-	})
+	});
 
 	addField(fields, packet.playerData.effect.healed ? "noTimeLeft" : "timeLeft", Boolean(packet.playerData.effect.hasTimeDisplay), {
 		lng,
@@ -156,6 +172,11 @@ function generateFields(packet: CommandProfilePacketRes, lng: Language): EmbedFi
 	return fields;
 }
 
+/**
+ * Handle the response of the profile command
+ * @param packet
+ * @param context
+ */
 export async function handleCommandProfilePacketRes(packet: CommandProfilePacketRes, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 

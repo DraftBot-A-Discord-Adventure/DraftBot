@@ -7,7 +7,7 @@ import {
 import {EmbedField} from "discord.js";
 import {ItemNature} from "../../../Lib/src/constants/ItemConstants";
 import {minutesDisplay} from "../../../Lib/src/utils/TimeUtils";
-import {MaxStatsValues} from "../../../Lib/src/types/MaxStatsValues";
+import {StatValues} from "../../../Lib/src/types/StatValues";
 import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
 import {EmoteUtils} from "./EmoteUtils";
 
@@ -47,7 +47,7 @@ export class DiscordItemUtils {
 	 * @param maxStatsValue
 	 * @protected
 	 */
-	static getValues(attack: number, defense: number, speed: number, language: Language, maxStatsValue: MaxStatsValues | null = null): string {
+	static getValues(attack: number, defense: number, speed: number, language: Language, maxStatsValue: StatValues | null = null): string {
 		if (!maxStatsValue) {
 			maxStatsValue = {
 				attack: Infinity,

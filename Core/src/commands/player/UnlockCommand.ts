@@ -21,6 +21,12 @@ import {TravelTime} from "../../core/maps/TravelTime";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {Effect} from "../../../../Lib/src/enums/Effect";
 
+/**
+ * Accept the unlock of a player
+ * @param player
+ * @param freedPlayer
+ * @param response
+ */
 async function acceptUnlock(player: Player, freedPlayer: Player, response: DraftBotPacket[]): Promise<void> {
 	await player.reload();
 	// Do all necessary checks again just in case something changed during the menu
@@ -60,7 +66,7 @@ function unlockCannotBeDone(player: Player, freedPlayer: Player, response: Draft
 	}
 	if (player.money < UnlockConstants.PRICE_FOR_UNLOCK) {
 		response.push(makePacket(CommandUnlockNotEnoughMoney, {
-			money: player.money,
+			money: player.money
 		}));
 		return true;
 	}

@@ -1,6 +1,6 @@
 import {GenericItem} from "./GenericItem";
 import {MainItemDisplayPacket} from "../../../Lib/src/packets/commands/CommandInventoryPacket";
-import {MaxStatsValues} from "../../../Lib/src/types/MaxStatsValues";
+import {StatValues} from "../../../Lib/src/types/StatValues";
 import {InventoryConstants} from "../../../Lib/src/constants/InventoryConstants";
 
 export abstract class MainItem extends GenericItem {
@@ -26,7 +26,7 @@ export abstract class MainItem extends GenericItem {
 		return Math.round(before * 0.5) + (this.speed ?? 0);
 	}
 
-	public getDisplayPacket(maxStatsValue: MaxStatsValues): MainItemDisplayPacket {
+	public getDisplayPacket(maxStatsValue: StatValues): MainItemDisplayPacket {
 		return {
 			attack: {
 				value: this.getAttack(),

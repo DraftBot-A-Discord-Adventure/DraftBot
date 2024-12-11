@@ -3,7 +3,7 @@ import {ItemDataController} from "./DataController";
 import {SupportItem} from "./SupportItem";
 import {RandomUtils} from "../../../Lib/src/utils/RandomUtils";
 import {SupportItemDisplayPacket} from "../../../Lib/src/packets/commands/CommandInventoryPacket";
-import {MaxStatsValues} from "../../../Lib/src/types/MaxStatsValues";
+import {StatValues} from "../../../Lib/src/types/StatValues";
 
 export class ObjectItem extends SupportItem {
 	categoryName = "objects";
@@ -16,7 +16,7 @@ export class ObjectItem extends SupportItem {
 		return this.power;
 	}
 
-	public getDisplayPacket(maxStatsValue: MaxStatsValues): SupportItemDisplayPacket {
+	public getDisplayPacket(maxStatsValue: StatValues): SupportItemDisplayPacket {
 		let maxPower = this.power;
 		if (maxStatsValue.speed >= this.power / 2) {
 			maxPower = this.power;
