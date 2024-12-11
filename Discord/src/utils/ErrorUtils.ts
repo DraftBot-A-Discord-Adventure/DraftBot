@@ -8,6 +8,8 @@ import {escapeUsername} from "../../../Lib/src/utils/StringUtils";
 import {KeycloakUser} from "../../../Lib/src/keycloak/KeycloakUser";
 import {millisecondsToMinutes, minutesDisplay} from "../../../Lib/src/utils/TimeUtils";
 import {Effect} from "../../../Lib/src/enums/Effect";
+import {PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
+import {DiscordCache} from "../bot/DiscordCache";
 
 /**
  * Reply to an interaction with an ephemeral error PREFER {@link sendErrorMessage} for most cases
@@ -126,4 +128,27 @@ export function effectsErrorTextValue(user: KeycloakUser, lng: Language, self: b
 			time: minutesDisplay(millisecondsToMinutes(effectRemainingTime))
 		})
 	};
+}
+
+/**
+ * Handle classical errors
+ * @param context
+ * @param errorKey
+ */
+export async function handleClassicError(context: PacketContext, errorKey: string): Promise<void> {
+	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+	if (!interaction) {
+		return;
+	}
+	await (interaction.deferred ? interaction.editReply : interaction.reply)({
+		embeds: [
+			new DraftBotErrorEmbed(
+				interaction.user,
+				interaction,
+				i18n.t(errorKey, {
+					lng: interaction.userLanguage
+				})
+			)
+		]
+	});
 }

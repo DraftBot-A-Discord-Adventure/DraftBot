@@ -2,8 +2,11 @@ import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/pac
 import {Player, Players} from "../../core/database/game/models/Player";
 import {
 	CommandUnlockAcceptPacketRes,
+	CommandUnlockHimself,
+	CommandUnlockNoPlayerFound,
+	CommandUnlockNotEnoughMoney,
+	CommandUnlockNotInJail,
 	CommandUnlockPacketReq,
-	CommandUnlockPacketRes,
 	CommandUnlockRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandUnlockPacket";
 import {EndCallback, ReactionCollectorInstance} from "../../core/utils/ReactionsCollector";
@@ -51,14 +54,22 @@ async function acceptUnlock(player: Player, freedPlayer: Player, response: Draft
  * @param response The response to send
  */
 function unlockCannotBeDone(player: Player, freedPlayer: Player, response: DraftBotPacket[]): boolean {
-	if (freedPlayer === null || player.money < UnlockConstants.PRICE_FOR_UNLOCK || player.id === freedPlayer.id || freedPlayer.effectId !== Effect.JAILED.id) {
-		// There is a problem
-		response.push(makePacket(CommandUnlockPacketRes, {
-			foundPlayer: freedPlayer === null,
-			notInJail: freedPlayer?.effectId !== Effect.JAILED.id,
+	if (freedPlayer === null) {
+		response.push(makePacket(CommandUnlockNoPlayerFound, {}));
+		return true;
+	}
+	if (player.money < UnlockConstants.PRICE_FOR_UNLOCK) {
+		response.push(makePacket(CommandUnlockNotEnoughMoney, {
 			money: player.money,
-			himself: player.id === freedPlayer?.id
 		}));
+		return true;
+	}
+	if (player.id === freedPlayer.id) {
+		response.push(makePacket(CommandUnlockHimself, {}));
+		return true;
+	}
+	if (freedPlayer.effectId !== Effect.JAILED.id) {
+		response.push(makePacket(CommandUnlockNotInJail, {}));
 		return true;
 	}
 	return false;

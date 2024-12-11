@@ -8,8 +8,8 @@ import {DiscordCache} from "../../bot/DiscordCache";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {
 	CommandUnlockAcceptPacketRes,
+	CommandUnlockNotEnoughMoney,
 	CommandUnlockPacketReq,
-	CommandUnlockPacketRes,
 	CommandUnlockRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandUnlockPacket";
 import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
@@ -35,54 +35,24 @@ async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): 
 }
 
 /**
- * Handle the answer from the server after an unlock command request
- * This packet is only sent if the unlocking cannot be done for some reason
+ *
  * @param packet
  * @param context
  */
-export async function handleCommandUnlockPacketRes(packet: CommandUnlockPacketRes, context: PacketContext): Promise<void> {
+export async function handleCommandUnlockNotEnoughMoneyError(packet: CommandUnlockNotEnoughMoney, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 	if (!interaction) {
 		return;
 	}
-	if (!packet.foundPlayer) {
-		await sendErrorMessage(
-			interaction.user,
-			interaction,
-			i18n.t("error:playerDoesntExist", {lng: interaction.userLanguage}),
-			{sendManner: SendManner.REPLY}
-		);
-		return;
-	}
-	if (packet.notInJail) {
-		await sendErrorMessage(
-			interaction.user,
-			interaction,
-			i18n.t("commands:unlock.notInJail", {lng: interaction.userLanguage}),
-			{sendManner: SendManner.REPLY}
-		);
-		return;
-	}
-	if (packet.money < UnlockConstants.PRICE_FOR_UNLOCK) {
-		await sendErrorMessage(
-			interaction.user,
-			interaction,
-			i18n.t("error:notEnoughMoney", {
-				lng: interaction.userLanguage,
-				money: UnlockConstants.PRICE_FOR_UNLOCK - packet.money
-			}),
-			{sendManner: SendManner.REPLY}
-		);
-		return;
-	}
-	if (packet.himself) {
-		await sendErrorMessage(
-			interaction.user,
-			interaction,
-			i18n.t("commands:unlock.himself", {lng: interaction.userLanguage}),
-			{sendManner: SendManner.REPLY}
-		);
-	}
+	await sendErrorMessage(
+		interaction.user,
+		interaction,
+		i18n.t("error:notEnoughMoney", {
+			lng: interaction.userLanguage,
+			money: UnlockConstants.PRICE_FOR_UNLOCK - packet.money
+		}),
+		{sendManner: SendManner.REPLY}
+	);
 }
 
 /**

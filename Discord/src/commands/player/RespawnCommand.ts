@@ -2,7 +2,6 @@ import {ICommand} from "../ICommand";
 import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {
-	CommandRespawnErrorAlreadyAlive,
 	CommandRespawnPacketReq,
 	CommandRespawnPacketRes
 } from "../../../../Lib/src/packets/commands/CommandRespawnPacket";
@@ -37,18 +36,6 @@ export async function handleCommandRespawnPacketRes(packet: CommandRespawnPacket
 			pseudo: interaction.user.username,
 			count: packet.lostScore
 		})
-	});
-}
-
-/**
- * Handle the error when the player is already alive
- * @param packet
- * @param context
- */
-export async function handleCommandRespawnErrorAlreadyAlive(packet: CommandRespawnErrorAlreadyAlive, context: PacketContext): Promise<void> {
-	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
-	await interaction?.editReply({
-		content: i18n.t("commands:respawn.alreadyAlive", {lng: interaction.userLanguage})
 	});
 }
 

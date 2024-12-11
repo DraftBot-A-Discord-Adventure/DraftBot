@@ -8,15 +8,25 @@ export class CommandUnlockPacketReq extends DraftBotPacket {
 	};
 }
 
+@sendablePacket(PacketDirection.NONE)
+export class CommandUnlockErrorPacket extends DraftBotPacket {
+}
+
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
-export class CommandUnlockPacketRes extends DraftBotPacket {
-	foundPlayer!: boolean;
+export class CommandUnlockNoPlayerFound extends CommandUnlockErrorPacket {
+}
 
-	notInJail!: boolean;
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class CommandUnlockNotInJail extends CommandUnlockErrorPacket {
+}
 
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class CommandUnlockNotEnoughMoney extends CommandUnlockErrorPacket {
 	money!: number;
+}
 
-	himself!: boolean;
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class CommandUnlockHimself extends CommandUnlockErrorPacket {
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)

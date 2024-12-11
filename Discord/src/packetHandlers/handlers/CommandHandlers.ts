@@ -15,10 +15,7 @@ import {CommandRarityPacketRes} from "../../../../Lib/src/packets/commands/Comma
 import {handleCommandRarityPacketRes} from "../../commands/player/RarityCommand";
 import {handleCommandTestPacketRes} from "../../commands/admin/TestCommand";
 import {handleCommandGuildPacketRes} from "../../commands/guild/GuildCommand";
-import {
-	handleCommandRespawnErrorAlreadyAlive,
-	handleCommandRespawnPacketRes
-} from "../../commands/player/RespawnCommand";
+import {handleCommandRespawnPacketRes} from "../../commands/player/RespawnCommand";
 import {CommandGuildPacketRes} from "../../../../Lib/src/packets/commands/CommandGuildPacket";
 import {
 	handleCommandGuildCreateAcceptPacketRes,
@@ -128,7 +125,6 @@ import {
 } from "../../../../Lib/src/packets/commands/CommandGuildDailyPacket";
 import {
 	handleCommandGuildDailyCooldownErrorPacket,
-	handleCommandGuildDailyPveIslandErrorPacket,
 	handleCommandGuildDailyRewardPacket
 } from "../../commands/guild/GuildDailyCommand";
 import {
@@ -148,21 +144,21 @@ import {
 	CommandDailyBonusObjectIsActiveDuringFights,
 	CommandDailyBonusPacketRes
 } from "../../../../Lib/src/packets/commands/CommandDailyBonusPacket";
-import {
-	handleDailyBonusClassicError,
-	handleDailyBonusCooldownError,
-	handleDailyBonusRes
-} from "../../commands/player/DailyBonusCommand";
+import {handleDailyBonusCooldownError, handleDailyBonusRes} from "../../commands/player/DailyBonusCommand";
 import {
 	CommandUnlockAcceptPacketRes,
-	CommandUnlockPacketRes,
+	CommandUnlockHimself,
+	CommandUnlockNoPlayerFound,
+	CommandUnlockNotEnoughMoney,
+	CommandUnlockNotInJail,
 	CommandUnlockRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandUnlockPacket";
 import {
 	handleCommandUnlockAcceptPacketRes,
-	handleCommandUnlockPacketRes,
+	handleCommandUnlockNotEnoughMoneyError,
 	handleCommandUnlockRefusePacketRes
 } from "../../commands/player/UnlockCommand";
+import {handleClassicError} from "../../utils/ErrorUtils";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
@@ -346,8 +342,8 @@ export default class CommandHandlers {
 	}
 
 	@packetHandler(CommandRespawnErrorAlreadyAlive)
-	async respawnErrorAlreadyAlive(packet: CommandRespawnErrorAlreadyAlive, context: PacketContext): Promise<void> {
-		await handleCommandRespawnErrorAlreadyAlive(packet, context);
+	async respawnErrorAlreadyAlive(_packet: CommandRespawnErrorAlreadyAlive, context: PacketContext): Promise<void> {
+		await handleClassicError(context, "commands:respawn.alreadyAlive");
 	}
 
 	@packetHandler(CommandShopClosed)
@@ -447,7 +443,7 @@ export default class CommandHandlers {
 
 	@packetHandler(CommandGuildDailyPveIslandErrorPacket)
 	async guildDailyPveIslandError(packet: CommandGuildDailyPveIslandErrorPacket, context: PacketContext): Promise<void> {
-		await handleCommandGuildDailyPveIslandErrorPacket(packet, context);
+		await handleClassicError(context, "commands:guildDaily.pveIslandError");
 	}
 
 	@packetHandler(CommandDailyBonusPacketRes)
@@ -457,17 +453,17 @@ export default class CommandHandlers {
 
 	@packetHandler(CommandDailyBonusObjectDoNothing)
 	async dailyBonusObjectDoNothing(_packet: CommandDailyBonusObjectDoNothing, context: PacketContext): Promise<void> {
-		await handleDailyBonusClassicError(context, "commands:daily.errors.objectDoNothingError");
+		await handleClassicError(context, "commands:daily.errors.objectDoNothingError");
 	}
 
 	@packetHandler(CommandDailyBonusObjectIsActiveDuringFights)
 	async dailyBonusObjectIsActiveDuringFights(_packet: CommandDailyBonusObjectIsActiveDuringFights, context: PacketContext): Promise<void> {
-		await handleDailyBonusClassicError(context, "commands:daily.errors.objectIsActiveDuringFights");
+		await handleClassicError(context, "commands:daily.errors.objectIsActiveDuringFights");
 	}
 
 	@packetHandler(CommandDailyBonusNoActiveObject)
 	async dailyBonusNoActiveObject(_packet: CommandDailyBonusNoActiveObject, context: PacketContext): Promise<void> {
-		await handleDailyBonusClassicError(context, "commands:daily.errors.noActiveObject");
+		await handleClassicError(context, "commands:daily.errors.noActiveObject");
 	}
 
 	@packetHandler(CommandDailyBonusInCooldown)
@@ -475,9 +471,24 @@ export default class CommandHandlers {
 		await handleDailyBonusCooldownError(context, packet.lastDailyTimestamp, packet.timeBetweenDailies);
 	}
 
-	@packetHandler(CommandUnlockPacketRes)
-	async unlockRes(packet: CommandUnlockPacketRes, context: PacketContext): Promise<void> {
-		await handleCommandUnlockPacketRes(packet, context);
+	@packetHandler(CommandUnlockHimself)
+	async unlockHimself(_packet: CommandUnlockHimself, context: PacketContext): Promise<void> {
+		await handleClassicError(context, "commands:unlock.himself");
+	}
+
+	@packetHandler(CommandUnlockNotInJail)
+	async unlockNotInJail(_packet: CommandUnlockNotInJail, context: PacketContext): Promise<void> {
+		await handleClassicError(context, "commands:unlock.notInJail");
+	}
+
+	@packetHandler(CommandUnlockNoPlayerFound)
+	async unlockNoPlayerFound(_packet: CommandUnlockNoPlayerFound, context: PacketContext): Promise<void> {
+		await handleClassicError(context, "error:playerDoesntExist");
+	}
+
+	@packetHandler(CommandUnlockNotEnoughMoney)
+	async unlockNotEnoughMoney(packet: CommandUnlockNotEnoughMoney, context: PacketContext): Promise<void> {
+		await handleCommandUnlockNotEnoughMoneyError(packet, context);
 	}
 
 	@packetHandler(CommandUnlockRefusePacketRes)
