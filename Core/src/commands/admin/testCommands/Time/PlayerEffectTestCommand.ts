@@ -27,6 +27,13 @@ const playerEffectTestCommand: ExecuteTestCommandLike = async (player, args) => 
 	if (!effect) {
 		throw new Error("Effet inconnu !");
 	}
+	if ([Effect.NOT_STARTED, Effect.NO_EFFECT, Effect.DEAD, Effect.OCCUPIED].includes(effect)) {
+		throw new Error("Cet effet ne peut pas être appliqué !");
+	}
+	if (player.effectId === Effect.NOT_STARTED.id) {
+		// Prevent the non initialized player to mess with the game's travel logic
+		throw new Error("Vous n'avez pas encore démarré l'aventure, laisse toi le temps de commencer (`/test command:init`) !");
+	}
 	await TravelTime.applyEffect(player, effect, 0, new Date(), NumberChangeReason.TEST);
 	await player.save();
 	return `Vous avez maintenant l'effet ${effect.id} !`;
