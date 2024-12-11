@@ -2,7 +2,6 @@ import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPac
 import {
 	CommandGuildDailyCooldownErrorPacket,
 	CommandGuildDailyPacketReq,
-	CommandGuildDailyPveIslandErrorPacket,
 	CommandGuildDailyRewardPacket
 } from "../../../../Lib/src/packets/commands/CommandGuildDailyPacket";
 import {ICommand} from "../ICommand";
@@ -91,19 +90,6 @@ export async function handleCommandGuildDailyCooldownErrorPacket(packet: Command
 						interpolation: {escapeValue: false}
 					}
 				)
-			)
-		]
-	});
-}
-
-export async function handleCommandGuildDailyPveIslandErrorPacket(packet: CommandGuildDailyPveIslandErrorPacket, context: PacketContext): Promise<void> {
-	const interaction = DiscordCache.getInteraction(context.discord!.interaction!)!;
-	await interaction.reply({
-		embeds: [
-			new DraftBotErrorEmbed(
-				interaction.user,
-				interaction,
-				i18n.t("commands:guildDaily.pveIslandError", {lng: context.discord!.language})
 			)
 		]
 	});

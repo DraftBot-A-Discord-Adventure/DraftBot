@@ -23,26 +23,6 @@ async function getPacket(interaction: DraftbotInteraction): Promise<CommandDaily
 }
 
 /**
- * Handle classical daily bonus errors
- * @param context
- * @param errorKey
- */
-export async function handleDailyBonusClassicError(context: PacketContext, errorKey: string): Promise<void> {
-	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
-	await interaction?.editReply({
-		embeds: [
-			new DraftBotErrorEmbed(
-				interaction.user,
-				interaction,
-				i18n.t(errorKey, {
-					lng: interaction.userLanguage
-				})
-			)
-		]
-	});
-}
-
-/**
  * Handle daily bonus cooldown error
  * @param context
  * @param lastDailyTimestamp
