@@ -71,7 +71,7 @@ export function discordIdToMention(id: string): string {
 }
 
 /**
- * Check if the given variable is a Discord Mention
+ * Check if the given variable is a Keycloak id
  * @param {String} variable
  * @return {boolean}
  */

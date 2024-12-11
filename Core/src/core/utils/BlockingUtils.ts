@@ -65,9 +65,9 @@ export class BlockingUtils {
 	 * Gets why this player is blocked (empty list means it isn't blocked)
 	 * @param playerId
 	 */
-	static getPlayerBlockingReason(playerId: number): string[] {
+	static getPlayerBlockingReason(playerId: number): BlockingReason[] {
 		const blockedPlayer = BlockingUtils.blockedPlayers.get(playerId);
-		const response = [];
+		const response: BlockingReason[] = [];
 		if (blockedPlayer) {
 			for (const block of blockedPlayer) {
 				if (block.limitTimestamp !== 0 && block.limitTimestamp < Date.now()) {
