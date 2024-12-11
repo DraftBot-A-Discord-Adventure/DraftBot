@@ -424,7 +424,7 @@
     "destinationTitle": "{{pseudo}}, destination du voyage",
     "doChoice": "{{emoji}} {{choiceText}}\n",
     "doEvent": ":newspaper: **Journal de {{pseudo}} :** {{event}}\n*- Utilisez les réactions pour effectuer une action ⚠️ Ne pas répondre est considéré comme un choix à part.*",
-    "doPossibility": ":newspaper: **Journal de {{pseudo}} {{result}}** | {{emoji}}{{event}} {{alte}}",
+    "doPossibility": ":newspaper: **Journal de {{pseudo}} {{result}}** | {{emoji}} {{event}} {{alte}}",
     "encounterMonster": [
       "Vous arrivez à votre destination quand soudain, vous entendez un bruit derrière vous... Un monstre vous attaque !"
     ],
