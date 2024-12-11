@@ -196,7 +196,7 @@
         "description": "Altera a alcunha do seu animal de estimação. Se não for fornecido um nome, o nome atual será eliminado."
       },
       "PET_SELL": {
-        "description": "Permite-lhe vender um animal de estimação. Aplicam-se as seguintes condições: \n{{petSellMinPrice}}{{petSellMaxPrice}}- o preço de venda deve ser maior que ` 💰` e menor que ` 💰`. \n- O vendedor não ganhará dinheiro com a transação, apenas experiência de guilda. \n- O vendedor e o comprador não podem ser membros da mesma guilda."
+        "description": "Permite-lhe vender um animal de estimação. Aplicam-se as seguintes condições: \n{{petSellMinPrice}}{{petSellMaxPrice}}- o preço de venda deve ser maior que ` {emote:unitValues.money}` e menor que ` {emote:unitValues.money}`. \n- O vendedor não ganhará dinheiro com a transação, apenas experiência de guilda. \n- O vendedor e o comprador não podem ser membros da mesma guilda."
       },
       "PET_TRADE": {
         "description": "Proponha uma troca dos seus animais com a pessoa mencionada."
@@ -211,7 +211,7 @@
         "description": "Esta caraterística foi removida do jogo na sequência de uma atualização da funcionalidade do Discord."
       },
       "PROFILE": {
-        "description": "\n\n\n\n\n\n\nMostra informações sobre o seu personagem: 😃 Estado de saúde | Apelido | Nível ឵឵Informações: ❤️ Vida | ⭐ XP | 💰 Dinheiro Estatísticas :\n\n\n⚡ Energia | 🗡️ Ataque | 🛡️ Defesa | 🚀 Velocidade | 🌬️ Respiração | 🫁 Recuperação Missões :\n\n\n\n\n\n\n {command:classes}\n\n\n {{topGloryCommandMention}}\n\n\n\n\n\n {{mapCommandMention}}\n\n\n {{petCommandMention}}\n\n💎 Gemas | 📖 Campanha avançada % Classificação e pontuação: 🏆 Classificação | 🏅 Pontuação Classe: Ver Glória e Liga: ✨ Glória | Ver Grémio: 🏟️ Destino do Grémio: Ver Familiar: Ver 💡-Os emblemas são apresentados no teu perfil como uma reação."
+        "description": "\n\n\n\n\n\n\nMostra informações sobre o seu personagem: 😃 Estado de saúde | Apelido | Nível ឵឵Informações: ❤️ Vida | ⭐ XP | {emote:unitValues.money} Dinheiro Estatísticas :\n\n\n⚡ Energia | 🗡️ Ataque | 🛡️ Defesa | 🚀 Velocidade | 🌬️ Respiração | 🫁 Recuperação Missões :\n\n\n\n\n\n\n {command:classes}\n\n\n {{topGloryCommandMention}}\n\n\n\n\n\n {{mapCommandMention}}\n\n\n {{petCommandMention}}\n\n💎 Gemas | 📖 Campanha avançada % Classificação e pontuação: 🏆 Classificação | 🏅 Pontuação Classe: Ver Glória e Liga: ✨ Glória | Ver Grémio: 🏟️ Destino do Grémio: Ver Familiar: Ver 💡-Os emblemas são apresentados no teu perfil como uma reação."
       },
       "RARITY": {
         "description": "Mostra a probabilidade de ter um item de acordo com a sua raridade."
@@ -394,8 +394,11 @@
     },
     "ranking": {
       "fieldName": "Classificação e pontuação :",
-      "fieldValue": ":trophy: {{rank}}{{numberOfPlayer}} :medal: {{score}}/ |",
-      "fieldValueUnranked": ":trophy: :medal: {{score}}Sem categoria"
+      "fieldValue": ":trophy: {{rank}}{{numberOfPlayer}} :medal: {{score}}/ |"
+    },
+    "unranked": {
+      "fieldName": "Classificação e pontuação :",
+      "fieldValue": "{emote:announcements.trophy} {emote:unitValues.score} {{score}}Sem categoria"
     },
     "statistics": {
       "fieldName": "Estatísticas :",
@@ -511,15 +514,15 @@
     "fullRegen": "Foi completamente tratado.",
     "alreadyHaveBadge": "Já tem este distintivo.",
     "badgeBought": "{emote:badges.richPerson} Recebeu um novo distintivo: .",
-    "notEnoughMoney": "Não tens dinheiro suficiente para comprar este artigo!{{missingMoney}} Está a faltar ` 💰`.",
+    "notEnoughMoney": "Não tens dinheiro suficiente para comprar este artigo!{{missingMoney}} Está a faltar ` {emote:unitValues.money}`.",
     "boughtTooMuchDailyPotions": "Não há mais poções do dia disponíveis para venda... Volta amanhã!",
     "title": "Ecrã da loja",
-    "currentMoney": "{{money}}Tem ` 💰`.",
-    "shopItemsDisplaySingle": "{{name}}{{price}}| 💰`",
-    "shopItemsDisplayMultiple": "{{amount}} {{name}}{{price}}** x** | ` 💰`",
+    "currentMoney": "{{money}}Tem ` {emote:unitValues.money}`.",
+    "shopItemsDisplaySingle": "{{name}}{{price}}| {emote:unitValues.money}`",
+    "shopItemsDisplayMultiple": "{{amount}} {{name}}{{price}}** x** | ` {emote:unitValues.money}`",
     "shopSelectPlaceholder": "Selecionar um artigo para comprar",
     "buyCategorySlotSuccess": "Comprou uma nova ranhura de inventário!",
-    "shopItemsSelectDescription": "{{price}}💰",
+    "shopItemsSelectDescription": "{{price}}{emote:unitValues.money}",
     "closeShopButton": "Fechar a loja",
     "shopConfirmationTitle": "{{pseudo}}selecionou o seguinte produto:",
     "shopConfirmationTitleMultiple": "{{pseudo}}Selecionar uma quantidade para este produto:",
@@ -701,5 +704,14 @@
       "money": "Dinheiro ganho :",
       "time": "Avançou por"
     }
+  },
+  "unlock": {
+    "himself": "Se não se conseguir libertar sozinho, peça a um amigo que o faça por si.",
+    "notInJail": "Este jogador não está na prisão.",
+    "title": "{{pseudo}}Libertação de",
+    "confirmDesc": "{{pseudo}}{{price}} {emote:unitValues.money}Tem a certeza de que pretende libertar ** ** para ** **?",
+    "canceledTitle": "Lançamento cancelado",
+    "canceledDesc": "O lançamento foi cancelado.",
+    "acceptedDesc": "{{pseudo}}Libertaste ** ** !"
   }
 }
