@@ -232,5 +232,19 @@
   "daily": {
     "description": "Benutzen Sie Ihren ausgerüsteten Gegenstand, um einen täglichen Bonus zu erhalten.",
     "name": "Bonustag"
+  },
+  "unlock": {
+    "description": "Befreie einen anderen Spieler aus dem Gefängnis.",
+    "name": "liefern",
+    "options": {
+      "rank": {
+        "description": "Die Einstufung des auszustellenden Spielers.",
+        "name": "Rangliste"
+      },
+      "user": {
+        "description": "Der zu liefernde Nutzer.",
+        "name": "Benutzer"
+      }
+    }
   }
 }
