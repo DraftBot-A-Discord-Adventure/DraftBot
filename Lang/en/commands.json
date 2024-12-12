@@ -77,7 +77,7 @@
   "guildKick": {
     "title": "Kick Guild",
     "confirmDesc": "{emote:collectors.question} Are you sure you want to kick {{kickedPseudo}} from the guild `{{guildName}}`?",
-    "acceptedDesc": "{{kickedPseudo}} a bien été expulsé de la guilde !",
+    "acceptedDesc": "{{kickedPseudo}} has been expelled from the guild!",
     "canceledTitle": "Kick canceled",
     "canceledDesc": "{{kickedPseudo}} was not kicked from the guild!",
     "noPlayer": "Player is not in guild.",
