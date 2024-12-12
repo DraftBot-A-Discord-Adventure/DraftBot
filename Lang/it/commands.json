@@ -394,8 +394,11 @@
     },
     "ranking": {
       "fieldName": "Classifica e punti :",
-      "fieldValue": ":trophy: {{rank}}/{{numberOfPlayer}} | :medal: {{score}}",
-      "fieldValueUnranked": ":trophy: Non estimato | :medal: {{score}}"
+      "fieldValue": ":trophy: {{rank}}/{{numberOfPlayer}} | :medal: {{score}}"
+    },
+    "unranked": {
+      "fieldName": "Classifica e punti :",
+      "fieldValue": "{emote:announcements.trophy} Non estimato | {emote:unitValues.score} {{score}}"
     },
     "statistics": {
       "fieldName": "Statistiche :",
@@ -701,5 +704,14 @@
       "money": "Soldi guadagnati :",
       "time": "Siete avanzati di"
     }
+  },
+  "unlock": {
+    "himself": "Se non riuscite a liberarvi da soli, chiedete a un amico di farlo per voi.",
+    "notInJail": "Questo giocatore non è in prigione.",
+    "title": "{{pseudo}}Liberazione di",
+    "confirmDesc": "{{pseudo}}{{price}} {emote:unitValues.money}Sei sicuro di voler rilasciare ** ** per ** **?",
+    "canceledTitle": "Rilascio annullato",
+    "canceledDesc": "L'uscita è stata annullata.",
+    "acceptedDesc": "{{pseudo}}Avete liberato ** ** !"
   }
 }
