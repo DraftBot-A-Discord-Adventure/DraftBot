@@ -1518,7 +1518,7 @@
       "Pendant votre voyage, une marchande vous interpelle. Elle dit s'appeler {{name}} et avoir des objets pouvant vous aider pendant votre aventure.",
       "Tandis que vous avancez tranquillement sur votre route, vous croisez une charrette dans laquelle se trouve une marchande du nom de {{name}}. Celle-ci vous propose de lui acheter l'un de ses objets, vous affirmant qu'il pourrait vous être utile dans votre aventure."
     ],
-    "end": "\n\n{{item}} | `{{price}}\uD83D\uDCB0`\n\n**Type :** {{type}}",
+    "end": ["\n\n{{item}} | `{{price}}\uD83D\uDCB0`\n\n**Type :** {{type}}"],
     "types": [
       "Arme",
       "Armure/Bouclier",

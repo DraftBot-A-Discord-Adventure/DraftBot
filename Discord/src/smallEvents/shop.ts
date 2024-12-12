@@ -10,8 +10,10 @@ import {KeycloakUtils} from "../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../bot/DraftBotShard";
 import {SmallEventShopPacket} from "../../../Lib/src/packets/smallEvents/SmallEventShopPacket";
 import {DisplayUtils} from "../utils/DisplayUtils";
+	import {Constants} from "../../../Lib/src/constants/Constants";
+import i18n from "../translations/i18n";
 
-export async function shopCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+export async function smallShopCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorMerchantData;
 	const gender = RandomUtils.draftbotRandom.bool() ? "m" : "f";
@@ -23,7 +25,7 @@ export async function shopCollector(packet: ReactionCollectorCreationPacket, con
 		+ StringUtils.getRandomTranslation("smallEvents:shop.end", interaction.userLanguage, {
 			item: DisplayUtils.getItemDisplayWithStats(data.item,interaction.userLanguage),
 			price: data.price,
-			type: data.item.category
+			type: `${Constants.REACTIONS.ITEM_CATEGORIES[data.item.category]}` + i18n.t("smallEvents:shop.types", {returnObjects: true, lng: interaction.userLanguage})[data.item.category]
 		}),
 		interaction.user,
 		interaction.userLanguage
