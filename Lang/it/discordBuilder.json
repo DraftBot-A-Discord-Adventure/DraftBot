@@ -232,5 +232,19 @@
   "daily": {
     "description": "Usa l'oggetto equipaggiato per ottenere un bonus giornaliero.",
     "name": "bonus giornaliero"
+  },
+  "unlock": {
+    "description": "Liberare un altro giocatore dalla prigione.",
+    "name": "consegnare",
+    "options": {
+      "rank": {
+        "description": "La classifica del giocatore da emettere.",
+        "name": "classifica"
+      },
+      "user": {
+        "description": "L'utente da consegnare.",
+        "name": "utilizzatore"
+      }
+    }
   }
 }
