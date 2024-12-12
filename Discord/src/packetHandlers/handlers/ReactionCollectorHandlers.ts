@@ -26,10 +26,7 @@ import {shopCollector, shopInventoryExtensionCollector} from "../../commands/pla
 import {ReactionCollectorBuyCategorySlotData} from "../../../../Lib/src/packets/interaction/ReactionCollectorBuyCategorySlot";
 import {ReactionCollectorCartData} from "../../../../Lib/src/packets/interaction/ReactionCollectorCart";
 import {cartCollector} from "../../smallEvents/cart";
-import {
-	ReactionCollectorMerchant,
-	ReactionCollectorMerchantData
-} from "../../../../Lib/src/packets/interaction/ReactionCollectorMerchant";
+import {ReactionCollectorMerchantData} from "../../../../Lib/src/packets/interaction/ReactionCollectorMerchant";
 import {ReactionCollectorFightPetData} from "../../../../Lib/src/packets/interaction/ReactionCollectorFightPet";
 import {fightPetCollector} from "../../smallEvents/fightPet";
 import {PacketListenerCallbackClient} from "../../../../Lib/src/packets/PacketListener";
@@ -39,6 +36,7 @@ import {ReactionCollectorGobletsGameData} from "../../../../Lib/src/packets/inte
 import {gobletsGameCollector} from "../../smallEvents/gobletsGame";
 import {createUnlockCollector} from "../../commands/player/UnlockCommand";
 import {ReactionCollectorUnlockData} from "../../../../Lib/src/packets/interaction/ReactionCollectorUnlock";
+import {smallShopCollector} from "../../smallEvents/shop";
 
 export default class ReactionCollectorHandler {
 
@@ -64,6 +62,7 @@ export default class ReactionCollectorHandler {
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorGuildInviteData.name, createGuildInviteCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorGobletsGameData.name, gobletsGameCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorUnlockData.name, createUnlockCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorMerchantData.name, smallShopCollector);
 	}
 
 	@packetHandler(ReactionCollectorCreationPacket)
@@ -109,16 +108,17 @@ export default class ReactionCollectorHandler {
 			await cartCollector(packet, context);
 			break;
 		case ReactionCollectorMerchantData.name:
-			await shopCollector(packet, context);
+			await smallShopCollector(packet, context);
 			break;
 		default:
-		if (!ReactionCollectorHandler.collectorMap) {
-			ReactionCollectorHandler.initCollectorMap();
+			if (!ReactionCollectorHandler.collectorMap) {
+				ReactionCollectorHandler.initCollectorMap();
+			}
+			const collector = ReactionCollectorHandler.collectorMap.get(packet.data.type);
+			if (!collector) {
+				throw `Unknown collector with data: ${packet.data.type}`; // Todo error embed
+			}
+			await collector(packet, context);
 		}
-		const collector = ReactionCollectorHandler.collectorMap.get(packet.data.type);
-		if (!collector) {
-			throw `Unknown collector with data: ${packet.data.type}`; // Todo error embed
-		}
-		await collector(packet, context);
 	}
 }
