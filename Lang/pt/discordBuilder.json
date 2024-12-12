@@ -232,5 +232,19 @@
   "daily": {
     "description": "Utilize o seu item equipado para obter um bónus diário.",
     "name": "bónus diário"
+  },
+  "unlock": {
+    "description": "Libertar outro jogador da prisão.",
+    "name": "entregar",
+    "options": {
+      "rank": {
+        "description": "A classificação do jogador a ser emitida.",
+        "name": "classificação"
+      },
+      "user": {
+        "description": "O utilizador a ser entregue.",
+        "name": "utilizador"
+      }
+    }
   }
 }
