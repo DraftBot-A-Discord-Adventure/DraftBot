@@ -11,7 +11,8 @@ import {InventorySlots} from "../../database/game/models/InventorySlot";
 import {SmallEventConstants} from "../../../../../Lib/src/constants/SmallEventConstants";
 import {NumberChangeReason} from "../../../../../Lib/src/constants/LogsConstants";
 import {DraftBotPacket} from "../../../../../Lib/src/packets/DraftBotPacket";
-import {ReactionCollectorMerchant, ReactionCollectorMerchantAcceptReaction} from "../../../../../Lib/src/packets/interaction/ReactionCollectorMerchant";
+import {ReactionCollectorMerchant} from "../../../../../Lib/src/packets/interaction/ReactionCollectorMerchant";
+import {ReactionCollectorAcceptReaction} from "../../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 
 export abstract class Shop<T extends SmallEventAnyShopPacket> {
 	canBeExecuted = Maps.isOnContinent;
@@ -56,8 +57,8 @@ export abstract class Shop<T extends SmallEventAnyShopPacket> {
 		return async (collector: ReactionCollectorInstance, response: DraftBotPacket[]) => {
 			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.MERCHANT);
 			const packet = this.getSmallEventPacket();
-			const reaction = collector.getFirstReaction().reaction;
-			packet.isValidated = reaction && reaction instanceof ReactionCollectorMerchantAcceptReaction;
+			const reaction = collector.getFirstReaction();
+			packet.isValidated = reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name;
 			packet.canBuy = player.money >= this.itemPrice;
 			response.push(packet);
 			if (!packet.isValidated || !packet.canBuy) {

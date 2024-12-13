@@ -1553,6 +1553,17 @@
       "Emirel",
       "Fressah",
       "Ullure"
+    ],
+    "purchased": [
+      "Satisfait de votre achat, vous reprenez votre route tranquillement.",
+      "Vous lui tendez une bourse afin de procéder à l'achat, une fois le bien acquis vous continuez votre chemin."
+    ],
+    "notEnoughMoney": [
+      "Vous n'avez malheureusement pas assez d'argent, vous reprenez donc votre route.",
+      "Vous tendez une bourse vide en espérant que cela passe sans emcombre mais vous vous faites vite chasser, vous reprenez votre chemin triste et déçu."
+    ],
+    "refused": [
+      "Vous déclinez gentiment l'offre et reprenez votre chemin."
     ]
   }
 }

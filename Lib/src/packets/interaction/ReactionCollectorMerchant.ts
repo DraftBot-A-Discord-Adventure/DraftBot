@@ -1,8 +1,8 @@
 import {
-	ReactionCollector,
+	ReactionCollector, ReactionCollectorAcceptReaction,
 	ReactionCollectorCreationPacket,
 	ReactionCollectorData,
-	ReactionCollectorReaction
+	ReactionCollectorReaction, ReactionCollectorRefuseReaction
 } from "./ReactionCollectorPacket";
 import {ItemWithDetails} from "../../interfaces/ItemWithDetails";
 
@@ -33,8 +33,8 @@ export class ReactionCollectorMerchant extends ReactionCollector {
 			id,
 			endTime,
 			reactions: [
-				this.buildReaction(ReactionCollectorMerchantAcceptReaction, {}),
-				this.buildReaction(ReactionCollectorMerchantRefuseReaction, {})
+				this.buildReaction(ReactionCollectorAcceptReaction, {}),
+				this.buildReaction(ReactionCollectorRefuseReaction, {})
 			],
 			data: this.buildData(ReactionCollectorMerchantData, this.data)
 		};
