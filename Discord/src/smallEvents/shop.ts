@@ -16,6 +16,11 @@ import {KeycloakUser} from "../../../Lib/src/keycloak/KeycloakUser";
 import {ButtonInteraction} from "discord.js";
 import {SmallEventConstants} from "../../../Lib/src/constants/SmallEventConstants";
 
+/**
+ * Send the initial embed for this small event
+ * @param packet
+ * @param context
+ */
 export async function smallShopCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorMerchantData;
@@ -41,6 +46,12 @@ export async function smallShopCollector(packet: ReactionCollectorCreationPacket
 	await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
 }
 
+/**
+ * Handle when the user accepts
+ * @param user
+ * @param interaction
+ * @param packet
+ */
 export async function handleAcceptReaction(user: KeycloakUser, interaction: ButtonInteraction | null, packet: SmallEventShopPacket): Promise<void> {
 	if (interaction) {
 		if (!packet.canBuy) {
@@ -70,6 +81,11 @@ export async function handleAcceptReaction(user: KeycloakUser, interaction: Butt
 	}
 }
 
+/**
+ * Handle when the user refuses
+ * @param user
+ * @param interaction
+ */
 export async function handleRefuseReaction(user: KeycloakUser, interaction: ButtonInteraction | null): Promise<void> {
 	if (interaction) {
 		await interaction.editReply({
@@ -85,6 +101,11 @@ export async function handleRefuseReaction(user: KeycloakUser, interaction: Butt
 	}
 }
 
+/**
+ * Send the final embed of this small event
+ * @param packet
+ * @param context
+ */
 export async function smallShopResult(packet: SmallEventShopPacket, context: PacketContext): Promise<void> {
 	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 	const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
