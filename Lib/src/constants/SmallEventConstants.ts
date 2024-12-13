@@ -17,7 +17,9 @@ export abstract class SmallEventConstants {
 		SCAM_PROBABILITY: 0.1,
 		BASE_MULTIPLIER: 0.6,
 		SCAM_MULTIPLIER: 5,
-		RESALE_MULTIPLIER: 0.1
+		RESALE_MULTIPLIER: 0.1,
+		MALE_MERCHANT: "m",
+		FEMALE_MERCHANT: "f"
 	};
 
 	static readonly GUILD_EXPERIENCE = {

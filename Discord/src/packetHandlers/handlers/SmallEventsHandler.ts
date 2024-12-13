@@ -69,6 +69,7 @@ import {cartResult} from "../../smallEvents/cart";
 import {SmallEventFindMissionPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFindMissionPacket";
 import {MissionUtils} from "../../utils/MissionUtils";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
+import {smallShopResult} from "../../smallEvents/shop";
 
 
 export function getRandomSmallEventIntro(language: Language): string {
@@ -809,7 +810,7 @@ export default class SmallEventsHandler {
 
 	@packetHandler(SmallEventShopPacket)
 	async smallEventShop(packet: SmallEventShopPacket, context: PacketContext): Promise<void> {
-		// Todo
+		await smallShopResult(packet, context);
 	}
 
 	@packetHandler(SmallEventFindMissionPacket)
