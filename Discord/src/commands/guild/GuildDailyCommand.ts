@@ -14,7 +14,7 @@ import {DiscordCache} from "../../bot/DiscordCache";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {DraftBotErrorEmbed} from "../../messages/DraftBotErrorEmbed";
 import {finishInTimeDisplay} from "../../../../Lib/src/utils/TimeUtils";
-import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
+import {StringConstants} from "../../../../Lib/src/constants/StringConstants";
 
 function getPacket(): CommandGuildDailyPacketReq {
 	return makePacket(CommandGuildDailyPacketReq, {});
@@ -50,7 +50,7 @@ export function getCommandGuildDailyRewardPacketString(packet: CommandGuildDaily
 	if (packet.pet) {
 		desc += `${i18n.t("commands:guildDaily.rewards.pet", {
 			lng,
-			context: packet.pet.isFemale ? PetConstants.SEX.FEMALE_FULL : PetConstants.SEX.MALE_FULL,
+			context: packet.pet.isFemale ? StringConstants.SEX.FEMALE.long : StringConstants.SEX.MALE.long,
 			pet: DisplayUtils.getPetDisplay(packet.pet.typeId, packet.pet.isFemale, lng),
 			petId: packet.pet.typeId,
 			interpolation: {escapeValue: false}

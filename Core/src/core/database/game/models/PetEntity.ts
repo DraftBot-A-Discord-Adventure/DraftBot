@@ -9,6 +9,7 @@ import {Pet, PetDataController} from "../../../../data/Pet";
 import {draftBotInstance} from "../../../../index";
 import {DraftBotPacket} from "../../../../../../Lib/src/packets/DraftBotPacket";
 import {PlayerReceivePetPacket} from "../../../../../../Lib/src/packets/events/PlayerReceivePetPacket";
+import {StringConstants} from "../../../../../../Lib/src/constants/StringConstants";
 import moment = require("moment");
 
 export class PetEntity extends Model {
@@ -122,11 +123,11 @@ export class PetEntity extends Model {
 	}
 
 	public isFemale(): boolean {
-		return this.sex === PetConstants.SEX.FEMALE;
+		return this.sex === StringConstants.SEX.FEMALE.short;
 	}
 
 	public isMale(): boolean {
-		return this.sex === PetConstants.SEX.MALE;
+		return this.sex === StringConstants.SEX.MALE.short;
 	}
 }
 

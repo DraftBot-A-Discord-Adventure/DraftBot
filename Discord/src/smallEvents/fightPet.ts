@@ -11,8 +11,8 @@ import {
 	ReactionCollectorFightPetReaction
 } from "../../../Lib/src/packets/interaction/ReactionCollectorFightPet";
 import {DraftbotInteraction} from "../messages/DraftbotInteraction";
-import {PetConstants} from "../../../Lib/src/constants/PetConstants";
 import {DraftbotButtonReaction, DraftbotButtonReactionMessage} from "../messages/DraftbotButtonReactionMessage";
+import {StringConstants} from "../../../Lib/src/constants/StringConstants";
 
 function getFightPetReactions(interaction: DraftbotInteraction, baseReactions: ReactionCollectorFightPetReaction[]): DraftbotButtonReaction[] {
 	const reactions: DraftbotButtonReaction[] = [];
@@ -32,7 +32,7 @@ export async function fightPetCollector(packet: ReactionCollectorCreationPacket,
 
 	const formatBaseOptions = {
 		lng: interaction.userLanguage,
-		context: data.isFemale ? PetConstants.SEX.MALE_FULL : PetConstants.SEX.FEMALE_FULL
+		context: data.isFemale ? StringConstants.SEX.MALE.long : StringConstants.SEX.FEMALE.long
 	};
 
 	const reactions = getFightPetReactions(interaction, packet.reactions.map(reaction => reaction.data as ReactionCollectorFightPetReaction));
