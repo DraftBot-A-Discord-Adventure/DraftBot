@@ -6,7 +6,7 @@ import {ItemWithDetails} from "../../../Lib/src/interfaces/ItemWithDetails";
 import {minutesDisplay} from "../../../Lib/src/utils/TimeUtils";
 import {Item} from "../../../Lib/src/interfaces/Item";
 import {EmoteUtils} from "./EmoteUtils";
-import {PetConstants} from "../../../Lib/src/constants/PetConstants";
+import {StringConstants} from "../../../Lib/src/constants/StringConstants";
 
 export class DisplayUtils {
 
@@ -81,7 +81,7 @@ export class DisplayUtils {
 	}
 
 	static getPetDisplay(petId: number, isFemale: boolean, lng: Language): string {
-		const context = isFemale ? PetConstants.SEX.FEMALE_FULL : PetConstants.SEX.MALE_FULL;
+		const context = isFemale ? StringConstants.SEX.FEMALE.long : StringConstants.SEX.MALE.long;
 		return i18n.t(`{emote:pets.{{petId}}.emote${context[0].toUpperCase() + context.slice(1)}} $t(models:pets.{{petId}})`, {
 			lng,
 			context,

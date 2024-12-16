@@ -100,6 +100,10 @@ export const DraftBotIcons: {
 	},
 	goblets: {
 		[gobletId: string]: string
+	},
+	sex: {
+		male: string,
+		female: string
 	}
 } = {
 	"effects": {
@@ -1704,5 +1708,9 @@ export const DraftBotIcons: {
 		"metal": "🐲",
 		"biggest": "🪣",
 		"sparkling": "✨"
+	},
+	"sex": {
+		"male": "♂️",
+		"female": "♀️"
 	}
 };

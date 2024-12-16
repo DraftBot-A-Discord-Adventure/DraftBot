@@ -25,10 +25,8 @@
       "diet_herbivorous": "🥬 Herbivore",
       "diet_carnivorous": "🥩 Carnivore"
     },
-    "sexDisplay": {
-      "female": "Femelle",
-      "male": "Mâle"
-    },
+    "sexDisplay_f": "Femelle {emote:sex.female}",
+    "sexDisplay_m": "Mâle {emote:sex.male}",
     "shortPetField": "{{emote}} {{name}}"
   },
   "guild": {

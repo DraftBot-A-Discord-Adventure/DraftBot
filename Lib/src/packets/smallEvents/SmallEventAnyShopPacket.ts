@@ -2,8 +2,13 @@ import {SmallEventPacket} from "./SmallEventPacket";
 import {PacketDirection, sendablePacket} from "../DraftBotPacket";
 
 @sendablePacket(PacketDirection.NONE)
-export class SmallEventAnyShopPacket extends SmallEventPacket {
-	isValidated?: boolean;
+export class SmallEventAnyShopAcceptedPacket extends SmallEventPacket {
+}
 
-	canBuy?: boolean;
+@sendablePacket(PacketDirection.NONE)
+export class SmallEventAnyShopRefusedPacket extends SmallEventPacket {
+}
+
+@sendablePacket(PacketDirection.NONE)
+export class SmallEventAnyShopCannotBuyPacket extends SmallEventPacket {
 }

@@ -39,7 +39,11 @@ import {SmallEventBotFactsPacket} from "../../../../Lib/src/packets/smallEvents/
 import {SmallEventDoNothingPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventDoNothingPacket";
 import {SmallEventFightPetPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFightPetPacket";
 import {SmallEventGobletsGamePacket} from "../../../../Lib/src/packets/smallEvents/SmallEventGobletsGamePacket";
-import {SmallEventShopPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventShopPacket";
+import {
+	SmallEventShopAcceptPacket,
+	SmallEventShopCannotBuyPacket,
+	SmallEventShopRefusePacket
+} from "../../../../Lib/src/packets/smallEvents/SmallEventShopPacket";
 import {SmallEventStaffMemberPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventStaffMemberPacket";
 import {SmallEventWinEnergyPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinEnergyPacket";
 import {SmallEventWinFightPointsPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinFightPointsPacket";
@@ -55,7 +59,6 @@ import {
 } from "../../../../Lib/src/packets/smallEvents/SmallEventSpacePacket";
 import {SmallEventFindPetPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFindPetPacket";
 import {PetUtils} from "../../utils/PetUtils";
-import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
 import {ClassUtils} from "../../utils/ClassUtils";
 import {SmallEventFindPotionPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFindPotionPacket";
 import {SmallEventFindItemPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFindItemPacket";
@@ -69,7 +72,8 @@ import {cartResult} from "../../smallEvents/cart";
 import {SmallEventFindMissionPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFindMissionPacket";
 import {MissionUtils} from "../../utils/MissionUtils";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
-import {smallShopResult} from "../../smallEvents/shop";
+import {baseFunctionHandler} from "../../smallEvents/shop";
+import {StringConstants} from "../../../../Lib/src/constants/StringConstants";
 
 
 export function getRandomSmallEventIntro(language: Language): string {
@@ -289,7 +293,7 @@ export default class SmallEventsHandler {
 							level: packet.data.level,
 							class: `${DraftBotIcons.classes[packet.data.classId]} ${i18n.t(`models:classes.${packet.data.classId}`, {lng: interaction.userLanguage})}`,
 							advice: StringUtils.getRandomTranslation("advices:advices", interaction.userLanguage),
-							petEmote: packet.data.petId ? PetUtils.getPetIcon(packet.data.petId, packet.data.petSex ?? PetConstants.SEX.MALE) : "",
+							petEmote: packet.data.petId ? PetUtils.getPetIcon(packet.data.petId, packet.data.petSex ?? StringConstants.SEX.MALE.short) : "",
 							petName: packet.data.petName,
 							guildName: packet.data.guildName,
 							weapon: DisplayUtils.getWeaponDisplay(packet.data.weaponId, interaction.userLanguage),
@@ -808,9 +812,19 @@ export default class SmallEventsHandler {
 	}
 
 
-	@packetHandler(SmallEventShopPacket)
-	async smallEventShop(packet: SmallEventShopPacket, context: PacketContext): Promise<void> {
-		await smallShopResult(packet, context);
+	@packetHandler(SmallEventShopRefusePacket)
+	async smallEventShopRefuse(packet: SmallEventShopRefusePacket, context: PacketContext): Promise<void> {
+		await baseFunctionHandler(context, "smallEvents:shop.refused");
+	}
+
+	@packetHandler(SmallEventShopAcceptPacket)
+	async smallEventShopAccept(packet: SmallEventShopAcceptPacket, context: PacketContext): Promise<void> {
+		await baseFunctionHandler(context, "smallEvents:shop.purchased");
+	}
+
+	@packetHandler(SmallEventShopCannotBuyPacket)
+	async smallEventShopCannotBuy(packet: SmallEventShopCannotBuyPacket, context: PacketContext): Promise<void> {
+		await baseFunctionHandler(context, "smallEvents:shop.notEnoughMoney");
 	}
 
 	@packetHandler(SmallEventFindMissionPacket)

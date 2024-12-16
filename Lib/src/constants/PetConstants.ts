@@ -1,6 +1,6 @@
 export type PetInteraction = {
-	name:string,
-	probabilityWeight:number
+	name: string,
+	probabilityWeight: number
 }
 
 export abstract class PetConstants {
@@ -9,13 +9,6 @@ export abstract class PetConstants {
 	static readonly NICKNAME_LENGTH_RANGE = {
 		MIN: 3,
 		MAX: 16
-	};
-
-	static readonly SEX = {
-		MALE: "m",
-		FEMALE: "f",
-		MALE_FULL: "male",
-		FEMALE_FULL: "female"
 	};
 
 	static readonly PET_INTERACTIONS_NAMES = {
@@ -36,7 +29,10 @@ export abstract class PetConstants {
 		WIN_ITEM: "item"
 	};
 
-	static readonly PET_INTERACTIONS: {PET_NORMAL:{[interactionKey:string]:PetInteraction}[], PET_FEISTY:{[interactionKey:string]:PetInteraction}} = {
+	static readonly PET_INTERACTIONS: {
+		PET_NORMAL: { [interactionKey: string]: PetInteraction }[],
+		PET_FEISTY: { [interactionKey: string]: PetInteraction }
+	} = {
 		PET_NORMAL: [
 			{},
 			{

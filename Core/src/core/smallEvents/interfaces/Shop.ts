@@ -6,7 +6,11 @@ import {getItemValue, giveItemToPlayer, toItemWithDetails} from "../../utils/Ite
 import {EndCallback, ReactionCollectorInstance} from "../../utils/ReactionsCollector";
 import {BlockingConstants} from "../../../../../Lib/src/constants/BlockingConstants";
 import {BlockingUtils} from "../../utils/BlockingUtils";
-import {SmallEventAnyShopPacket} from "../../../../../Lib/src/packets/smallEvents/SmallEventAnyShopPacket";
+import {
+	SmallEventAnyShopAcceptedPacket,
+	SmallEventAnyShopCannotBuyPacket,
+	SmallEventAnyShopRefusedPacket
+} from "../../../../../Lib/src/packets/smallEvents/SmallEventAnyShopPacket";
 import {InventorySlots} from "../../database/game/models/InventorySlot";
 import {SmallEventConstants} from "../../../../../Lib/src/constants/SmallEventConstants";
 import {NumberChangeReason} from "../../../../../Lib/src/constants/LogsConstants";
@@ -14,7 +18,7 @@ import {DraftBotPacket} from "../../../../../Lib/src/packets/DraftBotPacket";
 import {ReactionCollectorMerchant} from "../../../../../Lib/src/packets/interaction/ReactionCollectorMerchant";
 import {ReactionCollectorAcceptReaction} from "../../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 
-export abstract class Shop<T extends SmallEventAnyShopPacket> {
+export abstract class Shop<AcceptPacket extends SmallEventAnyShopAcceptedPacket, RefusePacket extends SmallEventAnyShopRefusedPacket, CannotBuyPacket extends SmallEventAnyShopCannotBuyPacket> {
 	canBeExecuted = Maps.isOnContinent;
 
 	protected itemMultiplier: number;
@@ -27,7 +31,11 @@ export abstract class Shop<T extends SmallEventAnyShopPacket> {
 
 	abstract getPriceMultiplier(player: Player): number | Promise<number>;
 
-	abstract getSmallEventPacket(): T;
+	abstract getAcceptPacket(): AcceptPacket;
+
+	abstract getRefusePacket(): RefusePacket;
+
+	abstract getCannotBuyPacket(): CannotBuyPacket;
 
 	public executeSmallEvent: ExecuteSmallEventLike = async (context, response, player) => {
 		this.itemMultiplier = await this.getPriceMultiplier(player);
@@ -56,12 +64,11 @@ export abstract class Shop<T extends SmallEventAnyShopPacket> {
 	private callbackShopSmallEvent(player: Player): EndCallback {
 		return async (collector: ReactionCollectorInstance, response: DraftBotPacket[]) => {
 			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.MERCHANT);
-			const packet = this.getSmallEventPacket();
 			const reaction = collector.getFirstReaction();
-			packet.isValidated = reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name;
-			packet.canBuy = player.money >= this.itemPrice;
-			response.push(packet);
-			if (!packet.isValidated || !packet.canBuy) {
+			const isValidated = reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name;
+			const canBuy = player.money >= this.itemPrice;
+			response.push(!isValidated ? this.getRefusePacket() : !canBuy ? this.getCannotBuyPacket() : this.getAcceptPacket());
+			if (!isValidated || !canBuy) {
 				return;
 			}
 			await giveItemToPlayer(

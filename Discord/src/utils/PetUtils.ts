@@ -3,6 +3,7 @@ import {Language} from "../../../Lib/src/Language";
 import {PetConstants} from "../../../Lib/src/constants/PetConstants";
 import i18n from "../translations/i18n";
 import {EmoteUtils} from "./EmoteUtils";
+import {StringConstants} from "../../../Lib/src/constants/StringConstants";
 
 export type PetData = {
 	petTypeId: number,
@@ -20,19 +21,13 @@ export class PetUtils {
 	 * @param petData
 	 */
 	static petToString(lng: Language, petData: PetData): string {
-		const sexDisplay = `${
-			i18n.t(`commands:pet.sexDisplay.${
-				petData.sex === PetConstants.SEX.MALE ? PetConstants.SEX.MALE_FULL : PetConstants.SEX.FEMALE_FULL
-			}`, {lng})} ${
-			petData.sex === PetConstants.SEX.MALE ? PetConstants.ICONS.MALE : PetConstants.ICONS.FEMALE
-		}`;
 		return i18n.t("commands:pet.petField", {
 			lng,
 			emote: PetUtils.getPetIcon(petData.petTypeId, petData.sex),
 			typeName: PetUtils.getPetTypeName(lng, petData.petTypeId, petData.sex),
 			nickname: PetUtils.displayNickname(lng, petData.nickname),
 			rarity: PetUtils.getRarityDisplay(petData.rarity),
-			sex: sexDisplay,
+			sex: i18n.t(`commands:pet.sexDisplay.${petData.sex}`, {lng}),
 			loveLevel: PetUtils.getLoveLevelDisplay(petData.loveLevel, petData.sex, lng)
 		});
 	}
@@ -58,7 +53,7 @@ export class PetUtils {
 	 * @param sex
 	 */
 	static getPetIcon(typeId: number, sex: string): string {
-		return EmoteUtils.translateEmojiToDiscord(sex === PetConstants.SEX.MALE ? DraftBotIcons.pets[typeId].emoteMale : DraftBotIcons.pets[typeId].emoteFemale);
+		return EmoteUtils.translateEmojiToDiscord(sex === StringConstants.SEX.MALE.short ? DraftBotIcons.pets[typeId].emoteMale : DraftBotIcons.pets[typeId].emoteFemale);
 	}
 
 	/**
@@ -85,7 +80,7 @@ export class PetUtils {
 	 * @param sex
 	 */
 	static getPetTypeName(lng: Language, typeId: number, sex: string): string {
-		const sexStringContext: string = sex === PetConstants.SEX.MALE ? PetConstants.SEX.MALE_FULL : PetConstants.SEX.FEMALE_FULL;
+		const sexStringContext: string = sex === StringConstants.SEX.MALE.short ? StringConstants.SEX.MALE.long : StringConstants.SEX.FEMALE.long;
 		return i18n.t(
 			`models:pets:${typeId}`,
 			{lng, context: sexStringContext}
@@ -99,7 +94,7 @@ export class PetUtils {
 	 * @param lng
 	 */
 	static getLoveLevelDisplay(loveLevel: number, sex: string, lng: Language): string {
-		const sexStringContext: string = sex === PetConstants.SEX.MALE ? PetConstants.SEX.MALE_FULL : PetConstants.SEX.FEMALE_FULL;
+		const sexStringContext: string = sex === StringConstants.SEX.MALE.short ? StringConstants.SEX.MALE.long : StringConstants.SEX.FEMALE.long;
 		return i18n.t(`commands:pet.loveLevels.${loveLevel}`, {
 			context: sexStringContext as unknown,
 			lng
