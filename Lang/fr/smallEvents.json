@@ -602,15 +602,15 @@
     "before_search_format": "{{seIntro}}{{intro}}. {{searchAction}}.\n\n:telescope: *{{search}}*.",
     "after_search_format": "{{oldMessage}}\n\n{{actionIntro}}, {{action}} **{{specific}}**. {{outro}}.",
     "intro": [
-      "vous rencontrez un oracle prétendant se nommer **{{{name}}}**",
-      "un homme vous semble étrange, alors vous allez à sa rencontre. Il dit être un oracle du nom de **{{{name}}}**",
-      "vous rencontrez un oracle s'appelant **{{{name}}}**",
-      "vous passez à côté d'un oracle qui vous interpelle. Il dit s'appeler **{{{name}}}**",
-      "vous êtes interpelé par un homme disant s'appeler **{{{name}}}**",
-      "un oracle du nom de **{{{name}}}** vous apostrophe",
-      "un étranger prétendant s'appeler **{{{name}}}** vous demande d'approcher",
-      "un homme surgissant de nulle part court vers vous et se présente sous le nom de **{{{name}}}**",
-      "un inconnu suspect vous demande d'approcher, ce après quoi il vous dit s'appeler **{{{name}}}**"
+      "vous rencontrez un oracle prétendant se nommer **{{name}}**",
+      "un homme vous semble étrange, alors vous allez à sa rencontre. Il dit être un oracle du nom de **{{name}}**",
+      "vous rencontrez un oracle s'appelant **{{name}}**",
+      "vous passez à côté d'un oracle qui vous interpelle. Il dit s'appeler **{{name}}**",
+      "vous êtes interpelé par un homme disant s'appeler **{{name}}**",
+      "un oracle du nom de **{{name}}** vous apostrophe",
+      "un étranger prétendant s'appeler **{{name}}** vous demande d'approcher",
+      "un homme surgissant de nulle part court vers vous et se présente sous le nom de **{{name}}**",
+      "un inconnu suspect vous demande d'approcher, ce après quoi il vous dit s'appeler **{{name}}**"
     ],
     "searchAction": [
       "Il vous dit qu'il peut vous donner des informations sur le ciel, mais qu'il a besoin de temps pour l'observer",
@@ -1518,7 +1518,9 @@
       "Pendant votre voyage, une marchande vous interpelle. Elle dit s'appeler {{name}} et avoir des objets pouvant vous aider pendant votre aventure.",
       "Tandis que vous avancez tranquillement sur votre route, vous croisez une charrette dans laquelle se trouve une marchande du nom de {{name}}. Celle-ci vous propose de lui acheter l'un de ses objets, vous affirmant qu'il pourrait vous être utile dans votre aventure."
     ],
-    "end": ["\n\n{{item}} | `{{price}}\uD83D\uDCB0`\n\n**Type :** {{type}}"],
+    "end": [
+      "\n\n{{item}} | `{{price}} {emote:unitValues.money}`\n\n**Type :** {{type}}"
+    ],
     "types": [
       "Arme",
       "Armure/Bouclier",
