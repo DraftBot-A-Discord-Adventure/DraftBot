@@ -32,6 +32,10 @@ class ShopSmallEvent extends Shop<SmallEventShopAcceptPacket, SmallEventShopRefu
 	getCannotBuyPacket(): SmallEventShopCannotBuyPacket {
 		return makePacket(SmallEventShopCannotBuyPacket, {});
 	}
+
+	getTip(): boolean {
+		return false;
+	}
 }
 
 const shopSmallEvent = new ShopSmallEvent();
