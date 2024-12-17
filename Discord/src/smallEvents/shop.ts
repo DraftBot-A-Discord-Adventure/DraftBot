@@ -33,9 +33,9 @@ export async function smallShopCollector(packet: ReactionCollectorCreationPacket
 			price: data.price,
 			type: `${Constants.REACTIONS.ITEM_CATEGORIES[data.item.category]}${i18n.t("smallEvents:shop.types", {
 				returnObjects: true,
-				lng: interaction.userLanguage,
-				interpolation: {escapeValue: false}
-			})[data.item.category]}`
+				lng: interaction.userLanguage
+			})[data.item.category]}`,
+			interpolation: {escapeValue: false}
 		}),
 		interaction.user,
 		interaction.userLanguage
@@ -45,14 +45,18 @@ export async function smallShopCollector(packet: ReactionCollectorCreationPacket
 }
 
 export async function baseFunctionHandler(context: PacketContext, translationKey: string): Promise<void> {
-	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
-	await interaction?.followUp({
+	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
+	if (!originalInteraction) {
+		return;
+	}
+	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+	await buttonInteraction?.editReply({
 		embeds: [
 			new DraftbotSmallEventEmbed(
 				"shop",
-				StringUtils.getRandomTranslation(translationKey, interaction.userLanguage),
-				interaction.user,
-				interaction.userLanguage
+				StringUtils.getRandomTranslation(translationKey, originalInteraction.userLanguage),
+				buttonInteraction.user,
+				originalInteraction.userLanguage
 			)
 		]
 	});
