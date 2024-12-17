@@ -1522,10 +1522,10 @@
       "\n\n{{item}}{{price}} {emote:unitValues.money}\n\n {{type}}| **Tipo :**"
     ],
     "types": [
-      "Arme",
-      "Armure/Bouclier",
-      "Potion",
-      "Objet"
+      "Arma",
+      "Armadura/Escudo",
+      "Poción",
+      "Objeto"
     ],
     "names_m": [
       "Terry",
@@ -1557,15 +1557,15 @@
       "Ullure"
     ],
     "purchased": [
-      "Satisfait de votre achat, vous reprenez votre route tranquillement.",
-      "Vous lui tendez une bourse afin de procéder à l'achat, une fois le bien acquis vous continuez votre chemin."
+      "Satisfecho con su compra, ya está en camino.",
+      "Le entregas un monedero para que proceda a la compra y, una vez adquirida la propiedad, continúas tu camino."
     ],
     "notEnoughMoney": [
-      "Vous n'avez malheureusement pas assez d'argent, vous reprenez donc votre route.",
-      "Vous tendez une bourse vide en espérant que cela passe sans emcombre mais vous vous faites vite chasser, vous reprenez votre chemin triste et déçu."
+      "Por desgracia, no tienes suficiente dinero, así que vuelves a la carretera.",
+      "Extiendes un monedero vacío con la esperanza de que pase sin problemas, pero te echan rápidamente y sigues tu camino triste y decepcionado."
     ],
     "refused": [
-      "Vous déclinez l'offre et reprenez votre chemin."
+      "Rechazas la oferta y sigues tu camino."
     ]
   }
 }
