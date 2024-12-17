@@ -62,9 +62,9 @@
   },
   "boatAdvice": {
     "intro": [
-      "Sie gehen an Deck und unterhalten sich mit einem Mitglied der Crew. Er gibt Ihnen einen Rat, der Ihnen bei Ihrem Abenteuer auf der Insel helfen soll:\n**{{{advice}}}**.",
-      "Sie klettern auf den Mast, um den Horizont zu bewundern. Ein Mann senkt sein Fernrohr und möchte Ihnen vor Ihrer Abreise zur Insel noch folgenden Rat mit auf den Weg geben:\n**{{{advice}}}**.",
-      "In den Freuden eines Essens im frischen Wind des Meeres unterhalten Sie sich mit den Matrosen. Ihr Tischnachbar gibt Ihnen den folgenden Tipp über die Insel:\n**{{{advice}}}**."
+      "Sie gehen an Deck und unterhalten sich mit einem Mitglied der Crew. Er gibt Ihnen einen Rat, der Ihnen bei Ihrem Abenteuer auf der Insel helfen soll:\n**{{advice}}**.",
+      "Sie klettern auf den Mast, um den Horizont zu bewundern. Ein Mann senkt sein Fernrohr und möchte Ihnen vor Ihrer Abreise zur Insel noch folgenden Rat mit auf den Weg geben:\n**{{advice}}**.",
+      "In den Freuden eines Essens im frischen Wind des Meeres unterhalten Sie sich mit den Matrosen. Ihr Tischnachbar gibt Ihnen den folgenden Tipp über die Insel:\n**{{advice}}**."
     ],
     "advices": [
       "Auf der geheimnisvollen Insel erwarten Sie noch viel mehr Ereignisse",
@@ -1500,5 +1500,72 @@
       "nothing": "Sie heben den Becher $t(smallEvents:gobletsGame.goblets.{{goblet}}.name) vorsichtig an und bemerken, dass sich darunter nichts befindet. Enttäuscht machen Sie sich traurig auf den Weg und sagen sich, dass Sie vielleicht ein anderes Mal mehr Glück haben werden.",
       "end": "Als Sie nicht reagieren, kommt der Mann auf die schlechte Idee, Sie ausrauben zu wollen. Sie bemerken sein Manöver und greifen ein, werden aber schnell von der Stärke des Mannes überrascht, der sich mit einer plötzlichen Bewegung befreien kann und dann wegläuft. Sie kommen mit einer leichten Verletzung davon **{{quantity}} {emote:unitValues.lostHealth}**."
     }
+  },
+  "shop": {
+    "intro_m": [
+      "Während Sie gemütlich reisen, treffen Sie auf {{name}}. Dieser ist ein fahrender Händler und bietet Ihnen ein besonderes Angebot.",
+      "Während Sie ruhig Ihren Weg gehen, stoßen Sie Nase an Nase mit {{name}}, der Ihnen schnell ein verlockendes Angebot unterbreitet.",
+      "Als Sie sich nach einer kurzen Pause wieder auf den Weg machen wollen, bietet Ihnen ein Mann, der sich als \"{{name}} - fahrender Händler\" vorstellt, einen Tausch an.",
+      "Um einen Felsen herum stoßen Sie auf einen fliegenden Händler namens {{name}}, der anscheinend interessante Dinge verkauft.",
+      "Während Sie gemütlich spazieren gehen, taucht vor Ihnen ein Karren mit der Aufschrift \"{{name}} - Super ambulanter Itemhändler\" auf. Es wird sofort ein Geschäft eröffnet.",
+      "An einem bestimmten Punkt Ihrer Reise werden Sie von einem Händler angesprochen. Er sagt, sein Name sei {{name}} und er habe einige Gegenstände, die Ihnen auf Ihrem Abenteuer helfen könnten.",
+      "Nach langen Stunden des Wanderns werden Sie von einem Mann angesprochen. Sie erfahren, dass er sich {{name}} nennt - ein Händler erster Güte. Er zeigt Ihnen schnell einen seiner vielen Gegenstände.",
+      "Während einer kleinen Pause an einem Baum kommt ein Mann auf Sie zu und stellt sich als fahrender Händler vor. Der Mann, der sich {{name}} nennt, scheint ein verlockendes Angebot zu machen."
+    ],
+    "intro_f": [
+      "Während Sie ruhig Ihren Weg gehen, stoßen Sie Nase an Nase mit {{name}} zusammen, der Ihnen schnell ein verlockendes Angebot unterbreitet.",
+      "Wenn Sie auf den Straßen unterwegs sind, begegnen Sie oft fliegenden Händlern. Heute ist es eine Händlerin namens {{name}} , die Ihnen ihr Angebot unterbreitet.",
+      "Auf Ihrer Reise werden Sie von einer Händlerin angesprochen. Sie sagt, ihr Name sei {{name}} und sie habe einige Gegenstände, die Ihnen während Ihres Abenteuers helfen könnten.",
+      "Auf Ihrem Weg kommen Sie an einem Karren vorbei, in dem sich eine Händlerin namens {{name}}befindet. Sie bietet Ihnen an, einen ihrer Gegenstände zu kaufen, da er Ihnen auf Ihrem Abenteuer nützlich sein könnte."
+    ],
+    "end": [
+      "\n\n{{item}} | `{{price}} {emote:unitValues.money}`\n\n**Typ:** {{type}}"
+    ],
+    "types": [
+      "Arme",
+      "Armure/Bouclier",
+      "Potion",
+      "Objet"
+    ],
+    "names_m": [
+      "Terry",
+      "Marco",
+      "Didier",
+      "Bernard",
+      "Georges",
+      "Louis",
+      "Kilton",
+      "Kikolou",
+      "Araj",
+      "Lavio",
+      "Bugri",
+      "Faras",
+      "Finn",
+      "Russel",
+      "Ullure",
+      "Vivian",
+      "Belethor"
+    ],
+    "names_f": [
+      "Karine",
+      "Cremia",
+      "Fouyaya",
+      "Ember",
+      "Embry",
+      "Emirel",
+      "Fressah",
+      "Ullure"
+    ],
+    "purchased": [
+      "Satisfait de votre achat, vous reprenez votre route tranquillement.",
+      "Vous lui tendez une bourse afin de procéder à l'achat, une fois le bien acquis vous continuez votre chemin."
+    ],
+    "notEnoughMoney": [
+      "Vous n'avez malheureusement pas assez d'argent, vous reprenez donc votre route.",
+      "Vous tendez une bourse vide en espérant que cela passe sans emcombre mais vous vous faites vite chasser, vous reprenez votre chemin triste et déçu."
+    ],
+    "refused": [
+      "Vous déclinez l'offre et reprenez votre chemin."
+    ]
   }
 }
