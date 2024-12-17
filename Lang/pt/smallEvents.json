@@ -1522,10 +1522,10 @@
       "\n\n{{item}}{{price}} {emote:unitValues.money}\n\n {{type}}| Tipo :**"
     ],
     "types": [
-      "Arme",
-      "Armure/Bouclier",
-      "Potion",
-      "Objet"
+      "Arma",
+      "Armadura/Escudo",
+      "Poção",
+      "Objeto"
     ],
     "names_m": [
       "Terry",
@@ -1533,14 +1533,14 @@
       "Didier",
       "Bernard",
       "Georges",
-      "Louis",
+      "Luís",
       "Kilton",
       "Kikolou",
       "Araj",
       "Lavio",
       "Bugri",
       "Faras",
-      "Finn",
+      "Finlandês",
       "Russel",
       "Ullure",
       "Vivian",
@@ -1550,22 +1550,22 @@
       "Karine",
       "Cremia",
       "Fouyaya",
-      "Ember",
+      "Brasa",
       "Embry",
       "Emirel",
       "Fressah",
       "Ullure"
     ],
     "purchased": [
-      "Satisfait de votre achat, vous reprenez votre route tranquillement.",
-      "Vous lui tendez une bourse afin de procéder à l'achat, une fois le bien acquis vous continuez votre chemin."
+      "Satisfeito com a sua compra, está no bom caminho.",
+      "Entrega-lhe uma bolsa para proceder à compra e, depois de ter adquirido a propriedade, continua o seu caminho."
     ],
     "notEnoughMoney": [
-      "Vous n'avez malheureusement pas assez d'argent, vous reprenez donc votre route.",
-      "Vous tendez une bourse vide en espérant que cela passe sans emcombre mais vous vous faites vite chasser, vous reprenez votre chemin triste et déçu."
+      "Infelizmente, não tem dinheiro suficiente, por isso volta para a estrada.",
+      "Estendemos uma bolsa vazia na esperança de que passe sem problemas, mas somos rapidamente expulsos e seguimos o nosso caminho tristes e desiludidos."
     ],
     "refused": [
-      "Vous déclinez l'offre et reprenez votre chemin."
+      "Recusa a oferta e segue o seu caminho."
     ]
   }
 }
