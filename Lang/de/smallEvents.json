@@ -1522,10 +1522,10 @@
       "\n\n{{item}} | `{{price}} {emote:unitValues.money}`\n\n**Typ:** {{type}}"
     ],
     "types": [
-      "Arme",
-      "Armure/Bouclier",
-      "Potion",
-      "Objet"
+      "Waffe",
+      "Rüstung/Schild",
+      "Trank",
+      "Objekt"
     ],
     "names_m": [
       "Terry",
@@ -1547,7 +1547,7 @@
       "Belethor"
     ],
     "names_f": [
-      "Karine",
+      "Karin",
       "Cremia",
       "Fouyaya",
       "Ember",
@@ -1557,15 +1557,15 @@
       "Ullure"
     ],
     "purchased": [
-      "Satisfait de votre achat, vous reprenez votre route tranquillement.",
-      "Vous lui tendez une bourse afin de procéder à l'achat, une fois le bien acquis vous continuez votre chemin."
+      "Zufrieden mit Ihrem Kauf setzen Sie Ihre Fahrt in aller Ruhe fort.",
+      "Sie halten ihm einen Geldbeutel hin, um den Kauf zu tätigen, nachdem Sie das Gut erworben haben, setzen Sie Ihren Weg fort."
     ],
     "notEnoughMoney": [
-      "Vous n'avez malheureusement pas assez d'argent, vous reprenez donc votre route.",
-      "Vous tendez une bourse vide en espérant que cela passe sans emcombre mais vous vous faites vite chasser, vous reprenez votre chemin triste et déçu."
+      "Sie haben leider nicht genug Geld und setzen daher Ihre Reise fort.",
+      "Du streckst einen leeren Geldbeutel aus und hoffst, dass es glimpflich ausgeht, aber du wirst schnell vertrieben und gehst traurig und enttäuscht deinen Weg weiter."
     ],
     "refused": [
-      "Vous déclinez l'offre et reprenez votre chemin."
+      "Sie lehnen das Angebot ab und setzen Ihren Weg fort."
     ]
   }
 }
