@@ -1522,8 +1522,8 @@
       "\n\n{{item}}{{price}} {emote:unitValues.money}\n\n {{type}}**Tipo :**"
     ],
     "types": [
-      "Arme",
-      "Armure/Bouclier",
+      "Arma",
+      "Armatura/Scudo",
       "Pozione",
       "Oggetto"
     ],
@@ -1531,9 +1531,9 @@
       "Terry",
       "Marco",
       "Didier",
-      "Bernard",
+      "Bernardo",
       "Georges",
-      "Louis",
+      "Luigi",
       "Kilton",
       "Kikolou",
       "Araj",
@@ -1550,22 +1550,22 @@
       "Karine",
       "Cremia",
       "Fouyaya",
-      "Ember",
+      "Ambra",
       "Embry",
       "Emirel",
       "Fressah",
       "Ullure"
     ],
     "purchased": [
-      "Satisfait de votre achat, vous reprenez votre route tranquillement.",
-      "Vous lui tendez une bourse afin de procéder à l'achat, une fois le bien acquis vous continuez votre chemin."
+      "Soddisfatti dell'acquisto, siete in viaggio.",
+      "Gli consegnate un borsellino per procedere all'acquisto e, una volta acquisita la proprietà, proseguite per la vostra strada."
     ],
     "notEnoughMoney": [
-      "Vous n'avez malheureusement pas assez d'argent, vous reprenez donc votre route.",
-      "Vous tendez une bourse vide en espérant que cela passe sans emcombre mais vous vous faites vite chasser, vous reprenez votre chemin triste et déçu."
+      "Sfortunatamente non avete abbastanza soldi, quindi vi rimettete in viaggio.",
+      "Si tende la borsa vuota nella speranza che passi senza problemi, ma si viene subito scacciati e si va per la propria strada tristi e delusi."
     ],
     "refused": [
-      "Vous déclinez l'offre et reprenez votre chemin."
+      "Declinate l'offerta e proseguite per la vostra strada."
     ]
   }
 }
