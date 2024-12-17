@@ -62,9 +62,9 @@
   },
   "boatAdvice": {
     "intro": [
-      "Subes a cubierta y charlas con un miembro de la tripulación.\n{{{advice}}}Te da algunos consejos para ayudarte en tu aventura en la isla: ** **.",
-      "Subes al mástil para admirar el horizonte.\n{{{advice}}}Un hombre baja su catalejo y te da este consejo antes de partir hacia la isla: ** **.",
-      "Disfrutando de una comida con la brisa fresca del mar, charlas con los marineros.\n{{{advice}}}Tu compañero de mesa te da los siguientes consejos sobre la isla: ** **."
+      "Subes a cubierta y charlas con un miembro de la tripulación.\n{{advice}}Te da algunos consejos para ayudarte en tu aventura en la isla: ** **.",
+      "Subes al mástil para admirar el horizonte.\n{{advice}}Un hombre baja su catalejo y te da este consejo antes de partir hacia la isla: ** **.",
+      "Disfrutando de una comida con la brisa fresca del mar, charlas con los marineros.\n{{advice}}Tu compañero de mesa te da los siguientes consejos sobre la isla: ** **."
     ],
     "advices": [
       "Hay muchos más acontecimientos esperándole en la Isla Misteriosa",
@@ -1500,5 +1500,72 @@
       "nothing": "$t(smallEvents:gobletsGame.goblets.{{goblet}}.name) Levanta suavemente la taza y comprueba que no hay nada debajo. Decepcionado, te marchas con tristeza, pensando que tal vez tengas más suerte en otra ocasión.",
       "end": "Al ver tu falta de reacción, el hombre tiene la mala idea de intentar robarte. Al percatarte de su maniobra, intervienes, pero rápidamente te sorprende la fuerza del hombre, que consigue zafarse con un brusco movimiento, antes de huir.{{quantity}} {emote:unitValues.lostHealth}Escapas con una herida leve ** **."
     }
+  },
+  "shop": {
+    "intro_m": [
+      "{{name}}Mientras viajas, te encuentras con . Es un vendedor ambulante que te ofrece una oferta especial.",
+      "{{name}}Mientras avanzas por la carretera, te encuentras cara a cara con , que rápidamente te hace una tentadora oferta.",
+      "{{name}} Cuando te dispones a reemprender la marcha tras una breve pausa, un hombre que se presenta como \" - vendedor ambulante\" te ofrece un intercambio.",
+      "{{name}}Al rodear una roca, te encuentras cara a cara con un vendedor ambulante llamado , que parece vender cosas muy interesantes.",
+      "{{name}} Mientras paseas tranquilamente, aparece ante ti un carrito con el letrero \"- supervendedor ambulante de artículos\". Inmediatamente comienza una transacción.",
+      "En cierto momento de tu viaje, un mercader te llama. {{name}} Dice llamarse así y que tiene algunos objetos que pueden ayudarte en tu aventura.",
+      "Tras un largo paseo, se te acerca un hombre. {{name}} Te dice que se llama un comerciante de primera clase. Rápidamente te muestra uno de sus muchos artículos.",
+      "Durante un breve descanso apoyado contra un árbol, un hombre se le acerca y se presenta como viajante de comercio. {{name}} El hombre, cuyo nombre es , parece tener una oferta tentadora."
+    ],
+    "intro_f": [
+      "{{name}} Mientras avanzas por la carretera, te encuentras cara a cara con , que rápidamente te hace una tentadora oferta.",
+      "Cuando uno viaja por las carreteras, a menudo se encuentra con vendedores ambulantes. {{name}} Hoy le toca el turno a un vendedor llamado .",
+      "Durante tu viaje, se te acerca un mercader. {{name}} Dice llamarse así y que tiene algunos objetos que pueden ayudarte en tu aventura.",
+      "{{name}}Mientras avanzas por el camino, te cruzas con un carro en el que viaja un mercader llamado . Te ofrece comprar uno de sus objetos, diciendo que podría serte útil en tu aventura."
+    ],
+    "end": [
+      "\n\n{{item}}{{price}} {emote:unitValues.money}\n\n {{type}}| **Tipo :**"
+    ],
+    "types": [
+      "Arme",
+      "Armure/Bouclier",
+      "Potion",
+      "Objet"
+    ],
+    "names_m": [
+      "Terry",
+      "Marco",
+      "Didier",
+      "Bernard",
+      "Georges",
+      "Louis",
+      "Kilton",
+      "Kikolou",
+      "Araj",
+      "Lavio",
+      "Bugri",
+      "Faras",
+      "Finn",
+      "Russel",
+      "Ullure",
+      "Vivian",
+      "Belethor"
+    ],
+    "names_f": [
+      "Karine",
+      "Cremia",
+      "Fouyaya",
+      "Ember",
+      "Embry",
+      "Emirel",
+      "Fressah",
+      "Ullure"
+    ],
+    "purchased": [
+      "Satisfait de votre achat, vous reprenez votre route tranquillement.",
+      "Vous lui tendez une bourse afin de procéder à l'achat, une fois le bien acquis vous continuez votre chemin."
+    ],
+    "notEnoughMoney": [
+      "Vous n'avez malheureusement pas assez d'argent, vous reprenez donc votre route.",
+      "Vous tendez une bourse vide en espérant que cela passe sans emcombre mais vous vous faites vite chasser, vous reprenez votre chemin triste et déçu."
+    ],
+    "refused": [
+      "Vous déclinez l'offre et reprenez votre chemin."
+    ]
   }
 }
