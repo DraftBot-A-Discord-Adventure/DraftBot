@@ -74,6 +74,7 @@ import {MissionUtils} from "../../utils/MissionUtils";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {baseFunctionHandler} from "../../smallEvents/shop";
 import {StringConstants} from "../../../../Lib/src/constants/StringConstants";
+import {epicItemShopHandler} from "../../smallEvents/epicItemShop";
 
 
 export function getRandomSmallEventIntro(language: Language): string {
@@ -846,5 +847,20 @@ export default class SmallEventsHandler {
 				)
 			]
 		});
+	}
+
+	@packetHandler(SmallEventShopRefusePacket)
+	async smallEventEpicItemShopRefuse(packet: SmallEventShopRefusePacket, context: PacketContext): Promise<void> {
+		await epicItemShopHandler(context, "smallEvents:epicItemShop.refused");
+	}
+
+	@packetHandler(SmallEventShopAcceptPacket)
+	async smallEventEpicItemShopAccept(packet: SmallEventShopAcceptPacket, context: PacketContext): Promise<void> {
+		await epicItemShopHandler(context, "smallEvents:epicItemShop.purchased");
+	}
+
+	@packetHandler(SmallEventShopCannotBuyPacket)
+	async smallEventEpicItemShopCannotBuy(packet: SmallEventShopCannotBuyPacket, context: PacketContext): Promise<void> {
+		await epicItemShopHandler(context, "smallEvents:epicItemShop.notEnoughMoney");
 	}
 }

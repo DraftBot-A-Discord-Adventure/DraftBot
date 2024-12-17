@@ -37,6 +37,8 @@ export abstract class Shop<AcceptPacket extends SmallEventAnyShopAcceptedPacket,
 
 	abstract getCannotBuyPacket(): CannotBuyPacket;
 
+	abstract getTip(): boolean;
+
 	public executeSmallEvent: ExecuteSmallEventLike = async (context, response, player) => {
 		this.itemMultiplier = await this.getPriceMultiplier(player);
 		this.randomItem = await this.getRandomItem();
@@ -44,7 +46,8 @@ export abstract class Shop<AcceptPacket extends SmallEventAnyShopAcceptedPacket,
 
 		const collector = new ReactionCollectorMerchant({
 			item: toItemWithDetails(this.randomItem),
-			price: this.itemPrice
+			price: this.itemPrice,
+			tip: this.getTip()
 		});
 
 		const packet = new ReactionCollectorInstance(

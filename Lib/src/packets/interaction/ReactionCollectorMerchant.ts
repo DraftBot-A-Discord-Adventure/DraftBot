@@ -10,6 +10,8 @@ export class ReactionCollectorMerchantData extends ReactionCollectorData {
 	item!: ItemWithDetails;
 
 	price!: number;
+
+	tip!: boolean;
 }
 
 export class ReactionCollectorMerchantAcceptReaction extends ReactionCollectorReaction {
