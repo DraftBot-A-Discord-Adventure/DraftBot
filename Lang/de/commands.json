@@ -205,9 +205,6 @@
       "PING": {
         "description": "Gibt an, ob der Bot online ist.\n\n(Hinweis: Die angezeigte Zeit ist die Antwortzeit des Bots und nicht das Pingsignal: Eine gültige Antwortzeit beträgt weniger als 500ms. :clock1:"
       },
-      "PREFIX": {
-        "description": "Diese Funktion wurde aus dem Spiel entfernt, als eine Aktualisierung der von Discord angebotenen Funktionen."
-      },
       "PROFILE": {
         "description": "Zeigt Informationen über deinen Charakter an:\n\n😃 Gesundheitszustand | Nickname | Level\n\n឵឵Informationen:\n❤️ Leben | ⭐ XP | {emote:unitValues.money} Geld\n\nStatistiken :\n⚡ Energie | 🗡️ Angriff | 🛡️ Verteidigung | 🚀 Geschwindigkeit | 🌬️ Atem | 🫁 Erholung\n\nAufgaben:\n💎 Gemmen | 📖 Kampagnenfortschritt %\n\nRangliste und Punktzahl:\n🏆 Rangliste | 🏅 Punktzahl\n\nKlasse:\nSiehe {command:classes}\n\nRuhm und Liga:\n✨ Ruhm | Siehe {{topGloryCommandMention}}\n\nGilde:\n🏟️ Gilde\n\nReiseziel:\nSiehe {{mapCommandMention}}\n\nVertraut:\nSiehe {{petCommandMention}}\n\n💡-Die Abzeichen werden in deinem Profil als Reaktion angezeigt."
       },

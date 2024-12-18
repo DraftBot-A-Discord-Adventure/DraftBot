@@ -205,9 +205,6 @@
       "PING": {
         "description": "Check if the bot is online.\n\n(Note: Time displayed is the response time from the bot, not your ping, a correct ping should be less than 500 ms. :clock1:)"
       },
-      "PREFIX": {
-        "description": "This feature was removed from the bot after an update to Discord's features."
-      },
       "PROFILE": {
         "description": "Displays information about your character:\n\n😃 Health status | Nickname | Level\n\n឵឵឵Information:\n❤️ Life | ⭐ XP | {emote:unitValues.money} Money\n\nStatistics :\n⚡ Energy | 🗡️ Attack | 🛡️ Defense | 🚀 Speed | 🌬️ Breath | 🫁 Recovery\n\nMissions :\n💎 Gems | 📖 Advanced campaign %\n\nRank and score:\n🏆 Rank | 🏅 Score\n\nClass:\nSee {command:classes}\n\nGlory and League:\n✨ Glory | See {{topGloryCommandMention}}\n\nGuild:\n🏟️ Guild\n\nDestination:\nSee {{mapCommandMention}}\n\nFamiliar:\nSee {{petCommandMention}}\n\n💡-Badges are displayed on your profile as a reaction."
       },
