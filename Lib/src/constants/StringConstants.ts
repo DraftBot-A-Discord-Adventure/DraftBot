@@ -1,5 +1,6 @@
 export class Sex {
 	readonly short: string;
+
 	readonly long: string;
 
 	constructor(short: string, long: string) {
@@ -14,5 +15,5 @@ export class StringConstants {
 	static readonly SEX = {
 		MALE: new Sex("m", "male"),
 		FEMALE: new Sex("f", "female")
-	}
+	};
 }
