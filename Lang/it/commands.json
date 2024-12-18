@@ -205,9 +205,6 @@
       "PING": {
         "description": "Permette di sapere se il bot è online.\n\n(Nota: il tempo visualizzato è il tempo di risposta del bot e non il vostro ping: un tempo di risposta corretto sarà inferiore a 500ms. :clock1:"
       },
-      "PREFIX": {
-        "description": "Questa funzione è stata rimossa dal gioco in seguito a un aggiornamento delle funzionalità di Discord."
-      },
       "PROFILE": {
         "description": "\n\n\n\n\n\n\nVisualizza le informazioni sul personaggio: 😃 Stato di salute | Nickname | Livello ឵឵Informazioni: ❤️ Vita | ⭐ XP | {emote:unitValues.money} Denaro Statistiche :\n\n\n⚡ Energia | 🗡️ Attacco | 🛡️ Difesa | 🚀 Velocità | 🌬️ Respiro | 🫁 Recupero Missioni :\n\n\n\n\n\n\n {command:classes}\n\n\n {{topGloryCommandMention}}\n\n\n\n\n\n {{mapCommandMention}}\n\n\n {{petCommandMention}}\n\n💎 Gemme | 📖 Campagna avanzata % Rango e punteggio: 🏆 Rango | 🏅 Punteggio Classe: Vedi Gloria e Lega: ✨ Gloria | Vedi Gilda: 🏟️ Destinazione Gilda: Vedi Familiare: Vedi 💡 I distintivi vengono visualizzati sul tuo profilo come reazione."
       },
