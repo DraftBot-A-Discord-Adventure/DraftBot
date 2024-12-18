@@ -62,9 +62,9 @@
   },
   "boatAdvice": {
     "intro": [
-      "Sie gehen an Deck und unterhalten sich mit einem Mitglied der Crew. Er gibt Ihnen einen Rat, der Ihnen bei Ihrem Abenteuer auf der Insel helfen soll:\n**{{{advice}}}**.",
-      "Sie klettern auf den Mast, um den Horizont zu bewundern. Ein Mann senkt sein Fernrohr und möchte Ihnen vor Ihrer Abreise zur Insel noch folgenden Rat mit auf den Weg geben:\n**{{{advice}}}**.",
-      "In den Freuden eines Essens im frischen Wind des Meeres unterhalten Sie sich mit den Matrosen. Ihr Tischnachbar gibt Ihnen den folgenden Tipp über die Insel:\n**{{{advice}}}**."
+      "Sie gehen an Deck und unterhalten sich mit einem Mitglied der Crew. Er gibt Ihnen einen Rat, der Ihnen bei Ihrem Abenteuer auf der Insel helfen soll:\n**{{advice}}**.",
+      "Sie klettern auf den Mast, um den Horizont zu bewundern. Ein Mann senkt sein Fernrohr und möchte Ihnen vor Ihrer Abreise zur Insel noch folgenden Rat mit auf den Weg geben:\n**{{advice}}**.",
+      "In den Freuden eines Essens im frischen Wind des Meeres unterhalten Sie sich mit den Matrosen. Ihr Tischnachbar gibt Ihnen den folgenden Tipp über die Insel:\n**{{advice}}**."
     ],
     "advices": [
       "Auf der geheimnisvollen Insel erwarten Sie noch viel mehr Ereignisse",
@@ -1500,5 +1500,101 @@
       "nothing": "Sie heben den Becher $t(smallEvents:gobletsGame.goblets.{{goblet}}.name) vorsichtig an und bemerken, dass sich darunter nichts befindet. Enttäuscht machen Sie sich traurig auf den Weg und sagen sich, dass Sie vielleicht ein anderes Mal mehr Glück haben werden.",
       "end": "Als Sie nicht reagieren, kommt der Mann auf die schlechte Idee, Sie ausrauben zu wollen. Sie bemerken sein Manöver und greifen ein, werden aber schnell von der Stärke des Mannes überrascht, der sich mit einer plötzlichen Bewegung befreien kann und dann wegläuft. Sie kommen mit einer leichten Verletzung davon **{{quantity}} {emote:unitValues.lostHealth}**."
     }
+  },
+  "shop": {
+    "intro_m": [
+      "Während Sie gemütlich reisen, treffen Sie auf {{name}}. Dieser ist ein fahrender Händler und bietet Ihnen ein besonderes Angebot.",
+      "Während Sie ruhig Ihren Weg gehen, stoßen Sie Nase an Nase mit {{name}}, der Ihnen schnell ein verlockendes Angebot unterbreitet.",
+      "Als Sie sich nach einer kurzen Pause wieder auf den Weg machen wollen, bietet Ihnen ein Mann, der sich als \"{{name}} - fahrender Händler\" vorstellt, einen Tausch an.",
+      "Um einen Felsen herum stoßen Sie auf einen fliegenden Händler namens {{name}}, der anscheinend interessante Dinge verkauft.",
+      "Während Sie gemütlich spazieren gehen, taucht vor Ihnen ein Karren mit der Aufschrift \"{{name}} - Super ambulanter Itemhändler\" auf. Es wird sofort ein Geschäft eröffnet.",
+      "An einem bestimmten Punkt Ihrer Reise werden Sie von einem Händler angesprochen. Er sagt, sein Name sei {{name}} und er habe einige Gegenstände, die Ihnen auf Ihrem Abenteuer helfen könnten.",
+      "Nach langen Stunden des Wanderns werden Sie von einem Mann angesprochen. Sie erfahren, dass er sich {{name}} nennt - ein Händler erster Güte. Er zeigt Ihnen schnell einen seiner vielen Gegenstände.",
+      "Während einer kleinen Pause an einem Baum kommt ein Mann auf Sie zu und stellt sich als fahrender Händler vor. Der Mann, der sich {{name}} nennt, scheint ein verlockendes Angebot zu machen."
+    ],
+    "intro_f": [
+      "Während Sie ruhig Ihren Weg gehen, stoßen Sie Nase an Nase mit {{name}} zusammen, der Ihnen schnell ein verlockendes Angebot unterbreitet.",
+      "Wenn Sie auf den Straßen unterwegs sind, begegnen Sie oft fliegenden Händlern. Heute ist es eine Händlerin namens {{name}} , die Ihnen ihr Angebot unterbreitet.",
+      "Auf Ihrer Reise werden Sie von einer Händlerin angesprochen. Sie sagt, ihr Name sei {{name}} und sie habe einige Gegenstände, die Ihnen während Ihres Abenteuers helfen könnten.",
+      "Auf Ihrem Weg kommen Sie an einem Karren vorbei, in dem sich eine Händlerin namens {{name}}befindet. Sie bietet Ihnen an, einen ihrer Gegenstände zu kaufen, da er Ihnen auf Ihrem Abenteuer nützlich sein könnte."
+    ],
+    "end": [
+      "\n\n{{item}} | `{{price}} {emote:unitValues.money}`\n\n**Typ:** {{type}}"
+    ],
+    "types": [
+      "Waffe",
+      "Rüstung/Schild",
+      "Trank",
+      "Objekt"
+    ],
+    "names_m": [
+      "Terry",
+      "Marco",
+      "Didier",
+      "Bernard",
+      "Georges",
+      "Louis",
+      "Kilton",
+      "Kikolou",
+      "Araj",
+      "Lavio",
+      "Bugri",
+      "Faras",
+      "Finn",
+      "Russel",
+      "Ullure",
+      "Vivian",
+      "Belethor"
+    ],
+    "names_f": [
+      "Karin",
+      "Cremia",
+      "Fouyaya",
+      "Ember",
+      "Embry",
+      "Emirel",
+      "Fressah",
+      "Ullure"
+    ],
+    "purchased": [
+      "Zufrieden mit Ihrem Kauf setzen Sie Ihre Fahrt in aller Ruhe fort.",
+      "Sie halten ihm einen Geldbeutel hin, um den Kauf zu tätigen, nachdem Sie das Gut erworben haben, setzen Sie Ihren Weg fort."
+    ],
+    "notEnoughMoney": [
+      "Sie haben leider nicht genug Geld und setzen daher Ihre Reise fort.",
+      "Du streckst einen leeren Geldbeutel aus und hoffst, dass es glimpflich ausgeht, aber du wirst schnell vertrieben und gehst traurig und enttäuscht deinen Weg weiter."
+    ],
+    "refused": [
+      "Sie lehnen das Angebot ab und setzen Ihren Weg fort."
+    ]
+  },
+  "epicItemShop": {
+    "intro": [
+      "Auf dem Weg zu Ihrem Ziel kommt es zu einer unerwarteten Begegnung. Alderic, der Antiquitätenhändler, taucht mit seinem Schatzwagen im Schlepptau am Horizont auf und ist bereit, über ein besonderes Geschäft zu sprechen.",
+      "Unterwegs taucht eine seltsame Person auf. Alderic, der Antiquitätenhändler, ein charmanter fahrender Händler, taucht mit einem fesselnden Angebot auf.",
+      "Während Sie gemächlich auf das Unbekannte zugehen, taucht eine vertraute Gestalt auf: Alderic, der Antiquitätenhändler, der vagabundierende Händler, unterbreitet Ihnen ein faszinierendes Angebot.",
+      "Während Ihrer reibungslosen Reise kommt es zu einem einzigartigen Ereignis. Alderic, der Antiquitätenhändler, der wandelnde Künstler der Antiquitäten, lädt Sie zu einem denkwürdigen Geschäft ein.",
+      "Auf Ihrer Reise kommt es zu einer überraschenden Unterbrechung. Es ist Alderic, der Antiquitätenhändler, der reisende Händler, der Ihnen einen unerwarteten Schatz präsentiert.",
+      "Während einer kurzen Pause unter einem Baum taucht eine geheimnisvolle Gestalt auf. Es ist Alderic der Antiquitätenhändler, der Wanderer des Ungewöhnlichen, der bereit ist, Sie in ein verlockendes Angebot eintauchen zu lassen.",
+      "Während Sie gemächlich Ihren Weg entlanggehen, erregt das Geräusch der Räder eines Karrens Ihre Aufmerksamkeit. Alderic der Antiquitätenhändler, ein malerisch gekleideter Mann mittleren Alters, zieht als reisender Händler durch die Straßen. Mit einem freundlichen Lächeln lädt er Sie ein, seine Sammlung faszinierender Gegenstände zu erkunden.",
+      "Auf einem staubigen Steinweg kommt Ihnen ein Karren mit der Aufschrift Alderic der Antiquitätenhändler - Händler von Superartikeln\" entgegen. Eine Transaktion wird bald eingeleitet.",
+      "Während Sie gemächlich vor sich hin gehen, taucht am Horizont ein hölzerner Wagen auf, der Ihre Neugierde weckt. An Bord befindet sich Alderic, der Antiquitätenhändler, ein vornehmer, von der Zeit gezeichneter Mann. Sein Karren ist voll mit sorgfältig arrangierten Antiquitäten und er bietet sich an, Ihnen seine Schätze zu zeigen, die alle voller Geschichten stecken.",
+      "Als Sie nach einer kurzen Pause weitergehen, kommt eine überraschend gut gekleidete Person auf Sie zu. Er stellt sich als Alderic, der Antiquitätenhändler, vor, ein bekannter Straßenhändler. Seine Kleidung, eine Mischung aus alten Stoffen und geheimnisvollen Accessoires, spiegelt seine Liebe für Gegenstände aus vergangenen Zeiten wider. Mit einem Akzent, der von Aufregung geprägt ist, erzählt er Ihnen die Geschichte seiner einzigartigen Fundstücke.",
+      "Während Ihres gemütlichen Spaziergangs hält vor Ihnen ein Karren, der wie eine wandelnde Schatzkammer aussieht. Sein Fahrer, Alderic, der Antiquitätenhändler, ist ein warmherziger Mann in Vintage-Kleidung. Er lädt Sie ein, seine Sammlung von Kuriositäten zu erkunden, von denen jede eine Geschichte hat, die Sie in Staunen versetzen wird.",
+      "Während einer Pause im Schatten eines großen Baumes begegnet Ihnen ein vornehmer Mann mit einem freundlichen Lächeln. Es ist Alderic, der Antiquitätenhändler, ein angesehener Händler. Sein Anzug erinnert an eine längst vergangene Zeit und er zeigt Ihnen sorgfältig seine Sammlung antiker Gegenstände, die in seinem Karren ausgestellt sind.",
+      "Nach langen Stunden des Wanderns werden Sie höflich von einem Mann mittleren Alters angesprochen, der in Kleidung aus einer vergangenen Epoche gekleidet ist. Er stellt sich als Alderic, der Antiquitätenhändler, vor, ein leidenschaftlicher Sammler von Antiquitäten, und lädt Sie ein, seine Sammlung faszinierender Gegenstände zu besichtigen, wobei er Ihnen gerne die Geschichte jedes einzelnen Stücks erzählt."
+    ],
+    "reductionTip": "Er neigt leicht den Kopf und erzählt Ihnen in einem Nebensatz: \"Wenn Sie vorhaben, sich bis zur Wunderstraße vorzuwagen, und es Ihnen gelingt, mich dort zu finden, können Sie sicher sein, dass ich Ihnen ein äußerst günstiges Angebot machen werde.",
+    "purchased": [
+      "Zufrieden mit Ihrem Kauf setzen Sie Ihre Fahrt in aller Ruhe fort.",
+      "Sie halten ihm einen Geldbeutel hin, um den Kauf zu tätigen, nachdem Sie das Gut erworben haben, setzen Sie Ihren Weg fort."
+    ],
+    "notEnoughMoney": [
+      "Sie haben leider nicht genug Geld und setzen daher Ihre Reise fort.",
+      "Du streckst einen leeren Geldbeutel aus und hoffst, dass es glimpflich ausgeht, aber du wirst schnell vertrieben und gehst traurig und enttäuscht deinen Weg weiter."
+    ],
+    "refused": [
+      "Sie lehnen das Angebot ab und setzen Ihren Weg fort."
+    ]
   }
 }
