@@ -1500,5 +1500,101 @@
       "nothing": "You gently raise the cup $t(smallEvents:gobletsGame.goblets.{{goblet}}.name) and notice that there is nothing below. If so, you are leaving again sadly saying that you may have more luck another time.",
       "end": "Faced with your lack of response, the man has the wrong idea of trying to steal you. Noting his manoeuvre, you intervene, but you were quickly surprised by the strength of the man who manages to deal with an abrupt movement, before escaping. You are dealing with a **{{quantity}} {emote:unitValues.lostHealth}**."
     }
+  },
+  "shop": {
+    "intro_m": [
+      "As you travel peacefully, you meet {{name}}. The {{name}} is a traveling merchant, offering you a special offer.",
+      "As you move quietly along your way, you fall on your nose with {{name}}, which quickly offers you an attractive offer.",
+      "As you plan to get back on track after a short break, a man portraying himself as \"{{name}} - traveling merchant\" offers you an exchange.",
+      "Around a rock, you fall nose with a traveling merchant named {{name}}, who seems to be selling smart things.",
+      "As you walk quietly, a cart bearing the sign \"{{name}} - supertrader traveling items\" will appear in front of you. A transaction is starting immedially.",
+      "A merchant is calling you to a certain point of your journey. He says he's called {{name}} and has items that can help you on your journey.",
+      "A man is approaching you with long hours of walking. You hear that it is called {{name}} – a first-class merchant. It quickly shows you one of its many items.",
+      "During a short break against a tree, a man comes to you and presents himself as a traveling merchant. The man named {{name}} seems to offer an enchanting offer."
+    ],
+    "intro_f": [
+      "As you move quietly along your way, you fall nose with {{name}} that quickly offers you an attractive offer.",
+      "Travelling merchants often meet on the roads. Today it is a merchant named {{name}} who offers its offer.",
+      "During your journey, a merchant is calling you up. They say they call themselves {{name}} and have items that can help you on your journey.",
+      "As you move quietly along your way, you see a cart where a merchant named {{name}}is located. It offers you to buy one of its items, telling you that it might be useful to you in your adventure."
+    ],
+    "end": [
+      "\n\n{{item}} | `{{price}} {emote:unitValues.money}`\n\n**Type:** {{type}}"
+    ],
+    "types": [
+      "Weapon",
+      "Armour/Shield",
+      "Potion",
+      "Subject"
+    ],
+    "names_m": [
+      "Terry",
+      "Marcus",
+      "Didier",
+      "Bernard",
+      "George",
+      "Louis",
+      "Kilton",
+      "Kikolou",
+      "Arad",
+      "Lavio",
+      "Bugri",
+      "Faras",
+      "Finn",
+      "Russell",
+      "Ullure",
+      "Vivian",
+      "Belethor"
+    ],
+    "names_f": [
+      "Karen",
+      "Cremia",
+      "Fouyaya",
+      "Ember",
+      "Embry",
+      "Emirel",
+      "Fressah",
+      "Ullure"
+    ],
+    "purchased": [
+      "Satisfied with your purchase, you will return to your road quietly.",
+      "You give him a purse in order to proceed to the purchase, once the property has been acquired you continue your way."
+    ],
+    "notEnoughMoney": [
+      "Unfortunately, you do not have enough money, so you can get back to the road.",
+      "You stretch an empty purse, hoping that it passes smoothly, but you get hunted quickly, you get back to your sad and sad way."
+    ],
+    "refused": [
+      "You delineate the offer and return to your path."
+    ]
+  },
+  "epicItemShop": {
+    "intro": [
+      "Progress towards your destination, an unexpected encounter occurs. Alderic the antique dealer emerges on the horizon, his truck of trailer treasures, ready to discuss a specific matter.",
+      "On the way, a strange individual appears. Alderic the antique dealer, charming travelling merchant, presents himself with a captivating offer.",
+      "Walking peacefully to the unknown, a family silhouette emerges: Alderic the antique dealer, the wandering merchant, offers you an intriguing proposal.",
+      "During your trip without hindrance, a unique event occurs. Alderic the antique dealer, the artist traveling antiquities, invites you to a memorable transaction.",
+      "During your trip, a surprising break occurs, and Alderic the antique dealer, the merchant, gives you an unexpected treasure.",
+      "During a short break under a tree, a mystery character appears. It is Alderic the antique dealer, the vagabond of the insolite, ready to immerse you in an enchanting offer.",
+      "As the wheel noise of a cart moves peacefully along your path, your attention is drawn to the noise of the wheels of a cart. Alderic the antique dealer, a man of an aerous vetu in a picturesque way, wanders the roads as a merchant. With a friendly smile, he invites you to explore his collection of fascinating objects.",
+      "Walking on a dusty stone path, a cart bearing the inscription Alderic the antique dealer - great items\" presents yourselves. A transaction is about to begin.",
+      "Walking quietly, a wooden trolley that attracted your curiosities appeared on the horizon. His cart is filled with antiques carefully arranged and he proposes to show you his treasures, all loaded with stories.",
+      "Leaving after a short break, a well-dressed individual approaches you. He likes like Alderic the antique dealer, a renowned traveling merchant. Its outfit, blending ancient fabrics and mystical accessories, reflects its love for the objects of yesteryear. With an excitement accent, he tells you the story of his unique finds.",
+      "During your leisurely stroll, a wagon that looks like a treasure, stopping in front of you. Its driver, Alderic l'antiquaire, is a warm man wearing vintage clothes. He invites you to explore his collection of curiosities, each accompanied by a story that will amaze you.",
+      "During a break in the shade of a big tree, a distinguished man approaches you with a friendly smile. His costume is an epoch and he shows you carefully his collection of ancient objects exhibited in his cart.",
+      "A man of long walking hours has been approaching you with courtesy and courtesy. Presenting itself as an antique dealer, he invites you to discover his collection of fascinating objects, telling with pleasure the story of each of them."
+    ],
+    "reductionTip": "It tilts the tone upwards and entrusts you to the apartment, 'If you intend to venture to the Wonders Road and you can find me at the bottom rest assured that I will book you an offer of the most advantageous.",
+    "purchased": [
+      "Satisfied with your purchase, you will return to your road quietly.",
+      "You give him a purse in order to proceed to the purchase, once the property has been acquired you continue your way."
+    ],
+    "notEnoughMoney": [
+      "Unfortunately, you do not have enough money, so you can get back to the road.",
+      "You stretch an empty purse, hoping that it passes smoothly, but you get hunted quickly, you get back to your sad and sad way."
+    ],
+    "refused": [
+      "You delineate the offer and return to your path."
+    ]
   }
 }
