@@ -62,9 +62,9 @@
   },
   "boatAdvice": {
     "intro": [
-      "Sobe ao convés e conversa com um membro da tripulação.\n{{{advice}}}Ele dá-te alguns conselhos para te ajudar na tua aventura na ilha: ** **.",
-      "Sobe ao mastro para admirar o horizonte.\n{{{advice}}}Um homem baixa a sua luneta e dá-lhe este conselho antes de partir para a ilha: ** **.",
-      "Apreciando uma refeição ao sabor da brisa fresca do mar, conversa com os marinheiros.\n{{{advice}}}O seu companheiro de mesa dá-lhe os seguintes conselhos sobre a ilha: ** **."
+      "Sobe ao convés e conversa com um membro da tripulação.\n{{advice}}Ele dá-te alguns conselhos para te ajudar na tua aventura na ilha: ** **.",
+      "Sobe ao mastro para admirar o horizonte.\n{{advice}}Um homem baixa a sua luneta e dá-lhe este conselho antes de partir para a ilha: ** **.",
+      "Apreciando uma refeição ao sabor da brisa fresca do mar, conversa com os marinheiros.\n{{advice}}O seu companheiro de mesa dá-lhe os seguintes conselhos sobre a ilha: ** **."
     ],
     "advices": [
       "Há muitos outros eventos à sua espera em Mysterious Island",
@@ -1500,5 +1500,101 @@
       "nothing": "$t(smallEvents:gobletsGame.goblets.{{goblet}}.name) Levanta suavemente a chávena e verifica que não há nada por baixo. Desapontado, vai-se embora com tristeza, pensando que talvez tenha mais sorte noutra altura.",
       "end": "Ao ver a tua falta de reação, o homem tem a má ideia de te tentar roubar. Apercebendo-se da sua manobra, intervém, mas é rapidamente surpreendido pela força do homem, que consegue sair do caminho com um movimento brusco, antes de fugir.{{quantity}} {emote:unitValues.lostHealth}Escapou com um ferimento ligeiro ** **."
     }
+  },
+  "shop": {
+    "intro_m": [
+      "{{name}}Quando está a viajar, encontra . Ele é um caixeiro-viajante e oferece-lhe uma oferta especial.",
+      "{{name}}Ao longo da estrada, depara-se com , que rapidamente lhe faz uma oferta tentadora.",
+      "{{name}} Quando se prepara para partir depois de uma pequena pausa, um homem que se apresenta como \"caixeiro-viajante\" oferece-lhe uma troca.",
+      "{{name}}Ao contornar uma rocha, dá de caras com um caixeiro-viajante chamado , que parece estar a vender coisas muito interessantes.",
+      "{{name}} Enquanto passeia tranquilamente, aparece à sua frente um carrinho com a inscrição \" - super vendedor ambulante de objectos\". A transação começa imediatamente.",
+      "A certa altura da tua viagem, um comerciante chama-te. {{name}} Ele diz que se chama e que tem alguns objectos que te podem ajudar na tua aventura.",
+      "Depois de uma longa caminhada, é abordado por um homem. {{name}} Descobre que o seu nome é - um comerciante de primeira classe. Ele mostra-te rapidamente um dos seus muitos artigos.",
+      "Durante uma pequena pausa junto a uma árvore, um homem aproxima-se de si e apresenta-se como caixeiro-viajante. {{name}} O homem, cujo nome é , parece ter uma oferta tentadora."
+    ],
+    "intro_f": [
+      "{{name}} Ao longo da estrada, depara-se com , que rapidamente lhe faz uma oferta tentadora.",
+      "Ao percorrermos as estradas, é frequente encontrarmos vendedores ambulantes. {{name}} Hoje, é um comerciante que tem algo para lhe oferecer.",
+      "Durante a tua viagem, és abordado por uma comerciante. {{name}} Ela diz que se chama e que tem alguns objectos que te podem ajudar na tua aventura.",
+      "{{name}}Ao percorreres a estrada, encontras uma carroça com uma comerciante de nome . Ela oferece-se para comprar um dos seus artigos, dizendo que pode ser útil na tua aventura."
+    ],
+    "end": [
+      "\n\n{{item}}{{price}} {emote:unitValues.money}\n\n {{type}}| Tipo :**"
+    ],
+    "types": [
+      "Arma",
+      "Armadura/Escudo",
+      "Poção",
+      "Objeto"
+    ],
+    "names_m": [
+      "Terry",
+      "Marco",
+      "Didier",
+      "Bernard",
+      "Georges",
+      "Luís",
+      "Kilton",
+      "Kikolou",
+      "Araj",
+      "Lavio",
+      "Bugri",
+      "Faras",
+      "Finlandês",
+      "Russel",
+      "Ullure",
+      "Vivian",
+      "Belethor"
+    ],
+    "names_f": [
+      "Karine",
+      "Cremia",
+      "Fouyaya",
+      "Brasa",
+      "Embry",
+      "Emirel",
+      "Fressah",
+      "Ullure"
+    ],
+    "purchased": [
+      "Satisfeito com a sua compra, está no bom caminho.",
+      "Entrega-lhe uma bolsa para proceder à compra e, depois de ter adquirido a propriedade, continua o seu caminho."
+    ],
+    "notEnoughMoney": [
+      "Infelizmente, não tem dinheiro suficiente, por isso volta para a estrada.",
+      "Estendemos uma bolsa vazia na esperança de que passe sem problemas, mas somos rapidamente expulsos e seguimos o nosso caminho tristes e desiludidos."
+    ],
+    "refused": [
+      "Recusa a oferta e segue o seu caminho."
+    ]
+  },
+  "epicItemShop": {
+    "intro": [
+      "Ao dirigires-te para o teu destino, tens um encontro inesperado. Alderic, o antiquário, surge no horizonte, com a sua carroça de tesouros a reboque, pronto para discutir um assunto especial.",
+      "No caminho, aparece um estranho indivíduo. Aldéric, o antiquário, um encantador caixeiro-viajante, aparece com uma proposta cativante.",
+      "Caminhando tranquilamente em direção ao desconhecido, surge uma figura familiar: Aldéric, o antiquário, o comerciante errante, faz-lhe uma proposta intrigante.",
+      "Durante a sua viagem tranquila, algo de invulgar acontece. Aldéric, o antiquário, o artista itinerante das antiguidades, convida-o para uma transação memorável.",
+      "Durante a tua viagem, ocorre uma interrupção surpreendente. É Aldéric, o antiquário, o mercador ambulante, que te oferece um tesouro inesperado.",
+      "Durante uma pequena pausa debaixo de uma árvore, aparece uma figura misteriosa. É Aldéric, o antiquário, o vagabundo do insólito, pronto a mergulhá-lo numa oferta tentadora.",
+      "Enquanto percorre tranquilamente a estrada, o som de rodas de carroça chama a sua atenção. Aldéric, o antiquário, um homem de meia-idade vestido de forma pitoresca, percorre as estradas como comerciante itinerante. Com um sorriso simpático, convida-o a explorar a sua coleção de objectos fascinantes.",
+      "Ao longo de um caminho de pedra poeirento, surge uma carroça com a inscrição \"Aldéric l'antiquaire - marchand d'objets super\". Uma transação está prestes a começar.",
+      "Caminhando calmamente, surge no horizonte uma carroça de madeira que desperta a sua curiosidade. A bordo, está Aldéric, o antiquário, um homem distinto marcado pela passagem do tempo. A sua carroça está repleta de antiguidades cuidadosamente arrumadas e ele oferece-se para lhe mostrar os seus tesouros, todos eles repletos de história.",
+      "Depois de uma breve pausa, um indivíduo surpreendentemente bem vestido aproxima-se de si. Apresenta-se como Aldéric, o antiquário, um comerciante itinerante de renome. O seu traje, uma mistura de tecidos antigos e acessórios misteriosos, reflecte o seu amor pelos objectos de outrora. Com um sotaque cheio de entusiasmo, conta-vos a história dos seus achados únicos.",
+      "Durante o seu passeio, pára à sua frente uma carroça que se assemelha a um tesouro ambulante. O seu condutor, Aldéric, o antiquário, é um homem caloroso, vestido com roupas antigas. Convida-o a explorar a sua coleção de curiosidades, cada uma acompanhada de uma história que o deixará maravilhado.",
+      "Durante uma pausa à sombra de uma grande árvore, um homem distinto aproxima-se de si com um sorriso amigável. É Aldéric, o antiquário, um negociante de renome. O seu traje evoca uma época passada e ele mostra-lhe cuidadosamente a sua coleção de objectos antigos expostos no seu carrinho.",
+      "Após longas horas de caminhada, é recebido com cortesia por um homem de meia-idade vestido com roupas de outros tempos. Apresentando-se como Aldéric l'antiquaire, um entusiasta das antiguidades, ele convida-o a descobrir a sua coleção de objectos fascinantes, contando alegremente a história de cada um deles."
+    ],
+    "reductionTip": "Inclina ligeiramente a cabeça e diz-lhe em jeito de aparte: \"Se tenciona aventurar-se até à Route des Merveilles e conseguir encontrar-me lá, pode ter a certeza de que lhe farei uma oferta muito atraente.",
+    "purchased": [
+      "Satisfeito com a sua compra, está no bom caminho.",
+      "Entrega-lhe uma bolsa para proceder à compra e, depois de ter adquirido a propriedade, continua o seu caminho."
+    ],
+    "notEnoughMoney": [
+      "Infelizmente, não tem dinheiro suficiente, por isso volta para a estrada.",
+      "Estendemos uma bolsa vazia na esperança de que passe sem problemas, mas somos rapidamente expulsos e seguimos o nosso caminho tristes e desiludidos."
+    ],
+    "refused": [
+      "Recusa a oferta e segue o seu caminho."
+    ]
   }
 }
