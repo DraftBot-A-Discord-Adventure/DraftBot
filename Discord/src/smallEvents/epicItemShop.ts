@@ -5,11 +5,9 @@ import {DraftbotSmallEventEmbed} from "../messages/DraftbotSmallEventEmbed";
 import {StringUtils} from "../utils/StringUtils";
 import {DiscordCollectorUtils} from "../utils/DiscordCollectorUtils";
 import {ReactionCollectorMerchantData} from "../../../Lib/src/packets/interaction/ReactionCollectorMerchant";
-import {RandomUtils} from "../../../Lib/src/utils/RandomUtils";
 import {DisplayUtils} from "../utils/DisplayUtils";
 import {Constants} from "../../../Lib/src/constants/Constants";
 import i18n from "../translations/i18n";
-import {StringConstants} from "../../../Lib/src/constants/StringConstants";
 
 /**
  * Send the initial embed for this small event
@@ -19,16 +17,11 @@ import {StringConstants} from "../../../Lib/src/constants/StringConstants";
 export async function epicItemShopCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorMerchantData;
-	const gender = RandomUtils.draftbotRandom.bool() ? StringConstants.SEX.MALE : StringConstants.SEX.FEMALE;
-	const name = StringUtils.getRandomTranslation("smallEvents:shop.names", interaction.userLanguage, {context: gender.short});
 	const tip = data.tip ? StringUtils.getRandomTranslation("smallEvents:epicItemShop.reductionTip",interaction.userLanguage) : "";
 
 	const embed = new DraftbotSmallEventEmbed(
 		"epicItemShop",
-		StringUtils.getRandomTranslation("smallEvents:epicItemShop.intro", interaction.userLanguage, {
-			context: gender.short,
-			name
-		})
+		StringUtils.getRandomTranslation("smallEvents:epicItemShop.intro", interaction.userLanguage)
 		+ tip
 		+ StringUtils.getRandomTranslation("smallEvents:shop.end", interaction.userLanguage, {
 			item: DisplayUtils.getItemDisplayWithStats(data.item, interaction.userLanguage),

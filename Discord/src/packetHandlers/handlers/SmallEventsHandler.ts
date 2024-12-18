@@ -75,6 +75,10 @@ import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {baseFunctionHandler} from "../../smallEvents/shop";
 import {StringConstants} from "../../../../Lib/src/constants/StringConstants";
 import {epicItemShopHandler} from "../../smallEvents/epicItemShop";
+import {
+	SmallEventEpicItemShopAcceptPacket, SmallEventEpicItemShopCannotBuyPacket,
+	SmallEventEpicItemShopRefusePacket
+} from "../../../../Lib/src/packets/smallEvents/SmallEventEpicItemShopPacket";
 
 
 export function getRandomSmallEventIntro(language: Language): string {
@@ -849,18 +853,18 @@ export default class SmallEventsHandler {
 		});
 	}
 
-	@packetHandler(SmallEventShopRefusePacket)
-	async smallEventEpicItemShopRefuse(packet: SmallEventShopRefusePacket, context: PacketContext): Promise<void> {
+	@packetHandler(SmallEventEpicItemShopRefusePacket)
+	async smallEventEpicItemShopRefuse(packet: SmallEventEpicItemShopRefusePacket, context: PacketContext): Promise<void> {
 		await epicItemShopHandler(context, "smallEvents:epicItemShop.refused");
 	}
 
-	@packetHandler(SmallEventShopAcceptPacket)
-	async smallEventEpicItemShopAccept(packet: SmallEventShopAcceptPacket, context: PacketContext): Promise<void> {
+	@packetHandler(SmallEventEpicItemShopAcceptPacket)
+	async smallEventEpicItemShopAccept(packet: SmallEventEpicItemShopAcceptPacket, context: PacketContext): Promise<void> {
 		await epicItemShopHandler(context, "smallEvents:epicItemShop.purchased");
 	}
 
-	@packetHandler(SmallEventShopCannotBuyPacket)
-	async smallEventEpicItemShopCannotBuy(packet: SmallEventShopCannotBuyPacket, context: PacketContext): Promise<void> {
+	@packetHandler(SmallEventEpicItemShopCannotBuyPacket)
+	async smallEventEpicItemShopCannotBuy(packet: SmallEventEpicItemShopCannotBuyPacket, context: PacketContext): Promise<void> {
 		await epicItemShopHandler(context, "smallEvents:epicItemShop.notEnoughMoney");
 	}
 }
