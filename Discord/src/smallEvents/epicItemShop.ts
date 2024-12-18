@@ -4,10 +4,10 @@ import {DiscordCache} from "../bot/DiscordCache";
 import {DraftbotSmallEventEmbed} from "../messages/DraftbotSmallEventEmbed";
 import {StringUtils} from "../utils/StringUtils";
 import {DiscordCollectorUtils} from "../utils/DiscordCollectorUtils";
-import {ReactionCollectorMerchantData} from "../../../Lib/src/packets/interaction/ReactionCollectorMerchant";
 import {DisplayUtils} from "../utils/DisplayUtils";
 import {Constants} from "../../../Lib/src/constants/Constants";
 import i18n from "../translations/i18n";
+import {ReactionCollectorEpicShopSmallEventData} from "../../../Lib/src/packets/interaction/ReactionCollectorEpicShopSmallEvent";
 
 /**
  * Send the initial embed for this small event
@@ -16,24 +16,28 @@ import i18n from "../translations/i18n";
  */
 export async function epicItemShopCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
-	const data = packet.data.data as ReactionCollectorMerchantData;
-	const tip = data.tip ? StringUtils.getRandomTranslation("smallEvents:epicItemShop.reductionTip",interaction.userLanguage) : "";
+	if (!interaction) {
+		return;
+	}
+	const lng = interaction.userLanguage;
+	const data = packet.data.data as ReactionCollectorEpicShopSmallEventData;
+	const tip = data.tip ? i18n.t("smallEvents:epicItemShop.reductionTip", {lng}) : "";
 
 	const embed = new DraftbotSmallEventEmbed(
 		"epicItemShop",
-		StringUtils.getRandomTranslation("smallEvents:epicItemShop.intro", interaction.userLanguage)
+		StringUtils.getRandomTranslation("smallEvents:epicItemShop.intro", lng)
 		+ tip
-		+ StringUtils.getRandomTranslation("smallEvents:shop.end", interaction.userLanguage, {
-			item: DisplayUtils.getItemDisplayWithStats(data.item, interaction.userLanguage),
+		+ StringUtils.getRandomTranslation("smallEvents:shop.end", lng, {
+			item: DisplayUtils.getItemDisplayWithStats(data.item, lng),
 			price: data.price,
 			type: `${Constants.REACTIONS.ITEM_CATEGORIES[data.item.category]}${i18n.t("smallEvents:shop.types", {
 				returnObjects: true,
-				lng: interaction.userLanguage
+				lng
 			})[data.item.category]}`,
 			interpolation: {escapeValue: false}
 		}),
 		interaction.user,
-		interaction.userLanguage
+		lng
 	);
 
 	await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);

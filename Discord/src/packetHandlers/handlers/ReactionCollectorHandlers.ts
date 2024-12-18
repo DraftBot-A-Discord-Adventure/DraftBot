@@ -35,9 +35,10 @@ import {ReactionCollectorGobletsGameData} from "../../../../Lib/src/packets/inte
 import {gobletsGameCollector} from "../../smallEvents/gobletsGame";
 import {createUnlockCollector} from "../../commands/player/UnlockCommand";
 import {ReactionCollectorUnlockData} from "../../../../Lib/src/packets/interaction/ReactionCollectorUnlock";
-import {ReactionCollectorMerchantData} from "../../../../Lib/src/packets/interaction/ReactionCollectorMerchant";
 import {smallShopCollector} from "../../smallEvents/shop";
 import {epicItemShopCollector} from "../../smallEvents/epicItemShop";
+import {ReactionCollectorEpicShopSmallEventData} from "../../../../Lib/src/packets/interaction/ReactionCollectorEpicShopSmallEvent";
+import {ReactionCollectorShopSmallEventData} from "../../../../Lib/src/packets/interaction/ReactionCollectorShopSmallEvent";
 
 export default class ReactionCollectorHandler {
 
@@ -63,8 +64,8 @@ export default class ReactionCollectorHandler {
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorGuildInviteData.name, createGuildInviteCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorGobletsGameData.name, gobletsGameCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorUnlockData.name, createUnlockCollector);
-		ReactionCollectorHandler.collectorMap.set(ReactionCollectorMerchantData.name, smallShopCollector);
-		ReactionCollectorHandler.collectorMap.set(ReactionCollectorMerchantData.name, epicItemShopCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorShopSmallEventData.name, smallShopCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorEpicShopSmallEventData.name, epicItemShopCollector);
 	}
 
 	@packetHandler(ReactionCollectorCreationPacket)

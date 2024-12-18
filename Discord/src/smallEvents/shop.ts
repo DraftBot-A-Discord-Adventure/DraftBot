@@ -4,12 +4,12 @@ import {DiscordCache} from "../bot/DiscordCache";
 import {DraftbotSmallEventEmbed} from "../messages/DraftbotSmallEventEmbed";
 import {StringUtils} from "../utils/StringUtils";
 import {DiscordCollectorUtils} from "../utils/DiscordCollectorUtils";
-import {ReactionCollectorMerchantData} from "../../../Lib/src/packets/interaction/ReactionCollectorMerchant";
 import {RandomUtils} from "../../../Lib/src/utils/RandomUtils";
 import {DisplayUtils} from "../utils/DisplayUtils";
 import {Constants} from "../../../Lib/src/constants/Constants";
 import i18n from "../translations/i18n";
 import {StringConstants} from "../../../Lib/src/constants/StringConstants";
+import {ReactionCollectorShopSmallEventData} from "../../../Lib/src/packets/interaction/ReactionCollectorShopSmallEvent";
 
 /**
  * Send the initial embed for this small event
@@ -18,7 +18,7 @@ import {StringConstants} from "../../../Lib/src/constants/StringConstants";
  */
 export async function smallShopCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
-	const data = packet.data.data as ReactionCollectorMerchantData;
+	const data = packet.data.data as ReactionCollectorShopSmallEventData;
 	const gender = RandomUtils.draftbotRandom.bool() ? StringConstants.SEX.MALE : StringConstants.SEX.FEMALE;
 	const name = StringUtils.getRandomTranslation("smallEvents:shop.names", interaction.userLanguage, {context: gender.short});
 

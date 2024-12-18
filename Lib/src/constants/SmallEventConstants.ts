@@ -1,4 +1,4 @@
-import {ItemConstants, ItemRarity} from "./ItemConstants";
+import {ItemRarity} from "./ItemConstants";
 import {PetConstants} from "./PetConstants";
 
 export abstract class SmallEventConstants {
@@ -263,8 +263,6 @@ export abstract class SmallEventConstants {
 	};
 
 	static readonly EPIC_ITEM_SHOP = {
-		MIN_RARITY: ItemConstants.RARITY.EPIC,
-		MAX_RARITY: ItemConstants.RARITY.LEGENDARY,
 		GREAT_DEAL_PROBABILITY: 0.1,
 		GREAT_DEAL_MULTIPLAYER: 3.5,
 		BASE_MULTIPLIER: 5.5,
