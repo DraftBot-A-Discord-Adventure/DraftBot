@@ -29,15 +29,10 @@ function getListOfMentionFromCommandData(commandData: [string, {
  * @param language used for the error message in case the command doesn't exist
  */
 function getCommandByCategories(language: Language): { [key: string]: string[] } {
-	const serverCommands: string[] = [], utilCommands: string[] = [], playerCommands: string[] = [],
+	const utilCommands: string[] = [], playerCommands: string[] = [],
 		missionCommands: string[] = [], guildCommands: string[] = [], petCommands: string[] = [];
 	for (const commandData of Object.entries(HelpConstants.COMMANDS_DATA)) {
 		switch (commandData[1].CATEGORY) {
-		case HelpConstants.COMMAND_CATEGORY.SERVER:
-			serverCommands.push(
-				getListOfMentionFromCommandData(commandData, language)
-			);
-			break;
 		case HelpConstants.COMMAND_CATEGORY.UTIL:
 			utilCommands.push(
 				getListOfMentionFromCommandData(commandData, language)
@@ -67,7 +62,7 @@ function getCommandByCategories(language: Language): { [key: string]: string[] }
 			break;
 		}
 	}
-	return {serverCommands, utilCommands, playerCommands, missionCommands, guildCommands, petCommands};
+	return {utilCommands, playerCommands, missionCommands, guildCommands, petCommands};
 }
 
 /**
@@ -77,7 +72,6 @@ function getCommandByCategories(language: Language): { [key: string]: string[] }
  */
 function generateGenericHelpMessage(helpMessage: DraftBotEmbed, interaction: DraftbotInteraction): void {
 	const {
-		serverCommands,
 		utilCommands,
 		playerCommands,
 		missionCommands,
@@ -96,10 +90,6 @@ function generateGenericHelpMessage(helpMessage: DraftBotEmbed, interaction: Dra
 		})}\n\u200b`
 	);
 	helpMessage.addFields([
-		{
-			name: i18n.t("commands:help.serverCommands", {lng: interaction.userLanguage}),
-			value: `${serverCommands.sort().join(HelpConstants.COMMAND_SEPARATOR_FOR_GENERAL_DESCRIPTION)}`
-		},
 		{
 			name: i18n.t("commands:help.utilCommands", {lng: interaction.userLanguage}),
 			value: `${utilCommands.sort().join(HelpConstants.COMMAND_SEPARATOR_FOR_GENERAL_DESCRIPTION)}`
