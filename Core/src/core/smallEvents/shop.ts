@@ -11,8 +11,12 @@ import {generateRandomItem} from "../utils/ItemUtils";
 import {ItemRarity} from "../../../../Lib/src/constants/ItemConstants";
 import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {SmallEventFuncs} from "../../data/SmallEvent";
+import {
+	ReactionCollectorShopSmallEvent,
+	ReactionCollectorShopSmallEventData
+} from "../../../../Lib/src/packets/interaction/ReactionCollectorShopSmallEvent";
 
-class ShopSmallEvent extends Shop<SmallEventShopAcceptPacket, SmallEventShopRefusePacket, SmallEventShopCannotBuyPacket> {
+class ShopSmallEvent extends Shop<SmallEventShopAcceptPacket, SmallEventShopRefusePacket, SmallEventShopCannotBuyPacket, ReactionCollectorShopSmallEvent> {
 	getPriceMultiplier(): number | Promise<number> {
 		return RandomUtils.draftbotRandom.bool(SmallEventConstants.SHOP.SCAM_PROBABILITY) ? SmallEventConstants.SHOP.SCAM_MULTIPLIER : SmallEventConstants.SHOP.BASE_MULTIPLIER;
 	}
@@ -33,8 +37,8 @@ class ShopSmallEvent extends Shop<SmallEventShopAcceptPacket, SmallEventShopRefu
 		return makePacket(SmallEventShopCannotBuyPacket, {});
 	}
 
-	getTip(): boolean {
-		return false;
+	getPopulatedReactionCollector(basePacket: ReactionCollectorShopSmallEventData): ReactionCollectorShopSmallEvent {
+		return new ReactionCollectorShopSmallEvent(basePacket);
 	}
 }
 

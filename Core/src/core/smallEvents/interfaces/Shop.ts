@@ -15,10 +15,18 @@ import {InventorySlots} from "../../database/game/models/InventorySlot";
 import {SmallEventConstants} from "../../../../../Lib/src/constants/SmallEventConstants";
 import {NumberChangeReason} from "../../../../../Lib/src/constants/LogsConstants";
 import {DraftBotPacket} from "../../../../../Lib/src/packets/DraftBotPacket";
-import {ReactionCollectorMerchant} from "../../../../../Lib/src/packets/interaction/ReactionCollectorMerchant";
-import {ReactionCollectorAcceptReaction} from "../../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import {
+	ReactionCollector,
+	ReactionCollectorAcceptReaction
+} from "../../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import {ReactionCollectorAnyShopSmallEventData} from "../../../../../Lib/src/packets/interaction/ReactionCollectorAnyShopSmallEvent";
 
-export abstract class Shop<AcceptPacket extends SmallEventAnyShopAcceptedPacket, RefusePacket extends SmallEventAnyShopRefusedPacket, CannotBuyPacket extends SmallEventAnyShopCannotBuyPacket> {
+export abstract class Shop<
+	Accept extends SmallEventAnyShopAcceptedPacket,
+	Refuse extends SmallEventAnyShopRefusedPacket,
+	CannotBuy extends SmallEventAnyShopCannotBuyPacket,
+	Collector extends ReactionCollector
+> {
 	canBeExecuted = Maps.isOnContinent;
 
 	protected itemMultiplier: number;
@@ -31,23 +39,22 @@ export abstract class Shop<AcceptPacket extends SmallEventAnyShopAcceptedPacket,
 
 	abstract getPriceMultiplier(player: Player): number | Promise<number>;
 
-	abstract getAcceptPacket(): AcceptPacket;
+	abstract getAcceptPacket(): Accept;
 
-	abstract getRefusePacket(): RefusePacket;
+	abstract getRefusePacket(): Refuse;
 
-	abstract getCannotBuyPacket(): CannotBuyPacket;
+	abstract getCannotBuyPacket(): CannotBuy;
 
-	abstract getTip(): boolean;
+	abstract getPopulatedReactionCollector(basePacket: ReactionCollectorAnyShopSmallEventData): Collector;
 
 	public executeSmallEvent: ExecuteSmallEventLike = async (context, response, player) => {
 		this.itemMultiplier = await this.getPriceMultiplier(player);
 		this.randomItem = await this.getRandomItem();
 		this.itemPrice = Math.round(getItemValue(this.randomItem) * this.itemMultiplier);
 
-		const collector = new ReactionCollectorMerchant({
+		const collector = this.getPopulatedReactionCollector({
 			item: toItemWithDetails(this.randomItem),
-			price: this.itemPrice,
-			tip: this.getTip()
+			price: this.itemPrice
 		});
 
 		const packet = new ReactionCollectorInstance(
