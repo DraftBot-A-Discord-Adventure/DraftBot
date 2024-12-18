@@ -2,7 +2,6 @@ export abstract class HelpConstants {
 	static readonly COMMAND_SEPARATOR_FOR_GENERAL_DESCRIPTION = " • ";
 
 	static readonly COMMAND_CATEGORY = {
-		SERVER: "server",
 		UTIL: "util",
 		PLAYER: "player",
 		MISSION: "mission",
@@ -125,7 +124,7 @@ export abstract class HelpConstants {
 			{
 				EMOTE: ":flag_gb:",
 				NAME: "language",
-				CATEGORY: "server"
+				CATEGORY: "util"
 			},
 		TOP:
 			{
