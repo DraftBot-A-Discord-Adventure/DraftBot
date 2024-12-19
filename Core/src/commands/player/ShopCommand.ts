@@ -323,8 +323,10 @@ export default class ShopCommand {
 		ShopUtils.sendShopCollector(new ReactionCollectorShop(
 			shopCategories,
 			player.money,
-			ShopConstants.MAX_DAILY_POTION_BUYOUTS - await LogsReadRequests.getAmountOfDailyPotionsBoughtByPlayer(player.keycloakId),
-			toItemWithDetails(potion)
+			{
+				remainingPotions: ShopConstants.MAX_DAILY_POTION_BUYOUTS - await LogsReadRequests.getAmountOfDailyPotionsBoughtByPlayer(player.keycloakId),
+				dailyPotion: toItemWithDetails(potion)
+			}
 		), shopCategories, context, response, player);
 	}
 }

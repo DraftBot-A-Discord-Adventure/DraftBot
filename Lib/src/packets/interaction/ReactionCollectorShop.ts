@@ -6,6 +6,7 @@ import {
 } from "./ReactionCollectorPacket";
 import {DraftBotPacket, PacketContext, PacketDirection, sendablePacket} from "../DraftBotPacket";
 import {ItemWithDetails} from "../../interfaces/ItemWithDetails";
+import {ShopCurrency} from "../../constants/ShopConstants";
 
 export interface ShopItem {
 	id: string;
@@ -60,16 +61,17 @@ export class CommandShopBoughtTooMuchDailyPotions extends DraftBotPacket {
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
-export class CommandShopNotEnoughMoney extends DraftBotPacket {
-	missingMoney!: number;
+export class CommandShopNotEnoughCurrency extends DraftBotPacket {
+	missingCurrency!: number;
+	currency!: ShopCurrency;
 }
 
 export class ReactionCollectorShopData extends ReactionCollectorData {
-	availableMoney!: number;
+	availableCurrency!: number;
 
-	remainingPotions?: number;
+	currency!: ShopCurrency;
 
-	dailyPotion?: ItemWithDetails;
+	additionnalShopData?: AdditionnalShopData;
 }
 
 export class ReactionCollectorShopItemReaction extends ReactionCollectorReaction {
@@ -86,21 +88,31 @@ export class ReactionCollectorShopCloseReaction extends ReactionCollectorReactio
 
 }
 
+type AdditionnalShopData = {
+	remainingPotions?: number;
+	dailyPotion?: ItemWithDetails;
+}
+
 export class ReactionCollectorShop extends ReactionCollector {
+	public readonly currency!: ShopCurrency.MONEY | ShopCurrency.GEMS;
+
 	private readonly shopCategories!: ShopCategory[];
 
 	private readonly availableMoney!: number;
 
-	private readonly remainingPotions?: number;
+	private readonly additionnalShopData!: AdditionnalShopData;
 
-	private readonly dailyPotion?: ItemWithDetails;
-
-	constructor(shopCategories: ShopCategory[], availableMoney: number, remainingPotions: number | undefined, dailyPotion: ItemWithDetails | undefined) {
+	constructor(shopCategories: ShopCategory[],
+	            availableMoney: number,
+	            additionnalShopData: AdditionnalShopData & {
+		            currency?: ShopCurrency
+	            } = {}
+	) {
 		super();
 		this.shopCategories = shopCategories;
 		this.availableMoney = availableMoney;
-		this.remainingPotions = remainingPotions;
-		this.dailyPotion = dailyPotion;
+		this.currency = additionnalShopData.currency ?? ShopCurrency.MONEY;
+		this.additionnalShopData = additionnalShopData;
 	}
 
 	creationPacket(id: string, endTime: number): ReactionCollectorCreationPacket {
@@ -125,9 +137,9 @@ export class ReactionCollectorShop extends ReactionCollector {
 			endTime,
 			reactions,
 			data: this.buildData(ReactionCollectorShopData, {
-				availableMoney: this.availableMoney,
-				remainingPotions: this.remainingPotions,
-				dailyPotion: this.dailyPotion
+				availableCurrency: this.availableMoney,
+				currency: this.currency,
+				additionnalShopData: this.additionnalShopData
 			})
 		};
 	}

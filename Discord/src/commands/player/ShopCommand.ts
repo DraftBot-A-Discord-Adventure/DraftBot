@@ -336,10 +336,10 @@ type ShopItemNames = {
 function getShopItemNames(data: ReactionCollectorShopData, shopItemId: string, lng: Language): ShopItemNames {
 	if (shopItemId === "dailyPotion") {
 		return {
-			normal: DisplayUtils.getItemDisplayWithStats(data.dailyPotion!, lng),
+			normal: DisplayUtils.getItemDisplayWithStats(data.additionnalShopData!.dailyPotion!, lng),
 			short: DisplayUtils.getItemDisplay({
-				id: data.dailyPotion!.id,
-				category: data.dailyPotion!.category
+				id: data.additionnalShopData!.dailyPotion!.id,
+				category: data.additionnalShopData!.dailyPotion!.category
 			}, lng)
 		};
 	}
@@ -359,8 +359,9 @@ function getShopItemDisplay(data: ReactionCollectorShopData, reaction: ReactionC
 			lng,
 			name: shopItemNames.normal,
 			price: reaction.price,
+			currency: data.currency,
 			interpolation: {escapeValue: false},
-			remainingPotions: data.remainingPotions
+			remainingPotions: data.additionnalShopData!.remainingPotions
 		})}\n`;
 	}
 
@@ -370,7 +371,8 @@ function getShopItemDisplay(data: ReactionCollectorShopData, reaction: ReactionC
 			lng,
 			name: shopItemNames.normal,
 			amount,
-			price: reaction.price * amount
+			price: reaction.price * amount,
+			currency: data.currency,
 		})}\n`;
 	}
 	return desc;
@@ -401,7 +403,7 @@ export async function shopCollector(packet: ReactionCollectorCreationPacket, con
 
 		shopText += `${`**${i18n.t(`commands:shop.shopCategories.${categoryId}`, {
 			lng: interaction.userLanguage,
-			count: data.remainingPotions
+			count: data.additionnalShopData!.remainingPotions
 		})}** :\n`
 			.concat(...categoryItemsIds.map(id => {
 				const reaction = packet.reactions.find(reaction => (reaction.data as ReactionCollectorShopItemReaction).shopItemId === id)!.data as ReactionCollectorShopItemReaction;
@@ -411,7 +413,8 @@ export async function shopCollector(packet: ReactionCollectorCreationPacket, con
 					.setLabel(shopItemName.short)
 					.setDescription(i18n.t("commands:shop.shopItemsSelectDescription", {
 						lng: interaction.userLanguage,
-						price: reaction.price
+						price: reaction.price,
+						currency: data.currency,
 					}))
 					.setValue(reaction.shopItemId));
 				return getShopItemDisplay(data, reaction, interaction.userLanguage, shopItemName, [1]);
@@ -430,7 +433,8 @@ export async function shopCollector(packet: ReactionCollectorCreationPacket, con
 		.setTitle(i18n.t("commands:shop.title", {lng: interaction.userLanguage}))
 		.setDescription(shopText + i18n.t("commands:shop.currentMoney", {
 			lng: interaction.userLanguage,
-			money: data.availableMoney
+			money: data.availableCurrency,
+			currency: data.currency
 		}));
 
 	const msg = await interaction.reply({

@@ -107,7 +107,7 @@ export class Setting extends Model {
 export class Settings {
 	public static readonly SHOP_POTION = new SettingClassNumber(
 		"shopPotion",
-		async (): Promise<number> => (await PotionDataController.instance.randomShopPotion()).id
+		async (): Promise<number> => PotionDataController.instance.randomShopPotion().id
 	);
 
 	public static readonly PVE_ISLAND = new SettingClassNumber(
