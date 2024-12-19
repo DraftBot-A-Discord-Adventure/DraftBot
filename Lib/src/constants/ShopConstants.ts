@@ -15,5 +15,10 @@ export abstract class ShopConstants {
 
 	static readonly MONEY_MOUTH_BADGE_PRICE = 25000;
 
-	static DAILY_POTION_DISCOUNT_MULTIPLIER = 0.7;
+	static readonly DAILY_POTION_DISCOUNT_MULTIPLIER = 0.7;
+}
+
+export enum ShopCurrency {
+	MONEY = "money",
+	GEMS = "gems"
 }

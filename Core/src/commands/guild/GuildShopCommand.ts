@@ -161,9 +161,7 @@ export default class GuildShopCommand {
 
 		ShopUtils.sendShopCollector(new ReactionCollectorShop(
 			shopCategories,
-			player.money,
-			undefined,
-			undefined
+			player.money
 		), shopCategories, context, response, player);
 	}
 }

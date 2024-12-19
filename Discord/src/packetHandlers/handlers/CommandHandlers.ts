@@ -84,7 +84,7 @@ import {
 	CommandShopHealAlterationDone,
 	CommandShopNoAlterationToHeal,
 	CommandShopNoEnergyToHeal,
-	CommandShopNotEnoughMoney,
+	CommandShopNotEnoughCurrency,
 	CommandShopTooManyEnergyBought
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorShop";
 import {
@@ -454,8 +454,8 @@ export default class CommandHandlers {
 		await handleCommandShopBoughtTooMuchDailyPotions(context);
 	}
 
-	@packetHandler(CommandShopNotEnoughMoney)
-	async shopNotEnoughMoney(packet: CommandShopNotEnoughMoney, context: PacketContext): Promise<void> {
+	@packetHandler(CommandShopNotEnoughCurrency)
+	async shopNotEnoughMoney(packet: CommandShopNotEnoughCurrency, context: PacketContext): Promise<void> {
 		await handleCommandShopNotEnoughMoney(context);
 	}
 
