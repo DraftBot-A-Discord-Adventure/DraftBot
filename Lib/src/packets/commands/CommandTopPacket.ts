@@ -1,14 +1,11 @@
 import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
 import {TopDataType} from "../../enums/TopDataType";
-import {TopScope} from "../../enums/TopScope";
 import {TopTiming} from "../../enums/TopTimings";
 import {TopElement, TopElementScoreFirstType} from "../../interfaces/TopElement";
 
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandTopPacketReq extends DraftBotPacket {
 	dataType!: TopDataType;
-
-	scope!: TopScope;
 
 	timing!: TopTiming;
 
@@ -17,8 +14,6 @@ export class CommandTopPacketReq extends DraftBotPacket {
 
 @sendablePacket(PacketDirection.NONE)
 export class CommandTopPacketRes<T extends TopElement<U, V, W>, U, V, W> extends DraftBotPacket {
-	scope!: TopScope;
-
 	timing!: TopTiming;
 
 	minRank!: number;
@@ -47,3 +42,10 @@ export class CommandTopPacketResGlory extends CommandTopPacketRes<TopElement<num
 // Attributes: guild points, level, none
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandTopPacketResGuild extends CommandTopPacketRes<TopElement<number, number, undefined>, number, number, undefined> {}
+
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class CommandTopInvalidPagePacket extends DraftBotPacket {
+	minPage!: number;
+
+	maxPage!: number;
+}

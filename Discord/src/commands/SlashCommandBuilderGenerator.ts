@@ -1,7 +1,7 @@
 /**
  * Special class for generating SlashCommandBuilder
  */
-import {ApplicationCommandOptionBase, SlashCommandBuilder} from "@discordjs/builders";
+import {ApplicationCommandOptionBase, SlashCommandBuilder, SlashCommandSubcommandBuilder} from "@discordjs/builders";
 import i18n from "../translations/i18n";
 import {SlashCommandStringOption} from "discord.js";
 import {TopConstants} from "../../../Lib/src/constants/TopConstants";
@@ -26,6 +26,18 @@ export class SlashCommandBuilderGenerator {
 			});
 	}
 
+	static generateSubCommand(commandSectionName: string, subCommandSectionName: string): SlashCommandSubcommandBuilder {
+		return new SlashCommandSubcommandBuilder()
+			.setName(i18n.t(`discordBuilder:${commandSectionName}.subcommands.${subCommandSectionName}.name`, {lng: LANGUAGE.ENGLISH}))
+			.setNameLocalizations({
+				fr: i18n.t(`discordBuilder:${commandSectionName}.subcommands.${subCommandSectionName}.name`, {lng: LANGUAGE.FRENCH})
+			})
+			.setDescription(i18n.t(`discordBuilder:${commandSectionName}.subcommands.${subCommandSectionName}.description`, {lng: LANGUAGE.ENGLISH}))
+			.setDescriptionLocalizations({
+				fr: i18n.t(`discordBuilder:${commandSectionName}.subcommands.${subCommandSectionName}.description`, {lng: LANGUAGE.FRENCH})
+			});
+	}
+
 	/**
 	 * Generate a generic option
 	 * @param commandSectionName Command section name in the translation files
@@ -41,36 +53,5 @@ export class SlashCommandBuilderGenerator {
 			.setDescriptionLocalizations({
 				fr: i18n.t(`discordBuilder:${commandSectionName}.options.${optionSectionName}.description`, {lng: LANGUAGE.FRENCH})
 			});
-	}
-
-	/**
-	 * Generate a top scope option
-	 * @param commandSectionName
-	 * @param optionSectionName
-	 * @param option
-	 */
-	static generateTopScopeOption(
-		commandSectionName: string,
-		optionSectionName: string,
-		option: SlashCommandStringOption
-	): SlashCommandStringOption {
-		return SlashCommandBuilderGenerator.generateOption(commandSectionName, optionSectionName, option)
-			.addChoices(
-				{
-					name: i18n.t("discordBuilder:scopes.global", {lng: LANGUAGE.ENGLISH}),
-					"name_localizations": {
-						fr: i18n.t("discordBuilder:scopes.global", {lng: LANGUAGE.FRENCH})
-					}, value: TopConstants.GLOBAL_SCOPE
-				},
-				{
-					name: i18n.t("discordBuilder:scopes.server", {lng: LANGUAGE.ENGLISH}),
-					"name_localizations":
-						{
-							fr: i18n.t("discordBuilder:scopes.server", {lng: LANGUAGE.FRENCH})
-						}
-					,
-					value: TopConstants.SERVER_SCOPE
-				}
-			);
 	}
 }

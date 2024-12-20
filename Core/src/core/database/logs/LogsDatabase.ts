@@ -632,7 +632,7 @@ export class LogsDatabase extends Database {
 	 * Save the top players from the top week. To avoid having too much data, we only save the top 15 players
 	 */
 	public async log15BestTopWeek(): Promise<void> {
-		const players = await Players.getPlayersToPrintTop(await Players.getAllStoredKeycloakIds(), 1, 15, true);
+		const players = await Players.getPlayersTop(1, 15, true);
 		const now = getDateLogs();
 		for (let i = 0; i < players.length; i++) {
 			const player = await LogsDatabase.findOrCreatePlayer(players[0].keycloakId);
@@ -1239,7 +1239,7 @@ export class LogsDatabase extends Database {
 	 * Save the top players from the season ranking. To avoid having too much data, we only save the top 15 players
 	 */
 	public async log15BestSeason(): Promise<void> {
-		const players = await Players.getPlayersToPrintGloryTop(await Players.getAllStoredKeycloakIds(), 1, 15);
+		const players = await Players.getPlayersGloryTop(1, 15);
 		const now = getDateLogs();
 		for (let i = 0; i < players.length; i++) {
 			const player = await LogsDatabase.findOrCreatePlayer(players[0].keycloakId);

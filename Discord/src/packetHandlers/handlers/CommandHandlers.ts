@@ -162,6 +162,17 @@ import {
 	handleCommandUnlockRefusePacketRes
 } from "../../commands/player/UnlockCommand";
 import {handleClassicError} from "../../utils/ErrorUtils";
+import {
+	CommandTopInvalidPagePacket,
+	CommandTopPacketResGlory, CommandTopPacketResGuild,
+	CommandTopPacketResScore
+} from "../../../../Lib/src/packets/commands/CommandTopPacket";
+import {
+	handleCommandTopInvalidPagePacket,
+	handleCommandTopPacketResGlory,
+	handleCommandTopPacketResGuild,
+	handleCommandTopPacketResScore
+} from "../../commands/player/TopCommand";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
@@ -507,5 +518,26 @@ export default class CommandHandlers {
 	@packetHandler(CommandUnlockAcceptPacketRes)
 	async unlockAcceptRes(packet: CommandUnlockAcceptPacketRes, context: PacketContext): Promise<void> {
 		await handleCommandUnlockAcceptPacketRes(packet, context);
+
+	}
+
+	@packetHandler(CommandTopPacketResScore)
+	async topScoreRes(packet: CommandTopPacketResScore, context: PacketContext): Promise<void> {
+		await handleCommandTopPacketResScore(context, packet);
+	}
+
+	@packetHandler(CommandTopPacketResGlory)
+	async topGloryRes(packet: CommandTopPacketResGlory, context: PacketContext): Promise<void> {
+		await handleCommandTopPacketResGlory(context, packet);
+	}
+
+	@packetHandler(CommandTopPacketResGuild)
+	async topGuildRes(packet: CommandTopPacketResGuild, context: PacketContext): Promise<void> {
+		await handleCommandTopPacketResGuild(context, packet);
+	}
+
+	@packetHandler(CommandTopInvalidPagePacket)
+	async topInvalidPageRes(packet: CommandTopInvalidPagePacket, context: PacketContext): Promise<void> {
+		await handleCommandTopInvalidPagePacket(context, packet);
 	}
 }

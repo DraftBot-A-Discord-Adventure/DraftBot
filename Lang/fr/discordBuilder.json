@@ -131,10 +131,6 @@
     "description": "Obtenir un rapport sur la situation de votre personnage.",
     "name": "rapport"
   },
-  "scopes": {
-    "global": "🏆 Classement général",
-    "server": "🚩 Classement du serveur"
-  },
   "test": {
     "description": "Commande de triche pour les testeurs (MODE TEST UNIQUEMENT).",
     "name": "test",
@@ -245,6 +241,38 @@
         "description": "L'utilisateur à délivrer.",
         "name": "utilisateur"
       }
+    }
+  },
+  "top": {
+    "description": "Affiche les classements du jeu.",
+    "name": "classement",
+    "subcommands": {
+      "score": {
+        "description": "Affiche le classement des joueurs en fonction de leur score.",
+        "name": "score"
+      },
+      "glory": {
+        "description": "Affiche le classement des guildes en fonction de leur gloire.",
+        "name": "gloire"
+      },
+      "guild": {
+        "description": "Affiche le classement des guildes en fonction de leur points.",
+        "name": "guilde"
+      }
+    },
+    "options": {
+      "timing": {
+        "description": "La durée du classement affiché (Depuis toujours par défaut).",
+        "name": "duree"
+      },
+      "page": {
+        "description": "La page du classement à afficher.",
+        "name": "page"
+      }
+    },
+    "timings": {
+      "allTime": "🗓️️ Depuis toujours.",
+      "weekly": "🕥 Cette semaine."
     }
   }
 }

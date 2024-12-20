@@ -713,8 +713,6 @@
     "level": "Niveau {{level}}",
     "titleScoreAllTime": "🏆 Affichage du top des places {{minRank}} à {{maxRank}}",
     "titleScoreWeekly": "🏆 Affichage du top de la semaine des places {{minRank}} à {{maxRank}}",
-    "titleScoreAllTimeServer": "🏆 Affichage du top des places {{minRank}} à {{maxRank}} du serveur",
-    "titleScoreWeeklyServer": "🏆 Affichage du top de la semaine des places {{minRank}} à {{maxRank}} du serveur",
     "yourRankTitle": "Votre classement",
     "yourRankFirst_one": "🏆 Félicitations **{{pseudo}}** ! Vous êtes actuellement le meilleur sur un total de {{total}} joueur !",
     "yourRankFirst_other": "🏆 Félicitations **{{pseudo}}** ! Vous êtes actuellement le meilleur sur un total de {{total}} joueurs !",
@@ -723,7 +721,6 @@
     "yourRankNoneScore": "❌ | **{{pseudo}}**, vous n'apparaissez malheureusement pas dans le top car vous avez un score égal ou inférieur à 100 !",
     "yourRankAtPage": "(Vous vous trouverez à la page {{page}} / {{maxPage}})",
     "titleGlory": "✨ Affichage du top gloire des places {{minRank}} à {{maxRank}}",
-    "titleGloryServer": "✨ Affichage du top gloire des places {{minRank}} à {{maxRank}} du serveur",
     "yourRankNoneGlory_one": "❌ | **{{pseudo}}**, vous n'apparaissez malheureusement pas dans le top car vous n'avez pas encore réalisé assez de combats classés ! Vous devez encore réaliser {{needFight}} combat classé.",
     "yourRankNoneGlory_other": "❌ | **{{pseudo}}**, vous n'apparaissez malheureusement pas dans le top car vous n'avez pas encore réalisé assez de combats classés ! Vous devez encore réaliser {{needFight}} combats classés.",
     "titleGuild": "🏟️ Affichage du top guildes des places {{minRank}} à {{maxRank}}",
@@ -734,6 +731,7 @@
     "yourRankAtPageGuild": "(Vous la trouverez à la page {{page}} / {{maxPage}})",
     "noGuild": "❌ | **{{pseudo}}**, vous n'apparaissez pas dans ce classement puisque vous ne faites pas partie d'une guilde !",
     "nobodyInTopPlayers": "Il n'y a actuellement personne dans le top ! Profitez en tant que vous le pouvez.",
-    "nobodyInTopGuilds": "Il n'y a actuellement aucune guilde dans le top ! Profitez en tant que vous le pouvez."
+    "nobodyInTopGuilds": "Il n'y a actuellement aucune guilde dans le top ! Profitez en tant que vous le pouvez.",
+    "invalidPage": "La page demandée n'existe pas. Veuillez réessayer avec une page comprise entre {{minPage}} et {{maxPage}}."
   }
 }

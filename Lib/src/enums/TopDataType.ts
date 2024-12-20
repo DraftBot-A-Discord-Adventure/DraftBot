@@ -3,5 +3,6 @@
  */
 export enum TopDataType {
 	SCORE = "Score",
-	GLORY = "Glory"
+	GLORY = "Glory",
+	GUILD = "Guild"
 }
