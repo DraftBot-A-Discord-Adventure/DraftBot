@@ -78,7 +78,7 @@ async function isNotEligible(player: Player, kickedPlayer: Player, response: Dra
 	}
 
 	if (kickedPlayer.id === player.id) {
-		// Different guild
+		// Same player
 		response.push(makePacket(CommandGuildKickPacketRes, {
 			foundPlayer: true,
 			sameGuild: true,
