@@ -43,7 +43,7 @@ export class ShopUtils {
 			additionnalShopData = {},
 			logger
 		}: ShopInformations
-	) {
+	): Promise<void> {
 		additionnalShopData.currency ??= ShopCurrency.MONEY;
 		const interestingPlayerInfo = additionnalShopData.currency === ShopCurrency.MONEY ? player : await PlayerMissionsInfos.getOfPlayer(player.id);
 		const availableCurrency = interestingPlayerInfo instanceof Player ? interestingPlayerInfo.money : interestingPlayerInfo.gems;
@@ -64,7 +64,7 @@ export class ShopUtils {
 				.find(category => category.id === reactionInstance.shopCategoryId).items
 				.find(item => item.id === reactionInstance.shopItemId).buyCallback(response, player.id, context, reactionInstance.amount);
 			if (buyResult) {
-				await this.manageCurrencySpending(interestingPlayerInfo, reactionInstance, collectorShop.currency, response);
+				await this.manageCurrencySpending(interestingPlayerInfo, reactionInstance, response);
 				logger(player.keycloakId, reactionInstance.shopItemId, reactionInstance.amount).then();
 			}
 		};
@@ -83,7 +83,12 @@ export class ShopUtils {
 		response.push(packet);
 	}
 
-	private static canBuyItem<T extends ShopCurrency>(player: T extends ShopCurrency.MONEY ? Player : PlayerMissionsInfo, reactionInstance: ReactionCollectorShopItemReaction, currency: T, response: DraftBotPacket[]): boolean {
+	private static canBuyItem<T extends ShopCurrency>(
+		player: T extends ShopCurrency.MONEY ? Player : PlayerMissionsInfo,
+		reactionInstance: ReactionCollectorShopItemReaction,
+		currency: T,
+		response: DraftBotPacket[]
+	): boolean {
 		const valueToCheck = player instanceof Player ? player.money : player.gems;
 		if (valueToCheck < reactionInstance.price) {
 			response.push(makePacket(CommandShopNotEnoughCurrency, {
@@ -95,7 +100,11 @@ export class ShopUtils {
 		return true;
 	}
 
-	private static async manageCurrencySpending<T extends ShopCurrency>(player: T extends ShopCurrency.MONEY ? Player : PlayerMissionsInfo, reactionInstance: ReactionCollectorShopItemReaction, currency: T, response: DraftBotPacket[]): Promise<void> {
+	private static async manageCurrencySpending<T extends ShopCurrency>(
+		player: T extends ShopCurrency.MONEY ? Player : PlayerMissionsInfo,
+		reactionInstance: ReactionCollectorShopItemReaction,
+		response: DraftBotPacket[]
+	): Promise<void> {
 		if (player instanceof Player) {
 			await player.spendMoney({
 				amount: reactionInstance.price,

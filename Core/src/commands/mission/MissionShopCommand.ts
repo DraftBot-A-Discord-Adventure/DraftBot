@@ -87,7 +87,7 @@ function getValuableItemShopItem(): ShopItem {
 			await giveItemToPlayer(player, item, context, response, await InventorySlots.getOfPlayer(player.id));
 			return true;
 		}
-	}
+	};
 }
 
 function getAThousandPointsShopItem(): ShopItem {
@@ -134,7 +134,7 @@ function getValueLovePointsPetShopItem(): ShopItem {
 				lovePoints: pet.lovePoints,
 				diet: petModel.diet,
 				nextFeed: pet.getFeedCooldown(petModel)
-			}))
+			}));
 			return true;
 		}
 	};

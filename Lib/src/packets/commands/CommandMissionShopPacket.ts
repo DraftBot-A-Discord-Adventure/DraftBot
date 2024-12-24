@@ -12,16 +12,22 @@ export class CommandMissionShopAlreadyBoughtPointsThisWeek extends DraftBotPacke
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandMissionShopPetInformation extends DraftBotPacket {
 	nickname!: string;
+
 	typeId!: number;
+
 	loveLevel!: number;
+
 	lovePoints!: number;
+
 	diet!: string;
+
 	nextFeed!: number;
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandMissionShopSkipMission extends DraftBotPacket {
 	oldMission!: BaseMission;
+
 	newMission!: BaseMission;
 }
 
