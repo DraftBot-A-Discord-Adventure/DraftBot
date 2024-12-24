@@ -31,12 +31,10 @@ export class ReactionCollectorSkipMissionShopItem extends ReactionCollector {
 		const reactions: {
 			type: string,
 			data: ReactionCollectorReaction
-		}[] = this.missionList.map((mission, missionIndex) => {
-			return this.buildReaction(ReactionCollectorSkipMissionShopItemReaction, {
-				mission,
-				missionIndex
-			});
-		});
+		}[] = this.missionList.map((mission, missionIndex) => this.buildReaction(ReactionCollectorSkipMissionShopItemReaction, {
+			mission,
+			missionIndex
+		}));
 
 		reactions.push(this.buildReaction(ReactionCollectorSkipMissionShopItemCloseReaction, {}));
 

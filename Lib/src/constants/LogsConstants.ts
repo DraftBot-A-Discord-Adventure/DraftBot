@@ -89,4 +89,4 @@ export const ShopItemTypeToString: Record<ShopItemType, string> = {
 	[ShopItemType.SMALL_GUILD_XP]: "smallGuildXp",
 	[ShopItemType.ENERGY_HEAL]: "energyHeal",
 	[ShopItemType.BIG_GUILD_XP]: "bigGuildXp"
-}
+};

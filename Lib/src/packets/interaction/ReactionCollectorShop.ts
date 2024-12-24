@@ -64,6 +64,7 @@ export class CommandShopBoughtTooMuchDailyPotions extends DraftBotPacket {
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandShopNotEnoughCurrency extends DraftBotPacket {
 	missingCurrency!: number;
+
 	currency!: ShopCurrency;
 }
 
@@ -104,11 +105,12 @@ export class ReactionCollectorShop extends ReactionCollector {
 
 	private readonly additionnalShopData!: AdditionnalShopData;
 
-	constructor(shopCategories: ShopCategory[],
-	            availableCurrency: number,
-	            additionnalShopData: AdditionnalShopData & {
-		            currency?: ShopCurrency
-	            } = {}
+	constructor(
+		shopCategories: ShopCategory[],
+		availableCurrency: number,
+		additionnalShopData: AdditionnalShopData & {
+			currency?: ShopCurrency
+		} = {}
 	) {
 		super();
 		this.shopCategories = shopCategories;

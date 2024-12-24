@@ -41,7 +41,7 @@ export abstract class BlockingConstants {
 		REPORT_COMMAND: "reportCommand",
 		CART_SMALL_EVENT: "cartSmallEvent",
 		SKIP_MISSION: "skipMission",
-		SLOT_EXTENSION: "slotExtension",
+		SLOT_EXTENSION: "slotExtension"
 	} as const;
 }
 

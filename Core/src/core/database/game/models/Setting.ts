@@ -6,9 +6,9 @@ import moment = require("moment");
 class SettingClassNumber {
 	private readonly name: string;
 
-	private readonly defaultValue: () => Promise<number>;
+	private readonly defaultValue: (() => Promise<number>) | (() => number);
 
-	constructor(name: string, defaultValue: () => Promise<number>) {
+	constructor(name: string, defaultValue: (() => Promise<number>) | (() => number)) {
 		this.name = name;
 		this.defaultValue = defaultValue;
 	}
@@ -107,7 +107,7 @@ export class Setting extends Model {
 export class Settings {
 	public static readonly SHOP_POTION = new SettingClassNumber(
 		"shopPotion",
-		async (): Promise<number> => PotionDataController.instance.randomShopPotion().id
+		(): number => PotionDataController.instance.randomShopPotion().id
 	);
 
 	public static readonly PVE_ISLAND = new SettingClassNumber(

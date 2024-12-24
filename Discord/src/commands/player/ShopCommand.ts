@@ -372,7 +372,7 @@ function getShopItemDisplay(data: ReactionCollectorShopData, reaction: ReactionC
 			name: shopItemNames.normal,
 			amount,
 			price: reaction.price * amount,
-			currency: data.currency,
+			currency: data.currency
 		})}\n`;
 	}
 	return desc;
@@ -414,7 +414,7 @@ export async function shopCollector(packet: ReactionCollectorCreationPacket, con
 					.setDescription(i18n.t("commands:shop.shopItemsSelectDescription", {
 						lng: interaction.userLanguage,
 						price: reaction.price,
-						currency: data.currency,
+						currency: data.currency
 					}))
 					.setValue(reaction.shopItemId));
 				return getShopItemDisplay(data, reaction, interaction.userLanguage, shopItemName, [1]);
