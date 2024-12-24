@@ -20,5 +20,5 @@ export abstract class ShopConstants {
 
 export enum ShopCurrency {
 	MONEY = "money",
-	GEMS = "gems"
+	GEM = "gem"
 }

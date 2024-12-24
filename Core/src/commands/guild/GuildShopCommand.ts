@@ -7,11 +7,7 @@ import {
 } from "../../../../Lib/src/packets/commands/CommandGuildShopPacket";
 import {Player, Players} from "../../core/database/game/models/Player";
 import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
-import {
-	ReactionCollectorShop,
-	ShopCategory,
-	ShopItem
-} from "../../../../Lib/src/packets/interaction/ReactionCollectorShop";
+import {ShopCategory, ShopItem} from "../../../../Lib/src/packets/interaction/ReactionCollectorShop";
 import {GuildShopConstants} from "../../../../Lib/src/constants/GuildShopConstants";
 import {Guilds} from "../../core/database/game/models/Guild";
 import {GuildUtils} from "../../core/utils/GuildUtils";
@@ -33,8 +29,6 @@ async function giveGuildXp(response: DraftBotPacket[], playerId: number, price: 
 
 	response.push(makePacket(CommandGuildShopGiveXp, {xp: xpToAdd}));
 
-	draftBotInstance.logsDatabase.logGuildShopBuyout(player.keycloakId, ShopItemType.GUILD_XP).then();
-
 	return true;
 }
 
@@ -43,10 +37,10 @@ async function giveGuildXp(response: DraftBotPacket[], playerId: number, price: 
  */
 function getGuildXPShopItem(): ShopItem {
 	return {
-		id: "smallGuildXp",
-		price: GuildShopConstants.PRICES.XP,
+		id: ShopItemType.SMALL_GUILD_XP,
+		price: GuildShopConstants.PRICES.SMALL_XP,
 		amounts: [1],
-		buyCallback: async (context: PacketContext, response: DraftBotPacket[], playerId: number): Promise<boolean> => await giveGuildXp(response, playerId, GuildShopConstants.PRICES.XP)
+		buyCallback: async (response: DraftBotPacket[], playerId: number): Promise<boolean> => await giveGuildXp(response, playerId, GuildShopConstants.PRICES.SMALL_XP)
 	};
 }
 
@@ -55,10 +49,10 @@ function getGuildXPShopItem(): ShopItem {
  */
 function getBigGuildXPShopItem(): ShopItem {
 	return {
-		id: "bigGuildXp",
+		id: ShopItemType.BIG_GUILD_XP,
 		price: GuildShopConstants.PRICES.BIG_XP,
 		amounts: [1],
-		buyCallback: async (context: PacketContext, response: DraftBotPacket[], playerId: number): Promise<boolean> => await giveGuildXp(response, playerId, GuildShopConstants.PRICES.BIG_XP)
+		buyCallback: async (response: DraftBotPacket[], playerId: number): Promise<boolean> => await giveGuildXp(response, playerId, GuildShopConstants.PRICES.BIG_XP)
 	};
 }
 
@@ -70,10 +64,10 @@ function getBigGuildXPShopItem(): ShopItem {
 function getFoodShopItem(name: string, amounts: number[]): ShopItem {
 	const indexFood = getFoodIndexOf(name);
 	return {
-		id: name,
+		id: ShopUtils.shopItemTypeFromId(name),
 		price: GuildShopConstants.PRICES.FOOD[indexFood],
 		amounts,
-		buyCallback: async (context: PacketContext, response: DraftBotPacket[], playerId: number, amount: number): Promise<boolean> => {
+		buyCallback: async (response: DraftBotPacket[], playerId: number, _context: PacketContext, amount: number): Promise<boolean> => {
 			const player = await Players.getById(playerId);
 			const guild = await Guilds.getById(player.guildId);
 
@@ -90,8 +84,6 @@ function getFoodShopItem(name: string, amounts: number[]): ShopItem {
 					count: amount
 				});
 			}
-
-			draftBotInstance.logsDatabase.logFoodGuildShopBuyout(player.keycloakId, name, amount).then();
 			return true;
 		}
 	};
@@ -159,9 +151,10 @@ export default class GuildShopCommand {
 			return;
 		}
 
-		ShopUtils.sendShopCollector(new ReactionCollectorShop(
+		await ShopUtils.createAndSendShopCollector(context, response, {
 			shopCategories,
-			player.money
-		), shopCategories, context, response, player);
+			player,
+			logger: draftBotInstance.logsDatabase.logGuildShopBuyout
+		});
 	}
 }

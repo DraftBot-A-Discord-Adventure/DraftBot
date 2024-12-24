@@ -39,7 +39,9 @@ export abstract class BlockingConstants {
 		UNLOCK: "unlock",
 		START_BOSS_FIGHT: "startBossFight",
 		REPORT_COMMAND: "reportCommand",
-		CART_SMALL_EVENT: "cartSmallEvent"
+		CART_SMALL_EVENT: "cartSmallEvent",
+		SKIP_MISSION: "skipMission",
+		SLOT_EXTENSION: "slotExtension",
 	} as const;
 }
 

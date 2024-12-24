@@ -1,4 +1,5 @@
 import {
+	AdditionnalShopData,
 	CommandShopClosed,
 	CommandShopNotEnoughCurrency,
 	ReactionCollectorShop,
@@ -10,37 +11,61 @@ import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/pac
 import {EndCallback, ReactionCollectorInstance} from "./ReactionsCollector";
 import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
 import {BlockingUtils} from "./BlockingUtils";
-import Player from "../database/game/models/Player";
-import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
+import Player, {Players} from "../database/game/models/Player";
+import {NumberChangeReason, ShopItemType, ShopItemTypeToString} from "../../../../Lib/src/constants/LogsConstants";
 import {ShopCurrency} from "../../../../Lib/src/constants/ShopConstants";
 import PlayerMissionsInfo, {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
+import {MissionsController} from "../missions/MissionsController";
+
+export type ShopInformations = {
+	shopCategories: ShopCategory[],
+	player: Player,
+	additionnalShopData?: AdditionnalShopData & { currency?: ShopCurrency }
+	logger: (keycloakId: string, shopItemName: ShopItemType, amount?: number) => Promise<void>
+}
 
 export class ShopUtils {
-	public static sendShopCollector(
-		collectorShop: ReactionCollectorShop,
-		shopCategories: ShopCategory[],
+
+	public static shopItemTypeToId(shopItemType: ShopItemType): string {
+		return ShopItemTypeToString[shopItemType];
+	}
+
+	public static shopItemTypeFromId(id: string): ShopItemType {
+		return Object.values(ShopItemType).find((key: ShopItemType) => ShopItemTypeToString[key] === id) as ShopItemType;
+	}
+
+	public static async createAndSendShopCollector(
 		context: PacketContext,
 		response: DraftBotPacket[],
-		player: Player
-	): void {
+		{
+			shopCategories,
+			player,
+			additionnalShopData = {},
+			logger
+		}: ShopInformations
+	) {
+		additionnalShopData.currency ??= ShopCurrency.MONEY;
+		const interestingPlayerInfo = additionnalShopData.currency === ShopCurrency.MONEY ? player : await PlayerMissionsInfos.getOfPlayer(player.id);
+		const availableCurrency = interestingPlayerInfo instanceof Player ? interestingPlayerInfo.money : interestingPlayerInfo.gems;
+		const collectorShop = new ReactionCollectorShop(shopCategories, availableCurrency, additionnalShopData);
 		const endCallback: EndCallback = async (collector, response) => {
 			const reaction = collector.getFirstReaction();
 
+			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.SHOP);
 			if (!reaction || reaction.reaction.type === ReactionCollectorShopCloseReaction.name) {
-				BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.SHOP);
 				response.push(makePacket(CommandShopClosed, {}));
 				return;
 			}
 			const reactionInstance = reaction.reaction.data as ReactionCollectorShopItemReaction;
-			const interestingPlayerInfo = collectorShop.currency === ShopCurrency.MONEY ? player : await PlayerMissionsInfos.getOfPlayer(player.id);
 			if (!this.canBuyItem(interestingPlayerInfo, reactionInstance, collectorShop.currency, response)) {
 				return;
 			}
 			const buyResult = await shopCategories
 				.find(category => category.id === reactionInstance.shopCategoryId).items
-				.find(item => item.id === reactionInstance.shopItemId).buyCallback(context, response, player.id, reactionInstance.amount);
+				.find(item => item.id === reactionInstance.shopItemId).buyCallback(response, player.id, context, reactionInstance.amount);
 			if (buyResult) {
 				await this.manageCurrencySpending(interestingPlayerInfo, reactionInstance, collectorShop.currency, response);
+				logger(player.keycloakId, reactionInstance.shopItemId, reactionInstance.amount).then();
 			}
 		};
 
@@ -80,6 +105,7 @@ export class ShopUtils {
 		}
 		else {
 			player.gems -= reactionInstance.price;
+			await MissionsController.update(await Players.getById(player.playerId), response, {missionId: "spendGems"});
 		}
 		await player.save();
 	}

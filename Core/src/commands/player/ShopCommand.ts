@@ -14,7 +14,6 @@ import {
 	CommandShopNoAlterationToHeal,
 	CommandShopNoEnergyToHeal,
 	CommandShopTooManyEnergyBought,
-	ReactionCollectorShop,
 	ShopCategory,
 	ShopItem
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorShop";
@@ -48,13 +47,12 @@ import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
  */
 function getRandomItemShopItem(): ShopItem {
 	return {
-		id: "randomItem",
+		id: ShopItemType.RANDOM_ITEM,
 		price: ShopConstants.RANDOM_ITEM_PRICE,
 		amounts: [1],
-		buyCallback: async (context, response, playerId): Promise<boolean> => {
+		buyCallback: async (response, playerId, context): Promise<boolean> => {
 			const player = await Players.getById(playerId);
 			await giveRandomItem(context, response, player);
-			draftBotInstance.logsDatabase.logClassicalShopBuyout(player.keycloakId, ShopItemType.RANDOM_ITEM).then();
 			return true;
 		}
 	};
@@ -94,10 +92,10 @@ function calculateHealAlterationPrice(player: Player): number {
 function getHealAlterationShopItem(player: Player): ShopItem {
 	const price = calculateHealAlterationPrice(player);
 	return {
-		id: "healAlteration",
+		id: ShopItemType.ALTERATION_HEAL,
 		price,
 		amounts: [1],
-		buyCallback: async (context, response, playerId): Promise<boolean> => {
+		buyCallback: async (response, playerId): Promise<boolean> => {
 			const player = await Players.getById(playerId);
 			if (player.currentEffectFinished(new Date())) {
 				response.push(makePacket(CommandShopNoAlterationToHeal, {}));
@@ -109,7 +107,6 @@ function getHealAlterationShopItem(player: Player): ShopItem {
 			}
 			await MissionsController.update(player, response, {missionId: "recoverAlteration"});
 			response.push(makePacket(CommandShopHealAlterationDone, {}));
-			draftBotInstance.logsDatabase.logClassicalShopBuyout(player.keycloakId, ShopItemType.ALTERATION_HEAL).then();
 			return true;
 		}
 	};
@@ -121,10 +118,10 @@ function getHealAlterationShopItem(player: Player): ShopItem {
  */
 function getHealEnergyShopItem(healEnergyAlreadyPurchased: number): ShopItem {
 	return {
-		id: "healEnergy",
+		id: ShopItemType.ENERGY_HEAL,
 		price: EntityConstants.HEAL_ENERGY_PRICE[healEnergyAlreadyPurchased > EntityConstants.HEAL_ENERGY_PRICE.length - 1 ? EntityConstants.HEAL_ENERGY_PRICE.length - 1 : healEnergyAlreadyPurchased],
 		amounts: [1],
-		buyCallback: async (context, response, playerId): Promise<boolean> => {
+		buyCallback: async (response, playerId): Promise<boolean> => {
 			const player = await Players.getById(playerId);
 			if (healEnergyAlreadyPurchased > EntityConstants.HEAL_ENERGY_PRICE.length - 1) {
 				response.push(makePacket(CommandShopTooManyEnergyBought, {}));
@@ -136,7 +133,6 @@ function getHealEnergyShopItem(healEnergyAlreadyPurchased: number): ShopItem {
 			}
 			player.setFightPointsLost(0, NumberChangeReason.SHOP);
 			await player.save();
-			draftBotInstance.logsDatabase.logClassicalShopBuyout(player.keycloakId, ShopItemType.ENERGY_HEAL).then();
 			return true;
 		}
 	};
@@ -147,10 +143,10 @@ function getHealEnergyShopItem(healEnergyAlreadyPurchased: number): ShopItem {
  */
 function getRegenShopItem(): ShopItem {
 	return {
-		id: "regen",
+		id: ShopItemType.FULL_REGEN,
 		price: ShopConstants.FULL_REGEN_PRICE,
 		amounts: [1],
-		buyCallback: async (context, response, playerId): Promise<boolean> => {
+		buyCallback: async (response, playerId): Promise<boolean> => {
 			const player = await Players.getById(playerId);
 			await player.addHealth(player.getMaxHealth() - player.health, response, NumberChangeReason.SHOP, {
 				shouldPokeMission: true,
@@ -170,10 +166,10 @@ function getRegenShopItem(): ShopItem {
  */
 function getBadgeShopItem(): ShopItem {
 	return {
-		id: "moneyMouthBadge",
+		id: ShopItemType.BADGE,
 		price: ShopConstants.MONEY_MOUTH_BADGE_PRICE,
 		amounts: [1],
-		buyCallback: async (context, response, playerId): Promise<boolean> => {
+		buyCallback: async (response, playerId): Promise<boolean> => {
 			const player = await Players.getById(playerId);
 			if (player.hasBadge(DraftBotIcons.badges.richPerson)) {
 				response.push(makePacket(CommandShopAlreadyHaveBadge, {}));
@@ -182,7 +178,6 @@ function getBadgeShopItem(): ShopItem {
 			player.addBadge(DraftBotIcons.badges.richPerson);
 			await player.save();
 			response.push(makePacket(CommandShopBadgeBought, {}));
-			draftBotInstance.logsDatabase.logClassicalShopBuyout(player.keycloakId, ShopItemType.BADGE).then();
 			return true;
 		}
 	};
@@ -194,10 +189,10 @@ function getBadgeShopItem(): ShopItem {
  */
 function getDailyPotionShopItem(potion: Potion): ShopItem {
 	return {
-		id: "dailyPotion",
+		id: ShopItemType.DAILY_POTION,
 		price: Math.round(getItemValue(potion) * ShopConstants.DAILY_POTION_DISCOUNT_MULTIPLIER),
 		amounts: [1],
-		buyCallback: async (context, response, playerId): Promise<boolean> => {
+		buyCallback: async (response, playerId): Promise<boolean> => {
 			const player = await Players.getById(playerId);
 			const potionAlreadyPurchased = await LogsReadRequests.getAmountOfDailyPotionsBoughtByPlayer(player.keycloakId);
 			if (potionAlreadyPurchased >= ShopConstants.MAX_DAILY_POTION_BUYOUTS) {
@@ -205,7 +200,6 @@ function getDailyPotionShopItem(potion: Potion): ShopItem {
 				return false;
 			}
 			await giveItemToPlayer(player, potion, context, response, await InventorySlots.getOfPlayer(player.id));
-			draftBotInstance.logsDatabase.logClassicalShopBuyout(player.keycloakId, ShopItemType.DAILY_POTION).then();
 			if (potionAlreadyPurchased === ShopConstants.MAX_DAILY_POTION_BUYOUTS - 1) {
 				await MissionsController.update(player, response, {missionId: "dailyPotionsStock"});
 			}
@@ -218,8 +212,8 @@ function getBuySlotExtensionShopItemCallback(playerId: number, price: number): E
 	return async (collector, response): Promise<void> => {
 		const player = await Players.getById(playerId);
 		const reaction = collector.getFirstReaction();
+		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.SLOT_EXTENSION);
 		if (!reaction || reaction.reaction.type === ReactionCollectorBuyCategorySlotCancelReaction.name) {
-			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.SHOP);
 			response.push(makePacket(CommandShopClosed, {}));
 			return;
 		}
@@ -232,13 +226,10 @@ function getBuySlotExtensionShopItemCallback(playerId: number, price: number): E
 			response,
 			reason: NumberChangeReason.SHOP
 		});
-		await player.save();
-		invInfo.addSlotForCategory(category);
-		await invInfo.save();
-		response.push(makePacket(ReactionCollectorBuyCategorySlotBuySuccess, {}));
-
-		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.SHOP);
 		draftBotInstance.logsDatabase.logClassicalShopBuyout(player.keycloakId, ShopItemType.SLOT_EXTENSION).then();
+		invInfo.addSlotForCategory(category);
+		await Promise.all([player.save(), invInfo.save()]);
+		response.push(makePacket(ReactionCollectorBuyCategorySlotBuySuccess, {}));
 	};
 }
 
@@ -260,10 +251,10 @@ async function getSlotExtensionShopItem(player: Player): Promise<ShopItem | null
 		return null;
 	}
 	return {
-		id: "inventoryExtension",
+		id: ShopItemType.SLOT_EXTENSION,
 		price,
 		amounts: [1],
-		buyCallback: (context, response): boolean => {
+		buyCallback: (response, _playerId, context): boolean => {
 			const collector = new ReactionCollectorBuyCategorySlot(availableCategories);
 
 			const packet = new ReactionCollectorInstance(
@@ -274,12 +265,12 @@ async function getSlotExtensionShopItem(player: Player): Promise<ShopItem | null
 				},
 				getBuySlotExtensionShopItemCallback(player.id, price)
 			)
-				.block(player.id, BlockingConstants.REASONS.SHOP)
+				.block(player.id, BlockingConstants.REASONS.SLOT_EXTENSION)
 				.build();
 
 			response.push(packet);
 
-			return false;
+			return false; // For this specific callback, we don't want to directly consider the purchase as successful as we need the player to choose a slot category
 		}
 	};
 }
@@ -320,13 +311,11 @@ export default class ShopCommand {
 			});
 		}
 
-		ShopUtils.sendShopCollector(new ReactionCollectorShop(
-			shopCategories,
-			player.money,
-			{
+		await ShopUtils.createAndSendShopCollector(context, response, {
+			shopCategories, player, additionnalShopData: {
 				remainingPotions: ShopConstants.MAX_DAILY_POTION_BUYOUTS - await LogsReadRequests.getAmountOfDailyPotionsBoughtByPlayer(player.keycloakId),
 				dailyPotion: toItemWithDetails(potion)
-			}
-		), shopCategories, context, response, player);
+			}, logger: draftBotInstance.logsDatabase.logClassicalShopBuyout
+		});
 	}
 }

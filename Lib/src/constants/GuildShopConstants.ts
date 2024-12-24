@@ -1,6 +1,6 @@
 export abstract class GuildShopConstants {
 	static readonly PRICES = {
-		XP: 1000,
+		SMALL_XP: 1000,
 		BIG_XP: 15000,
 		FOOD: [
 			20,

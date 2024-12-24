@@ -8,7 +8,7 @@ import {
 import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 import {MissionSlots} from "../../core/database/game/models/MissionSlot";
 import {PlayerMissionsInfos} from "../../core/database/game/models/PlayerMissionsInfo";
-import {BaseMission, MissionType} from "../../../../Lib/src/interfaces/CompletedMission";
+import {MissionType} from "../../../../Lib/src/interfaces/CompletedMission";
 import {DailyMissions} from "../../core/database/game/models/DailyMission";
 import {Campaign} from "../../core/missions/Campaign";
 import {MissionsController} from "../../core/missions/MissionsController";
@@ -37,14 +37,10 @@ export default class MissionsCommand {
 		const missionSlots = await MissionSlots.getOfPlayer(toCheckPlayer.id);
 
 		// Loading secondary missions and campaign
-		const missions: BaseMission[] = missionSlots.map((missionSlot): BaseMission => ({
-			...missionSlot.toJSON(),
-			missionType: missionSlot.expiresAt ? MissionType.NORMAL : MissionType.CAMPAIGN
-		}));
 
 		const missionInfo = await PlayerMissionsInfos.getOfPlayer(toCheckPlayer.id);
 		// Loading daily mission
-		missions.push({
+		missionSlots.push({
 			...(await DailyMissions.getOrGenerate()).toJSON(),
 			// We are using the expiresAt field to store the last time the daily mission was completed,
 			// And the front-end will use the data to calculate the time left to complete it
@@ -55,7 +51,7 @@ export default class MissionsCommand {
 
 		response.push(makePacket(CommandMissionsPacketRes, {
 			keycloakId: toCheckPlayer.keycloakId,
-			missions: MissionsController.prepareBaseMissions(missions),
+			missions: MissionsController.prepareMissionSlots(missionSlots),
 			maxCampaignNumber: Campaign.getMaxCampaignNumber(),
 			campaignProgression: missionInfo.campaignProgression,
 			maxSideMissionSlots: toCheckPlayer.getMissionSlotsNumber()

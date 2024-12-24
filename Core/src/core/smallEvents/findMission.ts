@@ -5,7 +5,6 @@ import Player from "../database/game/models/Player";
 import {MissionSlots} from "../database/game/models/MissionSlot";
 import {MissionsController} from "../missions/MissionsController";
 import {SmallEventFindMissionPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFindMissionPacket";
-import {MissionType} from "../../../../Lib/src/interfaces/CompletedMission";
 
 export const smallEventFuncs: SmallEventFuncs = {
 	/**
@@ -25,10 +24,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 	executeSmallEvent: async (context: PacketContext, response: DraftBotPacket[], player: Player): Promise<void> => {
 		const missionSlot = await MissionsController.addRandomMissionToPlayer(player, MissionsController.getRandomDifficulty(player));
 		response.push(makePacket(SmallEventFindMissionPacket, {
-			mission: MissionsController.prepareBaseMission({
-				...missionSlot.toJSON(),
-				missionType: MissionType.NORMAL
-			})
+			mission: MissionsController.prepareMissionSlot(missionSlot)
 		}));
 	}
 };

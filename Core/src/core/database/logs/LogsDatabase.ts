@@ -48,7 +48,6 @@ import {LogsDailyPotions} from "./models/LogsDailyPotions";
 import {LogsClassicalShopBuyouts} from "./models/LogsClassicalShopBuyouts";
 import {LogsGuildShopBuyouts} from "./models/LogsGuildShopBuyouts";
 import {LogsMissionShopBuyouts} from "./models/LogsMissionShopBuyouts";
-import {getFoodIndexOf} from "../../utils/FoodUtils";
 import {LogsDailyTimeouts} from "./models/LogsDailyTimeouts";
 import {LogsTopWeekEnd} from "./models/LogsTopWeekEnd";
 import {GuildDailyConstants} from "../../../../../Lib/src/constants/GuildDailyConstants";
@@ -795,25 +794,9 @@ export class LogsDatabase extends Database {
 	 * Log when anything is bought from the guild shop
 	 * @param keycloakId
 	 * @param shopItem
-	 */
-	public async logGuildShopBuyout(keycloakId: string, shopItem: ShopItemType): Promise<void> {
-		const logPlayer = await LogsDatabase.findOrCreatePlayer(keycloakId);
-		await LogsGuildShopBuyouts.create({
-			playerId: logPlayer.id,
-			shopItem,
-			amount: 1,
-			date: getDateLogs()
-		});
-	}
-
-	/**
-	 * Log which type of food is bought from the guild shops
-	 * @param keycloakId
-	 * @param shopItemName
 	 * @param amount
 	 */
-	public async logFoodGuildShopBuyout(keycloakId: string, shopItemName: string, amount: number): Promise<void> {
-		const shopItem = getFoodIndexOf(shopItemName) + 6; // Les items de l'enum sont alignés sur les items du shop de guilde, c'est-à-dire décalés de 6.
+	public async logGuildShopBuyout(keycloakId: string, shopItem: ShopItemType, amount: number): Promise<void> {
 		const logPlayer = await LogsDatabase.findOrCreatePlayer(keycloakId);
 		await LogsGuildShopBuyouts.create({
 			playerId: logPlayer.id,
@@ -822,6 +805,7 @@ export class LogsDatabase extends Database {
 			date: getDateLogs()
 		});
 	}
+
 
 	/**
 	 * Log when a daily ti

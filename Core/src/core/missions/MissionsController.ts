@@ -79,7 +79,7 @@ export class MissionsController {
 		if (completedMissions.length !== 0) {
 			player = await MissionsController.updatePlayerStats(player, missionInfo, completedMissions, response);
 			response.push(makePacket(MissionsCompletedPacket, {
-				missions: MissionsController.prepareBaseMissions(completedMissions),
+				missions: MissionsController.prepareMissionSlots(completedMissions as MissionSlot[]),
 				keycloakId: player.keycloakId
 			}));
 		}
@@ -190,15 +190,10 @@ export class MissionsController {
 			return;
 		}
 
-		const packet: MissionsExpiredPacket = {missions: [], keycloakId: player.keycloakId};
-		for (const mission of expiredMissions) {
-			packet.missions.push({
-				...mission.toJSON(),
-				missionType: MissionType.NORMAL
-			});
-		}
-		packet.missions = MissionsController.prepareBaseMissions(packet.missions);
-		response.push(makePacket(MissionsExpiredPacket, packet));
+		response.push(makePacket(MissionsExpiredPacket, {
+			missions: MissionsController.prepareMissionSlots(expiredMissions),
+			keycloakId: player.keycloakId
+		}));
 		await player.save();
 	}
 
@@ -206,26 +201,29 @@ export class MissionsController {
 	 * Prepare a mission to be sent to the front-end
 	 * @param mission
 	 */
-	public static prepareBaseMission(mission: BaseMission): BaseMission {
-		if (mission.expiresAt) {
-			mission.expiresAt = new Date(mission.expiresAt).toString();
+	public static prepareMissionSlot(mission: MissionSlot): BaseMission {
+		return this.prepareBaseMission(mission.toBaseMission());
+	}
+
+	public static prepareBaseMission(baseMission: BaseMission): BaseMission {
+		if (baseMission.expiresAt) {
+			baseMission.expiresAt = new Date(baseMission.expiresAt).toString();
 		}
-		if (MissionUtils.isRequiredFightActionId(mission)) {
-			mission.fightAction = FightActionController.variantToFightActionId(mission.missionVariant);
+		if (MissionUtils.isRequiredFightActionId(baseMission)) {
+			baseMission.fightAction = FightActionController.variantToFightActionId(baseMission.missionVariant);
 		}
-		if (MissionUtils.isRequiredMapLocationMapType(mission)) {
-			mission.mapType = MapLocationDataController.instance.getById(mission.missionVariant).type;
+		if (MissionUtils.isRequiredMapLocationMapType(baseMission)) {
+			baseMission.mapType = MapLocationDataController.instance.getById(baseMission.missionVariant).type;
 		}
-		return mission;
+		return baseMission;
 	}
 
 	/**
 	 * Prepare the missions to be sent to the front-end
 	 * @param missionSlots
 	 */
-	public static prepareBaseMissions(missionSlots: BaseMission[]): BaseMission[] {
-		missionSlots.forEach((mission) => MissionsController.prepareBaseMission(mission));
-		return missionSlots;
+	public static prepareMissionSlots(missionSlots: MissionSlot[]): BaseMission[] {
+		return missionSlots.map((mission) => MissionsController.prepareMissionSlot(mission));
 	}
 
 	public static generateRandomDailyMissionProperties(): GeneratedMission {
@@ -278,8 +276,8 @@ export class MissionsController {
 		return retMission;
 	}
 
-	public static async addRandomMissionToPlayer(player: Player, difficulty: MissionDifficulty): Promise<MissionSlot> {
-		const mission = MissionDataController.instance.getRandomMission(difficulty);
+	public static async addRandomMissionToPlayer(player: Player, difficulty: MissionDifficulty, exception: string = ""): Promise<MissionSlot> {
+		const mission = MissionDataController.instance.getRandomMission(difficulty, exception);
 		return await MissionsController.addMissionToPlayer(player, mission.id, difficulty, mission);
 	}
 
