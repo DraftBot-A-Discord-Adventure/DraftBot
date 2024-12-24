@@ -49,7 +49,7 @@ export class MissionDataController extends DataControllerString<Mission> {
 		return new Mission();
 	}
 
-	public getRandomMission(difficulty: MissionDifficulty): Mission {
+	public getRandomMission(difficulty: MissionDifficulty, exception: string): Mission {
 		const filter: (mission: Mission) => boolean =
 			difficulty === MissionDifficulty.EASY ? (mission): boolean => mission.canBeEasy()
 				: difficulty === MissionDifficulty.MEDIUM ? (mission): boolean => mission.canBeMedium()
@@ -57,7 +57,7 @@ export class MissionDataController extends DataControllerString<Mission> {
 
 		return RandomUtils.draftbotRandom.pick(
 			this.getValuesArray()
-				.filter((mission) => filter(mission) && mission.campaignOnly === false)
+				.filter((mission) => filter(mission) && mission.campaignOnly === false && mission.id !== (exception ?? ""))
 		);
 	}
 

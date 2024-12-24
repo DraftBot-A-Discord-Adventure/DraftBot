@@ -7,15 +7,16 @@ import {
 import {DraftBotPacket, PacketContext, PacketDirection, sendablePacket} from "../DraftBotPacket";
 import {ItemWithDetails} from "../../interfaces/ItemWithDetails";
 import {ShopCurrency} from "../../constants/ShopConstants";
+import {ShopItemType} from "../../constants/LogsConstants";
 
 export interface ShopItem {
-	id: string;
+	id: ShopItemType;
 
 	price: number;
 
 	amounts: number[];
 
-	buyCallback: (context: PacketContext, response: DraftBotPacket[], playerId: number, amount: number) => boolean | Promise<boolean>;
+	buyCallback: (response: DraftBotPacket[], player: number, context: PacketContext, amount: number) => boolean | Promise<boolean>;
 }
 
 export interface ShopCategory {
@@ -77,7 +78,7 @@ export class ReactionCollectorShopData extends ReactionCollectorData {
 export class ReactionCollectorShopItemReaction extends ReactionCollectorReaction {
 	shopCategoryId!: string;
 
-	shopItemId!: string;
+	shopItemId!: ShopItemType;
 
 	price!: number;
 
@@ -88,29 +89,30 @@ export class ReactionCollectorShopCloseReaction extends ReactionCollectorReactio
 
 }
 
-type AdditionnalShopData = {
+export type AdditionnalShopData = {
 	remainingPotions?: number;
 	dailyPotion?: ItemWithDetails;
+	gemToMoneyRatio?: number;
 }
 
 export class ReactionCollectorShop extends ReactionCollector {
-	public readonly currency!: ShopCurrency.MONEY | ShopCurrency.GEMS;
+	public readonly currency!: ShopCurrency.MONEY | ShopCurrency.GEM;
 
 	private readonly shopCategories!: ShopCategory[];
 
-	private readonly availableMoney!: number;
+	private readonly availableCurrency!: number;
 
 	private readonly additionnalShopData!: AdditionnalShopData;
 
 	constructor(shopCategories: ShopCategory[],
-	            availableMoney: number,
+	            availableCurrency: number,
 	            additionnalShopData: AdditionnalShopData & {
 		            currency?: ShopCurrency
 	            } = {}
 	) {
 		super();
 		this.shopCategories = shopCategories;
-		this.availableMoney = availableMoney;
+		this.availableCurrency = availableCurrency;
 		this.currency = additionnalShopData.currency ?? ShopCurrency.MONEY;
 		this.additionnalShopData = additionnalShopData;
 	}
@@ -137,7 +139,7 @@ export class ReactionCollectorShop extends ReactionCollector {
 			endTime,
 			reactions,
 			data: this.buildData(ReactionCollectorShopData, {
-				availableCurrency: this.availableMoney,
+				availableCurrency: this.availableCurrency,
 				currency: this.currency,
 				additionnalShopData: this.additionnalShopData
 			})

@@ -94,7 +94,15 @@ export class Constants {
 	static readonly MISSION_SHOP = {
 		RANGE_MISSION_MONEY: 1350,
 		BASE_RATIO: 6500,
-		SEED_RANGE: 1000
+		SEED_RANGE: 1000,
+		PRICES: {
+			MONEY: 50,
+			VALUABLE_ITEM: 30,
+			THOUSAND_POINTS: 5,
+			PET_INFORMATION: 3,
+			MISSION_SKIP: 10,
+			BADGE: 150
+		}
 	};
 
 	static readonly BEGINNING = {

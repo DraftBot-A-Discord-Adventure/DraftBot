@@ -65,6 +65,28 @@ export enum ShopItemType {
 	POINTS,
 	MISSION_SKIP,
 	PET_INFORMATION,
-	GUILD_XP,
-	ENERGY_HEAL
+	SMALL_GUILD_XP,
+	ENERGY_HEAL,
+	BIG_GUILD_XP
+}
+
+export const ShopItemTypeToString: Record<ShopItemType, string> = {
+	[ShopItemType.DAILY_POTION]: "dailyPotion",
+	[ShopItemType.RANDOM_ITEM]: "randomItem",
+	[ShopItemType.ALTERATION_HEAL]: "alterationHeal",
+	[ShopItemType.FULL_REGEN]: "fullRegen",
+	[ShopItemType.SLOT_EXTENSION]: "slotExtension",
+	[ShopItemType.BADGE]: "badge",
+	[ShopItemType.COMMON_FOOD]: "commonFood",
+	[ShopItemType.HERBIVOROUS_FOOD]: "herbivorousFood",
+	[ShopItemType.CARNIVOROUS_FOOD]: "carnivorousFood",
+	[ShopItemType.ULTIMATE_FOOD]: "ultimateFood",
+	[ShopItemType.MONEY]: "money",
+	[ShopItemType.TREASURE]: "treasure",
+	[ShopItemType.POINTS]: "points",
+	[ShopItemType.MISSION_SKIP]: "missionSkip",
+	[ShopItemType.PET_INFORMATION]: "petInformation",
+	[ShopItemType.SMALL_GUILD_XP]: "smallGuildXp",
+	[ShopItemType.ENERGY_HEAL]: "energyHeal",
+	[ShopItemType.BIG_GUILD_XP]: "bigGuildXp"
 }

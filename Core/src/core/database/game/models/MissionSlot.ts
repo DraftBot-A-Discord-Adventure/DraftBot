@@ -1,4 +1,5 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
+import {BaseMission, MissionType} from "../../../../../../Lib/src/interfaces/CompletedMission";
 import moment = require("moment");
 import missionJson = require("../../../../../resources/campaign.json");
 
@@ -42,6 +43,18 @@ export class MissionSlot extends Model {
 
 	public hasExpired(): boolean {
 		return this.expiresAt !== null && this.expiresAt < new Date();
+	}
+
+	public toBaseMission(): BaseMission {
+		return {
+			missionId: this.missionId,
+			missionObjective: this.missionObjective,
+			missionVariant: this.missionVariant,
+			numberDone: this.numberDone,
+			saveBlob: this.saveBlob,
+			missionType: this.isCampaign() ? MissionType.CAMPAIGN : MissionType.NORMAL,
+			expiresAt: this.expiresAt?.toISOString()
+		};
 	}
 }
 
