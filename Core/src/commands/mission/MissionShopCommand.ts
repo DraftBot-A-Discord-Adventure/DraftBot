@@ -11,7 +11,7 @@ import {
 	CommandMissionShopNoPet,
 	CommandMissionShopPacketReq,
 	CommandMissionShopPetInformation,
-	CommandMissionShopSkipMission
+	CommandMissionShopSkipMissionResult
 } from "../../../../Lib/src/packets/commands/CommandMissionShopPacket";
 import {ShopCurrency} from "../../../../Lib/src/constants/ShopConstants";
 import {Constants} from "../../../../Lib/src/constants/Constants";
@@ -153,7 +153,7 @@ function getEndCallbackSkipMissionShopItem(player: Player, missionList: MissionS
 		const mission = missionList[missionIndex];
 		await mission.destroy();
 		const newMission = await MissionsController.addRandomMissionToPlayer(player, MissionsController.getRandomDifficulty(player), mission.missionId);
-		response.push(makePacket(CommandMissionShopSkipMission, {
+		response.push(makePacket(CommandMissionShopSkipMissionResult, {
 			oldMission: MissionsController.prepareMissionSlot(mission),
 			newMission: MissionsController.prepareMissionSlot(newMission)
 		}));

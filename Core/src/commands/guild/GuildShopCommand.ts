@@ -18,6 +18,7 @@ import {MissionsController} from "../../core/missions/MissionsController";
 import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants";
 import {ShopUtils} from "../../core/utils/ShopUtils";
 import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
+import {shopItemTypeFromId} from "../../../../Lib/src/utils/ShopUtils";
 
 async function giveGuildXp(response: DraftBotPacket[], playerId: number, price: number): Promise<boolean> {
 	const player = await Players.getById(playerId);
@@ -64,7 +65,7 @@ function getBigGuildXPShopItem(): ShopItem {
 function getFoodShopItem(name: string, amounts: number[]): ShopItem {
 	const indexFood = getFoodIndexOf(name);
 	return {
-		id: ShopUtils.shopItemTypeFromId(name),
+		id: shopItemTypeFromId(name),
 		price: GuildShopConstants.PRICES.FOOD[indexFood],
 		amounts,
 		buyCallback: async (response: DraftBotPacket[], playerId: number, _context: PacketContext, amount: number): Promise<boolean> => {

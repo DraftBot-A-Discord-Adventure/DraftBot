@@ -25,7 +25,7 @@ export class CommandMissionShopPetInformation extends DraftBotPacket {
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
-export class CommandMissionShopSkipMission extends DraftBotPacket {
+export class CommandMissionShopSkipMissionResult extends DraftBotPacket {
 	oldMission!: BaseMission;
 
 	newMission!: BaseMission;

@@ -192,7 +192,7 @@ function getDailyPotionShopItem(potion: Potion): ShopItem {
 		id: ShopItemType.DAILY_POTION,
 		price: Math.round(getItemValue(potion) * ShopConstants.DAILY_POTION_DISCOUNT_MULTIPLIER),
 		amounts: [1],
-		buyCallback: async (response, playerId): Promise<boolean> => {
+		buyCallback: async (response, playerId, context): Promise<boolean> => {
 			const player = await Players.getById(playerId);
 			const potionAlreadyPurchased = await LogsReadRequests.getAmountOfDailyPotionsBoughtByPlayer(player.keycloakId);
 			if (potionAlreadyPurchased >= ShopConstants.MAX_DAILY_POTION_BUYOUTS) {

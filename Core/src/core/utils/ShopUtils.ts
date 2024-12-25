@@ -12,7 +12,7 @@ import {EndCallback, ReactionCollectorInstance} from "./ReactionsCollector";
 import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
 import {BlockingUtils} from "./BlockingUtils";
 import Player, {Players} from "../database/game/models/Player";
-import {NumberChangeReason, ShopItemType, ShopItemTypeToString} from "../../../../Lib/src/constants/LogsConstants";
+import {NumberChangeReason, ShopItemType} from "../../../../Lib/src/constants/LogsConstants";
 import {ShopCurrency} from "../../../../Lib/src/constants/ShopConstants";
 import PlayerMissionsInfo, {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
 import {MissionsController} from "../missions/MissionsController";
@@ -25,15 +25,6 @@ export type ShopInformations = {
 }
 
 export class ShopUtils {
-
-	public static shopItemTypeToId(shopItemType: ShopItemType): string {
-		return ShopItemTypeToString[shopItemType];
-	}
-
-	public static shopItemTypeFromId(id: string): ShopItemType {
-		return Object.values(ShopItemType).find((key: ShopItemType) => ShopItemTypeToString[key] === id) as ShopItemType;
-	}
-
 	public static async createAndSendShopCollector(
 		context: PacketContext,
 		response: DraftBotPacket[],
