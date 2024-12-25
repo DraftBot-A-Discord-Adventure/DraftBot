@@ -163,6 +163,15 @@ import {
 } from "../../commands/player/UnlockCommand";
 import {handleClassicError} from "../../utils/ErrorUtils";
 import {
+	CommandMissionShopAlreadyBoughtPointsThisWeek,
+	CommandMissionShopAlreadyHadBadge,
+	CommandMissionShopBadge,
+	CommandMissionShopNoMissionToSkip,
+	CommandMissionShopNoPet,
+	CommandMissionShopPetInformation,
+	CommandMissionShopSkipMissionResult
+} from "../../../../Lib/src/packets/commands/CommandMissionShopPacket";
+import {
 	CommandTopGuildsEmptyPacket,
 	CommandTopInvalidPagePacket,
 	CommandTopPacketResGlory, CommandTopPacketResGuild,
@@ -593,5 +602,40 @@ export default class CommandHandlers {
 	@packetHandler(CommandTopGuildsEmptyPacket)
 	async topGuildsEmptyRes(_packet: CommandTopGuildsEmptyPacket, context: PacketContext): Promise<void> {
 		await handleCommandTopGuildsEmptyPacket(context);
+	}
+
+	@packetHandler(CommandMissionShopAlreadyBoughtPointsThisWeek)
+	async missionShopAlreadyBoughtPointsThisWeek(_packet: CommandMissionShopAlreadyBoughtPointsThisWeek, context: PacketContext): Promise<void> {
+		await handleClassicError(context, "commands:missionsshop.error.alreadyBoughtPointsThisWeek");
+	}
+
+	@packetHandler(CommandMissionShopPetInformation)
+	async missionShopPetInformation(packet: CommandMissionShopPetInformation, context: PacketContext): Promise<void> {
+		// TODO
+	}
+
+	@packetHandler(CommandMissionShopSkipMissionResult)
+	async missionShopSkipMissionResult(packet: CommandMissionShopSkipMissionResult, context: PacketContext): Promise<void> {
+		// TODO
+	}
+
+	@packetHandler(CommandMissionShopBadge)
+	async missionShopBadge(_packet: CommandMissionShopBadge, context: PacketContext): Promise<void> {
+		// TODO
+	}
+
+	@packetHandler(CommandMissionShopNoMissionToSkip)
+	async missionShopNoMissionToSkip(_packet: CommandMissionShopNoMissionToSkip, context: PacketContext): Promise<void> {
+		await handleClassicError(context, "commands:missionsshop.error.noMissionToSkip");
+	}
+
+	@packetHandler(CommandMissionShopAlreadyHadBadge)
+	async missionShopAlreadyHadBadge(_packet: CommandMissionShopAlreadyHadBadge, context: PacketContext): Promise<void> {
+		await handleClassicError(context, "commands:missionsshop.error.alreadyHadBadge");
+	}
+
+	@packetHandler(CommandMissionShopNoPet)
+	async missionShopNoPet(_packet: CommandMissionShopNoPet, context: PacketContext): Promise<void> {
+		await handleClassicError(context, "commands:missionsshop.error.noPet");
 	}
 }

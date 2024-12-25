@@ -79,7 +79,7 @@ export class MissionsController {
 		if (completedMissions.length !== 0) {
 			player = await MissionsController.updatePlayerStats(player, missionInfo, completedMissions, response);
 			response.push(makePacket(MissionsCompletedPacket, {
-				missions: MissionsController.prepareMissionSlots(completedMissions as MissionSlot[]),
+				missions: MissionsController.prepareBaseMissions(completedMissions),
 				keycloakId: player.keycloakId
 			}));
 		}
@@ -203,6 +203,10 @@ export class MissionsController {
 	 */
 	public static prepareMissionSlot(mission: MissionSlot): BaseMission {
 		return this.prepareBaseMission(mission.toBaseMission());
+	}
+
+	public static prepareBaseMissions(missions: BaseMission[]): BaseMission[] {
+		return missions.map((mission) => this.prepareBaseMission(mission));
 	}
 
 	public static prepareBaseMission(baseMission: BaseMission): BaseMission {

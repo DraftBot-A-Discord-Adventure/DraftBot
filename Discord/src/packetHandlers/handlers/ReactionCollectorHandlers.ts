@@ -39,6 +39,8 @@ import {smallShopCollector} from "../../smallEvents/shop";
 import {epicItemShopCollector} from "../../smallEvents/epicItemShop";
 import {ReactionCollectorEpicShopSmallEventData} from "../../../../Lib/src/packets/interaction/ReactionCollectorEpicShopSmallEvent";
 import {ReactionCollectorShopSmallEventData} from "../../../../Lib/src/packets/interaction/ReactionCollectorShopSmallEvent";
+import {ReactionCollectorSkipMissionShopItemData} from "../../../../Lib/src/packets/interaction/ReactionCollectorSkipMissionShopItem";
+import {skipMissionShopItemCollector} from "../../commands/mission/MissionShop";
 import {createGuildElderCollector} from "../../commands/guild/GuildElderCommand";
 import {ReactionCollectorGuildElderData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildElder";
 
@@ -69,6 +71,7 @@ export default class ReactionCollectorHandler {
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorUnlockData.name, createUnlockCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorShopSmallEventData.name, smallShopCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorEpicShopSmallEventData.name, epicItemShopCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorSkipMissionShopItemData.name, skipMissionShopItemCollector);
 	}
 
 	@packetHandler(ReactionCollectorCreationPacket)

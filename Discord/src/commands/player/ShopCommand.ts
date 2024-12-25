@@ -33,6 +33,8 @@ import {EmoteUtils} from "../../utils/EmoteUtils";
 import {Language} from "../../../../Lib/src/Language";
 import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
 import {ReactionCollectorBuyCategorySlotReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorBuyCategorySlot";
+import {ShopItemType} from "../../../../Lib/src/constants/LogsConstants";
+import {shopItemTypeFromId, shopItemTypeToId} from "../../../../Lib/src/utils/ShopUtils";
 
 function getPacket(): CommandShopPacketReq {
 	return makePacket(CommandShopPacketReq, {});
@@ -333,8 +335,8 @@ type ShopItemNames = {
 	short: string
 }
 
-function getShopItemNames(data: ReactionCollectorShopData, shopItemId: string, lng: Language): ShopItemNames {
-	if (shopItemId === "dailyPotion") {
+function getShopItemNames(data: ReactionCollectorShopData, shopItemId: ShopItemType, lng: Language): ShopItemNames {
+	if (shopItemId === ShopItemType.DAILY_POTION) {
 		return {
 			normal: DisplayUtils.getItemDisplayWithStats(data.additionnalShopData!.dailyPotion!, lng),
 			short: DisplayUtils.getItemDisplay({
@@ -343,7 +345,7 @@ function getShopItemNames(data: ReactionCollectorShopData, shopItemId: string, l
 			}, lng)
 		};
 	}
-	const bothNames = i18n.t(`commands:shop.shopItems.${shopItemId}.name`, {
+	const bothNames = i18n.t(`commands:shop.shopItems.${shopItemTypeToId(shopItemId)}.name`, {
 		lng,
 		interpolation: {escapeValue: false}
 	});
@@ -416,7 +418,7 @@ export async function shopCollector(packet: ReactionCollectorCreationPacket, con
 						price: reaction.price,
 						currency: data.currency
 					}))
-					.setValue(reaction.shopItemId));
+					.setValue(shopItemTypeToId(reaction.shopItemId)));
 				return getShopItemDisplay(data, reaction, interaction.userLanguage, shopItemName, [1]);
 			}))}\n`;
 	}
@@ -464,7 +466,7 @@ export async function shopCollector(packet: ReactionCollectorCreationPacket, con
 			await handleCommandShopClosed(context);
 			return;
 		}
-		const firstReaction = collected.first() as SelectMenuInteraction;
+		const firstReactionId = shopItemTypeFromId((collected.first() as SelectMenuInteraction).values[0]);
 		await manageBuyoutConfirmation(
 			packet,
 			context,
@@ -472,7 +474,7 @@ export async function shopCollector(packet: ReactionCollectorCreationPacket, con
 			packet.reactions.find(
 				reaction =>
 					reaction.type === ReactionCollectorShopItemReaction.name
-					&& (reaction.data as ReactionCollectorShopItemReaction).shopItemId === firstReaction.values[0]
+					&& (reaction.data as ReactionCollectorShopItemReaction).shopItemId === firstReactionId
 			)!.data as ReactionCollectorShopItemReaction
 		);
 
