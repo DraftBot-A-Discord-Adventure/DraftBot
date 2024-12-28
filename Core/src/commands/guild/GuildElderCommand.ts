@@ -2,8 +2,8 @@ import Player, {Players} from "../../core/database/game/models/Player";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {Guilds} from "../../core/database/game/models/Guild";
 import {
-	CommandGuildElderAcceptPacketRes,
-	CommandGuildElderPacketRes
+	CommandGuildElderAcceptPacketRes, CommandGuildElderPacketReq,
+	CommandGuildElderPacketRes, CommandGuildElderRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildElderPacket";
 import {draftBotInstance} from "../../index";
 import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
@@ -14,6 +14,7 @@ import {EndCallback, ReactionCollectorInstance} from "../../core/utils/Reactions
 import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
+import {ReactionCollectorGuildElder} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildElder";
 
 /**
  * Return true if promotedPlayer can be promoted
@@ -107,7 +108,7 @@ export default class GuildElderCommand {
 		guildRoleNeeded: GuildRole.CHIEF
 	})
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandGuildElderPacketReq, context: PacketContext): Promise<void> {
-		const promotedPlayer = await Players.getAskedPlayer(packet.askedPlayerKeycloakId, player);
+		const promotedPlayer = await Players.getAskedPlayer({keycloakId: packet.askedPlayerKeycloakId}, player);
 
 		if (! await isEligible(player, promotedPlayer, response)) {
 			return;
