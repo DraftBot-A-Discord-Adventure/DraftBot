@@ -39,6 +39,8 @@ import {smallShopCollector} from "../../smallEvents/shop";
 import {epicItemShopCollector} from "../../smallEvents/epicItemShop";
 import {ReactionCollectorEpicShopSmallEventData} from "../../../../Lib/src/packets/interaction/ReactionCollectorEpicShopSmallEvent";
 import {ReactionCollectorShopSmallEventData} from "../../../../Lib/src/packets/interaction/ReactionCollectorShopSmallEvent";
+import {createGuildElderCollector} from "../../commands/guild/GuildElderCommand";
+import {ReactionCollectorGuildElderData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildElder";
 
 export default class ReactionCollectorHandler {
 
@@ -52,6 +54,7 @@ export default class ReactionCollectorHandler {
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorPetFreeData.name, createPetFreeCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorGuildCreateData.name, createGuildCreateCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorGuildKickData.name, createGuildKickCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorGuildElderData.name, createGuildElderCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorLotteryData.name, lotteryCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorInteractOtherPlayersPoorData.name, interactOtherPlayersCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorWitchData.name, witchCollector);
