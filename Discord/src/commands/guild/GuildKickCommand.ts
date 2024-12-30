@@ -6,13 +6,17 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {DiscordCache} from "../../bot/DiscordCache";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
-import {CommandGuildKickAcceptPacketRes, CommandGuildKickPacketReq, CommandGuildKickPacketRes, CommandGuildKickRefusePacketRes} from "../../../../Lib/src/packets/commands/CommandGuildKickPacket";
+import {
+	CommandGuildKickAcceptPacketRes,
+	CommandGuildKickPacketReq,
+	CommandGuildKickPacketRes,
+	CommandGuildKickRefusePacketRes
+} from "../../../../Lib/src/packets/commands/CommandGuildKickPacket";
 import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
 import {ReactionCollectorGuildKickData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildKick";
 import {PacketUtils} from "../../utils/PacketUtils";
-import {CommandProfilePacketReq} from "../../../../Lib/src/packets/commands/CommandProfilePacket";
 import {sendErrorMessage, SendManner} from "../../utils/ErrorUtils";
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
@@ -20,7 +24,7 @@ import {keycloakConfig} from "../../bot/DraftBotShard";
 /**
  * Kick a player from a guild
  */
-async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandProfilePacketReq | null> {
+async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandGuildKickPacketReq | null> {
 	const askedPlayer = await PacketUtils.prepareAskedPlayer(interaction, user);
 	if (!askedPlayer) {
 		return null;

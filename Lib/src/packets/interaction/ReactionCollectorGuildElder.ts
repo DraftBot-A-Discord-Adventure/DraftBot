@@ -15,7 +15,7 @@ export class ReactionCollectorGuildElder extends ReactionCollector {
 
 	constructor(promotedKeycloakId: string) {
 		super();
-		this.kickedKeycloakId = promotedKeycloakId;
+		this.promotedKeycloakId = promotedKeycloakId;
 	}
 
 	creationPacket(id: string, endTime: number): ReactionCollectorCreationPacket {
@@ -26,8 +26,8 @@ export class ReactionCollectorGuildElder extends ReactionCollector {
 				this.buildReaction(ReactionCollectorAcceptReaction, {}),
 				this.buildReaction(ReactionCollectorRefuseReaction, {})
 			],
-			data: this.buildData(ReactionCollectorGuildKickData, {
-				kickedKeycloakId: this.kickedKeycloakId
+			data: this.buildData(ReactionCollectorGuildElderData, {
+				promotedKeycloakId: this.promotedKeycloakId
 			})
 		};
 	}
