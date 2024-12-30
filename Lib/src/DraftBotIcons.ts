@@ -105,6 +105,9 @@ export const DraftBotIcons: {
 		male: string,
 		female: string
 	},
+	diet: {
+		[dietId: string]: string
+	},
 	leagues: {
 		[leagueId: string]: string
 	},
@@ -1669,12 +1672,16 @@ export const DraftBotIcons: {
 		"moneyMouthBadge": "🤑",
 		"inventoryExtension": "📦",
 		"smallGuildXp": "⭐",
-		"bigGuildXp": "🌟"
+		"bigGuildXp": "🌟",
+		"skipMission": "🧾",
+		"lovePointsValue": "🧑‍⚕️",
+		"treasure": "👑",
 	},
 	"badges": {
 		"richPerson": "🤑",
 		"guildBadge": "💎",
-		"superGuildBadge": "🪩"
+		"superGuildBadge": "🪩",
+		"questMasterBadge": "💍",
 	},
 	"itemKinds": [
 		"⚔️",
@@ -1734,6 +1741,11 @@ export const DraftBotIcons: {
 	"sex": {
 		"male": "♂️",
 		"female": "♀️"
+	},
+	"diet": {
+		"omnivorous": "🥪",
+		"herbivorous": "🥬",
+		"carnivorous": "🥩"
 	},
 	"leagues": {
 		"0": "🌲",

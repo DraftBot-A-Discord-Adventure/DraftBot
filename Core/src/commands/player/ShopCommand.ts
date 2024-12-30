@@ -166,7 +166,7 @@ function getRegenShopItem(): ShopItem {
  */
 function getBadgeShopItem(): ShopItem {
 	return {
-		id: ShopItemType.BADGE,
+		id: ShopItemType.MONEY_MOUTH_BADGE,
 		price: ShopConstants.MONEY_MOUTH_BADGE_PRICE,
 		amounts: [1],
 		buyCallback: async (response, playerId): Promise<boolean> => {

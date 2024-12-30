@@ -5,5 +5,5 @@ export function shopItemTypeToId(shopItemType: ShopItemType): string {
 }
 
 export function shopItemTypeFromId(id: string): ShopItemType {
-	return Object.keys(ShopItemTypeToString).find(key => ShopItemTypeToString[key as unknown as ShopItemType] === id)! as unknown as ShopItemType;
+	return parseInt(Object.keys(ShopItemTypeToString).find(key => ShopItemTypeToString[key as unknown as ShopItemType] === id)!, 10) as ShopItemType;
 }

@@ -129,7 +129,8 @@ export async function handleCommandShopBadgeBought(context: PacketContext): Prom
 					pseudo: interaction.user.username
 				}), interaction.user)
 				.setDescription(i18n.t("commands:shop.badgeBought", {
-					lng: interaction.userLanguage
+					lng: interaction.userLanguage,
+					badgeName: "richPerson"
 				}))
 		]
 	});
@@ -290,7 +291,7 @@ async function manageBuyoutConfirmation(packet: ReactionCollectorCreationPacket,
 				.setDescription(`${
 					getShopItemDisplay(data, reaction, interaction.userLanguage, shopItemNames, amounts)
 				}\n${EmoteUtils.translateEmojiToDiscord(DraftBotIcons.collectors.warning)}${
-					i18n.t(`commands:shop.shopItems.${shopItemId}.info`, {
+					i18n.t(`commands:shop.shopItems.${shopItemTypeToId(shopItemId)}.info`, {
 						lng: interaction.userLanguage
 					})
 				}`)
