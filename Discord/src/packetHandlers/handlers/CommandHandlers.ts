@@ -166,11 +166,20 @@ import {
 	CommandMissionShopAlreadyBoughtPointsThisWeek,
 	CommandMissionShopAlreadyHadBadge,
 	CommandMissionShopBadge,
+	CommandMissionShopKingsFavor,
+	CommandMissionShopMoney,
 	CommandMissionShopNoMissionToSkip,
 	CommandMissionShopNoPet,
 	CommandMissionShopPetInformation,
 	CommandMissionShopSkipMissionResult
 } from "../../../../Lib/src/packets/commands/CommandMissionShopPacket";
+import {
+	handleLovePointsValueShopItem,
+	handleMissionShopBadge,
+	handleMissionShopKingsFavor,
+	handleMissionShopMoney,
+	skipMissionShopResult
+} from "../../commands/mission/MissionShop";
 import {
 	CommandTopGuildsEmptyPacket,
 	CommandTopInvalidPagePacket,
@@ -611,17 +620,27 @@ export default class CommandHandlers {
 
 	@packetHandler(CommandMissionShopPetInformation)
 	async missionShopPetInformation(packet: CommandMissionShopPetInformation, context: PacketContext): Promise<void> {
-		// TODO
+		await handleLovePointsValueShopItem(packet, context);
 	}
 
 	@packetHandler(CommandMissionShopSkipMissionResult)
 	async missionShopSkipMissionResult(packet: CommandMissionShopSkipMissionResult, context: PacketContext): Promise<void> {
-		// TODO
+		await skipMissionShopResult(packet, context);
+	}
+
+	@packetHandler(CommandMissionShopMoney)
+	async missionShopMoney(packet: CommandMissionShopMoney, context: PacketContext): Promise<void> {
+		await handleMissionShopMoney(packet, context);
+	}
+
+	@packetHandler(CommandMissionShopKingsFavor)
+	async missionShopKingsFavor(_packet: CommandMissionShopKingsFavor, context: PacketContext): Promise<void> {
+		await handleMissionShopKingsFavor(context);
 	}
 
 	@packetHandler(CommandMissionShopBadge)
 	async missionShopBadge(_packet: CommandMissionShopBadge, context: PacketContext): Promise<void> {
-		// TODO
+		await handleMissionShopBadge(context);
 	}
 
 	@packetHandler(CommandMissionShopNoMissionToSkip)

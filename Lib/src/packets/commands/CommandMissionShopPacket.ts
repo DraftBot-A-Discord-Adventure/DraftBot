@@ -10,10 +10,21 @@ export class CommandMissionShopAlreadyBoughtPointsThisWeek extends DraftBotPacke
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class CommandMissionShopMoney extends DraftBotPacket {
+	amount!: number;
+}
+
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class CommandMissionShopKingsFavor extends DraftBotPacket {
+}
+
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandMissionShopPetInformation extends DraftBotPacket {
 	nickname!: string;
 
 	typeId!: number;
+
+	sex!: string;
 
 	loveLevel!: number;
 

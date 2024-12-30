@@ -7,6 +7,7 @@ import {
 	CommandMissionShopAlreadyBoughtPointsThisWeek,
 	CommandMissionShopAlreadyHadBadge,
 	CommandMissionShopBadge,
+	CommandMissionShopMoney,
 	CommandMissionShopNoMissionToSkip,
 	CommandMissionShopNoPet,
 	CommandMissionShopPacketReq,
@@ -71,6 +72,9 @@ function getMoneyShopItem(): ShopItem {
 			if (amount < 6500) {
 				await MissionsController.update(player, response, {missionId: "kingsMoneyValue"});
 			}
+			response.push(makePacket(CommandMissionShopMoney, {
+				amount
+			}));
 			return true;
 		}
 	};
@@ -92,7 +96,7 @@ function getValuableItemShopItem(): ShopItem {
 
 function getAThousandPointsShopItem(): ShopItem {
 	return {
-		id: ShopItemType.POINTS,
+		id: ShopItemType.KINGS_FAVOR,
 		price: Constants.MISSION_SHOP.PRICES.THOUSAND_POINTS,
 		amounts: [1],
 		buyCallback: async (response: DraftBotPacket[], playerId: number): Promise<boolean> => {
@@ -108,6 +112,7 @@ function getAThousandPointsShopItem(): ShopItem {
 				reason: NumberChangeReason.MISSION_SHOP
 			});
 			missionsInfo.hasBoughtPointsThisWeek = true;
+			response.push(makePacket(CommandMissionShopKingsFavor, {}));
 			await Promise.all([player.save(), missionsInfo.save()]);
 			return true;
 		}
@@ -116,7 +121,7 @@ function getAThousandPointsShopItem(): ShopItem {
 
 function getValueLovePointsPetShopItem(): ShopItem {
 	return {
-		id: ShopItemType.PET_INFORMATION,
+		id: ShopItemType.LOVE_POINTS_VALUE,
 		price: Constants.MISSION_SHOP.PRICES.PET_INFORMATION,
 		amounts: [1],
 		buyCallback: async (response: DraftBotPacket[], playerId: number): Promise<boolean> => {
@@ -130,6 +135,7 @@ function getValueLovePointsPetShopItem(): ShopItem {
 			response.push(makePacket(CommandMissionShopPetInformation, {
 				nickname: pet.nickname,
 				typeId: petModel.id,
+				sex: pet.sex,
 				loveLevel: pet.getLoveLevelNumber(),
 				lovePoints: pet.lovePoints,
 				diet: petModel.diet,
@@ -165,7 +171,7 @@ function getEndCallbackSkipMissionShopItem(player: Player, missionList: MissionS
 
 function getSkipMapMissionShopItem(): ShopItem {
 	return {
-		id: ShopItemType.MISSION_SKIP,
+		id: ShopItemType.SKIP_MISSION,
 		price: Constants.MISSION_SHOP.PRICES.MISSION_SKIP,
 		amounts: [1],
 		buyCallback: async (response: DraftBotPacket[], playerId: number, context: PacketContext): Promise<boolean> => {
@@ -202,7 +208,7 @@ function getSkipMapMissionShopItem(): ShopItem {
 
 function getBadgeShopItem(): ShopItem {
 	return {
-		id: ShopItemType.BADGE,
+		id: ShopItemType.QUEST_MASTER_BADGE,
 		price: Constants.MISSION_SHOP.PRICES.BADGE,
 		amounts: [1],
 		buyCallback: async (response: DraftBotPacket[], playerId: number): Promise<boolean> => {

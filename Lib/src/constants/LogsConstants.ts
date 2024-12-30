@@ -55,19 +55,20 @@ export enum ShopItemType {
 	ALTERATION_HEAL,
 	FULL_REGEN,
 	SLOT_EXTENSION,
-	BADGE,
+	MONEY_MOUTH_BADGE,
 	COMMON_FOOD,
 	HERBIVOROUS_FOOD,
 	CARNIVOROUS_FOOD,
 	ULTIMATE_FOOD,
 	MONEY,
 	TREASURE,
-	POINTS,
-	MISSION_SKIP,
-	PET_INFORMATION,
+	KINGS_FAVOR,
+	SKIP_MISSION,
+	LOVE_POINTS_VALUE,
 	SMALL_GUILD_XP,
 	ENERGY_HEAL,
-	BIG_GUILD_XP
+	BIG_GUILD_XP,
+	QUEST_MASTER_BADGE
 }
 
 export const ShopItemTypeToString: Record<ShopItemType, string> = {
@@ -76,17 +77,18 @@ export const ShopItemTypeToString: Record<ShopItemType, string> = {
 	[ShopItemType.ALTERATION_HEAL]: "alterationHeal",
 	[ShopItemType.FULL_REGEN]: "fullRegen",
 	[ShopItemType.SLOT_EXTENSION]: "slotExtension",
-	[ShopItemType.BADGE]: "badge",
+	[ShopItemType.MONEY_MOUTH_BADGE]: "moneyMouthBadge",
 	[ShopItemType.COMMON_FOOD]: "commonFood",
 	[ShopItemType.HERBIVOROUS_FOOD]: "herbivorousFood",
 	[ShopItemType.CARNIVOROUS_FOOD]: "carnivorousFood",
 	[ShopItemType.ULTIMATE_FOOD]: "ultimateFood",
 	[ShopItemType.MONEY]: "money",
 	[ShopItemType.TREASURE]: "treasure",
-	[ShopItemType.POINTS]: "points",
-	[ShopItemType.MISSION_SKIP]: "missionSkip",
-	[ShopItemType.PET_INFORMATION]: "petInformation",
+	[ShopItemType.KINGS_FAVOR]: "kingsFavor",
+	[ShopItemType.SKIP_MISSION]: "skipMission",
+	[ShopItemType.LOVE_POINTS_VALUE]: "lovePointsValue",
 	[ShopItemType.SMALL_GUILD_XP]: "smallGuildXp",
 	[ShopItemType.ENERGY_HEAL]: "energyHeal",
-	[ShopItemType.BIG_GUILD_XP]: "bigGuildXp"
+	[ShopItemType.BIG_GUILD_XP]: "bigGuildXp",
+	[ShopItemType.QUEST_MASTER_BADGE]: "questMasterBadge"
 };
