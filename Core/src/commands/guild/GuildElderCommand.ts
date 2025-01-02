@@ -2,8 +2,13 @@ import Player, {Players} from "../../core/database/game/models/Player";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {Guilds} from "../../core/database/game/models/Guild";
 import {
-	CommandGuildElderAcceptPacketRes, CommandGuildElderPacketReq,
-	CommandGuildElderPacketRes, CommandGuildElderRefusePacketRes
+	CommandGuildElderAcceptPacketRes,
+	CommandGuildElderAlreadyElderPacketRes,
+	CommandGuildElderFoundPlayerPacketRes,
+	CommandGuildElderHimselfPacketRes,
+	CommandGuildElderPacketReq,
+	CommandGuildElderRefusePacketRes,
+	CommandGuildElderSameGuildPacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildElderPacket";
 import {draftBotInstance} from "../../index";
 import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
@@ -23,12 +28,7 @@ import {ReactionCollectorGuildElder} from "../../../../Lib/src/packets/interacti
  */
 async function isEligible(player: Player, promotedPlayer: Player, response: DraftBotPacket[]): Promise<boolean> {
 	if (promotedPlayer === null) {
-		response.push(makePacket(CommandGuildElderPacketRes, {
-			foundPlayer: false,
-			sameGuild: false,
-			himself: false,
-			alreadyElder: false
-		}));
+		response.push(makePacket(CommandGuildElderFoundPlayerPacketRes, {foundPlayer: false}));
 		return false;
 	}
 	let promotedGuild;
@@ -41,32 +41,17 @@ async function isEligible(player: Player, promotedPlayer: Player, response: Draf
 
 	const guild = await Guilds.getById(player.guildId);
 	if (promotedGuild === null || promotedGuild.id !== player.guildId) {
-		response.push(makePacket(CommandGuildElderPacketRes, {
-			foundPlayer: true,
-			sameGuild: false,
-			himself: false,
-			alreadyElder: false
-		}));
+		response.push(makePacket(CommandGuildElderSameGuildPacketRes, {sameGuild: false}));
 		return false;
 	}
 
 	if (promotedPlayer.id === player.id) {
-		response.push(makePacket(CommandGuildElderPacketRes, {
-			foundPlayer: true,
-			sameGuild: true,
-			himself: true,
-			alreadyElder: false
-		}));
+		response.push(makePacket(CommandGuildElderHimselfPacketRes, {himself: true}));
 		return false;
 	}
 
-	if (promotedPlayer.id === guild.id) {
-		response.push(makePacket(CommandGuildElderPacketRes, {
-			foundPlayer: true,
-			sameGuild: true,
-			himself: false,
-			alreadyElder: true
-		}));
+	if (promotedPlayer.id === guild.elderId) {
+		response.push(makePacket(CommandGuildElderAlreadyElderPacketRes, {alreadyElder: true}));
 		return false;
 	}
 	return true;
@@ -80,7 +65,7 @@ async function isEligible(player: Player, promotedPlayer: Player, response: Draf
  */
 async function acceptGuildElder(player: Player, promotedPlayer: Player, response: DraftBotPacket[]): Promise<void> {
 	await player.reload();
-	if (! await isEligible(player,promotedPlayer,response)) {
+	if (!await isEligible(player, promotedPlayer, response)) {
 		return;
 	}
 	const guild = await Guilds.getById(player.guildId);
@@ -109,7 +94,7 @@ export default class GuildElderCommand {
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandGuildElderPacketReq, context: PacketContext): Promise<void> {
 		const promotedPlayer = await Players.getAskedPlayer({keycloakId: packet.askedPlayerKeycloakId}, player);
 
-		if (! await isEligible(player, promotedPlayer, response)) {
+		if (!await isEligible(player, promotedPlayer, response)) {
 			return;
 		}
 		const collector = new ReactionCollectorGuildElder(

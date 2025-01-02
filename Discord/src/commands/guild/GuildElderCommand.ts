@@ -9,9 +9,12 @@ import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
 import {ReactionCollectorGuildElderData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildElder";
 import {
 	CommandGuildElderAcceptPacketRes,
+	CommandGuildElderAlreadyElderPacketRes,
+	CommandGuildElderFoundPlayerPacketRes,
+	CommandGuildElderHimselfPacketRes,
 	CommandGuildElderPacketReq,
-	CommandGuildElderPacketRes,
-	CommandGuildElderRefusePacketRes
+	CommandGuildElderRefusePacketRes,
+	CommandGuildElderSameGuildPacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildElderPacket";
 import {sendErrorMessage, SendManner} from "../../utils/ErrorUtils";
 import {ICommand} from "../ICommand";
@@ -45,13 +48,8 @@ export async function createGuildElderCollector(packet: ReactionCollectorCreatio
 	await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
 }
 
-/**
- * Handle the response of the server after a guild elder,
- * this packet is only sent if the promotion cannot be done for some reason
- * @param packet
- * @param context
- */
-export async function handleCommandGuildElderPacketRes(packet: CommandGuildElderPacketRes, context: PacketContext): Promise<void> {
+
+export async function handleCommandGuildElderFoundPlayerPacketRes(packet: CommandGuildElderFoundPlayerPacketRes, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 	if (!interaction) {
 		return;
@@ -60,18 +58,30 @@ export async function handleCommandGuildElderPacketRes(packet: CommandGuildElder
 		await sendErrorMessage(
 			interaction.user,
 			interaction,
-			i18n.t("commands:guildElder.notSameGuild", {lng: interaction.userLanguage}),
+			i18n.t("commands:guildElder.playerNotFound", {lng: interaction.userLanguage}),
 			{sendManner: SendManner.REPLY}
 		);
+	}
+}
+
+export async function handleCommandGuildElderSameGuildPacketRes(packet: CommandGuildElderSameGuildPacketRes, context: PacketContext): Promise<void> {
+	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+	if (!interaction) {
 		return;
 	}
-	if (packet.sameGuild) {
+	if (!packet.sameGuild) {
 		await sendErrorMessage(
 			interaction.user,
 			interaction,
 			i18n.t("commands:guildElder.notSameGuild", {lng: interaction.userLanguage}),
 			{sendManner: SendManner.REPLY}
 		);
+	}
+}
+
+export async function handleCommandGuildElderHimselfPacketRes(packet: CommandGuildElderHimselfPacketRes, context: PacketContext): Promise<void> {
+	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+	if (!interaction) {
 		return;
 	}
 	if (packet.himself) {
@@ -81,6 +91,13 @@ export async function handleCommandGuildElderPacketRes(packet: CommandGuildElder
 			i18n.t("commands:guildElder.chiefError", {lng: interaction.userLanguage}),
 			{sendManner: SendManner.REPLY}
 		);
+	}
+}
+
+export async function handleCommandGuildElderAlreadyElderPacketRes(packet: CommandGuildElderAlreadyElderPacketRes, context: PacketContext): Promise<void> {
+	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+	if (!interaction) {
+		return;
 	}
 	if (packet.alreadyElder) {
 		await sendErrorMessage(
