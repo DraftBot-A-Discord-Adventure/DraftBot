@@ -164,12 +164,19 @@ import {
 import {handleClassicError} from "../../utils/ErrorUtils";
 import {
 	CommandGuildElderAcceptPacketRes,
-	CommandGuildElderPacketRes, CommandGuildElderRefusePacketRes
+	CommandGuildElderAlreadyElderPacketRes,
+	CommandGuildElderFoundPlayerPacketRes,
+	CommandGuildElderHimselfPacketRes,
+	CommandGuildElderRefusePacketRes,
+	CommandGuildElderSameGuildPacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildElderPacket";
 import {
 	handleCommandGuildElderAcceptPacketRes,
-	handleCommandGuildElderPacketRes,
-	handleCommandGuildElderRefusePacketRes
+	handleCommandGuildElderAlreadyElderPacketRes,
+	handleCommandGuildElderFoundPlayerPacketRes,
+	handleCommandGuildElderHimselfPacketRes,
+	handleCommandGuildElderRefusePacketRes,
+	handleCommandGuildElderSameGuildPacketRes
 } from "../../commands/guild/GuildElderCommand";
 
 export default class CommandHandlers {
@@ -297,9 +304,24 @@ export default class CommandHandlers {
 		await handleCommandGuildKickAcceptPacketRes(packet, context);
 	}
 
-	@packetHandler(CommandGuildElderPacketRes)
-	async guildElderRes(packet: CommandGuildElderPacketRes, context: PacketContext): Promise<void> {
-		await handleCommandGuildElderPacketRes(packet, context);
+	@packetHandler(CommandGuildElderSameGuildPacketRes)
+	async guildElderSameGuildRes(packet: CommandGuildElderSameGuildPacketRes, context: PacketContext): Promise<void> {
+		await handleCommandGuildElderSameGuildPacketRes(packet, context);
+	}
+
+	@packetHandler(CommandGuildElderHimselfPacketRes)
+	async guildElderHimselfRes(packet: CommandGuildElderHimselfPacketRes, context: PacketContext): Promise<void> {
+		await handleCommandGuildElderHimselfPacketRes(packet, context);
+	}
+
+	@packetHandler(CommandGuildElderAlreadyElderPacketRes)
+	async guildElderAlreadyElderRes(packet: CommandGuildElderAlreadyElderPacketRes, context: PacketContext): Promise<void> {
+		await handleCommandGuildElderAlreadyElderPacketRes(packet, context);
+	}
+
+	@packetHandler(CommandGuildElderFoundPlayerPacketRes)
+	async guildElderFoundPlayerRes(packet: CommandGuildElderFoundPlayerPacketRes, context: PacketContext): Promise<void> {
+		await handleCommandGuildElderFoundPlayerPacketRes(packet, context);
 	}
 
 	@packetHandler(CommandGuildElderRefusePacketRes)
