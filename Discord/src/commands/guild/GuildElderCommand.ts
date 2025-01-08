@@ -41,7 +41,8 @@ export async function createGuildElderCollector(packet: ReactionCollectorCreatio
 		.setDescription(
 			i18n.t("commands:guildElder.confirmDesc", {
 				lng: interaction.userLanguage,
-				elderPseudo: elderPlayer.attributes.gameUsername
+				elderPseudo: elderPlayer.attributes.gameUsername,
+				guildName: data.guildName
 			})
 		);
 
