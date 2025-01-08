@@ -155,7 +155,8 @@ export async function handleCommandGuildElderAcceptPacketRes(packet: CommandGuil
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:guildElder.successElderAddTitle", {
 					lng: originalInteraction.userLanguage,
-					elderPseudo: promotedPlayer.attributes.gameUsername
+					elderPseudo: promotedPlayer.attributes.gameUsername,
+					guildName: packet.guildName
 				}), originalInteraction.user)
 					.setDescription(
 						i18n.t("commands:guildElder.acceptedDesc", {lng: originalInteraction.userLanguage})
