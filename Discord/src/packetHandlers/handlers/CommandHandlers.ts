@@ -163,15 +163,17 @@ import {
 } from "../../commands/player/UnlockCommand";
 import {handleClassicError} from "../../utils/ErrorUtils";
 import {
+	CommandTopGuildsEmptyPacket,
 	CommandTopInvalidPagePacket,
 	CommandTopPacketResGlory, CommandTopPacketResGuild,
-	CommandTopPacketResScore
+	CommandTopPacketResScore, CommandTopPlayersEmptyPacket
 } from "../../../../Lib/src/packets/commands/CommandTopPacket";
 import {
+	handleCommandTopGuildsEmptyPacket,
 	handleCommandTopInvalidPagePacket,
 	handleCommandTopPacketResGlory,
 	handleCommandTopPacketResGuild,
-	handleCommandTopPacketResScore
+	handleCommandTopPacketResScore, handleCommandTopPlayersEmptyPacket
 } from "../../commands/player/TopCommand";
 
 export default class CommandHandlers {
@@ -539,5 +541,15 @@ export default class CommandHandlers {
 	@packetHandler(CommandTopInvalidPagePacket)
 	async topInvalidPageRes(packet: CommandTopInvalidPagePacket, context: PacketContext): Promise<void> {
 		await handleCommandTopInvalidPagePacket(context, packet);
+	}
+
+	@packetHandler(CommandTopPlayersEmptyPacket)
+	async topPlayersEmptyRes(_packet: CommandTopPlayersEmptyPacket, context: PacketContext): Promise<void> {
+		await handleCommandTopPlayersEmptyPacket(context);
+	}
+
+	@packetHandler(CommandTopGuildsEmptyPacket)
+	async topGuildsEmptyRes(_packet: CommandTopGuildsEmptyPacket, context: PacketContext): Promise<void> {
+		await handleCommandTopGuildsEmptyPacket(context);
 	}
 }

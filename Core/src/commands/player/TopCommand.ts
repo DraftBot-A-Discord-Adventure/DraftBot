@@ -2,10 +2,13 @@ import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {
+	CommandTopGuildsEmptyPacket,
 	CommandTopInvalidPagePacket,
 	CommandTopPacketReq,
-	CommandTopPacketResGlory, CommandTopPacketResGuild,
-	CommandTopPacketResScore
+	CommandTopPacketResGlory,
+	CommandTopPacketResGuild,
+	CommandTopPacketResScore,
+	CommandTopPlayersEmptyPacket
 } from "../../../../Lib/src/packets/commands/CommandTopPacket";
 import {TopTiming} from "../../../../Lib/src/enums/TopTimings";
 import {TopConstants} from "../../../../Lib/src/constants/TopConstants";
@@ -15,8 +18,11 @@ import {ErrorPacket} from "../../../../Lib/src/packets/commands/ErrorPacket";
 import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
 import {Guilds} from "../../core/database/game/models/Guild";
 
-async function getTopScore(initiator: Player, page: number, timing: TopTiming): Promise<CommandTopPacketResScore | CommandTopInvalidPagePacket> {
+async function getTopScore(initiator: Player, page: number, timing: TopTiming): Promise<DraftBotPacket> {
 	const totalElements = await Players.getNumberOfPlayingPlayers(timing === TopTiming.WEEK);
+	if (totalElements === 0) {
+		return makePacket(CommandTopPlayersEmptyPacket, {});
+	}
 	const maxPage = Math.ceil(totalElements / TopConstants.PLAYERS_PER_PAGE);
 
 	if (page < 1 || page > maxPage) {
@@ -28,7 +34,11 @@ async function getTopScore(initiator: Player, page: number, timing: TopTiming): 
 
 	const minRank = (page - 1) * TopConstants.PLAYERS_PER_PAGE + 1;
 	const maxRank = Math.min(page * TopConstants.PLAYERS_PER_PAGE, totalElements);
-	const rank = initiator.score <= Constants.MINIMAL_PLAYER_SCORE ? -1 : await Players.getRankById(initiator.id);
+	const rank = timing === TopTiming.WEEK
+		? await Players.getWeeklyRankById(initiator.id)
+		: initiator.score <= Constants.MINIMAL_PLAYER_SCORE
+			? -1
+			: await Players.getRankById(initiator.id);
 
 	const players = await Players.getPlayersTop(minRank, maxRank, timing === TopTiming.WEEK);
 
@@ -40,7 +50,7 @@ async function getTopScore(initiator: Player, page: number, timing: TopTiming): 
 		contextRank: rank > 0 ? rank : undefined,
 		canBeRanked: true,
 		elements: players.map((player, index) => ({
-			rank: minRank + index + 1,
+			rank: minRank + index,
 			sameContext: initiator.id === player.id,
 			text: player.keycloakId,
 			attributes: {
@@ -51,12 +61,16 @@ async function getTopScore(initiator: Player, page: number, timing: TopTiming): 
 				2: timing === TopTiming.WEEK ? player.weeklyScore : player.score,
 				3: player.level
 			}
-		}))
+		})),
+		elementsPerPage: TopConstants.PLAYERS_PER_PAGE
 	});
 }
 
-async function getTopGlory(initiator: Player, page: number): Promise<CommandTopPacketResGlory | CommandTopInvalidPagePacket> {
+async function getTopGlory(initiator: Player, page: number): Promise<DraftBotPacket> {
 	const totalElements = await Players.getNumberOfFightingPlayers();
+	if (totalElements === 0) {
+		return makePacket(CommandTopPlayersEmptyPacket, {});
+	}
 	const maxPage = Math.ceil(totalElements / TopConstants.PLAYERS_PER_PAGE);
 
 	if (page < 1 || page > maxPage) {
@@ -68,7 +82,7 @@ async function getTopGlory(initiator: Player, page: number): Promise<CommandTopP
 
 	const minRank = (page - 1) * TopConstants.PLAYERS_PER_PAGE + 1;
 	const maxRank = Math.min(page * TopConstants.PLAYERS_PER_PAGE, totalElements);
-	const rank = initiator.fightCountdown <= FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE ? -1 : await Players.getGloryRankById(initiator.id);
+	const rank = initiator.fightCountdown > FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE ? -1 : await Players.getGloryRankById(initiator.id);
 
 	const players = await Players.getPlayersGloryTop(minRank, maxRank);
 
@@ -81,7 +95,7 @@ async function getTopGlory(initiator: Player, page: number): Promise<CommandTopP
 		canBeRanked: true,
 		needFight: FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE - initiator.fightCountdown,
 		elements: players.map((player, index) => ({
-			rank: minRank + index + 1,
+			rank: minRank + index,
 			sameContext: initiator.id === player.id,
 			text: player.keycloakId,
 			attributes: {
@@ -89,12 +103,16 @@ async function getTopGlory(initiator: Player, page: number): Promise<CommandTopP
 				2: player.gloryPoints,
 				3: player.level
 			}
-		}))
+		})),
+		elementsPerPage: TopConstants.GUILDS_PER_PAGE
 	});
 }
 
-async function getTopGuild(initiator: Player, page: number): Promise<CommandTopPacketResGuild | CommandTopInvalidPagePacket> {
+async function getTopGuild(initiator: Player, page: number): Promise<DraftBotPacket> {
 	const totalElements = await Guilds.getTotalRanked();
+	if (totalElements === 0) {
+		return makePacket(CommandTopGuildsEmptyPacket, {});
+	}
 	const maxPage = Math.ceil(totalElements / TopConstants.GUILDS_PER_PAGE);
 
 	if (page < 1 || page > maxPage) {
@@ -118,7 +136,7 @@ async function getTopGuild(initiator: Player, page: number): Promise<CommandTopP
 		contextRank: rank > 0 ? rank : undefined,
 		canBeRanked: initiator.guildId !== null,
 		elements: guilds.map((guild, index) => ({
-			rank: minRank + index + 1,
+			rank: minRank + index,
 			sameContext: initiator.guildId === guild.id,
 			text: guild.name,
 			attributes: {
@@ -126,7 +144,8 @@ async function getTopGuild(initiator: Player, page: number): Promise<CommandTopP
 				2: guild.level,
 				3: undefined
 			}
-		}))
+		})),
+		elementsPerPage: TopConstants.PLAYERS_PER_PAGE
 	});
 }
 

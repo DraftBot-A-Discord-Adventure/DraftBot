@@ -27,6 +27,8 @@ export class CommandTopPacketRes<T extends TopElement<U, V, W>, U, V, W> extends
 	elements!: T[];
 
 	totalElements!: number;
+
+	elementsPerPage!: number;
 }
 
 // Attributes: mapType and afk, score, level
@@ -49,3 +51,9 @@ export class CommandTopInvalidPagePacket extends DraftBotPacket {
 
 	maxPage!: number;
 }
+
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class CommandTopPlayersEmptyPacket extends DraftBotPacket {}
+
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class CommandTopGuildsEmptyPacket extends DraftBotPacket {}

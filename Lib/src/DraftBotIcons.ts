@@ -113,6 +113,8 @@ export const DraftBotIcons: {
 			first: string,
 			second: string,
 			third: string,
+			fourth: string,
+			fifth: string,
 			self: string,
 			sameContext: string,
 			default: string
@@ -1744,6 +1746,8 @@ export const DraftBotIcons: {
 			"first": "🥇",
 			"second": "🥈",
 			"third": "🥉",
+			"fourth": "🏅",
+			"fifth": "🏅",
 			"self": "🔵",
 			"sameContext": "⚪",
 			"default": "⚫"

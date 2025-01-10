@@ -1120,9 +1120,10 @@ export class Players {
 	 * @param rankType
 	 */
 	static async getRank(playerId: number, rankType: string): Promise<number> {
+		const condition = rankType === Constants.RANK_TYPES.GLORY ? `WHERE fightCountdown <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE}` : "";
 		const query = `SELECT ranking
 		               FROM (SELECT id, RANK() OVER (ORDER BY ${rankType} desc, level desc) ranking
-		                     FROM players) subquery
+		                     FROM players ${condition}) subquery
 		               WHERE subquery.id = ${playerId}`;
 		return ((await Player.sequelize.query(query))[0][0] as {
 			ranking: number

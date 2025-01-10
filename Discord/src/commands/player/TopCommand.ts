@@ -21,7 +21,6 @@ import {ICommand} from "../ICommand";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {TopDataType} from "../../../../Lib/src/enums/TopDataType";
 import {SlashCommandBuilder, SlashCommandSubcommandBuilder} from "@discordjs/builders";
-import {TopConstants} from "../../../../Lib/src/constants/TopConstants";
 import {DraftBotErrorEmbed} from "../../messages/DraftBotErrorEmbed";
 
 async function getPacket(interaction: DraftbotInteraction): Promise<CommandTopPacketReq> {
@@ -49,13 +48,13 @@ function addTimingOption(builder: SlashCommandSubcommandBuilder): void {
 				name: i18n.t("discordBuilder:top.timings.allTime", {lng: LANGUAGE.ENGLISH}),
 				"name_localizations": {
 					fr: i18n.t("discordBuilder:top.timings.allTime", {lng: LANGUAGE.FRENCH})
-				}, value: TopConstants.TIMING_ALLTIME
+				}, value: TopTiming.ALL_TIME
 			},
 			{
 				name: i18n.t("discordBuilder:top.timings.weekly", {lng: LANGUAGE.ENGLISH}),
 				"name_localizations": {
 					fr: i18n.t("discordBuilder:top.timings.weekly", {lng: LANGUAGE.FRENCH})
-				}, value: TopConstants.TIMING_WEEKLY
+				}, value: TopTiming.WEEK
 			}
 		));
 }
@@ -102,6 +101,10 @@ function getBadgeForPosition(rank: number, sameContext: boolean, contextElementP
 		return DraftBotIcons.top.badges.second;
 	case 3:
 		return DraftBotIcons.top.badges.third;
+	case 4:
+		return DraftBotIcons.top.badges.fourth;
+	case 5:
+		return DraftBotIcons.top.badges.fifth;
 	default:
 		return sameContext
 			? contextElementPosition === rank
@@ -139,8 +142,8 @@ function formatGloryAttributes(element: TopElement<number, number, number>, lng:
 	}\``;
 }
 
-function formatGuildAttributes(element: TopElement<number, number, undefined>): string {
-	return `${element.attributes["1"]} | \`${element.attributes["2"]}\``;
+function formatGuildAttributes(element: TopElement<number, number, undefined>, lng: Language): string {
+	return `\`${element.attributes["1"]}\` | \`${i18n.t("commands:top.level", {lng, level: element.attributes["2"]})}\``;
 }
 
 async function handleGenericTopPacketRes<T extends TopElement<U, V, W>, U, V, W>(context: PacketContext, packet: CommandTopPacketRes<T, U, V, W>, textKeys: {
@@ -151,6 +154,7 @@ async function handleGenericTopPacketRes<T extends TopElement<U, V, W>, U, V, W>
 	youRankAtPage: string;
 	nobodyInTop: string;
 	cantBeRanked?: string;
+	overriddenElementTexts?: string[];
 }, formatAttributes: (element: T, lng: Language) => string): Promise<void> {
 	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!)!;
@@ -162,7 +166,8 @@ async function handleGenericTopPacketRes<T extends TopElement<U, V, W>, U, V, W>
 	if (packet.elements.length > 0) {
 		for (let i = 0; i < packet.elements.length; i++) {
 			const element = packet.elements[i];
-			desc += `${getBadgeForPosition(element.rank, element.sameContext, packet.contextRank)} ${element.text} | ${formatAttributes(element, lng)}\n`;
+			desc += `${getBadgeForPosition(element.rank, element.sameContext, packet.contextRank)}` +
+				` ${textKeys.overriddenElementTexts ? textKeys.overriddenElementTexts[i] : element.text} | ${formatAttributes(element, lng)}\n`;
 		}
 
 		desc += `${i18n.t(textKeys.yourRankTitle, {lng})}\n`;
@@ -175,18 +180,19 @@ async function handleGenericTopPacketRes<T extends TopElement<U, V, W>, U, V, W>
 					badge: getBadgeForPosition(packet.contextRank, true, packet.contextRank),
 					pseudo: user.attributes.gameUsername,
 					rank: packet.contextRank,
-					total: packet.totalElements
+					total: packet.totalElements,
+					count: packet.totalElements
 				}
 			);
 			if (packet.contextRank < packet.minRank || packet.contextRank > packet.maxRank) {
-				desc += i18n.t(
+				desc += ` ${i18n.t(
 					textKeys.youRankAtPage,
 					{
 						lng,
-						page: Math.ceil(packet.contextRank / (packet.maxRank - packet.minRank)),
-						maxPage: Math.ceil(packet.totalElements / (packet.maxRank - packet.minRank))
+						page: Math.ceil(packet.contextRank / packet.elementsPerPage),
+						maxPage: Math.ceil(packet.totalElements / packet.elementsPerPage)
 					}
-				);
+				)}`;
 			}
 		}
 		else if (packet.canBeRanked) {
@@ -212,6 +218,11 @@ async function handleGenericTopPacketRes<T extends TopElement<U, V, W>, U, V, W>
 	});
 }
 
+async function getOverriddenPlayersUsernames<U, V, W>(elements: TopElement<U, V, W>[], lng: Language): Promise<string[]> {
+	return (await KeycloakUtils.getUsersFromIds(keycloakConfig, elements.map(e => e.text)))
+		.map(u => (u ? u.attributes.gameUsername[0] : i18n.t("error:unknownPlayer", { lng })));
+}
+
 export async function handleCommandTopPacketResScore(context: PacketContext, packet: CommandTopPacketResScore): Promise<void> {
 	await handleGenericTopPacketRes(context, packet, {
 		title: packet.timing === TopTiming.ALL_TIME
@@ -221,7 +232,8 @@ export async function handleCommandTopPacketResScore(context: PacketContext, pac
 		yourRank: packet.contextRank === 1 ? "commands:top.yourRankFirst" : "commands:top.yourRank",
 		yourRankNone: {key: "commands:top.yourRankNoneScore", replacements: {}},
 		youRankAtPage: "commands:top.yourRankAtPage",
-		nobodyInTop: "commands:top.nobodyInTopPlayers"
+		nobodyInTop: "commands:top.nobodyInTopPlayers",
+		overriddenElementTexts: await getOverriddenPlayersUsernames(packet.elements, context.discord!.language!)
 	}, formatScoreAttributes);
 }
 
@@ -229,10 +241,11 @@ export async function handleCommandTopPacketResGlory(context: PacketContext, pac
 	await handleGenericTopPacketRes(context, packet, {
 		title: "commands:top.titleGlory",
 		yourRankTitle: "commands:top.yourRankTitle",
-		yourRank: "commands:top.yourRank",
-		yourRankNone: {key: "commands:top.yourRankNoneGlory", replacements: {needFight: packet.needFight}},
+		yourRank: packet.contextRank === 1 ? "commands:top.yourRankFirst" : "commands:top.yourRank",
+		yourRankNone: {key: "commands:top.yourRankNoneGlory", replacements: {needFight: packet.needFight, count: packet.needFight}},
 		youRankAtPage: "commands:top.yourRankAtPage",
-		nobodyInTop: "commands:top.nobodyInTopPlayers"
+		nobodyInTop: "commands:top.nobodyInTopPlayers",
+		overriddenElementTexts: await getOverriddenPlayersUsernames(packet.elements, context.discord!.language!)
 	}, formatGloryAttributes);
 }
 
@@ -258,6 +271,26 @@ export async function handleCommandTopInvalidPagePacket(context: PacketContext, 
 				minPage: packet.minPage,
 				maxPage: packet.maxPage
 			}))
+		]
+	});
+}
+
+export async function handleCommandTopPlayersEmptyPacket(context: PacketContext): Promise<void> {
+	const interaction = DiscordCache.getInteraction(context.discord!.interaction!)!;
+
+	await interaction.editReply({
+		embeds: [
+			new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("commands:top.nobodyInTopPlayers", {lng: context.discord!.language!}))
+		]
+	});
+}
+
+export async function handleCommandTopGuildsEmptyPacket(context: PacketContext): Promise<void> {
+	const interaction = DiscordCache.getInteraction(context.discord!.interaction!)!;
+
+	await interaction.editReply({
+		embeds: [
+			new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("commands:top.nobodyInTopGuilds", {lng: context.discord!.language!}))
 		]
 	});
 }

@@ -1,12 +1,4 @@
 export abstract class TopConstants {
-	static readonly GLOBAL_SCOPE = "global";
-
-	static readonly SERVER_SCOPE = "server";
-
-	static readonly TIMING_ALLTIME = "alltime";
-
-	static readonly TIMING_WEEKLY = "weekly";
-
 	static readonly TOP_GUILD_NOT_RANKED_REASON = {
 		NO_GUILD: -1,
 		ZERO_POINTS: -2
