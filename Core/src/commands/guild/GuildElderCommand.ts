@@ -65,6 +65,7 @@ async function isEligible(player: Player, promotedPlayer: Player, response: Draf
  */
 async function acceptGuildElder(player: Player, promotedPlayer: Player, response: DraftBotPacket[]): Promise<void> {
 	await player.reload();
+	await promotedPlayer.reload();
 	// Do all necessary checks again just in case something changed during the menu
 	if (!await isEligible(player, promotedPlayer, response)) {
 		return;
@@ -116,7 +117,6 @@ export default class GuildElderCommand {
 				}));
 			}
 			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.GUILD_ELDER);
-			BlockingUtils.unblockPlayer(promotedPlayer.id, BlockingConstants.REASONS.GUILD_ELDER);
 		};
 
 		const collectorPacket = new ReactionCollectorInstance(
@@ -129,7 +129,6 @@ export default class GuildElderCommand {
 			endCallback
 		)
 			.block(player.id, BlockingConstants.REASONS.GUILD_ELDER)
-			.block(promotedPlayer.id, BlockingConstants.REASONS.GUILD_ELDER)
 			.build();
 
 		response.push(collectorPacket);
