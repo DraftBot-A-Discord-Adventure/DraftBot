@@ -1,4 +1,4 @@
-export type TopElementScoreFirstType = { mapType?: string, afk: boolean };
+export type TopElementScoreFirstType = { effectId?: string, mapType?: string, afk: boolean };
 
 export interface TopElement<T, U, V> {
 	rank: number;

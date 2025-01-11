@@ -120,6 +120,9 @@ function formatScoreAttributes(element: TopElement<TopElementScoreFirstType, num
 	if (element.attributes["1"].afk) {
 		attributes += `${DraftBotIcons.top.afk} | `;
 	}
+	else if (element.attributes["1"].effectId) {
+		attributes += `${DraftBotIcons.effects[element.attributes["1"].effectId]} | `;
+	}
 	else if (element.attributes["1"].mapType) {
 		attributes += `${DraftBotIcons.map_types[element.attributes["1"].mapType]} | `;
 	}

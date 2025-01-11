@@ -17,6 +17,7 @@ import {TopDataType} from "../../../../Lib/src/enums/TopDataType";
 import {ErrorPacket} from "../../../../Lib/src/packets/commands/ErrorPacket";
 import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
 import {Guilds} from "../../core/database/game/models/Guild";
+import {TravelTime} from "../../core/maps/TravelTime";
 
 async function getTopScore(initiator: Player, page: number, timing: TopTiming): Promise<DraftBotPacket> {
 	const totalElements = await Players.getNumberOfPlayingPlayers(timing === TopTiming.WEEK);
@@ -35,12 +36,15 @@ async function getTopScore(initiator: Player, page: number, timing: TopTiming): 
 	const minRank = (page - 1) * TopConstants.PLAYERS_PER_PAGE + 1;
 	const maxRank = Math.min(page * TopConstants.PLAYERS_PER_PAGE, totalElements);
 	const rank = timing === TopTiming.WEEK
-		? await Players.getWeeklyRankById(initiator.id)
+		? initiator.weeklyScore > 0
+			? await Players.getWeeklyRankById(initiator.id)
+			: -1
 		: initiator.score <= Constants.MINIMAL_PLAYER_SCORE
 			? -1
 			: await Players.getRankById(initiator.id);
 
 	const players = await Players.getPlayersTop(minRank, maxRank, timing === TopTiming.WEEK);
+	const now = Date.now();
 
 	return makePacket(CommandTopPacketResScore, {
 		totalElements,
@@ -55,7 +59,8 @@ async function getTopScore(initiator: Player, page: number, timing: TopTiming): 
 			text: player.keycloakId,
 			attributes: {
 				1: {
-					mapType: player.getDestination().type,
+					effectId: player.currentEffectFinished(new Date(now)) ? undefined : player.effectId,
+					mapType: TravelTime.getTravelDataSimplified(player, new Date(now)).travelEndTime > now ? undefined : player.getDestination().type,
 					afk: player.isInactive()
 				},
 				2: timing === TopTiming.WEEK ? player.weeklyScore : player.score,
@@ -93,7 +98,7 @@ async function getTopGlory(initiator: Player, page: number): Promise<DraftBotPac
 		maxRank,
 		contextRank: rank > 0 ? rank : undefined,
 		canBeRanked: true,
-		needFight: FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE - initiator.fightCountdown,
+		needFight: initiator.fightCountdown - FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE,
 		elements: players.map((player, index) => ({
 			rank: minRank + index,
 			sameContext: initiator.id === player.id,
