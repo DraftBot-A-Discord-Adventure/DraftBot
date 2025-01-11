@@ -3,8 +3,6 @@
  */
 import {ApplicationCommandOptionBase, SlashCommandBuilder, SlashCommandSubcommandBuilder} from "@discordjs/builders";
 import i18n from "../translations/i18n";
-import {SlashCommandStringOption} from "discord.js";
-import {TopConstants} from "../../../Lib/src/constants/TopConstants";
 import {LANGUAGE} from "../../../Lib/src/Language";
 
 
