@@ -82,6 +82,20 @@
     "notSameGuild": "Vous ne pouvez pas expulser un joueur qui n'est pas dans votre guilde.",
     "himself": "Vous ne pouvez pas vous expulser vous-même de la guilde."
   },
+  "guildElder": {
+    "playerNotFound": "No se ha encontrado a este jugador.",
+    "notSameGuild": "Este jugador no pertenece a tu gremio.",
+    "notChiefError": "Debes ser un líder de gremio para realizar este pedido.",
+    "chiefError": "Como líder del gremio, no puedes ser el mayor.",
+    "alreadyElder": "El jugador ya es miembro veterano de tu gremio.",
+    "title": "{{pseudo}}¿Estás confirmando tu elección?",
+    "confirmDesc": ":question: {{elderPseudo}}{{guildName}}se convertirá en el miembro más antiguo del gremio.",
+    "successElderAddTitle": "{{elderPseudo}} {{guildName}} ¡es el miembro más reciente del gremio!",
+    "acceptedDesc": "El mayor ayuda al líder a gestionar el gremio. Así que ¡elige con cuidado! {command:guildelder} {command:guildelderremove}Pero no te preocupes, si no estás contento con tu anciano, puedes sustituirlo con el mando , o si te sientes un dictador, puedes eliminarlo definitivamente con .",
+    "canceledDesc": "El mayor no fue ascendido.",
+    "canceledTitle": "Cancelación tenida en cuenta.",
+    "problemWhilePromoting": "Se ha producido un error al ascender al jugador."
+  },
   "help": {
     "aliasFieldTitle": "Alias",
     "aliasesFieldTitle": "Alias",
