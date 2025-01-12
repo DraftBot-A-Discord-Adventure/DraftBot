@@ -229,6 +229,16 @@
     "description": "Récupérer la récompense journalière de la guilde.",
     "name": "bonusjournalierguilde"
   },
+  "guildElder": {
+    "description": "Promouvoir un membre de la guilde au rang d'aîné.",
+    "name": "aineguilde",
+    "options": {
+      "user": {
+        "description": "L'utilisateur qui sera promu en tant qu'aîné.",
+        "name": "utilisateur"
+      }
+    }
+  },
   "daily": {
     "description": "Utiliser votre objet équipé pour obtenir un bonus journalier.",
     "name": "bonusjournalier"
