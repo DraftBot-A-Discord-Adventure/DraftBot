@@ -82,6 +82,20 @@
     "notSameGuild": "Vous ne pouvez pas expulser un joueur qui n'est pas dans votre guilde.",
     "himself": "Vous ne pouvez pas vous expulser vous-même de la guilde."
   },
+  "guildElder": {
+    "playerNotFound": "Este jogador não foi encontrado.",
+    "notSameGuild": "Este jogador não pertence à tua guilda.",
+    "notChiefError": "É necessário ser líder de um grémio para efetuar esta encomenda.",
+    "chiefError": "Como líder do grémio, não podes ser o mais velho.",
+    "alreadyElder": "O jogador já é um membro sénior da tua guilda.",
+    "title": "{{pseudo}}Está a confirmar a sua escolha?",
+    "confirmDesc": ":question: {{elderPseudo}}{{guildName}}tornar-se-á o membro mais velho do grémio.",
+    "successElderAddTitle": "{{elderPseudo}} {{guildName}} é o mais recente membro da associação!",
+    "acceptedDesc": "O mais velho ajuda o líder a gerir o grémio. Por isso, escolhe-o com cuidado! {command:guildelder} {command:guildelderremove}Mas não te preocupes, se não estiveres satisfeito com o teu ancião, podes substituí-lo com o comando , ou se te sentires um ditador, podes removê-lo para sempre com o .",
+    "canceledDesc": "O mais velho não foi promovido.",
+    "canceledTitle": "Cancelamento tido em conta.",
+    "problemWhilePromoting": "Ocorreu um erro quando o jogador foi promovido."
+  },
   "help": {
     "aliasFieldTitle": "Apelido",
     "aliasesFieldTitle": "Apelido",
