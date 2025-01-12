@@ -229,6 +229,16 @@
     "description": "Get the guild's daily reward.",
     "name": "guilddailybonus"
   },
+  "guildElder": {
+    "description": "Promote a guild member to elder.",
+    "name": "guildelder",
+    "options": {
+      "user": {
+        "description": "The user who will be promoted as an elder.",
+        "name": "user"
+      }
+    }
+  },
   "daily": {
     "description": "Use your equipped item to get a daily bonus.",
     "name": "dailybonus"
