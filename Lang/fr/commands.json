@@ -523,7 +523,7 @@
     "fullRegen": "💓 Vous avez été complétement soigné.",
     "alreadyHaveBadge": "Vous possédez déjà ce badge.",
     "badgeBought": "Vous avez reçu un nouveau badge : {emote:badges.{{badgeName}}} !",
-    "notEnoughMoney": "Vous n'avez pas assez d'argent pour acheter cet objet ! Il vous manque `{{missingMoney}} {emote:unitValues.{{currency}}}`.",
+    "notEnoughMoney": "Vous n'avez pas assez d'argent pour acheter cet objet ! Il vous manque `{{missingCurrency}} {emote:unitValues.{{currency}}}`.",
     "boughtTooMuchDailyPotions": "Il n'y a plus aucune potion du jour disponible à la vente... Revenez demain !",
     "title": "🛒 Affichage du Magasin",
     "currentMoney": "Vous avez `{{money}}{emote:unitValues.{{currency}}}`.",
@@ -615,34 +615,34 @@
       "skipMission": {
         "name": "{emote:shopItems.skipMission} Change-mission",
         "info": "Vous permet de supprimer une mission obtenue sur la carte et de l'échanger contre une nouvelle mission, cependant, vous n'aurez pas le choix de la mission choisie.",
-        "giveTitle": "{pseudo}, vous avez décidé de changer une mission",
+        "giveTitle": "{{pseudo}}, vous avez décidé de changer une mission",
         "giveDesc": "Choisissez la mission à changer :",
-        "successTitle": "{pseudo}, vous avez changé une mission !",
-        "successDescription": "Vous avez supprimé la mission {emote:missions.sideMission} **{mission}**.",
-        "getNewMission": "Vous avez reçu la mission : \n\n{emote:missions.sideMission} **{mission}**"
+        "successTitle": "{{pseudo}}, vous avez changé une mission !",
+        "successDescription": "Vous avez supprimé la mission {emote:missions.sideMission} **{{mission}}**.",
+        "getNewMission": "Vous avez reçu la mission : \n\n{emote:missions.sideMission} **{{mission}}**"
       },
       "money": {
         "name": "{emote:unitValues.money} Argent du roi",
-        "info": "D'après les cours du jour de la gemme et après déduction de la taxe du roi, vous recevrez `{amount}` {emote:unitValues.money}.",
-        "giveTitle": "{pseudo}, achat effectué !",
-        "giveDescription": "Vous avez reçu `{amount}` {emote:unitValues.money}."
+        "info": "D'après les cours du jour de la gemme et après déduction de la taxe du roi, vous recevrez `{{kingsMoneyAmount}}` {emote:unitValues.money}.",
+        "giveTitle": "{{pseudo}}, achat effectué !",
+        "giveDescription": "Vous avez reçu `{{amount}}` {emote:unitValues.money}."
       },
       "treasure": {
         "name": "{emote:shopItems.treasure} Trésor du roi",
         "info": "Vous octroie un objet de valeur provenant de la salle aux trésors du roi.",
-        "give": "{pseudo}, vous obtenez un(e) nouvel(le) {type} :"
+        "give": "{{pseudo}}, vous obtenez un(e) nouvel(le) {{type}} :"
       },
       "kingsFavor": {
         "name": "{emote:unitValues.score} Ferveur du roi",
         "info": "Vous octroie 1000 points. Ne peut être utilisé qu'une fois par semaine.",
-        "giveTitle": "{pseudo}, achat effectué !",
+        "giveTitle": "{{pseudo}}, achat effectué !",
         "giveDescription": "Vous avez reçu 1000 {emote:unitValues.score}. À la semaine prochaine pour une nouvelle ferveur !"
       },
       "lovePointsValue": {
         "name": "{emote:shopItems.lovePointsValue} Vétérinaire de la cour",
         "info": "Obtenir des informations détaillées sur votre familier.",
-        "giveTitle": "{pseudo}, achat effectué !",
-        "giveDesc": "Après un long moment passé à étudier l'état de santé de votre animal, vous finissez par recevoir le rapport du vétérinaire :\n\n**{petName}** {commentOnResult}\n\uD83D\uDC96 **Score d'amour** : {actualLP} / 100\n\uD83C\uDF7D️ **Régime alimentaire** : {regime}\n\uD83D\uDD59 **Prochaine faim** : {nextFeed}",
+        "giveTitle": "{{pseudo}}, achat effectué !",
+        "giveDesc": "Après un long moment passé à étudier l'état de santé de votre animal, vous finissez par recevoir le rapport du vétérinaire :\n\n**{{petName}}** {{commentOnResult}}\n{emote:petInformation.loveScore} **Score d'amour** : {{actualLP}} / 100\n{emote:petInformation.diet} **Régime alimentaire** : {{diet}}\n{emote:petInformation.nextFeed} **Prochaine faim** : {{nextFeed}}",
         "petIsHungry": "{emote:effects.starving} affamé",
         "advice": {
           "1": [

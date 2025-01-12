@@ -8,6 +8,7 @@ import i18n from "../../translations/i18n";
 import {sendErrorMessage, sendInteractionNotForYou, SendManner} from "../../utils/ErrorUtils";
 import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {
+	CommandShopNotEnoughCurrency,
 	ReactionCollectorShopData,
 	ReactionCollectorShopItemReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorShop";
@@ -80,11 +81,15 @@ export async function handleCommandShopBoughtTooMuchDailyPotions(context: Packet
 	}
 }
 
-export async function handleCommandShopNotEnoughMoney(context: PacketContext): Promise<void> {
+export async function handleCommandShopNotEnoughMoney(packet: CommandShopNotEnoughCurrency, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!);
 
 	if (interaction) {
-		await sendErrorMessage(interaction.user, interaction, i18n.t("commands:shop.notEnoughMoney", {lng: interaction.userLanguage}), {sendManner: SendManner.FOLLOWUP});
+		await sendErrorMessage(interaction.user, interaction, i18n.t("commands:shop.notEnoughMoney", {
+			lng: interaction.userLanguage,
+			missingCurrency: packet.missingCurrency,
+			currency: packet.currency
+		}), {sendManner: SendManner.FOLLOWUP});
 	}
 }
 
@@ -292,7 +297,8 @@ async function manageBuyoutConfirmation(packet: ReactionCollectorCreationPacket,
 					getShopItemDisplay(data, reaction, interaction.userLanguage, shopItemNames, amounts)
 				}\n${EmoteUtils.translateEmojiToDiscord(DraftBotIcons.collectors.warning)}${
 					i18n.t(`commands:shop.shopItems.${shopItemTypeToId(shopItemId)}.info`, {
-						lng: interaction.userLanguage
+						lng: interaction.userLanguage,
+						kingsMoneyAmount: data.additionnalShopData?.gemToMoneyRatio,
 					})
 				}`)
 		],

@@ -474,7 +474,7 @@ export default class CommandHandlers {
 
 	@packetHandler(CommandShopNotEnoughCurrency)
 	async shopNotEnoughMoney(packet: CommandShopNotEnoughCurrency, context: PacketContext): Promise<void> {
-		await handleCommandShopNotEnoughMoney(context);
+		await handleCommandShopNotEnoughMoney(packet, context);
 	}
 
 	@packetHandler(ReactionCollectorBuyCategorySlotBuySuccess)
