@@ -229,6 +229,16 @@
     "description": "Sammelt die tägliche Belohnung der Gilde ein.",
     "name": "bonusjournalgilde"
   },
+  "guildElder": {
+    "description": "Ein Gildenmitglied zum Ältesten befördern.",
+    "name": "aineguilde",
+    "options": {
+      "user": {
+        "description": "Der Nutzer, der als Ältester befördert wird.",
+        "name": "Benutzer"
+      }
+    }
+  },
   "daily": {
     "description": "Benutzen Sie Ihren ausgerüsteten Gegenstand, um einen täglichen Bonus zu erhalten.",
     "name": "Bonustag"
