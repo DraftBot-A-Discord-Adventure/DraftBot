@@ -230,12 +230,12 @@
     "name": "bonusjournalierguilde"
   },
   "guildElder": {
-    "description": "Promouvoir un membre de la guilde au rang d'aîné.",
+    "description": "Asciende a un miembro del gremio al rango de anciano.",
     "name": "aineguilde",
     "options": {
       "user": {
-        "description": "L'utilisateur qui sera promu en tant qu'aîné.",
-        "name": "utilisateur"
+        "description": "El usuario que será promocionado como senior.",
+        "name": "usuario"
       }
     }
   },
