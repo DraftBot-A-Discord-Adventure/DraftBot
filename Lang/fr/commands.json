@@ -817,6 +817,14 @@
     "nobodyInTopGuilds": "Il n'y a actuellement aucune guilde dans le top ! Profitez en tant que vous le pouvez.",
     "invalidPage": "La page demandée n'existe pas. Veuillez réessayer avec une page comprise entre {{minPage}} et {{maxPage}}."
   },
+  "fight": {
+    "confirmDesc": "Voulez-vous lancez une recherche de fight ?\n\n:crossed_sword: **Combattant** : {{pseudo}} | {{glory}} | {{className}}\n\n{{stats}}",
+    "information": {
+      "glory": ":sparkles: {{gloryPoints}}",
+      "class": "$t(models:classFormat)",
+      "stats": "{emote:unitValues.energy} {{cumulativeHealth}} / {{cumulativeMaxHealth}} | {emote:unitValues.attack} {{cumulativeAttack}} | {emote:unitValues.defense} {{cumulativeDefense}} | {emote:unitValues.speed} {{cumulativeSpeed}} | {emote:unitValues.breath} {{baseBreath}} / {{maxBreath}} | {emote:unitValues.breathRegen} {{breathRegen}}"
+    }
+  },
   "switch": {
     "titleSuccess": "{{pseudo}}, commande effectuée !",
     "switchingDouble": "{{item1}} et {{item2}} ont été échangés !",
