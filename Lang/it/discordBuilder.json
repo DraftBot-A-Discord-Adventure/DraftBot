@@ -229,6 +229,16 @@
     "description": "Raccogliere la ricompensa giornaliera della gilda.",
     "name": "bonusgiornaleerguilde"
   },
+  "guildElder": {
+    "description": "Promuovere un membro della gilda al grado di anziano.",
+    "name": "aineguilde",
+    "options": {
+      "user": {
+        "description": "L'utente che sarà promosso come senior.",
+        "name": "utilizzatore"
+      }
+    }
+  },
   "daily": {
     "description": "Usa l'oggetto equipaggiato per ottenere un bonus giornaliero.",
     "name": "bonus giornaliero"
