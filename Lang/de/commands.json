@@ -82,6 +82,20 @@
     "notSameGuild": "Vous ne pouvez pas expulser un joueur qui n'est pas dans votre guilde.",
     "himself": "Vous ne pouvez pas vous expulser vous-même de la guilde."
   },
+  "guildElder": {
+    "playerNotFound": "Dieser Spieler wurde nicht gefunden.",
+    "notSameGuild": "Dieser Spieler gehört nicht zu Ihrer Gilde.",
+    "notChiefError": "Sie müssen Gildenleiter sein, um diesen Auftrag ausführen zu können.",
+    "chiefError": "Als Gildenleiter dürfen Sie nicht der Älteste sein.",
+    "alreadyElder": "Der Spieler ist bereits Ältester in Ihrer Gilde.",
+    "title": "{{pseudo}}... bestätigen Sie Ihre Wahl?",
+    "confirmDesc": ":question: {{elderPseudo}} wird der Älteste der Gilde `{{guildName}}` werden.",
+    "successElderAddTitle": "{{elderPseudo}} ist der neue Älteste der Gilde {{guildName}} !",
+    "acceptedDesc": "Der Älteste dient dazu, den Anführer bei der Verwaltung der Gilde zu unterstützen. Wählen Sie ihn daher mit Bedacht aus! Aber seien Sie beruhigt: Wenn Sie mit Ihrem Ältesten nicht zufrieden sind, können Sie ihn mit dem Befehl {command:guildelder}ersetzen, oder wenn Sie eine diktatorische Ader haben, können Sie ihn mit {command:guildelderremove}endgültig entfernen.",
+    "canceledDesc": "Der älteste Schüler wurde nicht befördert.",
+    "canceledTitle": "Stornierung berücksichtigt.",
+    "problemWhilePromoting": "Bei der Beförderung des Spielers ist ein Fehler aufgetreten."
+  },
   "help": {
     "aliasFieldTitle": "Alias",
     "aliasesFieldTitle": "Alias",
