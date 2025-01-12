@@ -82,6 +82,20 @@
     "notSameGuild": "Vous ne pouvez pas expulser un joueur qui n'est pas dans votre guilde.",
     "himself": "Vous ne pouvez pas vous expulser vous-même de la guilde."
   },
+  "guildElder": {
+    "playerNotFound": "Questo giocatore non è stato trovato.",
+    "notSameGuild": "Questo giocatore non appartiene alla tua gilda.",
+    "notChiefError": "Per effettuare questo ordine è necessario essere un capo gilda.",
+    "chiefError": "Come capo gilda, non puoi essere il più anziano.",
+    "alreadyElder": "Il giocatore è già un membro anziano della vostra gilda.",
+    "title": "{{pseudo}}Sta confermando la sua scelta?",
+    "confirmDesc": ":question: {{elderPseudo}}{{guildName}}diventerà il membro più anziano della gilda.",
+    "successElderAddTitle": "{{elderPseudo}} {{guildName}} è il nuovo membro della gilda!",
+    "acceptedDesc": "Il più anziano aiuta il capo a gestire la gilda. Quindi sceglietelo con cura! {command:guildelder} {command:guildelderremove}Ma non preoccupatevi, se non siete soddisfatti del vostro anziano, potete sostituirlo con il comando , o se vi sentite un dittatore, potete rimuoverlo definitivamente con .",
+    "canceledDesc": "Il più anziano non è stato promosso.",
+    "canceledTitle": "Cancellazione presa in considerazione.",
+    "problemWhilePromoting": "Si è verificato un errore durante la promozione del giocatore."
+  },
   "help": {
     "aliasFieldTitle": "Alias",
     "aliasesFieldTitle": "Alias",
