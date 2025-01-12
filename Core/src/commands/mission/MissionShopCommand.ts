@@ -7,6 +7,7 @@ import {
 	CommandMissionShopAlreadyBoughtPointsThisWeek,
 	CommandMissionShopAlreadyHadBadge,
 	CommandMissionShopBadge,
+	CommandMissionShopKingsFavor,
 	CommandMissionShopMoney,
 	CommandMissionShopNoMissionToSkip,
 	CommandMissionShopNoPet,

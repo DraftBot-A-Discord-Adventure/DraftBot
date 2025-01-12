@@ -91,7 +91,7 @@ export async function handleLovePointsValueShopItem(packet: CommandMissionShopPe
 					lng,
 					petName: PetUtils.petToShortString(lng, packet.nickname, packet.typeId, packet.sex),
 					actualLP: packet.lovePoints,
-					regime: PetUtils.getDietDisplay(packet.diet, lng),
+					diet: PetUtils.getDietDisplay(packet.diet, lng),
 					nextFeed: PetUtils.getFeedCooldownDisplay(packet.nextFeed, lng),
 					commentOnResult: StringUtils.getRandomTranslation(`commands:shop.shopItems.lovePointsValue.advice.${packet.loveLevel}`, lng)
 				}))
@@ -113,9 +113,14 @@ export async function skipMissionShopItemCollector(packet: ReactionCollectorCrea
 			lng: interaction.userLanguage
 		})}\n\n`);
 	const reactions: ReactionCollectorSkipMissionShopItemReaction[] = packet.reactions.map(reaction => reaction.data as ReactionCollectorSkipMissionShopItemReaction);
-	await DiscordCollectorUtils.createChoiceListCollector(interaction, embed, packet, context, reactions.map(reaction => {
-		return MissionUtils.formatBaseMission(reaction.mission, interaction.userLanguage);
-	}), true);
+	await DiscordCollectorUtils.createChoiceListCollector(
+		interaction,
+		embed,
+		packet,
+		context,
+		reactions.map(reaction => MissionUtils.formatBaseMission(reaction.mission, interaction.userLanguage)),
+		true
+	);
 }
 
 export async function skipMissionShopResult(packet: CommandMissionShopSkipMissionResult, context: PacketContext): Promise<void> {
@@ -129,10 +134,10 @@ export async function skipMissionShopResult(packet: CommandMissionShopSkipMissio
 				}), interaction.user)
 				.setDescription(`${i18n.t("commands:shop.shopItems.skipMission.successDescription", {
 					lng: interaction.userLanguage,
-					mission: MissionUtils.formatBaseMission(packet.oldMission, interaction.userLanguage),
+					mission: MissionUtils.formatBaseMission(packet.oldMission, interaction.userLanguage)
 				})}\n${i18n.t("commands:shop.shopItems.skipMission.getNewMission", {
 					lng: interaction.userLanguage,
-					mission: MissionUtils.formatBaseMission(packet.newMission, interaction.userLanguage),
+					mission: MissionUtils.formatBaseMission(packet.newMission, interaction.userLanguage)
 				})}`)
 		]
 	});
