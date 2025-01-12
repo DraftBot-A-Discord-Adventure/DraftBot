@@ -19,20 +19,16 @@ export class CommandGuildElderPacketReq extends DraftBotPacket {
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandGuildElderSameGuildPacketRes extends DraftBotPacket {
-	sameGuild!: boolean;
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandGuildElderHimselfPacketRes extends DraftBotPacket {
-	himself!: boolean;
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandGuildElderAlreadyElderPacketRes extends DraftBotPacket {
-	alreadyElder!: boolean;
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandGuildElderFoundPlayerPacketRes extends DraftBotPacket {
-	foundPlayer!: boolean;
 }

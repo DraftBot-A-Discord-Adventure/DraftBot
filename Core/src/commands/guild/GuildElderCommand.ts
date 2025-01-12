@@ -28,7 +28,7 @@ import {ReactionCollectorGuildElder} from "../../../../Lib/src/packets/interacti
  */
 async function isEligible(player: Player, promotedPlayer: Player, response: DraftBotPacket[]): Promise<boolean> {
 	if (promotedPlayer === null) {
-		response.push(makePacket(CommandGuildElderFoundPlayerPacketRes, {foundPlayer: false}));
+		response.push(makePacket(CommandGuildElderFoundPlayerPacketRes, {}));
 		return false;
 	}
 	let promotedGuild;
@@ -41,17 +41,17 @@ async function isEligible(player: Player, promotedPlayer: Player, response: Draf
 
 	const guild = await Guilds.getById(player.guildId);
 	if (promotedGuild === null || promotedGuild.id !== player.guildId) {
-		response.push(makePacket(CommandGuildElderSameGuildPacketRes, {sameGuild: false}));
+		response.push(makePacket(CommandGuildElderSameGuildPacketRes, {}));
 		return false;
 	}
 
 	if (promotedPlayer.id === player.id) {
-		response.push(makePacket(CommandGuildElderHimselfPacketRes, {himself: true}));
+		response.push(makePacket(CommandGuildElderHimselfPacketRes, {}));
 		return false;
 	}
 
 	if (promotedPlayer.id === guild.elderId) {
-		response.push(makePacket(CommandGuildElderAlreadyElderPacketRes, {alreadyElder: true}));
+		response.push(makePacket(CommandGuildElderAlreadyElderPacketRes, {}));
 		return false;
 	}
 	return true;

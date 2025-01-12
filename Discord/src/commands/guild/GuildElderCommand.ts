@@ -55,14 +55,12 @@ export async function handleCommandGuildElderFoundPlayerPacketRes(packet: Comman
 	if (!interaction) {
 		return;
 	}
-	if (!packet.foundPlayer) {
-		await sendErrorMessage(
-			interaction.user,
-			interaction,
-			i18n.t("commands:guildElder.playerNotFound", {lng: interaction.userLanguage}),
-			{sendManner: SendManner.REPLY}
-		);
-	}
+	await sendErrorMessage(
+		interaction.user,
+		interaction,
+		i18n.t("commands:guildElder.playerNotFound", {lng: interaction.userLanguage}),
+		{sendManner: SendManner.REPLY}
+	);
 }
 
 export async function handleCommandGuildElderSameGuildPacketRes(packet: CommandGuildElderSameGuildPacketRes, context: PacketContext): Promise<void> {
@@ -70,14 +68,12 @@ export async function handleCommandGuildElderSameGuildPacketRes(packet: CommandG
 	if (!interaction) {
 		return;
 	}
-	if (!packet.sameGuild) {
-		await sendErrorMessage(
-			interaction.user,
-			interaction,
-			i18n.t("commands:guildElder.notSameGuild", {lng: interaction.userLanguage}),
-			{sendManner: SendManner.REPLY}
-		);
-	}
+	await sendErrorMessage(
+		interaction.user,
+		interaction,
+		i18n.t("commands:guildElder.notSameGuild", {lng: interaction.userLanguage}),
+		{sendManner: SendManner.REPLY}
+	);
 }
 
 export async function handleCommandGuildElderHimselfPacketRes(packet: CommandGuildElderHimselfPacketRes, context: PacketContext): Promise<void> {
@@ -85,14 +81,12 @@ export async function handleCommandGuildElderHimselfPacketRes(packet: CommandGui
 	if (!interaction) {
 		return;
 	}
-	if (packet.himself) {
-		await sendErrorMessage(
-			interaction.user,
-			interaction,
-			i18n.t("commands:guildElder.chiefError", {lng: interaction.userLanguage}),
-			{sendManner: SendManner.REPLY}
-		);
-	}
+	await sendErrorMessage(
+		interaction.user,
+		interaction,
+		i18n.t("commands:guildElder.chiefError", {lng: interaction.userLanguage}),
+		{sendManner: SendManner.REPLY}
+	);
 }
 
 export async function handleCommandGuildElderAlreadyElderPacketRes(packet: CommandGuildElderAlreadyElderPacketRes, context: PacketContext): Promise<void> {
@@ -100,15 +94,14 @@ export async function handleCommandGuildElderAlreadyElderPacketRes(packet: Comma
 	if (!interaction) {
 		return;
 	}
-	if (packet.alreadyElder) {
-		await sendErrorMessage(
-			interaction.user,
-			interaction,
-			i18n.t("commands:guildElder.alreadyElder", {lng: interaction.userLanguage}),
-			{sendManner: SendManner.REPLY}
-		);
-	}
+	await sendErrorMessage(
+		interaction.user,
+		interaction,
+		i18n.t("commands:guildElder.alreadyElder", {lng: interaction.userLanguage}),
+		{sendManner: SendManner.REPLY}
+	);
 }
+
 
 /**
  * Handle the response of the server after a guild elder,
