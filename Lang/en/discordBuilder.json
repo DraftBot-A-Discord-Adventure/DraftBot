@@ -114,7 +114,7 @@
     "name": "guildelder",
     "options": {
       "user": {
-        "description": "The user concerned by the command.",
+        "description": "The user who will be promoted as an elder.",
         "name": "user"
       }
     }
