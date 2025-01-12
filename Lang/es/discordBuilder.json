@@ -229,6 +229,16 @@
     "description": "Recoge la recompensa diaria del gremio.",
     "name": "bonusjournalierguilde"
   },
+  "guildElder": {
+    "description": "Promouvoir un membre de la guilde au rang d'aîné.",
+    "name": "aineguilde",
+    "options": {
+      "user": {
+        "description": "L'utilisateur qui sera promu en tant qu'aîné.",
+        "name": "utilisateur"
+      }
+    }
+  },
   "daily": {
     "description": "Utiliza tu objeto equipado para obtener una bonificación diaria.",
     "name": "bonificación diaria"
