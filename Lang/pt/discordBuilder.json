@@ -229,6 +229,16 @@
     "description": "Receber a recompensa diária da guilda.",
     "name": "bónusjornalierguilde"
   },
+  "guildElder": {
+    "description": "Promover um membro da guilda à categoria de ancião.",
+    "name": "aineguilde",
+    "options": {
+      "user": {
+        "description": "O utilizador que será promovido como sénior.",
+        "name": "utilizador"
+      }
+    }
+  },
   "daily": {
     "description": "Utilize o seu item equipado para obter um bónus diário.",
     "name": "bónus diário"
