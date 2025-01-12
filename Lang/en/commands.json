@@ -82,6 +82,20 @@
     "notSameGuild": "You cannot kick a player who is not in your guild.",
     "himself": "You cannot kick yourself from the guild."
   },
+  "guildElder": {
+    "playerNotFound": "This player was not found.",
+    "notSameGuild": "This player does not belong to your guild.",
+    "notChiefError": "You must be the leader of the guild to perform this order.",
+    "chiefError": "As the leader of the guild, you may not be able to use the Wing.",
+    "alreadyElder": "The player is already in your guild.",
+    "title": "{{pseudo}}, confirm your choice?",
+    "confirmDesc": ":question: {{elderPseudo}} will become the guild wing `{{guildName}}`.",
+    "successElderAddTitle": "{{elderPseudo}} is the new wing of the {{guildName}} guild!",
+    "acceptedDesc": "The Warrior is used to assist the leader in the management of the guild. We must therefore choose it with caution. But rest assured, if you were not satisfied with your wing, you can replace it with the {command:guildelder}command, or if you have a dictator status, you can definitively delete it with {command:guildelderremove}.",
+    "canceledDesc": "Wants were not promoted.",
+    "canceledTitle": "Cancellation taken into account.",
+    "problemWhilePromoting": "An error occurred while promoting the player."
+  },
   "help": {
     "aliasFieldTitle": "Alias",
     "aliasesFieldTitle": "Aliases",
