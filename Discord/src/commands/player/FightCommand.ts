@@ -16,11 +16,14 @@ import {
 } from "../../../../Lib/src/packets/commands/CommandFightPacket";
 import {ReactionCollectorFightData} from "../../../../Lib/src/packets/interaction/ReactionCollectorFight";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
+import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
+import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
 
 export async function createFightCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorFightData;
+	const subTextKey = RandomUtils.draftbotRandom.bool(FightConstants.RARE_SUB_TEXT_INTRO) ? "rare" : "common"
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:fight.title", {
 		lng: interaction.userLanguage,
 		pseudo: interaction.user.displayName
@@ -29,6 +32,9 @@ export async function createFightCollector(packet: ReactionCollectorCreationPack
 			i18n.t("commands:fight.confirmDesc", {
 				lng: interaction.userLanguage,
 				pseudo: interaction.user.displayName,
+				confirmSubText: i18n.t("commands:fight.confirmSubTexts."+ subTextKey, {
+					lng: interaction.userLanguage
+				}),
 				glory: i18n.t("commands:fight:information.glory", {
 					lng: interaction.userLanguage,
 					gloryPoints: data.playerStats.fightRanking.glory
