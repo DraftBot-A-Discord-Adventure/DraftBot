@@ -86,7 +86,7 @@ export default class FightCommand {
 			},
 			endCallback
 		)
-			.block(player.id, BlockingConstants.REASONS.FIGHT)
+			.block(player.id, BlockingConstants.REASONS.FIGHT_CONFIRMATION)
 			.build();
 
 		response.push(collectorPacket);
