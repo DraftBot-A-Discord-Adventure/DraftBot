@@ -32,7 +32,7 @@ export async function createFightCollector(packet: ReactionCollectorCreationPack
 			i18n.t("commands:fight.confirmDesc", {
 				lng: interaction.userLanguage,
 				pseudo: interaction.user.displayName,
-				confirmSubText: i18n.t("commands:fight.confirmSubTexts."+ subTextKey, {
+				confirmSubText: i18n.t(`commands:fight.confirmSubTexts.${subTextKey}`, {
 					lng: interaction.userLanguage
 				}),
 				glory: i18n.t("commands:fight:information.glory", {
