@@ -11,6 +11,7 @@
     "descriptionEdit": "édition de la description de guilde",
     "drink": "choix de boire une potion ou non",
     "fight": "combat",
+    "fightConfirmation": "choix de débuter un combat ou non",
     "fightPetChoose": "choix d'une action pour le combat de familier",
     "gobletChoose": "choix d'un gobelet",
     "guildCreate": "création d'une guilde",
