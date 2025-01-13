@@ -1434,6 +1434,26 @@ export class Players {
 			})))[0].count
 		);
 	}
+
+	/**
+	 * Find the X players that are the closest in defense glory to a specific value
+	 * @param defenseGlory - the value to search for
+	 * @param amountOfPlayersToRetrieve - the X amount of players
+	 * @param offset - offset in case the found players are not enough and an offset search is necessary
+	 */
+	static async findByDefenseGlory(defenseGlory: number, amountOfPlayersToRetrieve: number, offset: number): Promise<Player[]> {
+		return Player.findAll({
+			where: {
+				defenseGlory: { [Op.ne]: null }
+			},
+			order: [
+				// Trier par la différence absolue avec defenseGlory recherchée
+				[Sequelize.literal(`ABS(defenseGlory - ${defenseGlory})`), 'ASC']
+			],
+			limit: amountOfPlayersToRetrieve,
+			offset: offset
+		});
+	}
 }
 
 /**
