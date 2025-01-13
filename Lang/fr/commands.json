@@ -818,7 +818,10 @@
     "invalidPage": "La page demandée n'existe pas. Veuillez réessayer avec une page comprise entre {{minPage}} et {{maxPage}}."
   },
   "fight": {
-    "confirmDesc": "Voulez-vous lancez une recherche de fight ?\n\n:crossed_sword: **Combattant** : {{pseudo}} | {{glory}} | {{className}}\n\n{{stats}}",
+    "title": "{{pseudo}}, vous êtes sur le point de démarrer un fight",
+    "canceledTitle": "{{pseudo}}, vous avez annulé la recherche",
+    "confirmDesc": "Voulez-vous lancer une recherche de fight ?\n\n:crossed_swords: **Combattant** : {{pseudo}} | {{glory}} | {{className}}\n\n{{stats}}",
+    "canceledDesc": "Vous avez refusé la recherche de fight",
     "information": {
       "glory": ":sparkles: {{gloryPoints}}",
       "class": "$t(models:classFormat)",
