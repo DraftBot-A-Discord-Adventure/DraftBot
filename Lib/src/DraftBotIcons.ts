@@ -119,7 +119,12 @@ export const DraftBotIcons: {
 			sameContext: string,
 			default: string
 		},
-		afk: string
+		afk: string,
+		allTime: string,
+		weekly: string,
+		congrats: string,
+		error: string,
+		guild: string
 	}
 } = {
 	"effects": {
@@ -1653,7 +1658,8 @@ export const DraftBotIcons: {
 		"speed": "🚀",
 		"breath": "🌬️",
 		"breathRegen": "🫁",
-		"petRarity": "⭐"
+		"petRarity": "⭐",
+		"glory": "✨"
 	},
 	"shopItems": {
 		"randomItem": "❓",
@@ -1752,6 +1758,11 @@ export const DraftBotIcons: {
 			"sameContext": "⚪",
 			"default": "⚫"
 		},
-		"afk": "👻"
+		"afk": "👻",
+		"allTime": "🗓️️",
+		"weekly": "🕤",
+		"congrats": "🏆",
+		"error": "❌",
+		"guild": "🏟️"
 	}
 };

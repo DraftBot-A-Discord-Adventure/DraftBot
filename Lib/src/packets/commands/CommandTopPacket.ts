@@ -13,7 +13,7 @@ export class CommandTopPacketReq extends DraftBotPacket {
 }
 
 @sendablePacket(PacketDirection.NONE)
-export class CommandTopPacketRes<T extends TopElement<U, V, W>, U, V, W> extends DraftBotPacket {
+export class CommandTopPacketRes<T extends TopElement<Attr1, Attr2, Attr3>, Attr1, Attr2, Attr3> extends DraftBotPacket {
 	timing!: TopTiming;
 
 	minRank!: number;

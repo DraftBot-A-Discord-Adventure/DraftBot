@@ -149,7 +149,7 @@ function formatGuildAttributes(element: TopElement<number, number, undefined>, l
 	return `\`${element.attributes["1"]}\` | \`${i18n.t("commands:top.level", {lng, level: element.attributes["2"]})}\``;
 }
 
-async function handleGenericTopPacketRes<T extends TopElement<U, V, W>, U, V, W>(context: PacketContext, packet: CommandTopPacketRes<T, U, V, W>, textKeys: {
+async function handleGenericTopPacketRes<T extends TopElement<Attr1, Attr2, Attr3>, Attr1, Attr2, Attr3>(context: PacketContext, packet: CommandTopPacketRes<T, Attr1, Attr2, Attr3>, textKeys: {
 	title: string;
 	yourRankTitle: string;
 	yourRank: string;
@@ -221,7 +221,7 @@ async function handleGenericTopPacketRes<T extends TopElement<U, V, W>, U, V, W>
 	});
 }
 
-async function getOverriddenPlayersUsernames<U, V, W>(elements: TopElement<U, V, W>[], lng: Language): Promise<string[]> {
+async function getOverriddenPlayersUsernames<Attr1, Attr2, Attr3>(elements: TopElement<Attr1, Attr2, Attr3>[], lng: Language): Promise<string[]> {
 	return (await KeycloakUtils.getUsersFromIds(keycloakConfig, elements.map(e => e.text)))
 		.map(u => (u ? u.attributes.gameUsername[0] : i18n.t("error:unknownPlayer", { lng })));
 }

@@ -275,8 +275,8 @@
       }
     },
     "timings": {
-      "allTime": "🗓️️ All time.",
-      "weekly": "🕥 This week."
+      "allTime": "{emote:top.allTime} All time.",
+      "weekly": "{emote:top.weekly} This week."
     }
   }
 }

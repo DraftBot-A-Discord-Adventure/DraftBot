@@ -271,8 +271,8 @@
       }
     },
     "timings": {
-      "allTime": "🗓️️ Depuis toujours.",
-      "weekly": "🕥 Cette semaine."
+      "allTime": "️{emote:top.allTime} Depuis toujours.",
+      "weekly": "{emote:top.weekly} Cette semaine."
     }
   }
 }
