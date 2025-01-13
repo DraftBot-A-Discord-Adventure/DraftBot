@@ -109,7 +109,9 @@ export class Player extends Model {
 
 	declare notifications: string;
 
-	declare gloryPoints: number;
+	declare defenseGloryPoints: number;
+
+	declare attackGloryPoints: number;
 
 	declare gloryPointsLastSeason: number;
 
@@ -253,6 +255,13 @@ export class Player extends Model {
 		});
 		parameters.amount = -parameters.amount;
 		return this.addMoney(parameters);
+	}
+
+	/**
+	 * Return the value of glory that is displayed to the users
+	 */
+	public getGloryPoints(): number {
+		return this.attackGloryPoints + this.defenseGloryPoints
 	}
 
 	/**
@@ -815,7 +824,7 @@ export class Player extends Model {
 	 * Get the league of the player
 	 */
 	public getLeague(): League {
-		return LeagueDataController.instance.getByGlory(this.gloryPoints);
+		return LeagueDataController.instance.getByGlory(this.getGloryPoints());
 	}
 
 	/**
@@ -828,19 +837,20 @@ export class Player extends Model {
 	/**
 	 * Set the glory points of the player
 	 * @param gloryPoints
+	 * @param isDefense - true if the points to set are the defense Glory points
 	 * @param reason
 	 * @param response
 	 * @param fightId
 	 * @private
 	 */
-	public async setGloryPoints(gloryPoints: number, reason: NumberChangeReason, response: DraftBotPacket[], fightId: number = null): Promise<void> {
+	public async setGloryPoints(gloryPoints: number, isDefense: boolean, reason: NumberChangeReason, response: DraftBotPacket[], fightId: number = null): Promise<void> {
+		await draftBotInstance.logsDatabase.logPlayersGloryPoints(this.keycloakId, gloryPoints, reason, fightId);
+		isDefense? this.defenseGloryPoints = gloryPoints: this.attackGloryPoints = gloryPoints;
 		Object.assign(this, await MissionsController.update(this, response, {
 			missionId: "reachGlory",
-			count: gloryPoints,
+			count: this.getGloryPoints(),
 			set: true
 		}));
-		await draftBotInstance.logsDatabase.logPlayersGloryPoints(this.keycloakId, gloryPoints, reason, fightId);
-		this.gloryPoints = gloryPoints;
 	}
 
 	/**
