@@ -10,7 +10,10 @@ import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
 import {EmoteUtils} from "../../utils/EmoteUtils";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 import {PacketUtils} from "../../utils/PacketUtils";
-import {CommandFightPacketReq} from "../../../../Lib/src/packets/commands/CommandFightPacket";
+import {
+	CommandFightPacketReq,
+	CommandFightRefusePacketRes
+} from "../../../../Lib/src/packets/commands/CommandFightPacket";
 import {ReactionCollectorFightData} from "../../../../Lib/src/packets/interaction/ReactionCollectorFight";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 
@@ -26,15 +29,15 @@ export async function createFightCollector(packet: ReactionCollectorCreationPack
 			i18n.t("commands:fight.confirmDesc", {
 				lng: interaction.userLanguage,
 				pseudo: interaction.user.displayName,
-				glory: i18n.t("commands.fight.information.glory", {
+				glory: i18n.t("commands:fight:information.glory", {
 					lng: interaction.userLanguage,
 					gloryPoints: data.playerStats.fightRanking.glory
 				}),
-				className: i18n.t("commands.fight.information.class", {
+				className: i18n.t("commands:fight:information.class", {
 					lng: interaction.userLanguage,
 					id: data.playerStats.classId
 				}),
-				stats: i18n.t("commands.fight.information.stats", {
+				stats: i18n.t("commands:fight:information.stats", {
 					lng: interaction.userLanguage,
 					baseBreath: data.playerStats.breath.base,
 					breathRegen: data.playerStats.breath.regen,
@@ -44,7 +47,8 @@ export async function createFightCollector(packet: ReactionCollectorCreationPack
 					cumulativeSpeed: data.playerStats.speed,
 					cumulativeMaxHealth: data.playerStats.energy.max,
 					maxBreath: data.playerStats.breath.max
-				})
+				}),
+				interpolation: {escapeValue: false}
 			})
 		);
 
@@ -53,6 +57,28 @@ export async function createFightCollector(packet: ReactionCollectorCreationPack
 			accept: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fight_command.accept),
 			refuse: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fight_command.refuse)
 		}
+	});
+}
+
+export async function handleCommandFightRefusePacketRes(packet: CommandFightRefusePacketRes, context: PacketContext): Promise<void> {
+	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
+	if (!originalInteraction) {
+		return;
+	}
+	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+	await buttonInteraction?.editReply({
+		embeds: [
+			new DraftBotEmbed().formatAuthor(i18n.t("commands:fight.canceledTitle", {
+				lng: originalInteraction.userLanguage,
+				pseudo: originalInteraction.user.displayName
+			}), originalInteraction.user)
+				.setDescription(
+					i18n.t("commands:fight.canceledDesc", {
+						lng: originalInteraction.userLanguage
+					})
+				)
+				.setErrorColor()
+		]
 	});
 }
 
