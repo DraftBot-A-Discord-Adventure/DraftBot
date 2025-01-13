@@ -562,7 +562,7 @@ async function doPVEBoss(
 		}
 
 		const playerFighter = new PlayerFighter(player, ClassDataController.instance.getById(player.class));
-		await playerFighter.loadStats(true);
+		await playerFighter.loadStats();
 		playerFighter.setBaseFightPoints(playerFighter.getMaxFightPoints() - player.fightPointsLost);
 
 		const fight = new FightController(

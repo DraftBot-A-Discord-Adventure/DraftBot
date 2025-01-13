@@ -78,7 +78,7 @@ export default class ProfileCommand {
 					hasTimeDisplay: toCheckPlayer.isUnderEffect()
 				},
 				fightRanking: toCheckPlayer.level >= FightConstants.REQUIRED_LEVEL ? {
-					glory: toCheckPlayer.gloryPoints,
+					glory: toCheckPlayer.getGloryPoints(),
 					league: toCheckPlayer.getLeague().id
 				} : null,
 				missions: {

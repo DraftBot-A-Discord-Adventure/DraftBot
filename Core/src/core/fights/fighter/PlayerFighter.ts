@@ -87,12 +87,11 @@ export class PlayerFighter extends Fighter {
 
 	/**
 	 * The fighter loads its various stats
-	 * @param friendly true if the fight is friendly
 	 * @public
 	 */
-	public async loadStats(friendly: boolean): Promise<void> {
+	public async loadStats(): Promise<void> {
 		const playerActiveObjects: PlayerActiveObjects = await InventorySlots.getPlayerActiveObjects(this.player.id);
-		this.stats.fightPoints = friendly ? this.player.getMaxCumulativeFightPoint() : this.player.getCumulativeFightPoint();
+		this.stats.fightPoints = this.player.getCumulativeFightPoint();
 		this.stats.maxFightPoint = this.player.getMaxCumulativeFightPoint();
 		this.stats.attack = this.player.getCumulativeAttack(playerActiveObjects);
 		this.stats.defense = this.player.getCumulativeDefense(playerActiveObjects);
@@ -100,7 +99,7 @@ export class PlayerFighter extends Fighter {
 		this.stats.breath = this.player.getBaseBreath();
 		this.stats.maxBreath = this.player.getMaxBreath();
 		this.stats.breathRegen = this.player.getBreathRegen();
-		this.glory = this.player.gloryPoints;
+		this.glory = this.player.getGloryPoints();
 	}
 
 	/**
