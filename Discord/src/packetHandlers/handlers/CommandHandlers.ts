@@ -140,6 +140,12 @@ import {
 	CommandGuildElderSameGuildPacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildElderPacket";
 import {
+	handleCommandGuildElderAcceptPacketRes,
+	handleCommandGuildElderRefusePacketRes
+} from "../../commands/guild/GuildElderCommand";
+import {CommandFightRefusePacketRes} from "../../../../Lib/src/packets/commands/CommandFightPacket";
+import {handleCommandFightRefusePacketRes} from "../../commands/player/FightCommand";
+import {
 	CommandGuildLeaveAcceptPacketRes, CommandGuildLeaveNotInAGuildPacketRes,
 	CommandGuildLeaveRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildLeavePacket";
@@ -621,6 +627,11 @@ export default class CommandHandlers {
 	@packetHandler(CommandMissionShopNoPet)
 	async missionShopNoPet(context: PacketContext, _packet: CommandMissionShopNoPet): Promise<void> {
 		await handleClassicError(context, "commands:missionsshop.error.noPet");
+	}
+
+	@packetHandler(CommandFightRefusePacketRes)
+	async refuseFight(packet: CommandFightRefusePacketRes, context: PacketContext): Promise<void> {
+		await handleCommandFightRefusePacketRes(packet, context);
 	}
 
 	@packetHandler(CommandSwitchSuccess)
