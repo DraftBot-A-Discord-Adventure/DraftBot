@@ -59,7 +59,9 @@ async function getPlayerStats(player: Player): Promise<PlayerStats> {
  * @returns player opponent
  */
 function findOpponent(player: Player): Player {
-
+    const closestPlayers = Players.findByDefenseGlory(player.attackGloryPoints,5,0)
+    //shuffle l'array
+    //loop dessus pour check les autres conditions
     return
 }
 
@@ -79,6 +81,7 @@ export default class FightCommand {
         const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
             const reaction = collector.getFirstReaction();
             if (reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name) {
+
                 // Acceptation du fight/matchmaking
             } else {
                 response.push(makePacket(CommandFightRefusePacketRes, {}));
