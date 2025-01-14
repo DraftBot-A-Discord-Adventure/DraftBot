@@ -261,7 +261,7 @@ export class Player extends Model {
 	 * Return the value of glory that is displayed to the users
 	 */
 	public getGloryPoints(): number {
-		return this.attackGloryPoints + this.defenseGloryPoints
+		return this.attackGloryPoints + this.defenseGloryPoints;
 	}
 
 	/**
@@ -845,7 +845,7 @@ export class Player extends Model {
 	 */
 	public async setGloryPoints(gloryPoints: number, isDefense: boolean, reason: NumberChangeReason, response: DraftBotPacket[], fightId: number = null): Promise<void> {
 		await draftBotInstance.logsDatabase.logPlayersGloryPoints(this.keycloakId, gloryPoints, reason, fightId);
-		isDefense? this.defenseGloryPoints = gloryPoints: this.attackGloryPoints = gloryPoints;
+		isDefense ? this.defenseGloryPoints = gloryPoints : this.attackGloryPoints = gloryPoints;
 		Object.assign(this, await MissionsController.update(this, response, {
 			missionId: "reachGlory",
 			count: this.getGloryPoints(),
@@ -1440,13 +1440,13 @@ export class Players {
 	 * @param offset - offset in case the found players are not enough and an offset search is necessary
 	 */
 	static async findByDefenseGlory(defenseGlory: number, amountOfPlayersToRetrieve: number, offset: number): Promise<Player[]> {
-		return Player.findAll({
+		return await Player.findAll({
 			where: {
-				defenseGlory: { [Op.ne]: null }
+				defenseGlory: {[Op.ne]: null}
 			},
 			order: [
 				// Trier par la différence absolue avec defenseGlory recherchée
-				[Sequelize.literal(`ABS(defenseGlory - ${defenseGlory})`), 'ASC']
+				[Sequelize.literal(`ABS(defenseGlory - ${defenseGlory})`), "ASC"]
 			],
 			limit: amountOfPlayersToRetrieve,
 			offset: offset
