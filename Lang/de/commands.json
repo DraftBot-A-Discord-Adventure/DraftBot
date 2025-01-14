@@ -722,5 +722,32 @@
     "canceledTitle": "Befreiung abgebrochen",
     "canceledDesc": "Die Freilassung wurde rückgängig gemacht.",
     "acceptedDesc": "Sie haben **{{pseudo}}** befreit!"
+  },
+  "top": {
+    "level": "Ebene {{level}}",
+    "titleScoreAllTime": "{emote:top.congrats} Affichage du top des places {{minRank}} à {{maxRank}}",
+    "titleScoreWeekly": "{emote:top.congrats} Anzeige der wöchentlichen Top-Platzierungen {{minRank}} an {{maxRank}}",
+    "yourRankTitle": "**Ihre Platzierung**",
+    "yourRankFirst_one": "{emote:top.congrats} Herzlichen Glückwunsch **{{pseudo}}**! Sie sind derzeit der Beste von insgesamt {{total}} Spielern!",
+    "yourRankFirst_other": "{emote:top.congrats} Herzlichen Glückwunsch **{{pseudo}}**! Sie sind derzeit der Beste von insgesamt {{total}} Spielern!",
+    "yourRank_one": "{{badge}} **{{pseudo}}**, Sie sind momentan auf Rang **{{rank}}°** von insgesamt {{total}} Spielern!",
+    "yourRank_other": "{{badge}} **{{pseudo}}**, Sie sind momentan auf Rang **{{rank}}°** von insgesamt {{total}} Spielern!",
+    "yourRankNoneScore": "{emote:top.error} | Sie erscheinen leider nicht in der Top-Liste, da Sie eine Punktzahl von 100 oder weniger haben!",
+    "yourRankAtPage": "(Sie finden sich auf der Seite {{page}} / {{maxPage}})",
+    "titleGlory": "{emote:unitValues.glory} Top-Glory-Anzeige der Plätze {{minRank}} für {{maxRank}}",
+    "yourRankNoneGlory_one": "{emote:top.error} | Sie erscheinen leider nicht in der Top-Liste, weil Sie noch nicht genügend Ranglistenkämpfe absolviert haben! Du musst noch {{needFight}} Ranglistenkämpfe absolvieren.",
+    "yourRankNoneGlory_other": "{emote:top.error} | Sie erscheinen leider nicht in der Top-Liste, weil Sie noch nicht genug Ranglistenkämpfe absolviert haben! Sie müssen noch {{needFight}} Ranglistenkämpfe absolvieren.",
+    "titleGuild": "{emote:top.guild} Anzeige der Top-Gilden-Plätze {{minRank}} an {{maxRank}}",
+    "yourRankGuildTitle": "**Rangliste deiner Gilde**",
+    "yourRankGuildFirst_one": "{emote:top.congrats} Herzlichen Glückwunsch **{{pseudo}}**! Eure Gilde ist derzeit die beste von insgesamt {{total}} Gilden!",
+    "yourRankGuildFirst_other": "{emote:top.congrats} Herzlichen Glückwunsch **{{pseudo}}**! Eure Gilde ist derzeit die beste von insgesamt {{total}} Gilden!",
+    "yourRankGuild_one": "{{badge}} **{{pseudo}}**, deine Gilde ist derzeit auf Platz **{{rank}}°** von insgesamt {{total}} Gilden!",
+    "yourRankGuild_other": "{{badge}} **{{pseudo}}**, deine Gilde ist momentan auf Platz **{{rank}}°** von insgesamt {{total}} Gilden!",
+    "yourRankNoneGuild": "{emote:top.error} | Deine Gilde erscheint leider nicht in der Top-Liste, da sie keine Gildenpunkte hat!",
+    "yourRankAtPageGuild": "(Sie finden sie auf der Seite {{page}} / {{maxPage}})",
+    "noGuild": "{emote:top.error} | Du erscheinst nicht in dieser Rangliste, da du keiner Gilde angehörst!",
+    "nobodyInTopPlayers": "Es gibt derzeit niemanden in der Top-Liste! Genießen Sie es, solange Sie können.",
+    "nobodyInTopGuilds": "Es gibt derzeit keine Gilden in der Top-Liste! Genießt es, solange ihr könnt.",
+    "invalidPage": "Die angeforderte Seite existiert nicht. Bitte versuchen Sie es erneut mit einer Seite zwischen {{minPage}} und {{maxPage}}."
   }
 }
