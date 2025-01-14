@@ -722,5 +722,32 @@
     "canceledTitle": "Liberación cancelada",
     "canceledDesc": "El lanzamiento fue cancelado.",
     "acceptedDesc": "{{pseudo}}¡Has liberado a ** ** !"
+  },
+  "top": {
+    "level": "{{level}}Nivel",
+    "titleScoreAllTime": "{emote:top.congrats} Affichage du top des places {{minRank}} à {{maxRank}}",
+    "titleScoreWeekly": "{emote:top.congrats} {{minRank}} {{maxRank}}Visualice los mejores asientos de esta semana en",
+    "yourRankTitle": "**Su clasificación",
+    "yourRankFirst_one": "{emote:top.congrats}{{pseudo}}¡Enhorabuena ** ** ! {{total}} ¡Actualmente eres el mejor de un total de jugadores!",
+    "yourRankFirst_other": "{emote:top.congrats}{{pseudo}}¡Enhorabuena ** ** ! {{total}} ¡Actualmente eres el mejor de un total de jugadores!",
+    "yourRank_one": "{{badge}}{{pseudo}}{{rank}} {{total}} ¡** **, actualmente estás clasificado ** ème** de un total de jugadores !",
+    "yourRank_other": "{{badge}}{{pseudo}}{{rank}} {{total}} **, ¡actualmente estás en el puesto ** ème** de un total de jugadores!",
+    "yourRankNoneScore": "{emote:top.error} | ¡Lamentablemente, no apareces en el top porque tienes una puntuación de 100 o menos!",
+    "yourRankAtPage": "{{page}} {{maxPage}}(Ver / )",
+    "titleGlory": "{emote:unitValues.glory} {{minRank}} {{maxRank}}Visualización de los mejores asientos en",
+    "yourRankNoneGlory_one": "{emote:top.error} | Lamentablemente, no apareces entre los primeros porque aún no has completado suficientes combates igualados. {{needFight}} Todavía tienes que completar .",
+    "yourRankNoneGlory_other": "{emote:top.error} | Lamentablemente, no apareces entre los primeros porque aún no has completado suficientes combates igualados. {{needFight}} Todavía tienes que completar .",
+    "titleGuild": "{emote:top.guild} {{minRank}} {{maxRank}}Mostrando los mejores asientos del gremio en",
+    "yourRankGuildTitle": "**Clasificación de su gremio",
+    "yourRankGuildFirst_one": "{emote:top.congrats}{{pseudo}}¡Enhorabuena ** ** ! {{total}} ¡Tu gremio es actualmente el mejor de un total de !",
+    "yourRankGuildFirst_other": "{emote:top.congrats}{{pseudo}}¡Enhorabuena ** ** ! {{total}} ¡Su gremio es actualmente el mejor de un total de gremios!",
+    "yourRankGuild_one": "{{badge}}{{pseudo}}{{rank}} {{total}} ** **, ¡tu gremio está actualmente clasificado entre un total de gremios!",
+    "yourRankGuild_other": "{{badge}}{{pseudo}}{{rank}} {{total}} ** Tu gremio ocupa actualmente el puesto ** de un total de gremios.",
+    "yourRankNoneGuild": "{emote:top.error} | Desafortunadamente, tu gremio no aparece en el top porque no tiene puntos de gremio.",
+    "yourRankAtPageGuild": "{{page}} {{maxPage}}(Puede encontrarlo en / )",
+    "noGuild": "{emote:top.error} | ¡No apareces en esta clasificación porque no formas parte de un gremio!",
+    "nobodyInTopPlayers": "Actualmente no hay nadie entre los diez primeros. Disfrútalo mientras puedas.",
+    "nobodyInTopGuilds": "¡Actualmente no hay gremios en el top! Disfrútalo mientras puedas.",
+    "invalidPage": "La página solicitada no existe. {{minPage}} {{maxPage}}Por favor, inténtelo de nuevo con una página entre y ."
   }
 }
