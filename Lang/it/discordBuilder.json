@@ -131,10 +131,6 @@
     "description": "Ottenere un rapporto sulla situazione del vostro personaggio.",
     "name": "rapporto"
   },
-  "scopes": {
-    "global": "🏆 Classifica generale",
-    "server": "🚩Classifica del server"
-  },
   "test": {
     "description": "Comanda di cheat per i tester (SOLO MODALITÀ TEST).",
     "name": "test",
@@ -255,6 +251,38 @@
         "description": "L'utente da consegnare.",
         "name": "utilizzatore"
       }
+    }
+  },
+  "top": {
+    "description": "Visualizza le classifiche delle partite.",
+    "name": "classifica",
+    "subcommands": {
+      "score": {
+        "description": "Visualizza la classifica dei giocatori in base al loro punteggio.",
+        "name": "punteggio"
+      },
+      "glory": {
+        "description": "Visualizza la classifica delle gilde in base alla loro gloria.",
+        "name": "gloria"
+      },
+      "guild": {
+        "description": "Visualizza la classifica delle gilde in base ai loro punti.",
+        "name": "gilda"
+      }
+    },
+    "options": {
+      "timing": {
+        "description": "La durata della classifica visualizzata (Da sempre per impostazione predefinita).",
+        "name": "durata"
+      },
+      "page": {
+        "description": "La pagina di classifica da visualizzare.",
+        "name": "pagina"
+      }
+    },
+    "timings": {
+      "allTime": "{emote:top.allTime} ️ L'ho sempre fatto.",
+      "weekly": "{emote:top.weekly} Questa settimana."
     }
   }
 }
