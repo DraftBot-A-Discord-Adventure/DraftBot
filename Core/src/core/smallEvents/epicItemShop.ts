@@ -35,7 +35,7 @@ class ShopSmallEvent extends Shop<
 	}
 
 	getRandomItem(): GenericItem {
-		
+
 		// We exclude potions from the list of possible items
 		const categories = Object.values(ItemCategory).filter(
 			(value): value is ItemCategory => value !== ItemCategory.POTION

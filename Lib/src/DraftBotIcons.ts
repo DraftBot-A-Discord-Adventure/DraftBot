@@ -104,6 +104,27 @@ export const DraftBotIcons: {
 	sex: {
 		male: string,
 		female: string
+	},
+	leagues: {
+		[leagueId: string]: string
+	},
+	top: {
+		badges: {
+			first: string,
+			second: string,
+			third: string,
+			fourth: string,
+			fifth: string,
+			self: string,
+			sameContext: string,
+			default: string
+		},
+		afk: string,
+		allTime: string,
+		weekly: string,
+		congrats: string,
+		error: string,
+		guild: string
 	}
 } = {
 	"effects": {
@@ -1637,7 +1658,8 @@ export const DraftBotIcons: {
 		"speed": "🚀",
 		"breath": "🌬️",
 		"breathRegen": "🫁",
-		"petRarity": "⭐"
+		"petRarity": "⭐",
+		"glory": "✨"
 	},
 	"shopItems": {
 		"randomItem": "❓",
@@ -1712,5 +1734,35 @@ export const DraftBotIcons: {
 	"sex": {
 		"male": "♂️",
 		"female": "♀️"
+	},
+	"leagues": {
+		"0": "🌲",
+		"1": "🗿",
+		"2": "⚔️",
+		"3": "🥉",
+		"4": "🥈",
+		"5": "🥇",
+		"6": "💎",
+		"7": "💯",
+		"8": "🌀",
+		"9": "🏆"
+	},
+	"top": {
+		"badges": {
+			"first": "🥇",
+			"second": "🥈",
+			"third": "🥉",
+			"fourth": "🏅",
+			"fifth": "🏅",
+			"self": "🔵",
+			"sameContext": "⚪",
+			"default": "⚫"
+		},
+		"afk": "👻",
+		"allTime": "🗓️️",
+		"weekly": "🕤",
+		"congrats": "🏆",
+		"error": "❌",
+		"guild": "🏟️"
 	}
 };

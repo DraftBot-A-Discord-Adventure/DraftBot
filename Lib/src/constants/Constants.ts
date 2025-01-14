@@ -38,7 +38,8 @@ export class Constants {
 		LEVEL: "level",
 		SCORE: "score",
 		WEEKLY_SCORE: "weeklyScore",
-		LAST_SEASON_GLORY: "gloryPointsLastSeason"
+		LAST_SEASON_GLORY: "gloryPointsLastSeason",
+		GLORY: "gloryPoints"
 	};
 
 	static readonly CLASS = {

@@ -242,6 +242,18 @@ export class KeycloakUtils {
 		return user.attributes.language[0];
 	}
 
+	/**
+	 * Get multiple users from their keycloak IDs
+	 * @param keycloakConfig
+	 * @param keycloakIds
+	 */
+	// TODO Wait for https://github.com/keycloak/keycloak/pull/34582 to be merged and released to use the bulk endpoint
+	public static async getUsersFromIds(keycloakConfig: KeycloakConfig, keycloakIds: string[]): Promise<(KeycloakUser | null)[]> {
+		await this.checkAndQueryToken(keycloakConfig);
+
+		return await Promise.all(keycloakIds.map(async keycloakId => await KeycloakUtils.getUserByKeycloakId(keycloakConfig, keycloakId)));
+	}
+
 	private static async checkAndQueryToken(keycloakConfig: KeycloakConfig): Promise<void> {
 		if (this.keycloakToken === null || this.keycloakTokenExpirationDate! < Date.now()) {
 			const res = await fetch(`${keycloakConfig.url}/realms/${keycloakConfig.realm}/protocol/openid-connect/token`, {

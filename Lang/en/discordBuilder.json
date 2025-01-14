@@ -256,5 +256,37 @@
         "name": "user"
       }
     }
+  },
+  "top": {
+    "description": "Displays the game rankings.",
+    "name": "top",
+    "subcommands": {
+      "score": {
+        "description": "Displays the player rankings based on their score.",
+        "name": "score"
+      },
+      "glory": {
+        "description": "Displays the guild rankings based on their glory.",
+        "name": "glory"
+      },
+      "guild": {
+        "description": "Displays the guild rankings based on their points.",
+        "name": "guild"
+      }
+    },
+    "options": {
+      "timing": {
+        "description": "The timing of the displayed ranking (All time by default).",
+        "name": "timing"
+      },
+      "page": {
+        "description": "The page of the ranking to display.",
+        "name": "page"
+      }
+    },
+    "timings": {
+      "allTime": "{emote:top.allTime} All time.",
+      "weekly": "{emote:top.weekly} This week."
+    }
   }
 }

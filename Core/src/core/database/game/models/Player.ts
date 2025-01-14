@@ -1083,29 +1083,6 @@ export class Players {
 	}
 
 	/**
-	 * Get the ranking of the player compared to a list of players
-	 * @param keycloakId
-	 * @param ids - list of keycloakIds to compare to
-	 * @param weekOnly - get from the week only
-	 * @param isGloryTop
-	 */
-	static async getRankFromUserList(keycloakId: string, ids: string[], weekOnly: boolean, isGloryTop: boolean): Promise<number> {
-		const scoreLookup = isGloryTop ? "gloryPoints" : weekOnly ? "weeklyScore" : "score";
-		const secondCondition = isGloryTop ? `players.fightCountdown <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE}` : "1";
-		const query = `SELECT rank
-		               FROM (SELECT players.keycloakId,
-		                            (RANK() OVER (ORDER BY players.${scoreLookup} DESC
-			                            , players.level DESC)) AS rank
-		                     FROM players
-		                     WHERE (players.keycloakId IN (${ids.toString()}))
-			                   AND ${secondCondition}) subquery
-		               WHERE subquery.keycloakId = ${keycloakId};`;
-		return ((await Player.sequelize.query(query))[0][0] as {
-			rank: number
-		}).rank;
-	}
-
-	/**
 	 * Get the rank of a player
 	 * @param playerId
 	 */
@@ -1130,14 +1107,23 @@ export class Players {
 	}
 
 	/**
+	 * Get the glory rank of a player
+	 * @param playerId
+	 */
+	static async getGloryRankById(playerId: number): Promise<number> {
+		return await this.getRank(playerId, Constants.RANK_TYPES.GLORY);
+	}
+
+	/**
 	 * Get the rank of a player related to a specific type of value
 	 * @param playerId
 	 * @param rankType
 	 */
 	static async getRank(playerId: number, rankType: string): Promise<number> {
+		const condition = rankType === Constants.RANK_TYPES.GLORY ? `WHERE fightCountdown <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE}` : "";
 		const query = `SELECT ranking
 		               FROM (SELECT id, RANK() OVER (ORDER BY ${rankType} desc, level desc) ranking
-		                     FROM players) subquery
+		                     FROM players ${condition}) subquery
 		               WHERE subquery.id = ${playerId}`;
 		return ((await Player.sequelize.query(query))[0][0] as {
 			ranking: number
@@ -1161,16 +1147,14 @@ export class Players {
 	}
 
 	/**
-	 * Get the number of players that are considered playing the game inside the list of ids
-	 * @param listKeycloakId
+	 * Get the number of players that are considered playing the game
 	 * @param weekOnly Get of the current week only
 	 */
-	static async getNumberOfPlayingPlayersInList(listKeycloakId: string[], weekOnly: boolean): Promise<number> {
+	static async getNumberOfPlayingPlayers(weekOnly: boolean): Promise<number> {
 		const query = `SELECT COUNT(*) as nbPlayers
 		               FROM players
 		               WHERE players.${weekOnly ? "weeklyScore" : "score"}
-			               > ${Constants.MINIMAL_PLAYER_SCORE}
-			             AND players.keycloakId IN (${listKeycloakId.toString()})`;
+			               > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		const queryResult = await Player.sequelize.query(query);
 		return (queryResult[0][0] as {
 			nbPlayers: number
@@ -1178,15 +1162,13 @@ export class Players {
 	}
 
 	/**
-	 * Get the number of players that are considered playing the game inside the list of ids
-	 * @param listKeycloakId
+	 * Get the number of players that are considered playing the game
 	 */
-	static async getNumberOfFightingPlayersInList(listKeycloakId: string[]): Promise<number> {
+	static async getNumberOfFightingPlayers(): Promise<number> {
 		const query = `SELECT COUNT(*) as nbPlayers
 		               FROM players
 		               WHERE players.fightCountdown
-			               <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE}
-			             AND players.keycloakId IN (${listKeycloakId.toString()})`;
+			               <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE}`;
 		const queryResult = await Player.sequelize.query(query);
 		return (queryResult[0][0] as {
 			nbPlayers: number
@@ -1195,12 +1177,11 @@ export class Players {
 
 	/**
 	 * Get the players in the list of Ids that will be printed into the top at the given page
-	 * @param listKeycloakId
 	 * @param minRank
 	 * @param maxRank
 	 * @param weekOnly Get from the current week only
 	 */
-	static async getPlayersToPrintTop(listKeycloakId: string[], minRank: number, maxRank: number, weekOnly: boolean): Promise<Player[]> {
+	static async getPlayersTop(minRank: number, maxRank: number, weekOnly: boolean): Promise<Player[]> {
 		const restrictionsTopEntering = weekOnly
 			? {
 				weeklyScore: {
@@ -1214,12 +1195,7 @@ export class Players {
 			};
 		return await Player.findAll({
 			where: {
-				[Op.and]: {
-					keycloakId: {
-						[Op.in]: listKeycloakId
-					},
-					...restrictionsTopEntering
-				}
+				...restrictionsTopEntering
 			},
 			order: [
 				[weekOnly ? "weeklyScore" : "score", "DESC"],
@@ -1231,12 +1207,11 @@ export class Players {
 	}
 
 	/**
-	 * Get the players in the list of Ids that will be printed into the glory top at the given page
-	 * @param listKeycloakId
+	 * Get the players that will be printed into the glory top at the given page
 	 * @param minRank
 	 * @param maxRank
 	 */
-	static async getPlayersToPrintGloryTop(listKeycloakId: string[], minRank: number, maxRank: number): Promise<Player[]> {
+	static async getPlayersGloryTop(minRank: number, maxRank: number): Promise<Player[]> {
 		const restrictionsTopEntering = {
 			fightCountdown: {
 				[Op.lte]: FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE
@@ -1245,9 +1220,6 @@ export class Players {
 		return await Player.findAll({
 			where: {
 				[Op.and]: {
-					keycloakId: {
-						[Op.in]: listKeycloakId
-					},
 					...restrictionsTopEntering
 				}
 			},

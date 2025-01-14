@@ -163,6 +163,19 @@ import {
 } from "../../commands/player/UnlockCommand";
 import {handleClassicError} from "../../utils/ErrorUtils";
 import {
+	CommandTopGuildsEmptyPacket,
+	CommandTopInvalidPagePacket,
+	CommandTopPacketResGlory, CommandTopPacketResGuild,
+	CommandTopPacketResScore, CommandTopPlayersEmptyPacket
+} from "../../../../Lib/src/packets/commands/CommandTopPacket";
+import {
+	handleCommandTopGuildsEmptyPacket,
+	handleCommandTopInvalidPagePacket,
+	handleCommandTopPacketResGlory,
+	handleCommandTopPacketResGuild,
+	handleCommandTopPacketResScore, handleCommandTopPlayersEmptyPacket
+} from "../../commands/player/TopCommand";
+import {
 	CommandGuildElderAcceptPacketRes,
 	CommandGuildElderAlreadyElderPacketRes,
 	CommandGuildElderFoundPlayerPacketRes,
@@ -549,5 +562,36 @@ export default class CommandHandlers {
 	@packetHandler(CommandUnlockAcceptPacketRes)
 	async unlockAcceptRes(packet: CommandUnlockAcceptPacketRes, context: PacketContext): Promise<void> {
 		await handleCommandUnlockAcceptPacketRes(packet, context);
+
+	}
+
+	@packetHandler(CommandTopPacketResScore)
+	async topScoreRes(packet: CommandTopPacketResScore, context: PacketContext): Promise<void> {
+		await handleCommandTopPacketResScore(context, packet);
+	}
+
+	@packetHandler(CommandTopPacketResGlory)
+	async topGloryRes(packet: CommandTopPacketResGlory, context: PacketContext): Promise<void> {
+		await handleCommandTopPacketResGlory(context, packet);
+	}
+
+	@packetHandler(CommandTopPacketResGuild)
+	async topGuildRes(packet: CommandTopPacketResGuild, context: PacketContext): Promise<void> {
+		await handleCommandTopPacketResGuild(context, packet);
+	}
+
+	@packetHandler(CommandTopInvalidPagePacket)
+	async topInvalidPageRes(packet: CommandTopInvalidPagePacket, context: PacketContext): Promise<void> {
+		await handleCommandTopInvalidPagePacket(context, packet);
+	}
+
+	@packetHandler(CommandTopPlayersEmptyPacket)
+	async topPlayersEmptyRes(_packet: CommandTopPlayersEmptyPacket, context: PacketContext): Promise<void> {
+		await handleCommandTopPlayersEmptyPacket(context);
+	}
+
+	@packetHandler(CommandTopGuildsEmptyPacket)
+	async topGuildsEmptyRes(_packet: CommandTopGuildsEmptyPacket, context: PacketContext): Promise<void> {
+		await handleCommandTopGuildsEmptyPacket(context);
 	}
 }
