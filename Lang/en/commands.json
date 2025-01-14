@@ -722,5 +722,32 @@
     "canceledTitle": "Libeation cancelled",
     "canceledDesc": "The libeation has been cancelled.",
     "acceptedDesc": "You have **{{pseudo}}**!"
+  },
+  "top": {
+    "level": "Level {{level}}",
+    "titleScoreAllTime": "{emote:top.congrats} Affichage du top des places {{minRank}} à {{maxRank}}",
+    "titleScoreWeekly": "{emote:top.congrats} Top Week Display {{minRank}} {{maxRank}}",
+    "yourRankTitle": "**Your Ranking**",
+    "yourRankFirst_one": "{emote:top.congrats} Congratulations **{{pseudo}}**! You are currently the best on a total of {{total}} players!",
+    "yourRankFirst_other": "{emote:top.congrats} Congratulations **{{pseudo}}**! You are currently the best on a total of {{total}} players!",
+    "yourRank_one": "{{badge}} **{{pseudo}}**, you currently ranked **{{rank}}e** out of a total {{total}} player!",
+    "yourRank_other": "{{badge}} **{{pseudo}}**, you currently ranked **{{rank}}e** out of a total {{total}} players!",
+    "yourRankNoneScore": "{emote:top.error} | Unfortunately you do not appear in the top because you have an equal or negative score!",
+    "yourRankAtPage": "(You can find yourself on page {{page}} / {{maxPage}})",
+    "titleGlory": "{emote:unitValues.glory} Displaying the top glory of {{minRank}} places at {{maxRank}}",
+    "yourRankNoneGlory_one": "{emote:top.error} | Unfortunately you don't appear in the top because you haven't completed enough class battles yet! You still need to complete {{needFight}} class combat.",
+    "yourRankNoneGlory_other": "{emote:top.error} | Unfortunately you don't appear in the top because you haven't completed enough class battles yet! You still need to complete {{needFight}} class combat.",
+    "titleGuild": "{emote:top.guild} Top guild seats {{minRank}} at {{maxRank}}",
+    "yourRankGuildTitle": "**Your guild's ranking**",
+    "yourRankGuildFirst_one": "{emote:top.congrats} Congratulations **{{pseudo}}**! Your guild is currently the best out of a total guild {{total}}!",
+    "yourRankGuildFirst_other": "{emote:top.congrats} Congratulations **{{pseudo}}**! Your guild is currently the best out of a total of {{total}} guilds!",
+    "yourRankGuild_one": "{{badge}} **{{pseudo}}**, your guild is currently ranked **{{rank}}e** out of a total {{total}} guild!",
+    "yourRankGuild_other": "{{badge}} **{{pseudo}}**, your guild is currently ranked **{{rank}}e** out of a total {{total}} guilds!",
+    "yourRankNoneGuild": "{emote:top.error} | Unfortunately, your guild does not appear in the top because it has no guild points!",
+    "yourRankAtPageGuild": "(You can find it on page {{page}} / {{maxPage}})",
+    "noGuild": "{emote:top.error} | You do not appear in this ranking as you are not part of a guild!",
+    "nobodyInTopPlayers": "There is currently no one in the top! Enjoy as you can.",
+    "nobodyInTopGuilds": "There are currently no guilds in the top! Enjoy as you can.",
+    "invalidPage": "The requested page does not exist. Please try again with a page between {{minPage}} and {{maxPage}}."
   }
 }
