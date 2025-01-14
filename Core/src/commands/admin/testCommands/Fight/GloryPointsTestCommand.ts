@@ -17,12 +17,12 @@ export const commandInfo: ITestCommand = {
  */
 const gloryPointsTestCommand: ExecuteTestCommandLike = async (player, args, response) => {
 	const gloryPoints = parseInt(args[0], 10);
-	const type = parseInt(args[1], 10)
+	const type = parseInt(args[1], 10);
 
 	if (gloryPoints < 0) {
 		throw new Error("Erreur glory points : glory points inférieurs à 0 interdits !");
 	}
-	await player.setGloryPoints(gloryPoints, type===0, NumberChangeReason.TEST, response);
+	await player.setGloryPoints(gloryPoints, type === 0, NumberChangeReason.TEST, response);
 	await player.save();
 
 	return `Vous avez maintenant ${player.getGloryPoints()} :sparkles: !`;

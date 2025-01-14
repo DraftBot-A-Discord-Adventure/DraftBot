@@ -61,14 +61,14 @@ async function getPlayerStats(player: Player): Promise<PlayerStats> {
  * @returns player opponent
  */
 async function findOpponent(player: Player, offset: number): Promise<Player | null> {
-	const closestPlayers = await Players.findByDefenseGlory(player.attackGloryPoints, FightConstants.PLAYER_PER_OPPONENT_SEARCH, offset)
-	//shuffle array
+	const closestPlayers = await Players.findByDefenseGlory(player.attackGloryPoints, FightConstants.PLAYER_PER_OPPONENT_SEARCH, offset);
+	// Shuffle array
 	closestPlayers.sort(() => Math.random() - 0.5);
 	let selectedPlayer: Player = null;
 	for (const closestPlayer of closestPlayers) {
 		if (
-			closestPlayer.id === player.id || // cannot fight itself
-			closestPlayer.level < FightConstants.REQUIRED_LEVEL || // level too low
+			closestPlayer.id === player.id || // Cannot fight itself
+			closestPlayer.level < FightConstants.REQUIRED_LEVEL || // Level too low
 			Math.abs(player.defenseGloryPoints - closestPlayer.attackGloryPoints) > FightConstants.ELO.MAX_ELO_GAP // ELO gap too large
 		) {
 			continue;
@@ -79,7 +79,7 @@ async function findOpponent(player: Player, offset: number): Promise<Player | nu
 				FightConstants.DEFENDER_COOLDOWN_MINUTES
 			)
 		) {
-			continue; // defender on cooldown
+			continue; // Defender on cooldown
 		}
 		const bo3 = await LogsReadRequests.getRankedFightsThisWeek(player.keycloakId, closestPlayer.keycloakId);
 		if (
@@ -87,16 +87,16 @@ async function findOpponent(player: Player, offset: number): Promise<Player | nu
 			bo3.lost > 1 ||
 			bo3.draw + bo3.won + bo3.lost >= 3
 		) {
-			continue; // max fights already played
+			continue; // Max fights already played
 		}
 		selectedPlayer = closestPlayer;
 	}
 	if (selectedPlayer || offset > FightConstants.MAX_OFFSET_FOR_OPPONENT_SEARCH) {
 		return selectedPlayer;
 	}
-	else {
-		return findOpponent(player, offset + 1);
-	}
+
+	return findOpponent(player, offset + 1);
+
 }
 
 export default class FightCommand {
@@ -117,9 +117,9 @@ export default class FightCommand {
 			if (reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name) {
 				const opponent = await findOpponent(player, 0);
 				if (!opponent) {
-					// error message if no opponent found
+					// Error message if no opponent found
 				}
-				// start fight
+				// Start fight
 			}
 			else {
 				response.push(makePacket(CommandFightRefusePacketRes, {}));
