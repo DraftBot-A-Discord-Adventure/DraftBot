@@ -1,5 +1,5 @@
 export abstract class FightConstants {
-	static readonly  RARE_SUB_TEXT_INTRO = 0.001 // chance of having rare subtext (1=100%)
+	static readonly RARE_SUB_TEXT_INTRO = 0.001; // Chance of having rare subtext (1=100%)
 
 	static readonly MAX_TURNS = 24;
 
@@ -128,7 +128,7 @@ export abstract class FightConstants {
 
 	static readonly DEFAULT_ACTION_WEIGHT = 1;
 
-	// time needed to wait before being able to fight again after a ranked fight as a defender
+	// Time needed to wait before being able to fight again after a ranked fight as a defender
 	static DEFENDER_COOLDOWN_MINUTES = 30;
 
 	// Maximum offset for opponent search

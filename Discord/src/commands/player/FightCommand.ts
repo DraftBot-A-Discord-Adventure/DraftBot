@@ -23,7 +23,7 @@ export async function createFightCollector(packet: ReactionCollectorCreationPack
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorFightData;
-	const subTextKey = RandomUtils.draftbotRandom.bool(FightConstants.RARE_SUB_TEXT_INTRO) ? "rare" : "common"
+	const subTextKey = RandomUtils.draftbotRandom.bool(FightConstants.RARE_SUB_TEXT_INTRO) ? "rare" : "common";
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:fight.title", {
 		lng: interaction.userLanguage,
 		pseudo: interaction.user.displayName
