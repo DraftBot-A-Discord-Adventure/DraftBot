@@ -109,6 +109,16 @@
       }
     }
   },
+  "guildElder": {
+    "description": "Promote a guild member to elder.",
+    "name": "guildelder",
+    "options": {
+      "user": {
+        "description": "The user who will be promoted as an elder.",
+        "name": "user"
+      }
+    }
+  },
   "profile": {
     "description": "Displays the profile of a player.",
     "name": "profile",
