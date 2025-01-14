@@ -146,10 +146,13 @@ function formatGloryAttributes(element: TopElement<number, number, number>, lng:
 }
 
 function formatGuildAttributes(element: TopElement<number, number, undefined>, lng: Language): string {
-	return `\`${element.attributes["1"]}\` | \`${i18n.t("commands:top.level", {lng, level: element.attributes["2"]})}\``;
+	return `\`${element.attributes["1"]}\` | \`${i18n.t("commands:top.level", {
+		lng,
+		level: element.attributes["2"]
+	})}\``;
 }
 
-async function handleGenericTopPacketRes<T extends TopElement<Attr1, Attr2, Attr3>, Attr1, Attr2, Attr3>(context: PacketContext, packet: CommandTopPacketRes<T, Attr1, Attr2, Attr3>, textKeys: {
+type TopTextKeys = {
 	title: string;
 	yourRankTitle: string;
 	yourRank: string;
@@ -158,72 +161,81 @@ async function handleGenericTopPacketRes<T extends TopElement<Attr1, Attr2, Attr
 	nobodyInTop: string;
 	cantBeRanked?: string;
 	overriddenElementTexts?: string[];
-}, formatAttributes: (element: T, lng: Language) => string): Promise<void> {
+}
+
+function getTopDescription<TopElementKind extends TopElement<T, U, V>, T, U, V>(
+	packet: CommandTopPacketRes<TopElementKind, T, U, V>,
+	textKeys: TopTextKeys,
+	formatAttributes: (element: TopElementKind, lng: Language) => string,
+	lng: Language,
+	playerUsernames: string[]
+): string {
+	if (packet.elements.length <= 0) {
+		return i18n.t(textKeys.nobodyInTop, {lng});
+	}
+	let desc = "";
+	for (let i = 0; i < packet.elements.length; i++) {
+		const element = packet.elements[i];
+		desc += `${getBadgeForPosition(element.rank, element.sameContext, packet.contextRank)} ${
+			textKeys.overriddenElementTexts ? textKeys.overriddenElementTexts[i] : element.text
+		} | ${formatAttributes(element, lng)}\n`;
+	}
+
+	desc += `${i18n.t(textKeys.yourRankTitle, {lng})}\n`;
+
+	if (packet.contextRank) {
+		desc += i18n.t(textKeys.yourRank, {
+			lng,
+			badge: getBadgeForPosition(packet.contextRank, true, packet.contextRank),
+			pseudo: playerUsernames,
+			rank: packet.contextRank,
+			total: packet.totalElements,
+			count: packet.totalElements
+		});
+		if (packet.contextRank < packet.minRank || packet.contextRank > packet.maxRank) {
+			desc += ` ${i18n.t(textKeys.youRankAtPage, {
+				lng,
+				page: Math.ceil(packet.contextRank / packet.elementsPerPage),
+				maxPage: Math.ceil(packet.totalElements / packet.elementsPerPage)
+			})}`;
+		}
+	}
+	else if (packet.canBeRanked) {
+		desc += i18n.t(textKeys.yourRankNone.key, {
+			lng,
+			pseudo: playerUsernames, ...textKeys.yourRankNone.replacements
+		});
+	}
+	else if (textKeys.cantBeRanked) {
+		desc += i18n.t(textKeys.cantBeRanked, {lng});
+	}
+	return desc;
+}
+
+async function handleGenericTopPacketRes<TopElementKind extends TopElement<T, U, V>, T, U, V>(
+	context: PacketContext,
+	packet: CommandTopPacketRes<TopElementKind, T, U, V>,
+	textKeys: TopTextKeys,
+	formatAttributes: (element: TopElementKind, lng: Language) => string
+): Promise<void> {
 	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!)!;
 
 	const lng = context.discord!.language!;
 	const title = i18n.t(textKeys.title, {lng, minRank: packet.minRank, maxRank: packet.maxRank});
 
-	let desc = "";
-	if (packet.elements.length > 0) {
-		for (let i = 0; i < packet.elements.length; i++) {
-			const element = packet.elements[i];
-			desc += `${getBadgeForPosition(element.rank, element.sameContext, packet.contextRank)}` +
-				` ${textKeys.overriddenElementTexts ? textKeys.overriddenElementTexts[i] : element.text} | ${formatAttributes(element, lng)}\n`;
-		}
-
-		desc += `${i18n.t(textKeys.yourRankTitle, {lng})}\n`;
-
-		if (packet.contextRank) {
-			desc += i18n.t(
-				textKeys.yourRank,
-				{
-					lng,
-					badge: getBadgeForPosition(packet.contextRank, true, packet.contextRank),
-					pseudo: user.attributes.gameUsername,
-					rank: packet.contextRank,
-					total: packet.totalElements,
-					count: packet.totalElements
-				}
-			);
-			if (packet.contextRank < packet.minRank || packet.contextRank > packet.maxRank) {
-				desc += ` ${i18n.t(
-					textKeys.youRankAtPage,
-					{
-						lng,
-						page: Math.ceil(packet.contextRank / packet.elementsPerPage),
-						maxPage: Math.ceil(packet.totalElements / packet.elementsPerPage)
-					}
-				)}`;
-			}
-		}
-		else if (packet.canBeRanked) {
-			desc += i18n.t(textKeys.yourRankNone.key, {
-				lng,
-				pseudo: user.attributes.gameUsername, ...textKeys.yourRankNone.replacements
-			});
-		}
-		else if (textKeys.cantBeRanked) {
-			desc += i18n.t(textKeys.cantBeRanked, {lng});
-		}
-	}
-	else {
-		desc = i18n.t(textKeys.nobodyInTop, {lng});
-	}
-
 	await interaction.editReply({
 		embeds: [
 			new DraftBotEmbed()
 				.setTitle(title)
-				.setDescription(desc)
+				.setDescription(getTopDescription(packet, textKeys, formatAttributes, lng, user.attributes.gameUsername))
 		]
 	});
 }
 
-async function getOverriddenPlayersUsernames<Attr1, Attr2, Attr3>(elements: TopElement<Attr1, Attr2, Attr3>[], lng: Language): Promise<string[]> {
+async function getOverriddenPlayersUsernames<U, V, W>(elements: TopElement<U, V, W>[], lng: Language): Promise<string[]> {
 	return (await KeycloakUtils.getUsersFromIds(keycloakConfig, elements.map(e => e.text)))
-		.map(u => (u ? u.attributes.gameUsername[0] : i18n.t("error:unknownPlayer", { lng })));
+		.map(u => (u ? u.attributes.gameUsername[0] : i18n.t("error:unknownPlayer", {lng})));
 }
 
 export async function handleCommandTopPacketResScore(context: PacketContext, packet: CommandTopPacketResScore): Promise<void> {
@@ -245,7 +257,10 @@ export async function handleCommandTopPacketResGlory(context: PacketContext, pac
 		title: "commands:top.titleGlory",
 		yourRankTitle: "commands:top.yourRankTitle",
 		yourRank: packet.contextRank === 1 ? "commands:top.yourRankFirst" : "commands:top.yourRank",
-		yourRankNone: {key: "commands:top.yourRankNoneGlory", replacements: {needFight: packet.needFight, count: packet.needFight}},
+		yourRankNone: {
+			key: "commands:top.yourRankNoneGlory",
+			replacements: {needFight: packet.needFight, count: packet.needFight}
+		},
 		youRankAtPage: "commands:top.yourRankAtPage",
 		nobodyInTop: "commands:top.nobodyInTopPlayers",
 		overriddenElementTexts: await getOverriddenPlayersUsernames(packet.elements, context.discord!.language!)
