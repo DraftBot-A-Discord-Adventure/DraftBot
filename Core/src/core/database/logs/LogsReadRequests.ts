@@ -7,7 +7,11 @@ import {LogsPlayersPossibilities} from "./models/LogsPlayersPossibilities";
 import {LogsPossibilities} from "./models/LogsPossibilities";
 import {LogsPlayers} from "./models/LogsPlayers";
 import {LogsPlayersTravels} from "./models/LogsPlayersTravels";
-import {getNextSaturdayMidnight, getNextSundayMidnight, minutesToMilliseconds} from "../../../../../Lib/src/utils/TimeUtils";
+import {
+	getNextSaturdayMidnight,
+	getNextSundayMidnight,
+	minutesToMilliseconds
+} from "../../../../../Lib/src/utils/TimeUtils";
 import {LogsMapLinks} from "./models/LogsMapLinks";
 import {MapConstants} from "../../../../../Lib/src/constants/MapConstants";
 import {LogsFightsResults} from "./models/LogsFightsResults";
@@ -223,24 +227,42 @@ export class LogsReadRequests {
 		return await this.travelsOnPveIslandsCountThisWeekRequest(keycloakId);
 	}
 
+	/**
+	 * Check if the player has been a defender in a ranked fight since the last minute
+	 * @param playerKeycloakId - The keycloak id of the player to check
+	 * @param minutes - The number of minutes to check
+	 */
+	static async hasBeenADefenderInRankedFightSinceMinute(playerKeycloakId: string, minutes: number): Promise<boolean> {
+		const hasBeenDefender = await LogsFightsResults.findOne({
+			where: {
+				"$LogsPlayer2.keycloakId": playerKeycloakId,
+				date: {
+					[Op.gt]: Math.floor((Date.now() - minutesToMilliseconds(minutes)) / 1000)
+				},
+				friendly: false
+			},
+			include: [{
+				model: LogsPlayers,
+				association: new HasOne(LogsFightsResults, LogsPlayers, {
+					sourceKey: "player2Id",
+					foreignKey: "id",
+					as: "LogsPlayer2"
+				})
+			}]
+		});
+		return !!hasBeenDefender;
+	}
+
 	/*
 	 * Get the fights of a player against another this week
 	 * @param playerKeycloakId
 	 * @param opponentKeycloakId
 	 */
-	static async getRankedFightsThisWeek(playerKeycloakId: string, opponentKeycloakId: string): Promise<RankedFightResult> {
+	static async getRankedFightsThisWeek(attackerKeycloakId: string, defenderKeycloakId: string): Promise<RankedFightResult> {
 		const fights = await LogsFightsResults.findAll({
 			where: {
-				[Op.or]: [
-					{
-						"$LogsPlayer1.keycloakId$": playerKeycloakId,
-						"$LogsPlayer2.keycloakId$": opponentKeycloakId
-					},
-					{
-						"$LogsPlayer1.keycloakId$": opponentKeycloakId,
-						"$LogsPlayer2.keycloakId$": playerKeycloakId
-					}
-				],
+				"$LogsPlayer1.keycloakId$": attackerKeycloakId,
+				"$LogsPlayer2.keycloakId$": defenderKeycloakId,
 				date: {
 					[Op.gt]: Math.floor((getNextSaturdayMidnight() - 7 * 24 * 60 * 60 * 1000) / 1000)
 				},
