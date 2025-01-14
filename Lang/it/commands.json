@@ -722,5 +722,32 @@
     "canceledTitle": "Rilascio annullato",
     "canceledDesc": "L'uscita è stata annullata.",
     "acceptedDesc": "{{pseudo}}Avete liberato ** ** !"
+  },
+  "top": {
+    "level": "{{level}}Livello",
+    "titleScoreAllTime": "{emote:top.congrats} Affichage du top des places {{minRank}} à {{maxRank}}",
+    "titleScoreWeekly": "{emote:top.congrats} {{minRank}} {{maxRank}}Mostra i posti migliori di questa settimana a",
+    "yourRankTitle": "**La tua classifica",
+    "yourRankFirst_one": "{emote:top.congrats}{{pseudo}}Congratulazioni ** ** ! {{total}} Sei attualmente il migliore su un totale di giocatori!",
+    "yourRankFirst_other": "{emote:top.congrats}{{pseudo}}Congratulazioni ** ** ! {{total}} Sei attualmente il migliore su un totale di giocatori!",
+    "yourRank_one": "{{badge}}{{pseudo}}{{rank}} {{total}} ** **, sei attualmente classificato ** ème** su un totale di giocatori !",
+    "yourRank_other": "{{badge}}{{pseudo}}{{rank}} {{total}} ** **, sei attualmente classificato ** ème** su un totale di giocatori!",
+    "yourRankNoneScore": "{emote:top.error} | Purtroppo non compari nella top perché hai un punteggio di 100 o meno!",
+    "yourRankAtPage": "{{page}} {{maxPage}}(Vedi / )",
+    "titleGlory": "{emote:unitValues.glory} {{minRank}} {{maxRank}}Visualizzazione dei posti migliori a",
+    "yourRankNoneGlory_one": "{emote:top.error} | Purtroppo non appari in cima perché non hai ancora completato abbastanza combattimenti classificati! {{needFight}} Devi ancora completare .",
+    "yourRankNoneGlory_other": "{emote:top.error} | Purtroppo non appari in cima perché non hai ancora completato abbastanza combattimenti classificati! {{needFight}} Devi ancora completare .",
+    "titleGuild": "{emote:top.guild} {{minRank}} {{maxRank}}Visualizzare i posti migliori della gilda a",
+    "yourRankGuildTitle": "**La classifica della tua gilda",
+    "yourRankGuildFirst_one": "{emote:top.congrats}{{pseudo}}Congratulazioni ** ** ! {{total}} La tua gilda è attualmente la migliore su un totale di !",
+    "yourRankGuildFirst_other": "{emote:top.congrats}{{pseudo}}Congratulazioni ** ** ! {{total}} La vostra gilda è attualmente la migliore su un totale di gilde!",
+    "yourRankGuild_one": "{{badge}}{{pseudo}}{{rank}} {{total}} ** **, la tua gilda è attualmente classificata su un totale di gilde!",
+    "yourRankGuild_other": "{{badge}}{{pseudo}}{{rank}} {{total}} ** **, la tua gilda è attualmente classificata ** su un totale di gilde!",
+    "yourRankNoneGuild": "{emote:top.error} | Purtroppo la tua gilda non compare in cima perché non ha punti gilda!",
+    "yourRankAtPageGuild": "{{page}} {{maxPage}}(Potete trovarlo su / )",
+    "noGuild": "{emote:top.error} | Non compari in questa classifica perché non fai parte di una gilda!",
+    "nobodyInTopPlayers": "Al momento non c'è nessuno nella top ten! Godetevela finché potete.",
+    "nobodyInTopGuilds": "Al momento non ci sono gilde nella top! Godetevela finché potete.",
+    "invalidPage": "La pagina richiesta non esiste. {{minPage}} {{maxPage}}Riprovare con una pagina compresa tra e ."
   }
 }
