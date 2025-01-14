@@ -131,10 +131,6 @@
     "description": "Obter um relatório sobre a situação da sua personagem.",
     "name": "relatório"
   },
-  "scopes": {
-    "global": "🏆 Classificação geral",
-    "server": "🚩 Classificação dos servidores"
-  },
   "test": {
     "description": "Controlo de fraude para testadores (APENAS MODO DE TESTE).",
     "name": "teste",
@@ -255,6 +251,38 @@
         "description": "O utilizador a ser entregue.",
         "name": "utilizador"
       }
+    }
+  },
+  "top": {
+    "description": "Apresenta as classificações dos jogos.",
+    "name": "classificação",
+    "subcommands": {
+      "score": {
+        "description": "Apresenta a classificação dos jogadores de acordo com a sua pontuação.",
+        "name": "pontuação"
+      },
+      "glory": {
+        "description": "Apresenta a classificação das guildas de acordo com a sua glória.",
+        "name": "glória"
+      },
+      "guild": {
+        "description": "Apresenta a classificação das guildas de acordo com os seus pontos.",
+        "name": "grémio"
+      }
+    },
+    "options": {
+      "timing": {
+        "description": "A duração da classificação apresentada (desde sempre, por defeito).",
+        "name": "duração"
+      },
+      "page": {
+        "description": "A página de classificação a ser apresentada.",
+        "name": "página"
+      }
+    },
+    "timings": {
+      "allTime": "{emote:top.allTime} ️ Sempre tive.",
+      "weekly": "{emote:top.weekly} Esta semana."
     }
   }
 }
