@@ -7,9 +7,8 @@ import {CommandPetPacketReq, CommandPetPacketRes} from "../../../../Lib/src/pack
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {DiscordCache} from "../../bot/DiscordCache";
-import {DraftBotErrorEmbed} from "../../messages/DraftBotErrorEmbed";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
-import {PetData, PetUtils} from "../../utils/PetUtils";
+import {PetUtils} from "../../utils/PetUtils";
 import {PacketUtils} from "../../utils/PacketUtils";
 
 /**
@@ -26,24 +25,8 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 
 export async function handleCommandPetPacketRes(packet: CommandPetPacketRes, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
-
-	if (interaction) {
-		if (!packet.foundPet) {
-			await interaction.reply({
-				embeds: [
-					new DraftBotErrorEmbed(
-						interaction.user,
-						interaction,
-						i18n.t("error:petDoesntExist", {lng: interaction.userLanguage})
-					)
-				]
-			});
-			return;
-		}
-
-		const petData: PetData = packet.data!;
-
-		const PetCommandEmbed = new DraftBotEmbed()
+	await interaction?.reply({
+		embeds: [new DraftBotEmbed()
 			.formatAuthor(
 				i18n.t("commands:pet.embedTitle", {
 					lng: interaction.userLanguage,
@@ -52,14 +35,9 @@ export async function handleCommandPetPacketRes(packet: CommandPetPacketRes, con
 				interaction.user
 			)
 			.setDescription(
-				PetUtils.petToString(interaction.userLanguage, petData)
-			);
-
-		await interaction.reply({
-			embeds: [PetCommandEmbed],
-			fetchReply: true
-		});
-	}
+				PetUtils.petToString(interaction.userLanguage, packet)
+			)]
+	});
 }
 
 export const commandInfo: ICommand = {

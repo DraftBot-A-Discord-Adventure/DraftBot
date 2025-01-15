@@ -24,54 +24,35 @@ function getPacket(): CommandMissionShopPacketReq {
 	return makePacket(CommandMissionShopPacketReq, {});
 }
 
-export async function handleMissionShopBadge(context: PacketContext): Promise<void> {
+async function handleBasicMissionShopItem(context: PacketContext, descriptionString: string, descriptionFormat: {
+	[keys: string]: string | number
+}): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!);
 	await interaction?.followUp({
 		embeds: [
 			new DraftBotEmbed()
-				.formatAuthor(i18n.t("commands:shop.success", {
+				.formatAuthor(i18n.t("commands:shop.shopItems.basicMission.giveTitle", {
 					lng: interaction.userLanguage,
 					pseudo: interaction.user.username
 				}), interaction.user)
-				.setDescription(i18n.t("commands:shop.badgeBought", {
+				.setDescription(i18n.t(descriptionString, {
 					lng: interaction.userLanguage,
-					badgeName: "questMasterBadge"
+					...descriptionFormat
 				}))
 		]
 	});
+}
+
+export async function handleMissionShopBadge(context: PacketContext): Promise<void> {
+	await handleBasicMissionShopItem(context, "commands:shop.badgeBought", {badgeName: "questMasterBadge"});
 }
 
 export async function handleMissionShopMoney(packet: CommandMissionShopMoney, context: PacketContext): Promise<void> {
-	const interaction = DiscordCache.getInteraction(context.discord!.interaction!);
-	await interaction?.followUp({
-		embeds: [
-			new DraftBotEmbed()
-				.formatAuthor(i18n.t("commands:shop.shopItems.money.giveTitle", {
-					lng: interaction.userLanguage,
-					pseudo: interaction.user.username
-				}), interaction.user)
-				.setDescription(i18n.t("commands:shop.shopItems.money.giveDescription", {
-					lng: interaction.userLanguage,
-					amount: packet.amount
-				}))
-		]
-	});
+	await handleBasicMissionShopItem(context, "commands:shop.shopItems.money.giveDescription", {amount: packet.amount});
 }
 
 export async function handleMissionShopKingsFavor(context: PacketContext): Promise<void> {
-	const interaction = DiscordCache.getInteraction(context.discord!.interaction!);
-	await interaction?.followUp({
-		embeds: [
-			new DraftBotEmbed()
-				.formatAuthor(i18n.t("commands:shop.shopItems.kingsFavor.giveTitle", {
-					lng: interaction.userLanguage,
-					pseudo: interaction.user.username
-				}), interaction.user)
-				.setDescription(i18n.t("commands:shop.shopItems.kingsFavor.giveDescription", {
-					lng: interaction.userLanguage
-				}))
-		]
-	});
+	await handleBasicMissionShopItem(context, "commands:shop.shopItems.kingsFavor.giveDescription", {});
 }
 
 export async function handleLovePointsValueShopItem(packet: CommandMissionShopPetInformation, context: PacketContext): Promise<void> {

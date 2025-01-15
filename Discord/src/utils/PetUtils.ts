@@ -3,13 +3,13 @@ import {Language} from "../../../Lib/src/Language";
 import {PetConstants} from "../../../Lib/src/constants/PetConstants";
 import i18n from "../translations/i18n";
 import {EmoteUtils} from "./EmoteUtils";
-import {StringConstants} from "../../../Lib/src/constants/StringConstants";
+import {SexTypeShort, StringConstants} from "../../../Lib/src/constants/StringConstants";
 import {finishInTimeDisplay} from "../../../Lib/src/utils/TimeUtils";
 
 export type PetData = {
 	petTypeId: number,
 	nickname: string,
-	sex: string,
+	sex: SexTypeShort,
 	rarity: number,
 	loveLevel: number
 };
@@ -40,7 +40,7 @@ export class PetUtils {
 	 * @param typeId
 	 * @param sex
 	 */
-	static petToShortString(lng: Language, nickname: string | undefined, typeId: number, sex: string): string {
+	static petToShortString(lng: Language, nickname: string | undefined, typeId: number, sex: SexTypeShort): string {
 		return i18n.t("commands:pet.shortPetField", {
 			lng,
 			emote: PetUtils.getPetIcon(typeId, sex),
@@ -53,7 +53,7 @@ export class PetUtils {
 	 * @param typeId
 	 * @param sex
 	 */
-	static getPetIcon(typeId: number, sex: string): string {
+	static getPetIcon(typeId: number, sex: SexTypeShort): string {
 		return EmoteUtils.translateEmojiToDiscord(sex === StringConstants.SEX.MALE.short ? DraftBotIcons.pets[typeId].emoteMale : DraftBotIcons.pets[typeId].emoteFemale);
 	}
 
@@ -80,7 +80,7 @@ export class PetUtils {
 	 * @param typeId
 	 * @param sex
 	 */
-	static getPetTypeName(lng: Language, typeId: number, sex: string): string {
+	static getPetTypeName(lng: Language, typeId: number, sex: SexTypeShort): string {
 		const sexStringContext: string = sex === StringConstants.SEX.MALE.short ? StringConstants.SEX.MALE.long : StringConstants.SEX.FEMALE.long;
 		return i18n.t(
 			`models:pets:${typeId}`,
@@ -94,7 +94,7 @@ export class PetUtils {
 	 * @param sex
 	 * @param lng
 	 */
-	static getLoveLevelDisplay(loveLevel: number, sex: string, lng: Language): string {
+	static getLoveLevelDisplay(loveLevel: number, sex: SexTypeShort, lng: Language): string {
 		const sexStringContext: string = sex === StringConstants.SEX.MALE.short ? StringConstants.SEX.MALE.long : StringConstants.SEX.FEMALE.long;
 		return i18n.t(`commands:pet.loveLevels.${loveLevel}`, {
 			context: sexStringContext as unknown,

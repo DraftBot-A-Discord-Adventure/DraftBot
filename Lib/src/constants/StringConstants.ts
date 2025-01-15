@@ -9,6 +9,8 @@ export class Sex {
 	}
 }
 
+export type SexTypeShort = "m" | "f";
+
 export class StringConstants {
 	static readonly PROGRESS_BAR_SIZE = 20;
 
