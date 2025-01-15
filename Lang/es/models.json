@@ -1331,7 +1331,7 @@
     "commonFood_one": "tratar",
     "commonFood_other": "dulces"
   },
-  "diet_omnivorous": "{emote:diet.omnivorous} Omnivore",
-  "diet_herbivorous": "{emote:diet.herbivorous} Herbivore",
-  "diet_carnivorous": "{emote:diet.carnivorous} Carnivore"
+  "diet_omnivorous": "{emote:diet.omnivorous} Omnívoro",
+  "diet_herbivorous": "{emote:diet.herbivorous} Herbívoro",
+  "diet_carnivorous": "{emote:diet.carnivorous} Carnívoro"
 }
