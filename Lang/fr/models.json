@@ -1330,5 +1330,8 @@
     "ultimateFood_other": "soupes ultimes",
     "commonFood_one": "friandise",
     "commonFood_other": "friandises"
-  }
+  },
+  "diet_omnivorous": "{emote:diet.omnivorous} Omnivore",
+  "diet_herbivorous": "{emote:diet.herbivorous} Herbivore",
+  "diet_carnivorous": "{emote:diet.carnivorous} Carnivore"
 }
