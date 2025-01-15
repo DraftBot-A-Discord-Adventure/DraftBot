@@ -21,6 +21,7 @@ import {getFoodIndexOf} from "../../core/utils/FoodUtils";
 import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
+import {SexTypeShort} from "../../../../Lib/src/constants/StringConstants";
 
 
 /**
@@ -99,7 +100,7 @@ async function acceptPetFree(player: Player, playerPet: PetEntity, response: Dra
 
 	response.push(makePacket(CommandPetFreeAcceptPacketRes, {
 		petId: playerPet.typeId,
-		petSex: playerPet.sex,
+		petSex: playerPet.sex as SexTypeShort,
 		petNickname: playerPet.nickname,
 		freeCost: playerPet.isFeisty() ? PetFreeConstants.FREE_FEISTY_COST : 0,
 		luckyMeat
@@ -146,7 +147,7 @@ export default class PetFreeCommand {
 		// Send collector
 		const collector = new ReactionCollectorPetFree(
 			playerPet.typeId,
-			playerPet.sex,
+			playerPet.sex as SexTypeShort,
 			playerPet.nickname,
 			playerPet.isFeisty() ? PetFreeConstants.FREE_FEISTY_COST : 0
 		);

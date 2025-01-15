@@ -1,5 +1,6 @@
 import {SmallEventPacket} from "./SmallEventPacket";
 import {PacketDirection, sendablePacket} from "../DraftBotPacket";
+import {SexTypeShort} from "../../constants/StringConstants";
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class SmallEventPetPacket extends SmallEventPacket {
@@ -7,13 +8,13 @@ export class SmallEventPetPacket extends SmallEventPacket {
 
 	petTypeId!: number;
 
-	petSex!: string;
+	petSex!: SexTypeShort;
 
-	petNickname! : string | undefined;
+	petNickname!: string | undefined;
 
 	randomPetTypeId!: number;
 
-	randomPetSex!: string;
+	randomPetSex!: SexTypeShort;
 
 	amount?: number; // Quantity of win/lose health points,money,energy,etc.
 

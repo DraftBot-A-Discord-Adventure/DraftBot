@@ -22,6 +22,7 @@ import {ReactionCollectorInteractOtherPlayersPoor} from "../../../../Lib/src/pac
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import Guild, {Guilds} from "../database/game/models/Guild";
 import {BadgeConstants} from "../../../../Lib/src/constants/BadgeConstants";
+import {SexTypeShort} from "../../../../Lib/src/constants/StringConstants";
 
 /**
  * Check top interactions
@@ -358,7 +359,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 					classId: otherPlayer.class,
 					petName: otherPlayer.petId ? otherPet.nickname : undefined,
 					petId: otherPlayer.petId,
-					petSex: otherPlayer.petId ? otherPet.sex : undefined,
+					petSex: (otherPlayer.petId ? otherPet.sex : undefined) as SexTypeShort,
 					guildName: guild ? guild.name : undefined,
 					weaponId: inventorySlots.find((slot) => slot.isWeapon() && slot.isEquipped()).itemId,
 					armorId: inventorySlots.find((slot) => slot.isArmor() && slot.isEquipped()).itemId,

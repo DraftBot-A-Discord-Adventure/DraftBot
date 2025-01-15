@@ -1,4 +1,5 @@
 import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
+import {SexTypeShort} from "../../constants/StringConstants";
 
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandProfilePacketReq extends DraftBotPacket {
@@ -57,7 +58,7 @@ export class CommandProfilePacketRes extends DraftBotPacket {
 		mapTypeId?: string,
 		pet?: {
 			typeId: number,
-			sex: string,
+			sex: SexTypeShort,
 			rarity: number,
 			nickname: string
 		},

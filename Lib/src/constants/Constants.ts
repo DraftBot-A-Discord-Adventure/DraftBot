@@ -95,6 +95,8 @@ export class Constants {
 		RANGE_MISSION_MONEY: 1350,
 		BASE_RATIO: 6500,
 		SEED_RANGE: 1000,
+		SIN_RANDOMIZER: 100000,
+		KINGS_MONEY_VALUE_THRESHOLD_MISSION: 6500,
 		PRICES: {
 			MONEY: 50,
 			VALUABLE_ITEM: 30,
@@ -102,7 +104,8 @@ export class Constants {
 			PET_INFORMATION: 3,
 			MISSION_SKIP: 10,
 			BADGE: 150
-		}
+		},
+		THOUSAND_POINTS: 1000
 	};
 
 	static readonly BEGINNING = {

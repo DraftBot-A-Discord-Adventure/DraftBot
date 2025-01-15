@@ -18,6 +18,7 @@ import {ErrorPacket} from "../../../../Lib/src/packets/commands/ErrorPacket";
 import {MissionsController} from "../missions/MissionsController";
 import {giveFoodToGuild} from "../utils/FoodUtils";
 import {BadgeConstants} from "../../../../Lib/src/constants/BadgeConstants";
+import {SexTypeShort} from "../../../../Lib/src/constants/StringConstants";
 
 /**
  * Return all possibilities the player can get on this small event.
@@ -179,10 +180,10 @@ export const smallEventFuncs: SmallEventFuncs = {
 		const packet: SmallEventPetPacket = {
 			interactionName: pickRandomInteraction(possibleIssues),
 			petTypeId: petEntity.typeId,
-			petSex: petEntity.sex,
+			petSex: petEntity.sex as SexTypeShort,
 			petNickname: petEntity.nickname,
 			randomPetTypeId: randomPet.typeId,
-			randomPetSex: randomPet.sex
+			randomPetSex: randomPet.sex as SexTypeShort
 		};
 		if (packet.interactionName === Constants.DEFAULT_ERROR) {
 			response.push(makePacket(ErrorPacket, {message: "SmallEvent Pet : cannot determine an interaction for the user"}));

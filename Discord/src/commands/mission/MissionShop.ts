@@ -16,6 +16,7 @@ import {MissionUtils} from "../../utils/MissionUtils";
 import {ReactionCollectorSkipMissionShopItemReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorSkipMissionShopItem";
 import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
 import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import {Constants} from "../../../../Lib/src/constants/Constants";
 
 /**
  * Get the packet to send to the server
@@ -52,7 +53,7 @@ export async function handleMissionShopMoney(packet: CommandMissionShopMoney, co
 }
 
 export async function handleMissionShopKingsFavor(context: PacketContext): Promise<void> {
-	await handleBasicMissionShopItem(context, "commands:shop.shopItems.kingsFavor.giveDescription", {});
+	await handleBasicMissionShopItem(context, "commands:shop.shopItems.kingsFavor.giveDescription", {thousand_points: Constants.MISSION_SHOP.THOUSAND_POINTS});
 }
 
 export async function handleLovePointsValueShopItem(packet: CommandMissionShopPetInformation, context: PacketContext): Promise<void> {

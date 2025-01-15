@@ -1,4 +1,5 @@
 import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
+import {SexTypeShort} from "../../constants/StringConstants";
 
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandPetFreePacketReq extends DraftBotPacket {
@@ -25,7 +26,7 @@ export class CommandPetFreeRefusePacketRes extends DraftBotPacket {
 export class CommandPetFreeAcceptPacketRes extends DraftBotPacket {
 	petId!: number;
 
-	petSex!: string;
+	petSex!: SexTypeShort;
 
 	petNickname?: string;
 

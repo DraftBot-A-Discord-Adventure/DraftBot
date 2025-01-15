@@ -5,11 +5,12 @@ import {
 	ReactionCollectorData,
 	ReactionCollectorRefuseReaction
 } from "./ReactionCollectorPacket";
+import {SexTypeShort} from "../../constants/StringConstants";
 
 export class ReactionCollectorPetFreeData extends ReactionCollectorData {
 	petId!: number;
 
-	petSex!: string;
+	petSex!: SexTypeShort;
 
 	petNickname?: string;
 
@@ -19,13 +20,13 @@ export class ReactionCollectorPetFreeData extends ReactionCollectorData {
 export class ReactionCollectorPetFree extends ReactionCollector {
 	private readonly petId: number;
 
-	private readonly petSex: string;
+	private readonly petSex: SexTypeShort;
 
 	private readonly petNickname: string | undefined;
 
 	private readonly freeCost: number;
 
-	constructor(petId: number, petSex: string, petNickname: string | undefined, freeCost: number) {
+	constructor(petId: number, petSex: SexTypeShort, petNickname: string | undefined, freeCost: number) {
 		super();
 		this.petId = petId;
 		this.petSex = petSex;

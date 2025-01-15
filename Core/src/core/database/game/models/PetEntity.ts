@@ -9,7 +9,7 @@ import {Pet, PetDataController} from "../../../../data/Pet";
 import {draftBotInstance} from "../../../../index";
 import {DraftBotPacket} from "../../../../../../Lib/src/packets/DraftBotPacket";
 import {PlayerReceivePetPacket} from "../../../../../../Lib/src/packets/events/PlayerReceivePetPacket";
-import {StringConstants} from "../../../../../../Lib/src/constants/StringConstants";
+import {SexTypeShort, StringConstants} from "../../../../../../Lib/src/constants/StringConstants";
 import moment = require("moment");
 
 export class PetEntity extends Model {
@@ -86,7 +86,7 @@ export class PetEntity extends Model {
 			giveInPlayerInv: false,
 			noRoomInGuild: false,
 			petTypeId: this.typeId,
-			petSex: this.sex
+			petSex: this.sex as SexTypeShort
 		};
 
 		// Search for a user's guild

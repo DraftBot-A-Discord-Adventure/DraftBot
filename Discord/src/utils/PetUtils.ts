@@ -1,6 +1,6 @@
 import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
 import {Language} from "../../../Lib/src/Language";
-import {PetConstants} from "../../../Lib/src/constants/PetConstants";
+import {PetConstants, PetDiet} from "../../../Lib/src/constants/PetConstants";
 import i18n from "../translations/i18n";
 import {EmoteUtils} from "./EmoteUtils";
 import {SexTypeShort, StringConstants} from "../../../Lib/src/constants/StringConstants";
@@ -102,8 +102,8 @@ export class PetUtils {
 		});
 	}
 
-	static getDietDisplay(diet: string | undefined, lng: Language): string {
-		return i18n.t("models:diet", {lng, context: diet ?? "omnivorous"});
+	static getDietDisplay(diet: PetDiet | undefined, lng: Language): string {
+		return i18n.t("models:diet", {lng, context: diet ?? PetDiet.OMNIVOROUS});
 	}
 
 	static getFeedCooldownDisplay(nextFeed: number, lng: Language): string {
