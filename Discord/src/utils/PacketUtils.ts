@@ -1,12 +1,12 @@
 import {DraftBotPacket, PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
 import {DiscordMQTT} from "../bot/DiscordMQTT";
-import {MqttConstants} from "../../../Lib/src/constants/MqttConstants";
 import {KeycloakUtils} from "../../../Lib/src/keycloak/KeycloakUtils";
-import {keycloakConfig} from "../bot/DraftBotShard";
+import {discordConfig, keycloakConfig} from "../bot/DraftBotShard";
 import {DraftBotErrorEmbed} from "../messages/DraftBotErrorEmbed";
 import i18n from "../translations/i18n";
 import {DraftbotInteraction} from "../messages/DraftbotInteraction";
 import {KeycloakUser} from "../../../Lib/src/keycloak/KeycloakUser";
+import {MqttTopicUtils} from "../../../Lib/src/utils/MqttTopicUtils";
 
 export type AskedPlayer = {
 	keycloakId?: string,
@@ -15,7 +15,7 @@ export type AskedPlayer = {
 
 export abstract class PacketUtils {
 	static sendPacketToBackend(context: PacketContext, packet: DraftBotPacket): void {
-		DiscordMQTT.mqttClient!.publish(MqttConstants.CORE_TOPIC, JSON.stringify({
+		DiscordMQTT.mqttClient!.publish(MqttTopicUtils.getCoreTopic(discordConfig.PREFIX), JSON.stringify({
 			packet: {
 				name: packet.constructor.name,
 				data: packet

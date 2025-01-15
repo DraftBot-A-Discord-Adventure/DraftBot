@@ -5,14 +5,14 @@ token = ""
 main_server_id = ""
 # Test mode
 test_mode = false
+# Prefix used to prefix the MQTT topics and the databases. It must be the same for all the services
+prefix = "draftbot"
 
 [mqtt]
 # MQTT host
 host = "mqtt://127.0.0.1"
 
 [database]
-# Database name prefix
-prefix = ""
 # The host (ip or DNS) of the database
 host = "127.0.0.1"
 # The port of the database

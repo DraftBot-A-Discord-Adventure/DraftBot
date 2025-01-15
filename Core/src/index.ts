@@ -9,6 +9,7 @@ import { connect } from "mqtt";
 import {PacketUtils} from "./core/utils/PacketUtils";
 import {MqttConstants} from "../../Lib/src/constants/MqttConstants";
 import {RightGroup} from "../../Lib/src/enums/RightGroup";
+import {MqttTopicUtils} from "../../Lib/src/utils/MqttTopicUtils";
 
 export const botConfig = loadConfig();
 export let draftBotInstance: DraftBot = null;
@@ -20,7 +21,7 @@ export const mqttClient = connect(botConfig.MQTT_HOST, {
 });
 
 mqttClient.on("connect", () => {
-	mqttClient.subscribe(MqttConstants.CORE_TOPIC, (err) => {
+	mqttClient.subscribe(MqttTopicUtils.getCoreTopic(botConfig.PREFIX), (err) => {
 		if (err) {
 			console.error(err);
 			process.exit(1);

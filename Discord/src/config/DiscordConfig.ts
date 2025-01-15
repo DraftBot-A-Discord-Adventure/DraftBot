@@ -26,7 +26,7 @@ export interface DraftBotConfig {
 	MARIADB_PASSWORD: string;
 	MARIADB_ROOT_PASSWORD: string;
 	MARIADB_PORT: number;
-	MARIADB_PREFIX: string;
+	PREFIX: string;
 	DBL_TOKEN: string;
 }
 
@@ -35,6 +35,7 @@ type ConfigStructure = {
 		token: string;
 		main_server_id: string;
 		test_mode: boolean;
+		prefix: string;
 	};
 	roles: {
 		badge_manager_ids: string;
@@ -65,7 +66,6 @@ type ConfigStructure = {
 		password: string;
 		root_password: string;
 		port: number;
-		prefix: string;
 	};
 	discord_bot_list: {
 		token: string;
@@ -98,7 +98,7 @@ export function loadConfig(): DraftBotConfig {
 		MARIADB_PASSWORD: config.database.password,
 		MARIADB_ROOT_PASSWORD: config.database.root_password,
 		MARIADB_PORT: config.database.port,
-		MARIADB_PREFIX: config.database.prefix,
+		PREFIX: config.general.prefix,
 		DBL_TOKEN: config.discord_bot_list.token
 	};
 }
@@ -112,6 +112,6 @@ export function getDatabaseConfiguration(config: DraftBotConfig, databaseName: s
 		user: config.MARIADB_USER,
 		userPassword: config.MARIADB_PASSWORD,
 		databaseName,
-		prefix: config.MARIADB_PREFIX
+		prefix: config.PREFIX
 	};
 }
