@@ -2,7 +2,7 @@
   "armorsFieldName": "Armure/Bouclier :",
   "attack": ":dagger: {{value}}",
   "defense": ":shield: {{value}}",
-  "nameDisplay": "{{emote}} **{{{name}}}**",
+  "nameDisplay": "{{emote}} **{{name}}**",
   "nerfDisplay": "~~{{old}}~~ {{max}}",
   "objectsFieldName": "Objet :",
   "objectsNatures": [

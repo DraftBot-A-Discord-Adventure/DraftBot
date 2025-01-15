@@ -26,7 +26,11 @@ export abstract class MainItem extends GenericItem {
 		return Math.round(before * 0.5) + (this.speed ?? 0);
 	}
 
-	public getDisplayPacket(maxStatsValue: StatValues): MainItemDisplayPacket {
+	public getDisplayPacket(maxStatsValue: StatValues = {
+		attack: 0,
+		defense: 0,
+		speed: 0
+	}): MainItemDisplayPacket {
 		return {
 			attack: {
 				value: this.getAttack(),

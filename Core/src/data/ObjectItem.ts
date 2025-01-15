@@ -16,7 +16,11 @@ export class ObjectItem extends SupportItem {
 		return this.power;
 	}
 
-	public getDisplayPacket(maxStatsValue: StatValues): SupportItemDisplayPacket {
+	public getDisplayPacket(maxStatsValue: StatValues = {
+		attack: 0,
+		defense: 0,
+		speed: 0
+	}): SupportItemDisplayPacket {
 		let maxPower = this.power;
 		if (maxStatsValue.speed >= this.power / 2) {
 			maxPower = this.power;
