@@ -795,10 +795,10 @@
       "cannotBuy": "Sie haben nicht genug Edelsteine, um diesen Gegenstand zu kaufen! Es fehlt Ihnen `{missingMoney}{emote:unitValues.gem}`.",
       "canceledPurchase": "Transaktion abgebrochen!",
       "alreadyHadBadge": "Sie besitzen bereits das Abzeichen \"Meister der Quests\". Sie können nicht mehr Ehrungen erhalten, als Sie bereits besitzen!",
-      "leaveShop": "Vous avez quitté le magasin.",
-      "alreadyBoughtPointsThisWeek": "Vous avez déjà acheté des points cette semaine, revenez la semaine prochaine pour en acheter !",
-      "noMissionToSkip": "Vous n'avez aucune mission à passer !",
-      "noPet": "Vous n'avez aucun animal sur vous, nous ne pouvons prodiguer un diagnostic sur un animal fantôme !"
+      "leaveShop": "Sie haben den Laden verlassen.",
+      "alreadyBoughtPointsThisWeek": "Sie haben diese Woche bereits Punkte gekauft. Kommen Sie nächste Woche wieder, um Punkte zu kaufen!",
+      "noMissionToSkip": "Sie haben keine Aufträge zu vergeben!",
+      "noPet": "Sie haben kein Tier bei sich, wir können keine Diagnose über ein Geistertier stellen!"
     }
   },
   "top": {
