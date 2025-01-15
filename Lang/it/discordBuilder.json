@@ -254,8 +254,8 @@
     }
   },
   "missionsshop": {
-    "description": "Affiche le magasin de missions.",
-    "name": "magasinmissions"
+    "description": "Visualizza il negozio di missioni.",
+    "name": "negozio"
   },
   "top": {
     "description": "Visualizza le classifiche delle partite.",
