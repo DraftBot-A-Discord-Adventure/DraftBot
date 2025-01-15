@@ -12,6 +12,7 @@ import {LANGUAGE} from "../../../Lib/src/Language";
 import {TextChannel} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import i18n from "../translations/i18n";
+import {MqttTopicUtils} from "../../../Lib/src/utils/MqttTopicUtils";
 
 export class DiscordMQTT {
 	static mqttClient: MqttClient;
@@ -34,7 +35,7 @@ export class DiscordMQTT {
 
 	private static handleGlobalMqttMessage(): void {
 		DiscordMQTT.mqttClient.on("message", async (topic, message) => {
-			if (topic === MqttConstants.DISCORD_TOPIC) {
+			if (topic === MqttTopicUtils.getDiscordTopic(discordConfig.PREFIX)) {
 				// Todo ignore if not the right shard
 				const messageString = message.toString();
 				console.log(`Received message from topic ${topic}: ${messageString}`);
@@ -72,7 +73,7 @@ export class DiscordMQTT {
 					}
 				}
 			}
-			else if (topic === MqttConstants.DISCORD_TOP_WEEK_ANNOUNCEMENT_TOPIC) {
+			else if (topic === MqttTopicUtils.getDiscordTopWeekAnnouncementTopic(discordConfig.PREFIX)) {
 				if (message.toString() === "") {
 					console.log("No top week announcement in the MQTT topic");
 					return;
@@ -82,10 +83,10 @@ export class DiscordMQTT {
 					await DiscordAnnouncement.announceTopWeek(JSON.parse(message.toString()));
 
 					// Clear the announcement so it doesn't get processed again
-					DiscordMQTT.mqttClient.publish(MqttConstants.DISCORD_TOP_WEEK_ANNOUNCEMENT_TOPIC, "", {retain: true});
+					DiscordMQTT.mqttClient.publish(MqttTopicUtils.getDiscordTopWeekAnnouncementTopic(discordConfig.PREFIX), "", {retain: true});
 				}
 			}
-			else if (topic === MqttConstants.DISCORD_TOP_WEEK_FIGHT_ANNOUNCEMENT_TOPIC) {
+			else if (topic === MqttTopicUtils.getDiscordTopWeekFightAnnouncementTopic(discordConfig.PREFIX)) {
 				if (message.toString() === "") {
 					console.log("No top week fight announcement in the MQTT topic");
 					return;
@@ -95,7 +96,7 @@ export class DiscordMQTT {
 					await DiscordAnnouncement.announceTopWeekFight(JSON.parse(message.toString()));
 
 					// Clear the announcement so it doesn't get processed again
-					DiscordMQTT.mqttClient.publish(MqttConstants.DISCORD_TOP_WEEK_FIGHT_ANNOUNCEMENT_TOPIC, "", {retain: true});
+					DiscordMQTT.mqttClient.publish(MqttTopicUtils.getDiscordTopWeekFightAnnouncementTopic(discordConfig.PREFIX), "", {retain: true});
 				}
 			}
 		});
@@ -116,18 +117,18 @@ export class DiscordMQTT {
 	private static connectSubscribeAndHandleNotifications(): void {
 		DiscordMQTT.notificationMqttClient = connect(discordConfig.MQTT_HOST, {
 			connectTimeout: MqttConstants.CONNECTION_TIMEOUT,
-			clientId: MqttConstants.NOTIFICATIONS_CONSUMER,
+			clientId: MqttTopicUtils.getNotificationsConsumerTopic(discordConfig.PREFIX),
 			clean: false // Keeps session active even if the client goes offline
 		});
 
 		DiscordMQTT.notificationMqttClient.on("connect", () => {
-			DiscordMQTT.notificationMqttClient.publish(MqttConstants.NOTIFICATIONS, "", {retain: true}); // Clear the last notification to avoid processing it twice
+			DiscordMQTT.notificationMqttClient.publish(MqttTopicUtils.getNotificationsTopic(discordConfig.PREFIX), "", {retain: true}); // Clear the last notification to avoid processing it twice
 
-			DiscordMQTT.subscribeTo(DiscordMQTT.notificationMqttClient, MqttConstants.NOTIFICATIONS);
+			DiscordMQTT.subscribeTo(DiscordMQTT.notificationMqttClient, MqttTopicUtils.getNotificationsTopic(discordConfig.PREFIX));
 		});
 
 		DiscordMQTT.notificationMqttClient.on("message", (topic, message) => {
-			if (topic === MqttConstants.NOTIFICATIONS) {
+			if (topic === MqttTopicUtils.getNotificationsTopic(discordConfig.PREFIX)) {
 				if (message.toString() === "") {
 					return;
 				}
@@ -147,9 +148,9 @@ export class DiscordMQTT {
 		});
 
 		DiscordMQTT.mqttClient.on("connect", () => {
-			DiscordMQTT.subscribeTo(DiscordMQTT.mqttClient, MqttConstants.DISCORD_TOPIC);
-			DiscordMQTT.subscribeTo(DiscordMQTT.mqttClient, MqttConstants.DISCORD_TOP_WEEK_ANNOUNCEMENT_TOPIC);
-			DiscordMQTT.subscribeTo(DiscordMQTT.mqttClient, MqttConstants.DISCORD_TOP_WEEK_FIGHT_ANNOUNCEMENT_TOPIC);
+			DiscordMQTT.subscribeTo(DiscordMQTT.mqttClient, MqttTopicUtils.getDiscordTopic(discordConfig.PREFIX));
+			DiscordMQTT.subscribeTo(DiscordMQTT.mqttClient, MqttTopicUtils.getDiscordTopWeekAnnouncementTopic(discordConfig.PREFIX));
+			DiscordMQTT.subscribeTo(DiscordMQTT.mqttClient, MqttTopicUtils.getDiscordTopWeekFightAnnouncementTopic(discordConfig.PREFIX));
 		});
 	}
 }

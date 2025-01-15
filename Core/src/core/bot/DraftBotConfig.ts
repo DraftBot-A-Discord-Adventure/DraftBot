@@ -8,12 +8,12 @@ import {DatabaseConfiguration} from "../../../../Lib/src/database/DatabaseConfig
 export interface DraftBotConfig {
 	MODE_MAINTENANCE: boolean;
 	TEST_MODE: boolean;
+	PREFIX: string;
 	MARIADB_HOST: string;
 	MARIADB_USER: string;
 	MARIADB_PASSWORD: string;
 	MARIADB_ROOT_PASSWORD: string;
 	MARIADB_PORT: number;
-	MARIADB_PREFIX: string;
 	MQTT_HOST: string;
 }
 
@@ -21,6 +21,7 @@ type ConfigStructure = {
 	bot: {
 		maintenance: boolean;
 		test_mode: boolean;
+		prefix: string;
 	};
 	others: {
 		nasa_api_key: string;
@@ -32,7 +33,6 @@ type ConfigStructure = {
 		password: string;
 		root_password: string;
 		port: number;
-		prefix: string;
 	};
 	mqtt: {
 		host: string;
@@ -47,12 +47,12 @@ export function loadConfig(): DraftBotConfig {
 	return {
 		MODE_MAINTENANCE: config.bot.maintenance,
 		TEST_MODE: config.bot.test_mode,
+		PREFIX: config.bot.prefix,
 		MARIADB_HOST: config.database.host,
 		MARIADB_USER: config.database.user,
 		MARIADB_PASSWORD: config.database.password,
 		MARIADB_ROOT_PASSWORD: config.database.root_password,
 		MARIADB_PORT: config.database.port,
-		MARIADB_PREFIX: config.database.prefix,
 		MQTT_HOST: config.mqtt.host
 	};
 }
@@ -66,6 +66,6 @@ export function getDatabaseConfiguration(config: DraftBotConfig, databaseName: s
 		user: config.MARIADB_USER,
 		userPassword: config.MARIADB_PASSWORD,
 		databaseName,
-		prefix: config.MARIADB_PREFIX
+		prefix: config.PREFIX
 	};
 }

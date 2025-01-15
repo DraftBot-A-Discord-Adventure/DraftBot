@@ -27,6 +27,7 @@ import {ScheduledReportNotifications} from "../database/game/models/ScheduledRep
 import {ReachDestinationNotificationPacket} from "../../../../Lib/src/packets/notifications/ReachDestinationNotificationPacket";
 import {MapLocationDataController} from "../../data/MapLocation";
 import * as fs from "fs";
+import {MqttTopicUtils} from "../../../../Lib/src/utils/MqttTopicUtils";
 
 export class DraftBot {
 	public readonly packetListener: PacketListenerServer;
@@ -148,12 +149,12 @@ export class DraftBot {
 		draftBotInstance.logsDatabase.log15BestSeason().then();
 		const winner = await DraftBot.findSeasonWinner();
 		if (winner !== null) {
-			PacketUtils.announce(makePacket(TopWeekFightAnnouncementPacket, {winnerKeycloakId: winner.keycloakId}), MqttConstants.DISCORD_TOP_WEEK_FIGHT_ANNOUNCEMENT_TOPIC);
+			PacketUtils.announce(makePacket(TopWeekFightAnnouncementPacket, {winnerKeycloakId: winner.keycloakId}), MqttTopicUtils.getDiscordTopWeekFightAnnouncementTopic(botConfig.PREFIX));
 			winner.addBadge("✨");
 			await winner.save();
 		}
 		else {
-			PacketUtils.announce(makePacket(TopWeekFightAnnouncementPacket, {}), MqttConstants.DISCORD_TOP_WEEK_FIGHT_ANNOUNCEMENT_TOPIC);
+			PacketUtils.announce(makePacket(TopWeekFightAnnouncementPacket, {}), MqttTopicUtils.getDiscordTopWeekFightAnnouncementTopic(botConfig.PREFIX));
 		}
 		await DraftBot.seasonEndQueries();
 
@@ -180,12 +181,12 @@ export class DraftBot {
 			limit: 1
 		});
 		if (winner !== null) {
-			PacketUtils.announce(makePacket(TopWeekAnnouncementPacket, {winnerKeycloakId: winner.keycloakId}), MqttConstants.DISCORD_TOP_WEEK_ANNOUNCEMENT_TOPIC);
+			PacketUtils.announce(makePacket(TopWeekAnnouncementPacket, {winnerKeycloakId: winner.keycloakId}), MqttTopicUtils.getDiscordTopWeekAnnouncementTopic(botConfig.PREFIX));
 			winner.addBadge("🎗️");
 			await winner.save();
 		}
 		else {
-			PacketUtils.announce(makePacket(TopWeekAnnouncementPacket, {}), MqttConstants.DISCORD_TOP_WEEK_ANNOUNCEMENT_TOPIC);
+			PacketUtils.announce(makePacket(TopWeekAnnouncementPacket, {}), MqttTopicUtils.getDiscordTopWeekAnnouncementTopic(botConfig.PREFIX));
 		}
 		await Player.update({weeklyScore: 0}, {where: {}});
 		console.log("# WARNING # Weekly leaderboard has been reset !");

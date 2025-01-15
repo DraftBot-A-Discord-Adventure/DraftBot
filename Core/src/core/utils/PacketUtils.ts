@@ -1,9 +1,9 @@
 import {DraftBotPacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {mqttClient} from "../../index";
+import {botConfig, mqttClient} from "../../index";
 import {AnnouncementPacket} from "../../../../Lib/src/packets/announcements/AnnouncementPacket";
-import {MqttConstants} from "../../../../Lib/src/constants/MqttConstants";
 import {NotificationPacket} from "../../../../Lib/src/packets/notifications/NotificationPacket";
 import {NotificationsSerializedPacket} from "../../../../Lib/src/packets/notifications/NotificationsSerializedPacket";
+import {MqttTopicUtils} from "../../../../Lib/src/utils/MqttTopicUtils";
 
 export abstract class PacketUtils {
 	static sendPackets(context: PacketContext, packets: DraftBotPacket[]): void {
@@ -17,7 +17,7 @@ export abstract class PacketUtils {
 
 		if (context.discord !== null) {
 			const response = JSON.stringify(responsePacket);
-			mqttClient.publish(MqttConstants.DISCORD_TOPIC, response);
+			mqttClient.publish(MqttTopicUtils.getDiscordTopic(botConfig.PREFIX), response);
 			console.log(`Sent ${response} to discord front`);
 		}
 		else {
@@ -45,7 +45,7 @@ export abstract class PacketUtils {
 			packet: notification
 		})) };
 		const json = JSON.stringify(serializedPackets);
-		mqttClient.publish(MqttConstants.NOTIFICATIONS, json, { retain: true, qos: 2 });
+		mqttClient.publish(MqttTopicUtils.getNotificationsTopic(botConfig.PREFIX), json, { retain: true, qos: 2 });
 		console.log(`Sent notifications: ${json}`);
 	}
 }
