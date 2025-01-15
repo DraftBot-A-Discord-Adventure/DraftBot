@@ -4,10 +4,7 @@ import {CommandPingPacketRes} from "../../../../Lib/src/packets/commands/Command
 import {DiscordCache} from "../../bot/DiscordCache";
 import i18n from "../../translations/i18n";
 import {draftBotClient, shardId} from "../../bot/DraftBotShard";
-import {
-	CommandProfilePacketRes,
-	CommandProfilePlayerNotFound
-} from "../../../../Lib/src/packets/commands/CommandProfilePacket";
+import {CommandProfilePacketRes, CommandProfilePlayerNotFound} from "../../../../Lib/src/packets/commands/CommandProfilePacket";
 import {handleCommandProfilePacketRes} from "../../commands/player/ProfileCommand";
 import {CommandInventoryPacketRes} from "../../../../Lib/src/packets/commands/CommandInventoryPacket";
 import {handleCommandInventoryPacketRes} from "../../commands/player/InventoryCommand";
@@ -20,11 +17,7 @@ import {handleCommandTestPacketRes} from "../../commands/admin/TestCommand";
 import {handleCommandGuildPacketRes} from "../../commands/guild/GuildCommand";
 import {handleCommandRespawnPacketRes} from "../../commands/player/RespawnCommand";
 import {CommandGuildPacketRes} from "../../../../Lib/src/packets/commands/CommandGuildPacket";
-import {
-	handleCommandGuildCreateAcceptPacketRes,
-	handleCommandGuildCreatePacketRes,
-	handleCommandGuildCreateRefusePacketRes
-} from "../../commands/guild/GuildCreateCommand";
+import {handleCommandGuildCreateAcceptPacketRes, handleCommandGuildCreatePacketRes, handleCommandGuildCreateRefusePacketRes} from "../../commands/guild/GuildCreateCommand";
 import {reportResult, reportTravelSummary} from "../../commands/player/ReportCommand";
 import {
 	CommandReportBigEventResultRes,
@@ -37,23 +30,11 @@ import {CommandMapDisplayRes} from "../../../../Lib/src/packets/commands/Command
 import {handleCommandMapDisplayRes} from "../../commands/player/MapCommand";
 import {CommandPetPacketRes, CommandPetPetNotFound} from "../../../../Lib/src/packets/commands/CommandPetPacket";
 import {handleCommandPetPacketRes} from "../../commands/pet/PetCommand";
-import {
-	handleCommandPetFreeAcceptPacketRes,
-	handleCommandPetFreePacketRes,
-	handleCommandPetFreeRefusePacketRes
-} from "../../commands/pet/PetFreeCommand";
-import {
-	CommandPetFreeAcceptPacketRes,
-	CommandPetFreePacketRes,
-	CommandPetFreeRefusePacketRes
-} from "../../../../Lib/src/packets/commands/CommandPetFreePacket";
+import {handleCommandPetFreeAcceptPacketRes, handleCommandPetFreePacketRes, handleCommandPetFreeRefusePacketRes} from "../../commands/pet/PetFreeCommand";
+import {CommandPetFreeAcceptPacketRes, CommandPetFreePacketRes, CommandPetFreeRefusePacketRes} from "../../../../Lib/src/packets/commands/CommandPetFreePacket";
 import {CommandPetNickPacketRes} from "../../../../Lib/src/packets/commands/CommandPetNickPacket";
 import {handleCommandPetNickPacketRes} from "../../commands/pet/PetNickCommand";
-import {
-	CommandGuildCreateAcceptPacketRes,
-	CommandGuildCreatePacketRes,
-	CommandGuildCreateRefusePacketRes
-} from "../../../../Lib/src/packets/commands/CommandGuildCreatePacket";
+import {CommandGuildCreateAcceptPacketRes, CommandGuildCreatePacketRes, CommandGuildCreateRefusePacketRes} from "../../../../Lib/src/packets/commands/CommandGuildCreatePacket";
 import {
 	CommandGuildInviteAcceptPacketRes,
 	CommandGuildInviteAlreadyInAGuild,
@@ -64,17 +45,10 @@ import {
 	CommandGuildInviteLevelTooLow,
 	CommandGuildInviteRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildInvitePacket.js";
-import {
-	handleCommandGuildInviteAcceptPacketRes,
-	handleCommandGuildInviteError,
-	handleCommandGuildInviteRefusePacketRes
-} from "../../commands/guild/GuildInviteCommand.js";
+import {handleCommandGuildInviteAcceptPacketRes, handleCommandGuildInviteError, handleCommandGuildInviteRefusePacketRes} from "../../commands/guild/GuildInviteCommand.js";
 import {CommandClassesInfoPacketRes} from "../../../../Lib/src/packets/commands/CommandClassesInfoPacket";
 import {handleCommandClassesInfoPacketRes} from "../../commands/player/ClassesInfoCommand";
-import {
-	CommandRespawnErrorAlreadyAlive,
-	CommandRespawnPacketRes
-} from "../../../../Lib/src/packets/commands/CommandRespawnPacket";
+import {CommandRespawnErrorAlreadyAlive, CommandRespawnPacketRes} from "../../../../Lib/src/packets/commands/CommandRespawnPacket";
 import {
 	CommandShopAlreadyHaveBadge,
 	CommandShopBadgeBought,
@@ -103,43 +77,14 @@ import {
 import {ReactionCollectorBuyCategorySlotBuySuccess} from "../../../../Lib/src/packets/interaction/ReactionCollectorBuyCategorySlot";
 import {CommandMaintenancePacketRes} from "../../../../Lib/src/packets/commands/CommandMaintenancePacket";
 import {handleCommandMaintenancePacketRes} from "../../commands/admin/MaintenanceCommand";
-import {
-	handleCommandMissionPlayerNotFoundPacket,
-	handleCommandMissionsPacketRes
-} from "../../commands/mission/MissionsCommand";
-import {
-	CommandMissionPlayerNotFoundPacket,
-	CommandMissionsPacketRes
-} from "../../../../Lib/src/packets/commands/CommandMissionsPacket";
-import {
-	CommandGuildShopEmpty,
-	CommandGuildShopGiveXp,
-	CommandGuildShopNoFoodStorageSpace
-} from "../../../../Lib/src/packets/commands/CommandGuildShopPacket";
-import {
-	handleCommandGuildShopEmpty,
-	handleCommandGuildShopGiveXp,
-	handleCommandGuildShopNoFoodStorageSpace
-} from "../../commands/guild/GuildShopCommand";
-import {
-	CommandGuildDailyCooldownErrorPacket,
-	CommandGuildDailyPveIslandErrorPacket,
-	CommandGuildDailyRewardPacket
-} from "../../../../Lib/src/packets/commands/CommandGuildDailyPacket";
-import {
-	handleCommandGuildDailyCooldownErrorPacket,
-	handleCommandGuildDailyRewardPacket
-} from "../../commands/guild/GuildDailyCommand";
-import {
-	CommandGuildKickAcceptPacketRes,
-	CommandGuildKickPacketRes,
-	CommandGuildKickRefusePacketRes
-} from "../../../../Lib/src/packets/commands/CommandGuildKickPacket";
-import {
-	handleCommandGuildKickAcceptPacketRes,
-	handleCommandGuildKickPacketRes,
-	handleCommandGuildKickRefusePacketRes
-} from "../../commands/guild/GuildKickCommand";
+import {handleCommandMissionPlayerNotFoundPacket, handleCommandMissionsPacketRes} from "../../commands/mission/MissionsCommand";
+import {CommandMissionPlayerNotFoundPacket, CommandMissionsPacketRes} from "../../../../Lib/src/packets/commands/CommandMissionsPacket";
+import {CommandGuildShopEmpty, CommandGuildShopGiveXp, CommandGuildShopNoFoodStorageSpace} from "../../../../Lib/src/packets/commands/CommandGuildShopPacket";
+import {handleCommandGuildShopEmpty, handleCommandGuildShopGiveXp, handleCommandGuildShopNoFoodStorageSpace} from "../../commands/guild/GuildShopCommand";
+import {CommandGuildDailyCooldownErrorPacket, CommandGuildDailyPveIslandErrorPacket, CommandGuildDailyRewardPacket} from "../../../../Lib/src/packets/commands/CommandGuildDailyPacket";
+import {handleCommandGuildDailyCooldownErrorPacket, handleCommandGuildDailyRewardPacket} from "../../commands/guild/GuildDailyCommand";
+import {CommandGuildKickAcceptPacketRes, CommandGuildKickPacketRes, CommandGuildKickRefusePacketRes} from "../../../../Lib/src/packets/commands/CommandGuildKickPacket";
+import {handleCommandGuildKickAcceptPacketRes, handleCommandGuildKickPacketRes, handleCommandGuildKickRefusePacketRes} from "../../commands/guild/GuildKickCommand";
 import {
 	CommandDailyBonusInCooldown,
 	CommandDailyBonusNoActiveObject,
@@ -156,11 +101,7 @@ import {
 	CommandUnlockNotInJail,
 	CommandUnlockRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandUnlockPacket";
-import {
-	handleCommandUnlockAcceptPacketRes,
-	handleCommandUnlockNotEnoughMoneyError,
-	handleCommandUnlockRefusePacketRes
-} from "../../commands/player/UnlockCommand";
+import {handleCommandUnlockAcceptPacketRes, handleCommandUnlockNotEnoughMoneyError, handleCommandUnlockRefusePacketRes} from "../../commands/player/UnlockCommand";
 import {handleClassicError} from "../../utils/ErrorUtils";
 import {
 	CommandMissionShopAlreadyBoughtPointsThisWeek,
@@ -173,13 +114,7 @@ import {
 	CommandMissionShopPetInformation,
 	CommandMissionShopSkipMissionResult
 } from "../../../../Lib/src/packets/commands/CommandMissionShopPacket";
-import {
-	handleLovePointsValueShopItem,
-	handleMissionShopBadge,
-	handleMissionShopKingsFavor,
-	handleMissionShopMoney,
-	skipMissionShopResult
-} from "../../commands/mission/MissionShop";
+import {handleLovePointsValueShopItem, handleMissionShopBadge, handleMissionShopKingsFavor, handleMissionShopMoney, skipMissionShopResult} from "../../commands/mission/MissionShop";
 import {
 	CommandTopGuildsEmptyPacket,
 	CommandTopInvalidPagePacket,
@@ -204,10 +139,9 @@ import {
 	CommandGuildElderRefusePacketRes,
 	CommandGuildElderSameGuildPacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildElderPacket";
-import {
-	handleCommandGuildElderAcceptPacketRes,
-	handleCommandGuildElderRefusePacketRes
-} from "../../commands/guild/GuildElderCommand";
+import {handleCommandGuildElderAcceptPacketRes, handleCommandGuildElderRefusePacketRes} from "../../commands/guild/GuildElderCommand";
+import {CommandSwitchCancelled, CommandSwitchErrorNoItemToSwitch, CommandSwitchSuccess} from "../../../../Lib/src/packets/commands/CommandSwitchPacket";
+import {handleItemSwitch} from "../../commands/player/SwitchCommand";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
@@ -664,5 +598,20 @@ export default class CommandHandlers {
 	@packetHandler(CommandMissionShopNoPet)
 	async missionShopNoPet(_packet: CommandMissionShopNoPet, context: PacketContext): Promise<void> {
 		await handleClassicError(context, "commands:missionsshop.error.noPet");
+	}
+
+	@packetHandler(CommandSwitchSuccess)
+	async switchSuccess(packet: CommandSwitchSuccess, context: PacketContext): Promise<void> {
+		await handleItemSwitch(packet, context);
+	}
+
+	@packetHandler(CommandSwitchCancelled)
+	async switchCancelled(_packet: CommandSwitchCancelled, context: PacketContext): Promise<void> {
+		await handleClassicError(context, "commands:switch.cancelled");
+	}
+
+	@packetHandler(CommandSwitchErrorNoItemToSwitch)
+	async switchErrorNoItemToSwitch(_packet: CommandSwitchErrorNoItemToSwitch, context: PacketContext): Promise<void> {
+		await handleClassicError(context, "commands:switch.noItemToSwitch");
 	}
 }

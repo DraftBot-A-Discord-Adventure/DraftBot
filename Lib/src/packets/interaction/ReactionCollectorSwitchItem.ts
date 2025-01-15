@@ -37,7 +37,8 @@ export class ReactionCollectorSwitchItem extends ReactionCollector {
 			id,
 			endTime,
 			reactions,
-			data: this.buildData(ReactionCollectorSwitchItemData, {})
+			data: this.buildData(ReactionCollectorSwitchItemData, {}),
+			mainPacket: true
 		};
 	}
 }

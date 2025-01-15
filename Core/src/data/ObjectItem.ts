@@ -17,15 +17,16 @@ export class ObjectItem extends SupportItem {
 	}
 
 	public getDisplayPacket(maxStatsValue: StatValues = {
-		attack: 0,
-		defense: 0,
-		speed: 0
+		attack: Infinity,
+		defense: Infinity,
+		speed: Infinity
 	}): SupportItemDisplayPacket {
 		let maxPower = this.power;
 		if (maxStatsValue.speed >= this.power / 2) {
 			maxPower = this.power;
 		}
 		return {
+			itemCategory: this.getCategory(),
 			maxPower,
 			nature: this.nature,
 			power: this.power,

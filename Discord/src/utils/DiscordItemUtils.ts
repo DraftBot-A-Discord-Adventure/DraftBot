@@ -1,11 +1,8 @@
 import {Language} from "../../../Lib/src/Language";
 import i18n from "../translations/i18n";
-import {
-	MainItemDisplayPacket,
-	SupportItemDisplayPacket
-} from "../../../Lib/src/packets/commands/CommandInventoryPacket";
+import {MainItemDisplayPacket, SupportItemDisplayPacket} from "../../../Lib/src/packets/commands/CommandInventoryPacket";
 import {EmbedField} from "discord.js";
-import {ItemNature} from "../../../Lib/src/constants/ItemConstants";
+import {itemCategoryToString, ItemNature} from "../../../Lib/src/constants/ItemConstants";
 import {minutesDisplay} from "../../../Lib/src/utils/TimeUtils";
 import {StatValues} from "../../../Lib/src/types/StatValues";
 import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
@@ -100,7 +97,10 @@ export class DiscordItemUtils {
 	static getArmorField(displayPacket: MainItemDisplayPacket, lng: Language): EmbedField {
 		const itemField: string = i18n.t("items:itemsField", {
 			lng,
-			name: i18n.t(`models:armors.${displayPacket.id}`, {lng, interpolation: {escapeValue: false}}),
+			name: i18n.t(`models:armors.${displayPacket.id}`, {
+				lng,
+				interpolation: {escapeValue: false}
+			}),
 			emote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.armors[displayPacket.id]),
 			rarity: i18n.t(`items:rarities.${displayPacket.rarity}`, {lng}),
 			values: DiscordItemUtils.getValues(displayPacket.attack.value, displayPacket.defense.value, displayPacket.speed.value, lng, {
@@ -143,7 +143,10 @@ export class DiscordItemUtils {
 		const natureTrKey = `items:objectsNatures.${displayPacket.nature}`;
 		let nature;
 		if (displayPacket.nature === ItemNature.TIME_SPEEDUP) {
-			nature = i18n.t(natureTrKey, {lng, power: minutesDisplay(displayPacket.power, lng)});
+			nature = i18n.t(natureTrKey, {
+				lng,
+				power: minutesDisplay(displayPacket.power, lng)
+			});
 		}
 		else if (displayPacket.nature === ItemNature.SPEED) {
 			nature = i18n.t(natureTrKey, {
@@ -156,7 +159,10 @@ export class DiscordItemUtils {
 			});
 		}
 		else {
-			nature = i18n.t(natureTrKey, {lng, power: displayPacket.power});
+			nature = i18n.t(natureTrKey, {
+				lng,
+				power: displayPacket.power
+			});
 		}
 		const itemField: string = i18n.t("items:itemsField", {
 			lng,
@@ -174,5 +180,13 @@ export class DiscordItemUtils {
 			value: displayPacket.id === 0 ? itemField.split("|")[0] : itemField,
 			inline: false
 		};
+	}
+
+	static getShortDisplay(item: MainItemDisplayPacket | SupportItemDisplayPacket, lng: Language): string {
+		return i18n.t("items:nameDisplay", {
+			lng,
+			itemId: item.id,
+			itemCategory: `${itemCategoryToString(item.itemCategory)}s`
+		});
 	}
 }

@@ -72,6 +72,19 @@ export abstract class ItemConstants {
 	];
 }
 
+export function itemCategoryToString(category: ItemCategory): string {
+	switch (category) {
+	case ItemCategory.WEAPON:
+		return "weapon";
+	case ItemCategory.ARMOR:
+		return "armor";
+	case ItemCategory.POTION:
+		return "potion";
+	default:
+		return "object";
+	}
+}
+
 export enum ItemCategory {
 	WEAPON,
 	ARMOR,

@@ -12,6 +12,7 @@ export class CommandInventoryPacketReq extends DraftBotPacket {
 export interface MainItemDisplayPacket {
 	id: number,
 	rarity: ItemRarity,
+	itemCategory: number,
 	attack: {
 		value: number,
 		maxValue: number
@@ -31,7 +32,8 @@ export interface SupportItemDisplayPacket {
 	rarity: number,
 	nature: ItemNature,
 	power: number,
-	maxPower: number
+	maxPower: number,
+	itemCategory: number
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
