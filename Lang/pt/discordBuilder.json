@@ -253,6 +253,10 @@
       }
     }
   },
+  "missionsshop": {
+    "description": "Apresenta a loja da missão.",
+    "name": "loja"
+  },
   "top": {
     "description": "Apresenta as classificações dos jogos.",
     "name": "classificação",
