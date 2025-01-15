@@ -27,8 +27,8 @@ async function switchItems(
 	const toBackItem = inventorySlots.filter(slot => slot.isEquipped() && slot.itemCategory === toEquipItem.itemCategory)[0];
 	await InventorySlots.switchItemSlots(player, toEquipItem, toBackItem);
 	response.push(makePacket(CommandSwitchSuccess, {
-		itemIdBackedUp: toBackItem.itemId,
-		itemIdEquipped: toEquipItem.itemId
+		itemBackedUp: (toBackItem.getItem() as MainItem | ObjectItem).getDisplayPacket(),
+		itemEquipped: (toEquipItem.getItem() as MainItem | ObjectItem).getDisplayPacket()
 	}));
 }
 

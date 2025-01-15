@@ -43,6 +43,8 @@ import {ReactionCollectorSkipMissionShopItemData} from "../../../../Lib/src/pack
 import {skipMissionShopItemCollector} from "../../commands/mission/MissionShop";
 import {createGuildElderCollector} from "../../commands/guild/GuildElderCommand";
 import {ReactionCollectorGuildElderData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildElder";
+import {ReactionCollectorSwitchItemData} from "../../../../Lib/src/packets/interaction/ReactionCollectorSwitchItem";
+import {switchItemCollector} from "../../commands/player/SwitchCommand";
 
 export default class ReactionCollectorHandler {
 
@@ -72,6 +74,7 @@ export default class ReactionCollectorHandler {
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorShopSmallEventData.name, smallShopCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorEpicShopSmallEventData.name, epicItemShopCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorSkipMissionShopItemData.name, skipMissionShopItemCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorSwitchItemData.name, switchItemCollector);
 	}
 
 	@packetHandler(ReactionCollectorCreationPacket)

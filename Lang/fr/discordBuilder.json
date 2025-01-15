@@ -288,5 +288,9 @@
       "allTime": "️{emote:top.allTime} Depuis toujours.",
       "weekly": "{emote:top.weekly} Cette semaine."
     }
+  },
+  "switch": {
+    "name": "intervertir",
+    "description": "Intervertir l'objet actif avec l'un des objets présent dans votre réserve."
   }
 }

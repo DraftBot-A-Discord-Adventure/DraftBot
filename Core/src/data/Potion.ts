@@ -23,6 +23,7 @@ export class Potion extends SupportItem {
 
 	public getDisplayPacket(): SupportItemDisplayPacket {
 		return {
+			itemCategory: this.getCategory(),
 			maxPower: this.power,
 			nature: this.nature,
 			power: this.power,

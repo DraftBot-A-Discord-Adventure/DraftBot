@@ -27,11 +27,12 @@ export abstract class MainItem extends GenericItem {
 	}
 
 	public getDisplayPacket(maxStatsValue: StatValues = {
-		attack: 0,
-		defense: 0,
-		speed: 0
+		attack: Infinity,
+		defense: Infinity,
+		speed: Infinity
 	}): MainItemDisplayPacket {
 		return {
+			itemCategory: this.getCategory(),
 			attack: {
 				value: this.getAttack(),
 				maxValue: maxStatsValue.attack
