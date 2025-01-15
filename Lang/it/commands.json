@@ -56,7 +56,7 @@
     "title": "{{pseudo}}, creare una gilda",
     "canceledTitle": "{{pseudo}}, creazione delle gilda annullata.",
     "canceledDesc": "La Creazione della vostra Gilda è stata annullata.",
-    "confirmDesc": "{emote:collectors.question} Confermare la creazione della gilda **{{guildName}}** per `{{price}}` :moneybag: ?",
+    "confirmDesc": "{emote:collectors.question} Confermare la creazione della gilda **{{guildName}}** per `{{price}}` {emote:unitValues.money} ?",
     "acceptedFooter": "Lo staff si riserva il diritto di rinominare la gilda.",
     "acceptedDesc": "La gilda **{{guildName}}** è stata creata !"
   },
@@ -127,7 +127,7 @@
         "description": "Visualizza le informazioni su una gilda."
       },
       "GUILD_CREATE": {
-        "description": "Creare una gilda. Creare una gilda costa 5000 :moneybag:."
+        "description": "Creare una gilda. Creare una gilda costa 5000 {emote:unitValues.money}."
       },
       "GUILD_DAILY_BONUS": {
         "description": "Raccogliere le ricompense giornaliere della gilda."
@@ -258,7 +258,7 @@
     "guildCommands": ":stadium: Gilda:",
     "helpEmbedDescription": ":arrow_forward: Se volete ulteriori informazioni su un commando in particolare, fai click su: {{helpCommandMention}} e inserisci in parametro il nome del commando con qui hai problemi. :wink:",
     "helpEmbedTitle": "{{pseudo}}, Ecco l'elenco dei comandi disponibili :",
-    "missionCommands": ":scroll: Missione:",
+    "missionCommands": "{emote:missions.sideMission} Missione:",
     "petCommands": ":dog: Animali:",
     "playerCommands": ":bust_in_silhouette: Giocatore :",
     "serverCommands": ":gear: Server :",
@@ -379,7 +379,7 @@
     },
     "information": {
       "fieldName": "Informazione :",
-      "fieldValue": ":heart: {{health}}/{{maxHealth}} | :star: {{experience}}/{{experienceNeededToLevelUp}} | :moneybag: {{money}}"
+      "fieldValue": ":heart: {{health}}/{{maxHealth}} | :star: {{experience}}/{{experienceNeededToLevelUp}} | {emote:unitValues.money} {{money}}"
     },
     "map": {
       "fieldName": "Destinazione:",
@@ -448,10 +448,10 @@
     "health": "** | :heart: Vita guadagnata: **{{health}}",
     "healthLoose": "** | :broken_heart: Vita persa : **{{health}}",
     "journal": "Diario di {{pseudo}}",
-    "money": "** | :moneybag: Soldi guadagnati : **{{money}}",
+    "money": "** | {emote:unitValues.money} Soldi guadagnati : **{{money}}",
     "moneyLoose": "** | :money_with_wings: Denaro perso : **{{money}}",
     "monsterRewardGuildXp": "\n:star: XP di gilda guadagnati: **{{guildXp}}**",
-    "monsterRewardsDescription": ":moneybag: Argento vinto : **{{money}}**\n:star: XP guadagnati : **{{experience}}**",
+    "monsterRewardsDescription": "{emote:unitValues.money} Argento vinto : **{{money}}**\n:star: XP guadagnati : **{{experience}}**",
     "monsterRewardsGuildPoints": "\n:mirror_ball: Punti gilda guadagnati : **{{guildPoints}}**",
     "monsterRewardsTitle": "{{pseudo}}, ricompense per il combattimento",
     "newBigEvent": ":flag_fr: Avete raggiunto **{{destination}}** !",
@@ -498,10 +498,10 @@
     "commandName": "vendere",
     "commandDescription": "Vendita di attrezzature.",
     "noItemToSell": "Purtroppo non hai nessun articolo nella tua scorta!",
-    "confirmSell": "{{item}}{{money}} :moneybag: Sei sicuro di volerti separare da ** **?",
+    "confirmSell": "{{item}}{{money}} {emote:unitValues.money} Sei sicuro di volerti separare da ** **?",
     "sellCanceled": "La vendita è stata annullata!",
     "sellTitle": "{{pseudo}}conferma :",
-    "soldMessage": "{{item}}{{money}} :moneybag: Avete venduto per ** ** !",
+    "soldMessage": "{{item}}{{money}} {emote:unitValues.money} Avete venduto per ** ** !",
     "soldMessageTitle": "{{pseudo}}avete venduto un'apparecchiatura.",
     "potionDestroyedTitle": "Hai distrutto una pozione.",
     "potionDestroyedMessage": "{{item}}La pozione è stata versata in un lavandino.",
@@ -522,16 +522,16 @@
     "noEnergyToHeal": "Avete a disposizione tutta la vostra energia di combattimento. ⚡",
     "fullRegen": "💓 Sei stato completamente accudito.",
     "alreadyHaveBadge": "Avete già questo distintivo.",
-    "badgeBought": "{emote:badges.richPerson} Hai ricevuto un nuovo badge: .",
-    "notEnoughMoney": "Non hai abbastanza soldi per acquistare questo articolo!{{missingMoney}} Ti manca ` {emote:unitValues.money}`.",
+    "badgeBought": "Hai ricevuto un nuovo badge: {emote:badges.{{badgeName}}} !",
+    "notEnoughMoney": "Non hai abbastanza soldi per comprare questo articolo!{{missingCurrency}} Ti manca ` {emote:unitValues.{{currency}}}`.",
     "boughtTooMuchDailyPotions": "Non ci sono più pozioni del giorno disponibili per la vendita... Tornate domani!",
     "title": "🛒 Display del negozio",
-    "currentMoney": "{{money}}Avete ` {emote:unitValues.money}`.",
-    "shopItemsDisplaySingle": "{{name}}{{price}}| {emote:unitValues.money}`",
-    "shopItemsDisplayMultiple": "{{amount}} {{name}}{{price}}** x** | ` {emote:unitValues.money}`",
+    "currentMoney": "{{money}}Si ha ` {emote:unitValues.{{currency}}}`.",
+    "shopItemsDisplaySingle": "{{name}}{{price}}| {emote:unitValues.{{currency}}}`",
+    "shopItemsDisplayMultiple": "{{amount}} {{name}}{{price}}** x** | ` {emote:unitValues.{{currency}}}`",
     "shopSelectPlaceholder": "Selezionare un articolo da acquistare",
     "buyCategorySlotSuccess": "Avete acquistato un nuovo slot d'inventario!",
-    "shopItemsSelectDescription": "{{price}}{emote:unitValues.money}",
+    "shopItemsSelectDescription": "{{price}}{emote:unitValues.{{currency}}}",
     "closeShopButton": "❌ Chiudere il negozio",
     "shopConfirmationTitle": "{{pseudo}}avete selezionato il seguente prodotto:",
     "shopConfirmationTitleMultiple": "{{pseudo}}Selezionare una quantità per questo prodotto:",
@@ -542,7 +542,10 @@
       "dailyPotion_other": "{{count}} Pozione del giorno ( disponibile)",
       "slotExtension": "Estensioni dell'inventario",
       "food": "Cibo per animali",
-      "guildXp": "Esperienza di gilda"
+      "guildXp": "Esperienza di gilda",
+      "resources": "Risorse",
+      "utilitaries": "Utilità",
+      "prestige": "Prestigio"
     },
     "chooseSlotTitle": "{{pseudo}}nuova posizione dell'inventario",
     "chooseSlotIndication": "Scegliere una nuova posizione dell'inventario o annullare :",
@@ -559,27 +562,26 @@
         "name": "{emote:shopItems.randomItem} Attrezzatura casuale",
         "info": "Riceverete un pezzo di equipaggiamento casuale (Arma / Armatura / Oggetto o Pozione) tra tutti quelli presenti nel gioco."
       },
-      "healAlteration": {
+      "alterationHeal": {
         "name": "{emote:shopItems.healAlteration} Cura degli stati di alterazione",
         "info": "Le modifiche al vostro stato verranno rimosse e tornerete immediatamente sulla strada.",
         "give": "{emote:shopItems.healAlteration} Le modifiche al tuo stato sono state rimosse."
       },
-      "healEnergy": {
+      "energyHeal": {
         "name": "{emote:shopItems.healEnergy} Recupero di energia",
         "info": "L'energia di combattimento sarà completamente ripristinata.",
         "give": "{emote:shopItems.healEnergy} La vostra energia è stata ripristinata."
       },
-      "regen": {
+      "fullRegen": {
         "name": "{emote:shopItems.regen} Regolazione completa della vita",
         "info": "Sarete completamente guariti immediatamente, ma manterrete tutti i vostri stati alterati.",
         "give": "{emote:shopItems.regen} Siete stati seguiti in modo completo."
       },
       "moneyMouthBadge": {
         "name": "{emote:shopItems.moneyMouthBadge} Distintivo \"Money Mouth",
-        "info": "Il badge verrà ricevuto automaticamente dopo il pagamento. {command:help}Per ulteriori informazioni sui badge, utilizzare il comando .",
-        "give": "{{pseudo}}Avete ricevuto un nuovo distintivo:"
+        "info": "Il badge verrà ricevuto automaticamente dopo il pagamento. {command:help}Per ulteriori informazioni sui badge, utilizzare il comando ."
       },
-      "inventoryExtension": {
+      "slotExtension": {
         "name": "{emote:shopItems.inventoryExtension} Nuova posizione dell'inventario",
         "info": "È possibile scegliere una categoria d'inventario a cui aggiungere una sede."
       },
@@ -609,6 +611,69 @@
       "ultimateFood": {
         "name": "{emote:foods.ultimateFood} Zuppa finale",
         "info": "Riceverete una zuppa definitiva per i vostri animali domestici."
+      },
+      "skipMission": {
+        "name": "{emote:shopItems.skipMission} Cambiamento-missione",
+        "info": "Permette di rimuovere una missione dalla mappa e di sostituirla con una nuova, anche se non sarà possibile scegliere quale missione scegliere.",
+        "giveTitle": "{{pseudo}}avete deciso di cambiare una missione",
+        "giveDesc": "Scegliere la missione da cambiare:",
+        "successTitle": "{{pseudo}}avete cambiato una missione!",
+        "successDescription": "{emote:missions.sideMission}{{mission}}La missione ** ** è stata cancellata.",
+        "getNewMission": "Vi è stato affidato il compito: \n\n{emote:missions.sideMission}{{mission}}** **"
+      },
+      "money": {
+        "name": "{emote:unitValues.money} Il denaro del re",
+        "info": "{{kingsMoneyAmount}} {emote:unitValues.money}In base ai prezzi odierni delle gemme e al netto della tassa del re, riceverete .",
+        "giveTitle": "{{pseudo}}acquisto effettuato!",
+        "giveDescription": "{{amount}} {emote:unitValues.money}Avete ricevuto ` ` ."
+      },
+      "treasure": {
+        "name": "{emote:shopItems.treasure} Il tesoro del re",
+        "info": "Permette di ottenere un oggetto prezioso dalla sala del tesoro del re.",
+        "give": "{{pseudo}} {{type}} un nuovo :"
+      },
+      "kingsFavor": {
+        "name": "{emote:unitValues.score} Il fervore del Re",
+        "info": "{{thousandPoints}} Dà punti. Può essere utilizzato solo una volta alla settimana.",
+        "giveTitle": "{{pseudo}}acquisto effettuato!",
+        "giveDescription": "{{thousandPoints}} {emote:unitValues.score}Avete ricevuto . Alla prossima settimana per un nuovo fervore!"
+      },
+      "lovePointsValue": {
+        "name": "{emote:shopItems.lovePointsValue} Veterinario di corte",
+        "info": "Ottenere informazioni dettagliate sul vostro animale domestico.",
+        "giveTitle": "{{pseudo}}acquisto effettuato!",
+        "giveDesc": "Dopo aver studiato a lungo lo stato di salute del vostro animale, finalmente ricevete il rapporto del veterinario:\n\n{{petName}} {{commentOnResult}}\n{emote:petInformation.loveScore} {{actualLP}}\n{emote:petInformation.diet} ** ** **Punteggio d'amore**: / 100 **Regime alimentare** : {{diet}}\n{emote:petInformation.nextFeed} {{nextFeed}}**Prossima fame**:",
+        "petIsHungry": "{emote:effects.starving} affamato",
+        "advice": {
+          "1": [
+            "sembra odiarvi. Fate attenzione, o potreste essere vittima di un brutto scherzo durante le vostre avventure!",
+            "sembra che tu non gli piaccia affatto. Visto il modo in cui vi prendete cura del vostro animale, non c'è da sorprendersi!",
+            "sembra essere in grave difficoltà. Dovreste cercare di nutrire il vostro animale domestico."
+          ],
+          "2": [
+            "sembra ancora selvaggio. Prendetevi cura del vostro animale e guadagnatevi la sua fiducia!",
+            "sembra che non vi piaccia. Se non vi prendete cura del vostro animale domestico, non avrete mai il suo amore!",
+            "non sembra felice. Dovreste provare a nutrire il vostro animale."
+          ],
+          "3": [
+            "sembra ancora un po' apprensivo. Prendetevi cura del vostro animale e guadagnatevi la sua fiducia!",
+            "sembra sempre diffidare di voi. Continuate a prendervi cura del vostro animale per conquistare il suo amore!",
+            "sembra essersi abituato a voi. Cercate di nutrire regolarmente il vostro animale."
+          ],
+          "4": [
+            "Sembra che voi gli piaciate. Continuate a prendervi cura del vostro animale per guadagnarvi la sua fiducia!",
+            "sembra fidarsi di voi. Se continuate su questa strada, presto il vostro animale domestico vi amerà!",
+            "sembra essersi affezionato a voi. Non smettete di nutrire regolarmente il vostro animale."
+          ],
+          "5": [
+            "sembra piacervi completamente. Non dovrete nemmeno prendervi cura del vostro animale per far sì che continui ad amarvi!",
+            "sembra condividere un forte legame con voi. Il vostro legame è indissolubile, quindi finché non sarete separati, continuerete a godere dell'amore del vostro animale domestico!"
+          ]
+        }
+      },
+      "questMasterBadge": {
+        "name": "{emote:badges.questMasterBadge} Distintivo Maestro delle missioni",
+        "info": "Riceverete il badge entro poche ore dal pagamento. {command:help}Per ulteriori informazioni sui badge, utilizzare il comando ."
       }
     }
   },
@@ -722,6 +787,19 @@
     "canceledTitle": "Rilascio annullato",
     "canceledDesc": "L'uscita è stata annullata.",
     "acceptedDesc": "{{pseudo}}Avete liberato ** ** !"
+  },
+  "missionsshop": {
+    "title": "Negozio di missioni",
+    "success": "{pseudo}Una transazione di successo!",
+    "error": {
+      "cannotBuy": "Non hai abbastanza gemme per acquistare questo oggetto!{missingMoney}{emote:unitValues.gem}Ti manca ` `.",
+      "canceledPurchase": "Transazione annullata!",
+      "alreadyHadBadge": "Hai già il distintivo \"Maestro delle missioni\". Non puoi ottenere più onori di quelli che hai già!",
+      "leaveShop": "Avete lasciato il negozio.",
+      "alreadyBoughtPointsThisWeek": "Questa settimana hai già acquistato punti, quindi torna la prossima settimana per acquistarne altri!",
+      "noMissionToSkip": "Non avete missioni da completare!",
+      "noPet": "Se non avete animali con voi, non possiamo diagnosticare un animale fantasma!"
+    }
   },
   "top": {
     "level": "{{level}}Livello",
