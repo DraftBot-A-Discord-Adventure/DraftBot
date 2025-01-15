@@ -93,7 +93,8 @@ export async function handleLovePointsValueShopItem(packet: CommandMissionShopPe
 					actualLP: packet.lovePoints,
 					diet: PetUtils.getDietDisplay(packet.diet, lng),
 					nextFeed: PetUtils.getFeedCooldownDisplay(packet.nextFeed, lng),
-					commentOnResult: StringUtils.getRandomTranslation(`commands:shop.shopItems.lovePointsValue.advice.${packet.loveLevel}`, lng)
+					commentOnResult: StringUtils.getRandomTranslation(`commands:shop.shopItems.lovePointsValue.advice.${packet.loveLevel}`, lng),
+					interpolation: {escapeValue: false}
 				}))
 		]
 	});
@@ -112,7 +113,9 @@ export async function skipMissionShopItemCollector(packet: ReactionCollectorCrea
 		.setDescription(`${i18n.t("commands:shop.shopItems.skipMission.giveDesc", {
 			lng: interaction.userLanguage
 		})}\n\n`);
-	const reactions: ReactionCollectorSkipMissionShopItemReaction[] = packet.reactions.map(reaction => reaction.data as ReactionCollectorSkipMissionShopItemReaction);
+	const reactions: ReactionCollectorSkipMissionShopItemReaction[] = packet.reactions
+		.map(reaction => reaction.data as ReactionCollectorSkipMissionShopItemReaction)
+		.filter(reaction => reaction.mission);
 	await DiscordCollectorUtils.createChoiceListCollector(
 		interaction,
 		embed,
@@ -125,7 +128,11 @@ export async function skipMissionShopItemCollector(packet: ReactionCollectorCrea
 
 export async function skipMissionShopResult(packet: CommandMissionShopSkipMissionResult, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!);
-	await interaction?.followUp({
+	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+	if (!interaction) {
+		return;
+	}
+	await buttonInteraction?.editReply({
 		embeds: [
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.shopItems.skipMission.successTitle", {
