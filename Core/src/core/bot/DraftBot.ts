@@ -20,7 +20,6 @@ import {LeagueInfoConstants} from "../../../../Lib/src/constants/LeagueInfoConst
 import {PacketUtils} from "../utils/PacketUtils";
 import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {TopWeekAnnouncementPacket} from "../../../../Lib/src/packets/announcements/TopWeekAnnouncementPacket";
-import {MqttConstants} from "../../../../Lib/src/constants/MqttConstants";
 import {TopWeekFightAnnouncementPacket} from "../../../../Lib/src/packets/announcements/TopWeekFightAnnouncementPacket";
 import PlayerMissionsInfo from "../database/game/models/PlayerMissionsInfo";
 import {ScheduledReportNotifications} from "../database/game/models/ScheduledReportNotification";
