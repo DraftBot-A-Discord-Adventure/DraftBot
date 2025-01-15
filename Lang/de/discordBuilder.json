@@ -254,7 +254,7 @@
     }
   },
   "missionsshop": {
-    "description": "Affiche le magasin de missions.",
+    "description": "Zeigt den Missionsladen an.",
     "name": "magasinmissions"
   },
   "top": {
