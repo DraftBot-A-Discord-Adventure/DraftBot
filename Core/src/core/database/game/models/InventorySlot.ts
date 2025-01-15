@@ -6,6 +6,7 @@ import {Armor, ArmorDataController} from "../../../../data/Armor";
 import {Weapon, WeaponDataController} from "../../../../data/Weapon";
 import {Potion, PotionDataController} from "../../../../data/Potion";
 import {ObjectItem, ObjectItemDataController} from "../../../../data/ObjectItem";
+import Player from "./Player";
 import moment = require("moment");
 
 export class InventorySlot extends Model {
@@ -229,6 +230,44 @@ export class InventorySlots {
 			}
 		}
 		return count;
+	}
+
+	/**
+	 * Switch the 2 given items in the inventory
+	 * @param itemToPutInReserve
+	 * @param player
+	 * @param itemToPutInMain
+	 */
+	static async switchItemSlots(player: Player, itemToPutInMain: InventorySlot, itemToPutInReserve: InventorySlot): Promise<void> {
+		if (itemToPutInReserve.itemId === 0) {
+			await InventorySlot.destroy({
+				where: {
+					playerId: player.id,
+					itemCategory: itemToPutInMain.itemCategory,
+					slot: itemToPutInMain.slot
+				}
+			});
+		}
+		else {
+			await InventorySlot.update({
+				itemId: itemToPutInReserve.itemId
+			}, {
+				where: {
+					playerId: player.id,
+					itemCategory: itemToPutInMain.itemCategory,
+					slot: itemToPutInMain.slot
+				}
+			});
+		}
+		await InventorySlot.update({
+			itemId: itemToPutInMain.itemId
+		}, {
+			where: {
+				playerId: player.id,
+				itemCategory: itemToPutInReserve.itemCategory,
+				slot: itemToPutInReserve.slot
+			}
+		});
 	}
 }
 
