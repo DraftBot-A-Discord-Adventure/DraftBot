@@ -1330,5 +1330,8 @@
     "ultimateFood_other": "zuppe definitive",
     "commonFood_one": "trattamento",
     "commonFood_other": "dolci"
-  }
+  },
+  "diet_omnivorous": "{emote:diet.omnivorous} Omnivore",
+  "diet_herbivorous": "{emote:diet.herbivorous} Herbivore",
+  "diet_carnivorous": "{emote:diet.carnivorous} Carnivore"
 }
