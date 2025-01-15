@@ -253,6 +253,10 @@
       }
     }
   },
+  "missionsshop": {
+    "description": "Display the missions shop.",
+    "name": "missionsshop"
+  },
   "top": {
     "description": "Displays the game rankings.",
     "name": "top",
