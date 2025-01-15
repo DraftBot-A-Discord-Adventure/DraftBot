@@ -200,8 +200,6 @@ function getSkipMapMissionShopItem(): ShopItem {
 				.build();
 
 			response.push(packet);
-
-
 			return false;
 		}
 	};

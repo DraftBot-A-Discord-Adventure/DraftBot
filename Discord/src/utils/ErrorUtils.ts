@@ -140,7 +140,7 @@ export async function handleClassicError(context: PacketContext, errorKey: strin
 	if (!interaction) {
 		return;
 	}
-	await (interaction.deferred ? interaction.editReply : interaction.reply)({
+	await (interaction.deferred ? interaction.editReply : interaction.replied ? interaction.followUp : interaction.reply)({
 		embeds: [
 			new DraftBotErrorEmbed(
 				interaction.user,

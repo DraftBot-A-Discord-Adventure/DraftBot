@@ -103,7 +103,7 @@ export class PetUtils {
 	}
 
 	static getDietDisplay(diet: string | undefined, lng: Language): string {
-		return i18n.t(`models:diet.${diet}`, {lng});
+		return i18n.t("models:diet", {lng, context: diet ?? "omnivorous"});
 	}
 
 	static getFeedCooldownDisplay(nextFeed: number, lng: Language): string {

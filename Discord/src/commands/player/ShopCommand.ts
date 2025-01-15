@@ -298,7 +298,7 @@ async function manageBuyoutConfirmation(packet: ReactionCollectorCreationPacket,
 				}\n${EmoteUtils.translateEmojiToDiscord(DraftBotIcons.collectors.warning)}${
 					i18n.t(`commands:shop.shopItems.${shopItemTypeToId(shopItemId)}.info`, {
 						lng: interaction.userLanguage,
-						kingsMoneyAmount: data.additionnalShopData?.gemToMoneyRatio,
+						kingsMoneyAmount: data.additionnalShopData?.gemToMoneyRatio
 					})
 				}`)
 		],
