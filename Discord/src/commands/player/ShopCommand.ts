@@ -299,7 +299,7 @@ async function manageBuyoutConfirmation(packet: ReactionCollectorCreationPacket,
 					i18n.t(`commands:shop.shopItems.${shopItemTypeToId(shopItemId)}.info`, {
 						lng: interaction.userLanguage,
 						kingsMoneyAmount: data.additionnalShopData?.gemToMoneyRatio,
-						thousand_points: Constants.MISSION_SHOP.THOUSAND_POINTS,
+						thousandPoints: Constants.MISSION_SHOP.THOUSAND_POINTS
 					})
 				}`)
 		],

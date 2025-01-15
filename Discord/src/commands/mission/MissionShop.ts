@@ -53,7 +53,7 @@ export async function handleMissionShopMoney(packet: CommandMissionShopMoney, co
 }
 
 export async function handleMissionShopKingsFavor(context: PacketContext): Promise<void> {
-	await handleBasicMissionShopItem(context, "commands:shop.shopItems.kingsFavor.giveDescription", {thousand_points: Constants.MISSION_SHOP.THOUSAND_POINTS});
+	await handleBasicMissionShopItem(context, "commands:shop.shopItems.kingsFavor.giveDescription", {thousandPoints: Constants.MISSION_SHOP.THOUSAND_POINTS});
 }
 
 export async function handleLovePointsValueShopItem(packet: CommandMissionShopPetInformation, context: PacketContext): Promise<void> {
