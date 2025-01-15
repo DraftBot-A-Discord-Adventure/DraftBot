@@ -295,10 +295,11 @@ async function manageBuyoutConfirmation(packet: ReactionCollectorCreationPacket,
 				}), interaction.user)
 				.setDescription(`${
 					getShopItemDisplay(data, reaction, interaction.userLanguage, shopItemNames, amounts)
-				}\n${EmoteUtils.translateEmojiToDiscord(DraftBotIcons.collectors.warning)}${
+				}\n${EmoteUtils.translateEmojiToDiscord(DraftBotIcons.collectors.warning)} ${
 					i18n.t(`commands:shop.shopItems.${shopItemTypeToId(shopItemId)}.info`, {
 						lng: interaction.userLanguage,
-						kingsMoneyAmount: data.additionnalShopData?.gemToMoneyRatio
+						kingsMoneyAmount: data.additionnalShopData?.gemToMoneyRatio,
+						thousand_points: Constants.MISSION_SHOP.THOUSAND_POINTS,
 					})
 				}`)
 		],

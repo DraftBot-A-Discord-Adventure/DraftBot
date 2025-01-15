@@ -1,9 +1,9 @@
 export class Sex {
-	readonly short: string;
+	readonly short: SexTypeShort;
 
 	readonly long: string;
 
-	constructor(short: string, long: string) {
+	constructor(short: SexTypeShort, long: string) {
 		this.short = short;
 		this.long = long;
 	}

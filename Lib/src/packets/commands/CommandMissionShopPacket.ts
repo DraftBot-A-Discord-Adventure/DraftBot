@@ -1,5 +1,7 @@
 import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
 import {BaseMission} from "../../interfaces/CompletedMission";
+import {PetDiet} from "../../constants/PetConstants";
+import {SexTypeShort} from "../../constants/StringConstants";
 
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandMissionShopPacketReq extends DraftBotPacket {
@@ -24,13 +26,13 @@ export class CommandMissionShopPetInformation extends DraftBotPacket {
 
 	typeId!: number;
 
-	sex!: string;
+	sex!: SexTypeShort;
 
 	loveLevel!: number;
 
 	lovePoints!: number;
 
-	diet!: string;
+	diet!: PetDiet;
 
 	nextFeed!: number;
 }

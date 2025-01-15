@@ -1,5 +1,6 @@
 import {SmallEventPacket} from "./SmallEventPacket";
 import {PacketDirection, sendablePacket} from "../DraftBotPacket";
+import {SexTypeShort} from "../../constants/StringConstants";
 
 export enum InteractOtherPlayerInteraction {
 	TOP1,
@@ -43,7 +44,7 @@ export class SmallEventInteractOtherPlayersPacket extends SmallEventPacket {
 		classId: number,
 		petId?: number,
 		petName?: string,
-		petSex?: string,
+		petSex?: SexTypeShort,
 		guildName?: string,
 		weaponId: number,
 		armorId: number,

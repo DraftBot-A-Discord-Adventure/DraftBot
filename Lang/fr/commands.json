@@ -634,9 +634,9 @@
       },
       "kingsFavor": {
         "name": "{emote:unitValues.score} Ferveur du roi",
-        "info": "Vous octroie 1000 points. Ne peut être utilisé qu'une fois par semaine.",
+        "info": "Vous octroie {{thousand_points}} points. Ne peut être utilisé qu'une fois par semaine.",
         "giveTitle": "{{pseudo}}, achat effectué !",
-        "giveDescription": "Vous avez reçu 1000 {emote:unitValues.score}. À la semaine prochaine pour une nouvelle ferveur !"
+        "giveDescription": "Vous avez reçu {{thousand_points}} {emote:unitValues.score}. À la semaine prochaine pour une nouvelle ferveur !"
       },
       "lovePointsValue": {
         "name": "{emote:shopItems.lovePointsValue} Vétérinaire de la cour",

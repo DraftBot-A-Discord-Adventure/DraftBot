@@ -37,6 +37,8 @@ import {
 	ReactionCollectorSkipMissionShopItemReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorSkipMissionShopItem";
 import {BadgeConstants} from "../../../../Lib/src/constants/BadgeConstants";
+import {PetDiet} from "../../../../Lib/src/constants/PetConstants";
+import {SexTypeShort} from "../../../../Lib/src/constants/StringConstants";
 
 /**
  * Calculate the amount of money the player will have if he buys some with gems
@@ -51,7 +53,7 @@ function calculateGemsToMoneyRatio(): number {
 	};
 	return Constants.MISSION_SHOP.BASE_RATIO +
 		Math.round(Constants.MISSION_SHOP.RANGE_MISSION_MONEY * 2 *
-			frac(100 * Math.sin(100000 * (getDayNumber() % Constants.MISSION_SHOP.SEED_RANGE) + 1)) -
+			frac(100 * Math.sin(Constants.MISSION_SHOP.SIN_RANDOMIZER * (getDayNumber() % Constants.MISSION_SHOP.SEED_RANGE) + 1)) -
 			Constants.MISSION_SHOP.RANGE_MISSION_MONEY);
 }
 
@@ -70,7 +72,7 @@ function getMoneyShopItem(): ShopItem {
 				reason: NumberChangeReason.MISSION_SHOP
 			});
 			await player.save();
-			if (amount < 6500) {
+			if (amount < Constants.MISSION_SHOP.KINGS_MONEY_VALUE_THRESHOLD_MISSION) {
 				await MissionsController.update(player, response, {missionId: "kingsMoneyValue"});
 			}
 			response.push(makePacket(CommandMissionShopMoney, {
@@ -108,7 +110,7 @@ function getAThousandPointsShopItem(): ShopItem {
 				return false;
 			}
 			await player.addScore({
-				amount: 1000,
+				amount: Constants.MISSION_SHOP.THOUSAND_POINTS,
 				response,
 				reason: NumberChangeReason.MISSION_SHOP
 			});
@@ -136,10 +138,10 @@ function getValueLovePointsPetShopItem(): ShopItem {
 			response.push(makePacket(CommandMissionShopPetInformation, {
 				nickname: pet.nickname,
 				typeId: petModel.id,
-				sex: pet.sex,
+				sex: pet.sex as SexTypeShort,
 				loveLevel: pet.getLoveLevelNumber(),
 				lovePoints: pet.lovePoints,
-				diet: petModel.diet,
+				diet: petModel.diet as PetDiet,
 				nextFeed: pet.getFeedCooldown(petModel)
 			}));
 			return true;
@@ -263,7 +265,10 @@ export default class MissionShopCommand {
 		);
 
 		await ShopUtils.createAndSendShopCollector(context, response, {
-			shopCategories, player, logger: draftBotInstance.logsDatabase.logMissionShopBuyout, additionnalShopData: {
+			shopCategories,
+			player,
+			logger: draftBotInstance.logsDatabase.logMissionShopBuyout,
+			additionnalShopData: {
 				currency: ShopCurrency.GEM,
 				gemToMoneyRatio: calculateGemsToMoneyRatio()
 			}

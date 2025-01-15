@@ -15,6 +15,7 @@ import {Constants} from "../../../../Lib/src/constants/Constants";
 import {PetDataController} from "../../data/Pet";
 import {MapLocationDataController} from "../../data/MapLocation";
 import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
+import {SexTypeShort} from "../../../../Lib/src/constants/StringConstants";
 
 /**
  * Get the current campaign progression of the player
@@ -63,7 +64,7 @@ export default class ProfileCommand {
 				color: toCheckPlayer.getProfileColor(),
 				pet: petEntity ? {
 					typeId: petModel.id,
-					sex: petEntity.sex,
+					sex: petEntity.sex as SexTypeShort,
 					nickname: petEntity.nickname,
 					rarity: petModel.rarity
 				} : null,
