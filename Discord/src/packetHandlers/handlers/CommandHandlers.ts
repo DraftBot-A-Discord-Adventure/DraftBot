@@ -35,7 +35,7 @@ import {
 } from "../../../../Lib/src/packets/commands/CommandReportPacket";
 import {CommandMapDisplayRes} from "../../../../Lib/src/packets/commands/CommandMapPacket";
 import {handleCommandMapDisplayRes} from "../../commands/player/MapCommand";
-import {CommandPetPacketRes} from "../../../../Lib/src/packets/commands/CommandPetPacket";
+import {CommandPetPacketRes, CommandPetPetNotFound} from "../../../../Lib/src/packets/commands/CommandPetPacket";
 import {handleCommandPetPacketRes} from "../../commands/pet/PetCommand";
 import {
 	handleCommandPetFreeAcceptPacketRes,
@@ -183,15 +183,18 @@ import {
 import {
 	CommandTopGuildsEmptyPacket,
 	CommandTopInvalidPagePacket,
-	CommandTopPacketResGlory, CommandTopPacketResGuild,
-	CommandTopPacketResScore, CommandTopPlayersEmptyPacket
+	CommandTopPacketResGlory,
+	CommandTopPacketResGuild,
+	CommandTopPacketResScore,
+	CommandTopPlayersEmptyPacket
 } from "../../../../Lib/src/packets/commands/CommandTopPacket";
 import {
 	handleCommandTopGuildsEmptyPacket,
 	handleCommandTopInvalidPagePacket,
 	handleCommandTopPacketResGlory,
 	handleCommandTopPacketResGuild,
-	handleCommandTopPacketResScore, handleCommandTopPlayersEmptyPacket
+	handleCommandTopPacketResScore,
+	handleCommandTopPlayersEmptyPacket
 } from "../../commands/player/TopCommand";
 import {
 	CommandGuildElderAcceptPacketRes,
@@ -234,6 +237,11 @@ export default class CommandHandlers {
 	@packetHandler(CommandPetPacketRes)
 	async petRes(packet: CommandPetPacketRes, context: PacketContext): Promise<void> {
 		await handleCommandPetPacketRes(packet, context);
+	}
+
+	@packetHandler(CommandPetPetNotFound)
+	async petNotFound(_packet: CommandPetPetNotFound, context: PacketContext): Promise<void> {
+		await handleClassicError(context, "error:petDoesntExist");
 	}
 
 	@packetHandler(CommandPetFreePacketRes)
