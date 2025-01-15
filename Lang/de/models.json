@@ -1330,5 +1330,8 @@
     "ultimateFood_other": "ultimative Suppen",
     "commonFood_one": "Süßigkeit",
     "commonFood_other": "Süßigkeiten"
-  }
+  },
+  "diet_omnivorous": "{emote:diet.omnivorous} Omnivore",
+  "diet_herbivorous": "{emote:diet.herbivorous} Herbivore",
+  "diet_carnivorous": "{emote:diet.carnivorous} Carnivore"
 }
