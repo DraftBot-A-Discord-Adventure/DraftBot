@@ -44,20 +44,16 @@ export class FightController {
 			fighter1: Fighter,
 			fighter2: Fighter
 		},
-		fightParameters: {
-			friendly: boolean,
-			overtimeBehavior: FightOvertimeBehavior
-		},
+		overtimeBehavior: FightOvertimeBehavior,
 		context: PacketContext
 	) {
 		this.fighters = [fighters.fighter1, fighters.fighter2];
 		this.fightInitiator = fighters.fighter1;
 		this.state = FightState.NOT_STARTED;
 		this.turn = 1;
-		this.friendly = fightParameters.friendly;
 		this._fightView = new FightView(context, this);
 		this.weather = new FightWeather();
-		this.overtimeBehavior = fightParameters.overtimeBehavior;
+		this.overtimeBehavior = overtimeBehavior;
 	}
 
 	public tryToExecuteFightAction(fightAction: FightAction, attacker: Fighter, defender: Fighter, turn: number): FightActionResult {

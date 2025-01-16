@@ -12,6 +12,10 @@ import {
 import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
 import {InventorySlots} from "../../core/database/game/models/InventorySlot";
 import {LogsReadRequests, RankedFightResult} from "../../core/database/logs/LogsReadRequests";
+import {FightController} from "../../core/fights/FightController";
+import {FightOvertimeBehavior} from "../../core/fights/FightOvertimeBehavior";
+import {PlayerFighter} from "../../core/fights/fighter/PlayerFighter";
+import {ClassDataController} from "../../data/Class";
 
 type PlayerStats = {
 	classId: number,
@@ -52,6 +56,64 @@ async function getPlayerStats(player: Player): Promise<PlayerStats> {
 			regen: player.getBreathRegen()
 		}
 	};
+}
+
+/**
+ * Code that will be executed when a fight ends (except if the fight has a bug)
+ * @param fight
+ */
+async function fightEndCallback(fight: FightController): Promise<void> {
+	const fightLogId = await draftBotInstance.logsDatabase.logFight(fight);
+
+	const player1GameResult = fight.isADraw() ? EloGameResult.DRAW : fight.getWinner() === 0 ? EloGameResult.WIN : EloGameResult.LOSE;
+	const player2GameResult = player1GameResult === EloGameResult.DRAW ? EloGameResult.DRAW : player1GameResult === EloGameResult.WIN ? EloGameResult.LOSE : EloGameResult.WIN;
+
+	// Player variables
+	const player1 = await Players.getById((fight.fighters[0] as PlayerFighter).player.id);
+	const player2 = await Players.getById((fight.fighters[1] as PlayerFighter).player.id);
+
+	// Calculate elo
+	const player1KFactor = EloUtils.getKFactor(player1);
+	const player2KFactor = EloUtils.getKFactor(player2);
+	const player1NewRating = EloUtils.calculateNewRating(player1.gloryPoints, player2.gloryPoints, player1GameResult, player1KFactor);
+	const player2NewRating = EloUtils.calculateNewRating(player2.gloryPoints, player1.gloryPoints, player2GameResult, player2KFactor);
+
+	// Create embed
+	const embed = await createFightEndCallbackEmbed(fight,
+		{
+			player: player1,
+			playerNewRating: player1NewRating,
+			playerKFactor: player1KFactor,
+			playerGameResult: player1GameResult
+		},
+		{
+			player: player2,
+			playerNewRating: player2NewRating,
+			playerKFactor: player2KFactor,
+			playerGameResult: player2GameResult
+		});
+
+	// Change glory and fightCountdown and save
+	await player1.setGloryPoints(player1NewRating, NumberChangeReason.FIGHT, fight.getFightView().channel, fight.getFightView().language, fightLogId);
+	player1.fightCountdown--;
+	if (player1.fightCountdown < 0) {
+		player1.fightCountdown = 0;
+	}
+	await player2.setGloryPoints(player2NewRating, NumberChangeReason.FIGHT, fight.getFightView().channel, fight.getFightView().language, fightLogId);
+	player2.fightCountdown--;
+	if (player2.fightCountdown < 0) {
+		player2.fightCountdown = 0;
+	}
+	await Promise.all([
+		player1.save(),
+		player2.save()
+	]);
+
+	await fight.getFightView().channel.send({
+		embeds: [
+			embed
+		]
+	});
 }
 
 /**
@@ -135,7 +197,18 @@ export default class FightCommand {
 				if (!opponent) {
 					// Error message if no opponent found
 				}
+				const askingFighter = new PlayerFighter(player, ClassDataController.instance.getById(player.class));
+				await askingFighter.loadStats();
+				const incomingFighter = new PlayerFighter(opponent, ClassDataController.instance.getById(opponent.class));
+				await incomingFighter.loadStats();
 				// Start fight
+				const fightController = new FightController(
+					{fighter1: askingFighter, fighter2: incomingFighter},
+					FightOvertimeBehavior.END_FIGHT_DRAW,
+					context
+				);
+				fightController.setEndCallback(fightEndCallback);
+				await fightController.startFight();
 			}
 			else {
 				response.push(makePacket(CommandFightRefusePacketRes, {}));
