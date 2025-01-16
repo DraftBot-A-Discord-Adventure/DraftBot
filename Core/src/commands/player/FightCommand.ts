@@ -16,6 +16,9 @@ import {FightController} from "../../core/fights/FightController";
 import {FightOvertimeBehavior} from "../../core/fights/FightOvertimeBehavior";
 import {PlayerFighter} from "../../core/fights/fighter/PlayerFighter";
 import {ClassDataController} from "../../data/Class";
+import {draftBotInstance} from "../../index";
+import {EloGameResult, EloUtils} from "../../core/utils/EloUtils";
+import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 
 type PlayerStats = {
 	classId: number,
@@ -75,10 +78,26 @@ async function fightEndCallback(fight: FightController): Promise<void> {
 	// Calculate elo
 	const player1KFactor = EloUtils.getKFactor(player1);
 	const player2KFactor = EloUtils.getKFactor(player2);
-	const player1NewRating = EloUtils.calculateNewRating(player1.gloryPoints, player2.gloryPoints, player1GameResult, player1KFactor);
-	const player2NewRating = EloUtils.calculateNewRating(player2.gloryPoints, player1.gloryPoints, player2GameResult, player2KFactor);
+	const player1NewRating = EloUtils.calculateNewRating(player1.attackGloryPoints, player2.defenseGloryPoints, player1GameResult, player1KFactor);
+	const player2NewRating = EloUtils.calculateNewRating(player2.defenseGloryPoints, player1.attackGloryPoints, player2GameResult, player2KFactor);
 
-	// Create embed
+	// Change glory and fightCountdown and save
+	await player1.setGloryPoints(player1NewRating, false, NumberChangeReason.FIGHT);
+	player1.fightCountdown--;
+	if (player1.fightCountdown < 0) {
+		player1.fightCountdown = 0;
+	}
+	await player2.setGloryPoints(player2NewRating, true, NumberChangeReason.FIGHT);
+	player2.fightCountdown--;
+	if (player2.fightCountdown < 0) {
+		player2.fightCountdown = 0;
+	}
+	await Promise.all([
+		player1.save(),
+		player2.save()
+	]);
+
+	// REPLACE THIS WITH PACKET
 	const embed = await createFightEndCallbackEmbed(fight,
 		{
 			player: player1,
@@ -93,27 +112,6 @@ async function fightEndCallback(fight: FightController): Promise<void> {
 			playerGameResult: player2GameResult
 		});
 
-	// Change glory and fightCountdown and save
-	await player1.setGloryPoints(player1NewRating, NumberChangeReason.FIGHT, fight.getFightView().channel, fight.getFightView().language, fightLogId);
-	player1.fightCountdown--;
-	if (player1.fightCountdown < 0) {
-		player1.fightCountdown = 0;
-	}
-	await player2.setGloryPoints(player2NewRating, NumberChangeReason.FIGHT, fight.getFightView().channel, fight.getFightView().language, fightLogId);
-	player2.fightCountdown--;
-	if (player2.fightCountdown < 0) {
-		player2.fightCountdown = 0;
-	}
-	await Promise.all([
-		player1.save(),
-		player2.save()
-	]);
-
-	await fight.getFightView().channel.send({
-		embeds: [
-			embed
-		]
-	});
 }
 
 /**
@@ -174,6 +172,7 @@ async function findOpponent(player: Player): Promise<Player | null> {
 				return opponent;
 			}
 		}
+		return null;
 	}
 }
 
