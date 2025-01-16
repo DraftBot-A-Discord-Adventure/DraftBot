@@ -26,7 +26,7 @@ import {LogsGuildsJoins} from "./models/LogsGuildJoins";
 import {LogsGuilds} from "./models/LogsGuilds";
 import {MapLocationDataController} from "../../../data/MapLocation";
 
-type RankedFightResult = {
+export type RankedFightResult = {
 	won: number,
 	lost: number,
 	draw: number

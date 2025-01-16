@@ -1437,18 +1437,25 @@ export class Players {
 
 	/**
 	 * Find the X players that are the closest in defense glory to a specific value
-	 * @param defenseGlory - the value to search for
+	 * @param player - the value to search for
 	 * @param amountOfPlayersToRetrieve - the X amount of players
 	 * @param offset - offset in case the found players are not enough and an offset search is necessary
 	 */
-	static async findByDefenseGlory(defenseGlory: number, amountOfPlayersToRetrieve: number, offset: number): Promise<Player[]> {
+	static async findPotentialOpponent(player: Player, amountOfPlayersToRetrieve: number, offset: number): Promise<Player[]> {
 		return await Player.findAll({
 			where: {
-				defenseGlory: {[Op.ne]: null}
+				defenseGlory: {
+					[Op.ne]: null,
+					[Op.between]: [
+						player.attackGloryPoints - FightConstants.ELO.MAX_ELO_GAP,
+						player.attackGloryPoints + FightConstants.ELO.MAX_ELO_GAP
+					]
+				},
+				level:  {[Op.gt]: FightConstants.REQUIRED_LEVEL}
 			},
 			order: [
-				// Trier par la différence absolue avec defenseGlory recherchée
-				[Sequelize.literal(`ABS(defenseGlory - ${defenseGlory})`), "ASC"]
+				// Sort using the difference with the attack elo of the player
+				[Sequelize.literal(`ABS(defenseGlory - ${player.attackGloryPoints})`), "ASC"]
 			],
 			limit: amountOfPlayersToRetrieve,
 			offset: offset
