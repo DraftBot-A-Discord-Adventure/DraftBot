@@ -65,18 +65,21 @@ function bo3isAlreadyFinished(bo3: RankedFightResult) {
 /**
  * Find another player to fight the player that started the command
  * @param player - player that wants to fight
- * @param offset - offset to start the search in case the first try did not work
  * @returns player opponent
  */
-async function findOpponent(player: Player, offset: number): Promise<Player | null> {
-	const validOpponents = await Players.findPotentialOpponent(
-		player,
-		FightConstants.PLAYER_PER_OPPONENT_SEARCH,
-		offset
-	);
+async function findOpponent(player: Player): Promise<Player | null> {
+	for (let offset = 0; offset <= FightConstants.MAX_OFFSET_FOR_OPPONENT_SEARCH; offset++) {
+		// Retrieve some potential opponents
+		const validOpponents = await Players.findPotentialOpponent(
+			player,
+			FightConstants.PLAYER_PER_OPPONENT_SEARCH,
+			offset
+		);
+		if (validOpponents.length === 0) {
+			continue;
+		}
 
-	if (validOpponents.length !== 0) {
-		// Shuffle array
+		// Shuffle the array of opponents to randomize who gets picked first
 		validOpponents.sort(() => Math.random() - 0.5);
 
 		// Check if these players have been defenders recently
@@ -84,38 +87,35 @@ async function findOpponent(player: Player, offset: number): Promise<Player | nu
 			validOpponents.map((opponent) => opponent.keycloakId),
 			FightConstants.DEFENDER_COOLDOWN_MINUTES
 		);
-
-		// Filter out opponents who have been defenders recently
+		// Filter out opponents who have been defenders too recently
 		const opponentsNotOnCooldown = validOpponents.filter(
 			(opponent) => !haveBeenDefenderRecently[opponent.keycloakId]
 		);
+		// If nobody is off cooldown in this batch, continue to the next offset
+		if (opponentsNotOnCooldown.length === 0) {
+			continue;
+		}
 
-		if (opponentsNotOnCooldown.length !== 0) {
-			// Now get the keycloak IDs of the remaining opponents
-			const remainingOpponentKeycloakIds = opponentsNotOnCooldown.map((opponent) => opponent.keycloakId);
-
-			// Fetch the fight results against all remaining valid opponents in one call
-			const bo3Map = await LogsReadRequests.getRankedFightsThisWeek(
-				player.keycloakId,
-				remainingOpponentKeycloakIds
-			);
-
-			// Now iterate over opponentsNotOnCooldown and find the first one that meets all conditions
-			for (const opponent of opponentsNotOnCooldown) {
-				// Get the fight result for this opponent from the map
-				if (bo3isAlreadyFinished( bo3Map.get(opponent.keycloakId) || {won: 0, lost: 0, draw: 0})) {
-					continue;
-				}
-				// Found a valid opponent
-				return opponent;
+		// Get IDs for the remaining opponents
+		const remainingOpponentKeycloakIds = opponentsNotOnCooldown.map(
+			(opponent) => opponent.keycloakId
+		);
+		// Fetch the fight results against all remaining valid opponents
+		const bo3Map = await LogsReadRequests.getRankedFightsThisWeek(
+			player.keycloakId,
+			remainingOpponentKeycloakIds
+		);
+		// Check each remaining opponent to see if the best-of-three is finished
+		for (const opponent of opponentsNotOnCooldown) {
+			const results = bo3Map.get(opponent.keycloakId) || {won: 0, lost: 0, draw: 0};
+			if (bo3isAlreadyFinished(results)) {
+				// If the Bo3 is already finished, skip this opponent
+				continue;
 			}
+			// Found a valid opponent
+			return opponent;
 		}
 	}
-	// No valid opponents found in this batch, recursively search with increased offset
-	if (offset > FightConstants.MAX_OFFSET_FOR_OPPONENT_SEARCH) {
-		return null;
-	}
-	return findOpponent(player, offset + 1);
 }
 
 export default class FightCommand {
@@ -134,7 +134,7 @@ export default class FightCommand {
 		const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
 			const reaction = collector.getFirstReaction();
 			if (reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name) {
-				const opponent = await findOpponent(player, 0);
+				const opponent = await findOpponent(player);
 				if (!opponent) {
 					// Error message if no opponent found
 				}
