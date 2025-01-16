@@ -1456,7 +1456,7 @@ export class Players {
 				[Sequelize.literal(`ABS(defenseGlory - ${player.attackGloryPoints})`), "ASC"]
 			],
 			limit: amountOfPlayersToRetrieve,
-			offset: offset
+			offset
 		});
 	}
 }
