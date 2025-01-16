@@ -172,8 +172,8 @@ async function findOpponent(player: Player): Promise<Player | null> {
 				return opponent;
 			}
 		}
-		return null;
 	}
+	return null;
 }
 
 export default class FightCommand {
