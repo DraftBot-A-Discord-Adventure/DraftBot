@@ -108,12 +108,9 @@ async function findOpponent(player: Player): Promise<Player | null> {
 		// Check each remaining opponent to see if the best-of-three is finished
 		for (const opponent of opponentsNotOnCooldown) {
 			const results = bo3Map.get(opponent.keycloakId) || {won: 0, lost: 0, draw: 0};
-			if (bo3isAlreadyFinished(results)) {
-				// If the Bo3 is already finished, skip this opponent
-				continue;
+			if (!bo3isAlreadyFinished(results)) {
+				return opponent;
 			}
-			// Found a valid opponent
-			return opponent;
 		}
 	}
 }
