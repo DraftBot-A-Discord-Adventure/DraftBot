@@ -35,7 +35,6 @@ export abstract class EloUtils {
 	 * @param kFactor The k factor of the player (see EloUtils.getKFactor)
 	 */
 	static calculateNewRating(playerRating: number, opponentRating: number, gameResult: EloGameResult, kFactor: number): number {
-		const oldElo = playerRating;
 		const newElo = Math.round(playerRating + kFactor * (gameResult - 1 / (1 + Math.pow(10, (opponentRating - playerRating) / 400))));
 		return newElo + Math.round((newElo - playerRating) * (1.49 - Math.tanh((playerRating - 502) / 140) / 2 - 0.87))
 	}
