@@ -97,15 +97,15 @@
     "problemWhilePromoting": "Une erreur est survenue lors de la promotion du joueur."
   },
   "guildLeave": {
-    "title": "{pseudo}, confirmation :",
+    "title": "{{pseudo}}, confirmation :",
     "confirmDesc": ":question: Souhaitez vous vraiment quitter la guilde `{{guildName}}` ?",
     "confirmChiefDesc": ":question: Souhaitez vous vraiment **détruire définitivement** la guilde `{guildName}` ?",
-    "confirmChiefDescWithElder": ":question: Souhaitez vous vraiment quitter la guilde `{guildName}` ? {elderName} en deviendra le chef.",
+    "confirmChiefDescWithElder": ":question: Souhaitez vous vraiment quitter la guilde `{{guildName}}` ? {{elderPseudo}} en deviendra le chef.",
     "leavingCancelled": "Votre départ a été annulé.",
-    "successTitle": "{pseudo} a quitté la guilde {guildName} !",
-    "leavingSuccess": "You're a poor lonesome cowboy and a long long way from home...",
-    "newChiefTitle": ":crown: | La guilde **{guild}** a un nouveau chef !",
-    "leaveGuildTitle": "Quitter la guilde",
+    "successTitle": "{{pseudo}} a quitté la guilde {{guildName}} !",
+    "leavingSuccess": "Vous êtes un pauvre cow-boy solitaire et vous êtes très loin de chez vous...",
+    "destroySuccess": "La guilde {{guildName}} a correctement été dissoute.",
+    "newChiefTitle": ":crown: | {{elderPseudo}} est le nouveau chef de la guilde **{{guildName}}** !",
     "guildDestroy": "Il semblerait que vous ayez déjà quitté la guilde."
   },
   "help": {
