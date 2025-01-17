@@ -13,14 +13,23 @@ import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/inter
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
 
-async function acceptGuildleave(player: Player, response: DraftBotPacket[]): Promise<void> {
+
+/**
+ * Allow the player to leave its guild
+ * @param player
+ * @param response
+ */
+async function acceptGuildLeave(player: Player, response: DraftBotPacket[]): Promise<void> {
 	await player.reload();
+	// The player is no longer in a guild since the menu
 	if (player.guildId === null) {
 		return;
 	}
 	const guild = await Guilds.getById(player.guildId);
 	if (player.id === guild.chiefId) {
+		// The guild's chief is leaving
 		if (guild.elderId !== null) {
+			// An elder can recover the guild
 			const elder = await Players.getById(guild.elderId);
 			guild.elderId = null;
 			guild.chiefId = elder.id;
@@ -30,13 +39,15 @@ async function acceptGuildleave(player: Player, response: DraftBotPacket[]): Pro
 			}));
 			return;
 		}
-		// TODO : détruire la guilde ici
+		// No elder => the guild will be destroyed
+		await guild.completelyDestroyAndDeleteFromTheDatabase();
 		response.push(makePacket(CommandGuildLeaveAcceptPacketRes, {
 			guildName: guild.name
 		}));
 		return;
 	}
 	if (guild.elderId === player.id) {
+		// The guild's elder is leaving
 		guild.elderId = null;
 	}
 	player.guildId = null;
@@ -66,7 +77,7 @@ export default class GuildElderCommand {
 		const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
 			const reaction = collector.getFirstReaction();
 			if (reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name) {
-				await acceptGuildleave(player, response);
+				await acceptGuildLeave(player, response);
 			}
 			else {
 				response.push(makePacket(CommandGuildLeaveRefusePacketRes, {}));
