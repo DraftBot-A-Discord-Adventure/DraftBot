@@ -1,6 +1,3 @@
-import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
-import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
-import {PacketUtils} from "../../utils/PacketUtils";
 import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
@@ -22,7 +19,7 @@ export async function createGuildLeaveCollector(packet: ReactionCollectorCreatio
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorGuildLeaveData;
-	const elderPlayer = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, data.newChiefKeycloakId))!;
+	const newChiefPseudo = data.newChiefKeycloakId !== null ? (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, data.newChiefKeycloakId))!.attributes.gameUsername : "";
 	const keyDesc = data.guildIsDestroyed ? "confirmChiefDesc" : data.newChiefKeycloakId !== null ? "confirmChiefDescWithElder" : "confirmDesc";
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:guildLeave.title", {
 		lng: interaction.userLanguage,
@@ -31,7 +28,7 @@ export async function createGuildLeaveCollector(packet: ReactionCollectorCreatio
 		.setDescription(
 			i18n.t(`commands:guildLeave.${keyDesc}`, {
 				lng: interaction.userLanguage,
-				elderPseudo: elderPlayer.attributes.gameUsername,
+				newChiefPseudo,
 				guildName: data.guildName
 			})
 		);
@@ -44,13 +41,13 @@ export async function handleCommandGuildLeaveAcceptPacketRes(packet: CommandGuil
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 	const keyTitle = packet.newChiefKeycloakId ? "newChiefTitle" : "successTitle";
 	const keyDesc = packet.isGuildDestroyed ? "destroySuccess" : "leavingSuccess";
-	const elder = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.newChiefKeycloakId!))!;
+	const newChiefPseudo = packet.newChiefKeycloakId !== null ? (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.newChiefKeycloakId))!.attributes.gameUsername : "";
 	if (buttonInteraction && originalInteraction) {
 		await buttonInteraction.editReply({
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t(`commands:guildLeave.${keyTitle}`, {
 					lng: originalInteraction.userLanguage,
-					elderPseudo: elder.attributes.gameUsername,
+					newChiefPseudo,
 					guildName: packet.guildName
 				}), originalInteraction.user)
 					.setDescription(
@@ -61,12 +58,8 @@ export async function handleCommandGuildLeaveAcceptPacketRes(packet: CommandGuil
 	}
 }
 
-async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandGuildLeavePacketReq | null> {
-	const player = await PacketUtils.prepareAskedPlayer(interaction, user);
-	if (!player || !player.keycloakId) {
-		return null;
-	}
-	return makePacket(CommandGuildLeavePacketReq, {playerKeycloakId: player.keycloakId});
+function getPacket(): CommandGuildLeavePacketReq {
+	return makePacket(CommandGuildLeavePacketReq, {});
 }
 
 export const commandInfo: ICommand = {

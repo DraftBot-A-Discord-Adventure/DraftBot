@@ -9,7 +9,7 @@ import {
 export class ReactionCollectorGuildLeaveData extends ReactionCollectorData {
 	guildName!: string;
 
-	newChiefKeycloakId!: string;
+	newChiefKeycloakId!: string | null;
 
 	guildIsDestroyed!: boolean;
 }
@@ -17,11 +17,11 @@ export class ReactionCollectorGuildLeaveData extends ReactionCollectorData {
 export class ReactionCollectorGuildLeave extends ReactionCollector {
 	private readonly guildName: string;
 
-	private readonly newChiefKeycloakId: string;
+	private readonly newChiefKeycloakId: string | null;
 
 	private readonly guildIsDestroyed: boolean;
 
-	constructor(guildName: string, newChiefKeycloakId: string, guildIsDestroyed: boolean) {
+	constructor(guildName: string, newChiefKeycloakId: string | null, guildIsDestroyed: boolean) {
 		super();
 		this.guildName = guildName;
 		this.newChiefKeycloakId = newChiefKeycloakId;
