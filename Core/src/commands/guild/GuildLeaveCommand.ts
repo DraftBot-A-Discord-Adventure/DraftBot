@@ -30,6 +30,7 @@ async function acceptGuildLeave(player: Player, response: DraftBotPacket[]): Pro
 		// The guild's chief is leaving
 		if (guild.elderId !== null) {
 			// An elder can recover the guild
+			player.guildId = null;
 			const elder = await Players.getById(guild.elderId);
 			guild.elderId = null;
 			guild.chiefId = elder.id;
@@ -37,12 +38,19 @@ async function acceptGuildLeave(player: Player, response: DraftBotPacket[]): Pro
 				newChiefKeycloakId: elder.keycloakId,
 				guildName: guild.name
 			}));
+
+			await Promise.all([
+				elder.save(),
+				guild.save(),
+				player.save()
+			]);
 			return;
 		}
 		// No elder => the guild will be destroyed
 		await guild.completelyDestroyAndDeleteFromTheDatabase();
 		response.push(makePacket(CommandGuildLeaveAcceptPacketRes, {
-			guildName: guild.name
+			guildName: guild.name,
+			isGuildDestroyed: true
 		}));
 		return;
 	}
@@ -54,6 +62,10 @@ async function acceptGuildLeave(player: Player, response: DraftBotPacket[]): Pro
 	response.push(makePacket(CommandGuildLeaveAcceptPacketRes, {
 		guildName: guild.name
 	}));
+	await Promise.all([
+		player.save(),
+		guild.save()
+	]);
 }
 
 export default class GuildLeaveCommand {
