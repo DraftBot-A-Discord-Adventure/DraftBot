@@ -47,6 +47,7 @@ export async function handleCommandGuildLeaveAcceptPacketRes(packet: CommandGuil
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t(`commands:guildLeave.${keyTitle}`, {
 					lng: originalInteraction.userLanguage,
+					pseudo: originalInteraction.user.displayName,
 					newChiefPseudo,
 					guildName: packet.guildName
 				}), originalInteraction.user)
