@@ -56,7 +56,7 @@ async function acceptGuildLeave(player: Player, response: DraftBotPacket[]): Pro
 	}));
 }
 
-export default class GuildElderCommand {
+export default class GuildLeaveCommand {
 	@commandRequires(CommandGuildLeavePacketReq, {
 		notBlocked: true,
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD,
@@ -72,7 +72,8 @@ export default class GuildElderCommand {
 
 		const collector = new ReactionCollectorGuildLeave(
 			guild.name,
-			elder.keycloakId
+			elder.keycloakId,
+			guild.chiefId === player.id && guild.elderId === null
 		);
 		const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
 			const reaction = collector.getFirstReaction();
