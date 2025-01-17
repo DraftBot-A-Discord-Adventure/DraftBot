@@ -43,6 +43,8 @@ import {ReactionCollectorSkipMissionShopItemData} from "../../../../Lib/src/pack
 import {skipMissionShopItemCollector} from "../../commands/mission/MissionShop";
 import {createGuildElderCollector} from "../../commands/guild/GuildElderCommand";
 import {ReactionCollectorGuildElderData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildElder";
+import {ReactionCollectorGuildLeaveData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildLeave";
+import {createGuildLeaveCollector} from "../../commands/guild/GuildLeaveCommand";
 import {ReactionCollectorSwitchItemData} from "../../../../Lib/src/packets/interaction/ReactionCollectorSwitchItem";
 import {switchItemCollector} from "../../commands/player/SwitchCommand";
 
@@ -59,6 +61,7 @@ export default class ReactionCollectorHandler {
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorGuildCreateData.name, createGuildCreateCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorGuildKickData.name, createGuildKickCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorGuildElderData.name, createGuildElderCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorGuildLeaveData.name, createGuildLeaveCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorLotteryData.name, lotteryCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorInteractOtherPlayersPoorData.name, interactOtherPlayersCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorWitchData.name, witchCollector);

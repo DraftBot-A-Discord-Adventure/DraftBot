@@ -139,6 +139,14 @@ import {
 	CommandGuildElderRefusePacketRes,
 	CommandGuildElderSameGuildPacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildElderPacket";
+import {
+	handleCommandGuildElderAcceptPacketRes,
+	handleCommandGuildElderRefusePacketRes
+} from "../../commands/guild/GuildElderCommand";
+import {
+	CommandGuildLeaveAcceptPacketRes,
+	CommandGuildLeaveRefusePacketRes
+} from "../../../../Lib/src/packets/commands/CommandGuildLeavePacket";
 import {handleCommandGuildElderAcceptPacketRes, handleCommandGuildElderRefusePacketRes} from "../../commands/guild/GuildElderCommand";
 import {CommandSwitchCancelled, CommandSwitchErrorNoItemToSwitch, CommandSwitchSuccess} from "../../../../Lib/src/packets/commands/CommandSwitchPacket";
 import {handleItemSwitch} from "../../commands/player/SwitchCommand";
@@ -301,6 +309,16 @@ export default class CommandHandlers {
 	@packetHandler(CommandGuildElderAcceptPacketRes)
 	async guildElderAcceptRes(packet: CommandGuildElderAcceptPacketRes, context: PacketContext): Promise<void> {
 		await handleCommandGuildElderAcceptPacketRes(packet, context);
+	}
+
+	@packetHandler(CommandGuildLeaveRefusePacketRes)
+	async guildLeaveRefuseRes(packet: CommandGuildLeaveRefusePacketRes, context: PacketContext): Promise<void> {
+		// TODO
+	}
+
+	@packetHandler(CommandGuildLeaveAcceptPacketRes)
+	async guildLeaveAcceptRes(packet: CommandGuildLeaveAcceptPacketRes, context: PacketContext): Promise<void> {
+		// TODO
 	}
 
 
