@@ -2,7 +2,6 @@ import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket
 
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandGuildLeavePacketReq extends DraftBotPacket {
-	playerKeycloakId!: string;
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
@@ -11,7 +10,7 @@ export class CommandGuildLeaveRefusePacketRes extends DraftBotPacket {
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandGuildLeaveAcceptPacketRes extends DraftBotPacket {
-	newChiefKeycloakId?: string;
+	newChiefKeycloakId!: string | null;
 
 	guildName!: string;
 
