@@ -73,6 +73,12 @@ export async function handleCommandGuildElderRefusePacketRes(packet: CommandGuil
 		]
 	});
 }
+
+/**
+ * Handle the response when the user is not in the guild
+ * @param packet
+ * @param context
+ */
 export async function handleCommandGuildElderNotSameGuildPacketRes(packet: CommandGuildElderSameGuildPacketRes, context: PacketContext): Promise<void> {
 	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
 	if (!originalInteraction) {
