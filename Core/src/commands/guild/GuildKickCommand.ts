@@ -28,6 +28,7 @@ async function acceptGuildKick(player: Player, kickedPlayer: Player, response: D
 	kickedPlayer.guildId = null;
 
 	if (guild.elderId === kickedPlayer.id) {
+		await draftBotInstance.logsDatabase.logGuildElderRemove(guild, guild.elderId);
 		guild.elderId = null;
 	}
 	await Promise.all([
