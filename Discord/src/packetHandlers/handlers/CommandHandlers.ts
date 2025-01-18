@@ -144,9 +144,13 @@ import {
 	handleCommandGuildElderRefusePacketRes
 } from "../../commands/guild/GuildElderCommand";
 import {
-	CommandGuildLeaveAcceptPacketRes,
+	CommandGuildLeaveAcceptPacketRes, CommandGuildLeaveNotInAGuildPacketRes,
 	CommandGuildLeaveRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildLeavePacket";
+import {
+	handleCommandGuildLeaveAcceptPacketRes, handleCommandGuildLeaveNotInAGuildRes,
+	handleCommandGuildLeaveRefusePacketRes
+} from "../../commands/guild/GuildLeaveCommand";
 import {handleCommandGuildLeaveAcceptPacketRes} from "../../commands/guild/GuildLeaveCommand";
 import {handleCommandGuildElderAcceptPacketRes, handleCommandGuildElderRefusePacketRes} from "../../commands/guild/GuildElderCommand";
 import {CommandSwitchCancelled, CommandSwitchErrorNoItemToSwitch, CommandSwitchSuccess} from "../../../../Lib/src/packets/commands/CommandSwitchPacket";
@@ -283,22 +287,22 @@ export default class CommandHandlers {
 	}
 
 	@packetHandler(CommandGuildElderSameGuildPacketRes)
-	async guildElderSameGuildRes(packet: CommandGuildElderSameGuildPacketRes, context: PacketContext): Promise<void> {
+	async guildElderSameGuildRes(_packet: CommandGuildElderSameGuildPacketRes, context: PacketContext): Promise<void> {
 		await handleClassicError(context, "commands:guildElder.notSameGuild");
 	}
 
 	@packetHandler(CommandGuildElderHimselfPacketRes)
-	async guildElderHimselfRes(packet: CommandGuildElderHimselfPacketRes, context: PacketContext): Promise<void> {
+	async guildElderHimselfRes(_packet: CommandGuildElderHimselfPacketRes, context: PacketContext): Promise<void> {
 		await handleClassicError(context, "commands:guildElder.chiefError");
 	}
 
 	@packetHandler(CommandGuildElderAlreadyElderPacketRes)
-	async guildElderAlreadyElderRes(packet: CommandGuildElderAlreadyElderPacketRes, context: PacketContext): Promise<void> {
+	async guildElderAlreadyElderRes(_packet: CommandGuildElderAlreadyElderPacketRes, context: PacketContext): Promise<void> {
 		await handleClassicError(context, "commands:guildElder.alreadyElder");
 	}
 
 	@packetHandler(CommandGuildElderFoundPlayerPacketRes)
-	async guildElderFoundPlayerRes(packet: CommandGuildElderFoundPlayerPacketRes, context: PacketContext): Promise<void> {
+	async guildElderFoundPlayerRes(_packet: CommandGuildElderFoundPlayerPacketRes, context: PacketContext): Promise<void> {
 		await handleClassicError(context, "commands:guildElder.playerNotFound");
 	}
 
@@ -312,9 +316,14 @@ export default class CommandHandlers {
 		await handleCommandGuildElderAcceptPacketRes(packet, context);
 	}
 
+	@packetHandler(CommandGuildLeaveNotInAGuildPacketRes)
+	async guildLeaveNotInAGuildRes(packet: CommandGuildLeaveNotInAGuildPacketRes, context: PacketContext): Promise<void> {
+		await handleCommandGuildLeaveNotInAGuildRes(packet, context);
+	}
+
 	@packetHandler(CommandGuildLeaveRefusePacketRes)
 	async guildLeaveRefuseRes(packet: CommandGuildLeaveRefusePacketRes, context: PacketContext): Promise<void> {
-		// TODO
+		await handleCommandGuildLeaveRefusePacketRes(packet, context);
 	}
 
 	@packetHandler(CommandGuildLeaveAcceptPacketRes)

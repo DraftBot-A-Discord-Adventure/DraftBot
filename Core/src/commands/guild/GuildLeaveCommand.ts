@@ -3,7 +3,7 @@ import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {
-	CommandGuildLeaveAcceptPacketRes,
+	CommandGuildLeaveAcceptPacketRes, CommandGuildLeaveNotInAGuildPacketRes,
 	CommandGuildLeavePacketReq, CommandGuildLeaveRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildLeavePacket";
 import {Guilds} from "../../core/database/game/models/Guild";
@@ -23,6 +23,7 @@ async function acceptGuildLeave(player: Player, response: DraftBotPacket[]): Pro
 	await player.reload();
 	// The player is no longer in a guild since the menu
 	if (player.guildId === null) {
+		response.push(makePacket(CommandGuildLeaveNotInAGuildPacketRes, {}));
 		return;
 	}
 	const guild = await Guilds.getById(player.guildId);
@@ -79,6 +80,7 @@ export default class GuildLeaveCommand {
 	})
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandGuildLeavePacketReq, context: PacketContext): Promise<void> {
 		if (player.guildId === null) {
+			response.push(makePacket(CommandGuildLeaveNotInAGuildPacketRes, {}));
 			return;
 		}
 		const guild = await Guilds.getById(player.guildId);

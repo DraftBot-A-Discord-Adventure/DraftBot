@@ -16,3 +16,7 @@ export class CommandGuildLeaveAcceptPacketRes extends DraftBotPacket {
 
 	isGuildDestroyed?: boolean;
 }
+
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class CommandGuildLeaveNotInAGuildPacketRes extends DraftBotPacket {
+}
