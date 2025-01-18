@@ -2,8 +2,8 @@ import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPac
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {
-	CommandGuildLeaveAcceptPacketRes,
-	CommandGuildLeavePacketReq
+	CommandGuildLeaveAcceptPacketRes, CommandGuildLeaveNotInAGuildPacketRes,
+	CommandGuildLeavePacketReq, CommandGuildLeaveRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildLeavePacket";
 import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {DiscordCache} from "../../bot/DiscordCache";
@@ -57,6 +57,50 @@ export async function handleCommandGuildLeaveAcceptPacketRes(packet: CommandGuil
 			]
 		});
 	}
+}
+
+export async function handleCommandGuildLeaveRefusePacketRes(packet: CommandGuildLeaveRefusePacketRes, context: PacketContext): Promise<void> {
+	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
+	if (!originalInteraction) {
+		return;
+	}
+	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+	await buttonInteraction?.editReply({
+		embeds: [
+			new DraftBotEmbed().formatAuthor(i18n.t("commands:guildLeave.canceledTitle", {
+				lng: originalInteraction.userLanguage,
+				pseudo: originalInteraction.user.displayName
+			}), originalInteraction.user)
+				.setDescription(
+					i18n.t("commands:guildLeave.canceledDesc", {
+						lng: originalInteraction.userLanguage
+					})
+				)
+				.setErrorColor()
+		]
+	});
+}
+
+export async function handleCommandGuildLeaveNotInAGuildRes(packet: CommandGuildLeaveNotInAGuildPacketRes, context: PacketContext): Promise<void> {
+	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
+	if (!originalInteraction) {
+		return;
+	}
+	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+	await buttonInteraction?.editReply({
+		embeds: [
+			new DraftBotEmbed().formatAuthor(i18n.t("error:titleDidntWork", {
+				lng: originalInteraction.userLanguage,
+				pseudo: originalInteraction.user.displayName
+			}), originalInteraction.user)
+				.setDescription(
+					i18n.t("commands:guildLeave.notInAGuild", {
+						lng: originalInteraction.userLanguage
+					})
+				)
+				.setErrorColor()
+		]
+	});
 }
 
 function getPacket(): CommandGuildLeavePacketReq {
