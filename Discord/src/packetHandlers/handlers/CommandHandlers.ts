@@ -140,7 +140,7 @@ import {
 	CommandGuildElderSameGuildPacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildElderPacket";
 import {
-	handleCommandGuildElderAcceptPacketRes,
+	handleCommandGuildElderAcceptPacketRes, handleCommandGuildElderNotSameGuildPacketRes,
 	handleCommandGuildElderRefusePacketRes
 } from "../../commands/guild/GuildElderCommand";
 import {
@@ -287,8 +287,8 @@ export default class CommandHandlers {
 	}
 
 	@packetHandler(CommandGuildElderSameGuildPacketRes)
-	async guildElderSameGuildRes(_packet: CommandGuildElderSameGuildPacketRes, context: PacketContext): Promise<void> {
-		await handleClassicError(context, "commands:guildElder.notSameGuild");
+	async guildElderSameGuildRes(packet: CommandGuildElderSameGuildPacketRes, context: PacketContext): Promise<void> {
+		await handleCommandGuildElderNotSameGuildPacketRes(packet, context);
 	}
 
 	@packetHandler(CommandGuildElderHimselfPacketRes)

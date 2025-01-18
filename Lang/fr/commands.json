@@ -93,8 +93,7 @@
     "successElderAddTitle": "{{elderPseudo}} est le nouvel aîné de la guilde {{guildName}} !",
     "acceptedDesc": "L'aîné sert à aider le chef dans la gestion de la guilde. Il faut donc le choisir avec prudence ! Mais rassurez-vous, si vous n'êtes pas satisfait de votre aîné, vous pouvez le remplacer avec la commande {command:guildelder}, ou si vous avez une âme de dictateur, vous pouvez définitivement le supprimer avec {command:guildelderremove}.",
     "canceledDesc": "L'aîné n'a pas été promu.",
-    "canceledTitle": "Annulation prise en compte.",
-    "problemWhilePromoting": "Une erreur est survenue lors de la promotion du joueur."
+    "canceledTitle": "Annulation prise en compte."
   },
   "guildLeave": {
     "title": "{{pseudo}}, confirmation :",
