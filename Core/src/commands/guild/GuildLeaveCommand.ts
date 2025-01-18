@@ -12,6 +12,8 @@ import {EndCallback, ReactionCollectorInstance} from "../../core/utils/Reactions
 import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
+import {draftBotInstance} from "../../index";
+import {LogsDatabase} from "../../core/database/logs/LogsDatabase";
 
 
 /**
@@ -30,6 +32,8 @@ async function acceptGuildLeave(player: Player, response: DraftBotPacket[]): Pro
 	if (player.id === guild.chiefId) {
 		// The guild's chief is leaving
 		if (guild.elderId !== null) {
+			await draftBotInstance.logsDatabase.logGuildElderRemove(guild, guild.elderId);
+			await draftBotInstance.logsDatabase.logGuildChiefChange(guild, guild.elderId);
 			// An elder can recover the guild
 			player.guildId = null;
 			const elder = await Players.getById(guild.elderId);
@@ -58,8 +62,10 @@ async function acceptGuildLeave(player: Player, response: DraftBotPacket[]): Pro
 	}
 	if (guild.elderId === player.id) {
 		// The guild's elder is leaving
+		await draftBotInstance.logsDatabase.logGuildElderRemove(guild, guild.elderId);
 		guild.elderId = null;
 	}
+	LogsDatabase.logGuildLeave(guild, player.keycloakId).then();
 	player.guildId = null;
 	response.push(makePacket(CommandGuildLeaveAcceptPacketRes, {
 		newChiefKeycloakId: null,
