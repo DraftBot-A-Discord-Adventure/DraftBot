@@ -14,7 +14,11 @@ import {ReactionCollectorGuildLeaveData} from "../../../../Lib/src/packets/inter
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
 
-
+/**
+ * Create a collector to accept/refuse to leave the guild
+ * @param packet
+ * @param context
+ */
 export async function createGuildLeaveCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
@@ -36,6 +40,11 @@ export async function createGuildLeaveCollector(packet: ReactionCollectorCreatio
 	await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
 }
 
+/**
+ * Handle the response when the player leave its guild
+ * @param packet
+ * @param context
+ */
 export async function handleCommandGuildLeaveAcceptPacketRes(packet: CommandGuildLeaveAcceptPacketRes, context: PacketContext): Promise<void> {
 	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
@@ -59,6 +68,11 @@ export async function handleCommandGuildLeaveAcceptPacketRes(packet: CommandGuil
 	}
 }
 
+/**
+ * Handle the response when the player don't leave its guild
+ * @param packet
+ * @param context
+ */
 export async function handleCommandGuildLeaveRefusePacketRes(packet: CommandGuildLeaveRefusePacketRes, context: PacketContext): Promise<void> {
 	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
 	if (!originalInteraction) {
@@ -81,6 +95,11 @@ export async function handleCommandGuildLeaveRefusePacketRes(packet: CommandGuil
 	});
 }
 
+/**
+ * Handle the response when the user is not in the guild
+ * @param packet
+ * @param context
+ */
 export async function handleCommandGuildLeaveNotInAGuildRes(packet: CommandGuildLeaveNotInAGuildPacketRes, context: PacketContext): Promise<void> {
 	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
 	if (!originalInteraction) {
@@ -103,6 +122,9 @@ export async function handleCommandGuildLeaveNotInAGuildRes(packet: CommandGuild
 	});
 }
 
+/**
+ * Allow the player to leave its guild
+ */
 function getPacket(): CommandGuildLeavePacketReq {
 	return makePacket(CommandGuildLeavePacketReq, {});
 }
