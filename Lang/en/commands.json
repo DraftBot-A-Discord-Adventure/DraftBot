@@ -56,7 +56,7 @@
     "title": "{{pseudo}}, creating a guild",
     "canceledTitle": "{{pseudo}}, cancelling guild creation.",
     "canceledDesc": "Your guild creation has been cancelled.",
-    "confirmDesc": "{emote:collectors.question} Confirm the creation of the **{{guildName}}** guild for `{{price}}` :moneybag:?",
+    "confirmDesc": "{emote:collectors.question} Confirm the creation of the **{{guildName}}** guild for `{{price}}` {emote:unitValues.money}?",
     "acceptedFooter": "Caution: the staff reserves the right to rename your guild.",
     "acceptedDesc": "The **{{guildName}}** guild has been created!"
   },
@@ -81,6 +81,20 @@
     "noPlayer": "Player is not in guild.",
     "notSameGuild": "You cannot kick a player who is not in your guild.",
     "himself": "You cannot kick yourself from the guild."
+  },
+  "guildElder": {
+    "playerNotFound": "This player was not found.",
+    "notSameGuild": "This player does not belong to your guild.",
+    "notChiefError": "You must be the leader of the guild to perform this order.",
+    "chiefError": "As the leader of the guild, you may not be able to use the Wing.",
+    "alreadyElder": "The player is already in your guild.",
+    "title": "{{pseudo}}, confirm your choice?",
+    "confirmDesc": ":question: {{elderPseudo}} will become the guild wing `{{guildName}}`.",
+    "successElderAddTitle": "{{elderPseudo}} is the new wing of the {{guildName}} guild!",
+    "acceptedDesc": "The Warrior is used to assist the leader in the management of the guild. We must therefore choose it with caution. But rest assured, if you were not satisfied with your wing, you can replace it with the {command:guildelder}command, or if you have a dictator status, you can definitively delete it with {command:guildelderremove}.",
+    "canceledDesc": "Wants were not promoted.",
+    "canceledTitle": "Cancellation taken into account.",
+    "problemWhilePromoting": "An error occurred while promoting the player."
   },
   "help": {
     "aliasFieldTitle": "Alias",
@@ -113,7 +127,7 @@
         "description": "Displays a guild's info."
       },
       "GUILD_CREATE": {
-        "description": "Create a guild. You need 5000 :moneybag: in order to create a guild."
+        "description": "Create a guild. You need 5000 {emote:unitValues.money} in order to create a guild."
       },
       "GUILD_DAILY_BONUS": {
         "description": "Claims your guild's daily reward."
@@ -244,7 +258,7 @@
     "guildCommands": ":stadium: Guild:",
     "helpEmbedDescription": ":arrow_forward: If you want more information about a specific command click here: {{helpCommandMention}}, and complete the parameter with a command. :wink:",
     "helpEmbedTitle": "{{pseudo}}, here is the list of available commands:",
-    "missionCommands": ":scroll: Mission:",
+    "missionCommands": "{emote:missions.sideMission} Mission:",
     "petCommands": ":dog: Pets:",
     "playerCommands": ":bust_in_silhouette: Player:",
     "serverCommands": ":gear: Server:",
@@ -365,7 +379,7 @@
     },
     "information": {
       "fieldName": "Information:",
-      "fieldValue": "{emote:unitValues.health} {{health}}/{{maxHealth}} | :star: {{experience}}/{{experienceNeededToLevelUp}} | :moneybag: {{money}}"
+      "fieldValue": ":heart: {{health}}/{{maxHealth}} | :star: {{experience}}/{{experienceNeededToLevelUp}} | {emote:unitValues.money} {{money}}"
     },
     "map": {
       "fieldName": "Destination:",
@@ -434,10 +448,10 @@
     "health": "** | {emote:unitValues.health} Life: **{{health}}",
     "healthLoose": "** | :broken_heart: Life lost: **{{health}}",
     "journal": "{{pseudo}}'s log",
-    "money": "** | :moneybag: Money earned: **{{money}}",
+    "money": "** | {emote:unitValues.money} Money earned: **{{money}}",
     "moneyLoose": "** | :money_with_wings: Money lost: **{{money}}",
     "monsterRewardGuildXp": "\n:star: Guild XP earned: **{{guildXp}}**",
-    "monsterRewardsDescription": ":moneybag: Money earned: **{{money}}**\n:star: XP earned: **{{experience}}**",
+    "monsterRewardsDescription": "{emote:unitValues.money} Money earned: **{{money}}**\n:star: XP earned: **{{experience}}**",
     "monsterRewardsGuildPoints": "\n:mirror_ball: Guild points earned: **{{guildPoints}}**",
     "monsterRewardsTitle": "{{pseudo}}, fight rewards",
     "newBigEvent": ":flag_gb: You have reached **{{destination}}**!",
@@ -484,10 +498,10 @@
     "commandName": "sell",
     "commandDescription": "Sell a equipment.",
     "noItemToSell": "Unfortunately you don't have any items in your reserve!",
-    "confirmSell": "Are you sure you want to separate from {{item}} for **{{money}}** :moneybag:?",
+    "confirmSell": "Are you sure you want to separate from {{item}} for **{{money}}** {emote:unitValues.money}?",
     "sellCanceled": "The sale was successfully cancelled!",
     "sellTitle": "{{pseudo}}, confirmation:",
-    "soldMessage": "You sold {{item}} for **{{money}}** :moneybag:!",
+    "soldMessage": "You sold {{item}} for **{{money}}** {emote:unitValues.money}!",
     "soldMessageTitle": "{{pseudo}}, you sold a equipment.",
     "potionDestroyedTitle": "You have destroyed a potion.",
     "potionDestroyedMessage": "The potion \"{{item}}\" has been poured into a sink.",
@@ -508,16 +522,16 @@
     "noEnergyToHeal": "You have all your combat energy. ⚡",
     "fullRegen": "💓 You have been fully cared for.",
     "alreadyHaveBadge": "You already have this badge.",
-    "badgeBought": "You have received a new badge: {emote:badges.richPerson}!",
-    "notEnoughMoney": "You don't have enough money to buy this item! You are missing `{{missingMoney}} {emote:unitValues.money}`.",
+    "badgeBought": "You have received a new badge: {emote:badges.{{badgeName}}}!",
+    "notEnoughMoney": "You don't have enough money to buy this item! You are missing `{{missingCurrency}} {emote:unitValues.{{currency}}}`.",
     "boughtTooMuchDailyPotions": "There are no more potions available for sale... Come back tomorrow!",
     "title": "🛒 Store Display",
-    "currentMoney": "You have `{{money}}{emote:unitValues.money}`.",
-    "shopItemsDisplaySingle": "{{name}} | `{{price}}{emote:unitValues.money}`",
-    "shopItemsDisplayMultiple": "**{{amount}}x** {{name}} | `{{price}}{emote:unitValues.money}`",
+    "currentMoney": "You have `{{money}}{emote:unitValues.{{currency}}}`.",
+    "shopItemsDisplaySingle": "{{name}} | `{{price}}{emote:unitValues.{{currency}}}`",
+    "shopItemsDisplayMultiple": "**{{amount}}x** {{name}} | `{{price}}{emote:unitValues.{{currency}}}`",
     "shopSelectPlaceholder": "Select an item to buy",
     "buyCategorySlotSuccess": "You bought a new inventory slot!",
-    "shopItemsSelectDescription": "{{price}}{emote:unitValues.money}",
+    "shopItemsSelectDescription": "{{price}}{emote:unitValues.{{currency}}}",
     "closeShopButton": "❌ Close Store",
     "shopConfirmationTitle": "{{pseudo}}, you selected the following product:",
     "shopConfirmationTitleMultiple": "{{pseudo}}, select a quantity for this product:",
@@ -528,7 +542,10 @@
       "dailyPotion_other": "Today's Potion ({{count}} available)",
       "slotExtension": "Inventory Extensions",
       "food": "Pet Food",
-      "guildXp": "Guild Experience"
+      "guildXp": "Guild Experience",
+      "resources": "Resources",
+      "utilitaries": "Utilities",
+      "prestige": "Prestigious"
     },
     "chooseSlotTitle": "{{pseudo}}, New Inventory Location",
     "chooseSlotIndication": "Choose a new inventory slot or cancel:",
@@ -545,27 +562,26 @@
         "name": "{emote:shopItems.randomItem} Random Equipment",
         "info": "You will receive a random Equipment (Weapon/Armour/Item or Potion) from all available in-game."
       },
-      "healAlteration": {
+      "alterationHeal": {
         "name": "{emote:shopItems.healAlteration} Status Healing",
         "info": "Your state changes will be deleted and you will resume your route immediately.",
         "give": "{emote:shopItems.healAlteration} Your state changes have been deleted."
       },
-      "healEnergy": {
+      "energyHeal": {
         "name": "{emote:shopItems.healEnergy} Power Recovery",
         "info": "Your combat power will also be restored.",
         "give": "{emote:shopItems.healEnergy} Your energy has been restored."
       },
-      "regen": {
+      "fullRegen": {
         "name": "{emote:shopItems.regen} complete regen of life",
         "info": "You will be fully healed but your status will stay unchanged.",
         "give": "{emote:shopItems.regen} You were completely cared for."
       },
       "moneyMouthBadge": {
         "name": "{emote:shopItems.moneyMouthBadge} Money Mouse Badge",
-        "info": "You will receive the badge automatically after payment. For more information about badges use the {command:help} command.",
-        "give": "{{pseudo}}, you have received a new badge:"
+        "info": "You will receive the badge automatically after payment. For more information about badges use the {command:help} command."
       },
-      "inventoryExtension": {
+      "slotExtension": {
         "name": "{emote:shopItems.inventoryExtension} New Inventory Location",
         "info": "You will be able to choose an inventory category to add a location"
       },
@@ -595,6 +611,69 @@
       "ultimateFood": {
         "name": "{emote:foods.ultimateFood} Ultimate Soup",
         "info": "You will receive the ultimate soup for your pets."
+      },
+      "skipMission": {
+        "name": "{emote:shopItems.skipMission} Mission Change",
+        "info": "Allows you to delete a mission obtained from the map and exchange it for a new mission, However, you will not have the choice of the chosen mission.",
+        "giveTitle": "{{pseudo}}, you decided to change a mission",
+        "giveDesc": "Choose mission to change:",
+        "successTitle": "{{pseudo}}, you changed a mission!",
+        "successDescription": "You deleted the {emote:missions.sideMission} mission **{{mission}}**.",
+        "getNewMission": "You have received the mission: \n\n{emote:missions.sideMission} **{{mission}}**"
+      },
+      "money": {
+        "name": "{emote:unitValues.money} King Silver",
+        "info": "From the gem day course and after the King's tax reduction, you will receive `{{kingsMoneyAmount}}` {emote:unitValues.money}.",
+        "giveTitle": "{{pseudo}}, purchase done!",
+        "giveDescription": "You have recovered `{{amount}}` {emote:unitValues.money}."
+      },
+      "treasure": {
+        "name": "{emote:shopItems.treasure} King's Treasurer",
+        "info": "Gives you a valuable item from the room to the King's treasures.",
+        "give": "{{pseudo}}, you get a new {{type}}:"
+      },
+      "kingsFavor": {
+        "name": "{emote:unitValues.score} King's Fervor",
+        "info": "Grants you {{thousandPoints}} points. Can only be used once per week.",
+        "giveTitle": "{{pseudo}}, purchase done!",
+        "giveDescription": "You got {{thousandPoints}} {emote:unitValues.score}. Next week for a new fervor!"
+      },
+      "lovePointsValue": {
+        "name": "{emote:shopItems.lovePointsValue} Court Veterinary",
+        "info": "Get detailed information about your pet.",
+        "giveTitle": "{{pseudo}}, purchase done!",
+        "giveDesc": "Have a long time spent studying the health status of your pet, you end up receiving the report from the site:\n\n**{{petName}}** {{commentOnResult}}\n{emote:petInformation.loveScore} **Love Score**: {{actualLP}} / 100\n{emote:petInformation.diet} **Food Score**: {{diet}}\n{emote:petInformation.nextFeed} **Next hunger**: {{nextFeed}}",
+        "petIsHungry": "{emote:effects.starving} hungry",
+        "advice": {
+          "1": [
+            "seems to hate you. Be careful, or you might be a victim of a bad blow on your adventures!",
+            "seems to be unfamiliar with you. Considering how you deal with your pet, this is no surprise!",
+            "seems to be in a deep evil. You should try to feed your pet."
+          ],
+          "2": [
+            "seems still wild. Take care of your pet to earn its trust!",
+            "seems to be unapprehended. If you don't care about your pet, you will never get his love!",
+            "doesn't seem to be happy. You should try feeding your pet."
+          ],
+          "3": [
+            "seems a bit feared. Take care of your pet to earn all its trust!",
+            "still seems to be trusting you. Keep caring for your pet to get his love!",
+            "seems to be getting started on you. Try feeding your pet regularly."
+          ],
+          "4": [
+            "looks like you are apprehended. Keep caring for your pet to earn all the trust!",
+            "seems to trust you. If you continue along this path, you will soon get all the love of your pet!",
+            "seems to have been done to you. Don't stop feeding your pet regularly."
+          ],
+          "5": [
+            "seems to fully appreciate you. You don't even need to take care of your pet anymore to keep it loving you!",
+            "seems to share a strong link with you. Your link is unstoppable, as long as you have not seen, you will continue to enjoy your pet's love!"
+          ]
+        }
+      },
+      "questMasterBadge": {
+        "name": "{emote:badges.questMasterBadge} Queen's Maiden Badge",
+        "info": "You will receive the badge within hours of payment. For more information about badges use the {command:help} order."
       }
     }
   },
@@ -708,5 +787,45 @@
     "canceledTitle": "Libeation cancelled",
     "canceledDesc": "The libeation has been cancelled.",
     "acceptedDesc": "You have **{{pseudo}}**!"
+  },
+  "missionsshop": {
+    "title": "Mission Store",
+    "success": "{pseudo}, transaction successful!",
+    "error": {
+      "cannotBuy": "You don't have enough gems to buy this item! You are missing `{missingMoney}{emote:unitValues.gem}`.",
+      "canceledPurchase": "Transaction cancelled!",
+      "alreadyHadBadge": "You already have the Queen's Maiden badge. You cannot get more honors than you already have!",
+      "leaveShop": "You left the store.",
+      "alreadyBoughtPointsThisWeek": "You already purchased points this week, come back next week to buy some!",
+      "noMissionToSkip": "You do not have any missions to skip!",
+      "noPet": "You don't have any pets on you, we can't diagnose a puppy animal!"
+    }
+  },
+  "top": {
+    "level": "Level {{level}}",
+    "titleScoreAllTime": "{emote:top.congrats} Affichage du top des places {{minRank}} à {{maxRank}}",
+    "titleScoreWeekly": "{emote:top.congrats} Top Week Display {{minRank}} {{maxRank}}",
+    "yourRankTitle": "**Your Ranking**",
+    "yourRankFirst_one": "{emote:top.congrats} Congratulations **{{pseudo}}**! You are currently the best on a total of {{total}} players!",
+    "yourRankFirst_other": "{emote:top.congrats} Congratulations **{{pseudo}}**! You are currently the best on a total of {{total}} players!",
+    "yourRank_one": "{{badge}} **{{pseudo}}**, you currently ranked **{{rank}}e** out of a total {{total}} player!",
+    "yourRank_other": "{{badge}} **{{pseudo}}**, you currently ranked **{{rank}}e** out of a total {{total}} players!",
+    "yourRankNoneScore": "{emote:top.error} | Unfortunately you do not appear in the top because you have an equal or negative score!",
+    "yourRankAtPage": "(You can find yourself on page {{page}} / {{maxPage}})",
+    "titleGlory": "{emote:unitValues.glory} Displaying the top glory of {{minRank}} places at {{maxRank}}",
+    "yourRankNoneGlory_one": "{emote:top.error} | Unfortunately you don't appear in the top because you haven't completed enough class battles yet! You still need to complete {{needFight}} class combat.",
+    "yourRankNoneGlory_other": "{emote:top.error} | Unfortunately you don't appear in the top because you haven't completed enough class battles yet! You still need to complete {{needFight}} class combat.",
+    "titleGuild": "{emote:top.guild} Top guild seats {{minRank}} at {{maxRank}}",
+    "yourRankGuildTitle": "**Your guild's ranking**",
+    "yourRankGuildFirst_one": "{emote:top.congrats} Congratulations **{{pseudo}}**! Your guild is currently the best out of a total guild {{total}}!",
+    "yourRankGuildFirst_other": "{emote:top.congrats} Congratulations **{{pseudo}}**! Your guild is currently the best out of a total of {{total}} guilds!",
+    "yourRankGuild_one": "{{badge}} **{{pseudo}}**, your guild is currently ranked **{{rank}}e** out of a total {{total}} guild!",
+    "yourRankGuild_other": "{{badge}} **{{pseudo}}**, your guild is currently ranked **{{rank}}e** out of a total {{total}} guilds!",
+    "yourRankNoneGuild": "{emote:top.error} | Unfortunately, your guild does not appear in the top because it has no guild points!",
+    "yourRankAtPageGuild": "(You can find it on page {{page}} / {{maxPage}})",
+    "noGuild": "{emote:top.error} | You do not appear in this ranking as you are not part of a guild!",
+    "nobodyInTopPlayers": "There is currently no one in the top! Enjoy as you can.",
+    "nobodyInTopGuilds": "There are currently no guilds in the top! Enjoy as you can.",
+    "invalidPage": "The requested page does not exist. Please try again with a page between {{minPage}} and {{maxPage}}."
   }
 }
