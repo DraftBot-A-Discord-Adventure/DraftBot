@@ -5,9 +5,9 @@ import i18n from "../../translations/i18n";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {
 	CommandGuildPacketReq,
-	CommandGuildPacketRes,
-	GuildMember
+	CommandGuildPacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildPacket";
+import {GuildMember} from "../../../../Lib/src/types/GuildMember";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {DiscordCache} from "../../bot/DiscordCache";

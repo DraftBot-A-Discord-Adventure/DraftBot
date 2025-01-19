@@ -90,9 +90,9 @@ export abstract class Fighter {
 
 	/**
 	 * Make the fighter choose his next action
-	 * @param response
+	 * @param fightView
 	 */
-	abstract chooseAction(response: DraftBotPacket[]): Promise<void>;
+	abstract chooseAction(fightView: FightView): Promise<void>;
 
 	/**
 	 * Function called when the fight starts

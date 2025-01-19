@@ -2,8 +2,8 @@ import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/Co
 import {FightController} from "../../../../core/fights/FightController";
 import {PlayerFighter} from "../../../../core/fights/fighter/PlayerFighter";
 import {FightOvertimeBehavior} from "../../../../core/fights/FightOvertimeBehavior";
-import {FightStatModifierOperation} from "../../../../../../Lib/src/interfaces/FightStatModifierOperation";
 import {ClassDataController} from "../../../../data/Class";
+import {FightStatModifierOperation} from "../../../../../../Lib/src/types/FightStatModifierOperation";
 
 export const commandInfo: ITestCommand = {
 	name: "solofight",
