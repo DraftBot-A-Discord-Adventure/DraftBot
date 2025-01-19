@@ -64,8 +64,9 @@ async function getPlayerStats(player: Player): Promise<PlayerStats> {
 /**
  * Code that will be executed when a fight ends (except if the fight has a bug)
  * @param fight
+ * @param response
  */
-async function fightEndCallback(fight: FightController): Promise<void> {
+async function fightEndCallback(fight: FightController, response: DraftBotPacket[]): Promise<void> {
 	const fightLogId = await draftBotInstance.logsDatabase.logFight(fight);
 
 	const player1GameResult = fight.isADraw() ? EloGameResult.DRAW : fight.getWinner() === 0 ? EloGameResult.WIN : EloGameResult.LOSE;
@@ -82,12 +83,12 @@ async function fightEndCallback(fight: FightController): Promise<void> {
 	const player2NewRating = EloUtils.calculateNewRating(player2.defenseGloryPoints, player1.attackGloryPoints, player2GameResult, player2KFactor);
 
 	// Change glory and fightCountdown and save
-	await player1.setGloryPoints(player1NewRating, false, NumberChangeReason.FIGHT);
+	await player1.setGloryPoints(player1NewRating, false, NumberChangeReason.FIGHT, response, fightLogId);
 	player1.fightCountdown--;
 	if (player1.fightCountdown < 0) {
 		player1.fightCountdown = 0;
 	}
-	await player2.setGloryPoints(player2NewRating, true, NumberChangeReason.FIGHT);
+	await player2.setGloryPoints(player2NewRating, true, NumberChangeReason.FIGHT, response, fightLogId);
 	player2.fightCountdown--;
 	if (player2.fightCountdown < 0) {
 		player2.fightCountdown = 0;
@@ -98,7 +99,8 @@ async function fightEndCallback(fight: FightController): Promise<void> {
 	]);
 
 	// REPLACE THIS WITH PACKET
-	const embed = await createFightEndCallbackEmbed(fight,
+	const embed = await createFightEndCallbackEmbed(
+		fight,
 		{
 			player: player1,
 			playerNewRating: player1NewRating,
@@ -110,7 +112,8 @@ async function fightEndCallback(fight: FightController): Promise<void> {
 			playerNewRating: player2NewRating,
 			playerKFactor: player2KFactor,
 			playerGameResult: player2GameResult
-		});
+		}
+	);
 
 }
 
@@ -118,7 +121,7 @@ async function fightEndCallback(fight: FightController): Promise<void> {
  * Check if a BO3 is already finished (3 games played or 2 wins)
  * @param bo3
  */
-function bo3isAlreadyFinished(bo3: RankedFightResult) {
+function bo3isAlreadyFinished(bo3: RankedFightResult): boolean {
 	return bo3.won > 1 || bo3.lost > 1 || bo3.draw + bo3.won + bo3.lost >= 3;
 }
 
@@ -207,7 +210,7 @@ export default class FightCommand {
 					context
 				);
 				fightController.setEndCallback(fightEndCallback);
-				await fightController.startFight();
+				await fightController.startFight(response);
 			}
 			else {
 				response.push(makePacket(CommandFightRefusePacketRes, {}));
