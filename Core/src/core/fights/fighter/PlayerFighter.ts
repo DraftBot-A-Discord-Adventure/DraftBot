@@ -50,7 +50,7 @@ export class PlayerFighter extends Fighter {
 	 */
 	async startFight(fightView: FightView, startStatus: FighterStatus): Promise<void> {
 		this.status = startStatus;
-		await this.consumePotionIfNeeded(fightView.fightController.friendly, [fightView.context]);
+		await this.consumePotionIfNeeded([fightView.context]);
 		this.block();
 	}
 
@@ -104,15 +104,14 @@ export class PlayerFighter extends Fighter {
 
 	/**
 	 * Delete the potion from the inventory of the player if needed
-	 * @param friendly true if the fight is friendly
 	 * @param response
 	 * @public
 	 */
-	public async consumePotionIfNeeded(friendly: boolean, response: DraftBotPacket[]): Promise<void> {
+	public async consumePotionIfNeeded(response: DraftBotPacket[]): Promise<void> {
 		const inventorySlots = await InventorySlots.getOfPlayer(this.player.id);
 		const drankPotion = inventorySlots.find(slot => slot.isPotion() && slot.isEquipped())
 			.getItem() as Potion;
-		if (friendly || !drankPotion.isFightPotion()) {
+		if (!drankPotion.isFightPotion()) {
 			return;
 		}
 		await this.player.drinkPotion();

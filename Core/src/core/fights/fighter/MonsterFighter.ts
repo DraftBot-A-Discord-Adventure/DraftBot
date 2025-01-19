@@ -5,6 +5,7 @@ import {PVEConstants} from "../../../../../Lib/src/constants/PVEConstants";
 import {FighterStatus} from "../FighterStatus";
 import {Monster} from "../../../data/Monster";
 import {FightAction, FightActionDataController} from "../../../data/FightAction";
+import {DraftBotPacket} from "../../../../../Lib/src/packets/DraftBotPacket";
 
 export class MonsterFighter extends Fighter {
 
@@ -38,7 +39,7 @@ export class MonsterFighter extends Fighter {
 		return Math.round(Math.round(stat.A * level * level + stat.B * level + stat.C) * ratio / 100.0);
 	}
 
-	chooseAction(fightView: FightView): Promise<void> {
+	chooseAction(response: DraftBotPacket[]): Promise<void> {
 		/* eslint-disable capitalized-comments */
 		/* fightView.channel.send({
 			embeds: [
@@ -50,7 +51,7 @@ export class MonsterFighter extends Fighter {
 		const fightAction = this.getRandomAvailableFightAction();
 		setTimeout(async function() {
 			// await embed.delete();
-			await fightView.fightController.executeFightAction(fightAction, true);
+			await fightView.fightController.executeFightAction(fightAction, true, response);
 		}, RandomUtils.draftbotRandom.integer(500, 2000));
 		return Promise.resolve();
 	}
