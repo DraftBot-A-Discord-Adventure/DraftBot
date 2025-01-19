@@ -105,7 +105,7 @@ async function getTopGlory(initiator: Player, page: number): Promise<DraftBotPac
 			text: player.keycloakId,
 			attributes: {
 				1: player.getLeague().id,
-				2: player.gloryPoints,
+				2: player.getGloryPoints(),
 				3: player.level
 			}
 		})),
