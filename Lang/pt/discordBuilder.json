@@ -131,10 +131,6 @@
     "description": "Obter um relatório sobre a situação da sua personagem.",
     "name": "relatório"
   },
-  "scopes": {
-    "global": "🏆 Classificação geral",
-    "server": "🚩 Classificação dos servidores"
-  },
   "test": {
     "description": "Controlo de fraude para testadores (APENAS MODO DE TESTE).",
     "name": "teste",
@@ -229,6 +225,16 @@
     "description": "Receber a recompensa diária da guilda.",
     "name": "bónusjornalierguilde"
   },
+  "guildElder": {
+    "description": "Promover um membro da guilda à categoria de ancião.",
+    "name": "aineguilde",
+    "options": {
+      "user": {
+        "description": "O utilizador que será promovido como sénior.",
+        "name": "utilizador"
+      }
+    }
+  },
   "daily": {
     "description": "Utilize o seu item equipado para obter um bónus diário.",
     "name": "bónus diário"
@@ -245,6 +251,42 @@
         "description": "O utilizador a ser entregue.",
         "name": "utilizador"
       }
+    }
+  },
+  "missionsshop": {
+    "description": "Apresenta a loja da missão.",
+    "name": "loja"
+  },
+  "top": {
+    "description": "Apresenta as classificações dos jogos.",
+    "name": "classificação",
+    "subcommands": {
+      "score": {
+        "description": "Apresenta a classificação dos jogadores de acordo com a sua pontuação.",
+        "name": "pontuação"
+      },
+      "glory": {
+        "description": "Apresenta a classificação das guildas de acordo com a sua glória.",
+        "name": "glória"
+      },
+      "guild": {
+        "description": "Apresenta a classificação das guildas de acordo com os seus pontos.",
+        "name": "grémio"
+      }
+    },
+    "options": {
+      "timing": {
+        "description": "A duração da classificação apresentada (desde sempre, por defeito).",
+        "name": "duração"
+      },
+      "page": {
+        "description": "A página de classificação a ser apresentada.",
+        "name": "página"
+      }
+    },
+    "timings": {
+      "allTime": "{emote:top.allTime} ️ Sempre tive.",
+      "weekly": "{emote:top.weekly} Esta semana."
     }
   }
 }
