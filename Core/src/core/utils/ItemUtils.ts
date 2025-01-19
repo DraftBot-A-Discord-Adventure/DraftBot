@@ -25,7 +25,7 @@ import {
 import {EndCallback, ReactionCollectorInstance} from "./ReactionsCollector";
 import {ReactionCollectorItemAccept} from "../../../../Lib/src/packets/interaction/ReactionCollectorItemAccept";
 import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {ItemWithDetails} from "../../../../Lib/src/interfaces/ItemWithDetails";
+import {ItemWithDetails} from "../../../../Lib/src/types/ItemWithDetails";
 import {MainItem} from "../../data/MainItem";
 import {SupportItem} from "../../data/SupportItem";
 import {StatValues} from "../../../../Lib/src/types/StatValues";

@@ -1,8 +1,8 @@
-import {FightStatModifierOperation} from "../../../../../../../Lib/src/interfaces/FightStatModifierOperation";
+import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
 import {FightAlterationFunc} from "../../../../../data/FightAlteration";
 import {FightActionDataController} from "../../../../../data/FightAction";
-import {FightAlterationState} from "../../../../../../../Lib/src/interfaces/FightAlterationResult";
-import {FightStatBuffed} from "../../../../../../../Lib/src/interfaces/FightActionResult";
+import {FightAlterationState} from "../../../../../../../Lib/src/types/FightAlterationResult";
+import {FightStatBuffed} from "../../../../../../../Lib/src/types/FightActionResult";
 import {FightActionController} from "../../FightActionController";
 import {defaultFightAlterationResult, defaultHealFightAlterationResult} from "../../../FightController";
 

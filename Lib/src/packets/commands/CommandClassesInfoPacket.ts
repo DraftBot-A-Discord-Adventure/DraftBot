@@ -1,5 +1,5 @@
 import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
-import {ClassStats} from "../../interfaces/ClassStats";
+import {ClassStats} from "../../types/ClassStats";
 
 /**
  * Packet sent by the bot to gather information about selectable classes

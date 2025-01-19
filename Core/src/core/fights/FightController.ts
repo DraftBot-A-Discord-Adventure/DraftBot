@@ -10,11 +10,11 @@ import {MonsterFighter} from "./fighter/MonsterFighter";
 import {PlayerFighter} from "./fighter/PlayerFighter";
 import {PVEConstants} from "../../../../Lib/src/constants/PVEConstants";
 import {PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {FightStatModifierOperation} from "../../../../Lib/src/interfaces/FightStatModifierOperation";
-import {FightAlterationResult, FightAlterationState} from "../../../../Lib/src/interfaces/FightAlterationResult";
 import {attackInfo, FightActionController, statsInfo} from "./actions/FightActionController";
 import {FightAction, FightActionDataController} from "../../data/FightAction";
-import {FightActionResult} from "../../../../Lib/src/interfaces/FightActionResult";
+import {FightStatModifierOperation} from "../../../../Lib/src/types/FightStatModifierOperation";
+import {FightAlterationResult, FightAlterationState} from "../../../../Lib/src/types/FightAlterationResult";
+import {FightActionResult} from "../../../../Lib/src/types/FightActionResult";
 
 /**
  * @class FightController

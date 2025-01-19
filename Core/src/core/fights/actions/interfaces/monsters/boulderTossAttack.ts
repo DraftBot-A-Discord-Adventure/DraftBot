@@ -1,7 +1,7 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
 import {FightAlterations} from "../../FightAlterations";
-import {FightActionStatus} from "../../../../../../../Lib/src/interfaces/FightActionStatus";
+import {FightActionStatus} from "../../../../../../../Lib/src/types/FightActionStatus";
 import {FightActionFunc} from "../../../../../data/FightAction";
 import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTemplate";
 

@@ -7,7 +7,7 @@ import {Language} from "../../../../Lib/src/Language";
 import {StringUtils} from "../../utils/StringUtils";
 import {SmallEventBigBadPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventBigBadPacket";
 import {SmallEventSmallBadPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventSmallBadPacket";
-import {SmallEventBigBadKind} from "../../../../Lib/src/enums/SmallEventBigBadKind";
+import {SmallEventBigBadKind} from "../../../../Lib/src/types/SmallEventBigBadKind";
 import i18n from "../../translations/i18n";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 import {SmallEventBoatAdvicePacket} from "../../../../Lib/src/packets/smallEvents/SmallEventBoatAdvicePacket";

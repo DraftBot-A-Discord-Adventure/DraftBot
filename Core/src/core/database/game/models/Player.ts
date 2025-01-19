@@ -37,7 +37,7 @@ import {ClassInfoConstants} from "../../../../../../Lib/src/constants/ClassInfoC
 import {GuildConstants} from "../../../../../../Lib/src/constants/GuildConstants";
 import {MapConstants} from "../../../../../../Lib/src/constants/MapConstants";
 import {BlockingConstants} from "../../../../../../Lib/src/constants/BlockingConstants";
-import {Effect} from "../../../../../../Lib/src/enums/Effect";
+import {Effect} from "../../../../../../Lib/src/types/Effect";
 import {ScheduledReportNotifications} from "./ScheduledReportNotification";
 import {PacketUtils} from "../../../utils/PacketUtils";
 import {StatValues} from "../../../../../../Lib/src/types/StatValues";

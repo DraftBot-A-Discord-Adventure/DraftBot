@@ -7,8 +7,8 @@ import {MissionsController} from "../missions/MissionsController";
 import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {SmallEventBigBadPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventBigBadPacket";
 import {Maps} from "../maps/Maps";
-import {Effect} from "../../../../Lib/src/enums/Effect";
-import {SmallEventBigBadKind} from "../../../../Lib/src/enums/SmallEventBigBadKind";
+import {Effect} from "../../../../Lib/src/types/Effect";
+import {SmallEventBigBadKind} from "../../../../Lib/src/types/SmallEventBigBadKind";
 
 type BigBadProperties = {
 	"alterationStories": {

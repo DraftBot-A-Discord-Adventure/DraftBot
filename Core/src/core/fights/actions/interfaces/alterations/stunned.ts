@@ -1,5 +1,5 @@
 import {FightAlterationFunc} from "../../../../../data/FightAlteration";
-import {FightAlterationState} from "../../../../../../../Lib/src/interfaces/FightAlterationResult";
+import {FightAlterationState} from "../../../../../../../Lib/src/types/FightAlterationResult";
 import {FightActionDataController} from "../../../../../data/FightAction";
 import {defaultFightAlterationResult, defaultHealFightAlterationResult} from "../../../FightController";
 

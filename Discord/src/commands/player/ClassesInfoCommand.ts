@@ -19,7 +19,7 @@ import {
 } from "discord.js";
 import {sendInteractionNotForYou} from "../../utils/ErrorUtils";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
-import {ClassStats} from "../../../../Lib/src/interfaces/ClassStats";
+import {ClassStats} from "../../../../Lib/src/types/ClassStats";
 import {ClassKind} from "../../../../Lib/src/types/ClassKind";
 
 /**

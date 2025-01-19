@@ -1,7 +1,7 @@
 import {NumberChangeReason} from "../../../../../../Lib/src/constants/LogsConstants";
 import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
 import {TravelTime} from "../../../../core/maps/TravelTime";
-import {Effect} from "../../../../../../Lib/src/enums/Effect";
+import {Effect} from "../../../../../../Lib/src/types/Effect";
 
 const effects = Array.from(Effect.getAll()).filter(value => [Effect.NOT_STARTED, Effect.NO_EFFECT, Effect.DEAD, Effect.OCCUPIED].indexOf(value) === -1);
 let printableEffects = "";

@@ -19,7 +19,7 @@ import {EmoteUtils} from "../../utils/EmoteUtils";
 import {GiveFoodToGuildPacket} from "../../../../Lib/src/packets/utils/GiveFoodToGuildPacket";
 import {NoFoodSpaceInGuildPacket} from "../../../../Lib/src/packets/utils/NoFoodSpaceInGuildPacket";
 import {MissionUtils} from "../../utils/MissionUtils";
-import {MissionType} from "../../../../Lib/src/interfaces/CompletedMission";
+import {MissionType} from "../../../../Lib/src/types/CompletedMission";
 import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
 
 export default class EventsHandlers {

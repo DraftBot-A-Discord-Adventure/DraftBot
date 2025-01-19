@@ -14,7 +14,7 @@ import {MissionsExpiredPacket} from "../../../../Lib/src/packets/events/Missions
 import {draftBotInstance} from "../../index";
 import {Mission, MissionDataController} from "../../data/Mission";
 import {MissionsCompletedPacket} from "../../../../Lib/src/packets/events/MissionsCompletedPacket";
-import {BaseMission, CompletedMission, MissionType} from "../../../../Lib/src/interfaces/CompletedMission";
+import {BaseMission, CompletedMission, MissionType} from "../../../../Lib/src/types/CompletedMission";
 import {FightActionController} from "../fights/actions/FightActionController";
 import {MissionUtils} from "../../../../Lib/src/utils/MissionUtils";
 import {MapLocationDataController} from "../../data/MapLocation";

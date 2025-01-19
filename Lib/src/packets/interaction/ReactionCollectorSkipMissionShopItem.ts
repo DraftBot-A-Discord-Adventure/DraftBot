@@ -4,7 +4,7 @@ import {
 	ReactionCollectorData,
 	ReactionCollectorReaction
 } from "./ReactionCollectorPacket";
-import {BaseMission} from "../../interfaces/CompletedMission";
+import {BaseMission} from "../../types/CompletedMission";
 
 export class ReactionCollectorSkipMissionShopItemData extends ReactionCollectorData {
 }

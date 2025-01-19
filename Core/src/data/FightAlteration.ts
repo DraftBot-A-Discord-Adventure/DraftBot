@@ -3,7 +3,7 @@ import {readdirSync} from "fs";
 import {FightAction} from "./FightAction";
 import {FightController} from "../core/fights/FightController";
 import {Fighter} from "../core/fights/fighter/Fighter";
-import {FightAlterationResult} from "../../../Lib/src/interfaces/FightAlterationResult";
+import {FightAlterationResult} from "../../../Lib/src/types/FightAlterationResult";
 
 export class FightAlteration extends FightAction {
 	public happen(affected: Fighter, opponent: Fighter, turn: number, fight: FightController): FightAlterationResult {

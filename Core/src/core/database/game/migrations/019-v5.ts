@@ -9,7 +9,7 @@ import {KeycloakUtils} from "../../../../../../Lib/src/keycloak/KeycloakUtils";
 import {KeycloakConfig} from "../../../../../../Lib/src/keycloak/KeycloakConfig";
 import {logsV5NewIds} from "../../logs/migrations/006-v5";
 import {LANGUAGE} from "../../../../../../Lib/src/Language";
-import {Effect} from "../../../../../../Lib/src/enums/Effect";
+import {Effect} from "../../../../../../Lib/src/types/Effect";
 
 export async function up({context}: { context: QueryInterface }): Promise<void> {
 	const players = await context.select(null, "players") as { [key: string]: unknown }[];

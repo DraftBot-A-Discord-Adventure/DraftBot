@@ -92,7 +92,7 @@ import {FightController} from "../../fights/FightController";
 import {PlayerFighter} from "../../fights/fighter/PlayerFighter";
 import {MonsterFighter} from "../../fights/fighter/MonsterFighter";
 import {LogsServers} from "./models/LogsServers";
-import {Effect} from "../../../../../Lib/src/enums/Effect";
+import {Effect} from "../../../../../Lib/src/types/Effect";
 import {getDatabaseConfiguration} from "../../bot/DraftBotConfig";
 import {botConfig} from "../../../index";
 
@@ -974,7 +974,7 @@ export class LogsDatabase extends Database {
 				player2Points: player2.player.score,
 				turn: fight.turn,
 				winner: fight.isADraw() ? 0 : winner,
-				friendly: fight.friendly,
+				friendly: false,
 				date: getDateLogs()
 			});
 			for (const player of [player1, player2]) {

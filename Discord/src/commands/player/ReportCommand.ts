@@ -20,7 +20,7 @@ import {DiscordCache} from "../../bot/DiscordCache";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 import {effectsErrorTextValue, sendInteractionNotForYou} from "../../utils/ErrorUtils";
 import {Constants} from "../../../../Lib/src/constants/Constants";
-import {Effect} from "../../../../Lib/src/enums/Effect";
+import {Effect} from "../../../../Lib/src/types/Effect";
 import {
 	millisecondsToHours,
 	millisecondsToMinutes,

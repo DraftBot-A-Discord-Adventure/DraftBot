@@ -50,9 +50,9 @@ import {
 import {Possibility} from "../../data/events/Possibility";
 import {applyPossibilityOutcome} from "../../data/events/PossibilityOutcome";
 import {ErrorPacket} from "../../../../Lib/src/packets/commands/ErrorPacket";
-import {Effect} from "../../../../Lib/src/enums/Effect";
 import {MapLocationDataController} from "../../data/MapLocation";
 import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
+import {Effect} from "../../../../Lib/src/types/Effect";
 
 export default class ReportCommand {
 	@commandRequires(CommandReportPacketReq, {

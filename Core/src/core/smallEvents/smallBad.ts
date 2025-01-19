@@ -4,7 +4,7 @@ import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {SmallEventConstants} from "../../../../Lib/src/constants/SmallEventConstants";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {TravelTime} from "../maps/TravelTime";
-import {Effect} from "../../../../Lib/src/enums/Effect";
+import {Effect} from "../../../../Lib/src/types/Effect";
 import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {
 	SmallEventBadIssue,

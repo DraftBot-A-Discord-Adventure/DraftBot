@@ -5,7 +5,7 @@ import {
 	ReactionCollectorReaction
 } from "./ReactionCollectorPacket";
 import {DraftBotPacket, PacketContext, PacketDirection, sendablePacket} from "../DraftBotPacket";
-import {ItemWithDetails} from "../../interfaces/ItemWithDetails";
+import {ItemWithDetails} from "../../types/ItemWithDetails";
 import {ShopCurrency} from "../../constants/ShopConstants";
 import {ShopItemType} from "../../constants/LogsConstants";
 

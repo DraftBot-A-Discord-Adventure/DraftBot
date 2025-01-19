@@ -7,7 +7,7 @@ import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {SmallEventConstants} from "../../../../Lib/src/constants/SmallEventConstants";
 import {giveRandomItem} from "../utils/ItemUtils";
 import {TravelTime} from "../maps/TravelTime";
-import {Effect} from "../../../../Lib/src/enums/Effect";
+import {Effect} from "../../../../Lib/src/types/Effect";
 import {SmallEventPetPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventPetPacket";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import Player from "../database/game/models/Player";

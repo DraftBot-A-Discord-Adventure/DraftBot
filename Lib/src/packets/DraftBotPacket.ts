@@ -1,6 +1,6 @@
 import "../index"; // Import so it will verify decorators if we use DraftBotPacket
 import {Language} from "../Language";
-import {RightGroup} from "../enums/RightGroup";
+import {RightGroup} from "../types/RightGroup";
 
 const AllPackets = new Map<string, PacketDirection>();
 

@@ -1,10 +1,10 @@
 import Player, {Players} from "../database/game/models/Player";
 import {DraftBotPacket, makePacket, PacketContext, PacketLike} from "../../../../Lib/src/packets/DraftBotPacket";
-import {Effect} from "../../../../Lib/src/enums/Effect";
-import {RightGroup} from "../../../../Lib/src/enums/RightGroup";
+import {Effect} from "../../../../Lib/src/types/Effect";
+import {RightGroup} from "../../../../Lib/src/types/RightGroup";
 import {RequirementEffectPacket} from "../../../../Lib/src/packets/commands/requirements/RequirementEffectPacket";
 import {RequirementLevelPacket} from "../../../../Lib/src/packets/commands/requirements/RequirementLevelPacket";
-import {GuildRole} from "../../../../Lib/src/enums/GuildRole";
+import {GuildRole} from "../../../../Lib/src/types/GuildRole";
 import {Guilds} from "../database/game/models/Guild";
 import {RequirementGuildNeededPacket} from "../../../../Lib/src/packets/commands/requirements/RequirementGuildNeededPacket";
 import {RequirementGuildRolePacket} from "../../../../Lib/src/packets/commands/requirements/RequirementGuildRolePacket";

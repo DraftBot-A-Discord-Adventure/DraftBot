@@ -1,5 +1,5 @@
 import {SmallEventPacket} from "./SmallEventPacket";
-import {SmallEventBigBadKind} from "../../enums/SmallEventBigBadKind";
+import {SmallEventBigBadKind} from "../../types/SmallEventBigBadKind";
 import {PacketDirection, sendablePacket} from "../DraftBotPacket";
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)

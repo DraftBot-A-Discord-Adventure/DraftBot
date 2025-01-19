@@ -1,4 +1,4 @@
-import {BaseMission, CompletedMission} from "../../../Lib/src/interfaces/CompletedMission";
+import {BaseMission, CompletedMission} from "../../../Lib/src/types/CompletedMission";
 import {Language} from "../../../Lib/src/Language";
 import i18n from "../translations/i18n";
 import {MissionUtils as MissionUtilsLib} from "../../../Lib/src/utils/MissionUtils";

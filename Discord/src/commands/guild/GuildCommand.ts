@@ -5,9 +5,9 @@ import i18n from "../../translations/i18n";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {
 	CommandGuildPacketReq,
-	CommandGuildPacketRes,
-	GuildMemberPacket
+	CommandGuildPacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildPacket";
+import {GuildMember} from "../../../../Lib/src/types/GuildMember";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {DiscordCache} from "../../bot/DiscordCache";
@@ -41,7 +41,7 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
  * @param packet
  * @param interaction
  */
-function getMemberTypeIcon(member: GuildMemberPacket, packet: CommandGuildPacketRes, interaction: DraftbotInteraction): string {
+function getMemberTypeIcon(member: GuildMember, packet: CommandGuildPacketRes, interaction: DraftbotInteraction): string {
 	return member.id === packet.data!.chiefId ?
 		i18n.t("commands:guild.emojis.chief", {lng: interaction.userLanguage}) :
 		member.id === packet.data!.elderId ?
@@ -54,7 +54,7 @@ function getMemberTypeIcon(member: GuildMemberPacket, packet: CommandGuildPacket
  * @param member
  * @param interaction
  */
-function getIslandStatusIcon(member: GuildMemberPacket, interaction: DraftbotInteraction): string {
+function getIslandStatusIcon(member: GuildMember, interaction: DraftbotInteraction): string {
 	return member.islandStatus.isOnPveIsland || member.islandStatus.isOnBoat || member.islandStatus.isPveIslandAlly || member.islandStatus.cannotBeJoinedOnBoat ?
 		i18n.t("commands:guild.separator", {lng: interaction.userLanguage})
 		+ (member.islandStatus.isOnPveIsland ?

@@ -2,9 +2,10 @@ import {FighterStatus} from "../FighterStatus";
 import {FightView} from "../FightView";
 import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
 import {PVEConstants} from "../../../../../Lib/src/constants/PVEConstants";
-import {FightStatModifierOperation} from "../../../../../Lib/src/interfaces/FightStatModifierOperation";
+import {FightStatModifierOperation} from "../../../../../Lib/src/types/FightStatModifierOperation";
 import {FightAlteration} from "../../../data/FightAlteration";
 import {FightAction} from "../../../data/FightAction";
+import {DraftBotPacket} from "../../../../../Lib/src/packets/DraftBotPacket";
 
 type FighterStats = {
 	fightPoints: number,

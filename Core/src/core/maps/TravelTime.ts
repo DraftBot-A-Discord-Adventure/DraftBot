@@ -5,7 +5,7 @@ import {Maps} from "./Maps";
 import {PVEConstants} from "../../../../Lib/src/constants/PVEConstants";
 import {MapLinkDataController} from "../../data/MapLink";
 import {draftBotInstance} from "../../index";
-import {Effect} from "../../../../Lib/src/enums/Effect";
+import {Effect} from "../../../../Lib/src/types/Effect";
 import { Constants } from "../../../../Lib/src/constants/Constants";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 

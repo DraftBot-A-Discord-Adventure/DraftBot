@@ -12,7 +12,7 @@ import {CommandReportBigEventResultRes} from "../../../../Lib/src/packets/comman
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {ItemConstants} from "../../../../Lib/src/constants/ItemConstants";
 import {MapLink, MapLinkDataController} from "../MapLink";
-import {Effect} from "../../../../Lib/src/enums/Effect";
+import {Effect} from "../../../../Lib/src/types/Effect";
 
 async function applyOutcomeScore(outcome: PossibilityOutcome, time: number, player: Player, response: DraftBotPacket[]): Promise<number> {
 	const scoreChange = time +

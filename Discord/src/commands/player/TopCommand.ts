@@ -8,18 +8,18 @@ import {
 } from "../../../../Lib/src/packets/commands/CommandTopPacket";
 import i18n from "../../translations/i18n";
 import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {TopElement, TopElementScoreFirstType} from "../../../../Lib/src/interfaces/TopElement";
+import {TopElement, TopElementScoreFirstType} from "../../../../Lib/src/types/TopElement";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 import {LANGUAGE, Language} from "../../../../Lib/src/Language";
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
 import {DiscordCache} from "../../bot/DiscordCache";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
-import {TopTiming} from "../../../../Lib/src/enums/TopTimings";
+import {TopTiming} from "../../../../Lib/src/types/TopTimings";
 import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {TopDataType} from "../../../../Lib/src/enums/TopDataType";
+import {TopDataType} from "../../../../Lib/src/types/TopDataType";
 import {SlashCommandBuilder, SlashCommandSubcommandBuilder} from "@discordjs/builders";
 import {DraftBotErrorEmbed} from "../../messages/DraftBotErrorEmbed";
 

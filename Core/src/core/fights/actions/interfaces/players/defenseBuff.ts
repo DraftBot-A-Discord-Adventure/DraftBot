@@ -1,6 +1,6 @@
 import {FightActionFunc} from "../../../../../data/FightAction";
-import {FightStatModifierOperation} from "../../../../../../../Lib/src/interfaces/FightStatModifierOperation";
-import {defaultFightActionResult, FightStatBuffed} from "../../../../../../../Lib/src/interfaces/FightActionResult";
+import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
+import {defaultFightActionResult, FightStatBuffed} from "../../../../../../../Lib/src/types/FightActionResult";
 import {FightActionController} from "../../FightActionController";
 
 const use: FightActionFunc = (sender, _receiver, fightAction) => {

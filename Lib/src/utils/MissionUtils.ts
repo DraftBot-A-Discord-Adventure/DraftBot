@@ -1,4 +1,4 @@
-import {BaseMission} from "../interfaces/CompletedMission";
+import {BaseMission} from "../types/CompletedMission";
 
 export type FromPlaceToPlaceBlobData = { startTimestamp: number, startMap: number };
 export type FromPlaceToPlaceParams = { fromMap: number, toMap: number, time: number, orderMatter: boolean };

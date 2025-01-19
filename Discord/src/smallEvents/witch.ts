@@ -13,8 +13,8 @@ import {ReactionCollectorWitchReaction} from "../../../Lib/src/packets/interacti
 import {getRandomSmallEventIntro} from "../packetHandlers/handlers/SmallEventsHandler";
 import {StringUtils} from "../utils/StringUtils";
 import {SmallEventWitchResultPacket} from "../../../Lib/src/packets/smallEvents/SmallEventWitchPacket";
-import {Effect} from "../../../Lib/src/enums/Effect";
-import {WitchActionOutcomeType} from "../../../Lib/src/enums/WitchActionOutcomeType";
+import {Effect} from "../../../Lib/src/types/Effect";
+import {WitchActionOutcomeType} from "../../../Lib/src/types/WitchActionOutcomeType";
 import {EmoteUtils} from "../utils/EmoteUtils";
 
 export async function witchCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {

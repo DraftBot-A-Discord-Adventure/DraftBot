@@ -6,7 +6,7 @@ import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPa
 import {draftBotInstance} from "../../index";
 import {ErrorPacket} from "../../../../Lib/src/packets/commands/ErrorPacket";
 import {commandRequires} from "../../core/utils/CommandUtils";
-import {RightGroup} from "../../../../Lib/src/enums/RightGroup";
+import {RightGroup} from "../../../../Lib/src/types/RightGroup";
 import Player from "../../core/database/game/models/Player";
 
 export default class MaintenanceCommand {
