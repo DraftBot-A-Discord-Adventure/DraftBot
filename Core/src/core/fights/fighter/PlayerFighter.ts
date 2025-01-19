@@ -130,8 +130,9 @@ export class PlayerFighter extends Fighter {
 	/**
 	 * Send the embed to choose an action
 	 * @param fightView
+	 * @param response
 	 */
-	async chooseAction(fightView: FightView): Promise<void> {
+	async chooseAction(fightView: FightView, response: DraftBotPacket[]): Promise<void> {
 		const actions: Map<string, FightAction> = new Map(this.availableFightActions);
 
 		// Add guild attack if on PVE island and members are here
@@ -245,11 +246,9 @@ export class PlayerFighter extends Fighter {
 	 * @param fightView
 	 */
 	private async manageMissionsOf(fightView: FightView): Promise<void> {
-		if (!fightView.fightController.friendly) {
-			const newPlayer = await Players.getOrRegister(this.player.keycloakId);
-			newPlayer.setFightPointsLost(this.stats.maxFightPoint - this.stats.fightPoints, NumberChangeReason.FIGHT);
-			await newPlayer.save();
-		}
+		const newPlayer = await Players.getOrRegister(this.player.keycloakId);
+		newPlayer.setFightPointsLost(this.stats.maxFightPoint - this.stats.fightPoints, NumberChangeReason.FIGHT);
+		await newPlayer.save();
 
 		await this.checkFightActionHistory(fightView);
 
@@ -275,7 +274,7 @@ export class PlayerFighter extends Fighter {
 	}
 
 	/**
-	 * Send the choose action embed message
+	 * Send the choice action embed message
 	 * @private
 	 * @param fightView
 	 */
