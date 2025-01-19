@@ -56,7 +56,7 @@
     "title": "{{pseudo}}Gründung einer Gilde",
     "canceledTitle": "{{pseudo}}Die Gründung einer Gilde wird rückgängig gemacht.",
     "canceledDesc": "Die Gründung Ihrer Gilde wurde abgebrochen.",
-    "confirmDesc": "{emote:collectors.question} Bestätigen Sie die Gründung der Gilde **{{guildName}}** für `{{price}}` :moneybag: ?",
+    "confirmDesc": "{emote:collectors.question} Bestätigen Sie die Gründung der Gilde **{{guildName}}** für `{{price}}` {emote:unitValues.money} ?",
     "acceptedFooter": "Achtung: Der Staff behält sich das Recht vor, Ihre Gilde umzubenennen.",
     "acceptedDesc": "Die Gilde **{{guildName}}** wurde gegründet!"
   },
@@ -81,6 +81,20 @@
     "noPlayer": "Le joueur n'est pas dans la guilde.",
     "notSameGuild": "Vous ne pouvez pas expulser un joueur qui n'est pas dans votre guilde.",
     "himself": "Vous ne pouvez pas vous expulser vous-même de la guilde."
+  },
+  "guildElder": {
+    "playerNotFound": "Dieser Spieler wurde nicht gefunden.",
+    "notSameGuild": "Dieser Spieler gehört nicht zu Ihrer Gilde.",
+    "notChiefError": "Sie müssen Gildenleiter sein, um diesen Auftrag ausführen zu können.",
+    "chiefError": "Als Gildenleiter dürfen Sie nicht der Älteste sein.",
+    "alreadyElder": "Der Spieler ist bereits Ältester in Ihrer Gilde.",
+    "title": "{{pseudo}}... bestätigen Sie Ihre Wahl?",
+    "confirmDesc": ":question: {{elderPseudo}} wird der Älteste der Gilde `{{guildName}}` werden.",
+    "successElderAddTitle": "{{elderPseudo}} ist der neue Älteste der Gilde {{guildName}} !",
+    "acceptedDesc": "Der Älteste dient dazu, den Anführer bei der Verwaltung der Gilde zu unterstützen. Wählen Sie ihn daher mit Bedacht aus! Aber seien Sie beruhigt: Wenn Sie mit Ihrem Ältesten nicht zufrieden sind, können Sie ihn mit dem Befehl {command:guildelder}ersetzen, oder wenn Sie eine diktatorische Ader haben, können Sie ihn mit {command:guildelderremove}endgültig entfernen.",
+    "canceledDesc": "Der älteste Schüler wurde nicht befördert.",
+    "canceledTitle": "Stornierung berücksichtigt.",
+    "problemWhilePromoting": "Bei der Beförderung des Spielers ist ein Fehler aufgetreten."
   },
   "help": {
     "aliasFieldTitle": "Alias",
@@ -113,7 +127,7 @@
         "description": "Zeigt Informationen zu einer Gilde an."
       },
       "GUILD_CREATE": {
-        "description": "Erzeugt eine Gilde. Eine Gilde zu erstellen kostet 5000 :moneybag:."
+        "description": "Ermöglicht die Gründung einer Gilde. Die Gründung einer Gilde kostet 5000 {emote:unitValues.money}."
       },
       "GUILD_DAILY_BONUS": {
         "description": "Gewinnen Sie die täglichen Gilde-Belohnungen."
@@ -244,7 +258,7 @@
     "guildCommands": ":stadium: Gilde:",
     "helpEmbedDescription": ":arrow_forward: Wenn Sie weitere Informationen zu einem bestimmten Befehl wünschen, klicken Sie hier: {{helpCommandMention}}, und geben Sie den Befehl an, mit dem Sie ein Problem mit dem Parameter haben. :wink:",
     "helpEmbedTitle": "{{pseudo}}, hier ist die Liste der verfügbaren Befehle:",
-    "missionCommands": ":scroll: Mission :",
+    "missionCommands": "{emote:missions.sideMission} Mission :",
     "petCommands": ":dog: Tiere:",
     "playerCommands": ":bust_in_silhouette: Joucher:",
     "serverCommands": ":gear: Server:",
@@ -365,7 +379,7 @@
     },
     "information": {
       "fieldName": "Information:",
-      "fieldValue": ":heart: {{health}}/{{maxHealth}} | :star: {{experience}}/{{experienceNeededToLevelUp}} | :moneybag: {{money}}"
+      "fieldValue": ":heart: {{health}}/{{maxHealth}} | :star: {{experience}}/{{experienceNeededToLevelUp}} | {emote:unitValues.money} {{money}}"
     },
     "map": {
       "fieldName": "Bestimmung:",
@@ -434,10 +448,10 @@
     "health": "** | :heart: Verlorene Vie: **{{health}}",
     "healthLoose": "** | :broken_heart: Verlorene Vie: **{{health}}",
     "journal": "Protokoll von {{pseudo}}",
-    "money": "** | :moneybag: Der gespart wurde: **{{money}}",
+    "money": "** | {emote:unitValues.money} Verdientes Geld : **{{money}}",
     "moneyLoose": "** | :money_with_wings: Argent verloren: **{{money}}",
     "monsterRewardGuildXp": "\n:star: XP Gilde gewonnen: **{{guildXp}}**",
-    "monsterRewardsDescription": ":moneybag: Silber gewonnen: **{{money}}**\n:star: XP gewonnen: **{{experience}}**",
+    "monsterRewardsDescription": "{emote:unitValues.money} Silber gewonnen : **{{money}}**\n:star: XP verdient: **{{experience}}**",
     "monsterRewardsGuildPoints": "\n:mirror_ball: Gilde-Gewinner: **{{guildPoints}}**",
     "monsterRewardsTitle": "{{pseudo}}, Kampfbelohnungen",
     "newBigEvent": ":flag_fr: Sie kamen zu **{{destination}}**!",
@@ -484,10 +498,10 @@
     "commandName": "verkaufen",
     "commandDescription": "Eine Ausrüstung verkaufen.",
     "noItemToSell": "Sie haben leider keine Gegenstände in Ihrem Vorrat!",
-    "confirmSell": "Sind Sie sicher, dass Sie sich von {{item}} für **{{money}}** :moneybag: trennen wollen?",
+    "confirmSell": "Sind Sie sicher, dass Sie sich von {{item}} für **{{money}}** {emote:unitValues.money} trennen wollen?",
     "sellCanceled": "Der Verkauf wurde tatsächlich storniert!",
     "sellTitle": "{{pseudo}}Bestätigung :",
-    "soldMessage": "Sie haben {{item}} für **{{money}}** :moneybag: verkauft!",
+    "soldMessage": "Sie haben {{item}} für **{{money}}** {emote:unitValues.money} verkauft!",
     "soldMessageTitle": "{{pseudo}}Sie haben eine Ausrüstung verkauft.",
     "potionDestroyedTitle": "Sie haben einen Trank zerstört.",
     "potionDestroyedMessage": "Der Trank \"{{item}}\" wurde in ein Waschbecken geschüttet.",
@@ -508,16 +522,16 @@
     "noEnergyToHeal": "Sie verfügen über Ihre gesamte Kampfenergie. ⚡",
     "fullRegen": "💓 Sie wurden vollständig versorgt.",
     "alreadyHaveBadge": "Sie besitzen diesen Ausweis bereits.",
-    "badgeBought": "Sie haben einen neuen Ausweis erhalten: {emote:badges.richPerson} !",
-    "notEnoughMoney": "Sie haben nicht genug Geld, um diesen Gegenstand zu kaufen! Es fehlt Ihnen `{{missingMoney}}{emote:unitValues.money}`.",
+    "badgeBought": "Sie haben eine neue Marke erhalten: {emote:badges.{{badgeName}}} !",
+    "notEnoughMoney": "Sie haben nicht genug Geld, um diesen Gegenstand zu kaufen! Es fehlt Ihnen `{{missingCurrency}} {emote:unitValues.{{currency}}}`.",
     "boughtTooMuchDailyPotions": "Es gibt keinen Trank des Tages mehr, der zum Verkauf angeboten wird... Kommen Sie morgen wieder!",
     "title": "🛒 Anzeige des Magazins",
-    "currentMoney": "Sie haben `{{money}}{emote:unitValues.money}`.",
-    "shopItemsDisplaySingle": "{{name}} | `{{price}}{emote:unitValues.money}`",
-    "shopItemsDisplayMultiple": "**{{amount}}x** {{name}} | `{{price}}{emote:unitValues.money}`",
+    "currentMoney": "Sie haben `{{money}}{emote:unitValues.{{currency}}}`.",
+    "shopItemsDisplaySingle": "{{name}} | `{{price}}{emote:unitValues.{{currency}}}`",
+    "shopItemsDisplayMultiple": "**{{amount}}x** {{name}} | `{{price}}{emote:unitValues.{{currency}}}`",
     "shopSelectPlaceholder": "Wählen Sie einen Gegenstand zum Kauf aus",
     "buyCategorySlotSuccess": "Sie haben einen neuen Inventarplatz gekauft!",
-    "shopItemsSelectDescription": "{{price}}{emote:unitValues.money}",
+    "shopItemsSelectDescription": "{{price}}{emote:unitValues.{{currency}}}",
     "closeShopButton": "❌ Laden schließen",
     "shopConfirmationTitle": "{{pseudo}}Sie haben das folgende Produkt ausgewählt:",
     "shopConfirmationTitleMultiple": "{{pseudo}}Wählen Sie eine Menge für dieses Produkt:",
@@ -528,7 +542,10 @@
       "dailyPotion_other": "Trank des Tages ({{count}} verfügbar)",
       "slotExtension": "Inventarerweiterungen",
       "food": "Nahrung für Begleiter",
-      "guildXp": "Erfahrung in der Gilde"
+      "guildXp": "Erfahrung in der Gilde",
+      "resources": "Ressourcen",
+      "utilitaries": "Dienstprogramme",
+      "prestige": "Prestige"
     },
     "chooseSlotTitle": "{{pseudo}}Neuer Inventarplatz",
     "chooseSlotIndication": "Wählen Sie einen neuen Inventarort oder brechen Sie ab :",
@@ -545,27 +562,26 @@
         "name": "{emote:shopItems.randomItem} Zufällige Ausrüstung",
         "info": "Du erhältst eine zufällige Ausrüstung (Waffe / Rüstung / Gegenstand oder Trank) aus allen im Spiel vorhandenen."
       },
-      "healAlteration": {
+      "alterationHeal": {
         "name": "{emote:shopItems.healAlteration} Pflege von Zustandsveränderungen",
         "info": "Ihre Zustandsveränderungen werden entfernt und Sie setzen Ihre Reise sofort fort.",
         "give": "{emote:shopItems.healAlteration} Ihre Zustandsveränderungen wurden entfernt."
       },
-      "healEnergy": {
+      "energyHeal": {
         "name": "{emote:shopItems.healEnergy} Rückgewinnung von Energie",
         "info": "Ihre Kampfenergie wird vollständig wiederhergestellt.",
         "give": "{emote:shopItems.healEnergy} Ihre Energie wurde wiederhergestellt."
       },
-      "regen": {
+      "fullRegen": {
         "name": "{emote:shopItems.regen} Vollständige Regeneration des Lebens",
         "info": "Sie werden sofort vollständig geheilt, behalten aber alle Ihre Zustandsveränderungen.",
         "give": "{emote:shopItems.regen} Sie wurden vollständig versorgt."
       },
       "moneyMouthBadge": {
         "name": "{emote:shopItems.moneyMouthBadge} Namensschild \"Money Mouth\" (Geldmaul)",
-        "info": "Sie erhalten den Abzeichen automatisch nach der Bezahlung. Für weitere Informationen über Abzeichen verwenden Sie den Befehl {command:help}.",
-        "give": "{{pseudo}}Sie haben einen neuen Ausweis erhalten:"
+        "info": "Sie erhalten den Abzeichen automatisch nach der Bezahlung. Für weitere Informationen über Abzeichen verwenden Sie den Befehl {command:help}."
       },
-      "inventoryExtension": {
+      "slotExtension": {
         "name": "{emote:shopItems.inventoryExtension} Neuer Inventarplatz",
         "info": "Sie können eine Inventarkategorie auswählen, zu der ein Ort hinzugefügt werden soll"
       },
@@ -595,6 +611,69 @@
       "ultimateFood": {
         "name": "{emote:foods.ultimateFood} Ultimative Suppe",
         "info": "Sie erhalten eine ultimative Suppe für Ihre Vertrauten."
+      },
+      "skipMission": {
+        "name": "{emote:shopItems.skipMission} Change-mission",
+        "info": "Ermöglicht es Ihnen, eine erhaltene Mission auf der Karte zu löschen und gegen eine neue Mission einzutauschen, allerdings haben Sie keine Wahl, welche Mission Sie wählen.",
+        "giveTitle": "{{pseudo}}Sie haben sich entschieden, eine Aufgabe zu ändern.",
+        "giveDesc": "Wählen Sie die Mission, die Sie ändern möchten:",
+        "successTitle": "{{pseudo}}Sie haben eine Mission geändert!",
+        "successDescription": "Sie haben die Mission {emote:missions.sideMission} **{{mission}}** gelöscht.",
+        "getNewMission": "Sie haben den Auftrag erhalten: \n\n{emote:missions.sideMission} **{{mission}}**"
+      },
+      "money": {
+        "name": "{emote:unitValues.money} Geld des Königs",
+        "info": "Nach den Tageskursen des Edelsteins und nach Abzug der Königssteuer erhalten Sie `{{kingsMoneyAmount}}` {emote:unitValues.money}.",
+        "giveTitle": "{{pseudo}}Ich bin sehr zufrieden.",
+        "giveDescription": "Sie haben `{{amount}}` {emote:unitValues.money}erhalten."
+      },
+      "treasure": {
+        "name": "{emote:shopItems.treasure} Königsschatz",
+        "info": "Gewährt dir einen wertvollen Gegenstand aus der Schatzkammer des Königs.",
+        "give": "{{pseudo}}Sie erhalten einen neuen {{type}} :"
+      },
+      "kingsFavor": {
+        "name": "{emote:unitValues.score} Inbrunst des Königs",
+        "info": "Gewährt Ihnen {{thousandPoints}} Punkte. Kann nur einmal pro Woche verwendet werden.",
+        "giveTitle": "{{pseudo}}Ich bin sehr zufrieden.",
+        "giveDescription": "Sie haben {{thousandPoints}} {emote:unitValues.score}erhalten. Bis nächste Woche mit neuem Eifer!"
+      },
+      "lovePointsValue": {
+        "name": "{emote:shopItems.lovePointsValue} Hoftierarzt",
+        "info": "Erhalten Sie detaillierte Informationen über Ihren Vertrauten.",
+        "giveTitle": "{{pseudo}}Ich bin sehr zufrieden.",
+        "giveDesc": "Nach einer langen Zeit, in der Sie den Gesundheitszustand Ihres Tieres studiert haben, erhalten Sie schließlich den Bericht des Tierarztes:\n\n**{{petName}}** {{commentOnResult}}\n{emote:petInformation.loveScore} **Score Liebe**: {{actualLP}} / 100\n{emote:petInformation.diet} **Diät**: {{diet}}\n{emote:petInformation.nextFeed} **Nächster Hunger**: {{nextFeed}}",
+        "petIsHungry": "{emote:effects.starving} hungrig",
+        "advice": {
+          "1": [
+            "scheint Sie zu hassen. Seien Sie vorsichtig, sonst könnten Sie bei Ihren Abenteuern Opfer eines bösen Streichs werden!",
+            "scheint Sie wirklich nicht zu mögen. So wie Sie sich um Ihren Vertrauten kümmern, ist das keine Überraschung!",
+            "scheint sich in einem tiefen Unwohlsein zu befinden. Sie sollten versuchen, Ihren Vertrauten zu füttern."
+          ],
+          "2": [
+            "scheint noch wild zu sein. Kümmern Sie sich um Ihren Vertrauten, um sein Vertrauen zu gewinnen!",
+            "scheint Sie nicht zu mögen. Wenn Sie sich nicht um Ihren Vertrauten kümmern, werden Sie nie seine Liebe erlangen!",
+            "scheint nicht glücklich zu sein. Sie sollten versuchen, Ihren Vertrauten zu füttern."
+          ],
+          "3": [
+            "scheint noch etwas ängstlich zu sein. Kümmern Sie sich um Ihren Vertrauten, um sein volles Vertrauen zu gewinnen!",
+            "scheint Ihnen immer noch zu misstrauen. Kümmern Sie sich weiterhin um Ihren Vertrauten, um seine Liebe zu gewinnen!",
+            "scheint anzufangen, sich an Sie zu gewöhnen. Versuchen Sie, Ihren Vertrauten regelmäßig zu füttern."
+          ],
+          "4": [
+            "scheint Sie zu mögen. Kümmern Sie sich weiterhin um Ihren Vertrauten, um sein volles Vertrauen zu gewinnen!",
+            "scheint Ihnen zu vertrauen. Wenn Sie auf diesem Weg weitergehen, werden Sie bald die ganze Liebe Ihres Vertrauten bekommen!",
+            "scheint sich an Sie gewöhnt zu haben. Hören Sie nicht auf, Ihren Vertrauten regelmäßig zu füttern."
+          ],
+          "5": [
+            "scheint Sie vollkommen zu mögen. Sie müssen sich nicht einmal mehr um Ihren Vertrauten kümmern, damit er Sie weiterhin liebt!",
+            "scheint eine starke Bindung mit Ihnen zu teilen. Ihre Bindung ist unerschütterlich, solange Sie nicht getrennt werden, werden Sie weiterhin die Liebe Ihres Vertrauten genießen!"
+          ]
+        }
+      },
+      "questMasterBadge": {
+        "name": "{emote:badges.questMasterBadge} Abzeichen \"Meister der Quests",
+        "info": "Sie erhalten den Abzeichen innerhalb weniger Stunden nach der Zahlung. Für weitere Informationen über Abzeichen verwenden Sie den Befehl {command:help}."
       }
     }
   },
@@ -708,5 +787,45 @@
     "canceledTitle": "Befreiung abgebrochen",
     "canceledDesc": "Die Freilassung wurde rückgängig gemacht.",
     "acceptedDesc": "Sie haben **{{pseudo}}** befreit!"
+  },
+  "missionsshop": {
+    "title": "Magazin der Missionen",
+    "success": "{pseudo}Erfolgreiche Transaktion!",
+    "error": {
+      "cannotBuy": "Sie haben nicht genug Edelsteine, um diesen Gegenstand zu kaufen! Es fehlt Ihnen `{missingMoney}{emote:unitValues.gem}`.",
+      "canceledPurchase": "Transaktion abgebrochen!",
+      "alreadyHadBadge": "Sie besitzen bereits das Abzeichen \"Meister der Quests\". Sie können nicht mehr Ehrungen erhalten, als Sie bereits besitzen!",
+      "leaveShop": "Sie haben den Laden verlassen.",
+      "alreadyBoughtPointsThisWeek": "Sie haben diese Woche bereits Punkte gekauft. Kommen Sie nächste Woche wieder, um Punkte zu kaufen!",
+      "noMissionToSkip": "Sie haben keine Aufträge zu vergeben!",
+      "noPet": "Sie haben kein Tier bei sich, wir können keine Diagnose über ein Geistertier stellen!"
+    }
+  },
+  "top": {
+    "level": "Ebene {{level}}",
+    "titleScoreAllTime": "{emote:top.congrats} Affichage du top des places {{minRank}} à {{maxRank}}",
+    "titleScoreWeekly": "{emote:top.congrats} Anzeige der wöchentlichen Top-Platzierungen {{minRank}} an {{maxRank}}",
+    "yourRankTitle": "**Ihre Platzierung**",
+    "yourRankFirst_one": "{emote:top.congrats} Herzlichen Glückwunsch **{{pseudo}}**! Sie sind derzeit der Beste von insgesamt {{total}} Spielern!",
+    "yourRankFirst_other": "{emote:top.congrats} Herzlichen Glückwunsch **{{pseudo}}**! Sie sind derzeit der Beste von insgesamt {{total}} Spielern!",
+    "yourRank_one": "{{badge}} **{{pseudo}}**, Sie sind momentan auf Rang **{{rank}}°** von insgesamt {{total}} Spielern!",
+    "yourRank_other": "{{badge}} **{{pseudo}}**, Sie sind momentan auf Rang **{{rank}}°** von insgesamt {{total}} Spielern!",
+    "yourRankNoneScore": "{emote:top.error} | Sie erscheinen leider nicht in der Top-Liste, da Sie eine Punktzahl von 100 oder weniger haben!",
+    "yourRankAtPage": "(Sie finden sich auf der Seite {{page}} / {{maxPage}})",
+    "titleGlory": "{emote:unitValues.glory} Top-Glory-Anzeige der Plätze {{minRank}} für {{maxRank}}",
+    "yourRankNoneGlory_one": "{emote:top.error} | Sie erscheinen leider nicht in der Top-Liste, weil Sie noch nicht genügend Ranglistenkämpfe absolviert haben! Du musst noch {{needFight}} Ranglistenkämpfe absolvieren.",
+    "yourRankNoneGlory_other": "{emote:top.error} | Sie erscheinen leider nicht in der Top-Liste, weil Sie noch nicht genug Ranglistenkämpfe absolviert haben! Sie müssen noch {{needFight}} Ranglistenkämpfe absolvieren.",
+    "titleGuild": "{emote:top.guild} Anzeige der Top-Gilden-Plätze {{minRank}} an {{maxRank}}",
+    "yourRankGuildTitle": "**Rangliste deiner Gilde**",
+    "yourRankGuildFirst_one": "{emote:top.congrats} Herzlichen Glückwunsch **{{pseudo}}**! Eure Gilde ist derzeit die beste von insgesamt {{total}} Gilden!",
+    "yourRankGuildFirst_other": "{emote:top.congrats} Herzlichen Glückwunsch **{{pseudo}}**! Eure Gilde ist derzeit die beste von insgesamt {{total}} Gilden!",
+    "yourRankGuild_one": "{{badge}} **{{pseudo}}**, deine Gilde ist derzeit auf Platz **{{rank}}°** von insgesamt {{total}} Gilden!",
+    "yourRankGuild_other": "{{badge}} **{{pseudo}}**, deine Gilde ist momentan auf Platz **{{rank}}°** von insgesamt {{total}} Gilden!",
+    "yourRankNoneGuild": "{emote:top.error} | Deine Gilde erscheint leider nicht in der Top-Liste, da sie keine Gildenpunkte hat!",
+    "yourRankAtPageGuild": "(Sie finden sie auf der Seite {{page}} / {{maxPage}})",
+    "noGuild": "{emote:top.error} | Du erscheinst nicht in dieser Rangliste, da du keiner Gilde angehörst!",
+    "nobodyInTopPlayers": "Es gibt derzeit niemanden in der Top-Liste! Genießen Sie es, solange Sie können.",
+    "nobodyInTopGuilds": "Es gibt derzeit keine Gilden in der Top-Liste! Genießt es, solange ihr könnt.",
+    "invalidPage": "Die angeforderte Seite existiert nicht. Bitte versuchen Sie es erneut mit einer Seite zwischen {{minPage}} und {{maxPage}}."
   }
 }
