@@ -23,8 +23,8 @@ export async function createGuildLeaveCollector(packet: ReactionCollectorCreatio
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorGuildLeaveData;
-	const newChiefPseudo = data.newChiefKeycloakId !== null ? (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, data.newChiefKeycloakId))!.attributes.gameUsername : "";
-	const keyDesc = data.guildIsDestroyed ? "confirmChiefDesc" : data.newChiefKeycloakId !== null ? "confirmChiefDescWithElder" : "confirmDesc";
+	const newChiefPseudo = data.newChiefKeycloakId ? (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, data.newChiefKeycloakId))!.attributes.gameUsername : "";
+	const keyDesc = data.isGuildDestroyed ? "confirmChiefDesc" : data.newChiefKeycloakId !== null ? "confirmChiefDescWithElder" : "confirmDesc";
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:guildLeave.title", {
 		lng: interaction.userLanguage,
 		pseudo: interaction.user.displayName
@@ -50,7 +50,7 @@ export async function handleCommandGuildLeaveAcceptPacketRes(packet: CommandGuil
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 	const keyTitle = packet.newChiefKeycloakId ? "newChiefTitle" : "successTitle";
 	const keyDesc = packet.isGuildDestroyed ? "destroySuccess" : "leavingSuccess";
-	const newChiefPseudo = packet.newChiefKeycloakId !== null ? (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.newChiefKeycloakId))!.attributes.gameUsername : "";
+	const newChiefPseudo = packet.newChiefKeycloakId ? (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.newChiefKeycloakId))!.attributes.gameUsername : "";
 	if (buttonInteraction && originalInteraction) {
 		await buttonInteraction.editReply({
 			embeds: [

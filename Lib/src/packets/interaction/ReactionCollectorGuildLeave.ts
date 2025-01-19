@@ -9,23 +9,23 @@ import {
 export class ReactionCollectorGuildLeaveData extends ReactionCollectorData {
 	guildName!: string;
 
-	newChiefKeycloakId!: string | null;
+	isGuildDestroyed!: boolean;
 
-	guildIsDestroyed!: boolean;
+	newChiefKeycloakId!: string;
 }
 
 export class ReactionCollectorGuildLeave extends ReactionCollector {
 	private readonly guildName: string;
 
-	private readonly newChiefKeycloakId: string | null;
+	private readonly newChiefKeycloakId: string;
 
-	private readonly guildIsDestroyed: boolean;
+	private readonly isGuildDestroyed: boolean;
 
-	constructor(guildName: string, newChiefKeycloakId: string | null, guildIsDestroyed: boolean) {
+	constructor(guildName: string, isGuildDestroyed: boolean, newChiefKeycloakId: string) {
 		super();
 		this.guildName = guildName;
 		this.newChiefKeycloakId = newChiefKeycloakId;
-		this.guildIsDestroyed = guildIsDestroyed;
+		this.isGuildDestroyed = isGuildDestroyed;
 	}
 
 	creationPacket(id: string, endTime: number): ReactionCollectorCreationPacket {
@@ -39,7 +39,7 @@ export class ReactionCollectorGuildLeave extends ReactionCollector {
 			data: this.buildData(ReactionCollectorGuildLeaveData, {
 				guildName: this.guildName,
 				newChiefKeycloakId: this.newChiefKeycloakId,
-				guildIsDestroyed: this.guildIsDestroyed
+				isGuildDestroyed: this.isGuildDestroyed
 			})
 		};
 	}

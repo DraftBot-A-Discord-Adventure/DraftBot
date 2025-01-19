@@ -54,7 +54,6 @@ async function acceptGuildLeave(player: Player, response: DraftBotPacket[]): Pro
 		// No elder => the guild will be destroyed
 		await guild.completelyDestroyAndDeleteFromTheDatabase();
 		response.push(makePacket(CommandGuildLeaveAcceptPacketRes, {
-			newChiefKeycloakId: null,
 			guildName: guild.name,
 			isGuildDestroyed: true
 		}));
@@ -68,7 +67,6 @@ async function acceptGuildLeave(player: Player, response: DraftBotPacket[]): Pro
 	LogsDatabase.logGuildLeave(guild, player.keycloakId).then();
 	player.guildId = null;
 	response.push(makePacket(CommandGuildLeaveAcceptPacketRes, {
-		newChiefKeycloakId: null,
 		guildName: guild.name
 	}));
 	await Promise.all([
@@ -85,17 +83,13 @@ export default class GuildLeaveCommand {
 		guildNeeded: true
 	})
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandGuildLeavePacketReq, context: PacketContext): Promise<void> {
-		if (player.guildId === null) {
-			response.push(makePacket(CommandGuildLeaveNotInAGuildPacketRes, {}));
-			return;
-		}
 		const guild = await Guilds.getById(player.guildId);
 		const newChief = guild.chiefId === player.id && guild.elderId ? await Players.getById(guild.elderId) : null;
 
 		const collector = new ReactionCollectorGuildLeave(
 			guild.name,
-			newChief ? newChief.keycloakId : null,
-			guild.chiefId === player.id && guild.elderId === null
+			guild.chiefId === player.id && guild.elderId === null,
+			newChief?.keycloakId
 		);
 		const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
 			const reaction = collector.getFirstReaction();

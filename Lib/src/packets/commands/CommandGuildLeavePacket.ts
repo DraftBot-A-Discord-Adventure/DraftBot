@@ -10,7 +10,7 @@ export class CommandGuildLeaveRefusePacketRes extends DraftBotPacket {
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandGuildLeaveAcceptPacketRes extends DraftBotPacket {
-	newChiefKeycloakId!: string | null;
+	newChiefKeycloakId?: string;
 
 	guildName!: string;
 
