@@ -56,7 +56,7 @@
     "title": "{{pseudo}}crear un gremio",
     "canceledTitle": "{{pseudo}}anulación de la creación de un gremio.",
     "canceledDesc": "La creación de tu gremio ha sido cancelada.",
-    "confirmDesc": "{emote:collectors.question}{{guildName}}{{price}} :moneybag: Confirmar la creación del gremio ** ** para ` ` ?",
+    "confirmDesc": "{emote:collectors.question}{{guildName}}{{price}} {emote:unitValues.money} Confirmar la creación del gremio ** ** para ` ` ?",
     "acceptedFooter": "Ten en cuenta que el personal se reserva el derecho a cambiar el nombre de tu gremio.",
     "acceptedDesc": "{{guildName}}¡El gremio ** ** ha sido creado!"
   },
@@ -81,6 +81,20 @@
     "noPlayer": "Le joueur n'est pas dans la guilde.",
     "notSameGuild": "Vous ne pouvez pas expulser un joueur qui n'est pas dans votre guilde.",
     "himself": "Vous ne pouvez pas vous expulser vous-même de la guilde."
+  },
+  "guildElder": {
+    "playerNotFound": "No se ha encontrado a este jugador.",
+    "notSameGuild": "Este jugador no pertenece a tu gremio.",
+    "notChiefError": "Debes ser un líder de gremio para realizar este pedido.",
+    "chiefError": "Como líder del gremio, no puedes ser el mayor.",
+    "alreadyElder": "El jugador ya es miembro veterano de tu gremio.",
+    "title": "{{pseudo}}¿Estás confirmando tu elección?",
+    "confirmDesc": ":question: {{elderPseudo}}{{guildName}}se convertirá en el miembro más antiguo del gremio.",
+    "successElderAddTitle": "{{elderPseudo}} {{guildName}} ¡es el miembro más reciente del gremio!",
+    "acceptedDesc": "El mayor ayuda al líder a gestionar el gremio. Así que ¡elige con cuidado! {command:guildelder} {command:guildelderremove}Pero no te preocupes, si no estás contento con tu anciano, puedes sustituirlo con el mando , o si te sientes un dictador, puedes eliminarlo definitivamente con .",
+    "canceledDesc": "El mayor no fue ascendido.",
+    "canceledTitle": "Cancelación tenida en cuenta.",
+    "problemWhilePromoting": "Se ha producido un error al ascender al jugador."
   },
   "help": {
     "aliasFieldTitle": "Alias",
@@ -113,7 +127,7 @@
         "description": "Muestra información sobre un gremio."
       },
       "GUILD_CREATE": {
-        "description": "Crear un gremio. Crear un gremio cuesta 5.000 :moneybag:."
+        "description": "Crear un gremio. {emote:unitValues.money}Crear un gremio cuesta 5.000 ."
       },
       "GUILD_DAILY_BONUS": {
         "description": "Recoge las recompensas diarias del gremio."
@@ -244,7 +258,7 @@
     "guildCommands": ":stadium: Gremio :",
     "helpEmbedDescription": ":arrow_forward: Si desea más información sobre un comando en particular, haga clic aquí : {{helpCommandMention}}e introduzca como parámetro el comando con el que tiene problemas. :wink:",
     "helpEmbedTitle": "{{pseudo}}Esta es la lista de comandos disponibles:",
-    "missionCommands": ":scroll: Misión:",
+    "missionCommands": "{emote:missions.sideMission} Misión:",
     "petCommands": ":dog: Animales :",
     "playerCommands": ":bust_in_silhouette: Jugador :",
     "serverCommands": ":gear: Servidor :",
@@ -365,7 +379,7 @@
     },
     "information": {
       "fieldName": "Más información :",
-      "fieldValue": ":heart: {{health}}/{{maxHealth}} | :star: {{experience}}/{{experienceNeededToLevelUp}} | :moneybag: {{money}}"
+      "fieldValue": ":heart: {{health}}/{{maxHealth}} | :star: {{experience}}/{{experienceNeededToLevelUp}} | {emote:unitValues.money} {{money}}"
     },
     "map": {
       "fieldName": "Destino :",
@@ -434,10 +448,10 @@
     "health": "| :heart: La vida ganada : **{{health}}",
     "healthLoose": "| :broken_heart: Vida perdida : **{{health}}",
     "journal": "Diario de {{pseudo}}",
-    "money": "** | :moneybag: Dinero ganado : **{{money}}",
+    "money": "{emote:unitValues.money} ** Dinero ganado :{{money}}**",
     "moneyLoose": "** | :money_with_wings: Dinero perdido : **{{money}}",
     "monsterRewardGuildXp": "\n:star: XP gremio ganado: **{{guildXp}}**",
-    "monsterRewardsDescription": ":moneybag: Plata ganada : **{{money}}**\n:star: XP ganada : **{{experience}}**",
+    "monsterRewardsDescription": "{emote:unitValues.money} Plata ganada :{{money}}\n:star: ** XP ganada :{{experience}}** **",
     "monsterRewardsGuildPoints": "\n:mirror_ball: Puntos de gremio ganados : **{{guildPoints}}**",
     "monsterRewardsTitle": "{{pseudo}}recompensas de combate",
     "newBigEvent": ":flag_fr: ¡Ha llegado a{{destination}}!",
@@ -484,10 +498,10 @@
     "commandName": "vender",
     "commandDescription": "Equipo de venta.",
     "noItemToSell": "Desgraciadamente, ¡no tienes ningún artículo en tu alijo!",
-    "confirmSell": "{{item}}{{money}} :moneybag: ¿Estás seguro de que quieres separarte de ** **?",
+    "confirmSell": "{{item}}{{money}} {emote:unitValues.money} ¿Estás seguro de que quieres separarte de ** **?",
     "sellCanceled": "La venta ha sido cancelada.",
     "sellTitle": "{{pseudo}}confirmación :",
-    "soldMessage": "{{item}}{{money}} :moneybag: ¡Has vendido por ** ** !",
+    "soldMessage": "{{item}}{{money}} {emote:unitValues.money} ¡Has vendido por ** ** !",
     "soldMessageTitle": "{{pseudo}}ha vendido un equipo.",
     "potionDestroyedTitle": "Has destruido una poción.",
     "potionDestroyedMessage": "{{item}}La poción \" \" se vertió en un fregadero.",
@@ -508,16 +522,16 @@
     "noEnergyToHeal": "Tienes toda tu energía de lucha a tu disposición. ⚡",
     "fullRegen": "💓 Te han cuidado por completo.",
     "alreadyHaveBadge": "Ya tienes esta insignia.",
-    "badgeBought": "{emote:badges.richPerson} Has recibido una nueva insignia: .",
-    "notEnoughMoney": "¡No tienes suficiente dinero para comprar este artículo!{{missingMoney}} Te falta ` {emote:unitValues.money}`.",
+    "badgeBought": "Has recibido una nueva insignia: {emote:badges.{{badgeName}}} !",
+    "notEnoughMoney": "No tienes suficiente dinero para comprar este objeto.{{missingCurrency}} Te falta ` {emote:unitValues.{{currency}}}`.",
     "boughtTooMuchDailyPotions": "No hay más pociones del día a la venta... ¡Vuelve mañana!",
     "title": "🛒 Pantalla de la tienda",
-    "currentMoney": "{{money}}Tienes ` {emote:unitValues.money}`.",
-    "shopItemsDisplaySingle": "{{name}}{{price}}| {emote:unitValues.money}`",
-    "shopItemsDisplayMultiple": "{{amount}} {{name}}{{price}}** x** | ` {emote:unitValues.money}`",
+    "currentMoney": "{{money}}Tienes ` {emote:unitValues.{{currency}}}`.",
+    "shopItemsDisplaySingle": "{{name}}{{price}}| {emote:unitValues.{{currency}}}`",
+    "shopItemsDisplayMultiple": "{{amount}} {{name}}{{price}}** x** | ` {emote:unitValues.{{currency}}}`",
     "shopSelectPlaceholder": "Seleccione un artículo para comprar",
     "buyCategorySlotSuccess": "Has comprado un nuevo espacio de inventario.",
-    "shopItemsSelectDescription": "{{price}}{emote:unitValues.money}",
+    "shopItemsSelectDescription": "{{price}}{emote:unitValues.{{currency}}}",
     "closeShopButton": "❌ Cerrar tienda",
     "shopConfirmationTitle": "{{pseudo}}ha seleccionado el siguiente producto:",
     "shopConfirmationTitleMultiple": "{{pseudo}}Seleccione una cantidad para este producto:",
@@ -528,7 +542,10 @@
       "dailyPotion_other": "{{count}} Poción del día ( disponible)",
       "slotExtension": "Ampliaciones de inventario",
       "food": "Alimentos para mascotas",
-      "guildXp": "Experiencia gremial"
+      "guildXp": "Experiencia gremial",
+      "resources": "Recursos",
+      "utilitaries": "Servicios",
+      "prestige": "Prestige"
     },
     "chooseSlotTitle": "{{pseudo}}nueva ubicación del inventario",
     "chooseSlotIndication": "Elija una nueva ubicación de inventario o cancele :",
@@ -545,27 +562,26 @@
         "name": "{emote:shopItems.randomItem} Equipo aleatorio",
         "info": "Recibirás una pieza de equipo aleatoria (Arma / Armadura / Objeto o Poción) de entre todas las presentes en el juego."
       },
-      "healAlteration": {
+      "alterationHeal": {
         "name": "{emote:shopItems.healAlteration} Atención a estados alterados",
         "info": "Sus cambios de estado serán eliminados y volverá a la carretera inmediatamente.",
         "give": "{emote:shopItems.healAlteration} Tus cambios de estado han sido eliminados."
       },
-      "healEnergy": {
+      "energyHeal": {
         "name": "{emote:shopItems.healEnergy} Recuperación de energía",
         "info": "Tu energía de combate se restaurará por completo.",
         "give": "{emote:shopItems.healEnergy} Tu energía ha sido restaurada."
       },
-      "regen": {
+      "fullRegen": {
         "name": "{emote:shopItems.regen} Regulación completa de la vida",
         "info": "Te curarás por completo inmediatamente, pero conservarás todos tus estados alterados.",
         "give": "{emote:shopItems.regen} Te han cuidado por completo."
       },
       "moneyMouthBadge": {
         "name": "{emote:shopItems.moneyMouthBadge} Insignia \"Money Mouth",
-        "info": "Recibirá la insignia automáticamente tras el pago. {command:help}Para obtener más información sobre las insignias, utilice el comando .",
-        "give": "{{pseudo}}Has recibido una nueva insignia:"
+        "info": "Recibirá la insignia automáticamente tras el pago. {command:help}Para obtener más información sobre las insignias, utilice el comando ."
       },
-      "inventoryExtension": {
+      "slotExtension": {
         "name": "{emote:shopItems.inventoryExtension} Nueva ubicación del inventario",
         "info": "Puede elegir una categoría de inventario a la que añadir una ubicación"
       },
@@ -595,6 +611,69 @@
       "ultimateFood": {
         "name": "{emote:foods.ultimateFood} La sopa definitiva",
         "info": "Recibirá una sopa definitiva para sus mascotas."
+      },
+      "skipMission": {
+        "name": "{emote:shopItems.skipMission} Cambio-misión",
+        "info": "Te permite eliminar una misión del mapa y cambiarla por una nueva, aunque no podrás elegir qué misión quieres.",
+        "giveTitle": "{{pseudo}}has decidido cambiar una misión",
+        "giveDesc": "Elige la misión a cambiar:",
+        "successTitle": "{{pseudo}}¡has cambiado una misión!",
+        "successDescription": "{emote:missions.sideMission}{{mission}}Has borrado la misión ** **.",
+        "getNewMission": "Se le ha dado la tarea : \n\n{emote:missions.sideMission}{{mission}}** **"
+      },
+      "money": {
+        "name": "{emote:unitValues.money} Dinero del Rey",
+        "info": "{{kingsMoneyAmount}} {emote:unitValues.money}Según los precios actuales de las gemas y tras deducir el impuesto del rey, recibirás .",
+        "giveTitle": "{{pseudo}}¡compra realizada!",
+        "giveDescription": "{{amount}} {emote:unitValues.money}Ha recibido ` ` ."
+      },
+      "treasure": {
+        "name": "{emote:shopItems.treasure} El Tesoro del Rey",
+        "info": "Te concede un valioso objeto de la sala del tesoro del rey.",
+        "give": "{{pseudo}} {{type}} un nuevo :"
+      },
+      "kingsFavor": {
+        "name": "{emote:unitValues.score} El fervor del Rey",
+        "info": "{{thousandPoints}} Te da puntos. Sólo se puede utilizar una vez a la semana.",
+        "giveTitle": "{{pseudo}}¡compra realizada!",
+        "giveDescription": "{{thousandPoints}} {emote:unitValues.score}Usted ha recibido . ¡Hasta la semana que viene para un nuevo fervor!"
+      },
+      "lovePointsValue": {
+        "name": "{emote:shopItems.lovePointsValue} Veterinario judicial",
+        "info": "Obtenga información detallada sobre su mascota.",
+        "giveTitle": "{{pseudo}}¡compra realizada!",
+        "giveDesc": "Tras mucho tiempo estudiando el estado de salud de su mascota, por fin recibe el informe del veterinario:\n\n{{petName}} {{commentOnResult}}\n{emote:petInformation.loveScore} {{actualLP}}\n{emote:petInformation.diet} ** **Puntuación del amor**: / 100 **Régimen dietético** : {{diet}}\n{emote:petInformation.nextFeed} {{nextFeed}}**Próxima hambre**:",
+        "petIsHungry": "{emote:effects.starving} hambriento",
+        "advice": {
+          "1": [
+            "parece odiarte. Ten cuidado, ¡o podrías ser víctima de una mala pasada durante tus aventuras!",
+            "parece que no le gustas nada. Dada la forma en que cuidas de tu mascota, ¡no es de extrañar!",
+            "parece estar en serios problemas. Deberías intentar alimentar a tu mascota."
+          ],
+          "2": [
+            "todavía parece salvaje. Cuida de tu mascota y gánate su confianza.",
+            "parece que no le gustas. Si no cuidas de tu mascota, ¡nunca recibirás su cariño!",
+            "no parece feliz. Deberías intentar alimentar a tu mascota."
+          ],
+          "3": [
+            "todavía parece un poco aprensivo. Cuida de tu mascota y gánate su confianza.",
+            "siempre parece desconfiar de ti. ¡Sigue cuidando de tu mascota para ganarte su cariño!",
+            "parece estar acostumbrándose a ti. Intenta alimentar a tu mascota con regularidad."
+          ],
+          "4": [
+            "parece gustarle. Sigue cuidando de tu mascota para ganarte su confianza.",
+            "parece confiar en ti. Si sigues por este camino, pronto conseguirás que tu mascota te quiera.",
+            "parece haberle cogido cariño. No dejes de alimentar a tu mascota con regularidad."
+          ],
+          "5": [
+            "parece quererte por completo. ¡Ni siquiera tienes que cuidar a tu mascota para que te siga queriendo!",
+            "parece compartir un fuerte vínculo contigo. Vuestro vínculo es irrompible, así que mientras no os separéis, ¡seguirás disfrutando del amor de tu mascota!"
+          ]
+        }
+      },
+      "questMasterBadge": {
+        "name": "{emote:badges.questMasterBadge} Insignia de maestro de misiones",
+        "info": "Recibirá su insignia en las horas siguientes al pago. {command:help}Para obtener más información sobre las insignias, utilice el comando ."
       }
     }
   },
@@ -708,5 +787,45 @@
     "canceledTitle": "Liberación cancelada",
     "canceledDesc": "El lanzamiento fue cancelado.",
     "acceptedDesc": "{{pseudo}}¡Has liberado a ** ** !"
+  },
+  "missionsshop": {
+    "title": "Tienda de Misiones",
+    "success": "{pseudo}¡Una transacción exitosa!",
+    "error": {
+      "cannotBuy": "No tienes suficientes gemas para comprar este objeto.{missingMoney}{emote:unitValues.gem}Te falta ` `.",
+      "canceledPurchase": "Transacción cancelada.",
+      "alreadyHadBadge": "Ya tienes la insignia \"Maestro de las misiones\". No puedes conseguir más distinciones de las que ya tienes.",
+      "leaveShop": "Has salido de la tienda.",
+      "alreadyBoughtPointsThisWeek": "Ya has comprado puntos esta semana, ¡así que vuelve la semana que viene para comprar más!",
+      "noMissionToSkip": "¡No tienes ninguna misión que cumplir!",
+      "noPet": "Si no tiene ningún animal con usted, ¡no podemos diagnosticar un animal fantasma!"
+    }
+  },
+  "top": {
+    "level": "{{level}}Nivel",
+    "titleScoreAllTime": "{emote:top.congrats} Affichage du top des places {{minRank}} à {{maxRank}}",
+    "titleScoreWeekly": "{emote:top.congrats} {{minRank}} {{maxRank}}Visualice los mejores asientos de esta semana en",
+    "yourRankTitle": "**Su clasificación",
+    "yourRankFirst_one": "{emote:top.congrats}{{pseudo}}¡Enhorabuena ** ** ! {{total}} ¡Actualmente eres el mejor de un total de jugadores!",
+    "yourRankFirst_other": "{emote:top.congrats}{{pseudo}}¡Enhorabuena ** ** ! {{total}} ¡Actualmente eres el mejor de un total de jugadores!",
+    "yourRank_one": "{{badge}}{{pseudo}}{{rank}} {{total}} ¡** **, actualmente estás clasificado ** ème** de un total de jugadores !",
+    "yourRank_other": "{{badge}}{{pseudo}}{{rank}} {{total}} **, ¡actualmente estás en el puesto ** ème** de un total de jugadores!",
+    "yourRankNoneScore": "{emote:top.error} | ¡Lamentablemente, no apareces en el top porque tienes una puntuación de 100 o menos!",
+    "yourRankAtPage": "{{page}} {{maxPage}}(Ver / )",
+    "titleGlory": "{emote:unitValues.glory} {{minRank}} {{maxRank}}Visualización de los mejores asientos en",
+    "yourRankNoneGlory_one": "{emote:top.error} | Lamentablemente, no apareces entre los primeros porque aún no has completado suficientes combates igualados. {{needFight}} Todavía tienes que completar .",
+    "yourRankNoneGlory_other": "{emote:top.error} | Lamentablemente, no apareces entre los primeros porque aún no has completado suficientes combates igualados. {{needFight}} Todavía tienes que completar .",
+    "titleGuild": "{emote:top.guild} {{minRank}} {{maxRank}}Mostrando los mejores asientos del gremio en",
+    "yourRankGuildTitle": "**Clasificación de su gremio",
+    "yourRankGuildFirst_one": "{emote:top.congrats}{{pseudo}}¡Enhorabuena ** ** ! {{total}} ¡Tu gremio es actualmente el mejor de un total de !",
+    "yourRankGuildFirst_other": "{emote:top.congrats}{{pseudo}}¡Enhorabuena ** ** ! {{total}} ¡Su gremio es actualmente el mejor de un total de gremios!",
+    "yourRankGuild_one": "{{badge}}{{pseudo}}{{rank}} {{total}} ** **, ¡tu gremio está actualmente clasificado entre un total de gremios!",
+    "yourRankGuild_other": "{{badge}}{{pseudo}}{{rank}} {{total}} ** Tu gremio ocupa actualmente el puesto ** de un total de gremios.",
+    "yourRankNoneGuild": "{emote:top.error} | Desafortunadamente, tu gremio no aparece en el top porque no tiene puntos de gremio.",
+    "yourRankAtPageGuild": "{{page}} {{maxPage}}(Puede encontrarlo en / )",
+    "noGuild": "{emote:top.error} | ¡No apareces en esta clasificación porque no formas parte de un gremio!",
+    "nobodyInTopPlayers": "Actualmente no hay nadie entre los diez primeros. Disfrútalo mientras puedas.",
+    "nobodyInTopGuilds": "¡Actualmente no hay gremios en el top! Disfrútalo mientras puedas.",
+    "invalidPage": "La página solicitada no existe. {{minPage}} {{maxPage}}Por favor, inténtelo de nuevo con una página entre y ."
   }
 }
