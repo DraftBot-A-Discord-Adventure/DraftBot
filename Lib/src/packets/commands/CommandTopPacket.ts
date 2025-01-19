@@ -1,7 +1,7 @@
 import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
-import {TopDataType} from "../../enums/TopDataType";
-import {TopTiming} from "../../enums/TopTimings";
-import {TopElement, TopElementScoreFirstType} from "../../interfaces/TopElement";
+import {TopDataType} from "../../types/TopDataType";
+import {TopTiming} from "../../types/TopTimings";
+import {TopElement, TopElementScoreFirstType} from "../../types/TopElement";
 
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandTopPacketReq extends DraftBotPacket {

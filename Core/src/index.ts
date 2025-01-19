@@ -8,7 +8,7 @@ import {ErrorMaintenancePacket, ErrorPacket} from "../../Lib/src/packets/command
 import { connect } from "mqtt";
 import {PacketUtils} from "./core/utils/PacketUtils";
 import {MqttConstants} from "../../Lib/src/constants/MqttConstants";
-import {RightGroup} from "../../Lib/src/enums/RightGroup";
+import {RightGroup} from "../../Lib/src/types/RightGroup";
 import {MqttTopicUtils} from "../../Lib/src/utils/MqttTopicUtils";
 
 export const botConfig = loadConfig();

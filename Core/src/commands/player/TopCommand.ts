@@ -10,10 +10,10 @@ import {
 	CommandTopPacketResScore,
 	CommandTopPlayersEmptyPacket
 } from "../../../../Lib/src/packets/commands/CommandTopPacket";
-import {TopTiming} from "../../../../Lib/src/enums/TopTimings";
+import {TopTiming} from "../../../../Lib/src/types/TopTimings";
 import {TopConstants} from "../../../../Lib/src/constants/TopConstants";
 import {Constants} from "../../../../Lib/src/constants/Constants";
-import {TopDataType} from "../../../../Lib/src/enums/TopDataType";
+import {TopDataType} from "../../../../Lib/src/types/TopDataType";
 import {ErrorPacket} from "../../../../Lib/src/packets/commands/ErrorPacket";
 import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
 import {Guilds} from "../../core/database/game/models/Guild";
@@ -105,7 +105,7 @@ async function getTopGlory(initiator: Player, page: number): Promise<DraftBotPac
 			text: player.keycloakId,
 			attributes: {
 				1: player.getLeague().id,
-				2: player.gloryPoints,
+				2: player.getGloryPoints(),
 				3: player.level
 			}
 		})),

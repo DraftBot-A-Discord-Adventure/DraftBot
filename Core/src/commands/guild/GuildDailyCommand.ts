@@ -14,7 +14,7 @@ import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {GuildDailyConstants} from "../../../../Lib/src/constants/GuildDailyConstants";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {draftBotInstance} from "../../index";
-import {Effect} from "../../../../Lib/src/enums/Effect";
+import {Effect} from "../../../../Lib/src/types/Effect";
 import {TravelTime} from "../../core/maps/TravelTime";
 import {BadgeConstants} from "../../../../Lib/src/constants/BadgeConstants";
 import {hoursToMilliseconds, hoursToMinutes, millisecondsToHours} from "../../../../Lib/src/utils/TimeUtils";

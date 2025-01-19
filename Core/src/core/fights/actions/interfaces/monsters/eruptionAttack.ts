@@ -1,5 +1,5 @@
 import {FightWeatherEnum} from "../../../FightWeather";
-import {defaultFightActionResult} from "../../../../../../../Lib/src/interfaces/FightActionResult";
+import {defaultFightActionResult} from "../../../../../../../Lib/src/types/FightActionResult";
 import {FightActionFunc} from "../../../../../data/FightAction";
 
 const use: FightActionFunc = (sender, _receiver, _fightAction, turn, fight) => {

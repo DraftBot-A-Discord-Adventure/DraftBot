@@ -1,4 +1,4 @@
-import {ClassKind} from "../types/ClassKind";
+import {ClassKind} from "./ClassKind";
 
 export interface ClassStats {
     attack: number,

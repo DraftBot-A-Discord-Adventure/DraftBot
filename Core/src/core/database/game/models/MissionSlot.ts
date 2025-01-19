@@ -1,5 +1,5 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
-import {BaseMission, MissionType} from "../../../../../../Lib/src/interfaces/CompletedMission";
+import {BaseMission, MissionType} from "../../../../../../Lib/src/types/CompletedMission";
 import moment = require("moment");
 import missionJson = require("../../../../../resources/campaign.json");
 

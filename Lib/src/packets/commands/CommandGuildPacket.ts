@@ -1,4 +1,5 @@
 import {DraftBotPacket, sendablePacket, PacketDirection} from "../DraftBotPacket";
+import {GuildMember} from "../../types/GuildMember";
 
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandGuildPacketReq extends DraftBotPacket {
@@ -8,20 +9,6 @@ export class CommandGuildPacketReq extends DraftBotPacket {
 	};
 
 	askedGuildName?: string;
-}
-
-export interface GuildMemberPacket {
-	id: number;
-	keycloakId: string;
-	rank: number,
-	score: number
-	islandStatus: {
-		isOnPveIsland: boolean,
-		isOnBoat: boolean,
-		isPveIslandAlly: boolean,
-		isInactive: boolean
-		cannotBeJoinedOnBoat: boolean
-	}
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
@@ -47,6 +34,6 @@ export class CommandGuildPacketRes extends DraftBotPacket {
 			numberOfGuilds: number,
 			score: number
 		},
-		members: GuildMemberPacket[]
+		members: GuildMember[]
 	};
 }

@@ -1,8 +1,8 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
 import {FightActionFunc} from "../../../../../data/FightAction";
-import {defaultFightActionResult, FightStatBuffed} from "../../../../../../../Lib/src/interfaces/FightActionResult";
-import {FightStatModifierOperation} from "../../../../../../../Lib/src/interfaces/FightStatModifierOperation";
+import {defaultFightActionResult, FightStatBuffed} from "../../../../../../../Lib/src/types/FightActionResult";
+import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
 
 const use: FightActionFunc = (sender, _receiver, fightAction) => {
 	const count = sender.fightActionsHistory.filter(action => action.id === "resting").length;

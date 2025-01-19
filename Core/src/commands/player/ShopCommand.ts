@@ -22,7 +22,7 @@ import {getItemValue, giveItemToPlayer, giveRandomItem, toItemWithDetails} from 
 import {draftBotInstance} from "../../index";
 import {NumberChangeReason, ShopItemType} from "../../../../Lib/src/constants/LogsConstants";
 import {millisecondsToMinutes} from "../../../../Lib/src/utils/TimeUtils";
-import {Effect} from "../../../../Lib/src/enums/Effect";
+import {Effect} from "../../../../Lib/src/types/Effect";
 import {TravelTime} from "../../core/maps/TravelTime";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {EntityConstants} from "../../../../Lib/src/constants/EntityConstants";

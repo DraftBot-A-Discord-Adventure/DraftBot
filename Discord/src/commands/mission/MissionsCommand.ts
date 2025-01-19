@@ -16,7 +16,7 @@ import {
 } from "../../../../Lib/src/packets/commands/CommandMissionsPacket";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {User} from "discord.js";
-import {MissionType} from "../../../../Lib/src/interfaces/CompletedMission";
+import {MissionType} from "../../../../Lib/src/types/CompletedMission";
 import {MissionUtils} from "../../utils/MissionUtils";
 import {datesAreOnSameDay, finishInTimeDisplay, getTomorrowMidnight} from "../../../../Lib/src/utils/TimeUtils";
 import {PacketUtils} from "../../utils/PacketUtils";

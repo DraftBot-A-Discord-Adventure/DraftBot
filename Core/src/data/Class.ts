@@ -1,5 +1,5 @@
 import {DataControllerNumber} from "./DataController";
-import {ClassStats} from "../../../Lib/src/interfaces/ClassStats";
+import {ClassStats} from "../../../Lib/src/types/ClassStats";
 import {Data} from "./Data";
 import {RandomUtils} from "../../../Lib/src/utils/RandomUtils";
 import {ClassKind} from "../../../Lib/src/types/ClassKind";

@@ -4,7 +4,7 @@ import Player from "../database/game/models/Player";
 import PlayerMissionsInfo, {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
 import {draftBotInstance} from "../../index";
 import {CampaignData} from "../../data/Campaign";
-import {CompletedMission, MissionType} from "../../../../Lib/src/interfaces/CompletedMission";
+import {CompletedMission, MissionType} from "../../../../Lib/src/types/CompletedMission";
 
 export class Campaign {
 	private static maxCampaignCache = -1;

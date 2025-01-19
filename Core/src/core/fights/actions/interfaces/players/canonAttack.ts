@@ -3,7 +3,7 @@ import {attackInfo, FightActionController, statsInfo} from "../../FightActionCon
 import {MathUtils} from "../../../../utils/MathUtils";
 import {FightAlterations} from "../../FightAlterations";
 import {FightActionFunc} from "../../../../../data/FightAction";
-import {FightActionResult} from "../../../../../../../Lib/src/interfaces/FightActionResult";
+import {FightActionResult} from "../../../../../../../Lib/src/types/FightActionResult";
 
 const use: FightActionFunc = (sender, receiver) => {
 

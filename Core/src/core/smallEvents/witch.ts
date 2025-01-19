@@ -16,8 +16,8 @@ import {GenericItem} from "../../data/GenericItem";
 import {InventorySlots} from "../database/game/models/InventorySlot";
 import {ReactionCollectorWitch, ReactionCollectorWitchReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorWitch";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import {WitchActionOutcomeType} from "../../../../Lib/src/enums/WitchActionOutcomeType";
-import {Effect} from "../../../../Lib/src/enums/Effect";
+import {WitchActionOutcomeType} from "../../../../Lib/src/types/WitchActionOutcomeType";
+import {Effect} from "../../../../Lib/src/types/Effect";
 
 
 type WitchEventSelection = {

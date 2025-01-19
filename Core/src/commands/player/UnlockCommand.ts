@@ -19,7 +19,7 @@ import {draftBotInstance} from "../../index";
 import {UnlockConstants} from "../../../../Lib/src/constants/UnlockConstants";
 import {TravelTime} from "../../core/maps/TravelTime";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import {Effect} from "../../../../Lib/src/enums/Effect";
+import {Effect} from "../../../../Lib/src/types/Effect";
 
 /**
  * Accept the unlock of a player

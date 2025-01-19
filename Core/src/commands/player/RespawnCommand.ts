@@ -1,6 +1,6 @@
 import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {Player} from "../../core/database/game/models/Player";
-import {Effect} from "../../../../Lib/src/enums/Effect";
+import {Effect} from "../../../../Lib/src/types/Effect";
 import {RespawnConstants} from "../../../../Lib/src/constants/RespawnConstants";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {Maps} from "../../core/maps/Maps";

@@ -19,7 +19,7 @@ import {
 	ReactionCollectorGobletsGameReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorGobletsGame";
 import {ReactionCollectorReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {Effect} from "../../../../Lib/src/enums/Effect";
+import {Effect} from "../../../../Lib/src/types/Effect";
 
 function computeLostValue(level: number, modifiers: {
 	LEVEL_MULTIPLIER: number,

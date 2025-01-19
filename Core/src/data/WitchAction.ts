@@ -8,8 +8,8 @@ import {ItemNature, ItemRarity} from "../../../Lib/src/constants/ItemConstants";
 import {DraftBotPacket} from "../../../Lib/src/packets/DraftBotPacket";
 import {TravelTime} from "../core/maps/TravelTime";
 import {NumberChangeReason} from "../../../Lib/src/constants/LogsConstants";
-import {Effect} from "../../../Lib/src/enums/Effect";
-import {WitchActionOutcomeType} from "../../../Lib/src/enums/WitchActionOutcomeType";
+import {Effect} from "../../../Lib/src/types/Effect";
+import {WitchActionOutcomeType} from "../../../Lib/src/types/WitchActionOutcomeType";
 
 /**
  * The base class for the different events that can happen after the player encounters a feral pet

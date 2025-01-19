@@ -1,12 +1,12 @@
 import {FightConstants} from "../../../../../Lib/src/constants/FightConstants";
 import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
 import {Fighter} from "../fighter/Fighter";
-import {FightActionStatus} from "../../../../../Lib/src/interfaces/FightActionStatus";
-import {defaultFightActionResult, FightActionBuff, FightActionResult, FightAlterationApplied, FightStatBuffed} from "../../../../../Lib/src/interfaces/FightActionResult";
+import {FightActionStatus} from "../../../../../Lib/src/types/FightActionStatus";
+import {defaultFightActionResult, FightActionBuff, FightActionResult, FightAlterationApplied, FightStatBuffed} from "../../../../../Lib/src/types/FightActionResult";
 import {MathUtils} from "../../utils/MathUtils";
 import {FightAction, FightActionDataController} from "../../../data/FightAction";
 import {FightController} from "../FightController";
-import {FightAlterationResult} from "../../../../../Lib/src/interfaces/FightAlterationResult";
+import {FightAlterationResult} from "../../../../../Lib/src/types/FightAlterationResult";
 import {FightAlteration, FightAlterationDataController} from "../../../data/FightAlteration";
 
 export type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number };

@@ -1,8 +1,8 @@
 import {FightAlterationFunc} from "../../../../../data/FightAlteration";
-import {FightStatModifierOperation} from "../../../../../../../Lib/src/interfaces/FightStatModifierOperation";
-import {FightAlterationState} from "../../../../../../../Lib/src/interfaces/FightAlterationResult";
+import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
+import {FightAlterationState} from "../../../../../../../Lib/src/types/FightAlterationResult";
 import {FightActionController} from "../../FightActionController";
-import {FightStatBuffed} from "../../../../../../../Lib/src/interfaces/FightActionResult";
+import {FightStatBuffed} from "../../../../../../../Lib/src/types/FightActionResult";
 import {defaultFightAlterationResult, defaultHealFightAlterationResult} from "../../../FightController";
 
 const use: FightAlterationFunc = (affected, fightAlteration) => {

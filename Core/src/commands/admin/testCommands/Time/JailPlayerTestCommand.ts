@@ -2,7 +2,7 @@ import {NumberChangeReason} from "../../../../../../Lib/src/constants/LogsConsta
 import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
 import {TravelTime} from "../../../../core/maps/TravelTime";
 import {Players} from "../../../../core/database/game/models/Player";
-import {Effect} from "../../../../../../Lib/src/enums/Effect";
+import {Effect} from "../../../../../../Lib/src/types/Effect";
 
 export const commandInfo: ITestCommand = {
 	name: "jailplayer",

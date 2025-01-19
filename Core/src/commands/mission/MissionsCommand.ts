@@ -8,7 +8,7 @@ import {
 import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 import {MissionSlots} from "../../core/database/game/models/MissionSlot";
 import {PlayerMissionsInfos} from "../../core/database/game/models/PlayerMissionsInfo";
-import {MissionType} from "../../../../Lib/src/interfaces/CompletedMission";
+import {MissionType} from "../../../../Lib/src/types/CompletedMission";
 import {DailyMissions} from "../../core/database/game/models/DailyMission";
 import {Campaign} from "../../core/missions/Campaign";
 import {MissionsController} from "../../core/missions/MissionsController";

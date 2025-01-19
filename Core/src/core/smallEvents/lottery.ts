@@ -19,7 +19,7 @@ import {
 import {SmallEventConstants} from "../../../../Lib/src/constants/SmallEventConstants";
 import {Guild, Guilds} from "../database/game/models/Guild";
 import {TravelTime} from "../maps/TravelTime";
-import {Effect} from "../../../../Lib/src/enums/Effect";
+import {Effect} from "../../../../Lib/src/types/Effect";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 

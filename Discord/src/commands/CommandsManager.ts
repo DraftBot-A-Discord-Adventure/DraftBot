@@ -32,7 +32,7 @@ import {DiscordCache} from "../bot/DiscordCache";
 import {BotUtils} from "../utils/BotUtils";
 import {LANGUAGE} from "../../../Lib/src/Language";
 import {PacketUtils} from "../utils/PacketUtils";
-import {RightGroup} from "../../../Lib/src/enums/RightGroup";
+import {RightGroup} from "../../../Lib/src/types/RightGroup";
 
 export class CommandsManager {
 	static commands = new Map<string, ICommand>();

@@ -1,5 +1,5 @@
 import {FightActionDataController, FightActionFunc} from "../../../../../data/FightAction";
-import {fightActionResultFromSuccessTest} from "../../../../../../../Lib/src/interfaces/FightActionResult";
+import {fightActionResultFromSuccessTest} from "../../../../../../../Lib/src/types/FightActionResult";
 
 const use: FightActionFunc = (sender) => {
 	const usedUltimateAttacks = sender.fightActionsHistory.filter(action => action === this).length;

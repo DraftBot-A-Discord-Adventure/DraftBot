@@ -1,5 +1,5 @@
 import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
-import {BaseMission} from "../../interfaces/CompletedMission";
+import {BaseMission} from "../../types/CompletedMission";
 import {PetDiet} from "../../constants/PetConstants";
 import {SexTypeShort} from "../../constants/StringConstants";
 

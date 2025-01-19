@@ -1,4 +1,4 @@
-import {Effect} from "../enums/Effect";
+import {Effect} from "../types/Effect";
 import {NotificationsConstants} from "./NotificationsConstants";
 
 export abstract class PlayersConstants {

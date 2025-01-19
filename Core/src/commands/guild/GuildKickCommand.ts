@@ -13,7 +13,7 @@ import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/inter
 import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
-import {GuildRole} from "../../../../Lib/src/enums/GuildRole";
+import {GuildRole} from "../../../../Lib/src/types/GuildRole";
 import {ReactionCollectorGuildKick} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildKick";
 import {draftBotInstance} from "../../index";
 

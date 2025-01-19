@@ -1,5 +1,5 @@
 import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
-import {Item} from "../../interfaces/Item";
+import {Item} from "../../types/Item";
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class ItemRefusePacket extends DraftBotPacket {
