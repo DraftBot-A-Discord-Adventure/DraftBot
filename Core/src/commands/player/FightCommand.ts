@@ -6,6 +6,7 @@ import {ReactionCollectorFight} from "../../../../Lib/src/packets/interaction/Re
 import {EndCallback, ReactionCollectorInstance} from "../../core/utils/ReactionsCollector";
 import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {
+	CommandFightEndOfFightPacketRes,
 	CommandFightPacketReq,
 	CommandFightRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandFightPacket";
@@ -98,23 +99,25 @@ async function fightEndCallback(fight: FightController, response: DraftBotPacket
 		player2.save()
 	]);
 
-	// REPLACE THIS WITH PACKET
-	const embed = await createFightEndCallbackEmbed(
-		fight,
+	response.push(makePacket(
+		CommandFightEndOfFightPacketRes,
 		{
-			player: player1,
-			playerNewRating: player1NewRating,
-			playerKFactor: player1KFactor,
-			playerGameResult: player1GameResult
-		},
-		{
-			player: player2,
-			playerNewRating: player2NewRating,
-			playerKFactor: player2KFactor,
-			playerGameResult: player2GameResult
+			fightInitiatorInformation: {
+				keycloakId: player1.keycloakId,
+				previousRating: player1.attackGloryPoints,
+				newRating: player1NewRating,
+				kFactor: player1KFactor,
+				gameResult: player1GameResult
+			},
+			fightOpponentInformation: {
+				keycloakId: player2.keycloakId,
+				previousRating: player2.defenseGloryPoints,
+				newRating: player2NewRating,
+				kFactor: player2KFactor,
+				gameResult: player2GameResult
+			}
 		}
-	);
-
+	));
 }
 
 /**
