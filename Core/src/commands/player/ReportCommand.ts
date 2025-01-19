@@ -50,6 +50,7 @@ import {
 import {Possibility} from "../../data/events/Possibility";
 import {applyPossibilityOutcome} from "../../data/events/PossibilityOutcome";
 import {ErrorPacket} from "../../../../Lib/src/packets/commands/ErrorPacket";
+import {Effect} from "../../../../Lib/src/types/Effect";
 import {MapLocationDataController} from "../../data/MapLocation";
 import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 import {Effect} from "../../../../Lib/src/types/Effect";
@@ -570,15 +571,12 @@ async function doPVEBoss(
 				fighter1: playerFighter,
 				fighter2: monsterFighter
 			},
-			{
-				friendly: false,
-				overtimeBehavior: FightOvertimeBehavior.INCREASE_DAMAGE_PVE
-			},
+			FightOvertimeBehavior.INCREASE_DAMAGE_PVE,
 			context
 		);
 		fight.setEndCallback(() => fightCallback(fight));
 		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.START_BOSS_FIGHT);
-		await fight.startFight();
+		await fight.startFight(response);
 	};
 
 	const packet = new ReactionCollectorInstance(
