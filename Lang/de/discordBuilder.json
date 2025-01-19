@@ -131,10 +131,6 @@
     "description": "Holen Sie sich einen Bericht über die Situation Ihres Charakters.",
     "name": "Bericht"
   },
-  "scopes": {
-    "global": "🏆 Gesamteinstufung",
-    "server": "🚩 Servereinstufung"
-  },
   "test": {
     "description": "Schmacks-Befehl für Tester (NUR TESTMODUS).",
     "name": "Test",
@@ -229,6 +225,16 @@
     "description": "Sammelt die tägliche Belohnung der Gilde ein.",
     "name": "bonusjournalgilde"
   },
+  "guildElder": {
+    "description": "Ein Gildenmitglied zum Ältesten befördern.",
+    "name": "aineguilde",
+    "options": {
+      "user": {
+        "description": "Der Nutzer, der als Ältester befördert wird.",
+        "name": "Benutzer"
+      }
+    }
+  },
   "daily": {
     "description": "Benutzen Sie Ihren ausgerüsteten Gegenstand, um einen täglichen Bonus zu erhalten.",
     "name": "Bonustag"
@@ -245,6 +251,42 @@
         "description": "Der zu liefernde Nutzer.",
         "name": "Benutzer"
       }
+    }
+  },
+  "missionsshop": {
+    "description": "Zeigt den Missionsladen an.",
+    "name": "magasinmissions"
+  },
+  "top": {
+    "description": "Zeigt die Ranglisten des Spiels an.",
+    "name": "Rangliste",
+    "subcommands": {
+      "score": {
+        "description": "Zeigt die Rangliste der Spieler anhand ihrer Punktzahl an.",
+        "name": "Punktestand"
+      },
+      "glory": {
+        "description": "Zeigt die Rangliste der Gilden nach ihrem Ruhm an.",
+        "name": "Ruhm"
+      },
+      "guild": {
+        "description": "Zeigt die Rangfolge der Gilden nach Punkten an.",
+        "name": "Gilde"
+      }
+    },
+    "options": {
+      "timing": {
+        "description": "Die Dauer der angezeigten Rangliste (Seit immer als Standard).",
+        "name": "Dauer"
+      },
+      "page": {
+        "description": "Die Seite der Rangliste, die angezeigt werden soll.",
+        "name": "Seite"
+      }
+    },
+    "timings": {
+      "allTime": "️{emote:top.allTime} Schon immer.",
+      "weekly": "{emote:top.weekly} Diese Woche."
     }
   }
 }
