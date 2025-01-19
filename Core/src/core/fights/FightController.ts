@@ -9,7 +9,7 @@ import {FightOvertimeBehavior} from "./FightOvertimeBehavior";
 import {MonsterFighter} from "./fighter/MonsterFighter";
 import {PlayerFighter} from "./fighter/PlayerFighter";
 import {PVEConstants} from "../../../../Lib/src/constants/PVEConstants";
-import {PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import {DraftBotPacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {attackInfo, FightActionController, statsInfo} from "./actions/FightActionController";
 import {FightAction, FightActionDataController} from "../../data/FightAction";
 import {FightStatModifierOperation} from "../../../../Lib/src/types/FightStatModifierOperation";
@@ -298,7 +298,7 @@ export class FightController {
 		if (this.getPlayingFighter().nextFightAction === null) {
 			try {
 				await this.getPlayingFighter()
-					.chooseAction(response);
+					.chooseAction(this._fightView, response);
 			}
 			catch (e) {
 				console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");

@@ -39,7 +39,7 @@ export class MonsterFighter extends Fighter {
 		return Math.round(Math.round(stat.A * level * level + stat.B * level + stat.C) * ratio / 100.0);
 	}
 
-	chooseAction(response: DraftBotPacket[]): Promise<void> {
+	chooseAction(fightView: FightView, response: DraftBotPacket[]): Promise<void> {
 		/* eslint-disable capitalized-comments */
 		/* fightView.channel.send({
 			embeds: [
