@@ -1330,5 +1330,8 @@
     "ultimateFood_other": "sopas definitivas",
     "commonFood_one": "tratar",
     "commonFood_other": "doces"
-  }
+  },
+  "diet_omnivorous": "{emote:diet.omnivorous} Omnívoro",
+  "diet_herbivorous": "{emote:diet.herbivorous} Herbívoro",
+  "diet_carnivorous": "{emote:diet.carnivorous} Carnívoro"
 }
