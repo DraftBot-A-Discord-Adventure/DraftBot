@@ -131,10 +131,6 @@
     "description": "Obtén un informe sobre la situación de tu personaje.",
     "name": "informe"
   },
-  "scopes": {
-    "global": "🏆 Clasificación general",
-    "server": "🚩 Clasificación de servidores"
-  },
   "test": {
     "description": "Control de trucos para probadores (SÓLO MODO PRUEBA).",
     "name": "prueba",
@@ -229,6 +225,16 @@
     "description": "Recoge la recompensa diaria del gremio.",
     "name": "bonusjournalierguilde"
   },
+  "guildElder": {
+    "description": "Asciende a un miembro del gremio al rango de anciano.",
+    "name": "aineguilde",
+    "options": {
+      "user": {
+        "description": "El usuario que será promocionado como senior.",
+        "name": "usuario"
+      }
+    }
+  },
   "daily": {
     "description": "Utiliza tu objeto equipado para obtener una bonificación diaria.",
     "name": "bonificación diaria"
@@ -245,6 +251,42 @@
         "description": "El usuario a entregar.",
         "name": "usuario"
       }
+    }
+  },
+  "missionsshop": {
+    "description": "Muestra la tienda de la misión.",
+    "name": "tienda"
+  },
+  "top": {
+    "description": "Muestra la clasificación del juego.",
+    "name": "clasificación",
+    "subcommands": {
+      "score": {
+        "description": "Muestra la clasificación de los jugadores según su puntuación.",
+        "name": "puntuación"
+      },
+      "glory": {
+        "description": "Muestra la clasificación de los gremios según su gloria.",
+        "name": "gloria"
+      },
+      "guild": {
+        "description": "Muestra la clasificación de los gremios según sus puntos.",
+        "name": "gremio"
+      }
+    },
+    "options": {
+      "timing": {
+        "description": "La duración de la clasificación mostrada (Desde siempre por defecto).",
+        "name": "duración"
+      },
+      "page": {
+        "description": "La página de clasificación que se mostrará.",
+        "name": "página"
+      }
+    },
+    "timings": {
+      "allTime": "{emote:top.allTime} ️ Siempre lo he hecho.",
+      "weekly": "{emote:top.weekly} Esta semana."
     }
   }
 }
