@@ -25,15 +25,13 @@ export class FightController {
 
 	public readonly fighters: Fighter[];
 
-	public readonly friendly: boolean;
-
 	public readonly fightInitiator: Fighter;
 
 	private readonly _fightView: FightView;
 
 	private state: FightState;
 
-	private endCallback: (fight: FightController) => Promise<void>;
+	private endCallback: (fight: FightController, response: DraftBotPacket[]) => Promise<void>;
 
 	private readonly weather: FightWeather;
 
@@ -74,7 +72,7 @@ export class FightController {
 	 * Start a fight
 	 * @public
 	 */
-	public async startFight(): Promise<void> {
+	public async startFight(response: DraftBotPacket[]): Promise<void> {
 		// Make the fighters ready
 		for (let i = 0; i < this.fighters.length; i++) {
 			await this.fighters[i].startFight(this._fightView, i === 0 ? FighterStatus.ATTACKER : FighterStatus.DEFENDER);
@@ -82,12 +80,12 @@ export class FightController {
 
 		await this._fightView.introduceFight(this.fighters[0], this.fighters[1]);
 
-		// The player with the highest speed start the fight
+		// The player with the highest speed starts the fight
 		if (this.fighters[1].getSpeed() > this.fighters[0].getSpeed() || RandomUtils.draftbotRandom.bool() && this.fighters[1].getSpeed() === this.fighters[0].getSpeed()) {
 			this.invertFighters();
 		}
 		this.state = FightState.RUNNING;
-		await this.prepareNextTurn();
+		await this.prepareNextTurn(response);
 	}
 
 	/**
@@ -108,8 +106,9 @@ export class FightController {
 
 	/**
 	 * End the fight
+	 * @param response {DraftBotPacket[]} the response to send to the player
 	 */
-	public async endFight(): Promise<void> {
+	public async endFight(response: DraftBotPacket[]): Promise<void> {
 		this.state = FightState.FINISHED;
 
 		this.checkNegativeFightPoints();
@@ -123,7 +122,7 @@ export class FightController {
 			await this.fighters[i].endFight(this._fightView, i === winner);
 		}
 		if (this.endCallback) {
-			await this.endCallback(this);
+			await this.endCallback(this, response);
 		}
 	}
 
@@ -162,8 +161,9 @@ export class FightController {
 	 * Execute the next fight action
 	 * @param fightAction {FightAction} the fight action to execute
 	 * @param endTurn {boolean} true if the turn should be ended after the action has been executed
+	 * @param response {DraftBotPacket[]} the response to send to the player
 	 */
-	public async executeFightAction(fightAction: FightAction, endTurn: boolean): Promise<void> {
+	public async executeFightAction(fightAction: FightAction, endTurn: boolean, response: DraftBotPacket[]): Promise<void> {
 		if (endTurn) {
 			this.getPlayingFighter().nextFightAction = null;
 		}
@@ -189,7 +189,7 @@ export class FightController {
 			.fightActionsHistory
 			.push(fightAction);
 		if (this.hadEnded()) {
-			await this.endFight();
+			await this.endFight(response);
 			return;
 		}
 		if (endTurn) {
@@ -197,7 +197,7 @@ export class FightController {
 			this.invertFighters();
 			this.getPlayingFighter()
 				.regenerateBreath(this.turn < 3);
-			await this.prepareNextTurn();
+			await this.prepareNextTurn(response);
 		}
 		else {
 			await this._fightView.displayFightStatus()
@@ -215,7 +215,7 @@ export class FightController {
 	 * Set a callback to be called when the fight ends
 	 * @param callback
 	 */
-	public setEndCallback(callback: (fight: FightController) => Promise<void>): void {
+	public setEndCallback(callback: (fight: FightController, response: DraftBotPacket[]) => Promise<void>): void {
 		this.endCallback = callback;
 	}
 
@@ -247,15 +247,15 @@ export class FightController {
 	 * Execute a turn of a fight
 	 * @private
 	 */
-	private async prepareNextTurn(): Promise<void> {
-		// Weather related actions
+	private async prepareNextTurn(response: DraftBotPacket[]): Promise<void> {
+		// Weather-related actions
 		const weatherMessage = this.weather.applyWeatherEffect(this.getPlayingFighter(), this.turn);
 		if (weatherMessage) {
 			await this._fightView.displayWeatherStatus(this.weather.getWeatherEmote(), weatherMessage);
 		}
 
 		if (this.overtimeBehavior === FightOvertimeBehavior.END_FIGHT_DRAW && this.turn >= FightConstants.MAX_TURNS || this.hadEnded()) {
-			await this.endFight();
+			await this.endFight(response);
 			return;
 		}
 
@@ -265,7 +265,7 @@ export class FightController {
 
 		if (this.getPlayingFighter()
 			.hasFightAlteration()) {
-			await this.executeFightAction(this.getPlayingFighter().alteration, false);
+			await this.executeFightAction(this.getPlayingFighter().alteration, false, response);
 		}
 		if (this.state !== FightState.RUNNING) {
 			// A player was killed by a fight alteration, no need to continue the fight
@@ -289,7 +289,7 @@ export class FightController {
 
 		// If the player is fighting a monster, and it's his first turn, then use the "rage explosion" action without changing turns
 		if (this.turn < 3 && this.getDefendingFighter() instanceof MonsterFighter && (this.getPlayingFighter() as PlayerFighter).player.rage > 0) {
-			await this.executeFightAction(FightActionDataController.instance.getById("rageExplosion"), false);
+			await this.executeFightAction(FightActionDataController.instance.getById("rageExplosion"), false, response);
 			if (this.hadEnded()) {
 				return;
 			}
@@ -298,7 +298,7 @@ export class FightController {
 		if (this.getPlayingFighter().nextFightAction === null) {
 			try {
 				await this.getPlayingFighter()
-					.chooseAction(this._fightView);
+					.chooseAction(response);
 			}
 			catch (e) {
 				console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");
@@ -307,7 +307,7 @@ export class FightController {
 			}
 		}
 		else {
-			await this.executeFightAction(this.getPlayingFighter().nextFightAction, true);
+			await this.executeFightAction(this.getPlayingFighter().nextFightAction, true, response);
 		}
 	}
 
