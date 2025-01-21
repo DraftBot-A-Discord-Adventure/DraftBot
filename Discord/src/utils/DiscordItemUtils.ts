@@ -72,114 +72,77 @@ export class DiscordItemUtils {
 	}
 
 	static getWeaponField(displayPacket: MainItemDisplayPacket, lng: Language): EmbedField {
-		const itemField: string = i18n.t("items:itemsField", {
-			lng,
-			name: i18n.t(`models:weapons.${displayPacket.id}`, {
+		return DiscordItemUtils.getClassicItemField(
+			"weapons",
+			DraftBotIcons.weapons,
+			DiscordItemUtils.getValues(
+				displayPacket.attack.value,
+				displayPacket.defense.value,
+				displayPacket.speed.value,
 				lng,
-				interpolation: {escapeValue: false}
-			}),
-			emote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.weapons[displayPacket.id]),
-			rarity: i18n.t(`items:rarities.${displayPacket.rarity}`, {lng}),
-			values: DiscordItemUtils.getValues(displayPacket.attack.value, displayPacket.defense.value, displayPacket.speed.value, lng, {
-				attack: displayPacket.attack.maxValue,
-				defense: displayPacket.defense.maxValue,
-				speed: displayPacket.speed.maxValue
-			}),
-			interpolation: {escapeValue: false}
-		});
-		return {
-			name: i18n.t("items:weaponsFieldName", {lng}),
-			value: displayPacket.id === 0 ? itemField.split("|")[0] : itemField,
-			inline: false
-		};
+				{
+					attack: displayPacket.attack.maxValue,
+					defense: displayPacket.defense.maxValue,
+					speed: displayPacket.speed.maxValue
+				}
+			),
+			displayPacket,
+			lng
+		);
 	}
 
 	static getArmorField(displayPacket: MainItemDisplayPacket, lng: Language): EmbedField {
-		const itemField: string = i18n.t("items:itemsField", {
-			lng,
-			name: i18n.t(`models:armors.${displayPacket.id}`, {
+		return DiscordItemUtils.getClassicItemField(
+			"armors",
+			DraftBotIcons.armors,
+			DiscordItemUtils.getValues(
+				displayPacket.attack.value,
+				displayPacket.defense.value,
+				displayPacket.speed.value,
 				lng,
-				interpolation: {escapeValue: false}
-			}),
-			emote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.armors[displayPacket.id]),
-			rarity: i18n.t(`items:rarities.${displayPacket.rarity}`, {lng}),
-			values: DiscordItemUtils.getValues(displayPacket.attack.value, displayPacket.defense.value, displayPacket.speed.value, lng, {
-				attack: displayPacket.attack.maxValue,
-				defense: displayPacket.defense.maxValue,
-				speed: displayPacket.speed.maxValue
-			}),
-			interpolation: {escapeValue: false}
-		});
-		return {
-			name: i18n.t("items:armorsFieldName", {lng}),
-			value: displayPacket.id === 0 ? itemField.split("|")[0] : itemField,
-			inline: false
-		};
+				{
+					attack: displayPacket.attack.maxValue,
+					defense: displayPacket.defense.maxValue,
+					speed: displayPacket.speed.maxValue
+				}
+			),
+			displayPacket,
+			lng
+		);
 	}
 
 	static getPotionField(displayPacket: SupportItemDisplayPacket, lng: Language): EmbedField {
-		const itemField: string = i18n.t("items:itemsField", {
-			lng,
-			name: i18n.t(`models:potions.${displayPacket.id}`, {
-				lng,
-				interpolation: {escapeValue: false}
-			}),
-			emote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.potions[displayPacket.id]),
-			rarity: i18n.t(`items:rarities.${displayPacket.rarity}`, {lng}),
-			values: i18n.t(`items:potionsNatures.${displayPacket.nature}`, {
+		return DiscordItemUtils.getClassicItemField(
+			"potions",
+			DraftBotIcons.potions,
+			i18n.t(`items:potionsNatures.${displayPacket.nature}`, {
 				lng,
 				power: displayPacket.nature === ItemNature.TIME_SPEEDUP ? minutesDisplay(displayPacket.power, lng) : displayPacket.power
 			}),
-			interpolation: {escapeValue: false}
-		});
-		return {
-			name: i18n.t("items:potionsFieldName", {lng}),
-			value: displayPacket.id === 0 ? itemField.split("|")[0] : itemField,
-			inline: false
-		};
+			displayPacket,
+			lng
+		);
 	}
 
 	static getObjectField(displayPacket: SupportItemDisplayPacket, lng: Language): EmbedField {
-		const natureTrKey = `items:objectsNatures.${displayPacket.nature}`;
-		let nature;
-		if (displayPacket.nature === ItemNature.TIME_SPEEDUP) {
-			nature = i18n.t(natureTrKey, {
+		return DiscordItemUtils.getClassicItemField(
+			"objects",
+			DraftBotIcons.objects,
+			i18n.t(`items:objectsNatures.${displayPacket.nature}`, {
 				lng,
-				power: minutesDisplay(displayPacket.power, lng)
-			});
-		}
-		else if (displayPacket.nature === ItemNature.SPEED) {
-			nature = i18n.t(natureTrKey, {
-				lng,
-				power: displayPacket.maxPower >= displayPacket.power ? displayPacket.power : i18n.t("items:nerfDisplay", {
-					lng,
-					old: displayPacket.power,
-					max: displayPacket.maxPower
-				})
-			});
-		}
-		else {
-			nature = i18n.t(natureTrKey, {
-				lng,
-				power: displayPacket.power
-			});
-		}
-		const itemField: string = i18n.t("items:itemsField", {
-			lng,
-			name: i18n.t(`models:objects.${displayPacket.id}`, {
-				lng,
-				interpolation: {escapeValue: false}
+				power: displayPacket.nature === ItemNature.TIME_SPEEDUP
+					? minutesDisplay(displayPacket.power, lng)
+					: displayPacket.nature === ItemNature.SPEED && displayPacket.maxPower < displayPacket.power
+						? i18n.t("items:nerfDisplay", {
+							lng,
+							old: displayPacket.power,
+							max: displayPacket.maxPower
+						})
+						: displayPacket.power
 			}),
-			emote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.objects[displayPacket.id]),
-			rarity: i18n.t(`items:rarities.${displayPacket.rarity}`, {lng}),
-			values: nature,
-			interpolation: {escapeValue: false}
-		});
-		return {
-			name: i18n.t("items:objectsFieldName", {lng}),
-			value: displayPacket.id === 0 ? itemField.split("|")[0] : itemField,
-			inline: false
-		};
+			displayPacket,
+			lng
+		);
 	}
 
 	static getShortDisplay(item: MainItemDisplayPacket | SupportItemDisplayPacket, lng: Language): string {
@@ -188,5 +151,30 @@ export class DiscordItemUtils {
 			itemId: item.id,
 			itemCategory: `${itemCategoryToString(item.itemCategory)}s`
 		});
+	}
+
+	private static getClassicItemField(
+		model: "weapons" | "armors" | "potions" | "objects",
+		emoteMap: { [key: string]: string },
+		values: string,
+		displayPacket: MainItemDisplayPacket | SupportItemDisplayPacket,
+		lng: Language
+	): EmbedField {
+		const itemField: string = i18n.t("items:itemsField", {
+			lng,
+			name: i18n.t(`models:${model}.${displayPacket.id}`, {
+				lng,
+				interpolation: {escapeValue: false}
+			}),
+			emote: EmoteUtils.translateEmojiToDiscord(emoteMap[displayPacket.id]),
+			rarity: i18n.t(`items:rarities.${displayPacket.rarity}`, {lng}),
+			values,
+			interpolation: {escapeValue: false}
+		});
+		return {
+			name: i18n.t(`items:${model}FieldName`, {lng}),
+			value: displayPacket.id === 0 ? itemField.split("|")[0] : itemField,
+			inline: false
+		};
 	}
 }

@@ -72,6 +72,13 @@ export abstract class ItemConstants {
 	];
 }
 
+export enum ItemCategory {
+	WEAPON,
+	ARMOR,
+	POTION,
+	OBJECT
+}
+
 export function itemCategoryToString(category: ItemCategory): string {
 	switch (category) {
 	case ItemCategory.WEAPON:
@@ -83,13 +90,6 @@ export function itemCategoryToString(category: ItemCategory): string {
 	default:
 		return "object";
 	}
-}
-
-export enum ItemCategory {
-	WEAPON,
-	ARMOR,
-	POTION,
-	OBJECT
 }
 
 export enum ItemRarity {
