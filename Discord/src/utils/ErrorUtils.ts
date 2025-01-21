@@ -82,7 +82,10 @@ export async function sendInteractionNotForYou(
 			new DraftBotEmbed()
 				.setDescription(i18n.t("error:interactionNotForYou", {lng}))
 				.setErrorColor()
-				.formatAuthor(i18n.t("error:titleDidntWork", {lng, pseudo: user.username}), user)
+				.formatAuthor(i18n.t("error:titleDidntWork", {
+					lng,
+					pseudo: user.username
+				}), user)
 		],
 		ephemeral: true
 	});
@@ -140,7 +143,9 @@ export async function handleClassicError(context: PacketContext, errorKey: strin
 	if (!interaction) {
 		return;
 	}
-	await (interaction.deferred ? interaction.editReply : interaction.replied ? interaction.followUp : interaction.reply)({
+	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord?.buttonInteraction ?? "");
+	const interactionToRespondTo = buttonInteraction ?? interaction;
+	await (interactionToRespondTo.deferred ? interactionToRespondTo.editReply : interactionToRespondTo.replied ? interactionToRespondTo.followUp : interactionToRespondTo.reply)({
 		embeds: [
 			new DraftBotErrorEmbed(
 				interaction.user,
