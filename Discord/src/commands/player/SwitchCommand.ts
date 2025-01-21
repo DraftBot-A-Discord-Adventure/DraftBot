@@ -30,8 +30,12 @@ async function getPacket(interaction: DraftbotInteraction): Promise<CommandSwitc
  */
 export async function handleItemSwitch(packet: CommandSwitchSuccess, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+	if (!interaction) {
+		return;
+	}
+	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 
-	await interaction?.followUp({
+	await (buttonInteraction ?? interaction)?.editReply({
 		embeds: [new DraftBotEmbed()
 			.formatAuthor(i18n.t("commands:switch.titleSuccess", {
 				lng: interaction.userLanguage,

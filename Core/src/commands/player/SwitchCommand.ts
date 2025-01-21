@@ -82,7 +82,7 @@ export default class SwitchCommand {
 			},
 			getEndCallbackSwitchItems(player, profileSlots, toSwitchItems)
 		)
-			.block(player.id, BlockingConstants.REASONS.SKIP_MISSION)
+			.block(player.id, BlockingConstants.REASONS.SWITCH)
 			.build();
 
 		response.push(packet);

@@ -7,15 +7,7 @@ import {
 } from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {DiscordCache} from "../bot/DiscordCache";
 import {KeycloakUser} from "../../../Lib/src/keycloak/KeycloakUser";
-import {
-	ActionRowBuilder,
-	ButtonBuilder,
-	ButtonInteraction,
-	ButtonStyle,
-	Message,
-	MessageComponentInteraction,
-	parseEmoji
-} from "discord.js";
+import {ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, Message, MessageComponentInteraction, parseEmoji} from "discord.js";
 import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {DraftbotInteraction} from "../messages/DraftbotInteraction";
@@ -192,19 +184,12 @@ export class DiscordCollectorUtils {
 		}
 
 		// Edit message
-		let msg: Message;
-		if (messageContentOrEmbed instanceof DraftBotEmbed) {
-			msg = await interaction?.channel.send({
-				embeds: [messageContentOrEmbed],
-				components: [row]
-			}) as Message;
-		}
-		else {
-			msg = await interaction?.channel.send({
-				content: messageContentOrEmbed,
-				components: [row]
-			}) as Message;
-		}
+		const msg: Message = await (interaction.replied ? interaction.followUp : interaction.deferred ? interaction.editReply : interaction.reply)({
+			components: [row],
+			...messageContentOrEmbed instanceof DraftBotEmbed
+				? {embeds: [messageContentOrEmbed]}
+				: {content: messageContentOrEmbed}
+		});
 
 		// Create button collector
 		const buttonCollector = msg.createMessageComponentCollector({
