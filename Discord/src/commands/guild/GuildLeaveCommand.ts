@@ -2,7 +2,7 @@ import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPac
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {
-	CommandGuildLeaveAcceptPacketRes, CommandGuildLeaveNotInAGuildPacketRes,
+	CommandGuildLeaveAcceptPacketRes,
 	CommandGuildLeavePacketReq, CommandGuildLeaveRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildLeavePacket";
 import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
@@ -87,33 +87,6 @@ export async function handleCommandGuildLeaveRefusePacketRes(packet: CommandGuil
 			}), originalInteraction.user)
 				.setDescription(
 					i18n.t("commands:guildLeave.canceledDesc", {
-						lng: originalInteraction.userLanguage
-					})
-				)
-				.setErrorColor()
-		]
-	});
-}
-
-/**
- * Handle the response when the user is not in the guild
- * @param packet
- * @param context
- */
-export async function handleCommandGuildLeaveNotInAGuildRes(packet: CommandGuildLeaveNotInAGuildPacketRes, context: PacketContext): Promise<void> {
-	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
-	if (!originalInteraction) {
-		return;
-	}
-	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
-	await buttonInteraction?.editReply({
-		embeds: [
-			new DraftBotEmbed().formatAuthor(i18n.t("error:titleDidntWork", {
-				lng: originalInteraction.userLanguage,
-				pseudo: originalInteraction.user.displayName
-			}), originalInteraction.user)
-				.setDescription(
-					i18n.t("commands:guildLeave.notInAGuild", {
 						lng: originalInteraction.userLanguage
 					})
 				)

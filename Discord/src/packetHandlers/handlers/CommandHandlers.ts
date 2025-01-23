@@ -140,7 +140,7 @@ import {
 	CommandGuildElderSameGuildPacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildElderPacket";
 import {
-	handleCommandGuildElderAcceptPacketRes, 
+	handleCommandGuildElderAcceptPacketRes,
 	handleCommandGuildElderRefusePacketRes
 } from "../../commands/guild/GuildElderCommand";
 import {
@@ -148,7 +148,7 @@ import {
 	CommandGuildLeaveRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildLeavePacket";
 import {
-	handleCommandGuildLeaveAcceptPacketRes, handleCommandGuildLeaveNotInAGuildRes,
+	handleCommandGuildLeaveAcceptPacketRes,
 	handleCommandGuildLeaveRefusePacketRes
 } from "../../commands/guild/GuildLeaveCommand";
 import {handleCommandGuildLeaveAcceptPacketRes} from "../../commands/guild/GuildLeaveCommand";
@@ -317,8 +317,8 @@ export default class CommandHandlers {
 	}
 
 	@packetHandler(CommandGuildLeaveNotInAGuildPacketRes)
-	async guildLeaveNotInAGuildRes(packet: CommandGuildLeaveNotInAGuildPacketRes, context: PacketContext): Promise<void> {
-		await handleCommandGuildLeaveNotInAGuildRes(packet, context);
+	async guildLeaveNotInAGuildRes(_packet: CommandGuildLeaveNotInAGuildPacketRes, context: PacketContext): Promise<void> {
+		await handleClassicError(context, "commands:guildLeave.notInAGuild");
 	}
 
 	@packetHandler(CommandGuildLeaveRefusePacketRes)
