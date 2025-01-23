@@ -75,6 +75,18 @@ async function acceptGuildLeave(player: Player, response: DraftBotPacket[]): Pro
 	]);
 }
 
+function endCallback(player: Player): EndCallback {
+	return async (collector, response): Promise<void> => {
+		const reaction = collector.getFirstReaction();
+		if (reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name) {
+			await acceptGuildLeave(player, response);
+		}
+		else {
+			response.push(makePacket(CommandGuildLeaveRefusePacketRes, {}));
+		}
+		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.GUILD_LEAVE);
+	};
+}
 export default class GuildLeaveCommand {
 	@commandRequires(CommandGuildLeavePacketReq, {
 		notBlocked: true,
@@ -91,16 +103,6 @@ export default class GuildLeaveCommand {
 			guild.chiefId === player.id && guild.elderId === null,
 			newChief?.keycloakId
 		);
-		const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
-			const reaction = collector.getFirstReaction();
-			if (reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name) {
-				await acceptGuildLeave(player, response);
-			}
-			else {
-				response.push(makePacket(CommandGuildLeaveRefusePacketRes, {}));
-			}
-			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.GUILD_LEAVE);
-		};
 
 		const collectorPacket = new ReactionCollectorInstance(
 			collector,
@@ -109,7 +111,7 @@ export default class GuildLeaveCommand {
 				allowedPlayerKeycloakIds: [player.keycloakId],
 				reactionLimit: 1
 			},
-			endCallback
+			endCallback(player)
 		)
 			.block(player.id, BlockingConstants.REASONS.GUILD_LEAVE)
 			.build();
