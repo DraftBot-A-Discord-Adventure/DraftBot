@@ -140,7 +140,7 @@ import {
 	CommandGuildElderSameGuildPacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildElderPacket";
 import {
-	handleCommandGuildElderAcceptPacketRes, handleCommandGuildElderNotSameGuildPacketRes,
+	handleCommandGuildElderAcceptPacketRes, 
 	handleCommandGuildElderRefusePacketRes
 } from "../../commands/guild/GuildElderCommand";
 import {
