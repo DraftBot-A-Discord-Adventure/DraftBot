@@ -10,7 +10,7 @@ import {ReactionCollectorGuildElderData} from "../../../../Lib/src/packets/inter
 import {
 	CommandGuildElderAcceptPacketRes,
 	CommandGuildElderPacketReq,
-	CommandGuildElderRefusePacketRes, CommandGuildElderSameGuildPacketRes
+	CommandGuildElderRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildElderPacket";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
@@ -67,33 +67,6 @@ export async function handleCommandGuildElderRefusePacketRes(packet: CommandGuil
 					i18n.t("commands:guildElder.canceledDesc", {
 						lng: originalInteraction.userLanguage,
 						elderPseudo: promotedPlayer.attributes.gameUsername
-					})
-				)
-				.setErrorColor()
-		]
-	});
-}
-
-/**
- * Handle the response when the user is not in the guild
- * @param packet
- * @param context
- */
-export async function handleCommandGuildElderNotSameGuildPacketRes(packet: CommandGuildElderSameGuildPacketRes, context: PacketContext): Promise<void> {
-	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
-	if (!originalInteraction) {
-		return;
-	}
-	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
-	await buttonInteraction?.editReply({
-		embeds: [
-			new DraftBotEmbed().formatAuthor(i18n.t("error:titleDidntWork", {
-				lng: originalInteraction.userLanguage,
-				pseudo: originalInteraction.user.displayName
-			}), originalInteraction.user)
-				.setDescription(
-					i18n.t("commands:guildElder.notSameGuild", {
-						lng: originalInteraction.userLanguage
 					})
 				)
 				.setErrorColor()
