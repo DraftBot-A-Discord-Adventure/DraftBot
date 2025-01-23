@@ -287,8 +287,8 @@ export default class CommandHandlers {
 	}
 
 	@packetHandler(CommandGuildElderSameGuildPacketRes)
-	async guildElderSameGuildRes(packet: CommandGuildElderSameGuildPacketRes, context: PacketContext): Promise<void> {
-		await handleCommandGuildElderNotSameGuildPacketRes(packet, context);
+	async guildElderSameGuildRes(_packet: CommandGuildElderSameGuildPacketRes, context: PacketContext): Promise<void> {
+		await handleClassicError(context, "commands:guildElder.notSameGuild");
 	}
 
 	@packetHandler(CommandGuildElderHimselfPacketRes)
