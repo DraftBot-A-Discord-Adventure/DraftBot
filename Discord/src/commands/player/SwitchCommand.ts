@@ -15,7 +15,7 @@ import {Language} from "../../../../Lib/src/Language";
 import {EmbedField} from "discord.js";
 
 /**
- * Get the respawn packet to send to the server
+ * Get the switch command packet
  * @param interaction
  */
 async function getPacket(interaction: DraftbotInteraction): Promise<CommandSwitchPacketReq> {
@@ -49,6 +49,10 @@ export async function handleItemSwitch(packet: CommandSwitchSuccess, context: Pa
 	});
 }
 
+/**
+ * Get the fielder for the item category
+ * @param itemCategory
+ */
 function getFielder(itemCategory: number): ((displayPacket: MainItemDisplayPacket, lng: Language) => EmbedField) | ((displayPacket: SupportItemDisplayPacket, lng: Language) => EmbedField) {
 	switch (itemCategory) {
 	case 0:
