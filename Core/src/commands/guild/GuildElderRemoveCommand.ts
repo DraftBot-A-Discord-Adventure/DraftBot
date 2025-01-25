@@ -84,6 +84,19 @@ async function acceptGuildElderRemove(player: Player, demotedPlayer: Player, res
 	}));
 }
 
+function endCallback(player: Player, demotedPlayer: Player): EndCallback {
+	return async (collector, response): Promise<void> => {
+		const reaction = collector.getFirstReaction();
+		if (reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name) {
+			await acceptGuildElderRemove(player, demotedPlayer, response);
+		}
+		else {
+			response.push(makePacket(CommandGuildElderRemoveRefusePacketRes, {demotedKeycloakId: demotedPlayer.keycloakId}));
+		}
+		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.GUILD_ELDER_REMOVE);
+	};
+}
+
 export default class GuildElderRemoveCommand {
 	@commandRequires(CommandGuildElderRemovePacketReq, {
 		notBlocked: true,
@@ -105,19 +118,6 @@ export default class GuildElderRemoveCommand {
 			demotedPlayer.keycloakId
 		);
 
-		const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
-			const reaction = collector.getFirstReaction();
-			if (reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name) {
-				await acceptGuildElderRemove(player, demotedPlayer, response);
-			}
-			else {
-				response.push(makePacket(CommandGuildElderRemoveRefusePacketRes, {
-					demotedKeycloakId: demotedPlayer.keycloakId
-				}));
-			}
-			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.GUILD_ELDER_REMOVE);
-		};
-
 		const collectorPacket = new ReactionCollectorInstance(
 			collector,
 			context,
@@ -125,7 +125,7 @@ export default class GuildElderRemoveCommand {
 				allowedPlayerKeycloakIds: [player.keycloakId],
 				reactionLimit: 1
 			},
-			endCallback
+			endCallback(player,demotedPlayer)
 		)
 			.block(player.id, BlockingConstants.REASONS.GUILD_ELDER_REMOVE)
 			.build();

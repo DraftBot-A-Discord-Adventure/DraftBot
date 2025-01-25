@@ -9,18 +9,18 @@ import {
 export class ReactionCollectorGuildElderRemoveData extends ReactionCollectorData {
 	guildName!: string;
 
-	promotedKeycloakId!: string;
+	demotedKeycloakId!: string;
 }
 
 export class ReactionCollectorGuildElderRemove extends ReactionCollector {
 	private readonly guildName: string;
 
-	private readonly promotedKeycloakId: string;
+	private readonly demotedKeycloakId: string;
 
-	constructor(guildName: string, promotedKeycloakId: string) {
+	constructor(guildName: string, demotedKeycloakId: string) {
 		super();
 		this.guildName = guildName;
-		this.promotedKeycloakId = promotedKeycloakId;
+		this.demotedKeycloakId = demotedKeycloakId;
 	}
 
 	creationPacket(id: string, endTime: number): ReactionCollectorCreationPacket {
@@ -33,7 +33,7 @@ export class ReactionCollectorGuildElderRemove extends ReactionCollector {
 			],
 			data: this.buildData(ReactionCollectorGuildElderRemoveData, {
 				guildName: this.guildName,
-				promotedKeycloakId: this.promotedKeycloakId
+				demotedKeycloakId: this.demotedKeycloakId
 			})
 		};
 	}
