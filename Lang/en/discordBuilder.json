@@ -288,5 +288,9 @@
       "allTime": "{emote:top.allTime} All time.",
       "weekly": "{emote:top.weekly} This week."
     }
+  },
+  "switch": {
+    "name": "switch",
+    "description": "Switch the active item with one of the items in your item stock."
   }
 }
