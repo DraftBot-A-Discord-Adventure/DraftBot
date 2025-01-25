@@ -827,5 +827,15 @@
     "nobodyInTopPlayers": "Es gibt derzeit niemanden in der Top-Liste! Genießen Sie es, solange Sie können.",
     "nobodyInTopGuilds": "Es gibt derzeit keine Gilden in der Top-Liste! Genießt es, solange ihr könnt.",
     "invalidPage": "Die angeforderte Seite existiert nicht. Bitte versuchen Sie es erneut mit einer Seite zwischen {{minPage}} und {{maxPage}}."
+  },
+  "switch": {
+    "titleSuccess": "{{pseudo}}, commande effectuée !",
+    "switchingDouble": "{{item1}} und {{item2}} wurden ausgetauscht!",
+    "switchingSingle_male": "{{item1}} a été équipé !",
+    "switchingSingle_female": "{{item1}} ausgestattet wurde!",
+    "noItemToSwitch": "Vous n'avez aucun équipement à équiper !",
+    "cancelled": "Action annulée !",
+    "switchSelectionTitle": "{{pseudo}}, équipement d'un objet",
+    "switchSelectionDescription": "Choisissez un objet à équiper dans la liste ci-dessous :"
   }
 }
