@@ -140,10 +140,6 @@ import {
 	CommandGuildElderSameGuildPacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildElderPacket";
 import {
-	handleCommandGuildElderAcceptPacketRes,
-	handleCommandGuildElderRefusePacketRes
-} from "../../commands/guild/GuildElderCommand";
-import {
 	CommandGuildLeaveAcceptPacketRes, CommandGuildLeaveNotInAGuildPacketRes,
 	CommandGuildLeaveRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildLeavePacket";
@@ -151,7 +147,6 @@ import {
 	handleCommandGuildLeaveAcceptPacketRes,
 	handleCommandGuildLeaveRefusePacketRes
 } from "../../commands/guild/GuildLeaveCommand";
-import {handleCommandGuildLeaveAcceptPacketRes} from "../../commands/guild/GuildLeaveCommand";
 import {handleCommandGuildElderAcceptPacketRes, handleCommandGuildElderRefusePacketRes} from "../../commands/guild/GuildElderCommand";
 import {CommandSwitchCancelled, CommandSwitchErrorNoItemToSwitch, CommandSwitchSuccess} from "../../../../Lib/src/packets/commands/CommandSwitchPacket";
 import {handleItemSwitch} from "../../commands/player/SwitchCommand";
