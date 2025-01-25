@@ -829,13 +829,13 @@
     "invalidPage": "Die angeforderte Seite existiert nicht. Bitte versuchen Sie es erneut mit einer Seite zwischen {{minPage}} und {{maxPage}}."
   },
   "switch": {
-    "titleSuccess": "{{pseudo}}, commande effectuée !",
+    "titleSuccess": "{{pseudo}}Die Bestellung wurde ausgeführt.",
     "switchingDouble": "{{item1}} und {{item2}} wurden ausgetauscht!",
-    "switchingSingle_male": "{{item1}} a été équipé !",
+    "switchingSingle_male": "{{item1}} ausgestattet wurde!",
     "switchingSingle_female": "{{item1}} ausgestattet wurde!",
-    "noItemToSwitch": "Vous n'avez aucun équipement à équiper !",
-    "cancelled": "Action annulée !",
-    "switchSelectionTitle": "{{pseudo}}, équipement d'un objet",
-    "switchSelectionDescription": "Choisissez un objet à équiper dans la liste ci-dessous :"
+    "noItemToSwitch": "Sie haben keine Ausrüstung, die Sie ausrüsten müssen!",
+    "cancelled": "Aktion abgebrochen!",
+    "switchSelectionTitle": "{{pseudo}}Die Ausrüstung eines Objekts",
+    "switchSelectionDescription": "Wählen Sie aus der folgenden Liste einen Gegenstand zum Ausrüsten aus:"
   }
 }
