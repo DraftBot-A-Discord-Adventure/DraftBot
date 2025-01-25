@@ -827,5 +827,15 @@
     "nobodyInTopPlayers": "Al momento non c'è nessuno nella top ten! Godetevela finché potete.",
     "nobodyInTopGuilds": "Al momento non ci sono gilde nella top! Godetevela finché potete.",
     "invalidPage": "La pagina richiesta non esiste. {{minPage}} {{maxPage}}Riprovare con una pagina compresa tra e ."
+  },
+  "switch": {
+    "titleSuccess": "{{pseudo}}Ordina ora!",
+    "switchingDouble": "{{item1}} {{item2}} e sono stati scambiati!",
+    "switchingSingle_male": "{{item1}} è stato allestito!",
+    "switchingSingle_female": "{{item1}} è stato allestito!",
+    "noItemToSwitch": "Non dovete equipaggiare nulla!",
+    "cancelled": "Azione annullata!",
+    "switchSelectionTitle": "{{pseudo}}equipaggiare un oggetto",
+    "switchSelectionDescription": "Scegliere un oggetto da equipaggiare dall'elenco sottostante:"
   }
 }
