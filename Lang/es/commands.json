@@ -89,12 +89,24 @@
     "chiefError": "Como líder del gremio, no puedes ser el mayor.",
     "alreadyElder": "El jugador ya es miembro veterano de tu gremio.",
     "title": "{{pseudo}}¿Estás confirmando tu elección?",
-    "confirmDesc": ":question: {{elderPseudo}}{{guildName}}se convertirá en el miembro más antiguo del gremio.",
+    "confirmDesc": "{emote:collectors.question} {{elderPseudo}}{{guildName}}se convertirá en el miembro más antiguo del gremio.",
     "successElderAddTitle": "{{elderPseudo}} {{guildName}} ¡es el miembro más reciente del gremio!",
     "acceptedDesc": "El mayor ayuda al líder a gestionar el gremio. Así que ¡elige con cuidado! {command:guildelder} {command:guildelderremove}Pero no te preocupes, si no estás contento con tu anciano, puedes sustituirlo con el mando , o si te sientes un dictador, puedes eliminarlo definitivamente con .",
     "canceledDesc": "El mayor no fue ascendido.",
-    "canceledTitle": "Cancelación tenida en cuenta.",
-    "problemWhilePromoting": "Se ha producido un error al ascender al jugador."
+    "canceledTitle": "Cancelación tenida en cuenta."
+  },
+  "guildLeave": {
+    "title": "{{pseudo}}confirmación :",
+    "confirmDesc": "{emote:collectors.question}{{guildName}}¿De verdad quieres dejar el gremio?",
+    "confirmChiefDesc": "{emote:collectors.question}{{guildName}}¿Realmente quieres **destruir** definitivamente el gremio ``?",
+    "confirmChiefDescWithElder": "{emote:collectors.question}{{guildName}} {{newChiefPseudo}} ¿De verdad quieres dejar el gremio? se convertirá en su líder.",
+    "canceledDesc": "Su salida ha sido cancelada.",
+    "successTitle": "{{pseudo}} {{guildName}} ha abandonado el gremio",
+    "leavingSuccess": "Eres un pobre vaquero solitario y estás muy lejos de casa...",
+    "destroySuccess": "{{guildName}} El gremio se ha disuelto con éxito.",
+    "newChiefTitle": "{{newChiefPseudo}} {{guildName}} es el nuevo líder del gremio.",
+    "notInAGuild": "Parece que ya no formas parte de un gremio.",
+    "canceledTitle": "Anulación tenida en cuenta"
   },
   "help": {
     "aliasFieldTitle": "Alias",
