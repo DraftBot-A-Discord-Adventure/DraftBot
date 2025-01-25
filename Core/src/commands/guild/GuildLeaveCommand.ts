@@ -32,8 +32,8 @@ async function acceptGuildLeave(player: Player, response: DraftBotPacket[]): Pro
 	if (player.id === guild.chiefId) {
 		// The guild's chief is leaving
 		if (guild.elderId !== null) {
-			await draftBotInstance.logsDatabase.logGuildElderRemove(guild, guild.elderId);
-			await draftBotInstance.logsDatabase.logGuildChiefChange(guild, guild.elderId);
+			draftBotInstance.logsDatabase.logGuildElderRemove(guild, guild.elderId).then();
+			draftBotInstance.logsDatabase.logGuildChiefChange(guild, guild.elderId).then();
 			// An elder can recover the guild
 			player.guildId = null;
 			const elder = await Players.getById(guild.elderId);
@@ -61,7 +61,7 @@ async function acceptGuildLeave(player: Player, response: DraftBotPacket[]): Pro
 	}
 	if (guild.elderId === player.id) {
 		// The guild's elder is leaving
-		await draftBotInstance.logsDatabase.logGuildElderRemove(guild, guild.elderId);
+		draftBotInstance.logsDatabase.logGuildElderRemove(guild, guild.elderId).then();
 		guild.elderId = null;
 	}
 	LogsDatabase.logGuildLeave(guild, player.keycloakId).then();
