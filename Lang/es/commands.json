@@ -829,13 +829,13 @@
     "invalidPage": "La página solicitada no existe. {{minPage}} {{maxPage}}Por favor, inténtelo de nuevo con una página entre y ."
   },
   "switch": {
-    "titleSuccess": "{{pseudo}}, commande effectuée !",
+    "titleSuccess": "{{pseudo}}Haz tu pedido",
     "switchingDouble": "{{item1}} {{item2}} ¡y se han intercambiado!",
-    "switchingSingle_male": "{{item1}} a été équipé !",
+    "switchingSingle_male": "{{item1}} ¡se ha equipado!",
     "switchingSingle_female": "{{item1}} ¡se ha equipado!",
-    "noItemToSwitch": "Vous n'avez aucun équipement à équiper !",
-    "cancelled": "Action annulée !",
-    "switchSelectionTitle": "{{pseudo}}, équipement d'un objet",
-    "switchSelectionDescription": "Choisissez un objet à équiper dans la liste ci-dessous :"
+    "noItemToSwitch": "No tienes que equipar nada.",
+    "cancelled": "¡Acción cancelada!",
+    "switchSelectionTitle": "{{pseudo}}equipar un objeto",
+    "switchSelectionDescription": "Elige un objeto para equipar de la siguiente lista:"
   }
 }
