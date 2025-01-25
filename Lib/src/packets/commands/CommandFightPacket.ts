@@ -16,3 +16,20 @@ export class CommandFightEndOfFightPacketRes extends DraftBotPacket {
 
 	fightOpponentInformation!: EndOfFightPlayerStatus;
 }
+
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class CommandFightIntroduceFightersPacket extends DraftBotPacket {
+	fightInitiatorKeycloakId!: string;
+
+	fightOpponentKeycloakId?: string;
+
+	fightOpponentMonsterId?: string;
+
+	fightInitiatorActions!: string[];
+
+	fightOpponentActions!: string[];
+}
+
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class CommandFightOpponentsNotFoundPacket extends DraftBotPacket {
+}
