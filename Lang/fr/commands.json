@@ -89,12 +89,24 @@
     "chiefError": "En tant que chef de la guilde, vous ne pouvez pas être l'aîné.",
     "alreadyElder": "Le joueur est déjà aîné de votre guilde.",
     "title": "{{pseudo}}, confirmez-vous votre choix ?",
-    "confirmDesc": ":question: {{elderPseudo}} deviendra l'aîné de la guilde `{{guildName}}`.",
+    "confirmDesc": "{emote:collectors.question} {{elderPseudo}} deviendra l'aîné de la guilde `{{guildName}}`.",
     "successElderAddTitle": "{{elderPseudo}} est le nouvel aîné de la guilde {{guildName}} !",
     "acceptedDesc": "L'aîné sert à aider le chef dans la gestion de la guilde. Il faut donc le choisir avec prudence ! Mais rassurez-vous, si vous n'êtes pas satisfait de votre aîné, vous pouvez le remplacer avec la commande {command:guildelder}, ou si vous avez une âme de dictateur, vous pouvez définitivement le supprimer avec {command:guildelderremove}.",
     "canceledDesc": "L'aîné n'a pas été promu.",
-    "canceledTitle": "Annulation prise en compte.",
-    "problemWhilePromoting": "Une erreur est survenue lors de la promotion du joueur."
+    "canceledTitle": "Annulation prise en compte."
+  },
+  "guildLeave": {
+    "title": "{{pseudo}}, confirmation :",
+    "confirmDesc": "{emote:collectors.question} Souhaitez vous vraiment quitter la guilde `{{guildName}}` ?",
+    "confirmChiefDesc": "{emote:collectors.question} Souhaitez vous vraiment **détruire définitivement** la guilde `{{guildName}}` ?",
+    "confirmChiefDescWithElder": "{emote:collectors.question} Souhaitez vous vraiment quitter la guilde `{{guildName}}` ? {{newChiefPseudo}} en deviendra le chef.",
+    "canceledDesc": "Votre départ a été annulé.",
+    "successTitle": "{{pseudo}} a quitté la guilde {{guildName}} !",
+    "leavingSuccess": "Vous êtes un pauvre cow-boy solitaire et vous êtes très loin de chez vous...",
+    "destroySuccess": "La guilde {{guildName}} a correctement été dissoute.",
+    "newChiefTitle": "{{newChiefPseudo}} est le nouveau chef de la guilde {{guildName}} !",
+    "notInAGuild": "Il semblerait que vous ne fassiez déjà plus parti d'une guilde.",
+    "canceledTitle": "Annulation prise en compte"
   },
   "help": {
     "aliasFieldTitle": "Alias",
