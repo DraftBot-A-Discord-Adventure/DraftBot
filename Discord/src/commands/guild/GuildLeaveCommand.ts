@@ -24,7 +24,7 @@ export async function createGuildLeaveCollector(packet: ReactionCollectorCreatio
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorGuildLeaveData;
 	const newChiefPseudo = data.newChiefKeycloakId ? (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, data.newChiefKeycloakId))!.attributes.gameUsername : "";
-	const keyDesc = data.isGuildDestroyed ? "confirmChiefDesc" : data.newChiefKeycloakId !== null ? "confirmChiefDescWithElder" : "confirmDesc";
+	const keyDesc = data.isGuildDestroyed ? "confirmChiefDesc" : data.newChiefKeycloakId ? "confirmChiefDescWithElder" : "confirmDesc";
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:guildLeave.title", {
 		lng: interaction.userLanguage,
 		pseudo: interaction.user.displayName
