@@ -288,5 +288,9 @@
       "allTime": "{emote:top.allTime} ️ Sempre tive.",
       "weekly": "{emote:top.weekly} Esta semana."
     }
+  },
+  "switch": {
+    "name": "interrutor",
+    "description": "Intervertir l'objet actif avec l'un des objets présent dans votre réserve."
   }
 }
