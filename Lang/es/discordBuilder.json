@@ -288,5 +288,9 @@
       "allTime": "{emote:top.allTime} ️ Siempre lo he hecho.",
       "weekly": "{emote:top.weekly} Esta semana."
     }
+  },
+  "switch": {
+    "name": "intervertir",
+    "description": "Intervertir l'objet actif avec l'un des objets présent dans votre réserve."
   }
 }
