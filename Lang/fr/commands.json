@@ -820,17 +820,18 @@
   "fight": {
     "title": "{{pseudo}}, vous êtes sur le point de démarrer un combat",
     "canceledTitle": "{{pseudo}}, vous avez annulé la recherche",
-    "confirmDesc": ":crossed_swords: | **{{pseudo}}**{{confirmSubText}}\n\n:crossed_swords: | **Combattant : {{pseudo}}** | {{glory}} | {{className}}\n\n{{stats}}",
+    "confirmDesc": "{emote:fight_command.crossed_swords} | **{{pseudo}}**{{confirmSubText}}\n\n{emote:fight_command.crossed_swords} | **Combattant : {{pseudo}}** | {{glory}} | {{className}}\n\n{{stats}}",
     "confirmSubTexts": {
       "common": ", vous souhaitez lancer une recherche de combat ?",
       "rare": ", voudriez-vous participer à la recherche d'un combattant adéquat à votre puissance personnelle afin d'effectuer le duel subséquent ?"
     },
-    "canceledDesc": "Vous avez refusé la recherche de combat.",
+    "canceledDesc": "Vous avez annulé la recherche de combat.",
     "information": {
-      "glory": ":sparkles: {{gloryPoints}}",
+      "glory": "{emote:unitValues.glory} {{gloryPoints}}",
       "class": "$t(models:classFormat)",
       "stats": "{emote:unitValues.energy} {{cumulativeHealth}} / {{cumulativeMaxHealth}} | {emote:unitValues.attack} {{cumulativeAttack}} | {emote:unitValues.defense} {{cumulativeDefense}} | {emote:unitValues.speed} {{cumulativeSpeed}} | {emote:unitValues.breath} {{baseBreath}} / {{maxBreath}} | {emote:unitValues.breathRegen} {{breathRegen}}"
-    }
+    },
+    "opponentsNotFound" : "Aucun adversaire n'a été trouvé pour vous affronter. Vous pouvez réessayer plus tard."
   },
   "switch": {
     "titleSuccess": "{{pseudo}}, commande effectuée !",

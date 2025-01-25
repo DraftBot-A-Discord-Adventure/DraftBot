@@ -1,7 +1,10 @@
 import {FightController} from "./FightController";
 import {Fighter} from "./fighter/Fighter";
-import {PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {FightWeatherResult} from "./FightWeather";
+import {CommandFightIntroduceFightersPacket} from "../../../../Lib/src/packets/commands/CommandFightPacket";
+import {PlayerFighter} from "./fighter/PlayerFighter";
+import {MonsterFighter} from "./fighter/MonsterFighter";
 
 /* eslint-disable capitalized-comments */
 
@@ -21,7 +24,7 @@ export class FightView {
 	}
 
 	/**
-	 * Add the fight action field to the intro embed that correspond to the fighter
+	 * Add the fight action field to the intro embed that corresponds to the fighter
 	 * @param introEmbed
 	 * @param fighter
 	 */
@@ -35,26 +38,31 @@ export class FightView {
 		}); */
 	}
 
+	private getFightActions(fighter: Fighter): string[] {
+		const fightActions = fighter.availableFightActions;
+		const actionList = [];
+		for (const [id] of fightActions) {
+			actionList.push(id);
+		}
+		return actionList;
+	}
+
 	/**
 	 * Send the fight intro message
-	 * @param fighter1
-	 * @param fighter2
+	 * @param fighter
+	 * @param opponent
+	 * @param response
 	 */
-	async introduceFight(fighter1: Fighter, fighter2: Fighter): Promise<void> {
-		// Ce serait ici qu'il faudrait mettre les attaques ?
-		/* const introEmbed = new DraftBotEmbed()
-			.setTitle(this.fightTranslationModule.format("intro", {
-				player1: fighter1.getName(),
-				player2: fighter2.getName()
-			}));
-		this.addFightActionFieldFor(introEmbed, fighter1);
-		this.addFightActionFieldFor(introEmbed, fighter2);
-		this.fightLaunchMessage = await this.channel.send({
-			content: fighter1.getMention(),
-			embeds: [introEmbed]
-		});
-		this.actionMessages.push(await this.channel.send({content: "_ _"})); */
+	introduceFight(response: DraftBotPacket[], fighter: Fighter, opponent: Fighter): void {
+		response.push(makePacket(CommandFightIntroduceFightersPacket, {
+			fightInitiatorKeycloakId: (fighter as PlayerFighter).player.keycloakId,
+			fightOpponentKeycloakId: opponent instanceof PlayerFighter ? opponent.player.keycloakId : null,
+			fightOpponentMonsterId: opponent instanceof MonsterFighter ? opponent.monster.id : null,
+			fightInitiatorActions: this.getFightActions(fighter),
+			fightOpponentActions: this.getFightActions(opponent)
+		}));
 	}
+
 
 	/**
 	 *  Summarize current fight status
@@ -192,20 +200,6 @@ export class FightView {
 			await this.lastSummary.delete();
 			this.lastSummary = null;
 		} */
-	}
-
-	/**
-	 * Get the list of actions available for the fighter in a displayable format
-	 * @param fighter
-	 * @private
-	 */
-	private getFightActionsToStringOf(fighter: Fighter): void {
-		/* const fightActions = fighter.availableFightActions;
-		let actionList = "";
-		for (const [, action] of fightActions) {
-			actionList += `${action.getEmoji()} - ${action.toString(this.language)}\n`;
-		}
-		return actionList; */
 	}
 
 	private getWeatherString(weatherString: FightWeatherResult): string {
