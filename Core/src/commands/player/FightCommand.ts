@@ -6,7 +6,7 @@ import {ReactionCollectorFight} from "../../../../Lib/src/packets/interaction/Re
 import {EndCallback, ReactionCollectorInstance} from "../../core/utils/ReactionsCollector";
 import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {
-	CommandFightEndOfFightPacketRes,
+	CommandFightEndOfFightPacketRes, CommandFightOpponentsNotFoundPacket,
 	CommandFightPacketReq,
 	CommandFightRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandFightPacket";
@@ -121,7 +121,7 @@ async function fightEndCallback(fight: FightController, response: DraftBotPacket
 }
 
 /**
- * Check if a BO3 is already finished (3 games played or 2 wins)
+ * Check if a BO3 is already finished (three games played or two wins)
  * @param bo3
  */
 function bo3isAlreadyFinished(bo3: RankedFightResult): boolean {
@@ -182,6 +182,33 @@ async function findOpponent(player: Player): Promise<Player | null> {
 	return null;
 }
 
+function fightValidationEndCallback(player: Player, context: PacketContext): EndCallback {
+	return async (collector,response): Promise<void> => {
+		const reaction = collector.getFirstReaction();
+		if (reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name) {
+			const opponent = await findOpponent(player);
+			if (!opponent) {
+				response.push(makePacket(CommandFightOpponentsNotFoundPacket, {}));
+			}
+			const askingFighter = new PlayerFighter(player, ClassDataController.instance.getById(player.class));
+			await askingFighter.loadStats();
+			const incomingFighter = new PlayerFighter(opponent, ClassDataController.instance.getById(opponent.class));
+			await incomingFighter.loadStats();
+			// Start fight
+			const fightController = new FightController(
+				{fighter1: askingFighter, fighter2: incomingFighter},
+				FightOvertimeBehavior.END_FIGHT_DRAW,
+				context
+			);
+			fightController.setEndCallback(fightEndCallback);
+			await fightController.startFight(response);
+		}
+		else {
+			response.push(makePacket(CommandFightRefusePacketRes, {}));
+		}
+	};
+}
+
 export default class FightCommand {
 	@commandRequires(CommandFightPacketReq, {
 		notBlocked: true,
@@ -195,31 +222,6 @@ export default class FightCommand {
 			await getPlayerStats(toCheckPlayer)
 		);
 
-		const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
-			const reaction = collector.getFirstReaction();
-			if (reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name) {
-				const opponent = await findOpponent(player);
-				if (!opponent) {
-					// Error message if no opponent found
-				}
-				const askingFighter = new PlayerFighter(player, ClassDataController.instance.getById(player.class));
-				await askingFighter.loadStats();
-				const incomingFighter = new PlayerFighter(opponent, ClassDataController.instance.getById(opponent.class));
-				await incomingFighter.loadStats();
-				// Start fight
-				const fightController = new FightController(
-					{fighter1: askingFighter, fighter2: incomingFighter},
-					FightOvertimeBehavior.END_FIGHT_DRAW,
-					context
-				);
-				fightController.setEndCallback(fightEndCallback);
-				await fightController.startFight(response);
-			}
-			else {
-				response.push(makePacket(CommandFightRefusePacketRes, {}));
-			}
-		};
-
 		const collectorPacket = new ReactionCollectorInstance(
 			collector,
 			context,
@@ -227,7 +229,7 @@ export default class FightCommand {
 				allowedPlayerKeycloakIds: [player.keycloakId],
 				reactionLimit: 1
 			},
-			endCallback
+			fightValidationEndCallback(player, context)
 		)
 			.block(player.id, BlockingConstants.REASONS.FIGHT_CONFIRMATION)
 			.build();
@@ -235,4 +237,3 @@ export default class FightCommand {
 		response.push(collectorPacket);
 	}
 }
-

@@ -11,6 +11,7 @@ import {EmoteUtils} from "../../utils/EmoteUtils";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 import {PacketUtils} from "../../utils/PacketUtils";
 import {
+	CommandFightIntroduceFightersPacket,
 	CommandFightPacketReq,
 	CommandFightRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandFightPacket";
@@ -18,6 +19,7 @@ import {ReactionCollectorFightData} from "../../../../Lib/src/packets/interactio
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
+import {Language} from "../../../../Lib/src/Language";
 
 export async function createFightCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
@@ -86,6 +88,38 @@ export async function handleCommandFightRefusePacketRes(packet: CommandFightRefu
 				.setErrorColor()
 		]
 	});
+}
+
+/**
+ * Add the fight action field to the intro embed of the fight for one fighter
+ * @param introEmbed - Embed of the fight intro
+ * @param language
+ * @param fighterName - Name of the fighter
+ * @param fightActions - Fight actions of one fighter
+ */
+function addFightActionFieldFor(introEmbed: DraftBotEmbed, language: Language, fighterName: string, fightActions: string): void {
+	introEmbed.addFields({
+		name: i18n.t("commands:fight.actionsOf", {
+			lng: language,
+			player: fighterName
+		}
+		value: fightActions,
+		inline: true
+	});
+}
+
+/**
+ * Send the fight intro message that introduces the fighters
+ * @param packet
+ * @param context
+ */
+export async function handleCommandFightIntroduceFightersRes(packet: CommandFightIntroduceFightersPacket, context: PacketContext): Promise<void> {
+	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
+	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:fight.intro", {
+		lng: interaction.userLanguage,
+		pseudo: interaction.user.displayName
+	}), interaction.user);
+	await interaction.editReply({embeds: [embed]});
 }
 
 async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandFightPacketReq | null> {

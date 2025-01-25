@@ -143,7 +143,11 @@ import {
 	handleCommandGuildElderAcceptPacketRes,
 	handleCommandGuildElderRefusePacketRes
 } from "../../commands/guild/GuildElderCommand";
-import {CommandFightRefusePacketRes} from "../../../../Lib/src/packets/commands/CommandFightPacket";
+import {
+	CommandFightIntroduceFightersPacket,
+	CommandFightOpponentsNotFoundPacket,
+	CommandFightRefusePacketRes
+} from "../../../../Lib/src/packets/commands/CommandFightPacket";
 import {handleCommandFightRefusePacketRes} from "../../commands/player/FightCommand";
 import {
 	CommandGuildLeaveAcceptPacketRes, CommandGuildLeaveNotInAGuildPacketRes,
@@ -632,6 +636,16 @@ export default class CommandHandlers {
 	@packetHandler(CommandFightRefusePacketRes)
 	async refuseFight(packet: CommandFightRefusePacketRes, context: PacketContext): Promise<void> {
 		await handleCommandFightRefusePacketRes(packet, context);
+	}
+
+	@packetHandler(CommandFightOpponentsNotFoundPacket)
+	async opponentsNotFoundFight(_packet: CommandFightOpponentsNotFoundPacket, context: PacketContext): Promise<void> {
+		await handleClassicError(context ,"commands:fight.opponentsNotFound");
+	}
+
+	@packetHandler(CommandFightIntroduceFightersPacket)
+	async introduceFighters(packet: CommandFightIntroduceFightersPacket, context: PacketContext): Promise<void> {
+		await handleCommandFightIntroduceFightersRes(packet, context);
 	}
 
 	@packetHandler(CommandSwitchSuccess)
