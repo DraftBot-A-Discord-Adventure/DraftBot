@@ -1,0 +1,120 @@
+import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import {DiscordCache} from "../../bot/DiscordCache";
+import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
+import {keycloakConfig} from "../../bot/DraftBotShard";
+import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
+import i18n from "../../translations/i18n";
+import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
+import {ICommand} from "../ICommand";
+import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
+import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
+import {PacketUtils} from "../../utils/PacketUtils";
+import {SlashCommandBuilder} from "@discordjs/builders";
+import {
+	CommandGuildElderRemoveAcceptPacketRes, CommandGuildElderRemovePacketReq,
+	CommandGuildElderRemoveRefusePacketRes
+} from "../../../../Lib/src/packets/commands/CommandGuildElderRemovePacket";
+import {ReactionCollectorGuildElderRemoveData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildElderRemove";
+
+/**
+ * Create a collector to confirm the promotion
+ * @param packet
+ * @param context
+ */
+export async function createGuildElderRemoveCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
+	await interaction.deferReply();
+	const data = packet.data.data as ReactionCollectorGuildElderRemoveData;
+	const elderPlayer = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, data.demotedKeycloakId))!;
+	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:guildElderRemove.title", {
+		lng: interaction.userLanguage,
+		pseudo: interaction.user.displayName
+	}), interaction.user)
+		.setDescription(
+			i18n.t("commands:guildElderRemove.confirmDesc", {
+				lng: interaction.userLanguage,
+				elderPseudo: elderPlayer.attributes.gameUsername,
+				guildName: data.guildName
+			})
+		);
+
+	await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
+}
+
+/**
+ * Handle the response of the server after a guild elder,
+ * this packet is only sent if the promotion is refused
+ * @param packet
+ * @param context
+ */
+export async function handleCommandGuildElderRemoveRefusePacketRes(packet: CommandGuildElderRemoveRefusePacketRes, context: PacketContext): Promise<void> {
+	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
+	if (!originalInteraction) {
+		return;
+	}
+	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+	const promotedPlayer = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.demotedKeycloakId))!;
+	await buttonInteraction?.editReply({
+		embeds: [
+			new DraftBotEmbed().formatAuthor(i18n.t("commands:guildElderRemove.canceledTitle", {
+				lng: originalInteraction.userLanguage,
+				pseudo: originalInteraction.user.displayName
+			}), originalInteraction.user)
+				.setDescription(
+					i18n.t("commands:guildElderRemove.canceledDesc", {
+						lng: originalInteraction.userLanguage,
+						elderPseudo: promotedPlayer.attributes.gameUsername
+					})
+				)
+				.setErrorColor()
+		]
+	});
+}
+
+/**
+ * Handle the response of the server after a guild elder,
+ * this packet is only sent if the promotion is accepted
+ * @param packet
+ * @param context
+ */
+export async function handleCommandGuildElderRemoveAcceptPacketRes(packet: CommandGuildElderRemoveAcceptPacketRes, context: PacketContext): Promise<void> {
+	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
+	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+	const promotedPlayer = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.demotedKeycloakId!))!;
+	if (buttonInteraction && originalInteraction) {
+		await buttonInteraction.editReply({
+			embeds: [
+				new DraftBotEmbed().formatAuthor(i18n.t("commands:guildElderRemove.successElderRemoveTitle", {
+					lng: originalInteraction.userLanguage,
+					elderPseudo: promotedPlayer.attributes.gameUsername,
+					guildName: packet.guildName
+				}), originalInteraction.user)
+					.setDescription(
+						i18n.t("commands:guildElderRemove.acceptedDesc", {lng: originalInteraction.userLanguage})
+					)
+			]
+		});
+	}
+}
+
+/**
+ * Promote a player from a guild
+ */
+async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandGuildElderRemovePacketReq | null> {
+	const askedPlayer = await PacketUtils.prepareAskedPlayer(interaction, user);
+	if (!askedPlayer || !askedPlayer.keycloakId) {
+		return null;
+	}
+	return makePacket(CommandGuildElderRemovePacketReq, {askedPlayerKeycloakId: askedPlayer.keycloakId});
+}
+
+export const commandInfo: ICommand = {
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("guildElderRemove")
+		.addUserOption(option =>
+			SlashCommandBuilderGenerator.generateOption("guildElderRemove", "user", option)
+				.setRequired(true)) as SlashCommandBuilder,
+	getPacket,
+	mainGuildCommand: false
+};
