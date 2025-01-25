@@ -827,5 +827,15 @@
     "nobodyInTopPlayers": "There is currently no one in the top! Enjoy as you can.",
     "nobodyInTopGuilds": "There are currently no guilds in the top! Enjoy as you can.",
     "invalidPage": "The requested page does not exist. Please try again with a page between {{minPage}} and {{maxPage}}."
+  },
+  "switch": {
+    "titleSuccess": "{{pseudo}}, order completed!",
+    "switchingDouble": "{{item1}} and {{item2}} were exchanged!",
+    "switchingSingle_male": "{{item1}} was equipped!",
+    "switchingSingle_female": "{{item1}} has been equipped!",
+    "noItemToSwitch": "You have no equipment at the equipment!",
+    "cancelled": "Action canceled!",
+    "switchSelectionTitle": "{{pseudo}}, Item Gear",
+    "switchSelectionDescription": "Choose an item from the list below:"
   }
 }
