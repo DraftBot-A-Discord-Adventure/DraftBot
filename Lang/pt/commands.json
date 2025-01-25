@@ -827,5 +827,15 @@
     "nobodyInTopPlayers": "Atualmente não há ninguém no top 10! Aproveitem enquanto podem.",
     "nobodyInTopGuilds": "Atualmente não existem guildas no topo! Aproveita enquanto podes.",
     "invalidPage": "A página solicitada não existe. {{minPage}} {{maxPage}}Por favor, tente novamente com uma página entre e ."
+  },
+  "switch": {
+    "titleSuccess": "{{pseudo}}Encomendar agora!",
+    "switchingDouble": "{{item1}} {{item2}} e foram trocados!",
+    "switchingSingle_male": "{{item1}} foi equipado!",
+    "switchingSingle_female": "{{item1}} foi equipada!",
+    "noItemToSwitch": "Não é preciso equipar nada!",
+    "cancelled": "Ação cancelada!",
+    "switchSelectionTitle": "{{pseudo}}equipar um objeto",
+    "switchSelectionDescription": "Escolhe um item para equipar da lista abaixo:"
   }
 }
