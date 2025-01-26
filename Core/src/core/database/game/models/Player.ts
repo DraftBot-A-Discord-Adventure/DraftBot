@@ -1438,7 +1438,7 @@ export class Players {
 	static async findPotentialOpponent(player: Player, amountOfPlayersToRetrieve: number, offset: number): Promise<Player[]> {
 		return await Player.findAll({
 			where: {
-				defenseGlory: {
+				defenseGloryPoints: {
 					[Op.ne]: null,
 					[Op.between]: [
 						player.attackGloryPoints - FightConstants.ELO.MAX_ELO_GAP,
@@ -1449,7 +1449,7 @@ export class Players {
 			},
 			order: [
 				// Sort using the difference with the attack elo of the player
-				[Sequelize.literal(`ABS(defenseGlory - ${player.attackGloryPoints})`), "ASC"]
+				[Sequelize.literal(`ABS(defenseGloryPoints - ${player.attackGloryPoints})`), "ASC"]
 			],
 			limit: amountOfPlayersToRetrieve,
 			offset
