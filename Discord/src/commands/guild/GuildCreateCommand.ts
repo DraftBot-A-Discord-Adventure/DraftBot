@@ -10,8 +10,7 @@ import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {
 	CommandGuildCreateAcceptPacketRes,
 	CommandGuildCreatePacketReq,
-	CommandGuildCreatePacketRes,
-	CommandGuildCreateRefusePacketRes
+	CommandGuildCreatePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildCreatePacket";
 import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants";
 import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
@@ -81,7 +80,7 @@ export async function handleCommandGuildCreatePacketRes(packet: CommandGuildCrea
 }
 
 
-export async function createGuildCreateCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+export async function createGuildCreateCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorGuildCreateData;
@@ -101,7 +100,7 @@ export async function createGuildCreateCollector(packet: ReactionCollectorCreati
 	await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
 }
 
-export async function handleCommandGuildCreateRefusePacketRes(packet: CommandGuildCreateRefusePacketRes, context: PacketContext): Promise<void> {
+export async function handleCommandGuildCreateRefusePacketRes(context: PacketContext): Promise<void> {
 	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 	if (buttonInteraction && originalInteraction) {

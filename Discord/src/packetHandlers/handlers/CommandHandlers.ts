@@ -153,7 +153,7 @@ import {handleItemSwitch} from "../../commands/player/SwitchCommand";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
-	async pingRes(packet: CommandPingPacketRes, context: PacketContext): Promise<void> {
+	async pingRes(context: PacketContext, packet: CommandPingPacketRes): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		await interaction?.editReply({
 			content: i18n.t("commands:ping.discord.edit", {
@@ -167,474 +167,474 @@ export default class CommandHandlers {
 	}
 
 	@packetHandler(CommandProfilePlayerNotFound)
-	async profilePlayerNotFound(_packet: CommandProfilePlayerNotFound, context: PacketContext): Promise<void> {
+	async profilePlayerNotFound(context: PacketContext, _packet: CommandProfilePlayerNotFound): Promise<void> {
 		await handleClassicError(context, "error:playerDoesntExist");
 	}
 
 	@packetHandler(CommandProfilePacketRes)
-	async profileRes(packet: CommandProfilePacketRes, context: PacketContext): Promise<void> {
+	async profileRes(context: PacketContext, packet: CommandProfilePacketRes): Promise<void> {
 		await handleCommandProfilePacketRes(packet, context);
 	}
 
 	@packetHandler(CommandPetPacketRes)
-	async petRes(packet: CommandPetPacketRes, context: PacketContext): Promise<void> {
+	async petRes(context: PacketContext, packet: CommandPetPacketRes): Promise<void> {
 		await handleCommandPetPacketRes(packet, context);
 	}
 
 	@packetHandler(CommandPetPetNotFound)
-	async petNotFound(_packet: CommandPetPetNotFound, context: PacketContext): Promise<void> {
+	async petNotFound(context: PacketContext, _packet: CommandPetPetNotFound): Promise<void> {
 		await handleClassicError(context, "error:petDoesntExist");
 	}
 
 	@packetHandler(CommandPetFreePacketRes)
-	async petFreeRes(packet: CommandPetFreePacketRes, context: PacketContext): Promise<void> {
+	async petFreeRes(context: PacketContext, packet: CommandPetFreePacketRes): Promise<void> {
 		await handleCommandPetFreePacketRes(packet, context);
 	}
 
 	@packetHandler(CommandPetFreeRefusePacketRes)
-	async petFreeRefuseRes(packet: CommandPetFreeRefusePacketRes, context: PacketContext): Promise<void> {
-		await handleCommandPetFreeRefusePacketRes(packet, context);
+	async petFreeRefuseRes(context: PacketContext, _packet: CommandPetFreeRefusePacketRes): Promise<void> {
+		await handleCommandPetFreeRefusePacketRes(context);
 	}
 
 	@packetHandler(CommandPetFreeAcceptPacketRes)
-	async petFreeAcceptRes(packet: CommandPetFreeAcceptPacketRes, context: PacketContext): Promise<void> {
+	async petFreeAcceptRes(context: PacketContext, packet: CommandPetFreeAcceptPacketRes): Promise<void> {
 		await handleCommandPetFreeAcceptPacketRes(packet, context);
 	}
 
 	@packetHandler(CommandPetNickPacketRes)
-	async PetNickPacketRes(packet: CommandPetNickPacketRes, context: PacketContext): Promise<void> {
+	async PetNickPacketRes(context: PacketContext, packet: CommandPetNickPacketRes): Promise<void> {
 		await handleCommandPetNickPacketRes(packet, context);
 	}
 
 	@packetHandler(CommandGuildPacketRes)
-	async guildRes(packet: CommandGuildPacketRes, context: PacketContext): Promise<void> {
+	async guildRes(context: PacketContext, packet: CommandGuildPacketRes): Promise<void> {
 		await handleCommandGuildPacketRes(packet, context);
 	}
 
 	@packetHandler(CommandGuildCreatePacketRes)
-	async guildCreateRes(packet: CommandGuildCreatePacketRes, context: PacketContext): Promise<void> {
+	async guildCreateRes(context: PacketContext, packet: CommandGuildCreatePacketRes): Promise<void> {
 		await handleCommandGuildCreatePacketRes(packet, context);
 	}
 
 	@packetHandler(CommandGuildCreateRefusePacketRes)
-	async guildCreateRefuseRes(packet: CommandGuildCreateRefusePacketRes, context: PacketContext): Promise<void> {
-		await handleCommandGuildCreateRefusePacketRes(packet, context);
+	async guildCreateRefuseRes(context: PacketContext, _packet: CommandGuildCreateRefusePacketRes): Promise<void> {
+		await handleCommandGuildCreateRefusePacketRes(context);
 	}
 
 	@packetHandler(CommandGuildInviteInvitedPlayerIsDead)
-	async guildInviteInvitedPlayerIsDead(packet: CommandGuildInviteInvitedPlayerIsDead, context: PacketContext): Promise<void> {
+	async guildInviteInvitedPlayerIsDead(context: PacketContext, packet: CommandGuildInviteInvitedPlayerIsDead): Promise<void> {
 		await handleCommandGuildInviteError(packet, context, "error:effects.dead.other");
 	}
 
 	@packetHandler(CommandGuildInviteInvitingPlayerNotInGuild)
-	async guildInviteInvitingPlayerNotInGuild(packet: CommandGuildInviteInvitingPlayerNotInGuild, context: PacketContext): Promise<void> {
+	async guildInviteInvitingPlayerNotInGuild(context: PacketContext, packet: CommandGuildInviteInvitingPlayerNotInGuild): Promise<void> {
 		await handleCommandGuildInviteError(packet, context, "error:notInAGuild");
 	}
 
 	@packetHandler(CommandGuildInviteLevelTooLow)
-	async guildInviteLevelTooLow(packet: CommandGuildInviteLevelTooLow, context: PacketContext): Promise<void> {
+	async guildInviteLevelTooLow(context: PacketContext, packet: CommandGuildInviteLevelTooLow): Promise<void> {
 		await handleCommandGuildInviteError(packet, context, "error:targetLevelTooLow");
 	}
 
 	@packetHandler(CommandGuildInviteGuildIsFull)
-	async guildInviteGuildIsFull(packet: CommandGuildInviteGuildIsFull, context: PacketContext): Promise<void> {
+	async guildInviteGuildIsFull(context: PacketContext, packet: CommandGuildInviteGuildIsFull): Promise<void> {
 		await handleCommandGuildInviteError(packet, context, "commands:guildInvite.errors.guildIsFull");
 	}
 
 	@packetHandler(CommandGuildInviteInvitedPlayerIsOnPveIsland)
-	async guildInviteInvitedPlayerIsOnPveIsland(packet: CommandGuildInviteInvitedPlayerIsOnPveIsland, context: PacketContext): Promise<void> {
+	async guildInviteInvitedPlayerIsOnPveIsland(context: PacketContext, packet: CommandGuildInviteInvitedPlayerIsOnPveIsland): Promise<void> {
 		await handleCommandGuildInviteError(packet, context, "commands:guildInvite.errors.playerIsOnPveIsland");
 	}
 
 	@packetHandler(CommandGuildInviteAlreadyInAGuild)
-	async guildInviteAlreadyInAGuild(packet: CommandGuildInviteAlreadyInAGuild, context: PacketContext): Promise<void> {
+	async guildInviteAlreadyInAGuild(context: PacketContext, packet: CommandGuildInviteAlreadyInAGuild): Promise<void> {
 		await handleCommandGuildInviteError(packet, context, "commands:guildInvite.errors.playerIsAlreadyInAGuild");
 	}
 
 	@packetHandler(CommandGuildInviteRefusePacketRes)
-	async guildInviteRefuseRes(packet: CommandGuildInviteRefusePacketRes, context: PacketContext): Promise<void> {
+	async guildInviteRefuseRes(context: PacketContext, packet: CommandGuildInviteRefusePacketRes): Promise<void> {
 		await handleCommandGuildInviteRefusePacketRes(packet, context);
 	}
 
 	@packetHandler(CommandGuildInviteAcceptPacketRes)
-	async guildInviteAcceptRes(packet: CommandGuildInviteAcceptPacketRes, context: PacketContext): Promise<void> {
+	async guildInviteAcceptRes(context: PacketContext, packet: CommandGuildInviteAcceptPacketRes): Promise<void> {
 		await handleCommandGuildInviteAcceptPacketRes(packet, context);
 	}
 
 	@packetHandler(CommandGuildCreateAcceptPacketRes)
-	async guildCreateAcceptRes(packet: CommandGuildCreateAcceptPacketRes, context: PacketContext): Promise<void> {
+	async guildCreateAcceptRes(context: PacketContext, packet: CommandGuildCreateAcceptPacketRes): Promise<void> {
 		await handleCommandGuildCreateAcceptPacketRes(packet, context);
 	}
 
 	@packetHandler(CommandGuildKickPacketRes)
-	async guildKickRes(packet: CommandGuildKickPacketRes, context: PacketContext): Promise<void> {
+	async guildKickRes(context: PacketContext, packet: CommandGuildKickPacketRes): Promise<void> {
 		await handleCommandGuildKickPacketRes(packet, context);
 	}
 
 	@packetHandler(CommandGuildKickRefusePacketRes)
-	async guildKickRefuseRes(packet: CommandGuildKickRefusePacketRes, context: PacketContext): Promise<void> {
+	async guildKickRefuseRes(context: PacketContext, packet: CommandGuildKickRefusePacketRes): Promise<void> {
 		await handleCommandGuildKickRefusePacketRes(packet, context);
 	}
 
 	@packetHandler(CommandGuildKickAcceptPacketRes)
-	async guildKickAcceptRes(packet: CommandGuildKickAcceptPacketRes, context: PacketContext): Promise<void> {
+	async guildKickAcceptRes(context: PacketContext, packet: CommandGuildKickAcceptPacketRes): Promise<void> {
 		await handleCommandGuildKickAcceptPacketRes(packet, context);
 	}
 
 	@packetHandler(CommandGuildElderSameGuildPacketRes)
-	async guildElderSameGuildRes(_packet: CommandGuildElderSameGuildPacketRes, context: PacketContext): Promise<void> {
+	async guildElderSameGuildRes(context: PacketContext, _packet: CommandGuildElderSameGuildPacketRes): Promise<void> {
 		await handleClassicError(context, "commands:guildElder.notSameGuild");
 	}
 
 	@packetHandler(CommandGuildElderHimselfPacketRes)
-	async guildElderHimselfRes(_packet: CommandGuildElderHimselfPacketRes, context: PacketContext): Promise<void> {
+	async guildElderHimselfRes(context: PacketContext, _packet: CommandGuildElderHimselfPacketRes): Promise<void> {
 		await handleClassicError(context, "commands:guildElder.chiefError");
 	}
 
 	@packetHandler(CommandGuildElderAlreadyElderPacketRes)
-	async guildElderAlreadyElderRes(_packet: CommandGuildElderAlreadyElderPacketRes, context: PacketContext): Promise<void> {
+	async guildElderAlreadyElderRes(context: PacketContext, _packet: CommandGuildElderAlreadyElderPacketRes): Promise<void> {
 		await handleClassicError(context, "commands:guildElder.alreadyElder");
 	}
 
 	@packetHandler(CommandGuildElderFoundPlayerPacketRes)
-	async guildElderFoundPlayerRes(_packet: CommandGuildElderFoundPlayerPacketRes, context: PacketContext): Promise<void> {
+	async guildElderFoundPlayerRes(context: PacketContext, _packet: CommandGuildElderFoundPlayerPacketRes): Promise<void> {
 		await handleClassicError(context, "commands:guildElder.playerNotFound");
 	}
 
 	@packetHandler(CommandGuildElderRefusePacketRes)
-	async guildElderRefuseRes(packet: CommandGuildElderRefusePacketRes, context: PacketContext): Promise<void> {
+	async guildElderRefuseRes(context: PacketContext, packet: CommandGuildElderRefusePacketRes): Promise<void> {
 		await handleCommandGuildElderRefusePacketRes(packet, context);
 	}
 
 	@packetHandler(CommandGuildElderAcceptPacketRes)
-	async guildElderAcceptRes(packet: CommandGuildElderAcceptPacketRes, context: PacketContext): Promise<void> {
+	async guildElderAcceptRes(context: PacketContext, packet: CommandGuildElderAcceptPacketRes): Promise<void> {
 		await handleCommandGuildElderAcceptPacketRes(packet, context);
 	}
 
 	@packetHandler(CommandGuildLeaveNotInAGuildPacketRes)
-	async guildLeaveNotInAGuildRes(_packet: CommandGuildLeaveNotInAGuildPacketRes, context: PacketContext): Promise<void> {
+	async guildLeaveNotInAGuildRes(context: PacketContext, _packet: CommandGuildLeaveNotInAGuildPacketRes): Promise<void> {
 		await handleClassicError(context, "commands:guildLeave.notInAGuild");
 	}
 
 	@packetHandler(CommandGuildLeaveRefusePacketRes)
-	async guildLeaveRefuseRes(packet: CommandGuildLeaveRefusePacketRes, context: PacketContext): Promise<void> {
-		await handleCommandGuildLeaveRefusePacketRes(packet, context);
+	async guildLeaveRefuseRes(context: PacketContext, _packet: CommandGuildLeaveRefusePacketRes): Promise<void> {
+		await handleCommandGuildLeaveRefusePacketRes(context);
 	}
 
 	@packetHandler(CommandGuildLeaveAcceptPacketRes)
-	async guildLeaveAcceptRes(packet: CommandGuildLeaveAcceptPacketRes, context: PacketContext): Promise<void> {
+	async guildLeaveAcceptRes(context: PacketContext, packet: CommandGuildLeaveAcceptPacketRes): Promise<void> {
 		await handleCommandGuildLeaveAcceptPacketRes(packet,context);
 	}
 
 
 	@packetHandler(CommandInventoryPacketRes)
-	async inventoryRes(packet: CommandInventoryPacketRes, context: PacketContext): Promise<void> {
+	async inventoryRes(context: PacketContext, packet: CommandInventoryPacketRes): Promise<void> {
 		await handleCommandInventoryPacketRes(packet, context);
 	}
 
 	@packetHandler(CommandUpdatePacketRes)
-	async updateRes(packet: CommandUpdatePacketRes, context: PacketContext): Promise<void> {
+	async updateRes(context: PacketContext, packet: CommandUpdatePacketRes): Promise<void> {
 		await handleCommandUpdatePacketRes(packet, context);
 	}
 
 	@packetHandler(CommandTestPacketRes)
-	async testRes(packet: CommandTestPacketRes, context: PacketContext): Promise<void> {
+	async testRes(context: PacketContext, packet: CommandTestPacketRes): Promise<void> {
 		await handleCommandTestPacketRes(packet, context);
 	}
 
 	@packetHandler(CommandRarityPacketRes)
-	async rarityRes(packet: CommandRarityPacketRes, context: PacketContext): Promise<void> {
+	async rarityRes(context: PacketContext, packet: CommandRarityPacketRes): Promise<void> {
 		await handleCommandRarityPacketRes(packet, context);
 	}
 
 	@packetHandler(CommandReportBigEventResultRes)
-	async reportResultRes(packet: CommandReportBigEventResultRes, context: PacketContext): Promise<void> {
+	async reportResultRes(context: PacketContext, packet: CommandReportBigEventResultRes): Promise<void> {
 		await reportResult(packet, context);
 	}
 
 	@packetHandler(CommandReportTravelSummaryRes)
-	async reportTravelSummaryRes(packet: CommandReportTravelSummaryRes, context: PacketContext): Promise<void> {
+	async reportTravelSummaryRes(context: PacketContext, packet: CommandReportTravelSummaryRes): Promise<void> {
 		await reportTravelSummary(packet, context);
 	}
 
 	@packetHandler(CommandMapDisplayRes)
-	async mapRes(packet: CommandMapDisplayRes, context: PacketContext): Promise<void> {
+	async mapRes(context: PacketContext, packet: CommandMapDisplayRes): Promise<void> {
 		await handleCommandMapDisplayRes(packet, context);
 	}
 
 	@packetHandler(CommandReportMonsterRewardRes)
-	async reportMonsterRewardRes(packet: CommandReportMonsterRewardRes, context: PacketContext): Promise<void> {
+	async reportMonsterRewardRes(_context: PacketContext, _packet: CommandReportMonsterRewardRes): Promise<void> {
 		// TODO
 	}
 
 	@packetHandler(CommandReportErrorNoMonsterRes)
-	async reportErrorNoMonsterRes(packet: CommandReportErrorNoMonsterRes, context: PacketContext): Promise<void> {
+	async reportErrorNoMonsterRes(_context: PacketContext, _packet: CommandReportErrorNoMonsterRes): Promise<void> {
 		// TODO
 	}
 
 	@packetHandler(CommandReportRefusePveFightRes)
-	async reportRefusePveFightRes(packet: CommandReportRefusePveFightRes, context: PacketContext): Promise<void> {
+	async reportRefusePveFightRes(_context: PacketContext, _packet: CommandReportRefusePveFightRes): Promise<void> {
 		// TODO
 	}
 
 	@packetHandler(CommandClassesInfoPacketRes)
-	async classesInfoRes(packet: CommandClassesInfoPacketRes, context: PacketContext): Promise<void> {
+	async classesInfoRes(context: PacketContext, packet: CommandClassesInfoPacketRes): Promise<void> {
 		await handleCommandClassesInfoPacketRes(packet, context);
 	}
 
 	@packetHandler(CommandRespawnPacketRes)
-	async respawnRes(packet: CommandRespawnPacketRes, context: PacketContext): Promise<void> {
+	async respawnRes(context: PacketContext, packet: CommandRespawnPacketRes): Promise<void> {
 		await handleCommandRespawnPacketRes(packet, context);
 	}
 
 	@packetHandler(CommandRespawnErrorAlreadyAlive)
-	async respawnErrorAlreadyAlive(_packet: CommandRespawnErrorAlreadyAlive, context: PacketContext): Promise<void> {
+	async respawnErrorAlreadyAlive(context: PacketContext, _packet: CommandRespawnErrorAlreadyAlive): Promise<void> {
 		await handleClassicError(context, "commands:respawn.alreadyAlive");
 	}
 
 	@packetHandler(CommandShopClosed)
-	async shopClosed(packet: CommandShopClosed, context: PacketContext): Promise<void> {
+	async shopClosed(context: PacketContext, _packet: CommandShopClosed): Promise<void> {
 		await handleCommandShopClosed(context);
 	}
 
 	@packetHandler(CommandShopNoAlterationToHeal)
-	async shopNoAlterationToHeal(packet: CommandShopNoAlterationToHeal, context: PacketContext): Promise<void> {
+	async shopNoAlterationToHeal(context: PacketContext, _packet: CommandShopNoAlterationToHeal): Promise<void> {
 		await handleCommandShopNoAlterationToHeal(context);
 	}
 
 	@packetHandler(CommandShopHealAlterationDone)
-	async shopHealAlterationDone(packet: CommandShopHealAlterationDone, context: PacketContext): Promise<void> {
+	async shopHealAlterationDone(context: PacketContext, _packet: CommandShopHealAlterationDone): Promise<void> {
 		await handleCommandShopHealAlterationDone(context);
 	}
 
 	@packetHandler(CommandShopTooManyEnergyBought)
-	async shopTooManyEnergyBought(packet: CommandShopTooManyEnergyBought, context: PacketContext): Promise<void> {
+	async shopTooManyEnergyBought(context: PacketContext, _packet: CommandShopTooManyEnergyBought): Promise<void> {
 		await handleCommandShopTooManyEnergyBought(context);
 	}
 
 	@packetHandler(CommandShopNoEnergyToHeal)
-	async shopNoEnergyToHeal(packet: CommandShopNoEnergyToHeal, context: PacketContext): Promise<void> {
+	async shopNoEnergyToHeal(context: PacketContext, _packet: CommandShopNoEnergyToHeal): Promise<void> {
 		await handleCommandShopNoEnergyToHeal(context);
 	}
 
 	@packetHandler(CommandShopFullRegen)
-	async shopFullRegen(packet: CommandShopFullRegen, context: PacketContext): Promise<void> {
+	async shopFullRegen(context: PacketContext, _packet: CommandShopFullRegen): Promise<void> {
 		await handleCommandShopFullRegen(context);
 	}
 
 	@packetHandler(CommandShopAlreadyHaveBadge)
-	async shopAlreadyHaveBadge(packet: CommandShopAlreadyHaveBadge, context: PacketContext): Promise<void> {
+	async shopAlreadyHaveBadge(context: PacketContext, _packet: CommandShopAlreadyHaveBadge): Promise<void> {
 		await handleCommandShopAlreadyHaveBadge(context);
 	}
 
 	@packetHandler(CommandShopBadgeBought)
-	async shopBadgeBought(packet: CommandShopBadgeBought, context: PacketContext): Promise<void> {
+	async shopBadgeBought(context: PacketContext, _packet: CommandShopBadgeBought): Promise<void> {
 		await handleCommandShopBadgeBought(context);
 	}
 
 	@packetHandler(CommandShopBoughtTooMuchDailyPotions)
-	async shopBoughtTooMuchDailyPotions(packet: CommandShopBoughtTooMuchDailyPotions, context: PacketContext): Promise<void> {
+	async shopBoughtTooMuchDailyPotions(context: PacketContext, _packet: CommandShopBoughtTooMuchDailyPotions): Promise<void> {
 		await handleCommandShopBoughtTooMuchDailyPotions(context);
 	}
 
 	@packetHandler(CommandShopNotEnoughCurrency)
-	async shopNotEnoughMoney(packet: CommandShopNotEnoughCurrency, context: PacketContext): Promise<void> {
+	async shopNotEnoughMoney(context: PacketContext, packet: CommandShopNotEnoughCurrency): Promise<void> {
 		await handleCommandShopNotEnoughMoney(packet, context);
 	}
 
 	@packetHandler(ReactionCollectorBuyCategorySlotBuySuccess)
-	async buyCategorySlotBuySuccess(packet: ReactionCollectorBuyCategorySlotBuySuccess, context: PacketContext): Promise<void> {
+	async buyCategorySlotBuySuccess(context: PacketContext, _packet: ReactionCollectorBuyCategorySlotBuySuccess): Promise<void> {
 		await handleReactionCollectorBuyCategorySlotBuySuccess(context);
 	}
 
 	@packetHandler(CommandMaintenancePacketRes)
-	async maintenanceReq(packet: CommandMaintenancePacketRes, context: PacketContext): Promise<void> {
+	async maintenanceReq(context: PacketContext, packet: CommandMaintenancePacketRes): Promise<void> {
 		await handleCommandMaintenancePacketRes(packet, context);
 	}
 
 	@packetHandler(CommandMissionPlayerNotFoundPacket)
-	async commandMissionPlayerNotFound(packet: CommandMissionPlayerNotFoundPacket, context: PacketContext): Promise<void> {
-		await handleCommandMissionPlayerNotFoundPacket(packet, context);
+	async commandMissionPlayerNotFound(context: PacketContext, _packet: CommandMissionPlayerNotFoundPacket): Promise<void> {
+		await handleCommandMissionPlayerNotFoundPacket(context);
 	}
 
 	@packetHandler(CommandMissionsPacketRes)
-	async missionsCommandRes(packet: CommandMissionsPacketRes, context: PacketContext): Promise<void> {
+	async missionsCommandRes(context: PacketContext, packet: CommandMissionsPacketRes): Promise<void> {
 		await handleCommandMissionsPacketRes(packet, context);
 	}
 
 	@packetHandler(CommandGuildShopNoFoodStorageSpace)
-	async guildShopNoFoodStorageSpace(packet: CommandGuildShopNoFoodStorageSpace, context: PacketContext): Promise<void> {
+	async guildShopNoFoodStorageSpace(context: PacketContext, _packet: CommandGuildShopNoFoodStorageSpace): Promise<void> {
 		await handleCommandGuildShopNoFoodStorageSpace(context);
 	}
 
 	@packetHandler(CommandGuildShopEmpty)
-	async guildShopEmpty(packet: CommandGuildShopEmpty, context: PacketContext): Promise<void> {
+	async guildShopEmpty(context: PacketContext, _packet: CommandGuildShopEmpty): Promise<void> {
 		await handleCommandGuildShopEmpty(context);
 	}
 
 	@packetHandler(CommandGuildShopGiveXp)
-	async guildShopGiveXp(packet: CommandGuildShopGiveXp, context: PacketContext): Promise<void> {
+	async guildShopGiveXp(context: PacketContext, packet: CommandGuildShopGiveXp): Promise<void> {
 		await handleCommandGuildShopGiveXp(packet, context);
 	}
 
 	@packetHandler(CommandGuildDailyRewardPacket)
-	async guildDailyReward(packet: CommandGuildDailyRewardPacket, context: PacketContext): Promise<void> {
+	async guildDailyReward(context: PacketContext, packet: CommandGuildDailyRewardPacket): Promise<void> {
 		await handleCommandGuildDailyRewardPacket(packet, context);
 	}
 
 	@packetHandler(CommandGuildDailyCooldownErrorPacket)
-	async guildDailyCooldownError(packet: CommandGuildDailyCooldownErrorPacket, context: PacketContext): Promise<void> {
+	async guildDailyCooldownError(context: PacketContext, packet: CommandGuildDailyCooldownErrorPacket): Promise<void> {
 		await handleCommandGuildDailyCooldownErrorPacket(packet, context);
 	}
 
 	@packetHandler(CommandGuildDailyPveIslandErrorPacket)
-	async guildDailyPveIslandError(packet: CommandGuildDailyPveIslandErrorPacket, context: PacketContext): Promise<void> {
+	async guildDailyPveIslandError(context: PacketContext, _packet: CommandGuildDailyPveIslandErrorPacket): Promise<void> {
 		await handleClassicError(context, "commands:guildDaily.pveIslandError");
 	}
 
 	@packetHandler(CommandDailyBonusPacketRes)
-	async dailyBonusRes(packet: CommandDailyBonusPacketRes, context: PacketContext): Promise<void> {
+	async dailyBonusRes(context: PacketContext, packet: CommandDailyBonusPacketRes): Promise<void> {
 		await handleDailyBonusRes(context, packet);
 	}
 
 	@packetHandler(CommandDailyBonusObjectDoNothing)
-	async dailyBonusObjectDoNothing(_packet: CommandDailyBonusObjectDoNothing, context: PacketContext): Promise<void> {
+	async dailyBonusObjectDoNothing(context: PacketContext, _packet: CommandDailyBonusObjectDoNothing): Promise<void> {
 		await handleClassicError(context, "commands:daily.errors.objectDoNothingError");
 	}
 
 	@packetHandler(CommandDailyBonusObjectIsActiveDuringFights)
-	async dailyBonusObjectIsActiveDuringFights(_packet: CommandDailyBonusObjectIsActiveDuringFights, context: PacketContext): Promise<void> {
+	async dailyBonusObjectIsActiveDuringFights(context: PacketContext, _packet: CommandDailyBonusObjectIsActiveDuringFights): Promise<void> {
 		await handleClassicError(context, "commands:daily.errors.objectIsActiveDuringFights");
 	}
 
 	@packetHandler(CommandDailyBonusNoActiveObject)
-	async dailyBonusNoActiveObject(_packet: CommandDailyBonusNoActiveObject, context: PacketContext): Promise<void> {
+	async dailyBonusNoActiveObject(context: PacketContext, _packet: CommandDailyBonusNoActiveObject): Promise<void> {
 		await handleClassicError(context, "commands:daily.errors.noActiveObject");
 	}
 
 	@packetHandler(CommandDailyBonusInCooldown)
-	async dailyBonusInCooldown(packet: CommandDailyBonusInCooldown, context: PacketContext): Promise<void> {
+	async dailyBonusInCooldown(context: PacketContext, packet: CommandDailyBonusInCooldown): Promise<void> {
 		await handleDailyBonusCooldownError(context, packet.lastDailyTimestamp, packet.timeBetweenDailies);
 	}
 
 	@packetHandler(CommandUnlockHimself)
-	async unlockHimself(_packet: CommandUnlockHimself, context: PacketContext): Promise<void> {
+	async unlockHimself(context: PacketContext, _packet: CommandUnlockHimself): Promise<void> {
 		await handleClassicError(context, "commands:unlock.himself");
 	}
 
 	@packetHandler(CommandUnlockNotInJail)
-	async unlockNotInJail(_packet: CommandUnlockNotInJail, context: PacketContext): Promise<void> {
+	async unlockNotInJail(context: PacketContext, _packet: CommandUnlockNotInJail): Promise<void> {
 		await handleClassicError(context, "commands:unlock.notInJail");
 	}
 
 	@packetHandler(CommandUnlockNoPlayerFound)
-	async unlockNoPlayerFound(_packet: CommandUnlockNoPlayerFound, context: PacketContext): Promise<void> {
+	async unlockNoPlayerFound(context: PacketContext, _packet: CommandUnlockNoPlayerFound): Promise<void> {
 		await handleClassicError(context, "error:playerDoesntExist");
 	}
 
 	@packetHandler(CommandUnlockNotEnoughMoney)
-	async unlockNotEnoughMoney(packet: CommandUnlockNotEnoughMoney, context: PacketContext): Promise<void> {
+	async unlockNotEnoughMoney(context: PacketContext, packet: CommandUnlockNotEnoughMoney): Promise<void> {
 		await handleCommandUnlockNotEnoughMoneyError(packet, context);
 	}
 
 	@packetHandler(CommandUnlockRefusePacketRes)
-	async unlockRefuseRes(packet: CommandUnlockRefusePacketRes, context: PacketContext): Promise<void> {
-		await handleCommandUnlockRefusePacketRes(packet, context);
+	async unlockRefuseRes(context: PacketContext, _packet: CommandUnlockRefusePacketRes): Promise<void> {
+		await handleCommandUnlockRefusePacketRes(context);
 	}
 
 	@packetHandler(CommandUnlockAcceptPacketRes)
-	async unlockAcceptRes(packet: CommandUnlockAcceptPacketRes, context: PacketContext): Promise<void> {
+	async unlockAcceptRes(context: PacketContext, packet: CommandUnlockAcceptPacketRes): Promise<void> {
 		await handleCommandUnlockAcceptPacketRes(packet, context);
 
 	}
 
 	@packetHandler(CommandTopPacketResScore)
-	async topScoreRes(packet: CommandTopPacketResScore, context: PacketContext): Promise<void> {
+	async topScoreRes(context: PacketContext, packet: CommandTopPacketResScore): Promise<void> {
 		await handleCommandTopPacketResScore(context, packet);
 	}
 
 	@packetHandler(CommandTopPacketResGlory)
-	async topGloryRes(packet: CommandTopPacketResGlory, context: PacketContext): Promise<void> {
+	async topGloryRes(context: PacketContext, packet: CommandTopPacketResGlory): Promise<void> {
 		await handleCommandTopPacketResGlory(context, packet);
 	}
 
 	@packetHandler(CommandTopPacketResGuild)
-	async topGuildRes(packet: CommandTopPacketResGuild, context: PacketContext): Promise<void> {
+	async topGuildRes(context: PacketContext, packet: CommandTopPacketResGuild): Promise<void> {
 		await handleCommandTopPacketResGuild(context, packet);
 	}
 
 	@packetHandler(CommandTopInvalidPagePacket)
-	async topInvalidPageRes(packet: CommandTopInvalidPagePacket, context: PacketContext): Promise<void> {
+	async topInvalidPageRes(context: PacketContext, packet: CommandTopInvalidPagePacket): Promise<void> {
 		await handleCommandTopInvalidPagePacket(context, packet);
 	}
 
 	@packetHandler(CommandTopPlayersEmptyPacket)
-	async topPlayersEmptyRes(_packet: CommandTopPlayersEmptyPacket, context: PacketContext): Promise<void> {
+	async topPlayersEmptyRes(context: PacketContext, _packet: CommandTopPlayersEmptyPacket): Promise<void> {
 		await handleCommandTopPlayersEmptyPacket(context);
 	}
 
 	@packetHandler(CommandTopGuildsEmptyPacket)
-	async topGuildsEmptyRes(_packet: CommandTopGuildsEmptyPacket, context: PacketContext): Promise<void> {
+	async topGuildsEmptyRes(context: PacketContext, _packet: CommandTopGuildsEmptyPacket): Promise<void> {
 		await handleCommandTopGuildsEmptyPacket(context);
 	}
 
 	@packetHandler(CommandMissionShopAlreadyBoughtPointsThisWeek)
-	async missionShopAlreadyBoughtPointsThisWeek(_packet: CommandMissionShopAlreadyBoughtPointsThisWeek, context: PacketContext): Promise<void> {
+	async missionShopAlreadyBoughtPointsThisWeek(context: PacketContext, _packet: CommandMissionShopAlreadyBoughtPointsThisWeek): Promise<void> {
 		await handleClassicError(context, "commands:missionsshop.error.alreadyBoughtPointsThisWeek");
 	}
 
 	@packetHandler(CommandMissionShopPetInformation)
-	async missionShopPetInformation(packet: CommandMissionShopPetInformation, context: PacketContext): Promise<void> {
+	async missionShopPetInformation(context: PacketContext, packet: CommandMissionShopPetInformation): Promise<void> {
 		await handleLovePointsValueShopItem(packet, context);
 	}
 
 	@packetHandler(CommandMissionShopSkipMissionResult)
-	async missionShopSkipMissionResult(packet: CommandMissionShopSkipMissionResult, context: PacketContext): Promise<void> {
+	async missionShopSkipMissionResult(context: PacketContext, packet: CommandMissionShopSkipMissionResult): Promise<void> {
 		await skipMissionShopResult(packet, context);
 	}
 
 	@packetHandler(CommandMissionShopMoney)
-	async missionShopMoney(packet: CommandMissionShopMoney, context: PacketContext): Promise<void> {
+	async missionShopMoney(context: PacketContext, packet: CommandMissionShopMoney): Promise<void> {
 		await handleMissionShopMoney(packet, context);
 	}
 
 	@packetHandler(CommandMissionShopKingsFavor)
-	async missionShopKingsFavor(_packet: CommandMissionShopKingsFavor, context: PacketContext): Promise<void> {
+	async missionShopKingsFavor(context: PacketContext, _packet: CommandMissionShopKingsFavor): Promise<void> {
 		await handleMissionShopKingsFavor(context);
 	}
 
 	@packetHandler(CommandMissionShopBadge)
-	async missionShopBadge(_packet: CommandMissionShopBadge, context: PacketContext): Promise<void> {
+	async missionShopBadge(context: PacketContext, _packet: CommandMissionShopBadge): Promise<void> {
 		await handleMissionShopBadge(context);
 	}
 
 	@packetHandler(CommandMissionShopNoMissionToSkip)
-	async missionShopNoMissionToSkip(_packet: CommandMissionShopNoMissionToSkip, context: PacketContext): Promise<void> {
+	async missionShopNoMissionToSkip(context: PacketContext, _packet: CommandMissionShopNoMissionToSkip): Promise<void> {
 		await handleClassicError(context, "commands:missionsshop.error.noMissionToSkip");
 	}
 
 	@packetHandler(CommandMissionShopAlreadyHadBadge)
-	async missionShopAlreadyHadBadge(_packet: CommandMissionShopAlreadyHadBadge, context: PacketContext): Promise<void> {
+	async missionShopAlreadyHadBadge(context: PacketContext, _packet: CommandMissionShopAlreadyHadBadge): Promise<void> {
 		await handleClassicError(context, "commands:missionsshop.error.alreadyHadBadge");
 	}
 
 	@packetHandler(CommandMissionShopNoPet)
-	async missionShopNoPet(_packet: CommandMissionShopNoPet, context: PacketContext): Promise<void> {
+	async missionShopNoPet(context: PacketContext, _packet: CommandMissionShopNoPet): Promise<void> {
 		await handleClassicError(context, "commands:missionsshop.error.noPet");
 	}
 
 	@packetHandler(CommandSwitchSuccess)
-	async switchSuccess(packet: CommandSwitchSuccess, context: PacketContext): Promise<void> {
+	async switchSuccess(context: PacketContext, packet: CommandSwitchSuccess): Promise<void> {
 		await handleItemSwitch(packet, context);
 	}
 
 	@packetHandler(CommandSwitchCancelled)
-	async switchCancelled(_packet: CommandSwitchCancelled, context: PacketContext): Promise<void> {
+	async switchCancelled(context: PacketContext, _packet: CommandSwitchCancelled): Promise<void> {
 		await handleClassicError(context, "commands:switch.cancelled");
 	}
 
 	@packetHandler(CommandSwitchErrorNoItemToSwitch)
-	async switchErrorNoItemToSwitch(_packet: CommandSwitchErrorNoItemToSwitch, context: PacketContext): Promise<void> {
+	async switchErrorNoItemToSwitch(context: PacketContext, _packet: CommandSwitchErrorNoItemToSwitch): Promise<void> {
 		await handleClassicError(context, "commands:switch.noItemToSwitch");
 	}
 }

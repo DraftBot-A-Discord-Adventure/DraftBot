@@ -14,7 +14,7 @@ import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 
 export default class CommandRequirementHandlers {
 	@packetHandler(RequirementEffectPacket)
-	async requirementEffect(packet: RequirementEffectPacket, context: PacketContext): Promise<void> {
+	async requirementEffect(context: PacketContext, packet: RequirementEffectPacket): Promise<void> {
 		const keycloakUser = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!);
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (keycloakUser) {
@@ -38,7 +38,7 @@ export default class CommandRequirementHandlers {
 	}
 
 	@packetHandler(RequirementGuildNeededPacket)
-	async requirementGuildNeeded(packet: RequirementGuildNeededPacket, context: PacketContext): Promise<void> {
+	async requirementGuildNeeded(context: PacketContext, _packet: RequirementGuildNeededPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (!interaction) {
 			return;
@@ -48,7 +48,7 @@ export default class CommandRequirementHandlers {
 	}
 
 	@packetHandler(RequirementGuildRolePacket)
-	async requirementGuildRole(packet: RequirementGuildRolePacket, context: PacketContext): Promise<void> {
+	async requirementGuildRole(context: PacketContext, _packet: RequirementGuildRolePacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (!interaction) {
 			return;
@@ -58,7 +58,7 @@ export default class CommandRequirementHandlers {
 	}
 
 	@packetHandler(RequirementLevelPacket)
-	async requirementLevel(packet: RequirementLevelPacket, context: PacketContext): Promise<void> {
+	async requirementLevel(context: PacketContext, packet: RequirementLevelPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (!interaction) {
 			return;
@@ -71,7 +71,7 @@ export default class CommandRequirementHandlers {
 	}
 
 	@packetHandler(RequirementRightPacket)
-	async requirementRight(packet: RequirementRightPacket, context: PacketContext): Promise<void> {
+	async requirementRight(context: PacketContext, _packet: RequirementRightPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (!interaction) {
 			return;

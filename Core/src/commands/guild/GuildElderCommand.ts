@@ -35,7 +35,7 @@ async function isEligible(player: Player, promotedPlayer: Player, response: Draf
 	try {
 		promotedGuild = await Guilds.getById(promotedPlayer.guildId);
 	}
-	catch (error) {
+	catch {
 		promotedGuild = null;
 	}
 

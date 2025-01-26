@@ -6,8 +6,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {
 	CommandPetFreeAcceptPacketRes,
 	CommandPetFreePacketReq,
-	CommandPetFreePacketRes,
-	CommandPetFreeRefusePacketRes
+	CommandPetFreePacketRes
 } from "../../../../Lib/src/packets/commands/CommandPetFreePacket";
 import {DiscordCache} from "../../bot/DiscordCache";
 import {DraftBotErrorEmbed} from "../../messages/DraftBotErrorEmbed";
@@ -22,7 +21,7 @@ import {PetUtils} from "../../utils/PetUtils";
 /**
  * Destroy a pet forever... RIP
  */
-function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser): CommandPetFreePacketReq {
+function getPacket(_interaction: DraftbotInteraction, keycloakUser: KeycloakUser): CommandPetFreePacketReq {
 	return makePacket(CommandPetFreePacketReq, {keycloakId: keycloakUser.id});
 }
 
@@ -76,7 +75,7 @@ export async function handleCommandPetFreePacketRes(packet: CommandPetFreePacket
 	}
 }
 
-export async function createPetFreeCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+export async function createPetFreeCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorPetFreeData;
@@ -95,7 +94,7 @@ export async function createPetFreeCollector(packet: ReactionCollectorCreationPa
 	await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
 }
 
-export async function handleCommandPetFreeRefusePacketRes(packet: CommandPetFreeRefusePacketRes, context: PacketContext): Promise<void> {
+export async function handleCommandPetFreeRefusePacketRes(context: PacketContext): Promise<void> {
 	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 	if (buttonInteraction && originalInteraction) {

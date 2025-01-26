@@ -31,7 +31,7 @@ function getGobletsGameReactions(interaction: DraftbotInteraction): DraftbotButt
  * @param packet
  * @param context
  */
-export async function gobletsGameCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+export async function gobletsGameCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const lng = interaction.userLanguage;
 	const reactions = getGobletsGameReactions(interaction);

@@ -94,7 +94,7 @@ async function acceptPetFree(player: Player, playerPet: PetEntity, response: Dra
 			await guild!.save();
 		}
 	}
-	catch (error) {
+	catch {
 		// Continue regardless of error
 	}
 

@@ -11,7 +11,7 @@ import {ItemCategory} from "../../../../Lib/src/constants/ItemConstants";
 
 export default class ItemHandler {
 	@packetHandler(ItemAcceptPacket)
-	async itemAcceptHandler(packet: ItemAcceptPacket, context: PacketContext): Promise<void> {
+	async itemAcceptHandler(context: PacketContext, packet: ItemAcceptPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (interaction) {
 			const menuEmbed = new DraftBotEmbed()
@@ -22,7 +22,7 @@ export default class ItemHandler {
 	}
 
 	@packetHandler(ItemFoundPacket)
-	async itemFoundHandler(packet: ItemFoundPacket, context: PacketContext): Promise<void> {
+	async itemFoundHandler(context: PacketContext, packet: ItemFoundPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (interaction) {
 			await interaction.channel.send({
@@ -36,7 +36,7 @@ export default class ItemHandler {
 	}
 
 	@packetHandler(ItemRefusePacket)
-	async itemRefuseHandler(packet: ItemRefusePacket, context: PacketContext): Promise<void> {
+	async itemRefuseHandler(context: PacketContext, packet: ItemRefusePacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (interaction) {
 			const menuEmbed = new DraftBotEmbed();

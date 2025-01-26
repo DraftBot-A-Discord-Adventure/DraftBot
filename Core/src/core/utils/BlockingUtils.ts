@@ -122,7 +122,7 @@ export class BlockingUtils {
 		return false;
 	}
 
-	static async changeBlockingReason(packet: ChangeBlockingReasonPacket, context: PacketContext): Promise<void> {
+	static async changeBlockingReason(context: PacketContext, packet: ChangeBlockingReasonPacket): Promise<void> {
 		const player = await Players.getByKeycloakId(context.keycloakId);
 		if (this.getPlayerBlockingReason(player.id).includes(packet.oldReason)) {
 			if (packet.newReason !== BlockingConstants.REASONS.NONE) {

@@ -21,7 +21,7 @@ type BigBadProperties = {
 
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnContinent,
-	executeSmallEvent: async (context, response, player): Promise<void> => {
+	executeSmallEvent: async (response, player): Promise<void> => {
 		const outRand: SmallEventBigBadKind = RandomUtils.draftbotRandom.integer(0, 2);
 		let lifeLoss, seFallen, moneyLoss, effect;
 		const bigBadProperties = SmallEventDataController.instance.getById("bigBad").getProperties<BigBadProperties>();

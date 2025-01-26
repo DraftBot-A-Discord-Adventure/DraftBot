@@ -8,7 +8,7 @@ import {getRandomSmallEventIntro} from "../packetHandlers/handlers/SmallEventsHa
 import {StringUtils} from "../utils/StringUtils";
 import {DiscordCollectorUtils} from "../utils/DiscordCollectorUtils";
 
-export async function goToPVEIslandCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+export async function goToPVEIslandCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorGoToPVEIslandData;
 

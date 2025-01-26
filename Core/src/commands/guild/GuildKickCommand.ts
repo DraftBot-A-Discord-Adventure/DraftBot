@@ -64,7 +64,7 @@ async function isNotEligible(player: Player, kickedPlayer: Player, response: Dra
 	try {
 		kickedGuild = await Guilds.getById(kickedPlayer.guildId);
 	}
-	catch (error) {
+	catch {
 		kickedGuild = null;
 	}
 

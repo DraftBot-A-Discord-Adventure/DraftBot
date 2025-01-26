@@ -8,7 +8,7 @@ import {SmallEventFindPotionPacket} from "../../../../Lib/src/packets/smallEvent
 
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnContinent,
-	executeSmallEvent: async (context, response, player): Promise<void> => {
+	executeSmallEvent: async (response, player, context): Promise<void> => {
 		const potionGenerated = generateRandomItem(ItemCategory.POTION);
 		await giveItemToPlayer(player, potionGenerated, context, response, await InventorySlots.getOfPlayer(player.id));
 		response.push(makePacket(SmallEventFindPotionPacket, {}));

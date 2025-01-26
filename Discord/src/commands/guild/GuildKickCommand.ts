@@ -76,7 +76,7 @@ export async function handleCommandGuildKickPacketRes(packet: CommandGuildKickPa
  * @param packet
  * @param context
  */
-export async function createGuildKickCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+export async function createGuildKickCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorGuildKickData;
