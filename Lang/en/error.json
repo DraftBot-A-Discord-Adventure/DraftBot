@@ -2,7 +2,7 @@
   "anotherPlayerBlocked": "You can't do this because {{username}} currently has a pending action ({{reasons}})!",
   "blockedContext": {
     "acceptItem": "choice to keep an item or not",
-    "cartSmallEvent": "choice to get in the cart or not",
+    "cartSmallEvent": "choice of whether getting in the cart",
     "chiefGuildLeave": "transfer of authority",
     "chooseDestination": "choice of destination",
     "class": "class change",
@@ -20,13 +20,13 @@
     "guildKick": "guild expulsion",
     "guildLeave": "guild departure",
     "guildShop": "guild's shop",
-    "guildShopConfirmation": "guild store choice confirmation",
-    "lottery": "mini-event lottery",
+    "guildShopConfirmation": "confirmation of a choice in the guild's shop",
+    "lottery": "lottery small event",
     "merchant": "merchant",
     "missionShop": "missions shop",
-    "missionShopConfirmation": "mission store selection confirmation",
-    "petFeed": "pet feeding",
-    "petFree": "pet freeing",
+    "missionShopConfirmation": "confirmation of a choince in the missions shop",
+    "petFeed": "feeding a pet",
+    "petFree": "freeing a pet",
     "petSell": "selling a pet",
     "petSellConfirm": "confirmation of a pet purchase",
     "petTrade": "pet trade",
@@ -37,7 +37,8 @@
     "sell": "selling an item",
     "sellConfirm": "confirmation of an item sale",
     "shop": "shop",
-    "shopConfirmation": "confirmation of choice in store",
+    "shopConfirmation": "confirmation of a choice in the shop",
+    "skipMission": "skipping a mission",
     "startBossFight": "start of a boss fight",
     "switch": "equipment switch",
     "test": "test",
@@ -57,8 +58,8 @@
   "alreadyInAGuild": "You already belong to a guild.",
   "petDoesntExist": "No pet was found.",
   "unexpectedError": "An error occurred. :(",
-  "pleaseWaitForHeal": "Please wait for the healing end of your state to continue playing: {{time}}\n\n:information_source: You can use the {command:shop} command to purchase care.",
-  "pleaseWaitForHisHeal": "Please wait until the end of healing of its state alteration: {{time}}",
+  "pleaseWaitForHeal": "Please wait for the state alteration recovery to be complete before you can continue playing: {{time}}\n\n:information_source: You can use the {command:shop} command to purchase a treatment.",
+  "pleaseWaitForHisHeal": "Please wait until his state alteration recovery is complete: {{time}}",
   "notEnoughMoney": "You don't have enough money to perform this action. You are missing {{money}}{emote:unitValues.money}.",
   "cooldownPetFree": "You can only release one pet per hour. You will be able to release another one {{remainingTime}}.",
   "unknownPlayer": "Nickname 404",
@@ -66,9 +67,9 @@
   "stringRules": "- Use at least one letter\n- Do not put more than 2 consecutive spaces\n- Special characters are not allowed\n- Between {{min}} and {{max}} characters",
   "notInAGuild": "You have to be in a guild to use this command.",
   "notAuthorizedError": "You do not have the required permissions to do that command in your guild, please ask a superior if needed.",
-  "levelTooLow": "You must **Level {{level}}** to use this command! Come back later!",
+  "levelTooLow": "You must be **level {{level}}** to use this command! Come back later!",
   "targetLevelTooLow": "This player must be **level {{level}}** for you to use this command!",
-  "notAuthorizedRight": "You do not have permission to perform this command.",
+  "notAuthorizedRight": "You do not have the required permissions to perform this command.",
   "notPossibleWithoutStatus": "You don't need our services right now",
   "effects": {
     "not_started": {
@@ -100,8 +101,8 @@
       "other": "{{pseudo}} is currently ill!"
     },
     "jailed": {
-      "self": "You are currently closed!",
-      "other": "{{pseudo}} is currently closed!"
+      "self": "You are currently jailed!",
+      "other": "{{pseudo}} is currently jailed!"
     },
     "injured": {
       "self": "You are currently seriously injured!",
@@ -120,8 +121,8 @@
       "other": "{{pseudo}} is currently confused!"
     },
     "scared": {
-      "self": "You are currently supported!",
-      "other": "{{pseudo}} is currently dormant!"
+      "self": "You are currently frightened!",
+      "other": "{{pseudo}} is currently frightened!"
     },
     "lost": {
       "self": "You are currently lost!",
@@ -132,12 +133,13 @@
       "other": "Unable to perform this action."
     },
     "deadHint": {
-      "self": "You can relive by using the {command:respawn} command to continue playing.",
+      "self": "You can revive by using the {command:respawn} command to continue playing.",
       "other": "Unable to perform this action."
     }
   },
   "errorOccurredTitle": "An error occurred",
-  "errorOccurred": "An error occurred while executing this command :(\n\nPlease report this issue to a team member, specifying the time and server on which you encountered this problem.\n\nPlease do not join our support server for help: https://discord.gg/5JqrMtZ",
+  "errorOccurred": "An error occurred while executing this command :(\n\nPlease report this issue to a team member, specifying the time and server on which you encountered this problem.\n\nPlease do not hesitate to join our support server for help: https://discord.gg/5JqrMtZ",
   "maintenanceTitle": "Maintenance",
-  "maintenance": "The game is currently under maintenance, please try again later.\n\nFor more information, go to the official Discord server: https://discord.gg/AP3Wmzb"
+  "maintenance": "The game is currently under maintenance, please try again later.\n\nFor more information, go to the official Discord server: https://discord.gg/AP3Wmzb",
+  "banned": "You have been banned from the game."
 }
