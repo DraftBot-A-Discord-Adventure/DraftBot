@@ -178,7 +178,7 @@ export class Player extends Model {
 	}
 
 	/**
-	 * Get the origin id of the playe²r
+	 * Get the origin id of the player
 	 */
 	public getPreviousMapId(): number {
 		const link = MapLinkDataController.instance.getById(this.mapLinkId);
@@ -261,6 +261,9 @@ export class Player extends Model {
 	 * Return the value of glory that is displayed to the users
 	 */
 	public getGloryPoints(): number {
+		console.log("Hello World");
+		console.log(this.attackGloryPoints);
+		console.log(this.defenseGloryPoints);
 		return this.attackGloryPoints + this.defenseGloryPoints;
 	}
 
@@ -824,6 +827,10 @@ export class Player extends Model {
 	 * Get the league of the player
 	 */
 	public getLeague(): League {
+		const banane = this.getGloryPoints();
+		console.log("this.getGloryPoints()", this.getGloryPoints());
+
+		console.log(banane);
 		return LeagueDataController.instance.getByGlory(this.getGloryPoints());
 	}
 
@@ -1449,7 +1456,7 @@ export class Players {
 						player.attackGloryPoints + FightConstants.ELO.MAX_ELO_GAP
 					]
 				},
-				level:  {[Op.gt]: FightConstants.REQUIRED_LEVEL}
+				level: {[Op.gt]: FightConstants.REQUIRED_LEVEL}
 			},
 			order: [
 				// Sort using the difference with the attack elo of the player

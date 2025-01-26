@@ -10,12 +10,12 @@ export class CommandFightPacketReq extends DraftBotPacket {
 	playerKeycloakId!: string;
 }
 
-@sendablePacket(PacketDirection.BACK_TO_FRONT)
+/* @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandFightEndOfFightPacketRes extends DraftBotPacket {
 	fightInitiatorInformation!: EndOfFightPlayerStatus;
 
 	fightOpponentInformation!: EndOfFightPlayerStatus;
-}
+}*/
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandFightIntroduceFightersPacket extends DraftBotPacket {
@@ -25,9 +25,9 @@ export class CommandFightIntroduceFightersPacket extends DraftBotPacket {
 
 	fightOpponentMonsterId?: string;
 
-	fightInitiatorActions!: string[];
+	fightInitiatorActions!: Map<string,number>;
 
-	fightOpponentActions!: string[];
+	fightOpponentActions!: Map<string,number>;
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)

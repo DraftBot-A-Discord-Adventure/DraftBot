@@ -857,7 +857,10 @@
       "class": "$t(models:classFormat)",
       "stats": "{emote:unitValues.energy} {{cumulativeHealth}} / {{cumulativeMaxHealth}} | {emote:unitValues.attack} {{cumulativeAttack}} | {emote:unitValues.defense} {{cumulativeDefense}} | {emote:unitValues.speed} {{cumulativeSpeed}} | {emote:unitValues.breath} {{baseBreath}} / {{maxBreath}} | {emote:unitValues.breathRegen} {{breathRegen}}"
     },
-    "opponentsNotFound" : "Aucun adversaire n'a été trouvé pour vous affronter. Vous pouvez réessayer plus tard."
+    "opponentsNotFound" : "Aucun adversaire n'a été trouvé pour vous affronter. Vous pouvez réessayer plus tard.",
+    "fightIntroTitle": "{emote:fight_command.crossed_swords} | Un combat est lancé entre {{fightInitiator}} et {{opponent}} !",
+    "actionsOf": "Attaques de {{pseudo}}",
+    "fightActionNameDisplay": "{{FightActionEmote}} - {{FightActionName}} | {emote:unitValues.breath} {{breathCost}}"
   },
   "switch": {
     "titleSuccess": "{{pseudo}}, commande effectuée !",
