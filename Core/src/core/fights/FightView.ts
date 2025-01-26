@@ -46,20 +46,20 @@ export class FightView {
 	 */
 	introduceFight(response: DraftBotPacket[], fighter: Fighter, opponent: Fighter): void {
 		// we need to construct for each fighter a map with the id of the action and breath cost as value
-		const initiatorFightActions = new Map<string, number>();
+		const fightInitiatorActions = new Array<[string, number]>();
 		for (const action of fighter.availableFightActions) {
-			initiatorFightActions.set(action[0], action[1].breath);
+			fightInitiatorActions.push([action[0], action[1].breath]);
 		}
-		const opponentFightActions = new Map<string, number>();
+		const fightOpponentActions = new Array<[string, number]>();
 		for (const action of opponent.availableFightActions) {
-			opponentFightActions.set(action[0], action[1].breath);
+			fightOpponentActions.push([action[0], action[1].breath]);
 		}
 		response.push(makePacket(CommandFightIntroduceFightersPacket, {
 			fightInitiatorKeycloakId: (fighter as PlayerFighter).player.keycloakId,
 			fightOpponentKeycloakId: opponent instanceof PlayerFighter ? opponent.player.keycloakId : null,
 			fightOpponentMonsterId: opponent instanceof MonsterFighter ? opponent.monster.id : null,
-			fightInitiatorActions: initiatorFightActions,
-			fightOpponentActions: opponentFightActions
+			fightInitiatorActions,
+			fightOpponentActions
 		}));
 	}
 
