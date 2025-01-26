@@ -7,3 +7,6 @@ export class ErrorPacket extends DraftBotPacket {
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class ErrorMaintenancePacket extends DraftBotPacket {}
+
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class ErrorBannedPacket extends DraftBotPacket {}

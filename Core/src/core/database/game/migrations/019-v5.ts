@@ -18,7 +18,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 			[Op.lt]: 100
 		},
 		effectEndDate: {
-			[Op.lt]: new Date(2050, 1, 1)
+			[Op.lt]: new Date(2050, 0, 1)
 		}
 	});
 

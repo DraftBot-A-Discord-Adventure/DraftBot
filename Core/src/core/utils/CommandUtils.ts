@@ -11,6 +11,7 @@ import {RequirementGuildRolePacket} from "../../../../Lib/src/packets/commands/r
 import {RequirementRightPacket} from "../../../../Lib/src/packets/commands/requirements/RequirementRightPacket";
 import {BlockingUtils} from "./BlockingUtils";
 import {draftBotInstance} from "../../index";
+import {ErrorBannedPacket} from "../../../../Lib/src/packets/commands/ErrorPacket";
 
 type Requirements = {
 	disallowedEffects?: Effect[];
@@ -190,6 +191,12 @@ export const commandRequires = <T extends DraftBotPacket>(packet: PacketLike<T>,
 	(target: unknown, prop: string, descriptor: TypedPropertyDescriptor<WithPlayerPacketListenerCallbackServer<T>>): void => {
 		draftBotInstance.packetListener.addPacketListener<T>(packet, async (response: DraftBotPacket[], packet: T, context: PacketContext): Promise<void> => {
 			const player = await Players.getOrRegister(context.keycloakId);
+
+			if (player.banned) {
+				response.push(makePacket(ErrorBannedPacket, {}));
+				return;
+			}
+
 			// Warning: order of the checks is important, as appendBlockedPacket can add a packet to the response
 			if (requirements.notBlocked && BlockingUtils.appendBlockedPacket(player, response)) {
 				return;
