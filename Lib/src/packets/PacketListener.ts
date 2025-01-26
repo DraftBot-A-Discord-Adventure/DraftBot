@@ -13,7 +13,7 @@ export class PacketListenerServer {
 				await callback(response, context, packet);
 			}
 			catch (e) {
-				console.error(`${PacketListenerServer.name} : Error while handling packet ${instance.constructor.name}: ${(e as Error).stack}`);
+				console.error(`${PacketListenerServer.name} : Error while handling packet ${instance.constructor.name}: ${e} ${(e as Error).stack}`);
 				throw e;
 			}
 		});
@@ -39,7 +39,7 @@ export class PacketListenerClient {
 				await callback(context, packet);
 			}
 			catch (e) {
-				console.error(`${PacketListenerClient.name} : Error while handling packet ${instance.constructor.name}: ${(e as Error).stack}`);
+				console.error(`${PacketListenerClient.name} : Error while handling packet ${instance.constructor.name}: ${e} ${(e as Error).stack}`);
 				throw e;
 			}
 		});
