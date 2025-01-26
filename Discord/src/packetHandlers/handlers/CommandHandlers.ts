@@ -633,17 +633,17 @@ export default class CommandHandlers {
 	}
 
 	@packetHandler(CommandFightRefusePacketRes)
-	async refuseFight(packet: CommandFightRefusePacketRes, context: PacketContext): Promise<void> {
+	async refuseFight(context: PacketContext, packet: CommandFightRefusePacketRes): Promise<void> {
 		await handleCommandFightRefusePacketRes(packet, context);
 	}
 
 	@packetHandler(CommandFightOpponentsNotFoundPacket)
-	async opponentsNotFoundFight(_packet: CommandFightOpponentsNotFoundPacket, context: PacketContext): Promise<void> {
+	async opponentsNotFoundFight(context: PacketContext, _packet: CommandFightOpponentsNotFoundPacket): Promise<void> {
 		await handleClassicError(context ,"commands:fight.opponentsNotFound");
 	}
 
 	@packetHandler(CommandFightIntroduceFightersPacket)
-	async introduceFighters(packet: CommandFightIntroduceFightersPacket, context: PacketContext): Promise<void> {
+	async introduceFighters(context: PacketContext, packet: CommandFightIntroduceFightersPacket): Promise<void> {
 		await handleCommandFightIntroduceFightersRes(packet, context);
 	}
 
