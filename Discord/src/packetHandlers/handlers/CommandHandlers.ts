@@ -140,15 +140,14 @@ import {
 	CommandGuildElderSameGuildPacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildElderPacket";
 import {
-	handleCommandGuildElderAcceptPacketRes,
-	handleCommandGuildElderRefusePacketRes
-} from "../../commands/guild/GuildElderCommand";
-import {
 	CommandFightIntroduceFightersPacket,
 	CommandFightOpponentsNotFoundPacket,
 	CommandFightRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandFightPacket";
-import {handleCommandFightRefusePacketRes} from "../../commands/player/FightCommand";
+import {
+	handleCommandFightIntroduceFightersRes,
+	handleCommandFightRefusePacketRes
+} from "../../commands/player/FightCommand";
 import {
 	CommandGuildLeaveAcceptPacketRes, CommandGuildLeaveNotInAGuildPacketRes,
 	CommandGuildLeaveRefusePacketRes
