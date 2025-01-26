@@ -255,7 +255,11 @@ export class LogsReadRequests {
 			include: [
 				{
 					model: LogsPlayers,
-					as: "LogsPlayer2",
+					association: new HasOne(LogsFightsResults, LogsPlayers, {
+						sourceKey: "player2Id",
+						foreignKey: "id",
+						as: "LogsPlayer2"
+					}),
 					attributes: ["keycloakId"],
 					required: true, // Ensure only records with LogsPlayer2 are returned
 					where: {
