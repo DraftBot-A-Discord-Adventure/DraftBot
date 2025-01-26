@@ -76,8 +76,7 @@ export abstract class CommandUtils {
 		let guild;
 		try {
 			guild = await Guilds.getById(player.guildId);
-		}
-		catch {
+		} catch {
 			guild = null;
 		}
 
@@ -189,7 +188,7 @@ type WithPlayerPacketListenerCallbackServer<T extends DraftBotPacket> = (respons
  */
 export const commandRequires = <T extends DraftBotPacket>(packet: PacketLike<T>, requirements: Requirements) =>
 	(target: unknown, prop: string, descriptor: TypedPropertyDescriptor<WithPlayerPacketListenerCallbackServer<T>>): void => {
-		draftBotInstance.packetListener.addPacketListener<T>(packet, async (response: DraftBotPacket[], packet: T, context: PacketContext): Promise<void> => {
+		draftBotInstance.packetListener.addPacketListener<T>(packet, async (response: DraftBotPacket[], context: PacketContext, packet: T): Promise<void> => {
 			const player = await Players.getOrRegister(context.keycloakId);
 
 			if (player.banned) {

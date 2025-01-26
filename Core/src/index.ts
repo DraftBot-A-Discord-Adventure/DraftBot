@@ -1,11 +1,8 @@
 import {DraftBot} from "./core/bot/DraftBot";
 import {loadConfig} from "./core/bot/DraftBotConfig";
-import {
-	DraftBotPacket,
-	makePacket, PacketContext
-} from "../../Lib/src/packets/DraftBotPacket";
+import {DraftBotPacket, makePacket, PacketContext} from "../../Lib/src/packets/DraftBotPacket";
 import {ErrorMaintenancePacket, ErrorPacket} from "../../Lib/src/packets/commands/ErrorPacket";
-import { connect } from "mqtt";
+import {connect} from "mqtt";
 import {PacketUtils} from "./core/utils/PacketUtils";
 import {MqttConstants} from "../../Lib/src/constants/MqttConstants";
 import {RightGroup} from "../../Lib/src/types/RightGroup";
@@ -52,10 +49,10 @@ mqttClient.on("message", async (topic, message) => {
 		if (!listener) {
 			const errorMessage = `No listener found for packet '${dataJson.packet.name}'`;
 			console.error(errorMessage);
-			response.push(makePacket(ErrorPacket, { message: errorMessage }));
+			response.push(makePacket(ErrorPacket, {message: errorMessage}));
 		}
 		else {
-			await draftBotInstance.packetListener.getListener(dataJson.packet.name)(response, dataJson.packet.data, dataJson.context);
+			await draftBotInstance.packetListener.getListener(dataJson.packet.name)(response, dataJson.context, dataJson.packet.data);
 		}
 	}
 
@@ -66,6 +63,8 @@ mqttClient.on("error", (error) => {
 	console.error(error);
 });
 
-require("source-map-support").install();
+require("source-map-support")
+	.install();
 draftBotInstance = new DraftBot();
-draftBotInstance.init().then();
+draftBotInstance.init()
+	.then();
