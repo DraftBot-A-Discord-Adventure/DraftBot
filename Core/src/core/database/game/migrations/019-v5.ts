@@ -1,4 +1,4 @@
-import {DataTypes, QueryInterface} from "sequelize";
+import {DataTypes, Op, QueryInterface} from "sequelize";
 import {classesAttributes001, itemAttributes001, missionsAttributes001, petAttributes001} from "./001-initial-database";
 import {leaguesAttributes008} from "./008-gloryandleague";
 import {monsterLocationsAttributes011} from "./011-pve";
@@ -12,6 +12,16 @@ import {LANGUAGE} from "../../../../../../Lib/src/Language";
 import {Effect} from "../../../../../../Lib/src/types/Effect";
 
 export async function up({context}: { context: QueryInterface }): Promise<void> {
+	// Delete players with a score < 100 and that are not banned
+	await context.bulkDelete("players", {
+		score: {
+			[Op.lt]: 100
+		},
+		effectEndDate: {
+			[Op.lt]: new Date(2050, 1, 1)
+		}
+	});
+
 	const players = await context.select(null, "players") as { [key: string]: unknown }[];
 
 	if (players.length !== 0) {
