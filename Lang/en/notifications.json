@@ -10,14 +10,14 @@
       "title_one": "{{pseudo}}, a mission has been completed.",
       "title_other": "{{pseudo}}, missions have been completed.",
       "subcategories": {
-        "campaign_one": "{emote:missions.campaign} **Campaign Mission**",
-        "campaign_other": "{emote:missions.campaign} **Campaign Missions**",
-        "daily": "{emote:missions.daily} **Daily Mission**",
+        "campaign_one": "{emote:missions.campaign} **Campaign mission**",
+        "campaign_other": "{emote:missions.campaign} **Campaign missions**",
+        "daily": "{emote:missions.daily} **Daily mission**",
         "sideMission_one": "{emote:missions.sideMission} **Secondary mission**",
-        "sideMission_other": "{emote:missions.sideMission} **Secondary Mission**"
+        "sideMission_other": "{emote:missions.sideMission} **Secondary missions**"
       },
       "totalRewards": "{emote:missions.total} Total rewards",
-      "totalDisplay": "Gem Earned: {{gems}} {emote:unitValues.gem}\nExperience Earned: {{xp}} {emote:unitValues.xp}",
+      "totalDisplay": "Gems earned: {{gems}} {emote:unitValues.gem}\nExperience earned: {{xp}} {emote:unitValues.xp}",
       "missionDisplay": "- {{missionDescription}}{{missionsReward}}",
       "pointsDisplay": "+{{count}} {emote:unitValues.score}",
       "gemsDisplay": "+{{count}} {emote:unitValues.gem}",
@@ -26,7 +26,7 @@
     }
   },
   "guildFood": {
-    "receivedFoodTitle": "Your guild has received food",
-    "receivedFoodDescription": "{emote:foods.{{foodId}}} Your guild has recovered: **{{amount}}x {{foodName}}**"
+    "receivedFoodTitle": "Your guild has received some food",
+    "receivedFoodDescription": "{emote:foods.{{foodId}}} Your guild has received: **{{amount}}x {{foodName}}**"
   }
 }
