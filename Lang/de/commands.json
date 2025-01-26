@@ -89,12 +89,24 @@
     "chiefError": "Als Gildenleiter dürfen Sie nicht der Älteste sein.",
     "alreadyElder": "Der Spieler ist bereits Ältester in Ihrer Gilde.",
     "title": "{{pseudo}}... bestätigen Sie Ihre Wahl?",
-    "confirmDesc": ":question: {{elderPseudo}} wird der Älteste der Gilde `{{guildName}}` werden.",
+    "confirmDesc": "{emote:collectors.question} {{elderPseudo}} wird der Älteste der Gilde `{{guildName}}` werden.",
     "successElderAddTitle": "{{elderPseudo}} ist der neue Älteste der Gilde {{guildName}} !",
     "acceptedDesc": "Der Älteste dient dazu, den Anführer bei der Verwaltung der Gilde zu unterstützen. Wählen Sie ihn daher mit Bedacht aus! Aber seien Sie beruhigt: Wenn Sie mit Ihrem Ältesten nicht zufrieden sind, können Sie ihn mit dem Befehl {command:guildelder}ersetzen, oder wenn Sie eine diktatorische Ader haben, können Sie ihn mit {command:guildelderremove}endgültig entfernen.",
     "canceledDesc": "Der älteste Schüler wurde nicht befördert.",
-    "canceledTitle": "Stornierung berücksichtigt.",
-    "problemWhilePromoting": "Bei der Beförderung des Spielers ist ein Fehler aufgetreten."
+    "canceledTitle": "Stornierung berücksichtigt."
+  },
+  "guildLeave": {
+    "title": "{{pseudo}}Bestätigung :",
+    "confirmDesc": "{emote:collectors.question} Möchten Sie die Gilde `{{guildName}}` wirklich verlassen?",
+    "confirmChiefDesc": "{emote:collectors.question} Möchten Sie die Gilde `{{guildName}}` wirklich **endgültig** zerstören?",
+    "confirmChiefDescWithElder": "{emote:collectors.question} Möchten Sie wirklich die Gilde `{{guildName}}` verlassen? {{newChiefPseudo}} wird ihr Anführer werden.",
+    "canceledDesc": "Ihre Abreise wurde storniert.",
+    "successTitle": "{{pseudo}} hat die Gilde verlassen {{guildName}} !",
+    "leavingSuccess": "Sie sind ein armer, einsamer Cowboy und sehr weit von zu Hause entfernt...",
+    "destroySuccess": "Die Gilde {{guildName}} wurde korrekt aufgelöst.",
+    "newChiefTitle": "{{newChiefPseudo}} ist der neue Anführer der Gilde {{guildName}} !",
+    "notInAGuild": "Es scheint, dass Sie bereits nicht mehr in einer Gilde sind.",
+    "canceledTitle": "Stornierung berücksichtigt"
   },
   "help": {
     "aliasFieldTitle": "Alias",
@@ -827,5 +839,15 @@
     "nobodyInTopPlayers": "Es gibt derzeit niemanden in der Top-Liste! Genießen Sie es, solange Sie können.",
     "nobodyInTopGuilds": "Es gibt derzeit keine Gilden in der Top-Liste! Genießt es, solange ihr könnt.",
     "invalidPage": "Die angeforderte Seite existiert nicht. Bitte versuchen Sie es erneut mit einer Seite zwischen {{minPage}} und {{maxPage}}."
+  },
+  "switch": {
+    "titleSuccess": "{{pseudo}}Die Bestellung wurde ausgeführt.",
+    "switchingDouble": "{{item1}} und {{item2}} wurden ausgetauscht!",
+    "switchingSingle_male": "{{item1}} ausgestattet wurde!",
+    "switchingSingle_female": "{{item1}} ausgestattet wurde!",
+    "noItemToSwitch": "Sie haben keine Ausrüstung, die Sie ausrüsten müssen!",
+    "cancelled": "Aktion abgebrochen!",
+    "switchSelectionTitle": "{{pseudo}}Die Ausrüstung eines Objekts",
+    "switchSelectionDescription": "Wählen Sie aus der folgenden Liste einen Gegenstand zum Ausrüsten aus:"
   }
 }
