@@ -38,6 +38,7 @@
     "sellConfirm": "confirmação da venda de um artigo",
     "shop": "escolha na loja",
     "shopConfirmation": "confirmação da escolha na loja",
+    "skipMission": "transferência de uma missão",
     "startBossFight": "início de uma luta de chefes",
     "switch": "troca de equipamentos",
     "test": "teste",
@@ -139,5 +140,6 @@
   "errorOccurredTitle": "Ocorreu um erro",
   "errorOccurred": "\n\nOcorreu um erro ao executar este comando:( Por favor, comunique este problema a um membro da equipa, especificando a hora e o servidor em que se deparou com o problema.\n\nNão hesite em contactar o nosso servidor de apoio para obter assistência: https://discord.gg/5JqrMtZ",
   "maintenanceTitle": "Manutenção",
-  "maintenance": "O jogo está atualmente em manutenção, por favor tente novamente mais tarde.\n\nPara mais informações, visita o servidor oficial do Discord: https://discord.gg/AP3Wmzb"
+  "maintenance": "O jogo está atualmente em manutenção, por favor tente novamente mais tarde.\n\nPara mais informações, visita o servidor oficial do Discord: https://discord.gg/AP3Wmzb",
+  "banned": "Vous avez été banni du jeu."
 }

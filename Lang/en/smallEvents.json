@@ -1575,26 +1575,26 @@
       "Walking peacefully to the unknown, a family silhouette emerges: Alderic the antique dealer, the wandering merchant, offers you an intriguing proposal.",
       "During your trip without hindrance, a unique event occurs. Alderic the antique dealer, the artist traveling antiquities, invites you to a memorable transaction.",
       "During your trip, a surprising break occurs, and Alderic the antique dealer, the merchant, gives you an unexpected treasure.",
-      "During a short break under a tree, a mystery character appears. It is Alderic the antique dealer, the vagabond of the insolite, ready to immerse you in an enchanting offer.",
-      "As the wheel noise of a cart moves peacefully along your path, your attention is drawn to the noise of the wheels of a cart. Alderic the antique dealer, a man of an aerous vetu in a picturesque way, wanders the roads as a merchant. With a friendly smile, he invites you to explore his collection of fascinating objects.",
-      "Walking on a dusty stone path, a cart bearing the inscription Alderic the antique dealer - great items\" presents yourselves. A transaction is about to begin.",
-      "Walking quietly, a wooden trolley that attracted your curiosities appeared on the horizon. His cart is filled with antiques carefully arranged and he proposes to show you his treasures, all loaded with stories.",
-      "Leaving after a short break, a well-dressed individual approaches you. He likes like Alderic the antique dealer, a renowned traveling merchant. Its outfit, blending ancient fabrics and mystical accessories, reflects its love for the objects of yesteryear. With an excitement accent, he tells you the story of his unique finds.",
-      "During your leisurely stroll, a wagon that looks like a treasure, stopping in front of you. Its driver, Alderic l'antiquaire, is a warm man wearing vintage clothes. He invites you to explore his collection of curiosities, each accompanied by a story that will amaze you.",
-      "During a break in the shade of a big tree, a distinguished man approaches you with a friendly smile. His costume is an epoch and he shows you carefully his collection of ancient objects exhibited in his cart.",
-      "A man of long walking hours has been approaching you with courtesy and courtesy. Presenting itself as an antique dealer, he invites you to discover his collection of fascinating objects, telling with pleasure the story of each of them."
+      "During a short break under a tree, a mysterious character appears. It is Alderic the antique dealer, the vagabond of the insolite, ready to immerse you in an enchanting offer.",
+      "As you peacefully walk along the road, your attention is drawn to the noise of the wheels of a cart. Alderic the antique dealer, a middle-aged man dressed in a picturesque way, wanders the roads as a merchant. With a friendly smile, he invites you to explore his collection of fascinating objects.",
+      "Walking on a dusty stone path, a cart bearing the inscription \"Alderic the antique dealer - great item merchant\" comes into view. A transaction is about to begin.",
+      "Walking quietly, a wooden trolley that attracted your curiosity appears on the horizon. On board is Alderic, a distinguished man marked by the passage of time. His cart is filled with antiques carefully arranged and he proposes to show you his treasures, all loaded with stories.",
+      "Leaving after a short break, a well-dressed individual approaches you. He introduces himself as Alderic the antique dealer, a renowned traveling merchant. His outfit, blending ancient fabrics and mysterious accessories, reflects its love for the objects of yesteryear. With an accent tinged with excitement, he tells you the story of his unique finds.",
+      "During your leisurely stroll, a treasure-like cart stops in front of you. Its driver, Alderic the antique dealer, is a warm-hearted man wearing vintage clothes. He invites you to explore his collection of curiosities, each accompanied by a story that will amaze you.",
+      "During a break in the shade of a big tree, a distinguished man approaches you with a friendly smile. It's Alderic the antique dealer, a renowned merchant. His costume is an epoch and he shows you carefully his collection of ancient objects exhibited in his cart.",
+      "After long hours of walking, a middle-aged man dressed in clothes from a bygone era courteously approaches you. Presenting itself as Alderic the antique dealer, an antique enthusiast, he invites you to discover his collection of fascinating objects, telling with pleasure the story of each of them."
     ],
-    "reductionTip": "It tilts the tone upwards and entrusts you to the apartment, 'If you intend to venture to the Wonders Road and you can find me at the bottom rest assured that I will book you an offer of the most advantageous.",
+    "reductionTip": "It tilts the tone upwards and confides in you, 'If you intend to venture to the Road of Wonders and manage to find me there, rest assured that I will book you an offer of the most advantageous.'",
     "purchased": [
       "Satisfied with your purchase, you will return to your road quietly.",
-      "You give him a purse in order to proceed to the purchase, once the property has been acquired you continue your way."
+      "You give him a purse in order to proceed to the purchase, once the item has been acquired you continue your way."
     ],
     "notEnoughMoney": [
-      "Unfortunately, you do not have enough money, so you can get back to the road.",
-      "You stretch an empty purse, hoping that it passes smoothly, but you get hunted quickly, you get back to your sad and sad way."
+      "Unfortunately, you do not have enough money, so you get back on the road.",
+      "You stretch an empty purse, hoping that it passes without a hitch, but you get quickly chased away, you get down the road sad and disappointed."
     ],
     "refused": [
-      "You delineate the offer and return to your path."
+      "You decline the offer and return to your path."
     ]
   }
 }
