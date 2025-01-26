@@ -247,9 +247,9 @@ export class LogsReadRequests {
 			attributes: [],
 			where: {
 				date: {
-					[Op.gt]: Math.floor((Date.now() - minutesToMilliseconds(minutes)) / 1000),
+					[Op.gt]: Math.floor((Date.now() - minutesToMilliseconds(minutes)) / 1000)
 				},
-				friendly: false,
+				friendly: false
 			},
 			include: [
 				{
@@ -259,11 +259,11 @@ export class LogsReadRequests {
 					required: true, // Ensure only records with LogsPlayer2 are returned
 					where: {
 						keycloakId: {
-							[Op.in]: playerKeycloakIds,
-						},
-					},
-				},
-			],
+							[Op.in]: playerKeycloakIds
+						}
+					}
+				}
+			]
 		});
 
 		const resultsWithPlayer2 = results as (typeof results[0] & LogsFightsResultsWithPlayer2)[];
