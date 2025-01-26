@@ -89,12 +89,24 @@
     "chiefError": "Come capo gilda, non puoi essere il più anziano.",
     "alreadyElder": "Il giocatore è già un membro anziano della vostra gilda.",
     "title": "{{pseudo}}Sta confermando la sua scelta?",
-    "confirmDesc": ":question: {{elderPseudo}}{{guildName}}diventerà il membro più anziano della gilda.",
+    "confirmDesc": "{emote:collectors.question} {{elderPseudo}}{{guildName}}diventerà il membro più anziano della gilda.",
     "successElderAddTitle": "{{elderPseudo}} {{guildName}} è il nuovo membro della gilda!",
     "acceptedDesc": "Il più anziano aiuta il capo a gestire la gilda. Quindi sceglietelo con cura! {command:guildelder} {command:guildelderremove}Ma non preoccupatevi, se non siete soddisfatti del vostro anziano, potete sostituirlo con il comando , o se vi sentite un dittatore, potete rimuoverlo definitivamente con .",
     "canceledDesc": "Il più anziano non è stato promosso.",
-    "canceledTitle": "Cancellazione presa in considerazione.",
-    "problemWhilePromoting": "Si è verificato un errore durante la promozione del giocatore."
+    "canceledTitle": "Cancellazione presa in considerazione."
+  },
+  "guildLeave": {
+    "title": "{{pseudo}}conferma :",
+    "confirmDesc": "{emote:collectors.question}{{guildName}}Vuoi davvero lasciare la gilda?",
+    "confirmChiefDesc": "{emote:collectors.question}{{guildName}}Vuoi davvero **distruggere definitivamente** la gilda?",
+    "confirmChiefDescWithElder": "{emote:collectors.question}{{guildName}} {{newChiefPseudo}} Vuoi davvero lasciare la gilda? diventerà il suo leader.",
+    "canceledDesc": "La partenza è stata annullata.",
+    "successTitle": "{{pseudo}} {{guildName}} ha lasciato la gilda!",
+    "leavingSuccess": "Sei un povero cowboy solitario e sei molto lontano da casa...",
+    "destroySuccess": "{{guildName}} La gilda è stata sciolta con successo.",
+    "newChiefTitle": "{{newChiefPseudo}} {{guildName}} è il nuovo capo della gilda!",
+    "notInAGuild": "Sembra che tu non faccia più parte di una gilda.",
+    "canceledTitle": "Cancellazione presa in considerazione"
   },
   "help": {
     "aliasFieldTitle": "Alias",
@@ -827,5 +839,15 @@
     "nobodyInTopPlayers": "Al momento non c'è nessuno nella top ten! Godetevela finché potete.",
     "nobodyInTopGuilds": "Al momento non ci sono gilde nella top! Godetevela finché potete.",
     "invalidPage": "La pagina richiesta non esiste. {{minPage}} {{maxPage}}Riprovare con una pagina compresa tra e ."
+  },
+  "switch": {
+    "titleSuccess": "{{pseudo}}Ordina ora!",
+    "switchingDouble": "{{item1}} {{item2}} e sono stati scambiati!",
+    "switchingSingle_male": "{{item1}} è stato allestito!",
+    "switchingSingle_female": "{{item1}} è stato allestito!",
+    "noItemToSwitch": "Non dovete equipaggiare nulla!",
+    "cancelled": "Azione annullata!",
+    "switchSelectionTitle": "{{pseudo}}equipaggiare un oggetto",
+    "switchSelectionDescription": "Scegliere un oggetto da equipaggiare dall'elenco sottostante:"
   }
 }
