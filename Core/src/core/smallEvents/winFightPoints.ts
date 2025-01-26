@@ -7,7 +7,7 @@ import {Maps} from "../maps/Maps";
 
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: (player) => Maps.isOnPveIsland(player) && player.fightPointsLost > 0,
-	executeSmallEvent: async (context, response, player): Promise<void> => {
+	executeSmallEvent: async (response, player): Promise<void> => {
 		const maxFightPoints = player.getMaxCumulativeFightPoint();
 		const amount = RandomUtils.randInt(
 			Math.max(PVEConstants.FIGHT_POINTS_SMALL_EVENT.MIN_PERCENT * maxFightPoints, 1),

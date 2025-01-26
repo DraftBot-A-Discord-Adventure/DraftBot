@@ -20,7 +20,7 @@ export async function interactOtherPlayerGetPlayerDisplay(keycloakId: string, ra
 		: i18n.t("smallEvents:interactOtherPlayers.playerDisplayUnranked", {lng, pseudo: playerName});
 }
 
-export async function interactOtherPlayersCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+export async function interactOtherPlayersCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorInteractOtherPlayersPoorData;
 	const playerDisplay = await interactOtherPlayerGetPlayerDisplay(data.keycloakId, data.rank, interaction.userLanguage);

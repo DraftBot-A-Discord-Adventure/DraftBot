@@ -285,7 +285,7 @@ async function sendACoin(otherPlayer: Player, player: Player, response: DraftBot
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnContinent,
 
-	async executeSmallEvent(context, response, player): Promise<void> {
+	async executeSmallEvent(response, player, context): Promise<void> {
 		const numberOfPlayers = await Player.count({
 			where: {
 				score: {

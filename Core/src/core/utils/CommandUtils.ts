@@ -76,7 +76,7 @@ export abstract class CommandUtils {
 		try {
 			guild = await Guilds.getById(player.guildId);
 		}
-		catch (error) {
+		catch {
 			guild = null;
 		}
 

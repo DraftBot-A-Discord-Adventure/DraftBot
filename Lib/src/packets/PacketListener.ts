@@ -8,9 +8,9 @@ export class PacketListenerServer {
 		const instance = new cls();
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
-		this.packetCallbacks.set(instance.constructor.name, async (response, packet: T, context): Promise<void> => {
+		this.packetCallbacks.set(instance.constructor.name, async (response, context, packet: T): Promise<void> => {
 			try {
-				await callback(response, packet, context);
+				await callback(response, context, packet);
 			}
 			catch (e) {
 				console.error(`${PacketListenerServer.name} : Error while handling packet ${instance.constructor.name}: ${(e as Error).stack}`);
@@ -22,13 +22,9 @@ export class PacketListenerServer {
 	public getListener(packet: string): PacketListenerCallbackServer<DraftBotPacket> {
 		return this.packetCallbacks.get(packet)!;
 	}
-
-	public getImplementedPackets(): string[] {
-		return Array.from(this.packetCallbacks.keys());
-	}
 }
 
-export type PacketListenerCallbackServer<T extends DraftBotPacket> = (response: DraftBotPacket[], packet: T, context: PacketContext) => void | Promise<void>;
+export type PacketListenerCallbackServer<T extends DraftBotPacket> = (response: DraftBotPacket[], context: PacketContext, packet: T) => void | Promise<void>;
 
 export class PacketListenerClient {
 	private packetCallbacks: Map<string, PacketListenerCallbackClient<DraftBotPacket>> = new Map<string, PacketListenerCallbackClient<DraftBotPacket>>();
@@ -38,9 +34,9 @@ export class PacketListenerClient {
 		const instance = new cls();
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
-		this.packetCallbacks.set(instance.constructor.name, async (packet: V, context: PacketContext) => {
+		this.packetCallbacks.set(instance.constructor.name, async (context: PacketContext, packet: V) => {
 			try {
-				await callback(packet, context);
+				await callback(context, packet);
 			}
 			catch (e) {
 				console.error(`${PacketListenerClient.name} : Error while handling packet ${instance.constructor.name}: ${(e as Error).stack}`);
@@ -52,10 +48,6 @@ export class PacketListenerClient {
 	public getListener(packet: string): PacketListenerCallbackClient<DraftBotPacket> | undefined {
 		return this.packetCallbacks.get(packet);
 	}
-
-	public getImplementedPackets(): string[] {
-		return Array.from(this.packetCallbacks.keys());
-	}
 }
 
-export type PacketListenerCallbackClient<T extends DraftBotPacket> = (packet: T, context: PacketContext) => Promise<void>;
+export type PacketListenerCallbackClient<T extends DraftBotPacket> = (context: PacketContext, packet: T) => Promise<void>;

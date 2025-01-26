@@ -11,7 +11,7 @@ import {LANGUAGE} from "../../../../Lib/src/Language";
 
 export default class ErrorHandler {
 	@packetHandler(ErrorPacket)
-	async errorHandler(packet: ErrorPacket, context: PacketContext): Promise<void> {
+	async errorHandler(context: PacketContext, packet: ErrorPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		const embed = new DraftBotEmbed()
 			.setErrorColor()
@@ -22,7 +22,7 @@ export default class ErrorHandler {
 	}
 
 	@packetHandler(BlockedPacket)
-	async blockedHandler(packet: BlockedPacket, context: PacketContext): Promise<void> {
+	async blockedHandler(context: PacketContext, packet: BlockedPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		const otherPlayer = context.keycloakId !== packet.keycloakId;
 		const originalUser = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
@@ -68,7 +68,7 @@ export default class ErrorHandler {
 	}
 
 	@packetHandler(ErrorMaintenancePacket)
-	async maintenanceHandler(packet: ErrorMaintenancePacket, context: PacketContext): Promise<void> {
+	async maintenanceHandler(context: PacketContext, _packet: ErrorMaintenancePacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 
 		if (interaction) {

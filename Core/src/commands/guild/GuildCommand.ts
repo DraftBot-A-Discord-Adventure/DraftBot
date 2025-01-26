@@ -17,7 +17,7 @@ export default class GuildCommand {
 			try {
 				guild = await Guilds.getByName(packet.askedGuildName);
 			}
-			catch (error) {
+			catch {
 				guild = null;
 			}
 		}

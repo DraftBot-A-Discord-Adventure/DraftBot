@@ -9,7 +9,7 @@ import {SmallEventFindItemPacket} from "../../../../Lib/src/packets/smallEvents/
 
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnContinent,
-	executeSmallEvent: async (context, response, player): Promise<void> => {
+	executeSmallEvent: async (response, player, context): Promise<void> => {
 		const itemGenerated = generateRandomItem(null, ItemConstants.RARITY.COMMON, SmallEventConstants.FIND_ITEM.MAXIMUM_RARITY);
 		await giveItemToPlayer(player, itemGenerated, context, response, await InventorySlots.getOfPlayer(player.id));
 		response.push(makePacket(SmallEventFindItemPacket, {}));

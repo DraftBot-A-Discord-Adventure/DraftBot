@@ -26,7 +26,7 @@ function getFightPetReactions(interaction: DraftbotInteraction, baseReactions: R
 	return reactions;
 }
 
-export async function fightPetCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+export async function fightPetCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorFightPetData;
 

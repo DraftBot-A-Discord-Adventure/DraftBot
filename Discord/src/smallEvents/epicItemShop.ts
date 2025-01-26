@@ -14,7 +14,7 @@ import {ReactionCollectorEpicShopSmallEventData} from "../../../Lib/src/packets/
  * @param packet
  * @param context
  */
-export async function epicItemShopCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+export async function epicItemShopCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	if (!interaction) {
 		return;

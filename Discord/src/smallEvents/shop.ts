@@ -16,7 +16,7 @@ import {ReactionCollectorShopSmallEventData} from "../../../Lib/src/packets/inte
  * @param packet
  * @param context
  */
-export async function smallShopCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+export async function smallShopCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorShopSmallEventData;
 	const gender = RandomUtils.draftbotRandom.bool() ? StringConstants.SEX.MALE : StringConstants.SEX.FEMALE;

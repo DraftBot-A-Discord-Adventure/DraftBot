@@ -3,7 +3,7 @@ import {ICommand} from "../ICommand";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {
 	CommandGuildLeaveAcceptPacketRes,
-	CommandGuildLeavePacketReq, CommandGuildLeaveRefusePacketRes
+	CommandGuildLeavePacketReq
 } from "../../../../Lib/src/packets/commands/CommandGuildLeavePacket";
 import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {DiscordCache} from "../../bot/DiscordCache";
@@ -19,7 +19,7 @@ import {keycloakConfig} from "../../bot/DraftBotShard";
  * @param packet
  * @param context
  */
-export async function createGuildLeaveCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+export async function createGuildLeaveCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorGuildLeaveData;
@@ -70,10 +70,9 @@ export async function handleCommandGuildLeaveAcceptPacketRes(packet: CommandGuil
 
 /**
  * Handle the response when the player don't leave its guild
- * @param packet
  * @param context
  */
-export async function handleCommandGuildLeaveRefusePacketRes(packet: CommandGuildLeaveRefusePacketRes, context: PacketContext): Promise<void> {
+export async function handleCommandGuildLeaveRefusePacketRes(context: PacketContext): Promise<void> {
 	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
 	if (!originalInteraction) {
 		return;

@@ -13,7 +13,7 @@ import {
 } from "../../../Lib/src/packets/interaction/ReactionCollectorItemAccept";
 import {ItemCategory} from "../../../Lib/src/constants/ItemConstants";
 
-export async function itemChoiceCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+export async function itemChoiceCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 
 	const embed = new DraftBotEmbed();
@@ -34,7 +34,7 @@ export async function itemChoiceCollector(packet: ReactionCollectorCreationPacke
 	);
 }
 
-export async function itemAcceptCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+export async function itemAcceptCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorItemAcceptData;
 

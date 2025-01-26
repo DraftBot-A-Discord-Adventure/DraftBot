@@ -93,7 +93,7 @@ export class PetEntity extends Model {
 		try {
 			guild = await Guilds.getById(player.guildId);
 		}
-		catch (error) {
+		catch {
 			guild = null;
 		}
 

@@ -81,7 +81,7 @@ export default class ReactionCollectorHandler {
 	}
 
 	@packetHandler(ReactionCollectorCreationPacket)
-	async collectorCreation(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+	async collectorCreation(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 		if (!ReactionCollectorHandler.collectorMap) {
 			ReactionCollectorHandler.initCollectorMap();
 		}
@@ -89,6 +89,6 @@ export default class ReactionCollectorHandler {
 		if (!collector) {
 			throw `Unknown collector with data: ${packet.data.type}`; // Todo error embed
 		}
-		await collector(packet, context);
+		await collector(context, packet);
 	}
 }

@@ -87,7 +87,7 @@ export function getRandomSmallEventIntro(language: Language): string {
 
 export default class SmallEventsHandler {
 	@packetHandler(SmallEventAdvanceTimePacket)
-	async smallEventAdvanceTime(packet: SmallEventAdvanceTimePacket, context: PacketContext): Promise<void> {
+	async smallEventAdvanceTime(context: PacketContext, packet: SmallEventAdvanceTimePacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (!interaction) {
 			return;
@@ -98,7 +98,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventBigBadPacket)
-	async smallEventBigBad(packet: SmallEventBigBadPacket, context: PacketContext): Promise<void> {
+	async smallEventBigBad(context: PacketContext, packet: SmallEventBigBadPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (!interaction) {
 			return;
@@ -122,7 +122,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventBoatAdvicePacket)
-	async smallEventBoatAdvice(packet: SmallEventBoatAdvicePacket, context: PacketContext): Promise<void> {
+	async smallEventBoatAdvice(context: PacketContext, _packet: SmallEventBoatAdvicePacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (!interaction) {
 			return;
@@ -136,7 +136,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventGoToPVEIslandAcceptPacket)
-	async smallEventGoToPVEIslandAccept(packet: SmallEventGoToPVEIslandAcceptPacket, context: PacketContext): Promise<void> {
+	async smallEventGoToPVEIslandAccept(context: PacketContext, packet: SmallEventGoToPVEIslandAcceptPacket): Promise<void> {
 		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 		await interaction?.editReply({
@@ -156,7 +156,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventGoToPVEIslandRefusePacket)
-	async smallEventGoToPVEIslandRefuse(packet: SmallEventGoToPVEIslandRefusePacket, context: PacketContext): Promise<void> {
+	async smallEventGoToPVEIslandRefuse(context: PacketContext, _packet: SmallEventGoToPVEIslandRefusePacket): Promise<void> {
 		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 		await interaction?.editReply({
@@ -171,7 +171,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventGoToPVEIslandNotEnoughGemsPacket)
-	async smallEventGoToPVEIslandNotEnoughGems(packet: SmallEventGoToPVEIslandNotEnoughGemsPacket, context: PacketContext): Promise<void> {
+	async smallEventGoToPVEIslandNotEnoughGems(context: PacketContext, _packet: SmallEventGoToPVEIslandNotEnoughGemsPacket): Promise<void> {
 		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 		await interaction?.editReply({
@@ -186,7 +186,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventLotteryNoAnswerPacket)
-	async smallEventLotteryNoAnswer(packet: SmallEventLotteryNoAnswerPacket, context: PacketContext): Promise<void> {
+	async smallEventLotteryNoAnswer(context: PacketContext, _packet: SmallEventLotteryNoAnswerPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		await interaction?.editReply({
 			embeds: [
@@ -196,7 +196,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventLotteryPoorPacket)
-	async smallEventLotteryPoor(packet: SmallEventLotteryPoorPacket, context: PacketContext): Promise<void> {
+	async smallEventLotteryPoor(context: PacketContext, _packet: SmallEventLotteryPoorPacket): Promise<void> {
 		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 		await interaction?.editReply({
@@ -211,7 +211,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventLotteryLosePacket)
-	async smallEventLotteryLose(packet: SmallEventLotteryLosePacket, context: PacketContext): Promise<void> {
+	async smallEventLotteryLose(context: PacketContext, packet: SmallEventLotteryLosePacket): Promise<void> {
 		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 		const failKey = packet.moneyLost > 0 ? "failWithMalus" : "fail";
@@ -231,7 +231,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventLotteryWinPacket)
-	async smallEventLotteryWin(packet: SmallEventLotteryWinPacket, context: PacketContext): Promise<void> {
+	async smallEventLotteryWin(context: PacketContext, packet: SmallEventLotteryWinPacket): Promise<void> {
 		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 		const rewardDesc = i18n.t(`smallEvents:lottery.rewardTypeText.${packet.winReward}`, {
@@ -253,7 +253,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventInteractOtherPlayersPacket)
-	async smallEventInteractOtherPlayers(packet: SmallEventInteractOtherPlayersPacket, context: PacketContext): Promise<void> {
+	async smallEventInteractOtherPlayers(context: PacketContext, packet: SmallEventInteractOtherPlayersPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (!interaction) {
 			return;
@@ -314,7 +314,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventInteractOtherPlayersAcceptToGivePoorPacket)
-	async smallEventInteractOtherPlayersAcceptToGivePoor(packet: SmallEventInteractOtherPlayersAcceptToGivePoorPacket, context: PacketContext): Promise<void> {
+	async smallEventInteractOtherPlayersAcceptToGivePoor(context: PacketContext, _packet: SmallEventInteractOtherPlayersAcceptToGivePoorPacket): Promise<void> {
 		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 		await interaction?.editReply({
@@ -329,7 +329,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventInteractOtherPlayersRefuseToGivePoorPacket)
-	async smallEventInteractOtherPlayersRefuseToGivePoor(packet: SmallEventInteractOtherPlayersRefuseToGivePoorPacket, context: PacketContext): Promise<void> {
+	async smallEventInteractOtherPlayersRefuseToGivePoor(context: PacketContext, _packet: SmallEventInteractOtherPlayersRefuseToGivePoorPacket): Promise<void> {
 		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = context.discord!.buttonInteraction ? DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!) : DiscordCache.getInteraction(context.discord!.interaction!);
 		await interaction?.editReply({
@@ -344,7 +344,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventLeagueRewardPacket)
-	async smallEventLeagueReward(packet: SmallEventLeagueRewardPacket, context: PacketContext): Promise<void> {
+	async smallEventLeagueReward(context: PacketContext, packet: SmallEventLeagueRewardPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (!interaction) {
 			return;
@@ -373,7 +373,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventWinGuildXPPacket)
-	async smallEventWinGuildXp(packet: SmallEventWinGuildXPPacket, context: PacketContext): Promise<void> {
+	async smallEventWinGuildXp(context: PacketContext, packet: SmallEventWinGuildXPPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		await interaction?.editReply({
 			embeds: [
@@ -389,7 +389,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventDoNothingPacket)
-	async smallEventDoNothing(packet: SmallEventDoNothingPacket, context: PacketContext): Promise<void> {
+	async smallEventDoNothing(context: PacketContext, _packet: SmallEventDoNothingPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		await interaction?.editReply({
 			embeds: [
@@ -404,7 +404,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventStaffMemberPacket)
-	async smallEventStaffMember(packet: SmallEventStaffMemberPacket, context: PacketContext): Promise<void> {
+	async smallEventStaffMember(context: PacketContext, _packet: SmallEventStaffMemberPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (!interaction) {
 			return;
@@ -433,7 +433,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventWinEnergyPacket)
-	async smallEventWinEnergy(packet: SmallEventWinEnergyPacket, context: PacketContext): Promise<void> {
+	async smallEventWinEnergy(context: PacketContext, _packet: SmallEventWinEnergyPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		await interaction?.editReply({
 			embeds: [
@@ -448,7 +448,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventWinFightPointsPacket)
-	async smallEventWinFightPoints(packet: SmallEventWinFightPointsPacket, context: PacketContext): Promise<void> {
+	async smallEventWinFightPoints(context: PacketContext, packet: SmallEventWinFightPointsPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		await interaction?.editReply({
 			embeds: [
@@ -464,7 +464,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventWinHealthPacket)
-	async smallEventWinHealth(packet: SmallEventWinHealthPacket, context: PacketContext): Promise<void> {
+	async smallEventWinHealth(context: PacketContext, packet: SmallEventWinHealthPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		await interaction?.editReply({
 			embeds: [
@@ -480,7 +480,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventWinPersonalXPPacket)
-	async smallEventWinPersonalXP(packet: SmallEventWinPersonalXPPacket, context: PacketContext): Promise<void> {
+	async smallEventWinPersonalXP(context: PacketContext, packet: SmallEventWinPersonalXPPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		await interaction?.editReply({
 			embeds: [
@@ -497,12 +497,12 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventWitchResultPacket)
-	async smallEventWitchResult(packet: SmallEventWitchResultPacket, context: PacketContext): Promise<void> {
+	async smallEventWitchResult(context: PacketContext, packet: SmallEventWitchResultPacket): Promise<void> {
 		await witchResult(packet, context);
 	}
 
 	@packetHandler(SmallEventFindPetPacket)
-	async smallEventFindPet(packet: SmallEventFindPetPacket, context: PacketContext): Promise<void> {
+	async smallEventFindPet(context: PacketContext, packet: SmallEventFindPetPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (!interaction) {
 			return;
@@ -535,7 +535,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventSpaceInitialPacket)
-	async smallEventSpaceInitial(packet: SmallEventSpaceInitialPacket, context: PacketContext): Promise<void> {
+	async smallEventSpaceInitial(context: PacketContext, _packet: SmallEventSpaceInitialPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		await interaction?.editReply({
 			embeds: [
@@ -559,7 +559,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventSpaceResultPacket)
-	async smallEventSpaceResult(packet: SmallEventSpaceResultPacket, context: PacketContext): Promise<void> {
+	async smallEventSpaceResult(context: PacketContext, packet: SmallEventSpaceResultPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (!interaction) {
 			return;
@@ -604,7 +604,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventBotFactsPacket)
-	async smallEventBotFacts(packet: SmallEventBotFactsPacket, context: PacketContext): Promise<void> {
+	async smallEventBotFacts(context: PacketContext, packet: SmallEventBotFactsPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		await interaction?.editReply({
 			embeds: [
@@ -629,7 +629,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventSmallBadPacket)
-	async smallEventSmallBad(packet: SmallEventSmallBadPacket, context: PacketContext): Promise<void> {
+	async smallEventSmallBad(context: PacketContext, packet: SmallEventSmallBadPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		await interaction?.editReply({
 			embeds: [
@@ -644,7 +644,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventFindPotionPacket)
-	async smallEventFindPotion(packet: SmallEventFindPotionPacket, context: PacketContext): Promise<void> {
+	async smallEventFindPotion(context: PacketContext, _packet: SmallEventFindPotionPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		await interaction?.editReply({
 			embeds: [
@@ -660,7 +660,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventFindItemPacket)
-	async smallEventFindItem(packet: SmallEventFindItemPacket, context: PacketContext): Promise<void> {
+	async smallEventFindItem(context: PacketContext, _packet: SmallEventFindItemPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		await interaction?.editReply({
 			embeds: [
@@ -676,7 +676,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventPetPacket)
-	async smallEventPet(packet: SmallEventPetPacket, context: PacketContext): Promise<void> {
+	async smallEventPet(context: PacketContext, packet: SmallEventPetPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		await interaction?.editReply({
 			embeds: [
@@ -706,7 +706,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventClassPacket)
-	async smallEventClass(packet: SmallEventClassPacket, context: PacketContext): Promise<void> {
+	async smallEventClass(context: PacketContext, packet: SmallEventClassPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		await interaction?.editReply({
 			embeds: [
@@ -724,7 +724,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventUltimateFoodMerchantPacket)
-	async smallEventUltimateFoodMerchant(packet: SmallEventUltimateFoodMerchantPacket, context: PacketContext): Promise<void> {
+	async smallEventUltimateFoodMerchant(context: PacketContext, packet: SmallEventUltimateFoodMerchantPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 
 		await interaction?.editReply({
@@ -745,12 +745,12 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventCartPacket)
-	async smallEventCart(packet: SmallEventCartPacket, context: PacketContext): Promise<void> {
+	async smallEventCart(context: PacketContext, packet: SmallEventCartPacket): Promise<void> {
 		await cartResult(packet, context);
 	}
 
 	@packetHandler(SmallEventBonusGuildPVEIslandPacket)
-	async smallEventBonusGuildPVEIsland(packet: SmallEventBonusGuildPVEIslandPacket, context: PacketContext): Promise<void> {
+	async smallEventBonusGuildPVEIsland(context: PacketContext, packet: SmallEventBonusGuildPVEIslandPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		await interaction?.editReply({
 			embeds: [
@@ -772,7 +772,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventFightPetPacket)
-	async smallEventFightPet(packet: SmallEventFightPetPacket, context: PacketContext): Promise<void> {
+	async smallEventFightPet(context: PacketContext, packet: SmallEventFightPetPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		await interaction?.channel.send({
 			embeds: [
@@ -793,7 +793,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventGobletsGamePacket)
-	async smallEventGobletsGame(packet: SmallEventGobletsGamePacket, context: PacketContext): Promise<void> {
+	async smallEventGobletsGame(context: PacketContext, packet: SmallEventGobletsGamePacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		await interaction?.channel.send({
 			embeds: [
@@ -818,22 +818,22 @@ export default class SmallEventsHandler {
 
 
 	@packetHandler(SmallEventShopRefusePacket)
-	async smallEventShopRefuse(packet: SmallEventShopRefusePacket, context: PacketContext): Promise<void> {
+	async smallEventShopRefuse(context: PacketContext, _packet: SmallEventShopRefusePacket): Promise<void> {
 		await baseFunctionHandler(context, "smallEvents:shop.refused");
 	}
 
 	@packetHandler(SmallEventShopAcceptPacket)
-	async smallEventShopAccept(packet: SmallEventShopAcceptPacket, context: PacketContext): Promise<void> {
+	async smallEventShopAccept(context: PacketContext, _packet: SmallEventShopAcceptPacket): Promise<void> {
 		await baseFunctionHandler(context, "smallEvents:shop.purchased");
 	}
 
 	@packetHandler(SmallEventShopCannotBuyPacket)
-	async smallEventShopCannotBuy(packet: SmallEventShopCannotBuyPacket, context: PacketContext): Promise<void> {
+	async smallEventShopCannotBuy(context: PacketContext, _packet: SmallEventShopCannotBuyPacket): Promise<void> {
 		await baseFunctionHandler(context, "smallEvents:shop.notEnoughMoney");
 	}
 
 	@packetHandler(SmallEventFindMissionPacket)
-	async smallEventFindMission(packet: SmallEventFindMissionPacket, context: PacketContext): Promise<void> {
+	async smallEventFindMission(context: PacketContext, packet: SmallEventFindMissionPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		await interaction?.editReply({
 			embeds: [
@@ -854,17 +854,17 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventEpicItemShopRefusePacket)
-	async smallEventEpicItemShopRefuse(packet: SmallEventEpicItemShopRefusePacket, context: PacketContext): Promise<void> {
+	async smallEventEpicItemShopRefuse(context: PacketContext, _packet: SmallEventEpicItemShopRefusePacket): Promise<void> {
 		await epicItemShopHandler(context, "smallEvents:epicItemShop.refused");
 	}
 
 	@packetHandler(SmallEventEpicItemShopAcceptPacket)
-	async smallEventEpicItemShopAccept(packet: SmallEventEpicItemShopAcceptPacket, context: PacketContext): Promise<void> {
+	async smallEventEpicItemShopAccept(context: PacketContext, _packet: SmallEventEpicItemShopAcceptPacket): Promise<void> {
 		await epicItemShopHandler(context, "smallEvents:epicItemShop.purchased");
 	}
 
 	@packetHandler(SmallEventEpicItemShopCannotBuyPacket)
-	async smallEventEpicItemShopCannotBuy(packet: SmallEventEpicItemShopCannotBuyPacket, context: PacketContext): Promise<void> {
+	async smallEventEpicItemShopCannotBuy(context: PacketContext, _packet: SmallEventEpicItemShopCannotBuyPacket): Promise<void> {
 		await epicItemShopHandler(context, "smallEvents:epicItemShop.notEnoughMoney");
 	}
 }

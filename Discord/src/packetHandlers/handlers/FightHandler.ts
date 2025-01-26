@@ -4,7 +4,7 @@ import {PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 
 export default class FightHandler {
 	@packetHandler(FightIntroductionPacket)
-	async fightIntroduction(packet: FightIntroductionPacket, context: PacketContext): Promise<void> {
+	async fightIntroduction(_context: PacketContext, _packet: FightIntroductionPacket): Promise<void> {
 		// TODO
 	}
 }

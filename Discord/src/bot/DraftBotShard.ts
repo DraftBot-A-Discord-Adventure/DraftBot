@@ -114,7 +114,7 @@ async function main(): Promise<void> {
 	/**
 	 * Will be executed each time the bot join a new server
 	 */
-	async function onDiscordGuildCreate(guild: Guild): Promise<void> {
+	function onDiscordGuildCreate(guild: Guild): void {
 		// TODO
 		// Const serv = await Servers.getOrRegister(botConfig.MAIN_SERVER_ID);
 		const msg = getJoinLeaveMessage(guild, true, LANGUAGE.ENGLISH);
@@ -125,7 +125,7 @@ async function main(): Promise<void> {
 	/**
 	 * Will be executed each time the bot leave a server
 	 */
-	async function onDiscordGuildDelete(guild: Guild): Promise<void> {
+	function onDiscordGuildDelete(guild: Guild): void {
 		// TODO
 		// Const serv = await Servers.getOrRegister(botConfig.MAIN_SERVER_ID);
 		const msg = getJoinLeaveMessage(guild, false, LANGUAGE.ENGLISH);

@@ -2,7 +2,7 @@ import {IMission} from "../IMission";
 import {PetEntities} from "../../database/game/models/PetEntity";
 
 export const missionInterface: IMission = {
-	areParamsMatchingVariantAndBlob: (variant, params) => (params.loveLevel as number) >= 5,
+	areParamsMatchingVariantAndBlob: (_variant, params) => (params.loveLevel as number) >= 5,
 
 	generateRandomVariant: () => 0,
 

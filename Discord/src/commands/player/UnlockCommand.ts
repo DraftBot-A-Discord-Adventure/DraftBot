@@ -9,8 +9,7 @@ import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {
 	CommandUnlockAcceptPacketRes,
 	CommandUnlockNotEnoughMoney,
-	CommandUnlockPacketReq,
-	CommandUnlockRefusePacketRes
+	CommandUnlockPacketReq
 } from "../../../../Lib/src/packets/commands/CommandUnlockPacket";
 import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
@@ -60,7 +59,7 @@ export async function handleCommandUnlockNotEnoughMoneyError(packet: CommandUnlo
  * @param packet
  * @param context
  */
-export async function createUnlockCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+export async function createUnlockCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorUnlockData;
@@ -82,10 +81,9 @@ export async function createUnlockCollector(packet: ReactionCollectorCreationPac
 
 /**
  * Handle the server response after an unlock command has been canceled
- * @param packet
  * @param context
  */
-export async function handleCommandUnlockRefusePacketRes(packet: CommandUnlockRefusePacketRes, context: PacketContext): Promise<void> {
+export async function handleCommandUnlockRefusePacketRes(context: PacketContext): Promise<void> {
 	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
 	if (!originalInteraction) {
 		return;

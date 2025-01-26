@@ -57,7 +57,7 @@ export async function handleCommandGuildInviteError(packet: CommandGuildInviteEr
 	await interaction.reply(params);
 }
 
-export async function createGuildInviteCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+export async function createGuildInviteCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorGuildInviteData;

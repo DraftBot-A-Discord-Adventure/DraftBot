@@ -5,7 +5,7 @@ import {Maps} from "../maps/Maps";
 
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnContinent,
-	executeSmallEvent: (context, response): void => {
+	executeSmallEvent: (response): void => {
 		response.push(makePacket(SmallEventStaffMemberPacket, {}));
 	}
 };

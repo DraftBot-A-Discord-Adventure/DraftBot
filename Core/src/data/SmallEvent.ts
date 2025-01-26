@@ -11,7 +11,7 @@ export class SmallEvent extends Data<string> {
 
 	async execute(context: PacketContext, response: DraftBotPacket[], player: Player): Promise<void> {
 		const smallEventFunction = SmallEventDataController.getSmallEventFunction(this.id);
-		await smallEventFunction.executeSmallEvent(context, response, player);
+		await smallEventFunction.executeSmallEvent(response, player, context);
 	}
 
 	getProperties<T>(): T {
@@ -20,7 +20,7 @@ export class SmallEvent extends Data<string> {
 }
 
 export type CanBeExecutedLike = (player: Player) => boolean | Promise<boolean>;
-export type ExecuteSmallEventLike = (context: PacketContext, response: DraftBotPacket[], player: Player) => void | Promise<void>;
+export type ExecuteSmallEventLike = (response: DraftBotPacket[], player: Player, context: PacketContext) => void | Promise<void>;
 
 export type SmallEventFuncs = {
 	canBeExecuted: CanBeExecutedLike;

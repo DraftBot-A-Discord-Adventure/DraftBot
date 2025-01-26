@@ -24,7 +24,7 @@ const helpTestCommand: ExecuteTestCommandLike = (_player, args): string => {
 	try {
 		helpOnCommand = CommandsTest.getTestCommand(args[0]);
 	}
-	catch (e) {
+	catch {
 		throw new Error(`Commande inexistante : ${args[0]}`);
 	}
 	const hasArguments = helpOnCommand.typeWaited && Object.keys(helpOnCommand.typeWaited).length !== 0;

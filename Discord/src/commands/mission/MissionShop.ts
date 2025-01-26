@@ -82,7 +82,7 @@ export async function handleLovePointsValueShopItem(packet: CommandMissionShopPe
 	});
 }
 
-export async function skipMissionShopItemCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+export async function skipMissionShopItemCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!);
 	if (!interaction) {
 		return;

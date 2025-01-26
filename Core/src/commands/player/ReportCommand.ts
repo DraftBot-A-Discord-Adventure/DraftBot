@@ -93,7 +93,7 @@ export default class ReportCommand {
 		}
 
 		if (forceSmallEvent || await needSmallEvent(player, currentDate)) {
-			await executeSmallEvent(context, player, response, forceSmallEvent);
+			await executeSmallEvent(response, player, context, forceSmallEvent);
 			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.REPORT_COMMAND);
 			return;
 		}
@@ -626,12 +626,12 @@ async function getRandomSmallEvent(response: DraftBotPacket[], player: Player): 
 
 /**
  * Executes a small event
- * @param context
- * @param player
  * @param response
+ * @param player
+ * @param context
  * @param forced
  */
-async function executeSmallEvent(context: PacketContext, player: Player, response: DraftBotPacket[], forced: string): Promise<void> {
+async function executeSmallEvent(response: DraftBotPacket[], player: Player, context: PacketContext, forced: string): Promise<void> {
 	// Pick random event
 	const event: string = forced ? forced : await getRandomSmallEvent(response, player);
 	if (!event) {
@@ -646,14 +646,14 @@ async function executeSmallEvent(context: PacketContext, player: Player, respons
 		try {
 			const smallEvent: SmallEventFuncs = require(smallEventModule).smallEventFuncs;
 			draftBotInstance.logsDatabase.logSmallEvent(player.keycloakId, event).then();
-			await smallEvent.executeSmallEvent(context, response, player);
+			await smallEvent.executeSmallEvent(response, player, context);
 			await MissionsController.update(player, response, {missionId: "doReports"});
 		}
 		catch (e) {
 			response.push(makePacket(ErrorPacket, {message: `${e}`}));
 		}
 	}
-	catch (e) {
+	catch {
 		response.push(makePacket(ErrorPacket, {message: `${filename} doesn't exist`}));
 	}
 
