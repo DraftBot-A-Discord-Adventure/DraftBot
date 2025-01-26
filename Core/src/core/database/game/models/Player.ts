@@ -261,9 +261,6 @@ export class Player extends Model {
 	 * Return the value of glory that is displayed to the users
 	 */
 	public getGloryPoints(): number {
-		console.log("Hello World");
-		console.log(this.attackGloryPoints);
-		console.log(this.defenseGloryPoints);
 		return this.attackGloryPoints + this.defenseGloryPoints;
 	}
 
@@ -827,10 +824,6 @@ export class Player extends Model {
 	 * Get the league of the player
 	 */
 	public getLeague(): League {
-		const banane = this.getGloryPoints();
-		console.log("this.getGloryPoints()", this.getGloryPoints());
-
-		console.log(banane);
 		return LeagueDataController.instance.getByGlory(this.getGloryPoints());
 	}
 
@@ -1250,7 +1243,7 @@ export class Players {
 				}
 			},
 			order: [
-				["gloryPoints", "DESC"],
+				[Sequelize.literal("(attackGloryPoints + defenseGloryPoints)"), "DESC"],
 				["level", "DESC"]
 			],
 			limit: maxRank - minRank + 1,
@@ -1555,7 +1548,11 @@ export function initModel(sequelize: Sequelize): void {
 			type: DataTypes.STRING,
 			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.NOTIFICATIONS
 		},
-		gloryPoints: {
+		attackGloryPoints: {
+			type: DataTypes.INTEGER,
+			defaultValue: FightConstants.ELO.DEFAULT_ELO
+		},
+		defenseGloryPoints: {
 			type: DataTypes.INTEGER,
 			defaultValue: FightConstants.ELO.DEFAULT_ELO
 		},
