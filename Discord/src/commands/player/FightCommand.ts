@@ -123,6 +123,7 @@ function addFightActionFieldFor(introEmbed: DraftBotEmbed, language: Language, f
  */
 export async function handleCommandFightIntroduceFightersRes(packet: CommandFightIntroduceFightersPacket, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
+	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 	const opponentDisplayName = packet.fightOpponentKeycloakId ?
 		(await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.fightOpponentKeycloakId))!.attributes.gameUsername[0] :
 		i18n.t(`models:monster.${packet.fightOpponentMonsterId}`, {lng: interaction.userLanguage});
@@ -133,8 +134,8 @@ export async function handleCommandFightIntroduceFightersRes(packet: CommandFigh
 		opponent: opponentDisplayName
 	}), interaction.user);
 	addFightActionFieldFor(embed, interaction.userLanguage, interaction.user.displayName, packet.fightInitiatorActions);
-	addFightActionFieldFor(embed, interaction.userLanguage, opponentDisplayName, packet.fightOpponentActions);
-	await interaction.editReply({embeds: [embed]});
+	// AddFightActionFieldFor(embed, interaction.userLanguage, opponentDisplayName, packet.fightOpponentActions);
+	await buttonInteraction?.editReply({embeds: [embed]});
 }
 
 async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandFightPacketReq | null> {
