@@ -20,6 +20,8 @@ import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
 import {Language} from "../../../../Lib/src/Language";
+import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
+import {keycloakConfig} from "../../bot/DraftBotShard";
 
 export async function createFightCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
@@ -95,15 +97,21 @@ export async function handleCommandFightRefusePacketRes(packet: CommandFightRefu
  * @param introEmbed - Embed of the fight intro
  * @param language
  * @param fighterName - Name of the fighter
- * @param fightActions - Fight actions of one fighter
+ * @param fightActions - Map containing the ids and breath cost of the fighter's fight actions
  */
-function addFightActionFieldFor(introEmbed: DraftBotEmbed, language: Language, fighterName: string, fightActions: string): void {
+function addFightActionFieldFor(introEmbed: DraftBotEmbed, language: Language, fighterName: string, fightActions: Map<string, number>): void {
+	const fightActionsDisplay = Array.from(fightActions).map(([actionId, breathCost]) => i18n.t("commands:fight.", {
+		lng: language,
+		fightActionName: i18n.t(`models:fightActions.${actionId}`, {lng: language}),
+		breathCost: breathCost
+	}))
+		.join("\n");
 	introEmbed.addFields({
 		name: i18n.t("commands:fight.actionsOf", {
 			lng: language,
 			player: fighterName
-		}
-		value: fightActions,
+		}),
+		value: fightActionsDisplay,
 		inline: true
 	});
 }
@@ -115,10 +123,17 @@ function addFightActionFieldFor(introEmbed: DraftBotEmbed, language: Language, f
  */
 export async function handleCommandFightIntroduceFightersRes(packet: CommandFightIntroduceFightersPacket, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
-	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:fight.intro", {
+	const opponentDisplayName = packet.fightOpponentKeycloakId ?
+		(await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.fightOpponentKeycloakId))!.attributes.gameUsername[0] :
+		i18n.t(`models:monster.${packet.fightOpponentMonsterId}`, {lng: interaction.userLanguage});
+	// Todo: crash if both fightOpponentKeycloakId and fightOpponentMonsterId are null
+	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:fight.fightIntroTitle", {
 		lng: interaction.userLanguage,
-		pseudo: interaction.user.displayName
+		fightInitiator: interaction.user.displayName,
+		opponent: opponentDisplayName
 	}), interaction.user);
+	addFightActionFieldFor(embed, interaction.userLanguage, interaction.user.displayName, packet.fightInitiatorActions);
+	addFightActionFieldFor(embed, interaction.userLanguage, opponentDisplayName, packet.fightOpponentActions);
 	await interaction.editReply({embeds: [embed]});
 }
 

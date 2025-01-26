@@ -6,7 +6,7 @@ import {ReactionCollectorFight} from "../../../../Lib/src/packets/interaction/Re
 import {EndCallback, ReactionCollectorInstance} from "../../core/utils/ReactionsCollector";
 import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {
-	CommandFightEndOfFightPacketRes, CommandFightOpponentsNotFoundPacket,
+	CommandFightOpponentsNotFoundPacket,
 	CommandFightPacketReq,
 	CommandFightRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandFightPacket";
@@ -99,7 +99,7 @@ async function fightEndCallback(fight: FightController, response: DraftBotPacket
 		player2.save()
 	]);
 
-	response.push(makePacket(
+	/* Response.push(makePacket(
 		CommandFightEndOfFightPacketRes,
 		{
 			fightInitiatorInformation: {
@@ -117,7 +117,7 @@ async function fightEndCallback(fight: FightController, response: DraftBotPacket
 				gameResult: player2GameResult
 			}
 		}
-	));
+	));*/
 }
 
 /**

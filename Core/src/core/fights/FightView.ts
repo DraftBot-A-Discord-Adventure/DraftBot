@@ -38,15 +38,6 @@ export class FightView {
 		}); */
 	}
 
-	private getFightActions(fighter: Fighter): string[] {
-		const fightActions = fighter.availableFightActions;
-		const actionList = [];
-		for (const [id] of fightActions) {
-			actionList.push(id);
-		}
-		return actionList;
-	}
-
 	/**
 	 * Send the fight intro message
 	 * @param fighter
@@ -54,12 +45,21 @@ export class FightView {
 	 * @param response
 	 */
 	introduceFight(response: DraftBotPacket[], fighter: Fighter, opponent: Fighter): void {
+		// we need to construct for each fighter a map with the id of the action and breath cost as value
+		const initiatorFightActions = new Map<string, number>();
+		for (const action of fighter.availableFightActions) {
+			initiatorFightActions.set(action[0], action[1].breath);
+		}
+		const opponentFightActions = new Map<string, number>();
+		for (const action of opponent.availableFightActions) {
+			opponentFightActions.set(action[0], action[1].breath);
+		}
 		response.push(makePacket(CommandFightIntroduceFightersPacket, {
 			fightInitiatorKeycloakId: (fighter as PlayerFighter).player.keycloakId,
 			fightOpponentKeycloakId: opponent instanceof PlayerFighter ? opponent.player.keycloakId : null,
 			fightOpponentMonsterId: opponent instanceof MonsterFighter ? opponent.monster.id : null,
-			fightInitiatorActions: this.getFightActions(fighter),
-			fightOpponentActions: this.getFightActions(opponent)
+			fightInitiatorActions: initiatorFightActions,
+			fightOpponentActions: opponentFightActions
 		}));
 	}
 
