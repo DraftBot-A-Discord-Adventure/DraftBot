@@ -2,12 +2,13 @@ import {packetHandler} from "../PacketHandler";
 import {PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {DiscordCache} from "../../bot/DiscordCache";
 import i18n from "../../translations/i18n";
-import {ErrorMaintenancePacket, ErrorPacket} from "../../../../Lib/src/packets/commands/ErrorPacket";
+import {ErrorBannedPacket, ErrorMaintenancePacket, ErrorPacket} from "../../../../Lib/src/packets/commands/ErrorPacket";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {BlockedPacket} from "../../../../Lib/src/packets/commands/BlockedPacket";
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
 import {LANGUAGE} from "../../../../Lib/src/Language";
+import {handleClassicError} from "../../utils/ErrorUtils";
 
 export default class ErrorHandler {
 	@packetHandler(ErrorPacket)
@@ -80,5 +81,10 @@ export default class ErrorHandler {
 
 			await interaction?.channel.send({embeds: [embed]});
 		}
+	}
+
+	@packetHandler(ErrorBannedPacket)
+	async bannedHandler(context: PacketContext, _packet: ErrorBannedPacket): Promise<void> {
+		await handleClassicError(context, "error:banned");
 	}
 }

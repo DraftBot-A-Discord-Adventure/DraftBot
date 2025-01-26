@@ -117,6 +117,8 @@ export class Player extends Model {
 
 	declare rage: number;
 
+	declare banned: boolean;
+
 	declare updatedAt: Date;
 
 	declare createdAt: Date;
@@ -1515,6 +1517,10 @@ export function initModel(sequelize: Sequelize): void {
 		rage: {
 			type: DataTypes.INTEGER,
 			defaultValue: 0
+		},
+		banned: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: false
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
