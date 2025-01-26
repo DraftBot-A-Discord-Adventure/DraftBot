@@ -16,7 +16,6 @@ import {Logger} from "../../../../Lib/src/instances/Logger";
 import {CommandsTest} from "../CommandsTest";
 import Player from "../database/game/models/Player";
 import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
-import {LeagueInfoConstants} from "../../../../Lib/src/constants/LeagueInfoConstants";
 import {PacketUtils} from "../utils/PacketUtils";
 import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {TopWeekAnnouncementPacket} from "../../../../Lib/src/packets/announcements/TopWeekAnnouncementPacket";

@@ -103,7 +103,7 @@ function addFightActionFieldFor(introEmbed: DraftBotEmbed, language: Language, f
 	const fightActionsDisplay = Array.from(fightActions).map(([actionId, breathCost]) => i18n.t("commands:fight.", {
 		lng: language,
 		fightActionName: i18n.t(`models:fightActions.${actionId}`, {lng: language}),
-		breathCost: breathCost
+		breathCost
 	}))
 		.join("\n");
 	introEmbed.addFields({
