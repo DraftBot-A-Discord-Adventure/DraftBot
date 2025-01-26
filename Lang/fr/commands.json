@@ -834,7 +834,7 @@
     "opponentsNotFound" : "Aucun adversaire n'a été trouvé pour vous affronter. Vous pouvez réessayer plus tard.",
     "fightIntroTitle": "{emote:fight_command.crossed_swords} | Un combat est lancé entre {{fightInitiator}} et {{opponent}} !",
     "actionsOf": "Attaques de {{pseudo}}",
-    "fightActionNameDisplay": "{{FightActionEmote}} - {{FightActionName}} | {emote:unitValues.breath} {{breathCost}}"
+    "fightActionNameDisplay": "{{fightActionEmote}} - {{fightActionName}} | {emote:unitValues.breath} {{breathCost}}"
   },
   "switch": {
     "titleSuccess": "{{pseudo}}, commande effectuée !",

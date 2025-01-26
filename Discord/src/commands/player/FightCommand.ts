@@ -99,17 +99,18 @@ export async function handleCommandFightRefusePacketRes(packet: CommandFightRefu
  * @param fighterName - Name of the fighter
  * @param fightActions - Map containing the ids and breath cost of the fighter's fight actions
  */
-function addFightActionFieldFor(introEmbed: DraftBotEmbed, language: Language, fighterName: string, fightActions: Map<string, number>): void {
-	const fightActionsDisplay = Array.from(fightActions).map(([actionId, breathCost]) => i18n.t("commands:fight.", {
+function addFightActionFieldFor(introEmbed: DraftBotEmbed, language: Language, fighterName: string, fightActions: Array<[string, number]>): void {
+	const fightActionsDisplay = fightActions.map(([actionId, breathCost]) => i18n.t("commands:fight.fightActionNameDisplay", {
 		lng: language,
-		fightActionName: i18n.t(`models:fightActions.${actionId}`, {lng: language}),
+		fightActionEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fight_actions[actionId]),
+		fightActionName: i18n.t(`models:fight_actions.${actionId}.name`, {lng: language, count: 1}),
 		breathCost
-	}))
-		.join("\n");
+	})).join("\n");
+
 	introEmbed.addFields({
 		name: i18n.t("commands:fight.actionsOf", {
 			lng: language,
-			player: fighterName
+			pseudo: fighterName
 		}),
 		value: fightActionsDisplay,
 		inline: true
@@ -134,7 +135,7 @@ export async function handleCommandFightIntroduceFightersRes(packet: CommandFigh
 		opponent: opponentDisplayName
 	}), interaction.user);
 	addFightActionFieldFor(embed, interaction.userLanguage, interaction.user.displayName, packet.fightInitiatorActions);
-	// AddFightActionFieldFor(embed, interaction.userLanguage, opponentDisplayName, packet.fightOpponentActions);
+	addFightActionFieldFor(embed, interaction.userLanguage, opponentDisplayName, packet.fightOpponentActions);
 	await buttonInteraction?.editReply({embeds: [embed]});
 }
 
