@@ -23,7 +23,7 @@ import {Language} from "../../../../Lib/src/Language";
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
 
-export async function createFightCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+export async function createFightCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorFightData;
