@@ -815,7 +815,7 @@
   },
   "top": {
     "level": "Level {{level}}",
-    "titleScoreAllTime": "{emote:top.congrats} Affichage du top des places {{minRank}} à {{maxRank}}",
+    "titleScoreAllTime": "{emote:top.congrats} Displaying places {{minRank}} to {{maxRank}}",
     "titleScoreWeekly": "{emote:top.congrats} Top Week Display {{minRank}} {{maxRank}}",
     "yourRankTitle": "**Your Ranking**",
     "yourRankFirst_one": "{emote:top.congrats} Congratulations **{{pseudo}}**! You are currently the best on a total of {{total}} players!",
