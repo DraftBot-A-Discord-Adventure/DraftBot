@@ -24,9 +24,9 @@ export class CommandFightIntroduceFightersPacket extends DraftBotPacket {
 
 	fightOpponentMonsterId?: string;
 
-	fightInitiatorActions!: Map<string,number>;
+	fightInitiatorActions!: Array<[string,number]>;
 
-	fightOpponentActions!: Map<string,number>;
+	fightOpponentActions!: Array<[string,number]>;
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
