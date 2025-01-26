@@ -5,6 +5,7 @@ import {PVEConstants} from "../../../../../Lib/src/constants/PVEConstants";
 import {FightStatModifierOperation} from "../../../../../Lib/src/types/FightStatModifierOperation";
 import {FightAlteration} from "../../../data/FightAlteration";
 import {FightAction} from "../../../data/FightAction";
+import {DraftBotPacket} from "../../../../../Lib/src/packets/DraftBotPacket";
 
 type FighterStats = {
 	fightPoints: number,
