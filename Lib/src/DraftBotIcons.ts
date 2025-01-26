@@ -43,6 +43,11 @@ export const DraftBotIcons: {
 		accept: string,
 		refuse: string
 	},
+	fight_command: {
+		accept: string,
+		refuse: string,
+		"crossed_swords": string
+	},
 	foods: {
 		[foodId: string]: string
 	}
@@ -1586,7 +1591,11 @@ export const DraftBotIcons: {
 		"accept": "🚗",
 		"refuse": "🚶"
 	},
-
+	"fight_command": {
+		"accept": "🔍",
+		"refuse": "❌",
+		"crossed_swords": "⚔️"
+	},
 	"foods": {
 		"herbivorousFood": "🥬",
 		"commonFood": "🍬",

@@ -16,7 +16,6 @@ import {Logger} from "../../../../Lib/src/instances/Logger";
 import {CommandsTest} from "../CommandsTest";
 import Player from "../database/game/models/Player";
 import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
-import {LeagueInfoConstants} from "../../../../Lib/src/constants/LeagueInfoConstants";
 import {PacketUtils} from "../utils/PacketUtils";
 import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {TopWeekAnnouncementPacket} from "../../../../Lib/src/packets/announcements/TopWeekAnnouncementPacket";
@@ -204,7 +203,7 @@ export class DraftBot {
 		await Player.update(
 			{
 				gloryPointsLastSeason: Sequelize.literal(
-					`CASE WHEN fightCountdown <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE} THEN gloryPoints ELSE 0 END`
+					`CASE WHEN fightCountdown <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE} THEN attackGloryPoints + defenseGloryPoints ELSE 0 END`
 				)
 			},
 			{where: {}}
@@ -217,15 +216,6 @@ export class DraftBot {
 				)
 			},
 			{where: {fightCountdown: {[Op.lt]: FightConstants.FIGHT_COUNTDOWN_REGEN_LIMIT}}}
-		);
-		// We remove 33% of the glory points above the GLORY_RESET_THRESHOLD
-		await Player.update(
-			{
-				gloryPoints: Sequelize.literal(
-					`gloryPoints - (gloryPoints - ${LeagueInfoConstants.GLORY_RESET_THRESHOLD}) * ${LeagueInfoConstants.SEASON_END_LOSS_PERCENTAGE}`
-				)
-			},
-			{where: {gloryPoints: {[Op.gt]: LeagueInfoConstants.GLORY_RESET_THRESHOLD}}}
 		);
 	}
 
@@ -241,7 +231,7 @@ export class DraftBot {
 				}
 			},
 			order: [
-				["gloryPoints", "DESC"],
+				[Sequelize.literal("(attackGloryPoints + defenseGloryPoints)"), "DESC"],
 				["level", "DESC"],
 				["score", "DESC"]
 			],

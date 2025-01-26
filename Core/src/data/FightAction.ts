@@ -7,8 +7,6 @@ import {FightController} from "../core/fights/FightController";
 import {FightActionResult} from "../../../Lib/src/types/FightActionResult";
 
 export class FightAction extends Data<string> {
-	public readonly emote: string;
-
 	public readonly breath: number;
 
 	public readonly missionVariant: number;

@@ -5,7 +5,7 @@ export const missionInterface: IMission = {
 
 	generateRandomVariant: () => 0,
 
-	initialNumberDone: (player) => player.gloryPoints,
+	initialNumberDone: (player) => player.getGloryPoints(),
 
 	updateSaveBlob: () => null
 };

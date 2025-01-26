@@ -109,7 +109,9 @@ export class Player extends Model {
 
 	declare notifications: string;
 
-	declare gloryPoints: number;
+	declare defenseGloryPoints: number;
+
+	declare attackGloryPoints: number;
 
 	declare gloryPointsLastSeason: number;
 
@@ -176,7 +178,7 @@ export class Player extends Model {
 	}
 
 	/**
-	 * Get the origin id of the playe²r
+	 * Get the origin id of the player
 	 */
 	public getPreviousMapId(): number {
 		const link = MapLinkDataController.instance.getById(this.mapLinkId);
@@ -253,6 +255,13 @@ export class Player extends Model {
 		});
 		parameters.amount = -parameters.amount;
 		return this.addMoney(parameters);
+	}
+
+	/**
+	 * Return the value of glory that is displayed to the users
+	 */
+	public getGloryPoints(): number {
+		return this.attackGloryPoints + this.defenseGloryPoints;
 	}
 
 	/**
@@ -460,7 +469,7 @@ export class Player extends Model {
 		const query = `SELECT COUNT(*) as count
 		               FROM players
 		               WHERE (mapLinkId = :link
-			              OR mapLinkId = :linkInverse)
+			               OR mapLinkId = :linkInverse)
 			             AND score
 			               > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
@@ -821,7 +830,7 @@ export class Player extends Model {
 	 * Get the league of the player
 	 */
 	public getLeague(): League {
-		return LeagueDataController.instance.getByGlory(this.gloryPoints);
+		return LeagueDataController.instance.getByGlory(this.getGloryPoints());
 	}
 
 	/**
@@ -834,19 +843,20 @@ export class Player extends Model {
 	/**
 	 * Set the glory points of the player
 	 * @param gloryPoints
+	 * @param isDefense - true if the points to set are the defense Glory points
 	 * @param reason
 	 * @param response
 	 * @param fightId
 	 * @private
 	 */
-	public async setGloryPoints(gloryPoints: number, reason: NumberChangeReason, response: DraftBotPacket[], fightId: number = null): Promise<void> {
+	public async setGloryPoints(gloryPoints: number, isDefense: boolean, reason: NumberChangeReason, response: DraftBotPacket[], fightId: number = null): Promise<void> {
+		await draftBotInstance.logsDatabase.logPlayersGloryPoints(this.keycloakId, gloryPoints, reason, fightId);
+		isDefense ? this.defenseGloryPoints = gloryPoints : this.attackGloryPoints = gloryPoints;
 		Object.assign(this, await MissionsController.update(this, response, {
 			missionId: "reachGlory",
-			count: gloryPoints,
+			count: this.getGloryPoints(),
 			set: true
 		}));
-		await draftBotInstance.logsDatabase.logPlayersGloryPoints(this.keycloakId, gloryPoints, reason, fightId);
-		this.gloryPoints = gloryPoints;
 	}
 
 	/**
@@ -1156,7 +1166,7 @@ export class Players {
 		const query = `SELECT COUNT(*) as nbPlayers
 		               FROM players
 		               WHERE players.${weekOnly ? "weeklyScore" : "score"}
-			               > ${Constants.MINIMAL_PLAYER_SCORE}`;
+			                     > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		const queryResult = await Player.sequelize.query(query);
 		return (queryResult[0][0] as {
 			nbPlayers: number
@@ -1170,7 +1180,7 @@ export class Players {
 		const query = `SELECT COUNT(*) as nbPlayers
 		               FROM players
 		               WHERE players.fightCountdown
-			               <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE}`;
+			                     <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE}`;
 		const queryResult = await Player.sequelize.query(query);
 		return (queryResult[0][0] as {
 			nbPlayers: number
@@ -1226,7 +1236,7 @@ export class Players {
 				}
 			},
 			order: [
-				["gloryPoints", "DESC"],
+				[Sequelize.literal("(attackGloryPoints + defenseGloryPoints)"), "DESC"],
 				["level", "DESC"]
 			],
 			limit: maxRank - minRank + 1,
@@ -1413,6 +1423,33 @@ export class Players {
 			})))[0].count
 		);
 	}
+
+	/**
+	 * Find the X players that are the closest in defense glory to a specific value
+	 * @param player - the value to search for
+	 * @param amountOfPlayersToRetrieve - the X amount of players
+	 * @param offset - offset in case the found players are not enough and an offset search is necessary
+	 */
+	static async findPotentialOpponent(player: Player, amountOfPlayersToRetrieve: number, offset: number): Promise<Player[]> {
+		return await Player.findAll({
+			where: {
+				defenseGloryPoints: {
+					[Op.ne]: null,
+					[Op.between]: [
+						player.attackGloryPoints - FightConstants.ELO.MAX_ELO_GAP,
+						player.attackGloryPoints + FightConstants.ELO.MAX_ELO_GAP
+					]
+				},
+				level: {[Op.gt]: FightConstants.REQUIRED_LEVEL}
+			},
+			order: [
+				// Sort using the difference with the attack elo of the player
+				[Sequelize.literal(`ABS(defenseGloryPoints - ${player.attackGloryPoints})`), "ASC"]
+			],
+			limit: amountOfPlayersToRetrieve,
+			offset
+		});
+	}
 }
 
 /**
@@ -1502,7 +1539,11 @@ export function initModel(sequelize: Sequelize): void {
 			type: DataTypes.STRING,
 			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.NOTIFICATIONS
 		},
-		gloryPoints: {
+		attackGloryPoints: {
+			type: DataTypes.INTEGER,
+			defaultValue: FightConstants.ELO.DEFAULT_ELO
+		},
+		defenseGloryPoints: {
 			type: DataTypes.INTEGER,
 			defaultValue: FightConstants.ELO.DEFAULT_ELO
 		},

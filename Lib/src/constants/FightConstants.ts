@@ -1,4 +1,6 @@
 export abstract class FightConstants {
+	static readonly RARE_SUB_TEXT_INTRO = 0.001; // Chance of having a rare subtext in the fight intro message (1=100%)
+
 	static readonly MAX_TURNS = 24;
 
 	static readonly REQUIRED_LEVEL = 8;
@@ -16,7 +18,6 @@ export abstract class FightConstants {
 		OCCUPIED: "error.occupied",
 		NO_FIGHT_POINTS: "error.noFightPoints",
 		ELO_GAP: "error.eloGap",
-		BEST_OF_3: "error.bestOf3",
 		PVE_ISLAND: "error.onPveIsland"
 	};
 
@@ -126,4 +127,13 @@ export abstract class FightConstants {
 	static readonly HANDSHAKE_EMOTE = "\uD83E\uDD1D";
 
 	static readonly DEFAULT_ACTION_WEIGHT = 1;
+
+	// Time needed to wait before being able to fight again after a ranked fight as a defender
+	static DEFENDER_COOLDOWN_MINUTES = 30;
+
+	// Maximum offset for opponent search
+	static MAX_OFFSET_FOR_OPPONENT_SEARCH = 5;
+
+	// Number of players to search for when looking for an opponent
+	static PLAYER_PER_OPPONENT_SEARCH = 5;
 }

@@ -50,7 +50,7 @@ export class PlayerFighter extends Fighter {
 	 */
 	async startFight(fightView: FightView, startStatus: FighterStatus): Promise<void> {
 		this.status = startStatus;
-		await this.consumePotionIfNeeded(fightView.fightController.friendly, [fightView.context]);
+		await this.consumePotionIfNeeded([fightView.context]);
 		this.block();
 	}
 
@@ -87,12 +87,11 @@ export class PlayerFighter extends Fighter {
 
 	/**
 	 * The fighter loads its various stats
-	 * @param friendly true if the fight is friendly
 	 * @public
 	 */
-	public async loadStats(friendly: boolean): Promise<void> {
+	public async loadStats(): Promise<void> {
 		const playerActiveObjects: PlayerActiveObjects = await InventorySlots.getPlayerActiveObjects(this.player.id);
-		this.stats.fightPoints = friendly ? this.player.getMaxCumulativeFightPoint() : this.player.getCumulativeFightPoint();
+		this.stats.fightPoints = this.player.getCumulativeFightPoint();
 		this.stats.maxFightPoint = this.player.getMaxCumulativeFightPoint();
 		this.stats.attack = this.player.getCumulativeAttack(playerActiveObjects);
 		this.stats.defense = this.player.getCumulativeDefense(playerActiveObjects);
@@ -100,20 +99,19 @@ export class PlayerFighter extends Fighter {
 		this.stats.breath = this.player.getBaseBreath();
 		this.stats.maxBreath = this.player.getMaxBreath();
 		this.stats.breathRegen = this.player.getBreathRegen();
-		this.glory = this.player.gloryPoints;
+		this.glory = this.player.getGloryPoints();
 	}
 
 	/**
 	 * Delete the potion from the inventory of the player if needed
-	 * @param friendly true if the fight is friendly
 	 * @param response
 	 * @public
 	 */
-	public async consumePotionIfNeeded(friendly: boolean, response: DraftBotPacket[]): Promise<void> {
+	public async consumePotionIfNeeded(response: DraftBotPacket[]): Promise<void> {
 		const inventorySlots = await InventorySlots.getOfPlayer(this.player.id);
 		const drankPotion = inventorySlots.find(slot => slot.isPotion() && slot.isEquipped())
 			.getItem() as Potion;
-		if (friendly || !drankPotion.isFightPotion()) {
+		if (!drankPotion.isFightPotion()) {
 			return;
 		}
 		await this.player.drinkPotion();
@@ -132,8 +130,9 @@ export class PlayerFighter extends Fighter {
 	/**
 	 * Send the embed to choose an action
 	 * @param fightView
+	 * @param response
 	 */
-	async chooseAction(fightView: FightView): Promise<void> {
+	async chooseAction(fightView: FightView, response: DraftBotPacket[]): Promise<void> {
 		const actions: Map<string, FightAction> = new Map(this.availableFightActions);
 
 		// Add guild attack if on PVE island and members are here
@@ -247,11 +246,9 @@ export class PlayerFighter extends Fighter {
 	 * @param fightView
 	 */
 	private async manageMissionsOf(fightView: FightView): Promise<void> {
-		if (!fightView.fightController.friendly) {
-			const newPlayer = await Players.getOrRegister(this.player.keycloakId);
-			newPlayer.setFightPointsLost(this.stats.maxFightPoint - this.stats.fightPoints, NumberChangeReason.FIGHT);
-			await newPlayer.save();
-		}
+		const newPlayer = await Players.getOrRegister(this.player.keycloakId);
+		newPlayer.setFightPointsLost(this.stats.maxFightPoint - this.stats.fightPoints, NumberChangeReason.FIGHT);
+		await newPlayer.save();
 
 		await this.checkFightActionHistory(fightView);
 
@@ -277,7 +274,7 @@ export class PlayerFighter extends Fighter {
 	}
 
 	/**
-	 * Send the choose action embed message
+	 * Send the choice action embed message
 	 * @private
 	 * @param fightView
 	 */

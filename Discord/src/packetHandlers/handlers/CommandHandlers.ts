@@ -140,6 +140,15 @@ import {
 	CommandGuildElderSameGuildPacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildElderPacket";
 import {
+	CommandFightIntroduceFightersPacket,
+	CommandFightOpponentsNotFoundPacket,
+	CommandFightRefusePacketRes
+} from "../../../../Lib/src/packets/commands/CommandFightPacket";
+import {
+	handleCommandFightIntroduceFightersRes,
+	handleCommandFightRefusePacketRes
+} from "../../commands/player/FightCommand";
+import {
 	CommandGuildLeaveAcceptPacketRes, CommandGuildLeaveNotInAGuildPacketRes,
 	CommandGuildLeaveRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildLeavePacket";
@@ -621,6 +630,21 @@ export default class CommandHandlers {
 	@packetHandler(CommandMissionShopNoPet)
 	async missionShopNoPet(context: PacketContext, _packet: CommandMissionShopNoPet): Promise<void> {
 		await handleClassicError(context, "commands:missionsshop.error.noPet");
+	}
+
+	@packetHandler(CommandFightRefusePacketRes)
+	async refuseFight(context: PacketContext, packet: CommandFightRefusePacketRes): Promise<void> {
+		await handleCommandFightRefusePacketRes(packet, context);
+	}
+
+	@packetHandler(CommandFightOpponentsNotFoundPacket)
+	async opponentsNotFoundFight(context: PacketContext, _packet: CommandFightOpponentsNotFoundPacket): Promise<void> {
+		await handleClassicError(context ,"commands:fight.opponentsNotFound");
+	}
+
+	@packetHandler(CommandFightIntroduceFightersPacket)
+	async introduceFighters(context: PacketContext, packet: CommandFightIntroduceFightersPacket): Promise<void> {
+		await handleCommandFightIntroduceFightersRes(packet, context);
 	}
 
 	@packetHandler(CommandSwitchSuccess)

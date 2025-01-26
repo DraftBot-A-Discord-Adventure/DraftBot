@@ -19,6 +19,8 @@ const skipTutorialTestCommand: ExecuteTestCommandLike = async (player) => {
 	player.weeklyScore = 0;
 	player.experience = 0;
 	player.money = 0;
+	player.defenseGloryPoints = 100;
+	player.attackGloryPoints = 100;
 	player.badges = null;
 	player.effectEndDate = new Date();
 	player.effectDuration = 0;
