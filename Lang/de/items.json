@@ -2,7 +2,7 @@
   "armorsFieldName": "Rüstung/Schild :",
   "attack": ":dagger: {{value}}",
   "defense": ":shield: {{value}}",
-  "nameDisplay": "{{emote}} **{{{name}}}**",
+  "nameDisplay": "{emote:{{itemCategory}}.{{itemId}}} **$t(models:{{itemCategory}}.{{itemId}})**",
   "nerfDisplay": "~ ~{{old}}~ ~ {{max}}",
   "objectsFieldName": "Betreff :",
   "objectsNatures": [
