@@ -8,10 +8,6 @@ import i18n from "../../translations/i18n";
 import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
-import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
-import {PacketUtils} from "../../utils/PacketUtils";
-import {SlashCommandBuilder} from "@discordjs/builders";
 import {
 	CommandGuildElderRemoveAcceptPacketRes, CommandGuildElderRemovePacketReq,
 	CommandGuildElderRemoveRefusePacketRes
@@ -23,7 +19,7 @@ import {ReactionCollectorGuildElderRemoveData} from "../../../../Lib/src/packets
  * @param packet
  * @param context
  */
-export async function createGuildElderRemoveCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+export async function createGuildElderRemoveCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorGuildElderRemoveData;
@@ -102,19 +98,12 @@ export async function handleCommandGuildElderRemoveAcceptPacketRes(packet: Comma
 /**
  * Promote a player from a guild
  */
-async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandGuildElderRemovePacketReq | null> {
-	const askedPlayer = await PacketUtils.prepareAskedPlayer(interaction, user);
-	if (!askedPlayer || !askedPlayer.keycloakId) {
-		return null;
-	}
-	return makePacket(CommandGuildElderRemovePacketReq, {askedPlayerKeycloakId: askedPlayer.keycloakId});
+function getPacket(): CommandGuildElderRemovePacketReq {
+	return makePacket(CommandGuildElderRemovePacketReq, {});
 }
 
 export const commandInfo: ICommand = {
-	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("guildElderRemove")
-		.addUserOption(option =>
-			SlashCommandBuilderGenerator.generateOption("guildElderRemove", "user", option)
-				.setRequired(true)) as SlashCommandBuilder,
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("guildElderRemove"),
 	getPacket,
 	mainGuildCommand: false
 };

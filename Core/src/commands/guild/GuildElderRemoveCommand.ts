@@ -3,95 +3,57 @@ import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/pac
 import {Guilds} from "../../core/database/game/models/Guild";
 import {
 	CommandGuildElderRemoveAcceptPacketRes,
-	CommandGuildElderRemoveFoundPlayerPacketRes,
-	CommandGuildElderRemoveHimselfPacketRes, CommandGuildElderRemoveNotElderPacketRes,
+	CommandGuildElderRemoveGuildHasAnElderPacketRes,
 	CommandGuildElderRemovePacketReq,
 	CommandGuildElderRemoveRefusePacketRes,
-	CommandGuildElderRemoveSameGuildPacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildElderRemovePacket";
 import {draftBotInstance} from "../../index";
 import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants";
-import {GuildRole} from "../../../../Lib/src/enums/GuildRole";
 import {EndCallback, ReactionCollectorInstance} from "../../core/utils/ReactionsCollector";
 import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
 import {ReactionCollectorGuildElderRemove} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildElderRemove";
+import {GuildRole} from "../../../../Lib/src/types/GuildRole";
 
 /**
- * Return true if demotedPlayer can be demoted
+ * Promote demotedElder as elder of the guild
  * @param player
- * @param demotedPlayer
+ * @param demotedElder
  * @param response
  */
-async function isEligible(player: Player, demotedPlayer: Player, response: DraftBotPacket[]): Promise<boolean> {
-	if (demotedPlayer === null) {
-		response.push(makePacket(CommandGuildElderRemoveFoundPlayerPacketRes, {}));
-		return false;
-	}
-	let demotedGuild;
-	try {
-		demotedGuild = await Guilds.getById(demotedPlayer.guildId);
-	}
-	catch (error) {
-		demotedGuild = null;
-	}
-
-	const guild = await Guilds.getById(player.guildId);
-	if (demotedGuild === null || demotedGuild.id !== player.guildId) {
-		response.push(makePacket(CommandGuildElderRemoveSameGuildPacketRes, {}));
-		return false;
-	}
-
-	if (demotedPlayer.id === player.id) {
-		response.push(makePacket(CommandGuildElderRemoveHimselfPacketRes, {}));
-		return false;
-	}
-
-	if (demotedPlayer.id !== guild.elderId) {
-		response.push(makePacket(CommandGuildElderRemoveNotElderPacketRes, {}));
-		return false;
-	}
-	return true;
-}
-
-/**
- * Promote demotedPlayer as elder of the guild
- * @param player
- * @param demotedPlayer
- * @param response
- */
-async function acceptGuildElderRemove(player: Player, demotedPlayer: Player, response: DraftBotPacket[]): Promise<void> {
+async function acceptGuildElderRemove(player: Player, demotedElder: Player, response: DraftBotPacket[]): Promise<void> {
 	await player.reload();
-	await demotedPlayer.reload();
+	await demotedElder.reload();
+	const guild = await Guilds.getById(player.guildId);
 	// Do all necessary checks again just in case something changed during the menu
-	if (!await isEligible(player, demotedPlayer, response)) {
+	if (!guild.elderId) {
+		response.push(makePacket(CommandGuildElderRemoveGuildHasAnElderPacketRes, {}));
 		return;
 	}
-	const guild = await Guilds.getById(player.guildId);
 	guild.elderId = null;
 
 	await Promise.all([
-		demotedPlayer.save(),
+		demotedElder.save(),
 		guild.save()
 	]);
-	draftBotInstance.logsDatabase.logGuildElderRemove(guild, demotedPlayer.id).then();
+	draftBotInstance.logsDatabase.logGuildElderRemove(guild, demotedElder.id).then();
 
 	response.push(makePacket(CommandGuildElderRemoveAcceptPacketRes, {
-		demotedKeycloakId: demotedPlayer.keycloakId,
+		demotedKeycloakId: demotedElder.keycloakId,
 		guildName: guild.name
 	}));
 }
 
-function endCallback(player: Player, demotedPlayer: Player): EndCallback {
+function endCallback(player: Player, demotedElder: Player): EndCallback {
 	return async (collector, response): Promise<void> => {
 		const reaction = collector.getFirstReaction();
 		if (reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name) {
-			await acceptGuildElderRemove(player, demotedPlayer, response);
+			await acceptGuildElderRemove(player, demotedElder, response);
 		}
 		else {
-			response.push(makePacket(CommandGuildElderRemoveRefusePacketRes, {demotedKeycloakId: demotedPlayer.keycloakId}));
+			response.push(makePacket(CommandGuildElderRemoveRefusePacketRes, {demotedKeycloakId: demotedElder.keycloakId}));
 		}
 		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.GUILD_ELDER_REMOVE);
 	};
@@ -106,16 +68,18 @@ export default class GuildElderRemoveCommand {
 		guildRoleNeeded: GuildRole.CHIEF
 	})
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandGuildElderRemovePacketReq, context: PacketContext): Promise<void> {
-		const demotedPlayer = await Players.getAskedPlayer({keycloakId: packet.askedPlayerKeycloakId}, player);
+		const guild = await Guilds.getById(player.guildId);
 
-		if (!await isEligible(player, demotedPlayer, response)) {
+		if (!guild.elderId) {
+			response.push(makePacket(CommandGuildElderRemoveGuildHasAnElderPacketRes, {}));
 			return;
 		}
-		const guildName = (await Guilds.getById(player.guildId)).name;
+		const demotedElder = await Players.getById(guild.elderId);
+		const guildName = guild.name;
 
 		const collector = new ReactionCollectorGuildElderRemove(
 			guildName,
-			demotedPlayer.keycloakId
+			demotedElder.keycloakId
 		);
 
 		const collectorPacket = new ReactionCollectorInstance(
@@ -125,7 +89,7 @@ export default class GuildElderRemoveCommand {
 				allowedPlayerKeycloakIds: [player.keycloakId],
 				reactionLimit: 1
 			},
-			endCallback(player,demotedPlayer)
+			endCallback(player,demotedElder)
 		)
 			.block(player.id, BlockingConstants.REASONS.GUILD_ELDER_REMOVE)
 			.build();
