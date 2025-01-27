@@ -1,6 +1,7 @@
 name: 🐛Bug Report
 description: Signaler un bug
 title: "[BUG]: "
+type: "bug"
 labels: ["bug"]
 assignees: []
 body:
