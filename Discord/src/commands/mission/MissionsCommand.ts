@@ -10,7 +10,6 @@ import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {draftBotClient, keycloakConfig} from "../../bot/DraftBotShard";
 import {
-	CommandMissionPlayerNotFoundPacket,
 	CommandMissionsPacketReq,
 	CommandMissionsPacketRes
 } from "../../../../Lib/src/packets/commands/CommandMissionsPacket";
@@ -36,10 +35,9 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 
 /**
  * Handle the case where the player is not found
- * @param packet
  * @param context
  */
-export async function handleCommandMissionPlayerNotFoundPacket(packet: CommandMissionPlayerNotFoundPacket, context: PacketContext): Promise<void> {
+export async function handleCommandMissionPlayerNotFoundPacket(context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 	await interaction?.reply({
 		embeds: [

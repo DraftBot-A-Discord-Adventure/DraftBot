@@ -47,7 +47,7 @@ export abstract class Shop<
 
 	abstract getPopulatedReactionCollector(basePacket: ReactionCollectorAnyShopSmallEventData): Collector;
 
-	public executeSmallEvent: ExecuteSmallEventLike = async (context, response, player) => {
+	public executeSmallEvent: ExecuteSmallEventLike = async (response, player, context) => {
 		this.itemMultiplier = await this.getPriceMultiplier(player);
 		this.randomItem = await this.getRandomItem();
 		this.itemPrice = Math.round(getItemValue(this.randomItem) * this.itemMultiplier);

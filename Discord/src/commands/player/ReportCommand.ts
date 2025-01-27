@@ -38,7 +38,7 @@ async function getPacket(interaction: DraftbotInteraction): Promise<CommandRepor
 	return Promise.resolve(makePacket(CommandReportPacketReq, {}));
 }
 
-export async function createBigEventCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+export async function createBigEventCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorBigEventData;
@@ -178,7 +178,7 @@ export async function reportResult(packet: CommandReportBigEventResultRes, conte
 	}
 }
 
-export async function chooseDestinationCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+export async function chooseDestinationCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 

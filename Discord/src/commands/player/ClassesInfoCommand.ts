@@ -31,11 +31,10 @@ function getPacket(): Promise<CommandClassesInfoPacketReq> {
 
 /**
  * Get the list of classes
- * @param packet
  * @param language
  * @param classList
  */
-function getListEmbed(packet: CommandClassesInfoPacketRes, language: Language, classList: {
+function getListEmbed(language: Language, classList: {
 	id: number,
 	stats: ClassStats,
 	attacks: {
@@ -81,11 +80,10 @@ function getListEmbed(packet: CommandClassesInfoPacketRes, language: Language, c
 
 /**
  * Get the details of a class
- * @param packet
  * @param language
  * @param classDetails
  */
-function getDetailsEmbed(packet: CommandClassesInfoPacketRes, language: Language, classDetails: {
+function getDetailsEmbed(language: Language, classDetails: {
 	id: number,
 	name: string,
 	kind: ClassKind,
@@ -139,7 +137,7 @@ export async function handleCommandClassesInfoPacketRes(packet: CommandClassesIn
 	if (!interaction) {
 		return;
 	}
-	const classListEmbed = getListEmbed(packet, interaction.userLanguage, packet.data!.classesStats);
+	const classListEmbed = getListEmbed(interaction.userLanguage, packet.data!.classesStats);
 	const classesMenuOptions = packet.data!.classesStats.map((classStats) => new StringSelectMenuOptionBuilder()
 		.setLabel(`${i18n.t(`models:classes.${classStats.id}`, {
 			lng: interaction.userLanguage
@@ -198,7 +196,7 @@ export async function handleCommandClassesInfoPacketRes(packet: CommandClassesIn
 			});
 		}
 
-		const classDetailsEmbed = getDetailsEmbed(packet, interaction.userLanguage, {
+		const classDetailsEmbed = getDetailsEmbed(interaction.userLanguage, {
 			id: parseInt(menuInteraction.values[0]),
 			name: i18n.t(`models:classes.${parseInt(menuInteraction.values[0])}`, {
 				lng: interaction.userLanguage

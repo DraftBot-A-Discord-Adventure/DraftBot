@@ -59,7 +59,7 @@ function retrieveSelectedEvent(collector: ReactionCollectorInstance): FightPetAc
 
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnPveIsland,
-	executeSmallEvent: (context: PacketContext, response, player) => {
+	executeSmallEvent: (response, player, context: PacketContext) => {
 		const pet = PetDataController.instance.getRandom();
 		const isFemale = RandomUtils.draftbotRandom.bool();
 

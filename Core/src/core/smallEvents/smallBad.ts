@@ -13,7 +13,7 @@ import {
 
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnContinent,
-	executeSmallEvent: async (context, response, player): Promise<void> => {
+	executeSmallEvent: async (response, player): Promise<void> => {
 		const packet: SmallEventSmallBadPacket = new SmallEventSmallBadPacket();
 		packet.issue = RandomUtils.draftbotRandom.pick(Object.values(SmallEventBadIssue)) as SmallEventBadIssue;
 

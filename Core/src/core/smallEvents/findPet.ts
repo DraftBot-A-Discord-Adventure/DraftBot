@@ -9,7 +9,7 @@ import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnContinent,
-	executeSmallEvent: async (context, response, player): Promise<void> => {
+	executeSmallEvent: async (response, player): Promise<void> => {
 		const pet = PetEntities.generateRandomPetEntityNotGuild();
 		let guild;
 
@@ -17,7 +17,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 		try {
 			guild = await Guilds.getById(player.guildId);
 		}
-		catch (error) {
+		catch {
 			guild = null;
 		}
 

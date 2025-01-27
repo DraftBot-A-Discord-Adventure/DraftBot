@@ -8,7 +8,7 @@ import {getNextSaturdayMidnight, todayIsSunday} from "../../../../Lib/src/utils/
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: (player) => Maps.isOnContinent(player) && player.level > FightConstants.REQUIRED_LEVEL,
 
-	executeSmallEvent: (context, response, player): void => {
+	executeSmallEvent: (response, player): void => {
 		const league = player.getLeague();
 
 		response.push(makePacket(SmallEventLeagueRewardPacket, {

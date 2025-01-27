@@ -40,7 +40,7 @@ async function canCreateGuild(player: Player, guildName: string, response: Draft
 	try {
 		existingGuild = await Guilds.getByName(guildName);
 	}
-	catch (error) {
+	catch {
 		existingGuild = null;
 	}
 

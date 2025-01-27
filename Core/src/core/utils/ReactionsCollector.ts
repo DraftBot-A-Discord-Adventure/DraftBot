@@ -166,7 +166,7 @@ export class ReactionCollectorInstance {
 }
 
 export class ReactionCollectorController {
-	public static async reactPacket(packet: ReactionCollectorReactPacket, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
+	public static async reactPacket(response: DraftBotPacket[], packet: ReactionCollectorReactPacket): Promise<void> {
 		const collector: ReactionCollectorInstance = collectors.get(packet.id);
 		if (!collector || collector.hasEnded) {
 			const packet: ReactionCollectorEnded = makePacket(ReactionCollectorEnded, {});

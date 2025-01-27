@@ -22,11 +22,10 @@ import {SexTypeShort} from "../../../../Lib/src/constants/StringConstants";
 
 /**
  * Return all possibilities the player can get on this small event.
- * @param player
  * @param petEntity
  * @param pet
  */
-function generatePossibleIssues(player: Player, petEntity: PetEntity, pet: Pet): PetInteraction[] {
+function generatePossibleIssues(petEntity: PetEntity, pet: Pet): PetInteraction[] {
 	if (petEntity.isFeisty()) {
 		return Object.values(PetConstants.PET_INTERACTIONS.PET_FEISTY);
 	}
@@ -172,10 +171,10 @@ async function managePickedInteraction(packet: SmallEventPetPacket, response: Dr
 
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: (player) => Maps.isOnContinent && !player.petId,
-	executeSmallEvent: async (context, response, player): Promise<void> => {
+	executeSmallEvent: async (response, player, context): Promise<void> => {
 		const petEntity = await PetEntities.getById(player.petId);
 		const pet = PetDataController.instance.getById(petEntity.typeId);
-		const possibleIssues = generatePossibleIssues(player, petEntity, pet);
+		const possibleIssues = generatePossibleIssues(petEntity, pet);
 		const randomPet = PetEntities.generateRandomPetEntityNotGuild();
 		const packet: SmallEventPetPacket = {
 			interactionName: pickRandomInteraction(possibleIssues),

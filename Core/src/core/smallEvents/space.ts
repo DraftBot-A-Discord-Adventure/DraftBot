@@ -22,7 +22,7 @@ async function neoWS(): Promise<SpaceFunctionResult> {
 	try {
 		neoWSFeed = await SpaceUtils.getNeoWSFeed();
 	}
-	catch (e) {
+	catch {
 		// If the request failed, return null
 		neoWSFeed = [];
 	}
@@ -127,7 +127,7 @@ async function astronomyEvent(context: PacketContext): Promise<void> {
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnContinent,
 
-	executeSmallEvent(context, response): void {
+	executeSmallEvent(response, _player, context): void {
 		response.push(makePacket(SmallEventSpaceInitialPacket, {}));
 		astronomyEvent(context).then();
 	}

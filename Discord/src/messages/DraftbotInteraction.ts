@@ -232,7 +232,7 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 				content: errorText
 			});
 		}
-		catch (e) {
+		catch {
 			if (functionPrototype !== DraftbotChannel.prototype.send) {
 				// Try again to manage fallback with the send function
 				// @ts-expect-error - We consider that the functionPrototype is a function that can be called with these parameters (i.e, accepts a InteractionReplyOptions)
@@ -243,7 +243,7 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 			try {
 				await CommandInteraction.prototype.user.send.bind(this.user)({content: errorText});
 			}
-			catch (e) {
+			catch {
 				console.log(`Unable to alert user of no speak permission : c:${this.channel?.id} / u:${this.user?.id}`);
 			}
 		}

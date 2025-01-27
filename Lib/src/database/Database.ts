@@ -61,25 +61,29 @@ export abstract class Database {
 			return;
 		}
 
-		// Initialize the connection
-		const mariadbConnection = await createConnection({
-			host: this.databaseConfiguration.host,
-			port: this.databaseConfiguration.port,
-			user: this.databaseConfiguration.rootUser,
-			password: this.databaseConfiguration.rootPassword
-		});
-		await mariadbConnection.execute(`CREATE DATABASE IF NOT EXISTS ${this.databaseConfiguration.prefix}_${this.databaseConfiguration.databaseName} CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;`);
-		try {
-			await mariadbConnection.execute(
-				`GRANT ALL PRIVILEGES ON ${this.databaseConfiguration.prefix}_${this.databaseConfiguration.databaseName}.* TO '${this.databaseConfiguration.user}'@${this.databaseConfiguration.host};`
-			);
-		}
-		catch {
-			await mariadbConnection.execute(`GRANT ALL PRIVILEGES ON ${this.databaseConfiguration.prefix}_${this.databaseConfiguration.databaseName}.* TO '${this.databaseConfiguration.user}';`);
-		}
-		await mariadbConnection.end();
+		const dbName = `${this.databaseConfiguration.prefix}_${this.databaseConfiguration.databaseName}`;
 
-		this.sequelize = new Sequelize(`${this.databaseConfiguration.prefix}_${this.databaseConfiguration.databaseName}`, this.databaseConfiguration.user, this.databaseConfiguration.userPassword, {
+		if (this.databaseConfiguration.rootPassword) {
+			// Initialize the connection
+			const mariadbConnection = await createConnection({
+				host: this.databaseConfiguration.host,
+				port: this.databaseConfiguration.port,
+				user: this.databaseConfiguration.rootUser,
+				password: this.databaseConfiguration.rootPassword
+			});
+			await mariadbConnection.execute(`CREATE DATABASE IF NOT EXISTS ${dbName} CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;`);
+			try {
+				await mariadbConnection.execute(
+					`GRANT ALL PRIVILEGES ON ${dbName}.* TO '${this.databaseConfiguration.user}'@${this.databaseConfiguration.host};`
+				);
+			}
+			catch {
+				await mariadbConnection.execute(`GRANT ALL PRIVILEGES ON ${dbName}.* TO '${this.databaseConfiguration.user}';`);
+			}
+			await mariadbConnection.end();
+		}
+
+		this.sequelize = new Sequelize(`${dbName}`, this.databaseConfiguration.user, this.databaseConfiguration.userPassword, {
 			dialect: "mariadb",
 			host: this.databaseConfiguration.host,
 			port: this.databaseConfiguration.port,

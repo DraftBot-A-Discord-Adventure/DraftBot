@@ -4,7 +4,7 @@ import {FightAlterationFunc} from "../../../../../data/FightAlteration";
 import {defaultDamageFightAlterationResult, defaultFightAlterationResult, defaultHealFightAlterationResult} from "../../../FightController";
 import {attackInfo, statsInfo} from "../../FightActionController";
 
-const use: FightAlterationFunc = (affected, fightAlteration, opponent) => {
+const use: FightAlterationFunc = (affected, _fightAlteration, opponent) => {
 	if (affected.alterationTurn === 1 || affected.alterationTurn === 3) {
 		return defaultFightAlterationResult();
 	}

@@ -24,7 +24,7 @@ import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
 
 export default class EventsHandlers {
 	@packetHandler(CommandReportChooseDestinationRes)
-	async chooseDestinationRes(packet: CommandReportChooseDestinationRes, context: PacketContext): Promise<void> {
+	async chooseDestinationRes(context: PacketContext, packet: CommandReportChooseDestinationRes): Promise<void> {
 		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 
@@ -63,12 +63,12 @@ export default class EventsHandlers {
 	}
 
 	@packetHandler(GuildLevelUpPacket)
-	async guildLevelUp(packet: GuildLevelUpPacket, context: PacketContext): Promise<void> {
+	async guildLevelUp(_context: PacketContext, _packet: GuildLevelUpPacket): Promise<void> {
 		// Todo
 	}
 
 	@packetHandler(MissionsCompletedPacket)
-	async missionsCompleted(packet: MissionsCompletedPacket, context: PacketContext): Promise<void> {
+	async missionsCompleted(context: PacketContext, packet: MissionsCompletedPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId!))!;
 		if (!user.attributes.discordId) {
@@ -122,7 +122,7 @@ export default class EventsHandlers {
 	}
 
 	@packetHandler(MissionsExpiredPacket)
-	async missionsExpired(packet: MissionsExpiredPacket, context: PacketContext): Promise<void> {
+	async missionsExpired(context: PacketContext, packet: MissionsExpiredPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId!))!;
 		if (!user.attributes.discordId) {
@@ -154,27 +154,27 @@ export default class EventsHandlers {
 	}
 
 	@packetHandler(PlayerDeathPacket)
-	async playerDeath(packet: PlayerDeathPacket, context: PacketContext): Promise<void> {
+	async playerDeath(_context: PacketContext, _packet: PlayerDeathPacket): Promise<void> {
 		// Todo
 	}
 
 	@packetHandler(PlayerLeavePveIslandPacket)
-	async playerLeavePveIsland(packet: PlayerLeavePveIslandPacket, context: PacketContext): Promise<void> {
+	async playerLeavePveIsland(_context: PacketContext, _packet: PlayerLeavePveIslandPacket): Promise<void> {
 		// Todo
 	}
 
 	@packetHandler(PlayerLevelUpPacket)
-	async playerLevelUp(packet: PlayerLevelUpPacket, context: PacketContext): Promise<void> {
+	async playerLevelUp(_context: PacketContext, _packet: PlayerLevelUpPacket): Promise<void> {
 		// Todo
 	}
 
 	@packetHandler(PlayerReceivePetPacket)
-	async playerReceivePet(packet: PlayerReceivePetPacket, context: PacketContext): Promise<void> {
+	async playerReceivePet(_context: PacketContext, _packet: PlayerReceivePetPacket): Promise<void> {
 		// Todo
 	}
 
 	@packetHandler(GiveFoodToGuildPacket)
-	async giveFoodToGuild(packet: GiveFoodToGuildPacket, context: PacketContext): Promise<void> {
+	async giveFoodToGuild(context: PacketContext, packet: GiveFoodToGuildPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		const foodId = PetConstants.PET_FOOD_BY_ID[packet.selectedFoodIndex];
 
@@ -198,7 +198,7 @@ export default class EventsHandlers {
 	}
 
 	@packetHandler(NoFoodSpaceInGuildPacket)
-	async noFoodSpaceInGuild(packet: NoFoodSpaceInGuildPacket, context: PacketContext): Promise<void> {
+	async noFoodSpaceInGuild(_context: PacketContext, _packet: NoFoodSpaceInGuildPacket): Promise<void> {
 		// Todo
 	}
 }

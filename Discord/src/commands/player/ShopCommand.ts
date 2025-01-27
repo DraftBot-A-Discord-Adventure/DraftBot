@@ -141,7 +141,7 @@ export async function handleCommandShopBadgeBought(context: PacketContext): Prom
 	});
 }
 
-export async function shopInventoryExtensionCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+export async function shopInventoryExtensionCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!)!;
 
 	const row = new ActionRowBuilder<ButtonBuilder>();
@@ -388,7 +388,7 @@ function getShopItemDisplay(data: ReactionCollectorShopData, reaction: ReactionC
 	return desc;
 }
 
-export async function shopCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+export async function shopCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!)!;
 	const data = packet.data.data as ReactionCollectorShopData;
 

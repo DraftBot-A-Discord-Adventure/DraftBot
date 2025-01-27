@@ -155,7 +155,7 @@ function getEndCallback(player: Player): EndCallback {
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnContinent,
 
-	executeSmallEvent: (context, response, player) => {
+	executeSmallEvent: (response, player, context) => {
 		const events = getRandomWitchEvents(player.class === Constants.CLASSES.MYSTIC_MAGE);
 
 		const collector = new ReactionCollectorWitch(

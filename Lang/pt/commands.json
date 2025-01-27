@@ -89,12 +89,24 @@
     "chiefError": "Como líder do grémio, não podes ser o mais velho.",
     "alreadyElder": "O jogador já é um membro sénior da tua guilda.",
     "title": "{{pseudo}}Está a confirmar a sua escolha?",
-    "confirmDesc": ":question: {{elderPseudo}}{{guildName}}tornar-se-á o membro mais velho do grémio.",
+    "confirmDesc": "{emote:collectors.question} {{elderPseudo}}{{guildName}}tornar-se-á o membro mais velho do grémio.",
     "successElderAddTitle": "{{elderPseudo}} {{guildName}} é o mais recente membro da associação!",
     "acceptedDesc": "O mais velho ajuda o líder a gerir o grémio. Por isso, escolhe-o com cuidado! {command:guildelder} {command:guildelderremove}Mas não te preocupes, se não estiveres satisfeito com o teu ancião, podes substituí-lo com o comando , ou se te sentires um ditador, podes removê-lo para sempre com o .",
     "canceledDesc": "O mais velho não foi promovido.",
-    "canceledTitle": "Cancelamento tido em conta.",
-    "problemWhilePromoting": "Ocorreu um erro quando o jogador foi promovido."
+    "canceledTitle": "Cancelamento tido em conta."
+  },
+  "guildLeave": {
+    "title": "{{pseudo}}confirmação :",
+    "confirmDesc": "{emote:collectors.question}{{guildName}}Queres mesmo deixar o grémio?",
+    "confirmChiefDesc": "{emote:collectors.question}{{guildName}}Queres mesmo **destruir definitivamente** o grémio ` `?",
+    "confirmChiefDescWithElder": "{emote:collectors.question}{{guildName}} {{newChiefPseudo}} Queres mesmo deixar o grémio? será o seu líder.",
+    "canceledDesc": "A sua partida foi cancelada.",
+    "successTitle": "{{pseudo}} {{guildName}} deixou o grémio!",
+    "leavingSuccess": "És um pobre cowboy solitário e estás muito longe de casa...",
+    "destroySuccess": "{{guildName}} O grémio foi dissolvido com sucesso.",
+    "newChiefTitle": "{{newChiefPseudo}} {{guildName}} é o novo líder da guilda!",
+    "notInAGuild": "Parece que já não fazes parte de um grémio.",
+    "canceledTitle": "Anulação tida em conta"
   },
   "help": {
     "aliasFieldTitle": "Apelido",
@@ -827,5 +839,15 @@
     "nobodyInTopPlayers": "Atualmente não há ninguém no top 10! Aproveitem enquanto podem.",
     "nobodyInTopGuilds": "Atualmente não existem guildas no topo! Aproveita enquanto podes.",
     "invalidPage": "A página solicitada não existe. {{minPage}} {{maxPage}}Por favor, tente novamente com uma página entre e ."
+  },
+  "switch": {
+    "titleSuccess": "{{pseudo}}Encomendar agora!",
+    "switchingDouble": "{{item1}} {{item2}} e foram trocados!",
+    "switchingSingle_male": "{{item1}} foi equipado!",
+    "switchingSingle_female": "{{item1}} foi equipada!",
+    "noItemToSwitch": "Não é preciso equipar nada!",
+    "cancelled": "Ação cancelada!",
+    "switchSelectionTitle": "{{pseudo}}equipar um objeto",
+    "switchSelectionDescription": "Escolhe um item para equipar da lista abaixo:"
   }
 }

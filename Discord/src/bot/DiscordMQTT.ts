@@ -52,7 +52,7 @@ export class DiscordMQTT {
 							packet.packet = makePacket(ErrorPacket, {message: `No packet listener found for received packet '${packet.name}'.\n\nData:\n${JSON.stringify(packet.packet)}`});
 							listener = DiscordMQTT.packetListener.getListener("ErrorPacket")!;
 						}
-						await listener(packet.packet, dataJson.context);
+						await listener(dataJson.context, packet.packet);
 					}
 				}
 				catch (error) {

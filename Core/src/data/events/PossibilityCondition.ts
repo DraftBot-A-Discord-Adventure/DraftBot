@@ -13,7 +13,7 @@ async function verifyConditionCanAcceptPet(condition: PossibilityCondition, play
 	try {
 		guild = await Guilds.getById(player.guildId);
 	}
-	catch (error) {
+	catch {
 		guild = null;
 	}
 

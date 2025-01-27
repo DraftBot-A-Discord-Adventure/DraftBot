@@ -3,7 +3,7 @@ import {IMission} from "../IMission";
 export const missionInterface: IMission = {
 	generateRandomVariant: () => 0,
 
-	areParamsMatchingVariantAndBlob: (variant, params, saveBlob) => {
+	areParamsMatchingVariantAndBlob: (_variant, params, saveBlob) => {
 		if (!saveBlob) {
 			return true;
 		}
@@ -13,7 +13,7 @@ export const missionInterface: IMission = {
 
 	initialNumberDone: () => 0,
 
-	updateSaveBlob: (variant, saveBlob, params) => {
+	updateSaveBlob: (_variant, saveBlob, params) => {
 		if (!saveBlob) {
 			return Buffer.from(params.placeId.toString());
 		}

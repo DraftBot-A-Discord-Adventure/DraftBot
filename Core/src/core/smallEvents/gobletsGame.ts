@@ -64,7 +64,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 			![destination.id, origin.id].some(mapId =>
 				[MapConstants.LOCATIONS_IDS.ROAD_OF_WONDERS, MapConstants.LOCATIONS_IDS.MARSHY_ROAD].includes(mapId));
 	},
-	executeSmallEvent: (context, response, player) => {
+	executeSmallEvent: (response, player, context) => {
 		const collector = new ReactionCollectorGobletsGame();
 
 		const endCallback: EndCallback = async (collector, response) => {

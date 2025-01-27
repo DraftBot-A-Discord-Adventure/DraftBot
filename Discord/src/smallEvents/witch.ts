@@ -17,7 +17,7 @@ import {Effect} from "../../../Lib/src/types/Effect";
 import {WitchActionOutcomeType} from "../../../Lib/src/types/WitchActionOutcomeType";
 import {EmoteUtils} from "../utils/EmoteUtils";
 
-export async function witchCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+export async function witchCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 
 	let witchIngredients = "\n\n";

@@ -66,7 +66,7 @@ function getFielder(itemCategory: number): ((displayPacket: MainItemDisplayPacke
 	}
 }
 
-export async function switchItemCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+export async function switchItemCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!);
 	if (!interaction) {
 		return;

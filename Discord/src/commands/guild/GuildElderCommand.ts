@@ -24,7 +24,7 @@ import {SlashCommandBuilder} from "@discordjs/builders";
  * @param packet
  * @param context
  */
-export async function createGuildElderCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+export async function createGuildElderCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorGuildElderData;

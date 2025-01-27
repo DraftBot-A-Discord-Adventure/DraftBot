@@ -80,7 +80,7 @@ async function applyPossibility(
 
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnPveIsland,
-	executeSmallEvent: async (context, response, player): Promise<void> => {
+	executeSmallEvent: async (response, player): Promise<void> => {
 		const bonusGuildPVEIslandProperties = SmallEventDataController.instance.getById("bonusGuildPVEIsland").getProperties<BonusGuildPVEIslandProperties>();
 		const event: number = RandomUtils.randInt(0, bonusGuildPVEIslandProperties.events.length);
 		const probabilities = RandomUtils.randInt(0, 100);

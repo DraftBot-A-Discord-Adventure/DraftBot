@@ -72,7 +72,7 @@ export class SpaceUtils {
 						this.cachedNeoFeed = parsedAnswer.near_earth_objects;
 						resolve(parsedAnswer.near_earth_objects);
 					}
-					catch (e) {
+					catch {
 						resolve(null);
 					}
 				});

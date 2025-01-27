@@ -13,7 +13,7 @@ import {ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, Message
 import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
 import {sendInteractionNotForYou} from "../utils/ErrorUtils";
 
-export async function lotteryCollector(packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> {
+export async function lotteryCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 
