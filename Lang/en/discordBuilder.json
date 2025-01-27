@@ -125,13 +125,7 @@
   },
   "guildElderRemove": {
     "description": "Demote a guild member to elder.",
-    "name": "guildelderremove",
-    "options": {
-      "user": {
-        "description": "The user who will be demoted from its elder rank.",
-        "name": "user"
-      }
-    }
+    "name": "guildelderremove"
   },
   "profile": {
     "description": "Displays the profile of a player.",
@@ -258,10 +252,6 @@
         "name": "user"
       }
     }
-  },
-  "guildLeave": {
-    "description": "Leave your guild",
-    "name": "guildleave"
   },
   "daily": {
     "description": "Use your equipped item to get a daily bonus.",
