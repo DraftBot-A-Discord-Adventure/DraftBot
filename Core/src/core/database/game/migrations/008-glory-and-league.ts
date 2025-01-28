@@ -1,5 +1,6 @@
 import {DataTypes, QueryInterface} from "sequelize";
 import {FightConstants} from "../../../../../../Lib/src/constants/FightConstants";
+import {MigrationNameChanger} from "../../../../../../Lib/src/database/MigrationNameChanger";
 
 export const leaguesAttributes008 = {
 	id: {
@@ -35,6 +36,10 @@ export const leaguesAttributes008 = {
 };
 
 export async function up({context}: { context: QueryInterface }): Promise<void> {
+	if (await MigrationNameChanger.changeMigrationName(context, "008-gloryandleague.js")) {
+		return;
+	}
+
 	await context.addColumn("players", "gloryPoints", {
 		type: DataTypes.INTEGER,
 		allowNull: false,

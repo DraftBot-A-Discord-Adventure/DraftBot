@@ -1,6 +1,11 @@
 import {DataTypes, QueryInterface} from "sequelize";
+import {MigrationNameChanger} from "../../../../../../Lib/src/database/MigrationNameChanger";
 
 export async function up({context}: { context: QueryInterface }): Promise<void> {
+	if (await MigrationNameChanger.changeMigrationName(context, "016-addMonsterDescription.js")) {
+		return;
+	}
+
 	await context.addColumn("monsters", "descriptionFr", {
 		// eslint-disable-next-line new-cap
 		type: DataTypes.STRING(512),
