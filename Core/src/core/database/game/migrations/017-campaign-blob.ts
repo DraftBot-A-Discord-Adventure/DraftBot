@@ -1,6 +1,11 @@
 import {DataTypes, QueryInterface} from "sequelize";
+import {MigrationNameChanger} from "../../../../../../Lib/src/database/MigrationNameChanger";
 
 export async function up({context}: { context: QueryInterface }): Promise<void> {
+	if (await MigrationNameChanger.changeMigrationName(context, "017-campaignBlob.js")) {
+		return;
+	}
+
 	await context.addColumn("player_missions_info", "campaignBlob", {
 		type: DataTypes.STRING
 	});
