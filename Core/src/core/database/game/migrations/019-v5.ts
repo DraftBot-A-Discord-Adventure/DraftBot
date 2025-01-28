@@ -1,6 +1,6 @@
 import {DataTypes, QueryInterface} from "sequelize";
 import {classesAttributes001, itemAttributes001, missionsAttributes001, petAttributes001} from "./001-initial-database";
-import {leaguesAttributes008} from "./008-gloryandleague";
+import {leaguesAttributes008} from "./008-glory-and-league";
 import {monsterLocationsAttributes011} from "./011-pve";
 import {existsSync} from "node:fs";
 import {parse} from "toml";

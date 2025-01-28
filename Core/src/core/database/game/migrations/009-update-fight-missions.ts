@@ -1,6 +1,11 @@
 import {QueryInterface} from "sequelize";
+import {MigrationNameChanger} from "../../../../../../Lib/src/database/MigrationNameChanger";
 
 export async function up({context}: { context: QueryInterface }): Promise<void> {
+	if (await MigrationNameChanger.changeMigrationName(context, "009-updateFightMissions.js")) {
+		return;
+	}
+
 	// Update campaign
 	await context.sequelize.query(`
 		UPDATE mission_slots
