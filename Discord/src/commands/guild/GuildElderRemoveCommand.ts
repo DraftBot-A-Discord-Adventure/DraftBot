@@ -31,7 +31,7 @@ export async function createGuildElderRemoveCollector(context: PacketContext, pa
 		.setDescription(
 			i18n.t("commands:guildElderRemove.confirmDesc", {
 				lng: interaction.userLanguage,
-				elderPseudo: elderPlayer.attributes.gameUsername,
+				elderPseudo: elderPlayer.attributes.gameUsername[0],
 				guildName: data.guildName
 			})
 		);
@@ -61,7 +61,7 @@ export async function handleCommandGuildElderRemoveRefusePacketRes(packet: Comma
 				.setDescription(
 					i18n.t("commands:guildElderRemove.canceledDesc", {
 						lng: originalInteraction.userLanguage,
-						elderPseudo: promotedPlayer.attributes.gameUsername
+						elderPseudo: promotedPlayer.attributes.gameUsername[0]
 					})
 				)
 				.setErrorColor()
@@ -84,7 +84,7 @@ export async function handleCommandGuildElderRemoveAcceptPacketRes(packet: Comma
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:guildElderRemove.successElderRemoveTitle", {
 					lng: originalInteraction.userLanguage,
-					elderPseudo: promotedPlayer.attributes.gameUsername,
+					elderPseudo: promotedPlayer.attributes.gameUsername[0],
 					guildName: packet.guildName
 				}), originalInteraction.user)
 					.setDescription(
