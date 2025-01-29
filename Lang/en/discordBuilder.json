@@ -235,6 +235,10 @@
       }
     }
   },
+  "guildLeave": {
+    "description": "Leave your guild",
+    "name": "guildleave"
+  },
   "daily": {
     "description": "Use your equipped item to get a daily bonus.",
     "name": "dailybonus"
