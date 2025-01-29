@@ -36,7 +36,7 @@ export async function createGuildElderCollector(context: PacketContext, packet: 
 		.setDescription(
 			i18n.t("commands:guildElder.confirmDesc", {
 				lng: interaction.userLanguage,
-				elderPseudo: elderPlayer.attributes.gameUsername,
+				elderPseudo: elderPlayer.attributes.gameUsername[0],
 				guildName: data.guildName
 			})
 		);
@@ -66,7 +66,7 @@ export async function handleCommandGuildElderRefusePacketRes(packet: CommandGuil
 				.setDescription(
 					i18n.t("commands:guildElder.canceledDesc", {
 						lng: originalInteraction.userLanguage,
-						elderPseudo: promotedPlayer.attributes.gameUsername
+						elderPseudo: promotedPlayer.attributes.gameUsername[0]
 					})
 				)
 				.setErrorColor()
@@ -90,7 +90,7 @@ export async function handleCommandGuildElderAcceptPacketRes(packet: CommandGuil
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:guildElder.successElderAddTitle", {
 					lng: originalInteraction.userLanguage,
-					elderPseudo: promotedPlayer.attributes.gameUsername,
+					elderPseudo: promotedPlayer.attributes.gameUsername[0],
 					guildName: packet.guildName
 				}), originalInteraction.user)
 					.setDescription(
