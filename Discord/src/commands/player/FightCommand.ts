@@ -12,8 +12,7 @@ import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 import {PacketUtils} from "../../utils/PacketUtils";
 import {
 	CommandFightIntroduceFightersPacket,
-	CommandFightPacketReq,
-	CommandFightRefusePacketRes
+	CommandFightPacketReq
 } from "../../../../Lib/src/packets/commands/CommandFightPacket";
 import {ReactionCollectorFightData} from "../../../../Lib/src/packets/interaction/ReactionCollectorFight";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
@@ -70,7 +69,7 @@ export async function createFightCollector(context: PacketContext, packet: React
 	});
 }
 
-export async function handleCommandFightRefusePacketRes(packet: CommandFightRefusePacketRes, context: PacketContext): Promise<void> {
+export async function handleCommandFightRefusePacketRes(context: PacketContext): Promise<void> {
 	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
 	if (!originalInteraction) {
 		return;
