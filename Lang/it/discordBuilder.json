@@ -236,8 +236,8 @@
     }
   },
   "guildLeave": {
-    "description": "Quitter la guilde.",
-    "name": "quitterguilde"
+    "description": "Lasciare la gilda.",
+    "name": "lasciareguilda"
   },
   "daily": {
     "description": "Usa l'oggetto equipaggiato per ottenere un bonus giornaliero.",
