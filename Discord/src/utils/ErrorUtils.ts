@@ -143,7 +143,9 @@ export async function handleClassicError(context: PacketContext, errorKey: strin
 	if (!interaction) {
 		return;
 	}
-	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord?.buttonInteraction ?? "");
+	// TODO : handle casting buttonInteraction everywhere (basically all in DiscordCache)
+	const buttonInteractionUncasted = DiscordCache.getButtonInteraction(context.discord?.buttonInteraction ?? "");
+	const buttonInteraction = buttonInteractionUncasted ? DraftbotInteraction.cast(buttonInteractionUncasted) : null;
 	const interactionToRespondTo = buttonInteraction ?? interaction;
 	await (interactionToRespondTo.deferred ? interactionToRespondTo.editReply : interactionToRespondTo.replied ? interactionToRespondTo.followUp : interactionToRespondTo.reply)({
 		embeds: [
