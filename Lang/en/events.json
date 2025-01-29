@@ -2082,101 +2082,101 @@
         "outcomes": {
           "0": "After several minutes searching in the field, you find the fork, barely visible under the cut wheat lying on the ground. To thank you, the peasant offers you, as promised, your reward.",
           "1": "After three hours of research, the fork asn't been found. However, you find a pretty item that may be useful to get the heart of the Princess!",
-          "2": "Looking for the fork, you step on it and get a nasty cut. You take on your time to inform the peasant you found his fork. He, seeing you're injured, hastens to heal you as he can."
+          "2": "As you are looking for the fork, you step on it and get a nasty cut. You take your time to inform the peasant that you found his fork. He, noticing your wound, hastens to heal you the best he can."
         },
         "text": "Search in wheat fields."
       }
     },
-    "text": "A peasant hail you while you're passing by the front of his farm on the outskirts of the Extended. It is made of pastures, vines and wheat fields. He greets you and explains you that he has lost his favorite fork: that's why he seemed anxious. He urges you to help him find it while promising you a large reward."
+    "text": "A peasant hails you while you're passing in front of his farm on the outskirts of the Expanse. It is made of pastures, vines and wheat fields. Looking downcast, he greets you and explains that he has lost his favorite fork. He begs you to help him find it while promising you a large reward."
   },
   "63": {
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "You chose to simply watch the fireworks and stay to see the village fall in despair, leaning against a tree just outside the village. But even after midnight nothing happened. It seems these supposed \"cultists\" are just a fraud and you take your leave.",
-          "1": "You decide to watch the granary from the local tavern, but get distracted by some delicious ale and beer. You get black out drunk and lose your spirits. Upon waking up, you notice that they simply tossed your unconscious body onto the road and that you are a few coins lighter.",
-          "2": "Deciding not to do anything you enter the local tavern and rent a room for the night. But during your slumber, black clothed figures attack you, beating you into submission and robbing you. They leave you bleeding on the floor and warn you to never snoop around in their affairs again, or else...",
-          "3": "Since you are already there, you think to yourself, why not go buy some supplies? You wander around the local market, visit the local black- and armour smith. After some time, you actually find something."
+          "0": "You chose to simply watch the fireworks and stay to see the village fall into despair, leaning against a tree just outside the village. But even after midnight, nothing happened. It seems these so-called \"cultists\" are nothing but a sham, and you take your leave.",
+          "1": "You decide to watch the attic from the local tavern, but get distracted by some delicious beer. You black out, drunk, and lose your consciousness. Upon waking up, you notice that they simply tossed your unconscious body onto the road and that you are a few coins short.",
+          "2": "Deciding not to do anything, you enter the local tavern and rent a room for the night. But during your slumber, figures dressed in black attack you, beating you into submission and robbing you. They leave you bleeding on the floor and warn you to never snoop around in their affairs again...",
+          "3": "Since you are already there, you think to yourself: why not go shopping? You wander around the local market, visit the local black- and weapon smith. After some time, you find something."
         }
       },
       "faceThem": {
         "outcomes": {
-          "0": "Some black robed figures are standing in a circle with feathers and blood everywhere. When attempting to strike one down, you hesitate. As these men are just ordinary cockfight betters and no cultists. But the men notice you, and out of fear, all gang up on you, bringing you down and afterwards legging it.",
-          "1": "Upon entering the room a stench of mortifying rot washes over you. Blood and gore is spread all around the room and some sort of red mist creeps around. Everything probably began to rot days ago. You can't stand the sight nor smell and flee from the place feeling sickened to the core.",
-          "2": "When opening the door, you find three black robed shapes about to sacrifice a maiden. You quickly draw your blade and cut these unworthy sub-humans down. Casting the blood stained blade aside, you rescue the damsel in distress and get her outside. The next day, you are celebrated as a hero and protector from evil.",
-          "3": "Upon entering the downstairs', you find yourself surrounded by oddly shaped wooden statues, twisted in some crude demeanour, horrors of the unknown made of wood. But there are no cultists. After investigating the creepy room, you find a box with something inside..."
+          "0": "You enter the attic's basement and come face to face with black-robed figures standing in a circle, entirely covered with blood and feathers. When attempting to strike one down, you hesitate. These men are no cultists, only cockfight betters. But the men notice you, and out of fear, gang up on you, knocking you down and quickly fleeing thereafter.",
+          "1": "Upon entering the room, a mortifying stench of decay overwhelms you. Blood and detritus are spread throughout the room and some sort of red mist creeps around. Everything probably began to rot days ago. You can't stand the sight or smell and flee from the place with a deep sense of disgust.",
+          "2": "When opening the door, you find three black-robed shapes about to sacrifice a maiden. You quickly draw your blade and slay these culprits. Casting the blood stained blade aside, you rescue the damsel in distress and get her outside. The next day, you are celebrated as a hero and protector from evil.",
+          "3": "Upon going downstairs, you find yourself surrounded by oddly shaped wooden statues, twisted in some crude demeanor, horrors of the unknown made of wood. But there's nobody there. After investigating the creepy room, you find a box with something inside..."
         },
-        "text": "Face the cultists."
+        "text": "Face the silhouettes."
       },
       "goAway": {
         "outcomes": {
-          "0": "Even after uncovering the dark machinations you decide to abandon the helpless folks and leave them to their demise.",
-          "1": "You sprint out of there, unknowing when the whole village is swallowed by death. In your hasty escape, you trip and fall down a ditch.",
-          "2": "After dashing out of the village you take a short rest to catch your breath. While doing so, you are approached by some armed black robed figures. It seems they didn't like you snooping around the village. They draw their arms and attack. Catching you off guard and exhausted, they beat you unconscious.",
-          "3": "You make it out of the cursed village alive. After some time, you stumble upon a beautiful piece of untouched land. You can see a waterfall and multiple tame carnivores. You decide to commune with nature and meditate under the stream of falling water. After an hour you feel energized and continue your journey."
+          "0": "Even after uncovering the dark machinations, you decide to abandon the helpless folks and leave them to their demise.",
+          "1": "You sprint out of there, not knowing when the whole village will be swallowed by death if so. In your hasty escape, you trip and fall into a ditch.",
+          "2": "After dashing out of the village, you take a short rest to catch your breath. While doing so, you are approached by some armed figures dressed in black. Seems like they didn't like you snooping around the village. They draw their weapons and attack. Catching you off guard and exhausted, they beat you into unconsciousness.",
+          "3": "You make it out of the cursed village alive. After some time, you stumble upon a beautiful piece of untouched land. You can see a waterfall and multiple tamed carnivores. You decide to meditate under the stream of falling water. After an hour, you feel energized and continue your journey."
         },
-        "text": "Get quickly out of there."
+        "text": "Get out of there as fast as possible."
       },
       "helpThem": {
         "outcomes": {
-          "0": "You find some black clothed figures in said basement. It seems they are no cultists, but ordinary people betting on cockfights. You join them and bet on the red painted gamecock, which, in the end, lost. Rendering you a few coins lighter.",
-          "1": "You find some black clothed figures in said basement. It seems they are no cultists, but ordinary people betting on cockfights. You join them and bet on the blue painted gamecock, which actually won in the end. A few coins richer, you leave the men to their games and depart.",
-          "2": "You meet 4 black hooded men in the basement. After convincing them to let you join them, they reveal their plan of sacrificing the local folks' life force to a Devil they worship, which you happily help with. You and the cultists sacrifice a girl and some animals. In addition you spread their innards all around the room. But nothing happens. After wasting your time you angrily stomp away...",
-          "3": "You meet 4 black hooded men in the basement. After convincing them to let you join them, they reveal their plan of sacrificing the local folks' life force to a devil, which you happily help with. You are about to sacrifice a maiden, when suddenly a load of guards swarm you. They apprehend you and the others, strip you down, and throw you in jail."
+          "0": "You find some figures dressed in black in said basement. It seems they are no cultists, but ordinary people betting on cockfights. You join them and bet on the red painted rooster, which ultimately lost., rendering you a few coins short.",
+          "1": "You find some figures dressed in black in said basement. It seems they are no cultists, but ordinary people betting on cockfights. You join them and bet on the blue-painted rooster, which won the fight. A few coins richer, you leave the men to their games and depart.",
+          "2": "You meet 4 black-hooded men in the basement. After convincing them to let you join them, they reveal their plan of sacrificing the local folks' vital force to a devil they worship. Hoping to take advantage of their knowledge, you say you're willing to participate. You and the cultists sacrifice a girl and some animals. Furthermore, you spread their innards throughout the room. Yet nothing happens. After wasting your time, you angrily stomp away...",
+          "3": "You meet 4 black-hooded men in the basement. After convincing them to let you join them, they reveal their plan of sacrificing the local folks' life force to a devil they worship. Hoping you'll take profit of their knowledge, you say you're willing to participate. You and the cultists sacrifice a woman and some animals. Furthermore, you spread their innards throughout the room. Yet nothing happens. It's only when you walk away from the room that you stumble upon guards..."
         },
-        "text": "Try to find the cultists to help them."
+        "text": "Try to find the cultists in order to help them."
       },
       "warnEveryone": {
         "outcomes": {
-          "0": "Without checking it out yourself, you start running around the village like a madman, telling everyone that they would die if they stayed. A wide spread panic ensues and everyone starts leaving the perimeter. But after some time nothing happens and some aren't very pleased with your wicked prank. They gang up on you, beat you up, and rob you.",
-          "1": "You tell the guards that there are some evil doers hiding beneath the granary plotting something. They follow up on your tip and investigate. Some minutes pass and another guard approaches you. It seems there were some heretics about to kill a fair maiden and, thanks to your hint, she was saved. He hands you a small pouch, shakes your hand, and departs afterwards.",
-          "2": "After telling everyone about the dark misfortune that is about to hit the village, everyone packs up their stuff and stays just outside of it in the forest. When suddenly an earthquake hits and panic ensues. You help the guards with calming the masses, which, after some time, quiet down. You are thanked for the warning and given some coin.",
-          "3": "You attempt to convince everyone that they are in danger, but the folks are having none of it and simply ignore you. You try for several hours and then decide to let it rest. Continuing on your journey without a care about the stubborn people from the village."
+          "0": "Without checking it out yourself, you start running around the village like a madman, telling everyone that they would die if they stayed. A widespread panic ensues and everyone starts leaving the perimeter. But after some time, nothing happens and some aren't very pleased with your wicked prank. They gang up on you, beat you up, and rob you.",
+          "1": "You tell the guards where the malevolent entities are hiding. They follow up on your tip and, after some minutes pass, another guard approaches you. It seems that heretics were about to kill a fair maiden and, thanks to your hint, she was saved. He hands you a small pouch before shaking your hand.",
+          "2": "After telling everyone about the dark misfortune that is about to hit the village, everyone packs up their stuff and stays just outside in the forest. When suddenly an earthquake hits and panic ensues. You help the guards calming down the masses which, after some time, quiet down. You are warmly thanked for the warning.",
+          "3": "You attempt to convince everyone that they are in danger, but the folks are having none of it and simply ignore you. You try for several hours, and then decide to leave them. You continue on your journey without caring about the stubborn people from this village."
         },
-        "text": "Tell everyone about it."
+        "text": "Revealing to everyone what it's all about."
       }
     },
-    "text": "After some time, you finally arrive at Boug-Coton village where some supposed unholy creatures or cultists are at work... After investigating the place for a couple of days, you finally find a lead. There are reports of weird sounds and sightings of black hooded figures entering and leaving the granary's basement. It seems these men, heretics, are to prepare a dark ritual in a basement beneath the granary."
+    "text": "After some time, you finally arrive at Boug-Coton where some supposedly unholy creatures are into something... After investigating the place for a couple of days, you find a clue. There are reports of weird sounds and sightings of figures dresed in black going in and out of a barn's basement. Seems that a dark ritual is underway..."
   },
   "64": {
     "possibilities": {
       "accept": {
         "outcomes": {
-          "0": "You accept the invitation, you are jovial just at the idea of celebrating in the sumptuous castle of the King. You stride towards the imposing building."
+          "0": "You accept the invitation, you are jovial just at the thought of celebrating in the King's sumptuous castle. You stride towards the imposing building."
         },
-        "text": "Head immediately to the castle."
+        "text": "Head straight for the castle."
       },
       "deny": {
         "outcomes": {
-          "0": "Parties are not for you. You decide you have better things to do than have fun. You head back to the adventure."
+          "0": "Parties aren't for you. You decide you have better things to do than have fun. You get back to adventure."
         },
         "text": "Decline the invitation."
       },
       "end": {
         "outcomes": {
-          "0": "You didn't expect to read this. You stay for long minutes contemplating the letter. The departure of the messenger pulls you out of your reverie, and you take the destination of the castle."
+          "0": "You didn't expect to read this. You stay for long minutes contemplating the letter. The departure of the messenger pulls you out of your daydream, and you take the destination of the castle."
         }
       }
     },
-    "text": "No sooner have you arrived at your destination, a messenger stops breathlessly in front of you and hands you a missive. You carefully read the contents, which indicate that the King is preparing a great feast in his castle, and that you are invited to it."
+    "text": "Having just arrived at your destination, a messenger stops breathlessly in front of you and hands you a missive. You carefully read the contents, which indicate that the King is preparing a great feast in his castle, and that you are invited to it."
   },
   "65": {
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "You open your gift and see coins glowing at the bottom of the box. You take them and add them to your purse. You leave the castle happy to have received this gift.",
-          "1": "You open your gift and see a glowing red potion in the box. You drink it and you feel a strength surge through your body. You leave the castle happy to have received this gift.",
+          "0": "You open your gift and see coins shining at the bottom of the box. You take them and add them to your purse. You leave the castle happy to have received this gift.",
+          "1": "You open your gift and see a glowing red potion in the box. You drink it and you feel strength surging through your body. You leave the castle happy to have received this gift.",
           "2": "You open your gift and see gems rolling around in the bottom of the box. You take them and add them to your gem supply. You leave the castle happy to have received this gift.",
-          "3": "You open your gift and pick up a book that was inside. It explains survival techniques that you are eager to put into practice. You leave the castle happy to have received this gift.",
-          "4": "You open your gift and take a book that was inside. It explains some fighting techniques that you can't wait to try against the other adventurers. You leave the castle happy to have received this gift.",
+          "3": "You open your gift and pick up a book that was inside. It deals with survival techniques that you are eager to put into practice. You leave the castle happy to have received this gift.",
+          "4": "You open your gift and take a book that was inside. It deals with some fighting techniques that you can't wait to try against the other adventurers. You leave the castle happy to have received this gift.",
           "5": "You open your gift and pull out a piece of equipment. It is a powerful weapon that you add to your collection. You leave the castle happy to have received this gift.",
-          "6": "You open your gift and take out an equipment. It is a powerful armor that you add to your collection. You leave the castle happy to have received this gift.",
-          "7": "You open your gift and take out an equipment. It is a powerful object that you add to your collection. You leave the castle happy to have received this gift."
+          "6": "You open your gift and take out a piece of equipment. It is a powerful armor that you add to your collection. You leave the castle happy to have received this gift.",
+          "7": "You open your gift and take out a piece of equipment. It is a powerful item that you add to your collection. You leave the castle happy to have received this gift."
         }
       },
       "hopeArmor": {
         "outcomes": {
-          "0": "You open your gift and take out an equipment. It is a powerful armor that you add to your collection. You leave the castle happy to have received this gift."
+          "0": "You open your gift and take out a piece of equipment. It is a powerful armor that you add to your collection. You leave the castle happy to have received this gift."
         },
         "text": "Wait and hope to get a new armor."
       },
@@ -2188,13 +2188,13 @@
       },
       "hopeGlory": {
         "outcomes": {
-          "0": "You open your gift and take a book that was inside. It explains some fighting techniques that you can't wait to try against the other adventurers. You leave the castle happy to have received this gift."
+          "0": "You open your gift and take a book that was inside. It deals with some fighting techniques that you can't wait to try against the other adventurers. You leave the castle happy to have received this gift."
         },
         "text": "Wait and hope to get glory."
       },
       "hopeHealthy": {
         "outcomes": {
-          "0": "You open your gift and see a glowing red potion in the box. You drink it and you feel a strength surge through your body. You leave the castle happy to have received this gift."
+          "0": "You open your gift and see a glowing red potion in the box. You drink it and you feel strength surging through your body. You leave the castle happy to have received this gift."
         },
         "text": "Wait and hope to get something to stay healthy."
       },
