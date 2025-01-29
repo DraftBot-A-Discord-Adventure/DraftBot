@@ -235,6 +235,10 @@
       }
     }
   },
+  "guildLeave": {
+    "description": "Quitter la guilde.",
+    "name": "quitterguilde"
+  },
   "daily": {
     "description": "Utiliser votre objet équipé pour obtenir un bonus journalier.",
     "name": "bonusjournalier"
