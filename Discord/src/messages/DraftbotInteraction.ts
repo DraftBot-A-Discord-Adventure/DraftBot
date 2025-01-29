@@ -1,5 +1,6 @@
 import {
 	BaseGuildTextChannel,
+	ButtonInteraction,
 	Client,
 	CommandInteraction,
 	GuildTextBasedChannel,
@@ -49,7 +50,10 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 	 * Cast a CommandInteraction to a DraftbotInteraction
 	 * @param discordInteraction
 	 */
-	static cast(discordInteraction: CommandInteraction): DraftbotInteraction {
+	static cast(discordInteraction: CommandInteraction | ButtonInteraction): DraftbotInteraction {
+		if (discordInteraction === null) {
+			throw new Error("DraftbotInteraction casting: discordInteraction is null.");
+		}
 		discordInteraction.followUp = DraftbotInteraction.prototype.followUp.bind(discordInteraction);
 
 		// @ts-expect-error - We aim at changing the signature of the reply function to add a fallback parameter, so ts is not happy with it
@@ -57,8 +61,9 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 		discordInteraction.editReply = DraftbotInteraction.prototype.editReply.bind(discordInteraction);
 		const interaction = discordInteraction as unknown as DraftbotInteraction;
 		interaction._channel = DraftbotChannel.cast(discordInteraction.channel as GuildTextBasedChannel);
-		interaction.options = this.properCastOptions(discordInteraction.options as CommandInteractionOptionResolver);
-
+		if (Object.prototype.hasOwnProperty.call(discordInteraction, "options")) {
+			interaction.options = this.properCastOptions((discordInteraction as CommandInteraction).options as CommandInteractionOptionResolver);
+		}
 		return interaction;
 	}
 
