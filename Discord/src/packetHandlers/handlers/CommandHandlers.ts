@@ -141,7 +141,7 @@ import {
 } from "../../../../Lib/src/packets/commands/CommandGuildElderPacket";
 import {
 	CommandGuildElderRemoveAcceptPacketRes,
-	CommandGuildElderRemoveGuildHasAnElderPacketRes,
+	CommandGuildElderRemoveNoElderPacket,
 	CommandGuildElderRemoveRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildElderRemovePacket";
 import {
@@ -335,8 +335,8 @@ export default class CommandHandlers {
 		await handleCommandGuildLeaveAcceptPacketRes(packet,context);
 	}
 
-	@packetHandler(CommandGuildElderRemoveGuildHasAnElderPacketRes)
-	async guildElderRemoveFoundPlayerRes(context: PacketContext, _packet: CommandGuildElderRemoveGuildHasAnElderPacketRes): Promise<void> {
+	@packetHandler(CommandGuildElderRemoveNoElderPacket)
+	async guildElderRemoveFoundPlayerRes(context: PacketContext, _packet: CommandGuildElderRemoveNoElderPacket): Promise<void> {
 		await handleClassicError(context, "commands:guildElderRemove.noElder");
 	}
 

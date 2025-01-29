@@ -17,5 +17,5 @@ export class CommandGuildElderRemovePacketReq extends DraftBotPacket {
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
-export class CommandGuildElderRemoveGuildHasAnElderPacketRes extends DraftBotPacket {
+export class CommandGuildElderRemoveNoElderPacket extends DraftBotPacket {
 }
