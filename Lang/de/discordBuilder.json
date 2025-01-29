@@ -235,6 +235,10 @@
       }
     }
   },
+  "guildLeave": {
+    "description": "Quitter la guilde.",
+    "name": "quitterguilde"
+  },
   "daily": {
     "description": "Benutzen Sie Ihren ausgerüsteten Gegenstand, um einen täglichen Bonus zu erhalten.",
     "name": "Bonustag"
