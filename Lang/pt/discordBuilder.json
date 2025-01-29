@@ -235,6 +235,10 @@
       }
     }
   },
+  "guildLeave": {
+    "description": "Quitter la guilde.",
+    "name": "quitterguilde"
+  },
   "daily": {
     "description": "Utilize o seu item equipado para obter um bónus diário.",
     "name": "bónus diário"
