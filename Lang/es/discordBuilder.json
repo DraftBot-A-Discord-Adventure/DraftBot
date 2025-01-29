@@ -235,6 +235,10 @@
       }
     }
   },
+  "guildLeave": {
+    "description": "Quitter la guilde.",
+    "name": "quitterguilde"
+  },
   "daily": {
     "description": "Utiliza tu objeto equipado para obtener una bonificación diaria.",
     "name": "bonificación diaria"
