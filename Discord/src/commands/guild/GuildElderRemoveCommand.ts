@@ -15,7 +15,7 @@ import {
 import {ReactionCollectorGuildElderRemoveData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildElderRemove";
 
 /**
- * Create a collector to confirm the promotion
+ * Create a collector to confirm the demotion
  * @param packet
  * @param context
  */
@@ -40,7 +40,7 @@ export async function createGuildElderRemoveCollector(context: PacketContext, pa
 }
 
 /**
- * Handle the response of the server after a guild elder,
+ * Handle the response of the server after a guild elder remove,
  * this packet is only sent if the promotion is refused
  * @param packet
  * @param context
@@ -70,7 +70,7 @@ export async function handleCommandGuildElderRemoveRefusePacketRes(packet: Comma
 }
 
 /**
- * Handle the response of the server after a guild elder,
+ * Handle the response of the server after a guild elder remove,
  * this packet is only sent if the promotion is accepted
  * @param packet
  * @param context
@@ -96,7 +96,7 @@ export async function handleCommandGuildElderRemoveAcceptPacketRes(packet: Comma
 }
 
 /**
- * Promote a player from a guild
+ * Demote an elder from a guild
  */
 function getPacket(): CommandGuildElderRemovePacketReq {
 	return makePacket(CommandGuildElderRemovePacketReq, {});

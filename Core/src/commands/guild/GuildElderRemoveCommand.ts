@@ -3,9 +3,9 @@ import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/pac
 import {Guilds} from "../../core/database/game/models/Guild";
 import {
 	CommandGuildElderRemoveAcceptPacketRes,
-	CommandGuildElderRemoveGuildHasAnElderPacketRes,
+	CommandGuildElderRemoveNoElderPacket,
 	CommandGuildElderRemovePacketReq,
-	CommandGuildElderRemoveRefusePacketRes,
+	CommandGuildElderRemoveRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildElderRemovePacket";
 import {draftBotInstance} from "../../index";
 import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
@@ -18,7 +18,7 @@ import {ReactionCollectorGuildElderRemove} from "../../../../Lib/src/packets/int
 import {GuildRole} from "../../../../Lib/src/types/GuildRole";
 
 /**
- * Promote demotedElder as elder of the guild
+ * Demote demotedElder as a simple member of the guild
  * @param player
  * @param demotedElder
  * @param response
@@ -29,7 +29,7 @@ async function acceptGuildElderRemove(player: Player, demotedElder: Player, resp
 	const guild = await Guilds.getById(player.guildId);
 	// Do all necessary checks again just in case something changed during the menu
 	if (!guild.elderId) {
-		response.push(makePacket(CommandGuildElderRemoveGuildHasAnElderPacketRes, {}));
+		response.push(makePacket(CommandGuildElderRemoveNoElderPacket, {}));
 		return;
 	}
 	guild.elderId = null;
@@ -67,11 +67,11 @@ export default class GuildElderRemoveCommand {
 		guildNeeded: true,
 		guildRoleNeeded: GuildRole.CHIEF
 	})
-	async execute(response: DraftBotPacket[], player: Player, packet: CommandGuildElderRemovePacketReq, context: PacketContext): Promise<void> {
+	async execute(response: DraftBotPacket[], player: Player, _packet: CommandGuildElderRemovePacketReq, context: PacketContext): Promise<void> {
 		const guild = await Guilds.getById(player.guildId);
 
 		if (!guild.elderId) {
-			response.push(makePacket(CommandGuildElderRemoveGuildHasAnElderPacketRes, {}));
+			response.push(makePacket(CommandGuildElderRemoveNoElderPacket, {}));
 			return;
 		}
 		const demotedElder = await Players.getById(guild.elderId);
