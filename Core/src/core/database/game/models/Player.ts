@@ -1437,13 +1437,14 @@ export class Players {
 
 	/**
 	 * Find the X players that are the closest in defense glory to a specific value
-	 * @param player - the value to search for
+	 * @param player - the player that needs an opponent
 	 * @param amountOfPlayersToRetrieve - the X amount of players
 	 * @param offset - offset in case the found players are not enough and an offset search is necessary
 	 */
-	static async findPotentialOpponent(player: Player, amountOfPlayersToRetrieve: number, offset: number): Promise<Player[]> {
+	static async findPotentialOpponents(player: Player, amountOfPlayersToRetrieve: number, offset: number): Promise<Player[]> {
 		return await Player.findAll({
 			where: {
+				id: { [Op.ne]: player.id },
 				defenseGloryPoints: {
 					[Op.ne]: null,
 					[Op.between]: [
