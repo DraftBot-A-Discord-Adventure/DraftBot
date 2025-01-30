@@ -1983,64 +1983,64 @@
       },
       "goAway": {
         "outcomes": {
-          "0": "You're not the type to risk wasting time on meaningless explorations! You finish eating and move on."
+          "0": "You're not the type to risk wasting time on meaningless exploration! You finish eating and move on."
         },
-        "text": "keep going, no time to waste!"
+        "text": "Keep moving, no time to lose!"
       },
       "goDeeper": {
         "outcomes": {
-          "0": "You get quickly lost in the maze, but you end up coming out of it after a few hours!",
-          "1": "You spend a few minutes exploring the cave from top to bottom and find an object which may be useful...",
-          "2": "The cave quickly turns out to be a dead end, but when you come out, you hit your head on the ceiling and get dizzy! You'll have to be treated!"
+          "0": "You get quickly lost in this maze, but you end up coming out of it after a few hours!",
+          "1": "You spend a few minutes exploring the cave from top to bottom and find an object that may be useful...",
+          "2": "The cave quickly turns out to be a dead end, but when you come out, you hit your head on the ceiling and get dizzy! You'll have to recover!"
         },
         "text": "Delve deeper into the cave."
       },
       "search": {
         "outcomes": {
-          "0": "After 30 minutes you finally discover a strange object...",
+          "0": "After 30 minutes you end up discovering a strange object...",
           "1": "After 60 minutes you end up abandoning your search without having discovered anything...",
-          "2": "As you began your search, you drop a large bag of coins at the bottom of a large hole! It's not possible to recover it...",
-          "3": "As you were looking for things to pick up, a huge branch fell off the tree next to you and fell onto your leg! You can get up sound, but you'll have to go to the hospital!"
+          "2": "As you began your search, you drop a large bag of coins at the bottom of a large hole! It can't be retrieved anymore...",
+          "3": "As you were looking for items to pick up, a huge branch breaks off from the tree next to you and falls on your leg! You manage to get up, stunned, but you'll have to recover!"
         },
         "text": "Search the surroundings."
       }
     },
-    "text": "You had stopped in a cave to eat and you hesitate before leaving..."
+    "text": "You've stopped off in a cave to eat, and you're reluctant to leave again..."
   },
   "60": {
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "listen patiently to the king before being taken back to the entrance. Someone also gives you some information about some additional missions entrusted by the king to facilitate your quest (command {command:missions}) and someone offers you a transport to the capital of your choice."
+          "0": "You listen patiently to the king before being taken back to the entrance. Someone also gives you some information about some additional missions entrusted by the king to facilitate your quest (with the {command:missions} command) and someone offers you transport to the capital of your choice."
         }
       },
       "start": {
         "outcomes": {
-          "0": "Once you have finished reading, you are taken back to the entrance. Someone also gives you some information about some additional missions entrusted by the king to facilitate your quest (command {command:missions}) and someone offers you a transport to the capital of your choice."
+          "0": "Once you have finished reading, you are taken back to the entrance. Someone also gives you some information about some additional missions entrusted by the king to facilitate your quest (with the {command:missions} command) and someone offers you transport to the capital of your choice."
         },
         "text": "Start your adventure."
       }
     },
-    "text": "You are taken to the large reception room of the castle where you quickly meet the king. Someone explains to you the nature of the competition, which is to collect a large number of points in order to dominate the rankings. In addition to a nice starting bonus, you receive a beautiful book that is supposed to guide you during your adventure. You open the book (https://guide.draftbot.com) and quickly check the first pages..."
+    "text": "You are brought to the large reception room of the castle where you quickly meet the king. Someone explains to you the nature of the competition, which is to collect a large number of points in order to dominate the rankings. In addition to a nice starting bonus, you receive a beautiful book that is supposed to guide you during your adventure. You open the book (https://guide.draftbot.com/en) and quickly check the first pages..."
   },
   "61": {
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "remain unresponsive to the guard's invitation. After a while, the young woman finally reaches you and gives you some advice. You learn that the command {command:report} allows you to get all the information about your journey."
+          "0": "You remain unresponsive to the guard's invitation. After a while, the young woman finally reaches you and gives you some advice. You learn that the {command:report} command allows you to get all the information about your journey."
         }
       },
       "follow": {
         "outcomes": {
-          "0": "The young woman introduces herself and quickly follows up with some initial advice which you listen to carefully, you learn that the command {command:report} allows you to get all the information about your trip."
+          "0": "The young woman introduces herself and quickly follows up with some initial advice which you listen to carefully, you learn that the {command:report} report allows you to get all the information about your trip."
         },
-        "text": "Follow the guide."
+        "text": "Follow your guide."
       },
       "observe": {
         "outcomes": {
-          "0": "You admire the immense walls of the castle. After a while, the young woman finally reaches you and gives you some advice. You learn that the command {command:report} allows you to get all the information about your journey."
+          "0": "You admire the immense walls of the castle. After a while, the young woman finally reaches you and gives you some advice. You learn that the {command:report} command allows you to get all the information about your journey."
         },
-        "text": "Observe your surroundings."
+        "text": "Observe the surroundings."
       }
     },
     "text": "**Hello and welcome to DraftBot!** 👑 The king is looking for a noble knight to marry his daughter and you have chosen to participate in the selection contest! Having just arrived at the castle entrance after a long journey, you signal your presence to the guards at the entrance. You are invited to enter and quickly meet a young woman who seems to want to welcome you."
@@ -2051,37 +2051,37 @@
         "outcomes": {
           "0": "You refuse the peasant's request with such a lack of sympathy that he ends up stoning you!",
           "1": "You refuse the peasant's request with such courtesy that he wishes you a good continuation for your adventure!",
-          "2": "You decide to ignore the peasant's request. As you were walking for several minutes, you see a road lined with impressive cherry trees. Some cherries seem to reach out you. After eating a few ones, you resume your journey."
+          "2": "You decide to ignore the peasant's request. As you walk for several minutes, you see a road lined with impressive cherry trees. A few red cherries seem to reach out you. After tasting a few, you resume your journey."
         },
         "text": "Refuse to help the peasant."
       },
       "end": {
         "outcomes": {
-          "0": "Seeing you unresponsive, the peasant seems quite annoyed but lets you leave without insisting. You find a losted wallet on the edge of a path. When you open it, you discover two small pieces of dried bacon.",
-          "1": "Seeing this desperated peasant, you decide to start looking for its fork. You end up at the edge of wild grass where cattles eat fresh herb quietly. Suddenly, a fawn dog, springs up from the premises of the pasture and gets on you. Faster than it takes to say so, you knock the dog out and get on your way like nothing happened.",
-          "2": "While you agreed to help the peasant, you feel a buzzing in your ear and push in your little finger. A sharp pain grabs you: a bee has just stinged you! You leave immediately from this stingy place."
+          "0": "Seeing you unresponsive, the peasant seems quite annoyed but lets you leave without insisting. You find a lost wallet on the edge of a path. When you open it, you discover two small pieces of dried bacon.",
+          "1": "Seeing the peasant's desperate face, you decide to start looking for its fork. You end up at the edge of a fallow field where cattle quietly eat fresh grass. Suddenly, a tawny-colored dog springs up from the premises of the pasture and gets on you. Faster than it takes to say so, you knock the dog out and get on your way like nothing happened.",
+          "2": "While you agreed to help the peasant, you feel something buzzing in your ear and stick your little finger in. A sharp pain grabs you: a bee just stung you! You leave this stinging place without further ado."
         }
       },
       "searchPatures": {
         "outcomes": {
-          "0": "After looking cows chewing fresh grass in the first wild grass field, you ran towards the second. Many sheep graze there peacefully. An impressive oak dominates the pastures and attracts your attention, so that you decide to approach it. A few meters from the tree, you discern a fork against the trunk. The peasant seems crazy when you give it back to him. He then grants you, as promised, a small purse filled with gold.",
-          "1": "As you approach pastures, you notice footprints. While following them, you are entering a dark grove in which you found a gloomy hut to say the least. Curious, you walk around it and find yourself face to handle with the so wanted fork! After coming back, you give the item to the farmer who thanks you a lot and invites you to share his meal so that you can tell him how you find it. The evening is pleasant and you leave the farmer late in the night, invigorated by local products.",
-          "2": "As you approach pastures, you notice footprints crossing the land leading to an inclosure where sheep benefit from the refreshing shade of young oaks. You decide to follow the footprints, thinking they'll lead you to the fork. When you arrive in the middle of the sheep, one of them comes to you. In a playful mood, you show him your hand with a bit of grass in it. He benefits of it to satiate himself, biting your finger while eating. Irritated, you decide to flee this place. Approaching the edge of the pasture, you do not see the fork on the ground, and walk over it. Furious about this misfortune, you are thinking about not helping anyone anymore on your adventure and throw the fork far away."
+          "0": "After watching cattle chewing fresh grass in the first wild grass stretch from a distance, you head for the second. Many sheep graze peacefully. An impressive oak dominates the pastures and attracts your attention, so you decide to approach it. A few meters from the tree, you notice a fork against the trunk. The peasant seems overjoyued when you give it back to him. He then grants you, as promised, a small purse filled with gold.",
+          "1": "As you approach pastures, you notice footprints. While following them, you are entering a dark grove in which you found a gloomy hut to say the least. Curious, you walk around it and find yourself face to face with the sought-after fork! After coming back, you give the item to the farmer who thanks you a lot and invites you to share his meal so that you can tell him how you find it. The evening is pleasant and you leave the farmer late in the night, invigorated by local products.",
+          "2": "As you approach pastures, you notice footprints crossing the land leading to an enclosure where sheep benefit from the refreshing shade of young oaks. You decide to follow the footprints, thinking they'll lead you to the fork. When you arrive in the middle of the sheep, one of them comes to you. In a playful mood, you show him your hand with a bit of grass in it. He benefits of it to satiate himself, biting your finger while eating. Irritated, you decide to flee this place. Approaching the edge of the pasture, you do not see the fork on the ground, and walk over it. Furious about this misfortune, you are thinking about not helping anyone anymore on your adventure."
         },
-        "text": "Search next to pastures."
+        "text": "Search near pastures."
       },
       "searchVines": {
         "outcomes": {
-          "0": "After a short time, you decide to look for the famous fork near the vines. A large grape catches your attention, so you decide to grab it. The peasant appearing out of nowhere and seeing you handing a piece of his harvest, scream in anger. Frightened, you pick it down and fly away!",
-          "1": "Barely arrived in the vines, you found the fork. After keeping it back to the peasant, he gives you your due.",
-          "2": "Barely arrived in the vines, you discern a small wooden hut. As you enter it, you discover a few barrels and several bottles of wine, one of it has already been started. A few sips would not have hurt you if only you had managed to limit yourself to a small amount. You find the wine delicious and do not want to waste more time looking for a fork. You take your path back and take care to avoid the peasant."
+          "0": "After a moment's hesitation, you decide to look for the famous fork near the vines. A large grape catches your attention, so you decide to grab it. The peasant appearing out of nowhere and seeing you handing a piece of his harvest, screams in anger. Frightened, you let go of it and take off!",
+          "1": "No sooner have you arrived in the vineyards than you come across the famous fork. After returning it to the farmer, he keeps his promise to you.",
+          "2": "As soon as you enter the vineyards, you spot a small wooden hut. As you enter, you discover a few barrels and several bottles of wine, one of which has already been opened. A few sips wouldn't have done you any harm if only you'd managed to limit yourself to a small quantity. You find the wine delicious, but don't want to waste any more time looking for a fork. You continue on your way, taking care to avoid the farmer."
         },
-        "text": "Search in the vine."
+        "text": "Search the vineyards."
       },
       "searchWheat": {
         "outcomes": {
-          "0": "After several minutes searching in the field, you find the fork, barely visible under the cut wheat lying on the ground. To thank you, the peasant offers you, as promised, your reward.",
-          "1": "After three hours of research, the fork asn't been found. However, you find a pretty item that may be useful to get the heart of the Princess!",
+          "0": "After several minutes of searching the field, you find the fork, barely visible, under a number of wheat plants lying on the ground. To thank you, the farmer offers you your reward, as promised.",
+          "1": "After three hours of searching, the fork is still nowhere to be found. You do, however, discover an object that may prove useful in winning the heart of your beloved Princess!",
           "2": "As you are looking for the fork, you step on it and get a nasty cut. You take your time to inform the peasant that you found his fork. He, noticing your wound, hastens to heal you the best he can."
         },
         "text": "Search in wheat fields."
