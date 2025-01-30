@@ -1956,29 +1956,29 @@
       },
       "goAlchemist": {
         "outcomes": {
-          "0": "You arrive at the alchemist. This one is called Gruffo and offers you a recovery potion for a few coins. You accept and quietly drink the potion. A comforting warmth radiates within you. Invigorated, you start running so fast that you get to your destination without any delay.",
-          "1": "You arrive at the alchemist. This one is called Gruffo and offers you a recovery potion for a few coins. You refuse the offer and quietly continue your journey.",
-          "2": "You enter the alchemist's lair. His name is Gruffo and offers you to taste one of his new potions for free in order to test the effects. You drink the brew and feel a sense of comfort emanating from you. You describe the effects to the man and come out of the hut, reinvigorated.",
-          "3": "You enter the alchemist's lair. His name is Gruffo and offers you to taste one of his new potions for free in order to test the effects. You drink the brew and spit it out straight away, but there seems to be some of the poison still in your throat."
+          "0": "You arrive at the alchemist. He's known as Gruffo and offers you a recovery potion for a few coins. You accept and quietly drink the potion. A comforting warmth radiates within you. Invigorated, you start running so fast that you get to your destination without any delay.",
+          "1": "You arrive at the alchemist. He's known as Gruffo and offers you a recovery potion for a few coins. You decline the offer and quietly continue your journey.",
+          "2": "You enter the alchemist's lair. He's known as Gruffo and offers you to taste one of his new potions for free in order to test the effects. You drink the brew and feel a sense of comfort emanating from within you. You describe the effects to the man and come out of the hut, invigorated.",
+          "3": "You enter the alchemist's lair. He's known as Gruffo and offers you to taste one of his new potions for free in order to test the effects. You drink the brew and spit it out straight away, but there seems to be some poison still deep in your throat."
         },
         "text": "Go to the alchemist."
       },
       "shortcut": {
         "outcomes": {
-          "0": "You follow the indicated path until you find yourself facing a river with a dilapidated bridge over it. You hear this one crackle but that doesn't worry you until the moment you see the wood crumble under your feet.",
-          "1": "You follow the indicated path until you find yourself facing a dangerous river with a dilapidated bridge on it. Not being very brave by nature, you decide to turn around. This will have made you lose a good 10 minutes.",
-          "2": "You follow the indicated path until you find yourself facing a river with a dilapidated bridge over it. You hear this one crackle but it doesn't worry you. The rest of the crossing goes smoothly. You even find a few coins among your way."
+          "0": "You follow the indicated path until you find yourself facing a river with a dilapidated bridge over it. You hear it cracking, but that doesn't worry you until the moment you see the wood crumbling under your feet.",
+          "1": "You follow the indicated path until you find yourself facing a dangerous river with a dilapidated bridge on it. Not being very brave by nature, you decide to turn back. This will have cost you a good 10 minutes.",
+          "2": "You follow the indicated path until you find yourself facing a river with a dilapidated bridge over it. You hear it cracking, but it doesn't worry you. The rest of the crossing goes smoothly. You even find a few coins along your way!"
         },
         "text": "Take the shortcut."
       }
     },
-    "text": "After long hours of walking through the marshy road, you meet a woman at a crossroads. Exhausted, you ignore her but she, seeing your condition, calls out to you. This offers two paths that may be useful to you: one leading to an experienced alchemist who can get you back on your feet, the other being a shortcut."
+    "text": "After long hours of walking through the marshy road, you meet a woman at a crossroads. Exhausted, you ignore her but she, seeing your condition, calls out to you. She offers two paths that may be useful to you: one leading to an experienced alchemist who can get you back on your feet, the other being a shortcut."
   },
   "6": {
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "um... It seems you've been sitting there doing nothing longer than expected!"
+          "0": "Um... Looks like you've been sitting there doing nothing longer than expected!"
         }
       },
       "goAway": {
