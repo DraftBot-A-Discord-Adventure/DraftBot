@@ -108,6 +108,19 @@
     "notInAGuild": "Parece que já não fazes parte de um grémio.",
     "canceledTitle": "Anulação tida em conta"
   },
+  "guildElderRemove": {
+    "noElder": "O grémio não tem anciãos.",
+    "notSameGuild": "Este jogador não pertence à tua guilda.",
+    "notChiefError": "É necessário ser líder de um grémio para efetuar esta encomenda.",
+    "chiefError": "Como líder da guilda, não podes ser despromovido da posição de ancião.",
+    "notElder": "O jogador não é o membro mais antigo da tua guilda.",
+    "title": "{{pseudo}}Está a confirmar a sua escolha?",
+    "confirmDesc": "{emote:collectors.question} {{elderPseudo}}{{guildName}}voltará a ser um simples membro do grémio.",
+    "successElderRemoveTitle": "{{guildName}} O grémio perde o seu membro mais antigo",
+    "acceptedDesc": "O mais velho perdeu a sua patente.",
+    "canceledDesc": "O mais velho não foi despromovido.",
+    "canceledTitle": "Cancelamento tido em conta."
+  },
   "help": {
     "aliasFieldTitle": "Apelido",
     "aliasesFieldTitle": "Apelido",
