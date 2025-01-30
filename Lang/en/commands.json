@@ -108,6 +108,19 @@
     "notInAGuild": "It looks like you are no longer in a guild.",
     "canceledTitle": "Cancellation"
   },
+  "guildElderRemove": {
+    "noElder": "The guild does not have a wing.",
+    "notSameGuild": "This player does not belong to your guild.",
+    "notChiefError": "You must be the leader of the guild to perform this order.",
+    "chiefError": "As a guild leader, you cannot be recovered from the Wing position.",
+    "notElder": "The player is not your guild's wing.",
+    "title": "{{pseudo}}, confirm your choice?",
+    "confirmDesc": "{emote:collectors.question} {{elderPseudo}} will become a simple member of the `{{guildName}}` guild.",
+    "successElderRemoveTitle": "Guild {{guildName}} loses its wing",
+    "acceptedDesc": "The wings lost their rank.",
+    "canceledDesc": "Wings were not recovered.",
+    "canceledTitle": "Cancellation taken into account."
+  },
   "help": {
     "aliasFieldTitle": "Alias",
     "aliasesFieldTitle": "Aliases",
