@@ -221,7 +221,7 @@
       "name_other": "Attaques énergiques"
     },
     "eruptionAttack": {
-      "description": "Fait entrer en éruption le volcan qui crache des rochers en fusion sur les joueurs.",
+      "description": "Fait entrer en éruption le volcan qui crache des rochers en fusion sur les joueurs, seul les plus rapide pourront éviter les dégâts.",
       "name_one": "Eruption",
       "name_other": "Eruptions"
     },
