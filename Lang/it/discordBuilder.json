@@ -235,6 +235,10 @@
       }
     }
   },
+  "guildElderRemove": {
+    "description": "Per rimuovere dalla carica il membro più anziano della gilda.",
+    "name": "cancellareaineguilde"
+  },
   "guildLeave": {
     "description": "Lasciare la gilda.",
     "name": "lasciareguilda"
