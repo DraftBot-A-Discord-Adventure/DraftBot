@@ -221,7 +221,7 @@
       "name_other": "Energetic attacks"
     },
     "eruptionAttack": {
-      "description": "Bring into the eruption the volcano that spits molten rocks on players.",
+      "description": "",
       "name_one": "Eruption",
       "name_other": "Eruptions"
     },

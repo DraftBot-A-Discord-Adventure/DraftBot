@@ -4,7 +4,6 @@ import {FightView} from "./FightView";
 import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
 import {FighterStatus} from "./FighterStatus";
-import {FightWeather, FightWeatherEnum} from "./FightWeather";
 import {FightOvertimeBehavior} from "./FightOvertimeBehavior";
 import {MonsterFighter} from "./fighter/MonsterFighter";
 import {PlayerFighter} from "./fighter/PlayerFighter";
@@ -33,8 +32,6 @@ export class FightController {
 
 	private endCallback: (fight: FightController, response: DraftBotPacket[]) => Promise<void>;
 
-	private readonly weather: FightWeather;
-
 	private readonly overtimeBehavior: FightOvertimeBehavior;
 
 	public constructor(
@@ -50,7 +47,6 @@ export class FightController {
 		this.state = FightState.NOT_STARTED;
 		this.turn = 1;
 		this._fightView = new FightView(context, this);
-		this.weather = new FightWeather();
 		this.overtimeBehavior = overtimeBehavior;
 	}
 
@@ -226,10 +222,6 @@ export class FightController {
 		return this._fightView;
 	}
 
-	setWeather(weather: FightWeatherEnum, turn: number, sender: Fighter): void {
-		this.weather.setWeather(weather, turn, sender);
-	}
-
 	/**
 	 * Check if any of the fighters has negative fight points
 	 * @private
@@ -248,11 +240,6 @@ export class FightController {
 	 * @private
 	 */
 	private async prepareNextTurn(response: DraftBotPacket[]): Promise<void> {
-		// Weather-related actions
-		const weatherMessage = this.weather.applyWeatherEffect(this.getPlayingFighter(), this.turn);
-		if (weatherMessage) {
-			await this._fightView.displayWeatherStatus(this.weather.getWeatherEmote(), weatherMessage);
-		}
 
 		if (this.overtimeBehavior === FightOvertimeBehavior.END_FIGHT_DRAW && this.turn >= FightConstants.MAX_TURNS || this.hadEnded()) {
 			await this.endFight(response);
