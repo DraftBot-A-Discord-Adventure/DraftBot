@@ -235,6 +235,10 @@
       }
     }
   },
+  "guildElderRemove": {
+    "description": "Entlassung des Gildenältesten aus dem Amt.",
+    "name": "löschegilde"
+  },
   "guildLeave": {
     "description": "Die Gilde verlassen.",
     "name": "verlassenGilde"
