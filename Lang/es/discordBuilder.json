@@ -235,6 +235,10 @@
       }
     }
   },
+  "guildLeave": {
+    "description": "Dejando el gremio.",
+    "name": "dejarguilde"
+  },
   "daily": {
     "description": "Utiliza tu objeto equipado para obtener una bonificación diaria.",
     "name": "bonificación diaria"

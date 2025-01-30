@@ -235,6 +235,10 @@
       }
     }
   },
+  "guildLeave": {
+    "description": "Die Gilde verlassen.",
+    "name": "verlassenGilde"
+  },
   "daily": {
     "description": "Benutzen Sie Ihren ausgerüsteten Gegenstand, um einen täglichen Bonus zu erhalten.",
     "name": "Bonustag"
