@@ -235,6 +235,10 @@
       }
     }
   },
+  "guildElderRemove": {
+    "description": "Démettre l'aîné de la guilde de ses fonctions.",
+    "name": "supprimeraineguilde"
+  },
   "guildLeave": {
     "description": "Dejando el gremio.",
     "name": "dejarguilde"
