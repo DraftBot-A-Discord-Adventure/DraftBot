@@ -235,6 +235,10 @@
       }
     }
   },
+  "guildElderRemove": {
+    "description": "Demote the elder of the guild.",
+    "name": "guildelderremove"
+  },
   "guildLeave": {
     "description": "Leave your guild",
     "name": "guildleave"
