@@ -235,6 +235,10 @@
       }
     }
   },
+  "guildElderRemove": {
+    "description": "Destituir al miembro de mayor edad del gremio.",
+    "name": "deleteaineguilde"
+  },
   "guildLeave": {
     "description": "Dejando el gremio.",
     "name": "dejarguilde"
