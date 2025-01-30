@@ -108,6 +108,19 @@
     "notInAGuild": "Es scheint, dass Sie bereits nicht mehr in einer Gilde sind.",
     "canceledTitle": "Stornierung berücksichtigt"
   },
+  "guildElderRemove": {
+    "noElder": "Die Gilde hat keine Ältesten.",
+    "notSameGuild": "Dieser Spieler gehört nicht zu Ihrer Gilde.",
+    "notChiefError": "Sie müssen Gildenleiter sein, um diesen Auftrag ausführen zu können.",
+    "chiefError": "Als Gildenleiter können Sie nicht von der Position des Ältesten herabgestuft werden.",
+    "notElder": "Der Spieler ist nicht der Älteste in Ihrer Gilde.",
+    "title": "{{pseudo}}... bestätigen Sie Ihre Wahl?",
+    "confirmDesc": "{emote:collectors.question} {{elderPseudo}} wird wieder ein einfaches Mitglied der Gilde `{{guildName}}`.",
+    "successElderRemoveTitle": "Die Gilde {{guildName}} verliert ihren Ältesten",
+    "acceptedDesc": "Der Älteste hat seinen Rang verloren.",
+    "canceledDesc": "Der Älteste wurde nicht degradiert.",
+    "canceledTitle": "Stornierung berücksichtigt."
+  },
   "help": {
     "aliasFieldTitle": "Alias",
     "aliasesFieldTitle": "Alias",
