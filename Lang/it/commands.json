@@ -108,6 +108,19 @@
     "notInAGuild": "Sembra che tu non faccia più parte di una gilda.",
     "canceledTitle": "Cancellazione presa in considerazione"
   },
+  "guildElderRemove": {
+    "noElder": "La gilda non ha anziani.",
+    "notSameGuild": "Questo giocatore non appartiene alla tua gilda.",
+    "notChiefError": "Per effettuare questo ordine è necessario essere un capo gilda.",
+    "chiefError": "In qualità di capo gilda, non si può essere retrocessi dalla posizione di anziano.",
+    "notElder": "Il giocatore non è il membro più anziano della gilda.",
+    "title": "{{pseudo}}Sta confermando la sua scelta?",
+    "confirmDesc": "{emote:collectors.question} {{elderPseudo}}{{guildName}}tornerà a essere un semplice membro della gilda.",
+    "successElderRemoveTitle": "{{guildName}} La gilda perde il suo membro più anziano",
+    "acceptedDesc": "Il più anziano ha perso il suo grado.",
+    "canceledDesc": "Il più anziano non è stato retrocesso.",
+    "canceledTitle": "Cancellazione presa in considerazione."
+  },
   "help": {
     "aliasFieldTitle": "Alias",
     "aliasesFieldTitle": "Alias",
