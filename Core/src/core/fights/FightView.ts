@@ -24,28 +24,12 @@ export class FightView {
 	}
 
 	/**
-	 * Add the fight action field to the intro embed that corresponds to the fighter
-	 * @param introEmbed
-	 * @param fighter
-	 */
-	addFightActionFieldFor(introEmbed: string /* DraftBotEmbed */, fighter: Fighter): void {
-		/* introEmbed.addFields({
-			name: this.fightTranslationModule.format("actionsOf", {
-				player: fighter.getName()
-			}),
-			value: this.getFightActionsToStringOf(fighter),
-			inline: true
-		}); */
-	}
-
-	/**
 	 * Send the fight intro message
 	 * @param fighter
 	 * @param opponent
 	 * @param response
 	 */
 	introduceFight(response: DraftBotPacket[], fighter: Fighter, opponent: Fighter): void {
-		// we need to construct for each fighter a map with the id of the action and breath cost as value
 		const fightInitiatorActions = new Array<[string, number]>();
 		for (const action of fighter.availableFightActions) {
 			fightInitiatorActions.push([action[0], action[1].breath]);
@@ -164,10 +148,6 @@ export class FightView {
 		}); */
 	}
 
-	async displayWeatherStatus(weatherEmote: string, weatherString: FightWeatherResult): Promise<void> {
-		await this.updateHistory(weatherEmote, "", this.getWeatherString(weatherString));
-	}
-
 	/**
 	 * Get summarize embed message
 	 * @param {Fighter} attacker
@@ -200,10 +180,6 @@ export class FightView {
 			await this.lastSummary.delete();
 			this.lastSummary = null;
 		} */
-	}
-
-	private getWeatherString(weatherString: FightWeatherResult): string {
-		return "";
 	}
 }
 

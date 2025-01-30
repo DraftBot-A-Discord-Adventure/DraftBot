@@ -4,6 +4,5 @@ export enum FightActionType {
 	CHARGE = "charge",
 	STATS = "stats",
 	ALTERATION = "alteration",
-	WEATHER = "weather",
 	OTHER = "other"
 }
