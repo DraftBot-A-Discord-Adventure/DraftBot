@@ -108,6 +108,19 @@
     "notInAGuild": "Parece que ya no formas parte de un gremio.",
     "canceledTitle": "Anulación tenida en cuenta"
   },
+  "guildElderRemove": {
+    "noElder": "El gremio no tiene ancianos.",
+    "notSameGuild": "Ce joueur n'appartient pas à votre guilde.",
+    "notChiefError": "Vous devez être chef de la guilde pour effectuer cette commande.",
+    "chiefError": "Como líder del gremio, no puedes ser degradado de la posición de anciano.",
+    "notElder": "Le joueur n'est pas l'aîné de votre guilde.",
+    "title": "{{pseudo}}, confirmez-vous votre choix ?",
+    "confirmDesc": "{emote:collectors.question} {{elderPseudo}}{{guildName}}volverá a ser un simple miembro del gremio.",
+    "successElderRemoveTitle": "{{guildName}} El gremio pierde a su miembro más antiguo",
+    "acceptedDesc": "El mayor ha perdido su rango.",
+    "canceledDesc": "El mayor no fue degradado.",
+    "canceledTitle": "Annulation prise en compte."
+  },
   "help": {
     "aliasFieldTitle": "Alias",
     "aliasesFieldTitle": "Alias",
