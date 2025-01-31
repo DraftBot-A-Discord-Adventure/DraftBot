@@ -77,7 +77,17 @@
     "options": {
       "guildName": {
         "description": "The name of the guild.",
-        "name": "name"
+        "name": "description"
+      }
+    }
+  },
+  "guildDescription": {
+    "description": "Change the description of the guild.",
+    "name": "guilddescription",
+    "options": {
+      "description": {
+        "description": "The description.",
+        "name": "description"
       }
     }
   },

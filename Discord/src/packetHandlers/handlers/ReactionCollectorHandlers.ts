@@ -49,6 +49,8 @@ import {ReactionCollectorSwitchItemData} from "../../../../Lib/src/packets/inter
 import {switchItemCollector} from "../../commands/player/SwitchCommand";
 import {ReactionCollectorGuildElderRemoveData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildElderRemove";
 import {createGuildElderRemoveCollector} from "../../commands/guild/GuildElderRemoveCommand";
+import {ReactionCollectorGuildDescriptionData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildDescription";
+import {createGuildDescriptionCollector} from "../../commands/guild/GuildDescriptionCommand";
 
 export default class ReactionCollectorHandler {
 
@@ -62,6 +64,7 @@ export default class ReactionCollectorHandler {
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorPetFreeData.name, createPetFreeCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorGuildCreateData.name, createGuildCreateCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorGuildKickData.name, createGuildKickCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorGuildDescriptionData.name, createGuildDescriptionCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorGuildElderData.name, createGuildElderCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorGuildElderRemoveData.name, createGuildElderRemoveCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorGuildLeaveData.name, createGuildLeaveCollector);

@@ -121,6 +121,14 @@
     "canceledDesc": "L'aîné n'a pas été rétrogradé.",
     "canceledTitle": "Annulation prise en compte."
   },
+  "guildDescription": {
+    "title": "{{pseudo}}, confirmez-vous votre choix ?",
+    "confirmDesc": "{emote:collectors.question}  Souhaitez vous réellement changer la description de votre guilde ?\n Nouvelle description : {{description}}.",
+    "acceptedDesc": "La description de la guilde a bien été éditée !",
+    "canceledDesc": "Vous n'avez pas édité la description de la guilde !",
+    "canceledTitle": "Annulation prise en compte.",
+    "successDescriptionTitle": "{{pseudo}}, confirmation :"
+  },
   "help": {
     "aliasFieldTitle": "Alias",
     "aliasesFieldTitle": "Alias",
