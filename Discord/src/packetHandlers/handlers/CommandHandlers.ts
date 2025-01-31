@@ -159,6 +159,14 @@ import {
 	handleCommandGuildElderRemoveAcceptPacketRes,
 	handleCommandGuildElderRemoveRefusePacketRes
 } from "../../commands/guild/GuildElderRemoveCommand";
+import {
+	CommandGuildDescriptionAcceptPacketRes,
+	CommandGuildDescriptionNoGuildPacket, CommandGuildDescriptionRefusePacketRes
+} from "../../../../Lib/src/packets/commands/CommandGuildDescriptionPacket";
+import {
+	handleCommandGuildDescriptionAcceptPacketRes,
+	handleCommandGuildDescriptionRefusePacketRes
+} from "../../commands/guild/GuildDescriptionCommand";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
@@ -348,6 +356,21 @@ export default class CommandHandlers {
 	@packetHandler(CommandGuildElderRemoveAcceptPacketRes)
 	async guildElderRemoveAcceptRes(context: PacketContext, packet: CommandGuildElderRemoveAcceptPacketRes): Promise<void> {
 		await handleCommandGuildElderRemoveAcceptPacketRes(packet, context);
+	}
+
+	@packetHandler(CommandGuildDescriptionNoGuildPacket)
+	async guildDescriptionFoundPlayerRes(context: PacketContext, _packet: CommandGuildElderRemoveNoElderPacket): Promise<void> {
+		await handleClassicError(context, "commands:guildElderRemove.noGuild");
+	}
+
+	@packetHandler(CommandGuildDescriptionRefusePacketRes)
+	async guildDescriptionRefuseRes(context: PacketContext, packet: CommandGuildDescriptionRefusePacketRes): Promise<void> {
+		await handleCommandGuildDescriptionRefusePacketRes(packet, context);
+	}
+
+	@packetHandler(CommandGuildDescriptionAcceptPacketRes)
+	async guildDescriptionAcceptRes(context: PacketContext, packet: CommandGuildDescriptionAcceptPacketRes): Promise<void> {
+		await handleCommandGuildDescriptionAcceptPacketRes(packet, context);
 	}
 
 
