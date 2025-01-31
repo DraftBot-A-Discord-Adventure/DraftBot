@@ -1450,7 +1450,7 @@ export class Players {
 						player.attackGloryPoints + FightConstants.ELO.MAX_ELO_GAP
 					]
 				},
-				level: {[Op.gt]: FightConstants.REQUIRED_LEVEL}
+				level: {[Op.gte]: FightConstants.REQUIRED_LEVEL}
 			},
 			order: [
 				// Sort using the difference with the attack elo of the player
