@@ -1,7 +1,6 @@
 import {FightController} from "./FightController";
 import {Fighter} from "./fighter/Fighter";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {FightWeatherResult} from "./FightWeather";
 import {CommandFightIntroduceFightersPacket} from "../../../../Lib/src/packets/commands/CommandFightPacket";
 import {PlayerFighter} from "./fighter/PlayerFighter";
 import {MonsterFighter} from "./fighter/MonsterFighter";

@@ -15,7 +15,7 @@ export type statsInfo = { attackerStats: number[], defenderStats: number[], stat
 export class FightActionController {
 	/**
 	 * Get the attack damage for a fight action
-	 * @param statsInfo object containing 3 arrays :
+	 * @param statsInfo object containing 3 arrays:
 	 * attackerStats - array of the stats to use for the attacker
 	 * defenderStats - array of the stats to use for the defender
 	 * statsEffect - array of ratios to apply to the stats
@@ -113,13 +113,13 @@ export class FightActionController {
 
 	/**
 	 * Execute a critical hit on a fight action (return the damage)
-	 * this function also check if the attack has missed
+	 * this function also checks if the attack has missed
 	 * @param damageDealt
 	 * @param criticalHitProbability
 	 * @param failureProbability
 	 */
 	static applySecondaryEffects(damageDealt: number, criticalHitProbability: number, failureProbability: number): { damages: number, status: FightActionStatus } {
-		// First we get a random %
+		// First, we get a random %
 		const randomValue = RandomUtils.randInt(0, 100);
 
 		// Then we use this % to determine if the attack has missed or is a critical hit
