@@ -12,7 +12,7 @@ import {draftBotInstance} from "../../index";
 import {ReactionCollectorGuildDescription} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildDescription";
 import {
 	CommandGuildDescriptionAcceptPacketRes,
-	CommandGuildDescriptionNoGuildPacket, CommandGuildDescriptionPacketReq,
+	CommandGuildDescriptionNoGuildPacket, CommandGuildDescriptionNotAnElderPacket, CommandGuildDescriptionPacketReq,
 	CommandGuildDescriptionRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildDescriptionPacket";
 
@@ -23,6 +23,10 @@ async function acceptGuildDescription(player: Player, description: string, respo
 		return;
 	}
 	const guild = await Guilds.getById(player.guildId);
+	if (!guild.elderId) {
+		response.push(makePacket(CommandGuildDescriptionNotAnElderPacket, {}));
+		return;
+	}
 	guild.guildDescription = description;
 	response.push(makePacket(CommandGuildDescriptionAcceptPacketRes, {}));
 	guild.save().then();
@@ -50,9 +54,14 @@ export default class GuildDescriptionCommand {
 		guildNeeded: true,
 		guildRoleNeeded: GuildRole.ELDER
 	})
-	execute(response: DraftBotPacket[], player: Player, packet: CommandGuildDescriptionPacketReq, context: PacketContext): Promise<void> {
+	async execute(response: DraftBotPacket[], player: Player, packet: CommandGuildDescriptionPacketReq, context: PacketContext): Promise<void> {
 		if (!player.guildId) {
 			response.push(makePacket(CommandGuildDescriptionNoGuildPacket, {}));
+			return;
+		}
+		const guild = await Guilds.getById(player.guildId);
+		if (!guild.elderId) {
+			response.push(makePacket(CommandGuildDescriptionNotAnElderPacket, {}));
 			return;
 		}
 		const collector = new ReactionCollectorGuildDescription(

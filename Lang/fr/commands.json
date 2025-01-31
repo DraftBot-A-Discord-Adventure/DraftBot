@@ -127,7 +127,9 @@
     "acceptedDesc": "La description de la guilde a bien été éditée !",
     "canceledDesc": "Vous n'avez pas édité la description de la guilde !",
     "canceledTitle": "Annulation prise en compte.",
-    "successDescriptionTitle": "{{pseudo}}, confirmation :"
+    "successDescriptionTitle": "{{pseudo}}, confirmation :",
+    "noGuild" : "Il semblerait que vous ne fassiez plus parti d'une guilde.",
+    "notAnElder": "Vous n'avez plus les permissions nécessaires pour effectuer cette commande."
   },
   "help": {
     "aliasFieldTitle": "Alias",
