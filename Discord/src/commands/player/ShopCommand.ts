@@ -308,8 +308,6 @@ async function manageBuyoutConfirmation(packet: ReactionCollectorCreationPacket,
 		time: Constants.MESSAGES.COLLECTOR_TIME
 	});
 
-	let collectedInteraction: MessageComponentInteraction | null = null;
-
 	buttonCollector.on("collect", async (i: ButtonInteraction) => {
 		if (i.user.id !== context.discord?.user) {
 			await sendInteractionNotForYou(i.user, i, interaction.userLanguage);
@@ -332,7 +330,7 @@ async function manageBuyoutConfirmation(packet: ReactionCollectorCreationPacket,
 		DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, null, packet.reactions.findIndex(r =>
 			r.type === ReactionCollectorShopItemReaction.name
 			&& (r.data as ReactionCollectorShopItemReaction).shopItemId === reaction.shopItemId
-			&& (amounts.length === 1 || (r.data as ReactionCollectorShopItemReaction).amount === parseInt(collectedInteraction!.customId, 10))));
+			&& (amounts.length === 1 || (r.data as ReactionCollectorShopItemReaction).amount === parseInt(i!.customId, 10))));
 	});
 }
 
