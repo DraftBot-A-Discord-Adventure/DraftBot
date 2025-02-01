@@ -102,14 +102,9 @@ export async function createBigEventCollector(context: PacketContext, packet: Re
 
 		buttonCollector.stop();
 		endCollector.stop();
-	});
-	buttonCollector.on("end", async (collected) => {
-		const firstReaction = collected.first() as ButtonInteraction;
 
-		if (firstReaction) {
-			await firstReaction.deferReply();
-			respondToEvent(firstReaction.customId, firstReaction);
-		}
+		await i.deferReply();
+		respondToEvent(i.customId, i);
 	});
 
 	endCollector.on("collect", () => {

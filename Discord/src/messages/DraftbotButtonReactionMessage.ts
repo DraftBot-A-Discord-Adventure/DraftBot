@@ -90,7 +90,7 @@ export class DraftbotButtonReactionMessage {
 				this._messageOptions.context,
 				this._messageOptions.context.keycloakId!,
 				null,
-				indexes.findIndex((r) => r === collected.first()?.customId)
+				indexes.findIndex((r) => r === collected.last()?.customId)
 			);
 		});
 

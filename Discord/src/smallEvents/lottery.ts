@@ -66,41 +66,35 @@ export async function lotteryCollector(context: PacketContext, packet: ReactionC
 		}
 
 		buttonCollector.stop();
-	});
 
-	// Collector end
-	buttonCollector.on("end", async (collected) => {
-		const firstReaction = collected.first() as ButtonInteraction;
-		await firstReaction.deferReply();
+		await i.deferReply();
 
-		if (firstReaction) {
-			if (firstReaction.customId === easyButtonId) {
-				DiscordCollectorUtils.sendReaction(
-					packet,
-					context,
-					user.id,
-					firstReaction,
-					packet.reactions.findIndex((reaction) => reaction.type === ReactionCollectorLotteryEasyReaction.name)
-				);
-			}
-			else if (firstReaction.customId === mediumButtonId) {
-				DiscordCollectorUtils.sendReaction(
-					packet,
-					context,
-					user.id,
-					firstReaction,
-					packet.reactions.findIndex((reaction) => reaction.type === ReactionCollectorLotteryMediumReaction.name)
-				);
-			}
-			else if (firstReaction.customId === hardButtonId) {
-				DiscordCollectorUtils.sendReaction(
-					packet,
-					context,
-					user.id,
-					firstReaction,
-					packet.reactions.findIndex((reaction) => reaction.type === ReactionCollectorLotteryHardReaction.name)
-				);
-			}
+		if (i.customId === easyButtonId) {
+			DiscordCollectorUtils.sendReaction(
+				packet,
+				context,
+				user.id,
+				i,
+				packet.reactions.findIndex((reaction) => reaction.type === ReactionCollectorLotteryEasyReaction.name)
+			);
+		}
+		else if (i.customId === mediumButtonId) {
+			DiscordCollectorUtils.sendReaction(
+				packet,
+				context,
+				user.id,
+				i,
+				packet.reactions.findIndex((reaction) => reaction.type === ReactionCollectorLotteryMediumReaction.name)
+			);
+		}
+		else if (i.customId === hardButtonId) {
+			DiscordCollectorUtils.sendReaction(
+				packet,
+				context,
+				user.id,
+				i,
+				packet.reactions.findIndex((reaction) => reaction.type === ReactionCollectorLotteryHardReaction.name)
+			);
 		}
 	});
 }
