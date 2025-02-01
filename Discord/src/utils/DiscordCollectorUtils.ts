@@ -120,23 +120,17 @@ export class DiscordCollectorUtils {
 				await sendInteractionNotForYou(i.user, i, interaction.userLanguage);
 				return;
 			}
-			buttonCollector.stop();
-		});
 
-		// Collector end
-		buttonCollector.on("end", async (collected) => {
-			const lastReaction = collected.last();
-			if (!lastReaction) {
-				return;
-			}
-			await lastReaction.deferReply();
+			buttonCollector.stop();
+
+			await i.deferReply();
 			DiscordCollectorUtils.sendReaction(
 				reactionCollectorCreationPacket,
 				context,
 				context.keycloakId!,
-				lastReaction,
+				i,
 				reactionCollectorCreationPacket.reactions.findIndex((reaction) =>
-					reaction.type === (lastReaction.customId === acceptCustomId
+					reaction.type === (i.customId === acceptCustomId
 						? ReactionCollectorAcceptReaction.name
 						: ReactionCollectorRefuseReaction.name))
 			);
@@ -204,21 +198,11 @@ export class DiscordCollectorUtils {
 			}
 
 			buttonCollector.stop();
-		});
 
-		// Collector end
-		buttonCollector.on("end", async (collected) => {
-			const firstReaction = collected.first() as ButtonInteraction;
-
-			if (firstReaction) {
-				await firstReaction.deferReply();
-				if (firstReaction.customId !== "refuse") {
-					DiscordCollectorUtils.sendReaction(reactionCollectorCreationPacket, context, context.keycloakId!, firstReaction, parseInt(firstReaction.customId));
-					return;
-				}
+			await i.deferReply();
+			if (i.customId !== "refuse") {
+				DiscordCollectorUtils.sendReaction(reactionCollectorCreationPacket, context, context.keycloakId!, i, parseInt(i.customId));
 			}
-
-			DiscordCollectorUtils.sendReaction(reactionCollectorCreationPacket, context, context.keycloakId!, firstReaction, items.length);
 		});
 	}
 }

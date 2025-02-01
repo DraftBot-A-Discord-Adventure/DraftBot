@@ -190,10 +190,8 @@ export async function shopInventoryExtensionCollector(context: PacketContext, pa
 		}
 		await i.update({components: []});
 		buttonCollector.stop();
-	});
 
-	buttonCollector.on("end", async (collected) => {
-		if (!collected.first() || collected.first()?.customId === "closeShop") {
+		if (i.customId === "closeShop") {
 			PacketUtils.sendPacketToBackend(context, makePacket(ChangeBlockingReasonPacket, {
 				oldReason: BlockingConstants.REASONS.SHOP,
 				newReason: BlockingConstants.REASONS.NONE
@@ -201,14 +199,14 @@ export async function shopInventoryExtensionCollector(context: PacketContext, pa
 			await handleCommandShopClosed(context);
 			return;
 		}
-		const firstReaction = collected.first() as ButtonInteraction;
+
 		PacketUtils.sendPacketToBackend(context, makePacket(ChangeBlockingReasonPacket, {
 			oldReason: BlockingConstants.REASONS.SHOP,
 			newReason: BlockingConstants.REASONS.NONE
 		}));
 		DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, null, packet.reactions.findIndex(r =>
 			r.type === ReactionCollectorBuyCategorySlotReaction.name
-			&& (r.data as ReactionCollectorBuyCategorySlotReaction).categoryId === parseInt(firstReaction.customId, 10)));
+			&& (r.data as ReactionCollectorBuyCategorySlotReaction).categoryId === parseInt(i.customId, 10)));
 	});
 }
 
@@ -317,25 +315,25 @@ async function manageBuyoutConfirmation(packet: ReactionCollectorCreationPacket,
 			await sendInteractionNotForYou(i.user, i, interaction.userLanguage);
 			return;
 		}
-		collectedInteraction = i;
-		await collectedInteraction.update({components: []});
+
+		await i.update({components: []});
 		buttonCollector.stop();
-	});
-	buttonCollector.on("end", async (collected) => {
+
 		PacketUtils.sendPacketToBackend(context, makePacket(ChangeBlockingReasonPacket, {
 			oldReason: BlockingConstants.REASONS.SHOP_CONFIRMATION,
 			newReason: BlockingConstants.REASONS.NONE
 		}));
-		if (!collected.first() || collected.first()?.customId === "refuse") {
+
+		if (i.customId === "refuse") {
 			await handleCommandShopClosed(context);
 			return;
 		}
+
 		DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, null, packet.reactions.findIndex(r =>
 			r.type === ReactionCollectorShopItemReaction.name
 			&& (r.data as ReactionCollectorShopItemReaction).shopItemId === reaction.shopItemId
 			&& (amounts.length === 1 || (r.data as ReactionCollectorShopItemReaction).amount === parseInt(collectedInteraction!.customId, 10))));
 	});
-
 }
 
 type ShopItemNames = {
@@ -464,9 +462,8 @@ export async function shopCollector(context: PacketContext, packet: ReactionColl
 		}
 		await i.update({components: []});
 		buttonCollector.stop();
-	});
-	buttonCollector.on("end", async (collected) => {
-		if (!collected.first() || collected.first()?.customId === "closeShop") {
+
+		if (i.customId === "closeShop") {
 			PacketUtils.sendPacketToBackend(context, makePacket(ChangeBlockingReasonPacket, {
 				oldReason: BlockingConstants.REASONS.SHOP,
 				newReason: BlockingConstants.REASONS.NONE
@@ -474,7 +471,7 @@ export async function shopCollector(context: PacketContext, packet: ReactionColl
 			await handleCommandShopClosed(context);
 			return;
 		}
-		const firstReactionId = shopItemTypeFromId((collected.first() as SelectMenuInteraction).values[0]);
+
 		await manageBuyoutConfirmation(
 			packet,
 			context,
@@ -482,12 +479,10 @@ export async function shopCollector(context: PacketContext, packet: ReactionColl
 			packet.reactions.find(
 				reaction =>
 					reaction.type === ReactionCollectorShopItemReaction.name
-					&& (reaction.data as ReactionCollectorShopItemReaction).shopItemId === firstReactionId
+					&& (reaction.data as ReactionCollectorShopItemReaction).shopItemId === shopItemTypeFromId((i as SelectMenuInteraction).values[0])
 			)!.data as ReactionCollectorShopItemReaction
 		);
-
 	});
-
 }
 
 export const commandInfo: ICommand = {

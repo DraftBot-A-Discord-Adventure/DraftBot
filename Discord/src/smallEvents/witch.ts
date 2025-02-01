@@ -71,22 +71,15 @@ export async function witchCollector(context: PacketContext, packet: ReactionCol
 		}
 
 		buttonCollector.stop();
-	});
 
-	// Collector end
-	buttonCollector.on("end", async (collected) => {
-		const firstReaction = collected.first() as ButtonInteraction;
-		await firstReaction.deferReply();
-
-		if (firstReaction) {
-			DiscordCollectorUtils.sendReaction(
-				packet,
-				context,
-				context.keycloakId!,
-				firstReaction,
-				packet.reactions.findIndex((reaction) => (reaction.data as ReactionCollectorWitchReaction).id === firstReaction.customId)
-			);
-		}
+		await i.deferReply();
+		DiscordCollectorUtils.sendReaction(
+			packet,
+			context,
+			context.keycloakId!,
+			i,
+			packet.reactions.findIndex((reaction) => (reaction.data as ReactionCollectorWitchReaction).id === i.customId)
+		);
 	});
 }
 
