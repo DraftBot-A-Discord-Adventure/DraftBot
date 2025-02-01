@@ -28,7 +28,8 @@ export interface PacketContext {
 		interaction: string,
 		buttonInteraction?: string,
 		channel: string,
-		language: Language
+		language: Language,
+		shardId: number
 	}
 
 	rightGroups?: RightGroup[];
