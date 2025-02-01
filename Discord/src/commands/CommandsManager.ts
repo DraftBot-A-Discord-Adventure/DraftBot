@@ -15,7 +15,7 @@ import {
 	Snowflake
 } from "discord.js";
 import {RESTPostAPIChatInputApplicationCommandsJSONBody, Routes} from "discord-api-types/v10";
-import {discordConfig, draftBotClient, keycloakConfig} from "../bot/DraftBotShard";
+import {discordConfig, draftBotClient, keycloakConfig, shardId} from "../bot/DraftBotShard";
 import {KeycloakUser} from "../../../Lib/src/keycloak/KeycloakUser";
 import {readdirSync} from "fs";
 import i18n from "../translations/i18n";
@@ -388,7 +388,8 @@ export class CommandsManager {
 					user: interaction.user.id,
 					channel: interaction.channel.id,
 					interaction: interaction.id,
-					language: interaction.userLanguage
+					language: interaction.userLanguage,
+					shardId: shardId
 				},
 				rightGroups: await KeycloakUtils.getUserGroups(keycloakConfig, user.id) as RightGroup[]
 			};

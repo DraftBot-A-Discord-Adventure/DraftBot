@@ -13,7 +13,7 @@ import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {DraftbotInteraction} from "../messages/DraftbotInteraction";
 import {sendInteractionNotForYou} from "./ErrorUtils";
 import {PacketUtils} from "./PacketUtils";
-import {keycloakConfig} from "../bot/DraftBotShard.js";
+import {keycloakConfig, shardId} from "../bot/DraftBotShard.js";
 import {KeycloakUtils} from "../../../Lib/src/keycloak/KeycloakUtils.js";
 
 export class DiscordCollectorUtils {
@@ -40,7 +40,8 @@ export class DiscordCollectorUtils {
 				channel: context.discord!.channel,
 				interaction: context.discord!.interaction,
 				buttonInteraction: button?.id,
-				language: context.discord!.language
+				language: context.discord!.language,
+				shardId: shardId
 			}
 		}, responsePacket);
 	}

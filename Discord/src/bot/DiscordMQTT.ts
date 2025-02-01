@@ -1,7 +1,7 @@
-import {discordConfig, draftBotClient} from "./DraftBotShard";
+import {discordConfig, draftBotClient, shardId} from "./DraftBotShard";
 import {PacketListenerClient} from "../../../Lib/src/packets/PacketListener";
 import {registerAllPacketHandlers} from "../packetHandlers/PacketHandler";
-import {makePacket, PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
+import {DraftBotPacket, makePacket, PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
 import {ErrorPacket} from "../../../Lib/src/packets/commands/ErrorPacket";
 import {connect, MqttClient} from "mqtt";
 import {MqttConstants} from "../../../Lib/src/constants/MqttConstants";
@@ -36,12 +36,17 @@ export class DiscordMQTT {
 	private static handleGlobalMqttMessage(): void {
 		DiscordMQTT.mqttClient.on("message", async (topic, message) => {
 			if (topic === MqttTopicUtils.getDiscordTopic(discordConfig.PREFIX)) {
-				// Todo ignore if not the right shard
 				const messageString = message.toString();
 				console.log(`Received message from topic ${topic}: ${messageString}`);
 				const dataJson = JSON.parse(messageString);
 				if (!Object.hasOwn(dataJson, "packets") || !Object.hasOwn(dataJson, "context")) {
 					console.log(`Wrong packet format : ${messageString}`);
+					return;
+				}
+
+				const context = dataJson.context as PacketContext;
+
+				if (context.discord!.shardId !== shardId) {
 					return;
 				}
 
@@ -52,7 +57,7 @@ export class DiscordMQTT {
 							packet.packet = makePacket(ErrorPacket, {message: `No packet listener found for received packet '${packet.name}'.\n\nData:\n${JSON.stringify(packet.packet)}`});
 							listener = DiscordMQTT.packetListener.getListener("ErrorPacket")!;
 						}
-						await listener(dataJson.context, packet.packet);
+						await listener(context as PacketContext, packet.packet as DraftBotPacket);
 					}
 				}
 				catch (error) {
