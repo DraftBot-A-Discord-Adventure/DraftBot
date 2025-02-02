@@ -64,7 +64,8 @@ export default class ReportCommand {
 		player: Player,
 		_packet: CommandReportPacketReq,
 		context: PacketContext,
-		forceSmallEvent: string = null
+		forceSmallEvent: string = null,
+		forceSpecificEvent: number = -1
 	): Promise<void> {
 
 		if (player.score === 0 && player.effectId === Effect.NOT_STARTED.id) {
@@ -86,7 +87,7 @@ export default class ReportCommand {
 				await doPVEBoss(player, response, context);
 			}
 			else {
-				await doRandomBigEvent(context, response, player);
+				await doRandomBigEvent(context, response, player, forceSpecificEvent);
 			}
 			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.REPORT_COMMAND);
 			return;
@@ -277,11 +278,13 @@ async function doEvent(event: BigEvent, player: Player, time: number, context: P
  * @param context
  * @param response
  * @param player
+ * @param forceSpecificEvent
  */
 async function doRandomBigEvent(
 	context: PacketContext,
 	response: DraftBotPacket[],
-	player: Player
+	player: Player,
+	forceSpecificEvent: number = -1
 ): Promise<void> {
 	await completeMissionsBigEvent(player, response);
 	const travelData = TravelTime.getTravelDataSimplified(player, new Date());
@@ -291,7 +294,6 @@ async function doRandomBigEvent(
 	}
 
 	let event;
-	let forceSpecificEvent;
 
 	// NextEvent is defined ?
 	if (player.nextEvent) {

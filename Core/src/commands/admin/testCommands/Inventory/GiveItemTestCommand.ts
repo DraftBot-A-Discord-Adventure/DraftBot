@@ -27,7 +27,7 @@ const giveItemTestCommand: ExecuteTestCommandLike = async (player, args) => {
 	if (!await player.giveItem(item)) {
 		throw Error("Aucun emplacement libre dans l'inventaire");
 	}
-	return `Vous avez reçu ${item.id} !`; // TODO : call lang module
+	return `Vous avez reçu ${item.id} !`;
 };
 
 commandInfo.execute = giveItemTestCommand;

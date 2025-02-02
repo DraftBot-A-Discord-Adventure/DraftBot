@@ -1,4 +1,7 @@
 import {CommandsTest, ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
+import ReportCommand from "../../../player/ReportCommand";
+import {makePacket} from "../../../../../../Lib/src/packets/DraftBotPacket";
+import {CommandReportPacketReq} from "../../../../../../Lib/src/packets/commands/CommandReportPacket";
 
 export const commandInfo: ITestCommand = {
 	name: "forcereport",
@@ -15,8 +18,7 @@ export const commandInfo: ITestCommand = {
  */
 const forceReportTestCommand: ExecuteTestCommandLike = async (player, args, response, context) => {
 	await CommandsTest.getTestCommand("atravel").execute(player, ["5000"], response, context);
-	// TODO : replace with the new way of executing commands
-	// Await CommandsManager.executeCommandWithParameters("report", interaction, language, player, parseInt(args[0], 10));
+	await ReportCommand.execute(response, player, makePacket(CommandReportPacketReq, {}), context, null, parseInt(args[0], 10));
 	return `Event ${args[0] === "-1" ? "aléatoire" : args[0]} forcé !`;
 };
 
