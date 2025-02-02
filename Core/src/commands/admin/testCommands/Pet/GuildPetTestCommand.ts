@@ -42,7 +42,7 @@ const guildPetTestCommand: ExecuteTestCommandLike = async (player, args) => {
 
 	await GuildPets.addPet(guild, pet, true).save();
 
-	return `Un pet a rejoint votre shelter :\n${pet.id /* TODO : i18n (pet.getPetDisplay(await Pets.getById(pet.petId), language)) */} !`;
+	return `Un pet a rejoint votre shelter :\n${pet.id} !`;
 };
 
 commandInfo.execute = guildPetTestCommand;

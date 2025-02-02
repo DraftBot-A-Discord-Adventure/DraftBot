@@ -17,13 +17,7 @@ const newDailyMissionTestCommand: ExecuteTestCommandLike = async () => {
 		dailyMissionNumberDone: 0,
 		lastDailyMissionCompleted: new Date(0)
 	}, {where: {}});
-	return `La mission quotidienne a été changée !\n Mission : ${newDM.id/* TODO : i18n (DraftBotMissionsMessageBuilder.getMissionDisplay(
-			Translations.getModule("commands.missions", language),
-			await (await Missions.getById(newDM.missionId)).formatDescription(newDM.objective, newDM.variant, language, null),
-			getTomorrowMidnight(),
-			0,
-			newDM.objective
-		))*/}`;
+	return `La mission quotidienne a été changée !\n Mission ID : ${newDM.id}`;
 };
 
 commandInfo.execute = newDailyMissionTestCommand;

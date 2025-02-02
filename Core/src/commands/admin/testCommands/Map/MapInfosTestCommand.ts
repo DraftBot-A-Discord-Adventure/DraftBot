@@ -15,11 +15,11 @@ const mapInfosTestCommand: ExecuteTestCommandLike = async (player) => {
 	const travelling = Maps.isTravelling(player);
 
 	return `🗺️ Map debugging :
-Previous map : ${prevMap ? `${prevMap.id /* TODO: i18n (previously currMap.getDisplayName(player.language))*/} (id: ${prevMap.id})` : "None"}
-${travelling ? "Next map" : "Current map"} : ${currMap.id /* TODO: i18n (previously currMap.getDisplayName(player.language))*/} (id: ${currMap.id})
+Previous map : ${prevMap ? `${prevMap.id} (id: ${prevMap.id})` : "None"}
+${travelling ? "Next map" : "Current map"} : ${currMap.id} (id: ${currMap.id})
 ${travelling ? "" : `Next available maps : ${
 		Maps.getNextPlayerAvailableMaps(player)
-			.map(map => `${map /* TODO: i18n (previously currMap.getDisplayName(player.language))*/} (id: ${map})`)
+			.map(map => `${map} (id: ${map})`)
 			.join("\n")
 	}`}
 Players : :speech_balloon: ${await currMap.playersCount(prevMap.id)} player(s) on this map`;

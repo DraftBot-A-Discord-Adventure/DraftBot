@@ -35,9 +35,7 @@ const travelTestCommand: ExecuteTestCommandLike = async (player, args) => {
 
 	await Maps.startTravel(player, link, Date.now());
 	await player.save();
-	return `Vous êtes téléportés entre la map ${
-		mapStart/* TODO: i18n : (await MapLocations.getById(mapStart)).getDisplayName(language) */} et la map ${
-		mapEnd/* TODO: i18n : (await MapLocations.getById(mapEnd)).getDisplayName(language) */} !`;
+	return `Vous êtes téléportés entre la map ${mapStart} et la map ${mapEnd} !`;
 };
 
 commandInfo.execute = travelTestCommand;

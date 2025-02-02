@@ -1,4 +1,6 @@
 import {ExecuteTestCommandLike, ITestCommand} from "../../../../core/CommandsTest";
+import {BigEventDataController} from "../../../../data/BigEvent";
+import {verifyTrigger} from "../../../../data/events/BigEventTrigger";
 
 export const commandInfo: ITestCommand = {
 	name: "possibleEvents",
@@ -8,17 +10,15 @@ export const commandInfo: ITestCommand = {
 /**
  * Display all possible events
  */
-const possibleEventsTestCommand: ExecuteTestCommandLike = (player) => {
+const possibleEventsTestCommand: ExecuteTestCommandLike = async (player) => {
 	const mapId = player.getDestinationId();
 
-	// TODO: replace when the BigEventsController will be implemented
-	// Const possibleEvents = BigEventsController.getEventsNotFiltered(mapId);
-	const possibleEvents = [{id: 1, triggers: [{type: "test", value: mapId}]}];
+	const possibleEvents = BigEventDataController.instance.getEventsNotFiltered(mapId);
 	let str = "";
 	for (const event of possibleEvents) {
 		str += `Event n°**${event.id}**\nTriggers :\n`;
 		for (const trigger of event.triggers) {
-			str += `- ${JSON.stringify(trigger)} : **${true /* TODO: replace when the BigEventsTrigger file will be implemented*/ /* Await verifyTrigger(event, trigger, mapId, player) */}**\n`;
+			str += `- ${JSON.stringify(trigger)} : **${await verifyTrigger(event, trigger, mapId, player)}**\n`;
 		}
 		str += "\n";
 	}

@@ -29,7 +29,6 @@ mqttClient.on("connect", () => {
 	});
 });
 
-// Todo log commands
 mqttClient.on("message", async (topic, message) => {
 	const messageString = message.toString();
 	console.log(`Received message from topic ${topic}: ${messageString}`);

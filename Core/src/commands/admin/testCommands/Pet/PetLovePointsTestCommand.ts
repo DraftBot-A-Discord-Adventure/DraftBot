@@ -31,7 +31,7 @@ const petLovePointsTestCommand: ExecuteTestCommandLike = async (player, args, re
 		reason: NumberChangeReason.TEST
 	});
 	await pet.save();
-	return `Votre pet a maintenant un amour de ${args[0]}. Cela correspond à un pet ${pet.lovePoints /* TODO : i18n (pet.getLoveLevel(language)) */} !`;
+	return `Votre pet a maintenant un amour de ${args[0]}.`;
 };
 
 commandInfo.execute = petLovePointsTestCommand;
