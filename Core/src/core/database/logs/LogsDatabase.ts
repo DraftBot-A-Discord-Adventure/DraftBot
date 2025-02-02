@@ -3,7 +3,7 @@ import {LogsPlayersMoney} from "./models/LogsPlayersMoney";
 import {LogsPlayers} from "./models/LogsPlayers";
 import {LogsPlayersHealth} from "./models/LogsPlayersHealth";
 import {LogsPlayersExperience} from "./models/LogsPlayersExperience";
-import {CreateOptions, Model} from "sequelize";
+import {CreateOptions, Model, ModelStatic} from "sequelize";
 import {LogsPlayersLevel} from "./models/LogsPlayersLevel";
 import {LogsPlayersScore} from "./models/LogsPlayersScore";
 import {LogsPlayersGems} from "./models/LogsPlayersGems";
@@ -56,7 +56,7 @@ import {LogsGuildsDestroys} from "./models/LogsGuildsDestroys";
 import {LogsGuildsEldersRemoves} from "./models/LogsGuildsEldersRemoves";
 import {LogsGuildsChiefsChanges} from "./models/LogsGuildsChiefsChanges";
 import {LogsPetsFrees} from "./models/LogsPetsFrees";
-import {GuildLikeType, GuildPets, ModelType} from "../game/models/GuildPet";
+import {GuildPets} from "../game/models/GuildPet";
 import {LogsFightsResults} from "./models/LogsFightsResults";
 import {LogsFightsActionsUsed} from "./models/LogsFightsActionsUsed";
 import {LogsFightsActions} from "./models/LogsFightsActions";
@@ -92,6 +92,7 @@ import {MonsterFighter} from "../../fights/fighter/MonsterFighter";
 import {Effect} from "../../../../../Lib/src/types/Effect";
 import {getDatabaseConfiguration} from "../../bot/DraftBotConfig";
 import {botConfig} from "../../../index";
+import {GuildLikeType} from "../../types/GuildLikeType";
 
 /**
  * This class is used to log all the changes in the game database
@@ -231,7 +232,7 @@ export class LogsDatabase extends Database {
 	 * @param model
 	 * @private
 	 */
-	private static async logPlayerAndNumber(keycloakId: string, valueFieldName: string, value: number, model: ModelType): Promise<void> {
+	private static async logPlayerAndNumber(keycloakId: string, valueFieldName: string, value: number, model: ModelStatic<Model<unknown, unknown>>): Promise<void> {
 		const player = await LogsDatabase.findOrCreatePlayer(keycloakId);
 		const values: { [key: string]: string | number } = {
 			playerId: player.id,
@@ -247,7 +248,7 @@ export class LogsDatabase extends Database {
 	 * @param model
 	 * @private
 	 */
-	private static async logSimplePlayerDate(keycloakId: string, model: ModelType): Promise<void> {
+	private static async logSimplePlayerDate(keycloakId: string, model: ModelStatic<Model<unknown, unknown>>): Promise<void> {
 		const player = await LogsDatabase.findOrCreatePlayer(keycloakId);
 		await model.create({
 			playerId: player.id,
@@ -264,7 +265,7 @@ export class LogsDatabase extends Database {
 	 * @param model
 	 * @private
 	 */
-	private static async logMissionChange(keycloakId: string, missionId: string, variant: number, objective: number, model: ModelType): Promise<void> {
+	private static async logMissionChange(keycloakId: string, missionId: string, variant: number, objective: number, model: ModelStatic<Model<unknown, unknown>>): Promise<void> {
 		const player = await LogsDatabase.findOrCreatePlayer(keycloakId);
 		const [mission] = await LogsMissions.findOrCreate({
 			where: {
@@ -288,7 +289,7 @@ export class LogsDatabase extends Database {
 	 * @param model
 	 * @private
 	 */
-	private static async logNumberChange(keycloakId: string, value: number, reason: NumberChangeReason, model: ModelType): Promise<void> {
+	private static async logNumberChange(keycloakId: string, value: number, reason: NumberChangeReason, model: ModelStatic<Model<unknown, unknown>>): Promise<void> {
 		const player = await LogsDatabase.findOrCreatePlayer(keycloakId);
 		await model.create({
 			playerId: player.id,
