@@ -94,9 +94,9 @@ export async function createBigEventCollector(context: PacketContext, packet: Re
 		filter: (reaction, user) => reaction.emoji.name === Constants.REACTIONS.NOT_REPLIED_REACTION && user.id === interaction.user.id
 	});
 
-	buttonCollector.on("collect", async (i: ButtonInteraction) => {
-		if (i.user.id !== context.discord?.user) {
-			await sendInteractionNotForYou(i.user, i, interaction.userLanguage);
+	buttonCollector.on("collect", async (buttonInteraction: ButtonInteraction) => {
+		if (buttonInteraction.user.id !== context.discord?.user) {
+			await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, interaction.userLanguage);
 			return;
 		}
 

@@ -142,18 +142,18 @@ export async function handleCommandInventoryPacketRes(packet: CommandInventoryPa
 		});
 
 		const collector = msg.createMessageComponentCollector({
-			filter: i => i.customId === buttonId, // TODO: rename single letter variable to something clearer
+			filter: buttonInteraction => buttonInteraction.customId === buttonId,
 			time: Constants.MESSAGES.COLLECTOR_TIME
 		});
-		collector.on("collect", async (i: ButtonInteraction) => {
-			if (i.user.id !== context.discord?.user) {
-				await sendInteractionNotForYou(i.user, i, interaction.userLanguage);
+		collector.on("collect", async (buttonInteraction: ButtonInteraction) => {
+			if (buttonInteraction.user.id !== context.discord?.user) {
+				await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, interaction.userLanguage);
 				return;
 			}
 
 			equippedView = !equippedView;
 			switchItemsButton.setLabel(equippedView ? backupButtonLabel : equippedButtonLabel);
-			await i.update({
+			await buttonInteraction.update({
 				embeds: [equippedView ? equippedEmbed : backupEmbed],
 				components: [new ActionRowBuilder<ButtonBuilder>().addComponents(switchItemsButton)]
 			});

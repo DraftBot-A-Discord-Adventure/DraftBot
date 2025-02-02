@@ -64,9 +64,9 @@ export async function witchCollector(context: PacketContext, packet: ReactionCol
 	});
 
 	// Send an error if someone uses the collector that is not intended for them and stop if it's the owner
-	buttonCollector.on("collect", async (i: ButtonInteraction) => {
-		if (i.user.id !== context.discord?.user) {
-			await sendInteractionNotForYou(i.user, i, interaction.userLanguage);
+	buttonCollector.on("collect", async (buttonInteraction: ButtonInteraction) => {
+		if (buttonInteraction.user.id !== context.discord?.user) {
+			await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, interaction.userLanguage);
 			return;
 		}
 
