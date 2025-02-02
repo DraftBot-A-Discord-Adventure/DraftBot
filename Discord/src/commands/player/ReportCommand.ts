@@ -32,6 +32,7 @@ import {ReactionCollectorChooseDestinationReaction} from "../../../../Lib/src/pa
 import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
 import {EmoteUtils} from "../../utils/EmoteUtils";
 import {LANGUAGE} from "../../../../Lib/src/Language";
+import {ReportConstants} from "../../../../Lib/src/constants/ReportConstants";
 
 async function getPacket(interaction: DraftbotInteraction): Promise<CommandReportPacketReq> {
 	await interaction.deferReply();
@@ -50,7 +51,7 @@ export async function createBigEventCollector(context: PacketContext, packet: Re
 		interpolation: {escapeValue: false}
 	})}\n\n`;
 	for (const possibility of reactions) {
-		if (possibility.name !== "end") {
+		if (possibility.name !== ReportConstants.END_POSSIBILITY_ID) {
 			const emoji = EmoteUtils.translateEmojiToDiscord(DraftBotIcons.events[data.eventId.toString()][possibility.name] as string);
 
 			const button = new ButtonBuilder()
@@ -111,7 +112,7 @@ export async function createBigEventCollector(context: PacketContext, packet: Re
 		buttonCollector.stop();
 		endCollector.stop();
 
-		respondToEvent("end", null);
+		respondToEvent(ReportConstants.END_POSSIBILITY_ID, null);
 	});
 }
 
@@ -157,7 +158,7 @@ export async function reportResult(packet: CommandReportBigEventResultRes, conte
 		pseudo: user.attributes.gameUsername,
 		result,
 		event: i18n.t(`events:${packet.eventId}.possibilities.${packet.possibilityId}.outcomes.${packet.outcomeId}`, {lng: interaction.userLanguage}),
-		emoji: EmoteUtils.translateEmojiToDiscord(packet.possibilityId === "end" // Todo: ceci devrait être une constante
+		emoji: EmoteUtils.translateEmojiToDiscord(packet.possibilityId === ReportConstants.END_POSSIBILITY_ID
 			? DraftBotIcons.events[packet.eventId].end[packet.outcomeId]
 			: DraftBotIcons.events[packet.eventId][packet.possibilityId] as string),
 		alte: EmoteUtils.translateEmojiToDiscord(packet.effect && packet.effect.name !== Effect.OCCUPIED.id ? DraftBotIcons.effects[packet.effect.name] : "")
