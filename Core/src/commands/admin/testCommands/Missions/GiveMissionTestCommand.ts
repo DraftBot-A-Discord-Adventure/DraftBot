@@ -42,7 +42,7 @@ const giveMissionTestCommand: ExecuteTestCommandLike = async (player, args) => {
 	);
 
 	return `Vous avez reçu la mission suivante:
-**Description :** ${mission.id/* TODO : i18n (await mission.formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, language, null)) */}
+**Mission ID :** ${mission.id}
 **Objectif :** ${missionSlot.missionObjective}`;
 };
 

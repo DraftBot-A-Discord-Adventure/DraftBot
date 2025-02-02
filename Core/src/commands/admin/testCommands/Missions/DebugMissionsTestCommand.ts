@@ -27,7 +27,7 @@ Campaign blob: ${missionsInfo.campaignBlob}
 📜 Missions
 ${missionSlots.map(missionSlot => {
 		const mission = MissionDataController.instance.getById(missionSlot.missionId);
-		return `${mission.id /* TODO i18n (await mission.formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, "fr", null)) */} (id: ${missionSlot.missionId}
+		return `${mission.id} (id: ${missionSlot.missionId}
 				)
 -> ID DB: ${missionSlot.id}
 

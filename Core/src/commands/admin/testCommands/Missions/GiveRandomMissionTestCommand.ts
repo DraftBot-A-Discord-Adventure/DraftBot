@@ -32,7 +32,7 @@ const giveRandomMissionTestCommand: ExecuteTestCommandLike = async (player, args
 	const mission = MissionDataController.instance.getById(missionSlot.missionId);
 
 	return `Vous avez reçu la mission suivante:
-**Description :** ${mission.id/* TODO: i18n (await mission.formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, language, null)) */}
+**Mission ID :** ${mission.id}
 **Objectif :** ${missionSlot.missionObjective}`;
 };
 
