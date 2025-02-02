@@ -1,5 +1,8 @@
 import {ExecuteTestCommandLike, ITestCommand} from "../../../../core/CommandsTest";
 import {Maps} from "../../../../core/maps/Maps";
+import {BigEventDataController} from "../../../../data/BigEvent";
+import {Player} from "../../../../core/database/game/models/Player";
+import {DraftBotIcons} from "../../../../../../Lib/src/DraftBotIcons";
 
 export const commandInfo: ITestCommand = {
 	name: "listevents",
@@ -10,18 +13,16 @@ export const commandInfo: ITestCommand = {
 /**
  * List all available events for each map
  */
-const listEventsTestCommand: ExecuteTestCommandLike = () => {
+const listEventsTestCommand: ExecuteTestCommandLike = async (player: Player) => {
 	let str = "";
 	// Let's display for every map all available events
 	for (const map of Maps.getMaps()) {
-		// Const events = await BigEventsController.getAvailableEvents(map.id, player);
-		// TODO: replace when the BigEventsController will be implemented
-		const events = [{id: "test"}];
+		const events = await BigEventDataController.instance.getAvailableEvents(map.id, player);
 		let eventsString = "";
 		for (const event of events) {
 			eventsString += `${event.id}\n`;
 		}
-		str += `**${map.id}**\n${eventsString}\n`; // `**${map.nameFr}**\n${eventsString}\n`; TODO: replace with the correct map name i18n
+		str += `${DraftBotIcons.map_types[map.type]} **${map.id}**\n${eventsString}\n`;
 	}
 	return `${str}\n\nLa liste des évents pour chaque lieu a été envoyée !`;
 };
