@@ -403,7 +403,7 @@ export class CommandsManager {
 					channel: interaction.channel.id,
 					interaction: interaction.id,
 					language: interaction.userLanguage,
-					shardId: shardId
+					shardId
 				},
 				rightGroups: await KeycloakUtils.getUserGroups(keycloakConfig, user.id) as RightGroup[]
 			};

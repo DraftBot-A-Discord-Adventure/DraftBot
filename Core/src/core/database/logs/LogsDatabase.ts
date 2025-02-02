@@ -940,9 +940,9 @@ export class LogsDatabase extends Database {
 			const player2Id = (await LogsDatabase.findOrCreatePlayer(player2.player.keycloakId)).id;
 			const winner = fight.getWinnerFighter() === player1 ? 1 : 2;
 			const fightResult = await LogsFightsResults.create({
-				player1Id: player1Id,
+				player1Id,
 				player1Points: player1.player.score,
-				player2Id: player2Id,
+				player2Id,
 				player2Points: player2.player.score,
 				turn: fight.turn,
 				winner: fight.isADraw() ? 0 : winner,
