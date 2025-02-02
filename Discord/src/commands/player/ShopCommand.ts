@@ -183,15 +183,15 @@ export async function shopInventoryExtensionCollector(context: PacketContext, pa
 		time: Constants.MESSAGES.COLLECTOR_TIME
 	});
 
-	buttonCollector.on("collect", async (i: ButtonInteraction) => {
-		if (i.user.id !== context.discord?.user) {
-			await sendInteractionNotForYou(i.user, i, interaction.userLanguage);
+	buttonCollector.on("collect", async (buttonInteraction: ButtonInteraction) => {
+		if (buttonInteraction.user.id !== context.discord?.user) {
+			await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, interaction.userLanguage);
 			return;
 		}
-		await i.update({components: []});
+		await buttonInteraction.update({components: []});
 		buttonCollector.stop();
 
-		if (i.customId === "closeShop") {
+		if (buttonInteraction.customId === "closeShop") {
 			PacketUtils.sendPacketToBackend(context, makePacket(ChangeBlockingReasonPacket, {
 				oldReason: BlockingConstants.REASONS.SHOP,
 				newReason: BlockingConstants.REASONS.NONE
@@ -206,7 +206,7 @@ export async function shopInventoryExtensionCollector(context: PacketContext, pa
 		}));
 		DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, null, packet.reactions.findIndex(r =>
 			r.type === ReactionCollectorBuyCategorySlotReaction.name
-			&& (r.data as ReactionCollectorBuyCategorySlotReaction).categoryId === parseInt(i.customId, 10)));
+			&& (r.data as ReactionCollectorBuyCategorySlotReaction).categoryId === parseInt(buttonInteraction.customId, 10)));
 	});
 }
 
@@ -308,13 +308,12 @@ async function manageBuyoutConfirmation(packet: ReactionCollectorCreationPacket,
 		time: Constants.MESSAGES.COLLECTOR_TIME
 	});
 
-	buttonCollector.on("collect", async (i: ButtonInteraction) => {
-		if (i.user.id !== context.discord?.user) {
-			await sendInteractionNotForYou(i.user, i, interaction.userLanguage);
+	buttonCollector.on("collect", async (buttonInteraction: ButtonInteraction) => {
+		if (buttonInteraction.user.id !== context.discord?.user) {
+			await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, interaction.userLanguage);
 			return;
 		}
-
-		await i.update({components: []});
+		await buttonInteraction.update({components: []});
 		buttonCollector.stop();
 
 		PacketUtils.sendPacketToBackend(context, makePacket(ChangeBlockingReasonPacket, {
@@ -322,7 +321,7 @@ async function manageBuyoutConfirmation(packet: ReactionCollectorCreationPacket,
 			newReason: BlockingConstants.REASONS.NONE
 		}));
 
-		if (i.customId === "refuse") {
+		if (buttonInteraction.customId === "refuse") {
 			await handleCommandShopClosed(context);
 			return;
 		}
@@ -330,7 +329,7 @@ async function manageBuyoutConfirmation(packet: ReactionCollectorCreationPacket,
 		DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, null, packet.reactions.findIndex(r =>
 			r.type === ReactionCollectorShopItemReaction.name
 			&& (r.data as ReactionCollectorShopItemReaction).shopItemId === reaction.shopItemId
-			&& (amounts.length === 1 || (r.data as ReactionCollectorShopItemReaction).amount === parseInt(i!.customId, 10))));
+			&& (amounts.length === 1 || (r.data as ReactionCollectorShopItemReaction).amount === parseInt(buttonInteraction!.customId, 10))));
 	});
 }
 
@@ -453,15 +452,15 @@ export async function shopCollector(context: PacketContext, packet: ReactionColl
 		time: packet.endTime - Date.now()
 	});
 
-	buttonCollector.on("collect", async (i: MessageComponentInteraction) => {
-		if (i.user.id !== context.discord?.user) {
-			await sendInteractionNotForYou(i.user, i, interaction.userLanguage);
+	buttonCollector.on("collect", async (msgComponentInteraction: MessageComponentInteraction) => {
+		if (msgComponentInteraction.user.id !== context.discord?.user) {
+			await sendInteractionNotForYou(msgComponentInteraction.user, msgComponentInteraction, interaction.userLanguage);
 			return;
 		}
-		await i.update({components: []});
+		await msgComponentInteraction.update({components: []});
 		buttonCollector.stop();
 
-		if (i.customId === "closeShop") {
+		if (msgComponentInteraction.customId === "closeShop") {
 			PacketUtils.sendPacketToBackend(context, makePacket(ChangeBlockingReasonPacket, {
 				oldReason: BlockingConstants.REASONS.SHOP,
 				newReason: BlockingConstants.REASONS.NONE
@@ -477,7 +476,7 @@ export async function shopCollector(context: PacketContext, packet: ReactionColl
 			packet.reactions.find(
 				reaction =>
 					reaction.type === ReactionCollectorShopItemReaction.name
-					&& (reaction.data as ReactionCollectorShopItemReaction).shopItemId === shopItemTypeFromId((i as SelectMenuInteraction).values[0])
+					&& (reaction.data as ReactionCollectorShopItemReaction).shopItemId === shopItemTypeFromId((msgComponentInteraction as SelectMenuInteraction).values[0])
 			)!.data as ReactionCollectorShopItemReaction
 		);
 	});

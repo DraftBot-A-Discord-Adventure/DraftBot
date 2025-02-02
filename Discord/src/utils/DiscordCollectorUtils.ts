@@ -115,10 +115,10 @@ export class DiscordCollectorUtils {
 		});
 
 		// Send an error if someone uses the collector that is not intended for them and stop if it's the owner
-		buttonCollector.on("collect", async (i: ButtonInteraction) => {
-			if ((!options?.canInitiatorRefuse || i.user.id !== context.discord?.user || i.customId !== "refuse")
-				&& !userDiscordIds.find(userDiscordId => userDiscordId === i.user.id)) {
-				await sendInteractionNotForYou(i.user, i, interaction.userLanguage);
+		buttonCollector.on("collect", async (buttonInteraction: ButtonInteraction) => {
+			if ((!options?.canInitiatorRefuse || buttonInteraction.user.id !== context.discord?.user || buttonInteraction.customId !== "refuse")
+				&& !userDiscordIds.find(userDiscordId => userDiscordId === buttonInteraction.user.id)) {
+				await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, interaction.userLanguage);
 				return;
 			}
 
@@ -192,9 +192,9 @@ export class DiscordCollectorUtils {
 		});
 
 		// Send an error if someone uses the collector that is not intended for them and stop if it's the owner
-		buttonCollector.on("collect", async (i: ButtonInteraction) => {
-			if (i.user.id !== context.discord?.user) {
-				await sendInteractionNotForYou(i.user, i, interaction.userLanguage);
+		buttonCollector.on("collect", async (buttonInteraction: ButtonInteraction) => {
+			if (buttonInteraction.user.id !== context.discord?.user) {
+				await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, interaction.userLanguage);
 				return;
 			}
 
