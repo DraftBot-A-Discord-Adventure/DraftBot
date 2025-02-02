@@ -104,8 +104,8 @@ export async function createBigEventCollector(context: PacketContext, packet: Re
 		buttonCollector.stop();
 		endCollector.stop();
 
-		await i.deferReply();
-		respondToEvent(i.customId, i);
+		await buttonInteraction.deferReply();
+		respondToEvent(buttonInteraction.customId, buttonInteraction);
 	});
 
 	endCollector.on("collect", () => {

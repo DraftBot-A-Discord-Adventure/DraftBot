@@ -72,13 +72,13 @@ export async function witchCollector(context: PacketContext, packet: ReactionCol
 
 		buttonCollector.stop();
 
-		await i.deferReply();
+		await buttonInteraction.deferReply();
 		DiscordCollectorUtils.sendReaction(
 			packet,
 			context,
 			context.keycloakId!,
-			i,
-			packet.reactions.findIndex((reaction) => (reaction.data as ReactionCollectorWitchReaction).id === i.customId)
+			buttonInteraction,
+			packet.reactions.findIndex((reaction) => (reaction.data as ReactionCollectorWitchReaction).id === buttonInteraction.customId)
 		);
 	});
 }

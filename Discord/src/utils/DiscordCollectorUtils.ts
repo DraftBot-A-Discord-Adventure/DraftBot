@@ -41,7 +41,7 @@ export class DiscordCollectorUtils {
 				interaction: context.discord!.interaction,
 				buttonInteraction: button?.id,
 				language: context.discord!.language,
-				shardId: shardId
+				shardId
 			}
 		}, responsePacket);
 	}
@@ -124,14 +124,14 @@ export class DiscordCollectorUtils {
 
 			buttonCollector.stop();
 
-			await i.deferReply();
+			await buttonInteraction.deferReply();
 			DiscordCollectorUtils.sendReaction(
 				reactionCollectorCreationPacket,
 				context,
 				context.keycloakId!,
-				i,
+				buttonInteraction,
 				reactionCollectorCreationPacket.reactions.findIndex((reaction) =>
-					reaction.type === (i.customId === acceptCustomId
+					reaction.type === (buttonInteraction.customId === acceptCustomId
 						? ReactionCollectorAcceptReaction.name
 						: ReactionCollectorRefuseReaction.name))
 			);
@@ -200,9 +200,9 @@ export class DiscordCollectorUtils {
 
 			buttonCollector.stop();
 
-			await i.deferReply();
-			if (i.customId !== "refuse") {
-				DiscordCollectorUtils.sendReaction(reactionCollectorCreationPacket, context, context.keycloakId!, i, parseInt(i.customId));
+			await buttonInteraction.deferReply();
+			if (buttonInteraction.customId !== "refuse") {
+				DiscordCollectorUtils.sendReaction(reactionCollectorCreationPacket, context, context.keycloakId!, buttonInteraction, parseInt(buttonInteraction.customId));
 			}
 		});
 	}

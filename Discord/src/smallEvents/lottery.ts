@@ -67,32 +67,32 @@ export async function lotteryCollector(context: PacketContext, packet: ReactionC
 
 		buttonCollector.stop();
 
-		await i.deferReply();
+		await buttonInteraction.deferReply();
 
-		if (i.customId === easyButtonId) {
+		if (buttonInteraction.customId === easyButtonId) {
 			DiscordCollectorUtils.sendReaction(
 				packet,
 				context,
 				user.id,
-				i,
+				buttonInteraction,
 				packet.reactions.findIndex((reaction) => reaction.type === ReactionCollectorLotteryEasyReaction.name)
 			);
 		}
-		else if (i.customId === mediumButtonId) {
+		else if (buttonInteraction.customId === mediumButtonId) {
 			DiscordCollectorUtils.sendReaction(
 				packet,
 				context,
 				user.id,
-				i,
+				buttonInteraction,
 				packet.reactions.findIndex((reaction) => reaction.type === ReactionCollectorLotteryMediumReaction.name)
 			);
 		}
-		else if (i.customId === hardButtonId) {
+		else if (buttonInteraction.customId === hardButtonId) {
 			DiscordCollectorUtils.sendReaction(
 				packet,
 				context,
 				user.id,
-				i,
+				buttonInteraction,
 				packet.reactions.findIndex((reaction) => reaction.type === ReactionCollectorLotteryHardReaction.name)
 			);
 		}

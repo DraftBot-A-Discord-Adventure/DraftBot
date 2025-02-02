@@ -179,7 +179,7 @@ export default class CommandHandlers {
 				lng: interaction?.userLanguage,
 				totalLatency: Date.now() - packet.clientTime,
 				discordApiLatency: draftBotClient!.ws.ping,
-				shardId: shardId,
+				shardId,
 				totalShards: draftBotClient!.shard!.count - 1
 			})
 		});

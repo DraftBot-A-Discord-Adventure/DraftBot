@@ -65,7 +65,7 @@ export default class ReportCommand {
 		_packet: CommandReportPacketReq,
 		context: PacketContext,
 		forceSmallEvent: string = null,
-		forceSpecificEvent: number = -1
+		forceSpecificEvent = -1
 	): Promise<void> {
 
 		if (player.score === 0 && player.effectId === Effect.NOT_STARTED.id) {
@@ -284,7 +284,7 @@ async function doRandomBigEvent(
 	context: PacketContext,
 	response: DraftBotPacket[],
 	player: Player,
-	forceSpecificEvent: number = -1
+	forceSpecificEvent = -1
 ): Promise<void> {
 	await completeMissionsBigEvent(player, response);
 	const travelData = TravelTime.getTravelDataSimplified(player, new Date());
