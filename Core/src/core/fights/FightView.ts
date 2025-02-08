@@ -1,7 +1,10 @@
 import {FightController} from "./FightController";
 import {Fighter} from "./fighter/Fighter";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {CommandFightIntroduceFightersPacket} from "../../../../Lib/src/packets/commands/CommandFightPacket";
+import {
+	CommandFightStatusPacket,
+	CommandFightIntroduceFightersPacket
+} from "../../../../Lib/src/packets/commands/CommandFightPacket";
 import {PlayerFighter} from "./fighter/PlayerFighter";
 import {MonsterFighter} from "./fighter/MonsterFighter";
 
@@ -50,16 +53,16 @@ export class FightView {
 	/**
 	 *  Summarize current fight status
 	 */
-	async displayFightStatus(): Promise<void> {
-		/* await this.scrollIfNeeded();
+	async displayFightStatus(response: DraftBotPacket[]): Promise<void> {
 		const playingFighter = this.fightController.getPlayingFighter();
 		const defendingFighter = this.fightController.getDefendingFighter();
-		if (!this.lastSummary) {
-			this.lastSummary = await this.channel.send({embeds: [this.getSummarizeEmbed(playingFighter, defendingFighter)]});
-		}
-		else {
-			await this.lastSummary.edit({embeds: [this.getSummarizeEmbed(playingFighter, defendingFighter)]});
-		} */
+		response.push(makePacket(CommandFightStatusPacket, {
+			fightInitiatorKeycloakId: (fighter as PlayerFighter).player.keycloakId,
+			fightOpponentKeycloakId: opponent instanceof PlayerFighter ? opponent.player.keycloakId : null,
+			fightOpponentMonsterId: opponent instanceof MonsterFighter ? opponent.monster.id : null,
+			fightInitiatorActions,
+			fightOpponentActions
+		}));
 	}
 
 	/**

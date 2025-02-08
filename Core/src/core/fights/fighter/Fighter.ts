@@ -458,7 +458,7 @@ export abstract class Fighter {
 	}
 
 	/**
-	 * Lowers the current counters by 1 turn
+	 * Lowers the current counters by one turn
 	 */
 	reduceCounters(): void {
 		this.damageMultipliers = this.damageMultipliers.filter((damageMultiplier) => {

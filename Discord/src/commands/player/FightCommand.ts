@@ -12,7 +12,7 @@ import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 import {PacketUtils} from "../../utils/PacketUtils";
 import {
 	CommandFightIntroduceFightersPacket,
-	CommandFightPacketReq
+	CommandFightPacketReq, CommandFightStatusPacket
 } from "../../../../Lib/src/packets/commands/CommandFightPacket";
 import {ReactionCollectorFightData} from "../../../../Lib/src/packets/interaction/ReactionCollectorFight";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
@@ -137,6 +137,29 @@ export async function handleCommandFightIntroduceFightersRes(packet: CommandFigh
 	addFightActionFieldFor(embed, interaction.userLanguage, opponentDisplayName, packet.fightOpponentActions);
 	await buttonInteraction?.editReply({embeds: [embed]});
 }
+
+/**
+ * Send the fight intro message that introduces the fighters
+ * @param packet
+ * @param context
+ */
+export async function handleCommandFightUpdateStatusRes(packet: CommandFightStatusPacket, context: PacketContext): Promise<void> {
+	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
+	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+	const opponentDisplayName = packet.fightOpponentKeycloakId ?
+		(await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.fightOpponentKeycloakId))!.attributes.gameUsername[0] :
+		i18n.t(`models:monster.${packet.fightOpponentMonsterId}`, {lng: interaction.userLanguage});
+	// Todo: crash if both fightOpponentKeycloakId and fightOpponentMonsterId are null
+	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:fight.fightIntroTitle", {
+		lng: interaction.userLanguage,
+		fightInitiator: interaction.user.displayName,
+		opponent: opponentDisplayName
+	}), interaction.user);
+	addFightActionFieldFor(embed, interaction.userLanguage, interaction.user.displayName, packet.fightInitiatorActions);
+	addFightActionFieldFor(embed, interaction.userLanguage, opponentDisplayName, packet.fightOpponentActions);
+	await buttonInteraction?.editReply({embeds: [embed]});
+}
+
 
 async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandFightPacketReq | null> {
 	const player = await PacketUtils.prepareAskedPlayer(interaction, user);
