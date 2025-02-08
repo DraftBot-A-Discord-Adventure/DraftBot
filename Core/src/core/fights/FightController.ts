@@ -258,18 +258,7 @@ export class FightController {
 			// A player was killed by a fight alteration, no need to continue the fight
 			return;
 		}
-		await this._fightView.displayFightStatus()
-			.catch(
-				(e) => {
-					console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");
-					console.error(e.stack);
-					this.endBugFight();
-				}
-			);
-		if (this.state !== FightState.RUNNING) {
-			// An issue occurred during the fight status display, no need to continue the fight
-			return;
-		}
+		await this._fightView.displayFightStatus();
 
 		this.getPlayingFighter()
 			.reduceCounters();
