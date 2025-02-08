@@ -30,5 +30,18 @@ export class CommandFightIntroduceFightersPacket extends DraftBotPacket {
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class CommandFightStatusPacket extends DraftBotPacket {
+	fightInitiatorKeycloakId!: string;
+
+	fightOpponentKeycloakId?: string;
+
+	fightOpponentMonsterId?: string;
+
+	fightInitiatorActions!: Array<[string,number]>;
+
+	fightOpponentActions!: Array<[string,number]>;
+}
+
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandFightOpponentsNotFoundPacket extends DraftBotPacket {
 }
