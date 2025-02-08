@@ -23,13 +23,13 @@ async function acceptGuildDescription(player: Player, description: string, respo
 		return;
 	}
 	const guild = await Guilds.getById(player.guildId);
-	if (!guild.elderId) {
+	if (!guild.isChiefOrElder(player)) {
 		response.push(makePacket(CommandGuildDescriptionNotAnElderPacket, {}));
 		return;
 	}
 	guild.guildDescription = description;
 	response.push(makePacket(CommandGuildDescriptionAcceptPacketRes, {}));
-	guild.save().then();
+	await guild.save();
 	draftBotInstance.logsDatabase.logGuildDescriptionChange(player.keycloakId, guild).then();
 }
 
@@ -60,7 +60,7 @@ export default class GuildDescriptionCommand {
 			return;
 		}
 		const guild = await Guilds.getById(player.guildId);
-		if (!guild.elderId) {
+		if (!guild.isChiefOrElder(player)) {
 			response.push(makePacket(CommandGuildDescriptionNotAnElderPacket, {}));
 			return;
 		}

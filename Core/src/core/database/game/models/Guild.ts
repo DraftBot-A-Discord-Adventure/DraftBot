@@ -281,6 +281,14 @@ export class Guild extends Model {
 			this.experience = 0;
 		}
 	}
+
+	/**
+	 * Check if the player is the elder or the chief of the guild
+	 * @param player
+	 */
+	public isChiefOrElder(player: Player): boolean {
+		return player.id === this.elderId || player.id === this.chiefId;
+	}
 }
 
 export class Guilds {
