@@ -4,12 +4,9 @@ import {minutesToMilliseconds} from "../../../Lib/src/utils/TimeUtils";
 import {DiscordCache} from "../bot/DiscordCache";
 import {OptionLike} from "./DraftbotInteraction";
 
-
-type UpdateFunctionType = (packet: DraftBotPacket, context: PacketContext) => Promise<void>;
-
-export abstract class DraftbotCachedMessage {
+export abstract class DraftbotCachedMessage<T extends DraftBotPacket = DraftBotPacket> {
 	// Function to call when you need to do something with the cached message
-	abstract updateMessage: UpdateFunctionType;
+	abstract updateMessage(packet: T, context: PacketContext): Promise<void>;
 
 	// Duration of the message's cached life in minutes
 	abstract duration: number;
@@ -17,14 +14,22 @@ export abstract class DraftbotCachedMessage {
 	// The id of the original message
 	readonly originalMessageId: string;
 
+	// The type of the message, each interaction can store one cached message per type
+	readonly type: string;
+
 	// Message linked to this cached message
 	storedMessage?: Message;
 
-	protected constructor(originalMessageId: string) {
-		this.originalMessageId = originalMessageId;
+	get cacheKey(): string {
+		return `${this.originalMessageId}-${this.type}`;
 	}
 
-	async update(packet: DraftBotPacket, context: PacketContext): Promise<void> {
+	protected constructor(originalMessageId: string, type: string) {
+		this.originalMessageId = originalMessageId;
+		this.type = type;
+	}
+
+	async update(packet: T, context: PacketContext): Promise<void> {
 		await this.updateMessage(packet, context);
 	}
 
@@ -46,17 +51,17 @@ export class DraftbotCachedMessages {
 	static cachedMessages: Map<string, DraftbotCachedMessage> = new Map<string, DraftbotCachedMessage>();
 
 	static createCachedMessage(message: DraftbotCachedMessage): void {
-		DraftbotCachedMessages.cachedMessages.set(message.originalMessageId, message);
+		DraftbotCachedMessages.cachedMessages.set(message.cacheKey, message);
 		setTimeout(() => {
-			DraftbotCachedMessages.remove(message.originalMessageId);
+			DraftbotCachedMessages.remove(message.cacheKey);
 		}, minutesToMilliseconds(message.duration));
 	}
 
-	static remove(messageId: string): void {
-		DraftbotCachedMessages.cachedMessages.delete(messageId);
+	static remove(cacheKey: string): void {
+		DraftbotCachedMessages.cachedMessages.delete(cacheKey);
 	}
 
-	static get(messageId: string): DraftbotCachedMessage | undefined {
-		return DraftbotCachedMessages.cachedMessages.get(messageId);
+	static get(cacheKey: string): DraftbotCachedMessage | undefined {
+		return DraftbotCachedMessages.cachedMessages.get(cacheKey);
 	}
 }
