@@ -196,14 +196,7 @@ export class FightController {
 			await this.prepareNextTurn(response);
 		}
 		else {
-			await this._fightView.displayFightStatus()
-				.catch(
-					(e) => {
-						console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");
-						console.error(e.stack);
-						this.endBugFight();
-					}
-				);
+			this._fightView.displayFightStatus(response);
 		}
 	}
 
