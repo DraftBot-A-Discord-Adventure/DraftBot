@@ -22,6 +22,8 @@ import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
 import {Language} from "../../../../Lib/src/Language";
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
+import {DraftbotFightStatusCachedMessage} from "../../messages/DraftbotFightStatusCachedMessage";
+import {DraftbotCachedMessages} from "../../messages/DraftbotCachedMessage";
 
 export async function createFightCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
@@ -189,7 +191,15 @@ export async function handleCommandFightUpdateStatusRes(packet: CommandFightStat
 				breathRegen: packet.fightOpponent.stats.breathRegen
 			})
 		);
-	await interaction.channel.send({embeds: [embed]});
+
+	let cachedMessage = DraftbotFightStatusCachedMessage.get(interaction.id);
+	if (!cachedMessage) {
+		cachedMessage = new DraftbotFightStatusCachedMessage(interaction.id);
+		DraftbotCachedMessages.createCachedMessage(cachedMessage);
+	}
+
+	// Post ou mise à jour du message (selon s'il existe déjà)
+	await cachedMessage.post({ embeds: [embed] });
 }
 
 
