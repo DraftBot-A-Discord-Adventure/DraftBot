@@ -31,6 +31,9 @@ export class CommandFightIntroduceFightersPacket extends DraftBotPacket {
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandFightStatusPacket extends DraftBotPacket {
+	numberOfTurn!: number;
+
+	maxNumberOfTurn!: number;
 
 	fightInitiator!: {
 		keycloakId: string;

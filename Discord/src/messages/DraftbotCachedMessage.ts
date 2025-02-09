@@ -9,7 +9,7 @@ type CollectFunctionType = (packet: DraftBotPacket, context: PacketContext) => P
 
 export abstract class DraftbotCachedMessage {
 	// Function to call when you need to do something with the cached message
-	abstract collectFunction: CollectFunctionType;
+	abstract updateMessage: CollectFunctionType;
 
 	// Duration of the message's cached life in minutes
 	abstract duration: number;
@@ -25,7 +25,7 @@ export abstract class DraftbotCachedMessage {
 	}
 
 	async update(packet: DraftBotPacket, context: PacketContext): Promise<void> {
-		await this.collectFunction(packet, context);
+		await this.updateMessage(packet, context);
 	}
 
 	async post(options: OptionLike): Promise<Message | null> {
@@ -62,8 +62,9 @@ export class DraftbotCachedMessages {
 }
 
 // Je les mets ici pour le moment, mais faudra les déplacer
+// Alors, je veux bien mais ou ???
 export class DraftbotFightStatusCachedMessage extends DraftbotCachedMessage {
-	collectFunction = async (packet: NomDuPacketFightStatus, context: PacketContext) => {
+	updateMessage = async (packet: NomDuPacketFightStatus, context: PacketContext) => {
 		// Actions à faire lors de la maj du message
 	};
 
