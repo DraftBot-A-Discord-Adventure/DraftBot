@@ -53,15 +53,37 @@ export class FightView {
 	/**
 	 *  Summarize current fight status
 	 */
-	async displayFightStatus(response: DraftBotPacket[]): Promise<void> {
+	displayFightStatus(response: DraftBotPacket[]): Promise<void> {
 		const playingFighter = this.fightController.getPlayingFighter();
 		const defendingFighter = this.fightController.getDefendingFighter();
 		response.push(makePacket(CommandFightStatusPacket, {
-			fightInitiatorKeycloakId: (fighter as PlayerFighter).player.keycloakId,
-			fightOpponentKeycloakId: opponent instanceof PlayerFighter ? opponent.player.keycloakId : null,
-			fightOpponentMonsterId: opponent instanceof MonsterFighter ? opponent.monster.id : null,
-			fightInitiatorActions,
-			fightOpponentActions
+			fightInitiator: {
+				keycloakId: (playingFighter as PlayerFighter).player.keycloakId,
+				glory: (playingFighter as PlayerFighter).player.getGloryPoints(),
+				stats: {
+					power: playingFighter.getFightPoints(),
+					attack: playingFighter.getAttack(),
+					defense: playingFighter.getDefense(),
+					speed: playingFighter.getSpeed(),
+					breath: playingFighter.getBreath(),
+					maxBreath: playingFighter.getMaxBreath(),
+					breathRegen: playingFighter.getRegenBreath()
+				}
+			},
+			fightOpponent: {
+				keycloakId: defendingFighter instanceof PlayerFighter ? (defendingFighter as PlayerFighter).player.keycloakId : null,
+				monsterId: defendingFighter instanceof MonsterFighter ? (defendingFighter as MonsterFighter).monster.id : null,
+				glory: defendingFighter instanceof PlayerFighter ? (defendingFighter as PlayerFighter).player.getGloryPoints() : null,
+				stats: {
+					power: defendingFighter.getFightPoints(),
+					attack: defendingFighter.getAttack(),
+					defense: defendingFighter.getDefense(),
+					speed: defendingFighter.getSpeed(),
+					breath: defendingFighter.getBreath(),
+					maxBreath: defendingFighter.getMaxBreath(),
+					breathRegen: defendingFighter.getRegenBreath()
+				}
+			}
 		}));
 	}
 

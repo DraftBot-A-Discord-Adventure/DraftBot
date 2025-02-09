@@ -24,22 +24,42 @@ export class CommandFightIntroduceFightersPacket extends DraftBotPacket {
 
 	fightOpponentMonsterId?: string;
 
-	fightInitiatorActions!: Array<[string,number]>;
+	fightInitiatorActions!: Array<[string, number]>;
 
-	fightOpponentActions!: Array<[string,number]>;
+	fightOpponentActions!: Array<[string, number]>;
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandFightStatusPacket extends DraftBotPacket {
-	fightInitiatorKeycloakId!: string;
 
-	fightOpponentKeycloakId?: string;
+	fightInitiator!: {
+		keycloakId: string;
+		glory: number;
+		stats: {
+			power: number;
+			attack: number;
+			defense: number;
+			speed: number;
+			breath: number;
+			maxBreath: number;
+			breathRegen: number;
+		}
+	};
 
-	fightOpponentMonsterId?: string;
-
-	fightInitiatorActions!: Array<[string,number]>;
-
-	fightOpponentActions!: Array<[string,number]>;
+	fightOpponent!: {
+		keycloakId?: string;
+		monsterId?: string;
+		glory?: number;
+		stats: {
+			power: number;
+			attack: number;
+			defense: number;
+			speed: number;
+			breath: number;
+			maxBreath: number;
+			breathRegen: number;
+		}
+	};
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
