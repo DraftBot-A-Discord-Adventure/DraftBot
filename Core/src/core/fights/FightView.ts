@@ -7,6 +7,7 @@ import {
 } from "../../../../Lib/src/packets/commands/CommandFightPacket";
 import {PlayerFighter} from "./fighter/PlayerFighter";
 import {MonsterFighter} from "./fighter/MonsterFighter";
+import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
 
 /* eslint-disable capitalized-comments */
 
@@ -53,10 +54,12 @@ export class FightView {
 	/**
 	 *  Summarize current fight status
 	 */
-	displayFightStatus(response: DraftBotPacket[]): Promise<void> {
+	displayFightStatus(response: DraftBotPacket[]): void {
 		const playingFighter = this.fightController.getPlayingFighter();
 		const defendingFighter = this.fightController.getDefendingFighter();
 		response.push(makePacket(CommandFightStatusPacket, {
+			numberOfTurn: this.fightController.turn,
+			maxNumberOfTurn: FightConstants.MAX_TURNS,
 			fightInitiator: {
 				keycloakId: (playingFighter as PlayerFighter).player.keycloakId,
 				glory: (playingFighter as PlayerFighter).player.getGloryPoints(),
