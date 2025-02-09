@@ -834,7 +834,18 @@
     "opponentsNotFound" : "Aucun adversaire n'a été trouvé pour vous affronter. Vous pouvez réessayer plus tard.",
     "fightIntroTitle": "{emote:fight_command.crossed_swords} | Un combat est lancé entre {{fightInitiator}} et {{opponent}} !",
     "actionsOf": "Attaques de {{pseudo}}",
-    "fightActionNameDisplay": "{{fightActionEmote}} - {{fightActionName}} | {emote:unitValues.breath} {{breathCost}}"
+    "fightActionNameDisplay": "{{fightActionEmote}} - {{fightActionName}} | {emote:unitValues.breath} {{breathCost}}",
+    "summarize": {
+      "title": "Résumé du combat",
+      "intro": {
+        "start": "{emote:fight_command.clipboard} | **État actuel du combat** {{state}}\n\n",
+        "prolongation": "Prolongations",
+        "noProlongation" : "[{{currentTurn}}/{{maxTurn}}]"
+      },
+      "attacker": "{emote:unitValues.attack} | **Attaquant : {{pseudo}}**\n",
+      "defender": "{emote:unitValues.defense} | **Défenseur : {{pseudo}}**\n",
+      "stats": "{emote:unitValues.energy} {{power}} | {emote:unitValues.attack} {{attack}} | {emote:unitValues.defense} {{defense}} | {emote:unitValues.speed} {{speed}} | {emote:unitValues.breath} {{breath}} / {{maxBreath}} | {emote:unitValues.breathRegen} {{breathRegen}}"
+    }
   },
   "switch": {
     "titleSuccess": "{{pseudo}}, commande effectuée !",
