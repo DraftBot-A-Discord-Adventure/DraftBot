@@ -139,25 +139,13 @@ export async function handleCommandFightIntroduceFightersRes(packet: CommandFigh
 }
 
 /**
- * Send the fight intro message that introduces the fighters
+ * Update the fight status message with the current statuses of the fighters
  * @param packet
  * @param context
  */
 export async function handleCommandFightUpdateStatusRes(packet: CommandFightStatusPacket, context: PacketContext): Promise<void> {
-	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
-	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
-	const opponentDisplayName = packet.fightOpponentKeycloakId ?
-		(await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.fightOpponentKeycloakId))!.attributes.gameUsername[0] :
-		i18n.t(`models:monster.${packet.fightOpponentMonsterId}`, {lng: interaction.userLanguage});
-	// Todo: crash if both fightOpponentKeycloakId and fightOpponentMonsterId are null
-	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:fight.fightIntroTitle", {
-		lng: interaction.userLanguage,
-		fightInitiator: interaction.user.displayName,
-		opponent: opponentDisplayName
-	}), interaction.user);
-	addFightActionFieldFor(embed, interaction.userLanguage, interaction.user.displayName, packet.fightInitiatorActions);
-	addFightActionFieldFor(embed, interaction.userLanguage, opponentDisplayName, packet.fightOpponentActions);
-	await buttonInteraction?.editReply({embeds: [embed]});
+
+
 }
 
 

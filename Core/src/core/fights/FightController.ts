@@ -258,7 +258,7 @@ export class FightController {
 			// A player was killed by a fight alteration, no need to continue the fight
 			return;
 		}
-		await this._fightView.displayFightStatus();
+		await this._fightView.displayFightStatus(response);
 
 		this.getPlayingFighter()
 			.reduceCounters();
