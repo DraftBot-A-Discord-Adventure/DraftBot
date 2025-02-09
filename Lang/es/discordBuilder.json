@@ -82,12 +82,12 @@
     }
   },
   "guildDescription": {
-    "description": "Changer la description de la guilde.",
-    "name": "descriptionguilde",
+    "description": "Cambiar la descripción del gremio.",
+    "name": "descripciónguilde",
     "options": {
       "description": {
-        "description": "La description.",
-        "name": "description"
+        "description": "Descripción.",
+        "name": "descripción"
       }
     }
   },
