@@ -121,6 +121,16 @@
     "canceledDesc": "El mayor no fue degradado.",
     "canceledTitle": "Cancelación tenida en cuenta."
   },
+  "guildDescription": {
+    "title": "{{pseudo}}¿Está confirmando su elección?",
+    "confirmDesc": "{emote:collectors.question}  ¿De verdad quieres cambiar la descripción de tu gremio?\n {{description}}Nueva descripción: .",
+    "acceptedDesc": "La descripción del gremio ha sido editada.",
+    "canceledDesc": "No has editado la descripción del gremio.",
+    "canceledTitle": "Cancelación tenida en cuenta.",
+    "successDescriptionTitle": "{{pseudo}}confirmación :",
+    "noGuild": "Parece que ya no formas parte de un gremio.",
+    "notAnElder": "Ya no tienes los permisos necesarios para ejecutar este comando."
+  },
   "help": {
     "aliasFieldTitle": "Alias",
     "aliasesFieldTitle": "Alias",

@@ -81,6 +81,16 @@
       }
     }
   },
+  "guildDescription": {
+    "description": "Alterar a descrição do grémio.",
+    "name": "descriçãoguilde",
+    "options": {
+      "description": {
+        "description": "Descrição.",
+        "name": "descrição"
+      }
+    }
+  },
   "guildInvite": {
     "description": "Recruta um novo membro para a tua guilda.",
     "name": "conviteguilde",

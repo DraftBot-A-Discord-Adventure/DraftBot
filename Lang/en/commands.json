@@ -121,6 +121,16 @@
     "canceledDesc": "Wings were not recovered.",
     "canceledTitle": "Cancellation taken into account."
   },
+  "guildDescription": {
+    "title": "{{pseudo}}, confirm your choice?",
+    "confirmDesc": "{emote:collectors.question}  Would you like to change your guild description?\n New description: {{description}}.",
+    "acceptedDesc": "The guild description has been successfully edited!",
+    "canceledDesc": "You did not edit the guild description!",
+    "canceledTitle": "Cancellation taken into account.",
+    "successDescriptionTitle": "{{pseudo}}, confirmation:",
+    "noGuild": "Looks like you are no longer in a guild.",
+    "notAnElder": "You no longer have permission to perform this command."
+  },
   "help": {
     "aliasFieldTitle": "Alias",
     "aliasesFieldTitle": "Aliases",

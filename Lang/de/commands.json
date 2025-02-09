@@ -121,6 +121,16 @@
     "canceledDesc": "Der Älteste wurde nicht degradiert.",
     "canceledTitle": "Stornierung berücksichtigt."
   },
+  "guildDescription": {
+    "title": "{{pseudo}}... bestätigen Sie Ihre Wahl?",
+    "confirmDesc": "{emote:collectors.question}  Möchten Sie die Beschreibung Ihrer Gilde wirklich ändern?\n Neue Beschreibung: {{description}}.",
+    "acceptedDesc": "Die Gildenbeschreibung wurde tatsächlich editiert!",
+    "canceledDesc": "Sie haben die Gildenbeschreibung nicht editiert!",
+    "canceledTitle": "Stornierung berücksichtigt.",
+    "successDescriptionTitle": "{{pseudo}}Bestätigung :",
+    "noGuild": "Es scheint, dass Sie nicht mehr in einer Gilde sind.",
+    "notAnElder": "Sie haben nicht mehr die erforderlichen Berechtigungen, um diesen Befehl auszuführen."
+  },
   "help": {
     "aliasFieldTitle": "Alias",
     "aliasesFieldTitle": "Alias",

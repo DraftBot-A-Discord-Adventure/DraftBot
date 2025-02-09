@@ -121,6 +121,16 @@
     "canceledDesc": "O mais velho não foi despromovido.",
     "canceledTitle": "Cancelamento tido em conta."
   },
+  "guildDescription": {
+    "title": "{{pseudo}}Está a confirmar a sua escolha?",
+    "confirmDesc": "{emote:collectors.question}  Queres mesmo mudar a descrição da tua guilda?\n {{description}}Nova descrição: .",
+    "acceptedDesc": "A descrição do grémio foi editada!",
+    "canceledDesc": "Não editaste a descrição do grémio!",
+    "canceledTitle": "Cancelamento tido em conta.",
+    "successDescriptionTitle": "{{pseudo}}confirmação :",
+    "noGuild": "Parece que já não fazes parte de um grémio.",
+    "notAnElder": "Já não tem as permissões necessárias para executar este comando."
+  },
   "help": {
     "aliasFieldTitle": "Apelido",
     "aliasesFieldTitle": "Apelido",

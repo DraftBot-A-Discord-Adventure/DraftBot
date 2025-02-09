@@ -81,6 +81,16 @@
       }
     }
   },
+  "guildDescription": {
+    "description": "Ändern Sie die Beschreibung der Gilde.",
+    "name": "beschreibungguilde",
+    "options": {
+      "description": {
+        "description": "Beschreibung.",
+        "name": "Beschreibung"
+      }
+    }
+  },
   "guildInvite": {
     "description": "Werben Sie ein neues Mitglied für Ihre Gilde.",
     "name": "Einladungguilde",
