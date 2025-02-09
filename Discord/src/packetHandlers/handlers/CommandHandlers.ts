@@ -169,6 +169,10 @@ import {
 	handleCommandGuildDescriptionAcceptPacketRes,
 	handleCommandGuildDescriptionRefusePacketRes
 } from "../../commands/guild/GuildDescriptionCommand";
+import {
+	CommandDrinkCancelDrink,
+	CommandDrinkConsumePotionRes, CommandDrinkNoActiveObjectError, CommandDrinkObjectIsActiveDuringFights
+} from "../../../../Lib/src/packets/commands/CommandDrinkPacket";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
@@ -690,5 +694,25 @@ export default class CommandHandlers {
 	@packetHandler(CommandSwitchErrorNoItemToSwitch)
 	async switchErrorNoItemToSwitch(context: PacketContext, _packet: CommandSwitchErrorNoItemToSwitch): Promise<void> {
 		await handleClassicError(context, "commands:switch.noItemToSwitch");
+	}
+
+	@packetHandler(CommandDrinkConsumePotionRes)
+	async drinkConsumePotionRes(context: PacketContext, packet: CommandDrinkConsumePotionRes): Promise<void> {
+		// TODO
+	}
+
+	@packetHandler(CommandDrinkCancelDrink)
+	async drinkCancelDrink(context: PacketContext, _packet: CommandDrinkCancelDrink): Promise<void> {
+		await handleClassicError(context, "commands:drink.cancelled");
+	}
+
+	@packetHandler(CommandDrinkNoActiveObjectError)
+	async drinkNoActiveObjectError(context: PacketContext, _packet: CommandDrinkNoActiveObjectError): Promise<void> {
+		await handleClassicError(context, "commands:drink.noActiveObject");
+	}
+
+	@packetHandler(CommandDrinkObjectIsActiveDuringFights)
+	async drinkObjectIsActiveDuringFights(context: PacketContext, _packet: CommandDrinkObjectIsActiveDuringFights): Promise<void> {
+		await handleClassicError(context, "commands:drink.objectIsActiveDuringFights");
 	}
 }
