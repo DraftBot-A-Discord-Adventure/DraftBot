@@ -81,6 +81,16 @@
       }
     }
   },
+  "guildDescription": {
+    "description": "Changer la description de la guilde.",
+    "name": "descriptionguilde",
+    "options": {
+      "description": {
+        "description": "La description.",
+        "name": "description"
+      }
+    }
+  },
   "guildInvite": {
     "description": "Recluta a un nuevo miembro para tu gremio.",
     "name": "invitaciónguilde",
