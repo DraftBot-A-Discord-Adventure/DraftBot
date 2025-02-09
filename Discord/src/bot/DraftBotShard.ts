@@ -8,8 +8,6 @@ import {CommandsManager} from "../commands/CommandsManager";
 import {DiscordMQTT} from "./DiscordMQTT";
 import {LANGUAGE, Language} from "../../../Lib/src/Language";
 import {DiscordDatabase} from "../database/discord/DiscordDatabase";
-import {LogServerJoins} from "../database/discord/models/LogServerJoins";
-import {LogServerLeaves} from "../database/discord/models/LogServerLeaves";
 
 process.on("uncaughtException", function(error) {
 	console.log(error);
@@ -117,8 +115,10 @@ async function main(): Promise<void> {
 	 * Will be executed each time the bot join a new server
 	 */
 	function onDiscordGuildCreate(guild: Guild): void {
-		LogServerJoins.addLog(guild.id, guild.name, guild.memberCount).then();
+		// TODO
+		// Const serv = await Servers.getOrRegister(botConfig.MAIN_SERVER_ID);
 		const msg = getJoinLeaveMessage(guild, true, LANGUAGE.ENGLISH);
+		// DraftBotInstance.logsDatabase.logServerJoin(guild.id).then();
 		console.log(msg);
 	}
 
@@ -126,8 +126,10 @@ async function main(): Promise<void> {
 	 * Will be executed each time the bot leave a server
 	 */
 	function onDiscordGuildDelete(guild: Guild): void {
-		LogServerLeaves.addLog(guild.id, guild.name, guild.memberCount).then();
+		// TODO
+		// Const serv = await Servers.getOrRegister(botConfig.MAIN_SERVER_ID);
 		const msg = getJoinLeaveMessage(guild, false, LANGUAGE.ENGLISH);
+		// DraftBotInstance.logsDatabase.logServerQuit(guild.id).then();
 		console.log(msg);
 	}
 

@@ -1,32 +1,25 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
-import {LogPlayer} from "./LogPlayers";
 
-export class LogCommandStat extends Model {
+export class LogsServers extends Model {
 	declare readonly id: number;
 
-	declare readonly commandId: string;
-
-	declare readonly count: number;
+	declare readonly discordId: string;
 }
 
 export function initModel(sequelize: Sequelize): void {
-	LogPlayer.init({
+	LogsServers.init({
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
 			autoIncrement: true
 		},
-		commandId: {
-			type: DataTypes.STRING,
-			allowNull: false
-		},
-		count: {
-			type: DataTypes.INTEGER,
+		discordId: {
+			type: DataTypes.STRING(20), // eslint-disable-line new-cap
 			allowNull: false
 		}
 	}, {
 		sequelize,
-		tableName: "command_stats_logs",
+		tableName: "servers",
 		freezeTableName: true,
 		timestamps: false
 	});
