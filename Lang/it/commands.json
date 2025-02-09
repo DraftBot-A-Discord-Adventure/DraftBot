@@ -121,6 +121,16 @@
     "canceledDesc": "Il più anziano non è stato retrocesso.",
     "canceledTitle": "Cancellazione presa in considerazione."
   },
+  "guildDescription": {
+    "title": "{{pseudo}}Sta confermando la sua scelta?",
+    "confirmDesc": "{emote:collectors.question}  Volete davvero cambiare la descrizione della vostra gilda?\n {{description}}Nuova descrizione: .",
+    "acceptedDesc": "La descrizione della gilda è stata modificata!",
+    "canceledDesc": "Non hai modificato la descrizione della gilda!",
+    "canceledTitle": "Cancellazione presa in considerazione.",
+    "successDescriptionTitle": "{{pseudo}}conferma :",
+    "noGuild": "Sembra che tu non faccia più parte di una gilda.",
+    "notAnElder": "Non si dispone più delle autorizzazioni necessarie per eseguire questo comando."
+  },
   "help": {
     "aliasFieldTitle": "Alias",
     "aliasesFieldTitle": "Alias",
