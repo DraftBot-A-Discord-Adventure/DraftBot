@@ -1608,7 +1608,6 @@ export const DraftBotIcons: {
 		"wiltedRose": "🥀",
 		"worm": "🪱"
 	},
-
 	"cart_small_event": {
 		"accept": "🚗",
 		"refuse": "🚶"
@@ -1616,7 +1615,7 @@ export const DraftBotIcons: {
 	"fight_command": {
 		"accept": "🔍",
 		"refuse": "❌",
-		"crossed_swords": "⚔️"
+		"crossed_swords": "⚔️",
 		"clipboard": "📋"
 	},
 	"foods": {
