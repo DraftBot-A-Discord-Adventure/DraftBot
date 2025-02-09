@@ -377,7 +377,7 @@
       "title": "Liste des badges de {{pseudo}}"
     },
     "badges": {
-      "⚔️": ":crossed_swords: `Vainqueur d'un tournoi`",
+      "⚔️": "{emote:unitValues.attack} `Vainqueur d'un tournoi`",
       "⚙️": ":gear: `Équipe technique`",
       "⛑️": ":helmet_with_cross: `Personne faisant partie des 20 premières à avoir rejoint le serveur du bot`",
       "✨": "{emote:unitValues.glory} `Personne ayant remporté le plus de gloire durant une saison de combat`",
@@ -860,7 +860,18 @@
     "opponentsNotFound" : "Aucun adversaire n'a été trouvé pour vous affronter. Vous pouvez réessayer plus tard.",
     "fightIntroTitle": "{emote:fight_command.crossed_swords} | Un combat est lancé entre {{fightInitiator}} et {{opponent}} !",
     "actionsOf": "Attaques de {{pseudo}}",
-    "fightActionNameDisplay": "{{fightActionEmote}} - {{fightActionName}} | {emote:unitValues.breath} {{breathCost}}"
+    "fightActionNameDisplay": "{{fightActionEmote}} - {{fightActionName}} | {emote:unitValues.breath} {{breathCost}}",
+    "summarize": {
+      "title": "Résumé du combat",
+      "intro": {
+        "start": "{emote:fight_command.clipboard} | **État actuel du combat** {{state}}\n\n",
+        "prolongation": "Prolongations",
+        "noProlongation" : "[{{currentTurn}}/{{maxTurn}}]"
+      },
+      "attacker": "{emote:unitValues.attack} | **Attaquant : {{pseudo}}**\n",
+      "defender": "{emote:unitValues.defense} | **Défenseur : {{pseudo}}**\n",
+      "stats": "{emote:unitValues.energy} {{power}} | {emote:unitValues.attack} {{attack}} | {emote:unitValues.defense} {{defense}} | {emote:unitValues.speed} {{speed}} | {emote:unitValues.breath} {{breath}} / {{maxBreath}} | {emote:unitValues.breathRegen} {{breathRegen}}"
+    }
   },
   "switch": {
     "titleSuccess": "{{pseudo}}, commande effectuée !",
