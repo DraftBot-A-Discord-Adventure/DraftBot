@@ -7,6 +7,8 @@ import {CreateOptions, Model, ModelStatic} from "sequelize";
 import {LogsPlayersLevel} from "./models/LogsPlayersLevel";
 import {LogsPlayersScore} from "./models/LogsPlayersScore";
 import {LogsPlayersGems} from "./models/LogsPlayersGems";
+import {LogsCommands} from "./models/LogsCommands";
+import {LogsPlayersCommands} from "./models/LogsPlayersCommands";
 import {LogsSmallEvents} from "./models/LogsSmallEvents";
 import {LogsPlayersSmallEvents} from "./models/LogsPlayersSmallEvents";
 import {LogsPossibilities} from "./models/LogsPossibilities";
@@ -89,6 +91,7 @@ import {MapLink} from "../../../data/MapLink";
 import {FightController} from "../../fights/FightController";
 import {PlayerFighter} from "../../fights/fighter/PlayerFighter";
 import {MonsterFighter} from "../../fights/fighter/MonsterFighter";
+import {LogsServers} from "./models/LogsServers";
 import {Effect} from "../../../../../Lib/src/types/Effect";
 import {getDatabaseConfiguration} from "../../bot/DraftBotConfig";
 import {botConfig} from "../../../index";
@@ -400,6 +403,32 @@ export class LogsDatabase extends Database {
 	 */
 	public logLevelChange(keycloakId: string, level: number): Promise<void> {
 		return LogsDatabase.logPlayerAndNumber(keycloakId, "level", level, LogsPlayersLevel);
+	}
+
+	/**
+	 * Record the usage of a command in the log database
+	 * @param keycloakId
+	 * @param serverId
+	 * @param commandName
+	 */
+	public async logCommandUsage(keycloakId: string, serverId: string, commandName: string): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(keycloakId);
+		const [server] = await LogsServers.findOrCreate({ // TODO no longer have server
+			where: {
+				keycloakId: serverId
+			}
+		});
+		const [command] = await LogsCommands.findOrCreate({
+			where: {
+				commandName
+			}
+		});
+		await LogsPlayersCommands.create({
+			playerId: player.id,
+			serverId: server.id,
+			commandId: command.id,
+			date: getDateLogs()
+		});
 	}
 
 	/**

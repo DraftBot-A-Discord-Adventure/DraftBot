@@ -1,9 +1,6 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
-import {LogServer} from "./LogServers";
-import {LogCommand} from "./LogCommands";
-import {LogPlayer} from "./LogPlayers";
 
-export class LogPlayersCommand extends Model {
+export class LogsPlayersCommands extends Model {
 	declare readonly playerId: number;
 
 	declare readonly serverId: number;
@@ -13,19 +10,8 @@ export class LogPlayersCommand extends Model {
 	declare readonly date: number;
 }
 
-export class LogPlayersCommands {
-	static async addLog(player: LogPlayer, server: LogServer, command: LogCommand, date: Date): Promise<void> {
-		await LogPlayersCommand.create({
-			playerId: player.id,
-			serverId: server.id,
-			commandId: command.id,
-			date: date.valueOf() / 1000.0
-		});
-	}
-}
-
 export function initModel(sequelize: Sequelize): void {
-	LogPlayersCommand.init({
+	LogsPlayersCommands.init({
 		playerId: {
 			type: DataTypes.INTEGER,
 			allowNull: false
@@ -44,10 +30,10 @@ export function initModel(sequelize: Sequelize): void {
 		}
 	}, {
 		sequelize,
-		tableName: "players_commands_logs",
+		tableName: "players_commands",
 		freezeTableName: true,
 		timestamps: false
 	});
 
-	LogPlayersCommand.removeAttribute("id");
+	LogsPlayersCommands.removeAttribute("id");
 }

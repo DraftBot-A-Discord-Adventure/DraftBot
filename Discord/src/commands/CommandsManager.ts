@@ -33,10 +33,6 @@ import {BotUtils} from "../utils/BotUtils";
 import {LANGUAGE} from "../../../Lib/src/Language";
 import {PacketUtils} from "../utils/PacketUtils";
 import {RightGroup} from "../../../Lib/src/types/RightGroup";
-import {LogPlayers} from "../database/discord/models/LogPlayers";
-import {LogServers} from "../database/discord/models/LogServers";
-import {LogCommands} from "../database/discord/models/LogCommands";
-import {LogPlayersCommands} from "../database/discord/models/LogPlayersCommands";
 
 export class CommandsManager {
 	static commands = new Map<string, ICommand>();
@@ -381,16 +377,6 @@ export class CommandsManager {
 		if (!channelAccess[0]) {
 			await replyEphemeralErrorMessage(interaction, i18n.t(channelAccess[1], {lng}));
 			return;
-		}
-
-		if (interaction.guildId) {
-			LogPlayers.getOrRegisterPlayer(user.id).then(player => {
-				LogServers.getOrRegisterServer(interaction.guildId!).then(server => {
-					LogCommands.getOrRegisterCommand(interaction.commandName).then(command => {
-						LogPlayersCommands.addLog(player, server, command, new Date()).then();
-					});
-				});
-			});
 		}
 
 		DiscordCache.cacheInteraction(interaction);
