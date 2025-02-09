@@ -81,6 +81,16 @@
       }
     }
   },
+  "guildDescription": {
+    "description": "Change the description of the guild.",
+    "name": "guilddescription",
+    "options": {
+      "description": {
+        "description": "The description.",
+        "name": "description"
+      }
+    }
+  },
   "guildInvite": {
     "description": "Invite a new member in your guild.",
     "name": "guildinvite",
