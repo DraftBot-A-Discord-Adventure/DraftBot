@@ -20,7 +20,5 @@ export class CommandDrinkConsumePotionRes extends DraftBotPacket {
 
 	energy?: number;
 
-	money?: number;
-
 	time?: number;
 }

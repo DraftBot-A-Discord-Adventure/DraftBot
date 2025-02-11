@@ -42,14 +42,6 @@ async function consumePotion(response: DraftBotPacket[], potion: Potion, player:
 		await TravelTime.timeTravel(player, potion.power, NumberChangeReason.DRINK);
 		response.push(makePacket(CommandDrinkConsumePotionRes, { time: potion.power }));
 		break;
-	case ItemNature.MONEY:
-		await player.addMoney({
-			amount: potion.power,
-			response,
-			reason: NumberChangeReason.DRINK
-		});
-		response.push(makePacket(CommandDrinkConsumePotionRes, { money: potion.power }));
-		break;
 	case ItemNature.NONE:
 		response.push(makePacket(CommandDrinkConsumePotionRes, {}));
 		break;
