@@ -310,5 +310,15 @@
   "switch": {
     "name": "switch",
     "description": "Switch the active item with one of the items in your item stock."
+  },
+  "drink": {
+    "name": "drink",
+    "description": "Drink the equipped potion.",
+    "options": {
+      "force": {
+        "name": "force",
+        "description": "If true, skips the validation phase if you are really sure you want to drink the potion"
+      }
+    }
   }
 }
