@@ -5,17 +5,18 @@ import {
 	ReactionCollectorData,
 	ReactionCollectorRefuseReaction
 } from "./ReactionCollectorPacket";
+import {ItemWithDetails} from "../../types/ItemWithDetails";
 
 export class ReactionCollectorDrinkData extends ReactionCollectorData {
-	potionId!: number;
+	potion!: ItemWithDetails;
 }
 
 export class ReactionCollectorDrink extends ReactionCollector {
-	private readonly potionId!: number;
+	private readonly potion!: ItemWithDetails;
 
-	constructor(potionId: number) {
+	constructor(potion: ItemWithDetails) {
 		super();
-		this.potionId = potionId;
+		this.potion = potion;
 	}
 
 	creationPacket(id: string, endTime: number): ReactionCollectorCreationPacket {
@@ -27,7 +28,7 @@ export class ReactionCollectorDrink extends ReactionCollector {
 				this.buildReaction(ReactionCollectorRefuseReaction, {})
 			],
 			data: this.buildData(ReactionCollectorDrinkData, {
-				potionId: this.potionId
+				potion: this.potion
 			})
 		};
 	}
