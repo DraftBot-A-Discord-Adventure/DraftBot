@@ -55,10 +55,7 @@ export async function handleDrinkConsumePotion(context: PacketContext, packet: C
 		: DiscordCache.getInteraction(context.discord!.interaction);
 	let msg;
 
-	if (packet.money) {
-		msg = i18n.t("commands:drink.moneyBonus", { lng: context.discord!.language, value: packet.money });
-	}
-	else if (packet.time) {
+	if (packet.time) {
 		msg = i18n.t("commands:drink.timeBonus", { lng: context.discord!.language, value: minutesDisplay(packet.time) });
 	}
 	else if (packet.energy) {
