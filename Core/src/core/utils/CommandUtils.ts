@@ -76,7 +76,8 @@ export abstract class CommandUtils {
 		let guild;
 		try {
 			guild = await Guilds.getById(player.guildId);
-		} catch {
+		}
+		catch {
 			guild = null;
 		}
 
