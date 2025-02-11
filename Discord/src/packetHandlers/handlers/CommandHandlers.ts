@@ -173,6 +173,7 @@ import {
 	CommandDrinkCancelDrink,
 	CommandDrinkConsumePotionRes, CommandDrinkNoActiveObjectError, CommandDrinkObjectIsActiveDuringFights
 } from "../../../../Lib/src/packets/commands/CommandDrinkPacket";
+import {handleDrinkConsumePotion} from "../../commands/player/DrinkCommand";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
@@ -698,7 +699,7 @@ export default class CommandHandlers {
 
 	@packetHandler(CommandDrinkConsumePotionRes)
 	async drinkConsumePotionRes(context: PacketContext, packet: CommandDrinkConsumePotionRes): Promise<void> {
-		// TODO
+		await handleDrinkConsumePotion(context, packet);
 	}
 
 	@packetHandler(CommandDrinkCancelDrink)

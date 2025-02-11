@@ -51,6 +51,8 @@ import {ReactionCollectorGuildElderRemoveData} from "../../../../Lib/src/packets
 import {createGuildElderRemoveCollector} from "../../commands/guild/GuildElderRemoveCommand";
 import {ReactionCollectorGuildDescriptionData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildDescription";
 import {createGuildDescriptionCollector} from "../../commands/guild/GuildDescriptionCommand";
+import {ReactionCollectorDrinkData} from "../../../../Lib/src/packets/interaction/ReactionCollectorDrink";
+import {drinkAcceptCollector} from "../../commands/player/DrinkCommand";
 
 export default class ReactionCollectorHandler {
 
@@ -84,6 +86,7 @@ export default class ReactionCollectorHandler {
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorEpicShopSmallEventData.name, epicItemShopCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorSkipMissionShopItemData.name, skipMissionShopItemCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorSwitchItemData.name, switchItemCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorDrinkData.name, drinkAcceptCollector);
 	}
 
 	@packetHandler(ReactionCollectorCreationPacket)

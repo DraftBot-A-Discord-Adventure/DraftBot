@@ -19,7 +19,7 @@ import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants
 import {
 	ReactionCollectorRefuseReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {checkDrinkPotionMissions} from "../../core/utils/ItemUtils";
+import {checkDrinkPotionMissions, toItemWithDetails} from "../../core/utils/ItemUtils";
 import {ReactionCollectorDrink} from "../../../../Lib/src/packets/interaction/ReactionCollectorDrink";
 
 /**
@@ -73,7 +73,8 @@ function drinkPotionCallback(
 			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.DRINK);
 		}
 
-		if (!force && collector.getFirstReaction().reaction instanceof ReactionCollectorRefuseReaction) {
+		const firstReaction = collector.getFirstReaction();
+		if (!force && (!firstReaction || collector.getFirstReaction().reaction.type === ReactionCollectorRefuseReaction.name)) {
 			response.push(makePacket(CommandDrinkCancelDrink, {}));
 			return;
 		}
@@ -114,7 +115,7 @@ export default class DrinkCommand {
 			return;
 		}
 
-		const collector = new ReactionCollectorDrink(potion.id);
+		const collector = new ReactionCollectorDrink(toItemWithDetails(potion));
 
 		const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
 			await drinkPotion(collector, response, await player.reload(), potion);
