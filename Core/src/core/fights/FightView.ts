@@ -1,13 +1,11 @@
 import {FightController} from "./FightController";
 import {Fighter} from "./fighter/Fighter";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {
-	CommandFightStatusPacket,
-	CommandFightIntroduceFightersPacket
-} from "../../../../Lib/src/packets/commands/CommandFightPacket";
 import {PlayerFighter} from "./fighter/PlayerFighter";
 import {MonsterFighter} from "./fighter/MonsterFighter";
 import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
+import {CommandFightIntroduceFightersPacket} from "../../../../Lib/src/packets/fights/FightIntroductionPacket";
+import {CommandFightStatusPacket} from "../../../../Lib/src/packets/fights/FightStatusPacket";
 
 /* eslint-disable capitalized-comments */
 

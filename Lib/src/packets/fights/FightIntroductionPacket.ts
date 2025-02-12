@@ -1,13 +1,14 @@
 import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
 
-type Fighter = {
-    name: string,
-    fightActions: string[]
-}
-
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
-export class FightIntroductionPacket extends DraftBotPacket {
-	fighter1!: Fighter;
+export class CommandFightIntroduceFightersPacket extends DraftBotPacket {
+	fightInitiatorKeycloakId!: string;
 
-	fighter2!: Fighter;
+	fightOpponentKeycloakId?: string;
+
+	fightOpponentMonsterId?: string;
+
+	fightInitiatorActions!: Array<[string, number]>;
+
+	fightOpponentActions!: Array<[string, number]>;
 }
