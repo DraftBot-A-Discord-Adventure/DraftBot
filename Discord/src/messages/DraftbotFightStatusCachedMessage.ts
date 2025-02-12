@@ -1,4 +1,4 @@
-import {DraftbotCachedMessage, DraftbotCachedMessages} from "./DraftbotCachedMessage";
+import {DraftbotCachedMessage} from "./DraftbotCachedMessage";
 import {CommandFightStatusPacket} from "../../../Lib/src/packets/commands/CommandFightPacket";
 import {PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
 import {DiscordCache} from "../bot/DiscordCache";
@@ -7,13 +7,11 @@ import {keycloakConfig} from "../bot/DraftBotShard";
 import {DraftBotEmbed} from "./DraftBotEmbed";
 import i18n from "../translations/i18n";
 
-export class DraftbotFightStatusCachedMessage extends DraftbotCachedMessage {
-	duration = 30;
+export class DraftbotFightStatusCachedMessage extends DraftbotCachedMessage<CommandFightStatusPacket> {
+	readonly duration = 30;
 
-	static readonly type: string = "fightStatus";
-
-	constructor(originalMessageId: string) {
-		super(originalMessageId, DraftbotFightStatusCachedMessage.type);
+	get type(): string {
+		return "fightStatus";
 	}
 
 	updateMessage = async (packet: CommandFightStatusPacket, context: PacketContext): Promise<void> => {
@@ -41,13 +39,7 @@ export class DraftbotFightStatusCachedMessage extends DraftbotCachedMessage {
 				}) +
 				i18n.t("commands:fight.summarize.stats", {
 					lng: interaction.userLanguage,
-					power: packet.fightInitiator.stats.power,
-					attack: packet.fightInitiator.stats.attack,
-					defense: packet.fightInitiator.stats.defense,
-					speed: packet.fightInitiator.stats.speed,
-					breath: packet.fightInitiator.stats.breath,
-					maxBreath: packet.fightInitiator.stats.maxBreath,
-					breathRegen: packet.fightInitiator.stats.breathRegen
+					...packet.fightInitiator.stats
 				}) +
 				i18n.t("commands:fight.summarize.defender", {
 					lng: interaction.userLanguage,
@@ -55,21 +47,10 @@ export class DraftbotFightStatusCachedMessage extends DraftbotCachedMessage {
 				}) +
 				i18n.t("commands:fight.summarize.stats", {
 					lng: interaction.userLanguage,
-					power: packet.fightOpponent.stats.power,
-					attack: packet.fightOpponent.stats.attack,
-					defense: packet.fightOpponent.stats.defense,
-					speed: packet.fightOpponent.stats.speed,
-					breath: packet.fightOpponent.stats.breath,
-					maxBreath: packet.fightOpponent.stats.maxBreath,
-					breathRegen: packet.fightOpponent.stats.breathRegen
+					...packet.fightOpponent.stats
 				})
 			);
 
 		await this.post({embeds: [embed]});
 	};
-
-	// Retrieve the cached message from the global cache by using the composite key
-	static get(interactionId: string): DraftbotFightStatusCachedMessage | undefined {
-		return DraftbotCachedMessages.get(`${interactionId}-${DraftbotFightStatusCachedMessage.type}`) as DraftbotFightStatusCachedMessage;
-	}
 }
