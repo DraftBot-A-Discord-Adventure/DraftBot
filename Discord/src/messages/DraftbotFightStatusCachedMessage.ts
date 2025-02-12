@@ -1,11 +1,11 @@
 import {DraftbotCachedMessage} from "./DraftbotCachedMessage";
-import {CommandFightStatusPacket} from "../../../Lib/src/packets/commands/CommandFightPacket";
 import {PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
 import {DiscordCache} from "../bot/DiscordCache";
 import {KeycloakUtils} from "../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../bot/DraftBotShard";
 import {DraftBotEmbed} from "./DraftBotEmbed";
 import i18n from "../translations/i18n";
+import {CommandFightStatusPacket} from "../../../Lib/src/packets/fights/FightStatusPacket";
 
 export class DraftbotFightStatusCachedMessage extends DraftbotCachedMessage<CommandFightStatusPacket> {
 	readonly duration = 30;

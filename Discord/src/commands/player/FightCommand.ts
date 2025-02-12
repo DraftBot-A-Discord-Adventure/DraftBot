@@ -10,7 +10,7 @@ import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
 import {EmoteUtils} from "../../utils/EmoteUtils";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 import {PacketUtils} from "../../utils/PacketUtils";
-import {CommandFightIntroduceFightersPacket, CommandFightPacketReq, CommandFightStatusPacket} from "../../../../Lib/src/packets/commands/CommandFightPacket";
+import {CommandFightPacketReq} from "../../../../Lib/src/packets/commands/CommandFightPacket";
 import {ReactionCollectorFightData} from "../../../../Lib/src/packets/interaction/ReactionCollectorFight";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
@@ -20,6 +20,8 @@ import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
 import {DraftbotFightStatusCachedMessage} from "../../messages/DraftbotFightStatusCachedMessage";
 import {DraftbotCachedMessages} from "../../messages/DraftbotCachedMessage";
+import {CommandFightIntroduceFightersPacket} from "../../../../Lib/src/packets/fights/FightIntroductionPacket";
+import {CommandFightStatusPacket} from "../../../../Lib/src/packets/fights/FightStatusPacket";
 
 export async function createFightCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
