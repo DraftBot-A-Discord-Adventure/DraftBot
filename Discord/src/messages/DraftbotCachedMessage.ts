@@ -14,7 +14,7 @@ export abstract class DraftbotCachedMessage<T extends DraftBotPacket = DraftBotP
 	// Message linked to this cached message
 	storedMessage?: Message;
 
-	protected constructor(originalMessageId: string) {
+	constructor(originalMessageId: string) {
 		this.originalMessageId = originalMessageId;
 	}
 
@@ -47,8 +47,6 @@ export abstract class DraftbotCachedMessage<T extends DraftBotPacket = DraftBotP
 }
 
 interface MessageLike<Message extends DraftbotCachedMessage> {
-	type: string;
-
 	new(originalMessageId: string): Message;
 }
 
@@ -67,7 +65,8 @@ export class DraftbotCachedMessages {
 	}
 
 	static getOrCreate<Packet extends DraftBotPacket, Message extends DraftbotCachedMessage<Packet>>(originalMessageId: string, MessageLike: MessageLike<Message>): Message {
-		const message = DraftbotCachedMessages.cachedMessages.get(`${originalMessageId}-${MessageLike.type}`);
+		const type = new MessageLike("").type;
+		const message = DraftbotCachedMessages.cachedMessages.get(`${originalMessageId}-${type}`);
 		if (!message) {
 			return new MessageLike(originalMessageId);
 		}
