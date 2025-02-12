@@ -10,11 +10,7 @@ import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
 import {EmoteUtils} from "../../utils/EmoteUtils";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 import {PacketUtils} from "../../utils/PacketUtils";
-import {
-	CommandFightIntroduceFightersPacket,
-	CommandFightPacketReq,
-	CommandFightStatusPacket
-} from "../../../../Lib/src/packets/commands/CommandFightPacket";
+import {CommandFightIntroduceFightersPacket, CommandFightPacketReq, CommandFightStatusPacket} from "../../../../Lib/src/packets/commands/CommandFightPacket";
 import {ReactionCollectorFightData} from "../../../../Lib/src/packets/interaction/ReactionCollectorFight";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
@@ -105,9 +101,13 @@ function addFightActionFieldFor(introEmbed: DraftBotEmbed, language: Language, f
 	const fightActionsDisplay = fightActions.map(([actionId, breathCost]) => i18n.t("commands:fight.fightActionNameDisplay", {
 		lng: language,
 		fightActionEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fight_actions[actionId]),
-		fightActionName: i18n.t(`models:fight_actions.${actionId}.name`, {lng: language, count: 1}),
+		fightActionName: i18n.t(`models:fight_actions.${actionId}.name`, {
+			lng: language,
+			count: 1
+		}),
 		breathCost
-	})).join("\n");
+	}))
+		.join("\n");
 
 	introEmbed.addFields({
 		name: i18n.t("commands:fight.actionsOf", {
@@ -147,59 +147,11 @@ export async function handleCommandFightIntroduceFightersRes(packet: CommandFigh
  * @param context
  */
 export async function handleCommandFightUpdateStatusRes(packet: CommandFightStatusPacket, context: PacketContext): Promise<void> {
-	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
-	const attacker = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.fightInitiator.keycloakId))!;
-	const defender = packet.fightOpponent.keycloakId ?
-		(await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.fightOpponent.keycloakId))!.attributes.gameUsername[0] :
-		i18n.t(`models:monster.${packet.fightOpponent.monsterId}`, {lng: interaction.userLanguage});
-	const keyProlongation = packet.numberOfTurn > packet.maxNumberOfTurn ? "prolongation" : "noProlongation";
-	const embed = new DraftBotEmbed().setTitle(i18n.t("commands:fight.summarize.title", {lng: interaction.userLanguage}))
-		.setDescription(
-			i18n.t("commands:fight.summarize.intro.start", {
-				lng: interaction.userLanguage,
-				state: i18n.t(`"commands:fight.summarize.intro.${keyProlongation}`, {
-					lng: interaction.userLanguage,
-					currentTurn: packet.numberOfTurn,
-					maxTurn: packet.maxNumberOfTurn
-				})
-			}) + i18n.t("commands:fight.summarize.attacker", {
-				lng: interaction.userLanguage,
-				pseudo: attacker.attributes.gameUsername[0]
-			})
-			+ i18n.t("commands:fight.summarize.stats", {
-				lng: interaction.userLanguage,
-				power: packet.fightInitiator.stats.power,
-				attack: packet.fightInitiator.stats.attack,
-				defense: packet.fightInitiator.stats.defense,
-				speed: packet.fightInitiator.stats.speed,
-				breath: packet.fightInitiator.stats.breath,
-				maxBreath: packet.fightInitiator.stats.maxBreath,
-				breathRegen: packet.fightInitiator.stats.breathRegen
-			})
-			+ i18n.t("commands:fight.summarize.defender", {
-				lng: interaction.userLanguage,
-				pseudo: defender
-			})
-			+ i18n.t("commands:fight.summarize.stats", {
-				lng: interaction.userLanguage,
-				power: packet.fightOpponent.stats.power,
-				attack: packet.fightOpponent.stats.attack,
-				defense: packet.fightOpponent.stats.defense,
-				speed: packet.fightOpponent.stats.speed,
-				breath: packet.fightOpponent.stats.breath,
-				maxBreath: packet.fightOpponent.stats.maxBreath,
-				breathRegen: packet.fightOpponent.stats.breathRegen
-			})
-		);
-
-	let cachedMessage = DraftbotFightStatusCachedMessage.get(interaction.id);
-	if (!cachedMessage) {
-		cachedMessage = new DraftbotFightStatusCachedMessage(interaction.id);
-		DraftbotCachedMessages.createCachedMessage(cachedMessage);
+	if (!context.discord?.interaction) {
+		return;
 	}
-
-	// Post ou mise à jour du message (selon s'il existe déjà)
-	await cachedMessage.post({ embeds: [embed] });
+	await DraftbotCachedMessages.getOrCreate(context.discord?.interaction, DraftbotFightStatusCachedMessage)
+		.update(packet, context);
 }
 
 
