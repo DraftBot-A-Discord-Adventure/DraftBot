@@ -1,15 +1,17 @@
 import {packetHandler} from "../PacketHandler";
 import {PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {
-	CommandFightIntroduceFightersPacket,
 	CommandFightOpponentsNotFoundPacket,
-	CommandFightRefusePacketRes, CommandFightStatusPacket
+	CommandFightRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandFightPacket";
 import {
 	handleCommandFightIntroduceFightersRes,
-	handleCommandFightRefusePacketRes, handleCommandFightUpdateStatusRes
+	handleCommandFightRefusePacketRes,
+	handleCommandFightUpdateStatusRes
 } from "../../commands/player/FightCommand";
 import {handleClassicError} from "../../utils/ErrorUtils";
+import {CommandFightIntroduceFightersPacket} from "../../../../Lib/src/packets/fights/FightIntroductionPacket";
+import {CommandFightStatusPacket} from "../../../../Lib/src/packets/fights/FightStatusPacket";
 
 export default class FightHandler {
 	@packetHandler(CommandFightRefusePacketRes)
