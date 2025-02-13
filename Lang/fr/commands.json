@@ -843,7 +843,7 @@
         "noProlongation" : "[{{currentTurn}}/{{maxTurn}}]"
       },
       "attacker": "{emote:unitValues.attack} | **Attaquant : {{pseudo}}**\n",
-      "defender": "{emote:unitValues.defense} | **Défenseur : {{pseudo}}**\n",
+      "defender": "\n\n{emote:unitValues.defense} | **Défenseur : {{pseudo}}**\n",
       "stats": "{emote:unitValues.energy} {{power}} | {emote:unitValues.attack} {{attack}} | {emote:unitValues.defense} {{defense}} | {emote:unitValues.speed} {{speed}} | {emote:unitValues.breath} {{breath}} / {{maxBreath}} | {emote:unitValues.breathRegen} {{breathRegen}}"
     }
   },
