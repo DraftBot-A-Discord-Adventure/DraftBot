@@ -6,6 +6,8 @@ import {MonsterFighter} from "./fighter/MonsterFighter";
 import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
 import {CommandFightIntroduceFightersPacket} from "../../../../Lib/src/packets/fights/FightIntroductionPacket";
 import {CommandFightStatusPacket} from "../../../../Lib/src/packets/fights/FightStatusPacket";
+import {FightAction} from "../../data/FightAction";
+import {FightActionResult} from "../../../../Lib/src/types/FightActionResult";
 
 /* eslint-disable capitalized-comments */
 
@@ -89,34 +91,14 @@ export class FightView {
 	}
 
 	/**
-	 * Update the fight history
-	 * @param emote
-	 * @param player
-	 * @param receivedMessage
+	 * Update the fight history with the new action made by a fighter (can be an attack or a status alteration)
+	 * @param response
+	 * @param fighter - the fighter that made the action or received the alteration
+	 * @param fightAction - the action made by the fighter
+	 * @param fightActionResult - the result of the action
 	 */
-	async updateHistory(emote: string, player: string, receivedMessage: string): Promise<void> {
-		/* let lastMessage = this.actionMessages[this.actionMessages.length - 1];
-		const messageToSend = this.fightTranslationModule.format("actions.intro", {
-			emote,
-			player
-		}) + receivedMessage;
-		if (lastMessage.content.length + messageToSend.length > 1950) {
-			// Message character limit reached : creation of a new message
-			await this.lastSummary.delete();
-			this.lastSummary = null;
-			lastMessage = await this.channel.send({content: messageToSend});
-			this.actionMessages.push(lastMessage);
-		}
-		else if (lastMessage.content === "_ _") {
-			// First action of the fight, no history yet
-			await lastMessage.edit({content: messageToSend});
-		}
-		else {
-			// A history already exists, just append the new action
-			await lastMessage.edit({content: `${lastMessage.content}\n${messageToSend}`});
-		}
-		// Fetch to get the new content
-		await lastMessage.fetch(true); */
+	async addActionToHistory(response: DraftBotPacket[], fighter: Fighter, fightAction: FightAction, fightActionResult: FightActionResult): Promise<void> {
+
 	}
 
 	/**
