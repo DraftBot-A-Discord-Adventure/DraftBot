@@ -163,20 +163,9 @@ export class FightController {
 		if (endTurn) {
 			this.getPlayingFighter().nextFightAction = null;
 		}
+		const result = this.tryToExecuteFightAction(fightAction, this.getPlayingFighter(), this.getDefendingFighter(), this.turn);
 
-		// eslint-disable-next-line capitalized-comments
-		/* const result =  */
-		this.tryToExecuteFightAction(fightAction, this.getPlayingFighter(), this.getDefendingFighter(), this.turn);
-
-		// eslint-disable-next-line capitalized-comments
-		/* await this._fightView.updateHistory(fightAction.getEmoji(), this.getPlayingFighter()
-			.getMention(), receivedMessage)
-			.catch(
-				(e) => {
-					console.log("### FIGHT MESSAGE DELETED OR LOST : updateHistory ###");
-					console.error(e.stack);
-					this.endBugFight();
-				}); */
+		await this._fightView.addActionToHistory(response, this.getPlayingFighter(), fightAction, result);
 		if (this.state !== FightState.RUNNING) {
 			// An error occurred during the update of the history
 			return;
@@ -251,7 +240,7 @@ export class FightController {
 			// A player was killed by a fight alteration, no need to continue the fight
 			return;
 		}
-		await this._fightView.displayFightStatus(response);
+		this._fightView.displayFightStatus(response);
 
 		this.getPlayingFighter()
 			.reduceCounters();
