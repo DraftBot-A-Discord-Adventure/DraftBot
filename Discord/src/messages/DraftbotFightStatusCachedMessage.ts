@@ -30,8 +30,10 @@ export class DraftbotFightStatusCachedMessage extends DraftbotCachedMessage<Comm
 					state: i18n.t(`commands:fight.summarize.intro.${keyProlongation}`, {
 						lng: interaction.userLanguage,
 						currentTurn: packet.numberOfTurn,
-						maxTurn: packet.maxNumberOfTurn
-					})
+						maxTurn: packet.maxNumberOfTurn,
+						interpolation: {escapeValue: false}
+					}),
+					interpolation: {escapeValue: false}
 				}) +
 				i18n.t("commands:fight.summarize.attacker", {
 					lng: interaction.userLanguage,
