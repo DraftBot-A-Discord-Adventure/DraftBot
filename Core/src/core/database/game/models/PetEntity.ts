@@ -11,6 +11,7 @@ import {DraftBotPacket} from "../../../../../../Lib/src/packets/DraftBotPacket";
 import {PlayerReceivePetPacket} from "../../../../../../Lib/src/packets/events/PlayerReceivePetPacket";
 import {SexTypeShort, StringConstants} from "../../../../../../Lib/src/constants/StringConstants";
 import moment = require("moment");
+import {OwnedPet} from "../../../../../../Lib/src/types/OwnedPet";
 
 export class PetEntity extends Model {
 	declare readonly id: number;
@@ -128,6 +129,15 @@ export class PetEntity extends Model {
 
 	public isMale(): boolean {
 		return this.sex === StringConstants.SEX.MALE.short;
+	}
+
+	public asOwnedPet(): OwnedPet {
+		return {
+			typeId: this.typeId,
+			nickname: this.nickname,
+			rarity: PetDataController.instance.getById(this.typeId).rarity,
+			sex: this.sex as SexTypeShort
+		};
 	}
 }
 
