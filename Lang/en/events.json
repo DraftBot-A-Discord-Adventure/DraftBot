@@ -1887,71 +1887,71 @@
       },
       "end": {
         "outcomes": {
-          "0": "You end up accepting Gruffo's enticing offer. This one asks you to wait a little, the time it brings you your liquid. While you are carefully studying a still, a powerful blow falls on your pretty skull.",
-          "1": "In front of your inert air, Gruffo gets impatient and throws you out of his tent, making you pay for his wasted time. You get back on your road without any delay!",
-          "2": "Faced with your inability to make up your mind, Gruffo does not insist and offers you a cup of black tea. You discuss for many minutes everything except alchemy! You resume your way as the moon shyly lights up the beach."
+          "0": "You end up accepting Gruffo's enticing offer. This one asks you to wait a little while, while he brings you your liquid. Just as you are carefully studying a still, a powerful blow lands on your pretty skull.",
+          "1": "In front of your inert attitude, Gruffo gets impatient and throws you out of his tent, making you pay for the time you wasted. You get back on your road in no time!",
+          "2": "Faced with your inability to make up your mind, Gruffo does not insist and offers you a cup of black tea. You discuss for many minutes about everything except alchemy! You resume your way as the moon timidly lights up the beach."
         }
       },
       "refuse": {
         "outcomes": {
-          "0": "You prefer to politely decline Gruffo's offer while wondering how to find a safe place to sleep. Seeing your worried face, Gruffo suggests that you stay in his tent while the sun rises. You accept wholeheartedly and fall asleep, serene.",
-          "1": "You refuse to serve as a guinea pig for the alchemist. He then offers you to make your own potion and taken aback by this new proposal, you accept. After some research, you end up making a translucent liquid. You hesitate a few moments before drinking your mixture all at once. Long minutes later, you are seized with dizziness and funny hallucinations where you see your dear princess. Almost an hour of rest will be necessary to allow you to resume your adventure.",
+          "0": "You prefer to politely decline Gruffo's offer while wondering how to find a safe place to sleep. Seeing your worried face, Gruffo suggests that you stay in his tent until the sun rises. You accept wholeheartedly and fall asleep, serene.",
+          "1": "You refuse to serve as a guinea pig for the alchemist. He then offers you to create your own potion and taken aback by this new proposal, you accept. After some research, you end up making a translucent liquid. You hesitate a few moments before drinking your mixture all at once. Long minutes later, you are overcome by dizziness and funny hallucinations where you see your dear princess. Almost an hour of rest will be necessary to allow you to resume your adventure.",
           "2": "You categorically refuse the alchemist's proposal. He seems disappointed, so you decide to have a chat with him for a while. During the discussion, you ask him where all his alchemical knowledge comes from and it is with a touch of bitterness that he gives you the name of this famous minstrel known throughout the all country: Périssien. However, Gruffo will not answer you about the location of his master. Not wanting to insist, you thank him for this interesting conversation and decide to get back on your way."
         },
-        "text": "Refuse Gruffo's proposal."
+        "text": "Decline Gruffo's proposal."
       }
     },
-    "text": "You approach Sentinel Beach, the fresh air fills your lungs and the salty smell of the sea reaches your nostrils. As you go forward, the sea wind strengthens and the sound of seagulls can be heard. The sun is starting to set, you need to find a safe place for the night. A few more steps allow you to discern a tent pitched at the top of a dune. Upon entering, a man called Gruffo explains to you that he is an alchemist looking for a guinea pig to test his new substances, in exchange for a substantial sum of money."
+    "text": "You approach Sentinel Beach, the fresh air fills your lungs and the salty smell of the sea reaches your nostrils. As you go forward, the sea breeze strengthens and the sound of seagulls can be heard. The sun is starting to set, you need to find a safe place for the night. A few more steps allow you to discern a tent pitched on top of a dune. Upon entering, a man called Gruffo explains to you that he is an alchemist looking for a volunteer to test his new substances, in exchange for a substantial sum of money."
   },
   "57": {
     "possibilities": {
       "continue": {
         "outcomes": {
-          "0": "You enter into the river and turn right to follow the direction of the current. The water is cool and it does you a lot of good.",
-          "1": "You put one foot in the river and then the second. You begin your progress in the river. After a few minutes of walking, you arrive at a small waterfall of a meter high and decide to jump down it. As you gain your momentum, the stone where your right foot is resting on moves and you fall down the waterfall, hitting your head twice. You are still conscious, although you are strongly rated.",
+          "0": "You enter the river and turn right to follow the current. The water is cool and it makes you feel a lot better.",
+          "1": "You put one foot in the river and then the second. You begin your progress in the river. After walking for a few minutes, you arrive at a small one-meter-high waterfall and decide to jump down. As you gain your momentum, the stone where your right foot is resting on moves and you fall to the bottom of the waterfall, hitting your skull twice. You are still conscious, although strongly stunned.",
           "2": "You have been walking for a good hour when you arrive again to a crossroads. You decide to continue on dry land."
         },
         "text": "Continue your way by walking in the water."
       },
       "end": {
         "outcomes": {
-          "0": "sit by the river, the water is cool and you decide to put your feet inside. After a few minutes of pure happiness, a sharp pain makes you shoot your feet out of the water at full speed. You see a huge crab hanging from your foot. You are in great pain, but you will be able to have a delicious meal that will invigorate you.",
-          "1": "are hungry. You look into the river and see these famous gigantic crabs. There are two species. One of orange red color and one in red and black colors. You hesitate and decide to try your luck with the big red-orange. After you've prepared and swallowed them, you start to feel hot and sweaty. You understand your mistake too late, you have chosen the inedible species.",
-          "2": "are walking in the river when you stumble. You knock yourself out in the process. Luckily, the current is strong and you find yourself on the edge of the river. You're stunned, but alive."
+          "0": "You sit by the river, the water is cool and you decide to put your feet inside. After a few minutes of pure bliss, a sharp pain makes you shoot your feet out of the water at full speed. You see a huge crab hanging from your foot. You are in great pain, but you will be able to cook a delicious meal that will invigorate you.",
+          "1": "You are hungry. You look into the river and see these famous gigantic crabs. There are two species. One of a redish-orange color and one in red and black colors. You hesitate and decide to try your luck with the big red-orange one. After you've prepared and swallowed them, you start to feel hot and begin to sweat. You understand your mistake too late, you have chosen the inedible specimen.",
+          "2": "You are walking in the river when you stumble. You knock yourself out in the process. Luckily, the current is strong and you find yourself on the edge of the river. You're stunned, but still alive."
         }
       },
       "findMeal": {
         "outcomes": {
           "0": "You look in the river and spot some fish as well as crabs. You make a makeshift trap and put it in the water. After 10 long minutes your trap contains 2 beautiful crabs and a small fish. You make a fire and grill them. You feel invigorated after eating them.",
-          "1": "You see at the bottom of the water strange creatures that you had never seen before. They are fitted with two grippers and move sideways. You assume that these are the famous things that gave this river their name and remember that they are edible. You decide to catch a few of them. You dip your hand in and manage to catch some, but they attack you with their pincers. You end up injured with a nice gash in your hand, but also with enough to make you a delicious meal.",
-          "2": "You hesitate for a moment between the fish of the river and the mulberry trees. Finally, you decide to cook a feast. You prepare a fish trap and after installing it you go pick some blackberries. Salmon with blackberries, a treat!"
+          "1": "You see at the bottom of the water strange creatures that you had never seen before. They are fitted with two claws and move sideways. You assume that these are the famous things that gave this river their name and remember that they are edible. You decide to catch a few of them. You dip your hand in and manage to catch some, but they attack you with their chelae. You end up injured with a nice gash in your hand, but also with enough to make you a delicious meal.",
+          "2": "You hesitate for a moment between the fish in the river and the mulberry trees. Finally, you decide to prepare a feast. You prepare a fish trap and, after installing it, you go pick some blackberries. Salmon with blackberries, a treat!"
         },
         "text": "Find something to prepare you a meal."
       },
       "settle": {
         "outcomes": {
-          "0": "You decide to sit on a flat rock and contemplate the magnificent landscape with a thousands of colors for a few hours before continuing on your way.",
-          "1": "You are tired by all these kilometers traveled and observe the river and its fiery-colored crabs. Minutes go by without your noticing. It's been an hour now that you are daydreaming like this.",
-          "2": "You lean against a tree and, feeling your eyelids grow heavy, you fall asleep. You wake up a few hours later but you are so rested that your walk is much more vigorous and your delay is quickly caught up."
+          "0": "You decide to sit on a flat rock and contemplate the magnificent landscape with a thousand colors for a few hours before continuing on your way.",
+          "1": "You are tired by all these kilometers traveled and observe the river and its fiery-colored crabs. Minutes go by without you noticing. It's been an hour now that you are daydreaming like this.",
+          "2": "You lean against a tree and, feeling your eyelids grow heavy, you fall asleep. You wake up a few hours later but you are so relaxed that your walk is much more vigorous and you're soon caught up."
         },
         "text": "Settle down by the river."
       }
     },
-    "text": "You are walking under an azure blue sky. The air is soft and you continue on your way listening to the singing birds, the creaking of the trees, the rustle of the ground under your feet. Suddenly, the sound of a river is heard in the distance. You continue your way to the river."
+    "text": "You are walking under an azure blue sky. The air is gentle and you continue on your way while listening to the bird songs, the trees creaking, the ground rustling under your feet. Suddenly, the sound of a river is heard in the distance. You continue your way to the river."
   },
   "58": {
     "possibilities": {
       "continue": {
         "outcomes": {
-          "0": "You ignore the woman's advice and continue on your path.",
-          "1": "You continue on your way. Two kilometers further on, you collapse from fatigue."
+          "0": "You ignore the woman's advice and continue on your way.",
+          "1": "You continue on your way. Two kilometers further on, you collapse from exhaustion."
         },
         "text": "Continue the journey."
       },
       "end": {
         "outcomes": {
-          "0": "think for long minutes and then, not knowing what to do, continue on your way.",
-          "1": "you decide to set up your camp here and continue the journey later."
+          "0": "You think for a long while and then, not knowing what to do, continue on your way.",
+          "1": "Exhausted, you decide to set up your camp here and continue the journey later."
         }
       },
       "goAlchemist": {
