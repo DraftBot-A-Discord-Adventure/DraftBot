@@ -12,6 +12,7 @@ import {
 import {handleClassicError} from "../../utils/ErrorUtils";
 import {CommandFightIntroduceFightersPacket} from "../../../../Lib/src/packets/fights/FightIntroductionPacket";
 import {CommandFightStatusPacket} from "../../../../Lib/src/packets/fights/FightStatusPacket";
+import {CommandFightHistoryItemPacket} from "../../../../Lib/src/packets/fights/FightHistoryItemPacket";
 
 export default class FightHandler {
 	@packetHandler(CommandFightRefusePacketRes)
@@ -32,6 +33,11 @@ export default class FightHandler {
 	@packetHandler(CommandFightStatusPacket)
 	async updateFightStatus(context: PacketContext, packet: CommandFightStatusPacket): Promise<void> {
 		await handleCommandFightUpdateStatusRes(packet, context);
+	}
+
+	@packetHandler(CommandFightHistoryItemPacket)
+	async addHistoryItem(context: PacketContext, packet: CommandFightHistoryItemPacket): Promise<void> {
+		await handleCommandFightHistoryItemRes(packet, context);
 	}
 
 }
