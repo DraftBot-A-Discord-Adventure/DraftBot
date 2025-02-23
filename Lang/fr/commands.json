@@ -862,6 +862,69 @@
       "attacker": "{emote:unitValues.attack} | **Attaquant : {{pseudo}}**\n",
       "defender": "\n\n{emote:unitValues.defense} | **Défenseur : {{pseudo}}**\n",
       "stats": "{emote:unitValues.energy} {{power}} | {emote:unitValues.attack} {{attack}} | {emote:unitValues.defense} {{defense}} | {emote:unitValues.speed} {{speed}} | {emote:unitValues.breath} {{breath}} / {{maxBreath}} | {emote:unitValues.breathRegen} {{breathRegen}}"
+    },
+    "actions": {
+      "intro": "{{emote}} | {{fighter}} ",
+      "attacksResults": {
+        "critical": [
+          "effectue une {{attack}} ! Parfaitement réalisée !",
+          "effectue une {{attack}} ! Elle est magnifique !",
+          "effectue une superbe {{attack}} ! Parfaitement réalisée !",
+          "effectue une {{attack}} ! Incroyablement réussie !",
+          "réalise une {{attack}} ! Totalement brutale !",
+          "effectue une {{attack}} ! C'était risqué mais ça passe !",
+          "lance une bonne {{attack}} !",
+          "utilise une {{attack}} ! Elle est PARFAITE !",
+          "utilise une {{attack}} ! Magistrale !",
+          "réalise une sublime {{attack}} !",
+          "effectue une {{attack}} ! Elle est parfaite !",
+          "réalise une {{attack}} ! L'assaut est absolument dingue !",
+          "assène à son adversaire une {{attack}} ! Sans pitié !",
+          "effectue une {{attack}} ! C'est un coup de foudre !",
+          "réalise une {{attack}} ! OH MON DIEU C'EST INCROYAAAAAAAAABLEEEE !",
+          "choisit une {{attack}} ! Très bonne initiative !",
+          "effectue une {{attack}} ! C'est une excellente {{attack}} !",
+          "effectue une {{attack}} ! Coup critique !",
+          "se déchaine sur son adversaire avec une {{attack}} !"
+        ],
+        "normal": [
+          "effectue une {{attack}} !",
+          "lance une {{attack}} !",
+          "utilise une {{attack}} !",
+          "réalise une {{attack}} !"
+        ],
+        "maxUses": "tente d'utiliser une {attack}, mais cela échoue !",
+        "charging": "se prépare à réaliser une {{attack}} !",
+        "missed": [
+          "réalise une {{attack}} ! On a vu mieux...",
+          "lance une {{attack}} ! Médiocre",
+          "effectue une {{attack}} ! C'est pas très réussi.",
+          "effectue une {{attack}} ! Ça n'est pas très efficace...",
+          "choisit une {{attack}} ! Le résultat est assez pitoyable.",
+          "réalise une {{attack}} ! Ça n'était pas le meilleur choix...",
+          "effectue une {{attack}} ! C'est raté !",
+          "effectue une {{attack}} ! L'attaque échoue lamentablement !",
+          "effectue une mauvaise {{attack}} ! Un manque cruel de technique pour le joueur français !",
+          "effectue une {{attack}} ! Quelle erreur !",
+          "effectue une {{attack}} ! C'était risqué et ça n'est pas passé !",
+          "lance une mauvaise {{attack}} !",
+          "utilise une {{attack}} ! Un choix peu judicieux !",
+          "choisit une {{attack}} ! Mauvaise initiative...",
+          "effectue une {{attack}} ! C'est une mauvaise {{attack}} !"
+        ]
+      },
+      "damages": " `Dégâts infligés : {{damages}}`",
+      "sideEffects": {
+        "newAlteration": " `{adversary>0?Votre adversaire est:Vous êtes} désormais {effect} !`",
+        "damage": " `Dégâts reçus : {amount}`",
+        "defense": " `Défense{adversary>0? de l'adversaire:}: {operator} {amount} %`",
+        "breath": " `Souffle{adversary>0? de l'adversaire:}: {operator} {amount}`",
+        "speed": " `Vitesse{adversary>0? de l'adversaire:}: {operator} {amount} %`",
+        "attack": " `Attaque{adversary>0? de l'adversaire:}: {operator} {amount} %`",
+        "energy": " `Points de combat soignés{adversary>0? de l'adversaire:}: {operator} {amount}`",
+        "summoning": " `Invocation de {amount} alliés`"
+      },
+      "aiChoose": "{emote:fight_command.ai_thinking} L'adversaire choisit une attaque..."
     }
   },
   "switch": {
