@@ -22,6 +22,8 @@ import {DraftbotFightStatusCachedMessage} from "../../messages/DraftbotFightStat
 import {DraftbotCachedMessages} from "../../messages/DraftbotCachedMessage";
 import {CommandFightIntroduceFightersPacket} from "../../../../Lib/src/packets/fights/FightIntroductionPacket";
 import {CommandFightStatusPacket} from "../../../../Lib/src/packets/fights/FightStatusPacket";
+import {CommandFightHistoryItemPacket} from "../../../../Lib/src/packets/fights/FightHistoryItemPacket";
+import {DraftbotHistoryCachedMessage} from "../../messages/DraftbotHistoryCachedMessage";
 
 export async function createFightCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
@@ -153,6 +155,19 @@ export async function handleCommandFightUpdateStatusRes(packet: CommandFightStat
 		return;
 	}
 	await DraftbotCachedMessages.getOrCreate(context.discord?.interaction, DraftbotFightStatusCachedMessage)
+		.update(packet, context);
+}
+
+/**
+ * Update the fight history with the last action
+ * @param packet
+ * @param context
+ */
+export async function handleCommandFightHistoryItemRes(packet: CommandFightHistoryItemPacket, context: PacketContext): Promise<void> {
+	if (!context.discord?.interaction) {
+		return;
+	}
+	await DraftbotCachedMessages.getOrCreate(context.discord?.interaction, DraftbotHistoryCachedMessage)
 		.update(packet, context);
 }
 
