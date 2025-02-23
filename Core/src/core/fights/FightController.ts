@@ -165,7 +165,8 @@ export class FightController {
 		}
 		const result = this.tryToExecuteFightAction(fightAction, this.getPlayingFighter(), this.getDefendingFighter(), this.turn);
 
-		await this._fightView.addActionToHistory(response, this.getPlayingFighter(), fightAction, result);
+		this._fightView.addActionToHistory(response, this.getPlayingFighter(), fightAction, result);
+
 		if (this.state !== FightState.RUNNING) {
 			// An error occurred during the update of the history
 			return;
@@ -295,7 +296,7 @@ export class FightController {
 	}
 
 	/**
-	 * Change who is the player 1 and who is the player 2.
+	 * Change who is player 1 and who is player 2.
 	 * @private
 	 */
 	private invertFighters(): void {
