@@ -7,7 +7,10 @@ import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
 import {CommandFightIntroduceFightersPacket} from "../../../../Lib/src/packets/fights/FightIntroductionPacket";
 import {CommandFightStatusPacket} from "../../../../Lib/src/packets/fights/FightStatusPacket";
 import {FightAction} from "../../data/FightAction";
-import {FightActionResult} from "../../../../Lib/src/types/FightActionResult";
+import {FightActionResult, FightStatBuffed} from "../../../../Lib/src/types/FightActionResult";
+import {CommandFightHistoryItemPacket} from "../../../../Lib/src/packets/fights/FightHistoryItemPacket";
+import {FightStatModifierOperation} from "../../../../Lib/src/types/FightStatModifierOperation";
+import {toSignedPercent} from "../../../../Lib/src/utils/StringUtils";
 
 /* eslint-disable capitalized-comments */
 
@@ -97,8 +100,45 @@ export class FightView {
 	 * @param fightAction - the action made by the fighter
 	 * @param fightActionResult - the result of the action
 	 */
-	async addActionToHistory(response: DraftBotPacket[], fighter: Fighter, fightAction: FightAction, fightActionResult: FightActionResult): Promise<void> {
+	addActionToHistory(response: DraftBotPacket[], fighter: Fighter, fightAction: FightAction, fightActionResult: FightActionResult): void {
 
+		const buildStatsChange = (selfTarget: boolean): { attack?: number; defense?: number; speed?: number; breath?: number } => fightActionResult.buffs
+			.filter(buff =>
+				buff.selfTarget === selfTarget &&
+					[FightStatBuffed.ATTACK, FightStatBuffed.DEFENSE, FightStatBuffed.SPEED, FightStatBuffed.BREATH].includes(buff.stat) &&
+					buff.operator === FightStatModifierOperation.MULTIPLIER)
+			.reduce((acc, buff) => {
+				switch (buff.stat) {
+				case FightStatBuffed.ATTACK:
+					acc.attack = toSignedPercent(buff.value);
+					break;
+				case FightStatBuffed.DEFENSE:
+					acc.defense = toSignedPercent(buff.value);
+					break;
+				case FightStatBuffed.SPEED:
+					acc.speed = toSignedPercent(buff.value);
+					break;
+				case FightStatBuffed.BREATH:
+					acc.breath = buff.value;
+					break;
+				default:
+					break;
+				}
+				return acc;
+			}, {} as { attack?: number; defense?: number; speed?: number; breath?: number });
+
+		response.push(makePacket(CommandFightHistoryItemPacket, {
+			fighterKeycloakId: fighter instanceof PlayerFighter ? fighter.player.keycloakId : null,
+			monsterId: fighter instanceof MonsterFighter ? fighter.monster.id : null,
+			fightActionId: fightAction.id,
+			status: fightActionResult.attackStatus,
+			damageDealt: fightActionResult.damages,
+			damageReceived: fightActionResult.buffs.find(
+				buff => buff.selfTarget && buff.stat === FightStatBuffed.DAMAGE && buff.operator === FightStatModifierOperation.ADDITION
+			)?.value,
+			statsChangeDealt: buildStatsChange(false),
+			statsChangeReceived: buildStatsChange(true)
+		}));
 	}
 
 	/**

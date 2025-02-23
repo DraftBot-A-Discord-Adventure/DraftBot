@@ -112,3 +112,23 @@ export function getMention(discordUserId: string): string {
 export function getChannelMention(discordChannelId: string): string {
 	return `<#${discordChannelId}>`;
 }
+
+/**
+ * Converts a ratio value (e.g., 0.8 or 1.2) into a signed percentage difference.
+ *
+ * The calculation is based on the formula: `(1 - value) * 100`.
+ * - If `value` is less than 1, the result is positive (indicating a percentage increase).
+ * - If `value` is greater than 1, the result is negative (indicating a percentage decrease).
+ * - If `value` is exactly 1, the result is 0 (indicating no change).
+ *
+ * @param value - The ratio value to convert.
+ * @returns The signed percentage difference as a number.
+ *
+ * @example
+ * toSignedPercent(0.8); // -20
+ * toSignedPercent(1.2); // 20
+ * toSignedPercent(1); // 0
+ */
+export function toSignedPercent(value: number): number {
+	return -((1 - value) * 100);
+}
