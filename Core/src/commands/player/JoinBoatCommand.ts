@@ -13,9 +13,8 @@ import {MissionsController} from "../../core/missions/MissionsController";
 
 
 async function acceptJoinBoat(player: Player, response: DraftBotPacket[]): Promise<void> {
-	const guild = await Guilds.getById(player.guildId);
 	// Check if the player is still part of a guild
-	if (!guild) {
+	if (!player.guildId) {
 		response.push(makePacket(CommandJoinBoatNoGuildPacketRes, {}));
 		return;
 	}
