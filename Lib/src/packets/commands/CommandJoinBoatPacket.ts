@@ -11,3 +11,19 @@ export class CommandJoinBoatAcceptPacketRes extends DraftBotPacket {
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandJoinBoatRefusePacketRes extends DraftBotPacket {
 }
+
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class CommandJoinBoatNoGuildPacketRes extends DraftBotPacket {
+}
+
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class CommandJoinBoatTooManyRunsPacketRes extends DraftBotPacket {
+}
+
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class CommandJoinBoatNoMemberOnBoatPacketRes extends DraftBotPacket {
+}
+
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class CommandJoinBoatNotEnoughEnergyPacketRes extends DraftBotPacket {
+}
