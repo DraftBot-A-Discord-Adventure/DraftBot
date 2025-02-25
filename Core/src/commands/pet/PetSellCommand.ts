@@ -1,26 +1,37 @@
-import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
+import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {PetEntities, PetEntity} from "../../core/database/game/models/PetEntity";
 import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
-import Player from "../../core/database/game/models/Player";
+import Player, {Players} from "../../core/database/game/models/Player";
 import {
-	CommandPetSellBadPricePacketRes,
-	CommandPetSellFeistyErrorPacket, CommandPetSellGuildAtMaxLevelErrorPacket,
+	CommandPetSellAlreadyHavePetError,
+	CommandPetSellBadPriceErrorPacket,
+	CommandPetSellCancelPacket,
+	CommandPetSellCantSellToYourselfErrorPacket,
+	CommandPetSellFeistyErrorPacket,
+	CommandPetSellInitiatorSituationChangedErrorPacket, CommandPetSellNoOneAvailableErrorPacket,
 	CommandPetSellNoPetErrorPacket,
+	CommandPetSellNotEnoughMoneyError,
 	CommandPetSellNotInGuildErrorPacket,
-	CommandPetSellPacketReq
+	CommandPetSellOnlyOwnerCanCancelErrorPacket,
+	CommandPetSellPacketReq,
+	CommandPetSellSameGuildError, CommandPetSellSuccessPacket
 } from "../../../../Lib/src/packets/commands/CommandPetSellPacket";
 import {Guild, Guilds} from "../../core/database/game/models/Guild";
 import {Pet, PetDataController} from "../../data/Pet";
 import {PetSellConstants} from "../../../../Lib/src/constants/PetSellConstants";
-import {EndCallback, ReactionCollectorInstance} from "../../core/utils/ReactionsCollector";
-import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {CommandPetFreeRefusePacketRes} from "../../../../Lib/src/packets/commands/CommandPetFreePacket";
+import {CollectCallback, EndCallback, ReactionCollectorInstance} from "../../core/utils/ReactionsCollector";
+import {
+	ReactionCollectorAcceptReaction,
+	ReactionCollectorReaction
+} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
-import {ReactionCollectorPetFree} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFree";
-import {SexTypeShort} from "../../../../Lib/src/constants/StringConstants";
-import {PetFreeConstants} from "../../../../Lib/src/constants/PetFreeConstants";
 import {ReactionCollectorPetSell} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetSell";
+import {GuildUtils} from "../../core/utils/GuildUtils";
+import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
+import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
+import {LogsDatabase} from "../../core/database/logs/LogsDatabase";
+import {MissionsController} from "../../core/missions/MissionsController";
 
 type SellerInformation = { player: Player, pet: PetEntity, petModel: Pet, guild: Guild, petCost: number };
 
@@ -30,49 +41,142 @@ type SellerInformation = { player: Player, pet: PetEntity, petModel: Pet, guild:
  * @param sellerInformation
  */
 function missingRequirementsToSellPet(response: DraftBotPacket[], sellerInformation: SellerInformation): boolean {
-	if (!sellerInformation.pet) {
-		response.push(makePacket(CommandPetSellNoPetErrorPacket, {}));
-		return true;
-	}
-
 	if (sellerInformation.pet.isFeisty()) {
 		response.push(makePacket(CommandPetSellFeistyErrorPacket, {}));
 		return true;
 	}
 
 	if (sellerInformation.petCost < PetSellConstants.SELL_PRICE.MIN || sellerInformation.petCost > PetSellConstants.SELL_PRICE.MAX) {
-		response.push(makePacket(CommandPetSellBadPricePacketRes, {
+		response.push(makePacket(CommandPetSellBadPriceErrorPacket, {
 			minPrice: PetSellConstants.SELL_PRICE.MIN,
 			maxPrice: PetSellConstants.SELL_PRICE.MAX
 		}));
 		return true;
 	}
 
-	if (sellerInformation.guild.isAtMaxLevel()) {
-		response.push(makePacket(CommandPetSellGuildAtMaxLevelErrorPacket, {}));
-		return true;
-	}
-
 	return false;
 }
 
-function getAcceptCallback() {
-	return async (user: User): Promise<boolean> => {
-		const [buyer] = await Players.getOrRegister(user.id);
-		const buyerInformation = {user, buyer};
-		if (await sendBlockedError(textInformation.interaction, textInformation.petSellModule.language, buyerInformation.user)) {
-			buyerInformation.buyer = null;
-			return false;
-		}
-		if (buyerInformation.buyer.effect === EffectsConstants.EMOJI_TEXT.BABY) {
-			await sendErrorMessage(buyerInformation.user, textInformation.interaction, textInformation.petSellModule.language, textInformation.petSellModule.format("babyError"), false, false);
-			buyerInformation.buyer = null;
-			return false;
-		}
+async function verifyBuyerRequirements(response: DraftBotPacket[], sellerInformation: SellerInformation, buyer: Player): Promise<boolean> {
+	// Check if the player has started the game
+	if (!await CommandUtils.verifyStartedAndNotDead(buyer, response)) {
+		return false;
+	}
 
-		await petSell(textInformation, sellerInformation, buyerInformation);
-		return true;
+	// Check if the buyer and seller are not in the same guild
+	if (buyer.guildId === sellerInformation.guild.id) {
+		response.push(makePacket(CommandPetSellSameGuildError, {}));
+		return false;
+	}
+
+	// Check if the buyer does not have a pet
+	if (buyer.petId !== null) {
+		response.push(makePacket(CommandPetSellAlreadyHavePetError, {}));
+		return false;
+	}
+
+	// Check if the buyer has enough money
+	if (buyer.money < sellerInformation.petCost) {
+		response.push(makePacket(CommandPetSellNotEnoughMoneyError, {
+			missingMoney: sellerInformation.petCost - buyer.money
+		}));
+		return false;
+	}
+
+	return true;
+}
+
+async function executePetSell(response: DraftBotPacket[], sellerInformation: SellerInformation, buyer: Player): Promise<void> {
+	// Add guild XP
+	const xpToAdd = GuildUtils.calculateAmountOfXPToAdd(sellerInformation.petCost);
+	await sellerInformation.guild.addExperience(xpToAdd, response, NumberChangeReason.PET_SELL);
+
+	// Make buyer spend money
+	await buyer.spendMoney({
+		amount: sellerInformation.petCost,
+		response,
+		reason: NumberChangeReason.PET_SELL
+	});
+
+	// Switch the pet owner and love points
+	buyer.petId = sellerInformation.pet.id;
+	sellerInformation.player.petId = null;
+	sellerInformation.pet.lovePoints = PetConstants.BASE_LOVE;
+
+	// Save the changes
+	await Promise.all([
+		sellerInformation.guild.save(),
+		buyer.save(),
+		sellerInformation.player.save(),
+		sellerInformation.pet.save()
+	]);
+
+	// Log the pet sell
+	LogsDatabase.logPetSell(sellerInformation.pet, sellerInformation.player.keycloakId, buyer.keycloakId, sellerInformation.petCost).then();
+
+	// Update missions
+	await MissionsController.update(buyer, response, {missionId: "havePet"});
+	await MissionsController.update(sellerInformation.player, response, {missionId: "sellOrTradePet"});
+
+	// Success packet
+	response.push(makePacket(CommandPetSellSuccessPacket, {
+		guildName: sellerInformation.guild.name,
+		xpEarned: xpToAdd,
+		pet: sellerInformation.pet.asOwnedPet()
+	}));
+}
+
+async function acceptPetSellCallback(collector: ReactionCollectorInstance, initiatorPlayer: Player, reactingPlayerKeycloakId: string, response: DraftBotPacket[], price: number): Promise<void> {
+	// Can't buy your own pet
+	if (initiatorPlayer.keycloakId === reactingPlayerKeycloakId) {
+		response.push(makePacket(CommandPetSellCantSellToYourselfErrorPacket, {}));
+		return;
+	}
+
+	const reactingPlayer = await Players.getOrRegister(reactingPlayerKeycloakId);
+
+	// Should not be blocked
+	if (BlockingUtils.appendBlockedPacket(reactingPlayer, response)) {
+		return;
+	}
+
+	await initiatorPlayer.reload();
+
+	// Verify that the initiator player still has the pet
+	if (initiatorPlayer.petId === null) {
+		response.push(makePacket(CommandPetSellInitiatorSituationChangedErrorPacket, {}));
+		await collector.end();
+		return;
+	}
+
+	// Verify that the initiator player is still in a guild
+	if (initiatorPlayer.guildId === null) {
+		response.push(makePacket(CommandPetSellInitiatorSituationChangedErrorPacket, {}));
+		await collector.end();
+		return;
+	}
+
+	const sellerInformation: SellerInformation = {
+		player: initiatorPlayer,
+		pet: await PetEntities.getById(initiatorPlayer.petId),
+		petModel: PetDataController.instance.getById(initiatorPlayer.petId),
+		guild: await Guilds.getById(initiatorPlayer.guildId),
+		petCost: price
 	};
+
+	if (await verifyBuyerRequirements(response, sellerInformation, reactingPlayer)) {
+		await executePetSell(response, sellerInformation, reactingPlayer);
+	}
+}
+
+function refusePetSellCallback(initiatorPlayerKeycloakId: string, reactingPlayerKeycloakId: string, response: DraftBotPacket[]): void {
+	if (initiatorPlayerKeycloakId !== reactingPlayerKeycloakId) {
+		// Only the owner can refuse the pet sell
+		response.push(makePacket(CommandPetSellOnlyOwnerCanCancelErrorPacket, {}));
+		return;
+	}
+
+	response.push(makePacket(CommandPetSellCancelPacket, {}));
 }
 
 export default class PetSellCommand {
@@ -80,11 +184,16 @@ export default class PetSellCommand {
 		notBlocked: true,
 		allowedEffects: CommandUtils.ALLOWED_EFFECTS.NO_EFFECT
 	})
-	async execute(response: DraftBotPacket[], player: Player, packet: CommandPetSellPacketReq): Promise<void> {
+	async execute(response: DraftBotPacket[], player: Player, packet: CommandPetSellPacketReq, context: PacketContext): Promise<void> {
 		const pet = await PetEntities.getById(player.petId);
 
 		if (!pet) {
 			response.push(makePacket(CommandPetSellNoPetErrorPacket, {}));
+			return;
+		}
+
+		if (player.keycloakId === packet.askedPlayerKeycloakId) {
+			response.push(makePacket(CommandPetSellCantSellToYourselfErrorPacket, {}));
 			return;
 		}
 
@@ -116,48 +225,34 @@ export default class PetSellCommand {
 			pet.asOwnedPet()
 		);
 
-		const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
+		const endCallback: EndCallback = (collector: ReactionCollectorInstance, response: DraftBotPacket[]): void => {
+			if (collector.hasEndedByTime) {
+				response.push(makePacket(CommandPetSellNoOneAvailableErrorPacket, {}));
+			}
+		};
 
+		const collectCallback: CollectCallback = async (collector: ReactionCollectorInstance, reaction: ReactionCollectorReaction, keycloakId: string, response: DraftBotPacket[]): Promise<void> => {
+			if (reaction.constructor.name === ReactionCollectorAcceptReaction.name) {
+				await acceptPetSellCallback(collector, player, keycloakId, response, packet.price);
+			}
+			else {
+				refusePetSellCallback(player.keycloakId, keycloakId, response);
+			}
 		};
 
 		const collectorPacket = new ReactionCollectorInstance(
 			collector,
 			context,
 			{
-				allowedPlayerKeycloakIds: [player.keycloakId],
-				reactionLimit: 1
+				allowedPlayerKeycloakIds: packet.askedPlayerKeycloakId ? [player.keycloakId, packet.askedPlayerKeycloakId] : null,
+				reactionLimit: -1
 			},
-			endCallback
+			endCallback,
+			collectCallback
 		)
 			.block(player.id, BlockingConstants.REASONS.PET_SELL)
 			.build();
 
 		response.push(collectorPacket);
-
-		await new DraftBotBroadcastValidationMessage(
-			interaction,
-			language,
-			getAcceptCallback(sellerInformation, textInformation),
-			BlockingConstants.REASONS.PET_SELL,
-			getBroadcastErrorStrings(petSellModule))
-			.setTitle(textInformation.petSellModule.get("sellMessage.title"))
-			.setDescription(
-				textInformation.petSellModule.format("sellMessage.description", {
-					author: escapeUsername(textInformation.interaction.user.username),
-					price: sellerInformation.petCost,
-					guildMaxLevel: sellerInformation.guild.isAtMaxLevel()
-				})
-			)
-			.addFields([{
-				name: textInformation.petSellModule.get("petFieldName"),
-				value: Translations.getModule("commands.profile", textInformation.petSellModule.language).format("pet.fieldValue", {
-					rarity: (await Pets.getById(sellerInformation.pet.petId)).getRarityDisplay(),
-					emote: sellerInformation.pet.getPetEmote(petModel),
-					nickname: sellerInformation.pet.nickname ? sellerInformation.pet.nickname : sellerInformation.pet.getPetTypeName(petModel, textInformation.petSellModule.language)
-				}),
-				inline: false
-			}])
-			.setFooter({text: textInformation.petSellModule.get("sellMessage.footer")})
-			.reply();
 	}
 }

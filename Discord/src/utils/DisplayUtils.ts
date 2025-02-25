@@ -6,7 +6,9 @@ import {ItemWithDetails} from "../../../Lib/src/types/ItemWithDetails";
 import {minutesDisplay} from "../../../Lib/src/utils/TimeUtils";
 import {Item} from "../../../Lib/src/types/Item";
 import {EmoteUtils} from "./EmoteUtils";
-import {StringConstants} from "../../../Lib/src/constants/StringConstants";
+import {SexTypeShort, StringConstants} from "../../../Lib/src/constants/StringConstants";
+import {OwnedPet} from "../../../Lib/src/types/OwnedPet";
+import {PetConstants} from "../../../Lib/src/constants/PetConstants";
 
 export class DisplayUtils {
 
@@ -74,10 +76,21 @@ export class DisplayUtils {
 	}
 
 	static getPetIcon(petId: number, isFemale: boolean): string {
-		return i18n.t(`{emote:pets.{{petId}}.emote${isFemale ? "Female" : "Male"}}`, {
-			lng: LANGUAGE.DEFAULT_LANGUAGE,
-			petId
-		});
+		return DraftBotIcons.pets[petId][isFemale ? "emoteFemale" : "emoteMale"];
+	}
+
+	/**
+	 * Get the name of an animal type linked to a pet in the specified language
+	 * @param lng
+	 * @param typeId
+	 * @param sex
+	 */
+	static getPetTypeName(lng: Language, typeId: number, sex: SexTypeShort): string {
+		const sexStringContext: string = sex === StringConstants.SEX.MALE.short ? StringConstants.SEX.MALE.long : StringConstants.SEX.FEMALE.long;
+		return i18n.t(
+			`models:pets:${typeId}`,
+			{lng, context: sexStringContext}
+		);
 	}
 
 	static getPetDisplay(petId: number, isFemale: boolean, lng: Language): string {
@@ -86,6 +99,49 @@ export class DisplayUtils {
 			lng,
 			context,
 			petId
+		});
+	}
+
+	/**
+	 * Display the nickname of a pet or a default message if it has no nickname
+	 * @param lng
+	 * @param nickname
+	 */
+	static getPetDisplayNickname(lng: Language, nickname: string): string {
+		return nickname ? nickname : i18n.t("commands:pet.noNickname", {lng});
+	}
+
+	/**
+	 * Display the stars corresponding to the rarity of a pet
+	 * @param rarity
+	 */
+	static getPetRarityDisplay(rarity: number): string {
+		return PetConstants.ICONS.RARITY.repeat(rarity);
+	}
+
+	/**
+	 * Display the adjective corresponding to the love level of a pet
+	 * @param loveLevel
+	 * @param sex
+	 * @param lng
+	 */
+	static getPetLoveLevelDisplay(loveLevel: number, sex: SexTypeShort, lng: Language): string {
+		const sexStringContext: string = sex === StringConstants.SEX.MALE.short ? StringConstants.SEX.MALE.long : StringConstants.SEX.FEMALE.long;
+		return i18n.t(`commands:pet.loveLevels.${loveLevel}`, {
+			context: sexStringContext as unknown,
+			lng
+		});
+	}
+
+	static getOwnedPetDisplay(ownedPet: OwnedPet, lng: Language): string {
+		return i18n.t("commands:pet.petField", {
+			lng,
+			emote: DisplayUtils.getPetIcon(ownedPet.typeId, ownedPet.sex === "f"),
+			typeName: DisplayUtils.getPetTypeName(lng, ownedPet.typeId, ownedPet.sex),
+			nickname: DisplayUtils.getPetDisplayNickname(lng, ownedPet.nickname),
+			rarity: DisplayUtils.getPetRarityDisplay(ownedPet.rarity),
+			sex: i18n.t(`commands:pet.sexDisplay.${ownedPet.sex}`, {lng}),
+			loveLevel: DisplayUtils.getPetLoveLevelDisplay(ownedPet.loveLevel, ownedPet.sex, lng)
 		});
 	}
 

@@ -10,6 +10,7 @@ import {DiscordCache} from "../../bot/DiscordCache";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {PetUtils} from "../../utils/PetUtils";
 import {PacketUtils} from "../../utils/PacketUtils";
+import {DisplayUtils} from "../../utils/DisplayUtils";
 
 /**
  * Display all the information about a Pet
@@ -35,7 +36,7 @@ export async function handleCommandPetPacketRes(packet: CommandPetPacketRes, con
 				interaction.user
 			)
 			.setDescription(
-				PetUtils.petToString(interaction.userLanguage, packet)
+				DisplayUtils.getOwnedPetDisplay(packet.pet, interaction.userLanguage)
 			)]
 	});
 }

@@ -136,7 +136,8 @@ export class PetEntity extends Model {
 			typeId: this.typeId,
 			nickname: this.nickname,
 			rarity: PetDataController.instance.getById(this.typeId).rarity,
-			sex: this.sex as SexTypeShort
+			sex: this.sex as SexTypeShort,
+			loveLevel: this.getLoveLevelNumber()
 		};
 	}
 }

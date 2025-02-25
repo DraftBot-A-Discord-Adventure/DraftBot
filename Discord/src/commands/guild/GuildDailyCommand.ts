@@ -60,18 +60,26 @@ export function getCommandGuildDailyRewardPacketString(packet: CommandGuildDaily
 	return desc;
 }
 
-export async function handleCommandGuildDailyRewardPacket(packet: CommandGuildDailyRewardPacket, context: PacketContext): Promise<void> {
+export async function handleCommandGuildDailyRewardPacket(packet: CommandGuildDailyRewardPacket, context: PacketContext, reply: boolean): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!)!;
-	await interaction.reply({
-		embeds: [
-			new DraftBotEmbed()
-				.formatAuthor(i18n.t("commands:guildDaily.rewardTitle", {
-					lng: context.discord!.language,
-					guildName: packet.guildName
-				}), interaction.user)
-				.setDescription(getCommandGuildDailyRewardPacketString(packet, context.discord!.language))
-		]
-	});
+
+	const embed = new DraftBotEmbed()
+		.formatAuthor(i18n.t("commands:guildDaily.rewardTitle", {
+			lng: context.discord!.language,
+			guildName: packet.guildName
+		}), interaction.user)
+		.setDescription(getCommandGuildDailyRewardPacketString(packet, context.discord!.language));
+
+	if (reply) {
+		await interaction.reply({
+			embeds: [embed]
+		});
+	}
+	else {
+		await interaction.channel.send({
+			embeds: [embed]
+		});
+	}
 }
 
 export async function handleCommandGuildDailyCooldownErrorPacket(packet: CommandGuildDailyCooldownErrorPacket, context: PacketContext): Promise<void> {

@@ -137,8 +137,9 @@ export function effectsErrorTextValue(user: KeycloakUser, lng: Language, self: b
  * Handle classical errors
  * @param context
  * @param errorKey
+ * @param replacements
  */
-export async function handleClassicError(context: PacketContext, errorKey: string): Promise<void> {
+export async function handleClassicError(context: PacketContext, errorKey: string, replacements: { [key: string]: unknown } = {}): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 	if (!interaction) {
 		return;
@@ -153,7 +154,8 @@ export async function handleClassicError(context: PacketContext, errorKey: strin
 				interaction.user,
 				interaction,
 				i18n.t(errorKey, {
-					lng: interaction.userLanguage
+					lng: interaction.userLanguage,
+					...replacements
 				})
 			)
 		]

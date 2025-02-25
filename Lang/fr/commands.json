@@ -5,7 +5,7 @@
   },
   "pet": {
     "embedTitle": "Familier de {{pseudo}} :",
-    "petField": "**Type :** {{emote}} {{typeName}}\n**Surnom :** {{nickname}}\n\n**Rareté :** {{rarity}}\n**Sexe :** {{sex}}\n**Mentalité :** {{loveLevel}}",
+    "petField": "**Type :** {{emote}} {{typeName}}\n**Surnom :** {{nickname}}\n**Rareté :** {{rarity}}\n**Sexe :** {{sex}}\n**Mentalité :** {{loveLevel}}",
     "noNickname": "Aucun surnom",
     "loveLevels": {
       "0_male": ":smirk_cat: Fielleux",
@@ -885,5 +885,26 @@
     "confirmationTitle": "{{pseudo}}, confirmation :",
     "confirmation": "Êtes-vous sûr de vouloir boire votre {{potion}} ?",
     "confirmationFooter": "Il est possible d'éviter cette étape en utilisant le paramètre forcer !"
+  },
+  "petSell": {
+    "noPet": "Vous n'avez aucun familier à vendre !",
+    "noGuild": "Vous ne pouvez pas vendre votre familier car vous n'êtes pas dans une guilde. En effet, la vente de familier permet de générer de l'expérience de guilde.",
+    "isFeisty": "Vous ne pouvez pas vendre un familier fielleux.",
+    "badPrice": "Le prix doit être supérieur à `{{minPrice}}{emote:unitValues.money}` et inférieur à `{{maxPrice}}{emote:unitValues.money}`.",
+    "onlyInitiatorCanCancel": "Seul l'initiateur d'une vente peut l'annuler !",
+    "canceled": "La vente a été annulée !",
+    "cantSellToYourself": "Il est impossible de se vendre un familier à soi-même !",
+    "noOneAvailable": "Malheureusement, personne ne semble disponible pour acheter votre familier. Votre vente a été annulée.",
+    "sameGuild": "Vous ne pouvez pas acheter ce familier car le vendeur fait partie de votre guilde.",
+    "alreadyHavePet": "Vous avez déjà un familier dans votre inventaire.",
+    "noEnoughMoney": "Vous n'avez pas assez d'argent pour effectuer cette transaction. Il vous manque `{{missingMoney}}{emote:unitValues.money}`.",
+    "initiatorSituationChanged": "Le vendeur n'est plus en mesure de vendre son familier. La vente a été annulée.",
+    "sellTitle": "Vente d'un familier",
+    "sellDescription": "{{pseudo}} souhaite vendre un familier pour `{{price}}{emote:unitValues.money}`",
+    "maxLevelWarning": "{emote:collectors.warning} Votre guilde est au niveau maximal, vous ne recevrez pas d'expérience !",
+    "petFieldName": "Familier vendu :",
+    "sellFooter": "Pour plus d'informations à propos des ventes de familiers, utilisez la commande help petsell.",
+    "successTitle": "{{pseudo}}, transaction réussie !",
+    "successDescription": "{{pet}} vous suit désormais. Occupez-vous en bien !"
   }
 }
