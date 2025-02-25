@@ -50,7 +50,7 @@ export class FightController {
 		this.overtimeBehavior = overtimeBehavior;
 	}
 
-	public tryToExecuteFightAction(fightAction: FightAction, attacker: Fighter, defender: Fighter, turn: number): FightActionResult {
+	public tryToExecuteFightAction(fightAction: FightAction, attacker: Fighter, defender: Fighter, turn: number): FightActionResult | FightAlterationResult {
 		const enoughBreath = attacker.useBreath(fightAction.breath);
 
 		if (!enoughBreath) {

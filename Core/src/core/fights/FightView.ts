@@ -11,6 +11,7 @@ import {FightActionResult, FightStatBuffed} from "../../../../Lib/src/types/Figh
 import {CommandFightHistoryItemPacket} from "../../../../Lib/src/packets/fights/FightHistoryItemPacket";
 import {FightStatModifierOperation} from "../../../../Lib/src/types/FightStatModifierOperation";
 import {toSignedPercent} from "../../../../Lib/src/utils/StringUtils";
+import {FightAlterationResult} from "../../../../Lib/src/types/FightAlterationResult";
 
 /* eslint-disable capitalized-comments */
 
@@ -55,7 +56,7 @@ export class FightView {
 
 
 	/**
-	 *  Summarize current fight status
+	 *  Summarize current fight status, displaying fighter's stats
 	 */
 	displayFightStatus(response: DraftBotPacket[]): void {
 		const playingFighter = this.fightController.getPlayingFighter();
@@ -100,7 +101,7 @@ export class FightView {
 	 * @param fightAction - the action made by the fighter
 	 * @param fightActionResult - the result of the action
 	 */
-	addActionToHistory(response: DraftBotPacket[], fighter: Fighter, fightAction: FightAction, fightActionResult: FightActionResult): void {
+	addActionToHistory(response: DraftBotPacket[], fighter: Fighter, fightAction: FightAction, fightActionResult: FightActionResult | FightAlterationResult): void {
 
 		const buildStatsChange = (selfTarget: boolean): { attack?: number; defense?: number; speed?: number; breath?: number } => fightActionResult.buffs
 			.filter(buff =>
@@ -131,7 +132,8 @@ export class FightView {
 			fighterKeycloakId: fighter instanceof PlayerFighter ? fighter.player.keycloakId : null,
 			monsterId: fighter instanceof MonsterFighter ? fighter.monster.id : null,
 			fightActionId: fightAction.id,
-			status: fightActionResult.attackStatus,
+			alterationStatus: "state" in fightActionResult ? fightActionResult.state : null, // only for alterations; not for attacks
+			status: "attackStatus" in fightActionResult ? fightActionResult.attackStatus : null, // only for attacks; not for alterations
 			damageDealt: fightActionResult.damages,
 			damageReceived: fightActionResult.buffs.find(
 				buff => buff.selfTarget && buff.stat === FightStatBuffed.DAMAGE && buff.operator === FightStatModifierOperation.ADDITION
