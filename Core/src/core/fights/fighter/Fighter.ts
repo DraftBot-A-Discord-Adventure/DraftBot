@@ -400,7 +400,7 @@ export abstract class Fighter {
 	}
 
 	/**
-	 * Get a random fight action id from the list of available fight actions of the fighter
+	 * Get a random fight action id from the list of available fight actions for a fighter
 	 */
 	getRandomAvailableFightAction(): FightAction {
 
