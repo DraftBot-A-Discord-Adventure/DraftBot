@@ -11,11 +11,10 @@ import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/pac
 import {EndCallback, ReactionCollectorInstance} from "./ReactionsCollector";
 import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
 import {BlockingUtils} from "./BlockingUtils";
-import Player, {Players} from "../database/game/models/Player";
+import Player from "../database/game/models/Player";
 import {NumberChangeReason, ShopItemType} from "../../../../Lib/src/constants/LogsConstants";
 import {ShopCurrency} from "../../../../Lib/src/constants/ShopConstants";
 import PlayerMissionsInfo, {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
-import {MissionsController} from "../missions/MissionsController";
 
 export type ShopInformations = {
 	shopCategories: ShopCategory[],
@@ -105,7 +104,7 @@ export class ShopUtils {
 		}
 		else {
 			player.gems -= reactionInstance.price;
-			await MissionsController.update(await Players.getById(player.playerId), response, {missionId: "spendGems"});
+			await player.spendGems(-reactionInstance.price, response, NumberChangeReason.MISSION_SHOP);
 		}
 		await player.save();
 	}
