@@ -874,11 +874,11 @@
     "switchSelectionDescription": "Choose an item from the list below:"
   },
   "drink": {
-    "cancelled": "Vous n'avez pas bu votre potion !",
+    "cancelled": "",
     "noActiveObject": "Vous n'avez malheureusement rien à boire dans votre inventaire !",
     "objectIsActiveDuringFights": "Ce breuvage ne peut pas être bu maintenant. Il sera utilisé automatiquement lors de votre prochain combat !",
     "healthBonus": "{emote:unitValues.health} Vie gagnée : {{value}} !",
-    "energyBonus": "{emote:unitValues.energy} Énergie gagnée : {{value}} !",
+    "energyBonus": "",
     "timeBonus": "{emote:unitValues.time} Vous avez avancé de {{value}} !",
     "noBonus": "{emote:messages.refuse} Vous consommez le breuvage que vous transportiez... Ça ne semble pas très efficace !",
     "drinkSuccessTitle": "{{pseudo}}, vous buvez le breuvage que vous transportiez !",
