@@ -12,7 +12,7 @@ const use: FightAlterationFunc = (affected, fightAlteration, opponent) => {
 		return defaultHealFightAlterationResult(affected);
 	}
 	const result = defaultFightAlterationResult();
-	result.state = FightAlterationState.DAMAGE;
+	result.state = FightAlterationState.ACTIVE;
 	if (!affected.hasSpeedModifier(fightAlteration)) {
 		FightActionController.applyBuff(result, {
 			selfTarget: true,
