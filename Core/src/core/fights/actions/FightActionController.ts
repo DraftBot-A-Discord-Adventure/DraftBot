@@ -29,7 +29,7 @@ export class FightActionController {
 		for (let i = 0; i < statsInfo.attackerStats.length; i++) {
 			attackDamage += this.getAttackDamageByStat(statsInfo.attackerStats[i], statsInfo.defenderStats[i], attackInfo) * statsInfo.statsEffect[i];
 		}
-		// Add a random variation of 5% of the damage
+		// Add a random variation for 5% of the damage
 		attackDamage = Math.round(attackDamage + attackDamage * RandomUtils.variationInt(FightConstants.DAMAGE_RANDOM_VARIATION) / 100);
 		// Damage multiplier
 		if (!ignoreMultiplier) {
@@ -142,6 +142,14 @@ export class FightActionController {
 		};
 	}
 
+	/**
+	 * Function to use when a fight action uses a second attack within itself
+	 * @param sender - the fighter that uses the attack
+	 * @param receiver - the fighter that receives the attack
+	 * @param chosenAttack - the attack to use, cannot be an alteration
+	 * @param turn - the turn of the fight
+	 * @param fight - the fight controller
+	 */
 	static useSecondAttack(sender: Fighter, receiver: Fighter, chosenAttack: FightAction, turn: number, fight: FightController): FightActionResult {
 		if (chosenAttack.breath > sender.getBreath()) {
 			if (Math.random() < FightConstants.OUT_OF_BREATH_FAILURE_PROBABILITY) {
@@ -154,7 +162,8 @@ export class FightActionController {
 		else {
 			sender.addBreath(-chosenAttack.breath);
 		}
-		const resultLaunched = chosenAttack.use(sender, receiver, turn, fight);
+		// We now this will not be an alteration result
+		const resultLaunched = chosenAttack.use(sender, receiver, turn, fight) as FightActionResult;
 		const result = defaultFightActionResult();
 		result.usedAction = {
 			id: chosenAttack.id,

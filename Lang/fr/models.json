@@ -141,13 +141,9 @@
       "name_other": "Attaques vol de souffle"
     },
     "burned": {
-      "description": "",
-      "name_one": "",
-      "name_other": "",
-      "new": "is paralyzed. `Speed: - 100%`",
-      "active": "is paralyzed.",
-      "noAttack": "is paralyzed and cannot attack.",
-      "inactive": "is no longer paralyzed."
+      "new": "est brûlé. `Dégâts reçus : {{damages}}`",
+      "active": "souffre de sa brûlure. `Dégâts reçus : {{damages}}`",
+      "stop": "n'est plus brûlé."
     },
     "canonAttack": {
       "description": "La précision de cette attaque baisse sur les adversaires rapides. Un bonus de dégât est affecté à cette attaque si l'adversaire est très lent. L'adversaire peut être ralenti par l'attaque. Inflige plus de dégâts si utilisé plusieurs fois de suite",
@@ -170,19 +166,17 @@
       "name_other": "Attaques ultimes"
     },
     "chargingAttack": {
-      "description": "",
       "name_one": "Attaque chargée",
       "name_other": "Attaques chargées"
     },
     "clubSmashAttack": {
-      "description": "",
       "name_one": "Attaque gourdin",
       "name_other": "Attaques gourdin"
     },
     "concentrated": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "new": "concentre son pouvoir. `Boost de dégâts actif`",
+      "active": "concentre son pouvoir.",
+      "stop": "n'est plus concentré."
     },
     "concentration": {
       "description": "Échoue si vous utilisez cette action alors que vous avez une altération d'état. L'altération \"concentré\" augmente fortement les dégâts infligés par le combattant affecté lors du prochain tour.",
@@ -195,9 +189,9 @@
       "name_other": "Attaques riposte"
     },
     "cursed": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "new": "est maudit...",
+      "active": "est maudit...",
+      "stop": "subit les conséquences du maléfice. `Dégâts reçus : {damages}`"
     },
     "cursedAttack": {
       "description": "Maudit l'adversaire, peut être en subira-t-il les conséquences dans le futur...",
@@ -240,14 +234,14 @@
       "name_other": "Attaques feu"
     },
     "frozen": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "new": "est gelé. `Vitesse : - 60%` `Dégâts reçus : {{damages}}`",
+      "active": "est gelé. `Dégâts reçus : {{damages}}`",
+      "stop": "n'est plus gelé."
     },
     "full": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "new": "est repue et doit se reposer. `Vitesse: 0`",
+      "active": "est repue et doit se reposer.",
+      "stop": "n'est plus repue."
     },
     "grabAndThrowAttack": {
       "description": "Projette l'adversaire s'il utilise une attaque physique, infligeant des dégâts moyens et ayant une chance d'étourdir de l'adversaire",
@@ -295,19 +289,15 @@
       "name_other": "Monstrueuses Copies"
     },
     "none": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "active": "ne peut pas attaquer."
     },
     "outOfBreath": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "active": "est trop essoufflé pour attaquer et doit reprendre son souffle."
     },
     "outrage": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "new": "est en colère. `Attaque : + 100%` `Défense : - 75%`",
+      "active": "est en colère.",
+      "stop": "n'est plus en colère mais devient confus."
     },
     "outrageAttack": {
       "description": "Échoue si vous utilisez cette action alors que vous avez une altération d'état. L'altération \"en colère\" double l'attaque mais baisse la défense. Au bout de 2 tours, l'effet disparait et l'attaquant devient confus.",
@@ -315,9 +305,10 @@
       "name_other": "Colères"
     },
     "paralyzed": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "new": "est paralysé. `Vitesse : - 100%`",
+      "active": "est paralysé.",
+      "noAttack": "est paralysé et ne parvient pas à attaquer.",
+      "stop": "n'est plus paralysé."
     },
     "petrificationAttack": {
       "description": "Pétrifie la cible pendant 2 tours mais augmente sa défense de 200%.",
@@ -325,9 +316,9 @@
       "name_other": "Pétrifications"
     },
     "petrified": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "new": "est pétrifié. `Défense: + 200%`",
+      "active": "est pétrifié.",
+      "stop": "n'est plus pétrifié."
     },
     "piercingAttack": {
       "description": "Ignore presque complètement la défense de l'adversaire. L'attaquant a une probabilité de réduire légèrement la défense de son adversaire.",
@@ -335,9 +326,9 @@
       "name_other": "Attaques perçantes"
     },
     "poisoned": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "new": "est empoisonné. `Dégâts reçus : {{damages}}`",
+      "active": "souffre de son empoisonnement. `Dégâts reçus : {{damages}}`",
+      "stop": "n'est plus empoisonné."
     },
     "poisonousAttack": {
       "description": "Empoisonne l'adversaire. L'altération \"empoisonné\" dure au moins trois tours et inflige des dégâts à votre adversaire sur la durée.",
@@ -350,9 +341,9 @@
       "name_other": "Attaques puissantes"
     },
     "protected": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "new": "est protégé. `Défense : + 30%`",
+      "active": "est protégé.",
+      "stop": "n'est plus protégé."
     },
     "protection": {
       "description": "Échoue si vous utilisez cette action alors que vous avez une altération d'état. L'altération \"protégé\" dure 3 tours et vous empêche d'être victime d'une autre altération tout en vous offrant un boost de 30% de votre défense.",
@@ -410,9 +401,9 @@
       "name_other": "Impacts"
     },
     "slowed": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "new": "est ralenti. `Vitesse : - 60%`",
+      "active": "est ralenti.",
+      "stop": "n'est plus ralenti."
     },
     "stealth": {
       "description": "Se cache discrètement pour doubler les dégâts de la prochaine attaque.",
@@ -425,9 +416,9 @@
       "name_other": "Peaux de roche"
     },
     "stunned": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "active": "est étourdi.",
+      "noAttack": "est étourdi et ne parvient pas à attaquer.",
+      "stop": "n'est plus étourdi."
     },
     "summonAttack": {
       "description": "Invoque des alliés pour vous aider et attaquer très fort.",
@@ -435,9 +426,9 @@
       "name_other": "Invocations d'alliés"
     },
     "targeted": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "new": "regarde le boomerang tournoyer au loin.",
+      "stop": "n'est plus visé par un boomerang.",
+      "active": "est touché par le boomerang. `Dégâts reçus : {{damages}}`"
     },
     "ultimateAttack": {
       "description": "",
@@ -445,9 +436,9 @@
       "name_other": "Attaques ultimes"
     },
     "weak": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "new": "est affaibli. `Attaque : - 70%`",
+      "active": "est affaibli.",
+      "stop": "n'est plus affaibli."
     },
     "webShotAttack": {
       "description": "Envoie un jet de toile qui blesse et ralentit l'adversaire.",
