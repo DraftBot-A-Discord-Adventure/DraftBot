@@ -1,7 +1,6 @@
 {
-	"emote": "\uD83D\uDC7C",
 	"breath": 8,
 	"missionVariant": 0,
-	"type": "stats",
+	"type": "magic",
 	"isAlteration": false
 }

@@ -143,7 +143,11 @@
     "burned": {
       "description": "",
       "name_one": "",
-      "name_other": ""
+      "name_other": "",
+      "new": "is paralyzed. `Speed: - 100%`",
+      "active": "is paralyzed.",
+      "noAttack": "is paralyzed and cannot attack.",
+      "inactive": "is no longer paralyzed."
     },
     "canonAttack": {
       "description": "La précision de cette attaque baisse sur les adversaires rapides. Un bonus de dégât est affecté à cette attaque si l’adversaire est très lent. L'adversaire peut être ralenti par l'attaque. Inflige plus de dégâts si utilisé plusieurs fois de suite",
