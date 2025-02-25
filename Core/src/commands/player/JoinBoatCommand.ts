@@ -57,7 +57,7 @@ function endCallback(player: Player): EndCallback {
 		else {
 			response.push(makePacket(CommandJoinBoatRefusePacketRes, {}));
 		}
-		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.GUILD_DESCRIPTION);
+		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.PVE_ISLAND);
 	};
 }
 
