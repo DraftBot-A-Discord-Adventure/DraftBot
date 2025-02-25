@@ -103,7 +103,6 @@ export class ShopUtils {
 			});
 		}
 		else {
-			player.gems -= reactionInstance.price;
 			await player.spendGems(-reactionInstance.price, response, NumberChangeReason.MISSION_SHOP);
 		}
 		await player.save();
