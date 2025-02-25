@@ -24,7 +24,7 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 			(await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.fighterKeycloakId))!.attributes.gameUsername[0] :
 			i18n.t(`models:monster.${packet.monsterId}`, {lng: interaction.userLanguage});
 
-		const newLine = i18n.t("commands:fight.actions.intro", {
+		let newLine = i18n.t("commands:fight.actions.intro", {
 			lng: interaction.userLanguage,
 			emote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fight_actions[packet.fightActionId]),
 			fighter: fighter
