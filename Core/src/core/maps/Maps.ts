@@ -7,6 +7,12 @@ import {LogsReadRequests} from "../database/logs/LogsReadRequests";
 import {MapLink, MapLinkDataController} from "../../data/MapLink";
 import {MapLocation, MapLocationDataController} from "../../data/MapLocation";
 import {draftBotInstance} from "../../index";
+import {DraftBotPacket} from "../../../../Lib/src/packets/DraftBotPacket";
+import {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
+import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
+import {Settings} from "../database/game/models/Setting";
+import {PVEConstants} from "../../../../Lib/src/constants/PVEConstants";
+import {MissionsController} from "../missions/MissionsController";
 
 export class Maps {
 
@@ -168,6 +174,24 @@ export class Maps {
 				}
 			}
 		});
+	}
+
+	static async startBoatTravel(player: Player, price: number, anotherMemberOnBoat: Player | null, startTravelTimestamp: number, reason: NumberChangeReason, response: DraftBotPacket[]): Promise<void> {
+		const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
+
+		await TravelTime.removeEffect(player, reason);
+		await Maps.startTravel(
+			player,
+			MapLinkDataController.instance.getById(await Settings.PVE_ISLAND.getValue()),
+			anotherMemberOnBoat ? anotherMemberOnBoat.startTravelDate.valueOf() : startTravelTimestamp
+		);
+		await missionInfo.spendGems(price, response, reason);
+		await missionInfo.save();
+		if (price === PVEConstants.TRAVEL_COST[PVEConstants.TRAVEL_COST.length - 1]) {
+			await MissionsController.update(player, response, {
+				missionId: "wealthyPayForPVEIsland"
+			});
+		}
 	}
 
 	/**
