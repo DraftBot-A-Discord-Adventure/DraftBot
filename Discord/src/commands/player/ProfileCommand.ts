@@ -17,11 +17,11 @@ import {Language} from "../../../../Lib/src/Language";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
-import {PetUtils} from "../../utils/PetUtils";
 import {PacketUtils} from "../../utils/PacketUtils";
 import {EmoteUtils} from "../../utils/EmoteUtils";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 import {millisecondsToMinutes, minutesDisplay} from "../../../../Lib/src/utils/TimeUtils";
+import {DisplayUtils} from "../../utils/DisplayUtils";
 
 /**
  * Display the profile of a player
@@ -165,8 +165,8 @@ function generateFields(packet: CommandProfilePacketRes, lng: Language): EmbedFi
 	addField(fields, "pet", Boolean(packet.playerData.pet), {
 		lng,
 		rarity: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.unitValues.petRarity).repeat(packet.playerData.pet?.rarity ?? 0),
-		emote: packet.playerData.pet ? PetUtils.getPetIcon(packet.playerData.pet?.typeId, packet.playerData.pet?.sex) : "",
-		name: packet.playerData.pet ? packet.playerData.pet?.nickname ?? PetUtils.getPetTypeName(lng, packet.playerData.pet?.typeId, packet.playerData.pet?.sex) : ""
+		emote: packet.playerData.pet ? DisplayUtils.getPetIcon(packet.playerData.pet?.typeId, packet.playerData.pet?.sex === "f") : "",
+		name: packet.playerData.pet ? packet.playerData.pet?.nickname ?? DisplayUtils.getPetTypeName(lng, packet.playerData.pet?.typeId, packet.playerData.pet?.sex) : ""
 	});
 
 	return fields;

@@ -112,6 +112,7 @@ export class BlockingUtils {
 	 * @param player
 	 * @param packets
 	 */
+	// TODO optimize: use only the keycloak ID so we don't have to fetch the player from the database
 	static appendBlockedPacket(player: Player, packets: DraftBotPacket[]): boolean {
 		const blockingReason = BlockingUtils.getPlayerBlockingReason(player.id);
 		if (blockingReason.length !== 0) {

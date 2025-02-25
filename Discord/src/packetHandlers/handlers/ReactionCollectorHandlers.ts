@@ -53,6 +53,8 @@ import {ReactionCollectorGuildDescriptionData} from "../../../../Lib/src/packets
 import {createGuildDescriptionCollector} from "../../commands/guild/GuildDescriptionCommand";
 import {ReactionCollectorDrinkData} from "../../../../Lib/src/packets/interaction/ReactionCollectorDrink";
 import {drinkAcceptCollector} from "../../commands/player/DrinkCommand";
+import {ReactionCollectorPetSellData} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetSell";
+import {createPetSellCollector} from "../../commands/pet/PetSellCommand";
 
 export default class ReactionCollectorHandler {
 
@@ -87,6 +89,7 @@ export default class ReactionCollectorHandler {
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorSkipMissionShopItemData.name, skipMissionShopItemCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorSwitchItemData.name, switchItemCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorDrinkData.name, drinkAcceptCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorPetSellData.name, createPetSellCollector);
 	}
 
 	@packetHandler(ReactionCollectorCreationPacket)

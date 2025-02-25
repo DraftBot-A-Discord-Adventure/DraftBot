@@ -1,5 +1,5 @@
 import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
-import {SexTypeShort} from "../../constants/StringConstants";
+import {OwnedPet} from "../../types/OwnedPet";
 
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandPetPacketReq extends DraftBotPacket {
@@ -11,15 +11,7 @@ export class CommandPetPacketReq extends DraftBotPacket {
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandPetPacketRes extends DraftBotPacket {
-	nickname!: string;
-
-	petTypeId!: number;
-
-	rarity!: number;
-
-	sex!: SexTypeShort;
-
-	loveLevel!: number;
+	pet!: OwnedPet;
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)

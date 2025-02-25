@@ -12,7 +12,7 @@ import {Constants} from "../../../../Lib/src/constants/Constants";
 import {PacketUtils} from "./PacketUtils";
 import {BlockingReason} from "../../../../Lib/src/constants/BlockingConstants";
 
-type CollectCallback = (collector: ReactionCollectorInstance, reaction: ReactionCollectorReaction, keycloakId: string, response: DraftBotPacket[]) => void | Promise<void>;
+export type CollectCallback = (collector: ReactionCollectorInstance, reaction: ReactionCollectorReaction, keycloakId: string, response: DraftBotPacket[]) => void | Promise<void>;
 
 export type EndCallback = (collector: ReactionCollectorInstance, response: DraftBotPacket[]) => void | Promise<void>;
 
@@ -62,6 +62,8 @@ export class ReactionCollectorInstance {
 
 	private readonly mainPacket: boolean;
 
+	private endedByTime: boolean;
+
 	public constructor(reactionCollector: ReactionCollector, context: PacketContext, collectorOptions: CollectorOptions, endCallback: EndCallback, collectCallback: CollectCallback = null) {
 		this.model = reactionCollector;
 		this.filter = collectorOptions.allowedPlayerKeycloakIds ? createDefaultFilter(collectorOptions.allowedPlayerKeycloakIds) : (): boolean => true;
@@ -82,6 +84,10 @@ export class ReactionCollectorInstance {
 
 	private set hasEnded(value: boolean) {
 		this._hasEnded = value;
+	}
+
+	get hasEndedByTime(): boolean {
+		return this.endedByTime;
 	}
 
 	private _creationPacket: ReactionCollectorCreationPacket;
@@ -113,6 +119,11 @@ export class ReactionCollectorInstance {
 		if (this.reactionsHistory.length >= this.reactionLimit && this.reactionLimit > 0) {
 			await this.end(response);
 		}
+	}
+
+	private async endByTime(): Promise<void> {
+		this.endedByTime = true;
+		await this.end();
 	}
 
 	public async end(response: DraftBotPacket[] = null): Promise<void> {

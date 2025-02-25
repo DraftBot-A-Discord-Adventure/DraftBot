@@ -8,4 +8,6 @@ export interface OwnedPet {
 	rarity: number;
 
 	sex: SexTypeShort;
+
+	loveLevel: number;
 }
