@@ -5,6 +5,7 @@ import {Fighter} from "../core/fights/fighter/Fighter";
 import {readdirSync} from "fs";
 import {FightController} from "../core/fights/FightController";
 import {FightActionResult} from "../../../Lib/src/types/FightActionResult";
+import {FightAlterationResult} from "../../../Lib/src/types/FightAlterationResult";
 
 export class FightAction extends Data<string> {
 	public readonly breath: number;
@@ -16,7 +17,7 @@ export class FightAction extends Data<string> {
 	private _weightForRandomSelection: number;
 
 
-	public use(sender: Fighter, receiver: Fighter, turn: number, fight: FightController): FightActionResult {
+	public use(sender: Fighter, receiver: Fighter, turn: number, fight: FightController): FightActionResult | FightAlterationResult {
 		const result = FightActionDataController.getFightActionFunction(this.id)(sender, receiver, this, turn, fight);
 		receiver.damage(result.damages);
 		return result;

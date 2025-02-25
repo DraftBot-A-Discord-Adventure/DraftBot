@@ -8,7 +8,11 @@ export class CommandFightHistoryItemPacket extends DraftBotPacket {
 
 	fightActionId!: string;
 
-	status?: string; // See constants in FightActionStatus
+	// Contains the status of the alteration, is it new? is it removed?
+	alterationStatus?: string; // See constants in FightAlterationResult for values
+
+	// Contains the result of the action, did it succeed? was it a critical hit?
+	status?: string; // See constants in FightActionStatus for values
 
 	damageDealt?: number; // Will be negative if we are healing the opponent
 

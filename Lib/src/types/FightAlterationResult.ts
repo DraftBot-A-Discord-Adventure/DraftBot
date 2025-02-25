@@ -1,12 +1,12 @@
 import {FightActionBuff} from "./FightActionResult";
 
 export enum FightAlterationState {
-	NEW,
-	DAMAGE,
-	RANDOM_ACTION,
-	NO_ACTION,
-	ACTIVE,
-	STOP
+	NEW = "new",
+	DAMAGE = "damage",
+	RANDOM_ACTION = "random_action",
+	NO_ACTION = "no_action",
+	ACTIVE = "active",
+	STOP = "stop"
 }
 
 export interface FightAlterationResult {
