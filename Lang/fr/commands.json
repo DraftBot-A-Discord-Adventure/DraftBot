@@ -896,16 +896,26 @@
           "effectue une {{attack}} ! C'est une mauvaise {{attack}} !"
         ]
       },
-      "damages": " `Dégâts infligés : {{damages}}`",
-      "sideEffects": {
-        "newAlteration": " `{adversary>0?Votre adversaire est:Vous êtes} désormais {effect} !`",
-        "damage": " `Dégâts reçus : {amount}`",
-        "defense": " `Défense{adversary>0? de l'adversaire:}: {operator} {amount} %`",
-        "breath": " `Souffle{adversary>0? de l'adversaire:}: {operator} {amount}`",
-        "speed": " `Vitesse{adversary>0? de l'adversaire:}: {operator} {amount} %`",
-        "attack": " `Attaque{adversary>0? de l'adversaire:}: {operator} {amount} %`",
-        "energy": " `Points de combat soignés{adversary>0? de l'adversaire:}: {operator} {amount}`",
-        "summoning": " `Invocation de {amount} alliés`"
+      "fightActionEffects": {
+        "self" : {
+          "newAlteration": " `Vous êtes désormais {effect} !`",
+          "damage": " `Dégâts reçus : {{amount}}`",
+          "defense": " `Défense : {{operator}} {{amount}} %`",
+          "breath": " `Souffle : {{operator}} {{amount}}`",
+          "speed": " `Vitesse : {{operator}} {{amount}} %`",
+          "attack": " `Attaque : {{operator}} {{amount}} %`",
+          "energy": " `Points de combat soignés : {{operator}} {{amount}}`"
+        },
+        "opponent": {
+          "newAlteration": " `Votre adversaire est désormais {{effect}} !`",
+          "damage": " `Dégâts infligés : {{amount}}`",
+          "defense": " `Défense de l'adversaire : {{operator}} {{amount}} %`",
+          "breath": " `Souffle de l'adversaire : {{operator}} {{amount}}`",
+          "speed": " `Vitesse de l'adversaire : {{operator}} {{amount}} %`",
+          "attack": " `Attaque de l'adversaire : {{operator}} {{amount}} %`",
+          "energy": " `Points de combat de l'adversaire soignés : {{operator}} {{amount}}`",
+          "summoning": " `Invocation de {{amount}} alliés`"
+        }
       },
       "aiChoose": "{emote:fight_command.ai_thinking} L'adversaire choisit une attaque..."
     }
