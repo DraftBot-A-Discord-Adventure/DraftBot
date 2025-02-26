@@ -29,59 +29,72 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 			emote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fight_actions[packet.fightActionId]),
 			fighter: fighter
 		});
-
-		// First, display cases where the fightAction is an alteration
-		switch (packet.alterationStatus) {
-		case FightAlterationState.NEW:
-			newLine += i18n.t(`models:fight_actions.${packet.fightActionId}.new`, {
-				lng: interaction.userLanguage,
-				damage: packet.damageReceived
-			});
-			break;
-		case FightAlterationState.ACTIVE:
-			newLine += i18n.t(`models:fight_actions.${packet.fightActionId}.active`, {
-				lng: interaction.userLanguage,
-				damage: packet.damageReceived
-			});
-			break;
-		case FightAlterationState.NO_ACTION:
-			newLine += i18n.t(`models:fight_actions.${packet.fightActionId}.noAction`, {
+		let attackName = ""; // Name of the attack, used to display the attack name in the message
+		if (packet.status && Object.values(FightAlterationState).includes(packet.status as FightAlterationState)) {
+			newLine += i18n.t(`models:fight_actions.${packet.fightActionId}.${packet.status}`, {
 				lng: interaction.userLanguage
 			});
-			break;
-		case FightAlterationState.RANDOM_ACTION:
-			// Todo: implement this case
-			break;
-		case FightAlterationState.STOP:
-			newLine += i18n.t(`models:fight_actions.${packet.fightActionId}.stop`, {
+		}
+		else {
+			attackName = i18n.t(`models:fight_actions.${packet.fightActionId}.name`, {
 				lng: interaction.userLanguage,
-				damage: packet.damageReceived
+				count: 1
 			});
-			break;
-		default:
-			// nothing to do, not an alteration
-			break;
 		}
 
 		// Second, display cases where the fightAction is an attack
-		let keyAttackResultsValue = "commands:fight.actions.attacksResults";
 		switch (packet.status) {
 		case FightActionStatus.CRITICAL:
-			keyAttackResultsValue += ".critical";
-			break;
-		case FightActionStatus.NORMAL:
-			keyAttackResultsValue += ".normal";
+			newLine += StringUtils.getRandomTranslation("commands:fight.actions.attacksResults.critical", interaction.userLanguage, {
+				attack: attackName
+			});
 			break;
 		case FightActionStatus.MISSED:
-			keyAttackResultsValue += ".missed";
+			newLine += StringUtils.getRandomTranslation("commands:fight.actions.attacksResults.missed", interaction.userLanguage, {
+				attack: attackName
+			});
+			break;
+		case FightActionStatus.NORMAL:
+			newLine += StringUtils.getRandomTranslation("commands:fight.actions.attacksResults.normal", interaction.userLanguage, {
+				attack: attackName
+			});
+			break;
+		case FightActionStatus.MAX_USES:
+			newLine += StringUtils.getRandomTranslation("commands:fight.actions.attacksResults.maxUses", interaction.userLanguage, {
+				attack: attackName
+			});
+			break;
+		case FightActionStatus.CHARGING:
+			newLine += StringUtils.getRandomTranslation("commands:fight.actions.attacksResults.charging", interaction.userLanguage, {
+				attack: attackName
+			});
 			break;
 		default:
+			// Nothing to do, not an attack
 			break;
 		}
-		const attack =
-			newLine += StringUtils.getRandomTranslation(keyAttackResultsValue, interaction.userLanguage, {
-				attack:
+
+		// Then we need to display the side effects of the attack if there are any
+		if (packet.fightActionEffectDealt) {
+			Object.entries(packet.fightActionEffectDealt!).forEach(([key, value]) => {
+				const operator = value > 0 ? "+" : "-";
+				newLine += i18n.t(`commands:fight.actions.fightActionEffects.opponent.${key}`, {
+					lng: interaction.userLanguage,
+					operator: operator,
+					amount: Math.abs(value)
+				});
 			});
+		}
+		if (packet.fightActionEffectReceived) {
+			Object.entries(packet.fightActionEffectReceived!).forEach(([key, value]) => {
+				const operator = value > 0 ? "+" : "-";
+				newLine += i18n.t(`commands:fight.actions.fightActionEffects.self.${key}`, {
+					lng: interaction.userLanguage,
+					operator: operator,
+					amount: Math.abs(value)
+				});
+			});
+		}
 
 		const previousHistory = this.storedMessage?.content || "";
 		const history = `${previousHistory}\n${newLine}`;
