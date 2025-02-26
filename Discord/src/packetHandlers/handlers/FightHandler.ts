@@ -5,6 +5,7 @@ import {
 	CommandFightRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandFightPacket";
 import {
+	handleCommandFightHistoryItemRes,
 	handleCommandFightIntroduceFightersRes,
 	handleCommandFightRefusePacketRes,
 	handleCommandFightUpdateStatusRes
