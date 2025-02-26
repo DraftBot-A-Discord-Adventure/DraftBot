@@ -103,11 +103,16 @@ export class FightView {
 	 */
 	addActionToHistory(response: DraftBotPacket[], fighter: Fighter, fightAction: FightAction, fightActionResult: FightActionResult | FightAlterationResult): void {
 
-		const buildStatsChange = (selfTarget: boolean): { attack?: number; defense?: number; speed?: number; breath?: number } => fightActionResult.buffs
+		const buildStatsChange = (selfTarget: boolean): {
+			attack?: number;
+			defense?: number;
+			speed?: number;
+			breath?: number
+		} => fightActionResult.buffs
 			.filter(buff =>
 				buff.selfTarget === selfTarget &&
-					[FightStatBuffed.ATTACK, FightStatBuffed.DEFENSE, FightStatBuffed.SPEED, FightStatBuffed.BREATH].includes(buff.stat) &&
-					buff.operator === FightStatModifierOperation.MULTIPLIER)
+				[FightStatBuffed.ATTACK, FightStatBuffed.DEFENSE, FightStatBuffed.SPEED, FightStatBuffed.BREATH].includes(buff.stat) &&
+				buff.operator === FightStatModifierOperation.MULTIPLIER)
 			.reduce((acc, buff) => {
 				switch (buff.stat) {
 				case FightStatBuffed.ATTACK:
@@ -132,14 +137,18 @@ export class FightView {
 			fighterKeycloakId: fighter instanceof PlayerFighter ? fighter.player.keycloakId : null,
 			monsterId: fighter instanceof MonsterFighter ? fighter.monster.id : null,
 			fightActionId: fightAction.id,
-			alterationStatus: "state" in fightActionResult ? fightActionResult.state : null, // only for alterations; not for attacks
-			status: "attackStatus" in fightActionResult ? fightActionResult.attackStatus : null, // only for attacks; not for alterations
-			damageDealt: fightActionResult.damages,
-			damageReceived: fightActionResult.buffs.find(
-				buff => buff.selfTarget && buff.stat === FightStatBuffed.DAMAGE && buff.operator === FightStatModifierOperation.ADDITION
-			)?.value,
-			statsChangeDealt: buildStatsChange(false),
-			statsChangeReceived: buildStatsChange(true)
+			status: "attackStatus" in fightActionResult ?
+				fightActionResult.attackStatus : // FightAction is an attack, so we have an attackStatus
+				"state" in fightActionResult ?
+					fightActionResult.state : // FightAction is an alteration, so we have a state
+					null, // FightAction is neither an attack nor an alteration (should not happen)
+			fightActionEffectDealt: {...buildStatsChange(false), damages: fightActionResult.damages},
+			fightActionEffectReceived: {
+				...buildStatsChange(true),
+				damages: fightActionResult.buffs.find(
+					buff => buff.selfTarget && buff.stat === FightStatBuffed.DAMAGE && buff.operator === FightStatModifierOperation.ADDITION
+				)?.value
+			}
 		}));
 	}
 

@@ -141,8 +141,8 @@
       "name_other": "Attaques vol de souffle"
     },
     "burned": {
-      "new": "est brûlé. `Dégâts reçus : {{damages}}`",
-      "active": "souffre de sa brûlure. `Dégâts reçus : {{damages}}`",
+      "new": "est brûlé.",
+      "active": "souffre de sa brûlure.",
       "stop": "n'est plus brûlé."
     },
     "canonAttack": {
@@ -191,7 +191,7 @@
     "cursed": {
       "new": "est maudit...",
       "active": "est maudit...",
-      "stop": "subit les conséquences du maléfice. `Dégâts reçus : {damages}`"
+      "stop": "subit les conséquences du maléfice."
     },
     "cursedAttack": {
       "description": "Maudit l'adversaire, peut être en subira-t-il les conséquences dans le futur...",
@@ -234,8 +234,7 @@
       "name_other": "Attaques feu"
     },
     "frozen": {
-      "new": "est gelé. `Vitesse : - 60%` `Dégâts reçus : {{damages}}`",
-      "active": "est gelé. `Dégâts reçus : {{damages}}`",
+      "active": "est gelé.",
       "stop": "n'est plus gelé."
     },
     "full": {
@@ -295,7 +294,7 @@
       "active": "est trop essoufflé pour attaquer et doit reprendre son souffle."
     },
     "outrage": {
-      "new": "est en colère. `Attaque : + 100%` `Défense : - 75%`",
+      "new": "est en colère.",
       "active": "est en colère.",
       "stop": "n'est plus en colère mais devient confus."
     },
@@ -305,9 +304,8 @@
       "name_other": "Colères"
     },
     "paralyzed": {
-      "new": "est paralysé. `Vitesse : - 100%`",
       "active": "est paralysé.",
-      "noAttack": "est paralysé et ne parvient pas à attaquer.",
+      "noAction": "est paralysé et ne parvient pas à attaquer.",
       "stop": "n'est plus paralysé."
     },
     "petrificationAttack": {
@@ -316,7 +314,6 @@
       "name_other": "Pétrifications"
     },
     "petrified": {
-      "new": "est pétrifié. `Défense: + 200%`",
       "active": "est pétrifié.",
       "stop": "n'est plus pétrifié."
     },
@@ -326,8 +323,8 @@
       "name_other": "Attaques perçantes"
     },
     "poisoned": {
-      "new": "est empoisonné. `Dégâts reçus : {{damages}}`",
-      "active": "souffre de son empoisonnement. `Dégâts reçus : {{damages}}`",
+      "new": "est empoisonné.",
+      "active": "souffre de son empoisonnement.",
       "stop": "n'est plus empoisonné."
     },
     "poisonousAttack": {
@@ -341,7 +338,6 @@
       "name_other": "Attaques puissantes"
     },
     "protected": {
-      "new": "est protégé. `Défense : + 30%`",
       "active": "est protégé.",
       "stop": "n'est plus protégé."
     },
@@ -401,7 +397,6 @@
       "name_other": "Impacts"
     },
     "slowed": {
-      "new": "est ralenti. `Vitesse : - 60%`",
       "active": "est ralenti.",
       "stop": "n'est plus ralenti."
     },
@@ -417,7 +412,7 @@
     },
     "stunned": {
       "active": "est étourdi.",
-      "noAttack": "est étourdi et ne parvient pas à attaquer.",
+      "noAction": "est étourdi et ne parvient pas à attaquer.",
       "stop": "n'est plus étourdi."
     },
     "summonAttack": {
@@ -428,7 +423,7 @@
     "targeted": {
       "new": "regarde le boomerang tournoyer au loin.",
       "stop": "n'est plus visé par un boomerang.",
-      "active": "est touché par le boomerang. `Dégâts reçus : {{damages}}`"
+      "active": "est touché par le boomerang."
     },
     "ultimateAttack": {
       "description": "",
@@ -436,7 +431,6 @@
       "name_other": "Attaques ultimes"
     },
     "weak": {
-      "new": "est affaibli. `Attaque : - 70%`",
       "active": "est affaibli.",
       "stop": "n'est plus affaibli."
     },
