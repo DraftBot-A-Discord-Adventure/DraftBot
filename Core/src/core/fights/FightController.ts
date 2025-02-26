@@ -347,7 +347,7 @@ export function defaultRandomActionFightAlterationResult(affected: Fighter): Fig
 
 export function defaultDamageFightAlterationResult(affected: Fighter, statsInfos: statsInfo, attackInfo: attackInfo): FightAlterationResult {
 	return {
-		state: FightAlterationState.DAMAGE,
+		state: FightAlterationState.ACTIVE,
 		damages: FightActionController.getAttackDamage(statsInfos, affected, attackInfo, true)
 	};
 }
