@@ -1,9 +1,13 @@
 import {FightActionBuff} from "./FightActionResult";
 
+/**
+ * Fight alteration state, those are also the keys used in the translation files, so they should be kept in sync
+ * Note, those should also not collide with FightActionStatus
+ */
 export enum FightAlterationState {
 	NEW = "new",
-	RANDOM_ACTION = "random_action",
-	NO_ACTION = "no_action",
+	RANDOM_ACTION = "randomAction",
+	NO_ACTION = "noAction",
 	ACTIVE = "active",
 	STOP = "stop"
 }

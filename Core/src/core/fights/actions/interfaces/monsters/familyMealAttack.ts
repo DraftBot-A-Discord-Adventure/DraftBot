@@ -18,7 +18,7 @@ const use: FightActionFunc = (sender: Fighter, receiver: Fighter) => {
 			attackInfo: getAttackInfo(),
 			statsInfo: getStatsInfo(sender, receiver)
 		},
-		10
+		10 // Number of summoned allies
 	);
 
 	FightActionController.applyAlteration(result, {
