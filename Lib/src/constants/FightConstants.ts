@@ -51,6 +51,9 @@ export abstract class FightConstants {
 	// Divider of the damage a fight action will deal if it is a miss
 	static readonly FAILURE_DIVIDERS = [0.25, 0.2, 0.125, 0.1, 0];
 
+	// To avoid issues with discord 2000 characters limit
+	static readonly MAX_HISTORY_LENGTH = 1950;
+
 	// Targets types
 	static readonly TARGET = {
 		SELF: 0,

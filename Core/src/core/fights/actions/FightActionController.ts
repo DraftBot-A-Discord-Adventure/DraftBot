@@ -15,7 +15,7 @@ export type statsInfo = { attackerStats: number[], defenderStats: number[], stat
 export class FightActionController {
 	/**
 	 * Get the attack damage for a fight action
-	 * @param statsInfo object containing 3 arrays:
+	 * @param statsInfo object containing three arrays:
 	 * attackerStats - array of the stats to use for the attacker
 	 * defenderStats - array of the stats to use for the defender
 	 * statsEffect - array of ratios to apply to the stats
