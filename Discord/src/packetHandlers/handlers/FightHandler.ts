@@ -28,17 +28,16 @@ export default class FightHandler {
 
 	@packetHandler(CommandFightIntroduceFightersPacket)
 	async introduceFighters(context: PacketContext, packet: CommandFightIntroduceFightersPacket): Promise<void> {
-		await handleCommandFightIntroduceFightersRes(packet, context);
+		await handleCommandFightIntroduceFightersRes(context, packet);
 	}
 
 	@packetHandler(CommandFightStatusPacket)
 	async updateFightStatus(context: PacketContext, packet: CommandFightStatusPacket): Promise<void> {
-		await handleCommandFightUpdateStatusRes(packet, context);
+		await handleCommandFightUpdateStatusRes(context, packet);
 	}
 
 	@packetHandler(CommandFightHistoryItemPacket)
 	async addHistoryItem(context: PacketContext, packet: CommandFightHistoryItemPacket): Promise<void> {
-		await handleCommandFightHistoryItemRes(packet, context);
+		await handleCommandFightHistoryItemRes(context, packet);
 	}
-
 }

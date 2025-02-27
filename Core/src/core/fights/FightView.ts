@@ -12,6 +12,11 @@ import {CommandFightHistoryItemPacket} from "../../../../Lib/src/packets/fights/
 import {FightStatModifierOperation} from "../../../../Lib/src/types/FightStatModifierOperation";
 import {toSignedPercent} from "../../../../Lib/src/utils/StringUtils";
 import {FightAlterationResult} from "../../../../Lib/src/types/FightAlterationResult";
+import {EndCallback, ReactionCollectorInstance} from "../utils/ReactionsCollector";
+import {
+	ReactionCollectorFightChooseAction,
+	ReactionCollectorFightChooseActionReaction
+} from "../../../../Lib/src/packets/interaction/ReactionCollectorFightChooseAction";
 
 /* eslint-disable capitalized-comments */
 
@@ -153,6 +158,39 @@ export class FightView {
 	}
 
 	/**
+	 * Display the fight action menu
+	 * @param response
+	 * @param playerFighter - the player fighter - This cannot be a monster: they do not use a front-end to play draftbot :p
+	 * @param actions - the actions available for the player
+	 */
+	displayFightActionMenu(response: DraftBotPacket[], playerFighter: PlayerFighter, actions: Map<string, FightAction>): void {
+		const collector = new ReactionCollectorFightChooseAction(playerFighter.player.keycloakId, [...actions.keys()]);
+
+		const endCallback: EndCallback = async (collector, response) => {
+			const reaction = collector.getFirstReaction();
+			if (!reaction) {
+				playerFighter.kill();
+				await this.fightController.endFight(response);
+			}
+			else {
+				await this.fightController.executeFightAction(actions.get((reaction.reaction.data as ReactionCollectorFightChooseActionReaction).id)!, true, response);
+			}
+		};
+
+		const packet = new ReactionCollectorInstance(
+			collector,
+			this.context,
+			{
+				allowedPlayerKeycloakIds: [playerFighter.player.keycloakId]
+			},
+			endCallback
+		)
+			.build();
+
+		response.push(packet);
+	}
+
+	/**
 	 * Get send the fight outro message
 	 * @param loser
 	 * @param winner
@@ -204,40 +242,6 @@ export class FightView {
 					.setTitle(this.fightTranslationModule.get("bugFightTitle"))
 					.setDescription(this.fightTranslationModule.get("bugFightDescription"))]
 		}); */
-	}
-
-	/**
-	 * Get summarize embed message
-	 * @param {Fighter} attacker
-	 * @param {Fighter} defender
-	 * @return
-	 */
-
-	private getSummarizeEmbed(attacker: Fighter, defender: Fighter): void { // DraftBotEmbed {
-		/* return new DraftBotEmbed()
-			.setTitle(this.fightTranslationModule.get("summarize.title"))
-			.setDescription(`${this.fightTranslationModule.format("summarize.intro", {
-				turn: this.fightController.turn,
-				maxTurns: FightConstants.MAX_TURNS
-			}) +
-			attacker.getStringDisplay(this.fightTranslationModule)}\n\n${defender.getStringDisplay(this.fightTranslationModule)}`); */
-	}
-
-
-	/**
-	 * Scroll the messages down if needed before fight display status
-	 * @return {Promise<void>}
-	 */
-	private async scrollIfNeeded(): Promise<void> {
-		/* const messages = await this.channel.messages.fetch({limit: 1});
-		if (this.lastSummary && messages.first().createdTimestamp !== this.lastSummary.createdTimestamp) {
-			for (const actionMessage of this.actionMessages) {
-				const content = (await this.channel.messages.fetch(actionMessage.id)).content;
-				await actionMessage.edit(content);
-			}
-			await this.lastSummary.delete();
-			this.lastSummary = null;
-		} */
 	}
 }
 

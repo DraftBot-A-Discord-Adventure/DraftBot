@@ -153,75 +153,14 @@ export class PlayerFighter extends Fighter {
 				actions.set("guildAttack", FightActionDataController.instance.getById("guildAttack"));
 			}
 		}
-		this.sendChooseActionEmbed(fightView)
-			.then(this.chooseActionCallback(actions, fightView));
+		fightView.displayFightActionMenu(response, this, actions);
 	}
 
-	/* /!**
-	 * Return a display of the player in a string format
-	 * @param fightTranslationModule
-	 *!/
-	public getStringDisplay(fightTranslationModule: TranslationModule): string {
-		return fightTranslationModule.format(
-			this.status.getTranslationField(),
-			{
-				pseudo: this.getName(),
-				glory: this.glory,
-				class: this.class.getName(fightTranslationModule.language)
-			}
-		) + fightTranslationModule.format("summarize.stats", {
-			power: this.getFightPoints(),
-			attack: this.getAttack(),
-			defense: this.getDefense(),
-			speed: this.getSpeed(),
-			breath: this.getBreath(),
-			maxBreath: this.getMaxBreath(),
-			breathRegen: this.getRegenBreath()
-		});
-	} */
-
 	/**
-	 * Get the members of the guild of the player on the island of the fighter
+	 * Get the members of the player's guild on the island of the fighter
 	 */
 	public getPveMembersOnIsland(): { attack: number, speed: number }[] {
 		return this.pveMembers;
-	}
-
-	private chooseActionCallback(actions: Map<string, FightAction>, fightView: FightView): () => void { // (m: Message) => void {
-		return null;
-		// TODO
-		/* return (chooseActionEmbedMessage: Message): void => {
-			const collector = chooseActionEmbedMessage.createReactionCollector({
-				filter: (reaction) => reaction.me && reaction.users.cache.last().id === this.getDiscordId(),
-				time: FightConstants.TIME_FOR_ACTION_SELECTION,
-				max: 1
-			});
-			collector.on("end", async (reaction) => {
-				const emoji = reaction.first()?.emoji.name;
-				const selectedAction = Array.from(actions.values())
-					.find((action) => emoji && action.getEmoji() === emoji);
-				try {
-					await chooseActionEmbedMessage.delete();
-					if (!selectedAction) {
-						// USER HASN'T SELECTED AN ACTION
-						this.kill();
-						await fightView.fightController.endFight();
-						return;
-					}
-					await fightView.fightController.executeFightAction(selectedAction, true);
-				} catch (e) {
-					console.log("### FIGHT MESSAGE DELETED OR LOST : actionMessage ###");
-					fightView.fightController.endBugFight();
-				}
-			});
-			const reactions = [];
-			for (const [, action] of actions) {
-				reactions.push(chooseActionEmbedMessage.react(action.getEmoji()));
-			}
-
-			Promise.all(reactions)
-				.catch(() => null);
-		};*/
 	}
 
 	/**
