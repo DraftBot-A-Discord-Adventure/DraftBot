@@ -10,6 +10,7 @@ import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
 import {FightAlterationState} from "../../../Lib/src/types/FightAlterationResult";
 import {FightConstants} from "../../../Lib/src/constants/FightConstants";
 import {DraftbotFightStatusCachedMessage} from "./DraftbotFightStatusCachedMessage";
+import {StringUtils} from "../utils/StringUtils";
 
 export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandFightHistoryItemPacket> {
 	readonly duration = 30;
@@ -42,10 +43,11 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 				lng: interaction.userLanguage,
 				count: 1
 			});
-			newLine += i18n.t(`commands:fight.actions.attacksResults.${packet.status}`, {
-				lng: interaction.userLanguage,
-				attack: attackName
-			});
+			newLine += StringUtils.getRandomTranslation(
+				`commands:fight.actions.attacksResults.${packet.status}`,
+				interaction.userLanguage,
+				{attack: attackName}
+			);
 		}
 
 		// Then we need to display the side effects of the attack or alteration if there are any

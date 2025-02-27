@@ -32,7 +32,8 @@ export class DraftbotActionChooseCachedMessage extends DraftbotCachedMessage<Rea
 		}), interaction.user)
 			.setDescription(i18n.t("commands:fight.fightActionChoose.turnIndicationDescription", {lng: interaction.userLanguage}));
 		const row = new ActionRowBuilder<ButtonBuilder>();
-		packet.reactions.forEach((action) => {
+		const reactions = packet.reactions as {type: string, data: ReactionCollectorFightChooseActionReaction}[];
+		reactions.forEach((action) => {
 			const react = action.data as ReactionCollectorFightChooseActionReaction;
 			const emoji = EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fight_actions[react.id]);
 
@@ -49,15 +50,15 @@ export class DraftbotActionChooseCachedMessage extends DraftbotCachedMessage<Rea
 		const buttonCollector = this.storedMessage!.createMessageComponentCollector({
 			time: packet.endTime - Date.now()
 		});
-
 		buttonCollector.on("collect", (buttonInteraction: ButtonInteraction) => {
 			if (buttonInteraction.user.id !== context.discord?.user) {
 				return;
 			}
 			buttonCollector.stop();
-			DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, buttonInteraction, parseInt(buttonInteraction.customId, 10));
+			buttonInteraction.update({
+				components: []
+			});
+			DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, buttonInteraction, reactions.findIndex((reaction) => reaction.data.id === buttonInteraction.customId));
 		});
-
-
 	};
 }
