@@ -16,10 +16,12 @@ export class DraftbotFightStatusCachedMessage extends DraftbotCachedMessage<Comm
 
 	updateMessage = async (packet: CommandFightStatusPacket, context: PacketContext): Promise<void> => {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
-		const attacker = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.fightInitiator.keycloakId))!;
-		const defender = packet.fightOpponent.keycloakId ?
-			(await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.fightOpponent.keycloakId))!.attributes.gameUsername[0] :
-			i18n.t(`models:monster.${packet.fightOpponent.monsterId}`, {lng: interaction.userLanguage});
+		const attacker = packet.activeFighter.keycloakId ?
+			(await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.activeFighter.keycloakId))!.attributes.gameUsername[0] :
+			i18n.t(`models:monster.${packet.activeFighter.monsterId}`, {lng: interaction.userLanguage});
+		const defender = packet.defendingFighter.keycloakId ?
+			(await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.defendingFighter.keycloakId))!.attributes.gameUsername[0] :
+			i18n.t(`models:monster.${packet.defendingFighter.monsterId}`, {lng: interaction.userLanguage});
 		const keyProlongation = packet.numberOfTurn > packet.maxNumberOfTurn ? "prolongation" : "noProlongation";
 
 		const embed = new DraftBotEmbed()
@@ -37,11 +39,11 @@ export class DraftbotFightStatusCachedMessage extends DraftbotCachedMessage<Comm
 				}) +
 				i18n.t("commands:fight.summarize.attacker", {
 					lng: interaction.userLanguage,
-					pseudo: attacker.attributes.gameUsername[0]
+					pseudo: attacker
 				}) +
 				i18n.t("commands:fight.summarize.stats", {
 					lng: interaction.userLanguage,
-					...packet.fightInitiator.stats
+					...packet.activeFighter.stats
 				}) +
 				i18n.t("commands:fight.summarize.defender", {
 					lng: interaction.userLanguage,
@@ -49,7 +51,7 @@ export class DraftbotFightStatusCachedMessage extends DraftbotCachedMessage<Comm
 				}) +
 				i18n.t("commands:fight.summarize.stats", {
 					lng: interaction.userLanguage,
-					...packet.fightOpponent.stats
+					...packet.defendingFighter.stats
 				})
 			);
 
