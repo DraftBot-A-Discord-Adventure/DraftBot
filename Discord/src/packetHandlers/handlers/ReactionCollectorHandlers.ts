@@ -45,7 +45,7 @@ import {ReactionCollectorSkipMissionShopItemData} from "../../../../Lib/src/pack
 import {skipMissionShopItemCollector} from "../../commands/mission/MissionShop";
 import {createGuildElderCollector} from "../../commands/guild/GuildElderCommand";
 import {ReactionCollectorGuildElderData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildElder";
-import {createFightCollector} from "../../commands/player/FightCommand";
+import {createFightCollector, handleCommandFightActionChoose} from "../../commands/player/FightCommand";
 import {ReactionCollectorFightData} from "../../../../Lib/src/packets/interaction/ReactionCollectorFight";
 import {ReactionCollectorGuildLeaveData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildLeave";
 import {createGuildLeaveCollector} from "../../commands/guild/GuildLeaveCommand";
@@ -66,6 +66,7 @@ import {ReactionCollectorChangeClassData} from "../../../../Lib/src/packets/inte
 import {handleChangeClassReactionCollector} from "../../commands/player/ClassesCommand";
 import {ReactionCollectorSellData} from "../../../../Lib/src/packets/interaction/ReactionCollectorSell";
 import {handleSellReactionCollector} from "../../commands/player/SellCommand";
+import {ReactionCollectorFightChooseActionData} from "../../../../Lib/src/packets/interaction/ReactionCollectorFightChooseAction";
 import {handlePetTransferReactionCollector} from "../../commands/pet/PetTransferCommand";
 import {ReactionCollectorPetTransferData} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetTransfer";
 import {ReactionCollectorPetFeedWithGuildData} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFeedWithGuild";
@@ -124,6 +125,7 @@ export default class ReactionCollectorHandler {
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorPetSellData.name, createPetSellCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorChangeClassData.name, handleChangeClassReactionCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorSellData.name, handleSellReactionCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorFightChooseActionData.name, handleCommandFightActionChoose);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorPetTransferData.name, handlePetTransferReactionCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorPetFeedWithGuildData.name, handleCommandPetFeedWithGuildCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorPetFeedWithoutGuildData.name, handleCommandPetFeedWithoutGuildCollector);
