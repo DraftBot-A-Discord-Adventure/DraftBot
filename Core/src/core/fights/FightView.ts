@@ -17,6 +17,7 @@ import {
 	ReactionCollectorFightChooseAction,
 	ReactionCollectorFightChooseActionReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorFightChooseAction";
+import {AIFightActionChoosePacket} from "../../../../Lib/src/packets/fights/AIFightActionChoosePacket";
 
 /* eslint-disable capitalized-comments */
 
@@ -69,9 +70,10 @@ export class FightView {
 		response.push(makePacket(CommandFightStatusPacket, {
 			numberOfTurn: this.fightController.turn,
 			maxNumberOfTurn: FightConstants.MAX_TURNS,
-			fightInitiator: {
-				keycloakId: (playingFighter as PlayerFighter).player.keycloakId,
-				glory: (playingFighter as PlayerFighter).player.getGloryPoints(),
+			activeFighter: {
+				keycloakId: playingFighter instanceof MonsterFighter ? null : playingFighter.player.keycloakId,
+				monsterId: playingFighter instanceof MonsterFighter ? playingFighter.monster.id : null,
+				glory: playingFighter instanceof MonsterFighter ? null : playingFighter.player.getGloryPoints(),
 				stats: {
 					power: playingFighter.getFightPoints(),
 					attack: playingFighter.getAttack(),
@@ -82,10 +84,10 @@ export class FightView {
 					breathRegen: playingFighter.getRegenBreath()
 				}
 			},
-			fightOpponent: {
-				keycloakId: defendingFighter instanceof PlayerFighter ? (defendingFighter as PlayerFighter).player.keycloakId : null,
-				monsterId: defendingFighter instanceof MonsterFighter ? (defendingFighter as MonsterFighter).monster.id : null,
-				glory: defendingFighter instanceof PlayerFighter ? (defendingFighter as PlayerFighter).player.getGloryPoints() : null,
+			defendingFighter: {
+				keycloakId: defendingFighter instanceof MonsterFighter ? null : defendingFighter.player.keycloakId,
+				monsterId: defendingFighter instanceof MonsterFighter ? defendingFighter.monster.id : null,
+				glory: defendingFighter instanceof MonsterFighter ? null : defendingFighter.player.getGloryPoints(),
 				stats: {
 					power: defendingFighter.getFightPoints(),
 					attack: defendingFighter.getAttack(),
@@ -188,6 +190,14 @@ export class FightView {
 			.build();
 
 		response.push(packet);
+	}
+
+	/**
+	 * Display the AI choose action message
+	 * @param response
+	 */
+	displayAiChooseAction(response: DraftBotPacket[]): void {
+		response.push(makePacket(AIFightActionChoosePacket, {}));
 	}
 
 	/**

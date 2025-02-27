@@ -172,6 +172,16 @@ export async function handleCommandFightHistoryItemRes(context: PacketContext, p
 		.update(packet, context);
 }
 
+
+export async function handleCommandFightAIFightActionChoose(context: PacketContext): Promise<void> {
+	if (!context.discord?.interaction) {
+		return;
+	}
+	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
+	await DraftbotCachedMessages.getOrCreate(context.discord?.interaction, DraftbotActionChooseCachedMessage)
+		.post({embeds: [new DraftBotEmbed().setDescription(i18n.t("commands:fight.actions.aiChoose", {lng: interaction.userLanguage}))]});
+}
+
 /**
  * Handle the choice of an action in a fight
  * @param packet

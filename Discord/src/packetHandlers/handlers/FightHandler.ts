@@ -5,6 +5,7 @@ import {
 	CommandFightRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandFightPacket";
 import {
+	handleCommandFightAIFightActionChoose,
 	handleCommandFightHistoryItemRes,
 	handleCommandFightIntroduceFightersRes,
 	handleCommandFightRefusePacketRes,
@@ -14,6 +15,7 @@ import {handleClassicError} from "../../utils/ErrorUtils";
 import {CommandFightIntroduceFightersPacket} from "../../../../Lib/src/packets/fights/FightIntroductionPacket";
 import {CommandFightStatusPacket} from "../../../../Lib/src/packets/fights/FightStatusPacket";
 import {CommandFightHistoryItemPacket} from "../../../../Lib/src/packets/fights/FightHistoryItemPacket";
+import {AIFightActionChoosePacket} from "../../../../Lib/src/packets/fights/AIFightActionChoosePacket";
 
 export default class FightHandler {
 	@packetHandler(CommandFightRefusePacketRes)
@@ -39,5 +41,10 @@ export default class FightHandler {
 	@packetHandler(CommandFightHistoryItemPacket)
 	async addHistoryItem(context: PacketContext, packet: CommandFightHistoryItemPacket): Promise<void> {
 		await handleCommandFightHistoryItemRes(context, packet);
+	}
+
+	@packetHandler(AIFightActionChoosePacket)
+	async aiFightActionChoose(context: PacketContext, _packet: AIFightActionChoosePacket): Promise<void> {
+		await handleCommandFightAIFightActionChoose(context);
 	}
 }
