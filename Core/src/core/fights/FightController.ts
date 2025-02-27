@@ -14,6 +14,7 @@ import {FightAction, FightActionDataController} from "../../data/FightAction";
 import {FightStatModifierOperation} from "../../../../Lib/src/types/FightStatModifierOperation";
 import {FightAlterationResult, FightAlterationState} from "../../../../Lib/src/types/FightAlterationResult";
 import {FightActionResult} from "../../../../Lib/src/types/FightActionResult";
+import {AiPlayerFighter} from "./fighter/AiPlayerFighter";
 
 /**
  * @class FightController
@@ -22,9 +23,9 @@ export class FightController {
 
 	turn: number;
 
-	public readonly fighters: Fighter[];
+	public readonly fighters: (PlayerFighter | MonsterFighter | AiPlayerFighter)[];
 
-	public readonly fightInitiator: Fighter;
+	public readonly fightInitiator: PlayerFighter;
 
 	private readonly _fightView: FightView;
 
@@ -36,8 +37,8 @@ export class FightController {
 
 	public constructor(
 		fighters: {
-			fighter1: Fighter,
-			fighter2: Fighter
+			fighter1: PlayerFighter,
+			fighter2: (MonsterFighter | AiPlayerFighter)
 		},
 		overtimeBehavior: FightOvertimeBehavior,
 		context: PacketContext
@@ -88,7 +89,7 @@ export class FightController {
 	 * Get the playing fighter or null if the fight is not running
 	 * @return {Fighter|null}
 	 */
-	public getPlayingFighter(): Fighter {
+	public getPlayingFighter(): PlayerFighter | MonsterFighter | AiPlayerFighter {
 		return this.state === FightState.RUNNING ? this.fighters[0] : null;
 	}
 
@@ -96,7 +97,7 @@ export class FightController {
 	 * Get the defending fighter or null if the fight is not running
 	 * @return {Fighter|null}
 	 */
-	public getDefendingFighter(): Fighter {
+	public getDefendingFighter(): PlayerFighter | MonsterFighter | AiPlayerFighter {
 		return this.state === FightState.RUNNING ? this.fighters[1] : null;
 	}
 
@@ -164,7 +165,6 @@ export class FightController {
 			this.getPlayingFighter().nextFightAction = null;
 		}
 		const result = this.tryToExecuteFightAction(fightAction, this.getPlayingFighter(), this.getDefendingFighter(), this.turn);
-
 		this._fightView.addActionToHistory(response, this.getPlayingFighter(), fightAction, result);
 
 		if (this.state !== FightState.RUNNING) {
