@@ -863,6 +863,10 @@
       "defender": "\n\n{emote:unitValues.defense} | **Défenseur : {{pseudo}}**\n",
       "stats": "{emote:unitValues.energy} {{power}} | {emote:unitValues.attack} {{attack}} | {emote:unitValues.defense} {{defense}} | {emote:unitValues.speed} {{speed}} | {emote:unitValues.breath} {{breath}} / {{maxBreath}} | {emote:unitValues.breathRegen} {{breathRegen}}"
     },
+    "fightActionChoose": {
+      "turnIndicationTitle": "C'est au tour de {{pseudo}} de jouer {emote:fight_command.crossed_swords}",
+      "turnIndicationDescription": "Choisissez une action"
+    },
     "actions": {
       "intro": "{{emote}} | {{fighter}} ",
       "attacksResults": {
