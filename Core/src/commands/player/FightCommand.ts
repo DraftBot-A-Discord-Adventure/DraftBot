@@ -20,6 +20,7 @@ import {ClassDataController} from "../../data/Class";
 import {draftBotInstance} from "../../index";
 import {EloGameResult, EloUtils} from "../../core/utils/EloUtils";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
+import {AiPlayerFighter} from "../../core/fights/fighter/AiPlayerFighter";
 
 type PlayerStats = {
 	classId: number,
@@ -192,7 +193,7 @@ function fightValidationEndCallback(player: Player, context: PacketContext): End
 			}
 			const askingFighter = new PlayerFighter(player, ClassDataController.instance.getById(player.class));
 			await askingFighter.loadStats();
-			const incomingFighter = new PlayerFighter(opponent, ClassDataController.instance.getById(opponent.class));
+			const incomingFighter = new AiPlayerFighter(opponent, ClassDataController.instance.getById(opponent.class));
 			await incomingFighter.loadStats();
 			// Start fight
 			const fightController = new FightController(
