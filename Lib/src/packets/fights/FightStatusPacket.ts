@@ -6,9 +6,10 @@ export class CommandFightStatusPacket extends DraftBotPacket {
 
 	maxNumberOfTurn!: number;
 
-	fightInitiator!: {
-		keycloakId: string;
-		glory: number;
+	activeFighter!: {
+		keycloakId?: string;
+		monsterId?: string;
+		glory?: number;
 		stats: {
 			power: number;
 			attack: number;
@@ -20,7 +21,7 @@ export class CommandFightStatusPacket extends DraftBotPacket {
 		}
 	};
 
-	fightOpponent!: {
+	defendingFighter!: {
 		keycloakId?: string;
 		monsterId?: string;
 		glory?: number;

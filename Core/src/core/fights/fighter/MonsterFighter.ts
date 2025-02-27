@@ -52,20 +52,12 @@ export class MonsterFighter extends Fighter {
 		setTimeout(async function() {
 			// await embed.delete();
 			await fightView.fightController.executeFightAction(fightAction, true, response);
-		}, RandomUtils.draftbotRandom.integer(500, 2000));
+		}, RandomUtils.draftbotRandom.integer(300, 1800));
 		return Promise.resolve();
 	}
 
 	endFight(): Promise<void> {
 		return Promise.resolve();
-	}
-
-	getMention(): string {
-		return this.name;
-	}
-
-	getName(): string {
-		return this.name;
 	}
 
 	startFight(): Promise<void> {

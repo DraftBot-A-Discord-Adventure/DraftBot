@@ -211,16 +211,4 @@ export class PlayerFighter extends Fighter {
 			}
 		}
 	}
-
-	/**
-	 * Send the choice action embed message
-	 * @private
-	 * @param fightView
-	 */
-	private async sendChooseActionEmbed(fightView: FightView): Promise<void> {
-		/* const chooseActionEmbed = new DraftBotEmbed();
-		chooseActionEmbed.formatAuthor(fightView.fightTranslationModule.format("turnIndicationsTitle", {pseudo: this.getName()}), this.getUser());
-		chooseActionEmbed.setDescription(fightView.fightTranslationModule.get("turnIndicationsDescription"));
-		return await fightView.channel.send({embeds: [chooseActionEmbed]}); */
-	}
 }
