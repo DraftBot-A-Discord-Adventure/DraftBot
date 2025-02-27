@@ -851,7 +851,7 @@
       "turnIndicationDescription": "Choisissez une action"
     },
     "actions": {
-      "intro": "{{emote}} | {{fighter}} ",
+      "intro": "{{emote}} | **{{fighter}}** ",
       "attacksResults": {
         "critical": [
           "effectue une {{attack}} ! Parfaitement réalisée !",
@@ -880,7 +880,7 @@
           "utilise une {{attack}} !",
           "réalise une {{attack}} !"
         ],
-        "maxUses": "tente d'utiliser une {attack}, mais cela échoue !",
+        "maxUses": "tente d'utiliser une {{attack}}, mais cela échoue !",
         "charging": "se prépare à réaliser une {{attack}} !",
         "missed": [
           "réalise une {{attack}} ! On a vu mieux...",
@@ -903,7 +903,7 @@
       "fightActionEffects": {
         "self" : {
           "newAlteration": " `Vous êtes désormais {effect} !`",
-          "damage": " `Dégâts reçus : {{amount}}`",
+          "damages": " `Dégâts reçus : {{amount}}`",
           "defense": " `Défense : {{operator}} {{amount}} %`",
           "breath": " `Souffle : {{operator}} {{amount}}`",
           "speed": " `Vitesse : {{operator}} {{amount}} %`",
@@ -912,7 +912,7 @@
         },
         "opponent": {
           "newAlteration": " `Votre adversaire est désormais {{effect}} !`",
-          "damage": " `Dégâts infligés : {{amount}}`",
+          "damages": " `Dégâts infligés : {{amount}}`",
           "defense": " `Défense de l'adversaire : {{operator}} {{amount}} %`",
           "breath": " `Souffle de l'adversaire : {{operator}} {{amount}}`",
           "speed": " `Vitesse de l'adversaire : {{operator}} {{amount}} %`",

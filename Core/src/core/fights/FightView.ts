@@ -114,7 +114,7 @@ export class FightView {
 			speed?: number;
 			breath?: number
 		} => fightActionResult.buffs
-			.filter(buff =>
+			?.filter(buff =>
 				buff.selfTarget === selfTarget &&
 				[FightStatBuffed.ATTACK, FightStatBuffed.DEFENSE, FightStatBuffed.SPEED, FightStatBuffed.BREATH].includes(buff.stat) &&
 				buff.operator === FightStatModifierOperation.MULTIPLIER)
@@ -150,7 +150,7 @@ export class FightView {
 			fightActionEffectDealt: {...buildStatsChange(false), damages: fightActionResult.damages},
 			fightActionEffectReceived: {
 				...buildStatsChange(true),
-				damages: fightActionResult.buffs.find(
+				damages: fightActionResult.buffs?.find(
 					buff => buff.selfTarget && buff.stat === FightStatBuffed.DAMAGE && buff.operator === FightStatModifierOperation.ADDITION
 				)?.value
 			}
