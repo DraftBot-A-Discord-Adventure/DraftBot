@@ -1,4 +1,4 @@
-import {DraftbotCachedMessage} from "./DraftbotCachedMessage";
+import {DraftbotCachedMessage, DraftbotCachedMessages} from "./DraftbotCachedMessage";
 import {PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
 import {DiscordCache} from "../bot/DiscordCache";
 import {KeycloakUtils} from "../../../Lib/src/keycloak/KeycloakUtils";
@@ -8,6 +8,8 @@ import {CommandFightHistoryItemPacket} from "../../../Lib/src/packets/fights/Fig
 import {EmoteUtils} from "../utils/EmoteUtils";
 import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
 import {FightAlterationState} from "../../../Lib/src/types/FightAlterationResult";
+import {FightConstants} from "../../../Lib/src/constants/FightConstants";
+import {DraftbotFightStatusCachedMessage} from "./DraftbotFightStatusCachedMessage";
 
 export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandFightHistoryItemPacket> {
 	readonly duration = 30;
@@ -49,7 +51,7 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 		// Then we need to display the side effects of the attack or alteration if there are any
 		if (packet.fightActionEffectDealt) {
 			Object.entries(packet.fightActionEffectDealt!).forEach(([key, value]) => {
-				const operator = value > 0 ? "+" : "-";
+				const operator = value >= 0 ? "+" : "-";
 				newLine += i18n.t(`commands:fight.actions.fightActionEffects.opponent.${key}`, {
 					lng: interaction.userLanguage,
 					operator: operator,
@@ -59,7 +61,7 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 		}
 		if (packet.fightActionEffectReceived) {
 			Object.entries(packet.fightActionEffectReceived!).forEach(([key, value]) => {
-				const operator = value > 0 ? "+" : "-";
+				const operator = value >= 0 ? "+" : "-";
 				newLine += i18n.t(`commands:fight.actions.fightActionEffects.self.${key}`, {
 					lng: interaction.userLanguage,
 					operator: operator,
@@ -69,7 +71,18 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 		}
 
 		const previousHistory = this.storedMessage?.content || "";
-		const history = `${previousHistory}\n${newLine}`;
-		await this.post({content: history});
+		if (previousHistory.length + newLine.length <= FightConstants.MAX_HISTORY_LENGTH) {
+			const history = `${previousHistory}\n${newLine}`;
+			await this.post({content: history});
+			return;
+		}
+		this.storedMessage = undefined;
+		await this.post({content: newLine});
+		const resumeMessage = DraftbotCachedMessages.getOrCreate(this.originalMessageId, DraftbotFightStatusCachedMessage);
+		resumeMessage.storedMessage?.delete();
+		resumeMessage.storedMessage = undefined;
+		const attackSelectionMessage = DraftbotCachedMessages.getOrCreate(this.originalMessageId, DraftbotFightStatusCachedMessage /* TODO */);
+		attackSelectionMessage.storedMessage?.delete();
+		attackSelectionMessage.storedMessage = undefined;
 	};
 }
