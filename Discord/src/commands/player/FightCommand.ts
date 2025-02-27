@@ -24,6 +24,7 @@ import {CommandFightIntroduceFightersPacket} from "../../../../Lib/src/packets/f
 import {CommandFightStatusPacket} from "../../../../Lib/src/packets/fights/FightStatusPacket";
 import {CommandFightHistoryItemPacket} from "../../../../Lib/src/packets/fights/FightHistoryItemPacket";
 import {DraftbotHistoryCachedMessage} from "../../messages/DraftbotHistoryCachedMessage";
+import {DraftbotActionChooseCachedMessage} from "../../messages/DraftbotActionChooseCachedMessage";
 
 export async function createFightCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
@@ -125,10 +126,10 @@ function addFightActionFieldFor(introEmbed: DraftBotEmbed, language: Language, f
 
 /**
  * Send the fight intro message that introduces the fighters
- * @param packet
  * @param context
+ * @param packet
  */
-export async function handleCommandFightIntroduceFightersRes(packet: CommandFightIntroduceFightersPacket, context: PacketContext): Promise<void> {
+export async function handleCommandFightIntroduceFightersRes(context: PacketContext, packet: CommandFightIntroduceFightersPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 	const opponentDisplayName = packet.fightOpponentKeycloakId ?
@@ -147,10 +148,10 @@ export async function handleCommandFightIntroduceFightersRes(packet: CommandFigh
 
 /**
  * Update the fight status message with the current statuses of the fighters
- * @param packet
  * @param context
+ * @param packet
  */
-export async function handleCommandFightUpdateStatusRes(packet: CommandFightStatusPacket, context: PacketContext): Promise<void> {
+export async function handleCommandFightUpdateStatusRes(context: PacketContext, packet: CommandFightStatusPacket): Promise<void> {
 	if (!context.discord?.interaction) {
 		return;
 	}
@@ -160,14 +161,27 @@ export async function handleCommandFightUpdateStatusRes(packet: CommandFightStat
 
 /**
  * Update the fight history with the last action
- * @param packet
  * @param context
+ * @param packet
  */
-export async function handleCommandFightHistoryItemRes(packet: CommandFightHistoryItemPacket, context: PacketContext): Promise<void> {
+export async function handleCommandFightHistoryItemRes(context: PacketContext, packet: CommandFightHistoryItemPacket): Promise<void> {
 	if (!context.discord?.interaction) {
 		return;
 	}
 	await DraftbotCachedMessages.getOrCreate(context.discord?.interaction, DraftbotHistoryCachedMessage)
+		.update(packet, context);
+}
+
+/**
+ * Handle the choice of an action in a fight
+ * @param packet
+ * @param context
+ */
+export async function handleCommandFightActionChoose(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
+	if (!context.discord?.interaction) {
+		return;
+	}
+	await DraftbotCachedMessages.getOrCreate(context.discord?.interaction, DraftbotActionChooseCachedMessage)
 		.update(packet, context);
 }
 
