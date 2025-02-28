@@ -144,6 +144,7 @@ export async function handleCommandFightIntroduceFightersRes(context: PacketCont
 	addFightActionFieldFor(embed, interaction.userLanguage, interaction.user.displayName, packet.fightInitiatorActions);
 	addFightActionFieldFor(embed, interaction.userLanguage, opponentDisplayName, packet.fightOpponentActions);
 	await buttonInteraction?.editReply({embeds: [embed]});
+	await DraftbotCachedMessages.getOrCreate(interaction.id, DraftbotHistoryCachedMessage).post({content: "_ _"});
 }
 
 /**

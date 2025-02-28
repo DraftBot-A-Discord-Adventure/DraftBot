@@ -11,9 +11,17 @@ import {FightAlterationState} from "../../../Lib/src/types/FightAlterationResult
 import {FightConstants} from "../../../Lib/src/constants/FightConstants";
 import {DraftbotFightStatusCachedMessage} from "./DraftbotFightStatusCachedMessage";
 import {StringUtils} from "../utils/StringUtils";
+import {DraftbotActionChooseCachedMessage} from "./DraftbotActionChooseCachedMessage";
 
 export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandFightHistoryItemPacket> {
 	readonly duration = 30;
+
+	historyContent: string;
+
+	constructor(originalMessageId: string) {
+		super(originalMessageId);
+		this.historyContent = "";
+	}
 
 	get type(): string {
 		return "history";
@@ -72,18 +80,18 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 			});
 		}
 
-		const previousHistory = this.storedMessage?.content || "";
-		if (previousHistory.length + newLine.length <= FightConstants.MAX_HISTORY_LENGTH) {
-			const history = `${previousHistory}\n${newLine}`;
-			await this.post({content: history});
+		if (this.historyContent.length + newLine.length <= FightConstants.MAX_HISTORY_LENGTH) {
+			this.historyContent = `${this.historyContent}\n${newLine}`;
+			await this.post({content: this.historyContent});
 			return;
 		}
 		this.storedMessage = undefined;
-		await this.post({content: newLine});
+		this.historyContent = newLine;
+		await this.post({content: this.historyContent});
 		const resumeMessage = DraftbotCachedMessages.getOrCreate(this.originalMessageId, DraftbotFightStatusCachedMessage);
 		resumeMessage.storedMessage?.delete();
 		resumeMessage.storedMessage = undefined;
-		const attackSelectionMessage = DraftbotCachedMessages.getOrCreate(this.originalMessageId, DraftbotFightStatusCachedMessage /* TODO */);
+		const attackSelectionMessage = DraftbotCachedMessages.getOrCreate(this.originalMessageId, DraftbotActionChooseCachedMessage);
 		attackSelectionMessage.storedMessage?.delete();
 		attackSelectionMessage.storedMessage = undefined;
 	};

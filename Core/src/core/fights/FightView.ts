@@ -19,6 +19,7 @@ import {
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorFightChooseAction";
 import {AIFightActionChoosePacket} from "../../../../Lib/src/packets/fights/AIFightActionChoosePacket";
 import {PacketUtils} from "../utils/PacketUtils";
+import {AiPlayerFighter} from "./fighter/AiPlayerFighter";
 
 /* eslint-disable capitalized-comments */
 
@@ -43,7 +44,7 @@ export class FightView {
 	 * @param opponent
 	 * @param response
 	 */
-	introduceFight(response: DraftBotPacket[], fighter: Fighter, opponent: Fighter): void {
+	introduceFight(response: DraftBotPacket[], fighter: PlayerFighter, opponent: MonsterFighter | AiPlayerFighter): void {
 		const fightInitiatorActions = new Array<[string, number]>();
 		for (const action of fighter.availableFightActions) {
 			fightInitiatorActions.push([action[0], action[1].breath]);
@@ -53,8 +54,8 @@ export class FightView {
 			fightOpponentActions.push([action[0], action[1].breath]);
 		}
 		response.push(makePacket(CommandFightIntroduceFightersPacket, {
-			fightInitiatorKeycloakId: (fighter as PlayerFighter).player.keycloakId,
-			fightOpponentKeycloakId: opponent instanceof PlayerFighter ? opponent.player.keycloakId : null,
+			fightInitiatorKeycloakId: fighter.player.keycloakId,
+			fightOpponentKeycloakId: opponent instanceof MonsterFighter ? null : opponent.player.keycloakId,
 			fightOpponentMonsterId: opponent instanceof MonsterFighter ? opponent.monster.id : null,
 			fightInitiatorActions,
 			fightOpponentActions
@@ -109,7 +110,7 @@ export class FightView {
 	 * @param fightAction - the action made by the fighter
 	 * @param fightActionResult - the result of the action
 	 */
-	addActionToHistory(response: DraftBotPacket[], fighter: Fighter, fightAction: FightAction, fightActionResult: FightActionResult | FightAlterationResult): void {
+	addActionToHistory(response: DraftBotPacket[], fighter: PlayerFighter | MonsterFighter | AiPlayerFighter, fightAction: FightAction, fightActionResult: FightActionResult | FightAlterationResult): void {
 
 		const buildStatsChange = (selfTarget: boolean): {
 			attack?: number;
@@ -142,7 +143,7 @@ export class FightView {
 			}, {} as { attack?: number; defense?: number; speed?: number; breath?: number });
 
 		response.push(makePacket(CommandFightHistoryItemPacket, {
-			fighterKeycloakId: fighter instanceof PlayerFighter ? fighter.player.keycloakId : null,
+			fighterKeycloakId: fighter instanceof MonsterFighter ? null : fighter.player.keycloakId,
 			monsterId: fighter instanceof MonsterFighter ? fighter.monster.id : null,
 			fightActionId: fightAction.id,
 			status: "attackStatus" in fightActionResult ?
