@@ -14,6 +14,6 @@ export enum FightAlterationState {
 
 export interface FightAlterationResult {
 	state: FightAlterationState,
-	damages: number,
+	damages?: number,
 	buffs?: FightActionBuff[]
 }

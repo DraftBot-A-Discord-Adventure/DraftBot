@@ -348,23 +348,20 @@ export class FightController {
 export function defaultHealFightAlterationResult(affected: Fighter): FightAlterationResult {
 	affected.removeAlteration();
 	return {
-		state: FightAlterationState.STOP,
-		damages: 0
+		state: FightAlterationState.STOP
 	};
 }
 
 export function defaultFightAlterationResult(): FightAlterationResult {
 	return {
-		state: FightAlterationState.ACTIVE,
-		damages: 0
+		state: FightAlterationState.ACTIVE
 	};
 }
 
 export function defaultRandomActionFightAlterationResult(affected: Fighter): FightAlterationResult {
 	affected.nextFightAction = affected.getRandomAvailableFightAction();
 	return {
-		state: FightAlterationState.RANDOM_ACTION,
-		damages: 0
+		state: FightAlterationState.RANDOM_ACTION
 	};
 }
 
