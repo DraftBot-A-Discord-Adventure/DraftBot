@@ -296,7 +296,7 @@
     "outrage": {
       "new": "est en colère.",
       "active": "est en colère.",
-      "stop": "n'est plus en colère mais devient confus."
+      "stop": "n'est plus en colère mais devient étourdis."
     },
     "outrageAttack": {
       "description": "Échoue si vous utilisez cette action alors que vous avez une altération d'état. L'altération \"en colère\" double l'attaque mais baisse la défense. Au bout de 2 tours, l'effet disparait et l'attaquant devient confus.",
