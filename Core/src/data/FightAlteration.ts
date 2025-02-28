@@ -24,7 +24,7 @@ export class FightAlterationDataController extends DataControllerString<FightAlt
 	public static getFightAlterationFunction(id: string): FightAlterationFunc {
 		if (!FightAlterationDataController.fightAlterationsFunctionsCache) {
 			FightAlterationDataController.fightAlterationsFunctionsCache = new Map<string, FightAlterationFunc>();
-			FightAlterationDataController.loadFightAlterationsFromFolder("dist/src/Core/fights/actions/interfaces/alterations", "TODO replace with the right one");
+			FightAlterationDataController.loadFightAlterationsFromFolder("dist/Core/src/core/fights/actions/interfaces/alterations", "../core/fights/actions/interfaces/alterations");
 		}
 
 		return FightAlterationDataController.fightAlterationsFunctionsCache.get(id);

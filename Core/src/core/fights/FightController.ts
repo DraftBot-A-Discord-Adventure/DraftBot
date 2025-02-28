@@ -15,6 +15,7 @@ import {FightStatModifierOperation} from "../../../../Lib/src/types/FightStatMod
 import {FightAlterationResult, FightAlterationState} from "../../../../Lib/src/types/FightAlterationResult";
 import {FightActionResult} from "../../../../Lib/src/types/FightActionResult";
 import {AiPlayerFighter} from "./fighter/AiPlayerFighter";
+import {FightAlteration, FightAlterationDataController} from "../../data/FightAlteration";
 
 /**
  * @class FightController
@@ -51,16 +52,22 @@ export class FightController {
 		this.overtimeBehavior = overtimeBehavior;
 	}
 
+	/**
+	 * Attempt to execute a fight action and also handles the case where the attacker is out of breath
+	 * @param fightAction
+	 * @param attacker
+	 * @param defender
+	 * @param turn
+	 */
 	public tryToExecuteFightAction(fightAction: FightAction, attacker: Fighter, defender: Fighter, turn: number): FightActionResult | FightAlterationResult {
 		const enoughBreath = attacker.useBreath(fightAction.breath);
 
 		if (!enoughBreath) {
 			if (RandomUtils.draftbotRandom.bool(FightConstants.OUT_OF_BREATH_FAILURE_PROBABILITY)) {
-				fightAction = FightActionDataController.instance.getById("outOfBreath");
+				const alt = FightAlterationDataController.instance.getById("outOfBreath");
+				return alt.happen(attacker, defender, turn, this);
 			}
-			else {
-				attacker.setBreath(0);
-			}
+			attacker.setBreath(0);
 		}
 		return fightAction.use(attacker, defender, turn, this);
 	}
@@ -155,6 +162,22 @@ export class FightController {
 	}
 
 	/**
+	 * Execute a fight alteration
+	 * @param alteration
+	 * @param response
+	 * @private
+	 */
+	private async executeFightAlteration(alteration: FightAlteration, response: DraftBotPacket[]): Promise<void> {
+		const result = alteration.happen(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this);
+		this._fightView.addActionToHistory(response, this.getPlayingFighter(), alteration, result);
+		if (this.hadEnded()) {
+			await this.endFight(response);
+			return;
+		}
+		this._fightView.displayFightStatus(response);
+	}
+
+	/**
 	 * Execute the next fight action
 	 * @param fightAction {FightAction} the fight action to execute
 	 * @param endTurn {boolean} true if the turn should be ended after the action has been executed
@@ -235,7 +258,7 @@ export class FightController {
 
 		if (this.getPlayingFighter()
 			.hasFightAlteration()) {
-			await this.executeFightAction(this.getPlayingFighter().alteration, false, response);
+			this.executeFightAlteration(this.getPlayingFighter().alteration, response);
 		}
 		if (this.state !== FightState.RUNNING) {
 			// A player was killed by a fight alteration, no need to continue the fight

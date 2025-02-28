@@ -1697,7 +1697,8 @@ export const DraftBotIcons: {
 		"sabotageAttack": "🛠️",
 		"shieldAttack": "🛡️",
 		"simpleAttack": "⚔️",
-		"ultimateAttack": "☄️"
+		"ultimateAttack": "☄️",
+		"concentrated": "🎯"
 	},
 	"class_kinds": {
 		"basic": "⚖️",
