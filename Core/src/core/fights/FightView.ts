@@ -18,6 +18,7 @@ import {
 	ReactionCollectorFightChooseActionReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorFightChooseAction";
 import {AIFightActionChoosePacket} from "../../../../Lib/src/packets/fights/AIFightActionChoosePacket";
+import {PacketUtils} from "../utils/PacketUtils";
 
 /* eslint-disable capitalized-comments */
 
@@ -252,6 +253,11 @@ export class FightView {
 					.setTitle(this.fightTranslationModule.get("bugFightTitle"))
 					.setDescription(this.fightTranslationModule.get("bugFightDescription"))]
 		}); */
+	}
+
+	sendResponses(response: DraftBotPacket[]): void {
+		PacketUtils.sendPackets(this.context, response);
+		response.length = 0;
 	}
 }
 
