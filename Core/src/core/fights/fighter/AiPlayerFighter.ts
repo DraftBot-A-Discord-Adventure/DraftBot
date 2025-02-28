@@ -7,6 +7,7 @@ import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
 import {Class} from "../../../data/Class";
 import {FightActionDataController} from "../../../data/FightAction";
 import {DraftBotPacket} from "../../../../../Lib/src/packets/DraftBotPacket";
+import {PacketUtils} from "../../utils/PacketUtils";
 
 /**
  * @class AiPlayerFighter
@@ -48,13 +49,12 @@ export class AiPlayerFighter extends Fighter {
 	 * @param fightView
 	 * @param response
 	 */
-	chooseAction(fightView: FightView, response: DraftBotPacket[]): Promise<void> {
+	async chooseAction(fightView: FightView, response: DraftBotPacket[]): Promise<void> {
 		fightView.displayAiChooseAction(response);
+		fightView.sendResponses(response);
 		const fightAction = FightActionDataController.instance.getById("simpleAttack");
-		setTimeout(async function() {
-			await fightView.fightController.executeFightAction(fightAction, true, response);
-		}, RandomUtils.draftbotRandom.integer(800, 2500));
-		return Promise.resolve();
+		await new Promise(f => setTimeout(f, RandomUtils.randInt(800, 2500)));
+		await fightView.fightController.executeFightAction(fightAction, true, response);
 	}
 
 	endFight(): Promise<void> {
