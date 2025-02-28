@@ -17,7 +17,7 @@ export class FightAction extends Data<string> {
 	private _weightForRandomSelection: number;
 
 
-	public use(sender: Fighter, receiver: Fighter, turn: number, fight: FightController): FightActionResult | FightAlterationResult {
+	public use(sender: Fighter, receiver: Fighter, turn: number, fight: FightController): FightActionResult {
 		const result = FightActionDataController.getFightActionFunction(this.id)(sender, receiver, this, turn, fight);
 		receiver.damage(result.damages);
 		return result;
