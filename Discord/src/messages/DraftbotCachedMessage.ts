@@ -33,7 +33,7 @@ export abstract class DraftbotCachedMessage<T extends DraftBotPacket = DraftBotP
 	}
 
 	async post(options: BaseMessageOptions): Promise<Message | null> {
-		if (this.storedMessage && this.storedMessage.editable) {
+		if (this.storedMessage) {
 			return await this.storedMessage.edit(options);
 		}
 		const mainMessage = DiscordCache.getInteraction(this.originalMessageId);
@@ -68,7 +68,9 @@ export class DraftbotCachedMessages {
 		const type = new MessageLike("").type;
 		const message = DraftbotCachedMessages.cachedMessages.get(`${originalMessageId}-${type}`);
 		if (!message) {
-			return new MessageLike(originalMessageId);
+			const newMessage = new MessageLike(originalMessageId);
+			DraftbotCachedMessages.createCachedMessage(newMessage);
+			return newMessage;
 		}
 		const instance = new MessageLike(message.originalMessageId);
 		Object.assign(instance, message);
