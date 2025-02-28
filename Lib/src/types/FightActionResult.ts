@@ -23,7 +23,7 @@ export interface FightActionBuff {
 export interface FightActionResult {
 	fail?: boolean,
 	buffs?: FightActionBuff[],
-	damages: number,
+	damages?: number,
 	attackStatus: FightActionStatus,
 	alterations?: FightAlterationApplied[]
 	usedAction?: {
@@ -35,7 +35,6 @@ export interface FightActionResult {
 
 export function defaultFightActionResult(): FightActionResult {
 	return {
-		damages: 0,
 		attackStatus: FightActionStatus.NORMAL
 	};
 }
@@ -43,7 +42,6 @@ export function defaultFightActionResult(): FightActionResult {
 export function defaultFailFightActionResult(): FightActionResult {
 	return {
 		fail: true,
-		damages: 0,
 		attackStatus: FightActionStatus.MISSED
 	};
 }
