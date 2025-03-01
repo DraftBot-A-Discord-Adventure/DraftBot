@@ -121,6 +121,8 @@ export function getChannelMention(discordChannelId: string): string {
  * - If `value` is greater than 1, the result is negative (indicating a percentage decrease).
  * - If `value` is exactly 1, the result is 0 (indicating no change).
  *
+ * Only returns integer values.
+ *
  * @param value - The ratio value to convert.
  * @returns The signed percentage difference as a number.
  *
@@ -130,5 +132,5 @@ export function getChannelMention(discordChannelId: string): string {
  * toSignedPercent(1); // 0
  */
 export function toSignedPercent(value: number): number {
-	return -((1 - value) * 100);
+	return Math.round(-((1 - value) * 100));
 }
