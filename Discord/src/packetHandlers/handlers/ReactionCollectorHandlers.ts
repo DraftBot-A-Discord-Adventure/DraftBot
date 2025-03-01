@@ -92,7 +92,6 @@ export default class ReactionCollectorHandler {
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorBigEventData.name, createBigEventCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorChooseDestinationData.name, chooseDestinationCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorGoToPVEIslandData.name, goToPVEIslandCollector);
-		ReactionCollectorHandler.collectorMap.set(ReactionCollectorGoToPVEIslandData.name, goToPVEIslandCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorJoinBoatData.name, createJoinBoatCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorPetFreeData.name, createPetFreeCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorGuildCreateData.name, createGuildCreateCollector);

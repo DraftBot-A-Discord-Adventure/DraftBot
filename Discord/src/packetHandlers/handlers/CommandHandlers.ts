@@ -175,12 +175,17 @@ import {
 } from "../../../../Lib/src/packets/commands/CommandDrinkPacket";
 import {handleDrinkConsumePotion} from "../../commands/player/DrinkCommand";
 import {
+	CommandJoinBoatAcceptPacketRes,
 	CommandJoinBoatNoGuildPacketRes,
 	CommandJoinBoatNoMemberOnBoatPacketRes,
 	CommandJoinBoatNotEnoughEnergyPacketRes,
-	CommandJoinBoatNotEnoughGemsPacketRes,
+	CommandJoinBoatNotEnoughGemsPacketRes, CommandJoinBoatRefusePacketRes,
 	CommandJoinBoatTooManyRunsPacketRes
 } from "../../../../Lib/src/packets/commands/CommandJoinBoatPacket";
+import {
+	handleCommandJoinBoatAcceptPacketRes,
+	handleCommandJoinBoatRefusePacketRes
+} from "../../commands/player/JoinBoatCommand";
 
 export default class CommandHandlers {
 	@packetHandler(CommandPingPacketRes)
@@ -747,5 +752,15 @@ export default class CommandHandlers {
 	@packetHandler(CommandJoinBoatNotEnoughGemsPacketRes)
 	async joinBoatNotEnoughGems(context: PacketContext, _packet: CommandJoinBoatNotEnoughGemsPacketRes): Promise<void> {
 		await handleClassicError(context, "commands:joinBoat.errorMessage.notEnoughGems");
+	}
+
+	@packetHandler(CommandJoinBoatAcceptPacketRes)
+	async joinBoatAcceptRes(context: PacketContext, packet: CommandJoinBoatAcceptPacketRes): Promise<void> {
+		await handleCommandJoinBoatAcceptPacketRes(packet, context);
+	}
+
+	@packetHandler(CommandJoinBoatRefusePacketRes)
+	async joinBoatRefuseRes(context: PacketContext, packet: CommandJoinBoatRefusePacketRes): Promise<void> {
+		await handleCommandJoinBoatRefusePacketRes(packet, context);
 	}
 }

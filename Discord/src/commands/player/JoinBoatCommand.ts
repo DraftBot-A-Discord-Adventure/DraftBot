@@ -31,7 +31,7 @@ export async function createJoinBoatCollector(context: PacketContext, packet: Re
 				priceText: i18n.t("commands:joinBoat.confirmationMessage.description.confirmation.priceText", {
 					lng: interaction.userLanguage,
 					count: data.price,
-					gemCost: data.price
+					gemsCost: data.price
 				})
 			})
 		);

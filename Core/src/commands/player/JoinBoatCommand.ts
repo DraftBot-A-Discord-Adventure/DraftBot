@@ -60,6 +60,8 @@ async function acceptJoinBoat(player: Player, response: DraftBotPacket[]): Promi
 	}
 	await Maps.startBoatTravel(player, price, anotherMemberOnBoat[0], Date.now(),NumberChangeReason.PVE_ISLAND, response);
 	await MissionsController.update(player, response, {missionId: "joinMemberOnBoat"});
+	response.push(makePacket(CommandJoinBoatAcceptPacketRes, {}));
+	await player.save();
 }
 
 function endCallback(player: Player): EndCallback {
@@ -67,7 +69,6 @@ function endCallback(player: Player): EndCallback {
 		const reaction = collector.getFirstReaction();
 		if (reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name) {
 			await acceptJoinBoat(player, response);
-			response.push(makePacket(CommandJoinBoatAcceptPacketRes, {}));
 		}
 		else {
 			response.push(makePacket(CommandJoinBoatRefusePacketRes, {}));
