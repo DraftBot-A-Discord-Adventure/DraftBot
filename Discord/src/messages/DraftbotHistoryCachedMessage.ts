@@ -66,22 +66,43 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 		// Then we need to display the side effects of the attack or alteration if there are any
 		if (packet.fightActionEffectDealt) {
 			Object.entries(packet.fightActionEffectDealt!).forEach(([key, value]) => {
-				const operator = value >= 0 ? FightConstants.OPERATOR.PLUS : FightConstants.OPERATOR.MINUS;
-				newLine += i18n.t(`commands:fight.actions.fightActionEffects.opponent.${key}`, {
-					lng: interaction.userLanguage,
-					operator: operator,
-					amount: Math.abs(value)
-				});
+				if (typeof value === "number") {
+					const operator = value >= 0 ? FightConstants.OPERATOR.PLUS : FightConstants.OPERATOR.MINUS;
+					newLine += i18n.t(`commands:fight.actions.fightActionEffects.opponent.${key}`, {
+						lng: interaction.userLanguage,
+						operator: operator,
+						amount: Math.abs(value)
+					});
+				}
+				else if (value) {
+					newLine += i18n.t(`commands:fight.actions.fightActionEffects.opponent.${key}`, {
+						lng: interaction.userLanguage,
+						effect: i18n.t(`models:fight_actions.${value}.name`, {
+							lng: interaction.userLanguage
+						})
+					});
+				}
 			});
+
 		}
 		if (packet.fightActionEffectReceived) {
 			Object.entries(packet.fightActionEffectReceived!).forEach(([key, value]) => {
-				const operator = value >= 0 ? FightConstants.OPERATOR.PLUS : FightConstants.OPERATOR.MINUS;
-				newLine += i18n.t(`commands:fight.actions.fightActionEffects.self.${key}`, {
-					lng: interaction.userLanguage,
-					operator: operator,
-					amount: Math.abs(value)
-				});
+				if (typeof value === "number") {
+					const operator = value >= 0 ? FightConstants.OPERATOR.PLUS : FightConstants.OPERATOR.MINUS;
+					newLine += i18n.t(`commands:fight.actions.fightActionEffects.self.${key}`, {
+						lng: interaction.userLanguage,
+						operator: operator,
+						amount: Math.abs(value)
+					});
+				}
+				else if (value) {
+					newLine += i18n.t(`commands:fight.actions.fightActionEffects.opponent.${key}`, {
+						lng: interaction.userLanguage,
+						effect: i18n.t(`models:fight_actions.${value}.name`, {
+							lng: interaction.userLanguage
+						})
+					});
+				}
 			});
 		}
 
