@@ -338,6 +338,7 @@
       "name_other": "Attaques puissantes"
     },
     "protected": {
+      "new": "est protégé.",
       "active": "est protégé.",
       "stop": "n'est plus protégé."
     },

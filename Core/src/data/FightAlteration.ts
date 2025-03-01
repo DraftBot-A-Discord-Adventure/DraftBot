@@ -7,9 +7,11 @@ import {FightAlterationResult} from "../../../Lib/src/types/FightAlterationResul
 
 export class FightAlteration extends FightAction {
 	public happen(affected: Fighter, opponent: Fighter, turn: number, fight: FightController): FightAlterationResult {
-		affected.alterationTurn++;
+		if (this.id !== "outOfBreath") { // Out of breath is not a real alteration
+			affected.alterationTurn++;
+		}
 		const result = FightAlterationDataController.getFightAlterationFunction(this.id)(affected, this, opponent, turn, fight);
-		affected.damage(result.damages);
+		affected.damage(result.damages ?? 0);
 		return result;
 	}
 }
