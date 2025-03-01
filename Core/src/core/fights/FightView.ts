@@ -77,7 +77,7 @@ export class FightView {
 				monsterId: playingFighter instanceof MonsterFighter ? playingFighter.monster.id : null,
 				glory: playingFighter instanceof MonsterFighter ? null : playingFighter.player.getGloryPoints(),
 				stats: {
-					power: playingFighter.getFightPoints(),
+					power: playingFighter.getEnergy(),
 					attack: playingFighter.getAttack(),
 					defense: playingFighter.getDefense(),
 					speed: playingFighter.getSpeed(),
@@ -91,7 +91,7 @@ export class FightView {
 				monsterId: defendingFighter instanceof MonsterFighter ? defendingFighter.monster.id : null,
 				glory: defendingFighter instanceof MonsterFighter ? null : defendingFighter.player.getGloryPoints(),
 				stats: {
-					power: defendingFighter.getFightPoints(),
+					power: defendingFighter.getEnergy(),
 					attack: defendingFighter.getAttack(),
 					defense: defendingFighter.getDefense(),
 					speed: defendingFighter.getSpeed(),
