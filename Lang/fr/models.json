@@ -399,6 +399,7 @@
       "name_other": "Impacts"
     },
     "slowed": {
+      "new" : "est ralenti.",
       "active": "est ralenti.",
       "stop": "n'est plus ralenti."
     },
@@ -433,6 +434,7 @@
       "name_other": "Attaques ultimes"
     },
     "weak": {
+      "new": "est affaibli.",
       "active": "est affaibli.",
       "stop": "n'est plus affaibli."
     },
