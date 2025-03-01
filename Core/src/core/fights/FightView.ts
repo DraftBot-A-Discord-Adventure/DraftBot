@@ -169,21 +169,20 @@ export class FightView {
 						null, // FightAction is neither an attack nor an alteration (should not happen)
 			fightActionEffectDealt:
 				{
-					...
-					buildStatsChange(false),
+					...buildStatsChange(false),
 					newAlteration: "alterations" in fightActionResult && fightActionResult.alterations?.find(alt => !alt.selfTarget)?.alteration || null,
 					damages: fightActionResult.damages
 				}
 			,
-			fightActionEffectReceived: {
-				...
-				buildStatsChange(true),
-				newAlteration: "alterations" in fightActionResult && fightActionResult.alterations?.find(alt => alt.selfTarget)?.alteration || null,
-				damages:
-				fightActionResult.buffs?.find(
-					buff => buff.selfTarget && buff.stat === FightStatBuffed.DAMAGE && buff.operator === FightStatModifierOperation.ADDITION
-				)?.value
-			}
+			fightActionEffectReceived:
+				{
+					...buildStatsChange(true),
+					newAlteration: "alterations" in fightActionResult && fightActionResult.alterations?.find(alt => alt.selfTarget)?.alteration || null,
+					damages:
+					fightActionResult.buffs?.find(
+						buff => buff.selfTarget && buff.stat === FightStatBuffed.DAMAGE && buff.operator === FightStatModifierOperation.ADDITION
+					)?.value
+				}
 		}))
 		;
 	}
