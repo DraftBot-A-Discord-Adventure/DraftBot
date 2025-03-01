@@ -141,6 +141,7 @@
       "name_other": "Attaques vol de souffle"
     },
     "burned": {
+      "name": "brûlé",
       "new": "est brûlé.",
       "active": "souffre de sa brûlure.",
       "stop": "n'est plus brûlé."
@@ -174,6 +175,7 @@
       "name_other": "Attaques gourdin"
     },
     "concentrated": {
+      "name": "concentré",
       "new": "concentre son pouvoir. `Boost de dégâts actif`",
       "active": "concentre son pouvoir.",
       "stop": "n'est plus concentré."
@@ -189,6 +191,7 @@
       "name_other": "Attaques riposte"
     },
     "cursed": {
+      "name": "maudit",
       "new": "est maudit...",
       "active": "est maudit...",
       "stop": "subit les conséquences du maléfice."
@@ -234,10 +237,12 @@
       "name_other": "Attaques feu"
     },
     "frozen": {
+      "name": "gelé",
       "active": "est gelé.",
       "stop": "n'est plus gelé."
     },
     "full": {
+      "name": "repue",
       "new": "est repue et doit se reposer. `Vitesse: 0`",
       "active": "est repue et doit se reposer.",
       "stop": "n'est plus repue."
@@ -294,6 +299,7 @@
       "active": "est trop essoufflé pour attaquer et doit reprendre son souffle."
     },
     "outrage": {
+      "name": "en colère",
       "new": "est en colère.",
       "active": "est en colère.",
       "stop": "n'est plus en colère mais devient étourdis."
@@ -304,6 +310,7 @@
       "name_other": "Colères"
     },
     "paralyzed": {
+      "name": "paralysé",
       "active": "est paralysé.",
       "noAction": "est paralysé et ne parvient pas à attaquer.",
       "stop": "n'est plus paralysé."
@@ -314,6 +321,7 @@
       "name_other": "Pétrifications"
     },
     "petrified": {
+      "name": "pétrifié",
       "active": "est pétrifié.",
       "stop": "n'est plus pétrifié."
     },
@@ -323,6 +331,7 @@
       "name_other": "Attaques perçantes"
     },
     "poisoned": {
+      "name": "empoisonné",
       "new": "est empoisonné.",
       "active": "souffre de son empoisonnement.",
       "stop": "n'est plus empoisonné."
@@ -338,12 +347,14 @@
       "name_other": "Attaques puissantes"
     },
     "protected": {
+      "name": "protégé",
       "new": "est protégé.",
       "active": "est protégé.",
       "stop": "n'est plus protégé."
     },
     "protection": {
-      "description": "Échoue si vous utilisez cette action alors que vous avez une altération d'état. L'altération \"protégé\" dure 3 tours et vous empêche d'être victime d'une autre altération tout en vous offrant un boost de 30% de votre défense.",
+      "name": "protégé",
+      "description": "Échoue si vous utilisez cette action alors que vous avez une altération d’état. L’altération \"protégé\" dure 3 tours et vous empêche d’être victime d’une autre altération tout en vous offrant un boost de 30% de votre défense.",
       "name_one": "Protection",
       "name_other": "Protections"
     },
@@ -399,6 +410,7 @@
       "name_other": "Impacts"
     },
     "slowed": {
+      "name": "ralenti",
       "new" : "est ralenti.",
       "active": "est ralenti.",
       "stop": "n'est plus ralenti."
@@ -414,6 +426,7 @@
       "name_other": "Peaux de roche"
     },
     "stunned": {
+      "name": "étourdi",
       "active": "est étourdi.",
       "noAction": "est étourdi et ne parvient pas à attaquer.",
       "stop": "n'est plus étourdi."
@@ -424,8 +437,9 @@
       "name_other": "Invocations d'alliés"
     },
     "targeted": {
+      "name": "ciblé par un boomerang",
       "new": "regarde le boomerang tournoyer au loin.",
-      "stop": "n'est plus visé par un boomerang.",
+      "stop": "n'est plus ciblé par un boomerang.",
       "active": "est touché par le boomerang."
     },
     "ultimateAttack": {
@@ -434,6 +448,7 @@
       "name_other": "Attaques ultimes"
     },
     "weak": {
+      "name": "affaibli",
       "new": "est affaibli.",
       "active": "est affaibli.",
       "stop": "n'est plus affaibli."
