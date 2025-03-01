@@ -363,6 +363,7 @@
     },
     "resting": {
       "description": "S’applique sous forme de soin au lanceur. La quantité de points de combat récupérée est divisée par 4 au bout de 4 utilisations.",
+      "customMessage": "se repose...",
       "name_one": "Repos",
       "name_other": "Repos"
     },

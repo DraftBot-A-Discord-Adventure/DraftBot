@@ -121,12 +121,15 @@ export class FightView {
 			attack?: number;
 			defense?: number;
 			speed?: number;
-			breath?: number
+			breath?: number;
+			energy?: number;
 		} => fightActionResult.buffs
 			?.filter(buff =>
-				buff.selfTarget === selfTarget &&
-				[FightStatBuffed.ATTACK, FightStatBuffed.DEFENSE, FightStatBuffed.SPEED, FightStatBuffed.BREATH].includes(buff.stat) &&
-				buff.operator === FightStatModifierOperation.MULTIPLIER)
+				buff.selfTarget === selfTarget
+				&& ([FightStatBuffed.ATTACK, FightStatBuffed.DEFENSE, FightStatBuffed.SPEED, FightStatBuffed.BREATH].includes(buff.stat)
+					&& buff.operator === FightStatModifierOperation.MULTIPLIER
+					|| [FightStatBuffed.ENERGY].includes(buff.stat)
+					&& buff.operator === FightStatModifierOperation.ADDITION))
 			.reduce((acc, buff) => {
 				switch (buff.stat) {
 				case FightStatBuffed.ATTACK:
@@ -141,11 +144,14 @@ export class FightView {
 				case FightStatBuffed.BREATH:
 					acc.breath = buff.value;
 					break;
+				case FightStatBuffed.ENERGY:
+					acc.energy = buff.value;
+					break;
 				default:
 					break;
 				}
 				return acc;
-			}, {} as { attack?: number; defense?: number; speed?: number; breath?: number });
+			}, {} as { attack?: number; defense?: number; speed?: number; breath?: number; energy?: number });
 
 		response.push(makePacket(CommandFightHistoryItemPacket, {
 			fighterKeycloakId: fighter instanceof MonsterFighter ? null : fighter.player.keycloakId,
@@ -154,6 +160,7 @@ export class FightView {
 				as what the user selected (fightAction is what the user selected)
 	            and fightActionResult.usedAction is what ended up being used */
 			fightActionId: Object.prototype.hasOwnProperty.call(fightActionResult, "usedAction") ? (fightActionResult as FightActionResult).usedAction.id : fightAction.id,
+			customMessage: "customMessage" in fightActionResult ? fightActionResult.customMessage : false,
 			status:
 				"attackStatus" in fightActionResult ?
 					fightActionResult.attackStatus : // FightAction is an attack, so we have an attackStatus
