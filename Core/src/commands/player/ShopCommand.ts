@@ -132,7 +132,7 @@ function getHealEnergyShopItem(healEnergyAlreadyPurchased: number): ShopItem {
 				response.push(makePacket(CommandShopNoEnergyToHeal, {}));
 				return false;
 			}
-			player.setFightPointsLost(0, NumberChangeReason.SHOP);
+			player.setEnergyLost(0, NumberChangeReason.SHOP);
 			await player.save();
 			return true;
 		}
