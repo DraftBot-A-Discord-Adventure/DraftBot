@@ -3,7 +3,6 @@ import {attackInfo, FightActionController, statsInfo} from "../../FightActionCon
 import {FightActionFunc} from "../../../../../data/FightAction";
 import {
 	customMessageActionResult,
-	defaultFightActionResult,
 	FightStatBuffed
 } from "../../../../../../../Lib/src/types/FightActionResult";
 import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
