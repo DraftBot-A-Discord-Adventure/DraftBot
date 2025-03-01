@@ -25,7 +25,8 @@ export interface FightActionResult {
 	buffs?: FightActionBuff[],
 	damages?: number,
 	attackStatus: FightActionStatus,
-	alterations?: FightAlterationApplied[]
+	alterations?: FightAlterationApplied[],
+	customMessage?: boolean, // If true, the attack should be displayed with a custom message
 	usedAction?: {
 		id: string,
 		result: FightActionResult,
@@ -33,9 +34,25 @@ export interface FightActionResult {
 	}
 }
 
+/**
+ * Create a default FightActionResult
+ * Will be displayed as "XXX used Attack YYY"
+ */
 export function defaultFightActionResult(): FightActionResult {
 	return {
-		attackStatus: FightActionStatus.NORMAL
+		attackStatus: FightActionStatus.NORMAL,
+		customMessage: false
+	};
+}
+
+/**
+ * Create a custom message FightActionResult,
+ * For example, resting should not be display as "XXX used Attack resting" but "XXX is resting"
+ */
+export function customMessageActionResult(): FightActionResult {
+	return {
+		attackStatus: FightActionStatus.NORMAL,
+		customMessage: true
 	};
 }
 

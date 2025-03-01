@@ -1,7 +1,11 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
 import {FightActionFunc} from "../../../../../data/FightAction";
-import {defaultFightActionResult, FightStatBuffed} from "../../../../../../../Lib/src/types/FightActionResult";
+import {
+	customMessageActionResult,
+	defaultFightActionResult,
+	FightStatBuffed
+} from "../../../../../../../Lib/src/types/FightActionResult";
 import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
 
 const use: FightActionFunc = (sender, _receiver, fightAction) => {
@@ -12,7 +16,7 @@ const use: FightActionFunc = (sender, _receiver, fightAction) => {
 	// Recovered fight points are reduced after the fourth use of this action
 	const recoveredFightPoints = Math.round(FightActionController.getAttackDamage(getStatsInfo(sender), sender, getAttackInfo(), true) / (count < 4 ? 1 : 4));
 
-	const result = defaultFightActionResult();
+	const result = customMessageActionResult();
 	FightActionController.applyBuff(result, {
 		selfTarget: true,
 		stat: FightStatBuffed.ENERGY,

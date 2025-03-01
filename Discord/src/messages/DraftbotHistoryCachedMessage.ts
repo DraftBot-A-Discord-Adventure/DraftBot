@@ -45,6 +45,11 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 				lng: interaction.userLanguage
 			});
 		}
+		else if (packet.customMessage) {
+			newLine += i18n.t(`models:fight_actions.${packet.fightActionId}.customMessage`, {
+				lng: interaction.userLanguage
+			});
+		}
 		else {
 			// The fightAction is an attack
 			attackName = i18n.t(`models:fight_actions.${packet.fightActionId}.name`, {
