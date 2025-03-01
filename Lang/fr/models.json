@@ -288,7 +288,7 @@
       "name_other": "Monstrueuses Copies"
     },
     "none": {
-      "active": "ne peut pas attaquer."
+      "customMessage": "ne peut pas attaquer."
     },
     "outOfBreath": {
       "active": "est trop essoufflé pour attaquer et doit reprendre son souffle."

@@ -1,9 +1,11 @@
 import {FightActionFunc} from "../../../../../data/FightAction";
-import {defaultFightActionResult} from "../../../../../../../Lib/src/types/FightActionResult";
+import {
+	customMessageActionResult
+} from "../../../../../../../Lib/src/types/FightActionResult";
 
 const use: FightActionFunc = (sender) => {
 	sender.nextFightAction = null;
-	return defaultFightActionResult();
+	return customMessageActionResult();
 };
 
 export default use;
