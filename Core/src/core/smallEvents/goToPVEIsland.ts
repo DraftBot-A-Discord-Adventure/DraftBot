@@ -62,8 +62,8 @@ export const smallEventFuncs: SmallEventFuncs = {
 
 		const collector = new ReactionCollectorGoToPVEIsland(
 			price,
-			player.getCumulativeFightPoint(),
-			player.getMaxCumulativeFightPoint()
+			player.getCumulativeEnergy(),
+			player.getMaxCumulativeEnergy()
 		);
 
 		const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
