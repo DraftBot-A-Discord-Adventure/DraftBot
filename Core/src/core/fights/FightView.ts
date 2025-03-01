@@ -170,13 +170,15 @@ export class FightView {
 			fightActionEffectDealt:
 				{
 					...
-					buildStatsChange(false), damages:
-					fightActionResult.damages
+					buildStatsChange(false),
+					newAlteration: "alterations" in fightActionResult && fightActionResult.alterations?.find(alt => !alt.selfTarget)?.alteration || null,
+					damages: fightActionResult.damages
 				}
 			,
 			fightActionEffectReceived: {
 				...
 				buildStatsChange(true),
+				newAlteration: "alterations" in fightActionResult && fightActionResult.alterations?.find(alt => alt.selfTarget)?.alteration || null,
 				damages:
 				fightActionResult.buffs?.find(
 					buff => buff.selfTarget && buff.stat === FightStatBuffed.DAMAGE && buff.operator === FightStatModifierOperation.ADDITION

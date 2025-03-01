@@ -13,6 +13,7 @@ export class CommandFightHistoryItemPacket extends DraftBotPacket {
 	status?: string; // See constants in FightAlterationResult or FightActionStatus for values
 
 	fightActionEffectDealt?: { // Stat change for the opponent in % (10 = 10%) can be negative
+		"newAlteration"?: string;
 		damages?: number;
 		defense?: number;
 		attack?: number;
@@ -20,7 +21,8 @@ export class CommandFightHistoryItemPacket extends DraftBotPacket {
 		breath?: number; // This one is not in %
 	};
 
-	fightActionEffectReceived?: { // Stat change for the fighter in % (10 = 10%) can be negative
+	fightActionEffectReceived?: {// Stat change for the fighter in % (10 = 10%) can be negative
+		"newAlteration"?: string;
 		damages?: number;
 		defense?: number;
 		attack?: number;
