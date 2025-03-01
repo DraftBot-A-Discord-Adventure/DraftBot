@@ -13,7 +13,7 @@ const use: FightActionFunc = (sender, receiver) => {
 
 	// If the attack was used two times in a row, the damage is multiplied by 1.5
 	const lastFightAction = sender.getLastFightActionUsed();
-	if (lastFightAction instanceof this) {
+	if (lastFightAction.id === "canonAttack") {
 		damageDealt.damages = Math.round(damageDealt.damages * 1.5);
 	}
 
