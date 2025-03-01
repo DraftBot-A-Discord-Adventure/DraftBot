@@ -60,13 +60,13 @@ function getIslandStatusIcon(member: GuildMember, interaction: DraftbotInteracti
 	return member.islandStatus.isOnPveIsland || member.islandStatus.isOnBoat || member.islandStatus.isPveIslandAlly || member.islandStatus.cannotBeJoinedOnBoat ?
 		i18n.t("commands:guild.separator", {lng})
 		+ (member.islandStatus.isOnPveIsland ?
-			i18n.t("commands:guild.emojis.pveIsland", {lng}) :
+			i18n.t("commands:guild.emojis.isOnPveIsland", {lng}) :
 			"")
 		+ (member.islandStatus.isOnBoat ?
-			i18n.t("commands:guild.emojis.boat", {lng}) :
+			i18n.t("commands:guild.emojis.isOnBoat", {lng}) :
 			"")
 		+ (member.islandStatus.isPveIslandAlly ?
-			i18n.t("commands:guild.emojis.pveIslandAlly", {lng}) :
+			i18n.t("commands:guild.emojis.countAsAnAlly", {lng}) :
 			"")
 		+ (member.islandStatus.cannotBeJoinedOnBoat ?
 			i18n.t("commands:guild.emojis.cannotBeJoinedOnBoat", {lng}) :

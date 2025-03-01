@@ -36,8 +36,8 @@
       "chief": "{emote:guild.chief}",
       "elder": "{emote:guild.elder}️",
       "member": "{emote:guild.member}",
-      "isOnPveIsland": "🏝{emote:guild.isOnPveIsland}",
-      "isOnBoat": "⛴{emote:guild.isOnBoat}",
+      "isOnPveIsland": "{emote:guild.isOnPveIsland}",
+      "isOnBoat": "{emote:guild.isOnBoat}",
       "countAsAnAlly": "{emote:guild.countAsAnAlly}",
       "cannotBeJoinedOnBoat": "{emote:guild.cannotBeJoinedOnBoat}"
     },
