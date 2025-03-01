@@ -1,16 +1,16 @@
 import {LogsPlayersNumbers, logsPlayersNumbersAttributes} from "./LogsPlayersNumbers";
 import {Sequelize} from "sequelize";
 
-export class LogsPlayersFightPoints extends LogsPlayersNumbers {
+export class LogsPlayersEnergy extends LogsPlayersNumbers {
 }
 
 export function initModel(sequelize: Sequelize): void {
-	LogsPlayersFightPoints.init(logsPlayersNumbersAttributes, {
+	LogsPlayersEnergy.init(logsPlayersNumbersAttributes, {
 		sequelize,
 		tableName: "players_fight_points",
 		freezeTableName: true,
 		timestamps: false
 	});
 
-	LogsPlayersFightPoints.removeAttribute("id");
+	LogsPlayersEnergy.removeAttribute("id");
 }

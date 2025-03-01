@@ -33,8 +33,8 @@ export class AiPlayerFighter extends Fighter {
 	 */
 	public async loadStats(): Promise<void> {
 		const playerActiveObjects: PlayerActiveObjects = await InventorySlots.getPlayerActiveObjects(this.player.id);
-		this.stats.fightPoints = this.player.getCumulativeFightPoint();
-		this.stats.maxFightPoint = this.player.getMaxCumulativeFightPoint();
+		this.stats.fightPoints = this.player.getCumulativeEnergy();
+		this.stats.maxFightPoint = this.player.getMaxCumulativeEnergy();
 		this.stats.attack = this.player.getCumulativeAttack(playerActiveObjects);
 		this.stats.defense = this.player.getCumulativeDefense(playerActiveObjects);
 		this.stats.speed = this.player.getCumulativeSpeed(playerActiveObjects);

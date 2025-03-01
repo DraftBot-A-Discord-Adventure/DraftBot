@@ -91,8 +91,8 @@ export class PlayerFighter extends Fighter {
 	 */
 	public async loadStats(): Promise<void> {
 		const playerActiveObjects: PlayerActiveObjects = await InventorySlots.getPlayerActiveObjects(this.player.id);
-		this.stats.fightPoints = this.player.getCumulativeFightPoint();
-		this.stats.maxFightPoint = this.player.getMaxCumulativeFightPoint();
+		this.stats.fightPoints = this.player.getCumulativeEnergy();
+		this.stats.maxFightPoint = this.player.getMaxCumulativeEnergy();
 		this.stats.attack = this.player.getCumulativeAttack(playerActiveObjects);
 		this.stats.defense = this.player.getCumulativeDefense(playerActiveObjects);
 		this.stats.speed = this.player.getCumulativeSpeed(playerActiveObjects);
@@ -186,7 +186,7 @@ export class PlayerFighter extends Fighter {
 	 */
 	private async manageMissionsOf(fightView: FightView): Promise<void> {
 		const newPlayer = await Players.getOrRegister(this.player.keycloakId);
-		newPlayer.setFightPointsLost(this.stats.maxFightPoint - this.stats.fightPoints, NumberChangeReason.FIGHT);
+		newPlayer.setEnergyLost(this.stats.maxFightPoint - this.stats.fightPoints, NumberChangeReason.FIGHT);
 		await newPlayer.save();
 
 		await this.checkFightActionHistory(fightView);

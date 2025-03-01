@@ -161,7 +161,7 @@
       "name_other": "Attaques gourdin"
     },
     "chargeUltimateAttack": {
-      "description": "Nécessite un tour pour charger l’attaque Si l’attaquant dispose de moins de 45% de ses points de combat, cette attaque ne peut pas échouer. Si l’attaquant dispose de plus de 45% de ses points de combat, la précision de cette attaque est de 70. Cette attaque ne peut être utilisée qu’une fois par joueur et par combat.",
+      "description": "Nécessite un tour pour charger l’attaque Si l’attaquant dispose de moins de 45% de son énergie, cette attaque ne peut pas échouer. Si l’attaquant dispose de plus de 45% de son énergie, la précision de cette attaque est de 70. Cette attaque ne peut être utilisée qu’une fois par joueur et par combat.",
       "name_one": "Attaque ultime",
       "name_other": "Attaques ultimes"
     },
@@ -273,7 +273,7 @@
       "name_other": "Vagues de lave"
     },
     "magmaBathAttack": {
-      "description": "S'applique au lanceur. Celui-ci se repose dans la lave et récupère ses points de combats. Le nombre de points de combats récupérés est divisé par 4 après 4 utilisations.",
+      "description": "S'applique au lanceur. Celui-ci se repose dans la lave et récupère son énergie. Le nombre de points de combats récupérés est divisé par 4 après 4 utilisations.",
       "name_one": "Bain de magma",
       "name_other": "Bains de magma"
     },
@@ -362,7 +362,7 @@
       "name_other": "Attaques béliers"
     },
     "resting": {
-      "description": "S’applique sous forme de soin au lanceur. La quantité de points de combat récupérée est divisée par 4 au bout de 4 utilisations.",
+      "description": "S’applique sous forme de soin au lanceur. La quantité d'énergie récupérée est divisée par 4 au bout de 4 utilisations.",
       "customMessage": "se repose...",
       "name_one": "Repos",
       "name_other": "Repos"

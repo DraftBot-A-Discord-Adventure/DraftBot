@@ -660,10 +660,10 @@ export class Player extends Model {
 	}
 
 	/**
-	 * Get the player cumulative fight points
+	 * Get the player cumulative energy
 	 */
-	public getCumulativeFightPoint(): number {
-		const maxHealth = this.getMaxCumulativeFightPoint();
+	public getCumulativeEnergy(): number {
+		const maxHealth = this.getMaxCumulativeEnergy();
 		let fp = maxHealth - this.fightPointsLost;
 		if (fp < 0) {
 			fp = 0;
@@ -674,8 +674,8 @@ export class Player extends Model {
 		return fp;
 	}
 
-	public getRatioCumulativeFightPoint(): number {
-		return this.getCumulativeFightPoint() / this.getMaxCumulativeFightPoint();
+	public getRatioCumulativeEnergy(): number {
+		return this.getCumulativeEnergy() / this.getMaxCumulativeEnergy();
 	}
 
 	/**
@@ -687,11 +687,11 @@ export class Player extends Model {
 	}
 
 	/**
-	 * Get the player max cumulative fight point
+	 * Get the player max cumulative energy
 	 */
-	public getMaxCumulativeFightPoint(): number {
+	public getMaxCumulativeEnergy(): number {
 		const playerClass = ClassDataController.instance.getById(this.class);
-		return playerClass.getMaxCumulativeFightPointValue(this.level);
+		return playerClass.getMaxCumulativeEnergyValue(this.level);
 	}
 
 	/**
@@ -711,12 +711,12 @@ export class Player extends Model {
 	}
 
 	/**
-	 * Add and logs fight points lost to the player
+	 * Add and logs energy gain
 	 * @param energy
 	 * @param reason
 	 */
 	public addEnergy(energy: number, reason: NumberChangeReason): void {
-		this.setFightPointsLost(Math.max(0, this.fightPointsLost - energy), reason);
+		this.setEnergyLost(Math.max(0, this.fightPointsLost - energy), reason);
 	}
 
 	/**
@@ -724,9 +724,9 @@ export class Player extends Model {
 	 * @param energy
 	 * @param reason
 	 */
-	public setFightPointsLost(energy: number, reason: NumberChangeReason): void {
+	public setEnergyLost(energy: number, reason: NumberChangeReason): void {
 		this.fightPointsLost = energy;
-		draftBotInstance.logsDatabase.logFightPointChange(this.keycloakId, this.fightPointsLost, reason)
+		draftBotInstance.logsDatabase.logEnergyChange(this.keycloakId, this.fightPointsLost, reason)
 			.then();
 	}
 
@@ -739,11 +739,11 @@ export class Player extends Model {
 	}
 
 	/**
-	 * Leave the PVE island if no fight points left
+	 * Leave the PVE island if no energy left
 	 * @param response
 	 */
-	public async leavePVEIslandIfNoFightPoints(response: DraftBotPacket[]): Promise<boolean> {
-		if (!(Maps.isOnPveIsland(this) && this.fightPointsLost >= this.getMaxCumulativeFightPoint())) {
+	public async leavePVEIslandIfNoEnergy(response: DraftBotPacket[]): Promise<boolean> {
+		if (!(Maps.isOnPveIsland(this) && this.fightPointsLost >= this.getMaxCumulativeEnergy())) {
 			return false;
 		}
 		const {
@@ -764,24 +764,6 @@ export class Player extends Model {
 		await TravelTime.applyEffect(this, Effect.CONFOUNDED, 0, new Date(), NumberChangeReason.PVE_ISLAND);
 		await PlayerSmallEvents.removeSmallEventsOfPlayer(this.id);
 		return true;
-	}
-
-	/**
-	 * Add fight points
-	 * @param amount
-	 * @param maxPoints
-	 */
-	public addFightPoints(amount: number, maxPoints = -1): void {
-		if (maxPoints === -1) {
-			maxPoints = this.getMaxCumulativeFightPoint();
-		}
-		this.fightPointsLost -= amount;
-		if (this.fightPointsLost < 0) {
-			this.fightPointsLost = 0;
-		}
-		else if (this.fightPointsLost > maxPoints) {
-			this.fightPointsLost = maxPoints;
-		}
 	}
 
 	/**
@@ -906,7 +888,7 @@ export class Player extends Model {
 	 * Check if the player has enough energy to join the island
 	 */
 	hasEnoughEnergyToJoinTheIsland(): boolean {
-		return this.getCumulativeFightPoint() / this.getMaxCumulativeFightPoint() >= PVEConstants.MINIMAL_ENERGY_RATIO;
+		return this.getCumulativeEnergy() / this.getMaxCumulativeEnergy() >= PVEConstants.MINIMAL_ENERGY_RATIO;
 	}
 
 	/**

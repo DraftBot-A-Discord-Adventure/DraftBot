@@ -81,7 +81,7 @@ import {LogsPlayersGloryPoints} from "./models/LogsPlayersGloryPoints";
 import {LogsPlayers15BestSeason} from "./models/LogsPlayers15BestSeason";
 import {LogsSeasonEnd} from "./models/LogsSeasonEnd";
 import {LogsPlayerLeagueReward} from "./models/LogsPlayerLeagueReward";
-import {LogsPlayersFightPoints} from "./models/LogsPlayersFightPoints";
+import {LogsPlayersEnergy} from "./models/LogsPlayersEnergy";
 import {LogsGuildsPoints} from "./models/LogsGuildsPoints";
 import {LogsPveFightsResults} from "./models/LogsPveFightsResults";
 import {LogsPveFightsActionsUsed} from "./models/LogsPveFightsActionsUsed";
@@ -349,13 +349,13 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * Log a player's fightPoints change (except natural regeneration)
+	 * Log a player's energy change (except natural regeneration)
 	 * @param keycloakId
 	 * @param value
 	 * @param reason
 	 */
-	public logFightPointChange(keycloakId: string, value: number, reason: NumberChangeReason): Promise<void> {
-		return LogsDatabase.logNumberChange(keycloakId, value, reason, LogsPlayersFightPoints);
+	public logEnergyChange(keycloakId: string, value: number, reason: NumberChangeReason): Promise<void> {
+		return LogsDatabase.logNumberChange(keycloakId, value, reason, LogsPlayersEnergy);
 	}
 
 	/**

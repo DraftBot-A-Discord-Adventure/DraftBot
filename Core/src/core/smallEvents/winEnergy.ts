@@ -11,7 +11,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 		return player.fightPointsLost > 0 && (destinationId === MapConstants.LOCATIONS_IDS.CLAIRE_DE_VILLE || originId === MapConstants.LOCATIONS_IDS.CLAIRE_DE_VILLE);
 	},
 	executeSmallEvent: async (response, player): Promise<void> => {
-		player.setFightPointsLost(0, NumberChangeReason.SMALL_EVENT);
+		player.setEnergyLost(0, NumberChangeReason.SMALL_EVENT);
 		await player.save();
 		response.push(makePacket(SmallEventWinEnergyPacket, {}));
 	}

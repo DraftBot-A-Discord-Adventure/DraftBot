@@ -444,8 +444,8 @@ async function sendTravelPath(player: Player, response: DraftBotPacket[], date: 
 		},
 		energy: {
 			show: showEnergy,
-			current: showEnergy ? player.getCumulativeFightPoint() : 0,
-			max: showEnergy ? player.getMaxCumulativeFightPoint() : 0
+			current: showEnergy ? player.getCumulativeEnergy() : 0,
+			max: showEnergy ? player.getMaxCumulativeEnergy() : 0
 		},
 		endMap: {
 			id: endMap.id,
@@ -481,7 +481,7 @@ async function doPVEBoss(
 			let guildXp: number = 0;
 			let guildPoints: number = 0;
 
-			player.fightPointsLost = fight.fightInitiator.getMaxFightPoints() - fight.fightInitiator.getFightPoints();
+			player.fightPointsLost = fight.fightInitiator.getMaxEnergy() - fight.fightInitiator.getEnergy();
 
 			// Only give reward if draw or win
 			if (fight.fighters[fight.getWinner()] instanceof PlayerFighter) {
@@ -519,7 +519,7 @@ async function doPVEBoss(
 			draftBotInstance.logsDatabase.logPveFight(fight).then();
 		}
 
-		if (!await player.leavePVEIslandIfNoFightPoints(response)) {
+		if (!await player.leavePVEIslandIfNoEnergy(response)) {
 			await Maps.stopTravel(player);
 			await player.setLastReportWithEffect(
 				0,
@@ -548,7 +548,7 @@ async function doPVEBoss(
 			attack: monsterFighter.getAttack(),
 			defense: monsterFighter.getDefense(),
 			speed: monsterFighter.getSpeed(),
-			fightPoints: monsterFighter.getFightPoints()
+			fightPoints: monsterFighter.getEnergy()
 		}
 	});
 
@@ -563,7 +563,7 @@ async function doPVEBoss(
 
 		const playerFighter = new PlayerFighter(player, ClassDataController.instance.getById(player.class));
 		await playerFighter.loadStats();
-		playerFighter.setBaseFightPoints(playerFighter.getMaxFightPoints() - player.fightPointsLost);
+		playerFighter.setBaseEnergy(playerFighter.getMaxEnergy() - player.fightPointsLost);
 
 		const fight = new FightController(
 			{

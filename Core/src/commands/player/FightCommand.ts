@@ -49,8 +49,8 @@ async function getPlayerStats(player: Player): Promise<PlayerStats> {
 			glory: player.getGloryPoints()
 		},
 		energy: {
-			value: player.getCumulativeFightPoint(),
-			max: player.getMaxCumulativeFightPoint()
+			value: player.getCumulativeEnergy(),
+			max: player.getMaxCumulativeEnergy()
 		},
 		attack: player.getCumulativeAttack(playerActiveObjects),
 		defense: player.getCumulativeDefense(playerActiveObjects),

@@ -115,7 +115,7 @@ export class FightController {
 	public async endFight(response: DraftBotPacket[]): Promise<void> {
 		this.state = FightState.FINISHED;
 
-		this.checkNegativeFightPoints();
+		this.checkNegativeEnergy();
 
 		const winner = this.getWinner();
 		const isADraw = this.isADraw();
@@ -229,14 +229,14 @@ export class FightController {
 	}
 
 	/**
-	 * Check if any of the fighters has negative fight points
+	 * Check if any of the fighters has negative energy
 	 * @private
 	 */
-	private checkNegativeFightPoints(): void {
-		// Set the fight points to 0 if any of the fighters have fight points under 0
+	private checkNegativeEnergy(): void {
+		// Set the energy to 0 if any of the fighters have energy under 0
 		for (const fighter of this.fighters) {
-			if (fighter.getFightPoints() < 0) {
-				fighter.setBaseFightPoints(0);
+			if (fighter.getEnergy() < 0) {
+				fighter.setBaseEnergy(0);
 			}
 		}
 	}

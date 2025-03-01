@@ -142,16 +142,16 @@ export abstract class Fighter {
 	}
 
 	/**
-	 * Get fight points
+	 * Get energy
 	 */
-	public getFightPoints(): number {
+	public getEnergy(): number {
 		return this.stats.fightPoints;
 	}
 
 	/**
-	 * Get the maximum fight points
+	 * Get the maximum energy
 	 */
-	public getMaxFightPoints(): number {
+	public getMaxEnergy(): number {
 		return this.stats.maxFightPoint;
 	}
 
@@ -170,7 +170,7 @@ export abstract class Fighter {
 	}
 
 	/**
-	 * Get the regen breath of the fighter
+	 * Get the regeneration amount breath of the fighter per turn
 	 */
 	public getRegenBreath(): number {
 		return this.stats.breathRegen;
@@ -200,10 +200,10 @@ export abstract class Fighter {
 	}
 
 	/**
-	 * Set the base fight points
+	 * Set the base energy of the fighter
 	 * @param value
 	 */
-	public setBaseFightPoints(value: number): void {
+	public setBaseEnergy(value: number): void {
 		this.stats.fightPoints = value;
 	}
 
@@ -324,7 +324,7 @@ export abstract class Fighter {
 	 */
 	public heal(value: number): number {
 		this.stats.fightPoints += value;
-		const max = this.getMaxFightPoints();
+		const max = this.getMaxEnergy();
 		if (this.stats.fightPoints > max) {
 			this.stats.fightPoints = max;
 		}
@@ -335,7 +335,7 @@ export abstract class Fighter {
 	 * Check if the player is dead
 	 */
 	public isDead(): boolean {
-		return this.getFightPoints() <= 0;
+		return this.getEnergy() <= 0;
 	}
 
 	/**

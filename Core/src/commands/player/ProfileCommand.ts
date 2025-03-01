@@ -90,8 +90,8 @@ export default class ProfileCommand {
 					defense: toCheckPlayer.getCumulativeDefense(playerActiveObjects),
 					speed: toCheckPlayer.getCumulativeSpeed(playerActiveObjects),
 					energy: {
-						value: toCheckPlayer.getCumulativeFightPoint(),
-						max: toCheckPlayer.getMaxCumulativeFightPoint()
+						value: toCheckPlayer.getCumulativeEnergy(),
+						max: toCheckPlayer.getMaxCumulativeEnergy()
 					},
 					breath: {
 						base: toCheckPlayer.getBaseBreath(),
