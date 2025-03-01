@@ -85,6 +85,10 @@ export default class JoinBoatCommand {
 		guildNeeded: true
 	})
 	async execute(response: DraftBotPacket[], player: Player, _packet: CommandJoinBoatPacketReq, context: PacketContext): Promise<void> {
+		if (await LogsReadRequests.getCountPVEIslandThisWeek(player.keycloakId, player.guildId) >= PVEConstants.TRAVEL_COST.length) {
+			response.push(makePacket(CommandJoinBoatTooManyRunsPacketRes, {}));
+			return;
+		}
 		const price = await player.getTravelCostThisWeek();
 
 		const collector = new ReactionCollectorJoinBoat(

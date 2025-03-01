@@ -102,7 +102,7 @@ import {
 	CommandUnlockRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandUnlockPacket";
 import {handleCommandUnlockAcceptPacketRes, handleCommandUnlockNotEnoughMoneyError, handleCommandUnlockRefusePacketRes} from "../../commands/player/UnlockCommand";
-import {handleClassicError} from "../../utils/ErrorUtils";
+import {handleClassicError, replyEphemeralErrorMessage} from "../../utils/ErrorUtils";
 import {
 	CommandMissionShopAlreadyBoughtPointsThisWeek,
 	CommandMissionShopAlreadyHadBadge,
@@ -736,7 +736,8 @@ export default class CommandHandlers {
 
 	@packetHandler(CommandJoinBoatTooManyRunsPacketRes)
 	async joinBoatTooManyRuns(context: PacketContext, _packet: CommandJoinBoatTooManyRunsPacketRes): Promise<void> {
-		await handleClassicError(context, "commands:joinBoat.errorMessage.tooManyBoatThisWeek");
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
+		await replyEphemeralErrorMessage(interaction, i18n.t("commands:joinBoat.errorMessage.tooManyBoatThisWeek", {lng: interaction.userLanguage}));
 	}
 
 	@packetHandler(CommandJoinBoatNoMemberOnBoatPacketRes)
