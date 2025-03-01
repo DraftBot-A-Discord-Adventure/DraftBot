@@ -919,7 +919,7 @@
       },
       "fightActionEffects": {
         "self" : {
-          "newAlteration": " `Vous êtes désormais {effect} !`",
+          "newAlteration": " `Vous êtes désormais {{effect}} !`",
           "damages": " `Dégâts reçus : {{amount}}`",
           "defense": " `Défense : {{operator}} {{amount}} %`",
           "breath": " `Souffle : {{operator}} {{amount}}`",

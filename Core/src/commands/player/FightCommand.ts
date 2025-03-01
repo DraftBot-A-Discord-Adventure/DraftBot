@@ -195,6 +195,7 @@ function fightValidationEndCallback(player: Player, context: PacketContext): End
 			await askingFighter.loadStats();
 			const incomingFighter = new AiPlayerFighter(opponent, ClassDataController.instance.getById(opponent.class));
 			await incomingFighter.loadStats();
+
 			// Start fight
 			const fightController = new FightController(
 				{fighter1: askingFighter, fighter2: incomingFighter},

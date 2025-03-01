@@ -96,7 +96,7 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 					});
 				}
 				else if (value) {
-					newLine += i18n.t(`commands:fight.actions.fightActionEffects.opponent.${key}`, {
+					newLine += i18n.t(`commands:fight.actions.fightActionEffects.self.${key}`, {
 						lng: interaction.userLanguage,
 						effect: i18n.t(`models:fight_actions.${value}.name`, {
 							lng: interaction.userLanguage
