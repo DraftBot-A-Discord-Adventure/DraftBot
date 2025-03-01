@@ -1712,7 +1712,7 @@ export const DraftBotIcons: {
 		"simpleAttack": "⚔️",
 		"slowed": "🦥",
 		"stunned": "😖",
-		"targetted": "↩️",
+		"targeted": "↩️",
 		"ultimateAttack": "☄️",
 		"weak": "🤧"
 	},
