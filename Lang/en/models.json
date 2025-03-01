@@ -276,7 +276,7 @@
       "name_other": "Lava waves"
     },
     "magmaBathAttack": {
-      "description": "Applies to the launcher. He rests in the lava and recovers his fight points. The number of fight points recovered is divided by 4 after 4 uses.",
+      "description": "Applies to the launcher. He rests in the lava and recovers his energy. The amount of energy recovered is divided by 4 after 4 uses.",
       "name_one": "Magma bath",
       "name_other": "Magma baths"
     },
@@ -371,7 +371,7 @@
       "name_other": "Ram Attacks"
     },
     "resting": {
-      "description": "S'applique sous forme de soin au lanceur. La quantité de points de combat récupérée est divisée par 4 au bout de 4 utilisations.",
+      "description": "Applies to the caster. The amount of energy recovered is divided by 4 after 4 uses.",
       "name_one": "Rest",
       "name_other": "Rests"
     },

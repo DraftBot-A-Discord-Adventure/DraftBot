@@ -908,7 +908,7 @@
           "breath": " `Souffle : {{operator}} {{amount}}`",
           "speed": " `Vitesse : {{operator}} {{amount}} %`",
           "attack": " `Attaque : {{operator}} {{amount}} %`",
-          "energy": " `Points de combat soignés : {{operator}} {{amount}}`"
+          "energy": " `Énergie récupérée : {{amount}}`"
         },
         "opponent": {
           "newAlteration": " `Votre adversaire est désormais {{effect}} !`",
@@ -917,7 +917,7 @@
           "breath": " `Souffle de l'adversaire : {{operator}} {{amount}}`",
           "speed": " `Vitesse de l'adversaire : {{operator}} {{amount}} %`",
           "attack": " `Attaque de l'adversaire : {{operator}} {{amount}} %`",
-          "energy": " `Points de combat de l'adversaire soignés : {{operator}} {{amount}}`",
+          "energy": " `Énergie de l'adversaire récupérée : {{amount}}`",
           "summoning": " `Invocation de {{amount}} alliés`"
         }
       },

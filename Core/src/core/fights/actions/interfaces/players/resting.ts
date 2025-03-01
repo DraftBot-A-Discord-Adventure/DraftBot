@@ -13,15 +13,15 @@ const use: FightActionFunc = (sender, _receiver, fightAction) => {
 
 	sender.nextFightAction = null;
 
-	// Recovered fight points are reduced after the fourth use of this action
-	const recoveredFightPoints = Math.round(FightActionController.getAttackDamage(getStatsInfo(sender), sender, getAttackInfo(), true) / (count < 4 ? 1 : 4));
+	// Recovered energy is reduced after the fourth use of this action
+	const recoveredEnergy = Math.round(FightActionController.getAttackDamage(getStatsInfo(sender), sender, getAttackInfo(), true) / (count < 4 ? 1 : 4));
 
 	const result = customMessageActionResult();
 	FightActionController.applyBuff(result, {
 		selfTarget: true,
 		stat: FightStatBuffed.ENERGY,
 		operator: FightStatModifierOperation.ADDITION,
-		value: recoveredFightPoints
+		value: recoveredEnergy
 	}, sender, fightAction);
 	return result;
 };
@@ -39,10 +39,10 @@ function getAttackInfo(): attackInfo {
 function getStatsInfo(sender: Fighter): statsInfo {
 	return {
 		attackerStats: [
-			sender.getMaxFightPoints() // We are comparing the max fight points to the current health to get the amount of recovered fight points
+			sender.getMaxEnergy() // We are comparing the max energy to the current energy to get the amount of recovered energy
 		],
 		defenderStats: [
-			sender.getFightPoints()
+			sender.getEnergy()
 		],
 		statsEffect: [
 			1
