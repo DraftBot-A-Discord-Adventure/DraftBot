@@ -258,7 +258,7 @@ export class FightController {
 
 		if (this.getPlayingFighter()
 			.hasFightAlteration()) {
-			this.executeFightAlteration(this.getPlayingFighter().alteration, response);
+			await this.executeFightAlteration(this.getPlayingFighter().alteration, response);
 		}
 		if (this.state !== FightState.RUNNING) {
 			// A player was killed by a fight alteration, no need to continue the fight
