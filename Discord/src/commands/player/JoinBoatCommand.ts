@@ -1,4 +1,4 @@
-import {PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {DiscordCache} from "../../bot/DiscordCache";
 import {
@@ -8,6 +8,12 @@ import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import i18n from "../../translations/i18n";
 import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
 import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import {
+	CommandJoinBoatAcceptPacketRes, CommandJoinBoatPacketReq,
+	CommandJoinBoatRefusePacketRes
+} from "../../../../Lib/src/packets/commands/CommandJoinBoatPacket";
+import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import {ICommand} from "../ICommand";
 
 export async function createJoinBoatCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
@@ -32,3 +38,57 @@ export async function createJoinBoatCollector(context: PacketContext, packet: Re
 
 	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
 }
+
+export async function handleCommandJoinBoatAcceptPacketRes(_packet: CommandJoinBoatAcceptPacketRes, context: PacketContext): Promise<void> {
+	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
+	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+	if (buttonInteraction && originalInteraction) {
+		await buttonInteraction.editReply({
+			embeds: [
+				new DraftBotEmbed().formatAuthor(i18n.t("commands:joinBoat.confirmationMessage.title.confirmed", {
+					lng: originalInteraction.userLanguage,
+					pseudo: originalInteraction.user.displayName
+				}), originalInteraction.user)
+					.setDescription(
+						i18n.t("commands:joinBoat.confirmationMessage.description.confirmed", {lng: originalInteraction.userLanguage})
+					)
+			]
+		});
+	}
+}
+
+export async function handleCommandJoinBoatRefusePacketRes(_packet: CommandJoinBoatRefusePacketRes, context: PacketContext): Promise<void> {
+	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
+	if (!originalInteraction) {
+		return;
+	}
+	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+	await buttonInteraction?.editReply({
+		embeds: [
+			new DraftBotEmbed().formatAuthor(i18n.t("commands:joinBoat.confirmationMessage.title.confirmed", {
+				lng: originalInteraction.userLanguage,
+				pseudo: originalInteraction.user.displayName
+			}), originalInteraction.user)
+				.setDescription(
+					i18n.t("commands:joinBoat.refuse", {
+						lng: originalInteraction.userLanguage
+					})
+				)
+				.setErrorColor()
+		]
+	});
+}
+
+/**
+ * Demote an elder from a guild
+ */
+function getPacket(): CommandJoinBoatPacketReq {
+	return makePacket(CommandJoinBoatPacketReq, {});
+}
+
+export const commandInfo: ICommand = {
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("joinBoat"),
+	getPacket,
+	mainGuildCommand: false
+};
+

@@ -3,8 +3,13 @@ import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/pac
 import Player from "../../core/database/game/models/Player";
 import {
 	CommandJoinBoatAcceptPacketRes,
-	CommandJoinBoatNoGuildPacketRes, CommandJoinBoatNoMemberOnBoatPacketRes, CommandJoinBoatNotEnoughEnergyPacketRes,
-	CommandJoinBoatPacketReq, CommandJoinBoatRefusePacketRes, CommandJoinBoatTooManyRunsPacketRes
+	CommandJoinBoatNoGuildPacketRes,
+	CommandJoinBoatNoMemberOnBoatPacketRes,
+	CommandJoinBoatNotEnoughEnergyPacketRes,
+	CommandJoinBoatNotEnoughGemsPacketRes,
+	CommandJoinBoatPacketReq,
+	CommandJoinBoatRefusePacketRes,
+	CommandJoinBoatTooManyRunsPacketRes
 } from "../../../../Lib/src/packets/commands/CommandJoinBoatPacket";
 import {PVEConstants} from "../../../../Lib/src/constants/PVEConstants";
 import {LogsReadRequests} from "../../core/database/logs/LogsReadRequests";
@@ -16,8 +21,13 @@ import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants
 import {ReactionCollectorJoinBoat} from "../../../../Lib/src/packets/interaction/ReactionCollectorJoinBoat";
 import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import {PlayerMissionsInfos} from "../../core/database/game/models/PlayerMissionsInfo";
 
-
+/**
+ * Handle the acceptation
+ * @param player
+ * @param response
+ */
 async function acceptJoinBoat(player: Player, response: DraftBotPacket[]): Promise<void> {
 	await player.reload();
 	// Check if the player is still part of a guild
@@ -43,6 +53,11 @@ async function acceptJoinBoat(player: Player, response: DraftBotPacket[]): Promi
 	}
 	const anotherMemberOnBoat = guildOnBoat;
 	const price = await player.getTravelCostThisWeek();
+	const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
+	if (missionInfo.gems < price) {
+		response.push(makePacket(CommandJoinBoatNotEnoughGemsPacketRes, {}));
+		return;
+	}
 	await Maps.startBoatTravel(player, price, anotherMemberOnBoat[0], Date.now(),NumberChangeReason.PVE_ISLAND, response);
 	await MissionsController.update(player, response, {missionId: "joinMemberOnBoat"});
 }

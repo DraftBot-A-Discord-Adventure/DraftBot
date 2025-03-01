@@ -27,3 +27,7 @@ export class CommandJoinBoatNoMemberOnBoatPacketRes extends DraftBotPacket {
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandJoinBoatNotEnoughEnergyPacketRes extends DraftBotPacket {
 }
+
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class CommandJoinBoatNotEnoughGemsPacketRes extends DraftBotPacket {
+}
