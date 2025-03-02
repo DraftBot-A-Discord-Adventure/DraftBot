@@ -13,11 +13,11 @@ export const commandInfo: ITestCommand = {
 /**
  * Set fightpointslost of the player
  */
-const fightPointsLostTestCommand: ExecuteTestCommandLike = async (player, args) => {
+const energyLostTestCommand: ExecuteTestCommandLike = async (player, args) => {
 	player.fightPointsLost = parseInt(args[0], 10);
 	await player.save();
 
 	return `Vous avez maintenant ${args[0]} fightpointslost !`;
 };
 
-commandInfo.execute = fightPointsLostTestCommand;
+commandInfo.execute = energyLostTestCommand;

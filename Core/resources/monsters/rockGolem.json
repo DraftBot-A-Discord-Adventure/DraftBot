@@ -1,6 +1,6 @@
 {
 	"emoji": "🗿",
-	"fightPointsRatio": 125,
+	"energyRatio": 125,
 	"attackRatio": 50,
 	"defenseRatio": 120,
 	"speedRatio": 25,

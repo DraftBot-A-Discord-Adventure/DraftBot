@@ -23,8 +23,8 @@ export class MonsterFighter extends Fighter {
 			}
 		}
 		super(level, attacks);
-		this.stats.fightPoints = this.calculateStat(PVEConstants.STATS_FORMULA.ENERGY, level, monster.fightPointsRatio);
-		this.stats.maxFightPoint = this.stats.fightPoints;
+		this.stats.energy = this.calculateStat(PVEConstants.STATS_FORMULA.ENERGY, level, monster.energyRatio);
+		this.stats.maxEnergy = this.stats.energy;
 		this.stats.attack = this.calculateStat(PVEConstants.STATS_FORMULA.ATTACK, level, monster.attackRatio);
 		this.stats.defense = this.calculateStat(PVEConstants.STATS_FORMULA.DEFENSE, level, monster.defenseRatio);
 		this.stats.speed = this.calculateStat(PVEConstants.STATS_FORMULA.SPEED, level, monster.speedRatio);
@@ -40,17 +40,8 @@ export class MonsterFighter extends Fighter {
 	}
 
 	chooseAction(fightView: FightView, response: DraftBotPacket[]): Promise<void> {
-		/* eslint-disable capitalized-comments */
-		/* fightView.channel.send({
-			embeds: [
-				new DraftBotEmbed()
-					.setDescription(fightView.fightTranslationModule.get("actions.aiChoose"))
-			]
-		})
-			.then((embed) => { */
 		const fightAction = this.getRandomAvailableFightAction();
 		setTimeout(async function() {
-			// await embed.delete();
 			await fightView.fightController.executeFightAction(fightAction, true, response);
 		}, RandomUtils.draftbotRandom.integer(300, 1800));
 		return Promise.resolve();

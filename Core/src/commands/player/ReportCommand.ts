@@ -548,7 +548,7 @@ async function doPVEBoss(
 			attack: monsterFighter.getAttack(),
 			defense: monsterFighter.getDefense(),
 			speed: monsterFighter.getSpeed(),
-			fightPoints: monsterFighter.getEnergy()
+			energy: monsterFighter.getEnergy()
 		}
 	});
 

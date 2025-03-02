@@ -16,7 +16,7 @@ export abstract class FightConstants {
 		DEAD: "error.dead",
 		DISALLOWED_EFFECT: "error.cantFightStatus",
 		OCCUPIED: "error.occupied",
-		NO_FIGHT_POINTS: "error.noFightPoints",
+		NO_ENERGY: "error.noEnergy",
 		ELO_GAP: "error.eloGap",
 		PVE_ISLAND: "error.onPveIsland"
 	};
