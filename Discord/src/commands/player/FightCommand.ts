@@ -27,6 +27,7 @@ import {DraftbotHistoryCachedMessage} from "../../messages/DraftbotHistoryCached
 import {DraftbotActionChooseCachedMessage} from "../../messages/DraftbotActionChooseCachedMessage";
 import {CommandFightEndOfFightPacket} from "../../../../Lib/src/packets/fights/EndOfFightPacket";
 import {millisecondsToMinutes, minutesDisplay} from "../../../../Lib/src/utils/TimeUtils";
+import {GloryChangesPacket} from "../../../../Lib/src/packets/fights/GloryChangesPacket";
 
 export async function createFightCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
@@ -262,6 +263,124 @@ export async function handleEndOfFight(context: PacketContext, packet: CommandFi
 
 	const message = await interaction.channel?.send({embeds: [embed]});
 	await message?.react(EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fight_command.handshake));
+}
+
+/**
+ * Handle glory and league changes
+ * @param context
+ * @param packet
+ */
+export async function handleGloryChange(context: PacketContext, packet: GloryChangesPacket): Promise<void> {
+	if (!context.discord?.interaction) {
+		return;
+	}
+
+	const interaction = DiscordCache.getInteraction(context.discord.interaction)!;
+
+	// Get usernames for both players
+	const player1Username = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.player1.keycloakId))?.attributes.gameUsername[0] || "Unknown";
+	const player2Username = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.player2.keycloakId))?.attributes.gameUsername[0] || "Unknown";
+
+	// Create an embed to show glory and league changes
+	const embed = new DraftBotEmbed()
+		.setTitle(i18n.t("commands:fight.gloryChanges.title", {
+			lng: interaction.userLanguage
+		}));
+
+	// Add glory changes
+	embed.addFields({
+		name: i18n.t("commands:fight.gloryChanges.gloryField", {lng: interaction.userLanguage}),
+		value: [
+			...[
+				{ player: player1Username, change: packet.player1.newGlory - packet.player1.oldGlory },
+				{ player: player2Username, change: packet.player2.newGlory - packet.player2.oldGlory }
+			].map(({ player, change }) =>
+				i18n.t(`commands:fight.gloryChanges.glory${change >= 0 ? "Positive" : "Negative"}`, {
+					lng: interaction.userLanguage,
+					count: Math.abs(change),
+					player
+				}))
+		].join(),
+		inline: false
+	});
+
+	// Add league changes
+	const leagueChangeValue = [
+		...packet.player1.newLeagueId !== packet.player1.oldLeagueId ? [
+			i18n.t(`commands:fight.gloryChanges.leagueChange${packet.player1.newLeagueId > packet.player1.oldLeagueId ? "Up" : "Down"}`, {
+				lng: interaction.userLanguage,
+				player: player1Username,
+				oldLeague: i18n.t(`models:leagues.${packet.player1.oldLeagueId}`, {lng: interaction.userLanguage}),
+				newLeague: i18n.t(`models:leagues.${packet.player1.newLeagueId}`, {lng: interaction.userLanguage})
+			})
+		] : [],
+		...packet.player2.newLeagueId !== packet.player2.oldLeagueId ? [
+			i18n.t(`commands:fight.gloryChanges.leagueChange${packet.player2.newLeagueId > packet.player2.oldLeagueId ? "Up" : "Down"}`, {
+				lng: interaction.userLanguage,
+				player: player2Username,
+				oldLeague: i18n.t(`models:leagues.${packet.player2.oldLeagueId}`, {lng: interaction.userLanguage}),
+				newLeague: i18n.t(`models:leagues.${packet.player2.newLeagueId}`, {lng: interaction.userLanguage})
+			})
+		] : []
+	];
+	if (leagueChangeValue.length > 0) {
+		embed.addFields({
+			name: i18n.t("commands:fight.gloryChanges.leagueField", {lng: interaction.userLanguage}),
+			value: leagueChangeValue.length > 0 ? leagueChangeValue.join("\n") : "-",
+			inline: false
+		});
+	}
+
+
+	const player1Won = packet.player1.newGlory > packet.player1.oldGlory;
+	const player2Won = packet.player2.newGlory > packet.player2.oldGlory;
+	const gloryDifference = Math.abs(packet.player1.oldGlory - packet.player2.oldGlory);
+
+	if (gloryDifference < FightConstants.ELO.ELO_DIFFERENCE_FOR_SAME_ELO) {
+		embed.setDescription(i18n.t("commands:fight.gloryChanges.sameElo", {
+			lng: interaction.userLanguage,
+			player1: player1Username,
+			player2: player2Username
+		}));
+	}
+	else if (player1Won && packet.player1.oldGlory > packet.player2.oldGlory) {
+		embed.setDescription(i18n.t("commands:fight.gloryChanges.higherEloWins", {
+			lng: interaction.userLanguage,
+			winner: player1Username,
+			loser: player2Username
+		}));
+	}
+	else if (player2Won && packet.player2.oldGlory > packet.player1.oldGlory) {
+		embed.setDescription(i18n.t("commands:fight.gloryChanges.higherEloWins", {
+			lng: interaction.userLanguage,
+			winner: player2Username,
+			loser: player1Username
+		}));
+	}
+	else if (player1Won && packet.player1.oldGlory < packet.player2.oldGlory) {
+		embed.setDescription(i18n.t("commands:fight.gloryChanges.lowestEloWins", {
+			lng: interaction.userLanguage,
+			winner: player1Username,
+			loser: player2Username
+		}));
+	}
+	else if (player2Won && packet.player2.oldGlory < packet.player1.oldGlory) {
+		embed.setDescription(i18n.t("commands:fight.gloryChanges.lowestEloWins", {
+			lng: interaction.userLanguage,
+			winner: player2Username,
+			loser: player1Username
+		}));
+	}
+	else {
+		embed.setDescription(i18n.t("commands:fight.gloryChanges.draw", {
+			lng: interaction.userLanguage,
+			player1: player1Username,
+			player2: player2Username
+		}));
+	}
+
+
+	await interaction.channel?.send({embeds: [embed]});
 }
 
 async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandFightPacketReq | null> {
