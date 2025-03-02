@@ -143,7 +143,8 @@ function generateFields(packet: CommandProfilePacketRes, lng: Language): EmbedFi
 
 	addField(fields, "fightRanking", Boolean(packet.playerData.fightRanking), {
 		lng,
-		league: packet.playerData.fightRanking?.league,
+		leagueEmoji: packet.playerData.fightRanking ? DraftBotIcons.leagues[packet.playerData.fightRanking.league] : "",
+		league: i18n.t(`models:leagues.${packet.playerData.fightRanking!.league}`, {lng}),
 		gloryPoints: packet.playerData.fightRanking?.glory
 	});
 
