@@ -407,7 +407,7 @@
     },
     "fightRanking": {
       "fieldName": "Gloire et ligue :",
-      "fieldValue": "{emote:unitValues.glory} {{gloryPoints}} | {{league}}"
+      "fieldValue": "{emote:unitValues.glory} {{gloryPoints}} | {{leagueEmoji}} {{league}}"
     },
     "guild": {
       "fieldName": "Guilde :",
@@ -877,7 +877,7 @@
       "draw": ":newspaper: | **{{player1}} et {{player2}} terminent leur combat sur une égalité !**\n\n",
       "win": ":newspaper: | **{{winner}} remporte le match contre {{loser}}**\n\n",
       "gameStats": ":bar_chart: | Statistiques du combat\n- **Tours** : {{turn}}/{{maxTurn}}\n- **Temps de combat** : {{time}}",
-      "gameStatsProlongation" : ":bar_chart: | Statistiques du combat\n- **Tours** : {{turn}}/{{maxTurn}} (prolongations)\n- **Temps de combat** : {{time}}",
+      "gameStatsProlongation": ":bar_chart: | Statistiques du combat\n- **Tours** : {{turn}}/{{maxTurn}} (prolongations)\n- **Temps de combat** : {{time}}",
       "fighterStats": "\n\n:bust_in_silhouette: | Statistiques de {{pseudo}}\n- **Vie finale** : {{energy}}/{{maxEnergy}} :zap:"
     },
     "fightActionChoose": {
@@ -956,6 +956,57 @@
         }
       },
       "aiChoose": "{emote:fight_command.ai_thinking} L'adversaire choisit une attaque..."
+    },
+    "gloryChanges": {
+      "title": ":postal_horn: Rapport de gloire",
+      "gloryField": "Changements de gloire",
+      "gloryNegative": "**{{player}} :** - {{count}} ✨\n",
+      "gloryPositive": "**{{player}} :** + {{count}} ✨\n",
+      "leagueField": "Changements de ligues",
+      "leagueChangeUp": "↗️ **{{player}} :** {{oldLeague}} -> {{newLeague}}\n",
+      "leagueChangeDown": "↘️️ **{{player}} :** {{oldLeague}} -> {{newLeague}}\n",
+      "higherEloWins": [
+        "{{winner}} s'impose sur le terrain avec une performance marquée.",
+        "{loser} a donné tout ce qu'il avait, mais {{winner}} a montré une meilleure maîtrise de son jeu.",
+        "La différence de niveau entre les deux joueurs s'est faite sentir lors de ce combat.",
+        "{{winner}} a démontré son expertise en remportant cette rencontre difficile.",
+        "{loser} peut être fier de sa performance malgré la défaite, mais {{winner}} est incontestablement le vainqueur de ce combat.",
+        "{{winner}} a écrasé {{loser}} avec une performance dominante.",
+        "{loser} a fait de son mieux, mais il était clairement en dessous du niveau de {winner}.",
+        "La différence de talent entre les deux joueurs a été déterminante dans ce combat.",
+        "{{winner}} a démontré pourquoi il est considéré comme l'un des meilleurs en remportant ce match facilement.",
+        "{loser} peut prendre cette défaite comme une opportunité d'apprendre et de s'améliorer pour les combats futurs."
+      ],
+      "lowestEloWins": [
+        "Le plus inattendu s'est produit dans ce combat, {{winner}} a remporté la victoire face à un adversaire plus expérimenté.",
+        "{loser} a peut-être sous-estimé son adversaire, car {{winner}} a montré une détermination sans faille.",
+        "Malgré la différence de talent, {{winner}} a réussi à remporter ce match avec une stratégie solide.",
+        "Ce n'était pas un match facile, mais {{winner}} a prouvé qu'il peut tenir tête aux joueurs les plus talentueux.",
+        "Ce combat aura certainement été un tournant dans la carrière de {winner}, qui a démontré sa détermination et sa capacité à vaincre les plus expérimentés.",
+        "{{winner}} a surmonté les attentes en remportant ce match serré contre un adversaire plus talentueux.",
+        "{loser} a peut-être sous-estimé son adversaire, car {{winner}} a montré une détermination sans faille.",
+        "Malgré la différence de niveau, {{winner}} a réussi à remporter ce combat grâce à une stratégie astucieuse.",
+        "Ce n'était pas un match facile, mais {{winner}} a prouvé qu'il peut tenir tête aux joueurs les plus talentueux.",
+        "{{winner}} a certainement fait un pas en avant significatif dans sa carrière en remportant ce match difficile."
+      ],
+      "draw": [
+        "Ce match a été un match très disputé entre deux joueurs talentueux.",
+        "{{player1}} et {{player2}} ont montré une détermination sans faille tout au long du match.",
+        "Aucun des deux joueurs n'a pu prendre l'avantage décisif, ce qui a abouti à une égalité inattendue.",
+        "Ce match sera probablement considéré comme l'un des plus serrés et des plus passionnants de l'histoire.",
+        "{{player1}} et {{player2}} ont livré un combat acharné rempli de détermination.",
+        "Malgré la différence de niveau, les deux joueurs ont donné tout ce qu'ils avaient pour remporter le match.",
+        "Aucun des deux ne parvenait à prendre l'avantage décisif, ce qui a mené à une égalité surprenante.",
+        "Aucun des deux joueurs n'a pu prendre l'avantage décisif, ce qui a abouti à une égalité.",
+        "Ce match sera probablement considéré comme l'un des plus serrés et des plus passionnants de l'histoire.",
+        "{{player1}} et {{player2}} ont tous les deux montré pourquoi ils sont considérés comme de talentueux compétiteurs dans ce match épique."
+      ],
+      "sameElo": [
+        "Ce match a été un match passionnant entre deux joueurs de même niveau.",
+        "{{player1}} et {{player2}} ont tous les deux livré une performance solide et équilibrée.",
+        "Ce match a été un match très serré avec des tactiques astucieuses des deux côtés.",
+        "Les spectateurs ont assisté à un match épique entre deux joueurs talentueux qui se sont affrontés à armes égales."
+      ]
     }
   },
   "switch": {
