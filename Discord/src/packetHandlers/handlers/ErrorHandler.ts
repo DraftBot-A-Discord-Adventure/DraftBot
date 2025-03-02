@@ -24,7 +24,9 @@ export default class ErrorHandler {
 
 	@packetHandler(BlockedPacket)
 	async blockedHandler(context: PacketContext, packet: BlockedPacket): Promise<void> {
+		const lng = DiscordCache.getInteraction(context.discord!.interaction)?.userLanguage ?? LANGUAGE.ENGLISH;
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		const buttonInteraction = context.discord?.buttonInteraction ? DiscordCache.getButtonInteraction(context.discord.buttonInteraction) : undefined;
 		const otherPlayer = context.keycloakId !== packet.keycloakId;
 		const originalUser = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const blockedUser = otherPlayer ? (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId!))! : originalUser;
@@ -32,7 +34,7 @@ export default class ErrorHandler {
 		let errorReasons = "";
 		packet.reasons.forEach(reason => {
 			errorReasons = errorReasons.concat(`${i18n.t(`error:blockedContext.${reason}`, {
-				lng: interaction?.userLanguage ?? LANGUAGE.ENGLISH,
+				lng,
 				interpolation: {escapeValue: false}
 			})}, `);
 		});
@@ -41,30 +43,41 @@ export default class ErrorHandler {
 		const embed = new DraftBotEmbed()
 			.setErrorColor()
 			.setTitle(i18n.t("error:titleDidntWork", {
-				lng: interaction?.channel?.language ?? LANGUAGE.ENGLISH,
+				lng,
 				pseudo: originalUser.attributes.gameUsername
 			}))
 			.setDescription(
 				otherPlayer ?
 					i18n.t("error:anotherPlayerBlocked", {
-						lng: interaction?.userLanguage ?? LANGUAGE.ENGLISH,
+						lng,
 						username: blockedUser.attributes.gameUsername,
 						reasons: errorReasons
 					}) :
 					i18n.t("error:playerBlocked", {
-						lng: interaction?.userLanguage ?? LANGUAGE.ENGLISH,
+						lng,
 						reasons: errorReasons
 					})
 			);
 
-		if (interaction?.deferred && !interaction.replyEdited) {
-			interaction?.editReply({embeds: [embed]});
+		if (buttonInteraction) {
+			if (buttonInteraction?.deferred) {
+				await buttonInteraction?.editReply({embeds: [embed]});
+			}
+			else if (!buttonInteraction?.deferred && !buttonInteraction?.replied) {
+				await buttonInteraction?.reply({embeds: [embed]});
+			}
+			else {
+				await interaction?.channel.send({embeds: [embed]});
+			}
+		}
+		else if (interaction?.deferred && !interaction.replyEdited) {
+			await interaction?.editReply({embeds: [embed]});
 		}
 		else if (!interaction?.deferred && !interaction?.replied) {
-			interaction?.reply({embeds: [embed]});
+			await interaction?.reply({embeds: [embed]});
 		}
 		else {
-			interaction?.channel.send({embeds: [embed]});
+			await interaction?.channel.send({embeds: [embed]});
 		}
 	}
 

@@ -1,6 +1,9 @@
 import {packetHandler} from "../PacketHandler";
 import {PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import {
+	ReactionCollectorCreationPacket,
+	ReactionCollectorEnded
+} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {ReactionCollectorBigEventData} from "../../../../Lib/src/packets/interaction/ReactionCollectorBigEvent";
 import {chooseDestinationCollector, createBigEventCollector} from "../../commands/player/ReportCommand";
 import {ReactionCollectorChooseDestinationData} from "../../../../Lib/src/packets/interaction/ReactionCollectorChooseDestination";
@@ -133,5 +136,10 @@ export default class ReactionCollectorHandler {
 		});
 		ReactionCollectorHandler.collectorsCache.delete(packet.id);
 		await Promise.resolve();
+	}
+
+	@packetHandler(ReactionCollectorEnded)
+	async collectorEnded(_context: PacketContext, _packet: ReactionCollectorEnded): Promise<void> {
+		// Ignore
 	}
 }

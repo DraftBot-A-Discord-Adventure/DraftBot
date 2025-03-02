@@ -45,7 +45,7 @@ export abstract class CommandUtils {
 	 * @param disallowedEffects
 	 */
 	static checkEffects(player: Player, response: DraftBotPacket[], allowedEffects: Effect[], disallowedEffects: Effect[]): boolean {
-		const playerEffect = player.effectRemainingTime() > 0 ? Effect.getById(player.effectId) : Effect.NO_EFFECT;
+		const playerEffect = player.effectId === Effect.NOT_STARTED.id || player.effectRemainingTime() > 0 ? Effect.getById(player.effectId) : Effect.NO_EFFECT;
 
 		if (disallowedEffects.includes(playerEffect)) {
 			response.push(makePacket(RequirementEffectPacket, {

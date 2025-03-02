@@ -16,16 +16,17 @@ export default class CommandRequirementHandlers {
 	@packetHandler(RequirementEffectPacket)
 	async requirementEffect(context: PacketContext, packet: RequirementEffectPacket): Promise<void> {
 		const keycloakUser = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!);
-		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		const interaction = context.discord!.buttonInteraction ? DiscordCache.getButtonInteraction(context.discord!.buttonInteraction) : DiscordCache.getInteraction(context.discord!.interaction);
 		if (keycloakUser) {
 			const effectsText = effectsErrorTextValue(keycloakUser, context.discord!.language!, true, packet.currentEffectId, packet.remainingTime);
 			if (!interaction) {
 				return;
 			}
 			if (interaction.deferred) {
-				interaction.deleteReply();
+				await interaction.deleteReply();
 			}
-			await (interaction.replied ? interaction.followUp : interaction.reply)({
+			// Without a bind, context is lost for "this"
+			await (interaction.replied || interaction.deferred ? interaction.followUp.bind(interaction) : interaction.reply.bind(interaction))({
 				embeds: [
 					new DraftBotEmbed()
 						.setErrorColor()
