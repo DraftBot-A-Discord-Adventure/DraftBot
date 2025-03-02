@@ -182,6 +182,47 @@ function refusePetSellCallback(initiatorPlayerKeycloakId: string, reactingPlayer
 	return true;
 }
 
+function createAndPushCollector(player: Player, packet: CommandPetSellPacketReq, guild: Guild, pet: PetEntity, context: PacketContext, response: DraftBotPacket[]): void {
+	// Send collector
+	const collector = new ReactionCollectorPetSell(
+		player.keycloakId,
+		packet.price,
+		guild.isAtMaxLevel(),
+		pet.asOwnedPet()
+	);
+
+	const endCallback: EndCallback = (collector: ReactionCollectorInstance, response: DraftBotPacket[]): void => {
+		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.PET_SELL);
+		if (collector.hasEndedByTime) {
+			response.push(makePacket(CommandPetSellNoOneAvailableErrorPacket, {}));
+		}
+	};
+
+	const collectCallback: CollectCallback = async (collector: ReactionCollectorInstance, reaction: ReactionCollectorReaction, keycloakId: string, response: DraftBotPacket[]): Promise<void> => {
+		if (reaction instanceof ReactionCollectorAcceptReaction) {
+			await acceptPetSellCallback(collector, player, keycloakId, response, packet.price);
+		}
+		else if (refusePetSellCallback(player.keycloakId, keycloakId, response)) {
+			await collector.end(response);
+		}
+	};
+
+	const collectorPacket = new ReactionCollectorInstance(
+		collector,
+		context,
+		{
+			allowedPlayerKeycloakIds: packet.askedPlayerKeycloakId ? [player.keycloakId, packet.askedPlayerKeycloakId] : null,
+			reactionLimit: -1
+		},
+		endCallback,
+		collectCallback
+	)
+		.block(player.id, BlockingConstants.REASONS.PET_SELL)
+		.build();
+
+	response.push(collectorPacket);
+}
+
 export default class PetSellCommand {
 	@commandRequires(CommandPetSellPacketReq, {
 		notBlocked: true,
@@ -220,43 +261,6 @@ export default class PetSellCommand {
 			return;
 		}
 
-		// Send collector
-		const collector = new ReactionCollectorPetSell(
-			player.keycloakId,
-			packet.price,
-			guild.isAtMaxLevel(),
-			pet.asOwnedPet()
-		);
-
-		const endCallback: EndCallback = (collector: ReactionCollectorInstance, response: DraftBotPacket[]): void => {
-			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.PET_SELL);
-			if (collector.hasEndedByTime) {
-				response.push(makePacket(CommandPetSellNoOneAvailableErrorPacket, {}));
-			}
-		};
-
-		const collectCallback: CollectCallback = async (collector: ReactionCollectorInstance, reaction: ReactionCollectorReaction, keycloakId: string, response: DraftBotPacket[]): Promise<void> => {
-			if (reaction instanceof ReactionCollectorAcceptReaction) {
-				await acceptPetSellCallback(collector, player, keycloakId, response, packet.price);
-			}
-			else if (refusePetSellCallback(player.keycloakId, keycloakId, response)) {
-				await collector.end(response);
-			}
-		};
-
-		const collectorPacket = new ReactionCollectorInstance(
-			collector,
-			context,
-			{
-				allowedPlayerKeycloakIds: packet.askedPlayerKeycloakId ? [player.keycloakId, packet.askedPlayerKeycloakId] : null,
-				reactionLimit: -1
-			},
-			endCallback,
-			collectCallback
-		)
-			.block(player.id, BlockingConstants.REASONS.PET_SELL)
-			.build();
-
-		response.push(collectorPacket);
+		createAndPushCollector(player, packet, guild, pet, context, response);
 	}
 }

@@ -1,7 +1,7 @@
 import {ItemCategory, ItemNature} from "../../../Lib/src/constants/ItemConstants";
 import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
 import i18n from "../translations/i18n";
-import {LANGUAGE, Language} from "../../../Lib/src/Language";
+import {Language} from "../../../Lib/src/Language";
 import {ItemWithDetails} from "../../../Lib/src/types/ItemWithDetails";
 import {minutesDisplay} from "../../../Lib/src/utils/TimeUtils";
 import {Item} from "../../../Lib/src/types/Item";

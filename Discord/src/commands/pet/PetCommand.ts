@@ -8,7 +8,6 @@ import {SlashCommandBuilder} from "@discordjs/builders";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {DiscordCache} from "../../bot/DiscordCache";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
-import {PetUtils} from "../../utils/PetUtils";
 import {PacketUtils} from "../../utils/PacketUtils";
 import {DisplayUtils} from "../../utils/DisplayUtils";
 
