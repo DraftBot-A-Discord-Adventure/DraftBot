@@ -1,5 +1,4 @@
 import {FightController} from "./FightController";
-import {Fighter} from "./fighter/Fighter";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {PlayerFighter} from "./fighter/PlayerFighter";
 import {MonsterFighter} from "./fighter/MonsterFighter";
@@ -21,6 +20,7 @@ import {AIFightActionChoosePacket} from "../../../../Lib/src/packets/fights/AIFi
 import {PacketUtils} from "../utils/PacketUtils";
 import {AiPlayerFighter} from "./fighter/AiPlayerFighter";
 import {CommandFightEndOfFightPacket} from "../../../../Lib/src/packets/fights/EndOfFightPacket";
+import {BuggedFightPacket} from "../../../../Lib/src/packets/fights/BuggedFightPacket";
 
 /* eslint-disable capitalized-comments */
 
@@ -231,14 +231,18 @@ export class FightView {
 
 	/**
 	 * Generate packets to display the end of the fight
+	 * @param response
 	 * @param loser
 	 * @param winner
 	 * @param draw
 	 */
-	outroFight(response: DraftBotPacket[], loser: PlayerFighter | MonsterFighter | AiPlayerFighter, winner: PlayerFighter | MonsterFighter | AiPlayerFighter, draw: boolean): void {
-
+	outroFight(
+		response: DraftBotPacket[],
+		loser: PlayerFighter | MonsterFighter | AiPlayerFighter,
+		winner: PlayerFighter | MonsterFighter | AiPlayerFighter,
+		draw: boolean
+	): void {
 		response.push(makePacket(CommandFightEndOfFightPacket, {
-			fightBugged: false,
 			winner: {
 				keycloakId: winner instanceof MonsterFighter ? null : winner.player.keycloakId,
 				monsterId: winner instanceof MonsterFighter ? winner.monster.id : null,
@@ -251,17 +255,18 @@ export class FightView {
 				finalEnergy: loser.getEnergy(),
 				maxEnergy: loser.getMaxEnergy()
 			},
+			draw,
 			turns: this.fightController.turn,
 			maxTurns: FightConstants.MAX_TURNS
 		}));
-
 	}
 
 	/**
 	 * Send a bugged end-of-fight packet
+	 * @param response
 	 */
-	displayBugFight(): void {
-
+	displayBugFight(response: DraftBotPacket[]): void {
+		response.push(makePacket(BuggedFightPacket, {}));
 	}
 
 	sendResponses(response: DraftBotPacket[]): void {
