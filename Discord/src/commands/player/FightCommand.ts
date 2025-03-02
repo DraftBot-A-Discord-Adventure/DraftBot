@@ -26,6 +26,7 @@ import {CommandFightHistoryItemPacket} from "../../../../Lib/src/packets/fights/
 import {DraftbotHistoryCachedMessage} from "../../messages/DraftbotHistoryCachedMessage";
 import {DraftbotActionChooseCachedMessage} from "../../messages/DraftbotActionChooseCachedMessage";
 import {CommandFightEndOfFightPacket} from "../../../../Lib/src/packets/fights/EndOfFightPacket";
+import {millisecondsToMinutes, minutesDisplay} from "../../../../Lib/src/utils/TimeUtils";
 
 export async function createFightCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
@@ -214,7 +215,7 @@ export async function handleEndOfFight(context: PacketContext, packet: CommandFi
 
 	// Get names of fighters
 	const getDisplayName = async (keycloakId?: string, monsterId?: string): Promise<string> => (keycloakId ?
-			(await KeycloakUtils.getUserByKeycloakId(keycloakConfig, keycloakId))!.attributes.gameUsername[0] :
+		(await KeycloakUtils.getUserByKeycloakId(keycloakConfig, keycloakId))!.attributes.gameUsername[0] :
 		i18n.t(`models:monster.${monsterId}`, {lng: interaction.userLanguage}));
 
 	const winnerName = await getDisplayName(packet.winner.keycloakId, packet.winner.monsterId);
@@ -223,21 +224,12 @@ export async function handleEndOfFight(context: PacketContext, packet: CommandFi
 	// Create message description
 	const isDraw = packet.winner.finalEnergy <= 0 && packet.looser.finalEnergy <= 0;
 
-	let description = packet.fightBugged
-		? i18n.t("commands:fight.end.bugged", {lng: interaction.userLanguage})
-		: isDraw
-			? i18n.t("commands:fight.end.draw", {
-				lng: interaction.userLanguage,
-				player1: winnerName,
-				player2: looserName
-			})
-			: i18n.t("commands:fight.end.win", {lng: interaction.userLanguage, winner: winnerName, loser: looserName});
-
-	// Add game and fighter stats
-	description += i18n.t("commands:fight.end.gameStats", {
+	let description = i18n.t("commands:fight.end.gameStats", {
 		lng: interaction.userLanguage,
 		turn: packet.turns,
-		maxTurn: packet.maxTurns
+		maxTurn: packet.maxTurns,
+		time: minutesDisplay(millisecondsToMinutes(new Date().valueOf() - interaction.createdTimestamp)),
+		interpolation: {escapeValue: false}
 	});
 
 	// Add fighter statistics for both fighters
@@ -248,14 +240,26 @@ export async function handleEndOfFight(context: PacketContext, packet: CommandFi
 		description += i18n.t("commands:fight.end.fighterStats", {
 			lng: interaction.userLanguage,
 			pseudo: fighter.name,
-			health: fighter.stats.finalEnergy,
-			maxHealth: fighter.stats.maxEnergy
+			energy: fighter.stats.finalEnergy,
+			maxEnergy: fighter.stats.maxEnergy
 		});
 	});
 
 	// Send embed with handshake reaction
 	const embed = new DraftBotEmbed()
-		.formatAuthor(i18n.t("commands:fight.endTitle", {lng: interaction.userLanguage}), interaction.user)
+		.setTitle(packet.fightBugged
+			? i18n.t("commands:fight.end.bugged", {lng: interaction.userLanguage})
+			: isDraw
+				? i18n.t("commands:fight.end.draw", {
+					lng: interaction.userLanguage,
+					player1: winnerName,
+					player2: looserName
+				})
+				: i18n.t("commands:fight.end.win", {
+					lng: interaction.userLanguage,
+					winner: winnerName,
+					loser: looserName
+				}))
 		.setDescription(description);
 
 	const message = await interaction.channel?.send({embeds: [embed]});
