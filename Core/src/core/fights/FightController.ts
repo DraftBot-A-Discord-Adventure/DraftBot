@@ -117,7 +117,7 @@ export class FightController {
 
 		this.checkNegativeEnergy();
 
-		const winner = this.getWinner();
+		const winner = this.getWinner(); // 1 for the figh initiator, 0 for the opponent
 		const isADraw = this.isADraw();
 
 		this._fightView.outroFight(this.fighters[(1 - winner) % 2], this.fighters[winner % 2], isADraw);
@@ -143,12 +143,18 @@ export class FightController {
 
 	/**
 	 * Get the winner of the fight does not check for draw
+	 * @return {number} 1 for the figh initiator, 0 for the opponent
 	 * @private
 	 */
 	public getWinner(): number {
 		return this.fighters[0].isDead() ? 1 : 0;
 	}
 
+	/**
+	 * Get the winner fighter of the fight
+	 * @return {Fighter|null} the winner fighter or null if there is no winner
+	 * @private
+	 */
 	public getWinnerFighter(): Fighter {
 		return this.fighters[0].isDead() ? this.fighters[1].isDead() ? null : this.fighters[1] : this.fighters[0];
 	}

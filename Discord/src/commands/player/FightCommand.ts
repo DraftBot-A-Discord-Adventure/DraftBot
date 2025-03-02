@@ -25,6 +25,7 @@ import {CommandFightStatusPacket} from "../../../../Lib/src/packets/fights/Fight
 import {CommandFightHistoryItemPacket} from "../../../../Lib/src/packets/fights/FightHistoryItemPacket";
 import {DraftbotHistoryCachedMessage} from "../../messages/DraftbotHistoryCachedMessage";
 import {DraftbotActionChooseCachedMessage} from "../../messages/DraftbotActionChooseCachedMessage";
+import {CommandFightEndOfFightPacket} from "../../../../Lib/src/packets/fights/EndOfFightPacket";
 
 export async function createFightCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
@@ -196,6 +197,70 @@ export async function handleCommandFightActionChoose(context: PacketContext, pac
 		.update(packet, context);
 }
 
+/**
+ * Handle the end of a fight
+ * @param context
+ * @param packet
+ */
+export async function handleEndOfFight(context: PacketContext, packet: CommandFightEndOfFightPacket): Promise<void> {
+	if (!context.discord?.interaction) {
+		return;
+	}
+
+	// Erase all cached messages
+	DraftbotCachedMessages.removeAllFromMessageId(context.discord.interaction);
+
+	const interaction = DiscordCache.getInteraction(context.discord.interaction)!;
+
+	// Get names of fighters
+	const getDisplayName = async (keycloakId?: string, monsterId?: string): Promise<string> => (keycloakId ?
+			(await KeycloakUtils.getUserByKeycloakId(keycloakConfig, keycloakId))!.attributes.gameUsername[0] :
+		i18n.t(`models:monster.${monsterId}`, {lng: interaction.userLanguage}));
+
+	const winnerName = await getDisplayName(packet.winner.keycloakId, packet.winner.monsterId);
+	const looserName = await getDisplayName(packet.looser.keycloakId, packet.looser.monsterId);
+
+	// Create message description
+	const isDraw = packet.winner.finalEnergy <= 0 && packet.looser.finalEnergy <= 0;
+
+	let description = packet.fightBugged
+		? i18n.t("commands:fight.end.bugged", {lng: interaction.userLanguage})
+		: isDraw
+			? i18n.t("commands:fight.end.draw", {
+				lng: interaction.userLanguage,
+				player1: winnerName,
+				player2: looserName
+			})
+			: i18n.t("commands:fight.end.win", {lng: interaction.userLanguage, winner: winnerName, loser: looserName});
+
+	// Add game and fighter stats
+	description += i18n.t("commands:fight.end.gameStats", {
+		lng: interaction.userLanguage,
+		turn: packet.turns,
+		maxTurn: packet.maxTurns
+	});
+
+	// Add fighter statistics for both fighters
+	[
+		{name: winnerName, stats: packet.winner},
+		{name: looserName, stats: packet.looser}
+	].forEach(fighter => {
+		description += i18n.t("commands:fight.end.fighterStats", {
+			lng: interaction.userLanguage,
+			pseudo: fighter.name,
+			health: fighter.stats.finalEnergy,
+			maxHealth: fighter.stats.maxEnergy
+		});
+	});
+
+	// Send embed with handshake reaction
+	const embed = new DraftBotEmbed()
+		.formatAuthor(i18n.t("commands:fight.endTitle", {lng: interaction.userLanguage}), interaction.user)
+		.setDescription(description);
+
+	const message = await interaction.channel?.send({embeds: [embed]});
+	await message?.react(EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fight_command.handshake));
+}
 
 async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandFightPacketReq | null> {
 	const player = await PacketUtils.prepareAskedPlayer(interaction, user);
