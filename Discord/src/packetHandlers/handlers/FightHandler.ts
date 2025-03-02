@@ -18,6 +18,7 @@ import {CommandFightStatusPacket} from "../../../../Lib/src/packets/fights/Fight
 import {CommandFightHistoryItemPacket} from "../../../../Lib/src/packets/fights/FightHistoryItemPacket";
 import {AIFightActionChoosePacket} from "../../../../Lib/src/packets/fights/AIFightActionChoosePacket";
 import {CommandFightEndOfFightPacket} from "../../../../Lib/src/packets/fights/EndOfFightPacket";
+import {BuggedFightPacket} from "../../../../Lib/src/packets/fights/BuggedFightPacket";
 
 export default class FightHandler {
 	@packetHandler(CommandFightRefusePacketRes)
@@ -53,5 +54,10 @@ export default class FightHandler {
 	@packetHandler(CommandFightEndOfFightPacket)
 	async endOfFight(context: PacketContext, packet: CommandFightEndOfFightPacket): Promise<void> {
 		await handleEndOfFight(context, packet);
+	}
+
+	@packetHandler(BuggedFightPacket)
+	async buggedFight(context: PacketContext, _packet: BuggedFightPacket): Promise<void> {
+		await handleClassicError(context, "commands:fight.end.bugged");
 	}
 }
