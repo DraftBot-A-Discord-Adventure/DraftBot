@@ -9,13 +9,15 @@ import {
 	handleCommandFightHistoryItemRes,
 	handleCommandFightIntroduceFightersRes,
 	handleCommandFightRefusePacketRes,
-	handleCommandFightUpdateStatusRes
+	handleCommandFightUpdateStatusRes,
+	handleEndOfFight
 } from "../../commands/player/FightCommand";
 import {handleClassicError} from "../../utils/ErrorUtils";
 import {CommandFightIntroduceFightersPacket} from "../../../../Lib/src/packets/fights/FightIntroductionPacket";
 import {CommandFightStatusPacket} from "../../../../Lib/src/packets/fights/FightStatusPacket";
 import {CommandFightHistoryItemPacket} from "../../../../Lib/src/packets/fights/FightHistoryItemPacket";
 import {AIFightActionChoosePacket} from "../../../../Lib/src/packets/fights/AIFightActionChoosePacket";
+import {CommandFightEndOfFightPacket} from "../../../../Lib/src/packets/fights/EndOfFightPacket";
 
 export default class FightHandler {
 	@packetHandler(CommandFightRefusePacketRes)
@@ -46,5 +48,10 @@ export default class FightHandler {
 	@packetHandler(AIFightActionChoosePacket)
 	async aiFightActionChoose(context: PacketContext, _packet: AIFightActionChoosePacket): Promise<void> {
 		await handleCommandFightAIFightActionChoose(context);
+	}
+
+	@packetHandler(CommandFightEndOfFightPacket)
+	async endOfFight(context: PacketContext, packet: CommandFightEndOfFightPacket): Promise<void> {
+		await handleEndOfFight(context, packet);
 	}
 }

@@ -60,8 +60,24 @@ export class DraftbotCachedMessages {
 		}, minutesToMilliseconds(message.duration));
 	}
 
+	/**
+	 * Remove a cached message from its key
+	 * @param cacheKey
+	 */
 	static remove(cacheKey: string): void {
 		DraftbotCachedMessages.cachedMessages.delete(cacheKey);
+	}
+
+	/**
+	 * Remove all cached messages from a message id
+	 * @param originalMessageId
+	 */
+	static removeAllFromMessageId(originalMessageId: string): void {
+		DraftbotCachedMessages.cachedMessages.forEach((_message, key) => {
+			if (key.startsWith(originalMessageId)) {
+				DraftbotCachedMessages.remove(key);
+			}
+		});
 	}
 
 	static getOrCreate<Packet extends DraftBotPacket, Message extends DraftbotCachedMessage<Packet>>(originalMessageId: string, MessageLike: MessageLike<Message>): Message {
