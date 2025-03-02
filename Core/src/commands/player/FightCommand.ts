@@ -21,6 +21,7 @@ import {draftBotInstance} from "../../index";
 import {EloGameResult, EloUtils} from "../../core/utils/EloUtils";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {AiPlayerFighter} from "../../core/fights/fighter/AiPlayerFighter";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 type PlayerStats = {
 	classId: number,
@@ -190,6 +191,8 @@ function fightValidationEndCallback(player: Player, context: PacketContext): End
 			const opponent = await findOpponent(player);
 			if (!opponent) {
 				response.push(makePacket(CommandFightOpponentsNotFoundPacket, {}));
+				BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.FIGHT_CONFIRMATION);
+				return;
 			}
 			const askingFighter = new PlayerFighter(player, ClassDataController.instance.getById(player.class));
 			await askingFighter.loadStats();
@@ -208,6 +211,7 @@ function fightValidationEndCallback(player: Player, context: PacketContext): End
 		else {
 			response.push(makePacket(CommandFightRefusePacketRes, {}));
 		}
+		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.FIGHT_CONFIRMATION);
 	};
 }
 
