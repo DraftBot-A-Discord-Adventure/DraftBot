@@ -48,6 +48,7 @@ export const DraftBotIcons: {
 		refuse: string,
 		crossed_swords: string,
 		clipboard: string,
+		handshake: string,
 		ai_thinking: string
 	},
 	foods: {
@@ -1647,6 +1648,7 @@ export const DraftBotIcons: {
 		"refuse": "❌",
 		"crossed_swords": "⚔️",
 		"clipboard": "📋",
+		"handshake": "🤝",
 		"ai_thinking": "🧠"
 	},
 	"foods": {
