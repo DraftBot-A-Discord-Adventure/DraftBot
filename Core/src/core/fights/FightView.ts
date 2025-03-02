@@ -20,6 +20,7 @@ import {
 import {AIFightActionChoosePacket} from "../../../../Lib/src/packets/fights/AIFightActionChoosePacket";
 import {PacketUtils} from "../utils/PacketUtils";
 import {AiPlayerFighter} from "./fighter/AiPlayerFighter";
+import {CommandFightEndOfFightPacket} from "../../../../Lib/src/packets/fights/EndOfFightPacket";
 
 /* eslint-disable capitalized-comments */
 
@@ -229,57 +230,38 @@ export class FightView {
 	}
 
 	/**
-	 * Get send the fight outro message
+	 * Generate packets to display the end of the fight
 	 * @param loser
 	 * @param winner
 	 * @param draw
 	 */
-	outroFight(loser: Fighter, winner: Fighter, draw: boolean): void {
-		/* if (this.lastSummary) {
-			setTimeout(() => this.lastSummary.delete(), TIMEOUT_FUNCTIONS.OUTRO_FIGHT);
-		}
-		let msg;
-		if (!draw) {
-			msg = this.fightTranslationModule.format("end.win", {
-				winner: winner.getMention(),
-				loser: loser.getMention()
-			});
-		}
-		else {
-			msg = this.fightTranslationModule.format("end.draw", {
-				player1: winner.getMention(),
-				player2: loser.getMention()
-			});
-		}
-		msg += this.fightTranslationModule.format("end.gameStats", {
-			turn: this.fightController.turn,
-			maxTurn: FightConstants.MAX_TURNS,
-			time: minutesDisplay(millisecondsToMinutes(new Date().valueOf() - this.fightLaunchMessage.createdTimestamp))
-		});
+	outroFight(response: DraftBotPacket[], loser: PlayerFighter | MonsterFighter | AiPlayerFighter, winner: PlayerFighter | MonsterFighter | AiPlayerFighter, draw: boolean): void {
 
-		for (const fighter of [winner, loser]) {
-			msg += this.fightTranslationModule.format("end.fighterStats", {
-				pseudo: fighter.getName(),
-				health: fighter.getFightPoints(),
-				maxHealth: fighter.getMaxFightPoints()
-			});
-		}
+		response.push(makePacket(CommandFightEndOfFightPacket, {
+			fightBugged: false,
+			winner: {
+				keycloakId: winner instanceof MonsterFighter ? null : winner.player.keycloakId,
+				monsterId: winner instanceof MonsterFighter ? winner.monster.id : null,
+				finalEnergy: winner.getEnergy(),
+				maxEnergy: winner.getMaxEnergy()
+			},
+			looser: {
+				keycloakId: loser instanceof MonsterFighter ? null : loser.player.keycloakId,
+				monsterId: loser instanceof MonsterFighter ? loser.monster.id : null,
+				finalEnergy: loser.getEnergy(),
+				maxEnergy: loser.getMaxEnergy()
+			},
+			turns: this.fightController.turn,
+			maxTurns: FightConstants.MAX_TURNS
+		}));
 
-		this.channel.send({embeds: [new DraftBotEmbed().setDescription(msg)]})
-			.then(message => message.react(FightConstants.HANDSHAKE_EMOTE)); */
 	}
 
 	/**
-	 * Send a message to the channel to display the status of the fight when a bug is detected
+	 * Send a bugged end-of-fight packet
 	 */
 	displayBugFight(): void {
-		/* this.channel.send({
-			embeds: [
-				new DraftBotEmbed()
-					.setErrorColor()
-					.setTitle(this.fightTranslationModule.get("bugFightTitle"))
-					.setDescription(this.fightTranslationModule.get("bugFightDescription"))]
-		}); */
+
 	}
 
 	sendResponses(response: DraftBotPacket[]): void {
