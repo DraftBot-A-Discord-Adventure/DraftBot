@@ -247,19 +247,17 @@ export async function handleEndOfFight(context: PacketContext, packet: CommandFi
 
 	// Send embed with handshake reaction
 	const embed = new DraftBotEmbed()
-		.setTitle(packet.fightBugged
-			? i18n.t("commands:fight.end.bugged", {lng: interaction.userLanguage})
-			: isDraw
-				? i18n.t("commands:fight.end.draw", {
-					lng: interaction.userLanguage,
-					player1: winnerName,
-					player2: looserName
-				})
-				: i18n.t("commands:fight.end.win", {
-					lng: interaction.userLanguage,
-					winner: winnerName,
-					loser: looserName
-				}))
+		.setTitle(isDraw
+			? i18n.t("commands:fight.end.draw", {
+				lng: interaction.userLanguage,
+				player1: winnerName,
+				player2: looserName
+			})
+			: i18n.t("commands:fight.end.win", {
+				lng: interaction.userLanguage,
+				winner: winnerName,
+				loser: looserName
+			}))
 		.setDescription(description);
 
 	const message = await interaction.channel?.send({embeds: [embed]});
