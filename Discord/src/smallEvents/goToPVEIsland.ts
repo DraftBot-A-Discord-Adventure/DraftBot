@@ -29,8 +29,8 @@ export async function goToPVEIslandCollector(context: PacketContext, packet: Rea
 		+ "\n\n"
 		+ i18n.t("smallEvents:goToPVEIsland.confirm", {
 			lng,
-			fightPoints: data.energy.current,
-			fightPointsMax: data.energy.max
+			energy: data.energy.current,
+			energyMax: data.energy.max
 		}),
 		interaction.user,
 		lng

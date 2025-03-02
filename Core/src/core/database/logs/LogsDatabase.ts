@@ -1041,7 +1041,7 @@ export class LogsDatabase extends Database {
 				playerId,
 				monsterId: monster.monster.id,
 				monsterLevel: monster.level,
-				monsterFightPoints: monsterStats.maxFightPoint,
+				monsterFightPoints: monsterStats.maxEnergy,
 				monsterAttack: monsterStats.attack,
 				monsterDefense: monsterStats.defense,
 				monsterSpeed: monsterStats.speed,
