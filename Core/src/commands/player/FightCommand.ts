@@ -100,26 +100,7 @@ async function fightEndCallback(fight: FightController, response: DraftBotPacket
 		player1.save(),
 		player2.save()
 	]);
-
-	/* Response.push(makePacket(
-		CommandFightEndOfFightPacketRes,
-		{
-			fightInitiatorInformation: {
-				keycloakId: player1.keycloakId,
-				previousRating: player1.attackGloryPoints,
-				newRating: player1NewRating,
-				kFactor: player1KFactor,
-				gameResult: player1GameResult
-			},
-			fightOpponentInformation: {
-				keycloakId: player2.keycloakId,
-				previousRating: player2.defenseGloryPoints,
-				newRating: player2NewRating,
-				kFactor: player2KFactor,
-				gameResult: player2GameResult
-			}
-		}
-	));*/
+	// Displayleague
 }
 
 /**

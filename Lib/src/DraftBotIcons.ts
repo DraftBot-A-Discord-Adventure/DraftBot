@@ -898,7 +898,7 @@ export const DraftBotIcons: {
 		"staffMember": "📖",
 		"ultimateFoodMerchant": "🍲",
 		"winEnergy": "⚡",
-		"winFightPoints": "🔋",
+		"winEnergyOnIsland": "🔋",
 		"winGuildXP": "⭐",
 		"winHealth": "❤️",
 		"winPersonalXP": "⭐",
