@@ -46,7 +46,7 @@ import {
 } from "../../../../Lib/src/packets/smallEvents/SmallEventShopPacket";
 import {SmallEventStaffMemberPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventStaffMemberPacket";
 import {SmallEventWinEnergyPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinEnergyPacket";
-import {SmallEventWinFightPointsPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinFightPointsPacket";
+import {SmallEventWinEnergyOnIslandPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinEnergyOnIslandPacket";
 import {SmallEventWinHealthPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinHealthPacket";
 import {SmallEventWinPersonalXPPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinPersonalXPPacket";
 import {SmallEventWitchResultPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWitchPacket";
@@ -459,16 +459,16 @@ export default class SmallEventsHandler {
 		});
 	}
 
-	@packetHandler(SmallEventWinFightPointsPacket)
-	async smallEventWinFightPoints(context: PacketContext, packet: SmallEventWinFightPointsPacket): Promise<void> {
+	@packetHandler(SmallEventWinEnergyOnIslandPacket)
+	async smallEventWinFightPoints(context: PacketContext, packet: SmallEventWinEnergyOnIslandPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		const lng = interaction!.userLanguage;
 		await interaction?.editReply({
 			embeds: [
 				new DraftbotSmallEventEmbed(
-					"winFightPoints",
+					"winEnergyOnIsland",
 					getRandomSmallEventIntro(lng)
-					+ StringUtils.getRandomTranslation("smallEvents:winFightPoints.stories", lng, {fightPoints: packet.amount}),
+					+ StringUtils.getRandomTranslation("smallEvents:winEnergyOnIsland.stories", interaction.userLanguage, {energy: packet.amount}),
 					interaction.user,
 					lng
 				)

@@ -8,8 +8,8 @@ import {FightAction} from "../../../data/FightAction";
 import {DraftBotPacket} from "../../../../../Lib/src/packets/DraftBotPacket";
 
 type FighterStats = {
-	fightPoints: number,
-	maxFightPoint: number,
+	energy: number,
+	maxEnergy: number,
 	speed: number,
 	defense: number,
 	attack: number,
@@ -61,8 +61,8 @@ export abstract class Fighter {
 
 	protected constructor(level: number, availableFightActions: FightAction[]) {
 		this.stats = {
-			fightPoints: null,
-			maxFightPoint: null,
+			energy: null,
+			maxEnergy: null,
 			speed: null,
 			defense: null,
 			attack: null,
@@ -145,14 +145,14 @@ export abstract class Fighter {
 	 * Get energy
 	 */
 	public getEnergy(): number {
-		return this.stats.fightPoints;
+		return this.stats.energy;
 	}
 
 	/**
 	 * Get the maximum energy
 	 */
 	public getMaxEnergy(): number {
-		return this.stats.maxFightPoint;
+		return this.stats.maxEnergy;
 	}
 
 	/**
@@ -204,7 +204,7 @@ export abstract class Fighter {
 	 * @param value
 	 */
 	public setBaseEnergy(value: number): void {
-		this.stats.fightPoints = value;
+		this.stats.energy = value;
 	}
 
 	/**
@@ -310,11 +310,15 @@ export abstract class Fighter {
 	 * @return The new value of energy
 	 */
 	public damage(value: number): number {
-		this.stats.fightPoints -= value;
-		if (this.stats.fightPoints < 0) {
-			this.stats.fightPoints = 0;
+		// Return current energy if no damage value
+		if (!value) {
+			return this.stats.energy;
 		}
-		return this.stats.fightPoints;
+
+		// Apply damage
+		this.stats.energy = Math.max(0, this.stats.energy - value);
+
+		return this.stats.energy;
 	}
 
 	/**
@@ -323,12 +327,12 @@ export abstract class Fighter {
 	 * @return The new value of energy
 	 */
 	public heal(value: number): number {
-		this.stats.fightPoints += value;
+		this.stats.energy += value;
 		const max = this.getMaxEnergy();
-		if (this.stats.fightPoints > max) {
-			this.stats.fightPoints = max;
+		if (this.stats.energy > max) {
+			this.stats.energy = max;
 		}
-		return this.stats.fightPoints;
+		return this.stats.energy;
 	}
 
 	/**
@@ -349,7 +353,7 @@ export abstract class Fighter {
 	 * The name of the function is very clear
 	 */
 	public kill(): void {
-		this.stats.fightPoints = 0;
+		this.stats.energy = 0;
 	}
 
 	/**
