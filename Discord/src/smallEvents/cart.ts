@@ -12,8 +12,9 @@ import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
 import i18n from "../translations/i18n";
 import {getRandomSmallEventIntro} from "../packetHandlers/handlers/SmallEventsHandler";
 import {ReactionCollectorCartData} from "../../../Lib/src/packets/interaction/ReactionCollectorCart";
+import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
-export async function cartCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
+export async function cartCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorCartData;
 	const story = data.displayedDestination.isDisplayed ? "knownDestination" : "unknownDestination";
@@ -34,7 +35,7 @@ export async function cartCollector(context: PacketContext, packet: ReactionColl
 		interaction.userLanguage
 	);
 
-	await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context, {
+	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context, {
 		emojis: {
 			accept: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.cart_small_event.accept),
 			refuse: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.cart_small_event.refuse)

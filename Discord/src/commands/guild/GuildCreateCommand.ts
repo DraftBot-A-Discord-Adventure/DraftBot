@@ -19,6 +19,7 @@ import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
 import {ReactionCollectorGuildCreateData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildCreate";
 import {GuildCreateConstants} from "../../../../Lib/src/constants/GuildCreateConstants";
 import {LANGUAGE} from "../../../../Lib/src/Language";
+import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
 /**
  * Create a new guild
@@ -80,7 +81,7 @@ export async function handleCommandGuildCreatePacketRes(packet: CommandGuildCrea
 }
 
 
-export async function createGuildCreateCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
+export async function createGuildCreateCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorGuildCreateData;
@@ -97,7 +98,7 @@ export async function createGuildCreateCollector(context: PacketContext, packet:
 			})
 		);
 
-	await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
+	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
 }
 
 export async function handleCommandGuildCreateRefusePacketRes(context: PacketContext): Promise<void> {

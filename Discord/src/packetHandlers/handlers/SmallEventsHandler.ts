@@ -298,7 +298,7 @@ export default class SmallEventsHandler {
 							level: packet.data.level,
 							class: `${DraftBotIcons.classes[packet.data.classId]} ${i18n.t(`models:classes.${packet.data.classId}`, {lng: interaction.userLanguage})}`,
 							advice: StringUtils.getRandomTranslation("advices:advices", interaction.userLanguage),
-							petEmote: packet.data.petId ? DisplayUtils.getPetIcon(packet.data.petId, packet.data.petSex === "f") : "",
+							petEmote: packet.data.petId && packet.data.petSex ? DisplayUtils.getPetIcon(packet.data.petId, packet.data.petSex) : "",
 							petName: packet.data.petName,
 							guildName: packet.data.guildName,
 							weapon: DisplayUtils.getWeaponDisplay(packet.data.weaponId, interaction.userLanguage),

@@ -13,6 +13,7 @@ import {
 import {DraftbotInteraction} from "../messages/DraftbotInteraction";
 import {DraftbotButtonReaction, DraftbotButtonReactionMessage} from "../messages/DraftbotButtonReactionMessage";
 import {StringConstants} from "../../../Lib/src/constants/StringConstants";
+import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
 function getFightPetReactions(interaction: DraftbotInteraction, baseReactions: ReactionCollectorFightPetReaction[]): DraftbotButtonReaction[] {
 	const reactions: DraftbotButtonReaction[] = [];
@@ -26,7 +27,7 @@ function getFightPetReactions(interaction: DraftbotInteraction, baseReactions: R
 	return reactions;
 }
 
-export async function fightPetCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
+export async function fightPetCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorFightPetData;
 
@@ -53,7 +54,7 @@ export async function fightPetCollector(context: PacketContext, packet: Reaction
 		interaction.userLanguage
 	);
 
-	await new DraftbotButtonReactionMessage(interaction, {
+	return await new DraftbotButtonReactionMessage(interaction, {
 		reactions,
 		embed,
 		packet,

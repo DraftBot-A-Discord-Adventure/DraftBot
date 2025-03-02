@@ -28,7 +28,6 @@ import {ReactionCollectorCartData} from "../../../../Lib/src/packets/interaction
 import {cartCollector} from "../../smallEvents/cart";
 import {ReactionCollectorFightPetData} from "../../../../Lib/src/packets/interaction/ReactionCollectorFightPet";
 import {fightPetCollector} from "../../smallEvents/fightPet";
-import {PacketListenerCallbackClient} from "../../../../Lib/src/packets/PacketListener";
 import {ReactionCollectorGuildKickData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildKick";
 import {createGuildKickCollector} from "../../commands/guild/GuildKickCommand";
 import {ReactionCollectorGobletsGameData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGobletsGame";
@@ -55,10 +54,20 @@ import {ReactionCollectorDrinkData} from "../../../../Lib/src/packets/interactio
 import {drinkAcceptCollector} from "../../commands/player/DrinkCommand";
 import {ReactionCollectorPetSellData} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetSell";
 import {createPetSellCollector} from "../../commands/pet/PetSellCommand";
+import {Collector} from "discord.js";
+import {ReactionCollectorStopPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorStopPacket";
+
+// Needed because we need to accept any parameter
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ReactionCollectorReturnType = Collector<any, any, any>[] | null;
 
 export default class ReactionCollectorHandler {
+	// Needed because we need to accept any parameter
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	private static collectorsCache: Map<string, Collector<any, any, any>[]> = new Map();
 
-	static collectorMap: Map<string, PacketListenerCallbackClient<ReactionCollectorCreationPacket>>;
+
+	static collectorMap: Map<string, (context: PacketContext, packet: ReactionCollectorCreationPacket) => Promise<ReactionCollectorReturnType>>;
 
 	static initCollectorMap(): void {
 		ReactionCollectorHandler.collectorMap = new Map();
@@ -101,6 +110,28 @@ export default class ReactionCollectorHandler {
 		if (!collector) {
 			throw `Unknown collector with data: ${packet.data.type}`; // Todo error embed
 		}
-		await collector(context, packet);
+		const createdCollector = await collector(context, packet);
+
+		if (createdCollector) {
+			ReactionCollectorHandler.collectorsCache.set(packet.id, createdCollector);
+		}
+	}
+
+	@packetHandler(ReactionCollectorStopPacket)
+	async collectorStop(_context: PacketContext, packet: ReactionCollectorStopPacket): Promise<void> {
+		const collector = ReactionCollectorHandler.collectorsCache.get(packet.id);
+		if (!collector) {
+			console.warn(`Collector stop received for collector with ID ${packet.id} but no collector was found with this ID`);
+			return;
+		}
+		collector.forEach((c) => {
+			if (c.ended) {
+				console.warn(`Collector stop received for collector with ID ${packet.id} but collector was already stopped`);
+				return;
+			}
+			c.stop();
+		});
+		ReactionCollectorHandler.collectorsCache.delete(packet.id);
+		await Promise.resolve();
 	}
 }

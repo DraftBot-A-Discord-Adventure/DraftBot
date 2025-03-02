@@ -17,6 +17,7 @@ import {ReactionCollectorSkipMissionShopItemReaction} from "../../../../Lib/src/
 import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
 import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {Constants} from "../../../../Lib/src/constants/Constants";
+import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
 /**
  * Get the packet to send to the server
@@ -82,10 +83,10 @@ export async function handleLovePointsValueShopItem(packet: CommandMissionShopPe
 	});
 }
 
-export async function skipMissionShopItemCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
+export async function skipMissionShopItemCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!);
 	if (!interaction) {
-		return;
+		return null;
 	}
 	const embed = new DraftBotEmbed()
 		.formatAuthor(i18n.t("commands:shop.shopItems.skipMission.giveTitle", {
@@ -98,7 +99,7 @@ export async function skipMissionShopItemCollector(context: PacketContext, packe
 	const reactions: ReactionCollectorSkipMissionShopItemReaction[] = packet.reactions
 		.map(reaction => reaction.data as ReactionCollectorSkipMissionShopItemReaction)
 		.filter(reaction => reaction.mission);
-	await DiscordCollectorUtils.createChoiceListCollector(
+	return await DiscordCollectorUtils.createChoiceListCollector(
 		interaction,
 		embed,
 		packet,

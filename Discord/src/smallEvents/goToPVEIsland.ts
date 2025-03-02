@@ -7,8 +7,9 @@ import {DraftbotSmallEventEmbed} from "../messages/DraftbotSmallEventEmbed";
 import {getRandomSmallEventIntro} from "../packetHandlers/handlers/SmallEventsHandler";
 import {StringUtils} from "../utils/StringUtils";
 import {DiscordCollectorUtils} from "../utils/DiscordCollectorUtils";
+import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
-export async function goToPVEIslandCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
+export async function goToPVEIslandCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorGoToPVEIslandData;
 
@@ -34,5 +35,5 @@ export async function goToPVEIslandCollector(context: PacketContext, packet: Rea
 		interaction.userLanguage
 	);
 
-	await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
+	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
 }

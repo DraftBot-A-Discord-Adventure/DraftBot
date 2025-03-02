@@ -18,6 +18,7 @@ import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
 import {ReactionCollectorPetSellData} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetSell";
 import {handleCommandGuildDailyRewardPacket} from "../guild/GuildDailyCommand";
 import {CommandGuildDailyRewardPacket} from "../../../../Lib/src/packets/commands/CommandGuildDailyPacket";
+import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
 async function getPacket(interaction: DraftbotInteraction): Promise<CommandPetSellPacketReq> {
 	const price = <number>interaction.options.get("price", true).value;
@@ -31,7 +32,7 @@ async function getPacket(interaction: DraftbotInteraction): Promise<CommandPetSe
 	});
 }
 
-export async function createPetSellCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
+export async function createPetSellCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorPetSellData;
@@ -57,18 +58,21 @@ export async function createPetSellCollector(context: PacketContext, packet: Rea
 			name: i18n.t("commands:petSell.petFieldName", {
 				lng: interaction.userLanguage
 			}),
-			value: DisplayUtils.getOwnedPetDisplay(data.pet, interaction.userLanguage),
+			value: DisplayUtils.getOwnedPetFieldDisplay(data.pet, interaction.userLanguage),
 			inline: false
 		}])
 		.setFooter({text: i18n.t("commands:petSell.sellFooter", {
 			lng: interaction.userLanguage
 		})});
 
-	await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
+	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context, {
+		anyoneCanReact: true
+	});
 }
 
 export async function handlePetSellSuccess(context: PacketContext, packet: CommandPetSellSuccessPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
+	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!)!;
 
 	// Send guild XP reward
 	await handleCommandGuildDailyRewardPacket(makePacket(CommandGuildDailyRewardPacket, {
@@ -77,19 +81,19 @@ export async function handlePetSellSuccess(context: PacketContext, packet: Comma
 	}), context, false);
 
 	// Send pet sell success message
-	await interaction.reply({
+	await buttonInteraction.editReply({
 		embeds: [new DraftBotEmbed()
 			.formatAuthor(
 				i18n.t("commands:petSell.successTitle", {
 					lng: interaction.userLanguage,
-					pseudo: interaction.user.displayName
+					pseudo: buttonInteraction.user.displayName
 				}),
-				interaction.user
+				buttonInteraction.user
 			)
 			.setDescription(
 				i18n.t("commands:petSell.successDescription", {
 					lng: interaction.userLanguage,
-					pet: DisplayUtils.getPetDisplay(packet.pet.typeId, packet.pet.sex === "f", interaction.userLanguage)
+					pet: DisplayUtils.getPetDisplay(packet.pet.typeId, packet.pet.sex, interaction.userLanguage)
 				})
 			)]
 	});

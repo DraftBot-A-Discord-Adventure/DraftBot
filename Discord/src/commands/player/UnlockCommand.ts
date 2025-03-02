@@ -21,6 +21,7 @@ import {sendErrorMessage, SendManner} from "../../utils/ErrorUtils";
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
 import {UnlockConstants} from "../../../../Lib/src/constants/UnlockConstants";
+import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
 /**
  * Free a player from the prison
@@ -59,7 +60,7 @@ export async function handleCommandUnlockNotEnoughMoneyError(packet: CommandUnlo
  * @param packet
  * @param context
  */
-export async function createUnlockCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
+export async function createUnlockCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorUnlockData;
@@ -76,7 +77,7 @@ export async function createUnlockCollector(context: PacketContext, packet: Reac
 			})
 		);
 
-	await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
+	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
 }
 
 /**

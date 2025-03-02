@@ -86,7 +86,7 @@ async function verifyBuyerRequirements(response: DraftBotPacket[], sellerInforma
 	return true;
 }
 
-async function executePetSell(response: DraftBotPacket[], sellerInformation: SellerInformation, buyer: Player): Promise<void> {
+async function executePetSell(collector: ReactionCollectorInstance, response: DraftBotPacket[], sellerInformation: SellerInformation, buyer: Player): Promise<void> {
 	// Add guild XP
 	const xpToAdd = GuildUtils.calculateAmountOfXPToAdd(sellerInformation.petCost);
 	await sellerInformation.guild.addExperience(xpToAdd, response, NumberChangeReason.PET_SELL);
@@ -124,6 +124,8 @@ async function executePetSell(response: DraftBotPacket[], sellerInformation: Sel
 		xpEarned: xpToAdd,
 		pet: sellerInformation.pet.asOwnedPet()
 	}));
+
+	await collector.end(response);
 }
 
 async function acceptPetSellCallback(collector: ReactionCollectorInstance, initiatorPlayer: Player, reactingPlayerKeycloakId: string, response: DraftBotPacket[], price: number): Promise<void> {
@@ -152,7 +154,7 @@ async function acceptPetSellCallback(collector: ReactionCollectorInstance, initi
 	// Verify that the initiator player is still in a guild
 	if (initiatorPlayer.guildId === null) {
 		response.push(makePacket(CommandPetSellInitiatorSituationChangedErrorPacket, {}));
-		await collector.end();
+		await collector.end(response);
 		return;
 	}
 
@@ -165,18 +167,19 @@ async function acceptPetSellCallback(collector: ReactionCollectorInstance, initi
 	};
 
 	if (await verifyBuyerRequirements(response, sellerInformation, reactingPlayer)) {
-		await executePetSell(response, sellerInformation, reactingPlayer);
+		await executePetSell(collector, response, sellerInformation, reactingPlayer);
 	}
 }
 
-function refusePetSellCallback(initiatorPlayerKeycloakId: string, reactingPlayerKeycloakId: string, response: DraftBotPacket[]): void {
+function refusePetSellCallback(initiatorPlayerKeycloakId: string, reactingPlayerKeycloakId: string, response: DraftBotPacket[]): boolean {
 	if (initiatorPlayerKeycloakId !== reactingPlayerKeycloakId) {
 		// Only the owner can refuse the pet sell
 		response.push(makePacket(CommandPetSellOnlyOwnerCanCancelErrorPacket, {}));
-		return;
+		return false;
 	}
 
 	response.push(makePacket(CommandPetSellCancelPacket, {}));
+	return true;
 }
 
 export default class PetSellCommand {
@@ -226,17 +229,18 @@ export default class PetSellCommand {
 		);
 
 		const endCallback: EndCallback = (collector: ReactionCollectorInstance, response: DraftBotPacket[]): void => {
+			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.PET_SELL);
 			if (collector.hasEndedByTime) {
 				response.push(makePacket(CommandPetSellNoOneAvailableErrorPacket, {}));
 			}
 		};
 
 		const collectCallback: CollectCallback = async (collector: ReactionCollectorInstance, reaction: ReactionCollectorReaction, keycloakId: string, response: DraftBotPacket[]): Promise<void> => {
-			if (reaction.constructor.name === ReactionCollectorAcceptReaction.name) {
+			if (reaction instanceof ReactionCollectorAcceptReaction) {
 				await acceptPetSellCallback(collector, player, keycloakId, response, packet.price);
 			}
-			else {
-				refusePetSellCallback(player.keycloakId, keycloakId, response);
+			else if (refusePetSellCallback(player.keycloakId, keycloakId, response)) {
+				await collector.end(response);
 			}
 		};
 

@@ -12,8 +12,9 @@ import {keycloakConfig} from "../bot/DraftBotShard";
 import {ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, Message, parseEmoji} from "discord.js";
 import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
 import {sendInteractionNotForYou} from "../utils/ErrorUtils";
+import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
-export async function lotteryCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
+export async function lotteryCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 
@@ -97,4 +98,6 @@ export async function lotteryCollector(context: PacketContext, packet: ReactionC
 			);
 		}
 	});
+
+	return [buttonCollector];
 }

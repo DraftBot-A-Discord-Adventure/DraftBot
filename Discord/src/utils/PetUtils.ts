@@ -16,7 +16,7 @@ export class PetUtils {
 	static petToShortString(lng: Language, nickname: string | undefined, typeId: number, sex: SexTypeShort): string {
 		return i18n.t("commands:pet.shortPetField", {
 			lng,
-			emote: DisplayUtils.getPetIcon(typeId, sex === "f"),
+			emote: DisplayUtils.getPetIcon(typeId, sex),
 			name: nickname ?? DisplayUtils.getPetTypeName(lng, typeId, sex)
 		});
 	}

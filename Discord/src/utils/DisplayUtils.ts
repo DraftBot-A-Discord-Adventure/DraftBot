@@ -21,6 +21,11 @@ export class DisplayUtils {
 		return `${i18n.t(`models:foods.${foodId}`, {lng})}  ${DraftBotIcons.foods[foodId]}`;
 	}
 
+	/**
+	 * Display the item name with its icon
+	 * @param item
+	 * @param language
+	 */
 	static getItemDisplay(item: Item, language: Language): string {
 		switch (item.category) {
 		case ItemCategory.WEAPON:
@@ -36,22 +41,47 @@ export class DisplayUtils {
 		}
 	}
 
+	/**
+	 * Display the item name with its icon
+	 * @param weaponId
+	 * @param lng
+	 */
 	static getWeaponDisplay(weaponId: number, lng: Language): string {
 		return `${DraftBotIcons.weapons[weaponId]} ${i18n.t(`models:weapons.${weaponId}`, {lng})}`;
 	}
 
+	/**
+	 * Display the item name with its icon
+	 * @param armorId
+	 * @param lng
+	 */
 	static getArmorDisplay(armorId: number, lng: Language): string {
 		return `${DraftBotIcons.armors[armorId]} ${i18n.t(`models:armors.${armorId}`, {lng})}`;
 	}
 
+	/**
+	 * Display the potion name with its icon
+	 * @param potionId
+	 * @param lng
+	 */
 	static getPotionDisplay(potionId: number, lng: Language): string {
 		return `${DraftBotIcons.potions[potionId]} ${i18n.t(`models:potions.${potionId}`, {lng})}`;
 	}
 
+	/**
+	 * Display the object name with its icon
+	 * @param objectId
+	 * @param lng
+	 */
 	static getObjectDisplay(objectId: number, lng: Language): string {
 		return `${DraftBotIcons.objects[objectId]} ${i18n.t(`models:objects.${objectId}`, {lng})}`;
 	}
 
+	/**
+	 * Display the item name with its icon and stats
+	 * @param itemWithDetails
+	 * @param language
+	 */
 	static getItemDisplayWithStats(itemWithDetails: ItemWithDetails, language: Language): string {
 		switch (itemWithDetails.category) {
 		case ItemCategory.WEAPON:
@@ -67,6 +97,12 @@ export class DisplayUtils {
 		}
 	}
 
+	/**
+	 * Display the emote of a map location + its name
+	 * @param mapType
+	 * @param mapLocationId
+	 * @param lng
+	 */
 	static getMapLocationDisplay(mapType: string, mapLocationId: number, lng: Language): string {
 		return i18n.t("{emote:map_types.{{mapType}}} $t(models:map_locations.{{mapLocationId}}.name)", {
 			lng,
@@ -75,8 +111,13 @@ export class DisplayUtils {
 		});
 	}
 
-	static getPetIcon(petId: number, isFemale: boolean): string {
-		return DraftBotIcons.pets[petId][isFemale ? "emoteFemale" : "emoteMale"];
+	/**
+	 * Display the icon of a pet
+	 * @param petId
+	 * @param sex
+	 */
+	static getPetIcon(petId: number, sex: SexTypeShort): string {
+		return DraftBotIcons.pets[petId][sex === StringConstants.SEX.FEMALE.short ? "emoteFemale" : "emoteMale"];
 	}
 
 	/**
@@ -93,8 +134,14 @@ export class DisplayUtils {
 		);
 	}
 
-	static getPetDisplay(petId: number, isFemale: boolean, lng: Language): string {
-		const context = isFemale ? StringConstants.SEX.FEMALE.long : StringConstants.SEX.MALE.long;
+	/**
+	 * Display the emote of a pet + its name
+	 * @param petId
+	 * @param sex
+	 * @param lng
+	 */
+	static getPetDisplay(petId: number, sex: SexTypeShort, lng: Language): string {
+		const context = sex === StringConstants.SEX.FEMALE.short ? StringConstants.SEX.FEMALE.long : StringConstants.SEX.MALE.long;
 		return i18n.t(`{emote:pets.{{petId}}.emote${context[0].toUpperCase() + context.slice(1)}} $t(models:pets.{{petId}})`, {
 			lng,
 			context,
@@ -133,14 +180,19 @@ export class DisplayUtils {
 		});
 	}
 
-	static getOwnedPetDisplay(ownedPet: OwnedPet, lng: Language): string {
+	/**
+	 * Display the pet's information as a field with line breaks and values followed by colons (name, rarity, sex, love level)
+	 * @param ownedPet
+	 * @param lng
+	 */
+	static getOwnedPetFieldDisplay(ownedPet: OwnedPet, lng: Language): string {
 		return i18n.t("commands:pet.petField", {
 			lng,
-			emote: DisplayUtils.getPetIcon(ownedPet.typeId, ownedPet.sex === "f"),
+			emote: DisplayUtils.getPetIcon(ownedPet.typeId, ownedPet.sex),
 			typeName: DisplayUtils.getPetTypeName(lng, ownedPet.typeId, ownedPet.sex),
 			nickname: DisplayUtils.getPetDisplayNickname(lng, ownedPet.nickname),
 			rarity: DisplayUtils.getPetRarityDisplay(ownedPet.rarity),
-			sex: i18n.t(`commands:pet.sexDisplay.${ownedPet.sex}`, {lng}),
+			sex: i18n.t("commands:pet.sexDisplay", {lng, context: ownedPet.sex}),
 			loveLevel: DisplayUtils.getPetLoveLevelDisplay(ownedPet.loveLevel, ownedPet.sex, lng)
 		});
 	}

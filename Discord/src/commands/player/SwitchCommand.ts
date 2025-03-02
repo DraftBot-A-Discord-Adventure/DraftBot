@@ -13,6 +13,7 @@ import {DiscordItemUtils} from "../../utils/DiscordItemUtils";
 import {MainItemDisplayPacket, SupportItemDisplayPacket} from "../../../../Lib/src/packets/commands/CommandInventoryPacket";
 import {Language} from "../../../../Lib/src/Language";
 import {EmbedField} from "discord.js";
+import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
 /**
  * Get the switch command packet
@@ -66,10 +67,10 @@ function getFielder(itemCategory: number): ((displayPacket: MainItemDisplayPacke
 	}
 }
 
-export async function switchItemCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
+export async function switchItemCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!);
 	if (!interaction) {
-		return;
+		return null;
 	}
 	const embed = new DraftBotEmbed()
 		.formatAuthor(i18n.t("commands:switch.switchSelectionTitle", {
@@ -82,7 +83,7 @@ export async function switchItemCollector(context: PacketContext, packet: Reacti
 	const reactions: ReactionCollectorSwitchItemReaction[] = packet.reactions
 		.map(reaction => reaction.data as ReactionCollectorSwitchItemReaction)
 		.filter(reaction => reaction.item);
-	await DiscordCollectorUtils.createChoiceListCollector(
+	return await DiscordCollectorUtils.createChoiceListCollector(
 		interaction,
 		embed,
 		packet,

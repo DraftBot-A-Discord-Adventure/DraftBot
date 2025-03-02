@@ -51,7 +51,7 @@ export function getCommandGuildDailyRewardPacketString(packet: CommandGuildDaily
 		desc += `${i18n.t("commands:guildDaily.rewards.pet", {
 			lng,
 			context: packet.pet.isFemale ? StringConstants.SEX.FEMALE.long : StringConstants.SEX.MALE.long,
-			pet: DisplayUtils.getPetDisplay(packet.pet.typeId, packet.pet.isFemale, lng),
+			pet: DisplayUtils.getPetDisplay(packet.pet.typeId, packet.pet.isFemale ? StringConstants.SEX.FEMALE.short : StringConstants.SEX.MALE.short, lng),
 			petId: packet.pet.typeId,
 			interpolation: {escapeValue: false}
 		})}\n`;

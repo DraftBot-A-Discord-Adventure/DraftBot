@@ -10,13 +10,14 @@ import {Constants} from "../../../Lib/src/constants/Constants";
 import i18n from "../translations/i18n";
 import {StringConstants} from "../../../Lib/src/constants/StringConstants";
 import {ReactionCollectorShopSmallEventData} from "../../../Lib/src/packets/interaction/ReactionCollectorShopSmallEvent";
+import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
 /**
  * Send the initial embed for this small event
  * @param packet
  * @param context
  */
-export async function smallShopCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
+export async function smallShopCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorShopSmallEventData;
 	const gender = RandomUtils.draftbotRandom.bool() ? StringConstants.SEX.MALE : StringConstants.SEX.FEMALE;
@@ -41,7 +42,7 @@ export async function smallShopCollector(context: PacketContext, packet: Reactio
 		interaction.userLanguage
 	);
 
-	await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
+	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
 }
 
 export async function baseFunctionHandler(context: PacketContext, translationKey: string): Promise<void> {
