@@ -9,7 +9,7 @@ export class ReactionCollectorReactPacket extends DraftBotPacket {
 	reactionIndex!: number;
 }
 
-@sendablePacket(PacketDirection.NONE)
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class ReactionCollectorEnded extends DraftBotPacket {
 
 }
