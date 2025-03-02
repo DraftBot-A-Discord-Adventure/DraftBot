@@ -120,7 +120,7 @@ export class FightController {
 		const winner = this.getWinner(); // 1 for the figh initiator, 0 for the opponent
 		const isADraw = this.isADraw();
 
-		this._fightView.outroFight(this.fighters[(1 - winner) % 2], this.fighters[winner % 2], isADraw);
+		this._fightView.outroFight(response, this.fighters[(1 - winner) % 2], this.fighters[winner % 2], isADraw);
 
 		for (let i = 0; i < this.fighters.length; ++i) {
 			await this.fighters[i].endFight(this._fightView, i === winner);
