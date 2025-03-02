@@ -131,14 +131,15 @@ export class FightController {
 	}
 
 	/**
-	 * Cancel a fight and unblock the fighters, used when a fight has bugged (for example if a message was deleted)
+	 * Cancel a fight and unblock the fighters, used when a fight has bugged (for example, if a message was deleted)
+	 * @param response {DraftBotPacket[]}
 	 */
-	endBugFight(): void {
+	endBugFight(response: DraftBotPacket[]): void {
 		this.state = FightState.BUG;
 		for (const fighter of this.fighters) {
 			fighter.unblock();
 		}
-		this._fightView.displayBugFight();
+		this._fightView.displayBugFight(response);
 	}
 
 	/**
@@ -291,7 +292,7 @@ export class FightController {
 			catch (e) {
 				console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");
 				console.error(e.stack);
-				this.endBugFight();
+				this.endBugFight(response);
 			}
 		}
 		else {
