@@ -17,6 +17,7 @@ import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {ReactionCollectorPetFreeData} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFree";
 import {PetUtils} from "../../utils/PetUtils";
+import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
 /**
  * Destroy a pet forever... RIP
@@ -75,7 +76,7 @@ export async function handleCommandPetFreePacketRes(packet: CommandPetFreePacket
 	}
 }
 
-export async function createPetFreeCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
+export async function createPetFreeCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorPetFreeData;
@@ -91,7 +92,7 @@ export async function createPetFreeCollector(context: PacketContext, packet: Rea
 			})
 		);
 
-	await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
+	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
 }
 
 export async function handleCommandPetFreeRefusePacketRes(context: PacketContext): Promise<void> {

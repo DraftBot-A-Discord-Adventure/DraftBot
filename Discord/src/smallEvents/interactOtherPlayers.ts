@@ -11,6 +11,7 @@ import {keycloakConfig} from "../bot/DraftBotShard";
 import {Language} from "../../../Lib/src/Language";
 import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
 import {EmoteUtils} from "../utils/EmoteUtils";
+import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
 export async function interactOtherPlayerGetPlayerDisplay(keycloakId: string, rank: number | undefined, lng: Language): Promise<string> {
 	const keycloakUser = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, keycloakId);
@@ -20,7 +21,7 @@ export async function interactOtherPlayerGetPlayerDisplay(keycloakId: string, ra
 		: i18n.t("smallEvents:interactOtherPlayers.playerDisplayUnranked", {lng, pseudo: playerName});
 }
 
-export async function interactOtherPlayersCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
+export async function interactOtherPlayersCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorInteractOtherPlayersPoorData;
 	const playerDisplay = await interactOtherPlayerGetPlayerDisplay(data.keycloakId, data.rank, interaction.userLanguage);
@@ -38,7 +39,7 @@ export async function interactOtherPlayersCollector(context: PacketContext, pack
 		interaction.userLanguage
 	);
 
-	await DiscordCollectorUtils.createAcceptRefuseCollector(
+	return await DiscordCollectorUtils.createAcceptRefuseCollector(
 		interaction,
 		embed,
 		packet,

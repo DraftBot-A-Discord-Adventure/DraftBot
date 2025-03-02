@@ -165,7 +165,7 @@ function generateFields(packet: CommandProfilePacketRes, lng: Language): EmbedFi
 	addField(fields, "pet", Boolean(packet.playerData.pet), {
 		lng,
 		rarity: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.unitValues.petRarity).repeat(packet.playerData.pet?.rarity ?? 0),
-		emote: packet.playerData.pet ? DisplayUtils.getPetIcon(packet.playerData.pet?.typeId, packet.playerData.pet?.sex === "f") : "",
+		emote: packet.playerData.pet ? DisplayUtils.getPetIcon(packet.playerData.pet?.typeId, packet.playerData.pet?.sex) : "",
 		name: packet.playerData.pet ? packet.playerData.pet?.nickname ?? DisplayUtils.getPetTypeName(lng, packet.playerData.pet?.typeId, packet.playerData.pet?.sex) : ""
 	});
 

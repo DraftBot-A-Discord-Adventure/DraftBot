@@ -11,6 +11,7 @@ import {BlockingUtils} from "./BlockingUtils";
 import {Constants} from "../../../../Lib/src/constants/Constants";
 import {PacketUtils} from "./PacketUtils";
 import {BlockingReason} from "../../../../Lib/src/constants/BlockingConstants";
+import {ReactionCollectorStopPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorStopPacket";
 
 export type CollectCallback = (collector: ReactionCollectorInstance, reaction: ReactionCollectorReaction, keycloakId: string, response: DraftBotPacket[]) => void | Promise<void>;
 
@@ -114,7 +115,7 @@ export class ReactionCollectorInstance {
 			reaction
 		});
 		if (this.collectCallback) {
-			await this.collectCallback(this, reaction, keycloakId, response);
+			await this.collectCallback(this, reaction.data, keycloakId, response);
 		}
 		if (this.reactionsHistory.length >= this.reactionLimit && this.reactionLimit > 0) {
 			await this.end(response);
@@ -133,6 +134,11 @@ export class ReactionCollectorInstance {
 		}
 		this.hasEnded = true;
 		collectors.delete(this.id);
+		if (isResponseProvided) {
+			response.push(makePacket(ReactionCollectorStopPacket, {
+				id: this.id
+			}));
+		}
 		if (this.endCallback) {
 			if (!isResponseProvided) {
 				response = [];

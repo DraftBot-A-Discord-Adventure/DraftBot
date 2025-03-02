@@ -16,8 +16,9 @@ import {SmallEventWitchResultPacket} from "../../../Lib/src/packets/smallEvents/
 import {Effect} from "../../../Lib/src/types/Effect";
 import {WitchActionOutcomeType} from "../../../Lib/src/types/WitchActionOutcomeType";
 import {EmoteUtils} from "../utils/EmoteUtils";
+import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
-export async function witchCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
+export async function witchCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 
 	let witchIngredients = "\n\n";
@@ -81,6 +82,8 @@ export async function witchCollector(context: PacketContext, packet: ReactionCol
 			packet.reactions.findIndex((reaction) => (reaction.data as ReactionCollectorWitchReaction).id === buttonInteraction.customId)
 		);
 	});
+
+	return [buttonCollector];
 }
 
 export async function witchResult(packet: SmallEventWitchResultPacket, context: PacketContext): Promise<void> {

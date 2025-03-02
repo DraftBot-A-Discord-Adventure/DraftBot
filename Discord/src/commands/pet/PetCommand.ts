@@ -36,7 +36,7 @@ export async function handleCommandPetPacketRes(packet: CommandPetPacketRes, con
 				interaction.user
 			)
 			.setDescription(
-				DisplayUtils.getOwnedPetDisplay(packet.pet, interaction.userLanguage)
+				DisplayUtils.getOwnedPetFieldDisplay(packet.pet, interaction.userLanguage)
 			)]
 	});
 }

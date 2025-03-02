@@ -14,6 +14,7 @@ import {DisplayUtils} from "../../utils/DisplayUtils";
 import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
 import {ReactionCollectorDrinkData} from "../../../../Lib/src/packets/interaction/ReactionCollectorDrink";
 import {minutesDisplay} from "../../../../Lib/src/utils/TimeUtils";
+import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
 /**
  * Get the daily bonus packet to send to the server
@@ -31,7 +32,7 @@ async function getPacket(interaction: DraftbotInteraction): Promise<CommandDrink
 	return makePacket(CommandDrinkPacketReq, { force });
 }
 
-export async function drinkAcceptCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
+export async function drinkAcceptCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorDrinkData;
 
@@ -46,7 +47,7 @@ export async function drinkAcceptCollector(context: PacketContext, packet: React
 		}))
 		.setFooter({ text: i18n.t("commands:drink.confirmationFooter", { lng: interaction.userLanguage }) });
 
-	await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
+	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
 }
 
 export async function handleDrinkConsumePotion(context: PacketContext, packet: CommandDrinkConsumePotionRes): Promise<void> {

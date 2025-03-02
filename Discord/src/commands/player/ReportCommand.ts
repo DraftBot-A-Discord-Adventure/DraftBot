@@ -15,7 +15,14 @@ import {
 import i18n from "../../translations/i18n";
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
-import {ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, Message, parseEmoji} from "discord.js";
+import {
+	ActionRowBuilder,
+	ButtonBuilder,
+	ButtonInteraction,
+	ButtonStyle,
+	Message,
+	parseEmoji
+} from "discord.js";
 import {DiscordCache} from "../../bot/DiscordCache";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 import {effectsErrorTextValue, sendInteractionNotForYou} from "../../utils/ErrorUtils";
@@ -33,13 +40,14 @@ import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
 import {EmoteUtils} from "../../utils/EmoteUtils";
 import {LANGUAGE} from "../../../../Lib/src/Language";
 import {ReportConstants} from "../../../../Lib/src/constants/ReportConstants";
+import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
 async function getPacket(interaction: DraftbotInteraction): Promise<CommandReportPacketReq> {
 	await interaction.deferReply();
 	return Promise.resolve(makePacket(CommandReportPacketReq, {}));
 }
 
-export async function createBigEventCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
+export async function createBigEventCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorBigEventData;
@@ -101,19 +109,15 @@ export async function createBigEventCollector(context: PacketContext, packet: Re
 			return;
 		}
 
-		buttonCollector.stop();
-		endCollector.stop();
-
 		await buttonInteraction.deferReply();
 		respondToEvent(buttonInteraction.customId, buttonInteraction);
 	});
 
 	endCollector.on("collect", () => {
-		buttonCollector.stop();
-		endCollector.stop();
-
 		respondToEvent(ReportConstants.END_POSSIBILITY_ID, null);
 	});
+
+	return [buttonCollector, endCollector];
 }
 
 export async function reportResult(packet: CommandReportBigEventResultRes, context: PacketContext): Promise<void> {
@@ -174,7 +178,7 @@ export async function reportResult(packet: CommandReportBigEventResultRes, conte
 	}
 }
 
-export async function chooseDestinationCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
+export async function chooseDestinationCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 
@@ -185,7 +189,7 @@ export async function chooseDestinationCollector(context: PacketContext, packet:
 	}), interaction.user);
 	embed.setDescription(`${i18n.t("commands:report.chooseDestinationIndications", {lng: interaction.userLanguage})}\n\n`);
 
-	await DiscordCollectorUtils.createChoiceListCollector(interaction, embed, packet, context, packet.reactions.map((reaction) => {
+	return await DiscordCollectorUtils.createChoiceListCollector(interaction, embed, packet, context, packet.reactions.map((reaction) => {
 		const destinationReaction = reaction.data as ReactionCollectorChooseDestinationReaction;
 		const duration = destinationReaction.tripDuration ? minutesDisplay(destinationReaction.tripDuration) : "?h"; // Todo ceci devrait être dans les translations
 		return `${

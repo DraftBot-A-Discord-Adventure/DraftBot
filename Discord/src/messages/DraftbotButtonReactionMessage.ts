@@ -7,6 +7,7 @@ import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
 import {DiscordCollectorUtils} from "../utils/DiscordCollectorUtils";
 import {ReactionCollectorCreationPacket} from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
+import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
 export type DraftbotButtonReaction = {
 	customId: string,
@@ -50,7 +51,7 @@ export class DraftbotButtonReactionMessage {
 		this._messageOptions = messageOptions;
 	}
 
-	public async send(): Promise<void> {
+	public async send(): Promise<ReactionCollectorReturnType> {
 		const message = await this._interaction.editReply({
 			embeds: [this._embed],
 			components: [this._buttonRow]
@@ -94,7 +95,11 @@ export class DraftbotButtonReactionMessage {
 			);
 		});
 
+		if (reactionCollector) {
+			return [buttonCollector, reactionCollector];
+		}
 
+		return [buttonCollector];
 	}
 
 	/**

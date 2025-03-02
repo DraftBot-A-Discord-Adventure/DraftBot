@@ -8,16 +8,17 @@ import {DisplayUtils} from "../utils/DisplayUtils";
 import {Constants} from "../../../Lib/src/constants/Constants";
 import i18n from "../translations/i18n";
 import {ReactionCollectorEpicShopSmallEventData} from "../../../Lib/src/packets/interaction/ReactionCollectorEpicShopSmallEvent";
+import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
 /**
  * Send the initial embed for this small event
  * @param packet
  * @param context
  */
-export async function epicItemShopCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
+export async function epicItemShopCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	if (!interaction) {
-		return;
+		return null;
 	}
 	const lng = interaction.userLanguage;
 	const data = packet.data.data as ReactionCollectorEpicShopSmallEventData;
@@ -40,7 +41,7 @@ export async function epicItemShopCollector(context: PacketContext, packet: Reac
 		lng
 	);
 
-	await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
+	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
 }
 
 export async function epicItemShopHandler(context: PacketContext, translationKey: string): Promise<void> {

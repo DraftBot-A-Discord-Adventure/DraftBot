@@ -12,8 +12,9 @@ import {
 	ReactionCollectorItemAcceptData
 } from "../../../Lib/src/packets/interaction/ReactionCollectorItemAccept";
 import {ItemCategory} from "../../../Lib/src/constants/ItemConstants";
+import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
-export async function itemChoiceCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
+export async function itemChoiceCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 
 	const embed = new DraftBotEmbed();
@@ -21,7 +22,7 @@ export async function itemChoiceCollector(context: PacketContext, packet: Reacti
 		lng: interaction.userLanguage
 	}), interaction.user);
 
-	await DiscordCollectorUtils.createChoiceListCollector(
+	return await DiscordCollectorUtils.createChoiceListCollector(
 		interaction,
 		embed,
 		packet,
@@ -34,7 +35,7 @@ export async function itemChoiceCollector(context: PacketContext, packet: Reacti
 	);
 }
 
-export async function itemAcceptCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
+export async function itemAcceptCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorItemAcceptData;
 
@@ -47,5 +48,5 @@ export async function itemAcceptCollector(context: PacketContext, packet: Reacti
 		)
 		.setDescription(DisplayUtils.getItemDisplayWithStats(data.itemWithDetails, interaction.userLanguage));
 
-	await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
+	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
 }

@@ -8,16 +8,16 @@
     "petField": "**Type:** {{emote}} {{typeName}}\n**Nickname:** {{nickname}}\n\n**Rarity:** {{rarity}}\n**Gender:** {{sex}}\n**Moral:** {{loveLevel}}",
     "noNickname": "No nickname",
     "loveLevels": {
-      "0_male": ":smirk_cat: Spiteful",
-      "0_female": ":smirk_cat: Spiteful",
-      "1_male": ":pouting_cat: Wild",
-      "1_female": ":pouting_cat: Wild",
-      "2_male": ":scream_cat: Fearful",
-      "2_female": ":scream_cat: Fearful",
-      "3_male": ":smiley_cat: Tamed",
-      "3_female": ":smiley_cat: Tamed",
-      "4_male": ":heart_eyes_cat: Trained",
-      "4_female": ":heart_eyes_cat: Trained"
+      "1_male": ":smirk_cat: Spiteful",
+      "1_female": ":smirk_cat: Spiteful",
+      "2_male": ":pouting_cat: Wild",
+      "2_female": ":pouting_cat: Wild",
+      "3_male": ":scream_cat: Fearful",
+      "3_female": ":scream_cat: Fearful",
+      "4_male": ":smiley_cat: Tamed",
+      "4_female": ":smiley_cat: Tamed",
+      "5_male": ":heart_eyes_cat: Trained",
+      "5_female": ":heart_eyes_cat: Trained"
     },
     "hungry": "🤤 hungry",
     "diet": {

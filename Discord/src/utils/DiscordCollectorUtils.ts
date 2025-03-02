@@ -15,6 +15,10 @@ import {sendInteractionNotForYou} from "./ErrorUtils";
 import {PacketUtils} from "./PacketUtils";
 import {keycloakConfig, shardId} from "../bot/DraftBotShard.js";
 import {KeycloakUtils} from "../../../Lib/src/keycloak/KeycloakUtils.js";
+import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import {DiscordMQTT} from "../bot/DiscordMQTT";
+import {RequirementEffectPacket} from "../../../Lib/src/packets/commands/requirements/RequirementEffectPacket";
+import {Effect} from "../../../Lib/src/types/Effect";
 
 export class DiscordCollectorUtils {
 	private static choiceListEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣", "7⃣", "8⃣", "9⃣"];
@@ -54,12 +58,13 @@ export class DiscordCollectorUtils {
 		options?: {
 			canInitiatorRefuse?: boolean,
 			acceptedUsersId?: string[],
+			anyoneCanReact?: boolean,
 			emojis?: {
 				accept?: string,
 				refuse?: string
 			}
 		}
-	): Promise<void> {
+	): Promise<ReactionCollectorReturnType> {
 		const emojis = {
 			accept: DraftBotIcons.collectors.accept,
 			refuse: DraftBotIcons.collectors.refuse,
@@ -116,26 +121,38 @@ export class DiscordCollectorUtils {
 
 		// Send an error if someone uses the collector that is not intended for them and stop if it's the owner
 		buttonCollector.on("collect", async (buttonInteraction: ButtonInteraction) => {
-			if ((!options?.canInitiatorRefuse || buttonInteraction.user.id !== context.discord?.user || buttonInteraction.customId !== "refuse")
+			if (!options?.anyoneCanReact && (!options?.canInitiatorRefuse || buttonInteraction.user.id !== context.discord?.user || buttonInteraction.customId !== "refuse")
 				&& !userDiscordIds.find(userDiscordId => userDiscordId === buttonInteraction.user.id)) {
 				await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, interaction.userLanguage);
 				return;
 			}
 
-			buttonCollector.stop();
-
-			await buttonInteraction.deferReply();
-			DiscordCollectorUtils.sendReaction(
-				reactionCollectorCreationPacket,
-				context,
-				context.keycloakId!,
-				buttonInteraction,
-				reactionCollectorCreationPacket.reactions.findIndex((reaction) =>
-					reaction.type === (buttonInteraction.customId === acceptCustomId
-						? ReactionCollectorAcceptReaction.name
-						: ReactionCollectorRefuseReaction.name))
-			);
+			const reactingPlayerKeycloakId = await KeycloakUtils.getKeycloakIdFromDiscordId(keycloakConfig, buttonInteraction.user.id, buttonInteraction.user.displayName);
+			if (reactingPlayerKeycloakId) {
+				await buttonInteraction.deferReply();
+				DiscordCollectorUtils.sendReaction(
+					reactionCollectorCreationPacket,
+					context,
+					reactingPlayerKeycloakId,
+					buttonInteraction,
+					reactionCollectorCreationPacket.reactions.findIndex((reaction) =>
+						reaction.type === (buttonInteraction.customId === acceptCustomId
+							? ReactionCollectorAcceptReaction.name
+							: ReactionCollectorRefuseReaction.name))
+				);
+			}
+			else {
+				const listener = DiscordMQTT.packetListener.getListener(RequirementEffectPacket.name);
+				if (listener) {
+					await listener(context, makePacket(RequirementEffectPacket, {
+						remainingTime: -1,
+						currentEffectId: Effect.NOT_STARTED.id
+					}));
+				}
+			}
 		});
+
+		return [buttonCollector];
 	}
 
 	static async createChoiceListCollector(
@@ -145,7 +162,7 @@ export class DiscordCollectorUtils {
 		context: PacketContext,
 		items: string[],
 		canRefuse: boolean
-	): Promise<void> {
+	): Promise<ReactionCollectorReturnType> {
 		if (items.length > DiscordCollectorUtils.choiceListEmotes.length) {
 			throw "Too many items to display";
 		}
@@ -198,12 +215,12 @@ export class DiscordCollectorUtils {
 				return;
 			}
 
-			buttonCollector.stop();
-
 			await buttonInteraction.deferReply();
 			if (buttonInteraction.customId !== "refuse") {
 				DiscordCollectorUtils.sendReaction(reactionCollectorCreationPacket, context, context.keycloakId!, buttonInteraction, parseInt(buttonInteraction.customId));
 			}
 		});
+
+		return [buttonCollector];
 	}
 }

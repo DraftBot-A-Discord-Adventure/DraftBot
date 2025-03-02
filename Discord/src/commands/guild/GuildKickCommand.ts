@@ -20,6 +20,7 @@ import {PacketUtils} from "../../utils/PacketUtils";
 import {sendErrorMessage, SendManner} from "../../utils/ErrorUtils";
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
+import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
 /**
  * Kick a player from a guild
@@ -76,7 +77,7 @@ export async function handleCommandGuildKickPacketRes(packet: CommandGuildKickPa
  * @param packet
  * @param context
  */
-export async function createGuildKickCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
+export async function createGuildKickCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorGuildKickData;
@@ -93,7 +94,7 @@ export async function createGuildKickCollector(context: PacketContext, packet: R
 			})
 		);
 
-	await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
+	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
 }
 
 /**

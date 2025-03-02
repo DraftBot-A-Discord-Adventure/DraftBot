@@ -18,13 +18,14 @@ import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {PacketUtils} from "../../utils/PacketUtils";
 import {SlashCommandBuilder} from "@discordjs/builders";
+import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
 /**
  * Create a collector to confirm the promotion
  * @param packet
  * @param context
  */
-export async function createGuildElderCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
+export async function createGuildElderCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorGuildElderData;
@@ -41,7 +42,7 @@ export async function createGuildElderCollector(context: PacketContext, packet: 
 			})
 		);
 
-	await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
+	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
 }
 
 /**

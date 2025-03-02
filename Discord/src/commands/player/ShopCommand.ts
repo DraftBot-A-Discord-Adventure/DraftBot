@@ -36,6 +36,7 @@ import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
 import {ReactionCollectorBuyCategorySlotReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorBuyCategorySlot";
 import {ShopItemType} from "../../../../Lib/src/constants/LogsConstants";
 import {shopItemTypeFromId, shopItemTypeToId} from "../../../../Lib/src/utils/ShopUtils";
+import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
 function getPacket(): CommandShopPacketReq {
 	return makePacket(CommandShopPacketReq, {});
@@ -141,7 +142,7 @@ export async function handleCommandShopBadgeBought(context: PacketContext): Prom
 	});
 }
 
-export async function shopInventoryExtensionCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
+export async function shopInventoryExtensionCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!)!;
 
 	const row = new ActionRowBuilder<ButtonBuilder>();
@@ -208,6 +209,8 @@ export async function shopInventoryExtensionCollector(context: PacketContext, pa
 			r.type === ReactionCollectorBuyCategorySlotReaction.name
 			&& (r.data as ReactionCollectorBuyCategorySlotReaction).categoryId === parseInt(buttonInteraction.customId, 10)));
 	});
+
+	return [buttonCollector];
 }
 
 export async function handleReactionCollectorBuyCategorySlotBuySuccess(context: PacketContext): Promise<void> {
@@ -383,7 +386,7 @@ function getShopItemDisplay(data: ReactionCollectorShopData, reaction: ReactionC
 	return desc;
 }
 
-export async function shopCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
+export async function shopCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!)!;
 	const data = packet.data.data as ReactionCollectorShopData;
 
@@ -480,6 +483,8 @@ export async function shopCollector(context: PacketContext, packet: ReactionColl
 			)!.data as ReactionCollectorShopItemReaction
 		);
 	});
+
+	return [buttonCollector];
 }
 
 export const commandInfo: ICommand = {

@@ -19,6 +19,7 @@ import {ICommand} from "../ICommand.js";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator.js";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants.js";
+import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
 async function getPacket(interaction: DraftbotInteraction): Promise<CommandGuildInvitePacketReq | null> {
 	const invitedUser = interaction.options.getUser("user")!;
@@ -57,7 +58,7 @@ export async function handleCommandGuildInviteError(packet: CommandGuildInviteEr
 	await interaction.reply(params);
 }
 
-export async function createGuildInviteCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
+export async function createGuildInviteCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorGuildInviteData;
@@ -75,7 +76,7 @@ export async function createGuildInviteCollector(context: PacketContext, packet:
 			})
 		);
 
-	await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context, {
+	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context, {
 		acceptedUsersId: [invitedKeycloakId!],
 		canInitiatorRefuse: true
 	});

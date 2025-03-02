@@ -151,10 +151,10 @@ export async function handleClassicError(context: PacketContext, errorKey: strin
 	await (interactionToRespondTo.deferred ? interactionToRespondTo.editReply : interactionToRespondTo.replied ? interactionToRespondTo.followUp : interactionToRespondTo.reply)({
 		embeds: [
 			new DraftBotErrorEmbed(
-				interaction.user,
-				interaction,
+				interactionToRespondTo.user,
+				interactionToRespondTo,
 				i18n.t(errorKey, {
-					lng: interaction.userLanguage,
+					lng: interactionToRespondTo.userLanguage,
 					...replacements
 				})
 			)
