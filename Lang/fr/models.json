@@ -311,6 +311,7 @@
     },
     "paralyzed": {
       "name": "paralysé",
+      "new": "est paralysé.",
       "active": "est paralysé.",
       "noAction": "est paralysé et ne parvient pas à attaquer.",
       "stop": "n'est plus paralysé."

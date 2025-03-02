@@ -22,6 +22,8 @@ import {EloGameResult, EloUtils} from "../../core/utils/EloUtils";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {AiPlayerFighter} from "../../core/fights/fighter/AiPlayerFighter";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import {GloryChangesPacket} from "../../../../Lib/src/packets/fights/GloryChangesPacket";
+import {LeagueDataController} from "../../data/League";
 
 type PlayerStats = {
 	classId: number,
@@ -79,6 +81,11 @@ async function fightEndCallback(fight: FightController, response: DraftBotPacket
 	const player1 = await Players.getById((fight.fighters[0] as PlayerFighter).player.id);
 	const player2 = await Players.getById((fight.fighters[1] as PlayerFighter).player.id);
 
+
+	// Save glory before changing it
+	const player1OldGlory = player1.getGloryPoints();
+	const player2OldGlory = player2.getGloryPoints();
+
 	// Calculate elo
 	const player1KFactor = EloUtils.getKFactor(player1);
 	const player2KFactor = EloUtils.getKFactor(player2);
@@ -100,7 +107,23 @@ async function fightEndCallback(fight: FightController, response: DraftBotPacket
 		player1.save(),
 		player2.save()
 	]);
-	// Displayleague
+
+	response.push(makePacket(GloryChangesPacket, {
+		player1: {
+			keycloakId: player1.keycloakId,
+			oldGlory: player1OldGlory,
+			newGlory: player1.getGloryPoints(),
+			oldLeagueId: LeagueDataController.instance.getByGlory(player1OldGlory).id,
+			newLeagueId: player1.getLeague().id
+		},
+		player2: {
+			keycloakId: player2.keycloakId,
+			oldGlory: player2OldGlory,
+			newGlory: player2.getGloryPoints(),
+			oldLeagueId: LeagueDataController.instance.getByGlory(player2OldGlory).id,
+			newLeagueId: player2.getLeague().id
+		}
+	}));
 }
 
 /**
@@ -166,7 +189,7 @@ async function findOpponent(player: Player): Promise<Player | null> {
 }
 
 function fightValidationEndCallback(player: Player, context: PacketContext): EndCallback {
-	return async (collector,response): Promise<void> => {
+	return async (collector, response): Promise<void> => {
 		const reaction = collector.getFirstReaction();
 		if (reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name) {
 			const opponent = await findOpponent(player);
