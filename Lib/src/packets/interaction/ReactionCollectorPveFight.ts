@@ -9,7 +9,7 @@ export class ReactionCollectorPveFightData extends ReactionCollectorData {
 	monster!: {
 		id: string,
 		level: number,
-		fightPoints: number,
+		energy: number,
 		attack: number,
 		defense: number,
 		speed: number

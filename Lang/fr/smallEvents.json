@@ -394,7 +394,7 @@
       "La princesse se rapproche de vous ! Du moins c'est l'impression que vous avez... Vous continuez votre route."
     ]
   },
-  "winFightPoints": {
+  "winEnergyOnIsland": {
     "stories": [
       "vous voyez un banc sur le bord du chemin et vous vous asseyez quelques minutes. Cela vous rend {emote:unitValues.energy} **{{fightPoints}}**.",
       "vous détachez votre gourde de votre ceinture et vous vous désaltérez. Vous gagnez {emote:unitValues.energy} **{{fightPoints}}**.",
