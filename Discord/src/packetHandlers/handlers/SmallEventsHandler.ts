@@ -73,7 +73,6 @@ import {SmallEventFindMissionPacket} from "../../../../Lib/src/packets/smallEven
 import {MissionUtils} from "../../utils/MissionUtils";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {baseFunctionHandler} from "../../smallEvents/shop";
-import {StringConstants} from "../../../../Lib/src/constants/StringConstants";
 import {epicItemShopHandler} from "../../smallEvents/epicItemShop";
 import {
 	SmallEventEpicItemShopAcceptPacket, SmallEventEpicItemShopCannotBuyPacket,
