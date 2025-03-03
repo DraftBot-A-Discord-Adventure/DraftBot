@@ -4,7 +4,7 @@ import {NumberChangeReason} from "../../../../../../Lib/src/constants/LogsConsta
 export const commandInfo: ITestCommand = {
 	name: "glorypoints",
 	aliases: ["glory"],
-	commandFormat: "<points>",
+	commandFormat: "<points> <type>",
 	typeWaited: {
 		"points": TypeKey.INTEGER,
 		"type (0 = defensif 1 = attack)": TypeKey.INTEGER
