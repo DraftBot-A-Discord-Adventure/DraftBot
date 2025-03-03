@@ -5,19 +5,19 @@
   },
   "pet": {
     "embedTitle": "Animale domestico di {{pseudo}} :",
-    "petField": "**Tipo :** {{emote}} {{typeName}}\n**Sopranome :** {{nickname}}\n\n**Rarita :** {{rarity}}\n**Sesso :** {{sex}}\n**Mentalita :** {{loveLevel}}",
+    "petField": "**Tipo :** {{emote}} {{typeName}}\n**Sopranome :** {{nickname}}\n**Rarita :** {{rarity}}\n**Sesso :** {{sex}}\n**Mentalita :** {{loveLevel}}",
     "noNickname": "Nessun soprannome",
     "loveLevels": {
-      "0_male": ":smirk_cat: Ribelle",
-      "0_female": ":smirk_cat: Ribelle",
-      "1_male": ":pouting_cat: Selvaggio",
-      "1_female": ":pouting_cat: Selvaggio",
-      "2_male": ":scream_cat: Pauroso",
-      "2_female": ":scream_cat: Pauroso",
-      "3_male": ":smiley_cat: Addomesticato",
-      "3_female": ":smiley_cat: Addomesticato",
-      "4_male": ":heart_eyes_cat: Addestrato",
-      "4_female": ":heart_eyes_cat: Addestrato"
+      "1_male": ":smirk_cat: Ribelle",
+      "1_female": ":smirk_cat: Ribelle",
+      "2_male": ":pouting_cat: Selvaggio",
+      "2_female": ":pouting_cat: Selvaggio",
+      "3_male": ":scream_cat: Pauroso",
+      "3_female": ":scream_cat: Pauroso",
+      "4_male": ":smiley_cat: Addomesticato",
+      "4_female": ":smiley_cat: Addomesticato",
+      "5_male": ":heart_eyes_cat: Addestrato",
+      "5_female": ":heart_eyes_cat: Addestrato"
     },
     "hungry": "🤤 affamati",
     "diet": {
@@ -885,5 +885,26 @@
     "confirmationTitle": "{{pseudo}}, confirmation :",
     "confirmation": "Êtes-vous sûr de vouloir boire votre {{potion}} ?",
     "confirmationFooter": "Il est possible d'éviter cette étape en utilisant le paramètre forcer !"
+  },
+  "petSell": {
+    "noPet": "Vous n'avez aucun familier à vendre !",
+    "noGuild": "Vous ne pouvez pas vendre votre familier car vous n'êtes pas dans une guilde. En effet, la vente de familier permet de générer de l'expérience de guilde.",
+    "isFeisty": "Vous ne pouvez pas vendre un familier fielleux.",
+    "badPrice": "Le prix doit être supérieur à `{{minPrice}}{emote:unitValues.money}` et inférieur à `{{maxPrice}}{emote:unitValues.money}`.",
+    "onlyInitiatorCanCancel": "Seul l'initiateur d'une vente peut l'annuler !",
+    "canceled": "La vente a été annulée !",
+    "cantSellToYourself": "Il est impossible de vendre un familier à soi-même !",
+    "noOneAvailable": "Malheureusement, personne ne semble disponible pour acheter votre familier. Votre vente a été annulée.",
+    "sameGuild": "Vous ne pouvez pas acheter ce familier car le vendeur fait partie de votre guilde.",
+    "alreadyHavePet": "Vous avez déjà un familier dans votre inventaire.",
+    "noEnoughMoney": "Vous n'avez pas assez d'argent pour effectuer cette transaction. Il vous manque `{{missingMoney}}{emote:unitValues.money}`.",
+    "initiatorSituationChanged": "Le vendeur n'est plus en mesure de vendre son familier. La vente a été annulée.",
+    "sellTitle": "Vente d'un familier",
+    "sellDescription": "{{pseudo}} souhaite vendre un familier pour `{{price}}{emote:unitValues.money}`",
+    "maxLevelWarning": "{emote:collectors.warning} Votre guilde est au niveau maximal, vous ne recevrez pas d'expérience !",
+    "petFieldName": "Familier vendu :",
+    "sellFooter": "Pour plus d'informations à propos des ventes de familiers, utilisez la commande help petsell.",
+    "successTitle": "{{pseudo}}, transaction réussie !",
+    "successDescription": "{{pet}} vous suit désormais. Occupez-vous en bien !"
   }
 }
