@@ -29,8 +29,9 @@ import {CommandFightEndOfFightPacket} from "../../../../Lib/src/packets/fights/E
 import {millisecondsToMinutes, minutesDisplay} from "../../../../Lib/src/utils/TimeUtils";
 import {GloryChangesPacket} from "../../../../Lib/src/packets/fights/GloryChangesPacket";
 import {StringUtils} from "../../utils/StringUtils";
+import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
-export async function createFightCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
+export async function createFightCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorFightData;
@@ -69,7 +70,7 @@ export async function createFightCollector(context: PacketContext, packet: React
 			})
 		);
 
-	await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context, {
+	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context, {
 		emojis: {
 			accept: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fight_command.accept),
 			refuse: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fight_command.refuse)
@@ -192,12 +193,12 @@ export async function handleCommandFightAIFightActionChoose(context: PacketConte
  * @param packet
  * @param context
  */
-export async function handleCommandFightActionChoose(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<void> {
+export async function handleCommandFightActionChoose(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	if (!context.discord?.interaction) {
-		return;
+		return null;
 	}
-	await DraftbotCachedMessages.getOrCreate(context.discord?.interaction, DraftbotActionChooseCachedMessage)
-		.update(packet, context);
+	return await DraftbotCachedMessages.getOrCreate(context.discord?.interaction, DraftbotActionChooseCachedMessage)
+		.update(packet, context) as ReactionCollectorReturnType;
 }
 
 /**
