@@ -117,7 +117,7 @@ export class FightController {
 
 		this.checkNegativeEnergy();
 
-		const winner = this.getWinner(); // 1 for the figh initiator, 0 for the opponent
+		const winner = this.getWinner(); // 1 for the fight initiator, 0 for the opponent
 		const isADraw = this.isADraw();
 
 		this._fightView.outroFight(response, this.fighters[(1 - winner) % 2], this.fighters[winner % 2], isADraw);
@@ -229,13 +229,6 @@ export class FightController {
 	}
 
 	/**
-	 * Get the fight view of the fight controller
-	 */
-	public getFightView(): FightView {
-		return this._fightView;
-	}
-
-	/**
 	 * Check if any of the fighters has negative energy
 	 * @private
 	 */
@@ -253,8 +246,9 @@ export class FightController {
 	 * @private
 	 */
 	private async prepareNextTurn(response: DraftBotPacket[]): Promise<void> {
-
+		console.log("ztest");
 		if (this.overtimeBehavior === FightOvertimeBehavior.END_FIGHT_DRAW && this.turn >= FightConstants.MAX_TURNS || this.hadEnded()) {
+			console.log("ztzzest");
 			await this.endFight(response);
 			return;
 		}
