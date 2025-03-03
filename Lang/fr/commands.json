@@ -937,8 +937,8 @@
       "gloryNegative": "**{{player}} :** - {{count}} ✨\n",
       "gloryPositive": "**{{player}} :** + {{count}} ✨\n",
       "leagueField": "Changements de ligues",
-      "leagueChangeUp": "↗️ **{{player}} :** {{oldLeague}} -> {{newLeague}}\n",
-      "leagueChangeDown": "↘️️ **{{player}} :** {{oldLeague}} -> {{newLeague}}\n",
+      "leagueChangeUp": "↗️ **{{player}} :** {{oldLeagueEmoji}} {{oldLeague}} -> {{newLeagueEmoji}} {{newLeague}}\n",
+      "leagueChangeDown": "↘️️ **{{player}} :** {{oldLeagueEmoji}} {{oldLeague}} -> {{newLeagueEmoji}} {{newLeague}}\n",
       "higherEloWins": [
         "{{winner}} s'impose sur le terrain avec une performance marquée.",
         "{loser} a donné tout ce qu'il avait, mais {{winner}} a montré une meilleure maîtrise de son jeu.",
@@ -946,10 +946,10 @@
         "{{winner}} a démontré son expertise en remportant cette rencontre difficile.",
         "{loser} peut être fier de sa performance malgré la défaite, mais {{winner}} est incontestablement le vainqueur de ce combat.",
         "{{winner}} a écrasé {{loser}} avec une performance dominante.",
-        "{loser} a fait de son mieux, mais il était clairement en dessous du niveau de {winner}.",
+        "{{loser}} a fait de son mieux, mais il était clairement en dessous du niveau de {winner}.",
         "La différence de talent entre les deux joueurs a été déterminante dans ce combat.",
         "{{winner}} a démontré pourquoi il est considéré comme l'un des meilleurs en remportant ce match facilement.",
-        "{loser} peut prendre cette défaite comme une opportunité d'apprendre et de s'améliorer pour les combats futurs."
+        "{{loser}} peut prendre cette défaite comme une opportunité d'apprendre et de s'améliorer pour les combats futurs."
       ],
       "lowestEloWins": [
         "Le plus inattendu s'est produit dans ce combat, {{winner}} a remporté la victoire face à un adversaire plus expérimenté.",
