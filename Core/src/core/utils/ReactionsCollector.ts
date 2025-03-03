@@ -106,6 +106,11 @@ export class ReactionCollectorInstance {
 			throw "Reaction collector has not been built yet";
 		}
 
+		if (this.hasEnded) {
+			console.warn("Reaction received after the collector has ended");
+			return;
+		}
+
 		const reaction = this._creationPacket.reactions[index];
 		if (!await this.filter(this, keycloakId, index)) {
 			return;
@@ -171,7 +176,7 @@ export class ReactionCollectorInstance {
 		// Register
 		this.id = RandomUtils.draftbotRandom.uuid4();
 		collectors.set(this.id, this);
-		setTimeout(this.end, this.endTime - Date.now());
+		setTimeout(this.endByTime.bind(this), this.endTime - Date.now());
 
 		this._creationPacket = makePacket(ReactionCollectorCreationPacket, this.model.creationPacket(this.id, this.endTime, this.mainPacket));
 		return this._creationPacket;
