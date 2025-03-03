@@ -2,6 +2,7 @@ import {BaseMessageOptions, Message} from "discord.js";
 import {DraftBotPacket, PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
 import {minutesToMilliseconds} from "../../../Lib/src/utils/TimeUtils";
 import {DiscordCache} from "../bot/DiscordCache";
+import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
 export abstract class DraftbotCachedMessage<T extends DraftBotPacket = DraftBotPacket> {
 
@@ -26,9 +27,9 @@ export abstract class DraftbotCachedMessage<T extends DraftBotPacket = DraftBotP
 	abstract get type(): string;
 
 	// Function to call when you need to do something with the cached message
-	abstract updateMessage(packet: T, context: PacketContext): Promise<void>;
+	abstract updateMessage(packet: T, context: PacketContext): Promise<ReactionCollectorReturnType | void>;
 
-	async update(packet: T, context: PacketContext): Promise<void> {
+	async update(packet: T, context: PacketContext): Promise<ReactionCollectorReturnType | void> {
 		await this.updateMessage(packet, context);
 	}
 

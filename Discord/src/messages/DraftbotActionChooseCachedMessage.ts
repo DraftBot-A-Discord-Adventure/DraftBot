@@ -14,6 +14,7 @@ import {
 	ReactionCollectorFightChooseActionData,
 	ReactionCollectorFightChooseActionReaction
 } from "../../../Lib/src/packets/interaction/ReactionCollectorFightChooseAction";
+import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
 export class DraftbotActionChooseCachedMessage extends DraftbotCachedMessage<ReactionCollectorCreationPacket> {
 	readonly duration = 30;
@@ -22,7 +23,7 @@ export class DraftbotActionChooseCachedMessage extends DraftbotCachedMessage<Rea
 		return "action_choose";
 	}
 
-	updateMessage = async (packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<void> => {
+	updateMessage = async (packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<ReactionCollectorReturnType> => {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 		const data = packet.data.data as ReactionCollectorFightChooseActionData;
 		const fighter = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, data.fighterKeycloakId))!.attributes.gameUsername[0];
@@ -60,5 +61,6 @@ export class DraftbotActionChooseCachedMessage extends DraftbotCachedMessage<Rea
 			});
 			DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, buttonInteraction, reactions.findIndex((reaction) => reaction.data.id === buttonInteraction.customId));
 		});
+		return [buttonCollector];
 	};
 }
