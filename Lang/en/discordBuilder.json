@@ -320,5 +320,19 @@
         "description": "If true, skips the validation phase if you are really sure you want to drink the potion"
       }
     }
+  },
+  "petSell": {
+    "name": "petsell",
+    "description": "Sell a pet to another player.",
+    "options": {
+      "price": {
+        "name": "price",
+        "description": "The price of the pet."
+      },
+      "player": {
+        "name": "player",
+        "description": "The player to whom the pet will be sold."
+      }
+    }
   }
 }
