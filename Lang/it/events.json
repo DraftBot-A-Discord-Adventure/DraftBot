@@ -404,7 +404,7 @@
       },
       "skip": {
         "outcomes": {
-          "0": "Dopo 15 minuti di inseguimento, siete riusciti a seminare il cane, che non sembrava molto amichevole!",
+          "0": "Dopo 15 minuti d'inseguimento, siete riusciti a seminare il cane, che non sembrava molto amichevole!",
           "1": "Si prosegue senza preoccuparsi del cane. Lui non insiste.",
           "2": "Mentre cerchi di fuggire, cadi violentemente in un fosso, riportando una profonda ferita... Dovrete essere curati prima di continuare!"
         },
@@ -553,7 +553,7 @@
         "outcomes": {
           "0": "Si gioca più volte, ma non si riesce mai a riscuotere il premio. Delusi dalla vostra prestazione, pagate il gestore e ve ne andate.",
           "1": "Si gioca e si prova il gioco per molto tempo, ma non si ha fortuna. Tuttavia, il gestore ha fatto amicizia con voi e vi rimborsa le partite. Ve ne andate, ringraziandolo calorosamente.",
-          "2": "Avete vinto il jackpot! Felici e saltellanti per l'eccitazione, lo raccogliete e vi dirigete verso la città."
+          "2": "Siete riusciti a vincere il jackpot! Felici e saltando dall'eccitazione, lo prendete e uscite dalla città."
         },
         "text": "Andare in uno stand di giochi."
       },

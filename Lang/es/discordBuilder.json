@@ -320,5 +320,19 @@
         "description": "Si vrai, passe la phase de validation si vous êtes sûr de vouloir boire la potion"
       }
     }
+  },
+  "petSell": {
+    "name": "vendrefamilier",
+    "description": "Vendre un familier à un autre joueur.",
+    "options": {
+      "price": {
+        "name": "prix",
+        "description": "Le prix de vente du familier."
+      },
+      "player": {
+        "name": "joueur",
+        "description": "Le joueur à qui vendre le familier."
+      }
+    }
   }
 }
