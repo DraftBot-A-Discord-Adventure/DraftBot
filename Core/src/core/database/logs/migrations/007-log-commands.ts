@@ -114,7 +114,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 		},
 		originId: {
 			type: DataTypes.INTEGER,
-			allowNull: false,
+			allowNull: false
 		},
 		subOriginId: {
 			type: DataTypes.INTEGER,
