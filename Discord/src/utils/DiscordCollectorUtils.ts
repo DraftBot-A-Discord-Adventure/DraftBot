@@ -19,6 +19,7 @@ import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCo
 import {DiscordMQTT} from "../bot/DiscordMQTT";
 import {RequirementEffectPacket} from "../../../Lib/src/packets/commands/requirements/RequirementEffectPacket";
 import {Effect} from "../../../Lib/src/types/Effect";
+import {PacketConstants} from "../../../Lib/src/constants/PacketConstants";
 
 export class DiscordCollectorUtils {
 	private static choiceListEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣", "7⃣", "8⃣", "9⃣"];
@@ -38,6 +39,8 @@ export class DiscordCollectorUtils {
 		}
 
 		PacketUtils.sendPacketToBackend({
+			frontEndOrigin: PacketConstants.FRONT_END_ORIGINS.DISCORD,
+			frontEndSubOrigin: context.frontEndSubOrigin,
 			keycloakId: userKeycloakId,
 			discord: {
 				user: context.discord!.user,

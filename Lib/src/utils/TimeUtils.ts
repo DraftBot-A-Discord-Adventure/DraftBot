@@ -285,3 +285,13 @@ export function minutesDisplay(minutes: number, language: Language = LANGUAGE.DE
 	].filter(v => v !== "").join(displayConstantValues.linkWord);
 	return display === "" ? "< 1 Min" : display;
 }
+
+/**
+ * Get the week number of the year of the given date
+ * @param date
+ */
+export function getWeekNumber(date: Date): number {
+	const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
+	const pastDaysOfYear = (date.valueOf() - firstDayOfYear.valueOf()) / 86400000;
+	return Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
+}

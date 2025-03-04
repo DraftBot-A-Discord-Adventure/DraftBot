@@ -33,6 +33,7 @@ import {BotUtils} from "../utils/BotUtils";
 import {LANGUAGE} from "../../../Lib/src/Language";
 import {PacketUtils} from "../utils/PacketUtils";
 import {RightGroup} from "../../../Lib/src/types/RightGroup";
+import {PacketConstants} from "../../../Lib/src/constants/PacketConstants";
 
 export class CommandsManager {
 	static commands = new Map<string, ICommand>();
@@ -383,6 +384,8 @@ export class CommandsManager {
 		const packet = await commandInfo.getPacket(interaction, user);
 		if (packet) {
 			const context: PacketContext = {
+				frontEndOrigin: PacketConstants.FRONT_END_ORIGINS.DISCORD,
+				frontEndSubOrigin: interaction.guild?.id ?? PacketConstants.FRONT_END_SUB_ORIGINS.UNKNOWN,
 				keycloakId: user.id,
 				discord: {
 					user: interaction.user.id,

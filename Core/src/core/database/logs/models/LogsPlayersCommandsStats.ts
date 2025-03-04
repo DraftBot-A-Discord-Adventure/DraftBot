@@ -1,6 +1,6 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
 
-export class LogsPlayersCommands extends Model {
+export class LogsPlayersCommandsStats extends Model {
 	declare readonly playerId?: number;
 
 	declare readonly originId: number;
@@ -9,11 +9,15 @@ export class LogsPlayersCommands extends Model {
 
 	declare readonly commandId: number;
 
+	declare readonly year: number;
+
+	declare readonly week: number;
+
 	declare readonly date: number;
 }
 
 export function initModel(sequelize: Sequelize): void {
-	LogsPlayersCommands.init({
+	LogsPlayersCommandsStats.init({
 		playerId: {
 			type: DataTypes.INTEGER,
 			allowNull: true
@@ -30,16 +34,24 @@ export function initModel(sequelize: Sequelize): void {
 			type: DataTypes.INTEGER,
 			allowNull: false
 		},
-		date: {
+		year: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		},
+		week: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		},
+		count: {
 			type: DataTypes.INTEGER.UNSIGNED,
 			allowNull: false
 		}
 	}, {
 		sequelize,
-		tableName: "players_commands",
+		tableName: "players_commands_stats",
 		freezeTableName: true,
 		timestamps: false
 	});
 
-	LogsPlayersCommands.removeAttribute("id");
+	LogsPlayersCommandsStats.removeAttribute("id");
 }

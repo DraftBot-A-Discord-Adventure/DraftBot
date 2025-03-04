@@ -17,7 +17,7 @@ export const commandInfo: ITestCommand = {
 /**
  * Start a fight against yourself
  */
-const soloFightTestCommand: ExecuteTestCommandLike = async (player, args, response) => {
+const soloFightTestCommand: ExecuteTestCommandLike = async (player, args, _response, context) => {
 	const playerClass = ClassDataController.instance.getById(player.class);
 	const fighter1 = new PlayerFighter(player, playerClass);
 	await fighter1.loadStats(false);
@@ -47,7 +47,7 @@ const soloFightTestCommand: ExecuteTestCommandLike = async (player, args, respon
 		});
 	}
 	// TODO: Replace with the right context
-	new FightController({fighter1, fighter2}, {friendly: false, overtimeBehavior: FightOvertimeBehavior.END_FIGHT_DRAW}, response[0])
+	new FightController({fighter1, fighter2}, {friendly: false, overtimeBehavior: FightOvertimeBehavior.END_FIGHT_DRAW}, context)
 		.startFight()
 		.then();
 
