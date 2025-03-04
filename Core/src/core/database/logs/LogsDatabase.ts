@@ -91,11 +91,13 @@ import {MapLink} from "../../../data/MapLink";
 import {FightController} from "../../fights/FightController";
 import {PlayerFighter} from "../../fights/fighter/PlayerFighter";
 import {MonsterFighter} from "../../fights/fighter/MonsterFighter";
-import {LogsServers} from "./models/LogsServers";
 import {Effect} from "../../../../../Lib/src/types/Effect";
 import {getDatabaseConfiguration} from "../../bot/DraftBotConfig";
 import {botConfig} from "../../../index";
 import {GuildLikeType} from "../../types/GuildLikeType";
+import {LogsCommandOrigins} from "./models/LogsCommandOrigins";
+import {LogsCommandSubOrigins} from "./models/LogsCommandSubOrigins";
+import {ReactionCollectorReactPacket} from "../../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 
 /**
  * This class is used to log all the changes in the game database
@@ -408,14 +410,24 @@ export class LogsDatabase extends Database {
 	/**
 	 * Record the usage of a command in the log database
 	 * @param keycloakId
-	 * @param serverId
+	 * @param origin
+	 * @param subOrigin
 	 * @param commandName
 	 */
-	public async logCommandUsage(keycloakId: string, serverId: string, commandName: string): Promise<void> {
+	public async logCommandUsage(keycloakId: string, origin: string, subOrigin: string, commandName: string): Promise<void> {
+		if (commandName === ReactionCollectorReactPacket.name) { // Do not log reaction packets, there is no useful information and there are too many of them
+			return;
+		}
+
 		const player = await LogsDatabase.findOrCreatePlayer(keycloakId);
-		const [server] = await LogsServers.findOrCreate({ // TODO no longer have server
+		const [commandOrigin] = await LogsCommandOrigins.findOrCreate({
 			where: {
-				keycloakId: serverId
+				name: origin
+			}
+		});
+		const [commandSubOrigin] = await LogsCommandSubOrigins.findOrCreate({
+			where: {
+				name: subOrigin
 			}
 		});
 		const [command] = await LogsCommands.findOrCreate({
@@ -425,7 +437,8 @@ export class LogsDatabase extends Database {
 		});
 		await LogsPlayersCommands.create({
 			playerId: player.id,
-			serverId: server.id,
+			originId: commandOrigin.id,
+			subOriginId: commandSubOrigin.id,
 			commandId: command.id,
 			date: getDateLogs()
 		});

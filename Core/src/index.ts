@@ -51,7 +51,9 @@ mqttClient.on("message", async (topic, message) => {
 			response.push(makePacket(ErrorPacket, {message: errorMessage}));
 		}
 		else {
-			await draftBotInstance.packetListener.getListener(dataJson.packet.name)(response, dataJson.context, dataJson.packet.data);
+			const context: PacketContext = dataJson.context;
+			draftBotInstance.logsDatabase.logCommandUsage(context.keycloakId, context.frontEndOrigin, context.frontEndSubOrigin, dataJson.packet.name).then();
+			await listener(response, context, dataJson.packet.data);
 		}
 	}
 

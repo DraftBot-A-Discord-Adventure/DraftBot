@@ -143,7 +143,7 @@ export abstract class CommandUtils {
 	 * @param response
 	 */
 	static verifyStartedAndNotDead(player: Player, response: DraftBotPacket[]): Promise<boolean> {
-		return CommandUtils.verifyCommandRequirements(player, {}, response, {
+		return CommandUtils.verifyCommandRequirements(player, { frontEndOrigin: "", frontEndSubOrigin: "" }, response, {
 			disallowedEffects: [Effect.NOT_STARTED, Effect.DEAD]
 		});
 	}
@@ -154,7 +154,7 @@ export abstract class CommandUtils {
 	 * @param response
 	 */
 	static verifyNoEffect(player: Player, response: DraftBotPacket[]): Promise<boolean> {
-		return CommandUtils.verifyCommandRequirements(player, {}, response, {
+		return CommandUtils.verifyCommandRequirements(player, { frontEndOrigin: "", frontEndSubOrigin: "" }, response, {
 			allowedEffects: [Effect.NO_EFFECT]
 		});
 	}
@@ -165,7 +165,7 @@ export abstract class CommandUtils {
 	 * @param response
 	 */
 	static verifyStarted(player: Player, response: DraftBotPacket[]): Promise<boolean> {
-		return CommandUtils.verifyCommandRequirements(player, {}, response, {
+		return CommandUtils.verifyCommandRequirements(player, { frontEndOrigin: "", frontEndSubOrigin: "" }, response, {
 			disallowedEffects: [Effect.NOT_STARTED]
 		});
 	}
@@ -174,7 +174,7 @@ export abstract class CommandUtils {
 	 * Verify if the player is not dead (but can be not started)
 	 */
 	static verifyNotDead(player: Player, response: DraftBotPacket[]): Promise<boolean> {
-		return CommandUtils.verifyCommandRequirements(player, {}, response, {
+		return CommandUtils.verifyCommandRequirements(player, { frontEndOrigin: "", frontEndSubOrigin: "" }, response, {
 			disallowedEffects: [Effect.DEAD]
 		});
 	}

@@ -21,6 +21,10 @@ export class DraftBotPacket {
 }
 
 export interface PacketContext {
+	frontEndOrigin: string;
+
+	frontEndSubOrigin: string;
+
 	keycloakId?: string;
 
 	discord?: {
