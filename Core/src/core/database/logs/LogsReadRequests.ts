@@ -215,7 +215,7 @@ export class LogsReadRequests {
 	}
 
 	/**
-	 * Get the number of time the player went on the PVE island this week
+	 * Get the amount of time the player went on the PVE island this week
 	 * @param keycloakId
 	 * @param guildId
 	 */
