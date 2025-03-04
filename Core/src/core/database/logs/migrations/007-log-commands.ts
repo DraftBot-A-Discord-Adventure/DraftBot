@@ -40,6 +40,7 @@ import {CommandPetNickPacketReq} from "../../../../../../Lib/src/packets/command
 import {CommandMaintenancePacketReq} from "../../../../../../Lib/src/packets/commands/CommandMaintenancePacket";
 import {CommandLeagueRewardPacketReq} from "../../../../../../Lib/src/packets/commands/CommandLeagueRewardPacket";
 import {CommandJoinBoatPacketReq} from "../../../../../../Lib/src/packets/commands/CommandJoinBoatPacket";
+import {CommandFightPacketReq} from "../../../../../../Lib/src/packets/commands/CommandFightPacket";
 
 const commandsToPacketNames: Map<string, string> = new Map([
 	["profile", CommandProfilePacketReq.name],
@@ -49,7 +50,7 @@ const commandsToPacketNames: Map<string, string> = new Map([
 	["top", CommandTopPacketReq.name],
 	["report", CommandReportPacketReq.name],
 	["help", "[OLD] help"], // Front end command now
-	["fight", /* TODO CommandFightPacketReq.name */ "CommandFightPacketReq"],
+	["fight", CommandFightPacketReq.name],
 	["language", "[OLD] language"], // Front end command now
 	["dailybonus", CommandDailyBonusPacketReq.name],
 	["petfeed", CommandPetFeedPacketReq.name],
