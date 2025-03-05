@@ -945,10 +945,10 @@
       "leagueChangeDown": "↘️️ **{{player}} :** {{oldLeagueEmoji}} {{oldLeague}} -> {{newLeagueEmoji}} {{newLeague}}\n",
       "higherEloWins": [
         "{{winner}} s'impose sur le terrain avec une performance marquée.",
-        "{loser} a donné tout ce qu'il avait, mais {{winner}} a montré une meilleure maîtrise de son jeu.",
+        "{{loser}} a donné tout ce qu'il avait, mais {{winner}} a montré une meilleure maîtrise de son jeu.",
         "La différence de niveau entre les deux joueurs s'est faite sentir lors de ce combat.",
         "{{winner}} a démontré son expertise en remportant cette rencontre difficile.",
-        "{loser} peut être fier de sa performance malgré la défaite, mais {{winner}} est incontestablement le vainqueur de ce combat.",
+        "{{loser}} peut être fier de sa performance malgré la défaite, mais {{winner}} est incontestablement le vainqueur de ce combat.",
         "{{winner}} a écrasé {{loser}} avec une performance dominante.",
         "{{loser}} a fait de son mieux, mais il était clairement en dessous du niveau de {{winner}}.",
         "La différence de talent entre les deux joueurs a été déterminante dans ce combat.",
@@ -957,12 +957,12 @@
       ],
       "lowestEloWins": [
         "Le plus inattendu s'est produit dans ce combat, {{winner}} a remporté la victoire face à un adversaire plus expérimenté.",
-        "{loser} a peut-être sous-estimé son adversaire, car {{winner}} a montré une détermination sans faille.",
+        "{{loser}} a peut-être sous-estimé son adversaire, car {{winner}} a montré une détermination sans faille.",
         "Malgré la différence de talent, {{winner}} a réussi à remporter ce match avec une stratégie solide.",
         "Ce n'était pas un match facile, mais {{winner}} a prouvé qu'il peut tenir tête aux joueurs les plus talentueux.",
         "Ce combat aura certainement été un tournant dans la carrière de {winner}, qui a démontré sa détermination et sa capacité à vaincre les plus expérimentés.",
         "{{winner}} a surmonté les attentes en remportant ce match serré contre un adversaire plus talentueux.",
-        "{loser} a peut-être sous-estimé son adversaire, car {{winner}} a montré une détermination sans faille.",
+        "{{loser}} a peut-être sous-estimé son adversaire, car {{winner}} a montré une détermination sans faille.",
         "Malgré la différence de niveau, {{winner}} a réussi à remporter ce combat grâce à une stratégie astucieuse.",
         "Ce n'était pas un match facile, mais {{winner}} a prouvé qu'il peut tenir tête aux joueurs les plus talentueux.",
         "{{winner}} a certainement fait un pas en avant significatif dans sa carrière en remportant ce match difficile."
