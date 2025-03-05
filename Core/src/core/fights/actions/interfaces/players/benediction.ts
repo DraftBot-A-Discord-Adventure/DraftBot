@@ -2,7 +2,11 @@ import {Fighter} from "../../../fighter/Fighter";
 import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
 import {getUsedGodMoves} from "./divineAttack";
 import {FightActionFunc} from "../../../../../data/FightAction";
-import {defaultFailFightActionResult, FightActionResult, FightStatBuffed} from "../../../../../../../Lib/src/types/FightActionResult";
+import {
+	defaultMaxUsesFightActionResult,
+	FightActionResult,
+	FightStatBuffed
+} from "../../../../../../../Lib/src/types/FightActionResult";
 import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
 import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTemplate";
 
@@ -32,10 +36,12 @@ function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 }
 
 const use: FightActionFunc = (sender, receiver, fightAction, turn): FightActionResult => {
-	// Check the amount of ultimate attacks the sender already used
+	// Check the number of ultimate attacks the sender already used
 	// 1 god move per fight
+	console.log(sender.fightActionsHistory);
+	console.log("god moves", getUsedGodMoves(sender, receiver));
 	if (getUsedGodMoves(sender, receiver) >= 1) {
-		return defaultFailFightActionResult();
+		return defaultMaxUsesFightActionResult();
 	}
 
 	const result = simpleDamageFightAction(

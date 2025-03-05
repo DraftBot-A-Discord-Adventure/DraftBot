@@ -63,6 +63,14 @@ export function defaultFailFightActionResult(): FightActionResult {
 	};
 }
 
+
+export function defaultMaxUsesFightActionResult(): FightActionResult {
+	return {
+		fail: true,
+		attackStatus: FightActionStatus.MAX_USES
+	};
+}
+
 export function fightActionResultFromSuccessTest(success: boolean): FightActionResult {
 	return success ? defaultFightActionResult() : defaultFailFightActionResult();
 }
