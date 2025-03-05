@@ -888,8 +888,12 @@
           "utilise une {{attack}} !",
           "réalise une {{attack}} !"
         ],
-        "maxUses": "tente d'utiliser une {{attack}}, mais cela échoue !",
-        "charging": "se prépare à réaliser une {{attack}} !",
+        "maxUses": [
+          "tente d'utiliser une {{attack}}, mais cela échoue !"
+        ],
+        "charging": [
+          "se prépare à réaliser une {{attack}} !"
+        ],
         "missed": [
           "réalise une {{attack}} ! On a vu mieux...",
           "lance une {{attack}} ! Médiocre",
@@ -946,7 +950,7 @@
         "{{winner}} a démontré son expertise en remportant cette rencontre difficile.",
         "{loser} peut être fier de sa performance malgré la défaite, mais {{winner}} est incontestablement le vainqueur de ce combat.",
         "{{winner}} a écrasé {{loser}} avec une performance dominante.",
-        "{{loser}} a fait de son mieux, mais il était clairement en dessous du niveau de {winner}.",
+        "{{loser}} a fait de son mieux, mais il était clairement en dessous du niveau de {{winner}}.",
         "La différence de talent entre les deux joueurs a été déterminante dans ce combat.",
         "{{winner}} a démontré pourquoi il est considéré comme l'un des meilleurs en remportant ce match facilement.",
         "{{loser}} peut prendre cette défaite comme une opportunité d'apprendre et de s'améliorer pour les combats futurs."
