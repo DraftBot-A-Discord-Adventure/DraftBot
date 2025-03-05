@@ -4,7 +4,7 @@ import {FightConstants} from "../../../../../../../Lib/src/constants/FightConsta
 import {FightAlterations} from "../../FightAlterations";
 import {FightActionFunc} from "../../../../../data/FightAction";
 import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTemplate";
-import {defaultFailFightActionResult} from "../../../../../../../Lib/src/types/FightActionResult";
+import {defaultMaxUsesFightActionResult} from "../../../../../../../Lib/src/types/FightActionResult";
 
 export function getUsedGodMoves(sender: Fighter, receiver: Fighter): number {
 	return sender.fightActionsHistory.filter(action => action.id in FightConstants.GOD_MOVES).length +
@@ -41,8 +41,9 @@ const use: FightActionFunc = (sender, receiver, _fightAction, turn) => {
 
 	// Only works if less than 2 god moves have been used
 	if (usedGodMoves >= 2) {
-		return defaultFailFightActionResult();
+		return defaultMaxUsesFightActionResult();
 	}
+
 	const result = simpleDamageFightAction(
 		{
 			sender,

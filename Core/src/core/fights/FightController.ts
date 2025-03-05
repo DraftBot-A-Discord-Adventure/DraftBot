@@ -246,9 +246,7 @@ export class FightController {
 	 * @private
 	 */
 	private async prepareNextTurn(response: DraftBotPacket[]): Promise<void> {
-		console.log("ztest");
 		if (this.overtimeBehavior === FightOvertimeBehavior.END_FIGHT_DRAW && this.turn >= FightConstants.MAX_TURNS || this.hadEnded()) {
-			console.log("ztzzest");
 			await this.endFight(response);
 			return;
 		}

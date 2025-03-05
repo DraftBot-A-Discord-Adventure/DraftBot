@@ -56,6 +56,7 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 				lng: interaction.userLanguage,
 				count: 1
 			});
+			console.log(packet.status);
 			newLine += StringUtils.getRandomTranslation(
 				`commands:fight.actions.attacksResults.${packet.status}`,
 				interaction.userLanguage,
