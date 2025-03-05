@@ -50,7 +50,6 @@ export class AiPlayerFighter extends Fighter {
 	 */
 	async chooseAction(fightView: FightView, response: DraftBotPacket[]): Promise<void> {
 		fightView.displayAiChooseAction(response);
-		fightView.sendResponses(response);
 		const fightAction = FightActionDataController.instance.getById("simpleAttack");
 		await new Promise(f => setTimeout(f, RandomUtils.randInt(800, 2500)));
 		await fightView.fightController.executeFightAction(fightAction, true, response);

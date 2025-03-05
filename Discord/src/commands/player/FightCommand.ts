@@ -74,7 +74,8 @@ export async function createFightCollector(context: PacketContext, packet: React
 		emojis: {
 			accept: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fight_command.accept),
 			refuse: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fight_command.refuse)
-		}
+		},
+		notDeferReply: true
 	});
 }
 
