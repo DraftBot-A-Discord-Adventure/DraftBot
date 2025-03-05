@@ -10,15 +10,15 @@ export abstract class LogsCompaction {
 
 		await context.sequelize.query(
 			"INSERT INTO players_commands_stats(playerId, originId, subOriginId, commandId, year, week, count)" +
-				" SELECT playerId, 1, serverId, commandId, YEAR(FROM_UNIXTIME(date)), WEEK(FROM_UNIXTIME(date)), COUNT(*)" + // Discord origin is 1 because only discord exists before version 5
-				" FROM players_commands" +
-				` WHERE date <= ${dateTimestamp} OR (WEEK(FROM_UNIXTIME(date)) = ${weekNumber} AND YEAR(FROM_UNIXTIME(date)) = ${year}` +
-				" GROUP BY playerId, serverId, commandId, YEAR(FROM_UNIXTIME(date)), WEEK(FROM_UNIXTIME(date))"
+			" SELECT playerId, 1, serverId, commandId, YEAR(FROM_UNIXTIME(date)), WEEK(FROM_UNIXTIME(date)), COUNT(*)" + // Discord origin is 1 because only discord exists before version 5
+			" FROM players_commands" +
+			` WHERE date <= ${dateTimestamp} OR (WEEK(FROM_UNIXTIME(date)) = ${weekNumber} AND YEAR(FROM_UNIXTIME(date)) = ${year})` +
+			" GROUP BY playerId, serverId, commandId, YEAR(FROM_UNIXTIME(date)), WEEK(FROM_UNIXTIME(date))"
 		);
 
 		await context.sequelize.query(
 			"DELETE FROM players_commands" +
-				` WHERE date <= ${dateTimestamp} OR (WEEK(FROM_UNIXTIME(date)) = ${weekNumber}AND YEAR(FROM_UNIXTIME(date)) = ${year}`
+			` WHERE date <= ${dateTimestamp} OR (WEEK(FROM_UNIXTIME(date)) = ${weekNumber} AND YEAR(FROM_UNIXTIME(date)) = ${year})`
 		);
 	}
 }
