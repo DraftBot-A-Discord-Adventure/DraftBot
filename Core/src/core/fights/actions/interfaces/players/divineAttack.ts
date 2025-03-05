@@ -7,8 +7,8 @@ import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTe
 import {defaultMaxUsesFightActionResult} from "../../../../../../../Lib/src/types/FightActionResult";
 
 export function getUsedGodMoves(sender: Fighter, receiver: Fighter): number {
-	return sender.fightActionsHistory.filter(action => action.id in FightConstants.GOD_MOVES).length +
-		receiver.fightActionsHistory.filter(action => action.id in FightConstants.GOD_MOVES).length;
+	return sender.fightActionsHistory.filter(action => FightConstants.GOD_MOVES.includes(action.id)).length +
+		receiver.fightActionsHistory.filter(action => FightConstants.GOD_MOVES.includes(action.id)).length;
 }
 
 function getAttackInfo(): attackInfo {

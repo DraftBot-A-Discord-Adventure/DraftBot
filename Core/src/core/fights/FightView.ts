@@ -22,11 +22,8 @@ import {AiPlayerFighter} from "./fighter/AiPlayerFighter";
 import {CommandFightEndOfFightPacket} from "../../../../Lib/src/packets/fights/EndOfFightPacket";
 import {BuggedFightPacket} from "../../../../Lib/src/packets/fights/BuggedFightPacket";
 
-/* eslint-disable capitalized-comments */
-
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
- * @class FightController
+ * @class FightView
  */
 export class FightView {
 
@@ -61,6 +58,7 @@ export class FightView {
 			fightInitiatorActions,
 			fightOpponentActions
 		}));
+		this.sendResponses(response);
 	}
 
 
@@ -102,6 +100,7 @@ export class FightView {
 				}
 			}
 		}));
+		this.sendResponses(response);
 	}
 
 	/**
@@ -184,8 +183,8 @@ export class FightView {
 						buff => buff.selfTarget && buff.stat === FightStatBuffed.DAMAGE && buff.operator === FightStatModifierOperation.ADDITION
 					)?.value
 				}
-		}))
-		;
+		}));
+		this.sendResponses(response);
 	}
 
 	/**
@@ -219,6 +218,7 @@ export class FightView {
 			.build();
 
 		response.push(packet);
+		this.sendResponses(response);
 	}
 
 	/**
@@ -227,6 +227,7 @@ export class FightView {
 	 */
 	displayAiChooseAction(response: DraftBotPacket[]): void {
 		response.push(makePacket(AIFightActionChoosePacket, {}));
+		this.sendResponses(response);
 	}
 
 	/**
@@ -259,6 +260,7 @@ export class FightView {
 			turns: this.fightController.turn,
 			maxTurns: FightConstants.MAX_TURNS
 		}));
+		this.sendResponses(response);
 	}
 
 	/**
@@ -267,6 +269,7 @@ export class FightView {
 	 */
 	displayBugFight(response: DraftBotPacket[]): void {
 		response.push(makePacket(BuggedFightPacket, {}));
+		this.sendResponses(response);
 	}
 
 	sendResponses(response: DraftBotPacket[]): void {
@@ -274,5 +277,3 @@ export class FightView {
 		response.length = 0;
 	}
 }
-
-/* eslint-enable */
