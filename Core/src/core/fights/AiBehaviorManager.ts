@@ -1,9 +1,8 @@
-
 import {FightView} from "./FightView";
 import {FightAction} from "../../data/FightAction";
-
-// Interface that all class behavior scripts must implement
 import {AiPlayerFighter} from "./fighter/AiPlayerFighter";
+import {ClassConstants} from "../../../../Lib/src/constants/ClassConstants";
+import KnightFightBehavior from "./aiClassBehaviors/knightFightBehavior";
 
 export interface ClassBehavior {
 	chooseAction(fighter: AiPlayerFighter, fightView: FightView): FightAction;
@@ -11,6 +10,14 @@ export interface ClassBehavior {
 
 // Map to store class behaviors by class ID
 const classBehaviors = new Map<number, ClassBehavior>();
+
+/**
+ * Initialize all class behaviors in a map so they can be accessed by class ID
+ */
+export function initializeAllClassBehaviors(): void {
+	registerClassBehavior(ClassConstants.CLASSES_ID.KNIGHT, new KnightFightBehavior());
+	registerClassBehavior(ClassConstants.CLASSES_ID.VALIANT_KNIGHT, new KnightFightBehavior());
+}
 
 /**
  * Register a class behavior

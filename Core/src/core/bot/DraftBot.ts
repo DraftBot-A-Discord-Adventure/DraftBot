@@ -26,6 +26,7 @@ import {ReachDestinationNotificationPacket} from "../../../../Lib/src/packets/no
 import {MapLocationDataController} from "../../data/MapLocation";
 import * as fs from "fs";
 import {MqttTopicUtils} from "../../../../Lib/src/utils/MqttTopicUtils";
+import {initializeAllClassBehaviors} from "../fights/AiBehaviorManager";
 
 export class DraftBot {
 	public readonly packetListener: PacketListenerServer;
@@ -311,6 +312,7 @@ export class DraftBot {
 
 	async init(): Promise<void> {
 		await registerAllPacketHandlers();
+		initializeAllClassBehaviors();
 		await this.gameDatabase.init(true);
 		await this.logsDatabase.init(true);
 		await MapCache.init();
