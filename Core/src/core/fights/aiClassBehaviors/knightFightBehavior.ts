@@ -17,8 +17,8 @@ class KnightFightBehavior implements ClassBehavior {
 
 		// Initialize defense tracking on first round
 		if (currentRound <= 1) {
-			this.blessRoundChosen = RandomUtils.randInt(10, 14); // Choose when to use benediction
-			this.restCount = 0; // Reset rest counter at the beginning of fight
+			this.blessRoundChosen = RandomUtils.randInt(11, 15); // Choose when to use benediction
+			this.restCount = 0; // Reset rest counter at the beginning of a fight
 		}
 
 		// ENDGAME STRATEGY: Try to force a draw if victory seems impossible
@@ -29,7 +29,7 @@ class KnightFightBehavior implements ClassBehavior {
 		}
 
 		// BENEDICTION STRATEGY: Use benediction at the chosen round
-		if (getUsedGodMoves(me, opponent) < 1 && currentRound === this.blessRoundChosen || currentRound === this.blessRoundChosen + 1) {
+		if (getUsedGodMoves(me, opponent) < 1 && (currentRound === this.blessRoundChosen || currentRound === this.blessRoundChosen + 1)) {
 			// Not enough breath for benediction? Rest first (only if we haven't rested 4 times)
 			if (me.getBreath() < 8) {
 				if (this.restCount < 4) {

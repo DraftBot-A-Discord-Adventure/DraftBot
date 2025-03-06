@@ -57,13 +57,13 @@ const use: FightActionFunc = (sender, receiver, fightAction, turn): FightActionR
 		}
 	);
 
-	const buff = (1 + (turn < 15 ? Math.round(1.67 * turn) : 25)) / 100;
+	const buff = 1 + (turn < 15 ? Math.round(1.67 * turn) : 25) / 100 ;
 
 	for (const statBuffed of [FightStatBuffed.ATTACK, FightStatBuffed.DEFENSE, FightStatBuffed.SPEED]) {
 		FightActionController.applyBuff(result, {
 			selfTarget: true,
 			stat: statBuffed,
-			operator: FightStatModifierOperation.ADDITION,
+			operator: FightStatModifierOperation.MULTIPLIER,
 			value: buff
 		}, sender, fightAction);
 	}
