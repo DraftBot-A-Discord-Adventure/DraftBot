@@ -3,6 +3,8 @@ import {FightAction} from "../../data/FightAction";
 import {AiPlayerFighter} from "./fighter/AiPlayerFighter";
 import {ClassConstants} from "../../../../Lib/src/constants/ClassConstants";
 import KnightFightBehavior from "./aiClassBehaviors/knightFightBehavior";
+import HorseRiderFightBehavior from "./aiClassBehaviors/HorseRiderFightBehavior";
+import EsquireFightBehavior from "./aiClassBehaviors/EsquireFightBehavior";
 
 export interface ClassBehavior {
 	chooseAction(fighter: AiPlayerFighter, fightView: FightView): FightAction;
@@ -17,6 +19,9 @@ const classBehaviors = new Map<number, ClassBehavior>();
 export function initializeAllClassBehaviors(): void {
 	registerClassBehavior(ClassConstants.CLASSES_ID.KNIGHT, new KnightFightBehavior());
 	registerClassBehavior(ClassConstants.CLASSES_ID.VALIANT_KNIGHT, new KnightFightBehavior());
+	registerClassBehavior(ClassConstants.CLASSES_ID.PIKEMAN, new KnightFightBehavior());
+	registerClassBehavior(ClassConstants.CLASSES_ID.HORSE_RIDER, new HorseRiderFightBehavior());
+	registerClassBehavior(ClassConstants.CLASSES_ID.ESQUIRE, new EsquireFightBehavior());
 }
 
 /**
