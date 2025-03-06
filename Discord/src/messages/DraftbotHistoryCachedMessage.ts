@@ -36,7 +36,7 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 		let newLine = i18n.t("commands:fight.actions.intro", {
 			lng: interaction.userLanguage,
 			emote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fight_actions[packet.fightActionId]),
-			fighter: fighter
+			fighter
 		});
 		let attackName = ""; // Name of the attack, used to display the attack name in the message
 		if (packet.status && Object.values(FightAlterationState).includes(packet.status as FightAlterationState)) {
@@ -70,7 +70,7 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 					const operator = value >= 0 ? FightConstants.OPERATOR.PLUS : FightConstants.OPERATOR.MINUS;
 					newLine += i18n.t(`commands:fight.actions.fightActionEffects.opponent.${key}`, {
 						lng: interaction.userLanguage,
-						operator: operator,
+						operator,
 						amount: Math.abs(value)
 					});
 				}
@@ -91,7 +91,7 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 					const operator = value >= 0 ? FightConstants.OPERATOR.PLUS : FightConstants.OPERATOR.MINUS;
 					newLine += i18n.t(`commands:fight.actions.fightActionEffects.self.${key}`, {
 						lng: interaction.userLanguage,
-						operator: operator,
+						operator,
 						amount: Math.abs(value)
 					});
 				}
