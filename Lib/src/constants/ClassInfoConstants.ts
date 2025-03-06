@@ -1,4 +1,4 @@
-import {Constants} from "./Constants";
+import {ClassConstants} from "./ClassConstants";
 
 export abstract class ClassInfoConstants {
 	static readonly LIST_EMOTE = "\uD83D\uDD16";

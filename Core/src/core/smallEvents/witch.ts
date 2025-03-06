@@ -3,7 +3,6 @@ import {Maps} from "../maps/Maps";
 import {EndCallback, ReactionCollectorInstance} from "../utils/ReactionsCollector";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {WitchAction, WitchActionDataController} from "../../data/WitchAction";
-import {Constants} from "../../../../Lib/src/constants/Constants";
 import {SmallEventConstants} from "../../../../Lib/src/constants/SmallEventConstants";
 import {BlockingUtils} from "../utils/BlockingUtils";
 import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
@@ -18,6 +17,7 @@ import {ReactionCollectorWitch, ReactionCollectorWitchReaction} from "../../../.
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {WitchActionOutcomeType} from "../../../../Lib/src/types/WitchActionOutcomeType";
 import {Effect} from "../../../../Lib/src/types/Effect";
+import {ClassConstants} from "../../../../Lib/src/constants/ClassConstants";
 
 
 type WitchEventSelection = {
