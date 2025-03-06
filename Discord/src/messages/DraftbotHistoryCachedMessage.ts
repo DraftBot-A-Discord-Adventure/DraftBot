@@ -12,7 +12,6 @@ import {FightConstants} from "../../../Lib/src/constants/FightConstants";
 import {DraftbotFightStatusCachedMessage} from "./DraftbotFightStatusCachedMessage";
 import {StringUtils} from "../utils/StringUtils";
 import {DraftbotActionChooseCachedMessage} from "./DraftbotActionChooseCachedMessage";
-import {Message} from "discord.js";
 
 export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandFightHistoryItemPacket> {
 	readonly duration = 30;

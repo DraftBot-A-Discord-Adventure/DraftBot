@@ -156,7 +156,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnContinent,
 
 	executeSmallEvent: (response, player, context) => {
-		const events = getRandomWitchEvents(player.class === Constants.CLASSES.MYSTIC_MAGE);
+		const events = getRandomWitchEvents(player.class === ClassConstants.CLASSES_ID.MYSTIC_MAGE);
 
 		const collector = new ReactionCollectorWitch(
 			Object.values(events).map((event) => ({ id: event.id }))
