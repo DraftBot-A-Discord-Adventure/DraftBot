@@ -5,8 +5,9 @@ import {PlayerActiveObjects} from "../../database/game/models/PlayerActiveObject
 import {FightView} from "../FightView";
 import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
 import {Class} from "../../../data/Class";
-import {FightActionDataController} from "../../../data/FightAction";
+import {FightAction, FightActionDataController} from "../../../data/FightAction";
 import {DraftBotPacket} from "../../../../../Lib/src/packets/DraftBotPacket";
+import {getAiClassBehavior} from "../AiBehaviorManager";
 
 /**
  * @class AiPlayerFighter
@@ -56,7 +57,7 @@ export class AiPlayerFighter extends Fighter {
 		let fightAction: FightAction;
 
 		if (classBehavior) {
-			fightAction = await classBehavior.chooseAction(this, fightView);
+			fightAction = classBehavior.chooseAction(this, fightView);
 		}
 		else {
 			// Fallback to a simple attack if no behavior is defined
