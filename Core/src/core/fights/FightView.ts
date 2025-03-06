@@ -58,7 +58,6 @@ export class FightView {
 			fightInitiatorActions,
 			fightOpponentActions
 		}));
-		this.sendResponses(response);
 	}
 
 
@@ -100,7 +99,6 @@ export class FightView {
 				}
 			}
 		}));
-		this.sendResponses(response);
 	}
 
 	/**
@@ -184,7 +182,6 @@ export class FightView {
 					)?.value
 				}
 		}));
-		this.sendResponses(response);
 	}
 
 	/**
@@ -218,7 +215,6 @@ export class FightView {
 			.build();
 
 		response.push(packet);
-		this.sendResponses(response);
 	}
 
 	/**
@@ -227,7 +223,6 @@ export class FightView {
 	 */
 	displayAiChooseAction(response: DraftBotPacket[]): void {
 		response.push(makePacket(AIFightActionChoosePacket, {}));
-		this.sendResponses(response);
 	}
 
 	/**
@@ -260,7 +255,6 @@ export class FightView {
 			turns: this.fightController.turn,
 			maxTurns: FightConstants.MAX_TURNS
 		}));
-		this.sendResponses(response);
 	}
 
 	/**
@@ -269,7 +263,6 @@ export class FightView {
 	 */
 	displayBugFight(response: DraftBotPacket[]): void {
 		response.push(makePacket(BuggedFightPacket, {}));
-		this.sendResponses(response);
 	}
 
 	sendResponses(response: DraftBotPacket[]): void {

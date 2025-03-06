@@ -15,6 +15,9 @@ export abstract class DraftbotCachedMessage<T extends DraftBotPacket = DraftBotP
 	// Message linked to this cached message
 	storedMessage?: Message;
 
+	// Togglable variable to know if we should reupload the message
+	reuploadMessage = false;
+
 	constructor(originalMessageId: string) {
 		this.originalMessageId = originalMessageId;
 	}
@@ -34,6 +37,11 @@ export abstract class DraftbotCachedMessage<T extends DraftBotPacket = DraftBotP
 	}
 
 	async post(options: BaseMessageOptions): Promise<Message | null> {
+		if (this.reuploadMessage) {
+			this.storedMessage?.delete();
+			this.storedMessage = undefined;
+			this.reuploadMessage = false;
+		}
 		if (this.storedMessage) {
 			return await this.storedMessage.edit(options);
 		}
@@ -92,5 +100,9 @@ export class DraftbotCachedMessages {
 		const instance = new MessageLike(message.originalMessageId);
 		Object.assign(instance, message);
 		return instance;
+	}
+
+	static markAsReupload(message: DraftbotCachedMessage): void {
+		DraftbotCachedMessages.cachedMessages.get(message.cacheKey)!.reuploadMessage = true;
 	}
 }
