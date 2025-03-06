@@ -7,7 +7,7 @@ import {PlayerFighter} from "../fighter/PlayerFighter";
 import {MonsterFighter} from "../fighter/MonsterFighter";
 
 class EsquireFightBehavior implements ClassBehavior {
-	private restCount: number = 0; // Track how many times we've rested
+	private restCount = 0; // Track how many times we've rested
 
 	chooseAction(me: AiPlayerFighter, fightView: FightView): FightAction {
 		const opponent = fightView.fightController.getDefendingFighter();
