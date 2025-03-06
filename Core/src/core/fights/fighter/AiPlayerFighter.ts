@@ -50,7 +50,18 @@ export class AiPlayerFighter extends Fighter {
 	 */
 	async chooseAction(fightView: FightView, response: DraftBotPacket[]): Promise<void> {
 		fightView.displayAiChooseAction(response);
-		const fightAction = FightActionDataController.instance.getById("simpleAttack");
+
+		const classBehavior = getAiClassBehavior(this.class.id);
+		// Use the behavior script to choose an action
+		let fightAction: FightAction;
+
+		if (classBehavior) {
+			fightAction = await classBehavior.chooseAction(this, fightView);
+		}
+		else {
+			// Fallback to a simple attack if no behavior is defined
+			fightAction = FightActionDataController.instance.getById("simpleAttack");
+		}
 		await new Promise(f => setTimeout(f, RandomUtils.randInt(800, 2500)));
 		await fightView.fightController.executeFightAction(fightAction, true, response);
 	}
