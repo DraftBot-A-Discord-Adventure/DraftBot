@@ -6,7 +6,7 @@ import { FightConstants } from "../../../../../Lib/src/constants/FightConstants"
 import {simpleOrQuickAttack} from "./EsquireFightBehavior";
 
 class HorseRiderFightBehavior implements ClassBehavior {
-	private restCount: number = 0; // Track how many times we've rested
+	private restCount = 0; // Track how many times we've rested
 
 	chooseAction(me: AiPlayerFighter, fightView: FightView): FightAction {
 		const opponent = fightView.fightController.getDefendingFighter();
