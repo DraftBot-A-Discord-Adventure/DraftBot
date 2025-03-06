@@ -15,7 +15,7 @@ export abstract class DraftbotCachedMessage<T extends DraftBotPacket = DraftBotP
 	// Message linked to this cached message
 	storedMessage?: Message;
 
-	// Togglable variable to know if we should reupload the message
+	// Toggleable variable to know if we should reupload the message
 	reuploadMessage = false;
 
 	constructor(originalMessageId: string) {
