@@ -38,8 +38,6 @@ function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 const use: FightActionFunc = (sender, receiver, fightAction, turn): FightActionResult => {
 	// Check the number of ultimate attacks the sender already used
 	// 1 god move per fight
-	console.log(sender.fightActionsHistory);
-	console.log("god moves", getUsedGodMoves(sender, receiver));
 	if (getUsedGodMoves(sender, receiver) >= 1) {
 		return defaultMaxUsesFightActionResult();
 	}
