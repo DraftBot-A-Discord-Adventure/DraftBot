@@ -12,6 +12,7 @@ import {FightConstants} from "../../../Lib/src/constants/FightConstants";
 import {DraftbotFightStatusCachedMessage} from "./DraftbotFightStatusCachedMessage";
 import {StringUtils} from "../utils/StringUtils";
 import {DraftbotActionChooseCachedMessage} from "./DraftbotActionChooseCachedMessage";
+import {Message} from "discord.js";
 
 export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandFightHistoryItemPacket> {
 	readonly duration = 30;
@@ -56,7 +57,6 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 				lng: interaction.userLanguage,
 				count: 1
 			});
-			console.log(packet.status);
 			newLine += StringUtils.getRandomTranslation(
 				`commands:fight.actions.attacksResults.${packet.status}`,
 				interaction.userLanguage,
@@ -115,11 +115,7 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 		this.storedMessage = undefined;
 		this.historyContent = newLine;
 		await this.post({content: this.historyContent});
-		const resumeMessage = DraftbotCachedMessages.getOrCreate(this.originalMessageId, DraftbotFightStatusCachedMessage);
-		resumeMessage.storedMessage?.delete();
-		resumeMessage.storedMessage = undefined;
-		const attackSelectionMessage = DraftbotCachedMessages.getOrCreate(this.originalMessageId, DraftbotActionChooseCachedMessage);
-		attackSelectionMessage.storedMessage?.delete();
-		attackSelectionMessage.storedMessage = undefined;
+		DraftbotCachedMessages.markAsReupload(DraftbotCachedMessages.getOrCreate(this.originalMessageId, DraftbotFightStatusCachedMessage));
+		DraftbotCachedMessages.markAsReupload(DraftbotCachedMessages.getOrCreate(this.originalMessageId, DraftbotActionChooseCachedMessage));
 	};
 }

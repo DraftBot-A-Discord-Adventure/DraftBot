@@ -74,8 +74,7 @@ export async function createFightCollector(context: PacketContext, packet: React
 		emojis: {
 			accept: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fight_command.accept),
 			refuse: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fight_command.refuse)
-		},
-		notDeferReply: true
+		}
 	});
 }
 
@@ -151,6 +150,8 @@ export async function handleCommandFightIntroduceFightersRes(context: PacketCont
 	addFightActionFieldFor(embed, interaction.userLanguage, opponentDisplayName, packet.fightOpponentActions);
 	await buttonInteraction?.editReply({embeds: [embed]});
 	await DraftbotCachedMessages.getOrCreate(interaction.id, DraftbotHistoryCachedMessage).post({content: "_ _"});
+	await DraftbotCachedMessages.getOrCreate(interaction.id, DraftbotFightStatusCachedMessage).post({content: "_ _"});
+	await DraftbotCachedMessages.getOrCreate(interaction.id, DraftbotActionChooseCachedMessage).post({content: "_ _"});
 }
 
 /**
