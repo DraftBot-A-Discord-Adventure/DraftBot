@@ -342,8 +342,20 @@ export class FightController {
 			this.state !== FightState.RUNNING);
 	}
 }
+/**
+ * Get the number of used god moves in the fight
+ * @param sender
+ * @param receiver
+ */
+export function getUsedGodMoves(sender: Fighter, receiver: Fighter): number {
+	return sender.fightActionsHistory.filter(action => FightConstants.GOD_MOVES.includes(action.id)).length +
+		receiver.fightActionsHistory.filter(action => FightConstants.GOD_MOVES.includes(action.id)).length;
+}
 
-
+/**
+ * Default heal fight alteration result
+ * @param affected
+ */
 export function defaultHealFightAlterationResult(affected: Fighter): FightAlterationResult {
 	affected.removeAlteration();
 	return {
@@ -351,12 +363,19 @@ export function defaultHealFightAlterationResult(affected: Fighter): FightAltera
 	};
 }
 
+/**
+ * Default max uses fight alteration result
+ */
 export function defaultFightAlterationResult(): FightAlterationResult {
 	return {
 		state: FightAlterationState.ACTIVE
 	};
 }
 
+/**
+ * Default max uses fight alteration result
+ * @param affected
+ */
 export function defaultRandomActionFightAlterationResult(affected: Fighter): FightAlterationResult {
 	affected.nextFightAction = affected.getRandomAvailableFightAction();
 	return {
@@ -364,6 +383,12 @@ export function defaultRandomActionFightAlterationResult(affected: Fighter): Fig
 	};
 }
 
+/**
+ * Default damage fight alteration result
+ * @param affected
+ * @param statsInfos
+ * @param attackInfo
+ */
 export function defaultDamageFightAlterationResult(affected: Fighter, statsInfos: statsInfo, attackInfo: attackInfo): FightAlterationResult {
 	return {
 		state: FightAlterationState.ACTIVE,
