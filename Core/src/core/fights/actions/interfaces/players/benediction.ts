@@ -1,6 +1,5 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
-import {getUsedGodMoves} from "./divineAttack";
 import {FightActionFunc} from "../../../../../data/FightAction";
 import {
 	defaultMaxUsesFightActionResult,
@@ -9,6 +8,7 @@ import {
 } from "../../../../../../../Lib/src/types/FightActionResult";
 import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
 import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTemplate";
+import {getUsedGodMoves} from "../../../FightController";
 
 function getAttackInfo(): attackInfo {
 	return {
