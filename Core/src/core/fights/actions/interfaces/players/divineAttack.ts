@@ -1,15 +1,10 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
-import {FightConstants} from "../../../../../../../Lib/src/constants/FightConstants";
 import {FightAlterations} from "../../FightAlterations";
 import {FightActionFunc} from "../../../../../data/FightAction";
 import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTemplate";
 import {defaultMaxUsesFightActionResult} from "../../../../../../../Lib/src/types/FightActionResult";
-
-export function getUsedGodMoves(sender: Fighter, receiver: Fighter): number {
-	return sender.fightActionsHistory.filter(action => FightConstants.GOD_MOVES.includes(action.id)).length +
-		receiver.fightActionsHistory.filter(action => FightConstants.GOD_MOVES.includes(action.id)).length;
-}
+import {getUsedGodMoves} from "../../../FightController";
 
 function getAttackInfo(): attackInfo {
 	return {
