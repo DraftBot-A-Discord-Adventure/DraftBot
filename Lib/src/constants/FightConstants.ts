@@ -140,6 +140,9 @@ export abstract class FightConstants {
 				STUNNED: "stunned",
 				TARGETED: "targeted",
 				WEAK: "weak"
+			},
+			PET: {
+				SCARE_FISH: "scareFish"
 			}
 		};
 
