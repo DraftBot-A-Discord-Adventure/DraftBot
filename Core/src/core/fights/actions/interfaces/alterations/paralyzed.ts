@@ -12,12 +12,11 @@ const use: FightAlterationFunc = (affected, fightAlteration) => {
 		return defaultHealFightAlterationResult(affected);
 	}
 
-	// 20% chance to not attack this turn
+	// 20% chance of not being able to attack this turn
 	if (Math.random() < 0.2) {
 		affected.nextFightAction = FightActionDataController.instance.getNone();
 		return {
-			state: FightAlterationState.NO_ACTION,
-			damages: 0
+			state: FightAlterationState.NO_ACTION
 		};
 	}
 
