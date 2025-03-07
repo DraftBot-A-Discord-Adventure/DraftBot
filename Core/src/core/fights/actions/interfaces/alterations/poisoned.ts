@@ -4,8 +4,8 @@ import {defaultDamageFightAlterationResult, defaultHealFightAlterationResult} fr
 import {attackInfo, statsInfo} from "../../FightActionController";
 
 const use: FightAlterationFunc = (affected, _fightAlteration, opponent) => {
-	// 25 % chance to be healed from the poison (except for the first turn)
-	if (Math.random() < 0.25 && affected.alterationTurn > 1) {
+	// 35 % chance to be healed from the poison (except for the first turn)
+	if (Math.random() < 0.35 && affected.alterationTurn > 3) {
 		return defaultHealFightAlterationResult(affected);
 	}
 	return defaultDamageFightAlterationResult(affected, getStatsInfo(affected, opponent), getAttackInfo());
@@ -14,7 +14,7 @@ const use: FightAlterationFunc = (affected, _fightAlteration, opponent) => {
 export default use;
 
 function getAttackInfo(): attackInfo {
-	return {minDamage: 10, averageDamage: 25, maxDamage: 45};
+	return {minDamage: 10, averageDamage: 20, maxDamage: 45};
 }
 
 function getStatsInfo(victim: Fighter, sender: Fighter): statsInfo {
