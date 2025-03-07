@@ -2,10 +2,10 @@ import {FightView} from "./FightView";
 import {FightAction} from "../../data/FightAction";
 import {AiPlayerFighter} from "./fighter/AiPlayerFighter";
 import {ClassConstants} from "../../../../Lib/src/constants/ClassConstants";
-import KnightFightBehavior from "./aiClassBehaviors/knightFightBehavior";
-import HorseRiderFightBehavior from "./aiClassBehaviors/horseRiderFightBehavior";
-import EsquireFightBehavior from "./aiClassBehaviors/esquireFightBehavior";
-import MysticMageFightBehavior from "./aiClassBehaviors/mysticMageFightBehavior";
+import KnightFightBehavior from "./aiClassBehaviors/KnightFightBehavior";
+import HorseRiderFightBehavior from "./aiClassBehaviors/HorseRiderFightBehavior";
+import EsquireFightBehavior from "./aiClassBehaviors/EsquireFightBehavior";
+import MysticMageFightBehavior from "./aiClassBehaviors/MysticMageFightBehavior";
 
 export interface ClassBehavior {
 	chooseAction(fighter: AiPlayerFighter, fightView: FightView): FightAction;
