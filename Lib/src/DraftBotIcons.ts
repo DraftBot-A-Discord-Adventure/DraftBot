@@ -1218,9 +1218,49 @@ export const DraftBotIcons: {
 			"emoteFemale": "🐧",
 			"emoteMale": "🐧"
 		},
+		"73": {
+			"emoteFemale": "🐟",
+			"emoteMale": "🐟"
+		},
+		"74": {
+			"emoteFemale": "🐠",
+			"emoteMale": "🐠"
+		},
+		"75": {
+			"emoteFemale": "🐡",
+			"emoteMale": "🐡"
+		},
+		"76": {
+			"emoteFemale": "🪼",
+			"emoteMale": "🪼"
+		},
+		"77": {
+			"emoteFemale": "🦈",
+			"emoteMale": "🦈"
+		},
+		"78": {
+			"emoteFemale": "🐋",
+			"emoteMale": "🐋"
+		},
+		"79": {
+			"emoteFemale": "🐳",
+			"emoteMale": "🐳"
+		},
 		"8": {
 			"emoteFemale": "🐄",
 			"emoteMale": "🐂"
+		},
+		"80": {
+			"emoteFemale": "🦐",
+			"emoteMale": "🦐"
+		},
+		"81": {
+			"emoteFemale": "🦞",
+			"emoteMale": "🦞"
+		},
+		"82": {
+			"emoteFemale": "🐬",
+			"emoteMale": "🐬"
 		},
 		"9": {
 			"emoteFemale": "🐖",
