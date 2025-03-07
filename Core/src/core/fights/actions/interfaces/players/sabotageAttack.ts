@@ -24,7 +24,7 @@ const use: FightActionFunc = (sender, receiver) => {
 		FightActionController.applyAlteration(result, {
 			selfTarget: true,
 			alteration: FightAlterations.PARALYZED
-		}, receiver);
+		}, sender);
 	}
 
 	return result;
