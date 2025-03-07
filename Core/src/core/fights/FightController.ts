@@ -16,6 +16,7 @@ import {FightAlterationResult, FightAlterationState} from "../../../../Lib/src/t
 import {FightActionResult} from "../../../../Lib/src/types/FightActionResult";
 import {AiPlayerFighter} from "./fighter/AiPlayerFighter";
 import {FightAlteration, FightAlterationDataController} from "../../data/FightAlteration";
+import {getAiPetBehavior} from "./PetAssistManager";
 
 /**
  * @class FightController
@@ -255,6 +256,20 @@ export class FightController {
 			this.increaseDamagesPve(this.turn);
 		}
 
+		const currentPlayer = this.getPlayingFighter();
+		if (currentPlayer instanceof AiPlayerFighter || currentPlayer instanceof PlayerFighter && currentPlayer.player.petId) {
+			const petBehavior = getAiPetBehavior(currentPlayer.player.petId);
+			if (petBehavior) {
+				const petAction = petBehavior.chooseAction(currentPlayer, this._fightView);
+				await this.executeFightActionFromPet(petAction, false, response);
+			}
+		}
+		if (this.state !== FightState.RUNNING) {
+			// A player was killed by a pet action, no need to continue the fight
+			return;
+		}
+
+
 		if (this.getPlayingFighter()
 			.hasFightAlteration()) {
 			await this.executeFightAlteration(this.getPlayingFighter().alteration, response);
@@ -263,6 +278,7 @@ export class FightController {
 			// A player was killed by a fight alteration, no need to continue the fight
 			return;
 		}
+
 		this._fightView.displayFightStatus(response);
 
 		this.getPlayingFighter()
