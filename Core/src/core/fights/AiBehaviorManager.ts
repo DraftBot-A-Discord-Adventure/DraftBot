@@ -3,8 +3,9 @@ import {FightAction} from "../../data/FightAction";
 import {AiPlayerFighter} from "./fighter/AiPlayerFighter";
 import {ClassConstants} from "../../../../Lib/src/constants/ClassConstants";
 import KnightFightBehavior from "./aiClassBehaviors/knightFightBehavior";
-import HorseRiderFightBehavior from "./aiClassBehaviors/HorseRiderFightBehavior";
-import EsquireFightBehavior from "./aiClassBehaviors/EsquireFightBehavior";
+import HorseRiderFightBehavior from "./aiClassBehaviors/horseRiderFightBehavior";
+import EsquireFightBehavior from "./aiClassBehaviors/esquireFightBehavior";
+import MysticMageFightBehavior from "./aiClassBehaviors/mysticMageFightBehavior";
 
 export interface ClassBehavior {
 	chooseAction(fighter: AiPlayerFighter, fightView: FightView): FightAction;
@@ -22,6 +23,7 @@ export function initializeAllClassBehaviors(): void {
 	registerClassBehavior(ClassConstants.CLASSES_ID.PIKEMAN, new KnightFightBehavior());
 	registerClassBehavior(ClassConstants.CLASSES_ID.HORSE_RIDER, new HorseRiderFightBehavior());
 	registerClassBehavior(ClassConstants.CLASSES_ID.ESQUIRE, new EsquireFightBehavior());
+	registerClassBehavior(ClassConstants.CLASSES_ID.MYSTIC_MAGE, new MysticMageFightBehavior());
 }
 
 /**
