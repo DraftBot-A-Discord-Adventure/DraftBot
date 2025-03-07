@@ -20,9 +20,9 @@ const use: FightActionFunc = (sender, receiver) => {
 		}
 	);
 
-	if (Math.random() < 0.9) {
+	if (Math.random() < 0.6) {
 		FightActionController.applyAlteration(result, {
-			selfTarget: false,
+			selfTarget: true,
 			alteration: FightAlterations.PARALYZED
 		}, receiver);
 	}
