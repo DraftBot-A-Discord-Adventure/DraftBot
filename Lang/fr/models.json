@@ -120,6 +120,9 @@
     "9": "Une classe axée sur la vitesse. Peu de points de vie et d'énergie mais vitesse et attaque élevées."
   },
   "fight_actions": {
+    "scareFish": {
+      "generalEffect": "est assisté par {petNickname} qui fait fuir les poissons."
+    },
     "benediction": {
       "description": "Fait partie du groupe des \"actions des dieux\". Échoue si 1 action des dieux a déjà été effectuée dans le combat. Augmente toutes les statistiques du lanceur. Plus la bénédiction est utilisée tard dans le combat, plus l'augmentation des statistiques est importante.",
       "name_one": "Bénédiction",
@@ -412,7 +415,7 @@
     },
     "slowed": {
       "name": "ralenti",
-      "new" : "est ralenti.",
+      "new": "est ralenti.",
       "active": "est ralenti.",
       "stop": "n'est plus ralenti."
     },
