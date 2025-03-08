@@ -280,9 +280,8 @@ export class FightController {
 		const currentFighter = this.getPlayingFighter();
 		if ((currentFighter instanceof AiPlayerFighter || currentFighter instanceof PlayerFighter) && currentFighter.player.petId) {
 			const playerPet = await PetEntities.getById(currentFighter.player.petId);
-			const petBehavior = getAiPetBehavior(playerPet.typeId);
-			if (petBehavior) {
-				const petAction = petBehavior.chooseAction(currentFighter, this._fightView);
+			const petAction = getAiPetBehavior(playerPet.typeId);
+			if (petAction) {
 				await this.executePetAssistance(petAction, response);
 			}
 		}
