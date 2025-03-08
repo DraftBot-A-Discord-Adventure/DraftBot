@@ -123,6 +123,9 @@
     "scareFish": {
       "generalEffect": "est assisté par **{{petNickname}}** qui fait fuir les poissons."
     },
+    "claws": {
+      "success": "est soutenu dans son combat par **{{petNickname}}** qui assène à son adversaire un vilain coup de griffe."
+    },
     "benediction": {
       "description": "Fait partie du groupe des \"actions des dieux\". Échoue si 1 action des dieux a déjà été effectuée dans le combat. Augmente toutes les statistiques du lanceur. Plus la bénédiction est utilisée tard dans le combat, plus l’augmentation des statistiques est importante.",
       "name_one": "Bénédiction",
