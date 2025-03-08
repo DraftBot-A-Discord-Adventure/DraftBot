@@ -1,21 +1,14 @@
-import {FightView} from "./FightView";
-import {AiPlayerFighter} from "./fighter/AiPlayerFighter";
-import {PlayerFighter} from "./fighter/PlayerFighter";
-import ScareFishPetBehavior from "./petBehaviors/ScareFishPetBehavior";
-import {PetAssistance} from "../../data/PetAssistance";
-
-export interface PetBehavior {
-	chooseAction(fighter: AiPlayerFighter | PlayerFighter, fightView: FightView): PetAssistance;
-}
+import {PetAssistance, PetAssistanceDataController} from "../../data/PetAssistance";
+import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
 
 // Map to store pet behaviors by pet ID
-const petBehavior = new Map<number, PetBehavior>();
+const petAssistanceList = new Map<number, PetAssistance>();
 
 /**
  * Initialize all pet behaviors in a map so they can be accessed by pet ID
  */
 export function initializeAllPetBehaviors(): void {
-	registerPetBehavior(77, new ScareFishPetBehavior());
+	registerPetBehavior(77, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.SCARE_FISH));
 }
 
 /**
@@ -23,8 +16,8 @@ export function initializeAllPetBehaviors(): void {
  * @param petId The pet ID
  * @param behavior The behavior implementation
  */
-export function registerPetBehavior(petId: number, behavior: PetBehavior): void {
-	petBehavior.set(petId, behavior);
+export function registerPetBehavior(petId: number, behavior: PetAssistance): void {
+	petAssistanceList.set(petId, behavior);
 }
 
 /**
@@ -32,6 +25,6 @@ export function registerPetBehavior(petId: number, behavior: PetBehavior): void 
  * @param petId The pet ID
  * @returns The pet behavior or undefined if not found
  */
-export function getAiPetBehavior(petId: number): PetBehavior | undefined {
-	return petBehavior.get(petId);
+export function getAiPetBehavior(petId: number): PetAssistance | undefined {
+	return petAssistanceList.get(petId);
 }

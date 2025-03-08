@@ -142,7 +142,8 @@ export abstract class FightConstants {
 				WEAK: "weak"
 			},
 			PET: {
-				SCARE_FISH: "scareFish"
+				SCARE_FISH: "scareFish",
+				FISH_PROTECT_AGAINST_FIRE: "fishProtectAgainstFire"
 			}
 		};
 
