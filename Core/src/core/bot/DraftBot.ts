@@ -48,7 +48,7 @@ export class DraftBot {
 	}
 
 	/**
-	 * Launch the program that execute the top week reset
+	 * Launch the program that executes the top week reset
 	 */
 	static programWeeklyTimeout(): void {
 		const millisTill = getNextSundayMidnight().valueOf() - Date.now();
@@ -123,7 +123,7 @@ export class DraftBot {
 	}
 
 	/**
-	 * Launch the program that execute the daily tasks
+	 * Launch the program that executes the daily tasks
 	 */
 	static programDailyTimeout(): void {
 		const millisTill = getNextDay2AM().valueOf() - Date.now();
@@ -285,7 +285,7 @@ export class DraftBot {
 	}
 
 	/**
-	 * Sets the maitenance mode of the bot
+	 * Sets the maintenance mode of the bot
 	 * @param enable
 	 * @param saveToConfig Save the maintenance state to the config file
 	 * @throws
