@@ -6,7 +6,8 @@ import {FightActionBuff, FightAlterationApplied} from "./FightActionResult";
  */
 export enum PetAssistanceState {
 	GENERAL_EFFECT = "generalEffect",
-	NOTHING_HAPPENED = "nothingHappened",
+	SUCCESS = "success",
+	AFRAID = "afraid",
 }
 
 export interface PetAssistanceResult {
