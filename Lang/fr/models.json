@@ -461,6 +461,10 @@
       "description": "Envoie un jet de toile qui blesse et ralentit l'adversaire.",
       "name_one": "Attaque jet de toile",
       "name_other": "Attaques jets de toile"
+    },
+    "fishProtectAgainstFire": {
+      "afraid": "demande à **{{petNickname}}** de l'aider à ne pas brûler mais **{{petNickname}} est trop effrayé pour aider.",
+      "success": "est soigné de ses brûlures par **{{petNickname}}**."
     }
   },
   "leagues": {

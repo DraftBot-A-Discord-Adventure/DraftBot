@@ -1,13 +1,13 @@
 import {PetAssistanceResult, PetAssistanceState} from "../../../../../../../Lib/src/types/PetAssistanceResult";
 import {PetAssistanceFunc} from "../../../../../data/PetAssistance";
 
-const use: PetAssistanceFunc = (_sender, _receiver, _fightAction, turn): PetAssistanceResult | null => {
+const use: PetAssistanceFunc = (_fighter, _opponent, turn, _fightController): Promise<PetAssistanceResult | null> => {
 	if (turn > 2) {
 		return null;
 	}
-	return {
+	return Promise.resolve({
 		assistanceStatus: PetAssistanceState.GENERAL_EFFECT
-	};
+	});
 };
 
 export default use;

@@ -194,7 +194,7 @@ export class FightController {
 	 * @private
 	 */
 	private async executePetAssistance(petAssistance: PetAssistance, response: DraftBotPacket[]): Promise<void> {
-		const result = petAssistance.execute(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this);
+		const result = await petAssistance.execute(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this);
 		if (!result) {
 			return;
 		}

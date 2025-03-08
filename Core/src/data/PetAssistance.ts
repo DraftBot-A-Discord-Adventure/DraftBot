@@ -6,17 +6,17 @@ import {Fighter} from "../core/fights/fighter/Fighter";
 import {PetAssistanceResult} from "../../../Lib/src/types/PetAssistanceResult";
 
 export class PetAssistance extends FightAction {
-	public execute(affected: Fighter, opponent: Fighter, turn: number, fight: FightController): PetAssistanceResult | null {
-		const result = PetAssistanceDataController.getPetAssistanceFunction(this.id)(affected, this, opponent, turn, fight);
+	public async execute(fighter: Fighter, opponent: Fighter, turn: number, fightController: FightController): Promise<PetAssistanceResult | null> {
+		const result = await PetAssistanceDataController.getPetAssistanceFunction(this.id)(fighter, opponent, turn, fightController);
 		if (!result) {
 			return null;
 		}
-		affected.damage(result.damages ?? 0);
+		opponent.damage(result.damages ?? 0);
 		return result;
 	}
 }
 
-export type PetAssistanceFunc = (affected: Fighter, fightAlteration: PetAssistance, opponent: Fighter, turn: number, fight: FightController) => PetAssistanceResult;
+export type PetAssistanceFunc = (affected: Fighter, opponent: Fighter, turn: number, fight: FightController) => Promise<PetAssistanceResult | null>;
 
 export class PetAssistanceDataController extends DataControllerString<PetAssistance> {
 	static readonly instance: PetAssistanceDataController = new PetAssistanceDataController("fightActions");

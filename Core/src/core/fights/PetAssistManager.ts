@@ -1,5 +1,7 @@
 import {PetAssistance, PetAssistanceDataController} from "../../data/PetAssistance";
 import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
+import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
+import {Pet} from "../../data/Pet";
 
 // Map to store pet behaviors by pet ID
 const petAssistanceList = new Map<number, PetAssistance>();
@@ -8,7 +10,11 @@ const petAssistanceList = new Map<number, PetAssistance>();
  * Initialize all pet behaviors in a map so they can be accessed by pet ID
  */
 export function initializeAllPetBehaviors(): void {
-	registerPetBehavior(77, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.SCARE_FISH));
+	registerPetBehavior(PetConstants.PETS.SHARK, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.SCARE_FISH));
+	registerPetBehavior(PetConstants.PETS.FISH, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.FISH_PROTECT_AGAINST_FIRE));
+	registerPetBehavior(PetConstants.PETS.TROPICAL_FISH, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.FISH_PROTECT_AGAINST_FIRE));
+	registerPetBehavior(PetConstants.PETS.PUFFERFISH, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.FISH_PROTECT_AGAINST_FIRE));
+	registerPetBehavior(PetConstants.PETS.DOLPHIN, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.FISH_PROTECT_AGAINST_FIRE));
 }
 
 /**
