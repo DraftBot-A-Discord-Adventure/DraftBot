@@ -6,8 +6,11 @@ import {Fighter} from "../core/fights/fighter/Fighter";
 import {PetAssistanceResult} from "../../../Lib/src/types/PetAssistanceResult";
 
 export class PetAssistance extends FightAction {
-	public execute(affected: Fighter, opponent: Fighter, turn: number, fight: FightController): PetAssistanceResult {
+	public execute(affected: Fighter, opponent: Fighter, turn: number, fight: FightController): PetAssistanceResult | null {
 		const result = PetAssistanceDataController.getPetAssistanceFunction(this.id)(affected, this, opponent, turn, fight);
+		if (!result) {
+			return null;
+		}
 		affected.damage(result.damages ?? 0);
 		return result;
 	}
