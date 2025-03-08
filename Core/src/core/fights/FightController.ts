@@ -16,8 +16,9 @@ import {FightAlterationResult, FightAlterationState} from "../../../../Lib/src/t
 import {FightActionResult} from "../../../../Lib/src/types/FightActionResult";
 import {AiPlayerFighter} from "./fighter/AiPlayerFighter";
 import {FightAlteration, FightAlterationDataController} from "../../data/FightAlteration";
-import {getAiPetBehavior} from "./PetAssistManager";
 import {PetAssistance} from "../../data/PetAssistance";
+import {getAiPetBehavior} from "./PetAssistManager";
+import {PetEntities} from "../database/game/models/PetEntity";
 
 /**
  * @class FightController
@@ -146,7 +147,7 @@ export class FightController {
 
 	/**
 	 * Get the winner of the fight does not check for draw
-	 * @return {number} 1 for the figh initiator, 0 for the opponent
+	 * @return {number} 1 for the fight initiator, 0 for the opponent
 	 * @private
 	 */
 	public getWinner(): number {
@@ -273,11 +274,12 @@ export class FightController {
 			this.increaseDamagesPve(this.turn);
 		}
 
-		const currentPlayer = this.getPlayingFighter();
-		if (currentPlayer instanceof AiPlayerFighter || currentPlayer instanceof PlayerFighter && currentPlayer.player.petId) {
-			const petBehavior = getAiPetBehavior(currentPlayer.player.petId);
+		const currentFighter = this.getPlayingFighter();
+		if ((currentFighter instanceof AiPlayerFighter || currentFighter instanceof PlayerFighter) && currentFighter.player.petId) {
+			const playerPet = await PetEntities.getById(currentFighter.player.petId);
+			const petBehavior = getAiPetBehavior(playerPet.typeId);
 			if (petBehavior) {
-				const petAction = petBehavior.chooseAction(currentPlayer, this._fightView);
+				const petAction = petBehavior.chooseAction(currentFighter, this._fightView);
 				await this.executePetAssistance(petAction, response);
 			}
 		}

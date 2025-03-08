@@ -13,6 +13,7 @@ import {DraftbotFightStatusCachedMessage} from "./DraftbotFightStatusCachedMessa
 import {StringUtils} from "../utils/StringUtils";
 import {DraftbotActionChooseCachedMessage} from "./DraftbotActionChooseCachedMessage";
 import {PetAssistanceState} from "../../../Lib/src/types/PetAssistanceResult";
+import {StringConstants} from "../../../Lib/src/constants/StringConstants";
 
 export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandFightHistoryItemPacket> {
 	readonly duration = 30;
@@ -36,7 +37,9 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 
 		let newLine = i18n.t("commands:fight.actions.intro", {
 			lng: interaction.userLanguage,
-			emote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fight_actions[packet.fightActionId]),
+			emote: EmoteUtils.translateEmojiToDiscord(packet.pet ?
+				DraftBotIcons.pets[packet.pet.typeId][packet.pet.sex === StringConstants.SEX.FEMALE.short ? "emoteFemale" : "emoteMale"] :
+				DraftBotIcons.fight_actions[packet.fightActionId]),
 			fighter
 		});
 		let attackName = ""; // Name of the attack, used to display the attack name in the message
@@ -48,7 +51,7 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 			// The fightAction is an alteration or pet assistance
 			newLine += i18n.t(`models:fight_actions.${packet.fightActionId}.${packet.status}`, {
 				lng: interaction.userLanguage,
-				pet: packet.pet?.nickname
+				petNickname: packet.pet?.nickname
 			});
 		}
 		else if (packet.customMessage) {
