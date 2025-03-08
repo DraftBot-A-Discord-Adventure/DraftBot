@@ -1,14 +1,14 @@
 import { AiPlayerFighter } from "../fighter/AiPlayerFighter";
 import { FightView } from "../FightView";
-import {FightAction, FightActionDataController} from "../../../data/FightAction";
 import {PetBehavior} from "../PetAssistManager";
 import {FightConstants} from "../../../../../Lib/src/constants/FightConstants";
+import {PetAssistance, PetAssistanceDataController} from "../../../data/PetAssistance";
 
 class ScareFishPetBehavior implements PetBehavior {
 
-	chooseAction(_me: AiPlayerFighter, _fightView: FightView): FightAction {
+	chooseAction(_me: AiPlayerFighter, _fightView: FightView): PetAssistance {
 		// Return the Scare Fish action
-		return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.SCARE_FISH);
+		return PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.SCARE_FISH);
 	}
 }
 
