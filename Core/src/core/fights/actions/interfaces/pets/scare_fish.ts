@@ -1,8 +1,8 @@
-import {FightActionFunc} from "../../../../../data/FightAction";
 import {PetAssistanceResult, PetAssistanceState} from "../../../../../../../Lib/src/types/PetAssistanceResult";
+import {PetAssistanceFunc} from "../../../../../data/PetAssistance";
 
 
-const use: FightActionFunc = (): PetAssistanceResult => ({
+const use: PetAssistanceFunc = (): PetAssistanceResult => ({
 	assistanceStatus: PetAssistanceState.GENERAL_EFFECT
 });
 
