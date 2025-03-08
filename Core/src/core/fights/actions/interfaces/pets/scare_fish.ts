@@ -1,7 +1,9 @@
 import {FightActionFunc} from "../../../../../data/FightAction";
-import {customMessageActionResult, FightActionResult} from "../../../../../../../Lib/src/types/FightActionResult";
+import {PetAssistanceResult, PetAssistanceState} from "../../../../../../../Lib/src/types/PetAssistanceResult";
 
 
-const use: FightActionFunc = (): FightActionResult => customMessageActionResult();
+const use: FightActionFunc = (): PetAssistanceResult => ({
+	assistanceStatus: PetAssistanceState.GENERAL_EFFECT
+});
 
 export default use;

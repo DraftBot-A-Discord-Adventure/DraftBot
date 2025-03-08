@@ -17,6 +17,7 @@ import {FightActionResult} from "../../../../Lib/src/types/FightActionResult";
 import {AiPlayerFighter} from "./fighter/AiPlayerFighter";
 import {FightAlteration, FightAlterationDataController} from "../../data/FightAlteration";
 import {getAiPetBehavior} from "./PetAssistManager";
+import {PetAssistance} from "../../data/PetAssistance";
 
 /**
  * @class FightController
@@ -177,7 +178,23 @@ export class FightController {
 	 */
 	private async executeFightAlteration(alteration: FightAlteration, response: DraftBotPacket[]): Promise<void> {
 		const result = alteration.happen(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this);
-		this._fightView.addActionToHistory(response, this.getPlayingFighter(), alteration, result);
+		await this._fightView.addActionToHistory(response, this.getPlayingFighter(), alteration, result);
+		if (this.hadEnded()) {
+			await this.endFight(response);
+			return;
+		}
+		this._fightView.displayFightStatus(response);
+	}
+
+	/**
+	 * Execute a pet assistance
+	 * @param petAssistance
+	 * @param response
+	 * @private
+	 */
+	private async executePetAssistance(petAssistance: PetAssistance, response: DraftBotPacket[]): Promise<void> {
+		const result = petAssistance.execute(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this);
+		await this._fightView.addActionToHistory(response, this.getPlayingFighter(), petAssistance, result);
 		if (this.hadEnded()) {
 			await this.endFight(response);
 			return;
@@ -196,7 +213,7 @@ export class FightController {
 			this.getPlayingFighter().nextFightAction = null;
 		}
 		const result = this.tryToExecuteFightAction(fightAction, this.getPlayingFighter(), this.getDefendingFighter(), this.turn);
-		this._fightView.addActionToHistory(response, this.getPlayingFighter(), fightAction, result);
+		await this._fightView.addActionToHistory(response, this.getPlayingFighter(), fightAction, result);
 
 		if (this.state !== FightState.RUNNING) {
 			// An error occurred during the update of the history
@@ -261,7 +278,7 @@ export class FightController {
 			const petBehavior = getAiPetBehavior(currentPlayer.player.petId);
 			if (petBehavior) {
 				const petAction = petBehavior.chooseAction(currentPlayer, this._fightView);
-				await this.executeFightActionFromPet(petAction, false, response);
+				await this.executePetAssistance(petAction, response);
 			}
 		}
 		if (this.state !== FightState.RUNNING) {
