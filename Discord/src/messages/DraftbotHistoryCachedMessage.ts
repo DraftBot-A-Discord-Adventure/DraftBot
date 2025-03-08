@@ -14,6 +14,7 @@ import {StringUtils} from "../utils/StringUtils";
 import {DraftbotActionChooseCachedMessage} from "./DraftbotActionChooseCachedMessage";
 import {PetAssistanceState} from "../../../Lib/src/types/PetAssistanceResult";
 import {StringConstants} from "../../../Lib/src/constants/StringConstants";
+import {DisplayUtils} from "../utils/DisplayUtils";
 
 export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandFightHistoryItemPacket> {
 	readonly duration = 30;
@@ -48,10 +49,16 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 			&& Object.values(FightAlterationState).includes(packet.status as FightAlterationState)
 			|| Object.values(PetAssistanceState).includes(packet.status as PetAssistanceState)
 		) {
+			const petNickname
+				= packet.pet ?
+					packet.pet.nickname ?
+						packet.pet.nickname
+						: DisplayUtils.getPetTypeName(interaction.userLanguage, packet.pet.typeId, packet.pet.sex)
+					: undefined;
 			// The fightAction is an alteration or pet assistance
 			newLine += i18n.t(`models:fight_actions.${packet.fightActionId}.${packet.status}`, {
 				lng: interaction.userLanguage,
-				petNickname: packet.pet?.nickname
+				petNickname: petNickname
 			});
 		}
 		else if (packet.customMessage) {
