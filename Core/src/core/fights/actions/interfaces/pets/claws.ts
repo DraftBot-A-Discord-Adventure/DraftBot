@@ -1,74 +1,43 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
-import {FightActionFunc} from "../../../../../data/FightAction";
-import {
-	defaultMaxUsesFightActionResult,
-	FightActionResult,
-	FightStatBuffed
-} from "../../../../../../../Lib/src/types/FightActionResult";
-import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
-import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTemplate";
-import {getUsedGodMoves} from "../../../FightController";
+import {PetAssistanceFunc} from "../../../../../data/PetAssistance";
+import {PetAssistanceResult, PetAssistanceState} from "../../../../../../../Lib/src/types/PetAssistanceResult";
+import {RandomUtils} from "../../../../../../../Lib/src/utils/RandomUtils";
 
 function getAttackInfo(): attackInfo {
 	return {
-		minDamage: 55,
-		averageDamage: 100,
-		maxDamage: 200
+		minDamage: 5,
+		averageDamage: 35,
+		maxDamage: 50
 	};
 }
 
-function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
+function getStatsInfo(_sender: Fighter, receiver: Fighter): statsInfo {
 	return {
 		attackerStats: [
-			sender.getAttack(),
-			sender.getSpeed()
+			100,
+			600
 		],
 		defenderStats: [
 			receiver.getDefense(),
 			receiver.getSpeed()
 		],
 		statsEffect: [
-			0.7,
-			0.3
+			0.9,
+			0.1
 		]
 	};
 }
 
-const use: FightActionFunc = (sender, receiver, fightAction, turn): FightActionResult => {
-	// Check the number of ultimate attacks the sender already used
-	// 1 god move per fight
-	if (getUsedGodMoves(sender, receiver) >= 1) {
-		return defaultMaxUsesFightActionResult();
+const use: PetAssistanceFunc = (fighter, opponent, _turn, _fightController): Promise<PetAssistanceResult | null> => {
+	// 70% chance of doing nothing
+	if (RandomUtils.draftbotRandom.bool(0.7)) {
+		return null;
 	}
-
-	const result = simpleDamageFightAction(
-		{
-			sender,
-			receiver
-		},
-		{
-			critical: 5,
-			failure: 10
-		},
-		{
-			attackInfo: getAttackInfo(),
-			statsInfo: getStatsInfo(sender, receiver)
-		}
-	);
-
-	const buff = 1 + (turn < 15 ? Math.round(1.67 * turn) : 25) / 100 ;
-
-	for (const statBuffed of [FightStatBuffed.ATTACK, FightStatBuffed.DEFENSE, FightStatBuffed.SPEED]) {
-		FightActionController.applyBuff(result, {
-			selfTarget: true,
-			stat: statBuffed,
-			operator: FightStatModifierOperation.MULTIPLIER,
-			value: buff
-		}, sender, fightAction);
-	}
-
-	return result;
+	return Promise.resolve({
+		damages: FightActionController.getAttackDamage(getStatsInfo(fighter, opponent), fighter, getAttackInfo()),
+		assistanceStatus: PetAssistanceState.SUCCESS
+	});
 };
 
 export default use;
