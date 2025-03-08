@@ -21,6 +21,9 @@ import {PacketUtils} from "../utils/PacketUtils";
 import {AiPlayerFighter} from "./fighter/AiPlayerFighter";
 import {CommandFightEndOfFightPacket} from "../../../../Lib/src/packets/fights/EndOfFightPacket";
 import {BuggedFightPacket} from "../../../../Lib/src/packets/fights/BuggedFightPacket";
+import {PetAssistanceResult} from "../../../../Lib/src/types/PetAssistanceResult";
+import {OwnedPet} from "../../../../Lib/src/types/OwnedPet";
+import {PetEntities} from "../database/game/models/PetEntity";
 
 /**
  * @class FightView
@@ -108,12 +111,12 @@ export class FightView {
 	 * @param fightAction - the action made by the fighter
 	 * @param fightActionResult - the result of the action
 	 */
-	addActionToHistory(
+	async addActionToHistory(
 		response: DraftBotPacket[],
 		fighter: PlayerFighter | MonsterFighter | AiPlayerFighter,
 		fightAction: FightAction,
-		fightActionResult: FightActionResult | FightAlterationResult
-	): void {
+		fightActionResult: FightActionResult | FightAlterationResult | PetAssistanceResult
+	): Promise<void> {
 
 		const buildStatsChange = (selfTarget: boolean): {
 			attack?: number;
@@ -151,6 +154,21 @@ export class FightView {
 				return acc;
 			}, {} as { attack?: number; defense?: number; speed?: number; breath?: number; energy?: number });
 
+		/** Return the pet if the action is a pet assistance and the fighter has a pet
+		 * @param fighter
+		 * @param fightActionResult
+		 */
+		const getPetIfRelevant = async (fighter: PlayerFighter | MonsterFighter | AiPlayerFighter, fightActionResult: FightActionResult | FightAlterationResult | PetAssistanceResult): Promise<OwnedPet | null> => {
+			// Check if the fighter is a player (not a monster) and has a pet
+			if (!(fighter instanceof MonsterFighter) && fighter.player.petId) {
+				// Check if the action result is pet assistance (has assistanceStatus property)
+				if ("assistanceStatus" in fightActionResult) {
+					return (await PetEntities.getById(fighter.player.petId)).asOwnedPet();
+				}
+			}
+			return null;
+		};
+
 		response.push(makePacket(CommandFightHistoryItemPacket, {
 			fighterKeycloakId: fighter instanceof MonsterFighter ? null : fighter.player.keycloakId,
 			monsterId: fighter instanceof MonsterFighter ? fighter.monster.id : null,
@@ -164,7 +182,8 @@ export class FightView {
 					fightActionResult.attackStatus : // FightAction is an attack, so we have an attackStatus
 					"state" in fightActionResult ?
 						fightActionResult.state : // FightAction is an alteration, so we have a state
-						null, // FightAction is neither an attack nor an alteration (should not happen)
+						fightActionResult.assistanceStatus, // FightAction is pet assistance, so we have an assistanceStatus
+			pet: await getPetIfRelevant(fighter, fightActionResult),
 			fightActionEffectDealt:
 				{
 					...buildStatsChange(false),

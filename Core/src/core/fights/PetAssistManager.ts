@@ -1,11 +1,11 @@
 import {FightView} from "./FightView";
-import {FightAction} from "../../data/FightAction";
 import {AiPlayerFighter} from "./fighter/AiPlayerFighter";
 import {PlayerFighter} from "./fighter/PlayerFighter";
 import ScareFishPetBehavior from "./petBehaviors/ScareFishPetBehavior";
+import {PetAssistance} from "../../data/PetAssistance";
 
 export interface PetBehavior {
-	chooseAction(fighter: AiPlayerFighter | PlayerFighter, fightView: FightView): FightAction;
+	chooseAction(fighter: AiPlayerFighter | PlayerFighter, fightView: FightView): PetAssistance;
 }
 
 // Map to store pet behaviors by pet ID

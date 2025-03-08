@@ -12,6 +12,7 @@ import {FightConstants} from "../../../Lib/src/constants/FightConstants";
 import {DraftbotFightStatusCachedMessage} from "./DraftbotFightStatusCachedMessage";
 import {StringUtils} from "../utils/StringUtils";
 import {DraftbotActionChooseCachedMessage} from "./DraftbotActionChooseCachedMessage";
+import {PetAssistanceState} from "../../../Lib/src/types/PetAssistanceResult";
 
 export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandFightHistoryItemPacket> {
 	readonly duration = 30;
@@ -39,10 +40,15 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 			fighter
 		});
 		let attackName = ""; // Name of the attack, used to display the attack name in the message
-		if (packet.status && Object.values(FightAlterationState).includes(packet.status as FightAlterationState)) {
-			// The fightAction is an alteration
+		if (
+			packet.status
+			&& Object.values(FightAlterationState).includes(packet.status as FightAlterationState)
+			|| Object.values(PetAssistanceState).includes(packet.status as PetAssistanceState)
+		) {
+			// The fightAction is an alteration or pet assistance
 			newLine += i18n.t(`models:fight_actions.${packet.fightActionId}.${packet.status}`, {
-				lng: interaction.userLanguage
+				lng: interaction.userLanguage,
+				pet: packet.pet?.nickname
 			});
 		}
 		else if (packet.customMessage) {
