@@ -7,7 +7,7 @@ export class EmoteUtils {
 
 	/**
 	 * Map of emojis to their Discord equivalent
-	 * TODO : ADD EMOJI TRANSLATION WHEN YOU SEE A DESCREPANCY PLEASE, THANKS, DON'T BE FOOLS
+	 * TODO : ADD EMOJI TRANSLATION WHEN YOU SEE A DISCREPANCY PLEASE, THANKS, DON'T BE FOOLS
 	 * @private
 	 */
 	private static emojiUnicodeMap: Record<string, string> = {
