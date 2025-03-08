@@ -195,6 +195,9 @@ export class FightController {
 	 */
 	private async executePetAssistance(petAssistance: PetAssistance, response: DraftBotPacket[]): Promise<void> {
 		const result = petAssistance.execute(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this);
+		if (!result) {
+			return;
+		}
 		await this._fightView.addActionToHistory(response, this.getPlayingFighter(), petAssistance, result);
 		if (this.hadEnded()) {
 			await this.endFight(response);
