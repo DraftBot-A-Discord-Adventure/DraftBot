@@ -10,6 +10,8 @@ import {DiscordCache} from "../../bot/DiscordCache";
 import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
 import {PacketUtils} from "../../utils/PacketUtils";
 import {DisplayUtils} from "../../utils/DisplayUtils";
+import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
+import {keycloakConfig} from "../../bot/DraftBotShard";
 
 /**
  * Display all the information about a Pet
@@ -25,12 +27,18 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 
 export async function handleCommandPetPacketRes(packet: CommandPetPacketRes, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+
+	let foundPlayer: KeycloakUser | null = null;
+	if (packet.askedKeycloakId) {
+		foundPlayer = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.askedKeycloakId);
+	}
+
 	await interaction?.reply({
 		embeds: [new DraftBotEmbed()
 			.formatAuthor(
 				i18n.t("commands:pet.embedTitle", {
 					lng: interaction.userLanguage,
-					pseudo: interaction.user.username
+					pseudo: foundPlayer?.attributes.gameUsername[0] || interaction.user.username
 				}),
 				interaction.user
 			)

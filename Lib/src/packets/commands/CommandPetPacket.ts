@@ -11,6 +11,8 @@ export class CommandPetPacketReq extends DraftBotPacket {
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandPetPacketRes extends DraftBotPacket {
+	askedKeycloakId?: string | null;
+
 	pet!: OwnedPet;
 }
 
