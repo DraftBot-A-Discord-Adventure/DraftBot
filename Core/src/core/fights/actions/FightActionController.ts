@@ -9,6 +9,7 @@ import {FightController} from "../FightController";
 import {FightAlterationResult} from "../../../../../Lib/src/types/FightAlterationResult";
 import {FightAlteration, FightAlterationDataController} from "../../../data/FightAlteration";
 import {PetAssistanceResult} from "../../../../../Lib/src/types/PetAssistanceResult";
+import {PetAssistance} from "../../../data/PetAssistance";
 
 export type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number };
 export type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect: number[] }
@@ -46,7 +47,7 @@ export class FightActionController {
 	 * @param target
 	 * @param origin
 	 */
-	static applyBuff(result: FightActionResult | FightAlterationResult, buff: FightActionBuff, target: Fighter, origin: FightAction | FightAlteration): void {
+	static applyBuff(result: FightActionResult | FightAlterationResult | PetAssistanceResult, buff: FightActionBuff, target: Fighter, origin: FightAction | FightAlteration | PetAssistance): void {
 		origin = origin as FightAction;
 		switch (buff.stat) {
 		case FightStatBuffed.ATTACK:
