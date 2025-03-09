@@ -7,6 +7,8 @@ import {FightConstants} from "../../../../../Lib/src/constants/FightConstants";
 class MysticMageFightBehavior implements ClassBehavior {
 	private poisonTurns: number = 0;
 
+	private cursedAttackUsed: boolean = false;
+
 	private lastHadPoison: boolean = false;
 
 	chooseAction(me: AiPlayerFighter, fightView: FightView): FightAction {
@@ -29,13 +31,13 @@ class MysticMageFightBehavior implements ClassBehavior {
 
 		// --- ENDGAME STRATEGIES (highest priority) ---
 
-		// Dark attack if dying soon
-		if (me.getEnergy() < 150 && opponent.getEnergy() > 150) {
+		// Dark attack if dying soon, or opponent has way more attack than me
+		if (me.getEnergy() < 150 && opponent.getEnergy() > 150 || opponent.getAttack() > me.getAttack() * 1.2 && me.getBreath() >= 5) {
 			return FightActionDataController.instance.getById(actions.DARK_ATTACK);
 		}
 
-		// Fire attack if opponent has 240-290 HP and poison stopped
-		if (opponent.getEnergy() >= 240 && opponent.getEnergy() <= 290 && !isPoisonActive && me.getBreath() >= 8) {
+		// Fire attack if enough breath and no alteration
+		if (!opponentHasAlteration && me.getBreath() >= 8) {
 			return FightActionDataController.instance.getById(actions.FIRE_ATTACK);
 		}
 
@@ -44,8 +46,9 @@ class MysticMageFightBehavior implements ClassBehavior {
 			return FightActionDataController.instance.getById(actions.POISONOUS_ATTACK);
 		}
 
-		// Cursed attack if opponent <= 150 HP
-		if (opponent.getEnergy() <= 150 && (me.getBreath() >= 6 || me.getEnergy() < 150)) {
+		// Cursed attack if turn > 15, no alteration and enough breath, only one per fight
+		if (!this.cursedAttackUsed && me.getBreath() >= 6 && !opponentHasAlteration && fightView.fightController.turn > 15) {
+			this.cursedAttackUsed = true;
 			return FightActionDataController.instance.getById(actions.CURSED_ATTACK);
 		}
 
@@ -57,7 +60,7 @@ class MysticMageFightBehavior implements ClassBehavior {
 		}
 
 		// Dark attack whenever possible
-		if (me.getBreath() >= 8) {
+		if (me.getBreath() >= 6) {
 			return FightActionDataController.instance.getById(actions.DARK_ATTACK);
 		}
 

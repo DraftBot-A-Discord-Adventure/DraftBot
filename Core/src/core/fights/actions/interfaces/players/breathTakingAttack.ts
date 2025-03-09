@@ -47,14 +47,14 @@ const use: FightActionFunc = (sender, receiver, fightAction) => {
 		}
 	);
 
-	// 60% chance of reducing the opponent's speed by 20%. Otherwise, steal 1 point of breath from the opponent.
+	// 60% chance of reducing the opponent's speed by 15%. Otherwise, steal 1 point of breath from the opponent.
 	if (RandomUtils.draftbotRandom.bool(0.4) || receiver.getBreath() < 1) {
-		// Reduce target speed by 20%
+		// Reduce the target speed by 15%
 		FightActionController.applyBuff(result, {
 			selfTarget: false,
 			stat: FightStatBuffed.SPEED,
 			operator: FightStatModifierOperation.MULTIPLIER,
-			value: 0.8
+			value: 0.85
 		}, receiver, fightAction);
 	}
 	else {
