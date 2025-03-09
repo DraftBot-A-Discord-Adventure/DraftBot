@@ -146,6 +146,7 @@ export abstract class FightConstants {
 				FISH_PROTECT_AGAINST_FIRE: "fishProtectAgainstFire",
 				SPIT_FIRE: "spitFire",
 				CLAWS: "claws",
+				BITE: "bite",
 				SMALL_CLAWS: "smallClaws"
 			}
 		};
