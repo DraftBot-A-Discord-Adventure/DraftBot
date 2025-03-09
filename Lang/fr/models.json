@@ -466,7 +466,7 @@
       "name_other": "Attaques jets de toile"
     },
     "fishProtectAgainstFire": {
-      "afraid": "demande à **{{petNickname}}** de l'aider à ne pas brûler mais **{{petNickname}} est trop effrayé pour aider.",
+      "afraid": "demande à **{{petNickname}}** de l'aider à ne pas brûler mais **{{petNickname}}** est trop effrayé pour aider.",
       "success": "est soigné de ses brûlures par **{{petNickname}}**."
     }
   },

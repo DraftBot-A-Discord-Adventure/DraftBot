@@ -30,7 +30,7 @@ export default use;
 
 function getAttackInfo(): attackInfo {
 	return {
-		minDamage: 15,
+		minDamage: 10,
 		averageDamage: 20,
 		maxDamage: 40
 	};
@@ -39,16 +39,17 @@ function getAttackInfo(): attackInfo {
 function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 	return {
 		attackerStats: [
+			receiver.getAttack(), // We use the defender's attack because the poison is applied to the attacker
 			sender.getAttack(),
-			sender.getSpeed()
-		],
-		defenderStats: [
-			receiver.getDefense(),
-			receiver.getSpeed()
-		],
-		statsEffect: [
-			0.7,
-			0.3
+			receiver.getEnergy()
+		], defenderStats: [
+			100,
+			100,
+			receiver.getMaxEnergy()
+		], statsEffect: [
+			0.5,
+			0.1,
+			0.4
 		]
 	};
 }
