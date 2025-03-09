@@ -20,12 +20,15 @@ export function initializeAllPetBehaviors(): void {
 	registerPetBehavior(PetConstants.PETS.DRAGON, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.SPIT_FIRE));
 	registerPetBehavior(PetConstants.PETS.CAT, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.SMALL_CLAWS));
 	registerPetBehavior(PetConstants.PETS.BADGER, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.SMALL_CLAWS));
-	registerPetBehavior(PetConstants.PETS.BLACK_CAT, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.SMALL_CLAWS));
 	registerPetBehavior(PetConstants.PETS.DOG, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.BITE));
 	registerPetBehavior(PetConstants.PETS.POODLE, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.BITE));
 	registerPetBehavior(PetConstants.PETS.FOX, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.BITE));
 	registerPetBehavior(PetConstants.PETS.WOLF, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.BITE));
 	registerPetBehavior(PetConstants.PETS.CROCODILE, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.BITE));
+	registerPetBehavior(PetConstants.PETS.SCORPION, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.POISONOUS_BITE));
+	registerPetBehavior(PetConstants.PETS.SNAKE, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.POISONOUS_BITE));
+	registerPetBehavior(PetConstants.PETS.MOUSE, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.SCARE_ELEPHANT));
+	registerPetBehavior(PetConstants.PETS.ELEPHANT, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.ELEPHANT_REMEMBER_LAST_ACTION));
 }
 
 /**
