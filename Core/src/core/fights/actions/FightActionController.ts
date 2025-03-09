@@ -8,6 +8,7 @@ import {FightAction, FightActionDataController} from "../../../data/FightAction"
 import {FightController} from "../FightController";
 import {FightAlterationResult} from "../../../../../Lib/src/types/FightAlterationResult";
 import {FightAlteration, FightAlterationDataController} from "../../../data/FightAlteration";
+import {PetAssistanceResult} from "../../../../../Lib/src/types/PetAssistanceResult";
 
 export type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number };
 export type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect: number[] }
@@ -90,7 +91,7 @@ export class FightActionController {
 		result.buffs.push(buff);
 	}
 
-	static applyAlteration(result: FightActionResult, fightAlteration: FightAlterationApplied, target: Fighter): void {
+	static applyAlteration(result: FightActionResult | PetAssistanceResult, fightAlteration: FightAlterationApplied, target: Fighter): void {
 		const alteration = target.newAlteration(FightAlterationDataController.instance.getById(fightAlteration.alteration));
 		if (alteration.id !== fightAlteration.alteration) {
 			return;
