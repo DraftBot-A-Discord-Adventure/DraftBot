@@ -7,15 +7,15 @@ import {RandomUtils} from "../../../../../../../Lib/src/utils/RandomUtils";
 function getAttackInfo(): attackInfo {
 	return {
 		minDamage: 5,
-		averageDamage: 40,
-		maxDamage: 80
+		averageDamage: 35,
+		maxDamage: 50
 	};
 }
 
 function getStatsInfo(_sender: Fighter, receiver: Fighter): statsInfo {
 	return {
 		attackerStats: [
-			300,
+			30,
 			600
 		],
 		defenderStats: [
