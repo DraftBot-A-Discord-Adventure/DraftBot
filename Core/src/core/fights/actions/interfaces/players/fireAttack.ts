@@ -7,14 +7,14 @@ import {FightActionResult} from "../../../../../../../Lib/src/types/FightActionR
 
 const use: FightActionFunc = (sender, receiver) => {
 	const initialDamage = FightActionController.getAttackDamage(getStatsInfo(sender, receiver), sender, getAttackInfo());
-	const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 20, 20);
+	const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 20, 15);
 
 	const result: FightActionResult = {
 		attackStatus: damageDealt.status,
 		damages: damageDealt.damages
 	};
 
-	if (RandomUtils.draftbotRandom.bool(0.8)) {
+	if (RandomUtils.draftbotRandom.bool(0.98)) {
 		FightActionController.applyAlteration(result, {
 			selfTarget: false,
 			alteration: FightAlterations.BURNED
