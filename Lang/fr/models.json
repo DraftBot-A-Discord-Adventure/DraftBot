@@ -126,6 +126,32 @@
     "scareElephant": {
       "generalEffect": "est assisté par **{{petNickname}}** qui fait fuir les éléphants."
     },
+    "petCharge": {
+      "generalEffect": "ordonne à **{{petNickname}}** d'attaquer. L'animal frotte ses pattes avec impatience, prêt à charger.",
+      "success": "est assisté par **{{petNickname}}** qui se décide enfin à charger l'adversaire avec une grande force."
+    },
+    "petPoison": {
+      "success": "utilise **{{petNickname}}** pour empoisonner son adversaire."
+    },
+    "snowBall": {
+      "success": "est aidé par **{{petNickname}}** qui lance une boule de neige sur l'adversaire."
+    },
+    "petCurse": {
+      "success": "invoque les pouvoirs de **{{petNickname}}** pour maudire son adversaire."
+    },
+    "petSmallCharge": {
+      "generalEffect": "ordonne à **{{petNickname}}** d'attaquer. L'animal frotte ses pattes avec impatience, prêt à charger.",
+      "success": "est aidé par **{{petNickname}}** qui se décide enfin à charger l'adversaire avec force."
+    },
+    "boostSpeed": {
+      "success": "monte sur le dos de **{{petNickname}}** pour se déplacer plus rapidement."
+    },
+    "boostDefense": {
+      "success": "se fortifie derrière le robuste rempart qu'est **{{petNickname}}**, gagnant une protection formidable au prix de sa célérité."
+    },
+    "smallRegen": {
+      "success": "apprend des capacités régénératrices de **{{petNickname}}** et récupère de l'énergie."
+    },
     "elephantRememberLastAction": {
       "success": "est aidé par **{{petNickname}}** dont la mémoire fulgurante des événements récents lui permet de restituer le souffle perdu à son maître.",
       "failure": "est aidé par **{{petNickname}}** qui, malgré ses puissants souvenirs des actions passées, échoue à restituer le souffle dépensé.",
@@ -144,6 +170,7 @@
       "generalEffect": "demande de l'aide à **{{petNickname}}** qui, avec une indifférence remarquable, fixe l'adversaire d'un regard vide."
     },
     "poisonousBite": {
+      "generalEffect": "a besoin de **{{petNickname}}**, l'animal a besoin de temps pour se préparer...",
       "success": "reçoit le soutien de **{{petNickname}}** qui décide de mordre son adversaire... Ce dernier ne se sent soudainement pas très bien."
     },
     "claws": {
