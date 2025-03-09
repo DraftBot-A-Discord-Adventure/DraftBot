@@ -9,26 +9,95 @@ const petAssistanceList = new Map<number, PetAssistance>();
  * Initialize all pet behaviors in a map so they can be accessed by pet ID
  */
 export function initializeAllPetBehaviors(): void {
-	registerPetBehavior(PetConstants.PETS.SHARK, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.SCARE_FISH));
-	registerPetBehavior(PetConstants.PETS.FISH, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.FISH_PROTECT_AGAINST_FIRE));
-	registerPetBehavior(PetConstants.PETS.TROPICAL_FISH, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.FISH_PROTECT_AGAINST_FIRE));
-	registerPetBehavior(PetConstants.PETS.PUFFERFISH, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.FISH_PROTECT_AGAINST_FIRE));
-	registerPetBehavior(PetConstants.PETS.DOLPHIN, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.FISH_PROTECT_AGAINST_FIRE));
-	registerPetBehavior(PetConstants.PETS.LION, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.CLAWS));
-	registerPetBehavior(PetConstants.PETS.TIGER, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.CLAWS));
-	registerPetBehavior(PetConstants.PETS.LEOPARD, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.CLAWS));
-	registerPetBehavior(PetConstants.PETS.DRAGON, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.SPIT_FIRE));
-	registerPetBehavior(PetConstants.PETS.CAT, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.SMALL_CLAWS));
-	registerPetBehavior(PetConstants.PETS.BADGER, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.SMALL_CLAWS));
-	registerPetBehavior(PetConstants.PETS.DOG, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.BITE));
-	registerPetBehavior(PetConstants.PETS.POODLE, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.BITE));
-	registerPetBehavior(PetConstants.PETS.FOX, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.BITE));
-	registerPetBehavior(PetConstants.PETS.WOLF, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.BITE));
-	registerPetBehavior(PetConstants.PETS.CROCODILE, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.BITE));
-	registerPetBehavior(PetConstants.PETS.SCORPION, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.POISONOUS_BITE));
-	registerPetBehavior(PetConstants.PETS.SNAKE, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.POISONOUS_BITE));
-	registerPetBehavior(PetConstants.PETS.MOUSE, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.SCARE_ELEPHANT));
-	registerPetBehavior(PetConstants.PETS.ELEPHANT, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.ELEPHANT_REMEMBER_LAST_ACTION));
+	const petBehaviors = [
+		{
+			petIds: [PetConstants.PETS.SHARK],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.SCARE_FISH
+		},
+		{
+			petIds: [
+				PetConstants.PETS.FISH,
+				PetConstants.PETS.TROPICAL_FISH,
+				PetConstants.PETS.PUFFERFISH,
+				PetConstants.PETS.DOLPHIN
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.FISH_PROTECT_AGAINST_FIRE
+		},
+		{
+			petIds: [
+				PetConstants.PETS.LION,
+				PetConstants.PETS.TIGER,
+				PetConstants.PETS.LEOPARD
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.CLAWS
+		},
+		{
+			petIds: [
+				PetConstants.PETS.CAT,
+				PetConstants.PETS.BADGER
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.SMALL_CLAWS
+		},
+		{
+			petIds: [PetConstants.PETS.DRAGON],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.SPIT_FIRE
+		},
+		{
+			petIds: [
+				PetConstants.PETS.DOG,
+				PetConstants.PETS.POODLE,
+				PetConstants.PETS.FOX,
+				PetConstants.PETS.WOLF,
+				PetConstants.PETS.CROCODILE
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.BITE
+		},
+		{
+			petIds: [
+				PetConstants.PETS.SCORPION,
+				PetConstants.PETS.SNAKE
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.POISONOUS_BITE
+		},
+		{
+			petIds: [PetConstants.PETS.MOUSE],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.SCARE_ELEPHANT
+		},
+		{
+			petIds: [PetConstants.PETS.ELEPHANT],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.ELEPHANT_REMEMBER_LAST_ACTION
+		},
+		{
+			petIds: [
+				PetConstants.PETS.HAMSTER,
+				PetConstants.PETS.RABBIT,
+				PetConstants.PETS.PIG,
+				PetConstants.PETS.TURKEY,
+				PetConstants.PETS.CHIPMUNK
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.TRIES_TO_HELP
+		},
+		{
+			petIds: [
+				PetConstants.PETS.CHICKEN,
+				PetConstants.PETS.DUCK,
+				PetConstants.PETS.PEACOCK
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.PECK
+		},
+		{
+			petIds: [
+				PetConstants.PETS.KOALA,
+				PetConstants.PETS.SLOTH,
+				PetConstants.PETS.SHRIMP
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.IS_USELESS
+		}
+	];
+	for (const mapping of petBehaviors) {
+		const behavior = PetAssistanceDataController.instance.getById(mapping.behaviorId);
+		mapping.petIds.forEach(petId => registerPetBehavior(petId, behavior));
+	}
 }
 
 /**
