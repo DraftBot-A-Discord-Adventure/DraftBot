@@ -22,6 +22,7 @@ export default class PetCommand {
 		}
 
 		response.push(makePacket(CommandPetPacketRes, {
+			askedKeycloakId: toCheckPlayer?.keycloakId,
 			pet: pet.asOwnedPet()
 		}));
 	}
