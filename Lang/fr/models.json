@@ -123,6 +123,9 @@
     "scareFish": {
       "generalEffect": "est assisté par **{{petNickname}}** qui fait fuir les poissons."
     },
+    "bite": {
+      "success": "est aidé par **{{petNickname}}** qui décide de mordre violemment son adversaire."
+    },
     "claws": {
       "success": "est soutenu dans son combat par **{{petNickname}}** qui assène à son adversaire un grand coup de griffe."
     },

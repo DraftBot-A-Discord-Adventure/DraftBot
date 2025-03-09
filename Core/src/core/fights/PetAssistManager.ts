@@ -21,6 +21,11 @@ export function initializeAllPetBehaviors(): void {
 	registerPetBehavior(PetConstants.PETS.CAT, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.SMALL_CLAWS));
 	registerPetBehavior(PetConstants.PETS.BADGER, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.SMALL_CLAWS));
 	registerPetBehavior(PetConstants.PETS.BLACK_CAT, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.SMALL_CLAWS));
+	registerPetBehavior(PetConstants.PETS.DOG, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.BITE));
+	registerPetBehavior(PetConstants.PETS.POODLE, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.BITE));
+	registerPetBehavior(PetConstants.PETS.FOX, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.BITE));
+	registerPetBehavior(PetConstants.PETS.WOLF, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.BITE));
+	registerPetBehavior(PetConstants.PETS.CROCODILE, PetAssistanceDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PET.BITE));
 }
 
 /**
