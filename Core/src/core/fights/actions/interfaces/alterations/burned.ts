@@ -4,7 +4,7 @@ import {FightAlterationFunc} from "../../../../../data/FightAlteration";
 import {defaultDamageFightAlterationResult, defaultHealFightAlterationResult} from "../../../FightController";
 
 const use: FightAlterationFunc = (affected, _fightAlteration, opponent) => {
-	// 60 % chance to be healed from the poison (except for the first two turns)
+	// 60 % chance to be healed from the fire (except for the first turn)
 	if (Math.random() < 0.6 && affected.alterationTurn > 1) {
 		return defaultHealFightAlterationResult(affected);
 	}
