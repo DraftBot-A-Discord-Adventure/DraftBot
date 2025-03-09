@@ -13,7 +13,7 @@ const use: FightActionFunc = (sender, receiver, fightAction) => {
 			receiver
 		},
 		{
-			critical: 25,
+			critical: 35,
 			failure: 8
 		},
 		{
@@ -27,7 +27,7 @@ const use: FightActionFunc = (sender, receiver, fightAction) => {
 			selfTarget: false,
 			stat: FightStatBuffed.ATTACK,
 			operator: FightStatModifierOperation.MULTIPLIER,
-			value: 0.85
+			value: 0.95
 		}, receiver, fightAction);
 	}
 
