@@ -73,7 +73,8 @@ export function initializeAllPetBehaviors(): void {
 				PetConstants.PETS.RABBIT,
 				PetConstants.PETS.PIG,
 				PetConstants.PETS.TURKEY,
-				PetConstants.PETS.CHIPMUNK
+				PetConstants.PETS.CHIPMUNK,
+				PetConstants.PETS.FLAMINGO
 			],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.TRIES_TO_HELP
 		},
@@ -81,7 +82,8 @@ export function initializeAllPetBehaviors(): void {
 			petIds: [
 				PetConstants.PETS.CHICKEN,
 				PetConstants.PETS.DUCK,
-				PetConstants.PETS.PEACOCK
+				PetConstants.PETS.PEACOCK,
+				PetConstants.PETS.BIRD
 			],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.PECK
 		},
@@ -89,9 +91,67 @@ export function initializeAllPetBehaviors(): void {
 			petIds: [
 				PetConstants.PETS.KOALA,
 				PetConstants.PETS.SLOTH,
-				PetConstants.PETS.SHRIMP
+				PetConstants.PETS.SHRIMP,
+				PetConstants.PETS.PANDA
 			],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.IS_USELESS
+		},
+		{
+			petIds: [
+				PetConstants.PETS.COW,
+				PetConstants.PETS.BEAR,
+				PetConstants.PETS.BOAR
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.PET_CHARGE
+		},
+		{
+			petIds: [
+				PetConstants.PETS.SHEEP,
+				PetConstants.PETS.GOAT,
+				PetConstants.PETS.SWAN
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.PET_SMALL_CHARGE
+		},
+		{
+			petIds: [
+				PetConstants.PETS.FROG,
+				PetConstants.PETS.SKUNK
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.PET_POISON
+		},
+		{
+			petIds: [
+				PetConstants.PETS.BLACK_CAT
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.PET_CURSE
+		},
+		{
+			petIds: [
+				PetConstants.PETS.HORSE,
+				PetConstants.PETS.ZEBRA,
+				PetConstants.PETS.DROMEDARY,
+				PetConstants.PETS.CAMEL
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.BOOST_SPEED
+		},
+		{
+			petIds: [
+				PetConstants.PETS.TURTLE
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.BOOST_DEFENSE
+		},
+		{
+			petIds: [
+				PetConstants.PETS.LIZARD
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.SMALL_REGEN
+		},
+		{
+			petIds: [
+				PetConstants.PETS.SNOWMAN,
+				PetConstants.PETS.SNOW_PERSON
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.SNOW_BALL
 		}
 	];
 	for (const mapping of petBehaviors) {
