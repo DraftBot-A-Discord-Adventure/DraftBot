@@ -152,6 +152,13 @@ export function initializeAllPetBehaviors(): void {
 				PetConstants.PETS.SNOW_PERSON
 			],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.SNOW_BALL
+		},
+		{
+			petIds: [
+				PetConstants.PETS.MAMMOTH,
+				PetConstants.PETS.POLAR_BEAR
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.PROTECT_AGAINST_COLD
 		}
 	];
 	for (const mapping of petBehaviors) {

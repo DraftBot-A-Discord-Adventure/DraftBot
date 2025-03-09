@@ -155,6 +155,7 @@ export abstract class FightConstants {
 				PET_POISON: "petPoison",
 				PET_SMALL_CHARGE: "petSmallCharge",
 				POISONOUS_BITE: "poisonousBite",
+				PROTECT_AGAINST_COLD: "protectAgainstCold",
 				SCARE_ELEPHANT: "scareElephant",
 				SCARE_FISH: "scareFish",
 				SMALL_CLAWS: "smallClaws",

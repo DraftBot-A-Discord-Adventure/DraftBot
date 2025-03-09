@@ -392,6 +392,9 @@
       "name_one": "Attaque puissante",
       "name_other": "Attaques puissantes"
     },
+    "protectAgainstCold": {
+      "success": "est protégé du froid par **{{petNickname}}**."
+    },
     "protected": {
       "name": "protégé",
       "new": "est protégé.",

@@ -12,9 +12,9 @@ const use: PetAssistanceFunc = async (fighter, opponent, _turn, _fightController
 		// Test if the opponent has a shark
 			const pet = await PetEntities.getById(opponent.player.petId);
 			if ( pet?.typeId === PetConstants.PETS.SHARK) {
-				return {
+				return Promise.resolve({
 					assistanceStatus: PetAssistanceState.AFRAID
-				};
+				});
 			}
 		}
 		// Check if the fighter is burning
