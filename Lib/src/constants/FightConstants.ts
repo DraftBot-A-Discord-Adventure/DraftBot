@@ -144,6 +144,9 @@ export abstract class FightConstants {
 			PET: {
 				SCARE_FISH: "scareFish",
 				SCARE_ELEPHANT: "scareElephant",
+				TRIES_TO_HELP: "triesToHelp",
+				PECK: "peck",
+				IS_USELESS: "isUseless",
 				FISH_PROTECT_AGAINST_FIRE: "fishProtectAgainstFire",
 				SPIT_FIRE: "spitFire",
 				CLAWS: "claws",
