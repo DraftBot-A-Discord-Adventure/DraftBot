@@ -13,8 +13,8 @@ const use: FightActionFunc = (sender, receiver, fightAction) => {
 			receiver
 		},
 		{
-			critical: 40,
-			failure: 15
+			critical: 25,
+			failure: 8
 		},
 		{
 			attackInfo: getAttackInfo(),
@@ -38,9 +38,9 @@ export default use;
 
 function getAttackInfo(): attackInfo {
 	return {
-		minDamage: 40,
-		averageDamage: 75,
-		maxDamage: 155
+		minDamage: 30,
+		averageDamage: 50,
+		maxDamage: 110
 	};
 }
 
