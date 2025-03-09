@@ -127,12 +127,21 @@
       "generalEffect": "est assisté par **{{petNickname}}** qui fait fuir les éléphants."
     },
     "elephantRememberLastAction": {
-      "success": "est aidé par **{{petNickname}}** qui se souvient de ce qu'il s'est passé récemment et utilise ce souvenir pour donner lui rendre le souffle dépensé.",
-      "failure": "est aidé par **{{petNickname}}** qui se souvient de ce qu'il s'est passé récemment mais ne parvient pas à utiliser ce souvenir pour lui rendre le souffle dépensé.",
-      "afraid": "est aidé par **{{petNickname}}** qui se souvient de ce qu'il s'est passé récemment mais est trop effrayé pour lui rendre le souffle dépensé."
+      "success": "est aidé par **{{petNickname}}** dont la mémoire fulgurante des événements récents lui permet de restituer le souffle perdu à son maître.",
+      "failure": "est aidé par **{{petNickname}}** qui, malgré ses puissants souvenirs des actions passées, échoue à restituer le souffle dépensé.",
+      "afraid": "est aidé par **{{petNickname}}** qui, bien que se rappelant parfaitement des événements récents, tremble trop de peur pour pouvoir restituer le souffle perdu."
     },
     "bite": {
       "success": "est aidé par **{{petNickname}}** qui décide de mordre violemment son adversaire."
+    },
+    "triesToHelp": {
+      "success": "fait appel à **{{petNickname}}** qui, malgré une détermination féroce et des efforts acharnés, ne parvient qu'à infliger un impact négligeable sur le combat."
+    },
+    "peck": {
+      "success": "est soutenu dans son combat par **{{petNickname}}** qui harcèle férocement l'adversaire de coups de bec précis et douloureux."
+    },
+    "isUseless": {
+      "generalEffect": "demande de l'aide à **{{petNickname}}** qui, avec une indifférence remarquable, fixe l'adversaire d'un regard vide."
     },
     "poisonousBite": {
       "success": "reçoit le soutien de **{{petNickname}}** qui décide de mordre son adversaire... Ce dernier ne se sent soudainement pas très bien."

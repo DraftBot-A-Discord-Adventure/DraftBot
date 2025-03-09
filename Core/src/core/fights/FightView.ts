@@ -129,6 +129,8 @@ export class FightView {
 				buff.selfTarget === selfTarget
 				&& ([FightStatBuffed.ATTACK, FightStatBuffed.DEFENSE, FightStatBuffed.SPEED, FightStatBuffed.BREATH].includes(buff.stat)
 					&& buff.operator === FightStatModifierOperation.MULTIPLIER
+					|| [FightStatBuffed.BREATH].includes(buff.stat)
+					&& buff.operator === FightStatModifierOperation.ADDITION
 					|| [FightStatBuffed.ENERGY].includes(buff.stat)
 					&& buff.operator === FightStatModifierOperation.ADDITION))
 			.reduce((acc, buff) => {

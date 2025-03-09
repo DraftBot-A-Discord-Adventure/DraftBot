@@ -11,7 +11,7 @@ const use: PetAssistanceFunc = async (fighter, opponent, _turn, _fightController
 		if (opponent instanceof PlayerFighter || opponent instanceof AiPlayerFighter) {
 		// Test if the opponent has a shark
 			const pet = await PetEntities.getById(opponent.player.petId);
-			if ( pet.typeId === PetConstants.PETS.SHARK) {
+			if ( pet?.typeId === PetConstants.PETS.SHARK) {
 				return {
 					assistanceStatus: PetAssistanceState.AFRAID
 				};

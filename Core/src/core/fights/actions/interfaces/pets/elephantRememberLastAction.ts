@@ -9,17 +9,23 @@ import {FightActionController} from "../../FightActionController";
 import {FightStatBuffed} from "../../../../../../../Lib/src/types/FightActionResult";
 import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
 
-const use: PetAssistanceFunc = async (fighter, opponent, _turn, _fightController): Promise<PetAssistanceResult | null> => {
+const use: PetAssistanceFunc = async (fighter, opponent, turn, _fightController): Promise<PetAssistanceResult | null> => {
+
+	// Does nothing first turn.
+	if (turn <= 2) {
+		return null;
+	}
 
 	// 85 % of the time, nothing happens
 	if (RandomUtils.draftbotRandom.bool(0.85)) {
 		return null;
 	}
 
+
 	if (opponent instanceof PlayerFighter || opponent instanceof AiPlayerFighter) {
 		// Test if the opponent has a mouse
 		const pet = await PetEntities.getById(opponent.player.petId);
-		if (pet.typeId === PetConstants.PETS.MOUSE) {
+		if (pet?.typeId === PetConstants.PETS.MOUSE) {
 			return {
 				assistanceStatus: PetAssistanceState.AFRAID
 			};
