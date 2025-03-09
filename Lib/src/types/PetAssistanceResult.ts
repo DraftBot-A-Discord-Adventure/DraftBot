@@ -8,6 +8,7 @@ export enum PetAssistanceState {
 	GENERAL_EFFECT = "generalEffect",
 	SUCCESS = "success",
 	AFRAID = "afraid",
+	FAILURE = "failure",
 }
 
 export interface PetAssistanceResult {
