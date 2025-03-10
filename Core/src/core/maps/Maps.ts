@@ -180,10 +180,22 @@ export class Maps {
 		const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
 
 		await TravelTime.removeEffect(player, reason);
+
+		const mapLinkJoinBoat = MapLinkDataController.instance.getById(await Settings.PVE_ISLAND.getValue());
+		const travelTime = mapLinkJoinBoat.tripDuration;
+		const otherPlayerStartTime = anotherMemberOnBoat ? anotherMemberOnBoat.startTravelDate.valueOf() : null;
+		const cappedStartTime = otherPlayerStartTime ?
+			Math.max(otherPlayerStartTime, Date.now() - travelTime) :
+			startTravelTimestamp;
+
+		const finalStartTime = otherPlayerStartTime ?
+			Math.min(cappedStartTime, otherPlayerStartTime) :
+			cappedStartTime;
+
 		await Maps.startTravel(
 			player,
-			MapLinkDataController.instance.getById(await Settings.PVE_ISLAND.getValue()),
-			anotherMemberOnBoat ? anotherMemberOnBoat.startTravelDate.valueOf() : startTravelTimestamp
+			mapLinkJoinBoat,
+			finalStartTime
 		);
 		await missionInfo.spendGems(price, response, reason);
 		await missionInfo.save();
