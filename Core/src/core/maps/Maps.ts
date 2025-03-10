@@ -13,6 +13,7 @@ import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {Settings} from "../database/game/models/Setting";
 import {PVEConstants} from "../../../../Lib/src/constants/PVEConstants";
 import {MissionsController} from "../missions/MissionsController";
+import {minutesToMilliseconds} from "../../../../Lib/src/utils/TimeUtils";
 
 export class Maps {
 
@@ -182,15 +183,16 @@ export class Maps {
 		await TravelTime.removeEffect(player, reason);
 
 		const mapLinkJoinBoat = MapLinkDataController.instance.getById(await Settings.PVE_ISLAND.getValue());
-		const travelTime = mapLinkJoinBoat.tripDuration;
+		const travelTime = minutesToMilliseconds(mapLinkJoinBoat.tripDuration);
 		const otherPlayerStartTime = anotherMemberOnBoat ? anotherMemberOnBoat.startTravelDate.valueOf() : null;
-		const cappedStartTime = otherPlayerStartTime ?
-			Math.max(otherPlayerStartTime, Date.now() - travelTime) :
-			startTravelTimestamp;
+		const timeSinceOtherPlayerStarted = Date.now() - otherPlayerStartTime;
 
-		const finalStartTime = otherPlayerStartTime ?
-			Math.min(cappedStartTime, otherPlayerStartTime) :
-			cappedStartTime;
+		const finalStartTime = otherPlayerStartTime
+			? timeSinceOtherPlayerStarted >= travelTime
+				? Date.now() - travelTime
+				: otherPlayerStartTime
+			: startTravelTimestamp;
+
 
 		await Maps.startTravel(
 			player,
