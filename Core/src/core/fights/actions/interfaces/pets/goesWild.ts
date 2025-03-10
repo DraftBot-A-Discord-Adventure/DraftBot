@@ -2,21 +2,22 @@ import {Fighter} from "../../../fighter/Fighter";
 import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
 import {PetAssistanceFunc} from "../../../../../data/PetAssistance";
 import {PetAssistanceResult, PetAssistanceState} from "../../../../../../../Lib/src/types/PetAssistanceResult";
-import {FightAlterations} from "../../FightAlterations";
+import {FightStatBuffed} from "../../../../../../../Lib/src/types/FightActionResult";
+import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
 
 function getAttackInfo(): attackInfo {
 	return {
 		minDamage: 15,
-		averageDamage: 60,
-		maxDamage: 110
+		averageDamage: 110,
+		maxDamage: 195
 	};
 }
 
 function getStatsInfo(_sender: Fighter, receiver: Fighter): statsInfo {
 	return {
 		attackerStats: [
-			350,
-			250
+			800,
+			140
 		],
 		defenderStats: [
 			receiver.getDefense(),
@@ -30,29 +31,25 @@ function getStatsInfo(_sender: Fighter, receiver: Fighter): statsInfo {
 }
 
 const use: PetAssistanceFunc = (fighter, opponent, turn, _fightController): Promise<PetAssistanceResult | null> => {
-	// At turn 6/7, a warning is given
-	if (turn === 6 || turn === 7) {
-		return Promise.resolve({
-			assistanceStatus: PetAssistanceState.GENERAL_EFFECT
-		});
+	if (!(turn === 17 || turn === 18)) {
+		return null;
 	}
+	const damages = FightActionController.getAttackDamage(getStatsInfo(fighter, opponent), fighter, getAttackInfo());
 
-	// At turn 11 / 12, the pet charges
-	if (turn === 11 || turn === 12) {
-		const result: PetAssistanceResult = {
-			damages: FightActionController.getAttackDamage(getStatsInfo(fighter, opponent), fighter, getAttackInfo()),
-			assistanceStatus: PetAssistanceState.SUCCESS
-		};
-		// Stun the opponent
-		FightActionController.applyAlteration(result, {
-			selfTarget: false,
-			alteration: FightAlterations.STUNNED
-		}, opponent);
+	const result: PetAssistanceResult = {
+		damages,
+		assistanceStatus: PetAssistanceState.SUCCESS
+	};
 
-		return Promise.resolve(result);
-	}
+	FightActionController.applyBuff(result, {
+		selfTarget: true,
+		stat: FightStatBuffed.DAMAGE,
+		operator: FightStatModifierOperation.ADDITION,
+		value: Math.round(damages * 0.2)
+	}, fighter, this);
 
-	return null;
+	return Promise.resolve(result);
+
 };
 
 export default use;
