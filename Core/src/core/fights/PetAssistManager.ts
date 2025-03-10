@@ -60,11 +60,15 @@ export function initializeAllPetBehaviors(): void {
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.POISONOUS_BITE
 		},
 		{
-			petIds: [PetConstants.PETS.MOUSE],
+			petIds: [
+				PetConstants.PETS.MOUSE
+			],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.SCARE_ELEPHANT
 		},
 		{
-			petIds: [PetConstants.PETS.ELEPHANT],
+			petIds: [
+				PetConstants.PETS.ELEPHANT
+			],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.ELEPHANT_REMEMBER_LAST_ACTION
 		},
 		{
@@ -159,7 +163,47 @@ export function initializeAllPetBehaviors(): void {
 				PetConstants.PETS.POLAR_BEAR
 			],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.PROTECT_AGAINST_COLD
+		},
+		{
+			petIds: [
+				PetConstants.PETS.JELLYFISH
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.MEDUSE_PARALYZE
+		},
+		{
+			petIds: [
+				PetConstants.PETS.HEDGEHOG
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.REVENGE
+		},
+		{
+			petIds: [
+				PetConstants.PETS.MONKEY,
+				PetConstants.PETS.RACCOON
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.STEAL_WEAPON
+		},
+		{
+			petIds: [
+				PetConstants.PETS.BAT
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.VAMPIRISM
+		},
+		{
+			petIds: [
+				PetConstants.PETS.UNICORN
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.RAINBOW_POWER
+		},
+		{
+			petIds: [
+				PetConstants.PETS.T_REX,
+				PetConstants.PETS.STITCH,
+				PetConstants.PETS.HIPPO
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.GOES_WILD
 		}
+
 	];
 	for (const mapping of petBehaviors) {
 		const behavior = PetAssistanceDataController.instance.getById(mapping.behaviorId);

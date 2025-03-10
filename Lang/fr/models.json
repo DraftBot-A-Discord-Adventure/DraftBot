@@ -268,6 +268,9 @@
       "active": "est repue et doit se reposer.",
       "stop": "n'est plus repue."
     },
+    "goesWild": {
+      "success": "ordonne à **{{petNickname}}** d'attaquer. L'animal éclate de rage et se met à frapper tout ce qui passe à proximité de lui."
+    },
     "grabAndThrowAttack": {
       "description": "Projette l'adversaire s'il utilise une attaque physique, infligeant des dégâts moyens et ayant une chance d'étourdir de l'adversaire",
       "name_one": "Attaque projection",
@@ -305,6 +308,9 @@
       "description": "S'applique au lanceur. Celui-ci se repose dans la lave et récupère son énergie. Le nombre de points de combats récupérés est divisé par 4 après 4 utilisations.",
       "name_one": "Bain de magma",
       "name_other": "Bains de magma"
+    },
+    "meduseParalyze": {
+      "success": "reçoit l'aide de **{{petNickname}}** qui pétrifie son adversaire d'un coup d'œil."
     },
     "mimicAttack": {
       "description": "Copie aléatoirement une de vos attaques.",
@@ -417,6 +423,9 @@
       "name_one": "Explosion de rage",
       "name_other": "Explosions de rage"
     },
+    "rainbowPower": {
+      "success": "est assisté par **{{petNickname}}** qui canalise la magie des attaques récentes pour soigner son propriétaire."
+    },
     "ramAttack": {
       "description": "Si l’attaquant n’est pas étourdi par l’attaque, il reçoit une partie des dégâts infligés. L'attaque peut également étourdir l'adversaire.",
       "name_one": "Attaque bélier",
@@ -427,6 +436,9 @@
       "customMessage": "se repose...",
       "name_one": "Repos",
       "name_other": "Repos"
+    },
+    "revenge": {
+      "success": "est soutenu par **{{petNickname}}** qui blesse son adversaire suite à son attaque."
     },
     "roarAttack": {
       "description": "Baisse l'attaque et la vitesse de l'adversaire.",
@@ -482,6 +494,10 @@
     "spitFire": {
       "success": "est aidé dans son combat par **{{petNickname}}** qui embrase l'arène de ses flammes ardentes."
     },
+    "stealWeapon": {
+      "failure": "fait appel à **{{petNickname}}** pour un peu d'aide, mais la créature, ne trouvant nul trésor digne de son intérêt sur l'adversaire, refuse de s'aventurer en terrain hostile.",
+      "success": "demande l'aide de **{{petNickname}}** qui s'élance bravement et s'empare de l'arme ennemie dans un acte de hardiesse."
+    },
     "stealth": {
       "description": "Se cache discrètement pour doubler les dégâts de la prochaine attaque.",
       "name_one": "Discrétion",
@@ -516,6 +532,9 @@
       "description": "",
       "name_one": "Attaque ultime",
       "name_other": "Attaques ultimes"
+    },
+    "vampirism": {
+      "success": "est assisté par **{{petNickname}}** qui aspire un peu d'énergie à l'adversaire pour l'offrir en tribut à son maître."
     },
     "weak": {
       "name": "affaibli",
