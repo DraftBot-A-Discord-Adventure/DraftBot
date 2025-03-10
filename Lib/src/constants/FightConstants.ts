@@ -148,7 +148,9 @@ export abstract class FightConstants {
 				CLAWS: "claws",
 				ELEPHANT_REMEMBER_LAST_ACTION: "elephantRememberLastAction",
 				FISH_PROTECT_AGAINST_FIRE: "fishProtectAgainstFire",
+				GOES_WILD: "goesWild",
 				IS_USELESS: "isUseless",
+				MEDUSE_PARALYZE: "meduseParalyze",
 				PECK: "peck",
 				PET_CHARGE: "petCharge",
 				PET_CURSE: "petCurse",
@@ -156,13 +158,17 @@ export abstract class FightConstants {
 				PET_SMALL_CHARGE: "petSmallCharge",
 				POISONOUS_BITE: "poisonousBite",
 				PROTECT_AGAINST_COLD: "protectAgainstCold",
+				RAINBOW_POWER: "rainbowPower",
+				REVENGE: "revenge",
 				SCARE_ELEPHANT: "scareElephant",
 				SCARE_FISH: "scareFish",
 				SMALL_CLAWS: "smallClaws",
 				SMALL_REGEN: "smallRegen",
 				SNOW_BALL: "snowBall",
 				SPIT_FIRE: "spitFire",
-				TRIES_TO_HELP: "triesToHelp"
+				STEAL_WEAPON: "stealWeapon",
+				TRIES_TO_HELP: "triesToHelp",
+				VAMPIRISM: "vampirism"
 			}
 		};
 
