@@ -870,14 +870,14 @@
       "item_m": [
         "Vous voyez **{{pet}}** fouiller dans des hautes herbes. Il en ressort un **objet**, que vous pouvez éventuellement garder pour la suite de votre aventure.",
         "Vous remarquez que **{{pet}}** regarde avec insistance le sol et se décide à y creuser un trou. Quelle ne fut pas votre surprise après l'avoir vu en sortir un **objet** !",
-        "Vous découvrez que **{{pet}}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un oeil, et le voir revenir avec un **objet** vous remplit de joie !",
+        "Vous découvrez que **{{pet}}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un œil, et le voir revenir avec un **objet** vous remplit de joie !",
         "Vous voyez tout à coup **{{pet}}** sauter dans l'eau. Quelle ne fut pas votre surprise en le voyant ressortir avec un **objet** !",
         "Après avoir fait une petite pause sur votre trajet, vous voyez revenir **{{pet}}** avec un **objet**. Il semblerait bien qu'il l'ait volé à un marchand. Vous décidez de partir avant que celui-ci ne s'en aperçoive."
       ],
       "item_f": [
         "Vous voyez **{{pet}}** fouiller dans des hautes herbes. Elle en ressort un **objet**, que vous pouvez éventuellement garder pour la suite de votre aventure.",
         "Vous remarquez que **{{pet}}** regarde avec insistance le sol et se décide à y creuser un trou. Quelle ne fut pas votre surprise après l'avoir vu en sortir un **objet** !",
-        "Vous découvrez que **{{pet}}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un oeil, et la voir revenir avec un **objet** vous remplit de joie !",
+        "Vous découvrez que **{{pet}}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un œil, et la voir revenir avec un **objet** vous remplit de joie !",
         "Vous voyez tout à coup **{{pet}}** sauter dans l'eau. Quelle ne fut pas votre surprise en la voyant ressortir avec un **objet** !",
         "Après avoir fait une petite pause sur votre trajet, vous voyez revenir **{{pet}}** avec un **objet**. Il semblerait bien qu'elle l'ait volé à un marchand. Vous décidez de partir avant que celui-ci ne s'en aperçoive."
       ],
@@ -918,14 +918,14 @@
       "food_m": [
         "Le flair de **{{pet}}** vous a permis de trouver une **{{food}}**. Vous rangez cette nourriture et continuez votre route.",
         "Vous remarquez que **{{pet}}** regarde avec insistance le sol et décide d'y creuser un trou. Quelle n'est pas votre surprise en le voyant en sortir une **{{food}}** !",
-        "Vous découvrez que **{{pet}}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un oeil et vous le voyez revenir avec une **{{food}}** dans la bouche !",
+        "Vous découvrez que **{{pet}}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un œil et vous le voyez revenir avec une **{{food}}** dans la bouche !",
         "Vous voyez tout à coup **{{pet}}** sauter dans l'eau. Quelle n'est pas votre surprise en le voyant ressortir avec une **{{food}}** !",
         "Après avoir fait une petite pause sur votre trajet, vous voyez revenir **{{pet}}** avec une **{{food}}**. Il semblerait bien qu'il l'ait volée à un marchand. Vous décidez de partir avant qu'il ne s'en aperçoive."
       ],
       "food_f": [
         "Le flair de **{{pet}}** vous a permis de trouver une **{{food}}**. Vous rangez cette nourriture et continuez votre route.",
         "Vous remarquez que **{{pet}}** regarde avec insistance le sol et décide d'y creuser un trou. Quelle n'est pas votre surprise en la voyant en sortir une **{{food}}** !",
-        "Vous découvrez que **{{pet}}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un oeil et vous la voyez revenir avec une **{{food}}** dans la bouche !",
+        "Vous découvrez que **{{pet}}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un œil et vous la voyez revenir avec une **{{food}}** dans la bouche !",
         "Vous voyez tout à coup **{{pet}}** sauter dans l'eau. Quelle n'est pas votre surprise en la voyant ressortir avec une **{{food}}** !",
         "Après avoir fait une petite pause sur votre trajet, vous voyez revenir **{{pet}}** avec une **{{food}}**. Il semblerait bien qu'elle l'ait volée à un marchand. Vous décidez de partir avant qu'il ne s'en aperçoive."
       ],
