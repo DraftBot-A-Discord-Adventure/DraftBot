@@ -12,10 +12,10 @@ const use: PetAssistanceFunc = (_fighter, opponent, turn, _fightController): Pro
 	const result: PetAssistanceResult = {
 		assistanceStatus: PetAssistanceState.SUCCESS
 	};
-	// Paralyze the opponent at the start of the fight
+	// Blind the opponent at the start of the fight
 	FightActionController.applyAlteration(result, {
 		selfTarget: false,
-		alteration: FightAlterations.PARALYZED
+		alteration: FightAlterations.CONFUSED
 	}, opponent);
 
 	return Promise.resolve(result);

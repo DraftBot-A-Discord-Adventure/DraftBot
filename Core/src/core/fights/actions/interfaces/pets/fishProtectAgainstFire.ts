@@ -9,9 +9,9 @@ import {PetConstants} from "../../../../../../../Lib/src/constants/PetConstants"
 const use: PetAssistanceFunc = async (fighter, opponent, _turn, _fightController): Promise<PetAssistanceResult | null> => {
 	if (fighter.alteration?.id === FightConstants.FIGHT_ACTIONS.ALTERATION.BURNED) {
 		if (opponent instanceof PlayerFighter || opponent instanceof AiPlayerFighter) {
-		// Test if the opponent has a shark
+			// Test if the opponent has a shark
 			const pet = await PetEntities.getById(opponent.player.petId);
-			if ( pet?.typeId === PetConstants.PETS.SHARK) {
+			if (pet?.typeId === PetConstants.PETS.SHARK) {
 				return Promise.resolve({
 					assistanceStatus: PetAssistanceState.AFRAID
 				});
@@ -19,9 +19,9 @@ const use: PetAssistanceFunc = async (fighter, opponent, _turn, _fightController
 		}
 		// Check if the fighter is burning
 		fighter.removeAlteration();
-		return {
+		return Promise.resolve({
 			assistanceStatus: PetAssistanceState.SUCCESS
-		};
+		});
 	}
 	return null;
 };
