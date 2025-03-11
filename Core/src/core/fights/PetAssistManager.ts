@@ -87,7 +87,8 @@ export function initializeAllPetBehaviors(): void {
 				PetConstants.PETS.CHICKEN,
 				PetConstants.PETS.DUCK,
 				PetConstants.PETS.PEACOCK,
-				PetConstants.PETS.BIRD
+				PetConstants.PETS.BIRD,
+				PetConstants.PETS.DODO
 			],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.PECK
 		},
@@ -202,8 +203,70 @@ export function initializeAllPetBehaviors(): void {
 				PetConstants.PETS.HIPPO
 			],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.GOES_WILD
+		},
+		{
+			petIds: [
+				PetConstants.PETS.PENGUIN,
+				PetConstants.PETS.EMPEROR_PENGUIN
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.SLIPPING
+		},
+		{
+			petIds: [
+				PetConstants.PETS.OWL,
+				PetConstants.PETS.EAGLE
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.UN_BLIND
+		},
+		{
+			petIds: [
+				PetConstants.PETS.OCTOPUS
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.SPIT_INK
+		},
+		{
+			petIds: [
+				PetConstants.PETS.KANGAROO
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.PET_HIT
+		},
+		{
+			petIds: [
+				PetConstants.PETS.RHINO
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.HORN
+		},
+		{
+			petIds: [
+				PetConstants.PETS.DOVE
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.HEAL_EVERYONE
+		},
+		{
+			petIds: [
+				PetConstants.PETS.LOBSTER
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.PINCH
+		},
+		{
+			petIds: [
+				PetConstants.PETS.ALIEN
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.HYPNOSIS
+		},
+		{
+			petIds: [
+				PetConstants.PETS.OTTER,
+				PetConstants.PETS.SEAL
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.HELP_BREATHE
+		},
+		{
+			petIds: [
+				PetConstants.PETS.LLAMA
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.SPIT
 		}
-
 	];
 	for (const mapping of petBehaviors) {
 		const behavior = PetAssistanceDataController.instance.getById(mapping.behaviorId);
