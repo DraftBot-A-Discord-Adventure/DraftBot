@@ -1,10 +1,10 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
-import {RandomUtils} from "../../../../../../../Lib/src/utils/RandomUtils";
 import {FightActionFunc} from "../../../../../data/FightAction";
+import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTemplate";
+import {FightAlterations} from "../../FightAlterations";
 import {FightStatBuffed} from "../../../../../../../Lib/src/types/FightActionResult";
 import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
-import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTemplate";
 
 const use: FightActionFunc = (sender, receiver, fightAction) => {
 	const result = simpleDamageFightAction(
@@ -22,14 +22,20 @@ const use: FightActionFunc = (sender, receiver, fightAction) => {
 		}
 	);
 
-	if (RandomUtils.draftbotRandom.bool(0.65)) {
+	// If the opponent has an alteration, give back 2 of breath to the sender
+	if (receiver.hasFightAlteration()) {
 		FightActionController.applyBuff(result, {
-			selfTarget: false,
-			stat: FightStatBuffed.ATTACK,
-			operator: FightStatModifierOperation.MULTIPLIER,
-			value: 0.95
-		}, receiver, fightAction);
+			selfTarget: true,
+			stat: FightStatBuffed.BREATH,
+			operator: FightStatModifierOperation.ADDITION,
+			value: 2
+		}, sender, fightAction);
 	}
+
+	FightActionController.applyAlteration(result, {
+		selfTarget: false,
+		alteration: FightAlterations.BLIND
+	}, receiver);
 
 	return result;
 };
