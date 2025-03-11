@@ -3,22 +3,20 @@ import {attackInfo, statsInfo} from "../../FightActionController";
 import {FightAlterationFunc} from "../../../../../data/FightAlteration";
 import {FightActionDataController} from "../../../../../data/FightAction";
 import {defaultDamageFightAlterationResult, defaultFightAlterationResult, defaultHealFightAlterationResult, defaultRandomActionFightAlterationResult} from "../../../FightController";
+import {RandomUtils} from "../../../../../../../Lib/src/utils/RandomUtils";
 
 const use: FightAlterationFunc = (affected, _fightAlteration, opponent) => {
-	const randomValue = Math.random();
 
-	// 35 % to be healed of the confusion (except for the first turn)
-	if (randomValue < 0.35 && affected.alterationTurn > 1) {
+	// Heal the confusion after 3 turns
+	if (affected.alterationTurn > 3 || RandomUtils.draftbotRandom.bool() && affected.alterationTurn === 3) {
 		return defaultHealFightAlterationResult(affected);
 	}
 
-	// 35 % chance that the confusion select a random action
-	if (randomValue < 0.70) {
+	if (RandomUtils.draftbotRandom.bool(0.6)) {
 		return defaultRandomActionFightAlterationResult(affected);
 	}
 
-	// 15 % chance that the confusion hurt the sender
-	if (randomValue < 0.85) {
+	if (RandomUtils.draftbotRandom.bool(0.5)) {
 		affected.nextFightAction = FightActionDataController.instance.getNone();
 		return defaultDamageFightAlterationResult(affected, getStatsInfo(affected, opponent), getAttackInfo());
 	}
