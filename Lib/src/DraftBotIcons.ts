@@ -1683,6 +1683,7 @@ export const DraftBotIcons: {
 	},
 	"fight_actions": {
 		"benediction": "👼",
+		"blind": "🫣",
 		"boomerangAttack": "🪃",
 		"breathTakingAttack": "💨",
 		"burned": "🥵",
