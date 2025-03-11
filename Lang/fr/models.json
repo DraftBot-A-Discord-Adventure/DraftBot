@@ -514,6 +514,12 @@
       "noAction": "est étourdi et ne parvient pas à attaquer.",
       "stop": "n'est plus étourdi."
     },
+    "blind": {
+      "name": "aveugle",
+      "active": "est aveuglé.",
+      "noAction": "est aveuglé et ne rate complètement sa cible.",
+      "stop": "retrouve la vue."
+    },
     "summonAttack": {
       "description": "Invoque des alliés pour vous aider et attaquer très fort.",
       "name_one": "Invocation d'alliés",

@@ -39,17 +39,11 @@ function getAttackInfo(): attackInfo {
 function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 	return {
 		attackerStats: [
-			receiver.getAttack(), // We use the defender's attack because the poison is applied to the attacker
-			sender.getAttack(),
-			receiver.getEnergy()
+			sender.getAttack()
 		], defenderStats: [
-			100,
-			100,
-			receiver.getMaxEnergy()
+			receiver.getDefense()
 		], statsEffect: [
-			0.5,
-			0.1,
-			0.4
+			1
 		]
 	};
 }

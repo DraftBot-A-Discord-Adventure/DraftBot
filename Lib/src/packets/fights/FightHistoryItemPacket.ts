@@ -16,7 +16,7 @@ export class CommandFightHistoryItemPacket extends DraftBotPacket {
 	pet?: OwnedPet;
 
 	fightActionEffectDealt?: { // Stat change for the opponent in % (10 = 10%) can be negative
-		"newAlteration"?: string;
+		newAlteration?: string;
 		damages?: number;
 		defense?: number;
 		attack?: number;
@@ -25,7 +25,7 @@ export class CommandFightHistoryItemPacket extends DraftBotPacket {
 	};
 
 	fightActionEffectReceived?: {// Stat change for the fighter in % (10 = 10%) can be negative
-		"newAlteration"?: string;
+		newAlteration?: string;
 		damages?: number;
 		defense?: number;
 		attack?: number;
