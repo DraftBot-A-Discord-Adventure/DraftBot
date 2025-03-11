@@ -14,23 +14,17 @@ const use: FightAlterationFunc = (affected, _fightAlteration, opponent) => {
 export default use;
 
 function getAttackInfo(): attackInfo {
-	return {minDamage: 10, averageDamage: 20, maxDamage: 40};
+	return {minDamage: 10, averageDamage: 25, maxDamage: 40};
 }
 
-function getStatsInfo(victim: Fighter, sender: Fighter): statsInfo {
+function getStatsInfo(_victim: Fighter, sender: Fighter): statsInfo {
 	return {
 		attackerStats: [
-			victim.getAttack(), // We use the defender's attack because the poison is applied to the attacker
-			sender.getAttack(),
-			victim.getEnergy()
+			sender.getAttack()
 		], defenderStats: [
-			100,
-			100,
-			victim.getMaxEnergy()
+			0
 		], statsEffect: [
-			0.5,
-			0.1,
-			0.4
+			1
 		]
 	};
 }

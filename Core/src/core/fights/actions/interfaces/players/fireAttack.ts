@@ -1,7 +1,6 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
 import {FightAlterations} from "../../FightAlterations";
-import {RandomUtils} from "../../../../../../../Lib/src/utils/RandomUtils";
 import {FightActionFunc} from "../../../../../data/FightAction";
 import {FightActionResult} from "../../../../../../../Lib/src/types/FightActionResult";
 
@@ -14,12 +13,11 @@ const use: FightActionFunc = (sender, receiver) => {
 		damages: damageDealt.damages
 	};
 
-	if (RandomUtils.draftbotRandom.bool(0.98)) {
-		FightActionController.applyAlteration(result, {
-			selfTarget: false,
-			alteration: FightAlterations.BURNED
-		}, receiver);
-	}
+	FightActionController.applyAlteration(result, {
+		selfTarget: false,
+		alteration: FightAlterations.BURNED
+	}, receiver);
+
 	return result;
 };
 
