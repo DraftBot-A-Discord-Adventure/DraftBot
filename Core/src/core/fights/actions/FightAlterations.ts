@@ -2,6 +2,7 @@ export const FightAlterations = {
 	BLIND: "blind",
 	BURNED: "burned",
 	CONCENTRATED: "concentrated",
+	CONFUSED: "confused",
 	CURSED: "cursed",
 	FROZEN: "frozen",
 	FULL: "full",
