@@ -128,6 +128,13 @@
     "bite": {
       "success": "est aidé par **{{petNickname}}** qui décide de mordre violemment son adversaire."
     },
+    "blind": {
+      "name": "aveugle",
+      "new": "est aveuglé.",
+      "active": "est aveuglé.",
+      "noAction": "est aveuglé et rate complètement sa cible.",
+      "stop": "retrouve la vue."
+    },
     "boomerangAttack": {
       "description": "Lance un boomerang qui inflige des dégâts à l'ennemi jusqu'à 3 fois.",
       "name_one": "Attaque boomerang",
@@ -196,6 +203,13 @@
       "description": "Échoue si vous utilisez cette action alors que vous avez une altération d'état. L'altération \"concentré\" augmente fortement les dégâts infligés par le combattant affecté lors du prochain tour.",
       "name_one": "Concentration",
       "name_other": "Concentrations"
+    },
+    "confused": {
+      "name": "confus",
+      "new": "est confus.",
+      "active": "est confus.",
+      "randomAction": "est confus et effectue une action aléatoire dans sa confusion.",
+      "stop": "n'est plus confus."
     },
     "counterAttack": {
       "description": "Réplique avec la même action que celle que vient de jouer votre adversaire. Ne fonctionne pas sur les attaques magiques ou divines, ni si l'adversaire n'a pas attaqué.",
@@ -281,6 +295,10 @@
       "name_one": "Attaque de guilde",
       "name_other": "Attaques de guilde"
     },
+    "healEveryone": {
+      "generalEffect": "fait appel à **{{petNickname}}** qui, avec un regard bienveillant, constate que personne ne s'est blessé et repars donc se reposer avec joie.",
+      "success": "a de la chance d'être accompagné par **{{petNickname}}** qui, débordant d'amour et souhaitant mettre un terme à l'affrontement, soigne les combattants."
+    },
     "heatDrainAttack": {
       "description": "Récupère la chaleur du joueur, ce qui augmente l'attaque du lanceur et gèle l'adversaire.",
       "name_one": "Drain de chaleur",
@@ -290,6 +308,16 @@
       "description": "Les dégâts de cette attaque sont réduits de 90% si le défenseur dispose de moins de défense que l'attaquant. La défense de l'ennemi est réduite de 25%.",
       "name_one": "Attaque lourde",
       "name_other": "Attaques lourdes"
+    },
+    "helpBreathe": {
+      "success": "est aidé par **{{petNickname}}** qui grâce à ses capacités de plongées, transmet un peu de souffle à son propriétaire."
+    },
+    "horn": {
+      "success": "a bien fait d'appeler **{{petNickname}}** ! L'animal vient d'empaler l'adversaire sur sa corne, ce n'est pas beau à voir.",
+      "generalEffect": "appelle **{{petNickname}}** à la rescousse, l'animal prend son élan et fonce droit sur l'adversaire..."
+    },
+    "hypnosis": {
+      "success": "est aidé par **{{petNickname}}** qui utilise ses pouvoirs hypnotiques pour rendre l'ennemi confus."
     },
     "intenseAttack": {
       "description": "Ignore une partie de la défense de l'adversaire. N'échoue jamais sur un adversaire plus rapide. Fonctionne mieux sur un adversaire rapide. Force le lanceur à utiliser l'action \"repos\" au tour suivant. Ne peut pas tuer l'adversaire.",
@@ -356,6 +384,9 @@
     "petCurse": {
       "success": "invoque les pouvoirs de **{{petNickname}}** pour maudire son adversaire."
     },
+    "petHit": {
+      "success": "a besoin de l'aide de **{{petNickname}}** suite à la violente attaque qu'il vient de recevoir. Par vengeance, **{{petNickname}}** frappe l'adversaire violemment."
+    },
     "petPoison": {
       "success": "utilise **{{petNickname}}** pour empoisonner son adversaire."
     },
@@ -377,6 +408,9 @@
       "description": "Ignore presque complètement la défense de l'adversaire. L'attaquant a une probabilité de réduire légèrement la défense de son adversaire.",
       "name_one": "Attaque perçante",
       "name_other": "Attaques perçantes"
+    },
+    "pinch": {
+      "success": "est aidé par **{{petNickname}}** qui pince l'adversaire avec ses petites pinces."
     },
     "poisoned": {
       "name": "empoisonné",
@@ -476,6 +510,10 @@
       "name_one": "Attaque impact",
       "name_other": "Impacts"
     },
+    "slipping": {
+      "failure": "fait appel à **{{petNickname}}** qui glisse sur le sol. Ce dernier n'est pas celui qui glisse le plus loin sur la banquise alors il ne frappe l'adversaire qu'avec peu de force.",
+      "success": "est aidé par **{{petNickname}}** qui glisse sur le sol jusqu'à s'écraser sur l'adversaire."
+    },
     "slowed": {
       "name": "ralenti",
       "new": "est ralenti.",
@@ -491,8 +529,15 @@
     "snowBall": {
       "success": "est aidé par **{{petNickname}}** qui lance une boule de neige sur l'adversaire."
     },
+    "spit": {
+      "failure": "est aidé par **{{petNickname}}** qui crache sur son adversaire.",
+      "success": "est soutenu par **{{petNickname}}** qui crache sur son adversaire. Par chance, le crachat atterris parfaitement dans les yeux de l'ennemi !"
+    },
     "spitFire": {
       "success": "est aidé dans son combat par **{{petNickname}}** qui embrase l'arène de ses flammes ardentes."
+    },
+    "spitInk": {
+      "success": "appelle **{{petNickname}}** qui crache de l'encre sur l'adversaire."
     },
     "stealWeapon": {
       "failure": "fait appel à **{{petNickname}}** pour un peu d'aide, mais la créature, ne trouvant nul trésor digne de son intérêt sur l'adversaire, refuse de s'aventurer en terrain hostile.",
@@ -514,12 +559,6 @@
       "noAction": "est étourdi et ne parvient pas à attaquer.",
       "stop": "n'est plus étourdi."
     },
-    "blind": {
-      "name": "aveugle",
-      "active": "est aveuglé.",
-      "noAction": "est aveuglé et ne rate complètement sa cible.",
-      "stop": "retrouve la vue."
-    },
     "summonAttack": {
       "description": "Invoque des alliés pour vous aider et attaquer très fort.",
       "name_one": "Invocation d'alliés",
@@ -538,6 +577,9 @@
       "description": "",
       "name_one": "Attaque ultime",
       "name_other": "Attaques ultimes"
+    },
+    "unBlind": {
+      "success": "est aidé par **{{petNickname}}** qui grâce à sa vue perçante lui permet de voir autour de lui correctement à nouveau."
     },
     "vampirism": {
       "success": "est assisté par **{{petNickname}}** qui aspire un peu d'énergie à l'adversaire pour l'offrir en tribut à son maître."
