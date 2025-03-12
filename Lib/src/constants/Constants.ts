@@ -227,7 +227,7 @@ export class Constants {
 
 	static readonly DEFAULT_HEALED_EFFECT = ":hospital:";
 
-	static readonly JOIN_BOAT_SCORE_SUBTRAHEND = 30;
+	static readonly JOIN_BOAT_TIME_TRAVELLED_SUBTRAHEND = 30;
 
 	static readonly DEFAULT_ERROR = "Hmmm... Something went very (very) wrong. Please share this issue with us here :\n\n" +
 		"https://github.com/DraftBot-A-Discord-Adventure/DraftBot/issues/new?assignees=&labels=bug&template=bug_report.yml&title=%5BBUG%5D%3A+";

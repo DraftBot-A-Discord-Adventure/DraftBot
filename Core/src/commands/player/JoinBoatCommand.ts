@@ -65,7 +65,7 @@ async function acceptJoinBoat(player: Player, response: DraftBotPacket[]): Promi
 
 	// Gain Score
 	const travelData = TravelTime.getTravelDataSimplified(player, new Date());
-	let timeTravelled = millisecondsToMinutes(travelData.playerTravelledTime) - Constants.JOIN_BOAT_SCORE_SUBTRAHEND; // Convert the time in minutes to calculate the score
+	let timeTravelled = millisecondsToMinutes(travelData.playerTravelledTime) - Constants.JOIN_BOAT_TIME_TRAVELLED_SUBTRAHEND; // Convert the time in minutes to calculate the score
 	if (timeTravelled > ReportConstants.TIME_LIMIT) {
 		timeTravelled = ReportConstants.TIME_LIMIT;
 	}
@@ -75,7 +75,7 @@ async function acceptJoinBoat(player: Player, response: DraftBotPacket[]): Promi
 		reason: NumberChangeReason.JOIN_BOAT
 	});
 
-	// Start thr travel
+	// Start the travel
 	await Maps.startBoatTravel(player, price, anotherMemberOnBoat[0], Date.now(),NumberChangeReason.PVE_ISLAND, response);
 	await MissionsController.update(player, response, {missionId: "joinMemberOnBoat"});
 	response.push(makePacket(CommandJoinBoatAcceptPacketRes, {}));
