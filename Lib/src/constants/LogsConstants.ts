@@ -46,7 +46,8 @@ export enum NumberChangeReason {
 	PVE_ISLAND,
 	PVE_FIGHT,
 	FIGHT_PET_SMALL_EVENT,
-	RAGE_EXPLOSION_ACTION
+	RAGE_EXPLOSION_ACTION,
+	JOIN_BOAT
 }
 
 export enum ShopItemType {

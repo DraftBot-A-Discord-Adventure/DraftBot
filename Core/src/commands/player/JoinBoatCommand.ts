@@ -22,6 +22,10 @@ import {ReactionCollectorJoinBoat} from "../../../../Lib/src/packets/interaction
 import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {PlayerMissionsInfos} from "../../core/database/game/models/PlayerMissionsInfo";
+import {TravelTime} from "../../core/maps/TravelTime";
+import {millisecondsToMinutes} from "../../../../Lib/src/utils/TimeUtils";
+import {ReportConstants} from "../../../../Lib/src/constants/ReportConstants";
+import {Constants} from "../../../../Lib/src/constants/Constants";
 
 /**
  * Handle the acceptation
@@ -58,6 +62,20 @@ async function acceptJoinBoat(player: Player, response: DraftBotPacket[]): Promi
 		response.push(makePacket(CommandJoinBoatNotEnoughGemsPacketRes, {}));
 		return;
 	}
+
+	// Gain Score
+	const travelData = TravelTime.getTravelDataSimplified(player, new Date());
+	let timeTravelled = millisecondsToMinutes(travelData.playerTravelledTime) - Constants.JOIN_BOAT_SCORE_SUBTRAHEND; // Convert the time in minutes to calculate the score
+	if (timeTravelled > ReportConstants.TIME_LIMIT) {
+		timeTravelled = ReportConstants.TIME_LIMIT;
+	}
+	await player.addScore({
+		amount: TravelTime.timeTravelledToScore(timeTravelled),
+		response,
+		reason: NumberChangeReason.JOIN_BOAT
+	});
+
+	// Start thr travel
 	await Maps.startBoatTravel(player, price, anotherMemberOnBoat[0], Date.now(),NumberChangeReason.PVE_ISLAND, response);
 	await MissionsController.update(player, response, {missionId: "joinMemberOnBoat"});
 	response.push(makePacket(CommandJoinBoatAcceptPacketRes, {}));
