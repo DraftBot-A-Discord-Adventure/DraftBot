@@ -2,7 +2,6 @@ import Player from "../../core/database/game/models/Player";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {generateRandomItem, giveItemToPlayer} from "../../core/utils/ItemUtils";
 import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
-import {Constants} from "../../../../Lib/src/constants/Constants";
 import {PlayerSmallEvents} from "../../core/database/game/models/PlayerSmallEvent";
 import {Maps} from "../../core/maps/Maps";
 import {PlayerMissionsInfos} from "../../core/database/game/models/PlayerMissionsInfo";
@@ -13,10 +12,10 @@ import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/pac
 import {ItemConstants} from "../../../../Lib/src/constants/ItemConstants";
 import {MapLink, MapLinkDataController} from "../MapLink";
 import {Effect} from "../../../../Lib/src/types/Effect";
+import {TravelTime} from "../../core/maps/TravelTime";
 
 async function applyOutcomeScore(outcome: PossibilityOutcome, time: number, player: Player, response: DraftBotPacket[]): Promise<number> {
-	const scoreChange = time +
-		RandomUtils.draftbotRandom.integer(0, time / Constants.REPORT.BONUS_POINT_TIME_DIVIDER) +
+	const scoreChange = TravelTime.timeTravelledToScore(time) +
 		await PlayerSmallEvents.calculateCurrentScore(player) +
 		(outcome.bonusPoints ?? 0);
 	await player.addScore({

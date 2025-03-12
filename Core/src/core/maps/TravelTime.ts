@@ -8,6 +8,7 @@ import {draftBotInstance} from "../../index";
 import {Effect} from "../../../../Lib/src/types/Effect";
 import { Constants } from "../../../../Lib/src/constants/Constants";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
+import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 
 /**
  * Travel time functions class
@@ -226,5 +227,13 @@ export class TravelTime {
 		await player.save();
 		draftBotInstance.logsDatabase.logAlteration(player.keycloakId, effect.id, reason, time)
 			.then();
+	}
+
+	/**
+	 * Calculates a score based on the time traveled
+	 * @param time - time must be in minutes
+	 */
+	static timeTravelledToScore(time: number): number {
+		return time + RandomUtils.draftbotRandom.integer(0, time / Constants.REPORT.BONUS_POINT_TIME_DIVIDER);
 	}
 }
