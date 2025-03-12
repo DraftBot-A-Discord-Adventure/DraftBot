@@ -39,7 +39,7 @@ export async function createJoinBoatCollector(context: PacketContext, packet: Re
 	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
 }
 
-export async function handleCommandJoinBoatAcceptPacketRes(_packet: CommandJoinBoatAcceptPacketRes, context: PacketContext): Promise<void> {
+export async function handleCommandJoinBoatAcceptPacketRes(packet: CommandJoinBoatAcceptPacketRes, context: PacketContext): Promise<void> {
 	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 	if (buttonInteraction && originalInteraction) {
@@ -50,7 +50,13 @@ export async function handleCommandJoinBoatAcceptPacketRes(_packet: CommandJoinB
 					pseudo: originalInteraction.user.displayName
 				}), originalInteraction.user)
 					.setDescription(
-						i18n.t("commands:joinBoat.confirmationMessage.description.confirmed", {lng: originalInteraction.userLanguage})
+						i18n.t("commands:joinBoat.confirmationMessage.description.confirmed", {
+							lng: originalInteraction.userLanguage,
+							gainScore: packet.score <= 0 ? "" : i18n.t("commands:joinBoat.confirmationMessage.description.confirmedScore", {
+								lng: originalInteraction.userLanguage,
+								score: packet.score
+							})
+						})
 					)
 			]
 		});

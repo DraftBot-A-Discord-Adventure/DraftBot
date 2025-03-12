@@ -754,8 +754,7 @@ export default class CommandHandlers {
 
 	@packetHandler(CommandJoinBoatNotEnoughGemsPacketRes)
 	async joinBoatNotEnoughGems(context: PacketContext, _packet: CommandJoinBoatNotEnoughGemsPacketRes): Promise<void> {
-		const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
-		await replyEphemeralErrorMessage(interaction, i18n.t("commands:joinBoat.errorMessage.notEnoughGems", {lng: interaction.userLanguage}));
+		await handleClassicError(context, "commands:joinBoat.errorMessage.notEnoughGems");
 	}
 
 	@packetHandler(CommandJoinBoatAcceptPacketRes)

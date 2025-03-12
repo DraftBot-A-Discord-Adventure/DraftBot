@@ -234,6 +234,8 @@ export class TravelTime {
 	 * @param time - time must be in minutes
 	 */
 	static timeTravelledToScore(time: number): number {
-		return time + RandomUtils.draftbotRandom.integer(0, time / Constants.REPORT.BONUS_POINT_TIME_DIVIDER);
+		let score = time + RandomUtils.draftbotRandom.integer(0, time / Constants.REPORT.BONUS_POINT_TIME_DIVIDER);
+		score = score > 0 ? score : 0; // Return 0 if score is negative
+		return score;
 	}
 }

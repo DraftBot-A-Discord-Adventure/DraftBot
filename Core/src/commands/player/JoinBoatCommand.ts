@@ -76,8 +76,9 @@ async function acceptJoinBoat(player: Player, response: DraftBotPacket[]): Promi
 	if (timeTravelled > ReportConstants.TIME_LIMIT) {
 		timeTravelled = ReportConstants.TIME_LIMIT;
 	}
+	const gainScore = TravelTime.timeTravelledToScore(timeTravelled);
 	await player.addScore({
-		amount: TravelTime.timeTravelledToScore(timeTravelled),
+		amount: gainScore,
 		response,
 		reason: NumberChangeReason.JOIN_BOAT
 	});
@@ -85,7 +86,7 @@ async function acceptJoinBoat(player: Player, response: DraftBotPacket[]): Promi
 	// Start the travel
 	await Maps.startBoatTravel(player, price, anotherMemberOnBoat[0], Date.now(),NumberChangeReason.PVE_ISLAND, response);
 	await MissionsController.update(player, response, {missionId: "joinMemberOnBoat"});
-	response.push(makePacket(CommandJoinBoatAcceptPacketRes, {}));
+	response.push(makePacket(CommandJoinBoatAcceptPacketRes, {score: gainScore}));
 	await player.save();
 }
 

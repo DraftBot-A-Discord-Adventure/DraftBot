@@ -6,6 +6,7 @@ export class CommandJoinBoatPacketReq extends DraftBotPacket {
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandJoinBoatAcceptPacketRes extends DraftBotPacket {
+	score!: number;
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)

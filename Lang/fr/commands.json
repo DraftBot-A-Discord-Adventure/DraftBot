@@ -393,7 +393,7 @@
       "🐞": ":lady_beetle: `Personne ayant signalé des bugs majeurs`",
       "👑": ":crown: `Propriétaire du bot`",
       "💍": ":ring: `Badge acheté dans le shop des Missions`",
-      "💎": ":gem: `Membre d'une guilde puissante`",
+      "💎": "{emote:unitValues.gem} `Membre d'une guilde puissante`",
       "💞": ":revolving_hearts: `Joueur ayant dressé un familier légendaire`",
       "💸": ":money_with_wings: `Donateur`",
       "🔖": ":bookmark: `Adopteur de classes de la première heure`",
@@ -423,7 +423,7 @@
     },
     "mission": {
       "fieldName": "Missions :",
-      "fieldValue": ":gem: {{gems}} | :book: {{campaign}}% "
+      "fieldValue": "{emote:unitValues.gem} {{gems}} | :book: {{campaign}}% "
     },
     "noTimeLeft": {
       "fieldName": "Temps restant :",
@@ -456,7 +456,7 @@
     "title": "{emote:effects.{{effectId}}} | {{pseudo}} | Niveau {{level}}"
   },
   "rarity": {
-    "rarities": ":small_orange_diamond: Basique | Possédé en début de jeu\n:large_orange_diamond: Commun | {{common}}%\n:fire: Peu commun | {{uncommon}}%\n:trident: Exotique | {{exotic}}%\n:comet: Rare | {{rare}}%\n:dizzy: Spécial | {{special}}%\n:star: Épique | {{epic}}%\n:star2: Légendaire | {{legendary}}%\n:gem: Mythique | {{unique}}%",
+    "rarities": ":small_orange_diamond: Basique | Possédé en début de jeu\n:large_orange_diamond: Commun | {{common}}%\n:fire: Peu commun | {{uncommon}}%\n:trident: Exotique | {{exotic}}%\n:comet: Rare | {{rare}}%\n:dizzy: Spécial | {{special}}%\n:star: Épique | {{epic}}%\n:star2: Légendaire | {{legendary}}%\n{emote:unitValues.gem} Mythique | {{unique}}%",
     "title": ":slot_machine: Rareté des équipements"
   },
   "report": {
@@ -480,7 +480,7 @@
     "endPoint": "Point d'arrivée :",
     "energy": "** | {emote:unitValues.energy} Énergie gagnée : **{{energy}}",
     "experience": "** | :star: XP gagné : **{{experience}}",
-    "gems": "** | :gem: Gemmes gagnées : **{{gems}}",
+    "gems": "** | {emote:unitValues.gem} Gemmes gagnées : **{{gems}}",
     "health": "** | {emote:unitValues.health} Vie gagnée : **{{health}}",
     "healthLoose": "** | :broken_heart: Vie perdue : **{{health}}",
     "journal": "Journal de {{pseudo}}",
@@ -1030,9 +1030,10 @@
         "confirmation": {
           "text": ":ferry: Êtes vous sûr de vouloir rejoindre votre guilde sur le bateau ?\nLe capitaine vous indique que le voyage **{{priceText}}**.\n\nVoulez-vous partir sur l'île ? Vous avez {emote:unitValues.energy} **{{currentEnergy}}/{{maxEnergy}}**.",
           "priceText_zero": "est gratuit",
-          "priceText_other": "coûtera {{gemsCost}} :gem:"
+          "priceText_other": "coûtera {{gemsCost}} {emote:unitValues.gem}"
         },
-        "confirmed": "Vous rejoignez votre guilde sur le bateau."
+        "confirmed": "{{gainScore}} Vous rejoignez votre guilde sur le bateau.",
+        "confirmedScore": "**{emote:unitValues.score} Points gagnés :** {{score}}\n"
       }
     },
     "refuse": "Vous décidez finalement de rester ici et ne pas rejoindre votre guilde sur le bateau."
