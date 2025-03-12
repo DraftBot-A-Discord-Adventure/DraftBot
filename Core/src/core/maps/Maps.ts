@@ -185,7 +185,7 @@ export class Maps {
 		const mapLinkJoinBoat = MapLinkDataController.instance.getById(await Settings.PVE_ISLAND.getValue());
 		const travelTime = minutesToMilliseconds(mapLinkJoinBoat.tripDuration);
 		const otherPlayerStartTime = anotherMemberOnBoat ? anotherMemberOnBoat.startTravelDate.valueOf() : null;
-		const timeSinceOtherPlayerStarted = Date.now() - otherPlayerStartTime;
+		const timeSinceOtherPlayerStarted = Date.now() - (otherPlayerStartTime ?? 0);
 
 		const finalStartTime = otherPlayerStartTime
 			? timeSinceOtherPlayerStarted >= travelTime
