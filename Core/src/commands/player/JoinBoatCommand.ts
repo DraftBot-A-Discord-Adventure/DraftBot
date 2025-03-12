@@ -27,6 +27,31 @@ import {millisecondsToMinutes} from "../../../../Lib/src/utils/TimeUtils";
 import {ReportConstants} from "../../../../Lib/src/constants/ReportConstants";
 import {Constants} from "../../../../Lib/src/constants/Constants";
 
+async function canJoinBoat(player: Player, response: DraftBotPacket[]): Promise<boolean> {
+	// Check if the player is still part of a guild
+	if (!player.guildId) {
+		response.push(makePacket(CommandJoinBoatNoGuildPacketRes, {}));
+		return false;
+	}
+	// The player has been on the island too often this week
+	if (await LogsReadRequests.getCountPVEIslandThisWeek(player.keycloakId, player.guildId) >= PVEConstants.TRAVEL_COST.length) {
+		response.push(makePacket(CommandJoinBoatTooManyRunsPacketRes, {}));
+		return false;
+	}
+	// No guild members on the boat
+	const guildOnBoat = await Maps.getGuildMembersOnBoat(player);
+	if (guildOnBoat.length === 0) {
+		response.push(makePacket(CommandJoinBoatNoMemberOnBoatPacketRes, {}));
+		return false;
+	}
+	// The player doesn't have enough energy
+	if (!player.hasEnoughEnergyToJoinTheIsland()) {
+		response.push(makePacket(CommandJoinBoatNotEnoughEnergyPacketRes, {}));
+		return false;
+	}
+	return true;
+}
+
 /**
  * Handle the acceptation
  * @param player
@@ -34,28 +59,10 @@ import {Constants} from "../../../../Lib/src/constants/Constants";
  */
 async function acceptJoinBoat(player: Player, response: DraftBotPacket[]): Promise<void> {
 	await player.reload();
-	// Check if the player is still part of a guild
-	if (!player.guildId) {
-		response.push(makePacket(CommandJoinBoatNoGuildPacketRes, {}));
+	if (!await canJoinBoat(player, response)) {
 		return;
 	}
-	// The player has been on the island too often this week
-	if (await LogsReadRequests.getCountPVEIslandThisWeek(player.keycloakId, player.guildId) >= PVEConstants.TRAVEL_COST.length) {
-		response.push(makePacket(CommandJoinBoatTooManyRunsPacketRes, {}));
-		return;
-	}
-	// No guild members on the boat
-	const guildOnBoat = await Maps.getGuildMembersOnBoat(player);
-	if (guildOnBoat.length === 0) {
-		response.push(makePacket(CommandJoinBoatNoMemberOnBoatPacketRes, {}));
-		return;
-	}
-	// The player doesn't have enough energy
-	if (!player.hasEnoughEnergyToJoinTheIsland()) {
-		response.push(makePacket(CommandJoinBoatNotEnoughEnergyPacketRes, {}));
-		return;
-	}
-	const anotherMemberOnBoat = guildOnBoat;
+	const anotherMemberOnBoat = await Maps.getGuildMembersOnBoat(player);
 	const price = await player.getTravelCostThisWeek();
 	const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
 	if (missionInfo.gems < price) {
@@ -103,8 +110,7 @@ export default class JoinBoatCommand {
 		guildNeeded: true
 	})
 	async execute(response: DraftBotPacket[], player: Player, _packet: CommandJoinBoatPacketReq, context: PacketContext): Promise<void> {
-		if (await LogsReadRequests.getCountPVEIslandThisWeek(player.keycloakId, player.guildId) >= PVEConstants.TRAVEL_COST.length) {
-			response.push(makePacket(CommandJoinBoatTooManyRunsPacketRes, {}));
+		if (!await canJoinBoat(player, response)) {
 			return;
 		}
 		const price = await player.getTravelCostThisWeek();
