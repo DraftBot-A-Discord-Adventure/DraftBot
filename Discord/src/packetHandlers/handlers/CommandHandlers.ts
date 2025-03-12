@@ -742,17 +742,20 @@ export default class CommandHandlers {
 
 	@packetHandler(CommandJoinBoatNoMemberOnBoatPacketRes)
 	async joinBoatNoMemberOnBoat(context: PacketContext, _packet: CommandJoinBoatNoMemberOnBoatPacketRes): Promise<void> {
-		await handleClassicError(context, "commands:joinBoat.errorMessage.noMemberOnBoat");
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
+		await replyEphemeralErrorMessage(interaction, i18n.t("commands:joinBoat.errorMessage.noMemberOnBoat", {lng: interaction.userLanguage}));
 	}
 
 	@packetHandler(CommandJoinBoatNotEnoughEnergyPacketRes)
 	async joinBoatNotEnoughEnergy(context: PacketContext, _packet: CommandJoinBoatNotEnoughEnergyPacketRes): Promise<void> {
-		await handleClassicError(context, "commands:joinBoat.errorMessage.notEnoughEnergy");
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
+		await replyEphemeralErrorMessage(interaction, i18n.t("commands:joinBoat.errorMessage.notEnoughEnergy", {lng: interaction.userLanguage}));
 	}
 
 	@packetHandler(CommandJoinBoatNotEnoughGemsPacketRes)
 	async joinBoatNotEnoughGems(context: PacketContext, _packet: CommandJoinBoatNotEnoughGemsPacketRes): Promise<void> {
-		await handleClassicError(context, "commands:joinBoat.errorMessage.notEnoughGems");
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
+		await replyEphemeralErrorMessage(interaction, i18n.t("commands:joinBoat.errorMessage.notEnoughGems", {lng: interaction.userLanguage}));
 	}
 
 	@packetHandler(CommandJoinBoatAcceptPacketRes)
