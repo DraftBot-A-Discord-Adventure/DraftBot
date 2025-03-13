@@ -5,11 +5,11 @@ import {FightAction, FightActionDataController} from "../../../data/FightAction"
 import {FightConstants} from "../../../../../Lib/src/constants/FightConstants";
 
 class MysticMageFightBehavior implements ClassBehavior {
-	private poisonTurns: number = 0;
+	private poisonTurns = 0;
 
-	private cursedAttackUsed: boolean = false;
+	private cursedAttackUsed = false;
 
-	private lastHadPoison: boolean = false;
+	private lastHadPoison = false;
 
 	chooseAction(me: AiPlayerFighter, fightView: FightView): FightAction {
 		const opponent = fightView.fightController.getDefendingFighter();
