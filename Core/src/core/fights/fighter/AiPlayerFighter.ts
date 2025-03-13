@@ -76,5 +76,6 @@ export class AiPlayerFighter extends Fighter {
 	}
 
 	unblock(): void {
+		// Not needed for AI players, they are not blocked during the fight
 	}
 }
