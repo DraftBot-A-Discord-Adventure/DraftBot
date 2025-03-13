@@ -99,7 +99,8 @@ export abstract class FightConstants {
 				BENEDICTION: "benediction",
 				CONCENTRATION: "concentration",
 				RESTING: "resting",
-				NONE: "none"
+				NONE: "none",
+				GET_DIRTY: "getDirty"
 			},
 			MONSTER: {
 				CLUB_SMASH_ATTACK: "clubSmashAttack",
@@ -129,6 +130,7 @@ export abstract class FightConstants {
 				CONCENTRATED: "concentrated",
 				CONFUSED: "confused",
 				CURSED: "cursed",
+				DIRTY: "dirty",
 				FROZEN: "frozen",
 				FULL: "full",
 				OUTRAGE: "outrage",
@@ -139,6 +141,7 @@ export abstract class FightConstants {
 				PROTECTED: "protected",
 				SLOWED: "slowed",
 				STUNNED: "stunned",
+				SWALLOWED: "swallowed",
 				TARGETED: "targeted",
 				WEAK: "weak"
 			},
@@ -147,6 +150,8 @@ export abstract class FightConstants {
 				BOOST_DEFENSE: "boostDefense",
 				BOOST_SPEED: "boostSpeed",
 				CLAWS: "claws",
+				CREATE_BOMB: "createBomb",
+				BUILD_BARRAGE: "buildBarrage",
 				ELEPHANT_REMEMBER_LAST_ACTION: "elephantRememberLastAction",
 				FISH_PROTECT_AGAINST_FIRE: "fishProtectAgainstFire",
 				GOES_WILD: "goesWild",
@@ -177,6 +182,7 @@ export abstract class FightConstants {
 				SPIT_FIRE: "spitFire",
 				SPIT_INK: "spitInk",
 				STEAL_WEAPON: "stealWeapon",
+				SWALLOW: "swallow",
 				TRIES_TO_HELP: "triesToHelp",
 				UN_BLIND: "unBlind",
 				VAMPIRISM: "vampirism"

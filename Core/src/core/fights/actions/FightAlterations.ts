@@ -4,6 +4,7 @@ export const FightAlterations = {
 	CONCENTRATED: "concentrated",
 	CONFUSED: "confused",
 	CURSED: "cursed",
+	DIRTY: "dirty",
 	FROZEN: "frozen",
 	FULL: "full",
 	OUTRAGE: "outrage",
@@ -13,6 +14,7 @@ export const FightAlterations = {
 	PROTECTED: "protected",
 	SLOWED: "slowed",
 	STUNNED: "stunned",
+	SWALLOWED: "swallowed",
 	TARGETED: "targeted",
 	WEAK: "weak"
 };

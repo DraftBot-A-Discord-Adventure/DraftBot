@@ -214,7 +214,8 @@ export function initializeAllPetBehaviors(): void {
 		{
 			petIds: [
 				PetConstants.PETS.OWL,
-				PetConstants.PETS.EAGLE
+				PetConstants.PETS.EAGLE,
+				PetConstants.PETS.GIRAFFE
 			],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.UN_BLIND
 		},
@@ -266,6 +267,25 @@ export function initializeAllPetBehaviors(): void {
 				PetConstants.PETS.LLAMA
 			],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.SPIT
+		},
+		{
+			petIds: [
+				PetConstants.PETS.WHALE,
+				PetConstants.PETS.WHALE_2
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.SWALLOW
+		},
+		{
+			petIds: [
+				PetConstants.PETS.BEAVER
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.BUILD_BARRAGE
+		},
+		{
+			petIds: [
+				PetConstants.PETS.SCARLET_DUCK
+			],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.CREATE_BOMB
 		}
 	];
 	for (const mapping of petBehaviors) {

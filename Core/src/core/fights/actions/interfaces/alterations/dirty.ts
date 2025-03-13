@@ -1,30 +1,29 @@
-import {FightAlterationFunc} from "../../../../../data/FightAlteration";
-import {FightAlterationState} from "../../../../../../../Lib/src/types/FightAlterationResult";
 import {FightActionController} from "../../FightActionController";
+import {FightAlterationFunc} from "../../../../../data/FightAlteration";
+import {
+	defaultFightAlterationResult,
+	defaultHealFightAlterationResult
+} from "../../../FightController";
+import {FightAlterationState} from "../../../../../../../Lib/src/types/FightAlterationResult";
 import {FightStatBuffed} from "../../../../../../../Lib/src/types/FightActionResult";
-import {FightActionDataController} from "../../../../../data/FightAction";
 import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
-import {defaultFightAlterationResult, defaultHealFightAlterationResult} from "../../../FightController";
 
-const use: FightAlterationFunc = (affected, fightAlteration) => {
-	if (affected.alterationTurn > 2) { // This effect heals after two turns
-		affected.removeDefenseModifiers(fightAlteration);
+const use: FightAlterationFunc = (affected, fightAlteration, _opponent) => {
+	// 20 % chance to be healed from being dirty (except for the first three turns)
+	if (Math.random() < 0.2 && affected.alterationTurn > 3) {
+		affected.removeAttackModifiers(fightAlteration);
 		return defaultHealFightAlterationResult(affected);
 	}
-
 	const result = defaultFightAlterationResult();
-	result.state = FightAlterationState.NO_ACTION;
-
-	if (!affected.hasDefenseModifier(fightAlteration)) {
+	if (!affected.hasAttackModifier(fightAlteration)) {
 		result.state = FightAlterationState.NEW;
 		FightActionController.applyBuff(result, {
 			selfTarget: true,
-			stat: FightStatBuffed.DEFENSE,
+			stat: FightStatBuffed.ATTACK,
 			operator: FightStatModifierOperation.MULTIPLIER,
-			value: 2
+			value: 1.05
 		}, affected, fightAlteration);
 	}
-	affected.nextFightAction = FightActionDataController.instance.getNone();
 	return result;
 };
 
