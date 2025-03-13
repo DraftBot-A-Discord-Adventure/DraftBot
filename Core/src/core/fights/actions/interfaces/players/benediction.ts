@@ -13,8 +13,8 @@ import {getUsedGodMoves} from "../../../FightController";
 function getAttackInfo(): attackInfo {
 	return {
 		minDamage: 55,
-		averageDamage: 100,
-		maxDamage: 200
+		averageDamage: 170,
+		maxDamage: 300
 	};
 }
 
