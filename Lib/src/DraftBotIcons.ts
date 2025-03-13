@@ -1645,7 +1645,9 @@ export const DraftBotIcons: {
 		"trophy": "🏆"
 	},
 	"commands": {
-		"respawn": "👼"
+		"respawn": "👼",
+		"classes": "📑",
+		"classesDescription": "📜"
 	},
 	"unitValues": {
 		"score": "🏅",

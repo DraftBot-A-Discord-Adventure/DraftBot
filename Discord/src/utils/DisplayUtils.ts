@@ -197,6 +197,15 @@ export class DisplayUtils {
 		});
 	}
 
+	/**
+	 * Return the string of a class
+	 * @param classId
+	 * @param lng
+	 */
+	static getClassDisplay(classId: number, lng: Language): string {
+		return i18n.t("models:classFormat", {lng, id: classId});
+	}
+
 	private static getStringValueFor(values: string[], maxValue: number | null, value: number, typeValue: "attack" | "defense" | "speed", lng: Language): void {
 		if (value !== 0) {
 			values.push(i18n.t(`items:${typeValue}`, {
