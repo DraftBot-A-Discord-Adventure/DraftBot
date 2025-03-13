@@ -162,6 +162,30 @@
       "active": "souffre de sa brûlure.",
       "stop": "n'est plus brûlé."
     },
+    "swallowed": {
+      "name": "avalé",
+      "new": "est avalé.",
+      "noAction": "est dans un estomac et ne peut pas attaquer.",
+      "stop": "est ressorti de l'animal sain et sauf."
+    },
+    "buildBarrage": {
+      "success": "est aidé par **{{petNickname}}** qui construit un barrage pour protéger son maître."
+    },
+    "swallow": {
+      "success": "demande de l'aide à **{{petNickname}}** qui, ne sachant pas quoi faire, décide d'avaler tout rond son adversaire."
+    },
+    "dirty": {
+      "name": "répugnant",
+      "new": "est absolument répugnant, ses attaques s'en retrouvent renforcées.",
+      "active": "est répugnant.",
+      "stop": "est parvenu à se nettoyer."
+    },
+    "getDirty": {
+      "description": "S'exécute si l'attaquant s'est récemment retrouvé dans des lieux sales. Le combattant se retrouvera répugnant ou malade selon les situations.",
+      "customMessage": "a réussi à s'extraire d'une situation périlleuse sans trop de dommages, mais en sacrifiant sa dignité et sa propreté.",
+      "name_one": "Salissure",
+      "name_other": "Salissures"
+    },
     "canonAttack": {
       "description": "La précision de cette attaque baisse sur les adversaires rapides. Un bonus de dégât est affecté à cette attaque si l'adversaire est très lent. L'adversaire peut être ralenti par l'attaque. Inflige plus de dégâts si utilisé plusieurs fois de suite",
       "name_one": "Attaque canon",
@@ -286,7 +310,7 @@
       "success": "ordonne à **{{petNickname}}** d'attaquer. L'animal éclate de rage et se met à frapper tout ce qui passe à proximité de lui."
     },
     "grabAndThrowAttack": {
-      "description": "Projette l'adversaire s'il utilise une attaque physique, infligeant des dégâts moyens et ayant une chance d'étourdir de l'adversaire",
+      "description": "Projette l'adversaire s'il utilise une attaque physique, infligeant des dégâts moyens et ayant une chance d'étourdir de l'adversaire.",
       "name_one": "Attaque projection",
       "name_other": "Attaques projections"
     },
@@ -303,6 +327,11 @@
       "description": "Récupère la chaleur du joueur, ce qui augmente l'attaque du lanceur et gèle l'adversaire.",
       "name_one": "Drain de chaleur",
       "name_other": "Drains de chaleur"
+    },
+    "createBomb": {
+      "generalEffect": "est soutenu dans son combat par **{{petNickname}}** qui fais mine de harcèler férocement l'adversaire de coups de bec précis et douloureux.",
+      "failure": "a manqué de recevoir l'aide de **{{petNickname}}** qui, par prudence, s'est abstenu d'agir, conscient que son intervention risquait davantage de blesser son maître que l'adversaire. Il aurait fallu être plus rapide !",
+      "success": "profite du talent de **{{petNickname}}** qui a discrètement préparé une bombe puissante. Après avoir activé le détonateur, vous vous mettez à l'écart en courant de toutes vos forces !"
     },
     "heavyAttack": {
       "description": "Les dégâts de cette attaque sont réduits de 90% si le défenseur dispose de moins de défense que l'attaquant. La défense de l'ennemi est réduite de 25%.",

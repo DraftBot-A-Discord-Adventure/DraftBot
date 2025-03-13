@@ -227,8 +227,6 @@ export async function handleEndOfFight(context: PacketContext, packet: CommandFi
 	const looserName = await getDisplayName(packet.looser.keycloakId, packet.looser.monsterId);
 
 	// Create message description
-	const isDraw = packet.winner.finalEnergy <= 0 && packet.looser.finalEnergy <= 0;
-
 	let description = i18n.t("commands:fight.end.gameStats", {
 		lng: interaction.userLanguage,
 		turn: packet.turns,
@@ -252,7 +250,7 @@ export async function handleEndOfFight(context: PacketContext, packet: CommandFi
 
 	// Send embed with handshake reaction
 	const embed = new DraftBotEmbed()
-		.setTitle(isDraw
+		.setTitle(packet.draw
 			? i18n.t("commands:fight.end.draw", {
 				lng: interaction.userLanguage,
 				player1: winnerName,
