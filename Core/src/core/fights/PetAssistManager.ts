@@ -75,7 +75,6 @@ export function initializeAllPetBehaviors(): void {
 			petIds: [
 				PetConstants.PETS.HAMSTER,
 				PetConstants.PETS.RABBIT,
-				PetConstants.PETS.PIG,
 				PetConstants.PETS.TURKEY,
 				PetConstants.PETS.CHIPMUNK,
 				PetConstants.PETS.FLAMINGO
@@ -88,7 +87,8 @@ export function initializeAllPetBehaviors(): void {
 				PetConstants.PETS.DUCK,
 				PetConstants.PETS.PEACOCK,
 				PetConstants.PETS.BIRD,
-				PetConstants.PETS.DODO
+				PetConstants.PETS.DODO,
+				PetConstants.PETS.PARROT
 			],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.PECK
 		},
@@ -113,7 +113,8 @@ export function initializeAllPetBehaviors(): void {
 			petIds: [
 				PetConstants.PETS.SHEEP,
 				PetConstants.PETS.GOAT,
-				PetConstants.PETS.SWAN
+				PetConstants.PETS.SWAN,
+				PetConstants.PETS.PIG
 			],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.PET_SMALL_CHARGE
 		},
