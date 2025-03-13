@@ -131,7 +131,7 @@
     "blind": {
       "name": "aveugle",
       "new": "est aveuglé.",
-      "active": "est aveuglé.",
+      "active": "est aveuglé et frappe au hasard tout autour de lui.",
       "noAction": "est aveuglé et rate complètement sa cible.",
       "stop": "retrouve la vue."
     },
