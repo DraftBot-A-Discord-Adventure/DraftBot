@@ -334,5 +334,9 @@
         "description": "Le joueur à qui vendre le familier."
       }
     }
+  },
+  "classes": {
+    "name": "classes",
+    "description": "Changer de classe."
   }
 }

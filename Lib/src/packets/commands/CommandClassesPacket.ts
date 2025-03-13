@@ -5,9 +5,7 @@ export class CommandClassesPacketReq extends DraftBotPacket {}
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandClassesCooldownErrorPacket extends DraftBotPacket {
-	totalTime!: number;
-
-	remainingTime!: number;
+	timestamp!: number;
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)

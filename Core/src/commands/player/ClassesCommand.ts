@@ -69,13 +69,12 @@ export default class ClassesCommand {
 		level: Constants.CLASS.REQUIRED_LEVEL
 	})
 	async execute(response: DraftBotPacket[], player: Player, _packet: CommandClassesPacketReq, context: PacketContext): Promise<void> {
-		const allClasses = ClassDataController.instance.getByGroup(player.getClassGroup());
+		const allClasses = ClassDataController.instance.getByGroup(player.getClassGroup()).filter(c => c.id !== player.class);
 		const currentClassGroup = ClassDataController.instance.getById(player.class).classGroup;
 		const lastTimeThePlayerHasEditedHisClass = await LogsReadRequests.getLastTimeThePlayerHasEditedHisClass(player.keycloakId);
 		if (millisecondsToSeconds(Date.now()) - lastTimeThePlayerHasEditedHisClass.getTime() < Constants.CLASS.TIME_BEFORE_CHANGE_CLASS[currentClassGroup]) {
 			response.push(makePacket(CommandClassesCooldownErrorPacket, {
-				totalTime: Constants.CLASS.TIME_BEFORE_CHANGE_CLASS[currentClassGroup],
-				remainingTime: Constants.CLASS.TIME_BEFORE_CHANGE_CLASS[currentClassGroup] - (millisecondsToSeconds(Date.now()) - lastTimeThePlayerHasEditedHisClass.getTime())
+				timestamp: lastTimeThePlayerHasEditedHisClass.getTime() + Constants.CLASS.TIME_BEFORE_CHANGE_CLASS[currentClassGroup] * 1000
 			}));
 			return;
 		}

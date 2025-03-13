@@ -906,5 +906,46 @@
     "sellFooter": "Pour plus d'informations à propos des ventes de familiers, utilisez la commande help petsell.",
     "successTitle": "{{pseudo}}, transaction réussie !",
     "successDescription": "{{pet}} vous suit désormais. Occupez-vous en bien !"
+  },
+  "classes": {
+    "description": {
+      "0": "Une classe simple. Plutôt équilibrée.",
+      "1": "Une classe simple. Plutôt équilibrée.",
+      "2": "Une classe simple. Plutôt équilibrée.",
+      "3": "Une classe simple. Plutôt équilibrée.",
+      "4": "Une classe axée sur la défense. Faibles performances en combat mais vie supplémentaire pour l'aventure.",
+      "5": "Une classe axée sur la défense. Faibles performances en combat mais vie supplémentaire pour l'aventure.",
+      "6": "Une classe axée sur la défense. Faibles performances en combat mais vie supplémentaire pour l'aventure.",
+      "7": "Une classe axée sur la défense. Faibles performances en combat mais vie supplémentaire pour l'aventure.",
+      "8": "Une classe axée sur la vitesse. Peu de points de vie et d'énergie mais vitesse et attaque élevées.",
+      "9": "Une classe axée sur la vitesse. Peu de points de vie et d'énergie mais vitesse et attaque élevées.",
+      "10": "Une classe axée sur la vitesse. Peu de points de vie et d'énergie mais vitesse et attaque élevées.",
+      "11": "Une classe axée sur la vitesse. Peu de points de vie et d'énergie mais vitesse et attaque élevées.",
+      "12": "Une classe puissante mais équilibrée. Plutôt polyvalente.",
+      "13": "Une classe puissante mais équilibrée. Plutôt polyvalente.",
+      "14": "Une classe puissante mais équilibrée. Plutôt polyvalente.",
+      "15": "Une classe puissante mais équilibrée. Plutôt polyvalente.",
+      "16": "Une classe axée sur la défense sans bonus de points de vie mais avec une attaque plus importante que celle d'un tank.",
+      "17": "Une classe disposant de très bonnes stats mais avec un malus important sur les points de vie.",
+      "18": "Une classe simple. Plutôt équilibrée.",
+      "19": "Une classe axée sur la défense. Faibles performances en combat mais vie supplémentaire pour l'aventure.",
+      "20": "Une classe axée sur la vitesse. Peu de points de vie et d'énergie mais vitesse et attaque élevées.",
+      "21": "Une classe puissante mais équilibrée. Plutôt polyvalente.",
+      "22": "Une classe axée sur la défense sans bonus de points de vie mais avec une attaque plus importante que celle d'un tank.",
+      "23": "Une classe disposant de très bonnes stats mais avec un malus important sur les points de vie.",
+      "24": "Une classe polyvalente axée sur des mécaniques de combat uniques."
+    },
+    "title": "{emote:commands.classes} **Changer de classe :**",
+    "desc": "Choisissez une classe dans la liste ci-dessous pour plus d'informations.",
+    "display": "{{name}}\n\n{emote:commands.classesDescription} `{{description}}`\n\nSouhaitez-vous changer pour cette classe ? Vous ne pourrez pas changer de classe avant le {{time}}.",
+    "success": "{{pseudo}}, votre classe a été modifiée !",
+    "newClass": "Votre nouvelle classe est : {{name}}",
+    "confirm": "{{pseudo}}, vous avez sélectionné la classe suivante :",
+    "error": {
+      "canceledPurchase": "Changement de classe annulé.",
+      "sameClass": "Vous appartenez déjà à cette classe.",
+      "leaveClass": "Vous n'avez pas changé de classe.",
+      "changeClassTooEarly": "Vous avez déjà changé de classe récemment. Vous pourrez à nouveau changer de classe {{time}}."
+    }
   }
 }

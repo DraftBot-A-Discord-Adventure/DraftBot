@@ -29,8 +29,6 @@ export class ReactionCollectorChangeClassData extends ReactionCollectorData {
 	classesDetails!: ReactionCollectorChangeClassDetails[];
 
 	cooldownSeconds!: number;
-
-	currentClassId!: number;
 }
 
 export class ReactionCollectorChangeClassReaction extends ReactionCollectorReaction {
@@ -64,8 +62,7 @@ export class ReactionCollectorChangeClass extends ReactionCollector {
 			],
 			data: this.buildData(ReactionCollectorChangeClassData, {
 				classesDetails: this.classesDetails,
-				cooldownSeconds: this.cooldownSeconds,
-				currentClassId: this.currentClassId
+				cooldownSeconds: this.cooldownSeconds
 			})
 		};
 	}

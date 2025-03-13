@@ -334,5 +334,9 @@
         "description": "The player to whom the pet will be sold."
       }
     }
+  },
+  "classes": {
+    "name": "classes",
+    "description": "Change your class."
   }
 }
