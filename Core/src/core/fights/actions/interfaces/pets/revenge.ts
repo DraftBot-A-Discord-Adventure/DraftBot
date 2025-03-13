@@ -29,7 +29,7 @@ function getStatsInfo(_sender: Fighter, receiver: Fighter): statsInfo {
 	};
 }
 
-const use: PetAssistanceFunc = async (fighter, opponent, turn, _fightController): Promise<PetAssistanceResult | null> => {
+const use: PetAssistanceFunc = (fighter, opponent, turn, _fightController): Promise<PetAssistanceResult | null> => {
 
 	// Does nothing first turn.
 	if (turn < 2) {
