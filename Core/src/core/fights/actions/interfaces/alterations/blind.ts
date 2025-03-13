@@ -20,7 +20,7 @@ const use: FightAlterationFunc = (affected, fightAlteration, _opponent) => {
 
 	const result = defaultFightAlterationResult();
 
-	result.state = FightAlterationState.NO_ACTION;
+	result.state = FightAlterationState.ACTIVE;
 	if (!affected.hasDefenseModifier(fightAlteration)) {
 		result.state = FightAlterationState.NEW;
 		FightActionController.applyBuff(result, {

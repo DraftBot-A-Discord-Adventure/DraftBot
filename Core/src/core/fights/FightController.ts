@@ -226,7 +226,7 @@ export class FightController {
 		this.getPlayingFighter()
 			.fightActionsHistory
 			.push(fightAction);
-		if (this.hadEnded()) {
+		if (this.overtimeBehavior === FightOvertimeBehavior.END_FIGHT_DRAW && this.turn >= FightConstants.MAX_TURNS || this.hadEnded()) {
 			await this.endFight(response);
 			return;
 		}
@@ -268,10 +268,6 @@ export class FightController {
 	 * @private
 	 */
 	private async prepareNextTurn(response: DraftBotPacket[]): Promise<void> {
-		if (this.overtimeBehavior === FightOvertimeBehavior.END_FIGHT_DRAW && this.turn >= FightConstants.MAX_TURNS || this.hadEnded()) {
-			await this.endFight(response);
-			return;
-		}
 
 		if (this.overtimeBehavior === FightOvertimeBehavior.INCREASE_DAMAGE_PVE && this.turn >= FightConstants.MAX_TURNS) {
 			this.increaseDamagesPve(this.turn);
