@@ -30,7 +30,7 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 		return "history";
 	}
 
-	updateMessage = async (packet: CommandFightHistoryItemPacket, context: PacketContext): Promise<void> => {
+	updateMessage = async (packet: CommandFightHistoryItemPacket, context: PacketContext): Promise<undefined> => {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 		const fighter = packet.fighterKeycloakId ?
 			(await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.fighterKeycloakId))!.attributes.gameUsername[0] :
@@ -58,7 +58,7 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 			// The fightAction is an alteration or pet assistance
 			newLine += i18n.t(`models:fight_actions.${packet.fightActionId}.${packet.status}`, {
 				lng: interaction.userLanguage,
-				petNickname: petNickname
+				petNickname
 			});
 		}
 		else if (packet.customMessage) {
@@ -125,12 +125,13 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 		if (this.historyContent.length + newLine.length <= FightConstants.MAX_HISTORY_LENGTH) {
 			this.historyContent = `${this.historyContent}\n${newLine}`;
 			await this.post({content: this.historyContent});
-			return;
+			return undefined;
 		}
 		this.storedMessage = undefined;
 		this.historyContent = newLine;
 		await this.post({content: this.historyContent});
 		DraftbotCachedMessages.markAsReupload(DraftbotCachedMessages.getOrCreate(this.originalMessageId, DraftbotFightStatusCachedMessage));
 		DraftbotCachedMessages.markAsReupload(DraftbotCachedMessages.getOrCreate(this.originalMessageId, DraftbotActionChooseCachedMessage));
+		return undefined;
 	};
 }
