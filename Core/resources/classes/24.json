@@ -2,7 +2,7 @@
 	"emoji": "🧙",
 	"attack": 95,
 	"defense": 45,
-	"speed": 75,
+	"speed": 25,
 	"health": 80,
 	"fightPoint": 180,
 	"baseBreath": 5,
