@@ -23,7 +23,7 @@ const use: FightActionFunc = (sender, receiver, fightAction) => {
 	);
 
 	// If the opponent has an alteration, give back 2 of breath to the sender
-	if (receiver.hasFightAlteration()) {
+	if (receiver.hasFightAlteration() && receiver.alteration.id !== FightAlterations.BLIND) {
 		FightActionController.applyBuff(result, {
 			selfTarget: true,
 			stat: FightStatBuffed.BREATH,

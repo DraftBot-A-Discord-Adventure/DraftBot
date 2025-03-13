@@ -4,8 +4,12 @@ import {FightActionFunc} from "../../../../../data/FightAction";
 import {FightStatBuffed} from "../../../../../../../Lib/src/types/FightActionResult";
 import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
 import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTemplate";
+import {FightConstants} from "../../../../../../../Lib/src/constants/FightConstants";
 
 const use: FightActionFunc = (sender, receiver, fightAction) => {
+	// Check the number of ultimate attacks the sender already used, some behaviors are different depending on this.
+	const timeAttackWasUsed = sender.fightActionsHistory.filter(action => action.id === FightConstants.FIGHT_ACTIONS.PLAYER.ENERGETIC_ATTACK).length;
+
 	const result = simpleDamageFightAction(
 		{
 			sender,
@@ -13,7 +17,7 @@ const use: FightActionFunc = (sender, receiver, fightAction) => {
 		},
 		{
 			critical: 35,
-			failure: 5
+			failure: [0,5,15,60][Math.min(timeAttackWasUsed,3)]
 		},
 		{
 			attackInfo: getAttackInfo(),
@@ -21,11 +25,14 @@ const use: FightActionFunc = (sender, receiver, fightAction) => {
 		}
 	);
 
+	// Recovered energy is reduced after the third use of this action
+	const recoveredEnergy = Math.round(result.damages / (timeAttackWasUsed <= 3 ? 2 : 20));
+
 	FightActionController.applyBuff(result, {
 		selfTarget: true,
 		stat: FightStatBuffed.ENERGY,
 		operator: FightStatModifierOperation.ADDITION,
-		value: Math.round(result.damages / 2)
+		value: recoveredEnergy
 	}, sender, fightAction);
 
 	return result;
@@ -36,8 +43,8 @@ export default use;
 function getAttackInfo(): attackInfo {
 	return {
 		minDamage: 30,
-		averageDamage: 75,
-		maxDamage: 115
+		averageDamage: 95,
+		maxDamage: 150
 	};
 }
 

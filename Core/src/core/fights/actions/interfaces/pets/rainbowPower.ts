@@ -9,7 +9,7 @@ import {RandomUtils} from "../../../../../../../Lib/src/utils/RandomUtils";
 const use: PetAssistanceFunc = (fighter, opponent, turn, _fightController): Promise<PetAssistanceResult | null> => {
 
 	// Does nothing first turn or if there is no energy to regen.
-	if (turn < 2 || fighter.getEnergy() === fighter.getMaxEnergy()) {
+	if (turn <= 2 || fighter.getEnergy() === fighter.getMaxEnergy()) {
 		return null;
 	}
 
