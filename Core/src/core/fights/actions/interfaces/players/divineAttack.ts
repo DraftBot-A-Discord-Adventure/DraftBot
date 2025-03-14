@@ -17,16 +17,13 @@ function getAttackInfo(): attackInfo {
 function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 	return {
 		attackerStats: [
-			sender.getAttack(),
-			sender.getSpeed()
+			sender.getAttack()
 		],
 		defenderStats: [
-			receiver.getDefense(),
-			receiver.getSpeed()
+			receiver.getDefense()
 		],
 		statsEffect: [
-			0.7,
-			0.3
+			1
 		]
 	};
 }
