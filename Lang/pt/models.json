@@ -391,7 +391,7 @@
       "name_other": "Ataques de sabotagem"
     },
     "shieldAttack": {
-      "description": "Usa o escudo do atacante para atacar. O dano \"enfraquecido\" reduz o ataque em 70% durante 1 turno.",
+      "description": "",
       "name_one": "Ataque com escudo",
       "name_other": "Ataques com escudo"
     },
