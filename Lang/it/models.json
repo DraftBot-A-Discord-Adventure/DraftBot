@@ -391,7 +391,7 @@
       "name_other": "Attacchi sabotaggi"
     },
     "shieldAttack": {
-      "description": "Utilizza il scudo dell'attaccante per attaccare. Il danno \"indebolito\" riduce l'attacco del 70% per 1 turno.",
+      "description": "",
       "name_one": "Attacco scudo",
       "name_other": "Attacchi scudi"
     },

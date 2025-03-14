@@ -525,7 +525,7 @@
       "generalEffect": "est assisté par **{{petNickname}}** qui fait fuir les poissons."
     },
     "shieldAttack": {
-      "description": "Utilise le bouclier de l’attaquant pour attaquer. L’altération \"affaibli\" réduit l’attaque de 70% durant 1 tour.",
+      "description": "Utilise le bouclier de l’attaquant pour attaquer. L’altération \"affaibli\" réduit l’attaque de 70% durant 2 tours.",
       "name_one": "Attaque bouclier",
       "name_other": "Attaques boucliers"
     },

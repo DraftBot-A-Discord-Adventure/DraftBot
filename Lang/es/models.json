@@ -391,7 +391,7 @@
       "name_other": "Ataques de sabotaje"
     },
     "shieldAttack": {
-      "description": "Utiliza el escudo del atacante para atacar. El daño \"debilitado\" reduce el ataque un 70% durante 1 turno.",
+      "description": "",
       "name_one": "Ataque con escudo",
       "name_other": "Ataques con escudo"
     },
