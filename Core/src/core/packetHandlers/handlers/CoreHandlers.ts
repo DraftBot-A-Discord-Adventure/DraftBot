@@ -20,7 +20,7 @@ export default class CoreHandlers {
 	}
 
 	@packetHandler(ReactionCollectorResetTimerPacketReq)
-	async reactionCollectorResetTimer(response: DraftBotPacket[], _context: PacketContext, packet: ReactionCollectorResetTimerPacketReq): Promise<void> {
+	reactionCollectorResetTimer(response: DraftBotPacket[], _context: PacketContext, packet: ReactionCollectorResetTimerPacketReq): void {
 		ReactionCollectorController.resetTimer(response, packet);
 	}
 }

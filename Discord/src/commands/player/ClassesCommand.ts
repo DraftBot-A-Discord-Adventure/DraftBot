@@ -88,8 +88,7 @@ export async function handleChangeClassReactionCollector(context: PacketContext,
 	const selectMenu = new StringSelectMenuBuilder()
 		.setCustomId("classSelectionMenu")
 		.setPlaceholder(i18n.t("commands:classes.chooseClass", { lng }));
-	for (let i = 0; i < classesReactions.length; i++) {
-		const reaction = classesReactions[i];
+	for (const reaction of classesReactions) {
 		selectMenu.addOptions(new StringSelectMenuOptionBuilder()
 			.setLabel(i18n.t(`models:classes.${reaction.classId}`, { lng }))
 			.setValue(reaction.classId.toString())
