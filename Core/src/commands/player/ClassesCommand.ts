@@ -9,7 +9,6 @@ import {
 import {Constants} from "../../../../Lib/src/constants/Constants";
 import {ClassDataController} from "../../data/Class";
 import {LogsReadRequests} from "../../core/database/logs/LogsReadRequests";
-import {millisecondsToSeconds} from "../../../../Lib/src/utils/TimeUtils";
 import {ReactionCollectorInstance} from "../../core/utils/ReactionsCollector";
 import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
 import {
