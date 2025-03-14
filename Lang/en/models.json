@@ -391,7 +391,7 @@
       "name_other": "Sabotage attacks"
     },
     "shieldAttack": {
-      "description": "Utilise le bouclier de l'attaquant pour attaquer. L'altération \"affaibli\" réduit l'attaque de 70% durant 1 tour.",
+      "description": "Uses the attacker's shield to attack. The alteration \"weakened\" reduces the attack by 70% for 2 turns.",
       "name_one": "Shield attack",
       "name_other": "Shield attacks"
     },
