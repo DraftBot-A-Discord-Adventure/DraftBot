@@ -935,7 +935,7 @@
       "23": "Une classe disposant de très bonnes stats mais avec un malus important sur les points de vie.",
       "24": "Une classe polyvalente axée sur des mécaniques de combat uniques."
     },
-    "title": "{emote:commands.classes} **Changer de classe :**",
+    "title": "{emote:commands.classes} Changer de classe :",
     "desc": "Choisissez une classe dans la liste ci-dessous pour plus d'informations.",
     "display": "{{name}}\n\n{emote:commands.classesDescription} `{{description}}`\n\nSouhaitez-vous changer pour cette classe ? Vous ne pourrez pas changer de classe avant le {{time}}.",
     "success": "{{pseudo}}, votre classe a été modifiée !",
@@ -946,6 +946,8 @@
       "sameClass": "Vous appartenez déjà à cette classe.",
       "leaveClass": "Vous n'avez pas changé de classe.",
       "changeClassTooEarly": "Vous avez déjà changé de classe récemment. Vous pourrez à nouveau changer de classe {{time}}."
-    }
+    },
+    "refuse": "Annuler",
+    "chooseClass": "Sélectionnez une classe"
   }
 }

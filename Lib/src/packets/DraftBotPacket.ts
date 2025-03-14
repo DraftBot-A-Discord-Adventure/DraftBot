@@ -31,6 +31,7 @@ export interface PacketContext {
 		user: string,
 		interaction: string,
 		buttonInteraction?: string,
+		stringSelectMenuInteraction?: string,
 		channel: string,
 		language: Language,
 		shardId: number

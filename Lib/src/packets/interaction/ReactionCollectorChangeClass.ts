@@ -40,13 +40,10 @@ export class ReactionCollectorChangeClass extends ReactionCollector {
 
 	private readonly cooldownSeconds: number;
 
-	private readonly currentClassId: number;
-
-	constructor(classesDetails: ReactionCollectorChangeClassDetails[], cooldownSeconds: number, currentClassId: number) {
+	constructor(classesDetails: ReactionCollectorChangeClassDetails[], cooldownSeconds: number) {
 		super();
 		this.classesDetails = classesDetails;
 		this.cooldownSeconds = cooldownSeconds;
-		this.currentClassId = currentClassId;
 	}
 
 	creationPacket(id: string, endTime: number): ReactionCollectorCreationPacket {

@@ -59,6 +59,9 @@ import {ReactionCollectorPetSellData} from "../../../../Lib/src/packets/interact
 import {createPetSellCollector} from "../../commands/pet/PetSellCommand";
 import {Collector} from "discord.js";
 import {ReactionCollectorStopPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorStopPacket";
+import {ReactionCollectorResetTimerPacketRes} from "../../../../Lib/src/packets/interaction/ReactionCollectorResetTimer";
+import {ReactionCollectorChangeClassData} from "../../../../Lib/src/packets/interaction/ReactionCollectorChangeClass";
+import {handleChangeClassReactionCollector} from "../../commands/player/ClassesCommand";
 
 // Needed because we need to accept any parameter
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -102,6 +105,7 @@ export default class ReactionCollectorHandler {
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorSwitchItemData.name, switchItemCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorDrinkData.name, drinkAcceptCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorPetSellData.name, createPetSellCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorChangeClassData.name, handleChangeClassReactionCollector);
 	}
 
 	@packetHandler(ReactionCollectorCreationPacket)
@@ -141,5 +145,24 @@ export default class ReactionCollectorHandler {
 	@packetHandler(ReactionCollectorEnded)
 	async collectorEnded(_context: PacketContext, _packet: ReactionCollectorEnded): Promise<void> {
 		// Ignore
+	}
+
+	@packetHandler(ReactionCollectorResetTimerPacketRes)
+	async collectorResetTimer(_context: PacketContext, packet: ReactionCollectorResetTimerPacketRes): Promise<void> {
+		const collector = ReactionCollectorHandler.collectorsCache.get(packet.reactionCollectorId);
+		if (!collector) {
+			console.warn(`Collector reset timer received for collector with ID ${packet.reactionCollectorId} but no collector was found with this ID`);
+			return;
+		}
+		collector.forEach((c) => {
+			if (c.ended) {
+				console.warn(`Collector reset timer received for collector with ID ${packet.reactionCollectorId} but collector was already stopped`);
+				return;
+			}
+			c.resetTimer({
+				time: packet.endTime - Date.now()
+			});
+		});
+		await Promise.resolve();
 	}
 }

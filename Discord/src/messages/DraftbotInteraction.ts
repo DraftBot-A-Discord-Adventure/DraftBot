@@ -8,7 +8,7 @@ import {
 	InteractionReplyOptions,
 	Message,
 	MessageCreateOptions,
-	MessagePayload
+	MessagePayload, StringSelectMenuInteraction
 } from "discord.js";
 import {RawInteractionData, RawWebhookData} from "discord.js/typings/rawDataTypes";
 import i18n from "../translations/i18n";
@@ -50,7 +50,7 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 	 * Cast a CommandInteraction to a DraftbotInteraction
 	 * @param discordInteraction
 	 */
-	static cast(discordInteraction: CommandInteraction | ButtonInteraction): DraftbotInteraction {
+	static cast(discordInteraction: CommandInteraction | ButtonInteraction | StringSelectMenuInteraction): DraftbotInteraction {
 		if (discordInteraction === null) {
 			throw new Error("DraftbotInteraction casting: discordInteraction is null.");
 		}

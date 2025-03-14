@@ -42,7 +42,7 @@ export class LogsReadRequests {
 			order: [["date", "DESC"]],
 			limit: 1
 		})
-			.then((res) => new Date(res ? res.date : 0));
+			.then((res) => new Date(res ? res.date * 1000 : 0));
 	}
 
 	/**

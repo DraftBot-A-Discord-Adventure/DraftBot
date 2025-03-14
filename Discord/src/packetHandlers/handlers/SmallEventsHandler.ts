@@ -59,7 +59,6 @@ import {
 } from "../../../../Lib/src/packets/smallEvents/SmallEventSpacePacket";
 import {SmallEventFindPetPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFindPetPacket";
 import {PetUtils} from "../../utils/PetUtils";
-import {ClassUtils} from "../../utils/ClassUtils";
 import {SmallEventFindPotionPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFindPotionPacket";
 import {SmallEventFindItemPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFindItemPacket";
 import {SmallEventPetPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventPetPacket";
@@ -615,7 +614,7 @@ export default class SmallEventsHandler {
 							lng: interaction.userLanguage,
 							count: packet.infoNumber,
 							infoNumber: packet.infoNumber,
-							infoComplement: ClassUtils.classToString(interaction.userLanguage, packet.infoComplement ? packet.infoComplement : 0),
+							infoComplement: DisplayUtils.getClassDisplay(packet.infoComplement ? packet.infoComplement : 0, interaction.userLanguage),
 							interpolation: {escapeValue: false}
 						}),
 						interpolation: {escapeValue: false}

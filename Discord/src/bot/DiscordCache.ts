@@ -1,6 +1,6 @@
 import {DraftbotInteraction} from "../messages/DraftbotInteraction";
 import {Constants} from "../../../Lib/src/constants/Constants";
-import {ButtonInteraction} from "discord.js";
+import {ButtonInteraction, StringSelectMenuInteraction} from "discord.js";
 
 export class DiscordCache {
 	private static initialized = false;
@@ -8,6 +8,8 @@ export class DiscordCache {
 	private static interactionsCache: Map<string, { interaction: DraftbotInteraction, time: number }> = new Map();
 
 	private static buttonInteractionsCache: Map<string, { interaction: ButtonInteraction, time: number }> = new Map();
+
+	private static stringSelectMenuInteractionsCache: Map<string, { interaction: StringSelectMenuInteraction, time: number }> = new Map();
 
 	private static init(): void {
 		if (!DiscordCache.initialized) {
@@ -35,6 +37,11 @@ export class DiscordCache {
 		DiscordCache.buttonInteractionsCache.set(interaction.id, { interaction, time: Date.now() + Constants.CACHE_TIME.INTERACTIONS });
 	}
 
+	public static cacheStringSelectMenuInteraction(component: StringSelectMenuInteraction): void {
+		DiscordCache.init();
+		DiscordCache.stringSelectMenuInteractionsCache.set(component.id, { interaction: component, time: Date.now() + Constants.CACHE_TIME.INTERACTIONS });
+	}
+
 	public static getInteraction(id: string): DraftbotInteraction | null {
 		const entry = DiscordCache.interactionsCache.get(id);
 		return entry?.interaction ?? null;
@@ -42,6 +49,11 @@ export class DiscordCache {
 
 	public static getButtonInteraction(id: string): ButtonInteraction | null {
 		const entry = DiscordCache.buttonInteractionsCache.get(id);
+		return entry?.interaction ?? null;
+	}
+
+	public static getStringSelectMenuInteraction(id: string): StringSelectMenuInteraction | null {
+		const entry = DiscordCache.stringSelectMenuInteractionsCache.get(id);
 		return entry?.interaction ?? null;
 	}
 }
