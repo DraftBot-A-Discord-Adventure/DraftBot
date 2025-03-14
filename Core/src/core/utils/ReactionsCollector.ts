@@ -12,6 +12,10 @@ import {Constants} from "../../../../Lib/src/constants/Constants";
 import {PacketUtils} from "./PacketUtils";
 import {BlockingReason} from "../../../../Lib/src/constants/BlockingConstants";
 import {ReactionCollectorStopPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorStopPacket";
+import {
+	ReactionCollectorResetTimerPacketReq,
+	ReactionCollectorResetTimerPacketRes
+} from "../../../../Lib/src/packets/interaction/ReactionCollectorResetTimer";
 
 export type CollectCallback = (collector: ReactionCollectorInstance, reaction: ReactionCollectorReaction, keycloakId: string, response: DraftBotPacket[]) => void | Promise<void>;
 
@@ -47,7 +51,7 @@ export class ReactionCollectorInstance {
 
 	private readonly filter: FilterFunction;
 
-	private readonly endTime: number;
+	private endTime: number;
 
 	private readonly time: number;
 
@@ -64,6 +68,8 @@ export class ReactionCollectorInstance {
 	private readonly mainPacket: boolean;
 
 	private endedByTime: boolean;
+
+	private endTimeout: NodeJS.Timeout;
 
 	public constructor(reactionCollector: ReactionCollector, context: PacketContext, collectorOptions: CollectorOptions, endCallback: EndCallback, collectCallback: CollectCallback = null) {
 		this.model = reactionCollector;
@@ -176,7 +182,7 @@ export class ReactionCollectorInstance {
 		// Register
 		this.id = RandomUtils.draftbotRandom.uuid4();
 		collectors.set(this.id, this);
-		setTimeout(this.endByTime.bind(this), this.endTime - Date.now());
+		this.endTimeout = setTimeout(this.endByTime.bind(this), this.endTime - Date.now());
 
 		this._creationPacket = makePacket(ReactionCollectorCreationPacket, this.model.creationPacket(this.id, this.endTime, this.mainPacket));
 		return this._creationPacket;
@@ -184,6 +190,12 @@ export class ReactionCollectorInstance {
 
 	public isValidReactionIndex(index: number): boolean {
 		return index >= 0 && index < this._creationPacket.reactions.length;
+	}
+
+	public resetTimer(): void {
+		this.endTime = Date.now() + this.time;
+		clearTimeout(this.endTimeout);
+		this.endTimeout = setTimeout(this.endByTime.bind(this), this.endTime - Date.now());
 	}
 }
 
@@ -196,6 +208,17 @@ export class ReactionCollectorController {
 		}
 		else {
 			await collector.react(packet.keycloakId, packet.reactionIndex, response);
+		}
+	}
+
+	public static resetTimer(response: DraftBotPacket[], packet: ReactionCollectorResetTimerPacketReq): void {
+		const collector: ReactionCollectorInstance = collectors.get(packet.reactionCollectorId);
+		if (collector && !collector.hasEnded) {
+			collector.resetTimer();
+			response.push(makePacket(ReactionCollectorResetTimerPacketRes, {
+				reactionCollectorId: packet.reactionCollectorId,
+				endTime: collector.creationPacket.endTime
+			}));
 		}
 	}
 }

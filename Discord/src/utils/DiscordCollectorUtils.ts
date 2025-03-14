@@ -24,7 +24,13 @@ import {PacketConstants} from "../../../Lib/src/constants/PacketConstants";
 export class DiscordCollectorUtils {
 	private static choiceListEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣", "7⃣", "8⃣", "9⃣"];
 
-	static sendReaction(packet: ReactionCollectorCreationPacket, context: PacketContext, userKeycloakId: KeycloakUser["id"], button: MessageComponentInteraction | null, reactionIndex: number): void {
+	static sendReaction(
+		packet: ReactionCollectorCreationPacket,
+		context: PacketContext,
+		userKeycloakId: KeycloakUser["id"],
+		component: MessageComponentInteraction | null,
+		reactionIndex: number
+	): void {
 		const responsePacket = makePacket(
 			ReactionCollectorReactPacket,
 			{
@@ -34,8 +40,13 @@ export class DiscordCollectorUtils {
 			}
 		);
 
-		if (button && button.isButton()) {
-			DiscordCache.cacheButtonInteraction(button);
+		if (component) {
+			if (component.isButton()) {
+				DiscordCache.cacheButtonInteraction(component);
+			}
+			else if (component.isStringSelectMenu()) {
+				DiscordCache.cacheStringSelectMenuInteraction(component);
+			}
 		}
 
 		PacketUtils.sendPacketToBackend({
@@ -46,7 +57,8 @@ export class DiscordCollectorUtils {
 				user: context.discord!.user,
 				channel: context.discord!.channel,
 				interaction: context.discord!.interaction,
-				buttonInteraction: button?.id,
+				buttonInteraction: component?.isButton() ? component.id : undefined,
+				stringSelectMenuInteraction: component?.isStringSelectMenu() ? component.id : undefined,
 				language: context.discord!.language,
 				shardId
 			}

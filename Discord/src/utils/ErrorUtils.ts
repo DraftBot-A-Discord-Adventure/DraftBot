@@ -147,7 +147,11 @@ export async function handleClassicError(context: PacketContext, errorKey: strin
 	// TODO : handle casting buttonInteraction everywhere (basically all in DiscordCache)
 	const buttonInteractionUncasted = DiscordCache.getButtonInteraction(context.discord?.buttonInteraction ?? "");
 	const buttonInteraction = buttonInteractionUncasted ? DraftbotInteraction.cast(buttonInteractionUncasted) : null;
-	const interactionToRespondTo = buttonInteraction ?? interaction;
+
+	const stringSelectMenuInteractionUncasted = DiscordCache.getStringSelectMenuInteraction(context.discord?.stringSelectMenuInteraction ?? "");
+	const stringSelectMenuInteraction = stringSelectMenuInteractionUncasted ? DraftbotInteraction.cast(stringSelectMenuInteractionUncasted) : null;
+
+	const interactionToRespondTo = buttonInteraction ?? stringSelectMenuInteraction ?? interaction;
 	await (!interactionToRespondTo.replied
 		? interactionToRespondTo.deferred
 			? interactionToRespondTo.editReply.bind(interactionToRespondTo)
@@ -159,7 +163,7 @@ export async function handleClassicError(context: PacketContext, errorKey: strin
 				interactionToRespondTo.user,
 				interactionToRespondTo,
 				i18n.t(errorKey, {
-					lng: interactionToRespondTo.userLanguage,
+					lng: context.discord!.language,
 					...replacements
 				})
 			)

@@ -72,9 +72,9 @@ export default class ClassesCommand {
 		const allClasses = ClassDataController.instance.getByGroup(player.getClassGroup()).filter(c => c.id !== player.class);
 		const currentClassGroup = ClassDataController.instance.getById(player.class).classGroup;
 		const lastTimeThePlayerHasEditedHisClass = await LogsReadRequests.getLastTimeThePlayerHasEditedHisClass(player.keycloakId);
-		if (millisecondsToSeconds(Date.now()) - lastTimeThePlayerHasEditedHisClass.getTime() < Constants.CLASS.TIME_BEFORE_CHANGE_CLASS[currentClassGroup]) {
+		if (Date.now() - lastTimeThePlayerHasEditedHisClass.getTime() < Constants.CLASS.TIME_BEFORE_CHANGE_CLASS[currentClassGroup]) {
 			response.push(makePacket(CommandClassesCooldownErrorPacket, {
-				timestamp: lastTimeThePlayerHasEditedHisClass.getTime() + Constants.CLASS.TIME_BEFORE_CHANGE_CLASS[currentClassGroup] * 1000
+				timestamp: lastTimeThePlayerHasEditedHisClass.valueOf() + Constants.CLASS.TIME_BEFORE_CHANGE_CLASS[currentClassGroup] * 1000
 			}));
 			return;
 		}
@@ -91,8 +91,7 @@ export default class ClassesCommand {
 				breathRegen: c.breathRegen,
 				health: c.getMaxHealthValue(player.level)
 			} as ReactionCollectorChangeClassDetails)),
-			Constants.CLASS.TIME_BEFORE_CHANGE_CLASS[currentClassGroup],
-			player.class
+			Constants.CLASS.TIME_BEFORE_CHANGE_CLASS[currentClassGroup]
 		);
 
 		const packet = new ReactionCollectorInstance(
