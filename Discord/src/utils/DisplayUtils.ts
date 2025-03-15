@@ -255,9 +255,7 @@ export class DisplayUtils {
 	 * @param lng
 	 */
 	static getOwnedPetInlineDisplay(ownedPet: OwnedPet, lng: Language): string {
-		return DisplayUtils.getPetIcon(ownedPet.typeId, ownedPet.sex)
-			+ " "
-			+ DisplayUtils.getPetNicknameOrTypeName(ownedPet.nickname, ownedPet.typeId, ownedPet.sex, lng)
+		return `${DisplayUtils.getPetIcon(ownedPet.typeId, ownedPet.sex)} ${DisplayUtils.getPetNicknameOrTypeName(ownedPet.nickname, ownedPet.typeId, ownedPet.sex, lng)}`;
 	}
 
 	/**
