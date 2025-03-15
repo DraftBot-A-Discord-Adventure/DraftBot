@@ -197,7 +197,7 @@ export default class PetTransferCommand {
 
 		const playerPet = await PetEntities.getById(player.petId);
 
-		if (playerPet && playerPet.isFeisty()) {
+		if (playerPet?.isFeisty()) {
 			response.push(makePacket(CommandPetTransferFeistyErrorPacket, {}));
 			return;
 		}
