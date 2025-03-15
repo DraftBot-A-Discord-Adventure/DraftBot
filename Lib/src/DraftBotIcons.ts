@@ -56,7 +56,8 @@ export const DraftBotIcons: {
 		},
 		interactPoorCoin: string,
 		warning: string,
-		question: string
+		question: string,
+		back: string
 	},
 	fight_actions: {
 		[actionId: string]: string
@@ -131,6 +132,11 @@ export const DraftBotIcons: {
 		congrats: string,
 		error: string,
 		guild: string
+	},
+	petTransfer: {
+		deposit: string,
+		switch: string,
+		withdraw: string
 	},
 	other: {
 		[otherId: string]: string
@@ -1606,7 +1612,8 @@ export const DraftBotIcons: {
 		},
 		"interactPoorCoin": "🪙",
 		"warning": "⚠️",
-		"question": "❓"
+		"question": "❓",
+		"back": "↩️"
 	},
 	"fight_actions": {
 		"benediction": "👼",
@@ -1789,6 +1796,11 @@ export const DraftBotIcons: {
 		"congrats": "🏆",
 		"error": "❌",
 		"guild": "🏟️"
+	},
+	petTransfer: {
+		deposit: "📥",
+		switch: "🔄",
+		withdraw: "📤"
 	},
 	"other": {
 		"trash": "🗑️"

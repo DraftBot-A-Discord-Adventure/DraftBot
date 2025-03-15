@@ -230,6 +230,21 @@ export class DisplayUtils {
 		});
 	}
 
+	static getPetNicknameOrTypeName(nickname: string | null, typeId: number, sex: SexTypeShort, lng: Language): string {
+		return nickname ? DisplayUtils.getPetDisplayNickname(lng, nickname) : DisplayUtils.getPetTypeName(lng, typeId, sex);
+	}
+
+	/**
+	 * Display the pet's information as a single line with the pet's icon and name (nickname or type name)
+	 * @param ownedPet
+	 * @param lng
+	 */
+	static getOwnedPetInlineDisplay(ownedPet: OwnedPet, lng: Language): string {
+		return DisplayUtils.getPetIcon(ownedPet.typeId, ownedPet.sex)
+			+ " "
+			+ DisplayUtils.getPetNicknameOrTypeName(ownedPet.nickname, ownedPet.typeId, ownedPet.sex, lng)
+	}
+
 	/**
 	 * Return the string of a class
 	 * @param classId

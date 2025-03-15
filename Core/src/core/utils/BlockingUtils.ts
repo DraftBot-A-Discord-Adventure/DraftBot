@@ -132,4 +132,8 @@ export class BlockingUtils {
 			this.unblockPlayer(player.id, packet.oldReason);
 		}
 	}
+
+	static isPlayerBlockedWithReason(playerId: number, reason: BlockingReason): boolean {
+		return BlockingUtils.getPlayerBlockingReason(playerId).includes(reason);
+	}
 }

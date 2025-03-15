@@ -342,5 +342,9 @@
   "sell": {
     "name": "sell",
     "description": "Sell an equipment."
+  },
+  "petTransfer": {
+    "name": "pettransfer",
+    "description": "Transfer a pet from or to the guild shelter."
   }
 }
