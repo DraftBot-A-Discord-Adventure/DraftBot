@@ -934,13 +934,13 @@
   },
   "sell": {
     "noItemToSell": "Vous n'avez malheureusement aucun objet dans votre réserve !",
-    "confirmSell": "Êtes-vous sûr de vouloir vous séparer de {{item}} pour **{{money}}** {emote:unitValues.money} ?",
+    "confirmSell": "Êtes-vous sûr de vouloir vous séparer de {{item}} pour **{{value}}** {emote:unitValues.money} ?",
     "sellCanceled": "La vente a bien été annulée !",
     "sellTitle": "{{pseudo}}, confirmation :",
-    "soldMessage": "Vous avez vendu {{item}} pour **{{money}}** {emote:unitValues.money} !",
+    "soldMessage": "Vous avez vendu {{item}} pour **{{value}}** {emote:unitValues.money} !",
     "soldMessageTitle": "{{pseudo}}, vous avez vendu un équipement.",
     "potionDestroyedTitle": "Vous avez détruit une potion.",
-    "potionDestroyedMessage": "Votre potion \"{{item}}\" a été verséd dans un évier.",
+    "potionDestroyedMessage": "Votre potion \"{{item}}\" a été versée dans un évier.",
     "soldMessageAlreadyOwnTitle": "{{pseudo}}, vous avez reçu un équipement que vous possédiez déjà.",
     "titleChoiceEmbed": "{{pseudo}}, vente d'objet",
     "sellField": "{{name}} | {{value}} {emote:unitValues.money}",
@@ -948,6 +948,8 @@
     "confirmThrowAway": "Êtes-vous sûr de vouloir jeter {{item}} ?",
     "sellIndication": "Choisissez un objet à vendre dans la liste ci-dessous :",
     "menuPlaceholder": "Choississez un objet à vendre",
-    "cancel": "Annuler"
+    "cancel": "Annuler",
+    "selectMenuDescSell": "Vendre pour {{value}} {emote:unitValues.money}",
+    "selectMenuDescThrow": "Jeter {emote:other.trash}"
   }
 }
