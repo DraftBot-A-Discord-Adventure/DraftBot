@@ -4,60 +4,92 @@ import { FightView } from "../FightView";
 import { FightAction, FightActionDataController } from "../../../data/FightAction";
 import { FightConstants } from "../../../../../Lib/src/constants/FightConstants";
 import { RandomUtils } from "../../../../../Lib/src/utils/RandomUtils";
-import {getUsedGodMoves} from "../FightController";
-import {simpleOrQuickAttack} from "./EsquireFightBehavior";
 
-class KnightFightBehavior implements ClassBehavior {
-	private blessRoundChosen: number | null = null;
+class GunnerFightBehavior implements ClassBehavior {
 
-	private restCount = 0; // Track how many times we've rested
+	private isGoingForChainedCanonAttack = false;
+
+	private canonAttackUsed = 0;
 
 	chooseAction(me: AiPlayerFighter, fightView: FightView): FightAction {
 		const opponent = fightView.fightController.getDefendingFighter();
-		const currentRound = fightView.fightController.turn;
 
-		// Initialize defense tracking on first round
-		if (currentRound <= 1) {
-			this.blessRoundChosen = RandomUtils.randInt(8, 16); // Choose when to use benediction
-			this.restCount = 0; // Reset rest counter at the beginning of a fight
+		// Use canon attack again if used last turn to get 1.5x damage
+		if (
+			(this.isGoingForChainedCanonAttack
+				|| me.getLastFightActionUsed().id === FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK)
+			&& me.getBreath() >= FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK)
+			&& this.canonAttackUsed <= 2
+		) {
+			this.canonAttackUsed++;
+			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK);
 		}
 
-		// ENDGAME STRATEGY: Try to force a draw if victory seems impossible
-		// Still rest even if we've done it 4 times, because the goal is to stall
-		if (me.getEnergy() < 150 && opponent.getEnergy() > 500) {
-			this.restCount++;
-			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.RESTING);
+		//clear the chained canon attack flag if 3 canon attacks have been used (or 2 and not enough breath to continue)
+		if (
+			this.isGoingForChainedCanonAttack
+			&& (this.canonAttackUsed >= 3
+				|| me.getBreath() < FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK)
+				&& this.canonAttackUsed === 2)
+		) {
+			this.isGoingForChainedCanonAttack = false;
 		}
 
-		// BENEDICTION STRATEGY: Use benediction at the chosen round
-		if (getUsedGodMoves(me, opponent) < 1 && (currentRound === this.blessRoundChosen || currentRound === this.blessRoundChosen + 1)) {
-			// Not enough breath for benediction? Rest first (only if we haven't rested 4 times)
-			if (me.getBreath() < 8) {
-				if (this.restCount < 4) {
-					this.blessRoundChosen += 2;
-					this.restCount++;
-					return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.RESTING);
-				}
-				// Otherwise, delay benediction but don't rest
-				this.blessRoundChosen += 1;
+		// If opponent is very low health, finish them with any attack
+		if (opponent.getEnergy() <= 50) {
+			// Quick Attack is good for finishing off enemies
+			if (me.getBreath() >= FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.QUICK_ATTACK)) {
+				return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.QUICK_ATTACK);
+			} else {
+				return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.SABOTAGE_ATTACK);
+			}
+		}
+
+		// Play boomerang when possible if opponent has no alteration
+		if (
+			!opponent.hasFightAlteration()
+			&& !this.isGoingForChainedCanonAttack
+			&& me.getBreath() >= FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.BOOMERANG_ATTACK)
+		) {
+			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.BOOMERANG_ATTACK);
+		}
+
+		// After a boomerang, decide to focus on canon attack strategy we have enough breath, use canon attack
+		if (
+			!this.isGoingForChainedCanonAttack
+			&& this.canonAttackUsed === 0
+			&& opponent.hasFightAlteration()
+			&& me.getBreath() >= FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK)
+		) {
+			this.isGoingForChainedCanonAttack = true;
+			// we need to have enough breath to use canon attack twice in a raw at minimum
+			if (me.getBreath() >= FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK) + 2) {
+				return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK);
+			} else {
+
 			}
 
-			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.BENEDICTION);
 		}
 
-		// REST WHEN NEEDED: Not enough breath for actions (only if we haven't rested 4 times)
-		if (me.getBreath() < 2 && this.restCount < 4) {
-			this.restCount++;
-			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.RESTING);
+		// If opponent has more speed or close to it and we have enough breath, use intense attack
+		if (
+			opponent.getSpeed() > me.getSpeed() * 0.8
+			&& me.getBreath() >= FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.INTENSE_ATTACK)
+		) {
+			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.INTENSE_ATTACK);
 		}
 
-		// Heavy attacks if the opponent has more defense and we have enough breath
-		if (opponent.getDefense() > me.getDefense() && me.getBreath() >= 7) {
-			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.HEAVY_ATTACK);
+		// If opponent has more speed or close to it and we don't have breath for intense, use sabotage attack
+		if (
+			opponent.getSpeed() > me.getSpeed() * 0.8
+			&& me.getBreath() >= FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.SABOTAGE_ATTACK)
+		) {
+			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.SABOTAGE_ATTACK);
 		}
 
-		return simpleOrQuickAttack(me, opponent);
+		// Quick attack in other scenarios
+		return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.QUICK_ATTACK);
 	}
 }
 
-export default KnightFightBehavior;
+export default GunnerFightBehavior;
