@@ -151,7 +151,7 @@ export async function handleSellReactionCollector(context: PacketContext, packet
 	}
 
 	const mainEmbed = new DraftBotEmbed()
-		.setTitle(i18n.t("commands:sell.titleChoiceEmbed", { lng, pseudo: interaction.user.displayName }))
+		.formatAuthor(i18n.t("commands:sell.titleChoiceEmbed", { lng, pseudo: interaction.user.displayName }), interaction.user)
 		.setDescription(i18n.t("commands:sell.sellIndication", { lng }));
 
 	const refuseCustomId = "refuse";
