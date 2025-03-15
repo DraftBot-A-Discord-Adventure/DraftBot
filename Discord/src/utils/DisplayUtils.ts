@@ -9,7 +9,6 @@ import {EmoteUtils} from "./EmoteUtils";
 import {SexTypeShort, StringConstants} from "../../../Lib/src/constants/StringConstants";
 import {OwnedPet} from "../../../Lib/src/types/OwnedPet";
 import {PetConstants} from "../../../Lib/src/constants/PetConstants";
-import {draftBotClient} from "../bot/DraftBotShard";
 
 export class DisplayUtils {
 
