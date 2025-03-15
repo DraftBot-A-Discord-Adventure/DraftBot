@@ -42,9 +42,9 @@ export class EmoteUtils {
 
 		const maxOptions = 25;
 		for (let i = 0; i < Math.ceil(emojis.length / maxOptions); i++) {
-			console.log("Test select menu slice " + i + " / " + Math.ceil(emojis.length / maxOptions));
+			console.log(`Test select menu slice ${i} / ${Math.ceil(emojis.length / maxOptions)}`);
 			const emojisSlice = emojis.slice(i * maxOptions, (i + 1) * maxOptions);
-			console.log("Emojis slice: " + emojisSlice);
+			console.log(`Emojis slice: ${emojisSlice}`);
 			const row = new ActionRowBuilder<StringSelectMenuBuilder>();
 			const selectMenu = new StringSelectMenuBuilder()
 				.setCustomId("testSelectMenu")
