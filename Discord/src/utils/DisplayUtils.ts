@@ -200,17 +200,32 @@ export class DisplayUtils {
 	}
 
 	/**
+	 * Display the sex icon of a pet
+	 * @param sex
+	 * @param lng
+	 */
+	static getPetSexName(sex: SexTypeShort, lng: Language): string {
+		return sex === "f" ? i18n.t("models:sex.female", {lng}) : i18n.t("models:sex.male", {lng});
+	}
+
+	/**
 	 * Display the adjective corresponding to the love level of a pet
 	 * @param loveLevel
 	 * @param sex
 	 * @param lng
 	 */
-	static getPetLoveLevelDisplay(loveLevel: number, sex: SexTypeShort, lng: Language): string {
+	static getPetLoveLevelDisplay(loveLevel: number, sex: SexTypeShort, lng: Language, withIcon = true): string {
 		const sexStringContext: string = sex === StringConstants.SEX.MALE.short ? StringConstants.SEX.MALE.long : StringConstants.SEX.FEMALE.long;
-		return i18n.t(`commands:pet.loveLevels.${loveLevel}`, {
+		const text = i18n.t(`commands:pet.loveLevels.${loveLevel}`, {
 			context: sexStringContext as unknown,
 			lng
 		});
+
+		if (withIcon) {
+			return text;
+		}
+
+		return text.split(" ")[1];
 	}
 
 	/**

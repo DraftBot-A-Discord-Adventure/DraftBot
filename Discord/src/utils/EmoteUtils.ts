@@ -15,12 +15,35 @@ export class EmoteUtils {
 	};
 
 	/**
+	 * Map of emojis to their fallback for emotes not supported by Discord
+	 * @private
+	 */
+	private static emojiSelectMenuMap: Record<string, string> = {
+		"👁️‍🗨️": "👁️",
+		"🦄️": "❓",
+		"🐉️": "❓",
+		"🦖️": "❓",
+		"🦔️": "❓"
+	};
+
+	/**
 	 * Translates an emoji to its Discord equivalent when necessary
 	 * @param emoji
 	 */
 	static translateEmojiToDiscord(emoji: string): string {
 		if (this.emojiUnicodeMap[emoji]) {
 			return this.emojiUnicodeMap[emoji];
+		}
+		return emoji;
+	}
+
+	/**
+	 * Translates an emoji to its select menu equivalent when necessary
+	 * @param emoji
+	 */
+	static translateEmojiForSelectMenus(emoji: string): string {
+		if (this.emojiSelectMenuMap[emoji]) {
+			return this.emojiSelectMenuMap[emoji];
 		}
 		return emoji;
 	}
