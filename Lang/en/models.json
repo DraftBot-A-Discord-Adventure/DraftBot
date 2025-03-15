@@ -91,6 +91,7 @@
     "9": "Slinger"
   },
   "classFormat": "{emote:classes.{{id}}} $t(models:classes.{{id}})",
+  "classWithStatsFormat": "{emote:classes.{{id}}} $t(models:classes.{{id}}) :\n{emote:unitValues.energy} {{energy}} | {emote:unitValues.attack} {{attack}} | {emote:unitValues.defense} {{defense}} | {emote:unitValues.speed} {{speed}} | {emote:unitValues.breath} {{initialBreath}} / {{maxBreath}} | {emote:unitValues.health} {{health}}",
   "class_descriptions": {
     "0": "A simple class. Somewhat balanced.",
     "1": "A simple class. Somewhat balanced.",
