@@ -91,6 +91,7 @@
     "9": "Aparador"
   },
   "classFormat": "{emote:classes.{{id}} $t(models:classes.{{id}})}",
+  "classWithStatsFormat": "{emote:classes.{{id}}} $t(models:classes.{{id}}) :\n{emote:unitValues.energy} {{energy}} | {emote:unitValues.attack} {{attack}} | {emote:unitValues.defense} {{defense}} | {emote:unitValues.speed} {{speed}} | {emote:unitValues.breath} {{initialBreath}} / {{maxBreath}} | {emote:unitValues.health} {{health}}",
   "class_descriptions": {
     "0": "Uma aula simples. Bastante equilibrada.",
     "1": "Uma classe simples. Bastante equilibrada.",
