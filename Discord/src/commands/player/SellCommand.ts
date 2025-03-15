@@ -53,7 +53,7 @@ export async function handleCommandSellSuccessPacket(packet: CommandSellItemSucc
 		packet.item.category === ItemCategory.POTION && packet.price === 0
 			? "commands:sell.potionDestroyedMessage"
 			: "commands:sell.soldMessage",
-		{ lng, item: DisplayUtils.getItemDisplay(packet.item, lng) }
+		{ lng, item: DisplayUtils.getItemDisplay(packet.item, lng), value: packet.price, interpolation: { escapeValue: false } }
 	);
 
 	await interaction.editReply({
@@ -72,10 +72,10 @@ async function validateSell(
 	const lng = context.discord!.language;
 	const validateClassChangeEmbed = new DraftBotEmbed()
 		.formatAuthor(i18n.t("commands:sell.sellTitle", { lng, pseudo: interaction.user.displayName }), interaction.user)
-		.setDescription(i18n.t(reactionsInfo.reaction.item.category === ItemCategory.POTION && reactionsInfo.reaction.price === 0 ? "commands:sell.throwAwayField" : "commands:sell.confirmSell", {
+		.setDescription(i18n.t(reactionsInfo.reaction.item.category === ItemCategory.POTION && reactionsInfo.reaction.price === 0 ? "commands:sell.confirmThrowAway" : "commands:sell.confirmSell", {
 			lng,
 			item: DisplayUtils.getItemDisplay(reactionsInfo.reaction.item, lng),
-			price: reactionsInfo.reaction.price,
+			value: reactionsInfo.reaction.price,
 			interpolation: { escapeValue: false }
 		}));
 
@@ -151,14 +151,8 @@ export async function handleSellReactionCollector(context: PacketContext, packet
 	}
 
 	const mainEmbed = new DraftBotEmbed()
-		.setTitle(i18n.t("commands:sell.titleChoiceEmbed", { lng }))
-		.setDescription(i18n.t("commands:sell.sellIndication", { lng }) + "\n\n" + itemsReactions.map((reaction) =>
-			i18n.t(reaction.item.category === ItemCategory.POTION && reaction.price === 0 ? "commands:sell.throwAwayField" : "commands:sell.sellField", {
-				lng,
-				name: DisplayUtils.getItemDisplay(reaction.item, lng),
-				value: reaction.price,
-				interpolation: { escapeValue: false }
-			})) + "\n");
+		.setTitle(i18n.t("commands:sell.titleChoiceEmbed", { lng, pseudo: interaction.user.displayName }))
+		.setDescription(i18n.t("commands:sell.sellIndication", { lng }));
 
 	const refuseCustomId = "refuse";
 
@@ -171,6 +165,12 @@ export async function handleSellReactionCollector(context: PacketContext, packet
 		selectMenu.addOptions(new StringSelectMenuOptionBuilder()
 			.setLabel(DisplayUtils.getSimpleItemName(reaction.item, lng))
 			.setValue(i.toString())
+			.setDescription(
+				i18n.t(
+					reaction.item.category === ItemCategory.POTION && reaction.price === 0 ? "commands:sell.selectMenuDescThrow" : "commands:sell.selectMenuDescSell",
+					{ lng, value: reaction.price }
+				)
+			)
 			.setEmoji(parseEmoji(DisplayUtils.getItemIcon(reaction.item))!));
 	}
 
@@ -199,6 +199,10 @@ export async function handleSellReactionCollector(context: PacketContext, packet
 		}
 
 		await selectMenuInteraction.deferReply();
+		await msg.edit({
+			embeds: [mainEmbed],
+			components: []
+		});
 
 		const selectedOption = selectMenuInteraction.values[0];
 
@@ -223,7 +227,7 @@ export async function handleSellReactionCollector(context: PacketContext, packet
 				packet,
 				context,
 				selectMenuInteraction,
-				{ reaction, reactionIndex: packet.reactions.findIndex((reaction) => reaction.data === reaction), refuseReactionIndex }
+				{ reaction, reactionIndex: packet.reactions.findIndex((packetReaction) => JSON.stringify(packetReaction.data) === JSON.stringify(reaction)), refuseReactionIndex }
 			))![0] as unknown as InteractionCollector<never>;
 	});
 

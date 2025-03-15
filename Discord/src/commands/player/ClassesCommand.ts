@@ -120,6 +120,10 @@ export async function handleChangeClassReactionCollector(context: PacketContext,
 		}
 
 		await selectMenuInteraction.deferReply();
+		await msg.edit({
+			embeds: [mainEmbed],
+			components: []
+		});
 
 		const selectedOption = selectMenuInteraction.values[0];
 

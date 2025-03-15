@@ -58,23 +58,13 @@ export class DisplayUtils {
 	}
 
 	static getItemIcon(item: Item): string {
-		let emote;
-		let cacheEmoji;
-
 		switch (item.category) {
 		case ItemCategory.WEAPON:
 			return DraftBotIcons.weapons[item.id];
 		case ItemCategory.ARMOR:
 			return DraftBotIcons.armors[item.id];
 		case ItemCategory.POTION:
-			emote = DraftBotIcons.potions[item.id];
-			if (/:[0-9]/u.test(emote)) {
-				cacheEmoji = draftBotClient.emojis.cache.get(emote.split(":")[2].split(">")[0]);
-				if (!cacheEmoji || !cacheEmoji.available) {
-					emote = DraftBotIcons.potionsFallback[item.id];
-				}
-			}
-			return emote;
+			return DraftBotIcons.potions[item.id];
 		case ItemCategory.OBJECT:
 			return DraftBotIcons.objects[item.id];
 		default:
