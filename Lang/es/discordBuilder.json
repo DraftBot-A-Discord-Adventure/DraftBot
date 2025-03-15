@@ -334,5 +334,13 @@
         "description": "Le joueur à qui vendre le familier."
       }
     }
+  },
+  "classes": {
+    "name": "classes",
+    "description": "Changer de classe."
+  },
+  "sell": {
+    "name": "vendre",
+    "description": "Vendre un équipement."
   }
 }
