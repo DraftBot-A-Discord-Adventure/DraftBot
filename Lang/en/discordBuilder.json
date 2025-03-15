@@ -338,5 +338,9 @@
   "classes": {
     "name": "classes",
     "description": "Change your class."
+  },
+  "sell": {
+    "name": "sell",
+    "description": "Sell an equipment."
   }
 }

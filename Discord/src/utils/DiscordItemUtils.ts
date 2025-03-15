@@ -5,8 +5,8 @@ import {EmbedField} from "discord.js";
 import {itemCategoryToString, ItemNature} from "../../../Lib/src/constants/ItemConstants";
 import {minutesDisplay} from "../../../Lib/src/utils/TimeUtils";
 import {StatValues} from "../../../Lib/src/types/StatValues";
-import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
 import {EmoteUtils} from "./EmoteUtils";
+import {DisplayUtils} from "./DisplayUtils";
 
 
 type Value = {
@@ -74,7 +74,7 @@ export class DiscordItemUtils {
 	static getWeaponField(displayPacket: MainItemDisplayPacket, lng: Language): EmbedField {
 		return DiscordItemUtils.getClassicItemField(
 			"weapons",
-			DraftBotIcons.weapons,
+			DisplayUtils.getItemIcon({ id: displayPacket.id, category: displayPacket.itemCategory }),
 			DiscordItemUtils.getValues(
 				displayPacket.attack.value,
 				displayPacket.defense.value,
@@ -94,7 +94,7 @@ export class DiscordItemUtils {
 	static getArmorField(displayPacket: MainItemDisplayPacket, lng: Language): EmbedField {
 		return DiscordItemUtils.getClassicItemField(
 			"armors",
-			DraftBotIcons.armors,
+			DisplayUtils.getItemIcon({ id: displayPacket.id, category: displayPacket.itemCategory }),
 			DiscordItemUtils.getValues(
 				displayPacket.attack.value,
 				displayPacket.defense.value,
@@ -114,7 +114,7 @@ export class DiscordItemUtils {
 	static getPotionField(displayPacket: SupportItemDisplayPacket, lng: Language): EmbedField {
 		return DiscordItemUtils.getClassicItemField(
 			"potions",
-			DraftBotIcons.potions,
+			DisplayUtils.getItemIcon({ id: displayPacket.id, category: displayPacket.itemCategory }),
 			i18n.t(`items:potionsNatures.${displayPacket.nature}`, {
 				lng,
 				power: displayPacket.nature === ItemNature.TIME_SPEEDUP ? minutesDisplay(displayPacket.power, lng) : displayPacket.power
@@ -127,7 +127,7 @@ export class DiscordItemUtils {
 	static getObjectField(displayPacket: SupportItemDisplayPacket, lng: Language): EmbedField {
 		return DiscordItemUtils.getClassicItemField(
 			"objects",
-			DraftBotIcons.objects,
+			DisplayUtils.getItemIcon({ id: displayPacket.id, category: displayPacket.itemCategory }),
 			i18n.t(`items:objectsNatures.${displayPacket.nature}`, {
 				lng,
 				power: displayPacket.nature === ItemNature.TIME_SPEEDUP
@@ -155,7 +155,7 @@ export class DiscordItemUtils {
 
 	private static getClassicItemField(
 		model: "weapons" | "armors" | "potions" | "objects",
-		emoteMap: { [key: string]: string },
+		emote: string,
 		values: string,
 		displayPacket: MainItemDisplayPacket | SupportItemDisplayPacket,
 		lng: Language
@@ -166,7 +166,7 @@ export class DiscordItemUtils {
 				lng,
 				interpolation: {escapeValue: false}
 			}),
-			emote: EmoteUtils.translateEmojiToDiscord(emoteMap[displayPacket.id]),
+			emote: EmoteUtils.translateEmojiToDiscord(emote),
 			rarity: i18n.t(`items:rarities.${displayPacket.rarity}`, {lng}),
 			values,
 			interpolation: {escapeValue: false}

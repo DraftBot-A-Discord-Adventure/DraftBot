@@ -338,5 +338,9 @@
   "classes": {
     "name": "classes",
     "description": "Changer de classe."
+  },
+  "sell": {
+    "name": "vendre",
+    "description": "Vendre un équipement."
   }
 }

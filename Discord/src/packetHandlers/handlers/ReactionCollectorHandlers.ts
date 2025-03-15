@@ -62,6 +62,8 @@ import {ReactionCollectorStopPacket} from "../../../../Lib/src/packets/interacti
 import {ReactionCollectorResetTimerPacketRes} from "../../../../Lib/src/packets/interaction/ReactionCollectorResetTimer";
 import {ReactionCollectorChangeClassData} from "../../../../Lib/src/packets/interaction/ReactionCollectorChangeClass";
 import {handleChangeClassReactionCollector} from "../../commands/player/ClassesCommand";
+import {ReactionCollectorSellData} from "../../../../Lib/src/packets/interaction/ReactionCollectorSell";
+import {handleSellReactionCollector} from "../../commands/player/SellCommand";
 
 // Needed because we need to accept any parameter
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -106,6 +108,7 @@ export default class ReactionCollectorHandler {
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorDrinkData.name, drinkAcceptCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorPetSellData.name, createPetSellCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorChangeClassData.name, handleChangeClassReactionCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorSellData.name, handleSellReactionCollector);
 	}
 
 	@packetHandler(ReactionCollectorCreationPacket)
