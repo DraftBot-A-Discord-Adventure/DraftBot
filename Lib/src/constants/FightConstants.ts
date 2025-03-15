@@ -76,7 +76,7 @@ export abstract class FightConstants {
 				INTENSE_ATTACK: "intenseAttack",
 				ENERGETIC_ATTACK: "energeticAttack",
 				PIERCING_ATTACK: "piercingAttack",
-				CANONICAL_ATTACK: "canonAttack",
+				CANON_ATTACK: "canonAttack",
 				RAM_ATTACK: "ramAttack",
 				CHARGING_ATTACK: "chargingAttack",
 				SHIELD_ATTACK: "shieldAttack",
