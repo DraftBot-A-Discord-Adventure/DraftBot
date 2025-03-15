@@ -9,6 +9,7 @@ import {EmoteUtils} from "./EmoteUtils";
 import {SexTypeShort, StringConstants} from "../../../Lib/src/constants/StringConstants";
 import {OwnedPet} from "../../../Lib/src/types/OwnedPet";
 import {PetConstants} from "../../../Lib/src/constants/PetConstants";
+import {draftBotClient} from "../bot/DraftBotShard";
 
 export class DisplayUtils {
 
@@ -41,6 +42,46 @@ export class DisplayUtils {
 		}
 	}
 
+	static getSimpleItemName(item: Item, lng: Language): string {
+		switch (item.category) {
+		case ItemCategory.WEAPON:
+			return i18n.t(`models:weapons.${item.id}`, {lng});
+		case ItemCategory.ARMOR:
+			return i18n.t(`models:armors.${item.id}`, {lng});
+		case ItemCategory.POTION:
+			return i18n.t(`models:potions.${item.id}`, {lng});
+		case ItemCategory.OBJECT:
+			return i18n.t(`models:objects.${item.id}`, {lng});
+		default:
+			return "Missing no";
+		}
+	}
+
+	static getItemIcon(item: Item): string {
+		let emote;
+		let cacheEmoji;
+
+		switch (item.category) {
+		case ItemCategory.WEAPON:
+			return DraftBotIcons.weapons[item.id];
+		case ItemCategory.ARMOR:
+			return DraftBotIcons.armors[item.id];
+		case ItemCategory.POTION:
+			emote = DraftBotIcons.potions[item.id];
+			if (/:[0-9]/u.test(emote)) {
+				cacheEmoji = draftBotClient.emojis.cache.get(emote.split(":")[2].split(">")[0]);
+				if (!cacheEmoji || !cacheEmoji.available) {
+					emote = DraftBotIcons.potionsFallback[item.id];
+				}
+			}
+			return emote;
+		case ItemCategory.OBJECT:
+			return DraftBotIcons.objects[item.id];
+		default:
+			return "Missing no";
+		}
+	}
+
 	/**
 	 * Display the item name with its icon
 	 * @param weaponId
@@ -65,7 +106,10 @@ export class DisplayUtils {
 	 * @param lng
 	 */
 	static getPotionDisplay(potionId: number, lng: Language): string {
-		return `${DraftBotIcons.potions[potionId]} ${i18n.t(`models:potions.${potionId}`, {lng})}`;
+		return `${DisplayUtils.getItemIcon({
+			category: ItemCategory.POTION,
+			id: potionId
+		})} ${i18n.t(`models:potions.${potionId}`, {lng})}`;
 	}
 
 	/**
@@ -240,7 +284,10 @@ export class DisplayUtils {
 	private static getPotionDisplayWithStats(itemWithDetails: ItemWithDetails, lng: Language): string {
 		const itemField: string = i18n.t("items:itemsField", {
 			name: i18n.t(`models:potions.${itemWithDetails.id}`, {lng, interpolation: {escapeValue: false}}),
-			emote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.potions[itemWithDetails.id]),
+			emote: EmoteUtils.translateEmojiToDiscord(DisplayUtils.getItemIcon({
+				category: itemWithDetails.category,
+				id: itemWithDetails.id
+			})),
 			rarity: i18n.t("items:rarities." + itemWithDetails.rarity, {lng}),
 			values: i18n.t(`items:potionsNatures.${itemWithDetails.detailsSupportItem!.nature}`, {
 				power: itemWithDetails.detailsSupportItem!.nature === ItemNature.TIME_SPEEDUP ? minutesDisplay(itemWithDetails.detailsSupportItem!.power) : itemWithDetails.detailsSupportItem!.power,
