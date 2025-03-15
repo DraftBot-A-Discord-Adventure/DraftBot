@@ -26,11 +26,20 @@ export class EmoteUtils {
 	}
 
 	static async testAllEmotesInSelectMenu(interaction: DraftbotInteraction): Promise<void> {
-		let emojis = Object.values(DraftBotIcons.weapons).concat(Object.values(DraftBotIcons.armors), Object.values(DraftBotIcons.potions));
+		let emojis = Object.values(DraftBotIcons.weapons).concat(
+			Object.values(DraftBotIcons.armors),
+			Object.values(DraftBotIcons.potions),
+			Object.values(DraftBotIcons.pets).map(pet => pet.emoteMale),
+			Object.values(DraftBotIcons.pets).map(pet => pet.emoteFemale)
+		);
 		// Remove duplicates
 		emojis = emojis.filter((value, index, self) => self.indexOf(value) === index);
 		// Remove some emojis that are not supported by Discord
 		emojis.splice(emojis.indexOf("👁️‍🗨️"), 1);
+		emojis.splice(emojis.indexOf("🦄️"), 1);
+		emojis.splice(emojis.indexOf("🐉️"), 1);
+		emojis.splice(emojis.indexOf("🦖️"), 1);
+		emojis.splice(emojis.indexOf("🦔️"), 1);
 
 		const embed = new DraftBotEmbed()
 			.setTitle("Test select menu")

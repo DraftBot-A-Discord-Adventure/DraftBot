@@ -342,5 +342,9 @@
   "sell": {
     "name": "vendre",
     "description": "Vendre un équipement."
+  },
+  "petTransfer": {
+    "name": "transfererfamilier",
+    "description": "Transférer un familier depuis ou vers l'abri de la guilde."
   }
 }
