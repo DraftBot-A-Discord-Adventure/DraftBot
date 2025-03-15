@@ -259,12 +259,12 @@ export class DisplayUtils {
 		this.getStringValueFor(values, itemWithDetails.maxStats?.speed ?? null, itemWithDetails.detailsMainItem!.stats.speed, "speed", lng);
 		return i18n.t("items:itemsField", {
 			lng,
-			name: i18n.t(`models:${itemType}.` + itemWithDetails.id, {
+			name: i18n.t(`models:${itemType}.${itemWithDetails.id}`, {
 				lng,
 				interpolation: {escapeValue: false}
 			}),
 			emote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons[itemType][itemWithDetails.id]),
-			rarity: i18n.t("items:rarities." + itemWithDetails.rarity, {lng}),
+			rarity: i18n.t(`items:rarities.${itemWithDetails.rarity}`, {lng}),
 			values: values.join(" "),
 			interpolation: {escapeValue: false}
 		});
@@ -277,7 +277,7 @@ export class DisplayUtils {
 				category: itemWithDetails.category,
 				id: itemWithDetails.id
 			})),
-			rarity: i18n.t("items:rarities." + itemWithDetails.rarity, {lng}),
+			rarity: i18n.t(`items:rarities.${itemWithDetails.rarity}`, {lng}),
 			values: i18n.t(`items:potionsNatures.${itemWithDetails.detailsSupportItem!.nature}`, {
 				power: itemWithDetails.detailsSupportItem!.nature === ItemNature.TIME_SPEEDUP ? minutesDisplay(itemWithDetails.detailsSupportItem!.power) : itemWithDetails.detailsSupportItem!.power,
 				lng
