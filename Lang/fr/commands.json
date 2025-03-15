@@ -969,6 +969,8 @@
     "refuseButton": "Annuler le transfert",
     "backButton": "Retour",
     "withdrawPlaceholder": "Choisissez un familier à retirer",
-    "switchPlaceholder": "Choisissez un familier à échanger contre {{pet}}"
+    "switchPlaceholder": "Choisissez un familier à échanger contre {{pet}}",
+    "selectMenuPetDetails": "{{rarity}} | {{sex}} | {{loveLevel}}",
+    "feistyError": "Vous ne pouvez pas transférer un familier fielleux."
   }
 }

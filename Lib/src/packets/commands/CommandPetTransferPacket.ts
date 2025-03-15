@@ -19,6 +19,9 @@ export class CommandPetTransferSituationChangedErrorPacket extends DraftBotPacke
 export class CommandPetTransferNoPetErrorPacket extends DraftBotPacket {}
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class CommandPetTransferFeistyErrorPacket extends DraftBotPacket {}
+
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandPetTransferSuccessPacket extends DraftBotPacket {
 	oldPet?: OwnedPet;
 
