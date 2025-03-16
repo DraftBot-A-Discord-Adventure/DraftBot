@@ -6,6 +6,7 @@ import KnightFightBehavior from "./aiClassBehaviors/KnightFightBehavior";
 import HorseRiderFightBehavior from "./aiClassBehaviors/HorseRiderFightBehavior";
 import EsquireFightBehavior from "./aiClassBehaviors/EsquireFightBehavior";
 import MysticMageFightBehavior from "./aiClassBehaviors/MysticMageFightBehavior";
+import GunnerFightBehavior from "./aiClassBehaviors/GunnerFightBehavior";
 
 export interface ClassBehavior {
 	chooseAction(fighter: AiPlayerFighter, fightView: FightView): FightAction;
@@ -24,6 +25,8 @@ export function initializeAllClassBehaviors(): void {
 	registerClassBehavior(ClassConstants.CLASSES_ID.HORSE_RIDER, new HorseRiderFightBehavior());
 	registerClassBehavior(ClassConstants.CLASSES_ID.ESQUIRE, new EsquireFightBehavior());
 	registerClassBehavior(ClassConstants.CLASSES_ID.MYSTIC_MAGE, new MysticMageFightBehavior());
+	registerClassBehavior(ClassConstants.CLASSES_ID.GUNNER, new GunnerFightBehavior());
+	registerClassBehavior(ClassConstants.CLASSES_ID.FORMIDABLE_GUNNER, new GunnerFightBehavior());
 }
 
 /**

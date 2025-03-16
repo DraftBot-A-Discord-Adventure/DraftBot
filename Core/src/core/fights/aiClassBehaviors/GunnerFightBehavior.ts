@@ -16,8 +16,8 @@ class GunnerFightBehavior implements ClassBehavior {
 
 		// Use canon attack again if used last turn to get 1.5x damage
 		if (
-			(this.isGoingForChainedCanonAttack
-				|| me.getLastFightActionUsed().id === FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK)
+			fightView.fightController.turn > 2
+			&& this.isGoingForChainedCanonAttack
 			&& me.getBreath() >= FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK)
 			&& this.canonAttackUsed <= 2
 		) {
@@ -58,22 +58,23 @@ class GunnerFightBehavior implements ClassBehavior {
 		if (
 			!this.isGoingForChainedCanonAttack
 			&& this.canonAttackUsed === 0
+			&& opponent.getEnergy() > 400
 			&& opponent.hasFightAlteration()
 			&& me.getBreath() >= FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK)
 		) {
 			this.isGoingForChainedCanonAttack = true;
 			// we need to have enough breath to use canon attack twice in a raw at minimum
 			if (me.getBreath() >= FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK) + 2) {
+				this.canonAttackUsed++;
 				return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK);
-			} else {
-
 			}
-
 		}
 
 		// If opponent has more speed or close to it and we have enough breath, use intense attack
 		if (
-			opponent.getSpeed() > me.getSpeed() * 0.8
+			!this.isGoingForChainedCanonAttack
+			&& opponent.getSpeed() > me.getSpeed() * 0.8
+			&& opponent.getEnergy() > 200
 			&& me.getBreath() >= FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.INTENSE_ATTACK)
 		) {
 			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.INTENSE_ATTACK);
