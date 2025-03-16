@@ -66,6 +66,12 @@ import {ReactionCollectorSellData} from "../../../../Lib/src/packets/interaction
 import {handleSellReactionCollector} from "../../commands/player/SellCommand";
 import {handlePetTransferReactionCollector} from "../../commands/pet/PetTransferCommand";
 import {ReactionCollectorPetTransferData} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetTransfer";
+import {ReactionCollectorPetFeedWithGuildData} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFeedWithGuild";
+import {
+	handleCommandPetFeedWithGuildCollector,
+	handleCommandPetFeedWithoutGuildCollector
+} from "../../commands/pet/PetFeedCommand";
+import {ReactionCollectorPetFeedWithoutGuildData} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFeedWithoutGuild";
 
 // Needed because we need to accept any parameter
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -112,6 +118,8 @@ export default class ReactionCollectorHandler {
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorChangeClassData.name, handleChangeClassReactionCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorSellData.name, handleSellReactionCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorPetTransferData.name, handlePetTransferReactionCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorPetFeedWithGuildData.name, handleCommandPetFeedWithGuildCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorPetFeedWithoutGuildData.name, handleCommandPetFeedWithoutGuildCollector);
 	}
 
 	@packetHandler(ReactionCollectorCreationPacket)
