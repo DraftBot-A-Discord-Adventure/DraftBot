@@ -9,6 +9,8 @@ import {EmoteUtils} from "./EmoteUtils";
 import {SexTypeShort, StringConstants} from "../../../Lib/src/constants/StringConstants";
 import {OwnedPet} from "../../../Lib/src/types/OwnedPet";
 import {PetConstants} from "../../../Lib/src/constants/PetConstants";
+import {PetFood} from "../../../Lib/src/types/PetFood";
+import {StringUtils} from "./StringUtils";
 
 export class DisplayUtils {
 
@@ -182,6 +184,19 @@ export class DisplayUtils {
 		});
 	}
 
+	static getPetNicknameOrTypeName(nickname: string | null, typeId: number, sex: SexTypeShort, lng: Language): string {
+		return nickname ? DisplayUtils.getPetDisplayNickname(lng, nickname) : DisplayUtils.getPetTypeName(lng, typeId, sex);
+	}
+
+	/**
+	 * Display the pet's information as a single line with the pet's icon and name (nickname or type name)
+	 * @param ownedPet
+	 * @param lng
+	 */
+	static getOwnedPetInlineDisplay(ownedPet: OwnedPet, lng: Language): string {
+		return `${DisplayUtils.getPetIcon(ownedPet.typeId, ownedPet.sex)} ${DisplayUtils.getPetNicknameOrTypeName(ownedPet.nickname, ownedPet.typeId, ownedPet.sex, lng)}`;
+	}
+
 	/**
 	 * Display the nickname of a pet or a default message if it has no nickname
 	 * @param lng
@@ -265,6 +280,21 @@ export class DisplayUtils {
 	 */
 	static getClassDisplay(classId: number, lng: Language): string {
 		return i18n.t("models:classFormat", {lng, id: classId});
+	}
+
+	/**
+	 * Return the string of food with its icon
+	 * @param food
+	 * @param count
+	 * @param lng
+	 * @param capitalizeFirstLetter
+	 */
+	static getFoodDisplay(food: PetFood, count: number, lng: Language, capitalizeFirstLetter: boolean): string {
+		let name = i18n.t(`models:foods.${food}`, {lng, count});
+		if (capitalizeFirstLetter) {
+			name = StringUtils.capitalizeFirstLetter(name);
+		}
+		return `${DraftBotIcons.foods[food]} ${name}`;
 	}
 
 	private static getStringValueFor(values: string[], maxValue: number | null, value: number, typeValue: "attack" | "defense" | "speed", lng: Language): void {

@@ -346,5 +346,9 @@
   "petTransfer": {
     "name": "transfererfamilier",
     "description": "Transférer un familier depuis ou vers l'abri de la guilde."
+  },
+  "petFeed": {
+    "name": "nourrirfamilier",
+    "description": "Nourrir votre familier."
   }
 }

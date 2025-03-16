@@ -346,5 +346,9 @@
   "petTransfer": {
     "name": "pettransfer",
     "description": "Transfer a pet from or to the guild shelter."
+  },
+  "petFeed": {
+    "name": "petfeed",
+    "description": "Feed your pet."
   }
 }

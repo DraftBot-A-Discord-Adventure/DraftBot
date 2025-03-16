@@ -6,4 +6,8 @@ export class StringUtils {
 		const intros: string[] = i18n.t(tr, {returnObjects: true, lng, ...replacements});
 		return intros[Math.floor(Math.random() * intros.length)];
 	}
+
+	static capitalizeFirstLetter(str: string): string {
+		return str.charAt(0).toUpperCase() + str.slice(1);
+	}
 }

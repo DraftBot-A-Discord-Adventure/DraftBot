@@ -8,6 +8,7 @@ import {
 	CommandPetFeedNoPetErrorPacket,
 	CommandPetFeedNotHungryErrorPacket,
 	CommandPetFeedPacketReq,
+	CommandPetFeedResult,
 	CommandPetFeedSuccessPacket
 } from "../../../../Lib/src/packets/commands/CommandPetFeedPacket";
 import {PetEntities, PetEntity} from "../../core/database/game/models/PetEntity";
@@ -70,8 +71,7 @@ function getWithoutGuildPetFeedEndCallback(player: Player, authorPet: PetEntity)
 		]);
 
 		response.push(makePacket(CommandPetFeedSuccessPacket, {
-			food: PetFood.CANDY,
-			pet: authorPet.asOwnedPet()
+			result: CommandPetFeedResult.HAPPY
 		}));
 	};
 }
@@ -86,6 +86,7 @@ function getWithoutGuildPetFeedEndCallback(player: Player, authorPet: PetEntity)
 function withoutGuildPetFeed(context: PacketContext, response: DraftBotPacket[], player: Player, authorPet: PetEntity): void {
 	const collector = new ReactionCollectorPetFeedWithoutGuild(
 		authorPet.asOwnedPet(),
+		PetFood.CANDY,
 		GuildShopConstants.PRICES.FOOD[getFoodIndexOf(PetConstants.PET_FOOD.COMMON_FOOD)]
 	);
 
@@ -136,19 +137,19 @@ function getWithGuildPetFeedEndCallback(player: Player, authorPet: PetEntity, gu
 			reason: NumberChangeReason.PET_FEED
 		};
 		if (petModel.diet && (foodReaction.food === PetFood.SALAD || foodReaction.food === PetFood.MEAT)) {
+			let result = CommandPetFeedResult.DISLIKE;
 			if (petModel.canEatMeat() && foodReaction.food === PetFood.MEAT || petModel.canEatVegetables() && foodReaction.food === PetFood.SALAD) {
 				await authorPet.changeLovePoints(changeLovePointsParameters);
+				result = CommandPetFeedResult.VERY_HAPPY;
 			}
 			response.push(makePacket(CommandPetFeedSuccessPacket, {
-				food: foodReaction.food,
-				pet: authorPet.asOwnedPet()
+				result
 			}));
 		}
 		else {
 			await authorPet.changeLovePoints(changeLovePointsParameters);
 			response.push(makePacket(CommandPetFeedSuccessPacket, {
-				food: foodReaction.food,
-				pet: authorPet.asOwnedPet()
+				result: foodReaction.food === PetFood.CANDY ? CommandPetFeedResult.HAPPY : CommandPetFeedResult.VERY_VERY_HAPPY
 			}));
 		}
 
@@ -222,7 +223,9 @@ export default class PetFeedCommand {
 
 		const cooldownTime = authorPet.getFeedCooldown(PetDataController.instance.getById(authorPet.typeId));
 		if (cooldownTime > 0) {
-			response.push(makePacket(CommandPetFeedNotHungryErrorPacket, {}));
+			response.push(makePacket(CommandPetFeedNotHungryErrorPacket, {
+				pet: authorPet.asOwnedPet(),
+			}));
 			return;
 		}
 

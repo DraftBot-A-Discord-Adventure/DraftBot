@@ -972,5 +972,24 @@
     "switchPlaceholder": "Choisissez un familier à échanger contre {{pet}}",
     "selectMenuPetDetails": "{{rarity}} | {{sex}} | {{loveLevel}}",
     "feistyError": "Vous ne pouvez pas transférer un familier fielleux."
+  },
+  "petFeed": {
+    "noPet": "Vous n'avez aucun familier !",
+    "noMoney": "Vous n'avez pas assez d'argent pour effectuer cet achat...",
+    "notHungry": "Il semblerait que **{{pet}}** n'ait pas faim...",
+    "guildStorageEmpty": "L'entrepôt de nourriture de votre guilde est vide. Achetez de la nourriture avec {command:guildshop}.",
+    "cancelled": "Nourrissage annulé !",
+    "resultTitle": "{{pseudo}}, nourrissage effectué !",
+    "result": {
+      "happy": "Votre familier est rassasié et semble heureux !",
+      "veryHappy": "Votre familier est rassasié et semble très heureux !",
+      "veryVeryHappy": "Votre familier est rassasié et saute de joie !",
+      "dislike": "Votre familier ne semble pas avoir aimé cette nourriture..."
+    },
+    "feedTitle": "{{pseudo}}, nourrissage de votre familier",
+    "feedDescription": "Choisissez une nourriture pour **{{pet}}** :",
+    "feedFoodBullet": "- **{{food}}** ({{amount}} / {{maxAmount}})",
+    "cancelButton": "Annuler",
+    "feedWithoutGuildDesc": "Souhaitez vous acheter une friandise pour {{pet}} ?\n\n{{food}} | `{{price}}{emote:unitValues.money}`"
   }
 }
