@@ -3,7 +3,6 @@ import { AiPlayerFighter } from "../fighter/AiPlayerFighter";
 import { FightView } from "../FightView";
 import { FightAction, FightActionDataController } from "../../../data/FightAction";
 import { FightConstants } from "../../../../../Lib/src/constants/FightConstants";
-import { RandomUtils } from "../../../../../Lib/src/utils/RandomUtils";
 
 class GunnerFightBehavior implements ClassBehavior {
 
