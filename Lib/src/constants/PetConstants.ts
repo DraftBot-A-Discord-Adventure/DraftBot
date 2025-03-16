@@ -154,6 +154,13 @@ export abstract class PetConstants {
 		PetConstants.PET_FOOD.CARNIVOROUS_FOOD,
 		PetConstants.PET_FOOD.ULTIMATE_FOOD
 	];
+
+	static readonly PET_FOOD_LOVE_POINTS_AMOUNT = [
+		1,
+		3,
+		3,
+		5
+	];
 }
 
 export enum PET_ENTITY_GIVE_RETURN {
