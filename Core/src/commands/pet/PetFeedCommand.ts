@@ -224,7 +224,7 @@ export default class PetFeedCommand {
 		const cooldownTime = authorPet.getFeedCooldown(PetDataController.instance.getById(authorPet.typeId));
 		if (cooldownTime > 0) {
 			response.push(makePacket(CommandPetFeedNotHungryErrorPacket, {
-				pet: authorPet.asOwnedPet(),
+				pet: authorPet.asOwnedPet()
 			}));
 			return;
 		}
