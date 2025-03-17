@@ -138,6 +138,9 @@ export const DraftBotIcons: {
 		switch: string,
 		withdraw: string
 	},
+	leagueReward: {
+		[leagueRewardId: string]: string
+	}
 	other: {
 		[otherId: string]: string
 	}
@@ -1797,10 +1800,13 @@ export const DraftBotIcons: {
 		"error": "❌",
 		"guild": "🏟️"
 	},
-	petTransfer: {
-		deposit: "📥",
-		switch: "🔄",
-		withdraw: "📤"
+	"petTransfer": {
+		"deposit": "📥",
+		"switch": "🔄",
+		"withdraw": "📤"
+	},
+	"leagueReward": {
+		"compression": "🗜️"
 	},
 	"other": {
 		"trash": "🗑️"
