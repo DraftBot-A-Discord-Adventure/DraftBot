@@ -354,5 +354,9 @@
   "guildShelter": {
     "name": "guildshelter",
     "description": "Display information about the guild shelter."
+  },
+  "leagueReward": {
+    "name": "leaguebonus",
+    "description": "Get the reward linked to your league."
   }
 }

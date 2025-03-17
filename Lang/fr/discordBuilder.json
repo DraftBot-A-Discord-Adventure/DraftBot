@@ -354,5 +354,9 @@
   "guildShelter": {
     "name": "abriguilde",
     "description": "Affiche les informations sur l'abri de guilde."
+  },
+  "leagueReward": {
+    "name": "bonusligue",
+    "description": "Récupérer la récompense liée à votre ligue."
   }
 }
