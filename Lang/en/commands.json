@@ -906,5 +906,11 @@
     "sellFooter": "Pour plus d'informations à propos des ventes de familiers, utilisez la commande help petsell.",
     "successTitle": "{{pseudo}}, transaction réussie !",
     "successDescription": "{{pet}} vous suit désormais. Occupez-vous en bien !"
+  },
+  "guildShelter": {
+    "embedTitle": "Refuge d'animaux de la guilde {{guild}} : {{count}} / {{max}}",
+    "noPetMessage": "Oh ! Il semblerait qu'il n'y ait aucun familier dans le refuge.",
+    "petFieldName": "__Familier n°{{number}}__",
+    "warningFull": "{emote:collectors.warning} Le refuge est plein, aucun nouveau familier ne pourra être obtenu !"
   }
 }

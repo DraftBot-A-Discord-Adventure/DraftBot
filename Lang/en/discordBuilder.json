@@ -350,5 +350,9 @@
   "petFeed": {
     "name": "petfeed",
     "description": "Feed your pet."
+  },
+  "guildShelter": {
+    "name": "guildshelter",
+    "description": "Display information about the guild shelter."
   }
 }
