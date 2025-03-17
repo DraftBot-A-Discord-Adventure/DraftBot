@@ -128,7 +128,7 @@
     "canceledDesc": "Vous n'avez pas édité la description de la guilde !",
     "canceledTitle": "Annulation prise en compte.",
     "successDescriptionTitle": "{{pseudo}}, confirmation :",
-    "noGuild" : "Il semblerait que vous ne fassiez plus partie d'une guilde.",
+    "noGuild": "Il semblerait que vous ne fassiez plus partie d'une guilde.",
     "notAnElder": "Vous n'avez plus les permissions nécessaires pour effectuer cette commande."
   },
   "help": {
@@ -255,7 +255,7 @@
         "description": "Permet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. :clock1:"
       },
       "PROFILE": {
-        "description": "Affiche des informations sur votre personnage :\n\n😃 État de santé | Pseudo | Level\n\n឵឵឵Informations :\n❤️ Vie | ⭐ XP | {emote:unitValues.money} Argent\n\nStatistiques :\n⚡ Énergie | 🗡️ Attaque | 🛡️ Défense | 🚀 Vitesse | 🌬️ Souffle | 🫁 Récupération\n\nMissions :\n💎 Gemmes | 📖 Avancé de la campagne %\n\nClassement et score :\n🏆 Classement | 🏅 Score\n\nClasse :\nVoir {command:classes}\n\nGloire et Ligue :\n✨ Gloire | Voir {{topGloryCommandMention}}\n\nGuilde :\n🏟️ Guilde\n\nDestination :\nVoir {{mapCommandMention}}\n\nFamilier :\nVoir {{petCommandMention}}\n\n💡-Les badges sont affichés sur votre profil sous forme de réaction."
+        "description": "Affiche des informations sur votre personnage :\n\n😃 État de santé | Pseudo | Level\n\n឵឵឵Informations :\n❤️ Vie | ⭐ XP | {emote:unitValues.money} Argent\n\nStatistiques :\n⚡ Énergie | 🗡️ Attaque | 🛡️ Défense | 🚀 Vitesse | 🌬️ Souffle | 🫁 Récupération\n\nMissions :\n💎 Gemmes | 📖 Avancé de la campagne %\n\nClassement et score :\n🏆 Classement | 🏅 Score\n\nClasse :\nVoir {command:classes}\n\nGloire et Ligue :\n{emote:unitValues.glory} Gloire | Voir {{topGloryCommandMention}}\n\nGuilde :\n🏟️ Guilde\n\nDestination :\nVoir {{mapCommandMention}}\n\nFamilier :\nVoir {{petCommandMention}}\n\n💡-Les badges sont affichés sur votre profil sous forme de réaction."
       },
       "RARITY": {
         "description": "Permet de voir la probabilité d'avoir un item selon sa rareté."
@@ -379,7 +379,7 @@
       "⚔️": ":crossed_swords: `Vainqueur d'un tournoi`",
       "⚙️": ":gear: `Équipe technique`",
       "⛑️": ":helmet_with_cross: `Personne faisant partie des 20 premières à avoir rejoint le serveur du bot`",
-      "✨": ":sparkles: `Personne ayant remporté le plus de gloire durant une saison de combat`",
+      "✨": "{emote:unitValues.glory} `Personne ayant remporté le plus de gloire durant une saison de combat`",
       "❤️": "{emote:unitValues.health} `Personne ayant le grade Soutien sur le serveur du bot`",
       "🌍": ":earth_africa: `Traducteur`",
       "🌟": ":star2: `Personne ayant aidé à mettre le bot sur un serv de plus de 2000 membres`",
@@ -406,7 +406,7 @@
     },
     "fightRanking": {
       "fieldName": "Gloire et ligue :",
-      "fieldValue": ":sparkles: {{gloryPoints}} | {{league}}"
+      "fieldValue": "{emote:unitValues.glory} {{gloryPoints}} | {{league}}"
     },
     "guild": {
       "fieldName": "Guilde :",
@@ -991,5 +991,17 @@
     "feedFoodBullet": "- **{{food}}** ({{amount}} / {{maxAmount}})",
     "cancelButton": "Annuler",
     "feedWithoutGuildDesc": "Souhaitez vous acheter une friandise pour {{pet}} ?\n\n{{food}} | `{{price}}{emote:unitValues.money}`"
+  },
+  "leagueReward": {
+    "errors": {
+      "notSunday": "La récompense de ligue ne peut être récupérée que le dimanche ! Revenez {{nextSunday}}.",
+      "noReward": "La récompense de ligue n'est disponible que pour les joueurs ayant combattu durant la saison précédente.",
+      "alreadyClaimed": "Vous avez déjà récupéré votre récompense de ligue pour cette saison."
+    },
+    "title": "{{pseudo}}, vous avez reçu votre récompense de ligue !",
+    "description": {
+      "first": "Vous avez terminé la ligue précédente avec **{{glory}} gloire. {emote:unitValues.glory}**\n\n**Vous terminez à la {ordinal:{{rank}},f} place !**\nVotre ligue finale est : **{emote:leagues.{{leagueId}}}$t(models.leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Argent gagné : **{{money}}** !\n{emote:unitValues.xp} XP gagnée : **{{xp}}** !\n{emote:unitValues.glory} Un badge vous a été offert à la fin de la saison.\n{emote:rewards.item} Vous recevez un équipement aléatoire !",
+      "other": "Vous avez terminé la ligue précédente avec **{{glory}} gloire. {emote:unitValues.glory}**\n\n Vous terminez à la {ordinal:{{rank}}} place !\nVotre ligue finale est : **{emote:leagues.{{leagueId}}}$t(models.leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Argent gagné : **{{money}}** !\n{emote:unitValues.xp} XP gagnée : **{{xp}}** !\n{emote:rewards.item} Vous recevez un équipement aléatoire !"
+    }
   }
 }
