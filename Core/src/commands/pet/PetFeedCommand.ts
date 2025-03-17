@@ -1,4 +1,4 @@
-import {commandRequires} from "../../core/utils/CommandUtils";
+import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import Player from "../../core/database/game/models/Player";
 import {
@@ -212,7 +212,8 @@ async function withGuildPetFeed(context: PacketContext, response: DraftBotPacket
 
 export default class PetFeedCommand {
 	@commandRequires(CommandPetFeedPacketReq, {
-		notBlocked: true
+		notBlocked: true,
+		allowedEffects: CommandUtils.ALLOWED_EFFECTS.NO_EFFECT
 	})
 	async execute(response: DraftBotPacket[], player: Player, _packet: CommandPetFeedPacketReq, context: PacketContext): Promise<void> {
 		const authorPet = await PetEntities.getById(player.petId);

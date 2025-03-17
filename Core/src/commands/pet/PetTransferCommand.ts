@@ -1,4 +1,4 @@
-import {commandRequires} from "../../core/utils/CommandUtils";
+import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import Player, {Players} from "../../core/database/game/models/Player";
 import {
@@ -179,7 +179,8 @@ function getEndCallback(player: Player) {
 export default class PetTransferCommand {
 	@commandRequires(CommandPetTransferPacketReq, {
 		notBlocked: true,
-		guildNeeded: true
+		guildNeeded: true,
+		allowedEffects: CommandUtils.ALLOWED_EFFECTS.NO_EFFECT
 	})
 	async execute(response: DraftBotPacket[], player: Player, _packet: CommandPetTransferPacketReq, context: PacketContext): Promise<void> {
 		const guild = await Guilds.getById(player.guildId);
