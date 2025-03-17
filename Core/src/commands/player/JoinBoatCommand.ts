@@ -26,6 +26,7 @@ import {TravelTime} from "../../core/maps/TravelTime";
 import {millisecondsToMinutes} from "../../../../Lib/src/utils/TimeUtils";
 import {ReportConstants} from "../../../../Lib/src/constants/ReportConstants";
 import {Constants} from "../../../../Lib/src/constants/Constants";
+import {PlayerSmallEvents} from "../../core/database/game/models/PlayerSmallEvent";
 
 async function canJoinBoat(player: Player, response: DraftBotPacket[]): Promise<boolean> {
 	// Check if the player is still part of a guild
@@ -72,11 +73,23 @@ async function acceptJoinBoat(player: Player, response: DraftBotPacket[]): Promi
 
 	// Gain Score
 	const travelData = TravelTime.getTravelDataSimplified(player, new Date());
-	let timeTravelled = millisecondsToMinutes(travelData.playerTravelledTime) - Constants.JOIN_BOAT_TIME_TRAVELLED_SUBTRAHEND; // Convert the time in minutes to calculate the score
+	let timeTravelled = millisecondsToMinutes(travelData.playerTravelledTime); // Convert the time in minutes to calculate the score
+
+	// Calculate score from small event
+	let scoreFromSmallEvent = 0;
+	// Divide by 3 if the player has travelled between 30 minutes and 1 hour.
+	if (timeTravelled >= Constants.JOIN_BOAT.TIME_TRAVELLED_THIRTY_MINUTES && timeTravelled < Constants.JOIN_BOAT.TIME_TRAVELLED_ONE_HOUR) {
+		scoreFromSmallEvent = Math.floor(await PlayerSmallEvents.calculateCurrentScore(player) / Constants.JOIN_BOAT.DIVISOR_TIME_TRAVELLED_LESS_THAN_ONE_HOUR);
+	}
+	if (timeTravelled >= Constants.JOIN_BOAT.TIME_TRAVELLED_ONE_HOUR) {
+		scoreFromSmallEvent = await PlayerSmallEvents.calculateCurrentScore(player);
+	}
+
+	timeTravelled -= Constants.JOIN_BOAT.TIME_TRAVELLED_SUBTRAHEND;
 	if (timeTravelled > ReportConstants.TIME_LIMIT) {
 		timeTravelled = ReportConstants.TIME_LIMIT;
 	}
-	const gainScore = TravelTime.timeTravelledToScore(timeTravelled);
+	const gainScore = TravelTime.timeTravelledToScore(timeTravelled) + scoreFromSmallEvent;
 	await player.addScore({
 		amount: gainScore,
 		response,

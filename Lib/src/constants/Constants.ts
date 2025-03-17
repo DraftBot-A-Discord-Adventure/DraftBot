@@ -227,7 +227,12 @@ export class Constants {
 
 	static readonly DEFAULT_HEALED_EFFECT = ":hospital:";
 
-	static readonly JOIN_BOAT_TIME_TRAVELLED_SUBTRAHEND = 30;
+	static readonly JOIN_BOAT = {
+		TIME_TRAVELLED_SUBTRAHEND: 30,
+		TIME_TRAVELLED_THIRTY_MINUTES: 30,
+		TIME_TRAVELLED_ONE_HOUR: 60,
+		DIVISOR_TIME_TRAVELLED_LESS_THAN_ONE_HOUR: 3 // The divisor if the time travelled is less than one hour
+	};
 
 	static readonly DEFAULT_ERROR = "Hmmm... Something went very (very) wrong. Please share this issue with us here :\n\n" +
 		"https://github.com/DraftBot-A-Discord-Adventure/DraftBot/issues/new?assignees=&labels=bug&template=bug_report.yml&title=%5BBUG%5D%3A+";
