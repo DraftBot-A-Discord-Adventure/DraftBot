@@ -1019,7 +1019,7 @@
       "noMemberOnBoat": "Aucun membre actif de votre guilde n'est sur le bateau.",
       "noGuild": "Vous n'appartenez à aucune guilde.",
       "notEnoughEnergy": "Vous n'avez pas assez d'énergie pour monter sur le bateau.",
-      "notEnoughGems": "Vous voulez rejoindre votre guilde mais au moment de payer, vous vous rendez compte que vous n'avez pas assez pour payer."
+      "notEnoughGems": "Vous voulez rejoindre votre guilde mais au moment de payer, vous constatez que vos fonds sont insuffisants."
     },
     "confirmationMessage": {
       "title": {
@@ -1028,7 +1028,7 @@
       },
       "description": {
         "confirmation": {
-          "text": ":ferry: Êtes vous sûr de vouloir rejoindre votre guilde sur le bateau ?\nLe capitaine vous indique que le voyage **{{priceText}}**.\n\nVoulez-vous partir sur l'île ? Vous avez {emote:unitValues.energy} **{{currentEnergy}}/{{maxEnergy}}**.",
+          "text": "{emote:guild.isOnBoat} Êtes vous sûr de vouloir rejoindre votre guilde sur le bateau ?\nLe capitaine vous indique que le voyage **{{priceText}}**.\n\nVoulez-vous partir sur l'île ? Vous avez {emote:unitValues.energy} **{{currentEnergy}}/{{maxEnergy}}**.",
           "priceText_zero": "est gratuit",
           "priceText_other": "coûtera {{gemsCost}} {emote:unitValues.gem}"
         },
