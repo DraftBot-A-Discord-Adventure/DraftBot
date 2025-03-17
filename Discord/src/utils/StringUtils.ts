@@ -38,18 +38,26 @@ export class StringUtils {
 				}
 				return "1er";
 			}
-			return toOrdinal + "ème";
-		case LANGUAGE.SPANISH:
-			return toOrdinal + "º";
+			return `${toOrdinal}ème`;
 		case LANGUAGE.GERMAN:
-			return toOrdinal + ".";
+			return `${toOrdinal}.`;
+		case LANGUAGE.SPANISH:
+			if (toOrdinal === 2) {
+				return `${toOrdinal}do`;
+			}
+			if ([1, 3].includes(toOrdinal)) {
+				return `${toOrdinal}ro`;
+			}
+			return `${toOrdinal}°`;
 		case LANGUAGE.ITALIAN:
-			return toOrdinal + "°";
 		case LANGUAGE.PORTUGUESE:
-			return toOrdinal + "º";
+			if (toOrdinal === 1) {
+				return `${toOrdinal}˚`;
+			}
+			return `${toOrdinal}°`;
 		default: // English
 			if (toOrdinal % 100 >= 10 && toOrdinal % 100 <= 20) {
-				return toOrdinal + "th";
+				return `${toOrdinal}th`;
 			}
 			return toOrdinal + (["th", "st", "nd", "rd"][toOrdinal % 10] || "th");
 		}
