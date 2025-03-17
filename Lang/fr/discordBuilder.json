@@ -350,5 +350,9 @@
   "petFeed": {
     "name": "nourrirfamilier",
     "description": "Nourrir votre familier."
+  },
+  "guildShelter": {
+    "name": "abriguilde",
+    "description": "Affiche les informations sur l'abri de guilde."
   }
 }
