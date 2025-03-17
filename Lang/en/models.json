@@ -1334,5 +1334,9 @@
   },
   "diet_omnivorous": "{emote:diet.omnivorous} Omnivorous",
   "diet_herbivorous": "{emote:diet.herbivorous} Herbivorous",
-  "diet_carnivorous": "{emote:diet.carnivorous} Carnivorous"
+  "diet_carnivorous": "{emote:diet.carnivorous} Carnivorous",
+  "sex": {
+    "male": "Male",
+    "female": "Female"
+  }
 }
