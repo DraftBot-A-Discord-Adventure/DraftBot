@@ -50,7 +50,7 @@ function convertEmoteFormat(str: string): string {
  * @param language
  */
 function convertOrdinalFormat(str: string, language: Language): string {
-	return str.replace(/{ordinal:(.*?),*(.*)?}/g, (_match, number, modifier) => StringUtils.getOrdinal(parseInt(number), language, modifier));
+	return str.replace(/{ordinal:([0-9]*),?(.*)?}/g, (_match, number, modifier) => StringUtils.getOrdinal(parseInt(number), language, modifier));
 }
 
 type EmotePathFolder = Record<string, unknown> | string[];

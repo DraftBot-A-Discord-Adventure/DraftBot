@@ -15,9 +15,12 @@ export default class ItemHandler {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (interaction) {
 			const menuEmbed = new DraftBotEmbed()
-				.formatAuthor(i18n.t("commands:inventory.acceptedTitle", { lng: interaction.userLanguage, pseudo: interaction.user.username }), interaction.user)
+				.formatAuthor(i18n.t("commands:inventory.acceptedTitle", {
+					lng: interaction.userLanguage,
+					pseudo: interaction.user.username
+				}), interaction.user)
 				.setDescription(DisplayUtils.getItemDisplayWithStats(packet.itemWithDetails, interaction.userLanguage));
-			await interaction.channel.send({ embeds: [menuEmbed] });
+			await interaction.channel.send({embeds: [menuEmbed]});
 		}
 	}
 
@@ -28,7 +31,10 @@ export default class ItemHandler {
 			await interaction.channel.send({
 				embeds: [
 					new DraftBotEmbed()
-						.formatAuthor(i18n.t("commands:inventory.randomItemTitle", {lng: interaction.userLanguage, pseudo: interaction.user.username}), interaction.user)
+						.formatAuthor(i18n.t("commands:inventory.randomItemTitle", {
+							lng: interaction.userLanguage,
+							pseudo: interaction.user.username
+						}), interaction.user)
 						.setDescription(DisplayUtils.getItemDisplayWithStats(packet.itemWithDetails, interaction.userLanguage))
 				]
 			});
@@ -44,29 +50,41 @@ export default class ItemHandler {
 				menuEmbed
 					.formatAuthor(
 						packet.autoSell
-							? i18n.t("commands:sell.soldMessageAlreadyOwnTitle", {lng: interaction.userLanguage, pseudo: interaction.user.username})
-							: i18n.t("commands:sell.soldMessageTitle", {lng: interaction.userLanguage, pseudo: interaction.user.username}),
+							? i18n.t("commands:sell.soldMessageAlreadyOwnTitle", {
+								lng: interaction.userLanguage,
+								pseudo: interaction.user.username
+							})
+							: i18n.t("commands:sell.soldMessageTitle", {
+								lng: interaction.userLanguage,
+								pseudo: interaction.user.username
+							}),
 						interaction.user
 					)
 					.setDescription(i18n.t("commands:sell.soldMessage", {
 						lng: interaction.userLanguage,
 						item: DisplayUtils.getItemDisplay(packet.item, interaction.userLanguage),
-						money: packet.soldMoney,
-						interpolation: { escapeValue: false }
+						value: packet.soldMoney,
+						interpolation: {escapeValue: false}
 					}));
 			}
 			else {
 				menuEmbed
 					.formatAuthor(
 						packet.autoSell
-							? i18n.t("commands:sell.soldMessageAlreadyOwnTitle", {lng: interaction.userLanguage, pseudo: interaction.user.username})
-							: i18n.t("commands:sell.potionDestroyedTitle", {lng: interaction.userLanguage, pseudo: interaction.user.username}),
+							? i18n.t("commands:sell.soldMessageAlreadyOwnTitle", {
+								lng: interaction.userLanguage,
+								pseudo: interaction.user.username
+							})
+							: i18n.t("commands:sell.potionDestroyedTitle", {
+								lng: interaction.userLanguage,
+								pseudo: interaction.user.username
+							}),
 						interaction.user
 					)
 					.setDescription(i18n.t("commands:sell.potionDestroyedMessage", {
 						lng: interaction.userLanguage,
 						item: DisplayUtils.getItemDisplay(packet.item, interaction.userLanguage),
-						interpolation: { escapeValue: false }
+						interpolation: {escapeValue: false}
 					}));
 			}
 

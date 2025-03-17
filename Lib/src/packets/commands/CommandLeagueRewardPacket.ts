@@ -23,8 +23,6 @@ export class CommandLeagueRewardSuccessPacketRes extends DraftBotPacket {
 
 	xp!: number;
 
-	gloryPointsRemoved!: number;
-
 	gloryPoints!: number;
 
 	oldLeagueId!: number;

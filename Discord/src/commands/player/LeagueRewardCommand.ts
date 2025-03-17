@@ -31,7 +31,7 @@ export async function handleCommandLeagueRewardSuccessPacket(packet: CommandLeag
 			}), interaction.user)
 			.setDescription(i18n.t(`commands:leagueReward.description.${packet.rank === 1 ? "first" : "other"}`, {
 				lng,
-				gloryPoints: packet.gloryPoints,
+				glory: packet.gloryPoints,
 				rank: packet.rank,
 				leagueId: packet.oldLeagueId,
 				money: packet.money,

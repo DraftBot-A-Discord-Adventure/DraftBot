@@ -9,11 +9,11 @@ import {
 	CommandLeagueRewardSuccessPacketRes
 } from "../../../../Lib/src/packets/commands/CommandLeagueRewardPacket";
 import {Constants} from "../../../../Lib/src/constants/Constants";
-import {getNextSaturdayMidnight, todayIsSunday} from "../../../../Lib/src/utils/TimeUtils";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {giveItemToPlayer} from "../../core/utils/ItemUtils";
 import {InventorySlots} from "../../core/database/game/models/InventorySlot";
 import {draftBotInstance} from "../../index";
+import {getNextSaturdayMidnight, todayIsSunday} from "../../../../Lib/src/utils/TimeUtils";
 
 export default class LeagueRewardCommand {
 	@commandRequires(CommandLeagueRewardPacketReq, {
