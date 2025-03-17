@@ -1333,5 +1333,15 @@
   },
   "diet_omnivorous": "{emote:diet.omnivorous} Omnivore",
   "diet_herbivorous": "{emote:diet.herbivorous} Herbivore",
-  "diet_carnivorous": "{emote:diet.carnivorous} Carnivore"
+  "diet_carnivorous": "{emote:diet.carnivorous} Carnivore",
+  "sex": {
+    "male": "Male",
+    "female": "Female"
+  },
+  "ordinals": {
+    "get_ordinal_one": "{{count}}st",
+    "get_ordinal_two": "{{count}}nd",
+    "get_ordinal_few": "{{count}}rd",
+    "get_ordinal_other": "{{count}}th"
+  }
 }

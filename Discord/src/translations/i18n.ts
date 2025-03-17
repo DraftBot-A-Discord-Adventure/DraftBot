@@ -5,7 +5,6 @@ import {resolve} from "path";
 import {BotUtils} from "../utils/BotUtils";
 import {EmoteUtils} from "../utils/EmoteUtils";
 import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
-import {StringUtils} from "../utils/StringUtils";
 
 function getI18nOptions(): i18next.InitOptions<unknown> {
 	const resources: i18next.Resource = {};
@@ -44,15 +43,6 @@ function convertEmoteFormat(str: string): string {
 	return str.replace(/{emote:(.*?)}/g, (_match, emote) => EmoteUtils.translateEmojiToDiscord(getEmote(emote) ?? `EMOTE NOT FOUND : ${emote}`));
 }
 
-/**
- * Replace in the given string all occurences of "{ordinal:...}" by the corresponding ordinal number in the given language
- * @param str
- * @param language
- */
-function convertOrdinalFormat(str: string, language: Language): string {
-	return str.replace(/{ordinal:([0-9]*),?(.*)?}/g, (_match, number, modifier) => StringUtils.getOrdinal(parseInt(number), language, modifier));
-}
-
 type EmotePathFolder = Record<string, unknown> | string[];
 type EmotePath = EmotePathFolder | string;
 
@@ -79,10 +69,9 @@ function getEmote(emote: string): string | null {
 /**
  * Apply all the draftbot formatting to the given string
  * @param str
- * @param language
  */
-function draftbotFormat(str: string, language: Language): string {
-	return convertOrdinalFormat(convertCommandFormat(convertEmoteFormat(str)), language);
+function draftbotFormat(str: string): string {
+	return convertCommandFormat(convertEmoteFormat(str));
 }
 
 i18next.init(getI18nOptions())
@@ -122,9 +111,9 @@ export class I18nDraftbot {
 	static t(key: string | string[], options: TranslationOption): string | string[] {
 		const value: string | string[] = i18next.t(key, options);
 		if (Array.isArray(value)) {
-			return (value as string[]).map(value => draftbotFormat(value, options.lng));
+			return (value as string[]).map(draftbotFormat);
 		}
-		return draftbotFormat(value, options.lng);
+		return draftbotFormat(value);
 	}
 }
 
