@@ -8,46 +8,56 @@ import {getUsedGodMoves} from "../FightController";
 import {simpleOrQuickAttack} from "./EsquireFightBehavior";
 
 class KnightFightBehavior implements ClassBehavior {
-	private blessRoundChosen: number | null = null;
+	// WeakMaps to store fighter-specific state
+	private blessRoundChosenMap = new WeakMap<AiPlayerFighter, number>();
 
-	private restCount = 0; // Track how many times we've rested
+	private restCountMap = new WeakMap<AiPlayerFighter, number>();
 
 	chooseAction(me: AiPlayerFighter, fightView: FightView): FightAction {
 		const opponent = fightView.fightController.getDefendingFighter();
 		const currentRound = fightView.fightController.turn;
 
+		// Get a fighter-specific state or initialize if it doesn't exist
+		let blessRoundChosen = this.blessRoundChosenMap.get(me);
+		let restCount = this.restCountMap.get(me) || 0;
+
 		// Initialize defense tracking on first round
 		if (currentRound <= 1) {
-			this.blessRoundChosen = RandomUtils.randInt(8, 14); // Choose when to use benediction
-			this.restCount = 0; // Reset rest counter at the beginning of a fight
+			blessRoundChosen = RandomUtils.randInt(8, 14); // Choose when to use benediction
+			this.blessRoundChosenMap.set(me, blessRoundChosen);
+			restCount = 0; // Reset rest counter at the beginning of a fight
+			this.restCountMap.set(me, restCount);
 		}
 
 		// ENDGAME STRATEGY: Try to force a draw if victory seems impossible
 		// Still rest even if we've done it 4 times, because the goal is to stall
 		if (me.getEnergy() < 150 && opponent.getEnergy() > 500) {
-			this.restCount++;
+			restCount++;
+			this.restCountMap.set(me, restCount);
 			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.RESTING);
 		}
 
 		// BENEDICTION STRATEGY: Use benediction at the chosen round
-		if (getUsedGodMoves(me, opponent) < 1 && (currentRound === this.blessRoundChosen || currentRound === this.blessRoundChosen + 1)) {
+		if (getUsedGodMoves(me, opponent) < 1 && blessRoundChosen && (currentRound === blessRoundChosen || currentRound === blessRoundChosen + 1)) {
 			// Not enough breath for benediction? Rest first (only if we haven't rested 4 times)
 			if (me.getBreath() < 8) {
-				if (this.restCount < 4) {
-					this.blessRoundChosen += 2;
-					this.restCount++;
+				if (restCount < 4) {
+					this.blessRoundChosenMap.set(me, blessRoundChosen + 2);
+					restCount++;
+					this.restCountMap.set(me, restCount);
 					return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.RESTING);
 				}
 				// Otherwise, delay benediction but don't rest
-				this.blessRoundChosen += 1;
+				this.blessRoundChosenMap.set(me, blessRoundChosen + 1);
 			}
 
 			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.BENEDICTION);
 		}
 
 		// REST WHEN NEEDED: Not enough breath for actions (only if we haven't rested 4 times)
-		if (me.getBreath() < 2 && this.restCount < 4) {
-			this.restCount++;
+		if (me.getBreath() < 2 && restCount < 4) {
+			restCount++;
+			this.restCountMap.set(me, restCount);
 			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.RESTING);
 		}
 
@@ -56,7 +66,7 @@ class KnightFightBehavior implements ClassBehavior {
 			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.HEAVY_ATTACK);
 		}
 
-		return simpleOrQuickAttack(me, opponent);
+		return simpleOrQuickAttack(me, opponent, restCount);
 	}
 }
 
