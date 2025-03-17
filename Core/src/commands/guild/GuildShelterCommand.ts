@@ -1,4 +1,4 @@
-import {commandRequires} from "../../core/utils/CommandUtils";
+import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import Player from "../../core/database/game/models/Player";
 import {
@@ -13,7 +13,8 @@ import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
 export default class GuildShelterCommand {
 	@commandRequires(CommandGuildShelterPacketReq, {
 		notBlocked: false,
-		guildNeeded: true
+		guildNeeded: true,
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD
 	})
 	async execute(response: DraftBotPacket[], player: Player): Promise<void> {
 		const pets = await GuildPets.getOfGuild(player.guildId);
