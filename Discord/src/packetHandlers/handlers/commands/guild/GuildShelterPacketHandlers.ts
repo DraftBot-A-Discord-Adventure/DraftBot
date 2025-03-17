@@ -1,6 +1,6 @@
 import {packetHandler} from "../../../PacketHandler";
 import {
-	CommandGuildLeaveNotInAGuildPacketRes,
+	CommandGuildLeaveNotInAGuildPacketRes
 } from "../../../../../../Lib/src/packets/commands/CommandGuildLeavePacket";
 import {PacketContext} from "../../../../../../Lib/src/packets/DraftBotPacket";
 import {handleClassicError} from "../../../../utils/ErrorUtils";

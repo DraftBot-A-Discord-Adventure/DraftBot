@@ -6,7 +6,6 @@ import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPac
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {DiscordCache} from "../../bot/DiscordCache";
-import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import i18n from "../../translations/i18n";
 import {DisplayUtils} from "../../utils/DisplayUtils";
