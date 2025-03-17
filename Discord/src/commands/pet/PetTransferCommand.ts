@@ -222,6 +222,91 @@ function getWithdrawComponents(
 	return rows;
 }
 
+async function handlePetTransferCollect(
+	inMainMenu: boolean,
+	packet: ReactionCollectorCreationPacket,
+	context: PacketContext,
+	reactions: {
+		depositReaction?: {
+			reaction: { type: string; data: ReactionCollectorReaction };
+			index: number
+		},
+		refuseReaction?: {
+			reaction: { type: string; data: ReactionCollectorReaction };
+			index: number
+		},
+	},
+	discord: {
+		collectedInteraction: MessageComponentInteraction,
+		mainMenuEmbed: DraftBotEmbed,
+		switchComponents: ActionRowBuilder<MessageActionRowComponentBuilder>[],
+		withdrawComponents: ActionRowBuilder<MessageActionRowComponentBuilder>[]
+		mainMenuComponents: ActionRowBuilder<ButtonBuilder>[]
+	}
+): Promise<boolean> {
+	if (inMainMenu) {
+		const customId = discord.collectedInteraction.customId;
+
+		switch (customId) {
+		case depositCustomId:
+			await discord.collectedInteraction.deferReply();
+			DiscordCollectorUtils.sendReaction(
+				packet,
+				context,
+				context.keycloakId!,
+				discord.collectedInteraction,
+				reactions.depositReaction!.index
+			);
+			break;
+		case switchCustomId:
+			await discord.collectedInteraction.update({
+				embeds: [discord.mainMenuEmbed],
+				components: discord.switchComponents
+			});
+			inMainMenu = false;
+			break;
+		case withdrawCustomId:
+			await discord.collectedInteraction.update({
+				embeds: [discord.mainMenuEmbed],
+				components: discord.withdrawComponents
+			});
+			inMainMenu = false;
+			break;
+		case refuseCustomId:
+			await discord.collectedInteraction.deferReply();
+			DiscordCollectorUtils.sendReaction(
+				packet,
+				context,
+				context.keycloakId!,
+				discord.collectedInteraction,
+				reactions.refuseReaction!.index
+			);
+			break;
+		default:
+			break;
+		}
+	}
+	else if (discord.collectedInteraction.customId === backCustomId) {
+		await discord.collectedInteraction.update({
+			embeds: [discord.mainMenuEmbed],
+			components: discord.mainMenuComponents
+		});
+		inMainMenu = true;
+	}
+	else {
+		await discord.collectedInteraction.deferReply();
+		DiscordCollectorUtils.sendReaction(
+			packet,
+			context,
+			context.keycloakId!,
+			discord.collectedInteraction,
+			parseInt((discord.collectedInteraction as StringSelectMenuInteraction).values[0], 10)
+		);
+	}
+
+	return inMainMenu;
+}
+
 export async function handlePetTransferReactionCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 
@@ -266,65 +351,13 @@ export async function handlePetTransferReactionCollector(context: PacketContext,
 			return;
 		}
 
-		if (inMainMenu) {
-			const customId = collectedInteraction.customId;
-
-			switch (customId) {
-			case depositCustomId:
-				await collectedInteraction.deferReply();
-				DiscordCollectorUtils.sendReaction(
-					packet,
-					context,
-					context.keycloakId!,
-					collectedInteraction,
-					depositReaction!.index
-				);
-				return;
-			case switchCustomId:
-				await collectedInteraction.update({
-					embeds: [mainMenuEmbed],
-					components: switchComponents
-				});
-				inMainMenu = false;
-				break;
-			case withdrawCustomId:
-				await collectedInteraction.update({
-					embeds: [mainMenuEmbed],
-					components: withdrawComponents
-				});
-				inMainMenu = false;
-				break;
-			case refuseCustomId:
-				await collectedInteraction.deferReply();
-				DiscordCollectorUtils.sendReaction(
-					packet,
-					context,
-					context.keycloakId!,
-					collectedInteraction,
-					refuseReaction!.index
-				);
-				break;
-			default:
-				break;
-			}
-		}
-		else if (collectedInteraction.customId === backCustomId) {
-			await collectedInteraction.update({
-				embeds: [mainMenuEmbed],
-				components: mainMenuComponents
-			});
-			inMainMenu = true;
-		}
-		else {
-			await collectedInteraction.deferReply();
-			DiscordCollectorUtils.sendReaction(
-				packet,
-				context,
-				context.keycloakId!,
-				collectedInteraction,
-				parseInt((collectedInteraction as StringSelectMenuInteraction).values[0], 10)
-			);
-		}
+		inMainMenu = await handlePetTransferCollect(
+			inMainMenu,
+			packet,
+			context,
+			{ depositReaction, refuseReaction },
+			{ collectedInteraction, mainMenuEmbed, switchComponents, withdrawComponents, mainMenuComponents }
+		);
 	});
 
 	msgCollector.on("end", () => {
