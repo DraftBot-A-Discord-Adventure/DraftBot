@@ -14,6 +14,7 @@
 		"quickAttack",
 		"sabotageAttack",
 		"boomerangAttack",
-		"canonAttack"
+		"canonAttack",
+    "intenseAttack"
 	]
 }
