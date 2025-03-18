@@ -13,39 +13,43 @@ export interface ClassBehavior {
 	chooseAction(fighter: AiPlayerFighter, fightView: FightView): FightAction;
 }
 
-// Map to store class behaviors by class ID
-const classBehaviors = new Map<number, ClassBehavior>();
+// Type for behavior constructor
+type ClassBehaviorConstructor = new () => ClassBehavior;
+
+// Map to store class behavior constructors by class ID
+const classBehaviorConstructors = new Map<number, ClassBehaviorConstructor>();
 
 /**
  * Initialize all class behaviors in a map so they can be accessed by class ID
  */
 export function initializeAllClassBehaviors(): void {
-	registerClassBehavior(ClassConstants.CLASSES_ID.KNIGHT, new KnightFightBehavior());
-	registerClassBehavior(ClassConstants.CLASSES_ID.VALIANT_KNIGHT, new KnightFightBehavior());
-	registerClassBehavior(ClassConstants.CLASSES_ID.PIKEMAN, new KnightFightBehavior());
-	registerClassBehavior(ClassConstants.CLASSES_ID.HORSE_RIDER, new HorseRiderFightBehavior());
-	registerClassBehavior(ClassConstants.CLASSES_ID.ESQUIRE, new EsquireFightBehavior());
-	registerClassBehavior(ClassConstants.CLASSES_ID.MYSTIC_MAGE, new MysticMageFightBehavior());
-	registerClassBehavior(ClassConstants.CLASSES_ID.GUNNER, new GunnerFightBehavior());
-	registerClassBehavior(ClassConstants.CLASSES_ID.FORMIDABLE_GUNNER, new GunnerFightBehavior());
-	registerClassBehavior(ClassConstants.CLASSES_ID.INFANTRYMAN, new InfantryManFightBehavior());
-	registerClassBehavior(ClassConstants.CLASSES_ID.POWERFUL_INFANTRYMAN, new InfantryManFightBehavior());
+	registerClassBehavior(ClassConstants.CLASSES_ID.KNIGHT, KnightFightBehavior);
+	registerClassBehavior(ClassConstants.CLASSES_ID.VALIANT_KNIGHT, KnightFightBehavior);
+	registerClassBehavior(ClassConstants.CLASSES_ID.PIKEMAN, KnightFightBehavior);
+	registerClassBehavior(ClassConstants.CLASSES_ID.HORSE_RIDER, HorseRiderFightBehavior);
+	registerClassBehavior(ClassConstants.CLASSES_ID.ESQUIRE, EsquireFightBehavior);
+	registerClassBehavior(ClassConstants.CLASSES_ID.MYSTIC_MAGE, MysticMageFightBehavior);
+	registerClassBehavior(ClassConstants.CLASSES_ID.GUNNER, GunnerFightBehavior);
+	registerClassBehavior(ClassConstants.CLASSES_ID.FORMIDABLE_GUNNER, GunnerFightBehavior);
+	registerClassBehavior(ClassConstants.CLASSES_ID.INFANTRYMAN, InfantryManFightBehavior);
+	registerClassBehavior(ClassConstants.CLASSES_ID.POWERFUL_INFANTRYMAN, InfantryManFightBehavior);
 }
 
 /**
- * Register a class behavior
+ * Register a class behavior constructor
  * @param classId The class ID
- * @param behavior The behavior implementation
+ * @param behaviorConstructor The behavior constructor
  */
-export function registerClassBehavior(classId: number, behavior: ClassBehavior): void {
-	classBehaviors.set(classId, behavior);
+export function registerClassBehavior(classId: number, behaviorConstructor: ClassBehaviorConstructor): void {
+	classBehaviorConstructors.set(classId, behaviorConstructor);
 }
 
 /**
- * Get a class behavior by class ID
+ * Get a new instance of class behavior by class ID
  * @param classId The class ID
- * @returns The class behavior or undefined if not found
+ * @returns A new instance of the class behavior or undefined if not found
  */
 export function getAiClassBehavior(classId: number): ClassBehavior | undefined {
-	return classBehaviors.get(classId);
+	const BehaviorClass = classBehaviorConstructors.get(classId);
+	return BehaviorClass ? new BehaviorClass() : undefined;
 }

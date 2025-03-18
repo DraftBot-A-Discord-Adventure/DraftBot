@@ -7,7 +7,7 @@ import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
 import {Class} from "../../../data/Class";
 import {FightAction, FightActionDataController} from "../../../data/FightAction";
 import {DraftBotPacket} from "../../../../../Lib/src/packets/DraftBotPacket";
-import {getAiClassBehavior} from "../AiBehaviorManager";
+import {ClassBehavior, getAiClassBehavior} from "../AiBehaviorManager";
 
 /**
  * @class AiPlayerFighter
@@ -19,12 +19,15 @@ export class AiPlayerFighter extends Fighter {
 
 	private class: Class;
 
+	private readonly classBehavior: ClassBehavior;
+
 	private glory: number;
 
 	public constructor(player: Player, playerClass: Class) {
 		super(player.level, FightActionDataController.instance.getListById(playerClass.fightActionsIds));
 		this.player = player;
 		this.class = playerClass;
+		this.classBehavior = getAiClassBehavior(playerClass.id);
 	}
 
 	/**
@@ -52,7 +55,7 @@ export class AiPlayerFighter extends Fighter {
 	async chooseAction(fightView: FightView, response: DraftBotPacket[]): Promise<void> {
 		fightView.displayAiChooseAction(response);
 
-		const classBehavior = getAiClassBehavior(this.class.id);
+		const classBehavior = this.classBehavior;
 		// Use the behavior script to choose an action
 		let fightAction: FightAction;
 

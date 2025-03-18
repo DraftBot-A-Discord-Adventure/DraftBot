@@ -9,11 +9,11 @@ import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
 
 class InfantryManFightBehavior implements ClassBehavior {
 
-	private powerfulAttacksUsedMap = new WeakMap<AiPlayerFighter, number>();
+	private powerfulAttacksUsedMap = 0;
 
 	chooseAction(me: AiPlayerFighter, fightView: FightView): FightAction {
 
-		const powerfulAttacksUsed = this.powerfulAttacksUsedMap.get(me) || 0;
+		const powerfulAttacksUsed = this.powerfulAttacksUsedMap;
 		const opponent = fightView.fightController.getDefendingFighter() as PlayerFighter | AiPlayerFighter; // AI will never fight monsters
 
 		// If the opponent is a mage, or a gunner with a lot of breath, and we are not protected, use protection
@@ -35,7 +35,7 @@ class InfantryManFightBehavior implements ClassBehavior {
 			&& RandomUtils.draftbotRandom.bool(0.9) // Add a bit of randomness here to avoid being too predictable
 			&& me.getBreath() >= FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.POWERFUL_ATTACK)
 		) {
-			this.powerfulAttacksUsedMap.set(me, powerfulAttacksUsed + 1);
+			this.powerfulAttacksUsedMap++;
 			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.POWERFUL_ATTACK);
 		}
 
