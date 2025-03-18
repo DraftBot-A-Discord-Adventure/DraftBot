@@ -117,7 +117,7 @@ async function canSendInvite(invitedPlayer: Player, guild: Guild, response: Draf
 		return false;
 	}
 
-	if (Maps.isOnPveIsland(invitedPlayer)) {
+	if (Maps.isOnPveIsland(invitedPlayer) || Maps.isOnBoat(invitedPlayer)) {
 		response.push(makePacket(CommandGuildInviteInvitedPlayerIsOnPveIsland, packetData));
 		return false;
 	}
