@@ -54,23 +54,11 @@ async function canJoinBoat(player: Player, response: DraftBotPacket[]): Promise<
 }
 
 /**
- * Handle the acceptation
+ * Calculate and give the score points to the player
  * @param player
  * @param response
  */
-async function acceptJoinBoat(player: Player, response: DraftBotPacket[]): Promise<void> {
-	await player.reload();
-	if (!await canJoinBoat(player, response)) {
-		return;
-	}
-	const anotherMemberOnBoat = await Maps.getGuildMembersOnBoat(player);
-	const price = await player.getTravelCostThisWeek();
-	const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
-	if (missionInfo.gems < price) {
-		response.push(makePacket(CommandJoinBoatNotEnoughGemsPacketRes, {}));
-		return;
-	}
-
+async function winScore(player: Player, response: DraftBotPacket[]): Promise<number> {
 	// Gain Score
 	const travelData = TravelTime.getTravelDataSimplified(player, new Date());
 	let timeTravelled = millisecondsToMinutes(travelData.playerTravelledTime); // Convert the time in minutes to calculate the score
@@ -95,6 +83,29 @@ async function acceptJoinBoat(player: Player, response: DraftBotPacket[]): Promi
 		response,
 		reason: NumberChangeReason.JOIN_BOAT
 	});
+	return gainScore;
+}
+
+/**
+ * Handle the acceptation
+ * @param player
+ * @param response
+ */
+async function acceptJoinBoat(player: Player, response: DraftBotPacket[]): Promise<void> {
+	await player.reload();
+	if (!await canJoinBoat(player, response)) {
+		return;
+	}
+	const anotherMemberOnBoat = await Maps.getGuildMembersOnBoat(player);
+	const price = await player.getTravelCostThisWeek();
+	const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
+	if (missionInfo.gems < price) {
+		response.push(makePacket(CommandJoinBoatNotEnoughGemsPacketRes, {}));
+		return;
+	}
+
+	// Gain Score
+	const gainScore = await winScore(player, response);
 
 	// Start the travel
 	await Maps.startBoatTravel(player, price, anotherMemberOnBoat[0], Date.now(),NumberChangeReason.PVE_ISLAND, response);
