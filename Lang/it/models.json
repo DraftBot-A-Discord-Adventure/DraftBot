@@ -91,6 +91,7 @@
     "9": "Fronda"
   },
   "classFormat": "{emote:classes.{{id}} $t(models:classes.{{id}})}",
+  "classWithStatsFormat": "{emote:classes.{{id}}} $t(models:classes.{{id}}) :\n{emote:unitValues.energy} {{energy}} | {emote:unitValues.attack} {{attack}} | {emote:unitValues.defense} {{defense}} | {emote:unitValues.speed} {{speed}} | {emote:unitValues.breath} {{initialBreath}} / {{maxBreath}} | {emote:unitValues.health} {{health}}",
   "class_descriptions": {
     "0": "Una classe semplice. Abbastanza equilibrata.",
     "1": "Una classe semplice. Abbastanza equilibrata.",
@@ -1333,5 +1334,15 @@
   },
   "diet_omnivorous": "{emote:diet.omnivorous} Onnivoro",
   "diet_herbivorous": "{emote:diet.herbivorous} Erbivoro",
-  "diet_carnivorous": "{emote:diet.carnivorous} Carnivoro"
+  "diet_carnivorous": "{emote:diet.carnivorous} Carnivoro",
+  "sex": {
+    "male": "Maschio",
+    "female": "Femmina"
+  },
+  "ordinals": {
+    "get_feminine_ordinal_one": "1ère",
+    "get_feminine_ordinal_other": "{{count}}ème",
+    "get_ordinal_one": "1er",
+    "get_ordinal_other": "{{count}}ème"
+  }
 }
