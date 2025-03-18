@@ -10,12 +10,14 @@ import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 import {ClassConstants} from "../../../../Lib/src/constants/ClassConstants";
 import Player from "../../core/database/game/models/Player";
+import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
 
 export default class ClassesInfoCommand {
 	@commandRequires(CommandClassesInfoPacketReq, {
 		notBlocked: false,
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD,
-		level: ClassConstants.REQUIRED_LEVEL
+		level: ClassConstants.REQUIRED_LEVEL,
+		whereAllowed: [WhereAllowed.CONTINENT]
 	})
 	execute(response: DraftBotPacket[], player: Player): void {
 		const classGroup = player.getClassGroup();

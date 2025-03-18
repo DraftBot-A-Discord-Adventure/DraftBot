@@ -10,6 +10,7 @@ import {millisecondsToMinutes, minutesDisplay} from "../../../Lib/src/utils/Time
 import {Effect} from "../../../Lib/src/types/Effect";
 import {PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
 import {DiscordCache} from "../bot/DiscordCache";
+import {MessagesUtils} from "./MessagesUtils";
 
 /**
  * Reply to an interaction with an ephemeral error PREFER {@link sendErrorMessage} for most cases
@@ -17,7 +18,12 @@ import {DiscordCache} from "../bot/DiscordCache";
  * @param reason
  */
 export async function replyEphemeralErrorMessage(interaction: DraftbotInteraction, reason: string): Promise<void> {
-	await interaction.reply({
+	if (interaction.deferred) {
+		await interaction.deleteReply();
+	}
+
+	// Without a bind, context is lost for "this"
+	await (interaction.replied || interaction.deferred ? interaction.followUp.bind(interaction) : interaction.reply.bind(interaction))({
 		embeds: [new DraftBotErrorEmbed(interaction.user, interaction, reason)],
 		ephemeral: true
 	});
@@ -140,18 +146,8 @@ export function effectsErrorTextValue(user: KeycloakUser, lng: Language, self: b
  * @param replacements
  */
 export async function handleClassicError(context: PacketContext, errorKey: string, replacements: { [key: string]: unknown } = {}): Promise<void> {
-	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
-	if (!interaction) {
-		return;
-	}
-	// TODO : handle casting buttonInteraction everywhere (basically all in DiscordCache)
-	const buttonInteractionUncasted = DiscordCache.getButtonInteraction(context.discord?.buttonInteraction ?? "");
-	const buttonInteraction = buttonInteractionUncasted ? DraftbotInteraction.cast(buttonInteractionUncasted) : null;
+	const interactionToRespondTo = MessagesUtils.getCurrentInteraction(context);
 
-	const stringSelectMenuInteractionUncasted = DiscordCache.getStringSelectMenuInteraction(context.discord?.stringSelectMenuInteraction ?? "");
-	const stringSelectMenuInteraction = stringSelectMenuInteractionUncasted ? DraftbotInteraction.cast(stringSelectMenuInteractionUncasted) : null;
-
-	const interactionToRespondTo = buttonInteraction ?? stringSelectMenuInteraction ?? interaction;
 	await (!interactionToRespondTo.replied
 		? interactionToRespondTo.deferred
 			? interactionToRespondTo.editReply.bind(interactionToRespondTo)

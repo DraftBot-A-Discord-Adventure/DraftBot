@@ -20,6 +20,7 @@ import {UnlockConstants} from "../../../../Lib/src/constants/UnlockConstants";
 import {TravelTime} from "../../core/maps/TravelTime";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {Effect} from "../../../../Lib/src/types/Effect";
+import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
 
 /**
  * Accept the unlock of a player
@@ -84,7 +85,8 @@ function unlockCannotBeDone(player: Player, freedPlayer: Player, response: Draft
 export default class UnlockCommand {
 	@commandRequires(CommandUnlockPacketReq, {
 		notBlocked: true,
-		allowedEffects: CommandUtils.ALLOWED_EFFECTS.NO_EFFECT
+		allowedEffects: CommandUtils.ALLOWED_EFFECTS.NO_EFFECT,
+		whereAllowed: [WhereAllowed.CONTINENT]
 	})
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandUnlockPacketReq, context: PacketContext): Promise<void> {
 		const freedPlayer = await Players.getAskedPlayer(packet.askedPlayer, player);

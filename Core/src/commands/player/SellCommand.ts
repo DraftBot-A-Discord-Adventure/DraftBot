@@ -1,4 +1,4 @@
-import {commandRequires} from "../../core/utils/CommandUtils";
+import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import Player from "../../core/database/game/models/Player";
 import {
@@ -76,7 +76,8 @@ function getEndCallback(player: Player) {
 
 export default class SellCommand {
 	@commandRequires(CommandSellPacketReq, {
-		notBlocked: true
+		notBlocked: true,
+		whereAllowed: CommandUtils.WHERE.EVERYWHERE
 	})
 	async execute(response: DraftBotPacket[], player: Player, _packet: CommandSellPacketReq, context: PacketContext): Promise<void> {
 		const invSlots = await InventorySlots.getOfPlayer(player.id);

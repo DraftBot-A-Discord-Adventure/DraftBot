@@ -91,7 +91,8 @@ export default class GuildElderCommand {
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD,
 		level: GuildConstants.REQUIRED_LEVEL,
 		guildNeeded: true,
-		guildRoleNeeded: GuildRole.CHIEF
+		guildRoleNeeded: GuildRole.CHIEF,
+		whereAllowed: CommandUtils.WHERE.EVERYWHERE
 	})
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandGuildElderPacketReq, context: PacketContext): Promise<void> {
 		const promotedPlayer = await Players.getAskedPlayer({keycloakId: packet.askedPlayerKeycloakId}, player);

@@ -52,7 +52,8 @@ export default class GuildDescriptionCommand {
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD,
 		level: GuildConstants.REQUIRED_LEVEL,
 		guildNeeded: true,
-		guildRoleNeeded: GuildRole.ELDER
+		guildRoleNeeded: GuildRole.ELDER,
+		whereAllowed: CommandUtils.WHERE.EVERYWHERE
 	})
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandGuildDescriptionPacketReq, context: PacketContext): Promise<void> {
 		if (!player.guildId) {

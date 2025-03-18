@@ -16,7 +16,8 @@ import {MissionsController} from "../../core/missions/MissionsController";
 export default class MissionsCommand {
 	@commandRequires(CommandMissionsPacketReq, {
 		notBlocked: false,
-		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD,
+		whereAllowed: CommandUtils.WHERE.EVERYWHERE
 	})
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandMissionsPacketReq, context: PacketContext): Promise<void> {
 		const toCheckPlayer = packet.askedPlayer.keycloakId

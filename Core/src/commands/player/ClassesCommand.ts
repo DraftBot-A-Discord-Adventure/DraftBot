@@ -2,7 +2,8 @@ import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import Player from "../../core/database/game/models/Player";
 import {
-	CommandClassesCancelErrorPacket, CommandClassesChangeSuccessPacket,
+	CommandClassesCancelErrorPacket,
+	CommandClassesChangeSuccessPacket,
 	CommandClassesCooldownErrorPacket,
 	CommandClassesPacketReq
 } from "../../../../Lib/src/packets/commands/CommandClassesPacket";
@@ -13,13 +14,15 @@ import {ReactionCollectorInstance} from "../../core/utils/ReactionsCollector";
 import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
 import {
 	ReactionCollectorChangeClass,
-	ReactionCollectorChangeClassDetails, ReactionCollectorChangeClassReaction
+	ReactionCollectorChangeClassDetails,
+	ReactionCollectorChangeClassReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorChangeClass";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {ReactionCollectorRefuseReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {draftBotInstance} from "../../index";
+import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
 
 function getEndCallback(player: Player) {
 	return async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
@@ -65,7 +68,8 @@ export default class ClassesCommand {
 	@commandRequires(CommandClassesPacketReq, {
 		notBlocked: true,
 		allowedEffects: CommandUtils.ALLOWED_EFFECTS.NO_EFFECT,
-		level: Constants.CLASS.REQUIRED_LEVEL
+		level: Constants.CLASS.REQUIRED_LEVEL,
+		whereAllowed: [WhereAllowed.CONTINENT]
 	})
 	async execute(response: DraftBotPacket[], player: Player, _packet: CommandClassesPacketReq, context: PacketContext): Promise<void> {
 		const allClasses = ClassDataController.instance.getByGroup(player.getClassGroup()).filter(c => c.id !== player.class);

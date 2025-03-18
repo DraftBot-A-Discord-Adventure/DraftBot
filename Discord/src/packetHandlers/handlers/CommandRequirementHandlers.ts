@@ -11,6 +11,8 @@ import {RequirementGuildRolePacket} from "../../../../Lib/src/packets/commands/r
 import {RequirementLevelPacket} from "../../../../Lib/src/packets/commands/requirements/RequirementLevelPacket";
 import {RequirementRightPacket} from "../../../../Lib/src/packets/commands/requirements/RequirementRightPacket";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
+import {RequirementWherePacket} from "../../../../Lib/src/packets/commands/requirements/RequirementWherePacket";
+import {MessagesUtils} from "../../utils/MessagesUtils";
 
 export default class CommandRequirementHandlers {
 	@packetHandler(RequirementEffectPacket)
@@ -79,5 +81,11 @@ export default class CommandRequirementHandlers {
 		}
 
 		await replyEphemeralErrorMessage(interaction, i18n.t("error:notAuthorizedRight", {lng: interaction.userLanguage}));
+	}
+
+	@packetHandler(RequirementWherePacket)
+	async requirementWhere(context: PacketContext, _packet: RequirementWherePacket): Promise<void> {
+		const interaction = MessagesUtils.getCurrentInteraction(context);
+		await replyEphemeralErrorMessage(interaction, i18n.t("error:commandNotAvailableHere", {lng: context.discord!.language}));
 	}
 }
