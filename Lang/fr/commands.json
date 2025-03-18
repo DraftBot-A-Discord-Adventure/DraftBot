@@ -68,7 +68,7 @@
     "refusedTitle": "Vous n'avez pas rejoint la guilde {{guildName}} !",
     "errors": {
       "guildIsFull": "Votre guilde est pleine et ne peut pas accueillir plus de membres.",
-      "playerIsAlreadyInAGuild": "Ce joueur appartient déjà à la guilde `{{guildName}}`.",
+      "playerIsAlreadyInAGuild": "Ce joueur appartient déjà à une guilde.",
       "playerIsOnPveIsland": "{{pseudo}} ne peut pas rejoindre la guilde car il est actuellement sur un bateau ou une île mystérieuse. {{pseudo}} doit se situer sur le continent principal afin de rejoindre une guilde."
     }
   },
