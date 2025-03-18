@@ -1249,9 +1249,11 @@ export class Players {
 			replacements: {
 				rank
 			},
-			type: QueryTypes.SELECT
+			type: QueryTypes.SELECT,
+			mapToModel: true,
+			model: Player
 		});
-		return res.length === 0 ? null : <Player>res[0];
+		return res.length === 0 ? null : res[0];
 	}
 
 	/**
