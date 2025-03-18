@@ -12,7 +12,7 @@ import {Constants} from "../../../../Lib/src/constants/Constants";
 import {ClassInfoConstants} from "../../../../Lib/src/constants/ClassInfoConstants";
 import {Language} from "../../../../Lib/src/Language";
 import {
-	ActionRowBuilder,
+	ActionRowBuilder, EmbedField,
 	StringSelectMenuBuilder,
 	StringSelectMenuInteraction,
 	StringSelectMenuOptionBuilder
@@ -21,6 +21,7 @@ import {sendInteractionNotForYou} from "../../utils/ErrorUtils";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 import {ClassStats} from "../../../../Lib/src/types/ClassStats";
 import {ClassKind} from "../../../../Lib/src/types/ClassKind";
+import {DisplayUtils} from "../../utils/DisplayUtils";
 
 /**
  * Get the packet
@@ -31,10 +32,10 @@ function getPacket(): Promise<CommandClassesInfoPacketReq> {
 
 /**
  * Get the list of classes
- * @param language
+ * @param lng
  * @param classList
  */
-function getListEmbed(language: Language, classList: {
+function getListEmbed(lng: Language, classList: {
 	id: number,
 	stats: ClassStats,
 	attacks: {
@@ -43,18 +44,15 @@ function getListEmbed(language: Language, classList: {
 	}[]
 }[]): DraftBotEmbed {
 	const embed = new DraftBotEmbed().setTitle(i18n.t("commands:classesInfo.title.list", {
-		lng: language
+		lng
 	}));
 
-	const classesList = [];
+	const classesFields: EmbedField[] = [];
 	for (const foundClass of classList) {
-		classesList.push(`${
-			i18n.t("commands:classesInfo.displays.class", {
-				lng: language,
-				emoji: DraftBotIcons.classes[foundClass.id],
-				name: i18n.t(`models:classes.${foundClass.id}`, {
-					lng: language
-				}),
+		classesFields.push({
+			name: DisplayUtils.getClassDisplay(foundClass.id, lng),
+			value: i18n.t("commands:classesInfo.displays.class", {
+				lng,
 				health: foundClass.stats.health,
 				attack: foundClass.stats.attack,
 				defense: foundClass.stats.defense,
@@ -62,28 +60,29 @@ function getListEmbed(language: Language, classList: {
 				baseBreath: foundClass.stats.baseBreath,
 				maxBreath: foundClass.stats.maxBreath,
 				breathRegen: foundClass.stats.breathRegen,
-				fightPoint: foundClass.stats.fightPoint
-			})
-		}`);
+				fightPoint: foundClass.stats.fightPoint,
+				interpolation: { escapeValue: false }
+			}),
+			inline: false
+		});
 	}
 
-	embed.setDescription(i18n.t("commands:classesInfo.displays.listing", {
-		lng: language,
-		headerText: i18n.t("commands:classesInfo.description.list", {
-			lng: language
-		}),
-		classesList: classesList.join("\n")
-	}));
+	embed
+		.setDescription(i18n.t("commands:classesInfo.description.list", {
+			lng,
+			interpolation: { escapeValue: false }
+		}))
+		.addFields(classesFields);
 
 	return embed;
 }
 
 /**
  * Get the details of a class
- * @param language
+ * @param lng
  * @param classDetails
  */
-function getDetailsEmbed(language: Language, classDetails: {
+function getDetailsEmbed(lng: Language, classDetails: {
 	id: number,
 	name: string,
 	kind: ClassKind,
@@ -95,34 +94,30 @@ function getDetailsEmbed(language: Language, classDetails: {
 		cost: number
 	}[]
 }): DraftBotEmbed {
-	const embed = new DraftBotEmbed().setTitle(i18n.t("commands:classesInfo.title.class", {
-		lng: language,
-		emoji: DraftBotIcons.classes[classDetails.id],
-		className: classDetails.name,
-		classKind: DraftBotIcons.class_kinds[classDetails.kind]
-	}));
+	const embed = new DraftBotEmbed().setTitle(DisplayUtils.getClassDisplay(classDetails.id, lng));
 
-	const attackDisplays = [];
+	const attackFields: EmbedField[] = [];
 	for (const attack of classDetails.attacks) {
-		attackDisplays.push(`${
-			i18n.t("commands:classesInfo.displays.attack", {
-				lng: language,
-				emoji: DraftBotIcons.fight_actions[attack.id],
+		attackFields.push({
+			name: i18n.t("commands:classesInfo.title.attack", {
+				lng,
+				emote: DraftBotIcons.fight_actions[attack.id],
 				name: attack.name,
 				cost: attack.cost,
-				description: attack.description
-			})
-		}`);
+				interpolation: { escapeValue: false }
+			}),
+			value: attack.description,
+			inline: false
+		});
 	}
 
-	embed.setDescription(i18n.t("commands:classesInfo.displays.details", {
-		lng: language,
-		classDetails: classDetails.description,
-		attacksHeader: i18n.t("commands:classesInfo.description.attacks", {
-			lng: language
-		}),
-		attacksList: attackDisplays.join("\n")
-	}));
+	embed
+		.setDescription(i18n.t("commands:classesInfo.displays.details", {
+			lng,
+			classDetails: classDetails.description,
+			interpolation: { escapeValue: false }
+		}))
+		.setFields(attackFields);
 	return embed;
 }
 
