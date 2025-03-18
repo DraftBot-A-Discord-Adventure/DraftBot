@@ -1,8 +1,8 @@
-import { ClassBehavior } from "../AiBehaviorManager";
-import { AiPlayerFighter } from "../fighter/AiPlayerFighter";
-import { FightView } from "../FightView";
-import { FightAction, FightActionDataController } from "../../../data/FightAction";
-import { FightConstants } from "../../../../../Lib/src/constants/FightConstants";
+import {ClassBehavior} from "../AiBehaviorManager";
+import {AiPlayerFighter} from "../fighter/AiPlayerFighter";
+import {FightView} from "../FightView";
+import {FightAction, FightActionDataController} from "../../../data/FightAction";
+import {FightConstants} from "../../../../../Lib/src/constants/FightConstants";
 
 class MysticMageFightBehavior implements ClassBehavior {
 
@@ -17,26 +17,23 @@ class MysticMageFightBehavior implements ClassBehavior {
 		// - player is dying soon
 		// - opponent has significantly more attack power
 		if (
-			(
-				me.getBreath() >= FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.DARK_ATTACK)
-				&& (
-					// Case 1: Cancel opponent's two-turn attack
-					(
-						[
-							FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_ULTIMATE_ATTACK,
-							FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK
-						].includes(opponent.getLastFightActionUsed().id)
-						&& !opponent.hasFightAlteration()
-					)
-					// Case 2: Player is dying or outmatched
-					|| (me.getEnergy() < 150 && opponent.getEnergy() > 300)
-					|| (opponent.getAttack() > me.getAttack() * 1.4)
-				)
+
+			me.getBreath() >= FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.DARK_ATTACK)
+			&& (
+				// Case 1: Cancel opponent's two-turn attack
+				[
+					FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_ULTIMATE_ATTACK,
+					FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK
+				].includes(opponent.getLastFightActionUsed().id)
+				&& !opponent.hasFightAlteration()
+				// Case 2: Player is dying or outmatched
+				|| me.getEnergy() < 150 && opponent.getEnergy() > 300
+				|| opponent.getAttack() > me.getAttack() * 1.4
 			)
 		) {
 			return FightActionDataController.instance.getById(actions.DARK_ATTACK);
 		}
-		
+
 		// Fire attack if enough breath and no alteration (except during first 5 turns)
 		// After turn 13, skip if cursed attack has not been used
 		if (
