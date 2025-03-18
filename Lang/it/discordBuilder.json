@@ -334,5 +334,29 @@
         "description": "Le joueur à qui vendre le familier."
       }
     }
+  },
+  "classes": {
+    "name": "classes",
+    "description": "Changer de classe."
+  },
+  "sell": {
+    "name": "vendre",
+    "description": "Vendre un équipement."
+  },
+  "petTransfer": {
+    "name": "transfererfamilier",
+    "description": "Transférer un familier depuis ou vers l'abri de la guilde."
+  },
+  "petFeed": {
+    "name": "nourrirfamilier",
+    "description": "Nourrir votre familier."
+  },
+  "guildShelter": {
+    "name": "abriguilde",
+    "description": "Affiche les informations sur l'abri de guilde."
+  },
+  "leagueReward": {
+    "name": "bonusligue",
+    "description": "Récupérer la récompense liée à votre ligue."
   }
 }

@@ -26,7 +26,7 @@
       "diet_carnivorous": "🥩 Carnivore"
     },
     "sexDisplay_f": "Female {emote:sex.female}",
-    "sexDisplay_m": "Master {emote:sex.male}",
+    "sexDisplay_m": "Male {emote:sex.male}",
     "shortPetField": "{{emote}} {{name}}"
   },
   "guild": {
@@ -255,7 +255,7 @@
         "description": "Check if the bot is online.\n\n(Note: Time displayed is the response time from the bot, not your ping, a correct ping should be less than 500 ms. :clock1:)"
       },
       "PROFILE": {
-        "description": "Displays information about your character:\n\n😃 Health status | Nickname | Level\n\n឵឵឵Information:\n❤️ Life | ⭐ XP | {emote:unitValues.money} Money\n\nStatistics :\n⚡ Energy | 🗡️ Attack | 🛡️ Defense | 🚀 Speed | 🌬️ Breath | 🫁 Recovery\n\nMissions :\n💎 Gems | 📖 Advanced campaign %\n\nRank and score:\n🏆 Rank | 🏅 Score\n\nClass:\nSee {command:classes}\n\nGlory and League:\n✨ Glory | See {{topGloryCommandMention}}\n\nGuild:\n🏟️ Guild\n\nDestination:\nSee {{mapCommandMention}}\n\nFamiliar:\nSee {{petCommandMention}}\n\n💡-Badges are displayed on your profile as a reaction."
+        "description": "Affiche des informations sur votre personnage :\n\n😃 État de santé | Pseudo | Level\n\n឵឵឵Informations :\n❤️ Vie | ⭐ XP | {emote:unitValues.money} Argent\n\nStatistiques :\n⚡ Énergie | 🗡️ Attaque | 🛡️ Défense | 🚀 Vitesse | 🌬️ Souffle | 🫁 Récupération\n\nMissions :\n💎 Gemmes | 📖 Avancé de la campagne %\n\nClassement et score :\n🏆 Classement | 🏅 Score\n\nClasse :\nVoir {command:classes}\n\nGloire et Ligue :\n{emote:unitValues.glory} Gloire | Voir {{topGloryCommandMention}}\n\nGuilde :\n🏟️ Guilde\n\nDestination :\nVoir {{mapCommandMention}}\n\nFamilier :\nVoir {{petCommandMention}}\n\n💡-Les badges sont affichés sur votre profil sous forme de réaction."
       },
       "RARITY": {
         "description": "Allows you to see the probability of getting an item by its rarity."
@@ -379,7 +379,7 @@
       "⚔️": ":crossed_swords: `Winner of a tournament`",
       "⚙️": ":gear: `Technical team`",
       "⛑️": ":helmet_with_cross: `People who are one of the 20 first members of the bot's server`",
-      "✨": ":sparkles: `Person who has won the most glory during a fighting season`",
+      "✨": "{emote:unitValues.glory} `Personne ayant remporté le plus de gloire durant une saison de combat`",
       "❤️": ":heart: `Person who has the Support role on the bot server`",
       "🌍": ":earth_africa: `Translator`",
       "🌟": ":star2: `Person who helped put the bot on a server with over 2000 members`",
@@ -406,7 +406,7 @@
     },
     "fightRanking": {
       "fieldName": "Glory points and league:",
-      "fieldValue": ":sparkles: {{gloryPoints}} | {{league}}"
+      "fieldValue": "{emote:unitValues.glory} {{gloryPoints}} | {{league}}"
     },
     "guild": {
       "fieldName": "Guild:",
@@ -528,24 +528,6 @@
     "successTitle": "{{pseudo}}, changing the pet's nickname",
     "success": "Pet nickname changed to **{{name}}**!",
     "successNoName": "Your pet no longer has a nickname!"
-  },
-  "sell": {
-    "commandName": "sell",
-    "commandDescription": "Sell a equipment.",
-    "noItemToSell": "Unfortunately you don't have any items in your reserve!",
-    "confirmSell": "Are you sure you want to separate from {{item}} for **{{money}}** {emote:unitValues.money}?",
-    "sellCanceled": "The sale was successfully cancelled!",
-    "sellTitle": "{{pseudo}}, confirmation:",
-    "soldMessage": "You sold {{item}} for **{{money}}** {emote:unitValues.money}!",
-    "soldMessageTitle": "{{pseudo}}, you sold a equipment.",
-    "potionDestroyedTitle": "You have destroyed a potion.",
-    "potionDestroyedMessage": "The potion \"{{item}}\" has been poured into a sink.",
-    "soldMessageAlreadyOwnTitle": "{{pseudo}}, you have received a piece of equipment that you already have.",
-    "titleChoiceEmbed": "{{pseudo}}, Item Sale",
-    "sellField": "{{name}} | {{value}} {moneyIcon}",
-    "throwAwayField": "{{name}} | {{throwEmote}}",
-    "confirmThrowAway": "Are you sure you want to throw {{item}}?",
-    "sellIndication": "Choose an item for sale from the list below:"
   },
   "shop": {
     "closeShop": "You closed the store.",
@@ -875,42 +857,151 @@
   },
   "drink": {
     "cancelled": "",
-    "noActiveObject": "Vous n'avez malheureusement rien à boire dans votre inventaire !",
-    "objectIsActiveDuringFights": "Ce breuvage ne peut pas être bu maintenant. Il sera utilisé automatiquement lors de votre prochain combat !",
-    "healthBonus": "{emote:unitValues.health} Vie gagnée : {{value}} !",
+    "noActiveObject": "Unfortunately, you don't have anything to drink in your inventory!",
+    "objectIsActiveDuringFights": "This beverage can't be drunk right now. It'll be automatically consumed during your next fight!",
+    "healthBonus": "{emote:unitValues.health} Health gained: {{value}}!",
     "energyBonus": "",
-    "timeBonus": "{emote:unitValues.time} Vous avez avancé de {{value}} !",
-    "noBonus": "{emote:messages.refuse} Vous consommez le breuvage que vous transportiez... Ça ne semble pas très efficace !",
-    "drinkSuccessTitle": "{{pseudo}}, vous buvez le breuvage que vous transportiez !",
-    "confirmationTitle": "{{pseudo}}, confirmation :",
-    "confirmation": "Êtes-vous sûr de vouloir boire votre {{potion}} ?",
-    "confirmationFooter": "Il est possible d'éviter cette étape en utilisant le paramètre forcer !"
+    "timeBonus": "{emote:unitValues.time} You moved forward {{value}}!",
+    "noBonus": "{emote:messages.refuse} You consume the beverage you were carrying... It wasn't very effective!",
+    "drinkSuccessTitle": "{{pseudo}}, you drink the beverage you were carrying!",
+    "confirmationTitle": "{{pseudo}}, confirmation:",
+    "confirmation": "Are you sure you want to drink your {{potion}}?",
+    "confirmationFooter": "You can skip this prompt by using the `force` option!"
   },
   "petSell": {
-    "noPet": "Vous n'avez aucun familier à vendre !",
-    "noGuild": "Vous ne pouvez pas vendre votre familier car vous n'êtes pas dans une guilde. En effet, la vente de familier permet de générer de l'expérience de guilde.",
-    "isFeisty": "Vous ne pouvez pas vendre un familier fielleux.",
-    "badPrice": "Le prix doit être supérieur à `{{minPrice}}{emote:unitValues.money}` et inférieur à `{{maxPrice}}{emote:unitValues.money}`.",
-    "onlyInitiatorCanCancel": "Seul l'initiateur d'une vente peut l'annuler !",
-    "canceled": "La vente a été annulée !",
-    "cantSellToYourself": "Il est impossible de vendre un familier à soi-même !",
-    "noOneAvailable": "Malheureusement, personne ne semble disponible pour acheter votre familier. Votre vente a été annulée.",
-    "sameGuild": "Vous ne pouvez pas acheter ce familier car le vendeur fait partie de votre guilde.",
-    "alreadyHavePet": "Vous avez déjà un familier dans votre inventaire.",
-    "noEnoughMoney": "Vous n'avez pas assez d'argent pour effectuer cette transaction. Il vous manque `{{missingMoney}}{emote:unitValues.money}`.",
-    "initiatorSituationChanged": "Le vendeur n'est plus en mesure de vendre son familier. La vente a été annulée.",
-    "sellTitle": "Vente d'un familier",
-    "sellDescription": "{{pseudo}} souhaite vendre un familier pour `{{price}}{emote:unitValues.money}`",
-    "maxLevelWarning": "{emote:collectors.warning} Votre guilde est au niveau maximal, vous ne recevrez pas d'expérience !",
-    "petFieldName": "Familier vendu :",
-    "sellFooter": "Pour plus d'informations à propos des ventes de familiers, utilisez la commande help petsell.",
-    "successTitle": "{{pseudo}}, transaction réussie !",
-    "successDescription": "{{pet}} vous suit désormais. Occupez-vous en bien !"
+    "noPet": "You don't have any pet to sell!",
+    "noGuild": "You can't sell your pet since you are not part of a guild. In fact, selling a pet rewards guild XP.",
+    "isFeisty": "You can't sell a feisty pet.",
+    "badPrice": "The price must be between **{{minPrice}}** and **{{maxPrice}}{emote:unitValues.money}**.",
+    "onlyInitiatorCanCancel": "Only the seller can cancel the request!",
+    "canceled": "The selling request has been canceled!",
+    "cantSellToYourself": "You can't sell a pet to yourself!",
+    "noOneAvailable": "Sadly, no one seems to be interested in your offer. Your request has been cancelled.",
+    "sameGuild": "You can't buy this pet since the seller is part of your guild.",
+    "alreadyHavePet": "You already have a pet with you.",
+    "noEnoughMoney": "You don't have enough money to buy it. You're missing **{{missingMoney}}{emote:unitValues.money}**.",
+    "initiatorSituationChanged": "The seller is no longer able to sell their pet. The request has been cancelled.",
+    "sellTitle": "Pet selling",
+    "sellDescription": "{{pseudo}} would like to sell a pet for **{{price}}{emote:unitValues.money}**",
+    "maxLevelWarning": "{emote:collectors.warning} Your guild is already at max level, you won't receive any XP!",
+    "petFieldName": "Sold pet:",
+    "sellFooter": "For more information about pet sells, use the /help petsell command.",
+    "successTitle": "{{pseudo}}, transaction completed!",
+    "successDescription": "{{pet}} is now following you. Take good care of it!"
   },
-  "guildShelter": {
-    "embedTitle": "Refuge d'animaux de la guilde {{guild}} : {{count}} / {{max}}",
-    "noPetMessage": "Oh ! Il semblerait qu'il n'y ait aucun familier dans le refuge.",
-    "petFieldName": "__Familier n°{{number}}__",
-    "warningFull": "{emote:collectors.warning} Le refuge est plein, aucun nouveau familier ne pourra être obtenu !"
+  "classes": {
+    "description": {
+      "0": "A simple class. Somewhat balanced.",
+      "1": "A simple class. Somewhat balanced.",
+      "2": "A simple class. Somewhat balanced.",
+      "3": "A simple class. Somewhat balanced.",
+      "4": "A class focused on defense. Poor combat performance but extra life for adventuring.",
+      "5": "A class focused on defense. Poor combat performance but extra life for adventuring.",
+      "6": "A class focused on defense. Poor combat performance but extra life for adventuring.",
+      "7": "A class focused on defense. Poor combat performance but extra life for adventuring.",
+      "8": "A class focused on speed. Low hitpoints and energy but high speed and attack.",
+      "9": "A class focused on speed. Low hitpoints and energy but high speed and attack.",
+      "10": "A class focused on speed. Low hitpoints and energy but high speed and attack.",
+      "11": "A class focused on speed. Low hitpoints and energy but high speed and attack.",
+      "12": "A powerful but balanced class. Pretty versatile.",
+      "13": "A powerful but balanced class. Pretty versatile.",
+      "14": "A powerful but balanced class. Pretty versatile.",
+      "15": "A powerful but balanced class. Pretty versatile.",
+      "16": "A class focused on defense with no bonus hitpoints but with higher attack than a tank.",
+      "17": "A class with very good stats but with a significant hitpoints penalty.",
+      "18": "A simple class. Somewhat balanced.",
+      "19": "A class focused on defense. Poor combat performance but extra life for adventuring.",
+      "20": "A class focused on speed. Low hitpoints and energy but high speed and attack.",
+      "21": "A powerful but balanced class. Pretty versatile.",
+      "22": "A class focused on defense with no bonus hitpoints but with higher attack than a tank.",
+      "23": "A class with very good stats but with a significant hitpoints penalty.",
+      "24": "A versatile class focused on unique combat mechanics."
+    },
+    "title": "{emote:commands.classes} Changer de classe :",
+    "desc": "Choisissez une classe dans la liste ci-dessous pour plus d'informations.",
+    "display": "{{name}}\n\n{emote:commands.classesDescription} `{{description}}`\n\nSouhaitez-vous changer pour cette classe ? Vous ne pourrez pas changer de classe avant le {{time}}.",
+    "success": "{{pseudo}}, votre classe a été modifiée !",
+    "newClass": "Votre nouvelle classe est : {{name}}",
+    "confirm": "{{pseudo}}, vous avez sélectionné la classe suivante :",
+    "error": {
+      "canceledPurchase": "Changement de classe annulé.",
+      "sameClass": "Vous appartenez déjà à cette classe.",
+      "leaveClass": "Vous n'avez pas changé de classe.",
+      "changeClassTooEarly": "Vous avez déjà changé de classe récemment. Vous pourrez à nouveau changer de classe {{time}}."
+    },
+    "refuse": "Annuler",
+    "chooseClass": "Select a class"
+  },
+  "sell": {
+    "noItemToSell": "Unfortunately you don't have any items in your reserve!",
+    "confirmSell": "Are you sure you want to separate from {{item}} for **{{money}}** {emote:unitValues.money}?",
+    "sellCanceled": "The sale was successfully cancelled!",
+    "sellTitle": "{{pseudo}}, confirmation:",
+    "soldMessage": "You sold {{item}} for **{{money}}** {emote:unitValues.money}!",
+    "soldMessageTitle": "{{pseudo}}, you sold a equipment.",
+    "potionDestroyedTitle": "You have destroyed a potion.",
+    "potionDestroyedMessage": "The potion \"{{item}}\" has been poured into a sink.",
+    "soldMessageAlreadyOwnTitle": "{{pseudo}}, you have received a piece of equipment that you already have.",
+    "titleChoiceEmbed": "{{pseudo}}, Item Sale",
+    "sellField": "{{name}} | {{value}} {moneyIcon}",
+    "throwAwayField": "{{name}} | {{throwEmote}}",
+    "confirmThrowAway": "Are you sure you want to throw {{item}}?",
+    "sellIndication": "Choose an item for sale from the list below:",
+    "menuPlaceholder": "Choississez un objet à vendre",
+    "cancel": "Annuler",
+    "selectMenuDescSell": "Vendre pour {{value}} {emote:unitValues.money}",
+    "selectMenuDescThrow": "Jeter {emote:other.trash}"
+  },
+  "petTransfer": {
+    "anotherPlayerTransferring": "Le membre de votre guilde **{{playerName}}** est en train de transférer un familier. Veuillez réessayer plus tard.",
+    "transferCancelled": "Le transfert a été annulé.",
+    "situationChanged": "Quelque chose s'est mal passé pendant le transfert. Veuillez réessayer.",
+    "noPet": "Vous n'avez aucun familier à transférer et le refuge de votre guilde est vide.",
+    "confirmTransferTitle": "{{pseudo}}, le transfert a été effectué.",
+    "confirmSwitch": "**{{oldPet}}** reste désormais dans le refuge et **{{newPet}}** vous suit !",
+    "confirmDeposit": "**{{oldPet}}** a été déposé dans le refuge de votre guilde !",
+    "confirmWithdraw": "**{{newPet}}** vous suit désormais !",
+    "chooseActionTitle": "Transfert d'un familier",
+    "chooseActionDesc": "Choisissez une action à effectuer :",
+    "depositButton": "Déposer {{pet}} dans le refuge",
+    "withdrawButton": "Retirer un familier du refuge",
+    "switchButton": "Échanger {{pet}} avec un familier du refuge",
+    "refuseButton": "Annuler le transfert",
+    "backButton": "Retour",
+    "withdrawPlaceholder": "Choisissez un familier à retirer",
+    "switchPlaceholder": "Choisissez un familier à échanger contre {{pet}}",
+    "selectMenuPetDetails": "{{rarity}} | {{sex}} | {{loveLevel}}",
+    "feistyError": "Vous ne pouvez pas transférer un familier fielleux."
+  },
+  "petFeed": {
+    "noPet": "Vous n'avez aucun familier !",
+    "noMoney": "Vous n'avez pas assez d'argent pour effectuer cet achat...",
+    "notHungry": "Il semblerait que **{{pet}}** n'ait pas faim...",
+    "guildStorageEmpty": "L'entrepôt de nourriture de votre guilde est vide. Achetez de la nourriture avec {command:guildshop}.",
+    "cancelled": "Nourrissage annulé !",
+    "resultTitle": "{{pseudo}}, nourrissage effectué !",
+    "result": {
+      "happy": "Votre familier est rassasié et semble heureux !",
+      "veryHappy": "Votre familier est rassasié et semble très heureux !",
+      "veryVeryHappy": "Votre familier est rassasié et saute de joie !",
+      "dislike": "Votre familier ne semble pas avoir aimé cette nourriture..."
+    },
+    "feedTitle": "{{pseudo}}, nourrissage de votre familier",
+    "feedDescription": "Choisissez une nourriture pour **{{pet}}** :",
+    "feedFoodBullet": "- **{{food}}** ({{amount}} / {{maxAmount}})",
+    "cancelButton": "Annuler",
+    "feedWithoutGuildDesc": "Souhaitez vous acheter une friandise pour {{pet}} ?\n\n{{food}} | `{{price}}{emote:unitValues.money}`"
+  },
+  "leagueReward": {
+    "errors": {
+      "notSunday": "La récompense de ligue ne peut être récupérée que le dimanche ! Revenez {{nextSunday}}.",
+      "noPoints": "La récompense de ligue n'est disponible que pour les joueurs ayant combattu durant la saison précédente.",
+      "alreadyClaimed": "Vous avez déjà récupéré votre récompense de ligue pour cette saison."
+    },
+    "title": "{{pseudo}}, vous avez reçu votre récompense de ligue !",
+    "description": {
+      "first": "Vous avez terminé la ligue précédente avec **{{glory}} gloire. {emote:unitValues.glory}**\n\n**Vous terminez à la $t(models:ordinals.get, {\"count\": {{rank}}, \"context\":\"feminine\", \"ordinal\": true}) place !**\nVotre ligue finale est : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Argent gagné : **{{money}}** !\n{emote:unitValues.xp} XP gagnée : **{{xp}}** !\n{emote:unitValues.glory} Un badge vous a été offert à la fin de la saison.\n{emote:rewards.item} Vous recevez un équipement aléatoire !",
+      "other": "Vous avez terminé la ligue précédente avec **{{glory}} gloire. {emote:unitValues.glory}**\n\n Vous terminez à la $t(models:ordinals.get, {\"count\": {{rank}}, \"ordinal\": true}) place !\nVotre ligue finale est : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Argent gagné : **{{money}}** !\n{emote:unitValues.xp} XP gagnée : **{{xp}}** !\n{emote:rewards.item} Vous recevez un équipement aléatoire !"
+    }
   }
 }
