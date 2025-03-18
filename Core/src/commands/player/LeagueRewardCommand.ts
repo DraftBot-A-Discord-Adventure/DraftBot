@@ -8,18 +8,18 @@ import {
 	CommandLeagueRewardPacketReq,
 	CommandLeagueRewardSuccessPacketRes
 } from "../../../../Lib/src/packets/commands/CommandLeagueRewardPacket";
-import {Constants} from "../../../../Lib/src/constants/Constants";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {giveItemToPlayer} from "../../core/utils/ItemUtils";
 import {InventorySlots} from "../../core/database/game/models/InventorySlot";
 import {draftBotInstance} from "../../index";
 import {getNextSaturdayMidnight, todayIsSunday} from "../../../../Lib/src/utils/TimeUtils";
+import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
 
 export default class LeagueRewardCommand {
 	@commandRequires(CommandLeagueRewardPacketReq, {
 		notBlocked: true,
 		allowedEffects: CommandUtils.ALLOWED_EFFECTS.NO_EFFECT,
-		level: Constants.CLASS.REQUIRED_LEVEL
+		level: FightConstants.REQUIRED_LEVEL
 	}) async execute(response: DraftBotPacket[], player: Player, _packet: CommandLeagueRewardPacketReq, context: PacketContext): Promise<void> {
 		if (!todayIsSunday()) {
 			response.push(makePacket(CommandLeagueRewardNotSundayPacketRes, {
