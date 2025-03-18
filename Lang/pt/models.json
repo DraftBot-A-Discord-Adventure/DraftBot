@@ -91,6 +91,7 @@
     "9": "Aparador"
   },
   "classFormat": "{emote:classes.{{id}} $t(models:classes.{{id}})}",
+  "classWithStatsFormat": "{emote:classes.{{id}}} $t(models:classes.{{id}}) :\n{emote:unitValues.energy} {{energy}} | {emote:unitValues.attack} {{attack}} | {emote:unitValues.defense} {{defense}} | {emote:unitValues.speed} {{speed}} | {emote:unitValues.breath} {{initialBreath}} / {{maxBreath}} | {emote:unitValues.health} {{health}}",
   "class_descriptions": {
     "0": "Uma aula simples. Bastante equilibrada.",
     "1": "Uma classe simples. Bastante equilibrada.",
@@ -1333,5 +1334,15 @@
   },
   "diet_omnivorous": "{emote:diet.omnivorous} Omnívoro",
   "diet_herbivorous": "{emote:diet.herbivorous} Herbívoro",
-  "diet_carnivorous": "{emote:diet.carnivorous} Carnívoro"
+  "diet_carnivorous": "{emote:diet.carnivorous} Carnívoro",
+  "sex": {
+    "male": "Mâle",
+    "female": "Femelle"
+  },
+  "ordinals": {
+    "get_feminine_ordinal_one": "1ère",
+    "get_feminine_ordinal_other": "{{count}}ème",
+    "get_ordinal_one": "1er",
+    "get_ordinal_other": "{{count}}ème"
+  }
 }
