@@ -8,7 +8,7 @@ import {ClassConstants} from "../../../../../Lib/src/constants/ClassConstants";
 import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
 import {piercingOrSimpleAttack, shouldProtect} from "./RecruitFightBehavior";
 
-class InfantryManFightBehavior implements ClassBehavior {
+class FighterFightBehavior implements ClassBehavior {
 
 	private powerfulAttacksUsedMap = 0;
 
@@ -31,23 +31,8 @@ class InfantryManFightBehavior implements ClassBehavior {
 			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.POWERFUL_ATTACK);
 		}
 
-		// Use charging attack if the opponent is not a knight and we have enough breath
-		if (
-			(fightView.fightController.turn > 11 // Except if we are a late fight
-				|| powerfulAttacksUsed > 2) // Priority to the powerful attacks
-			&& me.getEnergy() > me.getMaxEnergy() * 0.21 // Don't use it if we are about to die
-			&& (opponent.player.class !== ClassConstants.CLASSES_ID.MYSTIC_MAGE
-				|| me.hasFightAlteration()
-			)
-			&& (RandomUtils.draftbotRandom.bool() || opponent.getDefense() < me.getDefense()) // If opponent has more defense we don't want to spam this attack
-			&& opponent.player.class !== ClassConstants.CLASSES_ID.KNIGHT
-			&& me.getBreath() >= FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK)
-		) {
-			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK);
-		}
-
 		return piercingOrSimpleAttack(opponent, me);
 	}
 }
 
-export default InfantryManFightBehavior;
+export default FighterFightBehavior;
