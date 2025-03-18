@@ -24,7 +24,7 @@ class GunnerFightBehavior implements ClassBehavior {
 			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK);
 		}
 
-		//clear the chained canon attack flag if 3 canon attacks have been used (or 2 and not enough breath to continue)
+		// Clear the chained canon attack flag if 3 canon attacks have been used (or 2 and not enough breath to continue)
 		if (
 			this.isGoingForChainedCanonAttack
 			&& (this.canonAttackUsed >= 3
@@ -39,12 +39,12 @@ class GunnerFightBehavior implements ClassBehavior {
 			// Quick Attack is good for finishing off enemies
 			if (me.getBreath() >= FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.QUICK_ATTACK)) {
 				return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.QUICK_ATTACK);
-			} else {
-				return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.SABOTAGE_ATTACK);
 			}
+			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.SABOTAGE_ATTACK);
+
 		}
 
-		// Play boomerang when possible if opponent has no alteration
+		// Play boomerang when possible if the opponent has no alteration
 		if (
 			!opponent.hasFightAlteration()
 			&& !this.isGoingForChainedCanonAttack
@@ -62,14 +62,14 @@ class GunnerFightBehavior implements ClassBehavior {
 			&& me.getBreath() >= FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK)
 		) {
 			this.isGoingForChainedCanonAttack = true;
-			// we need to have enough breath to use canon attack twice in a raw at minimum
+			// We need to have enough breath to use canon attack twice in raw at minimum
 			if (me.getBreath() >= FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK) + 2) {
 				this.canonAttackUsed++;
 				return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK);
 			}
 		}
 
-		// If opponent has more speed or close to it and we have enough breath, use intense attack
+		// If the opponent has higher speed or close to it, and we have enough breath, use intense attack
 		if (
 			!this.isGoingForChainedCanonAttack
 			&& opponent.getSpeed() > me.getSpeed() * 0.8
@@ -79,7 +79,7 @@ class GunnerFightBehavior implements ClassBehavior {
 			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.INTENSE_ATTACK);
 		}
 
-		// If opponent has more speed or close to it and we don't have breath for intense, use sabotage attack
+		// If the opponent has higher speed or close to it, and we don't have breath for intense, use sabotage attack
 		if (
 			opponent.getSpeed() > me.getSpeed() * 0.8
 			&& me.getBreath() >= FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.SABOTAGE_ATTACK)

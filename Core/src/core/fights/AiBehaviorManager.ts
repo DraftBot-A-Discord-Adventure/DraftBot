@@ -8,6 +8,8 @@ import EsquireFightBehavior from "./aiClassBehaviors/EsquireFightBehavior";
 import MysticMageFightBehavior from "./aiClassBehaviors/MysticMageFightBehavior";
 import GunnerFightBehavior from "./aiClassBehaviors/GunnerFightBehavior";
 import InfantryManFightBehavior from "./aiClassBehaviors/InfantrymanFightBehavior";
+import FighterFightBehavior from "./aiClassBehaviors/FighterFightBehavior";
+import RecruitFightBehavior from "./aiClassBehaviors/RecruitFightBehavior";
 
 export interface ClassBehavior {
 	chooseAction(fighter: AiPlayerFighter, fightView: FightView): FightAction;
@@ -33,6 +35,9 @@ export function initializeAllClassBehaviors(): void {
 	registerClassBehavior(ClassConstants.CLASSES_ID.FORMIDABLE_GUNNER, GunnerFightBehavior);
 	registerClassBehavior(ClassConstants.CLASSES_ID.INFANTRYMAN, InfantryManFightBehavior);
 	registerClassBehavior(ClassConstants.CLASSES_ID.POWERFUL_INFANTRYMAN, InfantryManFightBehavior);
+	registerClassBehavior(ClassConstants.CLASSES_ID.SOLDIER, InfantryManFightBehavior);
+	registerClassBehavior(ClassConstants.CLASSES_ID.FIGHTER, FighterFightBehavior);
+	registerClassBehavior(ClassConstants.CLASSES_ID.RECRUIT, RecruitFightBehavior);
 }
 
 /**
