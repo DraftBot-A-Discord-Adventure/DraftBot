@@ -41,6 +41,7 @@ import {EmoteUtils} from "../../utils/EmoteUtils";
 import {LANGUAGE} from "../../../../Lib/src/Language";
 import {ReportConstants} from "../../../../Lib/src/constants/ReportConstants";
 import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import {DiscordConstants} from "../../DiscordConstants";
 
 async function getPacket(interaction: DraftbotInteraction): Promise<CommandReportPacketReq> {
 	await interaction.deferReply();
@@ -53,7 +54,7 @@ export async function createBigEventCollector(context: PacketContext, packet: Re
 	const data = packet.data.data as ReactionCollectorBigEventData;
 	const reactions = packet.reactions.map((reaction) => reaction.data) as ReactionCollectorBigEventPossibilityReaction[];
 
-	const row = new ActionRowBuilder<ButtonBuilder>();
+	const rows = [new ActionRowBuilder<ButtonBuilder>()];
 	let eventText = `${i18n.t(`events:${data.eventId}.text`, {
 		lng: context.discord?.language ?? LANGUAGE.ENGLISH,
 		interpolation: {escapeValue: false}
@@ -66,7 +67,11 @@ export async function createBigEventCollector(context: PacketContext, packet: Re
 				.setEmoji(parseEmoji(emoji)!)
 				.setCustomId(possibility.name)
 				.setStyle(ButtonStyle.Secondary);
-			row.addComponents(button);
+
+			if (rows[rows.length - 1].components.length >= DiscordConstants.MAX_BUTTONS_PER_ROW) {
+				rows.push(new ActionRowBuilder<ButtonBuilder>());
+			}
+			rows[rows.length - 1].addComponents(button);
 
 			const reactionText = `${emoji} ${i18n.t(`events:${data.eventId}.possibilities.${possibility.name}.text`, {
 				lng: context.discord?.language ?? LANGUAGE.ENGLISH,
@@ -83,7 +88,7 @@ export async function createBigEventCollector(context: PacketContext, packet: Re
 			pseudo: user.attributes.gameUsername,
 			interpolation: {escapeValue: false}
 		}),
-		components: [row]
+		components: rows
 	}) as Message;
 
 	let responded = false; // To avoid concurrence between the button controller and reactions controller
