@@ -19,6 +19,7 @@ import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {LogsDatabase} from "../../core/database/logs/LogsDatabase";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
+import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
 
 /**
  * Check if the player can create a guild with the given name at this exact moment
@@ -114,7 +115,8 @@ export default class GuildCreateCommand {
 	@commandRequires(CommandGuildCreatePacketReq, {
 		notBlocked: true,
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD,
-		level: GuildConstants.REQUIRED_LEVEL
+		level: GuildConstants.REQUIRED_LEVEL,
+		whereAllowed: [WhereAllowed.CONTINENT]
 	})
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandGuildCreatePacketReq, context: PacketContext): Promise<void> {
 		if (!await canCreateGuild(player, packet.askedGuildName, response)) {

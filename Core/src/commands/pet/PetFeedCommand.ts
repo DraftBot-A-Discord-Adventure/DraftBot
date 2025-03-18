@@ -213,7 +213,8 @@ async function withGuildPetFeed(context: PacketContext, response: DraftBotPacket
 export default class PetFeedCommand {
 	@commandRequires(CommandPetFeedPacketReq, {
 		notBlocked: true,
-		allowedEffects: CommandUtils.ALLOWED_EFFECTS.NO_EFFECT
+		allowedEffects: CommandUtils.ALLOWED_EFFECTS.NO_EFFECT,
+		whereAllowed: CommandUtils.WHERE.EVERYWHERE
 	})
 	async execute(response: DraftBotPacket[], player: Player, _packet: CommandPetFeedPacketReq, context: PacketContext): Promise<void> {
 		const authorPet = await PetEntities.getById(player.petId);

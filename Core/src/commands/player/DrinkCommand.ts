@@ -21,6 +21,7 @@ import {
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {checkDrinkPotionMissions, toItemWithDetails} from "../../core/utils/ItemUtils";
 import {ReactionCollectorDrink} from "../../../../Lib/src/packets/interaction/ReactionCollectorDrink";
+import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
 
 /**
  * Consumes the given potion
@@ -84,7 +85,8 @@ function drinkPotionCallback(
 export default class DrinkCommand {
 	@commandRequires(CommandDrinkPacketReq, {
 		notBlocked: true,
-		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD,
+		whereAllowed: [WhereAllowed.CONTINENT]
 	})
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandDrinkPacketReq, context: PacketContext): Promise<void> {
 		const potion = (await InventorySlots.getMainPotionSlot(player.id)).getItem() as Potion;

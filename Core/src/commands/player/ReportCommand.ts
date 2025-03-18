@@ -57,7 +57,8 @@ import {Effect} from "../../../../Lib/src/types/Effect";
 export default class ReportCommand {
 	@commandRequires(CommandReportPacketReq, {
 		notBlocked: true,
-		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.DEAD
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.DEAD,
+		whereAllowed: CommandUtils.WHERE.EVERYWHERE
 	})
 	static async execute(
 		response: DraftBotPacket[],

@@ -41,6 +41,7 @@ import {
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorBuyCategorySlot";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
+import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
 
 /**
  * Get the shop item for getting a random item
@@ -278,7 +279,8 @@ async function getSlotExtensionShopItem(player: Player): Promise<ShopItem | null
 export default class ShopCommand {
 	@commandRequires(CommandShopPacketReq, {
 		notBlocked: true,
-		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD_OR_JAILED
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD_OR_JAILED,
+		whereAllowed: [WhereAllowed.CONTINENT]
 	})
 	static async execute(
 		response: DraftBotPacket[],

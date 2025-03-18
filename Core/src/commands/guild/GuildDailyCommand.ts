@@ -25,6 +25,7 @@ import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {Maps} from "../../core/maps/Maps";
 import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
+import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
 
 type GuildLike = { guild: Guild, members: Player[] };
 type RewardStage = { [key: string]: number };
@@ -402,7 +403,8 @@ export default class GuildDailyCommand {
 		notBlocked: true,
 		level: GuildConstants.REQUIRED_LEVEL,
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD,
-		guildNeeded: true
+		guildNeeded: true,
+		whereAllowed: [WhereAllowed.CONTINENT]
 	})
 	async execute(response: DraftBotPacket[], player: Player): Promise<void> {
 		const guild = await Guilds.getById(player.guildId);

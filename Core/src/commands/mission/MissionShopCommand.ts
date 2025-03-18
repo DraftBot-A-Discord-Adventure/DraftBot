@@ -39,6 +39,7 @@ import {
 import {BadgeConstants} from "../../../../Lib/src/constants/BadgeConstants";
 import {PetDiet} from "../../../../Lib/src/constants/PetConstants";
 import {SexTypeShort} from "../../../../Lib/src/constants/StringConstants";
+import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
 
 /**
  * Calculate the amount of money the player will have if he buys some with gems
@@ -230,7 +231,8 @@ export default class MissionShopCommand {
 	@commandRequires(CommandMissionShopPacketReq, {
 		notBlocked: true,
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD_OR_JAILED,
-		guildNeeded: true
+		guildNeeded: true,
+		whereAllowed: [WhereAllowed.CONTINENT]
 	})
 	static async execute(
 		response: DraftBotPacket[],

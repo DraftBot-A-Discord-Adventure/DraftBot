@@ -96,7 +96,8 @@ export default class GuildKickCommand {
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD,
 		level: GuildConstants.REQUIRED_LEVEL,
 		guildNeeded: true,
-		guildRoleNeeded: GuildRole.CHIEF
+		guildRoleNeeded: GuildRole.CHIEF,
+		whereAllowed: CommandUtils.WHERE.EVERYWHERE
 	})
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandGuildKickPacketReq, context: PacketContext): Promise<void> {
 		const kickedPlayer = await Players.getAskedPlayer(packet.askedPlayer, player);

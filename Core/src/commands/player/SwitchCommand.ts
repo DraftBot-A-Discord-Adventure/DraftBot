@@ -54,7 +54,8 @@ export default class SwitchCommand {
 	 */
 	@commandRequires(CommandSwitchPacketReq, {
 		notBlocked: true,
-		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD_OR_JAILED
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD_OR_JAILED,
+		whereAllowed: CommandUtils.WHERE.EVERYWHERE
 	})
 	async execute(response: DraftBotPacket[], player: Player, _packet: CommandSwitchPacketReq, context: PacketContext): Promise<void> {
 		const profileSlots = await InventorySlots.getOfPlayer(player.id);

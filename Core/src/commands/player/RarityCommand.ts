@@ -1,11 +1,12 @@
 import {CommandRarityPacketReq, CommandRarityPacketRes} from "../../../../Lib/src/packets/commands/CommandRarityPacket";
 import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {ItemConstants} from "../../../../Lib/src/constants/ItemConstants";
-import {commandRequires} from "../../core/utils/CommandUtils";
+import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 
 export default class RarityCommand {
 	@commandRequires(CommandRarityPacketReq, {
-		notBlocked: false
+		notBlocked: false,
+		whereAllowed: CommandUtils.WHERE.EVERYWHERE
 	})
 	execute(response: DraftBotPacket[]): void {
 		const maxValue = ItemConstants.RARITY.GENERATOR.MAX_VALUE;

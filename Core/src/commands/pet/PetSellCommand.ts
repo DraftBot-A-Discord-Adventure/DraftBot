@@ -8,13 +8,15 @@ import {
 	CommandPetSellCancelPacket,
 	CommandPetSellCantSellToYourselfErrorPacket,
 	CommandPetSellFeistyErrorPacket,
-	CommandPetSellInitiatorSituationChangedErrorPacket, CommandPetSellNoOneAvailableErrorPacket,
+	CommandPetSellInitiatorSituationChangedErrorPacket,
+	CommandPetSellNoOneAvailableErrorPacket,
 	CommandPetSellNoPetErrorPacket,
 	CommandPetSellNotEnoughMoneyError,
 	CommandPetSellNotInGuildErrorPacket,
 	CommandPetSellOnlyOwnerCanCancelErrorPacket,
 	CommandPetSellPacketReq,
-	CommandPetSellSameGuildError, CommandPetSellSuccessPacket
+	CommandPetSellSameGuildError,
+	CommandPetSellSuccessPacket
 } from "../../../../Lib/src/packets/commands/CommandPetSellPacket";
 import {Guild, Guilds} from "../../core/database/game/models/Guild";
 import {Pet, PetDataController} from "../../data/Pet";
@@ -32,6 +34,7 @@ import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
 import {LogsDatabase} from "../../core/database/logs/LogsDatabase";
 import {MissionsController} from "../../core/missions/MissionsController";
+import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
 
 type SellerInformation = { player: Player, pet: PetEntity, petModel: Pet, guild: Guild, petCost: number };
 
@@ -66,6 +69,11 @@ async function verifyBuyerRequirements(response: DraftBotPacket[], sellerInforma
 	// Check if the buyer and seller are not in the same guild
 	if (buyer.guildId === sellerInformation.guild.id) {
 		response.push(makePacket(CommandPetSellSameGuildError, {}));
+		return false;
+	}
+
+	// Check if the buyer is on the continent
+	if (!CommandUtils.verifyWhereAllowed(buyer.mapLinkId, response, [WhereAllowed.CONTINENT])) {
 		return false;
 	}
 
@@ -226,7 +234,8 @@ function createAndPushCollector(player: Player, packet: CommandPetSellPacketReq,
 export default class PetSellCommand {
 	@commandRequires(CommandPetSellPacketReq, {
 		notBlocked: true,
-		allowedEffects: CommandUtils.ALLOWED_EFFECTS.NO_EFFECT
+		allowedEffects: CommandUtils.ALLOWED_EFFECTS.NO_EFFECT,
+		whereAllowed: [WhereAllowed.CONTINENT]
 	})
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandPetSellPacketReq, context: PacketContext): Promise<void> {
 		const pet = await PetEntities.getById(player.petId);

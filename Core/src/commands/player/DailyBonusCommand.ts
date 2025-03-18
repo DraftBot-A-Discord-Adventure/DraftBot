@@ -19,6 +19,7 @@ import {millisecondsToHours} from "../../../../Lib/src/utils/TimeUtils";
 import {DailyConstants} from "../../../../Lib/src/constants/DailyConstants";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {TravelTime} from "../../core/maps/TravelTime";
+import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
 
 /**
  * Check if the active object is wrong for the daily bonus
@@ -102,7 +103,8 @@ export default class DailyBonusCommand {
 	 */
 	@commandRequires(CommandDailyBonusPacketReq, {
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD,
-		notBlocked: true
+		notBlocked: true,
+		whereAllowed: [WhereAllowed.CONTINENT]
 	})
 	async execute(response: DraftBotPacket[], player: Player): Promise<void> {
 		const activeObjectSlot = await InventorySlots.getMainObjectSlot(player.id);

@@ -19,6 +19,7 @@ import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants";
 import {ShopUtils} from "../../core/utils/ShopUtils";
 import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
 import {shopItemTypeFromId} from "../../../../Lib/src/utils/ShopUtils";
+import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
 
 async function giveGuildXp(response: DraftBotPacket[], playerId: number, price: number): Promise<boolean> {
 	const player = await Players.getById(playerId);
@@ -95,7 +96,8 @@ export default class GuildShopCommand {
 	@commandRequires(CommandGuildShopPacketReq, {
 		notBlocked: true,
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD_OR_JAILED,
-		guildNeeded: true
+		guildNeeded: true,
+		whereAllowed: [WhereAllowed.CONTINENT]
 	})
 	static async execute(
 		response: DraftBotPacket[],

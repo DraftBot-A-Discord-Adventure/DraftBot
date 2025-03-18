@@ -11,7 +11,8 @@ import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 export default class PetCommand {
 	@commandRequires(CommandPetPacketReq, {
 		notBlocked: false,
-		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD,
+		whereAllowed: CommandUtils.WHERE.EVERYWHERE
 	})
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandPetPacketReq): Promise<void> {
 		const toCheckPlayer = await Players.getAskedPlayer(packet.askedPlayer, player);

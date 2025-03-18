@@ -7,6 +7,8 @@ import {MapLinkDataController} from "../../data/MapLink";
 export abstract class MapCache {
 	static boatEntryMapLinks: number[];
 
+	static boatExitMapLinks: number[];
+
 	static entryAndExitBoatMapLinks: number[];
 
 	static regenFightPointsMapLinks: number[];
@@ -25,11 +27,13 @@ export abstract class MapCache {
 		this.boatEntryMapLinks = boatEntryMapLinksObjects
 			.map((mapLink) => mapLink.id);
 
+		// Boat links exit only
+		const boatExitMapLinksObjects = MapLinkDataController.instance.getFromAttributeToAttribute(MapConstants.MAP_ATTRIBUTES.PVE_EXIT, MapConstants.MAP_ATTRIBUTES.CONTINENT1);
+		this.boatExitMapLinks = boatExitMapLinksObjects
+			.map((mapLink) => mapLink.id);
+
 		// Boat links entry and exit
-		const entryAndExitBoatMapLinksObjects = MapLinkDataController.instance.getFromAttributeToAttribute(MapConstants.MAP_ATTRIBUTES.PVE_EXIT, MapConstants.MAP_ATTRIBUTES.CONTINENT1);
-		this.entryAndExitBoatMapLinks = entryAndExitBoatMapLinksObjects
-			.map((mapLink) => mapLink.id)
-			.concat(this.boatEntryMapLinks);
+		this.entryAndExitBoatMapLinks = this.boatEntryMapLinks.concat(this.boatExitMapLinks);
 
 		// PVE island map links
 		const pveIslandMapLinksObjects = MapLinkDataController.instance.getFromAttributeToAttribute(MapConstants.MAP_ATTRIBUTES.PVE_ISLAND_ENTRY, MapConstants.MAP_ATTRIBUTES.PVE_ISLAND)
@@ -40,7 +44,7 @@ export abstract class MapCache {
 		// Get the logs equivalence
 		// First create a list of literal tuples (because I didn't find how to do it in sequelize)
 		const pveMapTuples = boatEntryMapLinksObjects
-			.concat(entryAndExitBoatMapLinksObjects)
+			.concat(boatEntryMapLinksObjects.concat(boatExitMapLinksObjects))
 			.concat(pveIslandMapLinksObjects)
 			.map((mapLink) => Sequelize.literal(`(${mapLink.startMap},${mapLink.endMap})`));
 		this.logsPveIslandMapLinks = (await LogsMapLinks.findAll({

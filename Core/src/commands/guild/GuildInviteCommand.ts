@@ -22,13 +22,15 @@ import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants
 import {LogsDatabase} from "../../core/database/logs/LogsDatabase.js";
 import {MissionsController} from "../../core/missions/MissionsController.js";
 import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils.js";
+import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
 
 export default class GuildInviteCommand {
 	@commandRequires(CommandGuildInvitePacketReq, {
 		notBlocked: false,
 		guildNeeded: true,
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD,
-		guildRoleNeeded: GuildConstants.PERMISSION_LEVEL.ELDER
+		guildRoleNeeded: GuildConstants.PERMISSION_LEVEL.ELDER,
+		whereAllowed: [WhereAllowed.CONTINENT]
 	})
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandGuildInvitePacketReq, context: PacketContext): Promise<void> {
 		const invitedPlayer = await Players.getByKeycloakId(packet.invitedPlayerkeycloakId);

@@ -92,7 +92,8 @@ export default class GuildLeaveCommand {
 		notBlocked: true,
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD,
 		level: GuildConstants.REQUIRED_LEVEL,
-		guildNeeded: true
+		guildNeeded: true,
+		whereAllowed: CommandUtils.WHERE.EVERYWHERE
 	})
 	async execute(response: DraftBotPacket[], player: Player, _packet: CommandGuildLeavePacketReq, context: PacketContext): Promise<void> {
 		const guild = await Guilds.getById(player.guildId);

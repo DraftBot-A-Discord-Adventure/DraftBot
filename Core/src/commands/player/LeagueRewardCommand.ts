@@ -14,12 +14,14 @@ import {InventorySlots} from "../../core/database/game/models/InventorySlot";
 import {draftBotInstance} from "../../index";
 import {getNextSaturdayMidnight, todayIsSunday} from "../../../../Lib/src/utils/TimeUtils";
 import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
+import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
 
 export default class LeagueRewardCommand {
 	@commandRequires(CommandLeagueRewardPacketReq, {
 		notBlocked: true,
 		allowedEffects: CommandUtils.ALLOWED_EFFECTS.NO_EFFECT,
-		level: FightConstants.REQUIRED_LEVEL
+		level: FightConstants.REQUIRED_LEVEL,
+		whereAllowed: [WhereAllowed.CONTINENT]
 	}) async execute(response: DraftBotPacket[], player: Player, _packet: CommandLeagueRewardPacketReq, context: PacketContext): Promise<void> {
 		if (!todayIsSunday()) {
 			response.push(makePacket(CommandLeagueRewardNotSundayPacketRes, {

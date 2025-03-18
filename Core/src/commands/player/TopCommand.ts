@@ -157,7 +157,8 @@ async function getTopGuild(initiator: Player, page: number): Promise<DraftBotPac
 export default class TopCommand {
 	@commandRequires(CommandTopPacketReq, {
 		notBlocked: false,
-		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED,
+		whereAllowed: CommandUtils.WHERE.EVERYWHERE
 	})
 	static async execute(
 		response: DraftBotPacket[],

@@ -3,7 +3,8 @@ import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/pac
 import Player, {Players} from "../../core/database/game/models/Player";
 import {
 	CommandPetTransferAnotherMemberTransferringErrorPacket,
-	CommandPetTransferCancelErrorPacket, CommandPetTransferFeistyErrorPacket,
+	CommandPetTransferCancelErrorPacket,
+	CommandPetTransferFeistyErrorPacket,
 	CommandPetTransferNoPetErrorPacket,
 	CommandPetTransferPacketReq,
 	CommandPetTransferSituationChangedErrorPacket,
@@ -19,13 +20,15 @@ import {
 import {
 	ReactionCollectorPetTransfer,
 	ReactionCollectorPetTransferDepositReaction,
-	ReactionCollectorPetTransferSwitchReaction, ReactionCollectorPetTransferWithdrawReaction
+	ReactionCollectorPetTransferSwitchReaction,
+	ReactionCollectorPetTransferWithdrawReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPetTransfer";
 import {Guilds} from "../../core/database/game/models/Guild";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {GuildPets} from "../../core/database/game/models/GuildPet";
 import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
 import {draftBotInstance} from "../../index";
+import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
 
 
 /**
@@ -180,7 +183,8 @@ export default class PetTransferCommand {
 	@commandRequires(CommandPetTransferPacketReq, {
 		notBlocked: true,
 		guildNeeded: true,
-		allowedEffects: CommandUtils.ALLOWED_EFFECTS.NO_EFFECT
+		allowedEffects: CommandUtils.ALLOWED_EFFECTS.NO_EFFECT,
+		whereAllowed: [WhereAllowed.CONTINENT]
 	})
 	async execute(response: DraftBotPacket[], player: Player, _packet: CommandPetTransferPacketReq, context: PacketContext): Promise<void> {
 		const guild = await Guilds.getById(player.guildId);

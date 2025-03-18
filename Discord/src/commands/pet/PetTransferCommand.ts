@@ -35,6 +35,7 @@ import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 import {sendInteractionNotForYou} from "../../utils/ErrorUtils";
 import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
 import {EmoteUtils} from "../../utils/EmoteUtils";
+import {MessagesUtils} from "../../utils/MessagesUtils";
 
 async function getPacket(interaction: DraftbotInteraction): Promise<CommandPetTransferPacketReq> {
 	await interaction.deferReply();
@@ -42,11 +43,7 @@ async function getPacket(interaction: DraftbotInteraction): Promise<CommandPetTr
 }
 
 export async function handlePetTransferSuccess(context: PacketContext, packet: CommandPetTransferSuccessPacket): Promise<void> {
-	const interaction: DraftbotInteraction = (context.discord!.stringSelectMenuInteraction
-		? DraftbotInteraction.cast(DiscordCache.getStringSelectMenuInteraction(context.discord!.stringSelectMenuInteraction)!)
-		: context.discord!.buttonInteraction
-			? DraftbotInteraction.cast(DiscordCache.getButtonInteraction(context.discord!.buttonInteraction)!)
-			: DiscordCache.getInteraction(context.discord!.interaction))!;
+	const interaction: DraftbotInteraction = MessagesUtils.getCurrentInteraction(context);
 
 	if (!interaction) {
 		return;

@@ -3,10 +3,13 @@ import {CommandTestPacketReq, CommandTestPacketRes} from "../../../../Lib/src/pa
 import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {CommandsTest} from "../../core/CommandsTest";
 import {Player} from "../../core/database/game/models/Player";
-import {commandRequires} from "../../core/utils/CommandUtils";
+import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 
 export default class TestCommand {
-	@commandRequires(CommandTestPacketReq, {notBlocked: false})
+	@commandRequires(CommandTestPacketReq, {
+		notBlocked: false,
+		whereAllowed: CommandUtils.WHERE.EVERYWHERE
+	})
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandTestPacketReq, context: PacketContext): Promise<void> {
 		if (!botConfig.TEST_MODE) {
 			return;

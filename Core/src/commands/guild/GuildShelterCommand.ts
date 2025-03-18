@@ -14,7 +14,8 @@ export default class GuildShelterCommand {
 	@commandRequires(CommandGuildShelterPacketReq, {
 		notBlocked: false,
 		guildNeeded: true,
-		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD,
+		whereAllowed: CommandUtils.WHERE.EVERYWHERE
 	})
 	async execute(response: DraftBotPacket[], player: Player): Promise<void> {
 		const pets = await GuildPets.getOfGuild(player.guildId);

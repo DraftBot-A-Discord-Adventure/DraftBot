@@ -4,11 +4,12 @@ import {Guild, Guilds} from "../../core/database/game/models/Guild";
 import {CommandGuildPacketReq, CommandGuildPacketRes} from "../../../../Lib/src/packets/commands/CommandGuildPacket";
 import {Maps} from "../../core/maps/Maps";
 import {MapCache} from "../../core/maps/MapCache";
-import {commandRequires} from "../../core/utils/CommandUtils";
+import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 
 export default class GuildCommand {
 	@commandRequires(CommandGuildPacketReq, {
-		notBlocked: false
+		notBlocked: false,
+		whereAllowed: CommandUtils.WHERE.EVERYWHERE
 	})
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandGuildPacketReq): Promise<void> {
 		let guild: Guild;
