@@ -2,7 +2,7 @@ import {
 	BaseGuildTextChannel,
 	ButtonInteraction,
 	Client,
-	CommandInteraction,
+	CommandInteraction, DiscordjsError, DiscordjsErrorCodes,
 	GuildTextBasedChannel,
 	InteractionEditReplyOptions,
 	InteractionReplyOptions,
@@ -14,6 +14,7 @@ import {RawInteractionData, RawWebhookData} from "discord.js/typings/rawDataType
 import i18n from "../translations/i18n";
 import {LANGUAGE, Language} from "../../../Lib/src/Language";
 import {CommandInteractionOptionResolver} from "discord.js/typings";
+import {DraftBotEmbed} from "./DraftBotEmbed";
 
 type DraftbotInteractionWithoutSendCommands = new(client: Client<true>, data: RawInteractionData) => Omit<CommandInteraction, "reply" | "followUp" | "channel">;
 const DraftbotInteractionWithoutSendCommands: DraftbotInteractionWithoutSendCommands = CommandInteraction as unknown as DraftbotInteractionWithoutSendCommands;
@@ -218,7 +219,7 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 		}
 		catch (e) {
 			console.error(`An error occured during a send, either a permission issue or a send/reply/followUp/editReply conflict : ${(e as Error).stack}`);
-			await DraftbotInteraction.prototype.manageFallback.bind(this)(functionPrototype);
+			await DraftbotInteraction.prototype.manageFallback.bind(this)(functionPrototype, e as Error);
 			await fallback();
 			return null;
 		}
@@ -228,25 +229,42 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 	 * Manage the fallback of both reply and followUp functions
 	 * @private
 	 */
-	private async manageFallback<OptionType extends OptionLike>(functionPrototype: ReplyFunctionLike<OptionType>): Promise<void> {
-		const errorText = i18n.t("bot:noSpeakPermission", {lng: this.userLanguage});
+	private async manageFallback<OptionType extends OptionLike>(functionPrototype: ReplyFunctionLike<OptionType>, e: Error): Promise<void> {
+		// Error codes due to a development mistake, and not because of a weird permission error
+		const manageFallbackDevErrorCodes = [
+			DiscordjsErrorCodes.InteractionAlreadyReplied,
+			DiscordjsErrorCodes.InteractionNotReplied
+		];
+
+		let toSendProp: { content?: string, embeds?: DraftBotEmbed[] };
+		if (e?.constructor.name === DiscordjsError.name && manageFallbackDevErrorCodes.includes((e as DiscordjsError).code)) {
+			toSendProp = {
+				embeds: [new DraftBotEmbed()
+					.formatAuthor(i18n.t("error:errorOccurredTitle", {lng: this.userLanguage}), this.user)
+					.setDescription(i18n.t("error:aDevMessedUp", {lng: this.userLanguage}))
+					.setErrorColor()]
+			};
+		}
+		else {
+			toSendProp = { content: i18n.t("bot:noSpeakPermission", {lng: this.userLanguage}) };
+		}
 		try {
 			// @ts-expect-error - We consider that the functionPrototype is a function that can be called with these parameters (i.e, accepts a InteractionReplyOptions)
 			await functionPrototype.call(this, {
 				ephemeral: true,
-				content: errorText
+				...toSendProp
 			});
 		}
 		catch {
 			if (functionPrototype !== DraftbotChannel.prototype.send) {
 				// Try again to manage fallback with the send function
 				// @ts-expect-error - We consider that the functionPrototype is a function that can be called with these parameters (i.e, accepts a InteractionReplyOptions)
-				await DraftbotInteraction.prototype.manageFallback.bind(this)(BaseGuildTextChannel.prototype.send.bind(this.channel));
+				await DraftbotInteraction.prototype.manageFallback.bind(this)(BaseGuildTextChannel.prototype.send.bind(this.channel), e);
 				return;
 			}
 			// We can't send ephemeral message, so we send the message in DM
 			try {
-				await CommandInteraction.prototype.user.send.bind(this.user)({content: errorText});
+				await CommandInteraction.prototype.user.send.bind(this.user)({...toSendProp});
 			}
 			catch {
 				console.log(`Unable to alert user of no speak permission : c:${this.channel?.id} / u:${this.user?.id}`);
