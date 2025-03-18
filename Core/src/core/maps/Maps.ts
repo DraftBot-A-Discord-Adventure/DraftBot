@@ -177,6 +177,15 @@ export class Maps {
 		});
 	}
 
+	/**
+	 * Allow to start travel on the boat
+	 * @param player
+	 * @param price
+	 * @param anotherMemberOnBoat
+	 * @param startTravelTimestamp
+	 * @param reason
+	 * @param response
+	 */
 	static async startBoatTravel(player: Player, price: number, anotherMemberOnBoat: Player | null, startTravelTimestamp: number, reason: NumberChangeReason, response: DraftBotPacket[]): Promise<void> {
 		const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
 

@@ -28,6 +28,11 @@ import {ReportConstants} from "../../../../Lib/src/constants/ReportConstants";
 import {Constants} from "../../../../Lib/src/constants/Constants";
 import {PlayerSmallEvents} from "../../core/database/game/models/PlayerSmallEvent";
 
+/**
+ * Check if the player can join the boat
+ * @param player
+ * @param response
+ */
 async function canJoinBoat(player: Player, response: DraftBotPacket[]): Promise<boolean> {
 	// Check if the player is still part of a guild
 	if (!player.guildId) {
