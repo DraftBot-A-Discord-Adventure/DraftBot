@@ -358,5 +358,9 @@
   "leagueReward": {
     "name": "bonusliga",
     "description": "Sammeln Sie die Belohnung, die mit Ihrer Liga verbunden ist."
+  },
+  "guildStorage": {
+    "name": "entrepotguilde",
+    "description": "Affiche le contenu de l'entrepôt de guilde."
   }
 }
