@@ -68,7 +68,7 @@
     "refusedTitle": "You haven't joined the {{guildName}} guild!",
     "errors": {
       "guildIsFull": "Your guild is full and cannot accommodate more members.",
-      "playerIsAlreadyInAGuild": "Ce joueur appartient déjà à une guilde.",
+      "playerIsAlreadyInAGuild": "This player already belongs to a guild.",
       "playerIsOnPveIsland": "{{pseudo}} cannot join the guild as it is currently on a boat or mystery. {{pseudo}} must be located on the main continent in order to join a guild."
     }
   },
@@ -255,7 +255,7 @@
         "description": "Check if the bot is online.\n\n(Note: Time displayed is the response time from the bot, not your ping, a correct ping should be less than 500 ms. :clock1:)"
       },
       "PROFILE": {
-        "description": "Affiche des informations sur votre personnage :\n\n😃 État de santé | Pseudo | Level\n\n឵឵឵Informations :\n❤️ Vie | ⭐ XP | {emote:unitValues.money} Argent\n\nStatistiques :\n⚡ Énergie | 🗡️ Attaque | 🛡️ Défense | 🚀 Vitesse | 🌬️ Souffle | 🫁 Récupération\n\nMissions :\n💎 Gemmes | 📖 Avancé de la campagne %\n\nClassement et score :\n🏆 Classement | 🏅 Score\n\nClasse :\nVoir {command:classes}\n\nGloire et Ligue :\n{emote:unitValues.glory} Gloire | Voir {{topGloryCommandMention}}\n\nGuilde :\n🏟️ Guilde\n\nDestination :\nVoir {{mapCommandMention}}\n\nFamilier :\nVoir {{petCommandMention}}\n\n💡-Les badges sont affichés sur votre profil sous forme de réaction."
+        "description": "Displays information about your character:\n\n😃 Health status | Nickname | Level\n\n឵឵឵Information:\n❤️ Life | ⭐ XP | {emote:unitValues.money} Silver\n\nStatistics :\n⚡ Energy | 🗡️ Attack | 🛡️ Defense | 🚀 Speed | 🌬️ Breath | 🫁 Recovery\n\nMissions :\n💎 Gems | 📖 Advanced campaign %\n\nRank and score:\n🏆 Rank | 🏅 Score\n\nClass:\nSee {command:classes}\n\nGlory and League:\n{emote:unitValues.glory} Glory | See {{topGloryCommandMention}}\n\nGuild:\n🏟️ Guild\n\nDestination:\nSee {{mapCommandMention}}\n\nFamiliar:\nSee {{petCommandMention}}\n\n💡-Badges are displayed on your profile as a reaction."
       },
       "RARITY": {
         "description": "Allows you to see the probability of getting an item by its rarity."
@@ -379,7 +379,7 @@
       "⚔️": ":crossed_swords: `Winner of a tournament`",
       "⚙️": ":gear: `Technical team`",
       "⛑️": ":helmet_with_cross: `People who are one of the 20 first members of the bot's server`",
-      "✨": "{emote:unitValues.glory} `Personne ayant remporté le plus de gloire durant une saison de combat`",
+      "✨": "{emote:unitValues.glory} Person who has won the most glory during a fighting season`.",
       "❤️": ":heart: `Person who has the Support role on the bot server`",
       "🌍": ":earth_africa: `Translator`",
       "🌟": ":star2: `Person who helped put the bot on a server with over 2000 members`",
@@ -700,14 +700,14 @@
       "attack": "{{emote}} {{name}} | {{cost}} {emote:unitValues.breath}"
     },
     "description": {
-      "list": "Voici la liste des classes disponibles pour votre personnage et leurs statistiques. Pour plus d'informations sur une classe, sélectionnez celle-ci parmi les choix ci-dessous.\n​"
+      "list": "Here's a list of the classes available for your character and their statistics. For more information on a class, select it from the choices below.\n"
     },
     "mainOption": {
       "name": "Class list",
       "placeholder": "Select a class"
     },
     "displays": {
-      "details": "{{classDetails}}\n\n**Attaques disponibles pour cette classe :**\n​",
+      "details": "{{classDetails}}\n\n**Attacks available for this class:**\n",
       "class": "{emote:unitValues.energy} {{fightPoint}} | {emote:unitValues.attack} {{attack}} | {emote:unitValues.defense} {{defense}} | {emote:unitValues.speed} {{speed}} | {emote:unitValues.breath} {{baseBreath}} / {{maxBreath}} | {emote:unitValues.breathRegen} {{breathRegen}} | {emote:unitValues.health} {{health}}"
     }
   },
@@ -914,19 +914,19 @@
       "23": "A class with very good stats but with a significant hitpoints penalty.",
       "24": "A versatile class focused on unique combat mechanics."
     },
-    "title": "{emote:commands.classes} Changer de classe :",
-    "desc": "Choisissez une classe dans la liste ci-dessous pour plus d'informations.\n​",
-    "display": "{{name}}\n\n{emote:commands.classesDescription} `{{description}}`\n\nSouhaitez-vous changer pour cette classe ? Vous ne pourrez pas changer de classe avant le {{time}}.",
-    "success": "{{pseudo}}, votre classe a été modifiée !",
-    "newClass": "Votre nouvelle classe est : {{name}}",
-    "confirm": "{{pseudo}}, vous avez sélectionné la classe suivante :",
+    "title": "{emote:commands.classes} Changing classes:",
+    "desc": "Choose a class from the list below for more information.\n",
+    "display": "{{name}}\n\n{emote:commands.classesDescription}{{description}}\n\nWould you like to change to this class? You won't be able to change class until {{time}}.",
+    "success": "{{pseudo}}your class has been modified!",
+    "newClass": "Your new class is: {{name}}",
+    "confirm": "{{pseudo}}you have selected the following class:",
     "error": {
-      "canceledPurchase": "Changement de classe annulé.",
-      "sameClass": "Vous appartenez déjà à cette classe.",
-      "leaveClass": "Vous n'avez pas changé de classe.",
-      "changeClassTooEarly": "Vous avez déjà changé de classe récemment. Vous pourrez à nouveau changer de classe {{time}}."
+      "canceledPurchase": "Class change cancelled.",
+      "sameClass": "You already belong to this class.",
+      "leaveClass": "You haven't changed classes.",
+      "changeClassTooEarly": "You have already changed class recently. You can change classes again at {{time}}."
     },
-    "refuse": "Annuler",
+    "refuse": "Cancel",
     "chooseClass": "Select a class"
   },
   "sell": {
@@ -944,61 +944,61 @@
     "throwAwayField": "{{name}} | {{throwEmote}}",
     "confirmThrowAway": "Are you sure you want to throw {{item}}?",
     "sellIndication": "Choose an item for sale from the list below:",
-    "menuPlaceholder": "Choississez un objet à vendre",
-    "cancel": "Annuler",
-    "selectMenuDescSell": "Vendre pour {{value}} {emote:unitValues.money}",
-    "selectMenuDescThrow": "Jeter {emote:other.trash}"
+    "menuPlaceholder": "Choose an item to sell",
+    "cancel": "Cancel",
+    "selectMenuDescSell": "Sell for {{value}} {emote:unitValues.money}",
+    "selectMenuDescThrow": "Discard {emote:other.trash}"
   },
   "petTransfer": {
-    "anotherPlayerTransferring": "Le membre de votre guilde **{{playerName}}** est en train de transférer un familier. Veuillez réessayer plus tard.",
-    "transferCancelled": "Le transfert a été annulé.",
-    "situationChanged": "Quelque chose s'est mal passé pendant le transfert. Veuillez réessayer.",
-    "noPet": "Vous n'avez aucun familier à transférer et le refuge de votre guilde est vide.",
-    "confirmTransferTitle": "{{pseudo}}, le transfert a été effectué.",
-    "confirmSwitch": "**{{oldPet}}** reste désormais dans le refuge et **{{newPet}}** vous suit !",
-    "confirmDeposit": "**{{oldPet}}** a été déposé dans le refuge de votre guilde !",
-    "confirmWithdraw": "**{{newPet}}** vous suit désormais !",
-    "chooseActionTitle": "Transfert d'un familier",
-    "chooseActionDesc": "Choisissez une action à effectuer :",
-    "depositButton": "Déposer {{pet}} dans le refuge",
-    "withdrawButton": "Retirer un familier du refuge",
-    "switchButton": "Échanger {{pet}} avec un familier du refuge",
-    "refuseButton": "Annuler le transfert",
-    "backButton": "Retour",
-    "withdrawPlaceholder": "Choisissez un familier à retirer",
-    "switchPlaceholder": "Choisissez un familier à échanger contre {{pet}}",
-    "selectMenuPetDetails": "{{rarity}} | {{sex}} | {{loveLevel}}",
-    "feistyError": "Vous ne pouvez pas transférer un familier fielleux."
+    "anotherPlayerTransferring": "Your guild member **{{playerName}}** is transferring a pet. Please try again later.",
+    "transferCancelled": "The transfer has been cancelled.",
+    "situationChanged": "Something went wrong during the transfer. Please try again.",
+    "noPet": "You have no pets to transfer and your guild hut is empty.",
+    "confirmTransferTitle": "{{pseudo}}the transfer has been completed.",
+    "confirmSwitch": "**{{oldPet}}** now stays in the shelter and{{newPet}}** follows you!",
+    "confirmDeposit": "**{{oldPet}}** has been deposited in your guild's shelter!",
+    "confirmWithdraw": "**{{newPet}}** now follows you!",
+    "chooseActionTitle": "Pet transfer",
+    "chooseActionDesc": "Choose an action to perform :",
+    "depositButton": "Drop off {{pet}} in the shelter",
+    "withdrawButton": "Remove a pet from the shelter",
+    "switchButton": "Exchanging {{pet}} with a shelter pet",
+    "refuseButton": "Cancel transfer",
+    "backButton": "Back",
+    "withdrawPlaceholder": "Choose a pet to remove",
+    "switchPlaceholder": "Choose a pet to trade for {{pet}}",
+    "selectMenuPetDetails": "{{rarity}} | {{sex}} {{loveLevel}}",
+    "feistyError": "You can't transfer a feisty pet."
   },
   "petFeed": {
-    "noPet": "Vous n'avez aucun familier !",
-    "noMoney": "Vous n'avez pas assez d'argent pour effectuer cet achat...",
-    "notHungry": "Il semblerait que **{{pet}}** n'ait pas faim...",
-    "guildStorageEmpty": "L'entrepôt de nourriture de votre guilde est vide. Achetez de la nourriture avec {command:guildshop}.",
-    "cancelled": "Nourrissage annulé !",
-    "resultTitle": "{{pseudo}}, nourrissage effectué !",
+    "noPet": "You don't have any pets!",
+    "noMoney": "You don't have enough money to make this purchase...",
+    "notHungry": "It seems that **{{pet}}** is not hungry...",
+    "guildStorageEmpty": "Your guild's food warehouse is empty. Buy food at {command:guildshop}.",
+    "cancelled": "Feeding cancelled!",
+    "resultTitle": "{{pseudo}}feeding done!",
     "result": {
-      "happy": "Votre familier est rassasié et semble heureux !",
-      "veryHappy": "Votre familier est rassasié et semble très heureux !",
-      "veryVeryHappy": "Votre familier est rassasié et saute de joie !",
-      "dislike": "Votre familier ne semble pas avoir aimé cette nourriture..."
+      "happy": "Your pet is full and happy!",
+      "veryHappy": "Your pet is full and looks very happy!",
+      "veryVeryHappy": "Your pet is full and jumping for joy!",
+      "dislike": "Your pet doesn't seem to have liked this food..."
     },
-    "feedTitle": "{{pseudo}}, nourrissage de votre familier",
-    "feedDescription": "Choisissez une nourriture pour **{{pet}}** :",
+    "feedTitle": "{{pseudo}}feeding your pet",
+    "feedDescription": "Choose a food for **{{pet}}** :",
     "feedFoodBullet": "- **{{food}}** ({{amount}} / {{maxAmount}})",
-    "cancelButton": "Annuler",
-    "feedWithoutGuildDesc": "Souhaitez vous acheter une friandise pour {{pet}} ?\n\n{{food}} | `{{price}}{emote:unitValues.money}`"
+    "cancelButton": "Cancel",
+    "feedWithoutGuildDesc": "Would you like to buy a treat for {{pet}} ?\n\n{{food}} |{{price}}{emote:unitValues.money}`"
   },
   "leagueReward": {
     "errors": {
-      "notSunday": "La récompense de ligue ne peut être récupérée que le dimanche ! Revenez {{nextSunday}}.",
-      "noPoints": "La récompense de ligue n'est disponible que pour les joueurs ayant combattu durant la saison précédente.",
-      "alreadyClaimed": "Vous avez déjà récupéré votre récompense de ligue pour cette saison."
+      "notSunday": "The league reward can only be collected on Sunday! Come back {{nextSunday}}.",
+      "noPoints": "The league reward is only available to players who fought in the previous season.",
+      "alreadyClaimed": "You've already collected your league reward for this season."
     },
-    "title": "{{pseudo}}, vous avez reçu votre récompense de ligue !",
+    "title": "{{pseudo}}you've received your league award!",
     "description": {
-      "first": "Vous avez terminé la ligue précédente avec **{{glory}} gloire. {emote:unitValues.glory}**\n\n**Vous terminez à la $t(models:ordinals.get, {\"count\": {{rank}}, \"context\":\"feminine\", \"ordinal\": true}) place !**\nVotre ligue finale est : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Argent gagné : **{{money}}** !\n{emote:unitValues.xp} XP gagnée : **{{xp}}** !\n{emote:unitValues.glory} Un badge vous a été offert à la fin de la saison.\n{emote:rewards.item} Vous recevez un équipement aléatoire !",
-      "other": "Vous avez terminé la ligue précédente avec **{{glory}} gloire. {emote:unitValues.glory}**\n\n Vous terminez à la $t(models:ordinals.get, {\"count\": {{rank}}, \"ordinal\": true}) place !\nVotre ligue finale est : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Argent gagné : **{{money}}** !\n{emote:unitValues.xp} XP gagnée : **{{xp}}** !\n{emote:rewards.item} Vous recevez un équipement aléatoire !"
+      "first": "You finished the previous league with **{{glory}} glory. {emote:unitValues.glory}**\n\n**You finish in $t(models:ordinals.get, {\"count\": {{rank}}, \"context\":\"feminine\", \"ordinal\": true}) !**\nYour final league is : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Money earned: **{{money}}** !\n{emote:unitValues.xp} XP earned: **{{xp}}** !\n{emote:unitValues.glory} A badge was offered to you at the end of the season.\n{emote:rewards.item} You receive random equipment!",
+      "other": "You finished the previous league with **{{glory}} glory. {emote:unitValues.glory}**\n\n You finish in $t(models:ordinals.get, {\"count\": {{rank}}, \"ordinal\": true}) !\nYour final league is : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Money earned: **{{money}}** !\n{emote:unitValues.xp} XP earned: **{{xp}}** !\n{emote:rewards.item} You receive random equipment!"
     }
   }
 }
