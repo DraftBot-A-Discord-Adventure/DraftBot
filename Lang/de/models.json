@@ -1336,13 +1336,13 @@
   "diet_herbivorous": "{emote:diet.herbivorous} Pflanzenfresser",
   "diet_carnivorous": "{emote:diet.carnivorous} Fleischfresser",
   "sex": {
-    "male": "Mâle",
-    "female": "Femelle"
+    "male": "Männlich",
+    "female": "Weiblich"
   },
   "ordinals": {
-    "get_feminine_ordinal_one": "1ère",
+    "get_feminine_ordinal_one": "1.",
     "get_feminine_ordinal_other": "{{count}}ème",
-    "get_ordinal_one": "1er",
+    "get_ordinal_one": "1.",
     "get_ordinal_other": "{{count}}ème"
   }
 }
