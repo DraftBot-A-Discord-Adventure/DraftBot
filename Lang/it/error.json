@@ -21,7 +21,7 @@
     "guildLeave": "partenza di una gilda",
     "guildShop": "scelta nel negozio della gilda",
     "guildShopConfirmation": "conferma della scelta nel negozio della gilda",
-    "lottery": "mini-évent loterie",
+    "lottery": "lotteria mini-eolico",
     "merchant": "scelta dal mercante",
     "missionShop": "scelta nel negozio di missione",
     "missionShopConfirmation": "confermate la vostra scelta nel negozio delle missioni",
@@ -29,7 +29,7 @@
     "petFree": "liberare un animale domestico",
     "petSell": "vendere un animale domestico",
     "petSellConfirm": "conferma dell'acquisto di un animale domestico",
-    "petTransfer": "transfert d'animaux",
+    "petTransfer": "trasferimento di animali",
     "pveIsland": "isola di mini-evento PVE",
     "report": "rapporto",
     "reportCommand": "commando rapporto",
@@ -141,5 +141,7 @@
   "errorOccurred": "\n\nSi è verificato un errore durante l'esecuzione di questo comando:( Si prega di segnalare il problema a un membro del team, specificando l'ora e il server in cui si è verificato il problema.\n\nNon esitate a contattare il nostro server di supporto per ricevere assistenza: https://discord.gg/5JqrMtZ.",
   "maintenanceTitle": "Manutenzione",
   "maintenance": "Il gioco è attualmente in manutenzione, si prega di riprovare più tardi.\n\nPer ulteriori informazioni, visita il server Discord ufficiale: https://discord.gg/AP3Wmzb",
-  "banned": "Vous avez été banni du jeu."
+  "banned": "Sei stato bandito dal gioco.",
+  "aDevMessedUp": "Oops! Si è verificato un errore. Non si preoccupi, non è colpa sua. Ti preghiamo di accettare le nostre scuse per gli inconvenienti causati. Per risolvere questo problema, contatta il nostro team di supporto tramite il nostro server Discord: https://discord.gg/5JqrMtZ",
+  "commandNotAvailableHere": "Questo comando non può essere utilizzato in questa posizione."
 }
