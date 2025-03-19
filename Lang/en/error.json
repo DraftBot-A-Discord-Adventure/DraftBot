@@ -141,5 +141,7 @@
   "errorOccurred": "An error occurred while executing this command :(\n\nPlease report this issue to a team member, specifying the time and server on which you encountered this problem.\n\nPlease do not hesitate to join our support server for help: https://discord.gg/5JqrMtZ",
   "maintenanceTitle": "Maintenance",
   "maintenance": "The game is currently under maintenance, please try again later.\n\nFor more information, go to the official Discord server: https://discord.gg/AP3Wmzb",
-  "banned": "You have been banned from the game."
+  "banned": "You have been banned from the game.",
+  "aDevMessedUp": "Oups ! Une erreur s'est produite. Rassurez-vous, ce n'est pas de votre fait. Nous vous prions de bien vouloir accepter nos excuses pour la gêne occasionnée. Pour résoudre ce problème, merci de contacter notre support via notre serveur Discord : https://discord.gg/5JqrMtZ",
+  "commandNotAvailableHere": "Cette commande ne peut pas être utilisée à cet endroit."
 }
