@@ -358,5 +358,9 @@
   "leagueReward": {
     "name": "bonusligue",
     "description": "Raccogliere la ricompensa legata alla propria lega."
+  },
+  "guildStorage": {
+    "name": "entrepotguilde",
+    "description": "Affiche le contenu de l'entrepôt de guilde."
   }
 }
