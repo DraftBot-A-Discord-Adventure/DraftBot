@@ -45,12 +45,13 @@ async function applyPossibility(
 	issue: SmallEventBonusGuildPVEIslandResultType,
 	rewardKind: Outcome
 ): Promise<{ amount: number, isExperienceGain: boolean }> {
-	const range = SmallEventDataController.instance.getById("bonusGuildPVEIsland").getProperties<BonusGuildPVEIslandProperties>().ranges[rewardKind];
+	const range = SmallEventDataController.instance.getById("bonusGuildPVEIsland")
+		.getProperties<BonusGuildPVEIslandProperties>().ranges[rewardKind];
 	const result = {
 		amount: RandomUtils.randInt(range.min, range.max),
 		isExperienceGain: rewardKind === Outcome.EXP_OR_POINTS_GUILD && RandomUtils.draftbotRandom.bool()
 	};
-	if (issue === SmallEventBonusGuildPVEIslandResultType.SUCCESS && player.isInGuild()) {
+	if (issue === SmallEventBonusGuildPVEIslandResultType.SUCCESS && player.hasAGuild()) {
 		const guild = await Guilds.getById(player.guildId);
 		const caller = result.isExperienceGain ? guild.addExperience : guild.addScore;
 		await caller(result.amount, response, NumberChangeReason.SMALL_EVENT);
@@ -59,7 +60,11 @@ async function applyPossibility(
 	}
 	switch (rewardKind) {
 	case Outcome.MONEY:
-		await player.addMoney({amount: -result.amount, response, reason: NumberChangeReason.SMALL_EVENT});
+		await player.addMoney({
+			amount: -result.amount,
+			response,
+			reason: NumberChangeReason.SMALL_EVENT
+		});
 		break;
 	case Outcome.LIFE:
 		await player.addHealth(-result.amount, response, NumberChangeReason.SMALL_EVENT);
@@ -69,7 +74,11 @@ async function applyPossibility(
 		player.addEnergy(-result.amount, NumberChangeReason.SMALL_EVENT);
 		break;
 	case Outcome.EXPERIENCE:
-		await player.addExperience({amount: result.amount, response, reason: NumberChangeReason.SMALL_EVENT});
+		await player.addExperience({
+			amount: result.amount,
+			response,
+			reason: NumberChangeReason.SMALL_EVENT
+		});
 		break;
 	default:
 		break;
@@ -81,7 +90,8 @@ async function applyPossibility(
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnPveIsland,
 	executeSmallEvent: async (response, player): Promise<void> => {
-		const bonusGuildPVEIslandProperties = SmallEventDataController.instance.getById("bonusGuildPVEIsland").getProperties<BonusGuildPVEIslandProperties>();
+		const bonusGuildPVEIslandProperties = SmallEventDataController.instance.getById("bonusGuildPVEIsland")
+			.getProperties<BonusGuildPVEIslandProperties>();
 		const event: number = RandomUtils.randInt(0, bonusGuildPVEIslandProperties.events.length);
 		const probabilities = RandomUtils.randInt(0, 100);
 		const enoughMembers = await hasEnoughMemberOnPVEIsland(player);
@@ -94,15 +104,18 @@ export const smallEventFuncs: SmallEventFuncs = {
 		response.push(makePacket(SmallEventBonusGuildPVEIslandPacket, {
 			event,
 			result: issue,
-			surrounding: player.isInGuild()
+			surrounding: player.hasAGuild()
 				? !enoughMembers && issue === SmallEventBonusGuildPVEIslandResultType.SUCCESS
 					? SmallEventBonusGuildPVEIslandOutcomeSurrounding.SOLO_WITH_GUILD
 					: SmallEventBonusGuildPVEIslandOutcomeSurrounding.WITH_GUILD
 				: SmallEventBonusGuildPVEIslandOutcomeSurrounding.SOLO,
 			...issue === SmallEventBonusGuildPVEIslandResultType.ESCAPE
-				? {amount: 0, isExperienceGain: false}
+				? {
+					amount: 0,
+					isExperienceGain: false
+				}
 				: await applyPossibility(player, response, issue, bonusGuildPVEIslandProperties.events[event][issue][
-					player.isInGuild()
+					player.hasAGuild()
 						? SmallEventBonusGuildPVEIslandOutcomeSurrounding.WITH_GUILD
 						: SmallEventBonusGuildPVEIslandOutcomeSurrounding.SOLO
 				])

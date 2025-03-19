@@ -102,7 +102,7 @@ async function canSendInvite(invitedPlayer: Player, guild: Guild, response: Draf
 		return false;
 	}
 
-	if (invitedPlayer.isInGuild()) {
+	if (invitedPlayer.hasAGuild()) {
 		response.push(makePacket(CommandGuildInviteAlreadyInAGuild, packetData));
 		return false;
 	}
@@ -129,7 +129,8 @@ async function acceptInvitation(invitedPlayer: Player, invitingPlayer: Player, g
 	guild.updateLastDailyAt();
 	await guild.save();
 	await invitedPlayer.save();
-	LogsDatabase.logsGuildJoin(guild, invitedPlayer.keycloakId, invitingPlayer.keycloakId).then();
+	LogsDatabase.logsGuildJoin(guild, invitedPlayer.keycloakId, invitingPlayer.keycloakId)
+		.then();
 	await MissionsController.update(invitedPlayer, response, {
 		missionId: "guildLevel",
 		count: guild.level,

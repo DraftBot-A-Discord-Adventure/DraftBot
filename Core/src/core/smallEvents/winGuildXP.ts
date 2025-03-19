@@ -17,6 +17,9 @@ export const smallEventFuncs: SmallEventFuncs = {
 		);
 		await guild.addExperience(xpWon, response, NumberChangeReason.SMALL_EVENT);
 		await guild.save();
-		response.push(makePacket(SmallEventWinGuildXPPacket, {amount: xpWon, guildName: guild.name}));
+		response.push(makePacket(SmallEventWinGuildXPPacket, {
+			amount: xpWon,
+			guildName: guild.name
+		}));
 	}
 };

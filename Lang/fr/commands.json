@@ -1000,5 +1000,16 @@
       "first": "Vous avez terminé la ligue précédente avec **{{glory}} gloire. {emote:unitValues.glory}**\n\n**Vous terminez à la $t(models:ordinals.get, {\"count\": {{rank}}, \"context\":\"feminine\", \"ordinal\": true}) place !**\nVotre ligue finale est : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Argent gagné : **{{money}}** !\n{emote:unitValues.xp} XP gagnée : **{{xp}}** !\n{emote:unitValues.glory} Un badge vous a été offert à la fin de la saison.\n{emote:rewards.item} Vous recevez un équipement aléatoire !",
       "other": "Vous avez terminé la ligue précédente avec **{{glory}} gloire. {emote:unitValues.glory}**\n\n Vous terminez à la $t(models:ordinals.get, {\"count\": {{rank}}, \"ordinal\": true}) place !\nVotre ligue finale est : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Argent gagné : **{{money}}** !\n{emote:unitValues.xp} XP gagnée : **{{xp}}** !\n{emote:rewards.item} Vous recevez un équipement aléatoire !"
     }
+  },
+  "guildStorage": {
+    "embed": {
+      "title": "Entrepôt de la guilde {{guildName}}",
+      "descriptionTitle": "**Nourriture** : ",
+      "description": "La nourriture est utile pour nourrir tous vos familiers. Si vous n'en avez plus, vous pouvez en acheter via la commande {command:guildshop}."
+    },
+    "food": {
+      "title": "{emote:foods.{{foodId}}} $t(models:foods.{{foodId}}, {\"context\": \"capitalized\"})",
+      "description": "**Stock** : {{amount}}/{{maxAmount}}\n"
+    }
   }
 }
