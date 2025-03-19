@@ -44,8 +44,8 @@ export abstract class GuildConstants {
 
 	static readonly MAX_PET_FOOD = [
 		25, // Common food
-		15, // Herbivorous food
 		15, // Carnivorous food
+		15, // Herbivorous food
 		5 // Ultimate food
 	];
 

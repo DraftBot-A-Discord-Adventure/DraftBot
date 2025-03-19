@@ -358,5 +358,9 @@
   "leagueReward": {
     "name": "leaguebonus",
     "description": "Get the reward linked to your league."
+  },
+  "guildStorage": {
+    "name": "guildstorage",
+    "description": "Displays the guild's storage content."
   }
 }

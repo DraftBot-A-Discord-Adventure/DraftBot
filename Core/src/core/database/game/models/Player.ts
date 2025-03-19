@@ -377,7 +377,7 @@ export class Player extends Model {
 	/**
 	 * Check if the player is in guild
 	 */
-	public isInGuild(): boolean {
+	public hasAGuild(): boolean {
 		return this.guildId !== null;
 	}
 
@@ -458,11 +458,11 @@ export class Player extends Model {
 		const oppositeLink = MapLinkDataController.instance.getInverseLinkOf(this.mapLinkId);
 
 		const query = `SELECT COUNT(*) as count
-		               FROM players
-		               WHERE (mapLinkId = :link
-			              OR mapLinkId = :linkInverse)
-			             AND score
-			               > ${Constants.MINIMAL_PLAYER_SCORE}`;
+                       FROM players
+                       WHERE (mapLinkId = :link
+                          OR mapLinkId = :linkInverse)
+                         AND score
+                           > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{
 				count: number
@@ -784,13 +784,6 @@ export class Player extends Model {
 	}
 
 	/**
-	 * Check if the player has a guild
-	 */
-	public hasAGuild(): boolean {
-		return this.guildId !== null;
-	}
-
-	/**
 	 * Get the max amount of breath a player can have
 	 */
 	public getMaxBreath(): number {
@@ -934,7 +927,10 @@ export class Player extends Model {
 			await playerGuild.addScore(-guildPointsLost, response, NumberChangeReason.PVE_ISLAND);
 			await playerGuild.save();
 		}
-		return {moneyLost, guildPointsLost};
+		return {
+			moneyLost,
+			guildPointsLost
+		};
 	}
 
 	/**
@@ -944,7 +940,11 @@ export class Player extends Model {
 	 * @private
 	 */
 	private async setScore(score: number, response: DraftBotPacket[]): Promise<void> {
-		await MissionsController.update(this, response, {missionId: "reachScore", count: score, set: true});
+		await MissionsController.update(this, response, {
+			missionId: "reachScore",
+			count: score,
+			set: true
+		});
 		if (score > 0) {
 			this.score = score;
 		}
@@ -1004,7 +1004,10 @@ export class Player extends Model {
 		const difference = (health > this.getMaxHealth() && !missionHealthParameter.overHealCountsForMission ? this.getMaxHealth() : health < 0 ? 0 : health)
 			- this.health;
 		if (difference > 0 && missionHealthParameter.shouldPokeMission) {
-			await MissionsController.update(this, response, {missionId: "earnLifePoints", count: difference});
+			await MissionsController.update(this, response, {
+				missionId: "earnLifePoints",
+				count: difference
+			});
 		}
 		if (health < 0) {
 			this.health = 0;
@@ -1124,9 +1127,9 @@ export class Players {
 	static async getRank(playerId: number, rankType: string): Promise<number> {
 		const condition = rankType === Constants.RANK_TYPES.GLORY ? `WHERE fightCountdown <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE}` : "";
 		const query = `SELECT ranking
-		               FROM (SELECT id, RANK() OVER (ORDER BY ${rankType} desc, level desc) ranking
-		                     FROM players ${condition}) subquery
-		               WHERE subquery.id = ${playerId}`;
+                       FROM (SELECT id, RANK() OVER (ORDER BY ${rankType} desc, level desc) ranking
+                             FROM players ${condition}) subquery
+                       WHERE subquery.id = ${playerId}`;
 		return ((await Player.sequelize.query(query))[0][0] as {
 			ranking: number
 		}).ranking;
@@ -1137,7 +1140,7 @@ export class Players {
 	 */
 	static async getAllStoredKeycloakIds(): Promise<string[]> {
 		const query = `SELECT keycloakId
-		               FROM players`;
+                       FROM players`;
 		const queryResult = (await Player.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})) as {
@@ -1154,9 +1157,9 @@ export class Players {
 	 */
 	static async getNumberOfPlayingPlayers(weekOnly: boolean): Promise<number> {
 		const query = `SELECT COUNT(*) as nbPlayers
-		               FROM players
-		               WHERE players.${weekOnly ? "weeklyScore" : "score"}
-			               > ${Constants.MINIMAL_PLAYER_SCORE}`;
+                       FROM players
+                       WHERE players.${weekOnly ? "weeklyScore" : "score"}
+                                 > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		const queryResult = await Player.sequelize.query(query);
 		return (queryResult[0][0] as {
 			nbPlayers: number
@@ -1168,9 +1171,9 @@ export class Players {
 	 */
 	static async getNumberOfFightingPlayers(): Promise<number> {
 		const query = `SELECT COUNT(*) as nbPlayers
-		               FROM players
-		               WHERE players.fightCountdown
-			               <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE}`;
+                       FROM players
+                       WHERE players.fightCountdown
+                                 <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE}`;
 		const queryResult = await Player.sequelize.query(query);
 		return (queryResult[0][0] as {
 			nbPlayers: number
@@ -1241,10 +1244,10 @@ export class Players {
 	 */
 	static async getByRank(rank: number): Promise<Player | null> {
 		const query = `SELECT *
-		               FROM (SELECT *,
-		                            RANK() OVER (ORDER BY score desc, level desc) rank, RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
-		                     FROM players) subquery
-		               WHERE subquery.rank = :rank`;
+                       FROM (SELECT *,
+                                    RANK() OVER (ORDER BY score desc, level desc) rank, RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
+                             FROM players) subquery
+                       WHERE subquery.rank = :rank`;
 		const res = await Player.sequelize.query(query, {
 			replacements: {
 				rank
@@ -1262,10 +1265,10 @@ export class Players {
 	 */
 	static async getById(id: number): Promise<Player> {
 		const query = `SELECT *
-		               FROM (SELECT *,
-		                            RANK() OVER (ORDER BY score desc, level desc) rank, RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
-		                     FROM players) subquery
-		               WHERE subquery.id = :id`;
+                       FROM (SELECT *,
+                                    RANK() OVER (ORDER BY score desc, level desc) rank, RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
+                             FROM players) subquery
+                       WHERE subquery.id = :id`;
 		const playerToReturn = (await Player.sequelize.query<Player>(query, {
 			replacements: {
 				id
@@ -1280,8 +1283,8 @@ export class Players {
 	 */
 	static async getNbMeanPoints(): Promise<number> {
 		const query = `SELECT AVG(score) as avg
-		               FROM players
-		               WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
+                       FROM players
+                       WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{
 				avg: number
@@ -1296,8 +1299,8 @@ export class Players {
 	 */
 	static async getMeanWeeklyScore(): Promise<number> {
 		const query = `SELECT AVG(weeklyScore) as avg
-		               FROM players
-		               WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
+                       FROM players
+                       WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{
 				avg: number
@@ -1312,8 +1315,8 @@ export class Players {
 	 */
 	static async getNbPlayersHaventStartedTheAdventure(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-		               FROM players
-		               WHERE effectId = "${Effect.NOT_STARTED.id}"`;
+                       FROM players
+                       WHERE effectId = "${Effect.NOT_STARTED.id}"`;
 		return (<{
 			count: number
 		}[]>(await Player.sequelize.query(query, {
@@ -1326,8 +1329,8 @@ export class Players {
 	 */
 	static async getNbPlayersHaveStartedTheAdventure(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-		               FROM players
-		               WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
+                       FROM players
+                       WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return (<{
 			count: number
 		}[]>(await Player.sequelize.query(query, {
@@ -1340,8 +1343,8 @@ export class Players {
 	 */
 	static async getLevelMean(): Promise<number> {
 		const query = `SELECT AVG(level) as avg
-		               FROM players
-		               WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
+                       FROM players
+                       WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{
 				avg: number
@@ -1356,8 +1359,8 @@ export class Players {
 	 */
 	static async getNbMeanMoney(): Promise<number> {
 		const query = `SELECT AVG(money) as avg
-		               FROM players
-		               WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
+                       FROM players
+                       WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{
 				avg: number
@@ -1372,8 +1375,8 @@ export class Players {
 	 */
 	static async getSumAllMoney(): Promise<number> {
 		const query = `SELECT SUM(money) as sum
-		               FROM players
-		               WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
+                       FROM players
+                       WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return (<{
 			sum: number
 		}[]>(await Player.sequelize.query(query, {
@@ -1386,7 +1389,7 @@ export class Players {
 	 */
 	static async getRichestPlayer(): Promise<number> {
 		const query = `SELECT MAX(money) as max
-		               FROM players`;
+                       FROM players`;
 		return (<{
 			max: number
 		}[]>(await Player.sequelize.query(query, {
@@ -1400,10 +1403,10 @@ export class Players {
 	 */
 	static async getNbPlayersWithClass(classEntity: Class): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-		               FROM players
-		               WHERE class = :class
-			             AND score
-			               > ${Constants.MINIMAL_PLAYER_SCORE}`;
+                       FROM players
+                       WHERE class = :class
+                         AND score
+                           > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{
 				count: number
@@ -1563,7 +1566,8 @@ export function initModel(sequelize: Sequelize): void {
 			}
 		};
 
-		handleNotifications().then();
+		handleNotifications()
+			.then();
 	});
 }
 

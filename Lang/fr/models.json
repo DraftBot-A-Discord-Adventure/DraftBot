@@ -1325,12 +1325,16 @@
   "foods": {
     "herbivorousFood_one": "salade",
     "herbivorousFood_other": "salades",
+    "herbivorousFood_capitalized": "Salade",
     "carnivorousFood_one": "viande",
     "carnivorousFood_other": "viandes",
+    "carnivorousFood_capitalized": "Viande",
     "ultimateFood_one": "soupe ultime",
     "ultimateFood_other": "soupes ultimes",
+    "ultimateFood_capitalized": "Soupe ultime",
     "commonFood_one": "friandise",
-    "commonFood_other": "friandises"
+    "commonFood_other": "friandises",
+    "commonFood_capitalized": "Friandise"
   },
   "diet_omnivorous": "{emote:diet.omnivorous} Omnivore",
   "diet_herbivorous": "{emote:diet.herbivorous} Herbivore",
