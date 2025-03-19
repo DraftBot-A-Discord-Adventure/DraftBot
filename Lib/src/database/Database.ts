@@ -97,7 +97,7 @@ export abstract class Database {
 			context: this.sequelize.getQueryInterface(),
 			logger: console,
 			migrations: {
-				glob: `${this.migrationsPath}/*.js`
+				glob: ["*.js", {cwd: this.migrationsPath.replace("\\", "/")}]
 			},
 			storage: new SequelizeStorage({sequelize: this.sequelize})
 		});
