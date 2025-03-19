@@ -679,7 +679,7 @@
       ],
       "nextFullMoon": [
         "{{mainValue}} {{days}}a próxima lua cheia é em",
-        "la pleine lune brillera dans {{mainValue}} {{days}}",
+        "a lua cheia brilhará em {{mainValue}} {{days}}",
         "{{mainValue}} {{days}}podemos ver a lua cheia em",
         "{{mainValue}} {{days}} em podemos observar a lua cheia"
       ],
