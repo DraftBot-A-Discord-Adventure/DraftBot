@@ -218,15 +218,15 @@
     "name": "magasinguilde"
   },
   "guildKick": {
-    "description": "Exclure un membre de la guilde.",
-    "name": "exclureguilde",
+    "description": "Escludere un membro della gilda.",
+    "name": "escludereilde",
     "options": {
       "rank": {
-        "description": "Le classement du joueur à exclure de la guilde.",
+        "description": "La posizione in classifica del giocatore da escludere dalla gilda.",
         "name": "classifica"
       },
       "user": {
-        "description": "L'utilisateur à exclure de la guilde.",
+        "description": "L'utente da escludere dalla gilda.",
         "name": "utilizzatore"
       }
     }
@@ -309,54 +309,54 @@
   },
   "switch": {
     "name": "interruttore",
-    "description": "Intervertir l'objet actif avec l'un des objets présent dans votre réserve."
+    "description": "Scambiate l'oggetto attivo con uno degli oggetti della vostra riserva."
   },
   "drink": {
-    "name": "boire",
-    "description": "Boire la potion équipée.",
+    "name": "bevanda",
+    "description": "Bevete la pozione.",
     "options": {
       "force": {
-        "name": "forcer",
-        "description": "Si vrai, passe la phase de validation si vous êtes sûr de vouloir boire la potion"
+        "name": "forza",
+        "description": "Se è vero, saltate la fase di convalida se siete sicuri di voler bere la pozione."
       }
     }
   },
   "petSell": {
-    "name": "vendrefamilier",
-    "description": "Vendre un familier à un autre joueur.",
+    "name": "vendere casa famiglia",
+    "description": "Vendere un animale domestico a un altro giocatore.",
     "options": {
       "price": {
-        "name": "prix",
-        "description": "Le prix de vente du familier."
+        "name": "prezzo",
+        "description": "Il prezzo di vendita dell'animale domestico."
       },
       "player": {
-        "name": "joueur",
-        "description": "Le joueur à qui vendre le familier."
+        "name": "giocatore",
+        "description": "Il giocatore a cui vendere l'animale."
       }
     }
   },
   "classes": {
-    "name": "classes",
-    "description": "Changer de classe."
+    "name": "classi",
+    "description": "Cambiare classe."
   },
   "sell": {
-    "name": "vendre",
-    "description": "Vendre un équipement."
+    "name": "vendere",
+    "description": "Vendita di attrezzature."
   },
   "petTransfer": {
     "name": "transfererfamilier",
-    "description": "Transférer un familier depuis ou vers l'abri de la guilde."
+    "description": "Trasferire un animale da o verso il rifugio della gilda."
   },
   "petFeed": {
-    "name": "nourrirfamilier",
-    "description": "Nourrir votre familier."
+    "name": "feedfamiliar",
+    "description": "Date da mangiare al vostro animale domestico."
   },
   "guildShelter": {
     "name": "abriguilde",
-    "description": "Affiche les informations sur l'abri de guilde."
+    "description": "Visualizza le informazioni sul rifugio della gilda."
   },
   "leagueReward": {
     "name": "bonusligue",
-    "description": "Récupérer la récompense liée à votre ligue."
+    "description": "Raccogliere la ricompensa legata alla propria lega."
   }
 }
