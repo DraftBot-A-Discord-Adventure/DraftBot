@@ -21,7 +21,7 @@
     "guildLeave": "salida de un gremio",
     "guildShop": "elección en la tienda del gremio",
     "guildShopConfirmation": "confirmación de la elección en la tienda del gremio",
-    "lottery": "mini-évent loterie",
+    "lottery": "lotería minieólica",
     "merchant": "elección del minorista",
     "missionShop": "elige en la tienda de misiones",
     "missionShopConfirmation": "confirma tu elección en la tienda de misiones",
@@ -29,7 +29,7 @@
     "petFree": "liberar a una mascota",
     "petSell": "vender un animal de compañía",
     "petSellConfirm": "confirmación de la compra del animal de compañía",
-    "petTransfer": "transfert d'animaux",
+    "petTransfer": "traslado de animales",
     "pveIsland": "minivento isla PVE",
     "report": "informe",
     "reportCommand": "informe de pedido",
@@ -141,7 +141,7 @@
   "errorOccurred": "\n\nSe ha producido un error al ejecutar este comando:( Por favor, informe de este problema a un miembro del equipo, especificando la hora y el servidor en el que ha encontrado este problema.\n\nNo dude en ponerse en contacto con nuestro servidor de asistencia para obtener ayuda: https://discord.gg/5JqrMtZ",
   "maintenanceTitle": "Mantenimiento",
   "maintenance": "El juego está actualmente en mantenimiento, por favor inténtalo más tarde.\n\nPara más información, visita el servidor oficial de Discord: https://discord.gg/AP3Wmzb",
-  "banned": "Vous avez été banni du jeu.",
-  "aDevMessedUp": "Oups ! Une erreur s'est produite. Rassurez-vous, ce n'est pas de votre fait. Nous vous prions de bien vouloir accepter nos excuses pour la gêne occasionnée. Pour résoudre ce problème, merci de contacter notre support via notre serveur Discord : https://discord.gg/5JqrMtZ",
-  "commandNotAvailableHere": "Cette commande ne peut pas être utilisée à cet endroit."
+  "banned": "Has sido expulsado del juego.",
+  "aDevMessedUp": "¡Uy! Se ha producido un error. No se preocupe, no es culpa suya. Le pedimos disculpas por las molestias ocasionadas. Para resolver este problema, ponte en contacto con nuestro equipo de asistencia a través de nuestro servidor Discord: https://discord.gg/5JqrMtZ",
+  "commandNotAvailableHere": "Este comando no se puede utilizar en esta ubicación."
 }
