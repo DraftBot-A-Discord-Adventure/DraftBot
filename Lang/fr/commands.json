@@ -68,7 +68,7 @@
     "refusedTitle": "Vous n'avez pas rejoint la guilde {{guildName}} !",
     "errors": {
       "guildIsFull": "Votre guilde est pleine et ne peut pas accueillir plus de membres.",
-      "playerIsAlreadyInAGuild": "Ce joueur appartient déjà à la guilde `{{guildName}}`.",
+      "playerIsAlreadyInAGuild": "Ce joueur appartient déjà à une guilde.",
       "playerIsOnPveIsland": "{{pseudo}} ne peut pas rejoindre la guilde car il est actuellement sur un bateau ou une île mystérieuse. {{pseudo}} doit se situer sur le continent principal afin de rejoindre une guilde."
     }
   },
@@ -697,21 +697,18 @@
   "classesInfo": {
     "title": {
       "list": ":bookmark: Liste des classes",
-      "class": "**{{emoji}} {{className}} | {{classKind}}**"
+      "attack": "{{emote}} {{name}} | {{cost}} {emote:unitValues.breath}"
     },
     "description": {
-      "list": "Voici la liste des classes disponibles pour votre personnage et leurs statistiques. Pour plus d'informations sur une classe, sélectionnez celle-ci parmi les choix ci-dessous.",
-      "attacks": "\n\n## **Attaques disponibles pour cette classe :**"
+      "list": "Voici la liste des classes disponibles pour votre personnage et leurs statistiques. Pour plus d'informations sur une classe, sélectionnez celle-ci parmi les choix ci-dessous.\n\u200B"
     },
     "mainOption": {
       "name": "Liste des classes",
       "placeholder": "Sélectionnez une classe"
     },
     "displays": {
-      "listing": "{{headerText}}\n\n{{classesList}}",
-      "details": "{{classDetails}}{{attacksHeader}}\n{{attacksList}}",
-      "class": "### {{emoji}} {{name}}\n{emote:unitValues.energy} {{fightPoint}} | {emote:unitValues.attack} {{attack}} | {emote:unitValues.defense} {{defense}} | {emote:unitValues.speed} {{speed}} | :wind_blowing_face: {{baseBreath}} / {{maxBreath}} | {emote:unitValues.breathRegen} {{breathRegen}} | {emote:unitValues.health} {{health}}",
-      "attack": "### {{emoji}} {{name}} | {{cost}} :wind_blowing_face:\n{{description}}"
+      "details": "{{classDetails}}\n\n**Attaques disponibles pour cette classe :**\n\u200B",
+      "class": "{emote:unitValues.energy} {{fightPoint}} | {emote:unitValues.attack} {{attack}} | {emote:unitValues.defense} {{defense}} | {emote:unitValues.speed} {{speed}} | {emote:unitValues.breath} {{baseBreath}} / {{maxBreath}} | {emote:unitValues.breathRegen} {{breathRegen}} | {emote:unitValues.health} {{health}}"
     }
   },
   "respawn": {
@@ -918,7 +915,7 @@
       "24": "Une classe polyvalente axée sur des mécaniques de combat uniques."
     },
     "title": "{emote:commands.classes} Changer de classe :",
-    "desc": "Choisissez une classe dans la liste ci-dessous pour plus d'informations.",
+    "desc": "Choisissez une classe dans la liste ci-dessous pour plus d'informations.\n\u200B",
     "display": "{{name}}\n\n{emote:commands.classesDescription} `{{description}}`\n\nSouhaitez-vous changer pour cette classe ? Vous ne pourrez pas changer de classe avant le {{time}}.",
     "success": "{{pseudo}}, votre classe a été modifiée !",
     "newClass": "Votre nouvelle classe est : {{name}}",
