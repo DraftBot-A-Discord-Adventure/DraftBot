@@ -5,19 +5,19 @@
   },
   "pet": {
     "embedTitle": "Familiarizado con {{pseudo}} :",
-    "petField": "**Type :** {{emote}} {{typeName}}\n**Surnom :** {{nickname}}\n**Rareté :** {{rarity}}\n**Sexe :** {{sex}}\n**Mentalité :** {{loveLevel}}",
+    "petField": "**Tipo:** {{emote}} {{typeName}}\n**Nombre:** {{nickname}}\n**Rareza:** {{rarity}}\n**Género:** {{sex}}\n**Mentalidad:** {{loveLevel}}",
     "noNickname": "Sin apodo",
     "loveLevels": {
-      "1_male": ":smirk_cat: Fielleux",
+      "1_male": ":smirk_cat: Fiable",
       "1_female": ":smirk_cat: Fielleuse",
       "2_male": ":pouting_cat: Sauvage",
       "2_female": ":pouting_cat: Sauvage",
-      "3_male": ":scream_cat: Craintif",
-      "3_female": ":scream_cat: Craintive",
-      "4_male": ":smiley_cat: Apprivoisé",
-      "4_female": ":smiley_cat: Apprivoisée",
-      "5_male": ":heart_eyes_cat: Dressé",
-      "5_female": ":heart_eyes_cat: Dressée"
+      "3_male": ":scream_cat: Temeroso",
+      "3_female": ":scream_cat: Temeroso",
+      "4_male": ":smiley_cat: Domado",
+      "4_female": ":smiley_cat: Domado",
+      "5_male": ":heart_eyes_cat: Vestido",
+      "5_female": ":heart_eyes_cat: Vestido"
     },
     "hungry": "🤤 hambre",
     "diet": {
@@ -68,19 +68,19 @@
     "refusedTitle": "{{guildName}} ¡No te has unido al gremio!",
     "errors": {
       "guildIsFull": "Tu gremio está completo y no puede aceptar más miembros.",
-      "playerIsAlreadyInAGuild": "{{guildName}}Este jugador ya pertenece al gremio.",
+      "playerIsAlreadyInAGuild": "Este jugador ya pertenece a un gremio.",
       "playerIsOnPveIsland": "{{pseudo}} {{pseudo}} no pueden unirse al gremio porque se encuentran en un barco o en una isla misteriosa. deben encontrarse en el continente principal para poder unirse a un gremio."
     }
   },
   "guildKick": {
-    "title": "Expulsion de la guilde",
+    "title": "Expulsión del gremio",
     "confirmDesc": "{emote:collectors.question} {{kickedPseudo}}{{guildName}}¿Estás seguro de que quieres expulsar del gremio?",
-    "acceptedDesc": "{{kickedPseudo}} a bien été expulsé de la guilde !",
-    "canceledTitle": "Expulsion annulée",
-    "canceledDesc": "{{kickedPseudo}} n'a pas été expulsé de la guilde !",
-    "noPlayer": "Le joueur n'est pas dans la guilde.",
-    "notSameGuild": "Vous ne pouvez pas expulser un joueur qui n'est pas dans votre guilde.",
-    "himself": "Vous ne pouvez pas vous expulser vous-même de la guilde."
+    "acceptedDesc": "{{kickedPseudo}} ¡ha sido expulsado del gremio!",
+    "canceledTitle": "Expulsión anulada",
+    "canceledDesc": "{{kickedPseudo}} ¡no ha sido expulsado del gremio!",
+    "noPlayer": "El jugador no pertenece al gremio.",
+    "notSameGuild": "No puedes expulsar a un jugador que no pertenezca a tu gremio.",
+    "himself": "No puedes expulsarte del gremio."
   },
   "guildElder": {
     "playerNotFound": "No se ha encontrado a este jugador.",
@@ -255,7 +255,7 @@
         "description": "Muestra si el bot está en línea.\n\n(Nota: El tiempo que se muestra es el tiempo de respuesta del bot y no tu ping: un tiempo de respuesta correcto será inferior a 500ms. :clock1:"
       },
       "PROFILE": {
-        "description": "Affiche des informations sur votre personnage :\n\n😃 État de santé | Pseudo | Level\n\n឵឵឵Informations :\n❤️ Vie | ⭐ XP | {emote:unitValues.money} Argent\n\nStatistiques :\n⚡ Énergie | 🗡️ Attaque | 🛡️ Défense | 🚀 Vitesse | 🌬️ Souffle | 🫁 Récupération\n\nMissions :\n💎 Gemmes | 📖 Avancé de la campagne %\n\nClassement et score :\n🏆 Classement | 🏅 Score\n\nClasse :\nVoir {command:classes}\n\nGloire et Ligue :\n{emote:unitValues.glory} Gloire | Voir {{topGloryCommandMention}}\n\nGuilde :\n🏟️ Guilde\n\nDestination :\nVoir {{mapCommandMention}}\n\nFamilier :\nVoir {{petCommandMention}}\n\n💡-Les badges sont affichés sur votre profil sous forme de réaction."
+        "description": "Muestra información sobre tu personaje:\n\n😃 Estado de salud | Apodo | Nivel\n\n឵឵Información:\n❤️ Vida | ⭐ XP | {emote:unitValues.money} Plata\n\nEstadísticas :\n⚡ Energía | 🗡️ Ataque | 🛡️ Defensa | 🚀 Velocidad | 🌬️ Aliento | 🫁 Recuperación\n\nMisiones :\n💎 Gemas | 📖 Campaña avanzada %\n\nRango y puntuación:\n🏆 Rango | 🏅 Puntuación\n\nClase:\nVer {command:classes}\n\nGloria y Liga:\n{emote:unitValues.glory} Gloria | Ver {{topGloryCommandMention}}\n\nGremio:\n🏟️ Gremio\n\nDestino:\nVer {{mapCommandMention}}\n\nFamiliar:\nVer {{petCommandMention}}\n\n💡-Las insignias se muestran en tu perfil como reacción."
       },
       "RARITY": {
         "description": "Muestra la probabilidad de tener un objeto según su rareza."
@@ -379,7 +379,7 @@
       "⚔️": ":crossed_swords: Ganador del torneo",
       "⚙️": ":gear: Equipo técnico",
       "⛑️": ":helmet_with_cross: Una de las 20 primeras personas en unirse al servidor de bots.",
-      "✨": "{emote:unitValues.glory} `Personne ayant remporté le plus de gloire durant une saison de combat`",
+      "✨": "{emote:unitValues.glory} La persona que ha ganado más gloria durante una temporada de lucha.",
       "❤️": ":heart: `Persona con rango de Soporte en el servidor bot`.",
       "🌍": ":earth_africa: Traductor",
       "🌟": ":star2: Persona que ayudó a poner el bot en un serv con más de 2000 miembros`",
@@ -697,21 +697,18 @@
   "classesInfo": {
     "title": {
       "list": ":bookmark: Lista de clases",
-      "class": "{{emoji}} {{className}} {{classKind}}** | **"
+      "attack": "{{emote}} {{name}} | {{cost}} {emote:unitValues.breath}"
     },
     "description": {
-      "list": "Aquí tienes una lista de las clases disponibles para tu personaje y sus estadísticas. Para obtener más información sobre una clase, selecciónala en las siguientes opciones.",
-      "attacks": "\n\n## Ataques disponibles para esta clase:**"
+      "list": "Aquí tienes una lista de las clases disponibles para tu personaje y sus estadísticas. Para obtener más información sobre una clase, selecciónala en las siguientes opciones.\n"
     },
     "mainOption": {
       "name": "Lista de clases",
       "placeholder": "Seleccione una clase"
     },
     "displays": {
-      "listing": "{{headerText}}\n\n{{classesList}}",
-      "details": "{{classDetails}}{{attacksHeader}}\n{{attacksList}}",
-      "class": "{{emoji}} {{name}}\n:zap: {{fightPoint}} :dagger: {{attack}} :shield: {{defense}} :rocket: {{speed}} :wind_blowing_face: {{baseBreath}} {{maxBreath}} :lungs: {{breathRegen}} :heart: {{health}}### | | | | / | |",
-      "attack": "# {{emoji}} {{name}} {{cost}} :wind_blowing_face:\n{{description}}##"
+      "details": "{{classDetails}}\n\n**Ataques disponibles para esta clase:**\n",
+      "class": "{emote:unitValues.energy} {{fightPoint}} | {emote:unitValues.attack} {{attack}} | {emote:unitValues.defense} {{defense}} | {emote:unitValues.speed} {{speed}} | {emote:unitValues.breath} {{baseBreath}} / {{maxBreath}} | {emote:unitValues.breathRegen} {{breathRegen}} | {emote:unitValues.health} {{health}}"
     }
   },
   "respawn": {
@@ -741,7 +738,7 @@
     "off": "El bot ha sido liberado con éxito del mantenimiento."
   },
   "missions": {
-    "title": "Missions de {{pseudo}}",
+    "title": "{{pseudo}}",
     "subcategories": {
       "campaign_current": "{emote:missions.campaign}{{current}}{{max}}**Campaña ( / )**",
       "campaign_completed": "{emote:missions.campaign} **Campaña terminada**",
@@ -820,7 +817,7 @@
   },
   "top": {
     "level": "{{level}}Nivel",
-    "titleScoreAllTime": "{emote:top.congrats} Affichage du top des places {{minRank}} à {{maxRank}}",
+    "titleScoreAllTime": "{emote:top.congrats} Ver los mejores asientos {{minRank}} en {{maxRank}}",
     "titleScoreWeekly": "{emote:top.congrats} {{minRank}} {{maxRank}}Visualice los mejores asientos de esta semana en",
     "yourRankTitle": "**Su clasificación",
     "yourRankFirst_one": "{emote:top.congrats}{{pseudo}}¡Enhorabuena ** ** ! {{total}} ¡Actualmente eres el mejor de un total de jugadores!",
@@ -856,152 +853,152 @@
     "switchSelectionDescription": "Elige un objeto para equipar de la siguiente lista:"
   },
   "drink": {
-    "cancelled": "Vous n'avez pas bu votre potion !",
-    "noActiveObject": "Vous n'avez malheureusement rien à boire dans votre inventaire !",
-    "objectIsActiveDuringFights": "Ce breuvage ne peut pas être bu maintenant. Il sera utilisé automatiquement lors de votre prochain combat !",
-    "healthBonus": "{emote:unitValues.health} Vie gagnée : {{value}} !",
-    "energyBonus": "{emote:unitValues.energy} Énergie gagnée : {{value}} !",
-    "timeBonus": "{emote:unitValues.time} Vous avez avancé de {{value}} !",
-    "noBonus": "{emote:messages.refuse} Vous consommez le breuvage que vous transportiez... Ça ne semble pas très efficace !",
-    "drinkSuccessTitle": "{{pseudo}}, vous buvez le breuvage que vous transportiez !",
-    "confirmationTitle": "{{pseudo}}, confirmation :",
-    "confirmation": "Êtes-vous sûr de vouloir boire votre {{potion}} ?",
-    "confirmationFooter": "Il est possible d'éviter cette étape en utilisant le paramètre forcer !"
+    "cancelled": "¡No has bebido tu poción!",
+    "noActiveObject": "Por desgracia, ¡no tienes nada para beber en tu inventario!",
+    "objectIsActiveDuringFights": "Esta bebida no se puede beber ahora. Se utilizará automáticamente durante tu próximo combate.",
+    "healthBonus": "{emote:unitValues.health} ¡Vida ganada: {{value}} !",
+    "energyBonus": "{emote:unitValues.energy} Energía ahorrada: {{value}} .",
+    "timeBonus": "{emote:unitValues.time} ¡Has avanzado {{value}} !",
+    "noBonus": "{emote:messages.refuse} Consumes la bebida que llevabas... ¡Eso no suena muy efectivo!",
+    "drinkSuccessTitle": "{{pseudo}}¡te bebes la bebida que llevabas!",
+    "confirmationTitle": "{{pseudo}}confirmación :",
+    "confirmation": "¿Seguro que quieres beber tu {{potion}} ?",
+    "confirmationFooter": "Puede evitar este paso utilizando el parámetro de fuerza."
   },
   "petSell": {
-    "noPet": "Vous n'avez aucun familier à vendre !",
-    "noGuild": "Vous ne pouvez pas vendre votre familier car vous n'êtes pas dans une guilde. En effet, la vente de familier permet de générer de l'expérience de guilde.",
-    "isFeisty": "Vous ne pouvez pas vendre un familier fielleux.",
-    "badPrice": "Le prix doit être supérieur à `{{minPrice}}{emote:unitValues.money}` et inférieur à `{{maxPrice}}{emote:unitValues.money}`.",
-    "onlyInitiatorCanCancel": "Seul l'initiateur d'une vente peut l'annuler !",
-    "canceled": "La vente a été annulée !",
-    "cantSellToYourself": "Il est impossible de vendre un familier à soi-même !",
-    "noOneAvailable": "Malheureusement, personne ne semble disponible pour acheter votre familier. Votre vente a été annulée.",
-    "sameGuild": "Vous ne pouvez pas acheter ce familier car le vendeur fait partie de votre guilde.",
-    "alreadyHavePet": "Vous avez déjà un familier dans votre inventaire.",
-    "noEnoughMoney": "Vous n'avez pas assez d'argent pour effectuer cette transaction. Il vous manque `{{missingMoney}}{emote:unitValues.money}`.",
-    "initiatorSituationChanged": "Le vendeur n'est plus en mesure de vendre son familier. La vente a été annulée.",
-    "sellTitle": "Vente d'un familier",
-    "sellDescription": "{{pseudo}} souhaite vendre un familier pour `{{price}}{emote:unitValues.money}`",
-    "maxLevelWarning": "{emote:collectors.warning} Votre guilde est au niveau maximal, vous ne recevrez pas d'expérience !",
-    "petFieldName": "Familier vendu :",
-    "sellFooter": "Pour plus d'informations à propos des ventes de familiers, utilisez la commande help petsell.",
-    "successTitle": "{{pseudo}}, transaction réussie !",
-    "successDescription": "{{pet}} vous suit désormais. Occupez-vous en bien !"
+    "noPet": "¡No tienes mascotas que vender!",
+    "noGuild": "No puedes vender tu mascota porque no estás en un gremio. Esto se debe a que la venta de mascotas genera experiencia de gremio.",
+    "isFeisty": "No se puede vender una mascota peleona.",
+    "badPrice": "El precio debe ser superior a `{{minPrice}}{emote:unitValues.money}` e inferior a `{{maxPrice}}{emote:unitValues.money}`.",
+    "onlyInitiatorCanCancel": "Sólo el iniciador de una venta puede anularla.",
+    "canceled": "La venta ha sido cancelada.",
+    "cantSellToYourself": "No puedes venderte una mascota a ti mismo.",
+    "noOneAvailable": "Lamentablemente, parece que no hay nadie disponible para comprar su mascota. Su venta ha sido cancelada.",
+    "sameGuild": "No puedes comprar esta mascota porque el vendedor forma parte de tu gremio.",
+    "alreadyHavePet": "Ya tienes una mascota en tu inventario.",
+    "noEnoughMoney": "No tiene suficiente dinero para realizar esta transacción. Le falta `{{missingMoney}}{emote:unitValues.money}`.",
+    "initiatorSituationChanged": "El vendedor ya no puede vender su mascota. La venta ha sido cancelada.",
+    "sellTitle": "Vender un animal de compañía",
+    "sellDescription": "{{pseudo}} desea vender una mascota por{{price}}{emote:unitValues.money}",
+    "maxLevelWarning": "{emote:collectors.warning} Tu gremio está al máximo nivel, ¡así que no recibirás experiencia!",
+    "petFieldName": "Familiar vendido :",
+    "sellFooter": "Para más información sobre la venta de mascotas, utilice el comando help petsell.",
+    "successTitle": "{{pseudo}}¡Una transacción exitosa!",
+    "successDescription": "{{pet}} te sigue a partir de ahora. Cuídalo bien."
   },
   "classes": {
     "description": {
-      "0": "Une classe simple. Plutôt équilibrée.",
-      "1": "Une classe simple. Plutôt équilibrée.",
-      "2": "Une classe simple. Plutôt équilibrée.",
-      "3": "Une classe simple. Plutôt équilibrée.",
-      "4": "Une classe axée sur la défense. Faibles performances en combat mais vie supplémentaire pour l'aventure.",
-      "5": "Une classe axée sur la défense. Faibles performances en combat mais vie supplémentaire pour l'aventure.",
-      "6": "Une classe axée sur la défense. Faibles performances en combat mais vie supplémentaire pour l'aventure.",
-      "7": "Une classe axée sur la défense. Faibles performances en combat mais vie supplémentaire pour l'aventure.",
-      "8": "Une classe axée sur la vitesse. Peu de points de vie et d'énergie mais vitesse et attaque élevées.",
-      "9": "Une classe axée sur la vitesse. Peu de points de vie et d'énergie mais vitesse et attaque élevées.",
-      "10": "Une classe axée sur la vitesse. Peu de points de vie et d'énergie mais vitesse et attaque élevées.",
-      "11": "Une classe axée sur la vitesse. Peu de points de vie et d'énergie mais vitesse et attaque élevées.",
-      "12": "Une classe puissante mais équilibrée. Plutôt polyvalente.",
-      "13": "Une classe puissante mais équilibrée. Plutôt polyvalente.",
-      "14": "Une classe puissante mais équilibrée. Plutôt polyvalente.",
-      "15": "Une classe puissante mais équilibrée. Plutôt polyvalente.",
-      "16": "Une classe axée sur la défense sans bonus de points de vie mais avec une attaque plus importante que celle d'un tank.",
-      "17": "Une classe disposant de très bonnes stats mais avec un malus important sur les points de vie.",
-      "18": "Une classe simple. Plutôt équilibrée.",
-      "19": "Une classe axée sur la défense. Faibles performances en combat mais vie supplémentaire pour l'aventure.",
-      "20": "Une classe axée sur la vitesse. Peu de points de vie et d'énergie mais vitesse et attaque élevées.",
-      "21": "Une classe puissante mais équilibrée. Plutôt polyvalente.",
-      "22": "Une classe axée sur la défense sans bonus de points de vie mais avec une attaque plus importante que celle d'un tank.",
-      "23": "Une classe disposant de très bonnes stats mais avec un malus important sur les points de vie.",
-      "24": "Une classe polyvalente axée sur des mécaniques de combat uniques."
+      "0": "Una clase sencilla. Bastante equilibrada.",
+      "1": "Una clase sencilla. Bastante equilibrada.",
+      "2": "Una clase sencilla. Bastante equilibrada.",
+      "3": "Una clase sencilla. Bastante equilibrada.",
+      "4": "Una clase centrada en la defensa. Poco rendimiento en combate pero vida extra para la aventura.",
+      "5": "Una clase centrada en la defensa. Poco rendimiento en combate pero vida extra para la aventura.",
+      "6": "Una clase centrada en la defensa. Poco rendimiento en combate pero vida extra para la aventura.",
+      "7": "Una clase centrada en la defensa. Poco rendimiento en combate pero vida extra para la aventura.",
+      "8": "Una clase centrada en la velocidad. Pocos puntos de salud y energía, pero mucha velocidad y ataque.",
+      "9": "Una clase centrada en la velocidad. Pocos puntos de salud y energía, pero mucha velocidad y ataque.",
+      "10": "Una clase centrada en la velocidad. Pocos puntos de salud y energía, pero mucha velocidad y ataque.",
+      "11": "Una clase centrada en la velocidad. Pocos puntos de salud y energía, pero mucha velocidad y ataque.",
+      "12": "Una clase potente pero equilibrada. Muy versátil.",
+      "13": "Una clase potente pero equilibrada. Muy versátil.",
+      "14": "Una clase potente pero equilibrada. Muy versátil.",
+      "15": "Una clase potente pero equilibrada. Muy versátil.",
+      "16": "Una clase centrada en la defensa sin bonificaciones de puntos de golpe, pero con más ataque que un tanque.",
+      "17": "Una clase con muy buenas estadísticas, pero con una importante penalización en puntos de golpe.",
+      "18": "Una clase sencilla. Bastante equilibrada.",
+      "19": "Una clase centrada en la defensa. Poco rendimiento en combate pero vida extra para la aventura.",
+      "20": "Una clase centrada en la velocidad. Pocos puntos de salud y energía, pero mucha velocidad y ataque.",
+      "21": "Una clase potente pero equilibrada. Muy versátil.",
+      "22": "Una clase centrada en la defensa sin bonificaciones de puntos de golpe, pero con más ataque que un tanque.",
+      "23": "Una clase con muy buenas estadísticas, pero con una importante penalización en puntos de golpe.",
+      "24": "Una clase versátil con una mecánica de combate única."
     },
-    "title": "{emote:commands.classes} Changer de classe :",
-    "desc": "Choisissez une classe dans la liste ci-dessous pour plus d'informations.",
-    "display": "{{name}}\n\n{emote:commands.classesDescription} `{{description}}`\n\nSouhaitez-vous changer pour cette classe ? Vous ne pourrez pas changer de classe avant le {{time}}.",
-    "success": "{{pseudo}}, votre classe a été modifiée !",
-    "newClass": "Votre nouvelle classe est : {{name}}",
-    "confirm": "{{pseudo}}, vous avez sélectionné la classe suivante :",
+    "title": "{emote:commands.classes} Cambio de clase :",
+    "desc": "Elija una clase de la lista siguiente para obtener más información.\n",
+    "display": "{{name}}\n\n{emote:commands.classesDescription}{{description}}\n\n¿Desea cambiar a esta clase? No podrá cambiar de clase antes de {{time}}.",
+    "success": "{{pseudo}}¡su clase ha sido modificada!",
+    "newClass": "Su nueva clase es: {{name}}",
+    "confirm": "{{pseudo}}ha seleccionado la siguiente clase:",
     "error": {
-      "canceledPurchase": "Changement de classe annulé.",
-      "sameClass": "Vous appartenez déjà à cette classe.",
-      "leaveClass": "Vous n'avez pas changé de classe.",
-      "changeClassTooEarly": "Vous avez déjà changé de classe récemment. Vous pourrez à nouveau changer de classe {{time}}."
+      "canceledPurchase": "Cambio de clase cancelado.",
+      "sameClass": "Usted ya pertenece a esta clase.",
+      "leaveClass": "No has cambiado de clase.",
+      "changeClassTooEarly": "Ya ha cambiado de clase recientemente. Puede volver a cambiar de clase en {{time}}."
     },
-    "refuse": "Annuler",
-    "chooseClass": "Sélectionnez une classe"
+    "refuse": "Cancelar",
+    "chooseClass": "Seleccione una clase"
   },
   "sell": {
     "noItemToSell": "Desgraciadamente, ¡no tienes ningún artículo en tu alijo!",
-    "confirmSell": "Êtes-vous sûr de vouloir vous séparer de {{item}} pour **{{value}}** {emote:unitValues.money} ?",
+    "confirmSell": "¿Estás seguro de que quieres separarte de {{item}} por **{{value}}** {emote:unitValues.money} ?",
     "sellCanceled": "La venta ha sido cancelada.",
     "sellTitle": "{{pseudo}}confirmación :",
-    "soldMessage": "Vous avez vendu {{item}} pour **{{value}}** {emote:unitValues.money} !",
+    "soldMessage": "¡Has vendido {{item}} por **{{value}}** {emote:unitValues.money} !",
     "soldMessageTitle": "{{pseudo}}ha vendido un equipo.",
     "potionDestroyedTitle": "Has destruido una poción.",
-    "potionDestroyedMessage": "Votre potion \"{{item}}\" a été versée dans un évier.",
+    "potionDestroyedMessage": "Tu poción{{item}}se ha vertido por el fregadero.",
     "soldMessageAlreadyOwnTitle": "{{pseudo}}Ha recibido un equipo que ya poseía.",
     "titleChoiceEmbed": "{{pseudo}}venta de objetos",
     "sellField": "{{name}} | {{value}} {emote:unitValues.money}",
     "throwAwayField": "{{name}} | {emote:other.trash}",
     "confirmThrowAway": "{{item}} ¿Estás seguro de que quieres tirarlo?",
     "sellIndication": "Elija un artículo para vender de la siguiente lista:",
-    "menuPlaceholder": "Choississez un objet à vendre",
-    "cancel": "Annuler",
-    "selectMenuDescSell": "Vendre pour {{value}} {emote:unitValues.money}",
-    "selectMenuDescThrow": "Jeter {emote:other.trash}"
+    "menuPlaceholder": "Elija un artículo para vender",
+    "cancel": "Cancelar",
+    "selectMenuDescSell": "Vender por {{value}} {emote:unitValues.money}",
+    "selectMenuDescThrow": "Descartar {emote:other.trash}"
   },
   "petTransfer": {
-    "anotherPlayerTransferring": "Le membre de votre guilde **{{playerName}}** est en train de transférer un familier. Veuillez réessayer plus tard.",
-    "transferCancelled": "Le transfert a été annulé.",
-    "situationChanged": "Quelque chose s'est mal passé pendant le transfert. Veuillez réessayer.",
-    "noPet": "Vous n'avez aucun familier à transférer et le refuge de votre guilde est vide.",
-    "confirmTransferTitle": "{{pseudo}}, le transfert a été effectué.",
-    "confirmSwitch": "**{{oldPet}}** reste désormais dans le refuge et **{{newPet}}** vous suit !",
-    "confirmDeposit": "**{{oldPet}}** a été déposé dans le refuge de votre guilde !",
-    "confirmWithdraw": "**{{newPet}}** vous suit désormais !",
-    "chooseActionTitle": "Transfert d'un familier",
-    "chooseActionDesc": "Choisissez une action à effectuer :",
-    "depositButton": "Déposer {{pet}} dans le refuge",
-    "withdrawButton": "Retirer un familier du refuge",
-    "switchButton": "Échanger {{pet}} avec un familier du refuge",
-    "refuseButton": "Annuler le transfert",
-    "backButton": "Retour",
-    "withdrawPlaceholder": "Choisissez un familier à retirer",
-    "switchPlaceholder": "Choisissez un familier à échanger contre {{pet}}",
-    "selectMenuPetDetails": "{{rarity}} | {{sex}} | {{loveLevel}}",
-    "feistyError": "Vous ne pouvez pas transférer un familier fielleux."
+    "anotherPlayerTransferring": "Tu miembro del gremio **{{playerName}}** está transfiriendo una mascota. Vuelve a intentarlo más tarde.",
+    "transferCancelled": "La transferencia ha sido cancelada.",
+    "situationChanged": "Algo ha ido mal durante la transferencia. Por favor, inténtelo de nuevo.",
+    "noPet": "No tienes mascotas que transferir y tu cabaña de gremio está vacía.",
+    "confirmTransferTitle": "{{pseudo}}se ha efectuado la transferencia.",
+    "confirmSwitch": "¡**{{oldPet}}** está ahora en el refugio y{{newPet}}** te está siguiendo!",
+    "confirmDeposit": "**{{oldPet}}** ¡ha sido depositado en el refugio de tu gremio!",
+    "confirmWithdraw": "**{{newPet}}** ¡ahora te sigue!",
+    "chooseActionTitle": "Traslado de mascotas",
+    "chooseActionDesc": "Elige una acción a realizar:",
+    "depositButton": "Dejar {{pet}} en el refugio",
+    "withdrawButton": "Retirar un animal de compañía del refugio",
+    "switchButton": "Intercambiar {{pet}} con una mascota de un refugio",
+    "refuseButton": "Cancelar transferencia",
+    "backButton": "Volver",
+    "withdrawPlaceholder": "Elija una mascota para eliminar",
+    "switchPlaceholder": "Elige una mascota para intercambiarla por {{pet}}",
+    "selectMenuPetDetails": "{{rarity}} | {{sex}} {{loveLevel}}",
+    "feistyError": "No se puede trasladar a una mascota peleona."
   },
   "petFeed": {
-    "noPet": "Vous n'avez aucun familier !",
-    "noMoney": "Vous n'avez pas assez d'argent pour effectuer cet achat...",
-    "notHungry": "Il semblerait que **{{pet}}** n'ait pas faim...",
-    "guildStorageEmpty": "L'entrepôt de nourriture de votre guilde est vide. Achetez de la nourriture avec {command:guildshop}.",
-    "cancelled": "Nourrissage annulé !",
-    "resultTitle": "{{pseudo}}, nourrissage effectué !",
+    "noPet": "¡No tienes mascotas!",
+    "noMoney": "No tienes suficiente dinero para hacer esta compra...",
+    "notHungry": "Parece que **{{pet}}** no tiene hambre...",
+    "guildStorageEmpty": "El almacén de comida de tu gremio está vacío. Compra comida en {command:guildshop}.",
+    "cancelled": "¡Alimentacion cancelada!",
+    "resultTitle": "{{pseudo}}¡alimentación llevada a cabo!",
     "result": {
-      "happy": "Votre familier est rassasié et semble heureux !",
-      "veryHappy": "Votre familier est rassasié et semble très heureux !",
-      "veryVeryHappy": "Votre familier est rassasié et saute de joie !",
-      "dislike": "Votre familier ne semble pas avoir aimé cette nourriture..."
+      "happy": "Su mascota está llena y parece feliz.",
+      "veryHappy": "¡Su mascota está llena y parece muy feliz!",
+      "veryVeryHappy": "Su mascota está llena y saltando de alegría.",
+      "dislike": "A tu mascota no parece haberle gustado la comida..."
     },
-    "feedTitle": "{{pseudo}}, nourrissage de votre familier",
-    "feedDescription": "Choisissez une nourriture pour **{{pet}}** :",
+    "feedTitle": "{{pseudo}}alimentar a su mascota",
+    "feedDescription": "Elija un alimento para **{{pet}}** :",
     "feedFoodBullet": "- **{{food}}** ({{amount}} / {{maxAmount}})",
-    "cancelButton": "Annuler",
-    "feedWithoutGuildDesc": "Souhaitez vous acheter une friandise pour {{pet}} ?\n\n{{food}} | `{{price}}{emote:unitValues.money}`"
+    "cancelButton": "Cancelar",
+    "feedWithoutGuildDesc": "¿Quieres comprarle un regalo a {{pet}} ?\n\n{{food}} |{{price}}{emote:unitValues.money}`"
   },
   "leagueReward": {
     "errors": {
-      "notSunday": "La récompense de ligue ne peut être récupérée que le dimanche ! Revenez {{nextSunday}}.",
-      "noPoints": "La récompense de ligue n'est disponible que pour les joueurs ayant combattu durant la saison précédente.",
-      "alreadyClaimed": "Vous avez déjà récupéré votre récompense de ligue pour cette saison."
+      "notSunday": "¡El premio de la liga sólo se puede recoger el domingo! Vuelve {{nextSunday}}.",
+      "noPoints": "La recompensa de la liga sólo está disponible para los jugadores que lucharon en la temporada anterior.",
+      "alreadyClaimed": "Ya has cobrado tu recompensa de la liga por esta temporada."
     },
-    "title": "{{pseudo}}, vous avez reçu votre récompense de ligue !",
+    "title": "{{pseudo}}¡Has recibido tu premio de la liga!",
     "description": {
-      "first": "Vous avez terminé la ligue précédente avec **{{glory}} gloire. {emote:unitValues.glory}**\n\n**Vous terminez à la $t(models:ordinals.get, {\"count\": {{rank}}, \"context\":\"feminine\", \"ordinal\": true}) place !**\nVotre ligue finale est : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Argent gagné : **{{money}}** !\n{emote:unitValues.xp} XP gagnée : **{{xp}}** !\n{emote:unitValues.glory} Un badge vous a été offert à la fin de la saison.\n{emote:rewards.item} Vous recevez un équipement aléatoire !",
-      "other": "Vous avez terminé la ligue précédente avec **{{glory}} gloire. {emote:unitValues.glory}**\n\n Vous terminez à la $t(models:ordinals.get, {\"count\": {{rank}}, \"ordinal\": true}) place !\nVotre ligue finale est : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Argent gagné : **{{money}}** !\n{emote:unitValues.xp} XP gagnée : **{{xp}}** !\n{emote:rewards.item} Vous recevez un équipement aléatoire !"
+      "first": "Terminaste la liga anterior con **{{glory}} gloria. {emote:unitValues.glory}**\n\n**Terminaste en $t(models:ordinals.get, {\"count\": {{rank}}, \"context\":\"feminine\", \"ordinal\": true}) !**\nTu liga final es : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Dinero ganado : ¡**{{money}}** !\n{emote:unitValues.xp} XP ganada: ¡**{{xp}}** !\n{emote:unitValues.glory} Se te ha entregado una insignia al final de la temporada.\n{emote:rewards.item} ¡Recibirás equipamiento aleatorio!",
+      "other": "Terminaste la liga anterior con **{{glory}} gloria. {emote:unitValues.glory}**\n\n ¡Terminas en $t(models:ordinals.get, {\"count\": {{rank}}, \"ordinal\": true}) !\nTu liga final es : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Dinero ganado: ¡**{{money}}** !\n{emote:unitValues.xp} XP ganada: ¡**{{xp}}** !\n{emote:rewards.item} ¡Recibes equipo al azar!"
     }
   }
 }

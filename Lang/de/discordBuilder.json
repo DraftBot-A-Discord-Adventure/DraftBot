@@ -218,16 +218,16 @@
     "name": "magasinguilde"
   },
   "guildKick": {
-    "description": "Exclure un membre de la guilde.",
-    "name": "exclureguilde",
+    "description": "Ein Mitglied aus der Gilde ausschließen.",
+    "name": "ausschließenGilde",
     "options": {
       "rank": {
-        "description": "Le classement du joueur à exclure de la guilde.",
-        "name": "classement"
+        "description": "Die Rangliste des Spielers, der aus der Gilde ausgeschlossen werden soll.",
+        "name": "Rangliste"
       },
       "user": {
-        "description": "L'utilisateur à exclure de la guilde.",
-        "name": "utilisateur"
+        "description": "Der Nutzer, der aus der Gilde ausgeschlossen werden soll.",
+        "name": "Benutzer"
       }
     }
   },
@@ -309,54 +309,54 @@
   },
   "switch": {
     "name": "vertauschen",
-    "description": "Intervertir l'objet actif avec l'un des objets présent dans votre réserve."
+    "description": "Tausche den aktiven Gegenstand mit einem der Gegenstände in deinem Vorrat."
   },
   "drink": {
-    "name": "boire",
-    "description": "Boire la potion équipée.",
+    "name": "trinken",
+    "description": "Trinke den ausgerüsteten Trank.",
     "options": {
       "force": {
-        "name": "forcer",
-        "description": "Si vrai, passe la phase de validation si vous êtes sûr de vouloir boire la potion"
+        "name": "erzwingen",
+        "description": "Wenn wahr, überspringe die Bestätigungsphase, wenn du dir sicher bist, dass du den Trank trinken willst."
       }
     }
   },
   "petSell": {
-    "name": "vendrefamilier",
-    "description": "Vendre un familier à un autre joueur.",
+    "name": "verkaufenfamiliär",
+    "description": "Verkaufen Sie einen Vertrauten an einen anderen Spieler.",
     "options": {
       "price": {
-        "name": "prix",
-        "description": "Le prix de vente du familier."
+        "name": "Preis",
+        "description": "Der Verkaufspreis des Vertrauten."
       },
       "player": {
-        "name": "joueur",
-        "description": "Le joueur à qui vendre le familier."
+        "name": "Spieler",
+        "description": "Der Spieler, an den der Begleiter verkauft werden soll."
       }
     }
   },
   "classes": {
-    "name": "classes",
-    "description": "Changer de classe."
+    "name": "Klassen",
+    "description": "Die Klasse wechseln."
   },
   "sell": {
-    "name": "vendre",
-    "description": "Vendre un équipement."
+    "name": "verkaufen",
+    "description": "Eine Ausrüstung verkaufen."
   },
   "petTransfer": {
     "name": "transfererfamilier",
-    "description": "Transférer un familier depuis ou vers l'abri de la guilde."
+    "description": "Einen Begleiter aus dem oder in den Gildenunterschlupf transferieren."
   },
   "petFeed": {
-    "name": "nourrirfamilier",
-    "description": "Nourrir votre familier."
+    "name": "ernährenfamiliär",
+    "description": "Füttern Sie Ihren Begleiter."
   },
   "guildShelter": {
     "name": "abriguilde",
-    "description": "Affiche les informations sur l'abri de guilde."
+    "description": "Zeigt Informationen über den Gildenunterstand an."
   },
   "leagueReward": {
-    "name": "bonusligue",
-    "description": "Récupérer la récompense liée à votre ligue."
+    "name": "bonusliga",
+    "description": "Sammeln Sie die Belohnung, die mit Ihrer Liga verbunden ist."
   }
 }

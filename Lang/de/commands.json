@@ -5,19 +5,19 @@
   },
   "pet": {
     "embedTitle": "Vertraut mit {{pseudo}} :",
-    "petField": "**Type :** {{emote}} {{typeName}}\n**Surnom :** {{nickname}}\n**Rareté :** {{rarity}}\n**Sexe :** {{sex}}\n**Mentalité :** {{loveLevel}}",
+    "petField": "**Typ:** {{emote}} {{typeName}}\n**Spitzname:** {{nickname}}\n**Rarität:** {{rarity}}\n**Geschlecht:** {{sex}}\n**Mentalität:** {{loveLevel}}",
     "noNickname": "Keine Spitznamen",
     "loveLevels": {
-      "1_male": ":smirk_cat: Fielleux",
-      "1_female": ":smirk_cat: Fielleuse",
-      "2_male": ":pouting_cat: Sauvage",
-      "2_female": ":pouting_cat: Sauvage",
-      "3_male": ":scream_cat: Craintif",
-      "3_female": ":scream_cat: Craintive",
-      "4_male": ":smiley_cat: Apprivoisé",
-      "4_female": ":smiley_cat: Apprivoisée",
-      "5_male": ":heart_eyes_cat: Dressé",
-      "5_female": ":heart_eyes_cat: Dressée"
+      "1_male": ":smirk_cat: Geizig",
+      "1_female": ":smirk_cat: Köchin",
+      "2_male": ":pouting_cat: Wild",
+      "2_female": ":pouting_cat: Wild",
+      "3_male": ":scream_cat: Ängstlich",
+      "3_female": ":scream_cat: Ängstlich",
+      "4_male": ":smiley_cat: Gezähmt",
+      "4_female": ":smiley_cat: Gezähmt",
+      "5_male": ":heart_eyes_cat: Aufgerichtet",
+      "5_female": ":heart_eyes_cat: Aufgerichtet"
     },
     "hungry": "🤤 hungrig",
     "diet": {
@@ -68,19 +68,19 @@
     "refusedTitle": "Sie sind der Gilde nicht beigetreten {{guildName}} !",
     "errors": {
       "guildIsFull": "Ihre Gilde ist voll und kann keine weiteren Mitglieder mehr aufnehmen.",
-      "playerIsAlreadyInAGuild": "Dieser Spieler gehört bereits der Gilde `{{guildName}}` an.",
+      "playerIsAlreadyInAGuild": "Dieser Spieler gehört bereits einer Gilde an.",
       "playerIsOnPveIsland": "{{pseudo}} kann der Gilde nicht beitreten, da er sich derzeit auf einem Schiff oder einer mysteriösen Insel befindet. {{pseudo}} muss sich auf dem Hauptkontinent befinden, um einer Gilde beitreten zu können."
     }
   },
   "guildKick": {
-    "title": "Expulsion de la guilde",
+    "title": "Vertreibung aus der Gilde",
     "confirmDesc": "{emote:collectors.question} Sind Sie sicher, dass Sie {{kickedPseudo}} aus der Gilde `{{guildName}}` ausschließen wollen?",
-    "acceptedDesc": "{{kickedPseudo}} a bien été expulsé de la guilde !",
-    "canceledTitle": "Expulsion annulée",
-    "canceledDesc": "{{kickedPseudo}} n'a pas été expulsé de la guilde !",
-    "noPlayer": "Le joueur n'est pas dans la guilde.",
-    "notSameGuild": "Vous ne pouvez pas expulser un joueur qui n'est pas dans votre guilde.",
-    "himself": "Vous ne pouvez pas vous expulser vous-même de la guilde."
+    "acceptedDesc": "{{kickedPseudo}} wurde tatsächlich aus der Gilde geworfen!",
+    "canceledTitle": "Ausweisung aufgehoben",
+    "canceledDesc": "{{kickedPseudo}} nicht aus der Gilde ausgeschlossen wurde!",
+    "noPlayer": "Der Spieler ist nicht in der Gilde.",
+    "notSameGuild": "Sie können keinen Spieler ausschließen, der nicht in Ihrer Gilde ist.",
+    "himself": "Sie können sich nicht selbst aus der Gilde ausschließen."
   },
   "guildElder": {
     "playerNotFound": "Dieser Spieler wurde nicht gefunden.",
@@ -255,7 +255,7 @@
         "description": "Gibt an, ob der Bot online ist.\n\n(Hinweis: Die angezeigte Zeit ist die Antwortzeit des Bots und nicht das Pingsignal: Eine gültige Antwortzeit beträgt weniger als 500ms. :clock1:"
       },
       "PROFILE": {
-        "description": "Affiche des informations sur votre personnage :\n\n😃 État de santé | Pseudo | Level\n\n឵឵឵Informations :\n❤️ Vie | ⭐ XP | {emote:unitValues.money} Argent\n\nStatistiques :\n⚡ Énergie | 🗡️ Attaque | 🛡️ Défense | 🚀 Vitesse | 🌬️ Souffle | 🫁 Récupération\n\nMissions :\n💎 Gemmes | 📖 Avancé de la campagne %\n\nClassement et score :\n🏆 Classement | 🏅 Score\n\nClasse :\nVoir {command:classes}\n\nGloire et Ligue :\n{emote:unitValues.glory} Gloire | Voir {{topGloryCommandMention}}\n\nGuilde :\n🏟️ Guilde\n\nDestination :\nVoir {{mapCommandMention}}\n\nFamilier :\nVoir {{petCommandMention}}\n\n💡-Les badges sont affichés sur votre profil sous forme de réaction."
+        "description": "Zeigt Informationen über deinen Charakter an:\n\n😃 Gesundheitszustand | Nickname | Level\n\n឵឵Informationen:\n❤️ Leben | ⭐ XP | {emote:unitValues.money} Geld\n\nStatistiken :\n⚡ Energie | 🗡️ Angriff | 🛡️ Verteidigung | 🚀 Geschwindigkeit | 🌬️ Atem | 🫁 Erholung\n\nAufgaben:\n💎 Gemmen | 📖 Kampagnenfortschritt %\n\nRangliste und Punktzahl:\n🏆 Rangliste | 🏅 Punktzahl\n\nKlasse:\nSiehe {command:classes}\n\nRuhm und Liga:\n{emote:unitValues.glory} Ruhm | Siehe {{topGloryCommandMention}}\n\nGilde:\n🏟️ Gilde\n\nReiseziel:\nSiehe {{mapCommandMention}}\n\nVertraut:\nSiehe {{petCommandMention}}\n\n💡-Die Abzeichen werden in deinem Profil als Reaktion angezeigt."
       },
       "RARITY": {
         "description": "Wählen Sie diese Option aus, um die Wahrscheinlichkeit eines item nach der Knappheit zu erkennen."
@@ -379,7 +379,7 @@
       "⚔️": ":crossed_swords: ` Vainger eines Turniers '",
       "⚙️": ":gear: \"Technisches Team\"",
       "⛑️": ":helmet_with_cross: Personen, die zu den ersten 20 Personen gehören, die dem Bot-Server beigetreten sind.",
-      "✨": "{emote:unitValues.glory} `Personne ayant remporté le plus de gloire durant une saison de combat`",
+      "✨": "{emote:unitValues.glory} `Person, die während einer Kampfsaison den meisten Ruhm erlangt hat`.",
       "❤️": ":heart: Personen mit der Besoldungsgruppe auf dem Bot-Server-Server",
       "🌍": ":earth_africa: ` Traducer `",
       "🌟": ":star2: \" Niemand, der dazu beigetragen hat, den Bot auf einen Server mit mehr als 2000 Mitgliedern zu setzen.",
@@ -697,21 +697,18 @@
   "classesInfo": {
     "title": {
       "list": ":bookmark: Liste der Klassen",
-      "class": "**{{emoji}} {{className}} | {{classKind}}**"
+      "attack": "{{emote}} {{name}} | {{cost}} {emote:unitValues.breath}"
     },
     "description": {
-      "list": "Hier finden Sie eine Liste der für Ihren Charakter verfügbaren Klassen und deren Statistiken. Um weitere Informationen zu einer Klasse zu erhalten, wählen Sie diese aus den unten stehenden Auswahlmöglichkeiten aus.",
-      "attacks": "\n\n## **Verfügbare Angriffe für diese Klasse:**"
+      "list": "Hier finden Sie eine Liste der für Ihren Charakter verfügbaren Klassen und deren Statistiken. Um weitere Informationen zu einer Klasse zu erhalten, wählen Sie diese aus den unten stehenden Auswahlmöglichkeiten aus.\n"
     },
     "mainOption": {
       "name": "Liste der Klassen",
       "placeholder": "Wählen Sie eine Klasse"
     },
     "displays": {
-      "listing": "{{headerText}}\n\n{{classesList}}",
-      "details": "{{classDetails}}{{attacksHeader}}\n{{attacksList}}",
-      "class": "### {{emoji}} {{name}}\n:zap: {{fightPoint}} | :dagger: {{attack}} | :shield: {{defense}} | :rocket: {{speed}} | :wind_blowing_face: {{baseBreath}} / {{maxBreath}} | :lungs: {{breathRegen}} | :heart: {{health}}",
-      "attack": "### {{emoji}} {{name}} | {{cost}} :wind_blowing_face:\n{{description}}"
+      "details": "{{classDetails}}\n\n**Angriffe, die für diese Klasse verfügbar sind:**\n",
+      "class": "{emote:unitValues.energy} {{fightPoint}} | {emote:unitValues.attack} {{attack}} | {emote:unitValues.defense} {{defense}} | {emote:unitValues.speed} {{speed}} | {emote:unitValues.breath} {{baseBreath}} / {{maxBreath}} | {emote:unitValues.breathRegen} {{breathRegen}} | {emote:unitValues.health} {{health}}"
     }
   },
   "respawn": {
@@ -820,7 +817,7 @@
   },
   "top": {
     "level": "Ebene {{level}}",
-    "titleScoreAllTime": "{emote:top.congrats} Affichage du top des places {{minRank}} à {{maxRank}}",
+    "titleScoreAllTime": "{emote:top.congrats} Anzeige der Top-Plätze {{minRank}} an {{maxRank}}",
     "titleScoreWeekly": "{emote:top.congrats} Anzeige der wöchentlichen Top-Platzierungen {{minRank}} an {{maxRank}}",
     "yourRankTitle": "**Ihre Platzierung**",
     "yourRankFirst_one": "{emote:top.congrats} Herzlichen Glückwunsch **{{pseudo}}**! Sie sind derzeit der Beste von insgesamt {{total}} Spielern!",
@@ -856,152 +853,152 @@
     "switchSelectionDescription": "Wählen Sie aus der folgenden Liste einen Gegenstand zum Ausrüsten aus:"
   },
   "drink": {
-    "cancelled": "Vous n'avez pas bu votre potion !",
-    "noActiveObject": "Vous n'avez malheureusement rien à boire dans votre inventaire !",
-    "objectIsActiveDuringFights": "Ce breuvage ne peut pas être bu maintenant. Il sera utilisé automatiquement lors de votre prochain combat !",
-    "healthBonus": "{emote:unitValues.health} Vie gagnée : {{value}} !",
-    "energyBonus": "{emote:unitValues.energy} Énergie gagnée : {{value}} !",
-    "timeBonus": "{emote:unitValues.time} Vous avez avancé de {{value}} !",
-    "noBonus": "{emote:messages.refuse} Vous consommez le breuvage que vous transportiez... Ça ne semble pas très efficace !",
-    "drinkSuccessTitle": "{{pseudo}}, vous buvez le breuvage que vous transportiez !",
-    "confirmationTitle": "{{pseudo}}, confirmation :",
-    "confirmation": "Êtes-vous sûr de vouloir boire votre {{potion}} ?",
-    "confirmationFooter": "Il est possible d'éviter cette étape en utilisant le paramètre forcer !"
+    "cancelled": "Sie haben Ihren Trank nicht getrunken!",
+    "noActiveObject": "Sie haben leider nichts zu trinken in Ihrem Inventar!",
+    "objectIsActiveDuringFights": "Dieses Getränk kann jetzt nicht getrunken werden. Es wird automatisch bei Ihrem nächsten Kampf verwendet!",
+    "healthBonus": "{emote:unitValues.health} Gewonnenes Leben: {{value}} !",
+    "energyBonus": "{emote:unitValues.energy} Gewonnene Energie: {{value}} !",
+    "timeBonus": "{emote:unitValues.time} Sie sind weitergekommen von {{value}} !",
+    "noBonus": "{emote:messages.refuse} Sie konsumieren das Getränk, das Sie transportiert haben... Das scheint nicht sehr effektiv zu sein!",
+    "drinkSuccessTitle": "{{pseudo}}Wenn Sie das Getränk trinken, das Sie transportiert haben, dann trinken Sie es!",
+    "confirmationTitle": "{{pseudo}}Bestätigung :",
+    "confirmation": "Sind Sie sicher, dass Sie Ihre {{potion}} trinken möchten?",
+    "confirmationFooter": "Diesen Schritt kann man umgehen, indem man den Parameter erzwingen!"
   },
   "petSell": {
-    "noPet": "Vous n'avez aucun familier à vendre !",
-    "noGuild": "Vous ne pouvez pas vendre votre familier car vous n'êtes pas dans une guilde. En effet, la vente de familier permet de générer de l'expérience de guilde.",
-    "isFeisty": "Vous ne pouvez pas vendre un familier fielleux.",
-    "badPrice": "Le prix doit être supérieur à `{{minPrice}}{emote:unitValues.money}` et inférieur à `{{maxPrice}}{emote:unitValues.money}`.",
-    "onlyInitiatorCanCancel": "Seul l'initiateur d'une vente peut l'annuler !",
-    "canceled": "La vente a été annulée !",
-    "cantSellToYourself": "Il est impossible de vendre un familier à soi-même !",
-    "noOneAvailable": "Malheureusement, personne ne semble disponible pour acheter votre familier. Votre vente a été annulée.",
-    "sameGuild": "Vous ne pouvez pas acheter ce familier car le vendeur fait partie de votre guilde.",
-    "alreadyHavePet": "Vous avez déjà un familier dans votre inventaire.",
-    "noEnoughMoney": "Vous n'avez pas assez d'argent pour effectuer cette transaction. Il vous manque `{{missingMoney}}{emote:unitValues.money}`.",
-    "initiatorSituationChanged": "Le vendeur n'est plus en mesure de vendre son familier. La vente a été annulée.",
-    "sellTitle": "Vente d'un familier",
-    "sellDescription": "{{pseudo}} souhaite vendre un familier pour `{{price}}{emote:unitValues.money}`",
-    "maxLevelWarning": "{emote:collectors.warning} Votre guilde est au niveau maximal, vous ne recevrez pas d'expérience !",
-    "petFieldName": "Familier vendu :",
-    "sellFooter": "Pour plus d'informations à propos des ventes de familiers, utilisez la commande help petsell.",
-    "successTitle": "{{pseudo}}, transaction réussie !",
-    "successDescription": "{{pet}} vous suit désormais. Occupez-vous en bien !"
+    "noPet": "Sie haben keine Vertrauten zu verkaufen!",
+    "noGuild": "Sie können Ihren Begleiter nicht verkaufen, weil Sie nicht in einer Gilde sind. Dies liegt daran, dass der Verkauf eines Begleiters Gildenerfahrung generiert.",
+    "isFeisty": "Sie können einen galligen Vertrauten nicht verkaufen.",
+    "badPrice": "Der Preis muss höher als `{{minPrice}}{emote:unitValues.money}` und niedriger als `{{maxPrice}}{emote:unitValues.money}` sein.",
+    "onlyInitiatorCanCancel": "Nur der Initiator eines Verkaufs kann diesen stornieren!",
+    "canceled": "Der Verkauf wurde abgebrochen!",
+    "cantSellToYourself": "Es ist unmöglich, einen Vertrauten an sich selbst zu verkaufen!",
+    "noOneAvailable": "Leider scheint niemand verfügbar zu sein, der Ihr Haustier kaufen möchte. Ihr Verkauf wurde storniert.",
+    "sameGuild": "Du kannst dieses Haustier nicht kaufen, weil der Verkäufer Mitglied deiner Gilde ist.",
+    "alreadyHavePet": "Sie haben bereits einen Vertrauten in Ihrem Inventar.",
+    "noEnoughMoney": "Sie haben nicht genug Geld, um diese Transaktion durchzuführen. Es fehlt Ihnen `{{missingMoney}}{emote:unitValues.money}`.",
+    "initiatorSituationChanged": "Der Verkäufer ist nicht mehr in der Lage, sein Haustier zu verkaufen. Der Verkauf wurde abgebrochen.",
+    "sellTitle": "Verkauf eines Vertrauten",
+    "sellDescription": "{{pseudo}} möchte einen Vertrauten für `{{price}}{emote:unitValues.money}` verkaufen",
+    "maxLevelWarning": "{emote:collectors.warning} Ihre Gilde ist auf der höchsten Stufe, Sie erhalten keine Erfahrung!",
+    "petFieldName": "Vertraute verkauft :",
+    "sellFooter": "Weitere Informationen über den Verkauf von Haustieren erhalten Sie mit dem Befehl help petsell.",
+    "successTitle": "{{pseudo}}Erfolgreiche Transaktion!",
+    "successDescription": "{{pet}} folgt Ihnen nun. Kümmern Sie sich gut darum!"
   },
   "classes": {
     "description": {
-      "0": "Une classe simple. Plutôt équilibrée.",
-      "1": "Une classe simple. Plutôt équilibrée.",
-      "2": "Une classe simple. Plutôt équilibrée.",
-      "3": "Une classe simple. Plutôt équilibrée.",
-      "4": "Une classe axée sur la défense. Faibles performances en combat mais vie supplémentaire pour l'aventure.",
-      "5": "Une classe axée sur la défense. Faibles performances en combat mais vie supplémentaire pour l'aventure.",
-      "6": "Une classe axée sur la défense. Faibles performances en combat mais vie supplémentaire pour l'aventure.",
-      "7": "Une classe axée sur la défense. Faibles performances en combat mais vie supplémentaire pour l'aventure.",
-      "8": "Une classe axée sur la vitesse. Peu de points de vie et d'énergie mais vitesse et attaque élevées.",
-      "9": "Une classe axée sur la vitesse. Peu de points de vie et d'énergie mais vitesse et attaque élevées.",
-      "10": "Une classe axée sur la vitesse. Peu de points de vie et d'énergie mais vitesse et attaque élevées.",
-      "11": "Une classe axée sur la vitesse. Peu de points de vie et d'énergie mais vitesse et attaque élevées.",
-      "12": "Une classe puissante mais équilibrée. Plutôt polyvalente.",
-      "13": "Une classe puissante mais équilibrée. Plutôt polyvalente.",
-      "14": "Une classe puissante mais équilibrée. Plutôt polyvalente.",
-      "15": "Une classe puissante mais équilibrée. Plutôt polyvalente.",
-      "16": "Une classe axée sur la défense sans bonus de points de vie mais avec une attaque plus importante que celle d'un tank.",
-      "17": "Une classe disposant de très bonnes stats mais avec un malus important sur les points de vie.",
-      "18": "Une classe simple. Plutôt équilibrée.",
-      "19": "Une classe axée sur la défense. Faibles performances en combat mais vie supplémentaire pour l'aventure.",
-      "20": "Une classe axée sur la vitesse. Peu de points de vie et d'énergie mais vitesse et attaque élevées.",
-      "21": "Une classe puissante mais équilibrée. Plutôt polyvalente.",
-      "22": "Une classe axée sur la défense sans bonus de points de vie mais avec une attaque plus importante que celle d'un tank.",
-      "23": "Une classe disposant de très bonnes stats mais avec un malus important sur les points de vie.",
-      "24": "Une classe polyvalente axée sur des mécaniques de combat uniques."
+      "0": "Eine einfache Klasse. Ziemlich ausgeglichen.",
+      "1": "Eine einfache Klasse. Ziemlich ausgeglichen.",
+      "2": "Eine einfache Klasse. Ziemlich ausgeglichen.",
+      "3": "Eine einfache Klasse. Ziemlich ausgeglichen.",
+      "4": "Eine Klasse, die sich auf die Verteidigung konzentriert. Schwache Leistung im Kampf, aber zusätzliches Leben für das Abenteuer.",
+      "5": "Eine Klasse, die sich auf die Verteidigung konzentriert. Schwache Leistung im Kampf, aber zusätzliches Leben für das Abenteuer.",
+      "6": "Eine Klasse, die sich auf die Verteidigung konzentriert. Schwache Leistung im Kampf, aber zusätzliches Leben für das Abenteuer.",
+      "7": "Eine Klasse, die sich auf die Verteidigung konzentriert. Schwache Leistung im Kampf, aber zusätzliches Leben für das Abenteuer.",
+      "8": "Eine auf Geschwindigkeit ausgerichtete Klasse. Wenig Lebens- und Energiepunkte, aber hohe Geschwindigkeit und Angriffsstärke.",
+      "9": "Eine auf Geschwindigkeit ausgerichtete Klasse. Wenig Lebens- und Energiepunkte, aber hohe Geschwindigkeit und Angriffsstärke.",
+      "10": "Eine auf Geschwindigkeit ausgerichtete Klasse. Wenig Lebens- und Energiepunkte, aber hohe Geschwindigkeit und Angriffsstärke.",
+      "11": "Eine auf Geschwindigkeit ausgerichtete Klasse. Wenig Lebens- und Energiepunkte, aber hohe Geschwindigkeit und Angriffsstärke.",
+      "12": "Eine starke, aber ausgeglichene Klasse. Eher vielseitig.",
+      "13": "Eine starke, aber ausgeglichene Klasse. Eher vielseitig.",
+      "14": "Eine starke, aber ausgeglichene Klasse. Eher vielseitig.",
+      "15": "Eine starke, aber ausgeglichene Klasse. Eher vielseitig.",
+      "16": "Eine defensiv ausgerichtete Klasse ohne Lebenspunktebonus, aber mit einem Angriff, der größer ist als der eines Tanks.",
+      "17": "Eine Klasse mit sehr guten Werten, aber mit einem hohen Malus auf die Lebenspunkte.",
+      "18": "Eine einfache Klasse. Ziemlich ausgeglichen.",
+      "19": "Eine Klasse, die sich auf die Verteidigung konzentriert. Schwache Leistung im Kampf, aber zusätzliches Leben für das Abenteuer.",
+      "20": "Eine auf Geschwindigkeit ausgerichtete Klasse. Wenig Lebens- und Energiepunkte, aber hohe Geschwindigkeit und Angriffsstärke.",
+      "21": "Eine starke, aber ausgeglichene Klasse. Eher vielseitig.",
+      "22": "Eine defensiv ausgerichtete Klasse ohne Lebenspunktebonus, aber mit einem Angriff, der größer ist als der eines Tanks.",
+      "23": "Eine Klasse mit sehr guten Werten, aber mit einem hohen Malus auf die Lebenspunkte.",
+      "24": "Eine vielseitige Klasse, die sich auf eine einzigartige Kampfmechanik konzentriert."
     },
-    "title": "{emote:commands.classes} Changer de classe :",
-    "desc": "Choisissez une classe dans la liste ci-dessous pour plus d'informations.",
-    "display": "{{name}}\n\n{emote:commands.classesDescription} `{{description}}`\n\nSouhaitez-vous changer pour cette classe ? Vous ne pourrez pas changer de classe avant le {{time}}.",
-    "success": "{{pseudo}}, votre classe a été modifiée !",
-    "newClass": "Votre nouvelle classe est : {{name}}",
-    "confirm": "{{pseudo}}, vous avez sélectionné la classe suivante :",
+    "title": "{emote:commands.classes} Die Klasse wechseln :",
+    "desc": "Wählen Sie eine Klasse aus der folgenden Liste aus, um weitere Informationen zu erhalten.\n",
+    "display": "{{name}}\n\n{emote:commands.classesDescription} `{{description}}`\n\nMöchten Sie in diese Klasse wechseln? Sie können die Klasse erst nach {{time}}wechseln.",
+    "success": "{{pseudo}}Ihre Klasse wurde geändert!",
+    "newClass": "Ihre neue Klasse ist: {{name}}",
+    "confirm": "{{pseudo}}Sie haben die folgende Klasse ausgewählt:",
     "error": {
-      "canceledPurchase": "Changement de classe annulé.",
-      "sameClass": "Vous appartenez déjà à cette classe.",
-      "leaveClass": "Vous n'avez pas changé de classe.",
-      "changeClassTooEarly": "Vous avez déjà changé de classe récemment. Vous pourrez à nouveau changer de classe {{time}}."
+      "canceledPurchase": "Klassenwechsel abgesagt.",
+      "sameClass": "Sie gehören bereits zu dieser Klasse.",
+      "leaveClass": "Sie haben die Klasse nicht gewechselt.",
+      "changeClassTooEarly": "Sie haben kürzlich bereits die Klasse gewechselt. Sie können erneut die Klasse wechseln {{time}}."
     },
-    "refuse": "Annuler",
-    "chooseClass": "Sélectionnez une classe"
+    "refuse": "Abbrechen",
+    "chooseClass": "Wählen Sie eine Klasse"
   },
   "sell": {
     "noItemToSell": "Sie haben leider keine Gegenstände in Ihrem Vorrat!",
-    "confirmSell": "Êtes-vous sûr de vouloir vous séparer de {{item}} pour **{{value}}** {emote:unitValues.money} ?",
+    "confirmSell": "Sind Sie sicher, dass Sie sich von {{item}} für **{{value}}** {emote:unitValues.money} trennen wollen?",
     "sellCanceled": "Der Verkauf wurde tatsächlich storniert!",
     "sellTitle": "{{pseudo}}Bestätigung :",
-    "soldMessage": "Vous avez vendu {{item}} pour **{{value}}** {emote:unitValues.money} !",
+    "soldMessage": "Sie haben {{item}} für **{{value}}** {emote:unitValues.money} verkauft!",
     "soldMessageTitle": "{{pseudo}}Sie haben eine Ausrüstung verkauft.",
     "potionDestroyedTitle": "Sie haben einen Trank zerstört.",
-    "potionDestroyedMessage": "Votre potion \"{{item}}\" a été versée dans un évier.",
+    "potionDestroyedMessage": "Ihr Trank \"{{item}}\" wurde in ein Waschbecken geschüttet.",
     "soldMessageAlreadyOwnTitle": "{{pseudo}}Sie haben eine Ausrüstung erhalten, die Sie bereits besessen haben.",
     "titleChoiceEmbed": "{{pseudo}}Verkauf von Gegenständen",
     "sellField": "{{name}} | {{value}} {emote:unitValues.money}",
     "throwAwayField": "{{name}} | {emote:other.trash}",
     "confirmThrowAway": "Sind Sie sicher, dass Sie {{item}} wegwerfen möchten?",
     "sellIndication": "Wählen Sie aus der folgenden Liste einen Gegenstand zum Verkaufen aus:",
-    "menuPlaceholder": "Choississez un objet à vendre",
-    "cancel": "Annuler",
-    "selectMenuDescSell": "Vendre pour {{value}} {emote:unitValues.money}",
-    "selectMenuDescThrow": "Jeter {emote:other.trash}"
+    "menuPlaceholder": "Wählen Sie einen Gegenstand zum Verkaufen aus",
+    "cancel": "Abbrechen",
+    "selectMenuDescSell": "Verkaufen für {{value}} {emote:unitValues.money}",
+    "selectMenuDescThrow": "Werfen {emote:other.trash}"
   },
   "petTransfer": {
-    "anotherPlayerTransferring": "Le membre de votre guilde **{{playerName}}** est en train de transférer un familier. Veuillez réessayer plus tard.",
-    "transferCancelled": "Le transfert a été annulé.",
-    "situationChanged": "Quelque chose s'est mal passé pendant le transfert. Veuillez réessayer.",
-    "noPet": "Vous n'avez aucun familier à transférer et le refuge de votre guilde est vide.",
-    "confirmTransferTitle": "{{pseudo}}, le transfert a été effectué.",
-    "confirmSwitch": "**{{oldPet}}** reste désormais dans le refuge et **{{newPet}}** vous suit !",
-    "confirmDeposit": "**{{oldPet}}** a été déposé dans le refuge de votre guilde !",
-    "confirmWithdraw": "**{{newPet}}** vous suit désormais !",
-    "chooseActionTitle": "Transfert d'un familier",
-    "chooseActionDesc": "Choisissez une action à effectuer :",
-    "depositButton": "Déposer {{pet}} dans le refuge",
-    "withdrawButton": "Retirer un familier du refuge",
-    "switchButton": "Échanger {{pet}} avec un familier du refuge",
-    "refuseButton": "Annuler le transfert",
-    "backButton": "Retour",
-    "withdrawPlaceholder": "Choisissez un familier à retirer",
-    "switchPlaceholder": "Choisissez un familier à échanger contre {{pet}}",
+    "anotherPlayerTransferring": "Das Mitglied Ihrer Gilde **{{playerName}}** ist gerade dabei, einen Begleiter zu übertragen. Bitte versuchen Sie es später noch einmal.",
+    "transferCancelled": "Der Transfer wurde abgebrochen.",
+    "situationChanged": "Bei der Übertragung ist etwas schief gelaufen. Bitte versuchen Sie es noch einmal.",
+    "noPet": "Sie haben keine Begleiter, die Sie transferieren können, und die Hütte Ihrer Gilde ist leer.",
+    "confirmTransferTitle": "{{pseudo}}Die Übertragung wurde durchgeführt.",
+    "confirmSwitch": "**{{oldPet}}** bleibt nun in der Hütte und **{{newPet}}** folgt Ihnen!",
+    "confirmDeposit": "**{{oldPet}}** wurde in der Zuflucht Ihrer Gilde abgegeben!",
+    "confirmWithdraw": "**{{newPet}}** folgt Ihnen von nun an!",
+    "chooseActionTitle": "Transfer eines Vertrauten",
+    "chooseActionDesc": "Wählen Sie eine Aktion, die Sie durchführen möchten:",
+    "depositButton": "Absetzen {{pet}} in der Hütte",
+    "withdrawButton": "Einen Begleiter aus dem Tierheim entfernen",
+    "switchButton": "Austauschen {{pet}} mit einem Vertrauten aus dem Tierheim",
+    "refuseButton": "Übertragung abbrechen",
+    "backButton": "Zurück",
+    "withdrawPlaceholder": "Wählen Sie einen Begleiter zum Entfernen",
+    "switchPlaceholder": "Wählen Sie einen Vertrauten, den Sie gegen {{pet}}eintauschen möchten.",
     "selectMenuPetDetails": "{{rarity}} | {{sex}} | {{loveLevel}}",
-    "feistyError": "Vous ne pouvez pas transférer un familier fielleux."
+    "feistyError": "Sie können einen galligen Begleiter nicht übertragen."
   },
   "petFeed": {
-    "noPet": "Vous n'avez aucun familier !",
-    "noMoney": "Vous n'avez pas assez d'argent pour effectuer cet achat...",
-    "notHungry": "Il semblerait que **{{pet}}** n'ait pas faim...",
-    "guildStorageEmpty": "L'entrepôt de nourriture de votre guilde est vide. Achetez de la nourriture avec {command:guildshop}.",
-    "cancelled": "Nourrissage annulé !",
-    "resultTitle": "{{pseudo}}, nourrissage effectué !",
+    "noPet": "Sie haben keine Vertrauten!",
+    "noMoney": "Sie haben nicht genug Geld, um diesen Kauf zu tätigen...",
+    "notHungry": "Es scheint, dass **{{pet}}** keinen Hunger hat...",
+    "guildStorageEmpty": "Das Nahrungslager Ihrer Gilde ist leer. Kaufen Sie Nahrung mit {command:guildshop}.",
+    "cancelled": "Fütterung abgesagt!",
+    "resultTitle": "{{pseudo}}Fütterung durchgeführt!",
     "result": {
-      "happy": "Votre familier est rassasié et semble heureux !",
-      "veryHappy": "Votre familier est rassasié et semble très heureux !",
-      "veryVeryHappy": "Votre familier est rassasié et saute de joie !",
-      "dislike": "Votre familier ne semble pas avoir aimé cette nourriture..."
+      "happy": "Ihr Vertrauter ist satt und scheint glücklich zu sein!",
+      "veryHappy": "Ihr Vertrauter ist satt und scheint sehr glücklich zu sein!",
+      "veryVeryHappy": "Ihr Vertrauter ist satt und springt vor Freude auf und ab!",
+      "dislike": "Ihrem Vertrauten scheint das Essen nicht zu schmecken..."
     },
-    "feedTitle": "{{pseudo}}, nourrissage de votre familier",
-    "feedDescription": "Choisissez une nourriture pour **{{pet}}** :",
+    "feedTitle": "{{pseudo}}Fütterung Ihres Haustieres",
+    "feedDescription": "Wählen Sie eine Nahrung für **{{pet}}**:",
     "feedFoodBullet": "- **{{food}}** ({{amount}} / {{maxAmount}})",
-    "cancelButton": "Annuler",
-    "feedWithoutGuildDesc": "Souhaitez vous acheter une friandise pour {{pet}} ?\n\n{{food}} | `{{price}}{emote:unitValues.money}`"
+    "cancelButton": "Abbrechen",
+    "feedWithoutGuildDesc": "Möchten Sie ein Leckerli für {{pet}} kaufen?\n\n{{food}} | `{{price}}{emote:unitValues.money}`"
   },
   "leagueReward": {
     "errors": {
-      "notSunday": "La récompense de ligue ne peut être récupérée que le dimanche ! Revenez {{nextSunday}}.",
-      "noPoints": "La récompense de ligue n'est disponible que pour les joueurs ayant combattu durant la saison précédente.",
-      "alreadyClaimed": "Vous avez déjà récupéré votre récompense de ligue pour cette saison."
+      "notSunday": "Die Liga-Belohnung kann nur am Sonntag abgeholt werden! Kehren Sie zurück {{nextSunday}}.",
+      "noPoints": "Die Liga-Belohnung ist nur für Spieler verfügbar, die in der vorherigen Saison gekämpft haben.",
+      "alreadyClaimed": "Sie haben Ihre Liga-Belohnung für diese Saison bereits abgeholt."
     },
-    "title": "{{pseudo}}, vous avez reçu votre récompense de ligue !",
+    "title": "{{pseudo}}Sie haben Ihre Liga-Belohnung erhalten!",
     "description": {
-      "first": "Vous avez terminé la ligue précédente avec **{{glory}} gloire. {emote:unitValues.glory}**\n\n**Vous terminez à la $t(models:ordinals.get, {\"count\": {{rank}}, \"context\":\"feminine\", \"ordinal\": true}) place !**\nVotre ligue finale est : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Argent gagné : **{{money}}** !\n{emote:unitValues.xp} XP gagnée : **{{xp}}** !\n{emote:unitValues.glory} Un badge vous a été offert à la fin de la saison.\n{emote:rewards.item} Vous recevez un équipement aléatoire !",
-      "other": "Vous avez terminé la ligue précédente avec **{{glory}} gloire. {emote:unitValues.glory}**\n\n Vous terminez à la $t(models:ordinals.get, {\"count\": {{rank}}, \"ordinal\": true}) place !\nVotre ligue finale est : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Argent gagné : **{{money}}** !\n{emote:unitValues.xp} XP gagnée : **{{xp}}** !\n{emote:rewards.item} Vous recevez un équipement aléatoire !"
+      "first": "Sie haben die vorherige Liga mit **{{glory}} Ruhm abgeschlossen. {emote:unitValues.glory}**\n\n**Sie schließen auf dem $t(models:ordinals.get, {\"count\": {{rank}}, \"context\":\"feminine\", \"ordinal\": true}) Platz ab!**\nIhre endgültige Liga ist : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Verdientes Geld : **{{money}}**!\n{emote:unitValues.xp} Verdiente XP : **{{xp}}**!\n{emote:unitValues.glory} Am Ende der Saison wurde Ihnen ein Abzeichen geschenkt.\n{emote:rewards.item} Sie erhalten eine zufällige Ausrüstung!",
+      "other": "Sie haben die vorherige Liga mit **{{glory}} Ruhm abgeschlossen. {emote:unitValues.glory}**\n\n Sie schließen mit $t(models:ordinals.get, {\"count\": {{rank}}, \"ordinal\": true}) ab!\nIhre endgültige Liga ist : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Verdientes Geld : **{{money}}**!\n{emote:unitValues.xp} Verdiente XP : **{{xp}}**!\n{emote:rewards.item} Sie erhalten eine zufällige Ausrüstung!"
     }
   }
 }

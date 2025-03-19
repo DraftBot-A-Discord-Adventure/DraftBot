@@ -1340,7 +1340,7 @@
     "female": "Female"
   },
   "ordinals": {
-    "get_feminine_ordinal_one": "1ère",
+    "get_feminine_ordinal_one": "1st",
     "get_feminine_ordinal_other": "{{count}}th",
     "get_ordinal_one": "{{count}}st",
     "get_ordinal_other": "{{count}}th"
