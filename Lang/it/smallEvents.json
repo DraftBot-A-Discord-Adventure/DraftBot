@@ -160,7 +160,7 @@
     ],
     "top100": [
       "{{playerDisplay}} La perseveranza porta al successo - questo è ciò che vi dice uno dei 100 migliori! Poi continuate il vostro cammino verso la vostra destinazione.",
-      "Woah, vous reconnaissez un des débutants des tournois, vous l'aviez déjà croisé dans un village au nord, mais si... C'est {{playerDisplay}} !",
+      "Woah, riconoscete uno dei principianti dei tornei, lo avevate già incontrato in un villaggio a nord, ma sì... È {{playerDisplay}} !",
       "{{playerDisplay}}Mentre lavorate per raggiungere il vostro obiettivo, incontrate , una stella nascente di DraftBot. Infatti, è nella top 100!"
     ],
     "powerful_guild": [
@@ -225,7 +225,7 @@
     ],
     "rich": [
       "{{playerDisplay}} Vi coprite gli occhi per non essere abbagliati dal sole che si riflette sull'oro che indossate! Continuate il vostro cammino, con gli occhi che vi fanno male.",
-      "Est-ce Picsou ? Mais non ! C'est {{playerDisplay}} ! Il possède tellement d'or que vous en êtes ébloui ! Vous continuez votre chemin en vous frottant les yeux.",
+      "È Scrooge? No, non lo è! È {{playerDisplay}} ! Ha così tanto oro che sei abbagliato! Continuate a camminare, strofinandovi gli occhi.",
       "{{playerDisplay}}Le monete cadono dalle tasche, tanto sono piene. Non sembra nemmeno farci caso. Un animale le raccoglie prima che possiate raggiungerle. Continuate il vostro cammino, un po' delusi."
     ],
     "poor": [
@@ -297,7 +297,7 @@
       "injured": [
         "{{playerDisplay}} Inciampate in un uomo che è svenuto sul pavimento. Gli date un colpetto per svegliarlo, ma senza successo.",
         "{{playerDisplay}} Non era un topo morto sul pavimento, era solo un topo morto. Lui non risponde e voi continuate per la vostra strada.",
-        "Une personne est inconsciente au milieu de la route. C'est {{playerDisplay}}. Vous faites ce que vous pouvez pour le ramener à la conscience, sans succès. Vous le déposez donc sur le bord de la route pour éviter qu'il ne soit encore plus blessé."
+        "Una persona è priva di sensi in mezzo alla strada. È {{playerDisplay}}. Si fa di tutto per riportarlo alla coscienza, ma senza successo. Lo si mette quindi a terra sul ciglio della strada per evitare ulteriori lesioni."
       ],
       "starving": [
         "Un ruggito sordo giunge alle vostre orecchie. {{playerDisplay}}Scoprite che si tratta del ventre di . Purtroppo avete da poco finito il cibo avanzato.",
@@ -1289,7 +1289,7 @@
       "{{feralPet}} si incontra una persona che sembra non volerla lasciar passare.",
       "{{feralPet}} all'improvviso emettete uno squittio terrorizzato: c'è un uomo davanti a voi!",
       "{{feralPet}}non sopportate la vista di un .",
-      "vous apercevez un nuage de poussière à l'horizon qui se rapproche dangereusement... C'est un {{feralPet}} !",
+      "vedete una nuvola di polvere all'orizzonte che si avvicina pericolosamente... È {{feralPet}} !",
       "notate un misterioso meccanismo... Incuriositi, decidete di attivarlo. {{feralPet}} Non ci vuole molto per pentirsi della propria decisione, però, quando dal nulla appare un'altra persona!",
       "sentite un tonfo alle vostre spalle. {{feralPet}} Vi girate e vedete che vi sta fissando."
     ],
