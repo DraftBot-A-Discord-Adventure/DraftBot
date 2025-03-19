@@ -5,6 +5,8 @@ token = ""
 main_server_id = ""
 # Test mode
 test_mode = false
+# Dev mode : if true, the bot will register all commands as guild commands
+dev_mode = false
 # Prefix used to prefix the MQTT topics and the databases. It must be the same for all the services
 prefix = "draftbot"
 

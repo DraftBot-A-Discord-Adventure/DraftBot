@@ -20,6 +20,7 @@ export interface DraftBotConfig {
 	KEYCLOAK_CLIENT_ID: string;
 	KEYCLOAK_CLIENT_SECRET: string;
 	TEST_MODE: boolean;
+	DEV_MODE: boolean;
 	MQTT_HOST: string;
 	MARIADB_HOST: string;
 	MARIADB_USER: string;
@@ -35,6 +36,7 @@ type ConfigStructure = {
 		token: string;
 		main_server_id: string;
 		test_mode: boolean;
+		dev_mode: boolean;
 		prefix: string;
 	};
 	roles: {
@@ -92,6 +94,7 @@ export function loadConfig(): DraftBotConfig {
 		KEYCLOAK_CLIENT_ID: config.keycloak.clientId,
 		KEYCLOAK_CLIENT_SECRET: config.keycloak.clientSecret,
 		TEST_MODE: config.general.test_mode,
+		DEV_MODE: config.general.dev_mode,
 		MQTT_HOST: config.mqtt.host,
 		MARIADB_HOST: config.database.host,
 		MARIADB_USER: config.database.user,
