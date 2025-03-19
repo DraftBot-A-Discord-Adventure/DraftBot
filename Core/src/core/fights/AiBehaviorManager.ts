@@ -12,6 +12,7 @@ import FighterFightBehavior from "./aiClassBehaviors/FighterFightBehavior";
 import RecruitFightBehavior from "./aiClassBehaviors/RecruitFightBehavior";
 import RockThrowerFightBehavior from "./aiClassBehaviors/RockThrowerFightBehavior";
 import SlingerFightBehavior from "./aiClassBehaviors/SlingerFightBehavior";
+import VeteranFightBehavior from "./aiClassBehaviors/VeteranFightBehavior";
 
 export interface ClassBehavior {
 	chooseAction(fighter: AiPlayerFighter, fightView: FightView): FightAction;
@@ -38,11 +39,13 @@ export function initializeAllClassBehaviors(): void {
 	registerClassBehavior(ClassConstants.CLASSES_ID.ARCHER, GunnerFightBehavior);
 	registerClassBehavior(ClassConstants.CLASSES_ID.SLINGER, SlingerFightBehavior);
 	registerClassBehavior(ClassConstants.CLASSES_ID.ROCK_THROWER, RockThrowerFightBehavior);
-	registerClassBehavior(ClassConstants.CLASSES_ID.INFANTRYMAN, InfantryManFightBehavior);
 	registerClassBehavior(ClassConstants.CLASSES_ID.POWERFUL_INFANTRYMAN, InfantryManFightBehavior);
+	registerClassBehavior(ClassConstants.CLASSES_ID.INFANTRYMAN, InfantryManFightBehavior);
 	registerClassBehavior(ClassConstants.CLASSES_ID.SOLDIER, InfantryManFightBehavior);
 	registerClassBehavior(ClassConstants.CLASSES_ID.FIGHTER, FighterFightBehavior);
 	registerClassBehavior(ClassConstants.CLASSES_ID.RECRUIT, RecruitFightBehavior);
+	registerClassBehavior(ClassConstants.CLASSES_ID.VETERAN, VeteranFightBehavior);
+	registerClassBehavior(ClassConstants.CLASSES_ID.EXPERIENCED_VETERAN, VeteranFightBehavior);
 }
 
 /**
