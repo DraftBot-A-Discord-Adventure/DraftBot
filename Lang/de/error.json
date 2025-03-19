@@ -21,7 +21,7 @@
     "guildLeave": "Beginn einer Gilde",
     "guildShop": "Auswahl im Gilde-Speicher",
     "guildShopConfirmation": "Bestätigung der Wahl im Gildenladen",
-    "lottery": "mini-évent loterie",
+    "lottery": "Minifächer Lotterie",
     "merchant": "Wahl des Kaufmann",
     "missionShop": "Auswahl im Missionsgeschäft",
     "missionShopConfirmation": "Bestätigung der Auswahl im Missionsladen",
@@ -29,7 +29,7 @@
     "petFree": "Begleiter freigeben",
     "petSell": "Verkauf von Begleiter",
     "petSellConfirm": "Bestätigung des Ankaufs eines Begleites",
-    "petTransfer": "transfert d'animaux",
+    "petTransfer": "Tiertransfer",
     "pveIsland": "Mini-Wind aus der PVE",
     "report": "Bericht",
     "reportCommand": "Bericht, Befehl",
@@ -141,5 +141,7 @@
   "errorOccurred": "Bei der Ausführung dieses Befehls ist ein Fehler aufgetreten:(\n\nBitte melden Sie dieses Problem einem Teammitglied und geben Sie die Uhrzeit und den Server an, auf dem Sie das Problem festgestellt haben.\n\nBitte zögern Sie nicht, unseren Support-Server zu erreichen, um Hilfe zu erhalten: https://discord.gg/5JqrMtZ",
   "maintenanceTitle": "Wartung",
   "maintenance": "Das Spiel wird derzeit gewartet, bitte versuchen Sie es später noch einmal.\n\nWeitere Informationen finden Sie auf dem offiziellen Discord-Server: https://discord.gg/AP3Wmzb",
-  "banned": "Vous avez été banni du jeu."
+  "banned": "Sie wurden aus dem Spiel verbannt.",
+  "aDevMessedUp": "Ups! Es ist ein Fehler aufgetreten. Seien Sie versichert, dass dies nicht Ihr Verschulden ist. Wir bitten Sie, unsere Entschuldigung für die Unannehmlichkeiten zu akzeptieren. Um das Problem zu beheben, kontaktieren Sie bitte unseren Support über unseren Discord-Server: https://discord.gg/5JqrMtZ",
+  "commandNotAvailableHere": "Dieser Befehl kann an dieser Stelle nicht verwendet werden."
 }
