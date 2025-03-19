@@ -1000,5 +1000,16 @@
       "first": "Hai terminato il campionato precedente con **{{glory}} gloria. {emote:unitValues.glory}**\n\n**Ti sei classificato in $t(models:ordinals.get, {\"count\": {{rank}}, \"context\":\"feminine\", \"ordinal\": true}) !**\nLa tua lega finale è : **{emote:leghe.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Soldi vinti : **{{money}}** !\n{emote:unitValues.xp} XP guadagnati: **{{xp}}** !\n{emote:unitValues.glory} Alla fine della stagione ti è stato consegnato un distintivo.\n{emote:rewards.item} Riceverai un equipaggiamento casuale!",
       "other": "Hai terminato il campionato precedente con **{{glory}} gloria. {emote:unitValues.glory}**\n\n Hai finito in $t(models:ordinals.get, {\"count\": {{rank}}, \"ordinal\": true}) !\nLa tua lega finale è : **{emote:leghe.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Soldi guadagnati: **{{money}}** !\n{emote:unitValues.xp} XP guadagnati: **{{xp}}** !\n{emote:rewards.item} Ricevi un equipaggiamento casuale!"
     }
+  },
+  "guildStorage": {
+    "embed": {
+      "title": "Entrepôt de la guilde {{guildName}}",
+      "descriptionTitle": "**Nourriture** : ",
+      "description": "La nourriture est utile pour nourrir tous vos familiers. Si vous n'en avez plus, vous pouvez en acheter via la commande {command:guildshop}."
+    },
+    "food": {
+      "title": "{emote:foods.{{foodId}}} $t(models:foods.{{foodId}}, {\"context\": \"capitalized\"})",
+      "description": "**Stock** : {{amount}}/{{maxAmount}}\n"
+    }
   }
 }
