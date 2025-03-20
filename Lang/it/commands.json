@@ -5,7 +5,7 @@
   },
   "pet": {
     "embedTitle": "Animale domestico di {{pseudo}} :",
-    "petField": "**Tipo :** {{emote}} {{typeName}}\n**Sopranome :** {{nickname}}\n**Rarita :** {{rarity}}\n**Sesso :** {{sex}}\n**Mentalita :** {{loveLevel}}",
+    "petField": "***Tipo:*** {{emote}} {{typeName}}\n***Sopranome:*** {{nickname}}\n***Rarità:*** {{rarity}}\n***Sesso:*** {{sex}}\n***Mentalità:** {{loveLevel}}",
     "noNickname": "Nessun soprannome",
     "loveLevels": {
       "1_male": ":smirk_cat: Ribelle",
@@ -522,11 +522,11 @@
     "canceledTitle": "{{pseudo}}, cancellazione del rilascio.",
     "canceledDesc": "L'animale non è stato rilasciato.",
     "confirmDesc": ":warning: Siete sicuri di voler rilasciare **{{pet}}** ? Non è possibile annullare una volta completata l'azione.",
-    "acceptedDesc": "{{pet}}Addio ** **..."
+    "acceptedDesc": "{{pet}}Addio *** ***..."
   },
   "petNick": {
-    "successTitle": "{{pseudo}}cambiare il soprannome dell'animale domestico",
-    "success": "{{name}}Il soprannome dell'animale domestico è stato cambiato in ** ** !",
+    "successTitle": "{{pseudo}}Cambiare il soprannome dell'animale domestico",
+    "success": "{{name}}Il soprannome dell'animale domestico è stato cambiato in *** *** !",
     "successNoName": "Il vostro animale non ha più un soprannome!"
   },
   "shop": {
@@ -758,7 +758,7 @@
   },
   "guildDaily": {
     "rewardTitle": "{{guildName}} Ricompensa della gilda :",
-    "coolDown": "{{coolDownTime}} La ricompensa della gilda è disponibile solo una volta ogni ora. L'aggiunta di un nuovo membro alla gilda azzera il contatore. {{time}}Prossima ricompensa .",
+    "coolDown": "{{coolDownTime}} La ricompensa della gilda è disponibile solo una volta ogni ora. L'aggiunta di un nuovo membro alla gilda azzera il contatore. {{time}}Prossima ricompensa.",
     "pveIslandError": "La ricompensa della gilda non può essere ottenuta perché uno dei membri si trova attualmente su un'isola misteriosa!",
     "rewards": {
       "personalXP": "{emote:unitValues.xp} {{quantity}} {emote:unitValues.xp}| I membri della Gilda hanno acquisito esperienza `+ `.",
@@ -1003,13 +1003,13 @@
   },
   "guildStorage": {
     "embed": {
-      "title": "Entrepôt de la guilde {{guildName}}",
-      "descriptionTitle": "**Nourriture** : ",
-      "description": "La nourriture est utile pour nourrir tous vos familiers. Si vous n'en avez plus, vous pouvez en acheter via la commande {command:guildshop}."
+      "title": "Magazzino della gilda {{guildName}}",
+      "descriptionTitle": "Cibo ",
+      "description": "Il cibo è utile per nutrire tutti i tuoi familiari. Se non ne hai più, puoi acquistarlo tramite il comando {command:guildshop}."
     },
     "food": {
-      "title": "{emote:foods.{{foodId}}} $t(models:foods.{{foodId}}, {\"context\": \"capitalized\"})",
-      "description": "**Stock** : {{amount}}/{{maxAmount}}\n"
+      "title": "{emote:cibo.{{foodId}}} $t (modello:cibo.{{foodId}}, {\"contesto\": \"in maiuscolo\"})",
+      "description": "Stock: {{amount}}/{{maxAmount}}"
     }
   }
 }
