@@ -162,6 +162,13 @@ docker build . -f Core/Dockerfile -t draftbot/core
 docker build . -f Discord/Dockerfile -t draftbot/discord
 ```
 
+# License
+
+This project is licensed under the GNU General Public License v3.0 (GPL-3.0).
+- This is GPL-3.0 or any later version.
+
+For details, see the [LICENSE](LICENSE) file in this repository.
+
 # Screenshots
 
 ![image](https://user-images.githubusercontent.com/56274541/120916573-ad599000-c6aa-11eb-9e6f-ccc804bc63b2.png)
