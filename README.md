@@ -164,8 +164,7 @@ docker build . -f Discord/Dockerfile -t draftbot/discord
 
 # License
 
-This project is licensed under the GNU General Public License v3.0 (GPL-3.0).
-- This is GPL-3.0 or any later version.
+This project is licensed under the GNU Affero General Public License v3.0 (AGPL-3.0) or, at your option, any later version.
 
 For details, see the [LICENSE](LICENSE) file in this repository.
 
