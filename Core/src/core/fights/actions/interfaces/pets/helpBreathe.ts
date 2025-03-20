@@ -7,8 +7,8 @@ import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/Fig
 
 const use: PetAssistanceFunc = (fighter, _opponent, _turn, _fightController): Promise<PetAssistanceResult | null> => {
 
-	// 75 % of the time, nothing happens
-	if (RandomUtils.draftbotRandom.bool(0.75) || fighter.getBreath() === fighter.getMaxBreath()) {
+	// 80 % of the time, nothing happens
+	if (RandomUtils.draftbotRandom.bool(0.80) || fighter.getBreath() === fighter.getMaxBreath()) {
 		return null;
 	}
 
