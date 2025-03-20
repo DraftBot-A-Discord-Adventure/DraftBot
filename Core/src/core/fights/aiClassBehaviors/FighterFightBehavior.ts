@@ -16,7 +16,7 @@ class FighterFightBehavior implements ClassBehavior {
 		const powerfulAttacksUsed = this.powerfulAttacksUsedMap;
 		const opponent = fightView.fightController.getDefendingFighter() as PlayerFighter | AiPlayerFighter; // AI will never fight monsters
 
-		if (shouldProtect(opponent, me)) {
+		if (shouldProtect(opponent, me, fightView.fightController.turn)) {
 			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.PROTECTION);
 		}
 
