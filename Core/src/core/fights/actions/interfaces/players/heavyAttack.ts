@@ -1,13 +1,12 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
-import {FightAlterations} from "../../FightAlterations";
 import {FightActionFunc} from "../../../../../data/FightAction";
 import {FightStatBuffed} from "../../../../../../../Lib/src/types/FightActionResult";
 import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
 
 const use: FightActionFunc = (sender, receiver, fightAction) => {
 	const initialDamage = FightActionController.getAttackDamage(getStatsInfo(sender, receiver), sender, getAttackInfo());
-	const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 20);
+	const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 8);
 
 	// This attack will do less damage if the opponent has lower defense than the attacker
 	damageDealt.damages *= Math.round(receiver.getDefense() < sender.getDefense() ? 0.1 : 1);
@@ -15,14 +14,6 @@ const use: FightActionFunc = (sender, receiver, fightAction) => {
 		attackStatus: damageDealt.status,
 		damages: damageDealt.damages
 	};
-
-	// 25% chance to stun the receiver
-	if (Math.random() < 0.25) {
-		FightActionController.applyAlteration(result, {
-			selfTarget: false,
-			alteration: FightAlterations.STUNNED
-		}, receiver);
-	}
 
 	// Reduce defense of the receiver by 25 %
 	FightActionController.applyBuff(result, {
@@ -39,9 +30,9 @@ export default use;
 
 function getAttackInfo(): attackInfo {
 	return {
-		minDamage: 40,
-		averageDamage: 120,
-		maxDamage: 180
+		minDamage: 50,
+		averageDamage: 170,
+		maxDamage: 240
 	};
 }
 
