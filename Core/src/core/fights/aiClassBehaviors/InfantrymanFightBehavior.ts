@@ -17,7 +17,7 @@ class InfantryManFightBehavior implements ClassBehavior {
 		const powerfulAttacksUsed = this.powerfulAttacksUsedMap;
 		const opponent = fightView.fightController.getDefendingFighter() as PlayerFighter | AiPlayerFighter; // AI will never fight monsters
 
-		if (shouldProtect(opponent, me)) {
+		if (shouldProtect(opponent, me, fightView.fightController.turn)) {
 			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.PROTECTION);
 		}
 
@@ -31,17 +31,23 @@ class InfantryManFightBehavior implements ClassBehavior {
 			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.POWERFUL_ATTACK);
 		}
 
-		// Use charging attack if the opponent is not a knight and we have enough breath
-		if (
-			(fightView.fightController.turn > 11 // Except if we are a late fight
-				|| powerfulAttacksUsed > 2) // Priority to the powerful attacks
-			&& me.getEnergy() > me.getMaxEnergy() * 0.21 // Don't use it if we are about to die
-			&& (opponent.player.class !== ClassConstants.CLASSES_ID.MYSTIC_MAGE
-				|| me.hasFightAlteration()
+		// Use charging attack if enough breath and either:
+		// 1. Opponent is charging a two-turn attack, OR
+		// 2. Various tactical conditions are met and the opponent is not a knight
+		if (me.getBreath() >= FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK) &&
+			(
+				// Condition 1: Opponent is charging a two-turn attack
+				opponent.getLastFightActionUsed().id === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_ULTIMATE_ATTACK
+					|| opponent.getLastFightActionUsed().id === FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK && opponent.getBreath() >= 2
+					|| opponent.getLastFightActionUsed().id === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK
+				||
+				// Condition 2: Tactical advantage against non-knight opponents
+				(fightView.fightController.turn > 11 || powerfulAttacksUsed > 2)
+					&& me.getEnergy() > me.getMaxEnergy() * 0.21
+					&& (opponent.player.class !== ClassConstants.CLASSES_ID.MYSTIC_MAGE || me.hasFightAlteration())
+					&& (RandomUtils.draftbotRandom.bool() || opponent.getDefense() < me.getDefense())
+					&& opponent.player.class !== ClassConstants.CLASSES_ID.KNIGHT
 			)
-			&& (RandomUtils.draftbotRandom.bool() || opponent.getDefense() < me.getDefense()) // If opponent has more defense we don't want to spam this attack
-			&& opponent.player.class !== ClassConstants.CLASSES_ID.KNIGHT
-			&& me.getBreath() >= FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK)
 		) {
 			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK);
 		}

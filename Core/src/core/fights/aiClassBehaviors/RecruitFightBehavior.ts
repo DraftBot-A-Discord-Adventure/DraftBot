@@ -37,9 +37,10 @@ export function piercingOrSimpleAttack(opponent: PlayerFighter | AiPlayerFighter
  * Determines if the AI should use a protection action based on opponent class and battle state
  * @param opponent - The opponent fighter in the current battle
  * @param me - The AI fighter making the action decision
+ * @param turn - Current turn number in the fight
  * @returns True if protection should be used, false otherwise
  */
-export function shouldProtect(opponent: PlayerFighter | AiPlayerFighter, me: AiPlayerFighter): boolean {
+export function shouldProtect(opponent: PlayerFighter | AiPlayerFighter, me: AiPlayerFighter, turn: number): boolean {
 	// If the opponent is a mage, or a gunner with a lot of breath, and we are not protected, use protection
 	return (opponent.player.class === ClassConstants.CLASSES_ID.MYSTIC_MAGE
 			|| (opponent.player.class === ClassConstants.CLASSES_ID.GUNNER
@@ -48,6 +49,7 @@ export function shouldProtect(opponent: PlayerFighter | AiPlayerFighter, me: AiP
 				|| opponent.player.class === ClassConstants.CLASSES_ID.SLINGER
 				|| opponent.player.class === ClassConstants.CLASSES_ID.ROCK_THROWER)
 			&& opponent.getBreath() > 4
+		|| turn === 1 // First turn, use protection to protect against pets
 	)
 		&& !me.hasFightAlteration()
 		&& opponent.getEnergy() > opponent.getMaxEnergy() * 0.07; // Don't use this if the opponent is about to die
@@ -59,7 +61,7 @@ class RecruitFightBehavior implements ClassBehavior {
 
 		const opponent = fightView.fightController.getDefendingFighter() as PlayerFighter | AiPlayerFighter; // AI will never fight monsters
 
-		if (shouldProtect(opponent, me)) {
+		if (shouldProtect(opponent, me, fightView.fightController.turn)) {
 			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.PROTECTION);
 		}
 
