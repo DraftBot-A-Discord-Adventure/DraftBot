@@ -222,6 +222,7 @@ function fightValidationEndCallback(player: Player, context: PacketContext): End
 export default class FightCommand {
 	@commandRequires(CommandFightPacketReq, {
 		notBlocked: true,
+		whereAllowed: CommandUtils.WHERE.EVERYWHERE,
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD,
 		level: FightConstants.REQUIRED_LEVEL
 	})
