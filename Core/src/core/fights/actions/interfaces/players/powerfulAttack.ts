@@ -10,12 +10,12 @@ const use: FightActionFunc = (sender, receiver, fightAction) => {
 	const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 12);
 
 	// Check how many times the attack appears in the fight action history of the sender
-	const count = sender.fightActionsHistory.filter(action => action.id === "powerfulAttack").length;
+	const count = sender.fightActionsHistory.filter(action => action.id === "powerfulAttack").length + 1;
 
-	// If the attack is repeated more than 3 times, the damage dealt is reduced by 70%
+	// If the attack is repeated more than 3 times, the damage dealt is reduced by 90%
 	const result: FightActionResult = {
 		attackStatus: damageDealt.status,
-		damages: damageDealt.damages * (count > 3 ? 0.3 : 1)
+		damages: damageDealt.damages * (count > 3 ? 0.1 : 1)
 	};
 
 	// 20% chance to stun the sender and deal 50% more damage
