@@ -14,7 +14,7 @@ const use: FightActionFunc = (sender, receiver, fightAction) => {
 		},
 		{
 			critical: 5,
-			failure: 25
+			failure: 6
 		},
 		{
 			attackInfo: getAttackInfo(),
