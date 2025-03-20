@@ -38,15 +38,19 @@ class InfantryManFightBehavior implements ClassBehavior {
 			(
 				// Condition 1: Opponent is charging a two-turn attack
 				opponent.getLastFightActionUsed().id === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_ULTIMATE_ATTACK
-					|| opponent.getLastFightActionUsed().id === FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK && opponent.getBreath() >= 2
-					|| opponent.getLastFightActionUsed().id === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK
+				|| opponent.getLastFightActionUsed().id === FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK && opponent.getBreath() >= 2
+				|| opponent.getLastFightActionUsed().id === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK
 				||
 				// Condition 2: Tactical advantage against non-knight opponents
 				(fightView.fightController.turn > 11 || powerfulAttacksUsed > 2)
-					&& me.getEnergy() > me.getMaxEnergy() * 0.21
-					&& (opponent.player.class !== ClassConstants.CLASSES_ID.MYSTIC_MAGE || me.hasFightAlteration())
-					&& (RandomUtils.draftbotRandom.bool() || opponent.getDefense() < me.getDefense())
-					&& opponent.player.class !== ClassConstants.CLASSES_ID.KNIGHT
+				&& me.getEnergy() > me.getMaxEnergy() * 0.21
+				&& (opponent.player.class !== ClassConstants.CLASSES_ID.MYSTIC_MAGE || me.hasFightAlteration())
+				&& (RandomUtils.draftbotRandom.bool() || opponent.getDefense() < me.getDefense())
+				&& opponent.player.class !== ClassConstants.CLASSES_ID.KNIGHT
+				&& opponent.player.class !== ClassConstants.CLASSES_ID.VALIANT_KNIGHT
+				&& opponent.player.class !== ClassConstants.CLASSES_ID.HORSE_RIDER
+				&& opponent.player.class !== ClassConstants.CLASSES_ID.PIKEMAN
+				&& opponent.player.class !== ClassConstants.CLASSES_ID.ESQUIRE
 			)
 		) {
 			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK);

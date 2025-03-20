@@ -56,6 +56,10 @@ class VeteranFightBehavior implements ClassBehavior {
 				&& opponent.getEnergy() > opponent.getMaxEnergy() * 0.16
 				&& (opponent.player.class !== ClassConstants.CLASSES_ID.MYSTIC_MAGE || me.hasFightAlteration())
 				&& opponent.player.class !== ClassConstants.CLASSES_ID.KNIGHT
+				&& opponent.player.class !== ClassConstants.CLASSES_ID.VALIANT_KNIGHT
+				&& opponent.player.class !== ClassConstants.CLASSES_ID.HORSE_RIDER
+				&& opponent.player.class !== ClassConstants.CLASSES_ID.PIKEMAN
+				&& opponent.player.class !== ClassConstants.CLASSES_ID.ESQUIRE
 			)
 		) {
 			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK);
