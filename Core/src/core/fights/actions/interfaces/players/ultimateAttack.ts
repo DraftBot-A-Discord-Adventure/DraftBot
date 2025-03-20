@@ -10,7 +10,7 @@ const use: FightActionFunc = (sender, receiver) => {
 	// Check if the sender has less than 45% of his energy
 	const failureProbability = sender.getEnergy() < sender.getMaxEnergy() * 0.45 ? 0 : 70;
 
-	const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 20, failureProbability);
+	const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 10, failureProbability);
 
 	const result: FightActionResult = {
 		attackStatus: damageDealt.status,
@@ -28,7 +28,7 @@ const use: FightActionFunc = (sender, receiver) => {
 function getAttackInfo(): attackInfo {
 	return {
 		minDamage: 100,
-		averageDamage: 250,
+		averageDamage: 280,
 		maxDamage: 350
 	};
 }
