@@ -13,6 +13,7 @@ import RecruitFightBehavior from "./aiClassBehaviors/RecruitFightBehavior";
 import RockThrowerFightBehavior from "./aiClassBehaviors/RockThrowerFightBehavior";
 import SlingerFightBehavior from "./aiClassBehaviors/SlingerFightBehavior";
 import VeteranFightBehavior from "./aiClassBehaviors/VeteranFightBehavior";
+import PaladinFightBehavior from "./aiClassBehaviors/PaladinFightBehavior";
 
 export interface ClassBehavior {
 	chooseAction(fighter: AiPlayerFighter, fightView: FightView): FightAction;
@@ -46,6 +47,8 @@ export function initializeAllClassBehaviors(): void {
 	registerClassBehavior(ClassConstants.CLASSES_ID.RECRUIT, RecruitFightBehavior);
 	registerClassBehavior(ClassConstants.CLASSES_ID.VETERAN, VeteranFightBehavior);
 	registerClassBehavior(ClassConstants.CLASSES_ID.EXPERIENCED_VETERAN, VeteranFightBehavior);
+	registerClassBehavior(ClassConstants.CLASSES_ID.PALADIN, PaladinFightBehavior);
+	registerClassBehavior(ClassConstants.CLASSES_ID.LUMINOUS_PALADIN, PaladinFightBehavior);
 }
 
 /**
