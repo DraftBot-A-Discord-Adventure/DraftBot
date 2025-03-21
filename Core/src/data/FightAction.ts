@@ -19,6 +19,7 @@ export class FightAction extends Data<string> {
 	public use(sender: Fighter, receiver: Fighter, turn: number, fight: FightController): FightActionResult {
 		const result = FightActionDataController.getFightActionFunction(this.id)(sender, receiver, this, turn, fight);
 		receiver.damage(result.damages);
+		result.usedAction ? receiver.damage(result.usedAction.result.damages) : null;
 		return result;
 	}
 
