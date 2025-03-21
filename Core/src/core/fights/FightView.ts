@@ -173,14 +173,16 @@ export class FightView {
 			}
 			return null;
 		};
-
+		const usedFightActionId = Object.prototype.hasOwnProperty.call(fightActionResult, "usedAction") ? (fightActionResult as FightActionResult).usedAction.id : null;
+		fightActionResult = Object.prototype.hasOwnProperty.call(fightActionResult, "usedAction") ? (fightActionResult as FightActionResult).usedAction.result : fightActionResult;
 		response.push(makePacket(CommandFightHistoryItemPacket, {
 			fighterKeycloakId: fighter instanceof MonsterFighter ? null : fighter.player.keycloakId,
 			monsterId: fighter instanceof MonsterFighter ? fighter.monster.id : null,
 			/* Sometimes fightActionResult.usedAction is not the same
 				as what the user selected (fightAction is what the user selected)
 	            and fightActionResult.usedAction is what ended up being used */
-			fightActionId: Object.prototype.hasOwnProperty.call(fightActionResult, "usedAction") ? (fightActionResult as FightActionResult).usedAction.id : fightAction.id,
+			fightActionId: fightAction.id,
+			usedFightActionId,
 			customMessage: "customMessage" in fightActionResult ? fightActionResult.customMessage : false,
 			status:
 				"attackStatus" in fightActionResult ?
