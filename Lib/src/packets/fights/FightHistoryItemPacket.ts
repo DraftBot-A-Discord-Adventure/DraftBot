@@ -9,6 +9,8 @@ export class CommandFightHistoryItemPacket extends DraftBotPacket {
 
 	fightActionId!: string;
 
+	usedFightActionId?: string; // Sometimes a fight action is used by another one
+
 	customMessage?: boolean; // True if the fight action has an associated custom message instead of the default (only for attacks)
 
 	status?: string; // See constants in FightAlterationResult or FightActionStatus for values
