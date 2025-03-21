@@ -45,13 +45,13 @@ export class FightActionDataController extends DataControllerString<FightAction>
 	private static fightActionsFunctionsCache: Map<string, FightActionFunc>;
 
 	public static getFightActionBreathCost(id: string): number {
-        const fightAction = this.instance.getById(id);
-        if (fightAction) {
-            return fightAction.breath;
-        }
-        throw new Error(`FightAction with id ${id} not found`);
-    }
-	
+		const fightAction = this.instance.getById(id);
+		if (fightAction) {
+			return fightAction.breath;
+		}
+		throw new Error(`FightAction with id ${id} not found`);
+	}
+
 	public static getFightActionFunction(id: string): FightActionFunc {
 		if (!FightActionDataController.fightActionsFunctionsCache) {
 			FightActionDataController.fightActionsFunctionsCache = new Map<string, FightActionFunc>();

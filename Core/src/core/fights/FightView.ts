@@ -160,7 +160,10 @@ export class FightView {
 		 * @param fighter
 		 * @param fightActionResult
 		 */
-		const getPetIfRelevant = async (fighter: PlayerFighter | MonsterFighter | AiPlayerFighter, fightActionResult: FightActionResult | FightAlterationResult | PetAssistanceResult): Promise<OwnedPet | null> => {
+		const getPetIfRelevant = async (
+			fighter: PlayerFighter | MonsterFighter | AiPlayerFighter,
+			fightActionResult: FightActionResult | FightAlterationResult | PetAssistanceResult
+		): Promise<OwnedPet | null> => {
 			// Check if the fighter is a player (not a monster) and has a pet
 			if (!(fighter instanceof MonsterFighter) && fighter.player.petId) {
 				// Check if the action result is pet assistance (has assistanceStatus property)
