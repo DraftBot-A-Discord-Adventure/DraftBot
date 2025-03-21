@@ -153,7 +153,7 @@ class PaladinFightBehavior implements ClassBehavior {
 	): boolean {
 		const ramAttackBreathCost = FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.RAM_ATTACK);
 		return (
-			!opponent.hasFightAlteration() &&
+			(!opponent.hasFightAlteration() || opponent.alteration.id === FightConstants.FIGHT_ACTIONS.ALTERATION.STUNNED) &&
 			(me.getBreath() > 17 || divineAndUltimateAttacksUsed ||
 				opponent.getLastFightActionUsed().id === FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK && opponent.getBreath() >= 2) &&
 			me.getBreath() >= ramAttackBreathCost &&
