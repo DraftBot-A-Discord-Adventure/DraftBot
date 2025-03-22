@@ -128,6 +128,10 @@
       "self": "Vous êtes actuellement perdu !",
       "other": "{{pseudo}} est actuellement perdu !"
     },
+    "fished": {
+      "self": "Vous êtes actuellement empoissonné !",
+      "other": "{{pseudo}} est actuellement empoissonné !"
+    },
     "notStartedHint": {
       "self": "Utilisez la commande {command:report} pour commencer votre aventure !",
       "other": "Impossible d'effectuer cette action."

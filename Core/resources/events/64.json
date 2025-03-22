@@ -35,7 +35,8 @@
                 }
             },
             "level": 3,
-            "oncePer": "year"
+            "oncePer": "year",
+            "mapAttributes": ["continent1"]
         }
     ]
 }
