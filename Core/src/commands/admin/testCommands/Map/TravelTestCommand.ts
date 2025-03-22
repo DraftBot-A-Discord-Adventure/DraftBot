@@ -3,6 +3,7 @@ import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/Co
 import {TravelTime} from "../../../../core/maps/TravelTime";
 import {NumberChangeReason} from "../../../../../../Lib/src/constants/LogsConstants";
 import {MapLinkDataController} from "../../../../data/MapLink";
+import {PlayerSmallEvents} from "../../../../core/database/game/models/PlayerSmallEvent";
 
 export const commandInfo: ITestCommand = {
 	name: "travel",
@@ -34,6 +35,7 @@ const travelTestCommand: ExecuteTestCommandLike = async (player, args) => {
 	await TravelTime.removeEffect(player, NumberChangeReason.TEST);
 
 	await Maps.startTravel(player, link, Date.now());
+	await PlayerSmallEvents.removeSmallEventsOfPlayer(player.id);
 	await player.save();
 	return `Vous êtes téléportés entre la map ${mapStart} et la map ${mapEnd} !`;
 };
