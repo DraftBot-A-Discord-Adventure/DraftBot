@@ -31,7 +31,9 @@ const rollBackGuildJoin: ExecuteTestCommandLike = async (player: Player) => {
 				required: true,
 				association: new HasOne(LogsGuildsJoins, LogsGuilds, {sourceKey: "guildId", foreignKey: "id"})
 			}
-		]
+		],
+		order: [["date", "DESC"]], // Trier par date décroissante pour prendre la plus récente
+		limit: 1
 	});
 
 
