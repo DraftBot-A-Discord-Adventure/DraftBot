@@ -31,7 +31,7 @@ async function startBoatTravel(player: Player, price: number, anotherMemberOnBoa
 	await TravelTime.removeEffect(player, NumberChangeReason.SMALL_EVENT);
 	await Maps.startTravel(
 		player,
-		await MapLinkDataController.instance.getById(await Settings.PVE_ISLAND.getValue()),
+		MapLinkDataController.instance.getById(await Settings.PVE_ISLAND.getValue()),
 		anotherMemberOnBoat ? anotherMemberOnBoat.startTravelDate.valueOf() : startTravelTimestamp
 	);
 	await missionInfo.addGems(-price, player.keycloakId, NumberChangeReason.SMALL_EVENT);

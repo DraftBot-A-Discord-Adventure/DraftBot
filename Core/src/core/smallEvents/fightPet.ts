@@ -73,7 +73,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 			const selectedFightPetAction = retrieveSelectedEvent(collector);
 			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.FIGHT_PET_CHOOSE);
 			const outcomeIsSuccess = await selectedFightPetAction.applyOutcomeFightPetAction(player, pet, isFemale);
-			await player.addRage(outcomeIsSuccess ? 1 : 0, NumberChangeReason.FIGHT_PET_SMALL_EVENT);
+			await player.addRage(outcomeIsSuccess ? 1 : 0, NumberChangeReason.FIGHT_PET_SMALL_EVENT, response);
 			await player.save();
 			response.push(makePacket(SmallEventFightPetPacket, {
 				isSuccess: outcomeIsSuccess,

@@ -31,6 +31,8 @@ export class Effect {
 
 	public static readonly LOST = new Effect("lost", ":face_with_monocle:", 270);
 
+	public static readonly FISHED = new Effect("fished", ":fish:", 5);
+
 
 	public static getById(id: string): Effect | null {
 		return effects.get(id) ?? null;

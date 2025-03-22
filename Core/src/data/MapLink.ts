@@ -2,6 +2,7 @@ import {DataControllerNumber} from "./DataController";
 import {RandomUtils} from "../../../Lib/src/utils/RandomUtils";
 import {MapLocationDataController} from "./MapLocation";
 import {Data} from "./Data";
+import {MapConstants} from "../../../Lib/src/constants/MapConstants";
 
 export class MapLink extends Data<number> {
 	public readonly startMap: number;
@@ -40,7 +41,7 @@ export class MapLinkDataController extends DataControllerNumber<MapLink> {
 			.filter((mapLink) => {
 				const startMap = MapLocationDataController.instance.getById(mapLink.startMap);
 				const endMap = MapLocationDataController.instance.getById(mapLink.endMap);
-				return startMap.attribute === "continent1" && endMap.attribute === "continent1";
+				return startMap.attribute === MapConstants.MAP_ATTRIBUTES.CONTINENT1 && endMap.attribute === MapConstants.MAP_ATTRIBUTES.CONTINENT1;
 			});
 		return RandomUtils.draftbotRandom.pick(mapLinks);
 	}
