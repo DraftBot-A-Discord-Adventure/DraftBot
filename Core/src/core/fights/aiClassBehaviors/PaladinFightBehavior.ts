@@ -75,7 +75,7 @@ class PaladinFightBehavior implements ClassBehavior {
 			return false;
 		}
 
-		const opponentLastActionId = opponent.getLastFightActionUsed().id;
+		const opponentLastActionId = opponent.getLastFightActionUsed() ? opponent.getLastFightActionUsed().id : null;
 		const isOpponentDivine = opponentLastActionId === FightConstants.FIGHT_ACTIONS.PLAYER.DIVINE_ATTACK;
 		const isOpponentPaladinType = opponent.player.class === ClassConstants.CLASSES_ID.PALADIN ||
 			opponent.player.class === ClassConstants.CLASSES_ID.LUMINOUS_PALADIN;

@@ -1,7 +1,7 @@
 {
 	"emoji": "🪖",
-	"attack": 25,
-	"defense": 55,
+	"attack": 35,
+	"defense": 60,
 	"speed": 3,
 	"health": 110,
 	"fightPoint": 300,
