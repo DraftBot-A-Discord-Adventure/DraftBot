@@ -205,15 +205,15 @@ export class FightActionController {
 	private static getAttackDamageByStat(attackerStat: number, defenderStat: number, attackInfo: attackInfo): number {
 
 		/*
-		 * This function allows to exacerbate the difference between the attacker stat and the defender stat
+		 * This function allows exacerbating the difference between the attacker stat and the defender stat
 		 */
 		const ratio = (this.statToStatPower(attackerStat) - this.statToStatPower(defenderStat)) / 50;
 
 		const damage = ratio < 0 ? Math.round(
-			// If the attacker is weaker than the defender, the damage is selected in the under the average damage interval
+			// If the attacker is weaker than the defender, the damage is selected in under the average damage interval
 			MathUtils.getIntervalValue(attackInfo.minDamage, attackInfo.averageDamage, 1 - Math.abs(ratio))
 		) : Math.round(
-			// If the attacker is stronger than the defender, the damage is selected in the over the average damage interval
+			// If the attacker is stronger than the defender, the damage is selected in over the average damage interval
 			MathUtils.getIntervalValue(attackInfo.averageDamage, attackInfo.maxDamage, ratio)
 		);
 		// Return damage caped between max and min
