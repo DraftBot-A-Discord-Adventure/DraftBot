@@ -65,7 +65,7 @@
   "unknownPlayer": "Nombre de usuario 404",
   "petNickNotValid": "Las normas para poner nombre a una mascota son las siguientes:\n$t(error:stringRules)",
   "stringRules": "\n\n\n {{min}} {{max}} - Utilice al menos una letra - No utilice más de 2 espacios consecutivos - No se admiten caracteres especiales - Entre y caracteres",
-  "notInAGuild": "Debes pertenecer a un gremio para realizar este pedido.",
+  "notInAGuild": "Vous devez appartenir à une guilde pour effectuer cette commande.",
   "notAuthorizedError": "No tienes los permisos necesarios para realizar este pedido dentro de tu gremio, así que pregunta a uno de tus superiores si lo necesitas.",
   "levelTooLow": "{{level}}Debes ser **nivel ** para usar este comando. Vuelve más tarde.",
   "targetLevelTooLow": "{{level}}¡Este jugador debe ser **nivel ** para que puedas usar este comando!",
@@ -127,6 +127,10 @@
     "lost": {
       "self": "¡Estás perdido!",
       "other": "{{pseudo}} ¡ahora está perdido!"
+    },
+    "fished": {
+      "self": "Vous êtes actuellement empoissonné !",
+      "other": "{{pseudo}} est actuellement empoissonné !"
     },
     "notStartedHint": {
       "self": "{command:report} ¡Utiliza el mando para comenzar tu aventura!",
