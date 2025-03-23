@@ -129,8 +129,8 @@
       "other": "{{pseudo}} ist derzeit verloren!"
     },
     "fished": {
-      "self": "Vous êtes actuellement empoissonné !",
-      "other": "{{pseudo}} est actuellement empoissonné !"
+      "self": "Sie werden derzeit gepfählt!",
+      "other": "{{pseudo}} ist derzeit vergiftet!"
     },
     "notStartedHint": {
       "self": "Verwenden Sie den Befehl {command:report} , um Ihr Abenteuer zu beginnen!",
