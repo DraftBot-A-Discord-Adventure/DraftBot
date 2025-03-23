@@ -18,6 +18,10 @@ export class CommandGuildKickPacketRes extends DraftBotPacket {
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class CommandGuildKickBlockedErrorPacket extends DraftBotPacket {
+}
+
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandGuildKickRefusePacketRes extends DraftBotPacket {
 	kickedKeycloakId!: string;
 }
