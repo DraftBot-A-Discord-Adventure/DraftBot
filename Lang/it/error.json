@@ -65,7 +65,7 @@
   "unknownPlayer": "Nome utente 404",
   "petNickNotValid": "Le regole per dare un nome a un animale domestico sono le seguenti:\n$t(error:stringRules)",
   "stringRules": "\n\n\n {{min}} {{max}} - Utilizzare almeno una lettera - Non utilizzare più di 2 spazi consecutivi - I caratteri speciali non sono ammessi - Tra e caratteri",
-  "notInAGuild": "Dovete essere in una gilda per Effettuare questo comando",
+  "notInAGuild": "Dovete essere in una gilda per Effettuare questo comando.",
   "notAuthorizedError": "Non avete le permissione necessarie per Effettuare questo commando in vostra gilda, chiedete a un dei vostri superiori se bisogno.",
   "levelTooLow": "{{level}}Dovete essere di **livello ** per usare questo comando! Tornate più tardi!",
   "targetLevelTooLow": "{{level}}Questo giocatore deve essere di **livello ** prima di poter usare questo comando!",
@@ -127,6 +127,10 @@
     "lost": {
       "self": "Al momento ti sei perso!",
       "other": "{{pseudo}} è ormai perduto!"
+    },
+    "fished": {
+      "self": "Vous êtes actuellement empoissonné !",
+      "other": "{{pseudo}} est actuellement empoissonné !"
     },
     "notStartedHint": {
       "self": "{command:report} Utilizzate il comando per iniziare la vostra avventura!",
