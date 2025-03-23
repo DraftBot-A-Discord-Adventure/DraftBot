@@ -28,8 +28,8 @@ const use: FightActionFunc = (sender, receiver) => {
 function getAttackInfo(): attackInfo {
 	return {
 		minDamage: 100,
-		averageDamage: 280,
-		maxDamage: 350
+		averageDamage: 325,
+		maxDamage: 400
 	};
 }
 

@@ -12,7 +12,7 @@ const use: FightActionFunc = (sender, receiver, fightAction) => {
 			receiver
 		},
 		{
-			critical: 1,
+			critical: 7,
 			failure: 1
 		},
 		{
