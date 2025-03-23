@@ -51,11 +51,13 @@ export default class ErrorHandler {
 					i18n.t("error:anotherPlayerBlocked", {
 						lng,
 						username: blockedUser.attributes.gameUsername,
-						reasons: errorReasons
+						reasons: errorReasons,
+						interpolation: {escapeValue: false}
 					}) :
 					i18n.t("error:playerBlocked", {
 						lng,
-						reasons: errorReasons
+						reasons: errorReasons,
+						interpolation: {escapeValue: false}
 					})
 			);
 

@@ -2,7 +2,7 @@ import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/pac
 import {Player, Players} from "../../core/database/game/models/Player";
 import {Guilds} from "../../core/database/game/models/Guild";
 import {
-	CommandGuildKickAcceptPacketRes,
+	CommandGuildKickAcceptPacketRes, CommandGuildKickBlockedErrorPacket,
 	CommandGuildKickPacketReq,
 	CommandGuildKickPacketRes,
 	CommandGuildKickRefusePacketRes
@@ -59,6 +59,13 @@ async function isNotEligible(player: Player, kickedPlayer: Player, response: Dra
 		}));
 		return true;
 	}
+
+	if (BlockingUtils.isPlayerBlocked(kickedPlayer.id)) {
+		// Player is blocked
+		response.push(makePacket(CommandGuildKickBlockedErrorPacket, {}));
+		return true;
+	}
+
 	let kickedGuild;
 	// Search for a user's guild
 	try {
@@ -106,6 +113,8 @@ export default class GuildKickCommand {
 			return;
 		}
 
+		BlockingUtils.blockPlayer(kickedPlayer.id, BlockingConstants.REASONS.GUILD_KICK);
+
 		const guildName = (await Guilds.getById(player.guildId)).name;
 
 		// Send collector
@@ -125,6 +134,7 @@ export default class GuildKickCommand {
 				}));
 			}
 			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.GUILD_KICK);
+			BlockingUtils.unblockPlayer(kickedPlayer.id, BlockingConstants.REASONS.GUILD_KICK);
 		};
 
 		const collectorPacket = new ReactionCollectorInstance(

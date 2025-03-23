@@ -1,6 +1,6 @@
 import {packetHandler} from "../../../PacketHandler";
 import {
-	CommandGuildKickAcceptPacketRes,
+	CommandGuildKickAcceptPacketRes, CommandGuildKickBlockedErrorPacket,
 	CommandGuildKickPacketRes,
 	CommandGuildKickRefusePacketRes
 } from "../../../../../../Lib/src/packets/commands/CommandGuildKickPacket";
@@ -10,6 +10,7 @@ import {
 	handleCommandGuildKickPacketRes,
 	handleCommandGuildKickRefusePacketRes
 } from "../../../../commands/guild/GuildKickCommand";
+import {handleClassicError} from "../../../../utils/ErrorUtils";
 
 export default class GuildKickCommandPacketHandlers {
 	@packetHandler(CommandGuildKickPacketRes)
@@ -25,5 +26,10 @@ export default class GuildKickCommandPacketHandlers {
 	@packetHandler(CommandGuildKickAcceptPacketRes)
 	async guildKickAcceptRes(context: PacketContext, packet: CommandGuildKickAcceptPacketRes): Promise<void> {
 		await handleCommandGuildKickAcceptPacketRes(packet, context);
+	}
+
+	@packetHandler(CommandGuildKickBlockedErrorPacket)
+	async guildKickBlockedError(context: PacketContext, _packet: CommandGuildKickBlockedErrorPacket): Promise<void> {
+		await handleClassicError(context, "commands:guildKick.blocked");
 	}
 }

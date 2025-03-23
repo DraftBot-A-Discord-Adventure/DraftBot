@@ -136,4 +136,8 @@ export class BlockingUtils {
 	static isPlayerBlockedWithReason(playerId: number, reason: BlockingReason): boolean {
 		return BlockingUtils.getPlayerBlockingReason(playerId).includes(reason);
 	}
+
+	static isPlayerBlocked(playerId: number): boolean {
+		return BlockingUtils.getPlayerBlockingReason(playerId).length !== 0;
+	}
 }

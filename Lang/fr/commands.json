@@ -80,7 +80,8 @@
     "canceledDesc": "{{kickedPseudo}} n'a pas été expulsé de la guilde !",
     "noPlayer": "Le joueur n'est pas dans la guilde.",
     "notSameGuild": "Vous ne pouvez pas expulser un joueur qui n'est pas dans votre guilde.",
-    "himself": "Vous ne pouvez pas vous expulser vous-même de la guilde."
+    "himself": "Vous ne pouvez pas vous expulser vous-même de la guilde.",
+    "blocked": "Le joueur que vous essayez d'expulser est actuellement bloqué. Attendez un peu avant de réessayer."
   },
   "guildElder": {
     "playerNotFound": "Ce joueur n'a pas été trouvé.",
