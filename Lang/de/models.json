@@ -979,6 +979,7 @@
     "86": "Destin-Stern",
     "87": "Gekatrie",
     "88": "SYM-Karte",
+    "89": "Toter Fisch",
     "9": "Rostschlüssel"
   },
   "pets": {
@@ -1325,16 +1326,16 @@
   "foods": {
     "herbivorousFood_one": "Salat",
     "herbivorousFood_other": "Salate",
-    "herbivorousFood_capitalized": "Salade",
+    "herbivorousFood_capitalized": "Salat",
     "carnivorousFood_one": "Fleisch",
     "carnivorousFood_other": "Fleisch",
-    "carnivorousFood_capitalized": "Viande",
+    "carnivorousFood_capitalized": "Fleisch",
     "ultimateFood_one": "ultimative Suppe",
     "ultimateFood_other": "ultimative Suppen",
-    "ultimateFood_capitalized": "Soupe ultime",
+    "ultimateFood_capitalized": "Ultimative Suppe",
     "commonFood_one": "Süßigkeit",
     "commonFood_other": "Süßigkeiten",
-    "commonFood_capitalized": "Friandise"
+    "commonFood_capitalized": "Süßigkeit"
   },
   "diet_omnivorous": "{emote:diet.omnivorous} Allesfresser",
   "diet_herbivorous": "{emote:diet.herbivorous} Pflanzenfresser",

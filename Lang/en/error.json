@@ -65,7 +65,7 @@
   "unknownPlayer": "Nickname 404",
   "petNickNotValid": "The rules for naming a pet are as follows:\n$t(error:stringRules)",
   "stringRules": "- Use at least one letter\n- Do not put more than 2 consecutive spaces\n- Special characters are not allowed\n- Between {{min}} and {{max}} characters",
-  "notInAGuild": "You have to be in a guild to use this command.",
+  "notInAGuild": "You must belong to a guild to place this order.",
   "notAuthorizedError": "You do not have the required permissions to do that command in your guild, please ask a superior if needed.",
   "levelTooLow": "You must be **level {{level}}** to use this command! Come back later!",
   "targetLevelTooLow": "This player must be **level {{level}}** for you to use this command!",
@@ -127,6 +127,10 @@
     "lost": {
       "self": "You are currently lost!",
       "other": "{{pseudo}} is currently lost!"
+    },
+    "fished": {
+      "self": "You're currently poisoned!",
+      "other": "{{pseudo}} is currently poisoned!"
     },
     "notStartedHint": {
       "self": "Use the {command:report} command to start your adventure!",

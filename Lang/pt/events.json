@@ -2535,6 +2535,34 @@
     },
     "text": "Caminhando despreocupadamente ao longo da Route des Merveilles, aproxima-se de um pequeno grupo de pessoas em semicírculo à volta de um homem corpulento. Quando se aproxima, repara que ele está vestido com um fato de espetáculo vermelho, justo, com manchas amarelas nos ombros e umas cuecas azuis por cima do uniforme. No seu peito imponente está um pequeno brasão azul real, que não consegues decifrar. Passa por entre os muitos espectadores até chegar à primeira fila. O homem é um treinador de leões com um longo chicote de couro castanho que está a ensinar um truque a dois magníficos tigres bebés."
   },
+  "74": {
+    "possibilities": {
+      "end": {
+        "outcomes": {
+          "0": "Não se mexe, como se estivesse petrificado. A mulher toma esta reação como uma recusa e fica furiosa. Lança-te invectivas marinhas e atira-te com peixes mortos. Consegue desviar-se da maior parte deles, mas um acerta-lhe em cheio na cara. Continuas a correr sem olhar para trás."
+        }
+      },
+      "eat": {
+        "outcomes": {
+          "0": "A combinação de sabores é divinal e uma sensação de euforia apodera-se de si. Os seus olhos fecham-se, apesar de tudo, e quando os abre de novo, descobre que está a bordo de um barco, embalado pelo bater das ondas."
+        },
+        "text": "Dar uma grande dentada no prato."
+      },
+      "run": {
+        "outcomes": {
+          "0": "A mulher parece ofendida com a sua recusa. Ela lança-te invectivas marinhas e atira-te com peixes mortos. Consegues desviar-te da maioria deles, mas um acerta-te em cheio na cara. Continuas a correr sem olhar para trás."
+        },
+        "text": "Fugir."
+      },
+      "smell": {
+        "outcomes": {
+          "0": "Inclina-se ligeiramente, intrigado com o aroma encorpado que emana do prato de marisco, e a mulher observa-o com uma intensidade que o deixa arrepiado. Está prestes a comentar a curiosa mistura quando, de repente, sente as mãos dela esmagarem a sua cara contra o prato. O mundo torna-se húmido e frio quando o seu nariz mergulha no prato. Depara-se com o olhar vítreo de um peixe cozinhado, com o seu olho a pressionar gradualmente o seu. Os teus sentidos perdem-se e a escuridão envolve a tua visão. Quando recupera a consciência, é saudado pelo ranger da madeira e pelo cheiro a sal, sente um movimento de balanço constante e apercebe-se de que está deitado nas tábuas ásperas do convés de um navio."
+        },
+        "text": "Cheirar o prato com mais desconfiança."
+      }
+    },
+    "text": "Enquanto vagueia sem rumo, as suas narinas são subitamente assaltadas por um cheiro intenso a iodo. Uma estranha mulher vestida com um vestido de escamas de peixe, com o cabelo coberto de algas secas, acena-lhe. Está rodeada de cestos cheios de mariscos de cores vivas e convida-o, com um sorriso desdentado mas caloroso, a provar a sua especialidade culinária: um prato cuidadosamente cozinhado com os melhores produtos do mar."
+  },
   "8": {
     "possibilities": {
       "end": {

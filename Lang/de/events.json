@@ -2158,7 +2158,7 @@
         }
       }
     },
-    "text": "Sie kamen gerade zu Ihrem Ziel, ein Bote, der sich vor Ihnen verärgt hat, und Sie neigen dazu, eine missive Waffe zu finden. Sie lesen den Inhalt aufmerksam, der besagt, dass der König eine große Feier in seinem Schloss vorbereitet, und dass Sie dazu eingeladen sind."
+    "text": "Kaum sind Sie an Ihrem Ziel angekommen, hält ein Bote atemlos vor Ihnen an und überreicht Ihnen ein Schreiben. Sie lesen aufmerksam den Inhalt, der besagt, dass der König ein großes Fest in seinem Schloss vorbereitet und Sie dazu eingeladen sind."
   },
   "65": {
     "possibilities": {
@@ -2534,6 +2534,34 @@
       }
     },
     "text": "Mit Nonchalance auf der Route der Merwachles, nähern Sie sich einer kleinen Gruppe von Personen in Halbkreis um einen Mann mit starker Hornhauttrabenz. Während man in der Höhe ist, merkt man, dass es sich um einen roten, maschenden Anzug und einen gelben Einzug in die Schulter und eine blaue Unterhose über die Uniform verkleiden. Auf ihrer imposanten Brust, einem kleinen, königlichen Kekun, den Sie nicht entschlüsseln können. Sie haben einen langen Weg vor uns, bis wir in die erste Reihe kommen. Der Mann ist ein feiner Armer mit einem langen Lederfell, der einen Trick mit zwei wunderschönen Babytigern lehrt."
+  },
+  "74": {
+    "possibilities": {
+      "end": {
+        "outcomes": {
+          "0": "Sie bewegen sich nicht, wie versteinert. Die Frau versteht das als Ablehnung und wird wütend. Sie beschimpft Sie mit Schimpfwörtern aus dem Meer und bewirft Sie mit toten Fischen. Den meisten können Sie ausweichen, aber ein Exemplar trifft Sie mitten ins Gesicht. Sie laufen weiter, ohne sich umzudrehen."
+        }
+      },
+      "eat": {
+        "outcomes": {
+          "0": "Die Mischung der Aromen ist himmlisch und ein Gefühl der Euphorie überkommt Sie. Ihre Augen schließen sich gegen Ihren Willen und als Sie sie wieder öffnen, entdecken Sie, dass Sie sich an Bord eines Schiffes befinden, das vom Rauschen der Wellen geschaukelt wird."
+        },
+        "text": "Nehmen Sie einen großen Bissen von dem Gericht."
+      },
+      "run": {
+        "outcomes": {
+          "0": "Die Frau scheint durch Ihre Weigerung beleidigt zu sein. Sie wirft Ihnen Beschimpfungen aus dem Meer an den Kopf und bewirft Sie mit toten Fischen. Den meisten können Sie ausweichen, aber ein Exemplar trifft Sie direkt im Gesicht. Sie laufen weiter, ohne sich umzudrehen."
+        },
+        "text": "Loslaufen."
+      },
+      "smell": {
+        "outcomes": {
+          "0": "Sie beugen sich leicht vor, fasziniert von dem kräftigen Duft, der von dem Meeresfrüchtegericht ausgeht, und die Frau beobachtet Sie mit einer Intensität, die Ihnen eine Gänsehaut beschert. Sie sind gerade dabei, die kuriose Mischung zu kommentieren, als Sie plötzlich spüren, wie ihre Hände Ihr Gesicht gegen den Teller drücken. Die Welt wird feucht und kalt, als Ihre Nase in den Teller taucht. Sie begegnen dem glasigen Blick eines gekochten Fisches, dessen Auge sich allmählich gegen Ihres drückt. Ihre Sinne kollabieren und die Dunkelheit verschluckt Ihre Sicht. Als Sie wieder zu sich kommen, werden Sie vom Knarren des Holzes und dem Geruch von Salz begrüßt, Sie spüren ein gleichmäßiges Schaukeln und erkennen, dass Sie auf den rauen Planken eines Schiffsdecks liegen."
+        },
+        "text": "Das Gericht misstrauisch näher beschnuppern."
+      }
+    },
+    "text": "Während Sie ziellos durch die Gegend schlendern, wird Ihre Nase plötzlich von einem intensiven Jodgeruch heimgesucht. Eine seltsame Frau in einem Kleid mit Fischschuppenmuster und mit Haaren, die sich in getrocknetem Seetang verheddert haben, winkt Ihnen zu. Sie ist von überquellenden Körben mit farbenfrohen Meeresfrüchten umgeben und lädt Sie mit einem zahnlosen, aber herzlichen Lächeln dazu ein, ihre kulinarische Spezialität zu probieren: ein Gericht, das mit Liebe aus den schönsten Produkten des Ozeans gekocht wird."
   },
   "8": {
     "possibilities": {

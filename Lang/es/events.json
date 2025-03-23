@@ -2158,7 +2158,7 @@
         }
       }
     },
-    "text": "Nada más llegar a tu destino, un mensajero se detiene ante ti sin aliento y te entrega una carta. Lees atentamente el contenido, que dice que el Rey está preparando una gran fiesta en su castillo, y que estás invitado a asistir."
+    "text": "En cuanto llegas a tu destino, un mensajero se detiene sin aliento ante ti y te entrega una carta. Lees atentamente el contenido, que dice que el Rey está preparando una gran fiesta en su castillo, y que estás invitado a asistir."
   },
   "65": {
     "possibilities": {
@@ -2534,6 +2534,34 @@
       }
     },
     "text": "Caminando despreocupadamente por la Route des Merveilles, te acercas a un pequeño grupo de personas que forman un semicírculo alrededor de un hombre corpulento. Cuando llegas hasta ellos, te das cuenta de que va vestido con un ceñido traje de gala rojo con parches amarillos en los hombros y calzoncillos azules colocados sobre el uniforme. En su imponente pecho hay un pequeño escudo azul real, que no consigues descifrar. Te abres paso entre los numerosos espectadores hasta llegar a la primera fila. El hombre es un domador de leones con un largo látigo de cuero marrón que está enseñando un truco a dos magníficas crías de tigre."
+  },
+  "74": {
+    "possibilities": {
+      "end": {
+        "outcomes": {
+          "0": "No se mueve, como petrificado. La mujer toma esta reacción como un rechazo y se enfada. Te lanza improperios marinos y te acribilla a peces muertos. Consigues esquivar la mayoría de ellos, pero uno te da justo en la cara. Sigues corriendo sin mirar atrás."
+        }
+      },
+      "eat": {
+        "outcomes": {
+          "0": "La combinación de sabores es divina y te invade una sensación de euforia. Los ojos se te cierran a pesar de ti mismo, y cuando vuelves a abrirlos descubres que estás a bordo de un barco, mecido por el batir de las olas."
+        },
+        "text": "Dale un buen bocado al plato."
+      },
+      "run": {
+        "outcomes": {
+          "0": "La mujer parece ofendida por tu negativa. Te lanza improperios marinos y te acribilla a peces muertos. Consigues esquivar la mayoría de ellos, pero uno te da justo en la cara. Sigues corriendo sin mirar atrás."
+        },
+        "text": "Huyendo."
+      },
+      "smell": {
+        "outcomes": {
+          "0": "Te inclinas un poco, intrigado por el intenso aroma que desprende el plato de marisco, y la mujer te observa con una intensidad que te pone la piel de gallina. Estás a punto de comentar la curiosa mezcla cuando, de repente, sientes que sus manos aplastan tu cara contra el plato. El mundo se vuelve húmedo y frío cuando tu nariz se hunde en el plato. Te topas con la mirada vidriosa de un pescado cocido, cuyo ojo se aprieta poco a poco contra el tuyo. Tus sentidos vuelcan y la oscuridad envuelve tu visión. Cuando recobras el conocimiento, te saluda el crujido de la madera y el olor a sal, sientes un constante movimiento de balanceo y te das cuenta de que estás tumbado sobre los ásperos tablones de la cubierta de un barco."
+        },
+        "text": "Olfatea el plato con más recelo."
+      }
+    },
+    "text": "Mientras deambulas sin rumbo, tus fosas nasales se ven repentinamente asaltadas por un intenso olor a yodo. Una extraña mujer con un vestido de escamas de pescado y el pelo enmarañado de algas secas te saluda con la mano. Rodeada de cestas rebosantes de marisco de vivos colores, te invita, con una sonrisa desdentada pero cálida, a probar su especialidad culinaria: un plato cocinado a fuego lento con los mejores productos del océano."
   },
   "8": {
     "possibilities": {

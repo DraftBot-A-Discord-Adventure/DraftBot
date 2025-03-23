@@ -65,7 +65,7 @@
   "unknownPlayer": "Pseudo 404",
   "petNickNotValid": "Die Regeln für den Namen eines Vertrauten lauten wie folgt:\n$t(error:stringRules)",
   "stringRules": "- Mindestens einen Buchstaben verwenden\n- Nicht mehr als zwei aufeinanderfolgende Leerzeichen verwenden\n- Sonderzeichen sind nicht erlaubt\n- Zwischen {{min}} und {{max}} Zeichen",
-  "notInAGuild": "Sie müssen zu einer Gilde gehören, um diesen Befehl ausführen zu können",
+  "notInAGuild": "Sie müssen zu einer Gilde gehören, um diesen Befehl ausführen zu können.",
   "notAuthorizedError": "Sie haben nicht die erforderlichen Berechtigungen, um diese Bestellung innerhalb Ihrer Gilde durchzuführen. Fragen Sie ggf. einen Ihrer Vorgesetzten.",
   "levelTooLow": "Sie müssen **level {{level}}** sein, um diesen Befehl zu verwenden! Kommen Sie später wieder!",
   "targetLevelTooLow": "Dieser Spieler muss **Level {{level}}** sein, damit du diesen Befehl verwenden kannst!",
@@ -127,6 +127,10 @@
     "lost": {
       "self": "Sie sind derzeit verloren!",
       "other": "{{pseudo}} ist derzeit verloren!"
+    },
+    "fished": {
+      "self": "Sie werden derzeit gepfählt!",
+      "other": "{{pseudo}} ist derzeit vergiftet!"
     },
     "notStartedHint": {
       "self": "Verwenden Sie den Befehl {command:report} , um Ihr Abenteuer zu beginnen!",

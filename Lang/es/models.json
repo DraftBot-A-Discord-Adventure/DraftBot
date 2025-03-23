@@ -979,6 +979,7 @@
     "86": "Estrella del destino",
     "87": "Guitarra eléctrica",
     "88": "Tarjeta SYM",
+    "89": "Peces muertos",
     "9": "Llave oxidada"
   },
   "pets": {
@@ -1325,16 +1326,16 @@
   "foods": {
     "herbivorousFood_one": "ensalada",
     "herbivorousFood_other": "ensaladas",
-    "herbivorousFood_capitalized": "Salade",
+    "herbivorousFood_capitalized": "Ensalada",
     "carnivorousFood_one": "carne",
     "carnivorousFood_other": "carnes",
-    "carnivorousFood_capitalized": "Viande",
+    "carnivorousFood_capitalized": "Carne",
     "ultimateFood_one": "la sopa definitiva",
     "ultimateFood_other": "lo último en sopas",
-    "ultimateFood_capitalized": "Soupe ultime",
+    "ultimateFood_capitalized": "La sopa definitiva",
     "commonFood_one": "tratar",
     "commonFood_other": "dulces",
-    "commonFood_capitalized": "Friandise"
+    "commonFood_capitalized": "Dulces"
   },
   "diet_omnivorous": "{emote:diet.omnivorous} Omnívoro",
   "diet_herbivorous": "{emote:diet.herbivorous} Herbívoro",

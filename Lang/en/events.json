@@ -2158,7 +2158,7 @@
         }
       }
     },
-    "text": "Having just arrived at your destination, a messenger stops breathlessly in front of you and hands you a missive. You carefully read the contents, which indicate that the King is preparing a great feast in his castle, and that you are invited to it."
+    "text": "No sooner have you arrived at your destination than a messenger stops breathlessly in front of you and hands you a missive. You carefully read the contents, which indicate that the King is preparing a great feast in his castle, and that you are invited to attend."
   },
   "65": {
     "possibilities": {
@@ -2534,6 +2534,34 @@
       }
     },
     "text": "Walking nonchalantly along the Road of Wonders, you approach a small group of people in a semicircle around a heavyset man. As you reach them, you notice that he's dressed in a tight-fitting red show suit, with yellow shoulder inserts and blue briefs pulled over the uniform. On his imposing chest is a small royal-blue crest, which you can't quite make out. You make your way through the many onlookers to the front row. The man is a wildcat trainer with a long brown leather whip, teaching two magnificent baby tigers a trick."
+  },
+  "74": {
+    "possibilities": {
+      "end": {
+        "outcomes": {
+          "0": "You don't move, as if petrified. The woman takes this reaction as a refusal and gets angry. She hurls marine invectives at you and bombards you with dead fish. You manage to dodge most of them, but one hits you right in the face. You continue running without looking back."
+        }
+      },
+      "eat": {
+        "outcomes": {
+          "0": "The blend of flavors is divine, and a feeling of euphoria washes over you. Your eyes close despite yourself, and when you open them again, you discover you're on board a boat, rocked by the lapping of the waves."
+        },
+        "text": "Take a big bite of the dish."
+      },
+      "run": {
+        "outcomes": {
+          "0": "The woman seems offended by your refusal. She hurls marine invectives at you and bombards you with dead fish. You manage to dodge most of them, but one hits you right in the face. You continue running without looking back."
+        },
+        "text": "Running away."
+      },
+      "smell": {
+        "outcomes": {
+          "0": "You lean in slightly, intrigued by the full-bodied scent emanating from the seafood dish, and the woman observes you with an intensity that gives you goose bumps. You're about to comment on the curious mixture when, suddenly, you feel her hands crush your face against the plate. The world turns wet and cold as your nose plunges into the dish. You meet the glassy gaze of a cooked fish, its eye gradually pressing against yours. Your senses capsize and darkness engulfs your vision. When you regain consciousness, you're greeted by the creak of wood and the smell of salt, feel a steady rocking motion and realize you're lying on the rough planks of a ship's deck."
+        },
+        "text": "Sniff the dish suspiciously."
+      }
+    },
+    "text": "As you stroll along aimlessly, your nostrils are suddenly assailed by an intense iodine scent. A strange woman in a fish-scale dress, her hair matted with dried seaweed, waves at you. She's surrounded by baskets overflowing with brightly-colored seafood and invites you, with a toothless but warm smile, to sample her culinary specialty: a dish lovingly simmered from the finest products of the ocean."
   },
   "8": {
     "possibilities": {

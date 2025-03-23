@@ -36,7 +36,7 @@
     "name": "invitoDraftBot"
   },
   "language": {
-    "description": "Cambiare la lingua del bot nel server discord dove è stato eseguito il comando.",
+    "description": "Cambiare la lingua del bot sul server Discord in cui è stato eseguito il comando.",
     "name": "lingua"
   },
   "ping": {
@@ -361,6 +361,6 @@
   },
   "guildStorage": {
     "name": "entrepotguilde",
-    "description": "Affiche le contenu de l'entrepôt de guilde."
+    "description": "Visualizza il contenuto del magazzino della gilda."
   }
 }

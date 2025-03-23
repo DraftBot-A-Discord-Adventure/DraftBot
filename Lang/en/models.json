@@ -979,6 +979,7 @@
     "86": "Destiny star",
     "87": "Electric guitar",
     "88": "SYM card",
+    "89": "Dead fish",
     "9": "Rusty key"
   },
   "pets": {
@@ -1325,16 +1326,16 @@
   "foods": {
     "herbivorousFood_one": "salad",
     "herbivorousFood_other": "salads",
-    "herbivorousFood_capitalized": "Salade",
+    "herbivorousFood_capitalized": "Salad",
     "carnivorousFood_one": "meat",
     "carnivorousFood_other": "meats",
-    "carnivorousFood_capitalized": "Viande",
+    "carnivorousFood_capitalized": "Meat",
     "ultimateFood_one": "ultimate soup",
     "ultimateFood_other": "ultimate soups",
-    "ultimateFood_capitalized": "Soupe ultime",
+    "ultimateFood_capitalized": "Ultimate soup",
     "commonFood_one": "treat",
     "commonFood_other": "treats",
-    "commonFood_capitalized": "Friandise"
+    "commonFood_capitalized": "Sweets"
   },
   "diet_omnivorous": "{emote:diet.omnivorous} Omnivorous",
   "diet_herbivorous": "{emote:diet.herbivorous} Herbivorous",
