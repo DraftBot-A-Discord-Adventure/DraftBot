@@ -33,7 +33,7 @@ export async function handleCommandRespawnPacketRes(packet: CommandRespawnPacket
 			lng: interaction.userLanguage,
 			respawnEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.commands.respawn),
 			scoreEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.unitValues.score),
-			pseudo: interaction.user.username,
+			pseudo: interaction.user.displayName,
 			count: packet.lostScore
 		})
 	});

@@ -301,7 +301,7 @@ export class CommandsManager {
 			}
 			const supportAlert = i18n.t("bot:supportAlert", {
 				lng: LANGUAGE.FRENCH,
-				username: escapeUsername(message.author.username),
+				username: escapeUsername(message.author.displayName),
 				id: message.author.id
 			}) + (message.content.length > Constants.DM.MAX_MESSAGE_LENGTH_ALLOWED
 				? Constants.DM.TOO_LONG_MESSAGE
@@ -340,7 +340,7 @@ export class CommandsManager {
 					embeds: [new DraftBotEmbed()
 						.formatAuthor(i18n.t("bot:dmHelpMessageTitle", {
 							lng,
-							pseudo: escapeUsername(author.username)
+							pseudo: escapeUsername(author.displayName)
 						}), author)
 						.setDescription(i18n.t("bot:dmHelpMessage", {
 							lng,

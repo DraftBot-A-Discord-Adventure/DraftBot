@@ -144,7 +144,7 @@ export async function handleCommandMissionsPacketRes(packet: CommandMissionsPack
 
 	missionCommandEmbed.formatAuthor(i18n.t("commands:missions.title", {
 		lng: interaction.userLanguage,
-		pseudo: discordUser.username
+		pseudo: discordUser.displayName
 	}), discordUser);
 
 	missionCommandEmbed.setDescription([

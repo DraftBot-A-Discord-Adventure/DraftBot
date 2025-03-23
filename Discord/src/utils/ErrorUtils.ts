@@ -89,7 +89,7 @@ export async function sendInteractionNotForYou(
 				.setErrorColor()
 				.formatAuthor(i18n.t("error:titleDidntWork", {
 					lng,
-					pseudo: user.username
+					pseudo: user.displayName
 				}), user)
 		],
 		ephemeral: true

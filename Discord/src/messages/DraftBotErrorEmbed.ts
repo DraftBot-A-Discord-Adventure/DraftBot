@@ -15,7 +15,7 @@ export class DraftBotErrorEmbed extends DraftBotEmbed {
 		const isOther = interaction.user !== user;
 		this.formatAuthor(i18n.t(isCancelling ? "error:titleCanceled" : isOther && isBlockedError ? "error:titleBlocked" : "error:titleDidntWork", {
 			lng: interaction.userLanguage,
-			pseudo: user.username
+			pseudo: user.displayName
 		}), user);
 	}
 

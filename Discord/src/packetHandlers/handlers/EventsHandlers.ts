@@ -85,7 +85,7 @@ export default class EventsHandlers {
 		const completedMissionsEmbed = new DraftBotEmbed().formatAuthor(i18n.t("notifications:missions.completed.title", {
 			lng,
 			count: packet.missions.length,
-			pseudo: discordUser.username
+			pseudo: discordUser.displayName
 		}), discordUser);
 
 		const missionLists: Record<MissionType, string[]> = {

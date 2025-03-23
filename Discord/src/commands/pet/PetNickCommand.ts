@@ -75,7 +75,7 @@ export async function handleCommandPetNickPacketRes(packet: CommandPetNickPacket
 				new DraftBotEmbed()
 					.formatAuthor(i18n.t("commands:petNick.successTitle", {
 						lng,
-						pseudo: interaction.user.username
+						pseudo: interaction.user.displayName
 					}), interaction.user)
 					.setDescription(i18n.t("commands:petNick.successNoName", {lng}))
 			]
@@ -87,7 +87,7 @@ export async function handleCommandPetNickPacketRes(packet: CommandPetNickPacket
 				new DraftBotEmbed()
 					.formatAuthor(i18n.t("commands:petNick.successTitle", {
 						lng,
-						pseudo: interaction.user.username
+						pseudo: interaction.user.displayName
 					}), interaction.user)
 					.setDescription(i18n.t("commands:petNick.success", {
 						lng,
