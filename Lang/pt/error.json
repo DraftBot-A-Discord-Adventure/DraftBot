@@ -65,7 +65,7 @@
   "unknownPlayer": "Nome de utilizador 404",
   "petNickNotValid": "As regras para dar nome a um animal de estimação são as seguintes:\n$t(error:stringRules)",
   "stringRules": "\n\n\n {{min}} {{max}} - Utilizar pelo menos uma letra - Não utilizar mais de 2 espaços consecutivos - Não são permitidos caracteres especiais - Entre e caracteres",
-  "notInAGuild": "É necessário pertencer a um grémio para efetuar esta encomenda.",
+  "notInAGuild": "Vous devez appartenir à une guilde pour effectuer cette commande.",
   "notAuthorizedError": "Não tens as permissões necessárias para fazer esta encomenda na tua guilda, por isso pede a um dos teus superiores se precisares.",
   "levelTooLow": "{{level}}Tens de ter **nível ** para utilizar este comando! Volte mais tarde!",
   "targetLevelTooLow": "{{level}}Este jogador tem de ter **nível ** para poder utilizar este comando!",
@@ -127,6 +127,10 @@
     "lost": {
       "self": "Neste momento está perdido!",
       "other": "{{pseudo}} está agora perdido!"
+    },
+    "fished": {
+      "self": "Vous êtes actuellement empoissonné !",
+      "other": "{{pseudo}} est actuellement empoissonné !"
     },
     "notStartedHint": {
       "self": "{command:report} Utilize o comando para iniciar a sua aventura!",
