@@ -5,7 +5,11 @@ import {
 	ReactionCollectorEnded
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {ReactionCollectorBigEventData} from "../../../../Lib/src/packets/interaction/ReactionCollectorBigEvent";
-import {chooseDestinationCollector, createBigEventCollector} from "../../commands/player/ReportCommand";
+import {
+	chooseDestinationCollector,
+	createBigEventCollector,
+	handleStartPveFight
+} from "../../commands/player/ReportCommand";
 import {ReactionCollectorChooseDestinationData} from "../../../../Lib/src/packets/interaction/ReactionCollectorChooseDestination";
 import {ReactionCollectorGoToPVEIslandData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGoToPVEIsland";
 import {goToPVEIslandCollector} from "../../smallEvents/goToPVEIsland";
@@ -77,6 +81,7 @@ import {
 import {ReactionCollectorPetFeedWithoutGuildData} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFeedWithoutGuild";
 import {createJoinBoatCollector} from "../../commands/player/JoinBoatCommand";
 import {ReactionCollectorJoinBoatData} from "../../../../Lib/src/packets/interaction/ReactionCollectorJoinBoat";
+import {ReactionCollectorPveFightData} from "../../../../Lib/src/packets/interaction/ReactionCollectorPveFight";
 
 // Needed because we need to accept any parameter
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -128,6 +133,7 @@ export default class ReactionCollectorHandler {
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorPetTransferData.name, handlePetTransferReactionCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorPetFeedWithGuildData.name, handleCommandPetFeedWithGuildCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorPetFeedWithoutGuildData.name, handleCommandPetFeedWithoutGuildCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorPveFightData.name, handleStartPveFight);
 	}
 
 	@packetHandler(ReactionCollectorCreationPacket)

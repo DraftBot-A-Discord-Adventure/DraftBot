@@ -18,10 +18,10 @@ export class DraftbotFightStatusCachedMessage extends DraftbotCachedMessage<Comm
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 		const attacker = packet.activeFighter.keycloakId ?
 			(await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.activeFighter.keycloakId))!.attributes.gameUsername[0] :
-			i18n.t(`models:monster.${packet.activeFighter.monsterId}`, {lng: interaction.userLanguage});
+			i18n.t(`models:monster.${packet.activeFighter.monsterId}.name`, {lng: interaction.userLanguage});
 		const defender = packet.defendingFighter.keycloakId ?
 			(await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.defendingFighter.keycloakId))!.attributes.gameUsername[0] :
-			i18n.t(`models:monster.${packet.defendingFighter.monsterId}`, {lng: interaction.userLanguage});
+			i18n.t(`models:monster.${packet.defendingFighter.monsterId}.name`, {lng: interaction.userLanguage});
 		const keyProlongation = packet.numberOfTurn > packet.maxNumberOfTurn ? "prolongation" : "noProlongation";
 
 		const embed = new DraftBotEmbed()
