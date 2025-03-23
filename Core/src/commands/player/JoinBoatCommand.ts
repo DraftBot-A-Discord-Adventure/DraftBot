@@ -23,10 +23,12 @@ import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/inter
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {PlayerMissionsInfos} from "../../core/database/game/models/PlayerMissionsInfo";
 import {TravelTime} from "../../core/maps/TravelTime";
-import {millisecondsToMinutes} from "../../../../Lib/src/utils/TimeUtils";
-import {ReportConstants} from "../../../../Lib/src/constants/ReportConstants";
-import {Constants} from "../../../../Lib/src/constants/Constants";
-import {PlayerSmallEvents} from "../../core/database/game/models/PlayerSmallEvent";
+
+type OptionsStartBoatTravel = {
+	startTravelTimestamp: number,
+	anotherMemberOnBoat: Player,
+	price: number
+}
 
 /**
  * Check if the player can join the boat
@@ -59,39 +61,6 @@ async function canJoinBoat(player: Player, response: DraftBotPacket[]): Promise<
 }
 
 /**
- * Calculate and give the score points to the player
- * @param player
- * @param response
- */
-async function winScore(player: Player, response: DraftBotPacket[]): Promise<number> {
-	// Gain Score
-	const travelData = TravelTime.getTravelDataSimplified(player, new Date());
-	let timeTravelled = millisecondsToMinutes(travelData.playerTravelledTime); // Convert the time in minutes to calculate the score
-
-	// Calculate score from small event
-	let scoreFromSmallEvent = 0;
-	// Divide by 3 if the player has travelled between 30 minutes and 1 hour.
-	if (timeTravelled >= Constants.JOIN_BOAT.TIME_TRAVELLED_THIRTY_MINUTES && timeTravelled < Constants.JOIN_BOAT.TIME_TRAVELLED_ONE_HOUR) {
-		scoreFromSmallEvent = Math.floor(await PlayerSmallEvents.calculateCurrentScore(player) / Constants.JOIN_BOAT.DIVISOR_TIME_TRAVELLED_LESS_THAN_ONE_HOUR);
-	}
-	if (timeTravelled >= Constants.JOIN_BOAT.TIME_TRAVELLED_ONE_HOUR) {
-		scoreFromSmallEvent = await PlayerSmallEvents.calculateCurrentScore(player);
-	}
-
-	timeTravelled -= Constants.JOIN_BOAT.TIME_TRAVELLED_SUBTRAHEND;
-	if (timeTravelled > ReportConstants.TIME_LIMIT) {
-		timeTravelled = ReportConstants.TIME_LIMIT;
-	}
-	const gainScore = TravelTime.timeTravelledToScore(timeTravelled) + scoreFromSmallEvent;
-	await player.addScore({
-		amount: gainScore,
-		response,
-		reason: NumberChangeReason.JOIN_BOAT
-	});
-	return gainScore;
-}
-
-/**
  * Handle the acceptation
  * @param player
  * @param response
@@ -110,10 +79,18 @@ async function acceptJoinBoat(player: Player, response: DraftBotPacket[]): Promi
 	}
 
 	// Gain Score
-	const gainScore = await winScore(player, response);
+	const gainScore = await TravelTime.joinBoatScore(player);
+	await player.addScore({
+		amount: gainScore,
+		response,
+		reason: NumberChangeReason.JOIN_BOAT
+	});
 
 	// Start the travel
-	await Maps.startBoatTravel(player, price, anotherMemberOnBoat[0], Date.now(),NumberChangeReason.PVE_ISLAND, response);
+	const options: OptionsStartBoatTravel = {startTravelTimestamp: Date.now(),
+		anotherMemberOnBoat: anotherMemberOnBoat[0],
+		price};
+	await Maps.startBoatTravel(player, options, NumberChangeReason.PVE_ISLAND, response);
 	await MissionsController.update(player, response, {missionId: "joinMemberOnBoat"});
 	response.push(makePacket(CommandJoinBoatAcceptPacketRes, {score: gainScore}));
 	await player.save();

@@ -15,6 +15,12 @@ import {PVEConstants} from "../../../../Lib/src/constants/PVEConstants";
 import {MissionsController} from "../missions/MissionsController";
 import {minutesToMilliseconds} from "../../../../Lib/src/utils/TimeUtils";
 
+type OptionsStartBoatTravel = {
+	startTravelTimestamp: number,
+	anotherMemberOnBoat: Player | null,
+	price: number
+}
+
 export class Maps {
 
 	/**
@@ -180,27 +186,25 @@ export class Maps {
 	/**
 	 * Allow to start travel on the boat
 	 * @param player
-	 * @param price
-	 * @param anotherMemberOnBoat
-	 * @param startTravelTimestamp
+	 * @param options
 	 * @param reason
 	 * @param response
 	 */
-	static async startBoatTravel(player: Player, price: number, anotherMemberOnBoat: Player | null, startTravelTimestamp: number, reason: NumberChangeReason, response: DraftBotPacket[]): Promise<void> {
+	static async startBoatTravel(player: Player, options: OptionsStartBoatTravel, reason: NumberChangeReason, response: DraftBotPacket[]): Promise<void> {
 		const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
 
 		await TravelTime.removeEffect(player, reason);
 
 		const mapLinkJoinBoat = MapLinkDataController.instance.getById(await Settings.PVE_ISLAND.getValue());
 		const travelTime = minutesToMilliseconds(mapLinkJoinBoat.tripDuration);
-		const otherPlayerStartTime = anotherMemberOnBoat ? anotherMemberOnBoat.startTravelDate.valueOf() : null;
+		const otherPlayerStartTime = options.anotherMemberOnBoat ? options.anotherMemberOnBoat.startTravelDate.valueOf() : null;
 		const timeSinceOtherPlayerStarted = Date.now() - (otherPlayerStartTime ?? 0);
 
 		const finalStartTime = otherPlayerStartTime
 			? timeSinceOtherPlayerStarted >= travelTime
 				? Date.now() - travelTime
 				: otherPlayerStartTime
-			: startTravelTimestamp;
+			: options.startTravelTimestamp;
 
 
 		await Maps.startTravel(
@@ -208,9 +212,9 @@ export class Maps {
 			mapLinkJoinBoat,
 			finalStartTime
 		);
-		await missionInfo.spendGems(price, response, reason);
+		await missionInfo.spendGems(options.price, response, reason);
 		await missionInfo.save();
-		if (price === PVEConstants.TRAVEL_COST[PVEConstants.TRAVEL_COST.length - 1]) {
+		if (options.price === PVEConstants.TRAVEL_COST[PVEConstants.TRAVEL_COST.length - 1]) {
 			await MissionsController.update(player, response, {
 				missionId: "wealthyPayForPVEIsland"
 			});

@@ -18,6 +18,12 @@ import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants
 import { ReactionCollectorGoToPVEIsland } from "../../../../Lib/src/packets/interaction/ReactionCollectorGoToPVEIsland";
 import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 
+type OptionsStartBoatTravel = {
+	startTravelTimestamp: number,
+	anotherMemberOnBoat: Player | null,
+	price: number
+}
+
 export const smallEventFuncs: SmallEventFuncs = {
 	async canBeExecuted(player: Player): Promise<boolean> {
 		return player.level >= PVEConstants.MIN_LEVEL &&
@@ -30,7 +36,6 @@ export const smallEventFuncs: SmallEventFuncs = {
 	async executeSmallEvent(response, player, context): Promise<void> {
 		const price = await player.getTravelCostThisWeek();
 		const anotherMemberOnBoat = await Maps.getGuildMembersOnBoat(player);
-		const travelTimestamp = Date.now();
 
 		const collector = new ReactionCollectorGoToPVEIsland(
 			price,
@@ -47,7 +52,10 @@ export const smallEventFuncs: SmallEventFuncs = {
 					response.push(makePacket(SmallEventGoToPVEIslandNotEnoughGemsPacket, {}));
 					return;
 				}
-				await Maps.startBoatTravel(player, price, anotherMemberOnBoat[0], travelTimestamp, NumberChangeReason.SMALL_EVENT, response);
+				const options: OptionsStartBoatTravel = {startTravelTimestamp: Date.now(),
+					anotherMemberOnBoat: anotherMemberOnBoat[0],
+					price};
+				await Maps.startBoatTravel(player, options, NumberChangeReason.SMALL_EVENT, response);
 				await MissionsController.update(player, response, {
 					missionId: "joinPVEIsland",
 					set: true

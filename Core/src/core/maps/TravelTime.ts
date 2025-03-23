@@ -6,9 +6,10 @@ import {PVEConstants} from "../../../../Lib/src/constants/PVEConstants";
 import {MapLinkDataController} from "../../data/MapLink";
 import {draftBotInstance} from "../../index";
 import {Effect} from "../../../../Lib/src/types/Effect";
-import { Constants } from "../../../../Lib/src/constants/Constants";
+import {Constants} from "../../../../Lib/src/constants/Constants";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
+import {ReportConstants} from "../../../../Lib/src/constants/ReportConstants";
 
 /**
  * Travel time functions class
@@ -234,8 +235,29 @@ export class TravelTime {
 	 * @param time - time must be in minutes
 	 */
 	static timeTravelledToScore(time: number): number {
-		let score = time + RandomUtils.draftbotRandom.integer(0, time / Constants.REPORT.BONUS_POINT_TIME_DIVIDER);
-		score = score > 0 ? score : 0; // Return 0 if score is negative
-		return score;
+		const score = time + RandomUtils.draftbotRandom.integer(0, time / Constants.REPORT.BONUS_POINT_TIME_DIVIDER);
+		return score > 0 ? score : 0; // Return 0 if score is negative
+	}
+
+	static async joinBoatScore(player: Player): Promise<number> {
+		// Gain Score
+		const travelData = TravelTime.getTravelDataSimplified(player, new Date());
+		let timeTravelled = millisecondsToMinutes(travelData.playerTravelledTime); // Convert the time in minutes to calculate the score
+
+		// Calculate score from small event
+		let scoreFromSmallEvent = 0;
+		// Divide by 3 if the player has travelled between 30 minutes and 1 hour.
+		if (timeTravelled >= Constants.JOIN_BOAT.TIME_TRAVELLED_THIRTY_MINUTES && timeTravelled < Constants.JOIN_BOAT.TIME_TRAVELLED_ONE_HOUR) {
+			scoreFromSmallEvent = Math.floor(await PlayerSmallEvents.calculateCurrentScore(player) / Constants.JOIN_BOAT.DIVISOR_TIME_TRAVELLED_LESS_THAN_ONE_HOUR);
+		}
+		if (timeTravelled >= Constants.JOIN_BOAT.TIME_TRAVELLED_ONE_HOUR) {
+			scoreFromSmallEvent = await PlayerSmallEvents.calculateCurrentScore(player);
+		}
+
+		timeTravelled -= Constants.JOIN_BOAT.TIME_TRAVELLED_SUBTRAHEND;
+		if (timeTravelled > ReportConstants.TIME_LIMIT) {
+			timeTravelled = ReportConstants.TIME_LIMIT;
+		}
+		return TravelTime.timeTravelledToScore(timeTravelled) + scoreFromSmallEvent;
 	}
 }
