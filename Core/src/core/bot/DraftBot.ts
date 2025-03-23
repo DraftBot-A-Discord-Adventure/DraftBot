@@ -26,7 +26,7 @@ import {ReachDestinationNotificationPacket} from "../../../../Lib/src/packets/no
 import {MapLocationDataController} from "../../data/MapLocation";
 import * as fs from "fs";
 import {MqttTopicUtils} from "../../../../Lib/src/utils/MqttTopicUtils";
-import {initializeAllClassBehaviors} from "../fights/AiBehaviorManager";
+import {initializeAllClassBehaviors} from "../fights/AiBehaviorController";
 import {initializeAllPetBehaviors} from "../fights/PetAssistManager";
 
 export class DraftBot {
