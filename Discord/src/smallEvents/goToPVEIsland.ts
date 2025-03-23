@@ -12,27 +12,28 @@ import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCo
 export async function goToPVEIslandCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorGoToPVEIslandData;
+	const lng = interaction!.userLanguage;
 
 	const embed = new DraftbotSmallEventEmbed(
 		"goToPVEIsland",
-		getRandomSmallEventIntro(interaction.userLanguage)
+		getRandomSmallEventIntro(lng)
 		+ StringUtils.getRandomTranslation(
 			"smallEvents:goToPVEIsland.stories",
-			interaction.userLanguage,
+			lng,
 			{
 				priceText: data.price === 0
-					? i18n.t("smallEvents:goToPVEIsland.priceFree", { lng: interaction.userLanguage })
-					: i18n.t("smallEvents:goToPVEIsland.priceMoney", { lng: interaction.userLanguage, price: data.price })
+					? i18n.t("smallEvents:goToPVEIsland.priceFree", { lng })
+					: i18n.t("smallEvents:goToPVEIsland.priceMoney", { lng, price: data.price })
 			}
 		)
 		+ "\n\n"
 		+ i18n.t("smallEvents:goToPVEIsland.confirm", {
-			lng: interaction.userLanguage,
+			lng,
 			fightPoints: data.energy.current,
 			fightPointsMax: data.energy.max
 		}),
 		interaction.user,
-		interaction.userLanguage
+		lng
 	);
 
 	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);

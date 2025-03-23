@@ -38,12 +38,13 @@ export async function itemChoiceCollector(context: PacketContext, packet: Reacti
 export async function itemAcceptCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorItemAcceptData;
+	const lng = interaction.userLanguage;
 
 	const embed = new DraftBotEmbed()
 		.formatAuthor(
 			data.itemWithDetails.category === ItemCategory.POTION
-				? i18n.t("commands:inventory.randomItemFooterPotion", { lng: interaction.userLanguage })
-				: i18n.t("commands:inventory.randomItemFooter", { lng: interaction.userLanguage }),
+				? i18n.t("commands:inventory.randomItemFooterPotion", { lng })
+				: i18n.t("commands:inventory.randomItemFooter", { lng }),
 			interaction.user
 		)
 		.setDescription(DisplayUtils.getItemDisplayWithStats(data.itemWithDetails, interaction.userLanguage));

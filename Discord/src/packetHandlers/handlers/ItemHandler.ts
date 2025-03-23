@@ -44,57 +44,61 @@ export default class ItemHandler {
 	@packetHandler(ItemRefusePacket)
 	async itemRefuseHandler(context: PacketContext, packet: ItemRefusePacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
-		if (interaction) {
-			const menuEmbed = new DraftBotEmbed();
-			if (packet.item.category !== ItemCategory.POTION) {
-				menuEmbed
-					.formatAuthor(
-						packet.autoSell
-							? i18n.t("commands:sell.soldMessageAlreadyOwnTitle", {
-								lng: interaction.userLanguage,
-								pseudo: interaction.user.username
-							})
-							: i18n.t("commands:sell.soldMessageTitle", {
-								lng: interaction.userLanguage,
-								pseudo: interaction.user.username
-							}),
-						interaction.user
-					)
-					.setDescription(i18n.t("commands:sell.soldMessage", {
-						lng: interaction.userLanguage,
-						item: DisplayUtils.getItemDisplay(packet.item, interaction.userLanguage),
-						value: packet.soldMoney,
-						interpolation: {escapeValue: false}
-					}));
-			}
-			else {
-				menuEmbed
-					.formatAuthor(
-						packet.autoSell
-							? i18n.t("commands:sell.soldMessageAlreadyOwnTitle", {
-								lng: interaction.userLanguage,
-								pseudo: interaction.user.username
-							})
-							: i18n.t("commands:sell.potionDestroyedTitle", {
-								lng: interaction.userLanguage,
-								pseudo: interaction.user.username
-							}),
-						interaction.user
-					)
-					.setDescription(i18n.t("commands:sell.potionDestroyedMessage", {
-						lng: interaction.userLanguage,
-						item: DisplayUtils.getItemDisplay(packet.item, interaction.userLanguage),
-						interpolation: {escapeValue: false}
-					}));
-			}
 
-			const buttonInteraction = context.discord!.buttonInteraction ? DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!) : null;
-			if (buttonInteraction && !buttonInteraction.replied) {
-				await buttonInteraction.editReply({embeds: [menuEmbed]});
-			}
-			else {
-				await interaction.channel.send({embeds: [menuEmbed]});
-			}
+		if (!interaction) {
+			return;
+		}
+
+		const menuEmbed = new DraftBotEmbed();
+		const lng = interaction.userLanguage;
+		if (packet.item.category !== ItemCategory.POTION) {
+			menuEmbed
+				.formatAuthor(
+					packet.autoSell
+						? i18n.t("commands:sell.soldMessageAlreadyOwnTitle", {
+							lng,
+							pseudo: interaction.user.username
+						})
+						: i18n.t("commands:sell.soldMessageTitle", {
+							lng,
+							pseudo: interaction.user.username
+						}),
+					interaction.user
+				)
+				.setDescription(i18n.t("commands:sell.soldMessage", {
+					lng,
+					item: DisplayUtils.getItemDisplay(packet.item, lng),
+					value: packet.soldMoney,
+					interpolation: {escapeValue: false}
+				}));
+		}
+		else {
+			menuEmbed
+				.formatAuthor(
+					packet.autoSell
+						? i18n.t("commands:sell.soldMessageAlreadyOwnTitle", {
+							lng,
+							pseudo: interaction.user.username
+						})
+						: i18n.t("commands:sell.potionDestroyedTitle", {
+							lng,
+							pseudo: interaction.user.username
+						}),
+					interaction.user
+				)
+				.setDescription(i18n.t("commands:sell.potionDestroyedMessage", {
+					lng,
+					item: DisplayUtils.getItemDisplay(packet.item, lng),
+					interpolation: {escapeValue: false}
+				}));
+		}
+
+		const buttonInteraction = context.discord!.buttonInteraction ? DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!) : null;
+		if (buttonInteraction && !buttonInteraction.replied) {
+			await buttonInteraction.editReply({embeds: [menuEmbed]});
+		}
+		else {
+			await interaction.channel.send({embeds: [menuEmbed]});
 		}
 	}
 }

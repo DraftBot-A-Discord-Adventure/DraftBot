@@ -31,9 +31,11 @@ export default class EventsHandlers {
 		if (!interaction) {
 			return;
 		}
+
+		const lng = interaction.userLanguage;
 		const embed = new DraftBotEmbed();
 		embed.formatAuthor(i18n.t("commands:report.destinationTitle", {
-			lng: interaction.userLanguage,
+			lng,
 			pseudo: user.attributes.gameUsername
 		}), interaction.user);
 		let time = packet.tripDuration;
@@ -47,11 +49,11 @@ export default class EventsHandlers {
 		}
 		embed.setDescription(i18n.t(i18nTr, {
 			count: time,
-			lng: interaction.userLanguage,
-			mapPrefix: i18n.t(`models:map_types.${packet.mapTypeId}.prefix`, {lng: interaction.userLanguage}),
-			mapType: (i18n.t(`models:map_types.${packet.mapTypeId}.name`, {lng: interaction.userLanguage}) as string).toLowerCase(),
+			lng,
+			mapPrefix: i18n.t(`models:map_types.${packet.mapTypeId}.prefix`, {lng}),
+			mapType: (i18n.t(`models:map_types.${packet.mapTypeId}.name`, {lng}) as string).toLowerCase(),
 			mapEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.map_types[packet.mapTypeId]),
-			mapName: i18n.t(`models:map_locations.${packet.mapId}.name`, {lng: interaction.userLanguage}),
+			mapName: i18n.t(`models:map_locations.${packet.mapId}.name`, {lng}),
 			time
 		}));
 		if (context.discord!.buttonInteraction) {
@@ -79,8 +81,9 @@ export default class EventsHandlers {
 			return;
 		}
 
+		const lng = interaction.userLanguage;
 		const completedMissionsEmbed = new DraftBotEmbed().formatAuthor(i18n.t("notifications:missions.completed.title", {
-			lng: interaction.userLanguage,
+			lng,
 			count: packet.missions.length,
 			pseudo: discordUser.username
 		}), discordUser);
@@ -95,12 +98,12 @@ export default class EventsHandlers {
 		for (const mission of packet.missions) {
 			totalGems += mission.gemsToWin;
 			totalXP += mission.xpToWin;
-			missionLists[mission.missionType].push(MissionUtils.formatCompletedMission(mission, interaction.userLanguage));
+			missionLists[mission.missionType].push(MissionUtils.formatCompletedMission(mission, lng));
 		}
 		for (const [missionType, missions] of Object.entries(missionLists).filter(entry => entry[1].length !== 0)) {
 			completedMissionsEmbed.addFields({
 				name: i18n.t(`notifications:missions.completed.subcategories.${missionType}`, {
-					lng: interaction.userLanguage,
+					lng,
 					count: missions.length
 				}),
 				value: missions.join("\n")
@@ -109,10 +112,10 @@ export default class EventsHandlers {
 		if (packet.missions.length > 1) {
 			completedMissionsEmbed.addFields({
 				name: i18n.t("notifications:missions.completed.totalRewards", {
-					lng: interaction.userLanguage
+					lng
 				}),
 				value: i18n.t("notifications:missions.completed.totalDisplay", {
-					lng: interaction.userLanguage,
+					lng,
 					gems: totalGems,
 					xp: totalXP
 				})
@@ -132,20 +135,21 @@ export default class EventsHandlers {
 		if (!interaction || !discordUser) {
 			return;
 		}
+		const lng = interaction.userLanguage;
 		let missionsExpiredDescription = "";
 		for (const mission of packet.missions) {
-			missionsExpiredDescription += `- ${MissionUtils.formatBaseMission(mission, interaction.userLanguage)} (${mission.numberDone}/${mission.missionObjective})\n`;
+			missionsExpiredDescription += `- ${MissionUtils.formatBaseMission(mission, lng)} (${mission.numberDone}/${mission.missionObjective})\n`;
 		}
 		await interaction.channel.send({
 			embeds: [
 				new DraftBotEmbed()
 					.formatAuthor(i18n.t("notifications:missions.expired.title", {
 						count: packet.missions.length,
-						lng: interaction.userLanguage,
+						lng,
 						pseudo: user.attributes.gameUsername[0]
 					}), discordUser)
 					.setDescription(i18n.t("notifications:missions.expired.description", {
-						lng: interaction.userLanguage,
+						lng,
 						count: packet.missions.length,
 						missionsExpired: missionsExpiredDescription,
 						interpolation: {escapeValue: false}
@@ -177,18 +181,19 @@ export default class EventsHandlers {
 	async giveFoodToGuild(context: PacketContext, packet: GiveFoodToGuildPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		const foodId = PetConstants.PET_FOOD_BY_ID[packet.selectedFoodIndex];
+		const lng = interaction!.userLanguage;
 
 		await interaction?.followUp({
 			embeds: [
 				new DraftBotEmbed()
-					.formatAuthor(i18n.t("notifications:guildFood.receivedFoodTitle", {lng: interaction.userLanguage}), interaction.user)
+					.formatAuthor(i18n.t("notifications:guildFood.receivedFoodTitle", {lng}), interaction.user)
 					.setDescription(
 						i18n.t("notifications:guildFood.receivedFoodDescription", {
-							lng: interaction.userLanguage,
+							lng,
 							foodId,
 							amount: packet.quantity,
 							foodName: i18n.t(`models:foods.${foodId}`, {
-								lng: interaction.userLanguage,
+								lng,
 								count: packet.quantity
 							})
 						})

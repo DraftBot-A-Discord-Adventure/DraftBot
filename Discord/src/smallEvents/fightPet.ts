@@ -30,9 +30,10 @@ function getFightPetReactions(interaction: DraftbotInteraction, baseReactions: R
 export async function fightPetCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorFightPetData;
+	const lng = interaction!.userLanguage;
 
 	const formatBaseOptions = {
-		lng: interaction.userLanguage,
+		lng,
 		context: data.isFemale ? StringConstants.SEX.MALE.long : StringConstants.SEX.FEMALE.long
 	};
 
@@ -40,18 +41,18 @@ export async function fightPetCollector(context: PacketContext, packet: Reaction
 
 	const embed = new DraftbotSmallEventEmbed(
 		"fightPet",
-		`${getRandomSmallEventIntro(interaction.userLanguage)}${
-			StringUtils.getRandomTranslation("smallEvents:fightPet.intro", interaction.userLanguage, {
+		`${getRandomSmallEventIntro(lng)}${
+			StringUtils.getRandomTranslation("smallEvents:fightPet.intro", lng, {
 				...formatBaseOptions,
 				feralPet: i18n.t("smallEvents:fightPet.customPetDisplay", {
 					...formatBaseOptions,
 					petId: data.petId,
 					petName: i18n.t(`models:pets.${data.petId}`, formatBaseOptions),
-					adjective: StringUtils.getRandomTranslation("smallEvents:fightPet.adjectives", interaction.userLanguage, formatBaseOptions)
+					adjective: StringUtils.getRandomTranslation("smallEvents:fightPet.adjectives", lng, formatBaseOptions)
 				})
-			})} ${StringUtils.getRandomTranslation("smallEvents:fightPet.situation", interaction.userLanguage)}`,
+			})} ${StringUtils.getRandomTranslation("smallEvents:fightPet.situation", lng)}`,
 		interaction.user,
-		interaction.userLanguage
+		lng
 	);
 
 	return await new DraftbotButtonReactionMessage(interaction, {

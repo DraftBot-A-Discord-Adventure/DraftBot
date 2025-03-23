@@ -17,12 +17,13 @@ import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCo
 export async function lotteryCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
+	const lng = interaction.userLanguage;
 
 	const embed = new DraftbotSmallEventEmbed(
 		"lottery",
-		i18n.t("smallEvents:lottery.intro", { lng: interaction.userLanguage }),
+		i18n.t("smallEvents:lottery.intro", { lng: lng }),
 		interaction.user,
-		interaction.userLanguage
+		lng
 	);
 
 	const row = new ActionRowBuilder<ButtonBuilder>();
@@ -62,7 +63,7 @@ export async function lotteryCollector(context: PacketContext, packet: ReactionC
 	// Send an error if someone uses the collector that is not intended for them and stop if it's the owner
 	buttonCollector.on("collect", async (buttonInteraction: ButtonInteraction) => {
 		if (buttonInteraction.user.id !== context.discord?.user) {
-			await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, interaction.userLanguage);
+			await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, lng);
 			return;
 		}
 

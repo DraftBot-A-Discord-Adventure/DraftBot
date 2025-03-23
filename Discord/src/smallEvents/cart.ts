@@ -18,21 +18,22 @@ export async function cartCollector(context: PacketContext, packet: ReactionColl
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorCartData;
 	const story = data.displayedDestination.isDisplayed ? "knownDestination" : "unknownDestination";
+	const lng = interaction!.userLanguage;
 
 	const embed = new DraftbotSmallEventEmbed(
 		"cart",
-		getRandomSmallEventIntro(interaction.userLanguage)
-		+ StringUtils.getRandomTranslation(`smallEvents:cart.${story}`, interaction.userLanguage, {
+		getRandomSmallEventIntro(lng)
+		+ StringUtils.getRandomTranslation(`smallEvents:cart.${story}`, lng, {
 			price: data.price,
 			moneyEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.unitValues.money),
 			destination:
 				`${DraftBotIcons.map_types[data.displayedDestination.type!]} ${
-					i18n.t(`models:map_locations.${data.displayedDestination.id}.name`, {lng: interaction.userLanguage})
+					i18n.t(`models:map_locations.${data.displayedDestination.id}.name`, {lng})
 				}`
 		})
-		+ StringUtils.getRandomTranslation("smallEvents:cart.menu", interaction.userLanguage),
+		+ StringUtils.getRandomTranslation("smallEvents:cart.menu", lng),
 		interaction.user,
-		interaction.userLanguage
+		lng
 	);
 
 	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context, {

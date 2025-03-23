@@ -237,16 +237,17 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 		];
 
 		let toSendProp: { content?: string, embeds?: DraftBotEmbed[] };
+		const lng = this.userLanguage;
 		if (e?.constructor.name === DiscordjsError.name && manageFallbackDevErrorCodes.includes((e as DiscordjsError).code)) {
 			toSendProp = {
 				embeds: [new DraftBotEmbed()
-					.formatAuthor(i18n.t("error:errorOccurredTitle", {lng: this.userLanguage}), this.user)
-					.setDescription(i18n.t("error:aDevMessedUp", {lng: this.userLanguage}))
+					.formatAuthor(i18n.t("error:errorOccurredTitle", {lng}), this.user)
+					.setDescription(i18n.t("error:aDevMessedUp", {lng}))
 					.setErrorColor()]
 			};
 		}
 		else {
-			toSendProp = { content: i18n.t("bot:noSpeakPermission", {lng: this.userLanguage}) };
+			toSendProp = { content: i18n.t("bot:noSpeakPermission", {lng}) };
 		}
 		try {
 			// @ts-expect-error - We consider that the functionPrototype is a function that can be called with these parameters (i.e, accepts a InteractionReplyOptions)
