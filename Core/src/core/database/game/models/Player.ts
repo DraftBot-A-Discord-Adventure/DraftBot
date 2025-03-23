@@ -279,22 +279,23 @@ export class Player extends Model {
 	/**
 	 * Check if a player has to receive a reward for a level up
 	 * @param response
+	 * @param newLevel
 	 */
-	public async addLevelUpPacket(response: DraftBotPacket[]): Promise<void> {
+	public async addLevelUpPacket(response: DraftBotPacket[], newLevel: number): Promise<void> {
 		const healthRestored = this.level % 10 === 0;
 
 		const packet = makePacket(PlayerLevelUpPacket, {
-			level: this.level,
-			fightUnlocked: this.level === FightConstants.REQUIRED_LEVEL,
-			guildUnlocked: this.level === GuildConstants.REQUIRED_LEVEL,
+			level: newLevel,
+			fightUnlocked: newLevel === FightConstants.REQUIRED_LEVEL,
+			guildUnlocked: newLevel === GuildConstants.REQUIRED_LEVEL,
 			healthRestored,
-			classesTier1Unlocked: this.level === Constants.CLASS.REQUIRED_LEVEL,
-			classesTier2Unlocked: this.level === Constants.CLASS.GROUP1LEVEL,
-			classesTier3Unlocked: this.level === Constants.CLASS.GROUP2LEVEL,
-			classesTier4Unlocked: this.level === Constants.CLASS.GROUP3LEVEL,
-			classesTier5Unlocked: this.level === Constants.CLASS.GROUP4LEVEL,
-			missionSlotUnlocked: this.level === Constants.MISSIONS.SLOT_2_LEVEL || this.level === Constants.MISSIONS.SLOT_3_LEVEL,
-			pveUnlocked: this.level === PVEConstants.MIN_LEVEL
+			classesTier1Unlocked: newLevel === Constants.CLASS.REQUIRED_LEVEL,
+			classesTier2Unlocked: newLevel === Constants.CLASS.GROUP1LEVEL,
+			classesTier3Unlocked: newLevel === Constants.CLASS.GROUP2LEVEL,
+			classesTier4Unlocked: newLevel === Constants.CLASS.GROUP3LEVEL,
+			classesTier5Unlocked: newLevel === Constants.CLASS.GROUP4LEVEL,
+			missionSlotUnlocked: newLevel === Constants.MISSIONS.SLOT_2_LEVEL || newLevel === Constants.MISSIONS.SLOT_3_LEVEL,
+			pveUnlocked: newLevel === PVEConstants.MIN_LEVEL
 		});
 
 		if (healthRestored) {
@@ -320,16 +321,16 @@ export class Player extends Model {
 		this.experience -= xpNeeded;
 		draftBotInstance.logsDatabase.logExperienceChange(this.keycloakId, this.experience, NumberChangeReason.LEVEL_UP)
 			.then();
-		this.level++;
+		const newLevel = ++this.level;
 		draftBotInstance.logsDatabase.logLevelChange(this.keycloakId, this.level)
 			.then();
 		Object.assign(this, await MissionsController.update(this, response, {
 			missionId: "reachLevel",
-			count: this.level,
+			count: newLevel,
 			set: true
 		}));
 
-		await this.addLevelUpPacket(response);
+		await this.addLevelUpPacket(response, newLevel);
 
 		await this.levelUpIfNeeded(response);
 	}
@@ -881,8 +882,11 @@ export class Player extends Model {
 		return dateOfLastLeagueReward && !(dateOfLastLeagueReward < millisecondsToSeconds(getOneDayAgo()));
 	}
 
-	public async addRage(rage: number, reason: NumberChangeReason): Promise<void> {
+	public async addRage(rage: number, reason: NumberChangeReason, response: DraftBotPacket[]): Promise<void> {
 		await this.setRage(this.rage + rage, reason);
+		if (rage > 0) {
+			await MissionsController.update(this, response, {missionId: "gainRage", count: rage});
+		}
 	}
 
 	public async setRage(rage: number, reason: NumberChangeReason): Promise<void> {

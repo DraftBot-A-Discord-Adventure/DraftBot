@@ -71,6 +71,9 @@ export const checkDrinkPotionMissions = async function(response: DraftBotPacket[
 	if (potion.nature === ItemNature.NONE) {
 		await MissionsController.update(player, response, {missionId: "drinkPotionWithoutEffect"});
 	}
+	if (potion.nature === ItemNature.ENERGY) {
+		await MissionsController.update(player, response, {missionId: "drinkEnergyPotion"});
+	}
 	await MissionsController.update(player, response, {
 		missionId: "havePotions",
 		count: countNbOfPotions(inventorySlots),
