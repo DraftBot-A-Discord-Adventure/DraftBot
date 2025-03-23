@@ -80,7 +80,8 @@
     "canceledDesc": "{{kickedPseudo}} was not kicked from the guild!",
     "noPlayer": "Player is not in guild.",
     "notSameGuild": "You cannot kick a player who is not in your guild.",
-    "himself": "You cannot kick yourself from the guild."
+    "himself": "You cannot kick yourself from the guild.",
+    "blocked": "Le joueur que vous essayez d'expulser est actuellement bloqué. Attendez un peu avant de réessayer."
   },
   "guildElder": {
     "playerNotFound": "This player was not found.",
