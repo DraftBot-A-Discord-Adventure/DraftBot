@@ -2158,7 +2158,7 @@
         }
       }
     },
-    "text": "À peine arrivé à votre destination, un messager s'arrête essoufflé devant vous et vous tend une missive. Vous lisez avec attention le contenu, qui indique que le Roi prépare une grande fête dans son château, et que vous y êtes convié."
+    "text": "Appena arrivati a destinazione, un messaggero si ferma trafelato davanti a voi e vi consegna una lettera. Leggete attentamente il contenuto: il Re sta preparando una grande festa nel suo castello e siete invitati a parteciparvi."
   },
   "65": {
     "possibilities": {
@@ -2539,29 +2539,29 @@
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "Vous ne bougez pas, comme pétrifié. La femme prend cette réaction comme un refus et s'énerve . Elle vous lance des invectives marines et vous bombarde de poissons morts. Vous parvenez à esquiver la plupart, mais un spécimen vous frappe en plein visage. Vous continuez à courir sans vous retourner."
+          "0": "Non vi muovete, come se foste pietrificati. La donna prende questa reazione come un rifiuto e si arrabbia. Vi lancia invettive marine e vi colpisce con dei pesci morti. Riuscite a schivare la maggior parte di essi, ma uno vi colpisce in pieno viso. Continuate a correre senza guardarvi indietro."
         }
       },
       "eat": {
         "outcomes": {
-          "0": "Le mélange des saveurs est divin, et une sensation d'euphorie vous envahit. Vos yeux se ferment malgré vous, et lorsque vous les rouvrez, vous découvrez que vous êtes à bord d'un bateau, bercé par le clapotis des vagues."
+          "0": "La combinazione di sapori è divina e una sensazione di euforia vi investe. Gli occhi si chiudono, nonostante tutto, e quando li riaprite scoprite di essere a bordo di una barca, cullati dallo sciabordio delle onde."
         },
-        "text": "Prendre une grande bouchée du plat."
+        "text": "Date un bel morso al piatto."
       },
       "run": {
         "outcomes": {
-          "0": "La femme semble offensée par votre refus. Elle vous lance des invectives marines et vous bombarde de poissons morts. Vous parvenez à esquiver la plupart, mais un spécimen vous frappe en plein visage. Vous continuez à courir sans vous retourner."
+          "0": "La donna sembra offesa dal vostro rifiuto. Vi lancia invettive marine e vi colpisce con dei pesci morti. Riuscite a schivare la maggior parte di essi, ma uno vi colpisce in pieno viso. Continuate a correre senza guardarvi indietro."
         },
-        "text": "Partir en courant."
+        "text": "Scappare."
       },
       "smell": {
         "outcomes": {
-          "0": "Vous vous penchez légèrement, intrigué par la senteur corsée émanant du plat de fruits de mer et la femme vous observe avec une intensité qui vous donne la chair de poule. Vous êtes sur le point de commenter le mélange curieux quand, soudainement, vous sentez ses mains vous écraser le visage contre l'assiette. Le monde devient humide et froid alors que votre nez plonge dans le plat. Vous croisez le regard vitreux d'un poisson cuit, l'œil de ce dernier vient peu à peu se presser contre le vôtre. Vos sens chavirent et l'obscurité engloutit votre vision. Lorsque vous reprenez conscience, vous êtes accueilli par le grincement du bois et l'odeur du sel, vous ressentez un balancement régulier et réalisez que vous êtes allongé sur les planches rugueuses du pont d'un navire."
+          "0": "Vi avvicinate leggermente, incuriositi dal profumo corposo che emana il piatto di pesce, e la donna vi osserva con un'intensità che vi fa venire la pelle d'oca. State per commentare il curioso miscuglio quando, all'improvviso, sentite le sue mani schiacciarvi il viso contro il piatto. Il mondo diventa umido e freddo mentre il vostro naso sprofonda nel piatto. Incontrate lo sguardo vitreo di un pesce cotto, il cui occhio preme gradualmente contro il vostro. I vostri sensi si capovolgono e l'oscurità inghiotte la vostra vista. Quando riprendete conoscenza, siete accolti dallo scricchiolio del legno e dall'odore di salsedine, sentite un movimento costante di dondolio e vi rendete conto di essere sdraiati sulle assi ruvide del ponte di una nave."
         },
-        "text": "Renifler le plat de plus près d'un air suspicieux."
+        "text": "Annusate il piatto con maggiore sospetto."
       }
     },
-    "text": "Alors que vous déambulez sans but précis, vos narines sont soudainement assaillies par une intense odeur iodée. Une étrange femme vêtue d'une robe aux motifs d'écailles de poisson, les cheveux emmêlés d'algues séchées, vous fait signe de la main. Elle est entourée de paniers débordant de fruits de mer aux couleurs vives et vous invite, avec un sourire édenté mais chaleureux, à goûter à sa spécialité culinaire : un plat mijoté avec amour à partir des plus beaux produits de l'océan."
+    "text": "Mentre vagate senza meta, le vostre narici vengono improvvisamente assalite da un intenso odore di iodio. Una strana donna vestita con un abito a squame di pesce, con i capelli ricoperti di alghe secche, vi saluta. È circondata da cesti traboccanti di frutti di mare dai colori vivaci e vi invita, con un sorriso sdentato ma caloroso, ad assaggiare la sua specialità culinaria: un piatto cucinato a fuoco lento con i migliori prodotti dell'oceano."
   },
   "8": {
     "possibilities": {
