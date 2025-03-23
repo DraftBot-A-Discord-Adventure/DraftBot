@@ -15,14 +15,7 @@ import {
 import i18n from "../../translations/i18n";
 import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
-import {
-	ActionRowBuilder,
-	ButtonBuilder,
-	ButtonInteraction,
-	ButtonStyle,
-	Message,
-	parseEmoji
-} from "discord.js";
+import {ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, Message, parseEmoji} from "discord.js";
 import {DiscordCache} from "../../bot/DiscordCache";
 import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 import {effectsErrorTextValue, sendInteractionNotForYou} from "../../utils/ErrorUtils";
@@ -42,12 +35,19 @@ import {LANGUAGE} from "../../../../Lib/src/Language";
 import {ReportConstants} from "../../../../Lib/src/constants/ReportConstants";
 import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import {DiscordConstants} from "../../DiscordConstants";
+import {ReactionCollectorPveFightData} from "../../../../Lib/src/packets/interaction/ReactionCollectorPveFight";
+import {StringUtils} from "../../utils/StringUtils";
 
 async function getPacket(interaction: DraftbotInteraction): Promise<CommandReportPacketReq> {
 	await interaction.deferReply();
 	return Promise.resolve(makePacket(CommandReportPacketReq, {}));
 }
 
+/**
+ * Display the big event collector that allows the player to choose the possibility of the big event
+ * @param context
+ * @param packet
+ */
 export async function createBigEventCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
@@ -91,7 +91,7 @@ export async function createBigEventCollector(context: PacketContext, packet: Re
 		components: rows
 	}) as Message;
 
-	let responded = false; // To avoid concurrence between the button controller and reactions controller
+	let responded = false; // To avoid concurrence between the button controller and reaction controller
 	const respondToEvent = (possibilityName: string, buttonInteraction: ButtonInteraction | null): void => {
 		if (!responded) {
 			responded = true;
@@ -131,6 +131,11 @@ export async function createBigEventCollector(context: PacketContext, packet: Re
 	return [buttonCollector, endCollector];
 }
 
+/**
+ * Display the result of the big event
+ * @param packet
+ * @param context
+ */
 export async function reportResult(packet: CommandReportBigEventResultRes, context: PacketContext): Promise<void> {
 	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
@@ -189,6 +194,11 @@ export async function reportResult(packet: CommandReportBigEventResultRes, conte
 	}
 }
 
+/**
+ * Display the travel destination collector that allows the player to choose the destination of his next trip
+ * @param context
+ * @param packet
+ */
 export async function chooseDestinationCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
@@ -218,7 +228,7 @@ function isCurrentlyInEffect(packet: CommandReportTravelSummaryRes, now: number)
 }
 
 /**
- * Generates a string representing the player walking form a map to another
+ * Generates a string representing the player walking from a map to another
  * @param packet
  * @param now
  * @returns {Promise<string>}
@@ -227,7 +237,7 @@ function generateTravelPathString(packet: CommandReportTravelSummaryRes, now: nu
 	// Calculate trip duration
 	const tripDuration = packet.arriveTime - packet.startTime - (packet.effectDuration ?? 0);
 
-	// Player travelled time
+	// Player traveled time
 	let playerTravelledTime = now - packet.startTime;
 	const isInEffectTime = isCurrentlyInEffect(packet, now);
 	const effectStartTime = packet.effectEndTime && packet.effectDuration ? packet.effectEndTime - packet.effectDuration : 0;
@@ -280,6 +290,48 @@ function generateTravelPathString(packet: CommandReportTravelSummaryRes, now: nu
 	return `${str} ${EmoteUtils.translateEmojiToDiscord(DraftBotIcons.map_types[packet.endMap.type])}`;
 }
 
+/**
+ * Display embed with the presentation of the monster the player will fight,
+ * leaves the choice to the player to not fight immediately
+ * @param context
+ * @param packet
+ */
+export async function handleStartPveFight(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
+	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
+	const data = packet.data.data as ReactionCollectorPveFightData;
+
+	const msg = i18n.t("commands:report.pveEvent", {
+		lng: interaction.userLanguage,
+		pseudo: interaction.user.displayName,
+		event: StringUtils.getRandomTranslation("commands:report.encounterMonster", interaction.userLanguage, {}),
+		monsterDisplay: i18n.t("commands:report.encounterMonsterStats", {
+			lng: interaction.userLanguage,
+			monsterName: i18n.t(`models:monsters.${data.monster.id}.name`, {lng: interaction.userLanguage}),
+			emoji: DraftBotIcons.monsters[data.monster.id],
+			description: i18n.t(`models:monsters.${data.monster.id}.description`, {lng: interaction.userLanguage}),
+			level: data.monster.level,
+			fightPoints: data.monster.energy,
+			attack: data.monster.attack,
+			defense: data.monster.defense,
+			speed: data.monster.speed,
+			interpolation: {escapeValue: false}
+		}),
+		interpolation: {escapeValue: false}
+	});
+
+	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, msg, packet, context, {
+		emojis: {
+			accept: DraftBotIcons.pve_fights.start_fight,
+			refuse: DraftBotIcons.pve_fights.wait_a_bit
+		}
+	});
+}
+
+/**
+	 * Display the travel summary (embed with the travel path in between small events)
+	 * @param packet
+	 * @param context
+	 */
 export async function reportTravelSummary(packet: CommandReportTravelSummaryRes, context: PacketContext): Promise<void> {
 	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;

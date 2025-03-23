@@ -1058,12 +1058,30 @@
     "finishWithAttack": "{emote:fight_actions.{{variant}}} $t(models:fight_actions.{{variant}}.name, {\"count\": {{count}}})"
   },
   "monsters": {
-    "forestTroll": "Troll de la forêt",
-    "magmaTitan": "Titan de magma",
-    "rockGolem": "Golem de roche",
-    "skeleton": "Squelette",
-    "slimyMutant": "Mutant Vaseux",
-    "spider": "Araignée"
+    "forestTroll": {
+      "name": "Troll de la forêt",
+      "description": "Un grand troll qui vit dans les forêts. Très fort et très résistant, il est aussi très agressif et attaque tout ce qui bouge. Il est très dangereux pour les aventuriers qui s'aventurent dans les forêts."
+    },
+    "spider": {
+      "name": "Araignée",
+      "description": "Une grosse araignée poilue. D'une espèce inconnue, elle attaque tous les voyageurs qui s'approchent de son nid. Venimeuse, elle peut aussi projeter de la soie pour immobiliser ses proies."
+    },
+    "magmaTitan": {
+      "name": "Titan de magma",
+      "description": "Le monstre le plus puissant de l'île. Bouillant de chaleur, il est capable de faire fondre les roches les plus dures. Très peu d'aventuriers ont réussi à s'en défaire et il serait périlleux de l'attaquer seul."
+    },
+    "rockGolem": {
+      "name": "Golem de pierre",
+      "description": "Un immense golem de roche. Animé par le désir d'écraser tout ce qui s'en approche. Il est très lent, mais ses attaques sont dévastatrices."
+    },
+    "skeleton": {
+      "name": "Squelette",
+      "description": "Un squelette étrange, il semble être un ancien guerrier. Il paraît faible mais est en réalité très dangereux et nombreux sont ceux qui se sont laissé surprendre."
+    },
+    "slimyMutant": {
+      "name": "Mutant Vaseux",
+      "description": "Le Mutant Vaseux est un monstre pouvant copier les autres monstres ou son adversaire directement. Il est très polyvalent et peut s'adapter à toutes les situations."
+    }
   },
   "objects": {
     "0": "Emplacement libre",
