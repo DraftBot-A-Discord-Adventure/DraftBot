@@ -2158,7 +2158,7 @@
         }
       }
     },
-    "text": "Assim que chega ao seu destino, um mensageiro pára sem fôlego à sua frente e entrega-lhe uma carta. Lês com atenção o conteúdo, que diz que o Rei está a preparar uma grande festa no seu castelo e que estás convidado a assistir."
+    "text": "À peine arrivé à votre destination, un messager s'arrête essoufflé devant vous et vous tend une missive. Vous lisez avec attention le contenu, qui indique que le Roi prépare une grande fête dans son château, et que vous y êtes convié."
   },
   "65": {
     "possibilities": {
@@ -2534,6 +2534,34 @@
       }
     },
     "text": "Caminhando despreocupadamente ao longo da Route des Merveilles, aproxima-se de um pequeno grupo de pessoas em semicírculo à volta de um homem corpulento. Quando se aproxima, repara que ele está vestido com um fato de espetáculo vermelho, justo, com manchas amarelas nos ombros e umas cuecas azuis por cima do uniforme. No seu peito imponente está um pequeno brasão azul real, que não consegues decifrar. Passa por entre os muitos espectadores até chegar à primeira fila. O homem é um treinador de leões com um longo chicote de couro castanho que está a ensinar um truque a dois magníficos tigres bebés."
+  },
+  "74": {
+    "possibilities": {
+      "end": {
+        "outcomes": {
+          "0": "Vous ne bougez pas, comme pétrifié. La femme prend cette réaction comme un refus et s'énerve . Elle vous lance des invectives marines et vous bombarde de poissons morts. Vous parvenez à esquiver la plupart, mais un spécimen vous frappe en plein visage. Vous continuez à courir sans vous retourner."
+        }
+      },
+      "eat": {
+        "outcomes": {
+          "0": "Le mélange des saveurs est divin, et une sensation d'euphorie vous envahit. Vos yeux se ferment malgré vous, et lorsque vous les rouvrez, vous découvrez que vous êtes à bord d'un bateau, bercé par le clapotis des vagues."
+        },
+        "text": "Prendre une grande bouchée du plat."
+      },
+      "run": {
+        "outcomes": {
+          "0": "La femme semble offensée par votre refus. Elle vous lance des invectives marines et vous bombarde de poissons morts. Vous parvenez à esquiver la plupart, mais un spécimen vous frappe en plein visage. Vous continuez à courir sans vous retourner."
+        },
+        "text": "Partir en courant."
+      },
+      "smell": {
+        "outcomes": {
+          "0": "Vous vous penchez légèrement, intrigué par la senteur corsée émanant du plat de fruits de mer et la femme vous observe avec une intensité qui vous donne la chair de poule. Vous êtes sur le point de commenter le mélange curieux quand, soudainement, vous sentez ses mains vous écraser le visage contre l'assiette. Le monde devient humide et froid alors que votre nez plonge dans le plat. Vous croisez le regard vitreux d'un poisson cuit, l'œil de ce dernier vient peu à peu se presser contre le vôtre. Vos sens chavirent et l'obscurité engloutit votre vision. Lorsque vous reprenez conscience, vous êtes accueilli par le grincement du bois et l'odeur du sel, vous ressentez un balancement régulier et réalisez que vous êtes allongé sur les planches rugueuses du pont d'un navire."
+        },
+        "text": "Renifler le plat de plus près d'un air suspicieux."
+      }
+    },
+    "text": "Alors que vous déambulez sans but précis, vos narines sont soudainement assaillies par une intense odeur iodée. Une étrange femme vêtue d'une robe aux motifs d'écailles de poisson, les cheveux emmêlés d'algues séchées, vous fait signe de la main. Elle est entourée de paniers débordant de fruits de mer aux couleurs vives et vous invite, avec un sourire édenté mais chaleureux, à goûter à sa spécialité culinaire : un plat mijoté avec amour à partir des plus beaux produits de l'océan."
   },
   "8": {
     "possibilities": {
