@@ -36,33 +36,34 @@ export async function createPetSellCollector(context: PacketContext, packet: Rea
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorPetSellData;
+	const lng = interaction.userLanguage;
 
 	let description = i18n.t("commands:petSell.sellDescription", {
-		lng: interaction.userLanguage,
+		lng,
 		pseudo: interaction.user.displayName,
 		price: data.price
 	});
 	if (data.isGuildAtMaxLevel) {
-		description += `\n\n${i18n.t("commands:petSell.maxLevelWarning", {lng: interaction.userLanguage})}`;
+		description += `\n\n${i18n.t("commands:petSell.maxLevelWarning", {lng})}`;
 	}
 
 	const embed = new DraftBotEmbed()
 		.formatAuthor(
 			i18n.t("commands:petSell.sellTitle", {
-				lng: interaction.userLanguage
+				lng
 			}),
 			interaction.user
 		)
 		.setDescription(description)
 		.addFields([{
 			name: i18n.t("commands:petSell.petFieldName", {
-				lng: interaction.userLanguage
+				lng
 			}),
-			value: DisplayUtils.getOwnedPetFieldDisplay(data.pet, interaction.userLanguage),
+			value: DisplayUtils.getOwnedPetFieldDisplay(data.pet, lng),
 			inline: false
 		}])
 		.setFooter({text: i18n.t("commands:petSell.sellFooter", {
-			lng: interaction.userLanguage
+			lng
 		})});
 
 	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context, {
@@ -73,6 +74,7 @@ export async function createPetSellCollector(context: PacketContext, packet: Rea
 export async function handlePetSellSuccess(context: PacketContext, packet: CommandPetSellSuccessPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!)!;
+	const lng = interaction.userLanguage;
 
 	// Send guild XP reward
 	await handleCommandGuildDailyRewardPacket(makePacket(CommandGuildDailyRewardPacket, {
@@ -85,15 +87,15 @@ export async function handlePetSellSuccess(context: PacketContext, packet: Comma
 		embeds: [new DraftBotEmbed()
 			.formatAuthor(
 				i18n.t("commands:petSell.successTitle", {
-					lng: interaction.userLanguage,
+					lng,
 					pseudo: buttonInteraction.user.displayName
 				}),
 				buttonInteraction.user
 			)
 			.setDescription(
 				i18n.t("commands:petSell.successDescription", {
-					lng: interaction.userLanguage,
-					pet: DisplayUtils.getPetDisplay(packet.pet.typeId, packet.pet.sex, interaction.userLanguage)
+					lng,
+					pet: DisplayUtils.getPetDisplay(packet.pet.typeId, packet.pet.sex, lng)
 				})
 			)]
 	});

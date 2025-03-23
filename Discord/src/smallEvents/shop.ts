@@ -19,27 +19,28 @@ import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCo
  */
 export async function smallShopCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
+	const lng = interaction!.userLanguage;
 	const data = packet.data.data as ReactionCollectorShopSmallEventData;
 	const gender = RandomUtils.draftbotRandom.bool() ? StringConstants.SEX.MALE : StringConstants.SEX.FEMALE;
-	const name = StringUtils.getRandomTranslation("smallEvents:shop.names", interaction.userLanguage, {context: gender.short});
+	const name = StringUtils.getRandomTranslation("smallEvents:shop.names", lng, {context: gender.short});
 
 	const embed = new DraftbotSmallEventEmbed(
 		"shop",
-		StringUtils.getRandomTranslation("smallEvents:shop.intro", interaction.userLanguage, {
+		StringUtils.getRandomTranslation("smallEvents:shop.intro", lng, {
 			context: gender.short,
 			name
 		})
-		+ StringUtils.getRandomTranslation("smallEvents:shop.end", interaction.userLanguage, {
-			item: DisplayUtils.getItemDisplayWithStats(data.item, interaction.userLanguage),
+		+ StringUtils.getRandomTranslation("smallEvents:shop.end", lng, {
+			item: DisplayUtils.getItemDisplayWithStats(data.item, lng),
 			price: data.price,
 			type: `${Constants.REACTIONS.ITEM_CATEGORIES[data.item.category]}${i18n.t("smallEvents:shop.types", {
 				returnObjects: true,
-				lng: interaction.userLanguage
+				lng: lng
 			})[data.item.category]}`,
 			interpolation: {escapeValue: false}
 		}),
 		interaction.user,
-		interaction.userLanguage
+		lng
 	);
 
 	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);

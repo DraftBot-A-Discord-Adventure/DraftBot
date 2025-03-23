@@ -29,49 +29,53 @@ function getPacket(_interaction: DraftbotInteraction, keycloakUser: KeycloakUser
 
 export async function handleCommandPetFreePacketRes(packet: CommandPetFreePacketRes, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
-	if (interaction) {
-		if (!packet.foundPet) {
+
+	if (!interaction) {
+		return;
+	}
+
+	const lng = interaction.userLanguage;
+	if (!packet.foundPet) {
+		await interaction.reply({
+			embeds: [
+				new DraftBotErrorEmbed(
+					interaction.user,
+					interaction,
+					i18n.t("error:petDoesntExist", {lng})
+				)
+			]
+		});
+		return;
+	}
+	if (!packet.petCanBeFreed) {
+		if (packet.missingMoney! > 0) {
 			await interaction.reply({
 				embeds: [
 					new DraftBotErrorEmbed(
 						interaction.user,
 						interaction,
-						i18n.t("error:petDoesntExist", {lng: interaction.userLanguage})
+						i18n.t("error:notEnoughMoney", {
+							lng,
+							money: packet.missingMoney
+						})
 					)
 				]
 			});
-			return;
 		}
-		if (!packet.petCanBeFreed) {
-			if (packet.missingMoney! > 0) {
-				await interaction.reply({
-					embeds: [
-						new DraftBotErrorEmbed(
-							interaction.user,
-							interaction,
-							i18n.t("error:notEnoughMoney", {
-								lng: interaction.userLanguage,
-								money: packet.missingMoney
-							})
-						)
-					]
-				});
-			}
-			if (packet.cooldownRemainingTimeMs! > 0) {
-				await interaction.reply({
-					embeds: [
-						new DraftBotErrorEmbed(
-							interaction.user,
-							interaction,
-							i18n.t("error:cooldownPetFree", {
-								lng: interaction.userLanguage,
-								remainingTime: printTimeBeforeDate(packet.cooldownRemainingTimeMs! + new Date().valueOf()),
-								interpolation: {escapeValue: false}
-							})
-						)
-					]
-				});
-			}
+		if (packet.cooldownRemainingTimeMs! > 0) {
+			await interaction.reply({
+				embeds: [
+					new DraftBotErrorEmbed(
+						interaction.user,
+						interaction,
+						i18n.t("error:cooldownPetFree", {
+							lng,
+							remainingTime: printTimeBeforeDate(packet.cooldownRemainingTimeMs! + new Date().valueOf()),
+							interpolation: {escapeValue: false}
+						})
+					)
+				]
+			});
 		}
 	}
 }
@@ -80,15 +84,16 @@ export async function createPetFreeCollector(context: PacketContext, packet: Rea
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorPetFreeData;
+	const lng = interaction.userLanguage;
 
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:petFree.title", {
-		lng: interaction.userLanguage,
+		lng,
 		pseudo: interaction.user.displayName
 	}), interaction.user)
 		.setDescription(
 			i18n.t("commands:petFree.confirmDesc", {
-				lng: interaction.userLanguage,
-				pet: PetUtils.petToShortString(interaction.userLanguage, data.petNickname, data.petId, data.petSex)
+				lng,
+				pet: PetUtils.petToShortString(lng, data.petNickname, data.petId, data.petSex)
 			})
 		);
 

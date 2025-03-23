@@ -20,26 +20,27 @@ import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCo
 
 export async function witchCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
+	const lng = interaction.userLanguage;
 
 	let witchIngredients = "\n\n";
 	const reactions: [string, string][] = [];
 	for (const reaction of packet.reactions) {
 		const ingredientId = (reaction.data as ReactionCollectorWitchReaction).id;
 		const emoji = EmoteUtils.translateEmojiToDiscord(DraftBotIcons.witch_small_event[ingredientId]);
-		witchIngredients += `${emoji} ${i18n.t(`smallEvents:witch.witchEventNames.${ingredientId}`, {lng: interaction.userLanguage})}\n`;
+		witchIngredients += `${emoji} ${i18n.t(`smallEvents:witch.witchEventNames.${ingredientId}`, {lng})}\n`;
 		reactions.push([ingredientId, emoji]);
 	}
 
-	const intro = getRandomSmallEventIntro(interaction.userLanguage);
+	const intro = getRandomSmallEventIntro(lng);
 	const embed = new DraftbotSmallEventEmbed(
 		"witch",
 		intro
-		+ StringUtils.getRandomTranslation("smallEvents:witch.intro", interaction.userLanguage)
-		+ StringUtils.getRandomTranslation("smallEvents:witch.description", interaction.userLanguage)
-		+ StringUtils.getRandomTranslation("smallEvents:witch.situation", interaction.userLanguage)
+		+ StringUtils.getRandomTranslation("smallEvents:witch.intro", lng)
+		+ StringUtils.getRandomTranslation("smallEvents:witch.description", lng)
+		+ StringUtils.getRandomTranslation("smallEvents:witch.situation", lng)
 		+ witchIngredients,
 		interaction.user,
-		interaction.userLanguage
+		lng
 	);
 
 	const row = new ActionRowBuilder<ButtonBuilder>();
@@ -67,7 +68,7 @@ export async function witchCollector(context: PacketContext, packet: ReactionCol
 	// Send an error if someone uses the collector that is not intended for them and stop if it's the owner
 	buttonCollector.on("collect", async (buttonInteraction: ButtonInteraction) => {
 		if (buttonInteraction.user.id !== context.discord?.user) {
-			await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, interaction.userLanguage);
+			await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, lng);
 			return;
 		}
 

@@ -33,64 +33,68 @@ function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser)
 export async function handleCommandPetNickPacketRes(packet: CommandPetNickPacketRes, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 
-	if (interaction) {
-		if (!packet.foundPet) {
-			await interaction.reply({
-				embeds: [
-					new DraftBotErrorEmbed(
-						interaction.user,
-						interaction,
-						i18n.t("error:petDoesntExist", {lng: interaction.userLanguage})
-					)
-				]
-			});
-			return;
-		}
+	if (!interaction) {
+		return;
+	}
 
-		if (!packet.nickNameIsAcceptable) {
-			await interaction.reply({
-				embeds: [
-					new DraftBotErrorEmbed(
-						interaction.user,
-						interaction,
-						i18n.t("error:petNickNotValid", {
-							lng: interaction.userLanguage,
-							min: PetConstants.NICKNAME_LENGTH_RANGE.MIN,
-							max: PetConstants.NICKNAME_LENGTH_RANGE.MAX
-						})
-					)
-				]
-			});
-			return;
-		}
+	const lng = interaction.userLanguage;
 
-		if (!packet.newNickname) {
-			await interaction.reply({
-				embeds: [
-					new DraftBotEmbed()
-						.formatAuthor(i18n.t("commands:petNick.successTitle", {
-							lng: interaction.userLanguage,
-							pseudo: interaction.user.username
-						}), interaction.user)
-						.setDescription(i18n.t("commands:petNick.successNoName", {lng: interaction.userLanguage}))
-				]
-			});
-		}
-		else {
-			await interaction.reply({
-				embeds: [
-					new DraftBotEmbed()
-						.formatAuthor(i18n.t("commands:petNick.successTitle", {
-							lng: interaction.userLanguage,
-							pseudo: interaction.user.username
-						}), interaction.user)
-						.setDescription(i18n.t("commands:petNick.success", {
-							lng: interaction.userLanguage,
-							name: packet.newNickname
-						}))
-				]
-			});
-		}
+	if (!packet.foundPet) {
+		await interaction.reply({
+			embeds: [
+				new DraftBotErrorEmbed(
+					interaction.user,
+					interaction,
+					i18n.t("error:petDoesntExist", {lng})
+				)
+			]
+		});
+		return;
+	}
+
+	if (!packet.nickNameIsAcceptable) {
+		await interaction.reply({
+			embeds: [
+				new DraftBotErrorEmbed(
+					interaction.user,
+					interaction,
+					i18n.t("error:petNickNotValid", {
+						lng,
+						min: PetConstants.NICKNAME_LENGTH_RANGE.MIN,
+						max: PetConstants.NICKNAME_LENGTH_RANGE.MAX
+					})
+				)
+			]
+		});
+		return;
+	}
+
+	if (!packet.newNickname) {
+		await interaction.reply({
+			embeds: [
+				new DraftBotEmbed()
+					.formatAuthor(i18n.t("commands:petNick.successTitle", {
+						lng,
+						pseudo: interaction.user.username
+					}), interaction.user)
+					.setDescription(i18n.t("commands:petNick.successNoName", {lng}))
+			]
+		});
+	}
+	else {
+		await interaction.reply({
+			embeds: [
+				new DraftBotEmbed()
+					.formatAuthor(i18n.t("commands:petNick.successTitle", {
+						lng,
+						pseudo: interaction.user.username
+					}), interaction.user)
+					.setDescription(i18n.t("commands:petNick.success", {
+						lng,
+						name: packet.newNickname
+					}))
+			]
+		});
 	}
 }
 

@@ -42,11 +42,12 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
  * @param interaction
  */
 function getMemberTypeIcon(member: GuildMember, packet: CommandGuildPacketRes, interaction: DraftbotInteraction): string {
+	const lng = interaction.userLanguage;
 	return member.id === packet.data!.chiefId ?
-		i18n.t("commands:guild.emojis.chief", {lng: interaction.userLanguage}) :
+		i18n.t("commands:guild.emojis.chief", {lng}) :
 		member.id === packet.data!.elderId ?
-			i18n.t("commands:guild.emojis.elder", {lng: interaction.userLanguage}) :
-			i18n.t("commands:guild.emojis.member", {lng: interaction.userLanguage});
+			i18n.t("commands:guild.emojis.elder", {lng}) :
+			i18n.t("commands:guild.emojis.member", {lng});
 }
 
 /**
@@ -55,19 +56,20 @@ function getMemberTypeIcon(member: GuildMember, packet: CommandGuildPacketRes, i
  * @param interaction
  */
 function getIslandStatusIcon(member: GuildMember, interaction: DraftbotInteraction): string {
+	const lng = interaction.userLanguage;
 	return member.islandStatus.isOnPveIsland || member.islandStatus.isOnBoat || member.islandStatus.isPveIslandAlly || member.islandStatus.cannotBeJoinedOnBoat ?
-		i18n.t("commands:guild.separator", {lng: interaction.userLanguage})
+		i18n.t("commands:guild.separator", {lng})
 		+ (member.islandStatus.isOnPveIsland ?
-			i18n.t("commands:guild.emojis.pveIsland", {lng: interaction.userLanguage}) :
+			i18n.t("commands:guild.emojis.pveIsland", {lng}) :
 			"")
 		+ (member.islandStatus.isOnBoat ?
-			i18n.t("commands:guild.emojis.boat", {lng: interaction.userLanguage}) :
+			i18n.t("commands:guild.emojis.boat", {lng}) :
 			"")
 		+ (member.islandStatus.isPveIslandAlly ?
-			i18n.t("commands:guild.emojis.pveIslandAlly", {lng: interaction.userLanguage}) :
+			i18n.t("commands:guild.emojis.pveIslandAlly", {lng}) :
 			"")
 		+ (member.islandStatus.cannotBeJoinedOnBoat ?
-			i18n.t("commands:guild.emojis.cannotBeJoinedOnBoat", {lng: interaction.userLanguage}) :
+			i18n.t("commands:guild.emojis.cannotBeJoinedOnBoat", {lng}) :
 			"") : "";
 }
 
@@ -77,13 +79,15 @@ export async function handleCommandGuildPacketRes(packet: CommandGuildPacketRes,
 	if (!interaction) {
 		return;
 	}
+	const lng = interaction.userLanguage;
+
 	if (!packet.foundGuild) {
 		await interaction.reply({
 			embeds: [
 				new DraftBotErrorEmbed(
 					interaction.user,
 					interaction,
-					i18n.t("error:guildDoesntExist", {lng: interaction.userLanguage})
+					i18n.t("error:guildDoesntExist", {lng})
 				)
 			]
 		});
@@ -92,7 +96,7 @@ export async function handleCommandGuildPacketRes(packet: CommandGuildPacketRes,
 	let membersInfos = "";
 	for (const member of packet.data!.members) {
 		membersInfos += i18n.t("commands:guild.memberInfos", {
-			lng: interaction.userLanguage,
+			lng,
 			icon: getMemberTypeIcon(member, packet, interaction),
 			pseudo: (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, member.keycloakId))?.attributes.gameUsername,
 			ranking: member.rank,
@@ -103,13 +107,13 @@ export async function handleCommandGuildPacketRes(packet: CommandGuildPacketRes,
 	const guildCommandEmbed = new DraftBotEmbed()
 		.setThumbnail(GuildConstants.ICON)
 		.setTitle(i18n.t("commands:guild.embedTitle", {
-			lng: interaction.userLanguage,
+			lng,
 			guildName: packet.data?.name,
 			level: packet.data?.level
 		}))
 		.addFields({
 			name: i18n.t("commands:guild.members", {
-				lng: interaction.userLanguage,
+				lng,
 				memberCount: packet.data!.members.length,
 				maxGuildMembers: GuildConstants.MAX_GUILD_MEMBERS
 			}),
@@ -121,7 +125,7 @@ export async function handleCommandGuildPacketRes(packet: CommandGuildPacketRes,
 	if (packet.data!.description) {
 		guildCommandEmbed.setDescription(
 			i18n.t("commands:guild.description", {
-				lng: interaction.userLanguage,
+				lng,
 				description: packet.data?.description
 			})
 		);
@@ -130,34 +134,34 @@ export async function handleCommandGuildPacketRes(packet: CommandGuildPacketRes,
 		member => member.keycloakId === context.keycloakId
 	) ?
 		i18n.t("commands:guild.islandInfo", {
-			lng: interaction.userLanguage,
+			lng,
 			membersOnPveIsland: packet.data!.members.filter(member => member.islandStatus.isPveIslandAlly).length
 		}) :
 		"";
 	const experienceInfo: string = packet.data!.isMaxLevel
 		? i18n.t("commands:guild.xpMax", {
-			lng: interaction.userLanguage
+			lng
 		})
 		: i18n.t("commands:guild.xpNeeded", {
-			lng: interaction.userLanguage,
+			lng,
 			xp: packet.data!.experience.value,
 			xpToLevelUp: packet.data!.experience.max
 		});
 	const rankingInfo = packet.data!.rank.rank > -1 ? i18n.t("commands:guild.ranking", {
-		lng: interaction.userLanguage,
+		lng,
 		rank: packet.data!.rank.rank,
 		rankTotal: packet.data!.rank.numberOfGuilds
 	}) : i18n.t("commands:guild.notRanked", {
-		lng: interaction.userLanguage
+		lng
 	});
 	guildCommandEmbed.addFields({
 		name: i18n.t("commands:guild.infoTitle", {
-			lng: interaction.userLanguage,
+			lng,
 			memberCount: packet.data!.members.length,
 			maxGuildMembers: GuildConstants.MAX_GUILD_MEMBERS
 		}),
 		value: `${pveIslandInfo}${i18n.t("commands:guild.info", {
-			lng: interaction.userLanguage,
+			lng,
 			experience: experienceInfo,
 			guildPoints: packet.data!.rank.score,
 			ranking: rankingInfo,
