@@ -7,7 +7,7 @@ import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
 import {Class} from "../../../data/Class";
 import {FightAction, FightActionDataController} from "../../../data/FightAction";
 import {DraftBotPacket} from "../../../../../Lib/src/packets/DraftBotPacket";
-import {ClassBehavior, getAiClassBehavior} from "../AiBehaviorManager";
+import {ClassBehavior, getAiClassBehavior} from "../AiBehaviorController";
 
 /**
  * @class AiPlayerFighter
