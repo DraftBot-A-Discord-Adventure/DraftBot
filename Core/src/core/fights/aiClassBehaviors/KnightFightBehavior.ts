@@ -1,4 +1,4 @@
-import { ClassBehavior } from "../AiBehaviorManager";
+import { ClassBehavior } from "../AiBehaviorController";
 import { AiPlayerFighter } from "../fighter/AiPlayerFighter";
 import { FightView } from "../FightView";
 import { FightAction, FightActionDataController } from "../../../data/FightAction";
