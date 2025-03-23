@@ -495,6 +495,24 @@ export const missionsAttributes001 = {
 	createdAt: DataTypes.DATE
 };
 
+export const serversAttributes001 = {
+	id: {
+		type: DataTypes.INTEGER,
+		primaryKey: true,
+		autoIncrement: true
+	},
+	language: {
+		type: DataTypes.STRING(2), // eslint-disable-line new-cap
+		allowNull: false
+	},
+	discordGuildId: {
+		type: DataTypes.STRING(64), // eslint-disable-line new-cap
+		allowNull: false
+	},
+	updatedAt: DataTypes.DATE,
+	createdAt: DataTypes.DATE
+};
+
 export async function up({context}: { context: QueryInterface }): Promise<void> {
 	await context.createTable("armors", itemAttributes001);
 	await context.createTable("classes", classesAttributes001);
@@ -752,23 +770,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 	await context.createTable("players", playersAttributes001);
 	await context.createTable("possibilities", possibilitiesAttributes001);
 	await context.createTable("potions", supportItemAttributes);
-	await context.createTable("servers", {
-		id: {
-			type: DataTypes.INTEGER,
-			primaryKey: true,
-			autoIncrement: true
-		},
-		language: {
-			type: DataTypes.STRING(2), // eslint-disable-line new-cap
-			allowNull: false
-		},
-		discordGuildId: {
-			type: DataTypes.STRING(64), // eslint-disable-line new-cap
-			allowNull: false
-		},
-		updatedAt: DataTypes.DATE,
-		createdAt: DataTypes.DATE
-	});
+	await context.createTable("servers", serversAttributes001);
 	await context.createTable("shop", shopAttributes001);
 	await context.createTable("tags", {
 		id: {
