@@ -8,7 +8,10 @@ import {CommandSwitchPacketReq, CommandSwitchSuccess} from "../../../../Lib/src/
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
-import {ReactionCollectorSwitchItemReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorSwitchItem";
+import {
+	ReactionCollectorSwitchItemCloseReaction,
+	ReactionCollectorSwitchItemReaction
+} from "../../../../Lib/src/packets/interaction/ReactionCollectorSwitchItem";
 import {DiscordItemUtils} from "../../utils/DiscordItemUtils";
 import {MainItemDisplayPacket, SupportItemDisplayPacket} from "../../../../Lib/src/packets/commands/CommandInventoryPacket";
 import {Language} from "../../../../Lib/src/Language";
@@ -89,7 +92,7 @@ export async function switchItemCollector(context: PacketContext, packet: Reacti
 		packet,
 		context,
 		reactions.map(reaction => getFielder(reaction.item.itemCategory)(reaction.item as MainItemDisplayPacket & SupportItemDisplayPacket, interaction.userLanguage).value),
-		true
+		{ can: true, reactionIndex: packet.reactions.findIndex(reaction => reaction.type === ReactionCollectorSwitchItemCloseReaction.name) }
 	);
 }
 

@@ -6,7 +6,7 @@ import {DiscordCollectorUtils} from "../utils/DiscordCollectorUtils";
 import i18n from "../translations/i18n";
 import {DisplayUtils} from "../utils/DisplayUtils";
 import {
-	ReactionCollectorItemChoiceItemReaction
+	ReactionCollectorItemChoiceItemReaction, ReactionCollectorItemChoiceRefuseReaction
 } from "../../../Lib/src/packets/interaction/ReactionCollectorItemChoice";
 import {
 	ReactionCollectorItemAcceptData
@@ -31,7 +31,7 @@ export async function itemChoiceCollector(context: PacketContext, packet: Reacti
 			const itemReaction = reaction.data as ReactionCollectorItemChoiceItemReaction;
 			return DisplayUtils.getItemDisplayWithStats(itemReaction.itemWithDetails, interaction.userLanguage);
 		}),
-		true
+		{ can: true, reactionIndex: packet.reactions.findIndex(reaction => reaction.type === ReactionCollectorItemChoiceRefuseReaction.name) }
 	);
 }
 
