@@ -111,7 +111,7 @@
     "notEnoughGems": "Vous acceptez mais au moment de payer, vous vous rendez compte que vous n'avez pas assez pour payer. Vous partez donc déçu."
   },
   "lottery": {
-    "intro": "Vous croisez le chemin d'un homme qui vous interpelle. Curieux, vous vous arrêtez. Celui-ci vous propose de participer à un jeu de hasard qu'il a créé. Vous pouvez choisir entre plusieurs niveaux de récompense.\n\n:coin: Petite récompense\n:dollar: Moyenne récompense\n{{moneyEmote}} Grosse récompense\n",
+    "intro": "Vous croisez le chemin d'un homme qui vous interpelle. Curieux, vous vous arrêtez. Celui-ci vous propose de participer à un jeu de hasard qu'il a créé. Vous pouvez choisir entre plusieurs niveaux de récompense.\n\n{emote:collectors.lottery.easy} Petite récompense\n{emote:collectors.lottery.medium} Moyenne récompense\n{emote:collectors.lottery.hard} Grosse récompense\n",
     "easy": {
       "success": "Vous participez et réussissez à remporter un lot que l'homme vous remet avant de partir.",
       "fail": "Vous perdez au jeu de l'homme, cependant la participation était gratuite. Vous décidez donc de reprendre votre route."
@@ -128,10 +128,10 @@
     "poor": "Vous tentez de vous jouer de l'attention de l'homme et misez une somme importante. Malheureusement pour vous, le commerçant doute de votre bonne foi, et incapable d'attester de quelconque richesse, vous êtes rejeté sans ménagement.",
     "end": "Sans prêter plus d'attention à l'individu, vous continuez votre route.",
     "rewardTypeText": {
-      "xp": " Vous avez gagné **{{xpWon}} ⭐**.",
-      "money": " Vous avez gagné **{{moneyWon}} {emote:unitValues.money}** !",
-      "guildXp": " Votre guilde gagne **{{guildXpWon}} ⭐**.",
-      "points": " Vous avez gagné **{{pointsWon}} 🏅**."
+      "xp": " Vous avez gagné **{{reward}} ⭐**.",
+      "money": " Vous avez gagné **{{reward}} {emote:unitValues.money}** !",
+      "guildXp": " Votre guilde gagne **{{reward}} ⭐**.",
+      "points": " Vous avez gagné **{{reward}} 🏅**."
     }
   },
   "interactOtherPlayers": {
