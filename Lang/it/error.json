@@ -129,8 +129,8 @@
       "other": "{{pseudo}} è ormai perduto!"
     },
     "fished": {
-      "self": "Vous êtes actuellement empoissonné !",
-      "other": "{{pseudo}} est actuellement empoissonné !"
+      "self": "Sei stato avvelenato!",
+      "other": "{{pseudo}} è attualmente avvelenato!"
     },
     "notStartedHint": {
       "self": "{command:report} Utilizzate il comando per iniziare la vostra avventura!",
