@@ -39,6 +39,7 @@ export function shouldStartCanonSequence(
 	return !isGoingForChainedCanonAttack
 		&& canonAttackUsed === 0
 		&& opponent.getEnergy() > 400
+		&& me.getSpeed() * 0.75 > opponent.getSpeed()
 		&& opponent.hasFightAlteration()
 		// Need enough breath for at least two consecutive canon attacks
 		&& me.getBreath() >= FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK) + 2;
