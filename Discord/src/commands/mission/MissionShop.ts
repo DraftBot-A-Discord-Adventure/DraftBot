@@ -13,7 +13,10 @@ import i18n from "../../translations/i18n";
 import {PetUtils} from "../../utils/PetUtils";
 import {StringUtils} from "../../utils/StringUtils";
 import {MissionUtils} from "../../utils/MissionUtils";
-import {ReactionCollectorSkipMissionShopItemReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorSkipMissionShopItem";
+import {
+	ReactionCollectorSkipMissionShopItemCloseReaction,
+	ReactionCollectorSkipMissionShopItemReaction
+} from "../../../../Lib/src/packets/interaction/ReactionCollectorSkipMissionShopItem";
 import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
 import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {Constants} from "../../../../Lib/src/constants/Constants";
@@ -105,7 +108,7 @@ export async function skipMissionShopItemCollector(context: PacketContext, packe
 		packet,
 		context,
 		reactions.map(reaction => MissionUtils.formatBaseMission(reaction.mission, interaction.userLanguage)),
-		true
+		{ can: true, reactionIndex: packet.reactions.findIndex(reaction => reaction.type === ReactionCollectorSkipMissionShopItemCloseReaction.name) }
 	);
 }
 

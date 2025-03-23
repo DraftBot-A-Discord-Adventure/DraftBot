@@ -20,6 +20,7 @@ import {DiscordMQTT} from "../bot/DiscordMQTT";
 import {RequirementEffectPacket} from "../../../Lib/src/packets/commands/requirements/RequirementEffectPacket";
 import {Effect} from "../../../Lib/src/types/Effect";
 import {PacketConstants} from "../../../Lib/src/constants/PacketConstants";
+import {DiscordConstants} from "../DiscordConstants";
 
 export class DiscordCollectorUtils {
 	private static choiceListEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣", "7⃣", "8⃣", "9⃣"];
@@ -182,30 +183,39 @@ export class DiscordCollectorUtils {
 		reactionCollectorCreationPacket: ReactionCollectorCreationPacket,
 		context: PacketContext,
 		items: string[],
-		canRefuse: boolean
+		refuse: { can: boolean, reactionIndex?: number }
 	): Promise<ReactionCollectorReturnType> {
 		if (items.length > DiscordCollectorUtils.choiceListEmotes.length) {
 			throw "Too many items to display";
 		}
 
 		let choiceDesc = "";
-		const row = new ActionRowBuilder<ButtonBuilder>();
+		const rows = [new ActionRowBuilder<ButtonBuilder>()];
 		// Create buttons
 		for (let i = 0; i < items.length; ++i) {
 			const button = new ButtonBuilder()
 				.setEmoji(parseEmoji(DiscordCollectorUtils.choiceListEmotes[i])!)
 				.setCustomId(i.toString())
 				.setStyle(ButtonStyle.Secondary);
-			row.addComponents(button);
+
+			if (rows[rows.length - 1].components.length >= DiscordConstants.MAX_BUTTONS_PER_ROW) {
+				rows.push(new ActionRowBuilder<ButtonBuilder>());
+			}
+			rows[rows.length - 1].addComponents(button);
+
 			choiceDesc += `${DiscordCollectorUtils.choiceListEmotes[i]} - ${items[i]}\n`;
 		}
 
-		if (canRefuse) {
+		if (refuse.can) {
 			const buttonRefuse = new ButtonBuilder()
 				.setEmoji(parseEmoji(DraftBotIcons.collectors.refuse)!)
 				.setCustomId("refuse")
 				.setStyle(ButtonStyle.Secondary);
-			row.addComponents(buttonRefuse);
+
+			if (rows[rows.length - 1].components.length >= DiscordConstants.MAX_BUTTONS_PER_ROW) {
+				rows.push(new ActionRowBuilder<ButtonBuilder>());
+			}
+			rows[rows.length - 1].addComponents(buttonRefuse);
 		}
 
 		// Add a choice description to the embed
@@ -218,7 +228,7 @@ export class DiscordCollectorUtils {
 
 		// Edit message
 		const msg: Message = await (interaction.replied ? interaction.followUp : interaction.deferred ? interaction.editReply : interaction.reply)({
-			components: [row],
+			components: rows,
 			...messageContentOrEmbed instanceof DraftBotEmbed
 				? {embeds: [messageContentOrEmbed]}
 				: {content: messageContentOrEmbed}
@@ -239,6 +249,9 @@ export class DiscordCollectorUtils {
 			await buttonInteraction.deferReply();
 			if (buttonInteraction.customId !== "refuse") {
 				DiscordCollectorUtils.sendReaction(reactionCollectorCreationPacket, context, context.keycloakId!, buttonInteraction, parseInt(buttonInteraction.customId));
+			}
+			else {
+				DiscordCollectorUtils.sendReaction(reactionCollectorCreationPacket, context, context.keycloakId!, buttonInteraction, refuse.reactionIndex!);
 			}
 		});
 

@@ -207,7 +207,7 @@ export async function chooseDestinationCollector(context: PacketContext, packet:
 			EmoteUtils.translateEmojiToDiscord(DraftBotIcons.map_types[destinationReaction.mapTypeId])
 		} ${
 			i18n.t(`models:map_locations.${destinationReaction.mapId}.name`, {lng: interaction.userLanguage})} (${duration})`;
-	}), false);
+	}), { can: false });
 }
 
 function isCurrentlyInEffect(packet: CommandReportTravelSummaryRes, now: number): boolean {
