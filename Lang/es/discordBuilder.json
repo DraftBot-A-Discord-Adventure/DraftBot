@@ -36,7 +36,7 @@
     "name": "invitacióndraftbot"
   },
   "language": {
-    "description": "Cambia el idioma del bot en el servidor de discordia donde se ejecutó el comando.",
+    "description": "Changer la langue du bot dans le serveur Discord ou la commande a été exécutée.",
     "name": "idioma"
   },
   "ping": {
