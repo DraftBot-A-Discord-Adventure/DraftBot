@@ -13,7 +13,7 @@ const use: FightActionFunc = (sender, receiver) => {
 
 	// If the attack was used two times in a row, the damage is multiplied by 1.5
 	const lastFightAction = sender.getLastFightActionUsed();
-	if (lastFightAction.id === "canonAttack") {
+	if (lastFightAction && lastFightAction.id === "canonAttack") {
 		damageDealt.damages = Math.round(damageDealt.damages * 1.5);
 	}
 
@@ -46,7 +46,7 @@ function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 	return {
 		attackerStats: [
 			sender.getAttack(),
-			120
+			sender.getSpeed() * 0.8
 		],
 		defenderStats: [
 			receiver.getDefense(),
