@@ -56,26 +56,6 @@ export class FightController {
 	}
 
 	/**
-	 * Attempt to execute a fight action and also handles the case where the attacker is out of breath
-	 * @param fightAction
-	 * @param attacker
-	 * @param defender
-	 * @param turn
-	 */
-	public tryToExecuteFightAction(fightAction: FightAction, attacker: Fighter, defender: Fighter, turn: number): FightActionResult | FightAlterationResult {
-		const enoughBreath = attacker.useBreath(fightAction.breath);
-
-		if (!enoughBreath) {
-			if (RandomUtils.draftbotRandom.bool(FightConstants.OUT_OF_BREATH_FAILURE_PROBABILITY)) {
-				const alt = FightAlterationDataController.instance.getById(FightConstants.FIGHT_ACTIONS.ALTERATION.OUT_OF_BREATH);
-				return alt.happen(attacker, defender, turn, this);
-			}
-			attacker.setBreath(0);
-		}
-		return fightAction.use(attacker, defender, turn, this);
-	}
-
-	/**
 	 * Start a fight
 	 * @public
 	 */
@@ -216,20 +196,27 @@ export class FightController {
 		if (endTurn) {
 			this.getPlayingFighter().nextFightAction = null;
 		}
-		const result = this.tryToExecuteFightAction(fightAction, this.getPlayingFighter(), this.getDefendingFighter(), this.turn);
+
+		// Get the current fighters
+		const attacker = this.getPlayingFighter();
+		const defender = this.getDefendingFighter();
+
+		const __ret = this.handleOutOfBreathScenarios(attacker, fightAction, defender);
+		fightAction = __ret.fightAction;
+		const result = __ret.result;
+
+		// Check if we need to use the out-of-breath action instead
 		if ("state" in result) {
 			// If the result is a fight alteration result, that means that the player did not have enough breath
 			fightAction = FightAlterationDataController.instance.getById(FightConstants.FIGHT_ACTIONS.ALTERATION.OUT_OF_BREATH);
 		}
-		await this._fightView.addActionToHistory(response, this.getPlayingFighter(), fightAction, result);
+		await this._fightView.addActionToHistory(response, attacker, fightAction, result);
 
 		if (this.state !== FightState.RUNNING) {
 			// An error occurred during the update of the history
 			return;
 		}
-		this.getPlayingFighter()
-			.fightActionsHistory
-			.push(fightAction);
+		attacker.fightActionsHistory.push(fightAction);
 		if (this.overtimeBehavior === FightOvertimeBehavior.END_FIGHT_DRAW && this.turn >= FightConstants.MAX_TURNS || this.hadEnded()) {
 			await this.endFight(response);
 			return;
@@ -237,13 +224,43 @@ export class FightController {
 		if (endTurn) {
 			this.turn++;
 			this.invertFighters();
-			this.getPlayingFighter()
-				.regenerateBreath(this.turn < 3);
+			this.getPlayingFighter().regenerateBreath(this.turn < 3);
 			await this.prepareNextTurn(response);
 		}
 		else {
 			this._fightView.displayFightStatus(response);
 		}
+	}
+
+	/**
+	 * Handle the out-of-breath scenarios
+	 * @param attacker
+	 * @param fightAction
+	 * @param defender
+	 * @private
+	 */
+	private handleOutOfBreathScenarios(attacker: PlayerFighter | MonsterFighter | AiPlayerFighter, fightAction: FightAction, defender: PlayerFighter | MonsterFighter | AiPlayerFighter) : {fightAction: FightAction, result: FightActionResult | FightAlterationResult} {
+		// Check if the attacker has enough breath
+		const enoughBreath = attacker.useBreath(fightAction.breath);
+		let result: FightActionResult | FightAlterationResult;
+
+		// Handle out of breath scenario
+		if (!enoughBreath) {
+			if (RandomUtils.draftbotRandom.bool(FightConstants.OUT_OF_BREATH_FAILURE_PROBABILITY)) {
+				const outOfBreathAction = FightAlterationDataController.instance.getById(FightConstants.FIGHT_ACTIONS.ALTERATION.OUT_OF_BREATH);
+				result = outOfBreathAction.happen(attacker, defender, this.turn, this);
+				fightAction = outOfBreathAction;
+			}
+			else {
+				attacker.setBreath(0);
+				result = fightAction.use(attacker, defender, this.turn, this);
+			}
+		}
+		else {
+			// Execute the action normally
+			result = fightAction.use(attacker, defender, this.turn, this);
+		}
+		return {fightAction, result};
 	}
 
 	/**
@@ -381,6 +398,7 @@ export class FightController {
 			this.state !== FightState.RUNNING);
 	}
 }
+
 /**
  * Get the number of used god moves in the fight
  * @param sender
