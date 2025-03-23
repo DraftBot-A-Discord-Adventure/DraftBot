@@ -67,7 +67,7 @@ export class FightController {
 
 		if (!enoughBreath) {
 			if (RandomUtils.draftbotRandom.bool(FightConstants.OUT_OF_BREATH_FAILURE_PROBABILITY)) {
-				const alt = FightAlterationDataController.instance.getById("outOfBreath");
+				const alt = FightAlterationDataController.instance.getById(FightConstants.FIGHT_ACTIONS.ALTERATION.OUT_OF_BREATH);
 				return alt.happen(attacker, defender, turn, this);
 			}
 			attacker.setBreath(0);
@@ -217,6 +217,10 @@ export class FightController {
 			this.getPlayingFighter().nextFightAction = null;
 		}
 		const result = this.tryToExecuteFightAction(fightAction, this.getPlayingFighter(), this.getDefendingFighter(), this.turn);
+		if ("state" in result) {
+			// If the result is a fight alteration result, that means that the player did not have enough breath
+			fightAction = FightAlterationDataController.instance.getById(FightConstants.FIGHT_ACTIONS.ALTERATION.OUT_OF_BREATH);
+		}
 		await this._fightView.addActionToHistory(response, this.getPlayingFighter(), fightAction, result);
 
 		if (this.state !== FightState.RUNNING) {

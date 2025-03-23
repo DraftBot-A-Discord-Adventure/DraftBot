@@ -4,12 +4,7 @@ import {FightAlterationFunc} from "../../../../../data/FightAlteration";
 const use: FightAlterationFunc = (affected, _fightAlteration) => {
 	affected.nextFightAction = null;
 	return {
-		...defaultFightAlterationResult(),
-		usedAction: {
-			id: "outOfBreath",
-			result: defaultFightAlterationResult(),
-			fromFighter: ""
-		}
+		...defaultFightAlterationResult()
 	};
 };
 
