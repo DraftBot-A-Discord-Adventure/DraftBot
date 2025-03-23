@@ -131,8 +131,8 @@ class PaladinFightBehavior implements ClassBehavior {
 			!opponent.hasFightAlteration() &&
 			(me.getBreath() > 18 || divineAndUltimateAttacksUsed) &&
 			(
-				opponent.getLastFightActionUsed().id === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK ||
-				opponent.getLastFightActionUsed().id === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_ULTIMATE_ATTACK ||
+				opponent.getLastFightActionUsed()?.id === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK ||
+				opponent.getLastFightActionUsed()?.id === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_ULTIMATE_ATTACK ||
 				opponent.getDefense() > me.getDefense() * 0.9 && RandomUtils.draftbotRandom.bool([0.05, 0.2, 0.8][breathRange])
 			)
 		);
@@ -155,10 +155,10 @@ class PaladinFightBehavior implements ClassBehavior {
 		return (
 			(!opponent.hasFightAlteration() || opponent.alteration.id === FightConstants.FIGHT_ACTIONS.ALTERATION.STUNNED) &&
 			(me.getBreath() > 17 || divineAndUltimateAttacksUsed ||
-				opponent.getLastFightActionUsed().id === FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK && opponent.getBreath() >= 2) &&
+				opponent.getLastFightActionUsed()?.id === FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK && opponent.getBreath() >= 2) &&
 			me.getBreath() >= ramAttackBreathCost &&
 			me.getEnergy() >= me.getMaxEnergy() * 0.15 &&
-			opponent.getLastFightActionUsed().id !== FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK
+			opponent.getLastFightActionUsed()?.id !== FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK
 		);
 	}
 }
