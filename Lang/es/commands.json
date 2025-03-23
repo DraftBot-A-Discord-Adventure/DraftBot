@@ -1003,9 +1003,9 @@
   },
   "guildStorage": {
     "embed": {
-      "title": "Entrepôt de la guilde {{guildName}}",
-      "descriptionTitle": "**Nourriture** : ",
-      "description": "La nourriture est utile pour nourrir tous vos familiers. Si vous n'en avez plus, vous pouvez en acheter via la commande {command:guildshop}."
+      "title": "Almacén gremial {{guildName}}",
+      "descriptionTitle": "**Alimentos** : ",
+      "description": "La comida es útil para alimentar a todas tus mascotas. Si se te ha acabado, puedes comprar un poco en {command:guildshop}."
     },
     "food": {
       "title": "{emote:foods.{{foodId}}} $t(models:foods.{{foodId}}, {\"context\": \"capitalized\"})",
