@@ -42,7 +42,24 @@ const use: FightActionFunc = (sender, receiver, fightAction) => {
 			selfTarget: true,
 			stat: FightStatBuffed.DAMAGE,
 			operator: FightStatModifierOperation.ADDITION,
-			value: Math.round(result.damages * 0.45)
+			value: FightActionController.getAttackDamage({
+				attackerStats: [
+					sender.getDefense() * 0.55,
+					sender.getSpeed() * 0.55
+				],
+				defenderStats: [
+					sender.getDefense(),
+					sender.getSpeed()
+				],
+				statsEffect: [
+					0.85,
+					0.15
+				]
+			}, sender, {
+				minDamage: 60 * 0.55,
+				averageDamage: 110 * 0.55,
+				maxDamage: 210 * 0.55
+			})
 		}, sender, fightAction);
 	}
 
