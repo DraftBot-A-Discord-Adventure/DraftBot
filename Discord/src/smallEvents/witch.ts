@@ -84,6 +84,12 @@ export async function witchCollector(context: PacketContext, packet: ReactionCol
 		);
 	});
 
+	buttonCollector.on("end", async () => {
+		await msg.edit({
+			components: []
+		});
+	});
+
 	return [buttonCollector];
 }
 

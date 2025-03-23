@@ -100,5 +100,11 @@ export async function lotteryCollector(context: PacketContext, packet: ReactionC
 		}
 	});
 
+	buttonCollector.on("end", async () => {
+		await msg.edit({
+			components: []
+		});
+	});
+
 	return [buttonCollector];
 }

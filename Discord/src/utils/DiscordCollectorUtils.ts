@@ -167,6 +167,12 @@ export class DiscordCollectorUtils {
 			}
 		});
 
+		buttonCollector.on("end", async () => {
+			await msg.edit({
+				components: []
+			});
+		});
+
 		return [buttonCollector];
 	}
 
@@ -234,6 +240,12 @@ export class DiscordCollectorUtils {
 			if (buttonInteraction.customId !== "refuse") {
 				DiscordCollectorUtils.sendReaction(reactionCollectorCreationPacket, context, context.keycloakId!, buttonInteraction, parseInt(buttonInteraction.customId));
 			}
+		});
+
+		buttonCollector.on("end", async () => {
+			await msg.edit({
+				components: []
+			});
 		});
 
 		return [buttonCollector];

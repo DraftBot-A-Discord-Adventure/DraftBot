@@ -158,6 +158,12 @@ export async function handleCommandInventoryPacketRes(packet: CommandInventoryPa
 				components: [new ActionRowBuilder<ButtonBuilder>().addComponents(switchItemsButton)]
 			});
 		});
+
+		collector.on("end", async () => {
+			await msg.edit({
+				components: []
+			});
+		});
 	}
 }
 
