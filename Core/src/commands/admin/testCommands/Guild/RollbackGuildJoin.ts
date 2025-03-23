@@ -11,7 +11,7 @@ export const commandInfo: ITestCommand = {
 	description: "Recule d'une semaine notre date d'adhésion à une guilde."
 };
 
-const rollBackGuildJoin: ExecuteTestCommandLike = async (player: Player) => {
+const rollbackGuildJoin: ExecuteTestCommandLike = async (player: Player) => {
 	if (!player.guildId) {
 		return "Vous n'appartenez pas à une guilde.";
 	}
@@ -51,4 +51,4 @@ const rollBackGuildJoin: ExecuteTestCommandLike = async (player: Player) => {
 	return "Votre date d'entrée dans la guilde a été reculée d'une semaine.";
 };
 
-commandInfo.execute = rollBackGuildJoin;
+commandInfo.execute = rollbackGuildJoin;
