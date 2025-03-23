@@ -2158,7 +2158,7 @@
         }
       }
     },
-    "text": "À peine arrivé à votre destination, un messager s'arrête essoufflé devant vous et vous tend une missive. Vous lisez avec attention le contenu, qui indique que le Roi prépare une grande fête dans son château, et que vous y êtes convié."
+    "text": "No sooner have you arrived at your destination than a messenger stops breathlessly in front of you and hands you a missive. You carefully read the contents, which indicate that the King is preparing a great feast in his castle, and that you are invited to attend."
   },
   "65": {
     "possibilities": {
@@ -2539,29 +2539,29 @@
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "Vous ne bougez pas, comme pétrifié. La femme prend cette réaction comme un refus et s'énerve . Elle vous lance des invectives marines et vous bombarde de poissons morts. Vous parvenez à esquiver la plupart, mais un spécimen vous frappe en plein visage. Vous continuez à courir sans vous retourner."
+          "0": "You don't move, as if petrified. The woman takes this reaction as a refusal and gets angry. She hurls marine invectives at you and bombards you with dead fish. You manage to dodge most of them, but one hits you right in the face. You continue running without looking back."
         }
       },
       "eat": {
         "outcomes": {
-          "0": "Le mélange des saveurs est divin, et une sensation d'euphorie vous envahit. Vos yeux se ferment malgré vous, et lorsque vous les rouvrez, vous découvrez que vous êtes à bord d'un bateau, bercé par le clapotis des vagues."
+          "0": "The blend of flavors is divine, and a feeling of euphoria washes over you. Your eyes close despite yourself, and when you open them again, you discover you're on board a boat, rocked by the lapping of the waves."
         },
-        "text": "Prendre une grande bouchée du plat."
+        "text": "Take a big bite of the dish."
       },
       "run": {
         "outcomes": {
-          "0": "La femme semble offensée par votre refus. Elle vous lance des invectives marines et vous bombarde de poissons morts. Vous parvenez à esquiver la plupart, mais un spécimen vous frappe en plein visage. Vous continuez à courir sans vous retourner."
+          "0": "The woman seems offended by your refusal. She hurls marine invectives at you and bombards you with dead fish. You manage to dodge most of them, but one hits you right in the face. You continue running without looking back."
         },
-        "text": "Partir en courant."
+        "text": "Running away."
       },
       "smell": {
         "outcomes": {
-          "0": "Vous vous penchez légèrement, intrigué par la senteur corsée émanant du plat de fruits de mer et la femme vous observe avec une intensité qui vous donne la chair de poule. Vous êtes sur le point de commenter le mélange curieux quand, soudainement, vous sentez ses mains vous écraser le visage contre l'assiette. Le monde devient humide et froid alors que votre nez plonge dans le plat. Vous croisez le regard vitreux d'un poisson cuit, l'œil de ce dernier vient peu à peu se presser contre le vôtre. Vos sens chavirent et l'obscurité engloutit votre vision. Lorsque vous reprenez conscience, vous êtes accueilli par le grincement du bois et l'odeur du sel, vous ressentez un balancement régulier et réalisez que vous êtes allongé sur les planches rugueuses du pont d'un navire."
+          "0": "You lean in slightly, intrigued by the full-bodied scent emanating from the seafood dish, and the woman observes you with an intensity that gives you goose bumps. You're about to comment on the curious mixture when, suddenly, you feel her hands crush your face against the plate. The world turns wet and cold as your nose plunges into the dish. You meet the glassy gaze of a cooked fish, its eye gradually pressing against yours. Your senses capsize and darkness engulfs your vision. When you regain consciousness, you're greeted by the creak of wood and the smell of salt, feel a steady rocking motion and realize you're lying on the rough planks of a ship's deck."
         },
-        "text": "Renifler le plat de plus près d'un air suspicieux."
+        "text": "Sniff the dish suspiciously."
       }
     },
-    "text": "Alors que vous déambulez sans but précis, vos narines sont soudainement assaillies par une intense odeur iodée. Une étrange femme vêtue d'une robe aux motifs d'écailles de poisson, les cheveux emmêlés d'algues séchées, vous fait signe de la main. Elle est entourée de paniers débordant de fruits de mer aux couleurs vives et vous invite, avec un sourire édenté mais chaleureux, à goûter à sa spécialité culinaire : un plat mijoté avec amour à partir des plus beaux produits de l'océan."
+    "text": "As you stroll along aimlessly, your nostrils are suddenly assailed by an intense iodine scent. A strange woman in a fish-scale dress, her hair matted with dried seaweed, waves at you. She's surrounded by baskets overflowing with brightly-colored seafood and invites you, with a toothless but warm smile, to sample her culinary specialty: a dish lovingly simmered from the finest products of the ocean."
   },
   "8": {
     "possibilities": {
