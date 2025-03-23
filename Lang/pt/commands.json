@@ -1003,9 +1003,9 @@
   },
   "guildStorage": {
     "embed": {
-      "title": "Entrepôt de la guilde {{guildName}}",
-      "descriptionTitle": "**Nourriture** : ",
-      "description": "La nourriture est utile pour nourrir tous vos familiers. Si vous n'en avez plus, vous pouvez en acheter via la commande {command:guildshop}."
+      "title": "Armazém da guilda {{guildName}}",
+      "descriptionTitle": "**Alimentação** : ",
+      "description": "A comida é útil para alimentar todos os seus animais de estimação. Se já não tiveres comida, podes comprar alguma em {command:guildshop}."
     },
     "food": {
       "title": "{emote:foods.{{foodId}}} $t(models:foods.{{foodId}}, {\"context\": \"capitalized\"})",
