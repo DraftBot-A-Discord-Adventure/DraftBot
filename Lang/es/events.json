@@ -2158,7 +2158,7 @@
         }
       }
     },
-    "text": "À peine arrivé à votre destination, un messager s'arrête essoufflé devant vous et vous tend une missive. Vous lisez avec attention le contenu, qui indique que le Roi prépare une grande fête dans son château, et que vous y êtes convié."
+    "text": "En cuanto llegas a tu destino, un mensajero se detiene sin aliento ante ti y te entrega una carta. Lees atentamente el contenido, que dice que el Rey está preparando una gran fiesta en su castillo, y que estás invitado a asistir."
   },
   "65": {
     "possibilities": {
@@ -2539,29 +2539,29 @@
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "Vous ne bougez pas, comme pétrifié. La femme prend cette réaction comme un refus et s'énerve . Elle vous lance des invectives marines et vous bombarde de poissons morts. Vous parvenez à esquiver la plupart, mais un spécimen vous frappe en plein visage. Vous continuez à courir sans vous retourner."
+          "0": "No se mueve, como petrificado. La mujer toma esta reacción como un rechazo y se enfada. Te lanza improperios marinos y te acribilla a peces muertos. Consigues esquivar la mayoría de ellos, pero uno te da justo en la cara. Sigues corriendo sin mirar atrás."
         }
       },
       "eat": {
         "outcomes": {
-          "0": "Le mélange des saveurs est divin, et une sensation d'euphorie vous envahit. Vos yeux se ferment malgré vous, et lorsque vous les rouvrez, vous découvrez que vous êtes à bord d'un bateau, bercé par le clapotis des vagues."
+          "0": "La combinación de sabores es divina y te invade una sensación de euforia. Los ojos se te cierran a pesar de ti mismo, y cuando vuelves a abrirlos descubres que estás a bordo de un barco, mecido por el batir de las olas."
         },
-        "text": "Prendre une grande bouchée du plat."
+        "text": "Dale un buen bocado al plato."
       },
       "run": {
         "outcomes": {
-          "0": "La femme semble offensée par votre refus. Elle vous lance des invectives marines et vous bombarde de poissons morts. Vous parvenez à esquiver la plupart, mais un spécimen vous frappe en plein visage. Vous continuez à courir sans vous retourner."
+          "0": "La mujer parece ofendida por tu negativa. Te lanza improperios marinos y te acribilla a peces muertos. Consigues esquivar la mayoría de ellos, pero uno te da justo en la cara. Sigues corriendo sin mirar atrás."
         },
-        "text": "Partir en courant."
+        "text": "Huyendo."
       },
       "smell": {
         "outcomes": {
-          "0": "Vous vous penchez légèrement, intrigué par la senteur corsée émanant du plat de fruits de mer et la femme vous observe avec une intensité qui vous donne la chair de poule. Vous êtes sur le point de commenter le mélange curieux quand, soudainement, vous sentez ses mains vous écraser le visage contre l'assiette. Le monde devient humide et froid alors que votre nez plonge dans le plat. Vous croisez le regard vitreux d'un poisson cuit, l'œil de ce dernier vient peu à peu se presser contre le vôtre. Vos sens chavirent et l'obscurité engloutit votre vision. Lorsque vous reprenez conscience, vous êtes accueilli par le grincement du bois et l'odeur du sel, vous ressentez un balancement régulier et réalisez que vous êtes allongé sur les planches rugueuses du pont d'un navire."
+          "0": "Te inclinas un poco, intrigado por el intenso aroma que desprende el plato de marisco, y la mujer te observa con una intensidad que te pone la piel de gallina. Estás a punto de comentar la curiosa mezcla cuando, de repente, sientes que sus manos aplastan tu cara contra el plato. El mundo se vuelve húmedo y frío cuando tu nariz se hunde en el plato. Te topas con la mirada vidriosa de un pescado cocido, cuyo ojo se aprieta poco a poco contra el tuyo. Tus sentidos vuelcan y la oscuridad envuelve tu visión. Cuando recobras el conocimiento, te saluda el crujido de la madera y el olor a sal, sientes un constante movimiento de balanceo y te das cuenta de que estás tumbado sobre los ásperos tablones de la cubierta de un barco."
         },
-        "text": "Renifler le plat de plus près d'un air suspicieux."
+        "text": "Olfatea el plato con más recelo."
       }
     },
-    "text": "Alors que vous déambulez sans but précis, vos narines sont soudainement assaillies par une intense odeur iodée. Une étrange femme vêtue d'une robe aux motifs d'écailles de poisson, les cheveux emmêlés d'algues séchées, vous fait signe de la main. Elle est entourée de paniers débordant de fruits de mer aux couleurs vives et vous invite, avec un sourire édenté mais chaleureux, à goûter à sa spécialité culinaire : un plat mijoté avec amour à partir des plus beaux produits de l'océan."
+    "text": "Mientras deambulas sin rumbo, tus fosas nasales se ven repentinamente asaltadas por un intenso olor a yodo. Una extraña mujer con un vestido de escamas de pescado y el pelo enmarañado de algas secas te saluda con la mano. Rodeada de cestas rebosantes de marisco de vivos colores, te invita, con una sonrisa desdentada pero cálida, a probar su especialidad culinaria: un plato cocinado a fuego lento con los mejores productos del océano."
   },
   "8": {
     "possibilities": {
