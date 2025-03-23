@@ -40,7 +40,7 @@ export async function handleItemSwitch(packet: CommandSwitchSuccess, context: Pa
 		embeds: [new DraftBotEmbed()
 			.formatAuthor(i18n.t("commands:switch.titleSuccess", {
 				lng: interaction.userLanguage,
-				pseudo: interaction.user.username
+				pseudo: interaction.user.displayName
 			}), interaction.user)
 			.setDescription(i18n.t(`commands:switch.${packet.itemBackedUp.id === 0 ? "switchingSingle" : "switchingDouble"}`, {
 				lng: interaction.userLanguage,
@@ -75,7 +75,7 @@ export async function switchItemCollector(context: PacketContext, packet: Reacti
 	const embed = new DraftBotEmbed()
 		.formatAuthor(i18n.t("commands:switch.switchSelectionTitle", {
 			lng: interaction.userLanguage,
-			pseudo: interaction.user.username
+			pseudo: interaction.user.displayName
 		}), interaction.user)
 		.setDescription(`${i18n.t("commands:switch.switchSelectionDescription", {
 			lng: interaction.userLanguage

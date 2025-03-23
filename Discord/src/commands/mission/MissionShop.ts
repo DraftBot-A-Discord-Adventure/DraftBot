@@ -35,7 +35,7 @@ async function handleBasicMissionShopItem(context: PacketContext, descriptionStr
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.shopItems.basicMission.giveTitle", {
 					lng: interaction.userLanguage,
-					pseudo: interaction.user.username
+					pseudo: interaction.user.displayName
 				}), interaction.user)
 				.setDescription(i18n.t(descriptionString, {
 					lng: interaction.userLanguage,
@@ -68,7 +68,7 @@ export async function handleLovePointsValueShopItem(packet: CommandMissionShopPe
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.shopItems.lovePointsValue.giveTitle", {
 					lng,
-					pseudo: interaction.user.username
+					pseudo: interaction.user.displayName
 				}), interaction.user)
 				.setDescription(i18n.t("commands:shop.shopItems.lovePointsValue.giveDesc", {
 					lng,
@@ -91,7 +91,7 @@ export async function skipMissionShopItemCollector(context: PacketContext, packe
 	const embed = new DraftBotEmbed()
 		.formatAuthor(i18n.t("commands:shop.shopItems.skipMission.giveTitle", {
 			lng: interaction.userLanguage,
-			pseudo: interaction.user.username
+			pseudo: interaction.user.displayName
 		}), interaction.user)
 		.setDescription(`${i18n.t("commands:shop.shopItems.skipMission.giveDesc", {
 			lng: interaction.userLanguage
@@ -120,7 +120,7 @@ export async function skipMissionShopResult(packet: CommandMissionShopSkipMissio
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.shopItems.skipMission.successTitle", {
 					lng: interaction.userLanguage,
-					pseudo: interaction.user.username
+					pseudo: interaction.user.displayName
 				}), interaction.user)
 				.setDescription(`${i18n.t("commands:shop.shopItems.skipMission.successDescription", {
 					lng: interaction.userLanguage,

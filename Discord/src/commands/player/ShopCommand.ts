@@ -102,7 +102,7 @@ export async function handleCommandShopHealAlterationDone(context: PacketContext
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.success", {
 					lng: interaction.userLanguage,
-					pseudo: interaction.user.username
+					pseudo: interaction.user.displayName
 				}), interaction.user)
 				.setDescription(i18n.t("commands:shop.healAlteration", {lng: interaction.userLanguage}))
 		]
@@ -117,7 +117,7 @@ export async function handleCommandShopFullRegen(context: PacketContext): Promis
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.success", {
 					lng: interaction.userLanguage,
-					pseudo: interaction.user.username
+					pseudo: interaction.user.displayName
 				}), interaction.user)
 				.setDescription(i18n.t("commands:shop.fullRegen", {lng: interaction.userLanguage}))
 		]
@@ -132,7 +132,7 @@ export async function handleCommandShopBadgeBought(context: PacketContext): Prom
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.success", {
 					lng: interaction.userLanguage,
-					pseudo: interaction.user.username
+					pseudo: interaction.user.displayName
 				}), interaction.user)
 				.setDescription(i18n.t("commands:shop.badgeBought", {
 					lng: interaction.userLanguage,
@@ -173,7 +173,7 @@ export async function shopInventoryExtensionCollector(context: PacketContext, pa
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.chooseSlotTitle", {
 					lng: interaction.userLanguage,
-					pseudo: interaction.user.username
+					pseudo: interaction.user.displayName
 				}), interaction.user)
 				.setDescription(slotExtensionText)
 		],
@@ -221,7 +221,7 @@ export async function handleReactionCollectorBuyCategorySlotBuySuccess(context: 
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.success", {
 					lng: interaction.userLanguage,
-					pseudo: interaction.user.username
+					pseudo: interaction.user.displayName
 				}), interaction.user)
 				.setDescription(i18n.t("commands:shop.buyCategorySlotSuccess", {lng: interaction.userLanguage}))
 		]
@@ -235,7 +235,7 @@ export async function handleCommandShopClosed(context: PacketContext): Promise<v
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.closeShopTitle", {
 					lng: interaction.userLanguage,
-					pseudo: interaction.user.username
+					pseudo: interaction.user.displayName
 				}), interaction.user)
 				.setDescription(i18n.t("commands:shop.closeShop", {lng: interaction.userLanguage}))
 		]
@@ -292,7 +292,7 @@ async function manageBuyoutConfirmation(packet: ReactionCollectorCreationPacket,
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t(amounts.length === 1 && amounts[0] === 1 ? "commands:shop.shopConfirmationTitle" : "commands:shop.shopConfirmationTitleMultiple", {
 					lng: interaction.userLanguage,
-					pseudo: interaction.user.username
+					pseudo: interaction.user.displayName
 				}), interaction.user)
 				.setDescription(`${
 					getShopItemDisplay(data, reaction, interaction.userLanguage, shopItemNames, amounts)

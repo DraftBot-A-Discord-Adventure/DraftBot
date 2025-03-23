@@ -17,7 +17,7 @@ export default class ItemHandler {
 			const menuEmbed = new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:inventory.acceptedTitle", {
 					lng: interaction.userLanguage,
-					pseudo: interaction.user.username
+					pseudo: interaction.user.displayName
 				}), interaction.user)
 				.setDescription(DisplayUtils.getItemDisplayWithStats(packet.itemWithDetails, interaction.userLanguage));
 			await interaction.channel.send({embeds: [menuEmbed]});
@@ -33,7 +33,7 @@ export default class ItemHandler {
 					new DraftBotEmbed()
 						.formatAuthor(i18n.t("commands:inventory.randomItemTitle", {
 							lng: interaction.userLanguage,
-							pseudo: interaction.user.username
+							pseudo: interaction.user.displayName
 						}), interaction.user)
 						.setDescription(DisplayUtils.getItemDisplayWithStats(packet.itemWithDetails, interaction.userLanguage))
 				]
@@ -57,11 +57,11 @@ export default class ItemHandler {
 					packet.autoSell
 						? i18n.t("commands:sell.soldMessageAlreadyOwnTitle", {
 							lng,
-							pseudo: interaction.user.username
+							pseudo: interaction.user.displayName
 						})
 						: i18n.t("commands:sell.soldMessageTitle", {
 							lng,
-							pseudo: interaction.user.username
+							pseudo: interaction.user.displayName
 						}),
 					interaction.user
 				)
@@ -78,11 +78,11 @@ export default class ItemHandler {
 					packet.autoSell
 						? i18n.t("commands:sell.soldMessageAlreadyOwnTitle", {
 							lng,
-							pseudo: interaction.user.username
+							pseudo: interaction.user.displayName
 						})
 						: i18n.t("commands:sell.potionDestroyedTitle", {
 							lng,
-							pseudo: interaction.user.username
+							pseudo: interaction.user.displayName
 						}),
 					interaction.user
 				)

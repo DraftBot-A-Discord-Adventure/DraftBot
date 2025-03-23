@@ -27,7 +27,7 @@ export async function handleCommandLeagueRewardSuccessPacket(packet: CommandLeag
 		embeds: [new DraftBotEmbed()
 			.formatAuthor(i18n.t("commands:leagueReward.title", {
 				lng,
-				pseudo: interaction.user.username
+				pseudo: interaction.user.displayName
 			}), interaction.user)
 			.setDescription(i18n.t(`commands:leagueReward.description.${packet.rank === 1 ? "first" : "other"}`, {
 				lng,

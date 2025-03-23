@@ -38,7 +38,7 @@ export async function handleCommandPetPacketRes(packet: CommandPetPacketRes, con
 			.formatAuthor(
 				i18n.t("commands:pet.embedTitle", {
 					lng: interaction.userLanguage,
-					pseudo: foundPlayer?.attributes.gameUsername[0] || interaction.user.username
+					pseudo: foundPlayer?.attributes.gameUsername[0] || interaction.user.displayName
 				}),
 				interaction.user
 			)

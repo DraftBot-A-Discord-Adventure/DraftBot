@@ -80,7 +80,7 @@ function generateGenericHelpMessage(helpMessage: DraftBotEmbed, interaction: Dra
 	} = getCommandByCategories(interaction.userLanguage);
 	helpMessage.formatAuthor(i18n.t("commands:help.helpEmbedTitle", {
 		lng: interaction.userLanguage,
-		pseudo: interaction.user.username
+		pseudo: interaction.user.displayName
 	}), interaction.user);
 	helpMessage.setDescription(
 		`${i18n.t("commands:help.helpEmbedDescription", {
