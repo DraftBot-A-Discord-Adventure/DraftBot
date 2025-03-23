@@ -67,7 +67,16 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 					lng: menuInteraction.values[0] as Language
 				}))]
 		});
+
+		collector.stop();
 	});
+
+	collector.on("end", async () => {
+		await msg.edit({
+			components: []
+		});
+	});
+
 	return null;
 }
 

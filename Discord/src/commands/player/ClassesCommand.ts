@@ -209,9 +209,18 @@ export async function handleChangeClassReactionCollector(context: PacketContext,
 				classesReactions.findIndex(reaction => reaction.classId === classDetails.id)
 			);
 		});
+
+		validateCollector.on("end", async () => {
+			await validateMsg.edit({
+				components: []
+			});
+		});
 	});
 
-	selectCollector.on("end", () => {
+	selectCollector.on("end", async () => {
+		await msg.edit({
+			components: []
+		});
 		if (validateCollector && !validateCollector.ended) {
 			validateCollector.stop();
 		}

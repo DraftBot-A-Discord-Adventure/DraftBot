@@ -208,6 +208,12 @@ export async function handleCommandClassesInfoPacketRes(packet: CommandClassesIn
 			components: [row]
 		});
 	});
+
+	collector.on("end", async () => {
+		await msg.edit({
+			components: []
+		});
+	});
 }
 
 export const commandInfo: ICommand = {

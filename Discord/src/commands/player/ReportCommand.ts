@@ -122,6 +122,12 @@ export async function createBigEventCollector(context: PacketContext, packet: Re
 		respondToEvent(ReportConstants.END_POSSIBILITY_ID, null);
 	});
 
+	buttonCollector.on("end", async () => {
+		await msg.edit({
+			components: []
+		});
+	});
+
 	return [buttonCollector, endCollector];
 }
 

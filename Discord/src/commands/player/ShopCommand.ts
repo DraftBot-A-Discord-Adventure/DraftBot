@@ -210,6 +210,12 @@ export async function shopInventoryExtensionCollector(context: PacketContext, pa
 			&& (r.data as ReactionCollectorBuyCategorySlotReaction).categoryId === parseInt(buttonInteraction.customId, 10)));
 	});
 
+	buttonCollector.on("end", async () => {
+		await msg.edit({
+			components: []
+		});
+	});
+
 	return [buttonCollector];
 }
 
@@ -333,6 +339,12 @@ async function manageBuyoutConfirmation(packet: ReactionCollectorCreationPacket,
 			r.type === ReactionCollectorShopItemReaction.name
 			&& (r.data as ReactionCollectorShopItemReaction).shopItemId === reaction.shopItemId
 			&& (amounts.length === 1 || (r.data as ReactionCollectorShopItemReaction).amount === parseInt(buttonInteraction!.customId, 10))));
+	});
+
+	buttonCollector.on("end", async () => {
+		await msg.edit({
+			components: []
+		});
 	});
 }
 
@@ -482,6 +494,12 @@ export async function shopCollector(context: PacketContext, packet: ReactionColl
 					&& (reaction.data as ReactionCollectorShopItemReaction).shopItemId === shopItemTypeFromId((msgComponentInteraction as SelectMenuInteraction).values[0])
 			)!.data as ReactionCollectorShopItemReaction
 		);
+	});
+
+	buttonCollector.on("end", async () => {
+		await msg.edit({
+			components: []
+		});
 	});
 
 	return [buttonCollector];

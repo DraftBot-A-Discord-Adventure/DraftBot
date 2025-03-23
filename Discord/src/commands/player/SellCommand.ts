@@ -127,6 +127,12 @@ async function validateSell(
 		);
 	});
 
+	validateCollector.on("end", async () => {
+		await validateMsg.edit({
+			components: []
+		});
+	});
+
 	return [validateCollector];
 }
 
@@ -231,7 +237,10 @@ export async function handleSellReactionCollector(context: PacketContext, packet
 			))![0] as unknown as InteractionCollector<never>;
 	});
 
-	selectCollector.on("end", () => {
+	selectCollector.on("end", async () => {
+		await msg.edit({
+			components: []
+		});
 		if (validateCollector && !validateCollector.ended) {
 			validateCollector.stop();
 		}
