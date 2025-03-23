@@ -33,7 +33,7 @@ export class Constants {
 		AUTO_CHOOSE_DESTINATION_CHANCE: 0.15 // 15%
 	};
 
-	// This constant represent the different types of values on which the players can be ranked
+	// This constant represents the different types of values on which the players can be ranked
 	static readonly RANK_TYPES = {
 		LEVEL: "level",
 		SCORE: "score",
