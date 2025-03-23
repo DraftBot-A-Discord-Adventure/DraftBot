@@ -10,7 +10,7 @@ import {DraftbotButtonReaction, DraftbotButtonReactionMessage} from "../messages
 import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
 /**
- * Get the reactions for the goblets game
+ * Get the reactions for the goblet game
  * @param interaction
  */
 function getGobletsGameReactions(interaction: DraftbotInteraction): DraftbotButtonReaction[] {
@@ -28,7 +28,7 @@ function getGobletsGameReactions(interaction: DraftbotInteraction): DraftbotButt
 }
 
 /**
- * Send the goblets game message
+ * Send the goblet game message
  * @param packet
  * @param context
  */

@@ -153,7 +153,7 @@ export class Constants {
 		MAX_MESSAGE_LENGTH_ALLOWED: 1900
 	};
 
-	static readonly REACTIONS = {
+	static readonly REACTIONS = { // Todo: remove those and other emoji based constants since they are in the DraftBotIcons ?
 		VALIDATE_REACTION: "✅",
 		REFUSE_REACTION: "❌",
 		WAIT_A_BIT_REACTION: "⏳",

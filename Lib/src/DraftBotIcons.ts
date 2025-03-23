@@ -21,6 +21,9 @@ export const DraftBotIcons: {
 			emoteMale: string
 		}
 	},
+	monsters: {
+		[monsterId: string]: string
+	}
 	armors: {
 		[itemId: string]: string
 	},
@@ -51,6 +54,10 @@ export const DraftBotIcons: {
 		handshake: string,
 		ai_thinking: string
 	},
+	pve_fights: {
+		wait_a_bit: string,
+		start_fight: string,
+	}
 	foods: {
 		[foodId: string]: string
 	}
@@ -1249,6 +1256,14 @@ export const DraftBotIcons: {
 			"emoteMale": "🐖"
 		}
 	},
+	"monsters": {
+		"spider": "🕷️",
+		"slimyMutant": "🦠",
+		"skeleton": "💀",
+		"rockGolem": "🗿",
+		"magmaTitan": "🌋",
+		"forestTroll": "🧌"
+	},
 	"armors": {
 		"0": "⬛",
 		"1": "👁️",
@@ -1672,6 +1687,10 @@ export const DraftBotIcons: {
 		"clipboard": "📋",
 		"handshake": "🤝",
 		"ai_thinking": "🧠"
+	},
+	"pve_fights": {
+		"wait_a_bit": "⏳",
+		"start_fight": "⚔️"
 	},
 	"foods": {
 		"herbivorousFood": "🥬",
