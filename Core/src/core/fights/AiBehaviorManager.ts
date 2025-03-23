@@ -14,6 +14,7 @@ import RockThrowerFightBehavior from "./aiClassBehaviors/RockThrowerFightBehavio
 import SlingerFightBehavior from "./aiClassBehaviors/SlingerFightBehavior";
 import VeteranFightBehavior from "./aiClassBehaviors/VeteranFightBehavior";
 import PaladinFightBehavior from "./aiClassBehaviors/PaladinFightBehavior";
+import TankFightBehavior from "./aiClassBehaviors/TankFightBehavior";
 
 export interface ClassBehavior {
 	chooseAction(fighter: AiPlayerFighter, fightView: FightView): FightAction;
@@ -49,6 +50,9 @@ export function initializeAllClassBehaviors(): void {
 	registerClassBehavior(ClassConstants.CLASSES_ID.EXPERIENCED_VETERAN, VeteranFightBehavior);
 	registerClassBehavior(ClassConstants.CLASSES_ID.PALADIN, PaladinFightBehavior);
 	registerClassBehavior(ClassConstants.CLASSES_ID.LUMINOUS_PALADIN, PaladinFightBehavior);
+	registerClassBehavior(ClassConstants.CLASSES_ID.TANK, TankFightBehavior);
+	registerClassBehavior(ClassConstants.CLASSES_ID.IMPENETRABLE_TANK, TankFightBehavior);
+	registerClassBehavior(ClassConstants.CLASSES_ID.ENMESHED, TankFightBehavior);
 }
 
 /**
