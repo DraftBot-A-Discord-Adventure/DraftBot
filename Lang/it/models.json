@@ -979,7 +979,7 @@
     "86": "Stella del destino",
     "87": "Chitarra elettrica",
     "88": "Carta SYM",
-    "89": "Poisson mort",
+    "89": "Pesce morto",
     "9": "Chiave Arrugginita"
   },
   "pets": {
@@ -1326,16 +1326,16 @@
   "foods": {
     "herbivorousFood_one": "insalata",
     "herbivorousFood_other": "insalate",
-    "herbivorousFood_capitalized": "Salade",
+    "herbivorousFood_capitalized": "Insalata",
     "carnivorousFood_one": "carne",
     "carnivorousFood_other": "carni",
-    "carnivorousFood_capitalized": "Viande",
+    "carnivorousFood_capitalized": "Carne",
     "ultimateFood_one": "zuppa definitiva",
     "ultimateFood_other": "zuppe definitive",
-    "ultimateFood_capitalized": "Soupe ultime",
+    "ultimateFood_capitalized": "Zuppa finale",
     "commonFood_one": "trattamento",
     "commonFood_other": "dolci",
-    "commonFood_capitalized": "Friandise"
+    "commonFood_capitalized": "Dolci"
   },
   "diet_omnivorous": "{emote:diet.omnivorous} Onnivoro",
   "diet_herbivorous": "{emote:diet.herbivorous} Erbivoro",
