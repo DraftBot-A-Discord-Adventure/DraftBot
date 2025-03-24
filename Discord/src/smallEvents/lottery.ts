@@ -21,7 +21,7 @@ export async function lotteryCollector(context: PacketContext, packet: ReactionC
 
 	const embed = new DraftbotSmallEventEmbed(
 		"lottery",
-		i18n.t("smallEvents:lottery.intro", { lng: lng }),
+		i18n.t("smallEvents:lottery.intro", { lng }),
 		interaction.user,
 		lng
 	);

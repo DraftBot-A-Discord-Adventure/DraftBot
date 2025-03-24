@@ -35,7 +35,7 @@ export async function smallShopCollector(context: PacketContext, packet: Reactio
 			price: data.price,
 			type: `${Constants.REACTIONS.ITEM_CATEGORIES[data.item.category]}${i18n.t("smallEvents:shop.types", {
 				returnObjects: true,
-				lng: lng
+				lng
 			})[data.item.category]}`,
 			interpolation: {escapeValue: false}
 		}),
