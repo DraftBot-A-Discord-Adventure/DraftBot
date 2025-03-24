@@ -31,8 +31,7 @@ import {ClassDataController} from "../../data/Class";
 import {PlayerSmallEvents} from "../../core/database/game/models/PlayerSmallEvent";
 import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
 import {
-	ReactionCollectorPveFight,
-	ReactionCollectorPveFightReactionValidate
+	ReactionCollectorPveFight
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPveFight";
 import {
 	ReactionCollectorChooseDestination,
@@ -53,6 +52,9 @@ import {ErrorPacket} from "../../../../Lib/src/packets/commands/ErrorPacket";
 import {MapLocationDataController} from "../../data/MapLocation";
 import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 import {Effect} from "../../../../Lib/src/types/Effect";
+import {
+	ReactionCollectorRefuseReaction
+} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 
 export default class ReportCommand {
 	@commandRequires(CommandReportPacketReq, {
@@ -554,8 +556,8 @@ async function doPVEBoss(
 
 	const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]) => {
 		const firstReaction = collector.getFirstReaction();
-
-		if (!firstReaction || !(firstReaction instanceof ReactionCollectorPveFightReactionValidate)) {
+		console.log("BWAAAAAAARGH");
+		if (!firstReaction || firstReaction.reaction.type === ReactionCollectorRefuseReaction.name) {
 			response.push(makePacket(CommandReportRefusePveFightRes, {}));
 			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.START_BOSS_FIGHT);
 			return;

@@ -334,9 +334,13 @@ export async function handleStartPveFight(context: PacketContext, packet: Reacti
  * @param _packet
  */
 export async function refusePveFight(_packet: CommandReportRefusePveFightRes, context: PacketContext): Promise<void> {
-	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
-	await interaction.editReply({
-		content: i18n.t("commands:report.pveFightRefused", {lng: interaction.userLanguage})
+	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
+	if (!originalInteraction) {
+		return;
+	}
+	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+	await buttonInteraction?.editReply({
+		content: i18n.t("commands:report.pveFightRefused", {lng: originalInteraction.userLanguage, pseudo: originalInteraction.user.displayName})
 	});
 }
 
