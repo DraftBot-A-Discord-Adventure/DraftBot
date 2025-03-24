@@ -49,7 +49,7 @@ const use: FightActionFunc = (sender, receiver, fightAction, turn): FightActionR
 		},
 		{
 			critical: 5,
-			failure: 10
+			failure: 1
 		},
 		{
 			attackInfo: getAttackInfo(),
