@@ -5,6 +5,7 @@ import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {
 	CommandReportBigEventResultRes,
 	CommandReportPacketReq,
+	CommandReportRefusePveFightRes,
 	CommandReportTravelSummaryRes
 } from "../../../../Lib/src/packets/commands/CommandReportPacket";
 import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
@@ -328,10 +329,22 @@ export async function handleStartPveFight(context: PacketContext, packet: Reacti
 }
 
 /**
-	 * Display the travel summary (embed with the travel path in between small events)
-	 * @param packet
-	 * @param context
-	 */
+ * Display to the user a message when the fight against a monster has been refused
+ * @param context
+ * @param _packet
+ */
+export async function refusePveFight(_packet: CommandReportRefusePveFightRes, context: PacketContext): Promise<void> {
+	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
+	await interaction.editReply({
+		content: i18n.t("commands:report.pveFightRefused", {lng: interaction.userLanguage})
+	});
+}
+
+/**
+ * Display the travel summary (embed with the travel path in between small events)
+ * @param packet
+ * @param context
+ */
 export async function reportTravelSummary(packet: CommandReportTravelSummaryRes, context: PacketContext): Promise<void> {
 	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;

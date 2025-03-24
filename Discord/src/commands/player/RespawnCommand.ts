@@ -12,7 +12,7 @@ import {EmoteUtils} from "../../utils/EmoteUtils";
 import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
 
 /**
- * Get the respawn packet to send to the server
+ * Get the respawn packet to send it to the server
  * @param interaction
  */
 async function getPacket(interaction: DraftbotInteraction): Promise<CommandRespawnPacketReq> {
