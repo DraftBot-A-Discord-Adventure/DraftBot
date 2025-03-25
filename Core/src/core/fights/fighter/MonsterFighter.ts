@@ -39,12 +39,10 @@ export class MonsterFighter extends Fighter {
 		return Math.round(Math.round(stat.A * level * level + stat.B * level + stat.C) * ratio / 100.0);
 	}
 
-	chooseAction(fightView: FightView, response: DraftBotPacket[]): Promise<void> {
+	async chooseAction(fightView: FightView, response: DraftBotPacket[]): Promise<void> {
 		const fightAction = this.getRandomAvailableFightAction();
-		setTimeout(async (): Promise<void> => {
-			await fightView.fightController.executeFightAction(fightAction, true, response);
-		}, RandomUtils.draftbotRandom.integer(300, 1800));
-		return Promise.resolve();
+		await new Promise(f => setTimeout(f, RandomUtils.randInt(300, 1800)));
+		await fightView.fightController.executeFightAction(fightAction, true, response);
 	}
 
 	endFight(): Promise<void> {
