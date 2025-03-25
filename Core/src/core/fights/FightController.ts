@@ -239,7 +239,11 @@ export class FightController {
 	 * @param defender
 	 * @private
 	 */
-	private handleOutOfBreathScenarios(attacker: PlayerFighter | MonsterFighter | AiPlayerFighter, fightAction: FightAction, defender: PlayerFighter | MonsterFighter | AiPlayerFighter) : {fightAction: FightAction, result: FightActionResult | FightAlterationResult} {
+	private handleOutOfBreathScenarios(
+		attacker: PlayerFighter | MonsterFighter | AiPlayerFighter,
+		fightAction: FightAction,
+		defender: PlayerFighter | MonsterFighter | AiPlayerFighter
+	): { fightAction: FightAction, result: FightActionResult | FightAlterationResult } {
 		// Check if the attacker has enough breath
 		const enoughBreath = attacker.useBreath(fightAction.breath);
 		let result: FightActionResult | FightAlterationResult;
