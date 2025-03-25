@@ -7,7 +7,7 @@ import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/Fig
 
 const use: FightActionFunc = (sender, receiver, fightAction) => {
 	const initialDamage = FightActionController.getAttackDamage(getStatsInfo(sender, receiver), sender, getAttackInfo());
-	const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 12);
+	const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 0, 12);
 
 	// Check how many times the attack appears in the fight action history of the sender
 	// + 1 to count the current attack
