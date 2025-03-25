@@ -556,7 +556,6 @@ async function doPVEBoss(
 
 	const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]) => {
 		const firstReaction = collector.getFirstReaction();
-		console.log("BWAAAAAAARGH");
 		if (!firstReaction || firstReaction.reaction.type === ReactionCollectorRefuseReaction.name) {
 			response.push(makePacket(CommandReportRefusePveFightRes, {}));
 			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.START_BOSS_FIGHT);
