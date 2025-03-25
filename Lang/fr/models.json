@@ -484,6 +484,7 @@
     },
     "rageExplosion": {
       "description": "Laisse exploser sa rage accumulée durant le trajet sur l'ennemi.",
+      "customMessage": "déferle sa rage sur l'ennemi !",
       "name_one": "Explosion de rage",
       "name_other": "Explosions de rage"
     },
