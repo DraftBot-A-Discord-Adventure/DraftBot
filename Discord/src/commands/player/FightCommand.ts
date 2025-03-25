@@ -139,13 +139,14 @@ export async function handleCommandFightIntroduceFightersRes(context: PacketCont
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 	const opponentDisplayName = packet.fightOpponentKeycloakId ?
 		(await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.fightOpponentKeycloakId))!.attributes.gameUsername[0] :
-		i18n.t(`models:monster.${packet.fightOpponentMonsterId}.name`, {lng: interaction.userLanguage});
+		i18n.t(`models:monsters.${packet.fightOpponentMonsterId}.name`, {lng: interaction.userLanguage});
 	// Todo: crash if both fightOpponentKeycloakId and fightOpponentMonsterId are null
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:fight.fightIntroTitle", {
 		lng: interaction.userLanguage,
 		fightInitiator: interaction.user.displayName,
 		opponent: opponentDisplayName
 	}), interaction.user);
+	// Todo: display the pet of the fighters if they have one
 	addFightActionFieldFor(embed, interaction.userLanguage, interaction.user.displayName, packet.fightInitiatorActions);
 	addFightActionFieldFor(embed, interaction.userLanguage, opponentDisplayName, packet.fightOpponentActions);
 	await buttonInteraction?.editReply({embeds: [embed]});
@@ -221,7 +222,7 @@ export async function handleEndOfFight(context: PacketContext, packet: CommandFi
 	// Get names of fighters
 	const getDisplayName = async (keycloakId?: string, monsterId?: string): Promise<string> => (keycloakId ?
 		(await KeycloakUtils.getUserByKeycloakId(keycloakConfig, keycloakId))!.attributes.gameUsername[0] :
-		i18n.t(`models:monster.${monsterId}.name`, {lng: interaction.userLanguage}));
+		i18n.t(`models:monsters.${monsterId}.name`, {lng: interaction.userLanguage}));
 
 	const winnerName = await getDisplayName(packet.winner.keycloakId, packet.winner.monsterId);
 	const looserName = await getDisplayName(packet.looser.keycloakId, packet.looser.monsterId);
