@@ -7,7 +7,7 @@ export const FightAlterations = {
 	DIRTY: "dirty",
 	FROZEN: "frozen",
 	FULL: "full",
-	OUTRAGE: "outrage",
+	OUTRAGE: "outrageAttack",
 	PARALYZED: "paralyzed",
 	PETRIFIED: "petrified",
 	POISONED: "poisoned",

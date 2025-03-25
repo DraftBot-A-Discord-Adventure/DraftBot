@@ -17,6 +17,7 @@ const use: FightActionFunc = (sender, receiver) => {
 	receiver.damage(damages);
 	return {
 		attackStatus: FightActionStatus.NORMAL,
+		customMessage: true,
 		damages
 	};
 };
