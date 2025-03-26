@@ -111,7 +111,7 @@
     "notEnoughGems": "You accept, but when it's time to pay, you realize you don't have enough to pay. You leave disappointed."
   },
   "lottery": {
-    "intro": "You cross the path of a man who questions you. Curious, you stop. He offers you to participate in a game of chance that he has created. You can choose between multiple reward levels.\n\n:coin: Small reward\n:dollar: average reward\n{{moneyEmote}} Big reward\n",
+    "intro": "Vous croisez le chemin d'un homme qui vous interpelle. Curieux, vous vous arrêtez. Celui-ci vous propose de participer à un jeu de hasard qu'il a créé. Vous pouvez choisir entre plusieurs niveaux de récompense.\n\n{emote:collectors.lottery.easy} Petite récompense\n{emote:collectors.lottery.medium} Moyenne récompense\n{emote:collectors.lottery.hard} Grosse récompense\n",
     "easy": {
       "success": "You take part and win a prize, which the man hands over to you before leaving.",
       "fail": "You lose the man's game, but participation was free. So you decide to continue on your way."
@@ -128,10 +128,10 @@
     "poor": "You try to trick the man into paying you a large sum of money. Unfortunately for you, the shopkeeper doubts your good faith, and unable to prove any wealth, you are ruthlessly rejected.",
     "end": "Without paying any further attention to the individual, you continue on your way.",
     "rewardTypeText": {
-      "xp": " You earned **{{xpWon}}⭐**.",
-      "money": " You won **{{moneyWon}}{emote:unitValues.money}**!",
-      "guildXp": " Your guild earns **{{guildXpWon}}⭐**.",
-      "points": " You won **{{pointsWon}}🏅**."
+      "xp": " Vous avez gagné **{{reward}} ⭐**.",
+      "money": " Vous avez gagné **{{reward}} {emote:unitValues.money}** !",
+      "guildXp": " Votre guilde gagne **{{reward}} ⭐**.",
+      "points": " Vous avez gagné **{{reward}} 🏅**."
     }
   },
   "interactOtherPlayers": {
