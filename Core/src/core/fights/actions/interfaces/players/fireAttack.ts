@@ -6,7 +6,7 @@ import {FightActionResult} from "../../../../../../../Lib/src/types/FightActionR
 
 const use: FightActionFunc = (sender, receiver) => {
 	const initialDamage = FightActionController.getAttackDamage(getStatsInfo(sender, receiver), sender, getAttackInfo());
-	const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 25, 12);
+	const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 12, 4);
 
 	const result: FightActionResult = {
 		attackStatus: damageDealt.status,
@@ -25,9 +25,9 @@ export default use;
 
 function getAttackInfo(): attackInfo {
 	return {
-		minDamage: 15,
-		averageDamage: 100,
-		maxDamage: 130
+		minDamage: 20,
+		averageDamage: 110,
+		maxDamage: 150
 	};
 }
 
