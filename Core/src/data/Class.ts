@@ -74,7 +74,7 @@ export class Class extends Data<number> {
 	 * @param level
 	 */
 	public getMaxCumulativeEnergyValue(level: number): number {
-		return Math.round(this.fightPoint + 10 * level + level / 4 * level / 8);
+		return Math.round(this.fightPoint + (1600 / (1 + Math.exp(-0.06 * level + 2)) + 0.5 * level));
 	}
 
 	/**
