@@ -12,8 +12,7 @@ const use: FightActionFunc = (sender, receiver, _fightAction, turn, fight) => {
 	const result = defaultFightActionResult();
 	result.usedAction = {
 		id: lastAttack.id,
-		result: launchedResult,
-		fromFighter: "player"
+		result: launchedResult
 	};
 	return result;
 };

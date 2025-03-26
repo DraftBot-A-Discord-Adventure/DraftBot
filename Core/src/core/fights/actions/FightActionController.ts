@@ -169,8 +169,7 @@ export class FightActionController {
 		const result = defaultFightActionResult();
 		result.usedAction = {
 			id: chosenAttack.id,
-			result: resultLaunched,
-			fromFighter: "player"
+			result: resultLaunched
 		};
 		return result;
 	}
