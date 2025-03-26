@@ -1734,6 +1734,7 @@ export const DraftBotIcons: {
 		"defenseBuff": "🧘",
 		"dirty": "🗑️",
 		"divineAttack": "🙏",
+		"guildAttack": "🏟️",
 		"energeticAttack": "⚡",
 		"eruptionAttack": "🌋",
 		"familyMealAttack": "🍽️",
