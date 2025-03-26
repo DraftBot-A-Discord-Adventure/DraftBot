@@ -111,7 +111,7 @@
     "notEnoughGems": "Aceita, mas quando chega a altura de pagar, apercebe-se de que não tem dinheiro suficiente para pagar. Por isso, vai-se embora desiludido."
   },
   "lottery": {
-    "intro": "Cruza-se com um homem que chama por si. Curioso, pára. Ele oferece-te a possibilidade de participares num jogo de azar que ele criou. Podes escolher entre vários níveis de recompensa.\n\n:coin:\n:dollar:\n{{moneyEmote}}\nPrémio pequeno Prémio médio Prémio grande",
+    "intro": "Vous croisez le chemin d'un homme qui vous interpelle. Curieux, vous vous arrêtez. Celui-ci vous propose de participer à un jeu de hasard qu'il a créé. Vous pouvez choisir entre plusieurs niveaux de récompense.\n\n{emote:collectors.lottery.easy} Petite récompense\n{emote:collectors.lottery.medium} Moyenne récompense\n{emote:collectors.lottery.hard} Grosse récompense\n",
     "easy": {
       "success": "Participa e consegue ganhar um prémio, que o homem lhe entrega antes de sair.",
       "fail": "Perdeu o jogo do homem, mas a participação foi gratuita. Por isso, decide voltar à estrada."
@@ -128,10 +128,10 @@
     "poor": "Tenta enganar o homem para que lhe pague uma grande quantia de dinheiro. Infelizmente para ti, o lojista duvida da tua boa fé e, incapaz de provar qualquer riqueza, és impiedosamente rejeitado.",
     "end": "Sem prestar mais atenção ao indivíduo, continua o seu caminho.",
     "rewardTypeText": {
-      "xp": " {{xpWon}} Ganhou ** ⭐**.",
-      "money": " {{moneyWon}} Ganhou ** {emote:unitValues.money}**!",
-      "guildXp": " {{guildXpWon}} A tua guilda ganha ** ⭐**.",
-      "points": " {{pointsWon}} Ganhou ** 🏅**."
+      "xp": " Vous avez gagné **{{reward}} ⭐**.",
+      "money": " {{reward}} Ganhou ** {emote:unitValues.money}**!",
+      "guildXp": " Votre guilde gagne **{{reward}} ⭐**.",
+      "points": " Vous avez gagné **{{reward}} 🏅**."
     }
   },
   "interactOtherPlayers": {
