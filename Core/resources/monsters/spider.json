@@ -9,7 +9,7 @@
 	"attacks": [
 		{
 			"id": "poisonousAttack",
-			"minLevel": 0,
+			"minLevel": 40,
 			"weight": 4
 		},
 		{
@@ -29,7 +29,7 @@
 		},
 		{
 			"id": "familyMealAttack",
-			"minLevel": 50,
+			"minLevel": 60,
 			"weight": 3
 		}
 	],
