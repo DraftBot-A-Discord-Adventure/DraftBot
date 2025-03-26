@@ -156,35 +156,14 @@
       "name_one": "Attaque vol de souffle",
       "name_other": "Attaques vol de souffle"
     },
+    "buildBarrage": {
+      "success": "est aidé par **{{petNickname}}** qui construit un barrage pour protéger son maître."
+    },
     "burned": {
       "name": "brûlé",
       "new": "est brûlé.",
       "active": "souffre de sa brûlure.",
       "stop": "n'est plus brûlé."
-    },
-    "swallowed": {
-      "name": "avalé",
-      "new": "est avalé.",
-      "noAction": "est dans un estomac et ne peut pas attaquer.",
-      "stop": "est ressorti de l'animal sain et sauf."
-    },
-    "buildBarrage": {
-      "success": "est aidé par **{{petNickname}}** qui construit un barrage pour protéger son maître."
-    },
-    "swallow": {
-      "success": "demande de l'aide à **{{petNickname}}** qui, ne sachant pas quoi faire, décide d'avaler tout rond son adversaire."
-    },
-    "dirty": {
-      "name": "répugnant",
-      "new": "est absolument répugnant, ses attaques s'en retrouvent renforcées.",
-      "active": "est répugnant.",
-      "stop": "est parvenu à se nettoyer."
-    },
-    "getDirty": {
-      "description": "S'exécute si l'attaquant s'est récemment retrouvé dans des lieux sales. Le combattant se retrouvera répugnant ou malade selon les situations.",
-      "customMessage": "a réussi à s'extraire d'une situation périlleuse sans trop de dommages, mais en sacrifiant sa dignité et sa propreté.",
-      "name_one": "Salissure",
-      "name_other": "Salissures"
     },
     "canonAttack": {
       "description": "La précision de cette attaque baisse sur les adversaires rapides. Un bonus de dégât est affecté à cette attaque si l’adversaire est très lent. L'adversaire peut être ralenti par l'attaque. Inflige plus de dégâts si utilisé plusieurs fois de suite",
@@ -241,6 +220,11 @@
       "customMessage": "ne parviens pas à riposter.",
       "name_other": "Attaques riposte"
     },
+    "createBomb": {
+      "generalEffect": "est soutenu dans son combat par **{{petNickname}}** qui fait mine de harceler férocement l'adversaire de coups de bec précis et douloureux.",
+      "failure": "a manqué de recevoir l'aide de **{{petNickname}}** qui, par prudence, s'est abstenu d'agir, conscient que son intervention risquait davantage de blesser son maître que l'adversaire. Il aurait fallu être plus rapide !",
+      "success": "profite du talent de **{{petNickname}}** qui a discrètement préparé une bombe puissante. Après avoir activé le détonateur, vous vous mettez à l'écart en courant de toutes vos forces !"
+    },
     "cursed": {
       "name": "maudit",
       "new": "est maudit...",
@@ -261,6 +245,12 @@
       "description": "Plus cette action est effectuée à la suite, plus le bonus de défense est important.",
       "name_one": "Boost de la défense",
       "name_other": "Boosts de la défense"
+    },
+    "dirty": {
+      "name": "répugnant",
+      "new": "est absolument répugnant, ses attaques s'en retrouvent renforcées.",
+      "active": "est répugnant.",
+      "stop": "est parvenu à se nettoyer."
     },
     "divineAttack": {
       "description": "La précision de cette attaque augmente avec la durée du combat. Fait partie du groupe des \"actions des dieux\". Échoue si 2 actions des dieux ont déjà été effectuées dans le combat.",
@@ -307,6 +297,12 @@
       "active": "est repue et doit se reposer.",
       "stop": "n'est plus repue."
     },
+    "getDirty": {
+      "description": "S'exécute si l'attaquant s'est récemment retrouvé dans des lieux sales. Le combattant se retrouvera répugnant ou malade selon les situations.",
+      "customMessage": "a réussi à s'extraire d'une situation périlleuse sans trop de dommages, mais en sacrifiant sa dignité et sa propreté.",
+      "name_one": "Salissure",
+      "name_other": "Salissures"
+    },
     "goesWild": {
       "success": "ordonne à **{{petNickname}}** d'attaquer. L'animal éclate de rage et se met à frapper tout ce qui passe à proximité de lui."
     },
@@ -329,10 +325,10 @@
       "name_one": "Drain de chaleur",
       "name_other": "Drains de chaleur"
     },
-    "createBomb": {
-      "generalEffect": "est soutenu dans son combat par **{{petNickname}}** qui fait mine de harceler férocement l'adversaire de coups de bec précis et douloureux.",
-      "failure": "a manqué de recevoir l'aide de **{{petNickname}}** qui, par prudence, s'est abstenu d'agir, conscient que son intervention risquait davantage de blesser son maître que l'adversaire. Il aurait fallu être plus rapide !",
-      "success": "profite du talent de **{{petNickname}}** qui a discrètement préparé une bombe puissante. Après avoir activé le détonateur, vous vous mettez à l'écart en courant de toutes vos forces !"
+    "heatMudAttack": {
+      "description": "Chauffe la boue dans l'arène pour faire des dégâts aux adversaires sales.",
+      "name_one": "Attaque boue brûlante",
+      "name_other": "Attaques boue brûlante"
     },
     "heavyAttack": {
       "description": "Les dégâts de cette attaque sont réduits de 90% si le défenseur dispose de moins de défense que l’attaquant. La défense de l'ennemi est réduite de 25%.",
@@ -359,8 +355,13 @@
     },
     "lavaWaveAttack": {
       "description": "Attaque très puissante utilisable en dernier recours et infligeant à coup sûr l'altération \"Brûlé\" à l'adversaire.",
-      "name_one": "Vague de lave",
-      "name_other": "Vagues de lave"
+      "name_one": "Attaque vague de lave",
+      "name_other": "Attaque vagues de lave"
+    },
+    "magicMimicAttack": {
+      "description": "Permet de riposter après une attaque magique de l'adversaire.",
+      "name_one": "Attaque mimique magique",
+      "name_other": "Attaques mimique magiques"
     },
     "magmaBathAttack": {
       "description": "S'applique au lanceur. Celui-ci se repose dans la lave et récupère son énergie. Le nombre de points de combats récupérés est divisé par 4 après 4 utilisations.",
@@ -370,15 +371,10 @@
     "meduseParalyze": {
       "success": "reçoit l'aide de **{{petNickname}}** qui pétrifie son adversaire d'un coup d'œil."
     },
-    "mimicAttack": {
-      "description": "Copie aléatoirement une de vos attaques.",
-      "name_one": "Mimique",
-      "name_other": "Mimiques"
-    },
-    "monstrousCopyAttack": {
-      "description": "Copie l'attaque d'un monstre aléatoire.",
-      "name_one": "Monstrueuse Copie",
-      "name_other": "Monstrueuses Copies"
+    "mudShotAttack": {
+      "description": "Attaque à distance qui inflige des dégâts et rend l'adversaire sale.",
+      "name_one": "Attaque tir de boue",
+      "name_other": "Attaques tir de boue"
     },
     "none": {
       "customMessage": "ne peut pas attaquer."
@@ -594,6 +590,15 @@
       "description": "Invoque des alliés pour vous aider et attaquer très fort.",
       "name_one": "Invocation d'alliés",
       "name_other": "Invocations d'alliés"
+    },
+    "swallow": {
+      "success": "demande de l'aide à **{{petNickname}}** qui, ne sachant pas quoi faire, décide d'avaler tout rond son adversaire."
+    },
+    "swallowed": {
+      "name": "avalé",
+      "new": "est avalé.",
+      "noAction": "est dans un estomac et ne peut pas attaquer.",
+      "stop": "est ressorti de l'animal sain et sauf."
     },
     "targeted": {
       "name": "ciblé par un boomerang",
