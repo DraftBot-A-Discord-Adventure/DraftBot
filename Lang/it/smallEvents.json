@@ -111,7 +111,7 @@
     "notEnoughGems": "Accettate, ma quando è il momento di pagare vi rendete conto che non avete abbastanza per pagare. Così ve ne andate delusi."
   },
   "lottery": {
-    "intro": "Incrociate un uomo che vi chiama. Incuriositi, vi fermate. Vi offre la possibilità di partecipare a un gioco d'azzardo da lui creato. Potete scegliere tra diversi livelli di ricompensa.\n\n:coin:\n:dollar:\n{{moneyEmote}}\nRicompensa piccola Ricompensa media Ricompensa grande",
+    "intro": "Vous croisez le chemin d'un homme qui vous interpelle. Curieux, vous vous arrêtez. Celui-ci vous propose de participer à un jeu de hasard qu'il a créé. Vous pouvez choisir entre plusieurs niveaux de récompense.\n\n{emote:collectors.lottery.easy} Petite récompense\n{emote:collectors.lottery.medium} Moyenne récompense\n{emote:collectors.lottery.hard} Grosse récompense\n",
     "easy": {
       "success": "Partecipate e riuscite a vincere un premio, che l'uomo vi consegna prima di andarsene.",
       "fail": "Perdete il gioco dell'uomo, ma la partecipazione era gratuita. Così si decide di rimettersi in viaggio."
@@ -128,10 +128,10 @@
     "poor": "Cercate di ingannare l'uomo per fargli pagare una grossa somma di denaro. Sfortunatamente, il negoziante dubita della vostra buona fede e, non potendo dimostrare alcuna ricchezza, vi respinge senza pietà.",
     "end": "Senza prestare ulteriore attenzione all'individuo, continuate per la vostra strada.",
     "rewardTypeText": {
-      "xp": " {{xpWon}} Avete vinto ** ⭐**.",
-      "money": " {{moneyWon}} Hai vinto ** {emote:unitValues.money}**!",
-      "guildXp": " {{guildXpWon}} La tua gilda vince ** ⭐**.",
-      "points": " {{pointsWon}} Hai vinto ** 🏅**."
+      "xp": " Vous avez gagné **{{reward}} ⭐**.",
+      "money": " {{reward}} Hai vinto ** {emote:unitValues.money}**!",
+      "guildXp": " Votre guilde gagne **{{reward}} ⭐**.",
+      "points": " Vous avez gagné **{{reward}} 🏅**."
     }
   },
   "interactOtherPlayers": {
