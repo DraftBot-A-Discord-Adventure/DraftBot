@@ -15,6 +15,7 @@ import {
 	ReactionCollectorFightChooseActionReaction
 } from "../../../Lib/src/packets/interaction/ReactionCollectorFightChooseAction";
 import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import {DiscordConstants} from "../DiscordConstants";
 
 export class DraftbotActionChooseCachedMessage extends DraftbotCachedMessage<ReactionCollectorCreationPacket> {
 	readonly duration = 30;
@@ -32,7 +33,7 @@ export class DraftbotActionChooseCachedMessage extends DraftbotCachedMessage<Rea
 			pseudo: fighter
 		}), interaction.user)
 			.setDescription(i18n.t("commands:fight.fightActionChoose.turnIndicationDescription", {lng: interaction.userLanguage}));
-		const row = new ActionRowBuilder<ButtonBuilder>();
+		const rows = [new ActionRowBuilder<ButtonBuilder>()];
 		const reactions = packet.reactions as {type: string, data: ReactionCollectorFightChooseActionReaction}[];
 		reactions.forEach((action) => {
 			const react = action.data as ReactionCollectorFightChooseActionReaction;
@@ -42,11 +43,15 @@ export class DraftbotActionChooseCachedMessage extends DraftbotCachedMessage<Rea
 				.setEmoji(parseEmoji(emoji)!)
 				.setCustomId(react.id)
 				.setStyle(ButtonStyle.Secondary);
-			row.addComponents(button);
+
+			if (rows[rows.length - 1].components.length >= DiscordConstants.MAX_BUTTONS_PER_ROW) {
+				rows.push(new ActionRowBuilder<ButtonBuilder>());
+			}
+			rows[rows.length - 1].addComponents(button);
 		});
 		await this.post({
 			embeds: [embed],
-			components: [row]
+			components: rows
 		});
 		const buttonCollector = this.storedMessage!.createMessageComponentCollector({
 			time: packet.endTime - Date.now()
