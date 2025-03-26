@@ -111,7 +111,7 @@
     "notEnoughGems": "Sie stimmen zu, aber als Sie bezahlen wollen, stellen Sie fest, dass Sie nicht genug Geld haben, um zu bezahlen. Sie gehen also enttäuscht weg."
   },
   "lottery": {
-    "intro": "Sie kreuzen den Weg eines Mannes, der Sie anspricht. Sie sind neugierig und bleiben stehen. Dieser bietet Ihnen an, an einem von ihm entwickelten Glücksspiel teilzunehmen. Sie können zwischen verschiedenen Belohnungsstufen wählen.\n\n:coin: Kleine Belohnung\n:dollar: Mittlere Belohnung\n{{moneyEmote}} Große Belohnung\n",
+    "intro": "Vous croisez le chemin d'un homme qui vous interpelle. Curieux, vous vous arrêtez. Celui-ci vous propose de participer à un jeu de hasard qu'il a créé. Vous pouvez choisir entre plusieurs niveaux de récompense.\n\n{emote:collectors.lottery.easy} Petite récompense\n{emote:collectors.lottery.medium} Moyenne récompense\n{emote:collectors.lottery.hard} Grosse récompense\n",
     "easy": {
       "success": "Sie nehmen teil und schaffen es, einen Preis zu gewinnen, den der Mann Ihnen überreicht, bevor er geht.",
       "fail": "Sie verlieren beim Mensch-ärgere-dich-nicht-Spiel, allerdings war die Teilnahme kostenlos. Sie beschließen daher, Ihre Reise fortzusetzen."
@@ -128,10 +128,10 @@
     "poor": "Sie versuchen, die Aufmerksamkeit des Mannes auf sich zu lenken und setzen eine hohe Summe. Zu Ihrem Pech zweifelt der Händler an Ihrem guten Glauben und Sie können keinen Reichtum nachweisen.",
     "end": "Ohne der Person weitere Beachtung zu schenken, setzen Sie Ihren Weg fort.",
     "rewardTypeText": {
-      "xp": " Sie haben gewonnen **{{xpWon}}⭐**.",
-      "money": " Sie haben gewonnen **{{moneyWon}}{emote:unitValues.money}**!",
-      "guildXp": " Deine Gilde gewinnt **{{guildXpWon}}⭐**.",
-      "points": " Sie haben gewonnen **{{pointsWon}}🏅**."
+      "xp": " Vous avez gagné **{{reward}} ⭐**.",
+      "money": " Sie haben gewonnen **{{reward}}{emote:unitValues.money}**!",
+      "guildXp": " Votre guilde gagne **{{reward}} ⭐**.",
+      "points": " Vous avez gagné **{{reward}} 🏅**."
     }
   },
   "interactOtherPlayers": {
