@@ -108,8 +108,7 @@ export abstract class FightConstants {
 				BOULDER_TOSS_ATTACK: "boulderTossAttack",
 				SLAM_ATTACK: "slamAttack",
 				GRAB_AND_THROW_ATTACK: "grabAndThrowAttack",
-				MIMIC_ATTACK: "mimicAttack",
-				MONSTROUS_COPY_ATTACK: "monstrousCopyAttack",
+				MAGIC_MIMIC_ATTACK: "magicMimicAttack",
 				FAMILY_MEAL_ATTACK: "familyMealAttack",
 				WEB_SHOT_ATTACK: "webShotAttack",
 				ERUPTION_ATTACK: "eruptionAttack",
@@ -122,7 +121,9 @@ export abstract class FightConstants {
 				STEALTH: "stealth",
 				PETRIFICATION_ATTACK: "petrificationAttack",
 				ROCK_SHIELD_ATTACK: "rockShieldAttack",
-				STONE_SKIN_ATTACK: "stoneSkinAttack"
+				STONE_SKIN_ATTACK: "stoneSkinAttack",
+				MUD_SHOT_ATTACK: "mudShotAttack",
+				HEAT_MUD_ATTACK: "heatMudAttack"
 			},
 			ALTERATION: {
 				BLIND: "blind",

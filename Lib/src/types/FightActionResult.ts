@@ -29,8 +29,7 @@ export interface FightActionResult {
 	customMessage?: boolean, // If true, the attack should be displayed with a custom message
 	usedAction?: {
 		id: string,
-		result: FightActionResult,
-		fromFighter: string
+		result: FightActionResult
 	}
 }
 
