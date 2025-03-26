@@ -1,5 +1,5 @@
 {
-	"energyRatio": 80,
+	"baseEnergyValue": 150,
 	"attackRatio": 50,
 	"defenseRatio": 50,
 	"speedRatio": 50,
@@ -8,15 +8,25 @@
 	"breathRegen": 3,
 	"attacks": [
 		{
-			"id": "monstrousCopyAttack",
+			"id": "magicMimicAttack",
 			"minLevel": 60,
-			"weight": 1
+			"weight": 4
 		},
-		{
-			"id": "mimicAttack",
-			"minLevel": 0,
-			"weight": 1
-		}
+    {
+      "id": "poisonousAttack",
+      "minLevel": 0,
+      "weight": 3
+    },
+    {
+      "id": "mudShotAttack",
+      "minLevel": 0,
+      "weight": 3
+    },
+    {
+      "id": "heatMudAttack",
+      "minLevel": 0,
+      "weight": 2
+    }
 	],
 	"maps": [
 		1001

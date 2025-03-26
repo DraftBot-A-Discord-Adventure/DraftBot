@@ -23,7 +23,7 @@ export class MonsterFighter extends Fighter {
 			}
 		}
 		super(level, attacks);
-		this.stats.energy = this.calculateStat(PVEConstants.STATS_FORMULA.ENERGY, level, monster.energyRatio);
+		this.stats.energy = this.levelToEnergy(level, monster.baseEnergyValue);
 		this.stats.maxEnergy = this.stats.energy;
 		this.stats.attack = this.calculateStat(PVEConstants.STATS_FORMULA.ATTACK, level, monster.attackRatio);
 		this.stats.defense = this.calculateStat(PVEConstants.STATS_FORMULA.DEFENSE, level, monster.defenseRatio);
@@ -33,6 +33,10 @@ export class MonsterFighter extends Fighter {
 		this.stats.breathRegen = monster.breathRegen;
 		this.monster = monster;
 		this.status = FighterStatus.NOT_STARTED;
+	}
+
+	levelToEnergy(level: number, baseEnergyValue: number): number {
+		return Math.round(baseEnergyValue + (2000 / (1 + Math.exp(-0.06 * level + 2)) + 0.7 * level));
 	}
 
 	calculateStat(stat: { A: number, B: number, C: number }, level: number, ratio: number): number {

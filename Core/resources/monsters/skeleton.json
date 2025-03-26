@@ -1,5 +1,5 @@
 {
-	"energyRatio": 80,
+	"baseEnergyValue": 220,
 	"attackRatio": 105,
 	"defenseRatio": 70,
 	"speedRatio": 60,
