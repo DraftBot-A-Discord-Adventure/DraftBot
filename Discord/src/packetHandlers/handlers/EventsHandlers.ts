@@ -21,6 +21,8 @@ import {NoFoodSpaceInGuildPacket} from "../../../../Lib/src/packets/utils/NoFood
 import {MissionUtils} from "../../utils/MissionUtils";
 import {MissionType} from "../../../../Lib/src/types/CompletedMission";
 import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
+import {DisplayUtils} from "../../utils/DisplayUtils";
+import {DraftBotErrorEmbed} from "../../messages/DraftBotErrorEmbed";
 
 export default class EventsHandlers {
 	@packetHandler(CommandReportChooseDestinationRes)
@@ -65,8 +67,26 @@ export default class EventsHandlers {
 	}
 
 	@packetHandler(GuildLevelUpPacket)
-	async guildLevelUp(_context: PacketContext, _packet: GuildLevelUpPacket): Promise<void> {
-		// Todo
+	async guildLevelUp(context: PacketContext, packet: GuildLevelUpPacket): Promise<void> {
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+
+		if (!interaction) {
+			return;
+		}
+
+		await interaction.channel.send({
+			embeds: [
+				new DraftBotEmbed()
+					.setTitle(i18n.t("models:guilds.levelUpTitle", {
+						lng: interaction.userLanguage,
+						guild: packet.guildName
+					}))
+					.setDescription(i18n.t("models:guilds.levelUpDesc", {
+						lng: interaction.userLanguage,
+						level: packet.level
+					}))
+			]
+		});
 	}
 
 	@packetHandler(MissionsCompletedPacket)
@@ -158,23 +178,161 @@ export default class EventsHandlers {
 	}
 
 	@packetHandler(PlayerDeathPacket)
-	async playerDeath(_context: PacketContext, _packet: PlayerDeathPacket): Promise<void> {
-		// Todo
+	async playerDeath(context: PacketContext, _packet: PlayerDeathPacket): Promise<void> {
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+
+		if (!interaction) {
+			return;
+		}
+
+		const lng = interaction.userLanguage;
+
+		await interaction.channel.send({
+			embeds: [
+				new DraftBotEmbed()
+					.formatAuthor(i18n.t("models:players.koTitle", {
+						lng,
+						pseudo: interaction.user.displayName
+					}), interaction.user)
+					.setDescription(i18n.t("models:players.koDesc", {
+						lng
+					}))
+					.setErrorColor()
+			]
+		});
+
+		await interaction.user.send({
+			embeds: [
+				new DraftBotEmbed()
+					.formatAuthor(i18n.t("models:players.koDmTitle", {
+						lng
+					}), interaction.user)
+					.setDescription(i18n.t("models:players.koDmDesc", {
+						lng
+					}))
+			]
+		});
 	}
 
 	@packetHandler(PlayerLeavePveIslandPacket)
-	async playerLeavePveIsland(_context: PacketContext, _packet: PlayerLeavePveIslandPacket): Promise<void> {
-		// Todo
+	async playerLeavePveIsland(context: PacketContext, packet: PlayerLeavePveIslandPacket): Promise<void> {
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+
+		if (!interaction) {
+			return;
+		}
+
+		const lng = interaction.userLanguage;
+		let desc = i18n.t("models:players.leavePVEIslandDescStart", {
+			lng,
+			moneyLost: packet.moneyLost
+		});
+
+		if (packet.guildPointsLost > 0) {
+			desc += i18n.t("models:players.leavePVEIslandMalusGuildPoints", {
+				lng,
+				guildPointsLost: packet.guildPointsLost
+			});
+		}
+
+		desc += i18n.t("models:players.leavePVEIslandDescEnd", {
+			lng
+		});
+
+		await interaction.channel.send({
+			embeds: [
+				new DraftBotEmbed()
+					.formatAuthor(i18n.t("models:players.leavePVEIslandTitle", {
+						lng,
+						pseudo: interaction.user.displayName
+					}), interaction.user)
+					.setDescription(desc)
+			]
+		});
 	}
 
 	@packetHandler(PlayerLevelUpPacket)
-	async playerLevelUp(_context: PacketContext, _packet: PlayerLevelUpPacket): Promise<void> {
-		// Todo
+	async playerLevelUp(context: PacketContext, packet: PlayerLevelUpPacket): Promise<void> {
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+
+		if (!interaction) {
+			return;
+		}
+
+		const lng = interaction.userLanguage;
+
+		const rewards: { [key: string]: { tr: string, replacements?: object } } = {
+			healthRestored: { tr: "healthRestored" },
+			fightUnlocked: { tr: "fightUnlocked" },
+			guildUnlocked: { tr: "guildUnlocked" },
+			classesTier1Unlocked: { tr: "classTier", replacements: { tier: 1 } },
+			classesTier2Unlocked: { tr: "classTier", replacements: { tier: 2 } },
+			classesTier3Unlocked: { tr: "classTier", replacements: { tier: 3 } },
+			classesTier4Unlocked: { tr: "classTier", replacements: { tier: 4 } },
+			classesTier5Unlocked: { tr: "classTier", replacements: { tier: 5 } },
+			missionSlotUnlocked: { tr: "newMissionSlot" },
+			pveUnlocked: { tr: "pveUnlocked" },
+			statsIncreased: { tr: "statsIncreased" }
+		};
+
+		let desc = i18n.t("models:players.levelUp.description", {
+			lng,
+			level: packet.level
+		});
+
+		for (const [key, value] of Object.entries(rewards)) {
+			if (packet[key as keyof PlayerLevelUpPacket]) {
+				desc += `${i18n.t(`models:players.levelUp.rewards.${value.tr}`, {
+					lng,
+					...value.replacements
+				})}\n`;
+			}
+		}
+
+		await interaction.channel.send({
+			embeds: [
+				new DraftBotEmbed()
+					.formatAuthor(i18n.t("models:players.levelUp.title", {
+						lng,
+						pseudo: interaction.user.displayName
+					}), interaction.user)
+					.setDescription(desc)
+			]
+		});
 	}
 
 	@packetHandler(PlayerReceivePetPacket)
-	async playerReceivePet(_context: PacketContext, _packet: PlayerReceivePetPacket): Promise<void> {
-		// Todo
+	async playerReceivePet(context: PacketContext, packet: PlayerReceivePetPacket): Promise<void> {
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+
+		if (!interaction) {
+			return;
+		}
+
+		const lng = interaction.userLanguage;
+		const descTr = packet.giveInGuild
+			? "models:petReceived.genericGiveGuild"
+			: packet.giveInPlayerInv
+				? "models:petReceived.genericGivePlayer"
+				: "models:petReceived.genericGiveNoSlot";
+
+		const embed = new DraftBotEmbed()
+			.formatAuthor(i18n.t("models:petReceived.genericGiveTitle", {
+				lng,
+				pseudo: interaction.user.displayName
+			}), interaction.user)
+			.setDescription(i18n.t(descTr, {
+				lng,
+				pet: DisplayUtils.getPetDisplay(packet.petTypeId, packet.petSex, lng)
+			}));
+
+		if (packet.noRoomInGuild) {
+			embed.setErrorColor();
+		}
+
+		await interaction.channel.send({
+			embeds: [embed]
+		});
 	}
 
 	@packetHandler(GiveFoodToGuildPacket)
@@ -203,7 +361,21 @@ export default class EventsHandlers {
 	}
 
 	@packetHandler(NoFoodSpaceInGuildPacket)
-	async noFoodSpaceInGuild(_context: PacketContext, _packet: NoFoodSpaceInGuildPacket): Promise<void> {
-		// Todo
+	async noFoodSpaceInGuild(context: PacketContext, packet: NoFoodSpaceInGuildPacket): Promise<void> {
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+
+		if (!interaction) {
+			return;
+		}
+
+		await interaction.channel.send({
+			embeds: [
+				new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("error:guildFoodStorageFull", {
+					lng: interaction.userLanguage,
+					quantity: packet.quantity,
+					food: DisplayUtils.getFoodDisplay(packet.food, packet.quantity, interaction.userLanguage, false)
+				}))
+			]
+		});
 	}
 }

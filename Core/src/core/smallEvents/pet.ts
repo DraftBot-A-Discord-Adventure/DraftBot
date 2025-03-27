@@ -19,6 +19,7 @@ import {MissionsController} from "../missions/MissionsController";
 import {giveFoodToGuild} from "../utils/FoodUtils";
 import {BadgeConstants} from "../../../../Lib/src/constants/BadgeConstants";
 import {SexTypeShort} from "../../../../Lib/src/constants/StringConstants";
+import {PetFood} from "../../../../Lib/src/types/PetFood";
 
 /**
  * Return all possibilities the player can get on this small event.
@@ -78,7 +79,7 @@ async function managePickedInteraction(packet: SmallEventPetPacket, response: Dr
 			packet.interactionName = PetConstants.PET_INTERACTIONS_NAMES.NOTHING;
 			break;
 		}
-		packet.food = RandomUtils.draftbotRandom.pick(Object.values(PetConstants.PET_FOOD));
+		packet.food = RandomUtils.draftbotRandom.pick(Object.values(PetConstants.PET_FOOD)) as PetFood;
 		await giveFoodToGuild(response, player, packet.food, 1, NumberChangeReason.SMALL_EVENT);
 		break;
 

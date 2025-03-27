@@ -42,6 +42,7 @@ import {ScheduledReportNotifications} from "./ScheduledReportNotification";
 import {PacketUtils} from "../../../utils/PacketUtils";
 import {StatValues} from "../../../../../../Lib/src/types/StatValues";
 import moment = require("moment");
+import {ReachDestinationNotificationPacket} from "../../../../../../Lib/src/packets/notifications/ReachDestinationNotificationPacket";
 
 export type PlayerEditValueParameters = {
 	player: Player,
@@ -295,7 +296,8 @@ export class Player extends Model {
 			classesTier4Unlocked: newLevel === Constants.CLASS.GROUP3LEVEL,
 			classesTier5Unlocked: newLevel === Constants.CLASS.GROUP4LEVEL,
 			missionSlotUnlocked: newLevel === Constants.MISSIONS.SLOT_2_LEVEL || newLevel === Constants.MISSIONS.SLOT_3_LEVEL,
-			pveUnlocked: newLevel === PVEConstants.MIN_LEVEL
+			pveUnlocked: newLevel === PVEConstants.MIN_LEVEL,
+			statsIncreased: true
 		});
 
 		if (healthRestored) {
@@ -742,10 +744,10 @@ export class Player extends Model {
 			moneyLost,
 			guildPointsLost
 		} = await this.getAndApplyLostRessourcesOnPveFaint(response);
-		const packet: PlayerLeavePveIslandPacket = {
+		const packet = makePacket(PlayerLeavePveIslandPacket,{
 			moneyLost,
 			guildPointsLost
-		};
+		});
 		response.push(packet);
 		await Maps.stopTravel(this);
 		await Maps.startTravel(
@@ -933,7 +935,7 @@ export class Player extends Model {
 		}
 		return {
 			moneyLost,
-			guildPointsLost
+			guildPointsLost: this.hasAGuild() ? guildPointsLost : 0
 		};
 	}
 
@@ -1565,7 +1567,11 @@ export function initModel(sequelize: Sequelize): void {
 			const pendingNotification = await ScheduledReportNotifications.getPendingNotification(instance.id);
 			if (pendingNotification) {
 				const notificationArray = [pendingNotification];
-				PacketUtils.sendNotifications(notificationArray);
+				PacketUtils.sendNotifications(notificationArray.map(notification => makePacket(ReachDestinationNotificationPacket, {
+					keycloakId: notification.keycloakId,
+					mapType: MapLocationDataController.instance.getById(notification.mapId).type,
+					mapId: notification.mapId
+				})));
 				await ScheduledReportNotifications.bulkDelete(notificationArray);
 			}
 		};

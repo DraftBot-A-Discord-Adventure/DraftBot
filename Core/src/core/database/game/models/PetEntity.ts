@@ -7,7 +7,7 @@ import {Guild, Guilds} from "./Guild";
 import {GuildPets} from "./GuildPet";
 import {Pet, PetDataController} from "../../../../data/Pet";
 import {draftBotInstance} from "../../../../index";
-import {DraftBotPacket} from "../../../../../../Lib/src/packets/DraftBotPacket";
+import {DraftBotPacket, makePacket} from "../../../../../../Lib/src/packets/DraftBotPacket";
 import {PlayerReceivePetPacket} from "../../../../../../Lib/src/packets/events/PlayerReceivePetPacket";
 import {SexTypeShort, StringConstants} from "../../../../../../Lib/src/constants/StringConstants";
 import moment = require("moment");
@@ -82,13 +82,13 @@ export class PetEntity extends Model {
 	public async giveToPlayer(player: Player, response: DraftBotPacket[]): Promise<PET_ENTITY_GIVE_RETURN> {
 		let guild: Guild;
 		let returnValue: PET_ENTITY_GIVE_RETURN;
-		const packet: PlayerReceivePetPacket = {
+		const packet = makePacket(PlayerReceivePetPacket, {
 			giveInGuild: false,
 			giveInPlayerInv: false,
 			noRoomInGuild: false,
 			petTypeId: this.typeId,
 			petSex: this.sex as SexTypeShort
-		};
+		});
 
 		// Search for a user's guild
 		try {
@@ -119,6 +119,8 @@ export class PetEntity extends Model {
 			packet.giveInPlayerInv = true;
 			returnValue = PET_ENTITY_GIVE_RETURN.PLAYER;
 		}
+
+		response.push(packet);
 
 		return returnValue;
 	}

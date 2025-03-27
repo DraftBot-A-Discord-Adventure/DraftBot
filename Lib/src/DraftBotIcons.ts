@@ -1830,7 +1830,11 @@ export const DraftBotIcons: {
 		"compression": "🗜️"
 	},
 	"other": {
-		"trash": "🗑️"
+		"trash": "🗑️",
+		"tada": "🎉",
+		"guild": "🏟️",
+		"island": "🏝️",
+		"increase": "🔼"
 	},
 	"guild": {
 		"chief": "👑",

@@ -90,6 +90,10 @@ export abstract class NotificationsHandler {
 	): Promise<void> {
 		const notificationTypeValue = notificationType.value(notificationConfiguration);
 
+		if (!notificationTypeValue.enabled) {
+			return;
+		}
+
 		switch (notificationTypeValue.sendType) {
 		case NotificationSendTypeEnum.DM:
 			await NotificationsHandler.sendDmNotification(user, content, lng);
