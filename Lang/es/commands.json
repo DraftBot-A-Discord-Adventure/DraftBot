@@ -80,7 +80,8 @@
     "canceledDesc": "{{kickedPseudo}} ¡no ha sido expulsado del gremio!",
     "noPlayer": "El jugador no pertenece al gremio.",
     "notSameGuild": "No puedes expulsar a un jugador que no pertenezca a tu gremio.",
-    "himself": "No puedes expulsarte del gremio."
+    "himself": "No puedes expulsarte del gremio.",
+    "blocked": "Le joueur que vous essayez d'expulser est actuellement bloqué. Attendez un peu avant de réessayer."
   },
   "guildElder": {
     "playerNotFound": "No se ha encontrado a este jugador.",
