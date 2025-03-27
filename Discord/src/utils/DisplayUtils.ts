@@ -13,16 +13,6 @@ import {PetFood} from "../../../Lib/src/types/PetFood";
 import {StringUtils} from "./StringUtils";
 
 export class DisplayUtils {
-
-	/**
-	 * Display food with its icon
-	 * @param foodId String id of the food (herbivorousFood, carnivorousFood, commonFood or ultimateFood)
-	 * @param lng
-	 */
-	static displayFood(foodId: string, lng: Language): string {
-		return `${i18n.t(`models:foods.${foodId}`, {lng})}  ${DraftBotIcons.foods[foodId]}`;
-	}
-
 	/**
 	 * Display the item name with its icon
 	 * @param item

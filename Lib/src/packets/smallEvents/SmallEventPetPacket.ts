@@ -1,6 +1,7 @@
 import {SmallEventPacket} from "./SmallEventPacket";
 import {PacketDirection, sendablePacket} from "../DraftBotPacket";
 import {SexTypeShort} from "../../constants/StringConstants";
+import {PetFood} from "../../types/PetFood";
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class SmallEventPetPacket extends SmallEventPacket {
@@ -18,5 +19,5 @@ export class SmallEventPetPacket extends SmallEventPacket {
 
 	amount?: number; // Quantity of win/lose health points,money,energy,etc.
 
-	food?: string; // The name of the food
+	food?: PetFood; // The name of the food
 }

@@ -5,6 +5,7 @@ import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPa
 import {NoFoodSpaceInGuildPacket} from "../../../../Lib/src/packets/utils/NoFoodSpaceInGuildPacket";
 import {GiveFoodToGuildPacket} from "../../../../Lib/src/packets/utils/GiveFoodToGuildPacket";
 import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
+import {PetFood} from "../../../../Lib/src/types/PetFood";
 
 /**
  * Get the corresponding index in the constants of a given pet food
@@ -14,11 +15,14 @@ export function getFoodIndexOf(food: string): number {
 	return PetConstants.PET_FOOD_BY_ID.indexOf(food);
 }
 
-export async function giveFoodToGuild(response: DraftBotPacket[],player:Player, selectedFood:string, quantity:number, reason:NumberChangeReason):Promise<void> {
+export async function giveFoodToGuild(response: DraftBotPacket[], player: Player, selectedFood: string, quantity: number, reason: NumberChangeReason):Promise<void> {
 	const guild = await Guilds.getById(player.guildId);
 	const selectedFoodIndex = getFoodIndexOf(selectedFood);
 	if (guild.isStorageFullFor(selectedFood, quantity)) {
-		response.push(makePacket(NoFoodSpaceInGuildPacket,{}));
+		response.push(makePacket(NoFoodSpaceInGuildPacket,{
+			food: selectedFood as PetFood,
+			quantity
+		}));
 		return;
 	}
 	guild.addFood(selectedFood, quantity, reason);

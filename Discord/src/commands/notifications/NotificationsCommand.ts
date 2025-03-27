@@ -178,6 +178,7 @@ async function chooseEnabled(buttonInteraction: ButtonInteraction, notifications
 		const notificationType = NotificationsTypes.ALL.find(notificationType => notificationType.customId === collectorButtonInteraction.customId);
 		if (notificationType) {
 			notificationType.toggleCallback(notificationsConfiguration);
+			await notificationsConfiguration.save();
 			const embed = getNotificationsEmbed(notificationsConfiguration, collectorButtonInteraction.user, lng, i18n.t("commands:notifications.footerEnableDisable", {lng}));
 			await collectorButtonInteraction.update({
 				embeds: [embed],
@@ -231,6 +232,7 @@ async function chooseSendType(buttonInteraction: ButtonInteraction, notification
 				(notificationType.value(notificationsConfiguration).sendType + 1) % (Object.keys(NotificationSendTypeEnum).length / 2),
 				buttonInteraction.channel!.id
 			);
+			await notificationsConfiguration.save();
 
 			const embed = getNotificationsEmbed(notificationsConfiguration, collectorButtonInteraction.user, lng, i18n.t("commands:notifications.footerSendLocation", {lng}));
 			await collectorButtonInteraction.update({

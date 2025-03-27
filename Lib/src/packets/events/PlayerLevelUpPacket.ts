@@ -23,4 +23,6 @@ export class PlayerLevelUpPacket extends DraftBotPacket {
 	missionSlotUnlocked!: boolean;
 
 	pveUnlocked!: boolean;
+
+	statsIncreased!: boolean;
 }

@@ -711,7 +711,7 @@ export default class SmallEventsHandler {
 							context: packet.petSex,
 							pet: PetUtils.petToShortString(lng, packet.petNickname, packet.petTypeId, packet.petSex),
 							amount: packet.amount,
-							food: packet.food ? DisplayUtils.displayFood(packet.food, lng) : null,
+							food: packet.food ? DisplayUtils.getFoodDisplay(packet.food, 1, interaction.userLanguage, false) : null,
 							badge: BadgeConstants.PET_TAMER,
 							randomAnimal: i18n.t("smallEvents:pet.randomAnimal", {
 								lng,
