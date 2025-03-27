@@ -19,6 +19,7 @@ import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
 import {progressBar} from "../../../../Lib/src/utils/StringUtils";
 import {PacketUtils} from "../../utils/PacketUtils";
+import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 
 /**
  * Display all the information about a guild
@@ -42,10 +43,10 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
  */
 function getMemberTypeIcon(member: GuildMember, packet: CommandGuildPacketRes): string {
 	return member.id === packet.data!.chiefId ?
-		"{emote:guild.chief}" :
+		DraftBotIcons.guild.chief :
 		member.id === packet.data!.elderId ?
-			"{emote:guild.elder}️" :
-			"{emote:guild.member}";
+			DraftBotIcons.guild.elder :
+			DraftBotIcons.guild.member;
 }
 
 /**
@@ -57,16 +58,16 @@ function getIslandStatusIcon(member: GuildMember, interaction: DraftbotInteracti
 	return member.islandStatus.isOnPveIsland || member.islandStatus.isOnBoat || member.islandStatus.isPveIslandAlly || member.islandStatus.cannotBeJoinedOnBoat ?
 		i18n.t("commands:guild.separator", {lng: interaction.userLanguage})
 		+ (member.islandStatus.isOnPveIsland ?
-			"{emote:guild.isOnPveIsland}" :
+			DraftBotIcons.guild.isOnPveIsland :
 			"")
 		+ (member.islandStatus.isOnBoat ?
-			"{emote:guild.isOnBoat}" :
+			DraftBotIcons.guild.isOnBoat :
 			"")
 		+ (member.islandStatus.isPveIslandAlly ?
-			"{emote:guild.countAsAnAlly}" :
+			DraftBotIcons.guild.countAsAnAlly :
 			"")
 		+ (member.islandStatus.cannotBeJoinedOnBoat ?
-			"{emote:guild.cannotBeJoinedOnBoat}" :
+			DraftBotIcons.guild.cannotBeJoinedOnBoat :
 			"") : "";
 }
 
