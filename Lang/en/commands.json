@@ -32,15 +32,6 @@
   "guild": {
     "embedTitle": "{{guildName}} Guild | Level {{level}}",
     "description": ":scroll: `{{description}}`",
-    "emojis": {
-      "chief": "👑",
-      "elder": "🎖️",
-      "member": "⚫",
-      "isOnPveIsland": "🏝️",
-      "isOnBoat": "⛴️",
-      "countAsAnAlly": "🤝",
-      "cannotBeJoinedOnBoat": "👻"
-    },
     "separator": " | ",
     "memberInfos": "{{icon}} - **{{pseudo}}** ({{ranking}} :trophy: | {{score}} :medal:{{islandStatusIcon}})\n",
     "members": ":person_pouting: {{memberCount}}/{{maxGuildMembers}} members",
@@ -393,7 +384,7 @@
       "🐞": ":lady_beetle: `Person who reported major bugs`",
       "👑": ":crown: `Bot owner`",
       "💍": ":ring: `Badge bought in the Missions shop`",
-      "💎": ":gem: `Member of a powerful guild`",
+      "💎": "{emote:badges.guildBadge} `Member of a powerful guild`",
       "💞": ":revolving_hearts: `Player who trained a legendary pet`",
       "💸": ":money_with_wings: `Donor`",
       "🔖": ":bookmark: `Early class adopter`",
@@ -423,7 +414,7 @@
     },
     "mission": {
       "fieldName": "Missions:",
-      "fieldValue": ":gem: {{gems}} | :book: {{campaign}}% "
+      "fieldValue": "{emote:unitValues.gem} {{gems}} | {emote:missions.book} {{campaign}}% "
     },
     "noTimeLeft": {
       "fieldName": "Time left:",
@@ -480,7 +471,7 @@
     "endPoint": "End point:",
     "energy": "** | :zap: Energy earned: **{{energy}}",
     "experience": "** | :star: XP earned: **{{experience}}",
-    "gems": "** | :gem: Gems earned: **{{gems}}",
+    "gems": "** | {emote:unitValues.gem} Gems earned: **{{gems}}",
     "health": "** | {emote:unitValues.health} Life: **{{health}}",
     "healthLoose": "** | :broken_heart: Life lost: **{{health}}",
     "journal": "{{pseudo}}'s log",
@@ -1012,5 +1003,30 @@
       "title": "{emote:foods.{{foodId}}} $t(models:foods.{{foodId}}, {\"context\": \"capitalized\"})",
       "description": "**Stock**: {{amount}}/{{maxAmount}}\n"
     }
+  },
+  "joinBoat": {
+    "errorMessage": {
+      "tooManyBoatThisWeek": "Vous êtes allé trop de fois sur le bateau ou vous avez rejoint une guilde cette semaine.",
+      "noMemberOnBoat": "Aucun membre actif de votre guilde n'est sur le bateau.",
+      "noGuild": "Vous n'appartenez à aucune guilde.",
+      "notEnoughEnergy": "Vous n'avez pas assez d'énergie pour monter sur le bateau.",
+      "notEnoughGems": "Vous voulez rejoindre votre guilde mais au moment de payer, vous constatez que vos fonds sont insuffisants."
+    },
+    "confirmationMessage": {
+      "title": {
+        "confirmation": "{{pseudo}}, confirmation:",
+        "confirmed": "{{pseudo}}, votre choix :"
+      },
+      "description": {
+        "confirmation": {
+          "text": "{emote:guild.isOnBoat} Êtes vous sûr de vouloir rejoindre votre guilde sur le bateau ?\nLe capitaine vous indique que le voyage **{{priceText}}**.\n\nVoulez-vous partir sur l'île ? Vous avez {emote:unitValues.energy} **{{currentEnergy}}/{{maxEnergy}}**.",
+          "priceText_zero": "est gratuit",
+          "priceText_other": "coûtera {{gemsCost}} {emote:unitValues.gem}"
+        },
+        "confirmed": "{{gainScore}} Vous rejoignez votre guilde sur le bateau.",
+        "confirmedScore": "**{emote:unitValues.score} Points gagnés :** {{score}}\n"
+      }
+    },
+    "refuse": "Vous décidez finalement de rester ici et ne pas rejoindre votre guilde sur le bateau."
   }
 }
