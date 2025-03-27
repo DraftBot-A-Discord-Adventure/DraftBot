@@ -80,7 +80,8 @@
     "canceledDesc": "{{kickedPseudo}} nicht aus der Gilde ausgeschlossen wurde!",
     "noPlayer": "Der Spieler ist nicht in der Gilde.",
     "notSameGuild": "Sie können keinen Spieler ausschließen, der nicht in Ihrer Gilde ist.",
-    "himself": "Sie können sich nicht selbst aus der Gilde ausschließen."
+    "himself": "Sie können sich nicht selbst aus der Gilde ausschließen.",
+    "blocked": "Le joueur que vous essayez d'expulser est actuellement bloqué. Attendez un peu avant de réessayer."
   },
   "guildElder": {
     "playerNotFound": "Dieser Spieler wurde nicht gefunden.",
