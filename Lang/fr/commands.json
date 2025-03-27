@@ -450,7 +450,7 @@
     "encounterMonster": [
       "Vous arrivez à votre destination quand soudain, vous entendez un bruit derrière vous... Un monstre vous attaque !"
     ],
-    "encounterMonsterStats": "> **{{emoji}} {{monsterName}} **| **Niveau {{level}}**\n> {{description}}\n\n{emote:unitValues.energy} {{fightPoints}} | {emote:unitValues.attack} {{attack}} | {emote:unitValues.defense} {{defense}} | {emote:unitValues.speed} {{speed}}",
+    "encounterMonsterStats": "> **{{emoji}} {{monsterName}} **| **Niveau {{level}}**\n> {{description}}\n\n{emote:unitValues.energy} {{energy}} | {emote:unitValues.attack} {{attack}} | {emote:unitValues.defense} {{defense}} | {emote:unitValues.speed} {{speed}}",
     "endPoint": "Point d'arrivée :",
     "energy": "** | {emote:unitValues.energy} Énergie gagnée : **{{energy}}",
     "experience": "** | {emote:unitValues.xp} XP gagné : **{{experience}}",

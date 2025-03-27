@@ -309,7 +309,7 @@ export async function handleStartPveFight(context: PacketContext, packet: Reacti
 			emoji: DraftBotIcons.monsters[data.monster.id],
 			description: i18n.t(`models:monsters.${data.monster.id}.description`, {lng: interaction.userLanguage}),
 			level: data.monster.level,
-			fightPoints: data.monster.energy,
+			energy: data.monster.energy,
 			attack: data.monster.attack,
 			defense: data.monster.defense,
 			speed: data.monster.speed,
