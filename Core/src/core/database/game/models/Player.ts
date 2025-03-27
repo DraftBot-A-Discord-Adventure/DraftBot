@@ -846,13 +846,7 @@ export class Player extends Model {
 			return 0;
 		}
 		const pointsToAward = Math.round(
-			FightConstants.ELO.LEAGUE_POINTS_REWARD_BASE_VALUE *
-			Math.exp(
-				FightConstants.ELO.LEAGUE_POINTS_REWARDS_COEFFICIENT_1 *
-				(1 - rank) / rank
-			) -
-			FightConstants.ELO.LEAGUE_POINTS_REWARDS_COEFFICIENT_2 *
-			(rank - 1 - FightConstants.ELO.LEAGUE_POINTS_REWARDS_COEFFICIENT_1)
+			3000 - Math.sqrt(80000 * (rank - 1) ) + 5 * rank
 		);
 		return Math.ceil(pointsToAward / 10) * 10;
 	}
