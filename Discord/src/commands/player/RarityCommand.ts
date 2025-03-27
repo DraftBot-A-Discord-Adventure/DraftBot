@@ -19,13 +19,11 @@ export async function handleCommandRarityPacketRes(packet: CommandRarityPacketRe
 	await interaction.reply({
 		embeds: [new DraftBotEmbed()
 			.setTitle(i18n.t("commands:rarity.title", {lng}))
-			.setDescription(packet.rarities.map((r, i) => {
-				return i18n.t("commands:rarity.rarityTemplate", {
-					lng,
-					rarity: i,
-					percentageOrDescription: i === 0 ? i18n.t("commands:rarity.earlyAvailable", {lng}) : `${r}%`
-				});
-			})
+			.setDescription(packet.rarities.map((r, i) => i18n.t("commands:rarity.rarityTemplate", {
+				lng,
+				rarity: i,
+				percentageOrDescription: i === 0 ? i18n.t("commands:rarity.earlyAvailable", {lng}) : `${r}%`
+			}))
 				.join("\n"))]
 	});
 }
