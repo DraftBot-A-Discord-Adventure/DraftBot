@@ -71,7 +71,7 @@ async function acceptJoinBoat(player: Player, response: DraftBotPacket[]): Promi
 	if (!await canJoinBoat(player, response)) {
 		return;
 	}
-	const anotherMemberOnBoat = await Maps.getGuildMembersOnBoat(player);
+
 	const price = await player.getTravelCostThisWeek();
 	const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
 	if (missionInfo.gems < price) {
@@ -88,6 +88,7 @@ async function acceptJoinBoat(player: Player, response: DraftBotPacket[]): Promi
 	});
 
 	// Start the travel
+	const anotherMemberOnBoat = await Maps.getGuildMembersOnBoat(player);
 	const options: OptionsStartBoatTravel = {startTravelTimestamp: Date.now(),
 		anotherMemberOnBoat: anotherMemberOnBoat[0],
 		price};
@@ -100,13 +101,13 @@ async function acceptJoinBoat(player: Player, response: DraftBotPacket[]): Promi
 function endCallback(player: Player): EndCallback {
 	return async (collector, response): Promise<void> => {
 		const reaction = collector.getFirstReaction();
+		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.PVE_ISLAND);
 		if (reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name) {
 			await acceptJoinBoat(player, response);
 		}
 		else {
 			response.push(makePacket(CommandJoinBoatRefusePacketRes, {}));
 		}
-		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.PVE_ISLAND);
 	};
 }
 

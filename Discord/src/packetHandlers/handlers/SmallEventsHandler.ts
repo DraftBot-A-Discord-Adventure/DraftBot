@@ -152,7 +152,8 @@ export default class SmallEventsHandler {
 							lng: user.attributes.language[0],
 							gainScore: packet.pointsWon <= 0 ? "" : i18n.t("smallEvents:goToPVEIsland.confirmedScore", {
 								lng: user.attributes.language[0],
-								score: packet.pointsWon})
+								score: packet.pointsWon
+							})
 						}
 					),
 					interaction.user,
