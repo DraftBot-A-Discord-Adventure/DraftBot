@@ -147,5 +147,6 @@
   "maintenance": "The game is currently under maintenance, please try again later.\n\nFor more information, go to the official Discord server: https://discord.gg/AP3Wmzb",
   "banned": "You have been banned from the game.",
   "aDevMessedUp": "Oops! An error has occurred. Don't worry, it's not your fault. Please accept our apologies for the inconvenience. To resolve this problem, please contact our support team via our Discord server: https://discord.gg/5JqrMtZ",
-  "commandNotAvailableHere": "This command cannot be used at this location."
+  "commandNotAvailableHere": "This command cannot be used at this location.",
+  "guildFoodStorageFull": "Vous avez reçu **{{quantity}}x {{food}}**, mais le stock de nourriture de votre guilde est plein. La nourriture a été jetée."
 }
