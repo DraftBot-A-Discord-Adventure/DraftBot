@@ -1741,7 +1741,8 @@ export const DraftBotIcons: {
 		"daily": "📅",
 		"campaign": "📖",
 		"sideMission": "📜",
-		"total": "🧾"
+		"total": "🧾",
+		"book": "📖"
 	},
 	"messages": {
 		"validate": "✅",

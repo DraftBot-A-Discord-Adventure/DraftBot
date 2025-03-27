@@ -393,7 +393,7 @@
       "🐞": ":lady_beetle: `Personne ayant signalé des bugs majeurs`",
       "👑": ":crown: `Propriétaire du bot`",
       "💍": ":ring: `Badge acheté dans le shop des Missions`",
-      "💎": "{emote:unitValues.gem} `Membre d'une guilde puissante`",
+      "💎": "{emote:badges.guildBadge} `Membre d'une guilde puissante`",
       "💞": ":revolving_hearts: `Joueur ayant dressé un familier légendaire`",
       "💸": ":money_with_wings: `Donateur`",
       "🔖": ":bookmark: `Adopteur de classes de la première heure`",
@@ -423,7 +423,7 @@
     },
     "mission": {
       "fieldName": "Missions :",
-      "fieldValue": "{emote:unitValues.gem} {{gems}} | :book: {{campaign}}% "
+      "fieldValue": "{emote:unitValues.gem} {{gems}} | {emote:missions.book} {{campaign}}% "
     },
     "noTimeLeft": {
       "fieldName": "Temps restant :",
@@ -456,7 +456,7 @@
     "title": "{emote:effects.{{effectId}}} | {{pseudo}} | Niveau {{level}}"
   },
   "rarity": {
-    "rarities": ":small_orange_diamond: Basique | Possédé en début de jeu\n:large_orange_diamond: Commun | {{common}}%\n:fire: Peu commun | {{uncommon}}%\n:trident: Exotique | {{exotic}}%\n:comet: Rare | {{rare}}%\n:dizzy: Spécial | {{special}}%\n:star: Épique | {{epic}}%\n:star2: Légendaire | {{legendary}}%\n{emote:unitValues.gem} Mythique | {{unique}}%",
+    "rarities": ":small_orange_diamond: Basique | Possédé en début de jeu\n:large_orange_diamond: Commun | {{common}}%\n:fire: Peu commun | {{uncommon}}%\n:trident: Exotique | {{exotic}}%\n:comet: Rare | {{rare}}%\n:dizzy: Spécial | {{special}}%\n:star: Épique | {{epic}}%\n:star2: Légendaire | {{legendary}}%\n:gem: Mythique | {{unique}}%",
     "title": ":slot_machine: Rareté des équipements"
   },
   "report": {
