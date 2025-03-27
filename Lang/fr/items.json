@@ -27,15 +27,15 @@
     ":zap: Énergie + {{power}}"
   ],
   "rarities": [
-    ":small_orange_diamond: Basique",
-    ":large_orange_diamond: Commun",
-    ":fire: Peu commun",
-    ":trident: Exotique",
-    ":comet: Rare",
-    ":dizzy: Spécial",
-    ":star: Épique",
-    ":star2: Légendaire",
-    ":gem: Mythique"
+    "{emote:rarity.0} Basique",
+    "{emote:rarity.1} Commun",
+    "{emote:rarity.2} Peu commun",
+    "{emote:rarity.3} Exotique",
+    "{emote:rarity.4} Rare",
+    "{emote:rarity.5} Spécial",
+    "{emote:rarity.6} Épique",
+    "{emote:rarity.7} Légendaire",
+    "{emote:rarity.8} Mythique"
   ],
   "speed": ":rocket: {{value}}",
   "weaponsFieldName": "Arme :",
