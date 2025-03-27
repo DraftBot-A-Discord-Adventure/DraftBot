@@ -114,10 +114,10 @@ export function millisecondsToSeconds(milliseconds: number): number {
 
 /**
  * Convert hours to seconds
- * @param seconds
+ * @param hours
  */
-export function hoursToSeconds(seconds: number): number {
-	return seconds * 3600;
+export function hoursToSeconds(hours: number): number {
+	return hours * 3600;
 }
 
 /**
@@ -157,7 +157,7 @@ export function getNextSundayMidnight(): number {
 	dateOfReset.setHours(23, 59, 59);
 	let dateOfResetTimestamp = dateOfReset.valueOf();
 	while (dateOfResetTimestamp < now.valueOf()) {
-		dateOfResetTimestamp += 1000 * 60 * 60 * 24 * 7;
+		dateOfResetTimestamp += hoursToMilliseconds(24 * 7);
 	}
 	return dateOfResetTimestamp;
 }

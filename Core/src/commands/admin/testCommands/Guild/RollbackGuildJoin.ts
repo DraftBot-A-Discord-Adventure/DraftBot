@@ -4,6 +4,7 @@ import {LogsGuildsJoins} from "../../../../core/database/logs/models/LogsGuildJo
 import {LogsPlayers} from "../../../../core/database/logs/models/LogsPlayers";
 import {HasOne} from "sequelize";
 import {LogsGuilds} from "../../../../core/database/logs/models/LogsGuilds";
+import {hoursToMilliseconds} from "../../../../../../Lib/src/utils/TimeUtils";
 
 export const commandInfo: ITestCommand = {
 	name: "rollbackguildjoin",
@@ -39,7 +40,7 @@ const rollbackGuildJoin: ExecuteTestCommandLike = async (player: Player) => {
 
 	// Modifier la date
 	await LogsGuildsJoins.update(
-		{date: joinLogs.date - 7 * 24 * 60 * 60}, // Soustraire 1 semaine
+		{date: joinLogs.date - hoursToMilliseconds(7 * 24)}, // Soustraire 1 semaine
 		{
 			where: {
 				addedId: joinLogs.addedId,

@@ -7,7 +7,12 @@ import {LogsPlayersPossibilities} from "./models/LogsPlayersPossibilities";
 import {LogsPossibilities} from "./models/LogsPossibilities";
 import {LogsPlayers} from "./models/LogsPlayers";
 import {LogsPlayersTravels} from "./models/LogsPlayersTravels";
-import {getNextSaturdayMidnight, getNextSundayMidnight, minutesToMilliseconds} from "../../../../../Lib/src/utils/TimeUtils";
+import {
+	getNextSaturdayMidnight,
+	getNextSundayMidnight,
+	hoursToMilliseconds,
+	minutesToMilliseconds
+} from "../../../../../Lib/src/utils/TimeUtils";
 import {LogsMapLinks} from "./models/LogsMapLinks";
 import {MapConstants} from "../../../../../Lib/src/constants/MapConstants";
 import {LogsFightsResults} from "./models/LogsFightsResults";
@@ -289,7 +294,7 @@ export class LogsReadRequests {
 			where: {
 				"$LogsPlayer.keycloakId$": keycloakId,
 				date: {
-					[Op.gt]: Math.floor((getNextSundayMidnight() - 7 * 24 * 60 * 60 * 1000) / 1000)
+					[Op.gt]: Math.floor((getNextSundayMidnight() - hoursToMilliseconds(7 * 24)) / 1000)
 				},
 				"$LogsMapLink.start$": MapLocationDataController.instance.getWithAttributes([MapConstants.MAP_ATTRIBUTES.MAIN_CONTINENT])[0].id,
 				"$LogsMapLink.end$": {
@@ -314,7 +319,7 @@ export class LogsReadRequests {
 				"$LogsPlayer.keycloakId$": keycloakId,
 				"$LogsGuild.gameId$": guildId,
 				date: {
-					[Op.gt]: Math.floor((getNextSundayMidnight() - 7 * 24 * 60 * 60 * 1000) / 1000)
+					[Op.gt]: Math.floor((getNextSundayMidnight() - hoursToMilliseconds(7 * 24)) / 1000)
 				}
 			},
 			include: [{
