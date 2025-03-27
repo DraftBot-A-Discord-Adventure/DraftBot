@@ -80,7 +80,8 @@
     "canceledDesc": "{{kickedPseudo}} non è stato espulso dalla gilda!",
     "noPlayer": "Il giocatore non fa parte della gilda.",
     "notSameGuild": "Non si può espellere un giocatore che non fa parte della propria gilda.",
-    "himself": "Non si può essere espulsi dalla gilda."
+    "himself": "Non si può essere espulsi dalla gilda.",
+    "blocked": "Le joueur que vous essayez d'expulser est actuellement bloqué. Attendez un peu avant de réessayer."
   },
   "guildElder": {
     "playerNotFound": "Questo giocatore non è stato trovato.",
