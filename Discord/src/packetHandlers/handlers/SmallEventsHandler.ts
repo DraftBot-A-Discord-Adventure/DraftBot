@@ -148,7 +148,12 @@ export default class SmallEventsHandler {
 						packet.alone
 							? "smallEvents:goToPVEIsland.endStoryAccept"
 							: "smallEvents:goToPVEIsland.endStoryAcceptWithMember",
-						{lng: user.attributes.language[0]}
+						{
+							lng: user.attributes.language[0],
+							gainScore: packet.pointsWon <= 0 ? "" : i18n.t("smallEvents:goToPVEIsland.confirmedScore", {
+								lng: user.attributes.language[0],
+								score: packet.pointsWon})
+						}
 					),
 					interaction.user,
 					user.attributes.language[0]

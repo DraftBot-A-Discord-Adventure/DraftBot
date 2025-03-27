@@ -17,6 +17,7 @@ import {BlockingUtils} from "../utils/BlockingUtils";
 import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
 import { ReactionCollectorGoToPVEIsland } from "../../../../Lib/src/packets/interaction/ReactionCollectorGoToPVEIsland";
 import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import {TravelTime} from "../maps/TravelTime";
 
 type OptionsStartBoatTravel = {
 	startTravelTimestamp: number,
@@ -60,7 +61,11 @@ export const smallEventFuncs: SmallEventFuncs = {
 					missionId: "joinPVEIsland",
 					set: true
 				});
-				response.push(makePacket(SmallEventGoToPVEIslandAcceptPacket, { alone: !anotherMemberOnBoat }));
+				const gainScore = await TravelTime.joinBoatScore(player);
+				await player.addScore({amount: gainScore,
+					response,
+					reason: NumberChangeReason.SMALL_EVENT});
+				response.push(makePacket(SmallEventGoToPVEIslandAcceptPacket, { alone: !anotherMemberOnBoat, pointsWon: gainScore }));
 			}
 			else {
 				response.push(makePacket(SmallEventGoToPVEIslandRefusePacket, {}));

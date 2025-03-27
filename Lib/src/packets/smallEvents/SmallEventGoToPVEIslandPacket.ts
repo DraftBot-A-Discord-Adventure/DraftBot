@@ -9,6 +9,8 @@ export class SmallEventGoToPVEIslandNotEnoughGemsPacket extends SmallEventPacket
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class SmallEventGoToPVEIslandAcceptPacket extends SmallEventPacket {
 	alone!: boolean;
+
+	pointsWon!: number;
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
