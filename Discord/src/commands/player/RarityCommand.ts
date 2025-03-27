@@ -12,26 +12,22 @@ function getPacket(): CommandRarityPacketReq {
 
 export async function handleCommandRarityPacketRes(packet: CommandRarityPacketRes, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
-
-	if (interaction) {
-		await interaction.reply({
-			embeds: [new DraftBotEmbed()
-				.setTitle(i18n.t("commands:rarity.title", {
-					lng: interaction.userLanguage
-				}))
-				.setDescription(i18n.t("commands:rarity.rarities", {
-					common: packet.common,
-					uncommon: packet.uncommon,
-					exotic: packet.exotic,
-					rare: packet.rare,
-					special: packet.special,
-					epic: packet.epic,
-					legendary: packet.legendary,
-					unique: packet.unique,
-					lng: interaction.userLanguage
-				}))]
-		});
+	if (!interaction) {
+		return;
 	}
+	const lng = interaction.userLanguage;
+	await interaction.reply({
+		embeds: [new DraftBotEmbed()
+			.setTitle(i18n.t("commands:rarity.title", {lng}))
+			.setDescription(packet.rarities.map((r, i) => {
+				return i18n.t("commands:rarity.rarityTemplate", {
+					lng,
+					rarity: i,
+					percentageOrDescription: i === 0 ? i18n.t("commands:rarity.earlyAvailable", {lng}) : `${r}%`
+				});
+			})
+				.join("\n"))]
+	});
 }
 
 export const commandInfo: ICommand = {
