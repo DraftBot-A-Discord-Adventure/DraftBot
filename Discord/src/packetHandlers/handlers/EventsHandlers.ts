@@ -261,7 +261,7 @@ export default class EventsHandlers {
 
 		const lng = interaction.userLanguage;
 
-		const rewards: { [key: string]: { tr: string, replacements?: object } } = {
+		const rewards: { [key in keyof Omit<PlayerLevelUpPacket, "level">]: { tr: string, replacements?: object } } = {
 			healthRestored: { tr: "healthRestored" },
 			fightUnlocked: { tr: "fightUnlocked" },
 			guildUnlocked: { tr: "guildUnlocked" },
