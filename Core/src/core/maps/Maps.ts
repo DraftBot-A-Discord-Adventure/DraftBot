@@ -7,6 +7,19 @@ import {LogsReadRequests} from "../database/logs/LogsReadRequests";
 import {MapLink, MapLinkDataController} from "../../data/MapLink";
 import {MapLocation, MapLocationDataController} from "../../data/MapLocation";
 import {draftBotInstance} from "../../index";
+import {DraftBotPacket} from "../../../../Lib/src/packets/DraftBotPacket";
+import {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
+import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
+import {Settings} from "../database/game/models/Setting";
+import {PVEConstants} from "../../../../Lib/src/constants/PVEConstants";
+import {MissionsController} from "../missions/MissionsController";
+import {minutesToMilliseconds} from "../../../../Lib/src/utils/TimeUtils";
+
+export type OptionsStartBoatTravel = {
+	startTravelTimestamp: number,
+	anotherMemberOnBoat: Player | null,
+	price: number
+}
 
 export class Maps {
 
@@ -168,6 +181,44 @@ export class Maps {
 				}
 			}
 		});
+	}
+
+	/**
+	 * Allow to start travel on the boat
+	 * @param player
+	 * @param options
+	 * @param reason
+	 * @param response
+	 */
+	static async startBoatTravel(player: Player, options: OptionsStartBoatTravel, reason: NumberChangeReason, response: DraftBotPacket[]): Promise<void> {
+		const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
+
+		await TravelTime.removeEffect(player, reason);
+
+		const mapLinkJoinBoat = MapLinkDataController.instance.getById(await Settings.PVE_ISLAND.getValue());
+		const travelTime = minutesToMilliseconds(mapLinkJoinBoat.tripDuration);
+		const otherPlayerStartTime = options.anotherMemberOnBoat ? options.anotherMemberOnBoat.startTravelDate.valueOf() : null;
+		const timeSinceOtherPlayerStarted = Date.now() - (otherPlayerStartTime ?? 0);
+
+		const finalStartTime = otherPlayerStartTime
+			? timeSinceOtherPlayerStarted >= travelTime
+				? Date.now() - travelTime
+				: otherPlayerStartTime
+			: options.startTravelTimestamp;
+
+
+		await Maps.startTravel(
+			player,
+			mapLinkJoinBoat,
+			finalStartTime
+		);
+		await missionInfo.spendGems(options.price, response, reason);
+		await missionInfo.save();
+		if (options.price === PVEConstants.TRAVEL_COST[PVEConstants.TRAVEL_COST.length - 1]) {
+			await MissionsController.update(player, response, {
+				missionId: "wealthyPayForPVEIsland"
+			});
+		}
 	}
 
 	/**

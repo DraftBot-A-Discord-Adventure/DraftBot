@@ -144,6 +144,17 @@ export const DraftBotIcons: {
 	other: {
 		[otherId: string]: string
 	}
+
+	guild: {
+		chief: string,
+		elder: string,
+		member: string,
+		isOnPveIsland: string,
+		isOnBoat: string,
+		countAsAnAlly: string,
+		cannotBeJoinedOnBoat: string
+	}
+
 } = {
 	"effects": {
 		"not_started": "👶",
@@ -1730,7 +1741,8 @@ export const DraftBotIcons: {
 		"daily": "📅",
 		"campaign": "📖",
 		"sideMission": "📜",
-		"total": "🧾"
+		"total": "🧾",
+		"book": "📖"
 	},
 	"messages": {
 		"validate": "✅",
@@ -1819,5 +1831,14 @@ export const DraftBotIcons: {
 	},
 	"other": {
 		"trash": "🗑️"
+	},
+	"guild": {
+		"chief": "👑",
+		"elder": "🎖️",
+		"member": "⚫",
+		"isOnPveIsland": "🏝️",
+		"isOnBoat": "⛴️",
+		"countAsAnAlly": "🤝",
+		"cannotBeJoinedOnBoat": "👻"
 	}
 };

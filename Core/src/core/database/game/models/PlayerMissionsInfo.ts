@@ -4,6 +4,9 @@ import {NumberChangeReason} from "../../../../../../Lib/src/constants/LogsConsta
 import {draftBotInstance} from "../../../../index";
 import {Campaign} from "../../../missions/Campaign";
 import moment = require("moment");
+import {MissionsController} from "../../../missions/MissionsController";
+import {Players} from "./Player";
+import {DraftBotPacket} from "../../../../../../Lib/src/packets/DraftBotPacket";
 
 export class PlayerMissionsInfo extends Model {
 	declare readonly playerId: number;
@@ -39,6 +42,12 @@ export class PlayerMissionsInfo extends Model {
 		await this.save();
 		draftBotInstance.logsDatabase.logGemsChange(keycloakId, this.gems, reason)
 			.then();
+	}
+
+	public async spendGems(amount: number, response: DraftBotPacket[], reason: NumberChangeReason): Promise<void> {
+		const player = await Players.getById(this.playerId);
+		await MissionsController.update(player, response, {missionId: "spendGems"});
+		await this.addGems(-amount, player.keycloakId, reason);
 	}
 }
 

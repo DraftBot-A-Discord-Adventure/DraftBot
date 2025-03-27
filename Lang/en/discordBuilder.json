@@ -362,5 +362,9 @@
   "guildStorage": {
     "name": "guildstorage",
     "description": "Displays the guild's storage content."
+  },
+  "joinBoat": {
+    "name": "joinboat",
+    "description": "Allow you to join the boat if a guild's member in on it."
   }
 }

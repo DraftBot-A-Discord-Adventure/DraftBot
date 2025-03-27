@@ -362,5 +362,9 @@
   "guildStorage": {
     "name": "entrepotguilde",
     "description": "Affiche le contenu de l'entrepôt de guilde."
+  },
+  "joinBoat": {
+    "name": "rejoindrebateau",
+    "description": "Permet de rejoindre le bateau si un membre de votre guilde est dessus."
   }
 }

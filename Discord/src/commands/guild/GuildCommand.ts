@@ -19,6 +19,7 @@ import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
 import {keycloakConfig} from "../../bot/DraftBotShard";
 import {progressBar} from "../../../../Lib/src/utils/StringUtils";
 import {PacketUtils} from "../../utils/PacketUtils";
+import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 
 /**
  * Display all the information about a guild
@@ -39,15 +40,13 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
  * Get the icon depending on what type of member the player is (chief, elder, member)
  * @param member
  * @param packet
- * @param interaction
  */
-function getMemberTypeIcon(member: GuildMember, packet: CommandGuildPacketRes, interaction: DraftbotInteraction): string {
-	const lng = interaction.userLanguage;
+function getMemberTypeIcon(member: GuildMember, packet: CommandGuildPacketRes): string {
 	return member.id === packet.data!.chiefId ?
-		i18n.t("commands:guild.emojis.chief", {lng}) :
+		DraftBotIcons.guild.chief :
 		member.id === packet.data!.elderId ?
-			i18n.t("commands:guild.emojis.elder", {lng}) :
-			i18n.t("commands:guild.emojis.member", {lng});
+			DraftBotIcons.guild.elder :
+			DraftBotIcons.guild.member;
 }
 
 /**
@@ -56,20 +55,19 @@ function getMemberTypeIcon(member: GuildMember, packet: CommandGuildPacketRes, i
  * @param interaction
  */
 function getIslandStatusIcon(member: GuildMember, interaction: DraftbotInteraction): string {
-	const lng = interaction.userLanguage;
 	return member.islandStatus.isOnPveIsland || member.islandStatus.isOnBoat || member.islandStatus.isPveIslandAlly || member.islandStatus.cannotBeJoinedOnBoat ?
-		i18n.t("commands:guild.separator", {lng})
+		i18n.t("commands:guild.separator", {lng: interaction.userLanguage})
 		+ (member.islandStatus.isOnPveIsland ?
-			i18n.t("commands:guild.emojis.pveIsland", {lng}) :
+			DraftBotIcons.guild.isOnPveIsland :
 			"")
 		+ (member.islandStatus.isOnBoat ?
-			i18n.t("commands:guild.emojis.boat", {lng}) :
+			DraftBotIcons.guild.isOnBoat :
 			"")
 		+ (member.islandStatus.isPveIslandAlly ?
-			i18n.t("commands:guild.emojis.pveIslandAlly", {lng}) :
+			DraftBotIcons.guild.countAsAnAlly :
 			"")
 		+ (member.islandStatus.cannotBeJoinedOnBoat ?
-			i18n.t("commands:guild.emojis.cannotBeJoinedOnBoat", {lng}) :
+			DraftBotIcons.guild.cannotBeJoinedOnBoat :
 			"") : "";
 }
 
@@ -97,7 +95,7 @@ export async function handleCommandGuildPacketRes(packet: CommandGuildPacketRes,
 	for (const member of packet.data!.members) {
 		membersInfos += i18n.t("commands:guild.memberInfos", {
 			lng,
-			icon: getMemberTypeIcon(member, packet, interaction),
+			icon: getMemberTypeIcon(member, packet),
 			pseudo: (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, member.keycloakId))?.attributes.gameUsername,
 			ranking: member.rank,
 			score: member.score,
