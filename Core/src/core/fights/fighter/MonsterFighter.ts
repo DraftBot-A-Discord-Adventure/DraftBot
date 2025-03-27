@@ -11,8 +11,6 @@ export class MonsterFighter extends Fighter {
 
 	public readonly monster: Monster;
 
-	private readonly name: string;
-
 	public constructor(level: number, monster: Monster) {
 		const attacks: FightAction[] = [];
 		for (const attack of monster.attacks) {
@@ -36,7 +34,7 @@ export class MonsterFighter extends Fighter {
 	}
 
 	levelToEnergy(level: number, baseEnergyValue: number): number {
-		return Math.round(baseEnergyValue + (2000 / (1 + Math.exp(-0.06 * level + 2)) + 0.7 * level));
+		return Math.round(baseEnergyValue + (2000 / (1 + Math.exp(-0.06 * (level + 10))) + 0.7 * (level + 8)));
 	}
 
 	calculateStat(stat: { A: number, B: number, C: number }, level: number, ratio: number): number {
