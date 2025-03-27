@@ -32,15 +32,6 @@
   "guild": {
     "embedTitle": "Guilde {{guildName}} | Niveau {{level}}",
     "description": ":scroll: `{{description}}`",
-    "emojis": {
-      "chief": "{emote:guild.chief}",
-      "elder": "{emote:guild.elder}️",
-      "member": "{emote:guild.member}",
-      "isOnPveIsland": "{emote:guild.isOnPveIsland}",
-      "isOnBoat": "{emote:guild.isOnBoat}",
-      "countAsAnAlly": "{emote:guild.countAsAnAlly}",
-      "cannotBeJoinedOnBoat": "{emote:guild.cannotBeJoinedOnBoat}"
-    },
     "separator": " | ",
     "memberInfos": "{{icon}} - **{{pseudo}}** ({{ranking}} {emote:announcements.trophy} | {{score}} {emote:unitValues.score}{{islandStatusIcon}})\n",
     "members": ":person_pouting: {{memberCount}} / {{maxGuildMembers}} membres",
