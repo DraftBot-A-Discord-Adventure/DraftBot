@@ -177,7 +177,8 @@ export class CommandsManager {
 		globalCommandsToRegister: RESTPostAPIChatInputApplicationCommandsJSONBody[],
 		guildsCommandsToRegister: RESTPostAPIChatInputApplicationCommandsJSONBody[]
 	): Promise<void> {
-		let commandsFiles = readdirSync(`dist/Discord/src/commands/${category}`).filter(command => command.endsWith(".js"));
+		let commandsFiles = readdirSync(`dist/Discord/src/commands/${category}`)
+			.filter(command => command.endsWith(".js"));
 		if (!discordConfig.TEST_MODE) {
 			commandsFiles = commandsFiles.filter(command => !command.startsWith("Test"));
 		}
@@ -221,11 +222,10 @@ export class CommandsManager {
 			message.channel.send({
 				content: `${i18n.t("bot:mentionHelp", {
 					lng: KeycloakUtils.getUserLanguage(user),
-					commandHelp: BotUtils.commandsMentions.get("help"),
-					commandLanguage: BotUtils.commandsMentions.get("language"),
 					interpolation: {escapeValue: false}
 				})}`
-			}).then();
+			})
+				.then();
 		});
 	}
 
@@ -294,28 +294,32 @@ export class CommandsManager {
 	 * @private
 	 */
 	private static async sendBackDMMessageToSupportChannel(message: Message): Promise<void> {
-		await draftBotClient!.users.fetch(discordConfig.DM_MANAGER_ID).then(async (user) => {
-			const attachmentList: (Attachment | AttachmentBuilder)[] = Array.from(message.attachments.values());
-			if (message.content.length > Constants.DM.MAX_MESSAGE_LENGTH_ALLOWED) {
-				attachmentList.push(new AttachmentBuilder(Buffer.from(message.content)).setName(`userMessage-${message.author.id}-${message.id}.txt`));
-			}
-			const supportAlert = i18n.t("bot:supportAlert", {
-				lng: LANGUAGE.FRENCH,
-				username: escapeUsername(message.author.displayName),
-				id: message.author.id
-			}) + (message.content.length > Constants.DM.MAX_MESSAGE_LENGTH_ALLOWED
-				? Constants.DM.TOO_LONG_MESSAGE
-				: message.content.length === 0
-					? Constants.DM.NO_MESSAGE
-					: Constants.DM.COMMENT_MESSAGE_START + message.content);
-			await user.send({content: supportAlert, files: attachmentList.slice(0, Constants.DM.MAX_ATTACHMENTS)});
-			for (let i = 1; i < attachmentList.length / Constants.DM.MAX_ATTACHMENTS; i++) {
+		await draftBotClient!.users.fetch(discordConfig.DM_MANAGER_ID)
+			.then(async (user) => {
+				const attachmentList: (Attachment | AttachmentBuilder)[] = Array.from(message.attachments.values());
+				if (message.content.length > Constants.DM.MAX_MESSAGE_LENGTH_ALLOWED) {
+					attachmentList.push(new AttachmentBuilder(Buffer.from(message.content)).setName(`userMessage-${message.author.id}-${message.id}.txt`));
+				}
+				const supportAlert = i18n.t("bot:supportAlert", {
+					lng: LANGUAGE.FRENCH,
+					username: escapeUsername(message.author.displayName),
+					id: message.author.id
+				}) + (message.content.length > Constants.DM.MAX_MESSAGE_LENGTH_ALLOWED
+					? Constants.DM.TOO_LONG_MESSAGE
+					: message.content.length === 0
+						? Constants.DM.NO_MESSAGE
+						: Constants.DM.COMMENT_MESSAGE_START + message.content);
 				await user.send({
-					content: "",
-					files: attachmentList.slice(i * Constants.DM.MAX_ATTACHMENTS, (i + 1) * Constants.DM.MAX_ATTACHMENTS)
+					content: supportAlert,
+					files: attachmentList.slice(0, Constants.DM.MAX_ATTACHMENTS)
 				});
-			}
-		})
+				for (let i = 1; i < attachmentList.length / Constants.DM.MAX_ATTACHMENTS; i++) {
+					await user.send({
+						content: "",
+						files: attachmentList.slice(i * Constants.DM.MAX_ATTACHMENTS, (i + 1) * Constants.DM.MAX_ATTACHMENTS)
+					});
+				}
+			})
 			.catch((e) => console.warn(`WARNING : could not find a place to forward the DM message: ${e}`));
 	}
 
@@ -342,11 +346,7 @@ export class CommandsManager {
 							lng,
 							pseudo: escapeUsername(author.displayName)
 						}), author)
-						.setDescription(i18n.t("bot:dmHelpMessage", {
-							lng,
-							commandHelp: BotUtils.commandsMentions.get("help"),
-							commandRespawn: BotUtils.commandsMentions.get("respawn")
-						}))]
+						.setDescription(i18n.t("bot:dmHelpMessage", {lng}))]
 				});
 			})
 			.build()
@@ -408,37 +408,44 @@ export class CommandsManager {
 	 */
 	private static hasChannelPermission(channel: DraftbotChannel): [boolean, string] {
 
-		if (!channel.permissionsFor(draftBotClient!.user!)?.has(PermissionsBitField.Flags.ViewChannel)) {
+		if (!channel.permissionsFor(draftBotClient!.user!)
+			?.has(PermissionsBitField.Flags.ViewChannel)) {
 			console.log(`No way to access the channel where the command has been executed : ${channel.guildId}/${channel.id}`);
 			return [false, "noChannelAccess"];
 		}
 
-		if (!channel.permissionsFor(draftBotClient!.user!)?.has(PermissionsBitField.Flags.SendMessages)) {
+		if (!channel.permissionsFor(draftBotClient!.user!)
+			?.has(PermissionsBitField.Flags.SendMessages)) {
 			console.log(`No perms to show i can't speak in server / channel : ${channel.guildId}/${channel.id}`);
 			return [false, "noSpeakPermission"];
 		}
 
-		if (!channel.permissionsFor(draftBotClient!.user!)?.has(PermissionsBitField.Flags.SendMessagesInThreads) && channel.isThread()) {
+		if (!channel.permissionsFor(draftBotClient!.user!)
+			?.has(PermissionsBitField.Flags.SendMessagesInThreads) && channel.isThread()) {
 			console.log(`No perms to show i can't speak in thread : ${channel.guildId}/${channel.id}`);
 			return [false, "noSpeakInThreadPermission"];
 		}
 
-		if (!channel.permissionsFor(draftBotClient!.user!)?.has(PermissionsBitField.Flags.AddReactions)) {
+		if (!channel.permissionsFor(draftBotClient!.user!)
+			?.has(PermissionsBitField.Flags.AddReactions)) {
 			console.log(`No perms to show i can't react in server / channel : ${channel.guildId}/${channel.id}`);
 			return [false, "noReacPermission"];
 		}
 
-		if (!channel.permissionsFor(draftBotClient!.user!)?.has(PermissionsBitField.Flags.EmbedLinks)) {
+		if (!channel.permissionsFor(draftBotClient!.user!)
+			?.has(PermissionsBitField.Flags.EmbedLinks)) {
 			console.log(`No perms to show i can't embed in server / channel : ${channel.guildId}/${channel.id}`);
 			return [false, "noEmbedPermission"];
 		}
 
-		if (!channel.permissionsFor(draftBotClient!.user!)?.has(PermissionsBitField.Flags.AttachFiles)) {
+		if (!channel.permissionsFor(draftBotClient!.user!)
+			?.has(PermissionsBitField.Flags.AttachFiles)) {
 			console.log(`No perms to show i can't attach files in server / channel : ${channel.guildId}/${channel.id}`);
 			return [false, "noFilePermission"];
 		}
 
-		if (!channel.permissionsFor(draftBotClient!.user!)?.has(PermissionsBitField.Flags.ReadMessageHistory)) {
+		if (!channel.permissionsFor(draftBotClient!.user!)
+			?.has(PermissionsBitField.Flags.ReadMessageHistory)) {
 			console.log(`No perms to show i can't see messages history in server / channel : ${channel.guildId}/${channel.id}`);
 			return [false, "noHistoryPermission"];
 		}

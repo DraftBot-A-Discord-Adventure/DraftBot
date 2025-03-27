@@ -55,15 +55,21 @@ export type TranslationOption = {
  * @param emote
  */
 function getEmote(emote: string): string | null {
-	let basePath: EmotePath = DraftBotIcons as EmotePathFolder;
-	const emotePath = emote.split(".");
-	for (const path of emotePath) {
-		if (typeof basePath === "string") {
-			return null;
+	try {
+		let basePath: EmotePath = DraftBotIcons as EmotePathFolder;
+		const emotePath = emote.split(".");
+		for (const path of emotePath) {
+			if (typeof basePath === "string") {
+				return null;
+			}
+			basePath = Array.isArray(basePath) ? basePath[parseInt(path)] : basePath[path] as EmotePath;
 		}
-		basePath = Array.isArray(basePath) ? basePath[parseInt(path)] : basePath[path] as EmotePath;
+		return typeof basePath === "string" ? basePath : null;
 	}
-	return typeof basePath === "string" ? basePath : null;
+	catch (e) {
+		console.error("Error while getting emote", emote, e);
+		return null;
+	}
 }
 
 /**

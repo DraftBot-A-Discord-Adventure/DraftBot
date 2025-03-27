@@ -1,11 +1,6 @@
 import {ICommand} from "../ICommand";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {
-	ActionRowBuilder,
-	StringSelectMenuBuilder,
-	StringSelectMenuInteraction,
-	StringSelectMenuOptionBuilder
-} from "discord.js";
+import {ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuInteraction, StringSelectMenuOptionBuilder} from "discord.js";
 import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
 import i18n from "../../translations/i18n";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
@@ -15,6 +10,7 @@ import {keycloakConfig} from "../../bot/DraftBotShard";
 import {Constants} from "../../../../Lib/src/constants/Constants";
 import {sendInteractionNotForYou} from "../../utils/ErrorUtils";
 import {LANGUAGE, Language} from "../../../../Lib/src/Language";
+import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
 
 /**
  * Change the language used by the bot to interact with the player
@@ -25,8 +21,8 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 
 	const selectLanguageMenuOptions = LANGUAGE.LANGUAGES
 		.map((languageCode) => new StringSelectMenuOptionBuilder()
-			.setLabel(i18n.t(`commands:language.languages.${languageCode}.name`, {lng}))
-			.setEmoji(i18n.t(`commands:language.languages.${languageCode}.emoji`, {lng}))
+			.setLabel(i18n.t(`commands:language.languages.${languageCode}`, {lng}))
+			.setEmoji(DraftBotIcons.languages[languageCode])
 			.setValue(languageCode));
 
 	const languageSelectionMenu = new StringSelectMenuBuilder()

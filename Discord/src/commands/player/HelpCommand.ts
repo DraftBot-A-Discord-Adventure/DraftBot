@@ -62,7 +62,13 @@ function getCommandByCategories(language: Language): { [key: string]: string[] }
 			break;
 		}
 	}
-	return {utilCommands, playerCommands, missionCommands, guildCommands, petCommands};
+	return {
+		utilCommands,
+		playerCommands,
+		missionCommands,
+		guildCommands,
+		petCommands
+	};
 }
 
 /**
@@ -85,14 +91,14 @@ function generateGenericHelpMessage(helpMessage: DraftBotEmbed, interaction: Dra
 	helpMessage.setDescription(
 		`${i18n.t("commands:help.helpEmbedDescription", {
 			lng: interaction.userLanguage,
-			helpCommandMention: BotUtils.commandsMentions.get("help"),
 			interpolation: {escapeValue: false}
 		})}\n\u200b`
 	);
 	helpMessage.addFields([
 		{
 			name: i18n.t("commands:help.utilCommands", {lng: interaction.userLanguage}),
-			value: `${utilCommands.sort().join(HelpConstants.COMMAND_SEPARATOR_FOR_GENERAL_DESCRIPTION)}`
+			value: `${utilCommands.sort()
+				.join(HelpConstants.COMMAND_SEPARATOR_FOR_GENERAL_DESCRIPTION)}`
 		},
 		{
 			name: i18n.t("commands:help.playerCommands", {lng: interaction.userLanguage}),
@@ -104,11 +110,13 @@ function generateGenericHelpMessage(helpMessage: DraftBotEmbed, interaction: Dra
 		},
 		{
 			name: i18n.t("commands:help.guildCommands", {lng: interaction.userLanguage}),
-			value: `${guildCommands.sort().join(HelpConstants.COMMAND_SEPARATOR_FOR_GENERAL_DESCRIPTION)}`
+			value: `${guildCommands.sort()
+				.join(HelpConstants.COMMAND_SEPARATOR_FOR_GENERAL_DESCRIPTION)}`
 		},
 		{
 			name: i18n.t("commands:help.petCommands", {lng: interaction.userLanguage}),
-			value: `${petCommands.sort().join(HelpConstants.COMMAND_SEPARATOR_FOR_GENERAL_DESCRIPTION)} \n\u200b`
+			value: `${petCommands.sort()
+				.join(HelpConstants.COMMAND_SEPARATOR_FOR_GENERAL_DESCRIPTION)} \n\u200b`
 		},
 		{
 			name: i18n.t("commands:help.forMoreHelp", {lng: interaction.userLanguage}),
@@ -122,11 +130,12 @@ function generateGenericHelpMessage(helpMessage: DraftBotEmbed, interaction: Dra
  */
 function getCommandAliasMap(): Map<string, string> {
 	const helpAlias: Map<string, string> = new Map<string, string>();
-	Object.entries(HelpConstants.ACCEPTED_SEARCH_WORDS).forEach((commands) => {
-		for (const alias of commands[1]) {
-			helpAlias.set(alias, commands[0]);
-		}
-	});
+	Object.entries(HelpConstants.ACCEPTED_SEARCH_WORDS)
+		.forEach((commands) => {
+			for (const alias of commands[1]) {
+				helpAlias.set(alias, commands[0]);
+			}
+		});
 	return helpAlias;
 }
 
@@ -138,30 +147,14 @@ function generateReplacementObjectForHelpCommand(interaction: DraftbotInteractio
 	lng: Language;
 	petSellMinPrice: number;
 	petSellMaxPrice: number;
-	classesCommandMention: string;
-	topGloryCommandMention: string;
-	mapCommandMention: string;
-	petCommandMention: string;
 	interpolation: { escapeValue: boolean };
 } {
 	const petSellMinPrice = PetConstants.SELL_PRICE.MIN;
 	const petSellMaxPrice = PetConstants.SELL_PRICE.MAX;
-	const classesCommandMention = BotUtils.commandsMentions.get("classes");
-	const topGloryCommandMention = BotUtils.commandsMentions.get("top guilds");
-	const mapCommandMention = BotUtils.commandsMentions.get("map");
-	const petCommandMention = BotUtils.commandsMentions.get("pet");
-	const classesCommandMentionString = classesCommandMention ? classesCommandMention : i18n.t("error:commandDoesntExist", {lng: interaction.userLanguage});
-	const topGloryCommandMentionString = topGloryCommandMention ? topGloryCommandMention : i18n.t("error:commandDoesntExist", {lng: interaction.userLanguage});
-	const mapCommandMentionString = mapCommandMention ? mapCommandMention : i18n.t("error:commandDoesntExist", {lng: interaction.userLanguage});
-	const petCommandMentionString = petCommandMention ? petCommandMention : i18n.t("error:commandDoesntExist", {lng: interaction.userLanguage});
 	return {
 		lng: interaction.userLanguage,
 		petSellMinPrice,
 		petSellMaxPrice,
-		classesCommandMention: classesCommandMentionString,
-		topGloryCommandMention: topGloryCommandMentionString,
-		mapCommandMention: mapCommandMentionString,
-		petCommandMention: petCommandMentionString,
 		interpolation: {escapeValue: false}
 	};
 }
@@ -181,7 +174,8 @@ async function getPacket(interaction: DraftbotInteraction): Promise<null> {
 	}
 	else {
 		const helpAlias = getCommandAliasMap();
-		const command = helpAlias.get(askedCommand.toLowerCase().replace(" ", ""));
+		const command = helpAlias.get(askedCommand.toLowerCase()
+			.replace(" ", ""));
 		if (!command) {
 			generateGenericHelpMessage(helpMessage, interaction);
 			await interaction.reply({

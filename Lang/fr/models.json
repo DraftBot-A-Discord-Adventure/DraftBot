@@ -121,7 +121,7 @@
   },
   "fight_actions": {
     "benediction": {
-      "description": "Fait partie du groupe des \"actions des dieux\". Échoue si 1 action des dieux a déjà été effectuée dans le combat. Augmente toutes les statistiques du lanceur. Plus la bénédiction est utilisée tard dans le combat, plus l’augmentation des statistiques est importante.",
+      "description": "Fait partie du groupe des \"actions des dieux\". Échoue si 1 action des dieux a déjà été effectuée dans le combat. Augmente toutes les statistiques du lanceur. Plus la bénédiction est utilisée tard dans le combat, plus l'augmentation des statistiques est importante.",
       "name_one": "Bénédiction",
       "name_other": "Bénédictions"
     },
@@ -146,7 +146,7 @@
       "name_other": ""
     },
     "canonAttack": {
-      "description": "La précision de cette attaque baisse sur les adversaires rapides. Un bonus de dégât est affecté à cette attaque si l’adversaire est très lent. L'adversaire peut être ralenti par l'attaque. Inflige plus de dégâts si utilisé plusieurs fois de suite",
+      "description": "La précision de cette attaque baisse sur les adversaires rapides. Un bonus de dégât est affecté à cette attaque si l'adversaire est très lent. L'adversaire peut être ralenti par l'attaque. Inflige plus de dégâts si utilisé plusieurs fois de suite",
       "name_one": "Attaque canon",
       "name_other": "Attaques canons"
     },
@@ -156,12 +156,12 @@
       "name_other": "Attaques chargées"
     },
     "chargeClubSmashAttack": {
-      "description": "Nécessite un tour pour charger l’attaque. Délivre une charge puissante au tour suivant.",
+      "description": "Nécessite un tour pour charger l'attaque. Délivre une charge puissante au tour suivant.",
       "name_one": "Attaque gourdin",
       "name_other": "Attaques gourdin"
     },
     "chargeUltimateAttack": {
-      "description": "Nécessite un tour pour charger l’attaque Si l’attaquant dispose de moins de 45% de ses points de combat, cette attaque ne peut pas échouer. Si l’attaquant dispose de plus de 45% de ses points de combat, la précision de cette attaque est de 70. Cette attaque ne peut être utilisée qu’une fois par joueur et par combat.",
+      "description": "Nécessite un tour pour charger l'attaque Si l'attaquant dispose de moins de 45% de ses points de combat, cette attaque ne peut pas échouer. Si l'attaquant dispose de plus de 45% de ses points de combat, la précision de cette attaque est de 70. Cette attaque ne peut être utilisée qu'une fois par joueur et par combat.",
       "name_one": "Attaque ultime",
       "name_other": "Attaques ultimes"
     },
@@ -181,7 +181,7 @@
       "name_other": ""
     },
     "concentration": {
-      "description": "Échoue si vous utilisez cette action alors que vous avez une altération d’état. L’altération \"concentré\" augmente fortement les dégâts infligés par le combattant affecté lors du prochain tour.",
+      "description": "Échoue si vous utilisez cette action alors que vous avez une altération d'état. L'altération \"concentré\" augmente fortement les dégâts infligés par le combattant affecté lors du prochain tour.",
       "name_one": "Concentration",
       "name_other": "Concentrations"
     },
@@ -231,7 +231,7 @@
       "name_other": "Repas de famille"
     },
     "fireAttack": {
-      "description": "Grande chance de brûler l'adversaire. L’altération \"brûlé\" inflige des dégâts à votre adversaire sur la durée.",
+      "description": "Grande chance de brûler l'adversaire. L'altération \"brûlé\" inflige des dégâts à votre adversaire sur la durée.",
       "name_one": "Attaque feu",
       "name_other": "Attaques feu"
     },
@@ -261,12 +261,12 @@
       "name_other": "Drains de chaleur"
     },
     "heavyAttack": {
-      "description": "Les dégâts de cette attaque sont réduits de 90% si le défenseur dispose de moins de défense que l’attaquant. La défense de l'ennemi est réduite de 25%.",
+      "description": "Les dégâts de cette attaque sont réduits de 90% si le défenseur dispose de moins de défense que l'attaquant. La défense de l'ennemi est réduite de 25%.",
       "name_one": "Attaque lourde",
       "name_other": "Attaques lourdes"
     },
     "intenseAttack": {
-      "description": "Ignore une partie de la défense de l’adversaire. N’échoue jamais sur un adversaire plus rapide. Fonctionne mieux sur un adversaire rapide. Force le lanceur à utiliser l’action \"repos\" au tour suivant. Ne peut pas tuer l’adversaire.",
+      "description": "Ignore une partie de la défense de l'adversaire. N'échoue jamais sur un adversaire plus rapide. Fonctionne mieux sur un adversaire rapide. Force le lanceur à utiliser l'action \"repos\" au tour suivant. Ne peut pas tuer l'adversaire.",
       "name_one": "Attaque intense",
       "name_other": "Attaques intenses"
     },
@@ -306,7 +306,7 @@
       "name_other": ""
     },
     "outrageAttack": {
-      "description": "Échoue si vous utilisez cette action alors que vous avez une altération d’état. L’altération \"en colère\" double l'attaque mais baisse la défense. Au bout de 2 tours, l'effet disparait et l'attaquant devient confus.",
+      "description": "Échoue si vous utilisez cette action alors que vous avez une altération d'état. L'altération \"en colère\" double l'attaque mais baisse la défense. Au bout de 2 tours, l'effet disparait et l'attaquant devient confus.",
       "name_one": "Colère",
       "name_other": "Colères"
     },
@@ -326,7 +326,7 @@
       "name_other": ""
     },
     "piercingAttack": {
-      "description": "Ignore presque complètement la défense de l’adversaire. L'attaquant a une probabilité de réduire légèrement la défense de son adversaire.",
+      "description": "Ignore presque complètement la défense de l'adversaire. L'attaquant a une probabilité de réduire légèrement la défense de son adversaire.",
       "name_one": "Attaque perçante",
       "name_other": "Attaques perçantes"
     },
@@ -336,12 +336,12 @@
       "name_other": ""
     },
     "poisonousAttack": {
-      "description": "Empoisonne l'adversaire. L’altération \"empoisonné\" dure au moins trois tours et inflige des dégâts à votre adversaire sur la durée.",
+      "description": "Empoisonne l'adversaire. L'altération \"empoisonné\" dure au moins trois tours et inflige des dégâts à votre adversaire sur la durée.",
       "name_one": "Attaque empoisonnée",
       "name_other": "Attaques empoisonnées"
     },
     "powerfulAttack": {
-      "description": "Cette attaque a 25 % de chance de faire plus de dégâts, au prix d’un étourdissement de l’attaquant. Après 3 utilisations, les dégâts de l’attaque sont réduits de 70%.",
+      "description": "Cette attaque a 25 % de chance de faire plus de dégâts, au prix d'un étourdissement de l'attaquant. Après 3 utilisations, les dégâts de l'attaque sont réduits de 70%.",
       "name_one": "Attaque puissante",
       "name_other": "Attaques puissantes"
     },
@@ -351,12 +351,12 @@
       "name_other": ""
     },
     "protection": {
-      "description": "Échoue si vous utilisez cette action alors que vous avez une altération d’état. L’altération \"protégé\" dure 3 tours et vous empêche d’être victime d’une autre altération tout en vous offrant un boost de 30% de votre défense.",
+      "description": "Échoue si vous utilisez cette action alors que vous avez une altération d'état. L'altération \"protégé\" dure 3 tours et vous empêche d'être victime d'une autre altération tout en vous offrant un boost de 30% de votre défense.",
       "name_one": "Protection",
       "name_other": "Protections"
     },
     "quickAttack": {
-      "description": "N’échoue jamais sur un adversaire plus lent. Plus votre adversaire est lent, plus cette attaque lui fera des dégâts.",
+      "description": "N'échoue jamais sur un adversaire plus lent. Plus votre adversaire est lent, plus cette attaque lui fera des dégâts.",
       "name_one": "Attaque rapide",
       "name_other": "Attaques rapides"
     },
@@ -366,12 +366,12 @@
       "name_other": "Explosions de rage"
     },
     "ramAttack": {
-      "description": "Si l’attaquant n’est pas étourdi par l’attaque, il reçoit une partie des dégâts infligés. L'attaque peut également étourdir l'adversaire.",
+      "description": "Si l'attaquant n'est pas étourdi par l'attaque, il reçoit une partie des dégâts infligés. L'attaque peut également étourdir l'adversaire.",
       "name_one": "Attaque bélier",
       "name_other": "Attaques béliers"
     },
     "resting": {
-      "description": "S’applique sous forme de soin au lanceur. La quantité de points de combat récupérée est divisée par 4 au bout de 4 utilisations.",
+      "description": "S'applique sous forme de soin au lanceur. La quantité de points de combat récupérée est divisée par 4 au bout de 4 utilisations.",
       "name_one": "Repos",
       "name_other": "Repos"
     },
@@ -386,12 +386,12 @@
       "name_other": "Bouclier de roche"
     },
     "sabotageAttack": {
-      "description": "Ignore complètement la défense de l’adversaire. Fonctionne mieux sur un adversaire ayant peu d’attaque. Attaque peu couteuse en souffle mais qui peut paralyser le lanceur. Si c’est le cas, les dégâts sont augmentés.",
+      "description": "Ignore complètement la défense de l'adversaire. Fonctionne mieux sur un adversaire ayant peu d'attaque. Attaque peu couteuse en souffle mais qui peut paralyser le lanceur. Si c'est le cas, les dégâts sont augmentés.",
       "name_one": "Attaque sabotage",
       "name_other": "Attaques sabotages"
     },
     "shieldAttack": {
-      "description": "Utilise le bouclier de l’attaquant pour attaquer. L’altération \"affaibli\" réduit l’attaque de 70% durant 1 tour.",
+      "description": "Utilise le bouclier de l'attaquant pour attaquer. L'altération \"affaibli\" réduit l'attaque de 70% durant 1 tour.",
       "name_one": "Attaque bouclier",
       "name_other": "Attaques boucliers"
     },
