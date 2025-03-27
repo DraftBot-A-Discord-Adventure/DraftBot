@@ -139,20 +139,19 @@ export const DraftBotIcons: {
 		switch: string,
 		withdraw: string
 	},
-	leagueReward: {
-		[leagueRewardId: string]: string
-	}
 	other: {
 		[otherId: string]: string
-	}
+	},
 	guild: {
+		icon: string,
 		chief: string,
 		elder: string,
 		member: string,
 		isOnPveIsland: string,
 		isOnBoat: string,
 		countAsAnAlly: string,
-		cannotBeJoinedOnBoat: string
+		cannotBeJoinedOnBoat: string,
+		membersCount: string
 	},
 	networks: {
 		website: string,
@@ -164,7 +163,16 @@ export const DraftBotIcons: {
 	},
 	languageFlavors: {
 		[languageFlavorId: string]: string
-	}
+	},
+	rarity: string[],
+	loveLevels: string[],
+	userKind: {
+		[UserKindId: string]: string
+	},
+	inventory: {
+		[inventoryId: string]: string
+	},
+	itemNatures: string[]
 } = {
 	"effects": {
 		"not_started": "👶",
@@ -1689,9 +1697,16 @@ export const DraftBotIcons: {
 	"commands": {
 		"respawn": "👼",
 		"classes": "📑",
+		"classesInfo": "🔖",
 		"classesDescription": "📜",
 		"shop": "🛒",
-		"language": "🌍"
+		"language": "🌍",
+		"report": "📰",
+		"rarity": "🎰",
+		"vote": "🗳️",
+		"badges": "🎖️",
+		"inventory": "💼",
+		"ping": "🏓"
 	},
 	"unitValues": {
 		"score": "🏅",
@@ -1711,7 +1726,8 @@ export const DraftBotIcons: {
 		"breath": "🌬️",
 		"breathRegen": "🫁",
 		"petRarity": "⭐",
-		"glory": "✨"
+		"glory": "✨",
+		"timeGain": "⌛"
 	},
 	"shopItems": {
 		"randomItem": "❓",
@@ -1758,7 +1774,11 @@ export const DraftBotIcons: {
 	"messages": {
 		"validate": "✅",
 		"refuse": "❌",
-		"notReplied": "🔚"
+		"notReplied": "🔚",
+		"dm": "💌",
+		"description": "📜",
+		"item": "▶️",
+		"info": "ℹ️"
 	},
 	"fightPetActions": {
 		"fistHit": "👊",
@@ -1837,9 +1857,6 @@ export const DraftBotIcons: {
 		"switch": "🔄",
 		"withdraw": "📤"
 	},
-	"leagueReward": {
-		"compression": "🗜️"
-	},
 	"other": {
 		"trash": "🗑️",
 		"tada": "🎉",
@@ -1848,16 +1865,32 @@ export const DraftBotIcons: {
 		"increase": "🔼",
 		"advice": "💡",
 		"why": "🤔",
-		"crown": "👑"
+		"crown": "👑",
+		"incoming": "📥",
+		"outgoing": "📤",
+		"right": "➡️",
+		"look": "👀",
+		"paperclip": "📎",
+		"folder": "📁",
+		"cantSpeak": "🤐",
+		"expressionless": "😑",
+		"wink": "😉",
+		"gear": "⚙️",
+		"singing": "🎵",
+		"telescope": "🔭",
+		"car": "🚗",
+		"walking": "🚶"
 	},
 	"guild": {
+		"icon": "🏟️",
 		"chief": "👑",
 		"elder": "🎖️",
 		"member": "⚫",
 		"isOnPveIsland": "🏝️",
 		"isOnBoat": "⛴️",
 		"countAsAnAlly": "🤝",
-		"cannotBeJoinedOnBoat": "👻"
+		"cannotBeJoinedOnBoat": "👻",
+		"membersCount": "🙎"
 	},
 	"networks": {
 		"website": "🌐",
@@ -1890,5 +1923,32 @@ export const DraftBotIcons: {
 		"⭐",
 		"🌟",
 		"💎"
+	],
+	"loveLevels": [
+		"NOT_A_LEVEL",
+		"😼",
+		"😾",
+		"🙀",
+		"😺",
+		"😻"
+	],
+	"userKind": {
+		"human": "👤",
+		"robot": "🤖",
+		"pet": "🐶"
+	},
+	"inventory": {
+		"empty": "⬛",
+		"stock": "📦"
+	},
+	"itemNatures": [
+		"❌",
+		"❤️",
+		"🚀",
+		"⚔️",
+		"🛡️",
+		"🕥",
+		"💰",
+		"⚡"
 	]
 };

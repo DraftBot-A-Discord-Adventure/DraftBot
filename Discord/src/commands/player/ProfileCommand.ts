@@ -3,10 +3,7 @@ import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPac
 import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
 import i18n, {TranslationOption} from "../../translations/i18n";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {
-	CommandProfilePacketReq,
-	CommandProfilePacketRes
-} from "../../../../Lib/src/packets/commands/CommandProfilePacket";
+import {CommandProfilePacketReq, CommandProfilePacketRes} from "../../../../Lib/src/packets/commands/CommandProfilePacket";
 import {SlashCommandBuilder} from "@discordjs/builders";
 import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {ColorResolvable, EmbedField, Message, MessageReaction} from "discord.js";
@@ -43,7 +40,7 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 async function sendMessageAllBadgesTooMuchBadges(gameUsername: string, badges: string[], interaction: DraftbotInteraction): Promise<void> {
 	let content = "";
 	for (const badgeSentence of badges) {
-		content += `${i18n.t(`commands:profile.badges.${badgeSentence}`, {lng: interaction.userLanguage})}\n`;
+		content += `${badgeSentence} \`${i18n.t(`commands:profile.badges.${badgeSentence}`, {lng: interaction.userLanguage})}\`\n`;
 	}
 	await interaction.followUp({
 		embeds: [new DraftBotEmbed()
@@ -164,7 +161,8 @@ function generateFields(packet: CommandProfilePacketRes, lng: Language): EmbedFi
 
 	addField(fields, "pet", Boolean(packet.playerData.pet), {
 		lng,
-		rarity: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.unitValues.petRarity).repeat(packet.playerData.pet?.rarity ?? 0),
+		rarity: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.unitValues.petRarity)
+			.repeat(packet.playerData.pet?.rarity ?? 0),
 		emote: packet.playerData.pet ? DisplayUtils.getPetIcon(packet.playerData.pet?.typeId, packet.playerData.pet?.sex) : "",
 		name: packet.playerData.pet ? packet.playerData.pet?.nickname ?? DisplayUtils.getPetTypeName(lng, packet.playerData.pet?.typeId, packet.playerData.pet?.sex) : ""
 	});

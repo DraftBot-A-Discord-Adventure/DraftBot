@@ -1,30 +1,30 @@
 {
   "armorsFieldName": "Armure/Bouclier :",
-  "attack": ":dagger: {{value}}",
-  "defense": ":shield: {{value}}",
+  "attack": "{emote:unitValues.attack} {{value}}",
+  "defense": "{emote:unitValues.defense} {{value}}",
   "nameDisplay": "{emote:{{itemCategory}}.{{itemId}}} **$t(models:{{itemCategory}}.{{itemId}})**",
   "nerfDisplay": "~~{{old}}~~ {{max}}",
   "objectsFieldName": "Objet :",
   "objectsNatures": [
-    ":x: Aucun effet",
-    ":heart: Vie + {{power}} par jour",
-    ":rocket: Vitesse + {{power}} pendant les combats",
-    ":crossed_swords: Attaque + {{power}} pendant les combats",
-    ":shield: Défense + {{power}} pendant les combats",
-    ":clock1030: Avance le temps de {{power}} chaque jour",
-    ":moneybag: Argent + {{power}} par jour",
-    ":zap: Énergie + {{power}} par jour"
+    "{emote:itemNatures.0} Aucun effet",
+    "{emote:itemNatures.1} Vie + {{power}} par jour",
+    "{emote:itemNatures.2} Vitesse + {{power}} pendant les combats",
+    "{emote:itemNatures.3} Attaque + {{power}} pendant les combats",
+    "{emote:itemNatures.4} Défense + {{power}} pendant les combats",
+    "{emote:itemNatures.5} Avance le temps de {{power}} chaque jour",
+    "{emote:itemNatures.6} Argent + {{power}} par jour",
+    "{emote:itemNatures.7} Énergie + {{power}} par jour"
   ],
   "potionsFieldName": "Potion :",
   "potionsNatures": [
-    ":x: Aucun effet",
-    ":heart: Vie + {{power}}",
-    ":rocket: Vitesse + {{power}} pendant le prochain combat",
-    ":crossed_swords: Attaque + {{power}} pendant le prochain combat",
-    ":shield: Défense + {{power}} pendant le prochain combat",
-    ":clock1030: Avance le temps de {{power}}",
-    ":moneybag: Argent + {{power}}",
-    ":zap: Énergie + {{power}}"
+    "{emote:itemNatures.0} Aucun effet",
+    "{emote:itemNatures.1} Vie + {{power}}",
+    "{emote:itemNatures.2} Vitesse + {{power}} pendant le prochain combat",
+    "{emote:itemNatures.3} Attaque + {{power}} pendant le prochain combat",
+    "{emote:itemNatures.4} Défense + {{power}} pendant le prochain combat",
+    "{emote:itemNatures.5} Avance le temps de {{power}}",
+    "{emote:itemNatures.6} Argent + {{power}}",
+    "{emote:itemNatures.7} Énergie + {{power}}"
   ],
   "rarities": [
     "{emote:rarity.0} Basique",
@@ -37,7 +37,7 @@
     "{emote:rarity.7} Légendaire",
     "{emote:rarity.8} Mythique"
   ],
-  "speed": ":rocket: {{value}}",
+  "speed": "{emote:unitValues.speed} {{value}}",
   "weaponsFieldName": "Arme :",
   "itemsField": "**{{emote}} {{name}}** | {{rarity}} | {{values}}"
 }
