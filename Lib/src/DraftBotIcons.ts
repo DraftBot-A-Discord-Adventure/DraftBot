@@ -57,7 +57,8 @@ export const DraftBotIcons: {
 		interactPoorCoin: string,
 		warning: string,
 		question: string,
-		back: string
+		back: string,
+		switch: string
 	},
 	fight_actions: {
 		[actionId: string]: string
@@ -144,7 +145,6 @@ export const DraftBotIcons: {
 	other: {
 		[otherId: string]: string
 	}
-
 	guild: {
 		chief: string,
 		elder: string,
@@ -153,8 +153,18 @@ export const DraftBotIcons: {
 		isOnBoat: string,
 		countAsAnAlly: string,
 		cannotBeJoinedOnBoat: string
+	},
+	networks: {
+		website: string,
+		twitter: string,
+		discord: string,
+	},
+	languages: {
+		[languageId: string]: string
+	},
+	languageFlavors: {
+		[languageFlavorId: string]: string
 	}
-
 } = {
 	"effects": {
 		"not_started": "👶",
@@ -1613,12 +1623,10 @@ export const DraftBotIcons: {
 		"wiltedRose": "🥀",
 		"worm": "🪱"
 	},
-
 	"cart_small_event": {
 		"accept": "🚗",
 		"refuse": "🚶"
 	},
-
 	"foods": {
 		"herbivorousFood": "🥬",
 		"commonFood": "🍬",
@@ -1636,7 +1644,8 @@ export const DraftBotIcons: {
 		"interactPoorCoin": "🪙",
 		"warning": "⚠️",
 		"question": "❓",
-		"back": "↩️"
+		"back": "↩️",
+		"switch": "🔄"
 	},
 	"fight_actions": {
 		"benediction": "👼",
@@ -1680,7 +1689,9 @@ export const DraftBotIcons: {
 	"commands": {
 		"respawn": "👼",
 		"classes": "📑",
-		"classesDescription": "📜"
+		"classesDescription": "📜",
+		"shop": "🛒",
+		"language": "🌍"
 	},
 	"unitValues": {
 		"score": "🏅",
@@ -1834,7 +1845,10 @@ export const DraftBotIcons: {
 		"tada": "🎉",
 		"guild": "🏟️",
 		"island": "🏝️",
-		"increase": "🔼"
+		"increase": "🔼",
+		"advice": "💡",
+		"why": "🤔",
+		"crown": "👑"
 	},
 	"guild": {
 		"chief": "👑",
@@ -1844,5 +1858,26 @@ export const DraftBotIcons: {
 		"isOnBoat": "⛴️",
 		"countAsAnAlly": "🤝",
 		"cannotBeJoinedOnBoat": "👻"
+	},
+	"networks": {
+		"website": "🌐",
+		"twitter": "🐦",
+		"discord": "🗣️"
+	},
+	"languages": {
+		"de": "🇩🇪",
+		"en": "🇬🇧",
+		"es": "🇪🇸",
+		"fr": "🇫🇷",
+		"it": "🇮🇹",
+		"pt": "🇵🇹"
+	},
+	"languageFlavors": {
+		"de": "🍺",
+		"en": "🍵",
+		"es": "🐂",
+		"fr": "🥖",
+		"it": "🍕",
+		"pt": "🧱"
 	}
 };

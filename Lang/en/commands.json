@@ -358,7 +358,7 @@
         "name": "Portuguese"
       }
     },
-    "newLanguageSetDescription": "DraftBot will now speak in English with you ! 🇬🇧",
+    "newLanguageSetDescription": "DraftBot will now speak in English with you ! {emote:languageFlavors.en}",
     "newLanguageSetTitle": "Language changed",
     "selectLanguage": "Select a language",
     "title": ":earth_africa: Language selection"

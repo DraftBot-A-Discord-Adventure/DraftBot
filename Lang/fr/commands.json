@@ -19,11 +19,11 @@
       "5_male": ":heart_eyes_cat: Dressé",
       "5_female": ":heart_eyes_cat: Dressée"
     },
-    "hungry": "🤤 affamé",
+    "hungry": "{emote:effects.starving} affamé",
     "diet": {
-      "diet_null": "🥪 Omnivore",
-      "diet_herbivorous": "🥬 Herbivore",
-      "diet_carnivorous": "🥩 Carnivore"
+      "diet_null": "{emote:diet.omnivorous} Omnivore",
+      "diet_herbivorous": "{emote:diet.herbivorous} Herbivore",
+      "diet_carnivorous": "{emote:diet.carnivorous} Carnivore"
     },
     "sexDisplay_f": "Femelle {emote:sex.female}",
     "sexDisplay_m": "Mâle {emote:sex.male}",
@@ -247,7 +247,7 @@
         "description": "Permet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. :clock1:"
       },
       "PROFILE": {
-        "description": "Affiche des informations sur votre personnage :\n\n😃 État de santé | Pseudo | Level\n\n឵឵឵Informations :\n❤️ Vie | ⭐ XP | {emote:unitValues.money} Argent\n\nStatistiques :\n⚡ Énergie | 🗡️ Attaque | 🛡️ Défense | 🚀 Vitesse | 🌬️ Souffle | 🫁 Récupération\n\nMissions :\n💎 Gemmes | 📖 Avancé de la campagne %\n\nClassement et score :\n🏆 Classement | 🏅 Score\n\nClasse :\nVoir {command:classes}\n\nGloire et Ligue :\n{emote:unitValues.glory} Gloire | Voir {{topGloryCommandMention}}\n\nGuilde :\n🏟️ Guilde\n\nDestination :\nVoir {{mapCommandMention}}\n\nFamilier :\nVoir {{petCommandMention}}\n\n💡-Les badges sont affichés sur votre profil sous forme de réaction."
+        "description": "Affiche des informations sur votre personnage :\n\n{emote:effects.none} État de santé | Pseudo | Level\n\n឵឵឵Informations :\n{emote:unitValues.health} Vie | {emote:unitValues.xp} XP | {emote:unitValues.money} Argent\n\nStatistiques :\n{emote:unitValues.energy} Énergie | {emote:unitValues.attack} Attaque | {emote:unitValues.defense} Défense | {emote:unitValues.speed} Vitesse | {emote:unitValues.breath} Souffle | {emote:unitValues.breathRegen} Récupération\n\nMissions :\n{emote:unitValues.gem} Gemmes | {emote:missions.campaign} Avancé de la campagne %\n\nClassement et score :\n{emote:top.congrats} Classement | {emote:unitValues.score} Score\n\nClasse :\nVoir {command:classes}\n\nGloire et Ligue :\n{emote:unitValues.glory} Gloire | Voir {command:top glory}\n\nGuilde :\n{emote:other.guild} Guilde\n\nDestination :\nVoir {command:map}\n\nFamilier :\nVoir {command:pet}\n\n{emote:other.advice}-Les badges sont affichés sur votre profil sous forme de réaction."
       },
       "RARITY": {
         "description": "Permet de voir la probabilité d'avoir un item selon sa rareté."
@@ -283,7 +283,7 @@
     "forMoreHelp": ":arrow_forward: Pour plus d'aide : ",
     "forMoreHelpValue": "Vous pouvez vous rendre sur le [wiki](https://guide.draftbot.com/) du bot !",
     "guildCommands": ":stadium: Guilde :",
-    "helpEmbedDescription": ":arrow_forward: Si vous voulez plus d'informations sur une commande en particulier, cliquez ici : {{helpCommandMention}}, et donnez la commande qui vous pose problème en paramètre. :wink:",
+    "helpEmbedDescription": ":arrow_forward: Si vous voulez plus d'informations sur une commande en particulier, cliquez ici : {command:help}, et donnez la commande qui vous pose problème en paramètre. :wink:",
     "helpEmbedTitle": "{{pseudo}}, voici la liste des commandes disponibles :",
     "missionCommands": "{emote:missions.sideMission} Mission :",
     "petCommands": ":dog: Animaux :",
@@ -305,8 +305,8 @@
     "objects_other": "Objets ({{count}}/{{max}}) :",
     "potions_one": "Potion ({{count}}/{{max}}) :",
     "potions_other": "Potions ({{count}}/{{max}}) :",
-    "seeBackupItems": "🔄 Voir la réserve",
-    "seeEquippedItems": "🔄 Voir l'inventaire principal",
+    "seeBackupItems": "{emote:collectors.switch} Voir la réserve",
+    "seeEquippedItems": "{emote:collectors.switch} Voir l'inventaire principal",
     "stockTitle": ":package: **Réserve d'objets de {{pseudo}}**",
     "title": ":briefcase: **Inventaire de {{pseudo}}**",
     "weapons_one": "Arme ({{count}}/{{max}}) :",
@@ -325,35 +325,17 @@
   "language": {
     "description": "Utilisez le menu ci-dessous pour changer la langue utilisée par le bot sur ce serveur. Cette commande est réservée aux administrateurs du serveur.",
     "languages": {
-      "de": {
-        "emoji": "🇩🇪",
-        "name": "Allemand"
-      },
-      "en": {
-        "emoji": "🇬🇧",
-        "name": "Anglais"
-      },
-      "es": {
-        "emoji": "🇪🇸",
-        "name": "Espagnol"
-      },
-      "fr": {
-        "emoji": "🇫🇷",
-        "name": "Français"
-      },
-      "it": {
-        "emoji": "🇮🇹",
-        "name": "Italien"
-      },
-      "pt": {
-        "emoji": "🇵🇹",
-        "name": "Portugais"
-      }
+      "de": "Allemand",
+      "en": "Anglais",
+      "es": "Espagnol",
+      "fr": "Français",
+      "it": "Italien",
+      "pt": "Portugais"
     },
-    "newLanguageSetDescription": "DraftBot vous parlera désormais en français ! 🥖",
+    "newLanguageSetDescription": "DraftBot vous parlera désormais en français ! {emote:languageFlavors.fr}",
     "newLanguageSetTitle": "Langue changée",
     "selectLanguage": "Sélectionnez une langue",
-    "title": ":earth_africa: Sélection de la langue"
+    "title": "{emote:commands.language} Sélection de la langue"
   },
   "ping": {
     "discord": {
@@ -462,12 +444,12 @@
     "commandName": "rapport",
     "destinationTitle": "{{pseudo}}, destination du voyage",
     "doChoice": "{{emoji}} {{choiceText}}\n",
-    "doEvent": ":newspaper: **Journal de {{pseudo}} :** {{event}}\n*- Utilisez les réactions pour effectuer une action ⚠️ Ne pas répondre est considéré comme un choix à part.*",
+    "doEvent": ":newspaper: **Journal de {{pseudo}} :** {{event}}\n*- Utilisez les réactions pour effectuer une action {emote:collectors.warning} Ne pas répondre est considéré comme un choix à part.*",
     "doPossibility": ":newspaper: **Journal de {{pseudo}} {{result}}** | {{emoji}} {{event}} {{alte}}",
     "encounterMonster": [
       "Vous arrivez à votre destination quand soudain, vous entendez un bruit derrière vous... Un monstre vous attaque !"
     ],
-    "encounterMonsterStats": "> **{{emoji}} {{monsterName}} **| **Niveau {{level}}**\n> {{description}}\n\n⚡ {{fightPoints}} | 🗡 {{attack}} | 🛡 {{defense}} | 🚀 {{speed}}",
+    "encounterMonsterStats": "> **{{emoji}} {{monsterName}} **| **Niveau {{level}}**\n> {{description}}\n\n{emote:unitValues.energy} {{fightPoints}} | {emote:unitValues.attack} {{attack}} | {emote:unitValues.defense} {{defense}} | {emote:unitValues.speed} {{speed}}",
     "endPoint": "Point d'arrivée :",
     "energy": "** | {emote:unitValues.energy} Énergie gagnée : **{{energy}}",
     "experience": "** | :star: XP gagné : **{{experience}}",
@@ -524,24 +506,24 @@
   "shop": {
     "closeShop": "Vous avez fermé le magasin.",
     "closeShopTitle": "{{pseudo}}, fermeture du magasin",
-    "noAlterationToHeal": "Vous n'êtes victime d'aucune altération d'état. 🙂",
+    "noAlterationToHeal": "Vous n'êtes victime d'aucune altération d'état. {emote:effects.none}",
     "success": "{{pseudo}}, transaction réussie !",
-    "healAlteration": "🏥 Vos altérations d'état ont été supprimées.",
+    "healAlteration": "{emote:shopItems.healAlteration} Vos altérations d'état ont été supprimées.",
     "tooManyEnergyBought": "Vous avez acheté la quantité maximale de récupération d'énergie pour cette semaine.",
-    "noEnergyToHeal": "Vous disposez de toute votre énergie de combat. ⚡",
-    "fullRegen": "💓 Vous avez été complétement soigné.",
+    "noEnergyToHeal": "Vous disposez de toute votre énergie de combat. {emote:unitValues.energy}",
+    "fullRegen": "{emote:shopItems.regen} Vous avez été complétement soigné.",
     "alreadyHaveBadge": "Vous possédez déjà ce badge.",
     "badgeBought": "Vous avez reçu un nouveau badge : {emote:badges.{{badgeName}}} !",
     "notEnoughMoney": "Vous n'avez pas assez d'argent pour acheter cet objet ! Il vous manque `{{missingCurrency}} {emote:unitValues.{{currency}}}`.",
     "boughtTooMuchDailyPotions": "Il n'y a plus aucune potion du jour disponible à la vente... Revenez demain !",
-    "title": "🛒 Affichage du Magasin",
+    "title": "{emote:commands.shop} Affichage du Magasin",
     "currentMoney": "Vous avez `{{money}}{emote:unitValues.{{currency}}}`.",
     "shopItemsDisplaySingle": "{{name}} | `{{price}}{emote:unitValues.{{currency}}}`",
     "shopItemsDisplayMultiple": "**{{amount}}x** {{name}} | `{{price}}{emote:unitValues.{{currency}}}`",
     "shopSelectPlaceholder": "Sélectionnez un objet à acheter",
     "buyCategorySlotSuccess": "Vous avez acheté un nouvel emplacement d'inventaire !",
     "shopItemsSelectDescription": "{{price}}{emote:unitValues.{{currency}}}",
-    "closeShopButton": "❌ Fermer le magasin",
+    "closeShopButton": "{emote:messages.refuse} Fermer le magasin",
     "shopConfirmationTitle": "{{pseudo}}, vous avez sélectionné le produit suivant :",
     "shopConfirmationTitleMultiple": "{{pseudo}}, sélectionnez une quantité pour ce produit :",
     "shopCategories": {

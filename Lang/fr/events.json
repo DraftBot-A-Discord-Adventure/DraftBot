@@ -40,7 +40,7 @@
       },
       "push": {
         "outcomes": {
-          "0": "Mais pourquoi avoir fait cela ? 🤔 Pris de remords, vous secourez le pauvre homme et lui offrez quelques pièces pour vous faire pardonner."
+          "0": "Mais pourquoi avoir fait cela ? {emote:other.why} Pris de remords, vous secourez le pauvre homme et lui offrez quelques pièces pour vous faire pardonner."
         },
         "text": "Pousser le pêcheur dans l'eau !"
       },
@@ -2043,7 +2043,7 @@
         "text": "Observer les alentours."
       }
     },
-    "text": "**Bonjour et bienvenue sur DraftBot !** 👑 Le roi est à la recherche d'un noble chevalier pour marier sa fille et vous avez choisi de participer au concours de sélection ! Venant d'arriver à l'entrée du château après un long voyage, vous signalez votre présence aux gardes de l'entrée. Vous êtes invité à rentrer et rencontrez rapidement une jeune femme qui semble vouloir vous accueillir."
+    "text": "**Bonjour et bienvenue sur DraftBot !** {emote:other.crown} Le roi est à la recherche d'un noble chevalier pour marier sa fille et vous avez choisi de participer au concours de sélection ! Venant d'arriver à l'entrée du château après un long voyage, vous signalez votre présence aux gardes de l'entrée. Vous êtes invité à rentrer et rencontrez rapidement une jeune femme qui semble vouloir vous accueillir."
   },
   "62": {
     "possibilities": {
@@ -2065,7 +2065,7 @@
       "searchPatures": {
         "outcomes": {
           "0": "Après avoir regardé de loin les bovins mastiquer l'herbe fraîche dans la première étendue d'herbes folles, vous vous élancez vers la seconde. De nombreux moutons y broutent paisiblement. Un impressionnant chêne domine le pâturage et attire votre attention, si bien que vous décidez de vous en approcher. Arrivant à quelques mètres de l'arbre, vous discernez une fourche nonchalamment appuyée contre le tronc. Le paysan semble fou de joie lorsque vous lui donnez votre trouvaille. Il vous octroie alors, comme promis, une petite bourse remplie d'or.",
-          "1": "Vous approchant des pâturages, vous remarquez des empreintes de pas. En les suivant, vous pénétrez dans un sombre bosquet dans lequel se trouve une cabane pour le moins lugubre. Curieux, vous faites le tour de la bâtisse et vous retrouvez nez à manche avec la tant recherchée fourche ! Après avoir repris le chemin en sens inverse, vous remettez l’objet au fermier qui se confond en remerciements et vous invite à partager son repas afin que vous puissiez lui conter votre investigation. La soirée est plaisante et vous quittez le fermier tard dans la nuit, revigoré par les produits du terroir.",
+          "1": "Vous approchant des pâturages, vous remarquez des empreintes de pas. En les suivant, vous pénétrez dans un sombre bosquet dans lequel se trouve une cabane pour le moins lugubre. Curieux, vous faites le tour de la bâtisse et vous retrouvez nez à manche avec la tant recherchée fourche ! Après avoir repris le chemin en sens inverse, vous remettez l'objet au fermier qui se confond en remerciements et vous invite à partager son repas afin que vous puissiez lui conter votre investigation. La soirée est plaisante et vous quittez le fermier tard dans la nuit, revigoré par les produits du terroir.",
           "2": "En vous approchant des pâturages, vous remarquez des empreintes de pas traversant le terrain et menant jusqu'au breuil où des moutons profitent de l'ombre rafraîchissante de frêles chênes. Vous décidez de les suivre, pensant qu'il s'agit d'une piste. Lorsque vous arrivez au milieu des moutons, l'un d'eux vient vers vous. D'humeur joueur, vous lui présentez votre main avec un peu d'herbe dedans. Celui-ci en profite pour se rassasier, vous croquant un doigt au passage. Énervé, vous décidez de fuir ce lieu. Approchant du bord du pâturage, vous ne voyez pas la fourche au sol, et marchez dessus. Furieux de cette malchance, vous songez à ne plus aider quiconque lors de votre aventure."
         },
         "text": "Chercher près des pâturages."
@@ -2284,7 +2284,7 @@
     "possibilities": {
       "checkDate": {
         "outcomes": {
-          "0": "Vous regardez le calendrier et y découvrez l’existence d’un tournoi qui commence sous peu ! Vous décidez donc de vous y rendre et parvenez à atteindre la finale après quelques heures de combat. Cependant, votre adversaire vous domine et vous ratez votre dernière bataille. Finaliste, vous gagnez tout de même une bourse remplie d'or avant de reprendre votre chemin.",
+          "0": "Vous regardez le calendrier et y découvrez l'existence d'un tournoi qui commence sous peu ! Vous décidez donc de vous y rendre et parvenez à atteindre la finale après quelques heures de combat. Cependant, votre adversaire vous domine et vous ratez votre dernière bataille. Finaliste, vous gagnez tout de même une bourse remplie d'or avant de reprendre votre chemin.",
           "1": "Vous regardez le calendrier et constatez que vous êtes en laponaire, le 6ème mois de l'année, vous décidez de sortir et d'aller manger une galette à un stand avoisinant. Cette nourriture vous aura bien rassasié ! Vous reprenez votre route, repu.",
           "2": "En voyant le calendrier vous vous rappelez des affiches dans les rues parlant d'une chasse au trésor. Vous décidez alors d'y participer. Au bout de deux heures de recherche, vous n'arrivez pas à trouver quoi que ce soit. Vous décidez donc de rebrousser chemin.",
           "3": "Vous regardez le calendrier, et à la date d'aujourd'hui vous voyez inscrit : Concours d'hydromel ! Vous sentant résistant à l'alcool vous décidez de tenter votre chance. Vous gagnez le concours ainsi qu'une récompense ! Cependant, vous finissez totalement ivre."
