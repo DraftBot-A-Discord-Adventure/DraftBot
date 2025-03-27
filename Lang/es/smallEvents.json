@@ -105,10 +105,11 @@
     "priceFree": "el viaje **es gratis**.",
     "priceMoney": "{{price}} el viaje **costará 💎**",
     "confirm": "Quieres ir a la isla?{{fightPoints}} {{fightPointsMax}}Tienes ⚡ ** / **.",
-    "endStoryAccept": "Aceptas y subes al barco rumbo a la isla.",
-    "endStoryAcceptWithMember": "Aceptas y, al subir a bordo, te das cuenta de que un miembro de tu gremio ya está en el barco, así que te unes a él y partís hacia la isla.",
+    "endStoryAccept": "{{gainScore}} Vous acceptez et embarquez sur le bateau en direction de l'île.",
+    "endStoryAcceptWithMember": "{{gainScore}} Vous acceptez et au moment d'embarquez, vous remarquez qu'un membre de votre guilde se trouve déjà sur le bateau, vous le rejoignez et partez en direction de l'île.",
     "endStoryRefuse": "Declinas amablemente la oferta y continúas tu camino.",
-    "notEnoughGems": "Aceptas, pero cuando llega el momento de pagar, te das cuenta de que no tienes suficiente para hacerlo. Así que te vas decepcionado."
+    "notEnoughGems": "Aceptas, pero cuando llega el momento de pagar, te das cuenta de que no tienes suficiente para hacerlo. Así que te vas decepcionado.",
+    "confirmedScore": "**{emote:unitValues.score} Points gagnés :** {{score}}\n"
   },
   "lottery": {
     "intro": "Vous croisez le chemin d'un homme qui vous interpelle. Curieux, vous vous arrêtez. Celui-ci vous propose de participer à un jeu de hasard qu'il a créé. Vous pouvez choisir entre plusieurs niveaux de récompense.\n\n{emote:collectors.lottery.easy} Petite récompense\n{emote:collectors.lottery.medium} Moyenne récompense\n{emote:collectors.lottery.hard} Grosse récompense\n",
