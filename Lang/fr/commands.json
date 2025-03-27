@@ -1,23 +1,23 @@
 {
   "badges": {
     "description": "Les badges sont des distinctions difficiles à obtenir qui ont été créées pour récompenser les personnes ayant le plus soutenu le développement du bot. La liste des badges est disponible sur le guide du bot.\n(via ce lien : https://guide.draftbot.com/notions-avancees/badges)",
-    "title": ":military_medal: Informations détaillées :"
+    "title": "{emote:commands.badges} Informations détaillées :"
   },
   "pet": {
     "embedTitle": "Familier de {{pseudo}} :",
     "petField": "**Type :** {{emote}} {{typeName}}\n**Surnom :** {{nickname}}\n**Rareté :** {{rarity}}\n**Sexe :** {{sex}}\n**Mentalité :** {{loveLevel}}",
     "noNickname": "Aucun surnom",
     "loveLevels": {
-      "1_male": ":smirk_cat: Fielleux",
-      "1_female": ":smirk_cat: Fielleuse",
-      "2_male": ":pouting_cat: Sauvage",
-      "2_female": ":pouting_cat: Sauvage",
-      "3_male": ":scream_cat: Craintif",
-      "3_female": ":scream_cat: Craintive",
-      "4_male": ":smiley_cat: Apprivoisé",
-      "4_female": ":smiley_cat: Apprivoisée",
-      "5_male": ":heart_eyes_cat: Dressé",
-      "5_female": ":heart_eyes_cat: Dressée"
+      "1_male": "{emote:loveLevels.1} Fielleux",
+      "1_female": "{emote:loveLevels.1} Fielleuse",
+      "2_male": "{emote:loveLevels.2} Sauvage",
+      "2_female": "{emote:loveLevels.2} Sauvage",
+      "3_male": "{emote:loveLevels.3} Craintif",
+      "3_female": "{emote:loveLevels.3} Craintive",
+      "4_male": "{emote:loveLevels.4} Apprivoisé",
+      "4_female": "{emote:loveLevels.4} Apprivoisée",
+      "5_male": "{emote:loveLevels.5} Dressé",
+      "5_female": "{emote:loveLevels.5} Dressée"
     },
     "hungry": "{emote:effects.starving} affamé",
     "diet": {
@@ -31,13 +31,13 @@
   },
   "guild": {
     "embedTitle": "Guilde {{guildName}} | Niveau {{level}}",
-    "description": ":scroll: `{{description}}`",
+    "description": "{emote:messages.description} `{{description}}`",
     "separator": " | ",
     "memberInfos": "{{icon}} - **{{pseudo}}** ({{ranking}} {emote:announcements.trophy} | {{score}} {emote:unitValues.score}{{islandStatusIcon}})\n",
-    "members": ":person_pouting: {{memberCount}} / {{maxGuildMembers}} membres",
+    "members": "{emote:guild.membersCount} {{memberCount}} / {{maxGuildMembers}} membres",
     "infoTitle": "Informations",
-    "islandInfo": ":island: Nombre d'alliés sur l'île mystérieuse : {{membersOnPveIsland}}\n",
-    "info": ":star: {{experience}} | :mirror_ball: {{guildPoints}} | {emote:announcements.trophy} {{ranking}}",
+    "islandInfo": "{emote:guild.isOnPveIsland} Nombre d'alliés sur l'île mystérieuse : {{membersOnPveIsland}}\n",
+    "info": "{emote:unitValues.xp} {{experience}} | {emote:unitValues.guildPoint} {{guildPoints}} | {emote:announcements.trophy} {{ranking}}",
     "xpNeeded": "{{xp}} / {{xpToLevelUp}}",
     "xpMax": "Max",
     "ranking": "{{rank}} / {{rankTotal}}",
@@ -190,7 +190,7 @@
         "description": "Affiche le classement des guildes par tranche de 15 guildes. Les guildes sont classées en fonctions des points récoltés sur les îles mystérieuses."
       },
       "HELP": {
-        "description": ":expressionless:"
+        "description": "{emote:other.expressionless}"
       },
       "IDEA": {
         "description": "Permet d'obtenir un lien afin de suggérer une idée ou alors de voter pour celles déjà existantes."
@@ -280,35 +280,35 @@
         "description": "Permet d'obtenir le lien pour voter pour le bot."
       }
     },
-    "forMoreHelp": ":arrow_forward: Pour plus d'aide : ",
+    "forMoreHelp": "{emote:messages.item} Pour plus d'aide : ",
     "forMoreHelpValue": "Vous pouvez vous rendre sur le [wiki](https://guide.draftbot.com/) du bot !",
-    "guildCommands": ":stadium: Guilde :",
-    "helpEmbedDescription": ":arrow_forward: Si vous voulez plus d'informations sur une commande en particulier, cliquez ici : {command:help}, et donnez la commande qui vous pose problème en paramètre. :wink:",
+    "guildCommands": "{emote:guild.icon} Guilde :",
+    "helpEmbedDescription": "{emote:messages.item} Si vous voulez plus d'informations sur une commande en particulier, cliquez ici : {command:help}, et donnez la commande qui vous pose problème en paramètre. {emote:other.wink}",
     "helpEmbedTitle": "{{pseudo}}, voici la liste des commandes disponibles :",
     "missionCommands": "{emote:missions.sideMission} Mission :",
-    "petCommands": ":dog: Animaux :",
-    "playerCommands": ":bust_in_silhouette: Joueur :",
-    "serverCommands": ":gear: Serveur :",
+    "petCommands": "{emote:userKind.pet} Animaux :",
+    "playerCommands": "{emote:userKind.human} Joueur :",
+    "serverCommands": "{emote:other.gear} Serveur :",
     "usageFieldTitle": "Utilisation",
     "utilCommands": "{emote:collectors.question} Utiles :"
   },
   "idea": {
     "description": "Vous pouvez proposer des suggestions et voter pour vos idées préférées via ce lien:\nhttps://feedback.draftbot.com/",
-    "title": ":bulb: Idées"
+    "title": "{emote:other.advice} Idées"
   },
   "inventory": {
     "armors_one": "Armure/Bouclier ({{count}}/{{max}}) :",
     "armors_other": "Armures/Boucliers ({{count}}/{{max}}) :",
-    "emptySlot": ":black_large_square: **Emplacement vide**",
-    "noSlot": ":x: Aucun emplacement disponible. Achetez-en plus dans le magasin !",
+    "emptySlot": "{emote:inventory.empty} **Emplacement vide**",
+    "noSlot": "{emote:messages.refuse} Aucun emplacement disponible. Achetez-en plus dans le magasin !",
     "objects_one": "Objet ({{count}}/{{max}}) :",
     "objects_other": "Objets ({{count}}/{{max}}) :",
     "potions_one": "Potion ({{count}}/{{max}}) :",
     "potions_other": "Potions ({{count}}/{{max}}) :",
     "seeBackupItems": "{emote:collectors.switch} Voir la réserve",
     "seeEquippedItems": "{emote:collectors.switch} Voir l'inventaire principal",
-    "stockTitle": ":package: **Réserve d'objets de {{pseudo}}**",
-    "title": ":briefcase: **Inventaire de {{pseudo}}**",
+    "stockTitle": "{emote:inventory.stock} **Réserve d'objets de {{pseudo}}**",
+    "title": "{emote:commands.inventory} **Inventaire de {{pseudo}}**",
     "weapons_one": "Arme ({{count}}/{{max}}) :",
     "weapons_other": "Armes ({{count}}/{{max}}) :",
     "randomItemTitle": "{{pseudo}}, vous avez trouvé quelque chose !",
@@ -319,7 +319,7 @@
   },
   "invite": {
     "discord": {
-      "main": "Rejoignez la communauté ! Utilisez ce lien : https://discord.gg/acGNvzEY92 :smiley:"
+      "main": "Rejoignez la communauté ! Utilisez ce lien : https://discord.gg/acGNvzEY92 {emote:effects.none}"
     }
   },
   "language": {
@@ -339,8 +339,8 @@
   },
   "ping": {
     "discord": {
-      "create": ":ping_pong: Pong",
-      "edit": ":ping_pong: Pong\n\n**Latence totale :** {{totalLatency}} ms\n**Latence Discord :** {{discordApiLatency}} ms\n**Numéro du shard :** {{shardId}}\n**Nombre de shards :** {{totalShards}} (+main shard)"
+      "create": "{emote:commands.ping} Pong",
+      "edit": "{emote:commands.ping} Pong\n\n**Latence totale :** {{totalLatency}} ms\n**Latence Discord :** {{discordApiLatency}} ms\n**Numéro du shard :** {{shardId}}\n**Nombre de shards :** {{totalShards}} (+main shard)"
     }
   },
   "profile": {
@@ -350,33 +350,33 @@
       "title": "Liste des badges de {{pseudo}}"
     },
     "badges": {
-      "⚔️": ":crossed_swords: `Vainqueur d'un tournoi`",
-      "⚙️": ":gear: `Équipe technique`",
-      "⛑️": ":helmet_with_cross: `Personne faisant partie des 20 premières à avoir rejoint le serveur du bot`",
-      "✨": "{emote:unitValues.glory} `Personne ayant remporté le plus de gloire durant une saison de combat`",
-      "❤️": "{emote:unitValues.health} `Personne ayant le grade Soutien sur le serveur du bot`",
-      "🌍": ":earth_africa: `Traducteur`",
-      "🌟": ":star2: `Personne ayant aidé à mettre le bot sur un serv de plus de 2000 membres`",
-      "🍀": ":four_leaf_clover: `Badge pouvant être gagné de temps en temps dans des concours sur le serveur du bot ou sur twitter`",
-      "🎄": ":christmas_tree: `Badge pouvant être gagné chaque noël lors d'un concours`",
-      "🎗️": ":reminder_ribbon: `Personne ayant dominé un classement de la semaine`",
-      "🎰": ":slot_machine: `Badge donné de manière totalement random`",
-      "🏅": "{emote:unitValues.score} `Joueur dans le top 10 au reset de la 1.0`",
-      "🏆": "{emote:announcements.trophy} `Meilleur joueur au moment du reset de la 1.0`",
-      "🐞": ":lady_beetle: `Personne ayant signalé des bugs majeurs`",
-      "👑": ":crown: `Propriétaire du bot`",
-      "💍": ":ring: `Badge acheté dans le shop des Missions`",
-      "💎": "{emote:badges.guildBadge} `Membre d'une guilde puissante`",
-      "💞": ":revolving_hearts: `Joueur ayant dressé un familier légendaire`",
-      "💸": ":money_with_wings: `Donateur`",
-      "🔖": ":bookmark: `Adopteur de classes de la première heure`",
-      "🕊️": ":dove: `Personne ayant rapporté un bug exploitable sans en profiter`",
-      "🖋️": ":pen_fountain: `Rédacteur du bot`",
-      "🗳️": ":ballot_box: `Personne ayant voté dans les 12 dernières heures`",
-      "😂": ":joy: `Badge offert à une personne drôle`",
-      "🤑": ":money_mouth: `Badge acheté dans le shop`",
-      "🥇": ":first_place: `Personne ayant atteint la première place du classement après le reset`",
-      "🪩": ":mirror_ball: `Membre d'une guilde très puissante`"
+      "⚔️": "Vainqueur d'un tournoi",
+      "⚙️": "Équipe technique",
+      "⛑️": "Personne faisant partie des 20 premières à avoir rejoint le serveur du bot",
+      "✨": "Personne ayant remporté le plus de gloire durant une saison de combat",
+      "❤️": "Personne ayant le grade Soutien sur le serveur du bot",
+      "🌍": "Traducteur",
+      "🌟": "Personne ayant aidé à mettre le bot sur un serv de plus de 2000 membres",
+      "🍀": "Badge pouvant être gagné de temps en temps dans des concours sur le serveur du bot ou sur twitter",
+      "🎄": "Badge pouvant être gagné chaque noël lors d'un concours",
+      "🎗️": "Personne ayant dominé un classement de la semaine",
+      "🎰": "Badge donné de manière totalement random",
+      "🏅": "Joueur dans le top 10 au reset de la 1.0",
+      "🏆": "Meilleur joueur au moment du reset de la 1.0",
+      "🐞": "Personne ayant signalé des bugs majeurs",
+      "👑": "Propriétaire du bot",
+      "💍": "Badge acheté dans le shop des Missions",
+      "💎": "Membre d'une guilde puissante",
+      "💞": "Joueur ayant dressé un familier légendaire",
+      "💸": "Donateur",
+      "🔖": "Adopteur de classes de la première heure",
+      "🕊️": "Personne ayant rapporté un bug exploitable sans en profiter",
+      "🖋️": "Rédacteur du bot",
+      "🗳️": "Personne ayant voté dans les 12 dernières heures",
+      "😂": "Badge offert à une personne drôle",
+      "🤑": "Badge acheté dans le shop",
+      "🥇": "Personne ayant atteint la première place du classement après le reset",
+      "🪩": "Membre d'une guilde très puissante"
     },
     "fightRanking": {
       "fieldName": "Gloire et ligue :",
@@ -384,11 +384,11 @@
     },
     "guild": {
       "fieldName": "Guilde :",
-      "fieldValue": ":stadium: {{guild}}"
+      "fieldValue": "{emote:guild.icon} {{guild}}"
     },
     "information": {
       "fieldName": "Informations :",
-      "fieldValue": "{emote:unitValues.health} {{health}}/{{maxHealth}} | :star: {{experience}}/{{experienceNeededToLevelUp}} | {emote:unitValues.money} {{money}}"
+      "fieldValue": "{emote:unitValues.health} {{health}}/{{maxHealth}} | {emote:unitValues.xp} {{experience}}/{{experienceNeededToLevelUp}} | {emote:unitValues.money} {{money}}"
     },
     "map": {
       "fieldName": "Destination :",
@@ -431,7 +431,7 @@
   "rarity": {
     "earlyAvailable": "Possédé en début de jeu",
     "rarityTemplate": "$t(items:rarities.{{rarity}}) | {{percentageOrDescription}}",
-    "title": ":slot_machine: Rareté des équipements"
+    "title": "{emote:commands.rarity} Rareté des équipements"
   },
   "report": {
     "adviceTitle": "Conseil :",
@@ -445,29 +445,29 @@
     "commandName": "rapport",
     "destinationTitle": "{{pseudo}}, destination du voyage",
     "doChoice": "{{emoji}} {{choiceText}}\n",
-    "doEvent": ":newspaper: **Journal de {{pseudo}} :** {{event}}\n*- Utilisez les réactions pour effectuer une action {emote:collectors.warning} Ne pas répondre est considéré comme un choix à part.*",
-    "doPossibility": ":newspaper: **Journal de {{pseudo}} {{result}}** | {{emoji}} {{event}} {{alte}}",
+    "doEvent": "{emote:commands.report} **Journal de {{pseudo}} :** {{event}}\n*- Utilisez les réactions pour effectuer une action {emote:collectors.warning} Ne pas répondre est considéré comme un choix à part.*",
+    "doPossibility": "{emote:commands.report} **Journal de {{pseudo}} {{result}}** | {{emoji}} {{event}} {{alte}}",
     "encounterMonster": [
       "Vous arrivez à votre destination quand soudain, vous entendez un bruit derrière vous... Un monstre vous attaque !"
     ],
     "encounterMonsterStats": "> **{{emoji}} {{monsterName}} **| **Niveau {{level}}**\n> {{description}}\n\n{emote:unitValues.energy} {{fightPoints}} | {emote:unitValues.attack} {{attack}} | {emote:unitValues.defense} {{defense}} | {emote:unitValues.speed} {{speed}}",
     "endPoint": "Point d'arrivée :",
     "energy": "** | {emote:unitValues.energy} Énergie gagnée : **{{energy}}",
-    "experience": "** | :star: XP gagné : **{{experience}}",
+    "experience": "** | {emote:unitValues.xp} XP gagné : **{{experience}}",
     "gems": "** | {emote:unitValues.gem} Gemmes gagnées : **{{gems}}",
     "health": "** | {emote:unitValues.health} Vie gagnée : **{{health}}",
-    "healthLoose": "** | :broken_heart: Vie perdue : **{{health}}",
+    "healthLoose": "** | [emote:unitValues.lostHealth] Vie perdue : **{{health}}",
     "journal": "Journal de {{pseudo}}",
     "money": "** | {emote:unitValues.money} Argent gagné : **{{money}}",
-    "moneyLoose": "** | :money_with_wings: Argent perdu : **{{money}}",
-    "monsterRewardGuildXp": "\n:star: XP de guilde gagnée: **{{guildXp}}**",
-    "monsterRewardsDescription": "{emote:unitValues.money} Argent gagné : **{{money}}**\n:star: XP gagnée : **{{experience}}**",
-    "monsterRewardsGuildPoints": "\n:mirror_ball: Points de guilde gagnés : **{{guildPoints}}**",
+    "moneyLoose": "** | {emote:unitValues.lostMoney} Argent perdu : **{{money}}",
+    "monsterRewardGuildXp": "\n{emote:unitValues.xp} XP de guilde gagnée: **{{guildXp}}**",
+    "monsterRewardsDescription": "{emote:unitValues.money} Argent gagné : **{{money}}**\n{emote:unitValues.xp} XP gagnée : **{{experience}}**",
+    "monsterRewardsGuildPoints": "\n{emote:unitValues.guildPoint} Points de guilde gagnés : **{{guildPoints}}**",
     "monsterRewardsTitle": "{{pseudo}}, récompenses de combat",
-    "newBigEvent": ":flag_fr: Vous êtes arrivé à **{{destination}}** !",
-    "noFight": ":newspaper: **Journal de {{pseudo}} :** {{waitABitReaction}} | Vous vous enfuyez rapidement et trouvez une petite cachette ! Le monstre vous attend patiemment dehors...",
+    "newBigEvent": "{emote:languages.fr} Vous êtes arrivé à **{{destination}}** !",
+    "noFight": "{emote:commands.report} **Journal de {{pseudo}} :** {{waitABitReaction}} | Vous vous enfuyez rapidement et trouvez une petite cachette ! Le monstre vous attend patiemment dehors...",
     "points": ":** {emote:unitValues.score} Points gagnés : **{{score}}",
-    "pveEvent": ":newspaper: **Journal de {{pseudo}} :** {{event}}\n\n{{monsterDisplay}}\n\n{{startTheFightReaction}} Commencer le combat\n{{waitABitReaction}} Attendre un peu avant de commencer le combat\n\n*- Utilisez les réactions pour effectuer une action*",
+    "pveEvent": "{emote:commands.report} **Journal de {{pseudo}} :** {{event}}\n\n{{monsterDisplay}}\n\n{{startTheFightReaction}} Commencer le combat\n{{waitABitReaction}} Attendre un peu avant de commencer le combat\n\n*- Utilisez les réactions pour effectuer une action*",
     "remainingEnergyTitle": "Énergie restante :",
     "startPoint": "Point de départ :",
     "timeLost": "** | :clock10: Temps perdu : **{{timeLost}}",
@@ -479,11 +479,11 @@
   },
   "update": {
     "description": "La version actuelle du noyau du bot est la **{{coreVersion}}**. Celle du module Discord est la **{{discordModuleVersion}}**.\n\nToutes les informations concernant les mises à jour sont disponibles ici :\nhttps://guide.draftbot.com/lore/historique-des-mises-a-jour",
-    "title": ":scroll: Mises à jour"
+    "title": "{emote:messages.description} Mises à jour"
   },
   "vote": {
     "description": "Voici le lien permettant de soutenir le bot :\nhttps://top.gg/bot/448110812801007618",
-    "title": ":ballot_box: Voter"
+    "title": "{emote:commands.vote} Voter"
   },
   "map": {
     "title": "{{pseudo}}, voici la carte !",
@@ -496,7 +496,7 @@
     "title": "{{pseudo}}, libération d'un familier",
     "canceledTitle": "{{pseudo}}, annulation de la libération.",
     "canceledDesc": "Le familier n'a pas été libéré.",
-    "confirmDesc": ":warning: Êtes-vous sur de vouloir libérer **{{pet}}** ? Il n'est pas possible d'annuler une fois l'action effectuée.",
+    "confirmDesc": "{emote:collectors.warning} Êtes-vous sur de vouloir libérer **{{pet}}** ? Il n'est pas possible d'annuler une fois l'action effectuée.",
     "acceptedDesc": "Adieu **{{pet}}**..."
   },
   "petNick": {
@@ -671,7 +671,7 @@
   },
   "classesInfo": {
     "title": {
-      "list": ":bookmark: Liste des classes",
+      "list": "{emote:commands.classesInfo} Liste des classes",
       "attack": "{{emote}} {{name}} | {{cost}} {emote:unitValues.breath}"
     },
     "description": {
@@ -739,7 +739,7 @@
       "personalXP": "{emote:unitValues.xp} | Les membres de la guilde ont reçu de l'expérience. `+ {{quantity}} {emote:unitValues.xp}`.",
       "guildXP": "{emote:unitValues.xp} | La guilde a reçu de l'expérience. `+ {{quantity}} {emote:unitValues.xp}`",
       "money": "{emote:unitValues.money} | Les membres de la guilde ont reçu `{{quantity}} {emote:unitValues.money}`.",
-      "item": "{emote:rewards:item} | Les membres de la guilde ont reçu un objet au hasard.",
+      "item": "{emote:rewards.item} | Les membres de la guilde ont reçu un objet au hasard.",
       "badge": "{emote:badges.guildBadge} | Les membres de la guilde ont reçu un badge.",
       "superBadge": "{emote:badges.superGuildBadge} | Les membres de la guilde ont reçu un badge.",
       "fullHeal": "{emote:shopItems.regen} | Les membres de la guilde ont été soignés complètement.",
