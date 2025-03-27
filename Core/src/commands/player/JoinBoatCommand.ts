@@ -23,6 +23,7 @@ import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/inter
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {PlayerMissionsInfos} from "../../core/database/game/models/PlayerMissionsInfo";
 import {TravelTime} from "../../core/maps/TravelTime";
+import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
 
 type OptionsStartBoatTravel = {
 	startTravelTimestamp: number,
@@ -114,7 +115,8 @@ export default class JoinBoatCommand {
 		notBlocked: true,
 		allowedEffects: CommandUtils.ALLOWED_EFFECTS.NO_EFFECT,
 		level: PVEConstants.MIN_LEVEL,
-		guildNeeded: true
+		guildNeeded: true,
+		whereAllowed: [WhereAllowed.CONTINENT]
 	})
 	async execute(response: DraftBotPacket[], player: Player, _packet: CommandJoinBoatPacketReq, context: PacketContext): Promise<void> {
 		if (!await canJoinBoat(player, response)) {
