@@ -1349,5 +1349,39 @@
     "get_feminine_ordinal_other": "{{count}}th",
     "get_ordinal_one": "{{count}}st",
     "get_ordinal_other": "{{count}}th"
+  },
+  "guilds": {
+    "levelUpTitle": "{emote:unitValues.xp} La guilde {{guild}} monte de niveau !",
+    "levelUpDesc": "La guilde est désormais niveau **{{level}}**"
+  },
+  "players": {
+    "koTitle": "{{pseudo}}, vous avez été mis K.O. !",
+    "koDesc": "{emote:effects.dead} Utilisez la commande {command:respawn} pour recommencer à jouer.",
+    "koDmTitle": "Bonjour Combattant !",
+    "koDmDesc": "Il semblerait que vous ayez été mis K.O... {emote:effects.dead}\nGrâce à nos technologies avancées il nous a été possible de modifier les évènements de manière à vous éviter une mort atroce ! {emote:other.tada}\nMalheureusement l'opération est coûteuse et votre score a donc été impacté par cette mort... \n\nPour recommencer à jouer, faites {command:respawn}.",
+    "leavePVEIslandTitle": "{{pseudo}}, évanouissement",
+    "leavePVEIslandDescStart": "{emote:effects.confounded} Vous sentez vos forces vous quitter, vous êtes à bout. Vous vous évanouissez par terre...\n\n{emote:unitValues.lostMoney} Argent perdu : **{{moneyLost}}**",
+    "leavePVEIslandMalusGuildPoints": "\n{emote:unitValues.guildPoint} Points de guilde perdus : **{{guildPointsLost}}**",
+    "leavePVEIslandDescEnd": "\n\nUn bateau vient vous chercher et vous ramène sur une côte du continent principal.",
+    "levelUp": {
+      "title": "{{pseudo}}, vous montez de niveau !",
+      "description": "{emote:unitValues.xp} Vous êtes désormais niveau **{{level}}** !\n\n",
+      "rewards": {
+        "healthRestored": "{emote:unitValues.health} | Votre vie a été restaurée.",
+        "fightUnlocked": "{emote:unitValues.attack} | Combats débloqués avec la commande {command:fight} ! Pour plus d'informations sur les combats, exécutez la commande {command:help}.",
+        "guildUnlocked": "{emote:other.guild} | Guildes débloquées avec les commandes {command:guild}, {command:guildcreate}, {command:guildinvite}, {command:guildleave}, {command:guilddailybonus}, {command:guildkick} et bien plus ! Pour plus d'informations sur les guildes, utilisez la commande {command:help}.",
+        "classUnlocked": "{emote:commands.classes} | Classes débloquées avec les commandes {command:classes} et {command:classesinfo} ! Pour plus d'informations sur les classes, utilisez la commande {command:help}.",
+        "classTier": "{emote:commands.classes} | Classes de palier {{tier}} débloquées ! Pour plus d'informations sur les classes, utilisez les commandes {command:classesinfo} et {command:help}.",
+        "newMissionSlot": "{emote:missions.sideMission} | Nouvel emplacement de mission débloqué ! Pour plus d'informations sur vos missions, utilisez la commande {command:missions}.",
+        "pveUnlocked": "{emote:other.island} | Accès aux îles lointaines débloquées ! Rendez-vous près d'un point d'eau pour de nouvelles aventures !",
+        "statsIncreased": "{emote:other.increase} | Statistiques améliorées."
+      }
+    }
+  },
+  "petReceived": {
+    "genericGiveTitle": "{{pseudo}}, obtention d'un familier",
+    "genericGiveNoSlot": "Vous obtenez un nouveau familier: **{{pet}}**. Cependant, vous n'avez pas de place pour l'accueillir.",
+    "genericGiveGuild": "Vous obtenez un nouveau familier: **{{pet}}**. Vous le placez dans le refuge de la guilde.",
+    "genericGivePlayer": "Vous obtenez un nouveau familier: **{{pet}}**. Vous décidez de l'emmener avec vous."
   }
 }
