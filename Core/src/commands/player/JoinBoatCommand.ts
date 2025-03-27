@@ -122,8 +122,8 @@ export default class JoinBoatCommand {
 
 		const collector = new ReactionCollectorJoinBoat(
 			price,
-			player.getCumulativeFightPoint(),
-			player.getMaxCumulativeFightPoint()
+			player.getCumulativeEnergy(),
+			player.getMaxCumulativeEnergy()
 		);
 
 		const collectorPacket = new ReactionCollectorInstance(
