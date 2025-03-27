@@ -105,10 +105,11 @@
     "priceFree": "the trip **is free**",
     "priceMoney": "the trip **will cost {{price}}💎**",
     "confirm": "Do you want to go to the island? You have ⚡ **{{fightPoints}} / {{fightPointsMax}}**.",
-    "endStoryAccept": "You accept and board the boat towards the island.",
-    "endStoryAcceptWithMember": "You accept, and just as you're about to embark, you notice that a member of your guild is already on the boat, so you join him and head for the island.",
+    "endStoryAccept": "{{gainScore}} Vous acceptez et embarquez sur le bateau en direction de l'île.",
+    "endStoryAcceptWithMember": "{{gainScore}} Vous acceptez et au moment d'embarquez, vous remarquez qu'un membre de votre guilde se trouve déjà sur le bateau, vous le rejoignez et partez en direction de l'île.",
     "endStoryRefuse": "You politely decline the offer and continue on your way.",
-    "notEnoughGems": "You accept, but when it's time to pay, you realize you don't have enough to pay. You leave disappointed."
+    "notEnoughGems": "You accept, but when it's time to pay, you realize you don't have enough to pay. You leave disappointed.",
+    "confirmedScore": "**{emote:unitValues.score} Points gagnés :** {{score}}\n"
   },
   "lottery": {
     "intro": "You cross paths with a man who calls out to you. Curious, you stop. He suggests you take part in a game of chance he's created. You can choose between several levels of reward.\n\n{emote:collectors.lottery.easy} Small reward\n{emote:collectors.lottery.medium} Medium reward\n{emote:collectors.lottery.hard} Large reward\n",
