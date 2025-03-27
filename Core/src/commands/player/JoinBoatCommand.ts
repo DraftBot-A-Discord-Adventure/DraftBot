@@ -13,7 +13,7 @@ import {
 } from "../../../../Lib/src/packets/commands/CommandJoinBoatPacket";
 import {PVEConstants} from "../../../../Lib/src/constants/PVEConstants";
 import {LogsReadRequests} from "../../core/database/logs/LogsReadRequests";
-import {Maps} from "../../core/maps/Maps";
+import {Maps, OptionsStartBoatTravel} from "../../core/maps/Maps";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {EndCallback, ReactionCollectorInstance} from "../../core/utils/ReactionsCollector";
@@ -25,11 +25,6 @@ import {PlayerMissionsInfos} from "../../core/database/game/models/PlayerMission
 import {TravelTime} from "../../core/maps/TravelTime";
 import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
 
-type OptionsStartBoatTravel = {
-	startTravelTimestamp: number,
-	anotherMemberOnBoat: Player,
-	price: number
-}
 
 /**
  * Check if the player can join the boat

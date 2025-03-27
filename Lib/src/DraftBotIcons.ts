@@ -146,13 +146,13 @@ export const DraftBotIcons: {
 	}
 
 	guild: {
-		"chief": string,
-		"elder": string,
-		"member": string,
-		"isOnPveIsland": string,
-		"isOnBoat": string,
-		"countAsAnAlly": string,
-		"cannotBeJoinedOnBoat": string
+		chief: string,
+		elder: string,
+		member: string,
+		isOnPveIsland: string,
+		isOnBoat: string,
+		countAsAnAlly: string,
+		cannotBeJoinedOnBoat: string
 	}
 
 } = {

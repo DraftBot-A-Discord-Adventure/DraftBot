@@ -7,7 +7,7 @@ import {
 	SmallEventGoToPVEIslandNotEnoughGemsPacket, SmallEventGoToPVEIslandRefusePacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventGoToPVEIslandPacket";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import {Maps} from "../maps/Maps";
+import {Maps, OptionsStartBoatTravel} from "../maps/Maps";
 import {PVEConstants} from "../../../../Lib/src/constants/PVEConstants";
 import {MissionsController} from "../missions/MissionsController";
 import {PlayerSmallEvents} from "../database/game/models/PlayerSmallEvent";
@@ -18,12 +18,6 @@ import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants
 import { ReactionCollectorGoToPVEIsland } from "../../../../Lib/src/packets/interaction/ReactionCollectorGoToPVEIsland";
 import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {TravelTime} from "../maps/TravelTime";
-
-type OptionsStartBoatTravel = {
-	startTravelTimestamp: number,
-	anotherMemberOnBoat: Player | null,
-	price: number
-}
 
 export const smallEventFuncs: SmallEventFuncs = {
 	async canBeExecuted(player: Player): Promise<boolean> {

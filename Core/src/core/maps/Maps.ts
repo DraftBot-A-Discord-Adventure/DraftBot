@@ -15,7 +15,7 @@ import {PVEConstants} from "../../../../Lib/src/constants/PVEConstants";
 import {MissionsController} from "../missions/MissionsController";
 import {minutesToMilliseconds} from "../../../../Lib/src/utils/TimeUtils";
 
-type OptionsStartBoatTravel = {
+export type OptionsStartBoatTravel = {
 	startTravelTimestamp: number,
 	anotherMemberOnBoat: Player | null,
 	price: number
