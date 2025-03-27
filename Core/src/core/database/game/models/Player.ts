@@ -1566,13 +1566,12 @@ export function initModel(sequelize: Sequelize): void {
 
 			const pendingNotification = await ScheduledReportNotifications.getPendingNotification(instance.id);
 			if (pendingNotification) {
-				const notificationArray = [pendingNotification];
-				PacketUtils.sendNotifications(notificationArray.map(notification => makePacket(ReachDestinationNotificationPacket, {
-					keycloakId: notification.keycloakId,
-					mapType: MapLocationDataController.instance.getById(notification.mapId).type,
-					mapId: notification.mapId
-				})));
-				await ScheduledReportNotifications.bulkDelete(notificationArray);
+				PacketUtils.sendNotifications([makePacket(ReachDestinationNotificationPacket, {
+					keycloakId: pendingNotification.keycloakId,
+					mapType: MapLocationDataController.instance.getById(pendingNotification.mapId).type,
+					mapId: pendingNotification.mapId
+				})]);
+				await ScheduledReportNotifications.bulkDelete([pendingNotification]);
 			}
 		};
 
