@@ -360,7 +360,7 @@ async function chooseDestination(
 	}
 
 	if ((!Maps.isOnPveIsland(player) || destinationMaps.length === 1) &&
-		(forcedLink || destinationMaps.length === 1 || RandomUtils.draftbotRandom.bool(Constants.REPORT.AUTO_CHOOSE_DESTINATION_CHANCE) && player.mapLinkId !== Constants.BEGINNING.LAST_MAP_LINK)
+		(forcedLink || destinationMaps.length === 1 && player.mapLinkId !== Constants.BEGINNING.LAST_MAP_LINK)
 	) {
 		await automaticChooseDestination(forcedLink, player, destinationMaps, response);
 		return;
