@@ -121,7 +121,7 @@
   },
   "fight_actions": {
     "benediction": {
-      "description": "Teil der Gruppe \"Aktionen der Dieuxten\". Echt, wenn 1 Aktion der Götter bereits im Kampf durchgeführt worden ist. Erhöht alle Statistiken des Werbenden. Je später der Segen im Kampf eingesetzt wird, desto wichtiger ist die Erhöhung der Statistiken.",
+      "description": "Fait partie du groupe des \"actions des dieux\". Échoue si 1 action des dieux a déjà été effectuée dans le combat. Augmente toutes les statistiques du lanceur. Plus la bénédiction est utilisée tard dans le combat, plus l'augmentation des statistiques est importante.",
       "name_one": "Segen",
       "name_other": "Segnungen"
     },
@@ -146,7 +146,7 @@
       "name_other": ""
     },
     "canonAttack": {
-      "description": "Die Genauigkeit dieses Angriffs sinkt auf schnelle Gegner. Dieser Angriff wird durch einen Bonus-Bonus beeinflusst, wenn der Gegenspieler sehr langsam ist. Der Gegner kann durch den Angriff verlangsamt werden. Wird mehr Schaden angerichtet, wenn mehrere Male verwendet wird",
+      "description": "La précision de cette attaque baisse sur les adversaires rapides. Un bonus de dégât est affecté à cette attaque si l'adversaire est très lent. L'adversaire peut être ralenti par l'attaque. Inflige plus de dégâts si utilisé plusieurs fois de suite",
       "name_one": "Kanonenanhalter",
       "name_other": "Kanonen-Attacken"
     },
@@ -156,12 +156,12 @@
       "name_other": "Geladene Angriffe"
     },
     "chargeClubSmashAttack": {
-      "description": "Nekessite einen Tower, um den Angriff zu laden. Eine leistungsstarke Last für den nächsten Trick.",
+      "description": "Nécessite un tour pour charger l'attaque. Délivre une charge puissante au tour suivant.",
       "name_one": "Hurrikan",
       "name_other": "Gourdin-Attacke"
     },
     "chargeUltimateAttack": {
-      "description": "Nekessite eine Runde um den Angriff zu laden, wenn der Angreifer weniger als 45% seiner Kampfpunkte hat, kann dieser Angriff nicht scheitern. Wenn der Angreifer mehr als 45% seiner Kampfpunkte hat, dann ist die Genauigkeit dieses Angriffs 70. Dieser Angriff kann nur einmal pro Spieler und pro Kampf eingesetzt werden.",
+      "description": "Nécessite un tour pour charger l'attaque Si l'attaquant dispose de moins de 45% de ses points de combat, cette attaque ne peut pas échouer. Si l'attaquant dispose de plus de 45% de ses points de combat, la précision de cette attaque est de 70. Cette attaque ne peut être utilisée qu'une fois par joueur et par combat.",
       "name_one": "Letzter Angriff",
       "name_other": "Ultima-Attacken"
     },
@@ -181,7 +181,7 @@
       "name_other": ""
     },
     "concentration": {
-      "description": "Es ist zu sagen, dass Sie diese Aktion verwenden, wenn Sie eine Statusänderung haben. Die \"konzentrierte\" Änderung erhöht den Schaden, den der betroffene Kämpfer in der nächsten Runde angerichtet hat, stark.",
+      "description": "Échoue si vous utilisez cette action alors que vous avez une altération d'état. L'altération \"concentré\" augmente fortement les dégâts infligés par le combattant affecté lors du prochain tour.",
       "name_one": "Konzentration",
       "name_other": "Koncentrate"
     },
@@ -231,7 +231,7 @@
       "name_other": "Familienfamilie"
     },
     "fireAttack": {
-      "description": "Große Chance, den Gegner zu verbrennen. Die \"verbrannte\" Verfälschung fügt Ihrem Gegner über die Dauer Schaden zu.",
+      "description": "Grande chance de brûler l'adversaire. L'altération \"brûlé\" inflige des dégâts à votre adversaire sur la durée.",
       "name_one": "Brand",
       "name_other": "Attacken"
     },
@@ -261,12 +261,12 @@
       "name_other": "Hitzeeinwirkung"
     },
     "heavyAttack": {
-      "description": "Der Schaden des Angriffs wird um 90% gesenkt, wenn der Verteidiger weniger Verteidigung als der Angreifer hat. Die Verteidigung des Feindes ist um 25% reduziert.",
+      "description": "Les dégâts de cette attaque sont réduits de 90% si le défenseur dispose de moins de défense que l'attaquant. La défense de l'ennemi est réduite de 25%.",
       "name_one": "Schwerter Angriff",
       "name_other": "Schwerter Angriff"
     },
     "intenseAttack": {
-      "description": "Ignoriert einen Teil der Verteidigung des Gegners. Auf einem schnelleren Gegner schlägt man nie ein. Funktioniert besser auf einem schnellen Gegner. Die Trägerrakete sollen die \"Ruhezeit\"-Aktion in der nächsten Runde nutzen. Du wirst den Gegner nicht töten.",
+      "description": "Ignore une partie de la défense de l'adversaire. N'échoue jamais sur un adversaire plus rapide. Fonctionne mieux sur un adversaire rapide. Force le lanceur à utiliser l'action \"repos\" au tour suivant. Ne peut pas tuer l'adversaire.",
       "name_one": "Intensive Attae",
       "name_other": "Intensive Attacken"
     },
@@ -306,7 +306,7 @@
       "name_other": ""
     },
     "outrageAttack": {
-      "description": "Es ist zu sagen, dass Sie diese Aktion verwenden, wenn Sie eine Statusänderung haben. Die \"Wut\" verfälschte den Angriff, aber die Verteidigung schrumpfte. Nach 2 Umdrehungen wird die Wirkung verschwindet und der Angreifer wird verwirrt.",
+      "description": "Échoue si vous utilisez cette action alors que vous avez une altération d'état. L'altération \"en colère\" double l'attaque mais baisse la défense. Au bout de 2 tours, l'effet disparait et l'attaquant devient confus.",
       "name_one": "Color",
       "name_other": "Colères"
     },
@@ -326,7 +326,7 @@
       "name_other": ""
     },
     "piercingAttack": {
-      "description": "Ignoriert fast die Verteidigung des Gegners. Der Angreifer hat die Chance, die Verteidigung seines Gegners leicht zu senken.",
+      "description": "Ignore presque complètement la défense de l'adversaire. L'attaquant a une probabilité de réduire légèrement la défense de son adversaire.",
       "name_one": "Annaher Angriff",
       "name_other": "Ange-schannen"
     },
@@ -336,12 +336,12 @@
       "name_other": ""
     },
     "poisonousAttack": {
-      "description": "Empoisoness, der Gegner. Die vergiftete \"vergiftete\" Änderung dauert mindestens drei Tricks und fügt Ihrem Gegner über die Dauer Schaden zu.",
+      "description": "Empoisonne l'adversaire. L'altération \"empoisonné\" dure au moins trois tours et inflige des dégâts à votre adversaire sur la durée.",
       "name_one": "Vergiftete Attagen",
       "name_other": "Vergiftete Attacken"
     },
     "powerfulAttack": {
-      "description": "Dieser Angriff hat 25% Chance, mehr Schaden angerichtet zu haben, als ein Betäubungsfall des Angreifern. Nach 3 Verwendungen werden die Schäden um 70% reduziert.",
+      "description": "Cette attaque a 25 % de chance de faire plus de dégâts, au prix d'un étourdissement de l'attaquant. Après 3 utilisations, les dégâts de l'attaque sont réduits de 70%.",
       "name_one": "Power-Attap",
       "name_other": "Ansteigende Attacken"
     },
@@ -351,12 +351,12 @@
       "name_other": ""
     },
     "protection": {
-      "description": "Es ist zu sagen, dass Sie diese Aktion verwenden, wenn Sie eine Statusänderung haben. Die \"Geschützte\" Veränderung hält drei Türme an und verhindert, dass Sie das Opfer einer anderen Veränderung sind, während Sie einen 30%-igen-Boost für Ihre Verteidigung anbieten.",
+      "description": "Échoue si vous utilisez cette action alors que vous avez une altération d'état. L'altération \"protégé\" dure 3 tours et vous empêche d'être victime d'une autre altération tout en vous offrant un boost de 30% de votre défense.",
       "name_one": "Schutz",
       "name_other": "Protectionen"
     },
     "quickAttack": {
-      "description": "Auf einem langsameren Gegner scheitert man nie. Je langsamer Ihr Gegner ist, desto mehr Schaden wird ihm angerichtet.",
+      "description": "N'échoue jamais sur un adversaire plus lent. Plus votre adversaire est lent, plus cette attaque lui fera des dégâts.",
       "name_one": "Schnell-Attap",
       "name_other": "Schnell-Attacken"
     },
@@ -366,12 +366,12 @@
       "name_other": "Tollausfälle"
     },
     "ramAttack": {
-      "description": "Wenn der Angreifer durch den Angriff nicht unverwüstlich ist, erhält er einen Teil des Schadens, der zugefügt wurde. Der Angriff kann auch den Widersacher des Gegners erlöschen.",
+      "description": "Si l'attaquant n'est pas étourdi par l'attaque, il reçoit une partie des dégâts infligés. L'attaque peut également étourdir l'adversaire.",
       "name_one": "Bestes Angreifen",
       "name_other": "Hubschrauber-Attacken"
     },
     "resting": {
-      "description": "Für die Trägerrakete ist die Anwendung in der Form der Pflege. Die Menge an abgerufener Kampfpunkte wird von 4 nach 4 Nutzungen geteilt.",
+      "description": "S'applique sous forme de soin au lanceur. La quantité de points de combat récupérée est divisée par 4 au bout de 4 utilisations.",
       "name_one": "Ruhezeit",
       "name_other": "Ruhezeit"
     },
@@ -386,12 +386,12 @@
       "name_other": "Felsknackung"
     },
     "sabotageAttack": {
-      "description": "Ignorieren Sie die Verteidigung des Gegners vollkommen. Funktioniert besser auf einem Gegner, der kaum einen Anfall hat. Ein wenig unaufwändiger Atem, aber der kann den Werfer lahmlegen. Wenn dies der Fall ist, werden die Schäden erhöht.",
+      "description": "Ignore complètement la défense de l'adversaire. Fonctionne mieux sur un adversaire ayant peu d'attaque. Attaque peu couteuse en souffle mais qui peut paralyser le lanceur. Si c'est le cas, les dégâts sont augmentés.",
       "name_one": "Sabotage",
       "name_other": "Sabotierungen"
     },
     "shieldAttack": {
-      "description": "Benutzen Sie den Schild des Angreifern, um anzugreifen. Durch die \"geschwächte\" Verfälschung wird der Angriff auf 70% in 1 Umdrehung verringert.",
+      "description": "Utilise le bouclier de l'attaquant pour attaquer. L'altération \"affaibli\" réduit l'attaque de 70% durant 1 tour.",
       "name_one": "Schutzschild",
       "name_other": "Schutzschilder"
     },
@@ -1349,5 +1349,39 @@
     "get_feminine_ordinal_other": "{{count}}ème",
     "get_ordinal_one": "1.",
     "get_ordinal_other": "{{count}}ème"
+  },
+  "guilds": {
+    "levelUpTitle": "{emote:unitValues.xp} La guilde {{guild}} monte de niveau !",
+    "levelUpDesc": "La guilde est désormais niveau **{{level}}**"
+  },
+  "players": {
+    "koTitle": "{{pseudo}}, vous avez été mis K.O. !",
+    "koDesc": "{emote:effects.dead} Utilisez la commande {command:respawn} pour recommencer à jouer.",
+    "koDmTitle": "Bonjour Combattant !",
+    "koDmDesc": "Il semblerait que vous ayez été mis K.O... {emote:effects.dead}\nGrâce à nos technologies avancées il nous a été possible de modifier les évènements de manière à vous éviter une mort atroce ! {emote:other.tada}\nMalheureusement l'opération est coûteuse et votre score a donc été impacté par cette mort... \n\nPour recommencer à jouer, faites {command:respawn}.",
+    "leavePVEIslandTitle": "{{pseudo}}, évanouissement",
+    "leavePVEIslandDescStart": "{emote:effects.confounded} Vous sentez vos forces vous quitter, vous êtes à bout. Vous vous évanouissez par terre...\n\n{emote:unitValues.lostMoney} Argent perdu : **{{moneyLost}}**",
+    "leavePVEIslandMalusGuildPoints": "\n{emote:unitValues.guildPoint} Points de guilde perdus : **{{guildPointsLost}}**",
+    "leavePVEIslandDescEnd": "\n\nUn bateau vient vous chercher et vous ramène sur une côte du continent principal.",
+    "levelUp": {
+      "title": "{{pseudo}}, vous montez de niveau !",
+      "description": "{emote:unitValues.xp} Vous êtes désormais niveau **{{level}}** !\n\n",
+      "rewards": {
+        "healthRestored": "{emote:unitValues.health} | Votre vie a été restaurée.",
+        "fightUnlocked": "{emote:unitValues.attack} | Combats débloqués avec la commande {command:fight} ! Pour plus d'informations sur les combats, exécutez la commande {command:help}.",
+        "guildUnlocked": "{emote:other.guild} | Guildes débloquées avec les commandes {command:guild}, {command:guildcreate}, {command:guildinvite}, {command:guildleave}, {command:guilddailybonus}, {command:guildkick} et bien plus ! Pour plus d'informations sur les guildes, utilisez la commande {command:help}.",
+        "classUnlocked": "{emote:commands.classes} | Classes débloquées avec les commandes {command:classes} et {command:classesinfo} ! Pour plus d'informations sur les classes, utilisez la commande {command:help}.",
+        "classTier": "{emote:commands.classes} | Classes de palier {{tier}} débloquées ! Pour plus d'informations sur les classes, utilisez les commandes {command:classesinfo} et {command:help}.",
+        "newMissionSlot": "{emote:missions.sideMission} | Nouvel emplacement de mission débloqué ! Pour plus d'informations sur vos missions, utilisez la commande {command:missions}.",
+        "pveUnlocked": "{emote:other.island} | Accès aux îles lointaines débloquées ! Rendez-vous près d'un point d'eau pour de nouvelles aventures !",
+        "statsIncreased": "{emote:other.increase} | Statistiques améliorées."
+      }
+    }
+  },
+  "petReceived": {
+    "genericGiveTitle": "{{pseudo}}, obtention d'un familier",
+    "genericGiveNoSlot": "Vous obtenez un nouveau familier: **{{pet}}**. Cependant, vous n'avez pas de place pour l'accueillir.",
+    "genericGiveGuild": "Vous obtenez un nouveau familier: **{{pet}}**. Vous le placez dans le refuge de la guilde.",
+    "genericGivePlayer": "Vous obtenez un nouveau familier: **{{pet}}**. Vous décidez de l'emmener avec vous."
   }
 }
