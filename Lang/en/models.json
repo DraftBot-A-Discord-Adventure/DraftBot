@@ -121,7 +121,7 @@
   },
   "fight_actions": {
     "benediction": {
-      "description": "Part of the \"actions of the gods\" group. Fails if 1 god action has already been performed in the fight. Increases all the caster's stats. The later in the fight the blessing is used, the greater the increase in stats.",
+      "description": "Fait partie du groupe des \"actions des dieux\". Échoue si 1 action des dieux a déjà été effectuée dans le combat. Augmente toutes les statistiques du lanceur. Plus la bénédiction est utilisée tard dans le combat, plus l'augmentation des statistiques est importante.",
       "name_one": "Blessing",
       "name_other": "Blessings"
     },
@@ -146,7 +146,7 @@
       "name_other": ""
     },
     "canonAttack": {
-      "description": "The precision of this attack decreases on fast enemies. A bonus damage is added to this attack if the enemy is very slow. The enemy has a chance of being slowed down by the attack. Deals more damage if used multiple times in a row",
+      "description": "La précision de cette attaque baisse sur les adversaires rapides. Un bonus de dégât est affecté à cette attaque si l'adversaire est très lent. L'adversaire peut être ralenti par l'attaque. Inflige plus de dégâts si utilisé plusieurs fois de suite",
       "name_one": "Cannon attack",
       "name_other": "Cannon attacks"
     },
@@ -156,12 +156,12 @@
       "name_other": "Charging attacks"
     },
     "chargeClubSmashAttack": {
-      "description": "Requires one turn to charge the attack. Delivers a powerful charge the next turn.",
+      "description": "Nécessite un tour pour charger l'attaque. Délivre une charge puissante au tour suivant.",
       "name_one": "Club smash",
       "name_other": "Club smashes"
     },
     "chargeUltimateAttack": {
-      "description": "Requires a turn to charge the attack. If the attacker has less than 45% of its combat points, this attack cannot fail. If the attacker has more than 45% of its combat points, the precision of this attack is 70. This attack can only be used once per player and per combat.",
+      "description": "Nécessite un tour pour charger l'attaque Si l'attaquant dispose de moins de 45% de ses points de combat, cette attaque ne peut pas échouer. Si l'attaquant dispose de plus de 45% de ses points de combat, la précision de cette attaque est de 70. Cette attaque ne peut être utilisée qu'une fois par joueur et par combat.",
       "name_one": "Ultimate attack",
       "name_other": "Ultimate attacks"
     },
@@ -181,7 +181,7 @@
       "name_other": ""
     },
     "concentration": {
-      "description": "Fails if you use this action while you have an alteration. The alteration \"concentrated\" highly increases the damages dealt by the affected fighter during the next turn.",
+      "description": "Échoue si vous utilisez cette action alors que vous avez une altération d'état. L'altération \"concentré\" augmente fortement les dégâts infligés par le combattant affecté lors du prochain tour.",
       "name_one": "Concentration",
       "name_other": "Concentrations"
     },
@@ -231,7 +231,7 @@
       "name_other": "Family meals"
     },
     "fireAttack": {
-      "description": "Great chance to burn the opponent. The \"burned\" status inflicts damage to your opponent over time.",
+      "description": "Grande chance de brûler l'adversaire. L'altération \"brûlé\" inflige des dégâts à votre adversaire sur la durée.",
       "name_one": "Fire attack",
       "name_other": "Fire attacks"
     },
@@ -261,12 +261,12 @@
       "name_other": "Heat drains"
     },
     "heavyAttack": {
-      "description": "The damage of this attack is reduced by 90% if the defender has less defense than the attacker. The enemy's defense is reduced by 25%.",
+      "description": "Les dégâts de cette attaque sont réduits de 90% si le défenseur dispose de moins de défense que l'attaquant. La défense de l'ennemi est réduite de 25%.",
       "name_one": "Heavy attack",
       "name_other": "Heavy attacks"
     },
     "intenseAttack": {
-      "description": "Ignore a part of the enemy's defense. Never fails on a faster enemy. Works better on fast enemies. Forces the user to use the \"rest\" action in their next turn. Cannot kill the enemy.",
+      "description": "Ignore une partie de la défense de l'adversaire. N'échoue jamais sur un adversaire plus rapide. Fonctionne mieux sur un adversaire rapide. Force le lanceur à utiliser l'action \"repos\" au tour suivant. Ne peut pas tuer l'adversaire.",
       "name_one": "Intense attack",
       "name_other": "Intense attacks"
     },
@@ -306,7 +306,7 @@
       "name_other": ""
     },
     "outrageAttack": {
-      "description": "Fails if you use this action while you have a state alteration. The alteration \"outrage\" doubles the attack but lowers the defense. After 2 turns, the effect disappears and the attacker becomes confused.",
+      "description": "Échoue si vous utilisez cette action alors que vous avez une altération d'état. L'altération \"en colère\" double l'attaque mais baisse la défense. Au bout de 2 tours, l'effet disparait et l'attaquant devient confus.",
       "name_one": "Outrage",
       "name_other": "Outrages"
     },
@@ -326,7 +326,7 @@
       "name_other": ""
     },
     "piercingAttack": {
-      "description": "Ignores almost all the opponent's defense. The attacker has a chance to slightly reduce the defense of his opponent.",
+      "description": "Ignore presque complètement la défense de l'adversaire. L'attaquant a une probabilité de réduire légèrement la défense de son adversaire.",
       "name_one": "Piercing attack",
       "name_other": "Piercing attacks"
     },
@@ -336,12 +336,12 @@
       "name_other": ""
     },
     "poisonousAttack": {
-      "description": "Poisons the enemy. The \"poisoned\" alteration lasts at least three turns and deals damage to your enemy on the duration.",
+      "description": "Empoisonne l'adversaire. L'altération \"empoisonné\" dure au moins trois tours et inflige des dégâts à votre adversaire sur la durée.",
       "name_one": "Poisonous attack",
       "name_other": "Poisonous attacks"
     },
     "powerfulAttack": {
-      "description": "This attack has 25% chance to do more damage, at the cost of a stun. After 3 uses, the damage is reduced by 70%.",
+      "description": "Cette attaque a 25 % de chance de faire plus de dégâts, au prix d'un étourdissement de l'attaquant. Après 3 utilisations, les dégâts de l'attaque sont réduits de 70%.",
       "name_one": "Powerful Attack",
       "name_other": "Powerful Attacks"
     },
@@ -351,12 +351,12 @@
       "name_other": ""
     },
     "protection": {
-      "description": "Fails if you use this action while you have an alteration of state. The alteration \"protected\" lasts 3 turns and prevents you from being victim of another alteration while providing a 30% boost to your defense.",
+      "description": "Échoue si vous utilisez cette action alors que vous avez une altération d'état. L'altération \"protégé\" dure 3 tours et vous empêche d'être victime d'une autre altération tout en vous offrant un boost de 30% de votre défense.",
       "name_one": "Protection",
       "name_other": "Protections"
     },
     "quickAttack": {
-      "description": "Never fails on a slower opponent. More your opponent is slow, more this attack will do damage.",
+      "description": "N'échoue jamais sur un adversaire plus lent. Plus votre adversaire est lent, plus cette attaque lui fera des dégâts.",
       "name_one": "Quick attack",
       "name_other": "Quick attacks"
     },
@@ -366,12 +366,12 @@
       "name_other": "Rage explosions"
     },
     "ramAttack": {
-      "description": "If the attacker is not dazed by the attack, he takes part of the damage. The attack can also daze the opponent.",
+      "description": "Si l'attaquant n'est pas étourdi par l'attaque, il reçoit une partie des dégâts infligés. L'attaque peut également étourdir l'adversaire.",
       "name_one": "Ram Attack",
       "name_other": "Ram Attacks"
     },
     "resting": {
-      "description": "Applies to the caster. The amount of fight points recovered is divided by 4 after 4 uses.",
+      "description": "S'applique sous forme de soin au lanceur. La quantité de points de combat récupérée est divisée par 4 au bout de 4 utilisations.",
       "name_one": "Rest",
       "name_other": "Rests"
     },
@@ -386,12 +386,12 @@
       "name_other": "Stone shields"
     },
     "sabotageAttack": {
-      "description": "Ignores the opponent’s defense completely. Works better on an opponent with low attack. Attack that costs little breath but that can paralyze the attacker. If that happens, the damages are increased.",
+      "description": "Ignore complètement la défense de l'adversaire. Fonctionne mieux sur un adversaire ayant peu d'attaque. Attaque peu couteuse en souffle mais qui peut paralyser le lanceur. Si c'est le cas, les dégâts sont augmentés.",
       "name_one": "Sabotage attack",
       "name_other": "Sabotage attacks"
     },
     "shieldAttack": {
-      "description": "Uses the attacker's shield to attack. The alteration \"weakened\" reduces the attack by 70% for 1 turn.",
+      "description": "Utilise le bouclier de l'attaquant pour attaquer. L'altération \"affaibli\" réduit l'attaque de 70% durant 1 tour.",
       "name_one": "Shield attack",
       "name_other": "Shield attacks"
     },
