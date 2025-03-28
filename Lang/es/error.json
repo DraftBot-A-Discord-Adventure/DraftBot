@@ -58,7 +58,7 @@
   "alreadyInAGuild": "Ya perteneces a un gremio.",
   "petDoesntExist": "No se encontraron mascotas.",
   "unexpectedError": "Se ha producido un error :(",
-  "pleaseWaitForHeal": "Por favor, espera hasta el final de la curación para tu alteración de estado antes de continuar jugando: {{time}}\n\n:information_source: {command:shop} Puedes usar el comando para comprar una curación.",
+  "pleaseWaitForHeal": "Veuillez attendre la fin des soins de votre altération d'état pour continuer à jouer : {{time}}\n\n{emote:messages.info} Vous pouvez utiliser la commande {command:shop} pour acheter un soin.",
   "pleaseWaitForHisHeal": "{{time}}Por favor, espere hasta el final de la atención para su estado de deterioro:",
   "notEnoughMoney": "No tienes dinero suficiente para llevar a cabo esta acción. {{money}} Te falta dinero {emote:unitValues.money}.",
   "cooldownPetFree": "Sólo puedes liberar una mascota por hora. {{remainingTime}}Puedes liberar otra .",
