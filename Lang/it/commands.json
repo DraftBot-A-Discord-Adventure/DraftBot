@@ -32,15 +32,6 @@
   "guild": {
     "embedTitle": "Gilda {{guildName}} | Livello {{level}}",
     "description": ":scroll:`{{description}}`",
-    "emojis": {
-      "chief": "👑",
-      "elder": "🎖️",
-      "member": "⚫",
-      "isOnPveIsland": "🏝️",
-      "isOnBoat": "⛴️",
-      "countAsAnAlly": "🤝",
-      "cannotBeJoinedOnBoat": "👻"
-    },
     "separator": " | ",
     "memberInfos": "{{icon}} - **{{pseudo}}** ({{ranking}} :trophy: | {{score}} :medal:{{islandStatusIcon}})\n",
     "members": ":person_pouting: {{memberCount}} / {{maxGuildMembers}} membres",
@@ -80,7 +71,8 @@
     "canceledDesc": "{{kickedPseudo}} non è stato espulso dalla gilda!",
     "noPlayer": "Il giocatore non fa parte della gilda.",
     "notSameGuild": "Non si può espellere un giocatore che non fa parte della propria gilda.",
-    "himself": "Non si può essere espulsi dalla gilda."
+    "himself": "Non si può essere espulsi dalla gilda.",
+    "blocked": "Le joueur que vous essayez d'expulser est actuellement bloqué. Attendez un peu avant de réessayer."
   },
   "guildElder": {
     "playerNotFound": "Questo giocatore non è stato trovato.",
@@ -333,30 +325,12 @@
   "language": {
     "description": "Utilizzare il menu sottostante per modificare la lingua utilizzata dal bot su questo server. Questo comando è riservato agli amministratori del server.",
     "languages": {
-      "de": {
-        "emoji": "🇩🇪",
-        "name": "Tedesco"
-      },
-      "en": {
-        "emoji": "🇬🇧",
-        "name": "Inglese"
-      },
-      "es": {
-        "emoji": "🇪🇸",
-        "name": "Spagnolo"
-      },
-      "fr": {
-        "emoji": "🇫🇷",
-        "name": "Francese"
-      },
-      "it": {
-        "emoji": "🇮🇹",
-        "name": "Italiano"
-      },
-      "pt": {
-        "emoji": "🇵🇹",
-        "name": "Portoghese"
-      }
+      "de": "Tedesco",
+      "en": "Inglese",
+      "es": "Spagnolo",
+      "fr": "Francese",
+      "it": "Italiano",
+      "pt": "Portoghese"
     },
     "newLanguageSetDescription": "Ora DraftBot vi parlerà in italiano! {emote:languageFlavors.it}",
     "newLanguageSetTitle": "Lingua modificata",
@@ -455,7 +429,8 @@
     "title": "{{effect}} | {{pseudo}} | Livello {{level}}"
   },
   "rarity": {
-    "rarities": ":small_orange_diamond: Basico | Posseduto dall'inizio della partita\n:large_orange_diamond: Commune | {{common}}%\n:fire: Insolito| {{uncommon}}%\n:trident: Exotico | {{exotic}}%\n:comet: Raro | {{rare}}%\n:dizzy: Speciale | {{special}}%\n:star: Epico | {{epic}}%\n:star2: Legendario | {{legendary}}%\n:gem: Mitico | {{unique}}%",
+    "earlyAvailable": "Possédé en début de jeu",
+    "rarityTemplate": "$t(items:rarities.{{rarity}}) | {{percentageOrDescription}}",
     "title": ":slot_machine: Rarità delle attrezzature"
   },
   "report": {
@@ -1011,5 +986,30 @@
       "title": "{emote:cibo.{{foodId}}} $t (modello:cibo.{{foodId}}, {\"contesto\": \"in maiuscolo\"})",
       "description": "Stock: {{amount}}/{{maxAmount}}"
     }
+  },
+  "joinBoat": {
+    "errorMessage": {
+      "tooManyBoatThisWeek": "Vous êtes allé trop de fois sur le bateau ou vous avez rejoint une guilde cette semaine.",
+      "noMemberOnBoat": "Aucun membre actif de votre guilde n'est sur le bateau.",
+      "noGuild": "Vous n'appartenez à aucune guilde.",
+      "notEnoughEnergy": "Vous n'avez pas assez d'énergie pour monter sur le bateau.",
+      "notEnoughGems": "Vous voulez rejoindre votre guilde mais au moment de payer, vous constatez que vos fonds sont insuffisants."
+    },
+    "confirmationMessage": {
+      "title": {
+        "confirmation": "{{pseudo}}, confirmation :",
+        "confirmed": "{{pseudo}}, votre choix :"
+      },
+      "description": {
+        "confirmation": {
+          "text": "{emote:guild.isOnBoat} Êtes vous sûr de vouloir rejoindre votre guilde sur le bateau ?\nLe capitaine vous indique que le voyage **{{priceText}}**.\n\nVoulez-vous partir sur l'île ? Vous avez {emote:unitValues.energy} **{{currentEnergy}}/{{maxEnergy}}**.",
+          "priceText_zero": "est gratuit",
+          "priceText_other": "coûtera {{gemsCost}} {emote:unitValues.gem}"
+        },
+        "confirmed": "{{gainScore}} Vous rejoignez votre guilde sur le bateau.",
+        "confirmedScore": "**{emote:unitValues.score} Points gagnés :** {{score}}\n"
+      }
+    },
+    "refuse": "Vous décidez finalement de rester ici et ne pas rejoindre votre guilde sur le bateau."
   }
 }
