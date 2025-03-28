@@ -303,7 +303,7 @@
       }
     },
     "timings": {
-      "allTime": "️{emote:top.allTime} Depuis toujours.",
+      "allTime": "{emote:top.allTime} Depuis toujours.",
       "weekly": "{emote:top.weekly} Cette semaine."
     }
   },
