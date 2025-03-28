@@ -164,7 +164,11 @@ export class PetEntities {
 
 	static generateRandomPetEntity(level: number, minRarity = 1, maxRarity = 5): PetEntity {
 		const sex = RandomUtils.draftbotRandom.bool() ? "m" : "f";
-		const levelTier = Math.floor(level / 10);
+		let levelTier = Math.floor(level / 10);
+		if (levelTier > PetConstants.PROBABILITIES.length - 1) {
+			levelTier = PetConstants.PROBABILITIES.length - 1;
+		}
+
 		let rarity;
 		let totalProbabilities = 0;
 

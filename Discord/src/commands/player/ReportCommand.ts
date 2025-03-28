@@ -202,7 +202,7 @@ export async function chooseDestinationCollector(context: PacketContext, packet:
 
 	return await DiscordCollectorUtils.createChoiceListCollector(interaction, embed, packet, context, packet.reactions.map((reaction) => {
 		const destinationReaction = reaction.data as ReactionCollectorChooseDestinationReaction;
-		const duration = destinationReaction.tripDuration ? minutesDisplay(destinationReaction.tripDuration) : "?h"; // Todo ceci devrait être dans les translations
+		const duration = destinationReaction.tripDuration ? minutesDisplay(destinationReaction.tripDuration) : "?h"; // Todo ceci devrait être dans les translations // Can be ignored because it will be fixed with #2816
 		return `${
 			EmoteUtils.translateEmojiToDiscord(DraftBotIcons.map_types[destinationReaction.mapTypeId])
 		} ${

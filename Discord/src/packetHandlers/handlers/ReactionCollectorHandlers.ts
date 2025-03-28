@@ -74,6 +74,7 @@ import {
 import {ReactionCollectorPetFeedWithoutGuildData} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFeedWithoutGuild";
 import {createJoinBoatCollector} from "../../commands/player/JoinBoatCommand";
 import {ReactionCollectorJoinBoatData} from "../../../../Lib/src/packets/interaction/ReactionCollectorJoinBoat";
+import {handleClassicError} from "../../utils/ErrorUtils";
 
 // Needed because we need to accept any parameter
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -132,7 +133,9 @@ export default class ReactionCollectorHandler {
 		}
 		const collector = ReactionCollectorHandler.collectorMap.get(packet.data.type);
 		if (!collector) {
-			throw `Unknown collector with data: ${packet.data.type}`; // Todo error embed
+			console.log(`Unknown collector with data: ${packet.data.type}`);
+			await handleClassicError(context, "error:aDevMessedUp");
+			return;
 		}
 		const createdCollector = await collector(context, packet);
 
