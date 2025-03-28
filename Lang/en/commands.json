@@ -325,32 +325,14 @@
   "language": {
     "description": "Use the menu below to change the language used by the bot on this discord server. This command can only be used by server administrators.",
     "languages": {
-      "de": {
-        "emoji": "🇩🇪",
-        "name": "German"
-      },
-      "en": {
-        "emoji": "🇬🇧",
-        "name": "English"
-      },
-      "es": {
-        "emoji": "🇪🇸",
-        "name": "Spanish"
-      },
-      "fr": {
-        "emoji": "🇫🇷",
-        "name": "French"
-      },
-      "it": {
-        "emoji": "🇮🇹",
-        "name": "Italian"
-      },
-      "pt": {
-        "emoji": "🇵🇹",
-        "name": "Portuguese"
-      }
+      "de": "German",
+      "en": "English",
+      "es": "Spanish",
+      "fr": "French",
+      "it": "Italian",
+      "pt": "Portuguese"
     },
-    "newLanguageSetDescription": "DraftBot will now speak in English with you ! 🇬🇧",
+    "newLanguageSetDescription": "DraftBot will now speak in English with you ! {emote:languageFlavors.en}",
     "newLanguageSetTitle": "Language changed",
     "selectLanguage": "Select a language",
     "title": ":earth_africa: Language selection"
@@ -384,7 +366,7 @@
       "🐞": ":lady_beetle: `Person who reported major bugs`",
       "👑": ":crown: `Bot owner`",
       "💍": ":ring: `Badge bought in the Missions shop`",
-      "💎": "{emote:badges.guildBadge} `Member of a powerful guild`",
+      "💎": ":gem: `Member of a powerful guild`",
       "💞": ":revolving_hearts: `Player who trained a legendary pet`",
       "💸": ":money_with_wings: `Donor`",
       "🔖": ":bookmark: `Early class adopter`",
@@ -414,7 +396,7 @@
     },
     "mission": {
       "fieldName": "Missions:",
-      "fieldValue": "{emote:unitValues.gem} {{gems}} | {emote:missions.book} {{campaign}}% "
+      "fieldValue": ":gem: {{gems}} | :book: {{campaign}}% "
     },
     "noTimeLeft": {
       "fieldName": "Time left:",
@@ -447,7 +429,8 @@
     "title": "{emote:effects.{{effectId}}} | {{pseudo}} | Level {{level}}"
   },
   "rarity": {
-    "rarities": ":small_orange_diamond: Basic | Owned at the beginning of the game\n:large_orange_diamond: Common | {{common}}%\n:fire: Uncommon | {{uncommon}}%\n:trident: Exotic | {{exotic}}%\n:comet: Rare | {{rare}}%\n:dizzy: Special | {{special}}%\n:star: Epic | {{epic}}%\n:star2: Legendary | {{legendary}}%\n:gem: Mythical | {{unique}}%",
+    "earlyAvailable": "Possédé en début de jeu",
+    "rarityTemplate": "$t(items:rarities.{{rarity}}) | {{percentageOrDescription}}",
     "title": ":slot_machine: Equipment rarity"
   },
   "report": {
@@ -471,7 +454,7 @@
     "endPoint": "End point:",
     "energy": "** | :zap: Energy earned: **{{energy}}",
     "experience": "** | :star: XP earned: **{{experience}}",
-    "gems": "** | {emote:unitValues.gem} Gems earned: **{{gems}}",
+    "gems": "** | :gem: Gems earned: **{{gems}}",
     "health": "** | {emote:unitValues.health} Life: **{{health}}",
     "healthLoose": "** | :broken_heart: Life lost: **{{health}}",
     "journal": "{{pseudo}}'s log",
