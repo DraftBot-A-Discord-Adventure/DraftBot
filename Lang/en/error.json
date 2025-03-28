@@ -58,7 +58,7 @@
   "alreadyInAGuild": "You already belong to a guild.",
   "petDoesntExist": "No pet was found.",
   "unexpectedError": "An error occurred. :(",
-  "pleaseWaitForHeal": "Please wait for the state alteration recovery to be complete before you can continue playing: {{time}}\n\n:information_source: You can use the {command:shop} command to purchase a treatment.",
+  "pleaseWaitForHeal": "Please wait for the state alteration recovery to be complete before you can continue playing: {{time}}\n\n{emote:messages.info} You can use the {command:shop} command to purchase a treatment.",
   "pleaseWaitForHisHeal": "Please wait until his state alteration recovery is complete: {{time}}",
   "notEnoughMoney": "You don't have enough money to perform this action. You are missing {{money}}{emote:unitValues.money}.",
   "cooldownPetFree": "You can only release one pet per hour. You will be able to release another one {{remainingTime}}.",
