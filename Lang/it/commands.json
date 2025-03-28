@@ -325,32 +325,14 @@
   "language": {
     "description": "Utilizzare il menu sottostante per modificare la lingua utilizzata dal bot su questo server. Questo comando è riservato agli amministratori del server.",
     "languages": {
-      "de": {
-        "emoji": "🇩🇪",
-        "name": "Tedesco"
-      },
-      "en": {
-        "emoji": "🇬🇧",
-        "name": "Inglese"
-      },
-      "es": {
-        "emoji": "🇪🇸",
-        "name": "Spagnolo"
-      },
-      "fr": {
-        "emoji": "🇫🇷",
-        "name": "Francese"
-      },
-      "it": {
-        "emoji": "🇮🇹",
-        "name": "Italiano"
-      },
-      "pt": {
-        "emoji": "🇵🇹",
-        "name": "Portoghese"
-      }
+      "de": "Tedesco",
+      "en": "Inglese",
+      "es": "Spagnolo",
+      "fr": "Francese",
+      "it": "Italiano",
+      "pt": "Portoghese"
     },
-    "newLanguageSetDescription": "Ora DraftBot vi parlerà in francese! 🥖",
+    "newLanguageSetDescription": "Ora DraftBot vi parlerà in italiano! {emote:languageFlavors.it}",
     "newLanguageSetTitle": "Lingua modificata",
     "selectLanguage": "Seleziona una lingua",
     "title": ":earth_africa: Selezione della lingua"
@@ -384,7 +366,7 @@
       "🐞": ":lady_beetle: `Persona che ha segnalato dei bug maggiori`",
       "👑": ":crown: `Proprietario del bot'",
       "💍": ":ring: `Badge comprato nel negozio delle Missione`",
-      "💎": "{emote:badges.guildBadge} `Membro di una gilda potente`",
+      "💎": ":gem: `Membro di una gilda potente`",
       "💞": ":revolving_hearts: `Giocatore che ha addestrato un animale di compagnia leggendario`",
       "💸": ":money_with_wings: `Donatore`",
       "🔖": ":bookmark: `Tra i primi ha avere utilizzato le classe`",
@@ -414,7 +396,7 @@
     },
     "mission": {
       "fieldName": "Missione :",
-      "fieldValue": "{emote:unitValues.gem} {{gems}} | {emote:missions.book} {{campaign}}% "
+      "fieldValue": ":gem: {{gems}} | :book: {{campaign}}% "
     },
     "noTimeLeft": {
       "fieldName": "Tempo restante:",
@@ -447,7 +429,8 @@
     "title": "{{effect}} | {{pseudo}} | Livello {{level}}"
   },
   "rarity": {
-    "rarities": ":small_orange_diamond: Basico | Posseduto dall'inizio della partita\n:large_orange_diamond: Commune | {{common}}%\n:fire: Insolito| {{uncommon}}%\n:trident: Exotico | {{exotic}}%\n:comet: Raro | {{rare}}%\n:dizzy: Speciale | {{special}}%\n:star: Epico | {{epic}}%\n:star2: Legendario | {{legendary}}%\n:gem: Mitico | {{unique}}%",
+    "earlyAvailable": "Possédé en début de jeu",
+    "rarityTemplate": "$t(items:rarities.{{rarity}}) | {{percentageOrDescription}}",
     "title": ":slot_machine: Rarità delle attrezzature"
   },
   "report": {
@@ -471,7 +454,7 @@
     "endPoint": "Punto di arrivo :",
     "energy": "** | :zap: Energia risparmiata : **{{energy}}",
     "experience": "** | :star: XP guadagnati : **{{experience}}",
-    "gems": "** | {emote:unitValues.gem} Gemme guadagnate : **{{gems}}",
+    "gems": "** | :gem: Gemme guadagnate : **{{gems}}",
     "health": "** | :heart: Vita guadagnata: **{{health}}",
     "healthLoose": "** | :broken_heart: Vita persa : **{{health}}",
     "journal": "Diario di {{pseudo}}",
