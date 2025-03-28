@@ -58,7 +58,7 @@
   "alreadyInAGuild": "Fai già parte di una gilda.",
   "petDoesntExist": "Nessuno animale domestico e stato trovato.",
   "unexpectedError": "Si è verificato un errore :(",
-  "pleaseWaitForHeal": "Attendere la fine della guarigione per la modifica dello stato prima di continuare a giocare: {{time}}\n\n:information_source: {command:shop} È possibile utilizzare il comando per acquistare una guarigione.",
+  "pleaseWaitForHeal": "Veuillez attendre la fin des soins de votre altération d'état pour continuer à jouer : {{time}}\n\n{emote:messages.info} Vous pouvez utiliser la commande {command:shop} pour acheter un soin.",
   "pleaseWaitForHisHeal": "{{time}}Per favore, aspettate fino alla fine delle cure per il deterioramento delle sue condizioni:",
   "notEnoughMoney": "Non avete abbastanza soldi per realizzare questa azione. {{money}} Siete a corto di denaro {emote:unitValues.money}.",
   "cooldownPetFree": "È possibile liberare un solo animale domestico all'ora. {{remainingTime}}È possibile liberare un altro .",
