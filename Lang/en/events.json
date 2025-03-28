@@ -40,7 +40,7 @@
       },
       "push": {
         "outcomes": {
-          "0": "But why did you do that? 🤔 Remorseful, you rescue the poor man and offer him some coins as compensation."
+          "0": "Mais pourquoi avoir fait cela ? {emote:other.why} Pris de remords, vous secourez le pauvre homme et lui offrez quelques pièces pour vous faire pardonner."
         },
         "text": "Push the fisherman into the water!"
       },
@@ -2043,7 +2043,7 @@
         "text": "Observe the surroundings."
       }
     },
-    "text": "**Hello and welcome to DraftBot!** 👑 The king is looking for a noble knight to marry his daughter and you have chosen to participate in the selection contest! Having just arrived at the castle entrance after a long journey, you signal your presence to the guards at the entrance. You are invited to enter and quickly meet a young woman who seems to want to welcome you."
+    "text": "**Bonjour et bienvenue sur DraftBot !** {emote:other.crown} Le roi est à la recherche d'un noble chevalier pour marier sa fille et vous avez choisi de participer au concours de sélection ! Venant d'arriver à l'entrée du château après un long voyage, vous signalez votre présence aux gardes de l'entrée. Vous êtes invité à rentrer et rencontrez rapidement une jeune femme qui semble vouloir vous accueillir."
   },
   "62": {
     "possibilities": {
@@ -2065,7 +2065,7 @@
       "searchPatures": {
         "outcomes": {
           "0": "After watching cattle chewing fresh grass in the first wild grass stretch from a distance, you head for the second. Many sheep graze peacefully. An impressive oak dominates the pastures and attracts your attention, so you decide to approach it. A few meters from the tree, you notice a fork against the trunk. The peasant seems overjoyued when you give it back to him. He then grants you, as promised, a small purse filled with gold.",
-          "1": "As you approach pastures, you notice footprints. While following them, you are entering a dark grove in which you found a gloomy hut to say the least. Curious, you walk around it and find yourself face to face with the sought-after fork! After coming back, you give the item to the farmer who thanks you a lot and invites you to share his meal so that you can tell him how you find it. The evening is pleasant and you leave the farmer late in the night, invigorated by local products.",
+          "1": "Vous approchant des pâturages, vous remarquez des empreintes de pas. En les suivant, vous pénétrez dans un sombre bosquet dans lequel se trouve une cabane pour le moins lugubre. Curieux, vous faites le tour de la bâtisse et vous retrouvez nez à manche avec la tant recherchée fourche ! Après avoir repris le chemin en sens inverse, vous remettez l'objet au fermier qui se confond en remerciements et vous invite à partager son repas afin que vous puissiez lui conter votre investigation. La soirée est plaisante et vous quittez le fermier tard dans la nuit, revigoré par les produits du terroir.",
           "2": "As you approach pastures, you notice footprints crossing the land leading to an enclosure where sheep benefit from the refreshing shade of young oaks. You decide to follow the footprints, thinking they'll lead you to the fork. When you arrive in the middle of the sheep, one of them comes to you. In a playful mood, you show him your hand with a bit of grass in it. He benefits of it to satiate himself, biting your finger while eating. Irritated, you decide to flee this place. Approaching the edge of the pasture, you do not see the fork on the ground, and walk over it. Furious about this misfortune, you are thinking about not helping anyone anymore on your adventure."
         },
         "text": "Search near pastures."
@@ -2284,7 +2284,7 @@
     "possibilities": {
       "checkDate": {
         "outcomes": {
-          "0": "You look at the calendar, and discover that a tournament is about to start! You thus decide to go there and, after a few hours of battling, you reach the finals. However, your opponent is simply too strong, and you lose the fight. As you still made it to the finals, you win a purse full of gold, before continuing on your way.",
+          "0": "Vous regardez le calendrier et y découvrez l'existence d'un tournoi qui commence sous peu ! Vous décidez donc de vous y rendre et parvenez à atteindre la finale après quelques heures de combat. Cependant, votre adversaire vous domine et vous ratez votre dernière bataille. Finaliste, vous gagnez tout de même une bourse remplie d'or avant de reprendre votre chemin.",
           "1": "You look at the calendar, and notice that you are in Lapland, the 6th month of the year. You then decide to go out and eat a pancake at a nearby stand. This food is so good you feel really happy. You resume your journey, well sated.",
           "2": "When you see the calendar, you remember the posters in the streets talking about a treasure hunt. You decide to take part. After two hours of searching, you can't find anything. You decide to turn back.",
           "3": "You are looking at the calendar, and you notice something of interest in today's entry: Mead competition! Confident in your strong alcohol resistance, you decide to give it a try. You end up winning the contest, as well as a reward! You are also totally drunk, however."
