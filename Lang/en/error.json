@@ -58,7 +58,7 @@
   "alreadyInAGuild": "You already belong to a guild.",
   "petDoesntExist": "No pet was found.",
   "unexpectedError": "An error occurred. :(",
-  "pleaseWaitForHeal": "Please wait for the state alteration recovery to be complete before you can continue playing: {{time}}\n\n:information_source: You can use the {command:shop} command to purchase a treatment.",
+  "pleaseWaitForHeal": "Please wait for the state alteration recovery to be complete before you can continue playing: {{time}}\n\n{emote:messages.info} You can use the {command:shop} command to purchase a treatment.",
   "pleaseWaitForHisHeal": "Please wait until his state alteration recovery is complete: {{time}}",
   "notEnoughMoney": "You don't have enough money to perform this action. You are missing {{money}}{emote:unitValues.money}.",
   "cooldownPetFree": "You can only release one pet per hour. You will be able to release another one {{remainingTime}}.",
@@ -147,5 +147,6 @@
   "maintenance": "The game is currently under maintenance, please try again later.\n\nFor more information, go to the official Discord server: https://discord.gg/AP3Wmzb",
   "banned": "You have been banned from the game.",
   "aDevMessedUp": "Oops! An error has occurred. Don't worry, it's not your fault. Please accept our apologies for the inconvenience. To resolve this problem, please contact our support team via our Discord server: https://discord.gg/5JqrMtZ",
-  "commandNotAvailableHere": "This command cannot be used at this location."
+  "commandNotAvailableHere": "This command cannot be used at this location.",
+  "guildFoodStorageFull": "Vous avez reçu **{{quantity}}x {{food}}**, mais le stock de nourriture de votre guilde est plein. La nourriture a été jetée."
 }

@@ -58,7 +58,7 @@
   "alreadyInAGuild": "Já pertences a um grémio.",
   "petDoesntExist": "Não foram encontrados animais de estimação.",
   "unexpectedError": "Ocorreu um erro :(",
-  "pleaseWaitForHeal": "Por favor, espera até ao fim da cura para a tua alteração de estado antes de continuares a jogar: {{time}}\n\n:information_source: {command:shop} Podes usar o comando para comprar uma cura.",
+  "pleaseWaitForHeal": "Veuillez attendre la fin des soins de votre altération d'état pour continuer à jouer : {{time}}\n\n{emote:messages.info} Vous pouvez utiliser la commande {command:shop} pour acheter un soin.",
   "pleaseWaitForHisHeal": "{{time}}Por favor, aguarde até ao fim dos cuidados para o seu estado de deterioração:",
   "notEnoughMoney": "Não tem dinheiro suficiente para levar a cabo esta ação. {{money}} Estás em falta {emote:unitValues.money}.",
   "cooldownPetFree": "Só é possível libertar um animal de estimação por hora. {{remainingTime}}Pode libertar outro .",
@@ -147,5 +147,6 @@
   "maintenance": "O jogo está atualmente em manutenção, por favor tente novamente mais tarde.\n\nPara mais informações, visita o servidor oficial do Discord: https://discord.gg/AP3Wmzb",
   "banned": "Foste banido do jogo.",
   "aDevMessedUp": "Ops! Ocorreu um erro. Não se preocupe, a culpa não é sua. Por favor, aceite as nossas desculpas por qualquer incómodo causado. Para resolver este problema, contacte a nossa equipa de apoio através do nosso servidor Discord: https://discord.gg/5JqrMtZ",
-  "commandNotAvailableHere": "Este comando não pode ser utilizado nesta localização."
+  "commandNotAvailableHere": "Este comando não pode ser utilizado nesta localização.",
+  "guildFoodStorageFull": "Vous avez reçu **{{quantity}}x {{food}}**, mais le stock de nourriture de votre guilde est plein. La nourriture a été jetée."
 }
