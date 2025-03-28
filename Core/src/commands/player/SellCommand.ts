@@ -25,7 +25,7 @@ import {MissionsController} from "../../core/missions/MissionsController";
 
 function getEndCallback(player: Player) {
 	return async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
-		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.SELL);
+		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.SELL);
 
 		const firstReaction = collector.getFirstReaction();
 		if (!firstReaction || firstReaction.reaction.type === ReactionCollectorRefuseReaction.name) {
@@ -109,7 +109,7 @@ export default class SellCommand {
 			},
 			getEndCallback(player)
 		)
-			.block(player.id, BlockingConstants.REASONS.SELL)
+			.block(player.keycloakId, BlockingConstants.REASONS.SELL)
 			.build();
 
 		response.push(packet);

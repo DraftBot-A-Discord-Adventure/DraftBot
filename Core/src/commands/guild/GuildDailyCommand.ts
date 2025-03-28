@@ -373,11 +373,11 @@ function verifyMembers(members: Player[], response: DraftBotPacket[]): boolean {
 			response.push(makePacket(CommandGuildDailyPveIslandErrorPacket, {}));
 			return false;
 		}
-		const blockingReasons = BlockingUtils.getPlayerBlockingReason(member.id);
+		const blockingReasons = BlockingUtils.getPlayerBlockingReason(member.keycloakId);
 		if (blockingReasons.length < 2 && blockingReasons.includes(BlockingConstants.REASONS.FIGHT)) {
 			continue;
 		}
-		if (BlockingUtils.appendBlockedPacket(member, response)) {
+		if (BlockingUtils.appendBlockedPacket(member.keycloakId, response)) {
 			return false;
 		}
 	}

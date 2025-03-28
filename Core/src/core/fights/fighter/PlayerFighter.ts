@@ -82,7 +82,7 @@ export class PlayerFighter extends Fighter {
 	 * @public
 	 */
 	unblock(): void {
-		BlockingUtils.unblockPlayer(this.player.id, BlockingConstants.REASONS.FIGHT);
+		BlockingUtils.unblockPlayer(this.player.keycloakId, BlockingConstants.REASONS.FIGHT);
 	}
 
 	/**
@@ -126,7 +126,7 @@ export class PlayerFighter extends Fighter {
 	 * @public
 	 */
 	public block(): void {
-		BlockingUtils.blockPlayer(this.player.id, BlockingConstants.REASONS.FIGHT);
+		BlockingUtils.blockPlayer(this.player.keycloakId, BlockingConstants.REASONS.FIGHT);
 	}
 
 	/**

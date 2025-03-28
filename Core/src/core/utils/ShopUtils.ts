@@ -41,7 +41,7 @@ export class ShopUtils {
 		const endCallback: EndCallback = async (collector, response) => {
 			const reaction = collector.getFirstReaction();
 
-			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.SHOP);
+			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.SHOP);
 			if (!reaction || reaction.reaction.type === ReactionCollectorShopCloseReaction.name) {
 				response.push(makePacket(CommandShopClosed, {}));
 				return;
@@ -67,7 +67,7 @@ export class ShopUtils {
 			},
 			endCallback
 		)
-			.block(player.id, BlockingConstants.REASONS.SHOP)
+			.block(player.keycloakId, BlockingConstants.REASONS.SHOP)
 			.build();
 
 		response.push(packet);

@@ -728,7 +728,7 @@ export class Player extends Model {
 	 * Returns true if the player is currently blocked by a report
 	 */
 	public isInEvent(): boolean {
-		const blockingReasons = BlockingUtils.getPlayerBlockingReason(this.id);
+		const blockingReasons = BlockingUtils.getPlayerBlockingReason(this.keycloakId);
 		return blockingReasons.includes(BlockingConstants.REASONS.REPORT) || blockingReasons.includes(BlockingConstants.REASONS.CHOOSE_DESTINATION);
 	}
 

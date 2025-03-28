@@ -39,6 +39,7 @@ import {CommandPetTransferPacketReq} from "../../../../../../Lib/src/packets/com
 import {CommandPetNickPacketReq} from "../../../../../../Lib/src/packets/commands/CommandPetNickPacket";
 import {CommandMaintenancePacketReq} from "../../../../../../Lib/src/packets/commands/CommandMaintenancePacket";
 import {CommandLeagueRewardPacketReq} from "../../../../../../Lib/src/packets/commands/CommandLeagueRewardPacket";
+import {CommandJoinBoatPacketReq} from "../../../../../../Lib/src/packets/commands/CommandJoinBoatPacket";
 
 const commandsToPacketNames: Map<string, string> = new Map([
 	["profile", CommandProfilePacketReq.name],
@@ -101,7 +102,7 @@ const commandsToPacketNames: Map<string, string> = new Map([
 	["level", "[OLD] level"], // Not coded yet. Will be part of admin front end later
 	["leaguebonus", CommandLeagueRewardPacketReq.name],
 	["maintenance", CommandMaintenancePacketReq.name],
-	["joinboat", /* TODO CommandJoinBoatPacketReq.name */ "CommandJoinBoatPacketReq"],
+	["joinboat", CommandJoinBoatPacketReq.name],
 	["giveitem", "[OLD] giveitem"] // Not coded yet. Will be part of admin front end later
 ]);
 

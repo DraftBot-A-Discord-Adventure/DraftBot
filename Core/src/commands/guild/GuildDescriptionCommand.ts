@@ -42,7 +42,7 @@ function endCallback(player: Player, description: string): EndCallback {
 		else {
 			response.push(makePacket(CommandGuildDescriptionRefusePacketRes, {}));
 		}
-		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.GUILD_DESCRIPTION);
+		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.GUILD_DESCRIPTION);
 	};
 }
 
@@ -78,7 +78,7 @@ export default class GuildDescriptionCommand {
 			},
 			endCallback(player,packet.description)
 		)
-			.block(player.id, BlockingConstants.REASONS.GUILD_DESCRIPTION)
+			.block(player.keycloakId, BlockingConstants.REASONS.GUILD_DESCRIPTION)
 			.build();
 
 		response.push(collectorPacket);

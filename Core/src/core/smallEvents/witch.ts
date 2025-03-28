@@ -113,7 +113,7 @@ function getEndCallback(player: Player): EndCallback {
 			WitchActionDataController.instance.getById((reaction.reaction.data as ReactionCollectorWitchReaction).id) :
 			WitchActionDataController.instance.getDoNothing();
 		const outcome = selectedEvent.generateOutcome();
-		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.WITCH_CHOOSE);
+		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.WITCH_CHOOSE);
 
 		const resultPacket = makePacket(SmallEventWitchResultPacket,{
 			outcome,
@@ -170,7 +170,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 			},
 			getEndCallback(player)
 		)
-			.block(player.id, BlockingConstants.REASONS.WITCH_CHOOSE)
+			.block(player.keycloakId, BlockingConstants.REASONS.WITCH_CHOOSE)
 			.build();
 
 		response.push(packet);

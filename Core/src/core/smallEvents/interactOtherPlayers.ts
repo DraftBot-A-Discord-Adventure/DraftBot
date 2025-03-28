@@ -331,7 +331,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 					response.push(makePacket(SmallEventInteractOtherPlayersRefuseToGivePoorPacket, {}));
 				}
 
-				BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.REPORT_COMMAND);
+				BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.REPORT_COMMAND);
 			};
 
 			const packet = new ReactionCollectorInstance(
@@ -343,7 +343,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 				},
 				endCallback
 			)
-				.block(player.id, BlockingConstants.REASONS.REPORT_COMMAND)
+				.block(player.keycloakId, BlockingConstants.REASONS.REPORT_COMMAND)
 				.build();
 
 			response.push(packet);

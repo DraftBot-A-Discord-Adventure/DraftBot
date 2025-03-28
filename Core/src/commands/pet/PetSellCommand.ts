@@ -143,10 +143,8 @@ async function acceptPetSellCallback(collector: ReactionCollectorInstance, initi
 		return;
 	}
 
-	const reactingPlayer = await Players.getOrRegister(reactingPlayerKeycloakId);
-
 	// Should not be blocked
-	if (BlockingUtils.appendBlockedPacket(reactingPlayer, response)) {
+	if (BlockingUtils.appendBlockedPacket(reactingPlayerKeycloakId, response)) {
 		return;
 	}
 
@@ -174,6 +172,7 @@ async function acceptPetSellCallback(collector: ReactionCollectorInstance, initi
 		petCost: price
 	};
 
+	const reactingPlayer = await Players.getOrRegister(reactingPlayerKeycloakId);
 	if (await verifyBuyerRequirements(response, sellerInformation, reactingPlayer)) {
 		await executePetSell(collector, response, sellerInformation, reactingPlayer);
 	}
@@ -200,7 +199,7 @@ function createAndPushCollector(player: Player, packet: CommandPetSellPacketReq,
 	);
 
 	const endCallback: EndCallback = (collector: ReactionCollectorInstance, response: DraftBotPacket[]): void => {
-		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.PET_SELL);
+		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.PET_SELL);
 		if (collector.hasEndedByTime) {
 			response.push(makePacket(CommandPetSellNoOneAvailableErrorPacket, {}));
 		}
@@ -225,7 +224,7 @@ function createAndPushCollector(player: Player, packet: CommandPetSellPacketReq,
 		endCallback,
 		collectCallback
 	)
-		.block(player.id, BlockingConstants.REASONS.PET_SELL)
+		.block(player.keycloakId, BlockingConstants.REASONS.PET_SELL)
 		.build();
 
 	response.push(collectorPacket);

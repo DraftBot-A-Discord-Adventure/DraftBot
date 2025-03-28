@@ -65,7 +65,7 @@ export abstract class Shop<
 			},
 			this.callbackShopSmallEvent(player)
 		)
-			.block(player.id, BlockingConstants.REASONS.MERCHANT)
+			.block(player.keycloakId, BlockingConstants.REASONS.MERCHANT)
 			.build();
 
 		response.push(packet);
@@ -73,7 +73,7 @@ export abstract class Shop<
 
 	private callbackShopSmallEvent(player: Player): EndCallback {
 		return async (collector: ReactionCollectorInstance, response: DraftBotPacket[]) => {
-			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.MERCHANT);
+			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.MERCHANT);
 			const reaction = collector.getFirstReaction();
 			const isValidated = reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name;
 			const canBuy = player.money >= this.itemPrice;

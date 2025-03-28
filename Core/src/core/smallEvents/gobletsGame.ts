@@ -69,7 +69,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 
 		const endCallback: EndCallback = async (collector, response) => {
 			await applyMalus(response, player, collector.getFirstReaction()?.reaction);
-			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.GOBLET_CHOOSE);
+			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.GOBLET_CHOOSE);
 		};
 
 		const packet = new ReactionCollectorInstance(
@@ -78,7 +78,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 			{},
 			endCallback
 		)
-			.block(player.id, BlockingConstants.REASONS.GOBLET_CHOOSE)
+			.block(player.keycloakId, BlockingConstants.REASONS.GOBLET_CHOOSE)
 			.build();
 
 		response.push(packet);

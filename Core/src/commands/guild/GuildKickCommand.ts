@@ -60,7 +60,7 @@ async function isNotEligible(player: Player, kickedPlayer: Player, response: Dra
 		return true;
 	}
 
-	if (BlockingUtils.isPlayerBlocked(kickedPlayer.id)) {
+	if (BlockingUtils.isPlayerBlocked(kickedPlayer.keycloakId)) {
 		// Player is blocked
 		response.push(makePacket(CommandGuildKickBlockedErrorPacket, {}));
 		return true;
@@ -113,7 +113,7 @@ export default class GuildKickCommand {
 			return;
 		}
 
-		BlockingUtils.blockPlayer(kickedPlayer.id, BlockingConstants.REASONS.GUILD_KICK);
+		BlockingUtils.blockPlayer(kickedPlayer.keycloakId, BlockingConstants.REASONS.GUILD_KICK);
 
 		const guildName = (await Guilds.getById(player.guildId)).name;
 
@@ -133,8 +133,8 @@ export default class GuildKickCommand {
 					kickedKeycloakId: kickedPlayer.keycloakId
 				}));
 			}
-			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.GUILD_KICK);
-			BlockingUtils.unblockPlayer(kickedPlayer.id, BlockingConstants.REASONS.GUILD_KICK);
+			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.GUILD_KICK);
+			BlockingUtils.unblockPlayer(kickedPlayer.keycloakId, BlockingConstants.REASONS.GUILD_KICK);
 		};
 
 		const collectorPacket = new ReactionCollectorInstance(
@@ -146,7 +146,7 @@ export default class GuildKickCommand {
 			},
 			endCallback
 		)
-			.block(player.id, BlockingConstants.REASONS.GUILD_KICK)
+			.block(player.keycloakId, BlockingConstants.REASONS.GUILD_KICK)
 			.build();
 
 		response.push(collectorPacket);

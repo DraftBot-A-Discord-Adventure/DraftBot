@@ -117,7 +117,7 @@ export default class GuildElderCommand {
 					promotedKeycloakId: promotedPlayer.keycloakId
 				}));
 			}
-			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.GUILD_ELDER);
+			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.GUILD_ELDER);
 		};
 
 		const collectorPacket = new ReactionCollectorInstance(
@@ -129,7 +129,7 @@ export default class GuildElderCommand {
 			},
 			endCallback
 		)
-			.block(player.id, BlockingConstants.REASONS.GUILD_ELDER)
+			.block(player.keycloakId, BlockingConstants.REASONS.GUILD_ELDER)
 			.build();
 
 		response.push(collectorPacket);

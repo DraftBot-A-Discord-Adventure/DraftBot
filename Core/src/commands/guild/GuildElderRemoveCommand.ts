@@ -55,7 +55,7 @@ function endCallback(player: Player, demotedElder: Player): EndCallback {
 		else {
 			response.push(makePacket(CommandGuildElderRemoveRefusePacketRes, {demotedKeycloakId: demotedElder.keycloakId}));
 		}
-		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.GUILD_ELDER_REMOVE);
+		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.GUILD_ELDER_REMOVE);
 	};
 }
 
@@ -92,7 +92,7 @@ export default class GuildElderRemoveCommand {
 			},
 			endCallback(player,demotedElder)
 		)
-			.block(player.id, BlockingConstants.REASONS.GUILD_ELDER_REMOVE)
+			.block(player.keycloakId, BlockingConstants.REASONS.GUILD_ELDER_REMOVE)
 			.build();
 
 		response.push(collectorPacket);

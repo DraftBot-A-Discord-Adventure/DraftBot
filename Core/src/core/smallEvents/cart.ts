@@ -45,7 +45,7 @@ function getEndCallback(player: Player, destination: CartResult): EndCallback {
 			packet.travelDone.isAccepted = false;
 			response.push(makePacket(SmallEventCartPacket, packet));
 		}
-		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.CART_SMALL_EVENT);
+		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.CART_SMALL_EVENT);
 		await player.save();
 	};
 }
@@ -107,7 +107,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 			},
 			getEndCallback(player, randomDestination)
 		)
-			.block(player.id, BlockingConstants.REASONS.CART_SMALL_EVENT)
+			.block(player.keycloakId, BlockingConstants.REASONS.CART_SMALL_EVENT)
 			.build();
 
 		response.push(packet);

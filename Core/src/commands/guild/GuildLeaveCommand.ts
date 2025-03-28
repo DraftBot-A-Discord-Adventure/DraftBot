@@ -84,7 +84,7 @@ function endCallback(player: Player): EndCallback {
 		else {
 			response.push(makePacket(CommandGuildLeaveRefusePacketRes, {}));
 		}
-		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.GUILD_LEAVE);
+		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.GUILD_LEAVE);
 	};
 }
 export default class GuildLeaveCommand {
@@ -114,7 +114,7 @@ export default class GuildLeaveCommand {
 			},
 			endCallback(player)
 		)
-			.block(player.id, BlockingConstants.REASONS.GUILD_LEAVE)
+			.block(player.keycloakId, BlockingConstants.REASONS.GUILD_LEAVE)
 			.build();
 
 		response.push(collectorPacket);

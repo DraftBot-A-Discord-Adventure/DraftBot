@@ -63,7 +63,7 @@ function drinkPotionCallback(
 ): (collector: ReactionCollectorInstance, response: DraftBotPacket[], player: Player, potion: Potion) => Promise<void> {
 	return async (collector: ReactionCollectorInstance, response: DraftBotPacket[], player: Player, potion: Potion): Promise<void> => {
 		if (!force) {
-			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.DRINK);
+			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.DRINK);
 		}
 
 		const firstReaction = collector.getFirstReaction();
@@ -124,7 +124,7 @@ export default class DrinkCommand {
 			},
 			endCallback
 		)
-			.block(player.id, BlockingConstants.REASONS.DRINK)
+			.block(player.keycloakId, BlockingConstants.REASONS.DRINK)
 			.build();
 
 		response.push(collectorPacket);

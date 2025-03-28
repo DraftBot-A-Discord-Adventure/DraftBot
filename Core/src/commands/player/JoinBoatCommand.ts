@@ -96,7 +96,7 @@ async function acceptJoinBoat(player: Player, response: DraftBotPacket[]): Promi
 function endCallback(player: Player): EndCallback {
 	return async (collector, response): Promise<void> => {
 		const reaction = collector.getFirstReaction();
-		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.PVE_ISLAND);
+		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.PVE_ISLAND);
 		if (reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name) {
 			await acceptJoinBoat(player, response);
 		}
@@ -135,7 +135,7 @@ export default class JoinBoatCommand {
 			},
 			endCallback(player)
 		)
-			.block(player.id, BlockingConstants.REASONS.PVE_ISLAND)
+			.block(player.keycloakId, BlockingConstants.REASONS.PVE_ISLAND)
 			.build();
 
 		response.push(collectorPacket);

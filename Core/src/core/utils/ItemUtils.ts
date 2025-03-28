@@ -240,7 +240,7 @@ function manageMoreThan2ItemsSwitching(
 			const invSlot = items.find((item) => item.slot === itemReaction.slot);
 
 			player = await Players.getById(player.id);
-			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.ACCEPT_ITEM);
+			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.ACCEPT_ITEM);
 			await sellOrKeepItem(
 				player,
 				false,
@@ -256,7 +256,7 @@ function manageMoreThan2ItemsSwitching(
 		}
 		else {
 			player = await Players.getById(player.id);
-			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.ACCEPT_ITEM);
+			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.ACCEPT_ITEM);
 			await sellOrKeepItem(
 				player,
 				true,
@@ -282,7 +282,7 @@ function manageMoreThan2ItemsSwitching(
 		},
 		endCallback
 	)
-		.block(player.id, BlockingConstants.REASONS.ACCEPT_ITEM)
+		.block(player.keycloakId, BlockingConstants.REASONS.ACCEPT_ITEM)
 		.build();
 
 	response.push(packet);
@@ -373,7 +373,7 @@ export const giveItemToPlayer = async function(
 		const reaction = collector.getFirstReaction();
 		const isValidated = reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name;
 		player = await Players.getById(player.id);
-		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.ACCEPT_ITEM);
+		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.ACCEPT_ITEM);
 		await sellOrKeepItem(
 			player,
 			!isValidated,
@@ -398,7 +398,7 @@ export const giveItemToPlayer = async function(
 		},
 		endCallback
 	)
-		.block(player.id, BlockingConstants.REASONS.ACCEPT_ITEM)
+		.block(player.keycloakId, BlockingConstants.REASONS.ACCEPT_ITEM)
 		.build();
 
 	response.push(packet);

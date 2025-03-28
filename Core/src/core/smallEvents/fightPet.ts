@@ -71,7 +71,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 
 		const endCallback: EndCallback = async (collector, response) => {
 			const selectedFightPetAction = retrieveSelectedEvent(collector);
-			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.FIGHT_PET_CHOOSE);
+			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.FIGHT_PET_CHOOSE);
 			const outcomeIsSuccess = await selectedFightPetAction.applyOutcomeFightPetAction(player, pet, isFemale);
 			await player.addRage(outcomeIsSuccess ? 1 : 0, NumberChangeReason.FIGHT_PET_SMALL_EVENT, response);
 			await player.save();
@@ -87,7 +87,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 			{},
 			endCallback
 		)
-			.block(player.id, BlockingConstants.REASONS.FIGHT_PET_CHOOSE)
+			.block(player.keycloakId, BlockingConstants.REASONS.FIGHT_PET_CHOOSE)
 			.build();
 
 		response.push(packet);
