@@ -325,32 +325,14 @@
   "language": {
     "description": "Utilize o menu abaixo para alterar o idioma utilizado pelo bot neste servidor. Este comando é reservado aos administradores do servidor.",
     "languages": {
-      "de": {
-        "emoji": "🇩🇪",
-        "name": "alemão"
-      },
-      "en": {
-        "emoji": "🇬🇧",
-        "name": "Inglês"
-      },
-      "es": {
-        "emoji": "🇪🇸",
-        "name": "espanhol"
-      },
-      "fr": {
-        "emoji": "🇫🇷",
-        "name": "francês"
-      },
-      "it": {
-        "emoji": "🇮🇹",
-        "name": "italiano"
-      },
-      "pt": {
-        "emoji": "🇵🇹",
-        "name": "Português"
-      }
+      "de": "Allemand",
+      "en": "Anglais",
+      "es": "Espagnol",
+      "fr": "Français",
+      "it": "Italien",
+      "pt": "Portugais"
     },
-    "newLanguageSetDescription": "O DraftBot agora fala consigo em francês! 🥖",
+    "newLanguageSetDescription": "O DraftBot agora fala consigo em português! {emote:languageFlavors.pt}",
     "newLanguageSetTitle": "Língua alterada",
     "selectLanguage": "Selecionar uma língua",
     "title": ":earth_africa: Seleção da língua"
@@ -384,7 +366,7 @@
       "🐞": ":lady_beetle: Pessoas que comunicaram erros graves",
       "👑": ":crown: Proprietário do bot",
       "💍": ":ring: Distintivo comprado na loja das Missões",
-      "💎": "{emote:badges.guildBadge} `Membre d'une guilde puissante`",
+      "💎": ":gem: Membro de um grémio poderoso",
       "💞": ":revolving_hearts: Jogador que treinou um animal de estimação lendário",
       "💸": ":money_with_wings: Doador",
       "🔖": ":bookmark: Adoção precoce das aulas",
@@ -414,7 +396,7 @@
     },
     "mission": {
       "fieldName": "Tarefas :",
-      "fieldValue": "{emote:unitValues.gem} {{gems}} | {emote:missions.book} {{campaign}}% "
+      "fieldValue": ":gem: {{gems}} :book: {{campaign}}| % "
     },
     "noTimeLeft": {
       "fieldName": "Tempo restante :",
@@ -447,7 +429,8 @@
     "title": "{{effect}} {{pseudo}} {{level}}| | Nível"
   },
   "rarity": {
-    "rarities": ":small_orange_diamond:\n:large_orange_diamond: {{common}}\n:fire: {{uncommon}}\n:trident: {{exotic}}\n:comet: {{rare}}\n:dizzy: {{special}}\n:star: {{epic}}\n:star2: {{legendary}}\n:gem: {{unique}}Básico | Possuído no início do jogo Comum | % Incomum | % Exótico | % Raro | % Especial | % Épico | % Lendário | % Mítico | %",
+    "earlyAvailable": "Possédé en début de jeu",
+    "rarityTemplate": "$t(items:rarities.{{rarity}}) | {{percentageOrDescription}}",
     "title": ":slot_machine: Escassez de equipamento"
   },
   "report": {
@@ -471,7 +454,7 @@
     "endPoint": "Ponto de chegada :",
     "energy": ":zap: ** Poupança de energia :{{energy}}**",
     "experience": ":star: | XP ganho :{{experience}}**",
-    "gems": "** | {emote:unitValues.gem} Gemmes gagnées : **{{gems}}",
+    "gems": ":gem: ** Gemas ganhas :{{gems}}**",
     "health": ":heart: | Vida ganha :{{health}}**",
     "healthLoose": ":broken_heart: | Vida perdida :{{health}}**",
     "journal": "{{pseudo}}Diário de",
