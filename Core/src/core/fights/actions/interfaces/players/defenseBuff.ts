@@ -17,6 +17,7 @@ const use: FightActionFunc = (sender, _receiver, fightAction) => {
 		operator: FightStatModifierOperation.MULTIPLIER,
 		value: 1 + defenseBuffArray[streak] / 100
 	}, sender, fightAction);
+	result.customMessage = true;
 
 	return result;
 };

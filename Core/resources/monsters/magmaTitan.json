@@ -3,14 +3,14 @@
 	"attackRatio": 120,
 	"defenseRatio": 150,
 	"speedRatio": 30,
-	"breath": 25,
+	"breath": 20,
 	"maxBreath": 50,
 	"breathRegen": 6,
 	"attacks": [
 		{
 			"id": "eruptionAttack",
 			"minLevel": 0,
-			"weight": 2
+			"weight": 3
 		},
 		{
 			"id": "slamAttack",
@@ -18,9 +18,9 @@
 			"weight": 5
 		},
 		{
-			"id": "heatDrainAttack",
+			"id": "fireAttack",
 			"minLevel": 0,
-			"weight": 3
+			"weight": 2
 		},
 		{
 			"id": "magmaBathAttack",

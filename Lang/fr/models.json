@@ -204,6 +204,7 @@
     },
     "concentration": {
       "description": "Échoue si vous utilisez cette action alors que vous avez une altération d'état. L'altération \"concentré\" augmente fortement les dégâts infligés par le combattant affecté lors du prochain tour.",
+      "customMessage": "se concentre et se prépare à frapper plus fort.",
       "name_one": "Concentration",
       "name_other": "Concentrations"
     },
@@ -243,6 +244,7 @@
     },
     "defenseBuff": {
       "description": "Plus cette action est effectuée à la suite, plus le bonus de défense est important.",
+      "customMessage": "se prépare à se défendre...",
       "name_one": "Boost de la défense",
       "name_other": "Boosts de la défense"
     },
@@ -269,6 +271,7 @@
     },
     "eruptionAttack": {
       "description": "Fait entrer en éruption le volcan qui crache des rochers en fusion sur les joueurs, seul les plus rapides pourront éviter les dégâts.",
+      "customMessage": "fait entrer en éruption le volcan, seul les adversaires les plus rapide parviennent à éviter l'éruption.",
       "name_one": "Eruption",
       "name_other": "Eruptions"
     },
@@ -322,6 +325,7 @@
     },
     "heatDrainAttack": {
       "description": "Récupère la chaleur du joueur, ce qui augmente l'attaque du lanceur et gèle l'adversaire.",
+      "customMessage": "draine votre chaleur.",
       "name_one": "Drain de chaleur",
       "name_other": "Drains de chaleur"
     },
@@ -365,6 +369,7 @@
     },
     "magmaBathAttack": {
       "description": "S'applique au lanceur. Celui-ci se repose dans la lave et récupère son énergie. Le nombre de points de combats récupérés est divisé par 4 après 4 utilisations.",
+      "customMessage": "pars se baigner dans la lave et récupère de l'énergie.",
       "name_one": "Bain de magma",
       "name_other": "Bains de magma"
     },
@@ -390,6 +395,7 @@
     },
     "outrageAttack": {
       "description": "Échoue si vous utilisez cette action alors que vous avez une altération d'état. L'altération \"en colère\" double l'attaque mais baisse la défense. Au bout de 2 tours, l'effet disparait et l'attaquant devient confus.",
+      "customMessage": "se met en colère.",
       "name_one": "Colère",
       "name_other": "Colères"
     },
@@ -422,6 +428,7 @@
     },
     "petrificationAttack": {
       "description": "Pétrifie la cible pendant 2 tours mais augmente sa défense de 200%.",
+      "customMessage": "pétrifie son adversaire.",
       "name_one": "Pétrification",
       "name_other": "Pétrifications"
     },
@@ -468,8 +475,8 @@
       "stop": "n'est plus protégé."
     },
     "protection": {
-      "name": "protégé",
       "description": "Échoue si vous utilisez cette action alors que vous avez une altération d’état. L’altération \"protégé\" dure 3 tours et vous empêche d’être victime d’une autre altération tout en vous offrant un boost de 30% de votre défense.",
+      "customMessage": "se protège.",
       "name_one": "Protection",
       "name_other": "Protections"
     },
@@ -508,6 +515,7 @@
     },
     "rockShieldAttack": {
       "description": "Réduit de moitié la prochaine attaque reçue.",
+      "customMessage": "accumule de la roche pour se défendre...",
       "name_one": "Bouclier de roche",
       "name_other": "Bouclier de roche"
     },
@@ -572,11 +580,13 @@
     },
     "stealth": {
       "description": "Se cache discrètement pour doubler les dégâts de la prochaine attaque.",
+      "customMessage": "se cache discrètement pour effectuer des préparatifs augmentant les dégâts de sa prochaine attaque...",
       "name_one": "Discrétion",
       "name_other": "Discrétions"
     },
     "stoneSkinAttack": {
       "description": "Plus cette action est effectuée à la suite, plus le bonus de défense est important.",
+      "customMessage": "durcit sa peau et se protège.",
       "name_one": "Peau de roche",
       "name_other": "Peaux de roche"
     },

@@ -113,9 +113,9 @@ function addFightActionFieldFor(introEmbed: DraftBotEmbed, language: Language, f
 		fightActionEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fight_actions[actionId]),
 		fightActionName: i18n.t(`models:fight_actions.${actionId}.name`, {
 			lng: language,
-			count: 1,
-			interpolation: {escapeValue: false}
+			count: 1
 		}),
+		interpolation: {escapeValue: false},
 		breathCost
 	}))
 		.join("\n");

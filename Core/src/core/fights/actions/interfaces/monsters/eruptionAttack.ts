@@ -1,12 +1,11 @@
 import {FightActionFunc} from "../../../../../data/FightAction";
 import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTemplate";
-import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
-import {FightAlterations} from "../../FightAlterations";
+import {attackInfo, statsInfo} from "../../FightActionController";
 import {Fighter} from "../../../fighter/Fighter";
 
 const use: FightActionFunc = (sender, receiver, _fightAction) => {
 	const speedRatio = receiver.getSpeed() / sender.getSpeed();
-	const failureProbability = speedRatio < 3 ? 0 : 5 + Math.min(40, Math.pow(speedRatio - 3, 2) * 3);
+	const failureProbability = speedRatio < 3 ? 0 : 5 + Math.min(70, Math.pow(speedRatio - 3, 2) * 3);
 	const result = simpleDamageFightAction(
 		{
 			sender,
@@ -21,11 +20,7 @@ const use: FightActionFunc = (sender, receiver, _fightAction) => {
 			statsInfo: getStatsInfo(sender, receiver)
 		}
 	);
-
-	FightActionController.applyAlteration(result, {
-		selfTarget: false,
-		alteration: FightAlterations.BURNED
-	}, receiver);
+	result.customMessage = true;
 	return result;
 };
 

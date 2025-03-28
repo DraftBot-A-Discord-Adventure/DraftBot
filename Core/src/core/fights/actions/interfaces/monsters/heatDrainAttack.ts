@@ -6,6 +6,7 @@ import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/Fig
 
 const use: FightActionFunc = (sender, receiver, fightAction) => {
 	const result = defaultFightActionResult();
+	result.customMessage = true;
 	FightActionController.applyBuff(result, {
 		selfTarget: true,
 		stat: FightStatBuffed.ATTACK,
