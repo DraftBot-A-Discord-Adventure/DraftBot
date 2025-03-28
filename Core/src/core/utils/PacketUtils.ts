@@ -23,8 +23,6 @@ export abstract class PacketUtils {
 		else {
 			throw new Error("Unsupported platform");
 		}
-
-		// TODO other platforms
 	}
 
 	static announce(announcement: AnnouncementPacket, topic: string): void {
