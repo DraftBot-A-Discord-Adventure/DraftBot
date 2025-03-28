@@ -19,6 +19,8 @@ export class CommandLeagueRewardAlreadyClaimedPacketRes extends DraftBotPacket {
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandLeagueRewardSuccessPacketRes extends DraftBotPacket {
+	score!: number;
+
 	money!: number;
 
 	xp!: number;

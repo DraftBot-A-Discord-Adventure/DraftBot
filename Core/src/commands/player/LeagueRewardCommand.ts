@@ -29,7 +29,6 @@ export default class LeagueRewardCommand {
 			}));
 			return;
 		}
-		// TODO check if it's still the same condition in v5
 		if (player.gloryPointsLastSeason === 0) {
 			response.push(makePacket(CommandLeagueRewardNoPointsPacketRes, {}));
 			return;
@@ -39,14 +38,23 @@ export default class LeagueRewardCommand {
 			return;
 		}
 		const leagueLastSeason = player.getLeagueLastSeason();
+		const scoreToAward = await player.getLastSeasonScoreToAward();
+		const moneyToAward = leagueLastSeason.getMoneyToAward();
+		const xpToAward = leagueLastSeason.getXPToAward();
+
+		await player.addScore({
+			response,
+			amount: scoreToAward,
+			reason: NumberChangeReason.LEAGUE_REWARD
+		});
 		await player.addMoney({
 			response,
-			amount: leagueLastSeason.getMoneyToAward(),
+			amount: moneyToAward,
 			reason: NumberChangeReason.LEAGUE_REWARD
 		});
 		await player.addExperience({
 			response,
-			amount: leagueLastSeason.getXPToAward(),
+			amount: xpToAward,
 			reason: NumberChangeReason.LEAGUE_REWARD
 		});
 		const item = leagueLastSeason.generateRewardItem();
@@ -54,8 +62,9 @@ export default class LeagueRewardCommand {
 		draftBotInstance.logsDatabase.logPlayerLeagueReward(player.keycloakId, leagueLastSeason.id)
 			.then();
 		response.push(makePacket(CommandLeagueRewardSuccessPacketRes, {
-			money: leagueLastSeason.getMoneyToAward(),
-			xp: leagueLastSeason.getXPToAward(),
+			score: scoreToAward,
+			money: moneyToAward,
+			xp: xpToAward,
 			gloryPoints: player.gloryPointsLastSeason,
 			oldLeagueId: leagueLastSeason.id,
 			rank: await Players.getLastSeasonGloryRankById(player.id)
