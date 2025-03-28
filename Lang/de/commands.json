@@ -325,32 +325,14 @@
   "language": {
     "description": "Verwenden Sie das untenstehende Menü, um die Sprache zu ändern, die der Bot auf diesem Server verwendet. Dieser Befehl ist nur für Administratoren des Servers gedacht.",
     "languages": {
-      "de": {
-        "emoji": "🇩🇪",
-        "name": "Deutsch"
-      },
-      "en": {
-        "emoji": "🇬🇧",
-        "name": "Englisch"
-      },
-      "es": {
-        "emoji": "🇪🇸",
-        "name": "Spanisch"
-      },
-      "fr": {
-        "emoji": "🇫🇷",
-        "name": "Französisch"
-      },
-      "it": {
-        "emoji": "🇮🇹",
-        "name": "Italienisch"
-      },
-      "pt": {
-        "emoji": "🇵🇹",
-        "name": "Portugiesisch"
-      }
+      "de": "Allemand",
+      "en": "Anglais",
+      "es": "Espagnol",
+      "fr": "Français",
+      "it": "Italien",
+      "pt": "Portugais"
     },
-    "newLanguageSetDescription": "DraftBot wird ab sofort auf Deutsch mit Ihnen sprechen! 🥖",
+    "newLanguageSetDescription": "DraftBot wird ab sofort auf Deutsch mit Ihnen sprechen! {emote:languageFlavors.de}",
     "newLanguageSetTitle": "Sprache geändert",
     "selectLanguage": "Wählen Sie eine Sprache",
     "title": ":earth_africa: Auswahl der Sprache"
@@ -384,7 +366,7 @@
       "🐞": ":lady_beetle: Personen, die große Bugs gemeldet haben.",
       "👑": ":crown: ` Eigentümer des Bots '",
       "💍": ":ring: ` Badge, gekauft im Shop der Missionen ` `",
-      "💎": "{emote:badges.guildBadge} `Membre d'une guilde puissante`",
+      "💎": ":gem: 'Mitglied einer leistungsfähigen Gilde'",
       "💞": ":revolving_hearts: \" Spieler, der ein legendäres Begleiter aufrichtete.",
       "💸": ":money_with_wings: ` Donator `",
       "🔖": ":bookmark: ` Adoper für die erste Stunde '",
@@ -414,7 +396,7 @@
     },
     "mission": {
       "fieldName": "Aufgaben:",
-      "fieldValue": "{emote:unitValues.gem} {{gems}} | {emote:missions.book} {{campaign}}% "
+      "fieldValue": ":gem: {{gems}} | :book: {{campaign}}% "
     },
     "noTimeLeft": {
       "fieldName": "Restdauer:",
@@ -447,7 +429,8 @@
     "title": "{{effect}} | {{pseudo}} | Stufe {{level}}"
   },
   "rarity": {
-    "rarities": ":small_orange_diamond: Grundlegend | Zu Beginn des Spiels besessen\n:large_orange_diamond: Häufig | {{common}}%\n:fire: Ungewöhnlich | {{uncommon}}%\n:trident: Exotisch | {{exotic}}%\n:comet: Selten | {{rare}}%\n:dizzy: Besonders | {{special}}%\n:star: Episch | {{epic}}%\n:star2: Legendär | {{legendary}}%\n:gem: Mythisch | {{unique}}%",
+    "earlyAvailable": "Possédé en début de jeu",
+    "rarityTemplate": "$t(items:rarities.{{rarity}}) | {{percentageOrDescription}}",
     "title": ":slot_machine: Schlechtigkeit der Ausrüstung"
   },
   "report": {
@@ -471,7 +454,7 @@
     "endPoint": "Einreise:",
     "energy": "** | :zap: Energie-Gewinner: **{{energy}}",
     "experience": "** | :star: XP gewonnen: **{{experience}}",
-    "gems": "** | {emote:unitValues.gem} Gemmes gagnées : **{{gems}}",
+    "gems": "** | :gem: Geme-Gewinner: **{{gems}}",
     "health": "** | :heart: Verlorene Vie: **{{health}}",
     "healthLoose": "** | :broken_heart: Verlorene Vie: **{{health}}",
     "journal": "Protokoll von {{pseudo}}",
