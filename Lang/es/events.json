@@ -40,7 +40,7 @@
       },
       "push": {
         "outcomes": {
-          "0": "Pero, ¿por qué lo has hecho? 🤔 Sintiendo remordimientos, ayudas al pobre hombre y le ofreces unas monedas para compensarle."
+          "0": "Mais pourquoi avoir fait cela ? {emote:other.why} Pris de remords, vous secourez le pauvre homme et lui offrez quelques pièces pour vous faire pardonner."
         },
         "text": "¡Empuja al pescador al agua!"
       },
@@ -2043,7 +2043,7 @@
         "text": "Observa el entorno."
       }
     },
-    "text": "**¡Hola y bienvenido a DraftBot!** 👑 El rey está buscando un noble caballero para casar a su hija, ¡y tú has elegido participar en el concurso de selección! Recién llegado a la entrada del castillo después de un largo viaje, señalas tu presencia a los guardias de la entrada. Te invitan a entrar y pronto te encuentras con una joven que parece querer darte la bienvenida."
+    "text": "**Bonjour et bienvenue sur DraftBot !** {emote:other.crown} Le roi est à la recherche d'un noble chevalier pour marier sa fille et vous avez choisi de participer au concours de sélection ! Venant d'arriver à l'entrée du château après un long voyage, vous signalez votre présence aux gardes de l'entrée. Vous êtes invité à rentrer et rencontrez rapidement une jeune femme qui semble vouloir vous accueillir."
   },
   "62": {
     "possibilities": {
@@ -2065,7 +2065,7 @@
       "searchPatures": {
         "outcomes": {
           "0": "Tras observar de lejos cómo el ganado mastica la hierba fresca en el primer tramo de pasto salvaje, te diriges hacia el segundo. Muchas ovejas pastan tranquilamente. Un imponente roble domina el pasto y atrae tu atención, por lo que decides acercarte a él. A pocos metros del árbol, ves una horca apoyada despreocupadamente en el tronco. El granjero parece encantado cuando le entregas tu hallazgo. Como te había prometido, te entrega un pequeño monedero lleno de oro.",
-          "1": "Al acercarte a los pastos, observas unas huellas. Siguiéndolas, entras en una oscura arboleda que contiene una cabaña lúgubre, por no decir otra cosa. Curioso, rodeas el edificio y te encuentras cara a cara con la tan buscada horca. Tras volver por donde has venido, entregas el objeto al granjero, que te lo agradece y te invita a compartir su comida para que le cuentes tu investigación. Es una velada agradable y te marchas del granjero a altas horas de la noche, vigorizado por los productos locales.",
+          "1": "Vous approchant des pâturages, vous remarquez des empreintes de pas. En les suivant, vous pénétrez dans un sombre bosquet dans lequel se trouve une cabane pour le moins lugubre. Curieux, vous faites le tour de la bâtisse et vous retrouvez nez à manche avec la tant recherchée fourche ! Après avoir repris le chemin en sens inverse, vous remettez l'objet au fermier qui se confond en remerciements et vous invite à partager son repas afin que vous puissiez lui conter votre investigation. La soirée est plaisante et vous quittez le fermier tard dans la nuit, revigoré par les produits du terroir.",
           "2": "Al acercarte a los pastos, observas unas huellas que atraviesan el terreno y se dirigen hacia el emparrado donde las ovejas disfrutan de la refrescante sombra de los fresnos. Decides seguirlas, pensando que se trata de un sendero. Cuando llegas a las ovejas, una de ellas se acerca a ti. Juguetón, le ofreces la mano con un poco de hierba. La oveja aprovecha para comérsela, mordiéndote el dedo. Molesto, decides huir del lugar. Al acercarte al borde del prado, no ves el tenedor en el suelo y lo pisas. Furioso por tu mala suerte, piensas en no ayudar a nadie más en tu aventura."
         },
         "text": "Buscar cerca de pastos."
@@ -2284,7 +2284,7 @@
     "possibilities": {
       "checkDate": {
         "outcomes": {
-          "0": "Miras el calendario y descubres que pronto empieza un torneo. Decides participar y llegar a la final tras unas horas de lucha. Sin embargo, tu oponente te domina y pierdes la última batalla. Aun así, como finalista, ganas una bolsa llena de oro antes de seguir tu camino.",
+          "0": "Vous regardez le calendrier et y découvrez l'existence d'un tournoi qui commence sous peu ! Vous décidez donc de vous y rendre et parvenez à atteindre la finale après quelques heures de combat. Cependant, votre adversaire vous domine et vous ratez votre dernière bataille. Finaliste, vous gagnez tout de même une bourse remplie d'or avant de reprendre votre chemin.",
           "1": "Miras el calendario y ves que es Laponaire, el 6º mes del año, así que decides salir a comer una galette en un puesto cercano. ¡Esta comida te habrá llenado! Te pones de nuevo en camino, lleno y satisfecho.",
           "2": "Cuando ves el calendario, te acuerdas de los carteles en la calle que hablaban de una búsqueda del tesoro. Decides participar. Tras dos horas de búsqueda, no encuentras nada. Así que decides dar media vuelta.",
           "3": "Miras el calendario, y en la fecha de hoy ves: ¡Concurso de hidromiel! Sintiéndote resistente al alcohol, decides probar suerte. Ganas el concurso y un premio. Sin embargo, acabas completamente borracho."
