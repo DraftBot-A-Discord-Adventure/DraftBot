@@ -32,7 +32,7 @@ import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants";
 
 function getWithoutGuildPetFeedEndCallback(player: Player, authorPet: PetEntity) {
 	return async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
-		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.PET_FEED);
+		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.PET_FEED);
 
 		const firstReaction = collector.getFirstReaction();
 		if (!firstReaction || firstReaction.reaction.type === ReactionCollectorRefuseReaction.name) {
@@ -99,7 +99,7 @@ function withoutGuildPetFeed(context: PacketContext, response: DraftBotPacket[],
 		},
 		getWithoutGuildPetFeedEndCallback(player, authorPet)
 	)
-		.block(player.id, BlockingConstants.REASONS.PET_FEED)
+		.block(player.keycloakId, BlockingConstants.REASONS.PET_FEED)
 		.build();
 
 	response.push(collectorPacket);
@@ -107,7 +107,7 @@ function withoutGuildPetFeed(context: PacketContext, response: DraftBotPacket[],
 
 function getWithGuildPetFeedEndCallback(player: Player, authorPet: PetEntity, guild: Guild) {
 	return async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
-		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.PET_FEED);
+		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.PET_FEED);
 
 		const firstReaction = collector.getFirstReaction();
 		if (!firstReaction || firstReaction.reaction.type === ReactionCollectorRefuseReaction.name) {
@@ -204,7 +204,7 @@ async function withGuildPetFeed(context: PacketContext, response: DraftBotPacket
 		},
 		getWithGuildPetFeedEndCallback(player, authorPet, guild)
 	)
-		.block(player.id, BlockingConstants.REASONS.PET_FEED)
+		.block(player.keycloakId, BlockingConstants.REASONS.PET_FEED)
 		.build();
 
 	response.push(collectorPacket);

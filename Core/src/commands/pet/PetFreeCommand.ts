@@ -163,7 +163,7 @@ export default class PetFreeCommand {
 				response.push(makePacket(CommandPetFreeRefusePacketRes, {}));
 			}
 
-			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.PET_FREE);
+			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.PET_FREE);
 		};
 
 		const collectorPacket = new ReactionCollectorInstance(
@@ -175,7 +175,7 @@ export default class PetFreeCommand {
 			},
 			endCallback
 		)
-			.block(player.id, BlockingConstants.REASONS.PET_FREE)
+			.block(player.keycloakId, BlockingConstants.REASONS.PET_FREE)
 			.build();
 
 		response.push(collectorPacket);

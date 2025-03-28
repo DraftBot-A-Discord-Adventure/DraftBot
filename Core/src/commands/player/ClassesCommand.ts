@@ -26,7 +26,7 @@ import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
 
 function getEndCallback(player: Player) {
 	return async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
-		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.CLASS);
+		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.CLASS);
 
 		const firstReaction = collector.getFirstReaction();
 		if (!firstReaction || firstReaction.reaction.type === ReactionCollectorRefuseReaction.name) {
@@ -105,7 +105,7 @@ export default class ClassesCommand {
 			},
 			getEndCallback(player)
 		)
-			.block(player.id, BlockingConstants.REASONS.CLASS)
+			.block(player.keycloakId, BlockingConstants.REASONS.CLASS)
 			.build();
 
 		response.push(packet);

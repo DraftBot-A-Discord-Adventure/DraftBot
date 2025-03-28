@@ -73,7 +73,7 @@ export default class ReportCommand {
 			await initiateNewPlayerOnTheAdventure(player);
 		}
 
-		BlockingUtils.blockPlayer(player.id, BlockingConstants.REASONS.REPORT_COMMAND, Constants.MESSAGES.COLLECTOR_TIME * 3); // MaxTime here is to prevent any accident permanent blocking
+		BlockingUtils.blockPlayer(player.keycloakId, BlockingConstants.REASONS.REPORT_COMMAND, Constants.MESSAGES.COLLECTOR_TIME * 3); // MaxTime here is to prevent any accident permanent blocking
 
 		await MissionsController.update(player, response, {missionId: "commandReport"});
 
@@ -90,36 +90,36 @@ export default class ReportCommand {
 			else {
 				await doRandomBigEvent(context, response, player, forceSpecificEvent);
 			}
-			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.REPORT_COMMAND);
+			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.REPORT_COMMAND);
 			return;
 		}
 
 		if (forceSmallEvent || await needSmallEvent(player, currentDate)) {
 			await executeSmallEvent(response, player, context, forceSmallEvent);
-			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.REPORT_COMMAND);
+			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.REPORT_COMMAND);
 			return;
 		}
 
 		if (!player.currentEffectFinished(currentDate)) {
 			await sendTravelPath(player, response, currentDate, player.effectId);
-			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.REPORT_COMMAND);
+			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.REPORT_COMMAND);
 			return;
 		}
 
 		if (!player.mapLinkId) {
 			await Maps.startTravel(player, MapLinkDataController.instance.getRandomLinkOnMainContinent(), Date.now());
-			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.REPORT_COMMAND);
+			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.REPORT_COMMAND);
 			return;
 		}
 
 		if (!Maps.isTravelling(player)) {
 			await chooseDestination(context, player, null, response);
-			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.REPORT_COMMAND);
+			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.REPORT_COMMAND);
 			return;
 		}
 
 		await sendTravelPath(player, response, currentDate, null);
-		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.REPORT_COMMAND);
+		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.REPORT_COMMAND);
 	}
 }
 
@@ -195,7 +195,7 @@ async function doPossibility(
 			health: 0,
 			score: 0
 		}));
-		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.REPORT);
+		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.REPORT);
 		return;
 	}
 
@@ -229,7 +229,7 @@ async function doPossibility(
 	}
 
 	await player.save();
-	BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.REPORT);
+	BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.REPORT);
 }
 
 /**
@@ -268,7 +268,7 @@ async function doEvent(event: BigEvent, player: Player, time: number, context: P
 		},
 		endCallback
 	)
-		.block(player.id, BlockingConstants.REASONS.REPORT)
+		.block(player.keycloakId, BlockingConstants.REASONS.REPORT)
 		.build();
 
 	response.push(packet);
@@ -391,7 +391,7 @@ async function chooseDestination(
 			mapTypeId: endMap.type,
 			tripDuration: newLink.tripDuration
 		}));
-		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.CHOOSE_DESTINATION);
+		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.CHOOSE_DESTINATION);
 	};
 
 	const packet = new ReactionCollectorInstance(
@@ -403,7 +403,7 @@ async function chooseDestination(
 		},
 		endCallback
 	)
-		.block(player.id, BlockingConstants.REASONS.CHOOSE_DESTINATION)
+		.block(player.keycloakId, BlockingConstants.REASONS.CHOOSE_DESTINATION)
 		.build();
 
 	response.push(packet);
@@ -557,7 +557,7 @@ async function doPVEBoss(
 
 		if (!firstReaction || !(firstReaction instanceof ReactionCollectorPveFightReactionValidate)) {
 			response.push(makePacket(CommandReportRefusePveFightRes, {}));
-			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.START_BOSS_FIGHT);
+			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.START_BOSS_FIGHT);
 			return;
 		}
 
@@ -577,7 +577,7 @@ async function doPVEBoss(
 			context
 		);
 		fight.setEndCallback(() => fightCallback(fight));
-		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.START_BOSS_FIGHT);
+		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.START_BOSS_FIGHT);
 		await fight.startFight();
 	};
 
@@ -590,7 +590,7 @@ async function doPVEBoss(
 		},
 		endCallback
 	)
-		.block(player.id, BlockingConstants.REASONS.START_BOSS_FIGHT)
+		.block(player.keycloakId, BlockingConstants.REASONS.START_BOSS_FIGHT)
 		.build();
 
 	response.push(packet);

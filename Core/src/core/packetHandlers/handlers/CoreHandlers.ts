@@ -15,8 +15,8 @@ export default class CoreHandlers {
 	}
 
 	@packetHandler(ChangeBlockingReasonPacket)
-	async changeBlockingReason(_response: DraftBotPacket[], context: PacketContext, packet: ChangeBlockingReasonPacket): Promise<void> {
-		await BlockingUtils.changeBlockingReason(context, packet);
+	changeBlockingReason(_response: DraftBotPacket[], context: PacketContext, packet: ChangeBlockingReasonPacket): void {
+		BlockingUtils.changeBlockingReason(context.keycloakId, packet);
 	}
 
 	@packetHandler(ReactionCollectorResetTimerPacketReq)

@@ -65,7 +65,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 				response.push(makePacket(SmallEventGoToPVEIslandRefusePacket, {}));
 			}
 
-			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.PVE_ISLAND);
+			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.PVE_ISLAND);
 		};
 
 		const packet = new ReactionCollectorInstance(
@@ -77,7 +77,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 			},
 			endCallback
 		)
-			.block(player.id, BlockingConstants.REASONS.PVE_ISLAND)
+			.block(player.keycloakId, BlockingConstants.REASONS.PVE_ISLAND)
 			.build();
 
 		response.push(packet);

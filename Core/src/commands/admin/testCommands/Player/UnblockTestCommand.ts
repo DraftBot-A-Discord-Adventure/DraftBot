@@ -10,8 +10,8 @@ export const commandInfo: ITestCommand = {
  * Unblock the player
  */
 const unblockTestCommand: ExecuteTestCommandLike = (player) => {
-	const reasons = BlockingUtils.getPlayerBlockingReason(player.id).map(r => {
-		BlockingUtils.unblockPlayer(player.id, r);
+	const reasons = BlockingUtils.getPlayerBlockingReason(player.keycloakId).map(r => {
+		BlockingUtils.unblockPlayer(player.keycloakId, r);
 		return r;
 	});
 	return `Vous vous êtes débloqué des raisons suivantes : ${reasons.join(", ")}`;

@@ -136,7 +136,7 @@ export default class GuildCreateCommand {
 			else {
 				response.push(makePacket(CommandGuildCreateRefusePacketRes, {}));
 			}
-			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.GUILD_CREATE);
+			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.GUILD_CREATE);
 		};
 
 		const collectorPacket = new ReactionCollectorInstance(
@@ -148,7 +148,7 @@ export default class GuildCreateCommand {
 			},
 			endCallback
 		)
-			.block(player.id, BlockingConstants.REASONS.GUILD_CREATE)
+			.block(player.keycloakId, BlockingConstants.REASONS.GUILD_CREATE)
 			.build();
 
 		response.push(collectorPacket);

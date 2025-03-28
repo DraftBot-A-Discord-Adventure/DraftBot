@@ -148,7 +148,7 @@ async function switchPetWithGuild(
 
 function getEndCallback(player: Player) {
 	return async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
-		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.PET_TRANSFER);
+		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.PET_TRANSFER);
 
 		const firstReaction = collector.getFirstReaction();
 		if (!firstReaction || firstReaction.reaction.type === ReactionCollectorRefuseReaction.name) {
@@ -192,7 +192,7 @@ export default class PetTransferCommand {
 		// Can't transfer pet if another guild member is transferring
 		const guildMembers = await Players.getByGuild(player.guildId);
 		for (const member of guildMembers) {
-			if (BlockingUtils.isPlayerBlockedWithReason(member.id, BlockingConstants.REASONS.PET_TRANSFER)) {
+			if (BlockingUtils.isPlayerBlockedWithReason(member.keycloakId, BlockingConstants.REASONS.PET_TRANSFER)) {
 				response.push(makePacket(CommandPetTransferAnotherMemberTransferringErrorPacket, {
 					keycloakId: member.keycloakId
 				}));
@@ -257,7 +257,7 @@ export default class PetTransferCommand {
 			},
 			getEndCallback(player)
 		)
-			.block(player.id, BlockingConstants.REASONS.PET_TRANSFER)
+			.block(player.keycloakId, BlockingConstants.REASONS.PET_TRANSFER)
 			.build();
 
 		response.push(packet);

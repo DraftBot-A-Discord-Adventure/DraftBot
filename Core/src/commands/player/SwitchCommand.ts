@@ -83,7 +83,7 @@ export default class SwitchCommand {
 			},
 			getEndCallbackSwitchItems(player, profileSlots, toSwitchItems)
 		)
-			.block(player.id, BlockingConstants.REASONS.SWITCH)
+			.block(player.keycloakId, BlockingConstants.REASONS.SWITCH)
 			.build();
 
 		response.push(packet);

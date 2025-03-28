@@ -108,7 +108,7 @@ export default class UnlockCommand {
 			else {
 				response.push(makePacket(CommandUnlockRefusePacketRes, {}));
 			}
-			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.UNLOCK);
+			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.UNLOCK);
 		};
 
 		const collectorPacket = new ReactionCollectorInstance(
@@ -120,7 +120,7 @@ export default class UnlockCommand {
 			},
 			endCallback
 		)
-			.block(player.id, BlockingConstants.REASONS.UNLOCK)
+			.block(player.keycloakId, BlockingConstants.REASONS.UNLOCK)
 			.build();
 
 		response.push(collectorPacket);

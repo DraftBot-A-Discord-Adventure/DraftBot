@@ -251,7 +251,7 @@ export const commandRequires = <T extends DraftBotPacket>(packet: PacketLike<T>,
 			}
 
 			// Warning: order of the checks is important, as appendBlockedPacket can add a packet to the response
-			if (requirements.notBlocked && BlockingUtils.appendBlockedPacket(player, response)) {
+			if (requirements.notBlocked && BlockingUtils.appendBlockedPacket(player.keycloakId, response)) {
 				return;
 			}
 

@@ -154,7 +154,7 @@ function getEndCallbackSkipMissionShopItem(player: Player, missionList: MissionS
 	: (collector: ReactionCollectorInstance, response: DraftBotPacket[]) => Promise<void> {
 	return async (collector: ReactionCollectorInstance, response: DraftBotPacket[]) => {
 		const firstReaction = collector.getFirstReaction();
-		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.SKIP_MISSION);
+		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.SKIP_MISSION);
 		if (!firstReaction || firstReaction.reaction.type === ReactionCollectorSkipMissionShopItemCloseReaction.name) {
 			response.push(makePacket(CommandShopClosed, {}));
 			return;
@@ -199,7 +199,7 @@ function getSkipMapMissionShopItem(): ShopItem {
 				},
 				getEndCallbackSkipMissionShopItem(player, allMissions)
 			)
-				.block(player.id, BlockingConstants.REASONS.SKIP_MISSION)
+				.block(player.keycloakId, BlockingConstants.REASONS.SKIP_MISSION)
 				.build();
 
 			response.push(packet);

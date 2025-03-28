@@ -125,7 +125,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 		const collector = new ReactionCollectorLottery();
 
 		const endCallback: EndCallback = async (collector, response) => {
-			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.LOTTERY);
+			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.LOTTERY);
 
 			const reaction = collector.getFirstReaction();
 
@@ -193,7 +193,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 			},
 			endCallback
 		)
-			.block(player.id, BlockingConstants.REASONS.LOTTERY)
+			.block(player.keycloakId, BlockingConstants.REASONS.LOTTERY)
 			.build();
 
 		response.push(packet);

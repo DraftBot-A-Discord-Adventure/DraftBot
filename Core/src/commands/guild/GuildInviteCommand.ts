@@ -49,8 +49,8 @@ export default class GuildInviteCommand {
 			const reaction = collector.getFirstReaction();
 			await invitedPlayer.reload();
 			await player.reload();
-			BlockingUtils.unblockPlayer(invitedPlayer.id, BlockingConstants.REASONS.GUILD_ADD);
-			BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.GUILD_ADD);
+			BlockingUtils.unblockPlayer(invitedPlayer.keycloakId, BlockingConstants.REASONS.GUILD_ADD);
+			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.GUILD_ADD);
 			if (!reaction || reaction.reaction.type !== ReactionCollectorAcceptReaction.name) {
 				response.push(makePacket(CommandGuildInviteRefusePacketRes, {
 					invitedPlayerKeycloakId: invitedPlayer.keycloakId,
@@ -72,8 +72,8 @@ export default class GuildInviteCommand {
 			},
 			endCallback
 		)
-			.block(invitedPlayer.id, BlockingConstants.REASONS.GUILD_ADD)
-			.block(player.id, BlockingConstants.REASONS.GUILD_ADD)
+			.block(invitedPlayer.keycloakId, BlockingConstants.REASONS.GUILD_ADD)
+			.block(player.keycloakId, BlockingConstants.REASONS.GUILD_ADD)
 			.build();
 
 		response.push(collectorPacket);

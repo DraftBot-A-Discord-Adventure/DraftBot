@@ -161,8 +161,8 @@ export class ReactionCollectorInstance {
 		}
 	}
 
-	public block(playerId: number, reason: BlockingReason): this {
-		BlockingUtils.blockPlayerUntil(playerId, reason, this.endTime);
+	public block(keycloakId: string, reason: BlockingReason): this {
+		BlockingUtils.blockPlayerUntil(keycloakId, reason, this.endTime);
 		return this;
 	}
 

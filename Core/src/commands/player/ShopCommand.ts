@@ -213,7 +213,7 @@ function getBuySlotExtensionShopItemCallback(playerId: number, price: number): E
 	return async (collector, response): Promise<void> => {
 		const player = await Players.getById(playerId);
 		const reaction = collector.getFirstReaction();
-		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.SLOT_EXTENSION);
+		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.SLOT_EXTENSION);
 		if (!reaction || reaction.reaction.type === ReactionCollectorBuyCategorySlotCancelReaction.name) {
 			response.push(makePacket(CommandShopClosed, {}));
 			return;
@@ -266,7 +266,7 @@ async function getSlotExtensionShopItem(player: Player): Promise<ShopItem | null
 				},
 				getBuySlotExtensionShopItemCallback(player.id, price)
 			)
-				.block(player.id, BlockingConstants.REASONS.SLOT_EXTENSION)
+				.block(player.keycloakId, BlockingConstants.REASONS.SLOT_EXTENSION)
 				.build();
 
 			response.push(packet);
