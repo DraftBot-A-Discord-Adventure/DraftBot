@@ -29,7 +29,6 @@ export default class LeagueRewardCommand {
 			}));
 			return;
 		}
-		// TODO check if it's still the same condition in v5
 		if (player.gloryPointsLastSeason === 0) {
 			response.push(makePacket(CommandLeagueRewardNoPointsPacketRes, {}));
 			return;

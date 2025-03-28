@@ -846,7 +846,7 @@ export class Player extends Model {
 			return 0;
 		}
 		const pointsToAward = Math.round(
-			3000 - Math.sqrt(80000 * (rank - 1) ) + 5 * rank
+			2995 - Math.sqrt(80000 * (rank - 1) ) + 5 * rank
 		);
 		return Math.ceil(pointsToAward / 10) * 10;
 	}
