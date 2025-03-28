@@ -303,7 +303,7 @@
       }
     },
     "timings": {
-      "allTime": "️{emote:top.allTime} Schon immer.",
+      "allTime": "{emote:top.allTime} Depuis toujours.",
       "weekly": "{emote:top.weekly} Diese Woche."
     }
   },
