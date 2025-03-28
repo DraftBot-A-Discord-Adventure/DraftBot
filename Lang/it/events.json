@@ -40,7 +40,7 @@
       },
       "push": {
         "outcomes": {
-          "0": "Ma perché l'hai fatto? 🤔 Sentendovi in colpa, aiutate il povero uomo e gli offrite qualche monete per farvi perdonare."
+          "0": "Mais pourquoi avoir fait cela ? {emote:other.why} Pris de remords, vous secourez le pauvre homme et lui offrez quelques pièces pour vous faire pardonner."
         },
         "text": "Spingete il pescatore in acqua!"
       },
@@ -2043,7 +2043,7 @@
         "text": "Osservare l'ambiente circostante."
       }
     },
-    "text": "**Il re sta cercando un nobile cavaliere per dare in sposa sua figlia e voi avete scelto di partecipare alla selezione! Appena arrivati all'ingresso del castello dopo un lungo viaggio, segnalate la vostra presenza alle guardie all'ingresso. Siete invitati a entrare e subito incontrate una giovane donna che sembra volervi dare il benvenuto."
+    "text": "**Bonjour et bienvenue sur DraftBot !** {emote:other.crown} Le roi est à la recherche d'un noble chevalier pour marier sa fille et vous avez choisi de participer au concours de sélection ! Venant d'arriver à l'entrée du château après un long voyage, vous signalez votre présence aux gardes de l'entrée. Vous êtes invité à rentrer et rencontrez rapidement une jeune femme qui semble vouloir vous accueillir."
   },
   "62": {
     "possibilities": {
@@ -2065,7 +2065,7 @@
       "searchPatures": {
         "outcomes": {
           "0": "Dopo aver osservato da lontano il bestiame che mastica l'erba fresca del primo tratto di prato selvatico, ci si avvia verso il secondo. Molte pecore pascolano tranquillamente. Un'imponente quercia domina il pascolo e attira la vostra attenzione, così decidete di avvicinarvi. A pochi metri dall'albero, notate un forcone appoggiato con disinvoltura al tronco. Il contadino sembra felicissimo quando gli comunicate la vostra scoperta. Come promesso, vi dà una piccola borsa piena d'oro.",
-          "1": "Avvicinandosi ai pascoli, si notano delle impronte. Seguendole, si entra in un boschetto buio che contiene una capanna a dir poco lugubre. Incuriositi, girate intorno all'edificio e vi trovate di fronte al tanto ricercato forcone! Dopo aver ripercorso la strada, consegnate l'oggetto al contadino, che vi ringrazia e vi invita a condividere il suo pasto per raccontargli la vostra indagine. È una serata piacevole e lasciate il contadino a tarda notte, rinvigoriti dai prodotti locali.",
+          "1": "Vous approchant des pâturages, vous remarquez des empreintes de pas. En les suivant, vous pénétrez dans un sombre bosquet dans lequel se trouve une cabane pour le moins lugubre. Curieux, vous faites le tour de la bâtisse et vous retrouvez nez à manche avec la tant recherchée fourche ! Après avoir repris le chemin en sens inverse, vous remettez l'objet au fermier qui se confond en remerciements et vous invite à partager son repas afin que vous puissiez lui conter votre investigation. La soirée est plaisante et vous quittez le fermier tard dans la nuit, revigoré par les produits du terroir.",
           "2": "Avvicinandosi ai pascoli, si notano delle impronte che attraversano il terreno e conducono al pergolato dove le pecore si godono l'ombra rinfrescante dei frassini. Decidete di seguirle, pensando che si tratti di un sentiero. Quando raggiungete le pecore, una di esse vi viene incontro. In uno stato d'animo giocoso, gli offrite la mano con un po' d'erba. La pecora ne approfitta per mangiare a sazietà, mordendovi il dito. Infastiditi, decidete di fuggire dalla scena. Avvicinandovi al limite del pascolo, perdete la forchetta per terra e la calpestate. Furioso per la sua sfortuna, pensa di non aiutare nessun altro nella sua avventura."
         },
         "text": "Cerca vicino ai pascoli."
@@ -2284,7 +2284,7 @@
     "possibilities": {
       "checkDate": {
         "outcomes": {
-          "0": "Guardate il calendario e scoprite che presto inizierà un torneo! Decidete di partecipare e raggiungete la finale dopo alcune ore di combattimento. Tuttavia, il vostro avversario vi domina e perdete l'ultima battaglia. Come finalista, vinci comunque un borsellino pieno d'oro prima di riprendere la tua strada.",
+          "0": "Vous regardez le calendrier et y découvrez l'existence d'un tournoi qui commence sous peu ! Vous décidez donc de vous y rendre et parvenez à atteindre la finale après quelques heures de combat. Cependant, votre adversaire vous domine et vous ratez votre dernière bataille. Finaliste, vous gagnez tout de même une bourse remplie d'or avant de reprendre votre chemin.",
           "1": "Guardate il calendario e vedete che è Laponaire, il 6° mese dell'anno, così decidete di uscire e mangiare una galette in una bancarella vicina. Questo cibo vi avrà saziato! Ripartite, sazi e soddisfatti.",
           "2": "Quando vedete il calendario, vi ricordate dei manifesti per le strade che parlavano di una caccia al tesoro. Decidete di partecipare. Dopo due ore di ricerca, non riuscite a trovare nulla. Decidete quindi di tornare indietro.",
           "3": "Guardate il calendario e alla data di oggi vedete: gara di idromele! Sentendo la resistenza all'alcol, decidete di tentare la fortuna. Vincete la gara e un premio! Tuttavia, vi ritrovate completamente ubriachi."
