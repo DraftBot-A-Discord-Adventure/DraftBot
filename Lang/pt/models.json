@@ -121,7 +121,7 @@
   },
   "fight_actions": {
     "benediction": {
-      "description": "Faz parte do grupo \"acções dos deuses\". Falha se uma ação divina já tiver sido executada em combate. Aumenta todos os atributos de quem a usa. Quanto mais tarde no combate a bênção for usada, maior será o aumento dos atributos.",
+      "description": "Fait partie du groupe des \"actions des dieux\". Échoue si 1 action des dieux a déjà été effectuée dans le combat. Augmente toutes les statistiques du lanceur. Plus la bénédiction est utilisée tard dans le combat, plus l'augmentation des statistiques est importante.",
       "name_one": "Bênção",
       "name_other": "Bênçãos"
     },
@@ -146,7 +146,7 @@
       "name_other": ""
     },
     "canonAttack": {
-      "description": "A precisão deste ataque é reduzida em adversários que se movam rapidamente. Um bónus de dano é aplicado a este ataque se o adversário for muito lento. O adversário pode ser abrandado por este ataque. Causa mais danos se for usado várias vezes seguidas.",
+      "description": "La précision de cette attaque baisse sur les adversaires rapides. Un bonus de dégât est affecté à cette attaque si l'adversaire est très lent. L'adversaire peut être ralenti par l'attaque. Inflige plus de dégâts si utilisé plusieurs fois de suite",
       "name_one": "Ataque de canhão",
       "name_other": "Ataques de canhão"
     },
@@ -156,12 +156,12 @@
       "name_other": "Ataques carregados"
     },
     "chargeClubSmashAttack": {
-      "description": "Requer um turno para carregar o ataque. Dá uma carga poderosa no turno seguinte.",
+      "description": "Nécessite un tour pour charger l'attaque. Délivre une charge puissante au tour suivant.",
       "name_one": "Ataque a um clube",
       "name_other": "Ataques a clubes"
     },
     "chargeUltimateAttack": {
-      "description": "Requer um turno para carregar o ataque Se o atacante tiver menos de 45% dos seus pontos de combate, este ataque não pode falhar. Se o atacante tiver mais de 45% dos seus pontos de combate, a precisão deste ataque é de 70. Este ataque só pode ser usado uma vez por jogador e por batalha.",
+      "description": "Nécessite un tour pour charger l'attaque Si l'attaquant dispose de moins de 45% de ses points de combat, cette attaque ne peut pas échouer. Si l'attaquant dispose de plus de 45% de ses points de combat, la précision de cette attaque est de 70. Cette attaque ne peut être utilisée qu'une fois par joueur et par combat.",
       "name_one": "Ataque final",
       "name_other": "Ataques finais"
     },
@@ -181,7 +181,7 @@
       "name_other": ""
     },
     "concentration": {
-      "description": "Falha se usares esta ação enquanto estiveres alterado. A alteração \"concentrado\" aumenta consideravelmente o dano infligido pelo lutador afetado durante o turno seguinte.",
+      "description": "Échoue si vous utilisez cette action alors que vous avez une altération d'état. L'altération \"concentré\" augmente fortement les dégâts infligés par le combattant affecté lors du prochain tour.",
       "name_one": "Concentração",
       "name_other": "Concentrações"
     },
@@ -231,7 +231,7 @@
       "name_other": "Refeições em família"
     },
     "fireAttack": {
-      "description": "Elevada probabilidade de queimar o teu adversário. A alteração \"queimado\" inflige danos ao teu adversário ao longo do tempo.",
+      "description": "Grande chance de brûler l'adversaire. L'altération \"brûlé\" inflige des dégâts à votre adversaire sur la durée.",
       "name_one": "Ataque de incêndio",
       "name_other": "Ataques de fogo"
     },
@@ -261,12 +261,12 @@
       "name_other": "Drenos de calor"
     },
     "heavyAttack": {
-      "description": "O dano deste ataque é reduzido em 90% se o defensor tiver menos defesa do que o atacante. A defesa do inimigo é reduzida em 25%.",
+      "description": "Les dégâts de cette attaque sont réduits de 90% si le défenseur dispose de moins de défense que l'attaquant. La défense de l'ennemi est réduite de 25%.",
       "name_one": "Ataque pesado",
       "name_other": "Ataques pesados"
     },
     "intenseAttack": {
-      "description": "Ignora parte da defesa do teu adversário. Nunca falha contra um adversário mais rápido. Funciona melhor num adversário rápido. Obriga o lançador a usar a ação \"descansar\" no próximo turno. Não pode matar o adversário.",
+      "description": "Ignore une partie de la défense de l'adversaire. N'échoue jamais sur un adversaire plus rapide. Fonctionne mieux sur un adversaire rapide. Force le lanceur à utiliser l'action \"repos\" au tour suivant. Ne peut pas tuer l'adversaire.",
       "name_one": "Ataque intenso",
       "name_other": "Ataques intensos"
     },
@@ -306,7 +306,7 @@
       "name_other": ""
     },
     "outrageAttack": {
-      "description": "Falha se usares esta ação enquanto tiveres uma alteração de estado. A alteração \"zangado\" duplica o ataque mas diminui a defesa. Após 2 turnos, o efeito desaparece e o atacante fica confuso.",
+      "description": "Échoue si vous utilisez cette action alors que vous avez une altération d'état. L'altération \"en colère\" double l'attaque mais baisse la défense. Au bout de 2 tours, l'effet disparait et l'attaquant devient confus.",
       "name_one": "Raiva",
       "name_other": "Raiva"
     },
@@ -326,7 +326,7 @@
       "name_other": ""
     },
     "piercingAttack": {
-      "description": "Ignora quase por completo a defesa do adversário. É provável que o atacante reduza ligeiramente a defesa do adversário.",
+      "description": "Ignore presque complètement la défense de l'adversaire. L'attaquant a une probabilité de réduire légèrement la défense de son adversaire.",
       "name_one": "Ataque perfurante",
       "name_other": "Ataques perfurantes"
     },
@@ -336,12 +336,12 @@
       "name_other": ""
     },
     "poisonousAttack": {
-      "description": "Envenena o teu adversário. A alteração \"envenenado\" dura pelo menos três turnos e causa dano ao teu adversário ao longo do tempo.",
+      "description": "Empoisonne l'adversaire. L'altération \"empoisonné\" dure au moins trois tours et inflige des dégâts à votre adversaire sur la durée.",
       "name_one": "Ataque envenenado",
       "name_other": "Ataques envenenados"
     },
     "powerfulAttack": {
-      "description": "Este ataque tem 25% de hipóteses de causar mais danos, ao custo de atordoar o atacante. Após 3 utilizações, o dano do ataque é reduzido em 70%.",
+      "description": "Cette attaque a 25 % de chance de faire plus de dégâts, au prix d'un étourdissement de l'attaquant. Après 3 utilisations, les dégâts de l'attaque sont réduits de 70%.",
       "name_one": "Ataque poderoso",
       "name_other": "Ataques poderosos"
     },
@@ -351,12 +351,12 @@
       "name_other": ""
     },
     "protection": {
-      "description": "Falha se usares esta ação enquanto tiveres uma alteração de estado. A alteração \"protegida\" dura 3 turnos e impede-te de seres vítima de outra alteração, dando-te um aumento de 30% na tua defesa.",
+      "description": "Échoue si vous utilisez cette action alors que vous avez une altération d'état. L'altération \"protégé\" dure 3 tours et vous empêche d'être victime d'une autre altération tout en vous offrant un boost de 30% de votre défense.",
       "name_one": "Proteção",
       "name_other": "Protecções"
     },
     "quickAttack": {
-      "description": "Nunca falha num adversário mais lento. Quanto mais lento for o teu adversário, mais danos este ataque causará.",
+      "description": "N'échoue jamais sur un adversaire plus lent. Plus votre adversaire est lent, plus cette attaque lui fera des dégâts.",
       "name_one": "Ataque rápido",
       "name_other": "Ataques rápidos"
     },
@@ -366,12 +366,12 @@
       "name_other": "Explosões de raiva"
     },
     "ramAttack": {
-      "description": "Se o atacante não ficar atordoado com o ataque, recebe parte do dano infligido. O ataque também pode atordoar o adversário.",
+      "description": "Si l'attaquant n'est pas étourdi par l'attaque, il reçoit une partie des dégâts infligés. L'attaque peut également étourdir l'adversaire.",
       "name_one": "Ataque de rams",
       "name_other": "Ataques de rams"
     },
     "resting": {
-      "description": "Aplica-se como uma cura para o lançador. A quantidade de pontos de combate recuperados é dividida por 4 após 4 utilizações.",
+      "description": "S'applique sous forme de soin au lanceur. La quantité de points de combat récupérée est divisée par 4 au bout de 4 utilisations.",
       "name_one": "Descanso",
       "name_other": "Descanso"
     },
@@ -386,12 +386,12 @@
       "name_other": "Escudo de pedra"
     },
     "sabotageAttack": {
-      "description": "Ignora completamente a defesa do adversário. Funciona melhor num adversário com pouco ataque. Um ataque de sopro baixo que pode paralisar o lançador. Se isso acontecer, o dano é aumentado.",
+      "description": "Ignore complètement la défense de l'adversaire. Fonctionne mieux sur un adversaire ayant peu d'attaque. Attaque peu couteuse en souffle mais qui peut paralyser le lanceur. Si c'est le cas, les dégâts sont augmentés.",
       "name_one": "Ataque de sabotagem",
       "name_other": "Ataques de sabotagem"
     },
     "shieldAttack": {
-      "description": "Usa o escudo do atacante para atacar. O dano \"enfraquecido\" reduz o ataque em 70% durante 1 turno.",
+      "description": "Utilise le bouclier de l'attaquant pour attaquer. L'altération \"affaibli\" réduit l'attaque de 70% durant 1 tour.",
       "name_one": "Ataque com escudo",
       "name_other": "Ataques com escudo"
     },
@@ -1349,5 +1349,39 @@
     "get_feminine_ordinal_other": "{{count}}th",
     "get_ordinal_one": "1º",
     "get_ordinal_other": "{{count}}th"
+  },
+  "guilds": {
+    "levelUpTitle": "{emote:unitValues.xp} La guilde {{guild}} monte de niveau !",
+    "levelUpDesc": "La guilde est désormais niveau **{{level}}**"
+  },
+  "players": {
+    "koTitle": "{{pseudo}}, vous avez été mis K.O. !",
+    "koDesc": "{emote:effects.dead} Utilisez la commande {command:respawn} pour recommencer à jouer.",
+    "koDmTitle": "Bonjour Combattant !",
+    "koDmDesc": "Il semblerait que vous ayez été mis K.O... {emote:effects.dead}\nGrâce à nos technologies avancées il nous a été possible de modifier les évènements de manière à vous éviter une mort atroce ! {emote:other.tada}\nMalheureusement l'opération est coûteuse et votre score a donc été impacté par cette mort... \n\nPour recommencer à jouer, faites {command:respawn}.",
+    "leavePVEIslandTitle": "{{pseudo}}, évanouissement",
+    "leavePVEIslandDescStart": "{emote:effects.confounded} Vous sentez vos forces vous quitter, vous êtes à bout. Vous vous évanouissez par terre...\n\n{emote:unitValues.lostMoney} Argent perdu : **{{moneyLost}}**",
+    "leavePVEIslandMalusGuildPoints": "\n{emote:unitValues.guildPoint} Points de guilde perdus : **{{guildPointsLost}}**",
+    "leavePVEIslandDescEnd": "\n\nUn bateau vient vous chercher et vous ramène sur une côte du continent principal.",
+    "levelUp": {
+      "title": "{{pseudo}}, vous montez de niveau !",
+      "description": "{emote:unitValues.xp} Vous êtes désormais niveau **{{level}}** !\n\n",
+      "rewards": {
+        "healthRestored": "{emote:unitValues.health} | Votre vie a été restaurée.",
+        "fightUnlocked": "{emote:unitValues.attack} | Combats débloqués avec la commande {command:fight} ! Pour plus d'informations sur les combats, exécutez la commande {command:help}.",
+        "guildUnlocked": "{emote:other.guild} | Guildes débloquées avec les commandes {command:guild}, {command:guildcreate}, {command:guildinvite}, {command:guildleave}, {command:guilddailybonus}, {command:guildkick} et bien plus ! Pour plus d'informations sur les guildes, utilisez la commande {command:help}.",
+        "classUnlocked": "{emote:commands.classes} | Classes débloquées avec les commandes {command:classes} et {command:classesinfo} ! Pour plus d'informations sur les classes, utilisez la commande {command:help}.",
+        "classTier": "{emote:commands.classes} | Classes de palier {{tier}} débloquées ! Pour plus d'informations sur les classes, utilisez les commandes {command:classesinfo} et {command:help}.",
+        "newMissionSlot": "{emote:missions.sideMission} | Nouvel emplacement de mission débloqué ! Pour plus d'informations sur vos missions, utilisez la commande {command:missions}.",
+        "pveUnlocked": "{emote:other.island} | Accès aux îles lointaines débloquées ! Rendez-vous près d'un point d'eau pour de nouvelles aventures !",
+        "statsIncreased": "{emote:other.increase} | Statistiques améliorées."
+      }
+    }
+  },
+  "petReceived": {
+    "genericGiveTitle": "{{pseudo}}, obtention d'un familier",
+    "genericGiveNoSlot": "Vous obtenez un nouveau familier: **{{pet}}**. Cependant, vous n'avez pas de place pour l'accueillir.",
+    "genericGiveGuild": "Vous obtenez un nouveau familier: **{{pet}}**. Vous le placez dans le refuge de la guilde.",
+    "genericGivePlayer": "Vous obtenez un nouveau familier: **{{pet}}**. Vous décidez de l'emmener avec vous."
   }
 }
