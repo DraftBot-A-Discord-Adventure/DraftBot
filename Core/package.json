@@ -15,7 +15,8 @@
 		"eslintFix": "eslint src --fix",
 		"tsc": "tsc",
 		"yarnInstall": "yarn install",
-		"dockerStart": "node dist/Core/src/index.js"
+		"dockerStart": "node dist/Core/src/index.js",
+    "start-profiler": "yarn run tsc && node --prof dist/Core/src/index.js"
 	},
 	"dependencies": {
 		"@types/node": "20.4.8",
