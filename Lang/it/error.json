@@ -11,7 +11,7 @@
     "descriptionEdit": "modificare la descrizione della gilda",
     "drink": "la scelta di bere o no una pozione",
     "fight": "combattimento",
-    "fightConfirmation": "choix de débuter un combat ou non",
+    "fightConfirmation": "scegliere se iniziare o meno una lotta",
     "fightPetChoose": "scegliere un'azione di combattimento dell'animale domestico",
     "gobletChoose": "scegliere una tazza",
     "guildCreate": "creare una gilda",
@@ -59,7 +59,7 @@
   "alreadyInAGuild": "Fai già parte di una gilda.",
   "petDoesntExist": "Nessuno animale domestico e stato trovato.",
   "unexpectedError": "Si è verificato un errore :(",
-  "pleaseWaitForHeal": "Veuillez attendre la fin des soins de votre altération d'état pour continuer à jouer : {{time}}\n\n{emote:messages.info} Vous pouvez utiliser la commande {command:shop} pour acheter un soin.",
+  "pleaseWaitForHeal": "Attendere la fine della guarigione per la modifica del proprio stato prima di continuare a giocare: {{time}}\n\n{emote:messages.info} È possibile utilizzare il comando {command:shop} per acquistare una guarigione.",
   "pleaseWaitForHisHeal": "{{time}}Per favore, aspettate fino alla fine delle cure per il deterioramento delle sue condizioni:",
   "notEnoughMoney": "Non avete abbastanza soldi per realizzare questa azione. {{money}} Siete a corto di denaro {emote:unitValues.money}.",
   "cooldownPetFree": "È possibile liberare un solo animale domestico all'ora. {{remainingTime}}È possibile liberare un altro .",
@@ -149,5 +149,5 @@
   "banned": "Sei stato bandito dal gioco.",
   "aDevMessedUp": "Oops! Si è verificato un errore. Non si preoccupi, non è colpa sua. Ti preghiamo di accettare le nostre scuse per gli inconvenienti causati. Per risolvere questo problema, contatta il nostro team di supporto tramite il nostro server Discord: https://discord.gg/5JqrMtZ",
   "commandNotAvailableHere": "Questo comando non può essere utilizzato in questa posizione.",
-  "guildFoodStorageFull": "Vous avez reçu **{{quantity}}x {{food}}**, mais le stock de nourriture de votre guilde est plein. La nourriture a été jetée."
+  "guildFoodStorageFull": "Hai ricevuto **{{quantity}}x {{food}}**, ma le scorte di cibo della tua gilda sono piene. Il cibo è stato gettato via."
 }
