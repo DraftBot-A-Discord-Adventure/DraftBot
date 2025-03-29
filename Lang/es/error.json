@@ -11,7 +11,7 @@
     "descriptionEdit": "editar la descripción del gremio",
     "drink": "elección de beber o no una poción",
     "fight": "combate",
-    "fightConfirmation": "choix de débuter un combat ou non",
+    "fightConfirmation": "elección de iniciar o no una pelea",
     "fightPetChoose": "elegir una acción de combate con mascota",
     "gobletChoose": "elegir una taza",
     "guildCreate": "crear un gremio",
@@ -59,7 +59,7 @@
   "alreadyInAGuild": "Ya perteneces a un gremio.",
   "petDoesntExist": "No se encontraron mascotas.",
   "unexpectedError": "Se ha producido un error :(",
-  "pleaseWaitForHeal": "Veuillez attendre la fin des soins de votre altération d'état pour continuer à jouer : {{time}}\n\n{emote:messages.info} Vous pouvez utiliser la commande {command:shop} pour acheter un soin.",
+  "pleaseWaitForHeal": "Por favor, espera hasta el final de la curación para tu alteración de estado antes de continuar jugando: {{time}}\n\n{emote:messages.info} Puedes usar el comando {command:shop} para comprar una curación.",
   "pleaseWaitForHisHeal": "{{time}}Por favor, espere hasta el final de la atención para su estado de deterioro:",
   "notEnoughMoney": "No tienes dinero suficiente para llevar a cabo esta acción. {{money}} Te falta dinero {emote:unitValues.money}.",
   "cooldownPetFree": "Sólo puedes liberar una mascota por hora. {{remainingTime}}Puedes liberar otra .",
@@ -149,5 +149,5 @@
   "banned": "Has sido expulsado del juego.",
   "aDevMessedUp": "¡Uy! Se ha producido un error. No se preocupe, no es culpa suya. Le pedimos disculpas por las molestias ocasionadas. Para resolver este problema, ponte en contacto con nuestro equipo de asistencia a través de nuestro servidor Discord: https://discord.gg/5JqrMtZ",
   "commandNotAvailableHere": "Este comando no se puede utilizar en esta ubicación.",
-  "guildFoodStorageFull": "Vous avez reçu **{{quantity}}x {{food}}**, mais le stock de nourriture de votre guilde est plein. La nourriture a été jetée."
+  "guildFoodStorageFull": "Has recibido **{{quantity}}x {{food}}**, pero las reservas de comida de tu gremio están llenas. La comida se ha tirado."
 }
