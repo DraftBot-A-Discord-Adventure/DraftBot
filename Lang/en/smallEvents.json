@@ -104,7 +104,7 @@
     ],
     "priceFree": "the trip **is free**",
     "priceMoney": "le voyage **coûtera {{price}} {emote:unitValues.gem}**",
-    "confirm": "Voulez-vous partir sur l'île ? Vous avez {emote:unitValues.energy} **{{fightPoints}} / {{fightPointsMax}}**.",
+    "confirm": "Voulez-vous partir sur l'île ? Vous avez {emote:unitValues.energy} **{{energy}} / {{energyMax}}**.",
     "endStoryAccept": "{{gainScore}} Vous acceptez et embarquez sur le bateau en direction de l'île.",
     "endStoryAcceptWithMember": "{{gainScore}} Vous acceptez et au moment d'embarquez, vous remarquez qu'un membre de votre guilde se trouve déjà sur le bateau, vous le rejoignez et partez en direction de l'île.",
     "endStoryRefuse": "You politely decline the offer and continue on your way.",
@@ -394,15 +394,15 @@
       "The princess is closing in on you! At least that's the impression you get... You continue on your way."
     ]
   },
-  "winFightPoints": {
+  "winEnergyOnIsland": {
     "stories": [
-      "vous voyez un banc sur le bord du chemin et vous vous asseyez quelques minutes. Cela vous rend {emote:unitValues.energy} **{{fightPoints}}**.",
-      "vous détachez votre gourde de votre ceinture et vous vous désaltérez. Vous gagnez {emote:unitValues.energy} **{{fightPoints}}**.",
-      "vous sortez un fruit que vous gardiez dans un tissu et le mangez. Cela vous rend {emote:unitValues.energy} **{{fightPoints}}**.",
-      "vous vous arrêtez quelques secondes pour reprendre votre souffle. Vous repartez un peu plus endurant et gagnez {emote:unitValues.energy} **{{fightPoints}}**.",
-      "vous sortez un morceau de pain et vous vous rassasiez avec celui-ci. Cela vous rend {emote:unitValues.energy} **{{fightPoints}}**.",
-      "vous vous asseyez quelques minutes et vous méditez pour apaiser votre esprit. Vous récupérez {emote:unitValues.energy} **{{fightPoints}}**.",
-      "vous sentez vos muscles se tendre et vous vous arrêtez quelques instants pour les étirer. Vous récupérez {emote:unitValues.energy} **{{fightPoints}}**."
+      "vous voyez un banc sur le bord du chemin et vous vous asseyez quelques minutes. Cela vous rend {emote:unitValues.energy} **{{energy}}**.",
+      "vous détachez votre gourde de votre ceinture et vous vous désaltérez. Vous gagnez {emote:unitValues.energy} **{{energy}}**.",
+      "vous sortez un fruit que vous gardiez dans un tissu et le mangez. Cela vous rend {emote:unitValues.energy} **{{energy}}**.",
+      "vous vous arrêtez quelques secondes pour reprendre votre souffle. Vous repartez un peu plus endurant et gagnez {emote:unitValues.energy} **{{energy}}**.",
+      "vous sortez un morceau de pain et vous vous rassasiez avec celui-ci. Cela vous rend {emote:unitValues.energy} **{{energy}}**.",
+      "vous vous asseyez quelques minutes et vous méditez pour apaiser votre esprit. Vous récupérez {emote:unitValues.energy} **{{energy}}**.",
+      "vous sentez vos muscles se tendre et vous vous arrêtez quelques instants pour les étirer. Vous récupérez {emote:unitValues.energy} **{{energy}}**."
     ]
   },
   "winHealth": {
@@ -870,14 +870,14 @@
       "item_m": [
         "You see **{{pet}}** digging in tall grass. There is a **item** that you can possibly keep for the rest of your adventure.",
         "You notice that **{{pet}}** is watching the ground and deciding to dig a hole. What was your surprise after seeing him come out of an **item**!",
-        "You discover that **{{pet}}** sniffs insistently towards a bush. You decide to take a look at it and see it come back with a **item** fills you with joy!",
+        "Vous découvrez que **{{pet}}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un œil, et le voir revenir avec un **objet** vous remplit de joie !",
         "You see everything **{{pet}}** jumping into the water. What was not your surprise when you saw it come out with a **item**!",
         "After taking a short break on your ride, you see coming back **{{pet}}** with an **item**. It looks like he flew it to a merchant. You have to leave before the merchant sees it."
       ],
       "item_f": [
         "You see **{{pet}}** digging in tall grass. This shows a **item**, which you can possibly keep for the rest of your adventure.",
         "You notice that **{{pet}}** is watching the ground and deciding to dig a hole. What was your surprise after seeing him come out of an **item**!",
-        "You discover that **{{pet}}** sniffs insistently towards a bush. You decide to take a look at it, and see it come back with a **item** fills you with joy!",
+        "Vous découvrez que **{{pet}}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un œil, et la voir revenir avec un **objet** vous remplit de joie !",
         "You see everything **{{pet}}** jumping into the water. What was not your surprise when you saw it come out with a **item**!",
         "After taking a short break on your ride, you see coming back **{{pet}}** with an **item**. It looks like she flew it to a merchant. You have to leave before the merchant sees it."
       ],
@@ -918,14 +918,14 @@
       "food_m": [
         "The flair of **{{pet}}** has allowed you to find a **{{food}}**. You store this food and continue your journey.",
         "You notice that **{{pet}}** is watching the ground and deciding to dig a hole into it. What is your surprise when you see him coming out of a **{{food}}**!",
-        "You discover that **{{pet}}** sniffs insistently towards a bush. You decide to take a look and see it come back with a **{{food}}** in your mouth!",
+        "Vous découvrez que **{{pet}}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un œil et vous le voyez revenir avec une **{{food}}** dans la bouche !",
         "You see everything **{{pet}}** jumping into the water. What is your surprise when you see it coming out with a **{{food}}**!",
         "After taking a short break on your ride, you will see coming back **{{pet}}** with a **{{food}}**. It looks like he flew it to a merchant. You have to leave before he sees it."
       ],
       "food_f": [
         "The flair of **{{pet}}** has allowed you to find a **{{food}}**. You store this food and continue your journey.",
         "You notice that **{{pet}}** is watching the ground and deciding to dig a hole into it. What is your surprise when you see it coming out with a **{{food}}**!",
-        "You discover that **{{pet}}** sniffs insistently towards a bush. You decide to take a look and see it come back with a **{{food}}** in your mouth!",
+        "Vous découvrez que **{{pet}}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un œil et vous la voyez revenir avec une **{{food}}** dans la bouche !",
         "You see everything **{{pet}}** jumping into the water. What is your surprise when you see it coming out with a **{{food}}**!",
         "After taking a short break on your ride, you will see coming back **{{pet}}** with a **{{food}}**. It looks like she flew her from a merchant. You have to leave before he sees it."
       ],
