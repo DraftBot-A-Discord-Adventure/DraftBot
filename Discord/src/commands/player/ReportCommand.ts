@@ -203,6 +203,7 @@ export async function chooseDestinationCollector(context: PacketContext, packet:
 
 	return await DiscordCollectorUtils.createChoiceListCollector(interaction, embed, packet, context, packet.reactions.map((reaction) => {
 		const destinationReaction = reaction.data as ReactionCollectorChooseDestinationReaction;
+		// If the trip duration is hidden, the translation module is used with a 2 hours placeholder and the 2 is replaced by a ? afterward
 		const duration = destinationReaction.tripDuration ? minutesDisplay(destinationReaction.tripDuration, lng) : minutesDisplay(120, lng).replace("2", "?");
 		return `${
 			EmoteUtils.translateEmojiToDiscord(DraftBotIcons.map_types[destinationReaction.mapTypeId])
