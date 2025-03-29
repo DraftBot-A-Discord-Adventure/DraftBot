@@ -29,11 +29,10 @@ export class Constants {
 		BONUS_POINT_TIME_DIVIDER: 6,
 		POINTS_BY_SMALL_EVENT: 50,
 		PATH_SQUARE_COUNT: 16,
-		TIME_BETWEEN_MINI_EVENTS: 9.75 * 60 * 1000, // 9 minutes and 45 seconds
-		AUTO_CHOOSE_DESTINATION_CHANCE: 0.15 // 15%
+		TIME_BETWEEN_MINI_EVENTS: 9.75 * 60 * 1000 // 9 minutes and 45 seconds
 	};
 
-	// This constant represent the different types of values on which the players can be ranked
+	// This constant represents the different types of values on which the players can be ranked
 	static readonly RANK_TYPES = {
 		LEVEL: "level",
 		SCORE: "score",
@@ -56,34 +55,6 @@ export class Constants {
 			4 * 7 * 24 * 60 * 60, // 4 weeks
 			4 * 7 * 24 * 60 * 60 // 4 weeks
 		]
-	};
-
-	static readonly CLASSES = {
-		RECRUIT: 0,
-		FIGHTER: 1,
-		SOLDIER: 2,
-		INFANTRYMAN: 3,
-		GLOVED: 4,
-		HELMETED: 5,
-		ENMESHED: 6,
-		TANK: 7,
-		ROCK_THROWER: 8,
-		SLINGER: 9,
-		ARCHER: 10,
-		GUNNER: 11,
-		ESQUIRE: 12,
-		HORSE_RIDER: 13,
-		PIKEMAN: 14,
-		KNIGHT: 15,
-		PALADIN: 16,
-		VETERAN: 17,
-		POWERFUL_INFANTRYMAN: 18,
-		IMPENETRABLE_TANK: 19,
-		FORMIDABLE_GUNNER: 20,
-		VALIANT_KNIGHT: 21,
-		LUMINOUS_PALADIN: 22,
-		EXPERIENCED_VETERAN: 23,
-		MYSTIC_MAGE: 24
 	};
 
 	static readonly LOGS = {
@@ -181,7 +152,7 @@ export class Constants {
 		MAX_MESSAGE_LENGTH_ALLOWED: 1900
 	};
 
-	static readonly REACTIONS = {
+	static readonly REACTIONS = { // Todo: remove those and other emoji based constants since they are in the DraftBotIcons ?
 		VALIDATE_REACTION: "✅",
 		REFUSE_REACTION: "❌",
 		WAIT_A_BIT_REACTION: "⏳",

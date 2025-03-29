@@ -16,7 +16,6 @@ import {Logger} from "../../../../Lib/src/instances/Logger";
 import {CommandsTest} from "../CommandsTest";
 import Player from "../database/game/models/Player";
 import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
-import {LeagueInfoConstants} from "../../../../Lib/src/constants/LeagueInfoConstants";
 import {PacketUtils} from "../utils/PacketUtils";
 import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
 import {TopWeekAnnouncementPacket} from "../../../../Lib/src/packets/announcements/TopWeekAnnouncementPacket";
@@ -27,6 +26,8 @@ import {ReachDestinationNotificationPacket} from "../../../../Lib/src/packets/no
 import {MapLocationDataController} from "../../data/MapLocation";
 import * as fs from "fs";
 import {MqttTopicUtils} from "../../../../Lib/src/utils/MqttTopicUtils";
+import {initializeAllClassBehaviors} from "../fights/AiBehaviorController";
+import {initializeAllPetBehaviors} from "../fights/PetAssistManager";
 
 export class DraftBot {
 	public readonly packetListener: PacketListenerServer;
@@ -47,7 +48,7 @@ export class DraftBot {
 	}
 
 	/**
-	 * Launch the program that execute the top week reset
+	 * Launch the program that executes the top week reset
 	 */
 	static programWeeklyTimeout(): void {
 		const millisTill = getNextSundayMidnight().valueOf() - Date.now();
@@ -122,7 +123,7 @@ export class DraftBot {
 	}
 
 	/**
-	 * Launch the program that execute the daily tasks
+	 * Launch the program that executes the daily tasks
 	 */
 	static programDailyTimeout(): void {
 		const millisTill = getNextDay2AM().valueOf() - Date.now();
@@ -204,7 +205,7 @@ export class DraftBot {
 		await Player.update(
 			{
 				gloryPointsLastSeason: Sequelize.literal(
-					`CASE WHEN fightCountdown <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE} THEN gloryPoints ELSE 0 END`
+					`CASE WHEN fightCountdown <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE} THEN attackGloryPoints + defenseGloryPoints ELSE 0 END`
 				)
 			},
 			{where: {}}
@@ -217,15 +218,6 @@ export class DraftBot {
 				)
 			},
 			{where: {fightCountdown: {[Op.lt]: FightConstants.FIGHT_COUNTDOWN_REGEN_LIMIT}}}
-		);
-		// We remove 33% of the glory points above the GLORY_RESET_THRESHOLD
-		await Player.update(
-			{
-				gloryPoints: Sequelize.literal(
-					`gloryPoints - (gloryPoints - ${LeagueInfoConstants.GLORY_RESET_THRESHOLD}) * ${LeagueInfoConstants.SEASON_END_LOSS_PERCENTAGE}`
-				)
-			},
-			{where: {gloryPoints: {[Op.gt]: LeagueInfoConstants.GLORY_RESET_THRESHOLD}}}
 		);
 	}
 
@@ -241,7 +233,7 @@ export class DraftBot {
 				}
 			},
 			order: [
-				["gloryPoints", "DESC"],
+				[Sequelize.literal("(attackGloryPoints + defenseGloryPoints)"), "DESC"],
 				["level", "DESC"],
 				["score", "DESC"]
 			],
@@ -293,7 +285,7 @@ export class DraftBot {
 	}
 
 	/**
-	 * Sets the maitenance mode of the bot
+	 * Sets the maintenance mode of the bot
 	 * @param enable
 	 * @param saveToConfig Save the maintenance state to the config file
 	 * @throws
@@ -321,6 +313,8 @@ export class DraftBot {
 
 	async init(): Promise<void> {
 		await registerAllPacketHandlers();
+		initializeAllClassBehaviors();
+		initializeAllPetBehaviors();
 		await this.gameDatabase.init(true);
 		await this.logsDatabase.init(true);
 		await MapCache.init();

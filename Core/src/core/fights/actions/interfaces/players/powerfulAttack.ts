@@ -7,15 +7,16 @@ import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/Fig
 
 const use: FightActionFunc = (sender, receiver, fightAction) => {
 	const initialDamage = FightActionController.getAttackDamage(getStatsInfo(sender, receiver), sender, getAttackInfo());
-	const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 5, 20);
+	const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 0, 12);
 
 	// Check how many times the attack appears in the fight action history of the sender
-	const count = sender.fightActionsHistory.filter(action => action.id === "powerfulAttack").length;
+	// + 1 to count the current attack
+	const count = sender.fightActionsHistory.filter(action => action.id === "powerfulAttack").length + 1;
 
-	// If the attack is repeated more than 3 times, the damage dealt is reduced by 70%
+	// If the attack is repeated more than 3 times, the damage dealt is reduced by 90%
 	const result: FightActionResult = {
 		attackStatus: damageDealt.status,
-		damages: damageDealt.damages * (count > 3 ? 0.3 : 1)
+		damages: damageDealt.damages * (count > 3 ? 0.1 : 1)
 	};
 
 	// 20% chance to stun the sender and deal 50% more damage
@@ -31,13 +32,13 @@ const use: FightActionFunc = (sender, receiver, fightAction) => {
 
 	result.damages = Math.round(result.damages);
 
-	// Reduce speed of the sender by 15 %
+	// Reduce the speed of the opponent by 15 %
 	FightActionController.applyBuff(result, {
-		selfTarget: true,
+		selfTarget: false,
 		stat: FightStatBuffed.SPEED,
 		operator: FightStatModifierOperation.MULTIPLIER,
 		value: 0.85
-	}, sender, fightAction);
+	}, receiver, fightAction);
 
 	return result;
 };
@@ -47,8 +48,8 @@ export default use;
 function getAttackInfo(): attackInfo {
 	return {
 		minDamage: 50,
-		averageDamage: 150,
-		maxDamage: 250
+		averageDamage: 180,
+		maxDamage: 300
 	};
 }
 

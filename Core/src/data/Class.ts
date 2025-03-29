@@ -37,7 +37,7 @@ export class Class extends Data<number> {
 			speed: this.getSpeedValue(level),
 			health: this.health + level,
 			classGroup: this.classGroup,
-			fightPoint: this.getMaxCumulativeFightPointValue(level),
+			fightPoint: this.getMaxCumulativeEnergyValue(level),
 			baseBreath: this.baseBreath,
 			maxBreath: this.maxBreath,
 			breathRegen: this.breathRegen,
@@ -70,11 +70,11 @@ export class Class extends Data<number> {
 	}
 
 	/**
-	 * Get the max cumulative fight point value of the class in the given level
+	 * Get the max cumulative energy value of the class in the given level
 	 * @param level
 	 */
-	public getMaxCumulativeFightPointValue(level: number): number {
-		return Math.round(this.fightPoint + 10 * level + level / 4 * level / 8);
+	public getMaxCumulativeEnergyValue(level: number): number {
+		return Math.round(this.fightPoint + (1600 / (1 + Math.exp(-0.06 * level + 2)) + 0.5 * level));
 	}
 
 	/**

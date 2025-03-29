@@ -5,12 +5,11 @@ import {PVEConstants} from "../../../../../Lib/src/constants/PVEConstants";
 import {FighterStatus} from "../FighterStatus";
 import {Monster} from "../../../data/Monster";
 import {FightAction, FightActionDataController} from "../../../data/FightAction";
+import {DraftBotPacket} from "../../../../../Lib/src/packets/DraftBotPacket";
 
 export class MonsterFighter extends Fighter {
 
 	public readonly monster: Monster;
-
-	private readonly name: string;
 
 	public constructor(level: number, monster: Monster) {
 		const attacks: FightAction[] = [];
@@ -22,8 +21,8 @@ export class MonsterFighter extends Fighter {
 			}
 		}
 		super(level, attacks);
-		this.stats.fightPoints = this.calculateStat(PVEConstants.STATS_FORMULA.ENERGY, level, monster.fightPointsRatio);
-		this.stats.maxFightPoint = this.stats.fightPoints;
+		this.stats.energy = this.levelToEnergy(level, monster.baseEnergyValue);
+		this.stats.maxEnergy = this.stats.energy;
 		this.stats.attack = this.calculateStat(PVEConstants.STATS_FORMULA.ATTACK, level, monster.attackRatio);
 		this.stats.defense = this.calculateStat(PVEConstants.STATS_FORMULA.DEFENSE, level, monster.defenseRatio);
 		this.stats.speed = this.calculateStat(PVEConstants.STATS_FORMULA.SPEED, level, monster.speedRatio);
@@ -34,37 +33,22 @@ export class MonsterFighter extends Fighter {
 		this.status = FighterStatus.NOT_STARTED;
 	}
 
+	levelToEnergy(level: number, baseEnergyValue: number): number {
+		return Math.round(baseEnergyValue + (2000 / (1 + Math.exp(-0.06 * (level - 45))) + 0.7 * (level - 17)));
+	}
+
 	calculateStat(stat: { A: number, B: number, C: number }, level: number, ratio: number): number {
 		return Math.round(Math.round(stat.A * level * level + stat.B * level + stat.C) * ratio / 100.0);
 	}
 
-	chooseAction(fightView: FightView): Promise<void> {
-		/* eslint-disable capitalized-comments */
-		/* fightView.channel.send({
-			embeds: [
-				new DraftBotEmbed()
-					.setDescription(fightView.fightTranslationModule.get("actions.aiChoose"))
-			]
-		})
-			.then((embed) => { */
+	async chooseAction(fightView: FightView, response: DraftBotPacket[]): Promise<void> {
 		const fightAction = this.getRandomAvailableFightAction();
-		setTimeout(async function() {
-			// await embed.delete();
-			await fightView.fightController.executeFightAction(fightAction, true);
-		}, RandomUtils.draftbotRandom.integer(500, 2000));
-		return Promise.resolve();
+		await new Promise(f => setTimeout(f, RandomUtils.randInt(300, 1800)));
+		await fightView.fightController.executeFightAction(fightAction, true, response);
 	}
 
 	endFight(): Promise<void> {
 		return Promise.resolve();
-	}
-
-	getMention(): string {
-		return this.name;
-	}
-
-	getName(): string {
-		return this.name;
 	}
 
 	startFight(): Promise<void> {

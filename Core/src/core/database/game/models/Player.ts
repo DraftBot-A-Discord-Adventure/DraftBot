@@ -110,7 +110,9 @@ export class Player extends Model {
 
 	declare notifications: string;
 
-	declare gloryPoints: number;
+	declare defenseGloryPoints: number;
+
+	declare attackGloryPoints: number;
 
 	declare gloryPointsLastSeason: number;
 
@@ -177,7 +179,7 @@ export class Player extends Model {
 	}
 
 	/**
-	 * Get the origin id of the playe²r
+	 * Get the origin id of the player
 	 */
 	public getPreviousMapId(): number {
 		const link = MapLinkDataController.instance.getById(this.mapLinkId);
@@ -254,6 +256,13 @@ export class Player extends Model {
 		});
 		parameters.amount = -parameters.amount;
 		return this.addMoney(parameters);
+	}
+
+	/**
+	 * Return the value of glory that is displayed to the users
+	 */
+	public getGloryPoints(): number {
+		return this.attackGloryPoints + this.defenseGloryPoints;
 	}
 
 	/**
@@ -654,10 +663,10 @@ export class Player extends Model {
 	}
 
 	/**
-	 * Get the player cumulative fight points
+	 * Get the player cumulative energy
 	 */
-	public getCumulativeFightPoint(): number {
-		const maxHealth = this.getMaxCumulativeFightPoint();
+	public getCumulativeEnergy(): number {
+		const maxHealth = this.getMaxCumulativeEnergy();
 		let fp = maxHealth - this.fightPointsLost;
 		if (fp < 0) {
 			fp = 0;
@@ -668,8 +677,8 @@ export class Player extends Model {
 		return fp;
 	}
 
-	public getRatioCumulativeFightPoint(): number {
-		return this.getCumulativeFightPoint() / this.getMaxCumulativeFightPoint();
+	public getRatioCumulativeEnergy(): number {
+		return this.getCumulativeEnergy() / this.getMaxCumulativeEnergy();
 	}
 
 	/**
@@ -681,11 +690,11 @@ export class Player extends Model {
 	}
 
 	/**
-	 * Get the player max cumulative fight point
+	 * Get the player max cumulative energy
 	 */
-	public getMaxCumulativeFightPoint(): number {
+	public getMaxCumulativeEnergy(): number {
 		const playerClass = ClassDataController.instance.getById(this.class);
-		return playerClass.getMaxCumulativeFightPointValue(this.level);
+		return playerClass.getMaxCumulativeEnergyValue(this.level);
 	}
 
 	/**
@@ -705,12 +714,12 @@ export class Player extends Model {
 	}
 
 	/**
-	 * Add and logs fight points lost to the player
+	 * Add and logs energy gain
 	 * @param energy
 	 * @param reason
 	 */
 	public addEnergy(energy: number, reason: NumberChangeReason): void {
-		this.setFightPointsLost(Math.max(0, this.fightPointsLost - energy), reason);
+		this.setEnergyLost(Math.max(0, this.fightPointsLost - energy), reason);
 	}
 
 	/**
@@ -718,9 +727,9 @@ export class Player extends Model {
 	 * @param energy
 	 * @param reason
 	 */
-	public setFightPointsLost(energy: number, reason: NumberChangeReason): void {
+	public setEnergyLost(energy: number, reason: NumberChangeReason): void {
 		this.fightPointsLost = energy;
-		draftBotInstance.logsDatabase.logFightPointChange(this.keycloakId, this.fightPointsLost, reason)
+		draftBotInstance.logsDatabase.logEnergyChange(this.keycloakId, this.fightPointsLost, reason)
 			.then();
 	}
 
@@ -733,11 +742,11 @@ export class Player extends Model {
 	}
 
 	/**
-	 * Leave the PVE island if no fight points left
+	 * Leave the PVE island if no energy left
 	 * @param response
 	 */
-	public async leavePVEIslandIfNoFightPoints(response: DraftBotPacket[]): Promise<boolean> {
-		if (!(Maps.isOnPveIsland(this) && this.fightPointsLost >= this.getMaxCumulativeFightPoint())) {
+	public async leavePVEIslandIfNoEnergy(response: DraftBotPacket[]): Promise<boolean> {
+		if (!(Maps.isOnPveIsland(this) && this.fightPointsLost >= this.getMaxCumulativeEnergy())) {
 			return false;
 		}
 		const {
@@ -758,24 +767,6 @@ export class Player extends Model {
 		await TravelTime.applyEffect(this, Effect.CONFOUNDED, 0, new Date(), NumberChangeReason.PVE_ISLAND);
 		await PlayerSmallEvents.removeSmallEventsOfPlayer(this.id);
 		return true;
-	}
-
-	/**
-	 * Add fight points
-	 * @param amount
-	 * @param maxPoints
-	 */
-	public addFightPoints(amount: number, maxPoints = -1): void {
-		if (maxPoints === -1) {
-			maxPoints = this.getMaxCumulativeFightPoint();
-		}
-		this.fightPointsLost -= amount;
-		if (this.fightPointsLost < 0) {
-			this.fightPointsLost = 0;
-		}
-		else if (this.fightPointsLost > maxPoints) {
-			this.fightPointsLost = maxPoints;
-		}
 	}
 
 	/**
@@ -817,7 +808,7 @@ export class Player extends Model {
 	 * Get the league of the player
 	 */
 	public getLeague(): League {
-		return LeagueDataController.instance.getByGlory(this.gloryPoints);
+		return LeagueDataController.instance.getByGlory(this.getGloryPoints());
 	}
 
 	/**
@@ -830,19 +821,20 @@ export class Player extends Model {
 	/**
 	 * Set the glory points of the player
 	 * @param gloryPoints
+	 * @param isDefense - true if the points to set are the defense Glory points
 	 * @param reason
 	 * @param response
 	 * @param fightId
 	 * @private
 	 */
-	public async setGloryPoints(gloryPoints: number, reason: NumberChangeReason, response: DraftBotPacket[], fightId: number = null): Promise<void> {
+	public async setGloryPoints(gloryPoints: number, isDefense: boolean, reason: NumberChangeReason, response: DraftBotPacket[], fightId: number = null): Promise<void> {
+		await draftBotInstance.logsDatabase.logPlayersGloryPoints(this.keycloakId, gloryPoints, reason, fightId);
+		isDefense ? this.defenseGloryPoints = gloryPoints : this.attackGloryPoints = gloryPoints;
 		Object.assign(this, await MissionsController.update(this, response, {
 			missionId: "reachGlory",
-			count: gloryPoints,
+			count: this.getGloryPoints(),
 			set: true
 		}));
-		await draftBotInstance.logsDatabase.logPlayersGloryPoints(this.keycloakId, gloryPoints, reason, fightId);
-		this.gloryPoints = gloryPoints;
 	}
 
 	/**
@@ -854,13 +846,7 @@ export class Player extends Model {
 			return 0;
 		}
 		const pointsToAward = Math.round(
-			FightConstants.ELO.LEAGUE_POINTS_REWARD_BASE_VALUE *
-			Math.exp(
-				FightConstants.ELO.LEAGUE_POINTS_REWARDS_COEFFICIENT_1 *
-				(1 - rank) / rank
-			) -
-			FightConstants.ELO.LEAGUE_POINTS_REWARDS_COEFFICIENT_2 *
-			(rank - 1 - FightConstants.ELO.LEAGUE_POINTS_REWARDS_COEFFICIENT_1)
+			2995 - Math.sqrt(80000 * (rank - 1) ) + 5 * rank
 		);
 		return Math.ceil(pointsToAward / 10) * 10;
 	}
@@ -899,10 +885,10 @@ export class Player extends Model {
 	}
 
 	/**
-	 * Check if the player has enough energy to join the island
+	 * Check if the player has enough energy to join the island or fight
 	 */
-	hasEnoughEnergyToJoinTheIsland(): boolean {
-		return this.getCumulativeFightPoint() / this.getMaxCumulativeFightPoint() >= PVEConstants.MINIMAL_ENERGY_RATIO;
+	hasEnoughEnergyToFight(): boolean {
+		return this.getCumulativeEnergy() / this.getMaxCumulativeEnergy() >= PVEConstants.MINIMAL_ENERGY_RATIO;
 	}
 
 	/**
@@ -1042,7 +1028,7 @@ export class Players {
 					keycloakId
 				}
 			}
-		))[0]; // We don't care about the boolean that findOrCreate returns so we strip it there
+		))[0]; // We don't care about the boolean that findOrCreate returns, so we strip it there
 	}
 
 	/**
@@ -1132,8 +1118,9 @@ export class Players {
 	 */
 	static async getRank(playerId: number, rankType: string): Promise<number> {
 		const condition = rankType === Constants.RANK_TYPES.GLORY ? `WHERE fightCountdown <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE}` : "";
+		const orderBy = rankType === Constants.RANK_TYPES.GLORY ? "(attackGloryPoints + defenseGloryPoints)" : rankType ;
 		const query = `SELECT ranking
-                       FROM (SELECT id, RANK() OVER (ORDER BY ${rankType} desc, level desc) ranking
+                       FROM (SELECT id, RANK() OVER (ORDER BY ${orderBy} desc, level desc) ranking
                              FROM players ${condition}) subquery
                        WHERE subquery.id = ${playerId}`;
 		return ((await Player.sequelize.query(query))[0][0] as {
@@ -1235,7 +1222,7 @@ export class Players {
 				}
 			},
 			order: [
-				["gloryPoints", "DESC"],
+				[Sequelize.literal("(attackGloryPoints + defenseGloryPoints)"), "DESC"],
 				["level", "DESC"]
 			],
 			limit: maxRank - minRank + 1,
@@ -1301,7 +1288,7 @@ export class Players {
 	}
 
 	/**
-	 *  Get the mean of all weekly score of the players
+	 *  Get the mean of all weekly scores of the players
 	 */
 	static async getMeanWeeklyScore(): Promise<number> {
 		const query = `SELECT AVG(weeklyScore) as avg
@@ -1345,7 +1332,7 @@ export class Players {
 	}
 
 	/**
-	 *  Get the mean of all level of the players
+	 *  Get the mean of all levels of the players
 	 */
 	static async getLevelMean(): Promise<number> {
 		const query = `SELECT AVG(level) as avg
@@ -1361,7 +1348,7 @@ export class Players {
 	}
 
 	/**
-	 *  Get the mean of all money of the players
+	 *  Get the mean out of all money of the players
 	 */
 	static async getNbMeanMoney(): Promise<number> {
 		const query = `SELECT AVG(money) as avg
@@ -1377,7 +1364,7 @@ export class Players {
 	}
 
 	/**
-	 * Get the sum of all money in game
+	 * Get the sum of all money in the game
 	 */
 	static async getSumAllMoney(): Promise<number> {
 		const query = `SELECT SUM(money) as sum
@@ -1423,6 +1410,34 @@ export class Players {
 				type: QueryTypes.SELECT
 			})))[0].count
 		);
+	}
+
+	/**
+	 * Find the X players that are the closest in defense glory to a specific value
+	 * @param player - the player that needs an opponent
+	 * @param amountOfPlayersToRetrieve - the X amount of players
+	 * @param offset - offset in case the found players are not enough and an offset search is necessary
+	 */
+	static async findPotentialOpponents(player: Player, amountOfPlayersToRetrieve: number, offset: number): Promise<Player[]> {
+		return await Player.findAll({
+			where: {
+				id: { [Op.ne]: player.id },
+				defenseGloryPoints: {
+					[Op.ne]: null,
+					[Op.between]: [
+						player.attackGloryPoints - FightConstants.ELO.MAX_ELO_GAP,
+						player.attackGloryPoints + FightConstants.ELO.MAX_ELO_GAP
+					]
+				},
+				level: {[Op.gte]: FightConstants.REQUIRED_LEVEL}
+			},
+			order: [
+				// Sort using the difference with the attack elo of the player
+				[Sequelize.literal(`ABS(defenseGloryPoints - ${player.attackGloryPoints})`), "ASC"]
+			],
+			limit: amountOfPlayersToRetrieve,
+			offset
+		});
 	}
 }
 
@@ -1513,7 +1528,11 @@ export function initModel(sequelize: Sequelize): void {
 			type: DataTypes.STRING,
 			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.NOTIFICATIONS
 		},
-		gloryPoints: {
+		attackGloryPoints: {
+			type: DataTypes.INTEGER,
+			defaultValue: FightConstants.ELO.DEFAULT_ELO
+		},
+		defenseGloryPoints: {
 			type: DataTypes.INTEGER,
 			defaultValue: FightConstants.ELO.DEFAULT_ELO
 		},

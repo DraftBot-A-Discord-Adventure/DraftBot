@@ -1,4 +1,4 @@
-import {Constants} from "./Constants";
+import {ClassConstants} from "./ClassConstants";
 
 export abstract class ClassInfoConstants {
 	static readonly LIST_EMOTE = "\uD83D\uDD16";
@@ -9,17 +9,17 @@ export abstract class ClassInfoConstants {
 	static readonly FIELDS_VALUE = `### {name} :\n${ClassInfoConstants.STATS_DISPLAY}`;
 
 	static readonly HOLY_CLASSES = [
-		Constants.CLASSES.PIKEMAN,
-		Constants.CLASSES.KNIGHT,
-		Constants.CLASSES.PALADIN,
-		Constants.CLASSES.VALIANT_KNIGHT,
-		Constants.CLASSES.LUMINOUS_PALADIN
+		ClassConstants.CLASSES_ID.PIKEMAN,
+		ClassConstants.CLASSES_ID.KNIGHT,
+		ClassConstants.CLASSES_ID.PALADIN,
+		ClassConstants.CLASSES_ID.VALIANT_KNIGHT,
+		ClassConstants.CLASSES_ID.LUMINOUS_PALADIN
 	];
 
 	static CLASSES_WITH_BONUS_ACTION =
 		[
-			Constants.CLASSES.POWERFUL_INFANTRYMAN,
-			Constants.CLASSES.INFANTRYMAN
+			ClassConstants.CLASSES_ID.POWERFUL_INFANTRYMAN,
+			ClassConstants.CLASSES_ID.INFANTRYMAN
 		];
 
 	static readonly MENU_IDS = {

@@ -23,28 +23,50 @@ export interface FightActionBuff {
 export interface FightActionResult {
 	fail?: boolean,
 	buffs?: FightActionBuff[],
-	damages: number,
+	damages?: number,
 	attackStatus: FightActionStatus,
-	alterations?: FightAlterationApplied[]
+	alterations?: FightAlterationApplied[],
+	customMessage?: boolean, // If true, the attack should be displayed with a custom message
 	usedAction?: {
 		id: string,
-		result: FightActionResult,
-		fromFighter: string
+		result: FightActionResult
 	}
 }
 
+/**
+ * Create a default FightActionResult
+ * Will be displayed as "XXX used Attack YYY"
+ */
 export function defaultFightActionResult(): FightActionResult {
 	return {
-		damages: 0,
-		attackStatus: FightActionStatus.NORMAL
+		attackStatus: FightActionStatus.NORMAL,
+		customMessage: false
+	};
+}
+
+/**
+ * Create a custom message FightActionResult,
+ * For example, resting should not be display as "XXX used Attack resting" but "XXX is resting"
+ */
+export function customMessageActionResult(): FightActionResult {
+	return {
+		attackStatus: FightActionStatus.NORMAL,
+		customMessage: true
 	};
 }
 
 export function defaultFailFightActionResult(): FightActionResult {
 	return {
 		fail: true,
-		damages: 0,
 		attackStatus: FightActionStatus.MISSED
+	};
+}
+
+
+export function defaultMaxUsesFightActionResult(): FightActionResult {
+	return {
+		fail: true,
+		attackStatus: FightActionStatus.MAX_USES
 	};
 }
 

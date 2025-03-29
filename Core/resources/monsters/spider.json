@@ -1,6 +1,5 @@
 {
-	"emoji": "🕷️",
-	"fightPointsRatio": 85,
+	"baseEnergyValue": 325,
 	"attackRatio": 100,
 	"defenseRatio": 50,
 	"speedRatio": 100,
@@ -10,7 +9,7 @@
 	"attacks": [
 		{
 			"id": "poisonousAttack",
-			"minLevel": 0,
+			"minLevel": 40,
 			"weight": 4
 		},
 		{
@@ -30,7 +29,7 @@
 		},
 		{
 			"id": "familyMealAttack",
-			"minLevel": 50,
+			"minLevel": 60,
 			"weight": 3
 		}
 	],

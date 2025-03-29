@@ -5,7 +5,11 @@ import {
 	ReactionCollectorEnded
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {ReactionCollectorBigEventData} from "../../../../Lib/src/packets/interaction/ReactionCollectorBigEvent";
-import {chooseDestinationCollector, createBigEventCollector} from "../../commands/player/ReportCommand";
+import {
+	chooseDestinationCollector,
+	createBigEventCollector,
+	handleStartPveFight
+} from "../../commands/player/ReportCommand";
 import {ReactionCollectorChooseDestinationData} from "../../../../Lib/src/packets/interaction/ReactionCollectorChooseDestination";
 import {ReactionCollectorGoToPVEIslandData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGoToPVEIsland";
 import {goToPVEIslandCollector} from "../../smallEvents/goToPVEIsland";
@@ -45,6 +49,8 @@ import {ReactionCollectorSkipMissionShopItemData} from "../../../../Lib/src/pack
 import {skipMissionShopItemCollector} from "../../commands/mission/MissionShop";
 import {createGuildElderCollector} from "../../commands/guild/GuildElderCommand";
 import {ReactionCollectorGuildElderData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildElder";
+import {createFightCollector, handleCommandFightActionChoose} from "../../commands/player/FightCommand";
+import {ReactionCollectorFightData} from "../../../../Lib/src/packets/interaction/ReactionCollectorFight";
 import {ReactionCollectorGuildLeaveData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildLeave";
 import {createGuildLeaveCollector} from "../../commands/guild/GuildLeaveCommand";
 import {ReactionCollectorSwitchItemData} from "../../../../Lib/src/packets/interaction/ReactionCollectorSwitchItem";
@@ -64,6 +70,7 @@ import {ReactionCollectorChangeClassData} from "../../../../Lib/src/packets/inte
 import {handleChangeClassReactionCollector} from "../../commands/player/ClassesCommand";
 import {ReactionCollectorSellData} from "../../../../Lib/src/packets/interaction/ReactionCollectorSell";
 import {handleSellReactionCollector} from "../../commands/player/SellCommand";
+import {ReactionCollectorFightChooseActionData} from "../../../../Lib/src/packets/interaction/ReactionCollectorFightChooseAction";
 import {handlePetTransferReactionCollector} from "../../commands/pet/PetTransferCommand";
 import {ReactionCollectorPetTransferData} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetTransfer";
 import {ReactionCollectorPetFeedWithGuildData} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFeedWithGuild";
@@ -74,6 +81,7 @@ import {
 import {ReactionCollectorPetFeedWithoutGuildData} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFeedWithoutGuild";
 import {createJoinBoatCollector} from "../../commands/player/JoinBoatCommand";
 import {ReactionCollectorJoinBoatData} from "../../../../Lib/src/packets/interaction/ReactionCollectorJoinBoat";
+import {ReactionCollectorPveFightData} from "../../../../Lib/src/packets/interaction/ReactionCollectorPveFight";
 import {handleClassicError} from "../../utils/ErrorUtils";
 
 // Needed because we need to accept any parameter
@@ -116,14 +124,17 @@ export default class ReactionCollectorHandler {
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorShopSmallEventData.name, smallShopCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorEpicShopSmallEventData.name, epicItemShopCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorSkipMissionShopItemData.name, skipMissionShopItemCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorFightData.name, createFightCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorSwitchItemData.name, switchItemCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorDrinkData.name, drinkAcceptCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorPetSellData.name, createPetSellCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorChangeClassData.name, handleChangeClassReactionCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorSellData.name, handleSellReactionCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorFightChooseActionData.name, handleCommandFightActionChoose);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorPetTransferData.name, handlePetTransferReactionCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorPetFeedWithGuildData.name, handleCommandPetFeedWithGuildCollector);
 		ReactionCollectorHandler.collectorMap.set(ReactionCollectorPetFeedWithoutGuildData.name, handleCommandPetFeedWithoutGuildCollector);
+		ReactionCollectorHandler.collectorMap.set(ReactionCollectorPveFightData.name, handleStartPveFight);
 	}
 
 	@packetHandler(ReactionCollectorCreationPacket)

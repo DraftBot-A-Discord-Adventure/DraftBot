@@ -78,7 +78,8 @@ export class DiscordCollectorUtils {
 			emojis?: {
 				accept?: string,
 				refuse?: string
-			}
+			},
+			notDeferReply?: boolean
 		}
 	): Promise<ReactionCollectorReturnType> {
 		const emojis = {
@@ -145,7 +146,15 @@ export class DiscordCollectorUtils {
 
 			const reactingPlayerKeycloakId = await KeycloakUtils.getKeycloakIdFromDiscordId(keycloakConfig, buttonInteraction.user.id, buttonInteraction.user.displayName);
 			if (reactingPlayerKeycloakId) {
-				await buttonInteraction.deferReply();
+				if (!options?.notDeferReply) {
+					await buttonInteraction.deferReply();
+				}
+				else if (messageContentOrEmbed instanceof DraftBotEmbed) {
+					await msg.edit({embeds: [messageContentOrEmbed], components: []});
+				}
+				else {
+					await msg.edit({content: messageContentOrEmbed, components: []});
+				}
 				DiscordCollectorUtils.sendReaction(
 					reactionCollectorCreationPacket,
 					context,

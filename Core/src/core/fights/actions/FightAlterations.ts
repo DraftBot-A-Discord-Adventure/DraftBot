@@ -1,16 +1,20 @@
 export const FightAlterations = {
+	BLIND: "blind",
+	BURNED: "burned",
 	CONCENTRATED: "concentrated",
+	CONFUSED: "confused",
+	CURSED: "cursed",
+	DIRTY: "dirty",
+	FROZEN: "frozen",
+	FULL: "full",
+	OUTRAGE: "outrage",
+	PARALYZED: "paralyzed",
+	PETRIFIED: "petrified",
 	POISONED: "poisoned",
 	PROTECTED: "protected",
 	SLOWED: "slowed",
 	STUNNED: "stunned",
-	WEAK: "weak",
-	PARALYZED: "paralyzed",
+	SWALLOWED: "swallowed",
 	TARGETED: "targeted",
-	BURNED: "burned",
-	CURSED: "cursed",
-	OUTRAGE: "outrage",
-	PETRIFIED: "petrified",
-	FULL: "full",
-	FROZEN: "frozen"
+	WEAK: "weak"
 };

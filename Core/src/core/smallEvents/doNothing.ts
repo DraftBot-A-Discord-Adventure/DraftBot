@@ -4,7 +4,7 @@ import {SmallEventDoNothingPacket} from "../../../../Lib/src/packets/smallEvents
 import {Maps} from "../maps/Maps";
 
 export const smallEventFuncs: SmallEventFuncs = {
-	canBeExecuted: (player) => Maps.isOnContinent(player) || Maps.isOnPveIsland(player),
+	canBeExecuted: (player) => Maps.isOnContinent(player),
 	executeSmallEvent: (response): void => {
 		response.push(makePacket(SmallEventDoNothingPacket, {}));
 	}

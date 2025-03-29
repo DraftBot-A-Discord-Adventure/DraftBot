@@ -26,7 +26,7 @@ import {LogsGuildsJoins} from "./models/LogsGuildJoins";
 import {LogsGuilds} from "./models/LogsGuilds";
 import {MapLocationDataController} from "../../../data/MapLocation";
 
-type RankedFightResult = {
+export type RankedFightResult = {
 	won: number,
 	lost: number,
 	draw: number
@@ -216,7 +216,7 @@ export class LogsReadRequests {
 	}
 
 	/**
-	 * Get the number of time the player went on the PVE island this week
+	 * Get the amount of time the player went on the PVE island this week
 	 * @param keycloakId
 	 * @param guildId
 	 */
@@ -228,24 +228,74 @@ export class LogsReadRequests {
 		return await this.travelsOnPveIslandsCountThisWeekRequest(keycloakId);
 	}
 
-	/*
-	 * Get the fights of a player against another this week
-	 * @param playerKeycloakId
-	 * @param opponentKeycloakId
+	/**
+	 * Check if the players have been defenders in a ranked fight since the last minute
+	 * @param playerKeycloakIds - The array of player Keycloak IDs to check
+	 * @param minutes - The number of minutes to check
+	 * @returns An object mapping playerKeycloakIds to booleans indicating whether each player has been a defender
 	 */
-	static async getRankedFightsThisWeek(playerKeycloakId: string, opponentKeycloakId: string): Promise<RankedFightResult> {
-		const fights = await LogsFightsResults.findAll({
+	static async hasBeenADefenderInRankedFightSinceMinutes(
+		playerKeycloakIds: string[],
+		minutes: number
+	): Promise<{ [key: string]: boolean }> {
+		interface LogsFightsResultsWithPlayer2 {
+			LogsPlayer2: {
+				keycloakId: string;
+			};
+		}
+
+		const results = await LogsFightsResults.findAll({
+			attributes: [],
 			where: {
-				[Op.or]: [
-					{
-						"$LogsPlayer1.keycloakId$": playerKeycloakId,
-						"$LogsPlayer2.keycloakId$": opponentKeycloakId
-					},
-					{
-						"$LogsPlayer1.keycloakId$": opponentKeycloakId,
-						"$LogsPlayer2.keycloakId$": playerKeycloakId
+				date: {
+					[Op.gt]: Math.floor((Date.now() - minutesToMilliseconds(minutes)) / 1000)
+				},
+				friendly: false
+			},
+			include: [
+				{
+					model: LogsPlayers,
+					association: new HasOne(LogsFightsResults, LogsPlayers, {
+						sourceKey: "player2Id",
+						foreignKey: "id",
+						as: "LogsPlayer2"
+					}),
+					attributes: ["keycloakId"],
+					required: true, // Ensure only records with LogsPlayer2 are returned
+					where: {
+						keycloakId: {
+							[Op.in]: playerKeycloakIds
+						}
 					}
-				],
+				}
+			]
+		});
+
+		const resultsWithPlayer2 = results as (typeof results[0] & LogsFightsResultsWithPlayer2)[];
+		const foundKeycloakIds = new Set(
+			resultsWithPlayer2.map((result) => result.LogsPlayer2.keycloakId)
+		);
+		return Object.fromEntries(
+			playerKeycloakIds.map((id) => [id, foundKeycloakIds.has(id)])
+		);
+	}
+
+	/**
+	 * Get the fights of a player against other players this week
+	 * @param attackerKeycloakId - The keycloak id of the attacker
+	 * @param defenderKeycloakIds - The keycloak ids of the defenders
+	 */
+	static async getRankedFightsThisWeek(attackerKeycloakId: string, defenderKeycloakIds: string[]): Promise<Map<string, RankedFightResult>> {
+		interface LogsFightsResultsWithPlayer2 {
+			LogsPlayer2: {
+				keycloakId: string;
+			};
+		}
+
+		const results = await LogsFightsResults.findAll({
+			where: {
+				"$LogsPlayer1.keycloakId$": attackerKeycloakId,
+				"$LogsPlayer2.keycloakId$": {[Op.in]: defenderKeycloakIds},
 				date: {
 					[Op.gt]: Math.floor((getNextSaturdayMidnight() - 7 * 24 * 60 * 60 * 1000) / 1000)
 				},
@@ -267,9 +317,27 @@ export class LogsReadRequests {
 				})
 			}]
 		});
+		const fights = results as (typeof results[0] & LogsFightsResultsWithPlayer2)[];
 
-		return this.parseFightListToRankedFightData(fights);
+		// Group fights by defenderKeycloakId
+		const fightsByDefender = new Map<string, LogsFightsResults[]>();
+		for (const fight of fights) {
+			const defenderKeycloakId = fight.LogsPlayer2.keycloakId;
+			if (!fightsByDefender.has(defenderKeycloakId)) {
+				fightsByDefender.set(defenderKeycloakId, []);
+			}
+			fightsByDefender.get(defenderKeycloakId)!.push(fight);
+		}
+
+		// Calculate the bo3 for each defender
+		const resultMap = new Map<string, RankedFightResult>();
+		for (const [defenderKeycloakId, defenderFights] of fightsByDefender.entries()) {
+			const rankedFightResult = this.parseFightListToRankedFightData(defenderFights);
+			resultMap.set(defenderKeycloakId, rankedFightResult);
+		}
+		return resultMap;
 	}
+
 
 	/**
 	 * Get the amount of time a specific player has bought the energy heal since the last season reset

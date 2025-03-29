@@ -11,7 +11,7 @@ export abstract class MapCache {
 
 	static entryAndExitBoatMapLinks: number[];
 
-	static regenFightPointsMapLinks: number[];
+	static regenEnergyMapLinks: number[];
 
 	static pveIslandMapLinks: number[];
 
@@ -62,12 +62,12 @@ export abstract class MapCache {
 			.concat(this.pveIslandMapLinks);
 
 		// Fight regen list
-		this.regenFightPointsMapLinks = MapLinkDataController.instance.getAll()
+		this.regenEnergyMapLinks = MapLinkDataController.instance.getAll()
 			.map((mapLink) => mapLink.id)
 			.filter((mapLinkId) => !this.allPveMapLinks.includes(mapLinkId));
 
 		// Continent maps (for now it's the same as fight regen maps, but later it may evolve, so we do this granularity
-		this.continentMapLinks = this.regenFightPointsMapLinks;
+		this.continentMapLinks = this.regenEnergyMapLinks;
 	}
 
 	/**

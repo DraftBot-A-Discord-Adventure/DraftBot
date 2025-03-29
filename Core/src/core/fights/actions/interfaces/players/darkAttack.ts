@@ -1,10 +1,10 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
-import {RandomUtils} from "../../../../../../../Lib/src/utils/RandomUtils";
 import {FightActionFunc} from "../../../../../data/FightAction";
+import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTemplate";
+import {FightAlterations} from "../../FightAlterations";
 import {FightStatBuffed} from "../../../../../../../Lib/src/types/FightActionResult";
 import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
-import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTemplate";
 
 const use: FightActionFunc = (sender, receiver, fightAction) => {
 	const result = simpleDamageFightAction(
@@ -13,8 +13,8 @@ const use: FightActionFunc = (sender, receiver, fightAction) => {
 			receiver
 		},
 		{
-			critical: 40,
-			failure: 15
+			critical: 35,
+			failure: 8
 		},
 		{
 			attackInfo: getAttackInfo(),
@@ -22,14 +22,20 @@ const use: FightActionFunc = (sender, receiver, fightAction) => {
 		}
 	);
 
-	if (RandomUtils.draftbotRandom.bool(0.65)) {
+	// If the opponent has an alteration, give back 2 of breath to the sender
+	if (receiver.hasFightAlteration() && receiver.alteration.id !== FightAlterations.BLIND) {
 		FightActionController.applyBuff(result, {
-			selfTarget: false,
-			stat: FightStatBuffed.ATTACK,
-			operator: FightStatModifierOperation.MULTIPLIER,
-			value: 0.85
-		}, receiver, fightAction);
+			selfTarget: true,
+			stat: FightStatBuffed.BREATH,
+			operator: FightStatModifierOperation.ADDITION,
+			value: 2
+		}, sender, fightAction);
 	}
+
+	FightActionController.applyAlteration(result, {
+		selfTarget: false,
+		alteration: FightAlterations.BLIND
+	}, receiver);
 
 	return result;
 };
@@ -38,9 +44,9 @@ export default use;
 
 function getAttackInfo(): attackInfo {
 	return {
-		minDamage: 40,
-		averageDamage: 75,
-		maxDamage: 155
+		minDamage: 30,
+		averageDamage: 50,
+		maxDamage: 110
 	};
 }
 

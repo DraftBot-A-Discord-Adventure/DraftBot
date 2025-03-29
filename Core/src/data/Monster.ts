@@ -6,7 +6,7 @@ import {PVEConstants} from "../../../Lib/src/constants/PVEConstants";
 export class Monster extends Data<string> {
 	public readonly emoji: string;
 
-	public readonly fightPointsRatio: number;
+	public readonly baseEnergyValue: number;
 
 	public readonly attackRatio: number;
 
@@ -39,7 +39,7 @@ export class Monster extends Data<string> {
         guildScore: number,
         guildXp: number
     } {
-		let totalRatio = (this.fightPointsRatio + this.attackRatio + this.defenseRatio + this.speedRatio) / 10.0;
+		let totalRatio = (this.baseEnergyValue + this.attackRatio + this.defenseRatio + this.speedRatio) / 10.0;
 		totalRatio = RandomUtils.draftbotRandom.real(totalRatio * (1 - PVEConstants.FIGHT_REWARDS.TOTAL_RATIO_RANDOM_RANGE), totalRatio * (1 + PVEConstants.FIGHT_REWARDS.TOTAL_RATIO_RANDOM_RANGE));
 		const rewardMultiplier = PVEConstants.FIGHT_REWARDS.LEVEL_MULTIPLIER.A * level + PVEConstants.FIGHT_REWARDS.LEVEL_MULTIPLIER.B;
 

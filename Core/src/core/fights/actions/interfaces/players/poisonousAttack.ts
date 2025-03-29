@@ -4,15 +4,15 @@ import {FightAlterations} from "../../FightAlterations";
 import {FightActionFunc} from "../../../../../data/FightAction";
 import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTemplate";
 
-const use: FightActionFunc = (sender, receiver) => {
+const use: FightActionFunc = (sender, receiver, _fightAction, turn) => {
 	const result = simpleDamageFightAction(
 		{
 			sender,
 			receiver
 		},
 		{
-			critical: 5,
-			failure: 10
+			critical: turn < 3 ? 90 : 5, // 90% chance of critical hit for the first 2 turns, then 5%
+			failure: turn < 3 ? 0 : 10 // 0% chance of failure for the first 2 turns, then 10%
 		},
 		{
 			attackInfo: getAttackInfo(),
@@ -30,25 +30,20 @@ export default use;
 
 function getAttackInfo(): attackInfo {
 	return {
-		minDamage: 15,
-		averageDamage: 20,
-		maxDamage: 40
+		minDamage: 10,
+		averageDamage: 50,
+		maxDamage: 90
 	};
 }
 
 function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 	return {
 		attackerStats: [
-			sender.getAttack(),
-			sender.getSpeed()
-		],
-		defenderStats: [
-			receiver.getDefense(),
-			receiver.getSpeed()
-		],
-		statsEffect: [
-			0.7,
-			0.3
+			sender.getAttack()
+		], defenderStats: [
+			receiver.getDefense()
+		], statsEffect: [
+			1
 		]
 	};
 }

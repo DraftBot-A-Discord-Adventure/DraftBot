@@ -10,7 +10,7 @@ const use: FightAlterationFunc = (affected) => {
 
 	const result = defaultFightAlterationResult();
 
-	// 50% chance to not attack this turn
+	// 50% chance of not being able to attack this turn
 	if (Math.random() < 0.5) {
 		affected.nextFightAction = FightActionDataController.instance.getNone();
 		result.state = FightAlterationState.NO_ACTION;

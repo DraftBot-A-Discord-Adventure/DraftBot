@@ -1,15 +1,10 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
-import {FightConstants} from "../../../../../../../Lib/src/constants/FightConstants";
 import {FightAlterations} from "../../FightAlterations";
 import {FightActionFunc} from "../../../../../data/FightAction";
 import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTemplate";
-import {defaultFailFightActionResult} from "../../../../../../../Lib/src/types/FightActionResult";
-
-export function getUsedGodMoves(sender: Fighter, receiver: Fighter): number {
-	return sender.fightActionsHistory.filter(action => action.id in FightConstants.GOD_MOVES).length +
-		receiver.fightActionsHistory.filter(action => action.id in FightConstants.GOD_MOVES).length;
-}
+import {defaultMaxUsesFightActionResult} from "../../../../../../../Lib/src/types/FightActionResult";
+import {getUsedGodMoves} from "../../../FightController";
 
 function getAttackInfo(): attackInfo {
 	return {
@@ -22,16 +17,13 @@ function getAttackInfo(): attackInfo {
 function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 	return {
 		attackerStats: [
-			sender.getAttack(),
-			sender.getSpeed()
+			sender.getAttack()
 		],
 		defenderStats: [
-			receiver.getDefense(),
-			receiver.getSpeed()
+			receiver.getDefense()
 		],
 		statsEffect: [
-			0.7,
-			0.3
+			1
 		]
 	};
 }
@@ -41,8 +33,9 @@ const use: FightActionFunc = (sender, receiver, _fightAction, turn) => {
 
 	// Only works if less than 2 god moves have been used
 	if (usedGodMoves >= 2) {
-		return defaultFailFightActionResult();
+		return defaultMaxUsesFightActionResult();
 	}
+
 	const result = simpleDamageFightAction(
 		{
 			sender,

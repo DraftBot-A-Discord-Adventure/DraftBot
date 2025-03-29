@@ -22,6 +22,7 @@ services:
     volumes:
       -  ~/Documents/projects/keycloak/data:/opt/keycloak/data
     environment:
+      # JAVA_OPTS: -XX:UseSVE=0 # Uncomment for macOS due to a keycloak bug https://github.com/keycloak/keycloak/issues/36008
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
       DB_VENDOR: mariadb

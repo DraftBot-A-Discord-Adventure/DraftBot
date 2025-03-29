@@ -12,6 +12,7 @@
   "classKind" : "attack",
   "fightActionsIds": [
 		"quickAttack",
+    "sabotageAttack",
 		"boomerangAttack",
 		"canonAttack"
 	]

@@ -24,7 +24,7 @@ const GuildTextBasedChannel: GuildTextBasedChannel = BaseGuildTextChannel as unk
 const ChannelTypeWithoutSend: ChannelTypeWithoutSend = GuildTextBasedChannel as unknown as ChannelTypeWithoutSend;
 
 type ReplyOptionsSpecial = InteractionReplyOptions & { fetchReply: true };
-type OptionLike = string | InteractionReplyOptions | ReplyOptionsSpecial;
+export type OptionLike = string | InteractionReplyOptions | ReplyOptionsSpecial;
 type ReplyFunctionLike<OptionValue> = (options: OptionValue) => Promise<Message>;
 
 export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands {

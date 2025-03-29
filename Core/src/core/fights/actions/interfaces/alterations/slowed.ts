@@ -6,7 +6,7 @@ import {FightStatBuffed} from "../../../../../../../Lib/src/types/FightActionRes
 import {defaultFightAlterationResult, defaultHealFightAlterationResult} from "../../../FightController";
 
 const use: FightAlterationFunc = (affected, fightAlteration) => {
-	if (affected.alterationTurn > 1) { // This effect heals after one turn
+	if (affected.alterationTurn > 2) { // This effect heals after two turns
 		affected.removeSpeedModifiers(fightAlteration);
 		return defaultHealFightAlterationResult(affected);
 	}

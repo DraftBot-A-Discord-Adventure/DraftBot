@@ -20,11 +20,13 @@ const use: FightActionFunc = (sender, receiver) => {
 		}
 	);
 
-	if (Math.random() < 0.9) {
+	if (Math.random() < 0.6) {
 		FightActionController.applyAlteration(result, {
-			selfTarget: false,
+			selfTarget: true,
 			alteration: FightAlterations.PARALYZED
-		}, receiver);
+		}, sender);
+		// If paralyzed, damages of this attack are increased
+		result.damages = Math.round(result.damages * 1.5);
 	}
 
 	return result;

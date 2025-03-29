@@ -21,6 +21,9 @@ export const DraftBotIcons: {
 			emoteMale: string
 		}
 	},
+	monsters: {
+		[monsterId: string]: string
+	}
 	armors: {
 		[itemId: string]: string
 	},
@@ -43,6 +46,24 @@ export const DraftBotIcons: {
 		accept: string,
 		refuse: string
 	},
+	fight_command: {
+		accept: string,
+		ai_thinking: string,
+		clipboard: string,
+		crossed_swords: string,
+		fighter_stats: string,
+		game_stats: string,
+		glory_change: string,
+		handshake: string,
+		refuse: string,
+	},
+	clocks: {
+		[clockId: string]: string
+	}
+	pve_fights: {
+		wait_a_bit: string,
+		start_fight: string,
+	}
 	foods: {
 		[foodId: string]: string
 	}
@@ -919,7 +940,7 @@ export const DraftBotIcons: {
 		"staffMember": "📖",
 		"ultimateFoodMerchant": "🍲",
 		"winEnergy": "⚡",
-		"winFightPoints": "🔋",
+		"winEnergyOnIsland": "🔋",
 		"winGuildXP": "⭐",
 		"winHealth": "❤️",
 		"winPersonalXP": "⭐",
@@ -1210,14 +1231,62 @@ export const DraftBotIcons: {
 			"emoteFemale": "🐧",
 			"emoteMale": "🐧"
 		},
+		"73": {
+			"emoteFemale": "🐟",
+			"emoteMale": "🐟"
+		},
+		"74": {
+			"emoteFemale": "🐠",
+			"emoteMale": "🐠"
+		},
+		"75": {
+			"emoteFemale": "🐡",
+			"emoteMale": "🐡"
+		},
+		"76": {
+			"emoteFemale": "🪼",
+			"emoteMale": "🪼"
+		},
+		"77": {
+			"emoteFemale": "🦈",
+			"emoteMale": "🦈"
+		},
+		"78": {
+			"emoteFemale": "🐋",
+			"emoteMale": "🐋"
+		},
+		"79": {
+			"emoteFemale": "🐳",
+			"emoteMale": "🐳"
+		},
 		"8": {
 			"emoteFemale": "🐄",
 			"emoteMale": "🐂"
+		},
+		"80": {
+			"emoteFemale": "🦐",
+			"emoteMale": "🦐"
+		},
+		"81": {
+			"emoteFemale": "🦞",
+			"emoteMale": "🦞"
+		},
+		"82": {
+			"emoteFemale": "🐬",
+			"emoteMale": "🐬"
 		},
 		"9": {
 			"emoteFemale": "🐖",
 			"emoteMale": "🐖"
 		}
+	},
+	"monsters": {
+		"spider": "🕷️",
+		"slimyMutant": "🦠",
+		"skeleton": "💀",
+		"rockGolem": "🗿",
+		"magmaTitan": "🌋",
+		"forestTroll": "🧌"
 	},
 	"armors": {
 		"0": "⬛",
@@ -1635,6 +1704,25 @@ export const DraftBotIcons: {
 		"accept": "🚗",
 		"refuse": "🚶"
 	},
+	"fight_command": {
+		"accept": "🔍",
+		"ai_thinking": "🧠",
+		"clipboard": "📋",
+		"crossed_swords": "⚔️",
+		"fighter_stats": "👤",
+		"game_stats": "📊",
+		"glory_change": "📯",
+		"handshake": "🤝",
+		"refuse": "❌"
+	},
+	"clocks": {
+		"1": "🕐",
+		"10": "🕙"
+	},
+	"pve_fights": {
+		"wait_a_bit": "⏳",
+		"start_fight": "⚔️"
+	},
 	"foods": {
 		"herbivorousFood": "🥬",
 		"commonFood": "🍬",
@@ -1657,33 +1745,77 @@ export const DraftBotIcons: {
 	},
 	"fight_actions": {
 		"benediction": "👼",
+		"blind": "🫣",
 		"boomerangAttack": "🪃",
+		"boulderTossAttack": "🪨",
 		"breathTakingAttack": "💨",
+		"burned": "🥵",
 		"canonAttack": "🔫",
 		"chargeChargingAttack": "🧲",
+		"chargeClubSmashAttack": "🏏",
 		"chargeUltimateAttack": "☄️",
 		"chargingAttack": "🧲",
+		"clubSmashAttack": "🏏",
+		"concentrated": "🎯",
 		"concentration": "🎯",
+		"confused": "🤯",
 		"counterAttack": "🥊",
+		"cursed": "👻",
 		"cursedAttack": "😈",
 		"darkAttack": "✴️",
 		"defenseBuff": "🧘",
+		"dirty": "🗑️",
 		"divineAttack": "🙏",
+		"guildAttack": "🏟️",
 		"energeticAttack": "⚡",
+		"eruptionAttack": "🌋",
+		"familyMealAttack": "🍽️",
 		"fireAttack": "🔥",
+		"frozen": "🥶",
+		"full": "😴",
+		"getDirty": "💩",
+		"grabAndThrowAttack": "🥋",
+		"heatDrainAttack": "🌡️",
+		"heatMudAttack": "🏺",
 		"heavyAttack": "🔨",
 		"intenseAttack": "😤",
+		"lavaWaveAttack": "♨️",
+		"magicMimicAttack": "🎭",
+		"magmaBathAttack": "🛀",
+		"mudShotAttack": "🧑‍🌾",
+		"none": "🚫",
+		"outOfBreath": "😮‍💨",
+		"outrage": "😡",
+		"outrageAttack": "💢",
+		"paralyzed": "🚷",
+		"petrificationAttack": "🪦",
+		"petrified": "🗿",
 		"piercingAttack": "🪡",
+		"poisoned": "🤢",
 		"poisonousAttack": "🧪",
 		"powerfulAttack": "🪓",
+		"protected": "💞",
 		"protection": "🙅",
 		"quickAttack": "🗡️",
+		"rageExplosion": "🤬",
 		"ramAttack": "🐏",
 		"resting": "🛏️",
+		"roarAttack": "📢",
+		"rockShieldAttack": "⛰️",
 		"sabotageAttack": "🛠️",
 		"shieldAttack": "🛡️",
 		"simpleAttack": "⚔️",
-		"ultimateAttack": "☄️"
+		"slamAttack": "🦶",
+		"slowed": "🦥",
+		"stealth": "😶‍🌫️",
+		"stoneSkinAttack": "🧱",
+		"stunned": "😖",
+		"summonAttack": "🧑‍🤝‍🧑",
+		"swallowed": "👄",
+		"targeted": "↩️",
+		"ultimateAttack": "☄️",
+		"weak": "🤧",
+		"webShotAttack": "🕸️"
 	},
 	"class_kinds": {
 		"basic": "⚖️",

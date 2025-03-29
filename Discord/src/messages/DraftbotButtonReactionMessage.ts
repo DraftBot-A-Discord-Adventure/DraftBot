@@ -34,7 +34,8 @@ export class DraftbotButtonReactionMessage {
 	private readonly _messageOptions: DraftbotButtonReactionMessageOptions;
 
 	/**
-	 * Create a new button reaction message : a message consisting of an embed and a list of buttons, one of which must be clicked
+	 * Create a new button reaction message: a message consisting of an embed and a list of buttons,
+	 * one of which must be clicked
 	 * @param interaction
 	 * @param messageOptions
 	 */

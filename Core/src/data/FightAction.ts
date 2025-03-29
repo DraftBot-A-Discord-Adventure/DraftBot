@@ -7,8 +7,6 @@ import {FightController} from "../core/fights/FightController";
 import {FightActionResult} from "../../../Lib/src/types/FightActionResult";
 
 export class FightAction extends Data<string> {
-	public readonly emote: string;
-
 	public readonly breath: number;
 
 	public readonly missionVariant: number;
@@ -21,6 +19,9 @@ export class FightAction extends Data<string> {
 	public use(sender: Fighter, receiver: Fighter, turn: number, fight: FightController): FightActionResult {
 		const result = FightActionDataController.getFightActionFunction(this.id)(sender, receiver, this, turn, fight);
 		receiver.damage(result.damages);
+		if (result.usedAction) {
+			receiver.damage(result.usedAction.result.damages);
+		}
 		return result;
 	}
 
@@ -46,11 +47,19 @@ export class FightActionDataController extends DataControllerString<FightAction>
 
 	private static fightActionsFunctionsCache: Map<string, FightActionFunc>;
 
+	public static getFightActionBreathCost(id: string): number {
+		const fightAction = this.instance.getById(id);
+		if (fightAction) {
+			return fightAction.breath;
+		}
+		throw new Error(`FightAction with id ${id} not found`);
+	}
+
 	public static getFightActionFunction(id: string): FightActionFunc {
 		if (!FightActionDataController.fightActionsFunctionsCache) {
 			FightActionDataController.fightActionsFunctionsCache = new Map<string, FightActionFunc>();
-			FightActionDataController.loadFightActionsFromFolder("dist/src/Core/fights/actions/interfaces/players", "TODO replace with the right one");
-			FightActionDataController.loadFightActionsFromFolder("dist/src/Core/fights/actions/interfaces/monsters", "TODO replace with the right one");
+			FightActionDataController.loadFightActionsFromFolder("dist/Core/src/core/fights/actions/interfaces/players", "../core/fights/actions/interfaces/players");
+			FightActionDataController.loadFightActionsFromFolder("dist/Core/src/core/fights/actions/interfaces/monsters", "../core/fights/actions/interfaces/monsters");
 		}
 
 		return FightActionDataController.fightActionsFunctionsCache.get(id);

@@ -78,7 +78,7 @@ export default class ProfileCommand {
 					hasTimeDisplay: toCheckPlayer.isUnderEffect()
 				},
 				fightRanking: toCheckPlayer.level >= FightConstants.REQUIRED_LEVEL ? {
-					glory: toCheckPlayer.gloryPoints,
+					glory: toCheckPlayer.getGloryPoints(),
 					league: toCheckPlayer.getLeague().id
 				} : null,
 				missions: {
@@ -90,8 +90,8 @@ export default class ProfileCommand {
 					defense: toCheckPlayer.getCumulativeDefense(playerActiveObjects),
 					speed: toCheckPlayer.getCumulativeSpeed(playerActiveObjects),
 					energy: {
-						value: toCheckPlayer.getCumulativeFightPoint(),
-						max: toCheckPlayer.getMaxCumulativeFightPoint()
+						value: toCheckPlayer.getCumulativeEnergy(),
+						max: toCheckPlayer.getMaxCumulativeEnergy()
 					},
 					breath: {
 						base: toCheckPlayer.getBaseBreath(),

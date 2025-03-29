@@ -47,8 +47,8 @@ function getEndCallback(player: Player) {
 			shouldPokeMission: false,
 			overHealCountsForMission: false
 		});
-		player.setFightPointsLost(Math.ceil(
-			player.fightPointsLost / oldClass.getMaxCumulativeFightPointValue(level) * newClass.getMaxCumulativeFightPointValue(level)
+		player.setEnergyLost(Math.ceil(
+			player.fightPointsLost / oldClass.getMaxCumulativeEnergyValue(level) * newClass.getMaxCumulativeEnergyValue(level)
 		), NumberChangeReason.CLASS);
 		await MissionsController.update(player, response, {missionId: "chooseClass"});
 		await MissionsController.update(player, response, {
@@ -86,7 +86,7 @@ export default class ClassesCommand {
 			allClasses.map(c => ({
 				id: c.id,
 				attack: c.getAttackValue(player.level),
-				energy: c.getMaxCumulativeFightPointValue(player.level),
+				energy: c.getMaxCumulativeEnergyValue(player.level),
 				defense: c.getDefenseValue(player.level),
 				speed: c.getSpeedValue(player.level),
 				initialBreath: c.baseBreath,

@@ -49,7 +49,7 @@ async function canJoinBoat(player: Player, response: DraftBotPacket[]): Promise<
 		return false;
 	}
 	// The player doesn't have enough energy
-	if (!player.hasEnoughEnergyToJoinTheIsland()) {
+	if (!player.hasEnoughEnergyToFight()) {
 		response.push(makePacket(CommandJoinBoatNotEnoughEnergyPacketRes, {}));
 		return false;
 	}
@@ -122,8 +122,8 @@ export default class JoinBoatCommand {
 
 		const collector = new ReactionCollectorJoinBoat(
 			price,
-			player.getCumulativeFightPoint(),
-			player.getMaxCumulativeFightPoint()
+			player.getCumulativeEnergy(),
+			player.getMaxCumulativeEnergy()
 		);
 
 		const collectorPacket = new ReactionCollectorInstance(

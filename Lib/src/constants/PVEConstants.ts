@@ -37,11 +37,6 @@ export abstract class PVEConstants {
 			A: 0.01359,
 			B: 0.21588,
 			C: 9.44242
-		},
-		ENERGY: {
-			A: 0.06211,
-			B: 11.18950,
-			C: 30.30303
 		}
 	};
 

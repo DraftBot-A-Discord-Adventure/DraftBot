@@ -1,6 +1,5 @@
 {
-	"emoji": "💀",
-	"fightPointsRatio": 80,
+	"baseEnergyValue": 110,
 	"attackRatio": 105,
 	"defenseRatio": 70,
 	"speedRatio": 60,
@@ -25,12 +24,12 @@
 		},
 		{
 			"id": "cursedAttack",
-			"minLevel": 0,
+			"minLevel": 50,
 			"weight": 3
 		},
 		{
 			"id": "summonAttack",
-			"minLevel": 50,
+			"minLevel": 65,
 			"weight": 2
 		}
 	],

@@ -50,7 +50,7 @@ export class PlayerFighter extends Fighter {
 	 */
 	async startFight(fightView: FightView, startStatus: FighterStatus): Promise<void> {
 		this.status = startStatus;
-		await this.consumePotionIfNeeded(fightView.fightController.friendly, [fightView.context]);
+		await this.consumePotionIfNeeded([fightView.context]);
 		this.block();
 	}
 
@@ -65,7 +65,7 @@ export class PlayerFighter extends Fighter {
 		if (winner) {
 			await MissionsController.update(this.player, [fightView.context], {
 				missionId: "fightHealthPercent", params: {
-					remainingPercent: this.stats.fightPoints / this.stats.maxFightPoint
+					remainingPercent: this.stats.energy / this.stats.maxEnergy
 				}
 			});
 			await MissionsController.update(this.player, [fightView.context], {
@@ -87,33 +87,31 @@ export class PlayerFighter extends Fighter {
 
 	/**
 	 * The fighter loads its various stats
-	 * @param friendly true if the fight is friendly
 	 * @public
 	 */
-	public async loadStats(friendly: boolean): Promise<void> {
+	public async loadStats(): Promise<void> {
 		const playerActiveObjects: PlayerActiveObjects = await InventorySlots.getPlayerActiveObjects(this.player.id);
-		this.stats.fightPoints = friendly ? this.player.getMaxCumulativeFightPoint() : this.player.getCumulativeFightPoint();
-		this.stats.maxFightPoint = this.player.getMaxCumulativeFightPoint();
+		this.stats.energy = this.player.getCumulativeEnergy();
+		this.stats.maxEnergy = this.player.getMaxCumulativeEnergy();
 		this.stats.attack = this.player.getCumulativeAttack(playerActiveObjects);
 		this.stats.defense = this.player.getCumulativeDefense(playerActiveObjects);
 		this.stats.speed = this.player.getCumulativeSpeed(playerActiveObjects);
 		this.stats.breath = this.player.getBaseBreath();
 		this.stats.maxBreath = this.player.getMaxBreath();
 		this.stats.breathRegen = this.player.getBreathRegen();
-		this.glory = this.player.gloryPoints;
+		this.glory = this.player.getGloryPoints();
 	}
 
 	/**
 	 * Delete the potion from the inventory of the player if needed
-	 * @param friendly true if the fight is friendly
 	 * @param response
 	 * @public
 	 */
-	public async consumePotionIfNeeded(friendly: boolean, response: DraftBotPacket[]): Promise<void> {
+	public async consumePotionIfNeeded(response: DraftBotPacket[]): Promise<void> {
 		const inventorySlots = await InventorySlots.getOfPlayer(this.player.id);
 		const drankPotion = inventorySlots.find(slot => slot.isPotion() && slot.isEquipped())
 			.getItem() as Potion;
-		if (friendly || !drankPotion.isFightPotion()) {
+		if (!drankPotion.isFightPotion()) {
 			return;
 		}
 		await this.player.drinkPotion();
@@ -132,8 +130,9 @@ export class PlayerFighter extends Fighter {
 	/**
 	 * Send the embed to choose an action
 	 * @param fightView
+	 * @param response
 	 */
-	async chooseAction(fightView: FightView): Promise<void> {
+	async chooseAction(fightView: FightView, response: DraftBotPacket[]): Promise<void> {
 		const actions: Map<string, FightAction> = new Map(this.availableFightActions);
 
 		// Add guild attack if on PVE island and members are here
@@ -154,75 +153,14 @@ export class PlayerFighter extends Fighter {
 				actions.set("guildAttack", FightActionDataController.instance.getById("guildAttack"));
 			}
 		}
-		this.sendChooseActionEmbed(fightView)
-			.then(this.chooseActionCallback(actions, fightView));
+		fightView.displayFightActionMenu(response, this, actions);
 	}
 
-	/* /!**
-	 * Return a display of the player in a string format
-	 * @param fightTranslationModule
-	 *!/
-	public getStringDisplay(fightTranslationModule: TranslationModule): string {
-		return fightTranslationModule.format(
-			this.status.getTranslationField(),
-			{
-				pseudo: this.getName(),
-				glory: this.glory,
-				class: this.class.getName(fightTranslationModule.language)
-			}
-		) + fightTranslationModule.format("summarize.stats", {
-			power: this.getFightPoints(),
-			attack: this.getAttack(),
-			defense: this.getDefense(),
-			speed: this.getSpeed(),
-			breath: this.getBreath(),
-			maxBreath: this.getMaxBreath(),
-			breathRegen: this.getRegenBreath()
-		});
-	} */
-
 	/**
-	 * Get the members of the guild of the player on the island of the fighter
+	 * Get the members of the player's guild on the island of the fighter
 	 */
 	public getPveMembersOnIsland(): { attack: number, speed: number }[] {
 		return this.pveMembers;
-	}
-
-	private chooseActionCallback(actions: Map<string, FightAction>, fightView: FightView): () => void { // (m: Message) => void {
-		return null;
-		// TODO
-		/* return (chooseActionEmbedMessage: Message): void => {
-			const collector = chooseActionEmbedMessage.createReactionCollector({
-				filter: (reaction) => reaction.me && reaction.users.cache.last().id === this.getDiscordId(),
-				time: FightConstants.TIME_FOR_ACTION_SELECTION,
-				max: 1
-			});
-			collector.on("end", async (reaction) => {
-				const emoji = reaction.first()?.emoji.name;
-				const selectedAction = Array.from(actions.values())
-					.find((action) => emoji && action.getEmoji() === emoji);
-				try {
-					await chooseActionEmbedMessage.delete();
-					if (!selectedAction) {
-						// USER HASN'T SELECTED AN ACTION
-						this.kill();
-						await fightView.fightController.endFight();
-						return;
-					}
-					await fightView.fightController.executeFightAction(selectedAction, true);
-				} catch (e) {
-					console.log("### FIGHT MESSAGE DELETED OR LOST : actionMessage ###");
-					fightView.fightController.endBugFight();
-				}
-			});
-			const reactions = [];
-			for (const [, action] of actions) {
-				reactions.push(chooseActionEmbedMessage.react(action.getEmoji()));
-			}
-
-			Promise.all(reactions)
-				.catch(() => null);
-		};*/
 	}
 
 	/**
@@ -247,11 +185,9 @@ export class PlayerFighter extends Fighter {
 	 * @param fightView
 	 */
 	private async manageMissionsOf(fightView: FightView): Promise<void> {
-		if (!fightView.fightController.friendly) {
-			const newPlayer = await Players.getOrRegister(this.player.keycloakId);
-			newPlayer.setFightPointsLost(this.stats.maxFightPoint - this.stats.fightPoints, NumberChangeReason.FIGHT);
-			await newPlayer.save();
-		}
+		const newPlayer = await Players.getOrRegister(this.player.keycloakId);
+		newPlayer.setEnergyLost(this.stats.maxEnergy - this.stats.energy, NumberChangeReason.FIGHT);
+		await newPlayer.save();
 
 		await this.checkFightActionHistory(fightView);
 
@@ -274,17 +210,5 @@ export class PlayerFighter extends Fighter {
 				}
 			}
 		}
-	}
-
-	/**
-	 * Send the choose action embed message
-	 * @private
-	 * @param fightView
-	 */
-	private async sendChooseActionEmbed(fightView: FightView): Promise<void> {
-		/* const chooseActionEmbed = new DraftBotEmbed();
-		chooseActionEmbed.formatAuthor(fightView.fightTranslationModule.format("turnIndicationsTitle", {pseudo: this.getName()}), this.getUser());
-		chooseActionEmbed.setDescription(fightView.fightTranslationModule.get("turnIndicationsDescription"));
-		return await fightView.channel.send({embeds: [chooseActionEmbed]}); */
 	}
 }

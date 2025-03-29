@@ -1,12 +1,15 @@
 import {Fighter} from "../../../fighter/Fighter";
 import {RandomUtils} from "../../../../../../../Lib/src/utils/RandomUtils";
 import {FightAlterationFunc} from "../../../../../data/FightAlteration";
-import {defaultDamageFightAlterationResult, defaultFightAlterationResult, defaultHealFightAlterationResult} from "../../../FightController";
+import {defaultDamageFightAlterationResult, defaultHealFightAlterationResult} from "../../../FightController";
 import {attackInfo, statsInfo} from "../../FightActionController";
+import {FightAlterationState} from "../../../../../../../Lib/src/types/FightAlterationResult";
 
 const use: FightAlterationFunc = (affected, _fightAlteration, opponent) => {
 	if (affected.alterationTurn === 1 || affected.alterationTurn === 3) {
-		return defaultFightAlterationResult();
+		return {
+			state: FightAlterationState.NEW
+		};
 	}
 
 	if (affected.alterationTurn > 4 ||

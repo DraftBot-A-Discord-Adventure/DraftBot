@@ -7,7 +7,8 @@ import {
 	CommandReportTravelSummaryRes
 } from "../../../../../../Lib/src/packets/commands/CommandReportPacket";
 import {PacketContext} from "../../../../../../Lib/src/packets/DraftBotPacket";
-import {reportResult, reportTravelSummary} from "../../../../commands/player/ReportCommand";
+import {refusePveFight, reportResult, reportTravelSummary} from "../../../../commands/player/ReportCommand";
+import {handleClassicError} from "../../../../utils/ErrorUtils";
 
 export default class ReportCommandPacketHandlers {
 	@packetHandler(CommandReportBigEventResultRes)
@@ -26,12 +27,12 @@ export default class ReportCommandPacketHandlers {
 	}
 
 	@packetHandler(CommandReportErrorNoMonsterRes)
-	async reportErrorNoMonsterRes(_context: PacketContext, _packet: CommandReportErrorNoMonsterRes): Promise<void> {
-		// TODO
+	async reportErrorNoMonsterRes(context: PacketContext, _packet: CommandReportErrorNoMonsterRes): Promise<void> {
+		await handleClassicError(context, "commands:fight.monsterNotFound");
 	}
 
 	@packetHandler(CommandReportRefusePveFightRes)
-	async reportRefusePveFightRes(_context: PacketContext, _packet: CommandReportRefusePveFightRes): Promise<void> {
-		// TODO
+	async reportRefusePveFightRes(context: PacketContext, packet: CommandReportRefusePveFightRes): Promise<void> {
+		await refusePveFight(packet, context);
 	}
 }

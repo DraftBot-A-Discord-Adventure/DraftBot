@@ -1,13 +1,32 @@
 import {FightController} from "./FightController";
-import {Fighter} from "./fighter/Fighter";
-import {PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {FightWeatherResult} from "./FightWeather";
+import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import {PlayerFighter} from "./fighter/PlayerFighter";
+import {MonsterFighter} from "./fighter/MonsterFighter";
+import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
+import {CommandFightIntroduceFightersPacket} from "../../../../Lib/src/packets/fights/FightIntroductionPacket";
+import {CommandFightStatusPacket} from "../../../../Lib/src/packets/fights/FightStatusPacket";
+import {FightAction} from "../../data/FightAction";
+import {FightActionResult, FightStatBuffed} from "../../../../Lib/src/types/FightActionResult";
+import {CommandFightHistoryItemPacket} from "../../../../Lib/src/packets/fights/FightHistoryItemPacket";
+import {FightStatModifierOperation} from "../../../../Lib/src/types/FightStatModifierOperation";
+import {toSignedPercent} from "../../../../Lib/src/utils/StringUtils";
+import {FightAlterationResult} from "../../../../Lib/src/types/FightAlterationResult";
+import {EndCallback, ReactionCollectorInstance} from "../utils/ReactionsCollector";
+import {
+	ReactionCollectorFightChooseAction,
+	ReactionCollectorFightChooseActionReaction
+} from "../../../../Lib/src/packets/interaction/ReactionCollectorFightChooseAction";
+import {AIFightActionChoosePacket} from "../../../../Lib/src/packets/fights/AIFightActionChoosePacket";
+import {PacketUtils} from "../utils/PacketUtils";
+import {AiPlayerFighter} from "./fighter/AiPlayerFighter";
+import {CommandFightEndOfFightPacket} from "../../../../Lib/src/packets/fights/EndOfFightPacket";
+import {BuggedFightPacket} from "../../../../Lib/src/packets/fights/BuggedFightPacket";
+import {PetAssistanceResult} from "../../../../Lib/src/types/PetAssistanceResult";
+import {OwnedPet} from "../../../../Lib/src/types/OwnedPet";
+import {PetEntities} from "../database/game/models/PetEntity";
 
-/* eslint-disable capitalized-comments */
-
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
- * @class FightController
+ * @class FightView
  */
 export class FightView {
 
@@ -21,196 +40,259 @@ export class FightView {
 	}
 
 	/**
-	 * Add the fight action field to the intro embed that correspond to the fighter
-	 * @param introEmbed
-	 * @param fighter
-	 */
-	addFightActionFieldFor(introEmbed: string /* DraftBotEmbed */, fighter: Fighter): void {
-		/* introEmbed.addFields({
-			name: this.fightTranslationModule.format("actionsOf", {
-				player: fighter.getName()
-			}),
-			value: this.getFightActionsToStringOf(fighter),
-			inline: true
-		}); */
-	}
-
-	/**
 	 * Send the fight intro message
-	 * @param fighter1
-	 * @param fighter2
+	 * @param fighter
+	 * @param opponent
+	 * @param response
 	 */
-	async introduceFight(fighter1: Fighter, fighter2: Fighter): Promise<void> {
-		// Ce serait ici qu'il faudrait mettre les attaques ?
-		/* const introEmbed = new DraftBotEmbed()
-			.setTitle(this.fightTranslationModule.format("intro", {
-				player1: fighter1.getName(),
-				player2: fighter2.getName()
-			}));
-		this.addFightActionFieldFor(introEmbed, fighter1);
-		this.addFightActionFieldFor(introEmbed, fighter2);
-		this.fightLaunchMessage = await this.channel.send({
-			content: fighter1.getMention(),
-			embeds: [introEmbed]
-		});
-		this.actionMessages.push(await this.channel.send({content: "_ _"})); */
+	introduceFight(response: DraftBotPacket[], fighter: PlayerFighter, opponent: MonsterFighter | AiPlayerFighter): void {
+		const fightInitiatorActions = new Array<[string, number]>();
+		for (const action of fighter.availableFightActions) {
+			fightInitiatorActions.push([action[0], action[1].breath]);
+		}
+		const fightOpponentActions = new Array<[string, number]>();
+		for (const action of opponent.availableFightActions) {
+			fightOpponentActions.push([action[0], action[1].breath]);
+		}
+		response.push(makePacket(CommandFightIntroduceFightersPacket, {
+			fightInitiatorKeycloakId: fighter.player.keycloakId,
+			fightOpponentKeycloakId: opponent instanceof MonsterFighter ? null : opponent.player.keycloakId,
+			fightOpponentMonsterId: opponent instanceof MonsterFighter ? opponent.monster.id : null,
+			fightInitiatorActions,
+			fightOpponentActions
+		}));
 	}
 
+
 	/**
-	 *  Summarize current fight status
+	 *  Summarize current fight status, displaying fighter's stats
 	 */
-	async displayFightStatus(): Promise<void> {
-		/* await this.scrollIfNeeded();
+	displayFightStatus(response: DraftBotPacket[]): void {
 		const playingFighter = this.fightController.getPlayingFighter();
 		const defendingFighter = this.fightController.getDefendingFighter();
-		if (!this.lastSummary) {
-			this.lastSummary = await this.channel.send({embeds: [this.getSummarizeEmbed(playingFighter, defendingFighter)]});
-		}
-		else {
-			await this.lastSummary.edit({embeds: [this.getSummarizeEmbed(playingFighter, defendingFighter)]});
-		} */
+		response.push(makePacket(CommandFightStatusPacket, {
+			numberOfTurn: this.fightController.turn,
+			maxNumberOfTurn: FightConstants.MAX_TURNS,
+			activeFighter: {
+				keycloakId: playingFighter instanceof MonsterFighter ? null : playingFighter.player.keycloakId,
+				monsterId: playingFighter instanceof MonsterFighter ? playingFighter.monster.id : null,
+				glory: playingFighter instanceof MonsterFighter ? null : playingFighter.player.getGloryPoints(),
+				stats: {
+					power: playingFighter.getEnergy(),
+					attack: playingFighter.getAttack(),
+					defense: playingFighter.getDefense(),
+					speed: playingFighter.getSpeed(),
+					breath: playingFighter.getBreath(),
+					maxBreath: playingFighter.getMaxBreath(),
+					breathRegen: playingFighter.getRegenBreath()
+				}
+			},
+			defendingFighter: {
+				keycloakId: defendingFighter instanceof MonsterFighter ? null : defendingFighter.player.keycloakId,
+				monsterId: defendingFighter instanceof MonsterFighter ? defendingFighter.monster.id : null,
+				glory: defendingFighter instanceof MonsterFighter ? null : defendingFighter.player.getGloryPoints(),
+				stats: {
+					power: defendingFighter.getEnergy(),
+					attack: defendingFighter.getAttack(),
+					defense: defendingFighter.getDefense(),
+					speed: defendingFighter.getSpeed(),
+					breath: defendingFighter.getBreath(),
+					maxBreath: defendingFighter.getMaxBreath(),
+					breathRegen: defendingFighter.getRegenBreath()
+				}
+			}
+		}));
 	}
 
 	/**
-	 * Update the fight history
-	 * @param emote
-	 * @param player
-	 * @param receivedMessage
+	 * Update the fight history with the new action made by a fighter (can be an attack or a status alteration)
+	 * @param response
+	 * @param fighter - the fighter that made the action or received the alteration
+	 * @param fightAction - the action made by the fighter
+	 * @param fightActionResult - the result of the action
 	 */
-	async updateHistory(emote: string, player: string, receivedMessage: string): Promise<void> {
-		/* let lastMessage = this.actionMessages[this.actionMessages.length - 1];
-		const messageToSend = this.fightTranslationModule.format("actions.intro", {
-			emote,
-			player
-		}) + receivedMessage;
-		if (lastMessage.content.length + messageToSend.length > 1950) {
-			// Message character limit reached : creation of a new message
-			await this.lastSummary.delete();
-			this.lastSummary = null;
-			lastMessage = await this.channel.send({content: messageToSend});
-			this.actionMessages.push(lastMessage);
-		}
-		else if (lastMessage.content === "_ _") {
-			// First action of the fight, no history yet
-			await lastMessage.edit({content: messageToSend});
-		}
-		else {
-			// A history already exists, just append the new action
-			await lastMessage.edit({content: `${lastMessage.content}\n${messageToSend}`});
-		}
-		// Fetch to get the new content
-		await lastMessage.fetch(true); */
+	async addActionToHistory(
+		response: DraftBotPacket[],
+		fighter: PlayerFighter | MonsterFighter | AiPlayerFighter,
+		fightAction: FightAction,
+		fightActionResult: FightActionResult | FightAlterationResult | PetAssistanceResult
+	): Promise<void> {
+
+		const buildStatsChange = (selfTarget: boolean): {
+			attack?: number;
+			defense?: number;
+			speed?: number;
+			breath?: number;
+			energy?: number;
+		} => fightActionResult.buffs
+			?.filter(buff =>
+				buff.selfTarget === selfTarget
+				&& ([FightStatBuffed.ATTACK, FightStatBuffed.DEFENSE, FightStatBuffed.SPEED, FightStatBuffed.BREATH].includes(buff.stat)
+					&& buff.operator === FightStatModifierOperation.MULTIPLIER
+					|| [FightStatBuffed.BREATH].includes(buff.stat)
+					&& buff.operator === FightStatModifierOperation.ADDITION
+					|| [FightStatBuffed.ENERGY].includes(buff.stat)
+					&& buff.operator === FightStatModifierOperation.ADDITION))
+			.reduce((acc, buff) => {
+				switch (buff.stat) {
+				case FightStatBuffed.ATTACK:
+					acc.attack = toSignedPercent(buff.value);
+					break;
+				case FightStatBuffed.DEFENSE:
+					acc.defense = toSignedPercent(buff.value);
+					break;
+				case FightStatBuffed.SPEED:
+					acc.speed = toSignedPercent(buff.value);
+					break;
+				case FightStatBuffed.BREATH:
+					acc.breath = buff.value;
+					break;
+				case FightStatBuffed.ENERGY:
+					acc.energy = buff.value;
+					break;
+				default:
+					break;
+				}
+				return acc;
+			}, {} as { attack?: number; defense?: number; speed?: number; breath?: number; energy?: number });
+
+		/** Return the pet if the action is a pet assistance and the fighter has a pet
+		 * @param fighter
+		 * @param fightActionResult
+		 */
+		const getPetIfRelevant = async (
+			fighter: PlayerFighter | MonsterFighter | AiPlayerFighter,
+			fightActionResult: FightActionResult | FightAlterationResult | PetAssistanceResult
+		): Promise<OwnedPet | null> => {
+			// Check if the fighter is a player (not a monster) and has a pet
+			if (!(fighter instanceof MonsterFighter) && fighter.player.petId) {
+				// Check if the action result is pet assistance (has assistanceStatus property)
+				if ("assistanceStatus" in fightActionResult) {
+					return (await PetEntities.getById(fighter.player.petId)).asOwnedPet();
+				}
+			}
+			return null;
+		};
+		const usedFightActionId = Object.prototype.hasOwnProperty.call(fightActionResult, "usedAction") ? (fightActionResult as FightActionResult).usedAction.id : null;
+		fightActionResult = Object.prototype.hasOwnProperty.call(fightActionResult, "usedAction") ? (fightActionResult as FightActionResult).usedAction.result : fightActionResult;
+		response.push(makePacket(CommandFightHistoryItemPacket, {
+			fighterKeycloakId: fighter instanceof MonsterFighter ? null : fighter.player.keycloakId,
+			monsterId: fighter instanceof MonsterFighter ? fighter.monster.id : null,
+			/* Sometimes fightActionResult.usedAction is not the same
+				as what the user selected (fightAction is what the user selected)
+	            and fightActionResult.usedAction is what ended up being used */
+			fightActionId: fightAction.id,
+			usedFightActionId,
+			customMessage: "customMessage" in fightActionResult ? fightActionResult.customMessage : false,
+			status:
+				"attackStatus" in fightActionResult ?
+					fightActionResult.attackStatus : // FightAction is an attack, so we have an attackStatus
+					"state" in fightActionResult ?
+						fightActionResult.state : // FightAction is an alteration, so we have a state
+						fightActionResult.assistanceStatus, // FightAction is pet assistance, so we have an assistanceStatus
+			pet: await getPetIfRelevant(fighter, fightActionResult),
+			fightActionEffectDealt:
+				{
+					...buildStatsChange(false),
+					newAlteration: "alterations" in fightActionResult && fightActionResult.alterations?.find(alt => !alt.selfTarget)?.alteration || null,
+					damages: fightActionResult.damages
+				}
+			,
+			fightActionEffectReceived:
+				{
+					...buildStatsChange(true),
+					newAlteration: "alterations" in fightActionResult && fightActionResult.alterations?.find(alt => alt.selfTarget)?.alteration || null,
+					damages:
+					fightActionResult.buffs?.find(
+						buff => buff.selfTarget && buff.stat === FightStatBuffed.DAMAGE && buff.operator === FightStatModifierOperation.ADDITION
+					)?.value
+				}
+		}));
 	}
 
 	/**
-	 * Get send the fight outro message
+	 * Display the fight action menu
+	 * @param response
+	 * @param playerFighter - the player fighter - This cannot be a monster: they do not use a front-end to play draftbot :p
+	 * @param actions - the actions available for the player
+	 */
+	displayFightActionMenu(response: DraftBotPacket[], playerFighter: PlayerFighter, actions: Map<string, FightAction>): void {
+		const collector = new ReactionCollectorFightChooseAction(playerFighter.player.keycloakId, [...actions.keys()]);
+
+		const endCallback: EndCallback = async (collector, response) => {
+			const reaction = collector.getFirstReaction();
+			if (!reaction) {
+				playerFighter.kill();
+				await this.fightController.endFight(response);
+			}
+			else {
+				await this.fightController.executeFightAction(actions.get((reaction.reaction.data as ReactionCollectorFightChooseActionReaction).id)!, true, response);
+			}
+		};
+
+		const packet = new ReactionCollectorInstance(
+			collector,
+			this.context,
+			{
+				allowedPlayerKeycloakIds: [playerFighter.player.keycloakId]
+			},
+			endCallback
+		)
+			.build();
+
+		response.push(packet);
+	}
+
+	/**
+	 * Display the AI choose action message
+	 * @param response
+	 */
+	displayAiChooseAction(response: DraftBotPacket[]): void {
+		response.push(makePacket(AIFightActionChoosePacket, {}));
+	}
+
+	/**
+	 * Generate packets to display the end of the fight
+	 * @param response
 	 * @param loser
 	 * @param winner
 	 * @param draw
 	 */
-	outroFight(loser: Fighter, winner: Fighter, draw: boolean): void {
-		/* if (this.lastSummary) {
-			setTimeout(() => this.lastSummary.delete(), TIMEOUT_FUNCTIONS.OUTRO_FIGHT);
-		}
-		let msg;
-		if (!draw) {
-			msg = this.fightTranslationModule.format("end.win", {
-				winner: winner.getMention(),
-				loser: loser.getMention()
-			});
-		}
-		else {
-			msg = this.fightTranslationModule.format("end.draw", {
-				player1: winner.getMention(),
-				player2: loser.getMention()
-			});
-		}
-		msg += this.fightTranslationModule.format("end.gameStats", {
-			turn: this.fightController.turn,
-			maxTurn: FightConstants.MAX_TURNS,
-			time: minutesDisplay(millisecondsToMinutes(new Date().valueOf() - this.fightLaunchMessage.createdTimestamp))
-		});
-
-		for (const fighter of [winner, loser]) {
-			msg += this.fightTranslationModule.format("end.fighterStats", {
-				pseudo: fighter.getName(),
-				health: fighter.getFightPoints(),
-				maxHealth: fighter.getMaxFightPoints()
-			});
-		}
-
-		this.channel.send({embeds: [new DraftBotEmbed().setDescription(msg)]})
-			.then(message => message.react(FightConstants.HANDSHAKE_EMOTE)); */
+	outroFight(
+		response: DraftBotPacket[],
+		loser: PlayerFighter | MonsterFighter | AiPlayerFighter,
+		winner: PlayerFighter | MonsterFighter | AiPlayerFighter,
+		draw: boolean
+	): void {
+		response.push(makePacket(CommandFightEndOfFightPacket, {
+			winner: {
+				keycloakId: winner instanceof MonsterFighter ? null : winner.player.keycloakId,
+				monsterId: winner instanceof MonsterFighter ? winner.monster.id : null,
+				finalEnergy: winner.getEnergy(),
+				maxEnergy: winner.getMaxEnergy()
+			},
+			looser: {
+				keycloakId: loser instanceof MonsterFighter ? null : loser.player.keycloakId,
+				monsterId: loser instanceof MonsterFighter ? loser.monster.id : null,
+				finalEnergy: loser.getEnergy(),
+				maxEnergy: loser.getMaxEnergy()
+			},
+			draw,
+			turns: this.fightController.turn,
+			maxTurns: FightConstants.MAX_TURNS
+		}));
 	}
 
 	/**
-	 * Send a message to the channel to display the status of the fight when a bug is detected
+	 * Send a bugged end-of-fight packet
+	 * @param response
 	 */
-	displayBugFight(): void {
-		/* this.channel.send({
-			embeds: [
-				new DraftBotEmbed()
-					.setErrorColor()
-					.setTitle(this.fightTranslationModule.get("bugFightTitle"))
-					.setDescription(this.fightTranslationModule.get("bugFightDescription"))]
-		}); */
+	displayBugFight(response: DraftBotPacket[]): void {
+		response.push(makePacket(BuggedFightPacket, {}));
 	}
 
-	async displayWeatherStatus(weatherEmote: string, weatherString: FightWeatherResult): Promise<void> {
-		await this.updateHistory(weatherEmote, "", this.getWeatherString(weatherString));
-	}
-
-	/**
-	 * Get summarize embed message
-	 * @param {Fighter} attacker
-	 * @param {Fighter} defender
-	 * @return
-	 */
-
-	private getSummarizeEmbed(attacker: Fighter, defender: Fighter): void { // DraftBotEmbed {
-		/* return new DraftBotEmbed()
-			.setTitle(this.fightTranslationModule.get("summarize.title"))
-			.setDescription(`${this.fightTranslationModule.format("summarize.intro", {
-				turn: this.fightController.turn,
-				maxTurns: FightConstants.MAX_TURNS
-			}) +
-			attacker.getStringDisplay(this.fightTranslationModule)}\n\n${defender.getStringDisplay(this.fightTranslationModule)}`); */
-	}
-
-
-	/**
-	 * Scroll the messages down if needed before fight display status
-	 * @return {Promise<void>}
-	 */
-	private async scrollIfNeeded(): Promise<void> {
-		/* const messages = await this.channel.messages.fetch({limit: 1});
-		if (this.lastSummary && messages.first().createdTimestamp !== this.lastSummary.createdTimestamp) {
-			for (const actionMessage of this.actionMessages) {
-				const content = (await this.channel.messages.fetch(actionMessage.id)).content;
-				await actionMessage.edit(content);
-			}
-			await this.lastSummary.delete();
-			this.lastSummary = null;
-		} */
-	}
-
-	/**
-	 * Get the list of actions available for the fighter in a displayable format
-	 * @param fighter
-	 * @private
-	 */
-	private getFightActionsToStringOf(fighter: Fighter): void {
-		/* const fightActions = fighter.availableFightActions;
-		let actionList = "";
-		for (const [, action] of fightActions) {
-			actionList += `${action.getEmoji()} - ${action.toString(this.language)}\n`;
-		}
-		return actionList; */
-	}
-
-	private getWeatherString(weatherString: FightWeatherResult): string {
-		return "";
+	sendResponses(response: DraftBotPacket[]): void {
+		PacketUtils.sendPackets(this.context, response);
+		response.length = 0;
 	}
 }
-
-/* eslint-enable */

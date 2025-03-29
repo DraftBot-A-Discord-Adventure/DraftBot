@@ -10,8 +10,8 @@ const use: FightActionFunc = (sender, receiver) => simpleDamageFightAction(
 		receiver
 	},
 	{
-		critical: 10,
-		failure: 10
+		critical: 5,
+		failure: 0
 	},
 	{
 		attackInfo: getAttackInfo(),

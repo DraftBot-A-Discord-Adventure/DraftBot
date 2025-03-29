@@ -1,4 +1,33 @@
 export abstract class ClassConstants {
+
+	static readonly CLASSES_ID = {
+		RECRUIT: 0,
+		FIGHTER: 1,
+		SOLDIER: 2,
+		INFANTRYMAN: 3,
+		GLOVED: 4,
+		HELMETED: 5,
+		ENMESHED: 6,
+		TANK: 7,
+		ROCK_THROWER: 8,
+		SLINGER: 9,
+		ARCHER: 10,
+		GUNNER: 11,
+		ESQUIRE: 12,
+		HORSE_RIDER: 13,
+		PIKEMAN: 14,
+		KNIGHT: 15,
+		PALADIN: 16,
+		VETERAN: 17,
+		POWERFUL_INFANTRYMAN: 18,
+		IMPENETRABLE_TANK: 19,
+		FORMIDABLE_GUNNER: 20,
+		VALIANT_KNIGHT: 21,
+		LUMINOUS_PALADIN: 22,
+		EXPERIENCED_VETERAN: 23,
+		MYSTIC_MAGE: 24
+	};
+
 	static readonly CLASS_KIND = {
 		ATTACK: "attack",
 		DEFENSE: "defense",

@@ -4,12 +4,15 @@ import {FightAction} from "./FightAction";
 import {FightController} from "../core/fights/FightController";
 import {Fighter} from "../core/fights/fighter/Fighter";
 import {FightAlterationResult} from "../../../Lib/src/types/FightAlterationResult";
+import {FightConstants} from "../../../Lib/src/constants/FightConstants";
 
 export class FightAlteration extends FightAction {
 	public happen(affected: Fighter, opponent: Fighter, turn: number, fight: FightController): FightAlterationResult {
-		affected.alterationTurn++;
+		if (this.id !== FightConstants.FIGHT_ACTIONS.ALTERATION.OUT_OF_BREATH) { // Out of breath is not a real alteration
+			affected.alterationTurn++;
+		}
 		const result = FightAlterationDataController.getFightAlterationFunction(this.id)(affected, this, opponent, turn, fight);
-		affected.damage(result.damages);
+		affected.damage(result.damages ?? 0);
 		return result;
 	}
 }
@@ -24,7 +27,7 @@ export class FightAlterationDataController extends DataControllerString<FightAlt
 	public static getFightAlterationFunction(id: string): FightAlterationFunc {
 		if (!FightAlterationDataController.fightAlterationsFunctionsCache) {
 			FightAlterationDataController.fightAlterationsFunctionsCache = new Map<string, FightAlterationFunc>();
-			FightAlterationDataController.loadFightAlterationsFromFolder("dist/src/Core/fights/actions/interfaces/alterations", "TODO replace with the right one");
+			FightAlterationDataController.loadFightAlterationsFromFolder("dist/Core/src/core/fights/actions/interfaces/alterations", "../core/fights/actions/interfaces/alterations");
 		}
 
 		return FightAlterationDataController.fightAlterationsFunctionsCache.get(id);

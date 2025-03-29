@@ -30,10 +30,7 @@ import {FightOvertimeBehavior} from "../../core/fights/FightOvertimeBehavior";
 import {ClassDataController} from "../../data/Class";
 import {PlayerSmallEvents} from "../../core/database/game/models/PlayerSmallEvent";
 import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
-import {
-	ReactionCollectorPveFight,
-	ReactionCollectorPveFightReactionValidate
-} from "../../../../Lib/src/packets/interaction/ReactionCollectorPveFight";
+import {ReactionCollectorPveFight} from "../../../../Lib/src/packets/interaction/ReactionCollectorPveFight";
 import {
 	ReactionCollectorChooseDestination,
 	ReactionCollectorChooseDestinationReaction
@@ -53,6 +50,7 @@ import {ErrorPacket} from "../../../../Lib/src/packets/commands/ErrorPacket";
 import {MapLocationDataController} from "../../data/MapLocation";
 import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 import {Effect} from "../../../../Lib/src/types/Effect";
+import {ReactionCollectorRefuseReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 
 export default class ReportCommand {
 	@commandRequires(CommandReportPacketReq, {
@@ -358,7 +356,7 @@ async function chooseDestination(
 	}
 
 	if ((!Maps.isOnPveIsland(player) || destinationMaps.length === 1) &&
-		(forcedLink || destinationMaps.length === 1 || RandomUtils.draftbotRandom.bool(Constants.REPORT.AUTO_CHOOSE_DESTINATION_CHANCE) && player.mapLinkId !== Constants.BEGINNING.LAST_MAP_LINK)
+		(forcedLink || destinationMaps.length === 1 && player.mapLinkId !== Constants.BEGINNING.LAST_MAP_LINK)
 	) {
 		await automaticChooseDestination(forcedLink, player, destinationMaps, response);
 		return;
@@ -444,8 +442,8 @@ async function sendTravelPath(player: Player, response: DraftBotPacket[], date: 
 		},
 		energy: {
 			show: showEnergy,
-			current: showEnergy ? player.getCumulativeFightPoint() : 0,
-			max: showEnergy ? player.getMaxCumulativeFightPoint() : 0
+			current: showEnergy ? player.getCumulativeEnergy() : 0,
+			max: showEnergy ? player.getMaxCumulativeEnergy() : 0
 		},
 		endMap: {
 			id: endMap.id,
@@ -475,43 +473,43 @@ async function doPVEBoss(
 	const seed = player.id + millisecondsToSeconds(player.startTravelDate.valueOf());
 	const monsterObj = MonsterDataController.instance.getRandomMonster(player.getDestination().id, seed);
 	const randomLevel = player.level - PVEConstants.MONSTER_LEVEL_RANDOM_RANGE / 2 + seed % PVEConstants.MONSTER_LEVEL_RANDOM_RANGE;
-	const fightCallback = async (fight: FightController): Promise<void> => {
+	const fightCallback = async (fight: FightController, endFightResponse: DraftBotPacket[] ): Promise<void> => {
 		if (fight) {
 			const rewards = monsterObj.getRewards(randomLevel);
 			let guildXp: number = 0;
 			let guildPoints: number = 0;
 
-			player.fightPointsLost = fight.fightInitiator.getMaxFightPoints() - fight.fightInitiator.getFightPoints();
+			player.fightPointsLost = fight.fightInitiator.getMaxEnergy() - fight.fightInitiator.getEnergy();
 
 			// Only give reward if draw or win
 			if (fight.fighters[fight.getWinner()] instanceof PlayerFighter) {
 				await player.addMoney({
 					amount: rewards.money,
 					reason: NumberChangeReason.PVE_FIGHT,
-					response
+					response: endFightResponse
 				});
 				await player.addExperience({
 					amount: rewards.xp,
 					reason: NumberChangeReason.PVE_FIGHT,
-					response
+					response: endFightResponse
 				});
 				if (player.guildId) {
 					const guild = await Guilds.getById(player.guildId);
-					await guild.addScore(rewards.guildScore, response, NumberChangeReason.PVE_FIGHT);
-					await guild.addExperience(rewards.guildXp, response, NumberChangeReason.PVE_FIGHT);
+					await guild.addScore(rewards.guildScore, endFightResponse, NumberChangeReason.PVE_FIGHT);
+					await guild.addExperience(rewards.guildXp, endFightResponse, NumberChangeReason.PVE_FIGHT);
 					await guild.save();
 					if (guild.level < GuildConstants.MAX_LEVEL) {
 						guildXp = rewards.guildXp;
 					}
 					guildPoints = rewards.guildScore;
 				}
-				response.push(makePacket(CommandReportMonsterRewardRes, {
+				endFightResponse.push(makePacket(CommandReportMonsterRewardRes, {
 					money: rewards.money,
 					experience: rewards.xp,
 					guildXp,
 					guildPoints
 				}));
-				await MissionsController.update(player, response, {missionId: "winBoss"});
+				await MissionsController.update(player, endFightResponse, {missionId: "winBoss"});
 			}
 
 			await player.save();
@@ -519,20 +517,20 @@ async function doPVEBoss(
 			draftBotInstance.logsDatabase.logPveFight(fight).then();
 		}
 
-		if (!await player.leavePVEIslandIfNoFightPoints(response)) {
+		if (!await player.leavePVEIslandIfNoEnergy(endFightResponse)) {
 			await Maps.stopTravel(player);
 			await player.setLastReportWithEffect(
 				0,
 				Effect.NO_EFFECT,
 				NumberChangeReason.BIG_EVENT
 			);
-			await chooseDestination(context, player, null, response);
+			await chooseDestination(context, player, null, endFightResponse);
 		}
 	};
 
 	if (!monsterObj) {
 		response.push(makePacket(CommandReportErrorNoMonsterRes, {}));
-		await fightCallback(null);
+		await fightCallback(null, response);
 		return;
 	}
 
@@ -548,37 +546,33 @@ async function doPVEBoss(
 			attack: monsterFighter.getAttack(),
 			defense: monsterFighter.getDefense(),
 			speed: monsterFighter.getSpeed(),
-			fightPoints: monsterFighter.getFightPoints()
+			energy: monsterFighter.getEnergy()
 		}
 	});
 
 	const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]) => {
 		const firstReaction = collector.getFirstReaction();
-
-		if (!firstReaction || !(firstReaction instanceof ReactionCollectorPveFightReactionValidate)) {
+		if (!firstReaction || firstReaction.reaction.type === ReactionCollectorRefuseReaction.name) {
 			response.push(makePacket(CommandReportRefusePveFightRes, {}));
 			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.START_BOSS_FIGHT);
 			return;
 		}
 
 		const playerFighter = new PlayerFighter(player, ClassDataController.instance.getById(player.class));
-		await playerFighter.loadStats(true);
-		playerFighter.setBaseFightPoints(playerFighter.getMaxFightPoints() - player.fightPointsLost);
+		await playerFighter.loadStats();
+		playerFighter.setBaseEnergy(playerFighter.getMaxEnergy() - player.fightPointsLost);
 
 		const fight = new FightController(
 			{
 				fighter1: playerFighter,
 				fighter2: monsterFighter
 			},
-			{
-				friendly: false,
-				overtimeBehavior: FightOvertimeBehavior.INCREASE_DAMAGE_PVE
-			},
+			FightOvertimeBehavior.INCREASE_DAMAGE_PVE,
 			context
 		);
-		fight.setEndCallback(() => fightCallback(fight));
+		fight.setEndCallback(fightCallback);
 		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.START_BOSS_FIGHT);
-		await fight.startFight();
+		await fight.startFight(response);
 	};
 
 	const packet = new ReactionCollectorInstance(

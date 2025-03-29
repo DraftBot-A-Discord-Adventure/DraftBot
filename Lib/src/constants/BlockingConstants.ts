@@ -6,6 +6,7 @@ export abstract class BlockingConstants {
 		CLASS: "class",
 		DRINK: "drink",
 		FIGHT: "fight",
+		FIGHT_CONFIRMATION: "fightConfirmation",
 		GOBLET_CHOOSE: "gobletChoose",
 		WITCH_CHOOSE: "witchChoose",
 		FIGHT_PET_CHOOSE: "fightPetChoose",

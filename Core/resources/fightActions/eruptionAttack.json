@@ -1,6 +1,5 @@
 {
-	"emote": "🌋",
-	"breath": 8,
+	"breath": 7,
 	"missionVariant": -1,
-	"type": "weather"
+	"type": "distance"
 }

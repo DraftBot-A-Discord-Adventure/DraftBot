@@ -1,27 +1,19 @@
 import {
-	ReactionCollector,
+	ReactionCollector, ReactionCollectorAcceptReaction,
 	ReactionCollectorCreationPacket,
 	ReactionCollectorData,
-	ReactionCollectorReaction
+	ReactionCollectorRefuseReaction
 } from "./ReactionCollectorPacket";
 
 export class ReactionCollectorPveFightData extends ReactionCollectorData {
 	monster!: {
 		id: string,
 		level: number,
-		fightPoints: number,
+		energy: number,
 		attack: number,
 		defense: number,
 		speed: number
 	};
-}
-
-export class ReactionCollectorPveFightReactionValidate extends ReactionCollectorReaction {
-
-}
-
-export class ReactionCollectorPveFightReactionWait extends ReactionCollectorReaction {
-
 }
 
 export class ReactionCollectorPveFight extends ReactionCollector {
@@ -37,8 +29,8 @@ export class ReactionCollectorPveFight extends ReactionCollector {
 			id,
 			endTime,
 			reactions: [
-				this.buildReaction(ReactionCollectorPveFightReactionValidate, {}),
-				this.buildReaction(ReactionCollectorPveFightReactionWait, {})
+				this.buildReaction(ReactionCollectorAcceptReaction, {}),
+				this.buildReaction(ReactionCollectorRefuseReaction, {})
 			],
 			data: this.buildData(ReactionCollectorPveFightData, this.data)
 		};

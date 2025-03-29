@@ -39,7 +39,7 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 	private readonly _allowedUsersDiscordIdToReact: string[];
 
 	/**
-	 * A list used to retrieve the reactions quickly from name
+	 * A list used to retrieve the reactions quickly from the name
 	 */
 	private _reactionsNames: string[];
 
@@ -168,7 +168,7 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 	}
 
 	/**
-	 * Create the collector, add the reactions etc...
+	 * Create the collector, add the reactions, etc...
 	 * @param collectorCallback
 	 * @private
 	 */

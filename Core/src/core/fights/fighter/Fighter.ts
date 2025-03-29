@@ -5,10 +5,11 @@ import {PVEConstants} from "../../../../../Lib/src/constants/PVEConstants";
 import {FightStatModifierOperation} from "../../../../../Lib/src/types/FightStatModifierOperation";
 import {FightAlteration} from "../../../data/FightAlteration";
 import {FightAction} from "../../../data/FightAction";
+import {DraftBotPacket} from "../../../../../Lib/src/packets/DraftBotPacket";
 
 type FighterStats = {
-	fightPoints: number,
-	maxFightPoint: number,
+	energy: number,
+	maxEnergy: number,
 	speed: number,
 	defense: number,
 	attack: number,
@@ -60,8 +61,8 @@ export abstract class Fighter {
 
 	protected constructor(level: number, availableFightActions: FightAction[]) {
 		this.stats = {
-			fightPoints: null,
-			maxFightPoint: null,
+			energy: null,
+			maxEnergy: null,
 			speed: null,
 			defense: null,
 			attack: null,
@@ -90,8 +91,9 @@ export abstract class Fighter {
 	/**
 	 * Make the fighter choose his next action
 	 * @param fightView
+	 * @param response
 	 */
-	abstract chooseAction(fightView: FightView): Promise<void>;
+	abstract chooseAction(fightView: FightView, response: DraftBotPacket[]): Promise<void>;
 
 	/**
 	 * Function called when the fight starts
@@ -140,17 +142,17 @@ export abstract class Fighter {
 	}
 
 	/**
-	 * Get fight points
+	 * Get energy
 	 */
-	public getFightPoints(): number {
-		return this.stats.fightPoints;
+	public getEnergy(): number {
+		return this.stats.energy;
 	}
 
 	/**
-	 * Get the maximum fight points
+	 * Get the maximum energy
 	 */
-	public getMaxFightPoints(): number {
-		return this.stats.maxFightPoint;
+	public getMaxEnergy(): number {
+		return this.stats.maxEnergy;
 	}
 
 	/**
@@ -168,7 +170,7 @@ export abstract class Fighter {
 	}
 
 	/**
-	 * Get the regen breath of the fighter
+	 * Get the regeneration amount breath of the fighter per turn
 	 */
 	public getRegenBreath(): number {
 		return this.stats.breathRegen;
@@ -198,11 +200,11 @@ export abstract class Fighter {
 	}
 
 	/**
-	 * Set the base fight points
+	 * Set the base energy of the fighter
 	 * @param value
 	 */
-	public setBaseFightPoints(value: number): void {
-		this.stats.fightPoints = value;
+	public setBaseEnergy(value: number): void {
+		this.stats.energy = value;
 	}
 
 	/**
@@ -308,11 +310,15 @@ export abstract class Fighter {
 	 * @return The new value of energy
 	 */
 	public damage(value: number): number {
-		this.stats.fightPoints -= value;
-		if (this.stats.fightPoints < 0) {
-			this.stats.fightPoints = 0;
+		// Return current energy if no damage value
+		if (!value) {
+			return this.stats.energy;
 		}
-		return this.stats.fightPoints;
+
+		// Apply damage
+		this.stats.energy = Math.max(0, this.stats.energy - value);
+
+		return this.stats.energy;
 	}
 
 	/**
@@ -321,19 +327,19 @@ export abstract class Fighter {
 	 * @return The new value of energy
 	 */
 	public heal(value: number): number {
-		this.stats.fightPoints += value;
-		const max = this.getMaxFightPoints();
-		if (this.stats.fightPoints > max) {
-			this.stats.fightPoints = max;
+		this.stats.energy += value;
+		const max = this.getMaxEnergy();
+		if (this.stats.energy > max) {
+			this.stats.energy = max;
 		}
-		return this.stats.fightPoints;
+		return this.stats.energy;
 	}
 
 	/**
 	 * Check if the player is dead
 	 */
 	public isDead(): boolean {
-		return this.getFightPoints() <= 0;
+		return this.getEnergy() <= 0;
 	}
 
 	/**
@@ -347,7 +353,7 @@ export abstract class Fighter {
 	 * The name of the function is very clear
 	 */
 	public kill(): void {
-		this.stats.fightPoints = 0;
+		this.stats.energy = 0;
 	}
 
 	/**
@@ -398,7 +404,7 @@ export abstract class Fighter {
 	}
 
 	/**
-	 * Get a random fight action id from the list of available fight actions of the fighter
+	 * Get a random fight action id from the list of available fight actions for a fighter
 	 */
 	getRandomAvailableFightAction(): FightAction {
 
@@ -456,7 +462,7 @@ export abstract class Fighter {
 	}
 
 	/**
-	 * Lowers the current counters by 1 turn
+	 * Lowers the current counters by one turn
 	 */
 	reduceCounters(): void {
 		this.damageMultipliers = this.damageMultipliers.filter((damageMultiplier) => {
