@@ -11,6 +11,7 @@
     "descriptionEdit": "guild description edit",
     "drink": "choice of whether to drink a potion",
     "fight": "fight",
+    "fightConfirmation": "choix de débuter un combat ou non",
     "fightPetChoose": "choice of an action for the pet fight event",
     "gobletChoose": "choice of a goblet",
     "guildCreate": "guild creation",
