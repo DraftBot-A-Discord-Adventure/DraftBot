@@ -11,7 +11,7 @@
     "descriptionEdit": "guild description edit",
     "drink": "choice of whether to drink a potion",
     "fight": "fight",
-    "fightConfirmation": "choix de débuter un combat ou non",
+    "fightConfirmation": "choice of whether or not to start a fight",
     "fightPetChoose": "choice of an action for the pet fight event",
     "gobletChoose": "choice of a goblet",
     "guildCreate": "guild creation",
@@ -149,5 +149,5 @@
   "banned": "You have been banned from the game.",
   "aDevMessedUp": "Oops! An error has occurred. Don't worry, it's not your fault. Please accept our apologies for the inconvenience. To resolve this problem, please contact our support team via our Discord server: https://discord.gg/5JqrMtZ",
   "commandNotAvailableHere": "This command cannot be used at this location.",
-  "guildFoodStorageFull": "Vous avez reçu **{{quantity}}x {{food}}**, mais le stock de nourriture de votre guilde est plein. La nourriture a été jetée."
+  "guildFoodStorageFull": "You have received **{{quantity}}x {{food}}**, but your guild's food stock is full. The food has been thrown away."
 }
