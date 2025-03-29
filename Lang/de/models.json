@@ -125,10 +125,26 @@
       "name_one": "Segen",
       "name_other": "Segnungen"
     },
+    "bite": {
+      "success": "est aidé par **{{petNickname}}** qui décide de mordre violemment son adversaire."
+    },
+    "blind": {
+      "name": "aveugle",
+      "new": "est aveuglé.",
+      "active": "est aveuglé et frappe au hasard tout autour de lui.",
+      "noAction": "est aveuglé et rate complètement sa cible.",
+      "stop": "retrouve la vue."
+    },
     "boomerangAttack": {
       "description": "Startet einen Bumerang, der dem Feind bis zum 3. Mal Schaden zufügt.",
       "name_one": "Bumerang",
       "name_other": "Boomerang-Attacken"
+    },
+    "boostDefense": {
+      "success": "se fortifie derrière le robuste rempart qu'est **{{petNickname}}**, gagnant une protection formidable au prix de sa célérité."
+    },
+    "boostSpeed": {
+      "success": "monte sur le dos de **{{petNickname}}** pour se déplacer plus rapidement."
     },
     "boulderTossAttack": {
       "description": "Ein durchschnittlicher Angriff, der die Chance hat, den Gegner zu erloschen.",
@@ -140,10 +156,14 @@
       "name_one": "Einatemberaubung",
       "name_other": "Atem-Attacken"
     },
+    "buildBarrage": {
+      "success": "est aidé par **{{petNickname}}** qui construit un barrage pour protéger son maître."
+    },
     "burned": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "name": "brûlé",
+      "new": "est brûlé.",
+      "active": "souffre de sa brûlure.",
+      "stop": "n'est plus brûlé."
     },
     "canonAttack": {
       "description": "La précision de cette attaque baisse sur les adversaires rapides. Un bonus de dégât est affecté à cette attaque si l'adversaire est très lent. L'adversaire peut être ralenti par l'attaque. Inflige plus de dégâts si utilisé plusieurs fois de suite",
@@ -161,39 +181,56 @@
       "name_other": "Gourdin-Attacke"
     },
     "chargeUltimateAttack": {
-      "description": "Nécessite un tour pour charger l'attaque Si l'attaquant dispose de moins de 45% de ses points de combat, cette attaque ne peut pas échouer. Si l'attaquant dispose de plus de 45% de ses points de combat, la précision de cette attaque est de 70. Cette attaque ne peut être utilisée qu'une fois par joueur et par combat.",
+      "description": "Nécessite un tour pour charger l’attaque Si l’attaquant dispose de moins de 45% de son énergie, cette attaque ne peut pas échouer. Si l’attaquant dispose de plus de 45% de son énergie, la précision de cette attaque est de 70. Cette attaque ne peut être utilisée qu’une fois par joueur et par combat.",
       "name_one": "Letzter Angriff",
       "name_other": "Ultima-Attacken"
     },
     "chargingAttack": {
-      "description": "",
       "name_one": "Angeladener Angriff",
       "name_other": "Geladene Angriffe"
     },
+    "claws": {
+      "success": "est soutenu dans son combat par **{{petNickname}}** qui assène à son adversaire un grand coup de griffe."
+    },
     "clubSmashAttack": {
-      "description": "",
       "name_one": "Hurrikan",
       "name_other": "Gourdin-Attacke"
     },
     "concentrated": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "name": "concentré",
+      "new": "concentre son pouvoir. `Boost de dégâts actif`",
+      "active": "concentre son pouvoir.",
+      "stop": "n'est plus concentré."
     },
     "concentration": {
       "description": "Échoue si vous utilisez cette action alors que vous avez une altération d'état. L'altération \"concentré\" augmente fortement les dégâts infligés par le combattant affecté lors du prochain tour.",
+      "customMessage": "se concentre et se prépare à frapper plus fort.",
       "name_one": "Konzentration",
       "name_other": "Koncentrate"
+    },
+    "confused": {
+      "name": "confus",
+      "new": "est confus.",
+      "active": "est confus.",
+      "randomAction": "est confus et effectue une action aléatoire dans sa confusion.",
+      "stop": "n'est plus confus."
     },
     "counterAttack": {
       "description": "Replique mit der gleichen Aktion wie die, die Ihr Gegner gespielt hat. Funktioniert nicht auf magischen oder götkischen Angriffen, oder wenn der Gegner nicht angegriffen hat.",
       "name_one": "Anrider",
+      "customMessage": "ne parviens pas à riposter.",
       "name_other": "Post-Attacken"
     },
+    "createBomb": {
+      "generalEffect": "est soutenu dans son combat par **{{petNickname}}** qui fait mine de harceler férocement l'adversaire de coups de bec précis et douloureux.",
+      "failure": "a manqué de recevoir l'aide de **{{petNickname}}** qui, par prudence, s'est abstenu d'agir, conscient que son intervention risquait davantage de blesser son maître que l'adversaire. Il aurait fallu être plus rapide !",
+      "success": "profite du talent de **{{petNickname}}** qui a discrètement préparé une bombe puissante. Après avoir activé le détonateur, vous vous mettez à l'écart en courant de toutes vos forces !"
+    },
     "cursed": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "name": "maudit",
+      "new": "est maudit...",
+      "active": "est maudit...",
+      "stop": "subit les conséquences du maléfice."
     },
     "cursedAttack": {
       "description": "Der Gegner des Gegners kann die Konsequenzen in der Zukunft erleiden ...",
@@ -207,13 +244,25 @@
     },
     "defenseBuff": {
       "description": "Je mehr diese Aktion ausgeführt wird, desto wichtiger ist der Bonus-Bonus.",
+      "customMessage": "se prépare à se défendre...",
       "name_one": "Boost de la Defense",
       "name_other": "Boosts der Verteidigung"
+    },
+    "dirty": {
+      "name": "répugnant",
+      "new": "est absolument répugnant, ses attaques s'en retrouvent renforcées.",
+      "active": "est répugnant.",
+      "stop": "est parvenu à se nettoyer."
     },
     "divineAttack": {
       "description": "Die Genauigkeit dieses Angriffs erhöht sich mit der Dauer des Kampfes. Teil der Gruppe \"Aktionen der Dieuxten\". Echt, wenn zwei Aktionen der Götter bereits im Kampf getätigt wurden.",
       "name_one": "Divine Attaque",
       "name_other": "Divine-Attacken"
+    },
+    "elephantRememberLastAction": {
+      "success": "est aidé par **{{petNickname}}** dont la mémoire fulgurante des événements récents lui permet de restituer le souffle perdu à son maître.",
+      "failure": "est aidé par **{{petNickname}}** qui, malgré ses puissants souvenirs des actions passées, échoue à restituer le souffle dépensé.",
+      "afraid": "est aidé par **{{petNickname}}** qui, bien que se rappelant parfaitement des événements récents, tremble trop de peur pour pouvoir restituer le souffle perdu."
     },
     "energeticAttack": {
       "description": "Die Hälfte der Schäden an diesem Angriff werden in Form von Sorgfalt an die Trägerrakete zurückgegeben.",
@@ -221,7 +270,8 @@
       "name_other": "Anwagische Angriffe"
     },
     "eruptionAttack": {
-      "description": "Es gibt einen Ausschlag, der den Vulkan ausbricht, der Steine auf den Spielern abbricht.",
+      "description": "Fait entrer en éruption le volcan qui crache des rochers en fusion sur les joueurs, seul les plus rapides pourront éviter les dégâts.",
+      "customMessage": "fait entrer en éruption le volcan, seul les adversaires les plus rapide parviennent à éviter l'éruption.",
       "name_one": "Hautausschlag",
       "name_other": "Eruptionen"
     },
@@ -235,18 +285,32 @@
       "name_one": "Brand",
       "name_other": "Attacken"
     },
+    "fishProtectAgainstFire": {
+      "afraid": "demande à **{{petNickname}}** de l'aider à ne pas brûler mais **{{petNickname}}** est trop effrayé pour aider.",
+      "success": "est soigné de ses brûlures par **{{petNickname}}**."
+    },
     "frozen": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "name": "gelé",
+      "active": "est gelé.",
+      "stop": "n'est plus gelé."
     },
     "full": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "name": "repue",
+      "new": "est repue et doit se reposer. `Vitesse: 0`",
+      "active": "est repue et doit se reposer.",
+      "stop": "n'est plus repue."
+    },
+    "getDirty": {
+      "description": "S'exécute si l'attaquant s'est récemment retrouvé dans des lieux sales. Le combattant se retrouvera répugnant ou malade selon les situations.",
+      "customMessage": "a réussi à s'extraire d'une situation périlleuse sans trop de dommages, mais en sacrifiant sa dignité et sa propreté.",
+      "name_one": "Salissure",
+      "name_other": "Salissures"
+    },
+    "goesWild": {
+      "success": "ordonne à **{{petNickname}}** d'attaquer. L'animal éclate de rage et se met à frapper tout ce qui passe à proximité de lui."
     },
     "grabAndThrowAttack": {
-      "description": "Projizieren Sie den Gegenspieler, wenn er einen physischen Angriff benutzt, der den Schaden verursacht und die Chance hat, den Gegenspieler zu erfinden.",
+      "description": "Projette l'adversaire s'il utilise une attaque physique, infligeant des dégâts moyens et ayant une chance d'étourdir l'adversaire.",
       "name_one": "Projektion zuordnen",
       "name_other": "Projektionen"
     },
@@ -255,103 +319,165 @@
       "name_one": "Gilde-Angriff",
       "name_other": "Gilde-Attacken"
     },
+    "healEveryone": {
+      "generalEffect": "fait appel à **{{petNickname}}** qui, avec un regard bienveillant, constate que personne ne s'est blessé et repart donc se reposer avec joie.",
+      "success": "a de la chance d'être accompagné par **{{petNickname}}** qui, débordant d'amour et souhaitant mettre un terme à l'affrontement, soigne les combattants."
+    },
     "heatDrainAttack": {
       "description": "Hol die Wärme des Spielers zurück, was den Angriff des Werbenden erhöht und den Gegner giert.",
+      "customMessage": "draine votre chaleur.",
       "name_one": "Hitzewärm",
       "name_other": "Hitzeeinwirkung"
+    },
+    "heatMudAttack": {
+      "description": "Chauffe la boue dans l'arène pour faire des dégâts aux adversaires sales.",
+      "name_one": "Attaque boue brûlante",
+      "name_other": "Attaques boue brûlante"
     },
     "heavyAttack": {
       "description": "Les dégâts de cette attaque sont réduits de 90% si le défenseur dispose de moins de défense que l'attaquant. La défense de l'ennemi est réduite de 25%.",
       "name_one": "Schwerter Angriff",
       "name_other": "Schwerter Angriff"
     },
+    "helpBreathe": {
+      "success": "est aidé par **{{petNickname}}** qui grâce à ses capacités de plongée, transmet un peu de souffle à son propriétaire."
+    },
+    "horn": {
+      "success": "a bien fait d'appeler **{{petNickname}}** ! L'animal vient d'empaler l'adversaire sur sa corne, ce n'est pas beau à voir.",
+      "generalEffect": "appelle **{{petNickname}}** à la rescousse, l'animal prend son élan et fonce droit sur l'adversaire..."
+    },
+    "hypnosis": {
+      "success": "est aidé par **{{petNickname}}** qui utilise ses pouvoirs hypnotiques pour rendre l'ennemi confus."
+    },
     "intenseAttack": {
       "description": "Ignore une partie de la défense de l'adversaire. N'échoue jamais sur un adversaire plus rapide. Fonctionne mieux sur un adversaire rapide. Force le lanceur à utiliser l'action \"repos\" au tour suivant. Ne peut pas tuer l'adversaire.",
       "name_one": "Intensive Attae",
       "name_other": "Intensive Attacken"
     },
+    "isUseless": {
+      "generalEffect": "demande de l'aide à **{{petNickname}}** qui, avec une indifférence remarquable, fixe l'adversaire d'un regard vide."
+    },
     "lavaWaveAttack": {
       "description": "Ein sehr mächtiger Anfall, der als letzter Ausweg benutzt werden kann und der die \"Verbrennungen\" des Gegners mit Sicherheit unterschreit.",
-      "name_one": "Lava-Vagel",
-      "name_other": "Lava-Vagues"
+      "name_one": "Attaque vague de lave",
+      "name_other": "Attaque vagues de lave"
+    },
+    "magicMimicAttack": {
+      "description": "Permet de riposter après une attaque magique de l'adversaire.",
+      "name_one": "Attaque mimique magique",
+      "name_other": "Attaques mimique magiques"
     },
     "magmaBathAttack": {
-      "description": "Wenn auf das Startprogramm angewendet wird. Er ruht sich in der Lava aus und erholt seine Kampfpunkte. Die Anzahl der abgerufenen Kampfpunkte wird durch 4 nach 4 Verwendungen dividiert.",
+      "description": "S'applique au lanceur. Celui-ci se repose dans la lave et récupère son énergie. Le nombre de points de combats récupérés est divisé par 4 après 4 utilisations.",
+      "customMessage": "part se baigner dans la lave et récupère de l'énergie.",
       "name_one": "Magma-Bain",
       "name_other": "Magma-Bains"
     },
-    "mimicAttack": {
-      "description": "Eine zufällige Kopie einer Ihrer Angriffe.",
-      "name_one": "Mimisch",
-      "name_other": "Mimisch"
+    "meduseParalyze": {
+      "success": "reçoit l'aide de **{{petNickname}}** qui pétrifie son adversaire d'un coup d'œil."
     },
-    "monstrousCopyAttack": {
-      "description": "Kopiert den Angriff auf ein zufälliges Monster.",
-      "name_one": "Kopiermaschine",
-      "name_other": "Kopiert Kopien"
+    "mudShotAttack": {
+      "description": "Attaque à distance qui inflige des dégâts et rend l'adversaire sale.",
+      "name_one": "Attaque tir de boue",
+      "name_other": "Attaques tir de boue"
     },
     "none": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "customMessage": "ne peut pas attaquer."
     },
     "outOfBreath": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "active": "est trop essoufflé pour attaquer et doit reprendre son souffle."
     },
     "outrage": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "name": "en colère",
+      "new": "est en colère.",
+      "active": "est en colère.",
+      "stop": "n'est plus en colère mais devient étourdi."
     },
     "outrageAttack": {
       "description": "Échoue si vous utilisez cette action alors que vous avez une altération d'état. L'altération \"en colère\" double l'attaque mais baisse la défense. Au bout de 2 tours, l'effet disparait et l'attaquant devient confus.",
+      "customMessage": "se met en colère.",
       "name_one": "Color",
       "name_other": "Colères"
     },
     "paralyzed": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "name": "paralysé",
+      "new": "est paralysé.",
+      "active": "est paralysé.",
+      "noAction": "est paralysé et ne parvient pas à attaquer.",
+      "stop": "n'est plus paralysé."
+    },
+    "peck": {
+      "success": "est soutenu dans son combat par **{{petNickname}}** qui harcèle férocement l'adversaire de coups de bec précis et douloureux."
+    },
+    "petCharge": {
+      "generalEffect": "ordonne à **{{petNickname}}** d'attaquer. L'animal frotte ses pattes avec impatience, prêt à charger.",
+      "success": "est assisté par **{{petNickname}}** qui se décide enfin à charger l'adversaire avec une grande force."
+    },
+    "petCurse": {
+      "success": "invoque les pouvoirs de **{{petNickname}}** pour maudire son adversaire."
+    },
+    "petHit": {
+      "success": "a besoin de l'aide de **{{petNickname}}** suite à la violente attaque qu'il vient de recevoir. Par vengeance, **{{petNickname}}** frappe l'adversaire violemment."
+    },
+    "petPoison": {
+      "success": "utilise **{{petNickname}}** pour empoisonner son adversaire."
+    },
+    "petSmallCharge": {
+      "generalEffect": "ordonne à **{{petNickname}}** d'attaquer. L'animal frotte ses pattes avec impatience, prêt à charger.",
+      "success": "est aidé par **{{petNickname}}** qui se décide enfin à charger l'adversaire avec force."
     },
     "petrificationAttack": {
       "description": "Pétrifie Ziel 2 Umdrehungen, aber erhöht seine Verteidigung um 200%.",
+      "customMessage": "pétrifie son adversaire.",
       "name_one": "Pädagoe",
       "name_other": "Pädagogung"
     },
     "petrified": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "name": "pétrifié",
+      "new": "est pétrifié.",
+      "noAction": "est pétrifié et ne parvient pas à attaquer.",
+      "stop": "n'est plus pétrifié."
     },
     "piercingAttack": {
       "description": "Ignore presque complètement la défense de l'adversaire. L'attaquant a une probabilité de réduire légèrement la défense de son adversaire.",
       "name_one": "Annaher Angriff",
       "name_other": "Ange-schannen"
     },
+    "pinch": {
+      "success": "est aidé par **{{petNickname}}** qui pince l'adversaire avec ses petites pinces."
+    },
     "poisoned": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "name": "empoisonné",
+      "new": "est empoisonné.",
+      "active": "souffre de son empoisonnement.",
+      "stop": "n'est plus empoisonné."
     },
     "poisonousAttack": {
       "description": "Empoisonne l'adversaire. L'altération \"empoisonné\" dure au moins trois tours et inflige des dégâts à votre adversaire sur la durée.",
       "name_one": "Vergiftete Attagen",
       "name_other": "Vergiftete Attacken"
     },
+    "poisonousBite": {
+      "generalEffect": "a besoin de **{{petNickname}}**, l'animal a besoin de temps pour se préparer...",
+      "success": "reçoit le soutien de **{{petNickname}}** qui décide de mordre son adversaire... Ce dernier ne se sent soudainement pas très bien."
+    },
     "powerfulAttack": {
       "description": "Cette attaque a 25 % de chance de faire plus de dégâts, au prix d'un étourdissement de l'attaquant. Après 3 utilisations, les dégâts de l'attaque sont réduits de 70%.",
       "name_one": "Power-Attap",
       "name_other": "Ansteigende Attacken"
     },
+    "protectAgainstCold": {
+      "success": "est protégé du froid par **{{petNickname}}**."
+    },
     "protected": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "name": "protégé",
+      "new": "est protégé.",
+      "active": "est protégé.",
+      "stop": "n'est plus protégé."
     },
     "protection": {
-      "description": "Échoue si vous utilisez cette action alors que vous avez une altération d'état. L'altération \"protégé\" dure 3 tours et vous empêche d'être victime d'une autre altération tout en vous offrant un boost de 30% de votre défense.",
+      "description": "Échoue si vous utilisez cette action alors que vous avez une altération d’état. L’altération \"protégé\" dure 3 tours et vous empêche d’être victime d’une autre altération tout en vous offrant un boost de 30% de votre défense.",
+      "customMessage": "se protège.",
       "name_one": "Schutz",
       "name_other": "Protectionen"
     },
@@ -362,8 +488,12 @@
     },
     "rageExplosion": {
       "description": "Lassen Sie die Tollwut explodieren, die während des Weges auf dem Feind gesammelt wurde",
+      "customMessage": "déferle sa rage sur l'ennemi !",
       "name_one": "Tollwutexplosion",
       "name_other": "Tollausfälle"
+    },
+    "rainbowPower": {
+      "success": "est assisté par **{{petNickname}}** qui canalise la magie des attaques récentes pour soigner son propriétaire."
     },
     "ramAttack": {
       "description": "Si l'attaquant n'est pas étourdi par l'attaque, il reçoit une partie des dégâts infligés. L'attaque peut également étourdir l'adversaire.",
@@ -371,9 +501,13 @@
       "name_other": "Hubschrauber-Attacken"
     },
     "resting": {
-      "description": "S'applique sous forme de soin au lanceur. La quantité de points de combat récupérée est divisée par 4 au bout de 4 utilisations.",
+      "description": "S’applique sous forme de soin au lanceur. La quantité d'énergie récupérée est divisée par 4 au bout de 4 utilisations.",
+      "customMessage": "se repose...",
       "name_one": "Ruhezeit",
       "name_other": "Ruhezeit"
+    },
+    "revenge": {
+      "success": "est soutenu par **{{petNickname}}** qui blesse son adversaire suite à son attaque."
     },
     "roarAttack": {
       "description": "Nuss den Angriff und die Geschwindigkeit des Gegners.",
@@ -382,6 +516,7 @@
     },
     "rockShieldAttack": {
       "description": "Verkleinert den nächsten empfangenen Angriff um die Hälfte.",
+      "customMessage": "accumule de la roche pour se défendre...",
       "name_one": "Felsknackung",
       "name_other": "Felsknackung"
     },
@@ -390,8 +525,14 @@
       "name_one": "Sabotage",
       "name_other": "Sabotierungen"
     },
+    "scareElephant": {
+      "generalEffect": "est assisté par **{{petNickname}}** qui fait fuir les éléphants."
+    },
+    "scareFish": {
+      "generalEffect": "est assisté par **{{petNickname}}** qui fait fuir les poissons."
+    },
     "shieldAttack": {
-      "description": "Utilise le bouclier de l'attaquant pour attaquer. L'altération \"affaibli\" réduit l'attaque de 70% durant 1 tour.",
+      "description": "Utilise le bouclier de l’attaquant pour attaquer. L’altération \"affaibli\" réduit l’attaque de 70% durant 2 tours.",
       "name_one": "Schutzschild",
       "name_other": "Schutzschilder"
     },
@@ -405,45 +546,96 @@
       "name_one": "Auswirkung zuordnen",
       "name_other": "Auswirkungen"
     },
+    "slipping": {
+      "failure": "fait appel à **{{petNickname}}** qui glisse sur le sol. Ce dernier n'est pas celui qui glisse le plus loin sur la banquise alors il ne frappe l'adversaire qu'avec peu de force.",
+      "success": "est aidé par **{{petNickname}}** qui glisse sur le sol jusqu'à s'écraser sur l'adversaire."
+    },
     "slowed": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "name": "ralenti",
+      "new": "est ralenti.",
+      "active": "est ralenti.",
+      "stop": "n'est plus ralenti."
+    },
+    "smallClaws": {
+      "success": "est soutenu dans son combat par **{{petNickname}}** qui assène à son adversaire un petit coup de griffe, comme c'est mignon..."
+    },
+    "smallRegen": {
+      "success": "apprend des capacités régénératrices de **{{petNickname}}** et récupère de l'énergie."
+    },
+    "snowBall": {
+      "success": "est aidé par **{{petNickname}}** qui lance une boule de neige sur l'adversaire."
+    },
+    "spit": {
+      "failure": "est aidé par **{{petNickname}}** qui crache sur son adversaire.",
+      "success": "est soutenu par **{{petNickname}}** qui crache sur son adversaire. Par chance, le crachat atterrit parfaitement dans les yeux de l'ennemi !"
+    },
+    "spitFire": {
+      "success": "est aidé dans son combat par **{{petNickname}}** qui embrase l'arène de ses flammes ardentes."
+    },
+    "spitInk": {
+      "success": "appelle **{{petNickname}}** qui crache de l'encre sur l'adversaire."
+    },
+    "stealWeapon": {
+      "failure": "fait appel à **{{petNickname}}** pour un peu d'aide, mais la créature, ne trouvant nul trésor digne de son intérêt sur l'adversaire, refuse de s'aventurer en terrain hostile.",
+      "success": "demande l'aide de **{{petNickname}}** qui s'élance bravement et s'empare de l'arme ennemie dans un acte de hardiesse."
     },
     "stealth": {
       "description": "Versteckt diskret, um den Schaden des nächsten Angriffs zu verdoppeln.",
+      "customMessage": "se cache discrètement pour effectuer des préparatifs augmentant les dégâts de sa prochaine attaque...",
       "name_one": "Ausscheidung",
       "name_other": "Erschöpung"
     },
     "stoneSkinAttack": {
       "description": "Je mehr diese Aktion ausgeführt wird, desto wichtiger ist der Bonus-Bonus.",
+      "customMessage": "durcit sa peau et se protège.",
       "name_one": "Felsen",
       "name_other": "Steinbälchen"
     },
     "stunned": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "name": "étourdi",
+      "active": "est étourdi.",
+      "noAction": "est étourdi et ne parvient pas à attaquer.",
+      "stop": "n'est plus étourdi."
     },
     "summonAttack": {
       "description": "Wir werden Verbündete haben, um Ihnen zu helfen und sehr stark zu attackmachen.",
       "name_one": "Einberufung von Verbündeten",
       "name_other": "Verbündeter Invokationen"
     },
+    "swallow": {
+      "success": "demande de l'aide à **{{petNickname}}** qui, ne sachant pas quoi faire, décide d'avaler tout rond son adversaire."
+    },
+    "swallowed": {
+      "name": "avalé",
+      "new": "est avalé.",
+      "noAction": "est dans un estomac et ne peut pas attaquer.",
+      "stop": "est ressorti de l'animal sain et sauf."
+    },
     "targeted": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "name": "ciblé par un boomerang",
+      "new": "regarde le boomerang tournoyer au loin.",
+      "stop": "n'est plus ciblé par un boomerang.",
+      "active": "est touché par le boomerang."
+    },
+    "triesToHelp": {
+      "success": "fait appel à **{{petNickname}}** qui, malgré une détermination féroce et des efforts acharnés, ne parvient qu'à infliger un impact négligeable sur le combat."
     },
     "ultimateAttack": {
       "description": "",
       "name_one": "Letzter Angriff",
       "name_other": "Ultima-Attacken"
     },
+    "unBlind": {
+      "success": "est aidé par **{{petNickname}}** qui grâce à sa vue perçante lui permet de voir autour de lui correctement à nouveau."
+    },
+    "vampirism": {
+      "success": "est assisté par **{{petNickname}}** qui aspire un peu d'énergie à l'adversaire pour l'offrir en tribut à son maître."
+    },
     "weak": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "name": "affaibli",
+      "new": "est affaibli.",
+      "active": "est affaibli.",
+      "stop": "n'est plus affaibli."
     },
     "webShotAttack": {
       "description": "Schick einen Jet-Strahl, der den Gegner verletzt und verlangsamt.",
@@ -490,7 +682,7 @@
       "particle": "in Richtung"
     },
     "1003": {
-      "description": "Diese verlassene alte Mine geht unter die Scharffahrt und die Berge. Sie ist so groß, dass sie im Herzen des Vulkans im Herzen liegt. Bis dahin ist es jedoch schwierig, das zu erreichen. Aber Vorsicht, einige Leute hätten alte Bananenreste in der brüklichen Mine gefunden.",
+      "description": "Cette ancienne mine abandonnée passe sous le chemin escarpé et les montagnes. Elle est tellement grande et labyrinthique qu'elle finit au cœur du volcan. Il est cependant difficile d'arriver jusque là. Attention toutefois à ne pas glisser, certains auraient retrouvé de vieux restes de bananes dans la mine brumeuse.",
       "name": "Mine Brumeuse",
       "particle": "in Richtung"
     },
@@ -883,12 +1075,30 @@
     "finishWithAttack": "{emote:fight_actions.{{variant}}} $t(models:fight_actions.{{variant}}.name, {\"count\": {{count}}})"
   },
   "monsters": {
-    "forestTroll": "Troll der Wälder",
-    "magmaTitan": "Magma Titan",
-    "rockGolem": "Roche Golem",
-    "skeleton": "Skelett",
-    "slimyMutant": "Mutant Vaseux",
-    "spider": "Spinne"
+    "forestTroll": {
+      "name": "Troll de la forêt",
+      "description": "Un grand troll qui vit dans les forêts. Très fort et très résistant, il est aussi très agressif et attaque tout ce qui bouge. Il est très dangereux pour les aventuriers qui s'aventurent dans les forêts."
+    },
+    "spider": {
+      "name": "Araignée",
+      "description": "Une grosse araignée poilue. D'une espèce inconnue, elle attaque tous les voyageurs qui s'approchent de son nid. Venimeuse, elle peut aussi projeter de la soie pour immobiliser ses proies."
+    },
+    "magmaTitan": {
+      "name": "Titan de magma",
+      "description": "Le monstre le plus puissant de l'île. Bouillant de chaleur, il est capable de faire fondre les roches les plus dures. Très peu d'aventuriers ont réussi à s'en défaire et il serait périlleux de l'attaquer seul."
+    },
+    "rockGolem": {
+      "name": "Golem de pierre",
+      "description": "Un immense golem de roche. Animé par le désir d'écraser tout ce qui s'en approche. Il est très lent, mais ses attaques sont dévastatrices."
+    },
+    "skeleton": {
+      "name": "Squelette",
+      "description": "Un squelette étrange, il semble être un ancien guerrier. Il paraît faible mais est en réalité très dangereux et nombreux sont ceux qui se sont laissé surprendre."
+    },
+    "slimyMutant": {
+      "name": "Mutant Vaseux",
+      "description": "Le Mutant Vaseux est un monstre pouvant copier les autres monstres ou son adversaire directement. Il est très polyvalent et peut s'adapter à toutes les situations."
+    }
   },
   "objects": {
     "0": "Freier Bereich",
@@ -1125,6 +1335,26 @@
     "71_male": "Krake",
     "72_female": "Einarmig",
     "72_male": "Pinguin",
+    "73_male": "Poisson",
+    "73_female": "Poisson",
+    "74_male": "Poisson tropical",
+    "74_female": "Poisson tropical",
+    "75_male": "Poisson-globe",
+    "75_female": "Poisson-globe",
+    "76_male": "Méduse",
+    "76_female": "Méduse",
+    "77_male": "Requin",
+    "77_female": "Requin",
+    "78_male": "Baleine",
+    "78_female": "Baleine",
+    "79_male": "Baleine",
+    "79_female": "Baleine",
+    "80_male": "Crevette",
+    "80_female": "Crevette",
+    "81_male": "Homard",
+    "81_female": "Homard",
+    "82_male": "Dauphin",
+    "82_female": "Dauphin",
     "8_female": "Kuh",
     "8_male": "Rindfleisch",
     "9_female": "Sau",
