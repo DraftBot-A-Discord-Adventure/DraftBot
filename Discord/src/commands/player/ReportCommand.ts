@@ -192,22 +192,22 @@ export async function reportResult(packet: CommandReportBigEventResultRes, conte
 export async function chooseDestinationCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
+	const lng = interaction.userLanguage;
 
 	const embed = new DraftBotEmbed();
 	embed.formatAuthor(i18n.t("commands:report.destinationTitle", {
-		lng: interaction.userLanguage,
+		lng,
 		pseudo: user.attributes.gameUsername
 	}), interaction.user);
-	embed.setDescription(`${i18n.t("commands:report.chooseDestinationIndications", {lng: interaction.userLanguage})}\n\n`);
+	embed.setDescription(`${i18n.t("commands:report.chooseDestinationIndications", {lng})}\n\n`);
 
 	return await DiscordCollectorUtils.createChoiceListCollector(interaction, embed, packet, context, packet.reactions.map((reaction) => {
 		const destinationReaction = reaction.data as ReactionCollectorChooseDestinationReaction;
-		// Todo ceci devrait être dans les translations // Can be ignored because it will be fixed with #2816
-		const duration = destinationReaction.tripDuration ? minutesDisplay(destinationReaction.tripDuration) : "?h";
+		const duration = destinationReaction.tripDuration ? minutesDisplay(destinationReaction.tripDuration, lng) : minutesDisplay(120, lng).replace("2", "?");
 		return `${
 			EmoteUtils.translateEmojiToDiscord(DraftBotIcons.map_types[destinationReaction.mapTypeId])
 		} ${
-			i18n.t(`models:map_locations.${destinationReaction.mapId}.name`, {lng: interaction.userLanguage})} (${duration})`;
+			i18n.t(`models:map_locations.${destinationReaction.mapId}.name`, {lng})} (${duration})`;
 	}), { can: false });
 }
 
