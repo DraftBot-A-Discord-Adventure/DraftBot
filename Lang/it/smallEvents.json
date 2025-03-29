@@ -104,7 +104,7 @@
     ],
     "priceFree": "il viaggio **è gratuito**.",
     "priceMoney": "le voyage **coûtera {{price}} {emote:unitValues.gem}**",
-    "confirm": "Voulez-vous partir sur l'île ? Vous avez {emote:unitValues.energy} **{{fightPoints}} / {{fightPointsMax}}**.",
+    "confirm": "Voulez-vous partir sur l'île ? Vous avez {emote:unitValues.energy} **{{energy}} / {{energyMax}}**.",
     "endStoryAccept": "{{gainScore}} Vous acceptez et embarquez sur le bateau en direction de l'île.",
     "endStoryAcceptWithMember": "{{gainScore}} Vous acceptez et au moment d'embarquez, vous remarquez qu'un membre de votre guilde se trouve déjà sur le bateau, vous le rejoignez et partez en direction de l'île.",
     "endStoryRefuse": "Declinate gentilmente l'offerta e continuate per la vostra strada.",
@@ -394,15 +394,15 @@
       "La principessa si sta avvicinando a voi! Almeno questa è l'impressione che avete... Continuate a camminare."
     ]
   },
-  "winFightPoints": {
+  "winEnergyOnIsland": {
     "stories": [
-      "vous voyez un banc sur le bord du chemin et vous vous asseyez quelques minutes. Cela vous rend {emote:unitValues.energy} **{{fightPoints}}**.",
-      "vous détachez votre gourde de votre ceinture et vous vous désaltérez. Vous gagnez {emote:unitValues.energy} **{{fightPoints}}**.",
-      "vous sortez un fruit que vous gardiez dans un tissu et le mangez. Cela vous rend {emote:unitValues.energy} **{{fightPoints}}**.",
-      "vous vous arrêtez quelques secondes pour reprendre votre souffle. Vous repartez un peu plus endurant et gagnez {emote:unitValues.energy} **{{fightPoints}}**.",
-      "vous sortez un morceau de pain et vous vous rassasiez avec celui-ci. Cela vous rend {emote:unitValues.energy} **{{fightPoints}}**.",
-      "vous vous asseyez quelques minutes et vous méditez pour apaiser votre esprit. Vous récupérez {emote:unitValues.energy} **{{fightPoints}}**.",
-      "vous sentez vos muscles se tendre et vous vous arrêtez quelques instants pour les étirer. Vous récupérez {emote:unitValues.energy} **{{fightPoints}}**."
+      "vous voyez un banc sur le bord du chemin et vous vous asseyez quelques minutes. Cela vous rend {emote:unitValues.energy} **{{energy}}**.",
+      "vous détachez votre gourde de votre ceinture et vous vous désaltérez. Vous gagnez {emote:unitValues.energy} **{{energy}}**.",
+      "vous sortez un fruit que vous gardiez dans un tissu et le mangez. Cela vous rend {emote:unitValues.energy} **{{energy}}**.",
+      "vous vous arrêtez quelques secondes pour reprendre votre souffle. Vous repartez un peu plus endurant et gagnez {emote:unitValues.energy} **{{energy}}**.",
+      "vous sortez un morceau de pain et vous vous rassasiez avec celui-ci. Cela vous rend {emote:unitValues.energy} **{{energy}}**.",
+      "vous vous asseyez quelques minutes et vous méditez pour apaiser votre esprit. Vous récupérez {emote:unitValues.energy} **{{energy}}**.",
+      "vous sentez vos muscles se tendre et vous vous arrêtez quelques instants pour les étirer. Vous récupérez {emote:unitValues.energy} **{{energy}}**."
     ]
   },
   "winHealth": {
@@ -870,14 +870,14 @@
       "item_m": [
         "{{pet}}Vedete ** ** rovistare nell'erba alta. Tira fuori un **oggetto**, che puoi tenere per il resto della tua avventura.",
         "{{pet}}Notate che ** ** sta fissando il terreno e decide di scavare una buca. Che sorpresa quando lo vedi tirare fuori un **oggetto**!",
-        "{{pet}}Scoprite che ** ** sta annusando insistentemente in direzione di un cespuglio. Decidete di dare un'occhiata e vederlo tornare con un **oggetto** vi riempie di gioia!",
+        "Vous découvrez que **{{pet}}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un œil, et le voir revenir avec un **objet** vous remplit de joie !",
         "{{pet}}All'improvviso si vede ** ** saltare in acqua. Che sorpresa vederlo emergere con un **oggetto**!",
         "{{pet}}Dopo aver fatto una breve pausa nel vostro viaggio, vedete ** ** tornare con un **oggetto**. Sembra che l'abbia rubato a un mercante. Decidete di andarvene prima che se ne accorga."
       ],
       "item_f": [
         "{{pet}}Vedete ** ** rovistare nell'erba alta. Tira fuori un **oggetto**, che puoi tenere per il resto della tua avventura.",
         "{{pet}}Notate che ** ** sta fissando il terreno e decide di scavare una buca. Che sorpresa quando lo vedi tirare fuori un **oggetto**!",
-        "{{pet}}Scoprite che ** ** sta annusando insistentemente in direzione di un cespuglio. Decidete di dare un'occhiata e vederla tornare con un **oggetto** vi riempie di gioia!",
+        "Vous découvrez que **{{pet}}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un œil, et la voir revenir avec un **objet** vous remplit de joie !",
         "{{pet}}All'improvviso si vede ** ** saltare in acqua. Che sorpresa vederla emergere con un **oggetto**!",
         "{{pet}}Dopo aver fatto una breve pausa nel vostro viaggio, vedete ** ** tornare con un **oggetto**. Sembra che l'abbia rubato a un mercante. Decidete di andarvene prima che lui se ne accorga."
       ],
@@ -918,14 +918,14 @@
       "food_m": [
         "{{pet}}{{food}}L'estro di ** ** vi ha permesso di trovare un ** **. Mettete via il cibo e continuate per la vostra strada.",
         "{{pet}}Si nota che ** ** sta fissando il terreno e decide di scavare una buca.{{food}}Siete sorpresi di vederlo tirare fuori un ** ** !",
-        "{{pet}}Scoprite che ** ** sta annusando insistentemente in direzione di un cespuglio.{{food}}Decidete di dare un'occhiata e lo vedete tornare con un ** ** in bocca!",
+        "Vous découvrez que **{{pet}}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un œil et vous le voyez revenir avec une **{{food}}** dans la bouche !",
         "{{pet}}All'improvviso si vede ** ** saltare in acqua.{{food}}Che sorpresa vederlo emergere con un ** ** !",
         "{{pet}}{{food}}Dopo aver fatto una breve pausa nel vostro viaggio, vedete ** ** tornare con un ** **. Sembra che l'abbia rubata a un mercante. Decidete di andarvene prima che se ne accorga."
       ],
       "food_f": [
         "{{pet}}{{food}}L'estro di ** ** vi ha permesso di trovare un ** **. Mettete via il cibo e continuate per la vostra strada.",
         "{{pet}}Si nota che ** ** sta fissando il terreno e decide di scavare una buca.{{food}}Siete sorpresi di vederla tirare fuori un ** ** !",
-        "{{pet}}Scoprite che ** ** sta annusando insistentemente in direzione di un cespuglio.{{food}}Decidete di dare un'occhiata e la vedete tornare con ** ** in bocca!",
+        "Vous découvrez que **{{pet}}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un œil et vous la voyez revenir avec une **{{food}}** dans la bouche !",
         "{{pet}}All'improvviso si vede ** ** saltare in acqua.{{food}}Che sorpresa vederla emergere con un ** **!",
         "{{pet}}{{food}}Dopo aver fatto una breve pausa nel vostro viaggio, vedete ** ** tornare con un ** **. Sembra che l'abbia rubata a un mercante. Decidete di andarvene prima che lui se ne accorga."
       ],
