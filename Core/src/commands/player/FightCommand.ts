@@ -195,7 +195,7 @@ function fightValidationEndCallback(player: Player, context: PacketContext): End
 			const opponent = await findOpponent(player);
 			if (!opponent) {
 				response.push(makePacket(CommandFightOpponentsNotFoundPacket, {}));
-				BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.FIGHT_CONFIRMATION);
+				BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.FIGHT_CONFIRMATION);
 				return;
 			}
 			const askingFighter = new PlayerFighter(player, ClassDataController.instance.getById(player.class));
@@ -215,7 +215,7 @@ function fightValidationEndCallback(player: Player, context: PacketContext): End
 		else {
 			response.push(makePacket(CommandFightRefusePacketRes, {}));
 		}
-		BlockingUtils.unblockPlayer(player.id, BlockingConstants.REASONS.FIGHT_CONFIRMATION);
+		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.FIGHT_CONFIRMATION);
 	};
 }
 
@@ -242,7 +242,7 @@ export default class FightCommand {
 			},
 			fightValidationEndCallback(player, context)
 		)
-			.block(player.id, BlockingConstants.REASONS.FIGHT_CONFIRMATION)
+			.block(player.keycloakId, BlockingConstants.REASONS.FIGHT_CONFIRMATION)
 			.build();
 
 		response.push(collectorPacket);
