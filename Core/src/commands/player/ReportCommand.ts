@@ -30,9 +30,7 @@ import {FightOvertimeBehavior} from "../../core/fights/FightOvertimeBehavior";
 import {ClassDataController} from "../../data/Class";
 import {PlayerSmallEvents} from "../../core/database/game/models/PlayerSmallEvent";
 import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
-import {
-	ReactionCollectorPveFight
-} from "../../../../Lib/src/packets/interaction/ReactionCollectorPveFight";
+import {ReactionCollectorPveFight} from "../../../../Lib/src/packets/interaction/ReactionCollectorPveFight";
 import {
 	ReactionCollectorChooseDestination,
 	ReactionCollectorChooseDestinationReaction
@@ -52,9 +50,8 @@ import {ErrorPacket} from "../../../../Lib/src/packets/commands/ErrorPacket";
 import {MapLocationDataController} from "../../data/MapLocation";
 import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 import {Effect} from "../../../../Lib/src/types/Effect";
-import {
-	ReactionCollectorRefuseReaction
-} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import {ReactionCollectorRefuseReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import {PacketUtils} from "../../core/utils/PacketUtils";
 
 export default class ReportCommand {
 	@commandRequires(CommandReportPacketReq, {
@@ -477,7 +474,7 @@ async function doPVEBoss(
 	const seed = player.id + millisecondsToSeconds(player.startTravelDate.valueOf());
 	const monsterObj = MonsterDataController.instance.getRandomMonster(player.getDestination().id, seed);
 	const randomLevel = player.level - PVEConstants.MONSTER_LEVEL_RANDOM_RANGE / 2 + seed % PVEConstants.MONSTER_LEVEL_RANDOM_RANGE;
-	const fightCallback = async (fight: FightController): Promise<void> => {
+	const fightCallback = async (fight: FightController, endFightResponse: DraftBotPacket[] ): Promise<void> => {
 		if (fight) {
 			const rewards = monsterObj.getRewards(randomLevel);
 			let guildXp: number = 0;
@@ -490,30 +487,30 @@ async function doPVEBoss(
 				await player.addMoney({
 					amount: rewards.money,
 					reason: NumberChangeReason.PVE_FIGHT,
-					response
+					response: endFightResponse
 				});
 				await player.addExperience({
 					amount: rewards.xp,
 					reason: NumberChangeReason.PVE_FIGHT,
-					response
+					response: endFightResponse
 				});
 				if (player.guildId) {
 					const guild = await Guilds.getById(player.guildId);
-					await guild.addScore(rewards.guildScore, response, NumberChangeReason.PVE_FIGHT);
-					await guild.addExperience(rewards.guildXp, response, NumberChangeReason.PVE_FIGHT);
+					await guild.addScore(rewards.guildScore, endFightResponse, NumberChangeReason.PVE_FIGHT);
+					await guild.addExperience(rewards.guildXp, endFightResponse, NumberChangeReason.PVE_FIGHT);
 					await guild.save();
 					if (guild.level < GuildConstants.MAX_LEVEL) {
 						guildXp = rewards.guildXp;
 					}
 					guildPoints = rewards.guildScore;
 				}
-				response.push(makePacket(CommandReportMonsterRewardRes, {
+				endFightResponse.push(makePacket(CommandReportMonsterRewardRes, {
 					money: rewards.money,
 					experience: rewards.xp,
 					guildXp,
 					guildPoints
 				}));
-				await MissionsController.update(player, response, {missionId: "winBoss"});
+				await MissionsController.update(player, endFightResponse, {missionId: "winBoss"});
 			}
 
 			await player.save();
@@ -521,20 +518,20 @@ async function doPVEBoss(
 			draftBotInstance.logsDatabase.logPveFight(fight).then();
 		}
 
-		if (!await player.leavePVEIslandIfNoEnergy(response)) {
+		if (!await player.leavePVEIslandIfNoEnergy(endFightResponse)) {
 			await Maps.stopTravel(player);
 			await player.setLastReportWithEffect(
 				0,
 				Effect.NO_EFFECT,
 				NumberChangeReason.BIG_EVENT
 			);
-			await chooseDestination(context, player, null, response);
+			await chooseDestination(context, player, null, endFightResponse);
 		}
 	};
 
 	if (!monsterObj) {
 		response.push(makePacket(CommandReportErrorNoMonsterRes, {}));
-		await fightCallback(null);
+		await fightCallback(null, response);
 		return;
 	}
 
@@ -574,7 +571,7 @@ async function doPVEBoss(
 			FightOvertimeBehavior.INCREASE_DAMAGE_PVE,
 			context
 		);
-		fight.setEndCallback(() => fightCallback(fight));
+		fight.setEndCallback(fightCallback);
 		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.START_BOSS_FIGHT);
 		await fight.startFight(response);
 	};

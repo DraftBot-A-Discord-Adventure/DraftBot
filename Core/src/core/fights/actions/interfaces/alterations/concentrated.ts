@@ -12,7 +12,7 @@ const use: FightAlterationFunc = (affected, fightAlteration) => {
 		return defaultHealFightAlterationResult(affected);
 	}
 	const result = defaultFightAlterationResult();
-	if (!affected.hasAttackModifier(fightAlteration)) {
+	if (!affected.hasAttackModifier(fightAlteration)) { // TODO:  repasser en damage multiplier et vérifier que ça fonctionne
 		FightActionController.applyBuff(result, {
 			selfTarget: true,
 			stat: FightStatBuffed.SPEED,

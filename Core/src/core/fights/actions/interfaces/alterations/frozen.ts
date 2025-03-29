@@ -39,7 +39,7 @@ function getAttackInfo(): attackInfo {
 function getStatsInfo(affected: Fighter, _opponent: Fighter): statsInfo {
 	return {
 		attackerStats: [
-			affected.getMaxBreath() * 80
+			affected.getMaxBreath() * 40
 		],
 		defenderStats: [
 			affected.getBreath() * 80
