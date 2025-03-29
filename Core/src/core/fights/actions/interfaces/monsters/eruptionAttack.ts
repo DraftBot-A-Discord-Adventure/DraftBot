@@ -5,7 +5,7 @@ import {Fighter} from "../../../fighter/Fighter";
 
 const use: FightActionFunc = (sender, receiver, _fightAction) => {
 	const speedRatio = receiver.getSpeed() / sender.getSpeed();
-	const failureProbability = speedRatio < 3 ? 0 : 5 + Math.min(70, Math.pow(speedRatio - 3, 2) * 3);
+	const failureProbability = speedRatio < 2 ? 0 : 5 + Math.min(70, Math.pow(speedRatio - 3, 2) * 3);
 	const result = simpleDamageFightAction(
 		{
 			sender,

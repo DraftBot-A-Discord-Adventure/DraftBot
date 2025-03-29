@@ -369,7 +369,7 @@
     },
     "magmaBathAttack": {
       "description": "S'applique au lanceur. Celui-ci se repose dans la lave et récupère son énergie. Le nombre de points de combats récupérés est divisé par 4 après 4 utilisations.",
-      "customMessage": "pars se baigner dans la lave et récupère de l'énergie.",
+      "customMessage": "part se baigner dans la lave et récupère de l'énergie.",
       "name_one": "Bain de magma",
       "name_other": "Bains de magma"
     },
@@ -434,7 +434,8 @@
     },
     "petrified": {
       "name": "pétrifié",
-      "active": "est pétrifié.",
+      "new": "est pétrifié.",
+      "noAction": "est pétrifié et ne parvient pas à attaquer.",
       "stop": "n'est plus pétrifié."
     },
     "piercingAttack": {
