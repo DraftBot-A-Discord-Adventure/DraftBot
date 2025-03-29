@@ -145,7 +145,7 @@
       },
       "FIGHT": {
         "description": "Use this command to challenge other players on the same server as you.\nBattles take place on a turn-by-turn basis. Each turn, you can choose an action to perform.\n\nFor more information, please visit the guide page: https://guide.draftbot.com/v/en/notions-principale/combats",
-        "image": "https://draftbot.com/public/ressources/fighthelp/en/4.5.2.png"
+        "image": "https://draftbot.com/public/ressources/fighthelp/fr/5.0.0.png"
       },
       "GLORY_TOP": {
         "description": "Displays the ranking of the fights in 15 player intervals. Player's league is also displayed. Players in the same server as you are shown by a blue dot."
@@ -244,7 +244,7 @@
         "description": "Transfer a pet to or from a guild. If no number is given, your current pet will be transferred to the guild's shelter. Otherwise, your pet will be switched for the pet which position corresponds to the given number."
       },
       "PING": {
-        "description": "Check if the bot is online.\n\n(Note: Time displayed is the response time from the bot, not your ping, a correct ping should be less than 500 ms. :clock1:)"
+        "description": "Check if the bot is online.\n\n(Note: Time displayed is the response time from the bot, not your ping, a correct ping should be less than 500 ms. {emote:clock.1})"
       },
       "PROFILE": {
         "description": "Displays information about your character:\n\n😃 Health status | Nickname | Level\n\n឵឵឵Information:\n❤️ Life | ⭐ XP | {emote:unitValues.money} Silver\n\nStatistics :\n⚡ Energy | 🗡️ Attack | 🛡️ Defense | 🚀 Speed | 🌬️ Breath | 🫁 Recovery\n\nMissions :\n💎 Gems | 📖 Advanced campaign %\n\nRank and score:\n🏆 Rank | 🏅 Score\n\nClass:\nSee {command:classes}\n\nGlory and League:\n{emote:unitValues.glory} Glory | See {{topGloryCommandMention}}\n\nGuild:\n🏟️ Guild\n\nDestination:\nSee {{mapCommandMention}}\n\nFamiliar:\nSee {{petCommandMention}}\n\n💡-Badges are displayed on your profile as a reaction."
@@ -380,7 +380,7 @@
     },
     "fightRanking": {
       "fieldName": "Glory points and league:",
-      "fieldValue": "{emote:unitValues.glory} {{gloryPoints}} | {{league}}"
+      "fieldValue": "{emote:unitValues.glory} {{gloryPoints}} | {{leagueEmoji}} {{league}}"
     },
     "guild": {
       "fieldName": "Guild:",
@@ -450,7 +450,7 @@
     "encounterMonster": [
       "You arrive at your destination when suddenly, you hear a noise behind you... A monster attacks you!"
     ],
-    "encounterMonsterStats": "> **{{emoji}} {{monsterName}}** | **Level {{level}}**\n> {{description}}\n⚡ {{fightPoints}} | 🗡 {{attack}} | 🛡 {{defense}} | 🚀 {{speed}}",
+    "encounterMonsterStats": "> **{{emoji}} {{monsterName}}** | **Level {{level}}**\n> {{description}}\n⚡ {{energy}} | 🗡 {{attack}} | 🛡 {{defense}} | 🚀 {{speed}}",
     "endPoint": "End point:",
     "energy": "** | :zap: Energy earned: **{{energy}}",
     "experience": "** | :star: XP earned: **{{experience}}",
@@ -465,12 +465,13 @@
     "monsterRewardsGuildPoints": "\n:mirror_ball: Guild points earned: **{{guildPoints}}**",
     "monsterRewardsTitle": "{{pseudo}}, fight rewards",
     "newBigEvent": ":flag_gb: You have reached **{{destination}}**!",
-    "noFight": ":newspaper: **{{pseudo}}'s log:** {{waitABitReaction}} | You run away as fast as possible and find a small hiding place! The monster is waiting patiently outside...",
+    "noFight": "{emote:commands.report} **Journal de {{pseudo}} :** {emote:pve_fights.wait_a_bit} | Vous vous enfuyez rapidement et trouvez une petite cachette ! Le monstre vous attend patiemment dehors...",
     "points": ":** {emote:unitValues.score} Points earned: **{{score}}",
-    "pveEvent": ":newspaper: **{{pseudo}}'s log:** {{event}}\n\n{{monsterDisplay}}\n\n- {{startTheFightReaction}} Start the fight\n- {{waitABitReaction}} Wait a bit before starting the fight\n\n*- Use reactions to make an action*",
+    "pveEvent": "{emote:commands.report} **Journal de {{pseudo}} :** {{event}}\n\n{{monsterDisplay}}\n\n{emote:pve_fights.start_fight} Commencer le combat\n{emote:pve_fights.wait_a_bit} Attendre un peu avant de commencer le combat\n\n*- Utilisez les réactions pour effectuer une action*",
+    "pveFightRefused": "{emote:commands.report} **Journal de {{pseudo}} :** {emote:pve_fights.wait_a_bit} | Vous décidez de ne pas engager le combat pour le moment et partez vous réfugier dans une cachette non loin. Il faudra finir par affronter la bête, car vous ne trouvez aucune autre issue.",
     "remainingEnergyTitle": "Remaining energy:",
     "startPoint": "Start point:",
-    "timeLost": "** | :clock10: Time wasted: **{{timeLost}}",
+    "timeLost": "** | {emote:clock.10} Time wasted: **{{timeLost}}",
     "travelPathTitle": "Current travel:",
     "travellingDescription": "Everything is going well since your last adventure {{smallEventEmoji}}. Next stop scheduled {{time}}.",
     "travellingDescriptionEndTravel": "Everything is going well for you. You will reach your destination shortly.",
@@ -817,6 +818,178 @@
     "nobodyInTopGuilds": "There are currently no guilds in the top! Enjoy as you can.",
     "invalidPage": "The requested page does not exist. Please try again with a page between {{minPage}} and {{maxPage}}."
   },
+  "fight": {
+    "title": "{{pseudo}}, vous êtes sur le point de démarrer un combat",
+    "canceledTitle": "{{pseudo}}, vous avez annulé la recherche",
+    "confirmDesc": "{emote:fight_command.crossed_swords} | **{{pseudo}}**{{confirmSubText}}\n\n{emote:fight_command.crossed_swords} | **Combattant : {{pseudo}}** | {{glory}} | {{className}}\n\n{{stats}}",
+    "confirmSubTexts": {
+      "common": ", vous souhaitez lancer une recherche de combat ?",
+      "rare": ", voudriez-vous participer à la recherche d'un combattant adéquat à votre puissance personnelle afin d'effectuer le duel subséquent ?"
+    },
+    "canceledDesc": "Vous avez annulé la recherche de combat.",
+    "information": {
+      "glory": "{emote:unitValues.glory} {{gloryPoints}}",
+      "class": "{{className}}",
+      "stats": ":zap: {{cumulativeHealth}} / {{cumulativeMaxHealth}} | :dagger: {{cumulativeAttack}} | :shield: {{cumulativeDefense}} | :rocket: {{cumulativeSpeed}} | :wind_blowing_face: {{baseBreath}} / {{maxBreath}} | :lungs: {{breathRegen}}"
+    },
+    "opponentsNotFound": "Aucun adversaire n'a été trouvé pour vous affronter. Vous pouvez réessayer plus tard.",
+    "notEnoughEnergy": "Vous n'avez pas assez d'énergie pour démarrer un combat !",
+    "monsterNotFound": "Aucun monstre n'a été trouvé pour vous affronter. Veuillez signaler cet incident à notre support (discord.gg/AP3Wmzb).",
+    "fightIntroTitle": "{emote:fight_command.crossed_swords} | Un combat est lancé entre {{fightInitiator}} et {{opponent}} !",
+    "actionsOf": "Attaques de {{pseudo}}",
+    "fightActionNameDisplay": "{{fightActionEmote}} - {{fightActionName}} | {emote:unitValues.breath} {{breathCost}}",
+    "summarize": {
+      "title": "Fight summary",
+      "intro": {
+        "start": "{emote:fight_command.clipboard} | **État actuel du combat** {{state}}\n\n",
+        "prolongation": "Prolongations",
+        "noProlongation": "[{{currentTurn}}/{{maxTurn}}]"
+      },
+      "attacker": "{emote:unitValues.attack} | **Attaquant : {{pseudo}}**\n",
+      "defender": "\n\n{emote:unitValues.defense} | **Défenseur : {{pseudo}}**\n",
+      "stats": "{emote:unitValues.energy} {{power}} | {emote:unitValues.attack} {{attack}} | {emote:unitValues.defense} {{defense}} | {emote:unitValues.speed} {{speed}} | {emote:unitValues.breath} {{breath}} / {{maxBreath}} | {emote:unitValues.breathRegen} {{breathRegen}}"
+    },
+    "end": {
+      "bugged": "Le combat a été annulé car il y a eu un problème technique.",
+      "draw": "{emote:commands.report} | **{{player1}} et {{player2}} terminent leur combat sur une égalité !**\n\n",
+      "win": "{emote:commands.report}| **{{winner}} remporte le match contre {{loser}}**\n\n",
+      "gameStats": "{emote:fight_command.game_stats} | Statistiques du combat\n- **Tours** : {{turn}}/{{maxTurn}}\n- **Temps de combat** : {{time}}",
+      "gameStatsProlongation": "{emote:fight_command.game_stats} | Statistiques du combat\n- **Tours** : {{turn}}/{{maxTurn}} (prolongations)\n- **Temps de combat** : {{time}}",
+      "fighterStats": "\n\n{emote:fight_command.fighter_stats} | Statistiques de {{pseudo}}\n- **Vie finale** : {{energy}}/{{maxEnergy}} {emote:unitValues.energy}"
+    },
+    "fightActionChoose": {
+      "turnIndicationTitle": "C'est au tour de {{pseudo}} de jouer {emote:fight_command.crossed_swords}",
+      "turnIndicationDescription": "Choose an action"
+    },
+    "actions": {
+      "intro": "{{emote}} | **{{fighter}}** ",
+      "attacksResults": {
+        "critical": [
+          "effectue une {{attack}} ! Parfaitement réalisée !",
+          "effectue une {{attack}} ! Elle est magnifique !",
+          "effectue une superbe {{attack}} ! Parfaitement réalisée !",
+          "effectue une {{attack}} ! Incroyablement réussie !",
+          "réalise une {{attack}} ! Totalement brutale !",
+          "effectue une {{attack}} ! C'était risqué mais ça passe !",
+          "launches a good {{attack}}!",
+          "utilise une {{attack}} ! Elle est PARFAITE !",
+          "utilise une {{attack}} ! Magistrale !",
+          "launches a beautiful {{attack}}!",
+          "effectue une {{attack}} ! Elle est parfaite !",
+          "réalise une {{attack}} ! L'assaut est absolument dingue !",
+          "assène à son adversaire une {{attack}} ! Sans pitié !",
+          "effectue une {{attack}} ! C'est un coup de foudre !",
+          "réalise une {{attack}} ! OH MON DIEU C'EST INCROYAAAAAAAAABLEEEE !",
+          "choisit une {{attack}} ! Très bonne initiative !",
+          "effectue une {{attack}} ! C'est une excellente {{attack}} !",
+          "effectue une {{attack}} ! Coup critique !",
+          "beats their opponent down with a no-holds-barred {{attack}}!"
+        ],
+        "normal": [
+          "executes an {{attack}}!",
+          "launches an {{attack}}!",
+          "uses an {{attack}}!",
+          "realized an {{attack}}!"
+        ],
+        "maxUses": [
+          "tente d'utiliser une {{attack}}, mais cela échoue !"
+        ],
+        "charging": [
+          "prepares to launch an {{attack}}!"
+        ],
+        "missed": [
+          "réalise une {{attack}} ! On a vu mieux...",
+          "lance une {{attack}} ! Médiocre",
+          "effectue une {{attack}} ! C'est pas très réussi.",
+          "effectue une {{attack}} ! Ça n'est pas très efficace...",
+          "choisit une {{attack}} ! Le résultat est assez pitoyable.",
+          "réalise une {{attack}} ! Ça n'était pas le meilleur choix...",
+          "effectue une {{attack}} ! C'est raté !",
+          "effectue une {{attack}} ! L'attaque échoue lamentablement !",
+          "effectue une mauvaise {{attack}} ! Un manque cruel de technique pour le joueur français !",
+          "effectue une {{attack}} ! Quelle erreur !",
+          "effectue une {{attack}} ! C'était risqué et ça n'est pas passé !",
+          "launches a bad {{attack}}!",
+          "utilise une {{attack}} ! Un choix peu judicieux !",
+          "choisit une {{attack}} ! Mauvaise initiative...",
+          "effectue une {{attack}} ! C'est une mauvaise {{attack}} !"
+        ]
+      },
+      "fightActionEffects": {
+        "self": {
+          "newAlteration": " `Vous êtes désormais {{effect}} !`",
+          "damages": " `Damage received: {{amount}}`",
+          "defense": " `Défense : {{operator}} {{amount}} %`",
+          "breath": " `Souffle : {{operator}} {{amount}}`",
+          "speed": " `Vitesse : {{operator}} {{amount}} %`",
+          "attack": " `Attaque : {{operator}} {{amount}} %`",
+          "energy": " `Énergie récupérée : {{amount}}`"
+        },
+        "opponent": {
+          "newAlteration": " `Votre adversaire est désormais {{effect}} !`",
+          "damages": " `Damage inflicted: {{amount}}`",
+          "defense": " `Défense de l'adversaire : {{operator}} {{amount}} %`",
+          "breath": " `Souffle de l'adversaire : {{operator}} {{amount}}`",
+          "speed": " `Vitesse de l'adversaire : {{operator}} {{amount}} %`",
+          "attack": " `Attaque de l'adversaire : {{operator}} {{amount}} %`",
+          "energy": " `Énergie de l'adversaire récupérée : {{amount}}`",
+          "summoning": " `Invocation de {{amount}} alliés`"
+        }
+      },
+      "aiChoose": "{emote:fight_command.ai_thinking} L'adversaire choisit une attaque..."
+    },
+    "gloryChanges": {
+      "title": "{emote:fight_command.glory_change} Rapport de gloire",
+      "gloryField": "Changements de gloire",
+      "gloryNegative": "**{{player}} :** - {{count}} {emote:unitValues.glory}\n",
+      "gloryPositive": "**{{player}} :** + {{count}} {emote:unitValues.glory}\n",
+      "leagueField": "Changements de ligues",
+      "leagueChangeUp": "↗️ **{{player}} :** {{oldLeagueEmoji}} {{oldLeague}} -> {{newLeagueEmoji}} {{newLeague}}\n",
+      "leagueChangeDown": "↘️️ **{{player}} :** {{oldLeagueEmoji}} {{oldLeague}} -> {{newLeagueEmoji}} {{newLeague}}\n",
+      "higherEloWins": [
+        "{{winner}} s'impose sur le terrain avec une performance marquée.",
+        "{{loser}} a donné tout ce qu'il avait, mais {{winner}} a montré une meilleure maîtrise de son jeu.",
+        "La différence de niveau entre les deux joueurs s'est faite sentir lors de ce combat.",
+        "{{winner}} a démontré son expertise en remportant cette rencontre difficile.",
+        "{{loser}} peut être fier de sa performance malgré la défaite, mais {{winner}} est incontestablement le vainqueur de ce combat.",
+        "{{winner}} a écrasé {{loser}} avec une performance dominante.",
+        "{{loser}} a fait de son mieux, mais il était clairement en dessous du niveau de {{winner}}.",
+        "La différence de talent entre les deux joueurs a été déterminante dans ce combat.",
+        "{{winner}} a démontré pourquoi il est considéré comme l'un des meilleurs en remportant ce match facilement.",
+        "{{loser}} peut prendre cette défaite comme une opportunité d'apprendre et de s'améliorer pour les combats futurs."
+      ],
+      "lowestEloWins": [
+        "Le plus inattendu s'est produit dans ce combat, {{winner}} a remporté la victoire face à un adversaire plus expérimenté.",
+        "{{loser}} a peut-être sous-estimé son adversaire, car {{winner}} a montré une détermination sans faille.",
+        "Malgré la différence de talent, {{winner}} a réussi à remporter ce match avec une stratégie solide.",
+        "Ce n'était pas un match facile, mais {{winner}} a prouvé qu'il peut tenir tête aux joueurs les plus talentueux.",
+        "Ce combat aura certainement été un tournant dans la carrière de {{winner}}, qui a démontré sa détermination et sa capacité à vaincre les plus expérimentés.",
+        "{{winner}} a surmonté les attentes en remportant ce match serré contre un adversaire plus talentueux.",
+        "{{loser}} a peut-être sous-estimé son adversaire, car {{winner}} a montré une détermination sans faille.",
+        "Malgré la différence de niveau, {{winner}} a réussi à remporter ce combat grâce à une stratégie astucieuse.",
+        "Ce n'était pas un match facile, mais {{winner}} a prouvé qu'il peut tenir tête aux joueurs les plus talentueux.",
+        "{{winner}} a certainement fait un pas en avant significatif dans sa carrière en remportant ce match difficile."
+      ],
+      "draw": [
+        "Ce match a été un match très disputé entre deux joueurs talentueux.",
+        "{{player1}} et {{player2}} ont montré une détermination sans faille tout au long du match.",
+        "Aucun des deux joueurs n'a pu prendre l'avantage décisif, ce qui a abouti à une égalité inattendue.",
+        "Ce match sera probablement considéré comme l'un des plus serrés et des plus passionnants de l'histoire.",
+        "{{player1}} et {{player2}} ont livré un combat acharné rempli de détermination.",
+        "Malgré la différence de niveau, les deux joueurs ont donné tout ce qu'ils avaient pour remporter le match.",
+        "Aucun des deux ne parvenait à prendre l'avantage décisif, ce qui a mené à une égalité surprenante.",
+        "Aucun des deux joueurs n'a pu prendre l'avantage décisif, ce qui a abouti à une égalité.",
+        "Ce match sera probablement considéré comme l'un des plus serrés et des plus passionnants de l'histoire.",
+        "{{player1}} et {{player2}} ont tous les deux montré pourquoi ils sont considérés comme de talentueux compétiteurs dans ce match épique."
+      ],
+      "sameElo": [
+        "Ce match a été un match passionnant entre deux joueurs de même niveau.",
+        "{{player1}} et {{player2}} ont tous les deux livré une performance solide et équilibrée.",
+        "Ce match a été un match très serré avec des tactiques astucieuses des deux côtés.",
+        "Les spectateurs ont assisté à un match épique entre deux joueurs talentueux qui se sont affrontés à armes égales."
+      ]
+    }
+  },
   "switch": {
     "titleSuccess": "{{pseudo}}, order completed!",
     "switchingDouble": "{{item1}} and {{item2}} were exchanged!",
@@ -972,8 +1145,8 @@
     },
     "title": "{{pseudo}}you've received your league award!",
     "description": {
-      "first": "You finished the previous league with **{{glory}} glory. {emote:unitValues.glory}**\n\n**You finish in $t(models:ordinals.get, {\"count\": {{rank}}, \"context\":\"feminine\", \"ordinal\": true}) !**\nYour final league is : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Money earned: **{{money}}** !\n{emote:unitValues.xp} XP earned: **{{xp}}** !\n{emote:unitValues.glory} A badge was offered to you at the end of the season.\n{emote:rewards.item} You receive random equipment!",
-      "other": "You finished the previous league with **{{glory}} glory. {emote:unitValues.glory}**\n\n You finish in $t(models:ordinals.get, {\"count\": {{rank}}, \"ordinal\": true}) !\nYour final league is : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Money earned: **{{money}}** !\n{emote:unitValues.xp} XP earned: **{{xp}}** !\n{emote:rewards.item} You receive random equipment!"
+      "first": "Vous avez terminé la ligue précédente avec **{{glory}} gloire. {emote:unitValues.glory}**\n\n**Vous terminez à la $t(models:ordinals.get, {\"count\": {{rank}}, \"context\":\"feminine\", \"ordinal\": true}) place !**\nVotre ligue finale est : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Argent gagné : **{{money}}** !\n{emote:unitValues.xp} XP gagnée : **{{xp}}** !\n{emote:unitValues.score} Points gagnés : **{{score}}** !\n{emote:unitValues.glory} Un badge vous a été offert à la fin de la saison.\n{emote:rewards.item} Vous recevez un équipement aléatoire !",
+      "other": "Vous avez terminé la ligue précédente avec **{{glory}} gloire. {emote:unitValues.glory}**\n\n Vous terminez à la $t(models:ordinals.get, {\"count\": {{rank}}, \"ordinal\": true}) place !\nVotre ligue finale est : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Argent gagné : **{{money}}** !\n{emote:unitValues.xp} XP gagnée : **{{xp}}** !\n{emote:unitValues.score} Points gagnés : **{{score}}** !\n{emote:rewards.item} Vous recevez un équipement aléatoire !"
     }
   },
   "guildStorage": {
