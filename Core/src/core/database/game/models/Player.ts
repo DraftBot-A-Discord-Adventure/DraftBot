@@ -885,9 +885,9 @@ export class Player extends Model {
 	}
 
 	/**
-	 * Check if the player has enough energy to join the island
+	 * Check if the player has enough energy to join the island or fight
 	 */
-	hasEnoughEnergyToJoinTheIsland(): boolean {
+	hasEnoughEnergyToFight(): boolean {
 		return this.getCumulativeEnergy() / this.getMaxCumulativeEnergy() >= PVEConstants.MINIMAL_ENERGY_RATIO;
 	}
 
@@ -1028,7 +1028,7 @@ export class Players {
 					keycloakId
 				}
 			}
-		))[0]; // We don't care about the boolean that findOrCreate returns so we strip it there
+		))[0]; // We don't care about the boolean that findOrCreate returns, so we strip it there
 	}
 
 	/**
@@ -1288,7 +1288,7 @@ export class Players {
 	}
 
 	/**
-	 *  Get the mean of all weekly score of the players
+	 *  Get the mean of all weekly scores of the players
 	 */
 	static async getMeanWeeklyScore(): Promise<number> {
 		const query = `SELECT AVG(weeklyScore) as avg
@@ -1332,7 +1332,7 @@ export class Players {
 	}
 
 	/**
-	 *  Get the mean of all level of the players
+	 *  Get the mean of all levels of the players
 	 */
 	static async getLevelMean(): Promise<number> {
 		const query = `SELECT AVG(level) as avg
@@ -1348,7 +1348,7 @@ export class Players {
 	}
 
 	/**
-	 *  Get the mean of all money of the players
+	 *  Get the mean out of all money of the players
 	 */
 	static async getNbMeanMoney(): Promise<number> {
 		const query = `SELECT AVG(money) as avg
@@ -1364,7 +1364,7 @@ export class Players {
 	}
 
 	/**
-	 * Get the sum of all money in game
+	 * Get the sum of all money in the game
 	 */
 	static async getSumAllMoney(): Promise<number> {
 		const query = `SELECT SUM(money) as sum

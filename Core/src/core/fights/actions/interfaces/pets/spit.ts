@@ -17,7 +17,7 @@ const use: PetAssistanceFunc = (_fighter, opponent, turn, _fightController): Pro
 		assistanceStatus: PetAssistanceState.FAILURE
 	};
 
-	// 2 % chance of blinding the opponent
+	// 9 % chance of blinding the opponent
 	if ( RandomUtils.draftbotRandom.bool(0.09)) {
 		FightActionController.applyAlteration(result, {
 			selfTarget: false,

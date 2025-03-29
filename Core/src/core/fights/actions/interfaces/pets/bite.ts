@@ -30,7 +30,7 @@ function getStatsInfo(_sender: Fighter, receiver: Fighter): statsInfo {
 
 const use: PetAssistanceFunc = (fighter, opponent, turn, _fightController): Promise<PetAssistanceResult | null> => {
 	// Attack every 8 turns
-	if (!(turn % 8 === 7 || turn % 8 === 8)) {
+	if (!(turn % 8 === 7 || turn % 8 === 6)) {
 		return null;
 	}
 	return Promise.resolve({

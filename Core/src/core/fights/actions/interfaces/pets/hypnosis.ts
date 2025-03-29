@@ -12,7 +12,7 @@ const use: PetAssistanceFunc = (_fighter, opponent, turn, _fightController): Pro
 	const result: PetAssistanceResult = {
 		assistanceStatus: PetAssistanceState.SUCCESS
 	};
-	// Blind the opponent at the start of the fight
+	// Confuse the opponent at the beginning of the fight
 	FightActionController.applyAlteration(result, {
 		selfTarget: false,
 		alteration: FightAlterations.CONFUSED

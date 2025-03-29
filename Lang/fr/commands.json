@@ -833,6 +833,7 @@
       "stats": "{emote:unitValues.energy} {{cumulativeHealth}} / {{cumulativeMaxHealth}} | {emote:unitValues.attack} {{cumulativeAttack}} | {emote:unitValues.defense} {{cumulativeDefense}} | {emote:unitValues.speed} {{cumulativeSpeed}} | {emote:unitValues.breath} {{baseBreath}} / {{maxBreath}} | {emote:unitValues.breathRegen} {{breathRegen}}"
     },
     "opponentsNotFound": "Aucun adversaire n'a été trouvé pour vous affronter. Vous pouvez réessayer plus tard.",
+    "notEnoughEnergy": "Vous n'avez pas assez d'énergie pour démarrer un combat !",
     "monsterNotFound": "Aucun monstre n'a été trouvé pour vous affronter. Veuillez signaler cet incident à notre support (discord.gg/AP3Wmzb).",
     "fightIntroTitle": "{emote:fight_command.crossed_swords} | Un combat est lancé entre {{fightInitiator}} et {{opponent}} !",
     "actionsOf": "Attaques de {{pseudo}}",

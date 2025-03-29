@@ -51,7 +51,6 @@ import {MapLocationDataController} from "../../data/MapLocation";
 import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
 import {Effect} from "../../../../Lib/src/types/Effect";
 import {ReactionCollectorRefuseReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {PacketUtils} from "../../core/utils/PacketUtils";
 
 export default class ReportCommand {
 	@commandRequires(CommandReportPacketReq, {

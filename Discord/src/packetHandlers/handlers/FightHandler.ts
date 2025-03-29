@@ -1,6 +1,7 @@
 import {packetHandler} from "../PacketHandler";
 import {PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
 import {
+	CommandFightNotEnoughEnergyPacketRes,
 	CommandFightOpponentsNotFoundPacket,
 	CommandFightRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandFightPacket";
@@ -30,6 +31,11 @@ export default class FightHandler {
 	@packetHandler(CommandFightOpponentsNotFoundPacket)
 	async opponentsNotFoundFight(context: PacketContext, _packet: CommandFightOpponentsNotFoundPacket): Promise<void> {
 		await handleClassicError(context, "commands:fight.opponentsNotFound");
+	}
+
+	@packetHandler(CommandFightNotEnoughEnergyPacketRes)
+	async notEnoughEnergy(context: PacketContext, _packet: CommandFightNotEnoughEnergyPacketRes): Promise<void> {
+		await handleClassicError(context, "commands:fight.notEnoughEnergy");
 	}
 
 	@packetHandler(CommandFightIntroduceFightersPacket)

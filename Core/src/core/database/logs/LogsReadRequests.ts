@@ -234,7 +234,7 @@ export class LogsReadRequests {
 	 * @param minutes - The number of minutes to check
 	 * @returns An object mapping playerKeycloakIds to booleans indicating whether each player has been a defender
 	 */
-	static async hasBeenADefenderInRankedFightSinceMinute(
+	static async hasBeenADefenderInRankedFightSinceMinutes(
 		playerKeycloakIds: string[],
 		minutes: number
 	): Promise<{ [key: string]: boolean }> {

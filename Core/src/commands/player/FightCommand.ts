@@ -6,6 +6,7 @@ import {ReactionCollectorFight} from "../../../../Lib/src/packets/interaction/Re
 import {EndCallback, ReactionCollectorInstance} from "../../core/utils/ReactionsCollector";
 import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {
+	CommandFightNotEnoughEnergyPacketRes,
 	CommandFightOpponentsNotFoundPacket,
 	CommandFightPacketReq,
 	CommandFightRefusePacketRes
@@ -24,6 +25,8 @@ import {AiPlayerFighter} from "../../core/fights/fighter/AiPlayerFighter";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {GloryChangesPacket} from "../../../../Lib/src/packets/fights/GloryChangesPacket";
 import {LeagueDataController} from "../../data/League";
+import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
+import {CommandJoinBoatNotEnoughEnergyPacketRes} from "../../../../Lib/src/packets/commands/CommandJoinBoatPacket";
 
 type PlayerStats = {
 	classId: number,
@@ -155,7 +158,7 @@ async function findOpponent(player: Player): Promise<Player | null> {
 		validOpponents.sort(() => Math.random() - 0.5);
 
 		// Check if these players have been defenders recently
-		const haveBeenDefenderRecently = await LogsReadRequests.hasBeenADefenderInRankedFightSinceMinute(
+		const haveBeenDefenderRecently = await LogsReadRequests.hasBeenADefenderInRankedFightSinceMinutes(
 			validOpponents.map((opponent) => opponent.keycloakId),
 			FightConstants.DEFENDER_COOLDOWN_MINUTES
 		);
@@ -179,7 +182,7 @@ async function findOpponent(player: Player): Promise<Player | null> {
 		);
 		// Check each remaining opponent to see if the best-of-three is finished
 		for (const opponent of opponentsNotOnCooldown) {
-			const results = bo3Map.get(opponent.keycloakId) || {won: 0, lost: 0, draw: 0};
+			const results = bo3Map.get(opponent.keycloakId) ?? {won: 0, lost: 0, draw: 0};
 			if (!bo3isAlreadyFinished(results)) {
 				return opponent;
 			}
@@ -222,15 +225,19 @@ function fightValidationEndCallback(player: Player, context: PacketContext): End
 export default class FightCommand {
 	@commandRequires(CommandFightPacketReq, {
 		notBlocked: true,
-		whereAllowed: CommandUtils.WHERE.EVERYWHERE,
+		whereAllowed: [WhereAllowed.CONTINENT],
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD,
 		level: FightConstants.REQUIRED_LEVEL
 	})
-	async execute(response: DraftBotPacket[], player: Player, packet: CommandFightPacketReq, context: PacketContext): Promise<void> {
-		const toCheckPlayer = await Players.getAskedPlayer({keycloakId: packet.playerKeycloakId}, player);
+	async execute(response: DraftBotPacket[], player: Player, _packet: CommandFightPacketReq, context: PacketContext): Promise<void> {
+
+		if (!player.hasEnoughEnergyToFight()) {
+			response.push(makePacket(CommandFightNotEnoughEnergyPacketRes, {}));
+			return;
+		}
 
 		const collector = new ReactionCollectorFight(
-			await getPlayerStats(toCheckPlayer)
+			await getPlayerStats(player)
 		);
 
 		const collectorPacket = new ReactionCollectorInstance(

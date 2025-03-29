@@ -201,9 +201,9 @@ export class FightController {
 		const attacker = this.getPlayingFighter();
 		const defender = this.getDefendingFighter();
 
-		const __ret = this.handleOutOfBreathScenarios(attacker, fightAction, defender);
-		fightAction = __ret.fightAction;
-		const result = __ret.result;
+		const breathScenarioOutcome = this.handleOutOfBreathScenarios(attacker, fightAction, defender);
+		fightAction = breathScenarioOutcome.fightAction;
+		const result = breathScenarioOutcome.result;
 
 		// Check if we need to use the out-of-breath action instead
 		if ("state" in result) {

@@ -23,7 +23,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 	async canBeExecuted(player: Player): Promise<boolean> {
 		return player.level >= PVEConstants.MIN_LEVEL &&
 			Maps.isNearWater(player) &&
-			player.hasEnoughEnergyToJoinTheIsland() &&
+			player.hasEnoughEnergyToFight() &&
 			await PlayerSmallEvents.playerSmallEventCount(player.id, "goToPVEIsland") === 0 &&
 			await LogsReadRequests.getCountPVEIslandThisWeek(player.keycloakId, player.guildId) < PVEConstants.TRAVEL_COST.length;
 	},
