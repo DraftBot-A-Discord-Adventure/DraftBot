@@ -303,7 +303,7 @@
       }
     },
     "timings": {
-      "allTime": "{emote:top.allTime} Depuis toujours.",
+      "allTime": "{emote:top.allTime} Sempre o fiz.",
       "weekly": "{emote:top.weekly} Esta semana."
     }
   },
@@ -364,7 +364,7 @@
     "description": "Mostra o conteúdo do armazém do grém."
   },
   "joinBoat": {
-    "name": "rejoindrebateau",
-    "description": "Permet de rejoindre le bateau si un membre de votre guilde est dessus."
+    "name": "juntar-se ao barco",
+    "description": "Permite-te entrar no barco se um membro do teu grémio estiver nele."
   }
 }
