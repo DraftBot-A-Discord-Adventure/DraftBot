@@ -244,7 +244,7 @@
         "description": "Permet de transférer un familier depuis ou vers la guilde. Si aucun numéro n'est fourni, le familier de votre inventaire sera déplacé vers le refuge de la guilde. Sinon, il sera échangé avec celui de la guilde dont la position correspond au numéro donné."
       },
       "PING": {
-        "description": "Permet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. :clock1:"
+        "description": "Permet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. {emote:clock.1}"
       },
       "PROFILE": {
         "description": "Affiche des informations sur votre personnage :\n\n{emote:effects.none} État de santé | Pseudo | Level\n\n឵឵឵Informations :\n{emote:unitValues.health} Vie | {emote:unitValues.xp} XP | {emote:unitValues.money} Argent\n\nStatistiques :\n{emote:unitValues.energy} Énergie | {emote:unitValues.attack} Attaque | {emote:unitValues.defense} Défense | {emote:unitValues.speed} Vitesse | {emote:unitValues.breath} Souffle | {emote:unitValues.breathRegen} Récupération\n\nMissions :\n{emote:unitValues.gem} Gemmes | {emote:missions.campaign} Avancé de la campagne %\n\nClassement et score :\n{emote:top.congrats} Classement | {emote:unitValues.score} Score\n\nClasse :\nVoir {command:classes}\n\nGloire et Ligue :\n{emote:unitValues.glory} Gloire | Voir {command:top glory}\n\nGuilde :\n{emote:other.guild} Guilde\n\nDestination :\nVoir {command:map}\n\nFamilier :\nVoir {command:pet}\n\n{emote:other.advice}-Les badges sont affichés sur votre profil sous forme de réaction."
@@ -471,7 +471,7 @@
     "pveFightRefused" : "{emote:commands.report} **Journal de {{pseudo}} :** {emote:pve_fights.wait_a_bit} | Vous décidez de ne pas engager le combat pour le moment et partez vous réfugier dans une cachette non loin. Il faudra finir par affronter la bête, car vous ne trouvez aucune autre issue.",
     "remainingEnergyTitle": "Énergie restante :",
     "startPoint": "Point de départ :",
-    "timeLost": "** | :clock10: Temps perdu : **{{timeLost}}",
+    "timeLost": "** | {emote:clock.10} Temps perdu : **{{timeLost}}",
     "travelPathTitle": "Voyage actuel :",
     "travellingDescription": "Tout se passe bien depuis votre dernière aventure {{smallEventEmoji}}. Prochain arrêt prévu {{time}}.",
     "travellingDescriptionEndTravel": "Tout se passe bien dans votre aventure, vous arriverez bientôt à destination.",
@@ -851,11 +851,11 @@
     },
     "end": {
       "bugged": "Le combat a été annulé car il y a eu un problème technique.",
-      "draw": ":newspaper: | **{{player1}} et {{player2}} terminent leur combat sur une égalité !**\n\n",
-      "win": ":newspaper: | **{{winner}} remporte le match contre {{loser}}**\n\n",
-      "gameStats": ":bar_chart: | Statistiques du combat\n- **Tours** : {{turn}}/{{maxTurn}}\n- **Temps de combat** : {{time}}",
-      "gameStatsProlongation": ":bar_chart: | Statistiques du combat\n- **Tours** : {{turn}}/{{maxTurn}} (prolongations)\n- **Temps de combat** : {{time}}",
-      "fighterStats": "\n\n:bust_in_silhouette: | Statistiques de {{pseudo}}\n- **Vie finale** : {{energy}}/{{maxEnergy}} :zap:"
+      "draw": "{emote:commands.report} | **{{player1}} et {{player2}} terminent leur combat sur une égalité !**\n\n",
+      "win": "{emote:commands.report}| **{{winner}} remporte le match contre {{loser}}**\n\n",
+      "gameStats": "{emote:fight_command.game_stats} | Statistiques du combat\n- **Tours** : {{turn}}/{{maxTurn}}\n- **Temps de combat** : {{time}}",
+      "gameStatsProlongation": "{emote:fight_command.game_stats} | Statistiques du combat\n- **Tours** : {{turn}}/{{maxTurn}} (prolongations)\n- **Temps de combat** : {{time}}",
+      "fighterStats": "\n\n{emote:fight_command.fighter_stats} | Statistiques de {{pseudo}}\n- **Vie finale** : {{energy}}/{{maxEnergy}} {emote:unitValues.energy}"
     },
     "fightActionChoose": {
       "turnIndicationTitle": "C'est au tour de {{pseudo}} de jouer {emote:fight_command.crossed_swords}",
@@ -939,10 +939,10 @@
       "aiChoose": "{emote:fight_command.ai_thinking} L'adversaire choisit une attaque..."
     },
     "gloryChanges": {
-      "title": ":postal_horn: Rapport de gloire",
+      "title": "{emote:fight_command.glory_change} Rapport de gloire",
       "gloryField": "Changements de gloire",
-      "gloryNegative": "**{{player}} :** - {{count}} ✨\n",
-      "gloryPositive": "**{{player}} :** + {{count}} ✨\n",
+      "gloryNegative": "**{{player}} :** - {{count}} {emote:unitValues.glory}\n",
+      "gloryPositive": "**{{player}} :** + {{count}} {emote:unitValues.glory}\n",
       "leagueField": "Changements de ligues",
       "leagueChangeUp": "↗️ **{{player}} :** {{oldLeagueEmoji}} {{oldLeague}} -> {{newLeagueEmoji}} {{newLeague}}\n",
       "leagueChangeDown": "↘️️ **{{player}} :** {{oldLeagueEmoji}} {{oldLeague}} -> {{newLeagueEmoji}} {{newLeague}}\n",

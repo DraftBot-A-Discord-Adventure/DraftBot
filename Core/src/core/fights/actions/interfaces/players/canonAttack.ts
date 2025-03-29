@@ -4,6 +4,7 @@ import {MathUtils} from "../../../../utils/MathUtils";
 import {FightAlterations} from "../../FightAlterations";
 import {FightActionFunc} from "../../../../../data/FightAction";
 import {FightActionResult} from "../../../../../../../Lib/src/types/FightActionResult";
+import {FightConstants} from "../../../../../../../Lib/src/constants/FightConstants";
 
 const use: FightActionFunc = (sender, receiver) => {
 
@@ -13,7 +14,7 @@ const use: FightActionFunc = (sender, receiver) => {
 
 	// If the attack was used two times in a row, the damage is multiplied by 1.5
 	const lastFightAction = sender.getLastFightActionUsed();
-	if (lastFightAction && lastFightAction.id === "canonAttack") {
+	if (lastFightAction && lastFightAction.id === FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK) {
 		damageDealt.damages = Math.round(damageDealt.damages * 1.5);
 	}
 

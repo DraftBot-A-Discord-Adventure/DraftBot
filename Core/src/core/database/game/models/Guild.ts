@@ -110,7 +110,7 @@ export class Guild extends Model {
 		if (this.isAtMaxLevel()) {
 			return;
 		}
-		// We assume that you cannot go the level 98 to 100 with 1 xp addition
+		// We assume that you cannot go level max -2 to max with 1 xp addition
 		if (this.level === GuildConstants.MAX_LEVEL - 1) {
 			const xpNeededToLevelUp = this.getExperienceNeededToLevelUp();
 			if (this.experience + experience > xpNeededToLevelUp) {

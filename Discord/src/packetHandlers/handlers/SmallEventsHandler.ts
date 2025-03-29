@@ -74,7 +74,8 @@ import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
 import {baseFunctionHandler} from "../../smallEvents/shop";
 import {epicItemShopHandler} from "../../smallEvents/epicItemShop";
 import {
-	SmallEventEpicItemShopAcceptPacket, SmallEventEpicItemShopCannotBuyPacket,
+	SmallEventEpicItemShopAcceptPacket,
+	SmallEventEpicItemShopCannotBuyPacket,
 	SmallEventEpicItemShopRefusePacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventEpicItemShopPacket";
 
@@ -468,7 +469,11 @@ export default class SmallEventsHandler {
 				new DraftbotSmallEventEmbed(
 					"winEnergyOnIsland",
 					getRandomSmallEventIntro(lng)
-					+ StringUtils.getRandomTranslation("smallEvents:winEnergyOnIsland.stories", interaction.userLanguage, {energy: packet.amount}),
+					+ StringUtils.getRandomTranslation(
+						"smallEvents:winEnergyOnIsland.stories",
+						lng,
+						{energy: packet.amount}
+					),
 					interaction.user,
 					lng
 				)

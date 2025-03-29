@@ -310,7 +310,7 @@
       "success": "ordonne à **{{petNickname}}** d'attaquer. L'animal éclate de rage et se met à frapper tout ce qui passe à proximité de lui."
     },
     "grabAndThrowAttack": {
-      "description": "Projette l'adversaire s'il utilise une attaque physique, infligeant des dégâts moyens et ayant une chance d'étourdir de l'adversaire.",
+      "description": "Projette l'adversaire s'il utilise une attaque physique, infligeant des dégâts moyens et ayant une chance d'étourdir l'adversaire.",
       "name_one": "Attaque projection",
       "name_other": "Attaques projections"
     },
@@ -682,7 +682,7 @@
       "particle": "vers le"
     },
     "1003": {
-      "description": "Cette ancienne mine abandonnée passe sous le chemin escarpé et les montagnes. Elle est tellement grande est labyrinthique qu'elle finit au cœur du volcan. Il est cependant difficile d'arriver jusque là. Attention toutefois, certains auraient retrouvé de vieux restes de bananes dans la mine brumeuse.",
+      "description": "Cette ancienne mine abandonnée passe sous le chemin escarpé et les montagnes. Elle est tellement grande et labyrinthique qu'elle finit au cœur du volcan. Il est cependant difficile d'arriver jusque là. Attention toutefois à ne pas glisser, certains auraient retrouvé de vieux restes de bananes dans la mine brumeuse.",
       "name": "Mine brumeuse",
       "particle": "vers la"
     },

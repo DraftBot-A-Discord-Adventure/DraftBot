@@ -26,7 +26,7 @@ const use: FightAlterationFunc = (affected, fightAlteration) => {
 		FightActionController.applyBuff(result, {
 			selfTarget: true,
 			stat: FightStatBuffed.SPEED,
-			operator: FightStatModifierOperation.SET_VALUE,
+			operator: FightStatModifierOperation.MULTIPLIER,
 			value: 0
 		}, affected, fightAlteration);
 	}

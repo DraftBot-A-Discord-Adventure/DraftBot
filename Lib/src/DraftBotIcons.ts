@@ -48,12 +48,18 @@ export const DraftBotIcons: {
 	},
 	fight_command: {
 		accept: string,
-		refuse: string,
-		crossed_swords: string,
+		ai_thinking: string,
 		clipboard: string,
+		crossed_swords: string,
+		fighter_stats: string,
+		game_stats: string,
+		glory_change: string,
 		handshake: string,
-		ai_thinking: string
+		refuse: string,
 	},
+	clocks: {
+		[clockId: string]: string
+	}
 	pve_fights: {
 		wait_a_bit: string,
 		start_fight: string,
@@ -1700,11 +1706,18 @@ export const DraftBotIcons: {
 	},
 	"fight_command": {
 		"accept": "🔍",
-		"refuse": "❌",
-		"crossed_swords": "⚔️",
+		"ai_thinking": "🧠",
 		"clipboard": "📋",
+		"crossed_swords": "⚔️",
+		"fighter_stats": "👤",
+		"game_stats": "📊",
+		"glory_change": "📯",
 		"handshake": "🤝",
-		"ai_thinking": "🧠"
+		"refuse": "❌"
+	},
+	"clocks": {
+		"1": "🕐",
+		"10": "🕙"
 	},
 	"pve_fights": {
 		"wait_a_bit": "⏳",

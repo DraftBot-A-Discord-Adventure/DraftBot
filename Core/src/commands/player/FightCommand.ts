@@ -26,7 +26,6 @@ import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {GloryChangesPacket} from "../../../../Lib/src/packets/fights/GloryChangesPacket";
 import {LeagueDataController} from "../../data/League";
 import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
-import {CommandJoinBoatNotEnoughEnergyPacketRes} from "../../../../Lib/src/packets/commands/CommandJoinBoatPacket";
 
 type PlayerStats = {
 	classId: number,
@@ -226,7 +225,7 @@ export default class FightCommand {
 	@commandRequires(CommandFightPacketReq, {
 		notBlocked: true,
 		whereAllowed: [WhereAllowed.CONTINENT],
-		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD,
+		allowedEffects: CommandUtils.ALLOWED_EFFECTS.NO_EFFECT,
 		level: FightConstants.REQUIRED_LEVEL
 	})
 	async execute(response: DraftBotPacket[], player: Player, _packet: CommandFightPacketReq, context: PacketContext): Promise<void> {

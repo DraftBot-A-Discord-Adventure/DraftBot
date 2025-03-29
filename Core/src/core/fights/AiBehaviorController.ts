@@ -74,6 +74,7 @@ export function registerClassBehavior(classId: number, behaviorConstructor: Clas
  * @returns A new instance of the class behavior or undefined if not found
  */
 export function getAiClassBehavior(classId: number): ClassBehavior | undefined {
-	const BehaviorClass = classBehaviorConstructors.get(classId);
-	return BehaviorClass ? new BehaviorClass() : undefined;
+	return classBehaviorConstructors.get(classId) ?
+		new (classBehaviorConstructors.get(classId))()
+		: undefined;
 }
