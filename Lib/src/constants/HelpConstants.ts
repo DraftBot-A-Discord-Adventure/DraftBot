@@ -141,7 +141,7 @@ export abstract class HelpConstants {
 		GUILD_TOP:
 			{
 				EMOTE: ":mirror_ball:",
-				NAME: "top guilds",
+				NAME: "top guild",
 				CATEGORY: "guild"
 			},
 		INVENTORY:
