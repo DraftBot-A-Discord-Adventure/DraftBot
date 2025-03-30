@@ -8,6 +8,10 @@ import {BotUtils} from "../../utils/BotUtils";
 import {LANGUAGE, Language} from "../../../../Lib/src/Language";
 import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
 import {HelpConstants} from "../../../../Lib/src/constants/HelpConstants";
+import {discordConfig, draftBotClient} from "../../bot/DraftBotShard";
+import {minutesToMilliseconds} from "../../../../Lib/src/utils/TimeUtils";
+
+const dmHelpCooldowns: Map<string, Date> = new Map<string, Date>();
 
 /**
  * Get the list of commands mention from the command data
@@ -160,12 +164,64 @@ function generateReplacementObjectForHelpCommand(interaction: DraftbotInteractio
 }
 
 /**
+ * Send a DM to the user with the help message if the user is not in the main server
+ * It will also set a cooldown for the user to prevent spamming
+ * @param interaction
+ * @param lng
+ */
+function sendHelpDm(interaction: DraftbotInteraction, lng: Language): void {
+	draftBotClient.shard!.broadcastEval(async (client, context) => {
+		const guild = await client.guilds.fetch(context.mainServerId);
+		if (guild.shard) {
+			try {
+				return !!await guild.members.fetch(context.userId);
+			}
+			catch {
+				return false;
+			}
+		}
+		return false;
+	}, {
+		context: {
+			mainServerId: discordConfig.MAIN_SERVER_ID,
+			userId: interaction.user.id
+		}
+	})
+		.then((ret: boolean[]) => {
+			if (!ret.some((value) => value)) {
+				interaction.user.send({
+					content: HelpConstants.HELP_INVITE_LINK,
+					embeds: [
+						new DraftBotEmbed()
+							.formatAuthor(i18n.t("commands:help.needHelp", {
+								lng
+							}), interaction.user)
+							.setDescription(i18n.t("commands:help.needHelpDescription", {
+								lng,
+								inviteLink: HelpConstants.HELP_INVITE_LINK
+							}))
+					]
+				}).catch(e => {
+					console.error("Error while sending help DM to user " + interaction.user.id + ": " + e);
+				});
+			}
+
+			dmHelpCooldowns.set(interaction.user.id, new Date(Date.now() + minutesToMilliseconds(HelpConstants.HELP_DM_COOLDOWN_TIME_MINUTES)));
+		})
+		.catch((error) => {
+			console.error("Error while broadcasting the message in help command: " + error);
+		});
+}
+
+/**
  * Get the list of available commands and information about what they do
  */
 async function getPacket(interaction: DraftbotInteraction): Promise<null> {
 	const helpMessage = new DraftBotEmbed();
 	const command = interaction.options.get(i18n.t("discordBuilder:help.options.commandName.name", {lng: LANGUAGE.ENGLISH}));
 	const askedCommand = command ? command.value as string : null;
+	const lng = interaction.userLanguage;
+
 	if (!askedCommand) {
 		generateGenericHelpMessage(helpMessage, interaction);
 		await interaction.reply({
@@ -185,23 +241,23 @@ async function getPacket(interaction: DraftbotInteraction): Promise<null> {
 		}
 
 		const commandMention = BotUtils.commandsMentions.get(HelpConstants.COMMANDS_DATA[command as keyof typeof HelpConstants.COMMANDS_DATA].NAME);
-		const commandMentionString: string = commandMention ? commandMention : i18n.t("error:commandDoesntExist", {lng: interaction.userLanguage});
+		const commandMentionString: string = commandMention ? commandMention : i18n.t("error:commandDoesntExist", {lng});
 		const replacements = generateReplacementObjectForHelpCommand(interaction);
 
 
 		if (command === "FIGHT") {
-			helpMessage.setImage(i18n.t("commands:help.commands.FIGHT.image", {lng: interaction.userLanguage}));
+			helpMessage.setImage(i18n.t("commands:help.commands.FIGHT.image", {lng}));
 		}
 
 		helpMessage.setDescription(i18n.t(`commands:help.commands.${command}.description`, replacements))
 			.setTitle(
 				i18n.t("commands:help.commandEmbedTitle", {
-					lng: interaction.userLanguage,
+					lng,
 					emote: HelpConstants.COMMANDS_DATA[command as keyof typeof HelpConstants.COMMANDS_DATA].EMOTE
 				})
 			);
 		helpMessage.addFields({
-			name: i18n.t("commands:help.usageFieldTitle", {lng: interaction.userLanguage}),
+			name: i18n.t("commands:help.usageFieldTitle", {lng}),
 			value: commandMentionString,
 			inline: true
 		});
@@ -209,6 +265,13 @@ async function getPacket(interaction: DraftbotInteraction): Promise<null> {
 			embeds: [helpMessage]
 		});
 	}
+
+	// Send help DM if the user is not in the main server
+	const dmCooldown = dmHelpCooldowns.get(interaction.user.id);
+	if (!dmCooldown || dmCooldown && dmCooldown.valueOf() < Date.now()) {
+		sendHelpDm(interaction, lng);
+	}
+
 	return null;
 }
 

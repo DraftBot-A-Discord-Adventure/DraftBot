@@ -290,7 +290,9 @@
     "playerCommands": "{emote:userKind.human} Joueur :",
     "serverCommands": "{emote:other.gear} Serveur :",
     "usageFieldTitle": "Utilisation",
-    "utilCommands": "{emote:collectors.question} Utiles :"
+    "utilCommands": "{emote:collectors.question} Utiles :",
+    "needHelp": "Besoin d'aide ?",
+    "needHelpDescription": "{emote:fight_command.crossed_swords} Bonjour ! Ce message est envoyé suite à une demande d'aide.\n\nPour toute assistance concernant l'utilisation du jeu, il est possible de rejoindre le serveur du officiel !\n\nVous pourrez participer au développement du jeu et obtenir toutes les informations nécessaires !\n\nIl est également recommandé de consulter le guide détaillé du bot : https://guide.draftbot.com/"
   },
   "idea": {
     "description": "Vous pouvez proposer des suggestions et voter pour vos idées préférées via ce lien:\nhttps://feedback.draftbot.com/",
