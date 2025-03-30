@@ -29,7 +29,7 @@ export async function handleCommandGuildShelterRes(packet: CommandGuildShelterPa
 	const embed = new DraftBotEmbed()
 		.setTitle(i18n.t("commands:guildShelter.embedTitle", {
 			lng,
-			guild: packet.guildName,
+			guildName: packet.guildName,
 			count: packet.pets.length,
 			max: packet.maxCount
 		}))
