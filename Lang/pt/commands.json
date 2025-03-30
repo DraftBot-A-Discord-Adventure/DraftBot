@@ -237,9 +237,6 @@
       "PET_SELL": {
         "description": "Permite-lhe vender um animal de estimação. Aplicam-se as seguintes condições: \n{{petSellMinPrice}}{{petSellMaxPrice}}- o preço de venda deve ser maior que ` {emote:unitValues.money}` e menor que ` {emote:unitValues.money}`. \n- O vendedor não ganhará dinheiro com a transação, apenas experiência de guilda. \n- O vendedor e o comprador não podem ser membros da mesma guilda."
       },
-      "PET_TRADE": {
-        "description": "Proponha uma troca dos seus animais com a pessoa mencionada."
-      },
       "PET_TRANSFER": {
         "description": "Permite-te transferir uma mascote de ou para o Grémio. Se não for dado um número, a mascote no teu inventário será movida para a cabana da guilda. Caso contrário, ela será trocada com a mascote da guilda cuja localização corresponda ao número dado."
       },
@@ -290,7 +287,9 @@
     "playerCommands": ":bust_in_silhouette: Jogador :",
     "serverCommands": ":gear: Servidor :",
     "usageFieldTitle": "Utilização",
-    "utilCommands": "{emote:collectors.question} Informações úteis:"
+    "utilCommands": "{emote:collectors.question} Informações úteis:",
+    "needHelp": "Besoin d'aide ?",
+    "needHelpDescription": "{emote:fight_command.crossed_swords} Bonjour ! Ce message est envoyé suite à une demande d'aide.\n\nPour toute assistance concernant l'utilisation du jeu, il est possible de rejoindre le serveur du officiel !\n\nVous pourrez participer au développement du jeu et obtenir toutes les informations nécessaires !\n\nIl est également recommandé de consulter le guide détaillé du bot : https://guide.draftbot.com/"
   },
   "idea": {
     "description": "\nPode fazer sugestões e votar nas suas ideias favoritas através desta ligação: https://feedback.draftbot.com/",
@@ -460,9 +459,10 @@
     "journal": "{{pseudo}}Diário de",
     "money": "{emote:unitValues.money} ** Dinheiro ganho :{{money}}**",
     "moneyLoose": ":money_with_wings:{{money}}** Dinheiro perdido: **",
-    "monsterRewardGuildXp": "\n:star: XP de guilda ganho:{{guildXp}}** **",
+    "rewardEmbedTitle": "{{pseudo}}, récompenses de combat",
+    "monsterRewardGuildXp": ":star: XP de guilda ganho:{{guildXp}}** **",
     "monsterRewardsDescription": "{emote:unitValues.money} Prata ganha :{{money}}\n:star: ** ** XP ganho :{{experience}}** **",
-    "monsterRewardsGuildPoints": "\n:mirror_ball: Pontos de guilda ganhos :{{guildPoints}}** **",
+    "monsterRewardsGuildPoints": ":mirror_ball: Pontos de guilda ganhos :{{guildPoints}}** **",
     "monsterRewardsTitle": "{{pseudo}}recompensas de combate",
     "newBigEvent": ":flag_fr:{{destination}}Chegou a !",
     "noFight": ":newspaper: {{pseudo}} {{waitABitReaction}} ** Fazes uma fuga rápida e encontras um pequeno esconderijo! O monstro está à espera pacientemente lá fora...",
@@ -938,55 +938,59 @@
       },
       "aiChoose": "{emote:fight_command.ai_thinking} O adversário escolhe um ataque..."
     },
-    "gloryChanges": {
-      "title": "{emote:fight_command.glory_change} Relatório sobre a glória",
-      "gloryField": "Mudanças de glória",
+    "fightReward": {
+      "title": "{emote:fight_command.glory_change} Récompenses de combat",
+      "scoreAndMoneyField": "Récompenses du combat",
+      "noReward": "Vous avez épuisé toutes les récompenses de combat, revenez demain.",
+      "points": "{emote:unitValues.score} Points gagnés : **{{count}}**",
+      "money": "{emote:unitValues.money} Argent gagné : **{{count}}**",
+      "gloryField": "Changements de gloire",
       "gloryNegative": "**{{player}} :** - {{count}} {emote:unitValues.glory}\n",
       "gloryPositive": "**{{player}} :** + {{count}} {emote:unitValues.glory}\n",
-      "leagueField": "Alterações na Liga",
-      "leagueChangeUp": "️ **{{player}} :** {{oldLeagueEmoji}} {{oldLeague}} -> {{newLeagueEmoji}} {{newLeague}}\n",
+      "leagueField": "Changements de ligues",
+      "leagueChangeUp": "↗️ **{{player}} :** {{oldLeagueEmoji}} {{oldLeague}} -> {{newLeagueEmoji}} {{newLeague}}\n",
       "leagueChangeDown": "↘️️ **{{player}} :** {{oldLeagueEmoji}} {{oldLeague}} -> {{newLeagueEmoji}} {{newLeague}}\n",
       "higherEloWins": [
-        "{{winner}} entra em campo com um desempenho forte.",
-        "{{loser}} deu tudo o que tinha, mas {{winner}} mostrou um maior controlo do seu jogo.",
-        "A diferença de nível entre os dois jogadores fez-se sentir neste combate.",
-        "{{winner}} demonstrou a sua competência ao vencer este jogo difícil.",
-        "{{loser}} pode estar orgulhoso do seu desempenho apesar da derrota, mas {{winner}} é o claro vencedor deste combate.",
-        "{{winner}} esmagou o {{loser}} com um desempenho dominante.",
-        "{{loser}} fez o seu melhor, mas estava claramente abaixo do nível de {{winner}}.",
-        "A diferença de talento entre os dois jogadores foi decisiva nesta batalha.",
-        "{{winner}} mostrou porque é considerado um dos melhores ao vencer este jogo com facilidade.",
-        "{{loser}} pode aproveitar esta derrota como uma oportunidade para aprender e melhorar para as batalhas futuras."
+        "{{winner}} s'impose sur le terrain avec une performance marquée.",
+        "{{loser}} a donné tout ce qu'il avait, mais {{winner}} a montré une meilleure maîtrise de son jeu.",
+        "La différence de niveau entre les deux joueurs s'est faite sentir lors de ce combat.",
+        "{{winner}} a démontré son expertise en remportant cette rencontre difficile.",
+        "{{loser}} peut être fier de sa performance malgré la défaite, mais {{winner}} est incontestablement le vainqueur de ce combat.",
+        "{{winner}} a écrasé {{loser}} avec une performance dominante.",
+        "{{loser}} a fait de son mieux, mais il était clairement en dessous du niveau de {{winner}}.",
+        "La différence de talent entre les deux joueurs a été déterminante dans ce combat.",
+        "{{winner}} a démontré pourquoi il est considéré comme l'un des meilleurs en remportant ce match facilement.",
+        "{{loser}} peut prendre cette défaite comme une opportunité d'apprendre et de s'améliorer pour les combats futurs."
       ],
       "lowestEloWins": [
-        "O mais inesperado aconteceu neste combate: {{winner}} ganhou contra um adversário mais experiente.",
-        "{{loser}} talvez tenha subestimado o seu adversário, porque {{winner}} mostrou uma determinação inabalável.",
-        "Apesar da diferença de talento, {{winner}} conseguiu vencer este jogo com uma estratégia sólida.",
-        "Não foi um jogo fácil, mas {{winner}} provou que pode fazer frente aos jogadores mais talentosos.",
-        "Este combate foi certamente um ponto de viragem na carreira de {{winner}}, demonstrando a sua determinação e capacidade para vencer os lutadores mais experientes.",
-        "{{winner}} superou as expectativas ao vencer este jogo renhido contra um adversário mais talentoso.",
-        "{{loser}} talvez tenha subestimado o seu adversário, porque {{winner}} mostrou uma determinação inabalável.",
-        "Apesar da diferença de níveis, {{winner}} conseguiu vencer o combate graças a uma estratégia inteligente.",
-        "Não foi um jogo fácil, mas {{winner}} provou que pode fazer frente aos jogadores mais talentosos.",
-        "{{winner}} deu um importante passo em frente na sua carreira ao vencer este difícil jogo."
+        "Le plus inattendu s'est produit dans ce combat, {{winner}} a remporté la victoire face à un adversaire plus expérimenté.",
+        "{{loser}} a peut-être sous-estimé son adversaire, car {{winner}} a montré une détermination sans faille.",
+        "Malgré la différence de talent, {{winner}} a réussi à remporter ce match avec une stratégie solide.",
+        "Ce n'était pas un match facile, mais {{winner}} a prouvé qu'il peut tenir tête aux joueurs les plus talentueux.",
+        "Ce combat aura certainement été un tournant dans la carrière de {{winner}}, qui a démontré sa détermination et sa capacité à vaincre les plus expérimentés.",
+        "{{winner}} a surmonté les attentes en remportant ce match serré contre un adversaire plus talentueux.",
+        "{{loser}} a peut-être sous-estimé son adversaire, car {{winner}} a montré une détermination sans faille.",
+        "Malgré la différence de niveau, {{winner}} a réussi à remporter ce combat grâce à une stratégie astucieuse.",
+        "Ce n'était pas un match facile, mais {{winner}} a prouvé qu'il peut tenir tête aux joueurs les plus talentueux.",
+        "{{winner}} a certainement fait un pas en avant significatif dans sa carrière en remportant ce match difficile."
       ],
       "draw": [
-        "Foi um jogo muito disputado entre dois jogadores talentosos.",
-        "{{player1}} e {{player2}} mostraram uma determinação inabalável durante todo o jogo.",
-        "Nenhum dos jogadores foi capaz de assumir a liderança decisiva, resultando num empate inesperado.",
-        "Este jogo ficará provavelmente registado como um dos mais renhidos e emocionantes da história.",
-        "{{player1}} e {{player2}} lutam com determinação.",
-        "Apesar da diferença de nível, os dois jogadores deram tudo o que tinham para ganhar o jogo.",
-        "Nenhum dos dois conseguiu ganhar a vantagem decisiva, o que levou a um surpreendente empate.",
-        "Nenhum dos jogadores foi capaz de assumir a liderança decisiva, resultando num empate.",
-        "Este jogo ficará provavelmente registado como um dos mais renhidos e emocionantes da história.",
-        "{{player1}} e {{player2}} mostraram porque é que são considerados concorrentes talentosos neste combate épico."
+        "Ce match a été un match très disputé entre deux joueurs talentueux.",
+        "{{player1}} et {{player2}} ont montré une détermination sans faille tout au long du match.",
+        "Aucun des deux joueurs n'a pu prendre l'avantage décisif, ce qui a abouti à une égalité inattendue.",
+        "Ce match sera probablement considéré comme l'un des plus serrés et des plus passionnants de l'histoire.",
+        "{{player1}} et {{player2}} ont livré un combat acharné rempli de détermination.",
+        "Malgré la différence de niveau, les deux joueurs ont donné tout ce qu'ils avaient pour remporter le match.",
+        "Aucun des deux ne parvenait à prendre l'avantage décisif, ce qui a mené à une égalité surprenante.",
+        "Aucun des deux joueurs n'a pu prendre l'avantage décisif, ce qui a abouti à une égalité.",
+        "Ce match sera probablement considéré comme l'un des plus serrés et des plus passionnants de l'histoire.",
+        "{{player1}} et {{player2}} ont tous les deux montré pourquoi ils sont considérés comme de talentueux compétiteurs dans ce match épique."
       ],
       "sameElo": [
-        "Foi um jogo emocionante entre dois jogadores do mesmo nível.",
-        "{{player1}} e {{player2}} tiveram desempenhos sólidos e equilibrados.",
-        "Foi um jogo muito disputado, com algumas tácticas inteligentes de ambas as partes.",
-        "Os espectadores assistiram a um jogo épico entre dois jogadores talentosos que se defrontaram em igualdade de circunstâncias."
+        "Ce match a été un match passionnant entre deux joueurs de même niveau.",
+        "{{player1}} et {{player2}} ont tous les deux livré une performance solide et équilibrée.",
+        "Ce match a été un match très serré avec des tactiques astucieuses des deux côtés.",
+        "Les spectateurs ont assisté à un match épique entre deux joueurs talentueux qui se sont affrontés à armes égales."
       ]
     }
   },
@@ -1184,5 +1188,11 @@
       }
     },
     "refuse": "No final, decide ficar aqui e não se juntar ao seu grupo no barco."
+  },
+  "guildShelter": {
+    "embedTitle": "Refuge de la guilde {{guildName}}",
+    "petFieldName": "Familier n°{{number}}",
+    "noPetMessage": "Il semblerait qu'aucun familier ne soit dans le refuge.",
+    "warningFull": "Le refuge est plein ! Aucun nouveau familier ne pourra être accueilli tant qu'aucun familier du refuge n'aura été libéré ou vendu."
   }
 }
