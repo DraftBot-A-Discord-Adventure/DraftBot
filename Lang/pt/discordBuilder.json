@@ -307,6 +307,10 @@
       "weekly": "{emote:top.weekly} Esta semana."
     }
   },
+  "fight": {
+    "description": "Lancer un combat.",
+    "name": "combat"
+  },
   "switch": {
     "name": "interrutor",
     "description": "Trocar o objeto ativo por um dos objectos na sua reserva."
