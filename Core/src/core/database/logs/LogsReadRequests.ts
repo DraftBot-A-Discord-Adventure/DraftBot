@@ -32,6 +32,11 @@ export type RankedFightResult = {
 	draw: number
 };
 
+export type PersonalFightDailySummary = {
+	won: number,
+	played: number,
+}
+
 /**
  * This class is used to read some information in the log database in case it is needed for gameplay purposes
  */
@@ -86,7 +91,7 @@ export class LogsReadRequests {
 		});
 		// Extract ids from players
 		const ids = playersInGuild.map((player) => player.keycloakId);
-		// Convert the players to logs players
+		// Convert the players to log players
 		const logsPlayers = await LogsPlayers.findAll({
 			where: {
 				keycloakId: {
@@ -135,31 +140,27 @@ export class LogsReadRequests {
 	/**
 	 * Get the date of the last daily potion reset
 	 */
-	static getDateOfLastDailyPotionReset(): Promise<number> {
-		return LogsDailyPotions.findOne({
+	static async getDateOfLastDailyPotionReset(): Promise<number> {
+		const result = await LogsDailyPotions.findOne({
 			order: [["date", "DESC"]]
-		})
-			.then((result) => {
-				if (result) {
-					return result.date;
-				}
-				return 0;
-			});
+		});
+		if (result) {
+			return result.date;
+		}
+		return 0;
 	}
 
 	/**
 	 * Get the date of the last season reset
 	 */
-	static getDateOfLastSeasonReset(): Promise<number> {
-		return LogsSeasonEnd.findOne({
+	static async getDateOfLastSeasonReset(): Promise<number> {
+		const result = await LogsSeasonEnd.findOne({
 			order: [["date", "DESC"]]
-		})
-			.then((result) => {
-				if (result) {
-					return result.date;
-				}
-				return 0;
-			});
+		});
+		if (result) {
+			return result.date;
+		}
+		return 0;
 	}
 
 	/**
@@ -281,7 +282,45 @@ export class LogsReadRequests {
 	}
 
 	/**
-	 * Get the fights of a player against other players this week
+	 * Get the personal fight daily summary of a player only for the fights he initiated
+	 * @param playerKeycloakId
+	 */
+	static async getPersonalInitiatedFightDailySummary(playerKeycloakId: string): Promise<PersonalFightDailySummary> {
+		// Get the start of today in UTC
+		const startOfDay = new Date();
+		startOfDay.setUTCHours(0, 0, 0, 0);
+		const startTimestamp = Math.floor(startOfDay.getTime() / 1000);
+
+		// Find all ranked (non-friendly) fights for today initiated by the player
+		const fights = await LogsFightsResults.findAll({
+			where: {
+				date: { [Op.gt]: startTimestamp },
+				friendly: false,
+				"$LogsPlayer1.keycloakId$": playerKeycloakId
+			},
+			include: [{
+				model: LogsPlayers,
+				association: new HasOne(LogsFightsResults, LogsPlayers, {
+					sourceKey: "fightInitiatorId",
+					foreignKey: "id",
+					as: "LogsPlayer1"
+				}),
+				attributes: ["keycloakId"]
+			}]
+		});
+		const played = fights.length;
+		let won = 0;
+		for (const fight of fights) {
+			if (fight.winner === 0) {
+				won++;
+			}
+		}
+		return { won, played };
+	}
+
+
+	/**
+	 * Get the fights of a player against a specific other player this week
 	 * @param attackerKeycloakId - The keycloak id of the attacker
 	 * @param defenderKeycloakIds - The keycloak ids of the defenders
 	 */
@@ -304,7 +343,7 @@ export class LogsReadRequests {
 			include: [{
 				model: LogsPlayers,
 				association: new HasOne(LogsFightsResults, LogsPlayers, {
-					sourceKey: "player1Id",
+					sourceKey: "fightInitiatorId",
 					foreignKey: "id",
 					as: "LogsPlayer1"
 				})
@@ -402,7 +441,9 @@ export class LogsReadRequests {
 	}
 
 	/**
-	 * Parse the fights results to a ranked fight result
+	 * Parse the fight results to a ranked fight result which allows knowing how many fights the player won,
+	 * lost or draw from the list given in parameter
+	 * Warning: this function does not check for a specific player, it just counts the fights
 	 * @param fights
 	 * @private
 	 */
@@ -415,13 +456,13 @@ export class LogsReadRequests {
 		const fightersId = [];
 		for (const fight of fights) {
 			if (fightersId.length === 0) {
-				fightersId.push(fight.player1Id);
+				fightersId.push(fight.fightInitiatorId);
 				fightersId.push(fight.player2Id);
 			}
 			if (fight.winner === 0) {
 				ret.draw++;
 			}
-			else if (fight.winner === 1 && fight.player1Id === fightersId[0] || fight.winner === 2 && fight.player2Id === fightersId[0]) {
+			else if (fight.winner === 1 && fight.fightInitiatorId === fightersId[0] || fight.winner === 2 && fight.player2Id === fightersId[0]) {
 				ret.won++;
 			}
 			else {

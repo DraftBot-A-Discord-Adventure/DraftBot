@@ -21,6 +21,14 @@ export abstract class FightConstants {
 		PVE_ISLAND: "error.onPveIsland"
 	};
 
+	static readonly REWARDS = {
+		NUMBER_OF_WIN_THAT_AWARD_SCORE_BONUS: 3,
+		SCORE_BONUS_AWARD: 35,
+		WIN_MONEY_BONUS: 50,
+		DRAW_MONEY_BONUS: 30,
+		LOSS_MONEY_BONUS: 15
+	};
+
 	// Duration of the menu that searches for an opponent in milliseconds
 	static readonly ASKING_MENU_DURATION = 120000;
 

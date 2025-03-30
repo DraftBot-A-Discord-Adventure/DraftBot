@@ -3,9 +3,9 @@ import {DataTypes, Model, Sequelize} from "sequelize";
 export class LogsFightsResults extends Model {
 	declare readonly id: number;
 
-	declare readonly player1Id: number;
+	declare readonly fightInitiatorId: number;
 
-	declare readonly player1Points: number;
+	declare readonly fightInitiatorPoints: number;
 
 	declare readonly player2Id: number;
 
@@ -27,11 +27,11 @@ export function initModel(sequelize: Sequelize): void {
 			primaryKey: true,
 			autoIncrement: true
 		},
-		player1Id: {
+		fightInitiatorId: {
 			type: DataTypes.INTEGER,
 			allowNull: false
 		},
-		player1Points: {
+		fightInitiatorPoints: {
 			type: DataTypes.INTEGER.UNSIGNED,
 			allowNull: false
 		},

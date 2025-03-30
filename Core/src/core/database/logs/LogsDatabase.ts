@@ -976,14 +976,14 @@ export class LogsDatabase extends Database {
 	 */
 	public async logFight(fight: FightController): Promise<number> {
 		if (fight.fighters[0] instanceof PlayerFighter && fight.fighters[1] instanceof PlayerFighter) {
-			const player1 = fight.fighters[(fight.turn + 1) % 2] as PlayerFighter; // Odd turn = fighters[0] is inverted
-			const player1Id = (await LogsDatabase.findOrCreatePlayer(player1.player.keycloakId)).id;
-			const player2 = fight.fighters[0] === player1 ? fight.fighters[1] : fight.fighters[0];
+			const fightInitiator = fight.fightInitiator;
+			const fightInitiatorId = (await LogsDatabase.findOrCreatePlayer(fightInitiator.player.keycloakId)).id;
+			const player2 = fight.fighters[0] === fightInitiator ? fight.fighters[1] : fight.fighters[0];
 			const player2Id = (await LogsDatabase.findOrCreatePlayer(player2.player.keycloakId)).id;
-			const winner = fight.getWinnerFighter() === player1 ? 1 : 2;
+			const winner = fight.getWinnerFighter() === fightInitiator ? 1 : 2;
 			const fightResult = await LogsFightsResults.create({
-				player1Id,
-				player1Points: player1.player.score,
+				fightInitiatorId,
+				fightInitiatorPoints: fightInitiator.player.score,
 				player2Id,
 				player2Points: player2.player.score,
 				turn: fight.turn,
@@ -991,7 +991,7 @@ export class LogsDatabase extends Database {
 				friendly: false,
 				date: getDateLogs()
 			});
-			for (const player of [player1, player2]) {
+			for (const player of [fightInitiator, player2]) {
 				const fightActionsUsed: { [action: string]: number } = {};
 				for (const fightAction of player.fightActionsHistory) {
 					fightActionsUsed[fightAction.id] ? fightActionsUsed[fightAction.id]++ : fightActionsUsed[fightAction.id] = 1;
@@ -1005,7 +1005,7 @@ export class LogsDatabase extends Database {
 					});
 					await LogsFightsActionsUsed.create({
 						fightId: fightResult.id,
-						player: player === player1 ? 1 : 2,
+						player: player === fightInitiator ? 1 : 2,
 						actionId: fightAction.id,
 						count
 					});
