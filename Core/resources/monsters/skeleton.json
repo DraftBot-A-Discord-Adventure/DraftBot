@@ -6,16 +6,17 @@
 	"breath": 3,
 	"maxBreath": 20,
 	"breathRegen": 5,
+  "rewardFactor" : 0.8,
 	"attacks": [
 		{
 			"id": "simpleAttack",
 			"minLevel": 0,
-			"weight": 5
+			"weight": 6
 		},
 		{
 			"id": "shieldAttack",
 			"minLevel": 0,
-			"weight": 5
+			"weight": 4
 		},
 		{
 			"id": "resting",
@@ -25,7 +26,7 @@
 		{
 			"id": "cursedAttack",
 			"minLevel": 50,
-			"weight": 3
+			"weight": 2
 		},
 		{
 			"id": "summonAttack",
