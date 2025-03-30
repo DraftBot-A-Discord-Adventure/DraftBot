@@ -307,6 +307,10 @@
       "weekly": "{emote:top.weekly} Cette semaine."
     }
   },
+  "fight": {
+    "description": "Lancer un combat.",
+    "name": "combat"
+  },
   "switch": {
     "name": "intervertir",
     "description": "Intervertir l'objet actif avec l'un des objets présent dans votre réserve."
