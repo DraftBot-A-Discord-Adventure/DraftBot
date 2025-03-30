@@ -1424,23 +1424,23 @@
       },
       "provoke": {
         "name": "Taunt",
-        "success": "You approach the animal and provoke it by making grimaces. This one runs on you! You deviate at the last moment and it crushed against a tree. You finish it with a kick and get back on your way.",
-        "failure": "You approach the animal and provoke it by making grimaces. He grunts himself and sits at you a violent blow before leaving you alone."
+        "success": "You approach the animal and provoke it by making grimaces. It runs towards you out of fury! You step aside at the last minute and it crashes into a tree. You finish it with a kick and get back on your way.",
+        "failure": "You approach the animal and provoke it by making grimaces. He snarls and gives you a violent blow before leaving you alone."
       },
       "doNothing": {
         "name": "Do nothing",
-        "success": "You are not moving one inch, and the animal seems to ignore you. You take advantage of it to overshadow yourself, glad to have been so lucky.",
-        "failure": "You don't move one inch, but the animal doesn't allow itself to be deceived and you sit a violent blow before leaving yourself alone. You are going back to the shameful road of being able to imagine that this strategy would work."
+        "success": "You are not moving an inch, and the animal seems to ignore you. You take opportunity to slip away, delighted to have been so lucky.",
+        "failure": "You don't move an inch, but the animal isn't fooled and gives you a violent blow before leaving you alone. You are going back on the road, ashamed that this strategy didn't work as expected."
       },
       "lastEffort": {
-        "name": "Use all your forces to attack",
-        "success": "You focus and gather all your forces to attack the animal. You hit it with a violent blow that makes it flee!",
-        "failure": "You focus and gather all your forces to attack the animal. You hit him violently, but it is not enough to make him flee. You are under a fierce attack before you get away!"
+        "name": "Use all your strength to attack",
+        "success": "You concentrate and gather all your strength to attack the animal. You give it a blow so violent it forces it to flee!",
+        "failure": "You concentrate and gather all your strength to attack the animal. You give it a violent blow, but it is not enough to make it flee. You suffer a fierce attack before managing to get away!"
       },
       "usePlayerPet": {
-        "name": "Call your pet",
-        "success": "It is time to call on your friend for an epic fight. The pet will not take place, however, since the wild animal, surprised by your pet's arrival, flees without asking for the remainder!",
-        "failure": "In a moment and before you could call any other animal in the battlefield, you find yourself on the ground, stunned by the wild beast that leaves you alone, without even giving you a look."
+        "name": "Call on your pet",
+        "success": "After all the adventures you've been through together, it's finally time to call on your companion for an epic battle. However, it won't happen as the wild animal, surprised by your pet's arrival, flees without a second thought!",
+        "failure": "In a moment and before you could call any other animal in the battlefield, you find yourself on the ground, knocked unconscious by the wild beast that leaves you alone, without even giving you a glance."
       },
       "protect": {
         "name": "Protect yourself",
@@ -1576,7 +1576,7 @@
       "Walking peacefully into the unknown, a familiar figure emerges: Alderic the antique dealer, the wandering merchant, offers you an intriguing proposal.",
       "During your trip without hindrance, a unique event occurs. Alderic the antique dealer, the itinerant artist of antiquities, invites you to a memorable transaction.",
       "During your trip, something surprising interrupts you. It's Alderic the antique dealer, the wandering merchant, who presents you with an unexpected treasure.",
-      "During a short break under a tree, a mysterious character appears. It is Alderic the antique dealer, the vagabond of the insolite, ready to immerse you in an enchanting offer.",
+      "During a short break under a tree, a mysterious character appears. It is Alderic the antique dealer, the vagabond of the unusual, ready to immerse you in an enchanting offer.",
       "As you peacefully walk along the road, your attention is drawn to the noise of the wheels of a cart. Alderic the antique dealer, a middle-aged man dressed in a picturesque way, wanders the roads as a merchant. With a friendly smile, he invites you to explore his collection of fascinating objects.",
       "Walking on a dusty stone path, a cart bearing the inscription \"Alderic the antique dealer - great item merchant\" comes into view. A transaction is about to begin.",
       "Walking quietly, a wooden trolley that attracted your curiosity appears on the horizon. On board is Alderic, a distinguished man marked by the passage of time. His cart is filled with antiques carefully arranged and he proposes to show you his treasures, all loaded with stories.",
