@@ -237,9 +237,6 @@
       "PET_SELL": {
         "description": "Permet de vendre un familier. Les conditions suivantes s'appliquent : \n - le prix de vente doit être être supérieur à `{{petSellMinPrice}}{emote:unitValues.money}` et inférieur à `{{petSellMaxPrice}}{emote:unitValues.money}`. \n- Le vendeur ne gagnera pas d'argent lors de la transaction, mais de l'expérience de guilde. \n- Le vendeur et l'acheteur ne peuvent pas faire partie de la même guilde."
       },
-      "PET_TRADE": {
-        "description": "Propose un échange de vos animaux avec la personne mentionnée."
-      },
       "PET_TRANSFER": {
         "description": "Permet de transférer un familier depuis ou vers la guilde. Si aucun numéro n'est fourni, le familier de votre inventaire sera déplacé vers le refuge de la guilde. Sinon, il sera échangé avec celui de la guilde dont la position correspond au numéro donné."
       },
