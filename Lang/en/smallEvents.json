@@ -1511,13 +1511,13 @@
       "As you walk quietly, a cart bearing the sign \"{{name}} - supertrader traveling items\" will appear in front of you. A transaction is starting immedially.",
       "A merchant is calling you to a certain point of your journey. He says he's called {{name}} and has items that can help you on your journey.",
       "A man is approaching you with long hours of walking. You hear that it is called {{name}} – a first-class merchant. It quickly shows you one of its many items.",
-      "During a short break against a tree, a man comes to you and presents himself as a traveling merchant. The man named {{name}} seems to offer an enchanting offer."
+      "During a short break against a tree, a man comes to you and presents himself as a traveling merchant. The man whose name is {{name}} seems to offer an enchanting deal."
     ],
     "intro_f": [
-      "As you move quietly along your way, you fall nose with {{name}} that quickly offers you an attractive offer.",
-      "Travelling merchants often meet on the roads. Today it is a merchant named {{name}} who offers its offer.",
-      "During your journey, a merchant is calling you up. They say they call themselves {{name}} and have items that can help you on your journey.",
-      "As you move quietly along your way, you see a cart where a merchant named {{name}}is located. It offers you to buy one of its items, telling you that it might be useful to you in your adventure."
+      "As you move quietly along your way, you come face to face with {{name}} who quickly offers you an attractive deal.",
+      "As you travel the roads, you often come across wandering merchants. Today, it's one named {{name}} who has a deal to offer to you.",
+      "During your journey, a merchant is calling out to you. She tells she's named {{name}} and has items that can help you on your journey.",
+      "As you move quietly along your way, you come across a cart where a merchant named {{name}} is located. She offers you to buy one of her items, telling you that it might be useful to you in your adventure."
     ],
     "end": [
       "\n\n{{item}} | `{{price}} {emote:unitValues.money}`\n\n**Type:** {{type}}"
@@ -1526,18 +1526,18 @@
       "Weapon",
       "Armour/Shield",
       "Potion",
-      "Subject"
+      "Item"
     ],
     "names_m": [
       "Terry",
-      "Marcus",
+      "Marco",
       "Didier",
       "Bernard",
       "George",
       "Louis",
       "Kilton",
       "Kikolou",
-      "Arad",
+      "Araj",
       "Lavio",
       "Bugri",
       "Faras",
@@ -1558,24 +1558,24 @@
       "Ullure"
     ],
     "purchased": [
-      "Satisfied with your purchase, you will return to your road quietly.",
+      "Satisfied with your purchase, you quietly resume your travel.",
       "You give him a purse in order to proceed to the purchase, once the property has been acquired you continue your way."
     ],
     "notEnoughMoney": [
-      "Unfortunately, you do not have enough money, so you can get back to the road.",
-      "You stretch an empty purse, hoping that it passes smoothly, but you get hunted quickly, you get back to your sad and sad way."
+      "Unfortunately, you do not have enough money, so you get back on the road.",
+      "You stretch an empty purse, hoping that it passes without a hitch, but you get quickly warded off, you get back to your tracks with a sad, disappointed mood."
     ],
     "refused": [
-      "You delineate the offer and return to your path."
+      "You decline the offer and continue your travel."
     ]
   },
   "epicItemShop": {
     "intro": [
-      "Progress towards your destination, an unexpected encounter occurs. Alderic the antique dealer emerges on the horizon, his truck of trailer treasures, ready to discuss a specific matter.",
-      "On the way, a strange individual appears. Alderic the antique dealer, charming travelling merchant, presents himself with a captivating offer.",
-      "Walking peacefully to the unknown, a family silhouette emerges: Alderic the antique dealer, the wandering merchant, offers you an intriguing proposal.",
-      "During your trip without hindrance, a unique event occurs. Alderic the antique dealer, the artist traveling antiquities, invites you to a memorable transaction.",
-      "During your trip, a surprising break occurs, and Alderic the antique dealer, the merchant, gives you an unexpected treasure.",
+      "As you progress towards your destination, an unexpected encounter occurs. Alderic the antique dealer emerges on the horizon, his cart of treasures in tow, ready to discuss a special offer.",
+      "On the way, a strange individual appears. Alderic the antique dealer, a charming travelling merchant, presents himself with a captivating offer.",
+      "Walking peacefully into the unknown, a familiar figure emerges: Alderic the antique dealer, the wandering merchant, offers you an intriguing proposal.",
+      "During your trip without hindrance, a unique event occurs. Alderic the antique dealer, the itinerant artist of antiquities, invites you to a memorable transaction.",
+      "During your trip, something surprising interrupts you. It's Alderic the antique dealer, the wandering merchant, who presents you with an unexpected treasure.",
       "During a short break under a tree, a mysterious character appears. It is Alderic the antique dealer, the vagabond of the insolite, ready to immerse you in an enchanting offer.",
       "As you peacefully walk along the road, your attention is drawn to the noise of the wheels of a cart. Alderic the antique dealer, a middle-aged man dressed in a picturesque way, wanders the roads as a merchant. With a friendly smile, he invites you to explore his collection of fascinating objects.",
       "Walking on a dusty stone path, a cart bearing the inscription \"Alderic the antique dealer - great item merchant\" comes into view. A transaction is about to begin.",
