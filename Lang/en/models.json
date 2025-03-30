@@ -165,6 +165,11 @@
       "active": "suffers from his burn.",
       "stop": "is no longer burnt."
     },
+    "alliesArePresent": {
+      "name": "victime des alliés",
+      "new": "est victime des alliés de son adversaire.",
+      "active": "subit les attaques des alliés de son adversaire."
+    },
     "canonAttack": {
       "description": "The accuracy of this attack is reduced on fast-moving opponents. A damage bonus is assigned to this attack if the opponent is very slow. The opponent can be slowed down by the attack. Inflicts more damage if used several times in succession.",
       "name_one": "Cannon attack",
