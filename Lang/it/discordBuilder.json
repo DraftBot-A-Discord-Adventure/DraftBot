@@ -303,9 +303,13 @@
       }
     },
     "timings": {
-      "allTime": "{emote:top.allTime} Depuis toujours.",
+      "allTime": "{emote:top.allTime} L'ho sempre fatto.",
       "weekly": "{emote:top.weekly} Questa settimana."
     }
+  },
+  "fight": {
+    "description": "Iniziare una lotta.",
+    "name": "combattimento"
   },
   "switch": {
     "name": "interruttore",
@@ -364,7 +368,7 @@
     "description": "Visualizza il contenuto del magazzino della gilda."
   },
   "joinBoat": {
-    "name": "rejoindrebateau",
-    "description": "Permet de rejoindre le bateau si un membre de votre guilde est dessus."
+    "name": "unirsi alla barca",
+    "description": "Permette di unirsi alla barca se un membro della propria gilda è a bordo."
   }
 }
