@@ -1,6 +1,7 @@
 export const FightAlterations = {
 	BLIND: "blind",
 	BURNED: "burned",
+	ALLIES_ARE_PRESENT: "alliesArePresent",
 	CONCENTRATED: "concentrated",
 	CONFUSED: "confused",
 	CURSED: "cursed",

@@ -1,9 +1,9 @@
 import {Fighter} from "../../../fighter/Fighter";
-import {RandomUtils} from "../../../../../../../Lib/src/utils/RandomUtils";
 import {FightActionFunc} from "../../../../../data/FightAction";
 import {defaultFailFightActionResult} from "../../../../../../../Lib/src/types/FightActionResult";
 import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTemplate";
-import {attackInfo, statsInfo} from "../../FightActionController";
+import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
+import {FightAlterations} from "../../FightAlterations";
 
 const use: FightActionFunc = (sender, receiver) => {
 	// Fail if already used
@@ -11,21 +11,27 @@ const use: FightActionFunc = (sender, receiver) => {
 		return defaultFailFightActionResult();
 	}
 
-	return simpleDamageFightAction(
+	const result = simpleDamageFightAction(
 		{
 			sender,
 			receiver
 		},
 		{
-			critical: 5,
-			failure: 10
+			critical: 0,
+			failure: 0
 		},
 		{
 			attackInfo: getAttackInfo(),
 			statsInfo: getStatsInfo(sender, receiver)
-		},
-		RandomUtils.randInt(2, 6) // Number of summoned allies
+		}
 	);
+
+	FightActionController.applyAlteration(result, {
+		selfTarget: false,
+		alteration: FightAlterations.ALLIES_ARE_PRESENT
+	}, receiver);
+
+	return result;
 };
 
 export default use;
