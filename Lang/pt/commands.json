@@ -72,7 +72,7 @@
     "noPlayer": "O jogador não pertence ao grémio.",
     "notSameGuild": "Não podes expulsar um jogador que não pertença à tua guilda.",
     "himself": "Não te podes expulsar do grémio.",
-    "blocked": "Le joueur que vous essayez d'expulser est actuellement bloqué. Attendez un peu avant de réessayer."
+    "blocked": "O jogador que está a tentar expulsar está bloqueado. Espera um pouco antes de tentares novamente."
   },
   "guildElder": {
     "playerNotFound": "Este jogador não foi encontrado.",
@@ -325,12 +325,12 @@
   "language": {
     "description": "Utilize o menu abaixo para alterar o idioma utilizado pelo bot neste servidor. Este comando é reservado aos administradores do servidor.",
     "languages": {
-      "de": "Allemand",
-      "en": "Anglais",
-      "es": "Espagnol",
-      "fr": "Français",
-      "it": "Italien",
-      "pt": "Portugais"
+      "de": "alemão",
+      "en": "Inglês",
+      "es": "espanhol",
+      "fr": "francês",
+      "it": "italiano",
+      "pt": "Português"
     },
     "newLanguageSetDescription": "O DraftBot agora fala consigo em português! {emote:languageFlavors.pt}",
     "newLanguageSetTitle": "Língua alterada",
@@ -429,7 +429,7 @@
     "title": "{{effect}} {{pseudo}} {{level}}| | Nível"
   },
   "rarity": {
-    "earlyAvailable": "Possédé en début de jeu",
+    "earlyAvailable": "Possuído no início do jogo",
     "rarityTemplate": "$t(items:rarities.{{rarity}}) | {{percentageOrDescription}}",
     "title": ":slot_machine: Escassez de equipamento"
   },
@@ -468,6 +468,7 @@
     "noFight": ":newspaper: {{pseudo}} {{waitABitReaction}} ** Fazes uma fuga rápida e encontras um pequeno esconderijo! O monstro está à espera pacientemente lá fora...",
     "points": ":medal: :** Pontos ganhos :{{score}}**",
     "pveEvent": ":newspaper: {{pseudo}} {{event}}\n\n{{monsterDisplay}}\n\n{{startTheFightReaction}}\n{{waitABitReaction}}\n\n** log:** Iniciar o combate Esperar um pouco antes de iniciar o combate *- Utilizar reacções para realizar uma ação*.",
+    "pveFightRefused": "{emote:commands.report} **Diário de {{pseudo}} :** {emote:pve_fights.wait_a_bit} | Decides não entrar em combate por enquanto e refugias-te num esconderijo próximo. Terás de enfrentar a fera, pois não encontras outra saída.",
     "remainingEnergyTitle": "Energia restante :",
     "startPoint": "Ponto de partida :",
     "timeLost": ":clock10:{{timeLost}}| Tempo perdido :",
@@ -817,6 +818,178 @@
     "nobodyInTopGuilds": "Atualmente não existem guildas no topo! Aproveita enquanto podes.",
     "invalidPage": "A página solicitada não existe. {{minPage}} {{maxPage}}Por favor, tente novamente com uma página entre e ."
   },
+  "fight": {
+    "title": "{{pseudo}}está prestes a começar uma luta",
+    "canceledTitle": "{{pseudo}}anulou a pesquisa",
+    "confirmDesc": "{emote:fight_command.crossed_swords} | **{{pseudo}}**{{confirmSubText}}\n\n{emote:fight_command.crossed_swords} | **Fighter : {{pseudo}}| {{glory}} | {{className}}\n\n{{stats}}",
+    "confirmSubTexts": {
+      "common": "Estás à procura de uma luta?",
+      "rare": "Gostarias de participar na procura de um lutador com a tua força pessoal para o duelo seguinte?"
+    },
+    "canceledDesc": "Anulou a busca de combate.",
+    "information": {
+      "glory": "{emote:unitValues.glory} {{gloryPoints}}",
+      "class": "{{className}}",
+      "stats": ":zap: {{cumulativeHealth}} {{cumulativeMaxHealth}} :dagger: {{cumulativeAttack}} :shield: {{cumulativeDefense}} :rocket: {{cumulativeSpeed}} :wind_blowing_face: {{baseBreath}} {{maxBreath}} :lungs: {{breathRegen}}/ | | | | / |"
+    },
+    "opponentsNotFound": "Não foi encontrado nenhum adversário para o defrontar. Podes tentar novamente mais tarde.",
+    "notEnoughEnergy": "Não tens energia suficiente para começar uma luta!",
+    "monsterNotFound": "Não foi encontrado nenhum monstro para te enfrentar. Por favor, comunique este incidente à nossa equipa de apoio (discord.gg/AP3Wmzb).",
+    "fightIntroTitle": "{emote:fight_command.crossed_swords} | Está a decorrer um combate entre {{fightInitiator}} e {{opponent}} !",
+    "actionsOf": "Ataques de {{pseudo}}",
+    "fightActionNameDisplay": "{{fightActionEmote}} - {{fightActionName}} {emote:unitValues.breath} {{breathCost}}",
+    "summarize": {
+      "title": "Resumo do combate",
+      "intro": {
+        "start": "{emote:fight_command.clipboard} **Estado atual do combate** {{state}}\n\n",
+        "prolongation": "Extensões",
+        "noProlongation": "[{{currentTurn}}/{{maxTurn}}]"
+      },
+      "attacker": "{emote:unitValues.attack} **Attacker : {{pseudo}}**\n",
+      "defender": "\n\n{emote:unitValues.defense} | Defender : {{pseudo}}**\n",
+      "stats": "{emote:unitValues.energy} {{power}} | {emote:unitValues.attack} {{attack}} | {emote:unitValues.defense} {{defense}} | {emote:unitValues.speed} {{speed}} | {emote:unitValues.breath} {{breath}} {{maxBreath}} | {emote:unitValues.breathRegen} {{breathRegen}}"
+    },
+    "end": {
+      "bugged": "O combate foi cancelado devido a um problema técnico.",
+      "draw": "{emote:commands.report} |{{player1}} e {{player2}} terminam o seu combate com um empate !**\n\n",
+      "win": "{emote:commands.report}**{{winner}} ganha o jogo contra {{loser}}**\n\n",
+      "gameStats": "{emote:fight_command.game_stats} | Estatísticas de combate\n- **Rounds** : {{turn}}/{{maxTurn}}\n- **Combat time** : {{time}}",
+      "gameStatsProlongation": "{emote:fight_command.game_stats} | Estatísticas do combate\n- **Visitas**: {{turn}}/{{maxTurn}} (tempo extra)\n- **Tempo do combate**: {{time}}",
+      "fighterStats": "\n\n{emote:fight_command.fighter_stats} | Estatísticas {{pseudo}}\n- **Vida final** : {{energy}}/{{maxEnergy}} {emote:unitValues.energy}"
+    },
+    "fightActionChoose": {
+      "turnIndicationTitle": "É a vez de {{pseudo}} jogar {emote:fight_command.crossed_swords}",
+      "turnIndicationDescription": "Escolher uma ação"
+    },
+    "actions": {
+      "intro": "{{emote}} |{{fighter}}** ",
+      "attacksResults": {
+        "critical": [
+          "executa um {{attack}} ! Executado na perfeição!",
+          "faz um {{attack}} ! Ela é tão bonita!",
+          "é um excelente {{attack}} ! Executado na perfeição!",
+          "realiza um {{attack}} ! Um sucesso incrível!",
+          "faz um {{attack}} ! Totalmente brutal!",
+          "faz um {{attack}} ! Foi uma jogada arriscada, mas valeu a pena!",
+          "Bom {{attack}} !",
+          "utilizar um {{attack}} ! É PERFEITO!",
+          "usa um {{attack}} ! Magistral!",
+          "cria um sublime {{attack}} !",
+          "executa um {{attack}} ! É perfeito!",
+          "faz um {{attack}} ! O assalto é absolutamente louco!",
+          "atinge o seu adversário com um {{attack}} ! Sem piedade!",
+          "realiza um {{attack}} ! É amor à primeira vista!",
+          "faz um {{attack}} ! OH MEU DEUS É INACREDITÁVEL!",
+          "escolhe um {{attack}} ! Que grande iniciativa!",
+          "faz um {{attack}} ! É um excelente {{attack}} !",
+          "executa um {{attack}} ! Acerto crítico!",
+          "ataca o seu adversário com um {{attack}} !"
+        ],
+        "normal": [
+          "visite {{attack}} !",
+          "lançar um {{attack}} !",
+          "utilizar um {{attack}} !",
+          "visite {{attack}} !"
+        ],
+        "maxUses": [
+          "tenta utilizar um {{attack}}, mas não consegue!"
+        ],
+        "charging": [
+          "está a preparar-se para {{attack}} !"
+        ],
+        "missed": [
+          "faz um {{attack}} ! Já vimos melhor...",
+          "lançar um {{attack}} ! Medíocre",
+          "faz um {{attack}} ! Não parece muito bom.",
+          "faz um {{attack}} ! Não é muito eficaz...",
+          "escolhe um {{attack}} ! O resultado é bastante patético.",
+          "faz um {{attack}} ! Não foi a melhor escolha...",
+          "{{attack}} ! É uma falha!",
+          "faz um {{attack}} ! O ataque falha miseravelmente!",
+          "faz uma má {{attack}} ! Uma cruel falta de técnica do jogador francês!",
+          "faz um {{attack}} ! Que erro!",
+          "executa um {{attack}} ! Foi uma jogada arriscada e não resultou!",
+          "lançar um mau {{attack}} !",
+          "utiliza um {{attack}} ! Não é uma escolha sensata!",
+          "escolhe um {{attack}} ! Má jogada...",
+          "executa um {{attack}} ! É um mau {{attack}} !"
+        ]
+      },
+      "fightActionEffects": {
+        "self": {
+          "newAlteration": " Agora és {{effect}} !",
+          "damages": " Danos recebidos: {{amount}}`",
+          "defense": " Defesa: {{operator}} {{amount}}%`",
+          "breath": " Respiração: {{operator}} {{amount}}",
+          "speed": " Velocidade: {{operator}} {{amount}}%`",
+          "attack": " Ataque: {{operator}} {{amount}}%`",
+          "energy": " Energia recuperada: {{amount}}`"
+        },
+        "opponent": {
+          "newAlteration": " O teu adversário é agora {{effect}} .",
+          "damages": " Danos infligidos: {{amount}}`",
+          "defense": " Defesa do adversário: {{operator}} {{amount}}%`",
+          "breath": " Hálito do adversário: {{operator}} {{amount}}`",
+          "speed": " Velocidade do oponente: {{operator}} {{amount}}%`",
+          "attack": " Ataque do adversário: {{operator}} {{amount}}%`",
+          "energy": " Energia do adversário recuperada: {{amount}}`",
+          "summoning": " Invocação de {{amount}} aliados"
+        }
+      },
+      "aiChoose": "{emote:fight_command.ai_thinking} O adversário escolhe um ataque..."
+    },
+    "gloryChanges": {
+      "title": "{emote:fight_command.glory_change} Relatório sobre a glória",
+      "gloryField": "Mudanças de glória",
+      "gloryNegative": "**{{player}} :** - {{count}} {emote:unitValues.glory}\n",
+      "gloryPositive": "**{{player}} :** + {{count}} {emote:unitValues.glory}\n",
+      "leagueField": "Alterações na Liga",
+      "leagueChangeUp": "️ **{{player}} :** {{oldLeagueEmoji}} {{oldLeague}} -> {{newLeagueEmoji}} {{newLeague}}\n",
+      "leagueChangeDown": "↘️️ **{{player}} :** {{oldLeagueEmoji}} {{oldLeague}} -> {{newLeagueEmoji}} {{newLeague}}\n",
+      "higherEloWins": [
+        "{{winner}} entra em campo com um desempenho forte.",
+        "{{loser}} deu tudo o que tinha, mas {{winner}} mostrou um maior controlo do seu jogo.",
+        "A diferença de nível entre os dois jogadores fez-se sentir neste combate.",
+        "{{winner}} demonstrou a sua competência ao vencer este jogo difícil.",
+        "{{loser}} pode estar orgulhoso do seu desempenho apesar da derrota, mas {{winner}} é o claro vencedor deste combate.",
+        "{{winner}} esmagou o {{loser}} com um desempenho dominante.",
+        "{{loser}} fez o seu melhor, mas estava claramente abaixo do nível de {{winner}}.",
+        "A diferença de talento entre os dois jogadores foi decisiva nesta batalha.",
+        "{{winner}} mostrou porque é considerado um dos melhores ao vencer este jogo com facilidade.",
+        "{{loser}} pode aproveitar esta derrota como uma oportunidade para aprender e melhorar para as batalhas futuras."
+      ],
+      "lowestEloWins": [
+        "O mais inesperado aconteceu neste combate: {{winner}} ganhou contra um adversário mais experiente.",
+        "{{loser}} talvez tenha subestimado o seu adversário, porque {{winner}} mostrou uma determinação inabalável.",
+        "Apesar da diferença de talento, {{winner}} conseguiu vencer este jogo com uma estratégia sólida.",
+        "Não foi um jogo fácil, mas {{winner}} provou que pode fazer frente aos jogadores mais talentosos.",
+        "Este combate foi certamente um ponto de viragem na carreira de {{winner}}, demonstrando a sua determinação e capacidade para vencer os lutadores mais experientes.",
+        "{{winner}} superou as expectativas ao vencer este jogo renhido contra um adversário mais talentoso.",
+        "{{loser}} talvez tenha subestimado o seu adversário, porque {{winner}} mostrou uma determinação inabalável.",
+        "Apesar da diferença de níveis, {{winner}} conseguiu vencer o combate graças a uma estratégia inteligente.",
+        "Não foi um jogo fácil, mas {{winner}} provou que pode fazer frente aos jogadores mais talentosos.",
+        "{{winner}} deu um importante passo em frente na sua carreira ao vencer este difícil jogo."
+      ],
+      "draw": [
+        "Foi um jogo muito disputado entre dois jogadores talentosos.",
+        "{{player1}} e {{player2}} mostraram uma determinação inabalável durante todo o jogo.",
+        "Nenhum dos jogadores foi capaz de assumir a liderança decisiva, resultando num empate inesperado.",
+        "Este jogo ficará provavelmente registado como um dos mais renhidos e emocionantes da história.",
+        "{{player1}} e {{player2}} lutam com determinação.",
+        "Apesar da diferença de nível, os dois jogadores deram tudo o que tinham para ganhar o jogo.",
+        "Nenhum dos dois conseguiu ganhar a vantagem decisiva, o que levou a um surpreendente empate.",
+        "Nenhum dos jogadores foi capaz de assumir a liderança decisiva, resultando num empate.",
+        "Este jogo ficará provavelmente registado como um dos mais renhidos e emocionantes da história.",
+        "{{player1}} e {{player2}} mostraram porque é que são considerados concorrentes talentosos neste combate épico."
+      ],
+      "sameElo": [
+        "Foi um jogo emocionante entre dois jogadores do mesmo nível.",
+        "{{player1}} e {{player2}} tiveram desempenhos sólidos e equilibrados.",
+        "Foi um jogo muito disputado, com algumas tácticas inteligentes de ambas as partes.",
+        "Os espectadores assistiram a um jogo épico entre dois jogadores talentosos que se defrontaram em igualdade de circunstâncias."
+      ]
+    }
+  },
   "switch": {
     "titleSuccess": "{{pseudo}}Encomendar agora!",
     "switchingDouble": "{{item1}} {{item2}} e foram trocados!",
@@ -989,27 +1162,27 @@
   },
   "joinBoat": {
     "errorMessage": {
-      "tooManyBoatThisWeek": "Vous êtes allé trop de fois sur le bateau ou vous avez rejoint une guilde cette semaine.",
-      "noMemberOnBoat": "Aucun membre actif de votre guilde n'est sur le bateau.",
-      "noGuild": "Vous n'appartenez à aucune guilde.",
-      "notEnoughEnergy": "Vous n'avez pas assez d'énergie pour monter sur le bateau.",
-      "notEnoughGems": "Vous voulez rejoindre votre guilde mais au moment de payer, vous constatez que vos fonds sont insuffisants."
+      "tooManyBoatThisWeek": "Já andou de barco demasiadas vezes ou juntou-se a um grémio esta semana.",
+      "noMemberOnBoat": "Nenhum membro ativo da tua guilda está no barco.",
+      "noGuild": "Não pertences a nenhum grémio.",
+      "notEnoughEnergy": "Não tens energia suficiente para entrar no barco.",
+      "notEnoughGems": "Queres inscrever-te no teu grémio, mas quando chega a altura de pagar, apercebes-te de que os teus fundos são insuficientes."
     },
     "confirmationMessage": {
       "title": {
-        "confirmation": "{{pseudo}}, confirmation :",
-        "confirmed": "{{pseudo}}, votre choix :"
+        "confirmation": "{{pseudo}}confirmação :",
+        "confirmed": "{{pseudo}}a sua escolha:"
       },
       "description": {
         "confirmation": {
-          "text": "{emote:guild.isOnBoat} Êtes vous sûr de vouloir rejoindre votre guilde sur le bateau ?\nLe capitaine vous indique que le voyage **{{priceText}}**.\n\nVoulez-vous partir sur l'île ? Vous avez {emote:unitValues.energy} **{{currentEnergy}}/{{maxEnergy}}**.",
-          "priceText_zero": "est gratuit",
-          "priceText_other": "coûtera {{gemsCost}} {emote:unitValues.gem}"
+          "text": "{emote:guild.isOnBoat} Tens a certeza que queres juntar-te ao teu grupo no barco?\nO capitão diz-te que a viagem **{{priceText}}**.\n\nQueres ir para a ilha? Tens {emote:unitValues.energy} **{{currentEnergy}}/{{maxEnergy}}**.",
+          "priceText_zero": "é gratuito",
+          "priceText_other": "custará {{gemsCost}} {emote:unitValues.gem}"
         },
-        "confirmed": "{{gainScore}} Vous rejoignez votre guilde sur le bateau.",
-        "confirmedScore": "**{emote:unitValues.score} Points gagnés :** {{score}}\n"
+        "confirmed": "{{gainScore}} Junta-se ao seu grupo no barco.",
+        "confirmedScore": "**{emote:unitValues.score} Pontos ganhos:** {{score}}\n"
       }
     },
-    "refuse": "Vous décidez finalement de rester ici et ne pas rejoindre votre guilde sur le bateau."
+    "refuse": "No final, decide ficar aqui e não se juntar ao seu grupo no barco."
   }
 }
