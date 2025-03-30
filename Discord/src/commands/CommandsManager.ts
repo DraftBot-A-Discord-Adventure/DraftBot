@@ -1,11 +1,12 @@
 import {ICommand} from "./ICommand";
 import {
+	ActionRowBuilder,
 	ApplicationCommand,
 	ApplicationCommandOptionType,
 	Attachment,
-	AttachmentBuilder,
+	AttachmentBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle,
 	ChannelType,
-	Client,
+	Client, CommandInteraction,
 	GuildResolvable,
 	Message,
 	MessageType,
@@ -23,17 +24,17 @@ import {replyEphemeralErrorMessage} from "../utils/ErrorUtils";
 import {Constants} from "../../../Lib/src/constants/Constants";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {escapeUsername} from "../../../Lib/src/utils/StringUtils";
-import {DraftBotReactionMessageBuilder} from "../messages/DraftBotReactionMessage";
-import {DraftBotReaction} from "../messages/DraftBotReaction";
 import {KeycloakUtils} from "../../../Lib/src/keycloak/KeycloakUtils";
 import {DraftbotChannel, DraftbotInteraction} from "../messages/DraftbotInteraction";
 import {PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
 import {DiscordCache} from "../bot/DiscordCache";
 import {BotUtils} from "../utils/BotUtils";
-import {LANGUAGE} from "../../../Lib/src/Language";
+import {Language, LANGUAGE} from "../../../Lib/src/Language";
 import {PacketUtils} from "../utils/PacketUtils";
 import {RightGroup} from "../../../Lib/src/types/RightGroup";
 import {PacketConstants} from "../../../Lib/src/constants/PacketConstants";
+import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
+import {DiscordConstants} from "../DiscordConstants";
 
 export class CommandsManager {
 	static commands = new Map<string, ICommand>();
@@ -102,7 +103,7 @@ export class CommandsManager {
 	 * Execute all the important checks upon receiving a private message
 	 * @param message
 	 */
-	static async handlePrivateMessage(message: Message | DraftbotInteraction): Promise<void> {
+	static async handlePrivateMessage(message: Message | CommandInteraction): Promise<void> {
 		const author = message instanceof Message ? message.author.id : message.user.id;
 		if (author === discordConfig.DM_MANAGER_ID) {
 			return;
@@ -279,7 +280,7 @@ export class CommandsManager {
 				return;
 			}
 			if (!interaction.member) { // If in DM, shouldn't happen
-				CommandsManager.handlePrivateMessage(interaction)
+				CommandsManager.handlePrivateMessage(discordInteraction)
 					.finally(() => null);
 				return;
 			}
@@ -324,37 +325,89 @@ export class CommandsManager {
 	}
 
 	/**
+	 * Sends a support message to the user, either if they sent a message in DM or if they used a command in DM
+	 * @param message
+	 * @param title
+	 * @param descTrKey
+	 * @private
+	 */
+	private static async sendSupportMessage(message: Message | CommandInteraction, title: string, descTrKey: string): Promise<void> {
+		const author = message instanceof Message ? message.author : message.user;
+		const sendMessage = message instanceof CommandInteraction ? message.followUp.bind(message) : message.author.send.bind(message.author);
+
+		const row = [new ActionRowBuilder<ButtonBuilder>()];
+		let desc = "";
+
+		for (const lng of [LANGUAGE.FRENCH, LANGUAGE.ENGLISH]) {
+			desc += `${i18n.t(descTrKey, {
+				lng,
+				langFlag: DraftBotIcons.languages[lng],
+				interpolation: {escapeValue: false}
+			})}\n`;
+		}
+
+		for (const lng of LANGUAGE.LANGUAGES) {
+			if (row[row.length - 1].components.length >= DiscordConstants.MAX_BUTTONS_PER_ROW) {
+				row.push(new ActionRowBuilder<ButtonBuilder>());
+			}
+
+			row[row.length - 1].addComponents(
+				new ButtonBuilder()
+					.setEmoji(DraftBotIcons.languages[lng])
+					.setCustomId(lng)
+					.setStyle(ButtonStyle.Secondary)
+			);
+		}
+
+		const supportMessage = new DraftBotEmbed()
+			.formatAuthor(title, author)
+			.setDescription(desc);
+
+		const msg = await message.reply({
+			embeds: [supportMessage],
+			content: Constants.DM.INVITE_LINK,
+			components: row
+		});
+
+		const collector = msg.createMessageComponentCollector({
+			filter: interaction => interaction instanceof ButtonInteraction,
+			time: Constants.MESSAGES.COLLECTOR_TIME
+		});
+
+		collector.on("collect", async (buttonInteraction: ButtonInteraction) => {
+			collector.stop();
+
+			const lng = buttonInteraction.customId as Language;
+			await sendMessage({
+				embeds: [
+					new DraftBotEmbed()
+						.formatAuthor(i18n.t("bot:dmHelpMessageTitle", {
+							lng
+						}), author)
+						.setDescription(i18n.t("bot:dmHelpMessage", {lng}))
+				]
+			});
+		});
+
+		collector.on("end", async () => {
+			await msg.edit({
+				components: []
+			});
+		});
+	}
+
+	/**
 	 * Sends a message to someone who said something in DM to the bot
 	 * @param message
 	 * @private
 	 */
-	private static async sendHelperMessage(message: Message | DraftbotInteraction): Promise<void> {
-		const author = message instanceof Message ? message.author : message.user;
-		const sendMessage = message instanceof DraftbotInteraction ? message.channel.send : message.author.send;
-		const helpMessage = new DraftBotReactionMessageBuilder()
-			.allowUserId(author.id)
-			.addReaction(new DraftBotReaction(Constants.REACTIONS.ENGLISH_FLAG))
-			.addReaction(new DraftBotReaction(Constants.REACTIONS.FRENCH_FLAG))
-			.endCallback((msg) => {
-				if (!msg!.getFirstReaction()) {
-					return;
-				}
-				const lng = msg!.getFirstReaction()!.emoji.name === Constants.REACTIONS.ENGLISH_FLAG ? LANGUAGE.ENGLISH : LANGUAGE.FRENCH;
-				sendMessage({
-					embeds: [new DraftBotEmbed()
-						.formatAuthor(i18n.t("bot:dmHelpMessageTitle", {
-							lng,
-							pseudo: escapeUsername(author.displayName)
-						}), author)
-						.setDescription(i18n.t("bot:dmHelpMessage", {lng}))]
-				});
-			})
-			.build()
-			.formatAuthor(Constants.DM.TITLE_SUPPORT, author)
-			.setDescription(message instanceof DraftbotInteraction ? Constants.DM.INTERACTION_SUPPORT : Constants.DM.MESSAGE_SUPPORT);
-		const draftbotChannel = message.channel as unknown as DraftbotChannel;
-		draftbotChannel.language = LANGUAGE.ENGLISH;
-		message instanceof Message ? await helpMessage.send(draftbotChannel) : await helpMessage.reply(message);
+	private static async sendHelperMessage(message: Message | CommandInteraction): Promise<void> {
+		if (message instanceof Message) {
+			await CommandsManager.sendSupportMessage(message, Constants.DM.TITLE_SUPPORT, "bot:supportMessage");
+		}
+		else {
+			await CommandsManager.sendSupportMessage(message, Constants.DM.TITLE_SUPPORT, "bot:commandDisabledInDM");
+		}
 	}
 
 	/**

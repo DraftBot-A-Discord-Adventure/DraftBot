@@ -139,17 +139,15 @@ export class Constants {
 	static readonly MAX_TIME_BOT_RESPONSE = 30000;
 
 	static readonly DM = {
-		TITLE_SUPPORT: "{pseudo}, welcome to the DraftBot Assistance Program.",
-		// eslint-disable-next-line max-len
-		MESSAGE_SUPPORT: ":flag_gb: If you want to receive help, select your language using reactions below. If you don't need help, please ignore this message.\n:warning: **Every message sent here can be read by human!**\n\n:flag_fr: Si vous avez besoin d'aide, sélectionnez votre langue en utilisant les réactions ci-dessous. Si vous n'avez pas besoin d'aide, ignorez ce message.\n:warning: **Chaque message envoyé ici peut être lu par un humain !**",
-		ALERT_ICON: "\uD83D\uDD15 ",
+		TITLE_SUPPORT: "Welcome to the DraftBot Assistance Program.",
 		// eslint-disable-next-line max-len
 		INTERACTION_SUPPORT: ":flag_gb: Hello, commands are disabled in private messages. Please go on a server to play!\n\n:flag_fr: Bonjour, les commandes sont désactivées en messages privés. Merci d'aller sur un serveur pour jouer !",
 		TOO_LONG_MESSAGE: "*Message trop long, voir l'attaché dans le message.*",
 		NO_MESSAGE: "*Aucun message*",
 		COMMENT_MESSAGE_START: ">>> ",
 		MAX_ATTACHMENTS: 10,
-		MAX_MESSAGE_LENGTH_ALLOWED: 1900
+		MAX_MESSAGE_LENGTH_ALLOWED: 1900,
+		INVITE_LINK: "https://discord.gg/5JqrMtZ"
 	};
 
 	static readonly REACTIONS = { // Todo: remove those and other emoji based constants since they are in the DraftBotIcons ?
