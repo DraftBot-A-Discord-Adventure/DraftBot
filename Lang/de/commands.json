@@ -72,7 +72,7 @@
     "noPlayer": "Der Spieler ist nicht in der Gilde.",
     "notSameGuild": "Sie können keinen Spieler ausschließen, der nicht in Ihrer Gilde ist.",
     "himself": "Sie können sich nicht selbst aus der Gilde ausschließen.",
-    "blocked": "Le joueur que vous essayez d'expulser est actuellement bloqué. Attendez un peu avant de réessayer."
+    "blocked": "Der Spieler, den Sie abschieben wollen, ist derzeit gesperrt. Warten Sie einen Moment, bevor Sie es erneut versuchen."
   },
   "guildElder": {
     "playerNotFound": "Dieser Spieler wurde nicht gefunden.",
@@ -237,9 +237,6 @@
       "PET_SELL": {
         "description": "Verkauft einen Begleiter. Die folgenden Bedingungen gelten: \n -Der Verkaufspreis muss höher sein als `{{petSellMinPrice}}{emote:unitValues.money}` und kleiner als '{{petSellMaxPrice}}{emote:unitValues.money}`. \n-Der Verkäufer wird bei der Transaktion kein Geld verdienen, sondern von der Gilde-Erfahrung. \n-Der Verkäufer und der Käufer können nicht zu derselben Gilde gehören."
       },
-      "PET_TRADE": {
-        "description": "Stellt einen Austausch Ihrer Tiere mit der genannten Person bereit."
-      },
       "PET_TRANSFER": {
         "description": "Ermöglicht das Übertragen von Begleiter aus oder in die Gilden-Gilde. Wenn keine Nummer angegeben wird, wird der Begleiter Ihrer Bestandsaufnahme in die Gilde verdrängt. Ansonsten wird es mit dem der Gilde ausgetauscht werden, deren Position mit der gegebenen Nummer übereinstimmt."
       },
@@ -290,7 +287,9 @@
     "playerCommands": ":bust_in_silhouette: Joucher:",
     "serverCommands": ":gear: Server:",
     "usageFieldTitle": "Verwendung",
-    "utilCommands": "{emote:collectors.question} Nützliches :"
+    "utilCommands": "{emote:collectors.question} Nützliches :",
+    "needHelp": "Brauchen Sie Hilfe?",
+    "needHelpDescription": "{emote:fight_command.crossed_swords} Hallo! Diese Nachricht wurde aufgrund einer Hilfeanfrage gesendet.\n\nWenn Sie Hilfe bei der Nutzung des Spiels benötigen, können Sie dem Server des Offiziellen beitreten!\n\nDort können Sie an der Entwicklung des Spiels teilnehmen und alle notwendigen Informationen erhalten!\n\nEs wird außerdem empfohlen, sich den ausführlichen Bot-Guide anzusehen: https://guide.draftbot.com/"
   },
   "idea": {
     "description": "Sie können Vorschläge unterbreiten und für Ihre Lieblingsideen über diesen Link wählen:\nhttps://feedback.draftbot.com/",
@@ -325,12 +324,12 @@
   "language": {
     "description": "Verwenden Sie das untenstehende Menü, um die Sprache zu ändern, die der Bot auf diesem Server verwendet. Dieser Befehl ist nur für Administratoren des Servers gedacht.",
     "languages": {
-      "de": "Allemand",
-      "en": "Anglais",
-      "es": "Espagnol",
-      "fr": "Français",
-      "it": "Italien",
-      "pt": "Portugais"
+      "de": "Deutsch",
+      "en": "Englisch",
+      "es": "Spanisch",
+      "fr": "Französisch",
+      "it": "Italienisch",
+      "pt": "Portugiesisch"
     },
     "newLanguageSetDescription": "DraftBot wird ab sofort auf Deutsch mit Ihnen sprechen! {emote:languageFlavors.de}",
     "newLanguageSetTitle": "Sprache geändert",
@@ -429,7 +428,7 @@
     "title": "{{effect}} | {{pseudo}} | Stufe {{level}}"
   },
   "rarity": {
-    "earlyAvailable": "Possédé en début de jeu",
+    "earlyAvailable": "Zu Beginn des Spiels besessen",
     "rarityTemplate": "$t(items:rarities.{{rarity}}) | {{percentageOrDescription}}",
     "title": ":slot_machine: Schlechtigkeit der Ausrüstung"
   },
@@ -460,14 +459,16 @@
     "journal": "Protokoll von {{pseudo}}",
     "money": "** | {emote:unitValues.money} Verdientes Geld : **{{money}}",
     "moneyLoose": "** | :money_with_wings: Argent verloren: **{{money}}",
-    "monsterRewardGuildXp": "\n:star: XP Gilde gewonnen: **{{guildXp}}**",
+    "rewardEmbedTitle": "{{pseudo}}Kampfbelohnungen",
+    "monsterRewardGuildXp": ":star: XP Gilde gewonnen: **{{guildXp}}**",
     "monsterRewardsDescription": "{emote:unitValues.money} Silber gewonnen : **{{money}}**\n:star: XP verdient: **{{experience}}**",
-    "monsterRewardsGuildPoints": "\n:mirror_ball: Gilde-Gewinner: **{{guildPoints}}**",
+    "monsterRewardsGuildPoints": ":mirror_ball: Gilde-Gewinner: **{{guildPoints}}**",
     "monsterRewardsTitle": "{{pseudo}}, Kampfbelohnungen",
     "newBigEvent": ":flag_fr: Sie kamen zu **{{destination}}**!",
     "noFight": ":newspaper: ** Journal von {{pseudo}} : ** {{waitABitReaction}} | Sie verlassen sich schnell und finden Sie ein kleines Versteck! Das Monster wartet geduldig auf Sie.",
     "points": ": ** :medal: Gewinner: **{{score}}",
     "pveEvent": ":newspaper: ** Journal von {{pseudo}} : ** {{event}}\n\n{{monsterDisplay}}\n\n{{startTheFightReaction}} Beginnt mit dem Kampf\n{{waitABitReaction}} Warten Sie kurz vor Beginn des Kampfes\n\n*-Verwenden Sie die Reaktionen, um eine Aktion durchzuführen *",
+    "pveFightRefused": "{emote:commands.report} **Tagebuch von {{pseudo}} :** {emote:pve_fights.wait_a_bit} | Sie beschließen, sich vorerst nicht auf einen Kampf einzulassen und suchen in einem Versteck in der Nähe Zuflucht. Letztendlich müssen Sie sich der Bestie stellen, da Sie keinen anderen Ausweg finden.",
     "remainingEnergyTitle": "Verbleibende Energie:",
     "startPoint": "Startpunkt:",
     "timeLost": "** | :clock10: Verlorene Zeit: **{{timeLost}}",
@@ -817,6 +818,182 @@
     "nobodyInTopGuilds": "Es gibt derzeit keine Gilden in der Top-Liste! Genießt es, solange ihr könnt.",
     "invalidPage": "Die angeforderte Seite existiert nicht. Bitte versuchen Sie es erneut mit einer Seite zwischen {{minPage}} und {{maxPage}}."
   },
+  "fight": {
+    "title": "{{pseudo}}Sie sind im Begriff, einen Kampf zu beginnen.",
+    "canceledTitle": "{{pseudo}}Sie haben die Suche abgebrochen.",
+    "confirmDesc": "{emote:fight_command.crossed_swords} | **{{pseudo}}**{{confirmSubText}}\n\n{emote:fight_command.crossed_swords} | ** Kämpfer : {{pseudo}}** | {{glory}} | {{className}}\n\n{{stats}}",
+    "confirmSubTexts": {
+      "common": "Sie möchten eine Kampfsuche starten?",
+      "rare": "Würden Sie sich an der Suche nach einem Kämpfer beteiligen, der Ihrer persönlichen Stärke entspricht, um das anschließende Duell zu bestreiten?"
+    },
+    "canceledDesc": "Sie haben die Suche nach einem Kampf abgebrochen.",
+    "information": {
+      "glory": "{emote:unitValues.glory} {{gloryPoints}}",
+      "class": "{{className}}",
+      "stats": ":zap: {{cumulativeHealth}} / {{cumulativeMaxHealth}} | :dagger: {{cumulativeAttack}} | :shield: {{cumulativeDefense}} | :rocket: {{cumulativeSpeed}} | :wind_blowing_face: {{baseBreath}} / {{maxBreath}} | :lungs: {{breathRegen}}"
+    },
+    "opponentsNotFound": "Es wurde kein Gegner gefunden, der gegen Sie antreten kann. Sie können es später noch einmal versuchen.",
+    "notEnoughEnergy": "Sie haben nicht genug Energie, um einen Kampf zu beginnen!",
+    "monsterNotFound": "Es wurden keine Monster gefunden, die gegen dich antreten können. Bitte melden Sie diesen Vorfall unserem Support (discord.gg/AP3Wmzb).",
+    "fightIntroTitle": "{emote:fight_command.crossed_swords} | Ein Kampf wird zwischen {{fightInitiator}} und {{opponent}} gestartet!",
+    "actionsOf": "Angriffe von {{pseudo}}",
+    "fightActionNameDisplay": "{{fightActionEmote}} - {{fightActionName}} | {emote:unitValues.breath} {{breathCost}}",
+    "summarize": {
+      "title": "Zusammenfassung des Kampfes",
+      "intro": {
+        "start": "{emote:fight_command.clipboard} | **Aktueller Stand des Kampfes** {{state}}\n\n",
+        "prolongation": "Verlängerungen",
+        "noProlongation": "[{{currentTurn}}/{{maxTurn}}]"
+      },
+      "attacker": "{emote:unitValues.attack} | **Stürmer : {{pseudo}}**\n",
+      "defender": "\n\n{emote:unitValues.defense} | **Verteidiger : {{pseudo}}**\n",
+      "stats": "{emote:unitValues.energy} {{power}} | {emote:unitValues.attack} {{attack}} | {emote:unitValues.defense} {{defense}} | {emote:unitValues.speed} {{speed}} | {emote:unitValues.breath} {{breath}} / {{maxBreath}} | {emote:unitValues.breathRegen} {{breathRegen}}"
+    },
+    "end": {
+      "bugged": "Der Kampf wurde abgebrochen, weil es ein technisches Problem gab.",
+      "draw": "{emote:commands.report} | **{{player1}} und {{player2}} beenden ihren Kampf mit einem Unentschieden!**\n\n",
+      "win": "{emote:commands.report}| **{{winner}} gewinnt das Spiel gegen {{loser}}**\n\n",
+      "gameStats": "{emote:fight_command.game_stats} | Kampfstatistiken\n- **Runden**: {{turn}}/{{maxTurn}}\n- **Kampfzeit**: {{time}}",
+      "gameStatsProlongation": "{emote:fight_command.game_stats} | Kampfstatistik\n- **Runden**: {{turn}}/{{maxTurn}} (Verlängerungen)\n- **Kampfzeit**: {{time}}",
+      "fighterStats": "\n\n{emote:fight_command.fighter_stats} | Statistiken von {{pseudo}}\n- **Endgültiges Leben**: {{energy}}/{{maxEnergy}} {emote:unitValues.energy}"
+    },
+    "fightActionChoose": {
+      "turnIndicationTitle": "Jetzt ist {{pseudo}} an der Reihe {emote:fight_command.crossed_swords}",
+      "turnIndicationDescription": "Wählen Sie eine Aktion"
+    },
+    "actions": {
+      "intro": "{{emote}} | **{{fighter}}** ",
+      "attacksResults": {
+        "critical": [
+          "führt eine {{attack}} durch! Perfekt ausgeführt!",
+          "führt eine {{attack}} durch! Sie ist wunderschön!",
+          "führt eine großartige {{attack}} durch! Perfekt ausgeführt!",
+          "führt eine {{attack}} durch! Unglaublich erfolgreich!",
+          "realisiert eine {{attack}} ! Total brutal!",
+          "führt eine {{attack}} durch! Das war riskant, aber es geht durch!",
+          "wirft eine gute {{attack}} !",
+          "verwendet eine {{attack}} ! Sie ist PERFEKT!",
+          "verwendet eine {{attack}} ! Magistral!",
+          "realisiert eine erhabene {{attack}} !",
+          "führt eine {{attack}} durch! Sie ist perfekt!",
+          "führt eine {{attack}} durch! Der Angriff ist absolut verrückt!",
+          "verpasst seinem Gegner eine {{attack}} ! Gnadenlos!",
+          "führt eine {{attack}} durch! Es ist ein Blitzschlag!",
+          "realisiert eine {{attack}} ! OH MEIN GOTT DAS IST UNGLAUBLICH!",
+          "wählt eine {{attack}} ! Sehr gute Initiative!",
+          "führt eine {{attack}} durch! Dies ist eine ausgezeichnete {{attack}} !",
+          "führt eine {{attack}} durch! Kritischer Treffer!",
+          "wütet mit einer {{attack}} auf seinen Gegner los!"
+        ],
+        "normal": [
+          "führt eine {{attack}} durch!",
+          "startet eine {{attack}} !",
+          "verwendet eine {{attack}} !",
+          "realisiert eine {{attack}} !"
+        ],
+        "maxUses": [
+          "versucht, eine {{attack}}zu verwenden , aber das schlägt fehl!"
+        ],
+        "charging": [
+          "bereitet sich auf die Durchführung einer {{attack}} vor!"
+        ],
+        "missed": [
+          "realisiert eine {{attack}} ! Wir haben schon Besseres gesehen...",
+          "startet eine {{attack}} ! Mediokre",
+          "führt eine {{attack}} durch! Das ist nicht sehr erfolgreich.",
+          "führt eine {{attack}} durch! Das ist nicht sehr effektiv...",
+          "wählt eine {{attack}} ! Das Ergebnis ist ziemlich erbärmlich.",
+          "realisiert eine {{attack}} ! Das war nicht die beste Wahl ...",
+          "führt eine {{attack}} durch! Nicht getroffen!",
+          "führt eine {{attack}} durch! Der Angriff scheitert kläglich!",
+          "macht einen schlechten {{attack}} ! Ein grausamer Mangel an Technik für den französischen Spieler!",
+          "führt eine {{attack}} durch! Was für ein Fehler!",
+          "führt eine {{attack}} durch! Es war riskant und ging nicht durch!",
+          "wirft eine schlechte {{attack}} !",
+          "verwendet eine {{attack}} ! Eine unkluge Wahl!",
+          "wählt eine {{attack}} ! Schlechte Initiative ...",
+          "führt eine {{attack}} durch! Dies ist eine schlechte {{attack}} !"
+        ]
+      },
+      "fightActionEffects": {
+        "self": {
+          "newAlteration": " `Sie sind jetzt {{effect}} !`",
+          "damages": " `Empfangener Schaden: {{amount}}`",
+          "defense": " `Verteidigung: {{operator}} {{amount}}%`",
+          "breath": " `Souffle: {{operator}} {{amount}}`",
+          "speed": " `Geschwindigkeit: {{operator}} {{amount}}%`",
+          "attack": " `Angriff: {{operator}} {{amount}}%`",
+          "energy": " `Gewonnene Energie: {{amount}}`"
+        },
+        "opponent": {
+          "newAlteration": " `Ihr Gegner ist nun {{effect}} !`",
+          "damages": " `Angerichteter Schaden: {{amount}}`",
+          "defense": " `Verteidigung des Gegners: {{operator}} {{amount}}%`",
+          "breath": " `Atem des Gegners: {{operator}} {{amount}}`.",
+          "speed": " `Gegnerische Geschwindigkeit: {{operator}} {{amount}}%`",
+          "attack": " `Angriff des Gegners: {{operator}} {{amount}}%`",
+          "energy": " `Energie des Gegners zurückgewonnen: {{amount}}`.",
+          "summoning": " `Berufung von {{amount}} Verbündeten`."
+        }
+      },
+      "aiChoose": "{emote:fight_command.ai_thinking} Der Gegner wählt einen Angriff..."
+    },
+    "fightReward": {
+      "title": "{emote:fight_command.glory_change} Kampfbelohnungen",
+      "scoreAndMoneyField": "Belohnungen für den Kampf",
+      "noReward": "Sie haben alle Kampfbelohnungen aufgebraucht, kommen Sie morgen wieder.",
+      "points": "{emote:unitValues.score} Gewonnene Punkte : **{{count}}**",
+      "money": "{emote:unitValues.money} Verdientes Geld : **{{count}}**",
+      "gloryField": "Veränderungen der Herrlichkeit",
+      "gloryNegative": "**{{player}} :** - {{count}} {emote:unitValues.glory}\n",
+      "gloryPositive": "**{{player}} :** + {{count}} {emote:unitValues.glory}\n",
+      "leagueField": "Änderungen in den Ligen",
+      "leagueChangeUp": "️ **{{player}} :** {{oldLeagueEmoji}} {{oldLeague}} -> {{newLeagueEmoji}} {{newLeague}}\n",
+      "leagueChangeDown": "↘️️ **{{player}} :** {{oldLeagueEmoji}} {{oldLeague}} -> {{newLeagueEmoji}} {{newLeague}}\n",
+      "higherEloWins": [
+        "{{winner}} setzt sich mit einer markanten Leistung auf dem Spielfeld durch.",
+        "{{loser}} gab alles, aber {{winner}} zeigte eine bessere Kontrolle über sein Spiel.",
+        "In diesem Kampf machte sich der Niveauunterschied zwischen den beiden Spielern bemerkbar.",
+        "{{winner}} bewies sein Fachwissen, indem er diese schwierige Begegnung gewann.",
+        "{{loser}} kann trotz der Niederlage stolz auf seine Leistung sein, aber {{winner}} ist unbestreitbar der Sieger dieses Kampfes.",
+        "{{winner}} überrollte {{loser}} mit einer dominanten Leistung.",
+        "{{loser}} gab sein Bestes, aber er war deutlich unter dem Niveau von {{winner}}.",
+        "Der Talentunterschied zwischen den beiden Spielern war in diesem Kampf ausschlaggebend.",
+        "{{winner}} bewies, warum er als einer der Besten gilt, indem er das Spiel mühelos gewann.",
+        "{{loser}} kann diese Niederlage als Gelegenheit nehmen, um zu lernen und sich für künftige Kämpfe zu verbessern."
+      ],
+      "lowestEloWins": [
+        "Das Unerwartete geschah in diesem Kampf, {{winner}} gewann gegen einen erfahreneren Gegner.",
+        "{{loser}} hat seinen Gegner vielleicht unterschätzt, denn {{winner}} zeigte eine unerschütterliche Entschlossenheit.",
+        "Trotz des Talentunterschieds gelang es {{winner}} , das Spiel mit einer soliden Strategie zu gewinnen.",
+        "Es war kein einfaches Spiel, aber {{winner}} hat bewiesen, dass er mit den talentiertesten Spielern mithalten kann.",
+        "Dieser Kampf war sicherlich ein Wendepunkt in der Karriere von {{winner}}, der seine Entschlossenheit und seine Fähigkeit, die Erfahrensten zu besiegen, unter Beweis gestellt hat.",
+        "{{winner}} überwand die Erwartungen, indem er das enge Match gegen einen talentierteren Gegner gewann.",
+        "{{loser}} hat seinen Gegner vielleicht unterschätzt, denn {{winner}} zeigte eine unerschütterliche Entschlossenheit.",
+        "Trotz des Niveauunterschieds konnte {{winner}} den Kampf dank einer klugen Strategie für sich entscheiden.",
+        "Es war kein einfaches Spiel, aber {{winner}} hat bewiesen, dass er mit den talentiertesten Spielern mithalten kann.",
+        "{{winner}} hat sicherlich einen bedeutenden Schritt nach vorne in seiner Karriere gemacht, indem er dieses schwierige Spiel gewonnen hat."
+      ],
+      "draw": [
+        "Das Spiel war ein hart umkämpftes Match zwischen zwei talentierten Spielern.",
+        "{{player1}} und {{player2}} zeigten während des gesamten Spiels eine unerschütterliche Entschlossenheit.",
+        "Keiner der beiden Spieler konnte sich den entscheidenden Vorteil verschaffen, was zu einem unerwarteten Unentschieden führte.",
+        "Dieses Spiel wird wahrscheinlich als eines der engsten und spannendsten in der Geschichte angesehen werden.",
+        "{{player1}} und {{player2}} lieferten sich einen harten Kampf voller Entschlossenheit.",
+        "Trotz des Niveauunterschieds gaben beide Spieler alles, um das Spiel zu gewinnen.",
+        "Keiner der beiden konnte sich den entscheidenden Vorteil verschaffen, was zu einem überraschenden Unentschieden führte.",
+        "Keiner der beiden Spieler konnte sich den entscheidenden Vorteil verschaffen, was zu einem Unentschieden führte.",
+        "Dieses Spiel wird wahrscheinlich als eines der engsten und spannendsten in der Geschichte angesehen werden.",
+        "{{player1}} und {{player2}} haben beide in diesem epischen Match gezeigt, warum sie als talentierte Wettkämpfer gelten."
+      ],
+      "sameElo": [
+        "Das Spiel war ein spannendes Match zwischen zwei Spielern auf gleichem Niveau.",
+        "{{player1}} und {{player2}} lieferten beide eine solide und ausgeglichene Leistung.",
+        "Es war ein sehr enges Spiel mit klugen Taktiken auf beiden Seiten.",
+        "Die Zuschauer erlebten ein episches Match zwischen zwei talentierten Spielern, die sich auf Augenhöhe begegneten."
+      ]
+    }
+  },
   "switch": {
     "titleSuccess": "{{pseudo}}Die Bestellung wurde ausgeführt.",
     "switchingDouble": "{{item1}} und {{item2}} wurden ausgetauscht!",
@@ -989,27 +1166,33 @@
   },
   "joinBoat": {
     "errorMessage": {
-      "tooManyBoatThisWeek": "Vous êtes allé trop de fois sur le bateau ou vous avez rejoint une guilde cette semaine.",
-      "noMemberOnBoat": "Aucun membre actif de votre guilde n'est sur le bateau.",
-      "noGuild": "Vous n'appartenez à aucune guilde.",
-      "notEnoughEnergy": "Vous n'avez pas assez d'énergie pour monter sur le bateau.",
-      "notEnoughGems": "Vous voulez rejoindre votre guilde mais au moment de payer, vous constatez que vos fonds sont insuffisants."
+      "tooManyBoatThisWeek": "Sie waren zu oft auf dem Schiff oder sind in dieser Woche einer Gilde beigetreten.",
+      "noMemberOnBoat": "Es befinden sich keine aktiven Mitglieder Ihrer Gilde auf dem Schiff.",
+      "noGuild": "Sie gehören keiner Gilde an.",
+      "notEnoughEnergy": "Sie haben nicht genug Energie, um auf das Boot zu steigen.",
+      "notEnoughGems": "Du möchtest deiner Gilde beitreten, aber als du bezahlen willst, stellst du fest, dass dein Geld nicht ausreicht."
     },
     "confirmationMessage": {
       "title": {
-        "confirmation": "{{pseudo}}, confirmation :",
-        "confirmed": "{{pseudo}}, votre choix :"
+        "confirmation": "{{pseudo}}Bestätigung :",
+        "confirmed": "{{pseudo}}Ihre Wahl:"
       },
       "description": {
         "confirmation": {
-          "text": "{emote:guild.isOnBoat} Êtes vous sûr de vouloir rejoindre votre guilde sur le bateau ?\nLe capitaine vous indique que le voyage **{{priceText}}**.\n\nVoulez-vous partir sur l'île ? Vous avez {emote:unitValues.energy} **{{currentEnergy}}/{{maxEnergy}}**.",
-          "priceText_zero": "est gratuit",
-          "priceText_other": "coûtera {{gemsCost}} {emote:unitValues.gem}"
+          "text": "{emote:guild.isOnBoat} Sind Sie sicher, dass Sie sich Ihrer Gilde auf dem Schiff anschließen möchten?\nDer Kapitän teilt Ihnen mit, dass die Reise **{{priceText}}**.\n\nMöchten Sie auf die Insel reisen? Sie haben {emote:unitValues.energy} **{{currentEnergy}}/{{maxEnergy}}**.",
+          "priceText_zero": "ist kostenlos",
+          "priceText_other": "kostet {{gemsCost}} {emote:unitValues.gem}"
         },
-        "confirmed": "{{gainScore}} Vous rejoignez votre guilde sur le bateau.",
-        "confirmedScore": "**{emote:unitValues.score} Points gagnés :** {{score}}\n"
+        "confirmed": "{{gainScore}} Sie schließen sich Ihrer Gilde auf dem Schiff an.",
+        "confirmedScore": "**{emote:unitValues.score} Gewonnene Punkte:** {{score}}\n"
       }
     },
-    "refuse": "Vous décidez finalement de rester ici et ne pas rejoindre votre guilde sur le bateau."
+    "refuse": "Sie entscheiden sich schließlich dafür, hier zu bleiben und sich nicht Ihrer Gilde auf dem Schiff anzuschließen."
+  },
+  "guildShelter": {
+    "embedTitle": "Zufluchtsort der Gilde {{guildName}}",
+    "petFieldName": "Vertraute Nr.{{number}}",
+    "noPetMessage": "Es scheint, dass sich keine Vertrauten in der Unterkunft befinden.",
+    "warningFull": "Das Tierheim ist voll! Es können keine neuen Haustiere aufgenommen werden, solange kein Haustier aus dem Tierheim freigelassen oder verkauft wurde."
   }
 }
