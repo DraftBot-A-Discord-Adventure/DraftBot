@@ -6,7 +6,7 @@
 	"breath": 3,
 	"maxBreath": 20,
 	"breathRegen": 5,
-  "rewardFactor" : 0.8,
+  "rewardFactor" : 0.65,
 	"attacks": [
 		{
 			"id": "simpleAttack",

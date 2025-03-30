@@ -13,7 +13,11 @@ import {
 } from "../../../../Lib/src/packets/commands/CommandFightPacket";
 import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
 import {InventorySlots} from "../../core/database/game/models/InventorySlot";
-import {LogsReadRequests, RankedFightResult} from "../../core/database/logs/LogsReadRequests";
+import {
+	LogsReadRequests,
+	PersonalFightDailySummary,
+	RankedFightResult
+} from "../../core/database/logs/LogsReadRequests";
 import {FightController} from "../../core/fights/FightController";
 import {FightOvertimeBehavior} from "../../core/fights/FightOvertimeBehavior";
 import {PlayerFighter} from "../../core/fights/fighter/PlayerFighter";
@@ -47,6 +51,12 @@ type PlayerStats = {
 	}
 }
 
+type FightInitiatorInformation = {
+	playerDailyFightSummary: PersonalFightDailySummary,
+	initiatorGameResult: number,
+	initiatorReference: number
+}
+
 // Map to store the cooldowns of players who have been defenders in ranked fights
 // It is updated just before starting a fight, so it prevents a single player to defend two players at the same time as
 // Fights are logged at the end of the fight
@@ -75,6 +85,75 @@ async function getPlayerStats(player: Player): Promise<PlayerStats> {
 }
 
 /**
+ *
+ * @param fightInitiatorInformation
+ * @param player1
+ * @param player2
+ * @param response
+ */
+async function calculateMoneyReward(fightInitiatorInformation: FightInitiatorInformation, player1: Player, player2: Player, response: DraftBotPacket[]): Promise<number> {
+	let extraMoneyBonus = 0;
+	// Award extra money for the first 5 fights:
+	// • 50 -> win, 35 -> draw, 15 -> loss.
+	if (fightInitiatorInformation.playerDailyFightSummary.played < 5) {
+		if (fightInitiatorInformation.initiatorGameResult === EloGameResult.WIN) {
+			extraMoneyBonus = FightConstants.REWARDS.WIN_MONEY_BONUS;
+		}
+		else if (fightInitiatorInformation.initiatorGameResult === EloGameResult.DRAW) {
+			extraMoneyBonus = FightConstants.REWARDS.DRAW_MONEY_BONUS;
+		}
+		else { // Loss case
+			extraMoneyBonus = FightConstants.REWARDS.LOSS_MONEY_BONUS;
+		}
+		if (fightInitiatorInformation.initiatorReference === 0) {
+			await player1.addMoney({
+				amount: extraMoneyBonus,
+				response,
+				reason: NumberChangeReason.FIGHT
+			});
+		}
+		else {
+			await player2.addMoney({
+				amount: extraMoneyBonus,
+				response,
+				reason: NumberChangeReason.FIGHT
+			});
+		}
+	}
+	return extraMoneyBonus;
+}
+
+/**
+ * Calculate the score reward for the initiator of the fight
+ * @param fightInitiatorInformation
+ * @param player1
+ * @param player2
+ * @param response
+ */
+async function calculateScoreReward(fightInitiatorInformation: FightInitiatorInformation, player1: Player, player2: Player, response: DraftBotPacket[]): Promise<number> {
+	let scoreBonus = 0;
+	// Award extra score points only to the initiator for one of his first wins of the day.
+	if (fightInitiatorInformation.initiatorGameResult === EloGameResult.WIN && fightInitiatorInformation.playerDailyFightSummary.won < FightConstants.REWARDS.NUMBER_OF_WIN_THAT_AWARD_SCORE_BONUS) {
+		scoreBonus = FightConstants.REWARDS.SCORE_BONUS_AWARD;
+		if (fightInitiatorInformation.initiatorReference === 0) {
+			await player1.addScore({
+				amount: scoreBonus,
+				response,
+				reason: NumberChangeReason.FIGHT
+			});
+		}
+		else {
+			await player2.addScore({
+				amount: scoreBonus,
+				response,
+				reason: NumberChangeReason.FIGHT
+			});
+		}
+	}
+	return scoreBonus;
+}
+
+/**
  * Code that will be executed when a fight ends (except if the fight has a bug)
  * @param fight
  * @param response
@@ -84,11 +163,43 @@ async function fightEndCallback(fight: FightController, response: DraftBotPacket
 
 	const player1GameResult = fight.isADraw() ? EloGameResult.DRAW : fight.getWinner() === 0 ? EloGameResult.WIN : EloGameResult.LOSE;
 	const player2GameResult = player1GameResult === EloGameResult.DRAW ? EloGameResult.DRAW : player1GameResult === EloGameResult.WIN ? EloGameResult.LOSE : EloGameResult.WIN;
+	// Get the fight initiator reference (0 if the initiator is player1, 1 if the initiator is player2)
+	const initiatorReference = fight.fightInitiator.player.keycloakId === (fight.fighters[0] as PlayerFighter).player.keycloakId ? 0 : 1;
+	const initiatorGameResult = fight.fighters[0] instanceof PlayerFighter
+	&& fight.fightInitiator.player.keycloakId === fight.fighters[0].player.keycloakId ?
+		player1GameResult :
+		player2GameResult;
+
 
 	// Player variables
 	const player1 = await Players.getById((fight.fighters[0] as PlayerFighter).player.id);
 	const player2 = await Players.getById((fight.fighters[1] as PlayerFighter).player.id);
 
+	const playerDailyFightSummary = await LogsReadRequests.getPersonalInitiatedFightDailySummary(
+		fight.fightInitiator.player.keycloakId
+	);
+
+	const scoreBonus = await calculateScoreReward(
+		{
+			playerDailyFightSummary,
+			initiatorGameResult,
+			initiatorReference
+		},
+		player1,
+		player2,
+		response
+	);
+
+	const extraMoneyBonus = await calculateMoneyReward(
+		{
+			playerDailyFightSummary,
+			initiatorGameResult,
+			initiatorReference
+		},
+		player1,
+		player2,
+		response
+	);
 
 	// Save glory before changing it
 	const player1OldGlory = player1.getGloryPoints();
@@ -117,8 +228,8 @@ async function fightEndCallback(fight: FightController, response: DraftBotPacket
 	]);
 
 	response.push(makePacket(FightRewardPacket, {
-		points: 0,
-		money: 0,
+		points: scoreBonus,
+		money: extraMoneyBonus,
 		player1: {
 			keycloakId: player1.keycloakId,
 			oldGlory: player1OldGlory,

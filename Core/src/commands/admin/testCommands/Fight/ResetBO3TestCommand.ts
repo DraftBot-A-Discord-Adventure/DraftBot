@@ -39,7 +39,7 @@ const bo3TestCommand: ExecuteTestCommandLike = async (player, args) => {
 		include: [{
 			model: LogsPlayers,
 			association: new HasOne(LogsFightsResults, LogsPlayers, {
-				sourceKey: "player1Id",
+				sourceKey: "fightInitiatorId",
 				foreignKey: "id",
 				as: "LogsPlayer1"
 			})

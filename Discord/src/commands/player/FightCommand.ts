@@ -278,7 +278,7 @@ export async function handleFightReward(context: PacketContext, packet: FightRew
 	if (!context.discord?.interaction) {
 		return;
 	}
-
+	// TODO: Extract method ce qui peut l'être dans cette fonction, c'est trop long
 	const interaction = DiscordCache.getInteraction(context.discord.interaction)!;
 
 	// Get usernames for both players
@@ -302,15 +302,15 @@ export async function handleFightReward(context: PacketContext, packet: FightRew
 				});
 			}
 			return [
-				packet.money > 0 ? i18n.t("commands:fight.fightReward.moneyReward", {
+				packet.money > 0 ? i18n.t("commands:fight.fightReward.money", {
 					lng: interaction.userLanguage,
 					player: player1Username,
-					money: packet.money
+					count: packet.money
 				}) : "",
-				packet.points > 0 ? i18n.t("commands:fight.fightReward.scoreReward", {
+				packet.points > 0 ? i18n.t("commands:fight.fightReward.points", {
 					lng: interaction.userLanguage,
 					player: player1Username,
-					score: packet.points
+					count: packet.points
 				}) : ""
 			].filter(Boolean).join("\n");
 		})(),
