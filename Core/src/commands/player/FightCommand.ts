@@ -26,6 +26,7 @@ import {BlockingUtils} from "../../core/utils/BlockingUtils";
 import {FightRewardPacket} from "../../../../Lib/src/packets/fights/FightRewardPacket";
 import {LeagueDataController} from "../../data/League";
 import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
+import {minutesToMilliseconds} from "../../../../Lib/src/utils/TimeUtils";
 
 type PlayerStats = {
 	classId: number,
@@ -45,6 +46,11 @@ type PlayerStats = {
 		regen: number
 	}
 }
+
+// Map to store the cooldowns of players who have been defenders in ranked fights
+// It is updated just before starting a fight, so it prevents a single player to defend two players at the same time as
+// Fights are logged at the end of the fight
+const fightsDefenderCooldowns = new Map<string, number>();
 
 async function getPlayerStats(player: Player): Promise<PlayerStats> {
 	const playerActiveObjects = await InventorySlots.getMainSlotsItems(player.id);
@@ -146,7 +152,7 @@ function bo3isAlreadyFinished(bo3: RankedFightResult): boolean {
 async function findOpponent(player: Player): Promise<Player | null> {
 	for (let offset = 0; offset <= FightConstants.MAX_OFFSET_FOR_OPPONENT_SEARCH; offset++) {
 		// Retrieve some potential opponents
-		const validOpponents = await Players.findPotentialOpponents(
+		let validOpponents = await Players.findPotentialOpponents(
 			player,
 			FightConstants.PLAYER_PER_OPPONENT_SEARCH,
 			offset
@@ -158,7 +164,16 @@ async function findOpponent(player: Player): Promise<Player | null> {
 		// Shuffle the array of opponents to randomize who gets picked first
 		validOpponents.sort(() => Math.random() - 0.5);
 
-		// Check if these players have been defenders recently
+		// Check if these players have been defenders recently in the cache map
+		const now = Date.now();
+		validOpponents = validOpponents.filter(opponent => {
+			const cooldown = fightsDefenderCooldowns.get(opponent.keycloakId);
+			if (cooldown) {
+				return cooldown < now;
+			}
+			return true;
+		});
+		// Check if these players have been defenders recently in the database
 		const haveBeenDefenderRecently = await LogsReadRequests.hasBeenADefenderInRankedFightSinceMinutes(
 			validOpponents.map((opponent) => opponent.keycloakId),
 			FightConstants.DEFENDER_COOLDOWN_MINUTES
@@ -214,6 +229,7 @@ function fightValidationEndCallback(player: Player, context: PacketContext): End
 				context
 			);
 			fightController.setEndCallback(fightEndCallback);
+			fightsDefenderCooldowns.set(opponent.keycloakId, Date.now() + minutesToMilliseconds(FightConstants.DEFENDER_COOLDOWN_MINUTES));
 			await fightController.startFight(response);
 		}
 		else {
