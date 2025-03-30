@@ -165,6 +165,11 @@
       "active": "sofre com a sua queimadura.",
       "stop": "já não está queimado."
     },
+    "alliesArePresent": {
+      "name": "victime des alliés",
+      "new": "est victime des alliés de son adversaire.",
+      "active": "subit les attaques des alliés de son adversaire."
+    },
     "canonAttack": {
       "description": "A precisão deste ataque é reduzida em adversários que se movam rapidamente. Um bónus de dano é aplicado a este ataque se o adversário for muito lento. O adversário pode ser abrandado por este ataque. Causa mais danos se for usado várias vezes seguidas.",
       "name_one": "Ataque de canhão",
