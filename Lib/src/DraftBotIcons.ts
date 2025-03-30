@@ -1750,6 +1750,7 @@ export const DraftBotIcons: {
 		"boulderTossAttack": "🪨",
 		"breathTakingAttack": "💨",
 		"burned": "🥵",
+		"alliesArePresent": "💀",
 		"canonAttack": "🔫",
 		"chargeChargingAttack": "🧲",
 		"chargeClubSmashAttack": "🏏",

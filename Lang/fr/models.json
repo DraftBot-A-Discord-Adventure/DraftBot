@@ -165,6 +165,11 @@
       "active": "souffre de sa brûlure.",
       "stop": "n'est plus brûlé."
     },
+    "alliesArePresent": {
+      "name": "victime des alliés",
+      "new": "est victime des alliés de son adversaire.",
+      "active": "subit les attaques des alliés de son adversaire."
+    },
     "canonAttack": {
       "description": "La précision de cette attaque baisse sur les adversaires rapides. Un bonus de dégât est affecté à cette attaque si l'adversaire est très lent. L'adversaire peut être ralenti par l'attaque. Inflige plus de dégâts si utilisé plusieurs fois de suite",
       "name_one": "Attaque canon",
