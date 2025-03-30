@@ -174,7 +174,7 @@ function sendHelpDm(interaction: DraftbotInteraction, lng: Language): void {
 		const guild = await client.guilds.fetch(context.mainServerId);
 		if (guild.shard) {
 			try {
-				return !!await guild.members.fetch(context.userId);
+				return Boolean(await guild.members.fetch(context.userId));
 			}
 			catch {
 				return false;
@@ -202,14 +202,14 @@ function sendHelpDm(interaction: DraftbotInteraction, lng: Language): void {
 							}))
 					]
 				}).catch(e => {
-					console.error("Error while sending help DM to user " + interaction.user.id + ": " + e);
+					console.error(`Error while sending help DM to user ${interaction.user.id}: ${e}`);
 				});
 			}
 
 			dmHelpCooldowns.set(interaction.user.id, new Date(Date.now() + minutesToMilliseconds(HelpConstants.HELP_DM_COOLDOWN_TIME_MINUTES)));
 		})
 		.catch((error) => {
-			console.error("Error while broadcasting the message in help command: " + error);
+			console.error(`Error while broadcasting the message in help command: ${error}`);
 		});
 }
 
