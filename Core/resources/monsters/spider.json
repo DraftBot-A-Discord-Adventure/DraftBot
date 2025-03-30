@@ -6,6 +6,7 @@
 	"breath": 6,
 	"maxBreath": 20,
 	"breathRegen": 4,
+  "rewardFactor" : 0.6,
 	"attacks": [
 		{
 			"id": "poisonousAttack",

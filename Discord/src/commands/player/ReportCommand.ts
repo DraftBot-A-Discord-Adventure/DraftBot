@@ -4,6 +4,7 @@ import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
 import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
 import {
 	CommandReportBigEventResultRes,
+	CommandReportMonsterRewardRes,
 	CommandReportPacketReq,
 	CommandReportRefusePveFightRes,
 	CommandReportTravelSummaryRes
@@ -220,7 +221,7 @@ export async function chooseDestinationCollector(context: PacketContext, packet:
 			EmoteUtils.translateEmojiToDiscord(DraftBotIcons.map_types[destinationReaction.mapTypeId])
 		} ${
 			i18n.t(`models:map_locations.${destinationReaction.mapId}.name`, {lng})} (${duration})`;
-	}), { can: false });
+	}), {can: false});
 }
 
 function isCurrentlyInEffect(packet: CommandReportTravelSummaryRes, now: number): boolean {
@@ -340,8 +341,54 @@ export async function refusePveFight(_packet: CommandReportRefusePveFightRes, co
 	}
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 	await buttonInteraction?.editReply({
-		content: i18n.t("commands:report.pveFightRefused", {lng: originalInteraction.userLanguage, pseudo: originalInteraction.user.displayName})
+		content: i18n.t("commands:report.pveFightRefused", {
+			lng: originalInteraction.userLanguage,
+			pseudo: originalInteraction.user.displayName
+		})
 	});
+}
+
+/**
+ * Display to the player the things that he won after the fight
+ * @param packet
+ * @param context
+ */
+export async function displayMonsterReward(
+	packet: CommandReportMonsterRewardRes,
+	context: PacketContext
+): Promise<void> {
+	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
+	if (!originalInteraction) {
+		return;
+	}
+
+	const { userLanguage, user, channel } = originalInteraction;
+	const descriptionParts: string[] = [];
+
+	if (packet.guildXp > 0) {
+		descriptionParts.push(
+			i18n.t("commands:report.monsterRewardGuildXp", { lng: userLanguage, guildXp: packet.guildXp })
+		);
+	}
+
+	descriptionParts.push(
+		i18n.t("commands:report.monsterRewardsDescription", { lng: userLanguage, money: packet.money, experience: packet.experience })
+	);
+
+	if (packet.guildPoints > 0) {
+		descriptionParts.push(
+			i18n.t("commands:report.monsterRewardsGuildPoints", { lng: userLanguage, guildPoints: packet.guildPoints })
+		);
+	}
+
+	const embed = new DraftBotEmbed()
+		.formatAuthor(
+			i18n.t("commands:report.rewardEmbedTitle", { lng: userLanguage, pseudo: user.displayName }),
+			user
+		)
+		.setDescription(descriptionParts.join("\n"));
+
+	await channel.send({ embeds: [embed] });
 }
 
 /**

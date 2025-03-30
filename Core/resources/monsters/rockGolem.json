@@ -6,6 +6,7 @@
 	"breath": 9,
 	"maxBreath": 14,
 	"breathRegen": 3,
+  "rewardFactor" : 0.5,
 	"attacks": [
 		{
 			"id": "boulderTossAttack",
