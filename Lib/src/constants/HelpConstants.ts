@@ -59,7 +59,6 @@ export abstract class HelpConstants {
 		GUILD_SHELTER: ["guildshelter", "shelter", "pets", "animals", "gshelter", "gpets", "ganimals", "guildpets", "guildanimals",
 			"guildanimale", "guildanimal", "sh", "abris", "aubergeanimal", "familiers", "guildeshelter", "abrideguilde",
 			"abriguilde", "abrideguild", "abriguild", "abrisdeguilde", "abrisguilde", "abrisdeguild", "abrisguild"],
-		PET_TRADE: ["pettrade", "ptrade", "echangepet", "familiertrade", "fechange", "echangeanimal", "echangeanimale"],
 		PET_FEED: ["petfeed", "feed", "pf", "pfeed", "feedp", "feedpet", "fp"],
 		PET_SELL: ["petsell", "psell", "vendrepet", "ventepet", "vendreanimal", "venteaniaml", "vendreanimale", "venteanimale", "vendreanimales", "venteanimales", "venteanimaux", "vendreanimaux"],
 		CLASSES_INFO: ["classinfo", "classInfo", "cs", "classesstats", "classcompare", "classestats", "classtats", "classstat", "statistiquesclass",
@@ -299,12 +298,6 @@ export abstract class HelpConstants {
 				EMOTE: ":park:",
 				NAME: "guildshelter",
 				CATEGORY: "guild"
-			},
-		PET_TRADE:
-			{
-				EMOTE: ":scales:",
-				NAME: "pettrade",
-				CATEGORY: "pet"
 			},
 		PET_FEED:
 			{
