@@ -121,14 +121,30 @@
   },
   "fight_actions": {
     "benediction": {
-      "description": "Fait partie du groupe des \"actions des dieux\". Échoue si 1 action des dieux a déjà été effectuée dans le combat. Augmente toutes les statistiques du lanceur. Plus la bénédiction est utilisée tard dans le combat, plus l'augmentation des statistiques est importante.",
+      "description": "Part of the \"actions of the gods\" group. Fails if 1 god action has already been performed in combat. Increases all the caster's stats. The later in the fight the blessing is used, the greater the increase in stats.",
       "name_one": "Blessing",
       "name_other": "Blessings"
+    },
+    "bite": {
+      "success": "is helped by **{{petNickname}}** who decides to bite his opponent."
+    },
+    "blind": {
+      "name": "blind",
+      "new": "is blinded.",
+      "active": "is blinded and strikes at random all around him.",
+      "noAction": "is blinded and misses his target completely.",
+      "stop": "regain your sight."
     },
     "boomerangAttack": {
       "description": "Throws a boomerang that deals damage to the enemy up to 3 times.",
       "name_one": "Boomerang attack",
       "name_other": "Boomerang attacks"
+    },
+    "boostDefense": {
+      "success": "fortifies itself behind the sturdy bulwark that is **{{petNickname}}**, gaining formidable protection at the cost of its speed."
+    },
+    "boostSpeed": {
+      "success": "rides on the back of **{{petNickname}}** to move faster."
     },
     "boulderTossAttack": {
       "description": "Average attack that has a chance to stun the opponent.",
@@ -140,13 +156,17 @@
       "name_one": "Breath-taking attack",
       "name_other": "Breath-taking attacks"
     },
+    "buildBarrage": {
+      "success": "is helped by **{{petNickname}}** who builds a dam to protect his master."
+    },
     "burned": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "name": "burned",
+      "new": "is burned.",
+      "active": "suffers from his burn.",
+      "stop": "is no longer burnt."
     },
     "canonAttack": {
-      "description": "La précision de cette attaque baisse sur les adversaires rapides. Un bonus de dégât est affecté à cette attaque si l'adversaire est très lent. L'adversaire peut être ralenti par l'attaque. Inflige plus de dégâts si utilisé plusieurs fois de suite",
+      "description": "The accuracy of this attack is reduced on fast-moving opponents. A damage bonus is assigned to this attack if the opponent is very slow. The opponent can be slowed down by the attack. Inflicts more damage if used several times in succession.",
       "name_one": "Cannon attack",
       "name_other": "Cannon attacks"
     },
@@ -156,7 +176,7 @@
       "name_other": "Charging attacks"
     },
     "chargeClubSmashAttack": {
-      "description": "Nécessite un tour pour charger l'attaque. Délivre une charge puissante au tour suivant.",
+      "description": "Requires one turn to charge the attack. Delivers a powerful charge the following turn.",
       "name_one": "Club smash",
       "name_other": "Club smashes"
     },
@@ -166,34 +186,51 @@
       "name_other": "Ultimate attacks"
     },
     "chargingAttack": {
-      "description": "",
       "name_one": "Charging attack",
       "name_other": "Charging attacks"
     },
+    "claws": {
+      "success": "is supported in his fight by **{{petNickname}}** who gives his opponent a great clawing blow."
+    },
     "clubSmashAttack": {
-      "description": "",
       "name_one": "Club smash",
       "name_other": "Club smashes"
     },
     "concentrated": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "name": "focused",
+      "new": "concentrates its power. `Damage boost active`.",
+      "active": "concentrates its power.",
+      "stop": "is no longer concentrated."
     },
     "concentration": {
-      "description": "Échoue si vous utilisez cette action alors que vous avez une altération d'état. L'altération \"concentré\" augmente fortement les dégâts infligés par le combattant affecté lors du prochain tour.",
+      "description": "Fails if you use this action while altered. The \"concentrated\" alteration greatly increases the damage inflicted by the affected fighter on the next turn.",
+      "customMessage": "concentrates and prepares to strike harder.",
       "name_one": "Concentration",
       "name_other": "Concentrations"
+    },
+    "confused": {
+      "name": "confused",
+      "new": "is confusing.",
+      "active": "is confusing.",
+      "randomAction": "is confused and performs a random action in his confusion.",
+      "stop": "is no longer confused."
     },
     "counterAttack": {
       "description": "Reply with the same action your opponent just played. Does not work on magical or divine attacks, nor if your opponent did not attack.",
       "name_one": "Counterattack",
+      "customMessage": "can't fight back.",
       "name_other": "Counterattacks"
     },
+    "createBomb": {
+      "generalEffect": "is supported in his fight by **{{petNickname}}** who pretends to ferociously harass his opponent with precise and painful pecking blows.",
+      "failure": "failed to receive help from **{{petNickname}}** who, out of an abundance of caution, refrained from acting, aware that his intervention was more likely to injure his master than his adversary. We should have been quicker!",
+      "success": "takes advantage of the talent of **{{petNickname}}** who has discreetly prepared a powerful bomb. After activating the detonator, you take off running with all your might!"
+    },
     "cursed": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "name": "cursed",
+      "new": "is cursed...",
+      "active": "is cursed...",
+      "stop": "suffers the consequences of the curse."
     },
     "cursedAttack": {
       "description": "Curses the opponent, maybe he will suffer the consequences in the future...",
@@ -207,13 +244,25 @@
     },
     "defenseBuff": {
       "description": "The more this action is performed in succession, the greater the defense bonus.",
+      "customMessage": "prepares to defend itself...",
       "name_one": "Defense boost",
       "name_other": "Defense boosts"
+    },
+    "dirty": {
+      "name": "disgusting",
+      "new": "is absolutely repugnant, its attacks are strengthened.",
+      "active": "is disgusting.",
+      "stop": "managed to clean itself."
     },
     "divineAttack": {
       "description": "This attack's precision increases with the duration of the combat. It is part of the \"actions of the gods\". Fails if 2 actions of the gods have already been performed in the combat.",
       "name_one": "Divine attack",
       "name_other": "Divine attacks"
+    },
+    "elephantRememberLastAction": {
+      "success": "is helped by **{{petNickname}}** whose searing memory of recent events enables him to restore his master's lost breath.",
+      "failure": "is helped by **{{petNickname}}** who, despite his powerful memories of past actions, fails to restore the expended breath.",
+      "afraid": "is aided by **{{petNickname}}** who, despite remembering recent events perfectly, trembles too much with fear to be able to restore lost breath."
     },
     "energeticAttack": {
       "description": "Half of the damage dealt by this attack is restored to the caster in the form of healing.",
@@ -221,7 +270,8 @@
       "name_other": "Energetic attacks"
     },
     "eruptionAttack": {
-      "description": "",
+      "description": "The volcano erupts and spits molten rock at players, with only the fastest able to avoid damage.",
+      "customMessage": "causes the volcano to erupt, with only the fastest opponents able to avoid the eruption.",
       "name_one": "Eruption",
       "name_other": "Eruptions"
     },
@@ -231,19 +281,33 @@
       "name_other": "Family meals"
     },
     "fireAttack": {
-      "description": "Grande chance de brûler l'adversaire. L'altération \"brûlé\" inflige des dégâts à votre adversaire sur la durée.",
+      "description": "Great chance to burn your opponent. The \"burned\" alteration inflicts damage on your opponent over time.",
       "name_one": "Fire attack",
       "name_other": "Fire attacks"
     },
+    "fishProtectAgainstFire": {
+      "afraid": "asks **{{petNickname}}** to help him not to burn but **{{petNickname}}** is too scared to help.",
+      "success": "is cured of his burns by **{{petNickname}}**."
+    },
     "frozen": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "name": "frozen",
+      "active": "is frozen.",
+      "stop": "is no longer frozen."
     },
     "full": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "name": "repue",
+      "new": "is full and needs to rest. `Speed: 0`",
+      "active": "is full and needs to rest.",
+      "stop": "is no longer full."
+    },
+    "getDirty": {
+      "description": "Performed if the attacker has recently found himself in dirty places. The fighter will find himself repulsed or sick, depending on the situation.",
+      "customMessage": "managed to extricate himself from a perilous situation without too much damage, but at the sacrifice of his dignity and cleanliness.",
+      "name_one": "Soiling",
+      "name_other": "Soiling"
+    },
+    "goesWild": {
+      "success": "orders **{{petNickname}}** to attack. The animal bursts into a rage and starts hitting everything in sight."
     },
     "grabAndThrowAttack": {
       "description": "Throws the opponent if he uses a physical attack, inflicting average damage and having a chance to stun the opponent",
@@ -255,125 +319,195 @@
       "name_one": "Guild attack",
       "name_other": "Guild attacks"
     },
+    "healEveryone": {
+      "generalEffect": "calls on **{{petNickname}}** who, with a benevolent look, sees that no one has been hurt and goes back to resting happily.",
+      "success": "is lucky enough to be accompanied by **{{petNickname}}** who, overflowing with love and wishing to put an end to the confrontation, looks after the combatants."
+    },
     "heatDrainAttack": {
       "description": "Drains the player's heat, which increases the launcher's attack and freezes the opponent.",
+      "customMessage": "drains your heat.",
       "name_one": "Heat drain",
       "name_other": "Heat drains"
     },
+    "heatMudAttack": {
+      "description": "Heat up the mud in the arena to wreak havoc on dirty opponents.",
+      "name_one": "Burning mud attack",
+      "name_other": "Burning mud attacks"
+    },
     "heavyAttack": {
-      "description": "Les dégâts de cette attaque sont réduits de 90% si le défenseur dispose de moins de défense que l'attaquant. La défense de l'ennemi est réduite de 25%.",
+      "description": "The damage of this attack is reduced by 90% if the defender has less defense than the attacker. Enemy defense is reduced by 25%.",
       "name_one": "Heavy attack",
       "name_other": "Heavy attacks"
     },
+    "helpBreathe": {
+      "success": "is helped by **{{petNickname}}** who, thanks to his diving skills, passes on a little breath to his owner."
+    },
+    "horn": {
+      "success": "was right to call **{{petNickname}}**! The animal has just impaled his opponent on his horn, and it's not a pretty sight.",
+      "generalEffect": "calls **{{petNickname}}** to the rescue, the animal takes off and charges straight at his opponent..."
+    },
+    "hypnosis": {
+      "success": "is helped by **{{petNickname}}** who uses his hypnotic powers to confuse the enemy."
+    },
     "intenseAttack": {
-      "description": "Ignore une partie de la défense de l'adversaire. N'échoue jamais sur un adversaire plus rapide. Fonctionne mieux sur un adversaire rapide. Force le lanceur à utiliser l'action \"repos\" au tour suivant. Ne peut pas tuer l'adversaire.",
+      "description": "Ignores part of your opponent's defense. Never fails on a faster opponent. Works best on a fast opponent. Forces the caster to use the \"rest\" action next turn. Cannot kill opponent.",
       "name_one": "Intense attack",
       "name_other": "Intense attacks"
+    },
+    "isUseless": {
+      "generalEffect": "asks for help from **{{petNickname}}** who, with remarkable indifference, stares blankly at his opponent."
     },
     "lavaWaveAttack": {
       "description": "Very powerful attack that can only be used as a last resort and inflicts the \"Burned\" alteration to the opponent.",
       "name_one": "Lava wave",
       "name_other": "Lava waves"
     },
+    "magicMimicAttack": {
+      "description": "Allows you to strike back after an opponent's magic attack.",
+      "name_one": "Magic mimic attack",
+      "name_other": "Magic mimic attacks"
+    },
     "magmaBathAttack": {
       "description": "Applies to the launcher. He rests in the lava and recovers his energy. The amount of energy recovered is divided by 4 after 4 uses.",
+      "customMessage": "bathes in the lava and recovers energy.",
       "name_one": "Magma bath",
       "name_other": "Magma baths"
     },
-    "mimicAttack": {
-      "description": "Randomly copies one of your attacks.",
-      "name_one": "Mimic",
-      "name_other": "Mimics"
+    "meduseParalyze": {
+      "success": "receives help from **{{petNickname}}** who petrifies his opponent with a glance."
     },
-    "monstrousCopyAttack": {
-      "description": "Copies the attack of a random monster.",
-      "name_one": "Monstrous Copy",
-      "name_other": "Monstrous Copies"
+    "mudShotAttack": {
+      "description": "Ranged attack that inflicts damage and makes the opponent dirty.",
+      "name_one": "Mud shot attack",
+      "name_other": "Mud shot attacks"
     },
     "none": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "customMessage": "cannot attack."
     },
     "outOfBreath": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "active": "is too out of breath to attack and has to catch his breath."
     },
     "outrage": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "name": "angry",
+      "new": "is angry.",
+      "active": "is angry.",
+      "stop": "is no longer angry but becomes giddy."
     },
     "outrageAttack": {
-      "description": "Échoue si vous utilisez cette action alors que vous avez une altération d'état. L'altération \"en colère\" double l'attaque mais baisse la défense. Au bout de 2 tours, l'effet disparait et l'attaquant devient confus.",
+      "description": "Fails if you use this action while altered. The \"angry\" alteration doubles attack but lowers defense. After 2 turns, the effect disappears and the attacker becomes confused.",
+      "customMessage": "gets angry.",
       "name_one": "Outrage",
       "name_other": "Outrages"
     },
     "paralyzed": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "name": "paralyzed",
+      "new": "is paralyzed.",
+      "active": "is paralyzed.",
+      "noAction": "is paralyzed and unable to attack.",
+      "stop": "is no longer paralyzed."
+    },
+    "peck": {
+      "success": "is supported in his fight by **{{petNickname}}** who ferociously harasses his opponent with precise and painful pecks."
+    },
+    "petCharge": {
+      "generalEffect": "orders **{{petNickname}}** to attack. The animal rubs its paws impatiently, ready to charge.",
+      "success": "is assisted by **{{petNickname}}** who finally decides to charge his opponent with great force."
+    },
+    "petCurse": {
+      "success": "invokes the powers of **{{petNickname}}** to curse his opponent."
+    },
+    "petHit": {
+      "success": "needs the help of **{{petNickname}}** following the violent attack he has just received. Out of revenge, **{{petNickname}}** hits his opponent hard."
+    },
+    "petPoison": {
+      "success": "uses **{{petNickname}}** to poison his opponent."
+    },
+    "petSmallCharge": {
+      "generalEffect": "orders **{{petNickname}}** to attack. The animal rubs its paws impatiently, ready to charge.",
+      "success": "is helped by **{{petNickname}}** who finally decides to charge his opponent with force."
     },
     "petrificationAttack": {
       "description": "Petrifies the target during 2 turns but raises its defense by 200%.",
+      "customMessage": "petrifies his opponent.",
       "name_one": "Petrification",
       "name_other": "Petrifications"
     },
     "petrified": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "name": "petrified",
+      "new": "is petrified.",
+      "noAction": "is petrified and unable to attack.",
+      "stop": "is no longer petrified."
     },
     "piercingAttack": {
-      "description": "Ignore presque complètement la défense de l'adversaire. L'attaquant a une probabilité de réduire légèrement la défense de son adversaire.",
+      "description": "Almost completely ignores the opponent's defense. The attacker has a probability of slightly reducing his opponent's defense.",
       "name_one": "Piercing attack",
       "name_other": "Piercing attacks"
     },
+    "pinch": {
+      "success": "is helped by **{{petNickname}}** who pinches his opponent with his little pincers."
+    },
     "poisoned": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "name": "poisoned",
+      "new": "is poisoned.",
+      "active": "suffers from his poisoning.",
+      "stop": "is no longer poisoned."
     },
     "poisonousAttack": {
-      "description": "Empoisonne l'adversaire. L'altération \"empoisonné\" dure au moins trois tours et inflige des dégâts à votre adversaire sur la durée.",
+      "description": "Poisons the opponent. The \"poisoned\" alteration lasts at least three turns and inflicts damage on your opponent over time.",
       "name_one": "Poisonous attack",
       "name_other": "Poisonous attacks"
     },
+    "poisonousBite": {
+      "generalEffect": "needs **{{petNickname}}**, the animal needs time to prepare...",
+      "success": "receives support from **{{petNickname}}** who decides to bite his opponent... The latter is suddenly not feeling well."
+    },
     "powerfulAttack": {
-      "description": "Cette attaque a 25 % de chance de faire plus de dégâts, au prix d'un étourdissement de l'attaquant. Après 3 utilisations, les dégâts de l'attaque sont réduits de 70%.",
+      "description": "This attack has a 25% chance of doing more damage, at the cost of stunning the attacker. After 3 uses, the attack's damage is reduced by 70%.",
       "name_one": "Powerful Attack",
       "name_other": "Powerful Attacks"
     },
+    "protectAgainstCold": {
+      "success": "is protected from the cold by **{{petNickname}}**."
+    },
     "protected": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "name": "shielded",
+      "new": "is protected.",
+      "active": "is protected.",
+      "stop": "is no longer protected."
     },
     "protection": {
       "description": "Échoue si vous utilisez cette action alors que vous avez une altération d'état. L'altération \"protégé\" dure 3 tours et vous empêche d'être victime d'une autre altération tout en vous offrant un boost de 30% de votre défense.",
+      "customMessage": "protects itself.",
       "name_one": "Protection",
       "name_other": "Protections"
     },
     "quickAttack": {
-      "description": "N'échoue jamais sur un adversaire plus lent. Plus votre adversaire est lent, plus cette attaque lui fera des dégâts.",
+      "description": "Never fail on a slower opponent. The slower your opponent, the more damage this attack will do.",
       "name_one": "Quick attack",
       "name_other": "Quick attacks"
     },
     "rageExplosion": {
       "description": "Explodes the rage accumulated during the trip on the enemy.",
+      "customMessage": "unleashes its rage on the enemy!",
       "name_one": "Rage explosion",
       "name_other": "Rage explosions"
     },
+    "rainbowPower": {
+      "success": "is assisted by **{{petNickname}}** who channels the magic of recent attacks to heal his owner."
+    },
     "ramAttack": {
-      "description": "Si l'attaquant n'est pas étourdi par l'attaque, il reçoit une partie des dégâts infligés. L'attaque peut également étourdir l'adversaire.",
+      "description": "If the attacker is not stunned by the attack, he receives part of the damage inflicted. The attack can also stun the opponent.",
       "name_one": "Ram Attack",
       "name_other": "Ram Attacks"
     },
     "resting": {
       "description": "Applies to the caster. The amount of energy recovered is divided by 4 after 4 uses.",
+      "customMessage": "rests...",
       "name_one": "Rest",
       "name_other": "Rests"
+    },
+    "revenge": {
+      "success": "is supported by **{{petNickname}}** who injures his opponent following his attack."
     },
     "roarAttack": {
       "description": "Lowers the attack and speed of the adversary.",
@@ -382,13 +516,20 @@
     },
     "rockShieldAttack": {
       "description": "Halves the damages of the next attack received.",
+      "customMessage": "accumulates rock to defend itself...",
       "name_one": "Stone shield",
       "name_other": "Stone shields"
     },
     "sabotageAttack": {
-      "description": "Ignore complètement la défense de l'adversaire. Fonctionne mieux sur un adversaire ayant peu d'attaque. Attaque peu couteuse en souffle mais qui peut paralyser le lanceur. Si c'est le cas, les dégâts sont augmentés.",
+      "description": "Completely ignores the opponent's defense. Works best on an opponent with little attack. A low-breath attack that can paralyze the caster. If so, damage is increased.",
       "name_one": "Sabotage attack",
       "name_other": "Sabotage attacks"
+    },
+    "scareElephant": {
+      "generalEffect": "is assisted by **{{petNickname}}** who scares the elephants away."
+    },
+    "scareFish": {
+      "generalEffect": "is assisted by **{{petNickname}}** which scares the fish away."
     },
     "shieldAttack": {
       "description": "Uses the attacker's shield to attack. The alteration \"weakened\" reduces the attack by 70% for 2 turns.",
@@ -405,45 +546,96 @@
       "name_one": "Slam attack",
       "name_other": "Slam attacks"
     },
+    "slipping": {
+      "failure": "uses **{{petNickname}}** to slide along the ground. He's not the one who slides the furthest on the ice floe, so he hits his opponent with little force.",
+      "success": "is aided by **{{petNickname}}** which slides across the floor until it crashes into the opponent."
+    },
     "slowed": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "name": "slowed down",
+      "new": "is slowed down.",
+      "active": "is slowed down.",
+      "stop": "is no longer slowed down."
+    },
+    "smallClaws": {
+      "success": "is supported in his fight by **{{petNickname}}** who gives his opponent a little scratch, how cute..."
+    },
+    "smallRegen": {
+      "success": "learns from the regenerative abilities of **{{petNickname}}** and recovers energy."
+    },
+    "snowBall": {
+      "success": "is helped by **{{petNickname}}** who throws a snowball at his opponent."
+    },
+    "spit": {
+      "failure": "is helped by **{{petNickname}}** spitting on his opponent.",
+      "success": "is supported by **{{petNickname}}** who spits at his opponent. Luckily, the spit lands perfectly in the enemy's eyes!"
+    },
+    "spitFire": {
+      "success": "is aided in his fight by **{{petNickname}}** who sets the arena ablaze with his fiery flames."
+    },
+    "spitInk": {
+      "success": "call **{{petNickname}}** who spits ink at the opponent."
+    },
+    "stealWeapon": {
+      "failure": "appeals to **{{petNickname}}** for a little help, but the creature, finding no treasure worthy of his interest on the adversary, refuses to venture into hostile territory.",
+      "success": "asks for help from **{{petNickname}}** who bravely dashes forward and seizes the enemy's weapon in an act of boldness."
     },
     "stealth": {
       "description": "Discreetly hides to double the damage of the next attack.",
+      "customMessage": "discreetly hides to make preparations that will increase the damage of his next attack...",
       "name_one": "Stealth",
       "name_other": "Stealth"
     },
     "stoneSkinAttack": {
       "description": "More this action is done, more the defense boost is important.",
+      "customMessage": "hardens its skin and protects itself.",
       "name_one": "Stone skin",
       "name_other": "Stone skins"
     },
     "stunned": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "name": "stunned",
+      "active": "is stunned.",
+      "noAction": "is dazed and unable to attack.",
+      "stop": "is no longer dizzy."
     },
     "summonAttack": {
       "description": "Summons allies to help you and attack very hard.",
       "name_one": "Ally Summoning",
       "name_other": "Ally Summoning"
     },
+    "swallow": {
+      "success": "asks for help from **{{petNickname}}** who, not knowing what to do, decides to swallow his opponent whole."
+    },
+    "swallowed": {
+      "name": "swallowed",
+      "new": "is swallowed.",
+      "noAction": "is in a stomach and cannot attack.",
+      "stop": "emerged from the animal unharmed."
+    },
     "targeted": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "name": "targeted by a boomerang",
+      "new": "watches the boomerang spin away.",
+      "stop": "is no longer targeted by a boomerang.",
+      "active": "is hit by the boomerang."
+    },
+    "triesToHelp": {
+      "success": "calls on **{{petNickname}}** who, despite fierce determination and relentless efforts, only manages to inflict a negligible impact on the fight."
     },
     "ultimateAttack": {
       "description": "",
       "name_one": "Ultimate attack",
       "name_other": "Ultimate attacks"
     },
+    "unBlind": {
+      "success": "is helped by **{{petNickname}}** whose keen eyesight enables him to see around him properly again."
+    },
+    "vampirism": {
+      "success": "is assisted by **{{petNickname}}** who sucks a little energy from his opponent and offers it as tribute to his master."
+    },
     "weak": {
-      "description": "",
-      "name_one": "",
-      "name_other": ""
+      "name": "weakened",
+      "new": "is weakened.",
+      "active": "is weakened.",
+      "stop": "is no longer weakened."
     },
     "webShotAttack": {
       "description": "Do a web shot that hurts and slows the opponent.",
@@ -883,12 +1075,30 @@
     "finishWithAttack": "{emote:fight_actions.{{variant}}} $t(models:fight_actions.{{variant}}.name, {\"count\": {{count}}})"
   },
   "monsters": {
-    "forestTroll": "Forest troll",
-    "magmaTitan": "Magma titan",
-    "rockGolem": "Rock golem",
-    "skeleton": "Skeleton",
-    "slimyMutant": "Slimy Mutant",
-    "spider": "Spider"
+    "forestTroll": {
+      "name": "Forest troll",
+      "description": "A large, forest-dwelling troll. Very strong and hardy, it is also very aggressive, attacking anything that moves. He is very dangerous to adventurers who venture into the forest."
+    },
+    "spider": {
+      "name": "Spider",
+      "description": "A big, hairy spider. Of an unknown species, it attacks any traveller who approaches its nest. Venomous, it can also project silk to immobilize its prey."
+    },
+    "magmaTitan": {
+      "name": "Magma titan",
+      "description": "The most powerful monster on the island. Boiling with heat, it can melt even the hardest rock. Very few adventurers have succeeded in defeating it, and it would be perilous to attack it alone."
+    },
+    "rockGolem": {
+      "name": "Stone Golem",
+      "description": "An immense rock golem. Driven by a desire to crush anything that comes near. It's very slow, but its attacks are devastating."
+    },
+    "skeleton": {
+      "name": "Skeleton",
+      "description": "A strange skeleton, he seems to be an ancient warrior. He may look weak, but he's actually very dangerous, and many have been taken by surprise."
+    },
+    "slimyMutant": {
+      "name": "Slimy Mutant",
+      "description": "The Slime Mutant is a monster that can copy other monsters or its opponent directly. It is highly versatile and can adapt to any situation."
+    }
   },
   "objects": {
     "0": "Unused space",
@@ -1125,6 +1335,26 @@
     "71_male": "Octopus",
     "72_female": "Penguin",
     "72_male": "Penguin",
+    "73_male": "Fish",
+    "73_female": "Fish",
+    "74_male": "Tropical fish",
+    "74_female": "Tropical fish",
+    "75_male": "Puffer fish",
+    "75_female": "Puffer fish",
+    "76_male": "Medusa",
+    "76_female": "Medusa",
+    "77_male": "Shark",
+    "77_female": "Shark",
+    "78_male": "Whale",
+    "78_female": "Whale",
+    "79_male": "Whale",
+    "79_female": "Whale",
+    "80_male": "Shrimp",
+    "80_female": "Shrimp",
+    "81_male": "Lobster",
+    "81_female": "Lobster",
+    "82_male": "Dolphin",
+    "82_female": "Dolphin",
     "8_female": "Cow",
     "8_male": "Ox",
     "9_female": "Sow",
@@ -1351,37 +1581,37 @@
     "get_ordinal_other": "{{count}}th"
   },
   "guilds": {
-    "levelUpTitle": "{emote:unitValues.xp} La guilde {{guild}} monte de niveau !",
-    "levelUpDesc": "La guilde est désormais niveau **{{level}}**"
+    "levelUpTitle": "{emote:unitValues.xp} The {{guild}} guild goes up a level!",
+    "levelUpDesc": "The guild is now level **{{level}}**"
   },
   "players": {
-    "koTitle": "{{pseudo}}, vous avez été mis K.O. !",
-    "koDesc": "{emote:effects.dead} Utilisez la commande {command:respawn} pour recommencer à jouer.",
-    "koDmTitle": "Bonjour Combattant !",
-    "koDmDesc": "Il semblerait que vous ayez été mis K.O... {emote:effects.dead}\nGrâce à nos technologies avancées il nous a été possible de modifier les évènements de manière à vous éviter une mort atroce ! {emote:other.tada}\nMalheureusement l'opération est coûteuse et votre score a donc été impacté par cette mort... \n\nPour recommencer à jouer, faites {command:respawn}.",
-    "leavePVEIslandTitle": "{{pseudo}}, évanouissement",
-    "leavePVEIslandDescStart": "{emote:effects.confounded} Vous sentez vos forces vous quitter, vous êtes à bout. Vous vous évanouissez par terre...\n\n{emote:unitValues.lostMoney} Argent perdu : **{{moneyLost}}**",
-    "leavePVEIslandMalusGuildPoints": "\n{emote:unitValues.guildPoint} Points de guilde perdus : **{{guildPointsLost}}**",
-    "leavePVEIslandDescEnd": "\n\nUn bateau vient vous chercher et vous ramène sur une côte du continent principal.",
+    "koTitle": "{{pseudo}}you've been knocked out!",
+    "koDesc": "{emote:effects.dead} Use the {command:respawn} command to start playing again.",
+    "koDmTitle": "Hello Fighter!",
+    "koDmDesc": "It looks like you've been knocked out... {emote:effects.dead}\nThanks to our advanced technologies, we've been able to alter events in such a way as to save you from an agonizing death! {emote:other.tada}\nUnfortunately, this is a costly operation, and your score has been impacted by this death... \n\nTo start playing again, go to {command:respawn}.",
+    "leavePVEIslandTitle": "{{pseudo}}fainting",
+    "leavePVEIslandDescStart": "{emote:effects.confounded} You feel your strength leave you, you're at your wits' end. You faint on the floor...\n\n{emote:unitValues.lostMoney} Money lost: **{{moneyLost}}**",
+    "leavePVEIslandMalusGuildPoints": "\n{emote:unitValues.guildPoint} Guild points lost: **{{guildPointsLost}}**",
+    "leavePVEIslandDescEnd": "\n\nA boat will pick you up and take you back to a coast on the mainland.",
     "levelUp": {
-      "title": "{{pseudo}}, vous montez de niveau !",
-      "description": "{emote:unitValues.xp} Vous êtes désormais niveau **{{level}}** !\n\n",
+      "title": "{{pseudo}}you're stepping up your game!",
+      "description": "{emote:unitValues.xp} You are now level **{{level}}**!\n\n",
       "rewards": {
-        "healthRestored": "{emote:unitValues.health} | Votre vie a été restaurée.",
-        "fightUnlocked": "{emote:unitValues.attack} | Combats débloqués avec la commande {command:fight} ! Pour plus d'informations sur les combats, exécutez la commande {command:help}.",
-        "guildUnlocked": "{emote:other.guild} | Guildes débloquées avec les commandes {command:guild}, {command:guildcreate}, {command:guildinvite}, {command:guildleave}, {command:guilddailybonus}, {command:guildkick} et bien plus ! Pour plus d'informations sur les guildes, utilisez la commande {command:help}.",
-        "classUnlocked": "{emote:commands.classes} | Classes débloquées avec les commandes {command:classes} et {command:classesinfo} ! Pour plus d'informations sur les classes, utilisez la commande {command:help}.",
-        "classTier": "{emote:commands.classes} | Classes de palier {{tier}} débloquées ! Pour plus d'informations sur les classes, utilisez les commandes {command:classesinfo} et {command:help}.",
-        "newMissionSlot": "{emote:missions.sideMission} | Nouvel emplacement de mission débloqué ! Pour plus d'informations sur vos missions, utilisez la commande {command:missions}.",
-        "pveUnlocked": "{emote:other.island} | Accès aux îles lointaines débloquées ! Rendez-vous près d'un point d'eau pour de nouvelles aventures !",
-        "statsIncreased": "{emote:other.increase} | Statistiques améliorées."
+        "healthRestored": "{emote:unitValues.health} | Your life has been restored.",
+        "fightUnlocked": "{emote:unitValues.attack} | Unlock fights with the {command:fight} command! For more information on battles, run the command {command:help}.",
+        "guildUnlocked": "{emote:other.guild} | Guilds unlocked with the commands {command:guild}, {command:guildcreate}, {command:guildinvite}, {command:guildleave}, {command:guilddailybonus}, {command:guildkick} and much more! For more information on guilds, use the command {command:help}.",
+        "classUnlocked": "{emote:commands.classes} | Classes unlocked with {command:classes} and {command:classesinfo} commands! For more information on classes, use the {command:help}command.",
+        "classTier": "{emote:commands.classes} | Level classes {{tier}} unlocked! For more information on the classes, use the commands {command:classesinfo} and {command:help}.",
+        "newMissionSlot": "{emote:missions.sideMission} | New mission slot unlocked! For more information on your missions, use the command {command:missions}.",
+        "pveUnlocked": "{emote:other.island} | Access to unlocked remote islands! Meet at a watering hole for new adventures!",
+        "statsIncreased": "{emote:other.increase} | Improved statistics."
       }
     }
   },
   "petReceived": {
-    "genericGiveTitle": "{{pseudo}}, obtention d'un familier",
-    "genericGiveNoSlot": "Vous obtenez un nouveau familier: **{{pet}}**. Cependant, vous n'avez pas de place pour l'accueillir.",
-    "genericGiveGuild": "Vous obtenez un nouveau familier: **{{pet}}**. Vous le placez dans le refuge de la guilde.",
-    "genericGivePlayer": "Vous obtenez un nouveau familier: **{{pet}}**. Vous décidez de l'emmener avec vous."
+    "genericGiveTitle": "{{pseudo}}obtaining a pet",
+    "genericGiveNoSlot": "You get a new pet: **{{pet}}**. However, you don't have room for him.",
+    "genericGiveGuild": "You get a new pet: **{{pet}}**. Place it in the guild hut.",
+    "genericGivePlayer": "You get a new pet: **{{pet}}**. You decide to take him with you."
   }
 }
