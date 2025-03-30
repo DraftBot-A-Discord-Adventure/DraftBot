@@ -165,6 +165,11 @@
       "active": "soffre per la sua ustione.",
       "stop": "non è più bruciato."
     },
+    "alliesArePresent": {
+      "name": "victime des alliés",
+      "new": "est victime des alliés de son adversaire.",
+      "active": "subit les attaques des alliés de son adversaire."
+    },
     "canonAttack": {
       "description": "La precisione di questo attacco è ridotta sugli avversari che si muovono velocemente. Se l'avversario è molto lento, a questo attacco viene applicato un bonus ai danni. L'avversario può essere rallentato dall'attacco. Infligge più danni se usato più volte di seguito.",
       "name_one": "Attacco canone",
