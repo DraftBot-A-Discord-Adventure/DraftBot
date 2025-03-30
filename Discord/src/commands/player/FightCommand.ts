@@ -27,7 +27,7 @@ import {DraftbotHistoryCachedMessage} from "../../messages/DraftbotHistoryCached
 import {DraftbotActionChooseCachedMessage} from "../../messages/DraftbotActionChooseCachedMessage";
 import {CommandFightEndOfFightPacket} from "../../../../Lib/src/packets/fights/EndOfFightPacket";
 import {millisecondsToMinutes, minutesDisplay} from "../../../../Lib/src/utils/TimeUtils";
-import {GloryChangesPacket} from "../../../../Lib/src/packets/fights/GloryChangesPacket";
+import {FightRewardPacket} from "../../../../Lib/src/packets/fights/FightRewardPacket";
 import {StringUtils} from "../../utils/StringUtils";
 import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
@@ -274,7 +274,7 @@ export async function handleEndOfFight(context: PacketContext, packet: CommandFi
  * @param context
  * @param packet
  */
-export async function handleGloryChange(context: PacketContext, packet: GloryChangesPacket): Promise<void> {
+export async function handleFightReward(context: PacketContext, packet: FightRewardPacket): Promise<void> {
 	if (!context.discord?.interaction) {
 		return;
 	}
@@ -287,19 +287,45 @@ export async function handleGloryChange(context: PacketContext, packet: GloryCha
 
 	// Create an embed to show glory and league changes
 	const embed = new DraftBotEmbed()
-		.setTitle(i18n.t("commands:fight.gloryChanges.title", {
+		.setTitle(i18n.t("commands:fight.fightReward.title", {
 			lng: interaction.userLanguage
 		}));
 
+	// Add fight reward description
+	embed.addFields({
+		name: i18n.t("commands:fight.fightReward.scoreAndMoneyField", {lng: interaction.userLanguage}),
+		value: ((): string => {
+			if (packet.money <= 0 && packet.points <= 0) {
+				return i18n.t("commands:fight.fightReward.noReward", {
+					lng: interaction.userLanguage,
+					player: player1Username
+				});
+			}
+			return [
+				packet.money > 0 ? i18n.t("commands:fight.fightReward.moneyReward", {
+					lng: interaction.userLanguage,
+					player: player1Username,
+					money: packet.money
+				}) : "",
+				packet.points > 0 ? i18n.t("commands:fight.fightReward.scoreReward", {
+					lng: interaction.userLanguage,
+					player: player1Username,
+					score: packet.points
+				}) : ""
+			].filter(Boolean).join("\n");
+		})(),
+		inline: false
+	});
+
 	// Add glory changes
 	embed.addFields({
-		name: i18n.t("commands:fight.gloryChanges.gloryField", {lng: interaction.userLanguage}),
+		name: i18n.t("commands:fight.fightReward.gloryField", {lng: interaction.userLanguage}),
 		value: [
 			...[
-				{ player: player1Username, change: packet.player1.newGlory - packet.player1.oldGlory },
-				{ player: player2Username, change: packet.player2.newGlory - packet.player2.oldGlory }
-			].map(({ player, change }) =>
-				i18n.t(`commands:fight.gloryChanges.glory${change >= 0 ? "Positive" : "Negative"}`, {
+				{player: player1Username, change: packet.player1.newGlory - packet.player1.oldGlory},
+				{player: player2Username, change: packet.player2.newGlory - packet.player2.oldGlory}
+			].map(({player, change}) =>
+				i18n.t(`commands:fight.fightReward.glory${change >= 0 ? "Positive" : "Negative"}`, {
 					lng: interaction.userLanguage,
 					count: Math.abs(change),
 					player
@@ -311,7 +337,7 @@ export async function handleGloryChange(context: PacketContext, packet: GloryCha
 	// Add league changes
 	const leagueChangeValue = [
 		...packet.player1.newLeagueId !== packet.player1.oldLeagueId ? [
-			i18n.t(`commands:fight.gloryChanges.leagueChange${packet.player1.newLeagueId > packet.player1.oldLeagueId ? "Up" : "Down"}`, {
+			i18n.t(`commands:fight.fightReward.leagueChange${packet.player1.newLeagueId > packet.player1.oldLeagueId ? "Up" : "Down"}`, {
 				lng: interaction.userLanguage,
 				player: player1Username,
 				oldLeagueEmoji: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.leagues[packet.player1.oldLeagueId]),
@@ -321,7 +347,7 @@ export async function handleGloryChange(context: PacketContext, packet: GloryCha
 			})
 		] : [],
 		...packet.player2.newLeagueId !== packet.player2.oldLeagueId ? [
-			i18n.t(`commands:fight.gloryChanges.leagueChange${packet.player2.newLeagueId > packet.player2.oldLeagueId ? "Up" : "Down"}`, {
+			i18n.t(`commands:fight.fightReward.leagueChange${packet.player2.newLeagueId > packet.player2.oldLeagueId ? "Up" : "Down"}`, {
 				lng: interaction.userLanguage,
 				player: player2Username,
 				oldLeagueEmoji: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.leagues[packet.player2.oldLeagueId]),
@@ -333,7 +359,7 @@ export async function handleGloryChange(context: PacketContext, packet: GloryCha
 	];
 	if (leagueChangeValue.length > 0) {
 		embed.addFields({
-			name: i18n.t("commands:fight.gloryChanges.leagueField", {lng: interaction.userLanguage}),
+			name: i18n.t("commands:fight.fightReward.leagueField", {lng: interaction.userLanguage}),
 			value: leagueChangeValue.join("\n"),
 			inline: false
 		});
@@ -345,37 +371,37 @@ export async function handleGloryChange(context: PacketContext, packet: GloryCha
 	const gloryDifference = Math.abs(packet.player1.oldGlory - packet.player2.oldGlory);
 
 	if (gloryDifference < FightConstants.ELO.ELO_DIFFERENCE_FOR_SAME_ELO) {
-		embed.setDescription(StringUtils.getRandomTranslation("commands:fight.gloryChanges.sameElo", interaction.userLanguage, {
+		embed.setDescription(StringUtils.getRandomTranslation("commands:fight.fightReward.sameElo", interaction.userLanguage, {
 			player1: player1Username,
 			player2: player2Username
 		}));
 	}
 	else if (player1Won && packet.player1.oldGlory > packet.player2.oldGlory) {
-		embed.setDescription(StringUtils.getRandomTranslation("commands:fight.gloryChanges.higherEloWins", interaction.userLanguage, {
+		embed.setDescription(StringUtils.getRandomTranslation("commands:fight.fightReward.higherEloWins", interaction.userLanguage, {
 			winner: player1Username,
 			loser: player2Username
 		}));
 	}
 	else if (player2Won && packet.player2.oldGlory > packet.player1.oldGlory) {
-		embed.setDescription(StringUtils.getRandomTranslation("commands:fight.gloryChanges.higherEloWins", interaction.userLanguage, {
+		embed.setDescription(StringUtils.getRandomTranslation("commands:fight.fightReward.higherEloWins", interaction.userLanguage, {
 			winner: player2Username,
 			loser: player1Username
 		}));
 	}
 	else if (player1Won && packet.player1.oldGlory < packet.player2.oldGlory) {
-		embed.setDescription(StringUtils.getRandomTranslation("commands:fight.gloryChanges.lowestEloWins", interaction.userLanguage, {
+		embed.setDescription(StringUtils.getRandomTranslation("commands:fight.fightReward.lowestEloWins", interaction.userLanguage, {
 			winner: player1Username,
 			loser: player2Username
 		}));
 	}
 	else if (player2Won && packet.player2.oldGlory < packet.player1.oldGlory) {
-		embed.setDescription(StringUtils.getRandomTranslation("commands:fight.gloryChanges.lowestEloWins", interaction.userLanguage, {
+		embed.setDescription(StringUtils.getRandomTranslation("commands:fight.fightReward.lowestEloWins", interaction.userLanguage, {
 			winner: player2Username,
 			loser: player1Username
 		}));
 	}
 	else {
-		embed.setDescription(StringUtils.getRandomTranslation("commands:fight.gloryChanges.draw", interaction.userLanguage, {
+		embed.setDescription(StringUtils.getRandomTranslation("commands:fight.fightReward.draw", interaction.userLanguage, {
 			player1: player1Username,
 			player2: player2Username
 		}));
