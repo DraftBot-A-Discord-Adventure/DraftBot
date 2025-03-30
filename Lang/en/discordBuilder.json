@@ -303,13 +303,9 @@
       }
     },
     "timings": {
-      "allTime": "{emote:top.allTime} Depuis toujours.",
+      "allTime": "{emote:top.allTime} We always have.",
       "weekly": "{emote:top.weekly} This week."
     }
-  },
-  "fight": {
-    "description": "Start a fight.",
-    "name": "fight"
   },
   "switch": {
     "name": "switch",
