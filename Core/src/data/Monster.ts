@@ -20,35 +20,32 @@ export class Monster extends Data<string> {
 
 	public readonly breathRegen: number;
 
+	public readonly rewardFactor: number;
+
 	public readonly attacks: {
-       id: string,
-       minLevel: number,
-       weight: number
-    }[];
+		id: string,
+		minLevel: number,
+		weight: number
+	}[];
 
 	public readonly maps: number[];
 
 
 	/**
-     * Get the rewards of the monster
-     * @param level Monster's level
-     */
+	 * Get the rewards of the monster
+	 * @param level Monster's level
+	 */
 	public getRewards(level: number): {
-        money: number,
-        xp: number,
-        guildScore: number,
-        guildXp: number
-    } {
-		let totalRatio = (this.baseEnergyValue + this.attackRatio + this.defenseRatio + this.speedRatio) / 10.0;
-		totalRatio = RandomUtils.draftbotRandom.real(totalRatio * (1 - PVEConstants.FIGHT_REWARDS.TOTAL_RATIO_RANDOM_RANGE), totalRatio * (1 + PVEConstants.FIGHT_REWARDS.TOTAL_RATIO_RANDOM_RANGE));
-		const rewardMultiplier = PVEConstants.FIGHT_REWARDS.LEVEL_MULTIPLIER.A * level + PVEConstants.FIGHT_REWARDS.LEVEL_MULTIPLIER.B;
-
+		money: number,
+		xp: number,
+		guildScore: number,
+		guildXp: number
+	} {
 		return {
-			money: Math.round((PVEConstants.FIGHT_REWARDS.MONEY.A * totalRatio * totalRatio + PVEConstants.FIGHT_REWARDS.MONEY.B * totalRatio + PVEConstants.FIGHT_REWARDS.MONEY.C) * rewardMultiplier),
-			xp: Math.round((PVEConstants.FIGHT_REWARDS.XP.A * totalRatio * totalRatio + PVEConstants.FIGHT_REWARDS.XP.B * totalRatio + PVEConstants.FIGHT_REWARDS.XP.C) * rewardMultiplier),
-			guildScore: Math.round(PVEConstants.FIGHT_REWARDS.GUILD_SCORE_MULTIPLIER * totalRatio),
-			guildXp: Math.round((PVEConstants.FIGHT_REWARDS.GUILD_XP.A * totalRatio * totalRatio + PVEConstants.FIGHT_REWARDS.GUILD_XP.B * totalRatio + PVEConstants.FIGHT_REWARDS.GUILD_XP.C)
-                * rewardMultiplier)
+			money: Math.round(this.rewardFactor * (level * PVEConstants.FIGHT_REWARDS.MONEY_FACTOR + RandomUtils.draftbotRandom.integer(0, PVEConstants.FIGHT_REWARDS.RANDOM_MAX_REWARD))),
+			xp: Math.round(this.rewardFactor * (level * PVEConstants.FIGHT_REWARDS.XP_FACTOR + RandomUtils.draftbotRandom.integer(0, PVEConstants.FIGHT_REWARDS.RANDOM_MAX_REWARD))),
+			guildScore: Math.round(this.rewardFactor * (level * PVEConstants.FIGHT_REWARDS.GUILD_SCORE_FACTOR + RandomUtils.draftbotRandom.integer(0, PVEConstants.FIGHT_REWARDS.RANDOM_MAX_REWARD))),
+			guildXp: Math.round(this.rewardFactor * (level * PVEConstants.FIGHT_REWARDS.GUILD_XP_FACTOR + RandomUtils.draftbotRandom.integer(0, PVEConstants.FIGHT_REWARDS.RANDOM_MAX_REWARD)))
 		};
 	}
 }

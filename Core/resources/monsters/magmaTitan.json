@@ -6,6 +6,7 @@
 	"breath": 20,
 	"maxBreath": 50,
 	"breathRegen": 6,
+  "rewardFactor" : 1.2,
 	"attacks": [
 		{
 			"id": "eruptionAttack",
