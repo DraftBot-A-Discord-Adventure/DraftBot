@@ -307,6 +307,10 @@
       "weekly": "{emote:top.weekly} Questa settimana."
     }
   },
+  "fight": {
+    "description": "Lancer un combat.",
+    "name": "combattimento"
+  },
   "switch": {
     "name": "interruttore",
     "description": "Scambiate l'oggetto attivo con uno degli oggetti della vostra riserva."
