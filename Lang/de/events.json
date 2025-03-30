@@ -40,7 +40,7 @@
       },
       "push": {
         "outcomes": {
-          "0": "Mais pourquoi avoir fait cela ? {emote:other.why} Pris de remords, vous secourez le pauvre homme et lui offrez quelques pièces pour vous faire pardonner."
+          "0": "Aber warum haben Sie das getan? {emote:other.why} Von Gewissensbissen geplagt, helfen Sie dem armen Mann und bieten ihm ein paar Münzen zur Wiedergutmachung an."
         },
         "text": "Die Fischer in das Wasser schieben!"
       },
@@ -579,7 +579,7 @@
       },
       "end": {
         "outcomes": {
-          "0": "Nachdem Sie sich einen kurzen Blick auf die Soldaten geworfen haben, die von ihren Ausgrabungen besetzt sind, entscheiden Sie sich für die Wiederaufnahme Ihrer Reise.",
+          "0": "Nachdem Sie einen kurzen Blick auf die Soldaten geworfen haben, die mit ihren Ausgrabungen beschäftigt sind, beschließen Sie, Ihren Weg fortzusetzen.",
           "1": "Müde, Sie stolzer in den Boden und schlafen auf dem Boden."
         }
       },
@@ -2043,7 +2043,7 @@
         "text": "Die Umrandung der Umgebung."
       }
     },
-    "text": "**Bonjour et bienvenue sur DraftBot !** {emote:other.crown} Le roi est à la recherche d'un noble chevalier pour marier sa fille et vous avez choisi de participer au concours de sélection ! Venant d'arriver à l'entrée du château après un long voyage, vous signalez votre présence aux gardes de l'entrée. Vous êtes invité à rentrer et rencontrez rapidement une jeune femme qui semble vouloir vous accueillir."
+    "text": "**Hallo und willkommen bei DraftBot!** {emote:other.crown} Der König ist auf der Suche nach einem edlen Ritter, um seine Tochter zu verheiraten, und Sie haben sich entschieden, am Auswahlwettbewerb teilzunehmen! Gerade nach einer langen Reise am Eingang des Schlosses angekommen, melden Sie Ihre Anwesenheit den Wachen am Eingang. Sie werden hereingebeten und treffen schnell auf eine junge Frau, die Sie anscheinend willkommen heißen möchte."
   },
   "62": {
     "possibilities": {
@@ -2065,7 +2065,7 @@
       "searchPatures": {
         "outcomes": {
           "0": "Nachdem Sie die Rinder von weit weg gesehen haben, die frische Gras in der ersten Menge verrückter Kräuter zu kauen, ziehen Sie sich in die zweite Richtung. Es gibt viele Schafe, die friedlich verwirschend sind. Ein eindrucksvoller Chestanant dominiert die Weideland und zieht Ihre Aufmerksamkeit auf sich, so dass Sie sich entscheiden, sich zu nähern. In wenigen Metern von der Welle entfernt befindet sich eine gepflasterte Gabel, die gegen den Rumpf gedrückt wird. Der Bauer scheint sehr glücklich zu sein, wenn Sie ihm die Faust geben. Er erteilt Ihnen dann, wie versprochen, eine kleine Goldbörse mit Gold.",
-          "1": "Vous approchant des pâturages, vous remarquez des empreintes de pas. En les suivant, vous pénétrez dans un sombre bosquet dans lequel se trouve une cabane pour le moins lugubre. Curieux, vous faites le tour de la bâtisse et vous retrouvez nez à manche avec la tant recherchée fourche ! Après avoir repris le chemin en sens inverse, vous remettez l'objet au fermier qui se confond en remerciements et vous invite à partager son repas afin que vous puissiez lui conter votre investigation. La soirée est plaisante et vous quittez le fermier tard dans la nuit, revigoré par les produits du terroir.",
+          "1": "Als Sie sich den Weiden nähern, bemerken Sie Fußspuren. Sie folgen ihnen und gelangen in einen dunklen Hain, in dem sich eine düstere Hütte befindet. Neugierig geworden, umrunden Sie das Gebäude und finden sich Auge in Auge mit der begehrten Mistgabel wieder! Nachdem Sie den Weg in umgekehrter Richtung zurückgegangen sind, übergeben Sie das Objekt dem Bauern, der sich bedankt und Sie zu seinem Essen einlädt, damit Sie ihm von Ihren Ermittlungen berichten können. Der Abend ist angenehm und Sie verlassen den Bauern spät in der Nacht, gestärkt durch die Produkte der Region.",
           "2": "Wenn Sie sich der Weideland nähern, sehen Sie Fingerabdrücke, die nicht durch den Boden gehen und bis zum Brechen führen, wo Schafe von dem erfrischenden Schatten der Eichenbäume profitieren. Sie entscheiden sich, sie zu verfolgen, indem Sie denken, dass es sich um eine Spur handelt. Wenn Sie in die Mitte der Schafe kommen, kommt einer von ihnen zu Ihnen. Wenn Sie einen Spieler haben, legen Sie ihm Ihre Hand mit etwas Gras darin vor. Er nutzt die Gelegenheit, um sich zu beruhigen, und Sie glauben an einen Finger auf den Weg. Sie entscheiden sich zu flüchten, wenn Sie nervös sind. Wenn Sie den Rand des Weidelandes sehen, sehen Sie nicht die Gabel auf dem Boden, und gehen Sie auf den Boden. Wenn Sie diese Pech haben, denken Sie daran, niemandem mehr zu helfen, wenn Sie sich abenteuern."
         },
         "text": "Suchen Sie in der Nähe von Weideland."
@@ -2284,7 +2284,7 @@
     "possibilities": {
       "checkDate": {
         "outcomes": {
-          "0": "Vous regardez le calendrier et y découvrez l'existence d'un tournoi qui commence sous peu ! Vous décidez donc de vous y rendre et parvenez à atteindre la finale après quelques heures de combat. Cependant, votre adversaire vous domine et vous ratez votre dernière bataille. Finaliste, vous gagnez tout de même une bourse remplie d'or avant de reprendre votre chemin.",
+          "0": "Du schaust auf den Kalender und entdeckst, dass es ein Turnier gibt, das in Kürze beginnt! Sie beschließen, daran teilzunehmen und schaffen es nach einigen Stunden Kampf bis ins Finale. Ihr Gegner ist Ihnen jedoch überlegen und Sie verpassen Ihren letzten Kampf. Als Finalist gewinnen Sie immerhin einen Beutel voller Gold, bevor Sie sich wieder auf den Weg machen.",
           "1": "Sie sehen sich den Kalender an und sehen, dass Sie in der Legeperiode, im 6. Monat des Jahres, sich entscheiden zu gehen und zu gehen und ein Galette mit einem nahegelegenen Stand zu essen. Dieses Essen wird Sie beruhigt haben! Sie sind wieder auf dem Weg, wieder zurück.",
           "2": "Wenn Sie den Kalender sehen, erinnern Sie sich an die Poster auf den Straßen, die von einer Schatzsuche sprechen. Dann entscheiden Sie, ob Sie daran teilnehmen möchten. Nach zwei Stunden Forschung, können Sie nichts finden, was immer es ist. Sie entscheiden sich also, den Weg zu gehen.",
           "3": "Schauen Sie sich den Kalender an, und an dem Tag, an dem Sie heute stehen: Conkurs von Hydromel! Sie fühlen sich gegen Alkohol beständig, wenn Sie versuchen, Ihre Chance zu versuchen. Sie gewinnen den Wettbewerb und eine Belohnung! Aber Sie sind sehr betrunken."
