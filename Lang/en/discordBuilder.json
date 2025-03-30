@@ -307,6 +307,10 @@
       "weekly": "{emote:top.weekly} This week."
     }
   },
+  "fight": {
+    "description": "Lancer un combat.",
+    "name": "fight"
+  },
   "switch": {
     "name": "switch",
     "description": "Switch the active item with one of the items in your item stock."
