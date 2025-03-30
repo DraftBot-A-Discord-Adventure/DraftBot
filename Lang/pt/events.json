@@ -40,7 +40,7 @@
       },
       "push": {
         "outcomes": {
-          "0": "Mais pourquoi avoir fait cela ? {emote:other.why} Pris de remords, vous secourez le pauvre homme et lui offrez quelques pièces pour vous faire pardonner."
+          "0": "Mas porque é que o fizeste? {emote:other.why} Sentindo remorsos, ajuda o pobre homem e oferece-lhe algumas moedas para o compensar."
         },
         "text": "Empurra o pescador para a água!"
       },
@@ -2043,7 +2043,7 @@
         "text": "Observar o meio envolvente."
       }
     },
-    "text": "**Bonjour et bienvenue sur DraftBot !** {emote:other.crown} Le roi est à la recherche d'un noble chevalier pour marier sa fille et vous avez choisi de participer au concours de sélection ! Venant d'arriver à l'entrée du château après un long voyage, vous signalez votre présence aux gardes de l'entrée. Vous êtes invité à rentrer et rencontrez rapidement une jeune femme qui semble vouloir vous accueillir."
+    "text": "**Olá e bem-vindo ao DraftBot! {emote:other.crown} O Rei está à procura de um nobre cavaleiro para casar com a sua filha e tu foste escolhido para participar no concurso de seleção! Acabado de chegar à entrada do castelo depois de uma longa viagem, fazes sinal de presença aos guardas que se encontram à entrada. És convidado a entrar e logo encontras uma jovem que parece querer dar-te as boas-vindas."
   },
   "62": {
     "possibilities": {
@@ -2065,7 +2065,7 @@
       "searchPatures": {
         "outcomes": {
           "0": "Depois de observar à distância o gado a mastigar a erva fresca no primeiro trecho de erva selvagem, dirige-se para o segundo. Muitas ovelhas estão a pastar tranquilamente. Um carvalho impressionante domina o pasto e atrai a sua atenção, pelo que decide aproximar-se dele. A poucos metros da árvore, encontra uma forquilha encostada casualmente ao tronco. O agricultor parece muito feliz quando lhe dás a tua descoberta. Como prometido, ele dá-te uma pequena bolsa cheia de ouro.",
-          "1": "Vous approchant des pâturages, vous remarquez des empreintes de pas. En les suivant, vous pénétrez dans un sombre bosquet dans lequel se trouve une cabane pour le moins lugubre. Curieux, vous faites le tour de la bâtisse et vous retrouvez nez à manche avec la tant recherchée fourche ! Après avoir repris le chemin en sens inverse, vous remettez l'objet au fermier qui se confond en remerciements et vous invite à partager son repas afin que vous puissiez lui conter votre investigation. La soirée est plaisante et vous quittez le fermier tard dans la nuit, revigoré par les produits du terroir.",
+          "1": "Quando se aproxima das pastagens, repara em pegadas. Seguindo-as, entra num bosque escuro onde se encontra uma cabana, no mínimo, sombria. Curioso, dá a volta ao edifício e dá de caras com a tão procurada forquilha! Depois de voltar por onde veio, entrega o objeto ao agricultor, que agradece e o convida a partilhar a sua refeição para que lhe conte a sua investigação. A noite é agradável e deixas o agricultor já tarde da noite, revigorado pelos produtos locais.",
           "2": "Ao aproximar-se das pastagens, repara em pegadas que atravessam o terreno e conduzem ao caramanchão onde as ovelhas desfrutam da sombra refrescante dos freixos. Decide segui-las, pensando que se trata de um trilho. Quando chegas às ovelhas, uma delas vem ter contigo. Com um ar brincalhão, oferece-lhe a sua mão com um pouco de erva. A ovelha aproveita a oportunidade para se saciar, mordendo o teu dedo. Irritado, decide fugir do local. Ao aproximar-se do limite do pasto, não vê o garfo no chão e pisa-o. Furioso com a sua má sorte, pensa em não ajudar mais ninguém na sua aventura."
         },
         "text": "Procurar perto de pastagens."
@@ -2284,7 +2284,7 @@
     "possibilities": {
       "checkDate": {
         "outcomes": {
-          "0": "Vous regardez le calendrier et y découvrez l'existence d'un tournoi qui commence sous peu ! Vous décidez donc de vous y rendre et parvenez à atteindre la finale après quelques heures de combat. Cependant, votre adversaire vous domine et vous ratez votre dernière bataille. Finaliste, vous gagnez tout de même une bourse remplie d'or avant de reprendre votre chemin.",
+          "0": "Olhas para o calendário e descobres que há um torneio que vai começar em breve! Decides participar e chegar à final depois de algumas horas de luta. No entanto, o teu adversário domina-te e perdes a última batalha. Como finalista, ainda ganhas uma bolsa cheia de ouro antes de seguires o teu caminho.",
           "1": "Olhas para o calendário e vês que estamos em Laponaire, o sexto mês do ano, por isso decides sair e comer uma galette numa banca próxima. Este alimento tê-lo-á saciado! E parte de novo, cheio e satisfeito.",
           "2": "Quando vê o calendário, lembra-se dos cartazes nas ruas que falam de uma caça ao tesouro. Decide participar. Após duas horas de procura, não encontras nada. Por isso, decides voltar para trás.",
           "3": "Olhas para o calendário e, na data de hoje, vês: concurso de hidromel! Sentindo-se resistente ao álcool, decide tentar a sua sorte. Ganha o concurso e um prémio! No entanto, acaba por ficar completamente bêbedo."
