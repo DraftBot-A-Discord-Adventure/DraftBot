@@ -307,6 +307,10 @@
       "weekly": "{emote:top.weekly} Diese Woche."
     }
   },
+  "fight": {
+    "description": "Lancer un combat.",
+    "name": "combat"
+  },
   "switch": {
     "name": "vertauschen",
     "description": "Tausche den aktiven Gegenstand mit einem der Gegenstände in deinem Vorrat."
