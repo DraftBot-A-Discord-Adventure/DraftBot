@@ -11,6 +11,7 @@
     "descriptionEdit": "Bearbeitung der Gilde-Beschreibung",
     "drink": "Wahl eines Trunkens oder nicht",
     "fight": "Kampf",
+    "fightConfirmation": "Wahl, ob ein Kampf begonnen werden soll oder nicht",
     "fightPetChoose": "Auswahl einer Aktion für den vertrauten Kampf",
     "gobletChoose": "Wahl eines Bechers",
     "guildCreate": "Erstellen einer Gilde",
@@ -58,7 +59,7 @@
   "alreadyInAGuild": "Sie gehören bereits einer Gilde an.",
   "petDoesntExist": "Es wurden keine Vertrauten gefunden.",
   "unexpectedError": "Es ist ein Fehler aufgetreten: (",
-  "pleaseWaitForHeal": "Veuillez attendre la fin des soins de votre altération d'état pour continuer à jouer : {{time}}\n\n{emote:messages.info} Vous pouvez utiliser la commande {command:shop} pour acheter un soin.",
+  "pleaseWaitForHeal": "Bitte warten Sie, bis die Heilung Ihrer Zustandsveränderung abgeschlossen ist, bevor Sie weiterspielen: {{time}}\n\n{emote:messages.info} Sie können den Befehl {command:shop} verwenden, um eine Heilung zu kaufen.",
   "pleaseWaitForHisHeal": "Bitte warten Sie bis zum Ende der Pflege seines veränderten Zustands: {{time}}",
   "notEnoughMoney": "Sie haben nicht genug Geld, um diese Aktion durchzuführen. Es fehlt Ihnen {{money}}{emote:unitValues.money}.",
   "cooldownPetFree": "Sie können nur einen Begleiter pro Stunde befreien. Sie können einen weiteren befreien {{remainingTime}}.",
@@ -148,5 +149,5 @@
   "banned": "Sie wurden aus dem Spiel verbannt.",
   "aDevMessedUp": "Ups! Es ist ein Fehler aufgetreten. Seien Sie versichert, dass dies nicht Ihr Verschulden ist. Wir bitten Sie, unsere Entschuldigung für die Unannehmlichkeiten zu akzeptieren. Um das Problem zu beheben, kontaktieren Sie bitte unseren Support über unseren Discord-Server: https://discord.gg/5JqrMtZ",
   "commandNotAvailableHere": "Dieser Befehl kann an dieser Stelle nicht verwendet werden.",
-  "guildFoodStorageFull": "Vous avez reçu **{{quantity}}x {{food}}**, mais le stock de nourriture de votre guilde est plein. La nourriture a été jetée."
+  "guildFoodStorageFull": "Du hast **{{quantity}}x {{food}}** erhalten, aber das Nahrungslager deiner Gilde ist voll. Die Nahrung wurde weggeworfen."
 }

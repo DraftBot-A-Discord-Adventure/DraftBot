@@ -303,9 +303,13 @@
       }
     },
     "timings": {
-      "allTime": "{emote:top.allTime} Depuis toujours.",
+      "allTime": "{emote:top.allTime} Seit jeher.",
       "weekly": "{emote:top.weekly} Diese Woche."
     }
+  },
+  "fight": {
+    "description": "Einen Kampf beginnen.",
+    "name": "Kampf"
   },
   "switch": {
     "name": "vertauschen",
@@ -364,7 +368,7 @@
     "description": "Zeigt den Inhalt des Gildenlagers an."
   },
   "joinBoat": {
-    "name": "rejoindrebateau",
-    "description": "Permet de rejoindre le bateau si un membre de votre guilde est dessus."
+    "name": "joinbateau",
+    "description": "Ermöglicht es, das Schiff zu erreichen, wenn sich ein Mitglied Ihrer Gilde darauf befindet."
   }
 }

@@ -72,7 +72,7 @@
     "noPlayer": "El jugador no pertenece al gremio.",
     "notSameGuild": "No puedes expulsar a un jugador que no pertenezca a tu gremio.",
     "himself": "No puedes expulsarte del gremio.",
-    "blocked": "Le joueur que vous essayez d'expulser est actuellement bloqué. Attendez un peu avant de réessayer."
+    "blocked": "El jugador que intentas expulsar está bloqueado. Espera un poco antes de volver a intentarlo."
   },
   "guildElder": {
     "playerNotFound": "No se ha encontrado a este jugador.",
@@ -237,9 +237,6 @@
       "PET_SELL": {
         "description": "Permite vender una mascota. Se aplican las siguientes condiciones: \n - el precio de venta debe ser mayor que `{{petSellMinPrice}}{emote:unitValues.money}` y menor que `{{petSellMaxPrice}}{emote:unitValues.money}`. \n- El vendedor no ganará dinero con la transacción, solo experiencia de gremio. \n- El vendedor y el comprador no pueden ser miembros del mismo gremio."
       },
-      "PET_TRADE": {
-        "description": "Proponga un intercambio de sus animales con la persona mencionada."
-      },
       "PET_TRANSFER": {
         "description": "Te permite transferir una mascota a o desde el gremio. Si no se indica ningún número, la mascota de tu inventario se trasladará a la cabaña del gremio. De lo contrario, se intercambiará con la mascota del gremio cuya ubicación coincida con el número indicado."
       },
@@ -290,7 +287,9 @@
     "playerCommands": ":bust_in_silhouette: Jugador :",
     "serverCommands": ":gear: Servidor :",
     "usageFieldTitle": "Utilice",
-    "utilCommands": "{emote:collectors.question} Información útil:"
+    "utilCommands": "{emote:collectors.question} Información útil:",
+    "needHelp": "¿Necesitas ayuda?",
+    "needHelpDescription": "{emote:fight_command.crossed_swords} ¡Hola ! Este mensaje ha sido enviado en respuesta a una petición de ayuda.\n\nSi necesitas ayuda para utilizar el juego, ¡puedes unirte al servidor oficial!\n\n¡Podrás participar en el desarrollo del juego y obtener toda la información que necesites!\n\nTambién te recomendamos que consultes la guía detallada del bot: https://guide.draftbot.com/"
   },
   "idea": {
     "description": "Puede hacer sugerencias y votar sus ideas favoritas a través de este enlace:\nhttps://feedback.draftbot.com/",
@@ -325,12 +324,12 @@
   "language": {
     "description": "Utilice el menú de abajo para cambiar el idioma utilizado por el bot en este servidor. Este comando está reservado a los administradores del servidor.",
     "languages": {
-      "de": "Allemand",
-      "en": "Anglais",
-      "es": "Espagnol",
-      "fr": "Français",
-      "it": "Italien",
-      "pt": "Portugais"
+      "de": "Alemán",
+      "en": "Inglés",
+      "es": "Español",
+      "fr": "Francés",
+      "it": "Italiano",
+      "pt": "Portugués"
     },
     "newLanguageSetDescription": "¡DraftBot ahora te hablará en español! {emote:languageFlavors.es}",
     "newLanguageSetTitle": "Cambio de idioma",
@@ -429,7 +428,7 @@
     "title": "{{effect}} | {{pseudo}} | Nivel {{level}}"
   },
   "rarity": {
-    "earlyAvailable": "Possédé en début de jeu",
+    "earlyAvailable": "Propiedad al inicio del juego",
     "rarityTemplate": "$t(items:rarities.{{rarity}}) | {{percentageOrDescription}}",
     "title": ":slot_machine: Escasez de equipos"
   },
@@ -460,14 +459,16 @@
     "journal": "Diario de {{pseudo}}",
     "money": "{emote:unitValues.money} ** Dinero ganado :{{money}}**",
     "moneyLoose": "** | :money_with_wings: Dinero perdido : **{{money}}",
-    "monsterRewardGuildXp": "\n:star: XP gremio ganado: **{{guildXp}}**",
+    "rewardEmbedTitle": "{{pseudo}}recompensas de combate",
+    "monsterRewardGuildXp": ":star: XP gremio ganado: **{{guildXp}}**",
     "monsterRewardsDescription": "{emote:unitValues.money} Plata ganada :{{money}}\n:star: ** XP ganada :{{experience}}** **",
-    "monsterRewardsGuildPoints": "\n:mirror_ball: Puntos de gremio ganados : **{{guildPoints}}**",
+    "monsterRewardsGuildPoints": ":mirror_ball: Puntos de gremio ganados : **{{guildPoints}}**",
     "monsterRewardsTitle": "{{pseudo}}recompensas de combate",
     "newBigEvent": ":flag_fr: ¡Ha llegado a{{destination}}!",
     "noFight": ":newspaper: ** {{pseudo}} :** {{waitABitReaction}} | ¡Haces una rápida escapada y encuentras un pequeño escondite! El monstruo espera pacientemente fuera...",
     "points": ":** :medal: Puntos ganados : **{{score}}",
     "pveEvent": ":newspaper: ** {{pseudo}} log:** {{event}}\n\n{{monsterDisplay}}\n\n{{startTheFightReaction}} Empieza el combate\n{{waitABitReaction}} Espera un poco antes de empezar el combate\n\n*- Usa las reacciones para realizar una acción*.",
+    "pveFightRefused": "{emote:commands.report} ** {{pseudo}} :** {emote:pve_fights.wait_a_bit} | Decides no entrar en combate por el momento y refugiarte en un escondite cercano. Al final tendrás que enfrentarte a la bestia, ya que no encuentras otra salida.",
     "remainingEnergyTitle": "Energía restante :",
     "startPoint": "Punto de partida :",
     "timeLost": "| :clock10: Tiempo perdido :{{timeLost}}",
@@ -817,6 +818,182 @@
     "nobodyInTopGuilds": "¡Actualmente no hay gremios en el top! Disfrútalo mientras puedas.",
     "invalidPage": "La página solicitada no existe. {{minPage}} {{maxPage}}Por favor, inténtelo de nuevo con una página entre y ."
   },
+  "fight": {
+    "title": "{{pseudo}}estás a punto de empezar una pelea",
+    "canceledTitle": "{{pseudo}}ha cancelado la búsqueda",
+    "confirmDesc": "{emote:fight_command.crossed_swords} | **{{pseudo}}**{{confirmSubText}}\n\n{emote:fight_command.crossed_swords} | **Fighter : {{pseudo}}| {{glory}} {{className}}\n\n{{stats}}",
+    "confirmSubTexts": {
+      "common": "¿Buscas pelea?",
+      "rare": "¿Te gustaría participar en la búsqueda de un luchador de tu fuerza personal para el duelo posterior?"
+    },
+    "canceledDesc": "Has cancelado la búsqueda de combate.",
+    "information": {
+      "glory": "{emote:unitValues.glory} {{gloryPoints}}",
+      "class": "{{className}}",
+      "stats": ":zap: {{cumulativeHealth}} / {{cumulativeMaxHealth}} | :dagger: {{cumulativeAttack}} | :shield: {{cumulativeDefense}} | :rocket: {{cumulativeSpeed}} | :wind_blowing_face: {{baseBreath}} / {{maxBreath}} | :lungs: {{breathRegen}}"
+    },
+    "opponentsNotFound": "No se ha encontrado ningún oponente para enfrentarse a ti. Puedes volver a intentarlo más tarde.",
+    "notEnoughEnergy": "¡No tienes suficiente energía para empezar una pelea!",
+    "monsterNotFound": "No se ha encontrado ningún monstruo que se enfrente a ti. Por favor, informa de este incidente a nuestro equipo de soporte (discord.gg/AP3Wmzb).",
+    "fightIntroTitle": "{emote:fight_command.crossed_swords} | ¡Hay una pelea entre {{fightInitiator}} y {{opponent}} !",
+    "actionsOf": "Ataques desde {{pseudo}}",
+    "fightActionNameDisplay": "{{fightActionEmote}} - {{fightActionName}} {emote:unitValues.breath} {{breathCost}}",
+    "summarize": {
+      "title": "Resumen del combate",
+      "intro": {
+        "start": "{emote:fight_command.clipboard} | **Estado actual de la lucha** {{state}}\n\n",
+        "prolongation": "Extensiones",
+        "noProlongation": "[{{currentTurn}}/{{maxTurn}}]"
+      },
+      "attacker": "{emote:unitValues.attack} **Attacker : {{pseudo}}**\n",
+      "defender": "\n\n{emote:unitValues.defense} | Defender : {{pseudo}}**\n",
+      "stats": "{emote:unitValues.energy} {{power}} | {emote:unitValues.attack} {{attack}} | {emote:unitValues.defense} {{defense}} | {emote:unitValues.speed} {{speed}} | {emote:unitValues.breath} {{breath}} {{maxBreath}} | {emote:unitValues.breathRegen} {{breathRegen}}"
+    },
+    "end": {
+      "bugged": "El combate se canceló por un problema técnico.",
+      "draw": "{emote:commands.report} | **{{player1}} y {{player2}} terminan su lucha en empate ¡**\n\n",
+      "win": "{emote:commands.report}| **{{winner}} gana el partido contra {{loser}}**\n\n",
+      "gameStats": "{emote:fight_command.game_stats} | Estadísticas de combate\n- **Rondas** : {{turn}}/{{maxTurn}}\n- **Tiempo de combate** : {{time}}",
+      "gameStatsProlongation": "{emote:fight_command.game_stats} | Estadísticas de la lucha\n- **Vueltas**: {{turn}}/{{maxTurn}} (tiempo extra)\n- **Tiempo de la lucha**: {{time}}",
+      "fighterStats": "\n\n{emote:fight_command.fighter_stats} | Estadísticas {{pseudo}}\n- **Vida final** : {{energy}}/{{maxEnergy}} {emote:unitValues.energy}"
+    },
+    "fightActionChoose": {
+      "turnIndicationTitle": "Es el turno de {{pseudo}} para jugar {emote:fight_command.crossed_swords}",
+      "turnIndicationDescription": "Elija una acción"
+    },
+    "actions": {
+      "intro": "{{emote}} |{{fighter}} ",
+      "attacksResults": {
+        "critical": [
+          "¡realiza un {{attack}} ! ¡Perfectamente ejecutado!",
+          "¡hace un {{attack}} ! ¡Es tan bonita!",
+          "¡hace un magnífico {{attack}} ! ¡Perfectamente ejecutado!",
+          "¡realiza un {{attack}} ! ¡Increíblemente exitoso!",
+          "¡hace un {{attack}} ! ¡Totalmente brutal!",
+          "¡hace un {{attack}} ! Fue un movimiento arriesgado, ¡pero valió la pena!",
+          "¡Que tenga un buen {{attack}} !",
+          "¡use un {{attack}} ! ¡Es PERFECTO!",
+          "¡usa un {{attack}} ! ¡Magistral!",
+          "¡crea un sublime {{attack}} !",
+          "¡realiza un {{attack}} ! ¡Es perfecto!",
+          "¡hace un {{attack}} ! ¡El asalto es absolutamente loco!",
+          "¡golpea a su oponente con un {{attack}} ! ¡Sin piedad!",
+          "¡realiza un {{attack}} ! ¡Es amor a primera vista!",
+          "¡hace un {{attack}} ! ¡OH DIOS MIO ES INCREIBLE!",
+          "¡elige un {{attack}} ! ¡Qué gran iniciativa!",
+          "¡hace un {{attack}} ! ¡Es un excelente {{attack}} !",
+          "¡realiza un {{attack}} ! ¡Golpe crítico!",
+          "¡se desata sobre su oponente con un {{attack}} !"
+        ],
+        "normal": [
+          "¡visite {{attack}} !",
+          "¡lance un {{attack}} !",
+          "¡use un {{attack}} !",
+          "¡visite {{attack}} !"
+        ],
+        "maxUses": [
+          "intenta utilizar un {{attack}}, ¡pero falla!"
+        ],
+        "charging": [
+          "¡se prepara para {{attack}} !"
+        ],
+        "missed": [
+          "¡hace un {{attack}} ! Hemos visto mejores...",
+          "¡lance un {{attack}} ! Mediocre",
+          "¡realiza un {{attack}} ! No se ve muy bien.",
+          "¡realiza un {{attack}} ! No es muy efectivo...",
+          "¡elige un {{attack}} ! El resultado es bastante patético.",
+          "¡hace un {{attack}} ! No fue la mejor elección...",
+          "¡ {{attack}} ! ¡Es un fallo!",
+          "¡hace un {{attack}} ! ¡El ataque falla miserablemente!",
+          "¡hace un pobre {{attack}} ! ¡Cruel falta de técnica del jugador francés!",
+          "¡hace un {{attack}} ! ¡Qué error!",
+          "¡realiza un {{attack}} ! ¡Era un movimiento arriesgado y no funcionó!",
+          "¡lanza un mal {{attack}} !",
+          "¡utiliza un {{attack}} ! ¡No es una buena elección!",
+          "¡elige un {{attack}} ! Mal movimiento...",
+          "¡realiza un {{attack}} ! ¡Es un mal {{attack}} !"
+        ]
+      },
+      "fightActionEffects": {
+        "self": {
+          "newAlteration": " ¡Ahora eres {{effect}} !",
+          "damages": " Daños recibidos: {{amount}}`",
+          "defense": " Defensa: {{operator}} {{amount}}%`",
+          "breath": " Aliento: {{operator}} {{amount}}",
+          "speed": " Velocidad: {{operator}} {{amount}}%`",
+          "attack": " Ataque: {{operator}} {{amount}}%`",
+          "energy": " Energía recuperada: {{amount}}`"
+        },
+        "opponent": {
+          "newAlteration": " Su oponente es ahora {{effect}} .",
+          "damages": " Daño infligido: {{amount}}`",
+          "defense": " Defensa del adversario: {{operator}} {{amount}}%`",
+          "breath": " Aliento del oponente: {{operator}} {{amount}}`",
+          "speed": " Velocidad del oponente: {{operator}} {{amount}}%`",
+          "attack": " Ataque del oponente: {{operator}} {{amount}}%`",
+          "energy": " Energía recuperada del adversario: {{amount}}`",
+          "summoning": " Invocación de aliados {{amount}}"
+        }
+      },
+      "aiChoose": "{emote:fight_command.ai_thinking} El oponente elige un ataque..."
+    },
+    "fightReward": {
+      "title": "{emote:fight_command.glory_change} Recompensas de combate",
+      "scoreAndMoneyField": "Recompensas de combate",
+      "noReward": "Has usado todas tus recompensas de combate, así que vuelve mañana.",
+      "points": ":medal: Puntos ganados : **{{count}}**",
+      "money": "{emote:unitValues.money} Plata ganó : **{{count}}**",
+      "gloryField": "Cambios de gloria",
+      "gloryNegative": "**{{player}} :** - {{count}} {emote:unitValues.glory}\n",
+      "gloryPositive": "**{{player}} :** + {{count}} {emote:unitValues.glory}\n",
+      "leagueField": "Cambios en la liga",
+      "leagueChangeUp": "️ **{{player}} :** {{oldLeagueEmoji}} {{oldLeague}} -> {{newLeagueEmoji}} {{newLeague}}\n",
+      "leagueChangeDown": "↘️️ **{{player}} :** {{oldLeagueEmoji}} {{oldLeague}} -> {{newLeagueEmoji}} {{newLeague}}\n",
+      "higherEloWins": [
+        "{{winner}} sale al campo con una gran actuación.",
+        "{{loser}} dio todo lo que tenía, pero {{winner}} mostró un mayor control de su juego.",
+        "La diferencia de nivel entre los dos jugadores se dejó sentir en este combate.",
+        "{{winner}} demostró su pericia al ganar este difícil partido.",
+        "{{loser}} puede estar orgulloso de su actuación a pesar de la derrota, pero {{winner}} es el claro vencedor de este combate.",
+        "{{winner}} aplastó a {{loser}} con una actuación dominante.",
+        "{{loser}} hizo lo que pudo, pero estuvo claramente por debajo del nivel de {{winner}}.",
+        "La diferencia de talento entre ambos jugadores fue decisiva en esta batalla.",
+        "{{winner}} demostró por qué se le considera uno de los mejores al ganar este partido con facilidad.",
+        "{{loser}} pueden aprovechar esta derrota como una oportunidad para aprender y mejorar de cara a futuras batallas."
+      ],
+      "lowestEloWins": [
+        "Lo más inesperado ocurrió en este combate: {{winner}} ganó contra un oponente más experimentado.",
+        "{{loser}} quizás subestimó a su oponente, porque {{winner}} mostró una determinación inquebrantable.",
+        "A pesar de la diferencia de talento, {{winner}} consiguió ganar este partido con una estrategia sólida.",
+        "No fue un partido fácil, pero {{winner}} demostró que puede plantar cara a los jugadores de más talento.",
+        "Este combate fue sin duda un punto de inflexión en la carrera de {{winner}}, ya que demostró su determinación y su capacidad para vencer a los púgiles más experimentados.",
+        "{{winner}} superó las expectativas al ganar este reñido partido contra un rival de más talento.",
+        "{{loser}} quizás subestimó a su oponente, porque {{winner}} mostró una determinación inquebrantable.",
+        "A pesar de la diferencia de niveles, {{winner}} consiguió ganar el combate gracias a una inteligente estrategia.",
+        "No fue un partido fácil, pero {{winner}} demostró que puede plantar cara a los jugadores de más talento.",
+        "{{winner}} ha dado sin duda un importante paso adelante en su carrera al ganar este difícil partido."
+      ],
+      "draw": [
+        "Fue un partido muy reñido entre dos jugadores de talento.",
+        "{{player1}} y {{player2}} mostraron una determinación inquebrantable durante todo el partido.",
+        "Ninguno de los dos jugadores fue capaz de tomar la delantera decisiva, lo que dio lugar a un inesperado empate.",
+        "Este partido será probablemente uno de los más reñidos y emocionantes de la historia.",
+        "{{player1}} y {{player2}} luchó con determinación.",
+        "A pesar de la diferencia de nivel, ambos jugadores dieron todo lo que tenían para ganar el partido.",
+        "Ninguno de los dos logró obtener la ventaja decisiva, lo que condujo a un sorprendente empate.",
+        "Ninguno de los jugadores fue capaz de tomar la delantera decisiva, lo que dio lugar a un empate.",
+        "Este partido será probablemente uno de los más reñidos y emocionantes de la historia.",
+        "{{player1}} y {{player2}} demostraron por qué se les considera competidores de talento en este épico combate."
+      ],
+      "sameElo": [
+        "Fue un partido emocionante entre dos jugadores del mismo nivel.",
+        "{{player1}} y {{player2}} ofrecieron actuaciones sólidas y equilibradas.",
+        "Fue un partido muy reñido, con algunas tácticas inteligentes por parte de ambos equipos.",
+        "Los espectadores presenciaron un partido épico entre dos jugadores de talento que lucharon en igualdad de condiciones."
+      ]
+    }
+  },
   "switch": {
     "titleSuccess": "{{pseudo}}Haz tu pedido",
     "switchingDouble": "{{item1}} {{item2}} ¡y se han intercambiado!",
@@ -989,27 +1166,33 @@
   },
   "joinBoat": {
     "errorMessage": {
-      "tooManyBoatThisWeek": "Vous êtes allé trop de fois sur le bateau ou vous avez rejoint une guilde cette semaine.",
-      "noMemberOnBoat": "Aucun membre actif de votre guilde n'est sur le bateau.",
-      "noGuild": "Vous n'appartenez à aucune guilde.",
-      "notEnoughEnergy": "Vous n'avez pas assez d'énergie pour monter sur le bateau.",
-      "notEnoughGems": "Vous voulez rejoindre votre guilde mais au moment de payer, vous constatez que vos fonds sont insuffisants."
+      "tooManyBoatThisWeek": "Has estado en el barco demasiadas veces o te has unido a un gremio esta semana.",
+      "noMemberOnBoat": "No hay miembros activos de su gremio en el barco.",
+      "noGuild": "No perteneces a ningún gremio.",
+      "notEnoughEnergy": "No tienes suficiente energía para subir al barco.",
+      "notEnoughGems": "Quieres afiliarte a tu gremio, pero cuando llega el momento de pagar, te das cuenta de que tus fondos son insuficientes."
     },
     "confirmationMessage": {
       "title": {
-        "confirmation": "{{pseudo}}, confirmation :",
-        "confirmed": "{{pseudo}}, votre choix :"
+        "confirmation": "{{pseudo}}confirmación :",
+        "confirmed": "{{pseudo}}tu elección:"
       },
       "description": {
         "confirmation": {
-          "text": "{emote:guild.isOnBoat} Êtes vous sûr de vouloir rejoindre votre guilde sur le bateau ?\nLe capitaine vous indique que le voyage **{{priceText}}**.\n\nVoulez-vous partir sur l'île ? Vous avez {emote:unitValues.energy} **{{currentEnergy}}/{{maxEnergy}}**.",
-          "priceText_zero": "est gratuit",
-          "priceText_other": "coûtera {{gemsCost}} {emote:unitValues.gem}"
+          "text": "{emote:guild.isOnBoat} ¿Estás seguro de que quieres unirte a tu gremio en el barco?\nEl capitán te dice que el viaje **{{priceText}}**.\n\n¿Quieres ir a la isla? Tienes {emote:unitValues.energy} **{{currentEnergy}}/{{maxEnergy}}**.",
+          "priceText_zero": "es gratis",
+          "priceText_other": "costará {{gemsCost}} {emote:unitValues.gem}"
         },
-        "confirmed": "{{gainScore}} Vous rejoignez votre guilde sur le bateau.",
-        "confirmedScore": "**{emote:unitValues.score} Points gagnés :** {{score}}\n"
+        "confirmed": "{{gainScore}} Te unes a tu gremio en el barco.",
+        "confirmedScore": "**{emote:unitValues.score} Puntos ganados:** {{score}}\n"
       }
     },
-    "refuse": "Vous décidez finalement de rester ici et ne pas rejoindre votre guilde sur le bateau."
+    "refuse": "Al final, decides quedarte aquí y no unirte a tu gremio en el barco."
+  },
+  "guildShelter": {
+    "embedTitle": "Cabaña gremial {{guildName}}",
+    "petFieldName": "Familiar n°{{number}}",
+    "noPetMessage": "Al parecer, no hay animales domésticos en el refugio.",
+    "warningFull": "¡El refugio está lleno! No se aceptarán nuevas mascotas hasta que todas las mascotas del refugio hayan sido liberadas o vendidas."
   }
 }
