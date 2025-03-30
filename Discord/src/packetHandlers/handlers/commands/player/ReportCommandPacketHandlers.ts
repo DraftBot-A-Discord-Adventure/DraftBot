@@ -7,7 +7,12 @@ import {
 	CommandReportTravelSummaryRes
 } from "../../../../../../Lib/src/packets/commands/CommandReportPacket";
 import {PacketContext} from "../../../../../../Lib/src/packets/DraftBotPacket";
-import {refusePveFight, reportResult, reportTravelSummary} from "../../../../commands/player/ReportCommand";
+import {
+	displayMonsterReward,
+	refusePveFight,
+	reportResult,
+	reportTravelSummary
+} from "../../../../commands/player/ReportCommand";
 import {handleClassicError} from "../../../../utils/ErrorUtils";
 
 export default class ReportCommandPacketHandlers {
@@ -22,8 +27,8 @@ export default class ReportCommandPacketHandlers {
 	}
 
 	@packetHandler(CommandReportMonsterRewardRes)
-	async reportMonsterRewardRes(_context: PacketContext, _packet: CommandReportMonsterRewardRes): Promise<void> {
-		// TODO
+	async reportMonsterRewardRes(context: PacketContext, packet: CommandReportMonsterRewardRes): Promise<void> {
+		await displayMonsterReward(packet, context);
 	}
 
 	@packetHandler(CommandReportErrorNoMonsterRes)

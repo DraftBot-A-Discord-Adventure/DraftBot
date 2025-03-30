@@ -6,6 +6,7 @@
 	"breath": 10,
 	"maxBreath": 20,
 	"breathRegen": 3,
+  "rewardFactor" : 0.45,
 	"attacks": [
 		{
 			"id": "magicMimicAttack",

@@ -6,6 +6,7 @@
 	"breath": 8,
 	"maxBreath": 15,
 	"breathRegen": 4,
+  "rewardFactor" : 0.3,
 	"attacks": [
 		{
 			"id": "chargeClubSmashAttack",

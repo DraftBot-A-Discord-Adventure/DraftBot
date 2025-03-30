@@ -82,37 +82,12 @@ export abstract class PVEConstants {
 		"test"
 	];
 
-	/**
-	 * The formula is
-	 * f(x) = ax² + bx + c
-	 * with x the total monster stats for xp and money
-	 *
-	 * The formula is
-	 * f(x) = ax + b
-	 * for the level multiplier
-	 */
 	static readonly FIGHT_REWARDS = {
-		TOTAL_RATIO_RANDOM_RANGE: 0.1,
-		GUILD_SCORE_MULTIPLIER: 10,
-		XP: {
-			A: 0.1529,
-			B: 0.9686,
-			C: 106.4
-		},
-		GUILD_XP: {
-			A: 0.1207,
-			B: 0.8671,
-			C: 84
-		},
-		MONEY: {
-			A: 0.1089,
-			B: 0.7454,
-			C: 56
-		},
-		LEVEL_MULTIPLIER: {
-			A: 0.0125,
-			B: 0.75
-		}
+		RANDOM_MAX_REWARD: 100,
+		MONEY_FACTOR: 3.8,
+		XP_FACTOR: 6.8,
+		GUILD_SCORE_FACTOR: 2.8,
+		GUILD_XP_FACTOR: 4.7
 	};
 
 	static readonly OUT_OF_BREATH_CHOOSE_PROBABILITY = 0.1;
