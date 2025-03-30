@@ -11,7 +11,7 @@ import {
 	handleCommandFightIntroduceFightersRes,
 	handleCommandFightRefusePacketRes,
 	handleCommandFightUpdateStatusRes,
-	handleEndOfFight, handleGloryChange
+	handleEndOfFight, handleFightReward
 } from "../../commands/player/FightCommand";
 import {handleClassicError} from "../../utils/ErrorUtils";
 import {CommandFightIntroduceFightersPacket} from "../../../../Lib/src/packets/fights/FightIntroductionPacket";
@@ -20,7 +20,7 @@ import {CommandFightHistoryItemPacket} from "../../../../Lib/src/packets/fights/
 import {AIFightActionChoosePacket} from "../../../../Lib/src/packets/fights/AIFightActionChoosePacket";
 import {CommandFightEndOfFightPacket} from "../../../../Lib/src/packets/fights/EndOfFightPacket";
 import {BuggedFightPacket} from "../../../../Lib/src/packets/fights/BuggedFightPacket";
-import {GloryChangesPacket} from "../../../../Lib/src/packets/fights/GloryChangesPacket";
+import {FightRewardPacket} from "../../../../Lib/src/packets/fights/FightRewardPacket";
 
 export default class FightHandler {
 	@packetHandler(CommandFightRefusePacketRes)
@@ -68,8 +68,8 @@ export default class FightHandler {
 		await handleClassicError(context, "commands:fight.end.bugged");
 	}
 
-	@packetHandler(GloryChangesPacket)
-	async gloryChanges(context: PacketContext, packet: GloryChangesPacket): Promise<void> {
-		await handleGloryChange(context, packet);
+	@packetHandler(FightRewardPacket)
+	async fightReward(context: PacketContext, packet: FightRewardPacket): Promise<void> {
+		await handleFightReward(context, packet);
 	}
 }

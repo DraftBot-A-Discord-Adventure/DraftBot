@@ -939,8 +939,12 @@
       },
       "aiChoose": "{emote:fight_command.ai_thinking} L'adversaire choisit une attaque..."
     },
-    "gloryChanges": {
-      "title": "{emote:fight_command.glory_change} Rapport de gloire",
+    "fightReward": {
+      "title": "{emote:fight_command.glory_change} Récompenses de combat",
+      "scoreAndMoneyField" : "Récompenses du combat",
+      "noReward": "Vous avez épuisé toutes les récompenses de combat, revenez demain.",
+      "points": "{emote:unitValues.score} Points gagnés : **{{count}}**",
+      "money": "{emote:unitValues.money} Argent gagné : **{{count}}**",
       "gloryField": "Changements de gloire",
       "gloryNegative": "**{{player}} :** - {{count}} {emote:unitValues.glory}\n",
       "gloryPositive": "**{{player}} :** + {{count}} {emote:unitValues.glory}\n",

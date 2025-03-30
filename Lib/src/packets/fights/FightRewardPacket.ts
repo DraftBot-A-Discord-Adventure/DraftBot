@@ -1,7 +1,11 @@
 import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
-export class GloryChangesPacket extends DraftBotPacket {
+export class FightRewardPacket extends DraftBotPacket {
+	points!: number;
+
+	money!: number;
+
 	player1!: {
 		keycloakId: string;
 		oldGlory: number;

@@ -23,7 +23,7 @@ import {EloGameResult, EloUtils} from "../../core/utils/EloUtils";
 import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
 import {AiPlayerFighter} from "../../core/fights/fighter/AiPlayerFighter";
 import {BlockingUtils} from "../../core/utils/BlockingUtils";
-import {GloryChangesPacket} from "../../../../Lib/src/packets/fights/GloryChangesPacket";
+import {FightRewardPacket} from "../../../../Lib/src/packets/fights/FightRewardPacket";
 import {LeagueDataController} from "../../data/League";
 import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
 
@@ -110,7 +110,9 @@ async function fightEndCallback(fight: FightController, response: DraftBotPacket
 		player2.save()
 	]);
 
-	response.push(makePacket(GloryChangesPacket, {
+	response.push(makePacket(FightRewardPacket, {
+		points: 0,
+		money: 0,
 		player1: {
 			keycloakId: player1.keycloakId,
 			oldGlory: player1OldGlory,
