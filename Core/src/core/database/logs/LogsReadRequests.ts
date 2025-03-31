@@ -8,8 +8,9 @@ import {LogsPossibilities} from "./models/LogsPossibilities";
 import {LogsPlayers} from "./models/LogsPlayers";
 import {LogsPlayersTravels} from "./models/LogsPlayersTravels";
 import {
+	dateToLogs,
 	getNextSaturdayMidnight,
-	getNextSundayMidnight,
+	getNextSundayMidnight, getTodayMidnight,
 	hoursToMilliseconds,
 	minutesToMilliseconds
 } from "../../../../../Lib/src/utils/TimeUtils";
@@ -287,10 +288,7 @@ export class LogsReadRequests {
 	 * @param playerKeycloakId
 	 */
 	static async getPersonalInitiatedFightDailySummary(playerKeycloakId: string): Promise<PersonalFightDailySummary> {
-		// Get the start of today in UTC
-		const startOfDay = new Date();
-		startOfDay.setUTCHours(0, 0, 0, 0);
-		const startTimestamp = Math.floor(startOfDay.getTime() / 1000);
+		const startTimestamp = dateToLogs(getTodayMidnight());
 
 		// Find all ranked (non-friendly) fights for today initiated by the player
 		const fights = await LogsFightsResults.findAll({
@@ -309,18 +307,12 @@ export class LogsReadRequests {
 				attributes: ["keycloakId"]
 			}]
 		});
-		const played = fights.length;
-		let won = 0;
-		let draw = 0;
-		for (const fight of fights) {
-			if (fight.winner === 1) { // 0 is for draw
-				won++;
-			}
-			else if (fight.winner === 0) {
-				draw++;
-			}
-		}
-		return {won, draw, played};
+
+		return {
+			played: fights.length,
+			won: fights.filter(fight => fight.winner === 1).length,
+			draw: fights.filter(fight => fight.winner === 0).length
+		};
 	}
 
 

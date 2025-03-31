@@ -40,6 +40,14 @@ export function getDateLogs(): number {
 }
 
 /**
+ * Convert a date to a timestamp for logging purposes
+ * @param date
+ */
+export function dateToLogs(date: Date): number {
+	return Math.trunc(date.valueOf() / 1000);
+}
+
+/**
  * Get a date value of tomorrow
  */
 export function getTomorrowMidnight(): Date {
@@ -47,6 +55,15 @@ export function getTomorrowMidnight(): Date {
 	tomorrow.setDate(tomorrow.getDate() + 1);
 	tomorrow.setHours(0, 0, 0, 0);
 	return tomorrow;
+}
+
+/**
+ * Get a date value of today at midnight
+ */
+export function getTodayMidnight(): Date {
+	const today = new Date();
+	today.setHours(0, 0, 0, 0);
+	return today;
 }
 
 /**
