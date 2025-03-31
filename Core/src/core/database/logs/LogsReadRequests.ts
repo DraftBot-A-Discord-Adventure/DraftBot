@@ -34,6 +34,7 @@ export type RankedFightResult = {
 
 export type PersonalFightDailySummary = {
 	won: number,
+	draw: number,
 	played: number,
 }
 
@@ -294,7 +295,7 @@ export class LogsReadRequests {
 		// Find all ranked (non-friendly) fights for today initiated by the player
 		const fights = await LogsFightsResults.findAll({
 			where: {
-				date: { [Op.gt]: startTimestamp },
+				date: {[Op.gt]: startTimestamp},
 				friendly: false,
 				"$LogsPlayer1.keycloakId$": playerKeycloakId
 			},
@@ -310,12 +311,16 @@ export class LogsReadRequests {
 		});
 		const played = fights.length;
 		let won = 0;
+		let draw = 0;
 		for (const fight of fights) {
-			if (fight.winner === 0) {
+			if (fight.winner === 1) { // 0 is for draw
 				won++;
 			}
+			else if (fight.winner === 0) {
+				draw++;
+			}
 		}
-		return { won, played };
+		return {won, draw, played};
 	}
 
 

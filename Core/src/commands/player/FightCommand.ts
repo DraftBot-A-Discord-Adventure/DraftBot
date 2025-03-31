@@ -93,32 +93,38 @@ async function getPlayerStats(player: Player): Promise<PlayerStats> {
  */
 async function calculateMoneyReward(fightInitiatorInformation: FightInitiatorInformation, player1: Player, player2: Player, response: DraftBotPacket[]): Promise<number> {
 	let extraMoneyBonus = 0;
-	// Award extra money for the first 5 fights:
-	// • 50 -> win, 35 -> draw, 15 -> loss.
-	if (fightInitiatorInformation.playerDailyFightSummary.played < 5) {
-		if (fightInitiatorInformation.initiatorGameResult === EloGameResult.WIN) {
-			extraMoneyBonus = FightConstants.REWARDS.WIN_MONEY_BONUS;
-		}
-		else if (fightInitiatorInformation.initiatorGameResult === EloGameResult.DRAW) {
-			extraMoneyBonus = FightConstants.REWARDS.DRAW_MONEY_BONUS;
-		}
-		else { // Loss case
-			extraMoneyBonus = FightConstants.REWARDS.LOSS_MONEY_BONUS;
-		}
-		if (fightInitiatorInformation.initiatorReference === 0) {
-			await player1.addMoney({
-				amount: extraMoneyBonus,
-				response,
-				reason: NumberChangeReason.FIGHT
-			});
-		}
-		else {
-			await player2.addMoney({
-				amount: extraMoneyBonus,
-				response,
-				reason: NumberChangeReason.FIGHT
-			});
-		}
+	// Calculate already awarded money
+	if (fightInitiatorInformation.initiatorGameResult === EloGameResult.WIN) {
+		extraMoneyBonus = FightConstants.REWARDS.WIN_MONEY_BONUS;
+	}
+	else if (fightInitiatorInformation.initiatorGameResult === EloGameResult.DRAW) {
+		extraMoneyBonus = FightConstants.REWARDS.DRAW_MONEY_BONUS;
+	}
+	else { // Loss case
+		extraMoneyBonus = FightConstants.REWARDS.LOSS_MONEY_BONUS;
+	}
+	const alreadyAwardedMoney = fightInitiatorInformation.playerDailyFightSummary.won
+		* FightConstants.REWARDS.WIN_MONEY_BONUS
+		+ fightInitiatorInformation.playerDailyFightSummary.draw
+		* FightConstants.REWARDS.DRAW_MONEY_BONUS
+		+ (fightInitiatorInformation.playerDailyFightSummary.played - (fightInitiatorInformation.playerDailyFightSummary.draw + fightInitiatorInformation.playerDailyFightSummary.won))
+		* FightConstants.REWARDS.LOSS_MONEY_BONUS;
+	if (alreadyAwardedMoney > FightConstants.REWARDS.MAX_MONEY_BONUS) {
+		extraMoneyBonus = Math.max(FightConstants.REWARDS.MAX_MONEY_BONUS - alreadyAwardedMoney, 0);
+	}
+	if (fightInitiatorInformation.initiatorReference === 0) {
+		await player1.addMoney({
+			amount: extraMoneyBonus,
+			response,
+			reason: NumberChangeReason.FIGHT
+		});
+	}
+	else {
+		await player2.addMoney({
+			amount: extraMoneyBonus,
+			response,
+			reason: NumberChangeReason.FIGHT
+		});
 	}
 	return extraMoneyBonus;
 }

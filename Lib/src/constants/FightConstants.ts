@@ -26,7 +26,8 @@ export abstract class FightConstants {
 		SCORE_BONUS_AWARD: 35,
 		WIN_MONEY_BONUS: 50,
 		DRAW_MONEY_BONUS: 30,
-		LOSS_MONEY_BONUS: 15
+		LOSS_MONEY_BONUS: 15,
+		MAX_MONEY_BONUS: 200
 	};
 
 	// Duration of the menu that searches for an opponent in milliseconds

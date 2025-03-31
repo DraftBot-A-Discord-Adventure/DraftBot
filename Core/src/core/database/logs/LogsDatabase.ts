@@ -975,7 +975,7 @@ export class LogsDatabase extends Database {
 	 * @param fight
 	 */
 	public async logFight(fight: FightController): Promise<number> {
-		if (fight.fighters[0] instanceof PlayerFighter && fight.fighters[1] instanceof PlayerFighter) {
+		if (!(fight.fighters[0] instanceof MonsterFighter) && !(fight.fighters[1] instanceof MonsterFighter)) {
 			const fightInitiator = fight.fightInitiator;
 			const fightInitiatorId = (await LogsDatabase.findOrCreatePlayer(fightInitiator.player.keycloakId)).id;
 			const player2 = fight.fighters[0] === fightInitiator ? fight.fighters[1] : fight.fighters[0];
