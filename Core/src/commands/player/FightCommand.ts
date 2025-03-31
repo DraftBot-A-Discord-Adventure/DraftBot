@@ -167,6 +167,46 @@ async function calculateScoreReward(fightInitiatorInformation: FightInitiatorInf
 }
 
 /**
+ * Update the players' glory and cooldowns after a fight
+ * @param player1
+ * @param player2
+ * @param player1GameResult
+ * @param player2GameResult
+ * @param response
+ * @param fightLogId
+ */
+async function updatePlayersEloAndCooldowns(
+	player1: Player,
+	player2: Player,
+	player1GameResult: EloGameResult,
+	player2GameResult: EloGameResult,
+	response: DraftBotPacket[],
+	fightLogId: number
+): Promise<void> {
+	// Calculate elo
+	const player1KFactor = EloUtils.getKFactor(player1);
+	const player2KFactor = EloUtils.getKFactor(player2);
+	const player1NewRating = EloUtils.calculateNewRating(player1.attackGloryPoints, player2.defenseGloryPoints, player1GameResult, player1KFactor);
+	const player2NewRating = EloUtils.calculateNewRating(player2.defenseGloryPoints, player1.attackGloryPoints, player2GameResult, player2KFactor);
+
+	// Change glory and fightCountdown and save
+	await player1.setGloryPoints(player1NewRating, false, NumberChangeReason.FIGHT, response, fightLogId);
+	player1.fightCountdown--;
+	if (player1.fightCountdown < 0) {
+		player1.fightCountdown = 0;
+	}
+	await player2.setGloryPoints(player2NewRating, true, NumberChangeReason.FIGHT, response, fightLogId);
+	player2.fightCountdown--;
+	if (player2.fightCountdown < 0) {
+		player2.fightCountdown = 0;
+	}
+	await Promise.all([
+		player1.save(),
+		player2.save()
+	]);
+}
+
+/**
  * Code that will be executed when a fight ends (except if the fight has a bug)
  * @param fight
  * @param response
@@ -182,7 +222,6 @@ async function fightEndCallback(fight: FightController, response: DraftBotPacket
 	&& fight.fightInitiator.player.keycloakId === fight.fighters[0].player.keycloakId ?
 		player1GameResult :
 		player2GameResult;
-
 
 	// Player variables
 	const player1 = await Players.getById((fight.fighters[0] as PlayerFighter).player.id);
@@ -217,28 +256,7 @@ async function fightEndCallback(fight: FightController, response: DraftBotPacket
 	// Save glory before changing it
 	const player1OldGlory = player1.getGloryPoints();
 	const player2OldGlory = player2.getGloryPoints();
-
-	// Calculate elo
-	const player1KFactor = EloUtils.getKFactor(player1);
-	const player2KFactor = EloUtils.getKFactor(player2);
-	const player1NewRating = EloUtils.calculateNewRating(player1.attackGloryPoints, player2.defenseGloryPoints, player1GameResult, player1KFactor);
-	const player2NewRating = EloUtils.calculateNewRating(player2.defenseGloryPoints, player1.attackGloryPoints, player2GameResult, player2KFactor);
-
-	// Change glory and fightCountdown and save
-	await player1.setGloryPoints(player1NewRating, false, NumberChangeReason.FIGHT, response, fightLogId);
-	player1.fightCountdown--;
-	if (player1.fightCountdown < 0) {
-		player1.fightCountdown = 0;
-	}
-	await player2.setGloryPoints(player2NewRating, true, NumberChangeReason.FIGHT, response, fightLogId);
-	player2.fightCountdown--;
-	if (player2.fightCountdown < 0) {
-		player2.fightCountdown = 0;
-	}
-	await Promise.all([
-		player1.save(),
-		player2.save()
-	]);
+	await updatePlayersEloAndCooldowns(player1, player2, player1GameResult, player2GameResult, response, fightLogId);
 
 	response.push(makePacket(FightRewardPacket, {
 		points: scoreBonus,
