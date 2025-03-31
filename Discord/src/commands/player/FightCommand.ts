@@ -270,28 +270,13 @@ export async function handleEndOfFight(context: PacketContext, packet: CommandFi
 }
 
 /**
- * Handle glory and league changes
- * @param context
+ * Generate the fight reward field displaying money and points earned during the fight if needed
+ * @param embed
+ * @param interaction
  * @param packet
+ * @param player1Username
  */
-export async function handleFightReward(context: PacketContext, packet: FightRewardPacket): Promise<void> {
-	if (!context.discord?.interaction) {
-		return;
-	}
-	// TODO: Extract method ce qui peut l'être dans cette fonction, c'est trop long
-	const interaction = DiscordCache.getInteraction(context.discord.interaction)!;
-
-	// Get usernames for both players
-	const player1Username = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.player1.keycloakId))?.attributes.gameUsername[0] || "Unknown";
-	const player2Username = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.player2.keycloakId))?.attributes.gameUsername[0] || "Unknown";
-
-	// Create an embed to show glory and league changes
-	const embed = new DraftBotEmbed()
-		.setTitle(i18n.t("commands:fight.fightReward.title", {
-			lng: interaction.userLanguage
-		}));
-
-	// Add fight reward description
+function generateFightRewardField(embed: DraftBotEmbed, interaction: DraftbotInteraction, packet: FightRewardPacket, player1Username: string): void {
 	embed.addFields({
 		name: i18n.t("commands:fight.fightReward.scoreAndMoneyField", {lng: interaction.userLanguage}),
 		value: ((): string => {
@@ -316,8 +301,17 @@ export async function handleFightReward(context: PacketContext, packet: FightRew
 		})(),
 		inline: false
 	});
+}
 
-	// Add glory changes
+/**
+ * Generate the glory changes field displaying glory changes for both players (glory won or lost)
+ * @param embed
+ * @param interaction
+ * @param player1Username
+ * @param packet
+ * @param player2Username
+ */
+function generateGloryChangesField(embed: DraftBotEmbed, interaction: DraftbotInteraction, player1Username: string, packet: FightRewardPacket, player2Username: string): void {
 	embed.addFields({
 		name: i18n.t("commands:fight.fightReward.gloryField", {lng: interaction.userLanguage}),
 		value: [
@@ -333,8 +327,17 @@ export async function handleFightReward(context: PacketContext, packet: FightRew
 		].join(""),
 		inline: false
 	});
+}
 
-	// Add league changes
+/**
+ * Display league changes if needed
+ * @param packet
+ * @param interaction
+ * @param player1Username
+ * @param player2Username
+ * @param embed
+ */
+function displayLeagueChangesIfNeeded(packet: FightRewardPacket, interaction: DraftbotInteraction, player1Username: string, player2Username: string, embed: DraftBotEmbed): void {
 	const leagueChangeValue = [
 		...packet.player1.newLeagueId !== packet.player1.oldLeagueId ? [
 			i18n.t(`commands:fight.fightReward.leagueChange${packet.player1.newLeagueId > packet.player1.oldLeagueId ? "Up" : "Down"}`, {
@@ -364,12 +367,20 @@ export async function handleFightReward(context: PacketContext, packet: FightRew
 			inline: false
 		});
 	}
+}
 
-
+/**
+ * Generate a short sentence about the fight result
+ * @param packet
+ * @param embed
+ * @param interaction
+ * @param player1Username
+ * @param player2Username
+ */
+function generateFightRecapDescription(packet: FightRewardPacket, embed: DraftBotEmbed, interaction: DraftbotInteraction, player1Username: string, player2Username: string): void {
 	const player1Won = packet.player1.newGlory > packet.player1.oldGlory;
 	const player2Won = packet.player2.newGlory > packet.player2.oldGlory;
 	const gloryDifference = Math.abs(packet.player1.oldGlory - packet.player2.oldGlory);
-
 	if (gloryDifference < FightConstants.ELO.ELO_DIFFERENCE_FOR_SAME_ELO) {
 		embed.setDescription(StringUtils.getRandomTranslation("commands:fight.fightReward.sameElo", interaction.userLanguage, {
 			player1: player1Username,
@@ -406,6 +417,41 @@ export async function handleFightReward(context: PacketContext, packet: FightRew
 			player2: player2Username
 		}));
 	}
+}
+
+/**
+ * Handle glory and league changes
+ * @param context
+ * @param packet
+ */
+export async function handleFightReward(context: PacketContext, packet: FightRewardPacket): Promise<void> {
+	if (!context.discord?.interaction) {
+		return;
+	}
+
+	const interaction = DiscordCache.getInteraction(context.discord.interaction)!;
+
+	// Get usernames for both players
+	const player1Username = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.player1.keycloakId))?.attributes.gameUsername[0] || "Unknown";
+	const player2Username = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.player2.keycloakId))?.attributes.gameUsername[0] || "Unknown";
+
+	// Create an embed to show glory and league changes
+	const embed = new DraftBotEmbed()
+		.setTitle(i18n.t("commands:fight.fightReward.title", {
+			lng: interaction.userLanguage
+		}));
+
+	// Add fight reward description
+	generateFightRewardField(embed, interaction, packet, player1Username);
+
+	// Add glory changes
+	generateGloryChangesField(embed, interaction, player1Username, packet, player2Username);
+
+	// Add league changes
+	displayLeagueChangesIfNeeded(packet, interaction, player1Username, player2Username, embed);
+
+	// Generate a short sentence about the fight result
+	generateFightRecapDescription(packet, embed, interaction, player1Username, player2Username);
 
 	await interaction.channel?.send({embeds: [embed]});
 }

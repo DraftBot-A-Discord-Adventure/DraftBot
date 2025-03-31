@@ -139,7 +139,7 @@ async function calculateMoneyReward(fightInitiatorInformation: FightInitiatorInf
 async function calculateScoreReward(fightInitiatorInformation: FightInitiatorInformation, player1: Player, player2: Player, response: DraftBotPacket[]): Promise<number> {
 	let scoreBonus = 0;
 	// Award extra score points only to the initiator for one of his first wins of the day.
-	if (fightInitiatorInformation.initiatorGameResult === EloGameResult.WIN && fightInitiatorInformation.playerDailyFightSummary.won < FightConstants.REWARDS.NUMBER_OF_WIN_THAT_AWARD_SCORE_BONUS) {
+	if (fightInitiatorInformation.initiatorGameResult === EloGameResult.WIN && fightInitiatorInformation.playerDailyFightSummary.won <= FightConstants.REWARDS.NUMBER_OF_WIN_THAT_AWARD_SCORE_BONUS) {
 		scoreBonus = FightConstants.REWARDS.SCORE_BONUS_AWARD;
 		if (fightInitiatorInformation.initiatorReference === 0) {
 			await player1.addScore({
