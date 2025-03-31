@@ -10,7 +10,8 @@ import {LogsPlayersTravels} from "./models/LogsPlayersTravels";
 import {
 	dateToLogs,
 	getNextSaturdayMidnight,
-	getNextSundayMidnight, getTodayMidnight,
+	getNextSundayMidnight,
+	getTodayMidnight,
 	hoursToMilliseconds,
 	minutesToMilliseconds
 } from "../../../../../Lib/src/utils/TimeUtils";
@@ -146,10 +147,7 @@ export class LogsReadRequests {
 		const result = await LogsDailyPotions.findOne({
 			order: [["date", "DESC"]]
 		});
-		if (result) {
-			return result.date;
-		}
-		return 0;
+		return result?.date ?? 0;
 	}
 
 	/**
@@ -159,10 +157,7 @@ export class LogsReadRequests {
 		const result = await LogsSeasonEnd.findOne({
 			order: [["date", "DESC"]]
 		});
-		if (result) {
-			return result.date;
-		}
-		return 0;
+		return result?.date ?? 0;
 	}
 
 	/**
@@ -175,13 +170,7 @@ export class LogsReadRequests {
 			where: {
 				playerId: logPlayer.id
 			}
-		})
-			.then((result) => {
-				if (result) {
-					return result.date;
-				}
-				return null;
-			});
+		}).then((result) => result?.date ?? null);
 	}
 
 	/**
