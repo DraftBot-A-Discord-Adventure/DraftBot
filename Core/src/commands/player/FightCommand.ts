@@ -85,47 +85,54 @@ async function getPlayerStats(player: Player): Promise<PlayerStats> {
 }
 
 /**
- *
- * @param fightInitiatorInformation
- * @param player1
- * @param player2
- * @param response
+ * Calculate the money reward for the initiator of the fight
+ * @param fightInitiatorInformation Information about the fight initiator
+ * @param player1 First player in the fight
+ * @param player2 Second player in the fight
+ * @param response Packet response array
+ * @returns The amount of money rewarded
  */
-async function calculateMoneyReward(fightInitiatorInformation: FightInitiatorInformation, player1: Player, player2: Player, response: DraftBotPacket[]): Promise<number> {
-	let extraMoneyBonus = 0;
+async function calculateMoneyReward(
+	fightInitiatorInformation: FightInitiatorInformation,
+	player1: Player,
+	player2: Player,
+	response: DraftBotPacket[]
+): Promise<number> {
+	// Determine the bonus to reward based on a game result
+	const bonusByResult = {
+		[EloGameResult.WIN]: FightConstants.REWARDS.WIN_MONEY_BONUS,
+		[EloGameResult.DRAW]: FightConstants.REWARDS.DRAW_MONEY_BONUS,
+		[EloGameResult.LOSS]: FightConstants.REWARDS.LOSS_MONEY_BONUS
+	};
+
+	let extraMoneyBonus = bonusByResult[fightInitiatorInformation.initiatorGameResult as EloGameResult];
+
 	// Calculate already awarded money
-	if (fightInitiatorInformation.initiatorGameResult === EloGameResult.WIN) {
-		extraMoneyBonus = FightConstants.REWARDS.WIN_MONEY_BONUS;
-	}
-	else if (fightInitiatorInformation.initiatorGameResult === EloGameResult.DRAW) {
-		extraMoneyBonus = FightConstants.REWARDS.DRAW_MONEY_BONUS;
-	}
-	else { // Loss case
-		extraMoneyBonus = FightConstants.REWARDS.LOSS_MONEY_BONUS;
-	}
-	const alreadyAwardedMoney = fightInitiatorInformation.playerDailyFightSummary.won
-		* FightConstants.REWARDS.WIN_MONEY_BONUS
-		+ fightInitiatorInformation.playerDailyFightSummary.draw
-		* FightConstants.REWARDS.DRAW_MONEY_BONUS
-		+ (fightInitiatorInformation.playerDailyFightSummary.played - (fightInitiatorInformation.playerDailyFightSummary.draw + fightInitiatorInformation.playerDailyFightSummary.won))
-		* FightConstants.REWARDS.LOSS_MONEY_BONUS;
+	const summary = fightInitiatorInformation.playerDailyFightSummary;
+	const lossCount = summary.played - (summary.draw + summary.won);
+
+	const alreadyAwardedMoney =
+		summary.won * FightConstants.REWARDS.WIN_MONEY_BONUS +
+		summary.draw * FightConstants.REWARDS.DRAW_MONEY_BONUS +
+		lossCount * FightConstants.REWARDS.LOSS_MONEY_BONUS
+	;
+
+	// Apply cap to money rewards if necessary
 	if (alreadyAwardedMoney > FightConstants.REWARDS.MAX_MONEY_BONUS) {
-		extraMoneyBonus = Math.max(FightConstants.REWARDS.MAX_MONEY_BONUS - alreadyAwardedMoney, 0);
+		extraMoneyBonus = Math.max(
+			FightConstants.REWARDS.MAX_MONEY_BONUS - (alreadyAwardedMoney - extraMoneyBonus),
+			0
+		);
 	}
-	if (fightInitiatorInformation.initiatorReference === 0) {
-		await player1.addMoney({
-			amount: extraMoneyBonus,
-			response,
-			reason: NumberChangeReason.FIGHT
-		});
-	}
-	else {
-		await player2.addMoney({
-			amount: extraMoneyBonus,
-			response,
-			reason: NumberChangeReason.FIGHT
-		});
-	}
+
+	// Add money to the appropriate player
+	const targetPlayer = fightInitiatorInformation.initiatorReference === 0 ? player1 : player2;
+	await targetPlayer.addMoney({
+		amount: extraMoneyBonus,
+		response,
+		reason: NumberChangeReason.FIGHT
+	});
+
 	return extraMoneyBonus;
 }
 
@@ -167,8 +174,8 @@ async function calculateScoreReward(fightInitiatorInformation: FightInitiatorInf
 async function fightEndCallback(fight: FightController, response: DraftBotPacket[]): Promise<void> {
 	const fightLogId = await draftBotInstance.logsDatabase.logFight(fight);
 
-	const player1GameResult = fight.isADraw() ? EloGameResult.DRAW : fight.getWinner() === 0 ? EloGameResult.WIN : EloGameResult.LOSE;
-	const player2GameResult = player1GameResult === EloGameResult.DRAW ? EloGameResult.DRAW : player1GameResult === EloGameResult.WIN ? EloGameResult.LOSE : EloGameResult.WIN;
+	const player1GameResult = fight.isADraw() ? EloGameResult.DRAW : fight.getWinner() === 0 ? EloGameResult.WIN : EloGameResult.LOSS;
+	const player2GameResult = player1GameResult === EloGameResult.DRAW ? EloGameResult.DRAW : player1GameResult === EloGameResult.WIN ? EloGameResult.LOSS : EloGameResult.WIN;
 	// Get the fight initiator reference (0 if the initiator is player1, 1 if the initiator is player2)
 	const initiatorReference = fight.fightInitiator.player.keycloakId === (fight.fighters[0] as PlayerFighter).player.keycloakId ? 0 : 1;
 	const initiatorGameResult = fight.fighters[0] instanceof PlayerFighter

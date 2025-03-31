@@ -5,7 +5,7 @@ import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
  * Game result
  */
 export enum EloGameResult {
-	LOSE = 0,
+	LOSS = 0,
 	DRAW = 0.5,
 	WIN = 1
 }
