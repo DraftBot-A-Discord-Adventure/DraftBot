@@ -106,7 +106,7 @@ export class FightController {
 		this._fightView.outroFight(response, this.fighters[(1 - winner) % 2], this.fighters[winner % 2], isADraw);
 
 		for (let i = 0; i < this.fighters.length; ++i) {
-			await this.fighters[i].endFight(this._fightView, i === winner);
+			await this.fighters[i].endFight(this._fightView, i === winner, response);
 		}
 		if (this.endCallback) {
 			await this.endCallback(this, response);
