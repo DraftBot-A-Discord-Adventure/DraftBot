@@ -53,6 +53,13 @@ export abstract class DraftbotCachedMessage<T extends DraftBotPacket = DraftBotP
 		this.storedMessage = message;
 		return message;
 	}
+
+	async delete(): Promise<void> {
+		if (this.storedMessage) {
+			await this.storedMessage.delete();
+		}
+		this.storedMessage = undefined;
+	}
 }
 
 type MessageLike<Message extends DraftbotCachedMessage> = new (originalMessageId: string) => Message;
@@ -78,11 +85,13 @@ export class DraftbotCachedMessages {
 	/**
 	 * Remove all cached messages from a message id
 	 * @param originalMessageId
+	 * @param removeCallback
 	 */
-	static removeAllFromMessageId(originalMessageId: string): void {
-		DraftbotCachedMessages.cachedMessages.forEach((_message, key) => {
+	static removeAllFromMessageId(originalMessageId: string, removeCallback: (cachedMessage: DraftbotCachedMessage) => void): void {
+		DraftbotCachedMessages.cachedMessages.forEach((message, key) => {
 			if (key.startsWith(originalMessageId)) {
 				DraftbotCachedMessages.remove(key);
+				removeCallback(message);
 			}
 		});
 	}

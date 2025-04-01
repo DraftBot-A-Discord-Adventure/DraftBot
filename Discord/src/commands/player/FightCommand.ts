@@ -232,7 +232,11 @@ export async function handleEndOfFight(context: PacketContext, packet: CommandFi
 	}
 
 	// Erase all cached messages
-	DraftbotCachedMessages.removeAllFromMessageId(context.discord.interaction);
+	DraftbotCachedMessages.removeAllFromMessageId(context.discord.interaction, (cachedMessage) => {
+		if (!(cachedMessage instanceof DraftbotHistoryCachedMessage)) {
+			cachedMessage.delete().then();
+		}
+	});
 
 	const interaction = DiscordCache.getInteraction(context.discord.interaction)!;
 
