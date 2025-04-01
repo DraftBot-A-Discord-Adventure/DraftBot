@@ -9,6 +9,7 @@ import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants
 import {ReactionCollectorSwitchItem, ReactionCollectorSwitchItemCloseReaction, ReactionCollectorSwitchItemReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorSwitchItem";
 import {ObjectItem} from "../../data/ObjectItem";
 import {MainItem} from "../../data/MainItem";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 
 /**
@@ -34,6 +35,7 @@ async function switchItems(
 
 function getEndCallbackSwitchItems(player: Player, profileSlots: InventorySlot[], toSwitchItems: InventorySlot[]) {
 	return async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
+		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.SWITCH);
 		const selectedEmote = collector.getFirstReaction();
 		if (!selectedEmote || selectedEmote.reaction.type === ReactionCollectorSwitchItemCloseReaction.name) {
 			response.push(makePacket(CommandSwitchCancelled, {}));
