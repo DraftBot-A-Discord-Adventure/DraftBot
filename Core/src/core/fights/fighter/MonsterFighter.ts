@@ -42,8 +42,9 @@ export class MonsterFighter extends Fighter {
 	}
 
 	async chooseAction(fightView: FightView, response: DraftBotPacket[]): Promise<void> {
+		fightView.displayAiChooseAction(response, RandomUtils.randInt(300, 1800));
+
 		const fightAction = this.getRandomAvailableFightAction();
-		await new Promise(f => setTimeout(f, RandomUtils.randInt(300, 1800)));
 		await fightView.fightController.executeFightAction(fightAction, true, response);
 	}
 

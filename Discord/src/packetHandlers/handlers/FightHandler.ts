@@ -54,8 +54,8 @@ export default class FightHandler {
 	}
 
 	@packetHandler(AIFightActionChoosePacket)
-	async aiFightActionChoose(context: PacketContext, _packet: AIFightActionChoosePacket): Promise<void> {
-		await handleCommandFightAIFightActionChoose(context);
+	async aiFightActionChoose(context: PacketContext, packet: AIFightActionChoosePacket): Promise<void> {
+		await handleCommandFightAIFightActionChoose(context, packet);
 	}
 
 	@packetHandler(CommandFightEndOfFightPacket)
