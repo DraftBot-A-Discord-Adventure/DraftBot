@@ -230,7 +230,6 @@ export default class MissionShopCommand {
 	@commandRequires(CommandMissionShopPacketReq, {
 		notBlocked: true,
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD_OR_JAILED,
-		guildNeeded: true,
 		whereAllowed: [WhereAllowed.CONTINENT]
 	})
 	static async execute(
