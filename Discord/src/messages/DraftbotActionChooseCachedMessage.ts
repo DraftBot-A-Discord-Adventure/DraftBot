@@ -49,7 +49,7 @@ export class DraftbotActionChooseCachedMessage extends DraftbotCachedMessage<Rea
 			}
 			rows[rows.length - 1].addComponents(button);
 		});
-		await this.post({
+		const msg = await this.post({
 			embeds: [embed],
 			components: rows
 		});
@@ -60,11 +60,12 @@ export class DraftbotActionChooseCachedMessage extends DraftbotCachedMessage<Rea
 			if (buttonInteraction.user.id !== context.discord?.user) {
 				return;
 			}
-			buttonCollector.stop();
-			buttonInteraction.update({
+			DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, buttonInteraction, reactions.findIndex((reaction) => reaction.data.id === buttonInteraction.customId));
+		});
+		buttonCollector.on("end", () => {
+			msg!.edit({
 				components: []
 			});
-			DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, buttonInteraction, reactions.findIndex((reaction) => reaction.data.id === buttonInteraction.customId));
 		});
 		return [buttonCollector];
 	};

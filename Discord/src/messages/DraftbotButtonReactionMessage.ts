@@ -52,6 +52,17 @@ export class DraftbotButtonReactionMessage {
 		this._messageOptions = messageOptions;
 	}
 
+	sendReaction(customId: string | null): void {
+		const indexes = this._messageOptions.reactions.map((r) => r.customId);
+		DiscordCollectorUtils.sendReaction(
+			this._messageOptions.packet,
+			this._messageOptions.context,
+			this._messageOptions.context.keycloakId!,
+			null,
+			indexes.findIndex((r) => r === customId)
+		);
+	}
+
 	public async send(): Promise<ReactionCollectorReturnType> {
 		const message = await this._interaction.editReply({
 			embeds: [this._embed],
@@ -72,28 +83,19 @@ export class DraftbotButtonReactionMessage {
 				await sendInteractionNotForYou(i.user, i, this._interaction.userLanguage);
 				return;
 			}
-			buttonCollector.stop();
-			reactionCollector?.stop();
+
+			this.sendReaction(i.customId);
 		});
 
 		reactionCollector?.on("collect", () => {
-			reactionCollector?.stop();
-			buttonCollector.stop();
+			this.sendReaction(null);
 		});
 
-		buttonCollector.on("end", async (collected) => {
+		buttonCollector.on("end", async () => {
 			await this._interaction.editReply({
 				components: [],
 				embeds: [this._embed]
 			});
-			const indexes = this._messageOptions.reactions.map((r) => r.customId);
-			DiscordCollectorUtils.sendReaction(
-				this._messageOptions.packet,
-				this._messageOptions.context,
-				this._messageOptions.context.keycloakId!,
-				null,
-				indexes.findIndex((r) => r === collected.last()?.customId)
-			);
 		});
 
 		if (reactionCollector) {

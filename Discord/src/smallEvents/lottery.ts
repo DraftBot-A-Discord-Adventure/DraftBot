@@ -67,8 +67,6 @@ export async function lotteryCollector(context: PacketContext, packet: ReactionC
 			return;
 		}
 
-		buttonCollector.stop();
-
 		await buttonInteraction.deferReply();
 
 		if (buttonInteraction.customId === easyButtonId) {
