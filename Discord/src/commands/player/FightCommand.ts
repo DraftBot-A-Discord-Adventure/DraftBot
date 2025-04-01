@@ -30,6 +30,7 @@ import {millisecondsToMinutes, minutesDisplay} from "../../../../Lib/src/utils/T
 import {FightRewardPacket} from "../../../../Lib/src/packets/fights/FightRewardPacket";
 import {StringUtils} from "../../utils/StringUtils";
 import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import {AIFightActionChoosePacket} from "../../../../Lib/src/packets/fights/AIFightActionChoosePacket";
 
 export async function createFightCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
@@ -183,13 +184,14 @@ export async function handleCommandFightHistoryItemRes(context: PacketContext, p
 }
 
 
-export async function handleCommandFightAIFightActionChoose(context: PacketContext): Promise<void> {
+export async function handleCommandFightAIFightActionChoose(context: PacketContext, packet: AIFightActionChoosePacket): Promise<void> {
 	if (!context.discord?.interaction) {
 		return;
 	}
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await DraftbotCachedMessages.getOrCreate(context.discord?.interaction, DraftbotActionChooseCachedMessage)
 		.post({embeds: [new DraftBotEmbed().setDescription(i18n.t("commands:fight.actions.aiChoose", {lng: interaction.userLanguage}))]});
+	await new Promise(f => setTimeout(f, packet.ms));
 }
 
 /**

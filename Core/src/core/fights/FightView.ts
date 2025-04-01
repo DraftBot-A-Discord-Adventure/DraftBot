@@ -246,9 +246,10 @@ export class FightView {
 	/**
 	 * Display the AI choose action message
 	 * @param response
+	 * @param waitTimeMs
 	 */
-	displayAiChooseAction(response: DraftBotPacket[]): void {
-		response.push(makePacket(AIFightActionChoosePacket, {}));
+	displayAiChooseAction(response: DraftBotPacket[], waitTimeMs: number): void {
+		response.push(makePacket(AIFightActionChoosePacket, { ms: waitTimeMs }));
 	}
 
 	/**
