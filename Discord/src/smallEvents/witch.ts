@@ -72,8 +72,6 @@ export async function witchCollector(context: PacketContext, packet: ReactionCol
 			return;
 		}
 
-		buttonCollector.stop();
-
 		await buttonInteraction.deferReply();
 		DiscordCollectorUtils.sendReaction(
 			packet,

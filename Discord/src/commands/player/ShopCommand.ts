@@ -190,7 +190,6 @@ export async function shopInventoryExtensionCollector(context: PacketContext, pa
 			return;
 		}
 		await buttonInteraction.update({components: []});
-		buttonCollector.stop();
 
 		if (buttonInteraction.customId === "closeShop") {
 			PacketUtils.sendPacketToBackend(context, makePacket(ChangeBlockingReasonPacket, {
@@ -323,7 +322,6 @@ async function manageBuyoutConfirmation(packet: ReactionCollectorCreationPacket,
 			return;
 		}
 		await buttonInteraction.update({components: []});
-		buttonCollector.stop();
 
 		PacketUtils.sendPacketToBackend(context, makePacket(ChangeBlockingReasonPacket, {
 			oldReason: BlockingConstants.REASONS.SHOP_CONFIRMATION,
@@ -473,7 +471,6 @@ export async function shopCollector(context: PacketContext, packet: ReactionColl
 			return;
 		}
 		await msgComponentInteraction.update({components: []});
-		buttonCollector.stop();
 
 		if (msgComponentInteraction.customId === "closeShop") {
 			PacketUtils.sendPacketToBackend(context, makePacket(ChangeBlockingReasonPacket, {
