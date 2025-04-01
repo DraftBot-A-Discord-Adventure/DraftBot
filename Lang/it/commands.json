@@ -836,7 +836,8 @@
     "notEnoughEnergy": "Non hai abbastanza energia per iniziare una lotta!",
     "monsterNotFound": "Non è stato trovato alcun mostro da affrontare. Si prega di segnalare l'accaduto al nostro team di supporto (discord.gg/AP3Wmzb).",
     "fightIntroTitle": "{emote:fight_command.crossed_swords} | È in corso una lotta tra {{fightInitiator}} e {{opponent}} !",
-    "actionsOf": "Attacchi da {{pseudo}}",
+    "actionsOf": "**Attaques de {{pseudo}} :**",
+    "petOf": "**Animale domestico di {{pseudo}} :**",
     "fightActionNameDisplay": "{{fightActionEmote}} - {{fightActionName}} {emote:unitValues.breath} {{breathCost}}",
     "summarize": {
       "title": "Sintesi dell'incontro",
