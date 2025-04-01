@@ -191,7 +191,6 @@
     "You can get a bonus every Sunday based on your league using the {command:leaguebonus} command.",
     "The number of points earned in the league bonus depends on your ranking in the glorious ranking.",
     "A fighting season ends on Saturday evening French time.",
-    "All players with more than 500 glory points undergo a ranking compression at the end of the fighting season.",
     "You must have completed enough ranked fights using the {command:fight} command to be eligible for the glorious ranking.",
     "You must have completed enough ranked fights using the {command:fight} command to receive a league bonus at the end of the season.",
     "It's possible to fight players who have a large glory gap with you if you make a friendly fight.",
