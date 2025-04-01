@@ -219,6 +219,18 @@ export class DraftBot {
 			},
 			{where: {fightCountdown: {[Op.lt]: FightConstants.FIGHT_COUNTDOWN_REGEN_LIMIT}}}
 		);
+		// Transform a part of the defense glory into attack glory
+		await Player.update(
+			{
+				defenseGloryPoints: Sequelize.literal(
+					"defenseGloryPoints + LEAST(" + FightConstants.ATTACK_GLORY_TO_DEFENSE_GLORY_EACH_WEEK + ", attackGloryPoints)"
+				),
+				attackGloryPoints: Sequelize.literal(
+					"attackGloryPoints - LEAST(" + FightConstants.ATTACK_GLORY_TO_DEFENSE_GLORY_EACH_WEEK + ", attackGloryPoints)"
+				)
+			},
+			{where: {attackGloryPoints: {[Op.gt]: 0}}}
+		);
 	}
 
 	/**

@@ -191,7 +191,6 @@
     "Vous pouvez obtenir un bonus chaque dimanche en fonction de votre ligue à l'aide de la commande {command:leaguebonus}.",
     "Le nombre de points obtenus dans le bonus de ligue dépend de votre classement dans le classement glorieux.",
     "Une saison de combat se termine le samedi soir heure française.",
-    "Tous les joueurs ayant plus de 500 points de gloire subissent une compression de classement lors de la fin de la saison de combat.",
     "Vous devez avoir réalisé suffisamment de combats classés à l'aide de la commande {command:fight} pour pouvoir participer au classement glorieux.",
     "Vous devez avoir réalisé suffisamment de combats classés à l'aide de la commande {command:fight} pour pouvoir recevoir un bonus de ligue à la fin de la saison.",
     "Il est possible de combattre les joueurs qui ont un grand écart de gloire avec vous, si vous faites un combat amical.",
