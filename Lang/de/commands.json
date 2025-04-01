@@ -836,8 +836,8 @@
     "notEnoughEnergy": "Sie haben nicht genug Energie, um einen Kampf zu beginnen!",
     "monsterNotFound": "Es wurden keine Monster gefunden, die gegen dich antreten können. Bitte melden Sie diesen Vorfall unserem Support (discord.gg/AP3Wmzb).",
     "fightIntroTitle": "{emote:fight_command.crossed_swords} | Ein Kampf wird zwischen {{fightInitiator}} und {{opponent}} gestartet!",
-    "actionsOf": "**Attaques de {{pseudo}} :**",
-    "petOf": "**Familier de {{pseudo}} :**",
+    "actionsOf": "**Angriffe von {{pseudo}} :**",
+    "petOf": "**Familienmitglied von {{pseudo}} :**",
     "fightActionNameDisplay": "{{fightActionEmote}} - {{fightActionName}} | {emote:unitValues.breath} {{breathCost}}",
     "summarize": {
       "title": "Zusammenfassung des Kampfes",
