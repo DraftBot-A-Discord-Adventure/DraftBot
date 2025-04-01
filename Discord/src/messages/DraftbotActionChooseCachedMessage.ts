@@ -60,6 +60,7 @@ export class DraftbotActionChooseCachedMessage extends DraftbotCachedMessage<Rea
 			if (buttonInteraction.user.id !== context.discord?.user) {
 				return;
 			}
+			buttonInteraction.update({});
 			DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, buttonInteraction, reactions.findIndex((reaction) => reaction.data.id === buttonInteraction.customId));
 		});
 		buttonCollector.on("end", () => {
