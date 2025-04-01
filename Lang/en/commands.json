@@ -836,8 +836,8 @@
     "notEnoughEnergy": "You don't have enough energy to start a fight!",
     "monsterNotFound": "No monster has been found to face you. Please report this incident to our support (discord.gg/AP3Wmzb).",
     "fightIntroTitle": "{emote:fight_command.crossed_swords} | {{fightInitiator}} and {{opponent}} !",
-    "actionsOf": "**Attaques de {{pseudo}} :**",
-    "petOf": "**Familier de {{pseudo}} :**",
+    "actionsOf": "**Attacks from {{pseudo}} :**",
+    "petOf": "** {{pseudo}} :**",
     "fightActionNameDisplay": "{{fightActionEmote}} - {{fightActionName}} | {emote:unitValues.breath} {{breathCost}}",
     "summarize": {
       "title": "Fight summary",
