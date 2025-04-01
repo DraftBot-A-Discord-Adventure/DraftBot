@@ -261,4 +261,7 @@ export abstract class FightConstants {
 
 	// Number of players to search for when looking for an opponent
 	static PLAYER_PER_OPPONENT_SEARCH = 5;
+
+	// Amount of attack glory transformed into defense glory each week
+	static ATTACK_GLORY_TO_DEFENSE_GLORY_EACH_WEEK = 50;
 }

@@ -852,16 +852,6 @@ export class Player extends Model {
 	}
 
 	/**
-	 * Get the amount of points that was removed to the player at the end of the previous season
-	 */
-	public getCompressionImpact(): number {
-		if (this.gloryPointsLastSeason > LeagueInfoConstants.GLORY_RESET_THRESHOLD) {
-			return Math.round((this.gloryPointsLastSeason - LeagueInfoConstants.GLORY_RESET_THRESHOLD) * LeagueInfoConstants.SEASON_END_LOSS_PERCENTAGE);
-		}
-		return 0;
-	}
-
-	/**
 	 * Check in the logs if the player has claimed the league reward for the current season returns true if we find a value in the logs for the last 24 hours
 	 */
 	async hasClaimedLeagueReward(): Promise<boolean> {
