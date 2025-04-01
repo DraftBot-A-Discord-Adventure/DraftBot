@@ -58,17 +58,18 @@ export class PlayerFighter extends Fighter {
 	 * Function called when the fight ends
 	 * @param fightView
 	 * @param winner Indicate if the fighter is the winner
+	 * @param response
 	 */
-	async endFight(fightView: FightView, winner: boolean): Promise<void> {
+	async endFight(fightView: FightView, winner: boolean, response: DraftBotPacket[]): Promise<void> {
 		this.unblock();
-		await this.manageMissionsOf(fightView);
+		await this.manageMissionsOf(fightView, response);
 		if (winner) {
-			await MissionsController.update(this.player, [fightView.context], {
+			await MissionsController.update(this.player, response, {
 				missionId: "fightHealthPercent", params: {
 					remainingPercent: this.stats.energy / this.stats.maxEnergy
 				}
 			});
-			await MissionsController.update(this.player, [fightView.context], {
+			await MissionsController.update(this.player, response, {
 				missionId: "finishWithAttack",
 				params: {
 					lastAttack: this.fightActionsHistory.at(-1)
@@ -168,11 +169,11 @@ export class PlayerFighter extends Fighter {
 	 * @private
 	 * @param fightView The fight view
 	 */
-	private async checkFightActionHistory(fightView: FightView): Promise<void> {
+	private async checkFightActionHistory(fightView: FightView, response: DraftBotPacket[]): Promise<void> {
 		const playerFightActionsHistory: Map<string, number> = this.getFightActionCount();
 		// Iterate on each action in the history
 		for (const [action, count] of playerFightActionsHistory) {
-			await MissionsController.update(this.player, [fightView.context], {
+			await MissionsController.update(this.player, response, {
 				missionId: "fightAttacks",
 				count, params: {attackType: action}
 			});
@@ -183,15 +184,16 @@ export class PlayerFighter extends Fighter {
 	 * Manage the mission of a fighter
 	 * @private
 	 * @param fightView
+	 * @param response
 	 */
-	private async manageMissionsOf(fightView: FightView): Promise<void> {
+	private async manageMissionsOf(fightView: FightView, response: DraftBotPacket[]): Promise<void> {
 		const newPlayer = await Players.getOrRegister(this.player.keycloakId);
 		newPlayer.setEnergyLost(this.stats.maxEnergy - this.stats.energy, NumberChangeReason.FIGHT);
 		await newPlayer.save();
 
-		await this.checkFightActionHistory(fightView);
+		await this.checkFightActionHistory(fightView, response);
 
-		await MissionsController.update(this.player, [fightView.context], {missionId: "anyFight"});
+		await MissionsController.update(this.player, response, {missionId: "anyFight"});
 
 		const slots = await MissionSlots.getOfPlayer(this.player.id);
 		for (const slot of slots) {
@@ -199,10 +201,10 @@ export class PlayerFighter extends Fighter {
 				const lastDay = slot.saveBlob ? slot.saveBlob.readInt32LE() : 0;
 				const currDay = getDayNumber();
 				if (lastDay === currDay - 1) {
-					await MissionsController.update(this.player, [fightView.context], {missionId: "fightStreak"});
+					await MissionsController.update(this.player, response, {missionId: "fightStreak"});
 				}
 				else if (lastDay !== currDay) {
-					await MissionsController.update(this.player, [fightView.context], {
+					await MissionsController.update(this.player, response, {
 						missionId: "fightStreak",
 						count: 1,
 						set: true
