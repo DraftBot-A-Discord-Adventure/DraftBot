@@ -29,7 +29,6 @@ import {NumberChangeReason} from "../../../../../../Lib/src/constants/LogsConsta
 import {InventoryConstants} from "../../../../../../Lib/src/constants/InventoryConstants";
 import {Constants} from "../../../../../../Lib/src/constants/Constants";
 import {FightConstants} from "../../../../../../Lib/src/constants/FightConstants";
-import {LeagueInfoConstants} from "../../../../../../Lib/src/constants/LeagueInfoConstants";
 import {PVEConstants} from "../../../../../../Lib/src/constants/PVEConstants";
 import {PlayersConstants} from "../../../../../../Lib/src/constants/PlayersConstants";
 import {EntityConstants} from "../../../../../../Lib/src/constants/EntityConstants";
