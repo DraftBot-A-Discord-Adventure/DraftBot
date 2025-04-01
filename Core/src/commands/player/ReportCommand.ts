@@ -647,6 +647,7 @@ async function executeSmallEvent(response: DraftBotPacket[], player: Player, con
 			await MissionsController.update(player, response, {missionId: "doReports"});
 		}
 		catch (e) {
+			console.error(e);
 			response.push(makePacket(ErrorPacket, {message: `${e}`}));
 		}
 	}
