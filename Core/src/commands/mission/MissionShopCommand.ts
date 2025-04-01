@@ -168,8 +168,7 @@ function getEndCallbackSkipMissionShopItem(player: Player, missionList: MissionS
 			newMission: MissionsController.prepareMissionSlot(newMission)
 		}));
 		const playerMissionsInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
-		playerMissionsInfo.gems -= Constants.MISSION_SHOP.PRICES.MISSION_SKIP;
-		await MissionsController.update(player, response, {missionId: "spendGems"});
+		await playerMissionsInfo.spendGems(Constants.MISSION_SHOP.PRICES.MISSION_SKIP, response, NumberChangeReason.MISSION_SHOP);
 	};
 }
 
