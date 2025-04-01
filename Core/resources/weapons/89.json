@@ -1,7 +1,7 @@
 {
-	"emote": ":dragon:",
-	"rarity": 7,
+  "emote": ":dragon:",
+  "rarity": 7,
   "rawAttack": 0,
-	"rawDefense": 6,
-	"speed": 18
+  "rawDefense": 6,
+  "speed": 18
 }
