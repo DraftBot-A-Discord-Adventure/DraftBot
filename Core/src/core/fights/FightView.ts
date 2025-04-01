@@ -59,7 +59,9 @@ export class FightView {
 			fightOpponentKeycloakId: opponent instanceof MonsterFighter ? null : opponent.player.keycloakId,
 			fightOpponentMonsterId: opponent instanceof MonsterFighter ? opponent.monster.id : null,
 			fightInitiatorActions,
-			fightOpponentActions
+			fightOpponentActions,
+			fightInitiatorPet: fighter.pet ? fighter.pet.asOwnedPet() : null,
+			fightOpponentPet: opponent instanceof MonsterFighter || !opponent.pet ? null : opponent.pet.asOwnedPet()
 		}));
 	}
 

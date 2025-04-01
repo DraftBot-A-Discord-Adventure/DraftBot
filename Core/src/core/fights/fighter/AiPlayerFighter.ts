@@ -8,6 +8,7 @@ import {Class} from "../../../data/Class";
 import {FightAction, FightActionDataController} from "../../../data/FightAction";
 import {DraftBotPacket} from "../../../../../Lib/src/packets/DraftBotPacket";
 import {ClassBehavior, getAiClassBehavior} from "../AiBehaviorController";
+import PetEntity, {PetEntities} from "../../database/game/models/PetEntity";
 
 /**
  * @class AiPlayerFighter
@@ -16,6 +17,8 @@ import {ClassBehavior, getAiClassBehavior} from "../AiBehaviorController";
  */
 export class AiPlayerFighter extends Fighter {
 	public player: Player;
+
+	public pet?: PetEntity;
 
 	private class: Class;
 
@@ -45,6 +48,9 @@ export class AiPlayerFighter extends Fighter {
 		this.stats.maxBreath = this.player.getMaxBreath();
 		this.stats.breathRegen = this.player.getBreathRegen();
 		this.glory = this.player.getGloryPoints();
+		if (this.player.petId) {
+			this.pet = await PetEntities.getById(this.player.petId);
+		}
 	}
 
 	/**

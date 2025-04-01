@@ -31,6 +31,8 @@ import {FightRewardPacket} from "../../../../Lib/src/packets/fights/FightRewardP
 import {StringUtils} from "../../utils/StringUtils";
 import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import {AIFightActionChoosePacket} from "../../../../Lib/src/packets/fights/AIFightActionChoosePacket";
+import {OwnedPet} from "../../../../Lib/src/types/OwnedPet";
+import {DisplayUtils} from "../../utils/DisplayUtils";
 
 export async function createFightCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
@@ -104,16 +106,18 @@ export async function handleCommandFightRefusePacketRes(context: PacketContext):
 /**
  * Add the fight action field to the intro embed of the fight for one fighter
  * @param introEmbed - Embed of the fight intro
- * @param language
+ * @param lng
  * @param fighterName - Name of the fighter
  * @param fightActions - Map containing the ids and breath cost of the fighter's fight actions
+ * @param opponentFightActionsCount - Number of fight actions of the opponent
+ * @param pet - Pet of the fighter
  */
-function addFightActionFieldFor(introEmbed: DraftBotEmbed, language: Language, fighterName: string, fightActions: Array<[string, number]>): void {
-	const fightActionsDisplay = fightActions.map(([actionId, breathCost]) => i18n.t("commands:fight.fightActionNameDisplay", {
-		lng: language,
+function addFightProfileFor(introEmbed: DraftBotEmbed, lng: Language, fighterName: string, fightActions: Array<[string, number]>, opponentFightActionsCount: number, pet?: OwnedPet): void {
+	let fightActionsDisplay = fightActions.map(([actionId, breathCost]) => i18n.t("commands:fight.fightActionNameDisplay", {
+		lng,
 		fightActionEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fight_actions[actionId]),
 		fightActionName: i18n.t(`models:fight_actions.${actionId}.name`, {
-			lng: language,
+			lng,
 			count: 1
 		}),
 		interpolation: {escapeValue: false},
@@ -121,12 +125,22 @@ function addFightActionFieldFor(introEmbed: DraftBotEmbed, language: Language, f
 	}))
 		.join("\n");
 
+	// Add new line to make the display aligned with the opponent
+	if (opponentFightActionsCount - fightActions.length > 0) {
+		fightActionsDisplay += "\n".repeat(opponentFightActionsCount - fightActions.length);
+	}
+
+	const petDisplay = pet ? `\n\n${i18n.t("commands:fight.petOf", {
+		lng,
+		pseudo: fighterName
+	})}\n${DisplayUtils.getOwnedPetInlineDisplay(pet, lng)}` : "";
+
 	introEmbed.addFields({
-		name: i18n.t("commands:fight.actionsOf", {
-			lng: language,
+		name: "_ _",
+		value: `${i18n.t("commands:fight.actionsOf", {
+			lng,
 			pseudo: fighterName
-		}),
-		value: fightActionsDisplay,
+		})}\n${fightActionsDisplay}${petDisplay}`,
 		inline: true
 	});
 }
@@ -142,15 +156,15 @@ export async function handleCommandFightIntroduceFightersRes(context: PacketCont
 	const opponentDisplayName = packet.fightOpponentKeycloakId ?
 		(await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.fightOpponentKeycloakId))!.attributes.gameUsername[0] :
 		i18n.t(`models:monsters.${packet.fightOpponentMonsterId}.name`, {lng: interaction.userLanguage});
-	// Todo: crash if both fightOpponentKeycloakId and fightOpponentMonsterId are null
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:fight.fightIntroTitle", {
 		lng: interaction.userLanguage,
 		fightInitiator: interaction.user.displayName,
 		opponent: opponentDisplayName
 	}), interaction.user);
-	// Todo: display the pet of the fighters if they have one
-	addFightActionFieldFor(embed, interaction.userLanguage, interaction.user.displayName, packet.fightInitiatorActions);
-	addFightActionFieldFor(embed, interaction.userLanguage, opponentDisplayName, packet.fightOpponentActions);
+
+	addFightProfileFor(embed, interaction.userLanguage, interaction.user.displayName, packet.fightInitiatorActions, packet.fightOpponentActions.length, packet.fightInitiatorPet);
+	addFightProfileFor(embed, interaction.userLanguage, opponentDisplayName, packet.fightOpponentActions, packet.fightInitiatorActions.length, packet.fightOpponentPet);
+
 	await buttonInteraction?.editReply({embeds: [embed]});
 	await DraftbotCachedMessages.getOrCreate(interaction.id, DraftbotHistoryCachedMessage).post({content: "_ _"});
 	await DraftbotCachedMessages.getOrCreate(interaction.id, DraftbotFightStatusCachedMessage).post({content: "_ _"});

@@ -18,7 +18,6 @@ import {AiPlayerFighter} from "./fighter/AiPlayerFighter";
 import {FightAlteration, FightAlterationDataController} from "../../data/FightAlteration";
 import {PetAssistance} from "../../data/PetAssistance";
 import {getAiPetBehavior} from "./PetAssistManager";
-import {PetEntities} from "../database/game/models/PetEntity";
 
 /**
  * @class FightController
@@ -299,13 +298,10 @@ export class FightController {
 		}
 
 		const currentFighter = this.getPlayingFighter();
-		if ((currentFighter instanceof AiPlayerFighter || currentFighter instanceof PlayerFighter) && currentFighter.player.petId) {
-			const playerPet = await PetEntities.getById(currentFighter.player.petId);
-			if (playerPet) {
-				const petAction = getAiPetBehavior(playerPet.typeId);
-				if (petAction) {
-					await this.executePetAssistance(petAction, response);
-				}
+		if ((currentFighter instanceof AiPlayerFighter || currentFighter instanceof PlayerFighter) && currentFighter.pet) {
+			const petAction = getAiPetBehavior(currentFighter.pet.typeId);
+			if (petAction) {
+				await this.executePetAssistance(petAction, response);
 			}
 		}
 		if (this.state !== FightState.RUNNING) {
