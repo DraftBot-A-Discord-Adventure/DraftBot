@@ -6,7 +6,7 @@ import { FightAlterations } from "../../FightAlterations";
 import { FightActionFunc } from "../../../../../data/FightAction";
 import { simpleDamageFightAction } from "../../templates/SimpleDamageFightActionTemplate";
 
-const use: FightActionFunc = (sender, receiver) => {
+const use: FightActionFunc = (sender, receiver, fightAction) => {
 	const result = simpleDamageFightAction(
 		{
 			sender,
@@ -21,6 +21,18 @@ const use: FightActionFunc = (sender, receiver) => {
 			statsInfo: getStatsInfo(sender, receiver)
 		}
 	);
+
+	// If the opponent has more than 40% of life, this attack will heal the sender
+	const recoveredEnergy = Math.round(result.damages * (receiver.getEnergy() - receiver.getMaxEnergy() * 0.3) / receiver.getMaxEnergy());
+	if (receiver.getEnergy() > receiver.getMaxEnergy() * 0.4) {
+		FightActionController.applyBuff(result, {
+			selfTarget: true,
+			stat: FightStatBuffed.ENERGY,
+			operator: FightStatModifierOperation.ADDITION,
+			value: recoveredEnergy
+		}, sender, fightAction);
+	}
+
 	FightActionController.applyAlteration(result, {
 		selfTarget: false,
 		alteration: FightAlterations.CURSED

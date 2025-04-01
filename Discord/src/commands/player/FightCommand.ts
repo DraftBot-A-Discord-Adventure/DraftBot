@@ -129,7 +129,7 @@ function addFightProfileFor(introEmbed: DraftBotEmbed, lng: Language, fighterNam
 	}))
 		.join("\n");
 
-	// Add new line to make the display aligned with the opponent
+	// Add a new line to make the display aligned with the opponent
 	if (opponentFightActionsCount - fightActions.length > 0) {
 		fightActionsDisplay += "\n".repeat(opponentFightActionsCount - fightActions.length);
 	}
