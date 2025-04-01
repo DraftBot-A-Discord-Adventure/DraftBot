@@ -18,6 +18,7 @@ import {Class} from "../../../data/Class";
 import {FightAction, FightActionDataController} from "../../../data/FightAction";
 import {DraftBotPacket} from "../../../../../Lib/src/packets/DraftBotPacket";
 import {Potion} from "../../../data/Potion";
+import PetEntity, {PetEntities} from "../../database/game/models/PetEntity";
 
 /* eslint-disable capitalized-comments */
 
@@ -30,6 +31,8 @@ import {Potion} from "../../../data/Potion";
  */
 export class PlayerFighter extends Fighter {
 	public player: Player;
+
+	public pet?: PetEntity;
 
 	private class: Class;
 
@@ -101,6 +104,9 @@ export class PlayerFighter extends Fighter {
 		this.stats.maxBreath = this.player.getMaxBreath();
 		this.stats.breathRegen = this.player.getBreathRegen();
 		this.glory = this.player.getGloryPoints();
+		if (this.player.petId) {
+			this.pet = await PetEntities.getById(this.player.petId);
+		}
 	}
 
 	/**
