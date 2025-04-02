@@ -55,7 +55,7 @@ export class WitchAction extends Data<string> {
 		const outcomeTypesKeys = Object.keys(WitchActionOutcomeType).map(k => k.toLowerCase());
 		let outcome = 0;
 		let seed = RandomUtils.randInt(0, SmallEventConstants.WITCH.MAX_PROBABILITY)
-			- this.outcomeProbabilities[outcomeTypesKeys[WitchActionOutcomeType.POTION] as keyof WitchActionOutcomeType] ?? 0;
+			- this.outcomeProbabilities[outcomeTypesKeys[WitchActionOutcomeType.POTION] as keyof WitchActionOutcomeType];
 		while (seed > 0) {
 			seed -= this.outcomeProbabilities[outcomeTypesKeys[outcome] as keyof WitchActionOutcomeType] ?? 0;
 			outcome++;
