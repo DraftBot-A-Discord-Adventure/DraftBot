@@ -81,7 +81,7 @@ function getWithoutGuildPetFeedEndCallback(player: Player, authorPet: PetEntity)
  * @param response
  * @param player
  * @param authorPet
- * @returns {Promise<void>}
+ * @returns
  */
 function withoutGuildPetFeed(context: PacketContext, response: DraftBotPacket[], player: Player, authorPet: PetEntity): void {
 	const collector = new ReactionCollectorPetFeedWithoutGuild(
@@ -167,7 +167,7 @@ function getWithGuildPetFeedEndCallback(player: Player, authorPet: PetEntity, gu
  * @param response
  * @param player
  * @param authorPet
- * @returns {Promise<void>}
+ * @returns
  */
 async function withGuildPetFeed(context: PacketContext, response: DraftBotPacket[], player: Player, authorPet: PetEntity): Promise<void> {
 	const guild = await Guilds.getById(player.guildId);

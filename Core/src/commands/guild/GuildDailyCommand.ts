@@ -98,9 +98,12 @@ async function healEveryMember(guildLike: GuildLike, response: DraftBotPacket[],
 			);
 		}
 	});
-	fullHeal
-		? rewardPacket.fullHeal = true
-		: rewardPacket.heal = healthWon;
+	if (fullHeal) {
+		rewardPacket.fullHeal = true;
+	}
+	else {
+		rewardPacket.heal = healthWon;
+	}
 	draftBotInstance.logsDatabase.logGuildDaily(guildLike.guild, fullHeal ? GuildDailyConstants.REWARD_TYPES.FULL_HEAL : GuildDailyConstants.REWARD_TYPES.PARTIAL_HEAL).then();
 }
 
@@ -365,7 +368,7 @@ async function awardMoneyToMembers(guildLike: GuildLike, response: DraftBotPacke
  * Verify if a member blocks the guild daily
  * @param members
  * @param response
- * @returns {boolean}
+ * @returns
  */
 function verifyMembers(members: Player[], response: DraftBotPacket[]): boolean {
 	for (const member of members) {

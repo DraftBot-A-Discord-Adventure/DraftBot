@@ -25,8 +25,8 @@ export class Maps {
 
 	/**
 	 * Returns the map ids a player can go to. It excludes the map the player is coming from if at least one map is available
-	 * @param {Players} player
-	 * @returns {Number[]}
+	 * @param player
+	 * @returns
 	 */
 	static getNextPlayerAvailableMaps(player: Player): number[] {
 		if (!player.mapLinkId) {
@@ -64,10 +64,10 @@ export class Maps {
 
 	/**
 	 * Make a player start travelling. It does not check if the player currently travelling, if the maps are connected etc. It also saves the player
-	 * @param {Players} player
-	 * @param {MapLink} newLink
-	 * @param {number} time - The start time
-	 * @returns {Promise<void>}
+	 * @param player
+	 * @param newLink
+	 * @param time - The start time
+	 * @returns
 	 */
 	static async startTravel(player: Player, newLink: MapLink, time: number): Promise<void> {
 		player.mapLinkId = newLink.id;
@@ -80,8 +80,8 @@ export class Maps {
 
 	/**
 	 * Make a player stop travelling. It saves the player
-	 * @param {Players} player
-	 * @returns {Promise<void>}
+	 * @param player
+	 * @returns
 	 */
 	static async stopTravel(player: Player): Promise<void> {
 		player.startTravelDate = new Date(0);

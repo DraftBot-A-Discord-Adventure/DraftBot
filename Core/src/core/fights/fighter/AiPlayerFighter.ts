@@ -12,7 +12,7 @@ import PetEntity, {PetEntities} from "../../database/game/models/PetEntity";
 
 /**
  * @class AiPlayerFighter
- * @extends Fighter
+ * @augments Fighter
  * Class representing a player in a fight
  */
 export class AiPlayerFighter extends Fighter {

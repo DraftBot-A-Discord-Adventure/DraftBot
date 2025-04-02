@@ -233,7 +233,7 @@ function isCurrentlyInEffect(packet: CommandReportTravelSummaryRes, now: number)
  * Generates a string representing the player walking from a map to another
  * @param packet
  * @param now
- * @returns {Promise<string>}
+ * @returns
  */
 function generateTravelPathString(packet: CommandReportTravelSummaryRes, now: number): string {
 	// Calculate trip duration
@@ -362,33 +362,37 @@ export async function displayMonsterReward(
 		return;
 	}
 
-	const { userLanguage, user, channel } = originalInteraction;
+	const {userLanguage, user, channel} = originalInteraction;
 	const descriptionParts: string[] = [];
 
 	if (packet.guildXp > 0) {
 		descriptionParts.push(
-			i18n.t("commands:report.monsterRewardGuildXp", { lng: userLanguage, guildXp: packet.guildXp })
+			i18n.t("commands:report.monsterRewardGuildXp", {lng: userLanguage, guildXp: packet.guildXp})
 		);
 	}
 
 	descriptionParts.push(
-		i18n.t("commands:report.monsterRewardsDescription", { lng: userLanguage, money: packet.money, experience: packet.experience })
+		i18n.t("commands:report.monsterRewardsDescription", {
+			lng: userLanguage,
+			money: packet.money,
+			experience: packet.experience
+		})
 	);
 
 	if (packet.guildPoints > 0) {
 		descriptionParts.push(
-			i18n.t("commands:report.monsterRewardsGuildPoints", { lng: userLanguage, guildPoints: packet.guildPoints })
+			i18n.t("commands:report.monsterRewardsGuildPoints", {lng: userLanguage, guildPoints: packet.guildPoints})
 		);
 	}
 
 	const embed = new DraftBotEmbed()
 		.formatAuthor(
-			i18n.t("commands:report.rewardEmbedTitle", { lng: userLanguage, pseudo: user.displayName }),
+			i18n.t("commands:report.rewardEmbedTitle", {lng: userLanguage, pseudo: user.displayName}),
 			user
 		)
 		.setDescription(descriptionParts.join("\n"));
 
-	await channel.send({ embeds: [embed] });
+	await channel.send({embeds: [embed]});
 }
 
 /**

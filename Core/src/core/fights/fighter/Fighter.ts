@@ -308,7 +308,7 @@ export abstract class Fighter {
 	/**
 	 * Damage the fighter
 	 * @param value
-	 * @return The new value of energy
+	 * @returns The new value of energy
 	 */
 	public damage(value: number): number {
 		// Return current energy if no damage value
@@ -325,7 +325,7 @@ export abstract class Fighter {
 	/**
 	 * Heal the fighter
 	 * @param value
-	 * @return The new value of energy
+	 * @returns The new value of energy
 	 */
 	public heal(value: number): number {
 		this.stats.energy += value;

@@ -40,8 +40,8 @@ import {Effect} from "../../../../../../Lib/src/types/Effect";
 import {ScheduledReportNotifications} from "./ScheduledReportNotification";
 import {PacketUtils} from "../../../utils/PacketUtils";
 import {StatValues} from "../../../../../../Lib/src/types/StatValues";
-import moment = require("moment");
 import {ReachDestinationNotificationPacket} from "../../../../../../Lib/src/packets/notifications/ReachDestinationNotificationPacket";
+import moment = require("moment");
 
 export type PlayerEditValueParameters = {
 	player: Player,
@@ -752,7 +752,7 @@ export class Player extends Model {
 			moneyLost,
 			guildPointsLost
 		} = await this.getAndApplyLostRessourcesOnPveFaint(response);
-		const packet = makePacket(PlayerLeavePveIslandPacket,{
+		const packet = makePacket(PlayerLeavePveIslandPacket, {
 			moneyLost,
 			guildPointsLost
 		});
@@ -828,7 +828,12 @@ export class Player extends Model {
 	 */
 	public async setGloryPoints(gloryPoints: number, isDefense: boolean, reason: NumberChangeReason, response: DraftBotPacket[], fightId: number = null): Promise<void> {
 		await draftBotInstance.logsDatabase.logPlayersGloryPoints(this.keycloakId, gloryPoints, reason, fightId);
-		isDefense ? this.defenseGloryPoints = gloryPoints : this.attackGloryPoints = gloryPoints;
+		if (isDefense) {
+			this.defenseGloryPoints = gloryPoints;
+		}
+		else {
+			this.attackGloryPoints = gloryPoints;
+		}
 		Object.assign(this, await MissionsController.update(this, response, {
 			missionId: "reachGlory",
 			count: this.getGloryPoints(),
@@ -845,7 +850,7 @@ export class Player extends Model {
 			return 0;
 		}
 		const pointsToAward = Math.round(
-			2995 - Math.sqrt(80000 * (rank - 1) ) + 5 * rank
+			2995 - Math.sqrt(80000 * (rank - 1)) + 5 * rank
 		);
 		return Math.ceil(pointsToAward / 10) * 10;
 	}
@@ -1107,7 +1112,7 @@ export class Players {
 	 */
 	static async getRank(playerId: number, rankType: string): Promise<number> {
 		const condition = rankType === Constants.RANK_TYPES.GLORY ? `WHERE fightCountdown <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE}` : "";
-		const orderBy = rankType === Constants.RANK_TYPES.GLORY ? "(attackGloryPoints + defenseGloryPoints)" : rankType ;
+		const orderBy = rankType === Constants.RANK_TYPES.GLORY ? "(attackGloryPoints + defenseGloryPoints)" : rankType;
 		const query = `SELECT ranking
                        FROM (SELECT id, RANK() OVER (ORDER BY ${orderBy} desc, level desc) ranking
                              FROM players ${condition}) subquery
@@ -1261,7 +1266,7 @@ export class Players {
 	}
 
 	/**
-	 *  Get the mean of all points of the players
+	 * Get the mean of all points of the players
 	 */
 	static async getNbMeanPoints(): Promise<number> {
 		const query = `SELECT AVG(score) as avg
@@ -1277,7 +1282,7 @@ export class Players {
 	}
 
 	/**
-	 *  Get the mean of all weekly scores of the players
+	 * Get the mean of all weekly scores of the players
 	 */
 	static async getMeanWeeklyScore(): Promise<number> {
 		const query = `SELECT AVG(weeklyScore) as avg
@@ -1293,7 +1298,7 @@ export class Players {
 	}
 
 	/**
-	 *  Get the number of players who haven't started the adventure
+	 * Get the number of players who haven't started the adventure
 	 */
 	static async getNbPlayersHaventStartedTheAdventure(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
@@ -1307,7 +1312,7 @@ export class Players {
 	}
 
 	/**
-	 *  Get the number of players who have started the adventure
+	 * Get the number of players who have started the adventure
 	 */
 	static async getNbPlayersHaveStartedTheAdventure(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
@@ -1321,7 +1326,7 @@ export class Players {
 	}
 
 	/**
-	 *  Get the mean of all levels of the players
+	 * Get the mean of all levels of the players
 	 */
 	static async getLevelMean(): Promise<number> {
 		const query = `SELECT AVG(level) as avg
@@ -1337,7 +1342,7 @@ export class Players {
 	}
 
 	/**
-	 *  Get the mean out of all money of the players
+	 * Get the mean out of all money of the players
 	 */
 	static async getNbMeanMoney(): Promise<number> {
 		const query = `SELECT AVG(money) as avg
@@ -1410,7 +1415,7 @@ export class Players {
 	static async findPotentialOpponents(player: Player, amountOfPlayersToRetrieve: number, offset: number): Promise<Player[]> {
 		return await Player.findAll({
 			where: {
-				id: { [Op.ne]: player.id },
+				id: {[Op.ne]: player.id},
 				defenseGloryPoints: {
 					[Op.ne]: null,
 					[Op.between]: [

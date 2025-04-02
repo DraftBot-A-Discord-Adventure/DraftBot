@@ -76,7 +76,7 @@ export class FightController {
 
 	/**
 	 * Get the playing fighter or null if the fight is not running
-	 * @return {Fighter|null}
+	 * @returns
 	 */
 	public getPlayingFighter(): PlayerFighter | MonsterFighter | AiPlayerFighter {
 		return this.state === FightState.RUNNING ? this.fighters[0] : null;
@@ -84,7 +84,7 @@ export class FightController {
 
 	/**
 	 * Get the defending fighter or null if the fight is not running
-	 * @return {Fighter|null}
+	 * @returns
 	 */
 	public getDefendingFighter(): PlayerFighter | MonsterFighter | AiPlayerFighter {
 		return this.state === FightState.RUNNING ? this.fighters[1] : null;
@@ -126,7 +126,7 @@ export class FightController {
 
 	/**
 	 * Get the winner of the fight does not check for draw
-	 * @return {number} 1 for the fight initiator, 0 for the opponent
+	 * @returns 1 for the fight initiator, 0 for the opponent
 	 * @private
 	 */
 	public getWinner(): number {
@@ -135,7 +135,7 @@ export class FightController {
 
 	/**
 	 * Get the winner fighter of the fight
-	 * @return {Fighter|null} the winner fighter or null if there is no winner
+	 * @returns the winner fighter or null if there is no winner
 	 * @private
 	 */
 	public getWinnerFighter(): Fighter {

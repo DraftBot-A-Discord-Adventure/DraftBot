@@ -406,9 +406,9 @@ export const giveItemToPlayer = async function(
 
 /**
  * Generate a random rarity. Legendary is very rare and common is not rare at all
- * @param {ItemRarity} minRarity
- * @param {ItemRarity} maxRarity
- * @return {ItemRarity} generated rarity
+ * @param minRarity
+ * @param maxRarity
+ * @returns generated rarity
  */
 export const generateRandomRarity = function(minRarity: ItemRarity = ItemRarity.COMMON, maxRarity: ItemRarity = ItemRarity.MYTHICAL): ItemRarity {
 	const randomValue = RandomUtils.draftbotRandom.integer(
@@ -426,7 +426,7 @@ export const generateRandomRarity = function(minRarity: ItemRarity = ItemRarity.
 
 /**
  * Generate a random itemType
- * @return {Number}
+ * @returns
  */
 export const generateRandomItemCategory = function(): ItemCategory {
 	return RandomUtils.enumPick(ItemCategory);
@@ -475,7 +475,7 @@ export function generateRandomItem(
  * Give a random item
  * @param context
  * @param response
- * @param {Player} player
+ * @param player
  */
 export const giveRandomItem = async function(context: PacketContext, response: DraftBotPacket[], player: Player): Promise<void> {
 	await giveItemToPlayer(player, generateRandomItem(), context, response, await InventorySlots.getOfPlayer(player.id));

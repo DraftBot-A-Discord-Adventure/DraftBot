@@ -59,7 +59,7 @@ export class InventoryInfo extends Model {
 	}
 
 	public updateLastDailyAt(): void {
-		this.lastDailyAt = moment().toDate(); // eslint-disable-line new-cap
+		this.lastDailyAt = moment().toDate();
 	}
 }
 

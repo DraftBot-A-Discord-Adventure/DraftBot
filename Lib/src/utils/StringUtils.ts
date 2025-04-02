@@ -72,8 +72,7 @@ export function discordIdToMention(id: string): string {
 
 /**
  * Check if the given variable is a Keycloak id
- * @param {String} variable
- * @return {boolean}
+ * @param variable
  */
 export function isAnId(variable: string): boolean {
 	return /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/u.test(variable);
@@ -81,8 +80,7 @@ export function isAnId(variable: string): boolean {
 
 /**
  * Check if the given variable is a Discord Emoji
- * @param {String} variable
- * @return {boolean}
+ * @param variable
  */
 export function isAnEmoji(variable: string): boolean {
 	return /\p{Emoji}/u.test(variable);
@@ -90,8 +88,8 @@ export function isAnEmoji(variable: string): boolean {
 
 /**
  * Get the id from a mention
- * @param {any} variable
- * @return {String} The id of the mention
+ * @param variable
+ * @returns The id of the mention
  */
 export function getIdFromMention(variable: string): string {
 	return "".concat(...variable.split("").filter((c) => /[0-9]/.test(c)));

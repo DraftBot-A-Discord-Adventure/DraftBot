@@ -72,8 +72,8 @@ export class CommandsTest {
 	/**
 	 * Say if the given args are the args awaited for the given command
 	 * @param commandTest - The command to test
-	 * @param {string[]} args - The args given to the test
-	 * @return {boolean, string} - {true, ""} if the args are good, {false, "error message"} if not
+	 * @param args - The args given to the test
+	 * @returns - {true, ""} if the args are good, {false, "error message"} if not
 	 */
 	static isGoodFormat(
 		commandTest: ITestCommand,

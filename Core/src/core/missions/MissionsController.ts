@@ -320,7 +320,7 @@ export class MissionsController {
 	 * @param missionSlots
 	 * @param missionInfo
 	 * @private
-	 * @return true if the daily mission is finished and needs to be said to the player
+	 * @returns true if the daily mission is finished and needs to be said to the player
 	 */
 	private static async updateMissionsCounts(missionInformation: MissionInformations, missionSlots: MissionSlot[], missionInfo: PlayerMissionsInfo): Promise<SpecialMissionCompletion> {
 		const missionInterface = this.getMissionInterface(missionInformation.missionId);
