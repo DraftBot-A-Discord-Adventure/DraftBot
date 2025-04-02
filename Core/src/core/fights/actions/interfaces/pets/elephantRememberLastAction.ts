@@ -1,16 +1,17 @@
-import {PetAssistanceResult, PetAssistanceState} from "../../../../../../../Lib/src/types/PetAssistanceResult";
-import {PetAssistanceFunc} from "../../../../../data/PetAssistance";
-import {PlayerFighter} from "../../../fighter/PlayerFighter";
-import {AiPlayerFighter} from "../../../fighter/AiPlayerFighter";
-import {PetEntities} from "../../../../database/game/models/PetEntity";
-import {PetConstants} from "../../../../../../../Lib/src/constants/PetConstants";
-import {RandomUtils} from "../../../../../../../Lib/src/utils/RandomUtils";
-import {FightActionController} from "../../FightActionController";
-import {FightStatBuffed} from "../../../../../../../Lib/src/types/FightActionResult";
-import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
+import {
+	PetAssistanceResult, PetAssistanceState
+} from "../../../../../../../Lib/src/types/PetAssistanceResult";
+import { PetAssistanceFunc } from "../../../../../data/PetAssistance";
+import { PlayerFighter } from "../../../fighter/PlayerFighter";
+import { AiPlayerFighter } from "../../../fighter/AiPlayerFighter";
+import { PetEntities } from "../../../../database/game/models/PetEntity";
+import { PetConstants } from "../../../../../../../Lib/src/constants/PetConstants";
+import { RandomUtils } from "../../../../../../../Lib/src/utils/RandomUtils";
+import { FightActionController } from "../../FightActionController";
+import { FightStatBuffed } from "../../../../../../../Lib/src/types/FightActionResult";
+import { FightStatModifierOperation } from "../../../../../../../Lib/src/types/FightStatModifierOperation";
 
 const use: PetAssistanceFunc = async (fighter, opponent, turn, _fightController): Promise<PetAssistanceResult | null> => {
-
 	// Does nothing first turn.
 	if (turn <= 2) {
 		return null;

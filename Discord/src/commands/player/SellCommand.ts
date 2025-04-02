@@ -1,23 +1,25 @@
-import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {ICommand} from "../ICommand";
-import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {DiscordCache} from "../../bot/DiscordCache";
+import {
+	makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { ICommand } from "../ICommand";
+import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
+import { DiscordCache } from "../../bot/DiscordCache";
 import i18n from "../../translations/i18n";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
-import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
+import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 import {
 	CommandSellItemSuccessPacket,
 	CommandSellPacketReq
 } from "../../../../Lib/src/packets/commands/CommandSellPacket";
-import {ItemCategory} from "../../../../Lib/src/constants/ItemConstants";
-import {DisplayUtils} from "../../utils/DisplayUtils";
+import { ItemCategory } from "../../../../Lib/src/constants/ItemConstants";
+import { DisplayUtils } from "../../utils/DisplayUtils";
 import {
 	ReactionCollectorCreationPacket,
 	ReactionCollectorRefuseReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
-import {ReactionCollectorSellItemReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorSell";
-import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
+import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorSellItemReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorSell";
+import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
 import {
 	ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle,
 	InteractionCollector,
@@ -27,10 +29,10 @@ import {
 	StringSelectMenuInteraction,
 	StringSelectMenuOptionBuilder
 } from "discord.js";
-import {sendInteractionNotForYou} from "../../utils/ErrorUtils";
-import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
-import {PacketUtils} from "../../utils/PacketUtils";
-import {ReactionCollectorResetTimerPacketReq} from "../../../../Lib/src/packets/interaction/ReactionCollectorResetTimer";
+import { sendInteractionNotForYou } from "../../utils/ErrorUtils";
+import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
+import { PacketUtils } from "../../utils/PacketUtils";
+import { ReactionCollectorResetTimerPacketReq } from "../../../../Lib/src/packets/interaction/ReactionCollectorResetTimer";
 
 /**
  * Get the packet
@@ -48,18 +50,24 @@ export async function handleCommandSellSuccessPacket(packet: CommandSellItemSucc
 	}
 
 	const lng = context.discord!.language;
-	const title = i18n.t("commands:sell.soldMessageTitle", { lng, pseudo: interaction.user.displayName });
+	const title = i18n.t("commands:sell.soldMessageTitle", {
+		lng, pseudo: interaction.user.displayName
+	});
 	const description = i18n.t(
 		packet.item.category === ItemCategory.POTION && packet.price === 0
 			? "commands:sell.potionDestroyedMessage"
 			: "commands:sell.soldMessage",
-		{ lng, item: DisplayUtils.getItemDisplay(packet.item, lng), value: packet.price, interpolation: { escapeValue: false } }
+		{
+			lng, item: DisplayUtils.getItemDisplay(packet.item, lng), value: packet.price, interpolation: { escapeValue: false }
+		}
 	);
 
 	await interaction.editReply({
-		embeds: [new DraftBotEmbed()
-			.formatAuthor(title, interaction.user)
-			.setDescription(description)]
+		embeds: [
+			new DraftBotEmbed()
+				.formatAuthor(title, interaction.user)
+				.setDescription(description)
+		]
 	});
 }
 
@@ -67,11 +75,15 @@ async function validateSell(
 	packet: ReactionCollectorCreationPacket,
 	context: PacketContext,
 	interaction: DraftbotInteraction | StringSelectMenuInteraction,
-	reactionsInfo: { reaction: ReactionCollectorSellItemReaction, reactionIndex: number, refuseReactionIndex: number }
+	reactionsInfo: {
+		reaction: ReactionCollectorSellItemReaction; reactionIndex: number; refuseReactionIndex: number;
+	}
 ): Promise<ReactionCollectorReturnType> {
 	const lng = context.discord!.language;
 	const validateClassChangeEmbed = new DraftBotEmbed()
-		.formatAuthor(i18n.t("commands:sell.sellTitle", { lng, pseudo: interaction.user.displayName }), interaction.user)
+		.formatAuthor(i18n.t("commands:sell.sellTitle", {
+			lng, pseudo: interaction.user.displayName
+		}), interaction.user)
 		.setDescription(i18n.t(reactionsInfo.reaction.item.category === ItemCategory.POTION && reactionsInfo.reaction.price === 0 ? "commands:sell.confirmThrowAway" : "commands:sell.confirmSell", {
 			lng,
 			item: DisplayUtils.getItemDisplay(reactionsInfo.reaction.item, lng),
@@ -152,12 +164,16 @@ export async function handleSellReactionCollector(context: PacketContext, packet
 			packet,
 			context,
 			interaction,
-			{ reaction: itemsReactions[0], reactionIndex: packet.reactions.findIndex((reaction) => reaction.type === ReactionCollectorSellItemReaction.name), refuseReactionIndex }
+			{
+				reaction: itemsReactions[0], reactionIndex: packet.reactions.findIndex(reaction => reaction.type === ReactionCollectorSellItemReaction.name), refuseReactionIndex
+			}
 		);
 	}
 
 	const mainEmbed = new DraftBotEmbed()
-		.formatAuthor(i18n.t("commands:sell.titleChoiceEmbed", { lng, pseudo: interaction.user.displayName }), interaction.user)
+		.formatAuthor(i18n.t("commands:sell.titleChoiceEmbed", {
+			lng, pseudo: interaction.user.displayName
+		}), interaction.user)
 		.setDescription(i18n.t("commands:sell.sellIndication", { lng }));
 
 	const refuseCustomId = "refuse";
@@ -174,7 +190,9 @@ export async function handleSellReactionCollector(context: PacketContext, packet
 			.setDescription(
 				i18n.t(
 					reaction.item.category === ItemCategory.POTION && reaction.price === 0 ? "commands:sell.selectMenuDescThrow" : "commands:sell.selectMenuDescSell",
-					{ lng, value: reaction.price }
+					{
+						lng, value: reaction.price
+					}
 				)
 			)
 			.setEmoji(parseEmoji(DisplayUtils.getItemIcon(reaction.item))!));
@@ -218,13 +236,13 @@ export async function handleSellReactionCollector(context: PacketContext, packet
 				context,
 				context.keycloakId!,
 				selectMenuInteraction,
-				packet.reactions.findIndex((reaction) => reaction.type === ReactionCollectorRefuseReaction.name)
+				packet.reactions.findIndex(reaction => reaction.type === ReactionCollectorRefuseReaction.name)
 			);
 			return;
 		}
 
 		// Reset the collector timer, so it doesn't end while the user is still choosing either to validate or refuse
-		PacketUtils.sendPacketToBackend(context, makePacket(ReactionCollectorResetTimerPacketReq, {reactionCollectorId: packet.id}));
+		PacketUtils.sendPacketToBackend(context, makePacket(ReactionCollectorResetTimerPacketReq, { reactionCollectorId: packet.id }));
 
 		const reaction = itemsReactions[parseInt(selectedOption, 10)];
 
@@ -233,7 +251,9 @@ export async function handleSellReactionCollector(context: PacketContext, packet
 				packet,
 				context,
 				selectMenuInteraction,
-				{ reaction, reactionIndex: packet.reactions.findIndex((packetReaction) => JSON.stringify(packetReaction.data) === JSON.stringify(reaction)), refuseReactionIndex }
+				{
+					reaction, reactionIndex: packet.reactions.findIndex(packetReaction => JSON.stringify(packetReaction.data) === JSON.stringify(reaction)), refuseReactionIndex
+				}
 			))![0] as unknown as InteractionCollector<never>;
 	});
 

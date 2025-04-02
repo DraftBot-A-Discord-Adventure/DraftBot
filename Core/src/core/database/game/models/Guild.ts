@@ -1,18 +1,24 @@
-import {DataTypes, Model, Op, QueryTypes, Sequelize} from "sequelize";
-import {MissionsController} from "../../../missions/MissionsController";
-import {getFoodIndexOf} from "../../../utils/FoodUtils";
-import Player, {Players} from "./Player";
-import {GuildPet, GuildPets} from "./GuildPet";
+import {
+	DataTypes, Model, Op, QueryTypes, Sequelize
+} from "sequelize";
+import { MissionsController } from "../../../missions/MissionsController";
+import { getFoodIndexOf } from "../../../utils/FoodUtils";
+import Player, { Players } from "./Player";
+import {
+	GuildPet, GuildPets
+} from "./GuildPet";
 import PetEntity from "./PetEntity";
-import {draftBotInstance} from "../../../../index";
-import {DraftBotPacket, makePacket} from "../../../../../../Lib/src/packets/DraftBotPacket";
-import {GuildLevelUpPacket} from "../../../../../../Lib/src/packets/events/GuildLevelUpPacket";
+import { draftBotInstance } from "../../../../index";
+import {
+	DraftBotPacket, makePacket
+} from "../../../../../../Lib/src/packets/DraftBotPacket";
+import { GuildLevelUpPacket } from "../../../../../../Lib/src/packets/events/GuildLevelUpPacket";
 import moment = require("moment");
-import {TopConstants} from "../../../../../../Lib/src/constants/TopConstants";
+import { TopConstants } from "../../../../../../Lib/src/constants/TopConstants";
 import { Constants } from "../../../../../../Lib/src/constants/Constants";
-import {NumberChangeReason} from "../../../../../../Lib/src/constants/LogsConstants";
-import {GuildConstants} from "../../../../../../Lib/src/constants/GuildConstants";
-import {PetConstants} from "../../../../../../Lib/src/constants/PetConstants";
+import { NumberChangeReason } from "../../../../../../Lib/src/constants/LogsConstants";
+import { GuildConstants } from "../../../../../../Lib/src/constants/GuildConstants";
+import { PetConstants } from "../../../../../../Lib/src/constants/PetConstants";
 
 export class Guild extends Model {
 	declare readonly id: number;
@@ -61,8 +67,8 @@ export class Guild extends Model {
 	public getExperienceNeededToLevelUp(): number {
 		return (
 			Math.round(
-				Constants.XP.BASE_VALUE *
-				Math.pow(Constants.XP.COEFFICIENT, this.level + 1)
+				Constants.XP.BASE_VALUE
+				* Math.pow(Constants.XP.COEFFICIENT, this.level + 1)
 			) - Constants.XP.MINUS
 		);
 	}
@@ -78,11 +84,11 @@ export class Guild extends Model {
 		const pets = await GuildPets.getOfGuild(this.id);
 		for (const pet of pets) {
 			guildPetsToDestroy.push(pet.destroy());
-			petsEntitiesToDestroy.push(PetEntity.destroy({where: {id: pet.petEntityId}}));
+			petsEntitiesToDestroy.push(PetEntity.destroy({ where: { id: pet.petEntityId } }));
 		}
 		await Promise.all([
 			Player.update(
-				{guildId: null},
+				{ guildId: null },
 				{
 					where: {
 						guildId: this.id
@@ -97,7 +103,6 @@ export class Guild extends Model {
 			guildPetsToDestroy,
 			petsEntitiesToDestroy
 		]);
-
 	}
 
 	/**
@@ -110,6 +115,7 @@ export class Guild extends Model {
 		if (this.isAtMaxLevel()) {
 			return;
 		}
+
 		// We assume that you cannot go level max -2 to max with 1 xp addition
 		if (this.level === GuildConstants.MAX_LEVEL - 1) {
 			const xpNeededToLevelUp = this.getExperienceNeededToLevelUp();
@@ -265,7 +271,7 @@ export class Guild extends Model {
 				id: this.id
 			}
 		}))[0][0] as {
-			ranking: number
+			ranking: number;
 		}).ranking;
 	}
 
@@ -313,7 +319,7 @@ export class Guilds {
 					   FROM guilds`;
 		return Math.round(
 			(<{
-				avg: number
+				avg: number;
 			}[]>(await Guild.sequelize.query(query, {
 				type: QueryTypes.SELECT
 			})))[0].avg
@@ -354,7 +360,6 @@ export class Guilds {
 			return null;
 		}
 	}
-
 }
 
 export function initModel(sequelize: Sequelize): void {

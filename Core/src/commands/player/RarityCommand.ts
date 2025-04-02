@@ -1,7 +1,13 @@
-import {CommandRarityPacketReq, CommandRarityPacketRes} from "../../../../Lib/src/packets/commands/CommandRarityPacket";
-import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
-import {ItemConstants} from "../../../../Lib/src/constants/ItemConstants";
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
+import {
+	CommandRarityPacketReq, CommandRarityPacketRes
+} from "../../../../Lib/src/packets/commands/CommandRarityPacket";
+import {
+	DraftBotPacket, makePacket
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { ItemConstants } from "../../../../Lib/src/constants/ItemConstants";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
 
 export default class RarityCommand {
 	@commandRequires(CommandRarityPacketReq, {

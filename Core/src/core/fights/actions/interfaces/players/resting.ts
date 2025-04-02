@@ -1,11 +1,12 @@
-import {Fighter} from "../../../fighter/Fighter";
-import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
-import {FightActionFunc} from "../../../../../data/FightAction";
+import { Fighter } from "../../../fighter/Fighter";
 import {
-	customMessageActionResult,
-	FightStatBuffed
+	attackInfo, FightActionController, statsInfo
+} from "../../FightActionController";
+import { FightActionFunc } from "../../../../../data/FightAction";
+import {
+	customMessageActionResult, FightStatBuffed
 } from "../../../../../../../Lib/src/types/FightActionResult";
-import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
+import { FightStatModifierOperation } from "../../../../../../../Lib/src/types/FightStatModifierOperation";
 
 const use: FightActionFunc = (sender, _receiver, fightAction) => {
 	const count = sender.fightActionsHistory.filter(action => action.id === "resting").length;
@@ -37,14 +38,9 @@ function getAttackInfo(): attackInfo {
 
 function getStatsInfo(sender: Fighter): statsInfo {
 	return {
-		attackerStats: [
-			sender.getMaxEnergy() // We are comparing the max energy to the current energy to get the amount of recovered energy
-		],
-		defenderStats: [
-			sender.getEnergy()
-		],
-		statsEffect: [
-			1
-		]
+		// We are comparing the max energy to the current energy to get the amount of recovered energy
+		attackerStats: [sender.getMaxEnergy()],
+		defenderStats: [sender.getEnergy()],
+		statsEffect: [1]
 	};
 }

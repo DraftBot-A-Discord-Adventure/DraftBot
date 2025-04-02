@@ -1,15 +1,19 @@
-import {ICommand} from "../ICommand";
-import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
+import { ICommand } from "../ICommand";
+import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 import i18n from "../../translations/i18n";
-import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
-import {SlashCommandBuilder} from "@discordjs/builders";
-import {BotUtils} from "../../utils/BotUtils";
-import {LANGUAGE, Language} from "../../../../Lib/src/Language";
-import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
-import {HelpConstants} from "../../../../Lib/src/constants/HelpConstants";
-import {discordConfig, draftBotClient} from "../../bot/DraftBotShard";
-import {minutesToMilliseconds} from "../../../../Lib/src/utils/TimeUtils";
+import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { BotUtils } from "../../utils/BotUtils";
+import {
+	LANGUAGE, Language
+} from "../../../../Lib/src/Language";
+import { PetConstants } from "../../../../Lib/src/constants/PetConstants";
+import { HelpConstants } from "../../../../Lib/src/constants/HelpConstants";
+import {
+	discordConfig, draftBotClient
+} from "../../bot/DraftBotShard";
+import { minutesToMilliseconds } from "../../../../Lib/src/utils/TimeUtils";
 
 const dmHelpCooldowns: Map<string, Date> = new Map<string, Date>();
 
@@ -19,13 +23,13 @@ const dmHelpCooldowns: Map<string, Date> = new Map<string, Date>();
  * @param lng used for the error message in case the command doesn't exist
  */
 function getListOfMentionFromCommandData(commandData: [string, {
-	EMOTE: string,
-	NAME: string,
-	CATEGORY: string
+	EMOTE: string;
+	NAME: string;
+	CATEGORY: string;
 }], lng: Language): string {
 	const commandName = commandData[1].NAME;
 	const commandMention = BotUtils.commandsMentions.get(commandName);
-	return commandMention ? commandMention : i18n.t("error:commandDoesntExist", {lng});
+	return commandMention ? commandMention : i18n.t("error:commandDoesntExist", { lng });
 }
 
 /**
@@ -37,33 +41,33 @@ function getCommandByCategories(language: Language): { [key: string]: string[] }
 		missionCommands: string[] = [], guildCommands: string[] = [], petCommands: string[] = [];
 	for (const commandData of Object.entries(HelpConstants.COMMANDS_DATA)) {
 		switch (commandData[1].CATEGORY) {
-		case HelpConstants.COMMAND_CATEGORY.UTIL:
-			utilCommands.push(
-				getListOfMentionFromCommandData(commandData, language)
-			);
-			break;
-		case HelpConstants.COMMAND_CATEGORY.PLAYER:
-			playerCommands.push(
-				getListOfMentionFromCommandData(commandData, language)
-			);
-			break;
-		case HelpConstants.COMMAND_CATEGORY.MISSION:
-			missionCommands.push(
-				getListOfMentionFromCommandData(commandData, language)
-			);
-			break;
-		case HelpConstants.COMMAND_CATEGORY.GUILD:
-			guildCommands.push(
-				getListOfMentionFromCommandData(commandData, language)
-			);
-			break;
-		case HelpConstants.COMMAND_CATEGORY.PET:
-			petCommands.push(
-				getListOfMentionFromCommandData(commandData, language)
-			);
-			break;
-		default:
-			break;
+			case HelpConstants.COMMAND_CATEGORY.UTIL:
+				utilCommands.push(
+					getListOfMentionFromCommandData(commandData, language)
+				);
+				break;
+			case HelpConstants.COMMAND_CATEGORY.PLAYER:
+				playerCommands.push(
+					getListOfMentionFromCommandData(commandData, language)
+				);
+				break;
+			case HelpConstants.COMMAND_CATEGORY.MISSION:
+				missionCommands.push(
+					getListOfMentionFromCommandData(commandData, language)
+				);
+				break;
+			case HelpConstants.COMMAND_CATEGORY.GUILD:
+				guildCommands.push(
+					getListOfMentionFromCommandData(commandData, language)
+				);
+				break;
+			case HelpConstants.COMMAND_CATEGORY.PET:
+				petCommands.push(
+					getListOfMentionFromCommandData(commandData, language)
+				);
+				break;
+			default:
+				break;
 		}
 	}
 	return {
@@ -95,36 +99,36 @@ function generateGenericHelpMessage(helpMessage: DraftBotEmbed, interaction: Dra
 	helpMessage.setDescription(
 		`${i18n.t("commands:help.helpEmbedDescription", {
 			lng: interaction.userLanguage,
-			interpolation: {escapeValue: false}
+			interpolation: { escapeValue: false }
 		})}\n\u200b`
 	);
 	helpMessage.addFields([
 		{
-			name: i18n.t("commands:help.utilCommands", {lng: interaction.userLanguage}),
+			name: i18n.t("commands:help.utilCommands", { lng: interaction.userLanguage }),
 			value: `${utilCommands.sort()
 				.join(HelpConstants.COMMAND_SEPARATOR_FOR_GENERAL_DESCRIPTION)}`
 		},
 		{
-			name: i18n.t("commands:help.playerCommands", {lng: interaction.userLanguage}),
+			name: i18n.t("commands:help.playerCommands", { lng: interaction.userLanguage }),
 			value: `${playerCommands.join(HelpConstants.COMMAND_SEPARATOR_FOR_GENERAL_DESCRIPTION)}`
 		},
 		{
-			name: i18n.t("commands:help.missionCommands", {lng: interaction.userLanguage}),
+			name: i18n.t("commands:help.missionCommands", { lng: interaction.userLanguage }),
 			value: `${missionCommands.join(HelpConstants.COMMAND_SEPARATOR_FOR_GENERAL_DESCRIPTION)}`
 		},
 		{
-			name: i18n.t("commands:help.guildCommands", {lng: interaction.userLanguage}),
+			name: i18n.t("commands:help.guildCommands", { lng: interaction.userLanguage }),
 			value: `${guildCommands.sort()
 				.join(HelpConstants.COMMAND_SEPARATOR_FOR_GENERAL_DESCRIPTION)}`
 		},
 		{
-			name: i18n.t("commands:help.petCommands", {lng: interaction.userLanguage}),
+			name: i18n.t("commands:help.petCommands", { lng: interaction.userLanguage }),
 			value: `${petCommands.sort()
 				.join(HelpConstants.COMMAND_SEPARATOR_FOR_GENERAL_DESCRIPTION)} \n\u200b`
 		},
 		{
-			name: i18n.t("commands:help.forMoreHelp", {lng: interaction.userLanguage}),
-			value: i18n.t("commands:help.forMoreHelpValue", {lng: interaction.userLanguage})
+			name: i18n.t("commands:help.forMoreHelp", { lng: interaction.userLanguage }),
+			value: i18n.t("commands:help.forMoreHelpValue", { lng: interaction.userLanguage })
 		}
 	]);
 }
@@ -135,7 +139,7 @@ function generateGenericHelpMessage(helpMessage: DraftBotEmbed, interaction: Dra
 function getCommandAliasMap(): Map<string, string> {
 	const helpAlias: Map<string, string> = new Map<string, string>();
 	Object.entries(HelpConstants.ACCEPTED_SEARCH_WORDS)
-		.forEach((commands) => {
+		.forEach(commands => {
 			for (const alias of commands[1]) {
 				helpAlias.set(alias, commands[0]);
 			}
@@ -159,7 +163,7 @@ function generateReplacementObjectForHelpCommand(interaction: DraftbotInteractio
 		lng: interaction.userLanguage,
 		petSellMinPrice,
 		petSellMaxPrice,
-		interpolation: {escapeValue: false}
+		interpolation: { escapeValue: false }
 	};
 }
 
@@ -188,7 +192,7 @@ function sendHelpDm(interaction: DraftbotInteraction, lng: Language): void {
 		}
 	})
 		.then((ret: boolean[]) => {
-			if (!ret.some((value) => value)) {
+			if (!ret.some(value => value)) {
 				interaction.user.send({
 					content: HelpConstants.HELP_INVITE_LINK,
 					embeds: [
@@ -208,7 +212,7 @@ function sendHelpDm(interaction: DraftbotInteraction, lng: Language): void {
 
 			dmHelpCooldowns.set(interaction.user.id, new Date(Date.now() + minutesToMilliseconds(HelpConstants.HELP_DM_COOLDOWN_TIME_MINUTES)));
 		})
-		.catch((error) => {
+		.catch(error => {
 			console.error(`Error while broadcasting the message in help command: ${error}`);
 		});
 }
@@ -218,7 +222,7 @@ function sendHelpDm(interaction: DraftbotInteraction, lng: Language): void {
  */
 async function getPacket(interaction: DraftbotInteraction): Promise<null> {
 	const helpMessage = new DraftBotEmbed();
-	const command = interaction.options.get(i18n.t("discordBuilder:help.options.commandName.name", {lng: LANGUAGE.ENGLISH}));
+	const command = interaction.options.get(i18n.t("discordBuilder:help.options.commandName.name", { lng: LANGUAGE.ENGLISH }));
 	const askedCommand = command ? command.value as string : null;
 	const lng = interaction.userLanguage;
 
@@ -241,12 +245,12 @@ async function getPacket(interaction: DraftbotInteraction): Promise<null> {
 		}
 
 		const commandMention = BotUtils.commandsMentions.get(HelpConstants.COMMANDS_DATA[command as keyof typeof HelpConstants.COMMANDS_DATA].NAME);
-		const commandMentionString: string = commandMention ? commandMention : i18n.t("error:commandDoesntExist", {lng});
+		const commandMentionString: string = commandMention ? commandMention : i18n.t("error:commandDoesntExist", { lng });
 		const replacements = generateReplacementObjectForHelpCommand(interaction);
 
 
 		if (command === "FIGHT") {
-			helpMessage.setImage(i18n.t("commands:help.commands.FIGHT.image", {lng}));
+			helpMessage.setImage(i18n.t("commands:help.commands.FIGHT.image", { lng }));
 		}
 
 		helpMessage.setDescription(i18n.t(`commands:help.commands.${command}.description`, replacements))
@@ -257,7 +261,7 @@ async function getPacket(interaction: DraftbotInteraction): Promise<null> {
 				})
 			);
 		helpMessage.addFields({
-			name: i18n.t("commands:help.usageFieldTitle", {lng}),
+			name: i18n.t("commands:help.usageFieldTitle", { lng }),
 			value: commandMentionString,
 			inline: true
 		});

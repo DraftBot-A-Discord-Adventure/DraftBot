@@ -1,11 +1,15 @@
-import {ICommand} from "../ICommand";
-import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {DiscordCache} from "../../bot/DiscordCache";
-import {CommandGuildStoragePacketReq, CommandGuildStoragePacketRes} from "../../../../Lib/src/packets/commands/CommandGuildStoragePacket";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
+import { ICommand } from "../ICommand";
+import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
+import {
+	makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { DiscordCache } from "../../bot/DiscordCache";
+import {
+	CommandGuildStoragePacketReq, CommandGuildStoragePacketRes
+} from "../../../../Lib/src/packets/commands/CommandGuildStoragePacket";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import i18n from "../../translations/i18n";
-import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants";
+import { GuildConstants } from "../../../../Lib/src/constants/GuildConstants";
 
 function getPacket(): CommandGuildStoragePacketReq {
 	return makePacket(CommandGuildStoragePacketReq, {});
@@ -24,8 +28,8 @@ export async function handleSuccess(packet: CommandGuildStoragePacketRes, contex
 		}))
 		.setThumbnail(GuildConstants.ICON)
 		.addFields({
-			name: i18n.t("commands:guildStorage.embed.descriptionTitle", {lng}),
-			value: i18n.t("commands:guildStorage.embed.description", {lng})
+			name: i18n.t("commands:guildStorage.embed.descriptionTitle", { lng }),
+			value: i18n.t("commands:guildStorage.embed.description", { lng })
 		});
 	for (const food of packet.foods) {
 		embed.addFields({
@@ -41,7 +45,7 @@ export async function handleSuccess(packet: CommandGuildStoragePacketRes, contex
 			inline: true
 		});
 	}
-	await interaction.reply({embeds: [embed]});
+	await interaction.reply({ embeds: [embed] });
 }
 
 

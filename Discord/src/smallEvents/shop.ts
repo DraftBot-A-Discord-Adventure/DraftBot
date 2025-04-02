@@ -1,16 +1,16 @@
-import {ReactionCollectorCreationPacket} from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
-import {DiscordCache} from "../bot/DiscordCache";
-import {DraftbotSmallEventEmbed} from "../messages/DraftbotSmallEventEmbed";
-import {StringUtils} from "../utils/StringUtils";
-import {DiscordCollectorUtils} from "../utils/DiscordCollectorUtils";
-import {RandomUtils} from "../../../Lib/src/utils/RandomUtils";
-import {DisplayUtils} from "../utils/DisplayUtils";
-import {Constants} from "../../../Lib/src/constants/Constants";
+import { ReactionCollectorCreationPacket } from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { PacketContext } from "../../../Lib/src/packets/DraftBotPacket";
+import { DiscordCache } from "../bot/DiscordCache";
+import { DraftbotSmallEventEmbed } from "../messages/DraftbotSmallEventEmbed";
+import { StringUtils } from "../utils/StringUtils";
+import { DiscordCollectorUtils } from "../utils/DiscordCollectorUtils";
+import { RandomUtils } from "../../../Lib/src/utils/RandomUtils";
+import { DisplayUtils } from "../utils/DisplayUtils";
+import { Constants } from "../../../Lib/src/constants/Constants";
 import i18n from "../translations/i18n";
-import {StringConstants} from "../../../Lib/src/constants/StringConstants";
-import {ReactionCollectorShopSmallEventData} from "../../../Lib/src/packets/interaction/ReactionCollectorShopSmallEvent";
-import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import { StringConstants } from "../../../Lib/src/constants/StringConstants";
+import { ReactionCollectorShopSmallEventData } from "../../../Lib/src/packets/interaction/ReactionCollectorShopSmallEvent";
+import { ReactionCollectorReturnType } from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
 /**
  * Send the initial embed for this small event
@@ -22,7 +22,7 @@ export async function smallShopCollector(context: PacketContext, packet: Reactio
 	const lng = interaction!.userLanguage;
 	const data = packet.data.data as ReactionCollectorShopSmallEventData;
 	const gender = RandomUtils.draftbotRandom.bool() ? StringConstants.SEX.MALE : StringConstants.SEX.FEMALE;
-	const name = StringUtils.getRandomTranslation("smallEvents:shop.names", lng, {context: gender.short});
+	const name = StringUtils.getRandomTranslation("smallEvents:shop.names", lng, { context: gender.short });
 
 	const embed = new DraftbotSmallEventEmbed(
 		"shop",
@@ -37,7 +37,7 @@ export async function smallShopCollector(context: PacketContext, packet: Reactio
 				returnObjects: true,
 				lng
 			})[data.item.category]}`,
-			interpolation: {escapeValue: false}
+			interpolation: { escapeValue: false }
 		}),
 		interaction.user,
 		lng

@@ -1,13 +1,17 @@
-import {ICommand} from "../ICommand";
-import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
-import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {CommandTestPacketReq, CommandTestPacketRes} from "../../../../Lib/src/packets/commands/CommandTestPacket";
-import {SlashCommandBuilder} from "@discordjs/builders";
-import {DiscordCache} from "../../bot/DiscordCache";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
-import {HexColorString} from "discord.js";
-import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
+import { ICommand } from "../ICommand";
+import {
+	makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
+import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
+import {
+	CommandTestPacketReq, CommandTestPacketRes
+} from "../../../../Lib/src/packets/commands/CommandTestPacket";
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { DiscordCache } from "../../bot/DiscordCache";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
+import { HexColorString } from "discord.js";
+import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
 import { ColorConstants } from "../../../../Lib/src/constants/ColorConstants";
 
 async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandTestPacketReq> {
@@ -25,10 +29,10 @@ export async function handleCommandTestPacketRes(packet: CommandTestPacketRes, c
 	if (interaction) {
 		if (packet.isError) {
 			if (interaction.replied) {
-				await interaction.channel.send({content: packet.result });
+				await interaction.channel.send({ content: packet.result });
 			}
 			else {
-				await interaction.editReply({content: packet.result });
+				await interaction.editReply({ content: packet.result });
 			}
 		}
 		else {
@@ -41,10 +45,10 @@ export async function handleCommandTestPacketRes(packet: CommandTestPacketRes, c
 				.setColor(<HexColorString> ColorConstants.SUCCESSFUL);
 
 			if (interaction.replied) {
-				await interaction.channel.send({embeds: [embedTestSuccessful]});
+				await interaction.channel.send({ embeds: [embedTestSuccessful] });
 			}
 			else {
-				await interaction.editReply({embeds: [embedTestSuccessful]});
+				await interaction.editReply({ embeds: [embedTestSuccessful] });
 			}
 		}
 	}

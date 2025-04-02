@@ -1,15 +1,21 @@
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
-import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants";
-import {GuildRole} from "../../../../Lib/src/types/GuildRole";
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
+import { GuildConstants } from "../../../../Lib/src/constants/GuildConstants";
+import { GuildRole } from "../../../../Lib/src/types/GuildRole";
+import {
+	DraftBotPacket, makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
 import Player from "../../core/database/game/models/Player";
-import {EndCallback, ReactionCollectorInstance} from "../../core/utils/ReactionsCollector";
-import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
-import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
-import {Guilds} from "../../core/database/game/models/Guild";
-import {draftBotInstance} from "../../index";
-import {ReactionCollectorGuildDescription} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildDescription";
+import {
+	EndCallback, ReactionCollectorInstance
+} from "../../core/utils/ReactionsCollector";
+import { ReactionCollectorAcceptReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { BlockingUtils } from "../../core/utils/BlockingUtils";
+import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
+import { Guilds } from "../../core/database/game/models/Guild";
+import { draftBotInstance } from "../../index";
+import { ReactionCollectorGuildDescription } from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildDescription";
 import {
 	CommandGuildDescriptionAcceptPacketRes,
 	CommandGuildDescriptionNoGuildPacket, CommandGuildDescriptionNotAnElderPacket, CommandGuildDescriptionPacketReq,
@@ -76,7 +82,7 @@ export default class GuildDescriptionCommand {
 				allowedPlayerKeycloakIds: [player.keycloakId],
 				reactionLimit: 1
 			},
-			endCallback(player,packet.description)
+			endCallback(player, packet.description)
 		)
 			.block(player.keycloakId, BlockingConstants.REASONS.GUILD_DESCRIPTION)
 			.build();

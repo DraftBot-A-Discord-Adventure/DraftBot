@@ -1,6 +1,8 @@
-import {NumberChangeReason} from "../../../../../../Lib/src/constants/LogsConstants";
-import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
-import {PetEntities} from "../../../../core/database/game/models/PetEntity";
+import { NumberChangeReason } from "../../../../../../Lib/src/constants/LogsConstants";
+import {
+	ExecuteTestCommandLike, ITestCommand, TypeKey
+} from "../../../../core/CommandsTest";
+import { PetEntities } from "../../../../core/database/game/models/PetEntity";
 
 export const commandInfo: ITestCommand = {
 	name: "petlovepoints",

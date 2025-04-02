@@ -1,4 +1,4 @@
-import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
+import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
 import {
 	ReactionCollector,
 	ReactionCollectorCreationPacket,
@@ -6,12 +6,14 @@ import {
 	ReactionCollectorReaction,
 	ReactionCollectorReactPacket
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {BlockingUtils} from "./BlockingUtils";
-import {Constants} from "../../../../Lib/src/constants/Constants";
-import {PacketUtils} from "./PacketUtils";
-import {BlockingReason} from "../../../../Lib/src/constants/BlockingConstants";
-import {ReactionCollectorStopPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorStopPacket";
+import {
+	DraftBotPacket, makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { BlockingUtils } from "./BlockingUtils";
+import { Constants } from "../../../../Lib/src/constants/Constants";
+import { PacketUtils } from "./PacketUtils";
+import { BlockingReason } from "../../../../Lib/src/constants/BlockingConstants";
+import { ReactionCollectorStopPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorStopPacket";
 import {
 	ReactionCollectorResetTimerPacketReq,
 	ReactionCollectorResetTimerPacketRes
@@ -31,11 +33,11 @@ export type CollectorOptions = {
 };
 
 type ReactionInfo = {
-	keycloakId: string,
+	keycloakId: string;
 	reaction: {
-		type: string,
-		data: ReactionCollectorReaction
-	}
+		type: string;
+		data: ReactionCollectorReaction;
+	};
 };
 
 export function createDefaultFilter(allowedPlayerKeycloakIds: string[]): FilterFunction {

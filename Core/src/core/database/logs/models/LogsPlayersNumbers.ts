@@ -1,4 +1,6 @@
-import {DataTypes, Model} from "sequelize";
+import {
+	DataTypes, Model
+} from "sequelize";
 
 export abstract class LogsPlayersNumbers extends Model {
 	declare readonly playerId: number;

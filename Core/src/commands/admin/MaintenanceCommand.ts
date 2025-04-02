@@ -2,11 +2,15 @@ import {
 	CommandMaintenancePacketReq,
 	CommandMaintenancePacketRes
 } from "../../../../Lib/src/packets/commands/CommandMaintenancePacket";
-import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
-import {draftBotInstance} from "../../index";
-import {ErrorPacket} from "../../../../Lib/src/packets/commands/ErrorPacket";
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
-import {RightGroup} from "../../../../Lib/src/types/RightGroup";
+import {
+	DraftBotPacket, makePacket
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { draftBotInstance } from "../../index";
+import { ErrorPacket } from "../../../../Lib/src/packets/commands/ErrorPacket";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
+import { RightGroup } from "../../../../Lib/src/types/RightGroup";
 import Player from "../../core/database/game/models/Player";
 
 export default class MaintenanceCommand {
@@ -19,10 +23,10 @@ export default class MaintenanceCommand {
 		try {
 			draftBotInstance.setMaintenance(packet.enable, packet.save);
 
-			response.push(makePacket(CommandMaintenancePacketRes, {enabled: packet.enable}));
+			response.push(makePacket(CommandMaintenancePacketRes, { enabled: packet.enable }));
 		}
 		catch (err) {
-			response.push(makePacket(ErrorPacket, {message: err.message}));
+			response.push(makePacket(ErrorPacket, { message: err.message }));
 		}
 	}
 }

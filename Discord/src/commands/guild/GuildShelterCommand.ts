@@ -2,13 +2,15 @@ import {
 	CommandGuildShelterPacketReq,
 	CommandGuildShelterPacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildShelterPacket";
-import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {ICommand} from "../ICommand";
-import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {DiscordCache} from "../../bot/DiscordCache";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
+import {
+	makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { ICommand } from "../ICommand";
+import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
+import { DiscordCache } from "../../bot/DiscordCache";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import i18n from "../../translations/i18n";
-import {DisplayUtils} from "../../utils/DisplayUtils";
+import { DisplayUtils } from "../../utils/DisplayUtils";
 
 /**
  * Allow the player to leave its guild
@@ -34,7 +36,9 @@ export async function handleCommandGuildShelterRes(packet: CommandGuildShelterPa
 			max: packet.maxCount
 		}))
 		.addFields(packet.pets.map((pet, index) => ({
-			name: i18n.t("commands:guildShelter.petFieldName", { lng, number: index + 1 }),
+			name: i18n.t("commands:guildShelter.petFieldName", {
+				lng, number: index + 1
+			}),
 			value: DisplayUtils.getOwnedPetFieldDisplay(pet, lng),
 			inline: true
 		})));

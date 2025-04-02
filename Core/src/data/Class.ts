@@ -1,8 +1,8 @@
-import {DataControllerNumber} from "./DataController";
-import {ClassStats} from "../../../Lib/src/types/ClassStats";
-import {Data} from "./Data";
-import {RandomUtils} from "../../../Lib/src/utils/RandomUtils";
-import {ClassKind} from "../../../Lib/src/types/ClassKind";
+import { DataControllerNumber } from "./DataController";
+import { ClassStats } from "../../../Lib/src/types/ClassStats";
+import { Data } from "./Data";
+import { RandomUtils } from "../../../Lib/src/utils/RandomUtils";
+import { ClassKind } from "../../../Lib/src/types/ClassKind";
 
 export class Class extends Data<number> {
 	public readonly attack: number;
@@ -103,7 +103,7 @@ export class ClassDataController extends DataControllerNumber<Class> {
 	 */
 	public getByGroup(classGroup: number): Class[] {
 		return this.getValuesArray()
-			.filter((classInstance) => classInstance.classGroup === classGroup);
+			.filter(classInstance => classInstance.classGroup === classGroup);
 	}
 
 	/**
@@ -112,11 +112,10 @@ export class ClassDataController extends DataControllerNumber<Class> {
 	 */
 	public getByEmoji(emoji: string): Class | undefined {
 		return this.getValuesArray()
-			.find((classInstance) => classInstance.emoji === emoji);
+			.find(classInstance => classInstance.emoji === emoji);
 	}
 
 	getRandomClass(): Class {
 		return RandomUtils.draftbotRandom.pick(Array.from(this.data.values()));
-
 	}
 }

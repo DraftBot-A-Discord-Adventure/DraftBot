@@ -1,7 +1,9 @@
 import * as ItemUtils from "../../../../core/utils/ItemUtils";
-import {getItemByIdAndCategory} from "../../../../core/utils/ItemUtils";
-import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
-import {InventorySlots} from "../../../../core/database/game/models/InventorySlot";
+import { getItemByIdAndCategory } from "../../../../core/utils/ItemUtils";
+import {
+	ExecuteTestCommandLike, ITestCommand, TypeKey
+} from "../../../../core/CommandsTest";
+import { InventorySlots } from "../../../../core/database/game/models/InventorySlot";
 
 export const commandInfo: ITestCommand = {
 	name: "finditem",

@@ -1,7 +1,7 @@
-import {FightView} from "./FightView";
-import {FightAction} from "../../data/FightAction";
-import {AiPlayerFighter} from "./fighter/AiPlayerFighter";
-import {ClassConstants} from "../../../../Lib/src/constants/ClassConstants";
+import { FightView } from "./FightView";
+import { FightAction } from "../../data/FightAction";
+import { AiPlayerFighter } from "./fighter/AiPlayerFighter";
+import { ClassConstants } from "../../../../Lib/src/constants/ClassConstants";
 import KnightFightBehavior from "./aiClassBehaviors/KnightFightBehavior";
 import HorseRiderFightBehavior from "./aiClassBehaviors/HorseRiderFightBehavior";
 import EsquireFightBehavior from "./aiClassBehaviors/EsquireFightBehavior";
@@ -74,7 +74,7 @@ export function registerClassBehavior(classId: number, behaviorConstructor: Clas
  * @returns A new instance of the class behavior or undefined if not found
  */
 export function getAiClassBehavior(classId: number): ClassBehavior | undefined {
-	return classBehaviorConstructors.get(classId) ?
-		new (classBehaviorConstructors.get(classId))()
+	return classBehaviorConstructors.get(classId)
+		? new (classBehaviorConstructors.get(classId))()
 		: undefined;
 }

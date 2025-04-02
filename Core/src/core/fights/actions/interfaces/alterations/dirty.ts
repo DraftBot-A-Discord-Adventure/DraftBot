@@ -1,12 +1,12 @@
-import {FightActionController} from "../../FightActionController";
-import {FightAlterationFunc} from "../../../../../data/FightAlteration";
+import { FightActionController } from "../../FightActionController";
+import { FightAlterationFunc } from "../../../../../data/FightAlteration";
 import {
 	defaultFightAlterationResult,
 	defaultHealFightAlterationResult
 } from "../../../FightController";
-import {FightAlterationState} from "../../../../../../../Lib/src/types/FightAlterationResult";
-import {FightStatBuffed} from "../../../../../../../Lib/src/types/FightActionResult";
-import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
+import { FightAlterationState } from "../../../../../../../Lib/src/types/FightAlterationResult";
+import { FightStatBuffed } from "../../../../../../../Lib/src/types/FightActionResult";
+import { FightStatModifierOperation } from "../../../../../../../Lib/src/types/FightStatModifierOperation";
 
 const use: FightAlterationFunc = (affected, fightAlteration, _opponent) => {
 	// 20 % chance to be healed from being dirty (except for the first three turns)

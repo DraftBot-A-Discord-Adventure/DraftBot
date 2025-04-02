@@ -1,33 +1,33 @@
-import {FighterStatus} from "../FighterStatus";
-import {FightView} from "../FightView";
-import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
-import {PVEConstants} from "../../../../../Lib/src/constants/PVEConstants";
-import {FightStatModifierOperation} from "../../../../../Lib/src/types/FightStatModifierOperation";
-import {FightAlteration} from "../../../data/FightAlteration";
-import {FightAction} from "../../../data/FightAction";
-import {DraftBotPacket} from "../../../../../Lib/src/packets/DraftBotPacket";
+import { FighterStatus } from "../FighterStatus";
+import { FightView } from "../FightView";
+import { RandomUtils } from "../../../../../Lib/src/utils/RandomUtils";
+import { PVEConstants } from "../../../../../Lib/src/constants/PVEConstants";
+import { FightStatModifierOperation } from "../../../../../Lib/src/types/FightStatModifierOperation";
+import { FightAlteration } from "../../../data/FightAlteration";
+import { FightAction } from "../../../data/FightAction";
+import { DraftBotPacket } from "../../../../../Lib/src/packets/DraftBotPacket";
 
 type FighterStats = {
-	energy: number,
-	maxEnergy: number,
-	speed: number,
-	defense: number,
-	attack: number,
-	breath: number,
-	maxBreath: number,
-	breathRegen: number
-}
+	energy: number;
+	maxEnergy: number;
+	speed: number;
+	defense: number;
+	attack: number;
+	breath: number;
+	maxBreath: number;
+	breathRegen: number;
+};
 
 export type FightStatModifier = {
-	origin: FightAction,
-	operation: FightStatModifierOperation,
-	value: number
-}
+	origin: FightAction;
+	operation: FightStatModifierOperation;
+	value: number;
+};
 
 type FightDamageMultiplier = {
-	value: number,
-	turns: number
-}
+	value: number;
+	turns: number;
+};
 
 /**
  * @class Fighter
@@ -237,7 +237,7 @@ export abstract class Fighter {
 	 * @param origin
 	 */
 	public removeAttackModifiers(origin: FightAction): void {
-		this.attackModifiers = this.attackModifiers.filter((modifier) => modifier.origin !== origin);
+		this.attackModifiers = this.attackModifiers.filter(modifier => modifier.origin !== origin);
 	}
 
 	/**
@@ -245,7 +245,7 @@ export abstract class Fighter {
 	 * @param origin
 	 */
 	public removeDefenseModifiers(origin: FightAction): void {
-		this.defenseModifiers = this.defenseModifiers.filter((modifier) => modifier.origin !== origin);
+		this.defenseModifiers = this.defenseModifiers.filter(modifier => modifier.origin !== origin);
 	}
 
 	/**
@@ -253,7 +253,7 @@ export abstract class Fighter {
 	 * @param origin
 	 */
 	public removeSpeedModifiers(origin: FightAction): void {
-		this.speedModifiers = this.speedModifiers.filter((modifier) => modifier.origin !== origin);
+		this.speedModifiers = this.speedModifiers.filter(modifier => modifier.origin !== origin);
 	}
 
 	/**
@@ -261,7 +261,7 @@ export abstract class Fighter {
 	 * @param origin
 	 */
 	public hasAttackModifier(origin: FightAction): boolean {
-		return this.attackModifiers.filter((modifier) => modifier.origin === origin).length !== 0;
+		return this.attackModifiers.filter(modifier => modifier.origin === origin).length !== 0;
 	}
 
 	/**
@@ -269,7 +269,7 @@ export abstract class Fighter {
 	 * @param origin
 	 */
 	public hasDefenseModifier(origin: FightAction): boolean {
-		return this.defenseModifiers.filter((modifier) => modifier.origin === origin).length !== 0;
+		return this.defenseModifiers.filter(modifier => modifier.origin === origin).length !== 0;
 	}
 
 	/**
@@ -277,7 +277,7 @@ export abstract class Fighter {
 	 * @param origin
 	 */
 	public hasSpeedModifier(origin: FightAction): boolean {
-		return this.speedModifiers.filter((modifier) => modifier.origin === origin).length !== 0;
+		return this.speedModifiers.filter(modifier => modifier.origin === origin).length !== 0;
 	}
 
 	/**
@@ -362,7 +362,7 @@ export abstract class Fighter {
 	 */
 	public getFightActionCount(): Map<string, number> {
 		const playerFightActionsHistory = new Map<string, number>();
-		this.fightActionsHistory.forEach((action) => {
+		this.fightActionsHistory.forEach(action => {
 			if (playerFightActionsHistory.has(action.id)) {
 				playerFightActionsHistory.set(action.id, playerFightActionsHistory.get(action.id) + 1);
 			}
@@ -408,9 +408,8 @@ export abstract class Fighter {
 	 * Get a random fight action id from the list of available fight actions for a fighter
 	 */
 	getRandomAvailableFightAction(): FightAction {
-
 		const attacks = Array.from(this.availableFightActions.values());
-		let availableAttacks = attacks.filter((action) => action.breath < this.getBreath()
+		let availableAttacks = attacks.filter(action => action.breath < this.getBreath()
 			|| RandomUtils.draftbotRandom.realZeroToOneInclusive() < PVEConstants.OUT_OF_BREATH_CHOOSE_PROBABILITY);
 
 		availableAttacks = availableAttacks.length === 0 ? attacks : availableAttacks;
@@ -435,6 +434,7 @@ export abstract class Fighter {
 			return null;
 		}
 		const lastAction = this.fightActionsHistory[this.fightActionsHistory.length - 1];
+
 		// We have to check that the last action is not a fight alteration
 		return lastAction instanceof FightAlteration ? this.fightActionsHistory[this.fightActionsHistory.length - 2] : lastAction;
 	}
@@ -466,7 +466,7 @@ export abstract class Fighter {
 	 * Lowers the current counters by one turn
 	 */
 	reduceCounters(): void {
-		this.damageMultipliers = this.damageMultipliers.filter((damageMultiplier) => {
+		this.damageMultipliers = this.damageMultipliers.filter(damageMultiplier => {
 			damageMultiplier.turns--;
 			return damageMultiplier.turns >= 0;
 		});
@@ -483,17 +483,17 @@ export abstract class Fighter {
 		let value = base;
 		for (const modifier of modifiers) {
 			switch (modifier.operation) {
-			case FightStatModifierOperation.ADDITION:
-				value += modifier.value;
-				break;
-			case FightStatModifierOperation.MULTIPLIER:
-				value *= modifier.value;
-				break;
-			case FightStatModifierOperation.SET_VALUE:
-				value = modifier.value;
-				return Math.round(value);
-			default:
-				break;
+				case FightStatModifierOperation.ADDITION:
+					value += modifier.value;
+					break;
+				case FightStatModifierOperation.MULTIPLIER:
+					value *= modifier.value;
+					break;
+				case FightStatModifierOperation.SET_VALUE:
+					value = modifier.value;
+					return Math.round(value);
+				default:
+					break;
 			}
 		}
 

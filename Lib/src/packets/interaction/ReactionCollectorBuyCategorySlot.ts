@@ -4,8 +4,12 @@ import {
 	ReactionCollectorData,
 	ReactionCollectorReaction
 } from "./ReactionCollectorPacket";
-import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
-import {ItemCategory, ItemConstants} from "../../constants/ItemConstants";
+import {
+	DraftBotPacket, PacketDirection, sendablePacket
+} from "../DraftBotPacket";
+import {
+	ItemCategory, ItemConstants
+} from "../../constants/ItemConstants";
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class ReactionCollectorBuyCategorySlotBuySuccess extends DraftBotPacket {

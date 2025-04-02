@@ -1,7 +1,9 @@
-import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
-import {LogsDatabase} from "../../../../core/database/logs/LogsDatabase";
-import {GameDatabase} from "../../../../core/database/game/GameDatabase";
-import {draftBotInstance} from "../../../../index";
+import {
+	ExecuteTestCommandLike, ITestCommand, TypeKey
+} from "../../../../core/CommandsTest";
+import { LogsDatabase } from "../../../../core/database/logs/LogsDatabase";
+import { GameDatabase } from "../../../../core/database/game/GameDatabase";
+import { draftBotInstance } from "../../../../index";
 
 export const commandInfo: ITestCommand = {
 	name: "migration",
@@ -36,7 +38,7 @@ const migrationTestCommand: ExecuteTestCommandLike = async (_player, args) => {
 		throw new Error(`Migration number must be between 1 and ${maxMigration}`);
 	}
 
-	await database.umzug.down({step: maxMigration - migrationNumber + 1});
+	await database.umzug.down({ step: maxMigration - migrationNumber + 1 });
 	await database.umzug.up();
 
 	return "Migration down puis up effectuée";

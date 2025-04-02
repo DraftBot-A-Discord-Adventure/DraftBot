@@ -1,9 +1,15 @@
-import {botConfig} from "../../index";
-import {CommandTestPacketReq, CommandTestPacketRes} from "../../../../Lib/src/packets/commands/CommandTestPacket";
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {CommandsTest} from "../../core/CommandsTest";
-import {Player} from "../../core/database/game/models/Player";
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
+import { botConfig } from "../../index";
+import {
+	CommandTestPacketReq, CommandTestPacketRes
+} from "../../../../Lib/src/packets/commands/CommandTestPacket";
+import {
+	DraftBotPacket, makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { CommandsTest } from "../../core/CommandsTest";
+import { Player } from "../../core/database/game/models/Player";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
 
 export default class TestCommand {
 	@commandRequires(CommandTestPacketReq, {

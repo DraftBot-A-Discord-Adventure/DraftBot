@@ -1,26 +1,30 @@
-import {ICommand} from "../ICommand";
-import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
+import { ICommand } from "../ICommand";
+import {
+	makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 import i18n from "../../translations/i18n";
-import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {SlashCommandBuilder} from "@discordjs/builders";
-import {DiscordCache} from "../../bot/DiscordCache";
-import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
+import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { DiscordCache } from "../../bot/DiscordCache";
+import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
 import {
 	CommandGuildKickAcceptPacketRes,
 	CommandGuildKickPacketReq,
 	CommandGuildKickPacketRes,
 	CommandGuildKickRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildKickPacket";
-import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
-import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
-import {ReactionCollectorGuildKickData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildKick";
-import {PacketUtils} from "../../utils/PacketUtils";
-import {sendErrorMessage, SendManner} from "../../utils/ErrorUtils";
-import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
-import {keycloakConfig} from "../../bot/DraftBotShard";
-import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
+import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
+import { ReactionCollectorGuildKickData } from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildKick";
+import { PacketUtils } from "../../utils/PacketUtils";
+import {
+	sendErrorMessage, SendManner
+} from "../../utils/ErrorUtils";
+import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
+import { keycloakConfig } from "../../bot/DraftBotShard";
+import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
 /**
  * Kick a player from a guild
@@ -30,7 +34,7 @@ async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): 
 	if (!askedPlayer) {
 		return null;
 	}
-	return makePacket(CommandGuildKickPacketReq, {askedPlayer});
+	return makePacket(CommandGuildKickPacketReq, { askedPlayer });
 }
 
 /**
@@ -48,8 +52,8 @@ export async function handleCommandGuildKickPacketRes(packet: CommandGuildKickPa
 		await sendErrorMessage(
 			interaction.user,
 			interaction,
-			i18n.t("commands:guildKick.noPlayer", {lng: interaction.userLanguage}),
-			{sendManner: SendManner.REPLY}
+			i18n.t("commands:guildKick.noPlayer", { lng: interaction.userLanguage }),
+			{ sendManner: SendManner.REPLY }
 		);
 		return;
 	}
@@ -57,8 +61,8 @@ export async function handleCommandGuildKickPacketRes(packet: CommandGuildKickPa
 		await sendErrorMessage(
 			interaction.user,
 			interaction,
-			i18n.t("commands:guildKick.notSameGuild", {lng: interaction.userLanguage}),
-			{sendManner: SendManner.REPLY}
+			i18n.t("commands:guildKick.notSameGuild", { lng: interaction.userLanguage }),
+			{ sendManner: SendManner.REPLY }
 		);
 		return;
 	}
@@ -66,8 +70,8 @@ export async function handleCommandGuildKickPacketRes(packet: CommandGuildKickPa
 		await sendErrorMessage(
 			interaction.user,
 			interaction,
-			i18n.t("commands:guildKick.himself", {lng: interaction.userLanguage}),
-			{sendManner: SendManner.REPLY}
+			i18n.t("commands:guildKick.himself", { lng: interaction.userLanguage }),
+			{ sendManner: SendManner.REPLY }
 		);
 	}
 }

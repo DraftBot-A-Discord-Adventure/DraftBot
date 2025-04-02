@@ -1,5 +1,7 @@
-import {ExecuteTestCommandLike, ITestCommand} from "../../../../core/CommandsTest";
-import {MissionSlots} from "../../../../core/database/game/models/MissionSlot";
+import {
+	ExecuteTestCommandLike, ITestCommand
+} from "../../../../core/CommandsTest";
+import { MissionSlots } from "../../../../core/database/game/models/MissionSlot";
 
 export const commandInfo: ITestCommand = {
 	name: "expireMissions",
@@ -9,7 +11,7 @@ export const commandInfo: ITestCommand = {
 /**
  * Print missions info
  */
-const expireMissionsTestCommand: ExecuteTestCommandLike = async (player) => {
+const expireMissionsTestCommand: ExecuteTestCommandLike = async player => {
 	const missionSlots = await MissionSlots.getOfPlayer(player.id);
 	for (const mission of missionSlots) {
 		if (!mission.isCampaign()) {

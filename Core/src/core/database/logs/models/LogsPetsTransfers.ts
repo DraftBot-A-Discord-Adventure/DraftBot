@@ -1,4 +1,6 @@
-import {DataTypes, Model, Sequelize} from "sequelize";
+import {
+	DataTypes, Model, Sequelize
+} from "sequelize";
 
 export class LogsPetsTransfers extends Model {
 	declare readonly playerPetId: number;

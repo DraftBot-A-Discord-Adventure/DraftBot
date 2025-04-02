@@ -1,7 +1,9 @@
-import {ExecuteTestCommandLike, ITestCommand} from "../../../../core/CommandsTest";
-import {PlayerMissionsInfos} from "../../../../core/database/game/models/PlayerMissionsInfo";
-import {MissionSlots} from "../../../../core/database/game/models/MissionSlot";
-import {MissionDataController} from "../../../../data/Mission";
+import {
+	ExecuteTestCommandLike, ITestCommand
+} from "../../../../core/CommandsTest";
+import { PlayerMissionsInfos } from "../../../../core/database/game/models/PlayerMissionsInfo";
+import { MissionSlots } from "../../../../core/database/game/models/MissionSlot";
+import { MissionDataController } from "../../../../data/Mission";
 
 export const commandInfo: ITestCommand = {
 	name: "debugMissions",
@@ -12,8 +14,7 @@ export const commandInfo: ITestCommand = {
 /**
  * Print missions info
  */
-const debugMissionsTestCommand: ExecuteTestCommandLike = async (player) => {
-
+const debugMissionsTestCommand: ExecuteTestCommandLike = async player => {
 	const missionsInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
 	const missionSlots = await MissionSlots.getOfPlayer(player.id);
 	return `Debug missions
@@ -26,8 +27,8 @@ Campaign blob: ${missionsInfo.campaignBlob}
 
 📜 Missions
 ${missionSlots.map(missionSlot => {
-		const mission = MissionDataController.instance.getById(missionSlot.missionId);
-		return `${mission.id} (id: ${missionSlot.missionId}
+	const mission = MissionDataController.instance.getById(missionSlot.missionId);
+	return `${mission.id} (id: ${missionSlot.missionId}
 				)
 -> ID DB: ${missionSlot.id}
 
@@ -44,7 +45,7 @@ ${missionSlots.map(missionSlot => {
 -> Save blob: ${missionSlot.saveBlob}
 
 `;
-	}).join("\n")}`;
+}).join("\n")}`;
 };
 
 commandInfo.execute = debugMissionsTestCommand;

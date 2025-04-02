@@ -1,16 +1,22 @@
-import {SmallEventFuncs} from "../../data/SmallEvent";
-import {Maps} from "../maps/Maps";
-import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
-import {SpaceConstants} from "../../../../Lib/src/constants/SpaceConstants";
-import {NearEarthObject, SpaceUtils} from "../utils/SpaceUtils";
-import {MoonPhase, NextLunarEclipse, SearchLunarEclipse, SearchMoonQuarter} from "../utils/Astronomy";
-import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import { SmallEventFuncs } from "../../data/SmallEvent";
+import { Maps } from "../maps/Maps";
+import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
+import { SpaceConstants } from "../../../../Lib/src/constants/SpaceConstants";
+import {
+	NearEarthObject, SpaceUtils
+} from "../utils/SpaceUtils";
+import {
+	MoonPhase, NextLunarEclipse, SearchLunarEclipse, SearchMoonQuarter
+} from "../utils/Astronomy";
+import {
+	makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
 import {
 	SmallEventSpaceInitialPacket,
 	SmallEventSpaceResultPacket,
 	SpaceFunctionResult
 } from "../../../../Lib/src/packets/smallEvents/SmallEventSpacePacket";
-import {PacketUtils} from "../utils/PacketUtils";
+import { PacketUtils } from "../utils/PacketUtils";
 
 /* eslint-disable new-cap */
 
@@ -26,6 +32,7 @@ async function neoWS(): Promise<SpaceFunctionResult> {
 		// If the request failed, return null
 		neoWSFeed = [];
 	}
+
 	// Check if the list contains an object
 	if (neoWSFeed.length > 0) {
 		const randomObject: NearEarthObject = RandomUtils.draftbotRandom.pick(neoWSFeed);
@@ -36,6 +43,7 @@ async function neoWS(): Promise<SpaceFunctionResult> {
 			randomObjectDiameter: Math.floor((randomObject.estimated_diameter.meters.estimated_diameter_max + randomObject.estimated_diameter.meters.estimated_diameter_min) / 2)
 		};
 	}
+
 	// If the list is empty, return a random invented object
 	return {
 		mainValue: 1,
@@ -49,7 +57,7 @@ async function neoWS(): Promise<SpaceFunctionResult> {
  * Gives when the next moon phase is occurring
  */
 function moonPhase(): SpaceFunctionResult {
-	return {mainValue: SearchMoonQuarter(new Date()).quarter};
+	return { mainValue: SearchMoonQuarter(new Date()).quarter };
 }
 
 /**
@@ -66,7 +74,7 @@ function nextFullMoon(): SpaceFunctionResult {
 		nextDegrees = MoonPhase(currDate);
 		days++;
 	}
-	return {mainValue: days};
+	return { mainValue: days };
 }
 
 /**
@@ -77,7 +85,7 @@ function nextEclipse(kind: string): SpaceFunctionResult {
 	while (eclipse.kind !== kind) {
 		eclipse = NextLunarEclipse(eclipse.peak);
 	}
-	return {mainValue: Math.floor((eclipse.peak.date.valueOf() - new Date().valueOf()) / (1000 * 3600 * 24))};
+	return { mainValue: Math.floor((eclipse.peak.date.valueOf() - new Date().valueOf()) / (1000 * 3600 * 24)) };
 }
 
 /**
@@ -117,10 +125,12 @@ async function astronomyEvent(context: PacketContext): Promise<void> {
 	const result = await spaceFunctions[specificEvent]();
 	const timeLeft = Math.max(SpaceConstants.WAIT_TIME_BEFORE_SEARCH - (performance.now() - t0), 0);
 	setTimeout(() => {
-		PacketUtils.sendPackets(context, [makePacket(SmallEventSpaceResultPacket, {
-			chosenEvent: specificEvent,
-			values: result
-		})]);
+		PacketUtils.sendPackets(context, [
+			makePacket(SmallEventSpaceResultPacket, {
+				chosenEvent: specificEvent,
+				values: result
+			})
+		]);
 	}, timeLeft);
 }
 

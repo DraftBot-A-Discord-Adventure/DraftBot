@@ -1,5 +1,7 @@
-import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
-import {Language} from "../../Language";
+import {
+	DraftBotPacket, PacketDirection, sendablePacket
+} from "../DraftBotPacket";
+import { Language } from "../../Language";
 
 /**
  * Packet sent by the bot to get the map of a player

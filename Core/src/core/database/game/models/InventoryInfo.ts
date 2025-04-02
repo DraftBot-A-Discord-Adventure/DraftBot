@@ -1,5 +1,7 @@
-import {DataTypes, Model, Sequelize} from "sequelize";
-import {ItemCategory} from "../../../../../../Lib/src/constants/ItemConstants";
+import {
+	DataTypes, Model, Sequelize
+} from "sequelize";
+import { ItemCategory } from "../../../../../../Lib/src/constants/ItemConstants";
 import moment = require("moment");
 
 export class InventoryInfo extends Model {
@@ -22,35 +24,35 @@ export class InventoryInfo extends Model {
 
 	public slotLimitForCategory(category: ItemCategory): number {
 		switch (category) {
-		case ItemCategory.WEAPON:
-			return this.weaponSlots;
-		case ItemCategory.ARMOR:
-			return this.armorSlots;
-		case ItemCategory.POTION:
-			return this.potionSlots;
-		case ItemCategory.OBJECT:
-			return this.objectSlots;
-		default:
-			return 0;
+			case ItemCategory.WEAPON:
+				return this.weaponSlots;
+			case ItemCategory.ARMOR:
+				return this.armorSlots;
+			case ItemCategory.POTION:
+				return this.potionSlots;
+			case ItemCategory.OBJECT:
+				return this.objectSlots;
+			default:
+				return 0;
 		}
 	}
 
 	public addSlotForCategory(category: ItemCategory): void {
 		switch (category) {
-		case ItemCategory.WEAPON:
-			this.weaponSlots++;
-			break;
-		case ItemCategory.ARMOR:
-			this.armorSlots++;
-			break;
-		case ItemCategory.POTION:
-			this.potionSlots++;
-			break;
-		case ItemCategory.OBJECT:
-			this.objectSlots++;
-			break;
-		default:
-			break;
+			case ItemCategory.WEAPON:
+				this.weaponSlots++;
+				break;
+			case ItemCategory.ARMOR:
+				this.armorSlots++;
+				break;
+			case ItemCategory.POTION:
+				this.potionSlots++;
+				break;
+			case ItemCategory.OBJECT:
+				this.objectSlots++;
+				break;
+			default:
+				break;
 		}
 	}
 
@@ -67,7 +69,6 @@ export class InventoryInfo extends Model {
  * This class is used to treat the inventory info of a player
  */
 export class InventoryInfos {
-
 	/**
 	 * Get the inventory info of a player
 	 * @param playerId

@@ -1,7 +1,11 @@
-import {Fighter} from "../../../fighter/Fighter";
-import {FightActionDataController, FightActionFunc} from "../../../../../data/FightAction";
-import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTemplate";
-import {attackInfo, statsInfo} from "../../FightActionController";
+import { Fighter } from "../../../fighter/Fighter";
+import {
+	FightActionDataController, FightActionFunc
+} from "../../../../../data/FightAction";
+import { simpleDamageFightAction } from "../../templates/SimpleDamageFightActionTemplate";
+import {
+	attackInfo, statsInfo
+} from "../../FightActionController";
 
 const use: FightActionFunc = (sender, receiver) => {
 	const result = simpleDamageFightAction(

@@ -1,24 +1,33 @@
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {Player, Players} from "../../core/database/game/models/Player";
-import {Guilds} from "../../core/database/game/models/Guild";
+import {
+	DraftBotPacket, makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import {
+	Player, Players
+} from "../../core/database/game/models/Player";
+import { Guilds } from "../../core/database/game/models/Guild";
 import {
 	CommandGuildKickAcceptPacketRes, CommandGuildKickBlockedErrorPacket,
 	CommandGuildKickPacketReq,
 	CommandGuildKickPacketRes,
 	CommandGuildKickRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildKickPacket";
-import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants";
-import {EndCallback, ReactionCollectorInstance} from "../../core/utils/ReactionsCollector";
-import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
-import {GuildRole} from "../../../../Lib/src/types/GuildRole";
-import {ReactionCollectorGuildKick} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildKick";
-import {draftBotInstance} from "../../index";
+import { GuildConstants } from "../../../../Lib/src/constants/GuildConstants";
+import {
+	EndCallback, ReactionCollectorInstance
+} from "../../core/utils/ReactionsCollector";
+import { ReactionCollectorAcceptReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
+import { BlockingUtils } from "../../core/utils/BlockingUtils";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
+import { GuildRole } from "../../../../Lib/src/types/GuildRole";
+import { ReactionCollectorGuildKick } from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildKick";
+import { draftBotInstance } from "../../index";
 
 async function acceptGuildKick(player: Player, kickedPlayer: Player, response: DraftBotPacket[]): Promise<void> {
 	await player.reload();
+
 	// Do all necessary checks again just in case something changed during the menu
 	if (await isNotEligible(player, kickedPlayer, response)) {
 		return;
@@ -67,6 +76,7 @@ async function isNotEligible(player: Player, kickedPlayer: Player, response: Dra
 	}
 
 	let kickedGuild;
+
 	// Search for a user's guild
 	try {
 		kickedGuild = await Guilds.getById(kickedPlayer.guildId);

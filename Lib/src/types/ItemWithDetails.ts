@@ -1,4 +1,6 @@
-import {ItemCategory, ItemNature, ItemRarity} from "../constants/ItemConstants";
+import {
+	ItemCategory, ItemNature, ItemRarity
+} from "../constants/ItemConstants";
 
 export interface ItemWithDetails {
 	category: ItemCategory;
@@ -17,7 +19,7 @@ export interface ItemWithDetails {
 			attack: number;
 			defense: number;
 			speed: number;
-		}
+		};
 	};
 
 	maxStats?: {

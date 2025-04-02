@@ -1,9 +1,13 @@
-import {Fighter} from "../../../fighter/Fighter";
-import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
-import {PetAssistanceFunc} from "../../../../../data/PetAssistance";
-import {PetAssistanceResult, PetAssistanceState} from "../../../../../../../Lib/src/types/PetAssistanceResult";
-import {FightStatBuffed} from "../../../../../../../Lib/src/types/FightActionResult";
-import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
+import { Fighter } from "../../../fighter/Fighter";
+import {
+	attackInfo, FightActionController, statsInfo
+} from "../../FightActionController";
+import { PetAssistanceFunc } from "../../../../../data/PetAssistance";
+import {
+	PetAssistanceResult, PetAssistanceState
+} from "../../../../../../../Lib/src/types/PetAssistanceResult";
+import { FightStatBuffed } from "../../../../../../../Lib/src/types/FightActionResult";
+import { FightStatModifierOperation } from "../../../../../../../Lib/src/types/FightStatModifierOperation";
 
 function getAttackInfo(): attackInfo {
 	return {
@@ -49,7 +53,6 @@ const use: PetAssistanceFunc = (fighter, opponent, turn, _fightController): Prom
 	}, fighter, this);
 
 	return Promise.resolve(result);
-
 };
 
 export default use;

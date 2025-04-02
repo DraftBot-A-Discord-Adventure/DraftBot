@@ -1,16 +1,16 @@
-import {packetHandler} from "../../../PacketHandler";
+import { packetHandler } from "../../../PacketHandler";
 import {
 	CommandGuildKickAcceptPacketRes, CommandGuildKickBlockedErrorPacket,
 	CommandGuildKickPacketRes,
 	CommandGuildKickRefusePacketRes
 } from "../../../../../../Lib/src/packets/commands/CommandGuildKickPacket";
-import {PacketContext} from "../../../../../../Lib/src/packets/DraftBotPacket";
+import { PacketContext } from "../../../../../../Lib/src/packets/DraftBotPacket";
 import {
 	handleCommandGuildKickAcceptPacketRes,
 	handleCommandGuildKickPacketRes,
 	handleCommandGuildKickRefusePacketRes
 } from "../../../../commands/guild/GuildKickCommand";
-import {handleClassicError} from "../../../../utils/ErrorUtils";
+import { handleClassicError } from "../../../../utils/ErrorUtils";
 
 export default class GuildKickCommandPacketHandlers {
 	@packetHandler(CommandGuildKickPacketRes)

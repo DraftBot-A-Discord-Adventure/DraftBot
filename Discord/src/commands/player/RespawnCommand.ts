@@ -1,15 +1,17 @@
-import {ICommand} from "../ICommand";
-import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import { ICommand } from "../ICommand";
+import {
+	makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
 import {
 	CommandRespawnPacketReq,
 	CommandRespawnPacketRes
 } from "../../../../Lib/src/packets/commands/CommandRespawnPacket";
-import {DiscordCache} from "../../bot/DiscordCache";
+import { DiscordCache } from "../../bot/DiscordCache";
 import i18n from "../../translations/i18n";
-import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
-import {EmoteUtils} from "../../utils/EmoteUtils";
-import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
+import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
+import { EmoteUtils } from "../../utils/EmoteUtils";
+import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 
 /**
  * Get the respawn packet to send it to the server

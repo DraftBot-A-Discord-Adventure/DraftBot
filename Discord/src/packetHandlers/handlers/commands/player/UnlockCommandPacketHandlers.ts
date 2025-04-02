@@ -1,11 +1,11 @@
-import {packetHandler} from "../../../PacketHandler";
+import { packetHandler } from "../../../PacketHandler";
 import {
 	CommandUnlockAcceptPacketRes,
 	CommandUnlockHimself, CommandUnlockNoPlayerFound, CommandUnlockNotEnoughMoney,
 	CommandUnlockNotInJail, CommandUnlockRefusePacketRes
 } from "../../../../../../Lib/src/packets/commands/CommandUnlockPacket";
-import {PacketContext} from "../../../../../../Lib/src/packets/DraftBotPacket";
-import {handleClassicError} from "../../../../utils/ErrorUtils";
+import { PacketContext } from "../../../../../../Lib/src/packets/DraftBotPacket";
+import { handleClassicError } from "../../../../utils/ErrorUtils";
 import {
 	handleCommandUnlockAcceptPacketRes,
 	handleCommandUnlockNotEnoughMoneyError,

@@ -1,7 +1,9 @@
-import {DraftBotPacket, PacketLike} from "../../../Lib/src/packets/DraftBotPacket";
-import {PacketListenerCallbackClient} from "../../../Lib/src/packets/PacketListener";
-import {readdirSync} from "fs";
-import {DiscordMQTT} from "../bot/DiscordMQTT";
+import {
+	DraftBotPacket, PacketLike
+} from "../../../Lib/src/packets/DraftBotPacket";
+import { PacketListenerCallbackClient } from "../../../Lib/src/packets/PacketListener";
+import { readdirSync } from "fs";
+import { DiscordMQTT } from "../bot/DiscordMQTT";
 
 export const packetHandler = <T extends DraftBotPacket>(val: PacketLike<T>) =>
 	<V>(target: V, prop: string, descriptor: TypedPropertyDescriptor<PacketListenerCallbackClient<T>>): void => {

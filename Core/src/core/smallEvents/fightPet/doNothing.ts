@@ -1,6 +1,6 @@
-import {SmallEventConstants} from "../../../../../Lib/src/constants/SmallEventConstants";
-import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
-import {FightPetActionFunc} from "../../../data/FightPetAction";
+import { SmallEventConstants } from "../../../../../Lib/src/constants/SmallEventConstants";
+import { RandomUtils } from "../../../../../Lib/src/utils/RandomUtils";
+import { FightPetActionFunc } from "../../../data/FightPetAction";
 
 /**
  * The player does nothing and hopes for the best

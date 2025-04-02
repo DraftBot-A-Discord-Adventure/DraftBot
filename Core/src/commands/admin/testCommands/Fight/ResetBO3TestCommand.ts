@@ -1,9 +1,13 @@
-import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
-import {LogsFightsResults} from "../../../../core/database/logs/models/LogsFightsResults";
-import {HasOne, Op} from "sequelize";
-import {getNextSaturdayMidnight} from "../../../../../../Lib/src/utils/TimeUtils";
-import {LogsPlayers} from "../../../../core/database/logs/models/LogsPlayers";
-import {Players} from "../../../../core/database/game/models/Player";
+import {
+	ExecuteTestCommandLike, ITestCommand, TypeKey
+} from "../../../../core/CommandsTest";
+import { LogsFightsResults } from "../../../../core/database/logs/models/LogsFightsResults";
+import {
+	HasOne, Op
+} from "sequelize";
+import { getNextSaturdayMidnight } from "../../../../../../Lib/src/utils/TimeUtils";
+import { LogsPlayers } from "../../../../core/database/logs/models/LogsPlayers";
+import { Players } from "../../../../core/database/game/models/Player";
 
 export const commandInfo: ITestCommand = {
 	name: "resetbo3",
@@ -36,21 +40,23 @@ const bo3TestCommand: ExecuteTestCommandLike = async (player, args) => {
 			},
 			friendly: false
 		},
-		include: [{
-			model: LogsPlayers,
-			association: new HasOne(LogsFightsResults, LogsPlayers, {
-				sourceKey: "fightInitiatorId",
-				foreignKey: "id",
-				as: "LogsPlayer1"
-			})
-		}, {
-			model: LogsPlayers,
-			association: new HasOne(LogsFightsResults, LogsPlayers, {
-				sourceKey: "player2Id",
-				foreignKey: "id",
-				as: "LogsPlayer2"
-			})
-		}]
+		include: [
+			{
+				model: LogsPlayers,
+				association: new HasOne(LogsFightsResults, LogsPlayers, {
+					sourceKey: "fightInitiatorId",
+					foreignKey: "id",
+					as: "LogsPlayer1"
+				})
+			}, {
+				model: LogsPlayers,
+				association: new HasOne(LogsFightsResults, LogsPlayers, {
+					sourceKey: "player2Id",
+					foreignKey: "id",
+					as: "LogsPlayer2"
+				})
+			}
+		]
 	});
 
 	for (const fightBO3 of fightsBO3) {

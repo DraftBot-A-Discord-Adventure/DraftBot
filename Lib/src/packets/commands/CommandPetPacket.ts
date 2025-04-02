@@ -1,11 +1,13 @@
-import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
-import {OwnedPet} from "../../types/OwnedPet";
+import {
+	DraftBotPacket, PacketDirection, sendablePacket
+} from "../DraftBotPacket";
+import { OwnedPet } from "../../types/OwnedPet";
 
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandPetPacketReq extends DraftBotPacket {
 	askedPlayer!: {
-		rank?: number,
-		keycloakId?: string
+		rank?: number;
+		keycloakId?: string;
 	};
 }
 

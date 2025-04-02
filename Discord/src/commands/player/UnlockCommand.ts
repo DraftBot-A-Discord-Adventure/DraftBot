@@ -1,27 +1,31 @@
-import {ICommand} from "../ICommand";
-import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
+import { ICommand } from "../ICommand";
+import {
+	makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 import i18n from "../../translations/i18n";
-import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {SlashCommandBuilder} from "@discordjs/builders";
-import {DiscordCache} from "../../bot/DiscordCache";
-import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
+import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { DiscordCache } from "../../bot/DiscordCache";
+import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
 import {
 	CommandUnlockAcceptPacketRes,
 	CommandUnlockNotEnoughMoney,
 	CommandUnlockPacketReq
 } from "../../../../Lib/src/packets/commands/CommandUnlockPacket";
-import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
-import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
-import {ReactionCollectorUnlockData} from "../../../../Lib/src/packets/interaction/ReactionCollectorUnlock";
-import {PacketUtils} from "../../utils/PacketUtils";
-import {CommandProfilePacketReq} from "../../../../Lib/src/packets/commands/CommandProfilePacket";
-import {sendErrorMessage, SendManner} from "../../utils/ErrorUtils";
-import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
-import {keycloakConfig} from "../../bot/DraftBotShard";
-import {UnlockConstants} from "../../../../Lib/src/constants/UnlockConstants";
-import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
+import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
+import { ReactionCollectorUnlockData } from "../../../../Lib/src/packets/interaction/ReactionCollectorUnlock";
+import { PacketUtils } from "../../utils/PacketUtils";
+import { CommandProfilePacketReq } from "../../../../Lib/src/packets/commands/CommandProfilePacket";
+import {
+	sendErrorMessage, SendManner
+} from "../../utils/ErrorUtils";
+import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
+import { keycloakConfig } from "../../bot/DraftBotShard";
+import { UnlockConstants } from "../../../../Lib/src/constants/UnlockConstants";
+import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
 /**
  * Free a player from the prison
@@ -31,7 +35,7 @@ async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): 
 	if (!askedPlayer) {
 		return null;
 	}
-	return makePacket(CommandUnlockPacketReq, {askedPlayer});
+	return makePacket(CommandUnlockPacketReq, { askedPlayer });
 }
 
 /**
@@ -51,7 +55,7 @@ export async function handleCommandUnlockNotEnoughMoneyError(packet: CommandUnlo
 			lng: interaction.userLanguage,
 			money: UnlockConstants.PRICE_FOR_UNLOCK - packet.money
 		}),
-		{sendManner: SendManner.REPLY}
+		{ sendManner: SendManner.REPLY }
 	);
 }
 
@@ -133,7 +137,6 @@ export async function handleCommandUnlockAcceptPacketRes(packet: CommandUnlockAc
 				)
 		]
 	});
-
 }
 
 export const commandInfo: ICommand = {

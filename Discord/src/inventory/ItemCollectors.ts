@@ -1,18 +1,18 @@
-import {PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
-import {DiscordCache} from "../bot/DiscordCache";
-import {ReactionCollectorCreationPacket} from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {DraftBotEmbed} from "../messages/DraftBotEmbed";
-import {DiscordCollectorUtils} from "../utils/DiscordCollectorUtils";
+import { PacketContext } from "../../../Lib/src/packets/DraftBotPacket";
+import { DiscordCache } from "../bot/DiscordCache";
+import { ReactionCollectorCreationPacket } from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { DraftBotEmbed } from "../messages/DraftBotEmbed";
+import { DiscordCollectorUtils } from "../utils/DiscordCollectorUtils";
 import i18n from "../translations/i18n";
-import {DisplayUtils} from "../utils/DisplayUtils";
+import { DisplayUtils } from "../utils/DisplayUtils";
 import {
 	ReactionCollectorItemChoiceItemReaction, ReactionCollectorItemChoiceRefuseReaction
 } from "../../../Lib/src/packets/interaction/ReactionCollectorItemChoice";
 import {
 	ReactionCollectorItemAcceptData
 } from "../../../Lib/src/packets/interaction/ReactionCollectorItemAccept";
-import {ItemCategory} from "../../../Lib/src/constants/ItemConstants";
-import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ItemCategory } from "../../../Lib/src/constants/ItemConstants";
+import { ReactionCollectorReturnType } from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
 export async function itemChoiceCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
@@ -27,11 +27,13 @@ export async function itemChoiceCollector(context: PacketContext, packet: Reacti
 		embed,
 		packet,
 		context,
-		packet.reactions.filter(reaction => reaction.type === ReactionCollectorItemChoiceItemReaction.name).map((reaction) => {
+		packet.reactions.filter(reaction => reaction.type === ReactionCollectorItemChoiceItemReaction.name).map(reaction => {
 			const itemReaction = reaction.data as ReactionCollectorItemChoiceItemReaction;
 			return DisplayUtils.getItemDisplayWithStats(itemReaction.itemWithDetails, interaction.userLanguage);
 		}),
-		{ can: true, reactionIndex: packet.reactions.findIndex(reaction => reaction.type === ReactionCollectorItemChoiceRefuseReaction.name) }
+		{
+			can: true, reactionIndex: packet.reactions.findIndex(reaction => reaction.type === ReactionCollectorItemChoiceRefuseReaction.name)
+		}
 	);
 }
 

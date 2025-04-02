@@ -1,10 +1,12 @@
-import {Fighter} from "../../../fighter/Fighter";
-import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
-import {PlayerFighter} from "../../../fighter/PlayerFighter";
-import {NumberChangeReason} from "../../../../../../../Lib/src/constants/LogsConstants";
-import {PVEConstants} from "../../../../../../../Lib/src/constants/PVEConstants";
-import {FightActionFunc} from "../../../../../data/FightAction";
-import {FightActionStatus} from "../../../../../../../Lib/src/types/FightActionStatus";
+import { Fighter } from "../../../fighter/Fighter";
+import {
+	attackInfo, FightActionController, statsInfo
+} from "../../FightActionController";
+import { PlayerFighter } from "../../../fighter/PlayerFighter";
+import { NumberChangeReason } from "../../../../../../../Lib/src/constants/LogsConstants";
+import { PVEConstants } from "../../../../../../../Lib/src/constants/PVEConstants";
+import { FightActionFunc } from "../../../../../data/FightAction";
+import { FightActionStatus } from "../../../../../../../Lib/src/types/FightActionStatus";
 
 const use: FightActionFunc = (sender, receiver) => {
 	const playerSender = <PlayerFighter>sender;

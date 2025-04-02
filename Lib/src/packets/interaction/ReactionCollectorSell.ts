@@ -4,7 +4,7 @@ import {
 	ReactionCollectorData, ReactionCollectorReaction,
 	ReactionCollectorRefuseReaction
 } from "./ReactionCollectorPacket";
-import {Item} from "../../types/Item";
+import { Item } from "../../types/Item";
 
 export class ReactionCollectorSellData extends ReactionCollectorData {}
 
@@ -17,9 +17,13 @@ export class ReactionCollectorSellItemReaction extends ReactionCollectorReaction
 }
 
 export class ReactionCollectorSell extends ReactionCollector {
-	private readonly sellItems: { item: Item, slot: number, price: number }[];
+	private readonly sellItems: {
+		item: Item; slot: number; price: number;
+	}[];
 
-	constructor(sellItems: { item: Item, slot: number, price: number }[]) {
+	constructor(sellItems: {
+		item: Item; slot: number; price: number;
+	}[]) {
 		super();
 		this.sellItems = sellItems;
 	}

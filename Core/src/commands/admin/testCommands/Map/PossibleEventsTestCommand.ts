@@ -1,6 +1,8 @@
-import {ExecuteTestCommandLike, ITestCommand} from "../../../../core/CommandsTest";
-import {BigEventDataController} from "../../../../data/BigEvent";
-import {verifyTrigger} from "../../../../data/events/BigEventTrigger";
+import {
+	ExecuteTestCommandLike, ITestCommand
+} from "../../../../core/CommandsTest";
+import { BigEventDataController } from "../../../../data/BigEvent";
+import { verifyTrigger } from "../../../../data/events/BigEventTrigger";
 
 export const commandInfo: ITestCommand = {
 	name: "possibleEvents",
@@ -10,7 +12,7 @@ export const commandInfo: ITestCommand = {
 /**
  * Display all possible events
  */
-const possibleEventsTestCommand: ExecuteTestCommandLike = async (player) => {
+const possibleEventsTestCommand: ExecuteTestCommandLike = async player => {
 	const mapId = player.getDestinationId();
 
 	const possibleEvents = BigEventDataController.instance.getEventsNotFiltered(mapId);

@@ -1,24 +1,26 @@
-import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {DiscordCache} from "../../bot/DiscordCache";
-import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
-import {keycloakConfig} from "../../bot/DraftBotShard";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
+import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import {
+	makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { DiscordCache } from "../../bot/DiscordCache";
+import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
+import { keycloakConfig } from "../../bot/DraftBotShard";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import i18n from "../../translations/i18n";
-import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
-import {ReactionCollectorGuildElderData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildElder";
+import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
+import { ReactionCollectorGuildElderData } from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildElder";
 import {
 	CommandGuildElderAcceptPacketRes,
 	CommandGuildElderPacketReq,
 	CommandGuildElderRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildElderPacket";
-import {ICommand} from "../ICommand";
-import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
-import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
-import {PacketUtils} from "../../utils/PacketUtils";
-import {SlashCommandBuilder} from "@discordjs/builders";
-import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ICommand } from "../ICommand";
+import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
+import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
+import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
+import { PacketUtils } from "../../utils/PacketUtils";
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
 /**
  * Create a collector to confirm the promotion
@@ -95,7 +97,7 @@ export async function handleCommandGuildElderAcceptPacketRes(packet: CommandGuil
 					guildName: packet.guildName
 				}), originalInteraction.user)
 					.setDescription(
-						i18n.t("commands:guildElder.acceptedDesc", {lng: originalInteraction.userLanguage})
+						i18n.t("commands:guildElder.acceptedDesc", { lng: originalInteraction.userLanguage })
 					)
 			]
 		});
@@ -110,7 +112,7 @@ async function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): 
 	if (!askedPlayer || !askedPlayer.keycloakId) {
 		return null;
 	}
-	return makePacket(CommandGuildElderPacketReq, {askedPlayerKeycloakId: askedPlayer.keycloakId});
+	return makePacket(CommandGuildElderPacketReq, { askedPlayerKeycloakId: askedPlayer.keycloakId });
 }
 
 export const commandInfo: ICommand = {

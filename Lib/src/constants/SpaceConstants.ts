@@ -21,7 +21,8 @@ export abstract class SpaceConstants {
 		"Gros Caillou",
 		"QQ-47-3NU7",
 		"@setéroïde",
-		"Chulxubub"];
+		"Chulxubub"
+	];
 
 	static readonly DISTANCE_RANGE = {
 		MIN: 1,

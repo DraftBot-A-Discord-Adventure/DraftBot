@@ -1,10 +1,12 @@
-import {Fighter} from "../../../fighter/Fighter";
-import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
-import {RandomUtils} from "../../../../../../../Lib/src/utils/RandomUtils";
-import {FightActionFunc} from "../../../../../data/FightAction";
-import {FightStatBuffed} from "../../../../../../../Lib/src/types/FightActionResult";
-import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
-import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTemplate";
+import { Fighter } from "../../../fighter/Fighter";
+import {
+	attackInfo, FightActionController, statsInfo
+} from "../../FightActionController";
+import { RandomUtils } from "../../../../../../../Lib/src/utils/RandomUtils";
+import { FightActionFunc } from "../../../../../data/FightAction";
+import { FightStatBuffed } from "../../../../../../../Lib/src/types/FightActionResult";
+import { FightStatModifierOperation } from "../../../../../../../Lib/src/types/FightStatModifierOperation";
+import { simpleDamageFightAction } from "../../templates/SimpleDamageFightActionTemplate";
 
 function getAttackInfo(): attackInfo {
 	return {

@@ -1,9 +1,11 @@
-import {DataTypes, Model, Sequelize} from "sequelize";
-import {datesAreOnSameDay} from "../../../../../../Lib/src/utils/TimeUtils";
-import {MissionsController} from "../../../missions/MissionsController";
+import {
+	DataTypes, Model, Sequelize
+} from "sequelize";
+import { datesAreOnSameDay } from "../../../../../../Lib/src/utils/TimeUtils";
+import { MissionsController } from "../../../missions/MissionsController";
 import PlayerMissionsInfo from "./PlayerMissionsInfo";
-import {draftBotInstance} from "../../../../index";
-import {MissionDataController} from "../../../../data/Mission";
+import { draftBotInstance } from "../../../../index";
+import { MissionDataController } from "../../../../data/Mission";
 import moment = require("moment");
 
 export class DailyMission extends Model {
@@ -43,7 +45,7 @@ export class DailyMissions {
 		if (!dailyMission || !datesAreOnSameDay(dailyMission.lastDate, new Date())) {
 			await PlayerMissionsInfo.update({
 				dailyMissionNumberDone: 0
-			}, {where: {}});
+			}, { where: {} });
 			dailyMission = await DailyMissions.regenerateDailyMission();
 		}
 		return dailyMission;
@@ -75,7 +77,7 @@ export class DailyMissions {
 				xpToWin: missionData.xp[prop.index],
 				moneyToWin: missionData.money[prop.index],
 				lastDate: new Date()
-			}, {returning: true});
+			}, { returning: true });
 		}
 		draftBotInstance.logsDatabase.logMissionDailyRefreshed(dailyMission.missionId, dailyMission.missionVariant, dailyMission.missionObjective)
 			.then();

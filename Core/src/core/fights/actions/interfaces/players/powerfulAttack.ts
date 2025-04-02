@@ -1,16 +1,22 @@
-import {Fighter} from "../../../fighter/Fighter";
-import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
-import {FightAlterations} from "../../FightAlterations";
-import {FightActionFunc} from "../../../../../data/FightAction";
-import {FightActionResult, FightStatBuffed} from "../../../../../../../Lib/src/types/FightActionResult";
-import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
+import { Fighter } from "../../../fighter/Fighter";
+import {
+	attackInfo, FightActionController, statsInfo
+} from "../../FightActionController";
+import { FightAlterations } from "../../FightAlterations";
+import { FightActionFunc } from "../../../../../data/FightAction";
+import {
+	FightActionResult, FightStatBuffed
+} from "../../../../../../../Lib/src/types/FightActionResult";
+import { FightStatModifierOperation } from "../../../../../../../Lib/src/types/FightStatModifierOperation";
 
 const use: FightActionFunc = (sender, receiver, fightAction) => {
 	const initialDamage = FightActionController.getAttackDamage(getStatsInfo(sender, receiver), sender, getAttackInfo());
 	const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 0, 12);
 
-	// Check how many times the attack appears in the fight action history of the sender
-	// + 1 to count the current attack
+	/*
+	 * Check how many times the attack appears in the fight action history of the sender
+	 * + 1 to count the current attack
+	 */
 	const count = sender.fightActionsHistory.filter(action => action.id === "powerfulAttack").length + 1;
 
 	// If the attack is repeated more than 3 times, the damage dealt is reduced by 90%

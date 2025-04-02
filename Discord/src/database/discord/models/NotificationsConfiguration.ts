@@ -1,6 +1,8 @@
-import {DataTypes, Model, Sequelize} from "sequelize";
+import {
+	DataTypes, Model, Sequelize
+} from "sequelize";
 import moment = require("moment");
-import {NotificationSendTypeEnum} from "../../../notifications/NotificationSendType";
+import { NotificationSendTypeEnum } from "../../../notifications/NotificationSendType";
 
 export class NotificationsConfiguration extends Model {
 	declare readonly discordId: string;

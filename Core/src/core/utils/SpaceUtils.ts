@@ -1,48 +1,48 @@
-import {get} from "https";
+import { get } from "https";
 
 /* eslint-disable camelcase */
 
 export interface NearEarthObjectApproachData {
-	close_approach_date: string,
-	close_approach_date_full: string,
-	epoch_date_close_approach: number,
+	close_approach_date: string;
+	close_approach_date_full: string;
+	epoch_date_close_approach: number;
 	relative_velocity: {
-		kilometers_per_second: string,
-		kilometers_per_hour: string,
-		miles_per_hour: string
-	},
+		kilometers_per_second: string;
+		kilometers_per_hour: string;
+		miles_per_hour: string;
+	};
 	miss_distance: {
-		astronomical: string,
-		lunar: string,
-		kilometers: string,
-		miles: string
-	},
-	orbiting_body: string
+		astronomical: string;
+		lunar: string;
+		kilometers: string;
+		miles: string;
+	};
+	orbiting_body: string;
 }
 
 export interface EstimatedDiameterMinMax {
-	estimated_diameter_min: number,
-	estimated_diameter_max: number
+	estimated_diameter_min: number;
+	estimated_diameter_max: number;
 }
 
 export interface NearEarthObject {
 	links: {
-		self: string
-	},
-	id: string,
-	neo_reference_id: string,
-	name: string,
-	nasa_jpl_url: string,
-	absolute_magnitude_h: number,
+		self: string;
+	};
+	id: string;
+	neo_reference_id: string;
+	name: string;
+	nasa_jpl_url: string;
+	absolute_magnitude_h: number;
 	estimated_diameter: {
-		kilometers: EstimatedDiameterMinMax,
-		meters: EstimatedDiameterMinMax,
-		miles: EstimatedDiameterMinMax,
-		feet: EstimatedDiameterMinMax
-	},
-	is_potentially_hazardous_asteroid: boolean,
-	close_approach_data: NearEarthObjectApproachData[],
-	is_sentry_object: boolean
+		kilometers: EstimatedDiameterMinMax;
+		meters: EstimatedDiameterMinMax;
+		miles: EstimatedDiameterMinMax;
+		feet: EstimatedDiameterMinMax;
+	};
+	is_potentially_hazardous_asteroid: boolean;
+	close_approach_data: NearEarthObjectApproachData[];
+	is_sentry_object: boolean;
 }
 
 export class SpaceUtils {
@@ -56,7 +56,7 @@ export class SpaceUtils {
 		if (today === this.cachedNeoFeedDate) {
 			return Promise.resolve(this.cachedNeoFeed);
 		}
-		return new Promise((resolve) => {
+		return new Promise(resolve => {
 			get("https://www.neowsapp.com/rest/v1/feed/today", res => {
 				let data = "";
 				res.on("data", chunk => {

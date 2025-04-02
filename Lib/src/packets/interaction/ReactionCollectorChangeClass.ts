@@ -23,7 +23,7 @@ export type ReactionCollectorChangeClassDetails = {
 	breathRegen: number;
 
 	health: number;
-}
+};
 
 export class ReactionCollectorChangeClassData extends ReactionCollectorData {
 	classesDetails!: ReactionCollectorChangeClassDetails[];
@@ -51,7 +51,7 @@ export class ReactionCollectorChangeClass extends ReactionCollector {
 			id,
 			endTime,
 			reactions: [
-				...this.classesDetails.map((classDetails) =>
+				...this.classesDetails.map(classDetails =>
 					this.buildReaction(ReactionCollectorChangeClassReaction, {
 						classId: classDetails.id
 					})),

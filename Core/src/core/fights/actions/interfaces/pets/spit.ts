@@ -1,12 +1,13 @@
-import {FightActionController} from "../../FightActionController";
-import {PetAssistanceFunc} from "../../../../../data/PetAssistance";
-import {PetAssistanceResult, PetAssistanceState} from "../../../../../../../Lib/src/types/PetAssistanceResult";
-import {FightAlterations} from "../../FightAlterations";
-import {FightActionType} from "../../../../../../../Lib/src/types/FightActionType";
-import {RandomUtils} from "../../../../../../../Lib/src/utils/RandomUtils";
+import { FightActionController } from "../../FightActionController";
+import { PetAssistanceFunc } from "../../../../../data/PetAssistance";
+import {
+	PetAssistanceResult, PetAssistanceState
+} from "../../../../../../../Lib/src/types/PetAssistanceResult";
+import { FightAlterations } from "../../FightAlterations";
+import { FightActionType } from "../../../../../../../Lib/src/types/FightActionType";
+import { RandomUtils } from "../../../../../../../Lib/src/utils/RandomUtils";
 
 const use: PetAssistanceFunc = (_fighter, opponent, turn, _fightController): Promise<PetAssistanceResult | null> => {
-
 	// Only do something if the last action was a physical attack
 	if (turn > 1 && opponent.getLastFightActionUsed().type !== FightActionType.PHYSICAL) {
 		return null;
@@ -18,7 +19,7 @@ const use: PetAssistanceFunc = (_fighter, opponent, turn, _fightController): Pro
 	};
 
 	// 9 % chance of blinding the opponent
-	if ( RandomUtils.draftbotRandom.bool(0.09)) {
+	if (RandomUtils.draftbotRandom.bool(0.09)) {
 		FightActionController.applyAlteration(result, {
 			selfTarget: false,
 			alteration: FightAlterations.BLIND

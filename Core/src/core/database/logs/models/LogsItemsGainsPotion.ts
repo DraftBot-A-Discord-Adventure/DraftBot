@@ -1,5 +1,7 @@
-import {Sequelize} from "sequelize";
-import {LogsItem, logsItemAttributes} from "./LogsItems";
+import { Sequelize } from "sequelize";
+import {
+	LogsItem, logsItemAttributes
+} from "./LogsItems";
 
 export class LogsItemGainsPotion extends LogsItem {
 }

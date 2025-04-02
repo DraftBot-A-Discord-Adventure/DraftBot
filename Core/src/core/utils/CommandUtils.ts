@@ -1,20 +1,22 @@
-import Player, {Players} from "../database/game/models/Player";
-import {DraftBotPacket, makePacket, PacketContext, PacketLike} from "../../../../Lib/src/packets/DraftBotPacket";
-import {Effect} from "../../../../Lib/src/types/Effect";
-import {RightGroup} from "../../../../Lib/src/types/RightGroup";
-import {RequirementEffectPacket} from "../../../../Lib/src/packets/commands/requirements/RequirementEffectPacket";
-import {RequirementLevelPacket} from "../../../../Lib/src/packets/commands/requirements/RequirementLevelPacket";
-import {GuildRole} from "../../../../Lib/src/types/GuildRole";
-import {Guilds} from "../database/game/models/Guild";
-import {RequirementGuildNeededPacket} from "../../../../Lib/src/packets/commands/requirements/RequirementGuildNeededPacket";
-import {RequirementGuildRolePacket} from "../../../../Lib/src/packets/commands/requirements/RequirementGuildRolePacket";
-import {RequirementRightPacket} from "../../../../Lib/src/packets/commands/requirements/RequirementRightPacket";
-import {BlockingUtils} from "./BlockingUtils";
-import {draftBotInstance} from "../../index";
-import {ErrorBannedPacket} from "../../../../Lib/src/packets/commands/ErrorPacket";
-import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
-import {MapCache} from "../maps/MapCache";
-import {RequirementWherePacket} from "../../../../Lib/src/packets/commands/requirements/RequirementWherePacket";
+import Player, { Players } from "../database/game/models/Player";
+import {
+	DraftBotPacket, makePacket, PacketContext, PacketLike
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { Effect } from "../../../../Lib/src/types/Effect";
+import { RightGroup } from "../../../../Lib/src/types/RightGroup";
+import { RequirementEffectPacket } from "../../../../Lib/src/packets/commands/requirements/RequirementEffectPacket";
+import { RequirementLevelPacket } from "../../../../Lib/src/packets/commands/requirements/RequirementLevelPacket";
+import { GuildRole } from "../../../../Lib/src/types/GuildRole";
+import { Guilds } from "../database/game/models/Guild";
+import { RequirementGuildNeededPacket } from "../../../../Lib/src/packets/commands/requirements/RequirementGuildNeededPacket";
+import { RequirementGuildRolePacket } from "../../../../Lib/src/packets/commands/requirements/RequirementGuildRolePacket";
+import { RequirementRightPacket } from "../../../../Lib/src/packets/commands/requirements/RequirementRightPacket";
+import { BlockingUtils } from "./BlockingUtils";
+import { draftBotInstance } from "../../index";
+import { ErrorBannedPacket } from "../../../../Lib/src/packets/commands/ErrorPacket";
+import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
+import { MapCache } from "../maps/MapCache";
+import { RequirementWherePacket } from "../../../../Lib/src/packets/commands/requirements/RequirementWherePacket";
 
 type Requirements = {
 	disallowedEffects?: Effect[];
@@ -34,7 +36,11 @@ export abstract class CommandUtils {
 		DEAD: [Effect.DEAD],
 		NOT_STARTED: [Effect.NOT_STARTED],
 		NOT_STARTED_OR_DEAD: [Effect.NOT_STARTED, Effect.DEAD],
-		NOT_STARTED_OR_DEAD_OR_JAILED: [Effect.NOT_STARTED, Effect.DEAD, Effect.JAILED]
+		NOT_STARTED_OR_DEAD_OR_JAILED: [
+			Effect.NOT_STARTED,
+			Effect.DEAD,
+			Effect.JAILED
+		]
 	};
 
 	static readonly ALLOWED_EFFECTS = {
@@ -43,7 +49,11 @@ export abstract class CommandUtils {
 
 	static readonly WHERE = {
 		EVERYWHERE: Object.values(WhereAllowed) as WhereAllowed[],
-		ALL_PVE_AND_BOAT: [WhereAllowed.PVE_BOAT_ENTRY, WhereAllowed.PVE_ISLAND, WhereAllowed.PVE_BOAT_EXIT]
+		ALL_PVE_AND_BOAT: [
+			WhereAllowed.PVE_BOAT_ENTRY,
+			WhereAllowed.PVE_ISLAND,
+			WhereAllowed.PVE_BOAT_EXIT
+		]
 	};
 
 	/**
@@ -156,7 +166,9 @@ export abstract class CommandUtils {
 	 * @param response
 	 */
 	static verifyStartedAndNotDead(player: Player, response: DraftBotPacket[]): Promise<boolean> {
-		return CommandUtils.verifyCommandRequirements(player, { frontEndOrigin: "", frontEndSubOrigin: "" }, response, {
+		return CommandUtils.verifyCommandRequirements(player, {
+			frontEndOrigin: "", frontEndSubOrigin: ""
+		}, response, {
 			disallowedEffects: [Effect.NOT_STARTED, Effect.DEAD],
 			whereAllowed: CommandUtils.WHERE.EVERYWHERE
 		});
@@ -168,7 +180,9 @@ export abstract class CommandUtils {
 	 * @param response
 	 */
 	static verifyNoEffect(player: Player, response: DraftBotPacket[]): Promise<boolean> {
-		return CommandUtils.verifyCommandRequirements(player, { frontEndOrigin: "", frontEndSubOrigin: "" }, response, {
+		return CommandUtils.verifyCommandRequirements(player, {
+			frontEndOrigin: "", frontEndSubOrigin: ""
+		}, response, {
 			allowedEffects: [Effect.NO_EFFECT],
 			whereAllowed: CommandUtils.WHERE.EVERYWHERE
 		});
@@ -180,7 +194,9 @@ export abstract class CommandUtils {
 	 * @param response
 	 */
 	static verifyStarted(player: Player, response: DraftBotPacket[]): Promise<boolean> {
-		return CommandUtils.verifyCommandRequirements(player, { frontEndOrigin: "", frontEndSubOrigin: "" }, response, {
+		return CommandUtils.verifyCommandRequirements(player, {
+			frontEndOrigin: "", frontEndSubOrigin: ""
+		}, response, {
 			disallowedEffects: [Effect.NOT_STARTED],
 			whereAllowed: CommandUtils.WHERE.EVERYWHERE
 		});
@@ -190,7 +206,9 @@ export abstract class CommandUtils {
 	 * Verify if the player is not dead (but can be not started)
 	 */
 	static verifyNotDead(player: Player, response: DraftBotPacket[]): Promise<boolean> {
-		return CommandUtils.verifyCommandRequirements(player, { frontEndOrigin: "", frontEndSubOrigin: "" }, response, {
+		return CommandUtils.verifyCommandRequirements(player, {
+			frontEndOrigin: "", frontEndSubOrigin: ""
+		}, response, {
 			disallowedEffects: [Effect.DEAD],
 			whereAllowed: CommandUtils.WHERE.EVERYWHERE
 		});
@@ -208,20 +226,20 @@ export abstract class CommandUtils {
 
 		for (const allowedLocation of whereAllowed) {
 			switch (allowedLocation) {
-			case WhereAllowed.CONTINENT:
-				allowed = allowed || MapCache.continentMapLinks.includes(mapLinkId);
-				break;
-			case WhereAllowed.PVE_BOAT_ENTRY:
-				allowed = allowed || MapCache.boatEntryMapLinks.includes(mapLinkId);
-				break;
-			case WhereAllowed.PVE_ISLAND:
-				allowed = allowed || MapCache.pveIslandMapLinks.includes(mapLinkId);
-				break;
-			case WhereAllowed.PVE_BOAT_EXIT:
-				allowed = allowed || MapCache.boatExitMapLinks.includes(mapLinkId);
-				break;
-			default:
-				break;
+				case WhereAllowed.CONTINENT:
+					allowed = allowed || MapCache.continentMapLinks.includes(mapLinkId);
+					break;
+				case WhereAllowed.PVE_BOAT_ENTRY:
+					allowed = allowed || MapCache.boatEntryMapLinks.includes(mapLinkId);
+					break;
+				case WhereAllowed.PVE_ISLAND:
+					allowed = allowed || MapCache.pveIslandMapLinks.includes(mapLinkId);
+					break;
+				case WhereAllowed.PVE_BOAT_EXIT:
+					allowed = allowed || MapCache.boatExitMapLinks.includes(mapLinkId);
+					break;
+				default:
+					break;
 			}
 		}
 

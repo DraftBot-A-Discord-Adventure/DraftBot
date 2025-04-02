@@ -1,5 +1,7 @@
-import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
-import {InventoryInfos} from "../../../../core/database/game/models/InventoryInfo";
+import {
+	ExecuteTestCommandLike, ITestCommand, TypeKey
+} from "../../../../core/CommandsTest";
+import { InventoryInfos } from "../../../../core/database/game/models/InventoryInfo";
 
 export const commandInfo: ITestCommand = {
 	name: "advanceplayerdaily",

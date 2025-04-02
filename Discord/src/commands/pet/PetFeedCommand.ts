@@ -1,30 +1,34 @@
-import {ICommand} from "../ICommand";
-import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
-import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import { ICommand } from "../ICommand";
+import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
+import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
+import {
+	makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
 import {
 	CommandPetFeedPacketReq,
 	CommandPetFeedSuccessPacket
 } from "../../../../Lib/src/packets/commands/CommandPetFeedPacket";
-import {DiscordCache} from "../../bot/DiscordCache";
+import { DiscordCache } from "../../bot/DiscordCache";
 import i18n from "../../translations/i18n";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import {
 	ReactionCollectorCreationPacket,
 	ReactionCollectorRefuseReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import {
 	ReactionCollectorPetFeedWithGuildData,
 	ReactionCollectorPetFeedWithGuildFoodReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFeedWithGuild";
-import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
-import {StringUtils} from "../../utils/StringUtils";
-import {DisplayUtils} from "../../utils/DisplayUtils";
-import {ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, Message} from "discord.js";
-import {sendInteractionNotForYou} from "../../utils/ErrorUtils";
-import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
-import {ReactionCollectorPetFeedWithoutGuildData} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFeedWithoutGuild";
+import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
+import { StringUtils } from "../../utils/StringUtils";
+import { DisplayUtils } from "../../utils/DisplayUtils";
+import {
+	ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, Message
+} from "discord.js";
+import { sendInteractionNotForYou } from "../../utils/ErrorUtils";
+import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
+import { ReactionCollectorPetFeedWithoutGuildData } from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFeedWithoutGuild";
 
 async function getPacket(interaction: DraftbotInteraction): Promise<CommandPetFeedPacketReq> {
 	await interaction.deferReply();
@@ -39,13 +43,17 @@ export async function handleCommandPetFeedSuccessPacket(packet: CommandPetFeedSu
 	}
 
 	const lng = context.discord!.language;
-	const title = i18n.t("commands:petFeed.resultTitle", { lng, pseudo: interaction.user.displayName });
+	const title = i18n.t("commands:petFeed.resultTitle", {
+		lng, pseudo: interaction.user.displayName
+	});
 	const description = i18n.t(`commands:petFeed.result.${packet.result}`, { lng });
 
 	await interaction.editReply({
-		embeds: [new DraftBotEmbed()
-			.formatAuthor(title, interaction.user)
-			.setDescription(description)]
+		embeds: [
+			new DraftBotEmbed()
+				.formatAuthor(title, interaction.user)
+				.setDescription(description)
+		]
 	});
 }
 
@@ -58,7 +66,9 @@ export async function handleCommandPetFeedWithGuildCollector(context: PacketCont
 
 	const lng = context.discord!.language;
 	const data = packet.data.data as ReactionCollectorPetFeedWithGuildData;
-	const foodReactions = packet.reactions.map((reaction, index) => ({ reaction, index })).filter(reaction => reaction.reaction.type === ReactionCollectorPetFeedWithGuildFoodReaction.name);
+	const foodReactions = packet.reactions.map((reaction, index) => ({
+		reaction, index
+	})).filter(reaction => reaction.reaction.type === ReactionCollectorPetFeedWithGuildFoodReaction.name);
 	const refuseIndex = packet.reactions.findIndex(reaction => reaction.type === ReactionCollectorRefuseReaction.name);
 
 	const rowFood = new ActionRowBuilder<ButtonBuilder>();
@@ -87,7 +97,9 @@ export async function handleCommandPetFeedWithGuildCollector(context: PacketCont
 		.setEmoji(DraftBotIcons.collectors.refuse));
 
 	const embed = new DraftBotEmbed()
-		.formatAuthor(i18n.t("commands:petFeed.feedTitle", { lng, pseudo: interaction.user.displayName }), interaction.user)
+		.formatAuthor(i18n.t("commands:petFeed.feedTitle", {
+			lng, pseudo: interaction.user.displayName
+		}), interaction.user)
 		.setDescription(`${i18n.t("commands:petFeed.feedDescription", {
 			lng,
 			pet: DisplayUtils.getOwnedPetInlineDisplay(data.pet, lng)

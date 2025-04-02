@@ -1,11 +1,11 @@
-import {packetHandler} from "../../../PacketHandler";
+import { packetHandler } from "../../../PacketHandler";
 import {
 	CommandDrinkCancelDrink,
 	CommandDrinkConsumePotionRes, CommandDrinkNoActiveObjectError, CommandDrinkObjectIsActiveDuringFights
 } from "../../../../../../Lib/src/packets/commands/CommandDrinkPacket";
-import {PacketContext} from "../../../../../../Lib/src/packets/DraftBotPacket";
-import {handleDrinkConsumePotion} from "../../../../commands/player/DrinkCommand";
-import {handleClassicError} from "../../../../utils/ErrorUtils";
+import { PacketContext } from "../../../../../../Lib/src/packets/DraftBotPacket";
+import { handleDrinkConsumePotion } from "../../../../commands/player/DrinkCommand";
+import { handleClassicError } from "../../../../utils/ErrorUtils";
 
 export default class DrinkCommandPacketHandlers {
 	@packetHandler(CommandDrinkConsumePotionRes)

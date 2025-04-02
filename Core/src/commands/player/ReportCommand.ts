@@ -1,4 +1,6 @@
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import {
+	DraftBotPacket, makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
 import {
 	CommandReportBigEventResultRes,
 	CommandReportChooseDestinationRes,
@@ -8,49 +10,63 @@ import {
 	CommandReportRefusePveFightRes,
 	CommandReportTravelSummaryRes
 } from "../../../../Lib/src/packets/commands/CommandReportPacket";
-import {Player, Players} from "../../core/database/game/models/Player";
-import {Maps} from "../../core/maps/Maps";
-import {MapLink, MapLinkDataController} from "../../data/MapLink";
-import {Constants} from "../../../../Lib/src/constants/Constants";
-import {getTimeFromXHoursAgo, millisecondsToMinutes, millisecondsToSeconds} from "../../../../Lib/src/utils/TimeUtils";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
-import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
-import {MissionsController} from "../../core/missions/MissionsController";
-import {FightController} from "../../core/fights/FightController";
-import {PVEConstants} from "../../../../Lib/src/constants/PVEConstants";
-import {MonsterDataController} from "../../data/Monster";
-import {PlayerFighter} from "../../core/fights/fighter/PlayerFighter";
-import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import {Guilds} from "../../core/database/game/models/Guild";
-import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants";
-import {draftBotInstance} from "../../index";
-import {MonsterFighter} from "../../core/fights/fighter/MonsterFighter";
-import {EndCallback, ReactionCollectorInstance} from "../../core/utils/ReactionsCollector";
-import {FightOvertimeBehavior} from "../../core/fights/FightOvertimeBehavior";
-import {ClassDataController} from "../../data/Class";
-import {PlayerSmallEvents} from "../../core/database/game/models/PlayerSmallEvent";
-import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
-import {ReactionCollectorPveFight} from "../../../../Lib/src/packets/interaction/ReactionCollectorPveFight";
+import {
+	Player, Players
+} from "../../core/database/game/models/Player";
+import { Maps } from "../../core/maps/Maps";
+import {
+	MapLink, MapLinkDataController
+} from "../../data/MapLink";
+import { Constants } from "../../../../Lib/src/constants/Constants";
+import {
+	getTimeFromXHoursAgo, millisecondsToMinutes, millisecondsToSeconds
+} from "../../../../Lib/src/utils/TimeUtils";
+import { BlockingUtils } from "../../core/utils/BlockingUtils";
+import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
+import { MissionsController } from "../../core/missions/MissionsController";
+import { FightController } from "../../core/fights/FightController";
+import { PVEConstants } from "../../../../Lib/src/constants/PVEConstants";
+import { MonsterDataController } from "../../data/Monster";
+import { PlayerFighter } from "../../core/fights/fighter/PlayerFighter";
+import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
+import { Guilds } from "../../core/database/game/models/Guild";
+import { GuildConstants } from "../../../../Lib/src/constants/GuildConstants";
+import { draftBotInstance } from "../../index";
+import { MonsterFighter } from "../../core/fights/fighter/MonsterFighter";
+import {
+	EndCallback, ReactionCollectorInstance
+} from "../../core/utils/ReactionsCollector";
+import { FightOvertimeBehavior } from "../../core/fights/FightOvertimeBehavior";
+import { ClassDataController } from "../../data/Class";
+import { PlayerSmallEvents } from "../../core/database/game/models/PlayerSmallEvent";
+import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
+import { ReactionCollectorPveFight } from "../../../../Lib/src/packets/interaction/ReactionCollectorPveFight";
 import {
 	ReactionCollectorChooseDestination,
 	ReactionCollectorChooseDestinationReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorChooseDestination";
-import {MapCache} from "../../core/maps/MapCache";
-import {TravelTime} from "../../core/maps/TravelTime";
-import {SmallEventDataController, SmallEventFuncs} from "../../data/SmallEvent";
-import {ReportConstants} from "../../../../Lib/src/constants/ReportConstants";
-import {BigEvent, BigEventDataController} from "../../data/BigEvent";
+import { MapCache } from "../../core/maps/MapCache";
+import { TravelTime } from "../../core/maps/TravelTime";
+import {
+	SmallEventDataController, SmallEventFuncs
+} from "../../data/SmallEvent";
+import { ReportConstants } from "../../../../Lib/src/constants/ReportConstants";
+import {
+	BigEvent, BigEventDataController
+} from "../../data/BigEvent";
 import {
 	ReactionCollectorBigEvent,
 	ReactionCollectorBigEventPossibilityReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorBigEvent";
-import {Possibility} from "../../data/events/Possibility";
-import {applyPossibilityOutcome} from "../../data/events/PossibilityOutcome";
-import {ErrorPacket} from "../../../../Lib/src/packets/commands/ErrorPacket";
-import {MapLocationDataController} from "../../data/MapLocation";
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
-import {Effect} from "../../../../Lib/src/types/Effect";
-import {ReactionCollectorRefuseReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { Possibility } from "../../data/events/Possibility";
+import { applyPossibilityOutcome } from "../../data/events/PossibilityOutcome";
+import { ErrorPacket } from "../../../../Lib/src/packets/commands/ErrorPacket";
+import { MapLocationDataController } from "../../data/MapLocation";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
+import { Effect } from "../../../../Lib/src/types/Effect";
+import { ReactionCollectorRefuseReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 
 export default class ReportCommand {
 	@commandRequires(CommandReportPacketReq, {
@@ -66,19 +82,18 @@ export default class ReportCommand {
 		forceSmallEvent: string = null,
 		forceSpecificEvent = -1
 	): Promise<void> {
-
 		if (player.score === 0 && player.effectId === Effect.NOT_STARTED.id) {
 			await initiateNewPlayerOnTheAdventure(player);
 		}
 
 		BlockingUtils.blockPlayer(player.keycloakId, BlockingConstants.REASONS.REPORT_COMMAND, Constants.MESSAGES.COLLECTOR_TIME * 3); // MaxTime here is to prevent any accident permanent blocking
 
-		await MissionsController.update(player, response, {missionId: "commandReport"});
+		await MissionsController.update(player, response, { missionId: "commandReport" });
 
 		const currentDate = new Date();
 
 		if (player.effectId !== Effect.NO_EFFECT.id && player.currentEffectFinished(currentDate)) {
-			await MissionsController.update(player, response, {missionId: "recoverAlteration"});
+			await MissionsController.update(player, response, { missionId: "recoverAlteration" });
 		}
 
 		if (Maps.isArrived(player, currentDate)) {
@@ -141,22 +156,23 @@ async function initiateNewPlayerOnTheAdventure(player: Player): Promise<void> {
  */
 async function completeMissionsBigEvent(player: Player, response: DraftBotPacket[]): Promise<void> {
 	await MissionsController.update(player, response, {
-		missionId: "travelHours", params: {
+		missionId: "travelHours",
+		params: {
 			travelTime: player.getCurrentTripDuration()
 		}
 	});
 	const endMapId = MapLinkDataController.instance.getById(player.mapLinkId).endMap;
 	await MissionsController.update(player, response, {
 		missionId: "goToPlace",
-		params: {mapId: endMapId}
+		params: { mapId: endMapId }
 	});
 	await MissionsController.update(player, response, {
 		missionId: "exploreDifferentPlaces",
-		params: {placeId: endMapId}
+		params: { placeId: endMapId }
 	});
 	await MissionsController.update(player, response, {
 		missionId: "fromPlaceToPlace",
-		params: {mapId: endMapId}
+		params: { mapId: endMapId }
 	});
 }
 
@@ -212,7 +228,7 @@ async function doPossibility(
 		await chooseDestination(context, player, newMapLink, response, false);
 	}
 
-	await MissionsController.update(player, response, {missionId: "doReports"});
+	await MissionsController.update(player, response, { missionId: "doReports" });
 
 	const tagsToVerify = (randomOutcome[1].tags ?? [])
 		.concat(possibility[1].tags ?? [])
@@ -221,7 +237,7 @@ async function doPossibility(
 		for (const tag of tagsToVerify) {
 			await MissionsController.update(player, response, {
 				missionId: tag,
-				params: {tags: tagsToVerify}
+				params: { tags: tagsToVerify }
 			});
 		}
 	}
@@ -243,18 +259,18 @@ async function doEvent(event: BigEvent, player: Player, time: number, context: P
 
 	const collector = new ReactionCollectorBigEvent(
 		event.id,
-		possibilities.map((possibility) => ({name: possibility[0]}))
+		possibilities.map(possibility => ({ name: possibility[0] }))
 	);
 
 	const endCallback: EndCallback = async (collector, response) => {
 		const reaction = collector.getFirstReaction();
 
 		if (!reaction) {
-			await doPossibility(event, possibilities.find((possibility) => possibility[0] === "end"), player, time, context, response);
+			await doPossibility(event, possibilities.find(possibility => possibility[0] === "end"), player, time, context, response);
 		}
 		else {
 			const reactionName = (reaction.reaction.data as ReactionCollectorBigEventPossibilityReaction).name;
-			await doPossibility(event, possibilities.find((possibility) => possibility[0] === reactionName), player, time, context, response);
+			await doPossibility(event, possibilities.find(possibility => possibility[0] === reactionName), player, time, context, response);
 		}
 	};
 
@@ -303,7 +319,7 @@ async function doRandomBigEvent(
 		const mapId = player.getDestinationId();
 		event = await BigEventDataController.instance.getRandomEvent(mapId, player);
 		if (!event) {
-			response.push(makePacket(ErrorPacket, {message: "It seems that there is no event here... It's a bug, please report it to the DraftBot staff."}));
+			response.push(makePacket(ErrorPacket, { message: "It seems that there is no event here... It's a bug, please report it to the DraftBot staff." }));
 			return;
 		}
 	}
@@ -355,14 +371,14 @@ async function chooseDestination(
 		return;
 	}
 
-	if ((!Maps.isOnPveIsland(player) || destinationMaps.length === 1) &&
-		(forcedLink || destinationMaps.length === 1 && player.mapLinkId !== Constants.BEGINNING.LAST_MAP_LINK)
+	if ((!Maps.isOnPveIsland(player) || destinationMaps.length === 1)
+		&& (forcedLink || destinationMaps.length === 1 && player.mapLinkId !== Constants.BEGINNING.LAST_MAP_LINK)
 	) {
 		await automaticChooseDestination(forcedLink, player, destinationMaps, response);
 		return;
 	}
 
-	const mapReactions: ReactionCollectorChooseDestinationReaction[] = destinationMaps.map((mapId) => {
+	const mapReactions: ReactionCollectorChooseDestinationReaction[] = destinationMaps.map(mapId => {
 		const mapLink = MapLinkDataController.instance.getLinkByLocations(player.getDestinationId(), mapId);
 		const mapTypeId = MapLocationDataController.instance.getById(mapId).type;
 		const isPveMap = MapCache.allPveMapLinks.includes(mapLink.id);
@@ -378,9 +394,9 @@ async function chooseDestination(
 
 	const endCallback: EndCallback = async (collector, response) => {
 		const firstReaction = collector.getFirstReaction();
-		const mapId = firstReaction ?
-			(firstReaction.reaction.data as ReactionCollectorChooseDestinationReaction).mapId :
-			(RandomUtils.draftbotRandom.pick(collector.creationPacket.reactions).data as ReactionCollectorChooseDestinationReaction).mapId;
+		const mapId = firstReaction
+			? (firstReaction.reaction.data as ReactionCollectorChooseDestinationReaction).mapId
+			: (RandomUtils.draftbotRandom.pick(collector.creationPacket.reactions).data as ReactionCollectorChooseDestinationReaction).mapId;
 		const newLink = MapLinkDataController.instance.getLinkByLocations(player.getDestinationId(), mapId);
 		const endMap = MapLocationDataController.instance.getById(mapId);
 		await Maps.startTravel(player, newLink, Date.now());
@@ -473,7 +489,7 @@ async function doPVEBoss(
 	const seed = player.id + millisecondsToSeconds(player.startTravelDate.valueOf());
 	const monsterObj = MonsterDataController.instance.getRandomMonster(player.getDestination().id, seed);
 	const randomLevel = player.level - PVEConstants.MONSTER_LEVEL_RANDOM_RANGE / 2 + seed % PVEConstants.MONSTER_LEVEL_RANDOM_RANGE;
-	const fightCallback = async (fight: FightController, endFightResponse: DraftBotPacket[] ): Promise<void> => {
+	const fightCallback = async (fight: FightController, endFightResponse: DraftBotPacket[]): Promise<void> => {
 		if (fight) {
 			const rewards = monsterObj.getRewards(randomLevel);
 			let guildXp: number = 0;
@@ -509,7 +525,7 @@ async function doPVEBoss(
 					guildXp,
 					guildPoints
 				}));
-				await MissionsController.update(player, endFightResponse, {missionId: "winBoss"});
+				await MissionsController.update(player, endFightResponse, { missionId: "winBoss" });
 			}
 
 			await player.save();
@@ -602,7 +618,7 @@ async function getRandomSmallEvent(response: DraftBotPacket[], player: Player): 
 	for (const key of keys) {
 		const file = await import(`../../core/smallEvents/${key}.js`);
 		if (!file.smallEventFuncs?.canBeExecuted) {
-			response.push(makePacket(ErrorPacket, {message: `${key} doesn't contain a canBeExecuted function`}));
+			response.push(makePacket(ErrorPacket, { message: `${key} doesn't contain a canBeExecuted function` }));
 			return null;
 		}
 		if (await file.smallEventFuncs.canBeExecuted(player)) {
@@ -632,7 +648,7 @@ async function executeSmallEvent(response: DraftBotPacket[], player: Player, con
 	// Pick random event
 	const event: string = forced ? forced : await getRandomSmallEvent(response, player);
 	if (!event) {
-		response.push(makePacket(ErrorPacket, {message: "No small event can be executed..."}));
+		response.push(makePacket(ErrorPacket, { message: "No small event can be executed..." }));
 		return;
 	}
 
@@ -644,15 +660,15 @@ async function executeSmallEvent(response: DraftBotPacket[], player: Player, con
 			const smallEvent: SmallEventFuncs = require(smallEventModule).smallEventFuncs;
 			draftBotInstance.logsDatabase.logSmallEvent(player.keycloakId, event).then();
 			await smallEvent.executeSmallEvent(response, player, context);
-			await MissionsController.update(player, response, {missionId: "doReports"});
+			await MissionsController.update(player, response, { missionId: "doReports" });
 		}
 		catch (e) {
 			console.error(e);
-			response.push(makePacket(ErrorPacket, {message: `${e}`}));
+			response.push(makePacket(ErrorPacket, { message: `${e}` }));
 		}
 	}
 	catch {
-		response.push(makePacket(ErrorPacket, {message: `${filename} doesn't exist`}));
+		response.push(makePacket(ErrorPacket, { message: `${filename} doesn't exist` }));
 	}
 
 	// Save

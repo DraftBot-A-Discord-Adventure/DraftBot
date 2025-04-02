@@ -1,10 +1,10 @@
-import {DataControllerString} from "./DataController";
-import {readdirSync} from "fs";
-import {FightAction} from "./FightAction";
-import {FightController} from "../core/fights/FightController";
-import {Fighter} from "../core/fights/fighter/Fighter";
-import {FightAlterationResult} from "../../../Lib/src/types/FightAlterationResult";
-import {FightConstants} from "../../../Lib/src/constants/FightConstants";
+import { DataControllerString } from "./DataController";
+import { readdirSync } from "fs";
+import { FightAction } from "./FightAction";
+import { FightController } from "../core/fights/FightController";
+import { Fighter } from "../core/fights/fighter/Fighter";
+import { FightAlterationResult } from "../../../Lib/src/types/FightAlterationResult";
+import { FightConstants } from "../../../Lib/src/constants/FightConstants";
 
 export class FightAlteration extends FightAction {
 	public happen(affected: Fighter, opponent: Fighter, turn: number, fight: FightController): FightAlterationResult {

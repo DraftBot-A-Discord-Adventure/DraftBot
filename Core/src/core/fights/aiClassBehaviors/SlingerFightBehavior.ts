@@ -1,10 +1,14 @@
 import { ClassBehavior } from "../AiBehaviorController";
 import { AiPlayerFighter } from "../fighter/AiPlayerFighter";
 import { FightView } from "../FightView";
-import { FightAction, FightActionDataController } from "../../../data/FightAction";
+import {
+	FightAction, FightActionDataController
+} from "../../../data/FightAction";
 import { FightConstants } from "../../../../../Lib/src/constants/FightConstants";
-import { shouldUseBoomerang, shouldStartCanonSequence, shouldContinueCanonSequence } from "./RockThrowerFightBehavior";
-import {Fighter} from "../fighter/Fighter";
+import {
+	shouldUseBoomerang, shouldStartCanonSequence, shouldContinueCanonSequence
+} from "./RockThrowerFightBehavior";
+import { Fighter } from "../fighter/Fighter";
 
 /**
  * Determines if the AI should use sabotage attack based on speed comparison
@@ -18,7 +22,6 @@ export function shouldUseSabotage(opponent: Fighter, me: AiPlayerFighter): boole
 }
 
 class SlingerFightBehavior implements ClassBehavior {
-
 	private isGoingForChainedCanonAttack = false;
 
 	private canonAttackUsed = 0;

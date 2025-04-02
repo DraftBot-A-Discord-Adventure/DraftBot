@@ -1,9 +1,11 @@
-import {ReactionCollectorReactPacket} from "../../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {packetHandler} from "../PacketHandler";
-import {DraftBotPacket, PacketContext} from "../../../../../Lib/src/packets/DraftBotPacket";
-import {ReactionCollectorController} from "../../utils/ReactionsCollector";
-import {ChangeBlockingReasonPacket} from "../../../../../Lib/src/packets/utils/ChangeBlockingReasonPacket";
-import {BlockingUtils} from "../../utils/BlockingUtils";
+import { ReactionCollectorReactPacket } from "../../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { packetHandler } from "../PacketHandler";
+import {
+	DraftBotPacket, PacketContext
+} from "../../../../../Lib/src/packets/DraftBotPacket";
+import { ReactionCollectorController } from "../../utils/ReactionsCollector";
+import { ChangeBlockingReasonPacket } from "../../../../../Lib/src/packets/utils/ChangeBlockingReasonPacket";
+import { BlockingUtils } from "../../utils/BlockingUtils";
 import {
 	ReactionCollectorResetTimerPacketReq
 } from "../../../../../Lib/src/packets/interaction/ReactionCollectorResetTimer";

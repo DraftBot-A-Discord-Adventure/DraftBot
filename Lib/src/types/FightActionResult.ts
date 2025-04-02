@@ -1,5 +1,5 @@
-import {FightStatModifierOperation} from "./FightStatModifierOperation";
-import {FightActionStatus} from "./FightActionStatus";
+import { FightStatModifierOperation } from "./FightStatModifierOperation";
+import { FightActionStatus } from "./FightActionStatus";
 
 export enum FightStatBuffed {
 	ATTACK,
@@ -9,28 +9,28 @@ export enum FightStatBuffed {
 	ENERGY,
 	DAMAGE,
 	SUMMON,
-	DAMAGE_BOOST,
+	DAMAGE_BOOST
 }
 
 export interface FightActionBuff {
-	selfTarget: boolean,
-	stat: FightStatBuffed
-	operator: FightStatModifierOperation,
-	value: number,
-	duration?: number
+	selfTarget: boolean;
+	stat: FightStatBuffed;
+	operator: FightStatModifierOperation;
+	value: number;
+	duration?: number;
 }
 
 export interface FightActionResult {
-	fail?: boolean,
-	buffs?: FightActionBuff[],
-	damages?: number,
-	attackStatus: FightActionStatus,
-	alterations?: FightAlterationApplied[],
-	customMessage?: boolean, // If true, the attack should be displayed with a custom message
+	fail?: boolean;
+	buffs?: FightActionBuff[];
+	damages?: number;
+	attackStatus: FightActionStatus;
+	alterations?: FightAlterationApplied[];
+	customMessage?: boolean; // If true, the attack should be displayed with a custom message
 	usedAction?: {
-		id: string,
-		result: FightActionResult
-	}
+		id: string;
+		result: FightActionResult;
+	};
 }
 
 /**
@@ -81,6 +81,6 @@ export function updateFightActionResultFromSuccessTest(result: FightActionResult
 }
 
 export interface FightAlterationApplied {
-	selfTarget: boolean,
-	alteration: string
+	selfTarget: boolean;
+	alteration: string;
 }

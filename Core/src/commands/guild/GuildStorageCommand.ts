@@ -1,10 +1,16 @@
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
-import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
+import {
+	DraftBotPacket, makePacket
+} from "../../../../Lib/src/packets/DraftBotPacket";
 import Player from "../../core/database/game/models/Player";
-import {CommandGuildStoragePacketReq, CommandGuildStoragePacketRes, FoodStorage} from "../../../../Lib/src/packets/commands/CommandGuildStoragePacket";
-import {Guilds} from "../../core/database/game/models/Guild";
-import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
-import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants";
+import {
+	CommandGuildStoragePacketReq, CommandGuildStoragePacketRes, FoodStorage
+} from "../../../../Lib/src/packets/commands/CommandGuildStoragePacket";
+import { Guilds } from "../../core/database/game/models/Guild";
+import { PetConstants } from "../../../../Lib/src/constants/PetConstants";
+import { GuildConstants } from "../../../../Lib/src/constants/GuildConstants";
 
 export default class GuildStorageCommand {
 	@commandRequires(CommandGuildStoragePacketReq, {

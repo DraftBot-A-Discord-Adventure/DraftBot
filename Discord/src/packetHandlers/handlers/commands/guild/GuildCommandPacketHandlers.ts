@@ -1,7 +1,7 @@
-import {packetHandler} from "../../../PacketHandler";
-import {CommandGuildPacketRes} from "../../../../../../Lib/src/packets/commands/CommandGuildPacket";
-import {PacketContext} from "../../../../../../Lib/src/packets/DraftBotPacket";
-import {handleCommandGuildPacketRes} from "../../../../commands/guild/GuildCommand";
+import { packetHandler } from "../../../PacketHandler";
+import { CommandGuildPacketRes } from "../../../../../../Lib/src/packets/commands/CommandGuildPacket";
+import { PacketContext } from "../../../../../../Lib/src/packets/DraftBotPacket";
+import { handleCommandGuildPacketRes } from "../../../../commands/guild/GuildCommand";
 
 export default class GuildCommandPacketHandlers {
 	@packetHandler(CommandGuildPacketRes)

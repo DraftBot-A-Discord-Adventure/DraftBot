@@ -1,7 +1,8 @@
-import {IMission, MissionParams} from "./IMission";
+import {
+	IMission, MissionParams
+} from "./IMission";
 
 export class MissionTag implements IMission {
-
 	public tagNames!: string[];
 
 	constructor(tagsToProc: string[]) {

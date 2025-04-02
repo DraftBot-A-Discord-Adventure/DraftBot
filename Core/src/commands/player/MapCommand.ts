@@ -1,10 +1,16 @@
-import {CommandMapDisplayRes, CommandMapPacketReq} from "../../../../Lib/src/packets/commands/CommandMapPacket";
-import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
-import {Player} from "../../core/database/game/models/Player";
-import {MapLocation} from "../../data/MapLocation";
-import {Language} from "../../../../Lib/src/Language";
-import {MapLinkDataController} from "../../data/MapLink";
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
+import {
+	CommandMapDisplayRes, CommandMapPacketReq
+} from "../../../../Lib/src/packets/commands/CommandMapPacket";
+import {
+	DraftBotPacket, makePacket
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { Player } from "../../core/database/game/models/Player";
+import { MapLocation } from "../../data/MapLocation";
+import { Language } from "../../../../Lib/src/Language";
+import { MapLinkDataController } from "../../data/MapLink";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
 
 /**
  * Get the map information for the player
@@ -14,9 +20,9 @@ import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
  * @param language
  */
 function getMapInformation(player: Player, destination: MapLocation, isInEvent: boolean, language: Language): {
-	name: string,
-	fallback?: string,
-	forced: boolean
+	name: string;
+	fallback?: string;
+	forced: boolean;
 } {
 	const mapLink = MapLinkDataController.instance.getById(destination.id);
 

@@ -1,9 +1,13 @@
-import {Fighter} from "../../../fighter/Fighter";
-import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
-import {PetAssistanceFunc} from "../../../../../data/PetAssistance";
-import {PetAssistanceResult, PetAssistanceState} from "../../../../../../../Lib/src/types/PetAssistanceResult";
-import {RandomUtils} from "../../../../../../../Lib/src/utils/RandomUtils";
-import {FightActionType} from "../../../../../../../Lib/src/types/FightActionType";
+import { Fighter } from "../../../fighter/Fighter";
+import {
+	attackInfo, FightActionController, statsInfo
+} from "../../FightActionController";
+import { PetAssistanceFunc } from "../../../../../data/PetAssistance";
+import {
+	PetAssistanceResult, PetAssistanceState
+} from "../../../../../../../Lib/src/types/PetAssistanceResult";
+import { RandomUtils } from "../../../../../../../Lib/src/utils/RandomUtils";
+import { FightActionType } from "../../../../../../../Lib/src/types/FightActionType";
 
 function getAttackInfo(): attackInfo {
 	return {
@@ -36,8 +40,10 @@ const use: PetAssistanceFunc = (fighter, opponent, _turn, _fightController): Pro
 		return null;
 	}
 
-	// If opponent last action was distance,
-	// Damages are halved because the pet is slipping too far away and status is set to failure
+	/*
+	 * If opponent last action was distance,
+	 * Damages are halved because the pet is slipping too far away and status is set to failure
+	 */
 	return Promise.resolve({
 		damages: Math.round(FightActionController.getAttackDamage(getStatsInfo(fighter, opponent), fighter, getAttackInfo())
 			* (opponent.getLastFightActionUsed().type === FightActionType.DISTANCE ? 0.3 : 1)),

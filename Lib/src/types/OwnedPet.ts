@@ -1,4 +1,4 @@
-import {SexTypeShort} from "../constants/StringConstants";
+import { SexTypeShort } from "../constants/StringConstants";
 
 export interface OwnedPet {
 	typeId: number;

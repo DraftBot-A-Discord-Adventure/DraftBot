@@ -1,9 +1,9 @@
-import {MissionDifficulty} from "./MissionDifficulty";
+import { MissionDifficulty } from "./MissionDifficulty";
 import Player from "../database/game/models/Player";
 
 export type MissionParams = {
 	[key: string]: unknown;
-}
+};
 
 export type IMission = {
 
@@ -36,4 +36,4 @@ export type IMission = {
 	 * @param params - identical to the update of the mission
 	 */
 	updateSaveBlob(variant: number, saveBlob: Buffer, params: MissionParams): Buffer;
-}
+};

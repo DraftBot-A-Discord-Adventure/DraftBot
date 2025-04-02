@@ -1,4 +1,6 @@
-import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
+import {
+	DraftBotPacket, PacketDirection, sendablePacket
+} from "../DraftBotPacket";
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class FightRewardPacket extends DraftBotPacket {
@@ -10,15 +12,15 @@ export class FightRewardPacket extends DraftBotPacket {
 		keycloakId: string;
 		oldGlory: number;
 		newGlory: number;
-		oldLeagueId: number
-		newLeagueId: number
+		oldLeagueId: number;
+		newLeagueId: number;
 	};
 
 	player2!: {
 		keycloakId: string;
 		oldGlory: number;
 		newGlory: number;
-		oldLeagueId: number
-		newLeagueId: number
+		oldLeagueId: number;
+		newLeagueId: number;
 	};
 }

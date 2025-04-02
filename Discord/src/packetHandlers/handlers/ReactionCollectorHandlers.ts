@@ -1,88 +1,94 @@
-import {packetHandler} from "../PacketHandler";
-import {PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import { packetHandler } from "../PacketHandler";
+import { PacketContext } from "../../../../Lib/src/packets/DraftBotPacket";
 import {
 	ReactionCollectorCreationPacket,
 	ReactionCollectorEnded
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {ReactionCollectorBigEventData} from "../../../../Lib/src/packets/interaction/ReactionCollectorBigEvent";
+import { ReactionCollectorBigEventData } from "../../../../Lib/src/packets/interaction/ReactionCollectorBigEvent";
 import {
 	chooseDestinationCollector,
 	createBigEventCollector,
 	handleStartPveFight
 } from "../../commands/player/ReportCommand";
-import {ReactionCollectorChooseDestinationData} from "../../../../Lib/src/packets/interaction/ReactionCollectorChooseDestination";
-import {ReactionCollectorGoToPVEIslandData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGoToPVEIsland";
-import {goToPVEIslandCollector} from "../../smallEvents/goToPVEIsland";
-import {ReactionCollectorLotteryData} from "../../../../Lib/src/packets/interaction/ReactionCollectorLottery";
-import {lotteryCollector} from "../../smallEvents/lottery";
-import {ReactionCollectorPetFreeData} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFree";
-import {createPetFreeCollector} from "../../commands/pet/PetFreeCommand";
-import {ReactionCollectorInteractOtherPlayersPoorData} from "../../../../Lib/src/packets/interaction/ReactionCollectorInteractOtherPlayers";
-import {interactOtherPlayersCollector} from "../../smallEvents/interactOtherPlayers";
-import {ReactionCollectorWitchData} from "../../../../Lib/src/packets/interaction/ReactionCollectorWitch";
-import {witchCollector} from "../../smallEvents/witch";
-import {ReactionCollectorItemChoiceData} from "../../../../Lib/src/packets/interaction/ReactionCollectorItemChoice";
-import {itemAcceptCollector, itemChoiceCollector} from "../../inventory/ItemCollectors";
-import {ReactionCollectorItemAcceptData} from "../../../../Lib/src/packets/interaction/ReactionCollectorItemAccept";
-import {ReactionCollectorGuildCreateData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildCreate";
-import {createGuildCreateCollector} from "../../commands/guild/GuildCreateCommand";
-import {ReactionCollectorGuildInviteData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildInvite.js";
-import {createGuildInviteCollector} from "../../commands/guild/GuildInviteCommand.js";
-import {ReactionCollectorShopData} from "../../../../Lib/src/packets/interaction/ReactionCollectorShop";
-import {shopCollector, shopInventoryExtensionCollector} from "../../commands/player/ShopCommand";
-import {ReactionCollectorBuyCategorySlotData} from "../../../../Lib/src/packets/interaction/ReactionCollectorBuyCategorySlot";
-import {ReactionCollectorCartData} from "../../../../Lib/src/packets/interaction/ReactionCollectorCart";
-import {cartCollector} from "../../smallEvents/cart";
-import {ReactionCollectorFightPetData} from "../../../../Lib/src/packets/interaction/ReactionCollectorFightPet";
-import {fightPetCollector} from "../../smallEvents/fightPet";
-import {ReactionCollectorGuildKickData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildKick";
-import {createGuildKickCollector} from "../../commands/guild/GuildKickCommand";
-import {ReactionCollectorGobletsGameData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGobletsGame";
-import {gobletsGameCollector} from "../../smallEvents/gobletsGame";
-import {createUnlockCollector} from "../../commands/player/UnlockCommand";
-import {ReactionCollectorUnlockData} from "../../../../Lib/src/packets/interaction/ReactionCollectorUnlock";
-import {smallShopCollector} from "../../smallEvents/shop";
-import {epicItemShopCollector} from "../../smallEvents/epicItemShop";
-import {ReactionCollectorEpicShopSmallEventData} from "../../../../Lib/src/packets/interaction/ReactionCollectorEpicShopSmallEvent";
-import {ReactionCollectorShopSmallEventData} from "../../../../Lib/src/packets/interaction/ReactionCollectorShopSmallEvent";
-import {ReactionCollectorSkipMissionShopItemData} from "../../../../Lib/src/packets/interaction/ReactionCollectorSkipMissionShopItem";
-import {skipMissionShopItemCollector} from "../../commands/mission/MissionShop";
-import {createGuildElderCollector} from "../../commands/guild/GuildElderCommand";
-import {ReactionCollectorGuildElderData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildElder";
-import {createFightCollector, handleCommandFightActionChoose} from "../../commands/player/FightCommand";
-import {ReactionCollectorFightData} from "../../../../Lib/src/packets/interaction/ReactionCollectorFight";
-import {ReactionCollectorGuildLeaveData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildLeave";
-import {createGuildLeaveCollector} from "../../commands/guild/GuildLeaveCommand";
-import {ReactionCollectorSwitchItemData} from "../../../../Lib/src/packets/interaction/ReactionCollectorSwitchItem";
-import {switchItemCollector} from "../../commands/player/SwitchCommand";
-import {ReactionCollectorGuildElderRemoveData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildElderRemove";
-import {createGuildElderRemoveCollector} from "../../commands/guild/GuildElderRemoveCommand";
-import {ReactionCollectorGuildDescriptionData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildDescription";
-import {createGuildDescriptionCollector} from "../../commands/guild/GuildDescriptionCommand";
-import {ReactionCollectorDrinkData} from "../../../../Lib/src/packets/interaction/ReactionCollectorDrink";
-import {drinkAcceptCollector} from "../../commands/player/DrinkCommand";
-import {ReactionCollectorPetSellData} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetSell";
-import {createPetSellCollector} from "../../commands/pet/PetSellCommand";
-import {Collector} from "discord.js";
-import {ReactionCollectorStopPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorStopPacket";
-import {ReactionCollectorResetTimerPacketRes} from "../../../../Lib/src/packets/interaction/ReactionCollectorResetTimer";
-import {ReactionCollectorChangeClassData} from "../../../../Lib/src/packets/interaction/ReactionCollectorChangeClass";
-import {handleChangeClassReactionCollector} from "../../commands/player/ClassesCommand";
-import {ReactionCollectorSellData} from "../../../../Lib/src/packets/interaction/ReactionCollectorSell";
-import {handleSellReactionCollector} from "../../commands/player/SellCommand";
-import {ReactionCollectorFightChooseActionData} from "../../../../Lib/src/packets/interaction/ReactionCollectorFightChooseAction";
-import {handlePetTransferReactionCollector} from "../../commands/pet/PetTransferCommand";
-import {ReactionCollectorPetTransferData} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetTransfer";
-import {ReactionCollectorPetFeedWithGuildData} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFeedWithGuild";
+import { ReactionCollectorChooseDestinationData } from "../../../../Lib/src/packets/interaction/ReactionCollectorChooseDestination";
+import { ReactionCollectorGoToPVEIslandData } from "../../../../Lib/src/packets/interaction/ReactionCollectorGoToPVEIsland";
+import { goToPVEIslandCollector } from "../../smallEvents/goToPVEIsland";
+import { ReactionCollectorLotteryData } from "../../../../Lib/src/packets/interaction/ReactionCollectorLottery";
+import { lotteryCollector } from "../../smallEvents/lottery";
+import { ReactionCollectorPetFreeData } from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFree";
+import { createPetFreeCollector } from "../../commands/pet/PetFreeCommand";
+import { ReactionCollectorInteractOtherPlayersPoorData } from "../../../../Lib/src/packets/interaction/ReactionCollectorInteractOtherPlayers";
+import { interactOtherPlayersCollector } from "../../smallEvents/interactOtherPlayers";
+import { ReactionCollectorWitchData } from "../../../../Lib/src/packets/interaction/ReactionCollectorWitch";
+import { witchCollector } from "../../smallEvents/witch";
+import { ReactionCollectorItemChoiceData } from "../../../../Lib/src/packets/interaction/ReactionCollectorItemChoice";
+import {
+	itemAcceptCollector, itemChoiceCollector
+} from "../../inventory/ItemCollectors";
+import { ReactionCollectorItemAcceptData } from "../../../../Lib/src/packets/interaction/ReactionCollectorItemAccept";
+import { ReactionCollectorGuildCreateData } from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildCreate";
+import { createGuildCreateCollector } from "../../commands/guild/GuildCreateCommand";
+import { ReactionCollectorGuildInviteData } from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildInvite.js";
+import { createGuildInviteCollector } from "../../commands/guild/GuildInviteCommand.js";
+import { ReactionCollectorShopData } from "../../../../Lib/src/packets/interaction/ReactionCollectorShop";
+import {
+	shopCollector, shopInventoryExtensionCollector
+} from "../../commands/player/ShopCommand";
+import { ReactionCollectorBuyCategorySlotData } from "../../../../Lib/src/packets/interaction/ReactionCollectorBuyCategorySlot";
+import { ReactionCollectorCartData } from "../../../../Lib/src/packets/interaction/ReactionCollectorCart";
+import { cartCollector } from "../../smallEvents/cart";
+import { ReactionCollectorFightPetData } from "../../../../Lib/src/packets/interaction/ReactionCollectorFightPet";
+import { fightPetCollector } from "../../smallEvents/fightPet";
+import { ReactionCollectorGuildKickData } from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildKick";
+import { createGuildKickCollector } from "../../commands/guild/GuildKickCommand";
+import { ReactionCollectorGobletsGameData } from "../../../../Lib/src/packets/interaction/ReactionCollectorGobletsGame";
+import { gobletsGameCollector } from "../../smallEvents/gobletsGame";
+import { createUnlockCollector } from "../../commands/player/UnlockCommand";
+import { ReactionCollectorUnlockData } from "../../../../Lib/src/packets/interaction/ReactionCollectorUnlock";
+import { smallShopCollector } from "../../smallEvents/shop";
+import { epicItemShopCollector } from "../../smallEvents/epicItemShop";
+import { ReactionCollectorEpicShopSmallEventData } from "../../../../Lib/src/packets/interaction/ReactionCollectorEpicShopSmallEvent";
+import { ReactionCollectorShopSmallEventData } from "../../../../Lib/src/packets/interaction/ReactionCollectorShopSmallEvent";
+import { ReactionCollectorSkipMissionShopItemData } from "../../../../Lib/src/packets/interaction/ReactionCollectorSkipMissionShopItem";
+import { skipMissionShopItemCollector } from "../../commands/mission/MissionShop";
+import { createGuildElderCollector } from "../../commands/guild/GuildElderCommand";
+import { ReactionCollectorGuildElderData } from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildElder";
+import {
+	createFightCollector, handleCommandFightActionChoose
+} from "../../commands/player/FightCommand";
+import { ReactionCollectorFightData } from "../../../../Lib/src/packets/interaction/ReactionCollectorFight";
+import { ReactionCollectorGuildLeaveData } from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildLeave";
+import { createGuildLeaveCollector } from "../../commands/guild/GuildLeaveCommand";
+import { ReactionCollectorSwitchItemData } from "../../../../Lib/src/packets/interaction/ReactionCollectorSwitchItem";
+import { switchItemCollector } from "../../commands/player/SwitchCommand";
+import { ReactionCollectorGuildElderRemoveData } from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildElderRemove";
+import { createGuildElderRemoveCollector } from "../../commands/guild/GuildElderRemoveCommand";
+import { ReactionCollectorGuildDescriptionData } from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildDescription";
+import { createGuildDescriptionCollector } from "../../commands/guild/GuildDescriptionCommand";
+import { ReactionCollectorDrinkData } from "../../../../Lib/src/packets/interaction/ReactionCollectorDrink";
+import { drinkAcceptCollector } from "../../commands/player/DrinkCommand";
+import { ReactionCollectorPetSellData } from "../../../../Lib/src/packets/interaction/ReactionCollectorPetSell";
+import { createPetSellCollector } from "../../commands/pet/PetSellCommand";
+import { Collector } from "discord.js";
+import { ReactionCollectorStopPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorStopPacket";
+import { ReactionCollectorResetTimerPacketRes } from "../../../../Lib/src/packets/interaction/ReactionCollectorResetTimer";
+import { ReactionCollectorChangeClassData } from "../../../../Lib/src/packets/interaction/ReactionCollectorChangeClass";
+import { handleChangeClassReactionCollector } from "../../commands/player/ClassesCommand";
+import { ReactionCollectorSellData } from "../../../../Lib/src/packets/interaction/ReactionCollectorSell";
+import { handleSellReactionCollector } from "../../commands/player/SellCommand";
+import { ReactionCollectorFightChooseActionData } from "../../../../Lib/src/packets/interaction/ReactionCollectorFightChooseAction";
+import { handlePetTransferReactionCollector } from "../../commands/pet/PetTransferCommand";
+import { ReactionCollectorPetTransferData } from "../../../../Lib/src/packets/interaction/ReactionCollectorPetTransfer";
+import { ReactionCollectorPetFeedWithGuildData } from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFeedWithGuild";
 import {
 	handleCommandPetFeedWithGuildCollector,
 	handleCommandPetFeedWithoutGuildCollector
 } from "../../commands/pet/PetFeedCommand";
-import {ReactionCollectorPetFeedWithoutGuildData} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFeedWithoutGuild";
-import {createJoinBoatCollector} from "../../commands/player/JoinBoatCommand";
-import {ReactionCollectorJoinBoatData} from "../../../../Lib/src/packets/interaction/ReactionCollectorJoinBoat";
-import {ReactionCollectorPveFightData} from "../../../../Lib/src/packets/interaction/ReactionCollectorPveFight";
-import {handleClassicError} from "../../utils/ErrorUtils";
+import { ReactionCollectorPetFeedWithoutGuildData } from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFeedWithoutGuild";
+import { createJoinBoatCollector } from "../../commands/player/JoinBoatCommand";
+import { ReactionCollectorJoinBoatData } from "../../../../Lib/src/packets/interaction/ReactionCollectorJoinBoat";
+import { ReactionCollectorPveFightData } from "../../../../Lib/src/packets/interaction/ReactionCollectorPveFight";
+import { handleClassicError } from "../../utils/ErrorUtils";
 
 // Needed because we need to accept any parameter
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -162,7 +168,7 @@ export default class ReactionCollectorHandler {
 			console.warn(`Collector stop received for collector with ID ${packet.id} but no collector was found with this ID`);
 			return;
 		}
-		collector.forEach((c) => {
+		collector.forEach(c => {
 			if (c.ended) {
 				console.warn(`Collector stop received for collector with ID ${packet.id} but collector was already stopped`);
 				return;
@@ -185,7 +191,7 @@ export default class ReactionCollectorHandler {
 			console.warn(`Collector reset timer received for collector with ID ${packet.reactionCollectorId} but no collector was found with this ID`);
 			return;
 		}
-		collector.forEach((c) => {
+		collector.forEach(c => {
 			if (c.ended) {
 				console.warn(`Collector reset timer received for collector with ID ${packet.reactionCollectorId} but collector was already stopped`);
 				return;

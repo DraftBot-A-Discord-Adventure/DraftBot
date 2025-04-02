@@ -1,13 +1,17 @@
-import {Client, Guild, IntentsBitField, Partials, TextChannel} from "discord.js";
-import {Constants} from "../../../Lib/src/constants/Constants";
-import {loadConfig} from "../config/DiscordConfig";
+import {
+	Client, Guild, IntentsBitField, Partials, TextChannel
+} from "discord.js";
+import { Constants } from "../../../Lib/src/constants/Constants";
+import { loadConfig } from "../config/DiscordConfig";
 import i18n from "../translations/i18n";
-import {BotUtils} from "../utils/BotUtils";
-import {KeycloakConfig} from "../../../Lib/src/keycloak/KeycloakConfig";
-import {CommandsManager} from "../commands/CommandsManager";
-import {DiscordMQTT} from "./DiscordMQTT";
-import {LANGUAGE, Language} from "../../../Lib/src/Language";
-import {DiscordDatabase} from "../database/discord/DiscordDatabase";
+import { BotUtils } from "../utils/BotUtils";
+import { KeycloakConfig } from "../../../Lib/src/keycloak/KeycloakConfig";
+import { CommandsManager } from "../commands/CommandsManager";
+import { DiscordMQTT } from "./DiscordMQTT";
+import {
+	LANGUAGE, Language
+} from "../../../Lib/src/Language";
+import { DiscordDatabase } from "../database/discord/DiscordDatabase";
 
 process.on("uncaughtException", function(error) {
 	console.log(error);
@@ -30,7 +34,9 @@ export const keycloakConfig: KeycloakConfig = {
 export let shardId = -1;
 export const discordDatabase = new DiscordDatabase();
 
-process.on("message", async (message: { type: string, data: { shardId: number } }) => {
+process.on("message", async (message: {
+	type: string; data: { shardId: number };
+}) => {
 	if (!message.type) {
 		return false;
 	}
@@ -57,21 +63,25 @@ export abstract class Intents {
 		[
 			IntentsBitField.Flags.Guilds, // We need it for roles
 			IntentsBitField.Flags.GuildMembers, // For tops
-			// IntentsBitField.Flags.GuildBans, // We do not need to ban anyone
-			// IntentsBitField.Flags.GuildEmojisAndStickers, // We do not need to manage emojis nor stickers
-			// IntentsBitField.Flags.GuildIntegrations, // we do not need to manage integrations
-			// IntentsBitField.Flags.GuildWebhooks, // We do not need webhook
-			// IntentsBitField.Flags.GuildInvites, // We do not need to manage guild invites
-			// IntentsBitField.Flags.GuildVoiceStates, // We do not need to manage voice channels
-			// IntentsBitField.Flags.GuildPresences, // We do not need to manage presences
+			/*
+			 * IntentsBitField.Flags.GuildBans, // We do not need to ban anyone
+			 * IntentsBitField.Flags.GuildEmojisAndStickers, // We do not need to manage emojis nor stickers
+			 * IntentsBitField.Flags.GuildIntegrations, // we do not need to manage integrations
+			 * IntentsBitField.Flags.GuildWebhooks, // We do not need webhook
+			 * IntentsBitField.Flags.GuildInvites, // We do not need to manage guild invites
+			 * IntentsBitField.Flags.GuildVoiceStates, // We do not need to manage voice channels
+			 * IntentsBitField.Flags.GuildPresences, // We do not need to manage presences
+			 */
 			IntentsBitField.Flags.GuildMessages, // We need to receive, send, update and delete messages
 			IntentsBitField.Flags.GuildMessageReactions, // We need to add reactions
 			// IntentsBitField.Flags.GuildMessageTyping, // We do not need to see who's typing
 			IntentsBitField.Flags.DirectMessages, // We need to send and receive direct messages
 			IntentsBitField.Flags.DirectMessageReactions // We need to receive direct messages reaction
-			// IntentsBitField.Flags.DirectMessageTyping, // We do not need to see who is currently writing to the bots dms
-			// IntentsBitField.Flags.MessageContent, // We do not need to manage other's message content
-			// IntentsBitField.Flags.GuildScheduledEvents // We do not need to see a guild's events
+			/*
+			 * IntentsBitField.Flags.DirectMessageTyping, // We do not need to see who is currently writing to the bots dms
+			 * IntentsBitField.Flags.MessageContent, // We do not need to manage other's message content
+			 * IntentsBitField.Flags.GuildScheduledEvents // We do not need to see a guild's events
+			 */
 		];
 }
 
@@ -83,7 +93,7 @@ async function main(): Promise<void> {
 	const client = new Client(
 		{
 			intents: Intents.LIST,
-			allowedMentions: {parse: ["users", "roles"]},
+			allowedMentions: { parse: ["users", "roles"] },
 			partials: [Partials.Message, Partials.Channel],
 			rest: {
 				offset: 0,
@@ -100,7 +110,9 @@ async function main(): Promise<void> {
 	 * @returns
 	 */
 	function getJoinLeaveMessage(guild: Guild, join: boolean, lng: Language): string {
-		const {validation, humans, bots, ratio} = BotUtils.getValidationInfos(guild);
+		const {
+			validation, humans, bots, ratio
+		} = BotUtils.getValidationInfos(guild);
 		return i18n.t(join ? "bot:joinGuild" : "bot:leaveGuild", {
 			guild: guild.name,
 			humans,

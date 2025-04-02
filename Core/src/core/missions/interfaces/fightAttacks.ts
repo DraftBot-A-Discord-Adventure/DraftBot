@@ -1,7 +1,7 @@
-import {IMission} from "../IMission";
-import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
-import {FightActionController} from "../../fights/actions/FightActionController";
-import {ClassDataController} from "../../../data/Class";
+import { IMission } from "../IMission";
+import { RandomUtils } from "../../../../../Lib/src/utils/RandomUtils";
+import { FightActionController } from "../../fights/actions/FightActionController";
+import { ClassDataController } from "../../../data/Class";
 
 export const missionInterface: IMission = {
 	areParamsMatchingVariantAndBlob: (variant, params) => params.attackType === FightActionController.variantToFightActionId(variant),

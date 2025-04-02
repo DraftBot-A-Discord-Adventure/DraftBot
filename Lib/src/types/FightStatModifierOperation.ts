@@ -1,5 +1,5 @@
 export enum FightStatModifierOperation {
-    ADDITION,
-    MULTIPLIER,
-    SET_VALUE
+	ADDITION,
+	MULTIPLIER,
+	SET_VALUE
 }

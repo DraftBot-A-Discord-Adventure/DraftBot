@@ -1,4 +1,6 @@
-import {DataTypes, Model, Sequelize} from "sequelize";
+import {
+	DataTypes, Model, Sequelize
+} from "sequelize";
 
 export class LogsDailyTimeouts extends Model {
 	declare readonly petLoveChange: boolean;

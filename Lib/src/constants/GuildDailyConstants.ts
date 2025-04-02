@@ -1,5 +1,4 @@
 export abstract class GuildDailyConstants {
-
 	static readonly REWARD_TYPES = {
 		PERSONAL_XP: "personalXP",
 		GUILD_XP: "guildXP",

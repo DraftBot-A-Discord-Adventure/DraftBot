@@ -1,5 +1,7 @@
-import {Sequelize} from "sequelize";
-import {LogsShopBuyouts, logsShopLoggingAttributes} from "./LogsShopBuyouts";
+import { Sequelize } from "sequelize";
+import {
+	LogsShopBuyouts, logsShopLoggingAttributes
+} from "./LogsShopBuyouts";
 
 export class LogsClassicalShopBuyouts extends LogsShopBuyouts {
 }

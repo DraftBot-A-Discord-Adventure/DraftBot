@@ -7,9 +7,9 @@ import {
 } from "./ReactionCollectorPacket";
 
 type DisplayedDestination = {
-	isDisplayed: boolean,
-	id?: number,
-	type?: string
+	isDisplayed: boolean;
+	id?: number;
+	type?: string;
 };
 
 export class ReactionCollectorCartData extends ReactionCollectorData {

@@ -1,6 +1,6 @@
 import "../index"; // Import so it will verify decorators if we use DraftBotPacket
-import {Language} from "../Language";
-import {RightGroup} from "../types/RightGroup";
+import { Language } from "../Language";
+import { RightGroup } from "../types/RightGroup";
 
 const AllPackets = new Map<string, PacketDirection>();
 
@@ -28,14 +28,14 @@ export interface PacketContext {
 	keycloakId?: string;
 
 	discord?: {
-		user: string,
-		interaction: string,
-		buttonInteraction?: string,
-		stringSelectMenuInteraction?: string,
-		channel: string,
-		language: Language,
-		shardId: number
-	}
+		user: string;
+		interaction: string;
+		buttonInteraction?: string;
+		stringSelectMenuInteraction?: string;
+		channel: string;
+		language: Language;
+		shardId: number;
+	};
 
 	rightGroups?: RightGroup[];
 }
@@ -45,7 +45,7 @@ export interface PacketLike<Packet extends DraftBotPacket> {
 }
 
 
-export function makePacket<Packet extends DraftBotPacket>(PacketObject: PacketLike<Packet>, {...args}: Packet): Packet {
+export function makePacket<Packet extends DraftBotPacket>(PacketObject: PacketLike<Packet>, { ...args }: Packet): Packet {
 	const instance = new PacketObject();
 	Object.assign(instance, args);
 	return instance;

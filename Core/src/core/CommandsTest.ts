@@ -1,7 +1,11 @@
-import {readdir} from "fs/promises";
-import {readdirSync} from "fs";
-import {isAnEmoji, isAnId} from "../../../Lib/src/utils/StringUtils";
-import {DraftBotPacket, PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
+import { readdir } from "fs/promises";
+import { readdirSync } from "fs";
+import {
+	isAnEmoji, isAnId
+} from "../../../Lib/src/utils/StringUtils";
+import {
+	DraftBotPacket, PacketContext
+} from "../../../Lib/src/packets/DraftBotPacket";
 import Player from "./database/game/models/Player";
 
 type Checker = (v: string) => boolean;
@@ -36,13 +40,13 @@ export function formatTypeWaited(typeWaited: TypeKey): string {
 }
 
 export interface ITestCommand {
-	name: string,
-	aliases?: string[],
-	commandFormat?: string,
-	typeWaited?: { [argName: string]: TypeKey }
-	description: string,
-	execute?: ExecuteTestCommandLike,
-	category?: string
+	name: string;
+	aliases?: string[];
+	commandFormat?: string;
+	typeWaited?: { [argName: string]: TypeKey };
+	description: string;
+	execute?: ExecuteTestCommandLike;
+	category?: string;
 }
 
 export type ExecuteTestCommandLike = (player: Player, args: string[], response: DraftBotPacket[], context: PacketContext) => string | Promise<string>;
@@ -78,7 +82,9 @@ export class CommandsTest {
 	static isGoodFormat(
 		commandTest: ITestCommand,
 		args: string[]
-	): { good: boolean, description: string } {
+	): {
+			good: boolean; description: string;
+		} {
 		const ret = {
 			good: true,
 			description: ""
@@ -135,6 +141,7 @@ export class CommandsTest {
 				tabCommandReturn.push(testCommand);
 			}
 		}
+
 		// Remove duplicates
 		return tabCommandReturn.filter((elem, pos) => tabCommandReturn.indexOf(elem) === pos);
 	}

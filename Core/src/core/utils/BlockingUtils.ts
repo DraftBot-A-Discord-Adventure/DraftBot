@@ -1,13 +1,19 @@
-import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
-import {BlockedPacket} from "../../../../Lib/src/packets/commands/BlockedPacket";
-import {BlockingConstants, BlockingReason} from "../../../../Lib/src/constants/BlockingConstants";
-import {ChangeBlockingReasonPacket} from "../../../../Lib/src/packets/utils/ChangeBlockingReasonPacket";
+import {
+	DraftBotPacket, makePacket
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { BlockedPacket } from "../../../../Lib/src/packets/commands/BlockedPacket";
+import {
+	BlockingConstants, BlockingReason
+} from "../../../../Lib/src/constants/BlockingConstants";
+import { ChangeBlockingReasonPacket } from "../../../../Lib/src/packets/utils/ChangeBlockingReasonPacket";
 
 /**
  * Functions to call when you want to manage the blocking of a player
  */
 export class BlockingUtils {
-	private static blockedPlayers: Map<string, { reason: BlockingReason, limitTimestamp: number }[]> = new Map();
+	private static blockedPlayers: Map<string, {
+		reason: BlockingReason; limitTimestamp: number;
+	}[]> = new Map();
 
 	/**
 	 * Block a player with a given reason and time
@@ -84,7 +90,9 @@ export class BlockingUtils {
 	static appendBlockedPacket(keycloakId: string, packets: DraftBotPacket[]): boolean {
 		const blockingReason = BlockingUtils.getPlayerBlockingReason(keycloakId);
 		if (blockingReason.length !== 0) {
-			packets.push(makePacket(BlockedPacket, {keycloakId, reasons: blockingReason}));
+			packets.push(makePacket(BlockedPacket, {
+				keycloakId, reasons: blockingReason
+			}));
 			return true;
 		}
 

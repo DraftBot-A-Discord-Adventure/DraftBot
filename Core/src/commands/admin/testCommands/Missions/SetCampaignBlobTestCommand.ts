@@ -1,6 +1,8 @@
-import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
-import {PlayerMissionsInfos} from "../../../../core/database/game/models/PlayerMissionsInfo";
-import {Campaign} from "../../../../core/missions/Campaign";
+import {
+	ExecuteTestCommandLike, ITestCommand, TypeKey
+} from "../../../../core/CommandsTest";
+import { PlayerMissionsInfos } from "../../../../core/database/game/models/PlayerMissionsInfo";
+import { Campaign } from "../../../../core/missions/Campaign";
 
 export const commandInfo: ITestCommand = {
 	name: "setCampaignBlob",

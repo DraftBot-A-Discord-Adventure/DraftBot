@@ -1,5 +1,7 @@
-import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
-import {ClassStats} from "../../types/ClassStats";
+import {
+	DraftBotPacket, PacketDirection, sendablePacket
+} from "../DraftBotPacket";
+import { ClassStats } from "../../types/ClassStats";
 
 /**
  * Packet sent by the bot to gather information about selectable classes
@@ -19,8 +21,8 @@ export class CommandClassesInfoPacketRes extends DraftBotPacket {
 			id: number;
 			stats: ClassStats;
 			attacks: {
-				id: string,
-				cost: number
+				id: string;
+				cost: number;
 			}[];
 		}[];
 	};

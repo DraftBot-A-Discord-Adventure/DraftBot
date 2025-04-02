@@ -1,10 +1,12 @@
 import * as i18next from "i18next";
-import {Language, LANGUAGE} from "../../../Lib/src/Language";
-import {readdirSync} from "fs";
-import {resolve} from "path";
-import {BotUtils} from "../utils/BotUtils";
-import {EmoteUtils} from "../utils/EmoteUtils";
-import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
+import {
+	Language, LANGUAGE
+} from "../../../Lib/src/Language";
+import { readdirSync } from "fs";
+import { resolve } from "path";
+import { BotUtils } from "../utils/BotUtils";
+import { EmoteUtils } from "../utils/EmoteUtils";
+import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
 
 function getI18nOptions(): i18next.InitOptions<unknown> {
 	const resources: i18next.Resource = {};
@@ -47,7 +49,7 @@ type EmotePathFolder = Record<string, unknown> | string[];
 type EmotePath = EmotePathFolder | string;
 
 export type TranslationOption = {
-	lng: Language
+	lng: Language;
 } & i18next.TOptions;
 
 /**
@@ -84,15 +86,14 @@ i18next.init(getI18nOptions())
 	.then();
 
 export class I18nDraftbot {
-
 	/**
 	 * Translate the given key with the given options and returns all the objects found
 	 * @param key
 	 * @param options
 	 */
 	static t(key: string | string[], options: {
-		lng: Language,
-		returnObjects: true
+		lng: Language;
+		returnObjects: true;
 	} & i18next.TOptions): string[];
 
 	/**
@@ -101,8 +102,8 @@ export class I18nDraftbot {
 	 * @param options
 	 */
 	static t(key: string | string[], options: {
-		lng: Language,
-		returnObjects?: false
+		lng: Language;
+		returnObjects?: false;
 	} & i18next.TOptions): string;
 
 	/**

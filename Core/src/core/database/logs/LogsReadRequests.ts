@@ -1,12 +1,14 @@
-import {LogsDailyPotions} from "./models/LogsDailyPotions";
-import {LogsClassicalShopBuyouts} from "./models/LogsClassicalShopBuyouts";
-import {HasOne, Op} from "sequelize";
-import {ShopItemType} from "../../../../../Lib/src/constants/LogsConstants";
-import {LogsDatabase} from "./LogsDatabase";
-import {LogsPlayersPossibilities} from "./models/LogsPlayersPossibilities";
-import {LogsPossibilities} from "./models/LogsPossibilities";
-import {LogsPlayers} from "./models/LogsPlayers";
-import {LogsPlayersTravels} from "./models/LogsPlayersTravels";
+import { LogsDailyPotions } from "./models/LogsDailyPotions";
+import { LogsClassicalShopBuyouts } from "./models/LogsClassicalShopBuyouts";
+import {
+	HasOne, Op
+} from "sequelize";
+import { ShopItemType } from "../../../../../Lib/src/constants/LogsConstants";
+import { LogsDatabase } from "./LogsDatabase";
+import { LogsPlayersPossibilities } from "./models/LogsPlayersPossibilities";
+import { LogsPossibilities } from "./models/LogsPossibilities";
+import { LogsPlayers } from "./models/LogsPlayers";
+import { LogsPlayersTravels } from "./models/LogsPlayersTravels";
 import {
 	dateToLogs,
 	getNextSaturdayMidnight,
@@ -15,37 +17,36 @@ import {
 	hoursToMilliseconds,
 	minutesToMilliseconds
 } from "../../../../../Lib/src/utils/TimeUtils";
-import {LogsMapLinks} from "./models/LogsMapLinks";
-import {MapConstants} from "../../../../../Lib/src/constants/MapConstants";
-import {LogsFightsResults} from "./models/LogsFightsResults";
-import {LogsSeasonEnd} from "./models/LogsSeasonEnd";
-import {LogsPlayerLeagueReward} from "./models/LogsPlayerLeagueReward";
-import {LogsPlayersClassChanges} from "./models/LogsPlayersClassChanges";
+import { LogsMapLinks } from "./models/LogsMapLinks";
+import { MapConstants } from "../../../../../Lib/src/constants/MapConstants";
+import { LogsFightsResults } from "./models/LogsFightsResults";
+import { LogsSeasonEnd } from "./models/LogsSeasonEnd";
+import { LogsPlayerLeagueReward } from "./models/LogsPlayerLeagueReward";
+import { LogsPlayersClassChanges } from "./models/LogsPlayersClassChanges";
 import Player from "../game/models/Player";
-import {MapCache} from "../../maps/MapCache";
-import {PVEConstants} from "../../../../../Lib/src/constants/PVEConstants";
-import {LogsGuildsJoins} from "./models/LogsGuildJoins";
-import {LogsGuilds} from "./models/LogsGuilds";
-import {MapLocationDataController} from "../../../data/MapLocation";
+import { MapCache } from "../../maps/MapCache";
+import { PVEConstants } from "../../../../../Lib/src/constants/PVEConstants";
+import { LogsGuildsJoins } from "./models/LogsGuildJoins";
+import { LogsGuilds } from "./models/LogsGuilds";
+import { MapLocationDataController } from "../../../data/MapLocation";
 
 export type RankedFightResult = {
-	won: number,
-	lost: number,
-	draw: number
+	won: number;
+	lost: number;
+	draw: number;
 };
 
 export type PersonalFightDailySummary = {
-	won: number,
-	draw: number,
-	played: number,
-}
+	won: number;
+	draw: number;
+	played: number;
+};
 
 /**
  * This class is used to read some information in the log database in case it is needed for gameplay purposes
  */
 
 export class LogsReadRequests {
-
 	static async getLastTimeThePlayerHasEditedHisClass(playerKeycloakId: string): Promise<Date> {
 		const logPlayer = await LogsDatabase.findOrCreatePlayer(playerKeycloakId);
 		return LogsPlayersClassChanges.findOne({
@@ -55,7 +56,7 @@ export class LogsReadRequests {
 			order: [["date", "DESC"]],
 			limit: 1
 		})
-			.then((res) => new Date(res ? res.date * 1000 : 0));
+			.then(res => new Date(res ? res.date * 1000 : 0));
 	}
 
 	/**
@@ -83,6 +84,7 @@ export class LogsReadRequests {
 		if (!player.guildId) { // Player has no guild
 			return Promise.resolve([]);
 		}
+
 		// Get all the players in the guild excluding the player
 		const playersInGuild = await Player.findAll({
 			where: {
@@ -92,8 +94,10 @@ export class LogsReadRequests {
 				}
 			}
 		});
+
 		// Extract ids from players
-		const ids = playersInGuild.map((player) => player.keycloakId);
+		const ids = playersInGuild.map(player => player.keycloakId);
+
 		// Convert the players to log players
 		const logsPlayers = await LogsPlayers.findAll({
 			where: {
@@ -102,8 +106,10 @@ export class LogsReadRequests {
 				}
 			}
 		});
+
 		// Extract ids from players
-		const logsPlayersIds = logsPlayers.map((logsPlayer) => logsPlayer.id);
+		const logsPlayersIds = logsPlayers.map(logsPlayer => logsPlayer.id);
+
 		// Get travels from the last hours of guildsMembers
 		const travelsInPveIsland = await LogsPlayersTravels.findAll({
 			where: {
@@ -118,23 +124,25 @@ export class LogsReadRequests {
 				}
 			},
 			group: ["playerId"],
-			include: [{
-				model: LogsPlayers,
-				association: new HasOne(LogsPlayersTravels, LogsPlayers, {
-					sourceKey: "playerId",
-					foreignKey: "id",
-					as: "LogsPlayer1"
-				})
-			}]
+			include: [
+				{
+					model: LogsPlayers,
+					association: new HasOne(LogsPlayersTravels, LogsPlayers, {
+						sourceKey: "playerId",
+						foreignKey: "id",
+						as: "LogsPlayer1"
+					})
+				}
+			]
 		}) as unknown as {
 			LogsPlayer1: {
-				keycloakId: string
-			}
+				keycloakId: string;
+			};
 		}[];
 		return await Player.findAll({
 			where: {
 				keycloakId: {
-					[Op.in]: travelsInPveIsland.map((travelsInPveIsland) => travelsInPveIsland.LogsPlayer1.keycloakId)
+					[Op.in]: travelsInPveIsland.map(travelsInPveIsland => travelsInPveIsland.LogsPlayer1.keycloakId)
 				}
 			}
 		});
@@ -170,7 +178,7 @@ export class LogsReadRequests {
 			where: {
 				playerId: logPlayer.id
 			}
-		}).then((result) => result?.date ?? null);
+		}).then(result => result?.date ?? null);
 	}
 
 	/**
@@ -184,7 +192,7 @@ export class LogsReadRequests {
 			where: {
 				bigEventId: eventId
 			}
-		})).map((possibility) => possibility.id);
+		})).map(possibility => possibility.id);
 
 		// Get logs player id
 		const playerId = (await LogsPlayers.findOne({
@@ -265,10 +273,10 @@ export class LogsReadRequests {
 
 		const resultsWithPlayer2 = results as (typeof results[0] & LogsFightsResultsWithPlayer2)[];
 		const foundKeycloakIds = new Set(
-			resultsWithPlayer2.map((result) => result.LogsPlayer2.keycloakId)
+			resultsWithPlayer2.map(result => result.LogsPlayer2.keycloakId)
 		);
 		return Object.fromEntries(
-			playerKeycloakIds.map((id) => [id, foundKeycloakIds.has(id)])
+			playerKeycloakIds.map(id => [id, foundKeycloakIds.has(id)])
 		);
 	}
 
@@ -282,19 +290,21 @@ export class LogsReadRequests {
 		// Find all ranked (non-friendly) fights for today initiated by the player
 		const fights = await LogsFightsResults.findAll({
 			where: {
-				date: {[Op.gt]: startTimestamp},
-				friendly: false,
+				"date": { [Op.gt]: startTimestamp },
+				"friendly": false,
 				"$LogsPlayer1.keycloakId$": playerKeycloakId
 			},
-			include: [{
-				model: LogsPlayers,
-				association: new HasOne(LogsFightsResults, LogsPlayers, {
-					sourceKey: "fightInitiatorId",
-					foreignKey: "id",
-					as: "LogsPlayer1"
-				}),
-				attributes: ["keycloakId"]
-			}]
+			include: [
+				{
+					model: LogsPlayers,
+					association: new HasOne(LogsFightsResults, LogsPlayers, {
+						sourceKey: "fightInitiatorId",
+						foreignKey: "id",
+						as: "LogsPlayer1"
+					}),
+					attributes: ["keycloakId"]
+				}
+			]
 		});
 
 		return {
@@ -320,27 +330,29 @@ export class LogsReadRequests {
 		const results = await LogsFightsResults.findAll({
 			where: {
 				"$LogsPlayer1.keycloakId$": attackerKeycloakId,
-				"$LogsPlayer2.keycloakId$": {[Op.in]: defenderKeycloakIds},
-				date: {
+				"$LogsPlayer2.keycloakId$": { [Op.in]: defenderKeycloakIds },
+				"date": {
 					[Op.gt]: Math.floor((getNextSaturdayMidnight() - 7 * 24 * 60 * 60 * 1000) / 1000)
 				},
-				friendly: false
+				"friendly": false
 			},
-			include: [{
-				model: LogsPlayers,
-				association: new HasOne(LogsFightsResults, LogsPlayers, {
-					sourceKey: "fightInitiatorId",
-					foreignKey: "id",
-					as: "LogsPlayer1"
-				})
-			}, {
-				model: LogsPlayers,
-				association: new HasOne(LogsFightsResults, LogsPlayers, {
-					sourceKey: "player2Id",
-					foreignKey: "id",
-					as: "LogsPlayer2"
-				})
-			}]
+			include: [
+				{
+					model: LogsPlayers,
+					association: new HasOne(LogsFightsResults, LogsPlayers, {
+						sourceKey: "fightInitiatorId",
+						foreignKey: "id",
+						as: "LogsPlayer1"
+					})
+				}, {
+					model: LogsPlayers,
+					association: new HasOne(LogsFightsResults, LogsPlayers, {
+						sourceKey: "player2Id",
+						foreignKey: "id",
+						as: "LogsPlayer2"
+					})
+				}
+			]
 		});
 		const fights = results as (typeof results[0] & LogsFightsResultsWithPlayer2)[];
 
@@ -386,22 +398,28 @@ export class LogsReadRequests {
 		return await LogsPlayersTravels.count({
 			where: {
 				"$LogsPlayer.keycloakId$": keycloakId,
-				date: {
+				"date": {
 					[Op.gt]: Math.floor((getNextSundayMidnight() - hoursToMilliseconds(7 * 24)) / 1000)
 				},
 				"$LogsMapLink.start$": MapLocationDataController.instance.getWithAttributes([MapConstants.MAP_ATTRIBUTES.MAIN_CONTINENT])[0].id,
 				"$LogsMapLink.end$": {
 					[Op.in]: MapLocationDataController.instance.getWithAttributes([MapConstants.MAP_ATTRIBUTES.PVE_ISLAND_ENTRY])
-						.map((mapLocation) => mapLocation.id)
+						.map(mapLocation => mapLocation.id)
 				}
 			},
-			include: [{
-				model: LogsPlayers,
-				association: new HasOne(LogsPlayersTravels, LogsPlayers, {sourceKey: "playerId", foreignKey: "id"})
-			}, {
-				model: LogsMapLinks,
-				association: new HasOne(LogsPlayersTravels, LogsMapLinks, {sourceKey: "mapLinkId", foreignKey: "id"})
-			}],
+			include: [
+				{
+					model: LogsPlayers,
+					association: new HasOne(LogsPlayersTravels, LogsPlayers, {
+						sourceKey: "playerId", foreignKey: "id"
+					})
+				}, {
+					model: LogsMapLinks,
+					association: new HasOne(LogsPlayersTravels, LogsMapLinks, {
+						sourceKey: "mapLinkId", foreignKey: "id"
+					})
+				}
+			],
 			col: "playerId"
 		});
 	}
@@ -411,17 +429,23 @@ export class LogsReadRequests {
 			where: {
 				"$LogsPlayer.keycloakId$": keycloakId,
 				"$LogsGuild.gameId$": guildId,
-				date: {
+				"date": {
 					[Op.gt]: Math.floor((getNextSundayMidnight() - hoursToMilliseconds(7 * 24)) / 1000)
 				}
 			},
-			include: [{
-				model: LogsPlayers,
-				association: new HasOne(LogsGuildsJoins, LogsPlayers, {sourceKey: "addedId", foreignKey: "id"})
-			}, {
-				model: LogsGuilds,
-				association: new HasOne(LogsGuildsJoins, LogsGuilds, {sourceKey: "guildId", foreignKey: "id"})
-			}],
+			include: [
+				{
+					model: LogsPlayers,
+					association: new HasOne(LogsGuildsJoins, LogsPlayers, {
+						sourceKey: "addedId", foreignKey: "id"
+					})
+				}, {
+					model: LogsGuilds,
+					association: new HasOne(LogsGuildsJoins, LogsGuilds, {
+						sourceKey: "guildId", foreignKey: "id"
+					})
+				}
+			],
 			col: "addedId"
 		}) !== 0;
 	}

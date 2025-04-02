@@ -1,7 +1,7 @@
 import * as ts from "typescript";
 import * as fs from "fs";
 import * as path from "path";
-import {existsSync} from "node:fs";
+import { existsSync } from "node:fs";
 
 const folderPath = `${__dirname}/../../../../Lib/src`; // Directory containing Lib TypeScript files
 const corePath = `${__dirname}/../../../../Core/src`; // Directory containing Core TypeScript files
@@ -54,7 +54,7 @@ function checkForPacketHandlers(filePath: string, array: Array<string>): void {
 	const sourceFile = ts.createSourceFile(filePath, sourceCode, ts.ScriptTarget.ESNext, true);
 
 	function visit(node: ts.Node): void {
-		if (ts.isCallExpression(node) && ["packetHandler", "commandRequires"].some((v) => v === node.expression.getText())) {
+		if (ts.isCallExpression(node) && ["packetHandler", "commandRequires"].some(v => v === node.expression.getText())) {
 			// eslint-disable-next-line
 			const packetType = (node as any).arguments[0].escapedText;
 			array.push(packetType);
@@ -110,7 +110,7 @@ if (existsSync(folderPath)) {
 
 // Verify core if we are in a dev environment
 if (existsSync(corePath)) {
-	walkDirectory(corePath, (fullPath) => checkForPacketHandlers(fullPath, coreImplementedPackets));
+	walkDirectory(corePath, fullPath => checkForPacketHandlers(fullPath, coreImplementedPackets));
 
 	let error = false;
 	console.log("Verifying core packets handlers...");
@@ -138,7 +138,7 @@ if (existsSync(corePath)) {
 
 // Verify discord if we are in a dev environment
 if (existsSync(discordPath)) {
-	walkDirectory(discordPath, (fullPath) => checkForPacketHandlers(fullPath, discordImplementedPackets));
+	walkDirectory(discordPath, fullPath => checkForPacketHandlers(fullPath, discordImplementedPackets));
 
 	let error = false;
 	console.log("Verifying discord packets handlers...");

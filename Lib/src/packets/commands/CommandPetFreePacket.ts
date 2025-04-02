@@ -1,5 +1,7 @@
-import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
-import {SexTypeShort} from "../../constants/StringConstants";
+import {
+	DraftBotPacket, PacketDirection, sendablePacket
+} from "../DraftBotPacket";
+import { SexTypeShort } from "../../constants/StringConstants";
 
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandPetFreePacketReq extends DraftBotPacket {

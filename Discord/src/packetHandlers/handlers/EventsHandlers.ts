@@ -1,28 +1,30 @@
-import {packetHandler} from "../PacketHandler";
-import {PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {DiscordCache} from "../../bot/DiscordCache";
+import { packetHandler } from "../PacketHandler";
+import { PacketContext } from "../../../../Lib/src/packets/DraftBotPacket";
+import { DiscordCache } from "../../bot/DiscordCache";
 import i18n from "../../translations/i18n";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
-import {CommandReportChooseDestinationRes} from "../../../../Lib/src/packets/commands/CommandReportPacket";
-import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
-import {draftBotClient, keycloakConfig} from "../../bot/DraftBotShard";
-import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
-import {minutesToHours} from "../../../../Lib/src/utils/TimeUtils";
-import {GuildLevelUpPacket} from "../../../../Lib/src/packets/events/GuildLevelUpPacket";
-import {MissionsCompletedPacket} from "../../../../Lib/src/packets/events/MissionsCompletedPacket";
-import {MissionsExpiredPacket} from "../../../../Lib/src/packets/events/MissionsExpiredPacket";
-import {PlayerDeathPacket} from "../../../../Lib/src/packets/events/PlayerDeathPacket";
-import {PlayerLeavePveIslandPacket} from "../../../../Lib/src/packets/events/PlayerLeavePveIslandPacket";
-import {PlayerLevelUpPacket} from "../../../../Lib/src/packets/events/PlayerLevelUpPacket";
-import {PlayerReceivePetPacket} from "../../../../Lib/src/packets/events/PlayerReceivePetPacket";
-import {EmoteUtils} from "../../utils/EmoteUtils";
-import {GiveFoodToGuildPacket} from "../../../../Lib/src/packets/utils/GiveFoodToGuildPacket";
-import {NoFoodSpaceInGuildPacket} from "../../../../Lib/src/packets/utils/NoFoodSpaceInGuildPacket";
-import {MissionUtils} from "../../utils/MissionUtils";
-import {MissionType} from "../../../../Lib/src/types/CompletedMission";
-import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
-import {DisplayUtils} from "../../utils/DisplayUtils";
-import {DraftBotErrorEmbed} from "../../messages/DraftBotErrorEmbed";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
+import { CommandReportChooseDestinationRes } from "../../../../Lib/src/packets/commands/CommandReportPacket";
+import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
+import {
+	draftBotClient, keycloakConfig
+} from "../../bot/DraftBotShard";
+import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
+import { minutesToHours } from "../../../../Lib/src/utils/TimeUtils";
+import { GuildLevelUpPacket } from "../../../../Lib/src/packets/events/GuildLevelUpPacket";
+import { MissionsCompletedPacket } from "../../../../Lib/src/packets/events/MissionsCompletedPacket";
+import { MissionsExpiredPacket } from "../../../../Lib/src/packets/events/MissionsExpiredPacket";
+import { PlayerDeathPacket } from "../../../../Lib/src/packets/events/PlayerDeathPacket";
+import { PlayerLeavePveIslandPacket } from "../../../../Lib/src/packets/events/PlayerLeavePveIslandPacket";
+import { PlayerLevelUpPacket } from "../../../../Lib/src/packets/events/PlayerLevelUpPacket";
+import { PlayerReceivePetPacket } from "../../../../Lib/src/packets/events/PlayerReceivePetPacket";
+import { EmoteUtils } from "../../utils/EmoteUtils";
+import { GiveFoodToGuildPacket } from "../../../../Lib/src/packets/utils/GiveFoodToGuildPacket";
+import { NoFoodSpaceInGuildPacket } from "../../../../Lib/src/packets/utils/NoFoodSpaceInGuildPacket";
+import { MissionUtils } from "../../utils/MissionUtils";
+import { MissionType } from "../../../../Lib/src/types/CompletedMission";
+import { PetConstants } from "../../../../Lib/src/constants/PetConstants";
+import { DisplayUtils } from "../../utils/DisplayUtils";
+import { DraftBotErrorEmbed } from "../../messages/DraftBotErrorEmbed";
 
 export default class EventsHandlers {
 	@packetHandler(CommandReportChooseDestinationRes)
@@ -52,17 +54,17 @@ export default class EventsHandlers {
 		embed.setDescription(i18n.t(i18nTr, {
 			count: time,
 			lng,
-			mapPrefix: i18n.t(`models:map_types.${packet.mapTypeId}.prefix`, {lng}),
-			mapType: (i18n.t(`models:map_types.${packet.mapTypeId}.name`, {lng}) as string).toLowerCase(),
+			mapPrefix: i18n.t(`models:map_types.${packet.mapTypeId}.prefix`, { lng }),
+			mapType: (i18n.t(`models:map_types.${packet.mapTypeId}.name`, { lng }) as string).toLowerCase(),
 			mapEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.map_types[packet.mapTypeId]),
-			mapName: i18n.t(`models:map_locations.${packet.mapId}.name`, {lng}),
+			mapName: i18n.t(`models:map_locations.${packet.mapId}.name`, { lng }),
 			time
 		}));
 		if (context.discord!.buttonInteraction) {
-			await DiscordCache.getButtonInteraction(context.discord!.buttonInteraction)?.editReply({embeds: [embed]});
+			await DiscordCache.getButtonInteraction(context.discord!.buttonInteraction)?.editReply({ embeds: [embed] });
 		}
 		else {
-			await interaction.channel.send({embeds: [embed]});
+			await interaction.channel.send({ embeds: [embed] });
 		}
 	}
 
@@ -141,7 +143,7 @@ export default class EventsHandlers {
 				})
 			});
 		}
-		await interaction.channel.send({embeds: [completedMissionsEmbed]});
+		await interaction.channel.send({ embeds: [completedMissionsEmbed] });
 	}
 
 	@packetHandler(MissionsExpiredPacket)
@@ -172,8 +174,9 @@ export default class EventsHandlers {
 						lng,
 						count: packet.missions.length,
 						missionsExpired: missionsExpiredDescription,
-						interpolation: {escapeValue: false}
-					}))]
+						interpolation: { escapeValue: false }
+					}))
+			]
 		});
 	}
 
@@ -261,15 +264,27 @@ export default class EventsHandlers {
 
 		const lng = interaction.userLanguage;
 
-		const rewards: { [key in keyof Omit<PlayerLevelUpPacket, "level">]: { tr: string, replacements?: object } } = {
+		const rewards: { [key in keyof Omit<PlayerLevelUpPacket, "level">]: {
+			tr: string; replacements?: object;
+		} } = {
 			healthRestored: { tr: "healthRestored" },
 			fightUnlocked: { tr: "fightUnlocked" },
 			guildUnlocked: { tr: "guildUnlocked" },
-			classesTier1Unlocked: { tr: "classTier", replacements: { tier: 1 } },
-			classesTier2Unlocked: { tr: "classTier", replacements: { tier: 2 } },
-			classesTier3Unlocked: { tr: "classTier", replacements: { tier: 3 } },
-			classesTier4Unlocked: { tr: "classTier", replacements: { tier: 4 } },
-			classesTier5Unlocked: { tr: "classTier", replacements: { tier: 5 } },
+			classesTier1Unlocked: {
+				tr: "classTier", replacements: { tier: 1 }
+			},
+			classesTier2Unlocked: {
+				tr: "classTier", replacements: { tier: 2 }
+			},
+			classesTier3Unlocked: {
+				tr: "classTier", replacements: { tier: 3 }
+			},
+			classesTier4Unlocked: {
+				tr: "classTier", replacements: { tier: 4 }
+			},
+			classesTier5Unlocked: {
+				tr: "classTier", replacements: { tier: 5 }
+			},
 			missionSlotUnlocked: { tr: "newMissionSlot" },
 			pveUnlocked: { tr: "pveUnlocked" },
 			statsIncreased: { tr: "statsIncreased" }
@@ -344,7 +359,7 @@ export default class EventsHandlers {
 		await interaction?.followUp({
 			embeds: [
 				new DraftBotEmbed()
-					.formatAuthor(i18n.t("notifications:guildFood.receivedFoodTitle", {lng}), interaction.user)
+					.formatAuthor(i18n.t("notifications:guildFood.receivedFoodTitle", { lng }), interaction.user)
 					.setDescription(
 						i18n.t("notifications:guildFood.receivedFoodDescription", {
 							lng,

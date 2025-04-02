@@ -1,5 +1,7 @@
-import {ExecuteTestCommandLike, ITestCommand} from "../../../../core/CommandsTest";
-import {PlayerMissionsInfos} from "../../../../core/database/game/models/PlayerMissionsInfo";
+import {
+	ExecuteTestCommandLike, ITestCommand
+} from "../../../../core/CommandsTest";
+import { PlayerMissionsInfos } from "../../../../core/database/game/models/PlayerMissionsInfo";
 
 export const commandInfo: ITestCommand = {
 	name: "resetDailyMission",
@@ -10,7 +12,7 @@ export const commandInfo: ITestCommand = {
 /**
  * Set the weapon of the player
  */
-const resetDailyMissionTextCommand: ExecuteTestCommandLike = async (player) => {
+const resetDailyMissionTextCommand: ExecuteTestCommandLike = async player => {
 	const missionsInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
 	missionsInfo.dailyMissionNumberDone = 0;
 	missionsInfo.lastDailyMissionCompleted = new Date(0);

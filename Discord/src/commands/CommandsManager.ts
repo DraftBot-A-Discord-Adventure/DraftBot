@@ -1,4 +1,4 @@
-import {ICommand} from "./ICommand";
+import { ICommand } from "./ICommand";
 import {
 	ActionRowBuilder,
 	AnyThreadChannel,
@@ -20,26 +20,34 @@ import {
 	RouteLike,
 	Snowflake
 } from "discord.js";
-import {RESTPostAPIChatInputApplicationCommandsJSONBody, Routes} from "discord-api-types/v10";
-import {discordConfig, draftBotClient, keycloakConfig, shardId} from "../bot/DraftBotShard";
-import {KeycloakUser} from "../../../Lib/src/keycloak/KeycloakUser";
-import {readdirSync} from "fs";
+import {
+	RESTPostAPIChatInputApplicationCommandsJSONBody, Routes
+} from "discord-api-types/v10";
+import {
+	discordConfig, draftBotClient, keycloakConfig, shardId
+} from "../bot/DraftBotShard";
+import { KeycloakUser } from "../../../Lib/src/keycloak/KeycloakUser";
+import { readdirSync } from "fs";
 import i18n from "../translations/i18n";
-import {replyEphemeralErrorMessage} from "../utils/ErrorUtils";
-import {Constants} from "../../../Lib/src/constants/Constants";
-import {DraftBotEmbed} from "../messages/DraftBotEmbed";
-import {escapeUsername} from "../../../Lib/src/utils/StringUtils";
-import {KeycloakUtils} from "../../../Lib/src/keycloak/KeycloakUtils";
-import {DraftbotChannel, DraftbotInteraction} from "../messages/DraftbotInteraction";
-import {PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
-import {DiscordCache} from "../bot/DiscordCache";
-import {BotUtils} from "../utils/BotUtils";
-import {Language, LANGUAGE} from "../../../Lib/src/Language";
-import {PacketUtils} from "../utils/PacketUtils";
-import {RightGroup} from "../../../Lib/src/types/RightGroup";
-import {PacketConstants} from "../../../Lib/src/constants/PacketConstants";
-import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
-import {DiscordConstants} from "../DiscordConstants";
+import { replyEphemeralErrorMessage } from "../utils/ErrorUtils";
+import { Constants } from "../../../Lib/src/constants/Constants";
+import { DraftBotEmbed } from "../messages/DraftBotEmbed";
+import { escapeUsername } from "../../../Lib/src/utils/StringUtils";
+import { KeycloakUtils } from "../../../Lib/src/keycloak/KeycloakUtils";
+import {
+	DraftbotChannel, DraftbotInteraction
+} from "../messages/DraftbotInteraction";
+import { PacketContext } from "../../../Lib/src/packets/DraftBotPacket";
+import { DiscordCache } from "../bot/DiscordCache";
+import { BotUtils } from "../utils/BotUtils";
+import {
+	Language, LANGUAGE
+} from "../../../Lib/src/Language";
+import { PacketUtils } from "../utils/PacketUtils";
+import { RightGroup } from "../../../Lib/src/types/RightGroup";
+import { PacketConstants } from "../../../Lib/src/constants/PacketConstants";
+import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
+import { DiscordConstants } from "../DiscordConstants";
 
 export class CommandsManager {
 	static commands = new Map<string, ICommand>();
@@ -67,12 +75,12 @@ export class CommandsManager {
 	 * @param regFunc
 	 */
 	static async registerCommands(clientId: Snowflake, commands: RESTPostAPIChatInputApplicationCommandsJSONBody[], regFunc: (clientId: Snowflake, serverId: Snowflake) => RouteLike): Promise<void> {
-		const rest = new REST({version: "10"}).setToken(discordConfig.DISCORD_CLIENT_TOKEN);
+		const rest = new REST({ version: "10" }).setToken(discordConfig.DISCORD_CLIENT_TOKEN);
 		try {
 			console.log(`Started refreshing ${commands.length} application (/) commands.`);
 			const data = await rest.put(
 				regFunc(clientId, discordConfig.MAIN_SERVER_ID),
-				{body: commands}
+				{ body: commands }
 			);
 			console.log(`Successfully reloaded ${Array.isArray(data) ? data.length : "###ERROR###"} application (/) commands.`);
 		}
@@ -88,7 +96,6 @@ export class CommandsManager {
 	 * @param isMainShard
 	 */
 	static async registerAllCommands(client: Client, isMainShard: boolean): Promise<void> {
-
 		try {
 			const allCommandToRegister = await this.getAllCommandsToRegister();
 			if (isMainShard) {
@@ -99,6 +106,7 @@ export class CommandsManager {
 		}
 		catch (err) {
 			console.log(err);
+
 			// Do not start the bot if we can't register the commands
 			process.exit(1);
 		}
@@ -144,8 +152,9 @@ export class CommandsManager {
 	 */
 	private static async refreshCommands(client: Client): Promise<void> {
 		console.log("Fetching and saving commands...");
-		const commands = (await client.application!.commands.fetch({withLocalizations: true}))
-			.concat(await (await client.guilds.fetch(discordConfig.MAIN_SERVER_ID)).commands.fetch({withLocalizations: true}));
+		const commands = (await client.application!.commands.fetch({ withLocalizations: true }))
+			.concat(await (await client.guilds.fetch(discordConfig.MAIN_SERVER_ID)).commands.fetch({ withLocalizations: true }));
+
 		// Store command instances
 		for (const command of commands) {
 			CommandsManager.commandsInstances.set(command[1].name, command[1]);
@@ -160,7 +169,7 @@ export class CommandsManager {
 	 * @private
 	 */
 	private static addSubCommandsToTheCommandsMentions(command: [string, ApplicationCommand<{
-		guild: GuildResolvable
+		guild: GuildResolvable;
 	}>]): void {
 		if (command[1].options) {
 			for (const option of command[1].options) {
@@ -228,7 +237,7 @@ export class CommandsManager {
 			message.channel.send({
 				content: `${i18n.t("bot:mentionHelp", {
 					lng: KeycloakUtils.getUserLanguage(user),
-					interpolation: {escapeValue: false}
+					interpolation: { escapeValue: false }
 				})}`
 			})
 				.then();
@@ -279,7 +288,7 @@ export class CommandsManager {
 			if (!interaction.channel) {
 				replyEphemeralErrorMessage(
 					interaction,
-					i18n.t("bot:noChannelAccess", {lng: interaction.userLanguage})
+					i18n.t("bot:noChannelAccess", { lng: interaction.userLanguage })
 				)
 					.finally(() => null);
 				return;
@@ -301,7 +310,7 @@ export class CommandsManager {
 	 */
 	private static async sendBackDMMessageToSupportChannel(message: Message): Promise<void> {
 		await draftBotClient!.users.fetch(discordConfig.DM_MANAGER_ID)
-			.then(async (user) => {
+			.then(async user => {
 				const attachmentList: (Attachment | AttachmentBuilder)[] = Array.from(message.attachments.values());
 				if (message.content.length > Constants.DM.MAX_MESSAGE_LENGTH_ALLOWED) {
 					attachmentList.push(new AttachmentBuilder(Buffer.from(message.content)).setName(`userMessage-${message.author.id}-${message.id}.txt`));
@@ -326,7 +335,7 @@ export class CommandsManager {
 					});
 				}
 			})
-			.catch((e) => console.warn(`WARNING : could not find a place to forward the DM message: ${e}`));
+			.catch(e => console.warn(`WARNING : could not find a place to forward the DM message: ${e}`));
 	}
 
 	/**
@@ -347,7 +356,7 @@ export class CommandsManager {
 			desc += `${i18n.t(descTrKey, {
 				lng,
 				langFlag: DraftBotIcons.languages[lng],
-				interpolation: {escapeValue: false}
+				interpolation: { escapeValue: false }
 			})}\n`;
 		}
 
@@ -389,7 +398,7 @@ export class CommandsManager {
 						.formatAuthor(i18n.t("bot:dmHelpMessageTitle", {
 							lng
 						}), author)
-						.setDescription(i18n.t("bot:dmHelpMessage", {lng}))
+						.setDescription(i18n.t("bot:dmHelpMessage", { lng }))
 				]
 			});
 		});
@@ -427,14 +436,14 @@ export class CommandsManager {
 		const commandInfo = this.commands.get(interaction.commandName);
 
 		if (!commandInfo) {
-			await replyEphemeralErrorMessage(interaction, i18n.t("bot:command404", {lng}));
+			await replyEphemeralErrorMessage(interaction, i18n.t("bot:command404", { lng }));
 			console.error(`Command "${interaction.commandName}" is not registered`);
 			return;
 		}
 
 		const channelAccess = this.hasChannelPermission(interaction.channel);
 		if (!channelAccess[0]) {
-			await replyEphemeralErrorMessage(interaction, i18n.t(channelAccess[1], {lng}));
+			await replyEphemeralErrorMessage(interaction, i18n.t(channelAccess[1], { lng }));
 			return;
 		}
 
@@ -465,7 +474,6 @@ export class CommandsManager {
 	 * @private
 	 */
 	private static hasChannelPermission(channel: DraftbotChannel): [boolean, string] {
-
 		if (!channel.permissionsFor(draftBotClient!.user!)
 			?.has(PermissionsBitField.Flags.ViewChannel)) {
 			console.log(`No way to access the channel where the command has been executed : ${channel.guildId}/${channel.id}`);

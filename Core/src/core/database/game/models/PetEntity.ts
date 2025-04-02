@@ -1,17 +1,31 @@
-import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
-import {RandomUtils} from "../../../../../../Lib/src/utils/RandomUtils";
-import {MissionsController} from "../../../missions/MissionsController";
-import {PET_ENTITY_GIVE_RETURN, PetConstants} from "../../../../../../Lib/src/constants/PetConstants";
-import {Player, PlayerEditValueParameters} from "./Player";
-import {Guild, Guilds} from "./Guild";
-import {GuildPets} from "./GuildPet";
-import {Pet, PetDataController} from "../../../../data/Pet";
-import {draftBotInstance} from "../../../../index";
-import {DraftBotPacket, makePacket} from "../../../../../../Lib/src/packets/DraftBotPacket";
-import {PlayerReceivePetPacket} from "../../../../../../Lib/src/packets/events/PlayerReceivePetPacket";
-import {SexTypeShort, StringConstants} from "../../../../../../Lib/src/constants/StringConstants";
+import {
+	DataTypes, Model, QueryTypes, Sequelize
+} from "sequelize";
+import { RandomUtils } from "../../../../../../Lib/src/utils/RandomUtils";
+import { MissionsController } from "../../../missions/MissionsController";
+import {
+	PET_ENTITY_GIVE_RETURN, PetConstants
+} from "../../../../../../Lib/src/constants/PetConstants";
+import {
+	Player, PlayerEditValueParameters
+} from "./Player";
+import {
+	Guild, Guilds
+} from "./Guild";
+import { GuildPets } from "./GuildPet";
+import {
+	Pet, PetDataController
+} from "../../../../data/Pet";
+import { draftBotInstance } from "../../../../index";
+import {
+	DraftBotPacket, makePacket
+} from "../../../../../../Lib/src/packets/DraftBotPacket";
+import { PlayerReceivePetPacket } from "../../../../../../Lib/src/packets/events/PlayerReceivePetPacket";
+import {
+	SexTypeShort, StringConstants
+} from "../../../../../../Lib/src/constants/StringConstants";
 import moment = require("moment");
-import {OwnedPet} from "../../../../../../Lib/src/types/OwnedPet";
+import { OwnedPet } from "../../../../../../Lib/src/types/OwnedPet";
 
 export class PetEntity extends Model {
 	declare readonly id: number;
@@ -37,16 +51,20 @@ export class PetEntity extends Model {
 		if (!this.hungrySince) {
 			return 0;
 		}
-		return PetConstants.BREED_COOLDOWN * petModel.rarity -
-			(new Date().valueOf() - this.hungrySince.valueOf());
+		return PetConstants.BREED_COOLDOWN * petModel.rarity
+			- (new Date().valueOf() - this.hungrySince.valueOf());
 	}
 
 	public getLoveLevelNumber(): number {
 		return this.lovePoints === PetConstants.MAX_LOVE_POINTS
-			? PetConstants.LOVE_LEVEL.TRAINED : this.lovePoints >= PetConstants.LOVE_LEVELS[2]
-				? PetConstants.LOVE_LEVEL.TAMED : this.lovePoints >= PetConstants.LOVE_LEVELS[1]
-					? PetConstants.LOVE_LEVEL.FEARFUL : this.lovePoints >= PetConstants.LOVE_LEVELS[0]
-						? PetConstants.LOVE_LEVEL.WILD : PetConstants.LOVE_LEVEL.FEISTY;
+			? PetConstants.LOVE_LEVEL.TRAINED
+			: this.lovePoints >= PetConstants.LOVE_LEVELS[2]
+				? PetConstants.LOVE_LEVEL.TAMED
+				: this.lovePoints >= PetConstants.LOVE_LEVELS[1]
+					? PetConstants.LOVE_LEVEL.FEARFUL
+					: this.lovePoints >= PetConstants.LOVE_LEVELS[0]
+						? PetConstants.LOVE_LEVEL.WILD
+						: PetConstants.LOVE_LEVEL.FEISTY;
 	}
 
 	public async changeLovePoints(parameters: PlayerEditValueParameters): Promise<void> {
@@ -61,11 +79,11 @@ export class PetEntity extends Model {
 			.then();
 		await MissionsController.update(parameters.player, parameters.response, {
 			missionId: "tamedPet",
-			params: {loveLevel: this.getLoveLevelNumber()}
+			params: { loveLevel: this.getLoveLevelNumber() }
 		});
 		await MissionsController.update(parameters.player, parameters.response, {
 			missionId: "trainedPet",
-			params: {loveLevel: this.getLoveLevelNumber()}
+			params: { loveLevel: this.getLoveLevelNumber() }
 		});
 	}
 
@@ -115,7 +133,7 @@ export class PetEntity extends Model {
 			await this.save();
 			player.setPet(this);
 			await player.save();
-			await MissionsController.update(player, response, {missionId: "havePet"});
+			await MissionsController.update(player, response, { missionId: "havePet" });
 			packet.giveInPlayerInv = true;
 			returnValue = PET_ENTITY_GIVE_RETURN.PLAYER;
 		}
@@ -209,7 +227,7 @@ export class PetEntities {
 		               FROM pet_entities
 		               WHERE lovePoints = ${PetConstants.MAX_LOVE_POINTS}`;
 		return (<{
-			count: number
+			count: number;
 		}[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})))[0].count;
@@ -220,7 +238,7 @@ export class PetEntities {
 		               FROM pet_entities
 		               WHERE lovePoints <= ${PetConstants.LOVE_LEVELS[0]}`;
 		return (<{
-			count: number
+			count: number;
 		}[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})))[0].count;
@@ -231,7 +249,7 @@ export class PetEntities {
 		               FROM pet_entities
 		               WHERE sex = :sex`;
 		return (<{
-			count: number
+			count: number;
 		}[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT,
 			replacements: {
@@ -244,7 +262,7 @@ export class PetEntities {
 		const query = `SELECT COUNT(*) as count
 		               FROM pet_entities`;
 		return (<{
-			count: number
+			count: number;
 		}[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})))[0].count;

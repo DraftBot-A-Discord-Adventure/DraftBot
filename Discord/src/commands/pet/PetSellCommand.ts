@@ -1,24 +1,26 @@
-import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
-import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
+import {
+	makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
 import {
 	CommandPetSellPacketReq,
 	CommandPetSellSuccessPacket
 } from "../../../../Lib/src/packets/commands/CommandPetSellPacket";
-import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
-import {keycloakConfig} from "../../bot/DraftBotShard";
-import {ICommand} from "../ICommand";
-import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {SlashCommandBuilder} from "@discordjs/builders";
-import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {DiscordCache} from "../../bot/DiscordCache";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
+import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
+import { keycloakConfig } from "../../bot/DraftBotShard";
+import { ICommand } from "../ICommand";
+import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { DiscordCache } from "../../bot/DiscordCache";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import i18n from "../../translations/i18n";
-import {DisplayUtils} from "../../utils/DisplayUtils";
-import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
-import {ReactionCollectorPetSellData} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetSell";
-import {handleCommandGuildDailyRewardPacket} from "../guild/GuildDailyCommand";
-import {CommandGuildDailyRewardPacket} from "../../../../Lib/src/packets/commands/CommandGuildDailyPacket";
-import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { DisplayUtils } from "../../utils/DisplayUtils";
+import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
+import { ReactionCollectorPetSellData } from "../../../../Lib/src/packets/interaction/ReactionCollectorPetSell";
+import { handleCommandGuildDailyRewardPacket } from "../guild/GuildDailyCommand";
+import { CommandGuildDailyRewardPacket } from "../../../../Lib/src/packets/commands/CommandGuildDailyPacket";
+import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
 async function getPacket(interaction: DraftbotInteraction): Promise<CommandPetSellPacketReq> {
 	const price = <number>interaction.options.get("price", true).value;
@@ -44,7 +46,7 @@ export async function createPetSellCollector(context: PacketContext, packet: Rea
 		price: data.price
 	});
 	if (data.isGuildAtMaxLevel) {
-		description += `\n\n${i18n.t("commands:petSell.maxLevelWarning", {lng})}`;
+		description += `\n\n${i18n.t("commands:petSell.maxLevelWarning", { lng })}`;
 	}
 
 	const embed = new DraftBotEmbed()
@@ -55,16 +57,18 @@ export async function createPetSellCollector(context: PacketContext, packet: Rea
 			interaction.user
 		)
 		.setDescription(description)
-		.addFields([{
-			name: i18n.t("commands:petSell.petFieldName", {
-				lng
-			}),
-			value: DisplayUtils.getOwnedPetFieldDisplay(data.pet, lng),
-			inline: false
-		}])
-		.setFooter({text: i18n.t("commands:petSell.sellFooter", {
+		.addFields([
+			{
+				name: i18n.t("commands:petSell.petFieldName", {
+					lng
+				}),
+				value: DisplayUtils.getOwnedPetFieldDisplay(data.pet, lng),
+				inline: false
+			}
+		])
+		.setFooter({ text: i18n.t("commands:petSell.sellFooter", {
 			lng
-		})});
+		}) });
 
 	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context, {
 		anyoneCanReact: true
@@ -84,20 +88,22 @@ export async function handlePetSellSuccess(context: PacketContext, packet: Comma
 
 	// Send pet sell success message
 	await buttonInteraction.editReply({
-		embeds: [new DraftBotEmbed()
-			.formatAuthor(
-				i18n.t("commands:petSell.successTitle", {
-					lng,
-					pseudo: buttonInteraction.user.displayName
-				}),
-				buttonInteraction.user
-			)
-			.setDescription(
-				i18n.t("commands:petSell.successDescription", {
-					lng,
-					pet: DisplayUtils.getPetDisplay(packet.pet.typeId, packet.pet.sex, lng)
-				})
-			)]
+		embeds: [
+			new DraftBotEmbed()
+				.formatAuthor(
+					i18n.t("commands:petSell.successTitle", {
+						lng,
+						pseudo: buttonInteraction.user.displayName
+					}),
+					buttonInteraction.user
+				)
+				.setDescription(
+					i18n.t("commands:petSell.successDescription", {
+						lng,
+						pet: DisplayUtils.getPetDisplay(packet.pet.typeId, packet.pet.sex, lng)
+					})
+				)
+		]
 	});
 }
 

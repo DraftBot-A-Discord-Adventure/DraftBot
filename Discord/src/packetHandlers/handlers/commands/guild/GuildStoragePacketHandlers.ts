@@ -1,7 +1,7 @@
-import {packetHandler} from "../../../PacketHandler";
-import {PacketContext} from "../../../../../../Lib/src/packets/DraftBotPacket";
-import {CommandGuildStoragePacketRes} from "../../../../../../Lib/src/packets/commands/CommandGuildStoragePacket";
-import {handleSuccess} from "../../../../commands/guild/GuildStorageCommand";
+import { packetHandler } from "../../../PacketHandler";
+import { PacketContext } from "../../../../../../Lib/src/packets/DraftBotPacket";
+import { CommandGuildStoragePacketRes } from "../../../../../../Lib/src/packets/commands/CommandGuildStoragePacket";
+import { handleSuccess } from "../../../../commands/guild/GuildStorageCommand";
 
 export default class GuildStorageCommandPacketHandlers {
 	@packetHandler(CommandGuildStoragePacketRes)

@@ -1,25 +1,33 @@
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {Player} from "../../core/database/game/models/Player";
-import {Guild, Guilds} from "../../core/database/game/models/Guild";
+import {
+	DraftBotPacket, makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { Player } from "../../core/database/game/models/Player";
+import {
+	Guild, Guilds
+} from "../../core/database/game/models/Guild";
 import {
 	CommandGuildCreateAcceptPacketRes,
 	CommandGuildCreatePacketReq,
 	CommandGuildCreatePacketRes,
 	CommandGuildCreateRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildCreatePacket";
-import {checkNameString} from "../../../../Lib/src/utils/StringUtils";
-import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants";
-import {ReactionCollectorGuildCreate} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildCreate";
-import {EndCallback, ReactionCollectorInstance} from "../../core/utils/ReactionsCollector";
-import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
-import {GuildCreateConstants} from "../../../../Lib/src/constants/GuildCreateConstants";
-import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import {LogsDatabase} from "../../core/database/logs/LogsDatabase";
-import {MissionsController} from "../../core/missions/MissionsController";
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
-import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
+import { checkNameString } from "../../../../Lib/src/utils/StringUtils";
+import { GuildConstants } from "../../../../Lib/src/constants/GuildConstants";
+import { ReactionCollectorGuildCreate } from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildCreate";
+import {
+	EndCallback, ReactionCollectorInstance
+} from "../../core/utils/ReactionsCollector";
+import { ReactionCollectorAcceptReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
+import { BlockingUtils } from "../../core/utils/BlockingUtils";
+import { GuildCreateConstants } from "../../../../Lib/src/constants/GuildCreateConstants";
+import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
+import { LogsDatabase } from "../../core/database/logs/LogsDatabase";
+import { MissionsController } from "../../core/missions/MissionsController";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
+import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
 
 /**
  * Check if the player can create a guild with the given name at this exact moment
@@ -81,6 +89,7 @@ async function canCreateGuild(player: Player, guildName: string, response: Draft
 
 async function acceptGuildCreate(player: Player, guildName: string, response: DraftBotPacket[]): Promise<void> {
 	await player.reload();
+
 	// Do all necessary checks again just in case something changed during the menu
 	if (!await canCreateGuild(player, guildName, response)) {
 		return;
@@ -101,14 +110,14 @@ async function acceptGuildCreate(player: Player, guildName: string, response: Dr
 	await newGuild.save();
 	await player.save();
 	LogsDatabase.logGuildCreation(player.keycloakId, newGuild).then();
-	await MissionsController.update(player, response, {missionId: "joinGuild"});
+	await MissionsController.update(player, response, { missionId: "joinGuild" });
 	await MissionsController.update(player, response, {
 		missionId: "guildLevel",
 		count: newGuild.level,
 		set: true
 	});
 
-	response.push(makePacket(CommandGuildCreateAcceptPacketRes, {guildName}));
+	response.push(makePacket(CommandGuildCreateAcceptPacketRes, { guildName }));
 }
 
 export default class GuildCreateCommand {

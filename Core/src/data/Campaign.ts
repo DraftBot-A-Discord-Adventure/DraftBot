@@ -1,13 +1,13 @@
-import {readFileSync} from "fs";
+import { readFileSync } from "fs";
 
 export type CampaignMission = {
-	missionId: string,
-	missionVariant: number,
-	missionObjective: number,
-	gemsToWin: number,
-	xpToWin: number,
-	moneyToWin: number
-}
+	missionId: string;
+	missionVariant: number;
+	missionObjective: number;
+	gemsToWin: number;
+	xpToWin: number;
+	moneyToWin: number;
+};
 
 export class CampaignData {
 	private static missions: CampaignMission[] = null;

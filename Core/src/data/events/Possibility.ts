@@ -1,5 +1,5 @@
-import {PossibilityCondition} from "./PossibilityCondition";
-import {PossibilityOutcome} from "./PossibilityOutcome";
+import { PossibilityCondition } from "./PossibilityCondition";
+import { PossibilityOutcome } from "./PossibilityOutcome";
 
 /**
  * A big event contains a set of possibilities which have a set of outcomes

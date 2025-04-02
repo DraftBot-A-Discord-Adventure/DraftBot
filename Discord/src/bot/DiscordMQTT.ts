@@ -1,18 +1,24 @@
-import {discordConfig, draftBotClient, shardId} from "./DraftBotShard";
-import {PacketListenerClient} from "../../../Lib/src/packets/PacketListener";
-import {registerAllPacketHandlers} from "../packetHandlers/PacketHandler";
-import {DraftBotPacket, makePacket, PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
-import {ErrorPacket} from "../../../Lib/src/packets/commands/ErrorPacket";
-import {connect, MqttClient} from "mqtt";
-import {MqttConstants} from "../../../Lib/src/constants/MqttConstants";
-import {DiscordAnnouncement} from "../announcements/DiscordAnnouncement";
-import {NotificationsHandler} from "../notifications/NotificationsHandler";
-import {NotificationsSerializedPacket} from "../../../Lib/src/packets/notifications/NotificationsSerializedPacket";
-import {LANGUAGE} from "../../../Lib/src/Language";
-import {TextChannel} from "discord.js";
-import {DraftBotEmbed} from "../messages/DraftBotEmbed";
+import {
+	discordConfig, draftBotClient, shardId
+} from "./DraftBotShard";
+import { PacketListenerClient } from "../../../Lib/src/packets/PacketListener";
+import { registerAllPacketHandlers } from "../packetHandlers/PacketHandler";
+import {
+	DraftBotPacket, makePacket, PacketContext
+} from "../../../Lib/src/packets/DraftBotPacket";
+import { ErrorPacket } from "../../../Lib/src/packets/commands/ErrorPacket";
+import {
+	connect, MqttClient
+} from "mqtt";
+import { MqttConstants } from "../../../Lib/src/constants/MqttConstants";
+import { DiscordAnnouncement } from "../announcements/DiscordAnnouncement";
+import { NotificationsHandler } from "../notifications/NotificationsHandler";
+import { NotificationsSerializedPacket } from "../../../Lib/src/packets/notifications/NotificationsSerializedPacket";
+import { LANGUAGE } from "../../../Lib/src/Language";
+import { TextChannel } from "discord.js";
+import { DraftBotEmbed } from "../messages/DraftBotEmbed";
 import i18n from "../translations/i18n";
-import {MqttTopicUtils} from "../../../Lib/src/utils/MqttTopicUtils";
+import { MqttTopicUtils } from "../../../Lib/src/utils/MqttTopicUtils";
 
 export class DiscordMQTT {
 	static mqttClient: MqttClient;
@@ -54,7 +60,7 @@ export class DiscordMQTT {
 					for (const packet of dataJson.packets) {
 						let listener = DiscordMQTT.packetListener.getListener(packet.name);
 						if (!listener) {
-							packet.packet = makePacket(ErrorPacket, {message: `No packet listener found for received packet '${packet.name}'.\n\nData:\n${JSON.stringify(packet.packet)}`});
+							packet.packet = makePacket(ErrorPacket, { message: `No packet listener found for received packet '${packet.name}'.\n\nData:\n${JSON.stringify(packet.packet)}` });
 							listener = DiscordMQTT.packetListener.getListener("ErrorPacket")!;
 						}
 						await listener(context as PacketContext, packet.packet as DraftBotPacket);
@@ -71,9 +77,9 @@ export class DiscordMQTT {
 							await channel.send({ embeds: [
 								new DraftBotEmbed()
 									.setErrorColor()
-									.setTitle(i18n.t("error:errorOccurredTitle", {lng}))
-									.setDescription(i18n.t("error:errorOccurred", {lng}))
-							]});
+									.setTitle(i18n.t("error:errorOccurredTitle", { lng }))
+									.setDescription(i18n.t("error:errorOccurred", { lng }))
+							] });
 						}
 					}
 				}
@@ -88,7 +94,7 @@ export class DiscordMQTT {
 					await DiscordAnnouncement.announceTopWeek(JSON.parse(message.toString()));
 
 					// Clear the announcement so it doesn't get processed again
-					DiscordMQTT.mqttClient.publish(MqttTopicUtils.getDiscordTopWeekAnnouncementTopic(discordConfig.PREFIX), "", {retain: true});
+					DiscordMQTT.mqttClient.publish(MqttTopicUtils.getDiscordTopWeekAnnouncementTopic(discordConfig.PREFIX), "", { retain: true });
 				}
 			}
 			else if (topic === MqttTopicUtils.getDiscordTopWeekFightAnnouncementTopic(discordConfig.PREFIX)) {
@@ -101,7 +107,7 @@ export class DiscordMQTT {
 					await DiscordAnnouncement.announceTopWeekFight(JSON.parse(message.toString()));
 
 					// Clear the announcement so it doesn't get processed again
-					DiscordMQTT.mqttClient.publish(MqttTopicUtils.getDiscordTopWeekFightAnnouncementTopic(discordConfig.PREFIX), "", {retain: true});
+					DiscordMQTT.mqttClient.publish(MqttTopicUtils.getDiscordTopWeekFightAnnouncementTopic(discordConfig.PREFIX), "", { retain: true });
 				}
 			}
 		});
@@ -127,7 +133,7 @@ export class DiscordMQTT {
 		});
 
 		DiscordMQTT.notificationMqttClient.on("connect", () => {
-			DiscordMQTT.notificationMqttClient.publish(MqttTopicUtils.getNotificationsTopic(discordConfig.PREFIX), "", {retain: true}); // Clear the last notification to avoid processing it twice
+			DiscordMQTT.notificationMqttClient.publish(MqttTopicUtils.getNotificationsTopic(discordConfig.PREFIX), "", { retain: true }); // Clear the last notification to avoid processing it twice
 
 			DiscordMQTT.subscribeTo(DiscordMQTT.notificationMqttClient, MqttTopicUtils.getNotificationsTopic(discordConfig.PREFIX));
 		});

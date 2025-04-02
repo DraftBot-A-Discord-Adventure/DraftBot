@@ -1,7 +1,7 @@
-import {DataControllerString} from "./DataController";
-import {Data} from "./Data";
-import {RandomUtils} from "../../../Lib/src/utils/RandomUtils";
-import {PVEConstants} from "../../../Lib/src/constants/PVEConstants";
+import { DataControllerString } from "./DataController";
+import { Data } from "./Data";
+import { RandomUtils } from "../../../Lib/src/utils/RandomUtils";
+import { PVEConstants } from "../../../Lib/src/constants/PVEConstants";
 
 export class Monster extends Data<string> {
 	public readonly emoji: string;
@@ -23,9 +23,9 @@ export class Monster extends Data<string> {
 	public readonly rewardFactor: number;
 
 	public readonly attacks: {
-		id: string,
-		minLevel: number,
-		weight: number
+		id: string;
+		minLevel: number;
+		weight: number;
 	}[];
 
 	public readonly maps: number[];
@@ -36,10 +36,10 @@ export class Monster extends Data<string> {
 	 * @param level Monster's level
 	 */
 	public getRewards(level: number): {
-		money: number,
-		xp: number,
-		guildScore: number,
-		guildXp: number
+		money: number;
+		xp: number;
+		guildScore: number;
+		guildXp: number;
 	} {
 		return {
 			money: Math.round(this.rewardFactor * (level * PVEConstants.FIGHT_REWARDS.MONEY_FACTOR + RandomUtils.draftbotRandom.integer(0, PVEConstants.FIGHT_REWARDS.RANDOM_MAX_REWARD))),
@@ -61,7 +61,7 @@ export class MonsterDataController extends DataControllerString<Monster> {
 		let availableMonsters = this.getValuesArray();
 
 		if (mapId !== -1) {
-			availableMonsters = availableMonsters.filter((monster) => monster.maps.includes(mapId));
+			availableMonsters = availableMonsters.filter(monster => monster.maps.includes(mapId));
 		}
 
 		return availableMonsters[seed % availableMonsters.length];

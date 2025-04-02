@@ -3,12 +3,14 @@ import {
 	ReactionCollectorCreationPacket,
 	ReactionCollectorData, ReactionCollectorReaction
 } from "./ReactionCollectorPacket";
-import {OwnedPet} from "../../types/OwnedPet";
+import { OwnedPet } from "../../types/OwnedPet";
 
 export class ReactionCollectorPetTransferData extends ReactionCollectorData {
 	ownPet?: OwnedPet;
 
-	shelterPets: { petEntityId: number, pet: OwnedPet }[] = [];
+	shelterPets: {
+		petEntityId: number; pet: OwnedPet;
+	}[] = [];
 }
 
 export class ReactionCollectorPetTransferDepositReaction extends ReactionCollectorReaction {}
@@ -24,11 +26,15 @@ export class ReactionCollectorPetTransferSwitchReaction extends ReactionCollecto
 export class ReactionCollectorPetTransfer extends ReactionCollector {
 	private readonly ownPet: OwnedPet;
 
-	private readonly shelterPets: { petEntityId: number, pet: OwnedPet }[];
+	private readonly shelterPets: {
+		petEntityId: number; pet: OwnedPet;
+	}[];
 
 	private readonly reactions: ReactionCollectorReaction[];
 
-	constructor(ownPet: OwnedPet, shelterPets: { petEntityId: number, pet: OwnedPet }[], reactions: ReactionCollectorReaction[]) {
+	constructor(ownPet: OwnedPet, shelterPets: {
+		petEntityId: number; pet: OwnedPet;
+	}[], reactions: ReactionCollectorReaction[]) {
 		super();
 		this.ownPet = ownPet;
 		this.shelterPets = shelterPets;

@@ -1,5 +1,4 @@
 export abstract class MapConstants {
-
 	static readonly MAP_URL = "https://draftbot.com/public/ressources/map.jpg"; // Unused, but useful
 
 	static readonly MAP_URL_WITH_CURSOR = "https://draftbot.com/public/ressources/mapsCursed/{mapLink}map.jpg";
@@ -7,11 +6,32 @@ export abstract class MapConstants {
 	static readonly FORCED_MAPS_URL = "https://draftbot.com/public/ressources/maps/{name}.jpg";
 
 	static readonly WATER_MAP_LINKS = [
-		1, 2, 17, 20, 21, 22,
-		23, 24, 32, 33, 34, 36,
-		37, 40, 41, 42, 43, 44,
-		46, 47, 49, 54, 55, 56,
-		57, 59
+		1,
+		2,
+		17,
+		20,
+		21,
+		22,
+		23,
+		24,
+		32,
+		33,
+		34,
+		36,
+		37,
+		40,
+		41,
+		42,
+		43,
+		44,
+		46,
+		47,
+		49,
+		54,
+		55,
+		56,
+		57,
+		59
 	];
 
 	static readonly LOCATIONS_IDS = {

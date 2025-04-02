@@ -1,14 +1,14 @@
-import {ReactionCollectorCreationPacket} from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
-import {DiscordCache} from "../bot/DiscordCache";
-import {DraftbotSmallEventEmbed} from "../messages/DraftbotSmallEventEmbed";
-import {StringUtils} from "../utils/StringUtils";
-import {DiscordCollectorUtils} from "../utils/DiscordCollectorUtils";
-import {DisplayUtils} from "../utils/DisplayUtils";
-import {Constants} from "../../../Lib/src/constants/Constants";
+import { ReactionCollectorCreationPacket } from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { PacketContext } from "../../../Lib/src/packets/DraftBotPacket";
+import { DiscordCache } from "../bot/DiscordCache";
+import { DraftbotSmallEventEmbed } from "../messages/DraftbotSmallEventEmbed";
+import { StringUtils } from "../utils/StringUtils";
+import { DiscordCollectorUtils } from "../utils/DiscordCollectorUtils";
+import { DisplayUtils } from "../utils/DisplayUtils";
+import { Constants } from "../../../Lib/src/constants/Constants";
 import i18n from "../translations/i18n";
-import {ReactionCollectorEpicShopSmallEventData} from "../../../Lib/src/packets/interaction/ReactionCollectorEpicShopSmallEvent";
-import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorEpicShopSmallEventData } from "../../../Lib/src/packets/interaction/ReactionCollectorEpicShopSmallEvent";
+import { ReactionCollectorReturnType } from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
 /**
  * Send the initial embed for this small event
@@ -22,7 +22,7 @@ export async function epicItemShopCollector(context: PacketContext, packet: Reac
 	}
 	const lng = interaction.userLanguage;
 	const data = packet.data.data as ReactionCollectorEpicShopSmallEventData;
-	const tip = data.tip ? i18n.t("smallEvents:epicItemShop.reductionTip", {lng}) : "";
+	const tip = data.tip ? i18n.t("smallEvents:epicItemShop.reductionTip", { lng }) : "";
 
 	const embed = new DraftbotSmallEventEmbed(
 		"epicItemShop",
@@ -35,7 +35,7 @@ export async function epicItemShopCollector(context: PacketContext, packet: Reac
 				returnObjects: true,
 				lng
 			})[data.item.category]}`,
-			interpolation: {escapeValue: false}
+			interpolation: { escapeValue: false }
 		}),
 		interaction.user,
 		lng

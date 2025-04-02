@@ -1,13 +1,13 @@
-import {packetHandler} from "../PacketHandler";
-import {ItemAcceptPacket} from "../../../../Lib/src/packets/events/ItemAcceptPacket";
-import {PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {ItemFoundPacket} from "../../../../Lib/src/packets/events/ItemFoundPacket";
-import {ItemRefusePacket} from "../../../../Lib/src/packets/events/ItemRefusePacket";
-import {DiscordCache} from "../../bot/DiscordCache";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
+import { packetHandler } from "../PacketHandler";
+import { ItemAcceptPacket } from "../../../../Lib/src/packets/events/ItemAcceptPacket";
+import { PacketContext } from "../../../../Lib/src/packets/DraftBotPacket";
+import { ItemFoundPacket } from "../../../../Lib/src/packets/events/ItemFoundPacket";
+import { ItemRefusePacket } from "../../../../Lib/src/packets/events/ItemRefusePacket";
+import { DiscordCache } from "../../bot/DiscordCache";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import i18n from "../../translations/i18n";
-import {DisplayUtils} from "../../utils/DisplayUtils";
-import {ItemCategory} from "../../../../Lib/src/constants/ItemConstants";
+import { DisplayUtils } from "../../utils/DisplayUtils";
+import { ItemCategory } from "../../../../Lib/src/constants/ItemConstants";
 
 export default class ItemHandler {
 	@packetHandler(ItemAcceptPacket)
@@ -20,7 +20,7 @@ export default class ItemHandler {
 					pseudo: interaction.user.displayName
 				}), interaction.user)
 				.setDescription(DisplayUtils.getItemDisplayWithStats(packet.itemWithDetails, interaction.userLanguage));
-			await interaction.channel.send({embeds: [menuEmbed]});
+			await interaction.channel.send({ embeds: [menuEmbed] });
 		}
 	}
 
@@ -69,7 +69,7 @@ export default class ItemHandler {
 					lng,
 					item: DisplayUtils.getItemDisplay(packet.item, lng),
 					value: packet.soldMoney,
-					interpolation: {escapeValue: false}
+					interpolation: { escapeValue: false }
 				}));
 		}
 		else {
@@ -89,16 +89,16 @@ export default class ItemHandler {
 				.setDescription(i18n.t("commands:sell.potionDestroyedMessage", {
 					lng,
 					item: DisplayUtils.getItemDisplay(packet.item, lng),
-					interpolation: {escapeValue: false}
+					interpolation: { escapeValue: false }
 				}));
 		}
 
 		const buttonInteraction = context.discord!.buttonInteraction ? DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!) : null;
 		if (buttonInteraction && !buttonInteraction.replied) {
-			await buttonInteraction.editReply({embeds: [menuEmbed]});
+			await buttonInteraction.editReply({ embeds: [menuEmbed] });
 		}
 		else {
-			await interaction.channel.send({embeds: [menuEmbed]});
+			await interaction.channel.send({ embeds: [menuEmbed] });
 		}
 	}
 }

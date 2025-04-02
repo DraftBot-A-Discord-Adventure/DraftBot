@@ -1,6 +1,6 @@
-import {MainItem} from "./MainItem";
-import {ItemCategory} from "../../../Lib/src/constants/ItemConstants";
-import {ItemDataController} from "./DataController";
+import { MainItem } from "./MainItem";
+import { ItemCategory } from "../../../Lib/src/constants/ItemConstants";
+import { ItemDataController } from "./DataController";
 
 export class Weapon extends MainItem {
 	categoryName = "weapons";

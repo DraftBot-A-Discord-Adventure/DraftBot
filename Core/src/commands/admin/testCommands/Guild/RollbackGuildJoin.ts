@@ -1,10 +1,12 @@
-import {ExecuteTestCommandLike, ITestCommand} from "../../../../core/CommandsTest";
+import {
+	ExecuteTestCommandLike, ITestCommand
+} from "../../../../core/CommandsTest";
 import Player from "../../../../core/database/game/models/Player";
-import {LogsGuildsJoins} from "../../../../core/database/logs/models/LogsGuildJoins";
-import {LogsPlayers} from "../../../../core/database/logs/models/LogsPlayers";
-import {HasOne} from "sequelize";
-import {LogsGuilds} from "../../../../core/database/logs/models/LogsGuilds";
-import {hoursToMilliseconds} from "../../../../../../Lib/src/utils/TimeUtils";
+import { LogsGuildsJoins } from "../../../../core/database/logs/models/LogsGuildJoins";
+import { LogsPlayers } from "../../../../core/database/logs/models/LogsPlayers";
+import { HasOne } from "sequelize";
+import { LogsGuilds } from "../../../../core/database/logs/models/LogsGuilds";
+import { hoursToMilliseconds } from "../../../../../../Lib/src/utils/TimeUtils";
 
 export const commandInfo: ITestCommand = {
 	name: "rollbackguildjoin",
@@ -16,21 +18,26 @@ const rollbackGuildJoin: ExecuteTestCommandLike = async (player: Player) => {
 	if (!player.guildId) {
 		return "Vous n'appartenez pas à une guilde.";
 	}
+
 	// Récupérer les logs de join correspondants
 	const joinLogs = await LogsGuildsJoins.findOne({
 		where: {},
 		include: [
 			{
 				model: LogsPlayers,
-				where: {keycloakId: player.keycloakId},
+				where: { keycloakId: player.keycloakId },
 				required: true,
-				association: new HasOne(LogsGuildsJoins, LogsPlayers, {sourceKey: "addedId", foreignKey: "id"})
+				association: new HasOne(LogsGuildsJoins, LogsPlayers, {
+					sourceKey: "addedId", foreignKey: "id"
+				})
 			},
 			{
 				model: LogsGuilds,
-				where: {id: player.guildId},
+				where: { id: player.guildId },
 				required: true,
-				association: new HasOne(LogsGuildsJoins, LogsGuilds, {sourceKey: "guildId", foreignKey: "id"})
+				association: new HasOne(LogsGuildsJoins, LogsGuilds, {
+					sourceKey: "guildId", foreignKey: "id"
+				})
 			}
 		],
 		order: [["date", "DESC"]], // Trier par date décroissante pour prendre la plus récente
@@ -40,7 +47,7 @@ const rollbackGuildJoin: ExecuteTestCommandLike = async (player: Player) => {
 
 	// Modifier la date
 	await LogsGuildsJoins.update(
-		{date: joinLogs.date - hoursToMilliseconds(7 * 24)}, // Soustraire 1 semaine
+		{ date: joinLogs.date - hoursToMilliseconds(7 * 24) }, // Soustraire 1 semaine
 		{
 			where: {
 				addedId: joinLogs.addedId,

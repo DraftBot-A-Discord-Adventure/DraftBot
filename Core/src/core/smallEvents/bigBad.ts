@@ -1,23 +1,25 @@
-import {SmallEventDataController, SmallEventFuncs} from "../../data/SmallEvent";
-import {SmallEventConstants} from "../../../../Lib/src/constants/SmallEventConstants";
-import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
-import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import {TravelTime} from "../maps/TravelTime";
-import {MissionsController} from "../missions/MissionsController";
-import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
-import {SmallEventBigBadPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventBigBadPacket";
-import {Maps} from "../maps/Maps";
-import {Effect} from "../../../../Lib/src/types/Effect";
-import {SmallEventBigBadKind} from "../../../../Lib/src/types/SmallEventBigBadKind";
+import {
+	SmallEventDataController, SmallEventFuncs
+} from "../../data/SmallEvent";
+import { SmallEventConstants } from "../../../../Lib/src/constants/SmallEventConstants";
+import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
+import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
+import { TravelTime } from "../maps/TravelTime";
+import { MissionsController } from "../missions/MissionsController";
+import { makePacket } from "../../../../Lib/src/packets/DraftBotPacket";
+import { SmallEventBigBadPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventBigBadPacket";
+import { Maps } from "../maps/Maps";
+import { Effect } from "../../../../Lib/src/types/Effect";
+import { SmallEventBigBadKind } from "../../../../Lib/src/types/SmallEventBigBadKind";
 
 type BigBadProperties = {
-	"alterationStories": {
+	alterationStories: {
 		[key: string]: {
-			"alte": string,
-			"tags"?: string[]
-		}
-	}
-}
+			alte: string;
+			tags?: string[];
+		};
+	};
+};
 
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnContinent,
@@ -26,31 +28,31 @@ export const smallEventFuncs: SmallEventFuncs = {
 		let lifeLoss, seFallen, moneyLoss, effect;
 		const bigBadProperties = SmallEventDataController.instance.getById("bigBad").getProperties<BigBadProperties>();
 		switch (outRand) {
-		case SmallEventBigBadKind.LIFE_LOSS:
-			lifeLoss = RandomUtils.rangedInt(SmallEventConstants.BIG_BAD.HEALTH);
-			await player.addHealth(-lifeLoss, response, NumberChangeReason.SMALL_EVENT);
-			break;
-		case SmallEventBigBadKind.ALTERATION:
-			seFallen = RandomUtils.draftbotRandom.pick(Object.keys(bigBadProperties.alterationStories));
-			effect = bigBadProperties.alterationStories[seFallen].alte;
-			await TravelTime.applyEffect(player, Effect.getById(effect), 0, new Date(), NumberChangeReason.SMALL_EVENT);
-			if (bigBadProperties.alterationStories[seFallen].tags) {
-				for (const tag of bigBadProperties.alterationStories[seFallen].tags) {
-					await MissionsController.update(player, response, {
-						missionId: tag,
-						params: {tags: bigBadProperties.alterationStories[seFallen].tags}
-					});
+			case SmallEventBigBadKind.LIFE_LOSS:
+				lifeLoss = RandomUtils.rangedInt(SmallEventConstants.BIG_BAD.HEALTH);
+				await player.addHealth(-lifeLoss, response, NumberChangeReason.SMALL_EVENT);
+				break;
+			case SmallEventBigBadKind.ALTERATION:
+				seFallen = RandomUtils.draftbotRandom.pick(Object.keys(bigBadProperties.alterationStories));
+				effect = bigBadProperties.alterationStories[seFallen].alte;
+				await TravelTime.applyEffect(player, Effect.getById(effect), 0, new Date(), NumberChangeReason.SMALL_EVENT);
+				if (bigBadProperties.alterationStories[seFallen].tags) {
+					for (const tag of bigBadProperties.alterationStories[seFallen].tags) {
+						await MissionsController.update(player, response, {
+							missionId: tag,
+							params: { tags: bigBadProperties.alterationStories[seFallen].tags }
+						});
+					}
 				}
-			}
-			break;
-		default:
-			moneyLoss = RandomUtils.rangedInt(SmallEventConstants.BIG_BAD.MONEY);
-			await player.addMoney({
-				amount: -moneyLoss,
-				response,
-				reason: NumberChangeReason.SMALL_EVENT
-			});
-			break;
+				break;
+			default:
+				moneyLoss = RandomUtils.rangedInt(SmallEventConstants.BIG_BAD.MONEY);
+				await player.addMoney({
+					amount: -moneyLoss,
+					response,
+					reason: NumberChangeReason.SMALL_EVENT
+				});
+				break;
 		}
 		response.push(makePacket(SmallEventBigBadPacket, {
 			kind: outRand,

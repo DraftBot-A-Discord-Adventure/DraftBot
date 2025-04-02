@@ -1,15 +1,25 @@
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {Player} from "../../core/database/game/models/Player";
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
-import {CommandSwitchCancelled, CommandSwitchErrorNoItemToSwitch, CommandSwitchPacketReq, CommandSwitchSuccess} from "../../../../Lib/src/packets/commands/CommandSwitchPacket";
-import {InventorySlot, InventorySlots} from "../../core/database/game/models/InventorySlot";
-import {sortPlayerItemList} from "../../core/utils/ItemUtils";
-import {ReactionCollectorInstance} from "../../core/utils/ReactionsCollector";
-import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
-import {ReactionCollectorSwitchItem, ReactionCollectorSwitchItemCloseReaction, ReactionCollectorSwitchItemReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorSwitchItem";
-import {ObjectItem} from "../../data/ObjectItem";
-import {MainItem} from "../../data/MainItem";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import {
+	DraftBotPacket, makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { Player } from "../../core/database/game/models/Player";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
+import {
+	CommandSwitchCancelled, CommandSwitchErrorNoItemToSwitch, CommandSwitchPacketReq, CommandSwitchSuccess
+} from "../../../../Lib/src/packets/commands/CommandSwitchPacket";
+import {
+	InventorySlot, InventorySlots
+} from "../../core/database/game/models/InventorySlot";
+import { sortPlayerItemList } from "../../core/utils/ItemUtils";
+import { ReactionCollectorInstance } from "../../core/utils/ReactionsCollector";
+import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
+import {
+	ReactionCollectorSwitchItem, ReactionCollectorSwitchItemCloseReaction, ReactionCollectorSwitchItemReaction
+} from "../../../../Lib/src/packets/interaction/ReactionCollectorSwitchItem";
+import { ObjectItem } from "../../data/ObjectItem";
+import { MainItem } from "../../data/MainItem";
+import { BlockingUtils } from "../../core/utils/BlockingUtils";
 
 
 /**
@@ -61,6 +71,7 @@ export default class SwitchCommand {
 	})
 	async execute(response: DraftBotPacket[], player: Player, _packet: CommandSwitchPacketReq, context: PacketContext): Promise<void> {
 		const profileSlots = await InventorySlots.getOfPlayer(player.id);
+
 		// Get the items that can be switched or send an error if none
 		let toSwitchItems = profileSlots.filter(slot => !slot.isEquipped() && slot.itemId !== 0);
 		if (toSwitchItems.length === 0) {
@@ -76,6 +87,7 @@ export default class SwitchCommand {
 		toSwitchItems = sortPlayerItemList(toSwitchItems);
 
 		const collector = new ReactionCollectorSwitchItem(toSwitchItems.map((item: InventorySlot) => (item.getItem() as MainItem | ObjectItem).getDisplayPacket()));
+
 		// Create a reaction collector which will let the player choose the mission he wants to skip
 		const packet = new ReactionCollectorInstance(
 			collector,

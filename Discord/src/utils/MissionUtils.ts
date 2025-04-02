@@ -1,11 +1,14 @@
-import {BaseMission, CompletedMission} from "../../../Lib/src/types/CompletedMission";
-import {Language} from "../../../Lib/src/Language";
+import {
+	BaseMission, CompletedMission
+} from "../../../Lib/src/types/CompletedMission";
+import { Language } from "../../../Lib/src/Language";
 import i18n from "../translations/i18n";
-import {MissionUtils as MissionUtilsLib} from "../../../Lib/src/utils/MissionUtils";
-import {hoursToMilliseconds, hoursToSeconds, millisecondsToSeconds} from "../../../Lib/src/utils/TimeUtils";
+import { MissionUtils as MissionUtilsLib } from "../../../Lib/src/utils/MissionUtils";
+import {
+	hoursToMilliseconds, hoursToSeconds, millisecondsToSeconds
+} from "../../../Lib/src/utils/TimeUtils";
 
 export class MissionUtils {
-
 	/**
 	 * Get the displayable version of a mission (only the plain objective)
 	 * @param mission
@@ -16,7 +19,7 @@ export class MissionUtils {
 			lng,
 			count: mission.missionObjective,
 			variantText: this.getVariantText(mission, lng),
-			interpolation: {escapeValue: false}
+			interpolation: { escapeValue: false }
 		});
 	}
 
@@ -27,10 +30,18 @@ export class MissionUtils {
 	 */
 	static formatCompletedMission(mission: CompletedMission, lng: Language): string {
 		const rewards = [
-			{value: mission.pointsToWin, key: "pointsDisplay"},
-			{value: mission.gemsToWin, key: "gemsDisplay"},
-			{value: mission.moneyToWin, key: "moneyDisplay"},
-			{value: mission.xpToWin, key: "xpDisplay"}
+			{
+				value: mission.pointsToWin, key: "pointsDisplay"
+			},
+			{
+				value: mission.gemsToWin, key: "gemsDisplay"
+			},
+			{
+				value: mission.moneyToWin, key: "moneyDisplay"
+			},
+			{
+				value: mission.xpToWin, key: "xpDisplay"
+			}
 		];
 
 		const rewardDisplays = rewards
@@ -44,7 +55,7 @@ export class MissionUtils {
 			lng,
 			missionDescription: this.formatBaseMission(mission, lng),
 			missionsReward: rewardDisplays.length === 0 ? "" : ` (${rewardDisplays.join(", ")})`,
-			interpolation: {escapeValue: false}
+			interpolation: { escapeValue: false }
 		});
 	}
 
@@ -111,17 +122,17 @@ export class MissionUtils {
 		if (!saveData || saveData.startTimestamp + hoursToMilliseconds(params.time) < Date.now()) {
 			return i18n.t("models:missionVariants.fromPlaceToPlace", {
 				lng,
-				place1: i18n.t(`models:map_locations.${params.fromMap}.name`, {lng}),
-				place2: i18n.t(`models:map_locations.${params.toMap}.name`, {lng}),
+				place1: i18n.t(`models:map_locations.${params.fromMap}.name`, { lng }),
+				place2: i18n.t(`models:map_locations.${params.toMap}.name`, { lng }),
 				time: params.time,
 				context: params.orderMatter ? "order" : "noOrder"
 			});
 		}
 		return i18n.t("models:missionVariants.fromPlaceToPlace_secondPart", {
 			lng,
-			place: i18n.t(`models:map_locations.${saveData.startMap === params.fromMap ? params.toMap : params.fromMap}.name`, {lng}),
+			place: i18n.t(`models:map_locations.${saveData.startMap === params.fromMap ? params.toMap : params.fromMap}.name`, { lng }),
 			timestamp: Math.round(millisecondsToSeconds(saveData.startTimestamp)) + hoursToSeconds(params.time),
-			interpolation: {escapeValue: false}
+			interpolation: { escapeValue: false }
 		});
 	}
 }

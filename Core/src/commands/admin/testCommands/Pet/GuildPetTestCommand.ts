@@ -1,8 +1,10 @@
-import {GuildPets} from "../../../../core/database/game/models/GuildPet";
-import {PetEntities} from "../../../../core/database/game/models/PetEntity";
-import {Guilds} from "../../../../core/database/game/models/Guild";
-import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
-import {PetDataController} from "../../../../data/Pet";
+import { GuildPets } from "../../../../core/database/game/models/GuildPet";
+import { PetEntities } from "../../../../core/database/game/models/PetEntity";
+import { Guilds } from "../../../../core/database/game/models/Guild";
+import {
+	ExecuteTestCommandLike, ITestCommand, TypeKey
+} from "../../../../core/CommandsTest";
+import { PetDataController } from "../../../../data/Pet";
 
 export const commandInfo: ITestCommand = {
 	name: "guildpet",

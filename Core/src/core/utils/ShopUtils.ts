@@ -7,21 +7,27 @@ import {
 	ReactionCollectorShopItemReaction,
 	ShopCategory
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorShop";
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {EndCallback, ReactionCollectorInstance} from "./ReactionsCollector";
-import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
-import {BlockingUtils} from "./BlockingUtils";
+import {
+	DraftBotPacket, makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import {
+	EndCallback, ReactionCollectorInstance
+} from "./ReactionsCollector";
+import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
+import { BlockingUtils } from "./BlockingUtils";
 import Player from "../database/game/models/Player";
-import {NumberChangeReason, ShopItemType} from "../../../../Lib/src/constants/LogsConstants";
-import {ShopCurrency} from "../../../../Lib/src/constants/ShopConstants";
-import PlayerMissionsInfo, {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
+import {
+	NumberChangeReason, ShopItemType
+} from "../../../../Lib/src/constants/LogsConstants";
+import { ShopCurrency } from "../../../../Lib/src/constants/ShopConstants";
+import PlayerMissionsInfo, { PlayerMissionsInfos } from "../database/game/models/PlayerMissionsInfo";
 
 export type ShopInformations = {
-	shopCategories: ShopCategory[],
-	player: Player,
-	additionnalShopData?: AdditionnalShopData & { currency?: ShopCurrency }
-	logger: (keycloakId: string, shopItemName: ShopItemType, amount?: number) => Promise<void>
-}
+	shopCategories: ShopCategory[];
+	player: Player;
+	additionnalShopData?: AdditionnalShopData & { currency?: ShopCurrency };
+	logger: (keycloakId: string, shopItemName: ShopItemType, amount?: number) => Promise<void>;
+};
 
 export class ShopUtils {
 	public static async createAndSendShopCollector(

@@ -1,5 +1,7 @@
-import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket.js";
-import {ItemNature} from "../../constants/ItemConstants";
+import {
+	DraftBotPacket, PacketDirection, sendablePacket
+} from "../DraftBotPacket.js";
+import { ItemNature } from "../../constants/ItemConstants";
 
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandDailyBonusPacketReq extends DraftBotPacket {

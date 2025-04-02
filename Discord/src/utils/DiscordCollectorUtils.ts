@@ -1,29 +1,45 @@
-import {makePacket, PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
+import {
+	makePacket, PacketContext
+} from "../../../Lib/src/packets/DraftBotPacket";
 import {
 	ReactionCollectorAcceptReaction,
 	ReactionCollectorCreationPacket,
 	ReactionCollectorReactPacket,
 	ReactionCollectorRefuseReaction
 } from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {DiscordCache} from "../bot/DiscordCache";
-import {KeycloakUser} from "../../../Lib/src/keycloak/KeycloakUser";
-import {ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, Message, MessageComponentInteraction, parseEmoji} from "discord.js";
-import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
-import {DraftBotEmbed} from "../messages/DraftBotEmbed";
-import {DraftbotInteraction} from "../messages/DraftbotInteraction";
-import {sendInteractionNotForYou} from "./ErrorUtils";
-import {PacketUtils} from "./PacketUtils";
-import {keycloakConfig, shardId} from "../bot/DraftBotShard.js";
-import {KeycloakUtils} from "../../../Lib/src/keycloak/KeycloakUtils.js";
-import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCollectorHandlers";
-import {DiscordMQTT} from "../bot/DiscordMQTT";
-import {RequirementEffectPacket} from "../../../Lib/src/packets/commands/requirements/RequirementEffectPacket";
-import {Effect} from "../../../Lib/src/types/Effect";
-import {PacketConstants} from "../../../Lib/src/constants/PacketConstants";
-import {DiscordConstants} from "../DiscordConstants";
+import { DiscordCache } from "../bot/DiscordCache";
+import { KeycloakUser } from "../../../Lib/src/keycloak/KeycloakUser";
+import {
+	ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, Message, MessageComponentInteraction, parseEmoji
+} from "discord.js";
+import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
+import { DraftBotEmbed } from "../messages/DraftBotEmbed";
+import { DraftbotInteraction } from "../messages/DraftbotInteraction";
+import { sendInteractionNotForYou } from "./ErrorUtils";
+import { PacketUtils } from "./PacketUtils";
+import {
+	keycloakConfig, shardId
+} from "../bot/DraftBotShard.js";
+import { KeycloakUtils } from "../../../Lib/src/keycloak/KeycloakUtils.js";
+import { ReactionCollectorReturnType } from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import { DiscordMQTT } from "../bot/DiscordMQTT";
+import { RequirementEffectPacket } from "../../../Lib/src/packets/commands/requirements/RequirementEffectPacket";
+import { Effect } from "../../../Lib/src/types/Effect";
+import { PacketConstants } from "../../../Lib/src/constants/PacketConstants";
+import { DiscordConstants } from "../DiscordConstants";
 
 export class DiscordCollectorUtils {
-	private static choiceListEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣", "7⃣", "8⃣", "9⃣"];
+	private static choiceListEmotes = [
+		"1⃣",
+		"2⃣",
+		"3⃣",
+		"4⃣",
+		"5⃣",
+		"6⃣",
+		"7⃣",
+		"8⃣",
+		"9⃣"
+	];
 
 	static sendReaction(
 		packet: ReactionCollectorCreationPacket,
@@ -72,14 +88,14 @@ export class DiscordCollectorUtils {
 		reactionCollectorCreationPacket: ReactionCollectorCreationPacket,
 		context: PacketContext,
 		options?: {
-			canInitiatorRefuse?: boolean,
-			acceptedUsersId?: string[],
-			anyoneCanReact?: boolean,
+			canInitiatorRefuse?: boolean;
+			acceptedUsersId?: string[];
+			anyoneCanReact?: boolean;
 			emojis?: {
-				accept?: string,
-				refuse?: string
-			},
-			notDeferReply?: boolean
+				accept?: string;
+				refuse?: string;
+			};
+			notDeferReply?: boolean;
 		}
 	): Promise<ReactionCollectorReturnType> {
 		const emojis = {
@@ -150,17 +166,21 @@ export class DiscordCollectorUtils {
 					await buttonInteraction.deferReply();
 				}
 				else if (messageContentOrEmbed instanceof DraftBotEmbed) {
-					await msg.edit({embeds: [messageContentOrEmbed], components: []});
+					await msg.edit({
+						embeds: [messageContentOrEmbed], components: []
+					});
 				}
 				else {
-					await msg.edit({content: messageContentOrEmbed, components: []});
+					await msg.edit({
+						content: messageContentOrEmbed, components: []
+					});
 				}
 				DiscordCollectorUtils.sendReaction(
 					reactionCollectorCreationPacket,
 					context,
 					reactingPlayerKeycloakId,
 					buttonInteraction,
-					reactionCollectorCreationPacket.reactions.findIndex((reaction) =>
+					reactionCollectorCreationPacket.reactions.findIndex(reaction =>
 						reaction.type === (buttonInteraction.customId === acceptCustomId
 							? ReactionCollectorAcceptReaction.name
 							: ReactionCollectorRefuseReaction.name))
@@ -192,7 +212,9 @@ export class DiscordCollectorUtils {
 		reactionCollectorCreationPacket: ReactionCollectorCreationPacket,
 		context: PacketContext,
 		items: string[],
-		refuse: { can: boolean, reactionIndex?: number }
+		refuse: {
+			can: boolean; reactionIndex?: number;
+		}
 	): Promise<ReactionCollectorReturnType> {
 		if (items.length > DiscordCollectorUtils.choiceListEmotes.length) {
 			throw "Too many items to display";
@@ -200,6 +222,7 @@ export class DiscordCollectorUtils {
 
 		let choiceDesc = "";
 		const rows = [new ActionRowBuilder<ButtonBuilder>()];
+
 		// Create buttons
 		for (let i = 0; i < items.length; ++i) {
 			const button = new ButtonBuilder()
@@ -239,8 +262,8 @@ export class DiscordCollectorUtils {
 		const msg: Message = await (interaction.replied ? interaction.followUp : interaction.deferred ? interaction.editReply : interaction.reply)({
 			components: rows,
 			...messageContentOrEmbed instanceof DraftBotEmbed
-				? {embeds: [messageContentOrEmbed]}
-				: {content: messageContentOrEmbed}
+				? { embeds: [messageContentOrEmbed] }
+				: { content: messageContentOrEmbed }
 		});
 
 		// Create button collector

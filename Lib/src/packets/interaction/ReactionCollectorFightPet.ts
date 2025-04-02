@@ -39,7 +39,9 @@ export class ReactionCollectorFightPet extends ReactionCollector {
 			id,
 			endTime,
 			reactions,
-			data: this.buildData(ReactionCollectorFightPetData, {petId: this.petId, isFemale: this.isFemale})
+			data: this.buildData(ReactionCollectorFightPetData, {
+				petId: this.petId, isFemale: this.isFemale
+			})
 		};
 	}
 }

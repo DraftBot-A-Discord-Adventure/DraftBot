@@ -1,6 +1,6 @@
-import {ICommand} from "../ICommand";
-import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
-import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import { ICommand } from "../ICommand";
+import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
+import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
 import {
 	NotificationsConfiguration,
 	NotificationsConfigurations
@@ -15,14 +15,16 @@ import {
 	parseEmoji,
 	User
 } from "discord.js";
-import {Constants} from "../../../../Lib/src/constants/Constants";
-import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
+import { Constants } from "../../../../Lib/src/constants/Constants";
+import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
 import i18n from "../../translations/i18n";
-import {Language} from "../../../../Lib/src/Language";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
-import {sendInteractionNotForYou} from "../../utils/ErrorUtils";
-import {NotificationSendType, NotificationSendTypeEnum} from "../../notifications/NotificationSendType";
-import {NotificationsTypes} from "../../notifications/NotificationType";
+import { Language } from "../../../../Lib/src/Language";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
+import { sendInteractionNotForYou } from "../../utils/ErrorUtils";
+import {
+	NotificationSendType, NotificationSendTypeEnum
+} from "../../notifications/NotificationSendType";
+import { NotificationsTypes } from "../../notifications/NotificationType";
 
 /**
  * Map of the current notification configuration collectors
@@ -31,7 +33,7 @@ import {NotificationsTypes} from "../../notifications/NotificationType";
  * Value: [Date of expiration of the collector, function to stop the collector]
  */
 // eslint bug here, it considers that "Date, " is a function name
-// eslint-disable-next-line func-call-spacing
+
 const currentCollectors = new Map<string, () => void>();
 
 
@@ -66,14 +68,14 @@ async function mainPage(interaction: DraftbotInteraction | ButtonInteraction, no
 	row.addComponents(new ButtonBuilder()
 		.setEmoji(parseEmoji(chooseEnabledEmoji)!)
 		.setCustomId(chooseEnabledCustomId)
-		.setLabel(i18n.t("commands:notifications.enableDisable", {lng}))
+		.setLabel(i18n.t("commands:notifications.enableDisable", { lng }))
 		.setStyle(ButtonStyle.Secondary));
 	const allTypesDisabled = NotificationsTypes.ALL.every(notificationType => !notificationType.value(notificationsConfiguration).enabled);
 	if (!allTypesDisabled) {
 		row.addComponents(new ButtonBuilder()
 			.setEmoji(parseEmoji(chooseSendTypeEmoji)!)
 			.setCustomId(chooseSendTypeCustomId)
-			.setLabel(i18n.t("commands:notifications.sendLocation", {lng}))
+			.setLabel(i18n.t("commands:notifications.sendLocation", { lng }))
 			.setStyle(ButtonStyle.Secondary));
 	}
 
@@ -119,7 +121,7 @@ async function mainPage(interaction: DraftbotInteraction | ButtonInteraction, no
 		currentCollectors.delete(interaction.user.id);
 
 		if (reason !== forceStopReason) {
-			await msg.edit({components: []});
+			await msg.edit({ components: [] });
 		}
 	});
 }
@@ -134,13 +136,13 @@ function getSettingsRows(notificationsConfiguration: NotificationsConfiguration,
 		rowNotifications.addComponents(new ButtonBuilder()
 			.setEmoji(parseEmoji(notificationType.emote)!)
 			.setCustomId(notificationType.customId)
-			.setLabel(i18n.t(notificationType.i18nKey, {lng}))
+			.setLabel(i18n.t(notificationType.i18nKey, { lng }))
 			.setStyle(ButtonStyle.Secondary));
 	});
 	const rowBack = new ActionRowBuilder<ButtonBuilder>();
 	rowBack.addComponents(new ButtonBuilder()
 		.setEmoji(parseEmoji(DraftBotIcons.notifications.back)!)
-		.setLabel(i18n.t("commands:notifications.back", {lng}))
+		.setLabel(i18n.t("commands:notifications.back", { lng }))
 		.setCustomId(backButtonCustomId)
 		.setStyle(ButtonStyle.Secondary));
 
@@ -154,8 +156,10 @@ async function chooseEnabled(buttonInteraction: ButtonInteraction, notifications
 	const rows = getSettingsRows(notificationsConfiguration, false, lng);
 
 	// Build and send the message
-	const embed = getNotificationsEmbed(notificationsConfiguration, buttonInteraction.user, lng, i18n.t("commands:notifications.footerEnableDisable", {lng}));
-	const msg = await buttonInteraction.update({embeds: [embed], components: rows});
+	const embed = getNotificationsEmbed(notificationsConfiguration, buttonInteraction.user, lng, i18n.t("commands:notifications.footerEnableDisable", { lng }));
+	const msg = await buttonInteraction.update({
+		embeds: [embed], components: rows
+	});
 
 	// Create the collector
 	const buttonCollector = msg.createMessageComponentCollector({
@@ -179,7 +183,7 @@ async function chooseEnabled(buttonInteraction: ButtonInteraction, notifications
 		if (notificationType) {
 			notificationType.toggleCallback(notificationsConfiguration);
 			await notificationsConfiguration.save();
-			const embed = getNotificationsEmbed(notificationsConfiguration, collectorButtonInteraction.user, lng, i18n.t("commands:notifications.footerEnableDisable", {lng}));
+			const embed = getNotificationsEmbed(notificationsConfiguration, collectorButtonInteraction.user, lng, i18n.t("commands:notifications.footerEnableDisable", { lng }));
 			await collectorButtonInteraction.update({
 				embeds: [embed],
 				components: rows
@@ -192,7 +196,7 @@ async function chooseEnabled(buttonInteraction: ButtonInteraction, notifications
 		await notificationsConfiguration.save();
 
 		if (reason !== forceStopReason) {
-			await msg.edit({components: []});
+			await msg.edit({ components: [] });
 		}
 	});
 }
@@ -204,8 +208,10 @@ async function chooseSendType(buttonInteraction: ButtonInteraction, notification
 	const rows = getSettingsRows(notificationsConfiguration, true, lng);
 
 	// Build and send the message
-	const embed = getNotificationsEmbed(notificationsConfiguration, buttonInteraction.user, lng, i18n.t("commands:notifications.footerSendLocation", {lng}));
-	const msg = await buttonInteraction.update({embeds: [embed], components: rows});
+	const embed = getNotificationsEmbed(notificationsConfiguration, buttonInteraction.user, lng, i18n.t("commands:notifications.footerSendLocation", { lng }));
+	const msg = await buttonInteraction.update({
+		embeds: [embed], components: rows
+	});
 
 	// Create the collector
 	const buttonCollector = msg.createMessageComponentCollector({
@@ -234,7 +240,7 @@ async function chooseSendType(buttonInteraction: ButtonInteraction, notification
 			);
 			await notificationsConfiguration.save();
 
-			const embed = getNotificationsEmbed(notificationsConfiguration, collectorButtonInteraction.user, lng, i18n.t("commands:notifications.footerSendLocation", {lng}));
+			const embed = getNotificationsEmbed(notificationsConfiguration, collectorButtonInteraction.user, lng, i18n.t("commands:notifications.footerSendLocation", { lng }));
 			await collectorButtonInteraction.update({
 				embeds: [embed],
 				components: rows
@@ -247,7 +253,7 @@ async function chooseSendType(buttonInteraction: ButtonInteraction, notification
 		await notificationsConfiguration.save();
 
 		if (reason !== forceStopReason) {
-			await msg.edit({components: []});
+			await msg.edit({ components: [] });
 		}
 	});
 }
@@ -257,20 +263,20 @@ function getNotificationsEmbed(notificationsConfiguration: NotificationsConfigur
 	NotificationsTypes.ALL.forEach(notificationType => {
 		const notificationTypeValue = notificationType.value(notificationsConfiguration);
 		const sendLocation = NotificationSendType.toString(notificationTypeValue.sendType, lng, notificationTypeValue.channelId);
-		description +=
-			`${notificationType.emote} **__${i18n.t(notificationType.i18nKey, {lng})}__**
-- **${i18n.t("commands:notifications.enabledField", {lng})}** ${notificationTypeValue.enabled ? DraftBotIcons.collectors.accept : DraftBotIcons.collectors.refuse}`;
+		description
+			+= `${notificationType.emote} **__${i18n.t(notificationType.i18nKey, { lng })}__**
+- **${i18n.t("commands:notifications.enabledField", { lng })}** ${notificationTypeValue.enabled ? DraftBotIcons.collectors.accept : DraftBotIcons.collectors.refuse}`;
 		if (notificationTypeValue.enabled) {
-			description += `\n- **${i18n.t("commands:notifications.sendLocationField", {lng})}** ${sendLocation}`;
+			description += `\n- **${i18n.t("commands:notifications.sendLocationField", { lng })}** ${sendLocation}`;
 		}
 		description += "\n\n";
 	});
 
 	const embed = new DraftBotEmbed()
-		.formatAuthor(i18n.t("commands:notifications.embedTitle", {lng}), user)
+		.formatAuthor(i18n.t("commands:notifications.embedTitle", { lng }), user)
 		.setDescription(description);
 	if (footer) {
-		embed.setFooter({text: footer});
+		embed.setFooter({ text: footer });
 	}
 
 	return embed;

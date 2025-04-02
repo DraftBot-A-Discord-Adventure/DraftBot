@@ -1,16 +1,20 @@
-import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
+import {
+	DraftBotPacket, makePacket
+} from "../../../../Lib/src/packets/DraftBotPacket";
 import {
 	CommandClassesInfoPacketReq,
 	CommandClassesInfoPacketRes
 } from "../../../../Lib/src/packets/commands/CommandClassesInfoPacket";
 
-import {ClassDataController} from "../../data/Class";
-import {FightActionDataController} from "../../data/FightAction";
-import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
-import {ClassConstants} from "../../../../Lib/src/constants/ClassConstants";
+import { ClassDataController } from "../../data/Class";
+import { FightActionDataController } from "../../data/FightAction";
+import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
+import { ClassConstants } from "../../../../Lib/src/constants/ClassConstants";
 import Player from "../../core/database/game/models/Player";
-import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
+import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
 
 export default class ClassesInfoCommand {
 	@commandRequires(CommandClassesInfoPacketReq, {
@@ -32,7 +36,7 @@ export default class ClassesInfoCommand {
 
 			const attackList = [];
 			for (const attack of attacks) {
-				const attackStat = attackStats.find((attackStat) => attackStat.id === attack);
+				const attackStat = attackStats.find(attackStat => attackStat.id === attack);
 				attackList.push({
 					id: attack,
 					cost: attackStat.breath,

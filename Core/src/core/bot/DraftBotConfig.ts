@@ -1,6 +1,6 @@
-import {parse} from "toml";
-import {readFileSync} from "fs";
-import {DatabaseConfiguration} from "../../../../Lib/src/database/DatabaseConfiguration";
+import { parse } from "toml";
+import { readFileSync } from "fs";
+import { DatabaseConfiguration } from "../../../../Lib/src/database/DatabaseConfiguration";
 
 /**
  * Represents the main constants of the bot
@@ -37,7 +37,7 @@ type ConfigStructure = {
 	mqtt: {
 		host: string;
 	};
-}
+};
 
 /**
  * Loads the config from the config file

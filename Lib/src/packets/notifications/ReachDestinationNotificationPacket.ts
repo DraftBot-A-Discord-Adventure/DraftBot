@@ -1,4 +1,4 @@
-import {NotificationPacket} from "./NotificationPacket";
+import { NotificationPacket } from "./NotificationPacket";
 
 export class ReachDestinationNotificationPacket extends NotificationPacket {
 	mapType!: string;

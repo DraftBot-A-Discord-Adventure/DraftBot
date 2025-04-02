@@ -1,4 +1,6 @@
-import {DataTypes, Model, Op, Sequelize} from "sequelize";
+import {
+	DataTypes, Model, Op, Sequelize
+} from "sequelize";
 const moment = require("moment");
 
 export class ScheduledReportNotification extends Model {

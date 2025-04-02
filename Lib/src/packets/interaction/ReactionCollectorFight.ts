@@ -7,23 +7,23 @@ import {
 } from "./ReactionCollectorPacket";
 
 type PlayerStats = {
-	classId: number,
+	classId: number;
 	fightRanking: {
-		glory: number,
-	}
+		glory: number;
+	};
 	energy: {
-		value: number,
-		max: number
-	},
-	attack: number,
-	defense: number,
-	speed: number
+		value: number;
+		max: number;
+	};
+	attack: number;
+	defense: number;
+	speed: number;
 	breath: {
-		base: number,
-		max: number,
-		regen: number
-	}
-}
+		base: number;
+		max: number;
+		regen: number;
+	};
+};
 
 export class ReactionCollectorFightData extends ReactionCollectorData {
 	playerStats!: PlayerStats;
@@ -35,7 +35,6 @@ export class ReactionCollectorFight extends ReactionCollector {
 	constructor(playerStats: PlayerStats) {
 		super();
 		this.playerStats = playerStats;
-
 	}
 
 	creationPacket(id: string, endTime: number): ReactionCollectorCreationPacket {
@@ -46,7 +45,7 @@ export class ReactionCollectorFight extends ReactionCollector {
 				this.buildReaction(ReactionCollectorAcceptReaction, {}),
 				this.buildReaction(ReactionCollectorRefuseReaction, {})
 			],
-			data: this.buildData(ReactionCollectorFightData, {playerStats: this.playerStats})
+			data: this.buildData(ReactionCollectorFightData, { playerStats: this.playerStats })
 		};
 	}
 }

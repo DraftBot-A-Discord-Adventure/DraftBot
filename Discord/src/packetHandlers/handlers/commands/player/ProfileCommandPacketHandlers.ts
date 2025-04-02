@@ -1,11 +1,11 @@
-import {packetHandler} from "../../../PacketHandler";
-import {PacketContext} from "../../../../../../Lib/src/packets/DraftBotPacket";
+import { packetHandler } from "../../../PacketHandler";
+import { PacketContext } from "../../../../../../Lib/src/packets/DraftBotPacket";
 import {
 	CommandProfilePacketRes,
 	CommandProfilePlayerNotFound
 } from "../../../../../../Lib/src/packets/commands/CommandProfilePacket";
-import {handleClassicError} from "../../../../utils/ErrorUtils";
-import {handleCommandProfilePacketRes} from "../../../../commands/player/ProfileCommand";
+import { handleClassicError } from "../../../../utils/ErrorUtils";
+import { handleCommandProfilePacketRes } from "../../../../commands/player/ProfileCommand";
 
 export default class ProfileCommandPacketHandlers {
 	@packetHandler(CommandProfilePlayerNotFound)

@@ -1,23 +1,23 @@
-import {packetHandler} from "../PacketHandler";
-import {PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {SmallEventAdvanceTimePacket} from "../../../../Lib/src/packets/smallEvents/SmallEventAdvanceTimePacket";
-import {DiscordCache} from "../../bot/DiscordCache";
-import {DraftbotSmallEventEmbed} from "../../messages/DraftbotSmallEventEmbed";
-import {Language} from "../../../../Lib/src/Language";
-import {StringUtils} from "../../utils/StringUtils";
-import {SmallEventBigBadPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventBigBadPacket";
-import {SmallEventSmallBadPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventSmallBadPacket";
-import {SmallEventBigBadKind} from "../../../../Lib/src/types/SmallEventBigBadKind";
+import { packetHandler } from "../PacketHandler";
+import { PacketContext } from "../../../../Lib/src/packets/DraftBotPacket";
+import { SmallEventAdvanceTimePacket } from "../../../../Lib/src/packets/smallEvents/SmallEventAdvanceTimePacket";
+import { DiscordCache } from "../../bot/DiscordCache";
+import { DraftbotSmallEventEmbed } from "../../messages/DraftbotSmallEventEmbed";
+import { Language } from "../../../../Lib/src/Language";
+import { StringUtils } from "../../utils/StringUtils";
+import { SmallEventBigBadPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventBigBadPacket";
+import { SmallEventSmallBadPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventSmallBadPacket";
+import { SmallEventBigBadKind } from "../../../../Lib/src/types/SmallEventBigBadKind";
 import i18n from "../../translations/i18n";
-import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
-import {SmallEventBoatAdvicePacket} from "../../../../Lib/src/packets/smallEvents/SmallEventBoatAdvicePacket";
+import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
+import { SmallEventBoatAdvicePacket } from "../../../../Lib/src/packets/smallEvents/SmallEventBoatAdvicePacket";
 import {
 	SmallEventGoToPVEIslandAcceptPacket,
 	SmallEventGoToPVEIslandNotEnoughGemsPacket,
 	SmallEventGoToPVEIslandRefusePacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventGoToPVEIslandPacket";
-import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
-import {keycloakConfig} from "../../bot/DraftBotShard";
+import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
+import { keycloakConfig } from "../../bot/DraftBotShard";
 import {
 	SmallEventLotteryLosePacket,
 	SmallEventLotteryNoAnswerPacket,
@@ -30,49 +30,49 @@ import {
 	SmallEventInteractOtherPlayersPacket,
 	SmallEventInteractOtherPlayersRefuseToGivePoorPacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventInteractOtherPlayers";
-import {interactOtherPlayerGetPlayerDisplay} from "../../smallEvents/interactOtherPlayers";
-import {SmallEventLeagueRewardPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventLeagueReward";
-import {printTimeBeforeDate} from "../../../../Lib/src/utils/TimeUtils";
-import {SmallEventWinGuildXPPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinGuildXPPacket";
-import {SmallEventBonusGuildPVEIslandPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventBonusGuildPVEIslandPacket";
-import {SmallEventBotFactsPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventBotFactsPacket";
-import {SmallEventDoNothingPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventDoNothingPacket";
-import {SmallEventFightPetPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFightPetPacket";
-import {SmallEventGobletsGamePacket} from "../../../../Lib/src/packets/smallEvents/SmallEventGobletsGamePacket";
+import { interactOtherPlayerGetPlayerDisplay } from "../../smallEvents/interactOtherPlayers";
+import { SmallEventLeagueRewardPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventLeagueReward";
+import { printTimeBeforeDate } from "../../../../Lib/src/utils/TimeUtils";
+import { SmallEventWinGuildXPPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventWinGuildXPPacket";
+import { SmallEventBonusGuildPVEIslandPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventBonusGuildPVEIslandPacket";
+import { SmallEventBotFactsPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventBotFactsPacket";
+import { SmallEventDoNothingPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventDoNothingPacket";
+import { SmallEventFightPetPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventFightPetPacket";
+import { SmallEventGobletsGamePacket } from "../../../../Lib/src/packets/smallEvents/SmallEventGobletsGamePacket";
 import {
 	SmallEventShopAcceptPacket,
 	SmallEventShopCannotBuyPacket,
 	SmallEventShopRefusePacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventShopPacket";
-import {SmallEventStaffMemberPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventStaffMemberPacket";
-import {SmallEventWinEnergyPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinEnergyPacket";
-import {SmallEventWinEnergyOnIslandPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinEnergyOnIslandPacket";
-import {SmallEventWinHealthPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinHealthPacket";
-import {SmallEventWinPersonalXPPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinPersonalXPPacket";
-import {SmallEventWitchResultPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWitchPacket";
-import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
-import {witchResult} from "../../smallEvents/witch";
-import {DisplayUtils} from "../../utils/DisplayUtils";
+import { SmallEventStaffMemberPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventStaffMemberPacket";
+import { SmallEventWinEnergyPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventWinEnergyPacket";
+import { SmallEventWinEnergyOnIslandPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventWinEnergyOnIslandPacket";
+import { SmallEventWinHealthPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventWinHealthPacket";
+import { SmallEventWinPersonalXPPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventWinPersonalXPPacket";
+import { SmallEventWitchResultPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventWitchPacket";
+import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
+import { witchResult } from "../../smallEvents/witch";
+import { DisplayUtils } from "../../utils/DisplayUtils";
 import {
 	SmallEventSpaceInitialPacket,
 	SmallEventSpaceResultPacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventSpacePacket";
-import {SmallEventFindPetPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFindPetPacket";
-import {PetUtils} from "../../utils/PetUtils";
-import {SmallEventFindPotionPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFindPotionPacket";
-import {SmallEventFindItemPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFindItemPacket";
-import {SmallEventPetPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventPetPacket";
-import {SmallEventClassPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventClassPacket";
-import {BadgeConstants} from "../../../../Lib/src/constants/BadgeConstants";
-import {SmallEventUltimateFoodMerchantPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventUltimateFoodMerchantPacket";
-import {EmoteUtils} from "../../utils/EmoteUtils";
-import {SmallEventCartPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventCartPacket";
-import {cartResult} from "../../smallEvents/cart";
-import {SmallEventFindMissionPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFindMissionPacket";
-import {MissionUtils} from "../../utils/MissionUtils";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
-import {baseFunctionHandler} from "../../smallEvents/shop";
-import {epicItemShopHandler} from "../../smallEvents/epicItemShop";
+import { SmallEventFindPetPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventFindPetPacket";
+import { PetUtils } from "../../utils/PetUtils";
+import { SmallEventFindPotionPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventFindPotionPacket";
+import { SmallEventFindItemPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventFindItemPacket";
+import { SmallEventPetPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventPetPacket";
+import { SmallEventClassPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventClassPacket";
+import { BadgeConstants } from "../../../../Lib/src/constants/BadgeConstants";
+import { SmallEventUltimateFoodMerchantPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventUltimateFoodMerchantPacket";
+import { EmoteUtils } from "../../utils/EmoteUtils";
+import { SmallEventCartPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventCartPacket";
+import { cartResult } from "../../smallEvents/cart";
+import { SmallEventFindMissionPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventFindMissionPacket";
+import { MissionUtils } from "../../utils/MissionUtils";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
+import { baseFunctionHandler } from "../../smallEvents/shop";
+import { epicItemShopHandler } from "../../smallEvents/epicItemShop";
 import {
 	SmallEventEpicItemShopAcceptPacket,
 	SmallEventEpicItemShopCannotBuyPacket,
@@ -93,8 +93,8 @@ export default class SmallEventsHandler {
 		}
 		const lng = interaction.userLanguage;
 		const description = getRandomSmallEventIntro(lng)
-			+ StringUtils.getRandomTranslation("smallEvents:advanceTime.stories", lng, {time: packet.amount});
-		await interaction.editReply({embeds: [new DraftbotSmallEventEmbed("advanceTime", description, interaction.user, lng)]});
+			+ StringUtils.getRandomTranslation("smallEvents:advanceTime.stories", lng, { time: packet.amount });
+		await interaction.editReply({ embeds: [new DraftbotSmallEventEmbed("advanceTime", description, interaction.user, lng)] });
 	}
 
 	@packetHandler(SmallEventBigBadPacket)
@@ -106,20 +106,20 @@ export default class SmallEventsHandler {
 		const lng = interaction.userLanguage;
 		let story: string;
 		switch (packet.kind) {
-		case SmallEventBigBadKind.LIFE_LOSS:
-			story = StringUtils.getRandomTranslation("smallEvents:bigBad.lifeLoss", lng, {lifeLoss: packet.lifeLost});
-			break;
-		case SmallEventBigBadKind.ALTERATION:
-			story = `${i18n.t(`smallEvents:bigBad.alterationStories.${packet.receivedStory}`, {lng})} ${DraftBotIcons.effects[packet.effectId!]}`;
-			break;
-		case SmallEventBigBadKind.MONEY_LOSS:
-			story = StringUtils.getRandomTranslation("smallEvents:bigBad.moneyLoss", lng, {moneyLost: packet.moneyLost});
-			break;
-		default:
-			story = "";
+			case SmallEventBigBadKind.LIFE_LOSS:
+				story = StringUtils.getRandomTranslation("smallEvents:bigBad.lifeLoss", lng, { lifeLoss: packet.lifeLost });
+				break;
+			case SmallEventBigBadKind.ALTERATION:
+				story = `${i18n.t(`smallEvents:bigBad.alterationStories.${packet.receivedStory}`, { lng })} ${DraftBotIcons.effects[packet.effectId!]}`;
+				break;
+			case SmallEventBigBadKind.MONEY_LOSS:
+				story = StringUtils.getRandomTranslation("smallEvents:bigBad.moneyLoss", lng, { moneyLost: packet.moneyLost });
+				break;
+			default:
+				story = "";
 		}
 		const description = getRandomSmallEventIntro(lng) + story;
-		await interaction.editReply({embeds: [new DraftbotSmallEventEmbed("bigBad", description, interaction.user, lng)]});
+		await interaction.editReply({ embeds: [new DraftbotSmallEventEmbed("bigBad", description, interaction.user, lng)] });
 	}
 
 	@packetHandler(SmallEventBoatAdvicePacket)
@@ -132,9 +132,9 @@ export default class SmallEventsHandler {
 		const description = StringUtils.getRandomTranslation(
 			"smallEvents:boatAdvice.intro",
 			lng,
-			{advice: StringUtils.getRandomTranslation("smallEvents:boatAdvice.advices", lng)}
+			{ advice: StringUtils.getRandomTranslation("smallEvents:boatAdvice.advices", lng) }
 		);
-		await interaction.editReply({embeds: [new DraftbotSmallEventEmbed("boatAdvice", description, interaction.user, lng)]});
+		await interaction.editReply({ embeds: [new DraftbotSmallEventEmbed("boatAdvice", description, interaction.user, lng)] });
 	}
 
 	@packetHandler(SmallEventGoToPVEIslandAcceptPacket)
@@ -151,15 +151,18 @@ export default class SmallEventsHandler {
 							: "smallEvents:goToPVEIsland.endStoryAcceptWithMember",
 						{
 							lng: user.attributes.language[0],
-							gainScore: packet.pointsWon <= 0 ? "" : i18n.t("smallEvents:goToPVEIsland.confirmedScore", {
-								lng: user.attributes.language[0],
-								score: packet.pointsWon
-							})
+							gainScore: packet.pointsWon <= 0
+								? ""
+								: i18n.t("smallEvents:goToPVEIsland.confirmedScore", {
+									lng: user.attributes.language[0],
+									score: packet.pointsWon
+								})
 						}
 					),
 					interaction.user,
 					user.attributes.language[0]
-				)]
+				)
+			]
 		});
 	}
 
@@ -171,10 +174,11 @@ export default class SmallEventsHandler {
 			embeds: [
 				new DraftbotSmallEventEmbed(
 					"goToPVEIsland",
-					i18n.t("smallEvents:goToPVEIsland.endStoryRefuse", {lng: user.attributes.language[0]}),
+					i18n.t("smallEvents:goToPVEIsland.endStoryRefuse", { lng: user.attributes.language[0] }),
 					interaction.user,
 					user.attributes.language[0]
-				)]
+				)
+			]
 		});
 	}
 
@@ -186,10 +190,11 @@ export default class SmallEventsHandler {
 			embeds: [
 				new DraftbotSmallEventEmbed(
 					"goToPVEIsland",
-					i18n.t("smallEvents:goToPVEIsland.notEnoughGems", {lng: user.attributes.language[0]}),
+					i18n.t("smallEvents:goToPVEIsland.notEnoughGems", { lng: user.attributes.language[0] }),
 					interaction.user,
 					user.attributes.language[0]
-				)]
+				)
+			]
 		});
 	}
 
@@ -197,9 +202,7 @@ export default class SmallEventsHandler {
 	async smallEventLotteryNoAnswer(context: PacketContext, _packet: SmallEventLotteryNoAnswerPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		await interaction?.editReply({
-			embeds: [
-				new DraftbotSmallEventEmbed("lottery", i18n.t("smallEvents:lottery.end", {lng: interaction.userLanguage}), interaction.user, interaction.userLanguage)
-			]
+			embeds: [new DraftbotSmallEventEmbed("lottery", i18n.t("smallEvents:lottery.end", { lng: interaction.userLanguage }), interaction.user, interaction.userLanguage)]
 		});
 	}
 
@@ -211,10 +214,11 @@ export default class SmallEventsHandler {
 			embeds: [
 				new DraftbotSmallEventEmbed(
 					"lottery",
-					i18n.t("smallEvents:lottery.poor", {lng: user.attributes.language[0]}),
+					i18n.t("smallEvents:lottery.poor", { lng: user.attributes.language[0] }),
 					interaction.user,
 					user.attributes.language[0]
-				)]
+				)
+			]
 		});
 	}
 
@@ -234,7 +238,8 @@ export default class SmallEventsHandler {
 					}),
 					interaction.user,
 					user.attributes.language[0]
-				)]
+				)
+			]
 		});
 	}
 
@@ -256,7 +261,8 @@ export default class SmallEventsHandler {
 					}) + rewardDesc,
 					interaction.user,
 					user.attributes.language[0]
-				)]
+				)
+			]
 		});
 	}
 
@@ -275,7 +281,8 @@ export default class SmallEventsHandler {
 						StringUtils.getRandomTranslation("smallEvents:interactOtherPlayers.no_one", lng),
 						interaction.user,
 						lng
-					)]
+					)
+				]
 			});
 			return;
 		}
@@ -288,10 +295,11 @@ export default class SmallEventsHandler {
 				embeds: [
 					new DraftbotSmallEventEmbed(
 						"interactOtherPlayers",
-						StringUtils.getRandomTranslation(`smallEvents:interactOtherPlayers.effect.${packet.data.effectId}`, lng, {playerDisplay}),
+						StringUtils.getRandomTranslation(`smallEvents:interactOtherPlayers.effect.${packet.data.effectId}`, lng, { playerDisplay }),
 						interaction.user,
 						lng
-					)]
+					)
+				]
 			});
 			return;
 		}
@@ -305,7 +313,7 @@ export default class SmallEventsHandler {
 						{
 							playerDisplay,
 							level: packet.data.level,
-							class: `${DraftBotIcons.classes[packet.data.classId]} ${i18n.t(`models:classes.${packet.data.classId}`, {lng})}`,
+							class: `${DraftBotIcons.classes[packet.data.classId]} ${i18n.t(`models:classes.${packet.data.classId}`, { lng })}`,
 							advice: StringUtils.getRandomTranslation("advices:advices", interaction.userLanguage),
 							petEmote: packet.data.petId && packet.data.petSex ? DisplayUtils.getPetIcon(packet.data.petId, packet.data.petSex) : "",
 							petName: packet.data.petName,
@@ -318,7 +326,8 @@ export default class SmallEventsHandler {
 					),
 					interaction.user,
 					lng
-				)]
+				)
+			]
 		});
 	}
 
@@ -333,7 +342,8 @@ export default class SmallEventsHandler {
 					StringUtils.getRandomTranslation("smallEvents:interactOtherPlayers.poor_give_money", user.attributes.language[0]),
 					interaction.user,
 					user.attributes.language[0]
-				)]
+				)
+			]
 		});
 	}
 
@@ -348,7 +358,8 @@ export default class SmallEventsHandler {
 					StringUtils.getRandomTranslation("smallEvents:interactOtherPlayers.poor_dont_give_money", user.attributes.language[0]),
 					interaction!.user,
 					user.attributes.language[0]
-				)]
+				)
+			]
 		});
 	}
 
@@ -361,8 +372,8 @@ export default class SmallEventsHandler {
 		const lng = interaction.userLanguage;
 		const endMessage = i18n.t(`smallEvents:leagueReward.${packet.rewardToday ? "rewardToday" : packet.enoughFights ? "endMessage" : "notEnoughFight"}`, {
 			lng,
-			interpolation: {escapeValue: false},
-			league: i18n.t(`models:leagues.${packet.leagueId}`, {lng}),
+			interpolation: { escapeValue: false },
+			league: i18n.t(`models:leagues.${packet.leagueId}`, { lng }),
 			rewards: i18n.t("smallEvents:leagueReward.reward", {
 				lng,
 				money: packet.money,
@@ -390,8 +401,10 @@ export default class SmallEventsHandler {
 			embeds: [
 				new DraftbotSmallEventEmbed(
 					"winGuildXP",
-					StringUtils.getRandomTranslation("smallEvents:winGuildXP.stories", lng, {guild: packet.guildName})
-					+ i18n.t("smallEvents:winGuildXP.end", {lng, xp: packet.amount}),
+					StringUtils.getRandomTranslation("smallEvents:winGuildXP.stories", lng, { guild: packet.guildName })
+					+ i18n.t("smallEvents:winGuildXP.end", {
+						lng, xp: packet.amount
+					}),
 					interaction.user,
 					lng
 				)
@@ -434,7 +447,7 @@ export default class SmallEventsHandler {
 						pseudo: staffMember,
 						sentence: i18n.t(`smallEvents:staffMember.members.${staffMember}`, {
 							lng,
-							interpolation: {escapeValue: false}
+							interpolation: { escapeValue: false }
 						})
 					}),
 					interaction.user,
@@ -472,7 +485,7 @@ export default class SmallEventsHandler {
 					+ StringUtils.getRandomTranslation(
 						"smallEvents:winEnergyOnIsland.stories",
 						lng,
-						{energy: packet.amount}
+						{ energy: packet.amount }
 					),
 					interaction.user,
 					lng
@@ -490,7 +503,7 @@ export default class SmallEventsHandler {
 				new DraftbotSmallEventEmbed(
 					"winHealth",
 					getRandomSmallEventIntro(lng)
-					+ StringUtils.getRandomTranslation("smallEvents:winHealth.stories", lng, {health: packet.amount}),
+					+ StringUtils.getRandomTranslation("smallEvents:winHealth.stories", lng, { health: packet.amount }),
 					interaction.user,
 					lng
 				)
@@ -508,7 +521,9 @@ export default class SmallEventsHandler {
 					"winPersonalXP",
 					getRandomSmallEventIntro(lng)
 					+ StringUtils.getRandomTranslation("smallEvents:winPersonalXP.stories", lng)
-					+ i18n.t("smallEvents:winPersonalXP.end", {lng, xp: packet.amount}),
+					+ i18n.t("smallEvents:winPersonalXP.end", {
+						lng, xp: packet.amount
+					}),
 					interaction.user,
 					lng
 				)
@@ -571,7 +586,7 @@ export default class SmallEventsHandler {
 						}),
 						searchAction: StringUtils.getRandomTranslation("smallEvents:space.searchAction", lng),
 						search: StringUtils.getRandomTranslation("smallEvents:space.search", lng),
-						interpolation: {escapeValue: false}
+						interpolation: { escapeValue: false }
 					}),
 					interaction.user,
 					lng
@@ -602,21 +617,23 @@ export default class SmallEventsHandler {
 						actionIntro: StringUtils.getRandomTranslation("smallEvents:space.actionIntro", lng),
 						action: StringUtils.getRandomTranslation("smallEvents:space.action", lng),
 						specific: StringUtils.getRandomTranslation(`smallEvents:space.specific.${packet.chosenEvent}`, lng, {
-							mainValue: packet.chosenEvent === "moonPhase" ? i18n.t("smallEvents:space.moonPhases", {
-								returnObjects: true,
-								lng
-							})[packet.values.mainValue] : packet.values.mainValue,
+							mainValue: packet.chosenEvent === "moonPhase"
+								? i18n.t("smallEvents:space.moonPhases", {
+									returnObjects: true,
+									lng
+								})[packet.values.mainValue]
+								: packet.values.mainValue,
 							objectWhichWillCrossTheSky: i18n.t("smallEvents:space.nObjectsCrossTheSky", {
 								lng,
 								count: packet.values.mainValue
 							}),
-							days: i18n.t("smallEvents:space.days", {lng}),
+							days: i18n.t("smallEvents:space.days", { lng }),
 							randomObjectName: packet.values.randomObjectName,
 							randomObjectDistance: packet.values.randomObjectDistance,
 							randomObjectDiameter: packet.values.randomObjectDiameter
 						}),
 						outro: StringUtils.getRandomTranslation("smallEvents:space.outro", lng),
-						interpolation: {escapeValue: false}
+						interpolation: { escapeValue: false }
 					}),
 					interaction.user,
 					lng
@@ -640,9 +657,9 @@ export default class SmallEventsHandler {
 							count: packet.infoNumber,
 							infoNumber: packet.infoNumber,
 							infoComplement: DisplayUtils.getClassDisplay(packet.infoComplement ? packet.infoComplement : 0, lng),
-							interpolation: {escapeValue: false}
+							interpolation: { escapeValue: false }
 						}),
-						interpolation: {escapeValue: false}
+						interpolation: { escapeValue: false }
 					}),
 					interaction.user,
 					lng
@@ -660,10 +677,11 @@ export default class SmallEventsHandler {
 				new DraftbotSmallEventEmbed(
 					"smallBad",
 					getRandomSmallEventIntro(lng)
-					+ StringUtils.getRandomTranslation(`smallEvents:smallBad.${packet.issue}.stories`, lng, {amount: packet.amount}),
+					+ StringUtils.getRandomTranslation(`smallEvents:smallBad.${packet.issue}.stories`, lng, { amount: packet.amount }),
 					interaction.user,
 					lng
-				)]
+				)
+			]
 		});
 	}
 
@@ -786,7 +804,7 @@ export default class SmallEventsHandler {
 				new DraftbotSmallEventEmbed(
 					"bonusGuildPVEIsland",
 					`${
-						getRandomSmallEventIntro(lng) + i18n.t(`smallEvents:bonusGuildPVEIsland.events.${packet.event}.intro`, {lng})
+						getRandomSmallEventIntro(lng) + i18n.t(`smallEvents:bonusGuildPVEIsland.events.${packet.event}.intro`, { lng })
 					}\n\n${
 						i18n.t(`smallEvents:bonusGuildPVEIsland.events.${packet.event}.${packet.result}.${packet.surrounding}`, {
 							lng,
@@ -810,11 +828,13 @@ export default class SmallEventsHandler {
 					"fightPet",
 					i18n.t(`smallEvents:fightPet.fightPetActions.${packet.fightPetActionId}.${packet.isSuccess ? "success" : "failure"}`, {
 						lng
-					}) + (packet.isSuccess ? i18n.t("smallEvents:fightPet.rageUpFormat", {
-						lng,
-						rageUpDescription: StringUtils.getRandomTranslation("smallEvents:fightPet.rageUpDescriptions", lng),
-						interpolation: {escapeValue: false}
-					}) : ""),
+					}) + (packet.isSuccess
+						? i18n.t("smallEvents:fightPet.rageUpFormat", {
+							lng,
+							rageUpDescription: StringUtils.getRandomTranslation("smallEvents:fightPet.rageUpDescriptions", lng),
+							interpolation: { escapeValue: false }
+						})
+						: ""),
 					interaction.user,
 					lng
 				)

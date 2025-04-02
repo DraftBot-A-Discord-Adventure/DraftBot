@@ -1,9 +1,11 @@
-import {packetHandler} from "../../../PacketHandler";
-import {CommandPingPacketRes} from "../../../../../../Lib/src/packets/commands/CommandPingPacket";
-import {PacketContext} from "../../../../../../Lib/src/packets/DraftBotPacket";
-import {DiscordCache} from "../../../../bot/DiscordCache";
+import { packetHandler } from "../../../PacketHandler";
+import { CommandPingPacketRes } from "../../../../../../Lib/src/packets/commands/CommandPingPacket";
+import { PacketContext } from "../../../../../../Lib/src/packets/DraftBotPacket";
+import { DiscordCache } from "../../../../bot/DiscordCache";
 import i18n from "../../../../translations/i18n";
-import {draftBotClient, shardId} from "../../../../bot/DraftBotShard";
+import {
+	draftBotClient, shardId
+} from "../../../../bot/DraftBotShard";
 
 export default class PingCommandPacketHandlers {
 	@packetHandler(CommandPingPacketRes)

@@ -1,11 +1,14 @@
-import {BaseMessageOptions, Message} from "discord.js";
-import {DraftBotPacket, PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
-import {minutesToMilliseconds} from "../../../Lib/src/utils/TimeUtils";
-import {DiscordCache} from "../bot/DiscordCache";
-import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import {
+	BaseMessageOptions, Message
+} from "discord.js";
+import {
+	DraftBotPacket, PacketContext
+} from "../../../Lib/src/packets/DraftBotPacket";
+import { minutesToMilliseconds } from "../../../Lib/src/utils/TimeUtils";
+import { DiscordCache } from "../bot/DiscordCache";
+import { ReactionCollectorReturnType } from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
 export abstract class DraftbotCachedMessage<T extends DraftBotPacket = DraftBotPacket> {
-
 	// Duration of the message's cached life in minutes
 	abstract readonly duration: number;
 

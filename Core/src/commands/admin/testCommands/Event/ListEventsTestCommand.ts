@@ -1,8 +1,10 @@
-import {ExecuteTestCommandLike, ITestCommand} from "../../../../core/CommandsTest";
-import {Maps} from "../../../../core/maps/Maps";
-import {BigEventDataController} from "../../../../data/BigEvent";
-import {Player} from "../../../../core/database/game/models/Player";
-import {DraftBotIcons} from "../../../../../../Lib/src/DraftBotIcons";
+import {
+	ExecuteTestCommandLike, ITestCommand
+} from "../../../../core/CommandsTest";
+import { Maps } from "../../../../core/maps/Maps";
+import { BigEventDataController } from "../../../../data/BigEvent";
+import { Player } from "../../../../core/database/game/models/Player";
+import { DraftBotIcons } from "../../../../../../Lib/src/DraftBotIcons";
 
 export const commandInfo: ITestCommand = {
 	name: "listevents",
@@ -15,6 +17,7 @@ export const commandInfo: ITestCommand = {
  */
 const listEventsTestCommand: ExecuteTestCommandLike = async (player: Player) => {
 	let str = "";
+
 	// Let's display for every map all available events
 	for (const map of Maps.getMaps()) {
 		const events = await BigEventDataController.instance.getAvailableEvents(map.id, player);

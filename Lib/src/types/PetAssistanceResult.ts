@@ -1,4 +1,6 @@
-import {FightActionBuff, FightAlterationApplied} from "./FightActionResult";
+import {
+	FightActionBuff, FightAlterationApplied
+} from "./FightActionResult";
 
 /**
  * Pet assistance state, those are also the keys used in the translation files, so they should be kept in sync
@@ -8,12 +10,12 @@ export enum PetAssistanceState {
 	GENERAL_EFFECT = "generalEffect",
 	SUCCESS = "success",
 	AFRAID = "afraid",
-	FAILURE = "failure",
+	FAILURE = "failure"
 }
 
 export interface PetAssistanceResult {
-	assistanceStatus: PetAssistanceState,
-	damages?: number,
-	buffs?: FightActionBuff[],
-	alterations?: FightAlterationApplied[]
+	assistanceStatus: PetAssistanceState;
+	damages?: number;
+	buffs?: FightActionBuff[];
+	alterations?: FightAlterationApplied[];
 }

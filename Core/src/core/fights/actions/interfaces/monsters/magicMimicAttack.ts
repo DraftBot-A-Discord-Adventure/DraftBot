@@ -1,10 +1,12 @@
-import {FightActionDataController, FightActionFunc} from "../../../../../data/FightAction";
+import {
+	FightActionDataController, FightActionFunc
+} from "../../../../../data/FightAction";
 import {
 	defaultFailFightActionResult,
 	defaultFightActionResult
 } from "../../../../../../../Lib/src/types/FightActionResult";
-import {FightActionType} from "../../../../../../../Lib/src/types/FightActionType";
-import {FightConstants} from "../../../../../../../Lib/src/constants/FightConstants";
+import { FightActionType } from "../../../../../../../Lib/src/types/FightActionType";
+import { FightConstants } from "../../../../../../../Lib/src/constants/FightConstants";
 
 const use: FightActionFunc = (sender, receiver, _fightAction, turn, fight) => {
 	const lastAttack = receiver.getLastFightActionUsed();
