@@ -16,9 +16,12 @@ export async function registerAllPacketHandlers(): Promise<void> {
 		}
 	}
 
-	for (const file of readdirSync("dist/Core/src/commands/", {recursive: true, withFileTypes: true})) {
+	for (const file of readdirSync("dist/Core/src/commands/", {
+		recursive: true,
+		withFileTypes: true
+	})) {
 		if (file.isFile() && file.name.endsWith(".js")) {
-			await import(`../../../../../${file.parentPath}/${file.name.substring(0, file.name.length - 3)}`);
+			await import(`../../../../../${file.path}/${file.name.substring(0, file.name.length - 3)}`);
 		}
 	}
 }
