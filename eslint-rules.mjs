@@ -81,12 +81,12 @@ export default {
 	],
 	"@stylistic/array-bracket-spacing": [
 		"error",
-		"always"
+		"never"
 	],
 	"@stylistic/array-element-newline": [
 		"error",
 		{
-			"multiline": true,
+			"consistent": true,
 			"minItems": 3
 		}
 	],
@@ -145,7 +145,7 @@ export default {
 	],
 	"@stylistic/function-paren-newline": [
 		"error",
-		"multiline"
+		"consistent"
 	],
 	"@stylistic/generator-star-spacing": [
 		"error",
@@ -154,20 +154,13 @@ export default {
 			"after": false
 		}
 	],
-	"@stylistic/implicit-arrow-linebreak": [
-		"error",
-		"beside"
-	],
+	"@stylistic/implicit-arrow-linebreak": "off",
 	"@stylistic/indent": [
 		"error",
 		"tab",
 		{
 			"SwitchCase": 1
 		}
-	],
-	"@stylistic/jsx-quotes": [
-		"error",
-		"prefer-double"
 	],
 	"@stylistic/key-spacing": [
 		"error",
@@ -197,7 +190,13 @@ export default {
 			"afterBlockComment": false,
 			"afterLineComment": false,
 			"allowArrayEnd": false,
-			"allowObjectEnd": false
+			"allowObjectEnd": false,
+			"allowBlockStart": true,
+			"allowBlockEnd": false,
+			"allowObjectStart": true,
+			"allowArrayStart": true,
+			"allowClassStart": true,
+			"allowClassEnd": false
 		}
 	],
 	"@stylistic/lines-between-class-members": [
@@ -250,12 +249,21 @@ export default {
 		"error",
 		"all",
 		{
-			"enforceForArrowConditionals": false
+			"enforceForArrowConditionals": false,
+			"nestedBinaryExpressions": false
 		}
 	],
 	"@stylistic/no-extra-semi": "error",
 	"@stylistic/no-floating-decimal": "error",
-	"@stylistic/no-mixed-operators": "error",
+	"@stylistic/no-mixed-operators": [
+		"error",
+		{
+			"groups": [
+				["&&", "||"]
+			],
+			"allowSamePrecedence": true
+		}
+	],
 	"@stylistic/no-mixed-spaces-and-tabs": "error",
 	"@stylistic/no-multi-spaces": "error",
 	"@stylistic/no-multiple-empty-lines": [
@@ -271,7 +279,7 @@ export default {
 	"@stylistic/object-curly-newline": [
 		"error",
 		{
-			"minProperties": 1,
+			"minProperties": 2,
 			"consistent": true
 		}
 	],
@@ -399,16 +407,23 @@ export default {
 				"requireLast": true
 			},
 			"singleline": {
-				"delimiter": "comma",
+				"delimiter": "semi",
 				"requireLast": false
-			}
+			},
+			"multilineDetection": "brackets"
 		}
 	],
 	"@stylistic/type-annotation-spacing": [
 		"error",
 		{
 			"before": false,
-			"after": true
+			"after": true,
+			"overrides": {
+				"arrow": {
+					"before": true,
+					"after": true
+				}
+			}
 		}
 	]
 };
