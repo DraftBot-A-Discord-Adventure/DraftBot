@@ -19,6 +19,10 @@
 		"resolveJsonModule": true,
 		"target": "es6",
 		"allowSyntheticDefaultImports": true,
+		"lib": [
+			"ES2022",
+			"dom"
+		],
 		"strict": true
 	},
 	"include": [
