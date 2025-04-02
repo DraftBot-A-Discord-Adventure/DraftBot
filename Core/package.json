@@ -19,6 +19,7 @@
     "start-profiler": "yarn run tsc && node --prof dist/Core/src/index.js"
   },
   "dependencies": {
+    "@stylistic/eslint-plugin": "^4.2.0",
     "@types/node": "22.13.17",
     "mariadb": "3.0.2",
     "moment": "2.30.1",

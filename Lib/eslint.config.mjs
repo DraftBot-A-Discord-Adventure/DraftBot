@@ -4,6 +4,8 @@ const {defineConfig} = require("eslint/config");
 const typescriptEslintPlugin = require("@typescript-eslint/eslint-plugin");
 const typescriptEslintParser = require("@typescript-eslint/parser");
 const jsdoc = require("eslint-plugin-jsdoc");
+import stylistic from "@stylistic/eslint-plugin";
+import customRules from "../eslint-rules.mjs";
 
 module.exports = defineConfig([
 	{
@@ -18,13 +20,14 @@ module.exports = defineConfig([
 		files: ["src/**/*.ts"],
 		plugins: {
 			"@typescript-eslint": typescriptEslintPlugin,
-			jsdoc
+			jsdoc,
+			"@stylistic": stylistic
 		},
 	},
 	{
 		rules: typescriptEslintPlugin.configs.recommended.rules
 	},
 	{
-		rules: require("../eslint-rules.json")
+		rules: customRules
 	}
 ]);
