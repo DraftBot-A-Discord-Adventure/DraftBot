@@ -3,6 +3,9 @@
   "version": "5.0.0",
   "description": "Lib package of DaftBot, used my multiple module",
   "packageManager": "yarn@4.8.1",
+  "engines": {
+    "node": ">=23.0.0"
+  },
   "scripts": {
     "start": "tsc && node dist/index.js",
     "test": "tsc && jest dist/test",
