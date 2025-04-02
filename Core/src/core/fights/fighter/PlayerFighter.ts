@@ -20,13 +20,12 @@ import {DraftBotPacket} from "../../../../../Lib/src/packets/DraftBotPacket";
 import {Potion} from "../../../data/Potion";
 import PetEntity, {PetEntities} from "../../database/game/models/PetEntity";
 
-/* eslint-disable capitalized-comments */
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 /**
  * @class PlayerFighter
- * @extends Fighter
+ * @augments Fighter
  * Class representing a player in a fight
  */
 export class PlayerFighter extends Fighter {

@@ -994,7 +994,12 @@ export class LogsDatabase extends Database {
 			for (const player of [fightInitiator, player2]) {
 				const fightActionsUsed: { [action: string]: number } = {};
 				for (const fightAction of player.fightActionsHistory) {
-					fightActionsUsed[fightAction.id] ? fightActionsUsed[fightAction.id]++ : fightActionsUsed[fightAction.id] = 1;
+					if (fightActionsUsed[fightAction.id]) {
+						fightActionsUsed[fightAction.id]++;
+					}
+					else {
+						fightActionsUsed[fightAction.id] = 1;
+					}
 				}
 				for (const [action, count] of Object.entries(fightActionsUsed)) {
 					const [fightAction] = await LogsFightsActions.findOrCreate({
@@ -1051,7 +1056,12 @@ export class LogsDatabase extends Database {
 			});
 			const fightActionsUsed: { [action: string]: number } = {};
 			for (const fightAction of player.fightActionsHistory) {
-				fightActionsUsed[fightAction.id] ? fightActionsUsed[fightAction.id]++ : fightActionsUsed[fightAction.id] = 1;
+				if (fightActionsUsed[fightAction.id]) {
+					fightActionsUsed[fightAction.id]++;
+				}
+				else {
+					fightActionsUsed[fightAction.id] = 1;
+				}
 			}
 			for (const [action, count] of Object.entries(fightActionsUsed)) {
 				const [fightAction] = await LogsFightsActions.findOrCreate({

@@ -16,9 +16,9 @@ class PaladinFightBehavior implements ClassBehavior {
 	/**
 	 * Chooses the appropriate fight action for the AI fighter based on the current fight situation.
 	 *
-	 * @param {AiPlayerFighter} me - The AI player fighter.
-	 * @param {FightView} fightView - The current fight view context.
-	 * @returns {FightAction} The chosen fight action.
+	 * @param me - The AI player fighter.
+	 * @param fightView - The current fight view context.
+	 * @returns The chosen fight action.
 	 */
 	chooseAction(me: AiPlayerFighter, fightView: FightView): FightAction {
 		const opponent = fightView.fightController.getDefendingFighter() as PlayerFighter | AiPlayerFighter; // AI will never fight monsters
@@ -52,16 +52,16 @@ class PaladinFightBehavior implements ClassBehavior {
 	 * - Opponent's last action is DIVINE_ATTACK and usedGodMoves is less than 2.
 	 * - If usedUltimateAttacks equals 1 and usedGodMoves is less than 2.
 	 * - If the opponent's class is one of [KNIGHT, VALIANT_KNIGHT, HORSE_RIDER, PIKEMAN, ESQUIRE],
-	 *   with a 20% chance and no god moves used.
+	 * with a 20% chance and no god moves used.
 	 * - If the opponent's class is PALADIN or LUMINOUS_PALADIN, the last action was DIVINE_ATTACK, or a 20% chance applies,
-	 *   with no god moves used, and the fight turn is at least 8.
+	 * with no god moves used, and the fight turn is at least 8.
 	 *
-	 * @param {AiPlayerFighter} me - The AI fighter.
-	 * @param {FightView} fightView - The current fight view.
-	 * @param {PlayerFighter | AiPlayerFighter} opponent - The opponent fighter.
-	 * @param {number} usedGodMoves - The number of god moves used.
-	 * @param {number} usedUltimateAttacks - The number of ultimate attacks used.
-	 * @returns {boolean} True if DIVINE_ATTACK should be used; otherwise, false.
+	 * @param me - The AI fighter.
+	 * @param fightView - The current fight view.
+	 * @param opponent - The opponent fighter.
+	 * @param usedGodMoves - The number of god moves used.
+	 * @param usedUltimateAttacks - The number of ultimate attacks used.
+	 * @returns True if DIVINE_ATTACK should be used; otherwise, false.
 	 */
 	private shouldUseDivineAttack(
 		me: AiPlayerFighter,
@@ -90,9 +90,9 @@ class PaladinFightBehavior implements ClassBehavior {
 			usedUltimateAttacks === 1 && usedGodMoves < 2 ||
 			isOpponentKnightType && RandomUtils.draftbotRandom.bool(0.2) && usedGodMoves === 0 ||
 			isOpponentPaladinType &&
-				(isOpponentDivine || RandomUtils.draftbotRandom.bool(0.2)) &&
-				usedGodMoves < 2 &&
-				fightView.fightController.turn >= 8
+			(isOpponentDivine || RandomUtils.draftbotRandom.bool(0.2)) &&
+			usedGodMoves < 2 &&
+			fightView.fightController.turn >= 8
 		);
 	}
 
@@ -100,9 +100,9 @@ class PaladinFightBehavior implements ClassBehavior {
 	 * Determines whether the CHARGE_ULTIMATE_ATTACK should be used if the ultimate attack hasn't been used
 	 * and energy is below a threshold.
 	 *
-	 * @param {AiPlayerFighter} me - The AI fighter.
-	 * @param {number} usedUltimateAttacks - The number of ultimate attacks used.
-	 * @returns {boolean} True if CHARGE_ULTIMATE_ATTACK should be used; otherwise, false.
+	 * @param me - The AI fighter.
+	 * @param usedUltimateAttacks - The number of ultimate attacks used.
+	 * @returns True if CHARGE_ULTIMATE_ATTACK should be used; otherwise, false.
 	 */
 	private shouldUseUltimateAttack(me: AiPlayerFighter, usedUltimateAttacks: number): boolean {
 		const ultimateAttackBreathCost = FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_ULTIMATE_ATTACK);
@@ -116,10 +116,10 @@ class PaladinFightBehavior implements ClassBehavior {
 	 *
 	 * Uses a calculation based on the opponent's breath and random chance.
 	 *
-	 * @param {AiPlayerFighter} me - The AI fighter.
-	 * @param {PlayerFighter | AiPlayerFighter} opponent - The opponent fighter.
-	 * @param {boolean} divineAndUltimateAttacksUsed - Indicator if both divine and ultimate attacks have been used.
-	 * @returns {boolean} True if SHIELD_ATTACK should be used; otherwise, false.
+	 * @param me - The AI fighter.
+	 * @param opponent - The opponent fighter.
+	 * @param divineAndUltimateAttacksUsed - Indicator if both divine and ultimate attacks have been used.
+	 * @returns True if SHIELD_ATTACK should be used; otherwise, false.
 	 */
 	private shouldUseShieldAttack(
 		me: AiPlayerFighter,
@@ -141,10 +141,10 @@ class PaladinFightBehavior implements ClassBehavior {
 	/**
 	 * Determines whether the RAM_ATTACK should be used to cancel opponent's two-turn attack (except CHARGE_CHARGING_ATTACK).
 	 *
-	 * @param {AiPlayerFighter} me - The AI fighter.
-	 * @param {PlayerFighter | AiPlayerFighter} opponent - The opponent fighter.
-	 * @param {boolean} divineAndUltimateAttacksUsed - Indicator if both divine and ultimate attacks have been used.
-	 * @returns {boolean} True if RAM_ATTACK should be used; otherwise, false.
+	 * @param me - The AI fighter.
+	 * @param opponent - The opponent fighter.
+	 * @param divineAndUltimateAttacksUsed - Indicator if both divine and ultimate attacks have been used.
+	 * @returns True if RAM_ATTACK should be used; otherwise, false.
 	 */
 	private shouldUseRamAttack(
 		me: AiPlayerFighter,

@@ -94,10 +94,10 @@ async function main(): Promise<void> {
 
 	/**
 	 * Get the message when the bot joins or leaves a guild
-	 * @param {Guild} guild
-	 * @param {boolean} join
-	 * @param {Language} lng
-	 * @return {string}
+	 * @param guild
+	 * @param join
+	 * @param lng
+	 * @returns
 	 */
 	function getJoinLeaveMessage(guild: Guild, join: boolean, lng: Language): string {
 		const {validation, humans, bots, ratio} = BotUtils.getValidationInfos(guild);
@@ -113,6 +113,7 @@ async function main(): Promise<void> {
 
 	/**
 	 * Will be executed each time the bot join a new server
+	 * @param guild
 	 */
 	function onDiscordGuildCreate(guild: Guild): void {
 		const msg = getJoinLeaveMessage(guild, true, LANGUAGE.ENGLISH);
@@ -121,6 +122,7 @@ async function main(): Promise<void> {
 
 	/**
 	 * Will be executed each time the bot leave a server
+	 * @param guild
 	 */
 	function onDiscordGuildDelete(guild: Guild): void {
 		const msg = getJoinLeaveMessage(guild, false, LANGUAGE.ENGLISH);

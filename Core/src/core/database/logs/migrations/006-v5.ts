@@ -1,5 +1,5 @@
 import {DataTypes, QueryInterface} from "sequelize";
-import {Effect} from "../../../../../../Lib/src/types/Effect";	// eslint-disable-next-line new-cap
+import {Effect} from "../../../../../../Lib/src/types/Effect";
 
 // Populated by v5 migration of game
 // Map discordId => new ID

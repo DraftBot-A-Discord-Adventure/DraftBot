@@ -2,8 +2,8 @@ import {QueryInterface, Sequelize, Transaction} from "sequelize";
 import {SequelizeStorage, Umzug} from "umzug";
 import {promises} from "fs";
 import {createConnection} from "mariadb";
-import TYPES = Transaction.TYPES;
 import {DatabaseConfiguration} from "./DatabaseConfiguration";
+import TYPES = Transaction.TYPES;
 
 export abstract class Database {
 	/**
@@ -42,6 +42,7 @@ export abstract class Database {
 
 	/**
 	 * Initialize the database. Must be called after the constructor
+	 * @param doMigrations
 	 */
 	public async init(doMigrations: boolean): Promise<void> {
 		// Connect to the database

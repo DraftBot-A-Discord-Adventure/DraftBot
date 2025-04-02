@@ -1,12 +1,4 @@
 {
-  "no-restricted-imports": [
-    "error",
-    {
-      "patterns": [
-        "**/Discord/*"
-      ]
-    }
-  ],
   "indent": [
     "error",
     "tab"
@@ -132,5 +124,16 @@
       "ignoreRestSiblings": true
     }
   ],
-  "@typescript-eslint/no-require-imports": "off"
+  "@typescript-eslint/no-require-imports": "off",
+  "jsdoc/check-alignment": "warn",
+  "jsdoc/check-indentation": "warn",
+  "jsdoc/check-line-alignment": "warn",
+  "jsdoc/check-property-names": "warn",
+  "jsdoc/check-tag-names": "warn",
+  "jsdoc/empty-tags": "warn",
+  "jsdoc/no-defaults": "warn",
+  "jsdoc/no-multi-asterisks": "warn",
+  "jsdoc/no-types": "warn",
+  "jsdoc/require-asterisk-prefix": "warn",
+  "jsdoc/require-param-name": "warn"
 }

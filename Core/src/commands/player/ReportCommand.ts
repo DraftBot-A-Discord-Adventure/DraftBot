@@ -161,10 +161,10 @@ async function completeMissionsBigEvent(player: Player, response: DraftBotPacket
 }
 
 /**
- * @param {BigEvent} event
- * @param {Possibility} possibility
- * @param {Player} player
- * @param {Number} time
+ * @param event
+ * @param possibility
+ * @param player
+ * @param time
  * @param context
  * @param response
  */
@@ -231,12 +231,12 @@ async function doPossibility(
 }
 
 /**
- * @param {BigEvent} event
- * @param {Player} player
- * @param {Number} time
+ * @param event
+ * @param player
+ * @param time
  * @param context
  * @param response
- * @return {Promise<void>}
+ * @returns
  */
 async function doEvent(event: BigEvent, player: Player, time: number, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
 	const possibilities = await event.getPossibilities(player);
@@ -409,9 +409,9 @@ async function chooseDestination(
 
 /**
  * Returns if the player reached a stopping point (= small event)
- * @param {Player} player
+ * @param player
  * @param date
- * @returns {boolean}
+ * @returns
  */
 async function needSmallEvent(player: Player, date: Date): Promise<boolean> {
 	return (await TravelTime.getTravelData(player, date)).nextSmallEventTime <= date.valueOf();

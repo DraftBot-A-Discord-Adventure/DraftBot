@@ -67,7 +67,7 @@ export class FightView {
 
 
 	/**
-	 *  Summarize current fight status, displaying fighter's stats
+	 * Summarize current fight status, displaying fighter's stats
 	 */
 	displayFightStatus(response: DraftBotPacket[]): void {
 		const playingFighter = this.fightController.getPlayingFighter();
@@ -251,7 +251,7 @@ export class FightView {
 	 * @param waitTimeMs
 	 */
 	displayAiChooseAction(response: DraftBotPacket[], waitTimeMs: number): void {
-		response.push(makePacket(AIFightActionChoosePacket, { ms: waitTimeMs }));
+		response.push(makePacket(AIFightActionChoosePacket, {ms: waitTimeMs}));
 	}
 
 	/**

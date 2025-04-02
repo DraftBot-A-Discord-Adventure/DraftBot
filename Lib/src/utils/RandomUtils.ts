@@ -38,6 +38,7 @@ export class RandomUtils {
 
 	/**
 	 * Pick a random element from an enum
+	 * @param anEnum - The enum to pick from
 	 */
 	public static enumPick = <T extends object>(anEnum: T): T[keyof T] => {
 		const enumValues = (Object.keys(anEnum)
