@@ -19,29 +19,29 @@
     "interface": "i18next-resources-for-ts interface -i ../Lang/en -o ./src/@types/resources.d.ts"
   },
   "dependencies": {
-    "@discordjs/builders": "^1.9.0",
-    "@types/i18next": "^13.0.0",
-    "@types/node": "20.4.8",
-    "discord-api-types": "^0.37.103",
-    "discord.js": "14.16.3",
-    "i18next": "^23.16.4",
-    "i18next-resources-for-ts": "^1.4.0",
-    "mariadb": "3.0.2",
-    "moment": "^2.30.1",
-    "mqtt": "^5.10.1",
-    "random-js": "^2.1.0",
-    "sequelize": "6.32.1",
-    "source-map-support": "^0.5.21",
-    "toml": "^3.0.0",
-    "topgg-autoposter": "^2.0.2",
-    "umzug": "3.2.1"
+    "@discordjs/builders": "1.10.1",
+    "@types/i18next": "13.0.0",
+    "@types/node": "22.13.17",
+    "discord-api-types": "0.37.119",
+    "discord.js": "14.18.0",
+    "i18next": "24.2.3",
+    "i18next-resources-for-ts": "1.5.0",
+    "mariadb": "3.4.0",
+    "moment": "2.30.1",
+    "mqtt": "5.10.4",
+    "random-js": "2.1.0",
+    "sequelize": "6.37.7",
+    "source-map-support": "0.5.21",
+    "toml": "3.0.0",
+    "topgg-autoposter": "2.0.2",
+    "umzug": "3.8.2"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^6.21.0",
-    "@typescript-eslint/parser": "^6.21.0",
-    "eslint": "^8.56.0",
+    "@typescript-eslint/eslint-plugin": "8.29.0",
+    "@typescript-eslint/parser": "8.29.0",
+    "eslint": "9.23.0",
     "eslint-config-google": "0.14.0",
-    "typescript": "5.2.2",
-    "typescript-eslint": "0.0.1-alpha.0"
+    "typescript": "5.8.2",
+    "typescript-eslint": "8.29.0"
   }
 }
