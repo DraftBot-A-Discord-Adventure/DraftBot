@@ -1,12 +1,17 @@
 import {ICommand} from "./ICommand";
 import {
 	ActionRowBuilder,
+	AnyThreadChannel,
 	ApplicationCommand,
 	ApplicationCommandOptionType,
 	Attachment,
-	AttachmentBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle,
+	AttachmentBuilder,
+	ButtonBuilder,
+	ButtonInteraction,
+	ButtonStyle,
 	ChannelType,
-	Client, CommandInteraction,
+	Client,
+	CommandInteraction,
 	GuildResolvable,
 	Message,
 	MessageType,
@@ -475,7 +480,8 @@ export class CommandsManager {
 
 		if (!channel.permissionsFor(draftBotClient!.user!)
 			?.has(PermissionsBitField.Flags.SendMessagesInThreads) && channel.isThread()) {
-			console.log(`No perms to show i can't speak in thread : ${channel.guildId}/${channel.id}`);
+			const thread = channel as AnyThreadChannel;
+			console.log(`No perms to show i can't speak in thread : ${thread.guildId}/${thread.id}`);
 			return [false, "noSpeakInThreadPermission"];
 		}
 
