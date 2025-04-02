@@ -26,7 +26,7 @@
     "discord.js": "14.18.0",
     "i18next": "24.2.3",
     "i18next-resources-for-ts": "1.5.0",
-    "mariadb": "3.4.0",
+    "mariadb": "3.0.2",
     "moment": "2.30.1",
     "mqtt": "5.10.4",
     "random-js": "2.1.0",

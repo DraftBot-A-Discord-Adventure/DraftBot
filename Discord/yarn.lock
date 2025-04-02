@@ -381,7 +381,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/geojson@npm:^7946.0.14":
+"@types/geojson@npm:^7946.0.10":
   version: 7946.0.16
   resolution: "@types/geojson@npm:7946.0.16"
   checksum: 10c0/1ff24a288bd5860b766b073ead337d31d73bdc715e5b50a2cee5cb0af57a1ed02cc04ef295f5fa68dc40fe3e4f104dd31282b2b818a5ba3231bc1001ba084e3c
@@ -420,12 +420,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:22.13.17, @types/node@npm:^22.5.4":
+"@types/node@npm:22.13.17":
   version: 22.13.17
   resolution: "@types/node@npm:22.13.17"
   dependencies:
     undici-types: "npm:~6.20.0"
   checksum: 10c0/77a052fec0fe02f60557e1c5f3f28eb09cd9bee426be88328a94689150a3c0df5b4b6b69fad28157fb34521693dad0b311ecd7f613845d681ff973991310c20e
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^17.0.45":
+  version: 17.0.45
+  resolution: "@types/node@npm:17.0.45"
+  checksum: 10c0/0db377133d709b33a47892581a21a41cd7958f22723a3cc6c71d55ac018121382de42fbfc7970d5ae3e7819dbe5f40e1c6a5174aedf7e7964e9cb8fa72b580b0
   languageName: node
   linkType: hard
 
@@ -949,7 +956,7 @@ __metadata:
     eslint-config-google: "npm:0.14.0"
     i18next: "npm:24.2.3"
     i18next-resources-for-ts: "npm:1.5.0"
-    mariadb: "npm:3.4.0"
+    mariadb: "npm:3.0.2"
     moment: "npm:2.30.1"
     mqtt: "npm:5.10.4"
     random-js: "npm:2.1.0"
@@ -1573,7 +1580,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lru-cache@npm:^10.3.0, lru-cache@npm:^10.4.3":
+"lru-cache@npm:^10.4.3":
   version: 10.4.3
   resolution: "lru-cache@npm:10.4.3"
   checksum: 10c0/ebd04fbca961e6c1d6c0af3799adcc966a1babe798f685bb84e6599266599cd95d94630b10262f5424539bc4640107e8a33aa28585374abf561d30d16f4b39fb
@@ -1589,6 +1596,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lru-cache@npm:^7.14.0":
+  version: 7.18.3
+  resolution: "lru-cache@npm:7.18.3"
+  checksum: 10c0/b3a452b491433db885beed95041eb104c157ef7794b9c9b4d647be503be91769d11206bb573849a16b4cc0d03cbd15ffd22df7960997788b74c1d399ac7a4fed
+  languageName: node
+  linkType: hard
+
 "magic-bytes.js@npm:^1.10.0":
   version: 1.10.0
   resolution: "magic-bytes.js@npm:1.10.0"
@@ -1596,16 +1610,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mariadb@npm:3.4.0":
-  version: 3.4.0
-  resolution: "mariadb@npm:3.4.0"
+"mariadb@npm:3.0.2":
+  version: 3.0.2
+  resolution: "mariadb@npm:3.0.2"
   dependencies:
-    "@types/geojson": "npm:^7946.0.14"
-    "@types/node": "npm:^22.5.4"
+    "@types/geojson": "npm:^7946.0.10"
+    "@types/node": "npm:^17.0.45"
     denque: "npm:^2.1.0"
     iconv-lite: "npm:^0.6.3"
-    lru-cache: "npm:^10.3.0"
-  checksum: 10c0/8984061760f5610a754f9ff8fb6b299f7da2a74b4250298c5f9f97deb02a27f2cf64265ce954e57d96ab5b943cbd8893aa2456e42eb3e5bbea7636f9144d1baf
+    lru-cache: "npm:^7.14.0"
+    moment-timezone: "npm:^0.5.38"
+  checksum: 10c0/a007a4b2289871ca93994ed50468372a3d5abe8750c9536efeb20b4c711a4ad1f8e5ee0debccb990c98b4766fedb5c9909e2699e88bfc2ffd6250b66364c5646
   languageName: node
   linkType: hard
 
@@ -1648,6 +1663,15 @@ __metadata:
   version: 1.2.8
   resolution: "minimist@npm:1.2.8"
   checksum: 10c0/19d3fcdca050087b84c2029841a093691a91259a47def2f18222f41e7645a0b7c44ef4b40e88a1e58a40c84d2ef0ee6047c55594d298146d0eb3f6b737c20ce6
+  languageName: node
+  linkType: hard
+
+"moment-timezone@npm:^0.5.38":
+  version: 0.5.48
+  resolution: "moment-timezone@npm:0.5.48"
+  dependencies:
+    moment: "npm:^2.29.4"
+  checksum: 10c0/ab14ec9d94bc33f29ac18e5417b7f8aca0b17130b952c5cc9697b8fea839e5ece9313af5fd3c9703a05db472b1560ddbfc7ad2aa24aac9afd047d6da6c3c6033
   languageName: node
   linkType: hard
 

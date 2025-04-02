@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@types/node": "22.13.17",
-    "mariadb": "3.4.0",
+    "mariadb": "3.0.2",
     "random-js": "2.1.0",
     "sequelize": "6.37.7",
     "umzug": "3.8.2"
