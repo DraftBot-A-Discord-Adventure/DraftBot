@@ -1,6 +1,8 @@
-import {MissionsController} from "../../../../core/missions/MissionsController";
-import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
-import {MissionDataController} from "../../../../data/Mission";
+import { MissionsController } from "../../../../core/missions/MissionsController";
+import {
+	ExecuteTestCommandLike, ITestCommand, TypeKey
+} from "../../../../core/CommandsTest";
+import { MissionDataController } from "../../../../data/Mission";
 
 export const commandInfo: ITestCommand = {
 	name: "updateMissions",
@@ -8,7 +10,7 @@ export const commandInfo: ITestCommand = {
 	commandFormat: "<mission id> <count>",
 	typeWaited: {
 		"mission id": TypeKey.STRING,
-		count: TypeKey.INTEGER
+		"count": TypeKey.INTEGER
 	},
 	description: "Avance les missions"
 };
@@ -22,7 +24,9 @@ const updateMissionsTestCommand: ExecuteTestCommandLike = async (player, args, r
 		throw new Error("mission id inconnu");
 	}
 	const count = parseInt(args[1], 10);
-	await MissionsController.update(player, response, {missionId: args[0], count});
+	await MissionsController.update(player, response, {
+		missionId: args[0], count
+	});
 
 	return `Vous avez avancé de ${count} vos missions ${args[0]}`;
 };

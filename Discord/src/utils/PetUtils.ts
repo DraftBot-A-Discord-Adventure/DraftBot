@@ -1,9 +1,9 @@
-import {Language} from "../../../Lib/src/Language";
-import {PetDiet} from "../../../Lib/src/constants/PetConstants";
+import { Language } from "../../../Lib/src/Language";
+import { PetDiet } from "../../../Lib/src/constants/PetConstants";
 import i18n from "../translations/i18n";
-import {SexTypeShort} from "../../../Lib/src/constants/StringConstants";
-import {finishInTimeDisplay} from "../../../Lib/src/utils/TimeUtils";
-import {DisplayUtils} from "./DisplayUtils";
+import { SexTypeShort } from "../../../Lib/src/constants/StringConstants";
+import { finishInTimeDisplay } from "../../../Lib/src/utils/TimeUtils";
+import { DisplayUtils } from "./DisplayUtils";
 
 export class PetUtils {
 	/**
@@ -22,12 +22,14 @@ export class PetUtils {
 	}
 
 	static getDietDisplay(diet: PetDiet | undefined, lng: Language): string {
-		return i18n.t("models:diet", {lng, context: diet ?? PetDiet.OMNIVOROUS});
+		return i18n.t("models:diet", {
+			lng, context: diet ?? PetDiet.OMNIVOROUS
+		});
 	}
 
 	static getFeedCooldownDisplay(nextFeed: number, lng: Language): string {
 		return nextFeed <= 0
-			? i18n.t("commands:shop.shopItems.lovePointsValue.petIsHungry", {lng})
+			? i18n.t("commands:shop.shopItems.lovePointsValue.petIsHungry", { lng })
 			: finishInTimeDisplay(new Date(new Date().valueOf() + nextFeed));
 	}
 }

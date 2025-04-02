@@ -1,7 +1,7 @@
 import Player from "../../database/game/models/Player";
-import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
-import {SmallEventConstants} from "../../../../../Lib/src/constants/SmallEventConstants";
-import {FightPetActionFunc} from "../../../data/FightPetAction";
+import { RandomUtils } from "../../../../../Lib/src/utils/RandomUtils";
+import { SmallEventConstants } from "../../../../../Lib/src/constants/SmallEventConstants";
+import { FightPetActionFunc } from "../../../data/FightPetAction";
 
 export const fightPetAction: FightPetActionFunc = (player: Player): boolean => RandomUtils.draftbotRandom.bool(
 	player.id % 10 !== SmallEventConstants.FIGHT_PET.LAST_DIGIT_LEFT_HANDED

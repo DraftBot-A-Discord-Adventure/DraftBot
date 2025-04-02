@@ -1,4 +1,6 @@
-import {ExecuteTestCommandLike, ITestCommand} from "../../../../core/CommandsTest";
+import {
+	ExecuteTestCommandLike, ITestCommand
+} from "../../../../core/CommandsTest";
 
 export const commandInfo: ITestCommand = {
 	name: "clearbadges",
@@ -8,7 +10,7 @@ export const commandInfo: ITestCommand = {
 /**
  * Delete all badges of the player
  */
-const clearBadgesTestCommand: ExecuteTestCommandLike = async (player) => {
+const clearBadgesTestCommand: ExecuteTestCommandLike = async player => {
 	player.badges = null;
 	await player.save();
 	return "Vous avez supprimé vos badges !";

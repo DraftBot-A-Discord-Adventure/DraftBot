@@ -1,7 +1,11 @@
-import {DataTypes, QueryInterface, Sequelize} from "sequelize";
-import {guildsAttributes001, petEntitiesAttributes001} from "./001-initial-database";
+import {
+	DataTypes, QueryInterface, Sequelize
+} from "sequelize";
+import {
+	guildsAttributes001, petEntitiesAttributes001
+} from "./001-initial-database";
 
-export async function up({context}: { context: QueryInterface }): Promise<void> {
+export async function up({ context }: { context: QueryInterface }): Promise<void> {
 	// Guild creation date
 	const guildCreationDateAttributes = {
 		type: DataTypes.DATE,
@@ -35,7 +39,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 	await petEntityModel.update({ creationDate: Sequelize.literal("createdAt") }, { where: {} });
 }
 
-export async function down({context}: { context: QueryInterface }): Promise<void> {
+export async function down({ context }: { context: QueryInterface }): Promise<void> {
 	await context.removeColumn("guilds", "creationDate");
 	await context.removeColumn("pet_entities", "creationDate");
 }

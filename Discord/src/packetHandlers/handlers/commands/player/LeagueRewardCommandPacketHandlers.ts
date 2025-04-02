@@ -1,21 +1,21 @@
-import {packetHandler} from "../../../PacketHandler";
-import {PacketContext} from "../../../../../../Lib/src/packets/DraftBotPacket";
-import {handleClassicError} from "../../../../utils/ErrorUtils";
+import { packetHandler } from "../../../PacketHandler";
+import { PacketContext } from "../../../../../../Lib/src/packets/DraftBotPacket";
+import { handleClassicError } from "../../../../utils/ErrorUtils";
 import {
 	CommandLeagueRewardAlreadyClaimedPacketRes,
 	CommandLeagueRewardNoPointsPacketRes,
 	CommandLeagueRewardNotSundayPacketRes,
 	CommandLeagueRewardSuccessPacketRes
 } from "../../../../../../Lib/src/packets/commands/CommandLeagueRewardPacket";
-import {printTimeBeforeDate} from "../../../../../../Lib/src/utils/TimeUtils";
-import {handleCommandLeagueRewardSuccessPacket} from "../../../../commands/player/LeagueRewardCommand";
+import { printTimeBeforeDate } from "../../../../../../Lib/src/utils/TimeUtils";
+import { handleCommandLeagueRewardSuccessPacket } from "../../../../commands/player/LeagueRewardCommand";
 
 export default class RespawnCommandPacketHandlers {
 	@packetHandler(CommandLeagueRewardNotSundayPacketRes)
 	async leagueRewardNotSundayError(context: PacketContext, packet: CommandLeagueRewardNotSundayPacketRes): Promise<void> {
 		await handleClassicError(context, "commands:leagueReward.errors.notSunday", {
 			nextSunday: printTimeBeforeDate(packet.nextSunday),
-			interpolation: {escapeValue: false}
+			interpolation: { escapeValue: false }
 		});
 	}
 

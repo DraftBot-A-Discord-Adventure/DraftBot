@@ -1,6 +1,8 @@
-import {DataTypes, Op, QueryInterface} from "sequelize";
+import {
+	DataTypes, Op, QueryInterface
+} from "sequelize";
 
-export async function up({context}: { context: QueryInterface }): Promise<void> {
+export async function up({ context }: { context: QueryInterface }): Promise<void> {
 	await context.addColumn("players", "banned", {
 		type: DataTypes.BOOLEAN,
 		allowNull: false,
@@ -17,6 +19,6 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 	});
 }
 
-export async function down({context}: { context: QueryInterface }): Promise<void> {
+export async function down({ context }: { context: QueryInterface }): Promise<void> {
 	await context.removeColumn("players", "banned");
 }

@@ -1,15 +1,17 @@
 import Player from "../database/game/models/Player";
-import {millisecondsToMinutes, minutesToMilliseconds} from "../../../../Lib/src/utils/TimeUtils";
-import {PlayerSmallEvents} from "../database/game/models/PlayerSmallEvent";
-import {Maps} from "./Maps";
-import {PVEConstants} from "../../../../Lib/src/constants/PVEConstants";
-import {MapLinkDataController} from "../../data/MapLink";
-import {draftBotInstance} from "../../index";
-import {Effect} from "../../../../Lib/src/types/Effect";
-import {Constants} from "../../../../Lib/src/constants/Constants";
-import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
-import {ReportConstants} from "../../../../Lib/src/constants/ReportConstants";
+import {
+	millisecondsToMinutes, minutesToMilliseconds
+} from "../../../../Lib/src/utils/TimeUtils";
+import { PlayerSmallEvents } from "../database/game/models/PlayerSmallEvent";
+import { Maps } from "./Maps";
+import { PVEConstants } from "../../../../Lib/src/constants/PVEConstants";
+import { MapLinkDataController } from "../../data/MapLink";
+import { draftBotInstance } from "../../index";
+import { Effect } from "../../../../Lib/src/types/Effect";
+import { Constants } from "../../../../Lib/src/constants/Constants";
+import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
+import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
+import { ReportConstants } from "../../../../Lib/src/constants/ReportConstants";
 
 /**
  * Travel time functions class
@@ -47,19 +49,20 @@ export class TravelTime {
 	 * @param date
 	 */
 	static async getTravelData(player: Player, date: Date): Promise<{
-		travelStartTime: number,
-		travelEndTime: number,
-		effectStartTime: number,
-		effectEndTime: number,
-		effectDuration: number,
-		effectRemainingTime: number,
-		playerTravelledTime: number,
-		nextSmallEventTime: number
+		travelStartTime: number;
+		travelEndTime: number;
+		effectStartTime: number;
+		effectEndTime: number;
+		effectDuration: number;
+		effectRemainingTime: number;
+		playerTravelledTime: number;
+		nextSmallEventTime: number;
 	}> {
 		const data = this.getTravelDataSimplified(player, date);
 
 		const lastSmallEvent = await PlayerSmallEvents.getLastOfPlayer(player.id);
 		const timeBetweenSmallEvents = Maps.isOnPveIsland(player) ? PVEConstants.TIME_BETWEEN_SMALL_EVENTS : Constants.REPORT.TIME_BETWEEN_MINI_EVENTS;
+
 		// The next small event in 9min45 after the last thing that happened between last start of the travel, small event (if there's one since the start of the travel) and end of alteration
 		const nextSmallEventTime = Math.max(
 			data.travelStartTime,
@@ -86,13 +89,13 @@ export class TravelTime {
 	 * @param date
 	 */
 	static getTravelDataSimplified(player: Player, date: Date): {
-		travelStartTime: number,
-		travelEndTime: number,
-		effectStartTime: number,
-		effectEndTime: number,
-		effectDuration: number,
-		effectRemainingTime: number,
-		playerTravelledTime: number
+		travelStartTime: number;
+		travelEndTime: number;
+		effectStartTime: number;
+		effectEndTime: number;
+		effectDuration: number;
+		effectRemainingTime: number;
+		playerTravelledTime: number;
 	} {
 		// Basic variables
 		const travelStartTime = player.startTravelDate.valueOf();
@@ -104,8 +107,10 @@ export class TravelTime {
 			effectEndTime = travelStartTime;
 		}
 
-		// Check to avoid errors. If the effect starts before the start of the travel, cut the duration to make it begin
-		// At the start of the travel
+		/*
+		 * Check to avoid errors. If the effect starts before the start of the travel, cut the duration to make it begin
+		 * At the start of the travel
+		 */
 		if (effectEndTime - effectDuration < travelStartTime) {
 			effectDuration = effectEndTime - travelStartTime;
 		}
@@ -208,9 +213,15 @@ export class TravelTime {
 	 * @param reason
 	 */
 	static async applyEffect(player: Player, effect: Effect, time: number, date: Date, reason: NumberChangeReason): Promise<void> {
-		// Reason is IGNORE here because you don't want to log a time warp when you get an alteration
-		// First remove the effect (if the effect is time related)
-		if (player.effectId in [Effect.NO_EFFECT.id, Effect.NOT_STARTED.id, Effect.DEAD.id]) {
+		/*
+		 * Reason is IGNORE here because you don't want to log a time warp when you get an alteration
+		 * First remove the effect (if the effect is time related)
+		 */
+		if (player.effectId in [
+			Effect.NO_EFFECT.id,
+			Effect.NOT_STARTED.id,
+			Effect.DEAD.id
+		]) {
 			await this.removeEffect(player, NumberChangeReason.IGNORE);
 		}
 
@@ -246,6 +257,7 @@ export class TravelTime {
 
 		// Calculate score from small event
 		let scoreFromSmallEvent = 0;
+
 		// Divide by 3 if the player has travelled between 30 minutes and 1 hour.
 		if (timeTravelled >= Constants.JOIN_BOAT.TIME_TRAVELLED_THIRTY_MINUTES && timeTravelled < Constants.JOIN_BOAT.TIME_TRAVELLED_ONE_HOUR) {
 			scoreFromSmallEvent = Math.floor(await PlayerSmallEvents.calculateCurrentScore(player) / Constants.JOIN_BOAT.DIVISOR_TIME_TRAVELLED_LESS_THAN_ONE_HOUR);

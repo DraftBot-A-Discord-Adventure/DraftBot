@@ -1,10 +1,9 @@
-import {Database} from "../../../../../Lib/src/database/Database";
-import {DataTypes} from "sequelize";
-import {getDatabaseConfiguration} from "../../bot/DraftBotConfig";
-import {botConfig} from "../../../index";
+import { Database } from "../../../../../Lib/src/database/Database";
+import { DataTypes } from "sequelize";
+import { getDatabaseConfiguration } from "../../bot/DraftBotConfig";
+import { botConfig } from "../../../index";
 
 export class GameDatabase extends Database {
-
 	constructor() {
 		super(getDatabaseConfiguration(botConfig, "game"), `${__dirname}/models`, `${__dirname}/migrations`);
 	}
@@ -29,7 +28,6 @@ export class GameDatabase extends Database {
 			const maxId: number = await MigrationTable.max("id");
 
 			if (maxId !== 28) {
-				// eslint-disable-next-line max-len
 				console.error("This version of DraftBot includes a new version of migrations. You have to update the bot to the 3.0.0 version first, and after the migrations, you can upgrade the bot to an older version");
 				process.exit();
 			}

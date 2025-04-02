@@ -1,22 +1,24 @@
-import {ReactionCollectorCreationPacket} from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
-import {DiscordCache} from "../bot/DiscordCache";
-import {DraftbotSmallEventEmbed} from "../messages/DraftbotSmallEventEmbed";
+import { ReactionCollectorCreationPacket } from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { PacketContext } from "../../../Lib/src/packets/DraftBotPacket";
+import { DiscordCache } from "../bot/DiscordCache";
+import { DraftbotSmallEventEmbed } from "../messages/DraftbotSmallEventEmbed";
 import i18n from "../translations/i18n";
-import {DiscordCollectorUtils} from "../utils/DiscordCollectorUtils";
-import {KeycloakUtils} from "../../../Lib/src/keycloak/KeycloakUtils";
-import {keycloakConfig} from "../bot/DraftBotShard";
-import {ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, Message, parseEmoji} from "discord.js";
-import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
-import {sendInteractionNotForYou} from "../utils/ErrorUtils";
-import {ReactionCollectorWitchReaction} from "../../../Lib/src/packets/interaction/ReactionCollectorWitch";
-import {getRandomSmallEventIntro} from "../packetHandlers/handlers/SmallEventsHandler";
-import {StringUtils} from "../utils/StringUtils";
-import {SmallEventWitchResultPacket} from "../../../Lib/src/packets/smallEvents/SmallEventWitchPacket";
-import {Effect} from "../../../Lib/src/types/Effect";
-import {WitchActionOutcomeType} from "../../../Lib/src/types/WitchActionOutcomeType";
-import {EmoteUtils} from "../utils/EmoteUtils";
-import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import { DiscordCollectorUtils } from "../utils/DiscordCollectorUtils";
+import { KeycloakUtils } from "../../../Lib/src/keycloak/KeycloakUtils";
+import { keycloakConfig } from "../bot/DraftBotShard";
+import {
+	ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, Message, parseEmoji
+} from "discord.js";
+import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
+import { sendInteractionNotForYou } from "../utils/ErrorUtils";
+import { ReactionCollectorWitchReaction } from "../../../Lib/src/packets/interaction/ReactionCollectorWitch";
+import { getRandomSmallEventIntro } from "../packetHandlers/handlers/SmallEventsHandler";
+import { StringUtils } from "../utils/StringUtils";
+import { SmallEventWitchResultPacket } from "../../../Lib/src/packets/smallEvents/SmallEventWitchPacket";
+import { Effect } from "../../../Lib/src/types/Effect";
+import { WitchActionOutcomeType } from "../../../Lib/src/types/WitchActionOutcomeType";
+import { EmoteUtils } from "../utils/EmoteUtils";
+import { ReactionCollectorReturnType } from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
 export async function witchCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
@@ -27,7 +29,7 @@ export async function witchCollector(context: PacketContext, packet: ReactionCol
 	for (const reaction of packet.reactions) {
 		const ingredientId = (reaction.data as ReactionCollectorWitchReaction).id;
 		const emoji = EmoteUtils.translateEmojiToDiscord(DraftBotIcons.witch_small_event[ingredientId]);
-		witchIngredients += `${emoji} ${i18n.t(`smallEvents:witch.witchEventNames.${ingredientId}`, {lng})}\n`;
+		witchIngredients += `${emoji} ${i18n.t(`smallEvents:witch.witchEventNames.${ingredientId}`, { lng })}\n`;
 		reactions.push([ingredientId, emoji]);
 	}
 
@@ -78,7 +80,7 @@ export async function witchCollector(context: PacketContext, packet: ReactionCol
 			context,
 			context.keycloakId!,
 			buttonInteraction,
-			packet.reactions.findIndex((reaction) => (reaction.data as ReactionCollectorWitchReaction).id === buttonInteraction.customId)
+			packet.reactions.findIndex(reaction => (reaction.data as ReactionCollectorWitchReaction).id === buttonInteraction.customId)
 		);
 	});
 
@@ -97,21 +99,24 @@ export async function witchResult(packet: SmallEventWitchResultPacket, context: 
 	if (interaction) {
 		const introToLoad = packet.isIngredient ? "smallEvents:witch.witchEventResults.ingredientIntros" : "smallEvents:witch.witchEventResults.adviceIntros";
 		const timeOutro = packet.effectId === Effect.OCCUPIED.id && packet.timeLost > 0
-			? StringUtils.getRandomTranslation("smallEvents:witch.witchEventResults.outcomes.2.time", user.attributes.language[0], {lostTime: packet.timeLost})
+			? StringUtils.getRandomTranslation("smallEvents:witch.witchEventResults.outcomes.2.time", user.attributes.language[0], { lostTime: packet.timeLost })
 			: "";
-		const outcomeTranslationToLoad = packet.forceEffect || packet.outcome === WitchActionOutcomeType.EFFECT ?
-			`smallEvents:witch.witchEventResults.outcomes.2.${packet.effectId}` : `smallEvents:witch.witchEventResults.outcomes.${packet.outcome + 1}`;
+		const outcomeTranslationToLoad = packet.forceEffect || packet.outcome === WitchActionOutcomeType.EFFECT
+			? `smallEvents:witch.witchEventResults.outcomes.2.${packet.effectId}`
+			: `smallEvents:witch.witchEventResults.outcomes.${packet.outcome + 1}`;
 
 		await interaction.editReply({
-			embeds: [new DraftbotSmallEventEmbed(
-				"witch",
-				`${StringUtils.getRandomTranslation(introToLoad, user.attributes.language[0], {
-					witchEvent: `${i18n.t(`smallEvents:witch.witchEventNames.${packet.ingredientId}`, {lng: user.attributes.language[0]})} ${DraftBotIcons.witch_small_event[packet.ingredientId]}`
-						.toLowerCase()
-				})} ${StringUtils.getRandomTranslation(outcomeTranslationToLoad, user.attributes.language[0], {lostLife: packet.lifeLoss})}${timeOutro}`,
-				interaction.user,
-				user.attributes.language[0]
-			)]
+			embeds: [
+				new DraftbotSmallEventEmbed(
+					"witch",
+					`${StringUtils.getRandomTranslation(introToLoad, user.attributes.language[0], {
+						witchEvent: `${i18n.t(`smallEvents:witch.witchEventNames.${packet.ingredientId}`, { lng: user.attributes.language[0] })} ${DraftBotIcons.witch_small_event[packet.ingredientId]}`
+							.toLowerCase()
+					})} ${StringUtils.getRandomTranslation(outcomeTranslationToLoad, user.attributes.language[0], { lostLife: packet.lifeLoss })}${timeOutro}`,
+					interaction.user,
+					user.attributes.language[0]
+				)
+			]
 		});
 	}
 }

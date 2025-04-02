@@ -1,9 +1,13 @@
-import {Fighter} from "../../../fighter/Fighter";
-import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
-import {PetAssistanceFunc} from "../../../../../data/PetAssistance";
-import {PetAssistanceResult, PetAssistanceState} from "../../../../../../../Lib/src/types/PetAssistanceResult";
-import {RandomUtils} from "../../../../../../../Lib/src/utils/RandomUtils";
-import {FightActionType} from "../../../../../../../Lib/src/types/FightActionType";
+import { Fighter } from "../../../fighter/Fighter";
+import {
+	attackInfo, FightActionController, statsInfo
+} from "../../FightActionController";
+import { PetAssistanceFunc } from "../../../../../data/PetAssistance";
+import {
+	PetAssistanceResult, PetAssistanceState
+} from "../../../../../../../Lib/src/types/PetAssistanceResult";
+import { RandomUtils } from "../../../../../../../Lib/src/utils/RandomUtils";
+import { FightActionType } from "../../../../../../../Lib/src/types/FightActionType";
 
 function getAttackInfo(): attackInfo {
 	return {
@@ -34,6 +38,7 @@ const use: PetAssistanceFunc = (fighter, opponent, turn, _fightController): Prom
 	if (RandomUtils.draftbotRandom.bool(0.85) || turn === 1) {
 		return null;
 	}
+
 	// Only do something if the last action was a physical attack
 	if (opponent.getLastFightActionUsed().type !== FightActionType.PHYSICAL) {
 		return null;

@@ -1,27 +1,31 @@
-import {ICommand} from "../ICommand";
-import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
+import { ICommand } from "../ICommand";
+import {
+	makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 import i18n from "../../translations/i18n";
-import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {SlashCommandBuilder} from "@discordjs/builders";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
-import {ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, EmbedField} from "discord.js";
-import {Constants} from "../../../../Lib/src/constants/Constants";
-import {DiscordCache} from "../../bot/DiscordCache";
-import {DraftBotErrorEmbed} from "../../messages/DraftBotErrorEmbed";
-import {Language} from "../../../../Lib/src/Language";
-import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
-import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
-import {keycloakConfig} from "../../bot/DraftBotShard";
+import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
+import {
+	ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, EmbedField
+} from "discord.js";
+import { Constants } from "../../../../Lib/src/constants/Constants";
+import { DiscordCache } from "../../bot/DiscordCache";
+import { DraftBotErrorEmbed } from "../../messages/DraftBotErrorEmbed";
+import { Language } from "../../../../Lib/src/Language";
+import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
+import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
+import { keycloakConfig } from "../../bot/DraftBotShard";
 import {
 	CommandInventoryPacketReq,
 	CommandInventoryPacketRes,
 	MainItemDisplayPacket,
 	SupportItemDisplayPacket
 } from "../../../../Lib/src/packets/commands/CommandInventoryPacket";
-import {DiscordItemUtils} from "../../utils/DiscordItemUtils";
-import {sendInteractionNotForYou} from "../../utils/ErrorUtils";
-import {PacketUtils} from "../../utils/PacketUtils";
+import { DiscordItemUtils } from "../../utils/DiscordItemUtils";
+import { sendInteractionNotForYou } from "../../utils/ErrorUtils";
+import { PacketUtils } from "../../utils/PacketUtils";
 
 async function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser): Promise<CommandInventoryPacketReq | null> {
 	const askedPlayer = await PacketUtils.prepareAskedPlayer(interaction, keycloakUser);
@@ -29,24 +33,26 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 		return null;
 	}
 
-	return makePacket(CommandInventoryPacketReq, {askedPlayer});
+	return makePacket(CommandInventoryPacketReq, { askedPlayer });
 }
 
 function getBackupField<T = MainItemDisplayPacket | SupportItemDisplayPacket>(
 	lng: Language,
 	items: {
-		display: T,
-		slot: number
+		display: T;
+		slot: number;
 	}[],
 	slots: number,
 	toFieldFunc: (displayPacket: T, language: Language) => EmbedField,
 	itemKind: string
 ): EmbedField {
-	const formattedTitle = i18n.t(`commands:inventory.${itemKind}`, {lng, count: items.length, max: slots - 1});
+	const formattedTitle = i18n.t(`commands:inventory.${itemKind}`, {
+		lng, count: items.length, max: slots - 1
+	});
 	if (slots <= 1) {
 		return {
 			name: formattedTitle,
-			value: i18n.t("commands:inventory.noSlot", {lng}),
+			value: i18n.t("commands:inventory.noSlot", { lng }),
 			inline: false
 		};
 	}
@@ -54,7 +60,7 @@ function getBackupField<T = MainItemDisplayPacket | SupportItemDisplayPacket>(
 	for (let i = 1; i < slots; ++i) {
 		const search = items.find(item => item.slot === i);
 		if (!search) {
-			value += i18n.t("commands:inventory.emptySlot", {lng});
+			value += i18n.t("commands:inventory.emptySlot", { lng });
 		}
 		else {
 			value += toFieldFunc(search.display, lng).value;
@@ -114,7 +120,7 @@ export async function handleCommandInventoryPacketRes(packet: CommandInventoryPa
 					new DraftBotErrorEmbed(
 						interaction.user,
 						interaction,
-						i18n.t("error:playerDoesntExist", {lng: interaction.userLanguage})
+						i18n.t("error:playerDoesntExist", { lng: interaction.userLanguage })
 					)
 				]
 			});
@@ -125,8 +131,8 @@ export async function handleCommandInventoryPacketRes(packet: CommandInventoryPa
 		let equippedView = true;
 
 		const buttonId = "switchItems";
-		const equippedButtonLabel = i18n.t("commands:inventory.seeEquippedItems", {lng: interaction.userLanguage});
-		const backupButtonLabel = i18n.t("commands:inventory.seeBackupItems", {lng: interaction.userLanguage});
+		const equippedButtonLabel = i18n.t("commands:inventory.seeEquippedItems", { lng: interaction.userLanguage });
+		const backupButtonLabel = i18n.t("commands:inventory.seeBackupItems", { lng: interaction.userLanguage });
 
 		const switchItemsButton = new ButtonBuilder()
 			.setCustomId(buttonId)

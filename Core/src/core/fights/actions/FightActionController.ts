@@ -1,18 +1,32 @@
-import {FightConstants} from "../../../../../Lib/src/constants/FightConstants";
-import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
-import {Fighter} from "../fighter/Fighter";
-import {FightActionStatus} from "../../../../../Lib/src/types/FightActionStatus";
-import {defaultFightActionResult, FightActionBuff, FightActionResult, FightAlterationApplied, FightStatBuffed} from "../../../../../Lib/src/types/FightActionResult";
-import {MathUtils} from "../../utils/MathUtils";
-import {FightAction, FightActionDataController} from "../../../data/FightAction";
-import {FightController} from "../FightController";
-import {FightAlterationResult} from "../../../../../Lib/src/types/FightAlterationResult";
-import {FightAlteration, FightAlterationDataController} from "../../../data/FightAlteration";
-import {PetAssistanceResult} from "../../../../../Lib/src/types/PetAssistanceResult";
-import {PetAssistance} from "../../../data/PetAssistance";
+import { FightConstants } from "../../../../../Lib/src/constants/FightConstants";
+import { RandomUtils } from "../../../../../Lib/src/utils/RandomUtils";
+import { Fighter } from "../fighter/Fighter";
+import { FightActionStatus } from "../../../../../Lib/src/types/FightActionStatus";
+import {
+	defaultFightActionResult,
+	FightActionBuff,
+	FightActionResult,
+	FightAlterationApplied,
+	FightStatBuffed
+} from "../../../../../Lib/src/types/FightActionResult";
+import { MathUtils } from "../../utils/MathUtils";
+import {
+	FightAction, FightActionDataController
+} from "../../../data/FightAction";
+import { FightController } from "../FightController";
+import { FightAlterationResult } from "../../../../../Lib/src/types/FightAlterationResult";
+import {
+	FightAlteration, FightAlterationDataController
+} from "../../../data/FightAlteration";
+import { PetAssistanceResult } from "../../../../../Lib/src/types/PetAssistanceResult";
+import { PetAssistance } from "../../../data/PetAssistance";
 
-export type attackInfo = { minDamage: number, averageDamage: number, maxDamage: number };
-export type statsInfo = { attackerStats: number[], defenderStats: number[], statsEffect: number[] }
+export type attackInfo = {
+	minDamage: number; averageDamage: number; maxDamage: number;
+};
+export type statsInfo = {
+	attackerStats: number[]; defenderStats: number[]; statsEffect: number[];
+};
 
 export class FightActionController {
 	/**
@@ -31,8 +45,10 @@ export class FightActionController {
 		for (let i = 0; i < statsInfo.attackerStats.length; i++) {
 			attackDamage += this.getAttackDamageByStat(statsInfo.attackerStats[i], statsInfo.defenderStats[i], attackInfo) * statsInfo.statsEffect[i];
 		}
+
 		// Add a random variation for 5% of the damage
 		attackDamage = Math.round(attackDamage + attackDamage * RandomUtils.variationInt(FightConstants.DAMAGE_RANDOM_VARIATION) / 100);
+
 		// Damage multiplier
 		if (!ignoreMultiplier) {
 			attackDamage *= attacker.getDamageMultiplier();
@@ -50,41 +66,41 @@ export class FightActionController {
 	static applyBuff(result: FightActionResult | FightAlterationResult | PetAssistanceResult, buff: FightActionBuff, target: Fighter, origin: FightAction | FightAlteration | PetAssistance): void {
 		origin = origin as FightAction;
 		switch (buff.stat) {
-		case FightStatBuffed.ATTACK:
-			target.applyAttackModifier({
-				origin,
-				operation: buff.operator,
-				value: buff.value
-			});
-			break;
-		case FightStatBuffed.DEFENSE:
-			target.applyDefenseModifier({
-				origin,
-				operation: buff.operator,
-				value: buff.value
-			});
-			break;
-		case FightStatBuffed.SPEED:
-			target.applySpeedModifier({
-				origin,
-				operation: buff.operator,
-				value: buff.value
-			});
-			break;
-		case FightStatBuffed.BREATH:
-			target.addBreath(buff.value);
-			break;
-		case FightStatBuffed.ENERGY:
-			target.heal(buff.value);
-			break;
-		case FightStatBuffed.DAMAGE:
-			target.damage(buff.value);
-			break;
-		case FightStatBuffed.DAMAGE_BOOST:
-			target.applyDamageMultiplier(buff.value, buff.duration);
-			break;
-		default:
-			return;
+			case FightStatBuffed.ATTACK:
+				target.applyAttackModifier({
+					origin,
+					operation: buff.operator,
+					value: buff.value
+				});
+				break;
+			case FightStatBuffed.DEFENSE:
+				target.applyDefenseModifier({
+					origin,
+					operation: buff.operator,
+					value: buff.value
+				});
+				break;
+			case FightStatBuffed.SPEED:
+				target.applySpeedModifier({
+					origin,
+					operation: buff.operator,
+					value: buff.value
+				});
+				break;
+			case FightStatBuffed.BREATH:
+				target.addBreath(buff.value);
+				break;
+			case FightStatBuffed.ENERGY:
+				target.heal(buff.value);
+				break;
+			case FightStatBuffed.DAMAGE:
+				target.damage(buff.value);
+				break;
+			case FightStatBuffed.DAMAGE_BOOST:
+				target.applyDamageMultiplier(buff.value, buff.duration);
+				break;
+			default:
+				return;
 		}
 		if (result.buffs === undefined) {
 			result.buffs = [];
@@ -120,7 +136,10 @@ export class FightActionController {
 	 * @param criticalHitProbability
 	 * @param failureProbability
 	 */
-	static applySecondaryEffects(damageDealt: number, criticalHitProbability: number, failureProbability: number): { damages: number, status: FightActionStatus } {
+	static applySecondaryEffects(damageDealt: number, criticalHitProbability: number, failureProbability: number): {
+		damages: number;
+		status: FightActionStatus;
+	} {
 		// First, we get a random %
 		const randomValue = RandomUtils.randInt(0, 100);
 
@@ -164,6 +183,7 @@ export class FightActionController {
 		else {
 			sender.addBreath(-chosenAttack.breath);
 		}
+
 		// We now this will not be an alteration result
 		const resultLaunched = chosenAttack.use(sender, receiver, turn, fight) as FightActionResult;
 		const result = defaultFightActionResult();
@@ -202,19 +222,21 @@ export class FightActionController {
 	 * @param attackInfo
 	 */
 	private static getAttackDamageByStat(attackerStat: number, defenderStat: number, attackInfo: attackInfo): number {
-
 		/*
 		 * This function allows exacerbating the difference between the attacker stat and the defender stat
 		 */
 		const ratio = (this.statToStatPower(attackerStat) - this.statToStatPower(defenderStat)) / 50;
 
-		const damage = ratio < 0 ? Math.round(
+		let damage;
+		if (ratio < 0) {
 			// If the attacker is weaker than the defender, the damage is selected in under the average damage interval
-			MathUtils.getIntervalValue(attackInfo.minDamage, attackInfo.averageDamage, 1 - Math.abs(ratio))
-		) : Math.round(
+			damage = Math.round(MathUtils.getIntervalValue(attackInfo.minDamage, attackInfo.averageDamage, 1 - Math.abs(ratio)));
+		}
+		else {
 			// If the attacker is stronger than the defender, the damage is selected in over the average damage interval
-			MathUtils.getIntervalValue(attackInfo.averageDamage, attackInfo.maxDamage, ratio)
-		);
+			damage = Math.round(MathUtils.getIntervalValue(attackInfo.averageDamage, attackInfo.maxDamage, ratio));
+		}
+
 		// Return damage caped between max and min
 		return damage > attackInfo.maxDamage ? attackInfo.maxDamage : damage < attackInfo.minDamage ? attackInfo.minDamage : damage;
 	}

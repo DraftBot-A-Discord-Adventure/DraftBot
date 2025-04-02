@@ -1,7 +1,9 @@
-import {DataTypes, Model, Sequelize} from "sequelize";
+import {
+	DataTypes, Model, Sequelize
+} from "sequelize";
 import PetEntity from "./PetEntity";
 import Guild from "./Guild";
-import {draftBotInstance} from "../../../../index";
+import { draftBotInstance } from "../../../../index";
 import moment = require("moment");
 
 export class GuildPet extends Model {
@@ -20,7 +22,6 @@ export class GuildPet extends Model {
  * This class is used to information about pets that are in a shelter
  */
 export class GuildPets {
-
 	/**
 	 * Add pet to a shelter
 	 * @param guild
@@ -32,7 +33,9 @@ export class GuildPets {
 			draftBotInstance.logsDatabase.logGuildNewPet(guild, petEntity)
 				.then();
 		}
-		return GuildPet.build({guildId: guild.id, petEntityId: petEntity.id});
+		return GuildPet.build({
+			guildId: guild.id, petEntityId: petEntity.id
+		});
 	}
 
 	/**

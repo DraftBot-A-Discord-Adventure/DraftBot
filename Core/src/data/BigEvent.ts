@@ -1,10 +1,12 @@
-import {DataControllerNumber} from "./DataController";
-import {Data} from "./Data";
-import {BigEventTrigger, verifyTrigger} from "./events/BigEventTrigger";
-import {Possibility} from "./events/Possibility";
+import { DataControllerNumber } from "./DataController";
+import { Data } from "./Data";
+import {
+	BigEventTrigger, verifyTrigger
+} from "./events/BigEventTrigger";
+import { Possibility } from "./events/Possibility";
 import Player from "../core/database/game/models/Player";
-import {RandomUtils} from "../../../Lib/src/utils/RandomUtils";
-import {verifyPossibilityCondition} from "./events/PossibilityCondition";
+import { RandomUtils } from "../../../Lib/src/utils/RandomUtils";
+import { verifyPossibilityCondition } from "./events/PossibilityCondition";
 
 export class BigEvent extends Data<number> {
 	/**
@@ -38,7 +40,6 @@ export class BigEvent extends Data<number> {
 
 		return possibilities;
 	}
-
 }
 
 export class BigEventDataController extends DataControllerNumber<BigEvent> {
@@ -58,12 +59,12 @@ export class BigEventDataController extends DataControllerNumber<BigEvent> {
 	 */
 	public getEventsNotFiltered(mapId: number): BigEvent[] {
 		if (!this.globalEvents) {
-			this.globalEvents = this.getValuesArray().filter((event) => event.triggers?.filter((trigger) => trigger.mapId).length === 0);
+			this.globalEvents = this.getValuesArray().filter(event => event.triggers?.filter(trigger => trigger.mapId).length === 0);
 		}
 
 		let mapEvents: BigEvent[];
 		if (!this.mapEvents.has(mapId)) {
-			mapEvents = this.getValuesArray().filter((event) => event.triggers?.filter((trigger) => trigger.mapId === mapId).length !== 0);
+			mapEvents = this.getValuesArray().filter(event => event.triggers?.filter(trigger => trigger.mapId === mapId).length !== 0);
 			this.mapEvents.set(mapId, mapEvents);
 		}
 		else {

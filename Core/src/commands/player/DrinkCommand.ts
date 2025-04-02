@@ -1,27 +1,35 @@
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
 import {
 	CommandDrinkCancelDrink,
 	CommandDrinkConsumePotionRes,
 	CommandDrinkNoActiveObjectError, CommandDrinkObjectIsActiveDuringFights,
 	CommandDrinkPacketReq
 } from "../../../../Lib/src/packets/commands/CommandDrinkPacket";
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import {
+	DraftBotPacket, makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
 import Player from "../../core/database/game/models/Player";
 import { InventorySlots } from "../../core/database/game/models/InventorySlot";
-import {Potion} from "../../data/Potion";
-import {InventoryConstants} from "../../../../Lib/src/constants/InventoryConstants";
-import {ItemNature} from "../../../../Lib/src/constants/ItemConstants";
-import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import {TravelTime} from "../../core/maps/TravelTime";
-import {EndCallback, ReactionCollectorInstance} from "../../core/utils/ReactionsCollector";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
-import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
+import { Potion } from "../../data/Potion";
+import { InventoryConstants } from "../../../../Lib/src/constants/InventoryConstants";
+import { ItemNature } from "../../../../Lib/src/constants/ItemConstants";
+import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
+import { TravelTime } from "../../core/maps/TravelTime";
+import {
+	EndCallback, ReactionCollectorInstance
+} from "../../core/utils/ReactionsCollector";
+import { BlockingUtils } from "../../core/utils/BlockingUtils";
+import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
 import {
 	ReactionCollectorRefuseReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {checkDrinkPotionMissions, toItemWithDetails} from "../../core/utils/ItemUtils";
-import {ReactionCollectorDrink} from "../../../../Lib/src/packets/interaction/ReactionCollectorDrink";
-import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
+import {
+	checkDrinkPotionMissions, toItemWithDetails
+} from "../../core/utils/ItemUtils";
+import { ReactionCollectorDrink } from "../../../../Lib/src/packets/interaction/ReactionCollectorDrink";
+import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
 
 /**
  * Consumes the given potion
@@ -31,23 +39,23 @@ import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
  */
 async function consumePotion(response: DraftBotPacket[], potion: Potion, player: Player): Promise<void> {
 	switch (potion.nature) {
-	case ItemNature.HEALTH:
-		response.push(makePacket(CommandDrinkConsumePotionRes, { health: potion.power }));
-		await player.addHealth(potion.power, response, NumberChangeReason.DRINK);
-		break;
-	case ItemNature.ENERGY:
-		response.push(makePacket(CommandDrinkConsumePotionRes, { energy: potion.power }));
-		player.addEnergy(potion.power, NumberChangeReason.DRINK);
-		break;
-	case ItemNature.TIME_SPEEDUP:
-		await TravelTime.timeTravel(player, potion.power, NumberChangeReason.DRINK);
-		response.push(makePacket(CommandDrinkConsumePotionRes, { time: potion.power }));
-		break;
-	case ItemNature.NONE:
-		response.push(makePacket(CommandDrinkConsumePotionRes, {}));
-		break;
-	default:
-		break;
+		case ItemNature.HEALTH:
+			response.push(makePacket(CommandDrinkConsumePotionRes, { health: potion.power }));
+			await player.addHealth(potion.power, response, NumberChangeReason.DRINK);
+			break;
+		case ItemNature.ENERGY:
+			response.push(makePacket(CommandDrinkConsumePotionRes, { energy: potion.power }));
+			player.addEnergy(potion.power, NumberChangeReason.DRINK);
+			break;
+		case ItemNature.TIME_SPEEDUP:
+			await TravelTime.timeTravel(player, potion.power, NumberChangeReason.DRINK);
+			response.push(makePacket(CommandDrinkConsumePotionRes, { time: potion.power }));
+			break;
+		case ItemNature.NONE:
+			response.push(makePacket(CommandDrinkConsumePotionRes, {}));
+			break;
+		default:
+			break;
 	}
 	await player.drinkPotion();
 

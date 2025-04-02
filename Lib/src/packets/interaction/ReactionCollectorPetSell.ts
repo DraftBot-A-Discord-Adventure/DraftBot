@@ -5,7 +5,7 @@ import {
 	ReactionCollectorData,
 	ReactionCollectorRefuseReaction
 } from "./ReactionCollectorPacket";
-import {OwnedPet} from "../../types/OwnedPet";
+import { OwnedPet } from "../../types/OwnedPet";
 
 export class ReactionCollectorPetSellData extends ReactionCollectorData {
 	sellerKeycloakId!: string;

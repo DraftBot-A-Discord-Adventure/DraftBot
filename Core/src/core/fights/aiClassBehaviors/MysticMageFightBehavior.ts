@@ -1,31 +1,36 @@
-import {ClassBehavior} from "../AiBehaviorController";
-import {AiPlayerFighter} from "../fighter/AiPlayerFighter";
-import {FightView} from "../FightView";
-import {FightAction, FightActionDataController} from "../../../data/FightAction";
-import {FightConstants} from "../../../../../Lib/src/constants/FightConstants";
+import { ClassBehavior } from "../AiBehaviorController";
+import { AiPlayerFighter } from "../fighter/AiPlayerFighter";
+import { FightView } from "../FightView";
+import {
+	FightAction, FightActionDataController
+} from "../../../data/FightAction";
+import { FightConstants } from "../../../../../Lib/src/constants/FightConstants";
 
 class MysticMageFightBehavior implements ClassBehavior {
-
 	private cursedAttackUsed = false;
 
 	chooseAction(me: AiPlayerFighter, fightView: FightView): FightAction {
 		const opponent = fightView.fightController.getDefendingFighter();
 		const actions = FightConstants.FIGHT_ACTIONS.PLAYER;
 
-		// Dark attack if:
-		// - opponent is charging a two-turn attack without alterations
-		// - player is dying soon
-		// - opponent has significantly more attack power
+		/*
+		 * Dark attack if:
+		 * - opponent is charging a two-turn attack without alterations
+		 * - player is dying soon
+		 * - opponent has significantly more attack power
+		 */
 		if (
 
 			me.getBreath() >= FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.DARK_ATTACK)
 			&& (
+
 				// Case 1: Cancel opponent's two-turn attack
 				[
 					FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_ULTIMATE_ATTACK,
 					FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK
 				].includes(opponent.getLastFightActionUsed().id)
 				&& !opponent.hasFightAlteration()
+
 				// Case 2: Player is dying or outmatched
 				|| me.getEnergy() < 150 && opponent.getEnergy() > 300
 				|| opponent.getAttack() > me.getAttack() * 1.4
@@ -34,8 +39,10 @@ class MysticMageFightBehavior implements ClassBehavior {
 			return FightActionDataController.instance.getById(actions.DARK_ATTACK);
 		}
 
-		// Fire attack if enough breath and no alteration (except during first 5 turns)
-		// After turn 13, skip if cursed attack has not been used
+		/*
+		 * Fire attack if enough breath and no alteration (except during first 5 turns)
+		 * After turn 13, skip if cursed attack has not been used
+		 */
 		if (
 			!opponent.hasFightAlteration()
 			&& me.getBreath() >= FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.FIRE_ATTACK)
@@ -75,7 +82,6 @@ class MysticMageFightBehavior implements ClassBehavior {
 		// Default to breathtaking attack
 		return FightActionDataController.instance.getById(actions.BREATH_TAKING_ATTACK);
 	}
-
 }
 
 export default MysticMageFightBehavior;

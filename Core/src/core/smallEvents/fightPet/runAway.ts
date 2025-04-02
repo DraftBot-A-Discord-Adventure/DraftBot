@@ -1,7 +1,7 @@
-import {FightPetActionFunc} from "../../../data/FightPetAction";
-import {InventorySlots} from "../../database/game/models/InventorySlot";
-import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
-import {SmallEventConstants} from "../../../../../Lib/src/constants/SmallEventConstants";
+import { FightPetActionFunc } from "../../../data/FightPetAction";
+import { InventorySlots } from "../../database/game/models/InventorySlot";
+import { RandomUtils } from "../../../../../Lib/src/utils/RandomUtils";
+import { SmallEventConstants } from "../../../../../Lib/src/constants/SmallEventConstants";
 
 export const fightPetAction: FightPetActionFunc = async (player, pet) => RandomUtils.draftbotRandom.bool(
 	Math.max(

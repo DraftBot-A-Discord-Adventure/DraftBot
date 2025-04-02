@@ -1,30 +1,42 @@
-import {SmallEventFuncs} from "../../data/SmallEvent";
-import {Maps} from "../maps/Maps";
-import {EndCallback, ReactionCollectorInstance} from "../utils/ReactionsCollector";
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {WitchAction, WitchActionDataController} from "../../data/WitchAction";
-import {SmallEventConstants} from "../../../../Lib/src/constants/SmallEventConstants";
-import {BlockingUtils} from "../utils/BlockingUtils";
-import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
-import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
-import {SmallEventWitchResultPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWitchPacket";
-import {generateRandomItem, giveItemToPlayer} from "../utils/ItemUtils";
-import {ItemCategory, ItemNature, ItemRarity} from "../../../../Lib/src/constants/ItemConstants";
+import { SmallEventFuncs } from "../../data/SmallEvent";
+import { Maps } from "../maps/Maps";
+import {
+	EndCallback, ReactionCollectorInstance
+} from "../utils/ReactionsCollector";
+import {
+	DraftBotPacket, makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import {
+	WitchAction, WitchActionDataController
+} from "../../data/WitchAction";
+import { SmallEventConstants } from "../../../../Lib/src/constants/SmallEventConstants";
+import { BlockingUtils } from "../utils/BlockingUtils";
+import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
+import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
+import { SmallEventWitchResultPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventWitchPacket";
+import {
+	generateRandomItem, giveItemToPlayer
+} from "../utils/ItemUtils";
+import {
+	ItemCategory, ItemNature, ItemRarity
+} from "../../../../Lib/src/constants/ItemConstants";
 import Player from "../database/game/models/Player";
-import {GenericItem} from "../../data/GenericItem";
-import {InventorySlots} from "../database/game/models/InventorySlot";
-import {ReactionCollectorWitch, ReactionCollectorWitchReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorWitch";
-import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import {WitchActionOutcomeType} from "../../../../Lib/src/types/WitchActionOutcomeType";
-import {Effect} from "../../../../Lib/src/types/Effect";
-import {ClassConstants} from "../../../../Lib/src/constants/ClassConstants";
+import { GenericItem } from "../../data/GenericItem";
+import { InventorySlots } from "../database/game/models/InventorySlot";
+import {
+	ReactionCollectorWitch, ReactionCollectorWitchReaction
+} from "../../../../Lib/src/packets/interaction/ReactionCollectorWitch";
+import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
+import { WitchActionOutcomeType } from "../../../../Lib/src/types/WitchActionOutcomeType";
+import { Effect } from "../../../../Lib/src/types/Effect";
+import { ClassConstants } from "../../../../Lib/src/constants/ClassConstants";
 
 
 type WitchEventSelection = {
-	randomAdvice: WitchAction,
-	randomIngredient: WitchAction,
-	fullRandom: WitchAction,
-	optional?: WitchAction
+	randomAdvice: WitchAction;
+	randomIngredient: WitchAction;
+	fullRandom: WitchAction;
+	optional?: WitchAction;
 };
 
 /**
@@ -38,14 +50,20 @@ function getRandomWitchEvents(isMage: boolean): WitchEventSelection {
 	if (isMage) {
 		// A mage can get an additional random event
 		const optional = WitchActionDataController.instance.getRandomWitchAction(
-			[randomAdvice,
+			[
+				randomAdvice,
 				randomIngredient,
 				fullRandom,
-				WitchActionDataController.instance.getDoNothing()]
+				WitchActionDataController.instance.getDoNothing()
+			]
 		);
-		return {randomAdvice, randomIngredient, optional, fullRandom};
+		return {
+			randomAdvice, randomIngredient, optional, fullRandom
+		};
 	}
-	return {randomAdvice, randomIngredient, fullRandom};
+	return {
+		randomAdvice, randomIngredient, fullRandom
+	};
 }
 
 
@@ -109,13 +127,13 @@ async function applyOutcome(outcome: WitchActionOutcomeType, selectedEvent: Witc
 function getEndCallback(player: Player): EndCallback {
 	return async (collector, response) => {
 		const reaction = collector.getFirstReaction();
-		const selectedEvent = reaction ?
-			WitchActionDataController.instance.getById((reaction.reaction.data as ReactionCollectorWitchReaction).id) :
-			WitchActionDataController.instance.getDoNothing();
+		const selectedEvent = reaction
+			? WitchActionDataController.instance.getById((reaction.reaction.data as ReactionCollectorWitchReaction).id)
+			: WitchActionDataController.instance.getDoNothing();
 		const outcome = selectedEvent.generateOutcome();
 		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.WITCH_CHOOSE);
 
-		const resultPacket = makePacket(SmallEventWitchResultPacket,{
+		const resultPacket = makePacket(SmallEventWitchResultPacket, {
 			outcome,
 			ingredientId: selectedEvent.id,
 			isIngredient: selectedEvent.isIngredient,
@@ -159,7 +177,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 		const events = getRandomWitchEvents(player.class === ClassConstants.CLASSES_ID.MYSTIC_MAGE);
 
 		const collector = new ReactionCollectorWitch(
-			Object.values(events).map((event) => ({ id: event.id }))
+			Object.values(events).map(event => ({ id: event.id }))
 		);
 
 		const packet = new ReactionCollectorInstance(

@@ -1,10 +1,10 @@
-import {DataControllerString} from "./DataController";
-import {Data} from "./Data";
-import {FightActionType} from "../../../Lib/src/types/FightActionType";
-import {Fighter} from "../core/fights/fighter/Fighter";
-import {readdirSync} from "fs";
-import {FightController} from "../core/fights/FightController";
-import {FightActionResult} from "../../../Lib/src/types/FightActionResult";
+import { DataControllerString } from "./DataController";
+import { Data } from "./Data";
+import { FightActionType } from "../../../Lib/src/types/FightActionType";
+import { Fighter } from "../core/fights/fighter/Fighter";
+import { readdirSync } from "fs";
+import { FightController } from "../core/fights/FightController";
+import { FightActionResult } from "../../../Lib/src/types/FightActionResult";
 
 export class FightAction extends Data<string> {
 	public readonly breath: number;

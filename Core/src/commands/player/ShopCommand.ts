@@ -1,9 +1,13 @@
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {CommandShopPacketReq} from "../../../../Lib/src/packets/commands/CommandShopPacket";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
-import {Player, Players} from "../../core/database/game/models/Player";
-import {LogsReadRequests} from "../../core/database/logs/LogsReadRequests";
-import {ShopUtils} from "../../core/utils/ShopUtils";
+import {
+	DraftBotPacket, makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { CommandShopPacketReq } from "../../../../Lib/src/packets/commands/CommandShopPacket";
+import { BlockingUtils } from "../../core/utils/BlockingUtils";
+import {
+	Player, Players
+} from "../../core/database/game/models/Player";
+import { LogsReadRequests } from "../../core/database/logs/LogsReadRequests";
+import { ShopUtils } from "../../core/utils/ShopUtils";
 import {
 	CommandShopAlreadyHaveBadge,
 	CommandShopBadgeBought,
@@ -17,31 +21,41 @@ import {
 	ShopCategory,
 	ShopItem
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorShop";
-import {ShopConstants} from "../../../../Lib/src/constants/ShopConstants";
-import {getItemValue, giveItemToPlayer, giveRandomItem, toItemWithDetails} from "../../core/utils/ItemUtils";
-import {draftBotInstance} from "../../index";
-import {NumberChangeReason, ShopItemType} from "../../../../Lib/src/constants/LogsConstants";
-import {millisecondsToMinutes} from "../../../../Lib/src/utils/TimeUtils";
-import {Effect} from "../../../../Lib/src/types/Effect";
-import {TravelTime} from "../../core/maps/TravelTime";
-import {MissionsController} from "../../core/missions/MissionsController";
-import {EntityConstants} from "../../../../Lib/src/constants/EntityConstants";
-import {Potion, PotionDataController} from "../../data/Potion";
-import {Settings} from "../../core/database/game/models/Setting";
-import {InventorySlots} from "../../core/database/game/models/InventorySlot";
-import {InventoryInfos} from "../../core/database/game/models/InventoryInfo";
-import {ItemConstants} from "../../../../Lib/src/constants/ItemConstants";
-import {EndCallback, ReactionCollectorInstance} from "../../core/utils/ReactionsCollector";
-import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
+import { ShopConstants } from "../../../../Lib/src/constants/ShopConstants";
+import {
+	getItemValue, giveItemToPlayer, giveRandomItem, toItemWithDetails
+} from "../../core/utils/ItemUtils";
+import { draftBotInstance } from "../../index";
+import {
+	NumberChangeReason, ShopItemType
+} from "../../../../Lib/src/constants/LogsConstants";
+import { millisecondsToMinutes } from "../../../../Lib/src/utils/TimeUtils";
+import { Effect } from "../../../../Lib/src/types/Effect";
+import { TravelTime } from "../../core/maps/TravelTime";
+import { MissionsController } from "../../core/missions/MissionsController";
+import { EntityConstants } from "../../../../Lib/src/constants/EntityConstants";
+import {
+	Potion, PotionDataController
+} from "../../data/Potion";
+import { Settings } from "../../core/database/game/models/Setting";
+import { InventorySlots } from "../../core/database/game/models/InventorySlot";
+import { InventoryInfos } from "../../core/database/game/models/InventoryInfo";
+import { ItemConstants } from "../../../../Lib/src/constants/ItemConstants";
+import {
+	EndCallback, ReactionCollectorInstance
+} from "../../core/utils/ReactionsCollector";
+import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
 import {
 	ReactionCollectorBuyCategorySlot,
 	ReactionCollectorBuyCategorySlotBuySuccess,
 	ReactionCollectorBuyCategorySlotCancelReaction,
 	ReactionCollectorBuyCategorySlotReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorBuyCategorySlot";
-import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
-import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
+import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
+import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
 
 /**
  * Get the shop item for getting a random item
@@ -66,9 +80,12 @@ function getRandomItemShopItem(): ShopItem {
 function calculateHealAlterationPrice(player: Player): number {
 	let price = ShopConstants.ALTERATION_HEAL_BASE_PRICE;
 	const remainingTime = millisecondsToMinutes(player.effectRemainingTime());
-	// If the remaining time is under one hour,
-	// The price becomes degressive until being divided by 8 at the 15-minute marque;
-	// Then it no longer decreases
+
+	/*
+	 * If the remaining time is under one hour,
+	 * The price becomes degressive until being divided by 8 at the 15-minute marque;
+	 * Then it no longer decreases
+	 */
 	if (remainingTime < ShopConstants.MAX_REDUCTION_TIME) {
 		if (remainingTime <= ShopConstants.MIN_REDUCTION_TIME) {
 			price /= ShopConstants.MAX_PRICE_REDUCTION_DIVISOR;
@@ -106,7 +123,7 @@ function getHealAlterationShopItem(player: Player): ShopItem {
 				await TravelTime.removeEffect(player, NumberChangeReason.SHOP);
 				await player.save();
 			}
-			await MissionsController.update(player, response, {missionId: "recoverAlteration"});
+			await MissionsController.update(player, response, { missionId: "recoverAlteration" });
 			response.push(makePacket(CommandShopHealAlterationDone, {}));
 			return true;
 		}
@@ -202,7 +219,7 @@ function getDailyPotionShopItem(potion: Potion): ShopItem {
 			}
 			await giveItemToPlayer(player, potion, context, response, await InventorySlots.getOfPlayer(player.id));
 			if (potionAlreadyPurchased === ShopConstants.MAX_DAILY_POTION_BUYOUTS - 1) {
-				await MissionsController.update(player, response, {missionId: "dailyPotionsStock"});
+				await MissionsController.update(player, response, { missionId: "dailyPotionsStock" });
 			}
 			return true;
 		}
@@ -240,7 +257,12 @@ function getBuySlotExtensionShopItemCallback(playerId: number, price: number): E
  */
 async function getSlotExtensionShopItem(player: Player): Promise<ShopItem | null> {
 	const invInfo = await InventoryInfos.getOfPlayer(player.id);
-	const availableCategories = [0, 1, 2, 3]
+	const availableCategories = [
+		0,
+		1,
+		2,
+		3
+	]
 		.map(itemCategory => ItemConstants.SLOTS.LIMITS[itemCategory] - invInfo.slotLimitForCategory(itemCategory));
 	if (availableCategories.every(availableCategory => availableCategory <= 0)) {
 		return null;
@@ -291,19 +313,21 @@ export default class ShopCommand {
 		const healEnergyAlreadyPurchased = await LogsReadRequests.getAmountOfHealEnergyBoughtByPlayerThisWeek(player.keycloakId);
 		const potion = PotionDataController.instance.getById(await Settings.SHOP_POTION.getValue());
 
-		const shopCategories: ShopCategory[] = [{
-			id: "permanentItem",
-			items: [
-				getRandomItemShopItem(),
-				getHealAlterationShopItem(player),
-				getHealEnergyShopItem(healEnergyAlreadyPurchased),
-				getRegenShopItem(),
-				getBadgeShopItem()
-			]
-		}, {
-			id: "dailyPotion",
-			items: [getDailyPotionShopItem(potion)]
-		}];
+		const shopCategories: ShopCategory[] = [
+			{
+				id: "permanentItem",
+				items: [
+					getRandomItemShopItem(),
+					getHealAlterationShopItem(player),
+					getHealEnergyShopItem(healEnergyAlreadyPurchased),
+					getRegenShopItem(),
+					getBadgeShopItem()
+				]
+			}, {
+				id: "dailyPotion",
+				items: [getDailyPotionShopItem(potion)]
+			}
+		];
 
 		const slotExtensionItem = await getSlotExtensionShopItem(player);
 		if (slotExtensionItem) {
@@ -314,10 +338,13 @@ export default class ShopCommand {
 		}
 
 		await ShopUtils.createAndSendShopCollector(context, response, {
-			shopCategories, player, additionnalShopData: {
+			shopCategories,
+			player,
+			additionnalShopData: {
 				remainingPotions: ShopConstants.MAX_DAILY_POTION_BUYOUTS - await LogsReadRequests.getAmountOfDailyPotionsBoughtByPlayer(player.keycloakId),
 				dailyPotion: toItemWithDetails(potion)
-			}, logger: draftBotInstance.logsDatabase.logClassicalShopBuyout
+			},
+			logger: draftBotInstance.logsDatabase.logClassicalShopBuyout
 		});
 	}
 }

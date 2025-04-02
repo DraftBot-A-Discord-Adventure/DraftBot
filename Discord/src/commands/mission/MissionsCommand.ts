@@ -1,24 +1,30 @@
-import {ICommand} from "../ICommand";
-import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
+import { ICommand } from "../ICommand";
+import {
+	makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 import i18n from "../../translations/i18n";
-import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {SlashCommandBuilder} from "@discordjs/builders";
-import {DiscordCache} from "../../bot/DiscordCache";
-import {DraftBotErrorEmbed} from "../../messages/DraftBotErrorEmbed";
-import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
-import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
-import {draftBotClient, keycloakConfig} from "../../bot/DraftBotShard";
+import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { DiscordCache } from "../../bot/DiscordCache";
+import { DraftBotErrorEmbed } from "../../messages/DraftBotErrorEmbed";
+import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
+import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
+import {
+	draftBotClient, keycloakConfig
+} from "../../bot/DraftBotShard";
 import {
 	CommandMissionsPacketReq,
 	CommandMissionsPacketRes
 } from "../../../../Lib/src/packets/commands/CommandMissionsPacket";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
-import {User} from "discord.js";
-import {MissionType} from "../../../../Lib/src/types/CompletedMission";
-import {MissionUtils} from "../../utils/MissionUtils";
-import {datesAreOnSameDay, finishInTimeDisplay, getTomorrowMidnight} from "../../../../Lib/src/utils/TimeUtils";
-import {PacketUtils} from "../../utils/PacketUtils";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
+import { User } from "discord.js";
+import { MissionType } from "../../../../Lib/src/types/CompletedMission";
+import { MissionUtils } from "../../utils/MissionUtils";
+import {
+	datesAreOnSameDay, finishInTimeDisplay, getTomorrowMidnight
+} from "../../../../Lib/src/utils/TimeUtils";
+import { PacketUtils } from "../../utils/PacketUtils";
 
 /**
  * Get the packet to send to the server
@@ -30,7 +36,7 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 	if (!askedPlayer) {
 		return null;
 	}
-	return makePacket(CommandMissionsPacketReq, {askedPlayer});
+	return makePacket(CommandMissionsPacketReq, { askedPlayer });
 }
 
 /**
@@ -40,9 +46,7 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 export async function handleCommandMissionPlayerNotFoundPacket(context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 	await interaction?.reply({
-		embeds: [
-			new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("error:playerDoesntExist", {lng: interaction.userLanguage}))
-		]
+		embeds: [new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("error:playerDoesntExist", { lng: interaction.userLanguage }))]
 	});
 }
 
@@ -66,7 +70,7 @@ function getCampaignMissionPart(packet: CommandMissionsPacketRes, interaction: D
 			current: campaignMission.numberDone,
 			objective: campaignMission.missionObjective,
 			context: "campaign",
-			interpolation: {escapeValue: false}
+			interpolation: { escapeValue: false }
 		})}`
 		: ""
 	}`;
@@ -79,14 +83,16 @@ function getCampaignMissionPart(packet: CommandMissionsPacketRes, interaction: D
  */
 function getDailyMissionPart(packet: CommandMissionsPacketRes, interaction: DraftbotInteraction): string {
 	const dailyMission = packet.missions.find(mission => mission.missionType === MissionType.DAILY)!;
+	const missionDisplayKey = datesAreOnSameDay(
+		new Date(), // Current date
+		new Date(dailyMission.expiresAt ?? 0) // Date of the daily mission or 0 if it's not set
+	)
+		? "dailyFinished"
+		: "missionDisplay";
 
 	return `${i18n.t("commands:missions.subcategories.daily", {
 		lng: interaction.userLanguage
-	})}
-${i18n.t(`commands:missions.${datesAreOnSameDay(
-		new Date(), // Current date
-		new Date(dailyMission.expiresAt ?? 0) // Date of the daily mission or 0 if it's not set
-	) ? "dailyFinished" : "missionDisplay"}`, {
+	})}\n${i18n.t(`commands:missions.${missionDisplayKey}`, {
 		lng: interaction.userLanguage,
 		time: finishInTimeDisplay(getTomorrowMidnight()),
 		mission: MissionUtils.formatBaseMission(dailyMission, interaction.userLanguage),
@@ -94,7 +100,7 @@ ${i18n.t(`commands:missions.${datesAreOnSameDay(
 		current: dailyMission.numberDone,
 		objective: dailyMission.missionObjective,
 		context: "other",
-		interpolation: {escapeValue: false}
+		interpolation: { escapeValue: false }
 	})}`;
 }
 
@@ -118,7 +124,7 @@ function getSideMissionsPart(packet: CommandMissionsPacketRes, interaction: Draf
 			objective: mission.missionObjective,
 			time: finishInTimeDisplay(new Date(mission.expiresAt!)),
 			context: "other",
-			interpolation: {escapeValue: false}
+			interpolation: { escapeValue: false }
 		})).join("\n")
 		: i18n.t("commands:missions.noCurrentMissions", {
 			lng: interaction.userLanguage

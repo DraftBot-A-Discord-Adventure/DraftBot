@@ -1,14 +1,15 @@
-import {Fighter} from "./Fighter";
-import {FightView} from "../FightView";
-import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
-import {PVEConstants} from "../../../../../Lib/src/constants/PVEConstants";
-import {FighterStatus} from "../FighterStatus";
-import {Monster} from "../../../data/Monster";
-import {FightAction, FightActionDataController} from "../../../data/FightAction";
-import {DraftBotPacket} from "../../../../../Lib/src/packets/DraftBotPacket";
+import { Fighter } from "./Fighter";
+import { FightView } from "../FightView";
+import { RandomUtils } from "../../../../../Lib/src/utils/RandomUtils";
+import { PVEConstants } from "../../../../../Lib/src/constants/PVEConstants";
+import { FighterStatus } from "../FighterStatus";
+import { Monster } from "../../../data/Monster";
+import {
+	FightAction, FightActionDataController
+} from "../../../data/FightAction";
+import { DraftBotPacket } from "../../../../../Lib/src/packets/DraftBotPacket";
 
 export class MonsterFighter extends Fighter {
-
 	public readonly monster: Monster;
 
 	public constructor(level: number, monster: Monster) {
@@ -37,7 +38,9 @@ export class MonsterFighter extends Fighter {
 		return Math.round(baseEnergyValue + (2000 / (1 + Math.exp(-0.06 * (level - 45))) + 0.7 * (level - 17)));
 	}
 
-	calculateStat(stat: { A: number, B: number, C: number }, level: number, ratio: number): number {
+	calculateStat(stat: {
+		A: number; B: number; C: number;
+	}, level: number, ratio: number): number {
 		return Math.round(Math.round(stat.A * level * level + stat.B * level + stat.C) * ratio / 100.0);
 	}
 

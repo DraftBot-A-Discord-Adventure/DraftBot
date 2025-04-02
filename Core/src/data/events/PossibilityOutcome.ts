@@ -1,23 +1,29 @@
 import Player from "../../core/database/game/models/Player";
-import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import {generateRandomItem, giveItemToPlayer} from "../../core/utils/ItemUtils";
-import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
-import {PlayerSmallEvents} from "../../core/database/game/models/PlayerSmallEvent";
-import {Maps} from "../../core/maps/Maps";
-import {PlayerMissionsInfos} from "../../core/database/game/models/PlayerMissionsInfo";
-import {InventorySlots} from "../../core/database/game/models/InventorySlot";
-import {PetEntities} from "../../core/database/game/models/PetEntity";
-import {CommandReportBigEventResultRes} from "../../../../Lib/src/packets/commands/CommandReportPacket";
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {ItemConstants} from "../../../../Lib/src/constants/ItemConstants";
-import {MapLink, MapLinkDataController} from "../MapLink";
-import {Effect} from "../../../../Lib/src/types/Effect";
-import {TravelTime} from "../../core/maps/TravelTime";
+import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
+import {
+	generateRandomItem, giveItemToPlayer
+} from "../../core/utils/ItemUtils";
+import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
+import { PlayerSmallEvents } from "../../core/database/game/models/PlayerSmallEvent";
+import { Maps } from "../../core/maps/Maps";
+import { PlayerMissionsInfos } from "../../core/database/game/models/PlayerMissionsInfo";
+import { InventorySlots } from "../../core/database/game/models/InventorySlot";
+import { PetEntities } from "../../core/database/game/models/PetEntity";
+import { CommandReportBigEventResultRes } from "../../../../Lib/src/packets/commands/CommandReportPacket";
+import {
+	DraftBotPacket, makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { ItemConstants } from "../../../../Lib/src/constants/ItemConstants";
+import {
+	MapLink, MapLinkDataController
+} from "../MapLink";
+import { Effect } from "../../../../Lib/src/types/Effect";
+import { TravelTime } from "../../core/maps/TravelTime";
 
 async function applyOutcomeScore(outcome: PossibilityOutcome, time: number, player: Player, response: DraftBotPacket[]): Promise<number> {
-	const scoreChange = TravelTime.timeTravelledToScore(time) +
-		await PlayerSmallEvents.calculateCurrentScore(player) +
-		(outcome.bonusPoints ?? 0);
+	const scoreChange = TravelTime.timeTravelledToScore(time)
+		+ await PlayerSmallEvents.calculateCurrentScore(player)
+		+ (outcome.bonusPoints ?? 0);
 	await player.addScore({
 		response,
 		amount: scoreChange,
@@ -27,25 +33,25 @@ async function applyOutcomeScore(outcome: PossibilityOutcome, time: number, play
 }
 
 async function applyOutcomeExperience(outcome: PossibilityOutcome, player: Player, response: DraftBotPacket[]): Promise<number> {
-	let experienceChange = 150 +
-		(outcome.health > 0 ? 200 : 0) +
-		(outcome.randomItem ? 300 : 0) +
-		(outcome.money > 0 ? 100 : 0);
+	let experienceChange = 150
+		+ (outcome.health > 0 ? 200 : 0)
+		+ (outcome.randomItem ? 300 : 0)
+		+ (outcome.money > 0 ? 100 : 0);
 	switch (outcome.effect ?? Effect.NO_EFFECT.id) {
-	case Effect.OCCUPIED.id:
-		experienceChange -= 125;
-		break;
-	case Effect.SLEEPING.id:
-	case Effect.STARVING.id:
-		experienceChange -= 130;
-		break;
-	case Effect.CONFOUNDED.id:
-		experienceChange -= 140;
-		break;
-	case Effect.NO_EFFECT.id:
-		break;
-	default:
-		experienceChange = 0;
+		case Effect.OCCUPIED.id:
+			experienceChange -= 125;
+			break;
+		case Effect.SLEEPING.id:
+		case Effect.STARVING.id:
+			experienceChange -= 130;
+			break;
+		case Effect.CONFOUNDED.id:
+			experienceChange -= 140;
+			break;
+		case Effect.NO_EFFECT.id:
+			break;
+		default:
+			experienceChange = 0;
 	}
 	if (outcome.health < 0 || outcome.oneshot === true || experienceChange < 0) {
 		experienceChange = 0;
@@ -63,8 +69,8 @@ async function applyOutcomeExperience(outcome: PossibilityOutcome, player: Playe
 }
 
 async function applyOutcomeEffect(outcome: PossibilityOutcome, player: Player): Promise<{
-	name: string,
-	time: number
+	name: string;
+	time: number;
 } | undefined> {
 	await player.setLastReportWithEffect(
 		outcome.lostTime ?? 0,
@@ -199,7 +205,7 @@ type ApplyOutcome = {
 	possibilityName: string;
 	outcome: [string, PossibilityOutcome];
 	time: number;
-}
+};
 
 /**
  * Apply a possibility outcome to a player
@@ -263,6 +269,7 @@ export async function applyPossibilityOutcome(possibilityOutcome: ApplyOutcome, 
 }
 
 export interface PossibilityOutcome {
+
 	/**
 	 * Time lost for the lost time effect
 	 */
@@ -311,7 +318,7 @@ export interface PossibilityOutcome {
 		rarity?: {
 			min?: number;
 			max?: number;
-		}
+		};
 	};
 
 	/**
@@ -321,8 +328,8 @@ export interface PossibilityOutcome {
 		rarity?: {
 			min?: number;
 			max?: number;
-		}
-	}
+		};
+	};
 
 	/**
 	 * One shot the player
@@ -352,5 +359,5 @@ export interface PossibilityOutcome {
 	/**
 	 * Tags
 	 */
-	tags?: string[]
+	tags?: string[];
 }

@@ -1,5 +1,5 @@
 export interface KeycloakFederalIdentity {
-	identityProvider?: string,
-	userId?: string,
-	userName?: string
+	identityProvider?: string;
+	userId?: string;
+	userName?: string;
 }

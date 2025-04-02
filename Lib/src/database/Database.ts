@@ -1,8 +1,12 @@
-import {QueryInterface, Sequelize, Transaction} from "sequelize";
-import {SequelizeStorage, Umzug} from "umzug";
-import {promises} from "fs";
-import {createConnection} from "mariadb";
-import {DatabaseConfiguration} from "./DatabaseConfiguration";
+import {
+	QueryInterface, Sequelize, Transaction
+} from "sequelize";
+import {
+	SequelizeStorage, Umzug
+} from "umzug";
+import { promises } from "fs";
+import { createConnection } from "mariadb";
+import { DatabaseConfiguration } from "./DatabaseConfiguration";
 import TYPES = Transaction.TYPES;
 
 export abstract class Database {
@@ -98,9 +102,9 @@ export abstract class Database {
 			context: this.sequelize.getQueryInterface(),
 			logger: console,
 			migrations: {
-				glob: ["*.js", {cwd: this.migrationsPath.replace("\\", "/")}]
+				glob: ["*.js", { cwd: this.migrationsPath.replace("\\", "/") }]
 			},
-			storage: new SequelizeStorage({sequelize: this.sequelize})
+			storage: new SequelizeStorage({ sequelize: this.sequelize })
 		});
 	}
 
@@ -111,7 +115,7 @@ export abstract class Database {
 	private async initModels(): Promise<void> {
 		const modelsFiles = await promises.readdir(this.modelsPath);
 		const models: {
-			initModel: (sequelize: Sequelize) => Promise<void>
+			initModel: (sequelize: Sequelize) => Promise<void>;
 		}[] = [];
 
 		for (const modelFile of modelsFiles) {
@@ -126,7 +130,7 @@ export abstract class Database {
 	 * @private
 	 */
 	private async initModelFromFile(modelFile: string, models: {
-		initModel: (sequelize: Sequelize) => Promise<void>
+		initModel: (sequelize: Sequelize) => Promise<void>;
 	}[]): Promise<void> {
 		const modelSplit = modelFile.split(".");
 		const modelName = modelSplit[0];

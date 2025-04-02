@@ -1,4 +1,6 @@
-import {DataTypes, Model, Sequelize} from "sequelize";
+import {
+	DataTypes, Model, Sequelize
+} from "sequelize";
 import Player from "./Player";
 import moment = require("moment");
 
@@ -61,8 +63,10 @@ export class PlayerSmallEvents {
 		const tripDuration = player.getCurrentTripDuration();
 		let somme = 0;
 		for (let i = 1; i <= numberOfSmallEventsDone; i++) {
-			// By Pokegali Le sang (et romain22222 pour sa tentative)
-			// Vive la tangente hyperbolique
+			/*
+			 * By Pokegali Le sang (et romain22222 pour sa tentative)
+			 * Vive la tangente hyperbolique
+			 */
 			const init = 75 + ((tripDuration - 1) / 2) ** 2;
 			somme += Math.floor(init * Math.tanh(-(i - 1) / (tripDuration ** 0.75 * 2)) + init + 5);
 		}
@@ -70,7 +74,7 @@ export class PlayerSmallEvents {
 	}
 
 	static async removeSmallEventsOfPlayer(playerId: number): Promise<void> {
-		await PlayerSmallEvent.destroy({where: {playerId}});
+		await PlayerSmallEvent.destroy({ where: { playerId } });
 	}
 
 	static async getSmallEventsOfPlayer(playerId: number): Promise<PlayerSmallEvent[]> {

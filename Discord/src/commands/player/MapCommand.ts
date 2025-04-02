@@ -1,17 +1,21 @@
-import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
-import {CommandMapDisplayRes, CommandMapPacketReq} from "../../../../Lib/src/packets/commands/CommandMapPacket";
-import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {ICommand} from "../ICommand";
-import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {DiscordCache} from "../../bot/DiscordCache";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
+import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
+import {
+	CommandMapDisplayRes, CommandMapPacketReq
+} from "../../../../Lib/src/packets/commands/CommandMapPacket";
+import {
+	makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { ICommand } from "../ICommand";
+import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
+import { DiscordCache } from "../../bot/DiscordCache";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import i18n from "../../translations/i18n";
-import {MapConstants} from "../../../../Lib/src/constants/MapConstants";
-import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
-import {EmoteUtils} from "../../utils/EmoteUtils";
+import { MapConstants } from "../../../../Lib/src/constants/MapConstants";
+import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
+import { EmoteUtils } from "../../utils/EmoteUtils";
 
 function getPacket(interaction: DraftbotInteraction): Promise<CommandMapPacketReq> {
-	return Promise.resolve(makePacket(CommandMapPacketReq, {language: interaction.userLanguage}));
+	return Promise.resolve(makePacket(CommandMapPacketReq, { language: interaction.userLanguage }));
 }
 
 /**
@@ -20,9 +24,9 @@ function getPacket(interaction: DraftbotInteraction): Promise<CommandMapPacketRe
  * @param mapLink
  */
 async function setEmbedMap(embed: DraftBotEmbed, mapLink: {
-	name: string,
-	fallback?: string,
-	forced: boolean
+	name: string;
+	fallback?: string;
+	forced: boolean;
 }): Promise<void> {
 	if (mapLink.forced && !mapLink.fallback) {
 		embed.setImage(MapConstants.FORCED_MAPS_URL.replace("{name}", mapLink.name));
@@ -31,7 +35,7 @@ async function setEmbedMap(embed: DraftBotEmbed, mapLink: {
 		await fetch(mapLink.forced
 			? MapConstants.FORCED_MAPS_URL.replace("{name}", mapLink.name)
 			: MapConstants.MAP_URL_WITH_CURSOR.replace("{mapLink}", mapLink.name))
-			.then((res) => {
+			.then(res => {
 				if (res.status !== 200 && mapLink.fallback) {
 					embed.setImage(mapLink.forced
 						? MapConstants.FORCED_MAPS_URL.replace("{name}", mapLink.fallback)
@@ -71,7 +75,7 @@ export async function handleCommandMapDisplayRes(packet: CommandMapDisplayRes, c
 
 		const mapName = i18n.t(`models:map_locations.${packet.mapId}.name`, {
 			lng: interaction.userLanguage,
-			interpolation: {escapeValue: false}
+			interpolation: { escapeValue: false }
 		});
 
 		const mapParticle = i18n.t(`models:map_locations.${packet.mapId}.particle`, {
@@ -80,7 +84,7 @@ export async function handleCommandMapDisplayRes(packet: CommandMapDisplayRes, c
 
 		const mapDescription = i18n.t(`models:map_locations.${packet.mapId}.description`, {
 			lng: interaction.userLanguage,
-			interpolation: {escapeValue: false}
+			interpolation: { escapeValue: false }
 		});
 
 		embed.setDescription(i18n.t(packet.inEvent
@@ -91,10 +95,10 @@ export async function handleCommandMapDisplayRes(packet: CommandMapDisplayRes, c
 			particle: mapParticle,
 			emote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.map_types[packet.mapType]),
 			description: mapDescription,
-			interpolation: {escapeValue: false}
+			interpolation: { escapeValue: false }
 		}));
 
-		await interaction.reply({embeds: [embed]});
+		await interaction.reply({ embeds: [embed] });
 	}
 }
 

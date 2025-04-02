@@ -1,8 +1,10 @@
-import {Maps} from "../../../../core/maps/Maps";
-import {NumberChangeReason} from "../../../../../../Lib/src/constants/LogsConstants";
-import {ExecuteTestCommandLike, ITestCommand} from "../../../../core/CommandsTest";
-import {TravelTime} from "../../../../core/maps/TravelTime";
-import {MapLinkDataController} from "../../../../data/MapLink";
+import { Maps } from "../../../../core/maps/Maps";
+import { NumberChangeReason } from "../../../../../../Lib/src/constants/LogsConstants";
+import {
+	ExecuteTestCommandLike, ITestCommand
+} from "../../../../core/CommandsTest";
+import { TravelTime } from "../../../../core/maps/TravelTime";
+import { MapLinkDataController } from "../../../../data/MapLink";
 
 export const commandInfo: ITestCommand = {
 	name: "skiptutorial",
@@ -13,7 +15,7 @@ export const commandInfo: ITestCommand = {
 /**
  * Initialize the player
  */
-const skipTutorialTestCommand: ExecuteTestCommandLike = async (player) => {
+const skipTutorialTestCommand: ExecuteTestCommandLike = async player => {
 	player.level = 1;
 	player.score = 2000;
 	player.weeklyScore = 0;

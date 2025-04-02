@@ -1,5 +1,5 @@
-import {DataControllerString} from "./DataController";
-import {Data} from "./Data";
+import { DataControllerString } from "./DataController";
+import { Data } from "./Data";
 export class MapType extends Data<string> {}
 
 export class MapTypeDataController extends DataControllerString<MapType> {

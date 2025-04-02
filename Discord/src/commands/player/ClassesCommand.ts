@@ -2,22 +2,24 @@ import {
 	CommandClassesChangeSuccessPacket,
 	CommandClassesPacketReq
 } from "../../../../Lib/src/packets/commands/CommandClassesPacket";
-import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {ICommand} from "../ICommand";
-import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {DiscordCache} from "../../bot/DiscordCache";
+import {
+	makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { ICommand } from "../ICommand";
+import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
+import { DiscordCache } from "../../bot/DiscordCache";
 import i18n from "../../translations/i18n";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import {
 	ReactionCollectorCreationPacket,
 	ReactionCollectorRefuseReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import {
 	ReactionCollectorChangeClassData,
 	ReactionCollectorChangeClassReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorChangeClass";
-import {DisplayUtils} from "../../utils/DisplayUtils";
+import { DisplayUtils } from "../../utils/DisplayUtils";
 import {
 	ActionRowBuilder,
 	ButtonBuilder,
@@ -28,13 +30,13 @@ import {
 	parseEmoji, StringSelectMenuBuilder, StringSelectMenuInteraction,
 	StringSelectMenuOptionBuilder
 } from "discord.js";
-import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
-import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
-import {sendInteractionNotForYou} from "../../utils/ErrorUtils";
-import {dateDisplay} from "../../../../Lib/src/utils/TimeUtils";
-import {PacketUtils} from "../../utils/PacketUtils";
-import {ReactionCollectorResetTimerPacketReq} from "../../../../Lib/src/packets/interaction/ReactionCollectorResetTimer";
-import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
+import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
+import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
+import { sendInteractionNotForYou } from "../../utils/ErrorUtils";
+import { dateDisplay } from "../../../../Lib/src/utils/TimeUtils";
+import { PacketUtils } from "../../utils/PacketUtils";
+import { ReactionCollectorResetTimerPacketReq } from "../../../../Lib/src/packets/interaction/ReactionCollectorResetTimer";
+import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
 
 /**
  * Get the packet
@@ -52,13 +54,19 @@ export async function handleCommandClassesChangeSuccessPacket(packet: CommandCla
 	}
 
 	const lng = context.discord!.language;
-	const title = i18n.t("commands:classes.success", { lng, pseudo: interaction.user.displayName });
-	const description = i18n.t("commands:classes.newClass", { lng, name: i18n.t(`models:classes.${packet.classId}`, { lng }) });
+	const title = i18n.t("commands:classes.success", {
+		lng, pseudo: interaction.user.displayName
+	});
+	const description = i18n.t("commands:classes.newClass", {
+		lng, name: i18n.t(`models:classes.${packet.classId}`, { lng })
+	});
 
 	await interaction.editReply({
-		embeds: [new DraftBotEmbed()
-			.formatAuthor(title, interaction.user)
-			.setDescription(description)]
+		embeds: [
+			new DraftBotEmbed()
+				.formatAuthor(title, interaction.user)
+				.setDescription(description)
+		]
 	});
 }
 
@@ -133,7 +141,7 @@ export async function handleChangeClassReactionCollector(context: PacketContext,
 				context,
 				context.keycloakId!,
 				selectMenuInteraction,
-				packet.reactions.findIndex((reaction) => reaction.type === ReactionCollectorRefuseReaction.name)
+				packet.reactions.findIndex(reaction => reaction.type === ReactionCollectorRefuseReaction.name)
 			);
 			return;
 		}
@@ -144,7 +152,9 @@ export async function handleChangeClassReactionCollector(context: PacketContext,
 		const classDetails = data.classesDetails.find(details => details.id === parseInt(selectedOption))!;
 
 		const validateClassChangeEmbed = new DraftBotEmbed()
-			.formatAuthor(i18n.t("commands:classes.confirm", { lng, pseudo: interaction.user.displayName }), interaction.user)
+			.formatAuthor(i18n.t("commands:classes.confirm", {
+				lng, pseudo: interaction.user.displayName
+			}), interaction.user)
 			.setDescription(i18n.t("commands:classes.display", {
 				lng,
 				name: i18n.t("models:classWithStatsFormat", {
@@ -160,7 +170,9 @@ export async function handleChangeClassReactionCollector(context: PacketContext,
 					health: classDetails.health,
 					interpolation: { escapeValue: false }
 				}),
-				description: i18n.t(`commands:classes.description.${classDetails.id}`, { lng, interpolation: { escapeValue: false } }),
+				description: i18n.t(`commands:classes.description.${classDetails.id}`, {
+					lng, interpolation: { escapeValue: false }
+				}),
 				time: dateDisplay(new Date(Date.now() + data.cooldownSeconds * 1000)),
 				interpolation: { escapeValue: false }
 			}));
@@ -196,7 +208,7 @@ export async function handleChangeClassReactionCollector(context: PacketContext,
 					context,
 					context.keycloakId!,
 					validateInteraction,
-					packet.reactions.findIndex((reaction) => reaction.type === ReactionCollectorRefuseReaction.name)
+					packet.reactions.findIndex(reaction => reaction.type === ReactionCollectorRefuseReaction.name)
 				);
 				return;
 			}

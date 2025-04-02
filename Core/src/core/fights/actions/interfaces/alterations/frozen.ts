@@ -1,11 +1,15 @@
-import {FightAlterationFunc} from "../../../../../data/FightAlteration";
-import {FightAlterationState} from "../../../../../../../Lib/src/types/FightAlterationResult";
-import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
-import {FightStatBuffed} from "../../../../../../../Lib/src/types/FightActionResult";
-import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
-import {defaultFightAlterationResult, defaultHealFightAlterationResult} from "../../../FightController";
-import {Fighter} from "../../../fighter/Fighter";
-import {RandomUtils} from "../../../../../../../Lib/src/utils/RandomUtils";
+import { FightAlterationFunc } from "../../../../../data/FightAlteration";
+import { FightAlterationState } from "../../../../../../../Lib/src/types/FightAlterationResult";
+import {
+	attackInfo, FightActionController, statsInfo
+} from "../../FightActionController";
+import { FightStatBuffed } from "../../../../../../../Lib/src/types/FightActionResult";
+import { FightStatModifierOperation } from "../../../../../../../Lib/src/types/FightStatModifierOperation";
+import {
+	defaultFightAlterationResult, defaultHealFightAlterationResult
+} from "../../../FightController";
+import { Fighter } from "../../../fighter/Fighter";
+import { RandomUtils } from "../../../../../../../Lib/src/utils/RandomUtils";
 
 const use: FightAlterationFunc = (affected, fightAlteration, opponent) => {
 	// 50% chance to be healed from the frozen (except for the first two turns)
@@ -38,15 +42,9 @@ function getAttackInfo(): attackInfo {
 
 function getStatsInfo(affected: Fighter, _opponent: Fighter): statsInfo {
 	return {
-		attackerStats: [
-			affected.getMaxBreath() * 40
-		],
-		defenderStats: [
-			affected.getBreath() * 80
-		],
-		statsEffect: [
-			1
-		]
+		attackerStats: [affected.getMaxBreath() * 40],
+		defenderStats: [affected.getBreath() * 80],
+		statsEffect: [1]
 	};
 }
 

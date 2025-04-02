@@ -1,4 +1,6 @@
-import {DataTypes, QueryInterface} from "sequelize";
+import {
+	DataTypes, QueryInterface
+} from "sequelize";
 
 const guildPointsAttributes = {
 	guildId: {
@@ -82,13 +84,13 @@ const pveFightsActionsUsedAttributes = {
 	}
 };
 
-export async function up({context}: { context: QueryInterface }): Promise<void> {
+export async function up({ context }: { context: QueryInterface }): Promise<void> {
 	await context.createTable("guilds_points", guildPointsAttributes);
 	await context.createTable("pve_fights_results", pveFightsResultsAttributes);
 	await context.createTable("pve_fights_actions_used", pveFightsActionsUsedAttributes);
 }
 
-export async function down({context}: { context: QueryInterface }): Promise<void> {
+export async function down({ context }: { context: QueryInterface }): Promise<void> {
 	await context.dropTable("guilds_points");
 	await context.dropTable("pve_fights_results");
 	await context.dropTable("pve_fights_actions_used");

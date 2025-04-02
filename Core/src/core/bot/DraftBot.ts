@@ -1,33 +1,39 @@
-import {PacketListenerServer} from "../../../../Lib/src/packets/PacketListener";
-import {GameDatabase} from "../database/game/GameDatabase";
-import {LogsDatabase} from "../database/logs/LogsDatabase";
-import {botConfig, draftBotInstance} from "../../index";
-import {Settings} from "../database/game/models/Setting";
-import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
-import {Op, Sequelize} from "sequelize";
+import { PacketListenerServer } from "../../../../Lib/src/packets/PacketListener";
+import { GameDatabase } from "../database/game/GameDatabase";
+import { LogsDatabase } from "../database/logs/LogsDatabase";
+import {
+	botConfig, draftBotInstance
+} from "../../index";
+import { Settings } from "../database/game/models/Setting";
+import { PetConstants } from "../../../../Lib/src/constants/PetConstants";
+import {
+	Op, Sequelize
+} from "sequelize";
 import PetEntity from "../database/game/models/PetEntity";
-import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
-import {PotionDataController} from "../../data/Potion";
-import {getNextDay2AM, getNextSaturdayMidnight, getNextSundayMidnight} from "../../../../Lib/src/utils/TimeUtils";
-import {TIMEOUT_FUNCTIONS} from "../../../../Lib/src/constants/TimeoutFunctionsConstants";
-import {MapCache} from "../maps/MapCache";
-import {registerAllPacketHandlers} from "../packetHandlers/PacketHandler";
-import {Logger} from "../../../../Lib/src/instances/Logger";
-import {CommandsTest} from "../CommandsTest";
+import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
+import { PotionDataController } from "../../data/Potion";
+import {
+	getNextDay2AM, getNextSaturdayMidnight, getNextSundayMidnight
+} from "../../../../Lib/src/utils/TimeUtils";
+import { TIMEOUT_FUNCTIONS } from "../../../../Lib/src/constants/TimeoutFunctionsConstants";
+import { MapCache } from "../maps/MapCache";
+import { registerAllPacketHandlers } from "../packetHandlers/PacketHandler";
+import { Logger } from "../../../../Lib/src/instances/Logger";
+import { CommandsTest } from "../CommandsTest";
 import Player from "../database/game/models/Player";
-import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
-import {PacketUtils} from "../utils/PacketUtils";
-import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
-import {TopWeekAnnouncementPacket} from "../../../../Lib/src/packets/announcements/TopWeekAnnouncementPacket";
-import {TopWeekFightAnnouncementPacket} from "../../../../Lib/src/packets/announcements/TopWeekFightAnnouncementPacket";
+import { FightConstants } from "../../../../Lib/src/constants/FightConstants";
+import { PacketUtils } from "../utils/PacketUtils";
+import { makePacket } from "../../../../Lib/src/packets/DraftBotPacket";
+import { TopWeekAnnouncementPacket } from "../../../../Lib/src/packets/announcements/TopWeekAnnouncementPacket";
+import { TopWeekFightAnnouncementPacket } from "../../../../Lib/src/packets/announcements/TopWeekFightAnnouncementPacket";
 import PlayerMissionsInfo from "../database/game/models/PlayerMissionsInfo";
-import {ScheduledReportNotifications} from "../database/game/models/ScheduledReportNotification";
-import {ReachDestinationNotificationPacket} from "../../../../Lib/src/packets/notifications/ReachDestinationNotificationPacket";
-import {MapLocationDataController} from "../../data/MapLocation";
+import { ScheduledReportNotifications } from "../database/game/models/ScheduledReportNotification";
+import { ReachDestinationNotificationPacket } from "../../../../Lib/src/packets/notifications/ReachDestinationNotificationPacket";
+import { MapLocationDataController } from "../../data/MapLocation";
 import * as fs from "fs";
-import {MqttTopicUtils} from "../../../../Lib/src/utils/MqttTopicUtils";
-import {initializeAllClassBehaviors} from "../fights/AiBehaviorController";
-import {initializeAllPetBehaviors} from "../fights/PetAssistManager";
+import { MqttTopicUtils } from "../../../../Lib/src/utils/MqttTopicUtils";
+import { initializeAllClassBehaviors } from "../fights/AiBehaviorController";
+import { initializeAllPetBehaviors } from "../fights/PetAssistManager";
 
 export class DraftBot {
 	public readonly packetListener: PacketListenerServer;
@@ -79,7 +85,7 @@ export class DraftBot {
 	static dailyTimeout(): void {
 		Settings.NEXT_DAILY_RESET.setValue(getNextDay2AM().valueOf()).then();
 		DraftBot.randomPotion().finally(() => null);
-		DraftBot.randomLovePointsLoose().then((petLoveChange) => draftBotInstance.logsDatabase.logDailyTimeout(petLoveChange).then());
+		DraftBot.randomLovePointsLoose().then(petLoveChange => draftBotInstance.logsDatabase.logDailyTimeout(petLoveChange).then());
 		draftBotInstance.logsDatabase.log15BestTopWeek().then();
 		DraftBot.programDailyTimeout();
 	}
@@ -149,7 +155,7 @@ export class DraftBot {
 		draftBotInstance.logsDatabase.log15BestSeason().then();
 		const winner = await DraftBot.findSeasonWinner();
 		if (winner !== null) {
-			PacketUtils.announce(makePacket(TopWeekFightAnnouncementPacket, {winnerKeycloakId: winner.keycloakId}), MqttTopicUtils.getDiscordTopWeekFightAnnouncementTopic(botConfig.PREFIX));
+			PacketUtils.announce(makePacket(TopWeekFightAnnouncementPacket, { winnerKeycloakId: winner.keycloakId }), MqttTopicUtils.getDiscordTopWeekFightAnnouncementTopic(botConfig.PREFIX));
 			winner.addBadge("✨");
 			await winner.save();
 		}
@@ -181,14 +187,14 @@ export class DraftBot {
 			limit: 1
 		});
 		if (winner !== null) {
-			PacketUtils.announce(makePacket(TopWeekAnnouncementPacket, {winnerKeycloakId: winner.keycloakId}), MqttTopicUtils.getDiscordTopWeekAnnouncementTopic(botConfig.PREFIX));
+			PacketUtils.announce(makePacket(TopWeekAnnouncementPacket, { winnerKeycloakId: winner.keycloakId }), MqttTopicUtils.getDiscordTopWeekAnnouncementTopic(botConfig.PREFIX));
 			winner.addBadge("🎗️");
 			await winner.save();
 		}
 		else {
 			PacketUtils.announce(makePacket(TopWeekAnnouncementPacket, {}), MqttTopicUtils.getDiscordTopWeekAnnouncementTopic(botConfig.PREFIX));
 		}
-		await Player.update({weeklyScore: 0}, {where: {}});
+		await Player.update({ weeklyScore: 0 }, { where: {} });
 		console.log("# WARNING # Weekly leaderboard has been reset !");
 		await PlayerMissionsInfo.resetShopBuyout();
 		console.log("All players can now buy again points from the mission shop !");
@@ -208,8 +214,9 @@ export class DraftBot {
 					`CASE WHEN fightCountdown <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE} THEN attackGloryPoints + defenseGloryPoints ELSE 0 END`
 				)
 			},
-			{where: {}}
+			{ where: {} }
 		);
+
 		// We add one to the fightCountdown
 		await Player.update(
 			{
@@ -217,8 +224,9 @@ export class DraftBot {
 					"fightCountdown + 1"
 				)
 			},
-			{where: {fightCountdown: {[Op.lt]: FightConstants.FIGHT_COUNTDOWN_REGEN_LIMIT}}}
+			{ where: { fightCountdown: { [Op.lt]: FightConstants.FIGHT_COUNTDOWN_REGEN_LIMIT } } }
 		);
+
 		// Transform a part of the defense glory into attack glory
 		await Player.update(
 			{
@@ -229,7 +237,7 @@ export class DraftBot {
 					`attackGloryPoints - LEAST(${FightConstants.ATTACK_GLORY_TO_DEFENSE_GLORY_EACH_WEEK}, attackGloryPoints)`
 				)
 			},
-			{where: {attackGloryPoints: {[Op.gt]: 0}}}
+			{ where: { attackGloryPoints: { [Op.gt]: 0 } } }
 		);
 	}
 
@@ -308,10 +316,12 @@ export class DraftBot {
 			// Read the config file
 			const currentConfig = fs.readFileSync(`${process.cwd()}/config/config.toml`, "utf-8");
 			const regexMaintenance = /(maintenance *= *)(true|false)/g;
+
 			// Search for the maintenance field
 			if (regexMaintenance.test(currentConfig)) {
 				// Replace the value of the field. $1 is the group without true or false
 				const newConfig = currentConfig.replace(regexMaintenance, `$1${enable}`);
+
 				// Write the config
 				fs.writeFileSync(`${process.cwd()}/config/config.toml`, newConfig, "utf-8");
 			}

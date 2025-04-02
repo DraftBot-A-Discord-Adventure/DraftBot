@@ -1,9 +1,9 @@
-import {PetEntities} from "../../database/game/models/PetEntity";
-import {FightPetActionFunc} from "../../../data/FightPetAction";
-import {PetConstants} from "../../../../../Lib/src/constants/PetConstants";
-import {SmallEventConstants} from "../../../../../Lib/src/constants/SmallEventConstants";
-import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
-import {PetDataController} from "../../../data/Pet";
+import { PetEntities } from "../../database/game/models/PetEntity";
+import { FightPetActionFunc } from "../../../data/FightPetAction";
+import { PetConstants } from "../../../../../Lib/src/constants/PetConstants";
+import { SmallEventConstants } from "../../../../../Lib/src/constants/SmallEventConstants";
+import { RandomUtils } from "../../../../../Lib/src/utils/RandomUtils";
+import { PetDataController } from "../../../data/Pet";
 
 export const fightPetAction: FightPetActionFunc = async (player, pet) => {
 	const playerPetEntity = await PetEntities.getById(player.petId);
@@ -27,8 +27,8 @@ export const fightPetAction: FightPetActionFunc = async (player, pet) => {
 
 	// Calculate the success probability using the rarity factors
 	const successProbability =
-		SmallEventConstants.FIGHT_PET.BASE_PET_FIGHTS_SUCCESS_RATE +
-		(SmallEventConstants.FIGHT_PET.PLAYERS_RARITY_BONUS_BOOST + petLoveBonusOrMalus + dietBonusOrMalus + playerPet.rarity - pet.rarity)
+		SmallEventConstants.FIGHT_PET.BASE_PET_FIGHTS_SUCCESS_RATE
+		+ (SmallEventConstants.FIGHT_PET.PLAYERS_RARITY_BONUS_BOOST + petLoveBonusOrMalus + dietBonusOrMalus + playerPet.rarity - pet.rarity)
 		* SmallEventConstants.FIGHT_PET.SUCCESS_PROBABILITY_FOR_RARITY_DIFFERENCE;
 
 	// Ensure the success probability is within a reasonable range

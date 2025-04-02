@@ -3,7 +3,9 @@ import {
 	SmallEventAnyShopCannotBuyPacket,
 	SmallEventAnyShopRefusedPacket
 } from "./SmallEventAnyShopPacket";
-import {PacketDirection, sendablePacket} from "../DraftBotPacket";
+import {
+	PacketDirection, sendablePacket
+} from "../DraftBotPacket";
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class SmallEventShopAcceptPacket extends SmallEventAnyShopAcceptedPacket {

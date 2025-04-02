@@ -1,5 +1,7 @@
-import {LogsPlayersNumbers, logsPlayersNumbersAttributes} from "./LogsPlayersNumbers";
-import {Sequelize} from "sequelize";
+import {
+	LogsPlayersNumbers, logsPlayersNumbersAttributes
+} from "./LogsPlayersNumbers";
+import { Sequelize } from "sequelize";
 
 export class LogsPlayersMoney extends LogsPlayersNumbers {
 }

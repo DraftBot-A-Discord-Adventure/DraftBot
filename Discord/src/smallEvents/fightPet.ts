@@ -1,19 +1,21 @@
-import {ReactionCollectorCreationPacket} from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
-import {DiscordCache} from "../bot/DiscordCache";
-import {DraftbotSmallEventEmbed} from "../messages/DraftbotSmallEventEmbed";
-import {StringUtils} from "../utils/StringUtils";
-import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
+import { ReactionCollectorCreationPacket } from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { PacketContext } from "../../../Lib/src/packets/DraftBotPacket";
+import { DiscordCache } from "../bot/DiscordCache";
+import { DraftbotSmallEventEmbed } from "../messages/DraftbotSmallEventEmbed";
+import { StringUtils } from "../utils/StringUtils";
+import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
 import i18n from "../translations/i18n";
-import {getRandomSmallEventIntro} from "../packetHandlers/handlers/SmallEventsHandler";
+import { getRandomSmallEventIntro } from "../packetHandlers/handlers/SmallEventsHandler";
 import {
 	ReactionCollectorFightPetData,
 	ReactionCollectorFightPetReaction
 } from "../../../Lib/src/packets/interaction/ReactionCollectorFightPet";
-import {DraftbotInteraction} from "../messages/DraftbotInteraction";
-import {DraftbotButtonReaction, DraftbotButtonReactionMessage} from "../messages/DraftbotButtonReactionMessage";
-import {StringConstants} from "../../../Lib/src/constants/StringConstants";
-import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import { DraftbotInteraction } from "../messages/DraftbotInteraction";
+import {
+	DraftbotButtonReaction, DraftbotButtonReactionMessage
+} from "../messages/DraftbotButtonReactionMessage";
+import { StringConstants } from "../../../Lib/src/constants/StringConstants";
+import { ReactionCollectorReturnType } from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
 function getFightPetReactions(interaction: DraftbotInteraction, baseReactions: ReactionCollectorFightPetReaction[]): DraftbotButtonReaction[] {
 	const reactions: DraftbotButtonReaction[] = [];
@@ -21,7 +23,7 @@ function getFightPetReactions(interaction: DraftbotInteraction, baseReactions: R
 		reactions.push({
 			customId: reaction.actionId,
 			emote: DraftBotIcons.fightPetActions[reaction.actionId],
-			description: i18n.t(`smallEvents:fightPet.fightPetActions.${reaction.actionId}.name`, {lng: interaction.userLanguage})
+			description: i18n.t(`smallEvents:fightPet.fightPetActions.${reaction.actionId}.name`, { lng: interaction.userLanguage })
 		});
 	}
 	return reactions;

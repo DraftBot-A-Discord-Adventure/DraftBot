@@ -1,5 +1,9 @@
-import {DataTypes, Model, Sequelize} from "sequelize";
-import {BaseMission, MissionType} from "../../../../../../Lib/src/types/CompletedMission";
+import {
+	DataTypes, Model, Sequelize
+} from "sequelize";
+import {
+	BaseMission, MissionType
+} from "../../../../../../Lib/src/types/CompletedMission";
 import moment = require("moment");
 import missionJson = require("../../../../../resources/campaign.json");
 
@@ -77,7 +81,11 @@ export class MissionSlots {
 			}
 		});
 		if (missionSlots.length === 0) {
-			return [await MissionSlot.create({...missionJson.missions[0], playerId})];
+			return [
+				await MissionSlot.create({
+					...missionJson.missions[0], playerId
+				})
+			];
 		}
 		return missionSlots;
 	}

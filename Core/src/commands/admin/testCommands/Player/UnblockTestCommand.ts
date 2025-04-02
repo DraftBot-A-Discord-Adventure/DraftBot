@@ -1,5 +1,7 @@
-import {ExecuteTestCommandLike, ITestCommand} from "../../../../core/CommandsTest";
-import {BlockingUtils} from "../../../../core/utils/BlockingUtils";
+import {
+	ExecuteTestCommandLike, ITestCommand
+} from "../../../../core/CommandsTest";
+import { BlockingUtils } from "../../../../core/utils/BlockingUtils";
 
 export const commandInfo: ITestCommand = {
 	name: "unblock",
@@ -9,7 +11,7 @@ export const commandInfo: ITestCommand = {
 /**
  * Unblock the player
  */
-const unblockTestCommand: ExecuteTestCommandLike = (player) => {
+const unblockTestCommand: ExecuteTestCommandLike = player => {
 	const reasons = BlockingUtils.getPlayerBlockingReason(player.keycloakId).map(r => {
 		BlockingUtils.unblockPlayer(player.keycloakId, r);
 		return r;

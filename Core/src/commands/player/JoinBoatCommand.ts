@@ -1,5 +1,9 @@
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
+import {
+	DraftBotPacket, makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
 import Player from "../../core/database/game/models/Player";
 import {
 	CommandJoinBoatAcceptPacketRes,
@@ -11,19 +15,23 @@ import {
 	CommandJoinBoatRefusePacketRes,
 	CommandJoinBoatTooManyRunsPacketRes
 } from "../../../../Lib/src/packets/commands/CommandJoinBoatPacket";
-import {PVEConstants} from "../../../../Lib/src/constants/PVEConstants";
-import {LogsReadRequests} from "../../core/database/logs/LogsReadRequests";
-import {Maps, OptionsStartBoatTravel} from "../../core/maps/Maps";
-import {MissionsController} from "../../core/missions/MissionsController";
-import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import {EndCallback, ReactionCollectorInstance} from "../../core/utils/ReactionsCollector";
-import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
-import {ReactionCollectorJoinBoat} from "../../../../Lib/src/packets/interaction/ReactionCollectorJoinBoat";
-import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
-import {PlayerMissionsInfos} from "../../core/database/game/models/PlayerMissionsInfo";
-import {TravelTime} from "../../core/maps/TravelTime";
-import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
+import { PVEConstants } from "../../../../Lib/src/constants/PVEConstants";
+import { LogsReadRequests } from "../../core/database/logs/LogsReadRequests";
+import {
+	Maps, OptionsStartBoatTravel
+} from "../../core/maps/Maps";
+import { MissionsController } from "../../core/missions/MissionsController";
+import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
+import {
+	EndCallback, ReactionCollectorInstance
+} from "../../core/utils/ReactionsCollector";
+import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
+import { ReactionCollectorJoinBoat } from "../../../../Lib/src/packets/interaction/ReactionCollectorJoinBoat";
+import { ReactionCollectorAcceptReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { BlockingUtils } from "../../core/utils/BlockingUtils";
+import { PlayerMissionsInfos } from "../../core/database/game/models/PlayerMissionsInfo";
+import { TravelTime } from "../../core/maps/TravelTime";
+import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
 
 
 /**
@@ -37,17 +45,20 @@ async function canJoinBoat(player: Player, response: DraftBotPacket[]): Promise<
 		response.push(makePacket(CommandJoinBoatNoGuildPacketRes, {}));
 		return false;
 	}
+
 	// The player has been on the island too often this week
 	if (await LogsReadRequests.getCountPVEIslandThisWeek(player.keycloakId, player.guildId) >= PVEConstants.TRAVEL_COST.length) {
 		response.push(makePacket(CommandJoinBoatTooManyRunsPacketRes, {}));
 		return false;
 	}
+
 	// No guild members on the boat
 	const guildOnBoat = await Maps.getGuildMembersOnBoat(player);
 	if (guildOnBoat.length === 0) {
 		response.push(makePacket(CommandJoinBoatNoMemberOnBoatPacketRes, {}));
 		return false;
 	}
+
 	// The player doesn't have enough energy
 	if (!player.hasEnoughEnergyToFight()) {
 		response.push(makePacket(CommandJoinBoatNotEnoughEnergyPacketRes, {}));
@@ -84,12 +95,14 @@ async function acceptJoinBoat(player: Player, response: DraftBotPacket[]): Promi
 
 	// Start the travel
 	const anotherMemberOnBoat = await Maps.getGuildMembersOnBoat(player);
-	const options: OptionsStartBoatTravel = {startTravelTimestamp: Date.now(),
+	const options: OptionsStartBoatTravel = {
+		startTravelTimestamp: Date.now(),
 		anotherMemberOnBoat: anotherMemberOnBoat[0],
-		price};
+		price
+	};
 	await Maps.startBoatTravel(player, options, NumberChangeReason.PVE_ISLAND, response);
-	await MissionsController.update(player, response, {missionId: "joinMemberOnBoat"});
-	response.push(makePacket(CommandJoinBoatAcceptPacketRes, {score: gainScore}));
+	await MissionsController.update(player, response, { missionId: "joinMemberOnBoat" });
+	response.push(makePacket(CommandJoinBoatAcceptPacketRes, { score: gainScore }));
 	await player.save();
 }
 

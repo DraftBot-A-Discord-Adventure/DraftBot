@@ -1,10 +1,12 @@
-import {PetAssistanceResult, PetAssistanceState} from "../../../../../../../Lib/src/types/PetAssistanceResult";
-import {PetAssistanceFunc} from "../../../../../data/PetAssistance";
-import {PlayerFighter} from "../../../fighter/PlayerFighter";
-import {AiPlayerFighter} from "../../../fighter/AiPlayerFighter";
-import {PetEntities} from "../../../../database/game/models/PetEntity";
-import {FightConstants} from "../../../../../../../Lib/src/constants/FightConstants";
-import {PetConstants} from "../../../../../../../Lib/src/constants/PetConstants";
+import {
+	PetAssistanceResult, PetAssistanceState
+} from "../../../../../../../Lib/src/types/PetAssistanceResult";
+import { PetAssistanceFunc } from "../../../../../data/PetAssistance";
+import { PlayerFighter } from "../../../fighter/PlayerFighter";
+import { AiPlayerFighter } from "../../../fighter/AiPlayerFighter";
+import { PetEntities } from "../../../../database/game/models/PetEntity";
+import { FightConstants } from "../../../../../../../Lib/src/constants/FightConstants";
+import { PetConstants } from "../../../../../../../Lib/src/constants/PetConstants";
 
 const use: PetAssistanceFunc = async (fighter, opponent, _turn, _fightController): Promise<PetAssistanceResult | null> => {
 	if (fighter.alteration?.id === FightConstants.FIGHT_ACTIONS.ALTERATION.BURNED) {
@@ -17,6 +19,7 @@ const use: PetAssistanceFunc = async (fighter, opponent, _turn, _fightController
 				});
 			}
 		}
+
 		// Check if the fighter is burning
 		fighter.removeAlteration();
 		return Promise.resolve({

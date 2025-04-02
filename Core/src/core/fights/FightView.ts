@@ -1,35 +1,40 @@
-import {FightController} from "./FightController";
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {PlayerFighter} from "./fighter/PlayerFighter";
-import {MonsterFighter} from "./fighter/MonsterFighter";
-import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
-import {CommandFightIntroduceFightersPacket} from "../../../../Lib/src/packets/fights/FightIntroductionPacket";
-import {CommandFightStatusPacket} from "../../../../Lib/src/packets/fights/FightStatusPacket";
-import {FightAction} from "../../data/FightAction";
-import {FightActionResult, FightStatBuffed} from "../../../../Lib/src/types/FightActionResult";
-import {CommandFightHistoryItemPacket} from "../../../../Lib/src/packets/fights/FightHistoryItemPacket";
-import {FightStatModifierOperation} from "../../../../Lib/src/types/FightStatModifierOperation";
-import {toSignedPercent} from "../../../../Lib/src/utils/StringUtils";
-import {FightAlterationResult} from "../../../../Lib/src/types/FightAlterationResult";
-import {EndCallback, ReactionCollectorInstance} from "../utils/ReactionsCollector";
+import { FightController } from "./FightController";
+import {
+	DraftBotPacket, makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { PlayerFighter } from "./fighter/PlayerFighter";
+import { MonsterFighter } from "./fighter/MonsterFighter";
+import { FightConstants } from "../../../../Lib/src/constants/FightConstants";
+import { CommandFightIntroduceFightersPacket } from "../../../../Lib/src/packets/fights/FightIntroductionPacket";
+import { CommandFightStatusPacket } from "../../../../Lib/src/packets/fights/FightStatusPacket";
+import { FightAction } from "../../data/FightAction";
+import {
+	FightActionResult, FightStatBuffed
+} from "../../../../Lib/src/types/FightActionResult";
+import { CommandFightHistoryItemPacket } from "../../../../Lib/src/packets/fights/FightHistoryItemPacket";
+import { FightStatModifierOperation } from "../../../../Lib/src/types/FightStatModifierOperation";
+import { toSignedPercent } from "../../../../Lib/src/utils/StringUtils";
+import { FightAlterationResult } from "../../../../Lib/src/types/FightAlterationResult";
+import {
+	EndCallback, ReactionCollectorInstance
+} from "../utils/ReactionsCollector";
 import {
 	ReactionCollectorFightChooseAction,
 	ReactionCollectorFightChooseActionReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorFightChooseAction";
-import {AIFightActionChoosePacket} from "../../../../Lib/src/packets/fights/AIFightActionChoosePacket";
-import {PacketUtils} from "../utils/PacketUtils";
-import {AiPlayerFighter} from "./fighter/AiPlayerFighter";
-import {CommandFightEndOfFightPacket} from "../../../../Lib/src/packets/fights/EndOfFightPacket";
-import {BuggedFightPacket} from "../../../../Lib/src/packets/fights/BuggedFightPacket";
-import {PetAssistanceResult} from "../../../../Lib/src/types/PetAssistanceResult";
-import {OwnedPet} from "../../../../Lib/src/types/OwnedPet";
-import {PetEntities} from "../database/game/models/PetEntity";
+import { AIFightActionChoosePacket } from "../../../../Lib/src/packets/fights/AIFightActionChoosePacket";
+import { PacketUtils } from "../utils/PacketUtils";
+import { AiPlayerFighter } from "./fighter/AiPlayerFighter";
+import { CommandFightEndOfFightPacket } from "../../../../Lib/src/packets/fights/EndOfFightPacket";
+import { BuggedFightPacket } from "../../../../Lib/src/packets/fights/BuggedFightPacket";
+import { PetAssistanceResult } from "../../../../Lib/src/types/PetAssistanceResult";
+import { OwnedPet } from "../../../../Lib/src/types/OwnedPet";
+import { PetEntities } from "../database/game/models/PetEntity";
 
 /**
  * @class FightView
  */
 export class FightView {
-
 	public context: PacketContext;
 
 	fightController: FightController;
@@ -119,7 +124,6 @@ export class FightView {
 		fightAction: FightAction,
 		fightActionResult: FightActionResult | FightAlterationResult | PetAssistanceResult
 	): Promise<void> {
-
 		const buildStatsChange = (selfTarget: boolean): {
 			attack?: number;
 			defense?: number;
@@ -129,7 +133,12 @@ export class FightView {
 		} => fightActionResult.buffs
 			?.filter(buff =>
 				buff.selfTarget === selfTarget
-				&& ([FightStatBuffed.ATTACK, FightStatBuffed.DEFENSE, FightStatBuffed.SPEED, FightStatBuffed.BREATH].includes(buff.stat)
+				&& ([
+					FightStatBuffed.ATTACK,
+					FightStatBuffed.DEFENSE,
+					FightStatBuffed.SPEED,
+					FightStatBuffed.BREATH
+				].includes(buff.stat)
 					&& buff.operator === FightStatModifierOperation.MULTIPLIER
 					|| [FightStatBuffed.BREATH].includes(buff.stat)
 					&& buff.operator === FightStatModifierOperation.ADDITION
@@ -137,28 +146,31 @@ export class FightView {
 					&& buff.operator === FightStatModifierOperation.ADDITION))
 			.reduce((acc, buff) => {
 				switch (buff.stat) {
-				case FightStatBuffed.ATTACK:
-					acc.attack = toSignedPercent(buff.value);
-					break;
-				case FightStatBuffed.DEFENSE:
-					acc.defense = toSignedPercent(buff.value);
-					break;
-				case FightStatBuffed.SPEED:
-					acc.speed = toSignedPercent(buff.value);
-					break;
-				case FightStatBuffed.BREATH:
-					acc.breath = buff.value;
-					break;
-				case FightStatBuffed.ENERGY:
-					acc.energy = buff.value;
-					break;
-				default:
-					break;
+					case FightStatBuffed.ATTACK:
+						acc.attack = toSignedPercent(buff.value);
+						break;
+					case FightStatBuffed.DEFENSE:
+						acc.defense = toSignedPercent(buff.value);
+						break;
+					case FightStatBuffed.SPEED:
+						acc.speed = toSignedPercent(buff.value);
+						break;
+					case FightStatBuffed.BREATH:
+						acc.breath = buff.value;
+						break;
+					case FightStatBuffed.ENERGY:
+						acc.energy = buff.value;
+						break;
+					default:
+						break;
 				}
 				return acc;
-			}, {} as { attack?: number; defense?: number; speed?: number; breath?: number; energy?: number });
+			}, {} as {
+				attack?: number; defense?: number; speed?: number; breath?: number; energy?: number;
+			});
 
-		/** Return the pet if the action is a pet assistance and the fighter has a pet
+		/**
+		 * Return the pet if the action is a pet assistance and the fighter has a pet
 		 * @param fighter
 		 * @param fightActionResult
 		 */
@@ -180,26 +192,28 @@ export class FightView {
 		response.push(makePacket(CommandFightHistoryItemPacket, {
 			fighterKeycloakId: fighter instanceof MonsterFighter ? null : fighter.player.keycloakId,
 			monsterId: fighter instanceof MonsterFighter ? fighter.monster.id : null,
-			/* Sometimes fightActionResult.usedAction is not the same
-				as what the user selected (fightAction is what the user selected)
-	            and fightActionResult.usedAction is what ended up being used */
+
+			/*
+			 * Sometimes fightActionResult.usedAction is not the same
+			 * as what the user selected (fightAction is what the user selected)
+			 *        and fightActionResult.usedAction is what ended up being used
+			 */
 			fightActionId: fightAction.id,
 			usedFightActionId,
 			customMessage: "customMessage" in fightActionResult ? fightActionResult.customMessage : false,
 			status:
-				"attackStatus" in fightActionResult ?
-					fightActionResult.attackStatus : // FightAction is an attack, so we have an attackStatus
-					"state" in fightActionResult ?
-						fightActionResult.state : // FightAction is an alteration, so we have a state
-						fightActionResult.assistanceStatus, // FightAction is pet assistance, so we have an assistanceStatus
+				"attackStatus" in fightActionResult
+					? fightActionResult.attackStatus // FightAction is an attack, so we have an attackStatus
+					: "state" in fightActionResult
+						? fightActionResult.state // FightAction is an alteration, so we have a state
+						: fightActionResult.assistanceStatus, // FightAction is pet assistance, so we have an assistanceStatus
 			pet: await getPetIfRelevant(fighter, fightActionResult),
 			fightActionEffectDealt:
 				{
 					...buildStatsChange(false),
 					newAlteration: "alterations" in fightActionResult && fightActionResult.alterations?.find(alt => !alt.selfTarget)?.alteration || null,
 					damages: fightActionResult.damages
-				}
-			,
+				},
 			fightActionEffectReceived:
 				{
 					...buildStatsChange(true),
@@ -251,7 +265,7 @@ export class FightView {
 	 * @param waitTimeMs
 	 */
 	displayAiChooseAction(response: DraftBotPacket[], waitTimeMs: number): void {
-		response.push(makePacket(AIFightActionChoosePacket, {ms: waitTimeMs}));
+		response.push(makePacket(AIFightActionChoosePacket, { ms: waitTimeMs }));
 	}
 
 	/**

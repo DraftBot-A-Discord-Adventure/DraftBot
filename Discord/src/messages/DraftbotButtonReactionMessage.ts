@@ -1,28 +1,30 @@
-import {ActionRowBuilder, ButtonBuilder, ButtonStyle} from "discord.js";
-import {DraftbotInteraction} from "./DraftbotInteraction";
-import {DraftBotEmbed} from "./DraftBotEmbed";
-import {EmoteUtils} from "../utils/EmoteUtils";
-import {sendInteractionNotForYou} from "../utils/ErrorUtils";
-import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
-import {DiscordCollectorUtils} from "../utils/DiscordCollectorUtils";
-import {ReactionCollectorCreationPacket} from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
-import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import {
+	ActionRowBuilder, ButtonBuilder, ButtonStyle
+} from "discord.js";
+import { DraftbotInteraction } from "./DraftbotInteraction";
+import { DraftBotEmbed } from "./DraftBotEmbed";
+import { EmoteUtils } from "../utils/EmoteUtils";
+import { sendInteractionNotForYou } from "../utils/ErrorUtils";
+import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
+import { DiscordCollectorUtils } from "../utils/DiscordCollectorUtils";
+import { ReactionCollectorCreationPacket } from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { PacketContext } from "../../../Lib/src/packets/DraftBotPacket";
+import { ReactionCollectorReturnType } from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
 export type DraftbotButtonReaction = {
-	customId: string,
-	emote: string,
-	description: string,
-	buttonStyle?: ButtonStyle
-}
+	customId: string;
+	emote: string;
+	description: string;
+	buttonStyle?: ButtonStyle;
+};
 
 type DraftbotButtonReactionMessageOptions = {
-	reactions: DraftbotButtonReaction[],
-	embed: DraftBotEmbed,
-	packet: ReactionCollectorCreationPacket,
-	context: PacketContext,
-	canEndReact?: boolean
-}
+	reactions: DraftbotButtonReaction[];
+	embed: DraftBotEmbed;
+	packet: ReactionCollectorCreationPacket;
+	context: PacketContext;
+	canEndReact?: boolean;
+};
 
 export class DraftbotButtonReactionMessage {
 	private readonly _buttonRow: ActionRowBuilder<ButtonBuilder>;
@@ -41,7 +43,9 @@ export class DraftbotButtonReactionMessage {
 	 */
 	constructor(interaction: DraftbotInteraction, messageOptions: DraftbotButtonReactionMessageOptions) {
 		this._buttonRow = new ActionRowBuilder<ButtonBuilder>();
-		this._buttonRow.addComponents(messageOptions.reactions.map(({emote, buttonStyle, customId}) =>
+		this._buttonRow.addComponents(messageOptions.reactions.map(({
+			emote, buttonStyle, customId
+		}) =>
 			new ButtonBuilder()
 				.setCustomId(customId)
 				.setStyle(buttonStyle ?? ButtonStyle.Secondary)
@@ -53,13 +57,13 @@ export class DraftbotButtonReactionMessage {
 	}
 
 	sendReaction(customId: string | null): void {
-		const indexes = this._messageOptions.reactions.map((r) => r.customId);
+		const indexes = this._messageOptions.reactions.map(r => r.customId);
 		DiscordCollectorUtils.sendReaction(
 			this._messageOptions.packet,
 			this._messageOptions.context,
 			this._messageOptions.context.keycloakId!,
 			null,
-			indexes.findIndex((r) => r === customId)
+			indexes.findIndex(r => r === customId)
 		);
 	}
 
@@ -73,12 +77,14 @@ export class DraftbotButtonReactionMessage {
 			time: this._messageOptions.packet.endTime - Date.now()
 		});
 
-		const reactionCollector = this._messageOptions.canEndReact ? message.createReactionCollector({
-			filter: (reaction, user) => user.id === this._interaction.user.id && reaction.emoji.name === DraftBotIcons.messages.notReplied,
-			time: this._messageOptions.packet.endTime - Date.now()
-		}) : null;
+		const reactionCollector = this._messageOptions.canEndReact
+			? message.createReactionCollector({
+				filter: (reaction, user) => user.id === this._interaction.user.id && reaction.emoji.name === DraftBotIcons.messages.notReplied,
+				time: this._messageOptions.packet.endTime - Date.now()
+			})
+			: null;
 
-		buttonCollector.on("collect", async (i) => {
+		buttonCollector.on("collect", async i => {
 			if (i.user.id !== this._interaction.user.id) {
 				await sendInteractionNotForYou(i.user, i, this._interaction.userLanguage);
 				return;
@@ -111,7 +117,9 @@ export class DraftbotButtonReactionMessage {
 	 * @private
 	 */
 	private createMenuDescription(reactions: DraftbotButtonReaction[]): string {
-		return `\n\n${reactions.map(({emote, description}) =>
+		return `\n\n${reactions.map(({
+			emote, description
+		}) =>
 			`${EmoteUtils.translateEmojiToDiscord(emote)} ${description}`).join("\n")
 		}`;
 	}

@@ -1,7 +1,9 @@
-import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
+import {
+	ExecuteTestCommandLike, ITestCommand, TypeKey
+} from "../../../../core/CommandsTest";
 import Player from "../../../../core/database/game/models/Player";
-import {BlockingUtils} from "../../../../core/utils/BlockingUtils";
-import {BlockingConstants} from "../../../../../../Lib/src/constants/BlockingConstants";
+import { BlockingUtils } from "../../../../core/utils/BlockingUtils";
+import { BlockingConstants } from "../../../../../../Lib/src/constants/BlockingConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "blockplayer",

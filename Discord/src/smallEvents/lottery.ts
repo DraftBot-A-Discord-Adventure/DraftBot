@@ -1,18 +1,20 @@
 import { ReactionCollectorCreationPacket } from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
-import {DiscordCache} from "../bot/DiscordCache";
-import {DraftbotSmallEventEmbed} from "../messages/DraftbotSmallEventEmbed";
+import { PacketContext } from "../../../Lib/src/packets/DraftBotPacket";
+import { DiscordCache } from "../bot/DiscordCache";
+import { DraftbotSmallEventEmbed } from "../messages/DraftbotSmallEventEmbed";
 import i18n from "../translations/i18n";
-import {DiscordCollectorUtils} from "../utils/DiscordCollectorUtils";
+import { DiscordCollectorUtils } from "../utils/DiscordCollectorUtils";
 import {
 	ReactionCollectorLotteryEasyReaction, ReactionCollectorLotteryHardReaction, ReactionCollectorLotteryMediumReaction
 } from "../../../Lib/src/packets/interaction/ReactionCollectorLottery";
-import {KeycloakUtils} from "../../../Lib/src/keycloak/KeycloakUtils";
-import {keycloakConfig} from "../bot/DraftBotShard";
-import {ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, Message, parseEmoji} from "discord.js";
-import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
-import {sendInteractionNotForYou} from "../utils/ErrorUtils";
-import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import { KeycloakUtils } from "../../../Lib/src/keycloak/KeycloakUtils";
+import { keycloakConfig } from "../bot/DraftBotShard";
+import {
+	ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, Message, parseEmoji
+} from "discord.js";
+import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
+import { sendInteractionNotForYou } from "../utils/ErrorUtils";
+import { ReactionCollectorReturnType } from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
 export async function lotteryCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
@@ -75,7 +77,7 @@ export async function lotteryCollector(context: PacketContext, packet: ReactionC
 				context,
 				user.id,
 				buttonInteraction,
-				packet.reactions.findIndex((reaction) => reaction.type === ReactionCollectorLotteryEasyReaction.name)
+				packet.reactions.findIndex(reaction => reaction.type === ReactionCollectorLotteryEasyReaction.name)
 			);
 		}
 		else if (buttonInteraction.customId === mediumButtonId) {
@@ -84,7 +86,7 @@ export async function lotteryCollector(context: PacketContext, packet: ReactionC
 				context,
 				user.id,
 				buttonInteraction,
-				packet.reactions.findIndex((reaction) => reaction.type === ReactionCollectorLotteryMediumReaction.name)
+				packet.reactions.findIndex(reaction => reaction.type === ReactionCollectorLotteryMediumReaction.name)
 			);
 		}
 		else if (buttonInteraction.customId === hardButtonId) {
@@ -93,7 +95,7 @@ export async function lotteryCollector(context: PacketContext, packet: ReactionC
 				context,
 				user.id,
 				buttonInteraction,
-				packet.reactions.findIndex((reaction) => reaction.type === ReactionCollectorLotteryHardReaction.name)
+				packet.reactions.findIndex(reaction => reaction.type === ReactionCollectorLotteryHardReaction.name)
 			);
 		}
 	});

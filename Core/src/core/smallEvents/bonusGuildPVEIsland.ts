@@ -1,16 +1,20 @@
-import {SmallEventDataController, SmallEventFuncs} from "../../data/SmallEvent";
-import {SmallEventConstants} from "../../../../Lib/src/constants/SmallEventConstants";
+import {
+	SmallEventDataController, SmallEventFuncs
+} from "../../data/SmallEvent";
+import { SmallEventConstants } from "../../../../Lib/src/constants/SmallEventConstants";
 import {
 	SmallEventBonusGuildPVEIslandOutcomeSurrounding,
 	SmallEventBonusGuildPVEIslandPacket,
 	SmallEventBonusGuildPVEIslandResultType
 } from "../../../../Lib/src/packets/smallEvents/SmallEventBonusGuildPVEIslandPacket";
-import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
-import {Maps} from "../maps/Maps";
+import {
+	DraftBotPacket, makePacket
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { Maps } from "../maps/Maps";
 import Player from "../database/game/models/Player";
-import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
-import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import {Guilds} from "../database/game/models/Guild";
+import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
+import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
+import { Guilds } from "../database/game/models/Guild";
 
 enum Outcome {
 	EXPERIENCE = "experience",
@@ -32,7 +36,7 @@ type BonusGuildPVEIslandProperties = {
 			min: number;
 			max: number;
 		}
-	}
+	};
 };
 
 async function hasEnoughMemberOnPVEIsland(player: Player): Promise<boolean> {
@@ -44,7 +48,9 @@ async function applyPossibility(
 	response: DraftBotPacket[],
 	issue: SmallEventBonusGuildPVEIslandResultType,
 	rewardKind: Outcome
-): Promise<{ amount: number, isExperienceGain: boolean }> {
+): Promise<{
+		amount: number; isExperienceGain: boolean;
+	}> {
 	const range = SmallEventDataController.instance.getById("bonusGuildPVEIsland")
 		.getProperties<BonusGuildPVEIslandProperties>().ranges[rewardKind];
 	const result = {
@@ -59,29 +65,29 @@ async function applyPossibility(
 		return result;
 	}
 	switch (rewardKind) {
-	case Outcome.MONEY:
-		await player.addMoney({
-			amount: -result.amount,
-			response,
-			reason: NumberChangeReason.SMALL_EVENT
-		});
-		break;
-	case Outcome.LIFE:
-		await player.addHealth(-result.amount, response, NumberChangeReason.SMALL_EVENT);
-		await player.killIfNeeded(response, NumberChangeReason.SMALL_EVENT);
-		break;
-	case Outcome.ENERGY:
-		player.addEnergy(-result.amount, NumberChangeReason.SMALL_EVENT);
-		break;
-	case Outcome.EXPERIENCE:
-		await player.addExperience({
-			amount: result.amount,
-			response,
-			reason: NumberChangeReason.SMALL_EVENT
-		});
-		break;
-	default:
-		break;
+		case Outcome.MONEY:
+			await player.addMoney({
+				amount: -result.amount,
+				response,
+				reason: NumberChangeReason.SMALL_EVENT
+			});
+			break;
+		case Outcome.LIFE:
+			await player.addHealth(-result.amount, response, NumberChangeReason.SMALL_EVENT);
+			await player.killIfNeeded(response, NumberChangeReason.SMALL_EVENT);
+			break;
+		case Outcome.ENERGY:
+			player.addEnergy(-result.amount, NumberChangeReason.SMALL_EVENT);
+			break;
+		case Outcome.EXPERIENCE:
+			await player.addExperience({
+				amount: result.amount,
+				response,
+				reason: NumberChangeReason.SMALL_EVENT
+			});
+			break;
+		default:
+			break;
 	}
 	await player.save();
 	return result;

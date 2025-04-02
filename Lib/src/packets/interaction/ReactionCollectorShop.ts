@@ -4,10 +4,12 @@ import {
 	ReactionCollectorData,
 	ReactionCollectorReaction
 } from "./ReactionCollectorPacket";
-import {DraftBotPacket, PacketContext, PacketDirection, sendablePacket} from "../DraftBotPacket";
-import {ItemWithDetails} from "../../types/ItemWithDetails";
-import {ShopCurrency} from "../../constants/ShopConstants";
-import {ShopItemType} from "../../constants/LogsConstants";
+import {
+	DraftBotPacket, PacketContext, PacketDirection, sendablePacket
+} from "../DraftBotPacket";
+import { ItemWithDetails } from "../../types/ItemWithDetails";
+import { ShopCurrency } from "../../constants/ShopConstants";
+import { ShopItemType } from "../../constants/LogsConstants";
 
 export interface ShopItem {
 	id: ShopItemType;
@@ -94,7 +96,7 @@ export type AdditionnalShopData = {
 	remainingPotions?: number;
 	dailyPotion?: ItemWithDetails;
 	gemToMoneyRatio?: number;
-}
+};
 
 export class ReactionCollectorShop extends ReactionCollector {
 	public readonly currency!: ShopCurrency.MONEY | ShopCurrency.GEM;
@@ -109,7 +111,7 @@ export class ReactionCollectorShop extends ReactionCollector {
 		shopCategories: ShopCategory[],
 		availableCurrency: number,
 		additionnalShopData: AdditionnalShopData & {
-			currency?: ShopCurrency
+			currency?: ShopCurrency;
 		} = {}
 	) {
 		super();

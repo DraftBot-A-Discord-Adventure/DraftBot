@@ -1,12 +1,13 @@
-import {PetAssistanceResult, PetAssistanceState} from "../../../../../../../Lib/src/types/PetAssistanceResult";
-import {PetAssistanceFunc} from "../../../../../data/PetAssistance";
-import {FightActionController} from "../../FightActionController";
-import {FightStatBuffed} from "../../../../../../../Lib/src/types/FightActionResult";
-import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
-import {MonsterFighter} from "../../../fighter/MonsterFighter";
+import {
+	PetAssistanceResult, PetAssistanceState
+} from "../../../../../../../Lib/src/types/PetAssistanceResult";
+import { PetAssistanceFunc } from "../../../../../data/PetAssistance";
+import { FightActionController } from "../../FightActionController";
+import { FightStatBuffed } from "../../../../../../../Lib/src/types/FightActionResult";
+import { FightStatModifierOperation } from "../../../../../../../Lib/src/types/FightStatModifierOperation";
+import { MonsterFighter } from "../../../fighter/MonsterFighter";
 
 const use: PetAssistanceFunc = (fighter, opponent, turn, _fightController): Promise<PetAssistanceResult | null> => {
-
 	// If not turn 4 or 5, do nothing, and if the opponent is a monster, do nothing
 	if (turn < 4 || turn > 5 || opponent instanceof MonsterFighter) {
 		return null;

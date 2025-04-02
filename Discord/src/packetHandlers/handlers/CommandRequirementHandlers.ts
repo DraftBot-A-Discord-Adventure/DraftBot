@@ -1,18 +1,20 @@
-import {packetHandler} from "../PacketHandler";
-import {RequirementEffectPacket} from "../../../../Lib/src/packets/commands/requirements/RequirementEffectPacket";
-import {PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {effectsErrorTextValue, replyEphemeralErrorMessage} from "../../utils/ErrorUtils";
-import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
-import {keycloakConfig} from "../../bot/DraftBotShard";
-import {RequirementGuildNeededPacket} from "../../../../Lib/src/packets/commands/requirements/RequirementGuildNeededPacket";
-import {DiscordCache} from "../../bot/DiscordCache";
+import { packetHandler } from "../PacketHandler";
+import { RequirementEffectPacket } from "../../../../Lib/src/packets/commands/requirements/RequirementEffectPacket";
+import { PacketContext } from "../../../../Lib/src/packets/DraftBotPacket";
+import {
+	effectsErrorTextValue, replyEphemeralErrorMessage
+} from "../../utils/ErrorUtils";
+import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
+import { keycloakConfig } from "../../bot/DraftBotShard";
+import { RequirementGuildNeededPacket } from "../../../../Lib/src/packets/commands/requirements/RequirementGuildNeededPacket";
+import { DiscordCache } from "../../bot/DiscordCache";
 import i18n from "../../translations/i18n";
-import {RequirementGuildRolePacket} from "../../../../Lib/src/packets/commands/requirements/RequirementGuildRolePacket";
-import {RequirementLevelPacket} from "../../../../Lib/src/packets/commands/requirements/RequirementLevelPacket";
-import {RequirementRightPacket} from "../../../../Lib/src/packets/commands/requirements/RequirementRightPacket";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
-import {RequirementWherePacket} from "../../../../Lib/src/packets/commands/requirements/RequirementWherePacket";
-import {MessagesUtils} from "../../utils/MessagesUtils";
+import { RequirementGuildRolePacket } from "../../../../Lib/src/packets/commands/requirements/RequirementGuildRolePacket";
+import { RequirementLevelPacket } from "../../../../Lib/src/packets/commands/requirements/RequirementLevelPacket";
+import { RequirementRightPacket } from "../../../../Lib/src/packets/commands/requirements/RequirementRightPacket";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
+import { RequirementWherePacket } from "../../../../Lib/src/packets/commands/requirements/RequirementWherePacket";
+import { MessagesUtils } from "../../utils/MessagesUtils";
 
 export default class CommandRequirementHandlers {
 	@packetHandler(RequirementEffectPacket)
@@ -27,6 +29,7 @@ export default class CommandRequirementHandlers {
 			if (interaction.deferred) {
 				await interaction.deleteReply();
 			}
+
 			// Without a bind, context is lost for "this"
 			await (interaction.replied || interaction.deferred ? interaction.followUp.bind(interaction) : interaction.reply.bind(interaction))({
 				embeds: [
@@ -47,7 +50,7 @@ export default class CommandRequirementHandlers {
 			return;
 		}
 
-		await replyEphemeralErrorMessage(interaction, i18n.t("error:notInAGuild", {lng: interaction.userLanguage}));
+		await replyEphemeralErrorMessage(interaction, i18n.t("error:notInAGuild", { lng: interaction.userLanguage }));
 	}
 
 	@packetHandler(RequirementGuildRolePacket)
@@ -57,7 +60,7 @@ export default class CommandRequirementHandlers {
 			return;
 		}
 
-		await replyEphemeralErrorMessage(interaction, i18n.t("error:notAuthorizedError", {lng: interaction.userLanguage}));
+		await replyEphemeralErrorMessage(interaction, i18n.t("error:notAuthorizedError", { lng: interaction.userLanguage }));
 	}
 
 	@packetHandler(RequirementLevelPacket)
@@ -80,12 +83,12 @@ export default class CommandRequirementHandlers {
 			return;
 		}
 
-		await replyEphemeralErrorMessage(interaction, i18n.t("error:notAuthorizedRight", {lng: interaction.userLanguage}));
+		await replyEphemeralErrorMessage(interaction, i18n.t("error:notAuthorizedRight", { lng: interaction.userLanguage }));
 	}
 
 	@packetHandler(RequirementWherePacket)
 	async requirementWhere(context: PacketContext, _packet: RequirementWherePacket): Promise<void> {
 		const interaction = MessagesUtils.getCurrentInteraction(context);
-		await replyEphemeralErrorMessage(interaction, i18n.t("error:commandNotAvailableHere", {lng: context.discord!.language}));
+		await replyEphemeralErrorMessage(interaction, i18n.t("error:commandNotAvailableHere", { lng: context.discord!.language }));
 	}
 }

@@ -1,4 +1,6 @@
-import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
+import {
+	DraftBotPacket, PacketDirection, sendablePacket
+} from "../DraftBotPacket";
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandFightStatusPacket extends DraftBotPacket {
@@ -18,7 +20,7 @@ export class CommandFightStatusPacket extends DraftBotPacket {
 			breath: number;
 			maxBreath: number;
 			breathRegen: number;
-		}
+		};
 	};
 
 	defendingFighter!: {
@@ -33,6 +35,6 @@ export class CommandFightStatusPacket extends DraftBotPacket {
 			breath: number;
 			maxBreath: number;
 			breathRegen: number;
-		}
+		};
 	};
 }

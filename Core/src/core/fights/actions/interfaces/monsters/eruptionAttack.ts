@@ -1,7 +1,9 @@
-import {FightActionFunc} from "../../../../../data/FightAction";
-import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTemplate";
-import {attackInfo, statsInfo} from "../../FightActionController";
-import {Fighter} from "../../../fighter/Fighter";
+import { FightActionFunc } from "../../../../../data/FightAction";
+import { simpleDamageFightAction } from "../../templates/SimpleDamageFightActionTemplate";
+import {
+	attackInfo, statsInfo
+} from "../../FightActionController";
+import { Fighter } from "../../../fighter/Fighter";
 
 const use: FightActionFunc = (sender, receiver, _fightAction) => {
 	const speedRatio = receiver.getSpeed() / sender.getSpeed();
@@ -36,14 +38,8 @@ function getAttackInfo(): attackInfo {
 
 function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 	return {
-		attackerStats: [
-			sender.getAttack()
-		],
-		defenderStats: [
-			receiver.getSpeed()
-		],
-		statsEffect: [
-			1
-		]
+		attackerStats: [sender.getAttack()],
+		defenderStats: [receiver.getSpeed()],
+		statsEffect: [1]
 	};
 }

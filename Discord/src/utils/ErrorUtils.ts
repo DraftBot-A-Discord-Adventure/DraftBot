@@ -1,15 +1,19 @@
-import {MessageComponentInteraction, User} from "discord.js";
-import {DraftBotErrorEmbed} from "../messages/DraftBotErrorEmbed";
-import {Language} from "../../../Lib/src/Language";
-import {DraftbotInteraction} from "../messages/DraftbotInteraction";
+import {
+	MessageComponentInteraction, User
+} from "discord.js";
+import { DraftBotErrorEmbed } from "../messages/DraftBotErrorEmbed";
+import { Language } from "../../../Lib/src/Language";
+import { DraftbotInteraction } from "../messages/DraftbotInteraction";
 import i18n from "../translations/i18n";
-import {DraftBotEmbed} from "../messages/DraftBotEmbed";
-import {escapeUsername} from "../../../Lib/src/utils/StringUtils";
-import {KeycloakUser} from "../../../Lib/src/keycloak/KeycloakUser";
-import {millisecondsToMinutes, minutesDisplay} from "../../../Lib/src/utils/TimeUtils";
-import {Effect} from "../../../Lib/src/types/Effect";
-import {PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
-import {MessagesUtils} from "./MessagesUtils";
+import { DraftBotEmbed } from "../messages/DraftBotEmbed";
+import { escapeUsername } from "../../../Lib/src/utils/StringUtils";
+import { KeycloakUser } from "../../../Lib/src/keycloak/KeycloakUser";
+import {
+	millisecondsToMinutes, minutesDisplay
+} from "../../../Lib/src/utils/TimeUtils";
+import { Effect } from "../../../Lib/src/types/Effect";
+import { PacketContext } from "../../../Lib/src/packets/DraftBotPacket";
+import { MessagesUtils } from "./MessagesUtils";
 
 /**
  * Reply to an interaction with an ephemeral error PREFER {@link sendErrorMessage} for most cases
@@ -53,27 +57,27 @@ export async function sendErrorMessage(
 		isBlockedError = true,
 		sendManner = SendManner.SEND
 	}: {
-		isCancelling?: boolean,
-		isBlockedError?: boolean,
-		sendManner?: SendManner
+		isCancelling?: boolean;
+		isBlockedError?: boolean;
+		sendManner?: SendManner;
 	} = {}
 ): Promise<void> {
 	const sendArg = {
 		embeds: [new DraftBotErrorEmbed(user, interaction, reason, isCancelling, isBlockedError)]
 	};
 	switch (sendManner) {
-	case SendManner.REPLY:
-		await interaction.reply(sendArg);
-		break;
-	case SendManner.EDIT_REPLY:
-		await interaction.editReply(sendArg);
-		break;
-	case SendManner.FOLLOWUP:
-		await interaction.followUp(sendArg);
-		break;
-	default:
-		await interaction.channel.send(sendArg);
-		break;
+		case SendManner.REPLY:
+			await interaction.reply(sendArg);
+			break;
+		case SendManner.EDIT_REPLY:
+			await interaction.editReply(sendArg);
+			break;
+		case SendManner.FOLLOWUP:
+			await interaction.followUp(sendArg);
+			break;
+		default:
+			await interaction.channel.send(sendArg);
+			break;
 	}
 }
 
@@ -85,7 +89,7 @@ export async function sendInteractionNotForYou(
 	await interaction.reply({
 		embeds: [
 			new DraftBotEmbed()
-				.setDescription(i18n.t("error:interactionNotForYou", {lng}))
+				.setDescription(i18n.t("error:interactionNotForYou", { lng }))
 				.setErrorColor()
 				.formatAuthor(i18n.t("error:titleDidntWork", {
 					lng,
@@ -103,14 +107,14 @@ export async function sendInteractionNotForYou(
  */
 function getDescriptionTranslationKey(effectId: string, self: boolean): string {
 	switch (effectId) {
-	case Effect.NO_EFFECT.id:
-		return "error:notPossibleWithoutStatus";
-	case Effect.NOT_STARTED.id:
-		return `error:effects.notStartedHint.${self ? "self" : "other"}`;
-	case Effect.DEAD.id:
-		return `error:effects.deadHint.${self ? "self" : "other"}`;
-	default:
-		return self ? "error:pleaseWaitForHeal" : "error:pleaseWaitForHisHeal";
+		case Effect.NO_EFFECT.id:
+			return "error:notPossibleWithoutStatus";
+		case Effect.NOT_STARTED.id:
+			return `error:effects.notStartedHint.${self ? "self" : "other"}`;
+		case Effect.DEAD.id:
+			return `error:effects.deadHint.${self ? "self" : "other"}`;
+		default:
+			return self ? "error:pleaseWaitForHeal" : "error:pleaseWaitForHisHeal";
 	}
 }
 
@@ -123,8 +127,8 @@ function getDescriptionTranslationKey(effectId: string, self: boolean): string {
  * @param effectRemainingTime
  */
 export function effectsErrorTextValue(user: KeycloakUser, lng: Language, self: boolean, effectId: string, effectRemainingTime: number): {
-	title: string,
-	description: string
+	title: string;
+	description: string;
 } {
 	return {
 		title: i18n.t(`error:effects.${effectId}.${self ? "self" : "other"}`, {

@@ -1,7 +1,9 @@
-import {readdirSync} from "fs";
-import {PacketListenerCallbackServer} from "../../../../Lib/src/packets/PacketListener";
-import {DraftBotPacket, PacketLike} from "../../../../Lib/src/packets/DraftBotPacket";
-import {draftBotInstance} from "../../index";
+import { readdirSync } from "fs";
+import { PacketListenerCallbackServer } from "../../../../Lib/src/packets/PacketListener";
+import {
+	DraftBotPacket, PacketLike
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { draftBotInstance } from "../../index";
 
 export const packetHandler = <T extends DraftBotPacket>(val: PacketLike<T>) =>
 	<V>(target: V, prop: string, descriptor: TypedPropertyDescriptor<PacketListenerCallbackServer<T>>): void => {

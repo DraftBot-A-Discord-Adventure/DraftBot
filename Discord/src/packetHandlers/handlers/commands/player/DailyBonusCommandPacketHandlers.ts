@@ -1,13 +1,15 @@
-import {packetHandler} from "../../../PacketHandler";
+import { packetHandler } from "../../../PacketHandler";
 import {
 	CommandDailyBonusInCooldown,
 	CommandDailyBonusNoActiveObject,
 	CommandDailyBonusObjectDoNothing, CommandDailyBonusObjectIsActiveDuringFights,
 	CommandDailyBonusPacketRes
 } from "../../../../../../Lib/src/packets/commands/CommandDailyBonusPacket";
-import {PacketContext} from "../../../../../../Lib/src/packets/DraftBotPacket";
-import {handleDailyBonusCooldownError, handleDailyBonusRes} from "../../../../commands/player/DailyBonusCommand";
-import {handleClassicError} from "../../../../utils/ErrorUtils";
+import { PacketContext } from "../../../../../../Lib/src/packets/DraftBotPacket";
+import {
+	handleDailyBonusCooldownError, handleDailyBonusRes
+} from "../../../../commands/player/DailyBonusCommand";
+import { handleClassicError } from "../../../../utils/ErrorUtils";
 
 export default class DailyBonusCommandPacketHandlers {
 	@packetHandler(CommandDailyBonusPacketRes)

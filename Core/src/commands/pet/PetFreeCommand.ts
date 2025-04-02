@@ -1,27 +1,35 @@
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {Player} from "../../core/database/game/models/Player";
-import {PetEntities, PetEntity} from "../../core/database/game/models/PetEntity";
+import {
+	DraftBotPacket, makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { Player } from "../../core/database/game/models/Player";
+import {
+	PetEntities, PetEntity
+} from "../../core/database/game/models/PetEntity";
 import {
 	CommandPetFreeAcceptPacketRes,
 	CommandPetFreePacketReq,
 	CommandPetFreePacketRes,
 	CommandPetFreeRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandPetFreePacket";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
-import {PetFreeConstants} from "../../../../Lib/src/constants/PetFreeConstants";
-import {EndCallback, ReactionCollectorInstance} from "../../core/utils/ReactionsCollector";
-import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
-import {ReactionCollectorPetFree} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFree";
-import {LogsDatabase} from "../../core/database/logs/LogsDatabase";
-import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import Guild, {Guilds} from "../../core/database/game/models/Guild";
-import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants";
-import {getFoodIndexOf} from "../../core/utils/FoodUtils";
-import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
-import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
-import {SexTypeShort} from "../../../../Lib/src/constants/StringConstants";
+import { BlockingUtils } from "../../core/utils/BlockingUtils";
+import { PetFreeConstants } from "../../../../Lib/src/constants/PetFreeConstants";
+import {
+	EndCallback, ReactionCollectorInstance
+} from "../../core/utils/ReactionsCollector";
+import { ReactionCollectorAcceptReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
+import { ReactionCollectorPetFree } from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFree";
+import { LogsDatabase } from "../../core/database/logs/LogsDatabase";
+import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
+import Guild, { Guilds } from "../../core/database/game/models/Guild";
+import { GuildConstants } from "../../../../Lib/src/constants/GuildConstants";
+import { getFoodIndexOf } from "../../core/utils/FoodUtils";
+import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
+import { PetConstants } from "../../../../Lib/src/constants/PetConstants";
+import { SexTypeShort } from "../../../../Lib/src/constants/StringConstants";
 
 
 /**
@@ -60,7 +68,6 @@ function generateLuckyMeat(guild: Guild, pPet: PetEntity): boolean {
  * @param response
  */
 async function acceptPetFree(player: Player, playerPet: PetEntity, response: DraftBotPacket[]): Promise<void> {
-
 	await player.reload(); // Let's make sure the player has not lost money in the meantime
 	// Check money again just in case
 	const missingMoney = getMissingMoneyToFreePet(player, playerPet);
@@ -108,7 +115,6 @@ async function acceptPetFree(player: Player, playerPet: PetEntity, response: Dra
 }
 
 export default class PetFreeCommand {
-
 	@commandRequires(CommandPetFreePacketReq, {
 		notBlocked: true,
 		allowedEffects: CommandUtils.ALLOWED_EFFECTS.NO_EFFECT,

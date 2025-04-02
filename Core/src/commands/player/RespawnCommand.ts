@@ -1,21 +1,24 @@
-import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
-import {Player} from "../../core/database/game/models/Player";
-import {Effect} from "../../../../Lib/src/types/Effect";
-import {RespawnConstants} from "../../../../Lib/src/constants/RespawnConstants";
-import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import {Maps} from "../../core/maps/Maps";
-import {MapLinkDataController} from "../../data/MapLink";
-import {TravelTime} from "../../core/maps/TravelTime";
-import {PlayerSmallEvents} from "../../core/database/game/models/PlayerSmallEvent";
+import {
+	DraftBotPacket, makePacket
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { Player } from "../../core/database/game/models/Player";
+import { Effect } from "../../../../Lib/src/types/Effect";
+import { RespawnConstants } from "../../../../Lib/src/constants/RespawnConstants";
+import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
+import { Maps } from "../../core/maps/Maps";
+import { MapLinkDataController } from "../../data/MapLink";
+import { TravelTime } from "../../core/maps/TravelTime";
+import { PlayerSmallEvents } from "../../core/database/game/models/PlayerSmallEvent";
 import {
 	CommandRespawnErrorAlreadyAlive,
 	CommandRespawnPacketReq,
 	CommandRespawnPacketRes
 } from "../../../../Lib/src/packets/commands/CommandRespawnPacket";
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
 
 export default class RespawnCommand {
-
 	/**
 	 * Respawn the player
 	 * @param response
@@ -55,7 +58,7 @@ export default class RespawnCommand {
 		await Maps.startTravel(player, newlink, Date.now());
 
 		await PlayerSmallEvents.removeSmallEventsOfPlayer(player.id);
-		response.push(makePacket(CommandRespawnPacketRes, {lostScore}));
+		response.push(makePacket(CommandRespawnPacketRes, { lostScore }));
 	}
 }
 

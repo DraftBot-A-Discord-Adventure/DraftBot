@@ -34,9 +34,11 @@ const helpTestCommand: ExecuteTestCommandLike = (_player, args): string => {
 ${helpOnCommand.description}
 **Utilisation :** \`test ${helpOnCommand.name}${helpOnCommand.commandFormat === "" ? "" : ` ${helpOnCommand.commandFormat}`}\`
 ${hasArguments ? `**Argument${argsAmount === 1 ? "" : "s"} attendu${argsAmount === 1 ? "" : "s"} :**` : ""}
-${hasArguments ? Object.keys(helpOnCommand.typeWaited)
-		.map((arg) => `- \`<${arg}>\` : ${formatTypeWaited(helpOnCommand.typeWaited[arg])}`)
-		.join("\n") : ""}
+${hasArguments
+	? Object.keys(helpOnCommand.typeWaited)
+		.map(arg => `- \`<${arg}>\` : ${formatTypeWaited(helpOnCommand.typeWaited[arg])}`)
+		.join("\n")
+	: ""}
 ${hasAliases ? `**Alias :** \`${helpOnCommand.aliases.join("`, `")}\`` : ""}`;
 };
 

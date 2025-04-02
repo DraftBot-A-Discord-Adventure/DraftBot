@@ -1,8 +1,8 @@
-import {DataControllerNumber} from "./DataController";
-import {RandomUtils} from "../../../Lib/src/utils/RandomUtils";
-import {MapLocationDataController} from "./MapLocation";
-import {Data} from "./Data";
-import {MapConstants} from "../../../Lib/src/constants/MapConstants";
+import { DataControllerNumber } from "./DataController";
+import { RandomUtils } from "../../../Lib/src/utils/RandomUtils";
+import { MapLocationDataController } from "./MapLocation";
+import { Data } from "./Data";
+import { MapConstants } from "../../../Lib/src/constants/MapConstants";
 
 export class MapLink extends Data<number> {
 	public readonly startMap: number;
@@ -38,7 +38,7 @@ export class MapLinkDataController extends DataControllerNumber<MapLink> {
 	 */
 	public getRandomLinkOnMainContinent(): MapLink {
 		const mapLinks = this.getValuesArray()
-			.filter((mapLink) => {
+			.filter(mapLink => {
 				const startMap = MapLocationDataController.instance.getById(mapLink.startMap);
 				const endMap = MapLocationDataController.instance.getById(mapLink.endMap);
 				return startMap.attribute === MapConstants.MAP_ATTRIBUTES.CONTINENT1 && endMap.attribute === MapConstants.MAP_ATTRIBUTES.CONTINENT1;
@@ -53,7 +53,7 @@ export class MapLinkDataController extends DataControllerNumber<MapLink> {
 	 */
 	public getLinkByLocations(idStartPoint: number, idEndPoint: number): MapLink {
 		return this.getValuesArray()
-			.find((mapLink) => mapLink.startMap === idStartPoint && mapLink.endMap === idEndPoint);
+			.find(mapLink => mapLink.startMap === idStartPoint && mapLink.endMap === idEndPoint);
 	}
 
 	/**
@@ -62,7 +62,7 @@ export class MapLinkDataController extends DataControllerNumber<MapLink> {
 	 */
 	public getLinksByMapStart(idStartPoint: number): MapLink[] {
 		return this.getValuesArray()
-			.filter((mapLink) => mapLink.startMap === idStartPoint);
+			.filter(mapLink => mapLink.startMap === idStartPoint);
 	}
 
 	/**
@@ -72,7 +72,7 @@ export class MapLinkDataController extends DataControllerNumber<MapLink> {
 	public getInverseLinkOf(idMapLink: number): MapLink {
 		const currMapLink = this.data.get(idMapLink);
 		return this.getValuesArray()
-			.find((mapLink) => mapLink.startMap === currMapLink.endMap && mapLink.endMap === currMapLink.startMap);
+			.find(mapLink => mapLink.startMap === currMapLink.endMap && mapLink.endMap === currMapLink.startMap);
 	}
 
 	/**
@@ -85,9 +85,9 @@ export class MapLinkDataController extends DataControllerNumber<MapLink> {
 		const blackListId = blacklistMapId ?? -1;
 		return this.getValuesArray()
 			.filter(
-				(mapLink) => mapLink.startMap === startMapId &&
-					mapLink.endMap !== blackListId &&
-					mapTypes.includes(MapLocationDataController.instance.getById(mapLink.endMap).type)
+				mapLink => mapLink.startMap === startMapId
+					&& mapLink.endMap !== blackListId
+					&& mapTypes.includes(MapLocationDataController.instance.getById(mapLink.endMap).type)
 			);
 	}
 
@@ -99,7 +99,7 @@ export class MapLinkDataController extends DataControllerNumber<MapLink> {
 	public getFromAttributeToAttribute(attributeFrom: string, attributeTo: string): MapLink[] {
 		return this.getValuesArray()
 			.filter(
-				(mapLink) => {
+				mapLink => {
 					const startMap = MapLocationDataController.instance.getById(mapLink.startMap);
 					const endMap = MapLocationDataController.instance.getById(mapLink.endMap);
 					return startMap.attribute === attributeFrom && endMap.attribute === attributeTo;

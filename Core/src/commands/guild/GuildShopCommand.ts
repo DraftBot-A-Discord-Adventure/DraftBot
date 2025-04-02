@@ -1,25 +1,37 @@
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import {
+	DraftBotPacket, makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
 import {
 	CommandGuildShopEmpty,
 	CommandGuildShopGiveXp,
 	CommandGuildShopNoFoodStorageSpace,
 	CommandGuildShopPacketReq
 } from "../../../../Lib/src/packets/commands/CommandGuildShopPacket";
-import {Player, Players} from "../../core/database/game/models/Player";
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
-import {ShopCategory, ShopItem} from "../../../../Lib/src/packets/interaction/ReactionCollectorShop";
-import {GuildShopConstants} from "../../../../Lib/src/constants/GuildShopConstants";
-import {Guilds} from "../../core/database/game/models/Guild";
-import {GuildUtils} from "../../core/utils/GuildUtils";
-import {NumberChangeReason, ShopItemType} from "../../../../Lib/src/constants/LogsConstants";
-import {draftBotInstance} from "../../index";
-import {getFoodIndexOf, giveFoodToGuild} from "../../core/utils/FoodUtils";
-import {MissionsController} from "../../core/missions/MissionsController";
-import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants";
-import {ShopUtils} from "../../core/utils/ShopUtils";
-import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
-import {shopItemTypeFromId} from "../../../../Lib/src/utils/ShopUtils";
-import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
+import {
+	Player, Players
+} from "../../core/database/game/models/Player";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
+import {
+	ShopCategory, ShopItem
+} from "../../../../Lib/src/packets/interaction/ReactionCollectorShop";
+import { GuildShopConstants } from "../../../../Lib/src/constants/GuildShopConstants";
+import { Guilds } from "../../core/database/game/models/Guild";
+import { GuildUtils } from "../../core/utils/GuildUtils";
+import {
+	NumberChangeReason, ShopItemType
+} from "../../../../Lib/src/constants/LogsConstants";
+import { draftBotInstance } from "../../index";
+import {
+	getFoodIndexOf, giveFoodToGuild
+} from "../../core/utils/FoodUtils";
+import { MissionsController } from "../../core/missions/MissionsController";
+import { GuildConstants } from "../../../../Lib/src/constants/GuildConstants";
+import { ShopUtils } from "../../core/utils/ShopUtils";
+import { PetConstants } from "../../../../Lib/src/constants/PetConstants";
+import { shopItemTypeFromId } from "../../../../Lib/src/utils/ShopUtils";
+import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
 
 async function giveGuildXp(response: DraftBotPacket[], playerId: number, price: number): Promise<boolean> {
 	const player = await Players.getById(playerId);
@@ -29,7 +41,7 @@ async function giveGuildXp(response: DraftBotPacket[], playerId: number, price: 
 	await guild.addExperience(xpToAdd, response, NumberChangeReason.SHOP);
 	await guild.save();
 
-	response.push(makePacket(CommandGuildShopGiveXp, {xp: xpToAdd}));
+	response.push(makePacket(CommandGuildShopGiveXp, { xp: xpToAdd }));
 
 	return true;
 }
@@ -123,22 +135,38 @@ export default class GuildShopCommand {
 		const foodItems: ShopItem[] = [];
 
 		if (commonFoodRemainingSlots > 0) {
-			const amounts: number[] = [1, Math.min(5, commonFoodRemainingSlots), Math.min(10, commonFoodRemainingSlots)];
+			const amounts: number[] = [
+				1,
+				Math.min(5, commonFoodRemainingSlots),
+				Math.min(10, commonFoodRemainingSlots)
+			];
 			foodItems.push(getFoodShopItem(PetConstants.PET_FOOD.COMMON_FOOD, [...new Set(amounts)])); // Remove duplicates
 		}
 
 		if (herbivorousFoodRemainingSlots > 0) {
-			const amounts: number[] = [1, Math.min(5, herbivorousFoodRemainingSlots), Math.min(10, herbivorousFoodRemainingSlots)];
+			const amounts: number[] = [
+				1,
+				Math.min(5, herbivorousFoodRemainingSlots),
+				Math.min(10, herbivorousFoodRemainingSlots)
+			];
 			foodItems.push(getFoodShopItem(PetConstants.PET_FOOD.HERBIVOROUS_FOOD, [...new Set(amounts)])); // Remove duplicates
 		}
 
 		if (carnivorousFoodRemainingSlots > 0) {
-			const amounts: number[] = [1, Math.min(5, carnivorousFoodRemainingSlots), Math.min(10, carnivorousFoodRemainingSlots)];
+			const amounts: number[] = [
+				1,
+				Math.min(5, carnivorousFoodRemainingSlots),
+				Math.min(10, carnivorousFoodRemainingSlots)
+			];
 			foodItems.push(getFoodShopItem(PetConstants.PET_FOOD.CARNIVOROUS_FOOD, [...new Set(amounts)])); // Remove duplicates
 		}
 
 		if (ultimateFoodRemainingSlots > 0) {
-			const amounts: number[] = [1, Math.min(5, ultimateFoodRemainingSlots), Math.min(10, ultimateFoodRemainingSlots)];
+			const amounts: number[] = [
+				1,
+				Math.min(5, ultimateFoodRemainingSlots),
+				Math.min(10, ultimateFoodRemainingSlots)
+			];
 			foodItems.push(getFoodShopItem(PetConstants.PET_FOOD.ULTIMATE_FOOD, [...new Set(amounts)])); // Remove duplicates
 		}
 

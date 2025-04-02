@@ -1,28 +1,31 @@
 import Player from "../database/game/models/Player";
-import {TravelTime} from "./TravelTime";
-import {MapConstants} from "../../../../Lib/src/constants/MapConstants";
-import {MapCache} from "./MapCache";
-import {Op} from "sequelize";
-import {LogsReadRequests} from "../database/logs/LogsReadRequests";
-import {MapLink, MapLinkDataController} from "../../data/MapLink";
-import {MapLocation, MapLocationDataController} from "../../data/MapLocation";
-import {draftBotInstance} from "../../index";
-import {DraftBotPacket} from "../../../../Lib/src/packets/DraftBotPacket";
-import {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
-import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import {Settings} from "../database/game/models/Setting";
-import {PVEConstants} from "../../../../Lib/src/constants/PVEConstants";
-import {MissionsController} from "../missions/MissionsController";
-import {minutesToMilliseconds} from "../../../../Lib/src/utils/TimeUtils";
+import { TravelTime } from "./TravelTime";
+import { MapConstants } from "../../../../Lib/src/constants/MapConstants";
+import { MapCache } from "./MapCache";
+import { Op } from "sequelize";
+import { LogsReadRequests } from "../database/logs/LogsReadRequests";
+import {
+	MapLink, MapLinkDataController
+} from "../../data/MapLink";
+import {
+	MapLocation, MapLocationDataController
+} from "../../data/MapLocation";
+import { draftBotInstance } from "../../index";
+import { DraftBotPacket } from "../../../../Lib/src/packets/DraftBotPacket";
+import { PlayerMissionsInfos } from "../database/game/models/PlayerMissionsInfo";
+import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
+import { Settings } from "../database/game/models/Setting";
+import { PVEConstants } from "../../../../Lib/src/constants/PVEConstants";
+import { MissionsController } from "../missions/MissionsController";
+import { minutesToMilliseconds } from "../../../../Lib/src/utils/TimeUtils";
 
 export type OptionsStartBoatTravel = {
-	startTravelTimestamp: number,
-	anotherMemberOnBoat: Player | null,
-	price: number
-}
+	startTravelTimestamp: number;
+	anotherMemberOnBoat: Player | null;
+	price: number;
+};
 
 export class Maps {
-
 	/**
 	 * Returns the map ids a player can go to. It excludes the map the player is coming from if at least one map is available
 	 * @param player
@@ -146,7 +149,8 @@ export class Maps {
 		}
 
 		const membersThatWere = await LogsReadRequests.getGuildMembersThatWereOnPveIsland(player);
-		const membersThatWereKeycloakIds = membersThatWere.map((player) => player.keycloakId);
+		const membersThatWereKeycloakIds = membersThatWere.map(player => player.keycloakId);
+
 		// Filter keycloak ids that are already in the first array, because even if the players are the same the model instances are different
 		const membersThatAre = (await Player.findAll({
 			where: {
@@ -158,7 +162,7 @@ export class Maps {
 					[Op.not]: player.id
 				}
 			}
-		})).filter((player) => !membersThatWereKeycloakIds.includes(player.keycloakId));
+		})).filter(player => !membersThatWereKeycloakIds.includes(player.keycloakId));
 		return [...membersThatWere, ...membersThatAre];
 	}
 

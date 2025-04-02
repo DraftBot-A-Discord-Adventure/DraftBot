@@ -1,11 +1,13 @@
 import { ClassBehavior } from "../AiBehaviorController";
 import { AiPlayerFighter } from "../fighter/AiPlayerFighter";
 import { FightView } from "../FightView";
-import { FightAction, FightActionDataController } from "../../../data/FightAction";
+import {
+	FightAction, FightActionDataController
+} from "../../../data/FightAction";
 import { FightConstants } from "../../../../../Lib/src/constants/FightConstants";
 import { RandomUtils } from "../../../../../Lib/src/utils/RandomUtils";
-import {getUsedGodMoves} from "../FightController";
-import {simpleOrQuickAttack} from "./EsquireFightBehavior";
+import { getUsedGodMoves } from "../FightController";
+import { simpleOrQuickAttack } from "./EsquireFightBehavior";
 
 class KnightFightBehavior implements ClassBehavior {
 	private blessRoundChosen: number | null = null;
@@ -22,8 +24,10 @@ class KnightFightBehavior implements ClassBehavior {
 			this.restCount = 0; // Reset rest counter at the beginning of a fight
 		}
 
-		// ENDGAME STRATEGY: Try to force a draw if victory seems impossible
-		// Still rest even if we've done it 4 times, because the goal is to stall
+		/*
+		 * ENDGAME STRATEGY: Try to force a draw if victory seems impossible
+		 * Still rest even if we've done it 4 times, because the goal is to stall
+		 */
 		if (me.getEnergy() < 150 && opponent.getEnergy() > 500) {
 			this.restCount++;
 			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.RESTING);
@@ -38,6 +42,7 @@ class KnightFightBehavior implements ClassBehavior {
 					this.restCount++;
 					return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.RESTING);
 				}
+
 				// Otherwise, delay benediction but don't rest
 				this.blessRoundChosen += 1;
 			}

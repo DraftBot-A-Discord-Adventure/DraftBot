@@ -1,4 +1,4 @@
-import {packetHandler} from "../../../PacketHandler";
+import { packetHandler } from "../../../PacketHandler";
 import {
 	CommandPetSellNoPetErrorPacket,
 	CommandPetSellNotInGuildErrorPacket,
@@ -13,9 +13,9 @@ import {
 	CommandPetSellInitiatorSituationChangedErrorPacket,
 	CommandPetSellSuccessPacket, CommandPetSellNoOneAvailableErrorPacket
 } from "../../../../../../Lib/src/packets/commands/CommandPetSellPacket";
-import {PacketContext} from "../../../../../../Lib/src/packets/DraftBotPacket";
-import {handleClassicError} from "../../../../utils/ErrorUtils";
-import {handlePetSellSuccess} from "../../../../commands/pet/PetSellCommand";
+import { PacketContext } from "../../../../../../Lib/src/packets/DraftBotPacket";
+import { handleClassicError } from "../../../../utils/ErrorUtils";
+import { handlePetSellSuccess } from "../../../../commands/pet/PetSellCommand";
 
 export default class PetSellCommandPacketHandlers {
 	@packetHandler(CommandPetSellNoPetErrorPacket)

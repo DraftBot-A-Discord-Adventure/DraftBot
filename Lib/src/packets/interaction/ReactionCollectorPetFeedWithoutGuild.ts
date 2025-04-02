@@ -4,8 +4,8 @@ import {
 	ReactionCollectorData,
 	ReactionCollectorRefuseReaction
 } from "./ReactionCollectorPacket";
-import {OwnedPet} from "../../types/OwnedPet";
-import {PetFood} from "../../types/PetFood";
+import { OwnedPet } from "../../types/OwnedPet";
+import { PetFood } from "../../types/PetFood";
 
 export class ReactionCollectorPetFeedWithoutGuildData extends ReactionCollectorData {
 	pet!: OwnedPet;

@@ -1,6 +1,8 @@
 import Guild from "../../../../core/database/game/models/Guild";
-import {ExecuteTestCommandLike, ITestCommand} from "../../../../core/CommandsTest";
-import {draftBotInstance} from "../../../../index";
+import {
+	ExecuteTestCommandLike, ITestCommand
+} from "../../../../core/CommandsTest";
+import { draftBotInstance } from "../../../../index";
 
 export const commandInfo: ITestCommand = {
 	name: "forceguildowner",
@@ -11,8 +13,8 @@ export const commandInfo: ITestCommand = {
 /**
  * Force you to be the guild's chief
  */
-const forceGuildOwnerTestCommand: ExecuteTestCommandLike = async (player) => {
-	const guild = await Guild.findOne({where: {id: player.guildId}});
+const forceGuildOwnerTestCommand: ExecuteTestCommandLike = async player => {
+	const guild = await Guild.findOne({ where: { id: player.guildId } });
 	if (!guild) {
 		throw new Error("Erreur forceguildowner : vous n'êtes pas dans une guilde !");
 	}

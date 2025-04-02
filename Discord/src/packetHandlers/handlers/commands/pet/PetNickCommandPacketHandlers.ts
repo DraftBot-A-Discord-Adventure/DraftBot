@@ -1,7 +1,7 @@
-import {packetHandler} from "../../../PacketHandler";
-import {CommandPetNickPacketRes} from "../../../../../../Lib/src/packets/commands/CommandPetNickPacket";
-import {PacketContext} from "../../../../../../Lib/src/packets/DraftBotPacket";
-import {handleCommandPetNickPacketRes} from "../../../../commands/pet/PetNickCommand";
+import { packetHandler } from "../../../PacketHandler";
+import { CommandPetNickPacketRes } from "../../../../../../Lib/src/packets/commands/CommandPetNickPacket";
+import { PacketContext } from "../../../../../../Lib/src/packets/DraftBotPacket";
+import { handleCommandPetNickPacketRes } from "../../../../commands/pet/PetNickCommand";
 
 export default class PetNickCommandPacketHandlers {
 	@packetHandler(CommandPetNickPacketRes)

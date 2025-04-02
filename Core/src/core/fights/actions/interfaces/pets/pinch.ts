@@ -1,8 +1,12 @@
-import {Fighter} from "../../../fighter/Fighter";
-import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
-import {PetAssistanceFunc} from "../../../../../data/PetAssistance";
-import {PetAssistanceResult, PetAssistanceState} from "../../../../../../../Lib/src/types/PetAssistanceResult";
-import {RandomUtils} from "../../../../../../../Lib/src/utils/RandomUtils";
+import { Fighter } from "../../../fighter/Fighter";
+import {
+	attackInfo, FightActionController, statsInfo
+} from "../../FightActionController";
+import { PetAssistanceFunc } from "../../../../../data/PetAssistance";
+import {
+	PetAssistanceResult, PetAssistanceState
+} from "../../../../../../../Lib/src/types/PetAssistanceResult";
+import { RandomUtils } from "../../../../../../../Lib/src/utils/RandomUtils";
 
 function getAttackInfo(): attackInfo {
 	return {

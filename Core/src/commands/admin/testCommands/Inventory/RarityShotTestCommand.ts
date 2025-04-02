@@ -1,5 +1,7 @@
-import {generateRandomRarity} from "../../../../core/utils/ItemUtils";
-import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
+import { generateRandomRarity } from "../../../../core/utils/ItemUtils";
+import {
+	ExecuteTestCommandLike, ITestCommand, TypeKey
+} from "../../../../core/CommandsTest";
 
 export const commandInfo: ITestCommand = {
 	name: "rarityshot",
@@ -50,7 +52,16 @@ const rarityShotTestCommand: ExecuteTestCommandLike = (_player, args) => {
 	const min = parseInt(args[1], 10);
 	const max = parseInt(args[2], 10);
 	checkShotValues(nbShots, min, max);
-	const tab = [0, 0, 0, 0, 0, 0, 0, 0];
+	const tab = [
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0
+	];
 	for (let i = 0; i < nbShots; i++) {
 		tab[generateRandomRarity(min, max) - 1]++;
 	}

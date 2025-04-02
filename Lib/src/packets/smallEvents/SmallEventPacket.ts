@@ -1,4 +1,6 @@
-import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
+import {
+	DraftBotPacket, PacketDirection, sendablePacket
+} from "../DraftBotPacket";
 
 @sendablePacket(PacketDirection.NONE)
 export class SmallEventPacket extends DraftBotPacket {}

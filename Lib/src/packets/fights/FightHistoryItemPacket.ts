@@ -1,5 +1,7 @@
-import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
-import {OwnedPet} from "../../types/OwnedPet";
+import {
+	DraftBotPacket, PacketDirection, sendablePacket
+} from "../DraftBotPacket";
+import { OwnedPet } from "../../types/OwnedPet";
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandFightHistoryItemPacket extends DraftBotPacket {
@@ -26,7 +28,7 @@ export class CommandFightHistoryItemPacket extends DraftBotPacket {
 		breath?: number; // This one is not in %
 	};
 
-	fightActionEffectReceived?: {// Stat change for the fighter in % (10 = 10%) can be negative
+	fightActionEffectReceived?: { // Stat change for the fighter in % (10 = 10%) can be negative
 		newAlteration?: string;
 		damages?: number;
 		defense?: number;

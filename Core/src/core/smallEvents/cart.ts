@@ -1,26 +1,30 @@
-import {SmallEventFuncs} from "../../data/SmallEvent";
-import {Maps} from "../maps/Maps";
-import {MapLink, MapLinkDataController} from "../../data/MapLink";
-import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
-import {SmallEventConstants} from "../../../../Lib/src/constants/SmallEventConstants";
-import {MapLocationDataController} from "../../data/MapLocation";
-import {EndCallback, ReactionCollectorInstance} from "../utils/ReactionsCollector";
-import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
-import {ReactionCollectorCart} from "../../../../Lib/src/packets/interaction/ReactionCollectorCart";
+import { SmallEventFuncs } from "../../data/SmallEvent";
+import { Maps } from "../maps/Maps";
+import {
+	MapLink, MapLinkDataController
+} from "../../data/MapLink";
+import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
+import { SmallEventConstants } from "../../../../Lib/src/constants/SmallEventConstants";
+import { MapLocationDataController } from "../../data/MapLocation";
+import {
+	EndCallback, ReactionCollectorInstance
+} from "../utils/ReactionsCollector";
+import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
+import { ReactionCollectorCart } from "../../../../Lib/src/packets/interaction/ReactionCollectorCart";
 import Player from "../database/game/models/Player";
-import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
-import {SmallEventCartPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventCartPacket";
-import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import {BlockingUtils} from "../utils/BlockingUtils";
+import { ReactionCollectorAcceptReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { makePacket } from "../../../../Lib/src/packets/DraftBotPacket";
+import { SmallEventCartPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventCartPacket";
+import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
+import { BlockingUtils } from "../utils/BlockingUtils";
 
 type CartResult = {
-	destination: MapLink,
-	scamDestination?: MapLink,
-	isScam: boolean,
-	isDisplayed: boolean,
-	price: number
-}
+	destination: MapLink;
+	scamDestination?: MapLink;
+	isScam: boolean;
+	isDisplayed: boolean;
+	price: number;
+};
 
 function getEndCallback(player: Player, destination: CartResult): EndCallback {
 	return async (collector, response) => {
@@ -37,7 +41,9 @@ function getEndCallback(player: Player, destination: CartResult): EndCallback {
 		if (reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name) {
 			if (packet.travelDone.hasEnoughMoney) {
 				player.mapLinkId = destination.isScam ? destination.scamDestination.id : destination.destination.id;
-				await player.spendMoney({amount: destination.price, response, reason: NumberChangeReason.SMALL_EVENT});
+				await player.spendMoney({
+					amount: destination.price, response, reason: NumberChangeReason.SMALL_EVENT
+				});
 			}
 			response.push(makePacket(SmallEventCartPacket, packet));
 		}

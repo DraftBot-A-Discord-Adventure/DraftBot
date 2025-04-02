@@ -1,9 +1,11 @@
-import {Fighter} from "../../../fighter/Fighter";
-import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
-import {FightActionFunc} from "../../../../../data/FightAction";
-import {FightStatBuffed} from "../../../../../../../Lib/src/types/FightActionResult";
-import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
-import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTemplate";
+import { Fighter } from "../../../fighter/Fighter";
+import {
+	attackInfo, FightActionController, statsInfo
+} from "../../FightActionController";
+import { FightActionFunc } from "../../../../../data/FightAction";
+import { FightStatBuffed } from "../../../../../../../Lib/src/types/FightActionResult";
+import { FightStatModifierOperation } from "../../../../../../../Lib/src/types/FightStatModifierOperation";
+import { simpleDamageFightAction } from "../../templates/SimpleDamageFightActionTemplate";
 
 const use: FightActionFunc = (sender, receiver, fightAction) => {
 	const result = simpleDamageFightAction(
@@ -20,6 +22,7 @@ const use: FightActionFunc = (sender, receiver, fightAction) => {
 			statsInfo: getStatsInfo(sender, receiver)
 		}
 	);
+
 	// 45% chance to lower the target's defense by 10%
 	if (Math.random() < 0.45) {
 		FightActionController.applyBuff(result, {

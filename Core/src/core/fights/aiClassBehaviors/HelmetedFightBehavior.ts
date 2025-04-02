@@ -1,12 +1,14 @@
-import {ClassBehavior} from "../AiBehaviorController";
-import {AiPlayerFighter} from "../fighter/AiPlayerFighter";
-import {FightView} from "../FightView";
-import {FightAction, FightActionDataController} from "../../../data/FightAction";
-import {FightConstants} from "../../../../../Lib/src/constants/FightConstants";
-import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
-import {PlayerFighter} from "../fighter/PlayerFighter";
-import {ClassConstants} from "../../../../../Lib/src/constants/ClassConstants";
-import {intenseOrSimpleAttack} from "./GlovedFightBehavior";
+import { ClassBehavior } from "../AiBehaviorController";
+import { AiPlayerFighter } from "../fighter/AiPlayerFighter";
+import { FightView } from "../FightView";
+import {
+	FightAction, FightActionDataController
+} from "../../../data/FightAction";
+import { FightConstants } from "../../../../../Lib/src/constants/FightConstants";
+import { RandomUtils } from "../../../../../Lib/src/utils/RandomUtils";
+import { PlayerFighter } from "../fighter/PlayerFighter";
+import { ClassConstants } from "../../../../../Lib/src/constants/ClassConstants";
+import { intenseOrSimpleAttack } from "./GlovedFightBehavior";
 
 /**
  * Determines whether the AI should use an intense or simple attack.
@@ -26,7 +28,6 @@ export function shouldUseShieldAttack(opponent: AiPlayerFighter | PlayerFighter,
 }
 
 class TankFightBehavior implements ClassBehavior {
-
 	chooseAction(me: AiPlayerFighter, fightView: FightView): FightAction {
 		const opponent = fightView.fightController.getDefendingFighter() as AiPlayerFighter | PlayerFighter;
 		const turn = fightView.fightController.turn;

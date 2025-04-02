@@ -1,13 +1,13 @@
 export interface GuildMember {
 	id: number;
 	keycloakId: string;
-	rank: number,
-	score: number
+	rank: number;
+	score: number;
 	islandStatus: {
-		isOnPveIsland: boolean,
-		isOnBoat: boolean,
-		isPveIslandAlly: boolean,
-		isInactive: boolean
-		cannotBeJoinedOnBoat: boolean
-	}
+		isOnPveIsland: boolean;
+		isOnBoat: boolean;
+		isPveIslandAlly: boolean;
+		isInactive: boolean;
+		cannotBeJoinedOnBoat: boolean;
+	};
 }

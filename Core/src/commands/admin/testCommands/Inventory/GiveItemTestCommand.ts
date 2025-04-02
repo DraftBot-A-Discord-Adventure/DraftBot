@@ -1,5 +1,7 @@
-import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
-import {getItemByIdAndCategory} from "../../../../core/utils/ItemUtils";
+import {
+	ExecuteTestCommandLike, ITestCommand, TypeKey
+} from "../../../../core/CommandsTest";
+import { getItemByIdAndCategory } from "../../../../core/utils/ItemUtils";
 
 export const commandInfo: ITestCommand = {
 	name: "giveitem",

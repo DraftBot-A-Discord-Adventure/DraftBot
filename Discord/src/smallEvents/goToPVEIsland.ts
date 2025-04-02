@@ -1,13 +1,13 @@
-import {ReactionCollectorCreationPacket} from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
-import {DiscordCache} from "../bot/DiscordCache";
+import { ReactionCollectorCreationPacket } from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { PacketContext } from "../../../Lib/src/packets/DraftBotPacket";
+import { DiscordCache } from "../bot/DiscordCache";
 import { ReactionCollectorGoToPVEIslandData } from "../../../Lib/src/packets/interaction/ReactionCollectorGoToPVEIsland";
 import i18n from "../translations/i18n";
-import {DraftbotSmallEventEmbed} from "../messages/DraftbotSmallEventEmbed";
-import {getRandomSmallEventIntro} from "../packetHandlers/handlers/SmallEventsHandler";
-import {StringUtils} from "../utils/StringUtils";
-import {DiscordCollectorUtils} from "../utils/DiscordCollectorUtils";
-import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import { DraftbotSmallEventEmbed } from "../messages/DraftbotSmallEventEmbed";
+import { getRandomSmallEventIntro } from "../packetHandlers/handlers/SmallEventsHandler";
+import { StringUtils } from "../utils/StringUtils";
+import { DiscordCollectorUtils } from "../utils/DiscordCollectorUtils";
+import { ReactionCollectorReturnType } from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
 export async function goToPVEIslandCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
@@ -23,7 +23,9 @@ export async function goToPVEIslandCollector(context: PacketContext, packet: Rea
 			{
 				priceText: data.price === 0
 					? i18n.t("smallEvents:goToPVEIsland.priceFree", { lng })
-					: i18n.t("smallEvents:goToPVEIsland.priceMoney", { lng, price: data.price })
+					: i18n.t("smallEvents:goToPVEIsland.priceMoney", {
+						lng, price: data.price
+					})
 			}
 		)
 		+ "\n\n"

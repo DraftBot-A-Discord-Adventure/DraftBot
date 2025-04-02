@@ -1,8 +1,10 @@
-import {MissionsController} from "../../../../core/missions/MissionsController";
-import {MissionDifficulty} from "../../../../core/missions/MissionDifficulty";
-import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
-import {MissionSlots} from "../../../../core/database/game/models/MissionSlot";
-import {MissionDataController} from "../../../../data/Mission";
+import { MissionsController } from "../../../../core/missions/MissionsController";
+import { MissionDifficulty } from "../../../../core/missions/MissionDifficulty";
+import {
+	ExecuteTestCommandLike, ITestCommand, TypeKey
+} from "../../../../core/CommandsTest";
+import { MissionSlots } from "../../../../core/database/game/models/MissionSlot";
+import { MissionDataController } from "../../../../data/Mission";
 
 export const commandInfo: ITestCommand = {
 	name: "giveRandomMission",

@@ -1,8 +1,16 @@
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {Player, Players} from "../../core/database/game/models/Player";
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
-import {CommandShopClosed, ShopCategory, ShopItem} from "../../../../Lib/src/packets/interaction/ReactionCollectorShop";
-import {ShopUtils} from "../../core/utils/ShopUtils";
+import {
+	DraftBotPacket, makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import {
+	Player, Players
+} from "../../core/database/game/models/Player";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
+import {
+	CommandShopClosed, ShopCategory, ShopItem
+} from "../../../../Lib/src/packets/interaction/ReactionCollectorShop";
+import { ShopUtils } from "../../core/utils/ShopUtils";
 import {
 	CommandMissionShopAlreadyBoughtPointsThisWeek,
 	CommandMissionShopAlreadyHadBadge,
@@ -15,31 +23,37 @@ import {
 	CommandMissionShopPetInformation,
 	CommandMissionShopSkipMissionResult
 } from "../../../../Lib/src/packets/commands/CommandMissionShopPacket";
-import {ShopCurrency} from "../../../../Lib/src/constants/ShopConstants";
-import {Constants} from "../../../../Lib/src/constants/Constants";
-import {getDayNumber} from "../../../../Lib/src/utils/TimeUtils";
-import {NumberChangeReason, ShopItemType} from "../../../../Lib/src/constants/LogsConstants";
-import {MissionsController} from "../../core/missions/MissionsController";
-import {draftBotInstance} from "../../index";
-import {generateRandomItem, giveItemToPlayer} from "../../core/utils/ItemUtils";
-import {ItemConstants} from "../../../../Lib/src/constants/ItemConstants";
-import {InventorySlots} from "../../core/database/game/models/InventorySlot";
-import {PlayerMissionsInfos} from "../../core/database/game/models/PlayerMissionsInfo";
-import {PetEntities} from "../../core/database/game/models/PetEntity";
-import {PetDataController} from "../../data/Pet";
-import {MissionSlot, MissionSlots} from "../../core/database/game/models/MissionSlot";
-import {ReactionCollectorInstance} from "../../core/utils/ReactionsCollector";
-import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import { ShopCurrency } from "../../../../Lib/src/constants/ShopConstants";
+import { Constants } from "../../../../Lib/src/constants/Constants";
+import { getDayNumber } from "../../../../Lib/src/utils/TimeUtils";
+import {
+	NumberChangeReason, ShopItemType
+} from "../../../../Lib/src/constants/LogsConstants";
+import { MissionsController } from "../../core/missions/MissionsController";
+import { draftBotInstance } from "../../index";
+import {
+	generateRandomItem, giveItemToPlayer
+} from "../../core/utils/ItemUtils";
+import { ItemConstants } from "../../../../Lib/src/constants/ItemConstants";
+import { InventorySlots } from "../../core/database/game/models/InventorySlot";
+import { PlayerMissionsInfos } from "../../core/database/game/models/PlayerMissionsInfo";
+import { PetEntities } from "../../core/database/game/models/PetEntity";
+import { PetDataController } from "../../data/Pet";
+import {
+	MissionSlot, MissionSlots
+} from "../../core/database/game/models/MissionSlot";
+import { ReactionCollectorInstance } from "../../core/utils/ReactionsCollector";
+import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
+import { BlockingUtils } from "../../core/utils/BlockingUtils";
 import {
 	ReactionCollectorSkipMissionShopItem,
 	ReactionCollectorSkipMissionShopItemCloseReaction,
 	ReactionCollectorSkipMissionShopItemReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorSkipMissionShopItem";
-import {BadgeConstants} from "../../../../Lib/src/constants/BadgeConstants";
-import {PetDiet} from "../../../../Lib/src/constants/PetConstants";
-import {SexTypeShort} from "../../../../Lib/src/constants/StringConstants";
-import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
+import { BadgeConstants } from "../../../../Lib/src/constants/BadgeConstants";
+import { PetDiet } from "../../../../Lib/src/constants/PetConstants";
+import { SexTypeShort } from "../../../../Lib/src/constants/StringConstants";
+import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
 
 /**
  * Calculate the amount of money the player will have if he buys some with gems
@@ -52,10 +66,10 @@ function calculateGemsToMoneyRatio(): number {
 	const frac = function(x: number): number {
 		return x >= 0 ? x % 1 : 1 + x % 1;
 	};
-	return Constants.MISSION_SHOP.BASE_RATIO +
-		Math.round(Constants.MISSION_SHOP.RANGE_MISSION_MONEY * 2 *
-			frac(100 * Math.sin(Constants.MISSION_SHOP.SIN_RANDOMIZER * (getDayNumber() % Constants.MISSION_SHOP.SEED_RANGE) + 1)) -
-			Constants.MISSION_SHOP.RANGE_MISSION_MONEY);
+	return Constants.MISSION_SHOP.BASE_RATIO
+		+ Math.round(Constants.MISSION_SHOP.RANGE_MISSION_MONEY * 2
+			* frac(100 * Math.sin(Constants.MISSION_SHOP.SIN_RANDOMIZER * (getDayNumber() % Constants.MISSION_SHOP.SEED_RANGE) + 1))
+			- Constants.MISSION_SHOP.RANGE_MISSION_MONEY);
 }
 
 
@@ -74,7 +88,7 @@ function getMoneyShopItem(): ShopItem {
 			});
 			await player.save();
 			if (amount < Constants.MISSION_SHOP.KINGS_MONEY_VALUE_THRESHOLD_MISSION) {
-				await MissionsController.update(player, response, {missionId: "kingsMoneyValue"});
+				await MissionsController.update(player, response, { missionId: "kingsMoneyValue" });
 			}
 			response.push(makePacket(CommandMissionShopMoney, {
 				amount
@@ -150,8 +164,7 @@ function getValueLovePointsPetShopItem(): ShopItem {
 	};
 }
 
-function getEndCallbackSkipMissionShopItem(player: Player, missionList: MissionSlot[])
-	: (collector: ReactionCollectorInstance, response: DraftBotPacket[]) => Promise<void> {
+function getEndCallbackSkipMissionShopItem(player: Player, missionList: MissionSlot[]): (collector: ReactionCollectorInstance, response: DraftBotPacket[]) => Promise<void> {
 	return async (collector: ReactionCollectorInstance, response: DraftBotPacket[]) => {
 		const firstReaction = collector.getFirstReaction();
 		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.SKIP_MISSION);
@@ -180,7 +193,7 @@ function getSkipMapMissionShopItem(): ShopItem {
 		buyCallback: async (response: DraftBotPacket[], playerId: number, context: PacketContext): Promise<boolean> => {
 			const player = await Players.getById(playerId);
 			const missionSlots = await MissionSlots.getOfPlayer(player.id);
-			const allMissions = missionSlots.filter((slot) => !slot.isCampaign());
+			const allMissions = missionSlots.filter(slot => !slot.isCampaign());
 			if (!allMissions.length) {
 				response.push(makePacket(CommandMissionShopNoMissionToSkip, {}));
 				return false;
@@ -189,6 +202,7 @@ function getSkipMapMissionShopItem(): ShopItem {
 			const baseMissions = MissionsController.prepareMissionSlots(allMissions);
 
 			const collector = new ReactionCollectorSkipMissionShopItem(baseMissions);
+
 			// Create a reaction collector which will let the player choose the mission he wants to skip
 			const packet = new ReactionCollectorInstance(
 				collector,
@@ -258,9 +272,7 @@ export default class MissionShopCommand {
 			},
 			{
 				id: "prestige",
-				items: [
-					getBadgeShopItem()
-				]
+				items: [getBadgeShopItem()]
 			}
 		);
 

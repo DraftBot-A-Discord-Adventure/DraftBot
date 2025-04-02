@@ -1,8 +1,10 @@
-import {Fighter} from "../../../fighter/Fighter";
-import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
-import {FightAlterations} from "../../FightAlterations";
-import {FightActionFunc} from "../../../../../data/FightAction";
-import {FightActionResult} from "../../../../../../../Lib/src/types/FightActionResult";
+import { Fighter } from "../../../fighter/Fighter";
+import {
+	attackInfo, FightActionController, statsInfo
+} from "../../FightActionController";
+import { FightAlterations } from "../../FightAlterations";
+import { FightActionFunc } from "../../../../../data/FightAction";
+import { FightActionResult } from "../../../../../../../Lib/src/types/FightActionResult";
 
 const use: FightActionFunc = (sender, receiver) => {
 	const initialDamage = FightActionController.getAttackDamage(getStatsInfo(sender, receiver), sender, getAttackInfo());
@@ -33,14 +35,8 @@ function getAttackInfo(): attackInfo {
 
 function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 	return {
-		attackerStats: [
-			sender.getAttack()
-		],
-		defenderStats: [
-			receiver.getDefense() / 4
-		],
-		statsEffect: [
-			1
-		]
+		attackerStats: [sender.getAttack()],
+		defenderStats: [receiver.getDefense() / 4],
+		statsEffect: [1]
 	};
 }

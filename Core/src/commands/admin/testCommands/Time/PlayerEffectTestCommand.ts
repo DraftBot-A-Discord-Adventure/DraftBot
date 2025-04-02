@@ -1,9 +1,16 @@
-import {NumberChangeReason} from "../../../../../../Lib/src/constants/LogsConstants";
-import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
-import {TravelTime} from "../../../../core/maps/TravelTime";
-import {Effect} from "../../../../../../Lib/src/types/Effect";
+import { NumberChangeReason } from "../../../../../../Lib/src/constants/LogsConstants";
+import {
+	ExecuteTestCommandLike, ITestCommand, TypeKey
+} from "../../../../core/CommandsTest";
+import { TravelTime } from "../../../../core/maps/TravelTime";
+import { Effect } from "../../../../../../Lib/src/types/Effect";
 
-const effects = Array.from(Effect.getAll()).filter(value => [Effect.NOT_STARTED, Effect.NO_EFFECT, Effect.DEAD, Effect.OCCUPIED].indexOf(value) === -1);
+const effects = Array.from(Effect.getAll()).filter(value => [
+	Effect.NOT_STARTED,
+	Effect.NO_EFFECT,
+	Effect.DEAD,
+	Effect.OCCUPIED
+].indexOf(value) === -1);
 let printableEffects = "";
 effects.forEach(e => {
 	printableEffects = printableEffects.concat(`- ${e.id}\n`);
@@ -27,7 +34,12 @@ const playerEffectTestCommand: ExecuteTestCommandLike = async (player, args) => 
 	if (!effect) {
 		throw new Error("Effet inconnu !");
 	}
-	if ([Effect.NOT_STARTED, Effect.NO_EFFECT, Effect.DEAD, Effect.OCCUPIED].includes(effect)) {
+	if ([
+		Effect.NOT_STARTED,
+		Effect.NO_EFFECT,
+		Effect.DEAD,
+		Effect.OCCUPIED
+	].includes(effect)) {
 		throw new Error("Cet effet ne peut pas être appliqué !");
 	}
 	if (player.effectId === Effect.NOT_STARTED.id) {

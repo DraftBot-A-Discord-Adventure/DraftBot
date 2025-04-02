@@ -1,10 +1,12 @@
-import {SmallEventFuncs} from "../../data/SmallEvent";
-import {Maps} from "../maps/Maps";
-import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
+import { SmallEventFuncs } from "../../data/SmallEvent";
+import { Maps } from "../maps/Maps";
+import {
+	DraftBotPacket, makePacket
+} from "../../../../Lib/src/packets/DraftBotPacket";
 import Player from "../database/game/models/Player";
-import {MissionSlots} from "../database/game/models/MissionSlot";
-import {MissionsController} from "../missions/MissionsController";
-import {SmallEventFindMissionPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFindMissionPacket";
+import { MissionSlots } from "../database/game/models/MissionSlot";
+import { MissionsController } from "../missions/MissionsController";
+import { SmallEventFindMissionPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventFindMissionPacket";
 
 export const smallEventFuncs: SmallEventFuncs = {
 	/**

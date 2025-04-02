@@ -1,31 +1,35 @@
-import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import {
+	makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
 import {
 	CommandGuildDailyCooldownErrorPacket,
 	CommandGuildDailyPacketReq,
 	CommandGuildDailyRewardPacket
 } from "../../../../Lib/src/packets/commands/CommandGuildDailyPacket";
-import {ICommand} from "../ICommand";
-import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {SlashCommandBuilder} from "@discordjs/builders";
+import { ICommand } from "../ICommand";
+import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
+import { SlashCommandBuilder } from "@discordjs/builders";
 import i18n from "../../translations/i18n";
-import {Language} from "../../../../Lib/src/Language";
-import {DisplayUtils} from "../../utils/DisplayUtils";
-import {DiscordCache} from "../../bot/DiscordCache";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
-import {DraftBotErrorEmbed} from "../../messages/DraftBotErrorEmbed";
-import {finishInTimeDisplay} from "../../../../Lib/src/utils/TimeUtils";
-import {StringConstants} from "../../../../Lib/src/constants/StringConstants";
+import { Language } from "../../../../Lib/src/Language";
+import { DisplayUtils } from "../../utils/DisplayUtils";
+import { DiscordCache } from "../../bot/DiscordCache";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
+import { DraftBotErrorEmbed } from "../../messages/DraftBotErrorEmbed";
+import { finishInTimeDisplay } from "../../../../Lib/src/utils/TimeUtils";
+import { StringConstants } from "../../../../Lib/src/constants/StringConstants";
 
 function getPacket(): CommandGuildDailyPacketReq {
 	return makePacket(CommandGuildDailyPacketReq, {});
 }
 
 function manageGivenReward(rewardKey: string, quantity: number | undefined, lng: Language): string {
-	return quantity ? `${i18n.t(`commands:guildDaily.rewards.${rewardKey}`, {
-		lng,
-		quantity,
-		interpolation: {escapeValue: false}
-	})}\n` : "";
+	return quantity
+		? `${i18n.t(`commands:guildDaily.rewards.${rewardKey}`, {
+			lng,
+			quantity,
+			interpolation: { escapeValue: false }
+		})}\n`
+		: "";
 }
 
 export function getCommandGuildDailyRewardPacketString(packet: CommandGuildDailyRewardPacket, lng: Language): string {
@@ -53,7 +57,7 @@ export function getCommandGuildDailyRewardPacketString(packet: CommandGuildDaily
 			context: packet.pet.isFemale ? StringConstants.SEX.FEMALE.long : StringConstants.SEX.MALE.long,
 			pet: DisplayUtils.getPetDisplay(packet.pet.typeId, packet.pet.isFemale ? StringConstants.SEX.FEMALE.short : StringConstants.SEX.MALE.short, lng),
 			petId: packet.pet.typeId,
-			interpolation: {escapeValue: false}
+			interpolation: { escapeValue: false }
 		})}\n`;
 	}
 
@@ -95,7 +99,7 @@ export async function handleCommandGuildDailyCooldownErrorPacket(packet: Command
 						lng: context.discord!.language,
 						coolDownTime: packet.totalTime,
 						time: finishInTimeDisplay(new Date(Date.now() + packet.remainingTime)),
-						interpolation: {escapeValue: false}
+						interpolation: { escapeValue: false }
 					}
 				)
 			)

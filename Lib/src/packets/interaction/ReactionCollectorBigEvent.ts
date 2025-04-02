@@ -34,7 +34,7 @@ export class ReactionCollectorBigEvent extends ReactionCollector {
 			id,
 			endTime,
 			reactions,
-			data: this.buildData(ReactionCollectorBigEventData, {eventId: this.eventId})
+			data: this.buildData(ReactionCollectorBigEventData, { eventId: this.eventId })
 		};
 	}
 }

@@ -1,10 +1,10 @@
-import {packetHandler} from "../../../PacketHandler";
+import { packetHandler } from "../../../PacketHandler";
 import {
 	CommandGuildCreateAcceptPacketRes,
 	CommandGuildCreatePacketRes,
 	CommandGuildCreateRefusePacketRes
 } from "../../../../../../Lib/src/packets/commands/CommandGuildCreatePacket";
-import {PacketContext} from "../../../../../../Lib/src/packets/DraftBotPacket";
+import { PacketContext } from "../../../../../../Lib/src/packets/DraftBotPacket";
 import {
 	handleCommandGuildCreateAcceptPacketRes,
 	handleCommandGuildCreatePacketRes,

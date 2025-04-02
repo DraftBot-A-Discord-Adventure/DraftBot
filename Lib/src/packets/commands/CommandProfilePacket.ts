@@ -1,11 +1,13 @@
-import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
-import {SexTypeShort} from "../../constants/StringConstants";
+import {
+	DraftBotPacket, PacketDirection, sendablePacket
+} from "../DraftBotPacket";
+import { SexTypeShort } from "../../constants/StringConstants";
 
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandProfilePacketReq extends DraftBotPacket {
 	askedPlayer!: {
-		rank?: number,
-		keycloakId?: string
+		rank?: number;
+		keycloakId?: string;
 	};
 }
 
@@ -20,59 +22,59 @@ export class CommandProfilePacketRes extends DraftBotPacket {
 	playerData!: {
 		stats?: {
 			energy: {
-				value: number,
-				max: number
-			},
-			attack: number,
-			defense: number,
-			speed: number
+				value: number;
+				max: number;
+			};
+			attack: number;
+			defense: number;
+			speed: number;
 			breath: {
-				base: number,
-				max: number,
-				regen: number
-			}
-		},
+				base: number;
+				max: number;
+				regen: number;
+			};
+		};
 		missions: {
-			gems: number,
-			campaignProgression: number
-		},
+			gems: number;
+			campaignProgression: number;
+		};
 		rank: {
-			unranked: boolean,
-			rank: number,
-			numberOfPlayers: number,
-			score: number
-		},
+			unranked: boolean;
+			rank: number;
+			numberOfPlayers: number;
+			score: number;
+		};
 		effect: {
-			healed: boolean,
-			timeLeft: number,
-			effect: string,
-			hasTimeDisplay: boolean
-		},
-		classId?: number,
+			healed: boolean;
+			timeLeft: number;
+			effect: string;
+			hasTimeDisplay: boolean;
+		};
+		classId?: number;
 		fightRanking?: {
-			glory: number,
-			league: number
-		},
-		guild?: string,
-		destinationId?: number,
-		mapTypeId?: string,
+			glory: number;
+			league: number;
+		};
+		guild?: string;
+		destinationId?: number;
+		mapTypeId?: string;
 		pet?: {
-			typeId: number,
-			sex: SexTypeShort,
-			rarity: number,
-			nickname: string
-		},
-		color: string,
-		level: number,
-		badges: string[],
+			typeId: number;
+			sex: SexTypeShort;
+			rarity: number;
+			nickname: string;
+		};
+		color: string;
+		level: number;
+		badges: string[];
 		health: {
-			value: number,
-			max: number
-		},
+			value: number;
+			max: number;
+		};
 		experience: {
-			value: number,
-			max: number
-		},
-		money: number
+			value: number;
+			max: number;
+		};
+		money: number;
 	};
 }

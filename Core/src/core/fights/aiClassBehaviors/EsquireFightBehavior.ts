@@ -1,10 +1,12 @@
 import { ClassBehavior } from "../AiBehaviorController";
 import { AiPlayerFighter } from "../fighter/AiPlayerFighter";
 import { FightView } from "../FightView";
-import { FightAction, FightActionDataController } from "../../../data/FightAction";
+import {
+	FightAction, FightActionDataController
+} from "../../../data/FightAction";
 import { FightConstants } from "../../../../../Lib/src/constants/FightConstants";
-import {PlayerFighter} from "../fighter/PlayerFighter";
-import {MonsterFighter} from "../fighter/MonsterFighter";
+import { PlayerFighter } from "../fighter/PlayerFighter";
+import { MonsterFighter } from "../fighter/MonsterFighter";
 
 class EsquireFightBehavior implements ClassBehavior {
 	private restCount = 0; // Track how many times we've rested
@@ -18,8 +20,10 @@ class EsquireFightBehavior implements ClassBehavior {
 			this.restCount = 0; // Reset rest counter at the beginning of a fight
 		}
 
-		// ENDGAME STRATEGY: Try to force a draw if victory seems impossible
-		// Still rest even if we've done it 4 times, because the goal is to stall
+		/*
+		 * ENDGAME STRATEGY: Try to force a draw if victory seems impossible
+		 * Still rest even if we've done it 4 times, because the goal is to stall
+		 */
 		if (me.getEnergy() < 75 && opponent.getEnergy() > 200) {
 			this.restCount++;
 			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.RESTING);
@@ -45,8 +49,10 @@ export function simpleOrQuickAttack(me: AiPlayerFighter, opponent: PlayerFighter
 	const mySpeed = me.getSpeed();
 	const opponentSpeed = opponent.getSpeed();
 
-	// If my speed is greater than the opponent's speed, use a quick attack otherwise, use a simple attack
-	// If we're very low on breath but have already rested 4 times, still try to attack
+	/*
+	 * If my speed is greater than the opponent's speed, use a quick attack otherwise, use a simple attack
+	 * If we're very low on breath but have already rested 4 times, still try to attack
+	 */
 	if (mySpeed > opponentSpeed && (me.getBreath() >= 3 || this.restCount >= 4)) {
 		return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.QUICK_ATTACK);
 	}

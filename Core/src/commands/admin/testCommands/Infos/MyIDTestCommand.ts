@@ -1,4 +1,6 @@
-import {ExecuteTestCommandLike, ITestCommand} from "../../../../core/CommandsTest";
+import {
+	ExecuteTestCommandLike, ITestCommand
+} from "../../../../core/CommandsTest";
 
 export const commandInfo: ITestCommand = {
 	name: "myids",
@@ -8,6 +10,6 @@ export const commandInfo: ITestCommand = {
 /**
  * Show your player's ID
  */
-const myIDTestCommand: ExecuteTestCommandLike = (player) => `Player id: ${player.id}\nKeycloak id: ${player.keycloakId}`;
+const myIDTestCommand: ExecuteTestCommandLike = player => `Player id: ${player.id}\nKeycloak id: ${player.keycloakId}`;
 
 commandInfo.execute = myIDTestCommand;

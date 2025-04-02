@@ -1,15 +1,16 @@
-import {PetAssistanceResult, PetAssistanceState} from "../../../../../../../Lib/src/types/PetAssistanceResult";
-import {PetAssistanceFunc} from "../../../../../data/PetAssistance";
-import {FightActionController} from "../../FightActionController";
-import {FightStatBuffed} from "../../../../../../../Lib/src/types/FightActionResult";
-import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
-import {RandomUtils} from "../../../../../../../Lib/src/utils/RandomUtils";
-import {PlayerFighter} from "../../../fighter/PlayerFighter";
-import {AiPlayerFighter} from "../../../fighter/AiPlayerFighter";
-import {InventorySlots} from "../../../../database/game/models/InventorySlot";
+import {
+	PetAssistanceResult, PetAssistanceState
+} from "../../../../../../../Lib/src/types/PetAssistanceResult";
+import { PetAssistanceFunc } from "../../../../../data/PetAssistance";
+import { FightActionController } from "../../FightActionController";
+import { FightStatBuffed } from "../../../../../../../Lib/src/types/FightActionResult";
+import { FightStatModifierOperation } from "../../../../../../../Lib/src/types/FightStatModifierOperation";
+import { RandomUtils } from "../../../../../../../Lib/src/utils/RandomUtils";
+import { PlayerFighter } from "../../../fighter/PlayerFighter";
+import { AiPlayerFighter } from "../../../fighter/AiPlayerFighter";
+import { InventorySlots } from "../../../../database/game/models/InventorySlot";
 
 const use: PetAssistanceFunc = async (_fighter, opponent, turn, _fightController): Promise<PetAssistanceResult | null> => {
-
 	// Execute at the start of the fight
 	if (turn > 2) {
 		return null;
@@ -20,6 +21,7 @@ const use: PetAssistanceFunc = async (_fighter, opponent, turn, _fightController
 	let weaponDamages = 0;
 	let weaponDefense = 0;
 	let weaponSpeed = 0;
+
 	// Check if the opponent is a player or an AI player
 	if (opponent instanceof PlayerFighter || opponent instanceof AiPlayerFighter) {
 		const memberActiveObjects = await InventorySlots.getMainSlotsItems(opponent.player.id);

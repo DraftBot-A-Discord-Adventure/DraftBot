@@ -1,5 +1,7 @@
-import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
-import {SmallEventDataController} from "../../../../data/SmallEvent";
+import {
+	ExecuteTestCommandLike, ITestCommand, TypeKey
+} from "../../../../core/CommandsTest";
+import { SmallEventDataController } from "../../../../data/SmallEvent";
 import ReportCommand from "../../../player/ReportCommand";
 
 const smallEventsKeys = SmallEventDataController.instance.getKeys();

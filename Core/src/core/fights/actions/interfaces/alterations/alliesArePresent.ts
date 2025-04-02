@@ -1,7 +1,9 @@
-import {Fighter} from "../../../fighter/Fighter";
-import {attackInfo, statsInfo} from "../../FightActionController";
-import {FightAlterationFunc} from "../../../../../data/FightAlteration";
-import {defaultDamageFightAlterationResult} from "../../../FightController";
+import { Fighter } from "../../../fighter/Fighter";
+import {
+	attackInfo, statsInfo
+} from "../../FightActionController";
+import { FightAlterationFunc } from "../../../../../data/FightAlteration";
+import { defaultDamageFightAlterationResult } from "../../../FightController";
 
 const use: FightAlterationFunc = (affected, _fightAlteration, opponent) =>
 	defaultDamageFightAlterationResult(affected, getStatsInfo(affected, opponent), getAttackInfo());

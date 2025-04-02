@@ -1,5 +1,7 @@
-import {Maps} from "../../../../core/maps/Maps";
-import {ExecuteTestCommandLike, ITestCommand} from "../../../../core/CommandsTest";
+import { Maps } from "../../../../core/maps/Maps";
+import {
+	ExecuteTestCommandLike, ITestCommand
+} from "../../../../core/CommandsTest";
 
 export const commandInfo: ITestCommand = {
 	name: "travelreport",
@@ -10,7 +12,7 @@ export const commandInfo: ITestCommand = {
 /**
  * Reset your current travel
  */
-const travelReportTestCommand: ExecuteTestCommandLike = async (player) => {
+const travelReportTestCommand: ExecuteTestCommandLike = async player => {
 	if (!Maps.isTravelling(player)) {
 		throw new Error("Erreur travelreport : vous ne voyagez pas actuellement !");
 	}
@@ -18,7 +20,6 @@ const travelReportTestCommand: ExecuteTestCommandLike = async (player) => {
 	player.effectEndDate = new Date(0);
 	await player.save();
 	return "Vous avez réinitialisé votre parcours !";
-
 };
 
 commandInfo.execute = travelReportTestCommand;

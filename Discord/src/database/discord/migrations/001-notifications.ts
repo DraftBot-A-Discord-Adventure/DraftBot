@@ -1,7 +1,9 @@
-import {DataTypes, QueryInterface} from "sequelize";
-import {NotificationSendTypeEnum} from "../../../notifications/NotificationSendType";
+import {
+	DataTypes, QueryInterface
+} from "sequelize";
+import { NotificationSendTypeEnum } from "../../../notifications/NotificationSendType";
 
-export async function up({context}: { context: QueryInterface }): Promise<void> {
+export async function up({ context }: { context: QueryInterface }): Promise<void> {
 	await context.createTable("notifications", {
 		discordId: {
 			// eslint-disable-next-line new-cap
@@ -43,6 +45,6 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 	});
 }
 
-export async function down({context}: { context: QueryInterface }): Promise<void> {
+export async function down({ context }: { context: QueryInterface }): Promise<void> {
 	await context.dropTable("notifications");
 }

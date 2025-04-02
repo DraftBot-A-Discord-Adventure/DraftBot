@@ -1,5 +1,7 @@
-import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
-import {OwnedPet} from "../../types/OwnedPet";
+import {
+	DraftBotPacket, PacketDirection, sendablePacket
+} from "../DraftBotPacket";
+import { OwnedPet } from "../../types/OwnedPet";
 
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandPetSellPacketReq extends DraftBotPacket {

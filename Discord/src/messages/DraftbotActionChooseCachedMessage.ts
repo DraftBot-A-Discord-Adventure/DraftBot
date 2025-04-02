@@ -1,21 +1,23 @@
-import {DraftbotCachedMessage} from "./DraftbotCachedMessage";
-import {PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
-import {DiscordCache} from "../bot/DiscordCache";
-import {KeycloakUtils} from "../../../Lib/src/keycloak/KeycloakUtils";
-import {keycloakConfig} from "../bot/DraftBotShard";
-import {DraftBotEmbed} from "./DraftBotEmbed";
+import { DraftbotCachedMessage } from "./DraftbotCachedMessage";
+import { PacketContext } from "../../../Lib/src/packets/DraftBotPacket";
+import { DiscordCache } from "../bot/DiscordCache";
+import { KeycloakUtils } from "../../../Lib/src/keycloak/KeycloakUtils";
+import { keycloakConfig } from "../bot/DraftBotShard";
+import { DraftBotEmbed } from "./DraftBotEmbed";
 import i18n from "../translations/i18n";
-import {ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, parseEmoji} from "discord.js";
-import {EmoteUtils} from "../utils/EmoteUtils";
-import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
-import {DiscordCollectorUtils} from "../utils/DiscordCollectorUtils";
-import {ReactionCollectorCreationPacket} from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import {
+	ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, parseEmoji
+} from "discord.js";
+import { EmoteUtils } from "../utils/EmoteUtils";
+import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
+import { DiscordCollectorUtils } from "../utils/DiscordCollectorUtils";
+import { ReactionCollectorCreationPacket } from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {
 	ReactionCollectorFightChooseActionData,
 	ReactionCollectorFightChooseActionReaction
 } from "../../../Lib/src/packets/interaction/ReactionCollectorFightChooseAction";
-import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCollectorHandlers";
-import {DiscordConstants} from "../DiscordConstants";
+import { ReactionCollectorReturnType } from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import { DiscordConstants } from "../DiscordConstants";
 
 export class DraftbotActionChooseCachedMessage extends DraftbotCachedMessage<ReactionCollectorCreationPacket> {
 	readonly duration = 30;
@@ -32,10 +34,12 @@ export class DraftbotActionChooseCachedMessage extends DraftbotCachedMessage<Rea
 			lng: interaction.userLanguage,
 			pseudo: fighter
 		}), interaction.user)
-			.setDescription(i18n.t("commands:fight.fightActionChoose.turnIndicationDescription", {lng: interaction.userLanguage}));
+			.setDescription(i18n.t("commands:fight.fightActionChoose.turnIndicationDescription", { lng: interaction.userLanguage }));
 		const rows = [new ActionRowBuilder<ButtonBuilder>()];
-		const reactions = packet.reactions as {type: string, data: ReactionCollectorFightChooseActionReaction}[];
-		reactions.forEach((action) => {
+		const reactions = packet.reactions as {
+			type: string; data: ReactionCollectorFightChooseActionReaction;
+		}[];
+		reactions.forEach(action => {
 			const react = action.data as ReactionCollectorFightChooseActionReaction;
 			const emoji = EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fight_actions[react.id]);
 
@@ -61,7 +65,7 @@ export class DraftbotActionChooseCachedMessage extends DraftbotCachedMessage<Rea
 				return;
 			}
 			buttonInteraction.update({});
-			DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, buttonInteraction, reactions.findIndex((reaction) => reaction.data.id === buttonInteraction.customId));
+			DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, buttonInteraction, reactions.findIndex(reaction => reaction.data.id === buttonInteraction.customId));
 		});
 		buttonCollector.on("end", () => {
 			msg!.edit({

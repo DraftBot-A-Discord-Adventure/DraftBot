@@ -1,6 +1,8 @@
-import {readdirSync, readFileSync} from "fs";
-import {Data} from "./Data";
-import {GenericItem} from "./GenericItem";
+import {
+	readdirSync, readFileSync
+} from "fs";
+import { Data } from "./Data";
+import { GenericItem } from "./GenericItem";
 
 export abstract class DataController<T extends string | number, U extends Data<number | string>> {
 	protected data: Map<T, U> = new Map<T, U>();

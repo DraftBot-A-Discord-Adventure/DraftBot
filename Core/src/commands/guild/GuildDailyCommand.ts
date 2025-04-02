@@ -1,33 +1,41 @@
-import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
+import {
+	DraftBotPacket, makePacket
+} from "../../../../Lib/src/packets/DraftBotPacket";
 import {
 	CommandGuildDailyCooldownErrorPacket,
 	CommandGuildDailyPacketReq,
 	CommandGuildDailyPveIslandErrorPacket,
 	CommandGuildDailyRewardPacket
 } from "../../../../Lib/src/packets/commands/CommandGuildDailyPacket";
-import Guild, {Guilds} from "../../core/database/game/models/Guild";
-import {PetEntities} from "../../core/database/game/models/PetEntity";
-import {GuildPets} from "../../core/database/game/models/GuildPet";
-import Player, {Players} from "../../core/database/game/models/Player";
-import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants";
-import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
-import {GuildDailyConstants} from "../../../../Lib/src/constants/GuildDailyConstants";
-import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import {draftBotInstance} from "../../index";
-import {Effect} from "../../../../Lib/src/types/Effect";
-import {TravelTime} from "../../core/maps/TravelTime";
-import {BadgeConstants} from "../../../../Lib/src/constants/BadgeConstants";
-import {hoursToMilliseconds, hoursToMinutes, millisecondsToHours} from "../../../../Lib/src/utils/TimeUtils";
-import {MissionsController} from "../../core/missions/MissionsController";
-import {GuildDailyNotificationPacket} from "../../../../Lib/src/packets/notifications/GuildDailyNotificationPacket";
-import {PacketUtils} from "../../core/utils/PacketUtils";
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
-import {Maps} from "../../core/maps/Maps";
-import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
-import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
+import Guild, { Guilds } from "../../core/database/game/models/Guild";
+import { PetEntities } from "../../core/database/game/models/PetEntity";
+import { GuildPets } from "../../core/database/game/models/GuildPet";
+import Player, { Players } from "../../core/database/game/models/Player";
+import { GuildConstants } from "../../../../Lib/src/constants/GuildConstants";
+import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
+import { GuildDailyConstants } from "../../../../Lib/src/constants/GuildDailyConstants";
+import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
+import { draftBotInstance } from "../../index";
+import { Effect } from "../../../../Lib/src/types/Effect";
+import { TravelTime } from "../../core/maps/TravelTime";
+import { BadgeConstants } from "../../../../Lib/src/constants/BadgeConstants";
+import {
+	hoursToMilliseconds, hoursToMinutes, millisecondsToHours
+} from "../../../../Lib/src/utils/TimeUtils";
+import { MissionsController } from "../../core/missions/MissionsController";
+import { GuildDailyNotificationPacket } from "../../../../Lib/src/packets/notifications/GuildDailyNotificationPacket";
+import { PacketUtils } from "../../core/utils/PacketUtils";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
+import { BlockingUtils } from "../../core/utils/BlockingUtils";
+import { Maps } from "../../core/maps/Maps";
+import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
+import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
 
-type GuildLike = { guild: Guild, members: Player[] };
+type GuildLike = {
+	guild: Guild; members: Player[];
+};
 type RewardStage = { [key: string]: number };
 type FunctionRewardType = (guildLike: GuildLike, response: DraftBotPacket[], rewardPacket: CommandGuildDailyRewardPacket) => Promise<void>;
 
@@ -143,7 +151,7 @@ async function alterationHealEveryMember(guildLike: GuildLike, response: DraftBo
 		return;
 	}
 
-	rewardPacket.alteration = healthWon > 0 ? {healAmount: healthWon} : {};
+	rewardPacket.alteration = healthWon > 0 ? { healAmount: healthWon } : {};
 
 	draftBotInstance.logsDatabase.logGuildDaily(guildLike.guild, GuildDailyConstants.REWARD_TYPES.ALTERATION).then();
 }
@@ -311,14 +319,14 @@ async function notifyAndUpdatePlayers(initiatorKeycloakId: string, members: Play
 			continue;
 		}
 		if (member.keycloakId !== initiatorKeycloakId) {
-			await MissionsController.update(member, response, {missionId: "guildDailyFromSomeoneElse"});
+			await MissionsController.update(member, response, { missionId: "guildDailyFromSomeoneElse" });
 			notifications.push(makePacket(GuildDailyNotificationPacket, {
 				keycloakId: member.keycloakId,
 				keycloakIdOfExecutor: initiatorKeycloakId,
 				reward: rewardPacket
 			}));
 		}
-		await MissionsController.update(member, response, {missionId: "guildDaily"});
+		await MissionsController.update(member, response, { missionId: "guildDaily" });
 	}
 
 	PacketUtils.sendNotifications(notifications);
@@ -389,9 +397,11 @@ function verifyMembers(members: Player[], response: DraftBotPacket[]): boolean {
 }
 
 async function generateAndGiveReward(guild: Guild, members: Player[], response: DraftBotPacket[]): Promise<CommandGuildDailyRewardPacket> {
-	const guildLike = {guild, members};
+	const guildLike = {
+		guild, members
+	};
 
-	const rewardPacket = makePacket(CommandGuildDailyRewardPacket, {guildName: guild.name});
+	const rewardPacket = makePacket(CommandGuildDailyRewardPacket, { guildName: guild.name });
 	await linkToFunction.get(generateRandomProperty(guild))(guildLike, response, rewardPacket); // Give the award
 
 	if (!guildLike.guild.isPetShelterFull(await GuildPets.getOfGuild(guildLike.guild.id)) && RandomUtils.draftbotRandom.realZeroToOneInclusive() <= GuildDailyConstants.PET_DROP_CHANCE) {

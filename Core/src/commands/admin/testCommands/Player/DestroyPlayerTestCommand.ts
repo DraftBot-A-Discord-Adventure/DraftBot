@@ -3,7 +3,9 @@ import InventorySlot from "../../../../core/database/game/models/InventorySlot";
 import Player from "../../../../core/database/game/models/Player";
 import MissionSlot from "../../../../core/database/game/models/MissionSlot";
 import PlayerMissionsInfo from "../../../../core/database/game/models/PlayerMissionsInfo";
-import {ExecuteTestCommandLike, ITestCommand} from "../../../../core/CommandsTest";
+import {
+	ExecuteTestCommandLike, ITestCommand
+} from "../../../../core/CommandsTest";
 
 export const commandInfo: ITestCommand = {
 	name: "destroyplayer",
@@ -14,7 +16,7 @@ export const commandInfo: ITestCommand = {
 /**
  * Reset the player
  */
-const destroyPlayerTestCommand: ExecuteTestCommandLike = async (player) => {
+const destroyPlayerTestCommand: ExecuteTestCommandLike = async player => {
 	await MissionSlot.destroy({
 		where: {
 			playerId: player.id

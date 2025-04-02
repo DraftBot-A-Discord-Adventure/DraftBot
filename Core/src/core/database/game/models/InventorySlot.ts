@@ -1,11 +1,21 @@
-import {DataTypes, Model, Sequelize} from "sequelize";
-import {PlayerActiveObjects} from "./PlayerActiveObjects";
-import {ItemCategory} from "../../../../../../Lib/src/constants/ItemConstants";
-import {GenericItem} from "../../../../data/GenericItem";
-import {Armor, ArmorDataController} from "../../../../data/Armor";
-import {Weapon, WeaponDataController} from "../../../../data/Weapon";
-import {Potion, PotionDataController} from "../../../../data/Potion";
-import {ObjectItem, ObjectItemDataController} from "../../../../data/ObjectItem";
+import {
+	DataTypes, Model, Sequelize
+} from "sequelize";
+import { PlayerActiveObjects } from "./PlayerActiveObjects";
+import { ItemCategory } from "../../../../../../Lib/src/constants/ItemConstants";
+import { GenericItem } from "../../../../data/GenericItem";
+import {
+	Armor, ArmorDataController
+} from "../../../../data/Armor";
+import {
+	Weapon, WeaponDataController
+} from "../../../../data/Weapon";
+import {
+	Potion, PotionDataController
+} from "../../../../data/Potion";
+import {
+	ObjectItem, ObjectItemDataController
+} from "../../../../data/ObjectItem";
 import Player from "./Player";
 import moment = require("moment");
 
@@ -25,16 +35,16 @@ export class InventorySlot extends Model {
 
 	getItem(): GenericItem {
 		switch (this.itemCategory) {
-		case ItemCategory.WEAPON:
-			return WeaponDataController.instance.getById(this.itemId);
-		case ItemCategory.ARMOR:
-			return ArmorDataController.instance.getById(this.itemId);
-		case ItemCategory.POTION:
-			return PotionDataController.instance.getById(this.itemId);
-		case ItemCategory.OBJECT:
-			return ObjectItemDataController.instance.getById(this.itemId);
-		default:
-			return null;
+			case ItemCategory.WEAPON:
+				return WeaponDataController.instance.getById(this.itemId);
+			case ItemCategory.ARMOR:
+				return ArmorDataController.instance.getById(this.itemId);
+			case ItemCategory.POTION:
+				return PotionDataController.instance.getById(this.itemId);
+			case ItemCategory.OBJECT:
+				return ObjectItemDataController.instance.getById(this.itemId);
+			default:
+				return null;
 		}
 	}
 
@@ -63,16 +73,16 @@ export class InventorySlot extends Model {
 	 */
 	getItemCategory(): string {
 		switch (this.itemCategory) {
-		case ItemCategory.WEAPON:
-			return "Weapon";
-		case ItemCategory.ARMOR:
-			return "Armor";
-		case ItemCategory.POTION:
-			return "Potion";
-		case ItemCategory.OBJECT:
-			return "Object";
-		default:
-			return "Unknown";
+			case ItemCategory.WEAPON:
+				return "Weapon";
+			case ItemCategory.ARMOR:
+				return "Armor";
+			case ItemCategory.POTION:
+				return "Potion";
+			case ItemCategory.OBJECT:
+				return "Object";
+			default:
+				return "Unknown";
 		}
 	}
 }

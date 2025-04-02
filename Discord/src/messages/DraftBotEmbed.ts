@@ -1,4 +1,6 @@
-import {EmbedBuilder, HexColorString, User} from "discord.js";
+import {
+	EmbedBuilder, HexColorString, User
+} from "discord.js";
 import { ColorConstants } from "../../../Lib/src/constants/ColorConstants";
 
 /**

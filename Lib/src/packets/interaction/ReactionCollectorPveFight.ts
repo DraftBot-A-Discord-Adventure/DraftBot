@@ -7,12 +7,12 @@ import {
 
 export class ReactionCollectorPveFightData extends ReactionCollectorData {
 	monster!: {
-		id: string,
-		level: number,
-		energy: number,
-		attack: number,
-		defense: number,
-		speed: number
+		id: string;
+		level: number;
+		energy: number;
+		attack: number;
+		defense: number;
+		speed: number;
 	};
 }
 

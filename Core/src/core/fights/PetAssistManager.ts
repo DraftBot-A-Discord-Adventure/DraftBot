@@ -1,6 +1,8 @@
-import {PetAssistance, PetAssistanceDataController} from "../../data/PetAssistance";
-import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
-import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
+import {
+	PetAssistance, PetAssistanceDataController
+} from "../../data/PetAssistance";
+import { FightConstants } from "../../../../Lib/src/constants/FightConstants";
+import { PetConstants } from "../../../../Lib/src/constants/PetConstants";
 
 // Map to store pet behaviors by pet ID
 const petAssistanceList = new Map<number, PetAssistance>();
@@ -60,15 +62,11 @@ export function initializeAllPetBehaviors(): void {
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.POISONOUS_BITE
 		},
 		{
-			petIds: [
-				PetConstants.PETS.MOUSE
-			],
+			petIds: [PetConstants.PETS.MOUSE],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.SCARE_ELEPHANT
 		},
 		{
-			petIds: [
-				PetConstants.PETS.ELEPHANT
-			],
+			petIds: [PetConstants.PETS.ELEPHANT],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.ELEPHANT_REMEMBER_LAST_ACTION
 		},
 		{
@@ -126,9 +124,7 @@ export function initializeAllPetBehaviors(): void {
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.PET_POISON
 		},
 		{
-			petIds: [
-				PetConstants.PETS.BLACK_CAT
-			],
+			petIds: [PetConstants.PETS.BLACK_CAT],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.PET_CURSE
 		},
 		{
@@ -141,15 +137,11 @@ export function initializeAllPetBehaviors(): void {
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.BOOST_SPEED
 		},
 		{
-			petIds: [
-				PetConstants.PETS.TURTLE
-			],
+			petIds: [PetConstants.PETS.TURTLE],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.BOOST_DEFENSE
 		},
 		{
-			petIds: [
-				PetConstants.PETS.LIZARD
-			],
+			petIds: [PetConstants.PETS.LIZARD],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.SMALL_REGEN
 		},
 		{
@@ -167,15 +159,11 @@ export function initializeAllPetBehaviors(): void {
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.PROTECT_AGAINST_COLD
 		},
 		{
-			petIds: [
-				PetConstants.PETS.JELLYFISH
-			],
+			petIds: [PetConstants.PETS.JELLYFISH],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.MEDUSE_PARALYZE
 		},
 		{
-			petIds: [
-				PetConstants.PETS.HEDGEHOG
-			],
+			petIds: [PetConstants.PETS.HEDGEHOG],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.REVENGE
 		},
 		{
@@ -186,15 +174,11 @@ export function initializeAllPetBehaviors(): void {
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.STEAL_WEAPON
 		},
 		{
-			petIds: [
-				PetConstants.PETS.BAT
-			],
+			petIds: [PetConstants.PETS.BAT],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.VAMPIRISM
 		},
 		{
-			petIds: [
-				PetConstants.PETS.UNICORN
-			],
+			petIds: [PetConstants.PETS.UNICORN],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.RAINBOW_POWER
 		},
 		{
@@ -221,39 +205,27 @@ export function initializeAllPetBehaviors(): void {
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.UN_BLIND
 		},
 		{
-			petIds: [
-				PetConstants.PETS.OCTOPUS
-			],
+			petIds: [PetConstants.PETS.OCTOPUS],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.SPIT_INK
 		},
 		{
-			petIds: [
-				PetConstants.PETS.KANGAROO
-			],
+			petIds: [PetConstants.PETS.KANGAROO],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.PET_HIT
 		},
 		{
-			petIds: [
-				PetConstants.PETS.RHINO
-			],
+			petIds: [PetConstants.PETS.RHINO],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.HORN
 		},
 		{
-			petIds: [
-				PetConstants.PETS.DOVE
-			],
+			petIds: [PetConstants.PETS.DOVE],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.HEAL_EVERYONE
 		},
 		{
-			petIds: [
-				PetConstants.PETS.LOBSTER
-			],
+			petIds: [PetConstants.PETS.LOBSTER],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.PINCH
 		},
 		{
-			petIds: [
-				PetConstants.PETS.ALIEN
-			],
+			petIds: [PetConstants.PETS.ALIEN],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.HYPNOSIS
 		},
 		{
@@ -264,9 +236,7 @@ export function initializeAllPetBehaviors(): void {
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.HELP_BREATHE
 		},
 		{
-			petIds: [
-				PetConstants.PETS.LLAMA
-			],
+			petIds: [PetConstants.PETS.LLAMA],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.SPIT
 		},
 		{
@@ -277,15 +247,11 @@ export function initializeAllPetBehaviors(): void {
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.SWALLOW
 		},
 		{
-			petIds: [
-				PetConstants.PETS.BEAVER
-			],
+			petIds: [PetConstants.PETS.BEAVER],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.BUILD_BARRAGE
 		},
 		{
-			petIds: [
-				PetConstants.PETS.SCARLET_DUCK
-			],
+			petIds: [PetConstants.PETS.SCARLET_DUCK],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.CREATE_BOMB
 		}
 	];

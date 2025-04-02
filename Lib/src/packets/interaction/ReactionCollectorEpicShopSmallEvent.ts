@@ -4,7 +4,7 @@ import {
 	ReactionCollectorCreationPacket,
 	ReactionCollectorRefuseReaction
 } from "./ReactionCollectorPacket";
-import {ReactionCollectorAnyShopSmallEventData} from "./ReactionCollectorAnyShopSmallEvent";
+import { ReactionCollectorAnyShopSmallEventData } from "./ReactionCollectorAnyShopSmallEvent";
 
 export class ReactionCollectorEpicShopSmallEventData extends ReactionCollectorAnyShopSmallEventData {
 	tip!: boolean;

@@ -1,7 +1,9 @@
-import {DataTypes, QueryInterface} from "sequelize";
-import {NotificationsConstants} from "../../../../../../Lib/src/constants/NotificationsConstants";
+import {
+	DataTypes, QueryInterface
+} from "sequelize";
+import { NotificationsConstants } from "../../../../../../Lib/src/constants/NotificationsConstants";
 
-export async function up({context}: { context: QueryInterface }): Promise<void> {
+export async function up({ context }: { context: QueryInterface }): Promise<void> {
 	await context.changeColumn("players", "dmNotification", DataTypes.STRING);
 	await context.renameColumn("players", "dmNotification", "notifications");
 	await context.sequelize.query(`
@@ -11,7 +13,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 	`);
 }
 
-export async function down({context}: { context: QueryInterface }): Promise<void> {
+export async function down({ context }: { context: QueryInterface }): Promise<void> {
 	await context.sequelize.query(`
 		UPDATE players
 		SET players.notifications = "1"

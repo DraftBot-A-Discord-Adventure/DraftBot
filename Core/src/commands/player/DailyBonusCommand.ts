@@ -1,6 +1,10 @@
-import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
-import {Player} from "../../core/database/game/models/Player";
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
+import {
+	DraftBotPacket, makePacket
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { Player } from "../../core/database/game/models/Player";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
 import {
 	CommandDailyBonusInCooldown,
 	CommandDailyBonusNoActiveObject,
@@ -9,17 +13,17 @@ import {
 	CommandDailyBonusPacketReq,
 	CommandDailyBonusPacketRes
 } from "../../../../Lib/src/packets/commands/CommandDailyBonusPacket";
-import {InventorySlots} from "../../core/database/game/models/InventorySlot";
-import {draftBotInstance} from "../../index";
-import {ObjectItem} from "../../data/ObjectItem";
-import {ItemNature} from "../../../../Lib/src/constants/ItemConstants";
-import {InventoryConstants} from "../../../../Lib/src/constants/InventoryConstants";
-import {InventoryInfos} from "../../core/database/game/models/InventoryInfo";
-import {millisecondsToHours} from "../../../../Lib/src/utils/TimeUtils";
-import {DailyConstants} from "../../../../Lib/src/constants/DailyConstants";
-import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import {TravelTime} from "../../core/maps/TravelTime";
-import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
+import { InventorySlots } from "../../core/database/game/models/InventorySlot";
+import { draftBotInstance } from "../../index";
+import { ObjectItem } from "../../data/ObjectItem";
+import { ItemNature } from "../../../../Lib/src/constants/ItemConstants";
+import { InventoryConstants } from "../../../../Lib/src/constants/InventoryConstants";
+import { InventoryInfos } from "../../core/database/game/models/InventoryInfo";
+import { millisecondsToHours } from "../../../../Lib/src/utils/TimeUtils";
+import { DailyConstants } from "../../../../Lib/src/constants/DailyConstants";
+import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
+import { TravelTime } from "../../core/maps/TravelTime";
+import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
 
 /**
  * Check if the active object is wrong for the daily bonus
@@ -31,7 +35,11 @@ function isWrongObjectForDaily(activeObject: ObjectItem, response: DraftBotPacke
 		response.push(makePacket(activeObject.id === InventoryConstants.OBJECT_DEFAULT_ID ? CommandDailyBonusNoActiveObject : CommandDailyBonusObjectDoNothing, {}));
 		return true;
 	}
-	if ([ItemNature.SPEED, ItemNature.DEFENSE, ItemNature.ATTACK].includes(activeObject.nature)) {
+	if ([
+		ItemNature.SPEED,
+		ItemNature.DEFENSE,
+		ItemNature.ATTACK
+	].includes(activeObject.nature)) {
 		response.push(makePacket(CommandDailyBonusObjectIsActiveDuringFights, {}));
 		return true;
 	}
@@ -69,22 +77,22 @@ async function activateDailyItem(player: Player, activeObject: ObjectItem, respo
 	});
 	response.push(packet);
 	switch (packet.itemNature) {
-	case ItemNature.ENERGY:
-		player.addEnergy(activeObject.power, NumberChangeReason.DAILY);
-		break;
-	case ItemNature.HEALTH:
-		await player.addHealth(activeObject.power, response, NumberChangeReason.DAILY);
-		break;
-	case ItemNature.TIME_SPEEDUP:
-		await TravelTime.timeTravel(player, activeObject.power, NumberChangeReason.DAILY);
-		break;
-	default:
-		await player.addMoney({
-			amount: activeObject.power,
-			response,
-			reason: NumberChangeReason.DAILY
-		});
-		break;
+		case ItemNature.ENERGY:
+			player.addEnergy(activeObject.power, NumberChangeReason.DAILY);
+			break;
+		case ItemNature.HEALTH:
+			await player.addHealth(activeObject.power, response, NumberChangeReason.DAILY);
+			break;
+		case ItemNature.TIME_SPEEDUP:
+			await TravelTime.timeTravel(player, activeObject.power, NumberChangeReason.DAILY);
+			break;
+		default:
+			await player.addMoney({
+				amount: activeObject.power,
+				response,
+				reason: NumberChangeReason.DAILY
+			});
+			break;
 	}
 	const inventoryInfo = await InventoryInfos.getOfPlayer(player.id);
 	inventoryInfo.updateLastDailyAt();
@@ -95,7 +103,6 @@ async function activateDailyItem(player: Player, activeObject: ObjectItem, respo
 }
 
 export default class DailyBonusCommand {
-
 	/**
 	 * Handle the daily bonus command
 	 * @param response

@@ -1,7 +1,7 @@
-import {KeycloakConfig} from "./KeycloakConfig";
-import {KeycloakUserToRegister} from "./KeycloakUserToRegister";
-import {KeycloakUser} from "./KeycloakUser";
-import {Language} from "../Language";
+import { KeycloakConfig } from "./KeycloakConfig";
+import { KeycloakUserToRegister } from "./KeycloakUserToRegister";
+import { KeycloakUser } from "./KeycloakUser";
+import { Language } from "../Language";
 
 export class KeycloakUtils {
 	private static keycloakToken: string | null = null;
@@ -262,9 +262,12 @@ export class KeycloakUtils {
 					"Content-Type": "application/x-www-form-urlencoded"
 				},
 				body: new URLSearchParams({
-					"client_id": keycloakConfig.clientId,
-					"client_secret": keycloakConfig.clientSecret,
-					"grant_type": "client_credentials"
+					// eslint-disable-next-line camelcase
+					client_id: keycloakConfig.clientId,
+					// eslint-disable-next-line camelcase
+					client_secret: keycloakConfig.clientSecret,
+					// eslint-disable-next-line camelcase
+					grant_type: "client_credentials"
 				})
 			});
 

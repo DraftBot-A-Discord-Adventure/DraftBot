@@ -1,4 +1,6 @@
-import {Language, LANGUAGE} from "../Language";
+import {
+	Language, LANGUAGE
+} from "../Language";
 
 /**
  * Get the elements to display the remaining time in the given language
@@ -9,27 +11,31 @@ function getMinutesDisplayStringConstants(language: string): {
 	minutesDisplay: string;
 	secondsDisplay: string;
 	plural: string;
-	linkWord: string
+	linkWord: string;
 } {
-	return language === "" ? {
-		hoursDisplay: "H",
-		minutesDisplay: "Min",
-		secondsDisplay: "s",
-		linkWord: " ",
-		plural: ""
-	} : language === LANGUAGE.FRENCH ? {
-		hoursDisplay: "heure",
-		minutesDisplay: "minute",
-		secondsDisplay: "seconde",
-		linkWord: " et ",
-		plural: "s"
-	} : {
-		hoursDisplay: "hour",
-		minutesDisplay: "minute",
-		secondsDisplay: "second",
-		linkWord: " and ",
-		plural: "s"
-	};
+	return language === ""
+		? {
+			hoursDisplay: "H",
+			minutesDisplay: "Min",
+			secondsDisplay: "s",
+			linkWord: " ",
+			plural: ""
+		}
+		: language === LANGUAGE.FRENCH
+			? {
+				hoursDisplay: "heure",
+				minutesDisplay: "minute",
+				secondsDisplay: "seconde",
+				linkWord: " et ",
+				plural: "s"
+			}
+			: {
+				hoursDisplay: "hour",
+				minutesDisplay: "minute",
+				secondsDisplay: "second",
+				linkWord: " and ",
+				plural: "s"
+			};
 }
 
 /**
@@ -143,9 +149,9 @@ export function hoursToSeconds(hours: number): number {
  * @param second - second date
  */
 export function datesAreOnSameDay(first: Date, second: Date): boolean {
-	return first.getFullYear() === second.getFullYear() &&
-		first.getMonth() === second.getMonth() &&
-		first.getDate() === second.getDate();
+	return first.getFullYear() === second.getFullYear()
+		&& first.getMonth() === second.getMonth()
+		&& first.getDate() === second.getDate();
 }
 
 /**

@@ -1,6 +1,8 @@
-import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
-import {ClassDataController} from "../../../../data/Class";
-import {draftBotInstance} from "../../../../index";
+import {
+	ExecuteTestCommandLike, ITestCommand, TypeKey
+} from "../../../../core/CommandsTest";
+import { ClassDataController } from "../../../../data/Class";
+import { draftBotInstance } from "../../../../index";
 
 export const commandInfo: ITestCommand = {
 	name: "changeClass",

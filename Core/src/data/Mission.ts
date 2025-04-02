@@ -1,7 +1,7 @@
-import {DataControllerString} from "./DataController";
-import {Data} from "./Data";
-import {MissionDifficulty} from "../core/missions/MissionDifficulty";
-import {RandomUtils} from "../../../Lib/src/utils/RandomUtils";
+import { DataControllerString } from "./DataController";
+import { Data } from "./Data";
+import { MissionDifficulty } from "../core/missions/MissionDifficulty";
+import { RandomUtils } from "../../../Lib/src/utils/RandomUtils";
 
 export class Mission extends Data<string> {
 	public readonly campaignOnly: boolean;
@@ -51,20 +51,22 @@ export class MissionDataController extends DataControllerString<Mission> {
 
 	public getRandomMission(difficulty: MissionDifficulty, exception: string): Mission {
 		const filter: (mission: Mission) => boolean =
-			difficulty === MissionDifficulty.EASY ? (mission): boolean => mission.canBeEasy()
-				: difficulty === MissionDifficulty.MEDIUM ? (mission): boolean => mission.canBeMedium()
+			difficulty === MissionDifficulty.EASY
+				? (mission): boolean => mission.canBeEasy()
+				: difficulty === MissionDifficulty.MEDIUM
+					? (mission): boolean => mission.canBeMedium()
 					: (mission): boolean => mission.canBeHard();
 
 		return RandomUtils.draftbotRandom.pick(
 			this.getValuesArray()
-				.filter((mission) => filter(mission) && mission.campaignOnly === false && mission.id !== (exception ?? ""))
+				.filter(mission => filter(mission) && mission.campaignOnly === false && mission.id !== (exception ?? ""))
 		);
 	}
 
 	public getRandomDailyMission(): Mission {
 		return RandomUtils.draftbotRandom.pick(
 			this.getValuesArray()
-				.filter((mission) => mission.dailyIndexes?.length !== 0 && !mission.campaignOnly)
+				.filter(mission => mission.dailyIndexes?.length !== 0 && !mission.campaignOnly)
 		);
 	}
 }

@@ -1,12 +1,15 @@
-import {Fighter} from "../../../fighter/Fighter";
-import {attackInfo, statsInfo} from "../../FightActionController";
-import {FightAlterationFunc} from "../../../../../data/FightAlteration";
-import {FightActionDataController} from "../../../../../data/FightAction";
-import {defaultDamageFightAlterationResult, defaultFightAlterationResult, defaultHealFightAlterationResult, defaultRandomActionFightAlterationResult} from "../../../FightController";
-import {RandomUtils} from "../../../../../../../Lib/src/utils/RandomUtils";
+import { Fighter } from "../../../fighter/Fighter";
+import {
+	attackInfo, statsInfo
+} from "../../FightActionController";
+import { FightAlterationFunc } from "../../../../../data/FightAlteration";
+import { FightActionDataController } from "../../../../../data/FightAction";
+import {
+	defaultDamageFightAlterationResult, defaultFightAlterationResult, defaultHealFightAlterationResult, defaultRandomActionFightAlterationResult
+} from "../../../FightController";
+import { RandomUtils } from "../../../../../../../Lib/src/utils/RandomUtils";
 
 const use: FightAlterationFunc = (affected, _fightAlteration, opponent) => {
-
 	// Heal the confusion after 3 turns
 	if (affected.alterationTurn > 3 || RandomUtils.draftbotRandom.bool() && affected.alterationTurn === 3) {
 		return defaultHealFightAlterationResult(affected);

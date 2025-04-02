@@ -1,34 +1,38 @@
-import {DraftbotInteraction} from "../../messages/DraftbotInteraction.js";
+import { DraftbotInteraction } from "../../messages/DraftbotInteraction.js";
 import {
 	CommandGuildInviteAcceptPacketRes,
 	CommandGuildInviteErrorPacket,
 	CommandGuildInvitePacketReq,
 	CommandGuildInviteRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildInvitePacket.js";
-import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils.js";
-import {draftBotClient, keycloakConfig} from "../../bot/DraftBotShard.js";
-import {DraftBotErrorEmbed} from "../../messages/DraftBotErrorEmbed.js";
+import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils.js";
+import {
+	draftBotClient, keycloakConfig
+} from "../../bot/DraftBotShard.js";
+import { DraftBotErrorEmbed } from "../../messages/DraftBotErrorEmbed.js";
 import i18n from "../../translations/i18n.js";
-import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket.js";
-import {DiscordCache} from "../../bot/DiscordCache.js";
-import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket.js";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed.js";
-import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils.js";
-import {ReactionCollectorGuildInviteData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildInvite.js";
-import {ICommand} from "../ICommand.js";
-import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator.js";
-import {SlashCommandBuilder} from "@discordjs/builders";
-import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants.js";
-import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import {
+	makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket.js";
+import { DiscordCache } from "../../bot/DiscordCache.js";
+import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket.js";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed.js";
+import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils.js";
+import { ReactionCollectorGuildInviteData } from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildInvite.js";
+import { ICommand } from "../ICommand.js";
+import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator.js";
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { GuildConstants } from "../../../../Lib/src/constants/GuildConstants.js";
+import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
 async function getPacket(interaction: DraftbotInteraction): Promise<CommandGuildInvitePacketReq | null> {
 	const invitedUser = interaction.options.getUser("user")!;
 	const invitedPlayerRawKeycloakId = await KeycloakUtils.getKeycloakIdFromDiscordId(keycloakConfig, invitedUser.id, invitedUser.displayName);
 	if (!invitedPlayerRawKeycloakId) {
-		await interaction.reply({embeds: [new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("error:playerDoesntExist", {lng: interaction.userLanguage}))]});
+		await interaction.reply({ embeds: [new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("error:playerDoesntExist", { lng: interaction.userLanguage }))] });
 		return null;
 	}
-	return makePacket(CommandGuildInvitePacketReq, {invitedPlayerkeycloakId: invitedPlayerRawKeycloakId});
+	return makePacket(CommandGuildInvitePacketReq, { invitedPlayerkeycloakId: invitedPlayerRawKeycloakId });
 }
 
 export async function handleCommandGuildInviteError(packet: CommandGuildInviteErrorPacket, context: PacketContext, errorKey: string): Promise<void> {

@@ -1,11 +1,11 @@
-import {SmallEventFuncs} from "../../data/SmallEvent";
-import {Maps} from "../maps/Maps";
-import {PetEntities} from "../database/game/models/PetEntity";
-import {Guilds} from "../database/game/models/Guild";
-import {PET_ENTITY_GIVE_RETURN} from "../../../../Lib/src/constants/PetConstants";
-import {makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
-import {SmallEventFindPetPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFindPetPacket";
-import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
+import { SmallEventFuncs } from "../../data/SmallEvent";
+import { Maps } from "../maps/Maps";
+import { PetEntities } from "../database/game/models/PetEntity";
+import { Guilds } from "../database/game/models/Guild";
+import { PET_ENTITY_GIVE_RETURN } from "../../../../Lib/src/constants/PetConstants";
+import { makePacket } from "../../../../Lib/src/packets/DraftBotPacket";
+import { SmallEventFindPetPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventFindPetPacket";
+import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
 
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnContinent,

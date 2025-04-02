@@ -1,9 +1,9 @@
-import {DataControllerString} from "./DataController";
-import {Data} from "./Data";
+import { DataControllerString } from "./DataController";
+import { Data } from "./Data";
 import Player from "../core/database/game/models/Player";
-import {readdirSync} from "fs";
-import {RandomUtils} from "../../../Lib/src/utils/RandomUtils";
-import {Pet} from "./Pet";
+import { readdirSync } from "fs";
+import { RandomUtils } from "../../../Lib/src/utils/RandomUtils";
+import { Pet } from "./Pet";
 
 /**
  * The base class for the different events that can happen after the player encounters a feral pet
@@ -17,7 +17,6 @@ export class FightPetAction extends Data<string> {
 export type FightPetActionFunc = (player: Player, pet: Pet, isFemale: boolean) => boolean | Promise<boolean>;
 
 export class FightPetActionDataController extends DataControllerString<FightPetAction> {
-
 	static readonly instance = new FightPetActionDataController("fightPetActions");
 
 	private static fightPetActionsFunctionsCache: Map<string, FightPetActionFunc>;
@@ -42,7 +41,7 @@ export class FightPetActionDataController extends DataControllerString<FightPetA
 	}
 
 	public getRandomFightPetAction(excludedFightPetActions: FightPetAction[]): FightPetAction {
-		return RandomUtils.draftbotRandom.pick(Array.from(this.data.values()).filter((fightPetAction) => !excludedFightPetActions.includes(fightPetAction)));
+		return RandomUtils.draftbotRandom.pick(Array.from(this.data.values()).filter(fightPetAction => !excludedFightPetActions.includes(fightPetAction)));
 	}
 
 	newInstance(): FightPetAction {

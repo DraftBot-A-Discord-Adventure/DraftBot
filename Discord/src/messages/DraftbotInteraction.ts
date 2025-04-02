@@ -2,19 +2,26 @@ import {
 	BaseGuildTextChannel,
 	ButtonInteraction,
 	Client,
-	CommandInteraction, DiscordjsError, DiscordjsErrorCodes,
+	CommandInteraction,
+	DiscordjsError,
+	DiscordjsErrorCodes,
 	GuildTextBasedChannel,
 	InteractionEditReplyOptions,
 	InteractionReplyOptions,
 	Message,
 	MessageCreateOptions,
-	MessagePayload, StringSelectMenuInteraction
+	MessagePayload,
+	StringSelectMenuInteraction
 } from "discord.js";
-import {RawInteractionData, RawWebhookData} from "discord.js/typings/rawDataTypes";
+import {
+	RawInteractionData, RawWebhookData
+} from "discord.js/typings/rawDataTypes";
 import i18n from "../translations/i18n";
-import {LANGUAGE, Language} from "../../../Lib/src/Language";
-import {CommandInteractionOptionResolver} from "discord.js/typings";
-import {DraftBotEmbed} from "./DraftBotEmbed";
+import {
+	LANGUAGE, Language
+} from "../../../Lib/src/Language";
+import { CommandInteractionOptionResolver } from "discord.js/typings";
+import { DraftBotEmbed } from "./DraftBotEmbed";
 
 type DraftbotInteractionWithoutSendCommands = new(client: Client<true>, data: RawInteractionData) => Omit<CommandInteraction, "reply" | "followUp" | "channel">;
 const DraftbotInteractionWithoutSendCommands: DraftbotInteractionWithoutSendCommands = CommandInteraction as unknown as DraftbotInteractionWithoutSendCommands;
@@ -212,8 +219,11 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 	 * @param fallback function to execute if the bot can't send the message
 	 * @private
 	 */
-	private async commonSendCommand<OptionType extends OptionLike>(functionPrototype: ReplyFunctionLike<OptionType>, options: OptionType, fallback: () => void | Promise<void>)
-		: Promise<Message | null> {
+	private async commonSendCommand<OptionType extends OptionLike>(
+		functionPrototype: ReplyFunctionLike<OptionType>,
+		options: OptionType,
+		fallback: () => void | Promise<void>
+	): Promise<Message | null> {
 		try {
 			return await functionPrototype(options);
 		}
@@ -236,18 +246,22 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 			DiscordjsErrorCodes.InteractionNotReplied
 		];
 
-		let toSendProp: { content?: string, embeds?: DraftBotEmbed[] };
+		let toSendProp: {
+			content?: string; embeds?: DraftBotEmbed[];
+		};
 		const lng = this.userLanguage;
 		if (e?.constructor.name === DiscordjsError.name && manageFallbackDevErrorCodes.includes((e as DiscordjsError).code)) {
 			toSendProp = {
-				embeds: [new DraftBotEmbed()
-					.formatAuthor(i18n.t("error:errorOccurredTitle", {lng}), this.user)
-					.setDescription(i18n.t("error:aDevMessedUp", {lng}))
-					.setErrorColor()]
+				embeds: [
+					new DraftBotEmbed()
+						.formatAuthor(i18n.t("error:errorOccurredTitle", { lng }), this.user)
+						.setDescription(i18n.t("error:aDevMessedUp", { lng }))
+						.setErrorColor()
+				]
 			};
 		}
 		else {
-			toSendProp = { content: i18n.t("bot:noSpeakPermission", {lng}) };
+			toSendProp = { content: i18n.t("bot:noSpeakPermission", { lng }) };
 		}
 		try {
 			// @ts-expect-error - We consider that the functionPrototype is a function that can be called with these parameters (i.e, accepts a InteractionReplyOptions)
@@ -258,14 +272,17 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 		}
 		catch {
 			if (functionPrototype !== DraftbotChannel.prototype.send) {
-				// Try again to manage fallback with the send function
-				// @ts-expect-error - We consider that the functionPrototype is a function that can be called with these parameters (i.e, accepts a InteractionReplyOptions)
+				/*
+				 * Try again to manage fallback with the send function
+				 * @ts-expect-error - We consider that the functionPrototype is a function that can be called with these parameters (i.e, accepts a InteractionReplyOptions)
+				 */
 				await DraftbotInteraction.prototype.manageFallback.bind(this)(BaseGuildTextChannel.prototype.send.bind(this.channel), e);
 				return;
 			}
+
 			// We can't send ephemeral message, so we send the message in DM
 			try {
-				await CommandInteraction.prototype.user.send.bind(this.user)({...toSendProp});
+				await CommandInteraction.prototype.user.send.bind(this.user)({ ...toSendProp });
 			}
 			catch {
 				console.log(`Unable to alert user of no speak permission : c:${this.channel?.id} / u:${this.user?.id}`);

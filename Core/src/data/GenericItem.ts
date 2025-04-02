@@ -1,4 +1,4 @@
-import {Data} from "./Data";
+import { Data } from "./Data";
 
 export abstract class GenericItem extends Data<number> {
 	declare readonly rarity: number;
@@ -11,18 +11,18 @@ export abstract class GenericItem extends Data<number> {
 
 	declare readonly frenchPlural?: boolean;
 
-    abstract categoryName: string;
+	abstract categoryName: string;
 
-    public slot: number;
+	public slot: number;
 
 
-    public abstract getAttack(): number;
+	public abstract getAttack(): number;
 
-    public abstract getDefense(): number;
+	public abstract getDefense(): number;
 
-    public abstract getSpeed(): number;
+	public abstract getSpeed(): number;
 
-    public abstract getCategory(): number;
+	public abstract getCategory(): number;
 
-    public abstract getItemAddedValue(): number;
+	public abstract getItemAddedValue(): number;
 }

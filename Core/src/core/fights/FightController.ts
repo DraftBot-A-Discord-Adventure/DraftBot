@@ -1,29 +1,38 @@
-import {Fighter} from "./fighter/Fighter";
-import {FightState} from "./FightState";
-import {FightView} from "./FightView";
-import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
-import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
-import {FighterStatus} from "./FighterStatus";
-import {FightOvertimeBehavior} from "./FightOvertimeBehavior";
-import {MonsterFighter} from "./fighter/MonsterFighter";
-import {PlayerFighter} from "./fighter/PlayerFighter";
-import {PVEConstants} from "../../../../Lib/src/constants/PVEConstants";
-import {DraftBotPacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {attackInfo, FightActionController, statsInfo} from "./actions/FightActionController";
-import {FightAction, FightActionDataController} from "../../data/FightAction";
-import {FightStatModifierOperation} from "../../../../Lib/src/types/FightStatModifierOperation";
-import {FightAlterationResult, FightAlterationState} from "../../../../Lib/src/types/FightAlterationResult";
-import {FightActionResult} from "../../../../Lib/src/types/FightActionResult";
-import {AiPlayerFighter} from "./fighter/AiPlayerFighter";
-import {FightAlteration, FightAlterationDataController} from "../../data/FightAlteration";
-import {PetAssistance} from "../../data/PetAssistance";
-import {getAiPetBehavior} from "./PetAssistManager";
+import { Fighter } from "./fighter/Fighter";
+import { FightState } from "./FightState";
+import { FightView } from "./FightView";
+import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
+import { FightConstants } from "../../../../Lib/src/constants/FightConstants";
+import { FighterStatus } from "./FighterStatus";
+import { FightOvertimeBehavior } from "./FightOvertimeBehavior";
+import { MonsterFighter } from "./fighter/MonsterFighter";
+import { PlayerFighter } from "./fighter/PlayerFighter";
+import { PVEConstants } from "../../../../Lib/src/constants/PVEConstants";
+import {
+	DraftBotPacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import {
+	attackInfo, FightActionController, statsInfo
+} from "./actions/FightActionController";
+import {
+	FightAction, FightActionDataController
+} from "../../data/FightAction";
+import { FightStatModifierOperation } from "../../../../Lib/src/types/FightStatModifierOperation";
+import {
+	FightAlterationResult, FightAlterationState
+} from "../../../../Lib/src/types/FightAlterationResult";
+import { FightActionResult } from "../../../../Lib/src/types/FightActionResult";
+import { AiPlayerFighter } from "./fighter/AiPlayerFighter";
+import {
+	FightAlteration, FightAlterationDataController
+} from "../../data/FightAlteration";
+import { PetAssistance } from "../../data/PetAssistance";
+import { getAiPetBehavior } from "./PetAssistManager";
 
 /**
  * @class FightController
  */
 export class FightController {
-
 	turn: number;
 
 	public readonly fighters: (PlayerFighter | MonsterFighter | AiPlayerFighter)[];
@@ -40,8 +49,8 @@ export class FightController {
 
 	public constructor(
 		fighters: {
-			fighter1: PlayerFighter,
-			fighter2: (MonsterFighter | AiPlayerFighter)
+			fighter1: PlayerFighter;
+			fighter2: (MonsterFighter | AiPlayerFighter);
 		},
 		overtimeBehavior: FightOvertimeBehavior,
 		context: PacketContext
@@ -242,7 +251,9 @@ export class FightController {
 		attacker: PlayerFighter | MonsterFighter | AiPlayerFighter,
 		fightAction: FightAction,
 		defender: PlayerFighter | MonsterFighter | AiPlayerFighter
-	): { fightAction: FightAction, result: FightActionResult | FightAlterationResult } {
+	): {
+			fightAction: FightAction; result: FightActionResult | FightAlterationResult;
+		} {
 		// Check if the attacker has enough breath
 		const enoughBreath = attacker.useBreath(fightAction.breath);
 		let result: FightActionResult | FightAlterationResult;
@@ -263,7 +274,9 @@ export class FightController {
 			// Execute the action normally
 			result = fightAction.use(attacker, defender, this.turn, this);
 		}
-		return {fightAction, result};
+		return {
+			fightAction, result
+		};
 	}
 
 	/**
@@ -292,7 +305,6 @@ export class FightController {
 	 * @private
 	 */
 	private async prepareNextTurn(response: DraftBotPacket[]): Promise<void> {
-
 		if (this.overtimeBehavior === FightOvertimeBehavior.INCREASE_DAMAGE_PVE && this.turn >= FightConstants.MAX_TURNS) {
 			this.increaseDamagesPve(this.turn);
 		}
@@ -392,10 +404,10 @@ export class FightController {
 	private hadEnded(): boolean {
 		return (
 			this.getPlayingFighter()
-				.isDeadOrBug() ||
-			this.getDefendingFighter()
-				.isDeadOrBug() ||
-			this.state !== FightState.RUNNING);
+				.isDeadOrBug()
+			|| this.getDefendingFighter()
+				.isDeadOrBug()
+			|| this.state !== FightState.RUNNING);
 	}
 }
 
@@ -405,8 +417,8 @@ export class FightController {
  * @param receiver
  */
 export function getUsedGodMoves(sender: Fighter, receiver: Fighter): number {
-	return sender.fightActionsHistory.filter(action => FightConstants.GOD_MOVES.includes(action.id)).length +
-		receiver.fightActionsHistory.filter(action => FightConstants.GOD_MOVES.includes(action.id)).length;
+	return sender.fightActionsHistory.filter(action => FightConstants.GOD_MOVES.includes(action.id)).length
+		+ receiver.fightActionsHistory.filter(action => FightConstants.GOD_MOVES.includes(action.id)).length;
 }
 
 /**

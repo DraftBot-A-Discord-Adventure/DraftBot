@@ -1,7 +1,13 @@
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {PetEntities, PetEntity} from "../../core/database/game/models/PetEntity";
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
-import Player, {Players} from "../../core/database/game/models/Player";
+import {
+	DraftBotPacket, makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import {
+	PetEntities, PetEntity
+} from "../../core/database/game/models/PetEntity";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
+import Player, { Players } from "../../core/database/game/models/Player";
 import {
 	CommandPetSellAlreadyHavePetError,
 	CommandPetSellBadPriceErrorPacket,
@@ -18,25 +24,33 @@ import {
 	CommandPetSellSameGuildError,
 	CommandPetSellSuccessPacket
 } from "../../../../Lib/src/packets/commands/CommandPetSellPacket";
-import {Guild, Guilds} from "../../core/database/game/models/Guild";
-import {Pet, PetDataController} from "../../data/Pet";
-import {PetSellConstants} from "../../../../Lib/src/constants/PetSellConstants";
-import {CollectCallback, EndCallback, ReactionCollectorInstance} from "../../core/utils/ReactionsCollector";
+import {
+	Guild, Guilds
+} from "../../core/database/game/models/Guild";
+import {
+	Pet, PetDataController
+} from "../../data/Pet";
+import { PetSellConstants } from "../../../../Lib/src/constants/PetSellConstants";
+import {
+	CollectCallback, EndCallback, ReactionCollectorInstance
+} from "../../core/utils/ReactionsCollector";
 import {
 	ReactionCollectorAcceptReaction,
 	ReactionCollectorReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
-import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
-import {ReactionCollectorPetSell} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetSell";
-import {GuildUtils} from "../../core/utils/GuildUtils";
-import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
-import {LogsDatabase} from "../../core/database/logs/LogsDatabase";
-import {MissionsController} from "../../core/missions/MissionsController";
-import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
+import { BlockingUtils } from "../../core/utils/BlockingUtils";
+import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
+import { ReactionCollectorPetSell } from "../../../../Lib/src/packets/interaction/ReactionCollectorPetSell";
+import { GuildUtils } from "../../core/utils/GuildUtils";
+import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
+import { PetConstants } from "../../../../Lib/src/constants/PetConstants";
+import { LogsDatabase } from "../../core/database/logs/LogsDatabase";
+import { MissionsController } from "../../core/missions/MissionsController";
+import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
 
-type SellerInformation = { player: Player, pet: PetEntity, petModel: Pet, guild: Guild, petCost: number };
+type SellerInformation = {
+	player: Player; pet: PetEntity; petModel: Pet; guild: Guild; petCost: number;
+};
 
 /**
  * Check if the requirements for selling the pet are fulfilled
@@ -123,8 +137,8 @@ async function executePetSell(collector: ReactionCollectorInstance, response: Dr
 	LogsDatabase.logPetSell(sellerInformation.pet, sellerInformation.player.keycloakId, buyer.keycloakId, sellerInformation.petCost).then();
 
 	// Update missions
-	await MissionsController.update(buyer, response, {missionId: "havePet"});
-	await MissionsController.update(sellerInformation.player, response, {missionId: "sellOrTradePet"});
+	await MissionsController.update(buyer, response, { missionId: "havePet" });
+	await MissionsController.update(sellerInformation.player, response, { missionId: "sellOrTradePet" });
 
 	// Success packet
 	response.push(makePacket(CommandPetSellSuccessPacket, {
@@ -263,7 +277,9 @@ export default class PetSellCommand {
 			return;
 		}
 
-		const sellerInformation = {player, pet, petModel: PetDataController.instance.getById(pet.typeId), guild, petCost: packet.price};
+		const sellerInformation = {
+			player, pet, petModel: PetDataController.instance.getById(pet.typeId), guild, petCost: packet.price
+		};
 
 		if (missingRequirementsToSellPet(response, sellerInformation)) {
 			return;

@@ -1,11 +1,11 @@
-import {packetHandler} from "../../../PacketHandler";
+import { packetHandler } from "../../../PacketHandler";
 import {
 	CommandGuildLeaveAcceptPacketRes,
 	CommandGuildLeaveNotInAGuildPacketRes,
 	CommandGuildLeaveRefusePacketRes
 } from "../../../../../../Lib/src/packets/commands/CommandGuildLeavePacket";
-import {PacketContext} from "../../../../../../Lib/src/packets/DraftBotPacket";
-import {handleClassicError} from "../../../../utils/ErrorUtils";
+import { PacketContext } from "../../../../../../Lib/src/packets/DraftBotPacket";
+import { handleClassicError } from "../../../../utils/ErrorUtils";
 import {
 	handleCommandGuildLeaveAcceptPacketRes,
 	handleCommandGuildLeaveRefusePacketRes
@@ -24,6 +24,6 @@ export default class GuildLeaveCommandPacketHandlers {
 
 	@packetHandler(CommandGuildLeaveAcceptPacketRes)
 	async guildLeaveAcceptRes(context: PacketContext, packet: CommandGuildLeaveAcceptPacketRes): Promise<void> {
-		await handleCommandGuildLeaveAcceptPacketRes(packet,context);
+		await handleCommandGuildLeaveAcceptPacketRes(packet, context);
 	}
 }

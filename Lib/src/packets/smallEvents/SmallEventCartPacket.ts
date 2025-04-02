@@ -1,5 +1,7 @@
-import {PacketDirection, sendablePacket} from "../DraftBotPacket";
-import {SmallEventPacket} from "./SmallEventPacket";
+import {
+	PacketDirection, sendablePacket
+} from "../DraftBotPacket";
+import { SmallEventPacket } from "./SmallEventPacket";
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class SmallEventCartPacket extends SmallEventPacket {
@@ -8,7 +10,7 @@ export class SmallEventCartPacket extends SmallEventPacket {
 	isDisplayed!: boolean;
 
 	travelDone!: {
-		isAccepted: boolean,
-		hasEnoughMoney: boolean
+		isAccepted: boolean;
+		hasEnoughMoney: boolean;
 	};
 }

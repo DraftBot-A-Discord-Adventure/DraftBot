@@ -1,37 +1,45 @@
-import {SmallEventDataController, SmallEventFuncs} from "../../data/SmallEvent";
+import {
+	SmallEventDataController, SmallEventFuncs
+} from "../../data/SmallEvent";
 import Player from "../database/game/models/Player";
-import {Maps} from "../maps/Maps";
-import {EndCallback, ReactionCollectorInstance} from "../utils/ReactionsCollector";
-import {BlockingUtils} from "../utils/BlockingUtils";
-import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
+import { Maps } from "../maps/Maps";
+import {
+	EndCallback, ReactionCollectorInstance
+} from "../utils/ReactionsCollector";
+import { BlockingUtils } from "../utils/BlockingUtils";
+import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
 import {
 	ReactionCollectorLottery,
 	ReactionCollectorLotteryHardReaction,
 	ReactionCollectorLotteryMediumReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorLottery";
-import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
+import {
+	DraftBotPacket, makePacket
+} from "../../../../Lib/src/packets/DraftBotPacket";
 import {
 	SmallEventLotteryLosePacket,
 	SmallEventLotteryNoAnswerPacket,
 	SmallEventLotteryPoorPacket,
 	SmallEventLotteryWinPacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventLotteryPacket";
-import {SmallEventConstants} from "../../../../Lib/src/constants/SmallEventConstants";
-import {Guild, Guilds} from "../database/game/models/Guild";
-import {TravelTime} from "../maps/TravelTime";
-import {Effect} from "../../../../Lib/src/types/Effect";
-import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
+import { SmallEventConstants } from "../../../../Lib/src/constants/SmallEventConstants";
+import {
+	Guild, Guilds
+} from "../database/game/models/Guild";
+import { TravelTime } from "../maps/TravelTime";
+import { Effect } from "../../../../Lib/src/types/Effect";
+import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
+import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
 
 type LotteryProperties = {
 	successRate: {
 		[lotteryLevel in LotteryLevelKey]: number
-	},
+	};
 	coefficients: {
 		[lotteryLevel in LotteryLevelKey]: number
-	},
-	lostTime: number,
-}
+	};
+	lostTime: number;
+};
 
 type LotteryLevelKey = "hard" | "medium" | "easy";
 
@@ -62,57 +70,57 @@ async function giveRewardToPlayer(
 	guild: Guild
 ): Promise<void> {
 	switch (rewardType) {
-	case SmallEventConstants.LOTTERY.REWARD_TYPES.XP:
-		await player.addExperience({
-			amount: SmallEventConstants.LOTTERY.REWARDS.EXPERIENCE * coefficient,
-			response,
-			reason: NumberChangeReason.SMALL_EVENT
-		});
-		response.push(makePacket(SmallEventLotteryWinPacket, {
-			winAmount: SmallEventConstants.LOTTERY.REWARDS.EXPERIENCE * coefficient,
-			lostTime,
-			level: levelKey,
-			winReward: "xp"
-		}));
-		break;
-	case SmallEventConstants.LOTTERY.REWARD_TYPES.MONEY:
-		await player.addMoney({
-			amount: SmallEventConstants.LOTTERY.REWARDS.MONEY * coefficient,
-			response,
-			reason: NumberChangeReason.SMALL_EVENT
-		});
-		response.push(makePacket(SmallEventLotteryWinPacket, {
-			winAmount: SmallEventConstants.LOTTERY.REWARDS.MONEY * coefficient,
-			lostTime,
-			level: levelKey,
-			winReward: "money"
-		}));
-		break;
-	case SmallEventConstants.LOTTERY.REWARD_TYPES.GUILD_XP:
-		await guild.addExperience(SmallEventConstants.LOTTERY.REWARDS.GUILD_EXPERIENCE * coefficient, response, NumberChangeReason.SMALL_EVENT);
-		await guild.save();
-		response.push(makePacket(SmallEventLotteryWinPacket, {
-			winAmount: SmallEventConstants.LOTTERY.REWARDS.GUILD_EXPERIENCE * coefficient,
-			lostTime,
-			level: levelKey,
-			winReward: "guildXp"
-		}));
-		break;
-	case SmallEventConstants.LOTTERY.REWARD_TYPES.POINTS:
-		await player.addScore({
-			amount: SmallEventConstants.LOTTERY.REWARDS.POINTS * coefficient,
-			response,
-			reason: NumberChangeReason.SMALL_EVENT
-		});
-		response.push(makePacket(SmallEventLotteryWinPacket, {
-			winAmount: SmallEventConstants.LOTTERY.REWARDS.POINTS * coefficient,
-			lostTime,
-			level: levelKey,
-			winReward: "points"
-		}));
-		break;
-	default:
-		throw new Error("lottery reward type not found");
+		case SmallEventConstants.LOTTERY.REWARD_TYPES.XP:
+			await player.addExperience({
+				amount: SmallEventConstants.LOTTERY.REWARDS.EXPERIENCE * coefficient,
+				response,
+				reason: NumberChangeReason.SMALL_EVENT
+			});
+			response.push(makePacket(SmallEventLotteryWinPacket, {
+				winAmount: SmallEventConstants.LOTTERY.REWARDS.EXPERIENCE * coefficient,
+				lostTime,
+				level: levelKey,
+				winReward: "xp"
+			}));
+			break;
+		case SmallEventConstants.LOTTERY.REWARD_TYPES.MONEY:
+			await player.addMoney({
+				amount: SmallEventConstants.LOTTERY.REWARDS.MONEY * coefficient,
+				response,
+				reason: NumberChangeReason.SMALL_EVENT
+			});
+			response.push(makePacket(SmallEventLotteryWinPacket, {
+				winAmount: SmallEventConstants.LOTTERY.REWARDS.MONEY * coefficient,
+				lostTime,
+				level: levelKey,
+				winReward: "money"
+			}));
+			break;
+		case SmallEventConstants.LOTTERY.REWARD_TYPES.GUILD_XP:
+			await guild.addExperience(SmallEventConstants.LOTTERY.REWARDS.GUILD_EXPERIENCE * coefficient, response, NumberChangeReason.SMALL_EVENT);
+			await guild.save();
+			response.push(makePacket(SmallEventLotteryWinPacket, {
+				winAmount: SmallEventConstants.LOTTERY.REWARDS.GUILD_EXPERIENCE * coefficient,
+				lostTime,
+				level: levelKey,
+				winReward: "guildXp"
+			}));
+			break;
+		case SmallEventConstants.LOTTERY.REWARD_TYPES.POINTS:
+			await player.addScore({
+				amount: SmallEventConstants.LOTTERY.REWARDS.POINTS * coefficient,
+				response,
+				reason: NumberChangeReason.SMALL_EVENT
+			});
+			response.push(makePacket(SmallEventLotteryWinPacket, {
+				winAmount: SmallEventConstants.LOTTERY.REWARDS.POINTS * coefficient,
+				lostTime,
+				level: levelKey,
+				winReward: "points"
+			}));
+			break;
+		default:
+			throw new Error("lottery reward type not found");
 	}
 }
 
@@ -180,7 +188,9 @@ export const smallEventFuncs: SmallEventFuncs = {
 					}));
 				}
 				else {
-					response.push(makePacket(SmallEventLotteryLosePacket, {moneyLost: 0, lostTime, level: levelKey}));
+					response.push(makePacket(SmallEventLotteryLosePacket, {
+						moneyLost: 0, lostTime, level: levelKey
+					}));
 				}
 			}
 		};

@@ -1,70 +1,82 @@
-import {DataTypes, Model, Op, QueryTypes, Sequelize} from "sequelize";
-import InventorySlot, {InventorySlots} from "./InventorySlot";
+import {
+	DataTypes, Model, Op, QueryTypes, Sequelize
+} from "sequelize";
+import InventorySlot, { InventorySlots } from "./InventorySlot";
 import PetEntity from "./PetEntity";
 import MissionSlot from "./MissionSlot";
-import {InventoryInfos} from "./InventoryInfo";
-import {MissionsController} from "../../../missions/MissionsController";
-import {PlayerActiveObjects} from "./PlayerActiveObjects";
-import {getOneDayAgo, millisecondsToSeconds, minutesToHours} from "../../../../../../Lib/src/utils/TimeUtils";
-import {TravelTime} from "../../../maps/TravelTime";
-import {ItemCategory} from "../../../../../../Lib/src/constants/ItemConstants";
-import {Maps} from "../../../maps/Maps";
-import {RandomUtils} from "../../../../../../Lib/src/utils/RandomUtils";
-import {LogsReadRequests} from "../../logs/LogsReadRequests";
-import {PlayerSmallEvents} from "./PlayerSmallEvent";
-import {Guilds} from "./Guild";
-import {DraftBotPacket, makePacket} from "../../../../../../Lib/src/packets/DraftBotPacket";
-import {PlayerDeathPacket} from "../../../../../../Lib/src/packets/events/PlayerDeathPacket";
-import {PlayerLeavePveIslandPacket} from "../../../../../../Lib/src/packets/events/PlayerLeavePveIslandPacket";
-import {PlayerLevelUpPacket} from "../../../../../../Lib/src/packets/events/PlayerLevelUpPacket";
-import {MapLinkDataController} from "../../../../data/MapLink";
-import {MapLocation, MapLocationDataController} from "../../../../data/MapLocation";
-import {draftBotInstance} from "../../../../index";
-import {GenericItem} from "../../../../data/GenericItem";
-import {Class, ClassDataController} from "../../../../data/Class";
-import {BlockingUtils} from "../../../utils/BlockingUtils";
-import {League, LeagueDataController} from "../../../../data/League";
-import {TopConstants} from "../../../../../../Lib/src/constants/TopConstants";
-import {NumberChangeReason} from "../../../../../../Lib/src/constants/LogsConstants";
-import {InventoryConstants} from "../../../../../../Lib/src/constants/InventoryConstants";
-import {Constants} from "../../../../../../Lib/src/constants/Constants";
-import {FightConstants} from "../../../../../../Lib/src/constants/FightConstants";
-import {PVEConstants} from "../../../../../../Lib/src/constants/PVEConstants";
-import {PlayersConstants} from "../../../../../../Lib/src/constants/PlayersConstants";
-import {EntityConstants} from "../../../../../../Lib/src/constants/EntityConstants";
-import {ClassInfoConstants} from "../../../../../../Lib/src/constants/ClassInfoConstants";
-import {GuildConstants} from "../../../../../../Lib/src/constants/GuildConstants";
-import {MapConstants} from "../../../../../../Lib/src/constants/MapConstants";
-import {BlockingConstants} from "../../../../../../Lib/src/constants/BlockingConstants";
-import {Effect} from "../../../../../../Lib/src/types/Effect";
-import {ScheduledReportNotifications} from "./ScheduledReportNotification";
-import {PacketUtils} from "../../../utils/PacketUtils";
-import {StatValues} from "../../../../../../Lib/src/types/StatValues";
-import {ReachDestinationNotificationPacket} from "../../../../../../Lib/src/packets/notifications/ReachDestinationNotificationPacket";
+import { InventoryInfos } from "./InventoryInfo";
+import { MissionsController } from "../../../missions/MissionsController";
+import { PlayerActiveObjects } from "./PlayerActiveObjects";
+import {
+	getOneDayAgo, millisecondsToSeconds, minutesToHours
+} from "../../../../../../Lib/src/utils/TimeUtils";
+import { TravelTime } from "../../../maps/TravelTime";
+import { ItemCategory } from "../../../../../../Lib/src/constants/ItemConstants";
+import { Maps } from "../../../maps/Maps";
+import { RandomUtils } from "../../../../../../Lib/src/utils/RandomUtils";
+import { LogsReadRequests } from "../../logs/LogsReadRequests";
+import { PlayerSmallEvents } from "./PlayerSmallEvent";
+import { Guilds } from "./Guild";
+import {
+	DraftBotPacket, makePacket
+} from "../../../../../../Lib/src/packets/DraftBotPacket";
+import { PlayerDeathPacket } from "../../../../../../Lib/src/packets/events/PlayerDeathPacket";
+import { PlayerLeavePveIslandPacket } from "../../../../../../Lib/src/packets/events/PlayerLeavePveIslandPacket";
+import { PlayerLevelUpPacket } from "../../../../../../Lib/src/packets/events/PlayerLevelUpPacket";
+import { MapLinkDataController } from "../../../../data/MapLink";
+import {
+	MapLocation, MapLocationDataController
+} from "../../../../data/MapLocation";
+import { draftBotInstance } from "../../../../index";
+import { GenericItem } from "../../../../data/GenericItem";
+import {
+	Class, ClassDataController
+} from "../../../../data/Class";
+import { BlockingUtils } from "../../../utils/BlockingUtils";
+import {
+	League, LeagueDataController
+} from "../../../../data/League";
+import { TopConstants } from "../../../../../../Lib/src/constants/TopConstants";
+import { NumberChangeReason } from "../../../../../../Lib/src/constants/LogsConstants";
+import { InventoryConstants } from "../../../../../../Lib/src/constants/InventoryConstants";
+import { Constants } from "../../../../../../Lib/src/constants/Constants";
+import { FightConstants } from "../../../../../../Lib/src/constants/FightConstants";
+import { PVEConstants } from "../../../../../../Lib/src/constants/PVEConstants";
+import { PlayersConstants } from "../../../../../../Lib/src/constants/PlayersConstants";
+import { EntityConstants } from "../../../../../../Lib/src/constants/EntityConstants";
+import { ClassInfoConstants } from "../../../../../../Lib/src/constants/ClassInfoConstants";
+import { GuildConstants } from "../../../../../../Lib/src/constants/GuildConstants";
+import { MapConstants } from "../../../../../../Lib/src/constants/MapConstants";
+import { BlockingConstants } from "../../../../../../Lib/src/constants/BlockingConstants";
+import { Effect } from "../../../../../../Lib/src/types/Effect";
+import { ScheduledReportNotifications } from "./ScheduledReportNotification";
+import { PacketUtils } from "../../../utils/PacketUtils";
+import { StatValues } from "../../../../../../Lib/src/types/StatValues";
+import { ReachDestinationNotificationPacket } from "../../../../../../Lib/src/packets/notifications/ReachDestinationNotificationPacket";
 import moment = require("moment");
 
 export type PlayerEditValueParameters = {
-	player: Player,
-	amount: number,
-	response: DraftBotPacket[],
-	reason: NumberChangeReason
-}
+	player: Player;
+	amount: number;
+	response: DraftBotPacket[];
+	reason: NumberChangeReason;
+};
 
 export type EditValueParameters = {
-	amount: number,
-	response: DraftBotPacket[],
-	reason: NumberChangeReason
-}
+	amount: number;
+	response: DraftBotPacket[];
+	reason: NumberChangeReason;
+};
 
 type MissionHealthParameter = {
-	shouldPokeMission: boolean,
-	overHealCountsForMission: boolean
+	shouldPokeMission: boolean;
+	overHealCountsForMission: boolean;
 };
 
 type ressourcesLostOnPveFaint = {
-	moneyLost: number,
-	guildPointsLost: number,
-}
+	moneyLost: number;
+	guildPointsLost: number;
+};
 
 export class Player extends Model {
 	declare readonly id: number;
@@ -149,8 +161,10 @@ export class Player extends Model {
 	 * @param badge
 	 */
 	public hasBadge(badge: string): boolean {
-		return this.badges === null ? false : this.badges.split("-")
-			.includes(badge);
+		return this.badges === null
+			? false
+			: this.badges.split("-")
+				.includes(badge);
 	}
 
 	/**
@@ -198,8 +212,8 @@ export class Player extends Model {
 	 */
 	public getExperienceNeededToLevelUp(): number {
 		return Math.round(
-			Constants.XP.BASE_VALUE *
-			Math.pow(Constants.XP.COEFFICIENT, this.level + 1)
+			Constants.XP.BASE_VALUE
+			* Math.pow(Constants.XP.COEFFICIENT, this.level + 1)
 		) - Constants.XP.MINUS;
 	}
 
@@ -234,8 +248,11 @@ export class Player extends Model {
 				missionId: "earnMoney",
 				count: parameters.amount
 			});
-			// Clone the mission entity and player to this player model and the entity instance passed in the parameters
-			// As the money and experience may have changed, we update the models of the caller
+
+			/*
+			 * Clone the mission entity and player to this player model and the entity instance passed in the parameters
+			 * As the money and experience may have changed, we update the models of the caller
+			 */
 			Object.assign(this, newPlayer);
 		}
 		this.setMoney(this.money);
@@ -430,7 +447,11 @@ export class Player extends Model {
 	 * Check if the player is under some effect (except dead or baby)
 	 */
 	public isUnderEffect(): boolean {
-		return [Effect.NOT_STARTED.id, Effect.NO_EFFECT.id, Effect.DEAD.id].indexOf(this.effectId) === -1;
+		return [
+			Effect.NOT_STARTED.id,
+			Effect.NO_EFFECT.id,
+			Effect.DEAD.id
+		].indexOf(this.effectId) === -1;
 	}
 
 	/**
@@ -476,7 +497,7 @@ export class Player extends Model {
                            > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{
-				count: number
+				count: number;
 			}[]>(await Player.sequelize.query(query, {
 				replacements: {
 					link: this.mapLinkId,
@@ -582,8 +603,11 @@ export class Player extends Model {
 				missionId: "earnXP",
 				count: parameters.amount
 			});
-			// Clone the mission entity and player to this player model and the entity instance passed in the parameters
-			// As the money and experience may have changed, we update the models of the caller
+
+			/*
+			 * Clone the mission entity and player to this player model and the entity instance passed in the parameters
+			 * As the money and experience may have changed, we update the models of the caller
+			 */
 			Object.assign(this, newPlayer);
 		}
 
@@ -617,9 +641,11 @@ export class Player extends Model {
 			.getAttackValue(this.level);
 		const attack = playerAttack
 			+ (playerActiveObjects.weapon.getAttack() < playerAttack
-				? playerActiveObjects.weapon.getAttack() : playerAttack)
+				? playerActiveObjects.weapon.getAttack()
+				: playerAttack)
 			+ (playerActiveObjects.armor.getAttack() < playerAttack
-				? playerActiveObjects.armor.getAttack() : playerAttack)
+				? playerActiveObjects.armor.getAttack()
+				: playerAttack)
 			+ playerActiveObjects.object.getAttack()
 			+ playerActiveObjects.potion.getAttack();
 		return attack > 0 ? attack : 0;
@@ -634,9 +660,11 @@ export class Player extends Model {
 			.getDefenseValue(this.level);
 		const defense = playerDefense
 			+ (playerActiveObjects.weapon.getDefense() < playerDefense
-				? playerActiveObjects.weapon.getDefense() : playerDefense)
+				? playerActiveObjects.weapon.getDefense()
+				: playerDefense)
 			+ (playerActiveObjects.armor.getDefense() < playerDefense
-				? playerActiveObjects.armor.getDefense() : playerDefense)
+				? playerActiveObjects.armor.getDefense()
+				: playerDefense)
 			+ playerActiveObjects.object.getDefense()
 			+ playerActiveObjects.potion.getDefense();
 		return defense > 0 ? defense : 0;
@@ -651,9 +679,11 @@ export class Player extends Model {
 			.getSpeedValue(this.level);
 		const speed = playerSpeed
 			+ (playerActiveObjects.weapon.getSpeed() < playerSpeed
-				? playerActiveObjects.weapon.getSpeed() : playerSpeed)
+				? playerActiveObjects.weapon.getSpeed()
+				: playerSpeed)
 			+ (playerActiveObjects.armor.getSpeed() < playerSpeed
-				? playerActiveObjects.armor.getSpeed() : playerSpeed)
+				? playerActiveObjects.armor.getSpeed()
+				: playerSpeed)
 			+ (playerActiveObjects.object.getSpeed() / 2 < playerSpeed
 				? playerActiveObjects.object.getSpeed()
 				: playerSpeed * 2)
@@ -860,6 +890,7 @@ export class Player extends Model {
 	 */
 	async hasClaimedLeagueReward(): Promise<boolean> {
 		const dateOfLastLeagueReward = await LogsReadRequests.getDateOfLastLeagueReward(this.keycloakId);
+
 		// Beware, the date of last league reward is in seconds
 		return dateOfLastLeagueReward && !(dateOfLastLeagueReward < millisecondsToSeconds(getOneDayAgo()));
 	}
@@ -867,7 +898,9 @@ export class Player extends Model {
 	public async addRage(rage: number, reason: NumberChangeReason, response: DraftBotPacket[]): Promise<void> {
 		await this.setRage(this.rage + rage, reason);
 		if (rage > 0) {
-			await MissionsController.update(this, response, {missionId: "gainRage", count: rage});
+			await MissionsController.update(this, response, {
+				missionId: "gainRage", count: rage
+			});
 		}
 	}
 
@@ -903,8 +936,8 @@ export class Player extends Model {
 		});
 		await this.save();
 
-		let guildPointsLost = PVEConstants.GUILD_POINTS_LOST_ON_DEATH +
-			RandomUtils.draftbotRandom.integer(-PVEConstants.RANDOM_RANGE_FOR_GUILD_POINTS_LOST_ON_DEATH, PVEConstants.RANDOM_RANGE_FOR_GUILD_POINTS_LOST_ON_DEATH);
+		let guildPointsLost = PVEConstants.GUILD_POINTS_LOST_ON_DEATH
+			+ RandomUtils.draftbotRandom.integer(-PVEConstants.RANDOM_RANGE_FOR_GUILD_POINTS_LOST_ON_DEATH, PVEConstants.RANDOM_RANGE_FOR_GUILD_POINTS_LOST_ON_DEATH);
 		if (this.hasAGuild()) {
 			const playerGuild = await Guilds.getById(this.guildId);
 			if (guildPointsLost > playerGuild.score) {
@@ -1063,8 +1096,8 @@ export class Players {
 	 * @param originalPlayer
 	 */
 	static async getAskedPlayer(askedPlayer: {
-		keycloakId?: string,
-		rank?: number
+		keycloakId?: string;
+		rank?: number;
 	}, originalPlayer: Player): Promise<Player | null> {
 		return askedPlayer.keycloakId
 			? askedPlayer.keycloakId === originalPlayer.keycloakId
@@ -1118,7 +1151,7 @@ export class Players {
                              FROM players ${condition}) subquery
                        WHERE subquery.id = ${playerId}`;
 		return ((await Player.sequelize.query(query))[0][0] as {
-			ranking: number
+			ranking: number;
 		}).ranking;
 	}
 
@@ -1131,7 +1164,7 @@ export class Players {
 		const queryResult = (await Player.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})) as {
-			keycloakId: string
+			keycloakId: string;
 		}[];
 		const keycloakIds: string[] = [];
 		queryResult.forEach(res => keycloakIds.push(res.keycloakId));
@@ -1149,7 +1182,7 @@ export class Players {
                                  > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		const queryResult = await Player.sequelize.query(query);
 		return (queryResult[0][0] as {
-			nbPlayers: number
+			nbPlayers: number;
 		}).nbPlayers;
 	}
 
@@ -1163,7 +1196,7 @@ export class Players {
                                  <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE}`;
 		const queryResult = await Player.sequelize.query(query);
 		return (queryResult[0][0] as {
-			nbPlayers: number
+			nbPlayers: number;
 		}).nbPlayers;
 	}
 
@@ -1274,7 +1307,7 @@ export class Players {
                        WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{
-				avg: number
+				avg: number;
 			}[]>(await Player.sequelize.query(query, {
 				type: QueryTypes.SELECT
 			})))[0].avg
@@ -1290,7 +1323,7 @@ export class Players {
                        WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{
-				avg: number
+				avg: number;
 			}[]>(await Player.sequelize.query(query, {
 				type: QueryTypes.SELECT
 			})))[0].avg
@@ -1305,7 +1338,7 @@ export class Players {
                        FROM players
                        WHERE effectId = "${Effect.NOT_STARTED.id}"`;
 		return (<{
-			count: number
+			count: number;
 		}[]>(await Player.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})))[0].count;
@@ -1319,7 +1352,7 @@ export class Players {
                        FROM players
                        WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return (<{
-			count: number
+			count: number;
 		}[]>(await Player.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})))[0].count;
@@ -1334,7 +1367,7 @@ export class Players {
                        WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{
-				avg: number
+				avg: number;
 			}[]>(await Player.sequelize.query(query, {
 				type: QueryTypes.SELECT
 			})))[0].avg
@@ -1350,7 +1383,7 @@ export class Players {
                        WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{
-				avg: number
+				avg: number;
 			}[]>(await Player.sequelize.query(query, {
 				type: QueryTypes.SELECT
 			})))[0].avg
@@ -1365,7 +1398,7 @@ export class Players {
                        FROM players
                        WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return (<{
-			sum: number
+			sum: number;
 		}[]>(await Player.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})))[0].sum;
@@ -1378,7 +1411,7 @@ export class Players {
 		const query = `SELECT MAX(money) as max
                        FROM players`;
 		return (<{
-			max: number
+			max: number;
 		}[]>(await Player.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})))[0].max;
@@ -1396,7 +1429,7 @@ export class Players {
                            > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{
-				count: number
+				count: number;
 			}[]>(await Player.sequelize.query(query, {
 				replacements: {
 					class: classEntity.id
@@ -1415,7 +1448,7 @@ export class Players {
 	static async findPotentialOpponents(player: Player, amountOfPlayersToRetrieve: number, offset: number): Promise<Player[]> {
 		return await Player.findAll({
 			where: {
-				id: {[Op.ne]: player.id},
+				id: { [Op.ne]: player.id },
 				defenseGloryPoints: {
 					[Op.ne]: null,
 					[Op.between]: [
@@ -1423,7 +1456,7 @@ export class Players {
 						player.attackGloryPoints + FightConstants.ELO.MAX_ELO_GAP
 					]
 				},
-				level: {[Op.gte]: FightConstants.REQUIRED_LEVEL}
+				level: { [Op.gte]: FightConstants.REQUIRED_LEVEL }
 			},
 			order: [
 				// Sort using the difference with the attack elo of the player
@@ -1579,11 +1612,13 @@ export function initModel(sequelize: Sequelize): void {
 
 			const pendingNotification = await ScheduledReportNotifications.getPendingNotification(instance.id);
 			if (pendingNotification) {
-				PacketUtils.sendNotifications([makePacket(ReachDestinationNotificationPacket, {
-					keycloakId: pendingNotification.keycloakId,
-					mapType: MapLocationDataController.instance.getById(pendingNotification.mapId).type,
-					mapId: pendingNotification.mapId
-				})]);
+				PacketUtils.sendNotifications([
+					makePacket(ReachDestinationNotificationPacket, {
+						keycloakId: pendingNotification.keycloakId,
+						mapType: MapLocationDataController.instance.getById(pendingNotification.mapId).type,
+						mapId: pendingNotification.mapId
+					})
+				]);
 				await ScheduledReportNotifications.bulkDelete([pendingNotification]);
 			}
 		};

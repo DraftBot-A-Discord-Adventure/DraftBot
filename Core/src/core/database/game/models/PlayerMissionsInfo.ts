@@ -1,12 +1,14 @@
-import {DataTypes, Model, Sequelize} from "sequelize";
-import {datesAreOnSameDay} from "../../../../../../Lib/src/utils/TimeUtils";
-import {NumberChangeReason} from "../../../../../../Lib/src/constants/LogsConstants";
-import {draftBotInstance} from "../../../../index";
-import {Campaign} from "../../../missions/Campaign";
+import {
+	DataTypes, Model, Sequelize
+} from "sequelize";
+import { datesAreOnSameDay } from "../../../../../../Lib/src/utils/TimeUtils";
+import { NumberChangeReason } from "../../../../../../Lib/src/constants/LogsConstants";
+import { draftBotInstance } from "../../../../index";
+import { Campaign } from "../../../missions/Campaign";
 import moment = require("moment");
-import {MissionsController} from "../../../missions/MissionsController";
-import {Players} from "./Player";
-import {DraftBotPacket} from "../../../../../../Lib/src/packets/DraftBotPacket";
+import { MissionsController } from "../../../missions/MissionsController";
+import { Players } from "./Player";
+import { DraftBotPacket } from "../../../../../../Lib/src/packets/DraftBotPacket";
 
 export class PlayerMissionsInfo extends Model {
 	declare readonly playerId: number;
@@ -30,7 +32,7 @@ export class PlayerMissionsInfo extends Model {
 	static async resetShopBuyout(): Promise<void> {
 		await PlayerMissionsInfo.update({
 			hasBoughtPointsThisWeek: false
-		}, {where: {}});
+		}, { where: {} });
 	}
 
 	public hasCompletedDailyMission(): boolean {
@@ -46,7 +48,7 @@ export class PlayerMissionsInfo extends Model {
 
 	public async spendGems(amount: number, response: DraftBotPacket[], reason: NumberChangeReason): Promise<void> {
 		const player = await Players.getById(this.playerId);
-		await MissionsController.update(player, response, {missionId: "spendGems"});
+		await MissionsController.update(player, response, { missionId: "spendGems" });
 		await this.addGems(-amount, player.keycloakId, reason);
 	}
 }
@@ -55,7 +57,6 @@ export class PlayerMissionsInfo extends Model {
  * This class is used to treat the missions of a player
  */
 export class PlayerMissionsInfos {
-
 	/**
 	 * Get the missions of a player
 	 * @param playerId

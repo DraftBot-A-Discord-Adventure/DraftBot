@@ -1,6 +1,8 @@
-import {DataTypes, QueryInterface} from "sequelize";
-import {FightConstants} from "../../../../../../Lib/src/constants/FightConstants";
-import {MigrationNameChanger} from "../../../../../../Lib/src/database/MigrationNameChanger";
+import {
+	DataTypes, QueryInterface
+} from "sequelize";
+import { FightConstants } from "../../../../../../Lib/src/constants/FightConstants";
+import { MigrationNameChanger } from "../../../../../../Lib/src/database/MigrationNameChanger";
 
 export const leaguesAttributes008 = {
 	id: {
@@ -35,7 +37,7 @@ export const leaguesAttributes008 = {
 	createdAt: DataTypes.DATE
 };
 
-export async function up({context}: { context: QueryInterface }): Promise<void> {
+export async function up({ context }: { context: QueryInterface }): Promise<void> {
 	if (await MigrationNameChanger.changeMigrationName(context, "008-gloryandleague.js")) {
 		return;
 	}
@@ -87,7 +89,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 	`);
 }
 
-export async function down({context}: { context: QueryInterface }): Promise<void> {
+export async function down({ context }: { context: QueryInterface }): Promise<void> {
 	await context.removeColumn("players", "gloryPoints");
 	await context.removeColumn("players", "fightCountdown");
 	await context.removeColumn("players", "gloryPointsLastSeason");

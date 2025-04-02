@@ -1,12 +1,13 @@
-import {PetAssistanceResult, PetAssistanceState} from "../../../../../../../Lib/src/types/PetAssistanceResult";
-import {PetAssistanceFunc} from "../../../../../data/PetAssistance";
-import {RandomUtils} from "../../../../../../../Lib/src/utils/RandomUtils";
-import {FightActionController} from "../../FightActionController";
-import {FightStatBuffed} from "../../../../../../../Lib/src/types/FightActionResult";
-import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
+import {
+	PetAssistanceResult, PetAssistanceState
+} from "../../../../../../../Lib/src/types/PetAssistanceResult";
+import { PetAssistanceFunc } from "../../../../../data/PetAssistance";
+import { RandomUtils } from "../../../../../../../Lib/src/utils/RandomUtils";
+import { FightActionController } from "../../FightActionController";
+import { FightStatBuffed } from "../../../../../../../Lib/src/types/FightActionResult";
+import { FightStatModifierOperation } from "../../../../../../../Lib/src/types/FightStatModifierOperation";
 
 const use: PetAssistanceFunc = (fighter, _opponent, _turn, _fightController): Promise<PetAssistanceResult | null> => {
-
 	// 80 % of the time, nothing happens
 	if (RandomUtils.draftbotRandom.bool(0.80) || fighter.getBreath() === fighter.getMaxBreath()) {
 		return null;

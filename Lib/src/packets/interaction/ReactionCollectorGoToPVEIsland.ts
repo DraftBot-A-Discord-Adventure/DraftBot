@@ -10,8 +10,8 @@ export class ReactionCollectorGoToPVEIslandData extends ReactionCollectorData {
 	price!: number;
 
 	energy!: {
-		current: number,
-		max: number
+		current: number;
+		max: number;
 	};
 }
 

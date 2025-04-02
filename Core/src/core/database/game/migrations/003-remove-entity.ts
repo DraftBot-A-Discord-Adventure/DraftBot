@@ -1,8 +1,10 @@
-import {DataTypes, QueryInterface} from "sequelize";
-import {EntityConstants} from "../../../../../../Lib/src/constants/EntityConstants";
-import {entitiesAttributes001} from "./001-initial-database";
+import {
+	DataTypes, QueryInterface
+} from "sequelize";
+import { EntityConstants } from "../../../../../../Lib/src/constants/EntityConstants";
+import { entitiesAttributes001 } from "./001-initial-database";
 
-export async function up({context}: { context: QueryInterface }): Promise<void> {
+export async function up({ context }: { context: QueryInterface }): Promise<void> {
 	const discordUserIdAttributes = {
 		type: DataTypes.STRING(64) // eslint-disable-line new-cap
 	};
@@ -33,7 +35,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 	await context.dropTable("entities");
 }
 
-export async function down({context}: { context: QueryInterface }): Promise<void> {
+export async function down({ context }: { context: QueryInterface }): Promise<void> {
 	await context.createTable("entities", entitiesAttributes001);
 	await context.addColumn("players", "entityId", {
 		type: DataTypes.INTEGER

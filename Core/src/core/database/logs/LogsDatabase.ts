@@ -1,109 +1,112 @@
-import {Database} from "../../../../../Lib/src/database/Database";
-import {LogsPlayersMoney} from "./models/LogsPlayersMoney";
-import {LogsPlayers} from "./models/LogsPlayers";
-import {LogsPlayersHealth} from "./models/LogsPlayersHealth";
-import {LogsPlayersExperience} from "./models/LogsPlayersExperience";
-import {CreateOptions, Model, ModelStatic} from "sequelize";
-import {LogsPlayersLevel} from "./models/LogsPlayersLevel";
-import {LogsPlayersScore} from "./models/LogsPlayersScore";
-import {LogsPlayersGems} from "./models/LogsPlayersGems";
-import {LogsCommands} from "./models/LogsCommands";
-import {LogsPlayersCommands} from "./models/LogsPlayersCommands";
-import {LogsSmallEvents} from "./models/LogsSmallEvents";
-import {LogsPlayersSmallEvents} from "./models/LogsPlayersSmallEvents";
-import {LogsPossibilities} from "./models/LogsPossibilities";
-import {LogsPlayersPossibilities} from "./models/LogsPlayersPossibilities";
-import {LogsAlterations} from "./models/LogsAlterations";
-import {LogsPlayersStandardAlterations} from "./models/LogsPlayersStandardAlterations";
-import {LogsPlayersOccupiedAlterations} from "./models/LogsPlayersOccupiedAlterations";
-import {LogsUnlocks} from "./models/LogsUnlocks";
-import {LogsPlayersClassChanges} from "./models/LogsPlayersClassChanges";
-import {LogsPlayersTravels} from "./models/LogsPlayersTravels";
-import {LogsMapLinks} from "./models/LogsMapLinks";
-import {LogsMissionsFailed} from "./models/LogsMissionsFailed";
-import {LogsMissionsFinished} from "./models/LogsMissionsFinished";
-import {LogsMissionsFound} from "./models/LogsMissionsFound";
-import {LogsMissionsDailyFinished} from "./models/LogsMissionsDailyFinished";
-import {LogsMissionsDaily} from "./models/LogsMissionsDaily";
-import {LogsMissionsCampaignProgresses} from "./models/LogsMissionsCampaignProgresses";
-import {LogsMissions} from "./models/LogsMissions";
-import {LogsPlayers15BestTopweek} from "./models/LogsPlayers15BestTopweek";
-import {LogsItemGainsArmor} from "./models/LogsItemsGainsArmor";
-import {LogsItemGainsObject} from "./models/LogsItemsGainsObject";
-import {LogsItemGainsPotion} from "./models/LogsItemsGainsPotion";
-import {LogsItemGainsWeapon} from "./models/LogsItemsGainsWeapon";
-import {LogsItemSellsArmor} from "./models/LogsItemsSellsArmor";
-import {LogsItemSellsObject} from "./models/LogsItemsSellsObject";
-import {LogsItemSellsPotion} from "./models/LogsItemsSellsPotion";
-import {LogsItemSellsWeapon} from "./models/LogsItemsSellsWeapon";
-import {LogsPlayersTimewarps} from "./models/LogsPlayersTimewarps";
-import PetEntity, {PetEntities} from "../game/models/PetEntity";
-import {LogsPetsNicknames} from "./models/LogsPetsNicknames";
-import {LogsPetEntities} from "./models/LogsPetEntities";
-import {Guild} from "../game/models/Guild";
-import {LogsGuilds} from "./models/LogsGuilds";
-import {Players} from "../game/models/Player";
-import {LogsGuildsKicks} from "./models/LogsGuildsKicks";
-import {LogsDailyPotions} from "./models/LogsDailyPotions";
-import {LogsClassicalShopBuyouts} from "./models/LogsClassicalShopBuyouts";
-import {LogsGuildShopBuyouts} from "./models/LogsGuildShopBuyouts";
-import {LogsMissionShopBuyouts} from "./models/LogsMissionShopBuyouts";
-import {LogsDailyTimeouts} from "./models/LogsDailyTimeouts";
-import {LogsTopWeekEnd} from "./models/LogsTopWeekEnd";
-import {GuildDailyConstants} from "../../../../../Lib/src/constants/GuildDailyConstants";
-import {LogsGuildsDailies} from "./models/LogsGuildsDailies";
-import {LogsPetsTransfers} from "./models/LogsPetsTransfers";
-import {LogsGuildsLeaves} from "./models/LogsGuildsLeaves";
-import {LogsGuildsDestroys} from "./models/LogsGuildsDestroys";
-import {LogsGuildsEldersRemoves} from "./models/LogsGuildsEldersRemoves";
-import {LogsGuildsChiefsChanges} from "./models/LogsGuildsChiefsChanges";
-import {LogsPetsFrees} from "./models/LogsPetsFrees";
-import {GuildPets} from "../game/models/GuildPet";
-import {LogsFightsResults} from "./models/LogsFightsResults";
-import {LogsFightsActionsUsed} from "./models/LogsFightsActionsUsed";
-import {LogsFightsActions} from "./models/LogsFightsActions";
-import {LogsGuildsCreations} from "./models/LogsGuildCreations";
-import {LogsGuildsJoins} from "./models/LogsGuildJoins";
-import {LogsGuildsExperiences} from "./models/LogsGuildsExperiences";
-import {LogsGuildsLevels} from "./models/LogsGuildsLevels";
-import {LogsPetsTrades} from "./models/LogsPetsTrades";
-import {LogsGuildsDescriptionChanges} from "./models/LogsGuildsDescriptionChanges";
-import {LogsGuildsEldersAdds} from "./models/LogsGuildsEldersAdds";
-import {LogsPetsSells} from "./models/LogsPetsSells";
-import {LogsPetsLovesChanges} from "./models/LogsPetsLovesChanges";
-import {LogsGuildsFoodsChanges} from "./models/LogsGuildsFoodsChanges";
-import {LogsGuildsNewPets} from "./models/LogsGuildsNewPets";
-import {LogsPlayersNewPets} from "./models/LogsPlayersNewPets";
-import {LogsPlayersDailies} from "./models/LogsPlayersDailies";
-import {NumberChangeReason, ShopItemType} from "../../../../../Lib/src/constants/LogsConstants";
-import {getDateLogs} from "../../../../../Lib/src/utils/TimeUtils";
-import {LogsPlayersGloryPoints} from "./models/LogsPlayersGloryPoints";
-import {LogsPlayers15BestSeason} from "./models/LogsPlayers15BestSeason";
-import {LogsSeasonEnd} from "./models/LogsSeasonEnd";
-import {LogsPlayerLeagueReward} from "./models/LogsPlayerLeagueReward";
-import {LogsPlayersEnergy} from "./models/LogsPlayersEnergy";
-import {LogsGuildsPoints} from "./models/LogsGuildsPoints";
-import {LogsPveFightsResults} from "./models/LogsPveFightsResults";
-import {LogsPveFightsActionsUsed} from "./models/LogsPveFightsActionsUsed";
-import {LogsPlayersRage} from "./models/LogsPlayersRage";
-import {GenericItem} from "../../../data/GenericItem";
-import {MapLink} from "../../../data/MapLink";
-import {FightController} from "../../fights/FightController";
-import {PlayerFighter} from "../../fights/fighter/PlayerFighter";
-import {MonsterFighter} from "../../fights/fighter/MonsterFighter";
-import {Effect} from "../../../../../Lib/src/types/Effect";
-import {getDatabaseConfiguration} from "../../bot/DraftBotConfig";
-import {botConfig} from "../../../index";
-import {GuildLikeType} from "../../types/GuildLikeType";
-import {LogsCommandOrigins} from "./models/LogsCommandOrigins";
-import {LogsCommandSubOrigins} from "./models/LogsCommandSubOrigins";
-import {ReactionCollectorReactPacket} from "../../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { Database } from "../../../../../Lib/src/database/Database";
+import { LogsPlayersMoney } from "./models/LogsPlayersMoney";
+import { LogsPlayers } from "./models/LogsPlayers";
+import { LogsPlayersHealth } from "./models/LogsPlayersHealth";
+import { LogsPlayersExperience } from "./models/LogsPlayersExperience";
+import {
+	CreateOptions, Model, ModelStatic
+} from "sequelize";
+import { LogsPlayersLevel } from "./models/LogsPlayersLevel";
+import { LogsPlayersScore } from "./models/LogsPlayersScore";
+import { LogsPlayersGems } from "./models/LogsPlayersGems";
+import { LogsCommands } from "./models/LogsCommands";
+import { LogsPlayersCommands } from "./models/LogsPlayersCommands";
+import { LogsSmallEvents } from "./models/LogsSmallEvents";
+import { LogsPlayersSmallEvents } from "./models/LogsPlayersSmallEvents";
+import { LogsPossibilities } from "./models/LogsPossibilities";
+import { LogsPlayersPossibilities } from "./models/LogsPlayersPossibilities";
+import { LogsAlterations } from "./models/LogsAlterations";
+import { LogsPlayersStandardAlterations } from "./models/LogsPlayersStandardAlterations";
+import { LogsPlayersOccupiedAlterations } from "./models/LogsPlayersOccupiedAlterations";
+import { LogsUnlocks } from "./models/LogsUnlocks";
+import { LogsPlayersClassChanges } from "./models/LogsPlayersClassChanges";
+import { LogsPlayersTravels } from "./models/LogsPlayersTravels";
+import { LogsMapLinks } from "./models/LogsMapLinks";
+import { LogsMissionsFailed } from "./models/LogsMissionsFailed";
+import { LogsMissionsFinished } from "./models/LogsMissionsFinished";
+import { LogsMissionsFound } from "./models/LogsMissionsFound";
+import { LogsMissionsDailyFinished } from "./models/LogsMissionsDailyFinished";
+import { LogsMissionsDaily } from "./models/LogsMissionsDaily";
+import { LogsMissionsCampaignProgresses } from "./models/LogsMissionsCampaignProgresses";
+import { LogsMissions } from "./models/LogsMissions";
+import { LogsPlayers15BestTopweek } from "./models/LogsPlayers15BestTopweek";
+import { LogsItemGainsArmor } from "./models/LogsItemsGainsArmor";
+import { LogsItemGainsObject } from "./models/LogsItemsGainsObject";
+import { LogsItemGainsPotion } from "./models/LogsItemsGainsPotion";
+import { LogsItemGainsWeapon } from "./models/LogsItemsGainsWeapon";
+import { LogsItemSellsArmor } from "./models/LogsItemsSellsArmor";
+import { LogsItemSellsObject } from "./models/LogsItemsSellsObject";
+import { LogsItemSellsPotion } from "./models/LogsItemsSellsPotion";
+import { LogsItemSellsWeapon } from "./models/LogsItemsSellsWeapon";
+import { LogsPlayersTimewarps } from "./models/LogsPlayersTimewarps";
+import PetEntity, { PetEntities } from "../game/models/PetEntity";
+import { LogsPetsNicknames } from "./models/LogsPetsNicknames";
+import { LogsPetEntities } from "./models/LogsPetEntities";
+import { Guild } from "../game/models/Guild";
+import { LogsGuilds } from "./models/LogsGuilds";
+import { Players } from "../game/models/Player";
+import { LogsGuildsKicks } from "./models/LogsGuildsKicks";
+import { LogsDailyPotions } from "./models/LogsDailyPotions";
+import { LogsClassicalShopBuyouts } from "./models/LogsClassicalShopBuyouts";
+import { LogsGuildShopBuyouts } from "./models/LogsGuildShopBuyouts";
+import { LogsMissionShopBuyouts } from "./models/LogsMissionShopBuyouts";
+import { LogsDailyTimeouts } from "./models/LogsDailyTimeouts";
+import { LogsTopWeekEnd } from "./models/LogsTopWeekEnd";
+import { GuildDailyConstants } from "../../../../../Lib/src/constants/GuildDailyConstants";
+import { LogsGuildsDailies } from "./models/LogsGuildsDailies";
+import { LogsPetsTransfers } from "./models/LogsPetsTransfers";
+import { LogsGuildsLeaves } from "./models/LogsGuildsLeaves";
+import { LogsGuildsDestroys } from "./models/LogsGuildsDestroys";
+import { LogsGuildsEldersRemoves } from "./models/LogsGuildsEldersRemoves";
+import { LogsGuildsChiefsChanges } from "./models/LogsGuildsChiefsChanges";
+import { LogsPetsFrees } from "./models/LogsPetsFrees";
+import { GuildPets } from "../game/models/GuildPet";
+import { LogsFightsResults } from "./models/LogsFightsResults";
+import { LogsFightsActionsUsed } from "./models/LogsFightsActionsUsed";
+import { LogsFightsActions } from "./models/LogsFightsActions";
+import { LogsGuildsCreations } from "./models/LogsGuildCreations";
+import { LogsGuildsJoins } from "./models/LogsGuildJoins";
+import { LogsGuildsExperiences } from "./models/LogsGuildsExperiences";
+import { LogsGuildsLevels } from "./models/LogsGuildsLevels";
+import { LogsPetsTrades } from "./models/LogsPetsTrades";
+import { LogsGuildsDescriptionChanges } from "./models/LogsGuildsDescriptionChanges";
+import { LogsGuildsEldersAdds } from "./models/LogsGuildsEldersAdds";
+import { LogsPetsSells } from "./models/LogsPetsSells";
+import { LogsPetsLovesChanges } from "./models/LogsPetsLovesChanges";
+import { LogsGuildsFoodsChanges } from "./models/LogsGuildsFoodsChanges";
+import { LogsGuildsNewPets } from "./models/LogsGuildsNewPets";
+import { LogsPlayersNewPets } from "./models/LogsPlayersNewPets";
+import { LogsPlayersDailies } from "./models/LogsPlayersDailies";
+import {
+	NumberChangeReason, ShopItemType
+} from "../../../../../Lib/src/constants/LogsConstants";
+import { getDateLogs } from "../../../../../Lib/src/utils/TimeUtils";
+import { LogsPlayersGloryPoints } from "./models/LogsPlayersGloryPoints";
+import { LogsPlayers15BestSeason } from "./models/LogsPlayers15BestSeason";
+import { LogsSeasonEnd } from "./models/LogsSeasonEnd";
+import { LogsPlayerLeagueReward } from "./models/LogsPlayerLeagueReward";
+import { LogsPlayersEnergy } from "./models/LogsPlayersEnergy";
+import { LogsGuildsPoints } from "./models/LogsGuildsPoints";
+import { LogsPveFightsResults } from "./models/LogsPveFightsResults";
+import { LogsPveFightsActionsUsed } from "./models/LogsPveFightsActionsUsed";
+import { LogsPlayersRage } from "./models/LogsPlayersRage";
+import { GenericItem } from "../../../data/GenericItem";
+import { MapLink } from "../../../data/MapLink";
+import { FightController } from "../../fights/FightController";
+import { PlayerFighter } from "../../fights/fighter/PlayerFighter";
+import { MonsterFighter } from "../../fights/fighter/MonsterFighter";
+import { Effect } from "../../../../../Lib/src/types/Effect";
+import { getDatabaseConfiguration } from "../../bot/DraftBotConfig";
+import { botConfig } from "../../../index";
+import { GuildLikeType } from "../../types/GuildLikeType";
+import { LogsCommandOrigins } from "./models/LogsCommandOrigins";
+import { LogsCommandSubOrigins } from "./models/LogsCommandSubOrigins";
+import { ReactionCollectorReactPacket } from "../../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 
 /**
  * This class is used to log all the changes in the game database
  */
 export class LogsDatabase extends Database {
-
 	constructor() {
 		super(getDatabaseConfiguration(botConfig, "logs"), `${__dirname}/models`, `${__dirname}/migrations`);
 	}
@@ -497,25 +500,25 @@ export class LogsDatabase extends Database {
 	public async logAlteration(keycloakId: string, alterationId: string, reason: NumberChangeReason, duration: number): Promise<void> {
 		const player = await LogsDatabase.findOrCreatePlayer(keycloakId);
 		switch (alterationId) {
-		case Effect.OCCUPIED.id:
-			await LogsPlayersOccupiedAlterations.create({
-				playerId: player.id,
-				duration,
-				reason,
-				date: getDateLogs()
-			});
-			break;
-		default:
-			await LogsPlayersStandardAlterations.create({
-				playerId: player.id,
-				alterationId: (await LogsAlterations.findOrCreate({
-					where: {
-						alteration: alterationId
-					}
-				}))[0].id,
-				reason,
-				date: getDateLogs()
-			});
+			case Effect.OCCUPIED.id:
+				await LogsPlayersOccupiedAlterations.create({
+					playerId: player.id,
+					duration,
+					reason,
+					date: getDateLogs()
+				});
+				break;
+			default:
+				await LogsPlayersStandardAlterations.create({
+					playerId: player.id,
+					alterationId: (await LogsAlterations.findOrCreate({
+						where: {
+							alteration: alterationId
+						}
+					}))[0].id,
+					reason,
+					date: getDateLogs()
+				});
 		}
 	}
 
@@ -665,23 +668,23 @@ export class LogsDatabase extends Database {
 	 */
 	public logItemGain(keycloakId: string, item: GenericItem): Promise<unknown> {
 		let itemCategoryDatabase: {
-			create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>>
+			create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>>;
 		};
 		switch (item.categoryName) {
-		case "weapons":
-			itemCategoryDatabase = LogsItemGainsWeapon;
-			break;
-		case "armors":
-			itemCategoryDatabase = LogsItemGainsArmor;
-			break;
-		case "objects":
-			itemCategoryDatabase = LogsItemGainsObject;
-			break;
-		case "potions":
-			itemCategoryDatabase = LogsItemGainsPotion;
-			break;
-		default:
-			break;
+			case "weapons":
+				itemCategoryDatabase = LogsItemGainsWeapon;
+				break;
+			case "armors":
+				itemCategoryDatabase = LogsItemGainsArmor;
+				break;
+			case "objects":
+				itemCategoryDatabase = LogsItemGainsObject;
+				break;
+			case "potions":
+				itemCategoryDatabase = LogsItemGainsPotion;
+				break;
+			default:
+				break;
 		}
 		return LogsDatabase.logItem(keycloakId, item, itemCategoryDatabase);
 	}
@@ -712,23 +715,23 @@ export class LogsDatabase extends Database {
 	 */
 	public logItemSell(keycloakId: string, item: GenericItem): Promise<unknown> {
 		let itemCategoryDatabase: {
-			create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>>
+			create: (values?: unknown, options?: CreateOptions<unknown>) => Promise<Model<unknown, unknown>>;
 		};
 		switch (item.categoryName) {
-		case "weapons":
-			itemCategoryDatabase = LogsItemSellsWeapon;
-			break;
-		case "armors":
-			itemCategoryDatabase = LogsItemSellsArmor;
-			break;
-		case "objects":
-			itemCategoryDatabase = LogsItemSellsObject;
-			break;
-		case "potions":
-			itemCategoryDatabase = LogsItemSellsPotion;
-			break;
-		default:
-			break;
+			case "weapons":
+				itemCategoryDatabase = LogsItemSellsWeapon;
+				break;
+			case "armors":
+				itemCategoryDatabase = LogsItemSellsArmor;
+				break;
+			case "objects":
+				itemCategoryDatabase = LogsItemSellsObject;
+				break;
+			case "potions":
+				itemCategoryDatabase = LogsItemSellsPotion;
+				break;
+			default:
+				break;
 		}
 		return LogsDatabase.logItem(keycloakId, item, itemCategoryDatabase);
 	}

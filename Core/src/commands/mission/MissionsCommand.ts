@@ -1,17 +1,23 @@
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {Player, Players} from "../../core/database/game/models/Player";
+import {
+	DraftBotPacket, makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import {
+	Player, Players
+} from "../../core/database/game/models/Player";
 import {
 	CommandMissionPlayerNotFoundPacket,
 	CommandMissionsPacketReq,
 	CommandMissionsPacketRes
 } from "../../../../Lib/src/packets/commands/CommandMissionsPacket";
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
-import {MissionSlots} from "../../core/database/game/models/MissionSlot";
-import {PlayerMissionsInfos} from "../../core/database/game/models/PlayerMissionsInfo";
-import {MissionType} from "../../../../Lib/src/types/CompletedMission";
-import {DailyMissions} from "../../core/database/game/models/DailyMission";
-import {Campaign} from "../../core/missions/Campaign";
-import {MissionsController} from "../../core/missions/MissionsController";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
+import { MissionSlots } from "../../core/database/game/models/MissionSlot";
+import { PlayerMissionsInfos } from "../../core/database/game/models/PlayerMissionsInfo";
+import { MissionType } from "../../../../Lib/src/types/CompletedMission";
+import { DailyMissions } from "../../core/database/game/models/DailyMission";
+import { Campaign } from "../../core/missions/Campaign";
+import { MissionsController } from "../../core/missions/MissionsController";
 
 export default class MissionsCommand {
 	@commandRequires(CommandMissionsPacketReq, {
@@ -32,7 +38,7 @@ export default class MissionsCommand {
 		}
 
 		if (toCheckPlayer.id === player.id) {
-			await MissionsController.update(player, response, {missionId: "commandMission"});
+			await MissionsController.update(player, response, { missionId: "commandMission" });
 		}
 
 		const missionInfo = await PlayerMissionsInfos.getOfPlayer(toCheckPlayer.id);
@@ -41,8 +47,11 @@ export default class MissionsCommand {
 
 		baseMissions.push(MissionsController.prepareBaseMission({
 			...(await DailyMissions.getOrGenerate()).toJSON(),
-			// We are using the expiresAt field to store the last time the daily mission was completed,
-			// And the front-end will use the data to calculate the time left to complete it
+
+			/*
+			 * We are using the expiresAt field to store the last time the daily mission was completed,
+			 * And the front-end will use the data to calculate the time left to complete it
+			 */
 			expiresAt: new Date(missionInfo.lastDailyMissionCompleted).toString(),
 			missionType: MissionType.DAILY,
 			numberDone: missionInfo.dailyMissionNumberDone

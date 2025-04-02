@@ -1,10 +1,12 @@
-import {Fighter} from "../../../fighter/Fighter";
-import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
-import {FightAlterations} from "../../FightAlterations";
-import {FightActionFunc} from "../../../../../data/FightAction";
-import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTemplate";
-import {defaultMaxUsesFightActionResult} from "../../../../../../../Lib/src/types/FightActionResult";
-import {getUsedGodMoves} from "../../../FightController";
+import { Fighter } from "../../../fighter/Fighter";
+import {
+	attackInfo, FightActionController, statsInfo
+} from "../../FightActionController";
+import { FightAlterations } from "../../FightAlterations";
+import { FightActionFunc } from "../../../../../data/FightAction";
+import { simpleDamageFightAction } from "../../templates/SimpleDamageFightActionTemplate";
+import { defaultMaxUsesFightActionResult } from "../../../../../../../Lib/src/types/FightActionResult";
+import { getUsedGodMoves } from "../../../FightController";
 
 function getAttackInfo(): attackInfo {
 	return {
@@ -16,15 +18,9 @@ function getAttackInfo(): attackInfo {
 
 function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 	return {
-		attackerStats: [
-			sender.getAttack()
-		],
-		defenderStats: [
-			receiver.getDefense()
-		],
-		statsEffect: [
-			1
-		]
+		attackerStats: [sender.getAttack()],
+		defenderStats: [receiver.getDefense()],
+		statsEffect: [1]
 	};
 }
 

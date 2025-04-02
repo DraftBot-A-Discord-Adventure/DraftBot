@@ -1,7 +1,7 @@
-import {DataControllerNumber} from "./DataController";
-import {Data} from "./Data";
-import {PetConstants} from "../../../Lib/src/constants/PetConstants";
-import {RandomUtils} from "../../../Lib/src/utils/RandomUtils";
+import { DataControllerNumber } from "./DataController";
+import { Data } from "./Data";
+import { PetConstants } from "../../../Lib/src/constants/PetConstants";
+import { RandomUtils } from "../../../Lib/src/utils/RandomUtils";
 
 export class Pet extends Data<number> {
 	declare readonly rarity: number;
@@ -51,7 +51,7 @@ export class PetDataController extends DataControllerNumber<Pet> {
 	public getRandom(rarity: number = -1): Pet {
 		let pets = this.getValuesArray();
 		if (rarity !== -1) {
-			pets = pets.filter((pet) => pet.rarity === rarity);
+			pets = pets.filter(pet => pet.rarity === rarity);
 		}
 		return RandomUtils.draftbotRandom.pick(pets);
 	}

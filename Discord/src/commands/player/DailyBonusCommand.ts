@@ -1,17 +1,23 @@
-import {ICommand} from "../ICommand";
-import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
+import { ICommand } from "../ICommand";
+import {
+	makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
+import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 import {
 	CommandDailyBonusPacketReq,
 	CommandDailyBonusPacketRes
 } from "../../../../Lib/src/packets/commands/CommandDailyBonusPacket";
-import {DiscordCache} from "../../bot/DiscordCache";
-import {DraftBotErrorEmbed} from "../../messages/DraftBotErrorEmbed";
+import { DiscordCache } from "../../bot/DiscordCache";
+import { DraftBotErrorEmbed } from "../../messages/DraftBotErrorEmbed";
 import i18n from "../../translations/i18n";
-import {hoursToMilliseconds, minutesDisplay, printTimeBeforeDate} from "../../../../Lib/src/utils/TimeUtils";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
-import {ItemConstants, ItemNature} from "../../../../Lib/src/constants/ItemConstants";
+import {
+	hoursToMilliseconds, minutesDisplay, printTimeBeforeDate
+} from "../../../../Lib/src/utils/TimeUtils";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
+import {
+	ItemConstants, ItemNature
+} from "../../../../Lib/src/constants/ItemConstants";
 
 /**
  * Get the daily bonus packet to send to the server
@@ -39,7 +45,7 @@ export async function handleDailyBonusCooldownError(context: PacketContext, last
 					cooldownTime,
 					time: printTimeBeforeDate(hoursToMilliseconds(cooldownTime) - lastDailyTimestamp),
 					lng: interaction.userLanguage,
-					interpolation: {escapeValue: false}
+					interpolation: { escapeValue: false }
 				})
 			)
 		]

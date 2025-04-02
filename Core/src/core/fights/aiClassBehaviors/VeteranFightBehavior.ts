@@ -1,17 +1,18 @@
-import {ClassBehavior} from "../AiBehaviorController";
-import {AiPlayerFighter} from "../fighter/AiPlayerFighter";
-import {FightView} from "../FightView";
-import {FightAction, FightActionDataController} from "../../../data/FightAction";
-import {FightConstants} from "../../../../../Lib/src/constants/FightConstants";
-import {PlayerFighter} from "../fighter/PlayerFighter";
-import {ClassConstants} from "../../../../../Lib/src/constants/ClassConstants";
-import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
+import { ClassBehavior } from "../AiBehaviorController";
+import { AiPlayerFighter } from "../fighter/AiPlayerFighter";
+import { FightView } from "../FightView";
+import {
+	FightAction, FightActionDataController
+} from "../../../data/FightAction";
+import { FightConstants } from "../../../../../Lib/src/constants/FightConstants";
+import { PlayerFighter } from "../fighter/PlayerFighter";
+import { ClassConstants } from "../../../../../Lib/src/constants/ClassConstants";
+import { RandomUtils } from "../../../../../Lib/src/utils/RandomUtils";
 
 /**
  * Implements a veteran fight behavior that selects an appropriate fight action based on various tactical criteria.
  */
 class VeteranFightBehavior implements ClassBehavior {
-
 	/**
 	 * Chooses the appropriate fight action for the AI fighter based on the current fight situation.
 	 *
@@ -62,9 +63,9 @@ class VeteranFightBehavior implements ClassBehavior {
 
 		// If no fight alteration, random check, energy condition and specific class or breath matches trigger concentration.
 		if (
-			!me.hasFightAlteration() &&
-			RandomUtils.draftbotRandom.bool() &&
-			me.getEnergy() > me.getMaxEnergy() * 0.15
+			!me.hasFightAlteration()
+			&& RandomUtils.draftbotRandom.bool()
+			&& me.getEnergy() > me.getMaxEnergy() * 0.15
 		) {
 			const concentrationClasses = [
 				ClassConstants.CLASSES_ID.MYSTIC_MAGE,
@@ -111,22 +112,22 @@ class VeteranFightBehavior implements ClassBehavior {
 
 		// Condition 1: Opponent is charging a two-turn attack.
 		if (
-			opponentLastAction === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_ULTIMATE_ATTACK ||
-			opponentLastAction === FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK && opponent.getBreath() >= 2 ||
-			opponentLastAction === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK
+			opponentLastAction === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_ULTIMATE_ATTACK
+			|| opponentLastAction === FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK && opponent.getBreath() >= 2
+			|| opponentLastAction === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK
 		) {
 			return true;
 		}
 
 		// Condition 2: Tactical advantage against non-knight opponents.
-		return me.getEnergy() > me.getMaxEnergy() * 0.21 &&
-			opponent.getEnergy() > opponent.getMaxEnergy() * 0.16 &&
-			(opponent.player.class !== ClassConstants.CLASSES_ID.MYSTIC_MAGE || me.hasFightAlteration()) &&
-			opponent.player.class !== ClassConstants.CLASSES_ID.KNIGHT &&
-			opponent.player.class !== ClassConstants.CLASSES_ID.VALIANT_KNIGHT &&
-			opponent.player.class !== ClassConstants.CLASSES_ID.HORSE_RIDER &&
-			opponent.player.class !== ClassConstants.CLASSES_ID.PIKEMAN &&
-			opponent.player.class !== ClassConstants.CLASSES_ID.ESQUIRE;
+		return me.getEnergy() > me.getMaxEnergy() * 0.21
+			&& opponent.getEnergy() > opponent.getMaxEnergy() * 0.16
+			&& (opponent.player.class !== ClassConstants.CLASSES_ID.MYSTIC_MAGE || me.hasFightAlteration())
+			&& opponent.player.class !== ClassConstants.CLASSES_ID.KNIGHT
+			&& opponent.player.class !== ClassConstants.CLASSES_ID.VALIANT_KNIGHT
+			&& opponent.player.class !== ClassConstants.CLASSES_ID.HORSE_RIDER
+			&& opponent.player.class !== ClassConstants.CLASSES_ID.PIKEMAN
+			&& opponent.player.class !== ClassConstants.CLASSES_ID.ESQUIRE;
 	}
 
 	/**

@@ -1,4 +1,4 @@
-import {packetHandler} from "../../../PacketHandler";
+import { packetHandler } from "../../../PacketHandler";
 import {
 	CommandMissionShopAlreadyBoughtPointsThisWeek, CommandMissionShopAlreadyHadBadge,
 	CommandMissionShopBadge,
@@ -7,8 +7,8 @@ import {
 	CommandMissionShopPetInformation,
 	CommandMissionShopSkipMissionResult
 } from "../../../../../../Lib/src/packets/commands/CommandMissionShopPacket";
-import {PacketContext} from "../../../../../../Lib/src/packets/DraftBotPacket";
-import {handleClassicError} from "../../../../utils/ErrorUtils";
+import { PacketContext } from "../../../../../../Lib/src/packets/DraftBotPacket";
+import { handleClassicError } from "../../../../utils/ErrorUtils";
 import {
 	handleLovePointsValueShopItem, handleMissionShopBadge, handleMissionShopKingsFavor,
 	handleMissionShopMoney,

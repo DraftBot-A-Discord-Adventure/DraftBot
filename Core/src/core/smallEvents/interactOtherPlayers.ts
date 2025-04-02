@@ -1,28 +1,34 @@
-import {SmallEventFuncs} from "../../data/SmallEvent";
-import {Maps} from "../maps/Maps";
-import Player, {Players} from "../database/game/models/Player";
-import {Op} from "sequelize";
-import {MapLocationDataController} from "../../data/MapLocation";
-import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
-import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
+import { SmallEventFuncs } from "../../data/SmallEvent";
+import { Maps } from "../maps/Maps";
+import Player, { Players } from "../database/game/models/Player";
+import { Op } from "sequelize";
+import { MapLocationDataController } from "../../data/MapLocation";
+import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
+import {
+	DraftBotPacket, makePacket
+} from "../../../../Lib/src/packets/DraftBotPacket";
 import {
 	InteractOtherPlayerInteraction,
 	SmallEventInteractOtherPlayersAcceptToGivePoorPacket,
 	SmallEventInteractOtherPlayersPacket,
 	SmallEventInteractOtherPlayersRefuseToGivePoorPacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventInteractOtherPlayers";
-import {MissionsController} from "../missions/MissionsController";
-import {PetEntities} from "../database/game/models/PetEntity";
-import {InventorySlot, InventorySlots} from "../database/game/models/InventorySlot";
-import {EndCallback, ReactionCollectorInstance} from "../utils/ReactionsCollector";
-import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {BlockingUtils} from "../utils/BlockingUtils";
-import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
-import {ReactionCollectorInteractOtherPlayersPoor} from "../../../../Lib/src/packets/interaction/ReactionCollectorInteractOtherPlayers";
-import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import Guild, {Guilds} from "../database/game/models/Guild";
-import {BadgeConstants} from "../../../../Lib/src/constants/BadgeConstants";
-import {SexTypeShort} from "../../../../Lib/src/constants/StringConstants";
+import { MissionsController } from "../missions/MissionsController";
+import { PetEntities } from "../database/game/models/PetEntity";
+import {
+	InventorySlot, InventorySlots
+} from "../database/game/models/InventorySlot";
+import {
+	EndCallback, ReactionCollectorInstance
+} from "../utils/ReactionsCollector";
+import { ReactionCollectorAcceptReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { BlockingUtils } from "../utils/BlockingUtils";
+import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
+import { ReactionCollectorInteractOtherPlayersPoor } from "../../../../Lib/src/packets/interaction/ReactionCollectorInteractOtherPlayers";
+import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
+import Guild, { Guilds } from "../database/game/models/Guild";
+import { BadgeConstants } from "../../../../Lib/src/constants/BadgeConstants";
+import { SexTypeShort } from "../../../../Lib/src/constants/StringConstants";
 
 /**
  * Check top interactions
@@ -206,16 +212,16 @@ function checkEffects(otherPlayer: Player, interactionsList: InteractOtherPlayer
  */
 async function checkInventory(otherPlayer: Player, interactionsList: InteractOtherPlayerInteraction[]): Promise<InventorySlot[]> {
 	const invSlots = await InventorySlots.getOfPlayer(otherPlayer.id);
-	if (invSlots.find((slot) => slot.isWeapon() && slot.isEquipped()).itemId !== 0) {
+	if (invSlots.find(slot => slot.isWeapon() && slot.isEquipped()).itemId !== 0) {
 		interactionsList.push(InteractOtherPlayerInteraction.WEAPON);
 	}
-	if (invSlots.find((slot) => slot.isArmor() && slot.isEquipped()).itemId !== 0) {
+	if (invSlots.find(slot => slot.isArmor() && slot.isEquipped()).itemId !== 0) {
 		interactionsList.push(InteractOtherPlayerInteraction.ARMOR);
 	}
-	if (invSlots.find((slot) => slot.isPotion() && slot.isEquipped()).itemId !== 0) {
+	if (invSlots.find(slot => slot.isPotion() && slot.isEquipped()).itemId !== 0) {
 		interactionsList.push(InteractOtherPlayerInteraction.POTION);
 	}
-	if (invSlots.find((slot) => slot.isObject() && slot.isEquipped()).itemId !== 0) {
+	if (invSlots.find(slot => slot.isObject() && slot.isEquipped()).itemId !== 0) {
 		interactionsList.push(InteractOtherPlayerInteraction.OBJECT);
 	}
 
@@ -229,13 +235,17 @@ async function checkInventory(otherPlayer: Player, interactionsList: InteractOth
  * @param numberOfPlayers
  */
 async function getAvailableInteractions(otherPlayer: Player, player: Player, numberOfPlayers: number): Promise<{
-	guild: Guild,
-	inventorySlots: InventorySlot[],
-	interactionsList: InteractOtherPlayerInteraction[]
+	guild: Guild;
+	inventorySlots: InventorySlot[];
+	interactionsList: InteractOtherPlayerInteraction[];
 }> {
 	let guild = null;
 	const interactionsList: InteractOtherPlayerInteraction[] = [];
-	const [playerRank, otherPlayerRank, otherPlayerWeeklyRank] = await Promise.all([
+	const [
+		playerRank,
+		otherPlayerRank,
+		otherPlayerWeeklyRank
+	] = await Promise.all([
 		Players.getRankById(player.id),
 		Players.getRankById(otherPlayer.id),
 		Players.getWeeklyRankById(otherPlayer.id)
@@ -254,7 +264,9 @@ async function getAvailableInteractions(otherPlayer: Player, player: Player, num
 	interactionsList.push(InteractOtherPlayerInteraction.CLASS);
 	checkEffects(otherPlayer, interactionsList);
 	const inventorySlots = await checkInventory(otherPlayer, interactionsList);
-	return {guild, inventorySlots, interactionsList};
+	return {
+		guild, inventorySlots, interactionsList
+	};
 }
 
 /**
@@ -304,7 +316,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 		const otherPlayer = await Players.getOrRegister(selectedPlayerKeycloakId);
 		await MissionsController.update(player, response, {
 			missionId: "meetDifferentPlayers",
-			params: {metPlayerKeycloakId: otherPlayer.keycloakId}
+			params: { metPlayerKeycloakId: otherPlayer.keycloakId }
 		});
 		const {
 			guild,
@@ -361,10 +373,10 @@ export const smallEventFuncs: SmallEventFuncs = {
 					petId: otherPlayer.petId,
 					petSex: (otherPlayer.petId ? otherPet.sex : undefined) as SexTypeShort,
 					guildName: guild ? guild.name : undefined,
-					weaponId: inventorySlots.find((slot) => slot.isWeapon() && slot.isEquipped()).itemId,
-					armorId: inventorySlots.find((slot) => slot.isArmor() && slot.isEquipped()).itemId,
-					potionId: inventorySlots.find((slot) => slot.isPotion() && slot.isEquipped()).itemId,
-					objectId: inventorySlots.find((slot) => slot.isObject() && slot.isEquipped()).itemId,
+					weaponId: inventorySlots.find(slot => slot.isWeapon() && slot.isEquipped()).itemId,
+					armorId: inventorySlots.find(slot => slot.isArmor() && slot.isEquipped()).itemId,
+					potionId: inventorySlots.find(slot => slot.isPotion() && slot.isEquipped()).itemId,
+					objectId: inventorySlots.find(slot => slot.isObject() && slot.isEquipped()).itemId,
 					effectId: otherPlayer.effectId
 				}
 			}));

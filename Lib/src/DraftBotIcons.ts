@@ -1,201 +1,203 @@
+/* eslint-disable camelcase */
+
 type EventPossibilities = {
-	"end": { [outcomeId: string]: string };
-} & Record<string, string | { [outcomeId: string]: string }>
+	end: { [outcomeId: string]: string };
+} & Record<string, string | { [outcomeId: string]: string }>;
 
 export const DraftBotIcons: {
 	effects: {
-		[effectId: string]: string
-	},
+		[effectId: string]: string;
+	};
 	events: {
 		[eventId: string]: EventPossibilities;
-	},
+	};
 	map_types: {
-		[mapType: string]: string
-	},
+		[mapType: string]: string;
+	};
 	small_events: {
-		[smallEventId: string]: string
-	},
+		[smallEventId: string]: string;
+	};
 	pets: {
 		[petId: string]: {
-			emoteFemale: string,
-			emoteMale: string
-		}
-	},
+			emoteFemale: string;
+			emoteMale: string;
+		};
+	};
 	monsters: {
-		[monsterId: string]: string
-	}
+		[monsterId: string]: string;
+	};
 	armors: {
-		[itemId: string]: string
-	},
+		[itemId: string]: string;
+	};
 	weapons: {
-		[itemId: string]: string
-	},
+		[itemId: string]: string;
+	};
 	potions: {
-		[itemId: string]: string
-	},
+		[itemId: string]: string;
+	};
 	objects: {
-		[itemId: string]: string
-	},
+		[itemId: string]: string;
+	};
 	classes: {
-		[classId: string]: string
-	},
+		[classId: string]: string;
+	};
 	witch_small_event: {
-		[ingredient: string]: string
-	},
+		[ingredient: string]: string;
+	};
 	cart_small_event: {
-		accept: string,
-		refuse: string
-	},
+		accept: string;
+		refuse: string;
+	};
 	fight_command: {
-		accept: string,
-		ai_thinking: string,
-		clipboard: string,
-		crossed_swords: string,
-		fighter_stats: string,
-		game_stats: string,
-		glory_change: string,
-		handshake: string,
-		refuse: string,
-	},
+		accept: string;
+		ai_thinking: string;
+		clipboard: string;
+		crossed_swords: string;
+		fighter_stats: string;
+		game_stats: string;
+		glory_change: string;
+		handshake: string;
+		refuse: string;
+	};
 	clocks: {
-		[clockId: string]: string
-	}
+		[clockId: string]: string;
+	};
 	pve_fights: {
-		wait_a_bit: string,
-		start_fight: string,
-	}
+		wait_a_bit: string;
+		start_fight: string;
+	};
 	foods: {
-		[foodId: string]: string
-	}
+		[foodId: string]: string;
+	};
 	collectors: {
-		accept: string,
-		refuse: string,
+		accept: string;
+		refuse: string;
 		lottery: {
-			easy: string,
-			medium: string,
-			hard: string
-		},
-		interactPoorCoin: string,
-		warning: string,
-		question: string,
-		back: string,
-		switch: string
-	},
+			easy: string;
+			medium: string;
+			hard: string;
+		};
+		interactPoorCoin: string;
+		warning: string;
+		question: string;
+		back: string;
+		switch: string;
+	};
 	fight_actions: {
-		[actionId: string]: string
-	},
+		[actionId: string]: string;
+	};
 	class_kinds: {
-		[classKind: string]: string
-	},
+		[classKind: string]: string;
+	};
 	announcements: {
-		trophy: string
-	},
+		trophy: string;
+	};
 	commands: {
-		[commandId: string]: string
-	},
+		[commandId: string]: string;
+	};
 	unitValues: {
-		[unitValueId: string]: string
-	},
+		[unitValueId: string]: string;
+	};
 	shopItems: {
-		[shopItemId: string]: string
-	},
+		[shopItemId: string]: string;
+	};
 	badges: {
-		[badgeId: string]: string
-	},
-	itemKinds: string[],
+		[badgeId: string]: string;
+	};
+	itemKinds: string[];
 	notifications: {
-		bell: string,
-		sendLocation: string,
-		back: string,
-		types: { [notificationId: string]: string }
-	},
+		bell: string;
+		sendLocation: string;
+		back: string;
+		types: { [notificationId: string]: string };
+	};
 	missions: {
-		[missionId: string]: string
-	},
+		[missionId: string]: string;
+	};
 	messages: {
-		[messageId: string]: string
-	},
+		[messageId: string]: string;
+	};
 	fightPetActions: {
-		[actionId: string]: string
-	},
+		[actionId: string]: string;
+	};
 	rewards: {
-		[rewardId: string]: string
-	},
+		[rewardId: string]: string;
+	};
 	goblets: {
-		[gobletId: string]: string
-	},
+		[gobletId: string]: string;
+	};
 	sex: {
-		male: string,
-		female: string
-	},
+		male: string;
+		female: string;
+	};
 	diet: {
-		[dietId: string]: string
-	},
+		[dietId: string]: string;
+	};
 	petInformation: {
-		[petInfoId: string]: string
-	},
+		[petInfoId: string]: string;
+	};
 	leagues: {
-		[leagueId: string]: string
-	},
+		[leagueId: string]: string;
+	};
 	top: {
 		badges: {
-			first: string,
-			second: string,
-			third: string,
-			fourth: string,
-			fifth: string,
-			self: string,
-			sameContext: string,
-			default: string
-		},
-		afk: string,
-		allTime: string,
-		weekly: string,
-		congrats: string,
-		error: string,
-		guild: string
-	},
+			first: string;
+			second: string;
+			third: string;
+			fourth: string;
+			fifth: string;
+			self: string;
+			sameContext: string;
+			default: string;
+		};
+		afk: string;
+		allTime: string;
+		weekly: string;
+		congrats: string;
+		error: string;
+		guild: string;
+	};
 	petTransfer: {
-		deposit: string,
-		switch: string,
-		withdraw: string
-	},
+		deposit: string;
+		switch: string;
+		withdraw: string;
+	};
 	other: {
-		[otherId: string]: string
-	},
+		[otherId: string]: string;
+	};
 	guild: {
-		icon: string,
-		chief: string,
-		elder: string,
-		member: string,
-		isOnPveIsland: string,
-		isOnBoat: string,
-		countAsAnAlly: string,
-		cannotBeJoinedOnBoat: string,
-		membersCount: string
-	},
+		icon: string;
+		chief: string;
+		elder: string;
+		member: string;
+		isOnPveIsland: string;
+		isOnBoat: string;
+		countAsAnAlly: string;
+		cannotBeJoinedOnBoat: string;
+		membersCount: string;
+	};
 	networks: {
-		website: string,
-		twitter: string,
-		discord: string,
-	},
+		website: string;
+		twitter: string;
+		discord: string;
+	};
 	languages: {
-		[languageId: string]: string
-	},
+		[languageId: string]: string;
+	};
 	languageFlavors: {
-		[languageFlavorId: string]: string
-	},
-	rarity: string[],
-	loveLevels: string[],
+		[languageFlavorId: string]: string;
+	};
+	rarity: string[];
+	loveLevels: string[];
 	userKind: {
-		[UserKindId: string]: string
-	},
+		[UserKindId: string]: string;
+	};
 	inventory: {
-		[inventoryId: string]: string
-	},
-	itemNatures: string[]
+		[inventoryId: string]: string;
+	};
+	itemNatures: string[];
 } = {
-	"effects": {
+	effects: {
 		"not_started": "👶",
 		"dead": "💀",
 		"none": "😃",
@@ -213,1840 +215,1840 @@ export const DraftBotIcons: {
 		"lost": "🧐",
 		"healed": "🏥"
 	},
-	"events": {
-		"1": {
-			"cutTree": "🪓",
-			"end": {
-				"0": "🪓"
+	events: {
+		1: {
+			cutTree: "🪓",
+			end: {
+				0: "🪓"
 			},
-			"otherWay": "🚶"
+			otherWay: "🚶"
 		},
-		"10": {
-			"end": {
-				"0": "🚶"
+		10: {
+			end: {
+				0: "🚶"
 			},
-			"help": "🎣",
-			"push": "🖐️",
-			"skip": "🏃"
+			help: "🎣",
+			push: "🖐️",
+			skip: "🏃"
 		},
-		"11": {
-			"end": {
-				"0": "🚶"
+		11: {
+			end: {
+				0: "🚶"
 			},
-			"followHint": "👈",
-			"forest": "🌳",
-			"oppositeSide": "👉"
+			followHint: "👈",
+			forest: "🌳",
+			oppositeSide: "👉"
 		},
-		"12": {
-			"craftBoat": "🚣",
-			"end": {
-				"0": "🕑"
+		12: {
+			craftBoat: "🚣",
+			end: {
+				0: "🕑"
 			},
-			"otherWay": "🚶",
-			"searchBridge": "🌉",
-			"swim": "🏊"
+			otherWay: "🚶",
+			searchBridge: "🌉",
+			swim: "🏊"
 		},
-		"13": {
-			"end": {
-				"0": "🚶"
+		13: {
+			end: {
+				0: "🚶"
 			},
-			"goAway": "🚶",
-			"goForge": "🔨",
-			"goInn": "🏠",
-			"goMarket": "🎪"
+			goAway: "🚶",
+			goForge: "🔨",
+			goInn: "🏠",
+			goMarket: "🎪"
 		},
-		"14": {
-			"chatWorker": "🔨",
-			"end": {
-				"0": "🚶"
+		14: {
+			chatWorker: "🔨",
+			end: {
+				0: "🚶"
 			},
-			"goAway": "🚶",
-			"stayNight": "🛏️"
+			goAway: "🚶",
+			stayNight: "🛏️"
 		},
-		"15": {
-			"end": {
-				"0": "🚶"
+		15: {
+			end: {
+				0: "🚶"
 			},
-			"skip": "🏃",
-			"steal": "💰",
-			"trade": "👥"
+			skip: "🏃",
+			steal: "💰",
+			trade: "👥"
 		},
-		"16": {
-			"end": {
-				"0": "🚶",
-				"1": "🚶"
+		16: {
+			end: {
+				0: "🚶",
+				1: "🚶"
 			},
-			"enterCastle": "🔎",
-			"skip": "➡️",
-			"walkAround": "🔁"
+			enterCastle: "🔎",
+			skip: "➡️",
+			walkAround: "🔁"
 		},
-		"17": {
-			"end": {
-				"0": "🚶",
-				"1": "🚶"
+		17: {
+			end: {
+				0: "🚶",
+				1: "🚶"
 			},
-			"fruits": "🍎",
-			"hunt": "🦌",
-			"mushrooms": "🍄",
-			"salad": "🥗",
-			"skip": "🚶"
+			fruits: "🍎",
+			hunt: "🦌",
+			mushrooms: "🍄",
+			salad: "🥗",
+			skip: "🚶"
 		},
-		"18": {
-			"end": {
-				"0": "🚶"
+		18: {
+			end: {
+				0: "🚶"
 			},
-			"searchScaffolding": "⛓️",
-			"searchSite": "🔎",
-			"skip": "🚶"
+			searchScaffolding: "⛓️",
+			searchSite: "🔎",
+			skip: "🚶"
 		},
-		"19": {
-			"butch": "🔪",
-			"cook": "🍽️",
-			"end": {
-				"0": "👀"
+		19: {
+			butch: "🔪",
+			cook: "🍽️",
+			end: {
+				0: "👀"
 			},
-			"skip": "🚶"
+			skip: "🚶"
 		},
-		"2": {
-			"end": {
-				"0": "🐶"
+		2: {
+			end: {
+				0: "🐶"
 			},
-			"followDog": "🐕",
-			"skip": "🏃"
+			followDog: "🐕",
+			skip: "🏃"
 		},
-		"20": {
-			"alert": "🤙",
-			"end": {
-				"0": "🚶",
-				"1": "🚶"
+		20: {
+			alert: "🤙",
+			end: {
+				0: "🚶",
+				1: "🚶"
 			},
-			"skip": "🚶",
-			"surpriseAttack": "👊"
+			skip: "🚶",
+			surpriseAttack: "👊"
 		},
-		"21": {
-			"crossBridge": "🌉",
-			"end": {
-				"0": "🕑",
-				"1": "🚶"
+		21: {
+			crossBridge: "🌉",
+			end: {
+				0: "🕑",
+				1: "🚶"
 			},
-			"otherWay": "🚶"
+			otherWay: "🚶"
 		},
-		"22": {
-			"buy": "💶",
-			"end": {
-				"0": "👀",
-				"1": "👀"
+		22: {
+			buy: "💶",
+			end: {
+				0: "👀",
+				1: "👀"
 			},
-			"skip": "🏃",
-			"steal": "👥"
+			skip: "🏃",
+			steal: "👥"
 		},
-		"23": {
-			"end": {
-				"0": "👀"
+		23: {
+			end: {
+				0: "👀"
 			},
-			"help": "🔨",
-			"skip": "🚶"
+			help: "🔨",
+			skip: "🚶"
 		},
-		"24": {
-			"end": {
-				"0": "🚶",
-				"1": "🚶"
+		24: {
+			end: {
+				0: "🚶",
+				1: "🚶"
 			},
-			"foodStand": "🍢",
-			"gameStand": "🎯",
-			"itemStand": "🎪"
+			foodStand: "🍢",
+			gameStand: "🎯",
+			itemStand: "🎪"
 		},
-		"25": {
-			"dontHelp": "🚶",
-			"end": {
-				"0": "👀",
-				"1": "👀"
+		25: {
+			dontHelp: "🚶",
+			end: {
+				0: "👀",
+				1: "👀"
 			},
-			"help": "🤝",
-			"steal": "🕵️"
+			help: "🤝",
+			steal: "🕵️"
 		},
-		"26": {
-			"end": {
-				"0": "👀"
+		26: {
+			end: {
+				0: "👀"
 			},
-			"goAway": "🚶",
-			"steal": "💸",
-			"trySave": "👊"
+			goAway: "🚶",
+			steal: "💸",
+			trySave: "👊"
 		},
-		"27": {
-			"end": {
-				"0": "👀",
-				"1": "👀"
+		27: {
+			end: {
+				0: "👀",
+				1: "👀"
 			},
-			"goDown": "👇",
-			"skip": "🚶",
-			"useBucket": "🤝"
+			goDown: "👇",
+			skip: "🚶",
+			useBucket: "🤝"
 		},
-		"28": {
-			"accept": "✅",
-			"deny": "❌",
-			"end": {
-				"0": "🚶"
+		28: {
+			accept: "✅",
+			deny: "❌",
+			end: {
+				0: "🚶"
 			}
 		},
-		"29": {
-			"end": {
-				"0": "👀",
-				"1": "🚶"
+		29: {
+			end: {
+				0: "👀",
+				1: "🚶"
 			},
-			"restHere": "😴",
-			"restTree": "🌳",
-			"searchWater": "🔍"
+			restHere: "😴",
+			restTree: "🌳",
+			searchWater: "🔍"
 		},
-		"3": {
-			"abandon": "▶️",
-			"end": {
-				"0": "▶️"
+		3: {
+			abandon: "▶️",
+			end: {
+				0: "▶️"
 			},
-			"mineIt": "⛏️",
-			"searchKey": "🔑"
+			mineIt: "⛏️",
+			searchKey: "🔑"
 		},
-		"30": {
-			"duke": "🤴",
-			"end": {
-				"0": "🚶",
-				"1": "🚶"
+		30: {
+			duke: "🤴",
+			end: {
+				0: "🚶",
+				1: "🚶"
 			},
-			"gift": "🎁",
-			"party": "🎉",
-			"steal": "🍌"
+			gift: "🎁",
+			party: "🎉",
+			steal: "🍌"
 		},
-		"31": {
-			"end": {
-				"0": "🚶"
+		31: {
+			end: {
+				0: "🚶"
 			},
-			"hide": "🌿",
-			"keepGoing": "🚶",
-			"wave": "👋"
+			hide: "🌿",
+			keepGoing: "🚶",
+			wave: "👋"
 		},
-		"32": {
-			"end": {
-				"0": "🚶",
-				"1": "🚶",
-				"2": "🚶",
-				"3": "🚶"
+		32: {
+			end: {
+				0: "🚶",
+				1: "🚶",
+				2: "🚶",
+				3: "🚶"
 			},
-			"heal": "💉",
-			"kill": "🔪",
-			"yell": "🗣️"
+			heal: "💉",
+			kill: "🔪",
+			yell: "🗣️"
 		},
-		"33": {
-			"chat": "👄",
-			"eat": "🍗",
-			"end": {
-				"0": "🐐",
-				"1": "🫕"
+		33: {
+			chat: "👄",
+			eat: "🍗",
+			end: {
+				0: "🐐",
+				1: "🫕"
 			},
-			"skip": "🚶",
-			"steal": "🕵️"
+			skip: "🚶",
+			steal: "🕵️"
 		},
-		"34": {
-			"end": {
-				"0": "🚶",
-				"1": "🚶‍",
-				"2": "🚶‍"
+		34: {
+			end: {
+				0: "🚶",
+				1: "🚶‍",
+				2: "🚶‍"
 			},
-			"food": "🥗",
-			"health": "😇",
-			"kind": "🍀",
-			"money": "💰"
+			food: "🥗",
+			health: "😇",
+			kind: "🍀",
+			money: "💰"
 		},
-		"35": {
-			"deny": "❌",
-			"end": {
-				"0": "🚶"
+		35: {
+			deny: "❌",
+			end: {
+				0: "🚶"
 			},
-			"steal": "💰",
-			"test": "🍺"
+			steal: "💰",
+			test: "🍺"
 		},
-		"36": {
-			"end": {
-				"0": "🚶‍",
-				"1": "🚶"
+		36: {
+			end: {
+				0: "🚶‍",
+				1: "🚶"
 			},
-			"goAway": "🚶",
-			"goInn": "🏡",
-			"stealJeweler": "💸",
-			"talkJeweler": "🗣️"
+			goAway: "🚶",
+			goInn: "🏡",
+			stealJeweler: "💸",
+			talkJeweler: "🗣️"
 		},
-		"37": {
-			"end": {
-				"0": "🌳",
-				"1": "🌳"
+		37: {
+			end: {
+				0: "🌳",
+				1: "🌳"
 			},
-			"run": "🏃",
-			"walk": "🚶"
+			run: "🏃",
+			walk: "🚶"
 		},
-		"38": {
-			"buyCheap": "💸",
-			"buyExpensive": "💰",
-			"deny": "❌",
-			"end": {
-				"0": "🚶",
-				"1": "👥",
-				"2": "👥"
+		38: {
+			buyCheap: "💸",
+			buyExpensive: "💰",
+			deny: "❌",
+			end: {
+				0: "🚶",
+				1: "👥",
+				2: "👥"
 			},
-			"steal": "🕵️"
+			steal: "🕵️"
 		},
-		"39": {
-			"convoy": "🚶",
-			"end": {
-				"0": "🗣️",
-				"1": "🗣️"
+		39: {
+			convoy: "🚶",
+			end: {
+				0: "🗣️",
+				1: "🗣️"
 			},
-			"meal": "🍖",
-			"steal": "🤑"
+			meal: "🍖",
+			steal: "🤑"
 		},
-		"4": {
-			"end": {
-				"0": "🏃"
+		4: {
+			end: {
+				0: "🏃"
 			},
-			"skip": "🏃",
-			"wish": "🗣️"
+			skip: "🏃",
+			wish: "🗣️"
 		},
-		"40": {
-			"askAdvices": "🗣️",
-			"breakIn": "🔎",
-			"end": {
-				"0": "🚶",
-				"1": "🚶"
+		40: {
+			askAdvices: "🗣️",
+			breakIn: "🔎",
+			end: {
+				0: "🚶",
+				1: "🚶"
 			},
-			"goBack": "🚶"
+			goBack: "🚶"
 		},
-		"41": {
-			"corrupt": "🕵️",
-			"end": {
-				"0": "🗣️",
-				"1": "🕑",
-				"2": "🚶"
+		41: {
+			corrupt: "🕵️",
+			end: {
+				0: "🗣️",
+				1: "🕑",
+				2: "🚶"
 			},
-			"escape": "🔓",
-			"explain": "🗣️",
-			"playDead": "💀",
-			"wait": "🕑"
+			escape: "🔓",
+			explain: "🗣️",
+			playDead: "💀",
+			wait: "🕑"
 		},
-		"42": {
-			"ask": "🥩",
-			"end": {
-				"0": "🚶",
-				"1": "🚶"
+		42: {
+			ask: "🥩",
+			end: {
+				0: "🚶",
+				1: "🚶"
 			},
-			"feign": "😎",
-			"help": "🏹"
+			feign: "😎",
+			help: "🏹"
 		},
-		"43": {
-			"continue": "⬆️",
-			"end": {
-				"0": "🚶",
-				"1": "🚶",
-				"2": "🚶"
+		43: {
+			continue: "⬆️",
+			end: {
+				0: "🚶",
+				1: "🚶",
+				2: "🚶"
 			},
-			"fight": "⚔️",
-			"goBack": "⬇️",
-			"shelter": "⛪"
+			fight: "⚔️",
+			goBack: "⬇️",
+			shelter: "⛪"
 		},
-		"44": {
-			"end": {
-				"0": "🚶"
+		44: {
+			end: {
+				0: "🚶"
 			},
-			"help": "🦸",
-			"push": "😈",
-			"watch": "😐"
+			help: "🦸",
+			push: "😈",
+			watch: "😐"
 		},
-		"45": {
-			"askJoin": "⤴️",
-			"end": {
-				"0": "🕵️",
-				"1": "🚶"
+		45: {
+			askJoin: "⤴️",
+			end: {
+				0: "🕵️",
+				1: "🚶"
 			},
-			"goAlone": "🚶",
-			"skip": "▶️",
-			"talk": "🔊"
+			goAlone: "🚶",
+			skip: "▶️",
+			talk: "🔊"
 		},
-		"46": {
-			"end": {
-				"0": "🚶",
-				"1": "🔪",
-				"2": "💊"
+		46: {
+			end: {
+				0: "🚶",
+				1: "🔪",
+				2: "💊"
 			},
-			"singCrazyLove": "🤪",
-			"singHero": "⚔️",
-			"singLove": "🥰",
-			"singRoyalty": "👑",
-			"singWork": "🪕"
+			singCrazyLove: "🤪",
+			singHero: "⚔️",
+			singLove: "🥰",
+			singRoyalty: "👑",
+			singWork: "🪕"
 		},
-		"47": {
-			"end": {
-				"0": "🚶",
-				"1": "🏃",
-				"2": "🕵️"
+		47: {
+			end: {
+				0: "🚶",
+				1: "🏃",
+				2: "🕵️"
 			},
-			"goAway": "🚶",
-			"help": "⚔",
-			"tell": "🗣️"
+			goAway: "🚶",
+			help: "⚔",
+			tell: "🗣️"
 		},
-		"48": {
-			"end": {
-				"0": "🚶",
-				"1": "🤔",
-				"2": "🌌",
-				"3": "🫂",
-				"4": "😕"
+		48: {
+			end: {
+				0: "🚶",
+				1: "🤔",
+				2: "🌌",
+				3: "🫂",
+				4: "😕"
 			},
-			"fight": "⚔️",
-			"meetHim": "🤝"
+			fight: "⚔️",
+			meetHim: "🤝"
 		},
-		"49": {
-			"eatIt": "🍖",
-			"end": {
-				"0": "🐚",
-				"1": "🐚",
-				"2": "🐚"
+		49: {
+			eatIt: "🍖",
+			end: {
+				0: "🐚",
+				1: "🐚",
+				2: "🐚"
 			},
-			"helpIt": "🤝",
-			"takeIt": "💞"
+			helpIt: "🤝",
+			takeIt: "💞"
 		},
-		"5": {
-			"end": {
-				"0": "🤑"
+		5: {
+			end: {
+				0: "🤑"
 			},
-			"keepGoing": "🚶",
-			"rest": "💦"
+			keepGoing: "🚶",
+			rest: "💦"
 		},
-		"50": {
-			"ask": "🗣️",
-			"end": {
-				"0": "Vous",
-				"1": "L'un"
+		50: {
+			ask: "🗣️",
+			end: {
+				0: "Vous",
+				1: "L'un"
 			},
-			"leave": "🚶",
-			"nap": "😴"
+			leave: "🚶",
+			nap: "😴"
 		},
-		"51": {
-			"end": {
-				"0": "😴",
-				"1": "💥",
-				"2": "🦊"
+		51: {
+			end: {
+				0: "😴",
+				1: "💥",
+				2: "🦊"
 			},
-			"goBack": "🚶‍♂️",
-			"search": "🔎",
-			"stairs": "↗️"
+			goBack: "🚶‍♂️",
+			search: "🔎",
+			stairs: "↗️"
 		},
-		"52": {
-			"deny": "❌",
-			"end": {
-				"0": "🚶",
-				"1": "👞",
-				"2": "💸"
+		52: {
+			deny: "❌",
+			end: {
+				0: "🚶",
+				1: "👞",
+				2: "💸"
 			},
-			"play": "👥",
-			"playFight": "⚔️",
-			"teach": "🏹"
+			play: "👥",
+			playFight: "⚔️",
+			teach: "🏹"
 		},
-		"53": {
-			"accept": "✅",
-			"deny": "❌",
-			"end": {
-				"0": "😶",
-				"1": "🚶",
-				"2": "🚶"
+		53: {
+			accept: "✅",
+			deny: "❌",
+			end: {
+				0: "😶",
+				1: "🚶",
+				2: "🚶"
 			},
-			"steal": "🕵️"
+			steal: "🕵️"
 		},
-		"54": {
-			"bet": "🪙",
-			"end": {
-				"0": "🗣",
-				"1": "😵‍💫",
-				"2": "🚶",
-				"3": "🪙",
-				"4": "🍖"
+		54: {
+			bet: "🪙",
+			end: {
+				0: "🗣",
+				1: "😵‍💫",
+				2: "🚶",
+				3: "🪙",
+				4: "🍖"
 			},
-			"help": "🤝",
-			"look": "👥",
-			"visit": "🚶"
+			help: "🤝",
+			look: "👥",
+			visit: "🚶"
 		},
-		"55": {
-			"climb": "🧗",
-			"cut": "🪓",
-			"end": {
-				"0": "🤷",
-				"1": "🤷",
-				"2": "👥"
+		55: {
+			climb: "🧗",
+			cut: "🪓",
+			end: {
+				0: "🤷",
+				1: "🤷",
+				2: "👥"
 			},
-			"otherWay": "🚶"
+			otherWay: "🚶"
 		},
-		"56": {
-			"beach": "🏖",
-			"drinkBlack": "⚫",
-			"drinkRandom": "🍸",
-			"end": {
-				"0": "💥",
-				"1": "😶",
-				"2": "🍵"
+		56: {
+			beach: "🏖",
+			drinkBlack: "⚫",
+			drinkRandom: "🍸",
+			end: {
+				0: "💥",
+				1: "😶",
+				2: "🍵"
 			},
-			"refuse": "❌"
+			refuse: "❌"
 		},
-		"57": {
-			"continue": "🌊",
-			"end": {
-				"0": "Vous",
-				"1": "Vous",
-				"2": "Vous"
+		57: {
+			continue: "🌊",
+			end: {
+				0: "Vous",
+				1: "Vous",
+				2: "Vous"
 			},
-			"findMeal": "🦀",
-			"settle": "🌞"
+			findMeal: "🦀",
+			settle: "🌞"
 		},
-		"58": {
-			"continue": "🚶",
-			"end": {
-				"0": "Vous",
-				"1": "Épuisé,"
+		58: {
+			continue: "🚶",
+			end: {
+				0: "Vous",
+				1: "Épuisé,"
 			},
-			"goAlchemist": "🍵",
-			"shortcut": "🏃"
+			goAlchemist: "🍵",
+			shortcut: "🏃"
 		},
-		"6": {
-			"end": {
-				"0": "🕑"
+		6: {
+			end: {
+				0: "🕑"
 			},
-			"goAway": "🏃",
-			"goDeeper": "🔦",
-			"search": "🔍"
+			goAway: "🏃",
+			goDeeper: "🔦",
+			search: "🔍"
 		},
-		"60": {
-			"end": {
-				"0": "Vous"
+		60: {
+			end: {
+				0: "Vous"
 			},
-			"start": "📖"
+			start: "📖"
 		},
-		"61": {
-			"end": {
-				"0": "Vous"
+		61: {
+			end: {
+				0: "Vous"
 			},
-			"follow": "🚶",
-			"observe": "👀"
+			follow: "🚶",
+			observe: "👀"
 		},
-		"62": {
-			"deny": "✖️",
-			"end": {
-				"0": "🥓",
-				"1": "🐕",
-				"2": "🐝"
+		62: {
+			deny: "✖️",
+			end: {
+				0: "🥓",
+				1: "🐕",
+				2: "🐝"
 			},
-			"searchPatures": "🍀",
-			"searchVines": "🍇",
-			"searchWheat": "🎑"
+			searchPatures: "🍀",
+			searchVines: "🍇",
+			searchWheat: "🎑"
 		},
-		"63": {
-			"end": {
-				"0": "🎆",
-				"1": "🍺",
-				"2": "🗯️",
-				"3": "💡"
+		63: {
+			end: {
+				0: "🎆",
+				1: "🍺",
+				2: "🗯️",
+				3: "💡"
 			},
-			"faceThem": "⚔️",
-			"goAway": "🏃",
-			"helpThem": "😈",
-			"warnEveryone": "🔊"
+			faceThem: "⚔️",
+			goAway: "🏃",
+			helpThem: "😈",
+			warnEveryone: "🔊"
 		},
-		"64": {
-			"accept": "🏰",
-			"deny": "❌",
-			"end": {
-				"0": "🤔"
+		64: {
+			accept: "🏰",
+			deny: "❌",
+			end: {
+				0: "🤔"
 			}
 		},
-		"65": {
-			"end": {
-				"0": "💰",
-				"1": "❤️",
-				"2": "💎",
-				"3": "⭐",
-				"4": "🏅",
-				"5": "⚔️",
-				"6": "🛡️",
-				"7": "📦"
+		65: {
+			end: {
+				0: "💰",
+				1: "❤️",
+				2: "💎",
+				3: "⭐",
+				4: "🏅",
+				5: "⚔️",
+				6: "🛡️",
+				7: "📦"
 			},
-			"hopeArmor": "🛡️",
-			"hopeGems": "💎",
-			"hopeGlory": "🏅",
-			"hopeHealthy": "❤️",
-			"hopeItem": "📦",
-			"hopeMoney": "💰",
-			"hopePet": "🐕‍🦺",
-			"hopeWeapon": "⚔️",
-			"hopeXP": "⭐"
+			hopeArmor: "🛡️",
+			hopeGems: "💎",
+			hopeGlory: "🏅",
+			hopeHealthy: "❤️",
+			hopeItem: "📦",
+			hopeMoney: "💰",
+			hopePet: "🐕‍🦺",
+			hopeWeapon: "⚔️",
+			hopeXP: "⭐"
 		},
-		"66": {
-			"end": {
-				"0": "😖",
-				"1": "😖"
+		66: {
+			end: {
+				0: "😖",
+				1: "😖"
 			},
-			"hints": "ℹ️",
-			"run": "🏝️"
+			hints: "ℹ️",
+			run: "🏝️"
 		},
-		"67": {
-			"accept": "🍺",
-			"deny": "✋",
-			"end": {
-				"0": "🥱"
+		67: {
+			accept: "🍺",
+			deny: "✋",
+			end: {
+				0: "🥱"
 			}
 		},
-		"68": {
-			"checkDate": "🗓️",
-			"end": {
-				"0": "🚶‍",
-				"1": "👀",
-				"2": "📓‍"
+		68: {
+			checkDate: "🗓️",
+			end: {
+				0: "🚶‍",
+				1: "👀",
+				2: "📓‍"
 			},
-			"read": "📖",
-			"steal": "📔"
+			read: "📖",
+			steal: "📔"
 		},
-		"69": {
-			"accept": "👍",
-			"comrpomise": "🤝",
-			"deny": "👿",
-			"end": {
-				"0": "👁️"
+		69: {
+			accept: "👍",
+			comrpomise: "🤝",
+			deny: "👿",
+			end: {
+				0: "👁️"
 			}
 		},
-		"7": {
-			"check": "🚪",
-			"end": {
-				"0": "🚶"
+		7: {
+			check: "🚪",
+			end: {
+				0: "🚶"
 			},
-			"skip": "🚶"
+			skip: "🚶"
 		},
-		"70": {
-			"end": {
-				"0": "💤",
-				"1": "🌪️",
-				"2": "🏹"
+		70: {
+			end: {
+				0: "💤",
+				1: "🌪️",
+				2: "🏹"
 			},
-			"explore": "🔍",
-			"skip": "🚶"
+			explore: "🔍",
+			skip: "🚶"
 		},
-		"71": {
-			"accept": "🍖",
-			"deny": "❌",
-			"end": {
-				"0": "🏃",
-				"1": "😠"
+		71: {
+			accept: "🍖",
+			deny: "❌",
+			end: {
+				0: "🏃",
+				1: "😠"
 			},
-			"steal": "💸"
+			steal: "💸"
 		},
-		"72": {
-			"end": {
-				"0": "🗣️",
-				"1": "🧠"
+		72: {
+			end: {
+				0: "🗣️",
+				1: "🧠"
 			},
-			"joinArchery": "🎯",
-			"joinJoust": "🐴",
-			"joinMelee": "⚔️",
-			"joinPoetry": "📜",
-			"searchFood": "🍴"
+			joinArchery: "🎯",
+			joinJoust: "🐴",
+			joinMelee: "⚔️",
+			joinPoetry: "📜",
+			searchFood: "🍴"
 		},
-		"73": {
-			"end": {
-				"0": "👤",
-				"1": "🖌️",
-				"2": "💼"
+		73: {
+			end: {
+				0: "👤",
+				1: "🖌️",
+				2: "💼"
 			},
-			"goAway": "🚶‍♂️",
-			"look": "👀",
-			"shame": "🗯"
+			goAway: "🚶‍♂️",
+			look: "👀",
+			shame: "🗯"
 		},
-		"74": {
-			"end": {
-				"0": "🐟"
+		74: {
+			end: {
+				0: "🐟"
 			},
-			"eat": "🍽️",
-			"run": "🏃",
-			"smell": "👃"
+			eat: "🍽️",
+			run: "🏃",
+			smell: "👃"
 		},
-		"8": {
-			"end": {
-				"0": "🚶"
+		8: {
+			end: {
+				0: "🚶"
 			},
-			"forest": "🌲",
-			"plains": "🏞️"
+			forest: "🌲",
+			plains: "🏞️"
 		},
-		"9": {
-			"end": {
-				"0": "🚶"
+		9: {
+			end: {
+				0: "🚶"
 			},
-			"help": "🔎",
-			"skip": "▶️"
+			help: "🔎",
+			skip: "▶️"
 		}
 	},
-	"map_types": {
-		"be": "🏖",
-		"castle_entrance": "🏰",
-		"castle_throne": "🪑",
-		"ci": "🏘",
-		"continent": "🏞",
-		"crystal_cavern": "💎",
-		"de": "🏜",
-		"fo": "🌳",
-		"ice_beach": "🌨",
-		"ice_cavern": "🧊",
-		"ice_lake": "❄",
-		"la": "🚣‍♂",
-		"mine": "🪨",
-		"mo": "⛰",
-		"pl": "🌺",
-		"pve_exit": "⛴",
-		"ri": "🏞",
-		"ro": "🛣",
-		"ruins": "🏚",
-		"snow_mountain": "🏔",
-		"snowmen_field": "☃",
-		"test_zone": "👾",
-		"tundra": "🌲",
-		"vi": "🛖",
-		"volcano": "🌋"
+	map_types: {
+		be: "🏖",
+		castle_entrance: "🏰",
+		castle_throne: "🪑",
+		ci: "🏘",
+		continent: "🏞",
+		crystal_cavern: "💎",
+		de: "🏜",
+		fo: "🌳",
+		ice_beach: "🌨",
+		ice_cavern: "🧊",
+		ice_lake: "❄",
+		la: "🚣‍♂",
+		mine: "🪨",
+		mo: "⛰",
+		pl: "🌺",
+		pve_exit: "⛴",
+		ri: "🏞",
+		ro: "🛣",
+		ruins: "🏚",
+		snow_mountain: "🏔",
+		snowmen_field: "☃",
+		test_zone: "👾",
+		tundra: "🌲",
+		vi: "🛖",
+		volcano: "🌋"
 	},
-	"small_events": {
-		"advanceTime": "⌛",
-		"bigBad": "😱",
-		"boatAdvice": "⛴️",
-		"bonusGuildPVEIsland": "😱",
-		"botFacts": "💮",
-		"botVote": "🗳️",
-		"cart": "🚗",
-		"class": "🔖",
-		"doNothing": "🚶",
-		"epicItemShop": "🌟",
-		"fightPet": "😾",
-		"findItem": "❕",
-		"findMission": "📜",
-		"findPet": "🐕",
-		"findPotion": "⚗️",
-		"goToPVEIsland": "⛴️",
-		"gobletsGame": "🥛",
-		"interactOtherPlayers": "💬",
-		"leagueReward": "✨",
-		"lottery": "🎰",
-		"pet": "🐕‍🦺",
-		"shop": "🛒",
-		"smallBad": "😖",
-		"space": "🪐",
-		"staffMember": "📖",
-		"ultimateFoodMerchant": "🍲",
-		"winEnergy": "⚡",
-		"winEnergyOnIsland": "🔋",
-		"winGuildXP": "⭐",
-		"winHealth": "❤️",
-		"winPersonalXP": "⭐",
-		"witch": "🧹"
+	small_events: {
+		advanceTime: "⌛",
+		bigBad: "😱",
+		boatAdvice: "⛴️",
+		bonusGuildPVEIsland: "😱",
+		botFacts: "💮",
+		botVote: "🗳️",
+		cart: "🚗",
+		class: "🔖",
+		doNothing: "🚶",
+		epicItemShop: "🌟",
+		fightPet: "😾",
+		findItem: "❕",
+		findMission: "📜",
+		findPet: "🐕",
+		findPotion: "⚗️",
+		goToPVEIsland: "⛴️",
+		gobletsGame: "🥛",
+		interactOtherPlayers: "💬",
+		leagueReward: "✨",
+		lottery: "🎰",
+		pet: "🐕‍🦺",
+		shop: "🛒",
+		smallBad: "😖",
+		space: "🪐",
+		staffMember: "📖",
+		ultimateFoodMerchant: "🍲",
+		winEnergy: "⚡",
+		winEnergyOnIsland: "🔋",
+		winGuildXP: "⭐",
+		winHealth: "❤️",
+		winPersonalXP: "⭐",
+		witch: "🧹"
 	},
-	"pets": {
-		"0": {
-			"emoteFemale": "❌",
-			"emoteMale": "❌"
-		},
-		"1": {
-			"emoteFemale": "🐕",
-			"emoteMale": "🐕"
-		},
-		"10": {
-			"emoteFemale": "🐔",
-			"emoteMale": "🐓"
-		},
-		"11": {
-			"emoteFemale": "🐦",
-			"emoteMale": "🐦"
-		},
-		"12": {
-			"emoteFemale": "🦆",
-			"emoteMale": "🦆"
-		},
-		"13": {
-			"emoteFemale": "🐎",
-			"emoteMale": "🐎"
-		},
-		"14": {
-			"emoteFemale": "🐢",
-			"emoteMale": "🐢"
-		},
-		"15": {
-			"emoteFemale": "🐍",
-			"emoteMale": "🐍"
-		},
-		"16": {
-			"emoteFemale": "🦎",
-			"emoteMale": "🦎"
-		},
-		"17": {
-			"emoteFemale": "🐑",
-			"emoteMale": "🐏"
-		},
-		"18": {
-			"emoteFemale": "🐐",
-			"emoteMale": "🐐"
-		},
-		"19": {
-			"emoteFemale": "🦃",
-			"emoteMale": "🦃"
-		},
-		"2": {
-			"emoteFemale": "🐩",
-			"emoteMale": "🐩"
-		},
-		"20": {
-			"emoteFemale": "🦊",
-			"emoteMale": "🦊"
-		},
-		"21": {
-			"emoteFemale": "🐻",
-			"emoteMale": "🐻"
-		},
-		"22": {
-			"emoteFemale": "🐨",
-			"emoteMale": "🐨"
-		},
-		"23": {
-			"emoteFemale": "🐸",
-			"emoteMale": "🐸"
-		},
-		"24": {
-			"emoteFemale": "🐒",
-			"emoteMale": "🐒"
-		},
-		"25": {
-			"emoteFemale": "🐧",
-			"emoteMale": "🐧"
-		},
-		"26": {
-			"emoteFemale": "🦉",
-			"emoteMale": "🦉"
-		},
-		"27": {
-			"emoteFemale": "🦇",
-			"emoteMale": "🦇"
-		},
-		"28": {
-			"emoteFemale": "🐺",
-			"emoteMale": "🐺"
-		},
-		"29": {
-			"emoteFemale": "🐗",
-			"emoteMale": "🐗"
-		},
-		"3": {
-			"emoteFemale": "🐈",
-			"emoteMale": "🐈"
-		},
-		"30": {
-			"emoteFemale": "🦭",
-			"emoteMale": "🦭"
-		},
-		"31": {
-			"emoteFemale": "🦛",
-			"emoteMale": "🦛"
+	pets: {
+		0: {
+			emoteFemale: "❌",
+			emoteMale: "❌"
+		},
+		1: {
+			emoteFemale: "🐕",
+			emoteMale: "🐕"
+		},
+		10: {
+			emoteFemale: "🐔",
+			emoteMale: "🐓"
+		},
+		11: {
+			emoteFemale: "🐦",
+			emoteMale: "🐦"
+		},
+		12: {
+			emoteFemale: "🦆",
+			emoteMale: "🦆"
+		},
+		13: {
+			emoteFemale: "🐎",
+			emoteMale: "🐎"
+		},
+		14: {
+			emoteFemale: "🐢",
+			emoteMale: "🐢"
+		},
+		15: {
+			emoteFemale: "🐍",
+			emoteMale: "🐍"
+		},
+		16: {
+			emoteFemale: "🦎",
+			emoteMale: "🦎"
+		},
+		17: {
+			emoteFemale: "🐑",
+			emoteMale: "🐏"
+		},
+		18: {
+			emoteFemale: "🐐",
+			emoteMale: "🐐"
+		},
+		19: {
+			emoteFemale: "🦃",
+			emoteMale: "🦃"
+		},
+		2: {
+			emoteFemale: "🐩",
+			emoteMale: "🐩"
+		},
+		20: {
+			emoteFemale: "🦊",
+			emoteMale: "🦊"
+		},
+		21: {
+			emoteFemale: "🐻",
+			emoteMale: "🐻"
+		},
+		22: {
+			emoteFemale: "🐨",
+			emoteMale: "🐨"
+		},
+		23: {
+			emoteFemale: "🐸",
+			emoteMale: "🐸"
+		},
+		24: {
+			emoteFemale: "🐒",
+			emoteMale: "🐒"
+		},
+		25: {
+			emoteFemale: "🐧",
+			emoteMale: "🐧"
+		},
+		26: {
+			emoteFemale: "🦉",
+			emoteMale: "🦉"
+		},
+		27: {
+			emoteFemale: "🦇",
+			emoteMale: "🦇"
+		},
+		28: {
+			emoteFemale: "🐺",
+			emoteMale: "🐺"
+		},
+		29: {
+			emoteFemale: "🐗",
+			emoteMale: "🐗"
+		},
+		3: {
+			emoteFemale: "🐈",
+			emoteMale: "🐈"
+		},
+		30: {
+			emoteFemale: "🦭",
+			emoteMale: "🦭"
+		},
+		31: {
+			emoteFemale: "🦛",
+			emoteMale: "🦛"
 		},
-		"32": {
-			"emoteFemale": "🦙",
-			"emoteMale": "🦙"
+		32: {
+			emoteFemale: "🦙",
+			emoteMale: "🦙"
 		},
-		"33": {
-			"emoteFemale": "🦢",
-			"emoteMale": "🦢"
+		33: {
+			emoteFemale: "🦢",
+			emoteMale: "🦢"
 		},
-		"34": {
-			"emoteFemale": "🦩",
-			"emoteMale": "🦩"
+		34: {
+			emoteFemale: "🦩",
+			emoteMale: "🦩"
 		},
-		"35": {
-			"emoteFemale": "🦝",
-			"emoteMale": "🦝"
+		35: {
+			emoteFemale: "🦝",
+			emoteMale: "🦝"
 		},
-		"36": {
-			"emoteFemale": "🦨",
-			"emoteMale": "🦨"
+		36: {
+			emoteFemale: "🦨",
+			emoteMale: "🦨"
 		},
-		"37": {
-			"emoteFemale": "🦡",
-			"emoteMale": "🦡"
+		37: {
+			emoteFemale: "🦡",
+			emoteMale: "🦡"
 		},
-		"38": {
-			"emoteFemale": "🦫",
-			"emoteMale": "🦫"
+		38: {
+			emoteFemale: "🦫",
+			emoteMale: "🦫"
 		},
-		"39": {
-			"emoteFemale": "🦥",
-			"emoteMale": "🦥"
+		39: {
+			emoteFemale: "🦥",
+			emoteMale: "🦥"
 		},
-		"4": {
-			"emoteFemale": "🐈‍⬛",
-			"emoteMale": "🐈‍⬛"
+		4: {
+			emoteFemale: "🐈‍⬛",
+			emoteMale: "🐈‍⬛"
 		},
-		"40": {
-			"emoteFemale": "🐿️",
-			"emoteMale": "🐿️"
+		40: {
+			emoteFemale: "🐿️",
+			emoteMale: "🐿️"
 		},
-		"41": {
-			"emoteFemale": "🦔️",
-			"emoteMale": "🦔"
+		41: {
+			emoteFemale: "🦔️",
+			emoteMale: "🦔"
 		},
-		"42": {
-			"emoteFemale": "🐻‍❄️",
-			"emoteMale": "🐻‍❄️"
+		42: {
+			emoteFemale: "🐻‍❄️",
+			emoteMale: "🐻‍❄️"
 		},
-		"43": {
-			"emoteFemale": "🐼",
-			"emoteMale": "🐼"
+		43: {
+			emoteFemale: "🐼",
+			emoteMale: "🐼"
 		},
-		"44": {
-			"emoteFemale": "🦂",
-			"emoteMale": "🦂"
+		44: {
+			emoteFemale: "🦂",
+			emoteMale: "🦂"
 		},
-		"45": {
-			"emoteFemale": "🐊",
-			"emoteMale": "🐊"
+		45: {
+			emoteFemale: "🐊",
+			emoteMale: "🐊"
 		},
-		"46": {
-			"emoteFemale": "🐘",
-			"emoteMale": "🐘"
+		46: {
+			emoteFemale: "🐘",
+			emoteMale: "🐘"
 		},
-		"47": {
-			"emoteFemale": "🦓",
-			"emoteMale": "🦓"
+		47: {
+			emoteFemale: "🦓",
+			emoteMale: "🦓"
 		},
-		"48": {
-			"emoteFemale": "🦏",
-			"emoteMale": "🦏"
+		48: {
+			emoteFemale: "🦏",
+			emoteMale: "🦏"
 		},
-		"49": {
-			"emoteFemale": "🐪",
-			"emoteMale": "🐪"
+		49: {
+			emoteFemale: "🐪",
+			emoteMale: "🐪"
 		},
-		"5": {
-			"emoteFemale": "🐁",
-			"emoteMale": "🐁"
+		5: {
+			emoteFemale: "🐁",
+			emoteMale: "🐁"
 		},
-		"50": {
-			"emoteFemale": "🐫",
-			"emoteMale": "🐫"
+		50: {
+			emoteFemale: "🐫",
+			emoteMale: "🐫"
 		},
-		"51": {
-			"emoteFemale": "🦒",
-			"emoteMale": "🦒"
+		51: {
+			emoteFemale: "🦒",
+			emoteMale: "🦒"
 		},
-		"52": {
-			"emoteFemale": "🦘",
-			"emoteMale": "🦘"
+		52: {
+			emoteFemale: "🦘",
+			emoteMale: "🦘"
 		},
-		"53": {
-			"emoteFemale": "🦚",
-			"emoteMale": "🦚"
+		53: {
+			emoteFemale: "🦚",
+			emoteMale: "🦚"
 		},
-		"54": {
-			"emoteFemale": "🦜",
-			"emoteMale": "🦜"
+		54: {
+			emoteFemale: "🦜",
+			emoteMale: "🦜"
 		},
-		"55": {
-			"emoteFemale": "🦦",
-			"emoteMale": "🦦"
+		55: {
+			emoteFemale: "🦦",
+			emoteMale: "🦦"
 		},
-		"56": {
-			"emoteFemale": "🐅",
-			"emoteMale": "🐅"
+		56: {
+			emoteFemale: "🐅",
+			emoteMale: "🐅"
 		},
-		"57": {
-			"emoteFemale": "🦁",
-			"emoteMale": "🦁"
+		57: {
+			emoteFemale: "🦁",
+			emoteMale: "🦁"
 		},
-		"58": {
-			"emoteFemale": "🦅",
-			"emoteMale": "🦅"
+		58: {
+			emoteFemale: "🦅",
+			emoteMale: "🦅"
 		},
-		"59": {
-			"emoteFemale": "🦤",
-			"emoteMale": "🦤"
+		59: {
+			emoteFemale: "🦤",
+			emoteMale: "🦤"
 		},
-		"6": {
-			"emoteFemale": "🐹",
-			"emoteMale": "🐹"
+		6: {
+			emoteFemale: "🐹",
+			emoteMale: "🐹"
 		},
-		"60": {
-			"emoteFemale": "🐆",
-			"emoteMale": "🐆"
+		60: {
+			emoteFemale: "🐆",
+			emoteMale: "🐆"
 		},
-		"61": {
-			"emoteFemale": "🦣",
-			"emoteMale": "🦣"
+		61: {
+			emoteFemale: "🦣",
+			emoteMale: "🦣"
 		},
-		"62": {
-			"emoteFemale": "🕊️",
-			"emoteMale": "🕊️"
+		62: {
+			emoteFemale: "🕊️",
+			emoteMale: "🕊️"
 		},
-		"63": {
-			"emoteFemale": "🦄️",
-			"emoteMale": "🦄️"
+		63: {
+			emoteFemale: "🦄️",
+			emoteMale: "🦄️"
 		},
-		"64": {
-			"emoteFemale": "🐉️",
-			"emoteMale": "🐉️"
+		64: {
+			emoteFemale: "🐉️",
+			emoteMale: "🐉️"
 		},
-		"65": {
-			"emoteFemale": "🦖️",
-			"emoteMale": "🦖️"
+		65: {
+			emoteFemale: "🦖️",
+			emoteMale: "🦖️"
 		},
-		"66": {
-			"emoteFemale": "🟣",
-			"emoteMale": "🔵"
+		66: {
+			emoteFemale: "🟣",
+			emoteMale: "🔵"
 		},
-		"67": {
-			"emoteFemale": "⛄",
-			"emoteMale": "⛄"
+		67: {
+			emoteFemale: "⛄",
+			emoteMale: "⛄"
 		},
-		"68": {
-			"emoteFemale": "🦆",
-			"emoteMale": "🦆"
+		68: {
+			emoteFemale: "🦆",
+			emoteMale: "🦆"
 		},
-		"69": {
-			"emoteFemale": "☃️",
-			"emoteMale": "☃️"
+		69: {
+			emoteFemale: "☃️",
+			emoteMale: "☃️"
 		},
-		"7": {
-			"emoteFemale": "🐇",
-			"emoteMale": "🐇"
+		7: {
+			emoteFemale: "🐇",
+			emoteMale: "🐇"
 		},
-		"70": {
-			"emoteFemale": "👽",
-			"emoteMale": "👽"
+		70: {
+			emoteFemale: "👽",
+			emoteMale: "👽"
 		},
-		"71": {
-			"emoteFemale": "🐙",
-			"emoteMale": "🐙"
+		71: {
+			emoteFemale: "🐙",
+			emoteMale: "🐙"
 		},
-		"72": {
-			"emoteFemale": "🐧",
-			"emoteMale": "🐧"
+		72: {
+			emoteFemale: "🐧",
+			emoteMale: "🐧"
 		},
-		"73": {
-			"emoteFemale": "🐟",
-			"emoteMale": "🐟"
+		73: {
+			emoteFemale: "🐟",
+			emoteMale: "🐟"
 		},
-		"74": {
-			"emoteFemale": "🐠",
-			"emoteMale": "🐠"
+		74: {
+			emoteFemale: "🐠",
+			emoteMale: "🐠"
 		},
-		"75": {
-			"emoteFemale": "🐡",
-			"emoteMale": "🐡"
+		75: {
+			emoteFemale: "🐡",
+			emoteMale: "🐡"
 		},
-		"76": {
-			"emoteFemale": "🪼",
-			"emoteMale": "🪼"
+		76: {
+			emoteFemale: "🪼",
+			emoteMale: "🪼"
 		},
-		"77": {
-			"emoteFemale": "🦈",
-			"emoteMale": "🦈"
+		77: {
+			emoteFemale: "🦈",
+			emoteMale: "🦈"
 		},
-		"78": {
-			"emoteFemale": "🐋",
-			"emoteMale": "🐋"
+		78: {
+			emoteFemale: "🐋",
+			emoteMale: "🐋"
 		},
-		"79": {
-			"emoteFemale": "🐳",
-			"emoteMale": "🐳"
+		79: {
+			emoteFemale: "🐳",
+			emoteMale: "🐳"
 		},
-		"8": {
-			"emoteFemale": "🐄",
-			"emoteMale": "🐂"
+		8: {
+			emoteFemale: "🐄",
+			emoteMale: "🐂"
 		},
-		"80": {
-			"emoteFemale": "🦐",
-			"emoteMale": "🦐"
+		80: {
+			emoteFemale: "🦐",
+			emoteMale: "🦐"
 		},
-		"81": {
-			"emoteFemale": "🦞",
-			"emoteMale": "🦞"
+		81: {
+			emoteFemale: "🦞",
+			emoteMale: "🦞"
 		},
-		"82": {
-			"emoteFemale": "🐬",
-			"emoteMale": "🐬"
+		82: {
+			emoteFemale: "🐬",
+			emoteMale: "🐬"
 		},
-		"9": {
-			"emoteFemale": "🐖",
-			"emoteMale": "🐖"
+		9: {
+			emoteFemale: "🐖",
+			emoteMale: "🐖"
 		}
 	},
-	"monsters": {
-		"spider": "🕷️",
-		"slimyMutant": "🦠",
-		"skeleton": "💀",
-		"rockGolem": "🗿",
-		"magmaTitan": "🌋",
-		"forestTroll": "🧌"
+	monsters: {
+		spider: "🕷️",
+		slimyMutant: "🦠",
+		skeleton: "💀",
+		rockGolem: "🗿",
+		magmaTitan: "🌋",
+		forestTroll: "🧌"
 	},
-	"armors": {
-		"0": "⬛",
-		"1": "👁️",
-		"10": "🛡️",
-		"11": "🛡️",
-		"12": "🛡️",
-		"13": "🛡️",
-		"14": "🛡️",
-		"15": "🛡️",
-		"16": "🛡️",
-		"17": "🔆",
-		"18": "🥋",
-		"19": "🦺",
-		"2": "⛑️",
-		"20": "👨‍👩‍👧‍👦",
-		"21": "🦾",
-		"22": "🤖",
-		"23": "🌂",
-		"24": "🛡️",
-		"25": "🛡️",
-		"26": "🏉",
-		"27": "✨",
-		"28": "🛡️",
-		"29": "🛡️",
-		"3": "🛡️",
-		"30": "🛡️",
-		"31": "🛡️",
-		"32": "🛡️",
-		"33": "🛡️",
-		"34": "🛡️",
-		"35": "🛡️",
-		"36": "🛡️",
-		"37": "🛡️",
-		"38": "🛡️",
-		"39": "🪖",
-		"4": "🛡️",
-		"40": "🐢",
-		"41": "🪙",
-		"42": "🪖",
-		"43": "🪣",
-		"44": "🧱",
-		"45": "♟️",
-		"46": "🪟",
-		"47": "🏯",
-		"48": "🧥",
-		"49": "🧥",
-		"5": "🛡️",
-		"50": "🥼",
-		"51": "⛺",
-		"52": "🛡️",
-		"53": "🛡️",
-		"54": "🗿",
-		"55": "🤡",
-		"56": "🥱",
-		"57": "🪶",
-		"58": "🧞",
-		"59": "🧙",
-		"6": "🤺",
-		"60": "🧔🏻",
-		"61": "✨",
-		"7": "👘",
-		"8": "🛡️",
-		"9": "🛡️"
+	armors: {
+		0: "⬛",
+		1: "👁️",
+		10: "🛡️",
+		11: "🛡️",
+		12: "🛡️",
+		13: "🛡️",
+		14: "🛡️",
+		15: "🛡️",
+		16: "🛡️",
+		17: "🔆",
+		18: "🥋",
+		19: "🦺",
+		2: "⛑️",
+		20: "👨‍👩‍👧‍👦",
+		21: "🦾",
+		22: "🤖",
+		23: "🌂",
+		24: "🛡️",
+		25: "🛡️",
+		26: "🏉",
+		27: "✨",
+		28: "🛡️",
+		29: "🛡️",
+		3: "🛡️",
+		30: "🛡️",
+		31: "🛡️",
+		32: "🛡️",
+		33: "🛡️",
+		34: "🛡️",
+		35: "🛡️",
+		36: "🛡️",
+		37: "🛡️",
+		38: "🛡️",
+		39: "🪖",
+		4: "🛡️",
+		40: "🐢",
+		41: "🪙",
+		42: "🪖",
+		43: "🪣",
+		44: "🧱",
+		45: "♟️",
+		46: "🪟",
+		47: "🏯",
+		48: "🧥",
+		49: "🧥",
+		5: "🛡️",
+		50: "🥼",
+		51: "⛺",
+		52: "🛡️",
+		53: "🛡️",
+		54: "🗿",
+		55: "🤡",
+		56: "🥱",
+		57: "🪶",
+		58: "🧞",
+		59: "🧙",
+		6: "🤺",
+		60: "🧔🏻",
+		61: "✨",
+		7: "👘",
+		8: "🛡️",
+		9: "🛡️"
 	},
-	"objects": {
-		"0": "⬛",
-		"1": "🏳️",
-		"10": "👞",
-		"11": "👼🏽",
-		"12": "🌑",
-		"13": "🍂",
-		"14": "🍎",
-		"15": "🍏",
-		"16": "💗",
-		"17": "📕",
-		"18": "📘",
-		"19": "📙",
-		"2": "🎲",
-		"20": "📗",
-		"21": "📿",
-		"22": "🏴",
-		"23": "⚜️",
-		"24": "🛢️",
-		"25": "🕯️",
-		"26": "🏺",
-		"27": "🎷",
-		"28": "🎸",
-		"29": "💳",
-		"3": "💎",
-		"30": "🦿",
-		"31": "😹",
-		"32": "🥄",
-		"33": "🎃",
-		"34": "🧸",
-		"35": "🧲",
-		"36": "🩹",
-		"37": "⛷️",
-		"38": "🌀",
-		"39": "💠",
-		"4": "🏵️",
-		"40": "👼",
-		"41": "🏺",
-		"42": "🕝",
-		"43": "🍌",
-		"44": "🍎",
-		"45": "🟧",
-		"46": "🌟",
-		"47": "📖",
-		"48": "🎥",
-		"49": "🧴",
-		"5": "🌝",
-		"50": "🥾",
-		"51": "🧹",
-		"52": "🧼",
-		"53": "🎖️",
-		"54": "📯",
-		"55": "💰",
-		"56": "🎰",
-		"57": "👠",
-		"58": "🪐",
-		"59": "🍫",
-		"6": "🔮",
-		"60": "🏢",
-		"61": "🕵️",
-		"62": "👁️",
-		"63": "⛏️",
-		"64": "🧱",
-		"65": "🎶",
-		"66": "🌐",
-		"67": "🚗",
-		"68": "🟦",
-		"69": "🎧",
-		"7": "⛓️",
-		"70": "🛏️",
-		"71": "🤖",
-		"72": "☀️",
-		"73": "🎢",
-		"74": "🌶️",
-		"75": "🔌",
-		"76": "🍖",
-		"77": "🧑‍⚕️",
-		"78": "❤️‍🩹",
-		"79": "🧬",
-		"8": "🍀",
-		"80": "🔋",
-		"81": "🔋",
-		"82": "🪳",
-		"83": "🚀",
-		"84": "🍀",
-		"85": "🧻",
-		"86": "🌟",
-		"87": "🎸",
-		"88": "💾",
-		"89": "🐟",
-		"9": "🗝️"
+	objects: {
+		0: "⬛",
+		1: "🏳️",
+		10: "👞",
+		11: "👼🏽",
+		12: "🌑",
+		13: "🍂",
+		14: "🍎",
+		15: "🍏",
+		16: "💗",
+		17: "📕",
+		18: "📘",
+		19: "📙",
+		2: "🎲",
+		20: "📗",
+		21: "📿",
+		22: "🏴",
+		23: "⚜️",
+		24: "🛢️",
+		25: "🕯️",
+		26: "🏺",
+		27: "🎷",
+		28: "🎸",
+		29: "💳",
+		3: "💎",
+		30: "🦿",
+		31: "😹",
+		32: "🥄",
+		33: "🎃",
+		34: "🧸",
+		35: "🧲",
+		36: "🩹",
+		37: "⛷️",
+		38: "🌀",
+		39: "💠",
+		4: "🏵️",
+		40: "👼",
+		41: "🏺",
+		42: "🕝",
+		43: "🍌",
+		44: "🍎",
+		45: "🟧",
+		46: "🌟",
+		47: "📖",
+		48: "🎥",
+		49: "🧴",
+		5: "🌝",
+		50: "🥾",
+		51: "🧹",
+		52: "🧼",
+		53: "🎖️",
+		54: "📯",
+		55: "💰",
+		56: "🎰",
+		57: "👠",
+		58: "🪐",
+		59: "🍫",
+		6: "🔮",
+		60: "🏢",
+		61: "🕵️",
+		62: "👁️",
+		63: "⛏️",
+		64: "🧱",
+		65: "🎶",
+		66: "🌐",
+		67: "🚗",
+		68: "🟦",
+		69: "🎧",
+		7: "⛓️",
+		70: "🛏️",
+		71: "🤖",
+		72: "☀️",
+		73: "🎢",
+		74: "🌶️",
+		75: "🔌",
+		76: "🍖",
+		77: "🧑‍⚕️",
+		78: "❤️‍🩹",
+		79: "🧬",
+		8: "🍀",
+		80: "🔋",
+		81: "🔋",
+		82: "🪳",
+		83: "🚀",
+		84: "🍀",
+		85: "🧻",
+		86: "🌟",
+		87: "🎸",
+		88: "💾",
+		89: "🐟",
+		9: "🗝️"
 	},
-	"potions": {
-		"0": "⬛",
-		"1": "🍷",
-		"10": "🍇",
-		"11": "🍇",
-		"12": "⚗️",
-		"13": "⚗️",
-		"14": "⚗️",
-		"15": "⚗️",
-		"16": "🧃",
-		"17": "🧃",
-		"18": "🍸",
-		"19": "🍸",
-		"2": "🍷",
-		"20": "🍸",
-		"21": "🍸",
-		"22": "❤️",
-		"23": "❤️",
-		"24": "❤️",
-		"25": "🍹",
-		"26": "🥛",
-		"27": "🍼",
-		"28": "🍵",
-		"29": "☕",
-		"3": "🍷",
-		"30": "🥃",
-		"31": "🥘",
-		"32": "💧",
-		"33": "🍷",
-		"34": "🐣",
-		"35": "⛽",
-		"36": "🍵",
-		"37": "🥤",
-		"38": "🍶",
-		"39": "🧉",
-		"4": "🍷",
-		"40": "🍾",
-		"41": "🧪",
-		"42": "❤️",
-		"43": "🥤",
-		"44": "🐺",
-		"45": "🌱",
-		"46": "🌶",
-		"47": "☠",
-		"48": "🔋",
-		"49": "🥜",
-		"5": "🍷",
-		"50": "🍺",
-		"51": "🥫",
-		"52": "🥫",
-		"53": "🥫",
-		"54": "🪅",
-		"55": "🫕",
-		"56": "💩",
-		"57": "🩸",
-		"58": "🧱",
-		"59": "🫧",
-		"6": "🧪",
-		"60": "💦",
-		"61": "🚱",
-		"62": "🌊",
-		"63": "🫙",
-		"64": "♻",
-		"65": "🫗",
-		"66": "🧋",
-		"67": "🧃",
-		"68": "🧃",
-		"69": "🍯",
-		"7": "🧪",
-		"70": "🧅",
-		"71": "🗻",
-		"72": "⛈",
-		"73": "☕",
-		"74": "🫗",
-		"75": "🌵",
-		"76": "🚿",
-		"77": "🛵",
-		"78": "🧼",
-		"79": "🪷",
-		"8": "🧪",
-		"80": "🥶",
-		"81": "✒",
-		"82": "🛏",
-		"83": "🌂",
-		"84": "🪶",
-		"85": "💉",
-		"86": "🍸",
-		"87": "🏴‍☠️",
-		"88": "🐌",
-		"89": "♨",
-		"9": "🧪",
-		"90": "🥔",
-		"91": "🌊",
-		"92": "🧌",
-		"93": "🌋"
+	potions: {
+		0: "⬛",
+		1: "🍷",
+		10: "🍇",
+		11: "🍇",
+		12: "⚗️",
+		13: "⚗️",
+		14: "⚗️",
+		15: "⚗️",
+		16: "🧃",
+		17: "🧃",
+		18: "🍸",
+		19: "🍸",
+		2: "🍷",
+		20: "🍸",
+		21: "🍸",
+		22: "❤️",
+		23: "❤️",
+		24: "❤️",
+		25: "🍹",
+		26: "🥛",
+		27: "🍼",
+		28: "🍵",
+		29: "☕",
+		3: "🍷",
+		30: "🥃",
+		31: "🥘",
+		32: "💧",
+		33: "🍷",
+		34: "🐣",
+		35: "⛽",
+		36: "🍵",
+		37: "🥤",
+		38: "🍶",
+		39: "🧉",
+		4: "🍷",
+		40: "🍾",
+		41: "🧪",
+		42: "❤️",
+		43: "🥤",
+		44: "🐺",
+		45: "🌱",
+		46: "🌶",
+		47: "☠",
+		48: "🔋",
+		49: "🥜",
+		5: "🍷",
+		50: "🍺",
+		51: "🥫",
+		52: "🥫",
+		53: "🥫",
+		54: "🪅",
+		55: "🫕",
+		56: "💩",
+		57: "🩸",
+		58: "🧱",
+		59: "🫧",
+		6: "🧪",
+		60: "💦",
+		61: "🚱",
+		62: "🌊",
+		63: "🫙",
+		64: "♻",
+		65: "🫗",
+		66: "🧋",
+		67: "🧃",
+		68: "🧃",
+		69: "🍯",
+		7: "🧪",
+		70: "🧅",
+		71: "🗻",
+		72: "⛈",
+		73: "☕",
+		74: "🫗",
+		75: "🌵",
+		76: "🚿",
+		77: "🛵",
+		78: "🧼",
+		79: "🪷",
+		8: "🧪",
+		80: "🥶",
+		81: "✒",
+		82: "🛏",
+		83: "🌂",
+		84: "🪶",
+		85: "💉",
+		86: "🍸",
+		87: "🏴‍☠️",
+		88: "🐌",
+		89: "♨",
+		9: "🧪",
+		90: "🥔",
+		91: "🌊",
+		92: "🧌",
+		93: "🌋"
 	},
-	"weapons": {
-		"0": "👊",
-		"1": "⚡",
-		"10": "⚔️",
-		"11": "🔫",
-		"12": "💉",
-		"13": "💣",
-		"14": "🎸",
-		"15": "⚔️",
-		"16": "⛏️",
-		"17": "🔧",
-		"18": "🪵",
-		"19": "🔪",
-		"2": "🛠️",
-		"20": "🌿",
-		"21": "⛏️",
-		"22": "🏹",
-		"23": "🍳",
-		"24": "✂️",
-		"25": "🗡️",
-		"26": "🏑",
-		"27": "🗡️",
-		"28": "🔨",
-		"29": "🔪",
-		"3": "🏏",
-		"30": "🥊",
-		"31": "🤜",
-		"32": "🎣",
-		"33": "🔪",
-		"34": "🎣",
-		"35": "🎣",
-		"36": "⚔️",
-		"37": "⚔️",
-		"38": "⚔️",
-		"39": "⚔️",
-		"4": "🏹",
-		"40": "⚔️",
-		"41": "⚔️",
-		"42": "🔫",
-		"43": "🥒",
-		"44": "💐",
-		"45": "🍌",
-		"46": "🔖",
-		"47": "❄️",
-		"48": "🏹",
-		"49": "🏹",
-		"5": "🔨",
-		"50": "🏹",
-		"51": "🏹",
-		"52": "🪒",
-		"53": "🪑",
-		"54": "🧱",
-		"55": "🍴",
-		"56": "🗡️",
-		"57": "🧯",
-		"58": "🔖",
-		"59": "💉",
-		"6": "🔪",
-		"60": "💉",
-		"61": "💉",
-		"62": "🦠",
-		"63": "💣",
-		"64": "🕯️",
-		"65": "🥢",
-		"66": "⚔️",
-		"67": "⚔️",
-		"68": "🤛",
-		"69": "⚔️",
-		"7": "🗡️",
-		"70": "🔫",
-		"71": "⚔️",
-		"72": "⚽",
-		"73": "🪓",
-		"74": "☄️",
-		"75": "🪃",
-		"76": "⚡",
-		"77": "🤿",
-		"78": "🫂",
-		"79": "🌂",
-		"8": "📌",
-		"80": "🎆",
-		"81": "🗡️",
-		"82": "🦶",
-		"83": "🤬",
-		"84": "🪛",
-		"85": "❤️",
-		"86": "🎭",
-		"87": "⚠️",
-		"88": "🪶",
-		"89": "🐉",
-		"9": "🔧",
-		"90": "🦄",
-		"91": "🍭",
-		"92": "🎮",
-		"93": "🍴",
-		"94": "💀"
+	weapons: {
+		0: "👊",
+		1: "⚡",
+		10: "⚔️",
+		11: "🔫",
+		12: "💉",
+		13: "💣",
+		14: "🎸",
+		15: "⚔️",
+		16: "⛏️",
+		17: "🔧",
+		18: "🪵",
+		19: "🔪",
+		2: "🛠️",
+		20: "🌿",
+		21: "⛏️",
+		22: "🏹",
+		23: "🍳",
+		24: "✂️",
+		25: "🗡️",
+		26: "🏑",
+		27: "🗡️",
+		28: "🔨",
+		29: "🔪",
+		3: "🏏",
+		30: "🥊",
+		31: "🤜",
+		32: "🎣",
+		33: "🔪",
+		34: "🎣",
+		35: "🎣",
+		36: "⚔️",
+		37: "⚔️",
+		38: "⚔️",
+		39: "⚔️",
+		4: "🏹",
+		40: "⚔️",
+		41: "⚔️",
+		42: "🔫",
+		43: "🥒",
+		44: "💐",
+		45: "🍌",
+		46: "🔖",
+		47: "❄️",
+		48: "🏹",
+		49: "🏹",
+		5: "🔨",
+		50: "🏹",
+		51: "🏹",
+		52: "🪒",
+		53: "🪑",
+		54: "🧱",
+		55: "🍴",
+		56: "🗡️",
+		57: "🧯",
+		58: "🔖",
+		59: "💉",
+		6: "🔪",
+		60: "💉",
+		61: "💉",
+		62: "🦠",
+		63: "💣",
+		64: "🕯️",
+		65: "🥢",
+		66: "⚔️",
+		67: "⚔️",
+		68: "🤛",
+		69: "⚔️",
+		7: "🗡️",
+		70: "🔫",
+		71: "⚔️",
+		72: "⚽",
+		73: "🪓",
+		74: "☄️",
+		75: "🪃",
+		76: "⚡",
+		77: "🤿",
+		78: "🫂",
+		79: "🌂",
+		8: "📌",
+		80: "🎆",
+		81: "🗡️",
+		82: "🦶",
+		83: "🤬",
+		84: "🪛",
+		85: "❤️",
+		86: "🎭",
+		87: "⚠️",
+		88: "🪶",
+		89: "🐉",
+		9: "🔧",
+		90: "🦄",
+		91: "🍭",
+		92: "🎮",
+		93: "🍴",
+		94: "💀"
 	},
-	"classes": {
-		"0": "🌿",
-		"1": "🪓",
-		"10": "🏹",
-		"11": "🔫",
-		"12": "🧹",
-		"13": "🏇",
-		"14": "🦯",
-		"15": "🤺",
-		"16": "⚜️",
-		"17": "🔱",
-		"18": "⚔️",
-		"19": "🛡️",
-		"2": "🗡️",
-		"20": "🔫",
-		"21": "🤺",
-		"22": "⚜️",
-		"23": "🔱",
-		"24": "🧙",
-		"3": "⚔️",
-		"4": "🥊",
-		"5": "🪖",
-		"6": "⛓️",
-		"7": "🛡️",
-		"8": "🪨",
-		"9": "🦾"
+	classes: {
+		0: "🌿",
+		1: "🪓",
+		10: "🏹",
+		11: "🔫",
+		12: "🧹",
+		13: "🏇",
+		14: "🦯",
+		15: "🤺",
+		16: "⚜️",
+		17: "🔱",
+		18: "⚔️",
+		19: "🛡️",
+		2: "🗡️",
+		20: "🔫",
+		21: "🤺",
+		22: "⚜️",
+		23: "🔱",
+		24: "🧙",
+		3: "⚔️",
+		4: "🥊",
+		5: "🪖",
+		6: "⛓️",
+		7: "🛡️",
+		8: "🪨",
+		9: "🦾"
 	},
-	"witch_small_event": {
-		"bat": "🦇",
-		"beer": "🍺",
-		"bigWait": "🕙",
-		"bigWarm": "🔥",
-		"blood": "🩸",
-		"bone": "🦴",
-		"book": "📖",
-		"cobweb": "🕸️",
-		"chicken": "🐔",
-		"cool": "❄️",
-		"crystalBall": "🔮",
-		"distiller": "⚗️",
-		"eye": "👁️",
-		"frog": "🐸",
-		"greenApple": "🍏",
-		"heart": "🫀",
-		"mushroom": "🍄",
-		"nothing": "🤷",
-		"package": "📦",
-		"rat": "🐀",
-		"redApple": "🍎",
-		"rose": "🌹",
-		"scorpion": "🦂",
-		"smallWait": "⏳",
-		"smallWarm": "🌡️",
-		"snake": "🐍",
-		"spider": "🕷️",
-		"stir": "🥄",
-		"teeth": "🦷",
-		"testTube": "🧪",
-		"turtle": "🐢",
-		"wand": "🪄",
-		"wiltedRose": "🥀",
-		"worm": "🪱"
+	witch_small_event: {
+		bat: "🦇",
+		beer: "🍺",
+		bigWait: "🕙",
+		bigWarm: "🔥",
+		blood: "🩸",
+		bone: "🦴",
+		book: "📖",
+		cobweb: "🕸️",
+		chicken: "🐔",
+		cool: "❄️",
+		crystalBall: "🔮",
+		distiller: "⚗️",
+		eye: "👁️",
+		frog: "🐸",
+		greenApple: "🍏",
+		heart: "🫀",
+		mushroom: "🍄",
+		nothing: "🤷",
+		package: "📦",
+		rat: "🐀",
+		redApple: "🍎",
+		rose: "🌹",
+		scorpion: "🦂",
+		smallWait: "⏳",
+		smallWarm: "🌡️",
+		snake: "🐍",
+		spider: "🕷️",
+		stir: "🥄",
+		teeth: "🦷",
+		testTube: "🧪",
+		turtle: "🐢",
+		wand: "🪄",
+		wiltedRose: "🥀",
+		worm: "🪱"
 	},
-	"cart_small_event": {
-		"accept": "🚗",
-		"refuse": "🚶"
+	cart_small_event: {
+		accept: "🚗",
+		refuse: "🚶"
 	},
-	"fight_command": {
-		"accept": "🔍",
-		"ai_thinking": "🧠",
-		"clipboard": "📋",
-		"crossed_swords": "⚔️",
-		"fighter_stats": "👤",
-		"game_stats": "📊",
-		"glory_change": "📯",
-		"handshake": "🤝",
-		"refuse": "❌"
+	fight_command: {
+		accept: "🔍",
+		ai_thinking: "🧠",
+		clipboard: "📋",
+		crossed_swords: "⚔️",
+		fighter_stats: "👤",
+		game_stats: "📊",
+		glory_change: "📯",
+		handshake: "🤝",
+		refuse: "❌"
 	},
-	"clocks": {
-		"1": "🕐",
-		"10": "🕙"
+	clocks: {
+		1: "🕐",
+		10: "🕙"
 	},
-	"pve_fights": {
-		"wait_a_bit": "⏳",
-		"start_fight": "⚔️"
+	pve_fights: {
+		wait_a_bit: "⏳",
+		start_fight: "⚔️"
 	},
-	"foods": {
-		"herbivorousFood": "🥬",
-		"commonFood": "🍬",
-		"carnivorousFood": "🍖",
-		"ultimateFood": "🍲"
+	foods: {
+		herbivorousFood: "🥬",
+		commonFood: "🍬",
+		carnivorousFood: "🍖",
+		ultimateFood: "🍲"
 	},
-	"collectors": {
-		"accept": "✅",
-		"refuse": "❌",
-		"lottery": {
-			"easy": "🪙",
-			"medium": "💵",
-			"hard": "💰"
+	collectors: {
+		accept: "✅",
+		refuse: "❌",
+		lottery: {
+			easy: "🪙",
+			medium: "💵",
+			hard: "💰"
 		},
-		"interactPoorCoin": "🪙",
-		"warning": "⚠️",
-		"question": "❓",
-		"back": "↩️",
-		"switch": "🔄"
+		interactPoorCoin: "🪙",
+		warning: "⚠️",
+		question: "❓",
+		back: "↩️",
+		switch: "🔄"
 	},
-	"fight_actions": {
-		"benediction": "👼",
-		"blind": "🫣",
-		"boomerangAttack": "🪃",
-		"boulderTossAttack": "🪨",
-		"breathTakingAttack": "💨",
-		"burned": "🥵",
-		"alliesArePresent": "💀",
-		"canonAttack": "🔫",
-		"chargeChargingAttack": "🧲",
-		"chargeClubSmashAttack": "🏏",
-		"chargeUltimateAttack": "☄️",
-		"chargingAttack": "🧲",
-		"clubSmashAttack": "🏏",
-		"concentrated": "🎯",
-		"concentration": "🎯",
-		"confused": "🤯",
-		"counterAttack": "🥊",
-		"cursed": "👻",
-		"cursedAttack": "😈",
-		"darkAttack": "✴️",
-		"defenseBuff": "🧘",
-		"dirty": "🗑️",
-		"divineAttack": "🙏",
-		"guildAttack": "🏟️",
-		"energeticAttack": "⚡",
-		"eruptionAttack": "🌋",
-		"familyMealAttack": "🍽️",
-		"fireAttack": "🔥",
-		"frozen": "🥶",
-		"full": "😴",
-		"getDirty": "💩",
-		"grabAndThrowAttack": "🥋",
-		"heatDrainAttack": "🌡️",
-		"heatMudAttack": "🏺",
-		"heavyAttack": "🔨",
-		"intenseAttack": "😤",
-		"lavaWaveAttack": "♨️",
-		"magicMimicAttack": "🎭",
-		"magmaBathAttack": "🛀",
-		"mudShotAttack": "🧑‍🌾",
-		"none": "🚫",
-		"outOfBreath": "😮‍💨",
-		"outrage": "😡",
-		"outrageAttack": "💢",
-		"paralyzed": "🚷",
-		"petrificationAttack": "🪦",
-		"petrified": "🗿",
-		"piercingAttack": "🪡",
-		"poisoned": "🤢",
-		"poisonousAttack": "🧪",
-		"powerfulAttack": "🪓",
-		"protected": "💞",
-		"protection": "🙅",
-		"quickAttack": "🗡️",
-		"rageExplosion": "🤬",
-		"ramAttack": "🐏",
-		"resting": "🛏️",
-		"roarAttack": "📢",
-		"rockShieldAttack": "⛰️",
-		"sabotageAttack": "🛠️",
-		"shieldAttack": "🛡️",
-		"simpleAttack": "⚔️",
-		"slamAttack": "🦶",
-		"slowed": "🦥",
-		"stealth": "😶‍🌫️",
-		"stoneSkinAttack": "🧱",
-		"stunned": "😖",
-		"summonAttack": "🧑‍🤝‍🧑",
-		"swallowed": "👄",
-		"targeted": "↩️",
-		"ultimateAttack": "☄️",
-		"weak": "🤧",
-		"webShotAttack": "🕸️"
+	fight_actions: {
+		benediction: "👼",
+		blind: "🫣",
+		boomerangAttack: "🪃",
+		boulderTossAttack: "🪨",
+		breathTakingAttack: "💨",
+		burned: "🥵",
+		alliesArePresent: "💀",
+		canonAttack: "🔫",
+		chargeChargingAttack: "🧲",
+		chargeClubSmashAttack: "🏏",
+		chargeUltimateAttack: "☄️",
+		chargingAttack: "🧲",
+		clubSmashAttack: "🏏",
+		concentrated: "🎯",
+		concentration: "🎯",
+		confused: "🤯",
+		counterAttack: "🥊",
+		cursed: "👻",
+		cursedAttack: "😈",
+		darkAttack: "✴️",
+		defenseBuff: "🧘",
+		dirty: "🗑️",
+		divineAttack: "🙏",
+		guildAttack: "🏟️",
+		energeticAttack: "⚡",
+		eruptionAttack: "🌋",
+		familyMealAttack: "🍽️",
+		fireAttack: "🔥",
+		frozen: "🥶",
+		full: "😴",
+		getDirty: "💩",
+		grabAndThrowAttack: "🥋",
+		heatDrainAttack: "🌡️",
+		heatMudAttack: "🏺",
+		heavyAttack: "🔨",
+		intenseAttack: "😤",
+		lavaWaveAttack: "♨️",
+		magicMimicAttack: "🎭",
+		magmaBathAttack: "🛀",
+		mudShotAttack: "🧑‍🌾",
+		none: "🚫",
+		outOfBreath: "😮‍💨",
+		outrage: "😡",
+		outrageAttack: "💢",
+		paralyzed: "🚷",
+		petrificationAttack: "🪦",
+		petrified: "🗿",
+		piercingAttack: "🪡",
+		poisoned: "🤢",
+		poisonousAttack: "🧪",
+		powerfulAttack: "🪓",
+		protected: "💞",
+		protection: "🙅",
+		quickAttack: "🗡️",
+		rageExplosion: "🤬",
+		ramAttack: "🐏",
+		resting: "🛏️",
+		roarAttack: "📢",
+		rockShieldAttack: "⛰️",
+		sabotageAttack: "🛠️",
+		shieldAttack: "🛡️",
+		simpleAttack: "⚔️",
+		slamAttack: "🦶",
+		slowed: "🦥",
+		stealth: "😶‍🌫️",
+		stoneSkinAttack: "🧱",
+		stunned: "😖",
+		summonAttack: "🧑‍🤝‍🧑",
+		swallowed: "👄",
+		targeted: "↩️",
+		ultimateAttack: "☄️",
+		weak: "🤧",
+		webShotAttack: "🕸️"
 	},
-	"class_kinds": {
-		"basic": "⚖️",
-		"attack": "🗡️",
-		"defense": "🛡️",
-		"other": "⚗️"
+	class_kinds: {
+		basic: "⚖️",
+		attack: "🗡️",
+		defense: "🛡️",
+		other: "⚗️"
 	},
-	"announcements": {
-		"trophy": "🏆"
+	announcements: {
+		trophy: "🏆"
 	},
-	"commands": {
-		"respawn": "👼",
-		"classes": "📑",
-		"classesInfo": "🔖",
-		"classesDescription": "📜",
-		"shop": "🛒",
-		"language": "🌍",
-		"report": "📰",
-		"rarity": "🎰",
-		"vote": "🗳️",
-		"badges": "🎖️",
-		"inventory": "💼",
-		"ping": "🏓"
+	commands: {
+		respawn: "👼",
+		classes: "📑",
+		classesInfo: "🔖",
+		classesDescription: "📜",
+		shop: "🛒",
+		language: "🌍",
+		report: "📰",
+		rarity: "🎰",
+		vote: "🗳️",
+		badges: "🎖️",
+		inventory: "💼",
+		ping: "🏓"
 	},
-	"unitValues": {
-		"score": "🏅",
-		"money": "💰",
-		"lostMoney": "💸",
-		"xp": "⭐",
-		"gem": "💎",
-		"guildPoint": "🪩",
-		"health": "❤️",
-		"lostHealth": "💔",
-		"energy": "⚡",
-		"rage": "💢",
-		"time": "🕜",
-		"attack": "🗡️",
-		"defense": "🛡️",
-		"speed": "🚀",
-		"breath": "🌬️",
-		"breathRegen": "🫁",
-		"petRarity": "⭐",
-		"glory": "✨",
-		"timeGain": "⌛"
+	unitValues: {
+		score: "🏅",
+		money: "💰",
+		lostMoney: "💸",
+		xp: "⭐",
+		gem: "💎",
+		guildPoint: "🪩",
+		health: "❤️",
+		lostHealth: "💔",
+		energy: "⚡",
+		rage: "💢",
+		time: "🕜",
+		attack: "🗡️",
+		defense: "🛡️",
+		speed: "🚀",
+		breath: "🌬️",
+		breathRegen: "🫁",
+		petRarity: "⭐",
+		glory: "✨",
+		timeGain: "⌛"
 	},
-	"shopItems": {
-		"randomItem": "❓",
-		"healAlteration": "🏥",
-		"healEnergy": "⚡",
-		"regen": "💓",
-		"moneyMouthBadge": "🤑",
-		"inventoryExtension": "📦",
-		"smallGuildXp": "⭐",
-		"bigGuildXp": "🌟",
-		"skipMission": "🧾",
-		"lovePointsValue": "🧑‍⚕️",
-		"treasure": "👑"
+	shopItems: {
+		randomItem: "❓",
+		healAlteration: "🏥",
+		healEnergy: "⚡",
+		regen: "💓",
+		moneyMouthBadge: "🤑",
+		inventoryExtension: "📦",
+		smallGuildXp: "⭐",
+		bigGuildXp: "🌟",
+		skipMission: "🧾",
+		lovePointsValue: "🧑‍⚕️",
+		treasure: "👑"
 	},
-	"badges": {
-		"richPerson": "🤑",
-		"guildBadge": "💎",
-		"superGuildBadge": "🪩",
-		"questMasterBadge": "💍"
+	badges: {
+		richPerson: "🤑",
+		guildBadge: "💎",
+		superGuildBadge: "🪩",
+		questMasterBadge: "💍"
 	},
-	"itemKinds": [
+	itemKinds: [
 		"⚔️",
 		"🛡️",
 		"⚗️",
 		"🧸"
 	],
-	"notifications": {
-		"bell": "🔔",
-		"sendLocation": "📩",
-		"back": "↩️",
-		"types": {
-			"report": "📰",
-			"guildDaily": "🏟️"
+	notifications: {
+		bell: "🔔",
+		sendLocation: "📩",
+		back: "↩️",
+		types: {
+			report: "📰",
+			guildDaily: "🏟️"
 		}
 	},
-	"missions": {
-		"expired": "📤",
-		"daily": "📅",
-		"campaign": "📖",
-		"sideMission": "📜",
-		"total": "🧾",
-		"book": "📖"
+	missions: {
+		expired: "📤",
+		daily: "📅",
+		campaign: "📖",
+		sideMission: "📜",
+		total: "🧾",
+		book: "📖"
 	},
-	"messages": {
-		"validate": "✅",
-		"refuse": "❌",
-		"notReplied": "🔚",
-		"dm": "💌",
-		"description": "📜",
-		"item": "▶️",
-		"info": "ℹ️"
+	messages: {
+		validate: "✅",
+		refuse: "❌",
+		notReplied: "🔚",
+		dm: "💌",
+		description: "📜",
+		item: "▶️",
+		info: "ℹ️"
 	},
-	"fightPetActions": {
-		"fistHit": "👊",
-		"runAway": "🏃",
-		"focusEnergy": "⚡",
-		"intimidate": "💪",
-		"baitWithMeat": "🍖",
-		"provoke": "😤",
-		"baitWithVegetables": "🥕",
-		"doNothing": "🤷",
-		"lastEffort": "🔥",
-		"protect": "🛡️",
-		"usePlayerPet": "🐾",
-		"playDead": "💀",
-		"scream": "😱",
-		"prayGod": "🙏",
-		"attackLeft": "🤛",
-		"attackRight": "🤜",
-		"helpFromMates": "🏟️"
+	fightPetActions: {
+		fistHit: "👊",
+		runAway: "🏃",
+		focusEnergy: "⚡",
+		intimidate: "💪",
+		baitWithMeat: "🍖",
+		provoke: "😤",
+		baitWithVegetables: "🥕",
+		doNothing: "🤷",
+		lastEffort: "🔥",
+		protect: "🛡️",
+		usePlayerPet: "🐾",
+		playDead: "💀",
+		scream: "😱",
+		prayGod: "🙏",
+		attackLeft: "🤛",
+		attackRight: "🤜",
+		helpFromMates: "🏟️"
 	},
-	"rewards": {
-		"item": "🎁",
-		"partialHeal": "💟"
+	rewards: {
+		item: "🎁",
+		partialHeal: "💟"
 	},
-	"goblets": {
-		"metal": "🐲",
-		"biggest": "🪣",
-		"sparkling": "✨"
+	goblets: {
+		metal: "🐲",
+		biggest: "🪣",
+		sparkling: "✨"
 	},
-	"sex": {
-		"male": "♂️",
-		"female": "♀️"
+	sex: {
+		male: "♂️",
+		female: "♀️"
 	},
-	"diet": {
-		"omnivorous": "🥪",
-		"herbivorous": "🥬",
-		"carnivorous": "🥩"
+	diet: {
+		omnivorous: "🥪",
+		herbivorous: "🥬",
+		carnivorous: "🥩"
 	},
-	"petInformation": {
-		"loveScore": "💖",
-		"diet": "🍽️",
-		"nextFeed": "🕙"
+	petInformation: {
+		loveScore: "💖",
+		diet: "🍽️",
+		nextFeed: "🕙"
 	},
-	"leagues": {
-		"0": "🌲",
-		"1": "🗿",
-		"2": "⚔️",
-		"3": "🥉",
-		"4": "🥈",
-		"5": "🥇",
-		"6": "💎",
-		"7": "💯",
-		"8": "🌀",
-		"9": "🏆"
+	leagues: {
+		0: "🌲",
+		1: "🗿",
+		2: "⚔️",
+		3: "🥉",
+		4: "🥈",
+		5: "🥇",
+		6: "💎",
+		7: "💯",
+		8: "🌀",
+		9: "🏆"
 	},
-	"top": {
-		"badges": {
-			"first": "🥇",
-			"second": "🥈",
-			"third": "🥉",
-			"fourth": "🏅",
-			"fifth": "🏅",
-			"self": "🔵",
-			"sameContext": "⚪",
-			"default": "⚫"
+	top: {
+		badges: {
+			first: "🥇",
+			second: "🥈",
+			third: "🥉",
+			fourth: "🏅",
+			fifth: "🏅",
+			self: "🔵",
+			sameContext: "⚪",
+			default: "⚫"
 		},
-		"afk": "👻",
-		"allTime": "🗓️️",
-		"weekly": "🕤",
-		"congrats": "🏆",
-		"error": "❌",
-		"guild": "🏟️"
+		afk: "👻",
+		allTime: "🗓️️",
+		weekly: "🕤",
+		congrats: "🏆",
+		error: "❌",
+		guild: "🏟️"
 	},
-	"petTransfer": {
-		"deposit": "📥",
-		"switch": "🔄",
-		"withdraw": "📤"
+	petTransfer: {
+		deposit: "📥",
+		switch: "🔄",
+		withdraw: "📤"
 	},
-	"other": {
-		"trash": "🗑️",
-		"tada": "🎉",
-		"guild": "🏟️",
-		"island": "🏝️",
-		"increase": "🔼",
-		"advice": "💡",
-		"why": "🤔",
-		"crown": "👑",
-		"incoming": "📥",
-		"outgoing": "📤",
-		"right": "➡️",
-		"look": "👀",
-		"paperclip": "📎",
-		"folder": "📁",
-		"cantSpeak": "🤐",
-		"expressionless": "😑",
-		"wink": "😉",
-		"gear": "⚙️",
-		"singing": "🎵",
-		"telescope": "🔭",
-		"car": "🚗",
-		"walking": "🚶"
+	other: {
+		trash: "🗑️",
+		tada: "🎉",
+		guild: "🏟️",
+		island: "🏝️",
+		increase: "🔼",
+		advice: "💡",
+		why: "🤔",
+		crown: "👑",
+		incoming: "📥",
+		outgoing: "📤",
+		right: "➡️",
+		look: "👀",
+		paperclip: "📎",
+		folder: "📁",
+		cantSpeak: "🤐",
+		expressionless: "😑",
+		wink: "😉",
+		gear: "⚙️",
+		singing: "🎵",
+		telescope: "🔭",
+		car: "🚗",
+		walking: "🚶"
 	},
-	"guild": {
-		"icon": "🏟️",
-		"chief": "👑",
-		"elder": "🎖️",
-		"member": "⚫",
-		"isOnPveIsland": "🏝️",
-		"isOnBoat": "⛴️",
-		"countAsAnAlly": "🤝",
-		"cannotBeJoinedOnBoat": "👻",
-		"membersCount": "🙎"
+	guild: {
+		icon: "🏟️",
+		chief: "👑",
+		elder: "🎖️",
+		member: "⚫",
+		isOnPveIsland: "🏝️",
+		isOnBoat: "⛴️",
+		countAsAnAlly: "🤝",
+		cannotBeJoinedOnBoat: "👻",
+		membersCount: "🙎"
 	},
-	"networks": {
-		"website": "🌐",
-		"twitter": "🐦",
-		"discord": "🗣️"
+	networks: {
+		website: "🌐",
+		twitter: "🐦",
+		discord: "🗣️"
 	},
-	"languages": {
-		"de": "🇩🇪",
-		"en": "🇬🇧",
-		"es": "🇪🇸",
-		"fr": "🇫🇷",
-		"it": "🇮🇹",
-		"pt": "🇵🇹"
+	languages: {
+		de: "🇩🇪",
+		en: "🇬🇧",
+		es: "🇪🇸",
+		fr: "🇫🇷",
+		it: "🇮🇹",
+		pt: "🇵🇹"
 	},
-	"languageFlavors": {
-		"de": "🍺",
-		"en": "🍵",
-		"es": "🐂",
-		"fr": "🥖",
-		"it": "🍕",
-		"pt": "🧱"
+	languageFlavors: {
+		de: "🍺",
+		en: "🍵",
+		es: "🐂",
+		fr: "🥖",
+		it: "🍕",
+		pt: "🧱"
 	},
-	"rarity": [
+	rarity: [
 		"🔸",
 		"🔶",
 		"🔥",
@@ -2057,7 +2059,7 @@ export const DraftBotIcons: {
 		"🌟",
 		"💎"
 	],
-	"loveLevels": [
+	loveLevels: [
 		"NOT_A_LEVEL",
 		"😼",
 		"😾",
@@ -2065,16 +2067,16 @@ export const DraftBotIcons: {
 		"😺",
 		"😻"
 	],
-	"userKind": {
-		"human": "👤",
-		"robot": "🤖",
-		"pet": "🐶"
+	userKind: {
+		human: "👤",
+		robot: "🤖",
+		pet: "🐶"
 	},
-	"inventory": {
-		"empty": "⬛",
-		"stock": "📦"
+	inventory: {
+		empty: "⬛",
+		stock: "📦"
 	},
-	"itemNatures": [
+	itemNatures: [
 		"❌",
 		"❤️",
 		"🚀",

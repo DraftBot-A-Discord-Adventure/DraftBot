@@ -1,5 +1,7 @@
-import {Maps} from "../../../../core/maps/Maps";
-import {ExecuteTestCommandLike, ITestCommand} from "../../../../core/CommandsTest";
+import { Maps } from "../../../../core/maps/Maps";
+import {
+	ExecuteTestCommandLike, ITestCommand
+} from "../../../../core/CommandsTest";
 
 export const commandInfo: ITestCommand = {
 	name: "stopcurrenttravel",
@@ -10,13 +12,12 @@ export const commandInfo: ITestCommand = {
 /**
  * Stop your current travel
  */
-const stopCurrentTravelTestCommand: ExecuteTestCommandLike = async (player) => {
+const stopCurrentTravelTestCommand: ExecuteTestCommandLike = async player => {
 	if (!Maps.isTravelling(player)) {
 		throw new Error("Erreur stoptravel : vous ne voyagez pas actuellement !");
 	}
 	await Maps.stopTravel(player);
 	return "Vous avez arrêté de voyager !";
-
 };
 
 commandInfo.execute = stopCurrentTravelTestCommand;

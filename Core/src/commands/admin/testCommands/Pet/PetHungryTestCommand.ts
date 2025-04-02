@@ -1,5 +1,7 @@
-import {ExecuteTestCommandLike, ITestCommand} from "../../../../core/CommandsTest";
-import {PetEntities} from "../../../../core/database/game/models/PetEntity";
+import {
+	ExecuteTestCommandLike, ITestCommand
+} from "../../../../core/CommandsTest";
+import { PetEntities } from "../../../../core/database/game/models/PetEntity";
 
 export const commandInfo: ITestCommand = {
 	name: "pethungry",
@@ -10,7 +12,7 @@ export const commandInfo: ITestCommand = {
 /**
  * Set the lovePoints of your pet
  */
-const petHungryTestCommand: ExecuteTestCommandLike = async (player) => {
+const petHungryTestCommand: ExecuteTestCommandLike = async player => {
 	const pet = await PetEntities.getById(player.petId);
 	if (!pet) {
 		throw new Error("Erreur pethungry : vous n'avez pas de pet !");

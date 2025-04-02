@@ -1,9 +1,11 @@
-import {ItemCategory, ItemNature, ItemRarity} from "../../../Lib/src/constants/ItemConstants";
-import {ItemDataController} from "./DataController";
-import {SupportItem} from "./SupportItem";
-import {RandomUtils} from "../../../Lib/src/utils/RandomUtils";
-import {ObjectItem} from "./ObjectItem";
-import {SupportItemDisplayPacket} from "../../../Lib/src/packets/commands/CommandInventoryPacket";
+import {
+	ItemCategory, ItemNature, ItemRarity
+} from "../../../Lib/src/constants/ItemConstants";
+import { ItemDataController } from "./DataController";
+import { SupportItem } from "./SupportItem";
+import { RandomUtils } from "../../../Lib/src/utils/RandomUtils";
+import { ObjectItem } from "./ObjectItem";
+import { SupportItemDisplayPacket } from "../../../Lib/src/packets/commands/CommandInventoryPacket";
 
 export class Potion extends SupportItem {
 	categoryName = "potions";
@@ -13,8 +15,8 @@ export class Potion extends SupportItem {
 	}
 
 	public isFightPotion(): boolean {
-		return this.getSpeed() !== 0 || this.getAttack() !== 0 ||
-			this.getDefense() !== 0;
+		return this.getSpeed() !== 0 || this.getAttack() !== 0
+			|| this.getDefense() !== 0;
 	}
 
 	public getItemAddedValue(): number {
@@ -42,7 +44,7 @@ export class PotionDataController extends ItemDataController<Potion> {
 
 	public randomItem(nature: number, rarity: number): ObjectItem {
 		return RandomUtils.draftbotRandom.pick(this.getValuesArray()
-			.filter((item) => item.nature === nature && item.rarity === rarity));
+			.filter(item => item.nature === nature && item.rarity === rarity));
 	}
 
 	/**
@@ -52,10 +54,10 @@ export class PotionDataController extends ItemDataController<Potion> {
 	public randomShopPotion(excludeId = -1): Potion {
 		return RandomUtils.draftbotRandom.pick(
 			this.getValuesArray()
-				.filter((item) =>
-					item.nature !== ItemNature.NONE &&
-					item.rarity < ItemRarity.LEGENDARY &&
-					item.id !== excludeId)
+				.filter(item =>
+					item.nature !== ItemNature.NONE
+					&& item.rarity < ItemRarity.LEGENDARY
+					&& item.id !== excludeId)
 		);
 	}
 }

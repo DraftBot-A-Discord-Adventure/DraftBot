@@ -1,19 +1,25 @@
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
-import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants";
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import Player, {Players} from "../../core/database/game/models/Player";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
+import { GuildConstants } from "../../../../Lib/src/constants/GuildConstants";
+import {
+	DraftBotPacket, makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import Player, { Players } from "../../core/database/game/models/Player";
 import {
 	CommandGuildLeaveAcceptPacketRes, CommandGuildLeaveNotInAGuildPacketRes,
 	CommandGuildLeavePacketReq, CommandGuildLeaveRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildLeavePacket";
-import {Guilds} from "../../core/database/game/models/Guild";
-import {ReactionCollectorGuildLeave} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildLeave";
-import {EndCallback, ReactionCollectorInstance} from "../../core/utils/ReactionsCollector";
-import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
-import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
-import {draftBotInstance} from "../../index";
-import {LogsDatabase} from "../../core/database/logs/LogsDatabase";
+import { Guilds } from "../../core/database/game/models/Guild";
+import { ReactionCollectorGuildLeave } from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildLeave";
+import {
+	EndCallback, ReactionCollectorInstance
+} from "../../core/utils/ReactionsCollector";
+import { ReactionCollectorAcceptReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { BlockingUtils } from "../../core/utils/BlockingUtils";
+import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
+import { draftBotInstance } from "../../index";
+import { LogsDatabase } from "../../core/database/logs/LogsDatabase";
 
 
 /**
@@ -23,6 +29,7 @@ import {LogsDatabase} from "../../core/database/logs/LogsDatabase";
  */
 async function acceptGuildLeave(player: Player, response: DraftBotPacket[]): Promise<void> {
 	await player.reload();
+
 	// The player is no longer in a guild since the menu
 	if (player.guildId === null) {
 		response.push(makePacket(CommandGuildLeaveNotInAGuildPacketRes, {}));
@@ -34,6 +41,7 @@ async function acceptGuildLeave(player: Player, response: DraftBotPacket[]): Pro
 		if (guild.elderId !== null) {
 			draftBotInstance.logsDatabase.logGuildElderRemove(guild, guild.elderId).then();
 			draftBotInstance.logsDatabase.logGuildChiefChange(guild, guild.elderId).then();
+
 			// An elder can recover the guild
 			player.guildId = null;
 			const elder = await Players.getById(guild.elderId);
@@ -51,6 +59,7 @@ async function acceptGuildLeave(player: Player, response: DraftBotPacket[]): Pro
 			]);
 			return;
 		}
+
 		// No elder => the guild will be destroyed
 		await guild.completelyDestroyAndDeleteFromTheDatabase();
 		response.push(makePacket(CommandGuildLeaveAcceptPacketRes, {

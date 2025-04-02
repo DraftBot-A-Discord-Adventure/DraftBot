@@ -1,7 +1,9 @@
-import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
-import {BaseMission} from "../../types/CompletedMission";
-import {PetDiet} from "../../constants/PetConstants";
-import {SexTypeShort} from "../../constants/StringConstants";
+import {
+	DraftBotPacket, PacketDirection, sendablePacket
+} from "../DraftBotPacket";
+import { BaseMission } from "../../types/CompletedMission";
+import { PetDiet } from "../../constants/PetConstants";
+import { SexTypeShort } from "../../constants/StringConstants";
 
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandMissionShopPacketReq extends DraftBotPacket {

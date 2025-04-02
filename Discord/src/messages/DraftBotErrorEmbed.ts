@@ -1,6 +1,6 @@
-import {DraftBotEmbed} from "./DraftBotEmbed";
-import {User} from "discord.js";
-import {DraftbotInteraction} from "./DraftbotInteraction";
+import { DraftBotEmbed } from "./DraftBotEmbed";
+import { User } from "discord.js";
+import { DraftbotInteraction } from "./DraftbotInteraction";
 import i18n from "../translations/i18n";
 
 /**
@@ -18,5 +18,4 @@ export class DraftBotErrorEmbed extends DraftBotEmbed {
 			pseudo: user.displayName
 		}), user);
 	}
-
 }

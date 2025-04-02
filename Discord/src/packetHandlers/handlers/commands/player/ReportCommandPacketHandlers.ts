@@ -1,4 +1,4 @@
-import {packetHandler} from "../../../PacketHandler";
+import { packetHandler } from "../../../PacketHandler";
 import {
 	CommandReportBigEventResultRes,
 	CommandReportErrorNoMonsterRes,
@@ -6,14 +6,14 @@ import {
 	CommandReportRefusePveFightRes,
 	CommandReportTravelSummaryRes
 } from "../../../../../../Lib/src/packets/commands/CommandReportPacket";
-import {PacketContext} from "../../../../../../Lib/src/packets/DraftBotPacket";
+import { PacketContext } from "../../../../../../Lib/src/packets/DraftBotPacket";
 import {
 	displayMonsterReward,
 	refusePveFight,
 	reportResult,
 	reportTravelSummary
 } from "../../../../commands/player/ReportCommand";
-import {handleClassicError} from "../../../../utils/ErrorUtils";
+import { handleClassicError } from "../../../../utils/ErrorUtils";
 
 export default class ReportCommandPacketHandlers {
 	@packetHandler(CommandReportBigEventResultRes)
