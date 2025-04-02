@@ -255,15 +255,6 @@ export default {
 	],
 	"@stylistic/no-extra-semi": "error",
 	"@stylistic/no-floating-decimal": "error",
-	"@stylistic/no-mixed-operators": [
-		"error",
-		{
-			"groups": [
-				["&&", "||"]
-			],
-			"allowSamePrecedence": true
-		}
-	],
 	"@stylistic/no-mixed-spaces-and-tabs": "error",
 	"@stylistic/no-multi-spaces": "error",
 	"@stylistic/no-multiple-empty-lines": [
