@@ -1,11 +1,11 @@
-import {packetHandler} from "../../../PacketHandler";
-import {PacketContext} from "../../../../../../Lib/src/packets/DraftBotPacket";
-import {handleClassicError} from "../../../../utils/ErrorUtils";
+import { packetHandler } from "../../../PacketHandler";
+import { PacketContext } from "../../../../../../Lib/src/packets/DraftBotPacket";
+import { handleClassicError } from "../../../../utils/ErrorUtils";
 import {
 	CommandSellCancelErrorPacket, CommandSellItemSuccessPacket,
 	CommandSellNoItemErrorPacket
 } from "../../../../../../Lib/src/packets/commands/CommandSellPacket";
-import {handleCommandSellSuccessPacket} from "../../../../commands/player/SellCommand";
+import { handleCommandSellSuccessPacket } from "../../../../commands/player/SellCommand";
 
 export default class SellCommandPacketHandlers {
 	@packetHandler(CommandSellNoItemErrorPacket)

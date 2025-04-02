@@ -1,12 +1,12 @@
-import {packetHandler} from "../../../PacketHandler";
-import {PacketContext} from "../../../../../../Lib/src/packets/DraftBotPacket";
-import {handleClassicError} from "../../../../utils/ErrorUtils";
+import { packetHandler } from "../../../PacketHandler";
+import { PacketContext } from "../../../../../../Lib/src/packets/DraftBotPacket";
+import { handleClassicError } from "../../../../utils/ErrorUtils";
 import {
 	CommandClassesCancelErrorPacket, CommandClassesChangeSuccessPacket,
 	CommandClassesCooldownErrorPacket
 } from "../../../../../../Lib/src/packets/commands/CommandClassesPacket";
-import {dateDisplay} from "../../../../../../Lib/src/utils/TimeUtils";
-import {handleCommandClassesChangeSuccessPacket} from "../../../../commands/player/ClassesCommand";
+import { dateDisplay } from "../../../../../../Lib/src/utils/TimeUtils";
+import { handleCommandClassesChangeSuccessPacket } from "../../../../commands/player/ClassesCommand";
 
 export default class ClassesCommandPacketHandlers {
 	@packetHandler(CommandClassesCooldownErrorPacket)

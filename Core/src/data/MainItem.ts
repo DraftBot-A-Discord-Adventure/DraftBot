@@ -1,10 +1,9 @@
-import {GenericItem} from "./GenericItem";
-import {MainItemDisplayPacket} from "../../../Lib/src/packets/commands/CommandInventoryPacket";
-import {StatValues} from "../../../Lib/src/types/StatValues";
-import {InventoryConstants} from "../../../Lib/src/constants/InventoryConstants";
+import { GenericItem } from "./GenericItem";
+import { MainItemDisplayPacket } from "../../../Lib/src/packets/commands/CommandInventoryPacket";
+import { StatValues } from "../../../Lib/src/types/StatValues";
+import { InventoryConstants } from "../../../Lib/src/constants/InventoryConstants";
 
 export abstract class MainItem extends GenericItem {
-
 	public readonly rawAttack?: number;
 
 	public readonly rawDefense?: number;

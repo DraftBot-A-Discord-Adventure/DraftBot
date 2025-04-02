@@ -1,4 +1,6 @@
-import {ShopItemType, ShopItemTypeToString} from "../constants/LogsConstants";
+import {
+	ShopItemType, ShopItemTypeToString
+} from "../constants/LogsConstants";
 
 export function shopItemTypeToId(shopItemType: ShopItemType): string {
 	return ShopItemTypeToString[shopItemType];

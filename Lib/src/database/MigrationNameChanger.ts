@@ -1,4 +1,4 @@
-import {QueryInterface} from "sequelize";
+import { QueryInterface } from "sequelize";
 
 export abstract class MigrationNameChanger {
 	/**
@@ -8,9 +8,9 @@ export abstract class MigrationNameChanger {
 	 * @returns True if the migration was found and renamed, false otherwise.
 	 */
 	static async changeMigrationName(context: QueryInterface, oldName: string): Promise<boolean> {
-		if ((await context.select(null, "SequelizeMeta", {where: {name: oldName}})).length > 0) {
+		if ((await context.select(null, "SequelizeMeta", { where: { name: oldName } })).length > 0) {
 			// The entry is in fact removed, as the migration entry is added back at the end of the up method
-			await context.bulkDelete("SequelizeMeta", {name: oldName});
+			await context.bulkDelete("SequelizeMeta", { name: oldName });
 			console.log(`Renamed migration ${oldName}`);
 			return true;
 		}

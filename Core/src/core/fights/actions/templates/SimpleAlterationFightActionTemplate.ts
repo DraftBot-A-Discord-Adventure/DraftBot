@@ -1,12 +1,12 @@
-import {Fighter} from "../../fighter/Fighter";
-import {FightActionController} from "../FightActionController";
+import { Fighter } from "../../fighter/Fighter";
+import { FightActionController } from "../FightActionController";
 import {
 	defaultFightActionResult,
 	FightActionResult,
 	FightAlterationApplied,
 	updateFightActionResultFromSuccessTest
 } from "../../../../../../Lib/src/types/FightActionResult";
-import {FightConstants} from "../../../../../../Lib/src/constants/FightConstants";
+import { FightConstants } from "../../../../../../Lib/src/constants/FightConstants";
 
 export function simpleAlterationFightAction(target: Fighter, alteration: FightAlterationApplied): FightActionResult {
 	const result = defaultFightActionResult();

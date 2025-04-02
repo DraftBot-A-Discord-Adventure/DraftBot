@@ -1,5 +1,9 @@
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
+import {
+	DraftBotPacket, makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
 import Player from "../../core/database/game/models/Player";
 import {
 	CommandPetFeedCancelErrorPacket,
@@ -11,24 +15,28 @@ import {
 	CommandPetFeedResult,
 	CommandPetFeedSuccessPacket
 } from "../../../../Lib/src/packets/commands/CommandPetFeedPacket";
-import {PetEntities, PetEntity} from "../../core/database/game/models/PetEntity";
-import {PetDataController} from "../../data/Pet";
-import {ReactionCollectorInstance} from "../../core/utils/ReactionsCollector";
-import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
-import {ReactionCollectorPetFeedWithoutGuild} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFeedWithoutGuild";
-import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
-import {GuildShopConstants} from "../../../../Lib/src/constants/GuildShopConstants";
-import {getFoodIndexOf} from "../../core/utils/FoodUtils";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
-import {ReactionCollectorRefuseReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import {PetFood} from "../../../../Lib/src/types/PetFood";
+import {
+	PetEntities, PetEntity
+} from "../../core/database/game/models/PetEntity";
+import { PetDataController } from "../../data/Pet";
+import { ReactionCollectorInstance } from "../../core/utils/ReactionsCollector";
+import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
+import { ReactionCollectorPetFeedWithoutGuild } from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFeedWithoutGuild";
+import { PetConstants } from "../../../../Lib/src/constants/PetConstants";
+import { GuildShopConstants } from "../../../../Lib/src/constants/GuildShopConstants";
+import { getFoodIndexOf } from "../../core/utils/FoodUtils";
+import { BlockingUtils } from "../../core/utils/BlockingUtils";
+import { ReactionCollectorRefuseReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
+import { PetFood } from "../../../../Lib/src/types/PetFood";
 import {
 	ReactionCollectorPetFeedWithGuild,
 	ReactionCollectorPetFeedWithGuildFoodReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFeedWithGuild";
-import {Guild, Guilds} from "../../core/database/game/models/Guild";
-import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants";
+import {
+	Guild, Guilds
+} from "../../core/database/game/models/Guild";
+import { GuildConstants } from "../../../../Lib/src/constants/GuildConstants";
 
 function getWithoutGuildPetFeedEndCallback(player: Player, authorPet: PetEntity) {
 	return async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
@@ -75,6 +83,7 @@ function getWithoutGuildPetFeedEndCallback(player: Player, authorPet: PetEntity)
 		}));
 	};
 }
+
 /**
  * Allow a user without guild to feed his pet with some candies
  * @param context

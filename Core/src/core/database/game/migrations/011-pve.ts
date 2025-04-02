@@ -1,4 +1,6 @@
-import {DataTypes, QueryInterface} from "sequelize";
+import {
+	DataTypes, QueryInterface
+} from "sequelize";
 
 export const monsterLocationsAttributes011 = {
 	monsterId: {
@@ -14,7 +16,7 @@ export const monsterLocationsAttributes011 = {
 	createdAt: DataTypes.DATE
 };
 
-export async function up({context}: { context: QueryInterface }): Promise<void> {
+export async function up({ context }: { context: QueryInterface }): Promise<void> {
 	await context.createTable("monsters", {
 		id: {
 			// eslint-disable-next-line new-cap
@@ -87,7 +89,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 	});
 }
 
-export async function down({context}: { context: QueryInterface }): Promise<void> {
+export async function down({ context }: { context: QueryInterface }): Promise<void> {
 	await context.dropTable("monster_locations");
 	await context.dropTable("monster_attacks");
 	await context.dropTable("monsters");

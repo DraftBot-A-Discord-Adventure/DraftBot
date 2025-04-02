@@ -1,8 +1,10 @@
-import {DataControllerString} from "./DataController";
-import {Data} from "./Data";
-import {readdirSync} from "fs";
+import { DataControllerString } from "./DataController";
+import { Data } from "./Data";
+import { readdirSync } from "fs";
 import Player from "../core/database/game/models/Player";
-import {DraftBotPacket, PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
+import {
+	DraftBotPacket, PacketContext
+} from "../../../Lib/src/packets/DraftBotPacket";
 
 export class SmallEvent extends Data<string> {
 	public readonly rarity: number;
@@ -25,7 +27,7 @@ export type ExecuteSmallEventLike = (response: DraftBotPacket[], player: Player,
 export type SmallEventFuncs = {
 	canBeExecuted: CanBeExecutedLike;
 	executeSmallEvent: ExecuteSmallEventLike;
-}
+};
 
 export class SmallEventDataController extends DataControllerString<SmallEvent> {
 	static readonly instance: SmallEventDataController = new SmallEventDataController("smallEvents");
@@ -50,7 +52,7 @@ export class SmallEventDataController extends DataControllerString<SmallEvent> {
 		for (const file of files) {
 			if (file.endsWith(".js")) {
 				const smallEventFuncs = (<{
-					smallEventFuncs: SmallEventFuncs
+					smallEventFuncs: SmallEventFuncs;
 				}>require(`${relativePath}/${file.substring(0, file.length - 3)}`)).smallEventFuncs;
 				SmallEventDataController.smallEventsFunctionsCache.set(
 					file.substring(0, file.length - 3),

@@ -1,21 +1,27 @@
-import Player, {Players} from "../../core/database/game/models/Player";
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {Guilds} from "../../core/database/game/models/Guild";
+import Player, { Players } from "../../core/database/game/models/Player";
+import {
+	DraftBotPacket, makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { Guilds } from "../../core/database/game/models/Guild";
 import {
 	CommandGuildElderRemoveAcceptPacketRes,
 	CommandGuildElderRemoveNoElderPacket,
 	CommandGuildElderRemovePacketReq,
 	CommandGuildElderRemoveRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildElderRemovePacket";
-import {draftBotInstance} from "../../index";
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
-import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants";
-import {EndCallback, ReactionCollectorInstance} from "../../core/utils/ReactionsCollector";
-import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
-import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
-import {ReactionCollectorGuildElderRemove} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildElderRemove";
-import {GuildRole} from "../../../../Lib/src/types/GuildRole";
+import { draftBotInstance } from "../../index";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
+import { GuildConstants } from "../../../../Lib/src/constants/GuildConstants";
+import {
+	EndCallback, ReactionCollectorInstance
+} from "../../core/utils/ReactionsCollector";
+import { ReactionCollectorAcceptReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { BlockingUtils } from "../../core/utils/BlockingUtils";
+import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
+import { ReactionCollectorGuildElderRemove } from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildElderRemove";
+import { GuildRole } from "../../../../Lib/src/types/GuildRole";
 
 /**
  * Demote demotedElder as a simple member of the guild
@@ -27,6 +33,7 @@ async function acceptGuildElderRemove(player: Player, demotedElder: Player, resp
 	await player.reload();
 	await demotedElder.reload();
 	const guild = await Guilds.getById(player.guildId);
+
 	// Do all necessary checks again just in case something changed during the menu
 	if (!guild.elderId) {
 		response.push(makePacket(CommandGuildElderRemoveNoElderPacket, {}));
@@ -53,7 +60,7 @@ function endCallback(player: Player, demotedElder: Player): EndCallback {
 			await acceptGuildElderRemove(player, demotedElder, response);
 		}
 		else {
-			response.push(makePacket(CommandGuildElderRemoveRefusePacketRes, {demotedKeycloakId: demotedElder.keycloakId}));
+			response.push(makePacket(CommandGuildElderRemoveRefusePacketRes, { demotedKeycloakId: demotedElder.keycloakId }));
 		}
 		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.GUILD_ELDER_REMOVE);
 	};
@@ -90,7 +97,7 @@ export default class GuildElderRemoveCommand {
 				allowedPlayerKeycloakIds: [player.keycloakId],
 				reactionLimit: 1
 			},
-			endCallback(player,demotedElder)
+			endCallback(player, demotedElder)
 		)
 			.block(player.keycloakId, BlockingConstants.REASONS.GUILD_ELDER_REMOVE)
 			.build();

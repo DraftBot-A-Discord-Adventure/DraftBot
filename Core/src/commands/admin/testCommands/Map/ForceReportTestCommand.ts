@@ -1,7 +1,9 @@
-import {CommandsTest, ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
+import {
+	CommandsTest, ExecuteTestCommandLike, ITestCommand, TypeKey
+} from "../../../../core/CommandsTest";
 import ReportCommand from "../../../player/ReportCommand";
-import {makePacket} from "../../../../../../Lib/src/packets/DraftBotPacket";
-import {CommandReportPacketReq} from "../../../../../../Lib/src/packets/commands/CommandReportPacket";
+import { makePacket } from "../../../../../../Lib/src/packets/DraftBotPacket";
+import { CommandReportPacketReq } from "../../../../../../Lib/src/packets/commands/CommandReportPacket";
 
 export const commandInfo: ITestCommand = {
 	name: "forcereport",

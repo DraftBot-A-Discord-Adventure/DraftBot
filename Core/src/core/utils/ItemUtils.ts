@@ -1,34 +1,42 @@
-import InventorySlot, {InventorySlots} from "../database/game/models/InventorySlot";
-import {MissionsController} from "../missions/MissionsController";
-import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
-import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
-import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import Player, {Players} from "../database/game/models/Player";
-import {InventoryInfos} from "../database/game/models/InventoryInfo";
-import {ItemCategory, ItemConstants, ItemNature, ItemRarity} from "../../../../Lib/src/constants/ItemConstants";
-import {GenericItem} from "../../data/GenericItem";
-import {BlockingUtils} from "./BlockingUtils";
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {Potion, PotionDataController} from "../../data/Potion";
-import {WeaponDataController} from "../../data/Weapon";
-import {ArmorDataController} from "../../data/Armor";
-import {ObjectItemDataController} from "../../data/ObjectItem";
-import {ItemDataController} from "../../data/DataController";
-import {draftBotInstance} from "../../index";
-import {ItemRefusePacket} from "../../../../Lib/src/packets/events/ItemRefusePacket";
-import {ItemAcceptPacket} from "../../../../Lib/src/packets/events/ItemAcceptPacket";
-import {ItemFoundPacket} from "../../../../Lib/src/packets/events/ItemFoundPacket";
+import InventorySlot, { InventorySlots } from "../database/game/models/InventorySlot";
+import { MissionsController } from "../missions/MissionsController";
+import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
+import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
+import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
+import Player, { Players } from "../database/game/models/Player";
+import { InventoryInfos } from "../database/game/models/InventoryInfo";
+import {
+	ItemCategory, ItemConstants, ItemNature, ItemRarity
+} from "../../../../Lib/src/constants/ItemConstants";
+import { GenericItem } from "../../data/GenericItem";
+import { BlockingUtils } from "./BlockingUtils";
+import {
+	DraftBotPacket, makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import {
+	Potion, PotionDataController
+} from "../../data/Potion";
+import { WeaponDataController } from "../../data/Weapon";
+import { ArmorDataController } from "../../data/Armor";
+import { ObjectItemDataController } from "../../data/ObjectItem";
+import { ItemDataController } from "../../data/DataController";
+import { draftBotInstance } from "../../index";
+import { ItemRefusePacket } from "../../../../Lib/src/packets/events/ItemRefusePacket";
+import { ItemAcceptPacket } from "../../../../Lib/src/packets/events/ItemAcceptPacket";
+import { ItemFoundPacket } from "../../../../Lib/src/packets/events/ItemFoundPacket";
 import {
 	ReactionCollectorItemChoice,
 	ReactionCollectorItemChoiceItemReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorItemChoice";
-import {EndCallback, ReactionCollectorInstance} from "./ReactionsCollector";
-import {ReactionCollectorItemAccept} from "../../../../Lib/src/packets/interaction/ReactionCollectorItemAccept";
-import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {ItemWithDetails} from "../../../../Lib/src/types/ItemWithDetails";
-import {MainItem} from "../../data/MainItem";
-import {SupportItem} from "../../data/SupportItem";
-import {StatValues} from "../../../../Lib/src/types/StatValues";
+import {
+	EndCallback, ReactionCollectorInstance
+} from "./ReactionsCollector";
+import { ReactionCollectorItemAccept } from "../../../../Lib/src/packets/interaction/ReactionCollectorItemAccept";
+import { ReactionCollectorAcceptReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { ItemWithDetails } from "../../../../Lib/src/types/ItemWithDetails";
+import { MainItem } from "../../data/MainItem";
+import { SupportItem } from "../../data/SupportItem";
+import { StatValues } from "../../../../Lib/src/types/StatValues";
 
 /**
  * Get the value of an item
@@ -54,25 +62,25 @@ export const countNbOfPotions = function(invSlots: InventorySlot[]): number {
  * @param inventorySlots
  */
 export const checkDrinkPotionMissions = async function(response: DraftBotPacket[], player: Player, potion: Potion, inventorySlots: InventorySlot[]): Promise<void> {
-	await MissionsController.update(player, response, {missionId: "drinkPotion"});
+	await MissionsController.update(player, response, { missionId: "drinkPotion" });
 	await MissionsController.update(player, response, {
 		missionId: "drinkPotionRarity",
-		params: {rarity: potion.rarity}
+		params: { rarity: potion.rarity }
 	});
 	const tagsToVerify = potion.tags;
 	if (tagsToVerify) {
 		for (const tag of tagsToVerify) {
 			await MissionsController.update(player, response, {
 				missionId: tag,
-				params: {tags: tagsToVerify}
+				params: { tags: tagsToVerify }
 			});
 		}
 	}
 	if (potion.nature === ItemNature.NONE) {
-		await MissionsController.update(player, response, {missionId: "drinkPotionWithoutEffect"});
+		await MissionsController.update(player, response, { missionId: "drinkPotionWithoutEffect" });
 	}
 	if (potion.nature === ItemNature.ENERGY) {
-		await MissionsController.update(player, response, {missionId: "drinkEnergyPotion"});
+		await MissionsController.update(player, response, { missionId: "drinkEnergyPotion" });
 	}
 	await MissionsController.update(player, response, {
 		missionId: "havePotions",
@@ -81,7 +89,9 @@ export const checkDrinkPotionMissions = async function(response: DraftBotPacket[
 	});
 };
 
-const getSupportItemDetails = function(item: SupportItem): { nature: ItemNature, power: number } {
+const getSupportItemDetails = function(item: SupportItem): {
+	nature: ItemNature; power: number;
+} {
 	return {
 		nature: item.nature,
 		power: item.power
@@ -104,15 +114,15 @@ export const toItemWithDetails = function(item: GenericItem): ItemWithDetails {
 		id: item.id,
 		category,
 		rarity: item.rarity,
-		detailsSupportItem: category === ItemCategory.POTION ?
-			getSupportItemDetails(PotionDataController.instance.getById(item.id))
-			: category === ItemCategory.OBJECT ?
-				getSupportItemDetails(ObjectItemDataController.instance.getById(item.id))
+		detailsSupportItem: category === ItemCategory.POTION
+			? getSupportItemDetails(PotionDataController.instance.getById(item.id))
+			: category === ItemCategory.OBJECT
+				? getSupportItemDetails(ObjectItemDataController.instance.getById(item.id))
 				: null,
-		detailsMainItem: category === ItemCategory.WEAPON ?
-			getMainItemDetails(WeaponDataController.instance.getById(item.id))
-			: category === ItemCategory.ARMOR ?
-				getMainItemDetails(ArmorDataController.instance.getById(item.id))
+		detailsMainItem: category === ItemCategory.WEAPON
+			? getMainItemDetails(WeaponDataController.instance.getById(item.id))
+			: category === ItemCategory.ARMOR
+				? getMainItemDetails(ArmorDataController.instance.getById(item.id))
 				: null,
 		maxStats: null
 	};
@@ -164,7 +174,7 @@ const sellOrKeepItem = async function(
 		);
 		await MissionsController.update(player, response, {
 			missionId: "haveItemRarity",
-			params: {rarity: item.rarity}
+			params: { rarity: item.rarity }
 		});
 		draftBotInstance.logsDatabase.logItemGain(player.keycloakId, item)
 			.then();
@@ -181,19 +191,21 @@ const sellOrKeepItem = async function(
 		});
 		await MissionsController.update(player, response, {
 			missionId: "sellItemWithGivenCost",
-			params: {itemCost: money}
+			params: { itemCost: money }
 		});
 		await player.save();
 		draftBotInstance.logsDatabase.logItemSell(player.keycloakId, item)
 			.then();
 	}
 	const packet = makePacket(ItemRefusePacket, {
-		item: {id: item.id, category: item.getCategory()},
+		item: {
+			id: item.id, category: item.getCategory()
+		},
 		autoSell,
 		soldMoney: money
 	});
 	response.push(packet);
-	await MissionsController.update(player, response, {missionId: "findOrBuyItem"});
+	await MissionsController.update(player, response, { missionId: "findOrBuyItem" });
 	player = await Players.getById(player.id);
 	await MissionsController.update(player, response, {
 		missionId: "havePotions",
@@ -224,12 +236,15 @@ function manageMoreThan2ItemsSwitching(
 	resaleMultiplierActual: number,
 	inventorySlots: InventorySlot[]
 ): void {
-	// eslint-disable-next-line @typescript-eslint/no-extra-parens
 	items.sort((a: InventorySlot, b: InventorySlot) => (a.slot > b.slot ? 1 : b.slot > a.slot ? -1 : 0));
 
 	const collector = new ReactionCollectorItemChoice(
-		{item: {id: item.id, category: item.getCategory()}},
-		items.map((item) => ({slot: item.slot, itemWithDetails: toItemWithDetails(item.getItem())}))
+		{ item: {
+			id: item.id, category: item.getCategory()
+		} },
+		items.map(item => ({
+			slot: item.slot, itemWithDetails: toItemWithDetails(item.getItem())
+		}))
 	);
 
 	const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
@@ -237,7 +252,7 @@ function manageMoreThan2ItemsSwitching(
 
 		if (reaction && reaction.reaction.type === ReactionCollectorItemChoiceItemReaction.name) {
 			const itemReaction = reaction.reaction.data as ReactionCollectorItemChoiceItemReaction;
-			const invSlot = items.find((item) => item.slot === itemReaction.slot);
+			const invSlot = items.find(item => item.slot === itemReaction.slot);
 
 			player = await Players.getById(player.id);
 			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.ACCEPT_ITEM);
@@ -314,7 +329,7 @@ export const giveItemToPlayer = async function(
 	}));
 
 	if (await player.giveItem(item) === true) {
-		await MissionsController.update(player, response, {missionId: "findOrBuyItem"});
+		await MissionsController.update(player, response, { missionId: "findOrBuyItem" });
 		await MissionsController.update(player, response, {
 			missionId: "havePotions",
 			count: countNbOfPotions(await InventorySlots.getOfPlayer(player.id)),
@@ -322,7 +337,7 @@ export const giveItemToPlayer = async function(
 		});
 		await MissionsController.update(player, response, {
 			missionId: "haveItemRarity",
-			params: {rarity: item.rarity}
+			params: { rarity: item.rarity }
 		});
 		draftBotInstance.logsDatabase.logItemGain(player.keycloakId, item)
 			.then();
@@ -414,7 +429,9 @@ export const generateRandomRarity = function(minRarity: ItemRarity = ItemRarity.
 	const randomValue = RandomUtils.draftbotRandom.integer(
 		1 + (minRarity === ItemRarity.COMMON ? -1 : ItemConstants.RARITY.GENERATOR.VALUES[minRarity - 2]),
 		ItemConstants.RARITY.GENERATOR.MAX_VALUE
-		- (maxRarity === ItemRarity.MYTHICAL ? 0 : ItemConstants.RARITY.GENERATOR.MAX_VALUE
+		- (maxRarity === ItemRarity.MYTHICAL
+			? 0
+			: ItemConstants.RARITY.GENERATOR.MAX_VALUE
 			- ItemConstants.RARITY.GENERATOR.VALUES[maxRarity - 1])
 	);
 	let rarity = ItemRarity.BASIC;
@@ -449,25 +466,25 @@ export function generateRandomItem(
 	const category = itemCategory ?? generateRandomItemCategory();
 	let itemsIds;
 	switch (category) {
-	case ItemCategory.WEAPON:
-		itemsIds = WeaponDataController.instance.getAllIdsForRarity(rarity);
-		return WeaponDataController.instance.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)]);
-	case ItemCategory.ARMOR:
-		itemsIds = ArmorDataController.instance.getAllIdsForRarity(rarity);
-		return ArmorDataController.instance.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)]);
-	case ItemCategory.POTION:
-		if (itemSubType !== null) { // 0 (no effect) is a false value
-			return PotionDataController.instance.randomItem(itemSubType, rarity);
-		}
-		itemsIds = PotionDataController.instance.getAllIdsForRarity(rarity);
-		return PotionDataController.instance.getById(itemsIds[RandomUtils.randInt(0, itemsIds.length)]);
-	default:
+		case ItemCategory.WEAPON:
+			itemsIds = WeaponDataController.instance.getAllIdsForRarity(rarity);
+			return WeaponDataController.instance.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)]);
+		case ItemCategory.ARMOR:
+			itemsIds = ArmorDataController.instance.getAllIdsForRarity(rarity);
+			return ArmorDataController.instance.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)]);
+		case ItemCategory.POTION:
+			if (itemSubType !== null) { // 0 (no effect) is a false value
+				return PotionDataController.instance.randomItem(itemSubType, rarity);
+			}
+			itemsIds = PotionDataController.instance.getAllIdsForRarity(rarity);
+			return PotionDataController.instance.getById(itemsIds[RandomUtils.randInt(0, itemsIds.length)]);
+		default:
 		// This will be triggered by ItemCategory.OBJECT
-		if (itemSubType !== null) {
-			return ObjectItemDataController.instance.randomItem(itemSubType, rarity);
-		}
-		itemsIds = ObjectItemDataController.instance.getAllIdsForRarity(rarity);
-		return ObjectItemDataController.instance.getById(itemsIds[RandomUtils.randInt(0, itemsIds.length)]);
+			if (itemSubType !== null) {
+				return ObjectItemDataController.instance.randomItem(itemSubType, rarity);
+			}
+			itemsIds = ObjectItemDataController.instance.getAllIdsForRarity(rarity);
+			return ObjectItemDataController.instance.getById(itemsIds[RandomUtils.randInt(0, itemsIds.length)]);
 	}
 }
 
@@ -482,8 +499,8 @@ export const giveRandomItem = async function(context: PacketContext, response: D
 };
 
 type TemporarySlotAndItemType = {
-	slot: InventorySlot,
-	item: GenericItem
+	slot: InventorySlot;
+	item: GenericItem;
 };
 
 /**
@@ -535,16 +552,16 @@ export const haveRarityOrMore = function(slots: InventorySlot[], rarity: ItemRar
  */
 function getCategoryDataByName(category: ItemCategory): ItemDataController<GenericItem> {
 	switch (category) {
-	case ItemCategory.WEAPON:
-		return WeaponDataController.instance;
-	case ItemCategory.ARMOR:
-		return ArmorDataController.instance;
-	case ItemCategory.POTION:
-		return PotionDataController.instance;
-	case ItemCategory.OBJECT:
-		return ObjectItemDataController.instance;
-	default:
-		return null;
+		case ItemCategory.WEAPON:
+			return WeaponDataController.instance;
+		case ItemCategory.ARMOR:
+			return ArmorDataController.instance;
+		case ItemCategory.POTION:
+			return PotionDataController.instance;
+		case ItemCategory.OBJECT:
+			return ObjectItemDataController.instance;
+		default:
+			return null;
 	}
 }
 

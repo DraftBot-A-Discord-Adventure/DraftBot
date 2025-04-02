@@ -1,8 +1,7 @@
-import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
-import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants";
+import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
+import { GuildConstants } from "../../../../Lib/src/constants/GuildConstants";
 
 export abstract class GuildUtils {
-
 	/**
 	 * Calculate the amount of xp the guild will receive from the price chosen by the user
 	 * @param cost

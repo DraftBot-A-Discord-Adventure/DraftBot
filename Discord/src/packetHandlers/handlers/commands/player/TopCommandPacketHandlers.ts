@@ -1,11 +1,11 @@
-import {packetHandler} from "../../../PacketHandler";
+import { packetHandler } from "../../../PacketHandler";
 import {
 	CommandTopGuildsEmptyPacket,
 	CommandTopInvalidPagePacket,
 	CommandTopPacketResGlory, CommandTopPacketResGuild,
 	CommandTopPacketResScore, CommandTopPlayersEmptyPacket
 } from "../../../../../../Lib/src/packets/commands/CommandTopPacket";
-import {PacketContext} from "../../../../../../Lib/src/packets/DraftBotPacket";
+import { PacketContext } from "../../../../../../Lib/src/packets/DraftBotPacket";
 import {
 	handleCommandTopGuildsEmptyPacket,
 	handleCommandTopInvalidPagePacket,

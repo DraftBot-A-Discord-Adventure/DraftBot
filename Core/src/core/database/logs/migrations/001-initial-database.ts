@@ -1,4 +1,6 @@
-import {DataTypes, QueryInterface} from "sequelize";
+import {
+	DataTypes, QueryInterface
+} from "sequelize";
 
 const logsPlayersNumbersAttributes = {
 	playerId: {
@@ -147,7 +149,7 @@ export const logsPlayersClassChangesAttributes001 = {
 	}
 };
 
-export async function up({context}: { context: QueryInterface }): Promise<void> {
+export async function up({ context }: { context: QueryInterface }): Promise<void> {
 	await context.createTable("players", logsPlayersAttributes001);
 	await context.createTable("players_money", logsPlayersNumbersAttributes);
 	await context.createTable("players_health", logsPlayersNumbersAttributes);
@@ -913,7 +915,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 	await context.createTable("players_dailies", logsItemAttributes);
 }
 
-export async function down({context}: { context: QueryInterface }): Promise<void> {
+export async function down({ context }: { context: QueryInterface }): Promise<void> {
 	await context.dropTable("players");
 	await context.dropTable("players_money");
 	await context.dropTable("players_health");

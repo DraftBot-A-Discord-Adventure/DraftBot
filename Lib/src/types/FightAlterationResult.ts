@@ -1,4 +1,4 @@
-import {FightActionBuff} from "./FightActionResult";
+import { FightActionBuff } from "./FightActionResult";
 
 /**
  * Fight alteration state, those are also the keys used in the translation files, so they should be kept in sync
@@ -13,7 +13,7 @@ export enum FightAlterationState {
 }
 
 export interface FightAlterationResult {
-	state: FightAlterationState,
-	damages?: number,
-	buffs?: FightActionBuff[]
+	state: FightAlterationState;
+	damages?: number;
+	buffs?: FightActionBuff[];
 }

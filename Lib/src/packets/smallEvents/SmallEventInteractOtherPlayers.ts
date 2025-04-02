@@ -1,6 +1,8 @@
-import {SmallEventPacket} from "./SmallEventPacket";
-import {PacketDirection, sendablePacket} from "../DraftBotPacket";
-import {SexTypeShort} from "../../constants/StringConstants";
+import { SmallEventPacket } from "./SmallEventPacket";
+import {
+	PacketDirection, sendablePacket
+} from "../DraftBotPacket";
+import { SexTypeShort } from "../../constants/StringConstants";
 
 export enum InteractOtherPlayerInteraction {
 	TOP1,
@@ -39,18 +41,18 @@ export class SmallEventInteractOtherPlayersPacket extends SmallEventPacket {
 	playerInteraction?: InteractOtherPlayerInteraction;
 
 	data?: {
-		rank?: number,
-		level: number,
-		classId: number,
-		petId?: number,
-		petName?: string,
-		petSex?: SexTypeShort,
-		guildName?: string,
-		weaponId: number,
-		armorId: number,
-		potionId: number,
-		objectId: number,
-		effectId: string
+		rank?: number;
+		level: number;
+		classId: number;
+		petId?: number;
+		petName?: string;
+		petSex?: SexTypeShort;
+		guildName?: string;
+		weaponId: number;
+		armorId: number;
+		potionId: number;
+		objectId: number;
+		effectId: string;
 	};
 }
 

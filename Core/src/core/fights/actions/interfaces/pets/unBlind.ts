@@ -1,6 +1,8 @@
-import {PetAssistanceResult, PetAssistanceState} from "../../../../../../../Lib/src/types/PetAssistanceResult";
-import {PetAssistanceFunc} from "../../../../../data/PetAssistance";
-import {FightConstants} from "../../../../../../../Lib/src/constants/FightConstants";
+import {
+	PetAssistanceResult, PetAssistanceState
+} from "../../../../../../../Lib/src/types/PetAssistanceResult";
+import { PetAssistanceFunc } from "../../../../../data/PetAssistance";
+import { FightConstants } from "../../../../../../../Lib/src/constants/FightConstants";
 
 const use: PetAssistanceFunc = (fighter, _opponent, _turn, _fightController): Promise<PetAssistanceResult | null> => {
 	if (fighter.alteration?.id === FightConstants.FIGHT_ACTIONS.ALTERATION.BLIND) {

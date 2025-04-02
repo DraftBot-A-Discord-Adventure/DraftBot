@@ -1,14 +1,14 @@
-import {FightActionController} from "../../FightActionController";
-import {FightAlterationFunc} from "../../../../../data/FightAlteration";
+import { FightActionController } from "../../FightActionController";
+import { FightAlterationFunc } from "../../../../../data/FightAlteration";
 import {
 	defaultFightAlterationResult,
 	defaultHealFightAlterationResult
 } from "../../../FightController";
-import {RandomUtils} from "../../../../../../../Lib/src/utils/RandomUtils";
-import {FightAlterationState} from "../../../../../../../Lib/src/types/FightAlterationResult";
-import {FightStatBuffed} from "../../../../../../../Lib/src/types/FightActionResult";
-import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
-import {FightActionDataController} from "../../../../../data/FightAction";
+import { RandomUtils } from "../../../../../../../Lib/src/utils/RandomUtils";
+import { FightAlterationState } from "../../../../../../../Lib/src/types/FightAlterationResult";
+import { FightStatBuffed } from "../../../../../../../Lib/src/types/FightActionResult";
+import { FightStatModifierOperation } from "../../../../../../../Lib/src/types/FightStatModifierOperation";
+import { FightActionDataController } from "../../../../../data/FightAction";
 
 const use: FightAlterationFunc = (affected, fightAlteration, _opponent) => {
 	// 90 % chance to be healed
@@ -48,7 +48,6 @@ const use: FightAlterationFunc = (affected, fightAlteration, _opponent) => {
 	}
 
 	return result;
-
 };
 
 export default use;

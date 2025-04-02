@@ -1,10 +1,20 @@
-import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
-import {Player, Players} from "../../core/database/game/models/Player";
-import {Guild, Guilds} from "../../core/database/game/models/Guild";
-import {CommandGuildPacketReq, CommandGuildPacketRes} from "../../../../Lib/src/packets/commands/CommandGuildPacket";
-import {Maps} from "../../core/maps/Maps";
-import {MapCache} from "../../core/maps/MapCache";
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
+import {
+	DraftBotPacket, makePacket
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import {
+	Player, Players
+} from "../../core/database/game/models/Player";
+import {
+	Guild, Guilds
+} from "../../core/database/game/models/Guild";
+import {
+	CommandGuildPacketReq, CommandGuildPacketRes
+} from "../../../../Lib/src/packets/commands/CommandGuildPacket";
+import { Maps } from "../../core/maps/Maps";
+import { MapCache } from "../../core/maps/MapCache";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
 
 export default class GuildCommand {
 	@commandRequires(CommandGuildPacketReq, {
@@ -35,7 +45,7 @@ export default class GuildCommand {
 			const members = await Players.getByGuild(guild.id);
 			const rank = await guild.getRanking();
 			const numberOfGuilds = await Guilds.getTotalRanked();
-			const membersPveAlliesIds = (await Maps.getGuildMembersOnPveIsland(toCheckPlayer)).map((player) => player.id);
+			const membersPveAlliesIds = (await Maps.getGuildMembersOnPveIsland(toCheckPlayer)).map(player => player.id);
 			const isUnranked = rank > -1;
 
 			response.push(makePacket(CommandGuildPacketRes, {

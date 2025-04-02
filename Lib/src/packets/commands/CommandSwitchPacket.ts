@@ -1,5 +1,9 @@
-import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
-import {MainItemDisplayPacket, SupportItemDisplayPacket} from "./CommandInventoryPacket";
+import {
+	DraftBotPacket, PacketDirection, sendablePacket
+} from "../DraftBotPacket";
+import {
+	MainItemDisplayPacket, SupportItemDisplayPacket
+} from "./CommandInventoryPacket";
 
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandSwitchPacketReq extends DraftBotPacket {

@@ -1,14 +1,18 @@
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
-import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
+import {
+	DraftBotPacket, makePacket
+} from "../../../../Lib/src/packets/DraftBotPacket";
 import Player from "../../core/database/game/models/Player";
 import {
 	CommandGuildShelterNoPetErrorPacket,
 	CommandGuildShelterPacketReq, CommandGuildShelterPacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildShelterPacket";
-import {GuildPets} from "../../core/database/game/models/GuildPet";
-import {PetEntities} from "../../core/database/game/models/PetEntity";
-import {Guilds} from "../../core/database/game/models/Guild";
-import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
+import { GuildPets } from "../../core/database/game/models/GuildPet";
+import { PetEntities } from "../../core/database/game/models/PetEntity";
+import { Guilds } from "../../core/database/game/models/Guild";
+import { PetConstants } from "../../../../Lib/src/constants/PetConstants";
 
 export default class GuildShelterCommand {
 	@commandRequires(CommandGuildShelterPacketReq, {

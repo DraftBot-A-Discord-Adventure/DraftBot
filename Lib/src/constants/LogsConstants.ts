@@ -1,9 +1,12 @@
 export enum NumberChangeReason {
+
 	// Default value. Used to detect missing parameters in functions
 	NULL,
 
-	// Value to use if you don't want to log the information, SHOULDN'T APPEAR IN THE DATABASE
-	// You MUST also comment why you use this constant where you use it
+	/*
+	 * Value to use if you don't want to log the information, SHOULDN'T APPEAR IN THE DATABASE
+	 * You MUST also comment why you use this constant where you use it
+	 */
 	IGNORE,
 
 	// Admin

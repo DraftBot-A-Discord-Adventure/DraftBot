@@ -11,9 +11,9 @@ export enum EloGameResult {
  * Player information that will be used to display the impact of the fight on the player's elo
  */
 export interface EndOfFightPlayerStatus {
-	keycloakId: string,
-	previousRating: number,
-	newRating: number,
-	kFactor: number,
-	gameResult: EloGameResult
+	keycloakId: string;
+	previousRating: number;
+	newRating: number;
+	kFactor: number;
+	gameResult: EloGameResult;
 }

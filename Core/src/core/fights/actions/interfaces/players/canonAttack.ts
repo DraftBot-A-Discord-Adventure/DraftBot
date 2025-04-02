@@ -1,13 +1,14 @@
-import {Fighter} from "../../../fighter/Fighter";
-import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
-import {MathUtils} from "../../../../utils/MathUtils";
-import {FightAlterations} from "../../FightAlterations";
-import {FightActionFunc} from "../../../../../data/FightAction";
-import {FightActionResult} from "../../../../../../../Lib/src/types/FightActionResult";
-import {FightConstants} from "../../../../../../../Lib/src/constants/FightConstants";
+import { Fighter } from "../../../fighter/Fighter";
+import {
+	attackInfo, FightActionController, statsInfo
+} from "../../FightActionController";
+import { MathUtils } from "../../../../utils/MathUtils";
+import { FightAlterations } from "../../FightAlterations";
+import { FightActionFunc } from "../../../../../data/FightAction";
+import { FightActionResult } from "../../../../../../../Lib/src/types/FightActionResult";
+import { FightConstants } from "../../../../../../../Lib/src/constants/FightConstants";
 
 const use: FightActionFunc = (sender, receiver) => {
-
 	// This attack will miss more if the opponent is fast
 	const initialDamage = FightActionController.getAttackDamage(getStatsInfo(sender, receiver), sender, getAttackInfo());
 	const damageDealt = FightActionController.applySecondaryEffects(initialDamage, 10, MathUtils.getIntervalValue(1, 15, (receiver.getSpeed() + 20) / 320));

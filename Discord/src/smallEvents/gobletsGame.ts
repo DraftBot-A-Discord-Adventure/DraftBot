@@ -1,13 +1,15 @@
-import {ReactionCollectorCreationPacket} from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
-import {DiscordCache} from "../bot/DiscordCache";
-import {DraftbotSmallEventEmbed} from "../messages/DraftbotSmallEventEmbed";
-import {getRandomSmallEventIntro} from "../packetHandlers/handlers/SmallEventsHandler";
+import { ReactionCollectorCreationPacket } from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { PacketContext } from "../../../Lib/src/packets/DraftBotPacket";
+import { DiscordCache } from "../bot/DiscordCache";
+import { DraftbotSmallEventEmbed } from "../messages/DraftbotSmallEventEmbed";
+import { getRandomSmallEventIntro } from "../packetHandlers/handlers/SmallEventsHandler";
 import i18n from "../translations/i18n";
-import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
-import {DraftbotInteraction} from "../messages/DraftbotInteraction";
-import {DraftbotButtonReaction, DraftbotButtonReactionMessage} from "../messages/DraftbotButtonReactionMessage";
-import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
+import { DraftbotInteraction } from "../messages/DraftbotInteraction";
+import {
+	DraftbotButtonReaction, DraftbotButtonReactionMessage
+} from "../messages/DraftbotButtonReactionMessage";
+import { ReactionCollectorReturnType } from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
 /**
  * Get the reactions for the goblet game
@@ -38,7 +40,7 @@ export async function gobletsGameCollector(context: PacketContext, packet: React
 	const reactions = getGobletsGameReactions(interaction);
 	const embed = new DraftbotSmallEventEmbed(
 		"gobletsGame",
-		`${getRandomSmallEventIntro(lng)}${i18n.t("smallEvents:gobletsGame.intro", {lng})}`,
+		`${getRandomSmallEventIntro(lng)}${i18n.t("smallEvents:gobletsGame.intro", { lng })}`,
 		interaction.user,
 		lng
 	);

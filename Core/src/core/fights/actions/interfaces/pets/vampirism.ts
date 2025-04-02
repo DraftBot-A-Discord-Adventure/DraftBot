@@ -1,10 +1,14 @@
-import {PetAssistanceResult, PetAssistanceState} from "../../../../../../../Lib/src/types/PetAssistanceResult";
-import {PetAssistanceFunc} from "../../../../../data/PetAssistance";
-import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
-import {Fighter} from "../../../fighter/Fighter";
-import {FightStatBuffed} from "../../../../../../../Lib/src/types/FightActionResult";
-import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
-import {RandomUtils} from "../../../../../../../Lib/src/utils/RandomUtils";
+import {
+	PetAssistanceResult, PetAssistanceState
+} from "../../../../../../../Lib/src/types/PetAssistanceResult";
+import { PetAssistanceFunc } from "../../../../../data/PetAssistance";
+import {
+	attackInfo, FightActionController, statsInfo
+} from "../../FightActionController";
+import { Fighter } from "../../../fighter/Fighter";
+import { FightStatBuffed } from "../../../../../../../Lib/src/types/FightActionResult";
+import { FightStatModifierOperation } from "../../../../../../../Lib/src/types/FightStatModifierOperation";
+import { RandomUtils } from "../../../../../../../Lib/src/utils/RandomUtils";
 
 function getAttackInfo(): attackInfo {
 	return {
@@ -32,7 +36,6 @@ function getStatsInfo(_sender: Fighter, receiver: Fighter): statsInfo {
 }
 
 const use: PetAssistanceFunc = (fighter, opponent, _turn, _fightController): Promise<PetAssistanceResult | null> => {
-
 	// 75% chance of doing nothing
 	if (RandomUtils.draftbotRandom.bool(0.75)) {
 		return Promise.resolve(null);

@@ -1,5 +1,7 @@
-import {ExecuteTestCommandLike, ITestCommand} from "../../../../core/CommandsTest";
-import {MissionSlots} from "../../../../core/database/game/models/MissionSlot";
+import {
+	ExecuteTestCommandLike, ITestCommand
+} from "../../../../core/CommandsTest";
+import { MissionSlots } from "../../../../core/database/game/models/MissionSlot";
 
 export const commandInfo: ITestCommand = {
 	name: "clearMissions",
@@ -9,7 +11,7 @@ export const commandInfo: ITestCommand = {
 /**
  * Set the weapon of the player
  */
-const clearMissionsTestCommand: ExecuteTestCommandLike = async (player) => {
+const clearMissionsTestCommand: ExecuteTestCommandLike = async player => {
 	const missionSlots = await MissionSlots.getOfPlayer(player.id);
 
 	for (const missionSlot of missionSlots) {

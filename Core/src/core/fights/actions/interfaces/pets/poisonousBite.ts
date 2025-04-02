@@ -1,8 +1,12 @@
-import {Fighter} from "../../../fighter/Fighter";
-import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
-import {PetAssistanceFunc} from "../../../../../data/PetAssistance";
-import {PetAssistanceResult, PetAssistanceState} from "../../../../../../../Lib/src/types/PetAssistanceResult";
-import {FightAlterations} from "../../FightAlterations";
+import { Fighter } from "../../../fighter/Fighter";
+import {
+	attackInfo, FightActionController, statsInfo
+} from "../../FightActionController";
+import { PetAssistanceFunc } from "../../../../../data/PetAssistance";
+import {
+	PetAssistanceResult, PetAssistanceState
+} from "../../../../../../../Lib/src/types/PetAssistanceResult";
+import { FightAlterations } from "../../FightAlterations";
 
 function getAttackInfo(): attackInfo {
 	return {
@@ -46,6 +50,7 @@ const use: PetAssistanceFunc = (fighter, opponent, turn, _fightController): Prom
 		damages: FightActionController.getAttackDamage(getStatsInfo(fighter, opponent), fighter, getAttackInfo()),
 		assistanceStatus: PetAssistanceState.SUCCESS
 	};
+
 	// Make the opponent poisoned
 	FightActionController.applyAlteration(result, {
 		selfTarget: false,

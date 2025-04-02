@@ -58,7 +58,13 @@ export abstract class FightConstants {
 	static readonly OUT_OF_BREATH_FAILURE_PROBABILITY = 0.8;
 
 	// Divider of the damage a fight action will deal if it is a miss
-	static readonly FAILURE_DIVIDERS = [0.25, 0.2, 0.125, 0.1, 0];
+	static readonly FAILURE_DIVIDERS = [
+		0.25,
+		0.2,
+		0.125,
+		0.1,
+		0
+	];
 
 	// To avoid issues with discord 2000-character limit
 	static readonly MAX_HISTORY_LENGTH = 1950;

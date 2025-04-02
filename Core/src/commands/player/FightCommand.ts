@@ -1,65 +1,75 @@
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import Player, {Players} from "../../core/database/game/models/Player";
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
-import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
-import {ReactionCollectorFight} from "../../../../Lib/src/packets/interaction/ReactionCollectorFight";
-import {EndCallback, ReactionCollectorInstance} from "../../core/utils/ReactionsCollector";
-import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import {
+	DraftBotPacket, makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import Player, { Players } from "../../core/database/game/models/Player";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
+import { FightConstants } from "../../../../Lib/src/constants/FightConstants";
+import { ReactionCollectorFight } from "../../../../Lib/src/packets/interaction/ReactionCollectorFight";
+import {
+	EndCallback, ReactionCollectorInstance
+} from "../../core/utils/ReactionsCollector";
+import { ReactionCollectorAcceptReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {
 	CommandFightNotEnoughEnergyPacketRes,
 	CommandFightOpponentsNotFoundPacket,
 	CommandFightPacketReq,
 	CommandFightRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandFightPacket";
-import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
-import {InventorySlots} from "../../core/database/game/models/InventorySlot";
+import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
+import { InventorySlots } from "../../core/database/game/models/InventorySlot";
 import {
 	LogsReadRequests,
 	PersonalFightDailySummary,
 	RankedFightResult
 } from "../../core/database/logs/LogsReadRequests";
-import {FightController} from "../../core/fights/FightController";
-import {FightOvertimeBehavior} from "../../core/fights/FightOvertimeBehavior";
-import {PlayerFighter} from "../../core/fights/fighter/PlayerFighter";
-import {ClassDataController} from "../../data/Class";
-import {draftBotInstance} from "../../index";
-import {EloGameResult, EloUtils} from "../../core/utils/EloUtils";
-import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import {AiPlayerFighter} from "../../core/fights/fighter/AiPlayerFighter";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
-import {FightRewardPacket} from "../../../../Lib/src/packets/fights/FightRewardPacket";
-import {LeagueDataController} from "../../data/League";
-import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
-import {minutesToMilliseconds} from "../../../../Lib/src/utils/TimeUtils";
+import { FightController } from "../../core/fights/FightController";
+import { FightOvertimeBehavior } from "../../core/fights/FightOvertimeBehavior";
+import { PlayerFighter } from "../../core/fights/fighter/PlayerFighter";
+import { ClassDataController } from "../../data/Class";
+import { draftBotInstance } from "../../index";
+import {
+	EloGameResult, EloUtils
+} from "../../core/utils/EloUtils";
+import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
+import { AiPlayerFighter } from "../../core/fights/fighter/AiPlayerFighter";
+import { BlockingUtils } from "../../core/utils/BlockingUtils";
+import { FightRewardPacket } from "../../../../Lib/src/packets/fights/FightRewardPacket";
+import { LeagueDataController } from "../../data/League";
+import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
+import { minutesToMilliseconds } from "../../../../Lib/src/utils/TimeUtils";
 
 type PlayerStats = {
-	classId: number,
+	classId: number;
 	fightRanking: {
-		glory: number,
-	}
+		glory: number;
+	};
 	energy: {
-		value: number,
-		max: number
-	},
-	attack: number,
-	defense: number,
-	speed: number
+		value: number;
+		max: number;
+	};
+	attack: number;
+	defense: number;
+	speed: number;
 	breath: {
-		base: number,
-		max: number,
-		regen: number
-	}
-}
+		base: number;
+		max: number;
+		regen: number;
+	};
+};
 
 type FightInitiatorInformation = {
-	playerDailyFightSummary: PersonalFightDailySummary,
-	initiatorGameResult: number,
-	initiatorReference: number
-}
+	playerDailyFightSummary: PersonalFightDailySummary;
+	initiatorGameResult: number;
+	initiatorReference: number;
+};
 
-// Map to store the cooldowns of players who have been defenders in ranked fights
-// It is updated just before starting a fight, so it prevents a single player to defend two players at the same time as
-// Fights are logged at the end of the fight
+/*
+ * Map to store the cooldowns of players who have been defenders in ranked fights
+ * It is updated just before starting a fight, so it prevents a single player to defend two players at the same time as
+ * Fights are logged at the end of the fight
+ */
 const fightsDefenderCooldowns = new Map<string, number>();
 
 async function getPlayerStats(player: Player): Promise<PlayerStats> {
@@ -112,10 +122,9 @@ async function calculateMoneyReward(
 	const lossCount = summary.played - (summary.draw + summary.won);
 
 	const alreadyAwardedMoney =
-		summary.won * FightConstants.REWARDS.WIN_MONEY_BONUS +
-		summary.draw * FightConstants.REWARDS.DRAW_MONEY_BONUS +
-		lossCount * FightConstants.REWARDS.LOSS_MONEY_BONUS
-	;
+		summary.won * FightConstants.REWARDS.WIN_MONEY_BONUS
+		+ summary.draw * FightConstants.REWARDS.DRAW_MONEY_BONUS
+		+ lossCount * FightConstants.REWARDS.LOSS_MONEY_BONUS;
 
 	// Apply cap to money rewards if necessary
 	if (alreadyAwardedMoney > FightConstants.REWARDS.MAX_MONEY_BONUS) {
@@ -145,6 +154,7 @@ async function calculateMoneyReward(
  */
 async function calculateScoreReward(fightInitiatorInformation: FightInitiatorInformation, player1: Player, player2: Player, response: DraftBotPacket[]): Promise<number> {
 	let scoreBonus = 0;
+
 	// Award extra score points only to the initiator for one of his first wins of the day.
 	if (fightInitiatorInformation.initiatorGameResult === EloGameResult.WIN && fightInitiatorInformation.playerDailyFightSummary.won <= FightConstants.REWARDS.NUMBER_OF_WIN_THAT_AWARD_SCORE_BONUS) {
 		scoreBonus = FightConstants.REWARDS.SCORE_BONUS_AWARD;
@@ -216,12 +226,13 @@ async function fightEndCallback(fight: FightController, response: DraftBotPacket
 
 	const player1GameResult = fight.isADraw() ? EloGameResult.DRAW : fight.getWinner() === 0 ? EloGameResult.WIN : EloGameResult.LOSS;
 	const player2GameResult = player1GameResult === EloGameResult.DRAW ? EloGameResult.DRAW : player1GameResult === EloGameResult.WIN ? EloGameResult.LOSS : EloGameResult.WIN;
+
 	// Get the fight initiator reference (0 if the initiator is player1, 1 if the initiator is player2)
 	const initiatorReference = fight.fightInitiator.player.keycloakId === (fight.fighters[0] as PlayerFighter).player.keycloakId ? 0 : 1;
 	const initiatorGameResult = fight.fighters[0] instanceof PlayerFighter
-	&& fight.fightInitiator.player.keycloakId === fight.fighters[0].player.keycloakId ?
-		player1GameResult :
-		player2GameResult;
+	&& fight.fightInitiator.player.keycloakId === fight.fighters[0].player.keycloakId
+		? player1GameResult
+		: player2GameResult;
 
 	// Player variables
 	const player1 = await Players.getById((fight.fighters[0] as PlayerFighter).player.id);
@@ -315,15 +326,18 @@ async function findOpponent(player: Player): Promise<Player | null> {
 			}
 			return true;
 		});
+
 		// Check if these players have been defenders recently in the database
 		const haveBeenDefenderRecently = await LogsReadRequests.hasBeenADefenderInRankedFightSinceMinutes(
-			validOpponents.map((opponent) => opponent.keycloakId),
+			validOpponents.map(opponent => opponent.keycloakId),
 			FightConstants.DEFENDER_COOLDOWN_MINUTES
 		);
+
 		// Filter out opponents who have been defenders too recently
 		const opponentsNotOnCooldown = validOpponents.filter(
-			(opponent) => !haveBeenDefenderRecently[opponent.keycloakId]
+			opponent => !haveBeenDefenderRecently[opponent.keycloakId]
 		);
+
 		// If nobody is off cooldown in this batch, continue to the next offset
 		if (opponentsNotOnCooldown.length === 0) {
 			continue;
@@ -331,16 +345,20 @@ async function findOpponent(player: Player): Promise<Player | null> {
 
 		// Get IDs for the remaining opponents
 		const remainingOpponentKeycloakIds = opponentsNotOnCooldown.map(
-			(opponent) => opponent.keycloakId
+			opponent => opponent.keycloakId
 		);
+
 		// Fetch the fight results against all remaining valid opponents
 		const bo3Map = await LogsReadRequests.getRankedFightsThisWeek(
 			player.keycloakId,
 			remainingOpponentKeycloakIds
 		);
+
 		// Check each remaining opponent to see if the best-of-three is finished
 		for (const opponent of opponentsNotOnCooldown) {
-			const results = bo3Map.get(opponent.keycloakId) ?? {won: 0, lost: 0, draw: 0};
+			const results = bo3Map.get(opponent.keycloakId) ?? {
+				won: 0, lost: 0, draw: 0
+			};
 			if (!bo3isAlreadyFinished(results)) {
 				return opponent;
 			}
@@ -366,7 +384,9 @@ function fightValidationEndCallback(player: Player, context: PacketContext): End
 
 			// Start fight
 			const fightController = new FightController(
-				{fighter1: askingFighter, fighter2: incomingFighter},
+				{
+					fighter1: askingFighter, fighter2: incomingFighter
+				},
 				FightOvertimeBehavior.END_FIGHT_DRAW,
 				context
 			);
@@ -389,7 +409,6 @@ export default class FightCommand {
 		level: FightConstants.REQUIRED_LEVEL
 	})
 	async execute(response: DraftBotPacket[], player: Player, _packet: CommandFightPacketReq, context: PacketContext): Promise<void> {
-
 		if (!player.hasEnoughEnergyToFight()) {
 			response.push(makePacket(CommandFightNotEnoughEnergyPacketRes, {}));
 			return;

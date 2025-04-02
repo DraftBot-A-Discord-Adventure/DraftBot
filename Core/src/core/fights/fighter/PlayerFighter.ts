@@ -1,24 +1,26 @@
-import {Fighter} from "./Fighter";
-import Player, {Players} from "../../database/game/models/Player";
-import {InventorySlots} from "../../database/game/models/InventorySlot";
-import {PlayerActiveObjects} from "../../database/game/models/PlayerActiveObjects";
-import {checkDrinkPotionMissions} from "../../utils/ItemUtils";
-import {BlockingUtils} from "../../utils/BlockingUtils";
-import {BlockingConstants} from "../../../../../Lib/src/constants/BlockingConstants";
-import {FightView} from "../FightView";
-import {MissionsController} from "../../missions/MissionsController";
-import {MissionSlots} from "../../database/game/models/MissionSlot";
-import {getDayNumber} from "../../../../../Lib/src/utils/TimeUtils";
-import {NumberChangeReason} from "../../../../../Lib/src/constants/LogsConstants";
-import {FighterStatus} from "../FighterStatus";
-import {Maps} from "../../maps/Maps";
-import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
-import {PVEConstants} from "../../../../../Lib/src/constants/PVEConstants";
-import {Class} from "../../../data/Class";
-import {FightAction, FightActionDataController} from "../../../data/FightAction";
-import {DraftBotPacket} from "../../../../../Lib/src/packets/DraftBotPacket";
-import {Potion} from "../../../data/Potion";
-import PetEntity, {PetEntities} from "../../database/game/models/PetEntity";
+import { Fighter } from "./Fighter";
+import Player, { Players } from "../../database/game/models/Player";
+import { InventorySlots } from "../../database/game/models/InventorySlot";
+import { PlayerActiveObjects } from "../../database/game/models/PlayerActiveObjects";
+import { checkDrinkPotionMissions } from "../../utils/ItemUtils";
+import { BlockingUtils } from "../../utils/BlockingUtils";
+import { BlockingConstants } from "../../../../../Lib/src/constants/BlockingConstants";
+import { FightView } from "../FightView";
+import { MissionsController } from "../../missions/MissionsController";
+import { MissionSlots } from "../../database/game/models/MissionSlot";
+import { getDayNumber } from "../../../../../Lib/src/utils/TimeUtils";
+import { NumberChangeReason } from "../../../../../Lib/src/constants/LogsConstants";
+import { FighterStatus } from "../FighterStatus";
+import { Maps } from "../../maps/Maps";
+import { RandomUtils } from "../../../../../Lib/src/utils/RandomUtils";
+import { PVEConstants } from "../../../../../Lib/src/constants/PVEConstants";
+import { Class } from "../../../data/Class";
+import {
+	FightAction, FightActionDataController
+} from "../../../data/FightAction";
+import { DraftBotPacket } from "../../../../../Lib/src/packets/DraftBotPacket";
+import { Potion } from "../../../data/Potion";
+import PetEntity, { PetEntities } from "../../database/game/models/PetEntity";
 
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -37,7 +39,9 @@ export class PlayerFighter extends Fighter {
 
 	private glory: number;
 
-	private pveMembers: { attack: number, speed: number }[];
+	private pveMembers: {
+		attack: number; speed: number;
+	}[];
 
 	public constructor(player: Player, playerClass: Class) {
 		super(player.level, FightActionDataController.instance.getListById(playerClass.fightActionsIds));
@@ -67,7 +71,8 @@ export class PlayerFighter extends Fighter {
 		await this.manageMissionsOf(fightView, response);
 		if (winner) {
 			await MissionsController.update(this.player, response, {
-				missionId: "fightHealthPercent", params: {
+				missionId: "fightHealthPercent",
+				params: {
 					remainingPercent: this.stats.energy / this.stats.maxEnergy
 				}
 			});
@@ -165,7 +170,9 @@ export class PlayerFighter extends Fighter {
 	/**
 	 * Get the members of the player's guild on the island of the fighter
 	 */
-	public getPveMembersOnIsland(): { attack: number, speed: number }[] {
+	public getPveMembersOnIsland(): {
+		attack: number; speed: number;
+	}[] {
 		return this.pveMembers;
 	}
 
@@ -176,11 +183,13 @@ export class PlayerFighter extends Fighter {
 	 */
 	private async checkFightActionHistory(fightView: FightView, response: DraftBotPacket[]): Promise<void> {
 		const playerFightActionsHistory: Map<string, number> = this.getFightActionCount();
+
 		// Iterate on each action in the history
 		for (const [action, count] of playerFightActionsHistory) {
 			await MissionsController.update(this.player, response, {
 				missionId: "fightAttacks",
-				count, params: {attackType: action}
+				count,
+				params: { attackType: action }
 			});
 		}
 	}
@@ -198,7 +207,7 @@ export class PlayerFighter extends Fighter {
 
 		await this.checkFightActionHistory(fightView, response);
 
-		await MissionsController.update(this.player, response, {missionId: "anyFight"});
+		await MissionsController.update(this.player, response, { missionId: "anyFight" });
 
 		const slots = await MissionSlots.getOfPlayer(this.player.id);
 		for (const slot of slots) {
@@ -206,7 +215,7 @@ export class PlayerFighter extends Fighter {
 				const lastDay = slot.saveBlob ? slot.saveBlob.readInt32LE() : 0;
 				const currDay = getDayNumber();
 				if (lastDay === currDay - 1) {
-					await MissionsController.update(this.player, response, {missionId: "fightStreak"});
+					await MissionsController.update(this.player, response, { missionId: "fightStreak" });
 				}
 				else if (lastDay !== currDay) {
 					await MissionsController.update(this.player, response, {

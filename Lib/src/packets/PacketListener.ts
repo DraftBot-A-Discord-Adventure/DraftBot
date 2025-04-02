@@ -1,4 +1,6 @@
-import {DraftBotPacket, PacketContext, PacketLike} from "./DraftBotPacket";
+import {
+	DraftBotPacket, PacketContext, PacketLike
+} from "./DraftBotPacket";
 
 export class PacketListenerServer {
 	private packetCallbacks: Map<string, PacketListenerCallbackServer<DraftBotPacket>> = new Map<string, PacketListenerCallbackServer<DraftBotPacket>>();

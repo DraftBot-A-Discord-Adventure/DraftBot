@@ -1,6 +1,6 @@
-import {packetHandler} from "../../../PacketHandler";
-import {PacketContext} from "../../../../../../Lib/src/packets/DraftBotPacket";
-import {handleClassicError} from "../../../../utils/ErrorUtils";
+import { packetHandler } from "../../../PacketHandler";
+import { PacketContext } from "../../../../../../Lib/src/packets/DraftBotPacket";
+import { handleClassicError } from "../../../../utils/ErrorUtils";
 import {
 	CommandPetTransferAnotherMemberTransferringErrorPacket,
 	CommandPetTransferCancelErrorPacket, CommandPetTransferFeistyErrorPacket,
@@ -8,9 +8,9 @@ import {
 	CommandPetTransferSituationChangedErrorPacket,
 	CommandPetTransferSuccessPacket
 } from "../../../../../../Lib/src/packets/commands/CommandPetTransferPacket";
-import {KeycloakUtils} from "../../../../../../Lib/src/keycloak/KeycloakUtils";
-import {keycloakConfig} from "../../../../bot/DraftBotShard";
-import {handlePetTransferSuccess} from "../../../../commands/pet/PetTransferCommand";
+import { KeycloakUtils } from "../../../../../../Lib/src/keycloak/KeycloakUtils";
+import { keycloakConfig } from "../../../../bot/DraftBotShard";
+import { handlePetTransferSuccess } from "../../../../commands/pet/PetTransferCommand";
 
 export default class PetTransferCommandPacketHandlers {
 	@packetHandler(CommandPetTransferAnotherMemberTransferringErrorPacket)

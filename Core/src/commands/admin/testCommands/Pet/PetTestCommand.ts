@@ -1,7 +1,9 @@
-import {PetEntities} from "../../../../core/database/game/models/PetEntity";
-import {MissionsController} from "../../../../core/missions/MissionsController";
-import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
-import {PetDataController} from "../../../../data/Pet";
+import { PetEntities } from "../../../../core/database/game/models/PetEntity";
+import { MissionsController } from "../../../../core/missions/MissionsController";
+import {
+	ExecuteTestCommandLike, ITestCommand, TypeKey
+} from "../../../../core/CommandsTest";
+import { PetDataController } from "../../../../data/Pet";
 
 export const commandInfo: ITestCommand = {
 	name: "pet",
@@ -38,7 +40,7 @@ const petTestCommand: ExecuteTestCommandLike = async (player, args, response) =>
 	await pet.save();
 	player.setPet(pet);
 	await player.save();
-	await MissionsController.update(player, response, {missionId: "havePet"});
+	await MissionsController.update(player, response, { missionId: "havePet" });
 
 	pet = await PetEntities.getById(pet.id); // Recall needed to refresh the pet
 	return `Vous avez un nouveau pet :\n${pet.typeId} !`;

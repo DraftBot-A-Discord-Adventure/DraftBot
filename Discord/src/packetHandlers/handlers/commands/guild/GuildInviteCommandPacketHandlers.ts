@@ -1,4 +1,4 @@
-import {packetHandler} from "../../../PacketHandler";
+import { packetHandler } from "../../../PacketHandler";
 import {
 	CommandGuildInviteAcceptPacketRes,
 	CommandGuildInviteAlreadyInAGuild,
@@ -6,7 +6,7 @@ import {
 	CommandGuildInviteInvitedPlayerIsDead, CommandGuildInviteInvitedPlayerIsOnPveIsland,
 	CommandGuildInviteInvitingPlayerNotInGuild, CommandGuildInviteLevelTooLow, CommandGuildInviteRefusePacketRes
 } from "../../../../../../Lib/src/packets/commands/CommandGuildInvitePacket";
-import {PacketContext} from "../../../../../../Lib/src/packets/DraftBotPacket";
+import { PacketContext } from "../../../../../../Lib/src/packets/DraftBotPacket";
 import {
 	handleCommandGuildInviteAcceptPacketRes,
 	handleCommandGuildInviteError,

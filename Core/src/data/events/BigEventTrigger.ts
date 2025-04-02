@@ -1,6 +1,6 @@
 import Player from "../../core/database/game/models/Player";
-import {LogsReadRequests} from "../../core/database/logs/LogsReadRequests";
-import {BigEvent} from "../BigEvent";
+import { LogsReadRequests } from "../../core/database/logs/LogsReadRequests";
+import { BigEvent } from "../BigEvent";
 
 function verifyTriggerDate(trigger: BigEventTrigger): boolean {
 	// Don't do the following operations if no date is specified -> save CPU time
@@ -45,13 +45,13 @@ function verifyTriggerDate(trigger: BigEventTrigger): boolean {
 	const toSecond = trigger.date.second?.to ?? 99999;
 	const second = date.getSeconds();
 
-	return year >= fromYear && year <= toYear &&
-		month >= fromMonth && month <= toMonth &&
-		day >= fromDay && day <= toDay &&
-		dayOfTheWeek >= fromDayOfTheWeek && dayOfTheWeek <= toDayOfTheWeek &&
-		hour >= fromHour && hour <= toHour &&
-		minute >= fromMinute && minute <= toMinute &&
-		second >= fromSecond && second <= toSecond;
+	return year >= fromYear && year <= toYear
+		&& month >= fromMonth && month <= toMonth
+		&& day >= fromDay && day <= toDay
+		&& dayOfTheWeek >= fromDayOfTheWeek && dayOfTheWeek <= toDayOfTheWeek
+		&& hour >= fromHour && hour <= toHour
+		&& minute >= fromMinute && minute <= toMinute
+		&& second >= fromSecond && second <= toSecond;
 }
 
 async function verifyOncePer(bigEvent: BigEvent, trigger: BigEventTrigger, player: Player): Promise<boolean> {
@@ -68,16 +68,16 @@ async function verifyOncePer(bigEvent: BigEvent, trigger: BigEventTrigger, playe
 	const now = new Date();
 
 	switch (trigger.oncePer) {
-	case "year":
-		return lastDate.getFullYear() !== now.getFullYear();
-	case "month":
-		return lastDate.getFullYear() !== now.getFullYear() || lastDate.getMonth() !== now.getMonth();
-	case "week":
-		return lastDate.getFullYear() !== now.getFullYear() || lastDate.getMonth() !== now.getMonth() || lastDate.getDay() !== now.getDay();
-	case "day":
-		return lastDate.getFullYear() !== now.getFullYear() || lastDate.getMonth() !== now.getMonth() || lastDate.getDate() !== now.getDate();
-	default:
-		return true;
+		case "year":
+			return lastDate.getFullYear() !== now.getFullYear();
+		case "month":
+			return lastDate.getFullYear() !== now.getFullYear() || lastDate.getMonth() !== now.getMonth();
+		case "week":
+			return lastDate.getFullYear() !== now.getFullYear() || lastDate.getMonth() !== now.getMonth() || lastDate.getDay() !== now.getDay();
+		case "day":
+			return lastDate.getFullYear() !== now.getFullYear() || lastDate.getMonth() !== now.getMonth() || lastDate.getDate() !== now.getDate();
+		default:
+			return true;
 	}
 }
 
@@ -89,11 +89,11 @@ async function verifyOncePer(bigEvent: BigEvent, trigger: BigEventTrigger, playe
  * @param trigger The big event trigger object
  */
 export async function verifyTrigger(bigEvent: BigEvent, trigger: BigEventTrigger, mapId: number, player: Player): Promise<boolean> {
-	return (trigger.mapId ? mapId === trigger.mapId : true) &&
-		(trigger.level ? player.level > trigger.level : true) &&
-		verifyTriggerDate(trigger) &&
-		(trigger.mapAttributes ? trigger.mapAttributes.includes(player.getDestination().attribute) : true) &&
-		await verifyOncePer(bigEvent, trigger, player);
+	return (trigger.mapId ? mapId === trigger.mapId : true)
+		&& (trigger.level ? player.level > trigger.level : true)
+		&& verifyTriggerDate(trigger)
+		&& (trigger.mapAttributes ? trigger.mapAttributes.includes(player.getDestination().attribute) : true)
+		&& await verifyOncePer(bigEvent, trigger, player);
 }
 
 /**
@@ -104,34 +104,34 @@ export interface BigEventTrigger {
 	level?: number;
 	date?: {
 		year?: {
-			from?: number
-			to?: number
+			from?: number;
+			to?: number;
 		};
 		month?: {
-			from?: number
-			to?: number
+			from?: number;
+			to?: number;
 		};
 		day?: {
-			from?: number
-			to?: number
+			from?: number;
+			to?: number;
 		};
 		dayOfTheWeek?: {
-			from?: number
-			to?: number
+			from?: number;
+			to?: number;
 		};
 		hour?: {
-			from?: number
-			to?: number
+			from?: number;
+			to?: number;
 		};
 		minute?: {
-			from?: number
-			to?: number
+			from?: number;
+			to?: number;
 		};
 		second?: {
-			from?: number
-			to?: number
+			from?: number;
+			to?: number;
 		};
 	};
-	oncePer?: "year" | "month" | "week" | "day",
-	mapAttributes?: string[]
+	oncePer?: "year" | "month" | "week" | "day";
+	mapAttributes?: string[];
 }

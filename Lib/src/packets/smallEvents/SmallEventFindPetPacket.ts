@@ -1,6 +1,8 @@
-import {SmallEventPacket} from "./SmallEventPacket";
-import {PacketDirection, sendablePacket} from "../DraftBotPacket";
-import {SexTypeShort} from "../../constants/StringConstants";
+import { SmallEventPacket } from "./SmallEventPacket";
+import {
+	PacketDirection, sendablePacket
+} from "../DraftBotPacket";
+import { SexTypeShort } from "../../constants/StringConstants";
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class SmallEventFindPetPacket extends SmallEventPacket {

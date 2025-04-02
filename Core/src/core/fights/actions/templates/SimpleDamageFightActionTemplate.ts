@@ -1,24 +1,27 @@
-import {Fighter} from "../../fighter/Fighter";
-import {attackInfo, FightActionController, statsInfo} from "../FightActionController";
-import {FightActionResult, FightStatBuffed} from "../../../../../../Lib/src/types/FightActionResult";
-import {FightStatModifierOperation} from "../../../../../../Lib/src/types/FightStatModifierOperation";
+import { Fighter } from "../../fighter/Fighter";
+import {
+	attackInfo, FightActionController, statsInfo
+} from "../FightActionController";
+import {
+	FightActionResult, FightStatBuffed
+} from "../../../../../../Lib/src/types/FightActionResult";
+import { FightStatModifierOperation } from "../../../../../../Lib/src/types/FightStatModifierOperation";
 
 export function simpleDamageFightAction(
 	fighters: {
-		sender: Fighter,
-		receiver: Fighter
+		sender: Fighter;
+		receiver: Fighter;
 	},
 	probabilities: {
-		critical: number,
-		failure: number
+		critical: number;
+		failure: number;
 	},
 	info: {
-		attackInfo: attackInfo,
-		statsInfo: statsInfo
+		attackInfo: attackInfo;
+		statsInfo: statsInfo;
 	},
 	multiplier = 1
 ): FightActionResult {
-
 	const initialDamage = FightActionController.getAttackDamage(info.statsInfo, fighters.sender, info.attackInfo) * multiplier;
 	const attack = FightActionController.applySecondaryEffects(initialDamage, probabilities.critical, probabilities.failure);
 

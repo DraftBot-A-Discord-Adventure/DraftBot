@@ -1,18 +1,18 @@
-import {ReactionCollectorCreationPacket} from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
-import {DiscordCache} from "../bot/DiscordCache";
-import {DiscordCollectorUtils} from "../utils/DiscordCollectorUtils";
-import {SmallEventCartPacket} from "../../../Lib/src/packets/smallEvents/SmallEventCartPacket";
-import {KeycloakUtils} from "../../../Lib/src/keycloak/KeycloakUtils";
-import {keycloakConfig} from "../bot/DraftBotShard";
-import {DraftbotSmallEventEmbed} from "../messages/DraftbotSmallEventEmbed";
-import {StringUtils} from "../utils/StringUtils";
-import {EmoteUtils} from "../utils/EmoteUtils";
-import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
+import { ReactionCollectorCreationPacket } from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { PacketContext } from "../../../Lib/src/packets/DraftBotPacket";
+import { DiscordCache } from "../bot/DiscordCache";
+import { DiscordCollectorUtils } from "../utils/DiscordCollectorUtils";
+import { SmallEventCartPacket } from "../../../Lib/src/packets/smallEvents/SmallEventCartPacket";
+import { KeycloakUtils } from "../../../Lib/src/keycloak/KeycloakUtils";
+import { keycloakConfig } from "../bot/DraftBotShard";
+import { DraftbotSmallEventEmbed } from "../messages/DraftbotSmallEventEmbed";
+import { StringUtils } from "../utils/StringUtils";
+import { EmoteUtils } from "../utils/EmoteUtils";
+import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
 import i18n from "../translations/i18n";
-import {getRandomSmallEventIntro} from "../packetHandlers/handlers/SmallEventsHandler";
-import {ReactionCollectorCartData} from "../../../Lib/src/packets/interaction/ReactionCollectorCart";
-import {ReactionCollectorReturnType} from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import { getRandomSmallEventIntro } from "../packetHandlers/handlers/SmallEventsHandler";
+import { ReactionCollectorCartData } from "../../../Lib/src/packets/interaction/ReactionCollectorCart";
+import { ReactionCollectorReturnType } from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
 export async function cartCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
@@ -28,7 +28,7 @@ export async function cartCollector(context: PacketContext, packet: ReactionColl
 			moneyEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.unitValues.money),
 			destination:
 				`${DraftBotIcons.map_types[data.displayedDestination.type!]} ${
-					i18n.t(`models:map_locations.${data.displayedDestination.id}.name`, {lng})
+					i18n.t(`models:map_locations.${data.displayedDestination.id}.name`, { lng })
 				}`
 		})
 		+ StringUtils.getRandomTranslation("smallEvents:cart.menu", lng),

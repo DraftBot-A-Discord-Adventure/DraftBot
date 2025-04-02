@@ -1,27 +1,35 @@
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
+import {
+	DraftBotPacket, makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
 import Player from "../../core/database/game/models/Player";
 import {
 	CommandSellCancelErrorPacket, CommandSellItemSuccessPacket,
 	CommandSellNoItemErrorPacket,
 	CommandSellPacketReq
 } from "../../../../Lib/src/packets/commands/CommandSellPacket";
-import {InventorySlot, InventorySlots} from "../../core/database/game/models/InventorySlot";
-import {countNbOfPotions, getItemByIdAndCategory, getItemValue, sortPlayerItemList} from "../../core/utils/ItemUtils";
-import {ReactionCollectorInstance} from "../../core/utils/ReactionsCollector";
-import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
+import {
+	InventorySlot, InventorySlots
+} from "../../core/database/game/models/InventorySlot";
+import {
+	countNbOfPotions, getItemByIdAndCategory, getItemValue, sortPlayerItemList
+} from "../../core/utils/ItemUtils";
+import { ReactionCollectorInstance } from "../../core/utils/ReactionsCollector";
+import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
 import {
 	ReactionCollectorSell,
 	ReactionCollectorSellItemReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorSell";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
+import { BlockingUtils } from "../../core/utils/BlockingUtils";
 import {
 	ReactionCollectorRefuseReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {draftBotInstance} from "../../index";
-import {ItemCategory} from "../../../../Lib/src/constants/ItemConstants";
-import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import {MissionsController} from "../../core/missions/MissionsController";
+import { draftBotInstance } from "../../index";
+import { ItemCategory } from "../../../../Lib/src/constants/ItemConstants";
+import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
+import { MissionsController } from "../../core/missions/MissionsController";
 
 function getEndCallback(player: Player) {
 	return async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
@@ -58,7 +66,7 @@ function getEndCallback(player: Player) {
 
 			await MissionsController.update(player, response, {
 				missionId: "sellItemWithGivenCost",
-				params: {itemCost: sellItem.price}
+				params: { itemCost: sellItem.price }
 			});
 			await MissionsController.update(player, response, {
 				missionId: "havePotions",

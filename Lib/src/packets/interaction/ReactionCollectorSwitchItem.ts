@@ -1,5 +1,9 @@
-import {ReactionCollector, ReactionCollectorCreationPacket, ReactionCollectorData, ReactionCollectorReaction} from "./ReactionCollectorPacket";
-import {MainItemDisplayPacket, SupportItemDisplayPacket} from "../commands/CommandInventoryPacket";
+import {
+	ReactionCollector, ReactionCollectorCreationPacket, ReactionCollectorData, ReactionCollectorReaction
+} from "./ReactionCollectorPacket";
+import {
+	MainItemDisplayPacket, SupportItemDisplayPacket
+} from "../commands/CommandInventoryPacket";
 
 export class ReactionCollectorSwitchItemData extends ReactionCollectorData {
 }
@@ -14,7 +18,6 @@ export class ReactionCollectorSwitchItemCloseReaction extends ReactionCollectorR
 }
 
 export class ReactionCollectorSwitchItem extends ReactionCollector {
-
 	private readonly itemList: (MainItemDisplayPacket | SupportItemDisplayPacket)[];
 
 	constructor(itemList: (MainItemDisplayPacket | SupportItemDisplayPacket)[]) {
@@ -24,8 +27,8 @@ export class ReactionCollectorSwitchItem extends ReactionCollector {
 
 	creationPacket(id: string, endTime: number): ReactionCollectorCreationPacket {
 		const reactions: {
-			type: string,
-			data: ReactionCollectorReaction
+			type: string;
+			data: ReactionCollectorReaction;
 		}[] = this.itemList.map((item, itemIndex) => this.buildReaction(ReactionCollectorSwitchItemReaction, {
 			itemIndex,
 			item

@@ -1,15 +1,17 @@
-import {DataControllerString} from "./DataController";
-import {Data} from "./Data";
-import {readdirSync} from "fs";
-import {RandomUtils} from "../../../Lib/src/utils/RandomUtils";
+import { DataControllerString } from "./DataController";
+import { Data } from "./Data";
+import { readdirSync } from "fs";
+import { RandomUtils } from "../../../Lib/src/utils/RandomUtils";
 import Player from "../core/database/game/models/Player";
-import {SmallEventConstants} from "../../../Lib/src/constants/SmallEventConstants";
-import {ItemNature, ItemRarity} from "../../../Lib/src/constants/ItemConstants";
-import {DraftBotPacket} from "../../../Lib/src/packets/DraftBotPacket";
-import {TravelTime} from "../core/maps/TravelTime";
-import {NumberChangeReason} from "../../../Lib/src/constants/LogsConstants";
-import {Effect} from "../../../Lib/src/types/Effect";
-import {WitchActionOutcomeType} from "../../../Lib/src/types/WitchActionOutcomeType";
+import { SmallEventConstants } from "../../../Lib/src/constants/SmallEventConstants";
+import {
+	ItemNature, ItemRarity
+} from "../../../Lib/src/constants/ItemConstants";
+import { DraftBotPacket } from "../../../Lib/src/packets/DraftBotPacket";
+import { TravelTime } from "../core/maps/TravelTime";
+import { NumberChangeReason } from "../../../Lib/src/constants/LogsConstants";
+import { Effect } from "../../../Lib/src/types/Effect";
+import { WitchActionOutcomeType } from "../../../Lib/src/types/WitchActionOutcomeType";
 
 /**
  * The base class for the different events that can happen after the player encounters a feral pet
@@ -76,24 +78,23 @@ export class WitchAction extends Data<string> {
 
 type OutcomeProbabilities = {
 	[key in keyof WitchActionOutcomeType]?: number;
-}
+};
 
 export type WitchActionFuncs = {
-	checkMissions?: CheckMissionsLike,
-	generatePotion?: GeneratePotionLike
+	checkMissions?: CheckMissionsLike;
+	generatePotion?: GeneratePotionLike;
 };
 
 export type CheckMissionsLike = (player: Player, outcome: WitchActionOutcomeType, response: DraftBotPacket[], tags: string[]) => void | Promise<void>;
 export type GeneratePotionLike = () => PotionParameters;
 
 export type PotionParameters = {
-	minRarity: ItemRarity,
-	maxRarity: ItemRarity,
-	nature: ItemNature,
-}
+	minRarity: ItemRarity;
+	maxRarity: ItemRarity;
+	nature: ItemNature;
+};
 
 export class WitchActionDataController extends DataControllerString<WitchAction> {
-
 	static readonly instance = new WitchActionDataController("witch");
 
 	private static witchActionsFunctionsCache: Map<string, WitchActionFuncs>;
@@ -102,7 +103,7 @@ export class WitchActionDataController extends DataControllerString<WitchAction>
 		if (!WitchActionDataController.witchActionsFunctionsCache) {
 			WitchActionDataController.witchActionsFunctionsCache = new Map<string, WitchActionFuncs>();
 			WitchActionDataController.loadWitchActionsFromFolder("dist/Core/src/core/smallEvents/witch", "../core/smallEvents/witch");
-			WitchActionDataController.instance.getValuesArray().forEach((witchAction) => {
+			WitchActionDataController.instance.getValuesArray().forEach(witchAction => {
 				witchAction.checkOutcomeProbabilities();
 			});
 		}
@@ -121,7 +122,7 @@ export class WitchActionDataController extends DataControllerString<WitchAction>
 	}
 
 	public getRandomWitchAction(excludedWitchActions: WitchAction[]): WitchAction {
-		return RandomUtils.draftbotRandom.pick(Array.from(this.data.values()).filter((witchAction) => !excludedWitchActions.includes(witchAction)));
+		return RandomUtils.draftbotRandom.pick(Array.from(this.data.values()).filter(witchAction => !excludedWitchActions.includes(witchAction)));
 	}
 
 	newInstance(): WitchAction {
@@ -129,7 +130,7 @@ export class WitchActionDataController extends DataControllerString<WitchAction>
 	}
 
 	getRandomWitchEventByType(isIngredient: boolean): WitchAction {
-		return RandomUtils.draftbotRandom.pick(Array.from(this.data.values()).filter((witchAction) => witchAction.isIngredient === isIngredient));
+		return RandomUtils.draftbotRandom.pick(Array.from(this.data.values()).filter(witchAction => witchAction.isIngredient === isIngredient));
 	}
 
 	getDoNothing(): WitchAction {

@@ -1,4 +1,4 @@
-import {packetHandler} from "../../../PacketHandler";
+import { packetHandler } from "../../../PacketHandler";
 import {
 	CommandShopAlreadyHaveBadge,
 	CommandShopBadgeBought,
@@ -11,7 +11,7 @@ import {
 	CommandShopNotEnoughCurrency,
 	CommandShopTooManyEnergyBought
 } from "../../../../../../Lib/src/packets/interaction/ReactionCollectorShop";
-import {PacketContext} from "../../../../../../Lib/src/packets/DraftBotPacket";
+import { PacketContext } from "../../../../../../Lib/src/packets/DraftBotPacket";
 import {
 	handleCommandShopAlreadyHaveBadge,
 	handleCommandShopBadgeBought,
@@ -24,7 +24,7 @@ import {
 	handleCommandShopNotEnoughMoney,
 	handleCommandShopTooManyEnergyBought, handleReactionCollectorBuyCategorySlotBuySuccess
 } from "../../../../commands/player/ShopCommand";
-import {ReactionCollectorBuyCategorySlotBuySuccess} from "../../../../../../Lib/src/packets/interaction/ReactionCollectorBuyCategorySlot";
+import { ReactionCollectorBuyCategorySlotBuySuccess } from "../../../../../../Lib/src/packets/interaction/ReactionCollectorBuyCategorySlot";
 
 export default class ShopCommandPacketHandlers {
 	@packetHandler(CommandShopClosed)

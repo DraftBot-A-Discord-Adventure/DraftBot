@@ -1,5 +1,5 @@
 import Player from "../database/game/models/Player";
-import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
+import { FightConstants } from "../../../../Lib/src/constants/FightConstants";
 
 /**
  * Game result

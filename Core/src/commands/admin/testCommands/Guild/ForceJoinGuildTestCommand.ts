@@ -1,7 +1,9 @@
 import Guild from "../../../../core/database/game/models/Guild";
-import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
-import {Players} from "../../../../core/database/game/models/Player";
-import {GuildConstants} from "../../../../../../Lib/src/constants/GuildConstants";
+import {
+	ExecuteTestCommandLike, ITestCommand, TypeKey
+} from "../../../../core/CommandsTest";
+import { Players } from "../../../../core/database/game/models/Player";
+import { GuildConstants } from "../../../../../../Lib/src/constants/GuildConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "forcejoinguild",
@@ -17,12 +19,12 @@ export const commandInfo: ITestCommand = {
  * Set your new guild
  */
 const forceJoinGuildTestCommand: ExecuteTestCommandLike = async (player, args) => {
-	const guildToJoin = await Guild.findOne({where: {name: args[0]}});
+	const guildToJoin = await Guild.findOne({ where: { name: args[0] } });
 	if (!guildToJoin) {
 		throw new Error("Erreur forcejoinguild : pas de guilde avec cet id !");
 	}
 
-	const guildToLeave = await Guild.findOne({where: {id: player.guildId}});
+	const guildToLeave = await Guild.findOne({ where: { id: player.guildId } });
 	if (guildToLeave !== null && guildToLeave) {
 		if (guildToJoin.id === guildToLeave.id) {
 			throw new Error("Erreur forcejoinguild : vous êtes déjà dans la guilde donnée !");

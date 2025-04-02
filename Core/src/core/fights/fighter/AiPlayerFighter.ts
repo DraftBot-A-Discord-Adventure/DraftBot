@@ -1,14 +1,18 @@
-import {Fighter} from "./Fighter";
-import {Player} from "../../database/game/models/Player";
-import {InventorySlots} from "../../database/game/models/InventorySlot";
-import {PlayerActiveObjects} from "../../database/game/models/PlayerActiveObjects";
-import {FightView} from "../FightView";
-import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
-import {Class} from "../../../data/Class";
-import {FightAction, FightActionDataController} from "../../../data/FightAction";
-import {DraftBotPacket} from "../../../../../Lib/src/packets/DraftBotPacket";
-import {ClassBehavior, getAiClassBehavior} from "../AiBehaviorController";
-import PetEntity, {PetEntities} from "../../database/game/models/PetEntity";
+import { Fighter } from "./Fighter";
+import { Player } from "../../database/game/models/Player";
+import { InventorySlots } from "../../database/game/models/InventorySlot";
+import { PlayerActiveObjects } from "../../database/game/models/PlayerActiveObjects";
+import { FightView } from "../FightView";
+import { RandomUtils } from "../../../../../Lib/src/utils/RandomUtils";
+import { Class } from "../../../data/Class";
+import {
+	FightAction, FightActionDataController
+} from "../../../data/FightAction";
+import { DraftBotPacket } from "../../../../../Lib/src/packets/DraftBotPacket";
+import {
+	ClassBehavior, getAiClassBehavior
+} from "../AiBehaviorController";
+import PetEntity, { PetEntities } from "../../database/game/models/PetEntity";
 
 /**
  * @class AiPlayerFighter
@@ -62,6 +66,7 @@ export class AiPlayerFighter extends Fighter {
 		fightView.displayAiChooseAction(response, RandomUtils.randInt(800, 2500));
 
 		const classBehavior = this.classBehavior;
+
 		// Use the behavior script to choose an action
 		let fightAction: FightAction;
 

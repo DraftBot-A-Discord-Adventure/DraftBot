@@ -1,6 +1,6 @@
 import Player from "../../core/database/game/models/Player";
-import Guild, {Guilds} from "../../core/database/game/models/Guild";
-import {GuildPets} from "../../core/database/game/models/GuildPet";
+import Guild, { Guilds } from "../../core/database/game/models/Guild";
+import { GuildPets } from "../../core/database/game/models/GuildPet";
 
 async function verifyConditionCanAcceptPet(condition: PossibilityCondition, player: Player): Promise<boolean> {
 	if (!condition.canAcceptPet) {
@@ -23,8 +23,8 @@ async function verifyConditionCanAcceptPet(condition: PossibilityCondition, play
 }
 
 export async function verifyPossibilityCondition(condition: PossibilityCondition, player: Player): Promise<boolean> {
-	return player.level >= (condition.level ?? 0) &&
-		await verifyConditionCanAcceptPet(condition, player);
+	return player.level >= (condition.level ?? 0)
+		&& await verifyConditionCanAcceptPet(condition, player);
 }
 
 export interface PossibilityCondition {

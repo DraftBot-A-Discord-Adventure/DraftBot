@@ -1,11 +1,13 @@
-import {Fighter} from "../../../fighter/Fighter";
-import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
-import {FightActionType} from "../../../../../../../Lib/src/types/FightActionType";
-import {FightAlterations} from "../../FightAlterations";
-import {RandomUtils} from "../../../../../../../Lib/src/utils/RandomUtils";
-import {FightActionFunc} from "../../../../../data/FightAction";
-import {defaultFailFightActionResult} from "../../../../../../../Lib/src/types/FightActionResult";
-import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTemplate";
+import { Fighter } from "../../../fighter/Fighter";
+import {
+	attackInfo, FightActionController, statsInfo
+} from "../../FightActionController";
+import { FightActionType } from "../../../../../../../Lib/src/types/FightActionType";
+import { FightAlterations } from "../../FightAlterations";
+import { RandomUtils } from "../../../../../../../Lib/src/utils/RandomUtils";
+import { FightActionFunc } from "../../../../../data/FightAction";
+import { defaultFailFightActionResult } from "../../../../../../../Lib/src/types/FightActionResult";
+import { simpleDamageFightAction } from "../../templates/SimpleDamageFightActionTemplate";
 
 const use: FightActionFunc = (sender, receiver) => {
 	if (!receiver.getLastFightActionUsed() || receiver.getLastFightActionUsed().type !== FightActionType.PHYSICAL) {

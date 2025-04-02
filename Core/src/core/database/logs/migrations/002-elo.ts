@@ -1,4 +1,6 @@
-import {DataTypes, QueryInterface} from "sequelize";
+import {
+	DataTypes, QueryInterface
+} from "sequelize";
 import {
 	logsFightsActionsAttributes001,
 	logsFightsResultsAttributes001, logsPlayersAttributes001, logsPlayersClassChangesAttributes001
@@ -43,7 +45,9 @@ const logsFightsActionsUsedAttributes002 = {
 /**
  * Build a map for a playerId to its classes history
  */
-async function buildPlayersClassesHistory(context: QueryInterface): Promise<{ [playerId: number]: { classId: number, date: number }[] }> {
+async function buildPlayersClassesHistory(context: QueryInterface): Promise<{ [playerId: number]: {
+	classId: number; date: number;
+}[]; }> {
 	// Build a map to convert a discordId to a log player id
 	const discordIdToPlayerId: { [discordId: string]: number } = {};
 
@@ -55,7 +59,9 @@ async function buildPlayersClassesHistory(context: QueryInterface): Promise<{ [p
 	}
 
 	// The final map to be returned
-	const dict: { [playerId: number]: { classId: number, date: number }[] } = {};
+	const dict: { [playerId: number]: {
+		classId: number; date: number;
+	}[]; } = {};
 
 	// Fill the final map with player current classes
 	const players = await Player.findAll();
@@ -65,7 +71,9 @@ async function buildPlayersClassesHistory(context: QueryInterface): Promise<{ [p
 			if (!dict[playerId]) {
 				dict[playerId] = [];
 			}
-			dict[playerId].push({classId: player.class, date: 0});
+			dict[playerId].push({
+				classId: player.class, date: 0
+			});
 		}
 	}
 
@@ -77,7 +85,9 @@ async function buildPlayersClassesHistory(context: QueryInterface): Promise<{ [p
 	for (const classChange of classChanges) {
 		const history = dict[classChange.playerId];
 		if (history) {
-			dict[classChange.playerId].push({ classId: classChange.classId, date: classChange.date });
+			dict[classChange.playerId].push({
+				classId: classChange.classId, date: classChange.date
+			});
 		}
 	}
 
@@ -93,10 +103,12 @@ async function buildPlayersClassesHistory(context: QueryInterface): Promise<{ [p
  */
 function getOrRegisterFightAction(
 	fightActionsDict: { [key: string]: number },
-	fightActions: { id: number, name: string, classId: number }[],
+	fightActions: {
+		id: number; name: string; classId: number;
+	}[],
 	actionName: string,
 	classId: number
-) : number {
+): number {
 	// Build dict key
 	const key = actionName + classId;
 
@@ -118,8 +130,12 @@ function getOrRegisterFightAction(
 	return fightActionId;
 }
 
-function getMostRecentClassId(history: { classId: number, date: number }[], maxDate: number): number {
-	let maxClass: { classId: number, date: number } = null;
+function getMostRecentClassId(history: {
+	classId: number; date: number;
+}[], maxDate: number): number {
+	let maxClass: {
+		classId: number; date: number;
+	} = null;
 	for (const c of history) {
 		if (!maxClass || c.date < maxDate && c.date > maxClass.date) {
 			maxClass = c;
@@ -131,7 +147,9 @@ function getMostRecentClassId(history: { classId: number, date: number }[], maxD
 
 async function addClassesToFightActions(context: QueryInterface): Promise<void> {
 	// Fight actions that will be created
-	const fightActions: { id: number, name: string, classId: number }[] = [];
+	const fightActions: {
+		id: number; name: string; classId: number;
+	}[] = [];
 
 	// The key is the name followed by the classId
 	const fightActionsDict: { [key: string]: number } = {};
@@ -149,7 +167,9 @@ async function addClassesToFightActions(context: QueryInterface): Promise<void> 
 	const logFightsModel = context.sequelize.define("fights_results", logsFightsResultsAttributes001, { timestamps: false });
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const logFights: any[] = await logFightsModel.findAll();
-	const fightsDict: { [fightId: number]: { player1Id: number, player2Id: number, date: number } } = {};
+	const fightsDict: { [fightId: number]: {
+		player1Id: number; player2Id: number; date: number;
+	}; } = {};
 	for (const fight of logFights) {
 		fightsDict[fight.id] = {
 			player1Id: fight.player1Id,
@@ -159,11 +179,15 @@ async function addClassesToFightActions(context: QueryInterface): Promise<void> 
 	}
 
 	// Fight actions used
-	const fightActionsUsedModel = context.sequelize.define("fights_actions_used", logsFightsActionsUsedAttributes002, { tableName: "fights_actions_used", timestamps: false });
+	const fightActionsUsedModel = context.sequelize.define("fights_actions_used", logsFightsActionsUsedAttributes002, {
+		tableName: "fights_actions_used", timestamps: false
+	});
 	fightActionsUsedModel.removeAttribute("id");
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const fightActionsUsed: any[] = await fightActionsUsedModel.findAll();
-	const newFightActionsUsed: { fightId: number, player: number, actionId: number, count: number }[] = [];
+	const newFightActionsUsed: {
+		fightId: number; player: number; actionId: number; count: number;
+	}[] = [];
 
 	// Players classes history
 	const classesHistory = await buildPlayersClassesHistory(context);
@@ -173,10 +197,12 @@ async function addClassesToFightActions(context: QueryInterface): Promise<void> 
 		const fightActionName = currentFightActionsDict[fightActionUsed.actionId];
 		const fightResult = fightsDict[fightActionUsed.fightId];
 		const history = classesHistory[fightActionUsed.player === 1 ? fightResult.player1Id : fightResult.player2Id];
-		const fightActionClassId = history ? getMostRecentClassId(
-			classesHistory[fightActionUsed.player === 1 ? fightResult.player1Id : fightResult.player2Id],
-			fightsDict[fightActionUsed.fightId].date
-		) : null;
+		const fightActionClassId = history
+			? getMostRecentClassId(
+				classesHistory[fightActionUsed.player === 1 ? fightResult.player1Id : fightResult.player2Id],
+				fightsDict[fightActionUsed.fightId].date
+			)
+			: null;
 		newFightActionsUsed.push({
 			fightId: fightActionUsed.fightId,
 			player: fightActionUsed.player,
@@ -204,7 +230,9 @@ async function addClassesToFightActions(context: QueryInterface): Promise<void> 
 		await context.createTable("fights_actions_used", logsFightsActionsUsedAttributes002);
 
 		// Bulk create
-		const newFightActionUsedModel = context.sequelize.define("fights_actions_used", logsFightsActionsUsedAttributes002, { tableName: "fights_actions_used", timestamps: false });
+		const newFightActionUsedModel = context.sequelize.define("fights_actions_used", logsFightsActionsUsedAttributes002, {
+			tableName: "fights_actions_used", timestamps: false
+		});
 		newFightActionUsedModel.removeAttribute("id");
 		await newFightActionUsedModel.bulkCreate(newFightActionsUsed);
 		const newFightActionModel = context.sequelize.define("fights_actions", logsFightsActionsAttributes002, { timestamps: false });
@@ -224,7 +252,7 @@ async function addClassesToFightActions(context: QueryInterface): Promise<void> 
 	}
 }
 
-export async function up({context}: { context: QueryInterface }): Promise<void> {
+export async function up({ context }: { context: QueryInterface }): Promise<void> {
 	await context.createTable("players_glory_points", {
 		playerId: {
 			type: DataTypes.INTEGER,
@@ -294,7 +322,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 	});
 }
 
-export async function down({context}: { context: QueryInterface }): Promise<void> {
+export async function down({ context }: { context: QueryInterface }): Promise<void> {
 	await context.removeColumn("fights_actions", "classId");
 	await context.dropTable("players_glory_points");
 	await context.dropTable("players_15_best_season");

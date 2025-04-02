@@ -1,10 +1,12 @@
-import MissionSlot, {MissionSlots} from "../database/game/models/MissionSlot";
-import {MissionsController} from "./MissionsController";
+import MissionSlot, { MissionSlots } from "../database/game/models/MissionSlot";
+import { MissionsController } from "./MissionsController";
 import Player from "../database/game/models/Player";
-import PlayerMissionsInfo, {PlayerMissionsInfos} from "../database/game/models/PlayerMissionsInfo";
-import {draftBotInstance} from "../../index";
-import {CampaignData} from "../../data/Campaign";
-import {CompletedMission, MissionType} from "../../../../Lib/src/types/CompletedMission";
+import PlayerMissionsInfo, { PlayerMissionsInfos } from "../database/game/models/PlayerMissionsInfo";
+import { draftBotInstance } from "../../index";
+import { CampaignData } from "../../data/Campaign";
+import {
+	CompletedMission, MissionType
+} from "../../../../Lib/src/types/CompletedMission";
 
 export class Campaign {
 	private static maxCampaignCache = -1;

@@ -1,4 +1,6 @@
-import {DataTypes, QueryInterface} from "sequelize";
+import {
+	DataTypes, QueryInterface
+} from "sequelize";
 
 export const itemAttributes001 = {
 	id: {
@@ -513,7 +515,7 @@ export const serversAttributes001 = {
 	createdAt: DataTypes.DATE
 };
 
-export async function up({context}: { context: QueryInterface }): Promise<void> {
+export async function up({ context }: { context: QueryInterface }): Promise<void> {
 	await context.createTable("armors", itemAttributes001);
 	await context.createTable("classes", classesAttributes001);
 	await context.createTable("daily_mission", {
@@ -796,7 +798,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 	await context.createTable("weapons", itemAttributes001);
 }
 
-export async function down({context}: { context: QueryInterface }): Promise<void> {
+export async function down({ context }: { context: QueryInterface }): Promise<void> {
 	await context.dropTable("armors");
 	await context.dropTable("classes");
 	await context.dropTable("daily_mission");

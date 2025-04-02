@@ -1,11 +1,15 @@
-import {ClassBehavior} from "../AiBehaviorController";
-import {AiPlayerFighter} from "../fighter/AiPlayerFighter";
-import {FightView} from "../FightView";
-import {FightAction, FightActionDataController} from "../../../data/FightAction";
-import {FightConstants} from "../../../../../Lib/src/constants/FightConstants";
-import {shouldContinueCanonSequence, shouldStartCanonSequence, shouldUseBoomerang} from "./RockThrowerFightBehavior";
-import {shouldUseSabotage} from "./SlingerFightBehavior";
-import {Fighter} from "../fighter/Fighter";
+import { ClassBehavior } from "../AiBehaviorController";
+import { AiPlayerFighter } from "../fighter/AiPlayerFighter";
+import { FightView } from "../FightView";
+import {
+	FightAction, FightActionDataController
+} from "../../../data/FightAction";
+import { FightConstants } from "../../../../../Lib/src/constants/FightConstants";
+import {
+	shouldContinueCanonSequence, shouldStartCanonSequence, shouldUseBoomerang
+} from "./RockThrowerFightBehavior";
+import { shouldUseSabotage } from "./SlingerFightBehavior";
+import { Fighter } from "../fighter/Fighter";
 
 /**
  * Determines if the AI should use intense attack based on speed comparison and remaining health
@@ -39,7 +43,6 @@ function chooseFinishingMove(me: AiPlayerFighter): FightAction {
 }
 
 class GunnerFightBehavior implements ClassBehavior {
-
 	private isGoingForChainedCanonAttack = false;
 
 	private canonAttackUsed = 0;

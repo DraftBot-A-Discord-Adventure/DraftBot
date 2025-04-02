@@ -1,5 +1,9 @@
-import {DataTypes, Sequelize} from "sequelize";
-import {LogsShopBuyouts, logsShopLoggingAttributes} from "./LogsShopBuyouts";
+import {
+	DataTypes, Sequelize
+} from "sequelize";
+import {
+	LogsShopBuyouts, logsShopLoggingAttributes
+} from "./LogsShopBuyouts";
 
 export class LogsGuildShopBuyouts extends LogsShopBuyouts {
 	declare readonly amount: number;

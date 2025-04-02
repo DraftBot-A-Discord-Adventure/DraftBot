@@ -1,21 +1,25 @@
-import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
-import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
+import {
+	makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
 import {
 	CommandPetTransferPacketReq,
 	CommandPetTransferSuccessPacket
 } from "../../../../Lib/src/packets/commands/CommandPetTransferPacket";
-import {ICommand} from "../ICommand";
-import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {MessageActionRowComponentBuilder, SlashCommandBuilder} from "@discordjs/builders";
-import {DiscordCache} from "../../bot/DiscordCache";
-import {DisplayUtils} from "../../utils/DisplayUtils";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
+import { ICommand } from "../ICommand";
+import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
+import {
+	MessageActionRowComponentBuilder, SlashCommandBuilder
+} from "@discordjs/builders";
+import { DiscordCache } from "../../bot/DiscordCache";
+import { DisplayUtils } from "../../utils/DisplayUtils";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import i18n from "../../translations/i18n";
 import {
 	ReactionCollectorCreationPacket, ReactionCollectorReaction,
 	ReactionCollectorRefuseReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import {
 	ReactionCollectorPetTransferData,
 	ReactionCollectorPetTransferDepositReaction,
@@ -30,12 +34,12 @@ import {
 	MessageComponentInteraction,
 	parseEmoji, StringSelectMenuBuilder, StringSelectMenuInteraction, StringSelectMenuOptionBuilder
 } from "discord.js";
-import {Language} from "../../../../Lib/src/Language";
-import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
-import {sendInteractionNotForYou} from "../../utils/ErrorUtils";
-import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
-import {EmoteUtils} from "../../utils/EmoteUtils";
-import {MessagesUtils} from "../../utils/MessagesUtils";
+import { Language } from "../../../../Lib/src/Language";
+import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
+import { sendInteractionNotForYou } from "../../utils/ErrorUtils";
+import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
+import { EmoteUtils } from "../../utils/EmoteUtils";
+import { MessagesUtils } from "../../utils/MessagesUtils";
 
 async function getPacket(interaction: DraftbotInteraction): Promise<CommandPetTransferPacketReq> {
 	await interaction.deferReply();
@@ -63,18 +67,22 @@ export async function handlePetTransferSuccess(context: PacketContext, packet: C
 	await interaction.editReply({
 		embeds: [
 			new DraftBotEmbed()
-				.formatAuthor(i18n.t("commands:petTransfer.confirmTransferTitle", { lng, pseudo: interaction.user.displayName }), interaction.user)
-				.setDescription(i18n.t(i18nText, { lng, oldPet: oldPetDisplay, newPet: newPetDisplay }))
+				.formatAuthor(i18n.t("commands:petTransfer.confirmTransferTitle", {
+					lng, pseudo: interaction.user.displayName
+				}), interaction.user)
+				.setDescription(i18n.t(i18nText, {
+					lng, oldPet: oldPetDisplay, newPet: newPetDisplay
+				}))
 		]
 	});
 }
 
 type ReactionMap = {
 	reaction: {
-		type: string,
-		data: ReactionCollectorReaction
-	},
-	index: number
+		type: string;
+		data: ReactionCollectorReaction;
+	};
+	index: number;
 };
 
 const depositCustomId = "deposit";
@@ -86,10 +94,10 @@ const backCustomId = "back";
 function getMainMenuComponents(
 	data: ReactionCollectorPetTransferData,
 	reactions: {
-		deposit?: ReactionMap,
-		switches: ReactionMap[],
-		withdraws: ReactionMap[],
-		refuse?: ReactionMap
+		deposit?: ReactionMap;
+		switches: ReactionMap[];
+		withdraws: ReactionMap[];
+		refuse?: ReactionMap;
 	},
 	lng: Language
 ): ActionRowBuilder<ButtonBuilder>[] {
@@ -159,7 +167,7 @@ function getShelterPetSelectMenu(
 	return new StringSelectMenuBuilder()
 		.setPlaceholder(placeHolder)
 		.setCustomId("switchSelect")
-		.addOptions(reactions.map((reaction) => {
+		.addOptions(reactions.map(reaction => {
 			const reactionData = reaction.reaction.data as ReactionCollectorPetTransferSwitchReaction;
 			const shelterPet = data.shelterPets.find(pet => pet.petEntityId === reactionData.petEntityId)!;
 			return new StringSelectMenuOptionBuilder()
@@ -187,7 +195,9 @@ function getSwitchComponents(
 			getShelterPetSelectMenu(
 				data,
 				reactions,
-				i18n.t("commands:petTransfer.switchPlaceholder", { lng, pet: DisplayUtils.getOwnedPetInlineDisplay(data.ownPet!, lng) }),
+				i18n.t("commands:petTransfer.switchPlaceholder", {
+					lng, pet: DisplayUtils.getOwnedPetInlineDisplay(data.ownPet!, lng)
+				}),
 				lng
 			)
 		));
@@ -225,62 +235,66 @@ async function handlePetTransferCollect(
 	context: PacketContext,
 	reactions: {
 		depositReaction?: {
-			reaction: { type: string; data: ReactionCollectorReaction };
-			index: number
-		},
+			reaction: {
+				type: string; data: ReactionCollectorReaction;
+			};
+			index: number;
+		};
 		refuseReaction?: {
-			reaction: { type: string; data: ReactionCollectorReaction };
-			index: number
-		},
+			reaction: {
+				type: string; data: ReactionCollectorReaction;
+			};
+			index: number;
+		};
 	},
 	discord: {
-		collectedInteraction: MessageComponentInteraction,
-		mainMenuEmbed: DraftBotEmbed,
-		switchComponents: ActionRowBuilder<MessageActionRowComponentBuilder>[],
-		withdrawComponents: ActionRowBuilder<MessageActionRowComponentBuilder>[]
-		mainMenuComponents: ActionRowBuilder<ButtonBuilder>[]
+		collectedInteraction: MessageComponentInteraction;
+		mainMenuEmbed: DraftBotEmbed;
+		switchComponents: ActionRowBuilder<MessageActionRowComponentBuilder>[];
+		withdrawComponents: ActionRowBuilder<MessageActionRowComponentBuilder>[];
+		mainMenuComponents: ActionRowBuilder<ButtonBuilder>[];
 	}
 ): Promise<boolean> {
 	if (inMainMenu) {
 		const customId = discord.collectedInteraction.customId;
 
 		switch (customId) {
-		case depositCustomId:
-			await discord.collectedInteraction.deferReply();
-			DiscordCollectorUtils.sendReaction(
-				packet,
-				context,
-				context.keycloakId!,
-				discord.collectedInteraction,
-				reactions.depositReaction!.index
-			);
-			break;
-		case switchCustomId:
-			await discord.collectedInteraction.update({
-				embeds: [discord.mainMenuEmbed],
-				components: discord.switchComponents
-			});
-			inMainMenu = false;
-			break;
-		case withdrawCustomId:
-			await discord.collectedInteraction.update({
-				embeds: [discord.mainMenuEmbed],
-				components: discord.withdrawComponents
-			});
-			inMainMenu = false;
-			break;
-		case refuseCustomId:
-			await discord.collectedInteraction.deferReply();
-			DiscordCollectorUtils.sendReaction(
-				packet,
-				context,
-				context.keycloakId!,
-				discord.collectedInteraction,
-				reactions.refuseReaction!.index
-			);
-			break;
-		default:
-			break;
+			case depositCustomId:
+				await discord.collectedInteraction.deferReply();
+				DiscordCollectorUtils.sendReaction(
+					packet,
+					context,
+					context.keycloakId!,
+					discord.collectedInteraction,
+					reactions.depositReaction!.index
+				);
+				break;
+			case switchCustomId:
+				await discord.collectedInteraction.update({
+					embeds: [discord.mainMenuEmbed],
+					components: discord.switchComponents
+				});
+				inMainMenu = false;
+				break;
+			case withdrawCustomId:
+				await discord.collectedInteraction.update({
+					embeds: [discord.mainMenuEmbed],
+					components: discord.withdrawComponents
+				});
+				inMainMenu = false;
+				break;
+			case refuseCustomId:
+				await discord.collectedInteraction.deferReply();
+				DiscordCollectorUtils.sendReaction(
+					packet,
+					context,
+					context.keycloakId!,
+					discord.collectedInteraction,
+					reactions.refuseReaction!.index
+				);
+				break;
+			default:
+				break;
 		}
 	}
 	else if (discord.collectedInteraction.customId === backCustomId) {
@@ -313,10 +327,18 @@ export async function handlePetTransferReactionCollector(context: PacketContext,
 
 	const lng = context.discord!.language;
 	const data = packet.data.data as ReactionCollectorPetTransferData;
-	const depositReaction = packet.reactions.map((reaction, index) => ({ reaction, index })).find(reaction => reaction.reaction.type === ReactionCollectorPetTransferDepositReaction.name);
-	const switchReactions = packet.reactions.map((reaction, index) => ({ reaction, index })).filter(reaction => reaction.reaction.type === ReactionCollectorPetTransferSwitchReaction.name);
-	const withdrawReactions = packet.reactions.map((reaction, index) => ({ reaction, index })).filter(reaction => reaction.reaction.type === ReactionCollectorPetTransferWithdrawReaction.name);
-	const refuseReaction = packet.reactions.map((reaction, index) => ({ reaction, index })).find(reaction => reaction.reaction.type === ReactionCollectorRefuseReaction.name);
+	const depositReaction = packet.reactions.map((reaction, index) => ({
+		reaction, index
+	})).find(reaction => reaction.reaction.type === ReactionCollectorPetTransferDepositReaction.name);
+	const switchReactions = packet.reactions.map((reaction, index) => ({
+		reaction, index
+	})).filter(reaction => reaction.reaction.type === ReactionCollectorPetTransferSwitchReaction.name);
+	const withdrawReactions = packet.reactions.map((reaction, index) => ({
+		reaction, index
+	})).filter(reaction => reaction.reaction.type === ReactionCollectorPetTransferWithdrawReaction.name);
+	const refuseReaction = packet.reactions.map((reaction, index) => ({
+		reaction, index
+	})).find(reaction => reaction.reaction.type === ReactionCollectorRefuseReaction.name);
 
 	const mainMenuEmbed = new DraftBotEmbed()
 		.formatAuthor(i18n.t("commands:petTransfer.chooseActionTitle", { lng }), interaction.user)
@@ -352,8 +374,12 @@ export async function handlePetTransferReactionCollector(context: PacketContext,
 			inMainMenu,
 			packet,
 			context,
-			{ depositReaction, refuseReaction },
-			{ collectedInteraction, mainMenuEmbed, switchComponents, withdrawComponents, mainMenuComponents }
+			{
+				depositReaction, refuseReaction
+			},
+			{
+				collectedInteraction, mainMenuEmbed, switchComponents, withdrawComponents, mainMenuComponents
+			}
 		);
 	});
 

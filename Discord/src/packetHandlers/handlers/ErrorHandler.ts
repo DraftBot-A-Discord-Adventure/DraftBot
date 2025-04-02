@@ -1,14 +1,16 @@
-import {packetHandler} from "../PacketHandler";
-import {PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {DiscordCache} from "../../bot/DiscordCache";
+import { packetHandler } from "../PacketHandler";
+import { PacketContext } from "../../../../Lib/src/packets/DraftBotPacket";
+import { DiscordCache } from "../../bot/DiscordCache";
 import i18n from "../../translations/i18n";
-import {ErrorBannedPacket, ErrorMaintenancePacket, ErrorPacket} from "../../../../Lib/src/packets/commands/ErrorPacket";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
-import {BlockedPacket} from "../../../../Lib/src/packets/commands/BlockedPacket";
-import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
-import {keycloakConfig} from "../../bot/DraftBotShard";
-import {LANGUAGE} from "../../../../Lib/src/Language";
-import {handleClassicError} from "../../utils/ErrorUtils";
+import {
+	ErrorBannedPacket, ErrorMaintenancePacket, ErrorPacket
+} from "../../../../Lib/src/packets/commands/ErrorPacket";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
+import { BlockedPacket } from "../../../../Lib/src/packets/commands/BlockedPacket";
+import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
+import { keycloakConfig } from "../../bot/DraftBotShard";
+import { LANGUAGE } from "../../../../Lib/src/Language";
+import { handleClassicError } from "../../utils/ErrorUtils";
 
 export default class ErrorHandler {
 	@packetHandler(ErrorPacket)
@@ -16,10 +18,10 @@ export default class ErrorHandler {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		const embed = new DraftBotEmbed()
 			.setErrorColor()
-			.setTitle(i18n.t("error:unexpectedError", {lng: interaction?.channel?.language ?? LANGUAGE.ENGLISH}))
+			.setTitle(i18n.t("error:unexpectedError", { lng: interaction?.channel?.language ?? LANGUAGE.ENGLISH }))
 			.setDescription(packet.message);
 
-		await interaction?.channel.send({embeds: [embed]});
+		await interaction?.channel.send({ embeds: [embed] });
 	}
 
 	@packetHandler(BlockedPacket)
@@ -35,7 +37,7 @@ export default class ErrorHandler {
 		packet.reasons.forEach(reason => {
 			errorReasons = errorReasons.concat(`${i18n.t(`error:blockedContext.${reason}`, {
 				lng,
-				interpolation: {escapeValue: false}
+				interpolation: { escapeValue: false }
 			})}, `);
 		});
 		errorReasons = errorReasons.slice(0, -2);
@@ -47,39 +49,39 @@ export default class ErrorHandler {
 				pseudo: originalUser.attributes.gameUsername
 			}))
 			.setDescription(
-				otherPlayer ?
-					i18n.t("error:anotherPlayerBlocked", {
+				otherPlayer
+					? i18n.t("error:anotherPlayerBlocked", {
 						lng,
 						username: blockedUser.attributes.gameUsername,
 						reasons: errorReasons,
-						interpolation: {escapeValue: false}
-					}) :
-					i18n.t("error:playerBlocked", {
+						interpolation: { escapeValue: false }
+					})
+					: i18n.t("error:playerBlocked", {
 						lng,
 						reasons: errorReasons,
-						interpolation: {escapeValue: false}
+						interpolation: { escapeValue: false }
 					})
 			);
 
 		if (buttonInteraction) {
 			if (buttonInteraction?.deferred) {
-				await buttonInteraction?.editReply({embeds: [embed]});
+				await buttonInteraction?.editReply({ embeds: [embed] });
 			}
 			else if (!buttonInteraction?.deferred && !buttonInteraction?.replied) {
-				await buttonInteraction?.reply({embeds: [embed]});
+				await buttonInteraction?.reply({ embeds: [embed] });
 			}
 			else {
-				await interaction?.channel.send({embeds: [embed]});
+				await interaction?.channel.send({ embeds: [embed] });
 			}
 		}
 		else if (interaction?.deferred && !interaction.replyEdited) {
-			await interaction?.editReply({embeds: [embed]});
+			await interaction?.editReply({ embeds: [embed] });
 		}
 		else if (!interaction?.deferred && !interaction?.replied) {
-			await interaction?.reply({embeds: [embed]});
+			await interaction?.reply({ embeds: [embed] });
 		}
 		else {
-			await interaction?.channel.send({embeds: [embed]});
+			await interaction?.channel.send({ embeds: [embed] });
 		}
 	}
 
@@ -91,10 +93,10 @@ export default class ErrorHandler {
 			const lng = context.discord?.language ?? LANGUAGE.ENGLISH;
 			const embed = new DraftBotEmbed()
 				.setErrorColor()
-				.formatAuthor(i18n.t("error:maintenanceTitle", {lng}), interaction?.user)
-				.setDescription(i18n.t("error:maintenance", {lng}));
+				.formatAuthor(i18n.t("error:maintenanceTitle", { lng }), interaction?.user)
+				.setDescription(i18n.t("error:maintenance", { lng }));
 
-			await interaction?.channel.send({embeds: [embed]});
+			await interaction?.channel.send({ embeds: [embed] });
 		}
 	}
 

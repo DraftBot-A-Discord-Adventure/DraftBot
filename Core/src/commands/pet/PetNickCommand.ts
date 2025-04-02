@@ -1,24 +1,26 @@
-import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
-import {PetEntities} from "../../core/database/game/models/PetEntity";
+import {
+	DraftBotPacket, makePacket
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { PetEntities } from "../../core/database/game/models/PetEntity";
 import {
 	CommandPetNickPacketReq,
 	CommandPetNickPacketRes
 } from "../../../../Lib/src/packets/commands/CommandPetNickPacket";
-import {checkNameString} from "../../../../Lib/src/utils/StringUtils";
-import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
+import { checkNameString } from "../../../../Lib/src/utils/StringUtils";
+import { PetConstants } from "../../../../Lib/src/constants/PetConstants";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
 import Player from "../../core/database/game/models/Player";
 
 
 export default class PetNickCommand {
-
 	@commandRequires(CommandPetNickPacketReq, {
 		notBlocked: true,
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD,
 		whereAllowed: CommandUtils.WHERE.EVERYWHERE
 	})
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandPetNickPacketReq): Promise<void> {
-
 		const playerPet = await PetEntities.getById(player.petId);
 
 		if (!playerPet) {

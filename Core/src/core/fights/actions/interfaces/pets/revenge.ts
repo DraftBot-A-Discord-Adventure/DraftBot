@@ -1,8 +1,12 @@
-import {PetAssistanceResult, PetAssistanceState} from "../../../../../../../Lib/src/types/PetAssistanceResult";
-import {PetAssistanceFunc} from "../../../../../data/PetAssistance";
-import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
-import {FightActionType} from "../../../../../../../Lib/src/types/FightActionType";
-import {Fighter} from "../../../fighter/Fighter";
+import {
+	PetAssistanceResult, PetAssistanceState
+} from "../../../../../../../Lib/src/types/PetAssistanceResult";
+import { PetAssistanceFunc } from "../../../../../data/PetAssistance";
+import {
+	attackInfo, FightActionController, statsInfo
+} from "../../FightActionController";
+import { FightActionType } from "../../../../../../../Lib/src/types/FightActionType";
+import { Fighter } from "../../../fighter/Fighter";
 
 function getAttackInfo(): attackInfo {
 	return {
@@ -30,7 +34,6 @@ function getStatsInfo(_sender: Fighter, receiver: Fighter): statsInfo {
 }
 
 const use: PetAssistanceFunc = (fighter, opponent, turn, _fightController): Promise<PetAssistanceResult | null> => {
-
 	// Does nothing first turn.
 	if (turn < 2) {
 		return null;

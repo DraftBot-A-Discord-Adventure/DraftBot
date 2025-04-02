@@ -4,7 +4,7 @@ import {
 	ReactionCollectorData,
 	ReactionCollectorReaction
 } from "./ReactionCollectorPacket";
-import {BaseMission} from "../../types/CompletedMission";
+import { BaseMission } from "../../types/CompletedMission";
 
 export class ReactionCollectorSkipMissionShopItemData extends ReactionCollectorData {
 }
@@ -19,7 +19,6 @@ export class ReactionCollectorSkipMissionShopItemCloseReaction extends ReactionC
 }
 
 export class ReactionCollectorSkipMissionShopItem extends ReactionCollector {
-
 	private readonly missionList: BaseMission[];
 
 	constructor(missionList: BaseMission[]) {
@@ -29,8 +28,8 @@ export class ReactionCollectorSkipMissionShopItem extends ReactionCollector {
 
 	creationPacket(id: string, endTime: number): ReactionCollectorCreationPacket {
 		const reactions: {
-			type: string,
-			data: ReactionCollectorReaction
+			type: string;
+			data: ReactionCollectorReaction;
 		}[] = this.missionList.map((mission, missionIndex) => this.buildReaction(ReactionCollectorSkipMissionShopItemReaction, {
 			mission,
 			missionIndex

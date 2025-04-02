@@ -1,8 +1,8 @@
-import {DataControllerNumber} from "./DataController";
-import {Data} from "./Data";
-import {LeagueInfoConstants} from "../../../Lib/src/constants/LeagueInfoConstants";
-import {GenericItem} from "./GenericItem";
-import {generateRandomItem} from "../core/utils/ItemUtils";
+import { DataControllerNumber } from "./DataController";
+import { Data } from "./Data";
+import { LeagueInfoConstants } from "../../../Lib/src/constants/LeagueInfoConstants";
+import { GenericItem } from "./GenericItem";
+import { generateRandomItem } from "../core/utils/ItemUtils";
 
 export class League extends Data<number> {
 	public readonly color: string;
@@ -71,7 +71,7 @@ export class LeagueDataController extends DataControllerNumber<League> {
 	 */
 	public getByEmoji(emoji: string): League {
 		return this.getValuesArray()
-			.find((league) => league.emoji === emoji);
+			.find(league => league.emoji === emoji);
 	}
 
 	/**
@@ -80,7 +80,7 @@ export class LeagueDataController extends DataControllerNumber<League> {
 	 */
 	public getByGlory(gloryPoints: number): League {
 		return this.getValuesArray()
-			.find((league) => league.minGloryPoints <= gloryPoints
+			.find(league => league.minGloryPoints <= gloryPoints
 				&& league.maxGloryPoints >= gloryPoints);
 	}
 }

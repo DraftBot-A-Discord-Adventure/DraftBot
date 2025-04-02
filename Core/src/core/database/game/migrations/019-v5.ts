@@ -1,17 +1,21 @@
-import {DataTypes, Op, QueryInterface} from "sequelize";
-import {classesAttributes001, itemAttributes001, missionsAttributes001, petAttributes001} from "./001-initial-database";
-import {leaguesAttributes008} from "./008-glory-and-league";
-import {monsterLocationsAttributes011} from "./011-pve";
-import {existsSync} from "node:fs";
-import {parse} from "toml";
-import {readFileSync} from "fs";
-import {KeycloakUtils} from "../../../../../../Lib/src/keycloak/KeycloakUtils";
-import {KeycloakConfig} from "../../../../../../Lib/src/keycloak/KeycloakConfig";
-import {logsV5NewIds} from "../../logs/migrations/006-v5";
-import {LANGUAGE} from "../../../../../../Lib/src/Language";
-import {Effect} from "../../../../../../Lib/src/types/Effect";
+import {
+	DataTypes, Op, QueryInterface
+} from "sequelize";
+import {
+	classesAttributes001, itemAttributes001, missionsAttributes001, petAttributes001
+} from "./001-initial-database";
+import { leaguesAttributes008 } from "./008-glory-and-league";
+import { monsterLocationsAttributes011 } from "./011-pve";
+import { existsSync } from "node:fs";
+import { parse } from "toml";
+import { readFileSync } from "fs";
+import { KeycloakUtils } from "../../../../../../Lib/src/keycloak/KeycloakUtils";
+import { KeycloakConfig } from "../../../../../../Lib/src/keycloak/KeycloakConfig";
+import { logsV5NewIds } from "../../logs/migrations/006-v5";
+import { LANGUAGE } from "../../../../../../Lib/src/Language";
+import { Effect } from "../../../../../../Lib/src/types/Effect";
 
-export async function up({context}: { context: QueryInterface }): Promise<void> {
+export async function up({ context }: { context: QueryInterface }): Promise<void> {
 	// Delete players with a score < 100 and that are not banned
 	await context.bulkDelete("players", {
 		score: {
@@ -38,7 +42,7 @@ clientSecret = "secret"
 		}
 
 		const config: { keycloak: KeycloakConfig } = parse(readFileSync(configPath, "utf-8")) as {
-			keycloak: KeycloakConfig
+			keycloak: KeycloakConfig;
 		};
 
 		for (let i = 0; i < players.length; ++i) {
@@ -74,7 +78,7 @@ clientSecret = "secret"
 	await context.dropTable("weapons");
 }
 
-export async function down({context}: { context: QueryInterface }): Promise<void> {
+export async function down({ context }: { context: QueryInterface }): Promise<void> {
 	await context.createTable("armors", itemAttributes001);
 	await context.createTable("classes", classesAttributes001);
 	await context.createTable("leagues", leaguesAttributes008);

@@ -5,7 +5,7 @@ import {
 	ReactionCollectorData,
 	ReactionCollectorRefuseReaction
 } from "./ReactionCollectorPacket";
-import {SexTypeShort} from "../../constants/StringConstants";
+import { SexTypeShort } from "../../constants/StringConstants";
 
 export class ReactionCollectorPetFreeData extends ReactionCollectorData {
 	petId!: number;

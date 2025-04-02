@@ -1,5 +1,7 @@
-import {ExecuteTestCommandLike, ITestCommand} from "../../../../core/CommandsTest";
-import {NumberChangeReason} from "../../../../../../Lib/src/constants/LogsConstants";
+import {
+	ExecuteTestCommandLike, ITestCommand
+} from "../../../../core/CommandsTest";
+import { NumberChangeReason } from "../../../../../../Lib/src/constants/LogsConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "playerkill",

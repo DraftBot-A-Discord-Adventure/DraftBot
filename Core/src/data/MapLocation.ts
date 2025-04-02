@@ -1,9 +1,9 @@
-import {DataControllerNumber} from "./DataController";
-import {QueryTypes} from "sequelize";
-import {MapLinkDataController} from "./MapLink";
+import { DataControllerNumber } from "./DataController";
+import { QueryTypes } from "sequelize";
+import { MapLinkDataController } from "./MapLink";
 import Player from "../core/database/game/models/Player";
-import {Data} from "./Data";
-import {RandomUtils} from "../../../Lib/src/utils/RandomUtils";
+import { Data } from "./Data";
+import { RandomUtils } from "../../../Lib/src/utils/RandomUtils";
 
 export class MapLocation extends Data<number> {
 	declare readonly type: string;
@@ -28,7 +28,7 @@ export class MapLocation extends Data<number> {
 		               WHERE mapLinkId = :id1
 			              OR mapLinkId = :id2;`;
 		return (<{
-			count: number
+			count: number;
 		}[]>(await Player.sequelize.query(query, {
 			replacements: {
 				id1: mapLink1.id,
@@ -58,7 +58,7 @@ export class MapLocationDataController extends DataControllerNumber<MapLocation>
 	public getRandomGotoableMap(): MapLocation {
 		if (!this.missionsMapsCache) {
 			this.missionsMapsCache = this.getValuesArray()
-				.filter((map) => map.canBeGoToPlaceMissionDestination);
+				.filter(map => map.canBeGoToPlaceMissionDestination);
 		}
 
 		return RandomUtils.draftbotRandom.pick(this.missionsMapsCache);
@@ -72,13 +72,13 @@ export class MapLocationDataController extends DataControllerNumber<MapLocation>
 	public getMapsConnectedIds(mapId: number, blacklistId: number): number[] {
 		return this.getValuesArray()
 			.filter(
-				(map) => map.id !== blacklistId &&
-					MapLinkDataController.instance
+				map => map.id !== blacklistId
+					&& MapLinkDataController.instance
 						.getLinksByMapStart(mapId)
-						.map((map2) => map2.endMap)
+						.map(map2 => map2.endMap)
 						.includes(map.id)
 			)
-			.map((map) => map.id);
+			.map(map => map.id);
 	}
 
 	/**
@@ -89,13 +89,13 @@ export class MapLocationDataController extends DataControllerNumber<MapLocation>
 	public getMapTypesConnected(mapId: number, blacklistId: number): string[] {
 		return this.getValuesArray()
 			.filter(
-				(map) => map.id !== blacklistId &&
-					MapLinkDataController.instance
+				map => map.id !== blacklistId
+					&& MapLinkDataController.instance
 						.getLinksByMapStart(mapId)
-						.map((map2) => map2.endMap)
+						.map(map2 => map2.endMap)
 						.includes(map.id)
 			)
-			.map((map) => map.type);
+			.map(map => map.type);
 	}
 
 	/**
@@ -104,7 +104,7 @@ export class MapLocationDataController extends DataControllerNumber<MapLocation>
 	 */
 	public getWithAttributes(attributes: string[]): MapLocation[] {
 		return this.getValuesArray()
-			.filter((map) => attributes.includes(map.attribute));
+			.filter(map => attributes.includes(map.attribute));
 	}
 
 	/**
@@ -114,7 +114,7 @@ export class MapLocationDataController extends DataControllerNumber<MapLocation>
 	 * @param playerId
 	 */
 	public async getPlayersOnMap(mapId: number, previousMapId: number, playerId: number): Promise<{
-		keycloakId: string
+		keycloakId: string;
 	}[]> {
 		const mapLink1 = MapLinkDataController.instance.getLinkByLocations(previousMapId, mapId);
 		const mapLink2 = MapLinkDataController.instance.getLinkByLocations(mapId, previousMapId);

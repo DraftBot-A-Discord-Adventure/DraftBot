@@ -1,7 +1,7 @@
-import {QueryInterface} from "sequelize";
-import {MigrationNameChanger} from "../../../../../../Lib/src/database/MigrationNameChanger";
+import { QueryInterface } from "sequelize";
+import { MigrationNameChanger } from "../../../../../../Lib/src/database/MigrationNameChanger";
 
-export async function up({context}: { context: QueryInterface }): Promise<void> {
+export async function up({ context }: { context: QueryInterface }): Promise<void> {
 	if (await MigrationNameChanger.changeMigrationName(context, "010-classPriceRemoval.js")) {
 		return;
 	}
@@ -13,7 +13,7 @@ export async function up({context}: { context: QueryInterface }): Promise<void> 
 	`);
 }
 
-export async function down({context}: { context: QueryInterface }): Promise<void> {
+export async function down({ context }: { context: QueryInterface }): Promise<void> {
 	// Down classes
 	await context.sequelize.query(`
 		ALTER TABLE classes

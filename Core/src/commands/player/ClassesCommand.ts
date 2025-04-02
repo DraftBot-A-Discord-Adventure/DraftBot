@@ -1,5 +1,9 @@
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
+import {
+	DraftBotPacket, makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
 import Player from "../../core/database/game/models/Player";
 import {
 	CommandClassesCancelErrorPacket,
@@ -7,22 +11,22 @@ import {
 	CommandClassesCooldownErrorPacket,
 	CommandClassesPacketReq
 } from "../../../../Lib/src/packets/commands/CommandClassesPacket";
-import {Constants} from "../../../../Lib/src/constants/Constants";
-import {ClassDataController} from "../../data/Class";
-import {LogsReadRequests} from "../../core/database/logs/LogsReadRequests";
-import {ReactionCollectorInstance} from "../../core/utils/ReactionsCollector";
-import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
+import { Constants } from "../../../../Lib/src/constants/Constants";
+import { ClassDataController } from "../../data/Class";
+import { LogsReadRequests } from "../../core/database/logs/LogsReadRequests";
+import { ReactionCollectorInstance } from "../../core/utils/ReactionsCollector";
+import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
 import {
 	ReactionCollectorChangeClass,
 	ReactionCollectorChangeClassDetails,
 	ReactionCollectorChangeClassReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorChangeClass";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
-import {ReactionCollectorRefuseReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import {MissionsController} from "../../core/missions/MissionsController";
-import {draftBotInstance} from "../../index";
-import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
+import { BlockingUtils } from "../../core/utils/BlockingUtils";
+import { ReactionCollectorRefuseReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
+import { MissionsController } from "../../core/missions/MissionsController";
+import { draftBotInstance } from "../../index";
+import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
 
 function getEndCallback(player: Player) {
 	return async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
@@ -50,10 +54,10 @@ function getEndCallback(player: Player) {
 		player.setEnergyLost(Math.ceil(
 			player.fightPointsLost / oldClass.getMaxCumulativeEnergyValue(level) * newClass.getMaxCumulativeEnergyValue(level)
 		), NumberChangeReason.CLASS);
-		await MissionsController.update(player, response, {missionId: "chooseClass"});
+		await MissionsController.update(player, response, { missionId: "chooseClass" });
 		await MissionsController.update(player, response, {
 			missionId: "chooseClassTier",
-			params: {tier: newClass.classGroup}
+			params: { tier: newClass.classGroup }
 		});
 		await player.save();
 		draftBotInstance.logsDatabase.logPlayerClassChange(player.keycloakId, newClass.id).then();

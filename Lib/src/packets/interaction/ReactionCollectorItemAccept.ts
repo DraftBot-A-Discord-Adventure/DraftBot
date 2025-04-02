@@ -5,7 +5,7 @@ import {
 	ReactionCollectorData,
 	ReactionCollectorRefuseReaction
 } from "./ReactionCollectorPacket";
-import {ItemWithDetails} from "../../types/ItemWithDetails";
+import { ItemWithDetails } from "../../types/ItemWithDetails";
 
 export class ReactionCollectorItemAcceptData extends ReactionCollectorData {
 	itemWithDetails!: ItemWithDetails;

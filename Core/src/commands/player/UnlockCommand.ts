@@ -1,5 +1,9 @@
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {Player, Players} from "../../core/database/game/models/Player";
+import {
+	DraftBotPacket, makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import {
+	Player, Players
+} from "../../core/database/game/models/Player";
 import {
 	CommandUnlockAcceptPacketRes,
 	CommandUnlockHimself,
@@ -9,18 +13,22 @@ import {
 	CommandUnlockPacketReq,
 	CommandUnlockRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandUnlockPacket";
-import {EndCallback, ReactionCollectorInstance} from "../../core/utils/ReactionsCollector";
-import {ReactionCollectorAcceptReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
-import {ReactionCollectorUnlock} from "../../../../Lib/src/packets/interaction/ReactionCollectorUnlock";
-import {draftBotInstance} from "../../index";
-import {UnlockConstants} from "../../../../Lib/src/constants/UnlockConstants";
-import {TravelTime} from "../../core/maps/TravelTime";
-import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import {Effect} from "../../../../Lib/src/types/Effect";
-import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
+import {
+	EndCallback, ReactionCollectorInstance
+} from "../../core/utils/ReactionsCollector";
+import { ReactionCollectorAcceptReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
+import { BlockingUtils } from "../../core/utils/BlockingUtils";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
+import { ReactionCollectorUnlock } from "../../../../Lib/src/packets/interaction/ReactionCollectorUnlock";
+import { draftBotInstance } from "../../index";
+import { UnlockConstants } from "../../../../Lib/src/constants/UnlockConstants";
+import { TravelTime } from "../../core/maps/TravelTime";
+import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
+import { Effect } from "../../../../Lib/src/types/Effect";
+import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
 
 /**
  * Accept the unlock of a player
@@ -30,6 +38,7 @@ import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
  */
 async function acceptUnlock(player: Player, freedPlayer: Player, response: DraftBotPacket[]): Promise<void> {
 	await player.reload();
+
 	// Do all necessary checks again just in case something changed during the menu
 	if (unlockCannotBeDone(player, freedPlayer, response)) {
 		return;

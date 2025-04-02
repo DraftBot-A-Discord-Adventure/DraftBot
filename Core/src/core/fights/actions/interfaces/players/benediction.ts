@@ -1,14 +1,16 @@
-import {Fighter} from "../../../fighter/Fighter";
-import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
-import {FightActionFunc} from "../../../../../data/FightAction";
+import { Fighter } from "../../../fighter/Fighter";
+import {
+	attackInfo, FightActionController, statsInfo
+} from "../../FightActionController";
+import { FightActionFunc } from "../../../../../data/FightAction";
 import {
 	defaultMaxUsesFightActionResult,
 	FightActionResult,
 	FightStatBuffed
 } from "../../../../../../../Lib/src/types/FightActionResult";
-import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
-import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTemplate";
-import {getUsedGodMoves} from "../../../FightController";
+import { FightStatModifierOperation } from "../../../../../../../Lib/src/types/FightStatModifierOperation";
+import { simpleDamageFightAction } from "../../templates/SimpleDamageFightActionTemplate";
+import { getUsedGodMoves } from "../../../FightController";
 
 function getAttackInfo(): attackInfo {
 	return {
@@ -36,8 +38,10 @@ function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 }
 
 const use: FightActionFunc = (sender, receiver, fightAction, turn): FightActionResult => {
-	// Check the number of ultimate attacks the sender already used
-	// 1 god move per fight
+	/*
+	 * Check the number of ultimate attacks the sender already used
+	 * 1 god move per fight
+	 */
 	if (getUsedGodMoves(sender, receiver) >= 1) {
 		return defaultMaxUsesFightActionResult();
 	}
@@ -57,9 +61,13 @@ const use: FightActionFunc = (sender, receiver, fightAction, turn): FightActionR
 		}
 	);
 
-	const buff = 1 + (turn < 15 ? Math.round(1.67 * turn) : 25) / 100 ;
+	const buff = 1 + (turn < 15 ? Math.round(1.67 * turn) : 25) / 100;
 
-	for (const statBuffed of [FightStatBuffed.ATTACK, FightStatBuffed.DEFENSE, FightStatBuffed.SPEED]) {
+	for (const statBuffed of [
+		FightStatBuffed.ATTACK,
+		FightStatBuffed.DEFENSE,
+		FightStatBuffed.SPEED
+	]) {
 		FightActionController.applyBuff(result, {
 			selfTarget: true,
 			stat: statBuffed,

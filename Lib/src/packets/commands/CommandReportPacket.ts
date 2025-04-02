@@ -1,4 +1,6 @@
-import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
+import {
+	DraftBotPacket, PacketDirection, sendablePacket
+} from "../DraftBotPacket";
 
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandReportPacketReq extends DraftBotPacket {
@@ -7,13 +9,13 @@ export class CommandReportPacketReq extends DraftBotPacket {
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandReportTravelSummaryRes extends DraftBotPacket {
 	startMap!: {
-		id: number,
-		type: string
+		id: number;
+		type: string;
 	};
 
 	endMap!: {
-		id: number,
-		type: string
+		id: number;
+		type: string;
 	};
 
 	startTime!: number;
@@ -31,14 +33,14 @@ export class CommandReportTravelSummaryRes extends DraftBotPacket {
 	effectEndTime?: number;
 
 	points!: {
-		show: boolean,
-		cumulated: number
+		show: boolean;
+		cumulated: number;
 	};
 
 	energy!: {
-		show: boolean,
-		current: number,
-		max: number
+		show: boolean;
+		current: number;
+		max: number;
 	};
 
 	lastSmallEventId?: string;
@@ -87,8 +89,8 @@ export class CommandReportBigEventResultRes extends DraftBotPacket {
 	experience!: number;
 
 	effect?: {
-		name: string,
-		time: number
+		name: string;
+		time: number;
 	};
 
 	health!: number;

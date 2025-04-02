@@ -1,6 +1,8 @@
-import {ExecuteTestCommandLike, ITestCommand} from "../../../../core/CommandsTest";
-import {LogsDatabase} from "../../../../core/database/logs/LogsDatabase";
-import {PetEntities} from "../../../../core/database/game/models/PetEntity";
+import {
+	ExecuteTestCommandLike, ITestCommand
+} from "../../../../core/CommandsTest";
+import { LogsDatabase } from "../../../../core/database/logs/LogsDatabase";
+import { PetEntities } from "../../../../core/database/game/models/PetEntity";
 
 export const commandInfo: ITestCommand = {
 	name: "petfree",
@@ -11,7 +13,7 @@ export const commandInfo: ITestCommand = {
 /**
  * Same as petfree command, but doesn't care about cooldown
  */
-const petFreeTestCommand: ExecuteTestCommandLike = async (player) => {
+const petFreeTestCommand: ExecuteTestCommandLike = async player => {
 	if (!player.petId) {
 		throw new Error("Erreur petfree : vous n'avez pas de pet !");
 	}

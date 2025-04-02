@@ -1,5 +1,5 @@
-import {packetHandler} from "../PacketHandler";
-import {PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
+import { packetHandler } from "../PacketHandler";
+import { PacketContext } from "../../../../Lib/src/packets/DraftBotPacket";
 import {
 	CommandFightNotEnoughEnergyPacketRes,
 	CommandFightOpponentsNotFoundPacket,
@@ -13,14 +13,14 @@ import {
 	handleCommandFightUpdateStatusRes,
 	handleEndOfFight, handleFightReward
 } from "../../commands/player/FightCommand";
-import {handleClassicError} from "../../utils/ErrorUtils";
-import {CommandFightIntroduceFightersPacket} from "../../../../Lib/src/packets/fights/FightIntroductionPacket";
-import {CommandFightStatusPacket} from "../../../../Lib/src/packets/fights/FightStatusPacket";
-import {CommandFightHistoryItemPacket} from "../../../../Lib/src/packets/fights/FightHistoryItemPacket";
-import {AIFightActionChoosePacket} from "../../../../Lib/src/packets/fights/AIFightActionChoosePacket";
-import {CommandFightEndOfFightPacket} from "../../../../Lib/src/packets/fights/EndOfFightPacket";
-import {BuggedFightPacket} from "../../../../Lib/src/packets/fights/BuggedFightPacket";
-import {FightRewardPacket} from "../../../../Lib/src/packets/fights/FightRewardPacket";
+import { handleClassicError } from "../../utils/ErrorUtils";
+import { CommandFightIntroduceFightersPacket } from "../../../../Lib/src/packets/fights/FightIntroductionPacket";
+import { CommandFightStatusPacket } from "../../../../Lib/src/packets/fights/FightStatusPacket";
+import { CommandFightHistoryItemPacket } from "../../../../Lib/src/packets/fights/FightHistoryItemPacket";
+import { AIFightActionChoosePacket } from "../../../../Lib/src/packets/fights/AIFightActionChoosePacket";
+import { CommandFightEndOfFightPacket } from "../../../../Lib/src/packets/fights/EndOfFightPacket";
+import { BuggedFightPacket } from "../../../../Lib/src/packets/fights/BuggedFightPacket";
+import { FightRewardPacket } from "../../../../Lib/src/packets/fights/FightRewardPacket";
 
 export default class FightHandler {
 	@packetHandler(CommandFightRefusePacketRes)

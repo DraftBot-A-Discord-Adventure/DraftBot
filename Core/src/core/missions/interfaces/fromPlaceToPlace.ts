@@ -1,6 +1,8 @@
-import {IMission} from "../IMission";
-import {hoursToMilliseconds} from "../../../../../Lib/src/utils/TimeUtils";
-import {FromPlaceToPlaceParams, MissionUtils} from "../../../../../Lib/src/utils/MissionUtils";
+import { IMission } from "../IMission";
+import { hoursToMilliseconds } from "../../../../../Lib/src/utils/TimeUtils";
+import {
+	FromPlaceToPlaceParams, MissionUtils
+} from "../../../../../Lib/src/utils/MissionUtils";
 
 const saveBlobFromData = function(startTimestamp: number, startMap: number): Buffer {
 	const saveBlob = Buffer.alloc(10);

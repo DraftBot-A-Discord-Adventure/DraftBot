@@ -1,14 +1,16 @@
-import {MissionsController} from "../../../../core/missions/MissionsController";
-import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
-import {MissionSlots} from "../../../../core/database/game/models/MissionSlot";
-import {PlayerMissionsInfos} from "../../../../core/database/game/models/PlayerMissionsInfo";
-import {CampaignData} from "../../../../data/Campaign";
+import { MissionsController } from "../../../../core/missions/MissionsController";
+import {
+	ExecuteTestCommandLike, ITestCommand, TypeKey
+} from "../../../../core/CommandsTest";
+import { MissionSlots } from "../../../../core/database/game/models/MissionSlot";
+import { PlayerMissionsInfos } from "../../../../core/database/game/models/PlayerMissionsInfo";
+import { CampaignData } from "../../../../data/Campaign";
 
 export const commandInfo: ITestCommand = {
 	name: "setCampaign",
 	commandFormat: "<progression>",
 	typeWaited: {
-		"progression": TypeKey.INTEGER
+		progression: TypeKey.INTEGER
 	},
 	description: "Vous mets à une certaine étape de la campagne"
 };

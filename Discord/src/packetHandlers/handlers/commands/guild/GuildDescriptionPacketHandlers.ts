@@ -1,12 +1,12 @@
-import {packetHandler} from "../../../PacketHandler";
+import { packetHandler } from "../../../PacketHandler";
 import {
 	CommandGuildDescriptionAcceptPacketRes,
 	CommandGuildDescriptionNoGuildPacket,
 	CommandGuildDescriptionNotAnElderPacket, CommandGuildDescriptionRefusePacketRes
 } from "../../../../../../Lib/src/packets/commands/CommandGuildDescriptionPacket";
-import {PacketContext} from "../../../../../../Lib/src/packets/DraftBotPacket";
-import {CommandGuildElderRemoveNoElderPacket} from "../../../../../../Lib/src/packets/commands/CommandGuildElderRemovePacket";
-import {handleClassicError} from "../../../../utils/ErrorUtils";
+import { PacketContext } from "../../../../../../Lib/src/packets/DraftBotPacket";
+import { CommandGuildElderRemoveNoElderPacket } from "../../../../../../Lib/src/packets/commands/CommandGuildElderRemovePacket";
+import { handleClassicError } from "../../../../utils/ErrorUtils";
 import {
 	handleCommandGuildDescriptionAcceptPacketRes,
 	handleCommandGuildDescriptionRefusePacketRes

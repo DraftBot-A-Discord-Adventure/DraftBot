@@ -1,6 +1,8 @@
 import Guild from "../../../../core/database/game/models/Guild";
-import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
-import {GuildConstants} from "../../../../../../Lib/src/constants/GuildConstants";
+import {
+	ExecuteTestCommandLike, ITestCommand, TypeKey
+} from "../../../../core/CommandsTest";
+import { GuildConstants } from "../../../../../../Lib/src/constants/GuildConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "guildlevel",
@@ -16,7 +18,7 @@ export const commandInfo: ITestCommand = {
  * Set your guild's level to the given integer
  */
 const guildLevelTestCommand: ExecuteTestCommandLike = async (player, args) => {
-	const guild = await Guild.findOne({where: {id: player.guildId}});
+	const guild = await Guild.findOne({ where: { id: player.guildId } });
 	if (!guild) {
 		throw new Error("Erreur glvl : vous n'êtes pas dans une guilde !");
 	}

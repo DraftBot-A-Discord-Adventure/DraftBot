@@ -1,6 +1,8 @@
-import {NumberChangeReason} from "../../../../../../Lib/src/constants/LogsConstants";
-import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
-import {TravelTime} from "../../../../core/maps/TravelTime";
+import { NumberChangeReason } from "../../../../../../Lib/src/constants/LogsConstants";
+import {
+	ExecuteTestCommandLike, ITestCommand, TypeKey
+} from "../../../../core/CommandsTest";
+import { TravelTime } from "../../../../core/maps/TravelTime";
 
 export const commandInfo: ITestCommand = {
 	name: "advancetravel",

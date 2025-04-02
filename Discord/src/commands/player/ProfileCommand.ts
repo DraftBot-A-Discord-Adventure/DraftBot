@@ -1,24 +1,32 @@
-import {ICommand} from "../ICommand";
-import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
-import i18n, {TranslationOption} from "../../translations/i18n";
-import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {CommandProfilePacketReq, CommandProfilePacketRes} from "../../../../Lib/src/packets/commands/CommandProfilePacket";
-import {SlashCommandBuilder} from "@discordjs/builders";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
-import {ColorResolvable, EmbedField, Message, MessageReaction} from "discord.js";
-import {Constants} from "../../../../Lib/src/constants/Constants";
-import {DiscordCache} from "../../bot/DiscordCache";
-import {ProfileConstants} from "../../../../Lib/src/constants/ProfileConstants";
-import {Language} from "../../../../Lib/src/Language";
-import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
-import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
-import {keycloakConfig} from "../../bot/DraftBotShard";
-import {PacketUtils} from "../../utils/PacketUtils";
-import {EmoteUtils} from "../../utils/EmoteUtils";
-import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
-import {millisecondsToMinutes, minutesDisplay} from "../../../../Lib/src/utils/TimeUtils";
-import {DisplayUtils} from "../../utils/DisplayUtils";
+import { ICommand } from "../ICommand";
+import {
+	makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
+import i18n, { TranslationOption } from "../../translations/i18n";
+import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
+import {
+	CommandProfilePacketReq, CommandProfilePacketRes
+} from "../../../../Lib/src/packets/commands/CommandProfilePacket";
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
+import {
+	ColorResolvable, EmbedField, Message, MessageReaction
+} from "discord.js";
+import { Constants } from "../../../../Lib/src/constants/Constants";
+import { DiscordCache } from "../../bot/DiscordCache";
+import { ProfileConstants } from "../../../../Lib/src/constants/ProfileConstants";
+import { Language } from "../../../../Lib/src/Language";
+import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
+import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
+import { keycloakConfig } from "../../bot/DraftBotShard";
+import { PacketUtils } from "../../utils/PacketUtils";
+import { EmoteUtils } from "../../utils/EmoteUtils";
+import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
+import {
+	millisecondsToMinutes, minutesDisplay
+} from "../../../../Lib/src/utils/TimeUtils";
+import { DisplayUtils } from "../../utils/DisplayUtils";
 
 /**
  * Display the profile of a player
@@ -28,7 +36,7 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 	if (!askedPlayer) {
 		return null;
 	}
-	return makePacket(CommandProfilePacketReq, {askedPlayer});
+	return makePacket(CommandProfilePacketReq, { askedPlayer });
 }
 
 /**
@@ -40,18 +48,20 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 async function sendMessageAllBadgesTooMuchBadges(gameUsername: string, badges: string[], interaction: DraftbotInteraction): Promise<void> {
 	let content = "";
 	for (const badgeSentence of badges) {
-		content += `${badgeSentence} \`${i18n.t(`commands:profile.badges.${badgeSentence}`, {lng: interaction.userLanguage})}\`\n`;
+		content += `${badgeSentence} \`${i18n.t(`commands:profile.badges.${badgeSentence}`, { lng: interaction.userLanguage })}\`\n`;
 	}
 	await interaction.followUp({
-		embeds: [new DraftBotEmbed()
-			.setTitle(i18n.t("commands:profile.badgeDisplay.title", {
-				lng: interaction.userLanguage,
-				pseudo: gameUsername
-			}))
-			.setDescription(content + i18n.t("commands:profile.badgeDisplay.numberBadge", {
-				lng: interaction.userLanguage,
-				badge: badges.length
-			}))]
+		embeds: [
+			new DraftBotEmbed()
+				.setTitle(i18n.t("commands:profile.badgeDisplay.title", {
+					lng: interaction.userLanguage,
+					pseudo: gameUsername
+				}))
+				.setDescription(content + i18n.t("commands:profile.badgeDisplay.numberBadge", {
+					lng: interaction.userLanguage,
+					badge: badges.length
+				}))
+		]
 	});
 }
 
@@ -78,7 +88,7 @@ async function displayBadges(badges: string[], msg: Message): Promise<void> {
  * @param replacements
  */
 function addField(fields: EmbedField[], fieldKey: string, shouldBeFielded: boolean, replacements: TranslationOption & {
-	returnObjects?: false
+	returnObjects?: false;
 }): void {
 	if (shouldBeFielded) {
 		fields.push({
@@ -144,7 +154,7 @@ function generateFields(packet: CommandProfilePacketRes, lng: Language): EmbedFi
 	addField(fields, "fightRanking", Boolean(packet.playerData.fightRanking), {
 		lng,
 		leagueEmoji: packet.playerData.fightRanking ? DraftBotIcons.leagues[packet.playerData.fightRanking.league] : "",
-		league: i18n.t(`models:leagues.${packet.playerData.fightRanking ? packet.playerData.fightRanking.league : 0}`, {lng}),
+		league: i18n.t(`models:leagues.${packet.playerData.fightRanking ? packet.playerData.fightRanking.league : 0}`, { lng }),
 		gloryPoints: packet.playerData.fightRanking ? packet.playerData.fightRanking.glory : 0
 	});
 
@@ -157,7 +167,7 @@ function generateFields(packet: CommandProfilePacketRes, lng: Language): EmbedFi
 		lng,
 		mapTypeId: packet.playerData.mapTypeId,
 		mapName: packet.playerData.destinationId,
-		interpolation: {escapeValue: false}
+		interpolation: { escapeValue: false }
 	});
 
 	addField(fields, "pet", Boolean(packet.playerData.pet), {
@@ -203,13 +213,13 @@ export async function handleCommandProfilePacketRes(packet: CommandProfilePacket
 		time: Constants.MESSAGES.COLLECTOR_TIME,
 		max: ProfileConstants.BADGE_MAXIMUM_REACTION
 	});
-	collector.on("collect", async (reaction) => {
+	collector.on("collect", async reaction => {
 		if (reaction.emoji.name === Constants.PROFILE.DISPLAY_ALL_BADGE_EMOTE) {
 			collector.stop(); // Only one is allowed to avoid spam
 			await sendMessageAllBadgesTooMuchBadges(keycloakUser.attributes.gameUsername[0], packet.playerData!.badges!, interaction);
 		}
 		else {
-			interaction.channel.send({content: i18n.t(`commands:profile.badges.${reaction.emoji.name}`, {lng: interaction.userLanguage})})
+			interaction.channel.send({ content: i18n.t(`commands:profile.badges.${reaction.emoji.name}`, { lng: interaction.userLanguage }) })
 				.then((msg: Message | null) => {
 					setTimeout(() => msg?.delete(), ProfileConstants.BADGE_DESCRIPTION_TIMEOUT);
 				});

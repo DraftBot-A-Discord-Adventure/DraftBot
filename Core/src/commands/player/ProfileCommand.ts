@@ -1,21 +1,27 @@
-import {PetEntities} from "../../core/database/game/models/PetEntity";
-import PlayerMissionsInfo, {PlayerMissionsInfos} from "../../core/database/game/models/PlayerMissionsInfo";
-import {InventorySlots} from "../../core/database/game/models/InventorySlot";
-import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
-import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
+import { PetEntities } from "../../core/database/game/models/PetEntity";
+import PlayerMissionsInfo, { PlayerMissionsInfos } from "../../core/database/game/models/PlayerMissionsInfo";
+import { InventorySlots } from "../../core/database/game/models/InventorySlot";
+import { FightConstants } from "../../../../Lib/src/constants/FightConstants";
+import {
+	DraftBotPacket, makePacket
+} from "../../../../Lib/src/packets/DraftBotPacket";
 import {
 	CommandProfilePacketReq,
 	CommandProfilePacketRes,
 	CommandProfilePlayerNotFound
 } from "../../../../Lib/src/packets/commands/CommandProfilePacket";
-import {Campaign} from "../../core/missions/Campaign";
-import {Player, Players} from "../../core/database/game/models/Player";
-import {Guilds} from "../../core/database/game/models/Guild";
-import {Constants} from "../../../../Lib/src/constants/Constants";
-import {PetDataController} from "../../data/Pet";
-import {MapLocationDataController} from "../../data/MapLocation";
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
-import {SexTypeShort} from "../../../../Lib/src/constants/StringConstants";
+import { Campaign } from "../../core/missions/Campaign";
+import {
+	Player, Players
+} from "../../core/database/game/models/Player";
+import { Guilds } from "../../core/database/game/models/Guild";
+import { Constants } from "../../../../Lib/src/constants/Constants";
+import { PetDataController } from "../../data/Pet";
+import { MapLocationDataController } from "../../data/MapLocation";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
+import { SexTypeShort } from "../../../../Lib/src/constants/StringConstants";
 
 /**
  * Get the current campaign progression of the player
@@ -63,12 +69,14 @@ export default class ProfileCommand {
 				},
 				classId: toCheckPlayer.class,
 				color: toCheckPlayer.getProfileColor(),
-				pet: petEntity ? {
-					typeId: petModel.id,
-					sex: petEntity.sex as SexTypeShort,
-					nickname: petEntity.nickname,
-					rarity: petModel.rarity
-				} : null,
+				pet: petEntity
+					? {
+						typeId: petModel.id,
+						sex: petEntity.sex as SexTypeShort,
+						nickname: petEntity.nickname,
+						rarity: petModel.rarity
+					}
+					: null,
 				destinationId,
 				mapTypeId: destinationId ? MapLocationDataController.instance.getById(destinationId).type : null,
 				effect: {
@@ -77,28 +85,32 @@ export default class ProfileCommand {
 					healed: new Date() >= toCheckPlayer.effectEndDate,
 					hasTimeDisplay: toCheckPlayer.isUnderEffect()
 				},
-				fightRanking: toCheckPlayer.level >= FightConstants.REQUIRED_LEVEL ? {
-					glory: toCheckPlayer.getGloryPoints(),
-					league: toCheckPlayer.getLeague().id
-				} : null,
+				fightRanking: toCheckPlayer.level >= FightConstants.REQUIRED_LEVEL
+					? {
+						glory: toCheckPlayer.getGloryPoints(),
+						league: toCheckPlayer.getLeague().id
+					}
+					: null,
 				missions: {
 					gems: missionsInfo.gems,
 					campaignProgression: getCampaignProgression(missionsInfo)
 				},
-				stats: toCheckPlayer.level >= Constants.CLASS.REQUIRED_LEVEL ? {
-					attack: toCheckPlayer.getCumulativeAttack(playerActiveObjects),
-					defense: toCheckPlayer.getCumulativeDefense(playerActiveObjects),
-					speed: toCheckPlayer.getCumulativeSpeed(playerActiveObjects),
-					energy: {
-						value: toCheckPlayer.getCumulativeEnergy(),
-						max: toCheckPlayer.getMaxCumulativeEnergy()
-					},
-					breath: {
-						base: toCheckPlayer.getBaseBreath(),
-						max: toCheckPlayer.getMaxBreath(),
-						regen: toCheckPlayer.getBreathRegen()
+				stats: toCheckPlayer.level >= Constants.CLASS.REQUIRED_LEVEL
+					? {
+						attack: toCheckPlayer.getCumulativeAttack(playerActiveObjects),
+						defense: toCheckPlayer.getCumulativeDefense(playerActiveObjects),
+						speed: toCheckPlayer.getCumulativeSpeed(playerActiveObjects),
+						energy: {
+							value: toCheckPlayer.getCumulativeEnergy(),
+							max: toCheckPlayer.getMaxCumulativeEnergy()
+						},
+						breath: {
+							base: toCheckPlayer.getBaseBreath(),
+							max: toCheckPlayer.getMaxBreath(),
+							regen: toCheckPlayer.getBreathRegen()
+						}
 					}
-				} : null,
+					: null,
 				experience: {
 					value: toCheckPlayer.experience,
 					max: toCheckPlayer.getExperienceNeededToLevelUp()

@@ -1,9 +1,11 @@
-import {FightAlterationFunc} from "../../../../../data/FightAlteration";
-import {FightAlterationState} from "../../../../../../../Lib/src/types/FightAlterationResult";
-import {FightActionDataController} from "../../../../../data/FightAction";
-import {defaultFightAlterationResult, defaultHealFightAlterationResult} from "../../../FightController";
+import { FightAlterationFunc } from "../../../../../data/FightAlteration";
+import { FightAlterationState } from "../../../../../../../Lib/src/types/FightAlterationResult";
+import { FightActionDataController } from "../../../../../data/FightAction";
+import {
+	defaultFightAlterationResult, defaultHealFightAlterationResult
+} from "../../../FightController";
 
-const use: FightAlterationFunc = (affected) => {
+const use: FightAlterationFunc = affected => {
 	if (affected.alterationTurn > 1) { // This effect heals after one turn
 		return defaultHealFightAlterationResult(affected);
 	}

@@ -1,7 +1,13 @@
-import {CommandPingPacketReq, CommandPingPacketRes} from "../../../../Lib/src/packets/commands/CommandPingPacket";
-import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
+import {
+	CommandPingPacketReq, CommandPingPacketRes
+} from "../../../../Lib/src/packets/commands/CommandPingPacket";
+import {
+	DraftBotPacket, makePacket
+} from "../../../../Lib/src/packets/DraftBotPacket";
 import Player from "../../core/database/game/models/Player";
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
 
 export default class PingCommand {
 	@commandRequires(CommandPingPacketReq, {

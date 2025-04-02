@@ -1,5 +1,7 @@
-import {PacketDirection, sendablePacket} from "../DraftBotPacket";
-import {SmallEventPacket} from "./SmallEventPacket";
+import {
+	PacketDirection, sendablePacket
+} from "../DraftBotPacket";
+import { SmallEventPacket } from "./SmallEventPacket";
 
 export enum SmallEventBadIssue {
 	HEALTH = "healthLost",

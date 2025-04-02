@@ -1,13 +1,15 @@
-import {Fighter} from "../../../fighter/Fighter";
-import {FightActionFunc} from "../../../../../data/FightAction";
-import {defaultFailFightActionResult} from "../../../../../../../Lib/src/types/FightActionResult";
-import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTemplate";
-import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
-import {FightAlterations} from "../../FightAlterations";
+import { Fighter } from "../../../fighter/Fighter";
+import { FightActionFunc } from "../../../../../data/FightAction";
+import { defaultFailFightActionResult } from "../../../../../../../Lib/src/types/FightActionResult";
+import { simpleDamageFightAction } from "../../templates/SimpleDamageFightActionTemplate";
+import {
+	attackInfo, FightActionController, statsInfo
+} from "../../FightActionController";
+import { FightAlterations } from "../../FightAlterations";
 
 const use: FightActionFunc = (sender, receiver) => {
 	// Fail if already used
-	if (sender.fightActionsHistory.filter((attack) => attack.id === "summonAttack").length !== 0) {
+	if (sender.fightActionsHistory.filter(attack => attack.id === "summonAttack").length !== 0) {
 		return defaultFailFightActionResult();
 	}
 

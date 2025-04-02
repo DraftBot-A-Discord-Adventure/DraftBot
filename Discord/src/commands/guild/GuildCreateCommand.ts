@@ -1,32 +1,36 @@
-import {ICommand} from "../ICommand";
-import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
+import { ICommand } from "../ICommand";
+import {
+	makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 import i18n from "../../translations/i18n";
-import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {SlashCommandBuilder} from "@discordjs/builders";
-import {DiscordCache} from "../../bot/DiscordCache";
-import {DraftBotErrorEmbed} from "../../messages/DraftBotErrorEmbed";
-import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
+import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { DiscordCache } from "../../bot/DiscordCache";
+import { DraftBotErrorEmbed } from "../../messages/DraftBotErrorEmbed";
+import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
 import {
 	CommandGuildCreateAcceptPacketRes,
 	CommandGuildCreatePacketReq,
 	CommandGuildCreatePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildCreatePacket";
-import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants";
-import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
-import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
-import {ReactionCollectorGuildCreateData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildCreate";
-import {GuildCreateConstants} from "../../../../Lib/src/constants/GuildCreateConstants";
-import {LANGUAGE} from "../../../../Lib/src/Language";
-import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { GuildConstants } from "../../../../Lib/src/constants/GuildConstants";
+import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
+import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
+import { ReactionCollectorGuildCreateData } from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildCreate";
+import { GuildCreateConstants } from "../../../../Lib/src/constants/GuildCreateConstants";
+import { LANGUAGE } from "../../../../Lib/src/Language";
+import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
 /**
  * Create a new guild
  */
 function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): CommandGuildCreatePacketReq {
 	const askedGuildName = <string>interaction.options.get("name", true).value;
-	return makePacket(CommandGuildCreatePacketReq, {keycloakId: user.id, askedGuildName});
+	return makePacket(CommandGuildCreatePacketReq, {
+		keycloakId: user.id, askedGuildName
+	});
 }
 
 async function replyErrorEmbed(context: PacketContext, errorKey: string, formatParams: Record<string, unknown> = {}): Promise<void> {
@@ -112,7 +116,7 @@ export async function handleCommandGuildCreateRefusePacketRes(context: PacketCon
 					pseudo: originalInteraction.user.displayName
 				}), originalInteraction.user)
 					.setDescription(
-						i18n.t("commands:guildCreate.canceledDesc", {lng: originalInteraction.userLanguage})
+						i18n.t("commands:guildCreate.canceledDesc", { lng: originalInteraction.userLanguage })
 					)
 					.setErrorColor()
 			]
@@ -138,7 +142,7 @@ export async function handleCommandGuildCreateAcceptPacketRes(packet: CommandGui
 					)
 					.setFooter({
 						text:
-							i18n.t("commands:guildCreate.acceptedFooter", {lng: originalInteraction.userLanguage})
+							i18n.t("commands:guildCreate.acceptedFooter", { lng: originalInteraction.userLanguage })
 					})
 			]
 		});

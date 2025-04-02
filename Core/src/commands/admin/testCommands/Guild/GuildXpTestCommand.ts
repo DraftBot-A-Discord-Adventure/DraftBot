@@ -1,6 +1,8 @@
 import Guild from "../../../../core/database/game/models/Guild";
-import {NumberChangeReason} from "../../../../../../Lib/src/constants/LogsConstants";
-import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
+import { NumberChangeReason } from "../../../../../../Lib/src/constants/LogsConstants";
+import {
+	ExecuteTestCommandLike, ITestCommand, TypeKey
+} from "../../../../core/CommandsTest";
 
 export const commandInfo: ITestCommand = {
 	name: "guildxp",
@@ -16,7 +18,7 @@ export const commandInfo: ITestCommand = {
  * Set your guild's experience to the given integer
  */
 const guildXpTestCommand: ExecuteTestCommandLike = async (player, args, response) => {
-	const guild = await Guild.findOne({where: {id: player.guildId}});
+	const guild = await Guild.findOne({ where: { id: player.guildId } });
 	if (!guild) {
 		throw new Error("Erreur gxp : vous n'êtes pas dans une guilde !");
 	}

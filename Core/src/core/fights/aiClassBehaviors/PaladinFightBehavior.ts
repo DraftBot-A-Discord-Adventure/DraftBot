@@ -1,18 +1,19 @@
-import {ClassBehavior} from "../AiBehaviorController";
-import {AiPlayerFighter} from "../fighter/AiPlayerFighter";
-import {FightView} from "../FightView";
-import {FightAction, FightActionDataController} from "../../../data/FightAction";
-import {PlayerFighter} from "../fighter/PlayerFighter";
-import {FightConstants} from "../../../../../Lib/src/constants/FightConstants";
-import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
-import {getUsedGodMoves} from "../FightController";
-import {ClassConstants} from "../../../../../Lib/src/constants/ClassConstants";
+import { ClassBehavior } from "../AiBehaviorController";
+import { AiPlayerFighter } from "../fighter/AiPlayerFighter";
+import { FightView } from "../FightView";
+import {
+	FightAction, FightActionDataController
+} from "../../../data/FightAction";
+import { PlayerFighter } from "../fighter/PlayerFighter";
+import { FightConstants } from "../../../../../Lib/src/constants/FightConstants";
+import { RandomUtils } from "../../../../../Lib/src/utils/RandomUtils";
+import { getUsedGodMoves } from "../FightController";
+import { ClassConstants } from "../../../../../Lib/src/constants/ClassConstants";
 
 /**
  * Implements a paladin fight behavior that selects an appropriate fight action based on various tactical criteria.
  */
 class PaladinFightBehavior implements ClassBehavior {
-
 	/**
 	 * Chooses the appropriate fight action for the AI fighter based on the current fight situation.
 	 *
@@ -75,22 +76,22 @@ class PaladinFightBehavior implements ClassBehavior {
 
 		const opponentLastActionId = opponent.getLastFightActionUsed() ? opponent.getLastFightActionUsed().id : null;
 		const isOpponentDivine = opponentLastActionId === FightConstants.FIGHT_ACTIONS.PLAYER.DIVINE_ATTACK;
-		const isOpponentPaladinType = opponent.player.class === ClassConstants.CLASSES_ID.PALADIN ||
-			opponent.player.class === ClassConstants.CLASSES_ID.LUMINOUS_PALADIN;
-		const isOpponentKnightType = opponent.player.class === ClassConstants.CLASSES_ID.KNIGHT ||
-			opponent.player.class === ClassConstants.CLASSES_ID.VALIANT_KNIGHT ||
-			opponent.player.class === ClassConstants.CLASSES_ID.HORSE_RIDER ||
-			opponent.player.class === ClassConstants.CLASSES_ID.PIKEMAN ||
-			opponent.player.class === ClassConstants.CLASSES_ID.ESQUIRE;
+		const isOpponentPaladinType = opponent.player.class === ClassConstants.CLASSES_ID.PALADIN
+			|| opponent.player.class === ClassConstants.CLASSES_ID.LUMINOUS_PALADIN;
+		const isOpponentKnightType = opponent.player.class === ClassConstants.CLASSES_ID.KNIGHT
+			|| opponent.player.class === ClassConstants.CLASSES_ID.VALIANT_KNIGHT
+			|| opponent.player.class === ClassConstants.CLASSES_ID.HORSE_RIDER
+			|| opponent.player.class === ClassConstants.CLASSES_ID.PIKEMAN
+			|| opponent.player.class === ClassConstants.CLASSES_ID.ESQUIRE;
 
 		return (
-			isOpponentDivine && usedGodMoves < 2 ||
-			usedUltimateAttacks === 1 && usedGodMoves < 2 ||
-			isOpponentKnightType && RandomUtils.draftbotRandom.bool(0.2) && usedGodMoves === 0 ||
-			isOpponentPaladinType &&
-			(isOpponentDivine || RandomUtils.draftbotRandom.bool(0.2)) &&
-			usedGodMoves < 2 &&
-			fightView.fightController.turn >= 8
+			isOpponentDivine && usedGodMoves < 2
+			|| usedUltimateAttacks === 1 && usedGodMoves < 2
+			|| isOpponentKnightType && RandomUtils.draftbotRandom.bool(0.2) && usedGodMoves === 0
+			|| isOpponentPaladinType
+			&& (isOpponentDivine || RandomUtils.draftbotRandom.bool(0.2))
+			&& usedGodMoves < 2
+			&& fightView.fightController.turn >= 8
 		);
 	}
 
@@ -104,9 +105,9 @@ class PaladinFightBehavior implements ClassBehavior {
 	 */
 	private shouldUseUltimateAttack(me: AiPlayerFighter, usedUltimateAttacks: number): boolean {
 		const ultimateAttackBreathCost = FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_ULTIMATE_ATTACK);
-		return me.getEnergy() < me.getMaxEnergy() * 0.45 &&
-			me.getBreath() >= ultimateAttackBreathCost &&
-			usedUltimateAttacks === 0;
+		return me.getEnergy() < me.getMaxEnergy() * 0.45
+			&& me.getBreath() >= ultimateAttackBreathCost
+			&& usedUltimateAttacks === 0;
 	}
 
 	/**
@@ -126,12 +127,16 @@ class PaladinFightBehavior implements ClassBehavior {
 	): boolean {
 		const breathRange = Math.round(opponent.getBreath() / opponent.getMaxBreath() * 5 / 3);
 		return (
-			!opponent.hasFightAlteration() &&
-			(me.getBreath() > 18 || divineAndUltimateAttacksUsed) &&
-			(
-				opponent.getLastFightActionUsed()?.id === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK ||
-				opponent.getLastFightActionUsed()?.id === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_ULTIMATE_ATTACK ||
-				opponent.getDefense() > me.getDefense() * 0.9 && RandomUtils.draftbotRandom.bool([0.05, 0.2, 0.8][breathRange])
+			!opponent.hasFightAlteration()
+			&& (me.getBreath() > 18 || divineAndUltimateAttacksUsed)
+			&& (
+				opponent.getLastFightActionUsed()?.id === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK
+				|| opponent.getLastFightActionUsed()?.id === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_ULTIMATE_ATTACK
+				|| opponent.getDefense() > me.getDefense() * 0.9 && RandomUtils.draftbotRandom.bool([
+					0.05,
+					0.2,
+					0.8
+				][breathRange])
 			)
 		);
 	}
@@ -151,12 +156,12 @@ class PaladinFightBehavior implements ClassBehavior {
 	): boolean {
 		const ramAttackBreathCost = FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.RAM_ATTACK);
 		return (
-			(!opponent.hasFightAlteration() || opponent.alteration.id === FightConstants.FIGHT_ACTIONS.ALTERATION.STUNNED) &&
-			(me.getBreath() > 17 || divineAndUltimateAttacksUsed ||
-				opponent.getLastFightActionUsed()?.id === FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK && opponent.getBreath() >= 2) &&
-			me.getBreath() >= ramAttackBreathCost &&
-			me.getEnergy() >= me.getMaxEnergy() * 0.15 &&
-			opponent.getLastFightActionUsed()?.id !== FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK
+			(!opponent.hasFightAlteration() || opponent.alteration.id === FightConstants.FIGHT_ACTIONS.ALTERATION.STUNNED)
+			&& (me.getBreath() > 17 || divineAndUltimateAttacksUsed
+				|| opponent.getLastFightActionUsed()?.id === FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK && opponent.getBreath() >= 2)
+			&& me.getBreath() >= ramAttackBreathCost
+			&& me.getEnergy() >= me.getMaxEnergy() * 0.15
+			&& opponent.getLastFightActionUsed()?.id !== FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK
 		);
 	}
 }

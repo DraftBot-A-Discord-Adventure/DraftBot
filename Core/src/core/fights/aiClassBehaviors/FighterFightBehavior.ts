@@ -1,18 +1,20 @@
-import {ClassBehavior} from "../AiBehaviorController";
-import {AiPlayerFighter} from "../fighter/AiPlayerFighter";
-import {FightView} from "../FightView";
-import {FightAction, FightActionDataController} from "../../../data/FightAction";
-import {FightConstants} from "../../../../../Lib/src/constants/FightConstants";
-import {PlayerFighter} from "../fighter/PlayerFighter";
-import {RandomUtils} from "../../../../../Lib/src/utils/RandomUtils";
-import {piercingOrSimpleAttack, shouldProtect} from "./RecruitFightBehavior";
+import { ClassBehavior } from "../AiBehaviorController";
+import { AiPlayerFighter } from "../fighter/AiPlayerFighter";
+import { FightView } from "../FightView";
+import {
+	FightAction, FightActionDataController
+} from "../../../data/FightAction";
+import { FightConstants } from "../../../../../Lib/src/constants/FightConstants";
+import { PlayerFighter } from "../fighter/PlayerFighter";
+import { RandomUtils } from "../../../../../Lib/src/utils/RandomUtils";
+import {
+	piercingOrSimpleAttack, shouldProtect
+} from "./RecruitFightBehavior";
 
 class FighterFightBehavior implements ClassBehavior {
-
 	private powerfulAttacksUsedMap = 0;
 
 	chooseAction(me: AiPlayerFighter, fightView: FightView): FightAction {
-
 		const powerfulAttacksUsed = this.powerfulAttacksUsedMap;
 		const opponent = fightView.fightController.getDefendingFighter() as PlayerFighter | AiPlayerFighter; // AI will never fight monsters
 

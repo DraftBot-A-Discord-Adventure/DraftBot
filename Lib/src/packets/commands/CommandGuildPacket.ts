@@ -1,11 +1,13 @@
-import {DraftBotPacket, sendablePacket, PacketDirection} from "../DraftBotPacket";
-import {GuildMember} from "../../types/GuildMember";
+import {
+	DraftBotPacket, sendablePacket, PacketDirection
+} from "../DraftBotPacket";
+import { GuildMember } from "../../types/GuildMember";
 
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandGuildPacketReq extends DraftBotPacket {
 	askedPlayer!: {
-		rank?: number,
-		keycloakId?: string
+		rank?: number;
+		keycloakId?: string;
 	};
 
 	askedGuildName?: string;
@@ -18,22 +20,22 @@ export class CommandGuildPacketRes extends DraftBotPacket {
 	askedPlayerKeycloakId?: string;
 
 	data?: {
-		name: string,
-		description?: string,
-		chiefId: number,
-		elderId: number,
-		level: number,
-		isMaxLevel: boolean,
+		name: string;
+		description?: string;
+		chiefId: number;
+		elderId: number;
+		level: number;
+		isMaxLevel: boolean;
 		experience: {
-			value: number,
-			max: number
-		},
+			value: number;
+			max: number;
+		};
 		rank: {
-			unranked: boolean,
-			rank: number,
-			numberOfGuilds: number,
-			score: number
-		},
-		members: GuildMember[]
+			unranked: boolean;
+			rank: number;
+			numberOfGuilds: number;
+			score: number;
+		};
+		members: GuildMember[];
 	};
 }

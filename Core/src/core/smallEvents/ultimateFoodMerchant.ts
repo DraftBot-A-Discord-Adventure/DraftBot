@@ -1,18 +1,24 @@
 import Player from "../database/game/models/Player";
-import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants";
-import {SmallEventConstants} from "../../../../Lib/src/constants/SmallEventConstants";
-import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
-import {Guild, Guilds} from "../database/game/models/Guild";
-import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import {giveFoodToGuild} from "../utils/FoodUtils";
-import {generateRandomItem, giveItemToPlayer} from "../utils/ItemUtils";
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {SmallEventUltimateFoodMerchantPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventUltimateFoodMerchantPacket";
-import {SmallEventFuncs} from "../../data/SmallEvent";
-import {Maps} from "../maps/Maps";
-import {Constants} from "../../../../Lib/src/constants/Constants";
-import {ErrorPacket} from "../../../../Lib/src/packets/commands/ErrorPacket";
-import {InventorySlots} from "../database/game/models/InventorySlot";
+import { GuildConstants } from "../../../../Lib/src/constants/GuildConstants";
+import { SmallEventConstants } from "../../../../Lib/src/constants/SmallEventConstants";
+import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
+import {
+	Guild, Guilds
+} from "../database/game/models/Guild";
+import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
+import { giveFoodToGuild } from "../utils/FoodUtils";
+import {
+	generateRandomItem, giveItemToPlayer
+} from "../utils/ItemUtils";
+import {
+	DraftBotPacket, makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { SmallEventUltimateFoodMerchantPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventUltimateFoodMerchantPacket";
+import { SmallEventFuncs } from "../../data/SmallEvent";
+import { Maps } from "../maps/Maps";
+import { Constants } from "../../../../Lib/src/constants/Constants";
+import { ErrorPacket } from "../../../../Lib/src/packets/commands/ErrorPacket";
+import { InventorySlots } from "../database/game/models/InventorySlot";
 
 /**
  * Return the min rarity the player can get on an item
@@ -79,28 +85,30 @@ function generateReward(player: Player, guild: Guild): string {
  */
 async function giveReward(packet: SmallEventUltimateFoodMerchantPacket, response: DraftBotPacket[], context: PacketContext, player: Player, guild: Guild): Promise<void> {
 	switch (packet.interactionName) {
-	case SmallEventConstants.ULTIMATE_FOOD_MERCHANT.INTERACTIONS_NAMES.ULTIMATE_FOOD:
-		packet.amount = foodAmount(player, guild.ultimateFood, true);
-		await giveFoodToGuild(response, player, SmallEventConstants.ULTIMATE_FOOD_MERCHANT.INTERACTIONS_NAMES.ULTIMATE_FOOD, packet.amount, NumberChangeReason.SMALL_EVENT);
-		break;
-	case SmallEventConstants.ULTIMATE_FOOD_MERCHANT.INTERACTIONS_NAMES.ITEM:
-		await giveItemToPlayer(player, generateRandomItem(null, minRarity(player), maxRarity(player)), context, response, await InventorySlots.getOfPlayer(player.id));
-		break;
-	case SmallEventConstants.ULTIMATE_FOOD_MERCHANT.INTERACTIONS_NAMES.COMMON_FOOD:
-		packet.amount = foodAmount(player, guild.commonFood, false);
-		await giveFoodToGuild(response, player, SmallEventConstants.ULTIMATE_FOOD_MERCHANT.INTERACTIONS_NAMES.COMMON_FOOD, packet.amount, NumberChangeReason.SMALL_EVENT);
-		break;
-	case SmallEventConstants.ULTIMATE_FOOD_MERCHANT.INTERACTIONS_NAMES.MONEY:
-		packet.amount = SmallEventConstants.ULTIMATE_FOOD_MERCHANT.MONEY_WON_NO_GUILD + player.level;
-		await player.addMoney({amount: packet.amount, response, reason: NumberChangeReason.SMALL_EVENT});
-		break;
+		case SmallEventConstants.ULTIMATE_FOOD_MERCHANT.INTERACTIONS_NAMES.ULTIMATE_FOOD:
+			packet.amount = foodAmount(player, guild.ultimateFood, true);
+			await giveFoodToGuild(response, player, SmallEventConstants.ULTIMATE_FOOD_MERCHANT.INTERACTIONS_NAMES.ULTIMATE_FOOD, packet.amount, NumberChangeReason.SMALL_EVENT);
+			break;
+		case SmallEventConstants.ULTIMATE_FOOD_MERCHANT.INTERACTIONS_NAMES.ITEM:
+			await giveItemToPlayer(player, generateRandomItem(null, minRarity(player), maxRarity(player)), context, response, await InventorySlots.getOfPlayer(player.id));
+			break;
+		case SmallEventConstants.ULTIMATE_FOOD_MERCHANT.INTERACTIONS_NAMES.COMMON_FOOD:
+			packet.amount = foodAmount(player, guild.commonFood, false);
+			await giveFoodToGuild(response, player, SmallEventConstants.ULTIMATE_FOOD_MERCHANT.INTERACTIONS_NAMES.COMMON_FOOD, packet.amount, NumberChangeReason.SMALL_EVENT);
+			break;
+		case SmallEventConstants.ULTIMATE_FOOD_MERCHANT.INTERACTIONS_NAMES.MONEY:
+			packet.amount = SmallEventConstants.ULTIMATE_FOOD_MERCHANT.MONEY_WON_NO_GUILD + player.level;
+			await player.addMoney({
+				amount: packet.amount, response, reason: NumberChangeReason.SMALL_EVENT
+			});
+			break;
 
-	case SmallEventConstants.ULTIMATE_FOOD_MERCHANT.INTERACTIONS_NAMES.FULL_ULTIMATE_FOOD:
-	case SmallEventConstants.ULTIMATE_FOOD_MERCHANT.INTERACTIONS_NAMES.FULL_COMMON_FOOD:
-		break;
-	default:
-		packet.interactionName = Constants.DEFAULT_ERROR;
-		break;
+		case SmallEventConstants.ULTIMATE_FOOD_MERCHANT.INTERACTIONS_NAMES.FULL_ULTIMATE_FOOD:
+		case SmallEventConstants.ULTIMATE_FOOD_MERCHANT.INTERACTIONS_NAMES.FULL_COMMON_FOOD:
+			break;
+		default:
+			packet.interactionName = Constants.DEFAULT_ERROR;
+			break;
 	}
 	await player.save();
 }
@@ -115,10 +123,10 @@ export const smallEventFuncs: SmallEventFuncs = {
 		catch {
 			guild = null;
 		}
-		const packet: SmallEventUltimateFoodMerchantPacket = {interactionName: generateReward(player, guild)};
+		const packet: SmallEventUltimateFoodMerchantPacket = { interactionName: generateReward(player, guild) };
 		await giveReward(packet, response, context, player, guild);
 		if (packet.interactionName === Constants.DEFAULT_ERROR) {
-			response.push(makePacket(ErrorPacket, {message: "SmallEvent Ultimate Food Merchant : cannot determine an interaction for the user"}));
+			response.push(makePacket(ErrorPacket, { message: "SmallEvent Ultimate Food Merchant : cannot determine an interaction for the user" }));
 			return;
 		}
 		response.push(makePacket(SmallEventUltimateFoodMerchantPacket, packet));

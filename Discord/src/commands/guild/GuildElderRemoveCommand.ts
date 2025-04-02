@@ -1,19 +1,21 @@
-import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {DiscordCache} from "../../bot/DiscordCache";
-import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
-import {keycloakConfig} from "../../bot/DraftBotShard";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
+import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import {
+	makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { DiscordCache } from "../../bot/DiscordCache";
+import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
+import { keycloakConfig } from "../../bot/DraftBotShard";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import i18n from "../../translations/i18n";
-import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
-import {ICommand} from "../ICommand";
-import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
+import { ICommand } from "../ICommand";
+import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
 import {
 	CommandGuildElderRemoveAcceptPacketRes, CommandGuildElderRemovePacketReq,
 	CommandGuildElderRemoveRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildElderRemovePacket";
-import {ReactionCollectorGuildElderRemoveData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildElderRemove";
-import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorGuildElderRemoveData } from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildElderRemove";
+import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
 /**
  * Create a collector to confirm the demotion
@@ -89,7 +91,7 @@ export async function handleCommandGuildElderRemoveAcceptPacketRes(packet: Comma
 					guildName: packet.guildName
 				}), originalInteraction.user)
 					.setDescription(
-						i18n.t("commands:guildElderRemove.acceptedDesc", {lng: originalInteraction.userLanguage})
+						i18n.t("commands:guildElderRemove.acceptedDesc", { lng: originalInteraction.userLanguage })
 					)
 			]
 		});

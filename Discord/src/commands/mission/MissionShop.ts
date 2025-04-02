@@ -1,26 +1,28 @@
-import {ICommand} from "../ICommand";
-import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import { ICommand } from "../ICommand";
+import {
+	makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
 import {
 	CommandMissionShopMoney,
 	CommandMissionShopPacketReq,
 	CommandMissionShopPetInformation,
 	CommandMissionShopSkipMissionResult
 } from "../../../../Lib/src/packets/commands/CommandMissionShopPacket";
-import {DiscordCache} from "../../bot/DiscordCache";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
+import { DiscordCache } from "../../bot/DiscordCache";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import i18n from "../../translations/i18n";
-import {PetUtils} from "../../utils/PetUtils";
-import {StringUtils} from "../../utils/StringUtils";
-import {MissionUtils} from "../../utils/MissionUtils";
+import { PetUtils } from "../../utils/PetUtils";
+import { StringUtils } from "../../utils/StringUtils";
+import { MissionUtils } from "../../utils/MissionUtils";
 import {
 	ReactionCollectorSkipMissionShopItemCloseReaction,
 	ReactionCollectorSkipMissionShopItemReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorSkipMissionShopItem";
-import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
-import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {Constants} from "../../../../Lib/src/constants/Constants";
-import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
+import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { Constants } from "../../../../Lib/src/constants/Constants";
+import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
 /**
  * Get the packet to send to the server
@@ -30,7 +32,7 @@ function getPacket(): CommandMissionShopPacketReq {
 }
 
 async function handleBasicMissionShopItem(context: PacketContext, descriptionString: string, descriptionFormat: {
-	[keys: string]: string | number
+	[keys: string]: string | number;
 }): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!);
 	await interaction?.followUp({
@@ -49,15 +51,15 @@ async function handleBasicMissionShopItem(context: PacketContext, descriptionStr
 }
 
 export async function handleMissionShopBadge(context: PacketContext): Promise<void> {
-	await handleBasicMissionShopItem(context, "commands:shop.badgeBought", {badgeName: "questMasterBadge"});
+	await handleBasicMissionShopItem(context, "commands:shop.badgeBought", { badgeName: "questMasterBadge" });
 }
 
 export async function handleMissionShopMoney(packet: CommandMissionShopMoney, context: PacketContext): Promise<void> {
-	await handleBasicMissionShopItem(context, "commands:shop.shopItems.money.giveDescription", {amount: packet.amount});
+	await handleBasicMissionShopItem(context, "commands:shop.shopItems.money.giveDescription", { amount: packet.amount });
 }
 
 export async function handleMissionShopKingsFavor(context: PacketContext): Promise<void> {
-	await handleBasicMissionShopItem(context, "commands:shop.shopItems.kingsFavor.giveDescription", {thousandPoints: Constants.MISSION_SHOP.THOUSAND_POINTS});
+	await handleBasicMissionShopItem(context, "commands:shop.shopItems.kingsFavor.giveDescription", { thousandPoints: Constants.MISSION_SHOP.THOUSAND_POINTS });
 }
 
 export async function handleLovePointsValueShopItem(packet: CommandMissionShopPetInformation, context: PacketContext): Promise<void> {
@@ -80,7 +82,7 @@ export async function handleLovePointsValueShopItem(packet: CommandMissionShopPe
 					diet: PetUtils.getDietDisplay(packet.diet, lng),
 					nextFeed: PetUtils.getFeedCooldownDisplay(packet.nextFeed, lng),
 					commentOnResult: StringUtils.getRandomTranslation(`commands:shop.shopItems.lovePointsValue.advice.${packet.loveLevel}`, lng),
-					interpolation: {escapeValue: false}
+					interpolation: { escapeValue: false }
 				}))
 		]
 	});
@@ -108,7 +110,9 @@ export async function skipMissionShopItemCollector(context: PacketContext, packe
 		packet,
 		context,
 		reactions.map(reaction => MissionUtils.formatBaseMission(reaction.mission, interaction.userLanguage)),
-		{ can: true, reactionIndex: packet.reactions.findIndex(reaction => reaction.type === ReactionCollectorSkipMissionShopItemCloseReaction.name) }
+		{
+			can: true, reactionIndex: packet.reactions.findIndex(reaction => reaction.type === ReactionCollectorSkipMissionShopItemCloseReaction.name)
+		}
 	);
 }
 

@@ -1,11 +1,11 @@
-import {IMission} from "../IMission";
+import { IMission } from "../IMission";
 
 export const missionInterface: IMission = {
 	areParamsMatchingVariantAndBlob: () => true,
 
 	generateRandomVariant: () => 0,
 
-	initialNumberDone: (player) => player.getGloryPoints(),
+	initialNumberDone: player => player.getGloryPoints(),
 
 	updateSaveBlob: () => null
 };

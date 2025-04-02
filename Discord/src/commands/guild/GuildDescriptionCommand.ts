@@ -1,20 +1,22 @@
-import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
-import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {ICommand} from "../ICommand";
-import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {SlashCommandBuilder} from "@discordjs/builders";
+import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
+import {
+	makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { ICommand } from "../ICommand";
+import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
+import { SlashCommandBuilder } from "@discordjs/builders";
 import {
 	CommandGuildDescriptionAcceptPacketRes,
 	CommandGuildDescriptionPacketReq,
 	CommandGuildDescriptionRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildDescriptionPacket";
-import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {DiscordCache} from "../../bot/DiscordCache";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
+import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { DiscordCache } from "../../bot/DiscordCache";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import i18n from "../../translations/i18n";
-import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
-import {ReactionCollectorGuildDescriptionData} from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildDescription";
-import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
+import { ReactionCollectorGuildDescriptionData } from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildDescription";
+import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
 
 export async function createGuildDescriptionCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
@@ -68,7 +70,7 @@ export async function handleCommandGuildDescriptionAcceptPacketRes(_packet: Comm
 					pseudo: originalInteraction.user.displayName
 				}), originalInteraction.user)
 					.setDescription(
-						i18n.t("commands:guildDescription.acceptedDesc", {lng: originalInteraction.userLanguage})
+						i18n.t("commands:guildDescription.acceptedDesc", { lng: originalInteraction.userLanguage })
 					)
 			]
 		});
@@ -77,7 +79,7 @@ export async function handleCommandGuildDescriptionAcceptPacketRes(_packet: Comm
 
 function getPacket(interaction: DraftbotInteraction): CommandGuildDescriptionPacketReq {
 	const description = <string>interaction.options.get("description", true).value;
-	return makePacket(CommandGuildDescriptionPacketReq, {description});
+	return makePacket(CommandGuildDescriptionPacketReq, { description });
 }
 
 export const commandInfo: ICommand = {

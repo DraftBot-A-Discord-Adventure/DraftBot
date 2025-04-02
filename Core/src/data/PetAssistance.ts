@@ -1,9 +1,9 @@
-import {DataControllerString} from "./DataController";
-import {readdirSync} from "fs";
-import {FightAction} from "./FightAction";
-import {FightController} from "../core/fights/FightController";
-import {Fighter} from "../core/fights/fighter/Fighter";
-import {PetAssistanceResult} from "../../../Lib/src/types/PetAssistanceResult";
+import { DataControllerString } from "./DataController";
+import { readdirSync } from "fs";
+import { FightAction } from "./FightAction";
+import { FightController } from "../core/fights/FightController";
+import { Fighter } from "../core/fights/fighter/Fighter";
+import { PetAssistanceResult } from "../../../Lib/src/types/PetAssistanceResult";
 
 export class PetAssistance extends FightAction {
 	public async execute(fighter: Fighter, opponent: Fighter, turn: number, fightController: FightController): Promise<PetAssistanceResult | null> {

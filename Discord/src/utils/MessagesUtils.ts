@@ -1,6 +1,6 @@
-import {DraftbotInteraction} from "../messages/DraftbotInteraction";
-import {DiscordCache} from "../bot/DiscordCache";
-import {PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
+import { DraftbotInteraction } from "../messages/DraftbotInteraction";
+import { DiscordCache } from "../bot/DiscordCache";
+import { PacketContext } from "../../../Lib/src/packets/DraftBotPacket";
 
 export abstract class MessagesUtils {
 	/**

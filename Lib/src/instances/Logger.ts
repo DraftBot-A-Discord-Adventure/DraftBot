@@ -1,6 +1,6 @@
 import * as fs from "fs";
-import {WriteStream} from "fs";
-import {Constants} from "../constants/Constants";
+import { WriteStream } from "fs";
+import { Constants } from "../constants/Constants";
 
 enum LogWritingState {
 	BUILDING,
@@ -17,7 +17,7 @@ export class Logger {
 
 	private creationDate: Date | null = null;
 
-	private fileStream: &WriteStream | null = null;
+	private fileStream: & WriteStream | null = null;
 
 	private lineCount: number = 0;
 
@@ -63,7 +63,7 @@ export class Logger {
 			this.log(loggedText);
 			return;
 		}
-		this.fileStream!.write( `[${new Date().toLocaleString()}] ${toSave}\n`, (err) => {
+		this.fileStream!.write(`[${new Date().toLocaleString()}] ${toSave}\n`, err => {
 			if (err) {
 				const eString = err.toString();
 				if (eString.includes("ERR_STREAM_WRITE_AFTER_END") || eString.includes("ERR_STREAM_DESTROYED")) {
@@ -81,7 +81,7 @@ export class Logger {
 		this.canWrite = LogWritingState.BUILDING;
 		this.creationDate = new Date();
 		try {
-			this.fileStream = fs.createWriteStream(this.getName(), {flags: "w"});
+			this.fileStream = fs.createWriteStream(this.getName(), { flags: "w" });
 			this.fileStream.write(this.getLogStart());
 		}
 		catch (e) {

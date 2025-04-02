@@ -1,5 +1,5 @@
-import {IMission} from "../IMission";
-import {MapLocationDataController} from "../../../data/MapLocation";
+import { IMission } from "../IMission";
+import { MapLocationDataController } from "../../../data/MapLocation";
 
 export const missionInterface: IMission = {
 	areParamsMatchingVariantAndBlob: (variant, params) => variant === params.mapId,

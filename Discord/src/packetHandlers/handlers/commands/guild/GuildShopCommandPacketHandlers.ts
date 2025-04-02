@@ -1,9 +1,9 @@
-import {packetHandler} from "../../../PacketHandler";
+import { packetHandler } from "../../../PacketHandler";
 import {
 	CommandGuildShopEmpty, CommandGuildShopGiveXp,
 	CommandGuildShopNoFoodStorageSpace
 } from "../../../../../../Lib/src/packets/commands/CommandGuildShopPacket";
-import {PacketContext} from "../../../../../../Lib/src/packets/DraftBotPacket";
+import { PacketContext } from "../../../../../../Lib/src/packets/DraftBotPacket";
 import {
 	handleCommandGuildShopEmpty, handleCommandGuildShopGiveXp,
 	handleCommandGuildShopNoFoodStorageSpace

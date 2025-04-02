@@ -1,5 +1,5 @@
-import {Random} from "random-js";
-import {ConstantRange} from "../constants/Constants";
+import { Random } from "random-js";
+import { ConstantRange } from "../constants/Constants";
 
 /**
  * Functions concerning pseudo-randomness

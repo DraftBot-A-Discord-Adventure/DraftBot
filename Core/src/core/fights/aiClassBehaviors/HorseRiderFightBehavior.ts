@@ -1,9 +1,11 @@
 import { ClassBehavior } from "../AiBehaviorController";
 import { AiPlayerFighter } from "../fighter/AiPlayerFighter";
 import { FightView } from "../FightView";
-import { FightAction, FightActionDataController } from "../../../data/FightAction";
+import {
+	FightAction, FightActionDataController
+} from "../../../data/FightAction";
 import { FightConstants } from "../../../../../Lib/src/constants/FightConstants";
-import {simpleOrQuickAttack} from "./EsquireFightBehavior";
+import { simpleOrQuickAttack } from "./EsquireFightBehavior";
 
 class HorseRiderFightBehavior implements ClassBehavior {
 	private restCount = 0; // Track how many times we've rested
@@ -17,8 +19,10 @@ class HorseRiderFightBehavior implements ClassBehavior {
 			this.restCount = 0; // Reset rest counter at the beginning of a fight
 		}
 
-		// ENDGAME STRATEGY: Try to force a draw if victory seems impossible
-		// Still rest even if we've done it 4 times, because the goal is to stall
+		/*
+		 * ENDGAME STRATEGY: Try to force a draw if victory seems impossible
+		 * Still rest even if we've done it 4 times, because the goal is to stall
+		 */
 		if (me.getEnergy() < 125 && opponent.getEnergy() > 400) {
 			this.restCount++;
 			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.RESTING);
@@ -37,8 +41,6 @@ class HorseRiderFightBehavior implements ClassBehavior {
 
 		return simpleOrQuickAttack(me, opponent);
 	}
-
-
 }
 
 export default HorseRiderFightBehavior;

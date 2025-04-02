@@ -1,7 +1,9 @@
-import {ICommand} from "../ICommand";
-import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
-import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import { ICommand } from "../ICommand";
+import {
+	makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
+import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
 import {
 	CommandReportBigEventResultRes,
 	CommandReportMonsterRewardRes,
@@ -9,36 +11,40 @@ import {
 	CommandReportRefusePveFightRes,
 	CommandReportTravelSummaryRes
 } from "../../../../Lib/src/packets/commands/CommandReportPacket";
-import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {
 	ReactionCollectorBigEventData,
 	ReactionCollectorBigEventPossibilityReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorBigEvent";
 import i18n from "../../translations/i18n";
-import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
-import {keycloakConfig} from "../../bot/DraftBotShard";
-import {ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, Message, parseEmoji} from "discord.js";
-import {DiscordCache} from "../../bot/DiscordCache";
-import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
-import {effectsErrorTextValue, sendInteractionNotForYou} from "../../utils/ErrorUtils";
-import {Constants} from "../../../../Lib/src/constants/Constants";
-import {Effect} from "../../../../Lib/src/types/Effect";
+import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
+import { keycloakConfig } from "../../bot/DraftBotShard";
+import {
+	ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, Message, parseEmoji
+} from "discord.js";
+import { DiscordCache } from "../../bot/DiscordCache";
+import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
+import {
+	effectsErrorTextValue, sendInteractionNotForYou
+} from "../../utils/ErrorUtils";
+import { Constants } from "../../../../Lib/src/constants/Constants";
+import { Effect } from "../../../../Lib/src/types/Effect";
 import {
 	millisecondsToHours,
 	millisecondsToMinutes,
 	minutesDisplay,
 	printTimeBeforeDate
 } from "../../../../Lib/src/utils/TimeUtils";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
-import {ReactionCollectorChooseDestinationReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorChooseDestination";
-import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
-import {EmoteUtils} from "../../utils/EmoteUtils";
-import {LANGUAGE} from "../../../../Lib/src/Language";
-import {ReportConstants} from "../../../../Lib/src/constants/ReportConstants";
-import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
-import {DiscordConstants} from "../../DiscordConstants";
-import {ReactionCollectorPveFightData} from "../../../../Lib/src/packets/interaction/ReactionCollectorPveFight";
-import {StringUtils} from "../../utils/StringUtils";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
+import { ReactionCollectorChooseDestinationReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorChooseDestination";
+import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
+import { EmoteUtils } from "../../utils/EmoteUtils";
+import { LANGUAGE } from "../../../../Lib/src/Language";
+import { ReportConstants } from "../../../../Lib/src/constants/ReportConstants";
+import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { DiscordConstants } from "../../DiscordConstants";
+import { ReactionCollectorPveFightData } from "../../../../Lib/src/packets/interaction/ReactionCollectorPveFight";
+import { StringUtils } from "../../utils/StringUtils";
 
 async function getPacket(interaction: DraftbotInteraction): Promise<CommandReportPacketReq> {
 	await interaction.deferReply();
@@ -54,12 +60,12 @@ export async function createBigEventCollector(context: PacketContext, packet: Re
 	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorBigEventData;
-	const reactions = packet.reactions.map((reaction) => reaction.data) as ReactionCollectorBigEventPossibilityReaction[];
+	const reactions = packet.reactions.map(reaction => reaction.data) as ReactionCollectorBigEventPossibilityReaction[];
 
 	const rows = [new ActionRowBuilder<ButtonBuilder>()];
 	let eventText = `${i18n.t(`events:${data.eventId}.text`, {
 		lng: context.discord?.language ?? LANGUAGE.ENGLISH,
-		interpolation: {escapeValue: false}
+		interpolation: { escapeValue: false }
 	})}\n\n`;
 	for (const possibility of reactions) {
 		if (possibility.name !== ReportConstants.END_POSSIBILITY_ID) {
@@ -77,7 +83,7 @@ export async function createBigEventCollector(context: PacketContext, packet: Re
 
 			const reactionText = `${emoji} ${i18n.t(`events:${data.eventId}.possibilities.${possibility.name}.text`, {
 				lng: context.discord?.language ?? LANGUAGE.ENGLISH,
-				interpolation: {escapeValue: false}
+				interpolation: { escapeValue: false }
 			})}`;
 			eventText += `${reactionText}\n`;
 		}
@@ -88,7 +94,7 @@ export async function createBigEventCollector(context: PacketContext, packet: Re
 			lng: interaction?.userLanguage,
 			event: eventText,
 			pseudo: user.attributes.gameUsername,
-			interpolation: {escapeValue: false}
+			interpolation: { escapeValue: false }
 		}),
 		components: rows
 	}) as Message;
@@ -97,7 +103,7 @@ export async function createBigEventCollector(context: PacketContext, packet: Re
 	const respondToEvent = (possibilityName: string, buttonInteraction: ButtonInteraction | null): void => {
 		if (!responded) {
 			responded = true;
-			DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, buttonInteraction, reactions.findIndex((reaction) => reaction.name === possibilityName));
+			DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, buttonInteraction, reactions.findIndex(reaction => reaction.name === possibilityName));
 		}
 	};
 
@@ -144,28 +150,44 @@ export async function reportResult(packet: CommandReportBigEventResultRes, conte
 
 	let result = "";
 	if (packet.score) {
-		result += i18n.t("commands:report.points", {lng: interaction.userLanguage, score: packet.score});
+		result += i18n.t("commands:report.points", {
+			lng: interaction.userLanguage, score: packet.score
+		});
 	}
 	if (packet.money < 0) {
-		result += i18n.t("commands:report.moneyLoose", {lng: interaction.userLanguage, money: -packet.money});
+		result += i18n.t("commands:report.moneyLoose", {
+			lng: interaction.userLanguage, money: -packet.money
+		});
 	}
 	else if (packet.money > 0) {
-		result += i18n.t("commands:report.money", {lng: interaction.userLanguage, money: packet.money});
+		result += i18n.t("commands:report.money", {
+			lng: interaction.userLanguage, money: packet.money
+		});
 	}
 	if (packet.health < 0) {
-		result += i18n.t("commands:report.healthLoose", {lng: interaction.userLanguage, health: -packet.health});
+		result += i18n.t("commands:report.healthLoose", {
+			lng: interaction.userLanguage, health: -packet.health
+		});
 	}
 	else if (packet.health > 0) {
-		result += i18n.t("commands:report.health", {lng: interaction.userLanguage, health: packet.health});
+		result += i18n.t("commands:report.health", {
+			lng: interaction.userLanguage, health: packet.health
+		});
 	}
 	if (packet.energy) {
-		result += i18n.t("commands:report.energy", {lng: interaction.userLanguage, energy: packet.energy});
+		result += i18n.t("commands:report.energy", {
+			lng: interaction.userLanguage, energy: packet.energy
+		});
 	}
 	if (packet.gems) {
-		result += i18n.t("commands:report.gems", {lng: interaction.userLanguage, gems: packet.gems});
+		result += i18n.t("commands:report.gems", {
+			lng: interaction.userLanguage, gems: packet.gems
+		});
 	}
 	if (packet.experience) {
-		result += i18n.t("commands:report.experience", {lng: interaction.userLanguage, experience: packet.experience});
+		result += i18n.t("commands:report.experience", {
+			lng: interaction.userLanguage, experience: packet.experience
+		});
 	}
 	if (packet.effect && packet.effect.name === Effect.OCCUPIED.id) {
 		result += i18n.t("commands:report.timeLost", {
@@ -176,10 +198,10 @@ export async function reportResult(packet: CommandReportBigEventResultRes, conte
 
 	const content = i18n.t("commands:report.doPossibility", {
 		lng: interaction.userLanguage,
-		interpolation: {escapeValue: false},
+		interpolation: { escapeValue: false },
 		pseudo: user.attributes.gameUsername,
 		result,
-		event: i18n.t(`events:${packet.eventId}.possibilities.${packet.possibilityId}.outcomes.${packet.outcomeId}`, {lng: interaction.userLanguage}),
+		event: i18n.t(`events:${packet.eventId}.possibilities.${packet.possibilityId}.outcomes.${packet.outcomeId}`, { lng: interaction.userLanguage }),
 		emoji: EmoteUtils.translateEmojiToDiscord(packet.possibilityId === ReportConstants.END_POSSIBILITY_ID
 			? DraftBotIcons.events[packet.eventId].end[packet.outcomeId]
 			: DraftBotIcons.events[packet.eventId][packet.possibilityId] as string),
@@ -189,10 +211,10 @@ export async function reportResult(packet: CommandReportBigEventResultRes, conte
 	const buttonInteraction = context.discord?.buttonInteraction ? DiscordCache.getButtonInteraction(context.discord?.buttonInteraction) : null;
 
 	if (buttonInteraction) {
-		await buttonInteraction.editReply({content});
+		await buttonInteraction.editReply({ content });
 	}
 	else {
-		await interaction.channel.send({content});
+		await interaction.channel.send({ content });
 	}
 }
 
@@ -211,17 +233,18 @@ export async function chooseDestinationCollector(context: PacketContext, packet:
 		lng,
 		pseudo: user.attributes.gameUsername
 	}), interaction.user);
-	embed.setDescription(`${i18n.t("commands:report.chooseDestinationIndications", {lng})}\n\n`);
+	embed.setDescription(`${i18n.t("commands:report.chooseDestinationIndications", { lng })}\n\n`);
 
-	return await DiscordCollectorUtils.createChoiceListCollector(interaction, embed, packet, context, packet.reactions.map((reaction) => {
+	return await DiscordCollectorUtils.createChoiceListCollector(interaction, embed, packet, context, packet.reactions.map(reaction => {
 		const destinationReaction = reaction.data as ReactionCollectorChooseDestinationReaction;
+
 		// If the trip duration is hidden, the translation module is used with a 2 hours placeholder and the 2 is replaced by a ? afterward
 		const duration = destinationReaction.tripDuration ? minutesDisplay(destinationReaction.tripDuration, lng) : minutesDisplay(120, lng).replace("2", "?");
 		return `${
 			EmoteUtils.translateEmojiToDiscord(DraftBotIcons.map_types[destinationReaction.mapTypeId])
 		} ${
-			i18n.t(`models:map_locations.${destinationReaction.mapId}.name`, {lng})} (${duration})`;
-	}), {can: false});
+			i18n.t(`models:map_locations.${destinationReaction.mapId}.name`, { lng })} (${duration})`;
+	}), { can: false });
 }
 
 function isCurrentlyInEffect(packet: CommandReportTravelSummaryRes, now: number): boolean {
@@ -308,17 +331,17 @@ export async function handleStartPveFight(context: PacketContext, packet: Reacti
 		event: StringUtils.getRandomTranslation("commands:report.encounterMonster", interaction.userLanguage, {}),
 		monsterDisplay: i18n.t("commands:report.encounterMonsterStats", {
 			lng: interaction.userLanguage,
-			monsterName: i18n.t(`models:monsters.${data.monster.id}.name`, {lng: interaction.userLanguage}),
+			monsterName: i18n.t(`models:monsters.${data.monster.id}.name`, { lng: interaction.userLanguage }),
 			emoji: DraftBotIcons.monsters[data.monster.id],
-			description: i18n.t(`models:monsters.${data.monster.id}.description`, {lng: interaction.userLanguage}),
+			description: i18n.t(`models:monsters.${data.monster.id}.description`, { lng: interaction.userLanguage }),
 			level: data.monster.level,
 			energy: data.monster.energy,
 			attack: data.monster.attack,
 			defense: data.monster.defense,
 			speed: data.monster.speed,
-			interpolation: {escapeValue: false}
+			interpolation: { escapeValue: false }
 		}),
-		interpolation: {escapeValue: false}
+		interpolation: { escapeValue: false }
 	});
 
 	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, msg, packet, context, {
@@ -362,12 +385,16 @@ export async function displayMonsterReward(
 		return;
 	}
 
-	const {userLanguage, user, channel} = originalInteraction;
+	const {
+		userLanguage, user, channel
+	} = originalInteraction;
 	const descriptionParts: string[] = [];
 
 	if (packet.guildXp > 0) {
 		descriptionParts.push(
-			i18n.t("commands:report.monsterRewardGuildXp", {lng: userLanguage, guildXp: packet.guildXp})
+			i18n.t("commands:report.monsterRewardGuildXp", {
+				lng: userLanguage, guildXp: packet.guildXp
+			})
 		);
 	}
 
@@ -381,18 +408,22 @@ export async function displayMonsterReward(
 
 	if (packet.guildPoints > 0) {
 		descriptionParts.push(
-			i18n.t("commands:report.monsterRewardsGuildPoints", {lng: userLanguage, guildPoints: packet.guildPoints})
+			i18n.t("commands:report.monsterRewardsGuildPoints", {
+				lng: userLanguage, guildPoints: packet.guildPoints
+			})
 		);
 	}
 
 	const embed = new DraftBotEmbed()
 		.formatAuthor(
-			i18n.t("commands:report.rewardEmbedTitle", {lng: userLanguage, pseudo: user.displayName}),
+			i18n.t("commands:report.rewardEmbedTitle", {
+				lng: userLanguage, pseudo: user.displayName
+			}),
 			user
 		)
 		.setDescription(descriptionParts.join("\n"));
 
-	await channel.send({embeds: [embed]});
+	await channel.send({ embeds: [embed] });
 }
 
 /**
@@ -407,16 +438,16 @@ export async function reportTravelSummary(packet: CommandReportTravelSummaryRes,
 	if (interaction) {
 		const now = Date.now();
 		const travelEmbed = new DraftBotEmbed();
-		travelEmbed.formatAuthor(i18n.t("commands:report.travelPathTitle", {lng: interaction.userLanguage}), interaction.user);
+		travelEmbed.formatAuthor(i18n.t("commands:report.travelPathTitle", { lng: interaction.userLanguage }), interaction.user);
 		travelEmbed.setDescription(generateTravelPathString(packet, now));
 		travelEmbed.addFields({
-			name: i18n.t("commands:report.startPoint", {lng: interaction.userLanguage}),
-			value: `${DraftBotIcons.map_types[packet.startMap.type]} ${i18n.t(`models:map_locations.${packet.startMap.id}.name`, {lng: interaction.userLanguage})}`,
+			name: i18n.t("commands:report.startPoint", { lng: interaction.userLanguage }),
+			value: `${DraftBotIcons.map_types[packet.startMap.type]} ${i18n.t(`models:map_locations.${packet.startMap.id}.name`, { lng: interaction.userLanguage })}`,
 			inline: true
 		});
 		travelEmbed.addFields({
-			name: i18n.t("commands:report.endPoint", {lng: interaction.userLanguage}),
-			value: `${DraftBotIcons.map_types[packet.endMap.type]} ${i18n.t(`models:map_locations.${packet.endMap.id}.name`, {lng: interaction.userLanguage})}`,
+			name: i18n.t("commands:report.endPoint", { lng: interaction.userLanguage }),
+			value: `${DraftBotIcons.map_types[packet.endMap.type]} ${i18n.t(`models:map_locations.${packet.endMap.id}.name`, { lng: interaction.userLanguage })}`,
 			inline: true
 		});
 
@@ -431,52 +462,53 @@ export async function reportTravelSummary(packet: CommandReportTravelSummaryRes,
 		else if (packet.nextStopTime > packet.arriveTime) {
 			// If there is no small event before the big event, do not display anything
 			travelEmbed.addFields({
-				name: i18n.t("commands:report.travellingTitle", {lng: interaction.userLanguage}),
-				value: i18n.t("commands:report.travellingDescriptionEndTravel", {lng: interaction.userLanguage})
+				name: i18n.t("commands:report.travellingTitle", { lng: interaction.userLanguage }),
+				value: i18n.t("commands:report.travellingDescriptionEndTravel", { lng: interaction.userLanguage })
 			});
 		}
 		else {
 			const timeBeforeSmallEvent = printTimeBeforeDate(packet.nextStopTime);
 			travelEmbed.addFields({
-				name: i18n.t("commands:report.travellingTitle", {lng: interaction.userLanguage}),
+				name: i18n.t("commands:report.travellingTitle", { lng: interaction.userLanguage }),
 				value: packet.lastSmallEventId
-					?
-					i18n.t("commands:report.travellingDescription", {
+					? i18n.t("commands:report.travellingDescription", {
 						lng: interaction.userLanguage,
 						smallEventEmoji: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.small_events[packet.lastSmallEventId]),
 						time: timeBeforeSmallEvent,
-						interpolation: {escapeValue: false}
-					}) :
-					i18n.t("commands:report.travellingDescriptionWithoutSmallEvent", {
+						interpolation: { escapeValue: false }
+					})
+					: i18n.t("commands:report.travellingDescriptionWithoutSmallEvent", {
 						lng: interaction.userLanguage,
 						time: timeBeforeSmallEvent,
-						interpolation: {escapeValue: false}
+						interpolation: { escapeValue: false }
 					})
 			});
 		}
 
 		if (packet.energy.show) {
 			travelEmbed.addFields({
-				name: i18n.t("commands:report.remainingEnergyTitle", {lng: interaction.userLanguage}),
+				name: i18n.t("commands:report.remainingEnergyTitle", { lng: interaction.userLanguage }),
 				value: `⚡ ${packet.energy.current} / ${packet.energy.max}`,
 				inline: true
 			});
 		}
 		if (packet.points.show) {
 			travelEmbed.addFields({
-				name: i18n.t("commands:report.collectedPointsTitle", {lng: interaction.userLanguage}),
+				name: i18n.t("commands:report.collectedPointsTitle", { lng: interaction.userLanguage }),
 				value: `🏅 ${packet.points.cumulated}`,
 				inline: true
 			});
 		}
 
-		const advices = i18n.t("advices:advices", {returnObjects: true, lng: interaction.userLanguage});
+		const advices = i18n.t("advices:advices", {
+			returnObjects: true, lng: interaction.userLanguage
+		});
 		travelEmbed.addFields({
-			name: i18n.t("commands:report.adviceTitle", {lng: interaction.userLanguage}),
+			name: i18n.t("commands:report.adviceTitle", { lng: interaction.userLanguage }),
 			value: advices[Math.floor(Math.random() * advices.length)],
 			inline: true
 		});
-		await interaction.editReply({embeds: [travelEmbed]});
+		await interaction.editReply({ embeds: [travelEmbed] });
 	}
 }
 

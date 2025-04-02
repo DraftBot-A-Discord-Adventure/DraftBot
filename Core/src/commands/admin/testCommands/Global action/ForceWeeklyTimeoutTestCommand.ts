@@ -1,9 +1,15 @@
-import {DraftBot} from "../../../../core/bot/DraftBot";
-import {ExecuteTestCommandLike, ITestCommand} from "../../../../core/CommandsTest";
+import { DraftBot } from "../../../../core/bot/DraftBot";
+import {
+	ExecuteTestCommandLike, ITestCommand
+} from "../../../../core/CommandsTest";
 
 export const commandInfo: ITestCommand = {
 	name: "forceweeklytimeout",
-	aliases: ["forceweektimeout", "weektlyimeout", "weektimeout"],
+	aliases: [
+		"forceweektimeout",
+		"weektlyimeout",
+		"weektimeout"
+	],
 	description: "Effectue une fin de semaine (actions hebdomadaires)"
 };
 

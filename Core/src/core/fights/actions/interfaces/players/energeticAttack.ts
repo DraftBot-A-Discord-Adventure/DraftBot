@@ -1,10 +1,12 @@
-import {Fighter} from "../../../fighter/Fighter";
-import {attackInfo, FightActionController, statsInfo} from "../../FightActionController";
-import {FightActionFunc} from "../../../../../data/FightAction";
-import {FightStatBuffed} from "../../../../../../../Lib/src/types/FightActionResult";
-import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
-import {simpleDamageFightAction} from "../../templates/SimpleDamageFightActionTemplate";
-import {FightConstants} from "../../../../../../../Lib/src/constants/FightConstants";
+import { Fighter } from "../../../fighter/Fighter";
+import {
+	attackInfo, FightActionController, statsInfo
+} from "../../FightActionController";
+import { FightActionFunc } from "../../../../../data/FightAction";
+import { FightStatBuffed } from "../../../../../../../Lib/src/types/FightActionResult";
+import { FightStatModifierOperation } from "../../../../../../../Lib/src/types/FightStatModifierOperation";
+import { simpleDamageFightAction } from "../../templates/SimpleDamageFightActionTemplate";
+import { FightConstants } from "../../../../../../../Lib/src/constants/FightConstants";
 
 const use: FightActionFunc = (sender, receiver, fightAction) => {
 	// Check the number of ultimate attacks the sender already used, some behaviors are different depending on this.
@@ -17,7 +19,12 @@ const use: FightActionFunc = (sender, receiver, fightAction) => {
 		},
 		{
 			critical: 35,
-			failure: [0,5,15,60][Math.min(timeAttackWasUsed,3)]
+			failure: [
+				0,
+				5,
+				15,
+				60
+			][Math.min(timeAttackWasUsed, 3)]
 		},
 		{
 			attackInfo: getAttackInfo(),

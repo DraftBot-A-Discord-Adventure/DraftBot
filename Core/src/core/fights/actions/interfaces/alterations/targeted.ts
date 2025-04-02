@@ -1,9 +1,13 @@
-import {Fighter} from "../../../fighter/Fighter";
-import {RandomUtils} from "../../../../../../../Lib/src/utils/RandomUtils";
-import {FightAlterationFunc} from "../../../../../data/FightAlteration";
-import {defaultDamageFightAlterationResult, defaultHealFightAlterationResult} from "../../../FightController";
-import {attackInfo, statsInfo} from "../../FightActionController";
-import {FightAlterationState} from "../../../../../../../Lib/src/types/FightAlterationResult";
+import { Fighter } from "../../../fighter/Fighter";
+import { RandomUtils } from "../../../../../../../Lib/src/utils/RandomUtils";
+import { FightAlterationFunc } from "../../../../../data/FightAlteration";
+import {
+	defaultDamageFightAlterationResult, defaultHealFightAlterationResult
+} from "../../../FightController";
+import {
+	attackInfo, statsInfo
+} from "../../FightActionController";
+import { FightAlterationState } from "../../../../../../../Lib/src/types/FightAlterationResult";
 
 const use: FightAlterationFunc = (affected, _fightAlteration, opponent) => {
 	if (affected.alterationTurn === 1 || affected.alterationTurn === 3) {
@@ -12,9 +16,9 @@ const use: FightAlterationFunc = (affected, _fightAlteration, opponent) => {
 		};
 	}
 
-	if (affected.alterationTurn > 4 ||
-		affected.alterationTurn > 2 && RandomUtils.draftbotRandom.bool(0.15) ||
-		RandomUtils.draftbotRandom.bool(0.05)) {
+	if (affected.alterationTurn > 4
+		|| affected.alterationTurn > 2 && RandomUtils.draftbotRandom.bool(0.15)
+		|| RandomUtils.draftbotRandom.bool(0.05)) {
 		return defaultHealFightAlterationResult(affected);
 	}
 
@@ -24,17 +28,13 @@ const use: FightAlterationFunc = (affected, _fightAlteration, opponent) => {
 export default use;
 
 function getAttackInfo(): attackInfo {
-	return {minDamage: 45, averageDamage: 90, maxDamage: 150};
+	return {
+		minDamage: 45, averageDamage: 90, maxDamage: 150
+	};
 }
 
 function getStatsInfo(victim: Fighter, sender: Fighter): statsInfo {
 	return {
-		attackerStats: [
-			sender.getAttack()
-		], defenderStats: [
-			victim.getDefense()
-		], statsEffect: [
-			1
-		]
+		attackerStats: [sender.getAttack()], defenderStats: [victim.getDefense()], statsEffect: [1]
 	};
 }

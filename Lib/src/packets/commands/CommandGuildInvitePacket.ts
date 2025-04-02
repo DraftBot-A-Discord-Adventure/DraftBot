@@ -1,4 +1,6 @@
-import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket.js";
+import {
+	DraftBotPacket, PacketDirection, sendablePacket
+} from "../DraftBotPacket.js";
 
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandGuildInvitePacketReq extends DraftBotPacket {

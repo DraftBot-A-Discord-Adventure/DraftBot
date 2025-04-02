@@ -1,5 +1,7 @@
 import Guild from "../../../../core/database/game/models/Guild";
-import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
+import {
+	ExecuteTestCommandLike, ITestCommand, TypeKey
+} from "../../../../core/CommandsTest";
 
 export const commandInfo: ITestCommand = {
 	name: "advanceguilddaily",
@@ -15,7 +17,7 @@ export const commandInfo: ITestCommand = {
  * Quick travel your gd of a given time
  */
 const advanceGuildDailyTestCommand: ExecuteTestCommandLike = async (player, args) => {
-	const guild = await Guild.findOne({where: {id: player.guildId}});
+	const guild = await Guild.findOne({ where: { id: player.guildId } });
 	if (!guild) {
 		throw new Error("Erreur agd : vous n'êtes pas dans une guilde !");
 	}

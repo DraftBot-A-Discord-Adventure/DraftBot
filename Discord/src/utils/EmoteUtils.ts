@@ -1,10 +1,11 @@
-import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
-import {ActionRowBuilder, parseEmoji, StringSelectMenuBuilder, StringSelectMenuOptionBuilder} from "discord.js";
-import {DraftBotEmbed} from "../messages/DraftBotEmbed";
-import {DraftbotInteraction} from "../messages/DraftbotInteraction";
+import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
+import {
+	ActionRowBuilder, parseEmoji, StringSelectMenuBuilder, StringSelectMenuOptionBuilder
+} from "discord.js";
+import { DraftBotEmbed } from "../messages/DraftBotEmbed";
+import { DraftbotInteraction } from "../messages/DraftbotInteraction";
 
 export class EmoteUtils {
-
 	/**
 	 * Map of emojis to their Discord equivalent
 	 * TODO : ADD EMOJI TRANSLATION WHEN YOU SEE A DISCREPANCY PLEASE, THANKS, DON'T BE FOOLS
@@ -55,8 +56,10 @@ export class EmoteUtils {
 			Object.values(DraftBotIcons.pets).map(pet => pet.emoteMale),
 			Object.values(DraftBotIcons.pets).map(pet => pet.emoteFemale)
 		);
+
 		// Remove duplicates
 		emojis = emojis.filter((value, index, self) => self.indexOf(value) === index);
+
 		// Remove some emojis that are not supported by Discord
 		emojis.splice(emojis.indexOf("👁️‍🗨️"), 1);
 		emojis.splice(emojis.indexOf("🦄️"), 1);

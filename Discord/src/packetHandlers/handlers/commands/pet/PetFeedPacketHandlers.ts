@@ -1,14 +1,14 @@
-import {packetHandler} from "../../../PacketHandler";
-import {PacketContext} from "../../../../../../Lib/src/packets/DraftBotPacket";
-import {handleClassicError} from "../../../../utils/ErrorUtils";
+import { packetHandler } from "../../../PacketHandler";
+import { PacketContext } from "../../../../../../Lib/src/packets/DraftBotPacket";
+import { handleClassicError } from "../../../../utils/ErrorUtils";
 import {
 	CommandPetFeedCancelErrorPacket,
 	CommandPetFeedGuildStorageEmptyErrorPacket,
 	CommandPetFeedNoMoneyFeedErrorPacket,
 	CommandPetFeedNoPetErrorPacket, CommandPetFeedNotHungryErrorPacket, CommandPetFeedSuccessPacket
 } from "../../../../../../Lib/src/packets/commands/CommandPetFeedPacket";
-import {DisplayUtils} from "../../../../utils/DisplayUtils";
-import {handleCommandPetFeedSuccessPacket} from "../../../../commands/pet/PetFeedCommand";
+import { DisplayUtils } from "../../../../utils/DisplayUtils";
+import { handleCommandPetFeedSuccessPacket } from "../../../../commands/pet/PetFeedCommand";
 
 export default class PetFeedCommandPacketHandlers {
 	@packetHandler(CommandPetFeedNoPetErrorPacket)

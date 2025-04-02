@@ -1,5 +1,7 @@
-import {SmallEventAddSomething} from "./SmallEventPacket";
-import {PacketDirection, sendablePacket} from "../DraftBotPacket";
+import { SmallEventAddSomething } from "./SmallEventPacket";
+import {
+	PacketDirection, sendablePacket
+} from "../DraftBotPacket";
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class SmallEventWinPersonalXPPacket extends SmallEventAddSomething {}

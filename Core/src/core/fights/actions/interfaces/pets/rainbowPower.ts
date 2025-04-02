@@ -1,13 +1,14 @@
-import {PetAssistanceResult, PetAssistanceState} from "../../../../../../../Lib/src/types/PetAssistanceResult";
-import {PetAssistanceFunc} from "../../../../../data/PetAssistance";
-import {FightActionController} from "../../FightActionController";
-import {FightActionType} from "../../../../../../../Lib/src/types/FightActionType";
-import {FightStatBuffed} from "../../../../../../../Lib/src/types/FightActionResult";
-import {FightStatModifierOperation} from "../../../../../../../Lib/src/types/FightStatModifierOperation";
-import {RandomUtils} from "../../../../../../../Lib/src/utils/RandomUtils";
+import {
+	PetAssistanceResult, PetAssistanceState
+} from "../../../../../../../Lib/src/types/PetAssistanceResult";
+import { PetAssistanceFunc } from "../../../../../data/PetAssistance";
+import { FightActionController } from "../../FightActionController";
+import { FightActionType } from "../../../../../../../Lib/src/types/FightActionType";
+import { FightStatBuffed } from "../../../../../../../Lib/src/types/FightActionResult";
+import { FightStatModifierOperation } from "../../../../../../../Lib/src/types/FightStatModifierOperation";
+import { RandomUtils } from "../../../../../../../Lib/src/utils/RandomUtils";
 
 const use: PetAssistanceFunc = (fighter, opponent, turn, _fightController): Promise<PetAssistanceResult | null> => {
-
 	// Does nothing first turn or if there is no energy to regen.
 	if (turn <= 2 || fighter.getEnergy() === fighter.getMaxEnergy()) {
 		return null;

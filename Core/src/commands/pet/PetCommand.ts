@@ -1,12 +1,18 @@
-import {DraftBotPacket, makePacket} from "../../../../Lib/src/packets/DraftBotPacket";
-import {Player, Players} from "../../core/database/game/models/Player";
+import {
+	DraftBotPacket, makePacket
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import {
+	Player, Players
+} from "../../core/database/game/models/Player";
 import {
 	CommandPetPacketReq,
 	CommandPetPacketRes,
 	CommandPetPetNotFound
 } from "../../../../Lib/src/packets/commands/CommandPetPacket";
-import {PetEntities} from "../../core/database/game/models/PetEntity";
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
+import { PetEntities } from "../../core/database/game/models/PetEntity";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
 
 export default class PetCommand {
 	@commandRequires(CommandPetPacketReq, {

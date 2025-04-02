@@ -1,9 +1,11 @@
 import { ClassBehavior } from "../AiBehaviorController";
 import { AiPlayerFighter } from "../fighter/AiPlayerFighter";
 import { FightView } from "../FightView";
-import { FightAction, FightActionDataController } from "../../../data/FightAction";
+import {
+	FightAction, FightActionDataController
+} from "../../../data/FightAction";
 import { FightConstants } from "../../../../../Lib/src/constants/FightConstants";
-import {Fighter} from "../fighter/Fighter";
+import { Fighter } from "../fighter/Fighter";
 
 /**
  * Determines whether the AI should use a boomerang attack
@@ -41,6 +43,7 @@ export function shouldStartCanonSequence(
 		&& opponent.getEnergy() > 400
 		&& me.getSpeed() * 0.75 > opponent.getSpeed()
 		&& opponent.hasFightAlteration()
+
 		// Need enough breath for at least two consecutive canon attacks
 		&& me.getBreath() >= FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK) + 2;
 }
@@ -66,7 +69,6 @@ export function shouldContinueCanonSequence(
 }
 
 class RockThrowerFightBehavior implements ClassBehavior {
-
 	private isGoingForChainedCanonAttack = false;
 
 	private canonAttackUsed = 0;

@@ -1,9 +1,9 @@
-import {ItemCategory} from "../../../Lib/src/constants/ItemConstants";
-import {ItemDataController} from "./DataController";
-import {SupportItem} from "./SupportItem";
-import {RandomUtils} from "../../../Lib/src/utils/RandomUtils";
-import {SupportItemDisplayPacket} from "../../../Lib/src/packets/commands/CommandInventoryPacket";
-import {StatValues} from "../../../Lib/src/types/StatValues";
+import { ItemCategory } from "../../../Lib/src/constants/ItemConstants";
+import { ItemDataController } from "./DataController";
+import { SupportItem } from "./SupportItem";
+import { RandomUtils } from "../../../Lib/src/utils/RandomUtils";
+import { SupportItemDisplayPacket } from "../../../Lib/src/packets/commands/CommandInventoryPacket";
+import { StatValues } from "../../../Lib/src/types/StatValues";
 
 export class ObjectItem extends SupportItem {
 	categoryName = "objects";
@@ -45,6 +45,6 @@ export class ObjectItemDataController extends ItemDataController<ObjectItem> {
 
 	public randomItem(nature: number, rarity: number): ObjectItem {
 		return RandomUtils.draftbotRandom.pick(this.getValuesArray()
-			.filter((item) => item.nature === nature && item.rarity === rarity));
+			.filter(item => item.nature === nature && item.rarity === rarity));
 	}
 }

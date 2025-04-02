@@ -1,4 +1,4 @@
-import {QueryInterface} from "sequelize";
+import { QueryInterface } from "sequelize";
 
 /**
  * Add a mission to the campaign

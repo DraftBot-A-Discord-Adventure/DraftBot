@@ -1,6 +1,10 @@
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import Player, {Players} from "../../core/database/game/models/Player";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
+import {
+	DraftBotPacket, makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import Player, { Players } from "../../core/database/game/models/Player";
 import {
 	CommandPetTransferAnotherMemberTransferringErrorPacket,
 	CommandPetTransferCancelErrorPacket,
@@ -10,9 +14,9 @@ import {
 	CommandPetTransferSituationChangedErrorPacket,
 	CommandPetTransferSuccessPacket
 } from "../../../../Lib/src/packets/commands/CommandPetTransferPacket";
-import {PetEntities} from "../../core/database/game/models/PetEntity";
-import {ReactionCollectorInstance} from "../../core/utils/ReactionsCollector";
-import {BlockingConstants} from "../../../../Lib/src/constants/BlockingConstants";
+import { PetEntities } from "../../core/database/game/models/PetEntity";
+import { ReactionCollectorInstance } from "../../core/utils/ReactionsCollector";
+import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
 import {
 	ReactionCollectorReaction,
 	ReactionCollectorRefuseReaction
@@ -23,12 +27,12 @@ import {
 	ReactionCollectorPetTransferSwitchReaction,
 	ReactionCollectorPetTransferWithdrawReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPetTransfer";
-import {Guilds} from "../../core/database/game/models/Guild";
-import {BlockingUtils} from "../../core/utils/BlockingUtils";
-import {GuildPets} from "../../core/database/game/models/GuildPet";
-import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
-import {draftBotInstance} from "../../index";
-import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
+import { Guilds } from "../../core/database/game/models/Guild";
+import { BlockingUtils } from "../../core/utils/BlockingUtils";
+import { GuildPets } from "../../core/database/game/models/GuildPet";
+import { PetConstants } from "../../../../Lib/src/constants/PetConstants";
+import { draftBotInstance } from "../../index";
+import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
 
 
 /**

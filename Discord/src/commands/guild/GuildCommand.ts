@@ -1,25 +1,27 @@
-import {ICommand} from "../ICommand";
-import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
+import { ICommand } from "../ICommand";
+import {
+	makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 import i18n from "../../translations/i18n";
-import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
 import {
 	CommandGuildPacketReq,
 	CommandGuildPacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildPacket";
-import {GuildMember} from "../../../../Lib/src/types/GuildMember";
-import {SlashCommandBuilder} from "@discordjs/builders";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
-import {DiscordCache} from "../../bot/DiscordCache";
-import {DraftBotErrorEmbed} from "../../messages/DraftBotErrorEmbed";
-import {GuildConstants} from "../../../../Lib/src/constants/GuildConstants";
-import {ColorConstants} from "../../../../Lib/src/constants/ColorConstants";
-import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
-import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
-import {keycloakConfig} from "../../bot/DraftBotShard";
-import {progressBar} from "../../../../Lib/src/utils/StringUtils";
-import {PacketUtils} from "../../utils/PacketUtils";
-import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
+import { GuildMember } from "../../../../Lib/src/types/GuildMember";
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
+import { DiscordCache } from "../../bot/DiscordCache";
+import { DraftBotErrorEmbed } from "../../messages/DraftBotErrorEmbed";
+import { GuildConstants } from "../../../../Lib/src/constants/GuildConstants";
+import { ColorConstants } from "../../../../Lib/src/constants/ColorConstants";
+import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
+import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
+import { keycloakConfig } from "../../bot/DraftBotShard";
+import { progressBar } from "../../../../Lib/src/utils/StringUtils";
+import { PacketUtils } from "../../utils/PacketUtils";
+import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
 
 /**
  * Display all the information about a guild
@@ -33,7 +35,9 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 		return null;
 	}
 
-	return makePacket(CommandGuildPacketReq, {askedPlayer, askedGuildName});
+	return makePacket(CommandGuildPacketReq, {
+		askedPlayer, askedGuildName
+	});
 }
 
 /**
@@ -42,11 +46,11 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
  * @param packet
  */
 function getMemberTypeIcon(member: GuildMember, packet: CommandGuildPacketRes): string {
-	return member.id === packet.data!.chiefId ?
-		DraftBotIcons.guild.chief :
-		member.id === packet.data!.elderId ?
-			DraftBotIcons.guild.elder :
-			DraftBotIcons.guild.member;
+	return member.id === packet.data!.chiefId
+		? DraftBotIcons.guild.chief
+		: member.id === packet.data!.elderId
+			? DraftBotIcons.guild.elder
+			: DraftBotIcons.guild.member;
 }
 
 /**
@@ -55,20 +59,21 @@ function getMemberTypeIcon(member: GuildMember, packet: CommandGuildPacketRes): 
  * @param interaction
  */
 function getIslandStatusIcon(member: GuildMember, interaction: DraftbotInteraction): string {
-	return member.islandStatus.isOnPveIsland || member.islandStatus.isOnBoat || member.islandStatus.isPveIslandAlly || member.islandStatus.cannotBeJoinedOnBoat ?
-		i18n.t("commands:guild.separator", {lng: interaction.userLanguage})
-		+ (member.islandStatus.isOnPveIsland ?
-			DraftBotIcons.guild.isOnPveIsland :
-			"")
-		+ (member.islandStatus.isOnBoat ?
-			DraftBotIcons.guild.isOnBoat :
-			"")
-		+ (member.islandStatus.isPveIslandAlly ?
-			DraftBotIcons.guild.countAsAnAlly :
-			"")
-		+ (member.islandStatus.cannotBeJoinedOnBoat ?
-			DraftBotIcons.guild.cannotBeJoinedOnBoat :
-			"") : "";
+	return member.islandStatus.isOnPveIsland || member.islandStatus.isOnBoat || member.islandStatus.isPveIslandAlly || member.islandStatus.cannotBeJoinedOnBoat
+		? i18n.t("commands:guild.separator", { lng: interaction.userLanguage })
+		+ (member.islandStatus.isOnPveIsland
+			? DraftBotIcons.guild.isOnPveIsland
+			: "")
+		+ (member.islandStatus.isOnBoat
+			? DraftBotIcons.guild.isOnBoat
+			: "")
+		+ (member.islandStatus.isPveIslandAlly
+			? DraftBotIcons.guild.countAsAnAlly
+			: "")
+		+ (member.islandStatus.cannotBeJoinedOnBoat
+			? DraftBotIcons.guild.cannotBeJoinedOnBoat
+			: "")
+		: "";
 }
 
 export async function handleCommandGuildPacketRes(packet: CommandGuildPacketRes, context: PacketContext): Promise<void> {
@@ -85,7 +90,7 @@ export async function handleCommandGuildPacketRes(packet: CommandGuildPacketRes,
 				new DraftBotErrorEmbed(
 					interaction.user,
 					interaction,
-					i18n.t("error:guildDoesntExist", {lng})
+					i18n.t("error:guildDoesntExist", { lng })
 				)
 			]
 		});
@@ -130,12 +135,12 @@ export async function handleCommandGuildPacketRes(packet: CommandGuildPacketRes,
 	}
 	const pveIslandInfo = packet.data!.members.some(
 		member => member.keycloakId === context.keycloakId
-	) ?
-		i18n.t("commands:guild.islandInfo", {
+	)
+		? i18n.t("commands:guild.islandInfo", {
 			lng,
 			membersOnPveIsland: packet.data!.members.filter(member => member.islandStatus.isPveIslandAlly).length
-		}) :
-		"";
+		})
+		: "";
 	const experienceInfo: string = packet.data!.isMaxLevel
 		? i18n.t("commands:guild.xpMax", {
 			lng
@@ -145,13 +150,15 @@ export async function handleCommandGuildPacketRes(packet: CommandGuildPacketRes,
 			xp: packet.data!.experience.value,
 			xpToLevelUp: packet.data!.experience.max
 		});
-	const rankingInfo = packet.data!.rank.rank > -1 ? i18n.t("commands:guild.ranking", {
-		lng,
-		rank: packet.data!.rank.rank,
-		rankTotal: packet.data!.rank.numberOfGuilds
-	}) : i18n.t("commands:guild.notRanked", {
-		lng
-	});
+	const rankingInfo = packet.data!.rank.rank > -1
+		? i18n.t("commands:guild.ranking", {
+			lng,
+			rank: packet.data!.rank.rank,
+			rankTotal: packet.data!.rank.numberOfGuilds
+		})
+		: i18n.t("commands:guild.notRanked", {
+			lng
+		});
 	guildCommandEmbed.addFields({
 		name: i18n.t("commands:guild.infoTitle", {
 			lng,

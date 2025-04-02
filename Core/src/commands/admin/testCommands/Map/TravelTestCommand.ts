@@ -1,9 +1,11 @@
-import {Maps} from "../../../../core/maps/Maps";
-import {ExecuteTestCommandLike, ITestCommand, TypeKey} from "../../../../core/CommandsTest";
-import {TravelTime} from "../../../../core/maps/TravelTime";
-import {NumberChangeReason} from "../../../../../../Lib/src/constants/LogsConstants";
-import {MapLinkDataController} from "../../../../data/MapLink";
-import {PlayerSmallEvents} from "../../../../core/database/game/models/PlayerSmallEvent";
+import { Maps } from "../../../../core/maps/Maps";
+import {
+	ExecuteTestCommandLike, ITestCommand, TypeKey
+} from "../../../../core/CommandsTest";
+import { TravelTime } from "../../../../core/maps/TravelTime";
+import { NumberChangeReason } from "../../../../../../Lib/src/constants/LogsConstants";
+import { MapLinkDataController } from "../../../../data/MapLink";
+import { PlayerSmallEvents } from "../../../../core/database/game/models/PlayerSmallEvent";
 
 export const commandInfo: ITestCommand = {
 	name: "travel",

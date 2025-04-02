@@ -1,29 +1,31 @@
-import {ICommand} from "../ICommand";
-import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
+import { ICommand } from "../ICommand";
+import {
+	makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 import i18n from "../../translations/i18n";
-import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
 import {
 	CommandPetFreeAcceptPacketRes,
 	CommandPetFreePacketReq,
 	CommandPetFreePacketRes
 } from "../../../../Lib/src/packets/commands/CommandPetFreePacket";
-import {DiscordCache} from "../../bot/DiscordCache";
-import {DraftBotErrorEmbed} from "../../messages/DraftBotErrorEmbed";
-import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
-import {printTimeBeforeDate} from "../../../../Lib/src/utils/TimeUtils";
-import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
-import {ReactionCollectorPetFreeData} from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFree";
-import {PetUtils} from "../../utils/PetUtils";
-import {ReactionCollectorReturnType} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { DiscordCache } from "../../bot/DiscordCache";
+import { DraftBotErrorEmbed } from "../../messages/DraftBotErrorEmbed";
+import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
+import { printTimeBeforeDate } from "../../../../Lib/src/utils/TimeUtils";
+import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
+import { ReactionCollectorPetFreeData } from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFree";
+import { PetUtils } from "../../utils/PetUtils";
+import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
 /**
  * Destroy a pet forever... RIP
  */
 function getPacket(_interaction: DraftbotInteraction, keycloakUser: KeycloakUser): CommandPetFreePacketReq {
-	return makePacket(CommandPetFreePacketReq, {keycloakId: keycloakUser.id});
+	return makePacket(CommandPetFreePacketReq, { keycloakId: keycloakUser.id });
 }
 
 
@@ -41,7 +43,7 @@ export async function handleCommandPetFreePacketRes(packet: CommandPetFreePacket
 				new DraftBotErrorEmbed(
 					interaction.user,
 					interaction,
-					i18n.t("error:petDoesntExist", {lng})
+					i18n.t("error:petDoesntExist", { lng })
 				)
 			]
 		});
@@ -71,7 +73,7 @@ export async function handleCommandPetFreePacketRes(packet: CommandPetFreePacket
 						i18n.t("error:cooldownPetFree", {
 							lng,
 							remainingTime: printTimeBeforeDate(packet.cooldownRemainingTimeMs! + new Date().valueOf()),
-							interpolation: {escapeValue: false}
+							interpolation: { escapeValue: false }
 						})
 					)
 				]
@@ -111,7 +113,7 @@ export async function handleCommandPetFreeRefusePacketRes(context: PacketContext
 					pseudo: originalInteraction.user.displayName
 				}), originalInteraction.user)
 					.setDescription(
-						i18n.t("commands:petFree.canceledDesc", {lng: originalInteraction.userLanguage})
+						i18n.t("commands:petFree.canceledDesc", { lng: originalInteraction.userLanguage })
 					)
 					.setErrorColor()
 			]

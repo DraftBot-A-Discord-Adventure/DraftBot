@@ -1,6 +1,8 @@
-import {Guild} from "discord.js";
+import { Guild } from "discord.js";
 
-export type ValidationInfos = { validation: string, humans: number, bots: number, ratio: number }
+export type ValidationInfos = {
+	validation: string; humans: number; bots: number; ratio: number;
+};
 
 /**
  * Functions that are used from the bots perspective
@@ -21,7 +23,9 @@ export class BotUtils {
 		else if (ratio > 20 || bots > 15 || humans < 100) {
 			validation = ":warning:";
 		}
-		return {validation, humans, bots, ratio};
+		return {
+			validation, humans, bots, ratio
+		};
 	}
 
 	/**

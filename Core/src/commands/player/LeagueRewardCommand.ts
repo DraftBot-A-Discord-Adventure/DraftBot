@@ -1,6 +1,10 @@
-import {commandRequires, CommandUtils} from "../../core/utils/CommandUtils";
-import {DraftBotPacket, makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import Player, {Players} from "../../core/database/game/models/Player";
+import {
+	commandRequires, CommandUtils
+} from "../../core/utils/CommandUtils";
+import {
+	DraftBotPacket, makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import Player, { Players } from "../../core/database/game/models/Player";
 import {
 	CommandLeagueRewardAlreadyClaimedPacketRes,
 	CommandLeagueRewardNoPointsPacketRes,
@@ -8,13 +12,15 @@ import {
 	CommandLeagueRewardPacketReq,
 	CommandLeagueRewardSuccessPacketRes
 } from "../../../../Lib/src/packets/commands/CommandLeagueRewardPacket";
-import {NumberChangeReason} from "../../../../Lib/src/constants/LogsConstants";
-import {giveItemToPlayer} from "../../core/utils/ItemUtils";
-import {InventorySlots} from "../../core/database/game/models/InventorySlot";
-import {draftBotInstance} from "../../index";
-import {getNextSaturdayMidnight, todayIsSunday} from "../../../../Lib/src/utils/TimeUtils";
-import {FightConstants} from "../../../../Lib/src/constants/FightConstants";
-import {WhereAllowed} from "../../../../Lib/src/types/WhereAllowed";
+import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
+import { giveItemToPlayer } from "../../core/utils/ItemUtils";
+import { InventorySlots } from "../../core/database/game/models/InventorySlot";
+import { draftBotInstance } from "../../index";
+import {
+	getNextSaturdayMidnight, todayIsSunday
+} from "../../../../Lib/src/utils/TimeUtils";
+import { FightConstants } from "../../../../Lib/src/constants/FightConstants";
+import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
 
 export default class LeagueRewardCommand {
 	@commandRequires(CommandLeagueRewardPacketReq, {

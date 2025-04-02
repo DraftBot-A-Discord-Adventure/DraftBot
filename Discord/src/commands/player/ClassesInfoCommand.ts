@@ -2,26 +2,28 @@ import {
 	CommandClassesInfoPacketReq,
 	CommandClassesInfoPacketRes
 } from "../../../../Lib/src/packets/commands/CommandClassesInfoPacket";
-import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {DiscordCache} from "../../bot/DiscordCache";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
+import {
+	makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { DiscordCache } from "../../bot/DiscordCache";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import i18n from "../../translations/i18n";
-import {ICommand} from "../ICommand";
-import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {Constants} from "../../../../Lib/src/constants/Constants";
-import {ClassInfoConstants} from "../../../../Lib/src/constants/ClassInfoConstants";
-import {Language} from "../../../../Lib/src/Language";
+import { ICommand } from "../ICommand";
+import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
+import { Constants } from "../../../../Lib/src/constants/Constants";
+import { ClassInfoConstants } from "../../../../Lib/src/constants/ClassInfoConstants";
+import { Language } from "../../../../Lib/src/Language";
 import {
 	ActionRowBuilder, EmbedField,
 	StringSelectMenuBuilder,
 	StringSelectMenuInteraction,
 	StringSelectMenuOptionBuilder
 } from "discord.js";
-import {sendInteractionNotForYou} from "../../utils/ErrorUtils";
-import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
-import {ClassStats} from "../../../../Lib/src/types/ClassStats";
-import {ClassKind} from "../../../../Lib/src/types/ClassKind";
-import {DisplayUtils} from "../../utils/DisplayUtils";
+import { sendInteractionNotForYou } from "../../utils/ErrorUtils";
+import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
+import { ClassStats } from "../../../../Lib/src/types/ClassStats";
+import { ClassKind } from "../../../../Lib/src/types/ClassKind";
+import { DisplayUtils } from "../../utils/DisplayUtils";
 
 /**
  * Get the packet
@@ -36,12 +38,12 @@ function getPacket(): Promise<CommandClassesInfoPacketReq> {
  * @param classList
  */
 function getListEmbed(lng: Language, classList: {
-	id: number,
-	stats: ClassStats,
+	id: number;
+	stats: ClassStats;
 	attacks: {
-		id: string,
-		cost: number
-	}[]
+		id: string;
+		cost: number;
+	}[];
 }[]): DraftBotEmbed {
 	const embed = new DraftBotEmbed().setTitle(i18n.t("commands:classesInfo.title.list", {
 		lng
@@ -83,16 +85,16 @@ function getListEmbed(lng: Language, classList: {
  * @param classDetails
  */
 function getDetailsEmbed(lng: Language, classDetails: {
-	id: number,
-	name: string,
-	kind: ClassKind,
-	description: string,
+	id: number;
+	name: string;
+	kind: ClassKind;
+	description: string;
 	attacks: {
-		id: string,
-		name: string,
-		description: string,
-		cost: number
-	}[]
+		id: string;
+		name: string;
+		description: string;
+		cost: number;
+	}[];
 }): DraftBotEmbed {
 	const embed = new DraftBotEmbed().setTitle(DisplayUtils.getClassDisplay(classDetails.id, lng));
 
@@ -133,7 +135,7 @@ export async function handleCommandClassesInfoPacketRes(packet: CommandClassesIn
 		return;
 	}
 	const classListEmbed = getListEmbed(interaction.userLanguage, packet.data!.classesStats);
-	const classesMenuOptions = packet.data!.classesStats.map((classStats) => new StringSelectMenuOptionBuilder()
+	const classesMenuOptions = packet.data!.classesStats.map(classStats => new StringSelectMenuOptionBuilder()
 		.setLabel(`${i18n.t(`models:classes.${classStats.id}`, {
 			lng: interaction.userLanguage
 		})}`)
@@ -175,7 +177,7 @@ export async function handleCommandClassesInfoPacketRes(packet: CommandClassesIn
 			});
 			return;
 		}
-		const chosenClass = packet.data!.classesStats.find((classStats) => classStats.id === parseInt(menuInteraction.values[0]));
+		const chosenClass = packet.data!.classesStats.find(classStats => classStats.id === parseInt(menuInteraction.values[0]));
 		const attackList = [];
 
 		for (const attack of chosenClass!.attacks) {

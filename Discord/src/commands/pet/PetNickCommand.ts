@@ -1,24 +1,25 @@
-import {ICommand} from "../ICommand";
-import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
+import { ICommand } from "../ICommand";
+import {
+	makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 import i18n from "../../translations/i18n";
-import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
-import {DiscordCache} from "../../bot/DiscordCache";
-import {DraftBotErrorEmbed} from "../../messages/DraftBotErrorEmbed";
-import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
-import {SlashCommandBuilder} from "@discordjs/builders";
+import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
+import { DiscordCache } from "../../bot/DiscordCache";
+import { DraftBotErrorEmbed } from "../../messages/DraftBotErrorEmbed";
+import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
+import { SlashCommandBuilder } from "@discordjs/builders";
 import {
 	CommandPetNickPacketReq,
 	CommandPetNickPacketRes
 } from "../../../../Lib/src/packets/commands/CommandPetNickPacket";
-import {PetConstants} from "../../../../Lib/src/constants/PetConstants";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
+import { PetConstants } from "../../../../Lib/src/constants/PetConstants";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 
 /**
  * Change the nickname of a player pet.
  */
 function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser): CommandPetNickPacketReq {
-
 	const newNameOption = interaction.options.get("nickname");
 
 	let newNickname;
@@ -26,7 +27,9 @@ function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser)
 		newNickname = <string>newNameOption.value;
 	}
 
-	return makePacket(CommandPetNickPacketReq, {keycloakId: keycloakUser.id, newNickname});
+	return makePacket(CommandPetNickPacketReq, {
+		keycloakId: keycloakUser.id, newNickname
+	});
 }
 
 
@@ -45,7 +48,7 @@ export async function handleCommandPetNickPacketRes(packet: CommandPetNickPacket
 				new DraftBotErrorEmbed(
 					interaction.user,
 					interaction,
-					i18n.t("error:petDoesntExist", {lng})
+					i18n.t("error:petDoesntExist", { lng })
 				)
 			]
 		});
@@ -77,7 +80,7 @@ export async function handleCommandPetNickPacketRes(packet: CommandPetNickPacket
 						lng,
 						pseudo: interaction.user.displayName
 					}), interaction.user)
-					.setDescription(i18n.t("commands:petNick.successNoName", {lng}))
+					.setDescription(i18n.t("commands:petNick.successNoName", { lng }))
 			]
 		});
 	}

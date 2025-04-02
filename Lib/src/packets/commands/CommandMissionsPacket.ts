@@ -1,11 +1,13 @@
-import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
-import {BaseMission} from "../../types/CompletedMission";
+import {
+	DraftBotPacket, PacketDirection, sendablePacket
+} from "../DraftBotPacket";
+import { BaseMission } from "../../types/CompletedMission";
 
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandMissionsPacketReq extends DraftBotPacket {
 	askedPlayer!: {
-		rank?: number,
-		keycloakId?: string
+		rank?: number;
+		keycloakId?: string;
 	};
 }
 
