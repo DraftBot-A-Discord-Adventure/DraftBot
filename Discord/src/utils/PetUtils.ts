@@ -1,5 +1,5 @@
 import { Language } from "../../../Lib/src/Language";
-import { PetDiet } from "../../../Lib/src/constants/PetConstants";
+import { PetConstants, PetDiet } from "../../../Lib/src/constants/PetConstants";
 import i18n from "../translations/i18n";
 import { SexTypeShort } from "../../../Lib/src/constants/StringConstants";
 import { finishInTimeDisplay } from "../../../Lib/src/utils/TimeUtils";
@@ -26,6 +26,21 @@ export class PetUtils {
 			lng, context: diet ?? PetDiet.OMNIVOROUS
 		});
 	}
+
+	/**
+	 * Get age context depending on the id of the pet
+	 * @param age - the id of the pet
+	 * @returns a string context that can be used to get more precise translations
+	 */
+	static getAgeCategory(age: number): string {
+		return age <= PetConstants.PET_AGE_GROUPS_THRESHOLDS.ANCESTOR ?
+			PetConstants.PET_AGE_GROUP_NAMES.ANCESTOR
+			: age <= PetConstants.PET_AGE_GROUPS_THRESHOLDS.VERY_OLD ?
+				PetConstants.PET_AGE_GROUP_NAMES.VERY_OLD
+				: age <= PetConstants.PET_AGE_GROUPS_THRESHOLDS.OLD ?
+					PetConstants.PET_AGE_GROUP_NAMES.OLD
+					: PetConstants.PET_AGE_GROUP_NAMES.ADULT
+	};
 
 	static getFeedCooldownDisplay(nextFeed: number, lng: Language): string {
 		return nextFeed <= 0

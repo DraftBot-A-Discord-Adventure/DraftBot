@@ -17,6 +17,19 @@ export abstract class PetConstants {
 		MAX: 16
 	};
 
+	static readonly PET_AGE_GROUP_NAMES = {
+		ANCESTOR: "ancestor",
+		VERY_OLD: "veryOld",
+		OLD: "old",
+		ADULT: "adult"
+	};
+
+	static readonly PET_AGE_GROUPS_THRESHOLDS = {
+		ANCESTOR: 100,
+		VERY_OLD: 1000,
+		OLD: 5000,
+	}
+
 	static readonly PET_INTERACTIONS_NAMES = {
 		WIN_MONEY: "money",
 		WIN_HEALTH: "gainLife",

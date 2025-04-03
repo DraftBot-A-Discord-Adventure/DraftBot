@@ -23,6 +23,7 @@ import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
 import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import { Constants } from "../../../../Lib/src/constants/Constants";
 import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { PetConstants } from "../../../../Lib/src/constants/PetConstants";
 
 /**
  * Get the packet to send to the server
@@ -68,6 +69,7 @@ export async function handleLovePointsValueShopItem(packet: CommandMissionShopPe
 		return;
 	}
 	const lng = interaction.userLanguage;
+	
 	await interaction.followUp({
 		embeds: [
 			new DraftBotEmbed()
@@ -78,9 +80,15 @@ export async function handleLovePointsValueShopItem(packet: CommandMissionShopPe
 				.setDescription(i18n.t("commands:shop.shopItems.lovePointsValue.giveDesc", {
 					lng,
 					petName: PetUtils.petToShortString(lng, packet.nickname, packet.typeId, packet.sex),
+					commentOnPetAge: i18n.t("commands:shop.shopItems.lovePointsValue.ageComment", { 
+						lng,
+						context: PetUtils.getAgeCategory(packet.petId),
+						age: packet.petId
+					}),
 					actualLP: packet.lovePoints,
 					diet: PetUtils.getDietDisplay(packet.diet, lng),
 					nextFeed: PetUtils.getFeedCooldownDisplay(packet.nextFeed, lng),
+					commentOnFightEffect: StringUtils.getRandomTranslation(`commands:shop.shopItems.lovePointsValue.commentOnFightEffect.${packet.typeId}`, lng),
 					commentOnResult: StringUtils.getRandomTranslation(`commands:shop.shopItems.lovePointsValue.advice.${packet.loveLevel}`, lng),
 					interpolation: { escapeValue: false }
 				}))

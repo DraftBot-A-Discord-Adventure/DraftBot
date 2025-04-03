@@ -152,6 +152,7 @@ function getValueLovePointsPetShopItem(): ShopItem {
 			const petModel = PetDataController.instance.getById(pet.typeId);
 			response.push(makePacket(CommandMissionShopPetInformation, {
 				nickname: pet.nickname,
+				petId: pet.id,
 				typeId: petModel.id,
 				sex: pet.sex as SexTypeShort,
 				loveLevel: pet.getLoveLevelNumber(),
