@@ -26,6 +26,8 @@ export class CommandMissionShopKingsFavor extends DraftBotPacket {
 export class CommandMissionShopPetInformation extends DraftBotPacket {
 	nickname!: string;
 
+	petId!: number;
+
 	typeId!: number;
 
 	sex!: SexTypeShort;
