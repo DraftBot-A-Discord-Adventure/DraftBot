@@ -140,11 +140,13 @@ export class KeycloakUtils {
 		const obj = await res.json();
 		const user: KeycloakUser = obj.length === 1 ? obj[0] : null;
 
-		if (gameUsername && user.attributes.gameUsername[0] !== gameUsername) {
-			await KeycloakUtils.updateGameUsername(user, gameUsername, keycloakConfig);
-		}
+		if (user) {
+			if (gameUsername && user.attributes.gameUsername[0] !== gameUsername) {
+				await KeycloakUtils.updateGameUsername(user, gameUsername, keycloakConfig);
+			}
 
-		KeycloakUtils.keycloakDiscordToIdMap.set(discordId, user.id);
+			KeycloakUtils.keycloakDiscordToIdMap.set(discordId, user.id);
+		}
 
 		return user;
 	}
