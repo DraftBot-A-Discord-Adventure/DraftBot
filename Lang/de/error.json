@@ -49,7 +49,7 @@
   "commandDoesntExist": "FEHLER: Unbekannter Befehl",
   "interactionNotForYou": "Diese Interaktion ist nicht für Sie!",
   "playerBlocked": "Sie können dies nicht ausführen, da Sie eine Aktion im Wartestatus ({{reasons}}) haben.",
-  "playerDoesntExist": "Der gewünschte Spieler wurde nicht gefunden!",
+  "playerDoesntExist": "Le joueur demandé n'a pas encore commencé à jouer !",
   "titleBlocked": "{{pseudo}}, diese Person ist blockiert!",
   "titleCanceled": "{{pseudo}}, Rücknahme berücksichtigt!",
   "titleDidntWork": "{{pseudo}}, hmmm ... Das hat nicht funktioniert!",
