@@ -17,17 +17,17 @@ export default defineConfig([
 				ecmaVersion: 2022
 			}
 		},
-		files: ["src/**/*.ts"],
-		plugins: {
-			"@typescript-eslint": typescriptEslintPlugin,
-			jsdoc,
-			"@stylistic": stylistic
-		}
+		files: ["src/**/*.ts"]
 	},
 	{
 		rules: typescriptEslintPlugin.configs.recommended.rules
 	},
 	{
+		plugins: {
+			"@typescript-eslint": typescriptEslintPlugin,
+			jsdoc,
+			"@stylistic": stylistic
+		},
 		rules: customRules
 	}
 ]);
