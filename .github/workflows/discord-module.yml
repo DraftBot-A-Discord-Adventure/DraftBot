@@ -5,6 +5,7 @@ on:
       - draftbot-v5
     paths:
       - Discord/**
+  workflow_dispatch:
 
 jobs:
   eslint-discord-module:
