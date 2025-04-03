@@ -80,7 +80,6 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 	 *
 	 * LAST DISCORD.JS UPDATE CHECKED: 14.15.3
 	 * @param options
-	 * @private
 	 */
 
 	private static properCastOptions(options: CommandInteractionOptionResolver): CommandInteractionOptionResolver {
@@ -217,7 +216,6 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 	 * @param functionPrototype reply or followUp function
 	 * @param options classic discord.js send options
 	 * @param fallback function to execute if the bot can't send the message
-	 * @private
 	 */
 	private async commonSendCommand<OptionType extends OptionLike>(
 		functionPrototype: ReplyFunctionLike<OptionType>,
@@ -237,7 +235,6 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 
 	/**
 	 * Manage the fallback of both reply and followUp functions
-	 * @private
 	 */
 	private async manageFallback<OptionType extends OptionLike>(functionPrototype: ReplyFunctionLike<OptionType>, e: Error): Promise<void> {
 		// Error codes due to a development mistake, and not because of a weird permission error
@@ -325,7 +322,6 @@ export class DraftbotChannel extends ChannelTypeWithoutSend {
 
 	/**
 	 * Manage the fallback of the send function
-	 * @private
 	 */
 	private manageFallback(): void {
 		// We can't send ephemeral message nor send messages in DM

@@ -48,7 +48,6 @@ export class DiscordItemUtils {
 	 * @param speed
 	 * @param language
 	 * @param maxStatsValue
-	 * @protected
 	 */
 	static getValues(attack: number, defense: number, speed: number, language: Language, maxStatsValue: StatValues | null = null): string {
 		if (!maxStatsValue) {

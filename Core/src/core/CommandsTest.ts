@@ -51,9 +51,6 @@ export interface ITestCommand {
 
 export type ExecuteTestCommandLike = (player: Player, args: string[], response: DraftBotPacket[], context: PacketContext) => string | Promise<string>;
 
-/**
- * @class
- */
 export class CommandsTest {
 	static testCommandsArray: { [commandName: string]: ITestCommand };
 
@@ -150,7 +147,6 @@ export class CommandsTest {
 	 * Initialize a test command from its file
 	 * @param type
 	 * @param commandFile
-	 * @private
 	 */
 	private static initCommandTestFromCommandFile(type: string, commandFile: string): void {
 		const testCommand: ITestCommand = require(`../commands/admin/testCommands/${type}/${commandFile.substring(0, commandFile.length - 3)}`).commandInfo;

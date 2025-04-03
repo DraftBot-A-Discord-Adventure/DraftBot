@@ -854,7 +854,6 @@ export class Player extends Model {
 	 * @param reason
 	 * @param response
 	 * @param fightId
-	 * @private
 	 */
 	public async setGloryPoints(gloryPoints: number, isDefense: boolean, reason: NumberChangeReason, response: DraftBotPacket[], fightId: number = null): Promise<void> {
 		await draftBotInstance.logsDatabase.logPlayersGloryPoints(this.keycloakId, gloryPoints, reason, fightId);
@@ -921,7 +920,6 @@ export class Player extends Model {
 	/**
 	 * Calculate and apply maluses on money and guild points when a player faints on PVE island
 	 * @param response
-	 * @private
 	 */
 	private async getAndApplyLostRessourcesOnPveFaint(response: DraftBotPacket[]): Promise<ressourcesLostOnPveFaint> {
 		const malusMultiplier = this.hasAGuild() ? PVEConstants.MONEY_MALUS_MULTIPLIER_FOR_GUILD_PLAYERS : PVEConstants.MONEY_MALUS_MULTIPLIER_FOR_SOLO_PLAYERS;
@@ -956,7 +954,6 @@ export class Player extends Model {
 	 * Allow to set the score of a player to a specific value this is only called from addScore
 	 * @param score
 	 * @param response
-	 * @private
 	 */
 	private async setScore(score: number, response: DraftBotPacket[]): Promise<void> {
 		await MissionsController.update(this, response, {
@@ -975,7 +972,6 @@ export class Player extends Model {
 	/**
 	 * Allow to set the money of a player to a specific value this is only called from addMoney
 	 * @param money
-	 * @private
 	 */
 	private setMoney(money: number): void {
 		if (money > 0) {
@@ -989,7 +985,6 @@ export class Player extends Model {
 	/**
 	 * Add points to the weekly score of the player
 	 * @param weeklyScore
-	 * @private
 	 */
 	private addWeeklyScore(weeklyScore: number): void {
 		this.weeklyScore += weeklyScore;
@@ -999,7 +994,6 @@ export class Player extends Model {
 	/**
 	 * Set the weekly score of the player to a specific value this is only called from addWeeklyScore
 	 * @param weeklyScore
-	 * @private
 	 */
 	private setWeeklyScore(weeklyScore: number): void {
 		if (weeklyScore > 0) {

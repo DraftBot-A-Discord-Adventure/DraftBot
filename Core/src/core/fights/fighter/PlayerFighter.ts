@@ -26,8 +26,7 @@ import PetEntity, { PetEntities } from "../../database/game/models/PetEntity";
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 /**
- * @class PlayerFighter
- * @augments Fighter
+ * Fighter
  * Class representing a player in a fight
  */
 export class PlayerFighter extends Fighter {
@@ -87,7 +86,6 @@ export class PlayerFighter extends Fighter {
 
 	/**
 	 * Allow a fighter to unblock itself
-	 * @public
 	 */
 	unblock(): void {
 		BlockingUtils.unblockPlayer(this.player.keycloakId, BlockingConstants.REASONS.FIGHT);
@@ -95,7 +93,6 @@ export class PlayerFighter extends Fighter {
 
 	/**
 	 * The fighter loads its various stats
-	 * @public
 	 */
 	public async loadStats(): Promise<void> {
 		const playerActiveObjects: PlayerActiveObjects = await InventorySlots.getPlayerActiveObjects(this.player.id);
@@ -116,7 +113,6 @@ export class PlayerFighter extends Fighter {
 	/**
 	 * Delete the potion from the inventory of the player if needed
 	 * @param response
-	 * @public
 	 */
 	public async consumePotionIfNeeded(response: DraftBotPacket[]): Promise<void> {
 		const inventorySlots = await InventorySlots.getOfPlayer(this.player.id);
@@ -132,7 +128,6 @@ export class PlayerFighter extends Fighter {
 
 	/**
 	 * Allow a fighter to block itself
-	 * @public
 	 */
 	public block(): void {
 		BlockingUtils.blockPlayer(this.player.keycloakId, BlockingConstants.REASONS.FIGHT);
@@ -178,7 +173,6 @@ export class PlayerFighter extends Fighter {
 
 	/**
 	 * Check the fight action history of a fighter
-	 * @private
 	 * @param fightView The fight view
 	 */
 	private async checkFightActionHistory(fightView: FightView, response: DraftBotPacket[]): Promise<void> {
@@ -196,7 +190,6 @@ export class PlayerFighter extends Fighter {
 
 	/**
 	 * Manage the mission of a fighter
-	 * @private
 	 * @param fightView
 	 * @param response
 	 */

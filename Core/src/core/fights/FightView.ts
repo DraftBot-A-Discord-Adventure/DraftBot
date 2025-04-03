@@ -31,9 +31,6 @@ import { PetAssistanceResult } from "../../../../Lib/src/types/PetAssistanceResu
 import { OwnedPet } from "../../../../Lib/src/types/OwnedPet";
 import { PetEntities } from "../database/game/models/PetEntity";
 
-/**
- * @class FightView
- */
 export class FightView {
 	public context: PacketContext;
 
