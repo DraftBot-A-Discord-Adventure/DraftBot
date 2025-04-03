@@ -7,6 +7,7 @@ import {
 	CommandGuildInviteInvitingPlayerNotInGuild,
 	CommandGuildInviteLevelTooLow,
 	CommandGuildInvitePacketReq,
+	CommandGuildInvitePlayerNotFound,
 	CommandGuildInviteRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildInvitePacket.js";
 import {
@@ -43,7 +44,12 @@ export default class GuildInviteCommand {
 		whereAllowed: [WhereAllowed.CONTINENT]
 	})
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandGuildInvitePacketReq, context: PacketContext): Promise<void> {
-		const invitedPlayer = await Players.getByKeycloakId(packet.invitedPlayerkeycloakId);
+		const invitedPlayer = await Players.getByKeycloakId(packet.invitedPlayerKeycloakId);
+		if (!invitedPlayer) {
+			response.push(makePacket(CommandGuildInvitePlayerNotFound, {}));
+			return;
+		}
+
 		const guild = player.guildId ? await Guilds.getById(player.guildId) : null;
 
 		if (!await canSendInvite(invitedPlayer, guild, response)) {

@@ -24,15 +24,16 @@ import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator.js
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { GuildConstants } from "../../../../Lib/src/constants/GuildConstants.js";
 import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { PacketUtils } from "../../utils/PacketUtils";
+import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
 
-async function getPacket(interaction: DraftbotInteraction): Promise<CommandGuildInvitePacketReq | null> {
-	const invitedUser = interaction.options.getUser("user")!;
-	const invitedPlayerRawKeycloakId = await KeycloakUtils.getKeycloakIdFromDiscordId(keycloakConfig, invitedUser.id, invitedUser.displayName);
-	if (!invitedPlayerRawKeycloakId) {
-		await interaction.reply({ embeds: [new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("error:playerDoesntExist", { lng: interaction.userLanguage }))] });
+async function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser): Promise<CommandGuildInvitePacketReq | null> {
+	const invitedUser = await PacketUtils.prepareAskedPlayer(interaction, keycloakUser);
+	if (!invitedUser || !invitedUser.keycloakId) {
 		return null;
 	}
-	return makePacket(CommandGuildInvitePacketReq, { invitedPlayerkeycloakId: invitedPlayerRawKeycloakId });
+
+	return makePacket(CommandGuildInvitePacketReq, { invitedPlayerKeycloakId: invitedUser.keycloakId });
 }
 
 export async function handleCommandGuildInviteError(packet: CommandGuildInviteErrorPacket, context: PacketContext, errorKey: string): Promise<void> {

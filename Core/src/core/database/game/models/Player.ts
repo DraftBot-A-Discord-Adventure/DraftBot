@@ -1032,6 +1032,14 @@ export class Player extends Model {
 			this.health = health;
 		}
 	}
+
+	/**
+	 * Check if the player has started to play by checking its effectId
+	 * @returns true if the player has started to play
+	 */
+	public hasStartedToPlay(): boolean {
+		return this.effectId !== Effect.NOT_STARTED.id;
+	}
 }
 
 /**

@@ -3,8 +3,12 @@ import {
 	CommandGuildInviteAcceptPacketRes,
 	CommandGuildInviteAlreadyInAGuild,
 	CommandGuildInviteGuildIsFull,
-	CommandGuildInviteInvitedPlayerIsDead, CommandGuildInviteInvitedPlayerIsOnPveIsland,
-	CommandGuildInviteInvitingPlayerNotInGuild, CommandGuildInviteLevelTooLow, CommandGuildInviteRefusePacketRes
+	CommandGuildInviteInvitedPlayerIsDead,
+	CommandGuildInviteInvitedPlayerIsOnPveIsland,
+	CommandGuildInviteInvitingPlayerNotInGuild,
+	CommandGuildInviteLevelTooLow,
+	CommandGuildInvitePlayerNotFound,
+	CommandGuildInviteRefusePacketRes
 } from "../../../../../../Lib/src/packets/commands/CommandGuildInvitePacket";
 import { PacketContext } from "../../../../../../Lib/src/packets/DraftBotPacket";
 import {
@@ -12,6 +16,7 @@ import {
 	handleCommandGuildInviteError,
 	handleCommandGuildInviteRefusePacketRes
 } from "../../../../commands/guild/GuildInviteCommand";
+import { handleClassicError } from "../../../../utils/ErrorUtils";
 
 export default class GuildInviteCommandPacketHandlers {
 	@packetHandler(CommandGuildInviteInvitedPlayerIsDead)
@@ -52,5 +57,10 @@ export default class GuildInviteCommandPacketHandlers {
 	@packetHandler(CommandGuildInviteAcceptPacketRes)
 	async guildInviteAcceptRes(context: PacketContext, packet: CommandGuildInviteAcceptPacketRes): Promise<void> {
 		await handleCommandGuildInviteAcceptPacketRes(packet, context);
+	}
+
+	@packetHandler(CommandGuildInvitePlayerNotFound)
+	async guildInvitePlayerNotFound(context: PacketContext, _packet: CommandGuildInvitePlayerNotFound): Promise<void> {
+		await handleClassicError(context, "error:playerDoesntExist", {}, true);
 	}
 }

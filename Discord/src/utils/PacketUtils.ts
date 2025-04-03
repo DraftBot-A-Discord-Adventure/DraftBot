@@ -11,6 +11,7 @@ import i18n from "../translations/i18n";
 import { DraftbotInteraction } from "../messages/DraftbotInteraction";
 import { KeycloakUser } from "../../../Lib/src/keycloak/KeycloakUser";
 import { MqttTopicUtils } from "../../../Lib/src/utils/MqttTopicUtils";
+import { MessageFlags } from "discord-api-types/v10";
 
 export type AskedPlayer = {
 	keycloakId?: string;
@@ -41,7 +42,8 @@ export abstract class PacketUtils {
 			const keycloakId = await KeycloakUtils.getKeycloakIdFromDiscordId(keycloakConfig, user.id, user.displayName);
 			if (!keycloakId) {
 				await interaction.reply({
-					embeds: [new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("error:playerDoesntExist", { lng: interaction.userLanguage }))]
+					embeds: [new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("error:playerDoesntExist", { lng: interaction.userLanguage }))],
+					flags: MessageFlags.Ephemeral
 				});
 				return null;
 			}

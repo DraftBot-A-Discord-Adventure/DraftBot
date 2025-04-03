@@ -1,8 +1,11 @@
 import { packetHandler } from "../../../PacketHandler";
 import {
 	CommandUnlockAcceptPacketRes,
-	CommandUnlockHimself, CommandUnlockNoPlayerFound, CommandUnlockNotEnoughMoney,
-	CommandUnlockNotInJail, CommandUnlockRefusePacketRes
+	CommandUnlockHimself,
+	CommandUnlockNoPlayerFound,
+	CommandUnlockNotEnoughMoney,
+	CommandUnlockNotInJail,
+	CommandUnlockRefusePacketRes
 } from "../../../../../../Lib/src/packets/commands/CommandUnlockPacket";
 import { PacketContext } from "../../../../../../Lib/src/packets/DraftBotPacket";
 import { handleClassicError } from "../../../../utils/ErrorUtils";
@@ -25,7 +28,7 @@ export default class UnlockCommandPacketHandlers {
 
 	@packetHandler(CommandUnlockNoPlayerFound)
 	async unlockNoPlayerFound(context: PacketContext, _packet: CommandUnlockNoPlayerFound): Promise<void> {
-		await handleClassicError(context, "error:playerDoesntExist");
+		await handleClassicError(context, "error:playerDoesntExist", {}, true);
 	}
 
 	@packetHandler(CommandUnlockNotEnoughMoney)
