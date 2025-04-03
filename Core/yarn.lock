@@ -240,7 +240,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@stylistic/eslint-plugin@npm:^4.2.0":
+"@stylistic/eslint-plugin@npm:4.2.0":
   version: 4.2.0
   resolution: "@stylistic/eslint-plugin@npm:4.2.0"
   dependencies:
@@ -789,7 +789,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "draftbot_core@workspace:."
   dependencies:
-    "@stylistic/eslint-plugin": "npm:^4.2.0"
+    "@stylistic/eslint-plugin": "npm:4.2.0"
     "@types/moment": "npm:2.13.0"
     "@types/node": "npm:22.13.17"
     "@typescript-eslint/eslint-plugin": "npm:8.29.0"
