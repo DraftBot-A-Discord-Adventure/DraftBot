@@ -229,10 +229,10 @@ export class CommandsManager {
 			if (this.isAMessageFromMassOrMissPing(message) || !this.shouldSendHelpMessage(message, client)) {
 				return;
 			}
-			const user = await KeycloakUtils.getOrRegisterDiscordUser(keycloakConfig, message.author.id, message.author.displayName, LANGUAGE.DEFAULT_LANGUAGE);
+			const user = await KeycloakUtils.getDiscordUser(keycloakConfig, message.author.id, message.author.displayName);
 			message.channel.send({
 				content: `${i18n.t("bot:mentionHelp", {
-					lng: KeycloakUtils.getUserLanguage(user),
+					lng: user ? KeycloakUtils.getUserLanguage(user) : LANGUAGE.DEFAULT_LANGUAGE,
 					interpolation: { escapeValue: false }
 				})}`
 			})
