@@ -329,7 +329,6 @@ export class MissionsController {
 	 * @param missionInformation
 	 * @param missionSlots
 	 * @param missionInfo
-	 * @private
 	 * @returns true if the daily mission is finished and needs to be said to the player
 	 */
 	private static async updateMissionsCounts(missionInformation: MissionInformations, missionSlots: MissionSlot[], missionInfo: PlayerMissionsInfo): Promise<SpecialMissionCompletion> {
@@ -365,7 +364,6 @@ export class MissionsController {
 	 * @param missionInterface
 	 * @param missionInformations
 	 * @param missionSlots
-	 * @private
 	 */
 	private static async checkMissionSlots(missionInterface: IMission, missionInformations: MissionInformations, missionSlots: MissionSlot[]): Promise<boolean> {
 		let completedCampaign = false;
@@ -388,7 +386,6 @@ export class MissionsController {
 	 * @param missionInterface
 	 * @param mission
 	 * @param missionInformations
-	 * @private
 	 */
 	private static async updateBlob(missionInterface: IMission, mission: MissionSlot, missionInformations: MissionInformations): Promise<void> {
 		const saveBlob = missionInterface.updateSaveBlob(mission.missionVariant, mission.saveBlob, missionInformations.params);
@@ -402,7 +399,6 @@ export class MissionsController {
 	 * Updates the progression of the mission
 	 * @param mission
 	 * @param missionInformations
-	 * @private
 	 */
 	private static async updateMission(mission: MissionSlot, missionInformations: MissionInformations): Promise<void> {
 		mission.numberDone = Math.min(mission.missionObjective, missionInformations.set ? missionInformations.count : mission.numberDone + missionInformations.count);

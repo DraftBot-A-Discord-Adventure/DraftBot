@@ -51,7 +51,6 @@ export abstract class MainItem extends GenericItem {
 
 	/**
 	 * Get the multiplier for the item depending on its rarity
-	 * @protected
 	 */
 	protected multiplier(): number {
 		return InventoryConstants.ITEMS_MAPPER[this.rarity];

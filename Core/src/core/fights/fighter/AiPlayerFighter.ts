@@ -15,8 +15,7 @@ import {
 import PetEntity, { PetEntities } from "../../database/game/models/PetEntity";
 
 /**
- * @class AiPlayerFighter
- * @augments Fighter
+ * Fighter
  * Class representing a player in a fight
  */
 export class AiPlayerFighter extends Fighter {
@@ -39,7 +38,6 @@ export class AiPlayerFighter extends Fighter {
 
 	/**
 	 * The fighter loads its various stats
-	 * @public
 	 */
 	public async loadStats(): Promise<void> {
 		const playerActiveObjects: PlayerActiveObjects = await InventorySlots.getPlayerActiveObjects(this.player.id);

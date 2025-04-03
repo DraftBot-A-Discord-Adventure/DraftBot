@@ -455,7 +455,6 @@ export class LogsReadRequests {
 	 * lost or draw from the list given in parameter
 	 * Warning: this function does not check for a specific player, it just counts the fights
 	 * @param fights
-	 * @private
 	 */
 	private static parseFightListToRankedFightData(fights: LogsFightsResults[]): RankedFightResult {
 		const ret = {
