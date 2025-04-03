@@ -271,11 +271,9 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 			});
 		}
 		catch {
+			// Try again to manage fallback with the send function
 			if (functionPrototype !== DraftbotChannel.prototype.send) {
-				/*
-				 * Try again to manage fallback with the send function
-				 * @ts-expect-error - We consider that the functionPrototype is a function that can be called with these parameters (i.e, accepts a InteractionReplyOptions)
-				 */
+				// @ts-expect-error - We consider that the functionPrototype is a function that can be called with these parameters (i.e, accepts a InteractionReplyOptions)
 				await DraftbotInteraction.prototype.manageFallback.bind(this)(BaseGuildTextChannel.prototype.send.bind(this.channel), e);
 				return;
 			}
