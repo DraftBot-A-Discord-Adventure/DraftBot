@@ -65,7 +65,12 @@ export default {
 	"jsdoc/check-indentation": "error",
 	"jsdoc/check-line-alignment": "error",
 	"jsdoc/check-property-names": "error",
-	"jsdoc/check-tag-names": "error",
+	"jsdoc/check-tag-names": [
+		"error",
+		{
+			"typed": true
+		}
+	],
 	"jsdoc/empty-tags": "error",
 	"jsdoc/no-defaults": "error",
 	"jsdoc/no-multi-asterisks": "error",
