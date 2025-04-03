@@ -15,9 +15,9 @@ jobs:
 
       # Setup Node.js environment once for all jobs
       - name: Setup Node.js environment
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Setup Yarn
         run: |
@@ -26,7 +26,7 @@ jobs:
 
       # Cache Yarn dependencies for Core module
       - name: Cache Core dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ./Core/.yarn/cache  

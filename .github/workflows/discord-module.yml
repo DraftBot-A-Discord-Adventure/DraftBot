@@ -15,9 +15,9 @@ jobs:
 
       # Setup Node.js environment once for all jobs
       - name: Setup Node.js environment
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       # Setup Yarn
       - name: Setup Yarn
@@ -27,7 +27,7 @@ jobs:
 
       # Cache Yarn dependencies for Discord module
       - name: Cache Discord dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ./Discord/.yarn/cache  
