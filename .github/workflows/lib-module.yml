@@ -5,6 +5,7 @@ on:
       - draftbot-v5
     paths:
       - Lib/**
+  workflow_dispatch:
 
 jobs:
   eslint-lib-module:
