@@ -26,6 +26,7 @@ import {
 import { DiscordItemUtils } from "../../utils/DiscordItemUtils";
 import { sendInteractionNotForYou } from "../../utils/ErrorUtils";
 import { PacketUtils } from "../../utils/PacketUtils";
+import { MessageFlags } from "discord-api-types/v10";
 
 async function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser): Promise<CommandInventoryPacketReq | null> {
 	const askedPlayer = await PacketUtils.prepareAskedPlayer(interaction, keycloakUser);
@@ -122,7 +123,8 @@ export async function handleCommandInventoryPacketRes(packet: CommandInventoryPa
 						interaction,
 						i18n.t("error:playerDoesntExist", { lng: interaction.userLanguage })
 					)
-				]
+				],
+				flags: MessageFlags.Ephemeral
 			});
 			return;
 		}

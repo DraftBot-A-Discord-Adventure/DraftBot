@@ -19,7 +19,8 @@ import {
 export default class GuildCommand {
 	@commandRequires(CommandGuildPacketReq, {
 		notBlocked: false,
-		whereAllowed: CommandUtils.WHERE.EVERYWHERE
+		whereAllowed: CommandUtils.WHERE.EVERYWHERE,
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD_OR_JAILED
 	})
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandGuildPacketReq): Promise<void> {
 		let guild: Guild;

@@ -28,7 +28,7 @@ export default class InventoryCommand {
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandInventoryPacketReq): Promise<void> {
 		const toCheckPlayer = await Players.getAskedPlayer(packet.askedPlayer, player);
 
-		if (!toCheckPlayer) {
+		if (!toCheckPlayer?.hasStartedToPlay()) {
 			response.push(makePacket(CommandInventoryPacketRes, {
 				foundPlayer: false
 			}));

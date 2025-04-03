@@ -6,7 +6,8 @@ import {
 } from "../../../../Lib/src/packets/DraftBotPacket";
 import Player from "../../core/database/game/models/Player";
 import {
-	CommandSellCancelErrorPacket, CommandSellItemSuccessPacket,
+	CommandSellCancelErrorPacket,
+	CommandSellItemSuccessPacket,
 	CommandSellNoItemErrorPacket,
 	CommandSellPacketReq
 } from "../../../../Lib/src/packets/commands/CommandSellPacket";
@@ -23,9 +24,7 @@ import {
 	ReactionCollectorSellItemReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorSell";
 import { BlockingUtils } from "../../core/utils/BlockingUtils";
-import {
-	ReactionCollectorRefuseReaction
-} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { ReactionCollectorRefuseReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import { draftBotInstance } from "../../index";
 import { ItemCategory } from "../../../../Lib/src/constants/ItemConstants";
 import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
@@ -85,7 +84,8 @@ function getEndCallback(player: Player) {
 export default class SellCommand {
 	@commandRequires(CommandSellPacketReq, {
 		notBlocked: true,
-		whereAllowed: CommandUtils.WHERE.EVERYWHERE
+		whereAllowed: CommandUtils.WHERE.EVERYWHERE,
+		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD_OR_JAILED
 	})
 	async execute(response: DraftBotPacket[], player: Player, _packet: CommandSellPacketReq, context: PacketContext): Promise<void> {
 		const invSlots = await InventorySlots.getOfPlayer(player.id);

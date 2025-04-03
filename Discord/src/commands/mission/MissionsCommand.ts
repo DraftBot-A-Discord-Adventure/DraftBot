@@ -25,6 +25,7 @@ import {
 	datesAreOnSameDay, finishInTimeDisplay, getTomorrowMidnight
 } from "../../../../Lib/src/utils/TimeUtils";
 import { PacketUtils } from "../../utils/PacketUtils";
+import { MessageFlags } from "discord-api-types/v10";
 
 /**
  * Get the packet to send to the server
@@ -46,7 +47,8 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 export async function handleCommandMissionPlayerNotFoundPacket(context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 	await interaction?.reply({
-		embeds: [new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("error:playerDoesntExist", { lng: interaction.userLanguage }))]
+		embeds: [new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("error:playerDoesntExist", { lng: interaction.userLanguage }))],
+		flags: MessageFlags.Ephemeral
 	});
 }
 

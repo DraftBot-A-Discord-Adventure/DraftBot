@@ -249,6 +249,19 @@ export abstract class CommandUtils {
 
 		return allowed;
 	}
+
+	static verifyNotStartedWithoutPlayerInstance(requirements: Requirements, response: DraftBotPacket[]): boolean {
+		if (requirements.disallowedEffects?.includes(Effect.NOT_STARTED) || (requirements.allowedEffects && !requirements.allowedEffects.includes(Effect.NOT_STARTED))
+		) {
+			response.push(makePacket(RequirementEffectPacket, {
+				currentEffectId: Effect.NOT_STARTED.id,
+				remainingTime: 0
+			}));
+			return false;
+		}
+
+		return true;
+	}
 }
 
 type WithPlayerPacketListenerCallbackServer<T extends DraftBotPacket> = (response: DraftBotPacket[], player: Player, packet: T, context: PacketContext) => void | Promise<void>;
@@ -261,7 +274,16 @@ type WithPlayerPacketListenerCallbackServer<T extends DraftBotPacket> = (respons
 export const commandRequires = <T extends DraftBotPacket>(packet: PacketLike<T>, requirements: Requirements) =>
 	(target: unknown, prop: string, descriptor: TypedPropertyDescriptor<WithPlayerPacketListenerCallbackServer<T>>): void => {
 		draftBotInstance.packetListener.addPacketListener<T>(packet, async (response: DraftBotPacket[], context: PacketContext, packet: T): Promise<void> => {
-			const player = await Players.getOrRegister(context.keycloakId);
+			let player = await Players.getByKeycloakId(context.keycloakId);
+
+			// If the player is not registered, verify if the command is allowed to be executed and register the player if it is
+			if (!player) {
+				if (!CommandUtils.verifyNotStartedWithoutPlayerInstance(requirements, response)) {
+					return;
+				}
+
+				player = await Players.getOrRegister(context.keycloakId);
+			}
 
 			if (player.banned) {
 				response.push(makePacket(ErrorBannedPacket, {}));

@@ -40,7 +40,7 @@ export default class ProfileCommand {
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandProfilePacketReq): Promise<void> {
 		const toCheckPlayer = await Players.getAskedPlayer(packet.askedPlayer, player);
 
-		if (!toCheckPlayer) {
+		if (!toCheckPlayer?.hasStartedToPlay()) {
 			response.push(makePacket(CommandProfilePlayerNotFound, {}));
 			return;
 		}

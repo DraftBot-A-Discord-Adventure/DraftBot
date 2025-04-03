@@ -4,7 +4,7 @@ import {
 
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandGuildInvitePacketReq extends DraftBotPacket {
-	invitedPlayerkeycloakId!: string;
+	invitedPlayerKeycloakId!: string;
 }
 
 @sendablePacket(PacketDirection.NONE)
@@ -12,6 +12,10 @@ export class CommandGuildInviteErrorPacket extends DraftBotPacket {
 	invitedPlayerKeycloakId!: string;
 
 	guildName!: string;
+}
+
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class CommandGuildInvitePlayerNotFound extends DraftBotPacket {
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)

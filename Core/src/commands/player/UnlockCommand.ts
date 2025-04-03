@@ -70,7 +70,7 @@ async function acceptUnlock(player: Player, freedPlayer: Player, response: Draft
  * @param response The response to send
  */
 function unlockCannotBeDone(player: Player, freedPlayer: Player, response: DraftBotPacket[]): boolean {
-	if (freedPlayer === null) {
+	if (freedPlayer === null || !freedPlayer.hasStartedToPlay()) {
 		response.push(makePacket(CommandUnlockNoPlayerFound, {}));
 		return true;
 	}

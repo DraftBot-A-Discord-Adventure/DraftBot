@@ -14,6 +14,7 @@ import {
 import { Effect } from "../../../Lib/src/types/Effect";
 import { PacketContext } from "../../../Lib/src/packets/DraftBotPacket";
 import { MessagesUtils } from "./MessagesUtils";
+import { MessageFlags } from "discord-api-types/v10";
 
 /**
  * Reply to an interaction with an ephemeral error PREFER {@link sendErrorMessage} for most cases
@@ -147,8 +148,9 @@ export function effectsErrorTextValue(user: KeycloakUser, lng: Language, self: b
  * @param context
  * @param errorKey
  * @param replacements
+ * @param ephemeral
  */
-export async function handleClassicError(context: PacketContext, errorKey: string, replacements: { [key: string]: unknown } = {}): Promise<void> {
+export async function handleClassicError(context: PacketContext, errorKey: string, replacements: { [key: string]: unknown } = {}, ephemeral = false): Promise<void> {
 	const interactionToRespondTo = MessagesUtils.getCurrentInteraction(context);
 
 	await (!interactionToRespondTo.replied
@@ -166,6 +168,7 @@ export async function handleClassicError(context: PacketContext, errorKey: strin
 					...replacements
 				})
 			)
-		]
+		],
+		flags: ephemeral ? MessageFlags.Ephemeral as number : 0
 	});
 }

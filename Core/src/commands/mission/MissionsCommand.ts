@@ -32,7 +32,7 @@ export default class MissionsCommand {
 				: await Players.getByKeycloakId(packet.askedPlayer.keycloakId)
 			: await Players.getByRank(packet.askedPlayer.rank);
 
-		if (!toCheckPlayer) {
+		if (!toCheckPlayer?.hasStartedToPlay()) {
 			response.push(makePacket(CommandMissionPlayerNotFoundPacket, {}));
 			return;
 		}
