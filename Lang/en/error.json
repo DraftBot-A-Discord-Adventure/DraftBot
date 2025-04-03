@@ -49,7 +49,7 @@
   "commandDoesntExist": "ERROR: Unknown command",
   "interactionNotForYou": "This interaction is not intended for you!",
   "playerBlocked": "You can't do this because you currently have a pending action ({{reasons}})!",
-  "playerDoesntExist": "The requested player was not found!",
+  "playerDoesntExist": "Le joueur demandé n'a pas encore commencé à jouer !",
   "titleBlocked": "{{pseudo}}, this person is occupied!",
   "titleCanceled": "{{pseudo}}, canceled!",
   "titleDidntWork": "{{pseudo}}, hmmm... That didn't work!",
