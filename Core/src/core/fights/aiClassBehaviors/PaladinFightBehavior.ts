@@ -51,10 +51,8 @@ class PaladinFightBehavior implements ClassBehavior {
 	 * Conditions include:
 	 * - Opponent's last action is DIVINE_ATTACK and usedGodMoves is less than 2.
 	 * - If usedUltimateAttacks equals 1 and usedGodMoves is less than 2.
-	 * - If the opponent's class is one of [KNIGHT, VALIANT_KNIGHT, HORSE_RIDER, PIKEMAN, ESQUIRE],
-	 * with a 20% chance and no god moves used.
-	 * - If the opponent's class is PALADIN or LUMINOUS_PALADIN, the last action was DIVINE_ATTACK, or a 20% chance applies,
-	 * with no god moves used, and the fight turn is at least 8.
+	 * - If the opponent's class is one of [KNIGHT, VALIANT_KNIGHT, HORSE_RIDER, PIKEMAN, ESQUIRE], with a 20% chance and no god moves used.
+	 * - If the opponent's class is PALADIN or LUMINOUS_PALADIN, the last action was DIVINE_ATTACK, or a 20% chance applies, with no god moves used, and the fight turn is at least 8.
 	 *
 	 * @param me - The AI fighter.
 	 * @param fightView - The current fight view.
