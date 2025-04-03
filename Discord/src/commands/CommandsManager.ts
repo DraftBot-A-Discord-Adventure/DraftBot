@@ -148,7 +148,6 @@ export class CommandsManager {
 	/**
 	 * Get all commands to register and store them in the relevant maps
 	 * @param client
-	 * @private
 	 */
 	private static async refreshCommands(client: Client): Promise<void> {
 		console.log("Fetching and saving commands...");
@@ -166,7 +165,6 @@ export class CommandsManager {
 	/**
 	 * Check if a command has subcommands and add them to the commandsMentions map
 	 * @param command
-	 * @private
 	 */
 	private static addSubCommandsToTheCommandsMentions(command: [string, ApplicationCommand<{
 		guild: GuildResolvable;
@@ -185,7 +183,6 @@ export class CommandsManager {
 	 * @param category
 	 * @param globalCommandsToRegister
 	 * @param guildsCommandsToRegister
-	 * @private
 	 */
 	private static async checkCommandFromCategory(
 		category: string,
@@ -218,7 +215,6 @@ export class CommandsManager {
 	/**
 	 * Manage the creation of a message from channels the bot have access to
 	 * @param client
-	 * @private
 	 */
 	private static manageMessageCreate(client: Client): void {
 		client.on("messageCreate", async message => {
@@ -248,7 +244,6 @@ export class CommandsManager {
 	 * Check if the bot has the right and the permissions to send messages in the channel of the received message
 	 * @param message
 	 * @param client
-	 * @private
 	 */
 	private static shouldSendHelpMessage(message: Message, client: Client): boolean {
 		return message.mentions.has(client.user!.id) && this.hasChannelPermission(message.channel as unknown as DraftbotChannel)[0];
@@ -257,7 +252,6 @@ export class CommandsManager {
 	/**
 	 * Check if the received message is a mass ping or a miss ping from a reply
 	 * @param message
-	 * @private
 	 */
 	private static isAMessageFromMassOrMissPing(message: Message): boolean {
 		return message.content.includes("@here") || message.content.includes("@everyone") || message.type === MessageType.Reply;
@@ -266,7 +260,6 @@ export class CommandsManager {
 	/**
 	 * Check if the message comes from a bot (itself or another one) or if it's content is empty in case it's not a DM
 	 * @param message
-	 * @private
 	 */
 	private static isAMessageFromBotOrEmpty(message: Message): boolean {
 		return message.author.bot || message.author.id === draftBotClient!.user!.id || !message.content && message.channel.type !== ChannelType.DM;
@@ -275,7 +268,6 @@ export class CommandsManager {
 	/**
 	 * Manage the slash commands from where the bot is asked
 	 * @param client
-	 * @private
 	 */
 	private static manageInteractionCreate(client: Client): void {
 		client.on("interactionCreate", async discordInteraction => {
@@ -306,7 +298,6 @@ export class CommandsManager {
 	/**
 	 * Sends back a message sent in the bot DMs to the support channel
 	 * @param message
-	 * @private
 	 */
 	private static async sendBackDMMessageToSupportChannel(message: Message): Promise<void> {
 		await draftBotClient!.users.fetch(discordConfig.DM_MANAGER_ID)
@@ -343,7 +334,6 @@ export class CommandsManager {
 	 * @param message
 	 * @param title
 	 * @param descTrKey
-	 * @private
 	 */
 	private static async sendSupportMessage(message: Message | CommandInteraction, title: string, descTrKey: string): Promise<void> {
 		const author = message instanceof Message ? message.author : message.user;
@@ -413,7 +403,6 @@ export class CommandsManager {
 	/**
 	 * Sends a message to someone who said something in DM to the bot
 	 * @param message
-	 * @private
 	 */
 	private static async sendHelperMessage(message: Message | CommandInteraction): Promise<void> {
 		if (message instanceof Message) {
@@ -428,7 +417,6 @@ export class CommandsManager {
 	 * Checks for the maintenance mode
 	 * @param interaction the interaction to reply to
 	 * @param user
-	 * @private
 	 */
 	private static async handleCommand(interaction: DraftbotInteraction, user: KeycloakUser): Promise<void> {
 		const lng = interaction.userLanguage;
@@ -471,7 +459,6 @@ export class CommandsManager {
 	/**
 	 * Check if the bot has every needed permission in the channel where the command is launched
 	 * @param channel
-	 * @private
 	 */
 	private static hasChannelPermission(channel: DraftbotChannel): [boolean, string] {
 		if (!channel.permissionsFor(draftBotClient!.user!)

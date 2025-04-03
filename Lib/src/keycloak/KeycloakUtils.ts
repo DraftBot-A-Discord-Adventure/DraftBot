@@ -307,7 +307,6 @@ export class KeycloakUtils {
 	 * Send a get request to keycloak to retrieve a user from it's discordId
 	 * @param keycloakConfig
 	 * @param discordId
-	 * @private
 	 */
 	private static async getUserFromDiscordId(keycloakConfig: KeycloakConfig, discordId: string): Promise<Response> {
 		return await fetch(`${keycloakConfig.url}/admin/realms/${keycloakConfig.realm}/users?q=discordId:${discordId}`, {

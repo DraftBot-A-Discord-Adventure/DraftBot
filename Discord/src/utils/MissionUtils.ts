@@ -63,7 +63,6 @@ export class MissionUtils {
 	 * Get the progression bar corresponding to the progression of the mission
 	 * @param current
 	 * @param objective
-	 * @private
 	 */
 	static generateDisplayProgression(current: number, objective: number): string {
 		let progression = current / objective;
@@ -81,7 +80,6 @@ export class MissionUtils {
 	 * Get the text version of a mission variant
 	 * @param mission
 	 * @param lng
-	 * @private
 	 */
 	private static getVariantText(mission: BaseMission, lng: Language): string {
 		if (mission.missionId === "fromPlaceToPlace") {
@@ -114,7 +112,6 @@ export class MissionUtils {
 	 * Get the displayable version of a fromPlaceToPlace mission variant (which is the whole text)
 	 * @param mission
 	 * @param lng
-	 * @private
 	 */
 	private static manageFromPlaceToPlaceVariant(mission: BaseMission, lng: Language): string {
 		const params = MissionUtilsLib.fromPlaceToPlaceParamsFromVariant(mission.missionVariant);

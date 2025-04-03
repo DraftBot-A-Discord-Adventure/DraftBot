@@ -114,7 +114,6 @@ export class DraftbotButtonReactionMessage {
 	/**
 	 * Create the menu text
 	 * @param reactions
-	 * @private
 	 */
 	private createMenuDescription(reactions: DraftbotButtonReaction[]): string {
 		return `\n\n${reactions.map(({

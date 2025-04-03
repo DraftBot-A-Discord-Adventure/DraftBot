@@ -2,9 +2,6 @@ import {
 	DataTypes, Model, Sequelize
 } from "sequelize";
 
-/**
- * @class LogsSeasonEnd
- */
 export class LogsSeasonEnd extends Model {
 	declare readonly date: number;
 }

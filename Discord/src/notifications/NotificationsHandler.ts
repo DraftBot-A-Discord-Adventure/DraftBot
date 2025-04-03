@@ -119,7 +119,6 @@ export abstract class NotificationsHandler {
 	 * @param user
 	 * @param content
 	 * @param lng
-	 * @private
 	 */
 	private static getNotificationEmbed(user: User, content: string, lng: Language): DraftBotEmbed {
 		return new DraftBotEmbed()

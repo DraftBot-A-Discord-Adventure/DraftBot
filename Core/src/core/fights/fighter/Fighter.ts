@@ -29,9 +29,6 @@ type FightDamageMultiplier = {
 	turns: number;
 };
 
-/**
- * @class Fighter
- */
 export abstract class Fighter {
 	public nextFightAction: FightAction;
 

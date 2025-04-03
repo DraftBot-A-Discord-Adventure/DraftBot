@@ -2,9 +2,6 @@ import {
 	DataTypes, Model, Sequelize
 } from "sequelize";
 
-/**
- * @class LogsPlayersGloryPoints
- */
 export class LogsPlayersGloryPoints extends Model {
 	declare readonly playerId: number;
 

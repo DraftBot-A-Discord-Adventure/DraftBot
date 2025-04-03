@@ -176,7 +176,6 @@ export class LogsDatabase extends Database {
 	/**
 	 * Find or create a player in the log database
 	 * @param keycloakId
-	 * @private
 	 */
 	static async findOrCreatePlayer(keycloakId: string): Promise<LogsPlayers> {
 		return (await LogsPlayers.findOrCreate({
@@ -204,7 +203,6 @@ export class LogsDatabase extends Database {
 	/**
 	 * Find or create a pet entity in the log database
 	 * @param petEntity
-	 * @private
 	 */
 	private static async findOrCreatePetEntity(petEntity: PetEntity): Promise<LogsPetEntities> {
 		return (await LogsPetEntities.findOrCreate({
@@ -218,7 +216,6 @@ export class LogsDatabase extends Database {
 	/**
 	 * Find or create a guild in the log database
 	 * @param guild
-	 * @private
 	 */
 	private static async findOrCreateGuild(guild: Guild | GuildLikeType): Promise<LogsGuilds> {
 		return (await LogsGuilds.findOrCreate({
@@ -238,7 +235,6 @@ export class LogsDatabase extends Database {
 	 * @param valueFieldName
 	 * @param value
 	 * @param model
-	 * @private
 	 */
 	private static async logPlayerAndNumber(keycloakId: string, valueFieldName: string, value: number, model: ModelStatic<Model<unknown, unknown>>): Promise<void> {
 		const player = await LogsDatabase.findOrCreatePlayer(keycloakId);
@@ -254,7 +250,6 @@ export class LogsDatabase extends Database {
 	 * Allow to log a thing that only is about a player and a date like his daily
 	 * @param keycloakId
 	 * @param model
-	 * @private
 	 */
 	private static async logSimplePlayerDate(keycloakId: string, model: ModelStatic<Model<unknown, unknown>>): Promise<void> {
 		const player = await LogsDatabase.findOrCreatePlayer(keycloakId);
@@ -271,7 +266,6 @@ export class LogsDatabase extends Database {
 	 * @param variant
 	 * @param objective
 	 * @param model
-	 * @private
 	 */
 	private static async logMissionChange(keycloakId: string, missionId: string, variant: number, objective: number, model: ModelStatic<Model<unknown, unknown>>): Promise<void> {
 		const player = await LogsDatabase.findOrCreatePlayer(keycloakId);
@@ -295,7 +289,6 @@ export class LogsDatabase extends Database {
 	 * @param value
 	 * @param reason
 	 * @param model
-	 * @private
 	 */
 	private static async logNumberChange(keycloakId: string, value: number, reason: NumberChangeReason, model: ModelStatic<Model<unknown, unknown>>): Promise<void> {
 		const player = await LogsDatabase.findOrCreatePlayer(keycloakId);
@@ -312,7 +305,6 @@ export class LogsDatabase extends Database {
 	 * @param keycloakId
 	 * @param item
 	 * @param model
-	 * @private
 	 */
 	private static async logItem(
 		keycloakId: string,

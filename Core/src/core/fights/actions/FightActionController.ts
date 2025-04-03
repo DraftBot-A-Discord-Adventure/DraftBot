@@ -243,7 +243,6 @@ export class FightActionController {
 
 	/**
 	 * Get the level bonus ratio for a level
-	 * @private
 	 * @param level - the level of the player
 	 */
 	private static getLevelBonusRatio(level: number): number {

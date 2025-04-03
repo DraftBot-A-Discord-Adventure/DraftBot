@@ -29,9 +29,6 @@ import {
 import { PetAssistance } from "../../data/PetAssistance";
 import { getAiPetBehavior } from "./PetAssistManager";
 
-/**
- * @class FightController
- */
 export class FightController {
 	turn: number;
 
@@ -65,7 +62,6 @@ export class FightController {
 
 	/**
 	 * Start a fight
-	 * @public
 	 */
 	public async startFight(response: DraftBotPacket[]): Promise<void> {
 		// Make the fighters ready
@@ -136,7 +132,6 @@ export class FightController {
 	/**
 	 * Get the winner of the fight does not check for draw
 	 * @returns 1 for the fight initiator, 0 for the opponent
-	 * @private
 	 */
 	public getWinner(): number {
 		return this.fighters[0].isDead() ? 1 : 0;
@@ -145,7 +140,6 @@ export class FightController {
 	/**
 	 * Get the winner fighter of the fight
 	 * @returns the winner fighter or null if there is no winner
-	 * @private
 	 */
 	public getWinnerFighter(): Fighter {
 		return this.fighters[0].isDead() ? this.fighters[1].isDead() ? null : this.fighters[1] : this.fighters[0];
@@ -153,7 +147,6 @@ export class FightController {
 
 	/**
 	 * Check if the fight is a draw
-	 * @private
 	 */
 	public isADraw(): boolean {
 		return this.fighters[0].isDead() === this.fighters[1].isDead() || this.turn >= FightConstants.MAX_TURNS && !(this.fighters[0].isDead() || this.fighters[1].isDead());
@@ -163,7 +156,6 @@ export class FightController {
 	 * Execute a fight alteration
 	 * @param alteration
 	 * @param response
-	 * @private
 	 */
 	private async executeFightAlteration(alteration: FightAlteration, response: DraftBotPacket[]): Promise<void> {
 		const result = alteration.happen(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this);
@@ -179,7 +171,6 @@ export class FightController {
 	 * Execute a pet assistance
 	 * @param petAssistance
 	 * @param response
-	 * @private
 	 */
 	private async executePetAssistance(petAssistance: PetAssistance, response: DraftBotPacket[]): Promise<void> {
 		const result = await petAssistance.execute(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this);
@@ -245,7 +236,6 @@ export class FightController {
 	 * @param attacker
 	 * @param fightAction
 	 * @param defender
-	 * @private
 	 */
 	private handleOutOfBreathScenarios(
 		attacker: PlayerFighter | MonsterFighter | AiPlayerFighter,
@@ -289,7 +279,6 @@ export class FightController {
 
 	/**
 	 * Check if any of the fighters has negative energy
-	 * @private
 	 */
 	private checkNegativeEnergy(): void {
 		// Set the energy to 0 if any of the fighters have energy under 0
@@ -302,7 +291,6 @@ export class FightController {
 
 	/**
 	 * Execute a turn of a fight
-	 * @private
 	 */
 	private async prepareNextTurn(response: DraftBotPacket[]): Promise<void> {
 		if (this.overtimeBehavior === FightOvertimeBehavior.INCREASE_DAMAGE_PVE && this.turn >= FightConstants.MAX_TURNS) {
@@ -387,7 +375,6 @@ export class FightController {
 
 	/**
 	 * Change who is player 1 and who is player 2.
-	 * @private
 	 */
 	private invertFighters(): void {
 		const temp = this.fighters[0];
@@ -399,7 +386,6 @@ export class FightController {
 
 	/**
 	 * Check if a fight has ended or not
-	 * @private
 	 */
 	private hadEnded(): boolean {
 		return (

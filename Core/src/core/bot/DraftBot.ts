@@ -204,7 +204,6 @@ export class DraftBot {
 
 	/**
 	 * Database queries to execute at the end of the season
-	 * @private
 	 */
 	private static async seasonEndQueries(): Promise<void> {
 		// We set the gloryPointsLastSeason to 0 if the fightCountdown is above the limit because the player was inactive
@@ -243,7 +242,6 @@ export class DraftBot {
 
 	/**
 	 * Find the winner of the season
-	 * @private
 	 */
 	private static async findSeasonWinner(): Promise<Player> {
 		return await Player.findOne({

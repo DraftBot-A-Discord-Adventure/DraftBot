@@ -22,19 +22,16 @@ export abstract class Database {
 
 	/**
 	 * The path to the models
-	 * @private
 	 */
 	private readonly modelsPath: string;
 
 	/**
 	 * The path to the migrations
-	 * @private
 	 */
 	private readonly migrationsPath: string;
 
 	/**
 	 * The connection configuration
-	 * @private
 	 */
 	private readonly databaseConfiguration: DatabaseConfiguration;
 
@@ -110,7 +107,6 @@ export abstract class Database {
 
 	/**
 	 * Init the database models
-	 * @private
 	 */
 	private async initModels(): Promise<void> {
 		const modelsFiles = await promises.readdir(this.modelsPath);
@@ -127,7 +123,6 @@ export abstract class Database {
 	 * Initialize a model from its model file
 	 * @param modelFile
 	 * @param models
-	 * @private
 	 */
 	private async initModelFromFile(modelFile: string, models: {
 		initModel: (sequelize: Sequelize) => Promise<void>;
