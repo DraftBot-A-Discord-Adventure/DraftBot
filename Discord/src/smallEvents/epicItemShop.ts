@@ -5,11 +5,10 @@ import { DraftbotSmallEventEmbed } from "../messages/DraftbotSmallEventEmbed";
 import { StringUtils } from "../utils/StringUtils";
 import { DiscordCollectorUtils } from "../utils/DiscordCollectorUtils";
 import { DisplayUtils } from "../utils/DisplayUtils";
-import { Constants } from "../../../Lib/src/constants/Constants";
 import i18n from "../translations/i18n";
 import { ReactionCollectorEpicShopSmallEventData } from "../../../Lib/src/packets/interaction/ReactionCollectorEpicShopSmallEvent";
 import { ReactionCollectorReturnType } from "../packetHandlers/handlers/ReactionCollectorHandlers";
-import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
+import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
 
 /**
  * Send the initial embed for this small event
@@ -32,7 +31,7 @@ export async function epicItemShopCollector(context: PacketContext, packet: Reac
 		+ StringUtils.getRandomTranslation("smallEvents:shop.end", lng, {
 			item: DisplayUtils.getItemDisplayWithStats(data.item, lng),
 			price: data.price,
-			type: `${DraftBotIcons.ItemCategories[data.item.category]}${i18n.t("smallEvents:shop.types", {
+			type: `${DraftBotIcons.itemCategories[data.item.category]}${i18n.t("smallEvents:shop.types", {
 				returnObjects: true,
 				lng
 			})[data.item.category]}`,

@@ -204,7 +204,7 @@ export const DraftBotIcons: {
 	itemNatures: string[];
 	itemCategories: string[];
 	profile: {
-		DisplayAllBadgeEmote: string;
+		displayAllBadgeEmote: string;
 	};
 } = {
 	effects: {
@@ -2105,7 +2105,7 @@ export const DraftBotIcons: {
 		"💰",
 		"⚡"
 	],
-	itemCategories:[
+	itemCategories: [
 		"⚔️",
 		"🛡️",
 		"⚗️",
