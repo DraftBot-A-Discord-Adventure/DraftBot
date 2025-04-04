@@ -115,7 +115,13 @@ export const DraftBotIcons: {
 		[missionId: string]: string;
 	};
 	messages: {
-		[messageId: string]: string;
+		validate: string;
+		refuse: string;
+		notReplied: string;
+		dm: string;
+		description: string;
+		item: string;
+		info: string;
 	};
 	fightPetActions: {
 		[actionId: string]: string;
@@ -196,6 +202,10 @@ export const DraftBotIcons: {
 		[inventoryId: string]: string;
 	};
 	itemNatures: string[];
+	ItemCategories: string[];
+	Profile: {
+		DisplayAllBadgeEmote: string;
+	};
 } = {
 	effects: {
 		"not_started": "👶",
@@ -2094,5 +2104,14 @@ export const DraftBotIcons: {
 		"🕥",
 		"💰",
 		"⚡"
-	]
+	],
+	ItemCategories:[
+		"⚔️",
+		"🛡️",
+		"⚗️",
+		"🧸"
+	],
+	Profile: {
+		DisplayAllBadgeEmote: "🎖️"
+	}
 };

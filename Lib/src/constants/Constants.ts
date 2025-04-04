@@ -151,47 +151,11 @@ export class Constants {
 		INVITE_LINK: "https://discord.gg/5JqrMtZ"
 	};
 
-	static readonly REACTIONS = { // Todo: remove those and other emoji based constants since they are in the DraftBotIcons ?
-		VALIDATE_REACTION: "✅",
-		REFUSE_REACTION: "❌",
-		WAIT_A_BIT_REACTION: "⏳",
-		START_FIGHT_REACTION: "⚔️",
-		NOT_REPLIED_REACTION: "🔚",
-		SHOPPING_CART: "🛒",
-		WARNING: "⚠️",
-		NUMBERS: [
-			"0️⃣",
-			"1️⃣",
-			"2️⃣",
-			"3️⃣",
-			"4️⃣",
-			"5️⃣",
-			"6️⃣",
-			"7️⃣",
-			"8️⃣",
-			"9️⃣",
-			"🔟"
-		],
-		FRENCH_FLAG: "🇫🇷",
-		ENGLISH_FLAG: "🇬🇧",
-		INVENTORY_RESERVE: "🔃",
-		MONEY_ICON: "💰",
-		TRASH: "🗑️",
-		INVENTORY_EXTENSION: "📦",
-		ITEM_CATEGORIES: [
-			"⚔️",
-			"🛡️",
-			"⚗️",
-			"🧸"
-		]
-	};
-
 	static readonly CACHE_TIME = {
 		INTERACTIONS: 900000
 	};
 
 	static readonly PROFILE = {
-		DISPLAY_ALL_BADGE_EMOTE: "🎖️",
 		MAX_EMOTE_DISPLAY_NUMBER: 10
 	};
 

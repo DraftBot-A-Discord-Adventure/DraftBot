@@ -113,7 +113,7 @@ export async function createBigEventCollector(context: PacketContext, packet: Re
 
 	const endCollector = msg.createReactionCollector({
 		time: packet.endTime - Date.now(),
-		filter: (reaction, user) => reaction.emoji.name === Constants.REACTIONS.NOT_REPLIED_REACTION && user.id === interaction.user.id
+		filter: (reaction, user) => reaction.emoji.name === DraftBotIcons.messages.notReplied && user.id === interaction.user.id
 	});
 
 	buttonCollector.on("collect", async (buttonInteraction: ButtonInteraction) => {

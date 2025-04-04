@@ -11,6 +11,7 @@ import i18n from "../translations/i18n";
 import { StringConstants } from "../../../Lib/src/constants/StringConstants";
 import { ReactionCollectorShopSmallEventData } from "../../../Lib/src/packets/interaction/ReactionCollectorShopSmallEvent";
 import { ReactionCollectorReturnType } from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
 
 /**
  * Send the initial embed for this small event
@@ -33,7 +34,7 @@ export async function smallShopCollector(context: PacketContext, packet: Reactio
 		+ StringUtils.getRandomTranslation("smallEvents:shop.end", lng, {
 			item: DisplayUtils.getItemDisplayWithStats(data.item, lng),
 			price: data.price,
-			type: `${Constants.REACTIONS.ITEM_CATEGORIES[data.item.category]}${i18n.t("smallEvents:shop.types", {
+			type: `${DraftBotIcons.ItemCategories[data.item.category]}${i18n.t("smallEvents:shop.types", {
 				returnObjects: true,
 				lng
 			})[data.item.category]}`,
