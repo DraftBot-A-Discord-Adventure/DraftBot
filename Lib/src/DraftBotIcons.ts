@@ -202,8 +202,8 @@ export const DraftBotIcons: {
 		[inventoryId: string]: string;
 	};
 	itemNatures: string[];
-	ItemCategories: string[];
-	Profile: {
+	itemCategories: string[];
+	profile: {
 		DisplayAllBadgeEmote: string;
 	};
 } = {
@@ -2105,13 +2105,13 @@ export const DraftBotIcons: {
 		"💰",
 		"⚡"
 	],
-	ItemCategories:[
+	itemCategories:[
 		"⚔️",
 		"🛡️",
 		"⚗️",
 		"🧸"
 	],
-	Profile: {
-		DisplayAllBadgeEmote: "🎖️"
+	profile: {
+		displayAllBadgeEmote: "🎖️"
 	}
 };
