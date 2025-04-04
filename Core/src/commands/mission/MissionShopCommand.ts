@@ -54,6 +54,7 @@ import { BadgeConstants } from "../../../../Lib/src/constants/BadgeConstants";
 import { PetDiet } from "../../../../Lib/src/constants/PetConstants";
 import { SexTypeShort } from "../../../../Lib/src/constants/StringConstants";
 import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
+import { getAiPetBehavior } from "../../core/fights/PetAssistManager";
 
 /**
  * Calculate the amount of money the player will have if he buys some with gems
@@ -63,7 +64,7 @@ function calculateGemsToMoneyRatio(): number {
 	 * Returns the decimal part of a number
 	 * @param x
 	 */
-	const frac = function(x: number): number {
+	const frac = function (x: number): number {
 		return x >= 0 ? x % 1 : 1 + x % 1;
 	};
 	return Constants.MISSION_SHOP.BASE_RATIO
@@ -158,11 +159,12 @@ function getValueLovePointsPetShopItem(): ShopItem {
 				loveLevel: pet.getLoveLevelNumber(),
 				lovePoints: pet.lovePoints,
 				diet: petModel.diet as PetDiet,
-				nextFeed: pet.getFeedCooldown(petModel)
+				nextFeed: pet.getFeedCooldown(petModel),
+				fightAssistId: getAiPetBehavior(petModel.id).id
 			}));
-			return true;
-		}
-	};
+		return true;
+	}
+};
 }
 
 function getEndCallbackSkipMissionShopItem(player: Player, missionList: MissionSlot[]): (collector: ReactionCollectorInstance, response: DraftBotPacket[]) => Promise<void> {
