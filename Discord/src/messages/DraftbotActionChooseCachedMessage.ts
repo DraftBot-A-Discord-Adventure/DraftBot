@@ -60,17 +60,14 @@ export class DraftbotActionChooseCachedMessage extends DraftbotCachedMessage<Rea
 		const buttonCollector = msg!.createMessageComponentCollector({
 			time: packet.endTime - Date.now()
 		});
-		buttonCollector.on("collect", (buttonInteraction: ButtonInteraction) => {
+		buttonCollector.on("collect", async (buttonInteraction: ButtonInteraction) => {
 			if (buttonInteraction.user.id !== context.discord?.user) {
 				return;
 			}
-			buttonInteraction.update({});
-			DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, buttonInteraction, reactions.findIndex(reaction => reaction.data.id === buttonInteraction.customId));
-		});
-		buttonCollector.on("end", () => {
-			msg!.edit({
+			await buttonInteraction.update({
 				components: []
 			});
+			DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, buttonInteraction, reactions.findIndex(reaction => reaction.data.id === buttonInteraction.customId));
 		});
 		return [buttonCollector];
 	};
