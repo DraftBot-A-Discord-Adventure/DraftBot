@@ -57,7 +57,7 @@ export class DraftbotActionChooseCachedMessage extends DraftbotCachedMessage<Rea
 			embeds: [embed],
 			components: rows
 		});
-		const buttonCollector = this.storedMessage!.createMessageComponentCollector({
+		const buttonCollector = msg!.createMessageComponentCollector({
 			time: packet.endTime - Date.now()
 		});
 		buttonCollector.on("collect", (buttonInteraction: ButtonInteraction) => {
