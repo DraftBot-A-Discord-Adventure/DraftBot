@@ -5,7 +5,7 @@ import {
 /**
  * Get the elements to display the remaining time in the given language
  * @param language
- */ // Todo: je crois que ya moyen de gérer avec i18n
+ */
 function getMinutesDisplayStringConstants(language: string): {
 	hoursDisplay: string;
 	minutesDisplay: string;
