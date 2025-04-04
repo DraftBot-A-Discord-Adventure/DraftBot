@@ -69,7 +69,6 @@ export async function handleLovePointsValueShopItem(packet: CommandMissionShopPe
 		return;
 	}
 	const lng = interaction.userLanguage;
-	
 	await interaction.followUp({
 		embeds: [
 			new DraftBotEmbed()
@@ -83,12 +82,12 @@ export async function handleLovePointsValueShopItem(packet: CommandMissionShopPe
 					commentOnPetAge: i18n.t("commands:shop.shopItems.lovePointsValue.ageComment", { 
 						lng,
 						context: PetUtils.getAgeCategory(packet.petId),
-						age: packet.petId
+						age: packet.petId - 1
 					}),
 					actualLP: packet.lovePoints,
 					diet: PetUtils.getDietDisplay(packet.diet, lng),
 					nextFeed: PetUtils.getFeedCooldownDisplay(packet.nextFeed, lng),
-					commentOnFightEffect: StringUtils.getRandomTranslation(`commands:shop.shopItems.lovePointsValue.commentOnFightEffect.${packet.typeId}`, lng),
+					commentOnFightEffect: StringUtils.getRandomTranslation(`commands:shop.shopItems.lovePointsValue.commentOnFightEffect.${packet.fightAssistId}`, lng),
 					commentOnResult: StringUtils.getRandomTranslation(`commands:shop.shopItems.lovePointsValue.advice.${packet.loveLevel}`, lng),
 					interpolation: { escapeValue: false }
 				}))

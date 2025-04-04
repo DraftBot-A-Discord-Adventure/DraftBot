@@ -39,7 +39,9 @@ export class PetUtils {
 				PetConstants.PET_AGE_GROUP_NAMES.VERY_OLD
 				: age <= PetConstants.PET_AGE_GROUPS_THRESHOLDS.OLD ?
 					PetConstants.PET_AGE_GROUP_NAMES.OLD
-					: PetConstants.PET_AGE_GROUP_NAMES.ADULT
+					: age <= PetConstants.PET_AGE_GROUPS_THRESHOLDS.ADULT ?
+						PetConstants.PET_AGE_GROUP_NAMES.ADULT
+						: PetConstants.PET_AGE_GROUP_NAMES.OTHER;
 	};
 
 	static getFeedCooldownDisplay(nextFeed: number, lng: Language): string {

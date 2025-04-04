@@ -1955,7 +1955,9 @@ export const DraftBotIcons: {
 	petInformation: {
 		loveScore: "💖",
 		diet: "🍽️",
-		nextFeed: "🕙"
+		nextFeed: "🕙",
+		fightEffect: "⚔️",
+		age: "👶",
 	},
 	leagues: {
 		0: "🌲",
