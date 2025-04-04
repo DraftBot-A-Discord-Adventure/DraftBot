@@ -107,9 +107,7 @@ export class DraftbotCachedMessages {
 			DraftbotCachedMessages.createCachedMessage(newMessage);
 			return newMessage;
 		}
-		const instance = new MessageLike(message.originalMessageId);
-		Object.assign(instance, message);
-		return instance;
+		return message as Message;
 	}
 
 	static markAsReupload(message: DraftbotCachedMessage): void {
