@@ -59,6 +59,8 @@
     "6": "Armadura de hierro",
     "60": "Giga Chad",
     "61": "UwUrlant Cry",
+    "62": "Bouclier de givre",
+    "63": "Bouclier du vent",
     "7": "Kimono reforzado",
     "8": "Escudo único",
     "9": "Escudo resistente"
@@ -1195,7 +1197,8 @@
     "87": "Guitarra eléctrica",
     "88": "Tarjeta SYM",
     "89": "Peces muertos",
-    "9": "Llave oxidada"
+    "9": "Llave oxidada",
+    "90": "Talisman de Grenouille"
   },
   "pets": {
     "0_female": "No se admiten animales",
@@ -1459,7 +1462,8 @@
     "90": "Zumo de patata",
     "91": "Agua de mar",
     "92": "Baba de trol",
-    "93": "Lágrima de Titán"
+    "93": "Lágrima de Titán",
+    "94": "Tablette ChocoChoc"
   },
   "weapons": {
     "0": "Puño",
@@ -1556,7 +1560,10 @@
     "91": "Barra de Fibonacci",
     "92": "Se acabó el juego",
     "93": "Trapo de cocina",
-    "94": "Polvo de esqueleto"
+    "94": "Polvo de esqueleto",
+    "95": "Danse de l'aura argentée",
+    "96": "Electektron",
+    "97": "Larme du Phoenix"
   },
   "foods": {
     "herbivorousFood_one": "ensalada",
