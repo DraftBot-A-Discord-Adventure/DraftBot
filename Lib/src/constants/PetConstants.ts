@@ -30,7 +30,7 @@ export abstract class PetConstants {
 		VERY_OLD: 1000,
 		OLD: 5000,
 		ADULT: 20000
-	}
+	};
 
 	static readonly PET_INTERACTIONS_NAMES = {
 		WIN_MONEY: "money",

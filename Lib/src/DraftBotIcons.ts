@@ -1957,7 +1957,7 @@ export const DraftBotIcons: {
 		diet: "🍽️",
 		nextFeed: "🕙",
 		fightEffect: "⚔️",
-		age: "👶",
+		age: "👶"
 	},
 	leagues: {
 		0: "🌲",
