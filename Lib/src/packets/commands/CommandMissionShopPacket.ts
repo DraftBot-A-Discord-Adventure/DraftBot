@@ -41,6 +41,8 @@ export class CommandMissionShopPetInformation extends DraftBotPacket {
 	nextFeed!: number;
 
 	fightAssistId!: string;
+
+	ageCategory!: string;
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)

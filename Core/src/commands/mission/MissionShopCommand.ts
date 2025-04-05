@@ -55,6 +55,7 @@ import { PetDiet } from "../../../../Lib/src/constants/PetConstants";
 import { SexTypeShort } from "../../../../Lib/src/constants/StringConstants";
 import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
 import { getAiPetBehavior } from "../../core/fights/PetAssistManager";
+import { PetUtils } from "../../core/utils/PetUtils";
 
 /**
  * Calculate the amount of money the player will have if he buys some with gems
@@ -160,7 +161,8 @@ function getValueLovePointsPetShopItem(): ShopItem {
 				lovePoints: pet.lovePoints,
 				diet: petModel.diet as PetDiet,
 				nextFeed: pet.getFeedCooldown(petModel),
-				fightAssistId: getAiPetBehavior(petModel.id).id
+				fightAssistId: getAiPetBehavior(petModel.id).id,
+				ageCategory: PetUtils.getAgeCategory(pet.id)
 			}));
 			return true;
 		}
