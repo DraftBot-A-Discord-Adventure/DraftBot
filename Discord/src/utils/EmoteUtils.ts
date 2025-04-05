@@ -4,6 +4,7 @@ import {
 } from "discord.js";
 import { DraftBotEmbed } from "../messages/DraftBotEmbed";
 import { DraftbotInteraction } from "../messages/DraftbotInteraction";
+import { DraftBotLogger } from "../../../Lib/src/logs/Logger";
 
 export class EmoteUtils {
 	/**
@@ -75,9 +76,9 @@ export class EmoteUtils {
 
 		const maxOptions = 25;
 		for (let i = 0; i < Math.ceil(emojis.length / maxOptions); i++) {
-			console.log(`Test select menu slice ${i} / ${Math.ceil(emojis.length / maxOptions)}`);
+			DraftBotLogger.get().info(`Test select menu slice ${i} / ${Math.ceil(emojis.length / maxOptions)}`);
 			const emojisSlice = emojis.slice(i * maxOptions, (i + 1) * maxOptions);
-			console.log(`Emojis slice: ${emojisSlice}`);
+			DraftBotLogger.get().info(`Emojis slice: ${emojisSlice}`);
 			const row = new ActionRowBuilder<StringSelectMenuBuilder>();
 			const selectMenu = new StringSelectMenuBuilder()
 				.setCustomId("testSelectMenu")
@@ -94,7 +95,7 @@ export class EmoteUtils {
 				});
 			}
 			catch (e) {
-				console.error(e);
+				DraftBotLogger.get().error("Error while sending select menu", e);
 			}
 		}
 	}

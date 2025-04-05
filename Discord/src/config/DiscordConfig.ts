@@ -29,6 +29,8 @@ export interface DraftBotConfig {
 	PREFIX: string;
 	DBL_TOKEN: string;
 	WEB_SERVER_PORT: number;
+	LOGGER_LEVEL: string;
+	LOGGER_LOCATIONS: string[];
 }
 
 type ConfigStructure = {
@@ -74,6 +76,10 @@ type ConfigStructure = {
 	others: {
 		webserver_port: number;
 	};
+	logs: {
+		level: string;
+		locations: string[];
+	};
 };
 
 /**
@@ -104,7 +110,9 @@ export function loadConfig(): DraftBotConfig {
 		MARIADB_PORT: config.database.port,
 		PREFIX: config.general.prefix,
 		DBL_TOKEN: config.discord_bot_list.token,
-		WEB_SERVER_PORT: config.others.webserver_port
+		WEB_SERVER_PORT: config.others.webserver_port,
+		LOGGER_LEVEL: config.logs.level,
+		LOGGER_LOCATIONS: config.logs.locations
 	};
 }
 

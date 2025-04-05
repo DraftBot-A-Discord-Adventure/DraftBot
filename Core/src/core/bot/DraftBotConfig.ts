@@ -16,6 +16,8 @@ export interface DraftBotConfig {
 	MARIADB_PORT: number;
 	MQTT_HOST: string;
 	WEB_SERVER_PORT: number;
+	LOG_LEVEL: string;
+	LOG_LOCATIONS: string[];
 }
 
 type ConfigStructure = {
@@ -26,6 +28,7 @@ type ConfigStructure = {
 	};
 	others: {
 		webserver_port: number;
+		log_packets: boolean;
 	};
 	database: {
 		host: string;
@@ -36,6 +39,10 @@ type ConfigStructure = {
 	};
 	mqtt: {
 		host: string;
+	};
+	logs: {
+		level: string;
+		locations: string[];
 	};
 };
 
@@ -54,7 +61,9 @@ export function loadConfig(): DraftBotConfig {
 		MARIADB_ROOT_PASSWORD: config.database.root_password,
 		MARIADB_PORT: config.database.port,
 		MQTT_HOST: config.mqtt.host,
-		WEB_SERVER_PORT: config.others.webserver_port
+		WEB_SERVER_PORT: config.others.webserver_port,
+		LOG_LEVEL: config.logs.level,
+		LOG_LOCATIONS: config.logs.locations
 	};
 }
 

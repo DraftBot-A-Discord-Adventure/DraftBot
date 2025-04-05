@@ -171,7 +171,6 @@ let sin_ob2000: number;
 
 function VerifyBoolean(b: boolean): boolean {
 	if (b !== true && b !== false) {
-		console.trace();
 		throw `Value is not boolean: ${b}`;
 	}
 	return b;
@@ -179,7 +178,6 @@ function VerifyBoolean(b: boolean): boolean {
 
 function VerifyNumber(x: number): number {
 	if (!Number.isFinite(x)) {
-		console.trace();
 		throw `Value is not a finite number: ${x}`;
 	}
 	return x;

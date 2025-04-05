@@ -1,4 +1,5 @@
 import { QueryInterface } from "sequelize";
+import { DraftBotLogger } from "../logs/Logger";
 
 export abstract class MigrationNameChanger {
 	/**
@@ -11,7 +12,7 @@ export abstract class MigrationNameChanger {
 		if ((await context.select(null, "SequelizeMeta", { where: { name: oldName } })).length > 0) {
 			// The entry is in fact removed, as the migration entry is added back at the end of the up method
 			await context.bulkDelete("SequelizeMeta", { name: oldName });
-			console.log(`Renamed migration ${oldName}`);
+			DraftBotLogger.get().info(`Renamed migration ${oldName}`);
 			return true;
 		}
 

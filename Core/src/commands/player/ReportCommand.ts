@@ -67,6 +67,7 @@ import {
 } from "../../core/utils/CommandUtils";
 import { Effect } from "../../../../Lib/src/types/Effect";
 import { ReactionCollectorRefuseReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { DraftBotLogger } from "../../../../Lib/src/logs/Logger";
 
 export default class ReportCommand {
 	@commandRequires(CommandReportPacketReq, {
@@ -367,7 +368,7 @@ async function chooseDestination(
 	const destinationMaps = Maps.getNextPlayerAvailableMaps(player);
 
 	if (destinationMaps.length === 0) {
-		console.log(`${player.id} hasn't any destination map (current map: ${player.getDestinationId()})`);
+		DraftBotLogger.get().error(`Player ${player.id} hasn't any destination map (current map: ${player.getDestinationId()})`);
 		return;
 	}
 
@@ -663,7 +664,7 @@ async function executeSmallEvent(response: DraftBotPacket[], player: Player, con
 			await MissionsController.update(player, response, { missionId: "doReports" });
 		}
 		catch (e) {
-			console.error(e);
+			DraftBotLogger.get().error(`Error while executing ${filename} small event`, e);
 			response.push(makePacket(ErrorPacket, { message: `${e}` }));
 		}
 	}

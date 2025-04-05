@@ -10,6 +10,7 @@ import { Player } from "../../core/database/game/models/Player";
 import {
 	commandRequires, CommandUtils
 } from "../../core/utils/CommandUtils";
+import { DraftBotLogger } from "../../../../Lib/src/logs/Logger";
 
 export default class TestCommand {
 	@commandRequires(CommandTestPacketReq, {
@@ -72,7 +73,7 @@ export default class TestCommand {
 					}));
 				}
 				catch (e) {
-					console.error(e);
+					DraftBotLogger.get().error(`Error while executing test command ${testCommand}`, e);
 					response.push(makePacket(CommandTestPacketRes, {
 						commandName: testCommand,
 						result: `:x: | Une erreur est survenue pendant la commande test ${testCommand} : \`\`\`${e.stack}\`\`\``,

@@ -4,11 +4,12 @@ import {
 	DraftBotPacket, PacketLike
 } from "../../../../Lib/src/packets/DraftBotPacket";
 import { draftBotInstance } from "../../index";
+import { DraftBotLogger } from "../../../../Lib/src/logs/Logger";
 
 export const packetHandler = <T extends DraftBotPacket>(val: PacketLike<T>) =>
 	<V>(target: V, prop: string, descriptor: TypedPropertyDescriptor<PacketListenerCallbackServer<T>>): void => {
 		draftBotInstance.packetListener.addPacketListener<T>(val, descriptor.value! as unknown as PacketListenerCallbackServer<T>);
-		console.log(`[${val.name}] Registered packet handler (function '${prop}' in class '${target!.constructor.name}')`);
+		DraftBotLogger.get().info(`[${val.name}] Registered packet handler (function '${prop}' in class '${target!.constructor.name}')`);
 	};
 
 export async function registerAllPacketHandlers(): Promise<void> {

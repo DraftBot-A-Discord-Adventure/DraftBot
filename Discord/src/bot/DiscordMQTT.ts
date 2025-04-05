@@ -21,6 +21,7 @@ import i18n from "../translations/i18n";
 import { MqttTopicUtils } from "../../../Lib/src/utils/MqttTopicUtils";
 import { DraftBotDiscordMetrics } from "./DraftBotDiscordMetrics";
 import { millisecondsToSeconds } from "../../../Lib/src/utils/TimeUtils";
+import { DraftBotLogger } from "../../../Lib/src/logs/Logger";
 
 export class DiscordMQTT {
 	static mqttClient: MqttClient;
@@ -45,10 +46,10 @@ export class DiscordMQTT {
 		DiscordMQTT.mqttClient.on("message", async (topic, message) => {
 			if (topic === MqttTopicUtils.getDiscordTopic(discordConfig.PREFIX)) {
 				const messageString = message.toString();
-				console.log(`Received message from topic ${topic}: ${messageString}`);
+				DraftBotLogger.get().error(`Received message from topic ${topic}`, messageString);
 				const dataJson = JSON.parse(messageString);
 				if (!Object.hasOwn(dataJson, "packets") || !Object.hasOwn(dataJson, "context")) {
-					console.log(`Wrong packet format : ${messageString}`);
+					DraftBotLogger.get().error("Wrong packet format", messageString);
 					return;
 				}
 
@@ -72,7 +73,7 @@ export class DiscordMQTT {
 						DraftBotDiscordMetrics.observePacketTime(packet.name, millisecondsToSeconds(Date.now() - startTime));
 					}
 					catch (error) {
-						console.error(`Error while handling packet: ${error}`);
+						DraftBotLogger.get().error("Error while handling packet", error);
 						DraftBotDiscordMetrics.incrementPacketErrorCount(packet.name);
 
 						const context = dataJson.context as PacketContext;
@@ -93,7 +94,7 @@ export class DiscordMQTT {
 			}
 			else if (topic === MqttTopicUtils.getDiscordTopWeekAnnouncementTopic(discordConfig.PREFIX)) {
 				if (message.toString() === "") {
-					console.log("No top week announcement in the MQTT topic");
+					DraftBotLogger.get().debug("No top week announcement in the MQTT topic");
 					return;
 				}
 
@@ -106,7 +107,7 @@ export class DiscordMQTT {
 			}
 			else if (topic === MqttTopicUtils.getDiscordTopWeekFightAnnouncementTopic(discordConfig.PREFIX)) {
 				if (message.toString() === "") {
-					console.log("No top week fight announcement in the MQTT topic");
+					DraftBotLogger.get().debug("No top week fight announcement in the MQTT topic");
 					return;
 				}
 
@@ -123,11 +124,11 @@ export class DiscordMQTT {
 	private static subscribeTo(mqttClient: MqttClient, topic: string): void {
 		mqttClient.subscribe(topic, err => {
 			if (err) {
-				console.error(err);
+				DraftBotLogger.get().error(`Error while subscribing to topic ${topic}`, err);
 				process.exit(1);
 			}
 			else {
-				console.log(`Subscribed to topic ${topic}`);
+				DraftBotLogger.get().info(`Subscribed to topic ${topic}`);
 			}
 		});
 	}
@@ -152,7 +153,7 @@ export class DiscordMQTT {
 				}
 
 				const messageString = message.toString();
-				console.log(`Received notification message from topic ${topic}: ${messageString}`);
+				DraftBotLogger.get().debug(`Received notification message from topic ${topic}`, messageString);
 
 				const serializedPacket: NotificationsSerializedPacket = JSON.parse(messageString);
 				NotificationsHandler.sendNotifications(serializedPacket);

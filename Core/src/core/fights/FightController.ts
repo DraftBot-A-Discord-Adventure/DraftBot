@@ -28,6 +28,7 @@ import {
 } from "../../data/FightAlteration";
 import { PetAssistance } from "../../data/PetAssistance";
 import { getAiPetBehavior } from "./PetAssistManager";
+import { DraftBotLogger } from "../../../../Lib/src/logs/Logger";
 
 export class FightController {
 	turn: number;
@@ -338,8 +339,7 @@ export class FightController {
 					.chooseAction(this._fightView, response);
 			}
 			catch (e) {
-				console.log("### FIGHT MESSAGE DELETED OR LOST : displayFightStatus ###");
-				console.error(e.stack);
+				DraftBotLogger.get().error("Fight message deleted or lost : displayFightStatus", e);
 				this.endBugFight(response);
 			}
 		}

@@ -58,6 +58,5 @@ export default class PetNickCommand {
 
 		playerPet.nickname = newPetNickName ? newPetNickName : null;
 		await playerPet.save();
-		console.log(playerPet);
 	}
 }

@@ -14,6 +14,7 @@ import { KeycloakConfig } from "../../../../../../Lib/src/keycloak/KeycloakConfi
 import { logsV5NewIds } from "../../logs/migrations/006-v5";
 import { LANGUAGE } from "../../../../../../Lib/src/Language";
 import { Effect } from "../../../../../../Lib/src/types/Effect";
+import { DraftBotLogger } from "../../../../../../Lib/src/logs/Logger";
 
 export async function up({ context }: { context: QueryInterface }): Promise<void> {
 	// Delete players with a score < 100 and that are not banned
@@ -31,13 +32,7 @@ export async function up({ context }: { context: QueryInterface }): Promise<void
 	if (players.length !== 0) {
 		const configPath = `${process.cwd()}/config/keycloak.toml`;
 		if (!existsSync(configPath)) {
-			console.error(`Please first backup your database. Then, in order to migrate from v4 to v5, please create a file at '${configPath}' with the following format:
-[keycloak]
-realm = "DraftBot"
-url = "http://127.0.0.1:8080"
-clientId = "discord"
-clientSecret = "secret"
-		`);
+			DraftBotLogger.get().error(`Please first backup your database. Then, in order to migrate from v4 to v5, please create a file at '${configPath}' with the following format:\n[keycloak]\nrealm = "DraftBot"\nurl = "http://127.0.0.1:8080"\nclientId = "discord"\nclientSecret = "secret"`);
 			process.exit(1);
 		}
 

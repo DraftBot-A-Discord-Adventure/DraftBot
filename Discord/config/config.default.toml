@@ -60,6 +60,12 @@ clientSecret = ""
 # Put the DBL server token
 token = ""
 
+[logs]
+# The log level of the bot. It can be one of: "error", "warn", "info", "debug"
+level = "info"
+# The log locations. It can be one of: "console", "file", "loki"
+locations = ["console", "file"]
+
 [others]
 # Webserver port. The shard ID will be added to the port to create the webserver port
 webserver_port = 10124

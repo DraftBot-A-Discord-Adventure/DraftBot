@@ -17,6 +17,7 @@ import { ErrorBannedPacket } from "../../../../Lib/src/packets/commands/ErrorPac
 import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
 import { MapCache } from "../maps/MapCache";
 import { RequirementWherePacket } from "../../../../Lib/src/packets/commands/requirements/RequirementWherePacket";
+import { DraftBotLogger } from "../../../../Lib/src/logs/Logger";
 
 type Requirements = {
 	disallowedEffects?: Effect[];
@@ -300,5 +301,5 @@ export const commandRequires = <T extends DraftBotPacket>(packet: PacketLike<T>,
 			}
 			await descriptor.value(response, player, packet, context);
 		});
-		console.log(`[${packet.name}] Registered packet handler (function '${prop}' in class '${target!.constructor.name}')`);
+		DraftBotLogger.get().info(`[${packet.name}] Registered packet handler (function '${prop}' in class '${target!.constructor.name}')`);
 	};

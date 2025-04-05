@@ -17,10 +17,13 @@
   },
   "dependencies": {
     "@types/node": "22.13.17",
+    "@types/winston": "2.4.4",
     "mariadb": "3.0.2",
     "random-js": "2.1.0",
     "sequelize": "6.37.7",
-    "umzug": "3.8.2"
+    "umzug": "3.8.2",
+    "winston": "3.17.0",
+    "winston-daily-rotate-file": "5.0.0"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin": "4.2.0",

@@ -4,11 +4,12 @@ import {
 import { PacketListenerCallbackClient } from "../../../Lib/src/packets/PacketListener";
 import { readdirSync } from "fs";
 import { DiscordMQTT } from "../bot/DiscordMQTT";
+import { DraftBotLogger } from "../../../Lib/src/logs/Logger";
 
 export const packetHandler = <T extends DraftBotPacket>(val: PacketLike<T>) =>
 	<V>(target: V, prop: string, descriptor: TypedPropertyDescriptor<PacketListenerCallbackClient<T>>): void => {
 		DiscordMQTT.packetListener.addPacketListener<T>(val, descriptor.value! as unknown as PacketListenerCallbackClient<T>);
-		console.log(`[${val.name}] Registered packet handler (function '${prop}' in class '${target!.constructor.name}')`);
+		DraftBotLogger.get().info(`[${val.name}] Registered packet handler (function '${prop}' in class '${target!.constructor.name}')`);
 	};
 
 export async function registerAllPacketHandlers(): Promise<void> {
