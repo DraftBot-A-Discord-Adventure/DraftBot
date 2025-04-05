@@ -468,7 +468,7 @@
     "noFight": "{emote:commands.report} **Journal de {{pseudo}} :** {emote:pve_fights.wait_a_bit} | Vous vous enfuyez rapidement et trouvez une petite cachette ! Le monstre vous attend patiemment dehors...",
     "points": ":** {emote:unitValues.score} Points gagnés : **{{score}}",
     "pveEvent": "{emote:commands.report} **Journal de {{pseudo}} :** {{event}}\n\n{{monsterDisplay}}\n\n{emote:pve_fights.start_fight} Commencer le combat\n{emote:pve_fights.wait_a_bit} Attendre un peu avant de commencer le combat\n\n*- Utilisez les réactions pour effectuer une action*",
-    "pveFightRefused" : "{emote:commands.report} **Journal de {{pseudo}} :** {emote:pve_fights.wait_a_bit} | Vous décidez de ne pas engager le combat pour le moment et partez vous réfugier dans une cachette non loin. Il faudra finir par affronter la bête, car vous ne trouvez aucune autre issue.",
+    "pveFightRefused": "{emote:commands.report} **Journal de {{pseudo}} :** {emote:pve_fights.wait_a_bit} | Vous décidez de ne pas engager le combat pour le moment et partez vous réfugier dans une cachette non loin. Il faudra finir par affronter la bête, car vous ne trouvez aucune autre issue.",
     "remainingEnergyTitle": "Énergie restante :",
     "startPoint": "Point de départ :",
     "timeLost": "** | {emote:clock.10} Temps perdu : **{{timeLost}}",
@@ -635,8 +635,215 @@
         "name": "{emote:shopItems.lovePointsValue} Vétérinaire de la cour",
         "info": "Obtenir des informations détaillées sur votre familier.",
         "giveTitle": "{{pseudo}}, achat effectué !",
-        "giveDesc": "Après un long moment passé à étudier l'état de santé de votre animal, vous finissez par recevoir le rapport du vétérinaire :\n\n**{{petName}}** {{commentOnResult}}\n{emote:petInformation.loveScore} **Score d'amour** : {{actualLP}} / 100\n{emote:petInformation.diet} **Régime alimentaire** : {{diet}}\n{emote:petInformation.nextFeed} **Prochaine faim** : {{nextFeed}}",
+        "giveDesc": "Après un long moment passé à étudier l'état de santé de votre animal, vous finissez par recevoir le rapport du vétérinaire :\n\n**{{petName}}** {{commentOnResult}}\n{emote:petInformation.loveScore} **Score d'amour** : {{actualLP}} / 100\n{emote:petInformation.diet} **Régime alimentaire** : {{diet}}\n{emote:petInformation.nextFeed} **Prochaine faim** : {{nextFeed}}\n{emote:petInformation.age} **Âge** : {{commentOnPetAge}}\n\n{emote:petInformation.fightEffect} **Effet de combat** : {{commentOnFightEffect}}",
         "petIsHungry": "{emote:effects.starving} affamé",
+        "commentOnFightEffect": {
+          "bite": [
+            "Ce familier possède des crocs impressionnants ! En combat, il n'hésitera pas à mordre vos adversaires avec une précision redoutable.",
+            "Regardez ces canines ! Votre compagnon pourra mordre vos ennemis, leur infligeant des blessures douloureuses et les déstabilisant.",
+            "Sa dentition est parfaite pour le combat. Il saura blesser vos adversaires en les mordant à des points stratégiques !"
+          ],
+          "boostDefense": [
+            "Sa carapace est extraordinairement résistante ! En combat, il se placera devant vous comme un bouclier vivant, augmentant considérablement votre défense.",
+            "J'observe une structure musculaire défensive remarquable. Votre familier vous protégera en absorbant une partie des dégâts à votre place.",
+            "Ce spécimen a un instinct protecteur développé. Il créera une barrière naturelle autour de vous pendant les affrontements."
+          ],
+          "boostSpeed": [
+            "Sa morphologie est faite pour la vitesse ! En combat, il pourra vous porter sur son dos, décuplant votre agilité sur le champ de bataille.",
+            "Ses réflexes sont exceptionnels. Il partagera son incroyable vivacité avec vous lors des combats, vous rendant bien plus rapide.",
+            "Ce familier possède des glandes spéciales qui sécrètent une hormone d'accélération. À vos côtés, vous vous déplacerez comme l'éclair !"
+          ],
+          "claws": [
+            "Les griffes de votre animal sont plus tranchantes que bien des lames ! Il les utilisera pour lacérer vos ennemis avec une efficacité terrifiante.",
+            "La structure kératinisée de ses griffes est unique. En combat, il pourra infliger des entailles profondes à vos adversaires.",
+            "J'observe un mécanisme de rétractation parfait. Il gardera ses griffes acérées pour les moments critiques, surprenant vos ennemis."
+          ],
+          "createBomb": [
+            "Ce familier possède des glandes explosives surprenantes ! Il peut créer des petites bombes biologiques qu'il déposera stratégiquement près de vos adversaires.",
+            "Son métabolisme lui permet de synthétiser des composés instables. Il fabriquera des explosifs naturels pour vous donner l'avantage en combat.",
+            "Fascinant ! Ses sécrétions chimiques peuvent former des charges explosives. Vos ennemis n'y verront que du feu... littéralement !"
+          ],
+          "buildBarrage": [
+            "Son instinct de constructeur est impressionnant ! Il érigera des barrages protecteurs pour vous isoler des attaques ennemies.",
+            "Cette espèce est connue pour ses capacités architecturales. Votre familier construira rapidement des structures défensives en plein combat.",
+            "Ses pattes sont parfaitement adaptées pour assembler des barricades. Il vous créera une protection efficace contre vos adversaires."
+          ],
+          "elephantRememberLastAction": [
+            "Sa mémoire est phénoménale ! Ce familier se souviendra des tactiques adverses et vous aidera à anticiper leurs prochains mouvements.",
+            "Son cerveau est remarquablement développé. Il mémorisera les actions précédentes pour vous conseiller sur la meilleure stratégie à adopter.",
+            "Comme tous ceux de son espèce, il n'oublie jamais. Cette mémoire prodigieuse vous permettra d'adapter parfaitement vos actions en combat."
+          ],
+          "fishProtectAgainstFire": [
+            "Sa peau sécrète un mucus ignifuge extraordinaire ! Il vous protégera efficacement contre les attaques de feu en combat.",
+            "Ce spécimen aquatique possède un système unique de régulation thermique. Grâce à lui, vous résisterez bien mieux aux flammes ennemies.",
+            "Les écailles de ce familier contiennent des propriétés anti-inflammatoires. Il vous enveloppera de sa protection contre les brûlures."
+          ],
+          "goesWild": [
+            "Attention, ce familier possède un tempérament sauvage ! En combat, il pourra entrer dans une rage berserker, frappant tous les adversaires à proximité.",
+            "Son instinct primitif peut se réveiller à tout moment. Cette furie naturelle sera redoutable contre vos ennemis, mais restez prudent !",
+            "Je détecte un potentiel de frénésie extraordinaire. Votre familier pourra déchaîner sa nature sauvage contre vos opposants."
+          ],
+          "healEveryone": [
+            "Ce familier possède des capacités curatives remarquables ! Il pourra soigner vos blessures et celles de vos alliés en plein combat.",
+            "Ses sécrétions contiennent des enzymes régénérantes puissantes. Il les utilisera pour vous maintenir en forme pendant les affrontements.",
+            "J'observe des propriétés biorégénératrices uniques dans son organisme. Votre familier partagera cette énergie vitale avec vous et vos compagnons."
+          ],
+          "helpBreathe": [
+            "Sa capacité respiratoire est extraordinaire ! Il pourra vous partager son oxygène lors des combats éprouvants ou sous l'eau.",
+            "Ce spécimen possède des branchies modifiées fascinantes. Il vous aidera à reprendre votre souffle dans les moments critiques.",
+            "Son système pulmonaire hyperévolué lui permet de stocker l'oxygène. Il vous en transférera quand vous serez à bout de souffle."
+          ],
+          "horn": [
+            "Cette corne est une arme naturelle redoutable ! Votre familier l'utilisera pour empaler vos adversaires avec une force impressionnante.",
+            "La structure kératinisée de sa corne est plus dure que l'acier. Il chargera vos ennemis, leur infligeant des dégâts considérables.",
+            "Ce spécimen possède une corne parfaitement équilibrée pour le combat. Il saura viser les points faibles de vos adversaires."
+          ],
+          "hypnosis": [
+            "Ses yeux possèdent un pouvoir hypnotique fascinant ! Il pourra désorienter vos adversaires, les rendant confus et vulnérables.",
+            "Ce familier maîtrise des techniques psychiques naturelles. Il embrouillera l'esprit de vos ennemis pendant les combats.",
+            "Les motifs de sa peau créent un effet hypnotique unique. Vos opposants seront désorientés, incapables de se concentrer sur leurs attaques."
+          ],
+          "isUseless": [
+            "Euh... ce familier a un tempérament... contemplatif. En combat, il observera la situation avec un détachement philosophique.",
+            "Je dois être honnête : ses capacités de combat sont limitées. Il vous accompagnera moralement, sans vraiment intervenir.",
+            "Ce spécimen appartient à une espèce pacifiste. Sa présence sera... spirituellement enrichissante pendant vos combats."
+          ],
+          "meduseParalyze": [
+            "Ses tentacules contiennent un venin paralysant puissant ! Il pourra immobiliser vos adversaires, les rendant inoffensifs temporairement.",
+            "Ce familier sécrète une neurotoxine remarquable. Une simple piqûre et vos ennemis se retrouveront paralysés sur place.",
+            "Sa biochimie unique lui permet de produire des agents paralysants. Vos opposants seront figés, incapables de riposter."
+          ],
+          "peck": [
+            "Le bec de votre familier est affûté comme une dague ! Il lui permettera d'harceler vos adversaires de coups précis et douloureux pendant les combats.",
+            "La structure osseuse de son bec est parfaitement adaptée pour frapper. Il piquera vos ennemis aux points sensibles avec précision.",
+            "Ce familier maîtrise l'art d'être pénible avec son bec. Vos opposants seront affaiblis par ses attaques incessantes."
+          ],
+          "petCharge": [
+            "Sa musculature est conçue pour la charge ! En combat, il se lancera sur vos adversaires avec une force dévastatrice.",
+            "Ce spécimen possède une structure osseuse renforcée parfaite pour l'impact. Il renversera vos ennemis comme des quilles.",
+            "Son instinct de charge est impressionnant. Il prendra de l'élan pour percuter vos opposants avec une puissance inouïe."
+          ],
+          "petCurse": [
+            "Ce familier possède des capacités mystiques troublantes ! Il pourra maudire vos adversaires, affaiblissant leur chance et leur volonté.",
+            "Ses yeux brillent d'une lueur surnaturelle qui porte malheur. Vos ennemis subiront des revers inexplicables après son intervention.",
+            "J'observe des propriétés thaumaturgiques uniques dans son aura. Il lancera de puissantes malédictions contre vos opposants."
+          ],
+          "petHit": [
+            "Son instinct protecteur est remarquable ! Si vous êtes frappé, il contre-attaquera immédiatement pour vous venger.",
+            "Ce familier est extrêmement loyal et réactif. Il ripostera avec férocité quand vous subirez des dommages en combat.",
+            "Sa connexion empathique avec vous est unique. Chaque coup que vous recevrez déclenchera sa fureur vengeresse."
+          ],
+          "petPoison": [
+            "Ses glandes toxiques sont parfaitement développées ! Il empoisonnera vos adversaires, les affaiblissant progressivement.",
+            "Ce spécimen sécrète un venin particulièrement virulent. Vos ennemis s'affaibliront lentement après avoir été contaminés.",
+            "Sa salive contient des toxines complexes. Un simple contact et vos opposants verront leurs forces diminuer inexorablement."
+          ],
+          "petSmallCharge": [
+            "Malgré sa petite taille, ce familier est très courageux ! Il chargera vos adversaires, créant une diversion efficace.",
+            "Son gabarit compact lui confère une vitesse surprenante. Il percutera vos ennemis à des moments stratégiques.",
+            "Ce petit spécimen compense sa taille par sa détermination. Ses charges rapides déstabiliseront vos opposants."
+          ],
+          "pinch": [
+            "Ses pinces sont particulièrement puissantes ! Il les utilisera pour comprimer douloureusement les membres de vos adversaires.",
+            "La pression exercée par ses pinces peut atteindre des valeurs impressionnantes. Vos ennemis grimaceront de douleur sous leur étreinte.",
+            "Ce familier maîtrise parfaitement l'art du pincement tactique. Il visera les points sensibles de vos opposants avec précision."
+          ],
+          "poisonousBite": [
+            "Ses crochets injectent un venin sophistiqué ! Sa morsure empoisonnera vos adversaires, les affaiblissant considérablement.",
+            "Ce spécimen possède des glandes venimeuses hyper-développées. Une simple morsure et vos ennemis souffriront d'empoisonnement sévère.",
+            "L'analyse de son venin révèle des composés neurotoxiques uniques. Ses morsures seront particulièrement dévastatrices en combat."
+          ],
+          "protectAgainstCold": [
+            "Son pelage possède des propriétés isolantes exceptionnelles ! Il vous protégera efficacement contre les attaques de glace.",
+            "Sa température corporelle est naturellement élevée. À vos côtés, vous résisterez parfaitement aux environnements glacials et aux sorts de froid.",
+            "Ce familier génère un champ thermique remarquable. Il vous enveloppera de sa chaleur protectrice contre les attaques givréès."
+          ],
+          "rainbowPower": [
+            "Ce familier peut canaliser l'énergie prismatique environnante ! Il convertira les attaques magiques récentes en soins pour vous.",
+            "Ses écailles iridescentes absorbent et transforment l'énergie ambiante. Après plusieurs échanges de sorts, il vous revigorera.",
+            "J'observe un phénomène de transmutation chromatique unique. Votre familier recyclera l'énergie des combats pour vous soigner."
+          ],
+          "revenge": [
+            "Son instinct de vengeance est impressionnant ! Quand vous serez blessé, il ripostera automatiquement avec une violence décuplée.",
+            "Ce spécimen possède une mémoire des torts impressionnante. Il n'oubliera pas qui vous a frappé et se vengera au moment opportun.",
+            "Sa loyauté se manifeste par une soif de justice immédiate. Chaque coup que vous recevrez sera rendu au centuple par votre familier."
+          ],
+          "scareElephant": [
+            "La présence de votre familier intimide naturellement les éléphants ! Ces derniers fuiront le combat.",
+            "Ce familier émet des phéromones qui terrorisent les pachydermes. Les grands ennemis hésiteront à vous attaquer en sa présence.",
+            "Le cri de votre familier est particulièrement perturbant pour certains animaux. Les éléphants spécifiquement battront en retraite."
+          ],
+          "scareFish": [
+            "Son aura est terrifiante pour les créatures aquatiques ! Il fera fuir les poissons et dauphins.",
+            "Ce spécimen sécrète une substance qui alarme les organismes aquatiques. La plupart des animaux marins éviteront son territoire.",
+            "Sa silhouette évoque un prédateur naturel des océans. Les poissons battront en retraite à sa simple vue."
+          ],
+          "slipping": [
+            "Sa fourrure sécrète une substance glissante unique ! Il se propulsera comme un projectile vivant contre vos adversaires.",
+            "Ce familier maîtrise l'art du déplacement sur surfaces lisses. Il se transformera en missile organique, percutant vos ennemis à grande vitesse.",
+            "Son corps hydrodynamique est parfait pour glisser. Il prendra de l'élan pour percuter vos opposants comme une boule de bowling vivante."
+          ],
+          "smallClaws": [
+            "Malgré leur taille modeste, ses griffes sont remarquablement acérées ! Il infligera des égratignures précises et irritantes.",
+            "Ce petit familier compense sa taille par la finesse de ses griffes. Il visera les points sensibles de vos adversaires.",
+            "Ses petites griffes sont parfaites pour harceler l'adversare. Il déconcentrera vos ennemis avec des égratignures stratégiques."
+          ],
+          "smallRegen": [
+            "Son métabolisme régénérateur est contagieux ! Il partagera ses capacités de guérison avec vous pendant les combats.",
+            "Ce spécimen sécrète des enzymes cicatrisantes. Il vous en fera bénéficier pour accélérer votre récupération.",
+            "Sa biochimie unique stimule la régénération cellulaire. À ses côtés, vos blessures se refermeront plus rapidement."
+          ],
+          "snowBall": [
+            "Ce familier manipule la glace avec une dextérité étonnante ! Il créera et lancera des boules de neige très froide sur vos adversaires.",
+            "Sa capacité à compresser la neige est remarquable. Il bombardera vos ennemis de projectiles glacés particulièrement compacts.",
+            "Sa température corporelle lui permet de façonner la glace à volonté. Vos opposants seront victimes d'un bombardement hivernal inattendu."
+          ],
+          "spit": [
+            "Les analyses révèlent que sa salive contient des enzymes irritantes naturelles, ce qui en fait un outil efficace pour gêner l'adversaire au niveau visuel.",
+            "Sa sécrétion salivaire présente une composition chimique atypique, capable de provoquer une irritation locale chez l'ennemi.",
+            "Les observations vétérinaires confirment que ses glandes salivaires libèrent un fluide acide, susceptible de diminuer temporairement la capacité visuelle de ses adversaires."
+          ],
+          "spitFire": [
+            "Les examens indiquent que son système métabolique produit une substance inflammable, idéale pour générer un jet de flammes contrôlé.",
+            "Les prélèvements montrent une concentration élevée de composés pyrogènes, lui permettant de cracher des flammes modérées en situation de combat.",
+            "Les analyses vétérinaires constatent que ses glandes synthétisent une substance combustible, offrant ainsi une attaque par projection de feu à courte portée."
+          ],
+          "spitInk": [
+            "Des tests ont révélé que ses glandes contiennent des pigments opaques, aptes à obscurcir la vision de l'adversaire de façon temporaire.",
+            "L'analyse chromatographique démontre qu'il sécrète une encre dense, susceptible de perturber la perception visuelle des ennemis.",
+            "Les observations en laboratoire indiquent une production d'encre à haute viscosité, servant efficacement à désorienter l'opposant lors des confrontations."
+          ],
+          "stealWeapon": [
+            "Les examens comportementaux suggèrent que ce familier possède une aptitude remarquable à identifier et saisir des objets métalliques appartenant à l’adversaire.",
+            "Son comportement de récupération d'arme témoigne d'une agilité fine, lui permettant d'extraire l'arme ennemie en un temps record.",
+            "Les analyses comportementales indiquent que ses réflexes développés lui permettent de neutraliser l'équipement offensif adverse de manière efficace."
+          ],
+          "swallow": [
+            "Les observations cliniques montrent que son appareil digestif est capable d'avaler des proies, neutralisant ainsi l'adversaire.",
+            "Ses capacités digestives permettent l'ingestion complète de l'ennemi, constituant une méthode de défense alternative intéressante.",
+            "Les études anatomiques révèlent une gorge particulièrement élastique, adaptée à accuellir un adversaire..."
+          ],
+          "triesToHelp": [
+            "Les tests comportementaux suggèrent que le familier tente d'assister son maître en apportant une aide mesurée, bien que ses contributions restent limitées.",
+            "Les observations cliniques indiquent une réactivité partielle, probablement due à une synchronisation imparfaite avec le comportement de son propriétaire.",
+            "Les analyses comportementales montrent une volonté d'intervention, même si ses efforts n'apportent qu'une amélioration marginale sur le terrain."
+          ],
+          "unBlind": [
+            "Les évaluations démontrent que son système visuel, hautement performant, peut restaurer la vision de son propriétaire en diffusant des signaux stimulants.",
+            "Les mesures physiologiques confirment que ses capacités oculaires sont capables de dissiper les altérations visuelles subies par l'allié.",
+            "Les observations vétérinaires indiquent qu'il aide activement à rétablir la clarté visuelle de son maître grâce à une perception étendue."
+          ],
+          "vampirism": [
+            "Les analyses métaboliques montrent que ce spécimen peut transférer une fraction de l'énergie vitale de l'adversaire, améliorant ainsi l'endurance de son propriétaire.",
+            "Les examens confirment une capacité d'absorption énergétique naturelle, caractérisée par un prélèvement subtil d'énergie adverse.",
+            "Les observations cliniques attestent qu'il possède des mécanismes de transfert d'énergie, capables de revitaliser son maître en captant l'énergie hostile."
+          ]
+        },
+        "ageComment_ancestor": "INCROYABLE ! S'exclame le vétérinaire les yeux écarquillés. Votre familier est un spécimen d'une rareté exceptionnelle ! Il compte parmi les plus anciens jamais répertoriés dans nos archives, seulement {{age}} autres familiers ont été découverts plus âgés ! Une véritable relique vivante !",
+        "ageComment_veryOld": "Fascinant ! Murmure le vétérinaire en ajustant ses lunettes. Votre familier a atteint un âge vénérable que peu de ses semblables connaissent. Nos registres indiquent que seulement {{age}} familiers ont vécu plus longtemps. Sa longévité est tout à fait remarquable !",
+        "ageComment_old": "Eh bien ! Votre compagnon a déjà parcouru un long chemin, note le vétérinaire avec un sourire bienveillant. Avec seulement {{age}} familiers plus âgés que lui dans nos archives, il a accumulé sagesse et expérience au fil des années. C'est un senior en pleine forme !",
+        "ageComment_adult": "Votre familier est dans la fleur de l'âge, observe le vétérinaire en hochant la tête. Parmi tous nos patients, {{age}} ont plus d'années derrière eux. Il a atteint sa pleine maturité, alliant vigueur et équilibre. C'est la période idéale !",
+        "ageComment_other": "Votre familier est encore jeune constate le vétérinaire avec tendresse. {{age}} familiers dans nos registres sont plus âgés que lui. Il a toute la vie devant lui et déborde d'énergie ! Profitez bien de ces moments d'insouciance et de découverte.",
         "advice": {
           "1": [
             "semble vous detester. Faites attention, ou vous pourriez être victime d'un mauvais coup lors de vos aventures !",
@@ -941,7 +1148,7 @@
     },
     "fightReward": {
       "title": "{emote:fight_command.glory_change} Récompenses de combat",
-      "scoreAndMoneyField" : "Récompenses du combat",
+      "scoreAndMoneyField": "Récompenses du combat",
       "noReward": "Vous avez épuisé toutes les récompenses de combat, revenez demain.",
       "points": "{emote:unitValues.score} Points gagnés : **{{count}}**",
       "money": "{emote:unitValues.money} Argent gagné : **{{count}}**",
