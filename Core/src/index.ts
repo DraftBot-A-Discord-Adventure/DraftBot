@@ -13,11 +13,13 @@ import { RightGroup } from "../../Lib/src/types/RightGroup";
 import { MqttTopicUtils } from "../../Lib/src/utils/MqttTopicUtils";
 import { DraftBotCoreMetrics } from "./core/bot/DraftBotCoreMetrics";
 import { millisecondsToSeconds } from "../../Lib/src/utils/TimeUtils";
+import { DraftBotLogger } from "../../Lib/src/logs/Logger";
 
 export const botConfig = loadConfig();
+DraftBotLogger.init(botConfig.LOG_LEVEL, botConfig.LOG_LOCATIONS);
 export let draftBotInstance: DraftBot = null;
 
-console.log("Running DraftBot 5.0.0");
+DraftBotLogger.get().info("DraftBot Core 5.0.0");
 
 export const mqttClient = connect(botConfig.MQTT_HOST, {
 	connectTimeout: MqttConstants.CONNECTION_TIMEOUT
@@ -26,22 +28,22 @@ export const mqttClient = connect(botConfig.MQTT_HOST, {
 mqttClient.on("connect", () => {
 	mqttClient.subscribe(MqttTopicUtils.getCoreTopic(botConfig.PREFIX), err => {
 		if (err) {
-			console.error(err);
+			DraftBotLogger.get().error(`Error while subscribing to MQTT topic`, err);
 			process.exit(1);
 		}
 		else {
-			console.log("Connected to MQTT");
+			DraftBotLogger.get().info("Connected to MQTT");
 		}
 	});
 });
 
 mqttClient.on("message", async (topic, message) => {
 	const messageString = message.toString();
-	console.log(`Received message from topic ${topic}: ${messageString}`);
+	DraftBotLogger.get().debug(`Received message from topic ${topic}`, messageString);
 
 	const dataJson = JSON.parse("" + message);
 	if (!Object.hasOwn(dataJson, "packet") || !Object.hasOwn(dataJson, "context")) {
-		draftBotInstance.logger.log(`Wrong packet format : ${messageString}`);
+		DraftBotLogger.get().error("Wrong packet format", messageString);
 		return;
 	}
 	const response: DraftBotPacket[] = [];
@@ -53,7 +55,7 @@ mqttClient.on("message", async (topic, message) => {
 		const listener = draftBotInstance.packetListener.getListener(dataJson.packet.name);
 		if (!listener) {
 			const errorMessage = `No listener found for packet '${dataJson.packet.name}'`;
-			console.error(errorMessage);
+			DraftBotLogger.get().error(errorMessage);
 			response.push(makePacket(ErrorPacket, { message: errorMessage }));
 		}
 		else {
@@ -65,7 +67,7 @@ mqttClient.on("message", async (topic, message) => {
 				await listener(response, context, dataJson.packet.data);
 			}
 			catch (error) {
-				console.error(error);
+				DraftBotLogger.get().error(`Error while processing packet '${dataJson.packet.name}'`, error);
 				response.push(makePacket(ErrorPacket, { message: error.message }));
 				DraftBotCoreMetrics.incrementPacketErrorCount(dataJson.packet.name);
 			}
@@ -77,7 +79,7 @@ mqttClient.on("message", async (topic, message) => {
 });
 
 mqttClient.on("error", error => {
-	console.error(error);
+	DraftBotLogger.get().error(error);
 });
 
 require("source-map-support")

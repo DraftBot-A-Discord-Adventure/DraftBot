@@ -24,8 +24,9 @@ import { PlayerReceivePetPacket } from "../../../../../../Lib/src/packets/events
 import {
 	SexTypeShort, StringConstants
 } from "../../../../../../Lib/src/constants/StringConstants";
-import moment = require("moment");
 import { OwnedPet } from "../../../../../../Lib/src/types/OwnedPet";
+import { DraftBotLogger } from "../../../../../../Lib/src/logs/Logger";
+import moment = require("moment");
 
 export class PetEntity extends Model {
 	declare readonly id: number;
@@ -207,7 +208,7 @@ export class PetEntities {
 		if (rarity === maxRarity + 1) {
 			// Case that should never be reached if the probabilities are 1
 			rarity = 1;
-			console.log(`Warning ! Pet probabilities are not equal to 1 for level tier ${levelTier}`);
+			DraftBotLogger.get().warn(`Warning ! Pet probabilities are not equal to 1 for level tier ${levelTier}`);
 		}
 		const pet = PetDataController.instance.getRandom(rarity);
 		return PetEntity.build({

@@ -19,6 +19,7 @@ import { KeycloakUtils } from "../../../Lib/src/keycloak/KeycloakUtils";
 import { DisplayUtils } from "../utils/DisplayUtils";
 import { GuildDailyNotificationPacket } from "../../../Lib/src/packets/notifications/GuildDailyNotificationPacket";
 import { getCommandGuildDailyRewardPacketString } from "../commands/guild/GuildDailyCommand";
+import { DraftBotLogger } from "../../../Lib/src/logs/Logger";
 
 export abstract class NotificationsHandler {
 	/**
@@ -135,8 +136,8 @@ export abstract class NotificationsHandler {
 	 */
 	static async sendDmNotification(user: User, content: string, lng: Language): Promise<void> {
 		const embed = NotificationsHandler.getNotificationEmbed(user, content, lng);
-		await user.send({ embeds: [embed] }).catch(() => {
-			console.error("Failed to send DM notification to user " + user.id);
+		await user.send({ embeds: [embed] }).catch(e => {
+			DraftBotLogger.get().error(`Failed to send DM notification to user ${user.id}`, e);
 		});
 	}
 

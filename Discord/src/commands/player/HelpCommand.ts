@@ -14,6 +14,7 @@ import {
 	discordConfig, draftBotClient
 } from "../../bot/DraftBotShard";
 import { minutesToMilliseconds } from "../../../../Lib/src/utils/TimeUtils";
+import { DraftBotLogger } from "../../../../Lib/src/logs/Logger";
 
 const dmHelpCooldowns: Map<string, Date> = new Map<string, Date>();
 
@@ -206,14 +207,14 @@ function sendHelpDm(interaction: DraftbotInteraction, lng: Language): void {
 							}))
 					]
 				}).catch(e => {
-					console.error(`Error while sending help DM to user ${interaction.user.id}: ${e}`);
+					DraftBotLogger.get().error(`Error while sending help DM to user ${interaction.user.id}`, e);
 				});
 			}
 
 			dmHelpCooldowns.set(interaction.user.id, new Date(Date.now() + minutesToMilliseconds(HelpConstants.HELP_DM_COOLDOWN_TIME_MINUTES)));
 		})
 		.catch(error => {
-			console.error(`Error while broadcasting the message in help command: ${error}`);
+			DraftBotLogger.get().error("Error while broadcasting the message in help command", error);
 		});
 }
 

@@ -3,6 +3,7 @@ import {
 } from "express";
 import { draftBotMetricsRegistry } from "./DraftBotDiscordMetrics";
 import { discordConfig } from "./DraftBotShard";
+import { DraftBotLogger } from "../../../Lib/src/logs/Logger";
 import express = require("express");
 
 export abstract class DraftBotDiscordWebServer {
@@ -15,7 +16,7 @@ export abstract class DraftBotDiscordWebServer {
 		});
 
 		app.listen(discordConfig.WEB_SERVER_PORT + shardId, () => {
-			console.log(`Web server is running on port ${discordConfig.WEB_SERVER_PORT + shardId}`);
+			DraftBotLogger.get().info(`Web server is running on port ${discordConfig.WEB_SERVER_PORT + shardId}`);
 		});
 	}
 }

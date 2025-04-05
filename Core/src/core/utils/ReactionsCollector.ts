@@ -18,6 +18,7 @@ import {
 	ReactionCollectorResetTimerPacketReq,
 	ReactionCollectorResetTimerPacketRes
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorResetTimer";
+import { DraftBotLogger } from "../../../../Lib/src/logs/Logger";
 
 export type CollectCallback = (collector: ReactionCollectorInstance, reaction: ReactionCollectorReaction, keycloakId: string, response: DraftBotPacket[]) => void | Promise<void>;
 
@@ -115,7 +116,7 @@ export class ReactionCollectorInstance {
 		}
 
 		if (this.hasEnded) {
-			console.warn("Reaction received after the collector has ended");
+			DraftBotLogger.get().warn("Reaction received after the collector has ended");
 			return;
 		}
 

@@ -20,7 +20,8 @@
   },
   "dependencies": {
     "@types/node": "22.13.17",
-    "express": "^5.1.0",
+    "@types/winston": "2.4.4",
+    "express": "5.1.0",
     "mariadb": "3.0.2",
     "moment": "2.30.1",
     "mqtt": "5.10.4",
@@ -29,11 +30,13 @@
     "sequelize": "6.37.7",
     "source-map-support": "0.5.21",
     "toml": "3.0.0",
-    "umzug": "3.8.2"
+    "umzug": "3.8.2",
+    "winston": "3.17.0",
+    "winston-daily-rotate-file": "5.0.0"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin": "4.2.0",
-    "@types/express": "^5.0.1",
+    "@types/express": "5.0.1",
     "@types/moment": "2.13.0",
     "@typescript-eslint/eslint-plugin": "8.29.0",
     "@typescript-eslint/parser": "8.29.0",

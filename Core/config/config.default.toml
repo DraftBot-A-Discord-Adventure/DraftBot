@@ -22,6 +22,12 @@ password = "secret_password"
 # The root password, used to create the databases. Use this only in development. In production, leave the field empty and create the databases manually
 root_password = "super_secret_password"
 
+[logs]
+# The log level of the bot. It can be one of: "error", "warn", "info", "debug"
+level = "debug"
+# The log locations. It can be one of: "console", "file", "loki"
+locations = ["console", "file"]
+
 [others]
 # Web server port
 webserver_port = 10123

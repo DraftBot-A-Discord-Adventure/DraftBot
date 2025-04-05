@@ -22,6 +22,7 @@ import {
 } from "../../../Lib/src/Language";
 import { CommandInteractionOptionResolver } from "discord.js/typings";
 import { DraftBotEmbed } from "./DraftBotEmbed";
+import { DraftBotLogger } from "../../../Lib/src/logs/Logger";
 
 type DraftbotInteractionWithoutSendCommands = new(client: Client<true>, data: RawInteractionData) => Omit<CommandInteraction, "reply" | "followUp" | "channel">;
 const DraftbotInteractionWithoutSendCommands: DraftbotInteractionWithoutSendCommands = CommandInteraction as unknown as DraftbotInteractionWithoutSendCommands;
@@ -226,7 +227,7 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 			return await functionPrototype(options);
 		}
 		catch (e) {
-			console.error(`An error occured during a send, either a permission issue or a send/reply/followUp/editReply conflict : ${(e as Error).stack}`);
+			DraftBotLogger.get().error("An error occured during a send, either a permission issue or a send/reply/followUp/editReply conflict", e);
 			await DraftbotInteraction.prototype.manageFallback.bind(this)(functionPrototype, e as Error);
 			await fallback();
 			return null;
@@ -279,8 +280,8 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 			try {
 				await CommandInteraction.prototype.user.send.bind(this.user)({ ...toSendProp });
 			}
-			catch {
-				console.log(`Unable to alert user of no speak permission : c:${this.channel?.id} / u:${this.user?.id}`);
+			catch (e) {
+				DraftBotLogger.get().error(`Unable to alert user of no speak permission : c:${this.channel?.id} / u:${this.user?.id}`, e);
 			}
 		}
 	}
@@ -310,7 +311,7 @@ export class DraftbotChannel extends ChannelTypeWithoutSend {
 			return await BaseGuildTextChannel.prototype.send.bind(this)(options);
 		}
 		catch (e) {
-			console.error(`Weird Permission Error ${(e as Error).stack}`);
+			DraftBotLogger.get().error("Weird Permission Error", e);
 			DraftbotChannel.prototype.manageFallback.bind(this)();
 			fallback ??= (): void => {
 				// Do nothing by default if no fallback is provided
@@ -325,6 +326,6 @@ export class DraftbotChannel extends ChannelTypeWithoutSend {
 	 */
 	private manageFallback(): void {
 		// We can't send ephemeral message nor send messages in DM
-		console.log(`Unable to alert user of no speak permission : c:${this.id} / u:N/A`);
+		DraftBotLogger.get().error(`Unable to alert user of no speak permission : c:${this.id} / u:N/A`);
 	}
 }

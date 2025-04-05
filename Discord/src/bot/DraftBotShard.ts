@@ -13,15 +13,24 @@ import {
 } from "../../../Lib/src/Language";
 import { DiscordDatabase } from "../database/discord/DiscordDatabase";
 import { DraftBotDiscordWebServer } from "./DraftBotDiscordWebServer";
+import { DraftBotLogger } from "../../../Lib/src/logs/Logger";
 
 process.on("uncaughtException", function(error) {
-	console.log(error);
-	console.log(error.stack);
+	if (DraftBotLogger.isInitialized()) {
+		DraftBotLogger.get().error("Uncaught exception", error);
+	}
+	else {
+		console.error("Uncaught exception", error);
+	}
 });
 
-process.on("unhandledRejection", function(err: Error) {
-	console.log(err);
-	console.log(err.stack);
+process.on("unhandledRejection", function(error: Error) {
+	if (DraftBotLogger.isInitialized()) {
+		DraftBotLogger.get().error("Unhandled rejection", error);
+	}
+	else {
+		console.error("Unhandled rejection", error);
+	}
 });
 
 export let draftBotClient!: Client;
@@ -44,6 +53,7 @@ process.on("message", async (message: {
 
 	if (message.type === "shardId") {
 		shardId = message.data.shardId;
+		DraftBotLogger.init(discordConfig.LOGGER_LEVEL, discordConfig.LOGGER_LOCATIONS, `Shard ${shardId}`);
 		DraftBotDiscordWebServer.start(shardId);
 		const isMainShard = shardId === 0;
 		await CommandsManager.register(draftBotClient, isMainShard);
@@ -55,7 +65,9 @@ process.on("message", async (message: {
 	if (guild?.shard) {
 		(await guild.channels.fetch(discordConfig.CONSOLE_CHANNEL_ID) as TextChannel)
 			.send(`:robot: **DraftBot** - v${process.env.npm_package_version} - Shard ${shardId}`)
-			.catch(console.error);
+			.catch(e => {
+				DraftBotLogger.get().error("Error while sending message to console channel", e);
+			});
 	}
 	return true;
 });
@@ -131,7 +143,7 @@ async function main(): Promise<void> {
 	 */
 	function onDiscordGuildCreate(guild: Guild): void {
 		const msg = getJoinLeaveMessage(guild, true, LANGUAGE.ENGLISH);
-		console.log(msg);
+		DraftBotLogger.get().info(msg);
 	}
 
 	/**
@@ -140,10 +152,10 @@ async function main(): Promise<void> {
 	 */
 	function onDiscordGuildDelete(guild: Guild): void {
 		const msg = getJoinLeaveMessage(guild, false, LANGUAGE.ENGLISH);
-		console.log(msg);
+		DraftBotLogger.get().info(msg);
 	}
 
-	client.on("ready", () => console.log("Client ready"));
+	client.on("ready", () => console.log("Bot is ready"));
 	client.on("guildCreate", onDiscordGuildCreate);
 	client.on("guildDelete", onDiscordGuildDelete);
 

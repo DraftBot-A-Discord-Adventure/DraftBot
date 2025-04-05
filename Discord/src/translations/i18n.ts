@@ -7,6 +7,7 @@ import { resolve } from "path";
 import { BotUtils } from "../utils/BotUtils";
 import { EmoteUtils } from "../utils/EmoteUtils";
 import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
+import { DraftBotLogger } from "../../../Lib/src/logs/Logger";
 
 function getI18nOptions(): i18next.InitOptions<unknown> {
 	const resources: i18next.Resource = {};
@@ -69,7 +70,7 @@ function getEmote(emote: string): string | null {
 		return typeof basePath === "string" ? basePath : null;
 	}
 	catch (e) {
-		console.error("Error while getting emote", emote, e);
+		DraftBotLogger.get().error(`Error while getting emote ${emote}`, e);
 		return null;
 	}
 }

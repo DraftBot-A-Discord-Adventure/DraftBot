@@ -57,8 +57,10 @@ export class Constants {
 	};
 
 	static readonly LOGS = {
-		LOG_COUNT_LINE_LIMIT: 50000,
-		BASE_PATH: "./logs"
+		FILE_MAX_SIZE: "20m",
+		FILE_RETENTION: "30d",
+		FILE_BASE_PATH: "./logs",
+		FILE_ZIPPED_ARCHIVE: true
 	};
 
 	static readonly MISSION_SHOP = {

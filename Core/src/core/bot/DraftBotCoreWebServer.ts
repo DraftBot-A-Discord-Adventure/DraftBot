@@ -3,6 +3,7 @@ import {
 } from "express";
 import { botConfig } from "../../index";
 import { draftBotMetricsRegistry } from "./DraftBotCoreMetrics";
+import { DraftBotLogger } from "../../../../Lib/src/logs/Logger";
 import express = require("express");
 
 export abstract class DraftBotCoreWebServer {
@@ -15,7 +16,7 @@ export abstract class DraftBotCoreWebServer {
 		});
 
 		app.listen(botConfig.WEB_SERVER_PORT, () => {
-			console.log(`Web server is running on port ${botConfig.WEB_SERVER_PORT}`);
+			DraftBotLogger.get().info(`Web server is running on port ${botConfig.WEB_SERVER_PORT}`);
 		});
 	}
 }

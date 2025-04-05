@@ -1,6 +1,7 @@
 import {
 	DraftBotPacket, PacketContext, PacketLike
 } from "./DraftBotPacket";
+import { DraftBotLogger } from "../logs/Logger";
 
 export class PacketListenerServer {
 	private packetCallbacks: Map<string, PacketListenerCallbackServer<DraftBotPacket>> = new Map<string, PacketListenerCallbackServer<DraftBotPacket>>();
@@ -15,7 +16,7 @@ export class PacketListenerServer {
 				await callback(response, context, packet);
 			}
 			catch (e) {
-				console.error(`${PacketListenerServer.name} : Error while handling packet ${instance.constructor.name}: ${e} ${(e as Error).stack}`);
+				DraftBotLogger.get().error(`${PacketListenerServer.name} : Error while handling packet ${instance.constructor.name}`, e);
 				throw e;
 			}
 		});
@@ -41,7 +42,7 @@ export class PacketListenerClient {
 				await callback(context, packet);
 			}
 			catch (e) {
-				console.error(`${PacketListenerClient.name} : Error while handling packet ${instance.constructor.name}: ${e} ${(e as Error).stack}`);
+				DraftBotLogger.get().error(`${PacketListenerClient.name} : Error while handling packet ${instance.constructor.name}`, e);
 				throw e;
 			}
 		});
