@@ -12,6 +12,7 @@ import {
 	LANGUAGE, Language
 } from "../../../Lib/src/Language";
 import { DiscordDatabase } from "../database/discord/DiscordDatabase";
+import { DraftBotDiscordWebServer } from "./DraftBotDiscordWebServer";
 
 process.on("uncaughtException", function(error) {
 	console.log(error);
@@ -43,6 +44,7 @@ process.on("message", async (message: {
 
 	if (message.type === "shardId") {
 		shardId = message.data.shardId;
+		DraftBotDiscordWebServer.start(shardId);
 		const isMainShard = shardId === 0;
 		await CommandsManager.register(draftBotClient, isMainShard);
 		await DiscordMQTT.init(isMainShard);

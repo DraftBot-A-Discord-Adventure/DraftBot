@@ -19,6 +19,8 @@ import { TextChannel } from "discord.js";
 import { DraftBotEmbed } from "../messages/DraftBotEmbed";
 import i18n from "../translations/i18n";
 import { MqttTopicUtils } from "../../../Lib/src/utils/MqttTopicUtils";
+import { DraftBotDiscordMetrics } from "./DraftBotDiscordMetrics";
+import { millisecondsToSeconds } from "../../../Lib/src/utils/TimeUtils";
 
 export class DiscordMQTT {
 	static mqttClient: MqttClient;
@@ -56,30 +58,35 @@ export class DiscordMQTT {
 					return;
 				}
 
-				try {
-					for (const packet of dataJson.packets) {
+
+				for (const packet of dataJson.packets) {
+					try {
+						DraftBotDiscordMetrics.incrementPacketCount(packet.name);
 						let listener = DiscordMQTT.packetListener.getListener(packet.name);
 						if (!listener) {
 							packet.packet = makePacket(ErrorPacket, { message: `No packet listener found for received packet '${packet.name}'.\n\nData:\n${JSON.stringify(packet.packet)}` });
 							listener = DiscordMQTT.packetListener.getListener("ErrorPacket")!;
 						}
+						const startTime = Date.now();
 						await listener(context as PacketContext, packet.packet as DraftBotPacket);
+						DraftBotDiscordMetrics.observePacketTime(packet.name, millisecondsToSeconds(Date.now() - startTime));
 					}
-				}
-				catch (error) {
-					console.error(`Error while handling packet: ${error}`);
+					catch (error) {
+						console.error(`Error while handling packet: ${error}`);
+						DraftBotDiscordMetrics.incrementPacketErrorCount(packet.name);
 
-					const context = dataJson.context as PacketContext;
-					const lng = context.discord?.language ?? LANGUAGE.ENGLISH;
-					if (context.discord?.channel) {
-						const channel = await draftBotClient.channels.fetch(context.discord.channel);
-						if (channel instanceof TextChannel) {
-							await channel.send({ embeds: [
-								new DraftBotEmbed()
-									.setErrorColor()
-									.setTitle(i18n.t("error:errorOccurredTitle", { lng }))
-									.setDescription(i18n.t("error:errorOccurred", { lng }))
-							] });
+						const context = dataJson.context as PacketContext;
+						const lng = context.discord?.language ?? LANGUAGE.ENGLISH;
+						if (context.discord?.channel) {
+							const channel = await draftBotClient.channels.fetch(context.discord.channel);
+							if (channel instanceof TextChannel) {
+								await channel.send({ embeds: [
+									new DraftBotEmbed()
+										.setErrorColor()
+										.setTitle(i18n.t("error:errorOccurredTitle", { lng }))
+										.setDescription(i18n.t("error:errorOccurred", { lng }))
+								] });
+							}
 						}
 					}
 				}

@@ -34,6 +34,7 @@ import * as fs from "fs";
 import { MqttTopicUtils } from "../../../../Lib/src/utils/MqttTopicUtils";
 import { initializeAllClassBehaviors } from "../fights/AiBehaviorController";
 import { initializeAllPetBehaviors } from "../fights/PetAssistManager";
+import { DraftBotCoreWebServer } from "./DraftBotCoreWebServer";
 
 export class DraftBot {
 	public readonly packetListener: PacketListenerServer;
@@ -332,6 +333,7 @@ export class DraftBot {
 	}
 
 	async init(): Promise<void> {
+		DraftBotCoreWebServer.start();
 		await registerAllPacketHandlers();
 		initializeAllClassBehaviors();
 		initializeAllPetBehaviors();
