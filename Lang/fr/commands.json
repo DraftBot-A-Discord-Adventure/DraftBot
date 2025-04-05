@@ -681,7 +681,7 @@
           "goesWild": [
             "Attention, ce familier possède un tempérament sauvage ! En combat, il pourra entrer dans une rage berserker, frappant tous les adversaires à proximité.",
             "Son instinct primitif peut se réveiller à tout moment. Cette furie naturelle sera redoutable contre vos ennemis, mais restez prudent !",
-            "Je détecte un potentiel de frénésie combat extraordinaire. Votre familier pourra déchaîner sa nature sauvage contre vos opposants."
+            "Je détecte un potentiel de frénésie extraordinaire. Votre familier pourra déchaîner sa nature sauvage contre vos opposants."
           ],
           "healEveryone": [
             "Ce familier possède des capacités curatives remarquables ! Il pourra soigner vos blessures et celles de vos alliés en plein combat.",
@@ -809,7 +809,7 @@
             "Les analyses vétérinaires constatent que ses glandes synthétisent une substance combustible, offrant ainsi une attaque par projection de feu à courte portée."
           ],
           "spitInk": [
-            "Des tests ont révélé que ses glandes ink-diffusantes contiennent des pigments opaques, aptes à obscurcir la vision de l'adversaire de façon temporaire.",
+            "Des tests ont révélé que ses glandes contiennent des pigments opaques, aptes à obscurcir la vision de l'adversaire de façon temporaire.",
             "L'analyse chromatographique démontre qu'il sécrète une encre dense, susceptible de perturber la perception visuelle des ennemis.",
             "Les observations en laboratoire indiquent une production d'encre à haute viscosité, servant efficacement à désorienter l'opposant lors des confrontations."
           ],
@@ -819,9 +819,9 @@
             "Les analyses comportementales indiquent que ses réflexes développés lui permettent de neutraliser l'équipement offensif adverse de manière efficace."
           ],
           "swallow": [
-            "Les observations cliniques montrent que son appareil digestif est capable d'avaler des proies de taille modérée, neutralisant ainsi l'adversaire.",
+            "Les observations cliniques montrent que son appareil digestif est capable d'avaler des proies, neutralisant ainsi l'adversaire.",
             "Ses capacités digestives permettent l'ingestion complète de l'ennemi, constituant une méthode de défense alternative intéressante.",
-            "Les études anatomiques révèlent une gorge particulièrement élastique, adaptée à submerger un adversaire par ingestion."
+            "Les études anatomiques révèlent une gorge particulièrement élastique, adaptée à accuellir un adversaire..."
           ],
           "triesToHelp": [
             "Les tests comportementaux suggèrent que le familier tente d'assister son maître en apportant une aide mesurée, bien que ses contributions restent limitées.",

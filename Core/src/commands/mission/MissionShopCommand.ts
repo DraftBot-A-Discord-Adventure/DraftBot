@@ -64,7 +64,7 @@ function calculateGemsToMoneyRatio(): number {
 	 * Returns the decimal part of a number
 	 * @param x
 	 */
-	const frac = function (x: number): number {
+	const frac = function(x: number): number {
 		return x >= 0 ? x % 1 : 1 + x % 1;
 	};
 	return Constants.MISSION_SHOP.BASE_RATIO
@@ -162,9 +162,9 @@ function getValueLovePointsPetShopItem(): ShopItem {
 				nextFeed: pet.getFeedCooldown(petModel),
 				fightAssistId: getAiPetBehavior(petModel.id).id
 			}));
-		return true;
-	}
-};
+			return true;
+		}
+	};
 }
 
 function getEndCallbackSkipMissionShopItem(player: Player, missionList: MissionSlot[]): (collector: ReactionCollectorInstance, response: DraftBotPacket[]) => Promise<void> {
