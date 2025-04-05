@@ -15,6 +15,7 @@ export interface DraftBotConfig {
 	MARIADB_ROOT_PASSWORD: string;
 	MARIADB_PORT: number;
 	MQTT_HOST: string;
+	WEB_SERVER_PORT: number;
 }
 
 type ConfigStructure = {
@@ -24,7 +25,6 @@ type ConfigStructure = {
 		prefix: string;
 	};
 	others: {
-		nasa_api_key: string;
 		webserver_port: number;
 	};
 	database: {
@@ -53,7 +53,8 @@ export function loadConfig(): DraftBotConfig {
 		MARIADB_PASSWORD: config.database.password,
 		MARIADB_ROOT_PASSWORD: config.database.root_password,
 		MARIADB_PORT: config.database.port,
-		MQTT_HOST: config.mqtt.host
+		MQTT_HOST: config.mqtt.host,
+		WEB_SERVER_PORT: config.others.webserver_port
 	};
 }
 

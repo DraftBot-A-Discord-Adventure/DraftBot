@@ -21,3 +21,7 @@ user = "draftbot"
 password = "secret_password"
 # The root password, used to create the databases. Use this only in development. In production, leave the field empty and create the databases manually
 root_password = "super_secret_password"
+
+[others]
+# Web server port
+webserver_port = 10123

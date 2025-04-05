@@ -11,6 +11,8 @@ import { PacketUtils } from "./core/utils/PacketUtils";
 import { MqttConstants } from "../../Lib/src/constants/MqttConstants";
 import { RightGroup } from "../../Lib/src/types/RightGroup";
 import { MqttTopicUtils } from "../../Lib/src/utils/MqttTopicUtils";
+import { DraftBotCoreMetrics } from "./core/bot/DraftBotCoreMetrics";
+import { millisecondsToSeconds } from "../../Lib/src/utils/TimeUtils";
 
 export const botConfig = loadConfig();
 export let draftBotInstance: DraftBot = null;
@@ -57,7 +59,17 @@ mqttClient.on("message", async (topic, message) => {
 		else {
 			const context: PacketContext = dataJson.context;
 			draftBotInstance.logsDatabase.logCommandUsage(context.keycloakId, context.frontEndOrigin, context.frontEndSubOrigin, dataJson.packet.name).then();
-			await listener(response, context, dataJson.packet.data);
+			DraftBotCoreMetrics.incrementPacketCount(dataJson.packet.name);
+			const startTime = Date.now();
+			try {
+				await listener(response, context, dataJson.packet.data);
+			}
+			catch (error) {
+				console.error(error);
+				response.push(makePacket(ErrorPacket, { message: error.message }));
+				DraftBotCoreMetrics.incrementPacketErrorCount(dataJson.packet.name);
+			}
+			DraftBotCoreMetrics.observePacketTime(dataJson.packet.name, millisecondsToSeconds(Date.now() - startTime));
 		}
 	}
 
