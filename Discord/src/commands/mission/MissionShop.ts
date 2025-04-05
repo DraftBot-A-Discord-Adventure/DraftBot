@@ -80,7 +80,7 @@ export async function handleLovePointsValueShopItem(packet: CommandMissionShopPe
 					petName: PetUtils.petToShortString(lng, packet.nickname, packet.typeId, packet.sex),
 					commentOnPetAge: i18n.t("commands:shop.shopItems.lovePointsValue.ageComment", {
 						lng,
-						context: PetUtils.getAgeCategory(packet.petId),
+						context: packet.ageCategory,
 						age: packet.petId - 1
 					}),
 					actualLP: packet.lovePoints,
