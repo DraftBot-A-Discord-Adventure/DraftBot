@@ -35,7 +35,7 @@ export class Class extends Data<number> {
 			attack: this.getAttackValue(level),
 			defense: this.getDefenseValue(level),
 			speed: this.getSpeedValue(level),
-			health: this.health + level,
+			health: this.getMaxHealthValue(level),
 			classGroup: this.classGroup,
 			fightPoint: this.getMaxCumulativeEnergyValue(level),
 			baseBreath: this.baseBreath,
