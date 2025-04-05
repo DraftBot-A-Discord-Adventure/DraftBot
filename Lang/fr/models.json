@@ -59,6 +59,8 @@
     "6": "Armure de fer",
     "60": "Giga Chad",
     "61": "Cri UwUrlant",
+    "62": "Bouclier de givre",
+    "63": "Bouclier du vent",
     "7": "Kimono renforcé",
     "8": "Bouclier simple",
     "9": "Bouclier résistant"
@@ -1195,7 +1197,8 @@
     "87": "Guitare Électrique",
     "88": "Carte SYM",
     "89": "Poisson mort",
-    "9": "Clé rouillée"
+    "9": "Clé rouillée",
+    "90": "Talisman de Grenouille"
   },
   "pets": {
     "0_female": "Aucun familier",
@@ -1459,7 +1462,8 @@
     "90": "Jus de Pomme de Terre",
     "91": "Eau de Mer",
     "92": "Bave de Troll",
-    "93": "Larme de Titan"
+    "93": "Larme de Titan",
+    "94": "Tablette ChocoChoc"
   },
   "weapons": {
     "0": "Poing",
@@ -1556,7 +1560,10 @@
     "91": "Baguette de Fibonacci",
     "92": "Game Over",
     "93": "Torchon du Cuisinier",
-    "94": "Poudre de Squelette"
+    "94": "Poudre de Squelette",
+    "95": "Danse de l'aura argentée",
+    "96": "Electektron",
+    "97": "Larme du Phoenix"
   },
   "foods": {
     "herbivorousFood_one": "salade",
