@@ -59,6 +59,8 @@
     "6": "Iron armor",
     "60": "Giga Chad",
     "61": "HUwUling scream",
+    "62": "Bouclier de givre",
+    "63": "Bouclier du vent",
     "7": "Reinforced kimono",
     "8": "Basic shield",
     "9": "Hardened shield"
@@ -1195,7 +1197,8 @@
     "87": "Electric guitar",
     "88": "SYM card",
     "89": "Dead fish",
-    "9": "Rusty key"
+    "9": "Rusty key",
+    "90": "Talisman de Grenouille"
   },
   "pets": {
     "0_female": "No pet",
@@ -1459,7 +1462,8 @@
     "90": "Potato juice",
     "91": "Seawater",
     "92": "Troll drool",
-    "93": "Titan's tear"
+    "93": "Titan's tear",
+    "94": "Tablette ChocoChoc"
   },
   "weapons": {
     "0": "Fist",
@@ -1556,7 +1560,10 @@
     "91": "Fibonacci's wand",
     "92": "Game Over",
     "93": "Kitchen towel",
-    "94": "Skeleton powder"
+    "94": "Skeleton powder",
+    "95": "Danse de l'aura argentée",
+    "96": "Electektron",
+    "97": "Larme du Phoenix"
   },
   "foods": {
     "herbivorousFood_one": "salad",
