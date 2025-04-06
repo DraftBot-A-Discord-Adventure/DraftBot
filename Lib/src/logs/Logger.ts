@@ -67,7 +67,7 @@ export abstract class DraftBotLogger {
 			? format.combine(
 				format.metadata(),
 				format.label({ label: Object.entries(labels).map(l => `${l[0]}=${l[1]}`)
-					.join(", ") }),
+					.join(",") }),
 				format.timestamp({
 					format: "YYYY-MM-DD HH:mm:ss.SSS"
 				}),
