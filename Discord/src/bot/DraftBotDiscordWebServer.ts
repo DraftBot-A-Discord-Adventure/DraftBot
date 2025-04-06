@@ -15,6 +15,17 @@ export abstract class DraftBotDiscordWebServer {
 			res.end(await draftBotMetricsRegistry.metrics());
 		});
 
+		app.post("/log_level", (req: Request, res: Response) => {
+			const logger = DraftBotLogger.get();
+			if (!req.query.level) {
+				res.status(400).send("Missing log level");
+				return;
+			}
+			logger.level = req.query.level.toString();
+			logger.info("Log level changed", { logLevel: logger.level });
+			res.status(200).send("OK");
+		});
+
 		app.listen(discordConfig.WEB_SERVER_PORT + shardId, () => {
 			DraftBotLogger.get().info(`Web server is running on port ${discordConfig.WEB_SERVER_PORT + shardId}`);
 		});
