@@ -27,7 +27,7 @@ export abstract class DraftBotDiscordWebServer {
 		});
 
 		app.listen(discordConfig.WEB_SERVER_PORT + shardId, () => {
-			DraftBotLogger.get().info(`Web server is running on port ${discordConfig.WEB_SERVER_PORT + shardId}`);
+			DraftBotLogger.info(`Web server is running on port ${discordConfig.WEB_SERVER_PORT + shardId}`);
 		});
 	}
 }

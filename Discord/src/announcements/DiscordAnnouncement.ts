@@ -17,14 +17,14 @@ export abstract class DiscordAnnouncement {
 			await (await (frenchChannel as TextChannel).send({ content: messageFr })).react(DraftBotIcons.announcements.trophy);
 		}
 		catch (e) {
-			DraftBotLogger.get().error("Error while sending top announcement in french channel", { error: e });
+			DraftBotLogger.error("Error while sending top announcement in french channel", { error: e });
 		}
 		try {
 			const englishChannel = await draftBotClient!.channels.fetch(discordConfig.ENGLISH_ANNOUNCEMENT_CHANNEL_ID);
 			await (await (englishChannel as TextChannel).send({ content: messageEn })).react(DraftBotIcons.announcements.trophy);
 		}
 		catch (e) {
-			DraftBotLogger.get().error("Error while sending top announcement in english channel", { error: e });
+			DraftBotLogger.error("Error while sending top announcement in english channel", { error: e });
 		}
 	}
 
@@ -34,7 +34,7 @@ export abstract class DiscordAnnouncement {
 	}
 
 	static async announceTopWeek(topWeekAnnouncementPacket: TopWeekAnnouncementPacket): Promise<void> {
-		DraftBotLogger.get().info("Announcing top week...");
+		DraftBotLogger.info("Announcing top week...");
 		if (topWeekAnnouncementPacket.winnerKeycloakId) {
 			const winner = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, topWeekAnnouncementPacket.winnerKeycloakId);
 			if (winner) {
@@ -52,7 +52,7 @@ export abstract class DiscordAnnouncement {
 				await this.announceTop(messageFr, messageEn);
 			}
 			else {
-				DraftBotLogger.get().error(`Failed to announce top week: winner with keycloak id ${topWeekAnnouncementPacket.winnerKeycloakId} not found`);
+				DraftBotLogger.error(`Failed to announce top week: winner with keycloak id ${topWeekAnnouncementPacket.winnerKeycloakId} not found`);
 			}
 		}
 		else {
@@ -63,7 +63,7 @@ export abstract class DiscordAnnouncement {
 	}
 
 	static async announceTopWeekFight(topWeekFightAnnouncementPacket: TopWeekFightAnnouncementPacket): Promise<void> {
-		DraftBotLogger.get().info("Announcing fight top week...");
+		DraftBotLogger.info("Announcing fight top week...");
 		if (topWeekFightAnnouncementPacket.winnerKeycloakId) {
 			const winner = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, topWeekFightAnnouncementPacket.winnerKeycloakId);
 			if (winner) {
@@ -81,7 +81,7 @@ export abstract class DiscordAnnouncement {
 				await this.announceTop(messageFr, messageEn);
 			}
 			else {
-				DraftBotLogger.get().error(`Failed to announce top week fight: winner with keycloak id ${topWeekFightAnnouncementPacket.winnerKeycloakId} not found`);
+				DraftBotLogger.error(`Failed to announce top week fight: winner with keycloak id ${topWeekFightAnnouncementPacket.winnerKeycloakId} not found`);
 			}
 		}
 		else {

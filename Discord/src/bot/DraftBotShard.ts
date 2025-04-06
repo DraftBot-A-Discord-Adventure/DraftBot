@@ -17,7 +17,7 @@ import { DraftBotLogger } from "../../../Lib/src/logs/Logger";
 
 process.on("uncaughtException", error => {
 	if (DraftBotLogger.isInitialized()) {
-		DraftBotLogger.get().error("Uncaught exception", { error });
+		DraftBotLogger.error("Uncaught exception", { error });
 	}
 	else {
 		console.error("Uncaught exception", error);
@@ -26,7 +26,7 @@ process.on("uncaughtException", error => {
 
 process.on("unhandledRejection", error => {
 	if (DraftBotLogger.isInitialized()) {
-		DraftBotLogger.get().error("Unhandled rejection", { error });
+		DraftBotLogger.error("Unhandled rejection", { error });
 	}
 	else {
 		console.error("Unhandled rejection", error);
@@ -74,7 +74,7 @@ process.on("message", async (message: {
 		(await guild.channels.fetch(discordConfig.CONSOLE_CHANNEL_ID) as TextChannel)
 			.send(`:robot: **DraftBot** - v${process.env.npm_package_version} - Shard ${shardId}`)
 			.catch(e => {
-				DraftBotLogger.get().error("Error while sending message to console channel", { error: e });
+				DraftBotLogger.error("Error while sending message to console channel", { error: e });
 			});
 	}
 	return true;
@@ -151,7 +151,7 @@ async function main(): Promise<void> {
 	 */
 	function onDiscordGuildCreate(guild: Guild): void {
 		const msg = getJoinLeaveMessage(guild, true, LANGUAGE.ENGLISH);
-		DraftBotLogger.get().info(msg);
+		DraftBotLogger.info(msg);
 	}
 
 	/**
@@ -160,7 +160,7 @@ async function main(): Promise<void> {
 	 */
 	function onDiscordGuildDelete(guild: Guild): void {
 		const msg = getJoinLeaveMessage(guild, false, LANGUAGE.ENGLISH);
-		DraftBotLogger.get().info(msg);
+		DraftBotLogger.info(msg);
 	}
 
 	client.on("ready", () => console.log("Bot is ready"));

@@ -301,5 +301,5 @@ export const commandRequires = <T extends DraftBotPacket>(packet: PacketLike<T>,
 			}
 			await descriptor.value(response, player, packet, context);
 		});
-		DraftBotLogger.get().info(`[${packet.name}] Registered packet handler (function '${prop}' in class '${target!.constructor.name}')`);
+		DraftBotLogger.info(`[${packet.name}] Registered packet handler (function '${prop}' in class '${target!.constructor.name}')`);
 	};

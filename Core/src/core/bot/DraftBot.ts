@@ -93,11 +93,11 @@ export class DraftBot {
 	 * Update the random potion sold in the shop
 	 */
 	static async randomPotion(): Promise<void> {
-		DraftBotLogger.get().info("Daily timeout");
+		DraftBotLogger.info("Daily timeout");
 		const previousPotionId = await Settings.SHOP_POTION.getValue();
 		const newPotionId = PotionDataController.instance.randomShopPotion(previousPotionId).id;
 		await Settings.SHOP_POTION.setValue(newPotionId);
-		DraftBotLogger.get().info("New potion in shop", { newPotionId });
+		DraftBotLogger.info("New potion in shop", { newPotionId });
 		draftBotInstance.logsDatabase.logDailyPotion(newPotionId).then();
 	}
 
@@ -107,7 +107,7 @@ export class DraftBot {
 	static async randomLovePointsLoose(): Promise<boolean> {
 		const sequelize = require("sequelize");
 		if (RandomUtils.draftbotRandom.bool()) {
-			DraftBotLogger.get().info("All pets lost 4 loves point");
+			DraftBotLogger.info("All pets lost 4 loves point");
 			await PetEntity.update(
 				{
 					lovePoints: sequelize.literal(
@@ -145,7 +145,7 @@ export class DraftBot {
 	 */
 	static async seasonEnd(): Promise<void> {
 		if (!PacketUtils.isMqttConnected()) {
-			DraftBotLogger.get().error("MQTT is not connected, can't announce the end of the season. Trying again in 1 minute");
+			DraftBotLogger.error("MQTT is not connected, can't announce the end of the season. Trying again in 1 minute");
 			setTimeout(DraftBot.seasonEnd, 60000);
 			return;
 		}
@@ -163,7 +163,7 @@ export class DraftBot {
 		}
 		await DraftBot.seasonEndQueries();
 
-		DraftBotLogger.get().info("Season has been ended !");
+		DraftBotLogger.info("Season has been ended !");
 		DraftBot.programSeasonTimeout();
 		draftBotInstance.logsDatabase.logSeasonEnd().then();
 	}
@@ -194,9 +194,9 @@ export class DraftBot {
 			PacketUtils.announce(makePacket(TopWeekAnnouncementPacket, {}), MqttTopicUtils.getDiscordTopWeekAnnouncementTopic(botConfig.PREFIX));
 		}
 		await Player.update({ weeklyScore: 0 }, { where: {} });
-		DraftBotLogger.get().info("Weekly leaderboard has been reset !");
+		DraftBotLogger.info("Weekly leaderboard has been reset !");
 		await PlayerMissionsInfo.resetShopBuyout();
-		DraftBotLogger.get().info("All players can now buy again points from the mission shop !");
+		DraftBotLogger.info("All players can now buy again points from the mission shop !");
 		DraftBot.programWeeklyTimeout();
 		draftBotInstance.logsDatabase.logTopWeekEnd().then();
 	}
@@ -263,7 +263,7 @@ export class DraftBot {
 	 */
 	static async newPveIsland(): Promise<void> {
 		const newMapLink = MapCache.randomPveBoatLinkId(await Settings.PVE_ISLAND.getValue());
-		DraftBotLogger.get().info("New pve island map link of the week", { newMapLink });
+		DraftBotLogger.info("New pve island map link of the week", { newMapLink });
 		await Settings.PVE_ISLAND.setValue(newMapLink);
 	}
 
@@ -272,7 +272,7 @@ export class DraftBot {
 	 */
 	static weeklyTimeout(): void {
 		if (!PacketUtils.isMqttConnected()) {
-			DraftBotLogger.get().error("MQTT is not connected, can't announce the end of the week. Trying again in 1 minute");
+			DraftBotLogger.error("MQTT is not connected, can't announce the end of the week. Trying again in 1 minute");
 			setTimeout(DraftBot.weeklyTimeout, 60000);
 			return;
 		}
@@ -295,7 +295,7 @@ export class DraftBot {
 			}
 		}
 		else {
-			DraftBotLogger.get().error(`MQTT is not connected, can't do report notifications. Trying again in ${TIMEOUT_FUNCTIONS.REPORT_NOTIFICATIONS} ms`);
+			DraftBotLogger.error(`MQTT is not connected, can't do report notifications. Trying again in ${TIMEOUT_FUNCTIONS.REPORT_NOTIFICATIONS} ms`);
 		}
 
 		setTimeout(DraftBot.reportNotifications, TIMEOUT_FUNCTIONS.REPORT_NOTIFICATIONS);

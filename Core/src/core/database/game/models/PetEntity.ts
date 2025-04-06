@@ -208,7 +208,7 @@ export class PetEntities {
 		if (rarity === maxRarity + 1) {
 			// Case that should never be reached if the probabilities are 1
 			rarity = 1;
-			DraftBotLogger.get().warn(`Warning ! Pet probabilities are not equal to 1 for level tier ${levelTier}`);
+			DraftBotLogger.warn(`Warning ! Pet probabilities are not equal to 1 for level tier ${levelTier}`);
 		}
 		const pet = PetDataController.instance.getRandom(rarity);
 		return PetEntity.build({

@@ -32,7 +32,7 @@ export async function up({ context }: { context: QueryInterface }): Promise<void
 	if (players.length !== 0) {
 		const configPath = `${process.cwd()}/config/keycloak.toml`;
 		if (!existsSync(configPath)) {
-			DraftBotLogger.get().error(`Please first backup your database. Then, in order to migrate from v4 to v5, please create a file at '${configPath}' with the following format:\n[keycloak]\nrealm = "DraftBot"\nurl = "http://127.0.0.1:8080"\nclientId = "discord"\nclientSecret = "secret"`);
+			DraftBotLogger.error(`Please first backup your database. Then, in order to migrate from v4 to v5, please create a file at '${configPath}' with the following format:\n[keycloak]\nrealm = "DraftBot"\nurl = "http://127.0.0.1:8080"\nclientId = "discord"\nclientSecret = "secret"`);
 			process.exit(1);
 		}
 
