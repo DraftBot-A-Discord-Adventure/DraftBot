@@ -53,7 +53,15 @@ process.on("message", async (message: {
 
 	if (message.type === "shardId") {
 		shardId = message.data.shardId;
-		DraftBotLogger.init(discordConfig.LOGGER_LEVEL, discordConfig.LOGGER_LOCATIONS, `Shard ${shardId}`);
+		DraftBotLogger.init(discordConfig.LOGGER_LEVEL, discordConfig.LOGGER_LOCATIONS, {
+			app: "Discord", shard: shardId.toString(10)
+		}, discordConfig.LOKI_HOST
+			? {
+				host: discordConfig.LOKI_HOST,
+				username: discordConfig.LOKI_USERNAME,
+				password: discordConfig.LOKI_PASSWORD
+			}
+			: undefined);
 		DraftBotDiscordWebServer.start(shardId);
 		const isMainShard = shardId === 0;
 		await CommandsManager.register(draftBotClient, isMainShard);

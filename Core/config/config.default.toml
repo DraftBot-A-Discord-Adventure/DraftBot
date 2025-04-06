@@ -28,6 +28,14 @@ level = "debug"
 # The log locations. It can be one of: "console", "file", "loki"
 locations = ["console", "file"]
 
+[logs.loki]
+# The loki host
+host = ""
+# Username to connect to loki
+username = ""
+# Password to connect to loki
+password = ""
+
 [others]
 # Web server port
 webserver_port = 10123

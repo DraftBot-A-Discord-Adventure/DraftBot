@@ -3,6 +3,7 @@ import {
 } from "winston";
 import "winston-daily-rotate-file";
 import { Constants } from "../constants/Constants";
+import LokiTransport = require("winston-loki");
 
 const myFormatWithLabel = format.printf(({
 	level, message, label, timestamp
@@ -17,7 +18,11 @@ const myFormat = format.printf(({
 export abstract class DraftBotLogger {
 	private static logger: Logger;
 
-	public static init(level: string, locations: string[], label?: string): void {
+	public static init(level: string, locations: string[], labels: { [key: string]: string }, lokiSettings?: {
+		host: string;
+		username?: string;
+		password?: string;
+	}): void {
 		const transportsList = [];
 		for (const location of locations) {
 			switch (location) {
@@ -33,14 +38,35 @@ export abstract class DraftBotLogger {
 						maxFiles: Constants.LOGS.FILE_RETENTION
 					}));
 					break;
+				case "loki":
+					if (!lokiSettings) {
+						throw new Error("Loki settings are required for loki transport");
+					}
+					transportsList.push(new LokiTransport({
+						labels,
+						host: lokiSettings.host,
+						basicAuth: lokiSettings.username
+							&& lokiSettings.password
+							&& lokiSettings.username !== ""
+							&& lokiSettings.password !== ""
+							? `${lokiSettings.username}:${lokiSettings.password}`
+							: undefined,
+						format: format.simple(),
+						json: true,
+						onConnectionError: console.error,
+						interval: 5,
+						timeout: 5
+					}));
+					break;
 				default:
 					throw new Error(`Unknown log location: ${location}`);
 			}
 		}
 
-		const formatToUse = label
+		const formatToUse = Object.keys(labels).length > 0
 			? format.combine(
-				format.label({ label }),
+				format.label({ label: Object.entries(labels).map(l => `${l[0]}=${l[1]}`)
+					.join(", ") }),
 				format.timestamp({
 					format: "YYYY-MM-DD HH:mm:ss.SSS"
 				}),
@@ -58,6 +84,10 @@ export abstract class DraftBotLogger {
 			format: formatToUse,
 			transports: transportsList
 		});
+
+		console.log("Logger initialized with level:", level);
+		console.log("Logger transports:", locations);
+		console.log("Logger labels:", labels);
 	}
 
 	public static get(): Logger {

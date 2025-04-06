@@ -31,6 +31,9 @@ export interface DraftBotConfig {
 	WEB_SERVER_PORT: number;
 	LOGGER_LEVEL: string;
 	LOGGER_LOCATIONS: string[];
+	LOKI_HOST?: string;
+	LOKI_USERNAME?: string;
+	LOKI_PASSWORD?: string;
 }
 
 type ConfigStructure = {
@@ -79,6 +82,11 @@ type ConfigStructure = {
 	logs: {
 		level: string;
 		locations: string[];
+		loki?: {
+			host: string;
+			username: string;
+			password: string;
+		};
 	};
 };
 
@@ -112,7 +120,10 @@ export function loadConfig(): DraftBotConfig {
 		DBL_TOKEN: config.discord_bot_list.token,
 		WEB_SERVER_PORT: config.others.webserver_port,
 		LOGGER_LEVEL: config.logs.level,
-		LOGGER_LOCATIONS: config.logs.locations
+		LOGGER_LOCATIONS: config.logs.locations,
+		LOKI_HOST: config.logs.loki?.host,
+		LOKI_USERNAME: config.logs.loki?.username,
+		LOKI_PASSWORD: config.logs.loki?.password
 	};
 }
 

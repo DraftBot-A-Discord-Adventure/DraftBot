@@ -10,7 +10,13 @@ const shardCount = "auto";
  */
 function main(): void {
 	const config = loadConfig();
-	DraftBotLogger.init(config.LOGGER_LEVEL, config.LOGGER_LOCATIONS, "ShardManager");
+	DraftBotLogger.init(config.LOGGER_LEVEL, config.LOGGER_LOCATIONS, { app: "ShardManager" }, config.LOKI_HOST
+		? {
+			host: config.LOKI_HOST,
+			username: config.LOKI_USERNAME,
+			password: config.LOKI_PASSWORD
+		}
+		: undefined);
 
 	const shardingManager = new ShardingManager("./dist/Discord/src/bot/DraftBotShard.js", {
 		totalShards: shardCount,

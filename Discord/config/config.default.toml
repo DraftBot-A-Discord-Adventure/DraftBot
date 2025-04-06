@@ -66,6 +66,14 @@ level = "info"
 # The log locations. It can be one of: "console", "file", "loki"
 locations = ["console", "file"]
 
+[logs.loki]
+# The loki host
+host = "http://127.0.0.1:3100"
+# Username to connect to loki
+username = ""
+# Password to connect to loki
+password = ""
+
 [others]
 # Webserver port. The shard ID will be added to the port to create the webserver port
 webserver_port = 10124
