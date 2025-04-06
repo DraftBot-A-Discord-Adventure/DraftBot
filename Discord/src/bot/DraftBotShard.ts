@@ -15,7 +15,7 @@ import { DiscordDatabase } from "../database/discord/DiscordDatabase";
 import { DraftBotDiscordWebServer } from "./DraftBotDiscordWebServer";
 import { DraftBotLogger } from "../../../Lib/src/logs/Logger";
 
-process.on("uncaughtException", function(error) {
+process.on("uncaughtException", error => {
 	if (DraftBotLogger.isInitialized()) {
 		DraftBotLogger.get().error("Uncaught exception", { error });
 	}
@@ -24,7 +24,7 @@ process.on("uncaughtException", function(error) {
 	}
 });
 
-process.on("unhandledRejection", function(error: Error) {
+process.on("unhandledRejection", error => {
 	if (DraftBotLogger.isInitialized()) {
 		DraftBotLogger.get().error("Unhandled rejection", { error });
 	}
