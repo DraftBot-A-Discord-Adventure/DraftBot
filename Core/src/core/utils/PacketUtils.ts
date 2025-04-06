@@ -23,7 +23,7 @@ export abstract class PacketUtils {
 		if (context.discord !== null) {
 			const response = JSON.stringify(responsePacket);
 			mqttClient.publish(MqttTopicUtils.getDiscordTopic(botConfig.PREFIX), response);
-			DraftBotLogger.get().debug("Sent response to discord front", response);
+			DraftBotLogger.get().debug("Sent response to discord front", { response: responsePacket });
 		}
 		else {
 			throw new Error("Unsupported platform");
@@ -38,7 +38,7 @@ export abstract class PacketUtils {
 		 * And if the MQTT server goes down, the announcement will still be available when it comes back up.
 		 */
 		mqttClient.publish(topic, json, { retain: true });
-		DraftBotLogger.get().debug("Sent Discord announcement", json);
+		DraftBotLogger.get().debug("Sent Discord announcement", { json });
 	}
 
 	static isMqttConnected(): boolean {
@@ -54,6 +54,6 @@ export abstract class PacketUtils {
 		mqttClient.publish(MqttTopicUtils.getNotificationsTopic(botConfig.PREFIX), json, {
 			retain: true, qos: 2
 		});
-		DraftBotLogger.get().debug("Sent notifications", json);
+		DraftBotLogger.get().debug("Sent notifications", { json });
 	}
 }

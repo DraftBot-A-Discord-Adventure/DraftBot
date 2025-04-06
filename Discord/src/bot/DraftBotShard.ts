@@ -17,7 +17,7 @@ import { DraftBotLogger } from "../../../Lib/src/logs/Logger";
 
 process.on("uncaughtException", function(error) {
 	if (DraftBotLogger.isInitialized()) {
-		DraftBotLogger.get().error("Uncaught exception", error);
+		DraftBotLogger.get().error("Uncaught exception", { error });
 	}
 	else {
 		console.error("Uncaught exception", error);
@@ -26,7 +26,7 @@ process.on("uncaughtException", function(error) {
 
 process.on("unhandledRejection", function(error: Error) {
 	if (DraftBotLogger.isInitialized()) {
-		DraftBotLogger.get().error("Unhandled rejection", error);
+		DraftBotLogger.get().error("Unhandled rejection", { error });
 	}
 	else {
 		console.error("Unhandled rejection", error);
@@ -74,7 +74,7 @@ process.on("message", async (message: {
 		(await guild.channels.fetch(discordConfig.CONSOLE_CHANNEL_ID) as TextChannel)
 			.send(`:robot: **DraftBot** - v${process.env.npm_package_version} - Shard ${shardId}`)
 			.catch(e => {
-				DraftBotLogger.get().error("Error while sending message to console channel", e);
+				DraftBotLogger.get().error("Error while sending message to console channel", { error: e });
 			});
 	}
 	return true;

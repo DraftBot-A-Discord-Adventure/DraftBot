@@ -16,7 +16,7 @@ export class PacketListenerServer {
 				await callback(response, context, packet);
 			}
 			catch (e) {
-				DraftBotLogger.get().error(`${PacketListenerServer.name} : Error while handling packet ${instance.constructor.name}`, e);
+				DraftBotLogger.get().error(`${PacketListenerServer.name} : Error while handling packet ${instance.constructor.name}`, { error: e });
 				throw e;
 			}
 		});
@@ -42,7 +42,7 @@ export class PacketListenerClient {
 				await callback(context, packet);
 			}
 			catch (e) {
-				DraftBotLogger.get().error(`${PacketListenerClient.name} : Error while handling packet ${instance.constructor.name}`, e);
+				DraftBotLogger.get().error(`${PacketListenerClient.name} : Error while handling packet ${instance.constructor.name}`, { error: e });
 				throw e;
 			}
 		});

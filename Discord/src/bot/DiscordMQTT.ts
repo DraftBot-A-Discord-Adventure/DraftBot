@@ -46,10 +46,10 @@ export class DiscordMQTT {
 		DiscordMQTT.mqttClient.on("message", async (topic, message) => {
 			if (topic === MqttTopicUtils.getDiscordTopic(discordConfig.PREFIX)) {
 				const messageString = message.toString();
-				DraftBotLogger.get().error(`Received message from topic ${topic}`, messageString);
 				const dataJson = JSON.parse(messageString);
+				DraftBotLogger.get().debug(`Received message from topic ${topic}`, { packet: dataJson });
 				if (!Object.hasOwn(dataJson, "packets") || !Object.hasOwn(dataJson, "context")) {
-					DraftBotLogger.get().error("Wrong packet format", messageString);
+					DraftBotLogger.get().error("Wrong packet format", { packet: messageString });
 					return;
 				}
 
@@ -73,7 +73,7 @@ export class DiscordMQTT {
 						DraftBotDiscordMetrics.observePacketTime(packet.name, millisecondsToSeconds(Date.now() - startTime));
 					}
 					catch (error) {
-						DraftBotLogger.get().error("Error while handling packet", error);
+						DraftBotLogger.get().error("Error while handling packet", { error });
 						DraftBotDiscordMetrics.incrementPacketErrorCount(packet.name);
 
 						const context = dataJson.context as PacketContext;
@@ -124,7 +124,7 @@ export class DiscordMQTT {
 	private static subscribeTo(mqttClient: MqttClient, topic: string): void {
 		mqttClient.subscribe(topic, err => {
 			if (err) {
-				DraftBotLogger.get().error(`Error while subscribing to topic ${topic}`, err);
+				DraftBotLogger.get().error(`Error while subscribing to topic ${topic}`, { error: err });
 				process.exit(1);
 			}
 			else {
@@ -153,9 +153,9 @@ export class DiscordMQTT {
 				}
 
 				const messageString = message.toString();
-				DraftBotLogger.get().debug(`Received notification message from topic ${topic}`, messageString);
 
 				const serializedPacket: NotificationsSerializedPacket = JSON.parse(messageString);
+				DraftBotLogger.get().debug(`Received notification message from topic ${topic}`, { packet: serializedPacket });
 				NotificationsHandler.sendNotifications(serializedPacket);
 			}
 		});

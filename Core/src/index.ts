@@ -34,7 +34,7 @@ export const mqttClient = connect(botConfig.MQTT_HOST, {
 mqttClient.on("connect", () => {
 	mqttClient.subscribe(MqttTopicUtils.getCoreTopic(botConfig.PREFIX), err => {
 		if (err) {
-			DraftBotLogger.get().error(`Error while subscribing to MQTT topic`, err);
+			DraftBotLogger.get().error("Error while subscribing to MQTT topic", { error: err });
 			process.exit(1);
 		}
 		else {
@@ -45,11 +45,10 @@ mqttClient.on("connect", () => {
 
 mqttClient.on("message", async (topic, message) => {
 	const messageString = message.toString();
-	DraftBotLogger.get().debug(`Received message from topic ${topic}`, messageString);
-
 	const dataJson = JSON.parse("" + message);
+	DraftBotLogger.get().debug(`Received message from topic ${topic}`, { packet: dataJson });
 	if (!Object.hasOwn(dataJson, "packet") || !Object.hasOwn(dataJson, "context")) {
-		DraftBotLogger.get().error("Wrong packet format", messageString);
+		DraftBotLogger.get().error("Wrong packet format", { packet: messageString });
 		return;
 	}
 	const response: DraftBotPacket[] = [];
@@ -73,7 +72,7 @@ mqttClient.on("message", async (topic, message) => {
 				await listener(response, context, dataJson.packet.data);
 			}
 			catch (error) {
-				DraftBotLogger.get().error(`Error while processing packet '${dataJson.packet.name}'`, error);
+				DraftBotLogger.get().error(`Error while processing packet '${dataJson.packet.name}'`, { error });
 				response.push(makePacket(ErrorPacket, { message: error.message }));
 				DraftBotCoreMetrics.incrementPacketErrorCount(dataJson.packet.name);
 			}

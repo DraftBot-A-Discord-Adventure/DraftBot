@@ -207,14 +207,14 @@ function sendHelpDm(interaction: DraftbotInteraction, lng: Language): void {
 							}))
 					]
 				}).catch(e => {
-					DraftBotLogger.get().error(`Error while sending help DM to user ${interaction.user.id}`, e);
+					DraftBotLogger.get().error(`Error while sending help DM to user ${interaction.user.id}`, { error: e });
 				});
 			}
 
 			dmHelpCooldowns.set(interaction.user.id, new Date(Date.now() + minutesToMilliseconds(HelpConstants.HELP_DM_COOLDOWN_TIME_MINUTES)));
 		})
 		.catch(error => {
-			DraftBotLogger.get().error("Error while broadcasting the message in help command", error);
+			DraftBotLogger.get().error("Error while broadcasting the message in help command", { error });
 		});
 }
 

@@ -97,7 +97,7 @@ export class DraftBot {
 		const previousPotionId = await Settings.SHOP_POTION.getValue();
 		const newPotionId = PotionDataController.instance.randomShopPotion(previousPotionId).id;
 		await Settings.SHOP_POTION.setValue(newPotionId);
-		DraftBotLogger.get().info("New potion in shop", newPotionId);
+		DraftBotLogger.get().info("New potion in shop", { newPotionId });
 		draftBotInstance.logsDatabase.logDailyPotion(newPotionId).then();
 	}
 
@@ -263,7 +263,7 @@ export class DraftBot {
 	 */
 	static async newPveIsland(): Promise<void> {
 		const newMapLink = MapCache.randomPveBoatLinkId(await Settings.PVE_ISLAND.getValue());
-		DraftBotLogger.get().info("New pve island map link of the week", newMapLink);
+		DraftBotLogger.get().info("New pve island map link of the week", { newMapLink });
 		await Settings.PVE_ISLAND.setValue(newMapLink);
 	}
 

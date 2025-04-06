@@ -664,7 +664,7 @@ async function executeSmallEvent(response: DraftBotPacket[], player: Player, con
 			await MissionsController.update(player, response, { missionId: "doReports" });
 		}
 		catch (e) {
-			DraftBotLogger.get().error(`Error while executing ${filename} small event`, e);
+			DraftBotLogger.get().error(`Error while executing ${filename} small event`, { error: e });
 			response.push(makePacket(ErrorPacket, { message: `${e}` }));
 		}
 	}
