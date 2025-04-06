@@ -52,7 +52,7 @@ export abstract class DiscordAnnouncement {
 				await this.announceTop(messageFr, messageEn);
 			}
 			else {
-				DraftBotLogger.get().error("Failed to announce top week: winner with keycloak id " + topWeekAnnouncementPacket.winnerKeycloakId + " not found");
+				DraftBotLogger.get().error(`Failed to announce top week: winner with keycloak id ${topWeekAnnouncementPacket.winnerKeycloakId} not found`);
 			}
 		}
 		else {
@@ -81,7 +81,7 @@ export abstract class DiscordAnnouncement {
 				await this.announceTop(messageFr, messageEn);
 			}
 			else {
-				DraftBotLogger.get().error("Failed to announce top week fight: winner with keycloak id " + topWeekFightAnnouncementPacket.winnerKeycloakId + " not found");
+				DraftBotLogger.get().error(`Failed to announce top week fight: winner with keycloak id ${topWeekFightAnnouncementPacket.winnerKeycloakId} not found`);
 			}
 		}
 		else {
