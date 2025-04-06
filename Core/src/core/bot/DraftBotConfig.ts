@@ -18,6 +18,9 @@ export interface DraftBotConfig {
 	WEB_SERVER_PORT: number;
 	LOG_LEVEL: string;
 	LOG_LOCATIONS: string[];
+	LOKI_HOST?: string;
+	LOKI_USERNAME?: string;
+	LOKI_PASSWORD?: string;
 }
 
 type ConfigStructure = {
@@ -43,6 +46,11 @@ type ConfigStructure = {
 	logs: {
 		level: string;
 		locations: string[];
+		loki?: {
+			host: string;
+			username: string;
+			password: string;
+		};
 	};
 };
 
@@ -63,7 +71,10 @@ export function loadConfig(): DraftBotConfig {
 		MQTT_HOST: config.mqtt.host,
 		WEB_SERVER_PORT: config.others.webserver_port,
 		LOG_LEVEL: config.logs.level,
-		LOG_LOCATIONS: config.logs.locations
+		LOG_LOCATIONS: config.logs.locations,
+		LOKI_HOST: config.logs.loki?.host,
+		LOKI_USERNAME: config.logs.loki?.username,
+		LOKI_PASSWORD: config.logs.loki?.password
 	};
 }
 

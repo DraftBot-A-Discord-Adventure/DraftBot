@@ -16,7 +16,13 @@ import { millisecondsToSeconds } from "../../Lib/src/utils/TimeUtils";
 import { DraftBotLogger } from "../../Lib/src/logs/Logger";
 
 export const botConfig = loadConfig();
-DraftBotLogger.init(botConfig.LOG_LEVEL, botConfig.LOG_LOCATIONS);
+DraftBotLogger.init(botConfig.LOG_LEVEL, botConfig.LOG_LOCATIONS, { app: "Core" }, botConfig.LOKI_HOST
+	? {
+		host: botConfig.LOKI_HOST,
+		username: botConfig.LOKI_USERNAME,
+		password: botConfig.LOKI_PASSWORD
+	}
+	: undefined);
 export let draftBotInstance: DraftBot = null;
 
 DraftBotLogger.get().info("DraftBot Core 5.0.0");
