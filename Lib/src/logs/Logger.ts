@@ -103,27 +103,19 @@ export abstract class DraftBotLogger {
 		return Boolean(this.logger);
 	}
 
-	// any is used here to keep the same signature as the original package
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	public static error(message: string, metadata?: { [key: string]: any }): void {
+	public static error(message: string, metadata?: { [key: string]: unknown }): void {
 		this.get().error(message, metadata);
 	}
 
-	// any is used here to keep the same signature as the original package
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	public static warn(message: string, metadata?: { [key: string]: any }): void {
+	public static warn(message: string, metadata?: { [key: string]: unknown }): void {
 		this.get().warn(message, metadata);
 	}
 
-	// any is used here to keep the same signature as the original package
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	public static info(message: string, metadata?: { [key: string]: any }): void {
+	public static info(message: string, metadata?: { [key: string]: unknown }): void {
 		this.get().info(message, metadata);
 	}
 
-	// any is used here to keep the same signature as the original package
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	public static debug(message: string, metadata?: { [key: string]: any }): void {
+	public static debug(message: string, metadata?: { [key: string]: unknown }): void {
 		this.get().debug(message, metadata);
 	}
 }
