@@ -37,5 +37,5 @@ username = ""
 password = ""
 
 [others]
-# Web server port
+# Web server port. The web server is used to serve different utilities endpoints (metrics, log level configuration, maintenance, etc.)
 webserver_port = 10123
