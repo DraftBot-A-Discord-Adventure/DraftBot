@@ -47,9 +47,9 @@ export class DiscordMQTT {
 			if (topic === MqttTopicUtils.getDiscordTopic(discordConfig.PREFIX)) {
 				const messageString = message.toString();
 				const dataJson = JSON.parse(messageString);
-				DraftBotLogger.get().debug(`Received message from topic ${topic}`, { packet: dataJson });
+				DraftBotLogger.debug(`Received message from topic ${topic}`, { packet: dataJson });
 				if (!Object.hasOwn(dataJson, "packets") || !Object.hasOwn(dataJson, "context")) {
-					DraftBotLogger.get().error("Wrong packet format", { packet: messageString });
+					DraftBotLogger.error("Wrong packet format", { packet: messageString });
 					return;
 				}
 
@@ -73,7 +73,7 @@ export class DiscordMQTT {
 						DraftBotDiscordMetrics.observePacketTime(packet.name, millisecondsToSeconds(Date.now() - startTime));
 					}
 					catch (error) {
-						DraftBotLogger.get().error("Error while handling packet", { error });
+						DraftBotLogger.error("Error while handling packet", { error });
 						DraftBotDiscordMetrics.incrementPacketErrorCount(packet.name);
 
 						const context = dataJson.context as PacketContext;
@@ -94,7 +94,7 @@ export class DiscordMQTT {
 			}
 			else if (topic === MqttTopicUtils.getDiscordTopWeekAnnouncementTopic(discordConfig.PREFIX)) {
 				if (message.toString() === "") {
-					DraftBotLogger.get().debug("No top week announcement in the MQTT topic");
+					DraftBotLogger.debug("No top week announcement in the MQTT topic");
 					return;
 				}
 
@@ -107,7 +107,7 @@ export class DiscordMQTT {
 			}
 			else if (topic === MqttTopicUtils.getDiscordTopWeekFightAnnouncementTopic(discordConfig.PREFIX)) {
 				if (message.toString() === "") {
-					DraftBotLogger.get().debug("No top week fight announcement in the MQTT topic");
+					DraftBotLogger.debug("No top week fight announcement in the MQTT topic");
 					return;
 				}
 
@@ -124,11 +124,11 @@ export class DiscordMQTT {
 	private static subscribeTo(mqttClient: MqttClient, topic: string): void {
 		mqttClient.subscribe(topic, err => {
 			if (err) {
-				DraftBotLogger.get().error(`Error while subscribing to topic ${topic}`, { error: err });
+				DraftBotLogger.error(`Error while subscribing to topic ${topic}`, { error: err });
 				process.exit(1);
 			}
 			else {
-				DraftBotLogger.get().info(`Subscribed to topic ${topic}`);
+				DraftBotLogger.info(`Subscribed to topic ${topic}`);
 			}
 		});
 	}
@@ -155,7 +155,7 @@ export class DiscordMQTT {
 				const messageString = message.toString();
 
 				const serializedPacket: NotificationsSerializedPacket = JSON.parse(messageString);
-				DraftBotLogger.get().debug(`Received notification message from topic ${topic}`, { packet: serializedPacket });
+				DraftBotLogger.debug(`Received notification message from topic ${topic}`, { packet: serializedPacket });
 				NotificationsHandler.sendNotifications(serializedPacket);
 			}
 		});

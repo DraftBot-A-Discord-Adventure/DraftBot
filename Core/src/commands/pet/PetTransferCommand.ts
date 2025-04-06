@@ -44,7 +44,7 @@ async function deposePetToGuild(
 	player: Player
 ): Promise<void> {
 	if (!player.petId) {
-		DraftBotLogger.get().warn("Player tried to transfer a pet to the guild but has no pet");
+		DraftBotLogger.warn("Player tried to transfer a pet to the guild but has no pet");
 		response.push(makePacket(CommandPetTransferSituationChangedErrorPacket, {}));
 		return;
 	}
@@ -52,14 +52,14 @@ async function deposePetToGuild(
 	const playerPet = await PetEntities.getById(player.petId);
 
 	if (playerPet.isFeisty()) {
-		DraftBotLogger.get().warn("Player tried to transfer a feisty pet to the guild");
+		DraftBotLogger.warn("Player tried to transfer a feisty pet to the guild");
 		response.push(makePacket(CommandPetTransferSituationChangedErrorPacket, {}));
 		return;
 	}
 
 	const guildPets = await GuildPets.getOfGuild(player.guildId);
 	if (guildPets.length >= PetConstants.SLOTS) {
-		DraftBotLogger.get().warn("Player tried to transfer a pet to the guild but the shelter is full");
+		DraftBotLogger.warn("Player tried to transfer a pet to the guild but the shelter is full");
 		response.push(makePacket(CommandPetTransferSituationChangedErrorPacket, {}));
 		return;
 	}
@@ -82,7 +82,7 @@ async function withdrawPetFromGuild(
 	petEntityId: number
 ): Promise<void> {
 	if (player.petId) {
-		DraftBotLogger.get().warn("Player tried to withdraw a pet from the guild but already has a pet");
+		DraftBotLogger.warn("Player tried to withdraw a pet from the guild but already has a pet");
 		response.push(makePacket(CommandPetTransferSituationChangedErrorPacket, {}));
 		return;
 	}
@@ -91,7 +91,7 @@ async function withdrawPetFromGuild(
 	const toWithdrawPet = guildPets.find(guildPet => guildPet.petEntityId === petEntityId);
 
 	if (!toWithdrawPet) {
-		DraftBotLogger.get().warn("Player tried to withdraw a pet from the guild but the pet is not in the guild");
+		DraftBotLogger.warn("Player tried to withdraw a pet from the guild but the pet is not in the guild");
 		response.push(makePacket(CommandPetTransferSituationChangedErrorPacket, {}));
 		return;
 	}
@@ -114,7 +114,7 @@ async function switchPetWithGuild(
 	petEntityId: number
 ): Promise<void> {
 	if (!player.petId) {
-		DraftBotLogger.get().warn("Player tried to switch a pet with the guild but has no pet");
+		DraftBotLogger.warn("Player tried to switch a pet with the guild but has no pet");
 		response.push(makePacket(CommandPetTransferSituationChangedErrorPacket, {}));
 		return;
 	}
@@ -122,7 +122,7 @@ async function switchPetWithGuild(
 	const playerPet = await PetEntities.getById(player.petId);
 
 	if (playerPet.isFeisty()) {
-		DraftBotLogger.get().warn("Player tried to switch a feisty pet with the guild");
+		DraftBotLogger.warn("Player tried to switch a feisty pet with the guild");
 		response.push(makePacket(CommandPetTransferSituationChangedErrorPacket, {}));
 		return;
 	}
@@ -131,7 +131,7 @@ async function switchPetWithGuild(
 	const toSwitchPet = guildPets.find(guildPet => guildPet.petEntityId === petEntityId);
 
 	if (!toSwitchPet) {
-		DraftBotLogger.get().warn("Player tried to switch a pet with the guild but the pet is not in the guild");
+		DraftBotLogger.warn("Player tried to switch a pet with the guild but the pet is not in the guild");
 		response.push(makePacket(CommandPetTransferSituationChangedErrorPacket, {}));
 		return;
 	}

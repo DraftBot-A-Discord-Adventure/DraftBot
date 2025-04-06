@@ -76,9 +76,9 @@ export class EmoteUtils {
 
 		const maxOptions = 25;
 		for (let i = 0; i < Math.ceil(emojis.length / maxOptions); i++) {
-			DraftBotLogger.get().info(`Test select menu slice ${i} / ${Math.ceil(emojis.length / maxOptions)}`);
+			DraftBotLogger.info(`Test select menu slice ${i} / ${Math.ceil(emojis.length / maxOptions)}`);
 			const emojisSlice = emojis.slice(i * maxOptions, (i + 1) * maxOptions);
-			DraftBotLogger.get().info(`Emojis slice: ${emojisSlice}`);
+			DraftBotLogger.info(`Emojis slice: ${emojisSlice}`);
 			const row = new ActionRowBuilder<StringSelectMenuBuilder>();
 			const selectMenu = new StringSelectMenuBuilder()
 				.setCustomId("testSelectMenu")
@@ -95,7 +95,7 @@ export class EmoteUtils {
 				});
 			}
 			catch (e) {
-				DraftBotLogger.get().error("Error while sending select menu", { error: e });
+				DraftBotLogger.error("Error while sending select menu", { error: e });
 			}
 		}
 	}

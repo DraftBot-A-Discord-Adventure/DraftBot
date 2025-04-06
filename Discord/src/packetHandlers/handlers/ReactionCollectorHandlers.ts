@@ -151,7 +151,7 @@ export default class ReactionCollectorHandler {
 		}
 		const collector = ReactionCollectorHandler.collectorMap.get(packet.data.type);
 		if (!collector) {
-			DraftBotLogger.get().error("Unknown collector type", { type: packet.data.type });
+			DraftBotLogger.error("Unknown collector type", { type: packet.data.type });
 			await handleClassicError(context, "error:aDevMessedUp");
 			return;
 		}
@@ -166,12 +166,12 @@ export default class ReactionCollectorHandler {
 	async collectorStop(_context: PacketContext, packet: ReactionCollectorStopPacket): Promise<void> {
 		const collector = ReactionCollectorHandler.collectorsCache.get(packet.id);
 		if (!collector) {
-			DraftBotLogger.get().warn(`Collector stop received for collector with ID ${packet.id} but no collector was found with this ID`);
+			DraftBotLogger.warn(`Collector stop received for collector with ID ${packet.id} but no collector was found with this ID`);
 			return;
 		}
 		collector.forEach(c => {
 			if (c.ended) {
-				DraftBotLogger.get().warn(`Collector stop received for collector with ID ${packet.id} but collector was already stopped`);
+				DraftBotLogger.warn(`Collector stop received for collector with ID ${packet.id} but collector was already stopped`);
 				return;
 			}
 			c.stop();
@@ -189,12 +189,12 @@ export default class ReactionCollectorHandler {
 	async collectorResetTimer(_context: PacketContext, packet: ReactionCollectorResetTimerPacketRes): Promise<void> {
 		const collector = ReactionCollectorHandler.collectorsCache.get(packet.reactionCollectorId);
 		if (!collector) {
-			DraftBotLogger.get().warn(`Collector reset timer received for collector with ID ${packet.reactionCollectorId} but no collector was found with this ID`);
+			DraftBotLogger.warn(`Collector reset timer received for collector with ID ${packet.reactionCollectorId} but no collector was found with this ID`);
 			return;
 		}
 		collector.forEach(c => {
 			if (c.ended) {
-				DraftBotLogger.get().warn(`Collector reset timer received for collector with ID ${packet.reactionCollectorId} but collector was already stopped`);
+				DraftBotLogger.warn(`Collector reset timer received for collector with ID ${packet.reactionCollectorId} but collector was already stopped`);
 				return;
 			}
 			c.resetTimer({

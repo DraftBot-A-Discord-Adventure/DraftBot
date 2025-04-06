@@ -21,7 +21,7 @@ export abstract class DraftBotCoreWebServer {
 		app.post("/maintenance", (req: Request, res: Response) => {
 			const enabled = req.query.enabled === "1";
 			draftBotInstance.setMaintenance(enabled, false);
-			DraftBotLogger.get().info("Maintenance mode changed", { enabled });
+			DraftBotLogger.info("Maintenance mode changed", { enabled });
 			res.status(200).send("OK");
 		});
 
@@ -41,7 +41,7 @@ export abstract class DraftBotCoreWebServer {
 		});
 
 		app.listen(botConfig.WEB_SERVER_PORT, () => {
-			DraftBotLogger.get().info(`Web server is running on port ${botConfig.WEB_SERVER_PORT}`);
+			DraftBotLogger.info(`Web server is running on port ${botConfig.WEB_SERVER_PORT}`);
 		});
 	}
 }

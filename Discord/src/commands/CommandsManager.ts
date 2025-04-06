@@ -78,21 +78,21 @@ export class CommandsManager {
 	static async registerCommands(clientId: Snowflake, commands: RESTPostAPIChatInputApplicationCommandsJSONBody[], regFunc: (clientId: Snowflake, serverId: Snowflake) => RouteLike): Promise<void> {
 		const rest = new REST({ version: "10" }).setToken(discordConfig.DISCORD_CLIENT_TOKEN);
 		try {
-			DraftBotLogger.get().info(`Started refreshing ${commands.length} application (/) commands.`);
+			DraftBotLogger.info(`Started refreshing ${commands.length} application (/) commands.`);
 			const data = await rest.put(
 				regFunc(clientId, discordConfig.MAIN_SERVER_ID),
 				{ body: commands }
 			);
 			if (Array.isArray(data)) {
-				DraftBotLogger.get().info(`Successfully reloaded ${data.length} application (/) commands.`);
+				DraftBotLogger.info(`Successfully reloaded ${data.length} application (/) commands.`);
 			}
 			else {
-				DraftBotLogger.get().error("Failed to reload commands", { data });
+				DraftBotLogger.error("Failed to reload commands", { data });
 			}
 		}
 		catch (error) {
 			// And of course, make sure you catch and log any errors!
-			DraftBotLogger.get().error("Failed to reload commands", { error });
+			DraftBotLogger.error("Failed to reload commands", { error });
 		}
 	}
 
@@ -111,7 +111,7 @@ export class CommandsManager {
 			await this.refreshCommands(client);
 		}
 		catch (e) {
-			DraftBotLogger.get().error("Failed to register commands", { error: e });
+			DraftBotLogger.error("Failed to register commands", { error: e });
 
 			// Do not start the bot if we can't register the commands
 			process.exit(1);
@@ -156,7 +156,7 @@ export class CommandsManager {
 	 * @param client
 	 */
 	private static async refreshCommands(client: Client): Promise<void> {
-		DraftBotLogger.get().info("Fetching and saving commands...");
+		DraftBotLogger.info("Fetching and saving commands...");
 		const commands = (await client.application!.commands.fetch({ withLocalizations: true }))
 			.concat(await (await client.guilds.fetch(discordConfig.MAIN_SERVER_ID)).commands.fetch({ withLocalizations: true }));
 
@@ -203,17 +203,17 @@ export class CommandsManager {
 		for (const commandFile of commandsFiles) {
 			const commandInfo = (await import(`./${category}/${commandFile}`)).commandInfo as ICommand;
 			if (!commandInfo?.slashCommandBuilder) {
-				DraftBotLogger.get().error(`Command dist/Discord/src/commands/${category}/${commandFile} is not a slash command`);
+				DraftBotLogger.error(`Command dist/Discord/src/commands/${category}/${commandFile} is not a slash command`);
 				continue;
 			}
 			this.commands.set(commandInfo.slashCommandBuilder.name, commandInfo);
 			if (commandInfo.mainGuildCommand || discordConfig.TEST_MODE) {
 				guildsCommandsToRegister.push(commandInfo.slashCommandBuilder.toJSON());
-				DraftBotLogger.get().info(`Registering guild command ${category}/${commandFile}`);
+				DraftBotLogger.info(`Registering guild command ${category}/${commandFile}`);
 			}
 			else {
 				globalCommandsToRegister.push(commandInfo.slashCommandBuilder.toJSON());
-				DraftBotLogger.get().info(`Registering global command ${category}/${commandFile}`);
+				DraftBotLogger.info(`Registering global command ${category}/${commandFile}`);
 			}
 		}
 	}
@@ -332,7 +332,7 @@ export class CommandsManager {
 					});
 				}
 			})
-			.catch(e => DraftBotLogger.get().warn("Could not find a place to forward the DM message", { error: e }));
+			.catch(e => DraftBotLogger.warn("Could not find a place to forward the DM message", { error: e }));
 	}
 
 	/**
@@ -431,7 +431,7 @@ export class CommandsManager {
 
 		if (!commandInfo) {
 			await replyEphemeralErrorMessage(interaction, i18n.t("bot:command404", { lng }));
-			DraftBotLogger.get().error(`Command "${interaction.commandName}" is not registered`);
+			DraftBotLogger.error(`Command "${interaction.commandName}" is not registered`);
 			return;
 		}
 
@@ -469,44 +469,44 @@ export class CommandsManager {
 	private static hasChannelPermission(channel: DraftbotChannel): [boolean, string] {
 		if (!channel.permissionsFor(draftBotClient!.user!)
 			?.has(PermissionsBitField.Flags.ViewChannel)) {
-			DraftBotLogger.get().error(`No way to access the channel where the command has been executed : ${channel.guildId}/${channel.id}`);
+			DraftBotLogger.error(`No way to access the channel where the command has been executed : ${channel.guildId}/${channel.id}`);
 			return [false, "noChannelAccess"];
 		}
 
 		if (!channel.permissionsFor(draftBotClient!.user!)
 			?.has(PermissionsBitField.Flags.SendMessages)) {
-			DraftBotLogger.get().error(`No way to send messages in the channel where the command has been executed : ${channel.guildId}/${channel.id}`);
+			DraftBotLogger.error(`No way to send messages in the channel where the command has been executed : ${channel.guildId}/${channel.id}`);
 			return [false, "noSpeakPermission"];
 		}
 
 		if (!channel.permissionsFor(draftBotClient!.user!)
 			?.has(PermissionsBitField.Flags.SendMessagesInThreads) && channel.isThread()) {
 			const thread = channel as AnyThreadChannel;
-			DraftBotLogger.get().error(`No way to send messages in the thread where the command has been executed : ${thread.guildId}/${thread.id}`);
+			DraftBotLogger.error(`No way to send messages in the thread where the command has been executed : ${thread.guildId}/${thread.id}`);
 			return [false, "noSpeakInThreadPermission"];
 		}
 
 		if (!channel.permissionsFor(draftBotClient!.user!)
 			?.has(PermissionsBitField.Flags.AddReactions)) {
-			DraftBotLogger.get().error(`No perms to show i can't react in server / channel : ${channel.guildId}/${channel.id}`);
+			DraftBotLogger.error(`No perms to show i can't react in server / channel : ${channel.guildId}/${channel.id}`);
 			return [false, "noReacPermission"];
 		}
 
 		if (!channel.permissionsFor(draftBotClient!.user!)
 			?.has(PermissionsBitField.Flags.EmbedLinks)) {
-			DraftBotLogger.get().error(`No perms to show i can't embed in server / channel : ${channel.guildId}/${channel.id}`);
+			DraftBotLogger.error(`No perms to show i can't embed in server / channel : ${channel.guildId}/${channel.id}`);
 			return [false, "noEmbedPermission"];
 		}
 
 		if (!channel.permissionsFor(draftBotClient!.user!)
 			?.has(PermissionsBitField.Flags.AttachFiles)) {
-			DraftBotLogger.get().error(`No perms to show i can't attach files in server / channel : ${channel.guildId}/${channel.id}`);
+			DraftBotLogger.error(`No perms to show i can't attach files in server / channel : ${channel.guildId}/${channel.id}`);
 			return [false, "noFilePermission"];
 		}
 
 		if (!channel.permissionsFor(draftBotClient!.user!)
 			?.has(PermissionsBitField.Flags.ReadMessageHistory)) {
-			DraftBotLogger.get().error(`No perms to show i can't see messages history in server / channel : ${channel.guildId}/${channel.id}`);
+			DraftBotLogger.error(`No perms to show i can't see messages history in server / channel : ${channel.guildId}/${channel.id}`);
 			return [false, "noHistoryPermission"];
 		}
 

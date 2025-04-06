@@ -116,7 +116,7 @@ export class ReactionCollectorInstance {
 		}
 
 		if (this.hasEnded) {
-			DraftBotLogger.get().warn("Reaction received after the collector has ended");
+			DraftBotLogger.warn("Reaction received after the collector has ended");
 			return;
 		}
 

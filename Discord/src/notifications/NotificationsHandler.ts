@@ -137,7 +137,7 @@ export abstract class NotificationsHandler {
 	static async sendDmNotification(user: User, content: string, lng: Language): Promise<void> {
 		const embed = NotificationsHandler.getNotificationEmbed(user, content, lng);
 		await user.send({ embeds: [embed] }).catch(e => {
-			DraftBotLogger.get().error(`Failed to send DM notification to user ${user.id}`, { error: e });
+			DraftBotLogger.error(`Failed to send DM notification to user ${user.id}`, { error: e });
 		});
 	}
 
