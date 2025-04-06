@@ -115,4 +115,16 @@ export class BlockingUtils {
 	static isPlayerBlocked(keycloakId: string): boolean {
 		return BlockingUtils.getPlayerBlockingReason(keycloakId).length !== 0;
 	}
+
+	static getBlockedPlayersCount(): number {
+		let count = 0;
+		for (const blockedPlayer of BlockingUtils.blockedPlayers.values()) {
+			for (const block of blockedPlayer) {
+				if (block.limitTimestamp === 0 || block.limitTimestamp > Date.now()) {
+					count++;
+				}
+			}
+		}
+		return count;
+	}
 }
