@@ -36,7 +36,7 @@ function main(): void {
 		shard.on("death", () => DraftBotLogger.get().error(`Shard ${shard.id} exited`));
 		shard.on("disconnect", () => DraftBotLogger.get().error(`Shard ${shard.id} disconnected`));
 		shard.on("reconnecting", () => DraftBotLogger.get().error(`Shard ${shard.id} reconnected`));
-		shard.on("error", err => DraftBotLogger.get().error(`Shard ${shard.id} error`, err));
+		shard.on("error", err => DraftBotLogger.get().error(`Shard ${shard.id} error`, { error: err }));
 	});
 
 	// Auto posting stats to top.gg
@@ -50,7 +50,7 @@ function main(): void {
 	shardingManager.spawn({
 		amount: shardCount
 	}).catch(e => {
-		DraftBotLogger.get().error("Error while spawning shards", e);
+		DraftBotLogger.get().error("Error while spawning shards", { error: e });
 	});
 }
 

@@ -17,14 +17,14 @@ export abstract class DiscordAnnouncement {
 			await (await (frenchChannel as TextChannel).send({ content: messageFr })).react(DraftBotIcons.announcements.trophy);
 		}
 		catch (e) {
-			DraftBotLogger.get().error("Error while sending top announcement in french channel", e);
+			DraftBotLogger.get().error("Error while sending top announcement in french channel", { error: e });
 		}
 		try {
 			const englishChannel = await draftBotClient!.channels.fetch(discordConfig.ENGLISH_ANNOUNCEMENT_CHANNEL_ID);
 			await (await (englishChannel as TextChannel).send({ content: messageEn })).react(DraftBotIcons.announcements.trophy);
 		}
 		catch (e) {
-			DraftBotLogger.get().error("Error while sending top announcement in english channel", e);
+			DraftBotLogger.get().error("Error while sending top announcement in english channel", { error: e });
 		}
 	}
 

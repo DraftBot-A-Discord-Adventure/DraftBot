@@ -6,14 +6,14 @@ import { Constants } from "../constants/Constants";
 import LokiTransport = require("winston-loki");
 
 const myFormatWithLabel = format.printf(({
-	level, message, label, timestamp
+	level, message, metadata, label, timestamp
 }) =>
-	`${timestamp} [${label}] [${level.toUpperCase()}]: ${message}`);
+	`${timestamp} [${label}] [${level.toUpperCase()}]: ${message}${metadata && Object.keys(metadata).length > 0 ? ` ${JSON.stringify(metadata)}` : ""}`);
 
 const myFormat = format.printf(({
-	level, message, timestamp
+	level, message, metadata, timestamp
 }) =>
-	`${timestamp} [${level.toUpperCase()}]: ${message}`);
+	`${timestamp} [${level.toUpperCase()}]: ${message}${metadata && Object.keys(metadata).length > 0 ? ` ${JSON.stringify(metadata)}` : ""}`);
 
 export abstract class DraftBotLogger {
 	private static logger: Logger;
@@ -65,6 +65,7 @@ export abstract class DraftBotLogger {
 
 		const formatToUse = Object.keys(labels).length > 0
 			? format.combine(
+				format.metadata(),
 				format.label({ label: Object.entries(labels).map(l => `${l[0]}=${l[1]}`)
 					.join(", ") }),
 				format.timestamp({
@@ -73,6 +74,7 @@ export abstract class DraftBotLogger {
 				myFormatWithLabel
 			)
 			: format.combine(
+				format.metadata(),
 				format.timestamp({
 					format: "YYYY-MM-DD HH:mm:ss.SSS"
 				}),

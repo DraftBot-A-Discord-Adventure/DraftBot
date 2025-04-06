@@ -151,7 +151,7 @@ export default class ReactionCollectorHandler {
 		}
 		const collector = ReactionCollectorHandler.collectorMap.get(packet.data.type);
 		if (!collector) {
-			DraftBotLogger.get().error("Unknown collector type", packet.data.type);
+			DraftBotLogger.get().error("Unknown collector type", { type: packet.data.type });
 			await handleClassicError(context, "error:aDevMessedUp");
 			return;
 		}
