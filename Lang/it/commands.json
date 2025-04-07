@@ -635,8 +635,215 @@
         "name": "{emote:shopItems.lovePointsValue} Veterinario di corte",
         "info": "Ottenere informazioni dettagliate sul vostro animale domestico.",
         "giveTitle": "{{pseudo}}acquisto effettuato!",
-        "giveDesc": "Dopo aver studiato a lungo lo stato di salute del vostro animale, finalmente ricevete il rapporto del veterinario:\n\n{{petName}} {{commentOnResult}}\n{emote:petInformation.loveScore} {{actualLP}}\n{emote:petInformation.diet} ** ** **Punteggio d'amore**: / 100 **Regime alimentare** : {{diet}}\n{emote:petInformation.nextFeed} {{nextFeed}}**Prossima fame**:",
+        "giveDesc": "Dopo aver studiato a lungo lo stato di salute del vostro animale, finalmente ricevete il rapporto del veterinario:\n\n**{{petName}}** {{commentOnResult}}\n{emote:petInformation.loveScore} ** Punteggio di amore**: {{actualLP}} / 100\n{emote:petInformation.diet} ** Regime alimentare** : {{diet}}\n{emote:petInformation.nextFeed} **Prossima fame** : {{nextFeed}}\n{emote:petInformation.age} **Età**: {{commentOnPetAge}}\n\n{emote:petInformation.fightEffect} **Effetto di lotta**: {{commentOnFightEffect}}",
         "petIsHungry": "{emote:effects.starving} affamato",
+        "commentOnFightEffect": {
+          "bite": [
+            "Questo animale ha zanne impressionanti! In combattimento, non esiterà a mordere gli avversari con una precisione spaventosa.",
+            "Guardate questi canini! Il vostro compagno potrà mordere i nemici, infliggendo loro ferite dolorose e facendoli perdere l'equilibrio.",
+            "I suoi denti sono perfetti per combattere. Farà male agli avversari mordendoli nei punti strategici!"
+          ],
+          "boostDefense": [
+            "Il suo guscio è straordinariamente resistente! In combattimento, si posizionerà davanti a voi come uno scudo vivente, aumentando notevolmente la vostra difesa.",
+            "Vedo una notevole struttura muscolare difensiva. Il vostro animale domestico vi proteggerà assorbendo parte dei danni per voi.",
+            "Questo esemplare ha un forte istinto protettivo. Creerà una barriera naturale intorno a voi durante gli scontri."
+          ],
+          "boostSpeed": [
+            "È costruito per la velocità! In combattimento, può trasportarvi sulla schiena, decuplicando la vostra agilità sul campo di battaglia.",
+            "I suoi riflessi sono eccezionali. In battaglia condividerà con voi la sua incredibile velocità, rendendovi ancora più veloci.",
+            "Questo animale è dotato di speciali ghiandole che secernono un ormone dell'accelerazione. Al suo fianco, si muoverà come un fulmine!"
+          ],
+          "claws": [
+            "Gli artigli del vostro animale sono più affilati di molte lame! Li userà per colpire i nemici con un'efficacia terrificante.",
+            "La struttura cheratinizzata dei suoi artigli è unica. In combattimento, può infliggere tagli profondi agli avversari.",
+            "Vedo un meccanismo di ritrazione perfetto. Conserverà gli artigli affilati per i momenti critici, sorprendendo i nemici."
+          ],
+          "createBomb": [
+            "Questo animale ha delle incredibili ghiandole esplosive! Può creare piccole bombe biologiche che posizionerà strategicamente vicino agli avversari.",
+            "Il suo metabolismo gli permette di sintetizzare composti instabili. Produrrà esplosivi naturali per darvi un vantaggio in combattimento.",
+            "Affascinante! Le sue secrezioni chimiche possono formare cariche esplosive. I vostri nemici non vedranno altro che fuoco... letteralmente!"
+          ],
+          "buildBarrage": [
+            "Il suo istinto di costruzione è impressionante! Erigerà barriere protettive per isolarvi dagli attacchi nemici.",
+            "Questa specie è rinomata per le sue capacità architettoniche. Il vostro animale costruirà rapidamente strutture difensive nel bel mezzo della battaglia.",
+            "Le sue gambe sono perfettamente adatte alla costruzione di barricate. Fornirà una protezione efficace contro gli avversari."
+          ],
+          "elephantRememberLastAction": [
+            "La sua memoria è fenomenale! Questo animale ricorda le tattiche dei vostri avversari e vi aiuta ad anticipare le loro prossime mosse.",
+            "Il suo cervello è notevolmente sviluppato. Memorizza le azioni precedenti per consigliarvi la strategia migliore da adottare.",
+            "Come tutti i suoi simili, non dimentica mai. Questa memoria prodigiosa vi permetterà di adattare perfettamente le vostre azioni in combattimento."
+          ],
+          "fishProtectAgainstFire": [
+            "La sua pelle secerne uno straordinario muco ignifugo! Vi proteggerà efficacemente dagli attacchi di fuoco in combattimento.",
+            "Questo esemplare acquatico ha un sistema di regolazione termica unico. Grazie ad esso, sarà molto più resistente alle fiamme nemiche.",
+            "Le squame di questo animale contengono proprietà antinfiammatorie. Vi avvolgerà proteggendovi dalle scottature."
+          ],
+          "goesWild": [
+            "Attenzione, questo animale ha un temperamento selvaggio! In combattimento, può scatenare una furia berserker, colpendo gli avversari vicini.",
+            "Il suo istinto primitivo può essere risvegliato in qualsiasi momento. Questa furia naturale sarà formidabile contro i vostri nemici, ma fate attenzione!",
+            "Rilevo un potenziale di frenesia straordinario. Il vostro animale potrà scatenare la sua natura selvaggia sugli avversari."
+          ],
+          "healEveryone": [
+            "Questo animale ha notevoli poteri di guarigione! Può curare le vostre ferite e quelle dei vostri alleati nel bel mezzo della battaglia.",
+            "Le sue secrezioni contengono potenti enzimi rigeneranti. Li userà per mantenervi in forma durante gli scontri.",
+            "Ho osservato proprietà biorigenerative uniche nel suo corpo. Il vostro animale condividerà questa energia vitale con voi e i vostri compagni."
+          ],
+          "helpBreathe": [
+            "La sua capacità di respirazione è straordinaria! Può condividere il suo ossigeno con voi durante le battaglie più difficili o sott'acqua.",
+            "Questo esemplare ha affascinanti branchie modificate. Vi aiuterà a riprendere fiato nei momenti critici.",
+            "Il suo sistema polmonare altamente evoluto gli consente di immagazzinare ossigeno. Lo trasferisce a voi quando vi manca il fiato."
+          ],
+          "horn": [
+            "Questo corno è una temibile arma naturale! Il vostro animale domestico lo userà per impalare gli avversari con una forza impressionante.",
+            "La struttura cheratinizzata del suo corno è più dura dell'acciaio. Si scaglia contro i nemici, infliggendo danni considerevoli.",
+            "Questo esemplare ha un corno perfettamente bilanciato per il combattimento. Mira ai punti deboli dell'avversario."
+          ],
+          "hypnosis": [
+            "I suoi occhi hanno un affascinante potere ipnotico! Può disorientare gli avversari, lasciandoli confusi e vulnerabili.",
+            "Questo animale padroneggia le tecniche psichiche naturali. Confonde la mente dei nemici durante la battaglia.",
+            "I disegni sulla sua pelle creano un effetto ipnotico unico. Gli avversari saranno disorientati e non riusciranno a concentrarsi sui loro attacchi."
+          ],
+          "isUseless": [
+            "Questo animale ha un temperamento... contemplativo. In combattimento, osserva la situazione con filosofico distacco.",
+            "Devo essere sincero: le sue capacità di combattimento sono limitate. Vi darà supporto morale, ma non interverrà davvero.",
+            "Questo esemplare appartiene a una specie pacifista. La sua presenza sarà... spiritualmente arricchente durante le vostre battaglie."
+          ],
+          "meduseParalyze": [
+            "I suoi tentacoli contengono un potente veleno paralizzante! Può immobilizzare gli avversari, rendendoli temporaneamente inoffensivi.",
+            "Questo animale secerne una notevole neurotossina. Basta una semplice puntura per paralizzare i nemici sul posto.",
+            "La sua biochimica unica gli permette di produrre agenti paralizzanti. I vostri avversari saranno congelati, incapaci di reagire."
+          ],
+          "peck": [
+            "Il becco del vostro animale domestico è affilato come un pugnale! Gli permetterà di tormentare gli avversari con colpi precisi e dolorosi durante i combattimenti.",
+            "La struttura ossea del becco è perfettamente adatta a colpire. Punge con precisione i nemici nei punti sensibili.",
+            "Questo animale ha imparato l'arte di essere fastidioso con il suo becco. Gli avversari saranno indeboliti dai suoi attacchi incessanti."
+          ],
+          "petCharge": [
+            "La sua muscolatura è progettata per la carica! In combattimento, si lancia contro gli avversari con una forza devastante.",
+            "Questo esemplare ha una struttura ossea rinforzata, perfetta per gli impatti. Farà cadere i vostri nemici come birilli da bowling.",
+            "Il suo istinto di carica è impressionante. Raccoglierà lo slancio per colpire gli avversari con una potenza senza precedenti."
+          ],
+          "petCurse": [
+            "Questo animale ha delle inquietanti capacità mistiche! Può maledire gli avversari, indebolendo la loro fortuna e la loro forza di volontà.",
+            "I suoi occhi brillano di un bagliore soprannaturale che porta sfortuna. I vostri nemici subiranno inspiegabili battute d'arresto dopo il suo intervento.",
+            "Vedo proprietà taumaturgiche uniche nella sua aura. Lancia potenti maledizioni contro gli avversari."
+          ],
+          "petHit": [
+            "Il suo istinto protettivo è notevole! Se venite colpiti, reagirà immediatamente per vendicarvi.",
+            "Questo animale è estremamente fedele e reattivo. Risponde ferocemente quando subisce danni in combattimento.",
+            "Il suo legame empatico con voi è unico. Ogni colpo inferto scatenerà la sua furia vendicativa."
+          ],
+          "petPoison": [
+            "Le sue ghiandole tossiche sono perfettamente sviluppate! Avvelenerà i vostri avversari, indebolendoli gradualmente.",
+            "Questo esemplare secerne un veleno particolarmente virulento. I nemici si indeboliscono lentamente dopo essere stati infettati.",
+            "La sua saliva contiene tossine complesse. Un semplice tocco e i vostri avversari vedranno la loro forza diminuire inesorabilmente."
+          ],
+          "petSmallCharge": [
+            "Nonostante le sue piccole dimensioni, questo animale è molto coraggioso! Si scaglia contro gli avversari, creando un efficace diversivo.",
+            "Le sue dimensioni compatte gli conferiscono una velocità sorprendente. Colpirà i nemici in momenti strategici.",
+            "Questo piccolo esemplare compensa le sue dimensioni con la determinazione. Le sue cariche rapide destabilizzeranno gli avversari."
+          ],
+          "pinch": [
+            "I suoi artigli sono particolarmente potenti! Li userà per stringere dolorosamente gli arti degli avversari.",
+            "La pressione esercitata dai suoi artigli può raggiungere livelli impressionanti. I vostri nemici trasaliranno di dolore sotto il loro abbraccio.",
+            "Questo animale ha imparato l'arte del pizzico tattico. Mira ai punti sensibili dell'avversario con precisione."
+          ],
+          "poisonousBite": [
+            "Le sue zanne iniettano un veleno sofisticato! Il suo morso avvelena gli avversari, indebolendoli notevolmente.",
+            "Questo esemplare ha ghiandole velenifere iper-sviluppate. Basta un semplice morso per avvelenare gravemente i nemici.",
+            "L'analisi del suo veleno rivela composti neurotossici unici. I suoi morsi sono particolarmente devastanti in combattimento."
+          ],
+          "protectAgainstCold": [
+            "Il suo mantello ha eccezionali proprietà isolanti! Vi proteggerà efficacemente dagli attacchi del ghiaccio.",
+            "La sua temperatura corporea è naturalmente elevata. Al suo fianco, sarà in grado di resistere agli ambienti gelidi e alle ondate di freddo.",
+            "Questo animale genera un notevole campo termico. Vi avvolgerà con il suo calore protettivo contro gli attacchi gelidi."
+          ],
+          "rainbowPower": [
+            "Questo animale può incanalare l'energia prismatica circostante! Converte i recenti attacchi magici in cure per voi.",
+            "Le sue scaglie iridescenti assorbono e trasformano l'energia ambientale. Dopo diversi scambi di incantesimi, vi rinvigorirà.",
+            "Sto osservando un fenomeno di trasmutazione cromatica unico nel suo genere. Il vostro animale ricicla l'energia di combattimento per curarvi."
+          ],
+          "revenge": [
+            "Il suo istinto di vendetta è impressionante! Quando si viene feriti, si risponde automaticamente con una violenza decuplicata.",
+            "Questo esemplare ha una memoria impressionante per i torti subiti. Non dimentica chi l'ha colpito e si vendica al momento giusto.",
+            "La sua lealtà si riflette nella sua immediata sete di giustizia. Ogni colpo ricevuto sarà centuplicato dal vostro animale."
+          ],
+          "scareElephant": [
+            "La presenza del vostro animale domestico intimorisce naturalmente gli elefanti! Scapperanno dalla lotta.",
+            "Questo animale emette feromoni che terrorizzano i pachidermi. I grandi nemici esiteranno ad attaccarvi in sua presenza.",
+            "Il pianto del vostro animale domestico è particolarmente fastidioso per alcuni animali. In particolare, gli elefanti si ritirano."
+          ],
+          "scareFish": [
+            "La sua aura è terrificante per le creature acquatiche! Spaventerà pesci e delfini.",
+            "Questo esemplare secerne una sostanza che allarma gli organismi acquatici. La maggior parte degli animali marini evita il suo territorio.",
+            "La sua sagoma ricorda quella di un predatore naturale dell'oceano. I pesci si ritirano alla sua sola vista."
+          ],
+          "slipping": [
+            "La sua pelliccia secerne una sostanza scivolosa unica! Si lancia come un proiettile vivente contro gli avversari.",
+            "Questo animale ha imparato l'arte di muoversi sulle superfici lisce. Si trasforma in un missile organico che colpisce i nemici ad alta velocità.",
+            "Il suo corpo idrodinamico è perfetto per scivolare. Raccoglierà lo slancio per colpire gli avversari come una palla da bowling."
+          ],
+          "smallClaws": [
+            "Nonostante le dimensioni modeste, i loro artigli sono straordinariamente affilati! Infliggono graffi precisi e irritanti.",
+            "Questo animaletto compensa le sue dimensioni con i suoi artigli sottili. Mira ai punti sensibili dell'avversario.",
+            "I suoi piccoli artigli sono perfetti per tormentare gli avversari. Distrae i nemici con graffi strategici."
+          ],
+          "smallRegen": [
+            "Il suo metabolismo rigenerativo è contagioso! Condividerà con voi le sue capacità di guarigione in battaglia.",
+            "Questo esemplare secerne enzimi curativi. Ne trarrà beneficio per accelerare la guarigione.",
+            "La sua biochimica unica stimola la rigenerazione cellulare. Con esso, le ferite si chiudono più rapidamente."
+          ],
+          "snowBall": [
+            "Questo animale manipola il ghiaccio con una destrezza sorprendente! Crea e lancia palle di neve freddissime contro gli avversari.",
+            "La sua capacità di comprimere la neve è notevole. Bombarderà i nemici con proiettili ghiacciati particolarmente compatti.",
+            "La sua temperatura corporea gli permette di modellare il ghiaccio a piacimento. I vostri avversari saranno vittime di un inaspettato bombardamento invernale."
+          ],
+          "spit": [
+            "Le analisi rivelano che la sua saliva contiene enzimi irritanti naturali, che la rendono uno strumento efficace per ostacolare visivamente gli avversari.",
+            "La sua secrezione salivare ha una composizione chimica atipica, in grado di provocare irritazioni locali nel nemico.",
+            "Osservazioni veterinarie confermano che le sue ghiandole salivari rilasciano un fluido acido che può ridurre temporaneamente la capacità visiva degli avversari."
+          ],
+          "spitFire": [
+            "I test indicano che il suo sistema metabolico produce una sostanza infiammabile, ideale per generare un getto di fiamma controllato.",
+            "I campioni mostrano un'alta concentrazione di composti pirogeni, che gli permettono di sputare fiamme moderate in situazioni di combattimento.",
+            "Le analisi veterinarie mostrano che le sue ghiandole sintetizzano una sostanza combustibile, offrendo un attacco di proiezione del fuoco a corto raggio."
+          ],
+          "spitInk": [
+            "I test hanno rivelato che le sue ghiandole contengono pigmenti opachi, in grado di oscurare temporaneamente la vista di un avversario.",
+            "L'analisi cromatografica mostra che secerne un inchiostro denso, in grado di disturbare la percezione visiva dei nemici.",
+            "Le osservazioni di laboratorio indicano che viene prodotto un inchiostro ad alta viscosità, che serve efficacemente a disorientare gli avversari durante gli scontri."
+          ],
+          "stealWeapon": [
+            "I test comportamentali suggeriscono che questo animale ha una notevole capacità di identificare e afferrare oggetti metallici appartenenti al suo avversario.",
+            "Il suo comportamento nel recupero delle armi dimostra una grande agilità, consentendogli di estrarre l'arma del nemico in tempi record.",
+            "L'analisi comportamentale dimostra che i suoi riflessi altamente sviluppati gli consentono di neutralizzare efficacemente l'attrezzatura offensiva dell'avversario."
+          ],
+          "swallow": [
+            "Osservazioni cliniche dimostrano che il suo apparato digerente è in grado di inghiottire le prede, neutralizzando così l'avversario.",
+            "La sua capacità digestiva gli permette di ingerire completamente il nemico, rendendolo un interessante metodo di difesa alternativo.",
+            "Gli studi anatomici rivelano una gola particolarmente elastica, ideale per mettere all'angolo un avversario..."
+          ],
+          "triesToHelp": [
+            "I test comportamentali suggeriscono che l'animale domestico cerca di assistere il padrone fornendo un aiuto misurato, anche se il suo contributo rimane limitato.",
+            "Le osservazioni cliniche indicano una parziale reattività, probabilmente dovuta a una non perfetta sincronizzazione con il comportamento del proprietario.",
+            "Le analisi comportamentali mostrano la volontà di intervenire, anche se i suoi sforzi portano solo a miglioramenti marginali sul campo."
+          ],
+          "unBlind": [
+            "Le valutazioni dimostrano che il suo sistema visivo ad alte prestazioni è in grado di ripristinare la vista del proprietario trasmettendo segnali stimolanti.",
+            "Le misurazioni fisiologiche confermano che le sue capacità oculari sono in grado di dissipare le alterazioni visive subite dall'alleato.",
+            "Le osservazioni veterinarie indicano che contribuisce attivamente a ripristinare la chiarezza visiva del suo padrone grazie alla sua ampia percezione."
+          ],
+          "vampirism": [
+            "Le analisi metaboliche dimostrano che questo esemplare può trasferire una frazione dell'energia vitale dell'avversario, migliorando così la resistenza del suo proprietario.",
+            "Gli esami confermano una naturale capacità di assorbimento dell'energia, caratterizzata da un sottile ritiro dell'energia contraria.",
+            "Le osservazioni cliniche dimostrano che possiede meccanismi di trasferimento di energia, in grado di rivitalizzare il suo padrone catturando l'energia ostile."
+          ]
+        },
+        "ageComment_ancestor": "INCREDIBILE! esclama il veterinario, con gli occhi spalancati. Il vostro animale è un esemplare eccezionalmente raro! È uno dei più vecchi mai registrati nei nostri archivi - solo {{age}} altri animali domestici sono stati trovati più vecchi! Una vera reliquia vivente!",
+        "ageComment_veryOld": "Affascinante! mormora il veterinario, aggiustandosi gli occhiali. Il vostro animale ha raggiunto un'età veneranda che pochi suoi simili conoscono. Dai nostri registri risulta che solo {{age}} ha vissuto più a lungo. La sua longevità è davvero notevole!",
+        "ageComment_old": "Bene, bene, bene! Il vostro compagno ha già fatto molta strada\", osserva il veterinario con un sorriso benevolo. Con solo {{age}} animali domestici anziani nei nostri archivi, ha accumulato saggezza ed esperienza nel corso degli anni. È un anziano in gran forma!",
+        "ageComment_adult": "Il vostro animale è nel fiore degli anni\", osserva il veterinario, scuotendo la testa. Di tutti i nostri pazienti, {{age}} ha più anni alle spalle. Ha raggiunto la piena maturità, combinando vigore ed equilibrio. È il momento ideale!",
+        "ageComment_other": "Il suo animale è ancora giovane\", dice teneramente il veterinario. {{age}} animali nel nostro archivio sono più vecchi di lui. Ha tutta la vita davanti ed è pieno di energia! Approfittate di questi momenti di spensieratezza e di scoperta.",
         "advice": {
           "1": [
             "sembra odiarvi. Fate attenzione, o potreste essere vittima di un brutto scherzo durante le vostre avventure!",
