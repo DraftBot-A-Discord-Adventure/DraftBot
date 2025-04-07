@@ -49,7 +49,7 @@
   "commandDoesntExist": "ERROR: Comando desconocido",
   "interactionNotForYou": "Esta interacción no es para ti.",
   "playerBlocked": "¡No puede hacerlo porque tiene una acción pendiente ({{reasons}}) !",
-  "playerDoesntExist": "No se ha encontrado al jugador solicitado.",
+  "playerDoesntExist": "El jugador solicitado aún no ha empezado a jugar.",
   "titleBlocked": "{{pseudo}}¡esta persona está bloqueada!",
   "titleCanceled": "{{pseudo}}¡cancelación tenida en cuenta!",
   "titleDidntWork": "{{pseudo}}, hmmm... ¡No funcionó!",
