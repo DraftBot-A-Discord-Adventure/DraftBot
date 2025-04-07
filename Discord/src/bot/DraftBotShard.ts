@@ -16,20 +16,16 @@ import { DraftBotDiscordWebServer } from "./DraftBotDiscordWebServer";
 import { DraftBotLogger } from "../../../Lib/src/logs/Logger";
 
 process.on("uncaughtException", error => {
+	console.error(`Uncaught exception: ${error}`);
 	if (DraftBotLogger.isInitialized()) {
 		DraftBotLogger.error("Uncaught exception", { error });
-	}
-	else {
-		console.error("Uncaught exception", error);
 	}
 });
 
 process.on("unhandledRejection", error => {
+	console.error(`Unhandled rejection: ${error}`);
 	if (DraftBotLogger.isInitialized()) {
 		DraftBotLogger.error("Unhandled rejection", { error });
-	}
-	else {
-		console.error("Unhandled rejection", error);
 	}
 });
 
