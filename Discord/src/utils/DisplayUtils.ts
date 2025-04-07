@@ -207,7 +207,7 @@ export class DisplayUtils {
 	 * @param rarity
 	 */
 	static getPetRarityDisplay(rarity: number): string {
-		return PetConstants.ICONS.RARITY.repeat(rarity);
+		return DraftBotIcons.unitValues.petRarity.repeat(rarity);
 	}
 
 	/**

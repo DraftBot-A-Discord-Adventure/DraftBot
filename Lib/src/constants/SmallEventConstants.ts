@@ -196,10 +196,6 @@ export abstract class SmallEventConstants {
 
 	};
 
-	static readonly INTERACT_OTHER_PLAYERS = {
-		COIN_EMOTE: "🪙"
-	};
-
 	static readonly FIND_ITEM = {
 		MAXIMUM_RARITY: ItemRarity.EPIC
 	};
@@ -256,10 +252,6 @@ export abstract class SmallEventConstants {
 		HIDDEN_TP_PRICE: 500,
 		SCAM_TP_PRICE: 750,
 		RANDOM_PRICE_BONUS: 0.3, // Prices have a random 30% bonus
-		REACTIONS: {
-			ACCEPT: "🚗",
-			REFUSE: "🚶"
-		}
 	};
 
 	static readonly EPIC_ITEM_SHOP = {

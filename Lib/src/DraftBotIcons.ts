@@ -1898,7 +1898,9 @@ export const DraftBotIcons: {
 		richPerson: "🤑",
 		guildBadge: "💎",
 		superGuildBadge: "🪩",
-		questMasterBadge: "💍"
+		questMasterBadge: "💍",
+		staffMemberBadge: "⚙️",
+		petTamerBadge: "💞"
 	},
 	itemKinds: [
 		"⚔️",
