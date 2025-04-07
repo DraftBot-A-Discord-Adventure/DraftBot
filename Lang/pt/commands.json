@@ -635,8 +635,215 @@
         "name": "{emote:shopItems.lovePointsValue} Médico veterinário do tribunal",
         "info": "Obtenha informações pormenorizadas sobre o seu animal de estimação.",
         "giveTitle": "{{pseudo}}compra efectuada!",
-        "giveDesc": "Depois de muito tempo a estudar o estado de saúde do seu animal, recebe finalmente o relatório do veterinário:\n\n{{petName}} {{commentOnResult}}\n{emote:petInformation.loveScore} {{actualLP}}\n{emote:petInformation.diet} ** **Pontuação de amor**: / 100 **Regime dietético** : {{diet}}\n{emote:petInformation.nextFeed} {{nextFeed}}**Próxima fome**:",
+        "giveDesc": "Depois de muito tempo a estudar o estado de saúde do seu animal, recebe finalmente o relatório do veterinário:\n\n**{{petName}}** {{commentOnResult}}\n{emote:petInformation.loveScore} **Pontuação do amor**: {{actualLP}} / 100\n{emote:petInformation.diet} **Regime dietético** : {{diet}}\n{emote:petInformation.nextFeed} **Próxima fome** : {{nextFeed}}\n{emote:petInformation.age} **Idade**: {{commentOnPetAge}}\n\n{emote:petInformation.fightEffect} **Efeito de combate**: {{commentOnFightEffect}}",
         "petIsHungry": "{emote:effects.starving} faminto",
+        "commentOnFightEffect": {
+          "bite": [
+            "Esta mascote tem umas presas impressionantes! Em combate, não hesitará em morder os seus adversários com uma precisão assustadora.",
+            "Olha para estes caninos! O teu companheiro poderá morder os teus inimigos, causando feridas dolorosas e desequilibrando-os.",
+            "Os seus dentes são perfeitos para combater. Ele vai magoar os teus adversários mordendo-os em pontos estratégicos!"
+          ],
+          "boostDefense": [
+            "A sua carapaça é extraordinariamente resistente! Em combate, posicionar-se-á à tua frente como um escudo vivo, aumentando consideravelmente a tua defesa.",
+            "Consigo ver uma estrutura muscular defensiva notável. O seu animal de estimação irá protegê-lo, absorvendo alguns dos danos por si.",
+            "Este espécime tem um forte instinto protetor. Criará uma barreira natural à sua volta durante os confrontos."
+          ],
+          "boostSpeed": [
+            "Foi construído para ser veloz! Em combate, pode levar-te às costas, aumentando dez vezes a tua agilidade no campo de batalha.",
+            "Os seus reflexos são excepcionais. Ele partilhará a sua incrível velocidade contigo em combate, tornando-te muito mais rápido.",
+            "Este animal de estimação tem glândulas especiais que segregam uma hormona de aceleração. Ao seu lado, vai mover-se como um relâmpago!"
+          ],
+          "claws": [
+            "As garras do teu animal de estimação são mais afiadas do que muitas lâminas! Ele usá-las-á para cortar os teus inimigos com uma eficiência aterradora.",
+            "A estrutura queratinizada das suas garras é única. Em combate, pode infligir cortes profundos nos seus adversários.",
+            "Consigo ver um mecanismo de retração perfeito. Guardará as suas garras afiadas para momentos críticos, surpreendendo os seus inimigos."
+          ],
+          "createBomb": [
+            "Este animal de estimação tem glândulas explosivas fantásticas! Pode criar pequenas bombas biológicas que colocará estrategicamente perto dos teus adversários.",
+            "O seu metabolismo permite-lhe sintetizar compostos instáveis. Produzirá explosivos naturais para te dar uma vantagem em combate.",
+            "Fascinante! As suas secreções químicas podem formar cargas explosivas. Os vossos inimigos só verão fogo... literalmente!"
+          ],
+          "buildBarrage": [
+            "O seu instinto de construção é impressionante! Erguerá barreiras protectoras para te isolar dos ataques inimigos.",
+            "Esta espécie é conhecida pelas suas capacidades arquitectónicas. O teu animal de estimação constrói rapidamente estruturas defensivas no meio da batalha.",
+            "As suas pernas são perfeitamente adaptadas à construção de barricadas. Protegerá eficazmente os seus adversários."
+          ],
+          "elephantRememberLastAction": [
+            "A sua memória é fenomenal! Este animal de estimação lembrar-se-á das tácticas dos seus adversários e ajudá-lo-á a antecipar os seus próximos movimentos.",
+            "O seu cérebro é notavelmente bem desenvolvido. Memoriza as acções anteriores para o aconselhar sobre a melhor estratégia a adotar.",
+            "Como todos os da sua espécie, ele nunca esquece. Esta memória prodigiosa permitir-lhe-á adaptar perfeitamente as suas acções em combate."
+          ],
+          "fishProtectAgainstFire": [
+            "A sua pele segrega um extraordinário muco retardador de fogo! Proteger-te-á eficazmente contra os ataques de fogo em combate.",
+            "Este espécime aquático tem um sistema de regulação térmica único. Graças a ele, serás muito mais resistente às chamas inimigas.",
+            "As escamas deste animal contêm propriedades anti-inflamatórias. Protege-o contra as queimaduras."
+          ],
+          "goesWild": [
+            "Cuidado, esta mascote tem um temperamento selvagem! Em combate, pode entrar em fúria berserker, atacando os adversários próximos.",
+            "O seu instinto primitivo pode ser despertado a qualquer momento. Esta fúria natural será formidável contra os seus inimigos, mas tenha cuidado!",
+            "Detecto o potencial para um frenesim extraordinário. A tua mascote poderá libertar a sua natureza selvagem nos teus adversários."
+          ],
+          "healEveryone": [
+            "Este animal de estimação tem poderes de cura notáveis! Pode curar as tuas feridas e as dos teus aliados no meio da batalha.",
+            "As suas secreções contêm poderosas enzimas regeneradoras. Ele usá-las-á para te manter em forma durante os confrontos.",
+            "Observei propriedades bioregenerativas únicas no seu corpo. O seu animal de estimação partilhará esta energia vital consigo e com os seus companheiros."
+          ],
+          "helpBreathe": [
+            "A sua capacidade de respiração é extraordinária! Pode partilhar o seu oxigénio contigo durante batalhas difíceis ou debaixo de água.",
+            "Este espécime tem umas fascinantes guelras modificadas. Ajudá-lo-á a recuperar o fôlego em momentos críticos.",
+            "O seu sistema pulmonar altamente evoluído permite-lhe armazenar oxigénio. Transferi-lo-á para si quando estiver sem fôlego."
+          ],
+          "horn": [
+            "Este corno é uma arma natural temível! O teu animal de estimação vai usá-lo para empalar os teus adversários com uma força impressionante.",
+            "A estrutura queratinizada do seu corno é mais dura do que o aço. Ataca os seus inimigos, causando-lhes danos consideráveis.",
+            "Este espécime tem um corno perfeitamente equilibrado para o combate. Ele vai atingir os pontos fracos dos seus adversários."
+          ],
+          "hypnosis": [
+            "Os seus olhos têm um poder hipnótico fascinante! Pode desorientar os teus adversários, deixando-os confusos e vulneráveis.",
+            "Esta mascote domina técnicas psíquicas naturais. Confundirá as mentes dos teus inimigos durante a batalha.",
+            "Os padrões na sua pele criam um efeito hipnótico único. Os teus adversários ficarão desorientados, incapazes de se concentrarem nos seus ataques."
+          ],
+          "isUseless": [
+            "Erm... esta mascote tem um temperamento... contemplativo. Em combate, observará a situação com um distanciamento filosófico.",
+            "Tenho de ser honesto: as suas capacidades de combate são limitadas. Ele dá-te apoio moral, mas não intervém.",
+            "Este espécime pertence a uma espécie pacifista. A sua presença será... espiritualmente enriquecedora durante as vossas batalhas."
+          ],
+          "meduseParalyze": [
+            "Os seus tentáculos contêm um poderoso veneno paralisante! Pode imobilizar os teus adversários, tornando-os temporariamente inofensivos.",
+            "Este animal de estimação segrega uma neurotoxina notável. Uma simples picada e os seus inimigos ficarão paralisados no local.",
+            "A sua bioquímica única permite-lhe produzir agentes paralisantes. Os teus adversários ficarão congelados, incapazes de ripostar."
+          ],
+          "peck": [
+            "O bico do teu animal de estimação é tão afiado como um punhal! Permite-lhe atacar os seus adversários com golpes precisos e dolorosos durante o combate.",
+            "A estrutura óssea do seu bico está perfeitamente adaptada para golpear. Picará os vossos inimigos em pontos sensíveis com precisão.",
+            "Esta mascote domina a arte de ser irritante com o seu bico. Os teus adversários ficarão enfraquecidos com os seus ataques implacáveis."
+          ],
+          "petCharge": [
+            "A sua musculatura foi concebida para atacar! Em combate, lança-se sobre os seus adversários com uma força devastadora.",
+            "Este espécime tem uma estrutura óssea reforçada que é perfeita para o impacto. Vai derrubar os seus inimigos como pinos de bowling.",
+            "O seu instinto de carga é impressionante. Ele ganhará impulso para esmagar os seus adversários com uma força incrível."
+          ],
+          "petCurse": [
+            "Este animal de estimação tem algumas habilidades místicas perturbadoras! Ele pode amaldiçoar os teus adversários, enfraquecendo a sua sorte e força de vontade.",
+            "Os seus olhos brilham com um brilho sobrenatural que traz má sorte. Os teus inimigos sofrerão reveses inexplicáveis após a sua intervenção.",
+            "Consigo ver propriedades taumatúrgicas únicas na sua aura. Ela lançará maldições poderosas contra os vossos adversários."
+          ],
+          "petHit": [
+            "O seu instinto protetor é notável! Se fores atingido, ele vai atacar imediatamente para te vingar.",
+            "Este animal de estimação é extremamente leal e reativo. Ele responde ferozmente quando sofre danos em combate.",
+            "A sua ligação empática contigo é única. Cada golpe que lhe dás desencadeia a sua fúria vingativa."
+          ],
+          "petPoison": [
+            "As suas glândulas tóxicas estão perfeitamente desenvolvidas! Envenenará os seus adversários, enfraquecendo-os gradualmente.",
+            "Este espécime segrega um veneno particularmente virulento. Os seus inimigos enfraquecerão lentamente após serem infectados.",
+            "A sua saliva contém toxinas complexas. Um simples toque e os teus adversários verão a sua força diminuir inexoravelmente."
+          ],
+          "petSmallCharge": [
+            "Apesar do seu pequeno tamanho, este animal de estimação é muito corajoso! Vai atacar os seus adversários, criando uma distração eficaz.",
+            "O seu tamanho compacto confere-lhe uma velocidade surpreendente. Atingirá os seus inimigos em momentos estratégicos.",
+            "Este pequeno espécime compensa o seu tamanho com determinação. As suas cargas rápidas vão desestabilizar os teus adversários."
+          ],
+          "pinch": [
+            "As suas garras são particularmente poderosas! Ele usa-as para apertar dolorosamente os membros dos teus adversários.",
+            "A pressão exercida pelas suas garras pode atingir níveis impressionantes. Os teus inimigos vão estremecer de dor sob o seu abraço.",
+            "Esta mascote domina a arte do beliscão tático. Atinge os pontos sensíveis dos teus adversários com precisão."
+          ],
+          "poisonousBite": [
+            "As suas presas injectam um veneno sofisticado! A sua mordida envenena os teus adversários, enfraquecendo-os consideravelmente.",
+            "Este espécime tem glândulas de veneno hiper-desenvolvidas. Uma simples mordida e os seus inimigos sofrerão um envenenamento grave.",
+            "A análise do seu veneno revela compostos neurotóxicos únicos. As suas mordeduras são particularmente devastadoras em combate."
+          ],
+          "protectAgainstCold": [
+            "O seu pelo tem propriedades isolantes excepcionais! Protege-o eficazmente contra os ataques do gelo.",
+            "A sua temperatura corporal é naturalmente elevada. Ao seu lado, será capaz de suportar ambientes gelados e períodos de frio.",
+            "Esta mascote gera um campo térmico notável. Envolvê-lo-á no seu calor protetor contra ataques gelados."
+          ],
+          "rainbowPower": [
+            "Este animal de estimação pode canalizar a energia prismática circundante! Ele converterá os ataques mágicos recentes em cura para ti.",
+            "As suas escamas iridescentes absorvem e transformam a energia ambiente. Depois de várias trocas de feitiços, ela revigora-te.",
+            "Estou a observar um fenómeno único de transmutação cromática. O teu animal de estimação vai reciclar a energia de combate para te curar."
+          ],
+          "revenge": [
+            "O seu instinto de vingança é impressionante! Quando te ferem, ele responde automaticamente com dez vezes mais violência.",
+            "Este espécime tem uma memória impressionante para os erros. Não se esquece de quem lhe bateu e vingar-se-á quando chegar a altura certa.",
+            "A sua lealdade reflecte-se na sua sede imediata de justiça. Cada golpe que receberes será devolvido cem vezes mais pelo teu animal de estimação."
+          ],
+          "scareElephant": [
+            "A presença do seu animal de estimação intimida naturalmente os elefantes! Eles fogem da luta.",
+            "Este animal de estimação emite feromonas que aterrorizam os paquidermes. Os grandes inimigos hesitarão em atacar-te na sua presença.",
+            "O grito do seu animal de estimação é particularmente perturbador para alguns animais. Os elefantes, em particular, retiram-se."
+          ],
+          "scareFish": [
+            "A sua aura é aterradora para as criaturas aquáticas! Afugenta os peixes e os golfinhos.",
+            "Este espécime segrega uma substância que alarma os organismos aquáticos. A maioria dos animais marinhos evitará o seu território.",
+            "A sua silhueta faz lembrar a de um predador natural do oceano. Os peixes recuam só de a verem."
+          ],
+          "slipping": [
+            "O seu pelo segrega uma substância escorregadia única! Ele vai impulsionar-se como um projétil vivo contra os teus adversários.",
+            "Este animal de estimação domina a arte de se mover em superfícies lisas. Transforma-se num míssil orgânico, atingindo os teus inimigos a alta velocidade.",
+            "O seu corpo hidrodinâmico é perfeito para deslizar. Ganha impulso para esmagar os seus adversários como uma bola de bowling viva."
+          ],
+          "smallClaws": [
+            "Apesar do seu tamanho modesto, as suas garras são extremamente afiadas! Provocam arranhões precisos e irritantes.",
+            "Este pequeno animal compensa o seu tamanho com as suas garras finas. Ele vai atingir os pontos sensíveis dos teus adversários.",
+            "As suas pequenas garras são perfeitas para assediar os adversários. Ele vai distrair os teus inimigos com arranhões estratégicos."
+          ],
+          "smallRegen": [
+            "O seu metabolismo regenerativo é contagioso! Ele partilhará as suas capacidades curativas contigo em combate.",
+            "Este espécime segrega enzimas curativas. Beneficiará delas para acelerar a sua recuperação.",
+            "A sua bioquímica única estimula a regeneração celular. Com ela, as feridas fecham-se mais rapidamente."
+          ],
+          "snowBall": [
+            "Esta mascote manipula o gelo com uma destreza espantosa! Cria e atira bolas de neve muito frias aos teus adversários.",
+            "A sua capacidade de comprimir a neve é notável. Bombardeará os seus inimigos com projécteis gelados particularmente compactos.",
+            "A sua temperatura corporal permite-lhe moldar o gelo à vontade. Os teus adversários serão vítimas de um inesperado bombardeamento invernal."
+          ],
+          "spit": [
+            "A análise revela que a sua saliva contém enzimas irritantes naturais, o que a torna uma ferramenta eficaz para obstruir visualmente os adversários.",
+            "A sua secreção salivar tem uma composição química atípica, capaz de causar irritação local no inimigo.",
+            "Observações veterinárias confirmam que as suas glândulas salivares libertam um fluido ácido, que pode reduzir temporariamente a capacidade visual dos seus adversários."
+          ],
+          "spitFire": [
+            "Os testes indicam que o seu sistema metabólico produz uma substância inflamável, ideal para gerar um jato de chama controlado.",
+            "As amostras mostram uma elevada concentração de compostos pirogénicos, o que lhe permite cuspir chamas moderadas em situações de combate.",
+            "Análises veterinárias mostram que as suas glândulas sintetizam uma substância combustível, oferecendo um ataque de projeção de fogo de curto alcance."
+          ],
+          "spitInk": [
+            "Os testes revelaram que as suas glândulas contêm pigmentos opacos, capazes de obscurecer temporariamente a visão de um adversário.",
+            "A análise cromatográfica mostra que segrega uma tinta densa, suscetível de perturbar a perceção visual dos inimigos.",
+            "Observações laboratoriais indicam que é produzida uma tinta de alta viscosidade que serve efetivamente para desorientar os adversários durante os confrontos."
+          ],
+          "stealWeapon": [
+            "Testes comportamentais sugerem que este animal de estimação tem uma capacidade notável para identificar e agarrar objectos metálicos pertencentes ao seu adversário.",
+            "O seu comportamento de recuperação de armas revela uma grande agilidade, permitindo-lhe extrair a arma do inimigo em tempo recorde.",
+            "A análise comportamental mostra que os seus reflexos altamente desenvolvidos lhe permitem neutralizar eficazmente o equipamento ofensivo do adversário."
+          ],
+          "swallow": [
+            "As observações clínicas mostram que o seu aparelho digestivo é capaz de engolir uma presa, neutralizando assim o seu adversário.",
+            "A sua capacidade digestiva permite-lhe ingerir completamente o inimigo, tornando-se um interessante método alternativo de defesa.",
+            "Estudos anatómicos revelam uma garganta particularmente elástica, ideal para encurralar um adversário..."
+          ],
+          "triesToHelp": [
+            "Os testes comportamentais sugerem que o animal de estimação tenta ajudar o seu dono, fornecendo-lhe ajuda medida, embora as suas contribuições permaneçam limitadas.",
+            "As observações clínicas indicam uma reatividade parcial, provavelmente devido a uma sincronização imperfeita com o comportamento do seu proprietário.",
+            "As análises comportamentais revelam uma vontade de intervir, mesmo que os seus esforços apenas tragam melhorias marginais no terreno."
+          ],
+          "unBlind": [
+            "As avaliações mostram que o seu sistema visual de alto desempenho pode restaurar a visão do seu proprietário através da transmissão de sinais estimulantes.",
+            "As medições fisiológicas confirmam que as suas capacidades oculares são capazes de dissipar as alterações visuais sofridas pelo aliado.",
+            "As observações veterinárias indicam que ele ajuda ativamente a restaurar a clareza visual do seu mestre graças à sua perceção abrangente."
+          ],
+          "vampirism": [
+            "Análises metabólicas mostram que este espécime pode transferir uma fração da energia vital de um adversário, melhorando assim a resistência do seu dono.",
+            "Os exames confirmam uma capacidade natural de absorção de energia, caracterizada por uma subtil retirada da energia contrária.",
+            "As observações clínicas mostram que possui mecanismos de transferência de energia, capazes de revitalizar o seu mestre através da captação de energia hostil."
+          ]
+        },
+        "ageComment_ancestor": "INCRÍVEL! exclama o veterinário, de olhos arregalados. O seu animal de estimação é um exemplar excecionalmente raro! É um dos mais antigos alguma vez registados nos nossos arquivos - apenas {{age}} outros animais de estimação foram encontrados mais velhos! Uma verdadeira relíquia viva!",
+        "ageComment_veryOld": "Fascinante! murmura o veterinário, ajeitando os óculos. O seu animal de estimação atingiu uma idade venerável que poucos dos seus pares conhecem. Os nossos registos mostram que apenas {{age}} animais de estimação viveram mais tempo. A sua longevidade é notável!",
+        "ageComment_old": "Bem, bem, bem! O seu companheiro já percorreu um longo caminho\", observa o veterinário com um sorriso benevolente. Com apenas {{age}} animais de estimação mais velhos nos nossos arquivos, ele acumulou sabedoria e experiência ao longo dos anos. É um sénior em grande forma!",
+        "ageComment_adult": "O seu animal está no auge da vida\", observa o veterinário, abanando a cabeça. De todos os nossos pacientes, {{age}} tem mais anos de vida. Atingiu a plena maturidade, combinando vigor e equilíbrio. É a altura ideal!",
+        "ageComment_other": "O seu animal de estimação ainda é jovem\", diz o veterinário com ternura. {{age}} animais de estimação nos nossos registos são mais velhos do que ele. Ele tem toda a sua vida pela frente e está a transbordar de energia! Aproveite ao máximo estes momentos despreocupados de descoberta.",
         "advice": {
           "1": [
             "parece odiar-te. Tem cuidado, ou poderás ser vítima de um truque desagradável durante as tuas aventuras!",

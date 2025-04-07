@@ -635,8 +635,215 @@
         "name": "{emote:shopItems.lovePointsValue} Hoftierarzt",
         "info": "Erhalten Sie detaillierte Informationen über Ihren Vertrauten.",
         "giveTitle": "{{pseudo}}Ich bin sehr zufrieden.",
-        "giveDesc": "Nach einer langen Zeit, in der Sie den Gesundheitszustand Ihres Tieres studiert haben, erhalten Sie schließlich den Bericht des Tierarztes:\n\n**{{petName}}** {{commentOnResult}}\n{emote:petInformation.loveScore} **Score Liebe**: {{actualLP}} / 100\n{emote:petInformation.diet} **Diät**: {{diet}}\n{emote:petInformation.nextFeed} **Nächster Hunger**: {{nextFeed}}",
+        "giveDesc": "Nach einer langen Zeit, in der Sie den Gesundheitszustand Ihres Tieres studiert haben, erhalten Sie schließlich den Bericht des Tierarztes:\n\n**{{petName}}** {{commentOnResult}}\n{emote:petInformation.loveScore} **Love Score**: {{actualLP}} / 100\n{emote:petInformation.diet} **Diät** : {{diet}}\n{emote:petInformation.nextFeed} **Nächster Hunger**: {{nextFeed}}\n{emote:petInformation.age} **Alter**: {{commentOnPetAge}}\n\n{emote:petInformation.fightEffect} **Kampfeffekt**: {{commentOnFightEffect}}",
         "petIsHungry": "{emote:effects.starving} hungrig",
+        "commentOnFightEffect": {
+          "bite": [
+            "Dieses Haustier hat beeindruckende Reißzähne! Im Kampf wird er nicht zögern, deine Gegner mit furchterregender Präzision zu beißen.",
+            "Sehen Sie sich diese Eckzähne an! Ihr Begleiter kann Ihre Feinde beißen, ihnen schmerzhafte Wunden zufügen und sie verunsichern.",
+            "Sein Gebiss ist perfekt für den Kampf geeignet. Er wird Ihre Gegner verletzen, indem er sie an strategischen Punkten beißt!"
+          ],
+          "boostDefense": [
+            "Sein Panzer ist außerordentlich widerstandsfähig! Im Kampf wird er sich wie ein lebendiges Schild vor Ihnen aufstellen und Ihre Verteidigung erheblich erhöhen.",
+            "Ich beobachte eine bemerkenswerte defensive Muskelstruktur. Ihr Begleiter wird Sie schützen, indem er einen Teil des Schadens für Sie absorbiert.",
+            "Dieses Exemplar hat einen ausgeprägten Beschützerinstinkt. Es wird während der Auseinandersetzungen eine natürliche Barriere um Sie herum errichten."
+          ],
+          "boostSpeed": [
+            "Seine Morphologie ist auf Geschwindigkeit ausgelegt! Im Kampf kann er dich auf seinem Rücken tragen, was deine Beweglichkeit auf dem Schlachtfeld um ein Vielfaches steigert.",
+            "Seine Reflexe sind außergewöhnlich. Er wird seine unglaubliche Schnelligkeit im Kampf mit dir teilen und dich so viel schneller machen.",
+            "Dieses Haustier besitzt spezielle Drüsen, die ein Beschleunigungshormon absondern. An Ihrer Seite werden Sie sich wie der Blitz bewegen!"
+          ],
+          "claws": [
+            "Die Krallen Ihres Tieres sind schärfer als jede Klinge! Es wird sie einsetzen, um Ihre Feinde mit erschreckender Effizienz zu zerfetzen.",
+            "Die keratinisierte Struktur seiner Krallen ist einzigartig. Im Kampf kann er Ihren Gegnern tiefe Schnitte zufügen.",
+            "Ich beobachte einen perfekten Rückzugsmechanismus. Er wird seine scharfen Krallen für kritische Momente aufbewahren und Ihre Feinde überraschen."
+          ],
+          "createBomb": [
+            "Dieses Haustier hat erstaunliche explosive Drüsen! Er kann kleine biologische Bomben herstellen, die er strategisch in der Nähe Ihrer Gegner deponiert.",
+            "Sein Stoffwechsel ermöglicht es ihm, instabile Verbindungen zu synthetisieren. Er wird natürliche Sprengstoffe herstellen, um Ihnen im Kampf einen Vorteil zu verschaffen.",
+            "Faszinierend. Seine chemischen Sekrete können explosive Ladungen bilden. Ihre Feinde werden nichts als Feuer sehen - im wahrsten Sinne des Wortes!"
+          ],
+          "buildBarrage": [
+            "Sein Bauinstinkt ist beeindruckend! Er wird schützende Dämme errichten, um Sie von feindlichen Angriffen abzuschirmen.",
+            "Diese Spezies ist für ihre architektonischen Fähigkeiten bekannt. Ihr Vertrauter wird mitten im Kampf schnell defensive Strukturen errichten.",
+            "Seine Beine eignen sich hervorragend zum Aufbau von Barrikaden. Er wird dir einen effektiven Schutz vor deinen Gegnern bieten."
+          ],
+          "elephantRememberLastAction": [
+            "Sein Gedächtnis ist phänomenal! Dieses Haustier merkt sich die Taktiken des Gegners und hilft Ihnen dabei, ihre nächsten Schritte vorauszusehen.",
+            "Sein Gehirn ist bemerkenswert gut entwickelt. Es merkt sich frühere Handlungen, um Ihnen Ratschläge für die beste Strategie zu geben.",
+            "Wie alle seiner Art vergisst er nie. Dank dieses hervorragenden Gedächtnisses können Sie Ihre Aktionen im Kampf perfekt anpassen."
+          ],
+          "fishProtectAgainstFire": [
+            "Seine Haut sondert einen außergewöhnlichen feuerfesten Schleim ab! Er wird dich im Kampf effektiv vor Feuerangriffen schützen.",
+            "Dieses Wasserexemplar verfügt über ein einzigartiges System zur Wärmeregulierung. Dank dieses Systems können Sie den feindlichen Flammen viel besser widerstehen.",
+            "Die Schuppen dieses Haustiers enthalten entzündungshemmende Eigenschaften. Er wird Sie mit seinem Schutz vor Verbrennungen umhüllen."
+          ],
+          "goesWild": [
+            "Achtung, dieses Haustier hat ein wildes Temperament! Im Kampf kann er in eine Berserkerwut verfallen und alle Gegner in der Nähe schlagen.",
+            "Ihr primitiver Instinkt kann jederzeit erwachen. Diese natürliche Furie wird gegen Ihre Feinde furchterregend sein, aber seien Sie vorsichtig!",
+            "Ich erkenne ein außergewöhnliches Rasereipotenzial. Ihr Vertrauter kann seine wilde Natur gegen Ihre Gegner entfesseln."
+          ],
+          "healEveryone": [
+            "Dieses Haustier hat bemerkenswerte heilende Fähigkeiten! Er kann Ihre Wunden und die Ihrer Verbündeten mitten im Kampf heilen.",
+            "Seine Sekrete enthalten starke regenerierende Enzyme. Er nutzt sie, um Sie während der Auseinandersetzungen in Form zu halten.",
+            "Ich beobachte einzigartige bioregenerative Eigenschaften in seinem Organismus. Ihr Vertrauter wird diese Lebensenergie mit Ihnen und Ihren Begleitern teilen."
+          ],
+          "helpBreathe": [
+            "Seine Atemkapazität ist außergewöhnlich! Bei anstrengenden Kämpfen oder unter Wasser kann er seinen Sauerstoff mit Ihnen teilen.",
+            "Dieses Exemplar hat faszinierende modifizierte Kiemen. Es hilft Ihnen, in kritischen Momenten wieder zu Atem zu kommen.",
+            "Sein überentwickeltes Lungensystem ermöglicht es ihm, Sauerstoff zu speichern. Er überträgt ihn Ihnen, wenn Ihnen die Luft ausgeht."
+          ],
+          "horn": [
+            "Dieses Horn ist eine furchterregende natürliche Waffe! Ihr Begleiter wird es benutzen, um Ihre Gegner mit beeindruckender Kraft aufzuspießen.",
+            "Die keratinisierte Struktur seines Horns ist härter als Stahl. Es wird Ihre Feinde angreifen und ihnen erheblichen Schaden zufügen.",
+            "Dieses Exemplar hat ein perfekt ausbalanciertes Horn für den Kampf. Es weiß, wie es die Schwachstellen Ihrer Gegner anvisieren kann."
+          ],
+          "hypnosis": [
+            "Seine Augen besitzen eine faszinierende hypnotische Kraft! Er kann Ihre Gegner verwirren, sodass sie verwirrt und verwundbar sind.",
+            "Dieser Vertraute beherrscht natürliche psychische Techniken. Er wird während des Kampfes den Geist Ihrer Feinde verwirren.",
+            "Die Muster auf seiner Haut erzeugen einen einzigartigen hypnotischen Effekt. Ihre Gegner werden verwirrt und sind nicht in der Lage, sich auf ihre Angriffe zu konzentrieren."
+          ],
+          "isUseless": [
+            "Äh ... dieser Vertraute hat ein ... kontemplatives Temperament. Im Kampf beobachtet er die Situation mit philosophischer Distanz.",
+            "Ich muss ehrlich sein: Seine kämpferischen Fähigkeiten sind begrenzt. Er wird Sie moralisch begleiten, ohne wirklich einzugreifen.",
+            "Dieses Exemplar gehört zu einer pazifistischen Spezies. Ihre Anwesenheit wird ... während Ihrer Kämpfe spirituell bereichernd sein."
+          ],
+          "meduseParalyze": [
+            "Seine Tentakel enthalten ein starkes, lähmendes Gift! Es kann Ihre Gegner bewegungsunfähig machen, sodass sie vorübergehend unschädlich sind.",
+            "Dieser Vertraute sondert ein bemerkenswertes Neurotoxin ab. Ein Stich genügt und Ihre Feinde sind auf der Stelle gelähmt.",
+            "Seine einzigartige Biochemie ermöglicht es ihm, lähmende Wirkstoffe zu produzieren. Ihre Gegner werden erstarren und nicht mehr in der Lage sein, zurückzuschlagen."
+          ],
+          "peck": [
+            "Der Schnabel Ihres Begleiters ist scharf wie ein Dolch! Mit ihm kann er Ihre Gegner im Kampf mit präzisen und schmerzhaften Schlägen bedrängen.",
+            "Die Knochenstruktur seines Schnabels ist perfekt zum Schlagen geeignet. Er wird Ihre Feinde an empfindlichen Punkten mit Präzision anstechen.",
+            "Dieser Vertraute beherrscht die Kunst, mit seinem Schnabel zu nerven. Deine Gegner werden durch seine ständigen Angriffe geschwächt."
+          ],
+          "petCharge": [
+            "Seine Muskulatur ist auf Belastung ausgelegt! Im Kampf wird er sich mit verheerender Kraft auf deine Gegner stürzen.",
+            "Dieses Exemplar hat eine verstärkte Knochenstruktur, die perfekt für den Aufprall geeignet ist. Es wird Ihre Feinde wie Kegel umwerfen.",
+            "Sein Angriffsinstinkt ist beeindruckend. Er nimmt Anlauf, um Ihre Gegner mit ungeahnter Wucht zu rammen."
+          ],
+          "petCurse": [
+            "Dieses Haustier besitzt beunruhigende mystische Fähigkeiten! Er kann Ihre Gegner verfluchen und so ihr Glück und ihren Willen schwächen.",
+            "Seine Augen leuchten in einem übernatürlichen Glanz, der Unglück bringt. Ihre Feinde werden nach seinem Eingreifen unerklärliche Rückschläge erleiden.",
+            "Ich beobachte einzigartige thaumaturgische Eigenschaften in seiner Aura. Er wird mächtige Flüche gegen Ihre Gegner aussprechen."
+          ],
+          "petHit": [
+            "Sein Beschützerinstinkt ist bemerkenswert! Wenn Sie geschlagen werden, wird er sofort einen Gegenangriff starten, um Sie zu rächen.",
+            "Dieses Haustier ist äußerst loyal und reaktionsschnell. Er wird heftig zurückschlagen, wenn Sie im Kampf Schaden erleiden.",
+            "Seine empathische Verbindung zu Ihnen ist einzigartig. Jeder Schlag, den Sie erhalten, wird seinen Rachefuror entfachen."
+          ],
+          "petPoison": [
+            "Seine Giftdrüsen sind perfekt entwickelt! Er wird Ihre Gegner vergiften und sie nach und nach schwächen.",
+            "Dieses Exemplar sondert ein besonders virulentes Gift ab. Ihre Feinde werden langsam schwächer, nachdem sie infiziert wurden.",
+            "Sein Speichel enthält komplexe Toxine. Ein einfacher Kontakt und Ihre Gegner werden unaufhaltsam ihre Kräfte schwinden sehen."
+          ],
+          "petSmallCharge": [
+            "Trotz seiner geringen Größe ist dieser Vertraute sehr mutig! Er wird Ihre Gegner angreifen und so für eine effektive Ablenkung sorgen.",
+            "Seine kompakte Statur verleiht ihm eine erstaunliche Geschwindigkeit. Er wird Ihre Feinde in strategischen Momenten rammen.",
+            "Dieses kleine Exemplar macht seine Größe durch seine Entschlossenheit wett. Seine schnellen Ladungen werden Ihre Gegner verunsichern."
+          ],
+          "pinch": [
+            "Seine Zangen sind besonders stark! Er wird sie einsetzen, um die Gliedmaßen Ihrer Gegner schmerzhaft zusammenzudrücken.",
+            "Der Druck, den seine Zangen ausüben, kann beeindruckende Werte erreichen. Ihre Feinde werden unter ihrer Umklammerung vor Schmerz das Gesicht verziehen.",
+            "Dieses Haustier beherrscht die Kunst des taktischen Zwickens perfekt. Er zielt präzise auf die empfindlichen Stellen Ihrer Gegner."
+          ],
+          "poisonousBite": [
+            "Seine Haken injizieren ein hochentwickeltes Gift! Sein Biss vergiftet Ihre Gegner und schwächt sie erheblich.",
+            "Dieses Exemplar besitzt überentwickelte Giftdrüsen. Ein einfacher Biss und Ihre Feinde leiden an schweren Vergiftungen.",
+            "Die Analyse seines Gifts zeigt einzigartige neurotoxische Verbindungen. Seine Bisse werden im Kampf besonders verheerend sein."
+          ],
+          "protectAgainstCold": [
+            "Sein Fell hat außergewöhnlich gute isolierende Eigenschaften! Es wird dich effektiv vor Eisangriffen schützen.",
+            "Ihre Körpertemperatur ist von Natur aus hoch. An deiner Seite wirst du eisigen Umgebungen und Kältezaubern bestens widerstehen können.",
+            "Dieses Haustier erzeugt ein bemerkenswertes Wärmefeld. Es umhüllt Sie mit seiner schützenden Wärme, die Sie vor Frostangriffen bewahrt."
+          ],
+          "rainbowPower": [
+            "Dieser Vertraute kann die umgebende prismatische Energie kanalisieren! Er wird kürzlich erfolgte magische Angriffe in Heilung für Sie umwandeln.",
+            "Seine schillernden Schuppen absorbieren und transformieren die Energie der Umgebung. Nach mehrmaligem Austausch von Zaubersprüchen wird er Sie beleben.",
+            "Ich beobachte ein einzigartiges Phänomen der chromatischen Transmutation. Ihr Begleiter recycelt die Energie aus Kämpfen, um Sie zu heilen."
+          ],
+          "revenge": [
+            "Sein Racheinstinkt ist beeindruckend! Wenn Sie verletzt werden, schlägt er automatisch mit zehnfacher Gewalt zurück.",
+            "Dieses Exemplar verfügt über ein beeindruckendes Schuldgedächtnis. Es vergisst nicht, wer Sie geschlagen hat, und wird sich im richtigen Moment rächen.",
+            "Seine Loyalität äußert sich in seinem Verlangen nach sofortiger Gerechtigkeit. Jeder Schlag, den Sie erhalten, wird von Ihrem Vertrauten hundertfach vergeltet."
+          ],
+          "scareElephant": [
+            "Die Anwesenheit Ihres Vertrauten schüchtert die Elefanten natürlich ein! Diese werden vor dem Kampf fliehen.",
+            "Dieser Vertraute sendet Pheromone aus, die Dickhäuter in Angst und Schrecken versetzen. Große Feinde werden in seiner Gegenwart zögern, dich anzugreifen.",
+            "Der Schrei Ihres Vertrauten ist für manche Tiere besonders beunruhigend. Speziell Elefanten werden sich zurückziehen."
+          ],
+          "scareFish": [
+            "Seine Aura ist für Wasserlebewesen furchterregend! Er wird Fische und Delfine in die Flucht schlagen.",
+            "Dieses Exemplar sondert eine Substanz ab, die Wasserorganismen alarmiert. Die meisten Meerestiere werden sein Revier meiden.",
+            "Seine Silhouette erinnert an ein natürliches Raubtier der Ozeane. Fische werden sich bei seinem bloßen Anblick zurückziehen."
+          ],
+          "slipping": [
+            "Sein Fell sondert eine einzigartige, gleitfähige Substanz ab! Er wird sich wie ein lebendes Geschoss gegen Ihre Gegner fortbewegen.",
+            "Dieses Haustier beherrscht die Kunst, sich auf glatten Oberflächen zu bewegen. Er verwandelt sich in eine organische Rakete, die mit hoher Geschwindigkeit auf Ihre Feinde einschlägt.",
+            "Sein hydrodynamischer Körper ist perfekt zum Gleiten. Er nimmt Schwung auf, um Ihre Gegner wie eine lebende Bowlingkugel zu treffen."
+          ],
+          "smallClaws": [
+            "Trotz seiner bescheidenen Größe sind seine Krallen bemerkenswert scharf! Er fügt präzise und irritierende Kratzer zu.",
+            "Dieses kleine Haustier macht seine Größe durch seine feinen Klauen wett. Er zielt auf die empfindlichen Stellen Ihrer Gegner.",
+            "Seine kleinen Krallen eignen sich perfekt, um Gegner zu bedrängen. Er wird Ihre Gegner mit strategischen Kratzern aus dem Konzept bringen."
+          ],
+          "smallRegen": [
+            "Sein regenerativer Stoffwechsel ist ansteckend! Er wird seine Heilfähigkeiten während der Kämpfe mit Ihnen teilen.",
+            "Dieses Exemplar sondert wundheilende Enzyme ab. Es wird sie an Sie weitergeben, um Ihre Genesung zu beschleunigen.",
+            "Seine einzigartige Biochemie stimuliert die Zellregeneration. An ihrer Seite werden sich Ihre Wunden schneller schließen."
+          ],
+          "snowBall": [
+            "Dieses Haustier manipuliert Eis mit erstaunlicher Geschicklichkeit! Er wird sehr kalte Schneebälle erschaffen und auf Ihre Gegner werfen.",
+            "Seine Fähigkeit, Schnee zu komprimieren, ist bemerkenswert. Er wird Ihre Feinde mit besonders kompakten, eisigen Geschossen bombardieren.",
+            "Seine Körpertemperatur ermöglicht es ihm, Eis nach Belieben zu formen. Ihre Gegner werden Opfer eines unerwarteten Winterbombardements."
+          ],
+          "spit": [
+            "Analysen zeigen, dass sein Speichel natürliche Reizenzyme enthält, was ihn zu einem effektiven Werkzeug macht, um den Gegner auf der visuellen Ebene zu behindern.",
+            "Sein Speichelsekret weist eine atypische chemische Zusammensetzung auf, die beim Feind eine lokale Reizung hervorrufen kann.",
+            "Tierärztliche Beobachtungen bestätigen, dass seine Speicheldrüsen eine säurehaltige Flüssigkeit abgeben, die das Sehvermögen seiner Gegner vorübergehend beeinträchtigen kann."
+          ],
+          "spitFire": [
+            "Die Untersuchungen deuten darauf hin, dass sein Stoffwechselsystem eine brennbare Substanz produziert, die ideal ist, um einen kontrollierten Flammenstrahl zu erzeugen.",
+            "Die Proben zeigen eine hohe Konzentration an pyrogenen Verbindungen, die es ihm ermöglichen, in Kampfsituationen mäßige Flammen zu spucken.",
+            "Veterinärmedizinische Analysen stellen fest, dass seine Drüsen eine brennbare Substanz synthetisieren und so einen Feuerwurfangriff aus kurzer Distanz bieten."
+          ],
+          "spitInk": [
+            "Tests haben ergeben, dass seine Drüsen undurchsichtige Pigmente enthalten, die geeignet sind, die Sicht des Gegners vorübergehend zu vernebeln.",
+            "Die chromatografische Analyse zeigt, dass er eine dichte Tinte absondert, die die visuelle Wahrnehmung von Feinden stören kann.",
+            "Laborbeobachtungen deuten auf die Produktion von hochviskoser Tinte hin, die effektiv dazu dient, den Gegner bei Konfrontationen zu verwirren."
+          ],
+          "stealWeapon": [
+            "Verhaltensuntersuchungen legen nahe, dass dieser Vertraute eine bemerkenswerte Fähigkeit besitzt, Metallgegenstände, die dem Gegner gehören, zu identifizieren und zu ergreifen.",
+            "Sein Waffenbergungsverhalten zeugt von feiner Agilität, die es ihm ermöglicht, die gegnerische Waffe in kürzester Zeit zu extrahieren.",
+            "Verhaltensanalysen deuten darauf hin, dass seine entwickelten Reflexe es ihm ermöglichen, die gegnerische Offensivausrüstung effektiv zu neutralisieren."
+          ],
+          "swallow": [
+            "Klinische Beobachtungen zeigen, dass sein Verdauungstrakt in der Lage ist, Beutetiere zu verschlingen und so den Gegner zu neutralisieren.",
+            "Seine Verdauungsfähigkeiten ermöglichen es, den Feind vollständig zu verschlingen, was eine interessante alternative Verteidigungsmethode darstellt.",
+            "Anatomische Studien zeigen einen besonders elastischen Hals, der dazu geeignet ist, einen Gegner zu beschwichtigen..."
+          ],
+          "triesToHelp": [
+            "Verhaltenstests legen nahe, dass der Vertraute versucht, seinen Besitzer durch maßvolle Hilfe zu unterstützen, obwohl seine Beiträge begrenzt bleiben.",
+            "Klinische Beobachtungen deuten auf eine partielle Reaktionsfähigkeit hin, die wahrscheinlich auf eine unvollkommene Synchronisation mit dem Verhalten des Besitzers zurückzuführen ist.",
+            "Die Verhaltensanalysen zeigen einen Willen zum Eingreifen, auch wenn seine Bemühungen vor Ort nur marginale Verbesserungen bewirken."
+          ],
+          "unBlind": [
+            "Bewertungen zeigen, dass sein hochleistungsfähiges visuelles System die Sehkraft seines Besitzers wiederherstellen kann, indem es stimulierende Signale aussendet.",
+            "Physiologische Messungen bestätigen, dass seine Augenfähigkeiten in der Lage sind, die vom Verbündeten erlittenen Sehbeeinträchtigungen zu zerstreuen.",
+            "Tierärztliche Beobachtungen deuten darauf hin, dass er durch seine erweiterte Wahrnehmung aktiv dazu beiträgt, die visuelle Klarheit seines Besitzers wiederherzustellen."
+          ],
+          "vampirism": [
+            "Stoffwechselanalysen zeigen, dass dieses Exemplar einen Bruchteil der Lebensenergie des Gegners übertragen kann und so die Ausdauer seines Besitzers verbessert.",
+            "Die Untersuchungen bestätigen eine natürliche Fähigkeit zur Energieabsorption, die sich durch eine subtile Entnahme von gegnerischer Energie auszeichnet.",
+            "Klinische Beobachtungen belegen, dass er über energieübertragende Mechanismen verfügt, die in der Lage sind, seinen Besitzer zu revitalisieren, indem sie feindliche Energie einfangen."
+          ]
+        },
+        "ageComment_ancestor": "INKROYABLE! Ruft der Tierarzt mit großen Augen aus. Ihr Vertrauter ist ein Exemplar von außergewöhnlicher Seltenheit! Er gehört zu den ältesten, die jemals in unseren Archiven aufgezeichnet wurden. Nur {{age}} andere Vertraute wurden älter entdeckt! Ein echtes lebendes Relikt!",
+        "ageComment_veryOld": "Faszinierend! Flüstert der Tierarzt und rückt seine Brille zurecht. Ihr Vertrauter hat ein ehrwürdiges Alter erreicht, das nur wenige seiner Artgenossen kennen. Unsere Aufzeichnungen zeigen, dass nur {{age}} Vertraute länger gelebt haben. Seine Langlebigkeit ist wirklich bemerkenswert!",
+        "ageComment_old": "Na so was! Ihr Begleiter hat bereits einen langen Weg zurückgelegt\", stellt der Tierarzt mit einem freundlichen Lächeln fest. Mit nur {{age}} älteren Haustieren in unseren Archiven hat er im Laufe der Jahre Weisheit und Erfahrung gesammelt. Er ist ein fitter Senior!",
+        "ageComment_adult": "Ihr Vertrauter steht in der Blüte seines Lebens\", stellt der Tierarzt fest und nickt. Von all unseren Patienten hat {{age}} mehr Jahre hinter sich. Er hat seine volle Reife erreicht und vereint Kraft und Ausgeglichenheit. Das ist der ideale Zeitpunkt!",
+        "ageComment_other": "Ihr Haustier ist noch jung\", stellte der Tierarzt liebevoll fest. {{age}} Haustiere in unseren Registern sind älter als er. Er hat sein ganzes Leben noch vor sich und strotzt nur so vor Energie! Genießen Sie diese Zeit der Unbeschwertheit und des Entdeckens.",
         "advice": {
           "1": [
             "scheint Sie zu hassen. Seien Sie vorsichtig, sonst könnten Sie bei Ihren Abenteuern Opfer eines bösen Streichs werden!",

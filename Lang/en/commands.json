@@ -635,8 +635,215 @@
         "name": "{emote:shopItems.lovePointsValue} Court Veterinary",
         "info": "Get detailed information about your pet.",
         "giveTitle": "{{pseudo}}, purchase done!",
-        "giveDesc": "Have a long time spent studying the health status of your pet, you end up receiving the report from the site:\n\n**{{petName}}** {{commentOnResult}}\n{emote:petInformation.loveScore} **Love Score**: {{actualLP}} / 100\n{emote:petInformation.diet} **Food Score**: {{diet}}\n{emote:petInformation.nextFeed} **Next hunger**: {{nextFeed}}",
+        "giveDesc": "After a long time spent studying your pet's state of health, you finally receive the vet's report:\n\n**{{petName}}** {{commentOnResult}}\n{emote:petInformation.loveScore} **Love score** : {{actualLP}} / 100\n{emote:petInformation.diet} **Dietary regime** : {{diet}}\n{emote:petInformation.nextFeed} **Next hunger** : {{nextFeed}}\n{emote:petInformation.age} **Age** : {{commentOnPetAge}}\n\n{emote:petInformation.fightEffect} **Fighting effect**: {{commentOnFightEffect}}",
         "petIsHungry": "{emote:effects.starving} hungry",
+        "commentOnFightEffect": {
+          "bite": [
+            "This pet has impressive fangs! In combat, it won't hesitate to bite your opponents with fearsome precision.",
+            "Look at those canines! Your companion can bite your enemies, inflicting painful wounds and throwing them off balance.",
+            "Its teeth are perfect for fighting. He'll hurt your opponents by biting them at strategic points!"
+          ],
+          "boostDefense": [
+            "Its carapace is extraordinarily resistant! In combat, it will position itself in front of you like a living shield, considerably increasing your defense.",
+            "I can see a remarkable defensive muscular structure. Your pet will protect you by absorbing some of the damage for you.",
+            "This specimen has a strong protective instinct. It will create a natural barrier around you during confrontations."
+          ],
+          "boostSpeed": [
+            "It's built for speed! In combat, it can carry you on its back, increasing your agility on the battlefield tenfold.",
+            "His reflexes are exceptional. He'll share his incredible alertness with you in battle, making you that much faster.",
+            "This pet has special glands that secrete an acceleration hormone. By your side, you'll be moving like lightning!"
+          ],
+          "claws": [
+            "Your pet's claws are sharper than many blades! He'll use them to slash your enemies with terrifying efficiency.",
+            "The keratinized structure of its claws is unique. In combat, it can inflict deep cuts on your opponents.",
+            "I observe a perfect retraction mechanism. He'll save his sharp claws for critical moments, surprising your enemies."
+          ],
+          "createBomb": [
+            "This pet has amazing explosive glands! It can create small biological bombs, which it deposits strategically near your opponents.",
+            "Its metabolism enables it to synthesize unstable compounds. It will manufacture natural explosives to give you the edge in combat.",
+            "Fascinating! Its chemical secretions can form explosive charges. Your enemies will see nothing but fire... literally!"
+          ],
+          "buildBarrage": [
+            "His building instinct is impressive! He'll erect protective barricades to isolate you from enemy attacks.",
+            "This species is renowned for its architectural abilities. Your pet will quickly build defensive structures in the midst of battle.",
+            "Its legs are perfectly suited to building barricades. They'll give you effective protection against your opponents."
+          ],
+          "elephantRememberLastAction": [
+            "Its memory is phenomenal! This pet will remember your opponents' tactics and help you anticipate their next moves.",
+            "Its brain is remarkably well-developed. It will memorize previous actions to advise you on the best strategy to adopt.",
+            "Like all his kind, he never forgets. This prodigious memory will enable you to perfectly adapt your actions in combat."
+          ],
+          "fishProtectAgainstFire": [
+            "Its skin secretes an extraordinary fire-retardant mucus! It provides effective protection against fire attacks in combat.",
+            "This aquatic specimen features a unique thermal regulation system. Thanks to it, you'll be much more resistant to enemy flames.",
+            "This pet's scales contain anti-inflammatory properties. It will wrap you in its protection against burns."
+          ],
+          "goesWild": [
+            "Beware, this pet has a wild temperament! In combat, it can go into a berserker rage, striking all nearby opponents.",
+            "Its primitive instinct can be awakened at any moment. This natural fury will be formidable against your enemies, but be careful!",
+            "I detect the potential for extraordinary frenzy. Your pet can unleash its wild nature against your opponents."
+          ],
+          "healEveryone": [
+            "This pet has remarkable healing powers! It can heal your wounds and those of your allies in the midst of battle.",
+            "Its secretions contain powerful regenerating enzymes. He'll use them to keep you in shape during confrontations.",
+            "I observe unique bioregenerative properties in his body. Your pet will share this vital energy with you and your companions."
+          ],
+          "helpBreathe": [
+            "Its breathing capacity is extraordinary! It can share its oxygen with you during tough battles or underwater.",
+            "This specimen has fascinating modified gills. It will help you catch your breath in critical moments.",
+            "Its hyper-evolved pulmonary system enables it to store oxygen. It will transfer it to you when you're out of breath."
+          ],
+          "horn": [
+            "This horn is a formidable natural weapon! Your pet will use it to impale your opponents with impressive force.",
+            "The keratinized structure of its horn is harder than steel. It will charge your enemies, inflicting considerable damage.",
+            "This specimen has a perfectly balanced horn for combat. It will target your opponents' weak points."
+          ],
+          "hypnosis": [
+            "His eyes possess a fascinating hypnotic power! It can disorientate your opponents, leaving them confused and vulnerable.",
+            "This pet masters natural psychic techniques. It will confuse your enemies' minds during combat.",
+            "The patterns on its skin create a unique hypnotic effect. Your opponents will be disoriented, unable to concentrate on their attacks."
+          ],
+          "isUseless": [
+            "Uh... this pet has a... contemplative temperament. In combat, it will observe the situation with philosophical detachment.",
+            "I have to be honest: his fighting skills are limited. He'll accompany you morally, without really intervening.",
+            "This specimen belongs to a pacifist species. Its presence will be... spiritually enriching during your battles."
+          ],
+          "meduseParalyze": [
+            "Its tentacles contain a powerful paralyzing venom! It can immobilize your opponents, rendering them temporarily harmless.",
+            "This pet secretes a remarkable neurotoxin. A simple sting and your enemies will be paralyzed on the spot.",
+            "Its unique biochemistry enables it to produce paralyzing agents. Your opponents will be frozen, unable to retaliate."
+          ],
+          "peck": [
+            "Your pet's beak is as sharp as a dagger! It will enable him to harass your opponents with precise, painful blows during combat.",
+            "The bone structure of its beak is perfectly suited to striking. It will sting your enemies at sensitive points with precision.",
+            "This pet has mastered the art of being annoying with its beak. Your opponents will be weakened by its relentless attacks."
+          ],
+          "petCharge": [
+            "Its muscular frame is designed for charging! In combat, it will launch itself at your opponents with devastating force.",
+            "This specimen has a reinforced bone structure perfect for impact. It'll knock your enemies over like bowling pins.",
+            "Its charging instinct is impressive. He'll gather momentum to smash into your opponents with unprecedented power."
+          ],
+          "petCurse": [
+            "This pet possesses disturbing mystical abilities! It can curse your opponents, weakening their luck and willpower.",
+            "His eyes shine with a supernatural glow that brings bad luck. Your enemies will suffer inexplicable setbacks after his intervention.",
+            "I observe unique thaumaturgical properties in his aura. It will cast powerful curses against your opponents."
+          ],
+          "petHit": [
+            "His protective instinct is remarkable! If you're hit, he'll strike back immediately to avenge you.",
+            "This pet is extremely loyal and responsive. It will strike back fiercely when you take damage in combat.",
+            "His empathic connection with you is unique. Every blow you receive triggers his vengeful fury."
+          ],
+          "petPoison": [
+            "Its toxic glands are perfectly developed! It will poison your opponents, gradually weakening them.",
+            "This specimen secretes a particularly virulent venom. Your enemies will slowly weaken after being infected.",
+            "Its saliva contains complex toxins. One touch and your opponents will see their strength diminish inexorably."
+          ],
+          "petSmallCharge": [
+            "Despite its small size, this pet is very brave! He'll charge your opponents, creating an effective diversion.",
+            "Its compact size gives it surprising speed. It will hit your enemies at strategic moments.",
+            "This small specimen makes up for its size with determination. Its rapid charges will destabilize your opponents."
+          ],
+          "pinch": [
+            "His claws are particularly powerful! He'll use them to painfully squeeze the limbs of your opponents.",
+            "The pressure exerted by its claws can reach impressive values. Your enemies will wince in pain under their embrace.",
+            "This pet has mastered the art of tactical pinching. It will target your opponents' sensitive points with precision."
+          ],
+          "poisonousBite": [
+            "Its fangs inject a sophisticated venom! Its bite will poison your opponents, weakening them considerably.",
+            "This specimen has hyper-developed venom glands. A simple bite and your enemies will suffer severe poisoning.",
+            "Analysis of its venom reveals unique neurotoxic compounds. Its bites are particularly devastating in combat."
+          ],
+          "protectAgainstCold": [
+            "Its coat has exceptional insulating properties! It will protect you effectively against ice attacks.",
+            "His body temperature is naturally high. By your side, you'll be perfectly equipped to withstand icy environments and cold spells.",
+            "This pet generates a remarkable thermal field. It will envelop you in its protective warmth against icy attacks."
+          ],
+          "rainbowPower": [
+            "This pet can channel the surrounding prismatic energy! It will convert recent magical attacks into healing for you.",
+            "Its iridescent scales absorb and transform ambient energy. After several exchanges of spells, it will reinvigorate you.",
+            "I'm observing a unique chromatic transmutation phenomenon. Your pet will recycle battle energy to heal you."
+          ],
+          "revenge": [
+            "His instinct for vengeance is impressive! When you're wounded, he automatically retaliates with tenfold violence.",
+            "This specimen has an impressive memory for wrongs. It won't forget who hit you, and will retaliate when the time is right.",
+            "His loyalty manifests itself in a thirst for immediate justice. Every blow you receive will be returned a hundredfold by your pet."
+          ],
+          "scareElephant": [
+            "The presence of your pet naturally intimidates elephants! They will flee the fight.",
+            "This pet emits pheromones that terrorize pachyderms. Big enemies will hesitate to attack you in its presence.",
+            "Your pet's cry is particularly disturbing for some animals. Elephants in particular will retreat."
+          ],
+          "scareFish": [
+            "Its aura is terrifying for aquatic creatures! It will scare off fish and dolphins.",
+            "This specimen secretes a substance that alarms aquatic organisms. Most marine animals will avoid its territory.",
+            "Its silhouette is reminiscent of a natural ocean predator. Fish will retreat at the mere sight of it."
+          ],
+          "slipping": [
+            "Its fur secretes a unique slippery substance! It propels itself like a living projectile against your opponents.",
+            "This pet masters the art of movement on smooth surfaces. It transforms into an organic missile, striking your enemies at high speed.",
+            "Its hydrodynamic body is perfect for gliding. It'll gather momentum to smash into your opponents like a living bowling ball."
+          ],
+          "smallClaws": [
+            "Despite their modest size, their claws are remarkably sharp! They inflict precise, irritating scratches.",
+            "This little pet makes up for its size with its slender claws. He'll target your opponents' sensitive points.",
+            "Its small claws are perfect for harassing opponents. He'll distract your enemies with strategic scratches."
+          ],
+          "smallRegen": [
+            "His regenerative metabolism is contagious! He'll share his healing abilities with you in battle.",
+            "This specimen secretes healing enzymes. You'll benefit from them to speed up your recovery.",
+            "Its unique biochemistry stimulates cell regeneration. With it, your wounds will close faster."
+          ],
+          "snowBall": [
+            "This pet manipulates ice with astonishing dexterity! He'll create and throw very cold snowballs at your opponents.",
+            "Its ability to compress snow is remarkable. It will bombard your enemies with particularly compact icy projectiles.",
+            "His body temperature allows him to shape ice at will. Your opponents will fall victim to an unexpected winter bombardment."
+          ],
+          "spit": [
+            "Analysis reveals that its saliva contains natural irritant enzymes, making it an effective tool for visually obstructing opponents.",
+            "Its salivary secretion has an atypical chemical composition, capable of provoking local irritation in the enemy.",
+            "Veterinary observations confirm that its salivary glands release an acidic fluid that can temporarily impair the visual capacity of its opponents."
+          ],
+          "spitFire": [
+            "Examinations indicate that its metabolic system produces a flammable substance, ideal for generating a controlled jet of flame.",
+            "Samples show a high concentration of pyrogenic compounds, enabling it to spit moderate flames in combat situations.",
+            "Veterinary analyses show that its glands synthesize a combustible substance, offering a short-range fire-spraying attack."
+          ],
+          "spitInk": [
+            "Tests have revealed that its glands contain opaque pigments, capable of temporarily obscuring the opponent's vision.",
+            "Chromatographic analysis shows that it secretes a dense ink, likely to disrupt the visual perception of enemies.",
+            "Laboratory observations indicate the production of high-viscosity ink, effectively serving to disorientate opponents during confrontations."
+          ],
+          "stealWeapon": [
+            "Behavioral tests suggest that this pet has a remarkable ability to identify and seize metal objects belonging to the opponent.",
+            "Its weapon retrieval behavior is a testament to its fine agility, enabling it to extract the enemy's weapon in record time.",
+            "Behavioral analysis shows that his highly developed reflexes enable him to neutralize opposing offensive equipment effectively."
+          ],
+          "swallow": [
+            "Clinical observations show that its digestive tract is capable of swallowing prey, thus neutralizing its adversary.",
+            "Its digestive capacity allows it to completely ingest the enemy, making it an interesting alternative defense method.",
+            "Anatomical studies reveal a particularly elastic throat, suitable for accuating an opponent..."
+          ],
+          "triesToHelp": [
+            "Behavioral tests suggest that the pet tries to assist its master by providing measured help, although its contributions remain limited.",
+            "Clinical observations indicate partial reactivity, probably due to imperfect synchronization with the owner's behavior.",
+            "Behavioral analyses show a willingness to intervene, even if its efforts bring only marginal improvement in the field."
+          ],
+          "unBlind": [
+            "Evaluations show that its high-performance visual system can restore its owner's vision by broadcasting stimulating signals.",
+            "Physiological measurements confirm that its ocular capacities are capable of dissipating the visual alterations suffered by the ally.",
+            "Veterinary observations indicate that he actively helps to restore his master's visual clarity through extended perception."
+          ],
+          "vampirism": [
+            "Metabolic analyses show that this specimen can transfer a fraction of an opponent's vital energy, improving its owner's stamina.",
+            "Examinations confirm a natural energy absorption capacity, characterized by a subtle withdrawal of adverse energy.",
+            "Clinical observations show that it possesses energy transfer mechanisms capable of revitalizing its master by capturing hostile energy."
+          ]
+        },
+        "ageComment_ancestor": "INCREDIBLE! exclaims the wide-eyed vet. Your pet is an exceptionally rare specimen! It's one of the oldest ever recorded in our archives, with only {{age}} older pets ever found! A true living relic!",
+        "ageComment_veryOld": "Fascinating! murmurs the vet, adjusting his glasses. Your pet has reached a venerable age that few of its peers know. Our records show that only {{age}} pets have lived longer. His longevity is quite remarkable!",
+        "ageComment_old": "Well, well, well! Your companion has already come a long way,\" notes the vet with a benevolent smile. With only {{age}} older pets in our archives, he has accumulated wisdom and experience over the years. He's a senior citizen in great shape!",
+        "ageComment_adult": "Your pet is in the prime of life,\" observes the vet, shaking his head. Of all our patients, {{age}} has more years behind it. He has reached full maturity, combining vigor and balance. It's the ideal time!",
+        "ageComment_other": "Your pet is still young,\" says the vet tenderly. {{age}} pets in our records are older than he is. He's got his whole life ahead of him and is bursting with energy! Enjoy these carefree moments of discovery.",
         "advice": {
           "1": [
             "seems to hate you. Be careful, or you might be a victim of a bad blow on your adventures!",

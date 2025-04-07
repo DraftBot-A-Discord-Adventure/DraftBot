@@ -59,6 +59,8 @@
     "6": "Eisenerde",
     "60": "Giga Chad",
     "61": "Cri UwUrlant",
+    "62": "Frostschild",
+    "63": "Schild des Windes",
     "7": "Kimono verstärkt",
     "8": "Einfacher Klicks",
     "9": "Resistente Schlämme"
@@ -1195,7 +1197,8 @@
     "87": "Gekatrie",
     "88": "SYM-Karte",
     "89": "Toter Fisch",
-    "9": "Rostschlüssel"
+    "9": "Rostschlüssel",
+    "90": "Frosch-Talisman"
   },
   "pets": {
     "0_female": "Keine Vertrauten",
@@ -1459,7 +1462,8 @@
     "90": "Jus de Pomme de Terre",
     "91": "Eau de Mer",
     "92": "Bave de Troll",
-    "93": "Titan-Listole"
+    "93": "Titan-Listole",
+    "94": "ChocoChoc-Tafel"
   },
   "weapons": {
     "0": "Poing",
@@ -1556,7 +1560,10 @@
     "91": "Baguette de Fibonacci",
     "92": "Game Over",
     "93": "Torschwein du Cuisinier",
-    "94": "Pulver und Lösungsmittel zur Herstellung einer Injektionslösung"
+    "94": "Pulver und Lösungsmittel zur Herstellung einer Injektionslösung",
+    "95": "Klinge der silbernen Aura",
+    "96": "Electektron",
+    "97": "Klinge des Phönix"
   },
   "foods": {
     "herbivorousFood_one": "Salat",
