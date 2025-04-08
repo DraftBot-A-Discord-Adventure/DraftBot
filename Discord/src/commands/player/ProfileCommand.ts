@@ -6,7 +6,8 @@ import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 import i18n, { TranslationOption } from "../../translations/i18n";
 import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
 import {
-	CommandProfilePacketReq, CommandProfilePacketRes
+	CommandProfilePacketReq,
+	CommandProfilePacketRes
 } from "../../../../Lib/src/packets/commands/CommandProfilePacket";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
@@ -72,7 +73,7 @@ async function sendMessageAllBadgesTooMuchBadges(gameUsername: string, badges: s
  */
 async function displayBadges(badges: string[], msg: Message): Promise<void> {
 	if (badges.length >= Constants.PROFILE.MAX_EMOTE_DISPLAY_NUMBER) {
-		await msg.react(Constants.PROFILE.DISPLAY_ALL_BADGE_EMOTE);
+		await msg.react(DraftBotIcons.profile.displayAllBadgeEmote);
 		return;
 	}
 	for (const badgeId of badges) {
@@ -214,7 +215,7 @@ export async function handleCommandProfilePacketRes(packet: CommandProfilePacket
 		max: ProfileConstants.BADGE_MAXIMUM_REACTION
 	});
 	collector.on("collect", async reaction => {
-		if (reaction.emoji.name === Constants.PROFILE.DISPLAY_ALL_BADGE_EMOTE) {
+		if (reaction.emoji.name === DraftBotIcons.profile.displayAllBadgeEmote) {
 			collector.stop(); // Only one is allowed to avoid spam
 			await sendMessageAllBadgesTooMuchBadges(keycloakUser.attributes.gameUsername[0], packet.playerData!.badges!, interaction);
 		}

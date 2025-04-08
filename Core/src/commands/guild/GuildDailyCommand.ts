@@ -18,7 +18,6 @@ import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants"
 import { draftBotInstance } from "../../index";
 import { Effect } from "../../../../Lib/src/types/Effect";
 import { TravelTime } from "../../core/maps/TravelTime";
-import { BadgeConstants } from "../../../../Lib/src/constants/BadgeConstants";
 import {
 	hoursToMilliseconds, hoursToMinutes, millisecondsToHours
 } from "../../../../Lib/src/utils/TimeUtils";
@@ -32,6 +31,7 @@ import { BlockingUtils } from "../../core/utils/BlockingUtils";
 import { Maps } from "../../core/maps/Maps";
 import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
 import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
+import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
 
 type GuildLike = {
 	guild: Guild; members: Player[];
@@ -225,7 +225,7 @@ async function fullHealEveryMember(guildLike: GuildLike, response: DraftBotPacke
 async function awardGuildBadgeToMembers(guildLike: GuildLike, response: DraftBotPacket[], rewardPacket: CommandGuildDailyRewardPacket): Promise<void> {
 	let membersThatOwnTheBadge = 0;
 	await genericAwardingFunction(guildLike.members, member => {
-		if (!member.addBadge(BadgeConstants.POWERFUL_GUILD)) {
+		if (!member.addBadge(DraftBotIcons.badges.guildBadge)) {
 			membersThatOwnTheBadge++;
 		}
 	});
@@ -268,7 +268,7 @@ async function awardGuildSuperBadgeToMembers(guildLike: GuildLike, response: Dra
 	}
 
 	await genericAwardingFunction(guildLike.members, member => {
-		if (!member.addBadge(BadgeConstants.VERY_POWERFUL_GUILD)) {
+		if (!member.addBadge(DraftBotIcons.badges.superGuildBadge)) {
 			membersThatOwnTheBadge++;
 		}
 	});

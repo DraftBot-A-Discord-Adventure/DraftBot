@@ -115,7 +115,13 @@ export const DraftBotIcons: {
 		[missionId: string]: string;
 	};
 	messages: {
-		[messageId: string]: string;
+		validate: string;
+		refuse: string;
+		notReplied: string;
+		dm: string;
+		description: string;
+		item: string;
+		info: string;
 	};
 	fightPetActions: {
 		[actionId: string]: string;
@@ -196,6 +202,10 @@ export const DraftBotIcons: {
 		[inventoryId: string]: string;
 	};
 	itemNatures: string[];
+	itemCategories: string[];
+	profile: {
+		displayAllBadgeEmote: string;
+	};
 } = {
 	effects: {
 		"not_started": "👶",
@@ -1888,7 +1898,9 @@ export const DraftBotIcons: {
 		richPerson: "🤑",
 		guildBadge: "💎",
 		superGuildBadge: "🪩",
-		questMasterBadge: "💍"
+		questMasterBadge: "💍",
+		staffMemberBadge: "⚙️",
+		petTamerBadge: "💞"
 	},
 	itemKinds: [
 		"⚔️",
@@ -2094,5 +2106,14 @@ export const DraftBotIcons: {
 		"🕥",
 		"💰",
 		"⚡"
-	]
+	],
+	itemCategories: [
+		"⚔️",
+		"🛡️",
+		"⚗️",
+		"🧸"
+	],
+	profile: {
+		displayAllBadgeEmote: "🎖️"
+	}
 };

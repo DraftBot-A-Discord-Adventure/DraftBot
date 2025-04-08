@@ -27,8 +27,8 @@ import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstan
 import { ReactionCollectorInteractOtherPlayersPoor } from "../../../../Lib/src/packets/interaction/ReactionCollectorInteractOtherPlayers";
 import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
 import Guild, { Guilds } from "../database/game/models/Guild";
-import { BadgeConstants } from "../../../../Lib/src/constants/BadgeConstants";
 import { SexTypeShort } from "../../../../Lib/src/constants/StringConstants";
+import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
 
 /**
  * Check top interactions
@@ -57,10 +57,10 @@ function checkTop(otherPlayerRank: number, interactionsList: InteractOtherPlayer
  */
 function checkBadges(otherPlayer: Player, interactionsList: InteractOtherPlayerInteraction[]): void {
 	if (otherPlayer.badges) {
-		if (otherPlayer.badges.includes(BadgeConstants.POWERFUL_GUILD)) {
+		if (otherPlayer.badges.includes(DraftBotIcons.badges.guildBadge)) {
 			interactionsList.push(InteractOtherPlayerInteraction.POWERFUL_GUILD);
 		}
-		if (otherPlayer.badges.includes(BadgeConstants.STAFF_MEMBER)) {
+		if (otherPlayer.badges.includes(DraftBotIcons.badges.staffMemberBadge)) {
 			interactionsList.push(InteractOtherPlayerInteraction.STAFF_MEMBER);
 		}
 	}

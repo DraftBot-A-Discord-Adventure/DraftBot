@@ -149,11 +149,6 @@ export abstract class PetConstants {
 
 	static readonly SLOTS = 6;
 
-	static readonly ICONS = {
-		MALE: "♂️",
-		FEMALE: "♀️",
-		RARITY: "⭐"
-	};
 
 	/*
 	 *This array defines the probability of looting a pet based on two factors:

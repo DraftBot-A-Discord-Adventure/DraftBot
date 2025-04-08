@@ -50,12 +50,12 @@ import {
 	ReactionCollectorSkipMissionShopItemCloseReaction,
 	ReactionCollectorSkipMissionShopItemReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorSkipMissionShopItem";
-import { BadgeConstants } from "../../../../Lib/src/constants/BadgeConstants";
 import { PetDiet } from "../../../../Lib/src/constants/PetConstants";
 import { SexTypeShort } from "../../../../Lib/src/constants/StringConstants";
 import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
 import { getAiPetBehavior } from "../../core/fights/PetAssistManager";
 import { PetUtils } from "../../core/utils/PetUtils";
+import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
 
 /**
  * Calculate the amount of money the player will have if he buys some with gems
@@ -233,11 +233,11 @@ function getBadgeShopItem(): ShopItem {
 		amounts: [1],
 		buyCallback: async (response: DraftBotPacket[], playerId: number): Promise<boolean> => {
 			const player = await Players.getById(playerId);
-			if (player.hasBadge(BadgeConstants.QUEST_MASTER)) {
+			if (player.hasBadge(DraftBotIcons.badges.questMasterBadge)) {
 				response.push(makePacket(CommandMissionShopAlreadyHadBadge, {}));
 				return false;
 			}
-			player.addBadge(BadgeConstants.QUEST_MASTER);
+			player.addBadge(DraftBotIcons.badges.questMasterBadge);
 			await player.save();
 			response.push(makePacket(CommandMissionShopBadge, {}));
 			return true;
