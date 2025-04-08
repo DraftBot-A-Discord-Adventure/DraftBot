@@ -38,7 +38,6 @@ import {
 	Potion, PotionDataController
 } from "../../data/Potion";
 import { Settings } from "../../core/database/game/models/Setting";
-import { InventorySlots } from "../../core/database/game/models/InventorySlot";
 import { InventoryInfos } from "../../core/database/game/models/InventoryInfo";
 import { ItemConstants } from "../../../../Lib/src/constants/ItemConstants";
 import {
@@ -172,7 +171,8 @@ function getRegenShopItem(): ShopItem {
 			});
 			await player.save();
 			response.push(makePacket(CommandShopFullRegen, {}));
-			draftBotInstance.logsDatabase.logClassicalShopBuyout(player.keycloakId, ShopItemType.FULL_REGEN).then();
+			draftBotInstance.logsDatabase.logClassicalShopBuyout(player.keycloakId, ShopItemType.FULL_REGEN)
+				.then();
 			return true;
 		}
 	};
@@ -217,7 +217,7 @@ function getDailyPotionShopItem(potion: Potion): ShopItem {
 				response.push(makePacket(CommandShopBoughtTooMuchDailyPotions, {}));
 				return false;
 			}
-			await giveItemToPlayer(player, potion, context, response, await InventorySlots.getOfPlayer(player.id));
+			await giveItemToPlayer(response, context, player, potion);
 			if (potionAlreadyPurchased === ShopConstants.MAX_DAILY_POTION_BUYOUTS - 1) {
 				await MissionsController.update(player, response, { missionId: "dailyPotionsStock" });
 			}
@@ -244,7 +244,8 @@ function getBuySlotExtensionShopItemCallback(playerId: number, price: number): E
 			response,
 			reason: NumberChangeReason.SHOP
 		});
-		draftBotInstance.logsDatabase.logClassicalShopBuyout(player.keycloakId, ShopItemType.SLOT_EXTENSION).then();
+		draftBotInstance.logsDatabase.logClassicalShopBuyout(player.keycloakId, ShopItemType.SLOT_EXTENSION)
+			.then();
 		invInfo.addSlotForCategory(category);
 		await Promise.all([player.save(), invInfo.save()]);
 		response.push(makePacket(ReactionCollectorBuyCategorySlotBuySuccess, {}));

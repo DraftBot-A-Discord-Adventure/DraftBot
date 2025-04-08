@@ -25,8 +25,7 @@ import { ItemRefusePacket } from "../../../../Lib/src/packets/events/ItemRefuseP
 import { ItemAcceptPacket } from "../../../../Lib/src/packets/events/ItemAcceptPacket";
 import { ItemFoundPacket } from "../../../../Lib/src/packets/events/ItemFoundPacket";
 import {
-	ReactionCollectorItemChoice,
-	ReactionCollectorItemChoiceItemReaction
+	ReactionCollectorItemChoice, ReactionCollectorItemChoiceItemReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorItemChoice";
 import {
 	EndCallback, ReactionCollectorInstance
@@ -128,31 +127,52 @@ export const toItemWithDetails = function(item: GenericItem): ItemWithDetails {
 	};
 };
 
+type WhoIsConcerned = {
+	player: Player;
+	inventorySlots: InventorySlot[];
+};
+
+type ConcernedItems = {
+	item: GenericItem;
+	itemToReplace?: InventorySlot;
+	itemToReplaceInstance?: GenericItem;
+};
+
+type SellKeepItemOptions = {
+	keepOriginal?: boolean;
+	resaleMultiplier: number;
+	autoSell?: boolean;
+};
+
 /**
  * Sells or keep the item depending on the parameters
- * @param player
- * @param keepOriginal
  * @param response
+ * @param player
+ * @param inventorySlots
  * @param item
  * @param itemToReplace
  * @param itemToReplaceInstance
+ * @param keepOriginal
  * @param resaleMultiplier
  * @param resaleMultiplierActual
  * @param autoSell
- * @param inventorySlots
  */
-// eslint-disable-next-line max-params
-const sellOrKeepItem = async function(
-	player: Player,
-	keepOriginal: boolean,
+async function sellOrKeepItem(
 	response: DraftBotPacket[],
-	item: GenericItem,
-	itemToReplace: InventorySlot,
-	itemToReplaceInstance: GenericItem,
-	resaleMultiplier: number,
-	resaleMultiplierActual: number,
-	autoSell: boolean,
-	inventorySlots: InventorySlot[]
+	{
+		player,
+		inventorySlots
+	}: WhoIsConcerned,
+	{
+		item,
+		itemToReplace,
+		itemToReplaceInstance
+	}: ConcernedItems,
+	{
+		keepOriginal,
+		resaleMultiplier,
+		autoSell
+	}: SellKeepItemOptions
 ): Promise<void> {
 	player = await Players.getById(player.id);
 	if (!keepOriginal) {
@@ -179,7 +199,7 @@ const sellOrKeepItem = async function(
 		draftBotInstance.logsDatabase.logItemGain(player.keycloakId, item)
 			.then();
 		item = itemToReplaceInstance;
-		resaleMultiplier = resaleMultiplierActual;
+		resaleMultiplier = 1;
 	}
 	let money = 0;
 	if (item.getCategory() !== ItemCategory.POTION) {
@@ -199,7 +219,8 @@ const sellOrKeepItem = async function(
 	}
 	const packet = makePacket(ItemRefusePacket, {
 		item: {
-			id: item.id, category: item.getCategory()
+			id: item.id,
+			category: item.getCategory()
 		},
 		autoSell,
 		soldMoney: money
@@ -212,38 +233,46 @@ const sellOrKeepItem = async function(
 		count: countNbOfPotions(inventorySlots),
 		set: true
 	});
+}
+
+type ItemsToManage = {
+	toTradeItem: GenericItem;
+	tradableItems: InventorySlot[];
 };
 
 /**
  * Manage more than 2 item to choose to keep in the inventory
- * @param items
- * @param player
- * @param context
  * @param response
- * @param item
- * @param resaleMultiplier
- * @param resaleMultiplierActual
- * @param inventorySlots
+ * @param context
+ * @param player
+ * @param whoIsConcerned
+ * @param toTradeItem
+ * @param tradableItems
+ * @param sellKeepOptions
  */
-// eslint-disable-next-line max-params
 function manageMoreThan2ItemsSwitching(
-	items: InventorySlot[],
-	player: Player,
-	context: PacketContext,
 	response: DraftBotPacket[],
-	item: GenericItem,
-	resaleMultiplier: number,
-	resaleMultiplierActual: number,
-	inventorySlots: InventorySlot[]
+	context: PacketContext,
+	whoIsConcerned: WhoIsConcerned,
+	{
+		toTradeItem,
+		tradableItems
+	}: ItemsToManage,
+	sellKeepOptions: SellKeepItemOptions
 ): void {
-	items.sort((a: InventorySlot, b: InventorySlot) => (a.slot > b.slot ? 1 : b.slot > a.slot ? -1 : 0));
+	const player = whoIsConcerned.player;
+	tradableItems.sort((a: InventorySlot, b: InventorySlot) => (a.slot > b.slot ? 1 : b.slot > a.slot ? -1 : 0));
 
 	const collector = new ReactionCollectorItemChoice(
-		{ item: {
-			id: item.id, category: item.getCategory()
-		} },
-		items.map(item => ({
-			slot: item.slot, itemWithDetails: toItemWithDetails(item.getItem())
+		{
+			item: {
+				id: toTradeItem.id,
+				category: toTradeItem.getCategory()
+			}
+		},
+		tradableItems.map(i => ({
+			slot: i.slot,
+			itemWithDetails: toItemWithDetails(i.getItem())
 		}))
 	);
 
@@ -252,38 +281,23 @@ function manageMoreThan2ItemsSwitching(
 
 		if (reaction && reaction.reaction.type === ReactionCollectorItemChoiceItemReaction.name) {
 			const itemReaction = reaction.reaction.data as ReactionCollectorItemChoiceItemReaction;
-			const invSlot = items.find(item => item.slot === itemReaction.slot);
+			const invSlot = tradableItems.find(i => i.slot === itemReaction.slot);
 
-			player = await Players.getById(player.id);
+			await player.reload();
 			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.ACCEPT_ITEM);
-			await sellOrKeepItem(
-				player,
-				false,
-				response,
-				item,
-				invSlot,
-				invSlot.getItem(),
-				resaleMultiplier,
-				resaleMultiplierActual,
-				false,
-				inventorySlots
-			);
+			await sellOrKeepItem(response, whoIsConcerned, {
+				item: toTradeItem,
+				itemToReplace: invSlot,
+				itemToReplaceInstance: invSlot.getItem()
+			}, sellKeepOptions);
 		}
 		else {
-			player = await Players.getById(player.id);
+			await player.reload();
 			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.ACCEPT_ITEM);
-			await sellOrKeepItem(
-				player,
-				true,
-				response,
-				item,
-				null,
-				null,
-				resaleMultiplier,
-				resaleMultiplierActual,
-				false,
-				inventorySlots
-			);
+			sellKeepOptions.keepOriginal = true;
+			await sellOrKeepItem(response, whoIsConcerned, {
+				item: toTradeItem
+			}, sellKeepOptions);
 		}
 	};
 
@@ -305,24 +319,24 @@ function manageMoreThan2ItemsSwitching(
 
 /**
  * Gives an item to a player
+ * @param response
+ * @param context
  * @param player
  * @param item
- * @param context
- * @param response
- * @param inventorySlots
  * @param resaleMultiplierNew
- * @param resaleMultiplierActual
  */
-// eslint-disable-next-line max-params
 export const giveItemToPlayer = async function(
+	response: DraftBotPacket[],
+	context: PacketContext,
 	player: Player,
 	item: GenericItem,
-	context: PacketContext,
-	response: DraftBotPacket[],
-	inventorySlots: InventorySlot[],
-	resaleMultiplierNew = 1,
-	resaleMultiplierActual = 1
+	resaleMultiplierNew = 1
 ): Promise<void> {
+	const inventorySlots = await InventorySlots.getOfPlayer(player.id);
+	const whoIsConcerned = {
+		player,
+		inventorySlots
+	};
 	const resaleMultiplier = resaleMultiplierNew;
 	response.push(makePacket(ItemFoundPacket, {
 		itemWithDetails: toItemWithDetails(item)
@@ -358,23 +372,21 @@ export const giveItemToPlayer = async function(
 			autoSell = true;
 		}
 		else {
-			manageMoreThan2ItemsSwitching(items, player, context, response, item, resaleMultiplier, resaleMultiplierActual, inventorySlots);
+			manageMoreThan2ItemsSwitching(response, context, whoIsConcerned, {
+				toTradeItem: item,
+				tradableItems: items
+			}, { resaleMultiplier });
 			return;
 		}
 	}
 	if (autoSell) {
-		await sellOrKeepItem(
-			player,
-			true,
-			response,
-			item,
-			null,
-			null,
+		await sellOrKeepItem(response, whoIsConcerned, {
+			item
+		}, {
+			keepOriginal: true,
 			resaleMultiplier,
-			resaleMultiplierActual,
-			true,
-			inventorySlots
-		);
+			autoSell: true
+		});
 		return;
 	}
 
@@ -387,20 +399,16 @@ export const giveItemToPlayer = async function(
 	const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
 		const reaction = collector.getFirstReaction();
 		const isValidated = reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name;
-		player = await Players.getById(player.id);
+		await player.reload();
 		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.ACCEPT_ITEM);
-		await sellOrKeepItem(
-			player,
-			!isValidated,
-			response,
+		await sellOrKeepItem(response, whoIsConcerned, {
 			item,
 			itemToReplace,
-			itemToReplaceInstance,
-			resaleMultiplier,
-			resaleMultiplierActual,
-			false,
-			inventorySlots
-		);
+			itemToReplaceInstance
+		}, {
+			keepOriginal: !isValidated,
+			resaleMultiplier
+		});
 	};
 
 	const packet = new ReactionCollectorInstance(
@@ -495,7 +503,7 @@ export function generateRandomItem(
  * @param player
  */
 export const giveRandomItem = async function(context: PacketContext, response: DraftBotPacket[], player: Player): Promise<void> {
-	await giveItemToPlayer(player, generateRandomItem(), context, response, await InventorySlots.getOfPlayer(player.id));
+	await giveItemToPlayer(response, context, player, generateRandomItem());
 };
 
 type TemporarySlotAndItemType = {

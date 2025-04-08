@@ -14,7 +14,6 @@ import {
 } from "../../../../Lib/src/packets/commands/CommandLeagueRewardPacket";
 import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
 import { giveItemToPlayer } from "../../core/utils/ItemUtils";
-import { InventorySlots } from "../../core/database/game/models/InventorySlot";
 import { draftBotInstance } from "../../index";
 import {
 	getNextSaturdayMidnight, todayIsSunday
@@ -64,7 +63,7 @@ export default class LeagueRewardCommand {
 			reason: NumberChangeReason.LEAGUE_REWARD
 		});
 		const item = leagueLastSeason.generateRewardItem();
-		await giveItemToPlayer(player, item, context, response, await InventorySlots.getOfPlayer(player.id));
+		await giveItemToPlayer(response, context, player, item);
 		draftBotInstance.logsDatabase.logPlayerLeagueReward(player.keycloakId, leagueLastSeason.id)
 			.then();
 		response.push(makePacket(CommandLeagueRewardSuccessPacketRes, {
