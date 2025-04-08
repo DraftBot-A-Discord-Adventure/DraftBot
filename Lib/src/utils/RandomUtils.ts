@@ -42,7 +42,7 @@ export class RandomUtils {
 	 */
 	public static enumPick = <T extends object>(anEnum: T): T[keyof T] => {
 		const enumValues = (Object.keys(anEnum)
-			.map(n => Number.parseInt(n))
+			.map(n => Number.parseInt(n, 10))
 			.filter(n => !Number.isNaN(n)) as unknown) as T[keyof T][];
 		const randomIndex = RandomUtils.randInt(0, enumValues.length);
 		return enumValues[randomIndex];

@@ -167,12 +167,14 @@ export class DiscordCollectorUtils {
 				}
 				else if (messageContentOrEmbed instanceof DraftBotEmbed) {
 					await msg.edit({
-						embeds: [messageContentOrEmbed], components: []
+						embeds: [messageContentOrEmbed],
+						components: []
 					});
 				}
 				else {
 					await msg.edit({
-						content: messageContentOrEmbed, components: []
+						content: messageContentOrEmbed,
+						components: []
 					});
 				}
 				DiscordCollectorUtils.sendReaction(
@@ -280,7 +282,7 @@ export class DiscordCollectorUtils {
 
 			await buttonInteraction.deferReply();
 			if (buttonInteraction.customId !== "refuse") {
-				DiscordCollectorUtils.sendReaction(reactionCollectorCreationPacket, context, context.keycloakId!, buttonInteraction, parseInt(buttonInteraction.customId));
+				DiscordCollectorUtils.sendReaction(reactionCollectorCreationPacket, context, context.keycloakId!, buttonInteraction, parseInt(buttonInteraction.customId, 10));
 			}
 			else {
 				DiscordCollectorUtils.sendReaction(reactionCollectorCreationPacket, context, context.keycloakId!, buttonInteraction, refuse.reactionIndex!);

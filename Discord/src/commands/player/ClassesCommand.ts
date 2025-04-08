@@ -1,6 +1,5 @@
 import {
-	CommandClassesChangeSuccessPacket,
-	CommandClassesPacketReq
+	CommandClassesChangeSuccessPacket, CommandClassesPacketReq
 } from "../../../../Lib/src/packets/commands/CommandClassesPacket";
 import {
 	makePacket, PacketContext
@@ -11,13 +10,11 @@ import { DiscordCache } from "../../bot/DiscordCache";
 import i18n from "../../translations/i18n";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import {
-	ReactionCollectorCreationPacket,
-	ReactionCollectorRefuseReaction
+	ReactionCollectorCreationPacket, ReactionCollectorRefuseReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import {
-	ReactionCollectorChangeClassData,
-	ReactionCollectorChangeClassReaction
+	ReactionCollectorChangeClassData, ReactionCollectorChangeClassReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorChangeClass";
 import { DisplayUtils } from "../../utils/DisplayUtils";
 import {
@@ -27,7 +24,9 @@ import {
 	ButtonStyle,
 	InteractionCollector,
 	Message,
-	parseEmoji, StringSelectMenuBuilder, StringSelectMenuInteraction,
+	parseEmoji,
+	StringSelectMenuBuilder,
+	StringSelectMenuInteraction,
 	StringSelectMenuOptionBuilder
 } from "discord.js";
 import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
@@ -55,10 +54,12 @@ export async function handleCommandClassesChangeSuccessPacket(packet: CommandCla
 
 	const lng = context.discord!.language;
 	const title = i18n.t("commands:classes.success", {
-		lng, pseudo: interaction.user.displayName
+		lng,
+		pseudo: interaction.user.displayName
 	});
 	const description = i18n.t("commands:classes.newClass", {
-		lng, name: i18n.t(`models:classes.${packet.classId}`, { lng })
+		lng,
+		name: i18n.t(`models:classes.${packet.classId}`, { lng })
 	});
 
 	await interaction.editReply({
@@ -79,7 +80,8 @@ export async function handleChangeClassReactionCollector(context: PacketContext,
 
 	const lng = context.discord!.language;
 	const data = packet.data.data as ReactionCollectorChangeClassData;
-	const classesReactions = packet.reactions.filter(reaction => reaction.type === ReactionCollectorChangeClassReaction.name).map(reaction => reaction.data) as ReactionCollectorChangeClassReaction[];
+	const classesReactions = packet.reactions.filter(reaction => reaction.type === ReactionCollectorChangeClassReaction.name)
+		.map(reaction => reaction.data) as ReactionCollectorChangeClassReaction[];
 
 	const mainEmbed = new DraftBotEmbed()
 		.setTitle(i18n.t("commands:classes.title", { lng }))
@@ -149,11 +151,12 @@ export async function handleChangeClassReactionCollector(context: PacketContext,
 		// Reset the collector timer, so it doesn't end while the user is still choosing either to validate or refuse
 		PacketUtils.sendPacketToBackend(context, makePacket(ReactionCollectorResetTimerPacketReq, { reactionCollectorId: packet.id }));
 
-		const classDetails = data.classesDetails.find(details => details.id === parseInt(selectedOption))!;
+		const classDetails = data.classesDetails.find(details => details.id === parseInt(selectedOption, 10))!;
 
 		const validateClassChangeEmbed = new DraftBotEmbed()
 			.formatAuthor(i18n.t("commands:classes.confirm", {
-				lng, pseudo: interaction.user.displayName
+				lng,
+				pseudo: interaction.user.displayName
 			}), interaction.user)
 			.setDescription(i18n.t("commands:classes.display", {
 				lng,
@@ -171,7 +174,8 @@ export async function handleChangeClassReactionCollector(context: PacketContext,
 					interpolation: { escapeValue: false }
 				}),
 				description: i18n.t(`commands:classes.description.${classDetails.id}`, {
-					lng, interpolation: { escapeValue: false }
+					lng,
+					interpolation: { escapeValue: false }
 				}),
 				time: dateDisplay(new Date(Date.now() + data.cooldownSeconds * 1000)),
 				interpolation: { escapeValue: false }

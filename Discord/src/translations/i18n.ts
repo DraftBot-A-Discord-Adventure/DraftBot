@@ -65,7 +65,7 @@ function getEmote(emote: string): string | null {
 			if (typeof basePath === "string") {
 				return null;
 			}
-			basePath = Array.isArray(basePath) ? basePath[parseInt(path)] : basePath[path] as EmotePath;
+			basePath = Array.isArray(basePath) ? basePath[parseInt(path, 10)] : basePath[path] as EmotePath;
 		}
 		return typeof basePath === "string" ? basePath : null;
 	}
