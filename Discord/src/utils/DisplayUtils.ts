@@ -12,7 +12,6 @@ import {
 	SexTypeShort, StringConstants
 } from "../../../Lib/src/constants/StringConstants";
 import { OwnedPet } from "../../../Lib/src/types/OwnedPet";
-import { PetConstants } from "../../../Lib/src/constants/PetConstants";
 import { PetFood } from "../../../Lib/src/types/PetFood";
 import { StringUtils } from "./StringUtils";
 

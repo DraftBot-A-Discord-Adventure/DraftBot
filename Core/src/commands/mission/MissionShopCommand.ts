@@ -55,7 +55,7 @@ import { SexTypeShort } from "../../../../Lib/src/constants/StringConstants";
 import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
 import { getAiPetBehavior } from "../../core/fights/PetAssistManager";
 import { PetUtils } from "../../core/utils/PetUtils";
-import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
+import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
 
 /**
  * Calculate the amount of money the player will have if he buys some with gems

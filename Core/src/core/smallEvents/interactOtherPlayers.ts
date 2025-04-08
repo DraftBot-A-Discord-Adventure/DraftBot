@@ -28,7 +28,7 @@ import { ReactionCollectorInteractOtherPlayersPoor } from "../../../../Lib/src/p
 import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
 import Guild, { Guilds } from "../database/game/models/Guild";
 import { SexTypeShort } from "../../../../Lib/src/constants/StringConstants";
-import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
+import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
 
 /**
  * Check top interactions

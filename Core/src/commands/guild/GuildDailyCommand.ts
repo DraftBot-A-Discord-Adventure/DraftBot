@@ -31,7 +31,7 @@ import { BlockingUtils } from "../../core/utils/BlockingUtils";
 import { Maps } from "../../core/maps/Maps";
 import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
 import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
-import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
+import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
 
 type GuildLike = {
 	guild: Guild; members: Player[];
