@@ -111,7 +111,7 @@ export class FightController {
 		this._fightView.outroFight(response, this.fighters[(1 - winner) % 2], this.fighters[winner % 2], isADraw);
 
 		for (let i = 0; i < this.fighters.length; ++i) {
-			await this.fighters[i].endFight(this._fightView, i === winner, response);
+			await this.fighters[i].endFight(i === winner, response);
 		}
 		if (this.endCallback) {
 			await this.endCallback(this, response);
@@ -154,39 +154,6 @@ export class FightController {
 	}
 
 	/**
-	 * Execute a fight alteration
-	 * @param alteration
-	 * @param response
-	 */
-	private async executeFightAlteration(alteration: FightAlteration, response: DraftBotPacket[]): Promise<void> {
-		const result = alteration.happen(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this);
-		await this._fightView.addActionToHistory(response, this.getPlayingFighter(), alteration, result);
-		if (this.hadEnded()) {
-			await this.endFight(response);
-			return;
-		}
-		this._fightView.displayFightStatus(response);
-	}
-
-	/**
-	 * Execute a pet assistance
-	 * @param petAssistance
-	 * @param response
-	 */
-	private async executePetAssistance(petAssistance: PetAssistance, response: DraftBotPacket[]): Promise<void> {
-		const result = await petAssistance.execute(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this);
-		if (!result) {
-			return;
-		}
-		await this._fightView.addActionToHistory(response, this.getPlayingFighter(), petAssistance, result);
-		if (this.hadEnded()) {
-			await this.endFight(response);
-			return;
-		}
-		this._fightView.displayFightStatus(response);
-	}
-
-	/**
 	 * Execute the next fight action
 	 * @param fightAction {FightAction} the fight action to execute
 	 * @param endTurn {boolean} true if the turn should be ended after the action has been executed
@@ -224,12 +191,54 @@ export class FightController {
 		if (endTurn) {
 			this.turn++;
 			this.invertFighters();
-			this.getPlayingFighter().regenerateBreath(this.turn < 3);
+			this.getPlayingFighter()
+				.regenerateBreath(this.turn < 3);
 			await this.prepareNextTurn(response);
 		}
 		else {
 			this._fightView.displayFightStatus(response);
 		}
+	}
+
+	/**
+	 * Set a callback to be called when the fight ends
+	 * @param callback
+	 */
+	public setEndCallback(callback: (fight: FightController, response: DraftBotPacket[]) => Promise<void>): void {
+		this.endCallback = callback;
+	}
+
+	/**
+	 * Execute a fight alteration
+	 * @param alteration
+	 * @param response
+	 */
+	private async executeFightAlteration(alteration: FightAlteration, response: DraftBotPacket[]): Promise<void> {
+		const result = alteration.happen(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this);
+		await this._fightView.addActionToHistory(response, this.getPlayingFighter(), alteration, result);
+		if (this.hadEnded()) {
+			await this.endFight(response);
+			return;
+		}
+		this._fightView.displayFightStatus(response);
+	}
+
+	/**
+	 * Execute a pet assistance
+	 * @param petAssistance
+	 * @param response
+	 */
+	private async executePetAssistance(petAssistance: PetAssistance, response: DraftBotPacket[]): Promise<void> {
+		const result = await petAssistance.execute(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this);
+		if (!result) {
+			return;
+		}
+		await this._fightView.addActionToHistory(response, this.getPlayingFighter(), petAssistance, result);
+		if (this.hadEnded()) {
+			await this.endFight(response);
+			return;
+		}
+		this._fightView.displayFightStatus(response);
 	}
 
 	/**
@@ -266,16 +275,9 @@ export class FightController {
 			result = fightAction.use(attacker, defender, this.turn, this);
 		}
 		return {
-			fightAction, result
+			fightAction,
+			result
 		};
-	}
-
-	/**
-	 * Set a callback to be called when the fight ends
-	 * @param callback
-	 */
-	public setEndCallback(callback: (fight: FightController, response: DraftBotPacket[]) => Promise<void>): void {
-		this.endCallback = callback;
 	}
 
 	/**
