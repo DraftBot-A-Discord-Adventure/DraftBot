@@ -99,7 +99,7 @@ function getDetailsEmbed(lng: Language, classDetails: {
 		attackFields.push({
 			name: i18n.t("commands:classesInfo.title.attack", {
 				lng,
-				emote: DraftBotIcons.fight_actions[attack.id],
+				emote: DraftBotIcons.fightActions[attack.id],
 				name: attack.name,
 				cost: attack.cost,
 				interpolation: { escapeValue: false }

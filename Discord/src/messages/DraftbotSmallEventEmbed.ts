@@ -6,14 +6,15 @@ import { User } from "discord.js";
 import { EmoteUtils } from "../utils/EmoteUtils";
 
 export class DraftbotSmallEventEmbed extends DraftBotEmbed {
-	constructor(smallEventId: keyof typeof DraftBotIcons.small_events, description: string, user: User, lng: Language) {
+	constructor(smallEventId: keyof typeof DraftBotIcons.smallEvents, description: string, user: User, lng: Language) {
 		super();
 		this.setAuthor({
 			name: i18n.t("commands:report.journal", {
-				lng, pseudo: user.displayName
+				lng,
+				pseudo: user.displayName
 			}),
 			iconURL: user.displayAvatarURL()
 		});
-		this.setDescription(`${EmoteUtils.translateEmojiToDiscord(DraftBotIcons.small_events[smallEventId])} ${description}`);
+		this.setDescription(`${EmoteUtils.translateEmojiToDiscord(DraftBotIcons.smallEvents[smallEventId])} ${description}`);
 	}
 }

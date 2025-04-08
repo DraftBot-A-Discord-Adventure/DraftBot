@@ -13,8 +13,7 @@ import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
 import { DiscordCollectorUtils } from "../utils/DiscordCollectorUtils";
 import { ReactionCollectorCreationPacket } from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {
-	ReactionCollectorFightChooseActionData,
-	ReactionCollectorFightChooseActionReaction
+	ReactionCollectorFightChooseActionData, ReactionCollectorFightChooseActionReaction
 } from "../../../Lib/src/packets/interaction/ReactionCollectorFightChooseAction";
 import { ReactionCollectorReturnType } from "../packetHandlers/handlers/ReactionCollectorHandlers";
 import { DiscordConstants } from "../DiscordConstants";
@@ -41,7 +40,7 @@ export class DraftbotActionChooseCachedMessage extends DraftbotCachedMessage<Rea
 		}[];
 		reactions.forEach(action => {
 			const react = action.data as ReactionCollectorFightChooseActionReaction;
-			const emoji = EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fight_actions[react.id]);
+			const emoji = EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fightActions[react.id]);
 
 			const button = new ButtonBuilder()
 				.setEmoji(parseEmoji(emoji)!)

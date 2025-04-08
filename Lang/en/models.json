@@ -1077,9 +1077,9 @@
     "fromPlaceToPlace_order": "Make {{place1}}-{{place2}} in less than {{time}} hours",
     "fromPlaceToPlace_noOrder": "{{place1}}-{{place2}} (or vice versa) in less than {{time}} hours",
     "fromPlaceToPlace_secondPart": "Reach {{place1}} before <t:{{timestamp}}:f>",
-    "goToPlace": "{emote:map_types.{{mapType}}} $t(models:map_locations.{{variant}}.name)",
-    "fightAttacks": "{emote:fight_actions.{{variant}}} $t(models:fight_actions.{{variant}}.name, {\"count\": {{count}}})",
-    "finishWithAttack": "{emote:fight_actions.{{variant}}} $t(models:fight_actions.{{variant}}.name, {\"count\": {{count}}})"
+    "goToPlace": "{emote:mapTypes.{{mapType}}} $t(models:map_locations.{{variant}}.name)",
+    "fightAttacks": "{emote:fightActions.{{variant}}} $t(models:fight_actions.{{variant}}.name, {\"count\": {{count}}})",
+    "finishWithAttack": "{emote:fightActions.{{variant}}} $t(models:fight_actions.{{variant}}.name, {\"count\": {{count}}})"
   },
   "monsters": {
     "forestTroll": {

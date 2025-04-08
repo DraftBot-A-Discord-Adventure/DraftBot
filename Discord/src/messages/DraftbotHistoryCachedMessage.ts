@@ -42,14 +42,16 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 			lng: interaction.userLanguage,
 			emote: EmoteUtils.translateEmojiToDiscord(packet.pet
 				? DraftBotIcons.pets[packet.pet.typeId][packet.pet.sex === StringConstants.SEX.FEMALE.short ? "emoteFemale" : "emoteMale"]
-				: DraftBotIcons.fight_actions[packet.fightActionId]),
+				: DraftBotIcons.fightActions[packet.fightActionId]),
 			fighter
 		});
 		let attackName = ""; // Name of the attack, used to display the attack name in the message
 		if (
 			packet.status
-			&& Object.values(FightAlterationState).includes(packet.status as FightAlterationState)
-			|| Object.values(PetAssistanceState).includes(packet.status as PetAssistanceState)
+			&& Object.values(FightAlterationState)
+				.includes(packet.status as FightAlterationState)
+			|| Object.values(PetAssistanceState)
+				.includes(packet.status as PetAssistanceState)
 		) {
 			const petNickname
 				= packet.pet
@@ -89,46 +91,48 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 		}
 
 		if (packet.fightActionEffectReceived) {
-			Object.entries(packet.fightActionEffectReceived!).forEach(([key, value]) => {
-				if (typeof value === "number") {
-					const operator = value >= 0 ? FightConstants.OPERATOR.PLUS : FightConstants.OPERATOR.MINUS;
-					newLine += i18n.t(`commands:fight.actions.fightActionEffects.self.${key}`, {
-						lng: interaction.userLanguage,
-						operator,
-						amount: Math.abs(value)
-					});
-				}
-				else if (value) {
-					newLine += i18n.t(`commands:fight.actions.fightActionEffects.self.${key}`, {
-						lng: interaction.userLanguage,
-						effect: i18n.t(`models:fight_actions.${value}.name`, {
-							lng: interaction.userLanguage
-						})
-					});
-				}
-			});
+			Object.entries(packet.fightActionEffectReceived!)
+				.forEach(([key, value]) => {
+					if (typeof value === "number") {
+						const operator = value >= 0 ? FightConstants.OPERATOR.PLUS : FightConstants.OPERATOR.MINUS;
+						newLine += i18n.t(`commands:fight.actions.fightActionEffects.self.${key}`, {
+							lng: interaction.userLanguage,
+							operator,
+							amount: Math.abs(value)
+						});
+					}
+					else if (value) {
+						newLine += i18n.t(`commands:fight.actions.fightActionEffects.self.${key}`, {
+							lng: interaction.userLanguage,
+							effect: i18n.t(`models:fight_actions.${value}.name`, {
+								lng: interaction.userLanguage
+							})
+						});
+					}
+				});
 		}
 
 		// Then we need to display the side effects of the attack or alteration if there are any
 		if (packet.fightActionEffectDealt) {
-			Object.entries(packet.fightActionEffectDealt!).forEach(([key, value]) => {
-				if (typeof value === "number") {
-					const operator = value >= 0 ? FightConstants.OPERATOR.PLUS : FightConstants.OPERATOR.MINUS;
-					newLine += i18n.t(`commands:fight.actions.fightActionEffects.opponent.${key}`, {
-						lng: interaction.userLanguage,
-						operator,
-						amount: Math.abs(value)
-					});
-				}
-				else if (value) {
-					newLine += i18n.t(`commands:fight.actions.fightActionEffects.opponent.${key}`, {
-						lng: interaction.userLanguage,
-						effect: i18n.t(`models:fight_actions.${value}.name`, {
-							lng: interaction.userLanguage
-						})
-					});
-				}
-			});
+			Object.entries(packet.fightActionEffectDealt!)
+				.forEach(([key, value]) => {
+					if (typeof value === "number") {
+						const operator = value >= 0 ? FightConstants.OPERATOR.PLUS : FightConstants.OPERATOR.MINUS;
+						newLine += i18n.t(`commands:fight.actions.fightActionEffects.opponent.${key}`, {
+							lng: interaction.userLanguage,
+							operator,
+							amount: Math.abs(value)
+						});
+					}
+					else if (value) {
+						newLine += i18n.t(`commands:fight.actions.fightActionEffects.opponent.${key}`, {
+							lng: interaction.userLanguage,
+							effect: i18n.t(`models:fight_actions.${value}.name`, {
+								lng: interaction.userLanguage
+							})
+						});
+					}
+				});
 		}
 
 

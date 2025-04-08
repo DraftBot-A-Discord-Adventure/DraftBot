@@ -25,7 +25,7 @@ const listEventsTestCommand: ExecuteTestCommandLike = async (player: Player) => 
 		for (const event of events) {
 			eventsString += `${event.id}\n`;
 		}
-		str += `${DraftBotIcons.map_types[map.type]} **${map.id}**\n${eventsString}\n`;
+		str += `${DraftBotIcons.mapTypes[map.type]} **${map.id}**\n${eventsString}\n`;
 	}
 	return `${str}\n\nLa liste des évents pour chaque lieu a été envoyée !`;
 };

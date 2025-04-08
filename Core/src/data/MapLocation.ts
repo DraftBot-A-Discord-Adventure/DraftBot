@@ -24,9 +24,9 @@ export class MapLocation extends Data<number> {
 		const mapLink2 = MapLinkDataController.instance.getLinkByLocations(this.id, originId);
 
 		const query = `SELECT COUNT(*) as count
-		               FROM players
-		               WHERE mapLinkId = :id1
-			              OR mapLinkId = :id2;`;
+                       FROM players
+                       WHERE mapLinkId = :id1
+                          OR mapLinkId = :id2;`;
 		return (<{
 			count: number;
 		}[]>(await Player.sequelize.query(query, {
@@ -120,11 +120,11 @@ export class MapLocationDataController extends DataControllerNumber<MapLocation>
 		const mapLink2 = MapLinkDataController.instance.getLinkByLocations(mapId, previousMapId);
 
 		const query = `SELECT keycloakId
-		               FROM players
-		               WHERE players.id != :playerId
+                       FROM players
+                       WHERE players.id != :playerId
 						 AND players.mapLinkId = :id1
 					       OR players.mapLinkId = :id2
-		               ORDER BY RAND();`;
+                       ORDER BY RAND();`;
 		return await Player.sequelize.query(query, {
 			replacements: {
 				playerId,
@@ -134,9 +134,4 @@ export class MapLocationDataController extends DataControllerNumber<MapLocation>
 			type: QueryTypes.SELECT
 		});
 	}
-}
-
-export class MapLocations {
-
-
 }
