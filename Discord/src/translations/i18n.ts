@@ -70,7 +70,7 @@ function getEmote(emote: string): string | null {
 		return typeof basePath === "string" ? basePath : null;
 	}
 	catch (e) {
-		DraftBotLogger.error(`Error while getting emote ${emote}`, { error: e });
+		DraftBotLogger.errorWithObj(`Error while getting emote ${emote}`, e);
 		return null;
 	}
 }

@@ -15,6 +15,14 @@ const myFormat = format.printf(({
 }) =>
 	`${timestamp} [${level.toUpperCase()}]: ${message}${metadata && Object.keys(metadata).length > 0 ? ` ${JSON.stringify(metadata)}` : ""}`);
 
+type LogMetadata = { [key: string]: unknown } & {
+	error?: never;
+	level?: never;
+	message?: never;
+	timestamp?: never;
+	label?: never;
+};
+
 export abstract class DraftBotLogger {
 	private static logger: Logger;
 
@@ -103,19 +111,28 @@ export abstract class DraftBotLogger {
 		return Boolean(this.logger);
 	}
 
-	public static error(message: string, metadata?: { [key: string]: unknown }): void {
+	public static error(message: string, metadata?: LogMetadata): void {
 		this.get().error(message, metadata);
 	}
 
-	public static warn(message: string, metadata?: { [key: string]: unknown }): void {
+	public static errorWithObj(message: string, e: unknown): void {
+		if (e instanceof Error) {
+			this.get().error(message, e);
+		}
+		else {
+			this.get().error(message, new Error(String(e)));
+		}
+	}
+
+	public static warn(message: string, metadata?: LogMetadata): void {
 		this.get().warn(message, metadata);
 	}
 
-	public static info(message: string, metadata?: { [key: string]: unknown }): void {
+	public static info(message: string, metadata?: LogMetadata): void {
 		this.get().info(message, metadata);
 	}
 
-	public static debug(message: string, metadata?: { [key: string]: unknown }): void {
+	public static debug(message: string, metadata?: LogMetadata): void {
 		this.get().debug(message, metadata);
 	}
 }

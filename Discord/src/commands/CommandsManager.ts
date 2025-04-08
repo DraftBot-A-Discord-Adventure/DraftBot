@@ -92,7 +92,7 @@ export class CommandsManager {
 		}
 		catch (error) {
 			// And of course, make sure you catch and log any errors!
-			DraftBotLogger.error("Failed to reload commands", { error });
+			DraftBotLogger.errorWithObj("Failed to reload commands", error);
 		}
 	}
 
@@ -111,7 +111,7 @@ export class CommandsManager {
 			await this.refreshCommands(client);
 		}
 		catch (e) {
-			DraftBotLogger.error("Failed to register commands", { error: e });
+			DraftBotLogger.errorWithObj("Failed to register commands", e);
 
 			// Do not start the bot if we can't register the commands
 			process.exit(1);
@@ -332,7 +332,7 @@ export class CommandsManager {
 					});
 				}
 			})
-			.catch(e => DraftBotLogger.warn("Could not find a place to forward the DM message", { error: e }));
+			.catch(e => DraftBotLogger.warn("Could not find a place to forward the DM message", e));
 	}
 
 	/**

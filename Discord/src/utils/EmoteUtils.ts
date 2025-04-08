@@ -95,7 +95,7 @@ export class EmoteUtils {
 				});
 			}
 			catch (e) {
-				DraftBotLogger.error("Error while sending select menu", { error: e });
+				DraftBotLogger.errorWithObj("Error while sending select menu", e);
 			}
 		}
 	}
