@@ -16,7 +16,11 @@ const myFormat = format.printf(({
 	`${timestamp} [${level.toUpperCase()}]: ${message}${metadata && Object.keys(metadata).length > 0 ? ` ${JSON.stringify(metadata)}` : ""}`);
 
 type LogMetadata = { [key: string]: unknown } & {
-	error?: never; level?: never; message?: never; timestamp?: never; label?: never;
+	error?: never;
+	level?: never;
+	message?: never;
+	timestamp?: never;
+	label?: never;
 };
 
 export abstract class DraftBotLogger {
