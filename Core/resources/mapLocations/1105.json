@@ -1,5 +1,5 @@
 {
-	"type": "ice_cavern",
-	"canBeGoToPlaceMissionDestination": false,
-	"attribute": "pve_island"
+  "type": "iceCavern",
+  "canBeGoToPlaceMissionDestination": false,
+  "attribute": "pve_island"
 }

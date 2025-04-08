@@ -1,6 +1,6 @@
 {
-	"type": "pve_exit",
-	"canBeGoToPlaceMissionDestination": false,
-	"attribute": "pve_exit",
-	"forcedImage": "boat_left"
+  "type": "pveExit",
+  "canBeGoToPlaceMissionDestination": false,
+  "attribute": "pve_exit",
+  "forcedImage": "boat_left"
 }

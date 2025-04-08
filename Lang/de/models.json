@@ -899,11 +899,11 @@
       "name": "Bereich",
       "prefix": "von"
     },
-    "castle_entrance": {
+    "castleEntrance": {
       "name": "",
       "prefix": "von"
     },
-    "castle_throne": {
+    "castleThrone": {
       "name": "",
       "prefix": "von"
     },
@@ -915,7 +915,7 @@
       "name": "",
       "prefix": "von"
     },
-    "crystal_cavern": {
+    "crystalCavern": {
       "name": "Crystal-Caverne",
       "prefix": "von"
     },
@@ -927,15 +927,15 @@
       "name": "Wälder",
       "prefix": "von"
     },
-    "ice_beach": {
+    "iceBeach": {
       "name": "Eisbereich",
       "prefix": "von"
     },
-    "ice_cavern": {
+    "iceCavern": {
       "name": "Eiskrem",
       "prefix": "von"
     },
-    "ice_lake": {
+    "iceLake": {
       "name": "Eingefrorene Milch",
       "prefix": "von"
     },
@@ -955,7 +955,7 @@
       "name": "Plain",
       "prefix": "von"
     },
-    "pve_exit": {
+    "pveExit": {
       "name": "",
       "prefix": "von"
     },
@@ -971,15 +971,15 @@
       "name": "Ruinen",
       "prefix": "von"
     },
-    "snow_mountain": {
+    "snowMountain": {
       "name": "Pic",
       "prefix": "von"
     },
-    "snowmen_field": {
+    "snowmenField": {
       "name": "Plain",
       "prefix": "von"
     },
-    "test_zone": {
+    "testZone": {
       "name": "",
       "prefix": "von"
     },
