@@ -22,7 +22,7 @@ import {
 } from "../../../../Lib/src/packets/commands/CommandInventoryPacket";
 import { Language } from "../../../../Lib/src/Language";
 import { EmbedField } from "discord.js";
-import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
 /**
  * Get the switch command packet
@@ -78,7 +78,7 @@ function getFielder(itemCategory: number): ((displayPacket: MainItemDisplayPacke
 	}
 }
 
-export async function switchItemCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
+export async function switchItemCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!);
 	if (!interaction) {
 		return null;
@@ -101,7 +101,8 @@ export async function switchItemCollector(context: PacketContext, packet: Reacti
 		context,
 		reactions.map(reaction => getFielder(reaction.item.itemCategory)(reaction.item as MainItemDisplayPacket & SupportItemDisplayPacket, interaction.userLanguage).value),
 		{
-			can: true, reactionIndex: packet.reactions.findIndex(reaction => reaction.type === ReactionCollectorSwitchItemCloseReaction.name)
+			can: true,
+			reactionIndex: packet.reactions.findIndex(reaction => reaction.type === ReactionCollectorSwitchItemCloseReaction.name)
 		}
 	);
 }

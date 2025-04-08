@@ -16,7 +16,7 @@ import { DisplayUtils } from "../../utils/DisplayUtils";
 import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
 import { ReactionCollectorDrinkData } from "../../../../Lib/src/packets/interaction/ReactionCollectorDrink";
 import { minutesDisplay } from "../../../../Lib/src/utils/TimeUtils";
-import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
 /**
  * Get the daily bonus packet to send to the server
@@ -34,14 +34,15 @@ async function getPacket(interaction: DraftbotInteraction): Promise<CommandDrink
 	return makePacket(CommandDrinkPacketReq, { force });
 }
 
-export async function drinkAcceptCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
+export async function drinkAcceptCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorDrinkData;
 
 	const embed = new DraftBotEmbed()
 		.formatAuthor(
 			i18n.t("commands:drink.confirmationTitle", {
-				pseudo: interaction.user.displayName, lng: interaction.userLanguage
+				pseudo: interaction.user.displayName,
+				lng: interaction.userLanguage
 			}),
 			interaction.user
 		)
@@ -62,17 +63,20 @@ export async function handleDrinkConsumePotion(context: PacketContext, packet: C
 
 	if (packet.time) {
 		msg = i18n.t("commands:drink.timeBonus", {
-			lng: context.discord!.language, value: minutesDisplay(packet.time)
+			lng: context.discord!.language,
+			value: minutesDisplay(packet.time)
 		});
 	}
 	else if (packet.energy) {
 		msg = i18n.t("commands:drink.energyBonus", {
-			lng: context.discord!.language, value: packet.energy
+			lng: context.discord!.language,
+			value: packet.energy
 		});
 	}
 	else if (packet.health) {
 		msg = i18n.t("commands:drink.healthBonus", {
-			lng: context.discord!.language, value: packet.health
+			lng: context.discord!.language,
+			value: packet.health
 		});
 	}
 	else {

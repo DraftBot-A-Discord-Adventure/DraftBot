@@ -37,7 +37,7 @@ import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
 import { EmoteUtils } from "../../utils/EmoteUtils";
 import { LANGUAGE } from "../../../../Lib/src/Language";
 import { ReportConstants } from "../../../../Lib/src/constants/ReportConstants";
-import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import { DiscordConstants } from "../../DiscordConstants";
 import { ReactionCollectorPveFightData } from "../../../../Lib/src/packets/interaction/ReactionCollectorPveFight";
 import { StringUtils } from "../../utils/StringUtils";
@@ -52,7 +52,7 @@ async function getPacket(interaction: DraftbotInteraction): Promise<CommandRepor
  * @param context
  * @param packet
  */
-export async function createBigEventCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
+export async function createBigEventCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorBigEventData;
@@ -227,7 +227,7 @@ export async function reportResult(packet: CommandReportBigEventResultRes, conte
  * @param context
  * @param packet
  */
-export async function chooseDestinationCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
+export async function chooseDestinationCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const lng = interaction.userLanguage;
@@ -328,7 +328,7 @@ function generateTravelPathString(packet: CommandReportTravelSummaryRes, now: nu
  * @param context
  * @param packet
  */
-export async function handleStartPveFight(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
+export async function handleStartPveFight(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorPveFightData;
 

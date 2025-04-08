@@ -15,7 +15,7 @@ import { ReactionCollectorCreationPacket } from "../../../Lib/src/packets/intera
 import {
 	ReactionCollectorFightChooseActionData, ReactionCollectorFightChooseActionReaction
 } from "../../../Lib/src/packets/interaction/ReactionCollectorFightChooseAction";
-import { ReactionCollectorReturnType } from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorReturnTypeOrNull } from "../packetHandlers/handlers/ReactionCollectorHandlers";
 import { DiscordConstants } from "../DiscordConstants";
 
 export class DraftbotActionChooseCachedMessage extends DraftbotCachedMessage<ReactionCollectorCreationPacket> {
@@ -25,7 +25,7 @@ export class DraftbotActionChooseCachedMessage extends DraftbotCachedMessage<Rea
 		return "action_choose";
 	}
 
-	updateMessage = async (packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<ReactionCollectorReturnType> => {
+	updateMessage = async (packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<ReactionCollectorReturnTypeOrNull> => {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 		const data = packet.data.data as ReactionCollectorFightChooseActionData;
 		const fighter = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, data.fighterKeycloakId))!.attributes.gameUsername[0];

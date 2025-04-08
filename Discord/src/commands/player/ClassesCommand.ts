@@ -12,7 +12,7 @@ import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import {
 	ReactionCollectorCreationPacket, ReactionCollectorRefuseReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import {
 	ReactionCollectorChangeClassData, ReactionCollectorChangeClassReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorChangeClass";
@@ -71,7 +71,7 @@ export async function handleCommandClassesChangeSuccessPacket(packet: CommandCla
 	});
 }
 
-export async function handleChangeClassReactionCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
+export async function handleChangeClassReactionCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 
 	if (!interaction) {

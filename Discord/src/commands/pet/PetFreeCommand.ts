@@ -19,7 +19,7 @@ import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import { ReactionCollectorPetFreeData } from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFree";
 import { PetUtils } from "../../utils/PetUtils";
-import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
 /**
  * Destroy a pet forever... RIP
@@ -82,7 +82,7 @@ export async function handleCommandPetFreePacketRes(packet: CommandPetFreePacket
 	}
 }
 
-export async function createPetFreeCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
+export async function createPetFreeCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorPetFreeData;

@@ -1,5 +1,6 @@
 import { get } from "https";
 
+// External library connections, naming conventions can't be easily applied
 /* eslint-disable camelcase */
 
 export interface NearEarthObjectApproachData {

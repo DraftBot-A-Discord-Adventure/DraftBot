@@ -33,12 +33,12 @@ import {
 } from "../../../../Lib/src/utils/TimeUtils";
 import { FightRewardPacket } from "../../../../Lib/src/packets/fights/FightRewardPacket";
 import { StringUtils } from "../../utils/StringUtils";
-import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import { AIFightActionChoosePacket } from "../../../../Lib/src/packets/fights/AIFightActionChoosePacket";
 import { OwnedPet } from "../../../../Lib/src/types/OwnedPet";
 import { DisplayUtils } from "../../utils/DisplayUtils";
 
-export async function createFightCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
+export async function createFightCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorFightData;
@@ -222,12 +222,12 @@ export async function handleCommandFightAIFightActionChoose(context: PacketConte
  * @param packet
  * @param context
  */
-export async function handleCommandFightActionChoose(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
+export async function handleCommandFightActionChoose(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	if (!context.discord?.interaction) {
 		return null;
 	}
 	return await DraftbotCachedMessages.getOrCreate(context.discord?.interaction, DraftbotActionChooseCachedMessage)
-		.update(packet, context) as ReactionCollectorReturnType;
+		.update(packet, context) as ReactionCollectorReturnTypeOrNull;
 }
 
 /**

@@ -1,6 +1,6 @@
 import { loadConfig } from "./config/DiscordConfig";
 import { ShardingManager } from "discord.js";
-import AutoPoster from "topgg-autoposter";
+import { AutoPoster as autoPoster } from "topgg-autoposter";
 import { DraftBotLogger } from "../../Lib/src/logs/Logger";
 
 const shardCount = "auto";
@@ -29,8 +29,10 @@ function main(): void {
 		shard.on("ready", () => {
 			DraftBotLogger.info("Shard connected to Discord's Gateway");
 			shard.send({
-				type: "shardId", data: { shardId: shard.id }
-			}).then();
+				type: "shardId",
+				data: { shardId: shard.id }
+			})
+				.then();
 		});
 		shard.on("spawn", () => DraftBotLogger.info(`Shard ${shard.id} created`));
 		shard.on("death", () => DraftBotLogger.error(`Shard ${shard.id} exited`));
@@ -40,18 +42,19 @@ function main(): void {
 	});
 
 	// Auto posting stats to top.gg
-	if (config.DBL_TOKEN !== "" && config.DBL_TOKEN !== null) {
-		// eslint-disable-next-line new-cap
-		AutoPoster(config.DBL_TOKEN, shardingManager).on("posted", data => {
-			DraftBotLogger.info(`Successfully posted following data to DBL: ${data}`);
-		});
+	if (config.DBL_TOKEN !== "" && config.DBL_TOKEN !== "") {
+		autoPoster(config.DBL_TOKEN, shardingManager)
+			.on("posted", data => {
+				DraftBotLogger.info(`Successfully posted following data to DBL: ${data}`);
+			});
 	}
 
 	shardingManager.spawn({
 		amount: shardCount
-	}).catch(e => {
-		DraftBotLogger.error("Error while spawning shards", { error: e });
-	});
+	})
+		.catch(e => {
+			DraftBotLogger.error("Error while spawning shards", { error: e });
+		});
 }
 
 main();

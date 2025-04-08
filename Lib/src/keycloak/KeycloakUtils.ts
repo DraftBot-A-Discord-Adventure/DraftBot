@@ -263,14 +263,15 @@ export class KeycloakUtils {
 				headers: {
 					"Content-Type": "application/x-www-form-urlencoded"
 				},
+
+				// Keycloak api naming conventions
+				/* eslint-disable camelcase */
 				body: new URLSearchParams({
-					// eslint-disable-next-line camelcase
 					client_id: keycloakConfig.clientId,
-					// eslint-disable-next-line camelcase
 					client_secret: keycloakConfig.clientSecret,
-					// eslint-disable-next-line camelcase
 					grant_type: "client_credentials"
 				})
+				/* eslint-enable camelcase */
 			});
 
 			if (!res.ok) {

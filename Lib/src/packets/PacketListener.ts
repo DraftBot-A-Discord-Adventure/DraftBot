@@ -6,11 +6,9 @@ import { DraftBotLogger } from "../logs/Logger";
 export class PacketListenerServer {
 	private packetCallbacks: Map<string, PacketListenerCallbackServer<DraftBotPacket>> = new Map<string, PacketListenerCallbackServer<DraftBotPacket>>();
 
-	public addPacketListener<T extends DraftBotPacket>(cls: PacketLike<T>, callback: PacketListenerCallbackServer<T>): void {
-		// eslint-disable-next-line new-cap
-		const instance = new cls();
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-ignore
+	public addPacketListener<T extends DraftBotPacket>(PacketInstance: PacketLike<T>, callback: PacketListenerCallbackServer<T>): void {
+		const instance = new PacketInstance();
+
 		this.packetCallbacks.set(instance.constructor.name, async (response, context, packet: T): Promise<void> => {
 			try {
 				await callback(response, context, packet);
@@ -32,12 +30,10 @@ export type PacketListenerCallbackServer<T extends DraftBotPacket> = (response: 
 export class PacketListenerClient {
 	private packetCallbacks: Map<string, PacketListenerCallbackClient<DraftBotPacket>> = new Map<string, PacketListenerCallbackClient<DraftBotPacket>>();
 
-	public addPacketListener<T extends DraftBotPacket>(cls: PacketLike<T>, callback: PacketListenerCallbackClient<T>): void {
-		// eslint-disable-next-line new-cap
-		const instance = new cls();
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-ignore
-		this.packetCallbacks.set(instance.constructor.name, async (context: PacketContext, packet: V) => {
+	public addPacketListener<T extends DraftBotPacket>(PacketInstance: PacketLike<T>, callback: PacketListenerCallbackClient<T>): void {
+		const instance = new PacketInstance();
+
+		this.packetCallbacks.set(instance.constructor.name, async (context: PacketContext, packet: T) => {
 			try {
 				await callback(context, packet);
 			}

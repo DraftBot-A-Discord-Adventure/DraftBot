@@ -19,7 +19,7 @@ import {
 	ReactionCollectorCreationPacket, ReactionCollectorReaction,
 	ReactionCollectorRefuseReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import {
 	ReactionCollectorPetTransferData,
 	ReactionCollectorPetTransferDepositReaction,
@@ -68,10 +68,13 @@ export async function handlePetTransferSuccess(context: PacketContext, packet: C
 		embeds: [
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:petTransfer.confirmTransferTitle", {
-					lng, pseudo: interaction.user.displayName
+					lng,
+					pseudo: interaction.user.displayName
 				}), interaction.user)
 				.setDescription(i18n.t(i18nText, {
-					lng, oldPet: oldPetDisplay, newPet: newPetDisplay
+					lng,
+					oldPet: oldPetDisplay,
+					newPet: newPetDisplay
 				}))
 		]
 	});
@@ -196,7 +199,8 @@ function getSwitchComponents(
 				data,
 				reactions,
 				i18n.t("commands:petTransfer.switchPlaceholder", {
-					lng, pet: DisplayUtils.getOwnedPetInlineDisplay(data.ownPet!, lng)
+					lng,
+					pet: DisplayUtils.getOwnedPetInlineDisplay(data.ownPet!, lng)
 				}),
 				lng
 			)
@@ -318,7 +322,7 @@ async function handlePetTransferCollect(
 	return inMainMenu;
 }
 
-export async function handlePetTransferReactionCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
+export async function handlePetTransferReactionCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 
 	if (!interaction) {
@@ -328,17 +332,25 @@ export async function handlePetTransferReactionCollector(context: PacketContext,
 	const lng = context.discord!.language;
 	const data = packet.data.data as ReactionCollectorPetTransferData;
 	const depositReaction = packet.reactions.map((reaction, index) => ({
-		reaction, index
-	})).find(reaction => reaction.reaction.type === ReactionCollectorPetTransferDepositReaction.name);
+		reaction,
+		index
+	}))
+		.find(reaction => reaction.reaction.type === ReactionCollectorPetTransferDepositReaction.name);
 	const switchReactions = packet.reactions.map((reaction, index) => ({
-		reaction, index
-	})).filter(reaction => reaction.reaction.type === ReactionCollectorPetTransferSwitchReaction.name);
+		reaction,
+		index
+	}))
+		.filter(reaction => reaction.reaction.type === ReactionCollectorPetTransferSwitchReaction.name);
 	const withdrawReactions = packet.reactions.map((reaction, index) => ({
-		reaction, index
-	})).filter(reaction => reaction.reaction.type === ReactionCollectorPetTransferWithdrawReaction.name);
+		reaction,
+		index
+	}))
+		.filter(reaction => reaction.reaction.type === ReactionCollectorPetTransferWithdrawReaction.name);
 	const refuseReaction = packet.reactions.map((reaction, index) => ({
-		reaction, index
-	})).find(reaction => reaction.reaction.type === ReactionCollectorRefuseReaction.name);
+		reaction,
+		index
+	}))
+		.find(reaction => reaction.reaction.type === ReactionCollectorRefuseReaction.name);
 
 	const mainMenuEmbed = new DraftBotEmbed()
 		.formatAuthor(i18n.t("commands:petTransfer.chooseActionTitle", { lng }), interaction.user)
@@ -375,10 +387,15 @@ export async function handlePetTransferReactionCollector(context: PacketContext,
 			packet,
 			context,
 			{
-				depositReaction, refuseReaction
+				depositReaction,
+				refuseReaction
 			},
 			{
-				collectedInteraction, mainMenuEmbed, switchComponents, withdrawComponents, mainMenuComponents
+				collectedInteraction,
+				mainMenuEmbed,
+				switchComponents,
+				withdrawComponents,
+				mainMenuComponents
 			}
 		);
 	});

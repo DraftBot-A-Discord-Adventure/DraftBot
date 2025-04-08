@@ -14,9 +14,9 @@ import {
 } from "discord.js";
 import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
 import { sendInteractionNotForYou } from "../utils/ErrorUtils";
-import { ReactionCollectorReturnType } from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorReturnTypeOrNull } from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
-export async function lotteryCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
+export async function lotteryCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 	const lng = interaction.userLanguage;

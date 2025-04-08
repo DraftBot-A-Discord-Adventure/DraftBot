@@ -93,15 +93,14 @@ import { DraftBotLogger } from "../../../../Lib/src/logs/Logger";
 
 // Needed because we need to accept any parameter
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ReactionCollectorReturnType = Collector<any, any, any>[] | null;
+type ReactionCollectorReturnType = Collector<any, any, any>[];
+
+export type ReactionCollectorReturnTypeOrNull = ReactionCollectorReturnType | null;
 
 export default class ReactionCollectorHandler {
-	// Needed because we need to accept any parameter
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	private static collectorsCache: Map<string, Collector<any, any, any>[]> = new Map();
+	private static collectorsCache: Map<string, ReactionCollectorReturnType> = new Map();
 
-
-	static collectorMap: Map<string, (context: PacketContext, packet: ReactionCollectorCreationPacket) => Promise<ReactionCollectorReturnType>>;
+	static collectorMap: Map<string, (context: PacketContext, packet: ReactionCollectorCreationPacket) => Promise<ReactionCollectorReturnTypeOrNull>>;
 
 	static initCollectorMap(): void {
 		ReactionCollectorHandler.collectorMap = new Map();

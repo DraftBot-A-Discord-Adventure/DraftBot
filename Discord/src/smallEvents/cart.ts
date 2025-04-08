@@ -12,9 +12,9 @@ import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
 import i18n from "../translations/i18n";
 import { getRandomSmallEventIntro } from "../packetHandlers/handlers/SmallEventsHandler";
 import { ReactionCollectorCartData } from "../../../Lib/src/packets/interaction/ReactionCollectorCart";
-import { ReactionCollectorReturnType } from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorReturnTypeOrNull } from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
-export async function cartCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
+export async function cartCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorCartData;
 	const story = data.displayedDestination.isDisplayed ? "knownDestination" : "unknownDestination";

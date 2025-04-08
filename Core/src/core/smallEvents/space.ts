@@ -12,12 +12,11 @@ import {
 	makePacket, PacketContext
 } from "../../../../Lib/src/packets/DraftBotPacket";
 import {
-	SmallEventSpaceInitialPacket,
-	SmallEventSpaceResultPacket,
-	SpaceFunctionResult
+	SmallEventSpaceInitialPacket, SmallEventSpaceResultPacket, SpaceFunctionResult
 } from "../../../../Lib/src/packets/smallEvents/SmallEventSpacePacket";
 import { PacketUtils } from "../utils/PacketUtils";
 
+// External library connections, naming conventions can't be easily applied
 /* eslint-disable new-cap */
 
 /**
@@ -139,6 +138,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 
 	executeSmallEvent(response, _player, context): void {
 		response.push(makePacket(SmallEventSpaceInitialPacket, {}));
-		astronomyEvent(context).then();
+		astronomyEvent(context)
+			.then();
 	}
 };

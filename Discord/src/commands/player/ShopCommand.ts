@@ -42,7 +42,7 @@ import { ShopItemType } from "../../../../Lib/src/constants/LogsConstants";
 import {
 	shopItemTypeFromId, shopItemTypeToId
 } from "../../../../Lib/src/utils/ShopUtils";
-import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
 function getPacket(): CommandShopPacketReq {
 	return makePacket(CommandShopPacketReq, {});
@@ -148,12 +148,13 @@ export async function handleCommandShopBadgeBought(context: PacketContext): Prom
 	});
 }
 
-export async function shopInventoryExtensionCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
+export async function shopInventoryExtensionCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!)!;
 
 	const row = new ActionRowBuilder<ButtonBuilder>();
 	let slotExtensionText = `${i18n.t("commands:shop.chooseSlotIndication", { lng: interaction.userLanguage })}\n\n`;
-	for (const category of (packet.reactions.filter(reaction => reaction.type === ReactionCollectorBuyCategorySlotReaction.name).map(r => r.data) as ReactionCollectorBuyCategorySlotReaction[])) {
+	for (const category of (packet.reactions.filter(reaction => reaction.type === ReactionCollectorBuyCategorySlotReaction.name)
+		.map(r => r.data) as ReactionCollectorBuyCategorySlotReaction[])) {
 		const button = new ButtonBuilder()
 			.setCustomId(category.categoryId.toString(10))
 			.setEmoji(parseEmoji(DraftBotIcons.itemKinds[category.categoryId])!)
@@ -269,7 +270,8 @@ async function manageBuyoutConfirmation(packet: ReactionCollectorCreationPacket,
 	const amounts = packet.reactions.filter(r => {
 		const shopData = r.data as ReactionCollectorShopItemReaction;
 		return r.type === ReactionCollectorShopItemReaction.name && shopData.shopItemId === reaction.shopItemId;
-	}).map(r => (r.data as ReactionCollectorShopItemReaction).amount);
+	})
+		.map(r => (r.data as ReactionCollectorShopItemReaction).amount);
 
 	const row = new ActionRowBuilder<ButtonBuilder>();
 
@@ -402,7 +404,7 @@ function getShopItemDisplay(data: ReactionCollectorShopData, reaction: ReactionC
 	return desc;
 }
 
-export async function shopCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
+export async function shopCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!)!;
 	const data = packet.data.data as ReactionCollectorShopData;
 
