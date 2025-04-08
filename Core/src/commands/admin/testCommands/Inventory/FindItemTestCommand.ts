@@ -3,7 +3,6 @@ import { getItemByIdAndCategory } from "../../../../core/utils/ItemUtils";
 import {
 	ExecuteTestCommandLike, ITestCommand, TypeKey
 } from "../../../../core/CommandsTest";
-import { InventorySlots } from "../../../../core/database/game/models/InventorySlot";
 
 export const commandInfo: ITestCommand = {
 	name: "finditem",
@@ -29,7 +28,7 @@ const findItemTestCommand: ExecuteTestCommandLike = async (player, args, respons
 		throw Error("Aucun objet n'existe dans cette catégorie avec cet id");
 	}
 
-	await ItemUtils.giveItemToPlayer(player, item, context, response, await InventorySlots.getOfPlayer(player.id));
+	await ItemUtils.giveItemToPlayer(response, context, player, item);
 	return `Vous avez trouvé l'objet d'id ${itemId} de la catégorie n°${category}.`;
 };
 

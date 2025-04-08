@@ -16,7 +16,6 @@ import {
 	DraftBotPacket, makePacket, PacketContext
 } from "../../../../Lib/src/packets/DraftBotPacket";
 import Player from "../database/game/models/Player";
-import { InventorySlots } from "../database/game/models/InventorySlot";
 import { ClassKind } from "../../../../Lib/src/types/ClassKind";
 
 /**
@@ -69,14 +68,16 @@ async function managePickedInteraction(player: Player, packet: SmallEventClassPa
 		case ClassConstants.CLASS_SMALL_EVENT_INTERACTIONS_NAMES.WIN_MONEY:
 			packet.amount = RandomUtils.rangedInt(SmallEventConstants.CLASS.MONEY);
 			await player.addMoney({
-				amount: packet.amount, response, reason: NumberChangeReason.SMALL_EVENT
+				amount: packet.amount,
+				response,
+				reason: NumberChangeReason.SMALL_EVENT
 			});
 			break;
 		default:
 			break;
 	}
 	if (item) {
-		await giveItemToPlayer(player, item, context, response, await InventorySlots.getOfPlayer(player.id));
+		await giveItemToPlayer(response, context, player, item);
 	}
 }
 
@@ -87,7 +88,8 @@ export const smallEventFuncs: SmallEventFuncs = {
 		const classKind = ClassDataController.instance.getById(playerClassId).classKind;
 		const issue = RandomUtils.draftbotRandom.pick(ClassConstants.CLASS_SMALL_EVENT_INTERACTIONS[classKind.toUpperCase() as keyof typeof ClassConstants.CLASS_SMALL_EVENT_INTERACTIONS]);
 		const packet: SmallEventClassPacket = {
-			classKind, interactionName: issue
+			classKind,
+			interactionName: issue
 		};
 		await managePickedInteraction(player, packet, response, context, classKind);
 		response.push(makePacket(SmallEventClassPacket, packet));

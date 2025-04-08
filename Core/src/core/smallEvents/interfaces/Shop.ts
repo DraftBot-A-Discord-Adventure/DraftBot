@@ -11,17 +11,13 @@ import {
 import { BlockingConstants } from "../../../../../Lib/src/constants/BlockingConstants";
 import { BlockingUtils } from "../../utils/BlockingUtils";
 import {
-	SmallEventAnyShopAcceptedPacket,
-	SmallEventAnyShopCannotBuyPacket,
-	SmallEventAnyShopRefusedPacket
+	SmallEventAnyShopAcceptedPacket, SmallEventAnyShopCannotBuyPacket, SmallEventAnyShopRefusedPacket
 } from "../../../../../Lib/src/packets/smallEvents/SmallEventAnyShopPacket";
-import { InventorySlots } from "../../database/game/models/InventorySlot";
 import { SmallEventConstants } from "../../../../../Lib/src/constants/SmallEventConstants";
 import { NumberChangeReason } from "../../../../../Lib/src/constants/LogsConstants";
 import { DraftBotPacket } from "../../../../../Lib/src/packets/DraftBotPacket";
 import {
-	ReactionCollector,
-	ReactionCollectorAcceptReaction
+	ReactionCollector, ReactionCollectorAcceptReaction
 } from "../../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import { ReactionCollectorAnyShopSmallEventData } from "../../../../../Lib/src/packets/interaction/ReactionCollectorAnyShopSmallEvent";
 
@@ -85,14 +81,7 @@ export abstract class Shop<
 			if (!isValidated || !canBuy) {
 				return;
 			}
-			await giveItemToPlayer(
-				player,
-				this.randomItem,
-				collector.context,
-				response,
-				await InventorySlots.getOfPlayer(player.id),
-				SmallEventConstants.SHOP.RESALE_MULTIPLIER
-			);
+			await giveItemToPlayer(response, collector.context, player, this.randomItem, SmallEventConstants.SHOP.RESALE_MULTIPLIER);
 			await player.spendMoney({
 				amount: this.itemPrice,
 				response,

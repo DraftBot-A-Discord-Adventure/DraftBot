@@ -18,7 +18,6 @@ import { SmallEventFuncs } from "../../data/SmallEvent";
 import { Maps } from "../maps/Maps";
 import { Constants } from "../../../../Lib/src/constants/Constants";
 import { ErrorPacket } from "../../../../Lib/src/packets/commands/ErrorPacket";
-import { InventorySlots } from "../database/game/models/InventorySlot";
 
 /**
  * Return the min rarity the player can get on an item
@@ -90,7 +89,7 @@ async function giveReward(packet: SmallEventUltimateFoodMerchantPacket, response
 			await giveFoodToGuild(response, player, SmallEventConstants.ULTIMATE_FOOD_MERCHANT.INTERACTIONS_NAMES.ULTIMATE_FOOD, packet.amount, NumberChangeReason.SMALL_EVENT);
 			break;
 		case SmallEventConstants.ULTIMATE_FOOD_MERCHANT.INTERACTIONS_NAMES.ITEM:
-			await giveItemToPlayer(player, generateRandomItem(null, minRarity(player), maxRarity(player)), context, response, await InventorySlots.getOfPlayer(player.id));
+			await giveItemToPlayer(response, context, player, generateRandomItem(null, minRarity(player), maxRarity(player)));
 			break;
 		case SmallEventConstants.ULTIMATE_FOOD_MERCHANT.INTERACTIONS_NAMES.COMMON_FOOD:
 			packet.amount = foodAmount(player, guild.commonFood, false);
@@ -99,7 +98,9 @@ async function giveReward(packet: SmallEventUltimateFoodMerchantPacket, response
 		case SmallEventConstants.ULTIMATE_FOOD_MERCHANT.INTERACTIONS_NAMES.MONEY:
 			packet.amount = SmallEventConstants.ULTIMATE_FOOD_MERCHANT.MONEY_WON_NO_GUILD + player.level;
 			await player.addMoney({
-				amount: packet.amount, response, reason: NumberChangeReason.SMALL_EVENT
+				amount: packet.amount,
+				response,
+				reason: NumberChangeReason.SMALL_EVENT
 			});
 			break;
 
