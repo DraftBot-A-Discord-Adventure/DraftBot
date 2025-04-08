@@ -1,6 +1,5 @@
 import {
-	CommandClassesInfoPacketReq,
-	CommandClassesInfoPacketRes
+	CommandClassesInfoPacketReq, CommandClassesInfoPacketRes
 } from "../../../../Lib/src/packets/commands/CommandClassesInfoPacket";
 import {
 	makePacket, PacketContext
@@ -14,10 +13,7 @@ import { Constants } from "../../../../Lib/src/constants/Constants";
 import { ClassInfoConstants } from "../../../../Lib/src/constants/ClassInfoConstants";
 import { Language } from "../../../../Lib/src/Language";
 import {
-	ActionRowBuilder, EmbedField,
-	StringSelectMenuBuilder,
-	StringSelectMenuInteraction,
-	StringSelectMenuOptionBuilder
+	ActionRowBuilder, EmbedField, StringSelectMenuBuilder, StringSelectMenuInteraction, StringSelectMenuOptionBuilder
 } from "discord.js";
 import { sendInteractionNotForYou } from "../../utils/ErrorUtils";
 import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
@@ -177,7 +173,7 @@ export async function handleCommandClassesInfoPacketRes(packet: CommandClassesIn
 			});
 			return;
 		}
-		const chosenClass = packet.data!.classesStats.find(classStats => classStats.id === parseInt(menuInteraction.values[0]));
+		const chosenClass = packet.data!.classesStats.find(classStats => classStats.id === parseInt(menuInteraction.values[0], 10));
 		const attackList = [];
 
 		for (const attack of chosenClass!.attacks) {
@@ -195,11 +191,11 @@ export async function handleCommandClassesInfoPacketRes(packet: CommandClassesIn
 
 		const classDetailsEmbed = getDetailsEmbed(interaction.userLanguage, {
 			id: parseInt(menuInteraction.values[0]),
-			name: i18n.t(`models:classes.${parseInt(menuInteraction.values[0])}`, {
+			name: i18n.t(`models:classes.${parseInt(menuInteraction.values[0], 10)}`, {
 				lng: interaction.userLanguage
 			}),
 			kind: chosenClass!.stats.classKind,
-			description: i18n.t(`models:class_descriptions.${parseInt(menuInteraction.values[0])}`, {
+			description: i18n.t(`models:class_descriptions.${parseInt(menuInteraction.values[0], 10)}`, {
 				lng: interaction.userLanguage
 			}),
 			attacks: attackList

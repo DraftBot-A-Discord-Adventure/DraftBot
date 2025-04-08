@@ -201,6 +201,24 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
+	 * Log when a player joins a guild
+	 * @param guild
+	 * @param joinedKeycloakId
+	 * @param inviterKeycloakId
+	 */
+	public static async logsGuildJoin(guild: Guild, joinedKeycloakId: string, inviterKeycloakId: string): Promise<void> {
+		const logGuild = await LogsDatabase.findOrCreateGuild(guild);
+		const joiningPlayer = await LogsDatabase.findOrCreatePlayer(joinedKeycloakId);
+		const invitingPlayer = await LogsDatabase.findOrCreatePlayer(inviterKeycloakId);
+		await LogsGuildsJoins.create({
+			guildId: logGuild.id,
+			adderId: invitingPlayer.id,
+			addedId: joiningPlayer.id,
+			date: getDateLogs()
+		});
+	}
+
+	/**
 	 * Find or create a pet entity in the log database
 	 * @param petEntity
 	 */
@@ -471,7 +489,7 @@ export class LogsDatabase extends Database {
 			where: {
 				bigEventId: eventId,
 				possibilityName: possibilityName === "end" ? null : possibilityName,
-				issueIndex: parseInt(outcome)
+				issueIndex: parseInt(outcome, 10)
 			}
 		});
 		await LogsPlayersPossibilities.create({
@@ -763,24 +781,6 @@ export class LogsDatabase extends Database {
 		await LogsGuildsKicks.create({
 			guildId: logGuild.id,
 			kickedPlayer: kickedPlayer.id,
-			date: getDateLogs()
-		});
-	}
-
-	/**
-	 * Log when a player joins a guild
-	 * @param guild
-	 * @param joinedKeycloakId
-	 * @param inviterKeycloakId
-	 */
-	public static async logsGuildJoin(guild: Guild, joinedKeycloakId: string, inviterKeycloakId: string): Promise<void> {
-		const logGuild = await LogsDatabase.findOrCreateGuild(guild);
-		const joiningPlayer = await LogsDatabase.findOrCreatePlayer(joinedKeycloakId);
-		const invitingPlayer = await LogsDatabase.findOrCreatePlayer(inviterKeycloakId);
-		await LogsGuildsJoins.create({
-			guildId: logGuild.id,
-			adderId: invitingPlayer.id,
-			addedId: joiningPlayer.id,
 			date: getDateLogs()
 		});
 	}

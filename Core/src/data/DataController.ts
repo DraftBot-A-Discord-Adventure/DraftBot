@@ -18,7 +18,7 @@ export abstract class DataController<T extends string | number, U extends Data<n
 					key = filenameWithoutExtension;
 				}
 				else {
-					key = parseInt(filenameWithoutExtension);
+					key = parseInt(filenameWithoutExtension, 10);
 				}
 
 				const instance = this.newInstance();
