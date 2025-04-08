@@ -132,7 +132,7 @@ export class DisplayUtils {
 	 * @param lng
 	 */
 	static getMapLocationDisplay(mapType: string, mapLocationId: number, lng: Language): string {
-		return i18n.t("{emote:map_types.{{mapType}}} $t(models:map_locations.{{mapLocationId}}.name)", {
+		return i18n.t("{emote:mapTypes.{{mapType}}} $t(models:map_locations.{{mapLocationId}}.name)", {
 			lng,
 			mapLocationId,
 			mapType
@@ -159,7 +159,8 @@ export class DisplayUtils {
 		return i18n.t(
 			`models:pets:${typeId}`,
 			{
-				lng, context: sexStringContext
+				lng,
+				context: sexStringContext
 			}
 		);
 	}
@@ -251,7 +252,8 @@ export class DisplayUtils {
 			nickname: DisplayUtils.getPetDisplayNickname(lng, ownedPet.nickname),
 			rarity: DisplayUtils.getPetRarityDisplay(ownedPet.rarity),
 			sex: i18n.t("commands:pet.sexDisplay", {
-				lng, context: ownedPet.sex
+				lng,
+				context: ownedPet.sex
 			}),
 			loveLevel: DisplayUtils.getPetLoveLevelDisplay(ownedPet.loveLevel, ownedPet.sex, lng)
 		});
@@ -264,7 +266,8 @@ export class DisplayUtils {
 	 */
 	static getClassDisplay(classId: number, lng: Language): string {
 		return i18n.t("models:classFormat", {
-			lng, id: classId
+			lng,
+			id: classId
 		});
 	}
 
@@ -277,7 +280,8 @@ export class DisplayUtils {
 	 */
 	static getFoodDisplay(food: PetFood, count: number, lng: Language, capitalizeFirstLetter: boolean): string {
 		let name = i18n.t(`models:foods.${food}`, {
-			lng, count
+			lng,
+			count
 		});
 		if (capitalizeFirstLetter) {
 			name = StringUtils.capitalizeFirstLetter(name);
@@ -321,7 +325,8 @@ export class DisplayUtils {
 	private static getPotionDisplayWithStats(itemWithDetails: ItemWithDetails, lng: Language): string {
 		const itemField: string = i18n.t("items:itemsField", {
 			name: i18n.t(`models:potions.${itemWithDetails.id}`, {
-				lng, interpolation: { escapeValue: false }
+				lng,
+				interpolation: { escapeValue: false }
 			}),
 			emote: EmoteUtils.translateEmojiToDiscord(DisplayUtils.getItemIcon({
 				category: itemWithDetails.category,
@@ -342,7 +347,9 @@ export class DisplayUtils {
 		let maxStatsValue = itemWithDetails.maxStats ?? null;
 		if (itemWithDetails.maxStats === null) {
 			maxStatsValue = {
-				attack: Infinity, defense: Infinity, speed: Infinity
+				attack: Infinity,
+				defense: Infinity,
+				speed: Infinity
 			};
 		}
 

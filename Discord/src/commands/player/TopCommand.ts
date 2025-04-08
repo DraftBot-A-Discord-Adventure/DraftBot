@@ -136,7 +136,7 @@ function formatScoreAttributes(element: TopElement<TopElementScoreFirstType, num
 		attributes += `${DraftBotIcons.effects[element.attributes["1"].effectId]} | `;
 	}
 	else if (element.attributes["1"].mapType) {
-		attributes += `${DraftBotIcons.map_types[element.attributes["1"].mapType]} | `;
+		attributes += `${DraftBotIcons.mapTypes[element.attributes["1"].mapType]} | `;
 	}
 
 	attributes += `\`${element.attributes["2"]}\` | \`${i18n.t("commands:top.level", {
@@ -154,7 +154,8 @@ function formatGloryAttributes(element: TopElement<number, number, number>, lng:
 		element.attributes["2"]
 	}\` | \`${
 		i18n.t("commands:top.level", {
-			lng, level: element.attributes["3"]
+			lng,
+			level: element.attributes["3"]
 		})
 	}\``;
 }
@@ -240,7 +241,9 @@ async function handleGenericTopPacketRes<TopElementKind extends TopElement<T, U,
 
 	const lng = context.discord!.language!;
 	const title = i18n.t(textKeys.title, {
-		lng, minRank: packet.minRank, maxRank: packet.maxRank
+		lng,
+		minRank: packet.minRank,
+		maxRank: packet.maxRank
 	});
 
 	await interaction.editReply({
@@ -265,7 +268,8 @@ export async function handleCommandTopPacketResScore(context: PacketContext, pac
 		yourRankTitle: "commands:top.yourRankTitle",
 		yourRank: packet.contextRank === 1 ? "commands:top.yourRankFirst" : "commands:top.yourRank",
 		yourRankNone: {
-			key: "commands:top.yourRankNoneScore", replacements: {}
+			key: "commands:top.yourRankNoneScore",
+			replacements: {}
 		},
 		youRankAtPage: "commands:top.yourRankAtPage",
 		nobodyInTop: "commands:top.nobodyInTopPlayers",
@@ -281,7 +285,8 @@ export async function handleCommandTopPacketResGlory(context: PacketContext, pac
 		yourRankNone: {
 			key: "commands:top.yourRankNoneGlory",
 			replacements: {
-				needFight: packet.needFight, count: packet.needFight
+				needFight: packet.needFight,
+				count: packet.needFight
 			}
 		},
 		youRankAtPage: "commands:top.yourRankAtPage",
@@ -296,7 +301,8 @@ export async function handleCommandTopPacketResGuild(context: PacketContext, pac
 		yourRankTitle: "commands:top.yourRankGuildTitle",
 		yourRank: packet.contextRank === 1 ? "commands:top.yourRankGuildFirst" : "commands:top.yourRankGuild",
 		yourRankNone: {
-			key: "commands:top.yourRankNoneGuild", replacements: {}
+			key: "commands:top.yourRankNoneGuild",
+			replacements: {}
 		},
 		youRankAtPage: "commands:top.yourRankAtPageGuild",
 		nobodyInTop: "commands:top.nobodyInTopGuilds",

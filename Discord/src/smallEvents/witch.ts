@@ -28,7 +28,7 @@ export async function witchCollector(context: PacketContext, packet: ReactionCol
 	const reactions: [string, string][] = [];
 	for (const reaction of packet.reactions) {
 		const ingredientId = (reaction.data as ReactionCollectorWitchReaction).id;
-		const emoji = EmoteUtils.translateEmojiToDiscord(DraftBotIcons.witch_small_event[ingredientId]);
+		const emoji = EmoteUtils.translateEmojiToDiscord(DraftBotIcons.witchSmallEvent[ingredientId]);
 		witchIngredients += `${emoji} ${i18n.t(`smallEvents:witch.witchEventNames.${ingredientId}`, { lng })}\n`;
 		reactions.push([ingredientId, emoji]);
 	}
@@ -110,7 +110,7 @@ export async function witchResult(packet: SmallEventWitchResultPacket, context: 
 				new DraftbotSmallEventEmbed(
 					"witch",
 					`${StringUtils.getRandomTranslation(introToLoad, user.attributes.language[0], {
-						witchEvent: `${i18n.t(`smallEvents:witch.witchEventNames.${packet.ingredientId}`, { lng: user.attributes.language[0] })} ${DraftBotIcons.witch_small_event[packet.ingredientId]}`
+						witchEvent: `${i18n.t(`smallEvents:witch.witchEventNames.${packet.ingredientId}`, { lng: user.attributes.language[0] })} ${DraftBotIcons.witchSmallEvent[packet.ingredientId]}`
 							.toLowerCase()
 					})} ${StringUtils.getRandomTranslation(outcomeTranslationToLoad, user.attributes.language[0], { lostLife: packet.lifeLoss })}${timeOutro}`,
 					interaction.user,

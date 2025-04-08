@@ -13,8 +13,7 @@ import {
 } from "../../../../Lib/src/packets/commands/CommandReportPacket";
 import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {
-	ReactionCollectorBigEventData,
-	ReactionCollectorBigEventPossibilityReaction
+	ReactionCollectorBigEventData, ReactionCollectorBigEventPossibilityReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorBigEvent";
 import i18n from "../../translations/i18n";
 import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
@@ -30,10 +29,7 @@ import {
 import { Constants } from "../../../../Lib/src/constants/Constants";
 import { Effect } from "../../../../Lib/src/types/Effect";
 import {
-	millisecondsToHours,
-	millisecondsToMinutes,
-	minutesDisplay,
-	printTimeBeforeDate
+	millisecondsToHours, millisecondsToMinutes, minutesDisplay, printTimeBeforeDate
 } from "../../../../Lib/src/utils/TimeUtils";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import { ReactionCollectorChooseDestinationReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorChooseDestination";
@@ -151,42 +147,50 @@ export async function reportResult(packet: CommandReportBigEventResultRes, conte
 	let result = "";
 	if (packet.score) {
 		result += i18n.t("commands:report.points", {
-			lng: interaction.userLanguage, score: packet.score
+			lng: interaction.userLanguage,
+			score: packet.score
 		});
 	}
 	if (packet.money < 0) {
 		result += i18n.t("commands:report.moneyLoose", {
-			lng: interaction.userLanguage, money: -packet.money
+			lng: interaction.userLanguage,
+			money: -packet.money
 		});
 	}
 	else if (packet.money > 0) {
 		result += i18n.t("commands:report.money", {
-			lng: interaction.userLanguage, money: packet.money
+			lng: interaction.userLanguage,
+			money: packet.money
 		});
 	}
 	if (packet.health < 0) {
 		result += i18n.t("commands:report.healthLoose", {
-			lng: interaction.userLanguage, health: -packet.health
+			lng: interaction.userLanguage,
+			health: -packet.health
 		});
 	}
 	else if (packet.health > 0) {
 		result += i18n.t("commands:report.health", {
-			lng: interaction.userLanguage, health: packet.health
+			lng: interaction.userLanguage,
+			health: packet.health
 		});
 	}
 	if (packet.energy) {
 		result += i18n.t("commands:report.energy", {
-			lng: interaction.userLanguage, energy: packet.energy
+			lng: interaction.userLanguage,
+			energy: packet.energy
 		});
 	}
 	if (packet.gems) {
 		result += i18n.t("commands:report.gems", {
-			lng: interaction.userLanguage, gems: packet.gems
+			lng: interaction.userLanguage,
+			gems: packet.gems
 		});
 	}
 	if (packet.experience) {
 		result += i18n.t("commands:report.experience", {
-			lng: interaction.userLanguage, experience: packet.experience
+			lng: interaction.userLanguage,
+			experience: packet.experience
 		});
 	}
 	if (packet.effect && packet.effect.name === Effect.OCCUPIED.id) {
@@ -239,9 +243,12 @@ export async function chooseDestinationCollector(context: PacketContext, packet:
 		const destinationReaction = reaction.data as ReactionCollectorChooseDestinationReaction;
 
 		// If the trip duration is hidden, the translation module is used with a 2 hours placeholder and the 2 is replaced by a ? afterward
-		const duration = destinationReaction.tripDuration ? minutesDisplay(destinationReaction.tripDuration, lng) : minutesDisplay(120, lng).replace("2", "?");
+		const duration = destinationReaction.tripDuration
+			? minutesDisplay(destinationReaction.tripDuration, lng)
+			: minutesDisplay(120, lng)
+				.replace("2", "?");
 		return `${
-			EmoteUtils.translateEmojiToDiscord(DraftBotIcons.map_types[destinationReaction.mapTypeId])
+			EmoteUtils.translateEmojiToDiscord(DraftBotIcons.mapTypes[destinationReaction.mapTypeId])
 		} ${
 			i18n.t(`models:map_locations.${destinationReaction.mapId}.name`, { lng })} (${duration})`;
 	}), { can: false });
@@ -293,7 +300,7 @@ function generateTravelPathString(packet: CommandReportTravelSummaryRes, now: nu
 
 	index = Math.floor(index);
 
-	let str = `${EmoteUtils.translateEmojiToDiscord(DraftBotIcons.map_types[packet.startMap.type])} `;
+	let str = `${EmoteUtils.translateEmojiToDiscord(DraftBotIcons.mapTypes[packet.startMap.type])} `;
 
 	for (let j = 0; j < Constants.REPORT.PATH_SQUARE_COUNT; ++j) {
 		if (j === index) {
@@ -312,7 +319,7 @@ function generateTravelPathString(packet: CommandReportTravelSummaryRes, now: nu
 		}
 	}
 
-	return `${str} ${EmoteUtils.translateEmojiToDiscord(DraftBotIcons.map_types[packet.endMap.type])}`;
+	return `${str} ${EmoteUtils.translateEmojiToDiscord(DraftBotIcons.mapTypes[packet.endMap.type])}`;
 }
 
 /**
@@ -346,8 +353,8 @@ export async function handleStartPveFight(context: PacketContext, packet: Reacti
 
 	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, msg, packet, context, {
 		emojis: {
-			accept: DraftBotIcons.pve_fights.start_fight,
-			refuse: DraftBotIcons.pve_fights.wait_a_bit
+			accept: DraftBotIcons.pveFights.startFight,
+			refuse: DraftBotIcons.pveFights.waitABit
 		}
 	});
 }
@@ -386,14 +393,17 @@ export async function displayMonsterReward(
 	}
 
 	const {
-		userLanguage, user, channel
+		userLanguage,
+		user,
+		channel
 	} = originalInteraction;
 	const descriptionParts: string[] = [];
 
 	if (packet.guildXp > 0) {
 		descriptionParts.push(
 			i18n.t("commands:report.monsterRewardGuildXp", {
-				lng: userLanguage, guildXp: packet.guildXp
+				lng: userLanguage,
+				guildXp: packet.guildXp
 			})
 		);
 	}
@@ -409,7 +419,8 @@ export async function displayMonsterReward(
 	if (packet.guildPoints > 0) {
 		descriptionParts.push(
 			i18n.t("commands:report.monsterRewardsGuildPoints", {
-				lng: userLanguage, guildPoints: packet.guildPoints
+				lng: userLanguage,
+				guildPoints: packet.guildPoints
 			})
 		);
 	}
@@ -417,7 +428,8 @@ export async function displayMonsterReward(
 	const embed = new DraftBotEmbed()
 		.formatAuthor(
 			i18n.t("commands:report.rewardEmbedTitle", {
-				lng: userLanguage, pseudo: user.displayName
+				lng: userLanguage,
+				pseudo: user.displayName
 			}),
 			user
 		)
@@ -442,12 +454,12 @@ export async function reportTravelSummary(packet: CommandReportTravelSummaryRes,
 		travelEmbed.setDescription(generateTravelPathString(packet, now));
 		travelEmbed.addFields({
 			name: i18n.t("commands:report.startPoint", { lng: interaction.userLanguage }),
-			value: `${DraftBotIcons.map_types[packet.startMap.type]} ${i18n.t(`models:map_locations.${packet.startMap.id}.name`, { lng: interaction.userLanguage })}`,
+			value: `${DraftBotIcons.mapTypes[packet.startMap.type]} ${i18n.t(`models:map_locations.${packet.startMap.id}.name`, { lng: interaction.userLanguage })}`,
 			inline: true
 		});
 		travelEmbed.addFields({
 			name: i18n.t("commands:report.endPoint", { lng: interaction.userLanguage }),
-			value: `${DraftBotIcons.map_types[packet.endMap.type]} ${i18n.t(`models:map_locations.${packet.endMap.id}.name`, { lng: interaction.userLanguage })}`,
+			value: `${DraftBotIcons.mapTypes[packet.endMap.type]} ${i18n.t(`models:map_locations.${packet.endMap.id}.name`, { lng: interaction.userLanguage })}`,
 			inline: true
 		});
 
@@ -473,7 +485,7 @@ export async function reportTravelSummary(packet: CommandReportTravelSummaryRes,
 				value: packet.lastSmallEventId
 					? i18n.t("commands:report.travellingDescription", {
 						lng: interaction.userLanguage,
-						smallEventEmoji: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.small_events[packet.lastSmallEventId]),
+						smallEventEmoji: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.smallEvents[packet.lastSmallEventId]),
 						time: timeBeforeSmallEvent,
 						interpolation: { escapeValue: false }
 					})
@@ -501,7 +513,8 @@ export async function reportTravelSummary(packet: CommandReportTravelSummaryRes,
 		}
 
 		const advices = i18n.t("advices:advices", {
-			returnObjects: true, lng: interaction.userLanguage
+			returnObjects: true,
+			lng: interaction.userLanguage
 		});
 		travelEmbed.addFields({
 			name: i18n.t("commands:report.adviceTitle", { lng: interaction.userLanguage }),

@@ -289,7 +289,7 @@
     "usageFieldTitle": "Usage",
     "utilCommands": "{emote:collectors.question} Utility:",
     "needHelp": "Need help?",
-    "needHelpDescription": "{emote:fight_command.crossed_swords} Hello ! This message is sent following a request for help.\n\nFor any assistance concerning the use of the game, it is possible to join the official server!\n\nYou'll be able to take part in the game's development and get all the information you need!\n\nWe also recommend that you consult the detailed bot guide: https://guide.draftbot.com/"
+    "needHelpDescription": "{emote:fightCommand.crossedSwords} Hello ! This message is sent following a request for help.\n\nFor any assistance concerning the use of the game, it is possible to join the official server!\n\nYou'll be able to take part in the game's development and get all the information you need!\n\nWe also recommend that you consult the detailed bot guide: https://guide.draftbot.com/"
   },
   "idea": {
     "description": "You can submit suggestions and vote for your favorites via this link:\nhttps://feedback.draftbot.com/",
@@ -391,7 +391,7 @@
     },
     "map": {
       "fieldName": "Destination:",
-      "fieldValue": "{emote:map_types.{{mapTypeId}}} $t(models:map_locations.{{mapName}}.name)"
+      "fieldValue": "{emote:mapTypes.{{mapTypeId}}} $t(models:map_locations.{{mapName}}.name)"
     },
     "mission": {
       "fieldName": "Missions:",
@@ -465,10 +465,10 @@
     "monsterRewardsGuildPoints": ":mirror_ball: Guild points earned: **{{guildPoints}}**",
     "monsterRewardsTitle": "{{pseudo}}, fight rewards",
     "newBigEvent": ":flag_gb: You have reached **{{destination}}**!",
-    "noFight": "{emote:commands.report} ** {{pseudo}} :** {emote:pve_fights.wait_a_bit} | You make a quick getaway and find a little hiding place! The monster is waiting patiently outside...",
+    "noFight": "{emote:commands.report} ** {{pseudo}} :** {emote:pveFights.waitABit} | You make a quick getaway and find a little hiding place! The monster is waiting patiently outside...",
     "points": ":** {emote:unitValues.score} Points earned: **{{score}}",
-    "pveEvent": "{emote:commands.report} ** {{pseudo}} log:** {{event}}\n\n{{monsterDisplay}}\n\n{emote:pve_fights.start_fight} Start the fight\n{emote:pve_fights.wait_a_bit} Wait a while before starting the fight\n\n*- Use reactions to perform an action*.",
-    "pveFightRefused": "{emote:commands.report} ** {{pseudo}} :** {emote:pve_fights.wait_a_bit} | You decide not to engage in combat for the time being, and take refuge in a nearby hiding place. You'll have to face the beast eventually, as you can find no other way out.",
+    "pveEvent": "{emote:commands.report} ** {{pseudo}} log:** {{event}}\n\n{{monsterDisplay}}\n\n{emote:pveFights.startFight} Start the fight\n{emote:pveFights.waitABit} Wait a while before starting the fight\n\n*- Use reactions to perform an action*.",
+    "pveFightRefused": "{emote:commands.report} ** {{pseudo}} :** {emote:pveFights.waitABit} | You decide not to engage in combat for the time being, and take refuge in a nearby hiding place. You'll have to face the beast eventually, as you can find no other way out.",
     "remainingEnergyTitle": "Remaining energy:",
     "startPoint": "Start point:",
     "timeLost": "** | {emote:clocks.10} Time wasted: **{{timeLost}}",
@@ -1028,7 +1028,7 @@
   "fight": {
     "title": "{{pseudo}}you're about to start a fight",
     "canceledTitle": "{{pseudo}}you have cancelled the search",
-    "confirmDesc": "{emote:fight_command.crossed_swords} | **{{pseudo}}**{{confirmSubText}}\n\n{emote:fight_command.crossed_swords} | **Fighter : {{pseudo}}** | {{glory}} | {{className}}\n\n{{stats}}",
+    "confirmDesc": "{emote:fightCommand.crossedSwords} | **{{pseudo}}**{{confirmSubText}}\n\n{emote:fightCommand.crossedSwords} | **Fighter : {{pseudo}}** | {{glory}} | {{className}}\n\n{{stats}}",
     "confirmSubTexts": {
       "common": "Are you looking for a fight?",
       "rare": "Would you like to participate in the search for a fighter of your personal strength for the subsequent duel?"
@@ -1042,14 +1042,14 @@
     "opponentsNotFound": "No opponent has been found to face you. You can try again later.",
     "notEnoughEnergy": "You don't have enough energy to start a fight!",
     "monsterNotFound": "No monster has been found to face you. Please report this incident to our support (discord.gg/AP3Wmzb).",
-    "fightIntroTitle": "{emote:fight_command.crossed_swords} | {{fightInitiator}} and {{opponent}} !",
+    "fightIntroTitle": "{emote:fightCommand.crossedSwords} | {{fightInitiator}} and {{opponent}} !",
     "actionsOf": "**Attacks from {{pseudo}} :**",
     "petOf": "** {{pseudo}} :**",
     "fightActionNameDisplay": "{{fightActionEmote}} - {{fightActionName}} | {emote:unitValues.breath} {{breathCost}}",
     "summarize": {
       "title": "Fight summary",
       "intro": {
-        "start": "{emote:fight_command.clipboard} | **Current battle status** {{state}}\n\n",
+        "start": "{emote:fightCommand.clipboard} | **Current battle status** {{state}}\n\n",
         "prolongation": "Extensions",
         "noProlongation": "[{{currentTurn}}/{{maxTurn}}]"
       },
@@ -1061,12 +1061,12 @@
       "bugged": "The fight was cancelled due to a technical problem.",
       "draw": "{emote:commands.report} | **{{player1}} and {{player2}} end their fight on a tie! **\n\n",
       "win": "{emote:commands.report}| **{{winner}} wins against {{loser}}**\n\n",
-      "gameStats": "{emote:fight_command.game_stats} | Combat statistics\n- **Rounds**: {{turn}}/{{maxTurn}}\n- **Fighting time**: {{time}}",
-      "gameStatsProlongation": "{emote:fight_command.game_stats} | Fight statistics\n- **Rounds**: {{turn}}/{{maxTurn}} (overtime)\n- **Fight time**: {{time}}",
-      "fighterStats": "\n\n{emote:fight_command.fighter_stats} | Statistics {{pseudo}}\n- **Final life**: {{energy}}/{{maxEnergy}} {emote:unitValues.energy}"
+      "gameStats": "{emote:fightCommand.gameStats} | Combat statistics\n- **Rounds**: {{turn}}/{{maxTurn}}\n- **Fighting time**: {{time}}",
+      "gameStatsProlongation": "{emote:fightCommand.gameStats} | Fight statistics\n- **Rounds**: {{turn}}/{{maxTurn}} (overtime)\n- **Fight time**: {{time}}",
+      "fighterStats": "\n\n{emote:fightCommand.fighterStats} | Statistics {{pseudo}}\n- **Final life**: {{energy}}/{{maxEnergy}} {emote:unitValues.energy}"
     },
     "fightActionChoose": {
-      "turnIndicationTitle": "It's {{pseudo}} 's turn to play {emote:fight_command.crossed_swords}",
+      "turnIndicationTitle": "It's {{pseudo}} 's turn to play {emote:fightCommand.crossedSwords}",
       "turnIndicationDescription": "Choose an action"
     },
     "actions": {
@@ -1144,10 +1144,10 @@
           "summoning": " Invocation of {{amount}} allies"
         }
       },
-      "aiChoose": "{emote:fight_command.ai_thinking} The opponent chooses an attack..."
+      "aiChoose": "{emote:fightCommand.aiThinking} The opponent chooses an attack..."
     },
     "fightReward": {
-      "title": "{emote:fight_command.glory_change} Combat rewards",
+      "title": "{emote:fightCommand.gloryChange} Combat rewards",
       "scoreAndMoneyField": "Combat rewards",
       "noReward": "You've used up all your combat rewards, so come back tomorrow.",
       "points": ":medal: Points earned: **{{count}}**",
