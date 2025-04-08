@@ -15,14 +15,14 @@ import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
 import { ReactionCollectorGuildLeaveData } from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildLeave";
 import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
 import { keycloakConfig } from "../../bot/DraftBotShard";
-import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
 /**
  * Create a collector to accept/refuse to leave the guild
  * @param packet
  * @param context
  */
-export async function createGuildLeaveCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
+export async function createGuildLeaveCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorGuildLeaveData;
@@ -65,7 +65,8 @@ export async function handleCommandGuildLeaveAcceptPacketRes(packet: CommandGuil
 				}), originalInteraction.user)
 					.setDescription(
 						i18n.t(`commands:guildLeave.${keyDesc}`, {
-							lng: originalInteraction.userLanguage, guildName: packet.guildName
+							lng: originalInteraction.userLanguage,
+							guildName: packet.guildName
 						})
 					)
 			]

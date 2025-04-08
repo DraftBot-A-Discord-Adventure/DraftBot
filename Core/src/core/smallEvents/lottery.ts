@@ -9,18 +9,13 @@ import {
 import { BlockingUtils } from "../utils/BlockingUtils";
 import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
 import {
-	ReactionCollectorLottery,
-	ReactionCollectorLotteryHardReaction,
-	ReactionCollectorLotteryMediumReaction
+	ReactionCollectorLottery, ReactionCollectorLotteryHardReaction, ReactionCollectorLotteryMediumReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorLottery";
 import {
 	DraftBotPacket, makePacket
 } from "../../../../Lib/src/packets/DraftBotPacket";
 import {
-	SmallEventLotteryLosePacket,
-	SmallEventLotteryNoAnswerPacket,
-	SmallEventLotteryPoorPacket,
-	SmallEventLotteryWinPacket
+	SmallEventLotteryLosePacket, SmallEventLotteryNoAnswerPacket, SmallEventLotteryPoorPacket, SmallEventLotteryWinPacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventLotteryPacket";
 import { SmallEventConstants } from "../../../../Lib/src/constants/SmallEventConstants";
 import {
@@ -59,15 +54,29 @@ async function effectIfGoodRisk(levelKey: LotteryLevelKey, player: Player, dataL
 	return 0;
 }
 
-// eslint-disable-next-line max-params
+type WhoToGive = {
+	player: Player;
+	guild: Guild;
+};
+
+type RewardParams = {
+	coefficient: number;
+	lostTime: number;
+	levelKey: LotteryLevelKey;
+};
+
 async function giveRewardToPlayer(
-	rewardType: string,
-	player: Player,
-	coefficient: number,
 	response: DraftBotPacket[],
-	lostTime: number,
-	levelKey: LotteryLevelKey,
-	guild: Guild
+	{
+		player,
+		guild
+	}: WhoToGive,
+	rewardType: string,
+	{
+		coefficient,
+		lostTime,
+		levelKey
+	}: RewardParams
 ): Promise<void> {
 	switch (rewardType) {
 		case SmallEventConstants.LOTTERY.REWARD_TYPES.XP:
@@ -128,7 +137,8 @@ export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnContinent,
 
 	executeSmallEvent(response, player, context): void {
-		const dataLottery = SmallEventDataController.instance.getById("lottery").getProperties<LotteryProperties>();
+		const dataLottery = SmallEventDataController.instance.getById("lottery")
+			.getProperties<LotteryProperties>();
 
 		const collector = new ReactionCollectorLottery();
 
@@ -170,7 +180,14 @@ export const smallEventFuncs: SmallEventFuncs = {
 
 				if (RandomUtils.draftbotRandom.bool(dataLottery.successRate[levelKey]) && (guild || rewardType !== SmallEventConstants.LOTTERY.REWARD_TYPES.GUILD_XP)) {
 					const coefficient = dataLottery.coefficients[levelKey];
-					await giveRewardToPlayer(rewardType, player, coefficient, response, lostTime, levelKey, guild);
+					await giveRewardToPlayer(response, {
+						player,
+						guild
+					}, rewardType, {
+						coefficient,
+						lostTime,
+						levelKey
+					});
 
 					await player.save();
 				}
@@ -189,7 +206,9 @@ export const smallEventFuncs: SmallEventFuncs = {
 				}
 				else {
 					response.push(makePacket(SmallEventLotteryLosePacket, {
-						moneyLost: 0, lostTime, level: levelKey
+						moneyLost: 0,
+						lostTime,
+						level: levelKey
 					}));
 				}
 			}

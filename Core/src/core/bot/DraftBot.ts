@@ -15,7 +15,7 @@ import { PotionDataController } from "../../data/Potion";
 import {
 	getNextDay2AM, getNextSaturdayMidnight, getNextSundayMidnight
 } from "../../../../Lib/src/utils/TimeUtils";
-import { TIMEOUT_FUNCTIONS } from "../../../../Lib/src/constants/TimeoutFunctionsConstants";
+import { TimeoutFunctionsConstants } from "../../../../Lib/src/constants/TimeoutFunctionsConstants";
 import { MapCache } from "../maps/MapCache";
 import { registerAllPacketHandlers } from "../packetHandlers/PacketHandler";
 import { CommandsTest } from "../CommandsTest";
@@ -56,10 +56,11 @@ export class DraftBot {
 	 * Launch the program that executes the top week reset
 	 */
 	static programWeeklyTimeout(): void {
-		const millisTill = getNextSundayMidnight().valueOf() - Date.now();
+		const millisTill = getNextSundayMidnight()
+			.valueOf() - Date.now();
 		if (millisTill === 0) {
 			// Case at 0:00:00
-			setTimeout(DraftBot.programWeeklyTimeout, TIMEOUT_FUNCTIONS.TOP_WEEK_TIMEOUT);
+			setTimeout(DraftBot.programWeeklyTimeout, TimeoutFunctionsConstants.TOP_WEEK_TIMEOUT);
 			return;
 		}
 		setTimeout(DraftBot.weeklyTimeout, millisTill);
@@ -69,10 +70,11 @@ export class DraftBot {
 	 * Launch the program that execute the season reset
 	 */
 	static programSeasonTimeout(): void {
-		const millisTill = getNextSaturdayMidnight().valueOf() - Date.now();
+		const millisTill = getNextSaturdayMidnight()
+			.valueOf() - Date.now();
 		if (millisTill === 0) {
 			// Case at 0:00:00
-			setTimeout(DraftBot.programSeasonTimeout, TIMEOUT_FUNCTIONS.SEASON_TIMEOUT);
+			setTimeout(DraftBot.programSeasonTimeout, TimeoutFunctionsConstants.SEASON_TIMEOUT);
 			return;
 		}
 		setTimeout(DraftBot.seasonEnd, millisTill);
@@ -82,10 +84,16 @@ export class DraftBot {
 	 * Execute all the daily tasks
 	 */
 	static dailyTimeout(): void {
-		Settings.NEXT_DAILY_RESET.setValue(getNextDay2AM().valueOf()).then();
-		DraftBot.randomPotion().finally(() => null);
-		DraftBot.randomLovePointsLoose().then(petLoveChange => draftBotInstance.logsDatabase.logDailyTimeout(petLoveChange).then());
-		draftBotInstance.logsDatabase.log15BestTopWeek().then();
+		Settings.NEXT_DAILY_RESET.setValue(getNextDay2AM()
+			.valueOf())
+			.then();
+		DraftBot.randomPotion()
+			.finally(() => null);
+		DraftBot.randomLovePointsLoose()
+			.then(petLoveChange => draftBotInstance.logsDatabase.logDailyTimeout(petLoveChange)
+				.then());
+		draftBotInstance.logsDatabase.log15BestTopWeek()
+			.then();
 		DraftBot.programDailyTimeout();
 	}
 
@@ -98,7 +106,8 @@ export class DraftBot {
 		const newPotionId = PotionDataController.instance.randomShopPotion(previousPotionId).id;
 		await Settings.SHOP_POTION.setValue(newPotionId);
 		DraftBotLogger.info("New potion in shop", { newPotionId });
-		draftBotInstance.logsDatabase.logDailyPotion(newPotionId).then();
+		draftBotInstance.logsDatabase.logDailyPotion(newPotionId)
+			.then();
 	}
 
 	/**
@@ -131,10 +140,11 @@ export class DraftBot {
 	 * Launch the program that executes the daily tasks
 	 */
 	static programDailyTimeout(): void {
-		const millisTill = getNextDay2AM().valueOf() - Date.now();
+		const millisTill = getNextDay2AM()
+			.valueOf() - Date.now();
 		if (millisTill === 0) {
 			// Case at 2:00:00
-			setTimeout(DraftBot.programDailyTimeout, TIMEOUT_FUNCTIONS.DAILY_TIMEOUT);
+			setTimeout(DraftBot.programDailyTimeout, TimeoutFunctionsConstants.DAILY_TIMEOUT);
 			return;
 		}
 		setTimeout(DraftBot.dailyTimeout, millisTill);
@@ -150,8 +160,11 @@ export class DraftBot {
 			return;
 		}
 
-		Settings.NEXT_SEASON_RESET.setValue(getNextSaturdayMidnight().valueOf()).then();
-		draftBotInstance.logsDatabase.log15BestSeason().then();
+		Settings.NEXT_SEASON_RESET.setValue(getNextSaturdayMidnight()
+			.valueOf())
+			.then();
+		draftBotInstance.logsDatabase.log15BestSeason()
+			.then();
 		const winner = await DraftBot.findSeasonWinner();
 		if (winner !== null) {
 			PacketUtils.announce(makePacket(TopWeekFightAnnouncementPacket, { winnerKeycloakId: winner.keycloakId }), MqttTopicUtils.getDiscordTopWeekFightAnnouncementTopic(botConfig.PREFIX));
@@ -165,14 +178,16 @@ export class DraftBot {
 
 		DraftBotLogger.info("Season has been ended !");
 		DraftBot.programSeasonTimeout();
-		draftBotInstance.logsDatabase.logSeasonEnd().then();
+		draftBotInstance.logsDatabase.logSeasonEnd()
+			.then();
 	}
 
 	/**
 	 * End the top week
 	 */
 	static async topWeekEnd(): Promise<void> {
-		draftBotInstance.logsDatabase.log15BestTopWeek().then();
+		draftBotInstance.logsDatabase.log15BestTopWeek()
+			.then();
 		const winner = await Player.findOne({
 			where: {
 				weeklyScore: {
@@ -198,7 +213,8 @@ export class DraftBot {
 		await PlayerMissionsInfo.resetShopBuyout();
 		DraftBotLogger.info("All players can now buy again points from the mission shop !");
 		DraftBot.programWeeklyTimeout();
-		draftBotInstance.logsDatabase.logTopWeekEnd().then();
+		draftBotInstance.logsDatabase.logTopWeekEnd()
+			.then();
 	}
 
 	/**
@@ -277,9 +293,13 @@ export class DraftBot {
 			return;
 		}
 
-		Settings.NEXT_WEEKLY_RESET.setValue(getNextSundayMidnight().valueOf()).then();
-		DraftBot.topWeekEnd().then();
-		DraftBot.newPveIsland().then();
+		Settings.NEXT_WEEKLY_RESET.setValue(getNextSundayMidnight()
+			.valueOf())
+			.then();
+		DraftBot.topWeekEnd()
+			.then();
+		DraftBot.newPveIsland()
+			.then();
 	}
 
 	static async reportNotifications(): Promise<void> {
@@ -295,10 +315,10 @@ export class DraftBot {
 			}
 		}
 		else {
-			DraftBotLogger.error(`MQTT is not connected, can't do report notifications. Trying again in ${TIMEOUT_FUNCTIONS.REPORT_NOTIFICATIONS} ms`);
+			DraftBotLogger.error(`MQTT is not connected, can't do report notifications. Trying again in ${TimeoutFunctionsConstants.REPORT_NOTIFICATIONS} ms`);
 		}
 
-		setTimeout(DraftBot.reportNotifications, TIMEOUT_FUNCTIONS.REPORT_NOTIFICATIONS);
+		setTimeout(DraftBot.reportNotifications, TimeoutFunctionsConstants.REPORT_NOTIFICATIONS);
 	}
 
 	/**
@@ -350,7 +370,8 @@ export class DraftBot {
 		}
 
 		if (await Settings.NEXT_SEASON_RESET.getValue() < Date.now()) {
-			DraftBot.seasonEnd().then();
+			DraftBot.seasonEnd()
+				.then();
 		}
 		else {
 			DraftBot.programSeasonTimeout();
@@ -363,6 +384,7 @@ export class DraftBot {
 			DraftBot.programDailyTimeout();
 		}
 
-		DraftBot.reportNotifications().then();
+		DraftBot.reportNotifications()
+			.then();
 	}
 }

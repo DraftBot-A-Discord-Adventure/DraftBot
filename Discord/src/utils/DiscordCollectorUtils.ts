@@ -21,7 +21,7 @@ import {
 	keycloakConfig, shardId
 } from "../bot/DraftBotShard.js";
 import { KeycloakUtils } from "../../../Lib/src/keycloak/KeycloakUtils.js";
-import { ReactionCollectorReturnType } from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorReturnTypeOrNull } from "../packetHandlers/handlers/ReactionCollectorHandlers";
 import { DiscordMQTT } from "../bot/DiscordMQTT";
 import { RequirementEffectPacket } from "../../../Lib/src/packets/commands/requirements/RequirementEffectPacket";
 import { Effect } from "../../../Lib/src/types/Effect";
@@ -97,7 +97,7 @@ export class DiscordCollectorUtils {
 			};
 			notDeferReply?: boolean;
 		}
-	): Promise<ReactionCollectorReturnType> {
+	): Promise<ReactionCollectorReturnTypeOrNull> {
 		const emojis = {
 			accept: DraftBotIcons.collectors.accept,
 			refuse: DraftBotIcons.collectors.refuse,
@@ -217,7 +217,7 @@ export class DiscordCollectorUtils {
 		refuse: {
 			can: boolean; reactionIndex?: number;
 		}
-	): Promise<ReactionCollectorReturnType> {
+	): Promise<ReactionCollectorReturnTypeOrNull> {
 		if (items.length > DiscordCollectorUtils.choiceListEmotes.length) {
 			throw "Too many items to display";
 		}

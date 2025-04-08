@@ -23,7 +23,7 @@ import { ICommand } from "../ICommand.js";
 import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator.js";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { GuildConstants } from "../../../../Lib/src/constants/GuildConstants.js";
-import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import { PacketUtils } from "../../utils/PacketUtils";
 import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
 
@@ -63,7 +63,7 @@ export async function handleCommandGuildInviteError(packet: CommandGuildInviteEr
 	await interaction.reply(params);
 }
 
-export async function createGuildInviteCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
+export async function createGuildInviteCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorGuildInviteData;

@@ -9,7 +9,7 @@ import { DisplayUtils } from "../utils/DisplayUtils";
 import i18n from "../translations/i18n";
 import { StringConstants } from "../../../Lib/src/constants/StringConstants";
 import { ReactionCollectorShopSmallEventData } from "../../../Lib/src/packets/interaction/ReactionCollectorShopSmallEvent";
-import { ReactionCollectorReturnType } from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorReturnTypeOrNull } from "../packetHandlers/handlers/ReactionCollectorHandlers";
 import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
 
 /**
@@ -17,7 +17,7 @@ import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
  * @param packet
  * @param context
  */
-export async function smallShopCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
+export async function smallShopCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const lng = interaction!.userLanguage;
 	const data = packet.data.data as ReactionCollectorShopSmallEventData;

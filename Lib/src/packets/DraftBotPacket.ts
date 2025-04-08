@@ -11,6 +11,10 @@ export enum PacketDirection {
 }
 
 export function sendablePacket(direction: PacketDirection) {
+	/*
+	 * This decorator applies onto any packet (which looks like classes, and so functions) so disabling
+	 * the unsafe function type is okay, as it's only called during bot initialisation
+	 */
 	// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 	return function(constructor: Function): void {
 		AllPackets.set(constructor.name, direction);

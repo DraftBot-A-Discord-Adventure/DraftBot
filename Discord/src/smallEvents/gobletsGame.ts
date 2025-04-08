@@ -9,7 +9,7 @@ import { DraftbotInteraction } from "../messages/DraftbotInteraction";
 import {
 	DraftbotButtonReaction, DraftbotButtonReactionMessage
 } from "../messages/DraftbotButtonReactionMessage";
-import { ReactionCollectorReturnType } from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorReturnTypeOrNull } from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
 /**
  * Get the reactions for the goblet game
@@ -34,7 +34,7 @@ function getGobletsGameReactions(interaction: DraftbotInteraction): DraftbotButt
  * @param packet
  * @param context
  */
-export async function gobletsGameCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
+export async function gobletsGameCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const lng = interaction.userLanguage;
 	const reactions = getGobletsGameReactions(interaction);

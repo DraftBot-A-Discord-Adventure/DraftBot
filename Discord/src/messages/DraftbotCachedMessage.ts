@@ -6,7 +6,7 @@ import {
 } from "../../../Lib/src/packets/DraftBotPacket";
 import { minutesToMilliseconds } from "../../../Lib/src/utils/TimeUtils";
 import { DiscordCache } from "../bot/DiscordCache";
-import { ReactionCollectorReturnType } from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorReturnTypeOrNull } from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
 export abstract class DraftbotCachedMessage<T extends DraftBotPacket = DraftBotPacket> {
 	// Duration of the message's cached life in minutes
@@ -33,9 +33,9 @@ export abstract class DraftbotCachedMessage<T extends DraftBotPacket = DraftBotP
 	abstract get type(): string;
 
 	// Function to call when you need to do something with the cached message
-	abstract updateMessage(packet: T, context: PacketContext): Promise<ReactionCollectorReturnType | undefined>;
+	abstract updateMessage(packet: T, context: PacketContext): Promise<ReactionCollectorReturnTypeOrNull | undefined>;
 
-	async update(packet: T, context: PacketContext): Promise<ReactionCollectorReturnType | undefined> {
+	async update(packet: T, context: PacketContext): Promise<ReactionCollectorReturnTypeOrNull | undefined> {
 		return await this.updateMessage(packet, context);
 	}
 

@@ -7,7 +7,7 @@ import { DiscordCollectorUtils } from "../utils/DiscordCollectorUtils";
 import { DisplayUtils } from "../utils/DisplayUtils";
 import i18n from "../translations/i18n";
 import { ReactionCollectorEpicShopSmallEventData } from "../../../Lib/src/packets/interaction/ReactionCollectorEpicShopSmallEvent";
-import { ReactionCollectorReturnType } from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorReturnTypeOrNull } from "../packetHandlers/handlers/ReactionCollectorHandlers";
 import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
 
 /**
@@ -15,7 +15,7 @@ import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
  * @param packet
  * @param context
  */
-export async function epicItemShopCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
+export async function epicItemShopCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	if (!interaction) {
 		return null;
