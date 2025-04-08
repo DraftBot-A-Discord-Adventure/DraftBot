@@ -7,7 +7,6 @@ import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
 import { PlayerSmallEvents } from "../../core/database/game/models/PlayerSmallEvent";
 import { Maps } from "../../core/maps/Maps";
 import { PlayerMissionsInfos } from "../../core/database/game/models/PlayerMissionsInfo";
-import { InventorySlots } from "../../core/database/game/models/InventorySlot";
 import { PetEntities } from "../../core/database/game/models/PetEntity";
 import { CommandReportBigEventResultRes } from "../../../../Lib/src/packets/commands/CommandReportPacket";
 import {
@@ -147,8 +146,7 @@ async function applyOutcomeRandomItem(outcome: PossibilityOutcome, player: Playe
 		const category = outcome.randomItem.category ?? null;
 
 		const item = generateRandomItem(category, minRarity, maxRarity);
-		const inventorySlots = await InventorySlots.getOfPlayer(player.id);
-		await giveItemToPlayer(player, item, context, response, inventorySlots);
+		await giveItemToPlayer(response, context, player, item);
 	}
 }
 

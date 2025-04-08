@@ -22,7 +22,6 @@ import {
 } from "../../../../Lib/src/constants/ItemConstants";
 import Player from "../database/game/models/Player";
 import { GenericItem } from "../../data/GenericItem";
-import { InventorySlots } from "../database/game/models/InventorySlot";
 import {
 	ReactionCollectorWitch, ReactionCollectorWitchReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorWitch";
@@ -58,11 +57,16 @@ function getRandomWitchEvents(isMage: boolean): WitchEventSelection {
 			]
 		);
 		return {
-			randomAdvice, randomIngredient, optional, fullRandom
+			randomAdvice,
+			randomIngredient,
+			optional,
+			fullRandom
 		};
 	}
 	return {
-		randomAdvice, randomIngredient, fullRandom
+		randomAdvice,
+		randomIngredient,
+		fullRandom
 	};
 }
 
@@ -75,13 +79,7 @@ function getRandomWitchEvents(isMage: boolean): WitchEventSelection {
  * @param response
  */
 async function givePotion(context: PacketContext, player: Player, potionToGive: GenericItem, response: DraftBotPacket[]): Promise<void> {
-	await giveItemToPlayer(
-		player,
-		potionToGive,
-		context,
-		response,
-		await InventorySlots.getOfPlayer(player.id)
-	);
+	await giveItemToPlayer(response, context, player, potionToGive);
 }
 
 /**
@@ -177,7 +175,8 @@ export const smallEventFuncs: SmallEventFuncs = {
 		const events = getRandomWitchEvents(player.class === ClassConstants.CLASSES_ID.MYSTIC_MAGE);
 
 		const collector = new ReactionCollectorWitch(
-			Object.values(events).map(event => ({ id: event.id }))
+			Object.values(events)
+				.map(event => ({ id: event.id }))
 		);
 
 		const packet = new ReactionCollectorInstance(
