@@ -34,7 +34,7 @@ export const mqttClient = connect(botConfig.MQTT_HOST, {
 mqttClient.on("connect", () => {
 	mqttClient.subscribe(MqttTopicUtils.getCoreTopic(botConfig.PREFIX), err => {
 		if (err) {
-			DraftBotLogger.error("Error while subscribing to MQTT topic", { error: err });
+			DraftBotLogger.errorWithObj("Error while subscribing to MQTT topic", err);
 			process.exit(1);
 		}
 		else {
@@ -72,7 +72,7 @@ mqttClient.on("message", async (topic, message) => {
 				await listener(response, context, dataJson.packet.data);
 			}
 			catch (error) {
-				DraftBotLogger.error(`Error while processing packet '${dataJson.packet.name}'`, { error });
+				DraftBotLogger.errorWithObj(`Error while processing packet '${dataJson.packet.name}'`, error);
 				response.push(makePacket(ErrorPacket, { message: error.message }));
 				DraftBotCoreMetrics.incrementPacketErrorCount(dataJson.packet.name);
 			}
@@ -84,7 +84,7 @@ mqttClient.on("message", async (topic, message) => {
 });
 
 mqttClient.on("error", error => {
-	DraftBotLogger.error("MQTT error", { error });
+	DraftBotLogger.errorWithObj("MQTT error", error);
 });
 
 require("source-map-support")

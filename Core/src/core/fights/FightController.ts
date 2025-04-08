@@ -339,7 +339,7 @@ export class FightController {
 					.chooseAction(this._fightView, response);
 			}
 			catch (e) {
-				DraftBotLogger.error("Fight message deleted or lost : displayFightStatus", { error: e });
+				DraftBotLogger.errorWithObj("Fight message deleted or lost : displayFightStatus", e);
 				this.endBugFight(response);
 			}
 		}

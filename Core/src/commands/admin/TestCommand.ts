@@ -73,7 +73,7 @@ export default class TestCommand {
 					}));
 				}
 				catch (e) {
-					DraftBotLogger.error(`Error while executing test command ${testCommand}`, { error: e });
+					DraftBotLogger.errorWithObj(`Error while executing test command ${testCommand}`, e);
 					response.push(makePacket(CommandTestPacketRes, {
 						commandName: testCommand,
 						result: `:x: | Une erreur est survenue pendant la commande test ${testCommand} : \`\`\`${e.stack}\`\`\``,

@@ -103,19 +103,28 @@ export abstract class DraftBotLogger {
 		return Boolean(this.logger);
 	}
 
-	public static error(message: string, metadata?: { [key: string]: unknown }): void {
-		this.get().error(message, metadata);
+	public static error(message: string, ...meta: unknown[]): void {
+		this.get().error(message, meta);
 	}
 
-	public static warn(message: string, metadata?: { [key: string]: unknown }): void {
-		this.get().warn(message, metadata);
+	public static errorWithObj(message: string, e: unknown): void {
+		if (e instanceof Error) {
+			this.get().error(message, e);
+		}
+		else {
+			this.get().error(message, new Error(String(e)));
+		}
 	}
 
-	public static info(message: string, metadata?: { [key: string]: unknown }): void {
-		this.get().info(message, metadata);
+	public static warn(message: string, ...meta: unknown[]): void {
+		this.get().warn(message, meta);
 	}
 
-	public static debug(message: string, metadata?: { [key: string]: unknown }): void {
-		this.get().debug(message, metadata);
+	public static info(message: string, ...meta: unknown[]): void {
+		this.get().info(message, meta);
+	}
+
+	public static debug(message: string, ...meta: unknown[]): void {
+		this.get().debug(message, meta);
 	}
 }

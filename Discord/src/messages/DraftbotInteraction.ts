@@ -227,7 +227,7 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 			return await functionPrototype(options);
 		}
 		catch (e) {
-			DraftBotLogger.error("An error occured during a send, either a permission issue or a send/reply/followUp/editReply conflict", { error: e });
+			DraftBotLogger.errorWithObj("An error occurred during a send, either a permission issue or a send/reply/followUp/editReply conflict", e);
 			await DraftbotInteraction.prototype.manageFallback.bind(this)(functionPrototype, e as Error);
 			await fallback();
 			return null;
@@ -281,7 +281,7 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 				await CommandInteraction.prototype.user.send.bind(this.user)({ ...toSendProp });
 			}
 			catch (e) {
-				DraftBotLogger.error(`Unable to alert user of no speak permission : c:${this.channel?.id} / u:${this.user?.id}`, { error: e });
+				DraftBotLogger.errorWithObj(`Unable to alert user of no speak permission : c:${this.channel?.id} / u:${this.user?.id}`, e);
 			}
 		}
 	}
@@ -311,7 +311,7 @@ export class DraftbotChannel extends ChannelTypeWithoutSend {
 			return await BaseGuildTextChannel.prototype.send.bind(this)(options);
 		}
 		catch (e) {
-			DraftBotLogger.error("Weird Permission Error", { error: e });
+			DraftBotLogger.errorWithObj("Weird Permission Error", e);
 			DraftbotChannel.prototype.manageFallback.bind(this)();
 			fallback ??= (): void => {
 				// Do nothing by default if no fallback is provided

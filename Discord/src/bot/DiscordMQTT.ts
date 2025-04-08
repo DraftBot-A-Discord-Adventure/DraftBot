@@ -73,7 +73,7 @@ export class DiscordMQTT {
 						DraftBotDiscordMetrics.observePacketTime(packet.name, millisecondsToSeconds(Date.now() - startTime));
 					}
 					catch (error) {
-						DraftBotLogger.error("Error while handling packet", { error });
+						DraftBotLogger.errorWithObj("Error while handling packet", error);
 						DraftBotDiscordMetrics.incrementPacketErrorCount(packet.name);
 
 						const context = dataJson.context as PacketContext;
@@ -124,7 +124,7 @@ export class DiscordMQTT {
 	private static subscribeTo(mqttClient: MqttClient, topic: string): void {
 		mqttClient.subscribe(topic, err => {
 			if (err) {
-				DraftBotLogger.error(`Error while subscribing to topic ${topic}`, { error: err });
+				DraftBotLogger.errorWithObj(`Error while subscribing to topic ${topic}`, err);
 				process.exit(1);
 			}
 			else {
