@@ -32,7 +32,7 @@ function checkForDecorators(filePath: string): void {
 			if (node.modifiers && node.modifiers.length > 0 && node.modifiers.some(modifier => (modifier as unknown as TypeExpression)?.expression?.expression?.escapedText === "sendablePacket")) {
 				typeHasDecorator.set(node.name!.escapedText.toString(), true);
 				const modifier = node.modifiers[0] as unknown as TypeExpression;
-				const directionName = modifier && modifier.expression ? modifier.expression.arguments[0].name.escapedText : "";
+				const directionName = modifier?.expression?.arguments[0].name.escapedText ?? "";
 				if (directionName === "BACK_TO_FRONT") {
 					backToFrontPackets.push(node.name!.escapedText.toString());
 				}
