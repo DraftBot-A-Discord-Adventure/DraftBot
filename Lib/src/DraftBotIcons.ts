@@ -1,5 +1,3 @@
-/* eslint-disable camelcase */
-
 type EventPossibilities = {
 	end: { [outcomeId: string]: string };
 } & Record<string, string | { [outcomeId: string]: string }>;
@@ -11,10 +9,10 @@ export const DraftBotIcons: {
 	events: {
 		[eventId: string]: EventPossibilities;
 	};
-	map_types: {
+	mapTypes: {
 		[mapType: string]: string;
 	};
-	small_events: {
+	smallEvents: {
 		[smallEventId: string]: string;
 	};
 	pets: {
@@ -41,30 +39,30 @@ export const DraftBotIcons: {
 	classes: {
 		[classId: string]: string;
 	};
-	witch_small_event: {
+	witchSmallEvent: {
 		[ingredient: string]: string;
 	};
-	cart_small_event: {
+	cartSmallEvent: {
 		accept: string;
 		refuse: string;
 	};
-	fight_command: {
+	fightCommand: {
 		accept: string;
-		ai_thinking: string;
+		aiThinking: string;
 		clipboard: string;
-		crossed_swords: string;
-		fighter_stats: string;
-		game_stats: string;
-		glory_change: string;
+		crossedSwords: string;
+		fighterStats: string;
+		gameStats: string;
+		gloryChange: string;
 		handshake: string;
 		refuse: string;
 	};
 	clocks: {
 		[clockId: string]: string;
 	};
-	pve_fights: {
-		wait_a_bit: string;
-		start_fight: string;
+	pveFights: {
+		waitABit: string;
+		startFight: string;
 	};
 	foods: {
 		[foodId: string]: string;
@@ -83,10 +81,10 @@ export const DraftBotIcons: {
 		back: string;
 		switch: string;
 	};
-	fight_actions: {
+	fightActions: {
 		[actionId: string]: string;
 	};
-	class_kinds: {
+	classKinds: {
 		[classKind: string]: string;
 	};
 	announcements: {
@@ -897,7 +895,7 @@ export const DraftBotIcons: {
 			skip: "▶️"
 		}
 	},
-	map_types: {
+	mapTypes: {
 		be: "🏖",
 		castle_entrance: "🏰",
 		castle_throne: "🪑",
@@ -924,7 +922,7 @@ export const DraftBotIcons: {
 		vi: "🛖",
 		volcano: "🌋"
 	},
-	small_events: {
+	smallEvents: {
 		advanceTime: "⌛",
 		bigBad: "😱",
 		boatAdvice: "⛴️",
@@ -1683,7 +1681,7 @@ export const DraftBotIcons: {
 		8: "🪨",
 		9: "🦾"
 	},
-	witch_small_event: {
+	witchSmallEvent: {
 		bat: "🦇",
 		beer: "🍺",
 		bigWait: "🕙",
@@ -1719,18 +1717,18 @@ export const DraftBotIcons: {
 		wiltedRose: "🥀",
 		worm: "🪱"
 	},
-	cart_small_event: {
+	cartSmallEvent: {
 		accept: "🚗",
 		refuse: "🚶"
 	},
-	fight_command: {
+	fightCommand: {
 		accept: "🔍",
-		ai_thinking: "🧠",
+		aiThinking: "🧠",
 		clipboard: "📋",
-		crossed_swords: "⚔️",
-		fighter_stats: "👤",
-		game_stats: "📊",
-		glory_change: "📯",
+		crossedSwords: "⚔️",
+		fighterStats: "👤",
+		gameStats: "📊",
+		gloryChange: "📯",
 		handshake: "🤝",
 		refuse: "❌"
 	},
@@ -1738,9 +1736,9 @@ export const DraftBotIcons: {
 		1: "🕐",
 		10: "🕙"
 	},
-	pve_fights: {
-		wait_a_bit: "⏳",
-		start_fight: "⚔️"
+	pveFights: {
+		waitABit: "⏳",
+		startFight: "⚔️"
 	},
 	foods: {
 		herbivorousFood: "🥬",
@@ -1762,7 +1760,7 @@ export const DraftBotIcons: {
 		back: "↩️",
 		switch: "🔄"
 	},
-	fight_actions: {
+	fightActions: {
 		benediction: "👼",
 		blind: "🫣",
 		boomerangAttack: "🪃",
@@ -1837,7 +1835,7 @@ export const DraftBotIcons: {
 		weak: "🤧",
 		webShotAttack: "🕸️"
 	},
-	class_kinds: {
+	classKinds: {
 		basic: "⚖️",
 		attack: "🗡️",
 		defense: "🛡️",

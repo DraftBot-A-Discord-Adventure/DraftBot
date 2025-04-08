@@ -93,7 +93,7 @@ export async function handleCommandMapDisplayRes(packet: CommandMapDisplayRes, c
 			lng: interaction.userLanguage,
 			destination: mapName,
 			particle: mapParticle,
-			emote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.map_types[packet.mapType]),
+			emote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.mapTypes[packet.mapType]),
 			description: mapDescription,
 			interpolation: { escapeValue: false }
 		}));

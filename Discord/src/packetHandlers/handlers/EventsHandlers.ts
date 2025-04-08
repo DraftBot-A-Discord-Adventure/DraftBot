@@ -56,12 +56,13 @@ export default class EventsHandlers {
 			lng,
 			mapPrefix: i18n.t(`models:map_types.${packet.mapTypeId}.prefix`, { lng }),
 			mapType: (i18n.t(`models:map_types.${packet.mapTypeId}.name`, { lng }) as string).toLowerCase(),
-			mapEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.map_types[packet.mapTypeId]),
+			mapEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.mapTypes[packet.mapTypeId]),
 			mapName: i18n.t(`models:map_locations.${packet.mapId}.name`, { lng }),
 			time
 		}));
 		if (context.discord!.buttonInteraction) {
-			await DiscordCache.getButtonInteraction(context.discord!.buttonInteraction)?.editReply({ embeds: [embed] });
+			await DiscordCache.getButtonInteraction(context.discord!.buttonInteraction)
+				?.editReply({ embeds: [embed] });
 		}
 		else {
 			await interaction.channel.send({ embeds: [embed] });
@@ -122,7 +123,8 @@ export default class EventsHandlers {
 			totalXP += mission.xpToWin;
 			missionLists[mission.missionType].push(MissionUtils.formatCompletedMission(mission, lng));
 		}
-		for (const [missionType, missions] of Object.entries(missionLists).filter(entry => entry[1].length !== 0)) {
+		for (const [missionType, missions] of Object.entries(missionLists)
+			.filter(entry => entry[1].length !== 0)) {
 			completedMissionsEmbed.addFields({
 				name: i18n.t(`notifications:missions.completed.subcategories.${missionType}`, {
 					lng,
@@ -264,26 +266,33 @@ export default class EventsHandlers {
 
 		const lng = interaction.userLanguage;
 
-		const rewards: { [key in keyof Omit<PlayerLevelUpPacket, "level">]: {
-			tr: string; replacements?: object;
-		} } = {
+		const rewards: {
+			[key in keyof Omit<PlayerLevelUpPacket, "level">]: {
+				tr: string; replacements?: object;
+			}
+		} = {
 			healthRestored: { tr: "healthRestored" },
 			fightUnlocked: { tr: "fightUnlocked" },
 			guildUnlocked: { tr: "guildUnlocked" },
 			classesTier1Unlocked: {
-				tr: "classTier", replacements: { tier: 1 }
+				tr: "classTier",
+				replacements: { tier: 1 }
 			},
 			classesTier2Unlocked: {
-				tr: "classTier", replacements: { tier: 2 }
+				tr: "classTier",
+				replacements: { tier: 2 }
 			},
 			classesTier3Unlocked: {
-				tr: "classTier", replacements: { tier: 3 }
+				tr: "classTier",
+				replacements: { tier: 3 }
 			},
 			classesTier4Unlocked: {
-				tr: "classTier", replacements: { tier: 4 }
+				tr: "classTier",
+				replacements: { tier: 4 }
 			},
 			classesTier5Unlocked: {
-				tr: "classTier", replacements: { tier: 5 }
+				tr: "classTier",
+				replacements: { tier: 5 }
 			},
 			missionSlotUnlocked: { tr: "newMissionSlot" },
 			pveUnlocked: { tr: "pveUnlocked" },

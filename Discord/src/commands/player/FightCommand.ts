@@ -79,8 +79,8 @@ export async function createFightCollector(context: PacketContext, packet: React
 
 	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context, {
 		emojis: {
-			accept: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fight_command.accept),
-			refuse: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fight_command.refuse)
+			accept: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fightCommand.accept),
+			refuse: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fightCommand.refuse)
 		}
 	});
 }
@@ -119,7 +119,7 @@ export async function handleCommandFightRefusePacketRes(context: PacketContext):
 function addFightProfileFor(introEmbed: DraftBotEmbed, lng: Language, fighterName: string, fightActions: Array<[string, number]>, opponentFightActionsCount: number, pet?: OwnedPet): void {
 	let fightActionsDisplay = fightActions.map(([actionId, breathCost]) => i18n.t("commands:fight.fightActionNameDisplay", {
 		lng,
-		fightActionEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fight_actions[actionId]),
+		fightActionEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fightActions[actionId]),
 		fightActionName: i18n.t(`models:fight_actions.${actionId}.name`, {
 			lng,
 			count: 1
@@ -172,9 +172,12 @@ export async function handleCommandFightIntroduceFightersRes(context: PacketCont
 	addFightProfileFor(embed, interaction.userLanguage, opponentDisplayName, packet.fightOpponentActions, packet.fightInitiatorActions.length, packet.fightOpponentPet);
 
 	await buttonInteraction?.editReply({ embeds: [embed] });
-	await DraftbotCachedMessages.getOrCreate(interaction.id, DraftbotHistoryCachedMessage).post({ content: "_ _" });
-	await DraftbotCachedMessages.getOrCreate(interaction.id, DraftbotFightStatusCachedMessage).post({ content: "_ _" });
-	await DraftbotCachedMessages.getOrCreate(interaction.id, DraftbotActionChooseCachedMessage).post({ content: "_ _" });
+	await DraftbotCachedMessages.getOrCreate(interaction.id, DraftbotHistoryCachedMessage)
+		.post({ content: "_ _" });
+	await DraftbotCachedMessages.getOrCreate(interaction.id, DraftbotFightStatusCachedMessage)
+		.post({ content: "_ _" });
+	await DraftbotCachedMessages.getOrCreate(interaction.id, DraftbotActionChooseCachedMessage)
+		.post({ content: "_ _" });
 }
 
 /**
@@ -240,7 +243,8 @@ export async function handleEndOfFight(context: PacketContext, packet: CommandFi
 	// Erase all cached messages
 	DraftbotCachedMessages.removeAllFromMessageId(context.discord.interaction, cachedMessage => {
 		if (!(cachedMessage instanceof DraftbotHistoryCachedMessage)) {
-			cachedMessage.delete().then();
+			cachedMessage.delete()
+				.then();
 		}
 	});
 
@@ -266,10 +270,12 @@ export async function handleEndOfFight(context: PacketContext, packet: CommandFi
 	// Add fighter statistics for both fighters
 	[
 		{
-			name: winnerName, stats: packet.winner
+			name: winnerName,
+			stats: packet.winner
 		},
 		{
-			name: looserName, stats: packet.looser
+			name: looserName,
+			stats: packet.looser
 		}
 	].forEach(fighter => {
 		description += i18n.t("commands:fight.end.fighterStats", {
@@ -296,7 +302,7 @@ export async function handleEndOfFight(context: PacketContext, packet: CommandFi
 		.setDescription(description);
 
 	const message = await interaction.channel?.send({ embeds: [embed] });
-	await message?.react(EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fight_command.handshake));
+	await message?.react(EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fightCommand.handshake));
 }
 
 /**
@@ -331,7 +337,8 @@ function generateFightRewardField(embed: DraftBotEmbed, interaction: DraftbotInt
 						count: packet.points
 					})
 					: ""
-			].filter(Boolean).join("\n");
+			].filter(Boolean)
+				.join("\n");
 		})(),
 		inline: false
 	});
@@ -351,13 +358,16 @@ function generateGloryChangesField(embed: DraftBotEmbed, interaction: DraftbotIn
 		value: [
 			...[
 				{
-					player: player1Username, change: packet.player1.newGlory - packet.player1.oldGlory
+					player: player1Username,
+					change: packet.player1.newGlory - packet.player1.oldGlory
 				},
 				{
-					player: player2Username, change: packet.player2.newGlory - packet.player2.oldGlory
+					player: player2Username,
+					change: packet.player2.newGlory - packet.player2.oldGlory
 				}
 			].map(({
-				player, change
+				player,
+				change
 			}) =>
 				i18n.t(`commands:fight.fightReward.glory${change >= 0 ? "Positive" : "Negative"}`, {
 					lng: interaction.userLanguage,

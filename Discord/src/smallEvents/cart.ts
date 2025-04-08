@@ -27,7 +27,7 @@ export async function cartCollector(context: PacketContext, packet: ReactionColl
 			price: data.price,
 			moneyEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.unitValues.money),
 			destination:
-				`${DraftBotIcons.map_types[data.displayedDestination.type!]} ${
+				`${DraftBotIcons.mapTypes[data.displayedDestination.type!]} ${
 					i18n.t(`models:map_locations.${data.displayedDestination.id}.name`, { lng })
 				}`
 		})
@@ -38,8 +38,8 @@ export async function cartCollector(context: PacketContext, packet: ReactionColl
 
 	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context, {
 		emojis: {
-			accept: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.cart_small_event.accept),
-			refuse: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.cart_small_event.refuse)
+			accept: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.cartSmallEvent.accept),
+			refuse: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.cartSmallEvent.refuse)
 		}
 	});
 }

@@ -2,8 +2,7 @@ import {
 	DraftBotPacket, makePacket
 } from "../../../../Lib/src/packets/DraftBotPacket";
 import {
-	CommandClassesInfoPacketReq,
-	CommandClassesInfoPacketRes
+	CommandClassesInfoPacketReq, CommandClassesInfoPacketRes
 } from "../../../../Lib/src/packets/commands/CommandClassesInfoPacket";
 
 import { ClassDataController } from "../../data/Class";
@@ -40,7 +39,7 @@ export default class ClassesInfoCommand {
 				attackList.push({
 					id: attack,
 					cost: attackStat.breath,
-					emoji: DraftBotIcons.fight_actions[attack]
+					emoji: DraftBotIcons.fightActions[attack]
 				});
 			}
 			classesLineDisplay.push({
