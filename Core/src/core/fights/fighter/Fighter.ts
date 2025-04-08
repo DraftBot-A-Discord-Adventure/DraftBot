@@ -280,7 +280,7 @@ export abstract class Fighter {
 	/**
 	 * Apply a multiplier which multiply the total damages of the fighter
 	 * @param multiplier
-	 * @param turns The number of turn it lasts
+	 * @param turns The number of turns it lasts
 	 */
 	public applyDamageMultiplier(multiplier: number, turns: number): void {
 		this.damageMultipliers.push({
