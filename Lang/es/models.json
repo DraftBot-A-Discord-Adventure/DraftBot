@@ -899,11 +899,11 @@
       "name": "Playa",
       "prefix": "de la"
     },
-    "castle_entrance": {
+    "castleEntrance": {
       "name": "",
       "prefix": "de"
     },
-    "castle_throne": {
+    "castleThrone": {
       "name": "",
       "prefix": "de la"
     },
@@ -915,7 +915,7 @@
       "name": "",
       "prefix": "de"
     },
-    "crystal_cavern": {
+    "crystalCavern": {
       "name": "Cueva de cristal",
       "prefix": "de la"
     },
@@ -927,15 +927,15 @@
       "name": "Bosque",
       "prefix": "de la"
     },
-    "ice_beach": {
+    "iceBeach": {
       "name": "Playa de hielo",
       "prefix": "de la"
     },
-    "ice_cavern": {
+    "iceCavern": {
       "name": "Caverna de hielo",
       "prefix": "de la"
     },
-    "ice_lake": {
+    "iceLake": {
       "name": "Lago helado",
       "prefix": "de"
     },
@@ -955,7 +955,7 @@
       "name": "Llanura",
       "prefix": "de la"
     },
-    "pve_exit": {
+    "pveExit": {
       "name": "",
       "prefix": "de"
     },
@@ -971,15 +971,15 @@
       "name": "Ruinas",
       "prefix": "de"
     },
-    "snow_mountain": {
+    "snowMountain": {
       "name": "Pájaro carpintero",
       "prefix": "de"
     },
-    "snowmen_field": {
+    "snowmenField": {
       "name": "Llanura",
       "prefix": "de la"
     },
-    "test_zone": {
+    "testZone": {
       "name": "",
       "prefix": "de la"
     },

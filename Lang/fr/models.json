@@ -899,11 +899,11 @@
       "name": "Plage",
       "prefix": "de la"
     },
-    "castle_entrance": {
+    "castleEntrance": {
       "name": "",
       "prefix": "des"
     },
-    "castle_throne": {
+    "castleThrone": {
       "name": "",
       "prefix": "de la"
     },
@@ -915,7 +915,7 @@
       "name": "",
       "prefix": "du"
     },
-    "crystal_cavern": {
+    "crystalCavern": {
       "name": "Caverne de crystal",
       "prefix": "de la"
     },
@@ -927,15 +927,15 @@
       "name": "Forêt",
       "prefix": "de la"
     },
-    "ice_beach": {
+    "iceBeach": {
       "name": "Plage glacée",
       "prefix": "de la"
     },
-    "ice_cavern": {
+    "iceCavern": {
       "name": "Caverne de glace",
       "prefix": "de la"
     },
-    "ice_lake": {
+    "iceLake": {
       "name": "Lac gelé",
       "prefix": "du"
     },
@@ -955,7 +955,7 @@
       "name": "Plaine",
       "prefix": "de la"
     },
-    "pve_exit": {
+    "pveExit": {
       "name": "",
       "prefix": "du"
     },
@@ -971,15 +971,15 @@
       "name": "Ruines",
       "prefix": "des"
     },
-    "snow_mountain": {
+    "snowMountain": {
       "name": "Pic",
       "prefix": "du"
     },
-    "snowmen_field": {
+    "snowmenField": {
       "name": "Plaine",
       "prefix": "de la"
     },
-    "test_zone": {
+    "testZone": {
       "name": "",
       "prefix": "de la"
     },

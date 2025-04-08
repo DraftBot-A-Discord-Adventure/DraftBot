@@ -899,11 +899,11 @@
       "name": "Beach",
       "prefix": "of the"
     },
-    "castle_entrance": {
+    "castleEntrance": {
       "name": "",
       "prefix": "of the"
     },
-    "castle_throne": {
+    "castleThrone": {
       "name": "",
       "prefix": "of the"
     },
@@ -915,7 +915,7 @@
       "name": "",
       "prefix": "of the"
     },
-    "crystal_cavern": {
+    "crystalCavern": {
       "name": "Crystal cavern",
       "prefix": "of the"
     },
@@ -927,15 +927,15 @@
       "name": "Forest",
       "prefix": "of the"
     },
-    "ice_beach": {
+    "iceBeach": {
       "name": "Ice beach",
       "prefix": "of the"
     },
-    "ice_cavern": {
+    "iceCavern": {
       "name": "Ice cavern",
       "prefix": "of the"
     },
-    "ice_lake": {
+    "iceLake": {
       "name": "Frozen lake",
       "prefix": "of the"
     },
@@ -955,7 +955,7 @@
       "name": "Plain",
       "prefix": "of the"
     },
-    "pve_exit": {
+    "pveExit": {
       "name": "",
       "prefix": "of the"
     },
@@ -971,15 +971,15 @@
       "name": "Ruins",
       "prefix": "of the"
     },
-    "snow_mountain": {
+    "snowMountain": {
       "name": "Peak",
       "prefix": "of the"
     },
-    "snowmen_field": {
+    "snowmenField": {
       "name": "Plain",
       "prefix": "of the"
     },
-    "test_zone": {
+    "testZone": {
       "name": "",
       "prefix": "of the"
     },
