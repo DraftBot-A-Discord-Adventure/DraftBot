@@ -16,7 +16,7 @@ export async function goToPVEIslandCollector(context: PacketContext, packet: Rea
 
 	const embed = new DraftbotSmallEventEmbed(
 		"goToPVEIsland",
-		getRandomSmallEventIntro(lng)
+		`${getRandomSmallEventIntro(lng)
 		+ StringUtils.getRandomTranslation(
 			"smallEvents:goToPVEIsland.stories",
 			lng,
@@ -28,13 +28,11 @@ export async function goToPVEIslandCollector(context: PacketContext, packet: Rea
 						price: data.price
 					})
 			}
-		)
-		+ "\n\n"
-		+ i18n.t("smallEvents:goToPVEIsland.confirm", {
+		)}\n\n${i18n.t("smallEvents:goToPVEIsland.confirm", {
 			lng,
 			energy: data.energy.current,
 			energyMax: data.energy.max
-		}),
+		})}`,
 		interaction.user,
 		lng
 	);
