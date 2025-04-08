@@ -15,20 +15,24 @@ const nonePackets = new Array<string>();
 const coreImplementedPackets = new Array<string>();
 const discordImplementedPackets = new Array<string>();
 
+type TypeExpression = {
+	expression?: TypeExpression;
+	escapedText: string;
+	name: TypeExpression;
+	arguments: TypeExpression[];
+};
+
 function checkForDecorators(filePath: string): void {
 	const sourceCode = fs.readFileSync(filePath, "utf8");
 	const sourceFile = ts.createSourceFile(filePath, sourceCode, ts.ScriptTarget.ESNext, true);
 
 	function visit(node: ts.Node): void {
 		if (ts.isClassDeclaration(node) && node.heritageClauses) {
-			// eslint-disable-next-line
-			parentTypes.set(node.name!.escapedText.toString(), (node.heritageClauses[0].types[0].expression as any).escapedText as string);
-			// eslint-disable-next-line
-			if (node.modifiers && node.modifiers.length > 0 && node.modifiers.some(modifier => (modifier as any)?.expression?.expression?.escapedText === "sendablePacket")) {
+			parentTypes.set(node.name!.escapedText.toString(), (node.heritageClauses[0].types[0].expression as unknown as TypeExpression).escapedText);
+			if (node.modifiers && node.modifiers.length > 0 && node.modifiers.some(modifier => (modifier as unknown as TypeExpression)?.expression?.expression?.escapedText === "sendablePacket")) {
 				typeHasDecorator.set(node.name!.escapedText.toString(), true);
-
-				// eslint-disable-next-line
-				const directionName = (node.modifiers[0] as any)?.expression.arguments[0].name.escapedText;
+				const modifier = node.modifiers[0] as unknown as TypeExpression;
+				const directionName = modifier && modifier.expression ? modifier.expression.arguments[0].name.escapedText : "";
 				if (directionName === "BACK_TO_FRONT") {
 					backToFrontPackets.push(node.name!.escapedText.toString());
 				}
@@ -55,8 +59,7 @@ function checkForPacketHandlers(filePath: string, array: Array<string>): void {
 
 	function visit(node: ts.Node): void {
 		if (ts.isCallExpression(node) && ["packetHandler", "commandRequires"].some(v => v === node.expression.getText())) {
-			// eslint-disable-next-line
-			const packetType = (node as any).arguments[0].escapedText;
+			const packetType = (node as unknown as TypeExpression).arguments[0].escapedText;
 			array.push(packetType);
 		}
 		ts.forEachChild(node, visit);
@@ -66,17 +69,18 @@ function checkForPacketHandlers(filePath: string, array: Array<string>): void {
 }
 
 function walkDirectory(dir: string, callback: (fullPath: string) => void): void {
-	fs.readdirSync(dir).forEach(file => {
-		const fullPath = path.join(dir, file);
-		const stat = fs.statSync(fullPath);
+	fs.readdirSync(dir)
+		.forEach(file => {
+			const fullPath = path.join(dir, file);
+			const stat = fs.statSync(fullPath);
 
-		if (stat.isDirectory()) {
-			walkDirectory(fullPath, callback);
-		}
-		else if (fullPath.endsWith(".ts")) {
-			callback(fullPath);
-		}
-	});
+			if (stat.isDirectory()) {
+				walkDirectory(fullPath, callback);
+			}
+			else if (fullPath.endsWith(".ts")) {
+				callback(fullPath);
+			}
+		});
 }
 
 function isDraftBotPacket(packetName: string): boolean {
