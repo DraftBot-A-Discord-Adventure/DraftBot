@@ -471,7 +471,7 @@
     "pveFightRefused": "{emote:commands.report} ** {{pseudo}} :** {emote:pve_fights.wait_a_bit} | You decide not to engage in combat for the time being, and take refuge in a nearby hiding place. You'll have to face the beast eventually, as you can find no other way out.",
     "remainingEnergyTitle": "Remaining energy:",
     "startPoint": "Start point:",
-    "timeLost": "** | {emote:clock.10} Time wasted: **{{timeLost}}",
+    "timeLost": "** | {emote:clocks.10} Time wasted: **{{timeLost}}",
     "travelPathTitle": "Current travel:",
     "travellingDescription": "Everything is going well since your last adventure {{smallEventEmoji}}. Next stop scheduled {{time}}.",
     "travellingDescriptionEndTravel": "Everything is going well for you. You will reach your destination shortly.",
