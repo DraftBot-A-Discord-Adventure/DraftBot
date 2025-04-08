@@ -7,9 +7,9 @@ import { DraftbotSmallEventEmbed } from "../messages/DraftbotSmallEventEmbed";
 import { getRandomSmallEventIntro } from "../packetHandlers/handlers/SmallEventsHandler";
 import { StringUtils } from "../utils/StringUtils";
 import { DiscordCollectorUtils } from "../utils/DiscordCollectorUtils";
-import { ReactionCollectorReturnType } from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorReturnTypeOrNull } from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
-export async function goToPVEIslandCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
+export async function goToPVEIslandCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorGoToPVEIslandData;
 	const lng = interaction!.userLanguage;
@@ -24,7 +24,8 @@ export async function goToPVEIslandCollector(context: PacketContext, packet: Rea
 				priceText: data.price === 0
 					? i18n.t("smallEvents:goToPVEIsland.priceFree", { lng })
 					: i18n.t("smallEvents:goToPVEIsland.priceMoney", {
-						lng, price: data.price
+						lng,
+						price: data.price
 					})
 			}
 		)

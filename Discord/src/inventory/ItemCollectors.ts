@@ -12,9 +12,9 @@ import {
 	ReactionCollectorItemAcceptData
 } from "../../../Lib/src/packets/interaction/ReactionCollectorItemAccept";
 import { ItemCategory } from "../../../Lib/src/constants/ItemConstants";
-import { ReactionCollectorReturnType } from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorReturnTypeOrNull } from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
-export async function itemChoiceCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
+export async function itemChoiceCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 
 	const embed = new DraftBotEmbed();
@@ -27,17 +27,19 @@ export async function itemChoiceCollector(context: PacketContext, packet: Reacti
 		embed,
 		packet,
 		context,
-		packet.reactions.filter(reaction => reaction.type === ReactionCollectorItemChoiceItemReaction.name).map(reaction => {
-			const itemReaction = reaction.data as ReactionCollectorItemChoiceItemReaction;
-			return DisplayUtils.getItemDisplayWithStats(itemReaction.itemWithDetails, interaction.userLanguage);
-		}),
+		packet.reactions.filter(reaction => reaction.type === ReactionCollectorItemChoiceItemReaction.name)
+			.map(reaction => {
+				const itemReaction = reaction.data as ReactionCollectorItemChoiceItemReaction;
+				return DisplayUtils.getItemDisplayWithStats(itemReaction.itemWithDetails, interaction.userLanguage);
+			}),
 		{
-			can: true, reactionIndex: packet.reactions.findIndex(reaction => reaction.type === ReactionCollectorItemChoiceRefuseReaction.name)
+			can: true,
+			reactionIndex: packet.reactions.findIndex(reaction => reaction.type === ReactionCollectorItemChoiceRefuseReaction.name)
 		}
 	);
 }
 
-export async function itemAcceptCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
+export async function itemAcceptCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorItemAcceptData;
 	const lng = interaction.userLanguage;

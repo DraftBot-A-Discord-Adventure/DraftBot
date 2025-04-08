@@ -49,6 +49,7 @@ class SettingClassNumber {
 	}
 }
 
+// Currently keeping it for a future update
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 class SettingClassString {
 	private readonly name: string;

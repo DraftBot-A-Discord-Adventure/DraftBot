@@ -15,7 +15,7 @@ import {
 	DraftbotButtonReaction, DraftbotButtonReactionMessage
 } from "../messages/DraftbotButtonReactionMessage";
 import { StringConstants } from "../../../Lib/src/constants/StringConstants";
-import { ReactionCollectorReturnType } from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorReturnTypeOrNull } from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
 function getFightPetReactions(interaction: DraftbotInteraction, baseReactions: ReactionCollectorFightPetReaction[]): DraftbotButtonReaction[] {
 	const reactions: DraftbotButtonReaction[] = [];
@@ -29,7 +29,7 @@ function getFightPetReactions(interaction: DraftbotInteraction, baseReactions: R
 	return reactions;
 }
 
-export async function fightPetCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
+export async function fightPetCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorFightPetData;
 	const lng = interaction!.userLanguage;

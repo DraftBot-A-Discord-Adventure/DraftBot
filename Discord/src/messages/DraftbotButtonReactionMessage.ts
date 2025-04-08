@@ -9,7 +9,7 @@ import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
 import { DiscordCollectorUtils } from "../utils/DiscordCollectorUtils";
 import { ReactionCollectorCreationPacket } from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import { PacketContext } from "../../../Lib/src/packets/DraftBotPacket";
-import { ReactionCollectorReturnType } from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorReturnTypeOrNull } from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
 export type DraftbotButtonReaction = {
 	customId: string;
@@ -44,7 +44,9 @@ export class DraftbotButtonReactionMessage {
 	constructor(interaction: DraftbotInteraction, messageOptions: DraftbotButtonReactionMessageOptions) {
 		this._buttonRow = new ActionRowBuilder<ButtonBuilder>();
 		this._buttonRow.addComponents(messageOptions.reactions.map(({
-			emote, buttonStyle, customId
+			emote,
+			buttonStyle,
+			customId
 		}) =>
 			new ButtonBuilder()
 				.setCustomId(customId)
@@ -67,7 +69,7 @@ export class DraftbotButtonReactionMessage {
 		);
 	}
 
-	public async send(): Promise<ReactionCollectorReturnType> {
+	public async send(): Promise<ReactionCollectorReturnTypeOrNull> {
 		const message = await this._interaction.editReply({
 			embeds: [this._embed],
 			components: [this._buttonRow]
@@ -117,9 +119,11 @@ export class DraftbotButtonReactionMessage {
 	 */
 	private createMenuDescription(reactions: DraftbotButtonReaction[]): string {
 		return `\n\n${reactions.map(({
-			emote, description
+			emote,
+			description
 		}) =>
-			`${EmoteUtils.translateEmojiToDiscord(emote)} ${description}`).join("\n")
+			`${EmoteUtils.translateEmojiToDiscord(emote)} ${description}`)
+			.join("\n")
 		}`;
 	}
 }

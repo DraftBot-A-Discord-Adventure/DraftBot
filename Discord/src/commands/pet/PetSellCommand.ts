@@ -20,7 +20,7 @@ import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
 import { ReactionCollectorPetSellData } from "../../../../Lib/src/packets/interaction/ReactionCollectorPetSell";
 import { handleCommandGuildDailyRewardPacket } from "../guild/GuildDailyCommand";
 import { CommandGuildDailyRewardPacket } from "../../../../Lib/src/packets/commands/CommandGuildDailyPacket";
-import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
 async function getPacket(interaction: DraftbotInteraction): Promise<CommandPetSellPacketReq> {
 	const price = <number>interaction.options.get("price", true).value;
@@ -34,7 +34,7 @@ async function getPacket(interaction: DraftbotInteraction): Promise<CommandPetSe
 	});
 }
 
-export async function createPetSellCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
+export async function createPetSellCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorPetSellData;
@@ -66,9 +66,11 @@ export async function createPetSellCollector(context: PacketContext, packet: Rea
 				inline: false
 			}
 		])
-		.setFooter({ text: i18n.t("commands:petSell.sellFooter", {
-			lng
-		}) });
+		.setFooter({
+			text: i18n.t("commands:petSell.sellFooter", {
+				lng
+			})
+		});
 
 	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context, {
 		anyoneCanReact: true

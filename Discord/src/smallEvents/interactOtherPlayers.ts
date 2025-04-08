@@ -11,21 +11,24 @@ import { keycloakConfig } from "../bot/DraftBotShard";
 import { Language } from "../../../Lib/src/Language";
 import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
 import { EmoteUtils } from "../utils/EmoteUtils";
-import { ReactionCollectorReturnType } from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorReturnTypeOrNull } from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
 export async function interactOtherPlayerGetPlayerDisplay(keycloakId: string, rank: number | undefined, lng: Language): Promise<string> {
 	const keycloakUser = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, keycloakId);
 	const playerName = keycloakUser?.attributes.gameUsername ? keycloakUser.attributes.gameUsername : i18n.t("error:unknownPlayer", { lng });
 	return rank
 		? i18n.t("smallEvents:interactOtherPlayers.playerDisplayRanked", {
-			lng, pseudo: playerName, rank
+			lng,
+			pseudo: playerName,
+			rank
 		})
 		: i18n.t("smallEvents:interactOtherPlayers.playerDisplayUnranked", {
-			lng, pseudo: playerName
+			lng,
+			pseudo: playerName
 		});
 }
 
-export async function interactOtherPlayersCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
+export async function interactOtherPlayersCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorInteractOtherPlayersPoorData;
 	const playerDisplay = await interactOtherPlayerGetPlayerDisplay(data.keycloakId, data.rank, interaction.userLanguage);

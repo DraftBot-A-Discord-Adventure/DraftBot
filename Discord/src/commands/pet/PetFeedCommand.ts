@@ -15,7 +15,7 @@ import {
 	ReactionCollectorCreationPacket,
 	ReactionCollectorRefuseReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import {
 	ReactionCollectorPetFeedWithGuildData,
 	ReactionCollectorPetFeedWithGuildFoodReaction
@@ -44,7 +44,8 @@ export async function handleCommandPetFeedSuccessPacket(packet: CommandPetFeedSu
 
 	const lng = context.discord!.language;
 	const title = i18n.t("commands:petFeed.resultTitle", {
-		lng, pseudo: interaction.user.displayName
+		lng,
+		pseudo: interaction.user.displayName
 	});
 	const description = i18n.t(`commands:petFeed.result.${packet.result}`, { lng });
 
@@ -57,7 +58,7 @@ export async function handleCommandPetFeedSuccessPacket(packet: CommandPetFeedSu
 	});
 }
 
-export async function handleCommandPetFeedWithGuildCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
+export async function handleCommandPetFeedWithGuildCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 
 	if (!interaction) {
@@ -67,8 +68,10 @@ export async function handleCommandPetFeedWithGuildCollector(context: PacketCont
 	const lng = context.discord!.language;
 	const data = packet.data.data as ReactionCollectorPetFeedWithGuildData;
 	const foodReactions = packet.reactions.map((reaction, index) => ({
-		reaction, index
-	})).filter(reaction => reaction.reaction.type === ReactionCollectorPetFeedWithGuildFoodReaction.name);
+		reaction,
+		index
+	}))
+		.filter(reaction => reaction.reaction.type === ReactionCollectorPetFeedWithGuildFoodReaction.name);
 	const refuseIndex = packet.reactions.findIndex(reaction => reaction.type === ReactionCollectorRefuseReaction.name);
 
 	const rowFood = new ActionRowBuilder<ButtonBuilder>();
@@ -98,7 +101,8 @@ export async function handleCommandPetFeedWithGuildCollector(context: PacketCont
 
 	const embed = new DraftBotEmbed()
 		.formatAuthor(i18n.t("commands:petFeed.feedTitle", {
-			lng, pseudo: interaction.user.displayName
+			lng,
+			pseudo: interaction.user.displayName
 		}), interaction.user)
 		.setDescription(`${i18n.t("commands:petFeed.feedDescription", {
 			lng,
@@ -151,7 +155,7 @@ export async function handleCommandPetFeedWithGuildCollector(context: PacketCont
 	return [msgCollector];
 }
 
-export async function handleCommandPetFeedWithoutGuildCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
+export async function handleCommandPetFeedWithoutGuildCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 
 	if (!interaction) {

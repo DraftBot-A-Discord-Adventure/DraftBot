@@ -15,14 +15,14 @@ import {
 	CommandGuildElderRemoveRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildElderRemovePacket";
 import { ReactionCollectorGuildElderRemoveData } from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildElderRemove";
-import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
 /**
  * Create a collector to confirm the demotion
  * @param packet
  * @param context
  */
-export async function createGuildElderRemoveCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
+export async function createGuildElderRemoveCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorGuildElderRemoveData;

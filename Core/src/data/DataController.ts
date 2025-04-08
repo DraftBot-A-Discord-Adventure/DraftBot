@@ -47,15 +47,12 @@ export abstract class DataController<T extends string | number, U extends Data<n
 	private toInstance(id: T, obj: U, json: string): void {
 		const jsonObj = JSON.parse(json);
 
+		// We actually need to walk through the keys of the json manually, so for-in is preferred
 		// eslint-disable-next-line guard-for-in
 		for (const propName in jsonObj) {
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-ignore
+			// @ts-expect-error - we expect accessing object properties like an array here
 			obj[propName] = jsonObj[propName];
 		}
-
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-ignore
 		obj.id = id;
 	}
 }

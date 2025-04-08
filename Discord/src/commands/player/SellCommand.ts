@@ -17,7 +17,7 @@ import {
 	ReactionCollectorCreationPacket,
 	ReactionCollectorRefuseReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import { ReactionCollectorSellItemReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorSell";
 import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
 import {
@@ -51,14 +51,18 @@ export async function handleCommandSellSuccessPacket(packet: CommandSellItemSucc
 
 	const lng = context.discord!.language;
 	const title = i18n.t("commands:sell.soldMessageTitle", {
-		lng, pseudo: interaction.user.displayName
+		lng,
+		pseudo: interaction.user.displayName
 	});
 	const description = i18n.t(
 		packet.item.category === ItemCategory.POTION && packet.price === 0
 			? "commands:sell.potionDestroyedMessage"
 			: "commands:sell.soldMessage",
 		{
-			lng, item: DisplayUtils.getItemDisplay(packet.item, lng), value: packet.price, interpolation: { escapeValue: false }
+			lng,
+			item: DisplayUtils.getItemDisplay(packet.item, lng),
+			value: packet.price,
+			interpolation: { escapeValue: false }
 		}
 	);
 
@@ -78,11 +82,12 @@ async function validateSell(
 	reactionsInfo: {
 		reaction: ReactionCollectorSellItemReaction; reactionIndex: number; refuseReactionIndex: number;
 	}
-): Promise<ReactionCollectorReturnType> {
+): Promise<ReactionCollectorReturnTypeOrNull> {
 	const lng = context.discord!.language;
 	const validateClassChangeEmbed = new DraftBotEmbed()
 		.formatAuthor(i18n.t("commands:sell.sellTitle", {
-			lng, pseudo: interaction.user.displayName
+			lng,
+			pseudo: interaction.user.displayName
 		}), interaction.user)
 		.setDescription(i18n.t(reactionsInfo.reaction.item.category === ItemCategory.POTION && reactionsInfo.reaction.price === 0 ? "commands:sell.confirmThrowAway" : "commands:sell.confirmSell", {
 			lng,
@@ -148,7 +153,7 @@ async function validateSell(
 	return [validateCollector];
 }
 
-export async function handleSellReactionCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
+export async function handleSellReactionCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 
 	if (!interaction) {
@@ -156,7 +161,8 @@ export async function handleSellReactionCollector(context: PacketContext, packet
 	}
 
 	const lng = context.discord!.language;
-	const itemsReactions = packet.reactions.filter(reaction => reaction.type === ReactionCollectorSellItemReaction.name).map(reaction => reaction.data) as ReactionCollectorSellItemReaction[];
+	const itemsReactions = packet.reactions.filter(reaction => reaction.type === ReactionCollectorSellItemReaction.name)
+		.map(reaction => reaction.data) as ReactionCollectorSellItemReaction[];
 	const refuseReactionIndex = packet.reactions.findIndex(reaction => reaction.type === ReactionCollectorRefuseReaction.name);
 
 	if (itemsReactions.length === 1) {
@@ -165,14 +171,17 @@ export async function handleSellReactionCollector(context: PacketContext, packet
 			context,
 			interaction,
 			{
-				reaction: itemsReactions[0], reactionIndex: packet.reactions.findIndex(reaction => reaction.type === ReactionCollectorSellItemReaction.name), refuseReactionIndex
+				reaction: itemsReactions[0],
+				reactionIndex: packet.reactions.findIndex(reaction => reaction.type === ReactionCollectorSellItemReaction.name),
+				refuseReactionIndex
 			}
 		);
 	}
 
 	const mainEmbed = new DraftBotEmbed()
 		.formatAuthor(i18n.t("commands:sell.titleChoiceEmbed", {
-			lng, pseudo: interaction.user.displayName
+			lng,
+			pseudo: interaction.user.displayName
 		}), interaction.user)
 		.setDescription(i18n.t("commands:sell.sellIndication", { lng }));
 
@@ -191,7 +200,8 @@ export async function handleSellReactionCollector(context: PacketContext, packet
 				i18n.t(
 					reaction.item.category === ItemCategory.POTION && reaction.price === 0 ? "commands:sell.selectMenuDescThrow" : "commands:sell.selectMenuDescSell",
 					{
-						lng, value: reaction.price
+						lng,
+						value: reaction.price
 					}
 				)
 			)
@@ -252,7 +262,9 @@ export async function handleSellReactionCollector(context: PacketContext, packet
 				context,
 				selectMenuInteraction,
 				{
-					reaction, reactionIndex: packet.reactions.findIndex(packetReaction => JSON.stringify(packetReaction.data) === JSON.stringify(reaction)), refuseReactionIndex
+					reaction,
+					reactionIndex: packet.reactions.findIndex(packetReaction => JSON.stringify(packetReaction.data) === JSON.stringify(reaction)),
+					refuseReactionIndex
 				}
 			))![0] as unknown as InteractionCollector<never>;
 	});

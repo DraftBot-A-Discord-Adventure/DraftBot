@@ -54,6 +54,8 @@ function addTimingOption(builder: SlashCommandSubcommandBuilder): void {
 		.addChoices(
 			{
 				name: i18n.t("discordBuilder:top.timings.allTime", { lng: LANGUAGE.ENGLISH }),
+
+				// Discord naming conventions
 				// eslint-disable-next-line camelcase
 				name_localizations: {
 					fr: i18n.t("discordBuilder:top.timings.allTime", { lng: LANGUAGE.FRENCH })
@@ -62,6 +64,8 @@ function addTimingOption(builder: SlashCommandSubcommandBuilder): void {
 			},
 			{
 				name: i18n.t("discordBuilder:top.timings.weekly", { lng: LANGUAGE.ENGLISH }),
+
+				// Discord naming conventions
 				// eslint-disable-next-line camelcase
 				name_localizations: {
 					fr: i18n.t("discordBuilder:top.timings.weekly", { lng: LANGUAGE.FRENCH })

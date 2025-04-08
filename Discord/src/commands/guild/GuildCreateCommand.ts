@@ -21,7 +21,7 @@ import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
 import { ReactionCollectorGuildCreateData } from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildCreate";
 import { GuildCreateConstants } from "../../../../Lib/src/constants/GuildCreateConstants";
 import { LANGUAGE } from "../../../../Lib/src/Language";
-import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 
 /**
  * Create a new guild
@@ -29,7 +29,8 @@ import { ReactionCollectorReturnType } from "../../packetHandlers/handlers/React
 function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): CommandGuildCreatePacketReq {
 	const askedGuildName = <string>interaction.options.get("name", true).value;
 	return makePacket(CommandGuildCreatePacketReq, {
-		keycloakId: user.id, askedGuildName
+		keycloakId: user.id,
+		askedGuildName
 	});
 }
 
@@ -85,7 +86,7 @@ export async function handleCommandGuildCreatePacketRes(packet: CommandGuildCrea
 }
 
 
-export async function createGuildCreateCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnType> {
+export async function createGuildCreateCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorGuildCreateData;
