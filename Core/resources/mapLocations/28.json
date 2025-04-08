@@ -1,5 +1,5 @@
 {
-	"type": "castle_entrance",
-	"canBeGoToPlaceMissionDestination": false,
-	"attribute": "king_castle"
+  "type": "castleEntrance",
+  "canBeGoToPlaceMissionDestination": false,
+  "attribute": "king_castle"
 }

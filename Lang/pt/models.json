@@ -899,11 +899,11 @@
       "name": "Praia",
       "prefix": "do"
     },
-    "castle_entrance": {
+    "castleEntrance": {
       "name": "",
       "prefix": "de"
     },
-    "castle_throne": {
+    "castleThrone": {
       "name": "",
       "prefix": "do"
     },
@@ -915,7 +915,7 @@
       "name": "",
       "prefix": "de"
     },
-    "crystal_cavern": {
+    "crystalCavern": {
       "name": "Gruta de cristal",
       "prefix": "do"
     },
@@ -927,15 +927,15 @@
       "name": "Floresta",
       "prefix": "do"
     },
-    "ice_beach": {
+    "iceBeach": {
       "name": "Praia de gelo",
       "prefix": "do"
     },
-    "ice_cavern": {
+    "iceCavern": {
       "name": "Caverna de gelo",
       "prefix": "do"
     },
-    "ice_lake": {
+    "iceLake": {
       "name": "Lago congelado",
       "prefix": "de"
     },
@@ -955,7 +955,7 @@
       "name": "Planície",
       "prefix": "do"
     },
-    "pve_exit": {
+    "pveExit": {
       "name": "",
       "prefix": "de"
     },
@@ -971,15 +971,15 @@
       "name": "Ruínas",
       "prefix": "de"
     },
-    "snow_mountain": {
+    "snowMountain": {
       "name": "Pica-pau",
       "prefix": "de"
     },
-    "snowmen_field": {
+    "snowmenField": {
       "name": "Planície",
       "prefix": "do"
     },
-    "test_zone": {
+    "testZone": {
       "name": "",
       "prefix": "do"
     },

@@ -1,5 +1,5 @@
 {
-	"type": "crystal_cavern",
-	"canBeGoToPlaceMissionDestination": false,
-	"attribute": "pve_island"
+  "type": "crystalCavern",
+  "canBeGoToPlaceMissionDestination": false,
+  "attribute": "pve_island"
 }

@@ -78,8 +78,8 @@ export abstract class MapConstants {
 		"de",
 		"ri",
 		"la",
-		"castle_entrance",
-		"castle_throne",
+		"castleEntrance",
+		"castleThrone",
 		"castle_forge",
 		"castle_carriage"
 	];

@@ -1,5 +1,5 @@
 {
-	"type": "snow_mountain",
-	"canBeGoToPlaceMissionDestination": false,
-	"attribute": "pve_island"
+  "type": "snowMountain",
+  "canBeGoToPlaceMissionDestination": false,
+  "attribute": "pve_island"
 }
