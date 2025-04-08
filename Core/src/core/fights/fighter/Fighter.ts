@@ -99,11 +99,10 @@ export abstract class Fighter {
 
 	/**
 	 * Function called when the fight ends
-	 * @param fightView
 	 * @param winner Indicate if the fighter is the winner
 	 * @param response
 	 */
-	abstract endFight(fightView: FightView, winner: boolean, response: DraftBotPacket[]): Promise<void>;
+	abstract endFight(winner: boolean, response: DraftBotPacket[]): Promise<void>;
 
 	/**
 	 * Allow the fighter to unblock himself

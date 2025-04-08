@@ -22,9 +22,6 @@ import { DraftBotPacket } from "../../../../../Lib/src/packets/DraftBotPacket";
 import { Potion } from "../../../data/Potion";
 import PetEntity, { PetEntities } from "../../database/game/models/PetEntity";
 
-
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 /**
  * Fighter
  * Class representing a player in a fight
@@ -61,13 +58,12 @@ export class PlayerFighter extends Fighter {
 
 	/**
 	 * Function called when the fight ends
-	 * @param fightView
 	 * @param winner Indicate if the fighter is the winner
 	 * @param response
 	 */
-	async endFight(fightView: FightView, winner: boolean, response: DraftBotPacket[]): Promise<void> {
+	async endFight(winner: boolean, response: DraftBotPacket[]): Promise<void> {
 		this.unblock();
-		await this.manageMissionsOf(fightView, response);
+		await this.manageMissionsOf(response);
 		if (winner) {
 			await MissionsController.update(this.player, response, {
 				missionId: "fightHealthPercent",
@@ -173,9 +169,9 @@ export class PlayerFighter extends Fighter {
 
 	/**
 	 * Check the fight action history of a fighter
-	 * @param fightView The fight view
+	 * @param response
 	 */
-	private async checkFightActionHistory(fightView: FightView, response: DraftBotPacket[]): Promise<void> {
+	private async checkFightActionHistory(response: DraftBotPacket[]): Promise<void> {
 		const playerFightActionsHistory: Map<string, number> = this.getFightActionCount();
 
 		// Iterate on each action in the history
@@ -190,15 +186,14 @@ export class PlayerFighter extends Fighter {
 
 	/**
 	 * Manage the mission of a fighter
-	 * @param fightView
 	 * @param response
 	 */
-	private async manageMissionsOf(fightView: FightView, response: DraftBotPacket[]): Promise<void> {
+	private async manageMissionsOf(response: DraftBotPacket[]): Promise<void> {
 		const newPlayer = await Players.getOrRegister(this.player.keycloakId);
 		newPlayer.setEnergyLost(this.stats.maxEnergy - this.stats.energy, NumberChangeReason.FIGHT);
 		await newPlayer.save();
 
-		await this.checkFightActionHistory(fightView, response);
+		await this.checkFightActionHistory(response);
 
 		await MissionsController.update(this.player, response, { missionId: "anyFight" });
 
