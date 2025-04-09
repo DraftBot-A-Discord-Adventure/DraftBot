@@ -33,10 +33,10 @@ export abstract class DraftbotCachedMessage<T extends DraftBotPacket = DraftBotP
 	abstract get type(): string;
 
 	// Function to call when you need to do something with the cached message
-	abstract updateMessage(packet: T, context: PacketContext): Promise<ReactionCollectorReturnTypeOrNull | void>;
+	abstract updateMessage(packet: T, context: PacketContext): Promise<ReactionCollectorReturnTypeOrNull>;
 
 	async update(packet: T, context: PacketContext): Promise<ReactionCollectorReturnTypeOrNull> {
-		return await this.updateMessage(packet, context) ?? null;
+		return await this.updateMessage(packet, context);
 	}
 
 	async post(options: BaseMessageOptions): Promise<Message | null> {
