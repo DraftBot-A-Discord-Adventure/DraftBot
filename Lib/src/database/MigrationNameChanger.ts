@@ -1,5 +1,5 @@
 import { QueryInterface } from "sequelize";
-import { DraftBotLogger } from "../logs/Logger";
+import { DraftBotLogger } from "../logs/DraftBotLogger";
 
 export abstract class MigrationNameChanger {
 	/**

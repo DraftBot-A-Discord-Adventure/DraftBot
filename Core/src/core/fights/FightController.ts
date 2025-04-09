@@ -28,7 +28,7 @@ import {
 } from "../../data/FightAlteration";
 import { PetAssistance } from "../../data/PetAssistance";
 import { getAiPetBehavior } from "./PetAssistManager";
-import { DraftBotLogger } from "../../../../Lib/src/logs/Logger";
+import { DraftBotLogger } from "../../../../Lib/src/logs/DraftBotLogger";
 
 export class FightController {
 	turn: number;

@@ -1,7 +1,7 @@
 import {
 	DraftBotPacket, PacketContext, PacketLike
 } from "./DraftBotPacket";
-import { DraftBotLogger } from "../logs/Logger";
+import { DraftBotLogger } from "../logs/DraftBotLogger";
 
 export class PacketListenerServer {
 	private packetCallbacks: Map<string, PacketListenerCallbackServer<DraftBotPacket>> = new Map<string, PacketListenerCallbackServer<DraftBotPacket>>();

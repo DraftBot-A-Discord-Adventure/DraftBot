@@ -8,7 +8,7 @@ import { AnnouncementPacket } from "../../../../Lib/src/packets/announcements/An
 import { NotificationPacket } from "../../../../Lib/src/packets/notifications/NotificationPacket";
 import { NotificationsSerializedPacket } from "../../../../Lib/src/packets/notifications/NotificationsSerializedPacket";
 import { MqttTopicUtils } from "../../../../Lib/src/utils/MqttTopicUtils";
-import { DraftBotLogger } from "../../../../Lib/src/logs/Logger";
+import { DraftBotLogger } from "../../../../Lib/src/logs/DraftBotLogger";
 
 export abstract class PacketUtils {
 	static sendPackets(context: PacketContext, packets: DraftBotPacket[]): void {

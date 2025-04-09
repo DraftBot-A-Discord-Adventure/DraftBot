@@ -14,7 +14,7 @@ import {
 	discordConfig, draftBotClient
 } from "../../bot/DraftBotShard";
 import { minutesToMilliseconds } from "../../../../Lib/src/utils/TimeUtils";
-import { DraftBotLogger } from "../../../../Lib/src/logs/Logger";
+import { DraftBotLogger } from "../../../../Lib/src/logs/DraftBotLogger";
 
 const dmHelpCooldowns: Map<string, Date> = new Map<string, Date>();
 

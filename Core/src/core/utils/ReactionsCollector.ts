@@ -18,7 +18,7 @@ import {
 	ReactionCollectorResetTimerPacketReq,
 	ReactionCollectorResetTimerPacketRes
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorResetTimer";
-import { DraftBotLogger } from "../../../../Lib/src/logs/Logger";
+import { DraftBotLogger } from "../../../../Lib/src/logs/DraftBotLogger";
 
 export type CollectCallback = (collector: ReactionCollectorInstance, reaction: ReactionCollectorReaction, keycloakId: string, response: DraftBotPacket[]) => void | Promise<void>;
 

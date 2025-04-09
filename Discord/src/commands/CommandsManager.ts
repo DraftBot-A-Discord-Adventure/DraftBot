@@ -48,7 +48,7 @@ import { RightGroup } from "../../../Lib/src/types/RightGroup";
 import { PacketConstants } from "../../../Lib/src/constants/PacketConstants";
 import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
 import { DiscordConstants } from "../DiscordConstants";
-import { DraftBotLogger } from "../../../Lib/src/logs/Logger";
+import { DraftBotLogger } from "../../../Lib/src/logs/DraftBotLogger";
 
 export class CommandsManager {
 	static commands = new Map<string, ICommand>();

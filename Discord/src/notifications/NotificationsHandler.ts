@@ -19,7 +19,7 @@ import { KeycloakUtils } from "../../../Lib/src/keycloak/KeycloakUtils";
 import { DisplayUtils } from "../utils/DisplayUtils";
 import { GuildDailyNotificationPacket } from "../../../Lib/src/packets/notifications/GuildDailyNotificationPacket";
 import { getCommandGuildDailyRewardPacketString } from "../commands/guild/GuildDailyCommand";
-import { DraftBotLogger } from "../../../Lib/src/logs/Logger";
+import { DraftBotLogger } from "../../../Lib/src/logs/DraftBotLogger";
 
 export abstract class NotificationsHandler {
 	/**

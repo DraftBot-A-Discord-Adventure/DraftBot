@@ -8,7 +8,7 @@ import { LANGUAGE } from "../../../Lib/src/Language";
 import { KeycloakUtils } from "../../../Lib/src/keycloak/KeycloakUtils";
 import { TopWeekFightAnnouncementPacket } from "../../../Lib/src/packets/announcements/TopWeekFightAnnouncementPacket";
 import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
-import { DraftBotLogger } from "../../../Lib/src/logs/Logger";
+import { DraftBotLogger } from "../../../Lib/src/logs/DraftBotLogger";
 
 export abstract class DiscordAnnouncement {
 	private static async announceTop(messageFr: string, messageEn: string): Promise<void> {

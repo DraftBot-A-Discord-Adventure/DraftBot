@@ -17,7 +17,7 @@ import { ErrorBannedPacket } from "../../../../Lib/src/packets/commands/ErrorPac
 import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
 import { MapCache } from "../maps/MapCache";
 import { RequirementWherePacket } from "../../../../Lib/src/packets/commands/requirements/RequirementWherePacket";
-import { DraftBotLogger } from "../../../../Lib/src/logs/Logger";
+import { DraftBotLogger } from "../../../../Lib/src/logs/DraftBotLogger";
 
 type Requirements = {
 	disallowedEffects?: Effect[];

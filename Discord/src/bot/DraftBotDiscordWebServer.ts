@@ -3,7 +3,7 @@ import {
 } from "express";
 import { draftBotMetricsRegistry } from "./DraftBotDiscordMetrics";
 import { discordConfig } from "./DraftBotShard";
-import { DraftBotLogger } from "../../../Lib/src/logs/Logger";
+import { DraftBotLogger } from "../../../Lib/src/logs/DraftBotLogger";
 import express = require("express");
 
 export abstract class DraftBotDiscordWebServer {

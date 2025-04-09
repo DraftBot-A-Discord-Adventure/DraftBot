@@ -13,7 +13,7 @@ import {
 } from "../../../Lib/src/Language";
 import { DiscordDatabase } from "../database/discord/DiscordDatabase";
 import { DraftBotDiscordWebServer } from "./DraftBotDiscordWebServer";
-import { DraftBotLogger } from "../../../Lib/src/logs/Logger";
+import { DraftBotLogger } from "../../../Lib/src/logs/DraftBotLogger";
 
 process.on("uncaughtException", error => {
 	console.error(`Uncaught exception: ${error}`);

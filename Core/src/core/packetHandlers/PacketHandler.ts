@@ -4,7 +4,7 @@ import {
 	DraftBotPacket, PacketLike
 } from "../../../../Lib/src/packets/DraftBotPacket";
 import { draftBotInstance } from "../../index";
-import { DraftBotLogger } from "../../../../Lib/src/logs/Logger";
+import { DraftBotLogger } from "../../../../Lib/src/logs/DraftBotLogger";
 
 export const packetHandler = <T extends DraftBotPacket>(val: PacketLike<T>) =>
 	<V>(target: V, prop: string, descriptor: TypedPropertyDescriptor<PacketListenerCallbackServer<T>>): void => {
