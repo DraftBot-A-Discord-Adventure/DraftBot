@@ -439,7 +439,11 @@ export async function displayMonsterReward(
 	await channel.send({ embeds: [embed] });
 }
 
-function manageMainSummaryText(packet: CommandReportTravelSummaryRes, interaction: DraftbotInteraction, travelEmbed: DraftBotEmbed, user: KeycloakUser, now: number): void {
+function manageMainSummaryText({
+	packet,
+	interaction,
+	travelEmbed
+}: FieldsArguments, user: KeycloakUser, now: number): void {
 	if (isCurrentlyInEffect(packet, now)) {
 		const errorMessageObject = effectsErrorTextValue(user, interaction.userLanguage, true, packet.effect!, packet.effectEndTime! - now);
 		travelEmbed.addFields({
@@ -476,7 +480,17 @@ function manageMainSummaryText(packet: CommandReportTravelSummaryRes, interactio
 	});
 }
 
-function manageEndPathDescriptions(packet: CommandReportTravelSummaryRes, interaction: DraftbotInteraction, travelEmbed: DraftBotEmbed): void {
+type FieldsArguments = {
+	packet: CommandReportTravelSummaryRes;
+	interaction: DraftbotInteraction;
+	travelEmbed: DraftBotEmbed;
+};
+
+function manageEndPathDescriptions({
+	packet,
+	interaction,
+	travelEmbed
+}: FieldsArguments): void {
 	travelEmbed.addFields({
 		name: i18n.t("commands:report.startPoint", { lng: interaction.userLanguage }),
 		value: `${DraftBotIcons.mapTypes[packet.startMap.type]} ${i18n.t(`models:map_locations.${packet.startMap.id}.name`, { lng: interaction.userLanguage })}`,
@@ -504,8 +518,13 @@ export async function reportTravelSummary(packet: CommandReportTravelSummaryRes,
 	const travelEmbed = new DraftBotEmbed();
 	travelEmbed.formatAuthor(i18n.t("commands:report.travelPathTitle", { lng: interaction.userLanguage }), interaction.user);
 	travelEmbed.setDescription(generateTravelPathString(packet, now));
-	manageEndPathDescriptions(packet, interaction, travelEmbed);
-	manageMainSummaryText(packet, interaction, travelEmbed, user, now);
+	const fieldsArguments = {
+		packet,
+		interaction,
+		travelEmbed
+	};
+	manageEndPathDescriptions(fieldsArguments);
+	manageMainSummaryText(fieldsArguments, user, now);
 	if (packet.energy.show) {
 		travelEmbed.addFields({
 			name: i18n.t("commands:report.remainingEnergyTitle", { lng: interaction.userLanguage }),
