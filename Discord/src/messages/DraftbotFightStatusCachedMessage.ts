@@ -14,7 +14,7 @@ export class DraftbotFightStatusCachedMessage extends DraftbotCachedMessage<Comm
 		return "fightStatus";
 	}
 
-	updateMessage = async (packet: CommandFightStatusPacket, context: PacketContext): Promise<undefined> => {
+	updateMessage = async (packet: CommandFightStatusPacket, context: PacketContext): Promise<void> => {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 		const attacker = packet.activeFighter.keycloakId
 			? (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.activeFighter.keycloakId))!.attributes.gameUsername[0]
@@ -56,6 +56,5 @@ export class DraftbotFightStatusCachedMessage extends DraftbotCachedMessage<Comm
 			);
 
 		await this.post({ embeds: [embed] });
-		return undefined;
 	};
 }

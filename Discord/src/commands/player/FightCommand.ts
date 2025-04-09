@@ -227,7 +227,7 @@ export async function handleCommandFightActionChoose(context: PacketContext, pac
 		return null;
 	}
 	return await DraftbotCachedMessages.getOrCreate(context.discord?.interaction, DraftbotActionChooseCachedMessage)
-		.update(packet, context) as ReactionCollectorReturnTypeOrNull;
+		.update(packet, context);
 }
 
 /**
