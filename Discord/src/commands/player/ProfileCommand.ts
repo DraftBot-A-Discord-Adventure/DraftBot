@@ -147,7 +147,7 @@ function generateFields(packet: CommandProfilePacketRes, lng: Language): EmbedFi
 		timeLeft: minutesDisplay(millisecondsToMinutes(packet.playerData.effect.timeLeft), lng)
 	});
 
-	addField(fields, "playerClass", Boolean(packet.playerData.classId), {
+	addField(fields, "playerClass", Boolean(packet.playerData.classId) || packet.playerData.classId === 0, {
 		lng,
 		id: packet.playerData.classId
 	});
