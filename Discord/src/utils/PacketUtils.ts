@@ -20,7 +20,7 @@ export type AskedPlayer = {
 
 export abstract class PacketUtils {
 	static sendPacketToBackend(context: PacketContext, packet: DraftBotPacket): void {
-		DiscordMQTT.mqttClient!.publish(MqttTopicUtils.getCoreTopic(discordConfig.PREFIX), JSON.stringify({
+		DiscordMQTT.globalMqttClient!.publish(MqttTopicUtils.getCoreTopic(discordConfig.PREFIX), JSON.stringify({
 			packet: {
 				name: packet.constructor.name,
 				data: packet

@@ -22,7 +22,7 @@ export abstract class PacketUtils {
 
 		if (context.discord !== null) {
 			const response = JSON.stringify(responsePacket);
-			mqttClient.publish(MqttTopicUtils.getDiscordTopic(botConfig.PREFIX), response);
+			mqttClient.publish(MqttTopicUtils.getDiscordTopic(botConfig.PREFIX, context.discord.shardId), response);
 			DraftBotLogger.debug("Sent response to discord front", { response: responsePacket });
 		}
 		else {

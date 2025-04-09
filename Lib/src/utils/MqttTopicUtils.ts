@@ -1,7 +1,7 @@
 export abstract class MqttTopicUtils {
 	private static readonly CORE_TOPIC = "draftbot_core";
 
-	private static readonly DISCORD_TOPIC = "draftbot_discord";
+	private static readonly DISCORD_TOPIC = "draftbot_discord/shard";
 
 	private static readonly DISCORD_TOP_WEEK_ANNOUNCEMENT_TOPIC = "draftbot_discord_top_week_announcement";
 
@@ -16,8 +16,8 @@ export abstract class MqttTopicUtils {
 		return `${prefix}/${MqttTopicUtils.CORE_TOPIC}`;
 	}
 
-	static getDiscordTopic(prefix: string): string {
-		return `${prefix}/${MqttTopicUtils.DISCORD_TOPIC}`;
+	static getDiscordTopic(prefix: string, shardId: number): string {
+		return `${prefix}/${MqttTopicUtils.DISCORD_TOPIC}/${shardId}`;
 	}
 
 	static getDiscordTopWeekAnnouncementTopic(prefix: string): string {
@@ -32,7 +32,7 @@ export abstract class MqttTopicUtils {
 		return `${prefix}/${MqttTopicUtils.NOTIFICATIONS}`;
 	}
 
-	static getNotificationsConsumerTopic(prefix: string): string {
+	static getNotificationsConsumerId(prefix: string): string {
 		return `${prefix}/${MqttTopicUtils.NOTIFICATIONS_CONSUMER}`;
 	}
 }
