@@ -289,7 +289,7 @@
     "usageFieldTitle": "Utilização",
     "utilCommands": "{emote:collectors.question} Informações úteis:",
     "needHelp": "Precisa de ajuda?",
-    "needHelpDescription": "{emote:fight_command.crossed_swords} Olá ! Esta mensagem foi enviada em resposta a um pedido de ajuda.\n\nSe precisares de ajuda para utilizar o jogo, podes juntar-te ao servidor oficial!\n\nPoderás participar no desenvolvimento do jogo e obter todas as informações de que necessitas!\n\nRecomendamos também que consultes o guia detalhado do bot: https://guide.draftbot.com/"
+    "needHelpDescription": "{emote:fightCommand.crossedSwords} Olá ! Esta mensagem foi enviada em resposta a um pedido de ajuda.\n\nSe precisares de ajuda para utilizar o jogo, podes juntar-te ao servidor oficial!\n\nPoderás participar no desenvolvimento do jogo e obter todas as informações de que necessitas!\n\nRecomendamos também que consultes o guia detalhado do bot: https://guide.draftbot.com/"
   },
   "idea": {
     "description": "\nPode fazer sugestões e votar nas suas ideias favoritas através desta ligação: https://feedback.draftbot.com/",
@@ -455,7 +455,7 @@
     "experience": ":star: | XP ganho :{{experience}}**",
     "gems": ":gem: ** Gemas ganhas :{{gems}}**",
     "health": ":heart: | Vida ganha :{{health}}**",
-    "healthLoose": "** | {emote:unitValues.lostHealth} Vie perdue : **{{health}}",
+    "healthLoose": ":broken_heart: | Vida perdida :{{health}}**",
     "journal": "{{pseudo}}Diário de",
     "money": "{emote:unitValues.money} ** Dinheiro ganho :{{money}}**",
     "moneyLoose": ":money_with_wings:{{money}}** Dinheiro perdido: **",
@@ -468,10 +468,10 @@
     "noFight": ":newspaper: {{pseudo}} {{waitABitReaction}} ** Fazes uma fuga rápida e encontras um pequeno esconderijo! O monstro está à espera pacientemente lá fora...",
     "points": ":medal: :** Pontos ganhos :{{score}}**",
     "pveEvent": ":newspaper: {{pseudo}} {{event}}\n\n{{monsterDisplay}}\n\n{{startTheFightReaction}}\n{{waitABitReaction}}\n\n** log:** Iniciar o combate Esperar um pouco antes de iniciar o combate *- Utilizar reacções para realizar uma ação*.",
-    "pveFightRefused": "{emote:commands.report} **Diário de {{pseudo}} :** {emote:pve_fights.wait_a_bit} | Decides não entrar em combate por enquanto e refugias-te num esconderijo próximo. Terás de enfrentar a fera, pois não encontras outra saída.",
+    "pveFightRefused": "{emote:commands.report} **Diário de {{pseudo}} :** {emote:pveFights.waitABit} | Decides não entrar em combate por enquanto e refugias-te num esconderijo próximo. Terás de enfrentar a fera, pois não encontras outra saída.",
     "remainingEnergyTitle": "Energia restante :",
     "startPoint": "Ponto de partida :",
-    "timeLost": "** | {emote:clocks.10} Temps perdu : **{{timeLost}}",
+    "timeLost": ":clock10:{{timeLost}}| Tempo perdido :",
     "travelPathTitle": "Viagem atual :",
     "travellingDescription": "{{smallEventEmoji}}Tudo está a correr bem desde a vossa última aventura. {{time}}Próxima paragem .",
     "travellingDescriptionEndTravel": "Tudo está a correr bem na vossa aventura e em breve chegarão ao vosso destino.",
@@ -1028,7 +1028,7 @@
   "fight": {
     "title": "{{pseudo}}está prestes a começar uma luta",
     "canceledTitle": "{{pseudo}}anulou a pesquisa",
-    "confirmDesc": "{emote:fight_command.crossed_swords} | **{{pseudo}}**{{confirmSubText}}\n\n{emote:fight_command.crossed_swords} | **Fighter : {{pseudo}}| {{glory}} | {{className}}\n\n{{stats}}",
+    "confirmDesc": "{emote:fightCommand.crossedSwords} | **{{pseudo}}**{{confirmSubText}}\n\n{emote:fightCommand.crossedSwords} | **Fighter : {{pseudo}}| {{glory}} | {{className}}\n\n{{stats}}",
     "confirmSubTexts": {
       "common": "Estás à procura de uma luta?",
       "rare": "Gostarias de participar na procura de um lutador com a tua força pessoal para o duelo seguinte?"
@@ -1042,14 +1042,14 @@
     "opponentsNotFound": "Não foi encontrado nenhum adversário para o defrontar. Podes tentar novamente mais tarde.",
     "notEnoughEnergy": "Não tens energia suficiente para começar uma luta!",
     "monsterNotFound": "Não foi encontrado nenhum monstro para te enfrentar. Por favor, comunique este incidente à nossa equipa de apoio (discord.gg/AP3Wmzb).",
-    "fightIntroTitle": "{emote:fight_command.crossed_swords} | Está a decorrer um combate entre {{fightInitiator}} e {{opponent}} !",
+    "fightIntroTitle": "{emote:fightCommand.crossedSwords} | Está a decorrer um combate entre {{fightInitiator}} e {{opponent}} !",
     "actionsOf": "**Ataques de {{pseudo}} :**",
     "petOf": "** {{pseudo}} family:**",
     "fightActionNameDisplay": "{{fightActionEmote}} - {{fightActionName}} {emote:unitValues.breath} {{breathCost}}",
     "summarize": {
       "title": "Resumo do combate",
       "intro": {
-        "start": "{emote:fight_command.clipboard} **Estado atual do combate** {{state}}\n\n",
+        "start": "{emote:fightCommand.clipboard} **Estado atual do combate** {{state}}\n\n",
         "prolongation": "Extensões",
         "noProlongation": "[{{currentTurn}}/{{maxTurn}}]"
       },
@@ -1061,12 +1061,12 @@
       "bugged": "O combate foi cancelado devido a um problema técnico.",
       "draw": "{emote:commands.report} |{{player1}} e {{player2}} terminam o seu combate com um empate !**\n\n",
       "win": "{emote:commands.report}**{{winner}} ganha o jogo contra {{loser}}**\n\n",
-      "gameStats": "{emote:fight_command.game_stats} | Estatísticas de combate\n- **Rounds** : {{turn}}/{{maxTurn}}\n- **Combat time** : {{time}}",
-      "gameStatsProlongation": "{emote:fight_command.game_stats} | Estatísticas do combate\n- **Visitas**: {{turn}}/{{maxTurn}} (tempo extra)\n- **Tempo do combate**: {{time}}",
-      "fighterStats": "\n\n{emote:fight_command.fighter_stats} | Estatísticas {{pseudo}}\n- **Vida final** : {{energy}}/{{maxEnergy}} {emote:unitValues.energy}"
+      "gameStats": "{emote:fightCommand.gameStats} | Estatísticas de combate\n- **Rounds** : {{turn}}/{{maxTurn}}\n- **Combat time** : {{time}}",
+      "gameStatsProlongation": "{emote:fightCommand.gameStats} | Estatísticas do combate\n- **Visitas**: {{turn}}/{{maxTurn}} (tempo extra)\n- **Tempo do combate**: {{time}}",
+      "fighterStats": "\n\n{emote:fightCommand.fighterStats} | Estatísticas {{pseudo}}\n- **Vida final** : {{energy}}/{{maxEnergy}} {emote:unitValues.energy}"
     },
     "fightActionChoose": {
-      "turnIndicationTitle": "É a vez de {{pseudo}} jogar {emote:fight_command.crossed_swords}",
+      "turnIndicationTitle": "É a vez de {{pseudo}} jogar {emote:fightCommand.crossedSwords}",
       "turnIndicationDescription": "Escolher uma ação"
     },
     "actions": {
@@ -1144,10 +1144,10 @@
           "summoning": " Invocação de {{amount}} aliados"
         }
       },
-      "aiChoose": "{emote:fight_command.ai_thinking} O adversário escolhe um ataque..."
+      "aiChoose": "{emote:fightCommand.aiThinking} O adversário escolhe um ataque..."
     },
     "fightReward": {
-      "title": "{emote:fight_command.glory_change} Recompensas de combate",
+      "title": "{emote:fightCommand.gloryChange} Recompensas de combate",
       "scoreAndMoneyField": "Recompensas de combate",
       "noReward": "Já gastaste todas as tuas recompensas de combate, por isso volta amanhã.",
       "points": "{emote:unitValues.score} Pontos ganhos : **{{count}}**",
