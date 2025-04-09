@@ -4,7 +4,8 @@ import {
 import {
 	CommandDrinkCancelDrink,
 	CommandDrinkConsumePotionRes,
-	CommandDrinkNoActiveObjectError, CommandDrinkObjectIsActiveDuringFights,
+	CommandDrinkNoActiveObjectError,
+	CommandDrinkObjectIsActiveDuringFights,
 	CommandDrinkPacketReq
 } from "../../../../Lib/src/packets/commands/CommandDrinkPacket";
 import {
@@ -22,9 +23,7 @@ import {
 } from "../../core/utils/ReactionsCollector";
 import { BlockingUtils } from "../../core/utils/BlockingUtils";
 import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
-import {
-	ReactionCollectorRefuseReaction
-} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { ReactionCollectorRefuseReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {
 	checkDrinkPotionMissions, toItemWithDetails
 } from "../../core/utils/ItemUtils";
@@ -97,9 +96,9 @@ export default class DrinkCommand {
 		whereAllowed: [WhereAllowed.CONTINENT]
 	})
 	async execute(response: DraftBotPacket[], player: Player, packet: CommandDrinkPacketReq, context: PacketContext): Promise<void> {
-		const potion = (await InventorySlots.getMainPotionSlot(player.id)).getItem() as Potion;
+		const potion = (await InventorySlots.getMainPotionSlot(player.id))?.getItem() as Potion;
 
-		if (potion.id === InventoryConstants.POTION_DEFAULT_ID) {
+		if (!potion || potion.id === InventoryConstants.POTION_DEFAULT_ID) {
 			response.push(makePacket(CommandDrinkNoActiveObjectError, {}));
 			return;
 		}
