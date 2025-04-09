@@ -27,9 +27,7 @@ import { ItemFoundPacket } from "../../../../Lib/src/packets/events/ItemFoundPac
 import {
 	ReactionCollectorItemChoice, ReactionCollectorItemChoiceItemReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorItemChoice";
-import {
-	EndCallback, ReactionCollectorInstance
-} from "./ReactionsCollector";
+import { ReactionCollectorInstance } from "./ReactionsCollector";
 import { ReactionCollectorItemAccept } from "../../../../Lib/src/packets/interaction/ReactionCollectorItemAccept";
 import { ReactionCollectorAcceptReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import { ItemWithDetails } from "../../../../Lib/src/types/ItemWithDetails";
@@ -275,10 +273,9 @@ async function sellOrKeepItem(
  * @param sellKeepOptions
  */
 function getMoreThan2ItemsSwitchingEndCallback(whoIsConcerned: WhoIsConcerned, toTradeItem: GenericItem, tradableItems: InventorySlot[], sellKeepOptions: SellKeepItemOptions) {
-	const player = whoIsConcerned.player;
 	return async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
 		const reaction = collector.getFirstReaction();
-		await player.reload();
+		await whoIsConcerned.player.reload();
 
 		const concernedItems: ConcernedItems = {
 			item: toTradeItem
@@ -293,7 +290,7 @@ function getMoreThan2ItemsSwitchingEndCallback(whoIsConcerned: WhoIsConcerned, t
 		else {
 			sellKeepOptions.keepOriginal = true;
 		}
-		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.ACCEPT_ITEM);
+		BlockingUtils.unblockPlayer(whoIsConcerned.player.keycloakId, BlockingConstants.REASONS.ACCEPT_ITEM);
 		await sellOrKeepItem(response, whoIsConcerned, concernedItems, sellKeepOptions);
 	};
 }
@@ -367,6 +364,19 @@ async function manageGiveItemRelateds(response: DraftBotPacket[], player: Player
 		.then();
 }
 
+function getGiveItemToPlayerEndCallback(whoIsConcerned: WhoIsConcerned, concernedItems: ConcernedItems, resaleMultiplier: number) {
+	return async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
+		const reaction = collector.getFirstReaction();
+		const isValidated = reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name;
+		await whoIsConcerned.player.reload();
+		BlockingUtils.unblockPlayer(whoIsConcerned.player.keycloakId, BlockingConstants.REASONS.ACCEPT_ITEM);
+		await sellOrKeepItem(response, whoIsConcerned, concernedItems, {
+			keepOriginal: !isValidated,
+			resaleMultiplier
+		});
+	};
+}
+
 /**
  * Gives an item to a player
  * @param response
@@ -387,6 +397,7 @@ export async function giveItemToPlayer(
 		player,
 		inventorySlots
 	};
+
 	response.push(makePacket(ItemFoundPacket, {
 		itemWithDetails: toItemWithDetails(item)
 	}));
@@ -400,6 +411,7 @@ export async function giveItemToPlayer(
 	const maxSlots = (await InventoryInfos.getOfPlayer(player.id)).slotLimitForCategory(category);
 	const items = inventorySlots.filter((slot: InventorySlot) => slot.itemCategory === category && !slot.isEquipped());
 	const autoSell = items.length === items.filter((slot: InventorySlot) => slot.itemId === item.id).length;
+
 	if (autoSell) {
 		await sellOrKeepItem(response, whoIsConcerned, {
 			item
@@ -422,39 +434,24 @@ export async function giveItemToPlayer(
 	const itemToReplace = inventorySlots.filter((slot: InventorySlot) => (maxSlots === 1 ? slot.isEquipped() : slot.slot === 1) && slot.itemCategory === category)[0];
 	const itemToReplaceInstance = itemToReplace.getItem();
 
-	const collector = new ReactionCollectorItemAccept(
-		toItemWithDetails(itemToReplaceInstance)
-	);
-
-	const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
-		const reaction = collector.getFirstReaction();
-		const isValidated = reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name;
-		await player.reload();
-		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.ACCEPT_ITEM);
-		await sellOrKeepItem(response, whoIsConcerned, {
-			item,
-			itemToReplace,
-			itemToReplaceInstance
-		}, {
-			keepOriginal: !isValidated,
-			resaleMultiplier
-		});
-	};
-
-	const packet = new ReactionCollectorInstance(
-		collector,
+	response.push(new ReactionCollectorInstance(
+		new ReactionCollectorItemAccept(
+			toItemWithDetails(itemToReplaceInstance)
+		),
 		context,
 		{
 			allowedPlayerKeycloakIds: [player.keycloakId],
 			reactionLimit: 1,
 			mainPacket: false
 		},
-		endCallback
+		getGiveItemToPlayerEndCallback(whoIsConcerned, {
+			item,
+			itemToReplace,
+			itemToReplaceInstance
+		}, resaleMultiplier)
 	)
 		.block(player.keycloakId, BlockingConstants.REASONS.ACCEPT_ITEM)
-		.build();
-
-	response.push(packet);
+		.build());
 }
 
 
@@ -556,16 +553,12 @@ export function sortPlayerItemList(items: InventorySlot[]): InventorySlot[] {
 		item: invSlot.getItem()
 	}))
 		.sort(
-			(a: TemporarySlotAndItemType, b: TemporarySlotAndItemType) => {
-				if (a.slot.itemCategory !== b.slot.itemCategory) {
-					return a.slot.itemCategory - b.slot.itemCategory;
-				}
-				return getItemValue(b.item) - getItemValue(a.item);
-			}
+			(a: TemporarySlotAndItemType, b: TemporarySlotAndItemType) =>
+				(a.slot.itemCategory !== b.slot.itemCategory
+					? a.slot.itemCategory - b.slot.itemCategory
+					: getItemValue(b.item) - getItemValue(a.item))
 		)
-		.map(function(e) {
-			return e.slot;
-		});
+		.map(e => e.slot);
 }
 
 
