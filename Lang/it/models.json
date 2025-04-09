@@ -899,11 +899,11 @@
       "name": "Spiaggia",
       "prefix": "della"
     },
-    "castle_entrance": {
+    "castleEntrance": {
       "name": "",
       "prefix": "delle"
     },
-    "castle_throne": {
+    "castleThrone": {
       "name": "",
       "prefix": "della"
     },
@@ -915,7 +915,7 @@
       "name": "",
       "prefix": "di"
     },
-    "crystal_cavern": {
+    "crystalCavern": {
       "name": "Grotta di cristallo",
       "prefix": "della"
     },
@@ -927,15 +927,15 @@
       "name": "Foresta",
       "prefix": "della"
     },
-    "ice_beach": {
+    "iceBeach": {
       "name": "Spiaggia ghiacciata",
       "prefix": "della"
     },
-    "ice_cavern": {
+    "iceCavern": {
       "name": "Caverna di ghiaccio",
       "prefix": "della"
     },
-    "ice_lake": {
+    "iceLake": {
       "name": "Lago ghiacciato",
       "prefix": "di"
     },
@@ -955,7 +955,7 @@
       "name": "Pianura",
       "prefix": "della"
     },
-    "pve_exit": {
+    "pveExit": {
       "name": "",
       "prefix": "di"
     },
@@ -971,15 +971,15 @@
       "name": "Rovine",
       "prefix": "delle"
     },
-    "snow_mountain": {
+    "snowMountain": {
       "name": "Cima",
       "prefix": "di"
     },
-    "snowmen_field": {
+    "snowmenField": {
       "name": "Pianura",
       "prefix": "della"
     },
-    "test_zone": {
+    "testZone": {
       "name": "",
       "prefix": "della"
     },
@@ -1077,9 +1077,9 @@
     "fromPlaceToPlace_order": "{{place1}}{{place2}} {{time}} Realizzare - in meno di ore",
     "fromPlaceToPlace_noOrder": "{{place1}}{{place2}} {{time}} - (o viceversa) in meno di ore",
     "fromPlaceToPlace_secondPart": "{{place1}}{{timestamp}}Raggiungere prima della <t: :f>",
-    "goToPlace": "{emote:map_types.{{mapType}} $t(models:map_locations.{{variant}}.name)}",
-    "fightAttacks": "{emote:fight_actions.{{variant}} $t(models:fight_actions.{{variant}}.name, {\"count\": {{count}}})}",
-    "finishWithAttack": "{emote:fight_actions.{{variant}} $t(models:fight_actions.{{variant}}.name, {\"count\": {{count}}})}"
+    "goToPlace": "{emote:mapTypes.{{mapType}} $t(models:map_locations.{{variant}}.name)}",
+    "fightAttacks": "{emote:fightActions.{{variant}} $t(models:fight_actions.{{variant}}.name, {\"count\": {{count}}})}",
+    "finishWithAttack": "{emote:fightActions.{{variant}} $t(models:fight_actions.{{variant}}.name, {\"count\": {{count}}})}"
   },
   "monsters": {
     "forestTroll": {
