@@ -410,7 +410,10 @@ export async function giveItemToPlayer(
 	const category = item.getCategory();
 	const maxSlots = (await InventoryInfos.getOfPlayer(player.id)).slotLimitForCategory(category);
 	const items = inventorySlots.filter((slot: InventorySlot) => slot.itemCategory === category && !slot.isEquipped());
-	const autoSell = items.length === items.filter((slot: InventorySlot) => slot.itemId === item.id).length;
+	const itemToReplace = inventorySlots.filter((slot: InventorySlot) => (maxSlots === 1 ? slot.isEquipped() : slot.slot === 1) && slot.itemCategory === category)[0];
+	const autoSell = maxSlots >= 3
+		? items.length === items.filter((slot: InventorySlot) => slot.itemId === item.id).length
+		: itemToReplace.itemId === item.id;
 
 	if (autoSell) {
 		await sellOrKeepItem(response, whoIsConcerned, {
@@ -431,7 +434,6 @@ export async function giveItemToPlayer(
 		return;
 	}
 
-	const itemToReplace = inventorySlots.filter((slot: InventorySlot) => (maxSlots === 1 ? slot.isEquipped() : slot.slot === 1) && slot.itemCategory === category)[0];
 	const itemToReplaceInstance = itemToReplace.getItem();
 
 	response.push(new ReactionCollectorInstance(
@@ -519,7 +521,7 @@ export function generateRandomItem(
 	const rarity = generateRandomRarity(minRarity ?? ItemRarity.COMMON, maxRarity ?? ItemRarity.MYTHICAL);
 	const category = itemCategory ?? generateRandomItemCategory();
 	const controller = controllers[category];
-	if ([ItemCategory.POTION, ItemCategory.OBJECT].includes(category) && subType !== null) { // 0 (no effect) is a false value
+	if ([ItemCategory.POTION, ItemCategory.OBJECT].includes(category) && subType !== undefined) { // 0 (no effect) is a false value
 		return (controller as PotionDataController | ObjectItemDataController).randomItem(subType, rarity);
 	}
 	const itemsIds = controller.getAllIdsForRarity(rarity);
