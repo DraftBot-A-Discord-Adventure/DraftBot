@@ -77,8 +77,8 @@ async function acceptPetFree(player: Player, playerPet: PetEntity, response: Dra
 	}
 
 	if (playerPet.isFeisty()) {
-		await player.addMoney({
-			amount: -PetFreeConstants.FREE_FEISTY_COST,
+		await player.spendMoney({
+			amount: PetFreeConstants.FREE_FEISTY_COST,
 			response,
 			reason: NumberChangeReason.PET_FREE
 		});
