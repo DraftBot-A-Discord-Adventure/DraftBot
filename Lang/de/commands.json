@@ -289,7 +289,7 @@
     "usageFieldTitle": "Verwendung",
     "utilCommands": "{emote:collectors.question} Nützliches :",
     "needHelp": "Brauchen Sie Hilfe?",
-    "needHelpDescription": "{emote:fight_command.crossed_swords} Hallo! Diese Nachricht wurde aufgrund einer Hilfeanfrage gesendet.\n\nWenn Sie Hilfe bei der Nutzung des Spiels benötigen, können Sie dem Server des Offiziellen beitreten!\n\nDort können Sie an der Entwicklung des Spiels teilnehmen und alle notwendigen Informationen erhalten!\n\nEs wird außerdem empfohlen, sich den ausführlichen Bot-Guide anzusehen: https://guide.draftbot.com/"
+    "needHelpDescription": "{emote:fightCommand.crossedSwords} Hallo! Diese Nachricht wurde aufgrund einer Hilfeanfrage gesendet.\n\nWenn Sie Hilfe bei der Nutzung des Spiels benötigen, können Sie dem Server des Offiziellen beitreten!\n\nDort können Sie an der Entwicklung des Spiels teilnehmen und alle notwendigen Informationen erhalten!\n\nEs wird außerdem empfohlen, sich den ausführlichen Bot-Guide anzusehen: https://guide.draftbot.com/"
   },
   "idea": {
     "description": "Sie können Vorschläge unterbreiten und für Ihre Lieblingsideen über diesen Link wählen:\nhttps://feedback.draftbot.com/",
@@ -455,7 +455,7 @@
     "experience": "** | :star: XP gewonnen: **{{experience}}",
     "gems": "** | :gem: Geme-Gewinner: **{{gems}}",
     "health": "** | :heart: Verlorene Vie: **{{health}}",
-    "healthLoose": "** | {emote:unitValues.lostHealth} Vie perdue : **{{health}}",
+    "healthLoose": "** | :broken_heart: Verlorene Vie: **{{health}}",
     "journal": "Protokoll von {{pseudo}}",
     "money": "** | {emote:unitValues.money} Verdientes Geld : **{{money}}",
     "moneyLoose": "** | :money_with_wings: Argent verloren: **{{money}}",
@@ -468,10 +468,10 @@
     "noFight": ":newspaper: ** Journal von {{pseudo}} : ** {{waitABitReaction}} | Sie verlassen sich schnell und finden Sie ein kleines Versteck! Das Monster wartet geduldig auf Sie.",
     "points": ": ** :medal: Gewinner: **{{score}}",
     "pveEvent": ":newspaper: ** Journal von {{pseudo}} : ** {{event}}\n\n{{monsterDisplay}}\n\n{{startTheFightReaction}} Beginnt mit dem Kampf\n{{waitABitReaction}} Warten Sie kurz vor Beginn des Kampfes\n\n*-Verwenden Sie die Reaktionen, um eine Aktion durchzuführen *",
-    "pveFightRefused": "{emote:commands.report} **Tagebuch von {{pseudo}} :** {emote:pve_fights.wait_a_bit} | Sie beschließen, sich vorerst nicht auf einen Kampf einzulassen und suchen in einem Versteck in der Nähe Zuflucht. Letztendlich müssen Sie sich der Bestie stellen, da Sie keinen anderen Ausweg finden.",
+    "pveFightRefused": "{emote:commands.report} **Tagebuch von {{pseudo}} :** {emote:pveFights.waitABit} | Sie beschließen, sich vorerst nicht auf einen Kampf einzulassen und suchen in einem Versteck in der Nähe Zuflucht. Letztendlich müssen Sie sich der Bestie stellen, da Sie keinen anderen Ausweg finden.",
     "remainingEnergyTitle": "Verbleibende Energie:",
     "startPoint": "Startpunkt:",
-    "timeLost": "** | {emote:clocks.10} Temps perdu : **{{timeLost}}",
+    "timeLost": "** | :clock10: Verlorene Zeit: **{{timeLost}}",
     "travelPathTitle": "Aktuelle Reise:",
     "travellingDescription": "Es läuft alles gut, seit Ihr letztes Abenteuer {{smallEventEmoji}}. Nächster Halt nach Plan {{time}}.",
     "travellingDescriptionEndTravel": "Es läuft alles gut in Ihrem Abenteuer, Sie werden bald am Ziel ankommen.",
@@ -1028,7 +1028,7 @@
   "fight": {
     "title": "{{pseudo}}Sie sind im Begriff, einen Kampf zu beginnen.",
     "canceledTitle": "{{pseudo}}Sie haben die Suche abgebrochen.",
-    "confirmDesc": "{emote:fight_command.crossed_swords} | **{{pseudo}}**{{confirmSubText}}\n\n{emote:fight_command.crossed_swords} | ** Kämpfer : {{pseudo}}** | {{glory}} | {{className}}\n\n{{stats}}",
+    "confirmDesc": "{emote:fightCommand.crossedSwords} | **{{pseudo}}**{{confirmSubText}}\n\n{emote:fightCommand.crossedSwords} | ** Kämpfer : {{pseudo}}** | {{glory}} | {{className}}\n\n{{stats}}",
     "confirmSubTexts": {
       "common": "Sie möchten eine Kampfsuche starten?",
       "rare": "Würden Sie sich an der Suche nach einem Kämpfer beteiligen, der Ihrer persönlichen Stärke entspricht, um das anschließende Duell zu bestreiten?"
@@ -1042,14 +1042,14 @@
     "opponentsNotFound": "Es wurde kein Gegner gefunden, der gegen Sie antreten kann. Sie können es später noch einmal versuchen.",
     "notEnoughEnergy": "Sie haben nicht genug Energie, um einen Kampf zu beginnen!",
     "monsterNotFound": "Es wurden keine Monster gefunden, die gegen dich antreten können. Bitte melden Sie diesen Vorfall unserem Support (discord.gg/AP3Wmzb).",
-    "fightIntroTitle": "{emote:fight_command.crossed_swords} | Ein Kampf wird zwischen {{fightInitiator}} und {{opponent}} gestartet!",
+    "fightIntroTitle": "{emote:fightCommand.crossedSwords} | Ein Kampf wird zwischen {{fightInitiator}} und {{opponent}} gestartet!",
     "actionsOf": "**Angriffe von {{pseudo}} :**",
     "petOf": "**Familienmitglied von {{pseudo}} :**",
     "fightActionNameDisplay": "{{fightActionEmote}} - {{fightActionName}} | {emote:unitValues.breath} {{breathCost}}",
     "summarize": {
       "title": "Zusammenfassung des Kampfes",
       "intro": {
-        "start": "{emote:fight_command.clipboard} | **Aktueller Stand des Kampfes** {{state}}\n\n",
+        "start": "{emote:fightCommand.clipboard} | **Aktueller Stand des Kampfes** {{state}}\n\n",
         "prolongation": "Verlängerungen",
         "noProlongation": "[{{currentTurn}}/{{maxTurn}}]"
       },
@@ -1061,12 +1061,12 @@
       "bugged": "Der Kampf wurde abgebrochen, weil es ein technisches Problem gab.",
       "draw": "{emote:commands.report} | **{{player1}} und {{player2}} beenden ihren Kampf mit einem Unentschieden!**\n\n",
       "win": "{emote:commands.report}| **{{winner}} gewinnt das Spiel gegen {{loser}}**\n\n",
-      "gameStats": "{emote:fight_command.game_stats} | Kampfstatistiken\n- **Runden**: {{turn}}/{{maxTurn}}\n- **Kampfzeit**: {{time}}",
-      "gameStatsProlongation": "{emote:fight_command.game_stats} | Kampfstatistik\n- **Runden**: {{turn}}/{{maxTurn}} (Verlängerungen)\n- **Kampfzeit**: {{time}}",
-      "fighterStats": "\n\n{emote:fight_command.fighter_stats} | Statistiken von {{pseudo}}\n- **Endgültiges Leben**: {{energy}}/{{maxEnergy}} {emote:unitValues.energy}"
+      "gameStats": "{emote:fightCommand.gameStats} | Kampfstatistiken\n- **Runden**: {{turn}}/{{maxTurn}}\n- **Kampfzeit**: {{time}}",
+      "gameStatsProlongation": "{emote:fightCommand.gameStats} | Kampfstatistik\n- **Runden**: {{turn}}/{{maxTurn}} (Verlängerungen)\n- **Kampfzeit**: {{time}}",
+      "fighterStats": "\n\n{emote:fightCommand.fighterStats} | Statistiken von {{pseudo}}\n- **Endgültiges Leben**: {{energy}}/{{maxEnergy}} {emote:unitValues.energy}"
     },
     "fightActionChoose": {
-      "turnIndicationTitle": "Jetzt ist {{pseudo}} an der Reihe {emote:fight_command.crossed_swords}",
+      "turnIndicationTitle": "Jetzt ist {{pseudo}} an der Reihe {emote:fightCommand.crossedSwords}",
       "turnIndicationDescription": "Wählen Sie eine Aktion"
     },
     "actions": {
@@ -1144,10 +1144,10 @@
           "summoning": " `Berufung von {{amount}} Verbündeten`."
         }
       },
-      "aiChoose": "{emote:fight_command.ai_thinking} Der Gegner wählt einen Angriff..."
+      "aiChoose": "{emote:fightCommand.aiThinking} Der Gegner wählt einen Angriff..."
     },
     "fightReward": {
-      "title": "{emote:fight_command.glory_change} Kampfbelohnungen",
+      "title": "{emote:fightCommand.gloryChange} Kampfbelohnungen",
       "scoreAndMoneyField": "Belohnungen für den Kampf",
       "noReward": "Sie haben alle Kampfbelohnungen aufgebraucht, kommen Sie morgen wieder.",
       "points": "{emote:unitValues.score} Gewonnene Punkte : **{{count}}**",
