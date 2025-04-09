@@ -79,9 +79,7 @@ export abstract class MapConstants {
 		"ri",
 		"la",
 		"castleEntrance",
-		"castleThrone",
-		"castle_forge",
-		"castle_carriage"
+		"castleThrone"
 	];
 
 	static readonly MAP_ATTRIBUTES = {

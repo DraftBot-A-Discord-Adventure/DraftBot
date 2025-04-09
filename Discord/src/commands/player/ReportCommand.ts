@@ -528,14 +528,14 @@ export async function reportTravelSummary(packet: CommandReportTravelSummaryRes,
 	if (packet.energy.show) {
 		travelEmbed.addFields({
 			name: i18n.t("commands:report.remainingEnergyTitle", { lng: interaction.userLanguage }),
-			value: `⚡ ${packet.energy.current} / ${packet.energy.max}`,
+			value: `${DraftBotIcons.unitValues.energy} ${packet.energy.current} / ${packet.energy.max}`,
 			inline: true
 		});
 	}
 	if (packet.points.show) {
 		travelEmbed.addFields({
 			name: i18n.t("commands:report.collectedPointsTitle", { lng: interaction.userLanguage }),
-			value: `🏅 ${packet.points.cumulated}`,
+			value: `${DraftBotIcons.unitValues.score} ${packet.points.cumulated}`,
 			inline: true
 		});
 	}
