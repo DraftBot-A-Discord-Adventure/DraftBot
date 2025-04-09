@@ -4,7 +4,6 @@ import { ItemRarity } from "../../../../../Lib/src/constants/ItemConstants";
 export const witchSmallEvent: WitchActionFuncs = {
 	generatePotion: () => ({
 		minRarity: ItemRarity.RARE,
-		maxRarity: ItemRarity.EPIC,
-		nature: null
+		maxRarity: ItemRarity.EPIC
 	})
 };

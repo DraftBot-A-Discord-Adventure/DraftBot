@@ -1,8 +1,6 @@
 import { Shop } from "./interfaces/Shop";
 import {
-	SmallEventShopAcceptPacket,
-	SmallEventShopCannotBuyPacket,
-	SmallEventShopRefusePacket
+	SmallEventShopAcceptPacket, SmallEventShopCannotBuyPacket, SmallEventShopRefusePacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventShopPacket";
 import { GenericItem } from "../../data/GenericItem";
 import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
@@ -12,8 +10,7 @@ import { ItemRarity } from "../../../../Lib/src/constants/ItemConstants";
 import { makePacket } from "../../../../Lib/src/packets/DraftBotPacket";
 import { SmallEventFuncs } from "../../data/SmallEvent";
 import {
-	ReactionCollectorShopSmallEvent,
-	ReactionCollectorShopSmallEventData
+	ReactionCollectorShopSmallEvent, ReactionCollectorShopSmallEventData
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorShopSmallEvent";
 
 class ShopSmallEvent extends Shop<SmallEventShopAcceptPacket, SmallEventShopRefusePacket, SmallEventShopCannotBuyPacket, ReactionCollectorShopSmallEvent> {
@@ -22,7 +19,9 @@ class ShopSmallEvent extends Shop<SmallEventShopAcceptPacket, SmallEventShopRefu
 	}
 
 	getRandomItem(): GenericItem {
-		return generateRandomItem(null, ItemRarity.COMMON, SmallEventConstants.SHOP.MAX_RARITY);
+		return generateRandomItem({
+			maxRarity: ItemRarity.SPECIAL
+		});
 	}
 
 	getAcceptPacket(): SmallEventShopAcceptPacket {

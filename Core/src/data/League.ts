@@ -32,11 +32,10 @@ export class League extends Data<number> {
 	 * Get the random item a player will get depending on the rarities that are tied to the league id
 	 */
 	public generateRewardItem(): GenericItem {
-		return generateRandomItem(
-			null,
-			LeagueInfoConstants.ITEM_MINIMAL_RARITY[this.id],
-			LeagueInfoConstants.ITEM_MAXIMAL_RARITY[this.id]
-		);
+		return generateRandomItem({
+			minRarity: LeagueInfoConstants.ITEM_MINIMAL_RARITY[this.id],
+			maxRarity: LeagueInfoConstants.ITEM_MAXIMAL_RARITY[this.id]
+		});
 	}
 
 	/**
