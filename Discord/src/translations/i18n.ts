@@ -7,7 +7,7 @@ import { resolve } from "path";
 import { BotUtils } from "../utils/BotUtils";
 import { EmoteUtils } from "../utils/EmoteUtils";
 import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
-import { DraftBotLogger } from "../../../Lib/src/logs/Logger";
+import { DraftBotLogger } from "../../../Lib/src/logs/DraftBotLogger";
 
 function getI18nOptions(): i18next.InitOptions<unknown> {
 	const resources: i18next.Resource = {};

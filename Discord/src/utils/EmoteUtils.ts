@@ -4,7 +4,7 @@ import {
 } from "discord.js";
 import { DraftBotEmbed } from "../messages/DraftBotEmbed";
 import { DraftbotInteraction } from "../messages/DraftbotInteraction";
-import { DraftBotLogger } from "../../../Lib/src/logs/Logger";
+import { DraftBotLogger } from "../../../Lib/src/logs/DraftBotLogger";
 
 export class EmoteUtils {
 	/**

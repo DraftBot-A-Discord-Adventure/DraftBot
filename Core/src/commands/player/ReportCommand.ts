@@ -67,7 +67,7 @@ import {
 } from "../../core/utils/CommandUtils";
 import { Effect } from "../../../../Lib/src/types/Effect";
 import { ReactionCollectorRefuseReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import { DraftBotLogger } from "../../../../Lib/src/logs/Logger";
+import { DraftBotLogger } from "../../../../Lib/src/logs/DraftBotLogger";
 
 export default class ReportCommand {
 	@commandRequires(CommandReportPacketReq, {

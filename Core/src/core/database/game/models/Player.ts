@@ -53,6 +53,7 @@ import { ScheduledReportNotifications } from "./ScheduledReportNotification";
 import { PacketUtils } from "../../../utils/PacketUtils";
 import { StatValues } from "../../../../../../Lib/src/types/StatValues";
 import { ReachDestinationNotificationPacket } from "../../../../../../Lib/src/packets/notifications/ReachDestinationNotificationPacket";
+import { DraftBotLogger } from "../../../../../../Lib/src/logs/DraftBotLogger";
 import moment = require("moment");
 
 export type PlayerEditValueParameters = {
@@ -1603,6 +1604,10 @@ export function initModel(sequelize: Sequelize): void {
 	});
 
 	Player.afterSave(instance => {
+		if (!instance.mapLinkId) {
+			return;
+		}
+
 		const handleNotifications = async (): Promise<void> => {
 			const now = new Date();
 			const travelEndDate = new Date(TravelTime.getTravelDataSimplified(instance, now).travelEndTime);
@@ -1626,7 +1631,10 @@ export function initModel(sequelize: Sequelize): void {
 		};
 
 		handleNotifications()
-			.then();
+			.then()
+			.catch(error => {
+				DraftBotLogger.errorWithObj("Error while handling notifications", error);
+			});
 	});
 }
 

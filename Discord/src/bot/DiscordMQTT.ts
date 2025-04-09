@@ -21,7 +21,7 @@ import i18n from "../translations/i18n";
 import { MqttTopicUtils } from "../../../Lib/src/utils/MqttTopicUtils";
 import { DraftBotDiscordMetrics } from "./DraftBotDiscordMetrics";
 import { millisecondsToSeconds } from "../../../Lib/src/utils/TimeUtils";
-import { DraftBotLogger } from "../../../Lib/src/logs/Logger";
+import { DraftBotLogger } from "../../../Lib/src/logs/DraftBotLogger";
 
 export class DiscordMQTT {
 	static mqttClient: MqttClient;

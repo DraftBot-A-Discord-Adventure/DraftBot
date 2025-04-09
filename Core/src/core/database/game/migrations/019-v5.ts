@@ -14,7 +14,7 @@ import { KeycloakConfig } from "../../../../../../Lib/src/keycloak/KeycloakConfi
 import { logsV5NewIds } from "../../logs/migrations/006-v5";
 import { LANGUAGE } from "../../../../../../Lib/src/Language";
 import { Effect } from "../../../../../../Lib/src/types/Effect";
-import { DraftBotLogger } from "../../../../../../Lib/src/logs/Logger";
+import { DraftBotLogger } from "../../../../../../Lib/src/logs/DraftBotLogger";
 
 export async function up({ context }: { context: QueryInterface }): Promise<void> {
 	// Delete players with a score < 100 and that are not banned

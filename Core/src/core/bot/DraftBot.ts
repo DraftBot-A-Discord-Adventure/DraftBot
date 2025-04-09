@@ -34,7 +34,7 @@ import { MqttTopicUtils } from "../../../../Lib/src/utils/MqttTopicUtils";
 import { initializeAllClassBehaviors } from "../fights/AiBehaviorController";
 import { initializeAllPetBehaviors } from "../fights/PetAssistManager";
 import { DraftBotCoreWebServer } from "./DraftBotCoreWebServer";
-import { DraftBotLogger } from "../../../../Lib/src/logs/Logger";
+import { DraftBotLogger } from "../../../../Lib/src/logs/DraftBotLogger";
 
 export class DraftBot {
 	public readonly packetListener: PacketListenerServer;

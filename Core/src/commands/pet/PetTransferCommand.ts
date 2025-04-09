@@ -33,7 +33,7 @@ import { GuildPets } from "../../core/database/game/models/GuildPet";
 import { PetConstants } from "../../../../Lib/src/constants/PetConstants";
 import { draftBotInstance } from "../../index";
 import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
-import { DraftBotLogger } from "../../../../Lib/src/logs/Logger";
+import { DraftBotLogger } from "../../../../Lib/src/logs/DraftBotLogger";
 
 
 /**

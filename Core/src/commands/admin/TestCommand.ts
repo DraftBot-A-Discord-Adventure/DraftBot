@@ -10,7 +10,7 @@ import { Player } from "../../core/database/game/models/Player";
 import {
 	commandRequires, CommandUtils
 } from "../../core/utils/CommandUtils";
-import { DraftBotLogger } from "../../../../Lib/src/logs/Logger";
+import { DraftBotLogger } from "../../../../Lib/src/logs/DraftBotLogger";
 
 export default class TestCommand {
 	@commandRequires(CommandTestPacketReq, {

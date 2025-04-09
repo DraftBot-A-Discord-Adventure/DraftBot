@@ -13,7 +13,7 @@ import { RightGroup } from "../../Lib/src/types/RightGroup";
 import { MqttTopicUtils } from "../../Lib/src/utils/MqttTopicUtils";
 import { DraftBotCoreMetrics } from "./core/bot/DraftBotCoreMetrics";
 import { millisecondsToSeconds } from "../../Lib/src/utils/TimeUtils";
-import { DraftBotLogger } from "../../Lib/src/logs/Logger";
+import { DraftBotLogger } from "../../Lib/src/logs/DraftBotLogger";
 
 export const botConfig = loadConfig();
 DraftBotLogger.init(botConfig.LOG_LEVEL, botConfig.LOG_LOCATIONS, { app: "Core" }, botConfig.LOKI_HOST

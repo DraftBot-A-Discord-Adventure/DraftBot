@@ -5,7 +5,7 @@ import {
 	botConfig, draftBotInstance
 } from "../../index";
 import { draftBotMetricsRegistry } from "./DraftBotCoreMetrics";
-import { DraftBotLogger } from "../../../../Lib/src/logs/Logger";
+import { DraftBotLogger } from "../../../../Lib/src/logs/DraftBotLogger";
 import { BlockingUtils } from "../utils/BlockingUtils";
 import express = require("express");
 

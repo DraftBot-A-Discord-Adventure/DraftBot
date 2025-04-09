@@ -25,7 +25,7 @@ import {
 	SexTypeShort, StringConstants
 } from "../../../../../../Lib/src/constants/StringConstants";
 import { OwnedPet } from "../../../../../../Lib/src/types/OwnedPet";
-import { DraftBotLogger } from "../../../../../../Lib/src/logs/Logger";
+import { DraftBotLogger } from "../../../../../../Lib/src/logs/DraftBotLogger";
 import moment = require("moment");
 
 export class PetEntity extends Model {

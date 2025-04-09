@@ -1,7 +1,7 @@
 import { loadConfig } from "./config/DiscordConfig";
 import { ShardingManager } from "discord.js";
 import { AutoPoster as autoPoster } from "topgg-autoposter";
-import { DraftBotLogger } from "../../Lib/src/logs/Logger";
+import { DraftBotLogger } from "../../Lib/src/logs/DraftBotLogger";
 
 const shardCount = "auto";
 

@@ -2,7 +2,7 @@ import { Database } from "../../../../../Lib/src/database/Database";
 import { DataTypes } from "sequelize";
 import { getDatabaseConfiguration } from "../../bot/DraftBotConfig";
 import { botConfig } from "../../../index";
-import { DraftBotLogger } from "../../../../../Lib/src/logs/Logger";
+import { DraftBotLogger } from "../../../../../Lib/src/logs/DraftBotLogger";
 
 export class GameDatabase extends Database {
 	constructor() {
