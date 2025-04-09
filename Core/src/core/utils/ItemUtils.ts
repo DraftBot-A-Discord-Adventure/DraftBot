@@ -3,7 +3,7 @@ import { MissionsController } from "../missions/MissionsController";
 import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
 import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
 import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
-import Player, { Players } from "../database/game/models/Player";
+import Player from "../database/game/models/Player";
 import { InventoryInfos } from "../database/game/models/InventoryInfo";
 import {
 	ItemCategory, ItemConstants, ItemNature, ItemRarity
@@ -37,21 +37,24 @@ import { MainItem } from "../../data/MainItem";
 import { SupportItem } from "../../data/SupportItem";
 import { StatValues } from "../../../../Lib/src/types/StatValues";
 
+
 /**
  * Get the value of an item
  * @param item
  */
-export const getItemValue = function(item: GenericItem): number {
+export function getItemValue(item: GenericItem): number {
 	return Math.round(ItemConstants.RARITY.VALUES[item.rarity] + item.getItemAddedValue());
-};
+}
+
 
 /**
  * Count how many potions the player have
  * @param invSlots
  */
-export const countNbOfPotions = function(invSlots: InventorySlot[]): number {
+export function countNbOfPotions(invSlots: InventorySlot[]): number {
 	return invSlots.filter(slot => slot.isPotion() && slot.itemId !== 0).length;
-};
+}
+
 
 /**
  * Check the missions of the player corresponding to a drink of a given potion
@@ -60,7 +63,7 @@ export const countNbOfPotions = function(invSlots: InventorySlot[]): number {
  * @param potion
  * @param inventorySlots
  */
-export const checkDrinkPotionMissions = async function(response: DraftBotPacket[], player: Player, potion: Potion, inventorySlots: InventorySlot[]): Promise<void> {
+export async function checkDrinkPotionMissions(response: DraftBotPacket[], player: Player, potion: Potion, inventorySlots: InventorySlot[]): Promise<void> {
 	await MissionsController.update(player, response, { missionId: "drinkPotion" });
 	await MissionsController.update(player, response, {
 		missionId: "drinkPotionRarity",
@@ -86,18 +89,18 @@ export const checkDrinkPotionMissions = async function(response: DraftBotPacket[
 		count: countNbOfPotions(inventorySlots),
 		set: true
 	});
-};
+}
 
-const getSupportItemDetails = function(item: SupportItem): {
+function getSupportItemDetails(item: SupportItem): {
 	nature: ItemNature; power: number;
 } {
 	return {
 		nature: item.nature,
 		power: item.power
 	};
-};
+}
 
-const getMainItemDetails = function(item: MainItem): { stats: StatValues } {
+function getMainItemDetails(item: MainItem): { stats: StatValues } {
 	return {
 		stats: {
 			attack: item.getAttack(),
@@ -105,9 +108,9 @@ const getMainItemDetails = function(item: MainItem): { stats: StatValues } {
 			speed: item.getSpeed()
 		}
 	};
-};
+}
 
-export const toItemWithDetails = function(item: GenericItem): ItemWithDetails {
+export function toItemWithDetails(item: GenericItem): ItemWithDetails {
 	const category = item.getCategory();
 	return {
 		id: item.id,
@@ -125,7 +128,7 @@ export const toItemWithDetails = function(item: GenericItem): ItemWithDetails {
 				: null,
 		maxStats: null
 	};
-};
+}
 
 type WhoIsConcerned = {
 	player: Player;
@@ -145,24 +148,99 @@ type SellKeepItemOptions = {
 };
 
 /**
- * Sells or keep the item depending on the parameters
+ * Do not keep the original item
+ * @param response
+ * @param player
+ * @param item
+ * @param itemToReplace
+ */
+async function dontKeepOriginalItem(response: DraftBotPacket[], player: Player, item: GenericItem, itemToReplace: InventorySlot): Promise<void> {
+	response.push(makePacket(ItemAcceptPacket, {
+		itemWithDetails: toItemWithDetails(item)
+	}));
+	await InventorySlot.update({
+		itemId: item.id
+	}, {
+		where: {
+			slot: itemToReplace.slot,
+			itemCategory: itemToReplace.itemCategory,
+			playerId: player.id
+		}
+	});
+	await MissionsController.update(player, response, {
+		missionId: "haveItemRarity",
+		params: { rarity: item.rarity }
+	});
+	draftBotInstance.logsDatabase.logItemGain(player.keycloakId, item)
+		.then();
+}
+
+/**
+ * Manage the money payment from a sold item
+ * @param response
+ * @param player
+ * @param item
+ * @param money
+ */
+async function manageMoneyPayment(response: DraftBotPacket[], player: Player, item: GenericItem, money: number): Promise<void> {
+	await player.addMoney({
+		amount: money,
+		response,
+		reason: NumberChangeReason.ITEM_SELL
+	});
+	await MissionsController.update(player, response, {
+		missionId: "sellItemWithGivenCost",
+		params: { itemCost: money }
+	});
+	await player.save();
+	draftBotInstance.logsDatabase.logItemSell(player.keycloakId, item)
+		.then();
+}
+
+/**
+ * Manage the related actions of the item refusal
  * @param response
  * @param player
  * @param inventorySlots
+ * @param item
+ * @param money
+ * @param autoSell
+ */
+async function manageItemRefusal(response: DraftBotPacket[], {
+	player,
+	inventorySlots
+}: WhoIsConcerned, item: GenericItem, money: number, autoSell: boolean): Promise<void> {
+	response.push(makePacket(ItemRefusePacket, {
+		item: {
+			id: item.id,
+			category: item.getCategory()
+		},
+		autoSell,
+		soldMoney: money
+	}));
+	await MissionsController.update(player, response, { missionId: "findOrBuyItem" });
+	await player.reload();
+	await MissionsController.update(player, response, {
+		missionId: "havePotions",
+		count: countNbOfPotions(inventorySlots),
+		set: true
+	});
+}
+
+/**
+ * Sells or keep the item depending on the parameters
+ * @param response
+ * @param whoIsConcerned
  * @param item
  * @param itemToReplace
  * @param itemToReplaceInstance
  * @param keepOriginal
  * @param resaleMultiplier
- * @param resaleMultiplierActual
  * @param autoSell
  */
 async function sellOrKeepItem(
 	response: DraftBotPacket[],
-	{
-		player,
-		inventorySlots
-	}: WhoIsConcerned,
+	whoIsConcerned: WhoIsConcerned,
 	{
 		item,
 		itemToReplace,
@@ -174,65 +252,50 @@ async function sellOrKeepItem(
 		autoSell
 	}: SellKeepItemOptions
 ): Promise<void> {
-	player = await Players.getById(player.id);
+	const player = whoIsConcerned.player;
+	await player.reload();
 	if (!keepOriginal) {
-		const packet = makePacket(ItemAcceptPacket, {
-			itemWithDetails: toItemWithDetails(item)
-		});
-		response.push(packet);
-		await InventorySlot.update(
-			{
-				itemId: item.id
-			},
-			{
-				where: {
-					slot: itemToReplace.slot,
-					itemCategory: itemToReplace.itemCategory,
-					playerId: player.id
-				}
-			}
-		);
-		await MissionsController.update(player, response, {
-			missionId: "haveItemRarity",
-			params: { rarity: item.rarity }
-		});
-		draftBotInstance.logsDatabase.logItemGain(player.keycloakId, item)
-			.then();
+		await dontKeepOriginalItem(response, player, item, itemToReplace);
 		item = itemToReplaceInstance;
 		resaleMultiplier = 1;
 	}
 	let money = 0;
 	if (item.getCategory() !== ItemCategory.POTION) {
 		money = Math.round(getItemValue(item) * resaleMultiplier);
-		await player.addMoney({
-			amount: money,
-			response,
-			reason: NumberChangeReason.ITEM_SELL
-		});
-		await MissionsController.update(player, response, {
-			missionId: "sellItemWithGivenCost",
-			params: { itemCost: money }
-		});
-		await player.save();
-		draftBotInstance.logsDatabase.logItemSell(player.keycloakId, item)
-			.then();
+		await manageMoneyPayment(response, player, item, money);
 	}
-	const packet = makePacket(ItemRefusePacket, {
-		item: {
-			id: item.id,
-			category: item.getCategory()
-		},
-		autoSell,
-		soldMoney: money
-	});
-	response.push(packet);
-	await MissionsController.update(player, response, { missionId: "findOrBuyItem" });
-	player = await Players.getById(player.id);
-	await MissionsController.update(player, response, {
-		missionId: "havePotions",
-		count: countNbOfPotions(inventorySlots),
-		set: true
-	});
+	await manageItemRefusal(response, whoIsConcerned, item, money, autoSell);
+}
+
+/**
+ * Get the end callback of the MoreThan2ItemsSwitching collector
+ * @param whoIsConcerned
+ * @param toTradeItem
+ * @param tradableItems
+ * @param sellKeepOptions
+ */
+function getMoreThan2ItemsSwitchingEndCallback(whoIsConcerned: WhoIsConcerned, toTradeItem: GenericItem, tradableItems: InventorySlot[], sellKeepOptions: SellKeepItemOptions) {
+	const player = whoIsConcerned.player;
+	return async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
+		const reaction = collector.getFirstReaction();
+		await player.reload();
+
+		const concernedItems: ConcernedItems = {
+			item: toTradeItem
+		};
+
+		if (reaction?.reaction.type === ReactionCollectorItemChoiceItemReaction.name) {
+			const itemReaction = reaction.reaction.data as ReactionCollectorItemChoiceItemReaction;
+			const invSlot = tradableItems.find(i => i.slot === itemReaction.slot);
+			concernedItems.itemToReplace = invSlot;
+			concernedItems.itemToReplaceInstance = invSlot.getItem();
+		}
+		else {
+			sellKeepOptions.keepOriginal = true;
+		}
+		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.ACCEPT_ITEM);
+		await sellOrKeepItem(response, whoIsConcerned, concernedItems, sellKeepOptions);
+	};
 }
 
 type ItemsToManage = {
@@ -260,61 +323,48 @@ function manageMoreThan2ItemsSwitching(
 	}: ItemsToManage,
 	sellKeepOptions: SellKeepItemOptions
 ): void {
-	const player = whoIsConcerned.player;
+	const keycloakId = whoIsConcerned.player.keycloakId;
 	tradableItems.sort((a: InventorySlot, b: InventorySlot) => (a.slot > b.slot ? 1 : b.slot > a.slot ? -1 : 0));
 
-	const collector = new ReactionCollectorItemChoice(
-		{
-			item: {
-				id: toTradeItem.id,
-				category: toTradeItem.getCategory()
-			}
-		},
-		tradableItems.map(i => ({
-			slot: i.slot,
-			itemWithDetails: toItemWithDetails(i.getItem())
-		}))
-	);
-
-	const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
-		const reaction = collector.getFirstReaction();
-
-		if (reaction && reaction.reaction.type === ReactionCollectorItemChoiceItemReaction.name) {
-			const itemReaction = reaction.reaction.data as ReactionCollectorItemChoiceItemReaction;
-			const invSlot = tradableItems.find(i => i.slot === itemReaction.slot);
-
-			await player.reload();
-			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.ACCEPT_ITEM);
-			await sellOrKeepItem(response, whoIsConcerned, {
-				item: toTradeItem,
-				itemToReplace: invSlot,
-				itemToReplaceInstance: invSlot.getItem()
-			}, sellKeepOptions);
+	const collector = new ReactionCollectorItemChoice({
+		item: {
+			id: toTradeItem.id,
+			category: toTradeItem.getCategory()
 		}
-		else {
-			await player.reload();
-			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.ACCEPT_ITEM);
-			sellKeepOptions.keepOriginal = true;
-			await sellOrKeepItem(response, whoIsConcerned, {
-				item: toTradeItem
-			}, sellKeepOptions);
-		}
-	};
+	},
+	tradableItems.map(i => ({
+		slot: i.slot,
+		itemWithDetails: toItemWithDetails(i.getItem())
+	})));
 
-	const packet = new ReactionCollectorInstance(
+	response.push(new ReactionCollectorInstance(
 		collector,
 		context,
 		{
-			allowedPlayerKeycloakIds: [player.keycloakId],
+			allowedPlayerKeycloakIds: [keycloakId],
 			reactionLimit: 1,
 			mainPacket: false
 		},
-		endCallback
+		getMoreThan2ItemsSwitchingEndCallback(whoIsConcerned, toTradeItem, tradableItems, sellKeepOptions)
 	)
-		.block(player.keycloakId, BlockingConstants.REASONS.ACCEPT_ITEM)
-		.build();
+		.block(keycloakId, BlockingConstants.REASONS.ACCEPT_ITEM)
+		.build());
+}
 
-	response.push(packet);
+
+async function manageGiveItemRelateds(response: DraftBotPacket[], player: Player, item: GenericItem): Promise<void> {
+	await MissionsController.update(player, response, { missionId: "findOrBuyItem" });
+	await MissionsController.update(player, response, {
+		missionId: "havePotions",
+		count: countNbOfPotions(await InventorySlots.getOfPlayer(player.id)),
+		set: true
+	});
+	await MissionsController.update(player, response, {
+		missionId: "haveItemRarity",
+		params: { rarity: item.rarity }
+	});
+	draftBotInstance.logsDatabase.logItemGain(player.keycloakId, item)
+		.then();
 }
 
 /**
@@ -323,62 +373,33 @@ function manageMoreThan2ItemsSwitching(
  * @param context
  * @param player
  * @param item
- * @param resaleMultiplierNew
+ * @param resaleMultiplier
  */
-export const giveItemToPlayer = async function(
+export async function giveItemToPlayer(
 	response: DraftBotPacket[],
 	context: PacketContext,
 	player: Player,
 	item: GenericItem,
-	resaleMultiplierNew = 1
+	resaleMultiplier = 1
 ): Promise<void> {
 	const inventorySlots = await InventorySlots.getOfPlayer(player.id);
 	const whoIsConcerned = {
 		player,
 		inventorySlots
 	};
-	const resaleMultiplier = resaleMultiplierNew;
 	response.push(makePacket(ItemFoundPacket, {
 		itemWithDetails: toItemWithDetails(item)
 	}));
 
 	if (await player.giveItem(item) === true) {
-		await MissionsController.update(player, response, { missionId: "findOrBuyItem" });
-		await MissionsController.update(player, response, {
-			missionId: "havePotions",
-			count: countNbOfPotions(await InventorySlots.getOfPlayer(player.id)),
-			set: true
-		});
-		await MissionsController.update(player, response, {
-			missionId: "haveItemRarity",
-			params: { rarity: item.rarity }
-		});
-		draftBotInstance.logsDatabase.logItemGain(player.keycloakId, item)
-			.then();
+		await manageGiveItemRelateds(response, player, item);
 		return;
 	}
 
 	const category = item.getCategory();
 	const maxSlots = (await InventoryInfos.getOfPlayer(player.id)).slotLimitForCategory(category);
-	let itemToReplace: InventorySlot;
-	let autoSell = false;
-	if (maxSlots < 3) {
-		itemToReplace = inventorySlots.filter((slot: InventorySlot) => (maxSlots === 1 ? slot.isEquipped() : slot.slot === 1) && slot.itemCategory === category)[0];
-		autoSell = itemToReplace.itemId === item.id;
-	}
-	else {
-		const items = inventorySlots.filter((slot: InventorySlot) => slot.itemCategory === category && !slot.isEquipped());
-		if (items.length === items.filter((slot: InventorySlot) => slot.itemId === item.id).length) {
-			autoSell = true;
-		}
-		else {
-			manageMoreThan2ItemsSwitching(response, context, whoIsConcerned, {
-				toTradeItem: item,
-				tradableItems: items
-			}, { resaleMultiplier });
-			return;
-		}
-	}
+	const items = inventorySlots.filter((slot: InventorySlot) => slot.itemCategory === category && !slot.isEquipped());
+	const autoSell = items.length === items.filter((slot: InventorySlot) => slot.itemId === item.id).length;
 	if (autoSell) {
 		await sellOrKeepItem(response, whoIsConcerned, {
 			item
@@ -390,6 +411,15 @@ export const giveItemToPlayer = async function(
 		return;
 	}
 
+	if (maxSlots >= 3) {
+		manageMoreThan2ItemsSwitching(response, context, whoIsConcerned, {
+			toTradeItem: item,
+			tradableItems: items
+		}, { resaleMultiplier });
+		return;
+	}
+
+	const itemToReplace = inventorySlots.filter((slot: InventorySlot) => (maxSlots === 1 ? slot.isEquipped() : slot.slot === 1) && slot.itemCategory === category)[0];
 	const itemToReplaceInstance = itemToReplace.getItem();
 
 	const collector = new ReactionCollectorItemAccept(
@@ -425,7 +455,8 @@ export const giveItemToPlayer = async function(
 		.build();
 
 	response.push(packet);
-};
+}
+
 
 /**
  * Generate a random rarity. Legendary is very rare and common is not rare at all
@@ -433,7 +464,7 @@ export const giveItemToPlayer = async function(
  * @param maxRarity
  * @returns generated rarity
  */
-export const generateRandomRarity = function(minRarity: ItemRarity = ItemRarity.COMMON, maxRarity: ItemRarity = ItemRarity.MYTHICAL): ItemRarity {
+export function generateRandomRarity(minRarity: ItemRarity = ItemRarity.COMMON, maxRarity: ItemRarity = ItemRarity.MYTHICAL): ItemRarity {
 	const randomValue = RandomUtils.draftbotRandom.integer(
 		1 + (minRarity === ItemRarity.COMMON ? -1 : ItemConstants.RARITY.GENERATOR.VALUES[minRarity - 2]),
 		ItemConstants.RARITY.GENERATOR.MAX_VALUE
@@ -447,14 +478,30 @@ export const generateRandomRarity = function(minRarity: ItemRarity = ItemRarity.
 		rarity++; // We increase rarity until we find the generated one
 	} while (randomValue > ItemConstants.RARITY.GENERATOR.VALUES[rarity - 1]);
 	return rarity;
-};
+}
+
 
 /**
  * Generate a random itemType
  * @returns
  */
-export const generateRandomItemCategory = function(): ItemCategory {
+export function generateRandomItemCategory(): ItemCategory {
 	return RandomUtils.enumPick(ItemCategory);
+}
+
+
+const controllers = [
+	WeaponDataController.instance,
+	ArmorDataController.instance,
+	PotionDataController.instance,
+	ObjectItemDataController.instance
+];
+
+export type GenerateRandomItemOptions = {
+	itemCategory?: ItemCategory;
+	minRarity?: ItemRarity;
+	maxRarity?: ItemRarity;
+	subType?: ItemNature;
 };
 
 /**
@@ -465,36 +512,23 @@ export const generateRandomItemCategory = function(): ItemCategory {
  * @param itemSubType
  */
 export function generateRandomItem(
-	itemCategory: ItemCategory = null,
-	minRarity: ItemRarity = ItemRarity.COMMON,
-	maxRarity: ItemRarity = ItemRarity.MYTHICAL,
-	itemSubType: ItemNature = null
+	{
+		itemCategory,
+		minRarity,
+		maxRarity,
+		subType
+	}: GenerateRandomItemOptions
 ): GenericItem {
-	const rarity = generateRandomRarity(minRarity, maxRarity);
+	const rarity = generateRandomRarity(minRarity ?? ItemRarity.COMMON, maxRarity ?? ItemRarity.MYTHICAL);
 	const category = itemCategory ?? generateRandomItemCategory();
-	let itemsIds;
-	switch (category) {
-		case ItemCategory.WEAPON:
-			itemsIds = WeaponDataController.instance.getAllIdsForRarity(rarity);
-			return WeaponDataController.instance.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)]);
-		case ItemCategory.ARMOR:
-			itemsIds = ArmorDataController.instance.getAllIdsForRarity(rarity);
-			return ArmorDataController.instance.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)]);
-		case ItemCategory.POTION:
-			if (itemSubType !== null) { // 0 (no effect) is a false value
-				return PotionDataController.instance.randomItem(itemSubType, rarity);
-			}
-			itemsIds = PotionDataController.instance.getAllIdsForRarity(rarity);
-			return PotionDataController.instance.getById(itemsIds[RandomUtils.randInt(0, itemsIds.length)]);
-		default:
-		// This will be triggered by ItemCategory.OBJECT
-			if (itemSubType !== null) {
-				return ObjectItemDataController.instance.randomItem(itemSubType, rarity);
-			}
-			itemsIds = ObjectItemDataController.instance.getAllIdsForRarity(rarity);
-			return ObjectItemDataController.instance.getById(itemsIds[RandomUtils.randInt(0, itemsIds.length)]);
+	const controller = controllers[category];
+	if ([ItemCategory.POTION, ItemCategory.OBJECT].includes(category) && subType !== null) { // 0 (no effect) is a false value
+		return (controller as PotionDataController | ObjectItemDataController).randomItem(subType, rarity);
 	}
+	const itemsIds = controller.getAllIdsForRarity(rarity);
+	return controller.getById(itemsIds[RandomUtils.draftbotRandom.integer(0, itemsIds.length - 1)]);
 }
+
 
 /**
  * Give a random item
@@ -502,57 +536,47 @@ export function generateRandomItem(
  * @param response
  * @param player
  */
-export const giveRandomItem = async function(context: PacketContext, response: DraftBotPacket[], player: Player): Promise<void> {
-	await giveItemToPlayer(response, context, player, generateRandomItem());
-};
+export async function giveRandomItem(context: PacketContext, response: DraftBotPacket[], player: Player): Promise<void> {
+	await giveItemToPlayer(response, context, player, generateRandomItem({}));
+}
 
 type TemporarySlotAndItemType = {
 	slot: InventorySlot;
 	item: GenericItem;
 };
 
+
 /**
  * Sort an item slots list by type then price
  * @param items
  */
-export const sortPlayerItemList = function(items: InventorySlot[]): InventorySlot[] {
-	let itemInstances: TemporarySlotAndItemType[] = items.map(function(invSlot) {
-		return {
-			slot: invSlot,
-			item: invSlot.getItem()
-		};
-	});
-	itemInstances = itemInstances.sort(
-		(a: TemporarySlotAndItemType, b: TemporarySlotAndItemType) => {
-			if (a.slot.itemCategory < b.slot.itemCategory) {
-				return -1;
+export function sortPlayerItemList(items: InventorySlot[]): InventorySlot[] {
+	return items.map(invSlot => ({
+		slot: invSlot,
+		item: invSlot.getItem()
+	}))
+		.sort(
+			(a: TemporarySlotAndItemType, b: TemporarySlotAndItemType) => {
+				if (a.slot.itemCategory !== b.slot.itemCategory) {
+					return a.slot.itemCategory - b.slot.itemCategory;
+				}
+				return getItemValue(b.item) - getItemValue(a.item);
 			}
-			if (a.slot.itemCategory > b.slot.itemCategory) {
-				return 1;
-			}
-			const aValue = getItemValue(a.item);
-			const bValue = getItemValue(b.item);
-			return aValue > bValue ? -1 : aValue < bValue ? 1 : 0;
-		}
-	);
-	return itemInstances.map(function(e) {
-		return e.slot;
-	});
-};
+		)
+		.map(function(e) {
+			return e.slot;
+		});
+}
+
 
 /**
  * Checks if the given inventory slots have an item with a rarity of at least the given rarity
  * @param slots
  * @param rarity
  */
-export const haveRarityOrMore = function(slots: InventorySlot[], rarity: ItemRarity): boolean {
-	for (const slot of slots) {
-		if (slot.getItem().rarity >= rarity) {
-			return true;
-		}
-	}
-	return false;
-};
+export function haveRarityOrMore(slots: InventorySlot[], rarity: ItemRarity): boolean {
+	return !slots.every(slot => slot.getItem().rarity < rarity);
+}
 
 /**
  * Get a portion of the model corresponding to the category number

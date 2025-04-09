@@ -15,10 +15,10 @@ import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstan
 import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
 import { SmallEventWitchResultPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventWitchPacket";
 import {
-	generateRandomItem, giveItemToPlayer
+	generateRandomItem, GenerateRandomItemOptions, giveItemToPlayer
 } from "../utils/ItemUtils";
 import {
-	ItemCategory, ItemNature, ItemRarity
+	ItemCategory, ItemNature
 } from "../../../../Lib/src/constants/ItemConstants";
 import Player from "../database/game/models/Player";
 import { GenericItem } from "../../data/GenericItem";
@@ -102,20 +102,12 @@ async function applyOutcome(outcome: WitchActionOutcomeType, selectedEvent: Witc
 		);
 	}
 	else if (outcome === WitchActionOutcomeType.POTION) {
-		const potionToGive = selectedEvent.generatePotionWitchAction() ?? {
-			minRarity: ItemRarity.COMMON,
-			maxRarity: ItemRarity.MYTHICAL,
-			nature: null
-		};
+		const potionToGive: GenerateRandomItemOptions = selectedEvent.generatePotionWitchAction() ?? {};
+		potionToGive.itemCategory = ItemCategory.POTION;
 		await givePotion(
 			context,
 			player,
-			generateRandomItem(
-				ItemCategory.POTION,
-				potionToGive.minRarity,
-				potionToGive.maxRarity,
-				potionToGive.nature
-			),
+			generateRandomItem(potionToGive),
 			response
 		);
 	}
@@ -148,12 +140,10 @@ function getEndCallback(player: Player): EndCallback {
 			}
 			resultPacket.outcome = WitchActionOutcomeType.POTION;
 			response.push(resultPacket);
-			const potionToGive = generateRandomItem(
-				ItemCategory.POTION,
-				ItemRarity.COMMON,
-				ItemRarity.MYTHICAL,
-				ItemNature.NONE
-			);
+			const potionToGive = generateRandomItem({
+				itemCategory: ItemCategory.POTION,
+				subType: ItemNature.NONE
+			});
 			await givePotion(collector.context, player, potionToGive, response);
 			return;
 		}

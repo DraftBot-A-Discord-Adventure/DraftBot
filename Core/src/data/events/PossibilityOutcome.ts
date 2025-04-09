@@ -12,7 +12,6 @@ import { CommandReportBigEventResultRes } from "../../../../Lib/src/packets/comm
 import {
 	DraftBotPacket, makePacket, PacketContext
 } from "../../../../Lib/src/packets/DraftBotPacket";
-import { ItemConstants } from "../../../../Lib/src/constants/ItemConstants";
 import {
 	MapLink, MapLinkDataController
 } from "../MapLink";
@@ -140,14 +139,14 @@ async function applyOutcomeGems(outcome: PossibilityOutcome, player: Player): Pr
 }
 
 async function applyOutcomeRandomItem(outcome: PossibilityOutcome, player: Player, context: PacketContext, response: DraftBotPacket[]): Promise<void> {
-	if (outcome.randomItem) {
-		const minRarity = outcome.randomItem.rarity?.min ?? ItemConstants.RARITY.COMMON;
-		const maxRarity = outcome.randomItem.rarity?.max ?? ItemConstants.RARITY.MYTHICAL;
-		const category = outcome.randomItem.category ?? null;
-
-		const item = generateRandomItem(category, minRarity, maxRarity);
-		await giveItemToPlayer(response, context, player, item);
+	if (!outcome.randomItem) {
+		return;
 	}
+	await giveItemToPlayer(response, context, player, generateRandomItem({
+		itemCategory: outcome.randomItem.category,
+		minRarity: outcome.randomItem.rarity?.min,
+		maxRarity: outcome.randomItem.rarity?.max
+	}));
 }
 
 async function applyOutcomeRandomPet(outcome: PossibilityOutcome, player: Player, response: DraftBotPacket[]): Promise<void> {

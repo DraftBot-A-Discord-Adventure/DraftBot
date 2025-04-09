@@ -34,7 +34,7 @@ import { draftBotInstance } from "../../index";
 import {
 	generateRandomItem, giveItemToPlayer
 } from "../../core/utils/ItemUtils";
-import { ItemConstants } from "../../../../Lib/src/constants/ItemConstants";
+import { ItemRarity } from "../../../../Lib/src/constants/ItemConstants";
 import { PlayerMissionsInfos } from "../../core/database/game/models/PlayerMissionsInfo";
 import { PetEntities } from "../../core/database/game/models/PetEntity";
 import { PetDataController } from "../../data/Pet";
@@ -106,7 +106,9 @@ function getValuableItemShopItem(): ShopItem {
 		amounts: [1],
 		buyCallback: async (response: DraftBotPacket[], playerId: number, context: PacketContext): Promise<boolean> => {
 			const player = await Players.getById(playerId);
-			const item = generateRandomItem(null, ItemConstants.RARITY.SPECIAL, ItemConstants.RARITY.MYTHICAL);
+			const item = generateRandomItem({
+				minRarity: ItemRarity.SPECIAL
+			});
 			await giveItemToPlayer(response, context, player, item);
 			return true;
 		}

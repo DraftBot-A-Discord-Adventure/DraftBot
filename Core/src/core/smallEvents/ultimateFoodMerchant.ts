@@ -89,7 +89,10 @@ async function giveReward(packet: SmallEventUltimateFoodMerchantPacket, response
 			await giveFoodToGuild(response, player, SmallEventConstants.ULTIMATE_FOOD_MERCHANT.INTERACTIONS_NAMES.ULTIMATE_FOOD, packet.amount, NumberChangeReason.SMALL_EVENT);
 			break;
 		case SmallEventConstants.ULTIMATE_FOOD_MERCHANT.INTERACTIONS_NAMES.ITEM:
-			await giveItemToPlayer(response, context, player, generateRandomItem(null, minRarity(player), maxRarity(player)));
+			await giveItemToPlayer(response, context, player, generateRandomItem({
+				minRarity: minRarity(player),
+				maxRarity: maxRarity(player)
+			}));
 			break;
 		case SmallEventConstants.ULTIMATE_FOOD_MERCHANT.INTERACTIONS_NAMES.COMMON_FOOD:
 			packet.amount = foodAmount(player, guild.commonFood, false);

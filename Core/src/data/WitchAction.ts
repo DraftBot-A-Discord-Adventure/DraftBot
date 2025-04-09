@@ -4,14 +4,12 @@ import { readdirSync } from "fs";
 import { RandomUtils } from "../../../Lib/src/utils/RandomUtils";
 import Player from "../core/database/game/models/Player";
 import { SmallEventConstants } from "../../../Lib/src/constants/SmallEventConstants";
-import {
-	ItemNature, ItemRarity
-} from "../../../Lib/src/constants/ItemConstants";
 import { DraftBotPacket } from "../../../Lib/src/packets/DraftBotPacket";
 import { TravelTime } from "../core/maps/TravelTime";
 import { NumberChangeReason } from "../../../Lib/src/constants/LogsConstants";
 import { Effect } from "../../../Lib/src/types/Effect";
 import { WitchActionOutcomeType } from "../../../Lib/src/types/WitchActionOutcomeType";
+import { GenerateRandomItemOptions } from "../core/utils/ItemUtils";
 
 /**
  * The base class for the different events that can happen after the player encounters a feral pet
@@ -27,7 +25,7 @@ export class WitchAction extends Data<string> {
 
 	private outcomeProbabilities: OutcomeProbabilities;
 
-	public generatePotionWitchAction(): PotionParameters | null {
+	public generatePotionWitchAction(): GenerateRandomItemOptions | null {
 		const withActionFunctions = WitchActionDataController.getWitchActionFunction(this.id);
 		if (withActionFunctions && withActionFunctions.generatePotion) {
 			return withActionFunctions.generatePotion();
@@ -54,7 +52,8 @@ export class WitchAction extends Data<string> {
 	}
 
 	public generateOutcome(): WitchActionOutcomeType {
-		const outcomeTypesKeys = Object.keys(WitchActionOutcomeType).map(k => k.toLowerCase());
+		const outcomeTypesKeys = Object.keys(WitchActionOutcomeType)
+			.map(k => k.toLowerCase());
 		let outcome = 0;
 		let seed = RandomUtils.randInt(0, SmallEventConstants.WITCH.MAX_PROBABILITY)
 			- this.outcomeProbabilities[outcomeTypesKeys[WitchActionOutcomeType.POTION] as keyof WitchActionOutcomeType];
@@ -66,7 +65,8 @@ export class WitchAction extends Data<string> {
 	}
 
 	public checkOutcomeProbabilities(): void {
-		if (Object.values(this.outcomeProbabilities).reduce((sumProbability, probability) => sumProbability + probability) !== SmallEventConstants.WITCH.MAX_PROBABILITY) {
+		if (Object.values(this.outcomeProbabilities)
+			.reduce((sumProbability, probability) => sumProbability + probability) !== SmallEventConstants.WITCH.MAX_PROBABILITY) {
 			throw new Error("The sum of the probabilities must be 50 for the witch event " + this.id);
 		}
 	}
@@ -86,13 +86,7 @@ export type WitchActionFuncs = {
 };
 
 export type CheckMissionsLike = (player: Player, outcome: WitchActionOutcomeType, response: DraftBotPacket[], tags: string[]) => void | Promise<void>;
-export type GeneratePotionLike = () => PotionParameters;
-
-export type PotionParameters = {
-	minRarity: ItemRarity;
-	maxRarity: ItemRarity;
-	nature: ItemNature;
-};
+export type GeneratePotionLike = () => GenerateRandomItemOptions;
 
 export class WitchActionDataController extends DataControllerString<WitchAction> {
 	static readonly instance = new WitchActionDataController("witch");
@@ -103,9 +97,10 @@ export class WitchActionDataController extends DataControllerString<WitchAction>
 		if (!WitchActionDataController.witchActionsFunctionsCache) {
 			WitchActionDataController.witchActionsFunctionsCache = new Map<string, WitchActionFuncs>();
 			WitchActionDataController.loadWitchActionsFromFolder("dist/Core/src/core/smallEvents/witch", "../core/smallEvents/witch");
-			WitchActionDataController.instance.getValuesArray().forEach(witchAction => {
-				witchAction.checkOutcomeProbabilities();
-			});
+			WitchActionDataController.instance.getValuesArray()
+				.forEach(witchAction => {
+					witchAction.checkOutcomeProbabilities();
+				});
 		}
 		return WitchActionDataController.witchActionsFunctionsCache.get(id) ?? {};
 	}
@@ -122,7 +117,8 @@ export class WitchActionDataController extends DataControllerString<WitchAction>
 	}
 
 	public getRandomWitchAction(excludedWitchActions: WitchAction[]): WitchAction {
-		return RandomUtils.draftbotRandom.pick(Array.from(this.data.values()).filter(witchAction => !excludedWitchActions.includes(witchAction)));
+		return RandomUtils.draftbotRandom.pick(Array.from(this.data.values())
+			.filter(witchAction => !excludedWitchActions.includes(witchAction)));
 	}
 
 	newInstance(): WitchAction {
@@ -130,7 +126,8 @@ export class WitchActionDataController extends DataControllerString<WitchAction>
 	}
 
 	getRandomWitchEventByType(isIngredient: boolean): WitchAction {
-		return RandomUtils.draftbotRandom.pick(Array.from(this.data.values()).filter(witchAction => witchAction.isIngredient === isIngredient));
+		return RandomUtils.draftbotRandom.pick(Array.from(this.data.values())
+			.filter(witchAction => witchAction.isIngredient === isIngredient));
 	}
 
 	getDoNothing(): WitchAction {

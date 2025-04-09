@@ -7,7 +7,7 @@ import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants"
 import { SmallEventClassPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventClassPacket";
 import { SmallEventConstants } from "../../../../Lib/src/constants/SmallEventConstants";
 import {
-	ItemCategory, ItemConstants, ItemNature
+	ItemCategory, ItemNature
 } from "../../../../Lib/src/constants/ItemConstants";
 import {
 	generateRandomItem, giveItemToPlayer
@@ -31,33 +31,33 @@ async function managePickedInteraction(player: Player, packet: SmallEventClassPa
 
 	switch (packet.interactionName) {
 		case ClassConstants.CLASS_SMALL_EVENT_INTERACTIONS_NAMES.WIN_WEAPON:
-			item = generateRandomItem(ItemCategory.WEAPON);
+			item = generateRandomItem({
+				itemCategory: ItemCategory.WEAPON
+			});
 			break;
 
 		case ClassConstants.CLASS_SMALL_EVENT_INTERACTIONS_NAMES.WIN_ARMOR:
-			item = generateRandomItem(ItemCategory.ARMOR);
+			item = generateRandomItem({
+				itemCategory: ItemCategory.ARMOR
+			});
 			break;
 
 		case ClassConstants.CLASS_SMALL_EVENT_INTERACTIONS_NAMES.WIN_OBJECT:
-			item = generateRandomItem(
-				ItemCategory.OBJECT,
-				ItemConstants.RARITY.COMMON,
-				ItemConstants.RARITY.MYTHICAL,
-				classKind === ClassConstants.CLASS_KIND.ATTACK ? ItemNature.ATTACK : ItemNature.DEFENSE
-			);
+			item = generateRandomItem({
+				itemCategory: ItemCategory.OBJECT,
+				subType: classKind === ClassConstants.CLASS_KIND.ATTACK ? ItemNature.ATTACK : ItemNature.DEFENSE
+			});
 			break;
 
 		case ClassConstants.CLASS_SMALL_EVENT_INTERACTIONS_NAMES.WIN_ITEM:
-			item = generateRandomItem();
+			item = generateRandomItem({});
 			break;
 
 		case ClassConstants.CLASS_SMALL_EVENT_INTERACTIONS_NAMES.WIN_POTION:
-			item = generateRandomItem(
-				ItemCategory.POTION,
-				ItemConstants.RARITY.COMMON,
-				ItemConstants.RARITY.MYTHICAL,
-				classKind === ClassConstants.CLASS_KIND.ATTACK ? ItemNature.ATTACK : ItemNature.DEFENSE
-			);
+			item = generateRandomItem({
+				itemCategory: ItemCategory.POTION,
+				subType: classKind === ClassConstants.CLASS_KIND.ATTACK ? ItemNature.ATTACK : ItemNature.DEFENSE
+			});
 			break;
 
 		case ClassConstants.CLASS_SMALL_EVENT_INTERACTIONS_NAMES.WIN_HEALTH:

@@ -4,20 +4,17 @@ import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
 import { SmallEventConstants } from "../../../../Lib/src/constants/SmallEventConstants";
 import { generateRandomItem } from "../utils/ItemUtils";
 import {
-	ItemCategory, ItemConstants
+	ItemCategory, ItemRarity
 } from "../../../../Lib/src/constants/ItemConstants";
 import { makePacket } from "../../../../Lib/src/packets/DraftBotPacket";
 import { SmallEventFuncs } from "../../data/SmallEvent";
 import { MapConstants } from "../../../../Lib/src/constants/MapConstants";
 import Player from "../database/game/models/Player";
 import {
-	SmallEventEpicItemShopAcceptPacket,
-	SmallEventEpicItemShopCannotBuyPacket,
-	SmallEventEpicItemShopRefusePacket
+	SmallEventEpicItemShopAcceptPacket, SmallEventEpicItemShopCannotBuyPacket, SmallEventEpicItemShopRefusePacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventEpicItemShopPacket";
 import {
-	ReactionCollectorEpicShopSmallEvent,
-	ReactionCollectorEpicShopSmallEventData
+	ReactionCollectorEpicShopSmallEvent, ReactionCollectorEpicShopSmallEventData
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorEpicShopSmallEvent";
 
 class ShopSmallEvent extends Shop<
@@ -38,18 +35,15 @@ class ShopSmallEvent extends Shop<
 	}
 
 	getRandomItem(): GenericItem {
-		// We exclude potions from the list of possible items
-		const categories = Object.values(ItemCategory).filter(
-			(value): value is ItemCategory => value !== ItemCategory.POTION
-		);
-
-		const randomCategory = RandomUtils.draftbotRandom.pick(categories);
-
-		return generateRandomItem(
-			randomCategory,
-			ItemConstants.RARITY.EPIC,
-			ItemConstants.RARITY.LEGENDARY
-		);
+		return generateRandomItem({
+			// We exclude potions from the list of possible items
+			itemCategory: RandomUtils.draftbotRandom.pick(Object.values(ItemCategory)
+				.filter(
+					(value): value is ItemCategory => value !== ItemCategory.POTION
+				)),
+			minRarity: ItemRarity.EPIC,
+			maxRarity: ItemRarity.LEGENDARY
+		});
 	}
 
 	getAcceptPacket(): SmallEventEpicItemShopAcceptPacket {
