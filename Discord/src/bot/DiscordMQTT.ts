@@ -59,7 +59,7 @@ export class DiscordMQTT {
 			}
 
 			const dataJson = JSON.parse(messageString);
-			DraftBotLogger.debug(`Received global message`, { packet: dataJson });
+			DraftBotLogger.debug("Received global message", { packet: dataJson });
 			if (!Object.hasOwn(dataJson, "packets") || !Object.hasOwn(dataJson, "context")) {
 				DraftBotLogger.error("Wrong packet format", { packet: messageString });
 				return;
