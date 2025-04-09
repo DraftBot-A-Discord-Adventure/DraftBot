@@ -41,6 +41,7 @@ import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers
 import { DiscordConstants } from "../../DiscordConstants";
 import { ReactionCollectorPveFightData } from "../../../../Lib/src/packets/interaction/ReactionCollectorPveFight";
 import { StringUtils } from "../../utils/StringUtils";
+import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
 
 async function getPacket(interaction: DraftbotInteraction): Promise<CommandReportPacketReq> {
 	await interaction.deferReply();
@@ -438,6 +439,56 @@ export async function displayMonsterReward(
 	await channel.send({ embeds: [embed] });
 }
 
+function manageMainSummaryText(packet: CommandReportTravelSummaryRes, interaction: DraftbotInteraction, travelEmbed: DraftBotEmbed, user: KeycloakUser, now: number): void {
+	if (isCurrentlyInEffect(packet, now)) {
+		const errorMessageObject = effectsErrorTextValue(user, interaction.userLanguage, true, packet.effect!, packet.effectEndTime! - now);
+		travelEmbed.addFields({
+			name: errorMessageObject.title,
+			value: errorMessageObject.description,
+			inline: false
+		});
+		return;
+	}
+	if (packet.nextStopTime > packet.arriveTime) {
+		// If there is no small event before the big event, do not display anything
+		travelEmbed.addFields({
+			name: i18n.t("commands:report.travellingTitle", { lng: interaction.userLanguage }),
+			value: i18n.t("commands:report.travellingDescriptionEndTravel", { lng: interaction.userLanguage })
+		});
+		return;
+	}
+
+	const timeBeforeSmallEvent = printTimeBeforeDate(packet.nextStopTime);
+	travelEmbed.addFields({
+		name: i18n.t("commands:report.travellingTitle", { lng: interaction.userLanguage }),
+		value: packet.lastSmallEventId
+			? i18n.t("commands:report.travellingDescription", {
+				lng: interaction.userLanguage,
+				smallEventEmoji: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.smallEvents[packet.lastSmallEventId]),
+				time: timeBeforeSmallEvent,
+				interpolation: { escapeValue: false }
+			})
+			: i18n.t("commands:report.travellingDescriptionWithoutSmallEvent", {
+				lng: interaction.userLanguage,
+				time: timeBeforeSmallEvent,
+				interpolation: { escapeValue: false }
+			})
+	});
+}
+
+function manageEndPathDescriptions(packet: CommandReportTravelSummaryRes, interaction: DraftbotInteraction, travelEmbed: DraftBotEmbed): void {
+	travelEmbed.addFields({
+		name: i18n.t("commands:report.startPoint", { lng: interaction.userLanguage }),
+		value: `${DraftBotIcons.mapTypes[packet.startMap.type]} ${i18n.t(`models:map_locations.${packet.startMap.id}.name`, { lng: interaction.userLanguage })}`,
+		inline: true
+	});
+	travelEmbed.addFields({
+		name: i18n.t("commands:report.endPoint", { lng: interaction.userLanguage }),
+		value: `${DraftBotIcons.mapTypes[packet.endMap.type]} ${i18n.t(`models:map_locations.${packet.endMap.id}.name`, { lng: interaction.userLanguage })}`,
+		inline: true
+	});
+}
+
 /**
  * Display the travel summary (embed with the travel path in between small events)
  * @param packet
@@ -446,83 +497,39 @@ export async function displayMonsterReward(
 export async function reportTravelSummary(packet: CommandReportTravelSummaryRes, context: PacketContext): Promise<void> {
 	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
-
-	if (interaction) {
-		const now = Date.now();
-		const travelEmbed = new DraftBotEmbed();
-		travelEmbed.formatAuthor(i18n.t("commands:report.travelPathTitle", { lng: interaction.userLanguage }), interaction.user);
-		travelEmbed.setDescription(generateTravelPathString(packet, now));
-		travelEmbed.addFields({
-			name: i18n.t("commands:report.startPoint", { lng: interaction.userLanguage }),
-			value: `${DraftBotIcons.mapTypes[packet.startMap.type]} ${i18n.t(`models:map_locations.${packet.startMap.id}.name`, { lng: interaction.userLanguage })}`,
-			inline: true
-		});
-		travelEmbed.addFields({
-			name: i18n.t("commands:report.endPoint", { lng: interaction.userLanguage }),
-			value: `${DraftBotIcons.mapTypes[packet.endMap.type]} ${i18n.t(`models:map_locations.${packet.endMap.id}.name`, { lng: interaction.userLanguage })}`,
-			inline: true
-		});
-
-		if (isCurrentlyInEffect(packet, now)) {
-			const errorMessageObject = effectsErrorTextValue(user, interaction.userLanguage, true, packet.effect!, packet.effectEndTime! - now);
-			travelEmbed.addFields({
-				name: errorMessageObject.title,
-				value: errorMessageObject.description,
-				inline: false
-			});
-		}
-		else if (packet.nextStopTime > packet.arriveTime) {
-			// If there is no small event before the big event, do not display anything
-			travelEmbed.addFields({
-				name: i18n.t("commands:report.travellingTitle", { lng: interaction.userLanguage }),
-				value: i18n.t("commands:report.travellingDescriptionEndTravel", { lng: interaction.userLanguage })
-			});
-		}
-		else {
-			const timeBeforeSmallEvent = printTimeBeforeDate(packet.nextStopTime);
-			travelEmbed.addFields({
-				name: i18n.t("commands:report.travellingTitle", { lng: interaction.userLanguage }),
-				value: packet.lastSmallEventId
-					? i18n.t("commands:report.travellingDescription", {
-						lng: interaction.userLanguage,
-						smallEventEmoji: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.smallEvents[packet.lastSmallEventId]),
-						time: timeBeforeSmallEvent,
-						interpolation: { escapeValue: false }
-					})
-					: i18n.t("commands:report.travellingDescriptionWithoutSmallEvent", {
-						lng: interaction.userLanguage,
-						time: timeBeforeSmallEvent,
-						interpolation: { escapeValue: false }
-					})
-			});
-		}
-
-		if (packet.energy.show) {
-			travelEmbed.addFields({
-				name: i18n.t("commands:report.remainingEnergyTitle", { lng: interaction.userLanguage }),
-				value: `⚡ ${packet.energy.current} / ${packet.energy.max}`,
-				inline: true
-			});
-		}
-		if (packet.points.show) {
-			travelEmbed.addFields({
-				name: i18n.t("commands:report.collectedPointsTitle", { lng: interaction.userLanguage }),
-				value: `🏅 ${packet.points.cumulated}`,
-				inline: true
-			});
-		}
-
-		const advices = i18n.t("advices:advices", {
-			returnObjects: true,
-			lng: interaction.userLanguage
-		});
-		travelEmbed.addFields({
-			name: i18n.t("commands:report.adviceTitle", { lng: interaction.userLanguage }),
-			value: advices[Math.floor(Math.random() * advices.length)],
-			inline: true
-		});
-		await interaction.editReply({ embeds: [travelEmbed] });
+	if (!interaction) {
+		return;
 	}
+	const now = Date.now();
+	const travelEmbed = new DraftBotEmbed();
+	travelEmbed.formatAuthor(i18n.t("commands:report.travelPathTitle", { lng: interaction.userLanguage }), interaction.user);
+	travelEmbed.setDescription(generateTravelPathString(packet, now));
+	manageEndPathDescriptions(packet, interaction, travelEmbed);
+	manageMainSummaryText(packet, interaction, travelEmbed, user, now);
+	if (packet.energy.show) {
+		travelEmbed.addFields({
+			name: i18n.t("commands:report.remainingEnergyTitle", { lng: interaction.userLanguage }),
+			value: `⚡ ${packet.energy.current} / ${packet.energy.max}`,
+			inline: true
+		});
+	}
+	if (packet.points.show) {
+		travelEmbed.addFields({
+			name: i18n.t("commands:report.collectedPointsTitle", { lng: interaction.userLanguage }),
+			value: `🏅 ${packet.points.cumulated}`,
+			inline: true
+		});
+	}
+	const advices = i18n.t("advices:advices", {
+		returnObjects: true,
+		lng: interaction.userLanguage
+	});
+	travelEmbed.addFields({
+		name: i18n.t("commands:report.adviceTitle", { lng: interaction.userLanguage }),
+		value: advices[Math.floor(Math.random() * advices.length)],
+		inline: true
+	});
+	await interaction.editReply({ embeds: [travelEmbed] });
 }
 
 export const commandInfo: ICommand = {
