@@ -1,8 +1,10 @@
 import { packetHandler } from "../../../PacketHandler";
 import {
 	CommandGuildDescriptionAcceptPacketRes,
+	CommandGuildDescriptionInvalidPacket,
 	CommandGuildDescriptionNoGuildPacket,
-	CommandGuildDescriptionNotAnElderPacket, CommandGuildDescriptionRefusePacketRes
+	CommandGuildDescriptionNotAnElderPacket,
+	CommandGuildDescriptionRefusePacketRes
 } from "../../../../../../Lib/src/packets/commands/CommandGuildDescriptionPacket";
 import { PacketContext } from "../../../../../../Lib/src/packets/DraftBotPacket";
 import { CommandGuildElderRemoveNoElderPacket } from "../../../../../../Lib/src/packets/commands/CommandGuildElderRemovePacket";
@@ -31,5 +33,12 @@ export default class GuildDescriptionCommandPacketHandlers {
 	@packetHandler(CommandGuildDescriptionAcceptPacketRes)
 	async guildDescriptionAcceptRes(context: PacketContext, packet: CommandGuildDescriptionAcceptPacketRes): Promise<void> {
 		await handleCommandGuildDescriptionAcceptPacketRes(packet, context);
+	}
+
+	@packetHandler(CommandGuildDescriptionInvalidPacket)
+	async guildDescriptionInvalidRes(context: PacketContext, packet: CommandGuildDescriptionInvalidPacket): Promise<void> {
+		await handleClassicError(context, "error:guildDescriptionNotValid", {
+			...packet
+		});
 	}
 }
