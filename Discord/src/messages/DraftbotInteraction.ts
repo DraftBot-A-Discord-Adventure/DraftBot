@@ -1,13 +1,16 @@
 import {
 	BaseGuildTextChannel,
+	BooleanCache,
 	ButtonInteraction,
 	Client,
 	CommandInteraction,
 	DiscordjsError,
 	DiscordjsErrorCodes,
 	GuildTextBasedChannel,
+	InteractionCallbackResponse,
 	InteractionEditReplyOptions,
 	InteractionReplyOptions,
+	InteractionResponse,
 	Message,
 	MessageCreateOptions,
 	MessagePayload,
@@ -25,15 +28,20 @@ import { DraftBotEmbed } from "./DraftBotEmbed";
 import { DraftBotLogger } from "../../../Lib/src/logs/DraftBotLogger";
 import { MessageFlags } from "discord-api-types/v10";
 
-type DraftbotInteractionWithoutSendCommands = new(client: Client<true>, data: RawInteractionData) => Omit<CommandInteraction, "reply" | "followUp" | "channel">;
+type DraftbotInteractionWithoutSendCommands = new(client: Client<true>, data: RawInteractionData) => Omit<CommandInteraction, "reply" | "followUp" | "channel" | "editReply">;
 const DraftbotInteractionWithoutSendCommands: DraftbotInteractionWithoutSendCommands = CommandInteraction as unknown as DraftbotInteractionWithoutSendCommands;
 
 type ChannelTypeWithoutSend = new(client: Client<true>, data: RawWebhookData) => Omit<BaseGuildTextChannel, "send">;
 const GuildTextBasedChannel: GuildTextBasedChannel = BaseGuildTextChannel as unknown as GuildTextBasedChannel;
 const ChannelTypeWithoutSend: ChannelTypeWithoutSend = GuildTextBasedChannel as unknown as ChannelTypeWithoutSend;
 
-export type OptionLike = string | InteractionReplyOptions;
-type ReplyFunctionLike<OptionValue> = (options: OptionValue) => Promise<Message>;
+type ReplyFunctionLike<OptionValue> = (options: OptionValue) => Promise<ReturnType<OptionValue>>;
+
+type ReturnType<OptionValue> = OptionValue extends InteractionReplyOptions
+	? OptionValue extends { withResponse: true }
+		? InteractionCallbackResponse
+		: InteractionResponse<BooleanCache<"cached">>
+	: Message;
 
 export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands {
 	public userLanguage: Language = LANGUAGE.DEFAULT_LANGUAGE;
@@ -184,16 +192,23 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 		return options;
 	}
 
+	public async reply(options: InteractionReplyOptions & { withResponse: true }, fallback?: () => void | Promise<void>): Promise<InteractionCallbackResponse>;
+	public async reply(options: string | MessagePayload | InteractionReplyOptions & { withResponse?: false }, fallback?: () => void | Promise<void>): Promise<InteractionResponse>;
+
 	/**
 	 * Send a reply to the user
 	 * @param options classic discord.js send options
 	 * @param fallback function to execute if the bot can't send the message
 	 */
-	public async reply(options: OptionLike, fallback?: () => void | Promise<void>): Promise<Message> {
-		// @ts-expect-error - We consider that the following function passed as argument has the correct typing
-		return await DraftbotInteraction.prototype.commonSendCommand.call(this, CommandInteraction.prototype.reply.bind(this), options, fallback ?? ((): void => {
-			// Do nothing by default if no fallback is provided
-		})) as Message;
+	public async reply<T extends string | MessagePayload | InteractionReplyOptions>(options: T, fallback?: () => void | Promise<void>): Promise<ReturnType<T> | null> {
+		return await (DraftbotInteraction.prototype.commonSendCommand<T>).call(
+			this,
+			(CommandInteraction.prototype.reply as ReplyFunctionLike<T>).bind(this),
+			options,
+			fallback ?? ((): void => {
+				// Do nothing by default if no fallback is provided
+			})
+		);
 	}
 
 	/**
@@ -201,16 +216,28 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 	 * @param options classic discord.js send options
 	 * @param fallback function to execute if the bot can't send the message
 	 */
-	public async followUp(options: OptionLike, fallback?: () => void | Promise<void>): Promise<Message> {
-		return await DraftbotInteraction.prototype.commonSendCommand.call(this, CommandInteraction.prototype.followUp.bind(this), options, fallback ?? ((): void => {
-			// Do nothing by default if no fallback is provided
-		})) as Message;
+	public async followUp(options: string | InteractionReplyOptions | MessagePayload, fallback?: () => void | Promise<void>): Promise<Message> {
+		return await (DraftbotInteraction.prototype.commonSendCommand<string | MessagePayload | InteractionReplyOptions>).call(
+			this,
+			CommandInteraction.prototype.followUp.bind(this),
+			options,
+			fallback ?? ((): void => {
+				// Do nothing by default if no fallback is provided
+			})
+		) as Message;
 	}
 
-	editReply = async (options: string | MessagePayload | InteractionEditReplyOptions): Promise<Message> => {
+	public async editReply(options: string | MessagePayload | InteractionEditReplyOptions, fallback?: () => void | Promise<void>): Promise<Message> {
 		this._replyEdited = true;
-		return await CommandInteraction.prototype.editReply.bind(this)(options);
-	};
+		return await (DraftbotInteraction.prototype.commonSendCommand<string | MessagePayload | InteractionEditReplyOptions>).call(
+			this,
+			CommandInteraction.prototype.editReply.bind(this),
+			options,
+			fallback ?? ((): void => {
+				// Do nothing by default if no fallback is provided
+			})
+		) as Message;
+	}
 
 	/**
 	 * Send a message to the user
@@ -218,11 +245,11 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 	 * @param options classic discord.js send options
 	 * @param fallback function to execute if the bot can't send the message
 	 */
-	private async commonSendCommand<OptionType extends OptionLike>(
+	private async commonSendCommand<OptionType>(
 		functionPrototype: ReplyFunctionLike<OptionType>,
 		options: OptionType,
 		fallback: () => void | Promise<void>
-	): Promise<Message | null> {
+	): Promise<ReturnType<OptionType> | null> {
 		try {
 			return await functionPrototype(options);
 		}
@@ -237,7 +264,10 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 	/**
 	 * Manage the fallback of both reply and followUp functions
 	 */
-	private async manageFallback<OptionType extends OptionLike>(functionPrototype: ReplyFunctionLike<OptionType>, e: Error): Promise<void> {
+	private async manageFallback<OptionType>(
+		functionPrototype: ReplyFunctionLike<OptionType>,
+		e: Error
+	): Promise<void> {
 		// Error codes due to a development mistake, and not because of a weird permission error
 		const manageFallbackDevErrorCodes = [
 			DiscordjsErrorCodes.InteractionAlreadyReplied,
@@ -271,7 +301,6 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 		catch {
 			// Try again to manage fallback with the send function
 			if (functionPrototype !== DraftbotChannel.prototype.send) {
-				// @ts-expect-error - We consider that the functionPrototype is a function that can be called with these parameters (i.e, accepts a InteractionReplyOptions)
 				await DraftbotInteraction.prototype.manageFallback.bind(this)(BaseGuildTextChannel.prototype.send.bind(this.channel), e);
 				return;
 			}

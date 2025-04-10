@@ -12,16 +12,13 @@ import {
 } from "../../utils/ErrorUtils";
 import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {
-	CommandShopNotEnoughCurrency,
-	ReactionCollectorShopData,
-	ReactionCollectorShopItemReaction
+	CommandShopNotEnoughCurrency, ReactionCollectorShopData, ReactionCollectorShopItemReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorShop";
 import {
 	ActionRowBuilder,
 	ButtonBuilder,
 	ButtonInteraction,
 	ButtonStyle,
-	Message,
 	MessageComponentInteraction,
 	parseEmoji,
 	SelectMenuInteraction,
@@ -467,7 +464,7 @@ export async function shopCollector(context: PacketContext, packet: ReactionColl
 	const msg = await interaction.reply({
 		embeds: [embed],
 		components: [selectRow, buttonRow]
-	}) as Message;
+	});
 
 	const buttonCollector = msg.createMessageComponentCollector({
 		time: packet.endTime - Date.now()
