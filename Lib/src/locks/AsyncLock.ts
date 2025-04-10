@@ -1,6 +1,6 @@
 export class AsyncLock {
 	// Indicates if the lock is currently held
-	private locked: boolean = false;
+	private locked = false;
 
 	// Queue of functions to call when the lock becomes available
 	private waiting: (() => void)[] = [];
