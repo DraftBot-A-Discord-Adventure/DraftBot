@@ -1058,7 +1058,7 @@
     "recoverAlteration_other": "{{count}} Recuperarse de",
     "sellItemWithGivenCost_one": "{{count}} {{variantText}} {emote:unitValues.money}Vender equipos por más de",
     "sellItemWithGivenCost_other": "{{count}} {{variantText}} {emote:unitValues.money}Vender equipos por más de",
-    "sellOrTradePet": "Vender o intercambiar una mascota con otro jugador",
+    "sellOrTradePet": "Vendre un familier à un autre joueur",
     "spendGems": "Gasta gemas en la tienda de la misión",
     "spendMoney": "{{count}} Gastar monedas",
     "tamedPet": "Tener una mascota domesticada o adiestrada",
@@ -1076,7 +1076,7 @@
     "haveItemRarity": "$t(items:rarities.{{variant}})",
     "fromPlaceToPlace_order": "{{place1}}{{place2}} {{time}} Hacer - en menos de horas",
     "fromPlaceToPlace_noOrder": "{{place1}}{{place2}} {{time}} - (o viceversa) en menos de horas",
-    "fromPlaceToPlace_secondPart": "{{place1}}{{timestamp}}Llegar antes de la <t: :f>",
+    "fromPlaceToPlace_secondPart": "Atteindre {{place}} avant le {{time}}",
     "goToPlace": "{emote:mapTypes.{{mapType}} $t(models:map_locations.{{variant}}.name)}",
     "fightAttacks": "{emote:fightActions.{{variant}} $t(models:fight_actions.{{variant}}.name, {\"count\": {{count}}})}",
     "finishWithAttack": "{emote:fightActions.{{variant}} $t(models:fight_actions.{{variant}}.name, {\"count\": {{count}}})}"
