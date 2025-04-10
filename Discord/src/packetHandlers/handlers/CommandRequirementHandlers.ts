@@ -15,6 +15,7 @@ import { RequirementRightPacket } from "../../../../Lib/src/packets/commands/req
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import { RequirementWherePacket } from "../../../../Lib/src/packets/commands/requirements/RequirementWherePacket";
 import { MessagesUtils } from "../../utils/MessagesUtils";
+import { MessageFlags } from "discord-api-types/v10";
 
 export default class CommandRequirementHandlers {
 	@packetHandler(RequirementEffectPacket)
@@ -38,7 +39,7 @@ export default class CommandRequirementHandlers {
 						.formatAuthor(effectsText.title, interaction.user)
 						.setDescription(effectsText.description)
 				],
-				ephemeral: true
+				flags: MessageFlags.Ephemeral
 			});
 		}
 	}

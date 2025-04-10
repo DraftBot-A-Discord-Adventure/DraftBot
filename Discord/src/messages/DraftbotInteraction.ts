@@ -23,6 +23,7 @@ import {
 import { CommandInteractionOptionResolver } from "discord.js/typings";
 import { DraftBotEmbed } from "./DraftBotEmbed";
 import { DraftBotLogger } from "../../../Lib/src/logs/DraftBotLogger";
+import { MessageFlags } from "discord-api-types/v10";
 
 type DraftbotInteractionWithoutSendCommands = new(client: Client<true>, data: RawInteractionData) => Omit<CommandInteraction, "reply" | "followUp" | "channel">;
 const DraftbotInteractionWithoutSendCommands: DraftbotInteractionWithoutSendCommands = CommandInteraction as unknown as DraftbotInteractionWithoutSendCommands;
@@ -264,7 +265,7 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 		try {
 			// @ts-expect-error - We consider that the functionPrototype is a function that can be called with these parameters (i.e, accepts a InteractionReplyOptions)
 			await functionPrototype.call(this, {
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 				...toSendProp
 			});
 		}
