@@ -32,16 +32,27 @@ import { ShopUtils } from "../../core/utils/ShopUtils";
 import { PetConstants } from "../../../../Lib/src/constants/PetConstants";
 import { shopItemTypeFromId } from "../../../../Lib/src/utils/ShopUtils";
 import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
+import { LockManager } from "../../../../Lib/src/locks/LockManager";
+
+const giveXpLockManager = new LockManager();
 
 async function giveGuildXp(response: DraftBotPacket[], playerId: number, price: number): Promise<boolean> {
 	const player = await Players.getById(playerId);
-	const guild = await Guilds.getById(player.guildId);
 
-	const xpToAdd = GuildUtils.calculateAmountOfXPToAdd(price);
-	await guild.addExperience(xpToAdd, response, NumberChangeReason.SHOP);
-	await guild.save();
+	const lock = giveXpLockManager.getLock(player.guildId);
+	const release = await lock.acquire();
+	try {
+		const guild = await Guilds.getById(player.guildId);
 
-	response.push(makePacket(CommandGuildShopGiveXp, { xp: xpToAdd }));
+		const xpToAdd = GuildUtils.calculateAmountOfXPToAdd(price);
+		await guild.addExperience(xpToAdd, response, NumberChangeReason.SHOP);
+		await guild.save();
+
+		response.push(makePacket(CommandGuildShopGiveXp, { xp: xpToAdd }));
+	}
+	finally {
+		release();
+	}
 
 	return true;
 }
