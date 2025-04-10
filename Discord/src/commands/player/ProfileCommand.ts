@@ -206,10 +206,10 @@ export async function handleCommandProfilePacketRes(packet: CommandProfilePacket
 					level: packet.playerData?.level
 				}))
 				.addFields(generateFields(packet, interaction.userLanguage))
-		],
-		withResponse: true
-	}) as Message;
-	const collector = reply.createReactionCollector({
+		]
+	});
+	const fetchedReply = await reply.fetch();
+	const collector = fetchedReply.createReactionCollector({
 		filter: (reaction: MessageReaction) => reaction.me && !reaction.users.cache.last()!.bot,
 		time: Constants.MESSAGES.COLLECTOR_TIME,
 		max: ProfileConstants.BADGE_MAXIMUM_REACTION
@@ -227,7 +227,7 @@ export async function handleCommandProfilePacketRes(packet: CommandProfilePacket
 		}
 	});
 	if (packet.playerData?.badges.length !== 0) {
-		await displayBadges(packet.playerData!.badges, reply);
+		await displayBadges(packet.playerData!.badges, fetchedReply);
 	}
 }
 

@@ -32,8 +32,7 @@ type ChannelTypeWithoutSend = new(client: Client<true>, data: RawWebhookData) =>
 const GuildTextBasedChannel: GuildTextBasedChannel = BaseGuildTextChannel as unknown as GuildTextBasedChannel;
 const ChannelTypeWithoutSend: ChannelTypeWithoutSend = GuildTextBasedChannel as unknown as ChannelTypeWithoutSend;
 
-type ReplyOptionsSpecial = InteractionReplyOptions & { withResponse: true };
-export type OptionLike = string | InteractionReplyOptions | ReplyOptionsSpecial;
+export type OptionLike = string | InteractionReplyOptions;
 type ReplyFunctionLike<OptionValue> = (options: OptionValue) => Promise<Message>;
 
 export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands {
