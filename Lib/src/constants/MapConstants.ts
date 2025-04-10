@@ -67,20 +67,6 @@ export abstract class MapConstants {
 		ROAD_TO_THE_KING_CASTLE: 32
 	};
 
-	static readonly TYPES = [
-		"ci",
-		"ro",
-		"pl",
-		"fo",
-		"mo",
-		"be",
-		"vi",
-		"de",
-		"ri",
-		"la",
-		"castleEntrance",
-		"castleThrone"
-	];
 
 	static readonly MAP_ATTRIBUTES = {
 		CONTINENT1: "continent1",

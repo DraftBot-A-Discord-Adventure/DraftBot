@@ -29,9 +29,7 @@ import { FightOvertimeBehavior } from "../../core/fights/FightOvertimeBehavior";
 import { PlayerFighter } from "../../core/fights/fighter/PlayerFighter";
 import { ClassDataController } from "../../data/Class";
 import { draftBotInstance } from "../../index";
-import {
-	EloGameResult, EloUtils
-} from "../../core/utils/EloUtils";
+import { EloUtils } from "../../core/utils/EloUtils";
 import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
 import { AiPlayerFighter } from "../../core/fights/fighter/AiPlayerFighter";
 import { BlockingUtils } from "../../core/utils/BlockingUtils";
@@ -39,6 +37,7 @@ import { FightRewardPacket } from "../../../../Lib/src/packets/fights/FightRewar
 import { LeagueDataController } from "../../data/League";
 import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
 import { minutesToMilliseconds } from "../../../../Lib/src/utils/TimeUtils";
+import { EloGameResult } from "../../../../Lib/src/types/EloGameResult";
 
 type PlayerStats = {
 	classId: number;

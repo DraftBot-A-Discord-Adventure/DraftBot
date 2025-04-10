@@ -68,7 +68,6 @@ import { LogsGuildsCreations } from "./models/LogsGuildCreations";
 import { LogsGuildsJoins } from "./models/LogsGuildJoins";
 import { LogsGuildsExperiences } from "./models/LogsGuildsExperiences";
 import { LogsGuildsLevels } from "./models/LogsGuildsLevels";
-import { LogsPetsTrades } from "./models/LogsPetsTrades";
 import { LogsGuildsDescriptionChanges } from "./models/LogsGuildsDescriptionChanges";
 import { LogsGuildsEldersAdds } from "./models/LogsGuildsEldersAdds";
 import { LogsPetsSells } from "./models/LogsPetsSells";
@@ -109,21 +108,6 @@ import { ReactionCollectorReactPacket } from "../../../../../Lib/src/packets/int
 export class LogsDatabase extends Database {
 	constructor() {
 		super(getDatabaseConfiguration(botConfig, "logs"), `${__dirname}/models`, `${__dirname}/migrations`);
-	}
-
-	/**
-	 * Log when a pet trade occurs
-	 * @param firstPet
-	 * @param secondPet
-	 */
-	public static async logPetTrade(firstPet: PetEntity, secondPet: PetEntity): Promise<void> {
-		const firstLogPetEntity = await LogsDatabase.findOrCreatePetEntity(firstPet);
-		const secondLogPetEntity = await LogsDatabase.findOrCreatePetEntity(secondPet);
-		await LogsPetsTrades.create({
-			firstPetId: firstLogPetEntity.id,
-			secondPetId: secondLogPetEntity.id,
-			date: getDateLogs()
-		});
 	}
 
 	/**
@@ -206,7 +190,7 @@ export class LogsDatabase extends Database {
 	 * @param joinedKeycloakId
 	 * @param inviterKeycloakId
 	 */
-	public static async logsGuildJoin(guild: Guild, joinedKeycloakId: string, inviterKeycloakId: string): Promise<void> {
+	public static async logGuildJoin(guild: Guild, joinedKeycloakId: string, inviterKeycloakId: string): Promise<void> {
 		const logGuild = await LogsDatabase.findOrCreateGuild(guild);
 		const joiningPlayer = await LogsDatabase.findOrCreatePlayer(joinedKeycloakId);
 		const invitingPlayer = await LogsDatabase.findOrCreatePlayer(inviterKeycloakId);
@@ -943,24 +927,6 @@ export class LogsDatabase extends Database {
 		await LogsGuildsChiefsChanges.create({
 			guildId: logGuild.id,
 			newChief: logNewChiefId,
-			date: getDateLogs()
-		});
-	}
-
-	/**
-	 * Log when a player joins a guild
-	 * @param adderKeycloakId
-	 * @param addedKeycloakId
-	 * @param guild
-	 */
-	public async logGuildJoin(adderKeycloakId: string | null, addedKeycloakId: string, guild: Guild): Promise<void> {
-		const adder = await LogsDatabase.findOrCreatePlayer(adderKeycloakId);
-		const added = await LogsDatabase.findOrCreatePlayer(addedKeycloakId);
-		const guildInstance = await LogsDatabase.findOrCreateGuild(guild);
-		await LogsGuildsJoins.create({
-			guildId: guildInstance.id,
-			adderId: adder.id,
-			addedId: added.id,
 			date: getDateLogs()
 		});
 	}

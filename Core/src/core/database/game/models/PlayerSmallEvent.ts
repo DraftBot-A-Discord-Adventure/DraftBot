@@ -41,19 +41,6 @@ export class PlayerSmallEvents {
 		return mostRecent;
 	}
 
-	static getLast(playerSmallEvents: PlayerSmallEvent[]): PlayerSmallEvent {
-		if (!playerSmallEvents) {
-			return null;
-		}
-		let mostRecent = playerSmallEvents[0];
-		for (const smallEvent of playerSmallEvents) {
-			if (smallEvent.id >= mostRecent.id) {
-				mostRecent = smallEvent;
-			}
-		}
-		return mostRecent;
-	}
-
 	static async calculateCurrentScore(player: Player): Promise<number> {
 		const numberOfSmallEventsDone = await PlayerSmallEvent.count({
 			where: {

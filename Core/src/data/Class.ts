@@ -106,15 +106,6 @@ export class ClassDataController extends DataControllerNumber<Class> {
 			.filter(classInstance => classInstance.classGroup === classGroup);
 	}
 
-	/**
-	 * Get the class by its emoji
-	 * @param emoji
-	 */
-	public getByEmoji(emoji: string): Class | undefined {
-		return this.getValuesArray()
-			.find(classInstance => classInstance.emoji === emoji);
-	}
-
 	getRandomClass(): Class {
 		return RandomUtils.draftbotRandom.pick(Array.from(this.data.values()));
 	}

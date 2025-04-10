@@ -23,7 +23,6 @@ import {
 	ReactionCollectorFightChooseActionReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorFightChooseAction";
 import { AIFightActionChoosePacket } from "../../../../Lib/src/packets/fights/AIFightActionChoosePacket";
-import { PacketUtils } from "../utils/PacketUtils";
 import { AiPlayerFighter } from "./fighter/AiPlayerFighter";
 import { CommandFightEndOfFightPacket } from "../../../../Lib/src/packets/fights/EndOfFightPacket";
 import { BuggedFightPacket } from "../../../../Lib/src/packets/fights/BuggedFightPacket";
@@ -303,10 +302,5 @@ export class FightView {
 	 */
 	displayBugFight(response: DraftBotPacket[]): void {
 		response.push(makePacket(BuggedFightPacket, {}));
-	}
-
-	sendResponses(response: DraftBotPacket[]): void {
-		PacketUtils.sendPackets(this.context, response);
-		response.length = 0;
 	}
 }

@@ -9,17 +9,6 @@ export abstract class FightConstants {
 
 	static readonly POINTS_REGEN_AMOUNT = 110;
 
-	static readonly FIGHT_ERROR = {
-		NONE: "none",
-		BABY: "error.baby",
-		WRONG_LEVEL: "error.levelTooLow",
-		DEAD: "error.dead",
-		DISALLOWED_EFFECT: "error.cantFightStatus",
-		OCCUPIED: "error.occupied",
-		NO_ENERGY: "error.noEnergy",
-		ELO_GAP: "error.eloGap",
-		PVE_ISLAND: "error.onPveIsland"
-	};
 
 	static readonly REWARDS = {
 		NUMBER_OF_WIN_THAT_AWARD_SCORE_BONUS: 3,
@@ -31,13 +20,13 @@ export abstract class FightConstants {
 	};
 
 	// Duration of the menu that searches for an opponent in milliseconds
-	static readonly ASKING_MENU_DURATION = 120000;
+
 
 	// Number of reactions the bot will accept before closing a fight request due to spam.
-	static readonly SPAM_PROTECTION_MAX_REACTION_AMOUNT = 2;
+
 
 	// Amount of time a user has to react during a fight
-	static readonly TIME_FOR_ACTION_SELECTION = 45000;
+
 
 	// Random variation of the damage a fight action will deal (between -this value and +this value)
 	static readonly DAMAGE_RANDOM_VARIATION = 5;
@@ -70,10 +59,7 @@ export abstract class FightConstants {
 	static readonly MAX_HISTORY_LENGTH = 1950;
 
 	// Targets types
-	static readonly TARGET = {
-		SELF: 0,
-		OPPONENT: 1
-	};
+
 
 	// Kind of useless, but I don't care
 	static OPERATOR = {
@@ -255,9 +241,7 @@ export abstract class FightConstants {
 	static readonly DEFAULT_FIGHT_COUNTDOWN = 10;
 
 	// Added at the end of the fight to the last message
-	static readonly HANDSHAKE_EMOTE = "\uD83E\uDD1D";
 
-	static readonly DEFAULT_ACTION_WEIGHT = 1;
 
 	// Time needed to wait before being able to fight again after a ranked fight as a defender
 	static DEFENDER_COOLDOWN_MINUTES = 30;

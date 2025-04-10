@@ -41,7 +41,7 @@ export abstract class DraftbotCachedMessage<T extends DraftBotPacket = DraftBotP
 
 	async post(options: BaseMessageOptions): Promise<Message | null> {
 		if (this.reuploadMessage) {
-			this.storedMessage?.delete();
+			this.storedMessage?.delete().then();
 			this.storedMessage = undefined;
 			this.reuploadMessage = false;
 		}

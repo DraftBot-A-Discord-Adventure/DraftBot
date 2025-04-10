@@ -67,24 +67,6 @@ export class InventorySlot extends Model {
 	isObject(): boolean {
 		return this.itemCategory === ItemCategory.OBJECT;
 	}
-
-	/**
-	 * Get the category's name of the item
-	 */
-	getItemCategory(): string {
-		switch (this.itemCategory) {
-			case ItemCategory.WEAPON:
-				return "Weapon";
-			case ItemCategory.ARMOR:
-				return "Armor";
-			case ItemCategory.POTION:
-				return "Potion";
-			case ItemCategory.OBJECT:
-				return "Object";
-			default:
-				return "Unknown";
-		}
-	}
 }
 
 export class InventorySlots {

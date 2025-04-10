@@ -1,14 +1,6 @@
 import Player from "../database/game/models/Player";
 import { FightConstants } from "../../../../Lib/src/constants/FightConstants";
-
-/**
- * Game result
- */
-export enum EloGameResult {
-	LOSS = 0,
-	DRAW = 0.5,
-	WIN = 1
-}
+import { EloGameResult } from "../../../../Lib/src/types/EloGameResult";
 
 export abstract class EloUtils {
 	/**
