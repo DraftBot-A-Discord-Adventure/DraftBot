@@ -1,6 +1,4 @@
 export abstract class LeagueInfoConstants {
-	static readonly FIELDS_VALUE = "{emoji} {name}";
-
 	static readonly MONEY_TO_AWARD = [
 		250, // Wood
 		300, // Rock

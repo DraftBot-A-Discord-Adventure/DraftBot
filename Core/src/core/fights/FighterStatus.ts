@@ -17,8 +17,4 @@ export class FighterStatus {
 	constructor(translationField: string) {
 		this.translationField = translationField;
 	}
-
-	public getTranslationField(): string {
-		return this.translationField;
-	}
 }

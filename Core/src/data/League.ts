@@ -37,24 +37,6 @@ export class League extends Data<number> {
 			maxRarity: LeagueInfoConstants.ITEM_MAXIMAL_RARITY[this.id]
 		});
 	}
-
-	/**
-	 * True if the player will lose glory points at the end of the season
-	 */
-	public hasPointsReset(): boolean {
-		return this.minGloryPoints >= LeagueInfoConstants.GLORY_RESET_THRESHOLD;
-	}
-
-	/**
-	 * Give the point lose at the reset of the league
-	 * @param currentPoints
-	 */
-	public pointsLostAtReset(currentPoints: number): number {
-		if (currentPoints < LeagueInfoConstants.GLORY_RESET_THRESHOLD) {
-			return 0;
-		}
-		return Math.round((currentPoints - LeagueInfoConstants.GLORY_RESET_THRESHOLD) * LeagueInfoConstants.SEASON_END_LOSS_PERCENTAGE);
-	}
 }
 
 export class LeagueDataController extends DataControllerNumber<League> {
@@ -62,15 +44,6 @@ export class LeagueDataController extends DataControllerNumber<League> {
 
 	newInstance(): League {
 		return new League();
-	}
-
-	/**
-	 * Get the league by its emoji
-	 * @param emoji
-	 */
-	public getByEmoji(emoji: string): League {
-		return this.getValuesArray()
-			.find(league => league.emoji === emoji);
 	}
 
 	/**

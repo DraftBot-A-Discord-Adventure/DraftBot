@@ -10,8 +10,6 @@ export enum PetDiet {
 }
 
 export abstract class PetConstants {
-	static readonly IS_FOOD = 1;
-
 	static readonly NICKNAME_LENGTH_RANGE = {
 		MIN: 3,
 		MAX: 16
@@ -145,7 +143,6 @@ export abstract class PetConstants {
 		MAX: 50000
 	};
 
-	static readonly DEFAULT_PET_ID = 0;
 
 	static readonly SLOTS = 6;
 

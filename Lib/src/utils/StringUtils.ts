@@ -93,15 +93,6 @@ export function isAnEmoji(variable: string): boolean {
 }
 
 /**
- * Get the id from a mention
- * @param variable
- * @returns The id of the mention
- */
-export function getIdFromMention(variable: string): string {
-	return "".concat(...variable.split("").filter(c => (/[0-9]/).test(c)));
-}
-
-/**
  * Get the mention
  * @param discordUserId
  */

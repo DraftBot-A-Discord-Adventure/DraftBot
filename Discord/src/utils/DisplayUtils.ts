@@ -224,6 +224,7 @@ export class DisplayUtils {
 	 * @param loveLevel
 	 * @param sex
 	 * @param lng
+	 * @param withIcon
 	 */
 	static getPetLoveLevelDisplay(loveLevel: number, sex: SexTypeShort, lng: Language, withIcon = true): string {
 		const sexStringContext: string = sex === StringConstants.SEX.MALE.short ? StringConstants.SEX.MALE.long : StringConstants.SEX.FEMALE.long;

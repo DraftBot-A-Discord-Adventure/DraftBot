@@ -145,7 +145,7 @@ async function acceptInvitation(invitedPlayer: Player, invitingPlayer: Player, g
 	guild.updateLastDailyAt();
 	await guild.save();
 	await invitedPlayer.save();
-	LogsDatabase.logsGuildJoin(guild, invitedPlayer.keycloakId, invitingPlayer.keycloakId)
+	LogsDatabase.logGuildJoin(guild, invitedPlayer.keycloakId, invitingPlayer.keycloakId)
 		.then();
 	await MissionsController.update(invitedPlayer, response, {
 		missionId: "guildLevel",

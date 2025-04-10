@@ -148,10 +148,6 @@ export class PetEntity extends Model {
 		return this.sex === StringConstants.SEX.FEMALE.short;
 	}
 
-	public isMale(): boolean {
-		return this.sex === StringConstants.SEX.MALE.short;
-	}
-
 	public asOwnedPet(): OwnedPet {
 		return {
 			typeId: this.typeId,

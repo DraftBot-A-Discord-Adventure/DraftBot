@@ -12,15 +12,6 @@ export class Constants {
 		MINUS: 188
 	};
 
-	static readonly ITEM_NATURE = {
-		NO_EFFECT: 0,
-		HEALTH: 1,
-		SPEED: 2,
-		ATTACK: 3,
-		DEFENSE: 4,
-		TIME_SPEEDUP: 5,
-		MONEY: 6
-	};
 
 	static readonly REPORT = {
 		HOURS_USED_TO_CALCULATE_FIRST_REPORT_REWARD: 1, // Used to get the amount of point a user will get in the first report, 1 hour = 60 points ( + some bonus )
@@ -132,10 +123,6 @@ export class Constants {
 
 	static readonly MINIMAL_PLAYER_SCORE = 100;
 
-	static EXCLUDED_TRANSLATION_MODULES = [
-		"classes.",
-		"advices"
-	];
 
 	static readonly MAX_TIME_BOT_RESPONSE = 30000;
 
@@ -159,7 +146,6 @@ export class Constants {
 		MAX_EMOTE_DISPLAY_NUMBER: 10
 	};
 
-	static readonly DEFAULT_HEALED_EFFECT = ":hospital:";
 
 	static readonly JOIN_BOAT = {
 		TIME_TRAVELLED_SUBTRAHEND: 30,

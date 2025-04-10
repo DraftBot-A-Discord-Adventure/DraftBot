@@ -1,5 +1,6 @@
 import {
-	CommandClassesInfoPacketReq, CommandClassesInfoPacketRes
+	CommandClassesInfoPacketReq,
+	CommandClassesInfoPacketRes
 } from "../../../../Lib/src/packets/commands/CommandClassesInfoPacket";
 import {
 	makePacket, PacketContext
@@ -13,7 +14,11 @@ import { Constants } from "../../../../Lib/src/constants/Constants";
 import { ClassInfoConstants } from "../../../../Lib/src/constants/ClassInfoConstants";
 import { Language } from "../../../../Lib/src/Language";
 import {
-	ActionRowBuilder, EmbedField, StringSelectMenuBuilder, StringSelectMenuInteraction, StringSelectMenuOptionBuilder
+	ActionRowBuilder,
+	EmbedField,
+	StringSelectMenuBuilder,
+	StringSelectMenuInteraction,
+	StringSelectMenuOptionBuilder
 } from "discord.js";
 import { sendInteractionNotForYou } from "../../utils/ErrorUtils";
 import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
@@ -141,7 +146,7 @@ export async function handleCommandClassesInfoPacketRes(packet: CommandClassesIn
 		.setLabel(i18n.t("commands:classesInfo.mainOption.name", {
 			lng: interaction.userLanguage
 		}))
-		.setEmoji(ClassInfoConstants.LIST_EMOTE)
+		.setEmoji(DraftBotIcons.commands.classesInfo)
 		.setValue(ClassInfoConstants.MENU_IDS.LIST_OPTION);
 	classesMenuOptions.unshift(classSelectionMenuOption);
 	const classSelectionMenu = new StringSelectMenuBuilder()

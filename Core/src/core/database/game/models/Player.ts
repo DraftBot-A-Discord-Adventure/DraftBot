@@ -463,13 +463,6 @@ export class Player extends Model {
 	}
 
 	/**
-	 * Get the level of the player
-	 */
-	public getLevel(): number {
-		return this.level;
-	}
-
-	/**
 	 * Get the travel cost of a player this week
 	 */
 	public async getTravelCostThisWeek(): Promise<number> {
@@ -1156,22 +1149,6 @@ export class Players {
 		return ((await Player.sequelize.query(query))[0][0] as {
 			ranking: number;
 		}).ranking;
-	}
-
-	/**
-	 * Get all the keycloak ids stored in the database
-	 */
-	static async getAllStoredKeycloakIds(): Promise<string[]> {
-		const query = `SELECT keycloakId
-                       FROM players`;
-		const queryResult = (await Player.sequelize.query(query, {
-			type: QueryTypes.SELECT
-		})) as {
-			keycloakId: string;
-		}[];
-		const keycloakIds: string[] = [];
-		queryResult.forEach(res => keycloakIds.push(res.keycloakId));
-		return keycloakIds;
 	}
 
 	/**

@@ -7,9 +7,6 @@ export abstract class GenericItem extends Data<number> {
 
 	declare readonly fallbackEmote?: string;
 
-	declare readonly frenchMasculine?: boolean;
-
-	declare readonly frenchPlural?: boolean;
 
 	abstract categoryName: string;
 
