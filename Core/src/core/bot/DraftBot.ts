@@ -13,7 +13,10 @@ import PetEntity from "../database/game/models/PetEntity";
 import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
 import { PotionDataController } from "../../data/Potion";
 import {
-	getNextDay2AM, getNextSaturdayMidnight, getNextSundayMidnight
+	getNextDay2AM,
+	getNextSaturdayMidnight,
+	getNextSundayMidnight,
+	minutesToMilliseconds
 } from "../../../../Lib/src/utils/TimeUtils";
 import { TimeoutFunctionsConstants } from "../../../../Lib/src/constants/TimeoutFunctionsConstants";
 import { MapCache } from "../maps/MapCache";
@@ -284,6 +287,29 @@ export class DraftBot {
 	}
 
 	/**
+	 * Update the fight points of the entities that lost some
+	 */
+	static fightPowerRegenerationLoop(): void {
+		Player.update(
+			{
+				fightPointsLost: Sequelize.literal(
+					`CASE WHEN fightPointsLost - ${FightConstants.POINTS_REGEN_AMOUNT} < 0 THEN 0 ELSE fightPointsLost - ${FightConstants.POINTS_REGEN_AMOUNT} END`
+				)
+			},
+			{
+				where: {
+					fightPointsLost: { [Op.not]: 0 },
+					mapLinkId: { [Op.in]: MapCache.regenEnergyMapLinks }
+				}
+			}
+		).finally(() => null);
+		setTimeout(
+			DraftBot.fightPowerRegenerationLoop,
+			minutesToMilliseconds(FightConstants.POINTS_REGEN_MINUTES)
+		);
+	}
+
+	/**
 	 * Execute all the daily tasks
 	 */
 	static weeklyTimeout(): void {
@@ -386,5 +412,10 @@ export class DraftBot {
 
 		DraftBot.reportNotifications()
 			.then();
+
+		setTimeout(
+			DraftBot.fightPowerRegenerationLoop,
+			minutesToMilliseconds(FightConstants.POINTS_REGEN_MINUTES)
+		);
 	}
 }
