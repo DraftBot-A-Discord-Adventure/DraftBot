@@ -29,6 +29,7 @@ import { TravelTime } from "../../core/maps/TravelTime";
 import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
 import { Effect } from "../../../../Lib/src/types/Effect";
 import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
+import { MissionsController } from "../../core/missions/MissionsController";
 
 /**
  * Accept the unlock of a player
@@ -61,6 +62,8 @@ async function acceptUnlock(player: Player, freedPlayer: Player, response: Draft
 	response.push(makePacket(CommandUnlockAcceptPacketRes, {
 		unlockedKeycloakId: freedPlayer.keycloakId
 	}));
+
+	await MissionsController.update(player, response, { missionId: "unlock" });
 }
 
 /**
