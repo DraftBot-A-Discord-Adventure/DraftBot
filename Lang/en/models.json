@@ -1058,7 +1058,7 @@
     "recoverAlteration_other": "Recover from {{count}} alterations",
     "sellItemWithGivenCost_one": "Sell {{count}} equipment for more than {{variantText}} {emote:unitValues.money}",
     "sellItemWithGivenCost_other": "Sell {{count}} equipment for more than {{variantText}} {emote:unitValues.money}",
-    "sellOrTradePet": "Vendre un familier à un autre joueur",
+    "sellOrTradePet": "Sell a pet to another player",
     "spendGems": "Spend gems in the missions shop",
     "spendMoney": "Spend {{count}} coins",
     "tamedPet": "Have a tamed or trained pet",
