@@ -224,7 +224,7 @@ export async function handleCommandProfilePacketRes(packet: CommandProfilePacket
 			await sendMessageAllBadgesTooMuchBadges(keycloakUser.attributes.gameUsername[0], packet.playerData!.badges!, interaction);
 		}
 		else {
-			interaction.channel.send({ content: `${EmoteUtils.translateEmojiToDiscord(reaction.emoji.name!)} ${i18n.t(`commands:profile.badges.${reaction.emoji.name}`, { lng: interaction.userLanguage })}` })
+			interaction.channel.send({ content: `\`${EmoteUtils.translateEmojiToDiscord(reaction.emoji.name!)} ${i18n.t(`commands:profile.badges.${reaction.emoji.name}\``, { lng: interaction.userLanguage })}` })
 				.then((msg: Message | null) => {
 					setTimeout(() => msg?.delete(), ProfileConstants.BADGE_DESCRIPTION_TIMEOUT);
 				});
