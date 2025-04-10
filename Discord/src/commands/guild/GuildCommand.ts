@@ -6,8 +6,7 @@ import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 import i18n from "../../translations/i18n";
 import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
 import {
-	CommandGuildPacketReq,
-	CommandGuildPacketRes
+	CommandGuildPacketReq, CommandGuildPacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildPacket";
 import { GuildMember } from "../../../../Lib/src/types/GuildMember";
 import { SlashCommandBuilder } from "@discordjs/builders";
@@ -177,7 +176,7 @@ export async function handleCommandGuildPacketRes(packet: CommandGuildPacketRes,
 	});
 	await interaction.reply({
 		embeds: [guildCommandEmbed],
-		fetchReply: true
+		withResponse: true
 	});
 }
 
