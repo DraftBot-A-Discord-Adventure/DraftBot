@@ -55,7 +55,7 @@ export class MissionSlot extends Model {
 			missionObjective: this.missionObjective,
 			missionVariant: this.missionVariant,
 			numberDone: this.numberDone,
-			saveBlob: this.saveBlob,
+			saveBlob: this.saveBlob?.toString("binary"),
 			missionType: this.isCampaign() ? MissionType.CAMPAIGN : MissionType.NORMAL,
 			expiresAt: this.expiresAt?.toISOString()
 		};
