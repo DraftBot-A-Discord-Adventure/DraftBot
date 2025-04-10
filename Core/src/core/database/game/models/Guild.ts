@@ -7,18 +7,18 @@ import Player, { Players } from "./Player";
 import {
 	GuildPet, GuildPets
 } from "./GuildPet";
-import PetEntity from "./PetEntity";
+import PetEntity, { PetEntities } from "./PetEntity";
 import { draftBotInstance } from "../../../../index";
 import {
 	DraftBotPacket, makePacket
 } from "../../../../../../Lib/src/packets/DraftBotPacket";
 import { GuildLevelUpPacket } from "../../../../../../Lib/src/packets/events/GuildLevelUpPacket";
-import moment = require("moment");
 import { TopConstants } from "../../../../../../Lib/src/constants/TopConstants";
 import { Constants } from "../../../../../../Lib/src/constants/Constants";
 import { NumberChangeReason } from "../../../../../../Lib/src/constants/LogsConstants";
 import { GuildConstants } from "../../../../../../Lib/src/constants/GuildConstants";
 import { PetConstants } from "../../../../../../Lib/src/constants/PetConstants";
+import moment = require("moment");
 
 export class Guild extends Model {
 	declare readonly id: number;
@@ -77,11 +77,16 @@ export class Guild extends Model {
 	 * Completely destroy a guild from the database
 	 */
 	public async completelyDestroyAndDeleteFromTheDatabase(): Promise<void> {
-		draftBotInstance.logsDatabase.logGuildDestroy(this)
+		const pets = await GuildPets.getOfGuild(this.id);
+		const guildPetsEntities = [];
+		for (const guildPet of pets) {
+			guildPetsEntities.push(await PetEntities.getById(guildPet.petEntityId));
+		}
+
+		draftBotInstance.logsDatabase.logGuildDestroy(this, guildPetsEntities)
 			.then();
 		const guildPetsToDestroy: Promise<void>[] = [];
 		const petsEntitiesToDestroy: Promise<number>[] = [];
-		const pets = await GuildPets.getOfGuild(this.id);
 		for (const pet of pets) {
 			guildPetsToDestroy.push(pet.destroy());
 			petsEntitiesToDestroy.push(PetEntity.destroy({ where: { id: pet.petEntityId } }));
