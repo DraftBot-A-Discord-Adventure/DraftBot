@@ -39,7 +39,7 @@ import { LogsItemSellsObject } from "./models/LogsItemsSellsObject";
 import { LogsItemSellsPotion } from "./models/LogsItemsSellsPotion";
 import { LogsItemSellsWeapon } from "./models/LogsItemsSellsWeapon";
 import { LogsPlayersTimewarps } from "./models/LogsPlayersTimewarps";
-import PetEntity, { PetEntities } from "../game/models/PetEntity";
+import PetEntity from "../game/models/PetEntity";
 import { LogsPetsNicknames } from "./models/LogsPetsNicknames";
 import { LogsPetEntities } from "./models/LogsPetEntities";
 import { Guild } from "../game/models/Guild";
@@ -60,7 +60,6 @@ import { LogsGuildsDestroys } from "./models/LogsGuildsDestroys";
 import { LogsGuildsEldersRemoves } from "./models/LogsGuildsEldersRemoves";
 import { LogsGuildsChiefsChanges } from "./models/LogsGuildsChiefsChanges";
 import { LogsPetsFrees } from "./models/LogsPetsFrees";
-import { GuildPets } from "../game/models/GuildPet";
 import { LogsFightsResults } from "./models/LogsFightsResults";
 import { LogsFightsActionsUsed } from "./models/LogsFightsActionsUsed";
 import { LogsFightsActions } from "./models/LogsFightsActions";
@@ -877,14 +876,14 @@ export class LogsDatabase extends Database {
 	/**
 	 * Log when a guild is destroyed
 	 * @param guild
+	 * @param guildPetsEntities
 	 */
-	public async logGuildDestroy(guild: Guild): Promise<void> {
+	public async logGuildDestroy(guild: Guild, guildPetsEntities: PetEntity[]): Promise<void> {
 		const guildInfos: GuildLikeType = {
 			id: guild.id,
 			name: guild.name,
 			creationDate: guild.creationDate,
-			chiefId: guild.chiefId,
-			guildPets: await GuildPets.getOfGuild(guild.id)
+			chiefId: guild.chiefId
 		};
 		const logGuild = await LogsDatabase.findOrCreateGuild(guildInfos);
 		for (const member of await Players.getByGuild(guildInfos.id)) {
@@ -892,9 +891,8 @@ export class LogsDatabase extends Database {
 				await LogsDatabase.logGuildLeave(guild, member.keycloakId);
 			}
 		}
-		for (const guildPet of guildInfos.guildPets) {
-			const petEntity = await PetEntities.getById(guildPet.petEntityId);
-			await LogsDatabase.logPetFree(petEntity);
+		for (const guildPetEntity of guildPetsEntities) {
+			await LogsDatabase.logPetFree(guildPetEntity);
 		}
 		await LogsGuildsDestroys.create({
 			guildId: logGuild.id,
