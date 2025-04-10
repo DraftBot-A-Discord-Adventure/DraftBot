@@ -32,7 +32,7 @@ type ChannelTypeWithoutSend = new(client: Client<true>, data: RawWebhookData) =>
 const GuildTextBasedChannel: GuildTextBasedChannel = BaseGuildTextChannel as unknown as GuildTextBasedChannel;
 const ChannelTypeWithoutSend: ChannelTypeWithoutSend = GuildTextBasedChannel as unknown as ChannelTypeWithoutSend;
 
-type ReplyOptionsSpecial = InteractionReplyOptions & { fetchReply: true };
+type ReplyOptionsSpecial = InteractionReplyOptions & { withResponse: true };
 export type OptionLike = string | InteractionReplyOptions | ReplyOptionsSpecial;
 type ReplyFunctionLike<OptionValue> = (options: OptionValue) => Promise<Message>;
 

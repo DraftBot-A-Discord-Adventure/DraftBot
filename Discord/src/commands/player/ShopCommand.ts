@@ -467,7 +467,7 @@ export async function shopCollector(context: PacketContext, packet: ReactionColl
 	const msg = await interaction.reply({
 		embeds: [embed],
 		components: [selectRow, buttonRow],
-		fetchReply: true
+		withResponse: true
 	}) as Message;
 
 	const buttonCollector = msg.createMessageComponentCollector({

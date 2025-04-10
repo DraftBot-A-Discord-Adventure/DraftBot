@@ -207,7 +207,7 @@ export async function handleCommandProfilePacketRes(packet: CommandProfilePacket
 				}))
 				.addFields(generateFields(packet, interaction.userLanguage))
 		],
-		fetchReply: true
+		withResponse: true
 	}) as Message;
 	const collector = reply.createReactionCollector({
 		filter: (reaction: MessageReaction) => reaction.me && !reaction.users.cache.last()!.bot,
