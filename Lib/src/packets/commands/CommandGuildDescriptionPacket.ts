@@ -18,6 +18,14 @@ export class CommandGuildDescriptionPacketReq extends DraftBotPacket {
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandGuildDescriptionNoGuildPacket extends DraftBotPacket {
 }
+
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandGuildDescriptionNotAnElderPacket extends DraftBotPacket {
+}
+
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class CommandGuildDescriptionInvalidPacket extends DraftBotPacket {
+	min!: number;
+
+	max!: number;
 }

@@ -18,9 +18,13 @@ import { draftBotInstance } from "../../index";
 import { ReactionCollectorGuildDescription } from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildDescription";
 import {
 	CommandGuildDescriptionAcceptPacketRes,
-	CommandGuildDescriptionNoGuildPacket, CommandGuildDescriptionNotAnElderPacket, CommandGuildDescriptionPacketReq,
+	CommandGuildDescriptionInvalidPacket,
+	CommandGuildDescriptionNoGuildPacket,
+	CommandGuildDescriptionNotAnElderPacket,
+	CommandGuildDescriptionPacketReq,
 	CommandGuildDescriptionRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildDescriptionPacket";
+import { checkNameString } from "../../../../Lib/src/utils/StringUtils";
 
 async function acceptGuildDescription(player: Player, description: string, response: DraftBotPacket[]): Promise<void> {
 	await player.reload();
@@ -71,6 +75,15 @@ export default class GuildDescriptionCommand {
 			response.push(makePacket(CommandGuildDescriptionNotAnElderPacket, {}));
 			return;
 		}
+
+		if (!checkNameString(packet.description, GuildConstants.DESCRIPTION_LENGTH_RANGE)) {
+			response.push(makePacket(CommandGuildDescriptionInvalidPacket, {
+				min: GuildConstants.DESCRIPTION_LENGTH_RANGE.MIN,
+				max: GuildConstants.DESCRIPTION_LENGTH_RANGE.MAX
+			}));
+			return;
+		}
+
 		const collector = new ReactionCollectorGuildDescription(
 			packet.description
 		);
