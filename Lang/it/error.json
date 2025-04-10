@@ -65,6 +65,7 @@
   "cooldownPetFree": "È possibile liberare un solo animale domestico all'ora. {{remainingTime}}È possibile liberare un altro .",
   "unknownPlayer": "Nome utente 404",
   "petNickNotValid": "Le regole per dare un nome a un animale domestico sono le seguenti:\n$t(error:stringRules)",
+  "guildDescriptionNotValid": "Les règles pour la description d'une guilde sont les suivantes:\n$t(error:stringRules)",
   "stringRules": "\n\n\n {{min}} {{max}} - Utilizzare almeno una lettera - Non utilizzare più di 2 spazi consecutivi - I caratteri speciali non sono ammessi - Tra e caratteri",
   "notInAGuild": "Dovete essere in una gilda per Effettuare questo comando.",
   "notAuthorizedError": "Non avete le permissione necessarie per Effettuare questo commando in vostra gilda, chiedete a un dei vostri superiori se bisogno.",
