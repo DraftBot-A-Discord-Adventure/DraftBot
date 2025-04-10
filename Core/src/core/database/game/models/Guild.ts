@@ -83,7 +83,7 @@ export class Guild extends Model {
 			guildPetsEntities.push(await PetEntities.getById(guildPet.petEntityId));
 		}
 
-		draftBotInstance.logsDatabase.logGuildDestroy(this, guildPetsEntities)
+		draftBotInstance.logsDatabase.logGuildDestroy(this, await Players.getByGuild(this.id), guildPetsEntities)
 			.then();
 		const guildPetsToDestroy: Promise<void>[] = [];
 		const petsEntitiesToDestroy: Promise<number>[] = [];

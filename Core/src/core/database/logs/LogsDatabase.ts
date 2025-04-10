@@ -44,7 +44,9 @@ import { LogsPetsNicknames } from "./models/LogsPetsNicknames";
 import { LogsPetEntities } from "./models/LogsPetEntities";
 import { Guild } from "../game/models/Guild";
 import { LogsGuilds } from "./models/LogsGuilds";
-import { Players } from "../game/models/Player";
+import {
+	Player, Players
+} from "../game/models/Player";
 import { LogsGuildsKicks } from "./models/LogsGuildsKicks";
 import { LogsDailyPotions } from "./models/LogsDailyPotions";
 import { LogsClassicalShopBuyouts } from "./models/LogsClassicalShopBuyouts";
@@ -876,9 +878,10 @@ export class LogsDatabase extends Database {
 	/**
 	 * Log when a guild is destroyed
 	 * @param guild
+	 * @param members
 	 * @param guildPetsEntities
 	 */
-	public async logGuildDestroy(guild: Guild, guildPetsEntities: PetEntity[]): Promise<void> {
+	public async logGuildDestroy(guild: Guild, members: Player[], guildPetsEntities: PetEntity[]): Promise<void> {
 		const guildInfos: GuildLikeType = {
 			id: guild.id,
 			name: guild.name,
@@ -886,7 +889,7 @@ export class LogsDatabase extends Database {
 			chiefId: guild.chiefId
 		};
 		const logGuild = await LogsDatabase.findOrCreateGuild(guildInfos);
-		for (const member of await Players.getByGuild(guildInfos.id)) {
+		for (const member of members) {
 			if (member.id !== guildInfos.chiefId) {
 				await LogsDatabase.logGuildLeave(guild, member.keycloakId);
 			}
