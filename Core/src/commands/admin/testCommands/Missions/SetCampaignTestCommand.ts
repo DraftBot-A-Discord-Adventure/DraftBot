@@ -23,7 +23,7 @@ const setCampaignTestCommand: ExecuteTestCommandLike = async (player, args) => {
 	const campaignMission = CampaignData.getMissions()[progression - 1];
 
 	missionsInfo.campaignProgression = progression;
-	missionsInfo.campaignBlob = `${missionsInfo.campaignBlob.slice(0, progression - 1)}0${missionsInfo.campaignBlob.slice(progression)}`;
+	missionsInfo.campaignBlob = `${"1".repeat(progression - 1)}0${missionsInfo.campaignBlob.slice(progression)}`;
 	campaign.missionId = campaignMission.missionId;
 	campaign.missionObjective = campaignMission.missionObjective;
 	campaign.missionVariant = campaignMission.missionVariant;
