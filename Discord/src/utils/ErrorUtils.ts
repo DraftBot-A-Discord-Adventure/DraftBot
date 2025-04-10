@@ -29,7 +29,7 @@ export async function replyEphemeralErrorMessage(interaction: DraftbotInteractio
 	// Without a bind, context is lost for "this"
 	await (interaction.replied || interaction.deferred ? interaction.followUp.bind(interaction) : interaction.reply.bind(interaction))({
 		embeds: [new DraftBotErrorEmbed(interaction.user, interaction, reason)],
-		ephemeral: true
+		flags: MessageFlags.Ephemeral
 	});
 }
 
@@ -97,7 +97,7 @@ export async function sendInteractionNotForYou(
 					pseudo: user.displayName
 				}), user)
 		],
-		ephemeral: true
+		flags: MessageFlags.Ephemeral
 	});
 }
 
