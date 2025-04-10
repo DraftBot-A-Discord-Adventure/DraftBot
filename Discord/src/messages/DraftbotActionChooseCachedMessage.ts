@@ -13,10 +13,12 @@ import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
 import { DiscordCollectorUtils } from "../utils/DiscordCollectorUtils";
 import { ReactionCollectorCreationPacket } from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {
-	ReactionCollectorFightChooseActionData, ReactionCollectorFightChooseActionReaction
+	ReactionCollectorFightChooseActionData,
+	ReactionCollectorFightChooseActionReaction
 } from "../../../Lib/src/packets/interaction/ReactionCollectorFightChooseAction";
 import { ReactionCollectorReturnTypeOrNull } from "../packetHandlers/handlers/ReactionCollectorHandlers";
 import { DiscordConstants } from "../DiscordConstants";
+import { sendInteractionNotForYou } from "../utils/ErrorUtils";
 
 export class DraftbotActionChooseCachedMessage extends DraftbotCachedMessage<ReactionCollectorCreationPacket> {
 	readonly duration = 30;
@@ -61,6 +63,7 @@ export class DraftbotActionChooseCachedMessage extends DraftbotCachedMessage<Rea
 		});
 		buttonCollector.on("collect", async (buttonInteraction: ButtonInteraction) => {
 			if (buttonInteraction.user.id !== context.discord?.user) {
+				await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, interaction.userLanguage);
 				return;
 			}
 			await buttonInteraction.update({
