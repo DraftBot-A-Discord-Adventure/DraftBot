@@ -6,8 +6,7 @@ import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 import i18n, { TranslationOption } from "../../translations/i18n";
 import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
 import {
-	CommandProfilePacketReq,
-	CommandProfilePacketRes
+	CommandProfilePacketReq, CommandProfilePacketRes
 } from "../../../../Lib/src/packets/commands/CommandProfilePacket";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
@@ -206,10 +205,15 @@ export async function handleCommandProfilePacketRes(packet: CommandProfilePacket
 					level: packet.playerData?.level
 				}))
 				.addFields(generateFields(packet, interaction.userLanguage))
-		]
+		],
+		withResponse: true
 	});
-	const fetchedReply = await reply.fetch();
-	const collector = fetchedReply.createReactionCollector({
+	if (!reply.resource?.message) {
+		// An error occured and no message were fetched
+		return;
+	}
+	const message = reply.resource.message;
+	const collector = message.createReactionCollector({
 		filter: (reaction: MessageReaction) => reaction.me && !reaction.users.cache.last()!.bot,
 		time: Constants.MESSAGES.COLLECTOR_TIME,
 		max: ProfileConstants.BADGE_MAXIMUM_REACTION
@@ -220,14 +224,14 @@ export async function handleCommandProfilePacketRes(packet: CommandProfilePacket
 			await sendMessageAllBadgesTooMuchBadges(keycloakUser.attributes.gameUsername[0], packet.playerData!.badges!, interaction);
 		}
 		else {
-			interaction.channel.send({ content: i18n.t(`commands:profile.badges.${reaction.emoji.name}`, { lng: interaction.userLanguage }) })
+			interaction.channel.send({ content: `${EmoteUtils.translateEmojiToDiscord(reaction.emoji.name!)} ${i18n.t(`commands:profile.badges.${reaction.emoji.name}`, { lng: interaction.userLanguage })}` })
 				.then((msg: Message | null) => {
 					setTimeout(() => msg?.delete(), ProfileConstants.BADGE_DESCRIPTION_TIMEOUT);
 				});
 		}
 	});
 	if (packet.playerData?.badges.length !== 0) {
-		await displayBadges(packet.playerData!.badges, fetchedReply);
+		await displayBadges(packet.playerData!.badges, message);
 	}
 }
 

@@ -10,7 +10,7 @@ import {
 import { DiscordCache } from "../bot/DiscordCache";
 import { KeycloakUser } from "../../../Lib/src/keycloak/KeycloakUser";
 import {
-	ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, Message, MessageComponentInteraction, parseEmoji
+	ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, InteractionCallbackResponse, InteractionResponse, Message, MessageComponentInteraction, parseEmoji
 } from "discord.js";
 import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
 import { DraftBotEmbed } from "../messages/DraftBotEmbed";
@@ -261,7 +261,7 @@ export class DiscordCollectorUtils {
 		}
 
 		// Edit message
-		const msg: Message = await (interaction.replied ? interaction.followUp : interaction.deferred ? interaction.editReply : interaction.reply)({
+		const msg: Message | InteractionResponse | InteractionCallbackResponse = await (interaction.replied ? interaction.followUp : interaction.deferred ? interaction.editReply : interaction.reply)({
 			components: rows,
 			...messageContentOrEmbed instanceof DraftBotEmbed
 				? { embeds: [messageContentOrEmbed] }
