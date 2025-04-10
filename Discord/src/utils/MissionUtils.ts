@@ -5,7 +5,7 @@ import { Language } from "../../../Lib/src/Language";
 import i18n from "../translations/i18n";
 import { MissionUtils as MissionUtilsLib } from "../../../Lib/src/utils/MissionUtils";
 import {
-	hoursToMilliseconds, hoursToSeconds, millisecondsToSeconds
+	dateDisplay, hoursToMilliseconds
 } from "../../../Lib/src/utils/TimeUtils";
 
 export class MissionUtils {
@@ -118,7 +118,7 @@ export class MissionUtils {
 	 */
 	private static manageFromPlaceToPlaceVariant(mission: BaseMission, lng: Language): string {
 		const params = MissionUtilsLib.fromPlaceToPlaceParamsFromVariant(mission.missionVariant);
-		const saveData = MissionUtilsLib.fromPlaceToPlaceDataFromSaveBlob(mission.saveBlob);
+		const saveData = mission.saveBlob ? MissionUtilsLib.fromPlaceToPlaceDataFromSaveBlob(Buffer.from(mission.saveBlob, "binary")) : null;
 		if (!saveData || saveData.startTimestamp + hoursToMilliseconds(params.time) < Date.now()) {
 			return i18n.t("models:missionVariants.fromPlaceToPlace", {
 				lng,
@@ -131,7 +131,7 @@ export class MissionUtils {
 		return i18n.t("models:missionVariants.fromPlaceToPlace_secondPart", {
 			lng,
 			place: i18n.t(`models:map_locations.${saveData.startMap === params.fromMap ? params.toMap : params.fromMap}.name`, { lng }),
-			timestamp: Math.round(millisecondsToSeconds(saveData.startTimestamp)) + hoursToSeconds(params.time),
+			time: dateDisplay(new Date(saveData.startTimestamp + hoursToMilliseconds(params.time))),
 			interpolation: { escapeValue: false }
 		});
 	}

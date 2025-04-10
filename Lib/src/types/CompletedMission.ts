@@ -16,7 +16,7 @@ export type BaseMission = {
 	missionObjective: number;
 	missionVariant: number;
 	numberDone: number;
-	saveBlob: Buffer;
+	saveBlob?: string;
 	missionType: MissionType;
 	expiresAt?: string;
 	fightAction?: string;
