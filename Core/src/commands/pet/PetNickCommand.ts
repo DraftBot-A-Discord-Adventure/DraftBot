@@ -12,6 +12,7 @@ import {
 	commandRequires, CommandUtils
 } from "../../core/utils/CommandUtils";
 import Player from "../../core/database/game/models/Player";
+import { draftBotInstance } from "../../index";
 
 
 export default class PetNickCommand {
@@ -58,5 +59,7 @@ export default class PetNickCommand {
 
 		playerPet.nickname = newPetNickName ? newPetNickName : null;
 		await playerPet.save();
+
+		draftBotInstance.logsDatabase.logPetNickname(playerPet).then();
 	}
 }
