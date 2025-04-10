@@ -65,6 +65,7 @@
   "cooldownPetFree": "You can only release one pet per hour. You will be able to release another one {{remainingTime}}.",
   "unknownPlayer": "Nickname 404",
   "petNickNotValid": "The rules for naming a pet are as follows:\n$t(error:stringRules)",
+  "guildDescriptionNotValid": "Les règles pour la description d'une guilde sont les suivantes:\n$t(error:stringRules)",
   "stringRules": "- Use at least one letter\n- Do not put more than 2 consecutive spaces\n- Special characters are not allowed\n- Between {{min}} and {{max}} characters",
   "notInAGuild": "You must belong to a guild to place this order.",
   "notAuthorizedError": "You do not have the required permissions to do that command in your guild, please ask a superior if needed.",
