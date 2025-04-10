@@ -85,6 +85,9 @@ export class MissionUtils {
 		if (mission.missionId === "fromPlaceToPlace") {
 			return this.manageFromPlaceToPlaceVariant(mission, lng);
 		}
+		if (mission.missionId === "chooseClassTier") {
+			return String(mission.missionVariant + 1);
+		}
 		if (!MissionUtilsLib.isRequiredFightActionId(mission)) {
 			return i18n.t([`models:missionVariants.${mission.missionId}`, "models:missionVariants.default"], {
 				lng,
