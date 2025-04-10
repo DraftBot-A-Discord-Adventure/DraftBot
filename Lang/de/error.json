@@ -65,6 +65,7 @@
   "cooldownPetFree": "Sie können nur einen Begleiter pro Stunde befreien. Sie können einen weiteren befreien {{remainingTime}}.",
   "unknownPlayer": "Pseudo 404",
   "petNickNotValid": "Die Regeln für den Namen eines Vertrauten lauten wie folgt:\n$t(error:stringRules)",
+  "guildDescriptionNotValid": "Les règles pour la description d'une guilde sont les suivantes:\n$t(error:stringRules)",
   "stringRules": "- Mindestens einen Buchstaben verwenden\n- Nicht mehr als zwei aufeinanderfolgende Leerzeichen verwenden\n- Sonderzeichen sind nicht erlaubt\n- Zwischen {{min}} und {{max}} Zeichen",
   "notInAGuild": "Sie müssen zu einer Gilde gehören, um diesen Befehl ausführen zu können.",
   "notAuthorizedError": "Sie haben nicht die erforderlichen Berechtigungen, um diese Bestellung innerhalb Ihrer Gilde durchzuführen. Fragen Sie ggf. einen Ihrer Vorgesetzten.",
