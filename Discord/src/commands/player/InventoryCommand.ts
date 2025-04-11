@@ -149,6 +149,10 @@ export async function handleCommandInventoryPacketRes(packet: CommandInventoryPa
 			components: [new ActionRowBuilder<ButtonBuilder>().addComponents(switchItemsButton)]
 		});
 
+		if (!msg) {
+			return;
+		}
+
 		const collector = msg.createMessageComponentCollector({
 			filter: buttonInteraction => buttonInteraction.customId === buttonId,
 			time: Constants.MESSAGES.COLLECTOR_TIME

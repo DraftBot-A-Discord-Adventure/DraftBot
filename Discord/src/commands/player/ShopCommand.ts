@@ -12,7 +12,9 @@ import {
 } from "../../utils/ErrorUtils";
 import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {
-	CommandShopNotEnoughCurrency, ReactionCollectorShopData, ReactionCollectorShopItemReaction
+	CommandShopNotEnoughCurrency,
+	ReactionCollectorShopData,
+	ReactionCollectorShopItemReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorShop";
 import {
 	ActionRowBuilder,
@@ -184,6 +186,10 @@ export async function shopInventoryExtensionCollector(context: PacketContext, pa
 		components: [row]
 	});
 
+	if (!msg) {
+		return null;
+	}
+
 	const buttonCollector = msg.createMessageComponentCollector({
 		time: Constants.MESSAGES.COLLECTOR_TIME
 	});
@@ -316,6 +322,10 @@ async function manageBuyoutConfirmation(packet: ReactionCollectorCreationPacket,
 		],
 		components: [row]
 	});
+
+	if (!msg) {
+		return;
+	}
 
 	const buttonCollector = msg.createMessageComponentCollector({
 		time: Constants.MESSAGES.COLLECTOR_TIME
@@ -465,6 +475,10 @@ export async function shopCollector(context: PacketContext, packet: ReactionColl
 		embeds: [embed],
 		components: [selectRow, buttonRow]
 	});
+
+	if (!msg) {
+		return null;
+	}
 
 	const buttonCollector = msg.createMessageComponentCollector({
 		time: packet.endTime - Date.now()

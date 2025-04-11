@@ -6,7 +6,8 @@ import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 import i18n, { TranslationOption } from "../../translations/i18n";
 import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
 import {
-	CommandProfilePacketReq, CommandProfilePacketRes
+	CommandProfilePacketReq,
+	CommandProfilePacketRes
 } from "../../../../Lib/src/packets/commands/CommandProfilePacket";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
@@ -208,8 +209,8 @@ export async function handleCommandProfilePacketRes(packet: CommandProfilePacket
 		],
 		withResponse: true
 	});
-	if (!reply.resource?.message) {
-		// An error occured and no message were fetched
+	if (!reply?.resource?.message) {
+		// An error occurred and no message were fetched
 		return;
 	}
 	const message = reply.resource.message;

@@ -161,6 +161,9 @@ export async function handleCommandClassesInfoPacketRes(packet: CommandClassesIn
 		embeds: [classListEmbed],
 		components: [row]
 	});
+	if (!msg) {
+		return;
+	}
 	const collector = msg.createMessageComponentCollector({
 		filter: menuInteraction => menuInteraction.customId === ClassInfoConstants.MENU_IDS.CLASS_SELECTION,
 		time: Constants.MESSAGES.COLLECTOR_TIME
