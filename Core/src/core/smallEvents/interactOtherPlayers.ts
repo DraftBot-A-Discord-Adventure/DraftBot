@@ -60,7 +60,7 @@ function checkBadges(otherPlayer: Player, interactionsList: InteractOtherPlayerI
 		if (otherPlayer.hasBadge(Badge.POWERFUL_GUILD) || otherPlayer.hasBadge(Badge.VERY_POWERFUL_GUILD)) {
 			interactionsList.push(InteractOtherPlayerInteraction.POWERFUL_GUILD);
 		}
-		if (otherPlayer.badges.includes(Badge.TECHNICAL_TEAM)) {
+		if (otherPlayer.hasBadge(Badge.TECHNICAL_TEAM)) {
 			interactionsList.push(InteractOtherPlayerInteraction.STAFF_MEMBER);
 		}
 	}

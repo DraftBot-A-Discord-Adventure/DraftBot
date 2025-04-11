@@ -144,7 +144,7 @@ export class Player extends Model {
 	 * @param badge
 	 */
 	public addBadge(badge: Badge): boolean {
-		if (this.badges !== null) {
+		if (this.badges !== null && this.badges !== "") {
 			if (!this.hasBadge(badge)) {
 				this.badges += `,${badge}`;
 			}
