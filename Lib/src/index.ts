@@ -58,7 +58,11 @@ function checkForPacketHandlers(filePath: string, array: Array<string>): void {
 	const sourceFile = ts.createSourceFile(filePath, sourceCode, ts.ScriptTarget.ESNext, true);
 
 	function visit(node: ts.Node): void {
-		if (ts.isCallExpression(node) && ["packetHandler", "commandRequires"].some(v => v === node.expression.getText())) {
+		if (ts.isCallExpression(node) && [
+			"packetHandler",
+			"commandRequires",
+			"adminCommand"
+		].some(v => v === node.expression.getText())) {
 			const packetType = (node as unknown as TypeExpression).arguments[0].escapedText;
 			array.push(packetType);
 		}

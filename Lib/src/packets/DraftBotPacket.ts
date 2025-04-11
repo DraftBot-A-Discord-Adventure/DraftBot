@@ -42,6 +42,9 @@ export interface PacketContext {
 	};
 
 	rightGroups?: RightGroup[];
+
+	// Used when waiting for an answer
+	packetId?: string;
 }
 
 export interface PacketLike<Packet extends DraftBotPacket> {

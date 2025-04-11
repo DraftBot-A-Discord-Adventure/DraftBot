@@ -169,6 +169,18 @@ export class Player extends Model {
 				.includes(badge);
 	}
 
+	public getBadges(): Badge[] {
+		if (this.badges === null) {
+			return [];
+		}
+
+		return this.badges.split(",") as Badge[];
+	}
+
+	public setBadges(badges: Badge[]): void {
+		this.badges = badges.join(",");
+	}
+
 	/**
 	 * Get the destination id of a player
 	 */

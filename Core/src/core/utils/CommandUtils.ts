@@ -267,6 +267,8 @@ export abstract class CommandUtils {
 
 type WithPlayerPacketListenerCallbackServer<T extends DraftBotPacket> = (response: DraftBotPacket[], player: Player, packet: T, context: PacketContext) => void | Promise<void>;
 
+type WithoutPlayerPacketListenerCallbackServer<T extends DraftBotPacket> = (response: DraftBotPacket[], packet: T, context: PacketContext) => void | Promise<void>;
+
 /**
  * Core command decorator to register a command handler with its requirements
  * @param packet
@@ -302,4 +304,17 @@ export const commandRequires = <T extends DraftBotPacket>(packet: PacketLike<T>,
 			await descriptor.value(response, player, packet, context);
 		});
 		DraftBotLogger.info(`[${packet.name}] Registered packet handler (function '${prop}' in class '${target!.constructor.name}')`);
+	};
+
+export const adminCommand = <T extends DraftBotPacket>(packet: PacketLike<T>, verifyRightGroups: (context: PacketContext, packet: T) => boolean) =>
+	(target: unknown, prop: string, descriptor: TypedPropertyDescriptor<WithoutPlayerPacketListenerCallbackServer<T>>): void => {
+		draftBotInstance.packetListener.addPacketListener<T>(packet, async (response: DraftBotPacket[], context: PacketContext, packet: T): Promise<void> => {
+			if (!verifyRightGroups(context, packet)) {
+				response.push(makePacket(RequirementRightPacket, {}));
+				return;
+			}
+
+			await descriptor.value(response, packet, context);
+		});
+		DraftBotLogger.info(`[${packet.name}] Registered admin packet handler (function '${prop}' in class '${target!.constructor.name}')`);
 	};

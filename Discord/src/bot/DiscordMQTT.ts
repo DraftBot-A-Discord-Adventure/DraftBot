@@ -22,6 +22,7 @@ import { MqttTopicUtils } from "../../../Lib/src/utils/MqttTopicUtils";
 import { DraftBotDiscordMetrics } from "./DraftBotDiscordMetrics";
 import { millisecondsToSeconds } from "../../../Lib/src/utils/TimeUtils";
 import { DraftBotLogger } from "../../../Lib/src/logs/DraftBotLogger";
+import { AsyncCorePacketSender } from "./AsyncCorePacketSender";
 
 
 const DEFAULT_MQTT_CLIENT_OPTIONS = {
@@ -38,6 +39,8 @@ export class DiscordMQTT {
 	static topWeekFightAnnouncementMqttClient: MqttClient;
 
 	static packetListener: PacketListenerClient = new PacketListenerClient();
+
+	static asyncPacketSender: AsyncCorePacketSender = new AsyncCorePacketSender();
 
 	static async init(isMainShard: boolean): Promise<void> {
 		await registerAllPacketHandlers();
@@ -70,6 +73,11 @@ export class DiscordMQTT {
 			for (const packet of dataJson.packets) {
 				try {
 					DraftBotDiscordMetrics.incrementPacketCount(packet.name);
+
+					if (await DiscordMQTT.asyncPacketSender.handleResponse(context, packet.name, packet.packet)) {
+						continue;
+					}
+
 					let listener = DiscordMQTT.packetListener.getListener(packet.name);
 					if (!listener) {
 						packet.packet = makePacket(ErrorPacket, { message: `No packet listener found for received packet '${packet.name}'.\n\nData:\n${JSON.stringify(packet.packet)}` });

@@ -1,3 +1,5 @@
 export enum RightGroup {
-	MAINTENANCE = "maintenance"
+	MAINTENANCE = "maintenance",
+	BADGES = "badges",
+	ADMIN = "admin"
 }
