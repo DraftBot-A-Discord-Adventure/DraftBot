@@ -370,5 +370,15 @@
   "joinBoat": {
     "name": "joinboat",
     "description": "Allow you to join the boat if a guild's member in on it."
+  },
+  "giveBadge": {
+    "name": "givebadge",
+    "description": "Give a badge to a player.",
+    "options": {
+      "user": {
+        "name": "user",
+        "description": "The user who will receive the badge."
+      }
+    }
   }
 }
