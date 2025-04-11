@@ -2,6 +2,7 @@ import {
 	DraftBotPacket, PacketDirection, sendablePacket
 } from "../DraftBotPacket";
 import { SexTypeShort } from "../../constants/StringConstants";
+import { Badge } from "../../types/Badge";
 
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandProfilePacketReq extends DraftBotPacket {
@@ -66,7 +67,7 @@ export class CommandProfilePacketRes extends DraftBotPacket {
 		};
 		color: string;
 		level: number;
-		badges: string[];
+		badges: Badge[];
 		health: {
 			value: number;
 			max: number;

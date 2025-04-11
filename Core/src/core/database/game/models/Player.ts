@@ -54,6 +54,7 @@ import { PacketUtils } from "../../../utils/PacketUtils";
 import { StatValues } from "../../../../../../Lib/src/types/StatValues";
 import { ReachDestinationNotificationPacket } from "../../../../../../Lib/src/packets/notifications/ReachDestinationNotificationPacket";
 import { DraftBotLogger } from "../../../../../../Lib/src/logs/DraftBotLogger";
+import { Badge } from "../../../../../../Lib/src/types/Badge";
 import moment = require("moment");
 
 export type PlayerEditValueParameters = {
@@ -142,10 +143,10 @@ export class Player extends Model {
 	 * Add a badge to a player
 	 * @param badge
 	 */
-	public addBadge(badge: string): boolean {
+	public addBadge(badge: Badge): boolean {
 		if (this.badges !== null) {
 			if (!this.hasBadge(badge)) {
-				this.badges += `-${badge}`;
+				this.badges += `,${badge}`;
 			}
 			else {
 				return false;
@@ -161,10 +162,10 @@ export class Player extends Model {
 	 * Check if a player has a specific badge
 	 * @param badge
 	 */
-	public hasBadge(badge: string): boolean {
+	public hasBadge(badge: Badge): boolean {
 		return this.badges === null
 			? false
-			: this.badges.split("-")
+			: this.badges.split(",")
 				.includes(badge);
 	}
 

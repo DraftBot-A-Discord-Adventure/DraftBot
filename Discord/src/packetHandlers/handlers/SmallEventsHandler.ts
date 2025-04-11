@@ -67,6 +67,7 @@ import { epicItemShopHandler } from "../../smallEvents/epicItemShop";
 import {
 	SmallEventEpicItemShopAcceptPacket, SmallEventEpicItemShopCannotBuyPacket, SmallEventEpicItemShopRefusePacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventEpicItemShopPacket";
+import { Badge } from "../../../../Lib/src/types/Badge";
 
 
 export function getRandomSmallEventIntro(language: Language): string {
@@ -727,7 +728,7 @@ export default class SmallEventsHandler {
 							pet: PetUtils.petToShortString(lng, packet.petNickname, packet.petTypeId, packet.petSex),
 							amount: packet.amount,
 							food: packet.food ? DisplayUtils.getFoodDisplay(packet.food, 1, lng, false) : null,
-							badge: DraftBotIcons.badges.petTamerBadge,
+							badge: DraftBotIcons.badges[Badge.LEGENDARY_PET],
 							randomAnimal: i18n.t("smallEvents:pet.randomAnimal", {
 								lng,
 								context: packet.randomPetSex,

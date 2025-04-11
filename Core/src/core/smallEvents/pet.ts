@@ -27,7 +27,7 @@ import { MissionsController } from "../missions/MissionsController";
 import { giveFoodToGuild } from "../utils/FoodUtils";
 import { SexTypeShort } from "../../../../Lib/src/constants/StringConstants";
 import { PetFood } from "../../../../Lib/src/types/PetFood";
-import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
+import { Badge } from "../../../../Lib/src/types/Badge";
 
 /**
  * Return all possibilities the player can get on this small event.
@@ -139,11 +139,11 @@ async function managePickedInteraction(packet: SmallEventPetPacket, response: Dr
 			break;
 
 		case PetConstants.PET_INTERACTIONS_NAMES.WIN_BADGE:
-			if (player.badges?.includes(DraftBotIcons.badges.petTamerBadge)) {
+			if (player.hasBadge(Badge.LEGENDARY_PET)) {
 				packet.interactionName = PetConstants.PET_INTERACTIONS_NAMES.NOTHING;
 				break;
 			}
-			player.addBadge(DraftBotIcons.badges.petTamerBadge);
+			player.addBadge(Badge.LEGENDARY_PET);
 			break;
 
 		case PetConstants.PET_INTERACTIONS_NAMES.LOSE_HEALTH:

@@ -38,6 +38,7 @@ import { initializeAllClassBehaviors } from "../fights/AiBehaviorController";
 import { initializeAllPetBehaviors } from "../fights/PetAssistManager";
 import { DraftBotCoreWebServer } from "./DraftBotCoreWebServer";
 import { DraftBotLogger } from "../../../../Lib/src/logs/DraftBotLogger";
+import { Badge } from "../../../../Lib/src/types/Badge";
 
 export class DraftBot {
 	public readonly packetListener: PacketListenerServer;
@@ -171,7 +172,7 @@ export class DraftBot {
 		const winner = await DraftBot.findSeasonWinner();
 		if (winner !== null) {
 			PacketUtils.announce(makePacket(TopWeekFightAnnouncementPacket, { winnerKeycloakId: winner.keycloakId }), MqttTopicUtils.getDiscordTopWeekFightAnnouncementTopic(botConfig.PREFIX));
-			winner.addBadge("✨");
+			winner.addBadge(Badge.TOP_GLORY);
 			await winner.save();
 		}
 		else {
@@ -205,7 +206,7 @@ export class DraftBot {
 		});
 		if (winner !== null) {
 			PacketUtils.announce(makePacket(TopWeekAnnouncementPacket, { winnerKeycloakId: winner.keycloakId }), MqttTopicUtils.getDiscordTopWeekAnnouncementTopic(botConfig.PREFIX));
-			winner.addBadge("🎗️");
+			winner.addBadge(Badge.TOP_WEEK);
 			await winner.save();
 		}
 		else {
