@@ -1,0 +1,46 @@
+import { packetHandler } from "../../../PacketHandler";
+import { PacketContext } from "../../../../../../Lib/src/packets/DraftBotPacket";
+import {
+	CommandSetPlayerInfoDoesntExistError,
+	CommandSetPlayerInfoRes
+} from "../../../../../../Lib/src/packets/commands/CommandSetPlayerInfo";
+import { DiscordCache } from "../../../../bot/DiscordCache";
+import { DraftBotEmbed } from "../../../../messages/DraftBotEmbed";
+import i18n from "../../../../translations/i18n";
+import { KeycloakUtils } from "../../../../../../Lib/src/keycloak/KeycloakUtils";
+import { keycloakConfig } from "../../../../bot/DraftBotShard";
+import { handleClassicError } from "../../../../utils/ErrorUtils";
+
+export default class SetPlayerInfoCommandPacketHandlers {
+	@packetHandler(CommandSetPlayerInfoRes)
+	async setPlayerInfoRes(context: PacketContext, packet: CommandSetPlayerInfoRes): Promise<void> {
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+
+		if (!interaction) {
+			return;
+		}
+
+		const lng = interaction.userLanguage;
+
+		await interaction.editReply({
+			embeds: [
+				new DraftBotEmbed()
+					.setTitle(i18n.t("commands:setPlayerInfo.playerModifiedTitle", {
+						lng,
+						pseudo: interaction.user.displayName
+					}))
+					.setDescription(i18n.t("commands:setPlayerInfo.playerModifiedDesc", {
+						lng,
+						keycloakId: packet.keycloakId,
+						pseudo: (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId))?.attributes.gameUsername[0]
+					}))
+			],
+			components: []
+		});
+	}
+
+	@packetHandler(CommandSetPlayerInfoDoesntExistError)
+	async setPlayerInfoDoesntExistError(context: PacketContext, _packet: CommandSetPlayerInfoDoesntExistError): Promise<void> {
+		await handleClassicError(context, "error:playerDoesntExist");
+	}
+}

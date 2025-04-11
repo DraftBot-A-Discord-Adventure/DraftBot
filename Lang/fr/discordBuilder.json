@@ -370,5 +370,15 @@
   "joinBoat": {
     "name": "rejoindrebateau",
     "description": "Permet de rejoindre le bateau si un membre de votre guilde est dessus."
+  },
+  "giveBadge": {
+    "name": "donnerbadge",
+    "description": "Donner un badge à un joueur.",
+    "options": {
+      "user": {
+        "name": "utilisateur",
+        "description": "Le joueur à qui donner le badge."
+      }
+    }
   }
 }

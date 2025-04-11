@@ -4,7 +4,7 @@ import {
 import { DiscordMQTT } from "../bot/DiscordMQTT";
 import { KeycloakUtils } from "../../../Lib/src/keycloak/KeycloakUtils";
 import {
-	discordConfig, keycloakConfig
+	discordConfig, keycloakConfig, shardId
 } from "../bot/DraftBotShard";
 import { DraftBotErrorEmbed } from "../messages/DraftBotErrorEmbed";
 import i18n from "../translations/i18n";
@@ -12,6 +12,8 @@ import { DraftbotInteraction } from "../messages/DraftbotInteraction";
 import { KeycloakUser } from "../../../Lib/src/keycloak/KeycloakUser";
 import { MqttTopicUtils } from "../../../Lib/src/utils/MqttTopicUtils";
 import { MessageFlags } from "discord-api-types/v10";
+import { PacketConstants } from "../../../Lib/src/constants/PacketConstants";
+import { RightGroup } from "../../../Lib/src/types/RightGroup";
 
 export type AskedPlayer = {
 	keycloakId?: string;
@@ -54,5 +56,21 @@ export abstract class PacketUtils {
 			askedPlayer = { rank: <number>rank.value };
 		}
 		return askedPlayer;
+	}
+
+	static async createPacketContext(interaction: DraftbotInteraction, user: KeycloakUser): Promise<PacketContext> {
+		return {
+			frontEndOrigin: PacketConstants.FRONT_END_ORIGINS.DISCORD,
+			frontEndSubOrigin: interaction.guild?.id ?? PacketConstants.FRONT_END_SUB_ORIGINS.UNKNOWN,
+			keycloakId: user.id,
+			discord: {
+				user: interaction.user.id,
+				channel: interaction.channel.id,
+				interaction: interaction.id,
+				language: interaction.userLanguage,
+				shardId
+			},
+			rightGroups: await KeycloakUtils.getUserGroups(keycloakConfig, user.id) as RightGroup[]
+		};
 	}
 }

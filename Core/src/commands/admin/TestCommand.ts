@@ -13,6 +13,7 @@ import {
 import { DraftBotLogger } from "../../../../Lib/src/logs/DraftBotLogger";
 
 export default class TestCommand {
+	// Don't use adminCommand there because we need all the checks for the player
 	@commandRequires(CommandTestPacketReq, {
 		notBlocked: false,
 		whereAllowed: CommandUtils.WHERE.EVERYWHERE

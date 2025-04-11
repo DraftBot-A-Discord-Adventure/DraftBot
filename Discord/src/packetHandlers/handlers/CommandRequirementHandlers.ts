@@ -78,7 +78,7 @@ export default class CommandRequirementHandlers {
 	}
 
 	@packetHandler(RequirementRightPacket)
-	async requirementRight(context: PacketContext, _packet: RequirementRightPacket): Promise<void> {
+	static async requirementRight(context: PacketContext, _packet: RequirementRightPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		if (!interaction) {
 			return;

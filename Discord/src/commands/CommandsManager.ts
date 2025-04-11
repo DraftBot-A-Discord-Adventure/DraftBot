@@ -24,7 +24,7 @@ import {
 	RESTPostAPIChatInputApplicationCommandsJSONBody, Routes
 } from "discord-api-types/v10";
 import {
-	discordConfig, draftBotClient, keycloakConfig, shardId
+	discordConfig, draftBotClient, keycloakConfig
 } from "../bot/DraftBotShard";
 import { KeycloakUser } from "../../../Lib/src/keycloak/KeycloakUser";
 import { readdirSync } from "fs";
@@ -37,15 +37,12 @@ import { KeycloakUtils } from "../../../Lib/src/keycloak/KeycloakUtils";
 import {
 	DraftbotChannel, DraftbotInteraction
 } from "../messages/DraftbotInteraction";
-import { PacketContext } from "../../../Lib/src/packets/DraftBotPacket";
 import { DiscordCache } from "../bot/DiscordCache";
 import { BotUtils } from "../utils/BotUtils";
 import {
 	Language, LANGUAGE
 } from "../../../Lib/src/Language";
 import { PacketUtils } from "../utils/PacketUtils";
-import { RightGroup } from "../../../Lib/src/types/RightGroup";
-import { PacketConstants } from "../../../Lib/src/constants/PacketConstants";
 import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
 import { DiscordConstants } from "../DiscordConstants";
 import { DraftBotLogger } from "../../../Lib/src/logs/DraftBotLogger";
@@ -445,20 +442,7 @@ export class CommandsManager {
 		DiscordCache.cacheInteraction(interaction);
 		const packet = await commandInfo.getPacket(interaction, user);
 		if (packet) {
-			const context: PacketContext = {
-				frontEndOrigin: PacketConstants.FRONT_END_ORIGINS.DISCORD,
-				frontEndSubOrigin: interaction.guild?.id ?? PacketConstants.FRONT_END_SUB_ORIGINS.UNKNOWN,
-				keycloakId: user.id,
-				discord: {
-					user: interaction.user.id,
-					channel: interaction.channel.id,
-					interaction: interaction.id,
-					language: lng,
-					shardId
-				},
-				rightGroups: await KeycloakUtils.getUserGroups(keycloakConfig, user.id) as RightGroup[]
-			};
-
+			const context = await PacketUtils.createPacketContext(interaction, user);
 			PacketUtils.sendPacketToBackend(context, packet);
 		}
 	}
