@@ -370,5 +370,15 @@
   "joinBoat": {
     "name": "joinbateau",
     "description": "Ermöglicht es, das Schiff zu erreichen, wenn sich ein Mitglied Ihrer Gilde darauf befindet."
+  },
+  "giveBadge": {
+    "name": "donnerbadge",
+    "description": "Donner un badge à un joueur.",
+    "options": {
+      "user": {
+        "name": "utilisateur",
+        "description": "Le joueur à qui donner le badge."
+      }
+    }
   }
 }
