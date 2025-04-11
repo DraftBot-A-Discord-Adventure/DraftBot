@@ -344,38 +344,38 @@
   },
   "profile": {
     "badgeDisplay": {
-      "numberBadge_one": "\n This player has a total of {{badge}} badge!",
-      "numberBadge_other": "\n This player has a total of {{badge}} badges!",
+      "numberBadge_one": "\n This player has a total of {{count}} badges!",
+      "numberBadge_other": "\n This player has a total of {{count}} badges!",
       "title": "List of {{pseudo}}'s badges"
     },
     "badges": {
-      "⚔️": ":crossed_swords: `Winner of a tournament`",
-      "⚙️": ":gear: `Technical team`",
-      "⛑️": ":helmet_with_cross: `People who are one of the 20 first members of the bot's server`",
-      "✨": "{emote:unitValues.glory} Person who has won the most glory during a fighting season`.",
-      "❤️": ":heart: `Person who has the Support role on the bot server`",
-      "🌍": ":earth_africa: `Translator`",
-      "🌟": ":star2: `Person who helped put the bot on a server with over 2000 members`",
-      "🍀": ":four_leaf_clover: `Badge that can be won from time to time in contests on the bot official server or on Twitter`",
-      "🎄": ":christmas_tree: `Badge that can be won every Christmas during a contest`",
-      "🎗️": ":reminder_ribbon: `Person who dominated a weekly ranking`",
-      "🎰": ":slot_machine: `Badge given in a completely random way`",
-      "🏅": "{emote:unitValues.score} `Player in top 10 to reset 1.0`",
-      "🏆": ":trophy: `Best player by rank at the 1.0 reset`",
-      "🐞": ":lady_beetle: `Person who reported major bugs`",
-      "👑": ":crown: `Bot owner`",
-      "💍": ":ring: `Badge bought in the Missions shop`",
-      "💎": ":gem: `Member of a powerful guild`",
-      "💞": ":revolving_hearts: `Player who trained a legendary pet`",
-      "💸": ":money_with_wings: `Donor`",
-      "🔖": ":bookmark: `Early class adopter`",
-      "🕊️": ":dove: `Person who reported an exploitable bug without taking advantage of it`",
-      "🖋️": ":pen_fountain: `Bot's redactor`",
-      "🗳️": ":ballot_box: `Person who voted in the last 12 hours`",
-      "😂": ":joy: `Badge given to funny people`",
-      "🤑": ":money_mouth: `Badge bought in the shop`",
-      "🥇": ":first_place: `Person who has reached the top of the ranking after the reset`",
-      "🪩": ":mirror_ball: `Member of a very powerful team`"
+      "tournament_winner": ":crossed_swords: `Winner of a tournament`",
+      "technical_team": ":gear: `Technical team`",
+      "first_20_members": ":helmet_with_cross: `People who are one of the 20 first members of the bot's server`",
+      "top_glory": "{emote:unitValues.glory} Person who has won the most glory during a fighting season`.",
+      "support": ":heart: `Person who has the Support role on the bot server`",
+      "translator": ":earth_africa: `Translator`",
+      "advertiser": ":star2: `Person who helped put the bot on a server with over 2000 members`",
+      "contest": ":four_leaf_clover: `Badge that can be won from time to time in contests on the bot official server or on Twitter`",
+      "christmas": ":christmas_tree: `Badge that can be won every Christmas during a contest`",
+      "top_week": ":reminder_ribbon: `Person who dominated a weekly ranking`",
+      "random": ":slot_machine: `Badge given in a completely random way`",
+      "top_10_v1": "{emote:unitValues.score} `Player in top 10 to reset 1.0`",
+      "top_v1_player": ":trophy: `Best player by rank at the 1.0 reset`",
+      "major_bug_reporter": ":lady_beetle: `Person who reported major bugs`",
+      "bot_owner": ":crown: `Bot owner`",
+      "mission_completer": ":ring: `Badge bought in the Missions shop`",
+      "powerful_guild": ":gem: `Member of a powerful guild`",
+      "legendary_pet": "Joueur ayant dressé un familier légendaire",
+      "donor": "Donateur",
+      "early_class_adopter": "Adopteur de classes de la première heure",
+      "good_bug_reporter": "Personne ayant rapporté un bug exploitable sans en profiter",
+      "redactor": "Rédacteur du bot",
+      "voter": "Personne ayant voté dans les 12 dernières heures",
+      "funny": "Badge offert à une personne drôle",
+      "rich": "Badge acheté dans le shop",
+      "top_1_before_reset": "Personne ayant atteint la première place du classement après le reset",
+      "very_powerful_guild": "Membre d'une guilde très puissante"
     },
     "fightRanking": {
       "fieldName": "Glory points and league:",
@@ -1402,5 +1402,15 @@
     "petFieldName": "Familiar n°{{number}}",
     "noPetMessage": "It seems that no pets are in the shelter.",
     "warningFull": "The shelter is full! No new pets will be accepted until all the shelter's pets have been released or sold."
+  },
+  "giveBadge": {
+    "alreadyHaveBadge": "Le joueur a déjà tous les badges qui existent dans le jeu.",
+    "selectBadgePlaceholder": "Sélectionnez un badge à donner au joueur",
+    "selectBadgeTitle": "{{pseudo}}, sélection d'un badge à donner",
+    "selectBadgeDesc": "Choisissez un badge à donner au joueur dans une des listes ci-dessous :"
+  },
+  "setPlayerInfo": {
+    "playerModifiedTitle": "{{pseudo}}, modification d'un joueur",
+    "playerModifiedDesc": "Le joueur a été modifié avec succès !\n\nID: **{{keycloakId}}**\nPseudo: **{{pseudo}}**"
   }
 }
