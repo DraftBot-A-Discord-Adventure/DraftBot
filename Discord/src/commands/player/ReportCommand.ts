@@ -13,7 +13,8 @@ import {
 } from "../../../../Lib/src/packets/commands/CommandReportPacket";
 import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {
-	ReactionCollectorBigEventData, ReactionCollectorBigEventPossibilityReaction
+	ReactionCollectorBigEventData,
+	ReactionCollectorBigEventPossibilityReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorBigEvent";
 import i18n, { TranslationOption } from "../../translations/i18n";
 import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
@@ -29,7 +30,10 @@ import {
 import { Constants } from "../../../../Lib/src/constants/Constants";
 import { Effect } from "../../../../Lib/src/types/Effect";
 import {
-	millisecondsToHours, millisecondsToMinutes, minutesDisplay, printTimeBeforeDate
+	millisecondsToHours,
+	millisecondsToMinutes,
+	minutesDisplay,
+	printTimeBeforeDate
 } from "../../../../Lib/src/utils/TimeUtils";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import { ReactionCollectorChooseDestinationReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorChooseDestination";
@@ -43,7 +47,7 @@ import { StringUtils } from "../../utils/StringUtils";
 import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
 import { Language } from "../../../../Lib/src/Language";
 
-async function getPacket(interaction: DraftbotInteraction): CommandReportPacketReq {
+async function getPacket(interaction: DraftbotInteraction): Promise<CommandReportPacketReq> {
 	await interaction.deferReply();
 	return makePacket(CommandReportPacketReq, {});
 }

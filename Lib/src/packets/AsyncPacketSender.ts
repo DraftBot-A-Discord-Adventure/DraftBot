@@ -1,7 +1,6 @@
 import {
 	DraftBotPacket, PacketContext
 } from "./DraftBotPacket";
-import * as crypto from "node:crypto";
 
 type AsyncPacketSenderCallback = (context: PacketContext, packetName: string, packet: DraftBotPacket) => Promise<void> | void;
 

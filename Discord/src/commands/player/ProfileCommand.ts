@@ -6,7 +6,8 @@ import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 import i18n, { TranslationOption } from "../../translations/i18n";
 import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
 import {
-	CommandProfilePacketReq, CommandProfilePacketRes
+	CommandProfilePacketReq,
+	CommandProfilePacketRes
 } from "../../../../Lib/src/packets/commands/CommandProfilePacket";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
@@ -47,7 +48,6 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
  * @param interaction
  */
 async function sendMessageAllBadgesTooMuchBadges(gameUsername: string, badges: Badge[], interaction: DraftbotInteraction): Promise<void> {
-async function sendMessageAllBadgesTooMuchBadges(gameUsername: string, badges: string[], interaction: DraftbotInteraction): Promise<void> {
 	const lng = interaction.userLanguage;
 	let content = "";
 	for (const badgeId of badges) {
