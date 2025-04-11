@@ -33,7 +33,7 @@ const use: FightActionFunc = (sender, receiver, fightAction) => {
 	);
 
 	// Recovered energy is reduced after the third use of this action
-	const recoveredEnergy = Math.round(result.damages / (timeAttackWasUsed <= 3 ? 2 : 20));
+	const recoveredEnergy = Math.round(result.damages / (timeAttackWasUsed <= 2 ? 2 : 20));
 
 	FightActionController.applyBuff(result, {
 		selfTarget: true,
