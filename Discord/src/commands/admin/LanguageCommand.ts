@@ -1,7 +1,10 @@
 import { ICommand } from "../ICommand";
 import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
 import {
-	ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuInteraction, StringSelectMenuOptionBuilder
+	ActionRowBuilder,
+	StringSelectMenuBuilder,
+	StringSelectMenuInteraction,
+	StringSelectMenuOptionBuilder
 } from "discord.js";
 import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 import i18n from "../../translations/i18n";
@@ -45,6 +48,10 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 		],
 		components: [row]
 	});
+
+	if (!msg) {
+		return null;
+	}
 
 	const collector = msg.createMessageComponentCollector({
 		filter: menuInteraction => menuInteraction.customId === selectLanguageMenuId,

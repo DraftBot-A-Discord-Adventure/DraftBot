@@ -75,6 +75,10 @@ export class DraftbotButtonReactionMessage {
 			components: [this._buttonRow]
 		});
 
+		if (!message) {
+			return null;
+		}
+
 		const buttonCollector = message.createMessageComponentCollector({
 			time: this._messageOptions.packet.endTime - Date.now()
 		});

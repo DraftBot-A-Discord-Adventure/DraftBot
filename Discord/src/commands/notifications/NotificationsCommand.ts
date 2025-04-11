@@ -80,7 +80,7 @@ async function mainPage(interaction: DraftbotInteraction | ButtonInteraction, no
 	}
 
 	// Build and send the message
-	let msg: Message<boolean> | InteractionResponse<boolean>;
+	let msg: Message<boolean> | InteractionResponse<boolean> | null;
 	const embed = getNotificationsEmbed(notificationsConfiguration, interaction.user, lng);
 	const msgOption = {
 		embeds: [embed],
@@ -91,6 +91,10 @@ async function mainPage(interaction: DraftbotInteraction | ButtonInteraction, no
 	}
 	else {
 		msg = await (interaction as ButtonInteraction).update(msgOption);
+	}
+
+	if (!msg) {
+		return;
 	}
 
 	// Create the collector

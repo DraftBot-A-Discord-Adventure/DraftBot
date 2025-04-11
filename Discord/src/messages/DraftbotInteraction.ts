@@ -27,6 +27,7 @@ import { CommandInteractionOptionResolver } from "discord.js/typings";
 import { DraftBotEmbed } from "./DraftBotEmbed";
 import { DraftBotLogger } from "../../../Lib/src/logs/DraftBotLogger";
 import { MessageFlags } from "discord-api-types/v10";
+import { DiscordConstants } from "../DiscordConstants";
 
 type DraftbotInteractionWithoutSendCommands = new(client: Client<true>, data: RawInteractionData) => Omit<CommandInteraction, "reply" | "followUp" | "channel" | "editReply">;
 const DraftbotInteractionWithoutSendCommands: DraftbotInteractionWithoutSendCommands = CommandInteraction as unknown as DraftbotInteractionWithoutSendCommands;
@@ -35,7 +36,7 @@ type ChannelTypeWithoutSend = new(client: Client<true>, data: RawWebhookData) =>
 const GuildTextBasedChannel: GuildTextBasedChannel = BaseGuildTextChannel as unknown as GuildTextBasedChannel;
 const ChannelTypeWithoutSend: ChannelTypeWithoutSend = GuildTextBasedChannel as unknown as ChannelTypeWithoutSend;
 
-type ReplyFunctionLike<OptionValue> = (options: OptionValue) => Promise<ReturnType<OptionValue>>;
+type ReplyFunctionLike<OptionValue> = (options: OptionValue) => Promise<ReturnType<OptionValue> | null>;
 
 type ReturnType<OptionValue> = OptionValue extends InteractionReplyOptions
 	? OptionValue extends { withResponse: true }
@@ -71,11 +72,16 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 		if (discordInteraction === null) {
 			throw new Error("DraftbotInteraction casting: discordInteraction is null.");
 		}
+
+		// @ts-expect-error - We aim at changing the signature of the followUp function to allow it to return null
 		discordInteraction.followUp = DraftbotInteraction.prototype.followUp.bind(discordInteraction);
 
 		// @ts-expect-error - We aim at changing the signature of the reply function to add a fallback parameter, so ts is not happy with it
 		discordInteraction.reply = DraftbotInteraction.prototype.reply.bind(discordInteraction);
+
+		// @ts-expect-error - We aim at changing the signature of the editReply function to allow it to return null
 		discordInteraction.editReply = DraftbotInteraction.prototype.editReply.bind(discordInteraction);
+
 		const interaction = discordInteraction as unknown as DraftbotInteraction;
 		interaction._channel = DraftbotChannel.cast(discordInteraction.channel as GuildTextBasedChannel);
 		if (Object.prototype.hasOwnProperty.call(discordInteraction, "options")) {
@@ -192,8 +198,8 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 		return options;
 	}
 
-	public async reply(options: InteractionReplyOptions & { withResponse: true }, fallback?: () => void | Promise<void>): Promise<InteractionCallbackResponse>;
-	public async reply(options: string | MessagePayload | InteractionReplyOptions & { withResponse?: false }, fallback?: () => void | Promise<void>): Promise<InteractionResponse>;
+	public async reply(options: InteractionReplyOptions & { withResponse: true }, fallback?: () => void | Promise<void>): Promise<InteractionCallbackResponse | null>;
+	public async reply(options: string | MessagePayload | InteractionReplyOptions & { withResponse?: false }, fallback?: () => void | Promise<void>): Promise<InteractionResponse | null>;
 
 	/**
 	 * Send a reply to the user
@@ -216,7 +222,7 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 	 * @param options classic discord.js send options
 	 * @param fallback function to execute if the bot can't send the message
 	 */
-	public async followUp(options: string | InteractionReplyOptions | MessagePayload, fallback?: () => void | Promise<void>): Promise<Message> {
+	public async followUp(options: string | InteractionReplyOptions | MessagePayload, fallback?: () => void | Promise<void>): Promise<Message | null> {
 		return await (DraftbotInteraction.prototype.commonSendCommand<string | MessagePayload | InteractionReplyOptions>).call(
 			this,
 			CommandInteraction.prototype.followUp.bind(this),
@@ -227,7 +233,7 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 		) as Message;
 	}
 
-	public async editReply(options: string | MessagePayload | InteractionEditReplyOptions, fallback?: () => void | Promise<void>): Promise<Message> {
+	public async editReply(options: string | MessagePayload | InteractionEditReplyOptions, fallback?: () => void | Promise<void>): Promise<Message | null> {
 		this._replyEdited = true;
 		return await (DraftbotInteraction.prototype.commonSendCommand<string | MessagePayload | InteractionEditReplyOptions>).call(
 			this,
@@ -268,6 +274,16 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 		functionPrototype: ReplyFunctionLike<OptionType>,
 		e: Error
 	): Promise<void> {
+		// Check if the command timeout-ed and then ignore
+		if (
+			e?.constructor.name === "DiscordAPIError"
+			&& (e as unknown as { code: number }).code === 10062
+			&& !this.deferred
+			&& this.createdTimestamp + DiscordConstants.COMMAND_TIMEOUT_MS < Date.now()
+		) {
+			return;
+		}
+
 		// Error codes due to a development mistake, and not because of a weird permission error
 		const manageFallbackDevErrorCodes = [
 			DiscordjsErrorCodes.InteractionAlreadyReplied,
