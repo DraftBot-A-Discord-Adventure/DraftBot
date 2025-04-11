@@ -344,38 +344,38 @@
   },
   "profile": {
     "badgeDisplay": {
-      "numberBadge_one": "\n ¡Este jugador tiene un total de {{badge}} insignias!",
-      "numberBadge_other": "\n ¡Este jugador tiene {{badge}} insignias en total!",
+      "numberBadge_one": "\n Ce joueur possède {{count}} badge au total !",
+      "numberBadge_other": "\n Ce joueur possède {{count}} badges au total !",
       "title": "Lista de insignias {{pseudo}}"
     },
     "badges": {
-      "⚔️": ":crossed_swords: Ganador del torneo",
-      "⚙️": ":gear: Equipo técnico",
-      "⛑️": ":helmet_with_cross: Una de las 20 primeras personas en unirse al servidor de bots.",
-      "✨": "{emote:unitValues.glory} La persona que ha ganado más gloria durante una temporada de lucha.",
-      "❤️": ":heart: `Persona con rango de Soporte en el servidor bot`.",
-      "🌍": ":earth_africa: Traductor",
-      "🌟": ":star2: Persona que ayudó a poner el bot en un serv con más de 2000 miembros`",
-      "🍀": ":four_leaf_clover: De vez en cuando se pueden ganar insignias en concursos en el servidor del bot o en twitter.",
-      "🎄": ":christmas_tree: Insignia que se puede ganar cada Navidad en un concurso.",
-      "🎗️": ":reminder_ribbon: Persona que ha dominado una clasificación de la semana`.",
-      "🎰": ":slot_machine: Insignia entregada completamente al azar",
-      "🏅": ":medal: Jugador Top 10 en el reinicio de 1.0",
-      "🏆": ":trophy: Mejor jugador en el momento del reinicio 1.0",
-      "🐞": ":lady_beetle: Personas que han informado de errores importantes",
-      "👑": ":crown: Propietario del bot",
-      "💍": ":ring: Insignia comprada en la tienda de Misiones",
-      "💎": ":gem: Miembro de un poderoso gremio",
-      "💞": ":revolving_hearts: Jugador que ha entrenado a una mascota legendaria",
-      "💸": ":money_with_wings: Donante",
-      "🔖": ":bookmark: Adopción temprana de las clases",
-      "🕊️": ":dove: Persona que informó de un fallo explotable sin aprovecharse de él`.",
-      "🖋️": ":pen_fountain: editor de bots",
-      "🗳️": ":ballot_box: ¿Quién ha votado en las últimas 12 horas?",
-      "😂": ":joy: Insignia entregada a una persona divertida",
-      "🤑": ":money_mouth: Insignia comprada en la tienda",
-      "🥇": ":first_place: Persona que alcanzó la cima de la clasificación tras el reinicio`.",
-      "🪩": ":mirror_ball: Miembro de un gremio muy poderoso"
+      "tournament_winner": ":crossed_swords: Ganador del torneo",
+      "technical_team": ":gear: Equipo técnico",
+      "first_20_members": ":helmet_with_cross: Una de las 20 primeras personas en unirse al servidor de bots.",
+      "top_glory": "{emote:unitValues.glory} La persona que ha ganado más gloria durante una temporada de lucha.",
+      "support": ":heart: `Persona con rango de Soporte en el servidor bot`.",
+      "translator": ":earth_africa: Traductor",
+      "advertiser": ":star2: Persona que ayudó a poner el bot en un serv con más de 2000 miembros`",
+      "contest": ":four_leaf_clover: De vez en cuando se pueden ganar insignias en concursos en el servidor del bot o en twitter.",
+      "christmas": ":christmas_tree: Insignia que se puede ganar cada Navidad en un concurso.",
+      "top_week": ":reminder_ribbon: Persona que ha dominado una clasificación de la semana`.",
+      "random": ":slot_machine: Insignia entregada completamente al azar",
+      "top_10_v1": ":medal: Jugador Top 10 en el reinicio de 1.0",
+      "top_v1_player": ":trophy: Mejor jugador en el momento del reinicio 1.0",
+      "major_bug_reporter": ":lady_beetle: Personas que han informado de errores importantes",
+      "bot_owner": ":crown: Propietario del bot",
+      "mission_completer": ":ring: Insignia comprada en la tienda de Misiones",
+      "powerful_guild": ":gem: Miembro de un poderoso gremio",
+      "legendary_pet": ":revolving_hearts: Jugador que ha entrenado a una mascota legendaria",
+      "donor": ":money_with_wings: Donante",
+      "early_class_adopter": ":bookmark: Adopción temprana de las clases",
+      "good_bug_reporter": ":dove: Persona que informó de un fallo explotable sin aprovecharse de él`.",
+      "redactor": ":pen_fountain: editor de bots",
+      "voter": ":ballot_box: ¿Quién ha votado en las últimas 12 horas?",
+      "funny": ":joy: Insignia entregada a una persona divertida",
+      "rich": ":money_mouth: Insignia comprada en la tienda",
+      "top_1_before_reset": ":first_place: Persona que alcanzó la cima de la clasificación tras el reinicio`.",
+      "very_powerful_guild": "Membre d'une guilde très puissante"
     },
     "fightRanking": {
       "fieldName": "Gloria y liga :",
@@ -1402,5 +1402,15 @@
     "petFieldName": "Familiar n°{{number}}",
     "noPetMessage": "Al parecer, no hay animales domésticos en el refugio.",
     "warningFull": "¡El refugio está lleno! No se aceptarán nuevas mascotas hasta que todas las mascotas del refugio hayan sido liberadas o vendidas."
+  },
+  "giveBadge": {
+    "alreadyHaveBadge": "Le joueur a déjà tous les badges qui existent dans le jeu.",
+    "selectBadgePlaceholder": "Sélectionnez un badge à donner au joueur",
+    "selectBadgeTitle": "{{pseudo}}, sélection d'un badge à donner",
+    "selectBadgeDesc": "Choisissez un badge à donner au joueur dans une des listes ci-dessous :"
+  },
+  "setPlayerInfo": {
+    "playerModifiedTitle": "{{pseudo}}, modification d'un joueur",
+    "playerModifiedDesc": "Le joueur a été modifié avec succès !\n\nID: **{{keycloakId}}**\nPseudo: **{{pseudo}}**"
   }
 }
