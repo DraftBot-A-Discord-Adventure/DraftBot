@@ -32,23 +32,28 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 export async function handleCommandPetPacketRes(packet: CommandPetPacketRes, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 
+	if (!interaction) {
+		return;
+	}
+	const lng = interaction.userLanguage;
+
 	let foundPlayer: KeycloakUser | null = null;
 	if (packet.askedKeycloakId) {
 		foundPlayer = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.askedKeycloakId);
 	}
 
-	await interaction?.reply({
+	await interaction.reply({
 		embeds: [
 			new DraftBotEmbed()
 				.formatAuthor(
 					i18n.t("commands:pet.embedTitle", {
-						lng: interaction.userLanguage,
+						lng,
 						pseudo: foundPlayer?.attributes.gameUsername[0] || interaction.user.displayName
 					}),
 					interaction.user
 				)
 				.setDescription(
-					DisplayUtils.getOwnedPetFieldDisplay(packet.pet, interaction.userLanguage)
+					DisplayUtils.getOwnedPetFieldDisplay(packet.pet, lng)
 				)
 		]
 	});

@@ -6,9 +6,7 @@ import { ICommand } from "../ICommand";
 import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import {
-	CommandGuildDescriptionAcceptPacketRes,
-	CommandGuildDescriptionPacketReq,
-	CommandGuildDescriptionRefusePacketRes
+	CommandGuildDescriptionAcceptPacketRes, CommandGuildDescriptionPacketReq, CommandGuildDescriptionRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildDescriptionPacket";
 import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import { DiscordCache } from "../../bot/DiscordCache";
@@ -23,13 +21,14 @@ export async function createGuildDescriptionCollector(context: PacketContext, pa
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorGuildDescriptionData;
+	const lng = interaction.userLanguage;
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:guildDescription.title", {
-		lng: interaction.userLanguage,
+		lng,
 		pseudo: interaction.user.displayName
 	}), interaction.user)
 		.setDescription(
 			i18n.t("commands:guildDescription.confirmDesc", {
-				lng: interaction.userLanguage,
+				lng,
 				description: data.description
 			})
 		);
@@ -43,15 +42,16 @@ export async function handleCommandGuildDescriptionRefusePacketRes(_packet: Comm
 		return;
 	}
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+	const lng = originalInteraction.userLanguage;
 	await buttonInteraction?.editReply({
 		embeds: [
 			new DraftBotEmbed().formatAuthor(i18n.t("commands:guildDescription.canceledTitle", {
-				lng: originalInteraction.userLanguage,
+				lng,
 				pseudo: originalInteraction.user.displayName
 			}), originalInteraction.user)
 				.setDescription(
 					i18n.t("commands:guildDescription.canceledDesc", {
-						lng: originalInteraction.userLanguage
+						lng
 					})
 				)
 				.setErrorColor()
@@ -63,23 +63,24 @@ export async function handleCommandGuildDescriptionAcceptPacketRes(_packet: Comm
 	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 	if (buttonInteraction && originalInteraction) {
+		const lng = originalInteraction.userLanguage;
 		await buttonInteraction.editReply({
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:guildDescription.successDescriptionTitle", {
-					lng: originalInteraction.userLanguage,
+					lng,
 					pseudo: originalInteraction.user.displayName
 				}), originalInteraction.user)
 					.setDescription(
-						i18n.t("commands:guildDescription.acceptedDesc", { lng: originalInteraction.userLanguage })
+						i18n.t("commands:guildDescription.acceptedDesc", { lng })
 					)
 			]
 		});
 	}
 }
 
-function getPacket(interaction: DraftbotInteraction): CommandGuildDescriptionPacketReq {
+function getPacket(interaction: DraftbotInteraction): Promise<CommandGuildDescriptionPacketReq> {
 	const description = <string>interaction.options.get("description", true).value;
-	return makePacket(CommandGuildDescriptionPacketReq, { description });
+	return Promise.resolve(makePacket(CommandGuildDescriptionPacketReq, { description }));
 }
 
 export const commandInfo: ICommand = {

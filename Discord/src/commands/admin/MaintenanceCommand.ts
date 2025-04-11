@@ -5,37 +5,36 @@ import {
 	makePacket, PacketContext
 } from "../../../../Lib/src/packets/DraftBotPacket";
 import {
-	CommandMaintenancePacketReq,
-	CommandMaintenancePacketRes
+	CommandMaintenancePacketReq, CommandMaintenancePacketRes
 } from "../../../../Lib/src/packets/commands/CommandMaintenancePacket";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import i18n from "../../translations/i18n";
 import { DiscordCache } from "../../bot/DiscordCache";
 import { SlashCommandBuilder } from "@discordjs/builders";
 
-function getPacket(interaction: DraftbotInteraction): CommandMaintenancePacketReq {
+function getPacket(interaction: DraftbotInteraction): Promise<CommandMaintenancePacketReq> {
 	const enable = interaction.options.getBoolean("enable");
 	const save = interaction.options.getBoolean("save");
 
-	return makePacket(CommandMaintenancePacketReq, {
+	return Promise.resolve(makePacket(CommandMaintenancePacketReq, {
 		enable: enable!.valueOf(),
 		save: save!.valueOf()
-	});
+	}));
 }
 
 export async function handleCommandMaintenancePacketRes(packet: CommandMaintenancePacketRes, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
-	const lng = context.discord!.language!;
-
-	if (interaction) {
-		await interaction.reply({
-			embeds: [
-				new DraftBotEmbed()
-					.formatAuthor(i18n.t("commands:maintenance.title", { lng }), interaction.user)
-					.setDescription(i18n.t(packet.enabled ? "commands:maintenance.on" : "commands:maintenance.off", { lng }))
-			]
-		});
+	if (!interaction) {
+		return;
 	}
+	const lng = interaction.userLanguage;
+	await interaction.reply({
+		embeds: [
+			new DraftBotEmbed()
+				.formatAuthor(i18n.t("commands:maintenance.title", { lng }), interaction.user)
+				.setDescription(i18n.t(packet.enabled ? "commands:maintenance.on" : "commands:maintenance.off", { lng }))
+		]
+	});
 }
 
 export const commandInfo: ICommand = {

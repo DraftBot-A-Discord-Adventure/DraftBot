@@ -5,8 +5,7 @@ import {
 import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
 import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 import {
-	CommandDailyBonusPacketReq,
-	CommandDailyBonusPacketRes
+	CommandDailyBonusPacketReq, CommandDailyBonusPacketRes
 } from "../../../../Lib/src/packets/commands/CommandDailyBonusPacket";
 import { DiscordCache } from "../../bot/DiscordCache";
 import { DraftBotErrorEmbed } from "../../messages/DraftBotErrorEmbed";
@@ -59,18 +58,22 @@ export async function handleDailyBonusCooldownError(context: PacketContext, last
  */
 export async function handleDailyBonusRes(context: PacketContext, packet: CommandDailyBonusPacketRes): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
-	await interaction?.editReply({
+	if (!interaction) {
+		return;
+	}
+	const lng = interaction.userLanguage;
+	await interaction.editReply({
 		embeds: [
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:daily.title", {
 					pseudo: interaction.user.displayName,
-					lng: interaction.userLanguage
+					lng
 				}), interaction.user)
 				.setDescription(
 					i18n.t("commands:daily.description", {
 						value: packet.itemNature === ItemNature.TIME_SPEEDUP ? minutesDisplay(packet.value) : packet.value,
 						nature: ItemConstants.NATURE_ID_TO_NAME[packet.itemNature],
-						lng: interaction.userLanguage
+						lng
 					})
 				)
 		]

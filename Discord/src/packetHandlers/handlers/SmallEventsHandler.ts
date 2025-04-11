@@ -16,13 +16,8 @@ import {
 	SmallEventGoToPVEIslandNotEnoughGemsPacket,
 	SmallEventGoToPVEIslandRefusePacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventGoToPVEIslandPacket";
-import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
-import { keycloakConfig } from "../../bot/DraftBotShard";
 import {
-	SmallEventLotteryLosePacket,
-	SmallEventLotteryNoAnswerPacket,
-	SmallEventLotteryPoorPacket,
-	SmallEventLotteryWinPacket
+	SmallEventLotteryLosePacket, SmallEventLotteryNoAnswerPacket, SmallEventLotteryPoorPacket, SmallEventLotteryWinPacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventLotteryPacket";
 import {
 	InteractOtherPlayerInteraction,
@@ -40,9 +35,7 @@ import { SmallEventDoNothingPacket } from "../../../../Lib/src/packets/smallEven
 import { SmallEventFightPetPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventFightPetPacket";
 import { SmallEventGobletsGamePacket } from "../../../../Lib/src/packets/smallEvents/SmallEventGobletsGamePacket";
 import {
-	SmallEventShopAcceptPacket,
-	SmallEventShopCannotBuyPacket,
-	SmallEventShopRefusePacket
+	SmallEventShopAcceptPacket, SmallEventShopCannotBuyPacket, SmallEventShopRefusePacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventShopPacket";
 import { SmallEventStaffMemberPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventStaffMemberPacket";
 import { SmallEventWinEnergyPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventWinEnergyPacket";
@@ -54,8 +47,7 @@ import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
 import { witchResult } from "../../smallEvents/witch";
 import { DisplayUtils } from "../../utils/DisplayUtils";
 import {
-	SmallEventSpaceInitialPacket,
-	SmallEventSpaceResultPacket
+	SmallEventSpaceInitialPacket, SmallEventSpaceResultPacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventSpacePacket";
 import { SmallEventFindPetPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventFindPetPacket";
 import { PetUtils } from "../../utils/PetUtils";
@@ -73,9 +65,7 @@ import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import { baseFunctionHandler } from "../../smallEvents/shop";
 import { epicItemShopHandler } from "../../smallEvents/epicItemShop";
 import {
-	SmallEventEpicItemShopAcceptPacket,
-	SmallEventEpicItemShopCannotBuyPacket,
-	SmallEventEpicItemShopRefusePacket
+	SmallEventEpicItemShopAcceptPacket, SmallEventEpicItemShopCannotBuyPacket, SmallEventEpicItemShopRefusePacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventEpicItemShopPacket";
 
 
@@ -138,28 +128,26 @@ export default class SmallEventsHandler {
 
 	@packetHandler(SmallEventGoToPVEIslandAcceptPacket)
 	async smallEventGoToPVEIslandAccept(context: PacketContext, packet: SmallEventGoToPVEIslandAcceptPacket): Promise<void> {
-		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
-		await interaction?.editReply({
+		if (!interaction) {
+			return;
+		}
+		const lng = context.discord!.language;
+		await interaction.editReply({
 			embeds: [
 				new DraftbotSmallEventEmbed(
 					"goToPVEIsland",
-					i18n.t(
-						packet.alone
-							? "smallEvents:goToPVEIsland.endStoryAccept"
-							: "smallEvents:goToPVEIsland.endStoryAcceptWithMember",
-						{
-							lng: user.attributes.language[0],
-							gainScore: packet.pointsWon <= 0
-								? ""
-								: i18n.t("smallEvents:goToPVEIsland.confirmedScore", {
-									lng: user.attributes.language[0],
-									score: packet.pointsWon
-								})
-						}
-					),
+					i18n.t(`smallEvents:goToPVEIsland.endStoryAccept${packet.alone ? "WithMember" : ""}`, {
+						lng,
+						gainScore: packet.pointsWon > 0
+							? i18n.t("smallEvents:goToPVEIsland.confirmedScore", {
+								lng,
+								score: packet.pointsWon
+							})
+							: ""
+					}),
 					interaction.user,
-					user.attributes.language[0]
+					lng
 				)
 			]
 		});
@@ -167,15 +155,15 @@ export default class SmallEventsHandler {
 
 	@packetHandler(SmallEventGoToPVEIslandRefusePacket)
 	async smallEventGoToPVEIslandRefuse(context: PacketContext, _packet: SmallEventGoToPVEIslandRefusePacket): Promise<void> {
-		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+		const lng = context.discord!.language;
 		await interaction?.editReply({
 			embeds: [
 				new DraftbotSmallEventEmbed(
 					"goToPVEIsland",
-					i18n.t("smallEvents:goToPVEIsland.endStoryRefuse", { lng: user.attributes.language[0] }),
+					i18n.t("smallEvents:goToPVEIsland.endStoryRefuse", { lng }),
 					interaction.user,
-					user.attributes.language[0]
+					lng
 				)
 			]
 		});
@@ -183,15 +171,15 @@ export default class SmallEventsHandler {
 
 	@packetHandler(SmallEventGoToPVEIslandNotEnoughGemsPacket)
 	async smallEventGoToPVEIslandNotEnoughGems(context: PacketContext, _packet: SmallEventGoToPVEIslandNotEnoughGemsPacket): Promise<void> {
-		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+		const lng = context.discord!.language;
 		await interaction?.editReply({
 			embeds: [
 				new DraftbotSmallEventEmbed(
 					"goToPVEIsland",
-					i18n.t("smallEvents:goToPVEIsland.notEnoughGems", { lng: user.attributes.language[0] }),
+					i18n.t("smallEvents:goToPVEIsland.notEnoughGems", { lng }),
 					interaction.user,
-					user.attributes.language[0]
+					lng
 				)
 			]
 		});
@@ -200,22 +188,26 @@ export default class SmallEventsHandler {
 	@packetHandler(SmallEventLotteryNoAnswerPacket)
 	async smallEventLotteryNoAnswer(context: PacketContext, _packet: SmallEventLotteryNoAnswerPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
-		await interaction?.editReply({
-			embeds: [new DraftbotSmallEventEmbed("lottery", i18n.t("smallEvents:lottery.end", { lng: interaction.userLanguage }), interaction.user, interaction.userLanguage)]
+		if (!interaction) {
+			return;
+		}
+		const lng = interaction.userLanguage;
+		await interaction.editReply({
+			embeds: [new DraftbotSmallEventEmbed("lottery", i18n.t("smallEvents:lottery.end", { lng }), interaction.user, lng)]
 		});
 	}
 
 	@packetHandler(SmallEventLotteryPoorPacket)
 	async smallEventLotteryPoor(context: PacketContext, _packet: SmallEventLotteryPoorPacket): Promise<void> {
-		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+		const lng = context.discord!.language;
 		await interaction?.editReply({
 			embeds: [
 				new DraftbotSmallEventEmbed(
 					"lottery",
-					i18n.t("smallEvents:lottery.poor", { lng: user.attributes.language[0] }),
+					i18n.t("smallEvents:lottery.poor", { lng }),
 					interaction.user,
-					user.attributes.language[0]
+					lng
 				)
 			]
 		});
@@ -223,20 +215,19 @@ export default class SmallEventsHandler {
 
 	@packetHandler(SmallEventLotteryLosePacket)
 	async smallEventLotteryLose(context: PacketContext, packet: SmallEventLotteryLosePacket): Promise<void> {
-		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
-		const failKey = packet.moneyLost > 0 ? "failWithMalus" : "fail";
+		const lng = context.discord!.language;
 		await interaction?.editReply({
 			embeds: [
 				new DraftbotSmallEventEmbed(
 					"lottery",
-					i18n.t(`smallEvents:lottery.${packet.level}.${failKey}`, {
-						lng: user.attributes.language[0],
+					i18n.t(`smallEvents:lottery.${packet.level}.${packet.moneyLost > 0 ? "failWithMalus" : "fail"}`, {
+						lng,
 						lostTime: packet.lostTime,
 						money: packet.moneyLost
 					}),
 					interaction.user,
-					user.attributes.language[0]
+					lng
 				)
 			]
 		});
@@ -244,22 +235,21 @@ export default class SmallEventsHandler {
 
 	@packetHandler(SmallEventLotteryWinPacket)
 	async smallEventLotteryWin(context: PacketContext, packet: SmallEventLotteryWinPacket): Promise<void> {
-		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
-		const rewardDesc = i18n.t(`smallEvents:lottery.rewardTypeText.${packet.winReward}`, {
-			lng: user.attributes.language[0],
-			reward: packet.winAmount
-		});
+		const lng = context.discord!.language;
 		await interaction?.editReply({
 			embeds: [
 				new DraftbotSmallEventEmbed(
 					"lottery",
 					i18n.t(`smallEvents:lottery.${packet.level}.success`, {
-						lng: user.attributes.language[0],
+						lng,
 						lostTime: packet.lostTime
-					}) + rewardDesc,
+					}) + i18n.t(`smallEvents:lottery.rewardTypeText.${packet.winReward}`, {
+						lng,
+						reward: packet.winAmount
+					}),
 					interaction.user,
-					user.attributes.language[0]
+					lng
 				)
 			]
 		});
@@ -313,7 +303,7 @@ export default class SmallEventsHandler {
 							playerDisplay,
 							level: packet.data.level,
 							class: `${DraftBotIcons.classes[packet.data.classId]} ${i18n.t(`models:classes.${packet.data.classId}`, { lng })}`,
-							advice: StringUtils.getRandomTranslation("advices:advices", interaction.userLanguage),
+							advice: StringUtils.getRandomTranslation("advices:advices", lng),
 							petEmote: packet.data.petId && packet.data.petSex ? DisplayUtils.getPetIcon(packet.data.petId, packet.data.petSex) : "",
 							petName: packet.data.petName,
 							guildName: packet.data.guildName,
@@ -332,15 +322,15 @@ export default class SmallEventsHandler {
 
 	@packetHandler(SmallEventInteractOtherPlayersAcceptToGivePoorPacket)
 	async smallEventInteractOtherPlayersAcceptToGivePoor(context: PacketContext, _packet: SmallEventInteractOtherPlayersAcceptToGivePoorPacket): Promise<void> {
-		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+		const lng = context.discord!.language;
 		await interaction?.editReply({
 			embeds: [
 				new DraftbotSmallEventEmbed(
 					"interactOtherPlayers",
-					StringUtils.getRandomTranslation("smallEvents:interactOtherPlayers.poor_give_money", user.attributes.language[0]),
+					StringUtils.getRandomTranslation("smallEvents:interactOtherPlayers.poor_give_money", lng),
 					interaction.user,
-					user.attributes.language[0]
+					lng
 				)
 			]
 		});
@@ -348,15 +338,15 @@ export default class SmallEventsHandler {
 
 	@packetHandler(SmallEventInteractOtherPlayersRefuseToGivePoorPacket)
 	async smallEventInteractOtherPlayersRefuseToGivePoor(context: PacketContext, _packet: SmallEventInteractOtherPlayersRefuseToGivePoorPacket): Promise<void> {
-		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = context.discord!.buttonInteraction ? DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!) : DiscordCache.getInteraction(context.discord!.interaction!);
+		const lng = context.discord!.language;
 		await interaction?.editReply({
 			embeds: [
 				new DraftbotSmallEventEmbed(
 					"interactOtherPlayers",
-					StringUtils.getRandomTranslation("smallEvents:interactOtherPlayers.poor_dont_give_money", user.attributes.language[0]),
+					StringUtils.getRandomTranslation("smallEvents:interactOtherPlayers.poor_dont_give_money", lng),
 					interaction!.user,
-					user.attributes.language[0]
+					lng
 				)
 			]
 		});
@@ -402,7 +392,8 @@ export default class SmallEventsHandler {
 					"winGuildXP",
 					StringUtils.getRandomTranslation("smallEvents:winGuildXP.stories", lng, { guild: packet.guildName })
 					+ i18n.t("smallEvents:winGuildXP.end", {
-						lng, xp: packet.amount
+						lng,
+						xp: packet.amount
 					}),
 					interaction.user,
 					lng
@@ -442,7 +433,7 @@ export default class SmallEventsHandler {
 				new DraftbotSmallEventEmbed(
 					"staffMember",
 					getRandomSmallEventIntro(lng)
-					+ StringUtils.getRandomTranslation("smallEvents:staffMember.context", interaction.userLanguage, {
+					+ StringUtils.getRandomTranslation("smallEvents:staffMember.context", lng, {
 						pseudo: staffMember,
 						sentence: i18n.t(`smallEvents:staffMember.members.${staffMember}`, {
 							lng,
@@ -521,7 +512,8 @@ export default class SmallEventsHandler {
 					getRandomSmallEventIntro(lng)
 					+ StringUtils.getRandomTranslation("smallEvents:winPersonalXP.stories", lng)
 					+ i18n.t("smallEvents:winPersonalXP.end", {
-						lng, xp: packet.amount
+						lng,
+						xp: packet.amount
 					}),
 					interaction.user,
 					lng
@@ -611,7 +603,8 @@ export default class SmallEventsHandler {
 					"space",
 					i18n.t("smallEvents:space.after_search_format", {
 						lng,
-						oldMessage: oldMessage.split(" ").slice(1)
+						oldMessage: oldMessage.split(" ")
+							.slice(1)
 							.join(" "),
 						actionIntro: StringUtils.getRandomTranslation("smallEvents:space.actionIntro", lng),
 						action: StringUtils.getRandomTranslation("smallEvents:space.action", lng),
@@ -825,9 +818,8 @@ export default class SmallEventsHandler {
 			embeds: [
 				new DraftbotSmallEventEmbed(
 					"fightPet",
-					i18n.t(`smallEvents:fightPet.fightPetActions.${packet.fightPetActionId}.${packet.isSuccess ? "success" : "failure"}`, {
-						lng
-					}) + (packet.isSuccess
+					i18n.t(`smallEvents:fightPet.fightPetActions.${packet.fightPetActionId}.${packet.isSuccess ? "success" : "failure"}`, { lng })
+					+ (packet.isSuccess
 						? i18n.t("smallEvents:fightPet.rageUpFormat", {
 							lng,
 							rageUpDescription: StringUtils.getRandomTranslation("smallEvents:fightPet.rageUpDescriptions", lng),
@@ -844,19 +836,23 @@ export default class SmallEventsHandler {
 	@packetHandler(SmallEventGobletsGamePacket)
 	async smallEventGobletsGame(context: PacketContext, packet: SmallEventGobletsGamePacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
-		await interaction?.channel.send({
+		if (!interaction) {
+			return;
+		}
+		const lng = interaction.userLanguage;
+		await interaction.channel.send({
 			embeds: [
 				new DraftBotEmbed()
 					.formatAuthor(
 						i18n.t("commands:report.journal", {
-							lng: interaction.userLanguage,
+							lng,
 							pseudo: interaction.user.displayName
 						}),
 						interaction.user
 					)
 					.setDescription(
 						i18n.t(`{emote:goblets.{{goblet}}} $t(smallEvents:gobletsGame.results.${packet.malus})`, {
-							lng: interaction.userLanguage,
+							lng,
 							quantity: packet.value,
 							goblet: packet.goblet ?? RandomUtils.draftbotRandom.pick(Object.keys(DraftBotIcons.goblets))
 						})

@@ -90,6 +90,6 @@ export default class CommandRequirementHandlers {
 	@packetHandler(RequirementWherePacket)
 	async requirementWhere(context: PacketContext, _packet: RequirementWherePacket): Promise<void> {
 		const interaction = MessagesUtils.getCurrentInteraction(context);
-		await replyEphemeralErrorMessage(interaction, i18n.t("error:commandNotAvailableHere", { lng: context.discord!.language }));
+		await replyEphemeralErrorMessage(interaction, i18n.t("error:commandNotAvailableHere", { lng: interaction.userLanguage }));
 	}
 }

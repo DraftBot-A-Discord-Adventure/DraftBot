@@ -3,8 +3,7 @@ import {
 	makePacket, PacketContext
 } from "../../../../Lib/src/packets/DraftBotPacket";
 import {
-	CommandPetTransferPacketReq,
-	CommandPetTransferSuccessPacket
+	CommandPetTransferPacketReq, CommandPetTransferSuccessPacket
 } from "../../../../Lib/src/packets/commands/CommandPetTransferPacket";
 import { ICommand } from "../ICommand";
 import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
@@ -16,8 +15,7 @@ import { DisplayUtils } from "../../utils/DisplayUtils";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import i18n from "../../translations/i18n";
 import {
-	ReactionCollectorCreationPacket, ReactionCollectorReaction,
-	ReactionCollectorRefuseReaction
+	ReactionCollectorCreationPacket, ReactionCollectorReaction, ReactionCollectorRefuseReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import {
@@ -32,7 +30,10 @@ import {
 	ButtonStyle,
 	Message,
 	MessageComponentInteraction,
-	parseEmoji, StringSelectMenuBuilder, StringSelectMenuInteraction, StringSelectMenuOptionBuilder
+	parseEmoji,
+	StringSelectMenuBuilder,
+	StringSelectMenuInteraction,
+	StringSelectMenuOptionBuilder
 } from "discord.js";
 import { Language } from "../../../../Lib/src/Language";
 import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
@@ -52,17 +53,12 @@ export async function handlePetTransferSuccess(context: PacketContext, packet: C
 	if (!interaction) {
 		return;
 	}
-
-	const lng = context.discord!.language;
+	const lng = interaction.userLanguage;
 
 	const oldPetDisplay = packet.oldPet ? DisplayUtils.getOwnedPetInlineDisplay(packet.oldPet, lng) : null;
 	const newPetDisplay = packet.newPet ? DisplayUtils.getOwnedPetInlineDisplay(packet.newPet, lng) : null;
 
-	const i18nText = oldPetDisplay && newPetDisplay
-		? "commands:petTransfer.confirmSwitch"
-		: oldPetDisplay
-			? "commands:petTransfer.confirmDeposit"
-			: "commands:petTransfer.confirmWithdraw";
+	const i18nDescriptionKey = `commands:petTransfer.confirm${oldPetDisplay && newPetDisplay ? "Switch" : oldPetDisplay ? "Deposit" : "Withdraw"}`;
 
 	await interaction.editReply({
 		embeds: [
@@ -71,7 +67,7 @@ export async function handlePetTransferSuccess(context: PacketContext, packet: C
 					lng,
 					pseudo: interaction.user.displayName
 				}), interaction.user)
-				.setDescription(i18n.t(i18nText, {
+				.setDescription(i18n.t(i18nDescriptionKey, {
 					lng,
 					oldPet: oldPetDisplay,
 					newPet: newPetDisplay
@@ -328,8 +324,8 @@ export async function handlePetTransferReactionCollector(context: PacketContext,
 	if (!interaction) {
 		return null;
 	}
+	const lng = interaction.userLanguage;
 
-	const lng = context.discord!.language;
 	const data = packet.data.data as ReactionCollectorPetTransferData;
 	const depositReaction = packet.reactions.map((reaction, index) => ({
 		reaction,
@@ -378,7 +374,7 @@ export async function handlePetTransferReactionCollector(context: PacketContext,
 
 	msgCollector.on("collect", async (collectedInteraction: MessageComponentInteraction) => {
 		if (collectedInteraction.user.id !== context.discord?.user) {
-			await sendInteractionNotForYou(collectedInteraction.user, collectedInteraction, interaction.userLanguage);
+			await sendInteractionNotForYou(collectedInteraction.user, collectedInteraction, lng);
 			return;
 		}
 

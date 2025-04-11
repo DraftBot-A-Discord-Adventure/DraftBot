@@ -16,12 +16,15 @@ export default class ErrorHandler {
 	@packetHandler(ErrorPacket)
 	async errorHandler(context: PacketContext, packet: ErrorPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		if (!interaction) {
+			return;
+		}
 		const embed = new DraftBotEmbed()
 			.setErrorColor()
-			.setTitle(i18n.t("error:unexpectedError", { lng: interaction?.channel?.language ?? LANGUAGE.ENGLISH }))
+			.setTitle(i18n.t("error:unexpectedError", { lng: interaction.userLanguage }))
 			.setDescription(packet.message);
 
-		await interaction?.channel.send({ embeds: [embed] });
+		await interaction.channel.send({ embeds: [embed] });
 	}
 
 	@packetHandler(BlockedPacket)
@@ -89,15 +92,15 @@ export default class ErrorHandler {
 	async maintenanceHandler(context: PacketContext, _packet: ErrorMaintenancePacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 
-		if (interaction) {
-			const lng = context.discord?.language ?? LANGUAGE.ENGLISH;
-			const embed = new DraftBotEmbed()
-				.setErrorColor()
-				.formatAuthor(i18n.t("error:maintenanceTitle", { lng }), interaction?.user)
-				.setDescription(i18n.t("error:maintenance", { lng }));
-
-			await interaction?.channel.send({ embeds: [embed] });
+		if (!interaction) {
+			return;
 		}
+		const lng = interaction.userLanguage;
+		const embed = new DraftBotEmbed()
+			.setErrorColor()
+			.formatAuthor(i18n.t("error:maintenanceTitle", { lng }), interaction.user)
+			.setDescription(i18n.t("error:maintenance", { lng }));
+		await interaction.channel.send({ embeds: [embed] });
 	}
 
 	@packetHandler(ErrorBannedPacket)

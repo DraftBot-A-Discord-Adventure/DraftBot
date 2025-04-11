@@ -5,20 +5,17 @@ import {
 	makePacket, PacketContext
 } from "../../../../Lib/src/packets/DraftBotPacket";
 import {
-	CommandPetFeedPacketReq,
-	CommandPetFeedSuccessPacket
+	CommandPetFeedPacketReq, CommandPetFeedSuccessPacket
 } from "../../../../Lib/src/packets/commands/CommandPetFeedPacket";
 import { DiscordCache } from "../../bot/DiscordCache";
 import i18n from "../../translations/i18n";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import {
-	ReactionCollectorCreationPacket,
-	ReactionCollectorRefuseReaction
+	ReactionCollectorCreationPacket, ReactionCollectorRefuseReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import {
-	ReactionCollectorPetFeedWithGuildData,
-	ReactionCollectorPetFeedWithGuildFoodReaction
+	ReactionCollectorPetFeedWithGuildData, ReactionCollectorPetFeedWithGuildFoodReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFeedWithGuild";
 import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
 import { StringUtils } from "../../utils/StringUtils";
@@ -64,8 +61,8 @@ export async function handleCommandPetFeedWithGuildCollector(context: PacketCont
 	if (!interaction) {
 		return null;
 	}
+	const lng = interaction.userLanguage;
 
-	const lng = context.discord!.language;
 	const data = packet.data.data as ReactionCollectorPetFeedWithGuildData;
 	const foodReactions = packet.reactions.map((reaction, index) => ({
 		reaction,
@@ -120,7 +117,7 @@ export async function handleCommandPetFeedWithGuildCollector(context: PacketCont
 
 	msgCollector.on("collect", async (buttonInteraction: ButtonInteraction) => {
 		if (buttonInteraction.user.id !== context.discord?.user) {
-			await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, interaction.userLanguage);
+			await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, lng);
 			return;
 		}
 
@@ -161,18 +158,18 @@ export async function handleCommandPetFeedWithoutGuildCollector(context: PacketC
 	if (!interaction) {
 		return null;
 	}
+	const lng = interaction.userLanguage;
 
-	const lng = context.discord!.language;
 	const data = packet.data.data as ReactionCollectorPetFeedWithoutGuildData;
 
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:petFeed.feedTitle", {
-		lng: interaction.userLanguage,
+		lng,
 		pseudo: interaction.user.displayName
 	}), interaction.user)
 		.setDescription(
 			i18n.t("commands:petFeed.feedWithoutGuildDesc", {
-				lng: interaction.userLanguage,
-				pet: DisplayUtils.getOwnedPetInlineDisplay(data.pet, interaction.userLanguage),
+				lng,
+				pet: DisplayUtils.getOwnedPetInlineDisplay(data.pet, lng),
 				food: StringUtils.capitalizeFirstLetter(DisplayUtils.getFoodDisplay(data.food, 1, lng, true)),
 				price: data.price
 			})

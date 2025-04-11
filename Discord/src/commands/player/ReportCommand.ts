@@ -15,11 +15,11 @@ import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/int
 import {
 	ReactionCollectorBigEventData, ReactionCollectorBigEventPossibilityReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorBigEvent";
-import i18n from "../../translations/i18n";
+import i18n, { TranslationOption } from "../../translations/i18n";
 import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
 import { keycloakConfig } from "../../bot/DraftBotShard";
 import {
-	ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, Message, parseEmoji
+	ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, parseEmoji
 } from "discord.js";
 import { DiscordCache } from "../../bot/DiscordCache";
 import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
@@ -35,13 +35,13 @@ import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import { ReactionCollectorChooseDestinationReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorChooseDestination";
 import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
 import { EmoteUtils } from "../../utils/EmoteUtils";
-import { LANGUAGE } from "../../../../Lib/src/Language";
 import { ReportConstants } from "../../../../Lib/src/constants/ReportConstants";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import { DiscordConstants } from "../../DiscordConstants";
 import { ReactionCollectorPveFightData } from "../../../../Lib/src/packets/interaction/ReactionCollectorPveFight";
 import { StringUtils } from "../../utils/StringUtils";
 import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
+import { Language } from "../../../../Lib/src/Language";
 
 async function getPacket(interaction: DraftbotInteraction): Promise<CommandReportPacketReq> {
 	await interaction.deferReply();
@@ -56,12 +56,13 @@ async function getPacket(interaction: DraftbotInteraction): Promise<CommandRepor
 export async function createBigEventCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
+	const lng = interaction.userLanguage;
 	const data = packet.data.data as ReactionCollectorBigEventData;
 	const reactions = packet.reactions.map(reaction => reaction.data) as ReactionCollectorBigEventPossibilityReaction[];
 
 	const rows = [new ActionRowBuilder<ButtonBuilder>()];
 	let eventText = `${i18n.t(`events:${data.eventId}.text`, {
-		lng: context.discord?.language ?? LANGUAGE.ENGLISH,
+		lng,
 		interpolation: { escapeValue: false }
 	})}\n\n`;
 	for (const possibility of reactions) {
@@ -79,22 +80,22 @@ export async function createBigEventCollector(context: PacketContext, packet: Re
 			rows[rows.length - 1].addComponents(button);
 
 			const reactionText = `${emoji} ${i18n.t(`events:${data.eventId}.possibilities.${possibility.name}.text`, {
-				lng: context.discord?.language ?? LANGUAGE.ENGLISH,
+				lng,
 				interpolation: { escapeValue: false }
 			})}`;
 			eventText += `${reactionText}\n`;
 		}
 	}
 
-	const msg = await interaction?.editReply({
+	const msg = (await interaction.editReply({
 		content: i18n.t("commands:report.doEvent", {
-			lng: interaction?.userLanguage,
+			lng,
 			event: eventText,
 			pseudo: user.attributes.gameUsername,
 			interpolation: { escapeValue: false }
 		}),
 		components: rows
-	}) as Message;
+	}))!;
 
 	let responded = false; // To avoid concurrence between the button controller and reaction controller
 	const respondToEvent = (possibilityName: string, buttonInteraction: ButtonInteraction | null): void => {
@@ -115,7 +116,7 @@ export async function createBigEventCollector(context: PacketContext, packet: Re
 
 	buttonCollector.on("collect", async (buttonInteraction: ButtonInteraction) => {
 		if (buttonInteraction.user.id !== context.discord?.user) {
-			await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, interaction.userLanguage);
+			await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, lng);
 			return;
 		}
 
@@ -136,6 +137,59 @@ export async function createBigEventCollector(context: PacketContext, packet: Re
 	return [buttonCollector, endCollector];
 }
 
+type Condition = boolean | number | undefined;
+type ConditionTriplet = [Condition, string, Omit<TranslationOption, "lng">];
+
+function getReportResultConditionTriplets(packet: CommandReportBigEventResultRes): ConditionTriplet[] {
+	return [
+		[
+			packet.score,
+			"points",
+			{ score: packet.score }
+		],
+		[
+			packet.money < 0,
+			"moneyLoose",
+			{ money: -packet.money }
+		],
+		[
+			packet.money > 0,
+			"money",
+			{ money: packet.money }
+		],
+		[
+			packet.health < 0,
+			"healthLoose",
+			{ health: -packet.health }
+		],
+		[
+			packet.health > 0,
+			"health",
+			{ health: packet.health }
+		],
+		[
+			packet.energy,
+			"energy",
+			{ energy: packet.energy }
+		],
+		[
+			packet.gems,
+			"gems",
+			{ gems: packet.gems }
+		],
+		[
+			packet.experience,
+			"experience",
+			{ experience: packet.experience }
+		],
+		[
+			packet.effect?.name === Effect.OCCUPIED.id,
+			"timeLost",
+			{ timeLost: minutesDisplay(packet.effect!.time) }
+		]
+	];
+}
+
 /**
  * Display the result of the big event
  * @param packet
@@ -144,69 +198,23 @@ export async function createBigEventCollector(context: PacketContext, packet: Re
 export async function reportResult(packet: CommandReportBigEventResultRes, context: PacketContext): Promise<void> {
 	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
+	const lng = interaction.userLanguage;
 
-	let result = "";
-	if (packet.score) {
-		result += i18n.t("commands:report.points", {
-			lng: interaction.userLanguage,
-			score: packet.score
-		});
-	}
-	if (packet.money < 0) {
-		result += i18n.t("commands:report.moneyLoose", {
-			lng: interaction.userLanguage,
-			money: -packet.money
-		});
-	}
-	else if (packet.money > 0) {
-		result += i18n.t("commands:report.money", {
-			lng: interaction.userLanguage,
-			money: packet.money
-		});
-	}
-	if (packet.health < 0) {
-		result += i18n.t("commands:report.healthLoose", {
-			lng: interaction.userLanguage,
-			health: -packet.health
-		});
-	}
-	else if (packet.health > 0) {
-		result += i18n.t("commands:report.health", {
-			lng: interaction.userLanguage,
-			health: packet.health
-		});
-	}
-	if (packet.energy) {
-		result += i18n.t("commands:report.energy", {
-			lng: interaction.userLanguage,
-			energy: packet.energy
-		});
-	}
-	if (packet.gems) {
-		result += i18n.t("commands:report.gems", {
-			lng: interaction.userLanguage,
-			gems: packet.gems
-		});
-	}
-	if (packet.experience) {
-		result += i18n.t("commands:report.experience", {
-			lng: interaction.userLanguage,
-			experience: packet.experience
-		});
-	}
-	if (packet.effect && packet.effect.name === Effect.OCCUPIED.id) {
-		result += i18n.t("commands:report.timeLost", {
-			lng: interaction.userLanguage,
-			timeLost: minutesDisplay(packet.effect.time)
-		});
-	}
+	const result = getReportResultConditionTriplets(packet)
+		.map(triplet => (triplet[0]
+			? i18n.t(`commands:report.${triplet[1]}`, {
+				lng,
+				...triplet[2]
+			})
+			: ""))
+		.join();
 
 	const content = i18n.t("commands:report.doPossibility", {
-		lng: interaction.userLanguage,
+		lng,
 		interpolation: { escapeValue: false },
 		pseudo: user.attributes.gameUsername,
 		result,
-		event: i18n.t(`events:${packet.eventId}.possibilities.${packet.possibilityId}.outcomes.${packet.outcomeId}`, { lng: interaction.userLanguage }),
+		event: i18n.t(`events:${packet.eventId}.possibilities.${packet.possibilityId}.outcomes.${packet.outcomeId}`, { lng }),
 		emoji: EmoteUtils.translateEmojiToDiscord(packet.possibilityId === ReportConstants.END_POSSIBILITY_ID
 			? DraftBotIcons.events[packet.eventId].end[packet.outcomeId]
 			: DraftBotIcons.events[packet.eventId][packet.possibilityId] as string),
@@ -332,16 +340,16 @@ function generateTravelPathString(packet: CommandReportTravelSummaryRes, now: nu
 export async function handleStartPveFight(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorPveFightData;
-
+	const lng = interaction.userLanguage;
 	const msg = i18n.t("commands:report.pveEvent", {
-		lng: interaction.userLanguage,
+		lng,
 		pseudo: interaction.user.displayName,
-		event: StringUtils.getRandomTranslation("commands:report.encounterMonster", interaction.userLanguage, {}),
+		event: StringUtils.getRandomTranslation("commands:report.encounterMonster", lng),
 		monsterDisplay: i18n.t("commands:report.encounterMonsterStats", {
-			lng: interaction.userLanguage,
-			monsterName: i18n.t(`models:monsters.${data.monster.id}.name`, { lng: interaction.userLanguage }),
+			lng,
+			monsterName: i18n.t(`models:monsters.${data.monster.id}.name`, { lng }),
 			emoji: DraftBotIcons.monsters[data.monster.id],
-			description: i18n.t(`models:monsters.${data.monster.id}.description`, { lng: interaction.userLanguage }),
+			description: i18n.t(`models:monsters.${data.monster.id}.description`, { lng }),
 			level: data.monster.level,
 			energy: data.monster.energy,
 			attack: data.monster.attack,
@@ -393,8 +401,9 @@ export async function displayMonsterReward(
 		return;
 	}
 
+	const lng = originalInteraction.userLanguage;
+
 	const {
-		userLanguage,
 		user,
 		channel
 	} = originalInteraction;
@@ -403,7 +412,7 @@ export async function displayMonsterReward(
 	if (packet.guildXp > 0) {
 		descriptionParts.push(
 			i18n.t("commands:report.monsterRewardGuildXp", {
-				lng: userLanguage,
+				lng,
 				guildXp: packet.guildXp
 			})
 		);
@@ -411,7 +420,7 @@ export async function displayMonsterReward(
 
 	descriptionParts.push(
 		i18n.t("commands:report.monsterRewardsDescription", {
-			lng: userLanguage,
+			lng,
 			money: packet.money,
 			experience: packet.experience
 		})
@@ -420,7 +429,7 @@ export async function displayMonsterReward(
 	if (packet.guildPoints > 0) {
 		descriptionParts.push(
 			i18n.t("commands:report.monsterRewardsGuildPoints", {
-				lng: userLanguage,
+				lng,
 				guildPoints: packet.guildPoints
 			})
 		);
@@ -429,7 +438,7 @@ export async function displayMonsterReward(
 	const embed = new DraftBotEmbed()
 		.formatAuthor(
 			i18n.t("commands:report.rewardEmbedTitle", {
-				lng: userLanguage,
+				lng,
 				pseudo: user.displayName
 			}),
 			user
@@ -441,11 +450,11 @@ export async function displayMonsterReward(
 
 function manageMainSummaryText({
 	packet,
-	interaction,
+	lng,
 	travelEmbed
 }: FieldsArguments, user: KeycloakUser, now: number): void {
 	if (isCurrentlyInEffect(packet, now)) {
-		const errorMessageObject = effectsErrorTextValue(user, interaction.userLanguage, true, packet.effect!, packet.effectEndTime! - now);
+		const errorMessageObject = effectsErrorTextValue(user, lng, true, packet.effect!, packet.effectEndTime! - now);
 		travelEmbed.addFields({
 			name: errorMessageObject.title,
 			value: errorMessageObject.description,
@@ -456,24 +465,24 @@ function manageMainSummaryText({
 	if (packet.nextStopTime > packet.arriveTime) {
 		// If there is no small event before the big event, do not display anything
 		travelEmbed.addFields({
-			name: i18n.t("commands:report.travellingTitle", { lng: interaction.userLanguage }),
-			value: i18n.t("commands:report.travellingDescriptionEndTravel", { lng: interaction.userLanguage })
+			name: i18n.t("commands:report.travellingTitle", { lng }),
+			value: i18n.t("commands:report.travellingDescriptionEndTravel", { lng })
 		});
 		return;
 	}
 
 	const timeBeforeSmallEvent = printTimeBeforeDate(packet.nextStopTime);
 	travelEmbed.addFields({
-		name: i18n.t("commands:report.travellingTitle", { lng: interaction.userLanguage }),
+		name: i18n.t("commands:report.travellingTitle", { lng }),
 		value: packet.lastSmallEventId
 			? i18n.t("commands:report.travellingDescription", {
-				lng: interaction.userLanguage,
+				lng,
 				smallEventEmoji: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.smallEvents[packet.lastSmallEventId]),
 				time: timeBeforeSmallEvent,
 				interpolation: { escapeValue: false }
 			})
 			: i18n.t("commands:report.travellingDescriptionWithoutSmallEvent", {
-				lng: interaction.userLanguage,
+				lng,
 				time: timeBeforeSmallEvent,
 				interpolation: { escapeValue: false }
 			})
@@ -482,23 +491,23 @@ function manageMainSummaryText({
 
 type FieldsArguments = {
 	packet: CommandReportTravelSummaryRes;
-	interaction: DraftbotInteraction;
+	lng: Language;
 	travelEmbed: DraftBotEmbed;
 };
 
 function manageEndPathDescriptions({
 	packet,
-	interaction,
+	lng,
 	travelEmbed
 }: FieldsArguments): void {
 	travelEmbed.addFields({
-		name: i18n.t("commands:report.startPoint", { lng: interaction.userLanguage }),
-		value: `${DraftBotIcons.mapTypes[packet.startMap.type]} ${i18n.t(`models:map_locations.${packet.startMap.id}.name`, { lng: interaction.userLanguage })}`,
+		name: i18n.t("commands:report.startPoint", { lng }),
+		value: `${DraftBotIcons.mapTypes[packet.startMap.type]} ${i18n.t(`models:map_locations.${packet.startMap.id}.name`, { lng })}`,
 		inline: true
 	});
 	travelEmbed.addFields({
-		name: i18n.t("commands:report.endPoint", { lng: interaction.userLanguage }),
-		value: `${DraftBotIcons.mapTypes[packet.endMap.type]} ${i18n.t(`models:map_locations.${packet.endMap.id}.name`, { lng: interaction.userLanguage })}`,
+		name: i18n.t("commands:report.endPoint", { lng }),
+		value: `${DraftBotIcons.mapTypes[packet.endMap.type]} ${i18n.t(`models:map_locations.${packet.endMap.id}.name`, { lng })}`,
 		inline: true
 	});
 }
@@ -514,37 +523,38 @@ export async function reportTravelSummary(packet: CommandReportTravelSummaryRes,
 	if (!interaction) {
 		return;
 	}
+	const lng = interaction.userLanguage;
 	const now = Date.now();
 	const travelEmbed = new DraftBotEmbed();
-	travelEmbed.formatAuthor(i18n.t("commands:report.travelPathTitle", { lng: interaction.userLanguage }), interaction.user);
+	travelEmbed.formatAuthor(i18n.t("commands:report.travelPathTitle", { lng }), interaction.user);
 	travelEmbed.setDescription(generateTravelPathString(packet, now));
 	const fieldsArguments = {
 		packet,
-		interaction,
+		lng,
 		travelEmbed
 	};
 	manageEndPathDescriptions(fieldsArguments);
 	manageMainSummaryText(fieldsArguments, user, now);
 	if (packet.energy.show) {
 		travelEmbed.addFields({
-			name: i18n.t("commands:report.remainingEnergyTitle", { lng: interaction.userLanguage }),
+			name: i18n.t("commands:report.remainingEnergyTitle", { lng }),
 			value: `${DraftBotIcons.unitValues.energy} ${packet.energy.current} / ${packet.energy.max}`,
 			inline: true
 		});
 	}
 	if (packet.points.show) {
 		travelEmbed.addFields({
-			name: i18n.t("commands:report.collectedPointsTitle", { lng: interaction.userLanguage }),
+			name: i18n.t("commands:report.collectedPointsTitle", { lng }),
 			value: `${DraftBotIcons.unitValues.score} ${packet.points.cumulated}`,
 			inline: true
 		});
 	}
 	const advices = i18n.t("advices:advices", {
 		returnObjects: true,
-		lng: interaction.userLanguage
+		lng
 	});
 	travelEmbed.addFields({
-		name: i18n.t("commands:report.adviceTitle", { lng: interaction.userLanguage }),
+		name: i18n.t("commands:report.adviceTitle", { lng }),
 		value: advices[Math.floor(Math.random() * advices.length)],
 		inline: true
 	});

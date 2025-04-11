@@ -10,9 +10,7 @@ import { DiscordCache } from "../../bot/DiscordCache";
 import { DraftBotErrorEmbed } from "../../messages/DraftBotErrorEmbed";
 import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
 import {
-	CommandGuildCreateAcceptPacketRes,
-	CommandGuildCreatePacketReq,
-	CommandGuildCreatePacketRes
+	CommandGuildCreateAcceptPacketRes, CommandGuildCreatePacketReq, CommandGuildCreatePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildCreatePacket";
 import { GuildConstants } from "../../../../Lib/src/constants/GuildConstants";
 import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
@@ -26,12 +24,12 @@ import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers
 /**
  * Create a new guild
  */
-function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): CommandGuildCreatePacketReq {
+function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandGuildCreatePacketReq> {
 	const askedGuildName = <string>interaction.options.get("name", true).value;
-	return makePacket(CommandGuildCreatePacketReq, {
+	return Promise.resolve(makePacket(CommandGuildCreatePacketReq, {
 		keycloakId: user.id,
 		askedGuildName
-	});
+	}));
 }
 
 async function replyErrorEmbed(context: PacketContext, errorKey: string, formatParams: Record<string, unknown> = {}): Promise<void> {
@@ -90,14 +88,15 @@ export async function createGuildCreateCollector(context: PacketContext, packet:
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorGuildCreateData;
+	const lng = interaction.userLanguage;
 
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:guildCreate.title", {
-		lng: interaction.userLanguage,
+		lng,
 		pseudo: interaction.user.displayName
 	}), interaction.user)
 		.setDescription(
 			i18n.t("commands:guildCreate.confirmDesc", {
-				lng: interaction.userLanguage,
+				lng,
 				guildName: data.guildName,
 				price: GuildCreateConstants.PRICE
 			})
@@ -110,14 +109,15 @@ export async function handleCommandGuildCreateRefusePacketRes(context: PacketCon
 	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 	if (buttonInteraction && originalInteraction) {
+		const lng = originalInteraction.userLanguage;
 		await buttonInteraction.editReply({
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:guildCreate.canceledTitle", {
-					lng: originalInteraction.userLanguage,
+					lng,
 					pseudo: originalInteraction.user.displayName
 				}), originalInteraction.user)
 					.setDescription(
-						i18n.t("commands:guildCreate.canceledDesc", { lng: originalInteraction.userLanguage })
+						i18n.t("commands:guildCreate.canceledDesc", { lng })
 					)
 					.setErrorColor()
 			]
@@ -129,21 +129,22 @@ export async function handleCommandGuildCreateAcceptPacketRes(packet: CommandGui
 	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 	if (buttonInteraction && originalInteraction) {
+		const lng = originalInteraction.userLanguage;
 		await buttonInteraction.editReply({
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:guildCreate.title", {
-					lng: originalInteraction.userLanguage,
+					lng,
 					pseudo: originalInteraction.user.displayName
 				}), originalInteraction.user)
 					.setDescription(
 						i18n.t("commands:guildCreate.acceptedDesc", {
-							lng: originalInteraction.userLanguage,
+							lng,
 							guildName: packet.guildName
 						})
 					)
 					.setFooter({
 						text:
-							i18n.t("commands:guildCreate.acceptedFooter", { lng: originalInteraction.userLanguage })
+							i18n.t("commands:guildCreate.acceptedFooter", { lng })
 					})
 			]
 		});

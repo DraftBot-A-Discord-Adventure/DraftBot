@@ -65,41 +65,35 @@ async function setEmbedMap(embed: DraftBotEmbed, mapLink: {
 export async function handleCommandMapDisplayRes(packet: CommandMapDisplayRes, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 
-	if (interaction) {
-		const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:map.title", {
-			lng: interaction.userLanguage,
-			pseudo: interaction.user.displayName
-		}), interaction.user);
-
-		await setEmbedMap(embed, packet.mapLink);
-
-		const mapName = i18n.t(`models:map_locations.${packet.mapId}.name`, {
-			lng: interaction.userLanguage,
-			interpolation: { escapeValue: false }
-		});
-
-		const mapParticle = i18n.t(`models:map_locations.${packet.mapId}.particle`, {
-			lng: interaction.userLanguage
-		});
-
-		const mapDescription = i18n.t(`models:map_locations.${packet.mapId}.description`, {
-			lng: interaction.userLanguage,
-			interpolation: { escapeValue: false }
-		});
-
-		embed.setDescription(i18n.t(packet.inEvent
-			? "commands:map.description.arrived"
-			: "commands:map.description.ongoing", {
-			lng: interaction.userLanguage,
-			destination: mapName,
-			particle: mapParticle,
-			emote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.mapTypes[packet.mapType]),
-			description: mapDescription,
-			interpolation: { escapeValue: false }
-		}));
-
-		await interaction.reply({ embeds: [embed] });
+	if (!interaction) {
+		return;
 	}
+	const lng = interaction.userLanguage;
+	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:map.title", {
+		lng,
+		pseudo: interaction.user.displayName
+	}), interaction.user);
+	await setEmbedMap(embed, packet.mapLink);
+	const mapName = i18n.t(`models:map_locations.${packet.mapId}.name`, {
+		lng,
+		interpolation: { escapeValue: false }
+	});
+	const mapParticle = i18n.t(`models:map_locations.${packet.mapId}.particle`, { lng });
+	const mapDescription = i18n.t(`models:map_locations.${packet.mapId}.description`, {
+		lng,
+		interpolation: { escapeValue: false }
+	});
+	embed.setDescription(i18n.t(packet.inEvent
+		? "commands:map.description.arrived"
+		: "commands:map.description.ongoing", {
+		lng,
+		destination: mapName,
+		particle: mapParticle,
+		emote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.mapTypes[packet.mapType]),
+		description: mapDescription,
+		interpolation: { escapeValue: false }
+	}));
+	await interaction.reply({ embeds: [embed] });
 }
 
 export const commandInfo: ICommand = {

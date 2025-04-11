@@ -1,6 +1,5 @@
 import {
-	CommandClassesInfoPacketReq,
-	CommandClassesInfoPacketRes
+	CommandClassesInfoPacketReq, CommandClassesInfoPacketRes
 } from "../../../../Lib/src/packets/commands/CommandClassesInfoPacket";
 import {
 	makePacket, PacketContext
@@ -14,11 +13,7 @@ import { Constants } from "../../../../Lib/src/constants/Constants";
 import { ClassInfoConstants } from "../../../../Lib/src/constants/ClassInfoConstants";
 import { Language } from "../../../../Lib/src/Language";
 import {
-	ActionRowBuilder,
-	EmbedField,
-	StringSelectMenuBuilder,
-	StringSelectMenuInteraction,
-	StringSelectMenuOptionBuilder
+	ActionRowBuilder, EmbedField, StringSelectMenuBuilder, StringSelectMenuInteraction, StringSelectMenuOptionBuilder
 } from "discord.js";
 import { sendInteractionNotForYou } from "../../utils/ErrorUtils";
 import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
@@ -46,9 +41,7 @@ function getListEmbed(lng: Language, classList: {
 		cost: number;
 	}[];
 }[]): DraftBotEmbed {
-	const embed = new DraftBotEmbed().setTitle(i18n.t("commands:classesInfo.title.list", {
-		lng
-	}));
+	const embed = new DraftBotEmbed().setTitle(i18n.t("commands:classesInfo.title.list", { lng }));
 
 	const classesFields: EmbedField[] = [];
 	for (const foundClass of classList) {
@@ -135,25 +128,20 @@ export async function handleCommandClassesInfoPacketRes(packet: CommandClassesIn
 	if (!interaction) {
 		return;
 	}
-	const classListEmbed = getListEmbed(interaction.userLanguage, packet.data!.classesStats);
+	const lng = interaction.userLanguage;
+	const classListEmbed = getListEmbed(lng, packet.data!.classesStats);
 	const classesMenuOptions = packet.data!.classesStats.map(classStats => new StringSelectMenuOptionBuilder()
-		.setLabel(`${i18n.t(`models:classes.${classStats.id}`, {
-			lng: interaction.userLanguage
-		})}`)
+		.setLabel(`${i18n.t(`models:classes.${classStats.id}`, { lng })}`)
 		.setEmoji(DraftBotIcons.classes[classStats.id])
 		.setValue(classStats.id.toString()));
 	const classSelectionMenuOption = new StringSelectMenuOptionBuilder()
-		.setLabel(i18n.t("commands:classesInfo.mainOption.name", {
-			lng: interaction.userLanguage
-		}))
+		.setLabel(i18n.t("commands:classesInfo.mainOption.name", { lng }))
 		.setEmoji(DraftBotIcons.commands.classesInfo)
 		.setValue(ClassInfoConstants.MENU_IDS.LIST_OPTION);
 	classesMenuOptions.unshift(classSelectionMenuOption);
 	const classSelectionMenu = new StringSelectMenuBuilder()
 		.setCustomId(ClassInfoConstants.MENU_IDS.CLASS_SELECTION)
-		.setPlaceholder(i18n.t("commands:classesInfo.mainOption.placeholder", {
-			lng: interaction.userLanguage
-		}))
+		.setPlaceholder(i18n.t("commands:classesInfo.mainOption.placeholder", { lng }))
 		.addOptions(classesMenuOptions);
 	const row = new ActionRowBuilder<StringSelectMenuBuilder>()
 		.addComponents(classSelectionMenu);
@@ -170,7 +158,7 @@ export async function handleCommandClassesInfoPacketRes(packet: CommandClassesIn
 	});
 	collector.on("collect", async (menuInteraction: StringSelectMenuInteraction) => {
 		if (menuInteraction.user.id !== interaction.user.id) {
-			await sendInteractionNotForYou(menuInteraction.user, menuInteraction, interaction.userLanguage);
+			await sendInteractionNotForYou(menuInteraction.user, menuInteraction, lng);
 			return;
 		}
 
@@ -187,25 +175,17 @@ export async function handleCommandClassesInfoPacketRes(packet: CommandClassesIn
 		for (const attack of chosenClass!.attacks) {
 			attackList.push({
 				id: attack.id,
-				name: i18n.t(`models:fight_actions.${attack.id}.name_one`, {
-					lng: interaction.userLanguage
-				}),
-				description: i18n.t(`models:fight_actions.${attack.id}.description`, {
-					lng: interaction.userLanguage
-				}),
+				name: i18n.t(`models:fight_actions.${attack.id}.name_one`, { lng }),
+				description: i18n.t(`models:fight_actions.${attack.id}.description`, { lng }),
 				cost: attack.cost
 			});
 		}
 
-		const classDetailsEmbed = getDetailsEmbed(interaction.userLanguage, {
+		const classDetailsEmbed = getDetailsEmbed(lng, {
 			id: parseInt(menuInteraction.values[0]),
-			name: i18n.t(`models:classes.${parseInt(menuInteraction.values[0], 10)}`, {
-				lng: interaction.userLanguage
-			}),
+			name: i18n.t(`models:classes.${parseInt(menuInteraction.values[0], 10)}`, { lng }),
+			description: i18n.t(`models:class_descriptions.${parseInt(menuInteraction.values[0], 10)}`, { lng }),
 			kind: chosenClass!.stats.classKind,
-			description: i18n.t(`models:class_descriptions.${parseInt(menuInteraction.values[0], 10)}`, {
-				lng: interaction.userLanguage
-			}),
 			attacks: attackList
 		});
 
@@ -216,9 +196,7 @@ export async function handleCommandClassesInfoPacketRes(packet: CommandClassesIn
 	});
 
 	collector.on("end", async () => {
-		await msg.edit({
-			components: []
-		});
+		await msg.edit({ components: [] });
 	});
 }
 

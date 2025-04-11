@@ -16,8 +16,7 @@ import { PetUtils } from "../../utils/PetUtils";
 import { StringUtils } from "../../utils/StringUtils";
 import { MissionUtils } from "../../utils/MissionUtils";
 import {
-	ReactionCollectorSkipMissionShopItemCloseReaction,
-	ReactionCollectorSkipMissionShopItemReaction
+	ReactionCollectorSkipMissionShopItemCloseReaction, ReactionCollectorSkipMissionShopItemReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorSkipMissionShopItem";
 import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
 import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
@@ -27,23 +26,27 @@ import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers
 /**
  * Get the packet to send to the server
  */
-function getPacket(): CommandMissionShopPacketReq {
-	return makePacket(CommandMissionShopPacketReq, {});
+function getPacket(): Promise<CommandMissionShopPacketReq> {
+	return Promise.resolve(makePacket(CommandMissionShopPacketReq, {}));
 }
 
 async function handleBasicMissionShopItem(context: PacketContext, descriptionString: string, descriptionFormat: {
 	[keys: string]: string | number;
 }): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!);
-	await interaction?.followUp({
+	if (!interaction) {
+		return;
+	}
+	const lng = interaction.userLanguage;
+	await interaction.followUp({
 		embeds: [
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.shopItems.basicMission.giveTitle", {
-					lng: interaction.userLanguage,
+					lng,
 					pseudo: interaction.user.displayName
 				}), interaction.user)
 				.setDescription(i18n.t(descriptionString, {
-					lng: interaction.userLanguage,
+					lng,
 					...descriptionFormat
 				}))
 		]
@@ -99,13 +102,14 @@ export async function skipMissionShopItemCollector(context: PacketContext, packe
 	if (!interaction) {
 		return null;
 	}
+	const lng = interaction.userLanguage;
 	const embed = new DraftBotEmbed()
 		.formatAuthor(i18n.t("commands:shop.shopItems.skipMission.giveTitle", {
-			lng: interaction.userLanguage,
+			lng,
 			pseudo: interaction.user.displayName
 		}), interaction.user)
 		.setDescription(`${i18n.t("commands:shop.shopItems.skipMission.giveDesc", {
-			lng: interaction.userLanguage
+			lng
 		})}\n\n`);
 	const reactions: ReactionCollectorSkipMissionShopItemReaction[] = packet.reactions
 		.map(reaction => reaction.data as ReactionCollectorSkipMissionShopItemReaction)
@@ -115,7 +119,7 @@ export async function skipMissionShopItemCollector(context: PacketContext, packe
 		embed,
 		packet,
 		context,
-		reactions.map(reaction => MissionUtils.formatBaseMission(reaction.mission, interaction.userLanguage)),
+		reactions.map(reaction => MissionUtils.formatBaseMission(reaction.mission, lng)),
 		{
 			can: true,
 			reactionIndex: packet.reactions.findIndex(reaction => reaction.type === ReactionCollectorSkipMissionShopItemCloseReaction.name)
@@ -129,19 +133,20 @@ export async function skipMissionShopResult(packet: CommandMissionShopSkipMissio
 	if (!interaction) {
 		return;
 	}
+	const lng = interaction.userLanguage;
 	await buttonInteraction?.editReply({
 		embeds: [
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.shopItems.skipMission.successTitle", {
-					lng: interaction.userLanguage,
+					lng,
 					pseudo: interaction.user.displayName
 				}), interaction.user)
 				.setDescription(`${i18n.t("commands:shop.shopItems.skipMission.successDescription", {
-					lng: interaction.userLanguage,
-					mission: MissionUtils.formatBaseMission(packet.oldMission, interaction.userLanguage)
+					lng,
+					mission: MissionUtils.formatBaseMission(packet.oldMission, lng)
 				})}\n${i18n.t("commands:shop.shopItems.skipMission.getNewMission", {
-					lng: interaction.userLanguage,
-					mission: MissionUtils.formatBaseMission(packet.newMission, interaction.userLanguage)
+					lng,
+					mission: MissionUtils.formatBaseMission(packet.newMission, lng)
 				})}`)
 		]
 	});

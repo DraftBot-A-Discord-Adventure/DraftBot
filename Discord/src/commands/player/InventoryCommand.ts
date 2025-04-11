@@ -18,10 +18,7 @@ import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
 import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
 import { keycloakConfig } from "../../bot/DraftBotShard";
 import {
-	CommandInventoryPacketReq,
-	CommandInventoryPacketRes,
-	MainItemDisplayPacket,
-	SupportItemDisplayPacket
+	CommandInventoryPacketReq, CommandInventoryPacketRes, MainItemDisplayPacket, SupportItemDisplayPacket
 } from "../../../../Lib/src/packets/commands/CommandInventoryPacket";
 import { DiscordItemUtils } from "../../utils/DiscordItemUtils";
 import { sendInteractionNotForYou } from "../../utils/ErrorUtils";
@@ -48,7 +45,9 @@ function getBackupField<T = MainItemDisplayPacket | SupportItemDisplayPacket>(
 	itemKind: string
 ): EmbedField {
 	const formattedTitle = i18n.t(`commands:inventory.${itemKind}`, {
-		lng, count: items.length, max: slots - 1
+		lng,
+		count: items.length,
+		max: slots - 1
 	});
 	if (slots <= 1) {
 		return {
@@ -114,69 +113,63 @@ function getBackupEmbed(packet: CommandInventoryPacketRes, pseudo: string, lng: 
 export async function handleCommandInventoryPacketRes(packet: CommandInventoryPacketRes, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 
-	if (interaction) {
-		if (!packet.foundPlayer) {
-			await interaction.reply({
-				embeds: [
-					new DraftBotErrorEmbed(
-						interaction.user,
-						interaction,
-						i18n.t("error:playerDoesntExist", { lng: interaction.userLanguage })
-					)
-				],
-				flags: MessageFlags.Ephemeral
-			});
+	if (!interaction) {
+		return;
+	}
+	const lng = interaction.userLanguage;
+	if (!packet.foundPlayer) {
+		await interaction.reply({
+			embeds: [
+				new DraftBotErrorEmbed(
+					interaction.user,
+					interaction,
+					i18n.t("error:playerDoesntExist", { lng })
+				)
+			],
+			flags: MessageFlags.Ephemeral
+		});
+		return;
+	}
+	const keycloakUser = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId!))!;
+	let equippedView = true;
+	const buttonId = "switchItems";
+	const equippedButtonLabel = i18n.t("commands:inventory.seeEquippedItems", { lng });
+	const backupButtonLabel = i18n.t("commands:inventory.seeBackupItems", { lng });
+	const switchItemsButton = new ButtonBuilder()
+		.setCustomId(buttonId)
+		.setLabel(backupButtonLabel)
+		.setStyle(ButtonStyle.Primary);
+	const equippedEmbed = getEquippedEmbed(packet, keycloakUser.attributes.gameUsername[0], lng);
+	const backupEmbed = getBackupEmbed(packet, keycloakUser.attributes.gameUsername[0], lng);
+	const msg = await interaction.reply({
+		embeds: [equippedEmbed],
+		components: [new ActionRowBuilder<ButtonBuilder>().addComponents(switchItemsButton)]
+	});
+	if (!msg) {
+		return;
+	}
+	const collector = msg.createMessageComponentCollector({
+		filter: buttonInteraction => buttonInteraction.customId === buttonId,
+		time: Constants.MESSAGES.COLLECTOR_TIME
+	});
+	collector.on("collect", async (buttonInteraction: ButtonInteraction) => {
+		if (buttonInteraction.user.id !== context.discord?.user) {
+			await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, lng);
 			return;
 		}
 
-		const keycloakUser = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId!))!;
-		let equippedView = true;
-
-		const buttonId = "switchItems";
-		const equippedButtonLabel = i18n.t("commands:inventory.seeEquippedItems", { lng: interaction.userLanguage });
-		const backupButtonLabel = i18n.t("commands:inventory.seeBackupItems", { lng: interaction.userLanguage });
-
-		const switchItemsButton = new ButtonBuilder()
-			.setCustomId(buttonId)
-			.setLabel(backupButtonLabel)
-			.setStyle(ButtonStyle.Primary);
-
-		const equippedEmbed = getEquippedEmbed(packet, keycloakUser.attributes.gameUsername[0], interaction.userLanguage);
-		const backupEmbed = getBackupEmbed(packet, keycloakUser.attributes.gameUsername[0], interaction.userLanguage);
-
-		const msg = await interaction.reply({
-			embeds: [equippedEmbed],
+		equippedView = !equippedView;
+		switchItemsButton.setLabel(equippedView ? backupButtonLabel : equippedButtonLabel);
+		await buttonInteraction.update({
+			embeds: [equippedView ? equippedEmbed : backupEmbed],
 			components: [new ActionRowBuilder<ButtonBuilder>().addComponents(switchItemsButton)]
 		});
-
-		if (!msg) {
-			return;
-		}
-
-		const collector = msg.createMessageComponentCollector({
-			filter: buttonInteraction => buttonInteraction.customId === buttonId,
-			time: Constants.MESSAGES.COLLECTOR_TIME
+	});
+	collector.on("end", async () => {
+		await msg.edit({
+			components: []
 		});
-		collector.on("collect", async (buttonInteraction: ButtonInteraction) => {
-			if (buttonInteraction.user.id !== context.discord?.user) {
-				await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, interaction.userLanguage);
-				return;
-			}
-
-			equippedView = !equippedView;
-			switchItemsButton.setLabel(equippedView ? backupButtonLabel : equippedButtonLabel);
-			await buttonInteraction.update({
-				embeds: [equippedView ? equippedEmbed : backupEmbed],
-				components: [new ActionRowBuilder<ButtonBuilder>().addComponents(switchItemsButton)]
-			});
-		});
-
-		collector.on("end", async () => {
-			await msg.edit({
-				components: []
-			});
-		});
-	}
+	});
 }
 
 export const commandInfo: ICommand = {

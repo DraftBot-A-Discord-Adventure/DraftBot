@@ -8,15 +8,12 @@ import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
  * Access information about badges
  */
 async function getPacket(interaction: DraftbotInteraction): Promise<null> {
+	const lng = interaction.userLanguage;
 	await interaction.reply({
 		embeds: [
 			new DraftBotEmbed()
-				.setTitle(i18n.t("commands:badges.title", {
-					lng: interaction.userLanguage
-				}))
-				.setDescription(i18n.t("commands:badges.description", {
-					lng: interaction.userLanguage
-				}))
+				.setTitle(i18n.t("commands:badges.title", { lng }))
+				.setDescription(i18n.t("commands:badges.description", { lng }))
 		]
 	});
 	return null;

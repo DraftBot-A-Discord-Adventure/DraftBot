@@ -6,9 +6,7 @@ import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 import i18n from "../../translations/i18n";
 import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
 import {
-	CommandPetFreeAcceptPacketRes,
-	CommandPetFreePacketReq,
-	CommandPetFreePacketRes
+	CommandPetFreeAcceptPacketRes, CommandPetFreePacketReq, CommandPetFreePacketRes
 } from "../../../../Lib/src/packets/commands/CommandPetFreePacket";
 import { DiscordCache } from "../../bot/DiscordCache";
 import { DraftBotErrorEmbed } from "../../messages/DraftBotErrorEmbed";
@@ -24,8 +22,8 @@ import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers
 /**
  * Destroy a pet forever... RIP
  */
-function getPacket(_interaction: DraftbotInteraction, keycloakUser: KeycloakUser): CommandPetFreePacketReq {
-	return makePacket(CommandPetFreePacketReq, { keycloakId: keycloakUser.id });
+function getPacket(_interaction: DraftbotInteraction, keycloakUser: KeycloakUser): Promise<CommandPetFreePacketReq> {
+	return Promise.resolve(makePacket(CommandPetFreePacketReq, { keycloakId: keycloakUser.id }));
 }
 
 
@@ -35,8 +33,8 @@ export async function handleCommandPetFreePacketRes(packet: CommandPetFreePacket
 	if (!interaction) {
 		return;
 	}
-
 	const lng = interaction.userLanguage;
+
 	if (!packet.foundPet) {
 		await interaction.reply({
 			embeds: [
@@ -49,36 +47,37 @@ export async function handleCommandPetFreePacketRes(packet: CommandPetFreePacket
 		});
 		return;
 	}
-	if (!packet.petCanBeFreed) {
-		if (packet.missingMoney! > 0) {
-			await interaction.reply({
-				embeds: [
-					new DraftBotErrorEmbed(
-						interaction.user,
-						interaction,
-						i18n.t("error:notEnoughMoney", {
-							lng,
-							money: packet.missingMoney
-						})
-					)
-				]
-			});
-		}
-		if (packet.cooldownRemainingTimeMs! > 0) {
-			await interaction.reply({
-				embeds: [
-					new DraftBotErrorEmbed(
-						interaction.user,
-						interaction,
-						i18n.t("error:cooldownPetFree", {
-							lng,
-							remainingTime: printTimeBeforeDate(packet.cooldownRemainingTimeMs! + new Date().valueOf()),
-							interpolation: { escapeValue: false }
-						})
-					)
-				]
-			});
-		}
+	if (packet.petCanBeFreed) {
+		return;
+	}
+	if (packet.missingMoney! > 0) {
+		await interaction.reply({
+			embeds: [
+				new DraftBotErrorEmbed(
+					interaction.user,
+					interaction,
+					i18n.t("error:notEnoughMoney", {
+						lng,
+						money: packet.missingMoney
+					})
+				)
+			]
+		});
+	}
+	if (packet.cooldownRemainingTimeMs! > 0) {
+		await interaction.reply({
+			embeds: [
+				new DraftBotErrorEmbed(
+					interaction.user,
+					interaction,
+					i18n.t("error:cooldownPetFree", {
+						lng,
+						remainingTime: printTimeBeforeDate(packet.cooldownRemainingTimeMs! + new Date().valueOf()),
+						interpolation: { escapeValue: false }
+					})
+				)
+			]
+		});
 	}
 }
 
@@ -106,14 +105,15 @@ export async function handleCommandPetFreeRefusePacketRes(context: PacketContext
 	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 	if (buttonInteraction && originalInteraction) {
+		const lng = originalInteraction.userLanguage;
 		await buttonInteraction.editReply({
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:petFree.canceledTitle", {
-					lng: originalInteraction.userLanguage,
+					lng,
 					pseudo: originalInteraction.user.displayName
 				}), originalInteraction.user)
 					.setDescription(
-						i18n.t("commands:petFree.canceledDesc", { lng: originalInteraction.userLanguage })
+						i18n.t("commands:petFree.canceledDesc", { lng })
 					)
 					.setErrorColor()
 			]
@@ -125,16 +125,17 @@ export async function handleCommandPetFreeAcceptPacketRes(packet: CommandPetFree
 	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 	if (buttonInteraction && originalInteraction) {
+		const lng = originalInteraction.userLanguage;
 		await buttonInteraction.editReply({
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:petFree.title", {
-					lng: originalInteraction.userLanguage,
+					lng,
 					pseudo: originalInteraction.user.displayName
 				}), originalInteraction.user)
 					.setDescription(
 						i18n.t("commands:petFree.acceptedDesc", {
-							lng: originalInteraction.userLanguage,
-							pet: PetUtils.petToShortString(originalInteraction.userLanguage, packet.petNickname, packet.petId, packet.petSex)
+							lng,
+							pet: PetUtils.petToShortString(lng, packet.petNickname, packet.petId, packet.petSex)
 						})
 					)
 			]

@@ -77,8 +77,8 @@ export async function handleChangeClassReactionCollector(context: PacketContext,
 	if (!interaction) {
 		return null;
 	}
+	const lng = interaction.userLanguage;
 
-	const lng = context.discord!.language;
 	const data = packet.data.data as ReactionCollectorChangeClassData;
 	const classesReactions = packet.reactions.filter(reaction => reaction.type === ReactionCollectorChangeClassReaction.name)
 		.map(reaction => reaction.data) as ReactionCollectorChangeClassReaction[];
@@ -125,7 +125,7 @@ export async function handleChangeClassReactionCollector(context: PacketContext,
 
 	selectCollector.on("collect", async (selectMenuInteraction: StringSelectMenuInteraction) => {
 		if (selectMenuInteraction.user.id !== context.discord?.user) {
-			await sendInteractionNotForYou(selectMenuInteraction.user, selectMenuInteraction, interaction.userLanguage);
+			await sendInteractionNotForYou(selectMenuInteraction.user, selectMenuInteraction, lng);
 			return;
 		}
 
@@ -200,7 +200,7 @@ export async function handleChangeClassReactionCollector(context: PacketContext,
 
 		validateCollector.on("collect", async (validateInteraction: ButtonInteraction) => {
 			if (validateInteraction.user.id !== context.discord?.user) {
-				await sendInteractionNotForYou(validateInteraction.user, validateInteraction, interaction.userLanguage);
+				await sendInteractionNotForYou(validateInteraction.user, validateInteraction, lng);
 				return;
 			}
 

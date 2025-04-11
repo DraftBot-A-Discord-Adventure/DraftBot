@@ -13,8 +13,7 @@ import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
 import { DiscordCollectorUtils } from "../utils/DiscordCollectorUtils";
 import { ReactionCollectorCreationPacket } from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {
-	ReactionCollectorFightChooseActionData,
-	ReactionCollectorFightChooseActionReaction
+	ReactionCollectorFightChooseActionData, ReactionCollectorFightChooseActionReaction
 } from "../../../Lib/src/packets/interaction/ReactionCollectorFightChooseAction";
 import { ReactionCollectorReturnTypeOrNull } from "../packetHandlers/handlers/ReactionCollectorHandlers";
 import { DiscordConstants } from "../DiscordConstants";
@@ -31,11 +30,12 @@ export class DraftbotActionChooseCachedMessage extends DraftbotCachedMessage<Rea
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 		const data = packet.data.data as ReactionCollectorFightChooseActionData;
 		const fighter = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, data.fighterKeycloakId))!.attributes.gameUsername[0];
+		const lng = interaction.userLanguage;
 		const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:fight.fightActionChoose.turnIndicationTitle", {
-			lng: interaction.userLanguage,
+			lng,
 			pseudo: fighter
 		}), interaction.user)
-			.setDescription(i18n.t("commands:fight.fightActionChoose.turnIndicationDescription", { lng: interaction.userLanguage }));
+			.setDescription(i18n.t("commands:fight.fightActionChoose.turnIndicationDescription", { lng }));
 		const rows = [new ActionRowBuilder<ButtonBuilder>()];
 		const reactions = packet.reactions as {
 			type: string; data: ReactionCollectorFightChooseActionReaction;
@@ -63,7 +63,7 @@ export class DraftbotActionChooseCachedMessage extends DraftbotCachedMessage<Rea
 		});
 		buttonCollector.on("collect", async (buttonInteraction: ButtonInteraction) => {
 			if (buttonInteraction.user.id !== context.discord?.user) {
-				await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, interaction.userLanguage);
+				await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, lng);
 				return;
 			}
 			await buttonInteraction.update({

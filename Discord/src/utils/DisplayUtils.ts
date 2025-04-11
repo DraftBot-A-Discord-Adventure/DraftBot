@@ -1,5 +1,5 @@
 import {
-	ItemCategory, ItemNature
+	ItemCategory, itemCategoryToString, ItemNature
 } from "../../../Lib/src/constants/ItemConstants";
 import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
 import i18n from "../translations/i18n";
@@ -37,18 +37,7 @@ export class DisplayUtils {
 	}
 
 	static getSimpleItemName(item: Item, lng: Language): string {
-		switch (item.category) {
-			case ItemCategory.WEAPON:
-				return i18n.t(`models:weapons.${item.id}`, { lng });
-			case ItemCategory.ARMOR:
-				return i18n.t(`models:armors.${item.id}`, { lng });
-			case ItemCategory.POTION:
-				return i18n.t(`models:potions.${item.id}`, { lng });
-			case ItemCategory.OBJECT:
-				return i18n.t(`models:objects.${item.id}`, { lng });
-			default:
-				return "Missing no";
-		}
+		return i18n.t(`models:${itemCategoryToString(item.category)}.${item.id}`, { lng });
 	}
 
 	static getItemIcon(item: Item): string {
@@ -293,14 +282,14 @@ export class DisplayUtils {
 	private static getStringValueFor(values: string[], maxValue: number | null, value: number, typeValue: "attack" | "defense" | "speed", lng: Language): void {
 		if (value !== 0) {
 			values.push(i18n.t(`items:${typeValue}`, {
+				lng,
 				value: maxValue ?? Infinity >= value
 					? value
 					: i18n.t("items:nerfDisplay", {
 						old: value,
 						max: maxValue,
 						lng
-					}),
-				lng
+					})
 			}));
 		}
 	}

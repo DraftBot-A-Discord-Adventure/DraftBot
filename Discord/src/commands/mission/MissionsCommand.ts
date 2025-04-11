@@ -14,8 +14,7 @@ import {
 	draftBotClient, keycloakConfig
 } from "../../bot/DraftBotShard";
 import {
-	CommandMissionsPacketReq,
-	CommandMissionsPacketRes
+	CommandMissionsPacketReq, CommandMissionsPacketRes
 } from "../../../../Lib/src/packets/commands/CommandMissionsPacket";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import { User } from "discord.js";
@@ -26,6 +25,7 @@ import {
 } from "../../../../Lib/src/utils/TimeUtils";
 import { PacketUtils } from "../../utils/PacketUtils";
 import { MessageFlags } from "discord-api-types/v10";
+import { Language } from "../../../../Lib/src/Language";
 
 /**
  * Get the packet to send to the server
@@ -55,19 +55,19 @@ export async function handleCommandMissionPlayerNotFoundPacket(context: PacketCo
 /**
  * Get the campaign mission part of the missions command's response
  * @param packet
- * @param interaction
+ * @param lng
  */
-function getCampaignMissionPart(packet: CommandMissionsPacketRes, interaction: DraftbotInteraction): string {
+function getCampaignMissionPart(packet: CommandMissionsPacketRes, lng: Language): string {
 	const campaignMission = packet.missions.find(mission => mission.missionType === MissionType.CAMPAIGN);
 	return `${i18n.t("commands:missions.subcategories.campaign", {
-		lng: interaction.userLanguage,
+		lng,
 		current: packet.campaignProgression,
 		max: packet.maxCampaignNumber,
 		context: campaignMission ? "current" : "completed"
 	})}${campaignMission
 		? `\n${i18n.t("commands:missions.missionDisplay", {
-			lng: interaction.userLanguage,
-			mission: MissionUtils.formatBaseMission(campaignMission, interaction.userLanguage),
+			lng,
+			mission: MissionUtils.formatBaseMission(campaignMission, lng),
 			progressionBar: MissionUtils.generateDisplayProgression(campaignMission.numberDone, campaignMission.missionObjective),
 			current: campaignMission.numberDone,
 			objective: campaignMission.missionObjective,
@@ -81,9 +81,9 @@ function getCampaignMissionPart(packet: CommandMissionsPacketRes, interaction: D
 /**
  * Get the daily mission part of the missions command's response
  * @param packet
- * @param interaction
+ * @param lng
  */
-function getDailyMissionPart(packet: CommandMissionsPacketRes, interaction: DraftbotInteraction): string {
+function getDailyMissionPart(packet: CommandMissionsPacketRes, lng: Language): string {
 	const dailyMission = packet.missions.find(mission => mission.missionType === MissionType.DAILY)!;
 	const missionDisplayKey = datesAreOnSameDay(
 		new Date(), // Current date
@@ -93,11 +93,11 @@ function getDailyMissionPart(packet: CommandMissionsPacketRes, interaction: Draf
 		: "missionDisplay";
 
 	return `${i18n.t("commands:missions.subcategories.daily", {
-		lng: interaction.userLanguage
+		lng
 	})}\n${i18n.t(`commands:missions.${missionDisplayKey}`, {
-		lng: interaction.userLanguage,
+		lng,
 		time: finishInTimeDisplay(getTomorrowMidnight()),
-		mission: MissionUtils.formatBaseMission(dailyMission, interaction.userLanguage),
+		mission: MissionUtils.formatBaseMission(dailyMission, lng),
 		progressionBar: MissionUtils.generateDisplayProgression(dailyMission.numberDone, dailyMission.missionObjective),
 		current: dailyMission.numberDone,
 		objective: dailyMission.missionObjective,
@@ -109,27 +109,28 @@ function getDailyMissionPart(packet: CommandMissionsPacketRes, interaction: Draf
 /**
  * Get the side missions part of the missions command's response
  * @param packet
- * @param interaction
+ * @param lng
  */
-function getSideMissionsPart(packet: CommandMissionsPacketRes, interaction: DraftbotInteraction): string {
+function getSideMissionsPart(packet: CommandMissionsPacketRes, lng: Language): string {
 	const sideMissions = packet.missions.filter(mission => mission.missionType === MissionType.NORMAL);
 	return `${i18n.t("commands:missions.subcategories.sideMissions", {
-		lng: interaction.userLanguage,
+		lng,
 		current: sideMissions.length,
 		max: packet.maxSideMissionSlots
 	})}\n${sideMissions.length > 0
 		? sideMissions.map(mission => i18n.t("commands:missions.missionDisplay", {
-			lng: interaction.userLanguage,
-			mission: MissionUtils.formatBaseMission(mission, interaction.userLanguage),
+			lng,
+			mission: MissionUtils.formatBaseMission(mission, lng),
 			progressionBar: MissionUtils.generateDisplayProgression(mission.numberDone, mission.missionObjective),
 			current: mission.numberDone,
 			objective: mission.missionObjective,
 			time: finishInTimeDisplay(new Date(mission.expiresAt!)),
 			context: "other",
 			interpolation: { escapeValue: false }
-		})).join("\n")
+		}))
+			.join("\n")
 		: i18n.t("commands:missions.noCurrentMissions", {
-			lng: interaction.userLanguage
+			lng
 		})}`;
 }
 
@@ -143,6 +144,7 @@ export async function handleCommandMissionsPacketRes(packet: CommandMissionsPack
 	if (!interaction) {
 		return;
 	}
+	const lng = interaction.userLanguage;
 	const keycloakUser = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId!))!;
 	if (!keycloakUser.attributes.discordId) {
 		throw new Error(`User of keycloakId ${packet.keycloakId} has no discordId`);
@@ -151,16 +153,16 @@ export async function handleCommandMissionsPacketRes(packet: CommandMissionsPack
 	const missionCommandEmbed = new DraftBotEmbed();
 
 	missionCommandEmbed.formatAuthor(i18n.t("commands:missions.title", {
-		lng: interaction.userLanguage,
+		lng,
 		pseudo: discordUser.displayName
 	}), discordUser);
 
 	missionCommandEmbed.setDescription([
-		getCampaignMissionPart(packet, interaction),
-		getDailyMissionPart(packet, interaction),
-		getSideMissionsPart(packet, interaction)
+		getCampaignMissionPart(packet, lng),
+		getDailyMissionPart(packet, lng),
+		getSideMissionsPart(packet, lng)
 	].join("\n"));
-	await interaction?.reply({
+	await interaction.reply({
 		embeds: [missionCommandEmbed]
 	});
 }

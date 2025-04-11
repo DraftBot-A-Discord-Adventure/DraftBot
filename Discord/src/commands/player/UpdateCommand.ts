@@ -13,28 +13,28 @@ import { DiscordCache } from "../../bot/DiscordCache";
 /**
  * Shows the current version of the bot
  */
-function getPacket(): CommandUpdatePacketReq {
-	return makePacket(CommandUpdatePacketReq, {});
+function getPacket(): Promise<CommandUpdatePacketReq> {
+	return Promise.resolve(makePacket(CommandUpdatePacketReq, {}));
 }
 
 export async function handleCommandUpdatePacketRes(packet: CommandUpdatePacketRes, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 
-	if (interaction) {
-		await interaction.reply({
-			embeds: [
-				new DraftBotEmbed()
-					.setTitle(i18n.t("commands:update.title", {
-						lng: interaction.userLanguage
-					}))
-					.setDescription(i18n.t("commands:update.description", {
-						coreVersion: packet.coreVersion,
-						discordModuleVersion: process.env.npm_package_version,
-						lng: interaction.userLanguage
-					}))
-			]
-		});
+	if (!interaction) {
+		return;
 	}
+	const lng = interaction.userLanguage;
+	await interaction.reply({
+		embeds: [
+			new DraftBotEmbed()
+				.setTitle(i18n.t("commands:update.title", { lng }))
+				.setDescription(i18n.t("commands:update.description", {
+					coreVersion: packet.coreVersion,
+					discordModuleVersion: process.env.npm_package_version,
+					lng
+				}))
+		]
+	});
 }
 
 export const commandInfo: ICommand = {

@@ -9,9 +9,7 @@ import { SlashCommandBuilder } from "@discordjs/builders";
 import { DiscordCache } from "../../bot/DiscordCache";
 import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
 import {
-	CommandUnlockAcceptPacketRes,
-	CommandUnlockNotEnoughMoney,
-	CommandUnlockPacketReq
+	CommandUnlockAcceptPacketRes, CommandUnlockNotEnoughMoney, CommandUnlockPacketReq
 } from "../../../../Lib/src/packets/commands/CommandUnlockPacket";
 import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
@@ -67,15 +65,16 @@ export async function handleCommandUnlockNotEnoughMoneyError(packet: CommandUnlo
 export async function createUnlockCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
+	const lng = interaction.userLanguage;
 	const data = packet.data.data as ReactionCollectorUnlockData;
 	const unlockedPlayer = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, data.unlockedKeycloakId))!;
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:unlock.title", {
-		lng: interaction.userLanguage,
+		lng,
 		pseudo: interaction.user.displayName
 	}), interaction.user)
 		.setDescription(
 			i18n.t("commands:unlock.confirmDesc", {
-				lng: interaction.userLanguage,
+				lng,
 				pseudo: unlockedPlayer.attributes.gameUsername,
 				price: UnlockConstants.PRICE_FOR_UNLOCK
 			})
@@ -93,17 +92,16 @@ export async function handleCommandUnlockRefusePacketRes(context: PacketContext)
 	if (!originalInteraction) {
 		return;
 	}
+	const lng = originalInteraction.userLanguage;
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 	await buttonInteraction?.editReply({
 		embeds: [
 			new DraftBotEmbed().formatAuthor(i18n.t("commands:unlock.canceledTitle", {
-				lng: originalInteraction.userLanguage,
+				lng,
 				pseudo: originalInteraction.user.displayName
 			}), originalInteraction.user)
 				.setDescription(
-					i18n.t("commands:unlock.canceledDesc", {
-						lng: originalInteraction.userLanguage
-					})
+					i18n.t("commands:unlock.canceledDesc", { lng })
 				)
 				.setErrorColor()
 		]
@@ -121,17 +119,18 @@ export async function handleCommandUnlockAcceptPacketRes(packet: CommandUnlockAc
 	if (!originalInteraction) {
 		return;
 	}
+	const lng = originalInteraction.userLanguage;
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 	const unlockedPlayer = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.unlockedKeycloakId!))!;
 	await buttonInteraction?.editReply({
 		embeds: [
 			new DraftBotEmbed().formatAuthor(i18n.t("commands:unlock.title", {
-				lng: originalInteraction.userLanguage,
+				lng,
 				pseudo: originalInteraction.user.displayName
 			}), originalInteraction.user)
 				.setDescription(
 					i18n.t("commands:unlock.acceptedDesc", {
-						lng: originalInteraction.userLanguage,
+						lng,
 						pseudo: unlockedPlayer.attributes.gameUsername
 					})
 				)

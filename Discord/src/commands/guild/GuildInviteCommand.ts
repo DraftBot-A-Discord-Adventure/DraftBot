@@ -69,14 +69,14 @@ export async function createGuildInviteCollector(context: PacketContext, packet:
 	const data = packet.data.data as ReactionCollectorGuildInviteData;
 	const invitedUser = interaction.options.getUser("user")!;
 	const invitedKeycloakId = await KeycloakUtils.getKeycloakIdFromDiscordId(keycloakConfig, invitedUser.id, null);
-
+	const lng = interaction.userLanguage;
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:guildInvite.title", {
-		lng: interaction.userLanguage,
+		lng,
 		pseudo: invitedUser.displayName
 	}), invitedUser)
 		.setDescription(
 			i18n.t("commands:guildInvite.confirmDesc", {
-				lng: interaction.userLanguage,
+				lng,
 				guildName: data.guildName
 			})
 		);
@@ -114,16 +114,17 @@ export async function handleCommandGuildInviteAcceptPacketRes(packet: CommandGui
 	const invitedUser = await draftBotClient!.users.fetch(invitedPlayer!.attributes.discordId![0]);
 
 	if (buttonInteraction && originalInteraction) {
+		const lng = originalInteraction.userLanguage;
 		await buttonInteraction.editReply({
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:guildInvite.successTitle", {
-					lng: originalInteraction.userLanguage,
+					lng,
 					pseudo: invitedUser.displayName,
 					guildName: packet.guildName
 				}), invitedUser)
 					.setDescription(
 						i18n.t("commands:guildInvite.successDesc", {
-							lng: originalInteraction.userLanguage,
+							lng,
 							guildName: packet.guildName
 						})
 					)
