@@ -103,8 +103,8 @@ export async function handleCommandGuildElderRemoveAcceptPacketRes(packet: Comma
 /**
  * Demote an elder from a guild
  */
-function getPacket(): Promise<CommandGuildElderRemovePacketReq> {
-	return Promise.resolve(makePacket(CommandGuildElderRemovePacketReq, {}));
+function getPacket(): CommandGuildElderRemovePacketReq {
+	return makePacket(CommandGuildElderRemovePacketReq, {});
 }
 
 export const commandInfo: ICommand = {

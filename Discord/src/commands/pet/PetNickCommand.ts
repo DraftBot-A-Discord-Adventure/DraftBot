@@ -18,7 +18,7 @@ import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 /**
  * Change the nickname of a player pet.
  */
-function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser): Promise<CommandPetNickPacketReq> {
+function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser): CommandPetNickPacketReq {
 	const newNameOption = interaction.options.get("nickname");
 
 	let newNickname;
@@ -26,10 +26,10 @@ function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser)
 		newNickname = <string>newNameOption.value;
 	}
 
-	return Promise.resolve(makePacket(CommandPetNickPacketReq, {
+	return makePacket(CommandPetNickPacketReq, {
 		keycloakId: keycloakUser.id,
 		newNickname
-	}));
+	});
 }
 
 

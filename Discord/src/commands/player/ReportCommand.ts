@@ -43,9 +43,9 @@ import { StringUtils } from "../../utils/StringUtils";
 import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
 import { Language } from "../../../../Lib/src/Language";
 
-async function getPacket(interaction: DraftbotInteraction): Promise<CommandReportPacketReq> {
+async function getPacket(interaction: DraftbotInteraction): CommandReportPacketReq {
 	await interaction.deferReply();
-	return Promise.resolve(makePacket(CommandReportPacketReq, {}));
+	return makePacket(CommandReportPacketReq, {});
 }
 
 /**

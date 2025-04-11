@@ -14,8 +14,8 @@ import { DisplayUtils } from "../../utils/DisplayUtils";
 /**
  * Allow the player to leave its guild
  */
-function getPacket(): Promise<CommandGuildShelterPacketReq> {
-	return Promise.resolve(makePacket(CommandGuildShelterPacketReq, {}));
+function getPacket(): CommandGuildShelterPacketReq {
+	return makePacket(CommandGuildShelterPacketReq, {});
 }
 
 export async function handleCommandGuildShelterRes(packet: CommandGuildShelterPacketRes, context: PacketContext): Promise<void> {
