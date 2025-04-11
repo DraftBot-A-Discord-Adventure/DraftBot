@@ -36,12 +36,16 @@ import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
 import { EmoteUtils } from "../../utils/EmoteUtils";
 import { Language } from "../../../../Lib/src/Language";
 import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
-import { ReactionCollectorBuyCategorySlotReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorBuyCategorySlot";
+import {
+	ReactionCollectorBuyCategorySlotCancelReaction,
+	ReactionCollectorBuyCategorySlotReaction
+} from "../../../../Lib/src/packets/interaction/ReactionCollectorBuyCategorySlot";
 import { ShopItemType } from "../../../../Lib/src/constants/LogsConstants";
 import {
 	shopItemTypeFromId, shopItemTypeToId
 } from "../../../../Lib/src/utils/ShopUtils";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { ReactionCollectorResetTimerPacketReq } from "../../../../Lib/src/packets/interaction/ReactionCollectorResetTimer";
 
 function getPacket(): CommandShopPacketReq {
 	return makePacket(CommandShopPacketReq, {});
@@ -202,18 +206,11 @@ export async function shopInventoryExtensionCollector(context: PacketContext, pa
 		await buttonInteraction.update({ components: [] });
 
 		if (buttonInteraction.customId === "closeShop") {
-			PacketUtils.sendPacketToBackend(context, makePacket(ChangeBlockingReasonPacket, {
-				oldReason: BlockingConstants.REASONS.SHOP,
-				newReason: BlockingConstants.REASONS.NONE
-			}));
-			await handleCommandShopClosed(context);
+			DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, null, packet.reactions.findIndex(r =>
+				r.type === ReactionCollectorBuyCategorySlotCancelReaction.name));
 			return;
 		}
 
-		PacketUtils.sendPacketToBackend(context, makePacket(ChangeBlockingReasonPacket, {
-			oldReason: BlockingConstants.REASONS.SHOP,
-			newReason: BlockingConstants.REASONS.NONE
-		}));
 		DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, null, packet.reactions.findIndex(r =>
 			r.type === ReactionCollectorBuyCategorySlotReaction.name
 			&& (r.data as ReactionCollectorBuyCategorySlotReaction).categoryId === parseInt(buttonInteraction.customId, 10)));
@@ -244,7 +241,11 @@ export async function handleReactionCollectorBuyCategorySlotBuySuccess(context: 
 }
 
 export async function handleCommandShopClosed(context: PacketContext): Promise<void> {
-	const interaction = DiscordCache.getInteraction(context.discord!.interaction!)!;
+	const interaction = DiscordCache.getInteraction(context.discord!.interaction!);
+	if (!interaction) {
+		return;
+	}
+
 	const args = {
 		embeds: [
 			new DraftBotEmbed()
@@ -263,6 +264,7 @@ async function manageBuyoutConfirmation(packet: ReactionCollectorCreationPacket,
 		oldReason: BlockingConstants.REASONS.SHOP,
 		newReason: BlockingConstants.REASONS.SHOP_CONFIRMATION
 	}));
+	PacketUtils.sendPacketToBackend(context, makePacket(ReactionCollectorResetTimerPacketReq, { reactionCollectorId: packet.id }));
 
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!);
 	if (!interaction) {
@@ -484,11 +486,19 @@ export async function shopCollector(context: PacketContext, packet: ReactionColl
 		time: packet.endTime - Date.now()
 	});
 
+	// It's always Core that ends the collector, so we can use a boolean to check if the collector has ended locally
+	let hasEnded = false;
+
 	buttonCollector.on("collect", async (msgComponentInteraction: MessageComponentInteraction) => {
+		if (hasEnded) {
+			return;
+		}
 		if (msgComponentInteraction.user.id !== context.discord?.user) {
 			await sendInteractionNotForYou(msgComponentInteraction.user, msgComponentInteraction, interaction.userLanguage);
 			return;
 		}
+
+		hasEnded = true;
 		await msgComponentInteraction.update({ components: [] });
 
 		if (msgComponentInteraction.customId === "closeShop") {

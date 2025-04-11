@@ -48,6 +48,7 @@ export class ShopUtils {
 			const reaction = collector.getFirstReaction();
 
 			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.SHOP);
+			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.SHOP_CONFIRMATION);
 			if (!reaction || reaction.reaction.type === ReactionCollectorShopCloseReaction.name) {
 				response.push(makePacket(CommandShopClosed, {}));
 				return;
