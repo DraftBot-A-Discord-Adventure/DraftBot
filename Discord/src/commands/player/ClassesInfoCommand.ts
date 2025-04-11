@@ -24,8 +24,8 @@ import { DisplayUtils } from "../../utils/DisplayUtils";
 /**
  * Get the packet
  */
-function getPacket(): Promise<CommandClassesInfoPacketReq> {
-	return Promise.resolve(makePacket(CommandClassesInfoPacketReq, {}));
+function getPacket(): CommandClassesInfoPacketReq {
+	return makePacket(CommandClassesInfoPacketReq, {});
 }
 
 /**

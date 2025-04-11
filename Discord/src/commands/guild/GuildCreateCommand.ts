@@ -24,12 +24,12 @@ import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers
 /**
  * Create a new guild
  */
-function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): Promise<CommandGuildCreatePacketReq> {
+function getPacket(interaction: DraftbotInteraction, user: KeycloakUser): CommandGuildCreatePacketReq {
 	const askedGuildName = <string>interaction.options.get("name", true).value;
-	return Promise.resolve(makePacket(CommandGuildCreatePacketReq, {
+	return makePacket(CommandGuildCreatePacketReq, {
 		keycloakId: user.id,
 		askedGuildName
-	}));
+	});
 }
 
 async function replyErrorEmbed(context: PacketContext, errorKey: string, formatParams: Record<string, unknown> = {}): Promise<void> {

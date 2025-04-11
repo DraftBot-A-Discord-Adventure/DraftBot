@@ -13,8 +13,8 @@ import { DiscordCache } from "../../bot/DiscordCache";
 /**
  * Shows the current version of the bot
  */
-function getPacket(): Promise<CommandUpdatePacketReq> {
-	return Promise.resolve(makePacket(CommandUpdatePacketReq, {}));
+function getPacket(): CommandUpdatePacketReq {
+	return makePacket(CommandUpdatePacketReq, {});
 }
 
 export async function handleCommandUpdatePacketRes(packet: CommandUpdatePacketRes, context: PacketContext): Promise<void> {

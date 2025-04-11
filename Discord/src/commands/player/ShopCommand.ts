@@ -44,8 +44,8 @@ import {
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import { ReactionCollectorResetTimerPacketReq } from "../../../../Lib/src/packets/interaction/ReactionCollectorResetTimer";
 
-function getPacket(): Promise<CommandShopPacketReq> {
-	return Promise.resolve(makePacket(CommandShopPacketReq, {}));
+function getPacket(): CommandShopPacketReq {
+	return makePacket(CommandShopPacketReq, {});
 }
 
 export async function handleCommandShopNoAlterationToHeal(context: PacketContext): Promise<void> {

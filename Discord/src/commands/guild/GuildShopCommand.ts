@@ -13,8 +13,8 @@ import {
 import i18n from "../../translations/i18n";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 
-function getPacket(): Promise<CommandGuildShopPacketReq> {
-	return Promise.resolve(makePacket(CommandGuildShopPacketReq, {}));
+function getPacket(): CommandGuildShopPacketReq {
+	return makePacket(CommandGuildShopPacketReq, {});
 }
 
 export async function handleCommandGuildShopNoFoodStorageSpace(context: PacketContext): Promise<void> {

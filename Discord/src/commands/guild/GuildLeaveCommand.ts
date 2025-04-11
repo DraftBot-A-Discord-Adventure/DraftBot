@@ -105,8 +105,8 @@ export async function handleCommandGuildLeaveRefusePacketRes(context: PacketCont
 /**
  * Allow the player to leave its guild
  */
-function getPacket(): Promise<CommandGuildLeavePacketReq> {
-	return Promise.resolve(makePacket(CommandGuildLeavePacketReq, {}));
+function getPacket(): CommandGuildLeavePacketReq {
+	return makePacket(CommandGuildLeavePacketReq, {});
 }
 
 export const commandInfo: ICommand = {

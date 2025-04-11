@@ -26,8 +26,8 @@ import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers
 /**
  * Get the packet to send to the server
  */
-function getPacket(): Promise<CommandMissionShopPacketReq> {
-	return Promise.resolve(makePacket(CommandMissionShopPacketReq, {}));
+function getPacket(): CommandMissionShopPacketReq {
+	return makePacket(CommandMissionShopPacketReq, {});
 }
 
 async function handleBasicMissionShopItem(context: PacketContext, descriptionString: string, descriptionFormat: {

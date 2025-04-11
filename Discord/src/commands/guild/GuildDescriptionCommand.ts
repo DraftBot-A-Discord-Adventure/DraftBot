@@ -78,9 +78,9 @@ export async function handleCommandGuildDescriptionAcceptPacketRes(_packet: Comm
 	}
 }
 
-function getPacket(interaction: DraftbotInteraction): Promise<CommandGuildDescriptionPacketReq> {
+function getPacket(interaction: DraftbotInteraction): CommandGuildDescriptionPacketReq {
 	const description = <string>interaction.options.get("description", true).value;
-	return Promise.resolve(makePacket(CommandGuildDescriptionPacketReq, { description }));
+	return makePacket(CommandGuildDescriptionPacketReq, { description });
 }
 
 export const commandInfo: ICommand = {

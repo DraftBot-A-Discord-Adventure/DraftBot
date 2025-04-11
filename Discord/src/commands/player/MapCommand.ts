@@ -14,8 +14,8 @@ import { MapConstants } from "../../../../Lib/src/constants/MapConstants";
 import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
 import { EmoteUtils } from "../../utils/EmoteUtils";
 
-function getPacket(interaction: DraftbotInteraction): Promise<CommandMapPacketReq> {
-	return Promise.resolve(makePacket(CommandMapPacketReq, { language: interaction.userLanguage }));
+function getPacket(interaction: DraftbotInteraction): CommandMapPacketReq {
+	return makePacket(CommandMapPacketReq, { language: interaction.userLanguage });
 }
 
 /**

@@ -22,8 +22,8 @@ import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers
 /**
  * Destroy a pet forever... RIP
  */
-function getPacket(_interaction: DraftbotInteraction, keycloakUser: KeycloakUser): Promise<CommandPetFreePacketReq> {
-	return Promise.resolve(makePacket(CommandPetFreePacketReq, { keycloakId: keycloakUser.id }));
+function getPacket(_interaction: DraftbotInteraction, keycloakUser: KeycloakUser): CommandPetFreePacketReq {
+	return makePacket(CommandPetFreePacketReq, { keycloakId: keycloakUser.id });
 }
 
 

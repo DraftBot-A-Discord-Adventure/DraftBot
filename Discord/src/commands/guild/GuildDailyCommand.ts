@@ -16,8 +16,8 @@ import { DraftBotErrorEmbed } from "../../messages/DraftBotErrorEmbed";
 import { finishInTimeDisplay } from "../../../../Lib/src/utils/TimeUtils";
 import { StringConstants } from "../../../../Lib/src/constants/StringConstants";
 
-function getPacket(): Promise<CommandGuildDailyPacketReq> {
-	return Promise.resolve(makePacket(CommandGuildDailyPacketReq, {}));
+function getPacket(): CommandGuildDailyPacketReq {
+	return makePacket(CommandGuildDailyPacketReq, {});
 }
 
 function manageGivenReward(rewardKey: string, quantity: number | undefined, lng: Language): string {

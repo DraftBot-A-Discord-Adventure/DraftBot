@@ -12,14 +12,14 @@ import i18n from "../../translations/i18n";
 import { DiscordCache } from "../../bot/DiscordCache";
 import { SlashCommandBuilder } from "@discordjs/builders";
 
-function getPacket(interaction: DraftbotInteraction): Promise<CommandMaintenancePacketReq> {
+function getPacket(interaction: DraftbotInteraction): CommandMaintenancePacketReq {
 	const enable = interaction.options.getBoolean("enable");
 	const save = interaction.options.getBoolean("save");
 
-	return Promise.resolve(makePacket(CommandMaintenancePacketReq, {
+	return makePacket(CommandMaintenancePacketReq, {
 		enable: enable!.valueOf(),
 		save: save!.valueOf()
-	}));
+	});
 }
 
 export async function handleCommandMaintenancePacketRes(packet: CommandMaintenancePacketRes, context: PacketContext): Promise<void> {
