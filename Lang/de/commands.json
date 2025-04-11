@@ -344,38 +344,38 @@
   },
   "profile": {
     "badgeDisplay": {
-      "numberBadge_one": "\n Dieser Spieler hat {{badge}} Badge insgesamt!",
-      "numberBadge_other": "\n Dieser Spieler hat {{badge}} Badges insgesamt!",
+      "numberBadge_one": "\n Ce joueur possède {{count}} badge au total !",
+      "numberBadge_other": "\n Ce joueur possède {{count}} badges au total !",
       "title": "Liste der Badges in {{pseudo}}"
     },
     "badges": {
-      "⚔️": ":crossed_swords: ` Vainger eines Turniers '",
-      "⚙️": ":gear: \"Technisches Team\"",
-      "⛑️": ":helmet_with_cross: Personen, die zu den ersten 20 Personen gehören, die dem Bot-Server beigetreten sind.",
-      "✨": "{emote:unitValues.glory} `Person, die während einer Kampfsaison den meisten Ruhm erlangt hat`.",
-      "❤️": ":heart: Personen mit der Besoldungsgruppe auf dem Bot-Server-Server",
-      "🌍": ":earth_africa: ` Traducer `",
-      "🌟": ":star2: \" Niemand, der dazu beigetragen hat, den Bot auf einen Server mit mehr als 2000 Mitgliedern zu setzen.",
-      "🍀": ":four_leaf_clover: ` Badge, der von Zeit zu Zeit in Wettbewerben auf dem Bot-oder Twitter-Server gewonnen werden kann.",
-      "🎄": ":christmas_tree: ` Badge, die jedes Weihnachten bei einem Wettbewerb gewonnen werden kann.",
-      "🎗️": ":reminder_ribbon: ` Person, die eine Rangliste der Woche dominiert hat.",
-      "🎰": ":slot_machine: ` Badge auf völlig wandern `",
-      "🏅": ":medal: 'Joucher' in den Top 10-und Reset-10-Reset 1.0 `",
-      "🏆": ":trophy: ` Bester Spieler zum Zeitpunkt des Reset von 1.0 `",
-      "🐞": ":lady_beetle: Personen, die große Bugs gemeldet haben.",
-      "👑": ":crown: ` Eigentümer des Bots '",
-      "💍": ":ring: ` Badge, gekauft im Shop der Missionen ` `",
-      "💎": ":gem: 'Mitglied einer leistungsfähigen Gilde'",
-      "💞": ":revolving_hearts: \" Spieler, der ein legendäres Begleiter aufrichtete.",
-      "💸": ":money_with_wings: ` Donator `",
-      "🔖": ":bookmark: ` Adoper für die erste Stunde '",
-      "🕊️": ":dove: Personen, die einen nutzbaren Fehler gemeldet haben, ohne die Vorteile des Bugs zu nutzen.",
-      "🖋️": ":pen_fountain: ` Redakteur des Bots '",
-      "🗳️": ":ballot_box: Personen, die in den letzten 12 Stunden abgestimmt haben.",
-      "😂": ":joy: ` Badge angeboten für eine lustige Person `",
-      "🤑": ":money_mouth: ` Badge, gekauft im Shop `",
-      "🥇": ":first_place: Personen, die nach dem Reset den ersten Platz in der Rangfolge erreicht haben.",
-      "🪩": ":mirror_ball: ` Mitglied einer sehr mächtigen Gilde '"
+      "tournament_winner": ":crossed_swords: ` Vainger eines Turniers '",
+      "technical_team": ":gear: \"Technisches Team\"",
+      "first_20_members": ":helmet_with_cross: Personen, die zu den ersten 20 Personen gehören, die dem Bot-Server beigetreten sind.",
+      "top_glory": "{emote:unitValues.glory} `Person, die während einer Kampfsaison den meisten Ruhm erlangt hat`.",
+      "support": ":heart: Personen mit der Besoldungsgruppe auf dem Bot-Server-Server",
+      "translator": ":earth_africa: ` Traducer `",
+      "advertiser": ":star2: \" Niemand, der dazu beigetragen hat, den Bot auf einen Server mit mehr als 2000 Mitgliedern zu setzen.",
+      "contest": ":four_leaf_clover: ` Badge, der von Zeit zu Zeit in Wettbewerben auf dem Bot-oder Twitter-Server gewonnen werden kann.",
+      "christmas": ":christmas_tree: ` Badge, die jedes Weihnachten bei einem Wettbewerb gewonnen werden kann.",
+      "top_week": ":reminder_ribbon: ` Person, die eine Rangliste der Woche dominiert hat.",
+      "random": ":slot_machine: ` Badge auf völlig wandern `",
+      "top_10_v1": ":medal: 'Joucher' in den Top 10-und Reset-10-Reset 1.0 `",
+      "top_v1_player": ":trophy: ` Bester Spieler zum Zeitpunkt des Reset von 1.0 `",
+      "major_bug_reporter": ":lady_beetle: Personen, die große Bugs gemeldet haben.",
+      "bot_owner": ":crown: ` Eigentümer des Bots '",
+      "mission_completer": ":ring: ` Badge, gekauft im Shop der Missionen ` `",
+      "powerful_guild": ":gem: 'Mitglied einer leistungsfähigen Gilde'",
+      "legendary_pet": ":revolving_hearts: \" Spieler, der ein legendäres Begleiter aufrichtete.",
+      "donor": ":money_with_wings: ` Donator `",
+      "early_class_adopter": ":bookmark: ` Adoper für die erste Stunde '",
+      "good_bug_reporter": ":dove: Personen, die einen nutzbaren Fehler gemeldet haben, ohne die Vorteile des Bugs zu nutzen.",
+      "redactor": ":pen_fountain: ` Redakteur des Bots '",
+      "voter": ":ballot_box: Personen, die in den letzten 12 Stunden abgestimmt haben.",
+      "funny": ":joy: ` Badge angeboten für eine lustige Person `",
+      "rich": ":money_mouth: ` Badge, gekauft im Shop `",
+      "top_1_before_reset": ":first_place: Personen, die nach dem Reset den ersten Platz in der Rangfolge erreicht haben.",
+      "very_powerful_guild": ":mirror_ball: ` Mitglied einer sehr mächtigen Gilde '"
     },
     "fightRanking": {
       "fieldName": "Gloire und Liga:",
@@ -1402,5 +1402,15 @@
     "petFieldName": "Vertraute Nr.{{number}}",
     "noPetMessage": "Es scheint, dass sich keine Vertrauten in der Unterkunft befinden.",
     "warningFull": "Das Tierheim ist voll! Es können keine neuen Haustiere aufgenommen werden, solange kein Haustier aus dem Tierheim freigelassen oder verkauft wurde."
+  },
+  "giveBadge": {
+    "alreadyHaveBadge": "Le joueur a déjà tous les badges qui existent dans le jeu.",
+    "selectBadgePlaceholder": "Sélectionnez un badge à donner au joueur",
+    "selectBadgeTitle": "{{pseudo}}, sélection d'un badge à donner",
+    "selectBadgeDesc": "Choisissez un badge à donner au joueur dans une des listes ci-dessous :"
+  },
+  "setPlayerInfo": {
+    "playerModifiedTitle": "{{pseudo}}, modification d'un joueur",
+    "playerModifiedDesc": "Le joueur a été modifié avec succès !\n\nID: **{{keycloakId}}**\nPseudo: **{{pseudo}}**"
   }
 }
