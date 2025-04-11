@@ -370,5 +370,15 @@
   "joinBoat": {
     "name": "juntar-se ao barco",
     "description": "Permite-te entrar no barco se um membro do teu grémio estiver nele."
+  },
+  "giveBadge": {
+    "name": "donnerbadge",
+    "description": "Donner un badge à un joueur.",
+    "options": {
+      "user": {
+        "name": "utilisateur",
+        "description": "Le joueur à qui donner le badge."
+      }
+    }
   }
 }
