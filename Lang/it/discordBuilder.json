@@ -370,5 +370,15 @@
   "joinBoat": {
     "name": "unirsi alla barca",
     "description": "Permette di unirsi alla barca se un membro della propria gilda è a bordo."
+  },
+  "giveBadge": {
+    "name": "donnerbadge",
+    "description": "Donner un badge à un joueur.",
+    "options": {
+      "user": {
+        "name": "utilizzatore",
+        "description": "Le joueur à qui donner le badge."
+      }
+    }
   }
 }
