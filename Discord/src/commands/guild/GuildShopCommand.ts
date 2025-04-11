@@ -4,8 +4,7 @@ import {
 	makePacket, PacketContext
 } from "../../../../Lib/src/packets/DraftBotPacket";
 import {
-	CommandGuildShopGiveXp,
-	CommandGuildShopPacketReq
+	CommandGuildShopGiveXp, CommandGuildShopPacketReq
 } from "../../../../Lib/src/packets/commands/CommandGuildShopPacket";
 import { DiscordCache } from "../../bot/DiscordCache";
 import {
@@ -14,8 +13,8 @@ import {
 import i18n from "../../translations/i18n";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 
-function getPacket(): CommandGuildShopPacketReq {
-	return makePacket(CommandGuildShopPacketReq, {});
+function getPacket(): Promise<CommandGuildShopPacketReq> {
+	return Promise.resolve(makePacket(CommandGuildShopPacketReq, {}));
 }
 
 export async function handleCommandGuildShopNoFoodStorageSpace(context: PacketContext): Promise<void> {
@@ -36,15 +35,19 @@ export async function handleCommandGuildShopEmpty(context: PacketContext): Promi
 
 export async function handleCommandGuildShopGiveXp(packet: CommandGuildShopGiveXp, context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!);
-	const lng = context.discord!.language;
+	if (!interaction) {
+		return;
+	}
 
-	await interaction?.followUp({
+	const lng = interaction.userLanguage;
+	await interaction.followUp({
 		embeds: [
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:guildShop.giveXpTitle", { lng }), interaction.user)
 				.setDescription(
 					i18n.t("commands:guildShop.giveXp", {
-						lng, xp: packet.xp
+						lng,
+						xp: packet.xp
 					})
 				)
 		]

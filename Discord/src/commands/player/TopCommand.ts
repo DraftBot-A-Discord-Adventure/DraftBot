@@ -243,7 +243,7 @@ async function handleGenericTopPacketRes<TopElementKind extends TopElement<T, U,
 	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!)!;
 
-	const lng = context.discord!.language!;
+	const lng = interaction.userLanguage;
 	const title = i18n.t(textKeys.title, {
 		lng,
 		minRank: packet.minRank,
@@ -320,7 +320,7 @@ export async function handleCommandTopInvalidPagePacket(context: PacketContext, 
 	await interaction.editReply({
 		embeds: [
 			new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("commands:top.invalidPage", {
-				lng: context.discord!.language!,
+				lng: interaction.userLanguage,
 				minPage: packet.minPage,
 				maxPage: packet.maxPage
 			}))
@@ -332,7 +332,7 @@ export async function handleCommandTopPlayersEmptyPacket(context: PacketContext)
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!)!;
 
 	await interaction.editReply({
-		embeds: [new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("commands:top.nobodyInTopPlayers", { lng: context.discord!.language! }))]
+		embeds: [new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("commands:top.nobodyInTopPlayers", { lng: interaction.userLanguage }))]
 	});
 }
 
@@ -340,6 +340,6 @@ export async function handleCommandTopGuildsEmptyPacket(context: PacketContext):
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!)!;
 
 	await interaction.editReply({
-		embeds: [new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("commands:top.nobodyInTopGuilds", { lng: context.discord!.language! }))]
+		embeds: [new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("commands:top.nobodyInTopGuilds", { lng: interaction.userLanguage }))]
 	});
 }

@@ -12,9 +12,7 @@ import {
 } from "../../utils/ErrorUtils";
 import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {
-	CommandShopNotEnoughCurrency,
-	ReactionCollectorShopData,
-	ReactionCollectorShopItemReaction
+	CommandShopNotEnoughCurrency, ReactionCollectorShopData, ReactionCollectorShopItemReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorShop";
 import {
 	ActionRowBuilder,
@@ -37,8 +35,7 @@ import { EmoteUtils } from "../../utils/EmoteUtils";
 import { Language } from "../../../../Lib/src/Language";
 import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
 import {
-	ReactionCollectorBuyCategorySlotCancelReaction,
-	ReactionCollectorBuyCategorySlotReaction
+	ReactionCollectorBuyCategorySlotCancelReaction, ReactionCollectorBuyCategorySlotReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorBuyCategorySlot";
 import { ShopItemType } from "../../../../Lib/src/constants/LogsConstants";
 import {
@@ -47,8 +44,8 @@ import {
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import { ReactionCollectorResetTimerPacketReq } from "../../../../Lib/src/packets/interaction/ReactionCollectorResetTimer";
 
-function getPacket(): CommandShopPacketReq {
-	return makePacket(CommandShopPacketReq, {});
+function getPacket(): Promise<CommandShopPacketReq> {
+	return Promise.resolve(makePacket(CommandShopPacketReq, {}));
 }
 
 export async function handleCommandShopNoAlterationToHeal(context: PacketContext): Promise<void> {
@@ -105,46 +102,57 @@ export async function handleCommandShopNotEnoughMoney(packet: CommandShopNotEnou
 
 export async function handleCommandShopHealAlterationDone(context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!);
+	if (!interaction) {
+		return;
+	}
+	const lng = interaction.userLanguage;
 
-	await interaction?.followUp({
+	await interaction.followUp({
 		embeds: [
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.success", {
-					lng: interaction.userLanguage,
+					lng,
 					pseudo: interaction.user.displayName
 				}), interaction.user)
-				.setDescription(i18n.t("commands:shop.healAlteration", { lng: interaction.userLanguage }))
+				.setDescription(i18n.t("commands:shop.healAlteration", { lng }))
 		]
 	});
 }
 
 export async function handleCommandShopFullRegen(context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!);
-
-	await interaction?.followUp({
+	if (!interaction) {
+		return;
+	}
+	const lng = interaction.userLanguage;
+	await interaction.followUp({
 		embeds: [
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.success", {
-					lng: interaction.userLanguage,
+					lng,
 					pseudo: interaction.user.displayName
 				}), interaction.user)
-				.setDescription(i18n.t("commands:shop.fullRegen", { lng: interaction.userLanguage }))
+				.setDescription(i18n.t("commands:shop.fullRegen", { lng }))
 		]
 	});
 }
 
 export async function handleCommandShopBadgeBought(context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!);
+	if (!interaction) {
+		return;
+	}
+	const lng = interaction.userLanguage;
 
-	await interaction?.followUp({
+	await interaction.followUp({
 		embeds: [
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.success", {
-					lng: interaction.userLanguage,
+					lng,
 					pseudo: interaction.user.displayName
 				}), interaction.user)
 				.setDescription(i18n.t("commands:shop.badgeBought", {
-					lng: interaction.userLanguage,
+					lng,
 					badgeName: "richPerson"
 				}))
 		]
@@ -153,9 +161,9 @@ export async function handleCommandShopBadgeBought(context: PacketContext): Prom
 
 export async function shopInventoryExtensionCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!)!;
-
+	const lng = interaction.userLanguage;
 	const row = new ActionRowBuilder<ButtonBuilder>();
-	let slotExtensionText = `${i18n.t("commands:shop.chooseSlotIndication", { lng: interaction.userLanguage })}\n\n`;
+	let slotExtensionText = `${i18n.t("commands:shop.chooseSlotIndication", { lng })}\n\n`;
 	for (const category of (packet.reactions.filter(reaction => reaction.type === ReactionCollectorBuyCategorySlotReaction.name)
 		.map(r => r.data) as ReactionCollectorBuyCategorySlotReaction[])) {
 		const button = new ButtonBuilder()
@@ -164,8 +172,8 @@ export async function shopInventoryExtensionCollector(context: PacketContext, pa
 			.setStyle(ButtonStyle.Secondary);
 		row.addComponents(button);
 		slotExtensionText += i18n.t("commands:shop.shopCategoryFormat", {
-			lng: interaction.userLanguage,
-			category: i18n.t(`commands:shop.slotCategoriesKind.${category.categoryId.toString(10)}`, { lng: interaction.userLanguage }),
+			lng,
+			category: i18n.t(`commands:shop.slotCategoriesKind.${category.categoryId.toString(10)}`, { lng }),
 			count: category.remaining,
 			limit: category.maxSlots,
 			categoryId: category.categoryId
@@ -173,7 +181,7 @@ export async function shopInventoryExtensionCollector(context: PacketContext, pa
 	}
 	const closeShopButton = new ButtonBuilder()
 		.setCustomId("closeShop")
-		.setLabel(i18n.t("commands:shop.closeShopButton", { lng: interaction.userLanguage }))
+		.setLabel(i18n.t("commands:shop.closeShopButton", { lng }))
 		.setStyle(ButtonStyle.Secondary);
 
 	row.addComponents(closeShopButton);
@@ -182,7 +190,7 @@ export async function shopInventoryExtensionCollector(context: PacketContext, pa
 		embeds: [
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.chooseSlotTitle", {
-					lng: interaction.userLanguage,
+					lng,
 					pseudo: interaction.user.displayName
 				}), interaction.user)
 				.setDescription(slotExtensionText)
@@ -200,7 +208,7 @@ export async function shopInventoryExtensionCollector(context: PacketContext, pa
 
 	buttonCollector.on("collect", async (buttonInteraction: ButtonInteraction) => {
 		if (buttonInteraction.user.id !== context.discord?.user) {
-			await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, interaction.userLanguage);
+			await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, lng);
 			return;
 		}
 		await buttonInteraction.update({ components: [] });
@@ -227,15 +235,18 @@ export async function shopInventoryExtensionCollector(context: PacketContext, pa
 
 export async function handleReactionCollectorBuyCategorySlotBuySuccess(context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!);
-
-	await interaction?.followUp({
+	if (!interaction) {
+		return;
+	}
+	const lng = interaction.userLanguage;
+	await interaction.followUp({
 		embeds: [
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.success", {
-					lng: interaction.userLanguage,
+					lng,
 					pseudo: interaction.user.displayName
 				}), interaction.user)
-				.setDescription(i18n.t("commands:shop.buyCategorySlotSuccess", { lng: interaction.userLanguage }))
+				.setDescription(i18n.t("commands:shop.buyCategorySlotSuccess", { lng }))
 		]
 	});
 }
@@ -245,15 +256,16 @@ export async function handleCommandShopClosed(context: PacketContext): Promise<v
 	if (!interaction) {
 		return;
 	}
+	const lng = interaction.userLanguage;
 
 	const args = {
 		embeds: [
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.closeShopTitle", {
-					lng: interaction.userLanguage,
+					lng,
 					pseudo: interaction.user.displayName
 				}), interaction.user)
-				.setDescription(i18n.t("commands:shop.closeShop", { lng: interaction.userLanguage }))
+				.setDescription(i18n.t("commands:shop.closeShop", { lng }))
 		]
 	};
 	await (interaction.replied ? interaction.followUp(args) : interaction.reply(args));
@@ -270,6 +282,7 @@ async function manageBuyoutConfirmation(packet: ReactionCollectorCreationPacket,
 	if (!interaction) {
 		return;
 	}
+	const lng = interaction.userLanguage;
 	const shopItemId = reaction.shopItemId;
 
 	const amounts = packet.reactions.filter(r => {
@@ -303,20 +316,20 @@ async function manageBuyoutConfirmation(packet: ReactionCollectorCreationPacket,
 		.setStyle(ButtonStyle.Secondary);
 	row.addComponents(buttonRefuse);
 
-	const shopItemNames = getShopItemNames(data, shopItemId, interaction.userLanguage);
+	const shopItemNames = getShopItemNames(data, shopItemId, lng);
 
 	const msg = await interaction.followUp({
 		embeds: [
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t(amounts.length === 1 && amounts[0] === 1 ? "commands:shop.shopConfirmationTitle" : "commands:shop.shopConfirmationTitleMultiple", {
-					lng: interaction.userLanguage,
+					lng,
 					pseudo: interaction.user.displayName
 				}), interaction.user)
 				.setDescription(`${
-					getShopItemDisplay(data, reaction, interaction.userLanguage, shopItemNames, amounts)
+					getShopItemDisplay(data, reaction, lng, shopItemNames, amounts)
 				}\n${EmoteUtils.translateEmojiToDiscord(DraftBotIcons.collectors.warning)} ${
 					i18n.t(`commands:shop.shopItems.${shopItemTypeToId(shopItemId)}.info`, {
-						lng: interaction.userLanguage,
+						lng,
 						kingsMoneyAmount: data.additionnalShopData?.gemToMoneyRatio,
 						thousandPoints: Constants.MISSION_SHOP.THOUSAND_POINTS
 					})
@@ -335,7 +348,7 @@ async function manageBuyoutConfirmation(packet: ReactionCollectorCreationPacket,
 
 	buttonCollector.on("collect", async (buttonInteraction: ButtonInteraction) => {
 		if (buttonInteraction.user.id !== context.discord?.user) {
-			await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, interaction.userLanguage);
+			await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, lng);
 			return;
 		}
 		await buttonInteraction.update({ components: [] });
@@ -415,6 +428,7 @@ function getShopItemDisplay(data: ReactionCollectorShopData, reaction: ReactionC
 
 export async function shopCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!)!;
+	const lng = interaction.userLanguage;
 	const data = packet.data.data as ReactionCollectorShopData;
 
 	const categories: string[] = [];
@@ -427,7 +441,7 @@ export async function shopCollector(context: PacketContext, packet: ReactionColl
 	let shopText = "";
 	const select = new StringSelectMenuBuilder()
 		.setCustomId("shop")
-		.setPlaceholder(i18n.t("commands:shop.shopSelectPlaceholder", { lng: interaction.userLanguage }));
+		.setPlaceholder(i18n.t("commands:shop.shopSelectPlaceholder", { lng }));
 	for (const categoryId of categories) {
 		let categoryItemsIds = packet.reactions.filter(
 			reaction => reaction.type === ReactionCollectorShopItemReaction.name && (reaction.data as ReactionCollectorShopItemReaction).shopCategoryId === categoryId
@@ -438,37 +452,37 @@ export async function shopCollector(context: PacketContext, packet: ReactionColl
 		categoryItemsIds = categoryItemsIds.filter((item, index) => categoryItemsIds.indexOf(item) === index);
 
 		shopText += `${`**${i18n.t(`commands:shop.shopCategories.${categoryId}`, {
-			lng: interaction.userLanguage,
+			lng,
 			count: data.additionnalShopData!.remainingPotions
 		})}** :\n`
 			.concat(...categoryItemsIds.map(id => {
 				const reaction = packet.reactions.find(reaction => (reaction.data as ReactionCollectorShopItemReaction).shopItemId === id)!.data as ReactionCollectorShopItemReaction;
-				const shopItemName = getShopItemNames(data, reaction.shopItemId, interaction.userLanguage);
+				const shopItemName = getShopItemNames(data, reaction.shopItemId, lng);
 
 				select.addOptions(new StringSelectMenuOptionBuilder()
 					.setLabel(shopItemName.short)
 					.setDescription(i18n.t("commands:shop.shopItemsSelectDescription", {
-						lng: interaction.userLanguage,
+						lng,
 						price: reaction.price,
 						currency: data.currency
 					}))
 					.setValue(shopItemTypeToId(reaction.shopItemId)));
-				return getShopItemDisplay(data, reaction, interaction.userLanguage, shopItemName, [1]);
+				return getShopItemDisplay(data, reaction, lng, shopItemName, [1]);
 			}))}\n`;
 	}
 
 	const closeShopButton = new ButtonBuilder()
 		.setCustomId("closeShop")
-		.setLabel(i18n.t("commands:shop.closeShopButton", { lng: interaction.userLanguage }))
+		.setLabel(i18n.t("commands:shop.closeShopButton", { lng }))
 		.setStyle(ButtonStyle.Secondary);
 
 	const buttonRow = new ActionRowBuilder<ButtonBuilder>().addComponents(closeShopButton);
 	const selectRow = new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(select);
 
 	const embed = new DraftBotEmbed()
-		.setTitle(i18n.t("commands:shop.title", { lng: interaction.userLanguage }))
+		.setTitle(i18n.t("commands:shop.title", { lng }))
 		.setDescription(shopText + i18n.t("commands:shop.currentMoney", {
-			lng: interaction.userLanguage,
+			lng,
 			money: data.availableCurrency,
 			currency: data.currency
 		}));
@@ -494,7 +508,7 @@ export async function shopCollector(context: PacketContext, packet: ReactionColl
 			return;
 		}
 		if (msgComponentInteraction.user.id !== context.discord?.user) {
-			await sendInteractionNotForYou(msgComponentInteraction.user, msgComponentInteraction, interaction.userLanguage);
+			await sendInteractionNotForYou(msgComponentInteraction.user, msgComponentInteraction, lng);
 			return;
 		}
 

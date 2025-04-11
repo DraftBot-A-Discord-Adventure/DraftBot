@@ -8,20 +8,21 @@ import i18n from "../../translations/i18n";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 import {
-	CommandSellItemSuccessPacket,
-	CommandSellPacketReq
+	CommandSellItemSuccessPacket, CommandSellPacketReq
 } from "../../../../Lib/src/packets/commands/CommandSellPacket";
 import { ItemCategory } from "../../../../Lib/src/constants/ItemConstants";
 import { DisplayUtils } from "../../utils/DisplayUtils";
 import {
-	ReactionCollectorCreationPacket,
-	ReactionCollectorRefuseReaction
+	ReactionCollectorCreationPacket, ReactionCollectorRefuseReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import { ReactionCollectorSellItemReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorSell";
 import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
 import {
-	ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle,
+	ActionRowBuilder,
+	ButtonBuilder,
+	ButtonInteraction,
+	ButtonStyle,
 	InteractionCollector,
 	Message,
 	parseEmoji,
@@ -159,8 +160,8 @@ export async function handleSellReactionCollector(context: PacketContext, packet
 	if (!interaction) {
 		return null;
 	}
+	const lng = interaction.userLanguage;
 
-	const lng = context.discord!.language;
 	const itemsReactions = packet.reactions.filter(reaction => reaction.type === ReactionCollectorSellItemReaction.name)
 		.map(reaction => reaction.data) as ReactionCollectorSellItemReaction[];
 	const refuseReactionIndex = packet.reactions.findIndex(reaction => reaction.type === ReactionCollectorRefuseReaction.name);
@@ -215,10 +216,10 @@ export async function handleSellReactionCollector(context: PacketContext, packet
 
 	mainEmbedRow.addComponents(selectMenu);
 
-	const msg = await interaction?.editReply({
+	const msg = (await interaction.editReply({
 		embeds: [mainEmbed],
 		components: [mainEmbedRow]
-	}) as Message;
+	}))!;
 
 	let validateCollector: InteractionCollector<never>;
 
@@ -228,7 +229,7 @@ export async function handleSellReactionCollector(context: PacketContext, packet
 
 	selectCollector.on("collect", async (selectMenuInteraction: StringSelectMenuInteraction) => {
 		if (selectMenuInteraction.user.id !== context.discord?.user) {
-			await sendInteractionNotForYou(selectMenuInteraction.user, selectMenuInteraction, interaction.userLanguage);
+			await sendInteractionNotForYou(selectMenuInteraction.user, selectMenuInteraction, lng);
 			return;
 		}
 

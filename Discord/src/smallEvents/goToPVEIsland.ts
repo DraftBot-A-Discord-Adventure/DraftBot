@@ -21,12 +21,10 @@ export async function goToPVEIslandCollector(context: PacketContext, packet: Rea
 			"smallEvents:goToPVEIsland.stories",
 			lng,
 			{
-				priceText: data.price === 0
-					? i18n.t("smallEvents:goToPVEIsland.priceFree", { lng })
-					: i18n.t("smallEvents:goToPVEIsland.priceMoney", {
-						lng,
-						price: data.price
-					})
+				priceText: i18n.t(`smallEvents:goToPVEIsland.price${data.price === 0 ? "Free" : "Money"}`, {
+					lng,
+					price: data.price
+				})
 			}
 		)}\n\n${i18n.t("smallEvents:goToPVEIsland.confirm", {
 			lng,

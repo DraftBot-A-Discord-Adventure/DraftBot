@@ -5,8 +5,7 @@ import {
 import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
 import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 import {
-	CommandDrinkConsumePotionRes,
-	CommandDrinkPacketReq
+	CommandDrinkConsumePotionRes, CommandDrinkPacketReq
 } from "../../../../Lib/src/packets/commands/CommandDrinkPacket";
 import { DiscordCache } from "../../bot/DiscordCache";
 import i18n from "../../translations/i18n";
@@ -37,58 +36,62 @@ async function getPacket(interaction: DraftbotInteraction): Promise<CommandDrink
 export async function drinkAcceptCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const data = packet.data.data as ReactionCollectorDrinkData;
-
+	const lng = interaction.userLanguage;
 	const embed = new DraftBotEmbed()
 		.formatAuthor(
 			i18n.t("commands:drink.confirmationTitle", {
 				pseudo: interaction.user.displayName,
-				lng: interaction.userLanguage
+				lng
 			}),
 			interaction.user
 		)
 		.setDescription(i18n.t("commands:drink.confirmation", {
-			lng: interaction.userLanguage,
-			potion: DisplayUtils.getItemDisplayWithStats(data.potion, interaction.userLanguage)
+			lng,
+			potion: DisplayUtils.getItemDisplayWithStats(data.potion, lng)
 		}))
-		.setFooter({ text: i18n.t("commands:drink.confirmationFooter", { lng: interaction.userLanguage }) });
+		.setFooter({ text: i18n.t("commands:drink.confirmationFooter", { lng }) });
 
 	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
 }
 
 export async function handleDrinkConsumePotion(context: PacketContext, packet: CommandDrinkConsumePotionRes): Promise<void> {
-	const interaction = context.discord!.buttonInteraction
+	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+	const mainInteraction = context.discord!.buttonInteraction
 		? DiscordCache.getButtonInteraction(context.discord!.buttonInteraction)
 		: DiscordCache.getInteraction(context.discord!.interaction);
+	if (!interaction || !mainInteraction) {
+		return;
+	}
+	const lng = interaction.userLanguage;
 	let msg;
-
 	if (packet.time) {
 		msg = i18n.t("commands:drink.timeBonus", {
-			lng: context.discord!.language,
+			lng,
 			value: minutesDisplay(packet.time)
 		});
 	}
 	else if (packet.energy) {
 		msg = i18n.t("commands:drink.energyBonus", {
-			lng: context.discord!.language,
+			lng,
 			value: packet.energy
 		});
 	}
 	else if (packet.health) {
 		msg = i18n.t("commands:drink.healthBonus", {
-			lng: context.discord!.language,
+			lng,
 			value: packet.health
 		});
 	}
 	else {
-		msg = i18n.t("commands:drink.noBonus", { lng: context.discord!.language });
+		msg = i18n.t("commands:drink.noBonus", { lng });
 	}
 
-	await interaction?.followUp({
+	await mainInteraction.followUp({
 		embeds: [
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:drink.drinkSuccessTitle", {
 					pseudo: interaction.user.displayName,
-					lng: context.discord!.language
+					lng
 				}), interaction.user)
 				.setDescription(msg)
 		]

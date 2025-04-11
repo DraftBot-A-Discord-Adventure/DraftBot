@@ -25,7 +25,7 @@ export async function handleCommandLeagueRewardSuccessPacket(packet: CommandLeag
 	if (!interaction) {
 		return;
 	}
-	const lng = context.discord!.language;
+	const lng = interaction.userLanguage;
 
 	await interaction.editReply({
 		embeds: [

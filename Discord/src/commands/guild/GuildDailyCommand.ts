@@ -2,9 +2,7 @@ import {
 	makePacket, PacketContext
 } from "../../../../Lib/src/packets/DraftBotPacket";
 import {
-	CommandGuildDailyCooldownErrorPacket,
-	CommandGuildDailyPacketReq,
-	CommandGuildDailyRewardPacket
+	CommandGuildDailyCooldownErrorPacket, CommandGuildDailyPacketReq, CommandGuildDailyRewardPacket
 } from "../../../../Lib/src/packets/commands/CommandGuildDailyPacket";
 import { ICommand } from "../ICommand";
 import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
@@ -18,8 +16,8 @@ import { DraftBotErrorEmbed } from "../../messages/DraftBotErrorEmbed";
 import { finishInTimeDisplay } from "../../../../Lib/src/utils/TimeUtils";
 import { StringConstants } from "../../../../Lib/src/constants/StringConstants";
 
-function getPacket(): CommandGuildDailyPacketReq {
-	return makePacket(CommandGuildDailyPacketReq, {});
+function getPacket(): Promise<CommandGuildDailyPacketReq> {
+	return Promise.resolve(makePacket(CommandGuildDailyPacketReq, {}));
 }
 
 function manageGivenReward(rewardKey: string, quantity: number | undefined, lng: Language): string {
@@ -66,13 +64,14 @@ export function getCommandGuildDailyRewardPacketString(packet: CommandGuildDaily
 
 export async function handleCommandGuildDailyRewardPacket(packet: CommandGuildDailyRewardPacket, context: PacketContext, reply: boolean): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!)!;
+	const lng = interaction.userLanguage;
 
 	const embed = new DraftBotEmbed()
 		.formatAuthor(i18n.t("commands:guildDaily.rewardTitle", {
-			lng: context.discord!.language,
+			lng,
 			guildName: packet.guildName
 		}), interaction.user)
-		.setDescription(getCommandGuildDailyRewardPacketString(packet, context.discord!.language));
+		.setDescription(getCommandGuildDailyRewardPacketString(packet, lng));
 
 	if (reply) {
 		await interaction.reply({
@@ -96,7 +95,7 @@ export async function handleCommandGuildDailyCooldownErrorPacket(packet: Command
 				i18n.t(
 					"commands:guildDaily.coolDown",
 					{
-						lng: context.discord!.language,
+						lng: interaction.userLanguage,
 						coolDownTime: packet.totalTime,
 						time: finishInTimeDisplay(new Date(Date.now() + packet.remainingTime)),
 						interpolation: { escapeValue: false }

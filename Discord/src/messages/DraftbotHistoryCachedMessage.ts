@@ -17,7 +17,7 @@ import { DraftbotActionChooseCachedMessage } from "./DraftbotActionChooseCachedM
 import { PetAssistanceState } from "../../../Lib/src/types/PetAssistanceResult";
 import { StringConstants } from "../../../Lib/src/constants/StringConstants";
 import { DisplayUtils } from "../utils/DisplayUtils";
-import { DraftbotInteraction } from "./DraftbotInteraction";
+import { Language } from "../../../Lib/src/Language";
 
 export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandFightHistoryItemPacket> {
 	readonly duration = 30;
@@ -35,25 +35,26 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 
 	updateMessage = async (packet: CommandFightHistoryItemPacket, context: PacketContext): Promise<null> => {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
+		const lng = interaction.userLanguage;
 		const fighter = packet.fighterKeycloakId
 			? (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.fighterKeycloakId))!.attributes.gameUsername[0]
-			: i18n.t(`models:monsters.${packet.monsterId}.name`, { lng: interaction.userLanguage });
+			: i18n.t(`models:monsters.${packet.monsterId}.name`, { lng });
 
 		let newLine = i18n.t("commands:fight.actions.intro", {
-			lng: interaction.userLanguage,
+			lng,
 			emote: EmoteUtils.translateEmojiToDiscord(packet.pet
 				? DraftBotIcons.pets[packet.pet.typeId][packet.pet.sex === StringConstants.SEX.FEMALE.short ? "emoteFemale" : "emoteMale"]
 				: DraftBotIcons.fightActions[packet.fightActionId]),
 			fighter
-		}) + this.manageMainMessage(packet, interaction);
+		}) + this.manageMainMessage(packet, lng);
 
 		if (packet.fightActionEffectReceived) {
-			newLine += this.manageReceivedEffects(packet, interaction);
+			newLine += this.manageReceivedEffects(packet, lng);
 		}
 
 		// Then we need to display the side effects of the attack or alteration if there are any
 		if (packet.fightActionEffectDealt) {
-			newLine += this.manageSideEffects(packet, interaction);
+			newLine += this.manageSideEffects(packet, lng);
 		}
 
 		if (this.historyContent.length + newLine.length <= FightConstants.MAX_HISTORY_LENGTH) {
@@ -69,31 +70,29 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 		return null;
 	};
 
-	private manageSideEffects(packet: CommandFightHistoryItemPacket, interaction: DraftbotInteraction): string {
+	private manageSideEffects(packet: CommandFightHistoryItemPacket, lng: Language): string {
 		let sideEffectString = "";
 		Object.entries(packet.fightActionEffectDealt!)
 			.forEach(([key, value]) => {
 				if (typeof value === "number") {
 					const operator = value >= 0 ? FightConstants.OPERATOR.PLUS : FightConstants.OPERATOR.MINUS;
 					sideEffectString += i18n.t(`commands:fight.actions.fightActionEffects.opponent.${key}`, {
-						lng: interaction.userLanguage,
+						lng,
 						operator,
 						amount: Math.abs(value)
 					});
 				}
 				else if (value) {
 					sideEffectString += i18n.t(`commands:fight.actions.fightActionEffects.opponent.${key}`, {
-						lng: interaction.userLanguage,
-						effect: i18n.t(`models:fight_actions.${value}.name`, {
-							lng: interaction.userLanguage
-						})
+						lng,
+						effect: i18n.t(`models:fight_actions.${value}.name`, { lng })
 					});
 				}
 			});
 		return sideEffectString;
 	}
 
-	private manageMainMessage(packet: CommandFightHistoryItemPacket, interaction: DraftbotInteraction): string {
+	private manageMainMessage(packet: CommandFightHistoryItemPacket, lng: Language): string {
 		if (
 			packet.status
 			&& Object.values(FightAlterationState)
@@ -103,18 +102,18 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 		) {
 			// The fightAction is an alteration or pet assistance
 			return i18n.t(`models:fight_actions.${packet.fightActionId}.${packet.status}`, {
-				lng: interaction.userLanguage,
+				lng,
 				interpolation: { escapeValue: false },
 				petNickname: packet.pet
 					? packet.pet.nickname
 						? packet.pet.nickname
-						: DisplayUtils.getPetTypeName(interaction.userLanguage, packet.pet.typeId, packet.pet.sex)
+						: DisplayUtils.getPetTypeName(lng, packet.pet.typeId, packet.pet.sex)
 					: undefined
 			});
 		}
 		else if (packet.customMessage) {
 			return i18n.t(`models:fight_actions.${packet.fightActionId}.customMessage`, {
-				lng: interaction.userLanguage,
+				lng,
 				interpolation: { escapeValue: false }
 			});
 		}
@@ -122,10 +121,10 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 		// The fightAction is an attack
 		return StringUtils.getRandomTranslation(
 			`commands:fight.actions.attacksResults.${packet.status}`,
-			interaction.userLanguage,
+			lng,
 			{
 				attack: i18n.t(`models:fight_actions.${packet.fightActionId}.name`, {
-					lng: interaction.userLanguage,
+					lng,
 					interpolation: { escapeValue: false },
 					count: 1
 				}),
@@ -134,23 +133,21 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 		);
 	}
 
-	private manageReceivedEffects(packet: CommandFightHistoryItemPacket, interaction: DraftbotInteraction): string {
+	private manageReceivedEffects(packet: CommandFightHistoryItemPacket, lng: Language): string {
 		let effectsString = "";
 		Object.entries(packet.fightActionEffectReceived!)
 			.forEach(([key, value]) => {
 				if (typeof value === "number") {
 					effectsString += i18n.t(`commands:fight.actions.fightActionEffects.self.${key}`, {
-						lng: interaction.userLanguage,
+						lng,
 						operator: value >= 0 ? FightConstants.OPERATOR.PLUS : FightConstants.OPERATOR.MINUS,
 						amount: Math.abs(value)
 					});
 				}
 				else if (value) {
 					effectsString += i18n.t(`commands:fight.actions.fightActionEffects.self.${key}`, {
-						lng: interaction.userLanguage,
-						effect: i18n.t(`models:fight_actions.${value}.name`, {
-							lng: interaction.userLanguage
-						})
+						lng,
+						effect: i18n.t(`models:fight_actions.${value}.name`, { lng })
 					});
 				}
 			});

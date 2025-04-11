@@ -11,8 +11,8 @@ import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import i18n from "../../translations/i18n";
 import { GuildConstants } from "../../../../Lib/src/constants/GuildConstants";
 
-function getPacket(): CommandGuildStoragePacketReq {
-	return makePacket(CommandGuildStoragePacketReq, {});
+function getPacket(): Promise<CommandGuildStoragePacketReq> {
+	return Promise.resolve(makePacket(CommandGuildStoragePacketReq, {}));
 }
 
 export async function handleSuccess(packet: CommandGuildStoragePacketRes, context: PacketContext): Promise<void> {

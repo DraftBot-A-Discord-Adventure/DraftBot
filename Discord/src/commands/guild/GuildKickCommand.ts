@@ -9,10 +9,7 @@ import { SlashCommandBuilder } from "@discordjs/builders";
 import { DiscordCache } from "../../bot/DiscordCache";
 import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
 import {
-	CommandGuildKickAcceptPacketRes,
-	CommandGuildKickPacketReq,
-	CommandGuildKickPacketRes,
-	CommandGuildKickRefusePacketRes
+	CommandGuildKickAcceptPacketRes, CommandGuildKickPacketReq, CommandGuildKickPacketRes, CommandGuildKickRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildKickPacket";
 import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
@@ -48,11 +45,12 @@ export async function handleCommandGuildKickPacketRes(packet: CommandGuildKickPa
 	if (!interaction) {
 		return;
 	}
+	const lng = interaction.userLanguage;
 	if (!packet.foundPlayer) {
 		await sendErrorMessage(
 			interaction.user,
 			interaction,
-			i18n.t("commands:guildKick.noPlayer", { lng: interaction.userLanguage }),
+			i18n.t("commands:guildKick.noPlayer", { lng }),
 			{ sendManner: SendManner.REPLY }
 		);
 		return;
@@ -61,7 +59,7 @@ export async function handleCommandGuildKickPacketRes(packet: CommandGuildKickPa
 		await sendErrorMessage(
 			interaction.user,
 			interaction,
-			i18n.t("commands:guildKick.notSameGuild", { lng: interaction.userLanguage }),
+			i18n.t("commands:guildKick.notSameGuild", { lng }),
 			{ sendManner: SendManner.REPLY }
 		);
 		return;
@@ -70,7 +68,7 @@ export async function handleCommandGuildKickPacketRes(packet: CommandGuildKickPa
 		await sendErrorMessage(
 			interaction.user,
 			interaction,
-			i18n.t("commands:guildKick.himself", { lng: interaction.userLanguage }),
+			i18n.t("commands:guildKick.himself", { lng }),
 			{ sendManner: SendManner.REPLY }
 		);
 	}
@@ -86,13 +84,14 @@ export async function createGuildKickCollector(context: PacketContext, packet: R
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorGuildKickData;
 	const kickedPlayer = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, data.kickedKeycloakId))!;
+	const lng = interaction.userLanguage;
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:guildKick.title", {
-		lng: interaction.userLanguage,
+		lng,
 		pseudo: interaction.user.displayName
 	}), interaction.user)
 		.setDescription(
 			i18n.t("commands:guildKick.confirmDesc", {
-				lng: interaction.userLanguage,
+				lng,
 				kickedPseudo: kickedPlayer.attributes.gameUsername,
 				guildName: data.guildName
 			})
@@ -114,15 +113,16 @@ export async function handleCommandGuildKickRefusePacketRes(packet: CommandGuild
 	}
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 	const kickedPlayer = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.kickedKeycloakId))!;
+	const lng = originalInteraction.userLanguage;
 	await buttonInteraction?.editReply({
 		embeds: [
 			new DraftBotEmbed().formatAuthor(i18n.t("commands:guildKick.canceledTitle", {
-				lng: originalInteraction.userLanguage,
+				lng,
 				pseudo: originalInteraction.user.displayName
 			}), originalInteraction.user)
 				.setDescription(
 					i18n.t("commands:guildKick.canceledDesc", {
-						lng: originalInteraction.userLanguage,
+						lng,
 						kickedPseudo: kickedPlayer.attributes.gameUsername
 					})
 				)
@@ -142,15 +142,16 @@ export async function handleCommandGuildKickAcceptPacketRes(packet: CommandGuild
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 	const kickedPlayer = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.kickedKeycloakId!))!;
 	if (buttonInteraction && originalInteraction) {
+		const lng = originalInteraction.userLanguage;
 		await buttonInteraction.editReply({
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:guildKick.title", {
-					lng: originalInteraction.userLanguage,
+					lng,
 					pseudo: originalInteraction.user.displayName
 				}), originalInteraction.user)
 					.setDescription(
 						i18n.t("commands:guildKick.acceptedDesc", {
-							lng: originalInteraction.userLanguage,
+							lng,
 							kickedPseudo: kickedPlayer.attributes.gameUsername,
 							guildName: packet.guildName
 						})

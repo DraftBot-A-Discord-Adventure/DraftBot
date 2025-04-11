@@ -8,19 +8,15 @@ import { DisplayUtils } from "../utils/DisplayUtils";
 import {
 	ReactionCollectorItemChoiceItemReaction, ReactionCollectorItemChoiceRefuseReaction
 } from "../../../Lib/src/packets/interaction/ReactionCollectorItemChoice";
-import {
-	ReactionCollectorItemAcceptData
-} from "../../../Lib/src/packets/interaction/ReactionCollectorItemAccept";
+import { ReactionCollectorItemAcceptData } from "../../../Lib/src/packets/interaction/ReactionCollectorItemAccept";
 import { ItemCategory } from "../../../Lib/src/constants/ItemConstants";
 import { ReactionCollectorReturnTypeOrNull } from "../packetHandlers/handlers/ReactionCollectorHandlers";
 
 export async function itemChoiceCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
-
+	const lng = interaction.userLanguage;
 	const embed = new DraftBotEmbed();
-	embed.formatAuthor(i18n.t("commands:inventory.chooseItemToReplaceTitle", {
-		lng: interaction.userLanguage
-	}), interaction.user);
+	embed.formatAuthor(i18n.t("commands:inventory.chooseItemToReplaceTitle", { lng }), interaction.user);
 
 	return await DiscordCollectorUtils.createChoiceListCollector(
 		interaction,
@@ -30,7 +26,7 @@ export async function itemChoiceCollector(context: PacketContext, packet: Reacti
 		packet.reactions.filter(reaction => reaction.type === ReactionCollectorItemChoiceItemReaction.name)
 			.map(reaction => {
 				const itemReaction = reaction.data as ReactionCollectorItemChoiceItemReaction;
-				return DisplayUtils.getItemDisplayWithStats(itemReaction.itemWithDetails, interaction.userLanguage);
+				return DisplayUtils.getItemDisplayWithStats(itemReaction.itemWithDetails, lng);
 			}),
 		{
 			can: true,
@@ -51,7 +47,7 @@ export async function itemAcceptCollector(context: PacketContext, packet: Reacti
 				: i18n.t("commands:inventory.randomItemFooter", { lng }),
 			interaction.user
 		)
-		.setDescription(DisplayUtils.getItemDisplayWithStats(data.itemWithDetails, interaction.userLanguage));
+		.setDescription(DisplayUtils.getItemDisplayWithStats(data.itemWithDetails, lng));
 
 	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
 }

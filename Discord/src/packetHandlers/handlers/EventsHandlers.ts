@@ -76,16 +76,17 @@ export default class EventsHandlers {
 		if (!interaction) {
 			return;
 		}
+		const lng = interaction.userLanguage;
 
 		await interaction.channel.send({
 			embeds: [
 				new DraftBotEmbed()
 					.setTitle(i18n.t("models:guilds.levelUpTitle", {
-						lng: interaction.userLanguage,
+						lng,
 						guild: packet.guildName
 					}))
 					.setDescription(i18n.t("models:guilds.levelUpDesc", {
-						lng: interaction.userLanguage,
+						lng,
 						level: packet.level
 					}))
 			]
@@ -135,9 +136,7 @@ export default class EventsHandlers {
 		}
 		if (packet.missions.length > 1) {
 			completedMissionsEmbed.addFields({
-				name: i18n.t("notifications:missions.completed.totalRewards", {
-					lng
-				}),
+				name: i18n.t("notifications:missions.completed.totalRewards", { lng }),
 				value: i18n.t("notifications:missions.completed.totalDisplay", {
 					lng,
 					gems: totalGems,
@@ -199,9 +198,7 @@ export default class EventsHandlers {
 						lng,
 						pseudo: interaction.user.displayName
 					}), interaction.user)
-					.setDescription(i18n.t("models:players.koDesc", {
-						lng
-					}))
+					.setDescription(i18n.t("models:players.koDesc", { lng }))
 					.setErrorColor()
 			]
 		});
@@ -209,12 +206,8 @@ export default class EventsHandlers {
 		await interaction.user.send({
 			embeds: [
 				new DraftBotEmbed()
-					.formatAuthor(i18n.t("models:players.koDmTitle", {
-						lng
-					}), interaction.user)
-					.setDescription(i18n.t("models:players.koDmDesc", {
-						lng
-					}))
+					.formatAuthor(i18n.t("models:players.koDmTitle", { lng }), interaction.user)
+					.setDescription(i18n.t("models:players.koDmDesc", { lng }))
 			]
 		});
 	}
@@ -240,9 +233,7 @@ export default class EventsHandlers {
 			});
 		}
 
-		desc += i18n.t("models:players.leavePVEIslandDescEnd", {
-			lng
-		});
+		desc += i18n.t("models:players.leavePVEIslandDescEnd", { lng });
 
 		await interaction.channel.send({
 			embeds: [
@@ -391,13 +382,14 @@ export default class EventsHandlers {
 		if (!interaction) {
 			return;
 		}
+		const lng = interaction.userLanguage;
 
 		await interaction.channel.send({
 			embeds: [
 				new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("error:guildFoodStorageFull", {
-					lng: interaction.userLanguage,
+					lng,
 					quantity: packet.quantity,
-					food: DisplayUtils.getFoodDisplay(packet.food, packet.quantity, interaction.userLanguage, false)
+					food: DisplayUtils.getFoodDisplay(packet.food, packet.quantity, lng, false)
 				}))
 			]
 		});

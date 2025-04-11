@@ -6,8 +6,7 @@ import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 import i18n, { TranslationOption } from "../../translations/i18n";
 import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
 import {
-	CommandProfilePacketReq,
-	CommandProfilePacketRes
+	CommandProfilePacketReq, CommandProfilePacketRes
 } from "../../../../Lib/src/packets/commands/CommandProfilePacket";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
@@ -47,19 +46,20 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
  * @param interaction
  */
 async function sendMessageAllBadgesTooMuchBadges(gameUsername: string, badges: string[], interaction: DraftbotInteraction): Promise<void> {
+	const lng = interaction.userLanguage;
 	let content = "";
 	for (const badgeSentence of badges) {
-		content += `${badgeSentence} \`${i18n.t(`commands:profile.badges.${badgeSentence}`, { lng: interaction.userLanguage })}\`\n`;
+		content += `${badgeSentence} \`${i18n.t(`commands:profile.badges.${badgeSentence}`, { lng })}\`\n`;
 	}
 	await interaction.followUp({
 		embeds: [
 			new DraftBotEmbed()
 				.setTitle(i18n.t("commands:profile.badgeDisplay.title", {
-					lng: interaction.userLanguage,
+					lng,
 					pseudo: gameUsername
 				}))
 				.setDescription(content + i18n.t("commands:profile.badgeDisplay.numberBadge", {
-					lng: interaction.userLanguage,
+					lng,
 					badge: badges.length
 				}))
 		]
@@ -193,6 +193,7 @@ export async function handleCommandProfilePacketRes(packet: CommandProfilePacket
 	if (!interaction) {
 		return;
 	}
+	const lng = interaction.userLanguage;
 	const keycloakUser = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId))!;
 	const titleEffect = packet.playerData.effect.healed ? "healed" : packet.playerData.effect.effect;
 	const reply = await interaction.reply({
@@ -200,12 +201,12 @@ export async function handleCommandProfilePacketRes(packet: CommandProfilePacket
 			new DraftBotEmbed()
 				.setColor(<ColorResolvable>packet.playerData!.color)
 				.setTitle(i18n.t("commands:profile.title", {
-					lng: interaction.userLanguage,
+					lng,
 					effectId: titleEffect,
 					pseudo: keycloakUser.attributes.gameUsername,
 					level: packet.playerData?.level
 				}))
-				.addFields(generateFields(packet, interaction.userLanguage))
+				.addFields(generateFields(packet, lng))
 		],
 		withResponse: true
 	});
@@ -225,7 +226,7 @@ export async function handleCommandProfilePacketRes(packet: CommandProfilePacket
 			await sendMessageAllBadgesTooMuchBadges(keycloakUser.attributes.gameUsername[0], packet.playerData!.badges!, interaction);
 		}
 		else {
-			interaction.channel.send({ content: `\`${EmoteUtils.translateEmojiToDiscord(reaction.emoji.name!)} ${i18n.t(`commands:profile.badges.${reaction.emoji.name}\``, { lng: interaction.userLanguage })}` })
+			interaction.channel.send({ content: `\`${EmoteUtils.translateEmojiToDiscord(reaction.emoji.name!)} ${i18n.t(`commands:profile.badges.${reaction.emoji.name}\``, { lng })}` })
 				.then((msg: Message | null) => {
 					setTimeout(() => msg?.delete(), ProfileConstants.BADGE_DESCRIPTION_TIMEOUT);
 				});

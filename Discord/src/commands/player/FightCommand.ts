@@ -41,29 +41,28 @@ import { DisplayUtils } from "../../utils/DisplayUtils";
 export async function createFightCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
+	const lng = interaction.userLanguage;
 	const data = packet.data.data as ReactionCollectorFightData;
 	const subTextKey = RandomUtils.draftbotRandom.bool(FightConstants.RARE_SUB_TEXT_INTRO) ? "rare" : "common";
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:fight.title", {
-		lng: interaction.userLanguage,
+		lng,
 		pseudo: interaction.user.displayName
 	}), interaction.user)
 		.setDescription(
 			i18n.t("commands:fight.confirmDesc", {
-				lng: interaction.userLanguage,
+				lng,
 				pseudo: interaction.user.displayName,
-				confirmSubText: i18n.t(`commands:fight.confirmSubTexts.${subTextKey}`, {
-					lng: interaction.userLanguage
-				}),
+				confirmSubText: i18n.t(`commands:fight.confirmSubTexts.${subTextKey}`, { lng }),
 				glory: i18n.t("commands:fight:information.glory", {
-					lng: interaction.userLanguage,
+					lng,
 					gloryPoints: data.playerStats.fightRanking.glory
 				}),
 				className: i18n.t("commands:fight:information.class", {
-					lng: interaction.userLanguage,
+					lng,
 					id: data.playerStats.classId
 				}),
 				stats: i18n.t("commands:fight:information.stats", {
-					lng: interaction.userLanguage,
+					lng,
 					baseBreath: data.playerStats.breath.base,
 					breathRegen: data.playerStats.breath.regen,
 					cumulativeAttack: data.playerStats.attack,
@@ -91,15 +90,16 @@ export async function handleCommandFightRefusePacketRes(context: PacketContext):
 		return;
 	}
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+	const lng = originalInteraction.userLanguage;
 	await buttonInteraction?.editReply({
 		embeds: [
 			new DraftBotEmbed().formatAuthor(i18n.t("commands:fight.canceledTitle", {
-				lng: originalInteraction.userLanguage,
+				lng,
 				pseudo: originalInteraction.user.displayName
 			}), originalInteraction.user)
 				.setDescription(
 					i18n.t("commands:fight.canceledDesc", {
-						lng: originalInteraction.userLanguage
+						lng
 					})
 				)
 				.setErrorColor()
@@ -159,17 +159,18 @@ function addFightProfileFor(introEmbed: DraftBotEmbed, lng: Language, fighterNam
 export async function handleCommandFightIntroduceFightersRes(context: PacketContext, packet: CommandFightIntroduceFightersPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+	const lng = interaction.userLanguage;
 	const opponentDisplayName = packet.fightOpponentKeycloakId
 		? (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.fightOpponentKeycloakId))!.attributes.gameUsername[0]
-		: i18n.t(`models:monsters.${packet.fightOpponentMonsterId}.name`, { lng: interaction.userLanguage });
+		: i18n.t(`models:monsters.${packet.fightOpponentMonsterId}.name`, { lng });
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:fight.fightIntroTitle", {
-		lng: interaction.userLanguage,
+		lng,
 		fightInitiator: interaction.user.displayName,
 		opponent: opponentDisplayName
 	}), interaction.user);
 
-	addFightProfileFor(embed, interaction.userLanguage, interaction.user.displayName, packet.fightInitiatorActions, packet.fightOpponentActions.length, packet.fightInitiatorPet);
-	addFightProfileFor(embed, interaction.userLanguage, opponentDisplayName, packet.fightOpponentActions, packet.fightInitiatorActions.length, packet.fightOpponentPet);
+	addFightProfileFor(embed, lng, interaction.user.displayName, packet.fightInitiatorActions, packet.fightOpponentActions.length, packet.fightInitiatorPet);
+	addFightProfileFor(embed, lng, opponentDisplayName, packet.fightOpponentActions, packet.fightInitiatorActions.length, packet.fightOpponentPet);
 
 	await buttonInteraction?.editReply({ embeds: [embed] });
 	await DraftbotCachedMessages.getOrCreate(interaction.id, DraftbotHistoryCachedMessage)
@@ -249,18 +250,19 @@ export async function handleEndOfFight(context: PacketContext, packet: CommandFi
 	});
 
 	const interaction = DiscordCache.getInteraction(context.discord.interaction)!;
+	const lng = interaction.userLanguage;
 
 	// Get names of fighters
 	const getDisplayName = async (keycloakId?: string, monsterId?: string): Promise<string> => (keycloakId
 		? (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, keycloakId))!.attributes.gameUsername[0]
-		: i18n.t(`models:monsters.${monsterId}.name`, { lng: interaction.userLanguage }));
+		: i18n.t(`models:monsters.${monsterId}.name`, { lng }));
 
 	const winnerName = await getDisplayName(packet.winner.keycloakId, packet.winner.monsterId);
 	const looserName = await getDisplayName(packet.looser.keycloakId, packet.looser.monsterId);
 
 	// Create message description
 	let description = i18n.t("commands:fight.end.gameStats", {
-		lng: interaction.userLanguage,
+		lng,
 		turn: packet.turns,
 		maxTurn: packet.maxTurns,
 		time: minutesDisplay(millisecondsToMinutes(new Date().valueOf() - interaction.createdTimestamp)),
@@ -279,7 +281,7 @@ export async function handleEndOfFight(context: PacketContext, packet: CommandFi
 		}
 	].forEach(fighter => {
 		description += i18n.t("commands:fight.end.fighterStats", {
-			lng: interaction.userLanguage,
+			lng,
 			pseudo: fighter.name,
 			energy: fighter.stats.finalEnergy,
 			maxEnergy: fighter.stats.maxEnergy
@@ -290,12 +292,12 @@ export async function handleEndOfFight(context: PacketContext, packet: CommandFi
 	const embed = new DraftBotEmbed()
 		.setTitle(packet.draw
 			? i18n.t("commands:fight.end.draw", {
-				lng: interaction.userLanguage,
+				lng,
 				player1: winnerName,
 				player2: looserName
 			})
 			: i18n.t("commands:fight.end.win", {
-				lng: interaction.userLanguage,
+				lng,
 				winner: winnerName,
 				loser: looserName
 			}))
@@ -308,31 +310,31 @@ export async function handleEndOfFight(context: PacketContext, packet: CommandFi
 /**
  * Generate the fight reward field displaying money and points earned during the fight if needed
  * @param embed
- * @param interaction
  * @param packet
+ * @param lng
  * @param player1Username
  */
-function generateFightRewardField(embed: DraftBotEmbed, interaction: DraftbotInteraction, packet: FightRewardPacket, player1Username: string): void {
+function generateFightRewardField(embed: DraftBotEmbed, packet: FightRewardPacket, lng: Language, player1Username: string): void {
 	embed.addFields({
-		name: i18n.t("commands:fight.fightReward.scoreAndMoneyField", { lng: interaction.userLanguage }),
+		name: i18n.t("commands:fight.fightReward.scoreAndMoneyField", { lng }),
 		value: ((): string => {
 			if (packet.money <= 0 && packet.points <= 0) {
 				return i18n.t("commands:fight.fightReward.noReward", {
-					lng: interaction.userLanguage,
+					lng,
 					player: player1Username
 				});
 			}
 			return [
 				packet.money > 0
 					? i18n.t("commands:fight.fightReward.money", {
-						lng: interaction.userLanguage,
+						lng,
 						player: player1Username,
 						count: packet.money
 					})
 					: "",
 				packet.points > 0
 					? i18n.t("commands:fight.fightReward.points", {
-						lng: interaction.userLanguage,
+						lng,
 						player: player1Username,
 						count: packet.points
 					})
@@ -347,14 +349,14 @@ function generateFightRewardField(embed: DraftBotEmbed, interaction: DraftbotInt
 /**
  * Generate the glory changes field displaying glory changes for both players (glory won or lost)
  * @param embed
- * @param interaction
- * @param player1Username
  * @param packet
+ * @param lng
+ * @param player1Username
  * @param player2Username
  */
-function generateGloryChangesField(embed: DraftBotEmbed, interaction: DraftbotInteraction, player1Username: string, packet: FightRewardPacket, player2Username: string): void {
+function generateGloryChangesField(embed: DraftBotEmbed, packet: FightRewardPacket, lng: Language, player1Username: string, player2Username: string): void {
 	embed.addFields({
-		name: i18n.t("commands:fight.fightReward.gloryField", { lng: interaction.userLanguage }),
+		name: i18n.t("commands:fight.fightReward.gloryField", { lng }),
 		value: [
 			...[
 				{
@@ -370,7 +372,7 @@ function generateGloryChangesField(embed: DraftBotEmbed, interaction: DraftbotIn
 				change
 			}) =>
 				i18n.t(`commands:fight.fightReward.glory${change >= 0 ? "Positive" : "Negative"}`, {
-					lng: interaction.userLanguage,
+					lng,
 					count: Math.abs(change),
 					player
 				}))
@@ -381,42 +383,42 @@ function generateGloryChangesField(embed: DraftBotEmbed, interaction: DraftbotIn
 
 /**
  * Display league changes if needed
+ * @param embed
  * @param packet
- * @param interaction
+ * @param lng
  * @param player1Username
  * @param player2Username
- * @param embed
  */
-function displayLeagueChangesIfNeeded(packet: FightRewardPacket, interaction: DraftbotInteraction, player1Username: string, player2Username: string, embed: DraftBotEmbed): void {
+function displayLeagueChangesIfNeeded(embed: DraftBotEmbed, packet: FightRewardPacket, lng: Language, player1Username: string, player2Username: string): void {
 	const leagueChangeValue = [
 		...packet.player1.newLeagueId !== packet.player1.oldLeagueId
 			? [
 				i18n.t(`commands:fight.fightReward.leagueChange${packet.player1.newLeagueId > packet.player1.oldLeagueId ? "Up" : "Down"}`, {
-					lng: interaction.userLanguage,
+					lng,
 					player: player1Username,
 					oldLeagueEmoji: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.leagues[packet.player1.oldLeagueId]),
 					newLeagueEmoji: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.leagues[packet.player1.newLeagueId]),
-					oldLeague: i18n.t(`models:leagues.${packet.player1.oldLeagueId}`, { lng: interaction.userLanguage }),
-					newLeague: i18n.t(`models:leagues.${packet.player1.newLeagueId}`, { lng: interaction.userLanguage })
+					oldLeague: i18n.t(`models:leagues.${packet.player1.oldLeagueId}`, { lng }),
+					newLeague: i18n.t(`models:leagues.${packet.player1.newLeagueId}`, { lng })
 				})
 			]
 			: [],
 		...packet.player2.newLeagueId !== packet.player2.oldLeagueId
 			? [
 				i18n.t(`commands:fight.fightReward.leagueChange${packet.player2.newLeagueId > packet.player2.oldLeagueId ? "Up" : "Down"}`, {
-					lng: interaction.userLanguage,
+					lng,
 					player: player2Username,
 					oldLeagueEmoji: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.leagues[packet.player2.oldLeagueId]),
 					newLeagueEmoji: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.leagues[packet.player2.newLeagueId]),
-					oldLeague: i18n.t(`models:leagues.${packet.player2.oldLeagueId}`, { lng: interaction.userLanguage }),
-					newLeague: i18n.t(`models:leagues.${packet.player2.newLeagueId}`, { lng: interaction.userLanguage })
+					oldLeague: i18n.t(`models:leagues.${packet.player2.oldLeagueId}`, { lng }),
+					newLeague: i18n.t(`models:leagues.${packet.player2.newLeagueId}`, { lng })
 				})
 			]
 			: []
 	];
 	if (leagueChangeValue.length > 0) {
 		embed.addFields({
-			name: i18n.t("commands:fight.fightReward.leagueField", { lng: interaction.userLanguage }),
+			name: i18n.t("commands:fight.fightReward.leagueField", { lng }),
 			value: leagueChangeValue.join("\n"),
 			inline: false
 		});
@@ -425,48 +427,48 @@ function displayLeagueChangesIfNeeded(packet: FightRewardPacket, interaction: Dr
 
 /**
  * Generate a short sentence about the fight result
- * @param packet
  * @param embed
- * @param interaction
+ * @param packet
+ * @param lng
  * @param player1Username
  * @param player2Username
  */
-function generateFightRecapDescription(packet: FightRewardPacket, embed: DraftBotEmbed, interaction: DraftbotInteraction, player1Username: string, player2Username: string): void {
+function generateFightRecapDescription(embed: DraftBotEmbed, packet: FightRewardPacket, lng: Language, player1Username: string, player2Username: string): void {
 	const player1Won = packet.player1.newGlory > packet.player1.oldGlory;
 	const player2Won = packet.player2.newGlory > packet.player2.oldGlory;
 	const gloryDifference = Math.abs(packet.player1.oldGlory - packet.player2.oldGlory);
 	if (gloryDifference < FightConstants.ELO.ELO_DIFFERENCE_FOR_SAME_ELO) {
-		embed.setDescription(StringUtils.getRandomTranslation("commands:fight.fightReward.sameElo", interaction.userLanguage, {
+		embed.setDescription(StringUtils.getRandomTranslation("commands:fight.fightReward.sameElo", lng, {
 			player1: player1Username,
 			player2: player2Username
 		}));
 	}
 	else if (player1Won && packet.player1.oldGlory > packet.player2.oldGlory) {
-		embed.setDescription(StringUtils.getRandomTranslation("commands:fight.fightReward.higherEloWins", interaction.userLanguage, {
+		embed.setDescription(StringUtils.getRandomTranslation("commands:fight.fightReward.higherEloWins", lng, {
 			winner: player1Username,
 			loser: player2Username
 		}));
 	}
 	else if (player2Won && packet.player2.oldGlory > packet.player1.oldGlory) {
-		embed.setDescription(StringUtils.getRandomTranslation("commands:fight.fightReward.higherEloWins", interaction.userLanguage, {
+		embed.setDescription(StringUtils.getRandomTranslation("commands:fight.fightReward.higherEloWins", lng, {
 			winner: player2Username,
 			loser: player1Username
 		}));
 	}
 	else if (player1Won && packet.player1.oldGlory < packet.player2.oldGlory) {
-		embed.setDescription(StringUtils.getRandomTranslation("commands:fight.fightReward.lowestEloWins", interaction.userLanguage, {
+		embed.setDescription(StringUtils.getRandomTranslation("commands:fight.fightReward.lowestEloWins", lng, {
 			winner: player1Username,
 			loser: player2Username
 		}));
 	}
 	else if (player2Won && packet.player2.oldGlory < packet.player1.oldGlory) {
-		embed.setDescription(StringUtils.getRandomTranslation("commands:fight.fightReward.lowestEloWins", interaction.userLanguage, {
+		embed.setDescription(StringUtils.getRandomTranslation("commands:fight.fightReward.lowestEloWins", lng, {
 			winner: player2Username,
 			loser: player1Username
 		}));
 	}
 	else {
-		embed.setDescription(StringUtils.getRandomTranslation("commands:fight.fightReward.draw", interaction.userLanguage, {
+		embed.setDescription(StringUtils.getRandomTranslation("commands:fight.fightReward.draw", lng, {
 			player1: player1Username,
 			player2: player2Username
 		}));
@@ -479,11 +481,11 @@ function generateFightRecapDescription(packet: FightRewardPacket, embed: DraftBo
  * @param packet
  */
 export async function handleFightReward(context: PacketContext, packet: FightRewardPacket): Promise<void> {
-	if (!context.discord?.interaction) {
+	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
+	if (!interaction) {
 		return;
 	}
-
-	const interaction = DiscordCache.getInteraction(context.discord.interaction)!;
+	const lng = interaction.userLanguage;
 
 	// Get usernames for both players
 	const player1Username = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.player1.keycloakId))?.attributes.gameUsername[0] || "Unknown";
@@ -492,20 +494,20 @@ export async function handleFightReward(context: PacketContext, packet: FightRew
 	// Create an embed to show glory and league changes
 	const embed = new DraftBotEmbed()
 		.setTitle(i18n.t("commands:fight.fightReward.title", {
-			lng: interaction.userLanguage
+			lng
 		}));
 
 	// Add fight reward description
-	generateFightRewardField(embed, interaction, packet, player1Username);
+	generateFightRewardField(embed, packet, lng, player1Username);
 
 	// Add glory changes
-	generateGloryChangesField(embed, interaction, player1Username, packet, player2Username);
+	generateGloryChangesField(embed, packet, lng, player1Username, player2Username);
 
 	// Add league changes
-	displayLeagueChangesIfNeeded(packet, interaction, player1Username, player2Username, embed);
+	displayLeagueChangesIfNeeded(embed, packet, lng, player1Username, player2Username);
 
 	// Generate a short sentence about the fight result
-	generateFightRecapDescription(packet, embed, interaction, player1Username, player2Username);
+	generateFightRecapDescription(embed, packet, lng, player1Username, player2Username);
 
 	await interaction.channel?.send({ embeds: [embed] });
 }

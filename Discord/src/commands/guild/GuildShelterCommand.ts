@@ -1,6 +1,5 @@
 import {
-	CommandGuildShelterPacketReq,
-	CommandGuildShelterPacketRes
+	CommandGuildShelterPacketReq, CommandGuildShelterPacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildShelterPacket";
 import {
 	makePacket, PacketContext
@@ -15,8 +14,8 @@ import { DisplayUtils } from "../../utils/DisplayUtils";
 /**
  * Allow the player to leave its guild
  */
-function getPacket(): CommandGuildShelterPacketReq {
-	return makePacket(CommandGuildShelterPacketReq, {});
+function getPacket(): Promise<CommandGuildShelterPacketReq> {
+	return Promise.resolve(makePacket(CommandGuildShelterPacketReq, {}));
 }
 
 export async function handleCommandGuildShelterRes(packet: CommandGuildShelterPacketRes, context: PacketContext): Promise<void> {
@@ -26,7 +25,7 @@ export async function handleCommandGuildShelterRes(packet: CommandGuildShelterPa
 		return;
 	}
 
-	const lng = context.discord!.language;
+	const lng = interaction.userLanguage;
 
 	const embed = new DraftBotEmbed()
 		.setTitle(i18n.t("commands:guildShelter.embedTitle", {
@@ -37,7 +36,8 @@ export async function handleCommandGuildShelterRes(packet: CommandGuildShelterPa
 		}))
 		.addFields(packet.pets.map((pet, index) => ({
 			name: i18n.t("commands:guildShelter.petFieldName", {
-				lng, number: index + 1
+				lng,
+				number: index + 1
 			}),
 			value: DisplayUtils.getOwnedPetFieldDisplay(pet, lng),
 			inline: true

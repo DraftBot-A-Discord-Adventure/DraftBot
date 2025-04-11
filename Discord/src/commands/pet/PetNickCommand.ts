@@ -10,8 +10,7 @@ import { DraftBotErrorEmbed } from "../../messages/DraftBotErrorEmbed";
 import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import {
-	CommandPetNickPacketReq,
-	CommandPetNickPacketRes
+	CommandPetNickPacketReq, CommandPetNickPacketRes
 } from "../../../../Lib/src/packets/commands/CommandPetNickPacket";
 import { PetConstants } from "../../../../Lib/src/constants/PetConstants";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
@@ -19,7 +18,7 @@ import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 /**
  * Change the nickname of a player pet.
  */
-function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser): CommandPetNickPacketReq {
+function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser): Promise<CommandPetNickPacketReq> {
 	const newNameOption = interaction.options.get("nickname");
 
 	let newNickname;
@@ -27,9 +26,10 @@ function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser)
 		newNickname = <string>newNameOption.value;
 	}
 
-	return makePacket(CommandPetNickPacketReq, {
-		keycloakId: keycloakUser.id, newNickname
-	});
+	return Promise.resolve(makePacket(CommandPetNickPacketReq, {
+		keycloakId: keycloakUser.id,
+		newNickname
+	}));
 }
 
 
@@ -83,22 +83,21 @@ export async function handleCommandPetNickPacketRes(packet: CommandPetNickPacket
 					.setDescription(i18n.t("commands:petNick.successNoName", { lng }))
 			]
 		});
+		return;
 	}
-	else {
-		await interaction.reply({
-			embeds: [
-				new DraftBotEmbed()
-					.formatAuthor(i18n.t("commands:petNick.successTitle", {
-						lng,
-						pseudo: interaction.user.displayName
-					}), interaction.user)
-					.setDescription(i18n.t("commands:petNick.success", {
-						lng,
-						name: packet.newNickname
-					}))
-			]
-		});
-	}
+	await interaction.reply({
+		embeds: [
+			new DraftBotEmbed()
+				.formatAuthor(i18n.t("commands:petNick.successTitle", {
+					lng,
+					pseudo: interaction.user.displayName
+				}), interaction.user)
+				.setDescription(i18n.t("commands:petNick.success", {
+					lng,
+					name: packet.newNickname
+				}))
+		]
+	});
 }
 
 export const commandInfo: ICommand = {

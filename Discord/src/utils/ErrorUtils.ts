@@ -164,7 +164,7 @@ export async function handleClassicError(context: PacketContext, errorKey: strin
 				interactionToRespondTo.user,
 				interactionToRespondTo,
 				i18n.t(errorKey, {
-					lng: context.discord!.language,
+					lng: interactionToRespondTo.userLanguage,
 					...replacements
 				})
 			)

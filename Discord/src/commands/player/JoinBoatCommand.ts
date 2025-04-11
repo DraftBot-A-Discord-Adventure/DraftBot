@@ -3,16 +3,13 @@ import {
 } from "../../../../Lib/src/packets/DraftBotPacket";
 import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import { DiscordCache } from "../../bot/DiscordCache";
-import {
-	ReactionCollectorJoinBoatData
-} from "../../../../Lib/src/packets/interaction/ReactionCollectorJoinBoat";
+import { ReactionCollectorJoinBoatData } from "../../../../Lib/src/packets/interaction/ReactionCollectorJoinBoat";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import i18n from "../../translations/i18n";
 import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import {
-	CommandJoinBoatAcceptPacketRes, CommandJoinBoatPacketReq,
-	CommandJoinBoatRefusePacketRes
+	CommandJoinBoatAcceptPacketRes, CommandJoinBoatPacketReq, CommandJoinBoatRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandJoinBoatPacket";
 import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
 import { ICommand } from "../ICommand";
@@ -21,17 +18,18 @@ export async function createJoinBoatCollector(context: PacketContext, packet: Re
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorJoinBoatData;
+	const lng = interaction.userLanguage;
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:joinBoat.confirmationMessage.title.confirmation", {
-		lng: interaction.userLanguage,
+		lng,
 		pseudo: interaction.user.displayName
 	}), interaction.user)
 		.setDescription(
 			i18n.t("commands:joinBoat.confirmationMessage.description.confirmation.text", {
-				lng: interaction.userLanguage,
+				lng,
 				currentEnergy: data.energy.current,
 				maxEnergy: data.energy.max,
 				priceText: i18n.t("commands:joinBoat.confirmationMessage.description.confirmation.priceText", {
-					lng: interaction.userLanguage,
+					lng,
 					count: data.price,
 					gemsCost: data.price
 				})
@@ -45,19 +43,20 @@ export async function handleCommandJoinBoatAcceptPacketRes(packet: CommandJoinBo
 	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 	if (buttonInteraction && originalInteraction) {
+		const lng = originalInteraction.userLanguage;
 		await buttonInteraction.editReply({
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:joinBoat.confirmationMessage.title.confirmed", {
-					lng: originalInteraction.userLanguage,
+					lng,
 					pseudo: originalInteraction.user.displayName
 				}), originalInteraction.user)
 					.setDescription(
 						i18n.t("commands:joinBoat.confirmationMessage.description.confirmed", {
-							lng: originalInteraction.userLanguage,
+							lng,
 							gainScore: packet.score <= 0
 								? ""
 								: i18n.t("commands:joinBoat.confirmationMessage.description.confirmedScore", {
-									lng: originalInteraction.userLanguage,
+									lng,
 									score: packet.score
 								})
 						})
@@ -73,17 +72,14 @@ export async function handleCommandJoinBoatRefusePacketRes(_packet: CommandJoinB
 		return;
 	}
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+	const lng = originalInteraction.userLanguage;
 	await buttonInteraction?.editReply({
 		embeds: [
 			new DraftBotEmbed().formatAuthor(i18n.t("commands:joinBoat.confirmationMessage.title.confirmed", {
-				lng: originalInteraction.userLanguage,
+				lng,
 				pseudo: originalInteraction.user.displayName
 			}), originalInteraction.user)
-				.setDescription(
-					i18n.t("commands:joinBoat.refuse", {
-						lng: originalInteraction.userLanguage
-					})
-				)
+				.setDescription(i18n.t("commands:joinBoat.refuse", { lng }))
 				.setErrorColor()
 		]
 	});

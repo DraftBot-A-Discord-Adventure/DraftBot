@@ -282,11 +282,12 @@ export class CommandsManager {
 			}
 			const user = await KeycloakUtils.getOrRegisterDiscordUser(keycloakConfig, discordInteraction.user.id, discordInteraction.user.displayName, discordInteraction.locale.substring(0, 2));
 			const interaction: DraftbotInteraction = DraftbotInteraction.cast(discordInteraction);
-			interaction.userLanguage = KeycloakUtils.getUserLanguage(user);
+			const lng = KeycloakUtils.getUserLanguage(user);
+			interaction.userLanguage = lng;
 			if (!interaction.channel) {
 				replyEphemeralErrorMessage(
 					interaction,
-					i18n.t("bot:noChannelAccess", { lng: interaction.userLanguage })
+					i18n.t("bot:noChannelAccess", { lng })
 				)
 					.finally(() => null);
 				return;
@@ -452,7 +453,7 @@ export class CommandsManager {
 					user: interaction.user.id,
 					channel: interaction.channel.id,
 					interaction: interaction.id,
-					language: interaction.userLanguage,
+					language: lng,
 					shardId
 				},
 				rightGroups: await KeycloakUtils.getUserGroups(keycloakConfig, user.id) as RightGroup[]

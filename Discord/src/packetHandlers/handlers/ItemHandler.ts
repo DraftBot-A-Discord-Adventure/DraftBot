@@ -13,32 +13,36 @@ export default class ItemHandler {
 	@packetHandler(ItemAcceptPacket)
 	async itemAcceptHandler(context: PacketContext, packet: ItemAcceptPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
-		if (interaction) {
-			const menuEmbed = new DraftBotEmbed()
-				.formatAuthor(i18n.t("commands:inventory.acceptedTitle", {
-					lng: interaction.userLanguage,
-					pseudo: interaction.user.displayName
-				}), interaction.user)
-				.setDescription(DisplayUtils.getItemDisplayWithStats(packet.itemWithDetails, interaction.userLanguage));
-			await interaction.channel.send({ embeds: [menuEmbed] });
+		if (!interaction) {
+			return;
 		}
+		const lng = interaction.userLanguage;
+		const menuEmbed = new DraftBotEmbed()
+			.formatAuthor(i18n.t("commands:inventory.acceptedTitle", {
+				lng,
+				pseudo: interaction.user.displayName
+			}), interaction.user)
+			.setDescription(DisplayUtils.getItemDisplayWithStats(packet.itemWithDetails, lng));
+		await interaction.channel.send({ embeds: [menuEmbed] });
 	}
 
 	@packetHandler(ItemFoundPacket)
 	async itemFoundHandler(context: PacketContext, packet: ItemFoundPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
-		if (interaction) {
-			await interaction.channel.send({
-				embeds: [
-					new DraftBotEmbed()
-						.formatAuthor(i18n.t("commands:inventory.randomItemTitle", {
-							lng: interaction.userLanguage,
-							pseudo: interaction.user.displayName
-						}), interaction.user)
-						.setDescription(DisplayUtils.getItemDisplayWithStats(packet.itemWithDetails, interaction.userLanguage))
-				]
-			});
+		if (!interaction) {
+			return;
 		}
+		const lng = interaction.userLanguage;
+		await interaction.channel.send({
+			embeds: [
+				new DraftBotEmbed()
+					.formatAuthor(i18n.t("commands:inventory.randomItemTitle", {
+						lng,
+						pseudo: interaction.user.displayName
+					}), interaction.user)
+					.setDescription(DisplayUtils.getItemDisplayWithStats(packet.itemWithDetails, lng))
+			]
+		});
 	}
 
 	@packetHandler(ItemRefusePacket)

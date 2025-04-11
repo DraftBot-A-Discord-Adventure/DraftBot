@@ -7,23 +7,22 @@ import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
 import i18n from "../translations/i18n";
 import { getRandomSmallEventIntro } from "../packetHandlers/handlers/SmallEventsHandler";
 import {
-	ReactionCollectorFightPetData,
-	ReactionCollectorFightPetReaction
+	ReactionCollectorFightPetData, ReactionCollectorFightPetReaction
 } from "../../../Lib/src/packets/interaction/ReactionCollectorFightPet";
-import { DraftbotInteraction } from "../messages/DraftbotInteraction";
 import {
 	DraftbotButtonReaction, DraftbotButtonReactionMessage
 } from "../messages/DraftbotButtonReactionMessage";
 import { StringConstants } from "../../../Lib/src/constants/StringConstants";
 import { ReactionCollectorReturnTypeOrNull } from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import { Language } from "../../../Lib/src/Language";
 
-function getFightPetReactions(interaction: DraftbotInteraction, baseReactions: ReactionCollectorFightPetReaction[]): DraftbotButtonReaction[] {
+function getFightPetReactions(baseReactions: ReactionCollectorFightPetReaction[], lng: Language): DraftbotButtonReaction[] {
 	const reactions: DraftbotButtonReaction[] = [];
 	for (const reaction of baseReactions) {
 		reactions.push({
 			customId: reaction.actionId,
 			emote: DraftBotIcons.fightPetActions[reaction.actionId],
-			description: i18n.t(`smallEvents:fightPet.fightPetActions.${reaction.actionId}.name`, { lng: interaction.userLanguage })
+			description: i18n.t(`smallEvents:fightPet.fightPetActions.${reaction.actionId}.name`, { lng })
 		});
 	}
 	return reactions;
@@ -39,7 +38,7 @@ export async function fightPetCollector(context: PacketContext, packet: Reaction
 		context: data.isFemale ? StringConstants.SEX.MALE.long : StringConstants.SEX.FEMALE.long
 	};
 
-	const reactions = getFightPetReactions(interaction, packet.reactions.map(reaction => reaction.data as ReactionCollectorFightPetReaction));
+	const reactions = getFightPetReactions(packet.reactions.map(reaction => reaction.data as ReactionCollectorFightPetReaction), lng);
 
 	const embed = new DraftbotSmallEventEmbed(
 		"fightPet",

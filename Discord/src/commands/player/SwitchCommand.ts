@@ -13,8 +13,7 @@ import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
 import {
-	ReactionCollectorSwitchItemCloseReaction,
-	ReactionCollectorSwitchItemReaction
+	ReactionCollectorSwitchItemCloseReaction, ReactionCollectorSwitchItemReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorSwitchItem";
 import { DiscordItemUtils } from "../../utils/DiscordItemUtils";
 import {
@@ -44,18 +43,18 @@ export async function handleItemSwitch(packet: CommandSwitchSuccess, context: Pa
 		return;
 	}
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
-
+	const lng = interaction.userLanguage;
 	await (buttonInteraction ?? interaction)?.editReply({
 		embeds: [
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:switch.titleSuccess", {
-					lng: interaction.userLanguage,
+					lng,
 					pseudo: interaction.user.displayName
 				}), interaction.user)
 				.setDescription(i18n.t(`commands:switch.${packet.itemBackedUp.id === 0 ? "switchingSingle" : "switchingDouble"}`, {
-					lng: interaction.userLanguage,
-					item1: DiscordItemUtils.getShortDisplay(packet.itemEquipped, interaction.userLanguage),
-					item2: DiscordItemUtils.getShortDisplay(packet.itemBackedUp, interaction.userLanguage)
+					lng,
+					item1: DiscordItemUtils.getShortDisplay(packet.itemEquipped, lng),
+					item2: DiscordItemUtils.getShortDisplay(packet.itemBackedUp, lng)
 				}))
 		]
 	});
@@ -83,14 +82,13 @@ export async function switchItemCollector(context: PacketContext, packet: Reacti
 	if (!interaction) {
 		return null;
 	}
+	const lng = interaction.userLanguage;
 	const embed = new DraftBotEmbed()
 		.formatAuthor(i18n.t("commands:switch.switchSelectionTitle", {
-			lng: interaction.userLanguage,
+			lng,
 			pseudo: interaction.user.displayName
 		}), interaction.user)
-		.setDescription(`${i18n.t("commands:switch.switchSelectionDescription", {
-			lng: interaction.userLanguage
-		})}\n\n`);
+		.setDescription(`${i18n.t("commands:switch.switchSelectionDescription", { lng })}\n\n`);
 	const reactions: ReactionCollectorSwitchItemReaction[] = packet.reactions
 		.map(reaction => reaction.data as ReactionCollectorSwitchItemReaction)
 		.filter(reaction => reaction.item);
@@ -99,7 +97,7 @@ export async function switchItemCollector(context: PacketContext, packet: Reacti
 		embed,
 		packet,
 		context,
-		reactions.map(reaction => getFielder(reaction.item.itemCategory)(reaction.item as MainItemDisplayPacket & SupportItemDisplayPacket, interaction.userLanguage).value),
+		reactions.map(reaction => getFielder(reaction.item.itemCategory)(reaction.item as MainItemDisplayPacket & SupportItemDisplayPacket, lng).value),
 		{
 			can: true,
 			reactionIndex: packet.reactions.findIndex(reaction => reaction.type === ReactionCollectorSwitchItemCloseReaction.name)

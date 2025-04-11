@@ -15,35 +15,28 @@ import { ReactionCollectorReturnTypeOrNull } from "../packetHandlers/handlers/Re
 
 export async function interactOtherPlayerGetPlayerDisplay(keycloakId: string, rank: number | undefined, lng: Language): Promise<string> {
 	const keycloakUser = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, keycloakId);
-	const playerName = keycloakUser?.attributes.gameUsername ? keycloakUser.attributes.gameUsername : i18n.t("error:unknownPlayer", { lng });
-	return rank
-		? i18n.t("smallEvents:interactOtherPlayers.playerDisplayRanked", {
-			lng,
-			pseudo: playerName,
-			rank
-		})
-		: i18n.t("smallEvents:interactOtherPlayers.playerDisplayUnranked", {
-			lng,
-			pseudo: playerName
-		});
+	return i18n.t(`smallEvents:interactOtherPlayers.playerDisplay${rank ? "Ranked" : "Unranked"}`, {
+		lng,
+		pseudo: keycloakUser?.attributes.gameUsername ? keycloakUser.attributes.gameUsername : i18n.t("error:unknownPlayer", { lng }),
+		rank
+	});
 }
 
 export async function interactOtherPlayersCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
+	const lng = interaction.userLanguage;
 	const data = packet.data.data as ReactionCollectorInteractOtherPlayersPoorData;
-	const playerDisplay = await interactOtherPlayerGetPlayerDisplay(data.keycloakId, data.rank, interaction.userLanguage);
+	const playerDisplay = await interactOtherPlayerGetPlayerDisplay(data.keycloakId, data.rank, lng);
 
 	const embed = new DraftbotSmallEventEmbed(
 		"interactOtherPlayers",
 		StringUtils.getRandomTranslation(
 			"smallEvents:interactOtherPlayers.poor",
-			interaction.userLanguage,
-			{
-				playerDisplay
-			}
+			lng,
+			{ playerDisplay }
 		),
 		interaction.user,
-		interaction.userLanguage
+		lng
 	);
 
 	return await DiscordCollectorUtils.createAcceptRefuseCollector(

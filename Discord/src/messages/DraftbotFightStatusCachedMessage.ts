@@ -16,21 +16,22 @@ export class DraftbotFightStatusCachedMessage extends DraftbotCachedMessage<Comm
 
 	updateMessage = async (packet: CommandFightStatusPacket, context: PacketContext): Promise<null> => {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
+		const lng = interaction.userLanguage;
 		const attacker = packet.activeFighter.keycloakId
 			? (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.activeFighter.keycloakId))!.attributes.gameUsername[0]
-			: i18n.t(`models:monsters.${packet.activeFighter.monsterId}.name`, { lng: interaction.userLanguage });
+			: i18n.t(`models:monsters.${packet.activeFighter.monsterId}.name`, { lng });
 		const defender = packet.defendingFighter.keycloakId
 			? (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.defendingFighter.keycloakId))!.attributes.gameUsername[0]
-			: i18n.t(`models:monsters.${packet.defendingFighter.monsterId}.name`, { lng: interaction.userLanguage });
+			: i18n.t(`models:monsters.${packet.defendingFighter.monsterId}.name`, { lng });
 		const keyProlongation = packet.numberOfTurn > packet.maxNumberOfTurn ? "prolongation" : "noProlongation";
 
 		const embed = new DraftBotEmbed()
-			.setTitle(i18n.t("commands:fight.summarize.title", { lng: interaction.userLanguage }))
+			.setTitle(i18n.t("commands:fight.summarize.title", { lng }))
 			.setDescription(
 				i18n.t("commands:fight.summarize.intro.start", {
-					lng: interaction.userLanguage,
+					lng,
 					state: i18n.t(`commands:fight.summarize.intro.${keyProlongation}`, {
-						lng: interaction.userLanguage,
+						lng,
 						currentTurn: packet.numberOfTurn,
 						maxTurn: packet.maxNumberOfTurn,
 						interpolation: { escapeValue: false }
@@ -38,19 +39,19 @@ export class DraftbotFightStatusCachedMessage extends DraftbotCachedMessage<Comm
 					interpolation: { escapeValue: false }
 				})
 				+ i18n.t("commands:fight.summarize.attacker", {
-					lng: interaction.userLanguage,
+					lng,
 					pseudo: attacker
 				})
 				+ i18n.t("commands:fight.summarize.stats", {
-					lng: interaction.userLanguage,
+					lng,
 					...packet.activeFighter.stats
 				})
 				+ i18n.t("commands:fight.summarize.defender", {
-					lng: interaction.userLanguage,
+					lng,
 					pseudo: defender
 				})
 				+ i18n.t("commands:fight.summarize.stats", {
-					lng: interaction.userLanguage,
+					lng,
 					...packet.defendingFighter.stats
 				})
 			);
