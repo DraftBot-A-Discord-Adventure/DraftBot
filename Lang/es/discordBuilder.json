@@ -370,5 +370,15 @@
   "joinBoat": {
     "name": "unirse al barco",
     "description": "Te permite unirte al barco si un miembro de tu gremio está en él."
+  },
+  "giveBadge": {
+    "name": "donnerbadge",
+    "description": "Donner un badge à un joueur.",
+    "options": {
+      "user": {
+        "name": "utilisateur",
+        "description": "Le joueur à qui donner le badge."
+      }
+    }
   }
 }
