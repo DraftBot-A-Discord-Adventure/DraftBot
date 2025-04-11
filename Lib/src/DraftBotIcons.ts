@@ -1,3 +1,5 @@
+import { Badge } from "./types/Badge";
+
 type EventPossibilities = {
 	end: { [outcomeId: string]: string };
 } & Record<string, string | { [outcomeId: string]: string }>;
@@ -100,7 +102,7 @@ export const DraftBotIcons: {
 		[shopItemId: string]: string;
 	};
 	badges: {
-		[badgeId: string]: string;
+		[badgeId in Badge]: string;
 	};
 	itemKinds: string[];
 	notifications: {
@@ -1893,12 +1895,33 @@ export const DraftBotIcons: {
 		treasure: "👑"
 	},
 	badges: {
-		richPerson: "🤑",
-		guildBadge: "💎",
-		superGuildBadge: "🪩",
-		questMasterBadge: "💍",
-		staffMemberBadge: "⚙️",
-		petTamerBadge: "💞"
+		[Badge.BEST_V1_PLAYER]: "🏆",
+		[Badge.TOP_10_V1]: "🏅",
+		[Badge.BOT_OWNER]: "👑",
+		[Badge.TECHNICAL_TEAM]: "⚙️",
+		[Badge.TOP_GLORY]: "✨",
+		[Badge.SUPPORT]: "❤️",
+		[Badge.CONTEST]: "🍀",
+		[Badge.DONOR]: "💸",
+		[Badge.MAJOR_BUG_REPORTER]: "🐞",
+		[Badge.RANDOM]: "🎰",
+		[Badge.FIRST_20_MEMBERS]: "⛑️",
+		[Badge.TOP_1_BEFORE_RESET]: "🥇",
+		[Badge.RICH]: "🤑",
+		[Badge.ADVERTISER]: "🌟",
+		[Badge.REDACTOR]: "🖋️",
+		[Badge.TRANSLATOR]: "🌍",
+		[Badge.TOP_WEEK]: "🎗️",
+		[Badge.CHRISTMAS]: "🎄",
+		[Badge.FUNNY]: "😂",
+		[Badge.POWERFUL_GUILD]: "💎",
+		[Badge.VERY_POWERFUL_GUILD]: "🪩",
+		[Badge.TOURNAMENT_WINNER]: "⚔️",
+		[Badge.EARLY_CLASS_ADOPTER]: "🔖",
+		[Badge.LEGENDARY_PET]: "💞",
+		[Badge.MISSION_COMPLETER]: "💍",
+		[Badge.GOOD_BUG_REPORTER]: "🕊️",
+		[Badge.VOTER]: "🗳️"
 	},
 	itemKinds: [
 		"⚔️",

@@ -50,11 +50,11 @@ import {
 	ReactionCollectorBuyCategorySlotCancelReaction,
 	ReactionCollectorBuyCategorySlotReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorBuyCategorySlot";
-import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
 import {
 	commandRequires, CommandUtils
 } from "../../core/utils/CommandUtils";
 import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
+import { Badge } from "../../../../Lib/src/types/Badge";
 
 /**
  * Get the shop item for getting a random item
@@ -189,11 +189,11 @@ function getBadgeShopItem(): ShopItem {
 		amounts: [1],
 		buyCallback: async (response, playerId): Promise<boolean> => {
 			const player = await Players.getById(playerId);
-			if (player.hasBadge(DraftBotIcons.badges.richPerson)) {
+			if (player.hasBadge(Badge.RICH)) {
 				response.push(makePacket(CommandShopAlreadyHaveBadge, {}));
 				return false;
 			}
-			player.addBadge(DraftBotIcons.badges.richPerson);
+			player.addBadge(Badge.RICH);
 			await player.save();
 			response.push(makePacket(CommandShopBadgeBought, {}));
 			return true;

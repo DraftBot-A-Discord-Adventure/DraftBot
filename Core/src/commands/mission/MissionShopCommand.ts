@@ -54,7 +54,7 @@ import { SexTypeShort } from "../../../../Lib/src/constants/StringConstants";
 import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
 import { getAiPetBehavior } from "../../core/fights/PetAssistManager";
 import { PetUtils } from "../../core/utils/PetUtils";
-import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
+import { Badge } from "../../../../Lib/src/types/Badge";
 
 /**
  * Calculate the amount of money the player will have if he buys some with gems
@@ -234,11 +234,11 @@ function getBadgeShopItem(): ShopItem {
 		amounts: [1],
 		buyCallback: async (response: DraftBotPacket[], playerId: number): Promise<boolean> => {
 			const player = await Players.getById(playerId);
-			if (player.hasBadge(DraftBotIcons.badges.questMasterBadge)) {
+			if (player.hasBadge(Badge.MISSION_COMPLETER)) {
 				response.push(makePacket(CommandMissionShopAlreadyHadBadge, {}));
 				return false;
 			}
-			player.addBadge(DraftBotIcons.badges.questMasterBadge);
+			player.addBadge(Badge.MISSION_COMPLETER);
 			await player.save();
 			response.push(makePacket(CommandMissionShopBadge, {}));
 			return true;

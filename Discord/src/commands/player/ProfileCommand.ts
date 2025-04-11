@@ -27,6 +27,7 @@ import {
 	millisecondsToMinutes, minutesDisplay
 } from "../../../../Lib/src/utils/TimeUtils";
 import { DisplayUtils } from "../../utils/DisplayUtils";
+import { Badge } from "../../../../Lib/src/types/Badge";
 
 /**
  * Display the profile of a player
@@ -45,11 +46,15 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
  * @param badges
  * @param interaction
  */
+async function sendMessageAllBadgesTooMuchBadges(gameUsername: string, badges: Badge[], interaction: DraftbotInteraction): Promise<void> {
 async function sendMessageAllBadgesTooMuchBadges(gameUsername: string, badges: string[], interaction: DraftbotInteraction): Promise<void> {
 	const lng = interaction.userLanguage;
 	let content = "";
-	for (const badgeSentence of badges) {
-		content += `${badgeSentence} \`${i18n.t(`commands:profile.badges.${badgeSentence}`, { lng })}\`\n`;
+	for (const badgeId of badges) {
+		const badgeEmote = DraftBotIcons.badges[badgeId];
+		if (badgeEmote) {
+			content += `${badgeEmote} \`${i18n.t(`commands:profile.badges.${badgeId}`, { lng: interaction.userLanguage })}\`\n`;
+		}
 	}
 	await interaction.followUp({
 		embeds: [
@@ -60,7 +65,7 @@ async function sendMessageAllBadgesTooMuchBadges(gameUsername: string, badges: s
 				}))
 				.setDescription(content + i18n.t("commands:profile.badgeDisplay.numberBadge", {
 					lng,
-					badge: badges.length
+					count: badges.length
 				}))
 		]
 	});
@@ -71,13 +76,16 @@ async function sendMessageAllBadgesTooMuchBadges(gameUsername: string, badges: s
  * @param badges
  * @param msg
  */
-async function displayBadges(badges: string[], msg: Message): Promise<void> {
+async function displayBadges(badges: Badge[], msg: Message): Promise<void> {
 	if (badges.length >= Constants.PROFILE.MAX_EMOTE_DISPLAY_NUMBER) {
 		await msg.react(DraftBotIcons.profile.displayAllBadgeEmote);
 		return;
 	}
 	for (const badgeId of badges) {
-		await msg.react(badgeId);
+		const badgeEmote = DraftBotIcons.badges[badgeId];
+		if (badgeEmote) {
+			await msg.react(badgeEmote);
+		}
 	}
 }
 
@@ -226,10 +234,13 @@ export async function handleCommandProfilePacketRes(packet: CommandProfilePacket
 			await sendMessageAllBadgesTooMuchBadges(keycloakUser.attributes.gameUsername[0], packet.playerData!.badges!, interaction);
 		}
 		else {
-			interaction.channel.send({ content: `\`${EmoteUtils.translateEmojiToDiscord(reaction.emoji.name!)} ${i18n.t(`commands:profile.badges.${reaction.emoji.name}\``, { lng })}` })
-				.then((msg: Message | null) => {
-					setTimeout(() => msg?.delete(), ProfileConstants.BADGE_DESCRIPTION_TIMEOUT);
-				});
+			const badge = Object.entries(DraftBotIcons.badges).find(badgeEntry => badgeEntry[1] === reaction.emoji.name);
+			if (badge) {
+				interaction.channel.send({ content: `\`${EmoteUtils.translateEmojiToDiscord(reaction.emoji.name!)} ${i18n.t(`commands:profile.badges.${badge[0]}`, { lng })}\`` })
+					.then((msg: Message | null) => {
+						setTimeout(() => msg?.delete(), ProfileConstants.BADGE_DESCRIPTION_TIMEOUT);
+					});
+			}
 		}
 	});
 	if (packet.playerData?.badges.length !== 0) {

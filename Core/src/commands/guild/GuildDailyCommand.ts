@@ -31,7 +31,7 @@ import { BlockingUtils } from "../../core/utils/BlockingUtils";
 import { Maps } from "../../core/maps/Maps";
 import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
 import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
-import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
+import { Badge } from "../../../../Lib/src/types/Badge";
 
 type GuildLike = {
 	guild: Guild; members: Player[];
@@ -225,7 +225,7 @@ async function fullHealEveryMember(guildLike: GuildLike, response: DraftBotPacke
 async function awardGuildBadgeToMembers(guildLike: GuildLike, response: DraftBotPacket[], rewardPacket: CommandGuildDailyRewardPacket): Promise<void> {
 	let membersThatOwnTheBadge = 0;
 	await genericAwardingFunction(guildLike.members, member => {
-		if (!member.addBadge(DraftBotIcons.badges.guildBadge)) {
+		if (!member.addBadge(Badge.POWERFUL_GUILD)) {
 			membersThatOwnTheBadge++;
 		}
 	});
@@ -268,7 +268,7 @@ async function awardGuildSuperBadgeToMembers(guildLike: GuildLike, response: Dra
 	}
 
 	await genericAwardingFunction(guildLike.members, member => {
-		if (!member.addBadge(DraftBotIcons.badges.superGuildBadge)) {
+		if (!member.addBadge(Badge.VERY_POWERFUL_GUILD)) {
 			membersThatOwnTheBadge++;
 		}
 	});

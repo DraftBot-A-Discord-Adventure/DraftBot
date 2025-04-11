@@ -22,6 +22,7 @@ import {
 	commandRequires, CommandUtils
 } from "../../core/utils/CommandUtils";
 import { SexTypeShort } from "../../../../Lib/src/constants/StringConstants";
+import { Badge } from "../../../../Lib/src/types/Badge";
 
 /**
  * Get the current campaign progression of the player
@@ -52,7 +53,7 @@ export default class ProfileCommand {
 		const petModel = toCheckPlayer.petId ? PetDataController.instance.getById(petEntity.typeId) : null;
 		const missionsInfo = await PlayerMissionsInfos.getOfPlayer(toCheckPlayer.id);
 		const playerActiveObjects = await InventorySlots.getMainSlotsItems(toCheckPlayer.id);
-		const badges = toCheckPlayer.badges === "" || !toCheckPlayer.badges ? [] : toCheckPlayer.badges.split("-");
+		const badges = toCheckPlayer.badges === "" || !toCheckPlayer.badges ? [] : toCheckPlayer.badges.split(",") as Badge[];
 		const destinationId = toCheckPlayer.getDestinationId();
 
 		response.push(makePacket(CommandProfilePacketRes, {
