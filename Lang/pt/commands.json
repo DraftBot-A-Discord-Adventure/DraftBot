@@ -344,38 +344,38 @@
   },
   "profile": {
     "badgeDisplay": {
-      "numberBadge_one": "\n {{badge}} Este jogador tem um total de emblemas!",
-      "numberBadge_other": "\n {{badge}} Este jogador tem um total de emblemas!",
+      "numberBadge_one": "\n Ce joueur possède {{count}} badge au total !",
+      "numberBadge_other": "\n Ce joueur possède {{count}} badges au total !",
       "title": "{{pseudo}}Lista de distintivos"
     },
     "badges": {
-      "⚔️": ":crossed_swords: Vencedor do torneio",
-      "⚙️": ":gear: Equipa técnica",
-      "⛑️": ":helmet_with_cross: Uma das primeiras 20 pessoas a juntar-se ao servidor bot.",
-      "✨": "{emote:unitValues.glory} A pessoa que ganhou mais glória durante uma época de combates.",
-      "❤️": ":heart: `Pessoa com posto de Suporte no servidor do bot`.",
-      "🌍": ":earth_africa: Tradutor",
-      "🌟": ":star2: Pessoa que ajudou a colocar o bot num serviço com mais de 2000 membros`",
-      "🍀": ":four_leaf_clover: Os crachás podem ser ganhos de vez em quando em competições no servidor do bot ou no twitter.",
-      "🎄": ":christmas_tree: Distintivo que pode ser ganho todos os Natais num concurso.",
-      "🎗️": ":reminder_ribbon: Pessoa que dominou uma classificação da semana`.",
-      "🎰": ":slot_machine: Crachá distribuído de forma completamente aleatória",
-      "🏅": ":medal: Os 10 melhores jogadores na reposição 1.0",
-      "🏆": ":trophy: Melhor jogador na altura da reposição 1.0",
-      "🐞": ":lady_beetle: Pessoas que comunicaram erros graves",
-      "👑": ":crown: Proprietário do bot",
-      "💍": ":ring: Distintivo comprado na loja das Missões",
-      "💎": ":gem: Membro de um grémio poderoso",
-      "💞": ":revolving_hearts: Jogador que treinou um animal de estimação lendário",
-      "💸": ":money_with_wings: Doador",
-      "🔖": ":bookmark: Adoção precoce das aulas",
-      "🕊️": ":dove: Pessoa que comunicou uma falha explorável sem tirar partido dela`.",
-      "🖋️": ":pen_fountain: editor de bots",
-      "🗳️": ":ballot_box: Quem votou nas últimas 12 horas?",
-      "😂": ":joy: Distintivo dado a uma pessoa engraçada",
-      "🤑": ":money_mouth: Distintivo comprado na loja",
-      "🥇": ":first_place: Pessoa que atingiu o topo da classificação após o reset`.",
-      "🪩": ":mirror_ball: Membro de um grémio muito poderoso"
+      "tournament_winner": ":crossed_swords: Vencedor do torneio",
+      "technical_team": ":gear: Equipa técnica",
+      "first_20_members": ":helmet_with_cross: Uma das primeiras 20 pessoas a juntar-se ao servidor bot.",
+      "top_glory": "{emote:unitValues.glory} A pessoa que ganhou mais glória durante uma época de combates.",
+      "support": ":heart: `Pessoa com posto de Suporte no servidor do bot`.",
+      "translator": ":earth_africa: Tradutor",
+      "advertiser": ":star2: Pessoa que ajudou a colocar o bot num serviço com mais de 2000 membros`",
+      "contest": ":four_leaf_clover: Os crachás podem ser ganhos de vez em quando em competições no servidor do bot ou no twitter.",
+      "christmas": ":christmas_tree: Distintivo que pode ser ganho todos os Natais num concurso.",
+      "top_week": ":reminder_ribbon: Pessoa que dominou uma classificação da semana`.",
+      "random": ":slot_machine: Crachá distribuído de forma completamente aleatória",
+      "top_10_v1": ":medal: Os 10 melhores jogadores na reposição 1.0",
+      "top_v1_player": ":trophy: Melhor jogador na altura da reposição 1.0",
+      "major_bug_reporter": ":lady_beetle: Pessoas que comunicaram erros graves",
+      "bot_owner": ":crown: Proprietário do bot",
+      "mission_completer": ":ring: Distintivo comprado na loja das Missões",
+      "powerful_guild": ":gem: Membro de um grémio poderoso",
+      "legendary_pet": ":revolving_hearts: Jogador que treinou um animal de estimação lendário",
+      "donor": ":money_with_wings: Doador",
+      "early_class_adopter": ":bookmark: Adoção precoce das aulas",
+      "good_bug_reporter": ":dove: Pessoa que comunicou uma falha explorável sem tirar partido dela`.",
+      "redactor": ":pen_fountain: editor de bots",
+      "voter": ":ballot_box: Quem votou nas últimas 12 horas?",
+      "funny": ":joy: Distintivo dado a uma pessoa engraçada",
+      "rich": ":money_mouth: Distintivo comprado na loja",
+      "top_1_before_reset": ":first_place: Pessoa que atingiu o topo da classificação após o reset`.",
+      "very_powerful_guild": ":mirror_ball: Membro de um grémio muito poderoso"
     },
     "fightRanking": {
       "fieldName": "Glória e campeonato :",
@@ -1402,5 +1402,15 @@
     "petFieldName": "Familiar n°{{number}}",
     "noPetMessage": "Parece que não há animais de estimação no refúgio.",
     "warningFull": "O refúgio está cheio! Não serão aceites novos animais de estimação até que todos os animais de estimação do refúgio tenham sido libertados ou vendidos."
+  },
+  "giveBadge": {
+    "alreadyHaveBadge": "Le joueur a déjà tous les badges qui existent dans le jeu.",
+    "selectBadgePlaceholder": "Sélectionnez un badge à donner au joueur",
+    "selectBadgeTitle": "{{pseudo}}, sélection d'un badge à donner",
+    "selectBadgeDesc": "Choisissez un badge à donner au joueur dans une des listes ci-dessous :"
+  },
+  "setPlayerInfo": {
+    "playerModifiedTitle": "{{pseudo}}, modification d'un joueur",
+    "playerModifiedDesc": "Le joueur a été modifié avec succès !\n\nID: **{{keycloakId}}**\nPseudo: **{{pseudo}}**"
   }
 }
