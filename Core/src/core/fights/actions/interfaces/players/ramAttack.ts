@@ -40,27 +40,31 @@ const use: FightActionFunc = (sender, receiver, fightAction) => {
 		}, sender);
 	}
 	else {
+		const damageFactor = 0.55;
 		FightActionController.applyBuff(result, {
 			selfTarget: true,
 			stat: FightStatBuffed.DAMAGE,
 			operator: FightStatModifierOperation.ADDITION,
 			value: FightActionController.getAttackDamage({
 				attackerStats: [
-					sender.getDefense() * 0.55,
-					sender.getSpeed() * 0.55
+					sender.getDefense() * damageFactor,
+					sender.getSpeed() * damageFactor,
+					sender.getDefense()
 				],
 				defenderStats: [
 					sender.getDefense(),
-					sender.getSpeed()
+					sender.getSpeed(),
+					receiver.getDefense()
 				],
 				statsEffect: [
-					0.85,
-					0.15
+					0.45,
+					0.15,
+					0.40
 				]
 			}, sender, {
-				minDamage: 60 * 0.55,
-				averageDamage: 110 * 0.55,
-				maxDamage: 210 * 0.55
+				minDamage: 60 * damageFactor,
+				averageDamage: 110 * damageFactor,
+				maxDamage: 210 * damageFactor
 			})
 		}, sender, fightAction);
 	}
