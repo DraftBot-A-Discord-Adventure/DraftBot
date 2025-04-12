@@ -872,7 +872,7 @@
         }
       },
       "questMasterBadge": {
-        "name": "{emote:badges.questMasterBadge} Badge \"Maître des quêtes\"",
+        "name": "{emote:badges.mission_completer} Badge \"Maître des quêtes\"",
         "info": "Vous recevrez le badge dans les heures qui suivront le paiement. Pour plus d'informations sur les badges utilisez la commande {command:help}."
       }
     }
@@ -948,8 +948,8 @@
       "guildXP": "{emote:unitValues.xp} | La guilde a reçu de l'expérience. `+ {{quantity}} {emote:unitValues.xp}`",
       "money": "{emote:unitValues.money} | Les membres de la guilde ont reçu `{{quantity}} {emote:unitValues.money}`.",
       "item": "{emote:rewards.item} | Les membres de la guilde ont reçu un objet au hasard.",
-      "badge": "{emote:badges.guildBadge} | Les membres de la guilde ont reçu un badge.",
-      "superBadge": "{emote:badges.superGuildBadge} | Les membres de la guilde ont reçu un badge.",
+      "badge": "{emote:badges.powerful_guild} | Les membres de la guilde ont reçu un badge.",
+      "superBadge": "{emote:badges.very_powerful_guild} | Les membres de la guilde ont reçu un badge.",
       "fullHeal": "{emote:shopItems.regen} | Les membres de la guilde ont été soignés complètement.",
       "advanceTime": "{emote:unitValues.time} | Les membres de la guilde ont avancé de {{quantity}}h.",
       "partialHeal": "{emote:rewards.partialHeal} | Les membres de la guilde ont été partiellement soignés. `+ {{quantity}} {emote:unitValues.health}`",
@@ -1213,6 +1213,7 @@
     "switchSelectionDescription": "Choisissez un objet à équiper dans la liste ci-dessous :"
   },
   "drink": {
+    "cancelledTitle": "{{pseudo}}, vous avez annulé l'action",
     "cancelled": "Vous n'avez pas bu votre potion !",
     "noActiveObject": "Vous n'avez malheureusement rien à boire dans votre inventaire !",
     "objectIsActiveDuringFights": "Ce breuvage ne peut pas être bu maintenant. Il sera utilisé automatiquement lors de votre prochain combat !",
