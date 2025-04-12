@@ -17,7 +17,10 @@ import {
 	SmallEventGoToPVEIslandRefusePacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventGoToPVEIslandPacket";
 import {
-	SmallEventLotteryLosePacket, SmallEventLotteryNoAnswerPacket, SmallEventLotteryPoorPacket, SmallEventLotteryWinPacket
+	SmallEventLotteryLosePacket,
+	SmallEventLotteryNoAnswerPacket,
+	SmallEventLotteryPoorPacket,
+	SmallEventLotteryWinPacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventLotteryPacket";
 import {
 	InteractOtherPlayerInteraction,
@@ -35,7 +38,9 @@ import { SmallEventDoNothingPacket } from "../../../../Lib/src/packets/smallEven
 import { SmallEventFightPetPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventFightPetPacket";
 import { SmallEventGobletsGamePacket } from "../../../../Lib/src/packets/smallEvents/SmallEventGobletsGamePacket";
 import {
-	SmallEventShopAcceptPacket, SmallEventShopCannotBuyPacket, SmallEventShopRefusePacket
+	SmallEventShopAcceptPacket,
+	SmallEventShopCannotBuyPacket,
+	SmallEventShopRefusePacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventShopPacket";
 import { SmallEventStaffMemberPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventStaffMemberPacket";
 import { SmallEventWinEnergyPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventWinEnergyPacket";
@@ -47,7 +52,8 @@ import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
 import { witchResult } from "../../smallEvents/witch";
 import { DisplayUtils } from "../../utils/DisplayUtils";
 import {
-	SmallEventSpaceInitialPacket, SmallEventSpaceResultPacket
+	SmallEventSpaceInitialPacket,
+	SmallEventSpaceResultPacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventSpacePacket";
 import { SmallEventFindPetPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventFindPetPacket";
 import { PetUtils } from "../../utils/PetUtils";
@@ -65,7 +71,9 @@ import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import { baseFunctionHandler } from "../../smallEvents/shop";
 import { epicItemShopHandler } from "../../smallEvents/epicItemShop";
 import {
-	SmallEventEpicItemShopAcceptPacket, SmallEventEpicItemShopCannotBuyPacket, SmallEventEpicItemShopRefusePacket
+	SmallEventEpicItemShopAcceptPacket,
+	SmallEventEpicItemShopCannotBuyPacket,
+	SmallEventEpicItemShopRefusePacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventEpicItemShopPacket";
 import { Badge } from "../../../../Lib/src/types/Badge";
 
@@ -439,7 +447,8 @@ export default class SmallEventsHandler {
 						sentence: i18n.t(`smallEvents:staffMember.members.${staffMember}`, {
 							lng,
 							interpolation: { escapeValue: false }
-						})
+						}),
+						interpolation: { escapeValue: false }
 					}),
 					interaction.user,
 					lng
