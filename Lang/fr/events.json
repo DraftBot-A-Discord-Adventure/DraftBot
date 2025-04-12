@@ -692,20 +692,20 @@
         }
       }
     },
-    "text": "Pendant votre périple, un groupe d'hommes \"prêchant la parole des dieux\", vous invite à rejoindre leur cause."
+    "text": "Pendant votre périple, un groupe d'hommes \"prêchant la parole des dieux\" vous invite à rejoindre leur cause."
   },
   "29": {
     "possibilities": {
       "end": {
         "outcomes": {
           "0": "Vous restez à votre place, en plein soleil pendant une quinzaine de minutes, puis vous écroulez.",
-          "1": "Vous décidez de puiser dans vos réserves, et continuez votre route pour ne pas perdre de temps."
+          "1": "Vous décidez de puiser dans vos réserves et continuez votre route pour ne pas perdre de temps."
         }
       },
       "restHere": {
         "outcomes": {
-          "0": "Vous vous reposez, cependant, le sol est très inconfortable.",
-          "1": "Vous vous reposez, après votre bonne sieste, vous repartez plus motivé que jamais."
+          "0": "Vous vous reposez. Cependant, le sol est très inconfortable.",
+          "1": "Vous vous reposez. Après votre bonne sieste, vous repartez plus motivé que jamais."
         },
         "text": "Se reposer sur place."
       },
@@ -718,8 +718,8 @@
       },
       "searchWater": {
         "outcomes": {
-          "0": "Vous vous rappelez être passé près d'un lac, vous vous y dirigez donc.. Arrivé, vous profitez d'une baignade qui vous fait un grand bien, vous êtes désormais rafraichi et en meilleure forme pour continuer votre périple à travers le pays.",
-          "1": "Vous vous rappelez être passé près d'un lac, vous vous y dirigez donc. Sur le chemin vous trouvez un item qui vous sera sûrement utile. Arrivé, vous profitez d'une baignade qui vous fait un grand bien, vous êtes désormais rafraichi et en meilleure forme pour continuer votre périple à travers le pays.",
+          "0": "Vous vous rappelez être passé près d'un lac, vous vous y dirigez donc. Une fois arrivé, vous profitez d'une baignade qui vous fait un grand bien. Vous êtes désormais rafraichi et en meilleure forme pour continuer votre périple à travers le pays.",
+          "1": "Vous vous rappelez être passé près d'un lac, vous vous y dirigez donc. Sur le chemin vous trouvez un item qui vous sera sûrement utile. Une fois arrivé, vous profitez d'une baignade qui vous fait un grand bien. Vous êtes désormais rafraichi et en meilleure forme pour continuer votre périple à travers le pays.",
           "2": "Vous cherchez un point d'eau en vain... A cause de cette fatigue, vous faites un malaise."
         },
         "text": "Chercher un point d'eau aux alentours."
@@ -731,14 +731,14 @@
     "possibilities": {
       "abandon": {
         "outcomes": {
-          "0": "Vous passez votre chemin : le vol c'est mal et ce coffret ne vous appartient pas !",
+          "0": "Vous passez votre chemin : le vol, c'est mal, et ce coffret ne vous appartient pas !",
           "1": "Vous décidez de ne pas vous approcher du petit coffre, estimant qu'il ne vaut pas un arrêt qui vous ferait perdre du temps précieux."
         },
         "text": "Abandonner le coffret à l'endroit où vous l'avez trouvé."
       },
       "end": {
         "outcomes": {
-          "0": "C'est sûrement un piège ! En tout cas il est hors de question que vous vous approchiez plus près du coffret ! Vous continuez calmement votre route."
+          "0": "C'est sûrement un piège ! En tout cas, il est hors de question que vous vous approchiez plus près du coffret ! Vous continuez calmement votre route."
         }
       },
       "mineIt": {
@@ -751,31 +751,31 @@
       },
       "searchKey": {
         "outcomes": {
-          "0": "Après 50 minutes de recherches, vous trouvez la clef ! Enterrée juste à côté du coffre elle vous permet de découvrir de nombreuses pièces d'or !",
-          "1": "Après une heure de recherches, vous trouvez la clef ! Enterrée juste à côté du coffre elle vous permet de découvrir quelques pièces d'or !",
-          "2": "Après 40 minutes de recherches, vous trouvez la clef ! Enterrée juste à côté du coffre elle est tellement endommagée qu'il vous est impossible d'ouvrir le coffre ! Vous finissez par abandonner et laissez le coffret derrière vous.",
+          "0": "Après 50 minutes de recherches, vous trouvez la clef ! Enterrée juste à côté du coffre, elle vous permet de découvrir de nombreuses pièces d'or !",
+          "1": "Après une heure de recherches, vous trouvez la clef ! Enterrée juste à côté du coffre, elle vous permet de découvrir quelques pièces d'or !",
+          "2": "Après 40 minutes de recherches, vous trouvez la clef ! Enterrée juste à côté du coffre, elle est tellement endommagée qu'il vous est impossible d'ouvrir le coffre ! Vous finissez par abandonner et laissez le coffret derrière vous.",
           "3": "Après 20 minutes passées à creuser partout autour du petit coffre, vous finissez par abandonner et laissez le coffret derrière vous.",
           "4": "Après 2 heures de recherches, vous finissez par abandonner et laissez le coffret derrière vous."
         },
         "text": "Chercher la clef autour du lieu de découverte."
       }
     },
-    "text": "Alors que vous voyagez sur la Route des Merveilles, vous découvrez un coffret ! Malheureusement il est verrouillé..."
+    "text": "Alors que vous voyagez sur la Route des Merveilles, vous découvrez un coffret ! Malheureusement, il est verrouillé..."
   },
   "30": {
     "possibilities": {
       "duke": {
         "outcomes": {
-          "0": "Vous allez voir le duc et vous le complimentez. Ce dernier vous remercie et décide de vous offrir un peu de repos chez lui.",
-          "1": "Vous allez voir le duc et vous le complimentez. Ce dernier vous remercie et décide de vous offrir quelques pièces en vous disant d'en faire bon usage, vous repartez ensuite sur votre chemin.",
-          "2": "Vous allez voir le duc et vous essayez de le complimenter, cependant la rhétorique n'est pas votre fort et le duc se sentant offensé vous fait enfermer."
+          "0": "Vous allez voir le duc et le complimentez. Ce dernier vous remercie et décide de vous offrir un peu de repos chez lui.",
+          "1": "Vous allez voir le duc et le complimentez. Ce dernier vous remercie et décide de vous offrir quelques pièces en vous disant d'en faire bon usage, vous repartez ensuite sur votre chemin.",
+          "2": "Vous allez voir le duc et essayez de le complimenter. Cependant, la rhétorique n'est pas votre fort et le duc, se sentant offensé, vous fait enfermer."
         },
         "text": "Aller voir le duc."
       },
       "end": {
         "outcomes": {
-          "0": "Vous ne vous sentez pas d'humeur à faire la fête aujourd'hui, vous décidez donc de rebrousser chemin et de continuer tranquillement votre route.",
-          "1": "Vous n'êtes pas prêt à faire la fête aujourd'hui, vous reprenez votre route. Lorsque vous trébuchez et tombez nez à nez avec une banane, cependant celle-ci semble ne pas être bonne."
+          "0": "Vous ne vous sentez pas d'humeur à faire la fête aujourd'hui. Vous décidez donc de rebrousser chemin et de continuer tranquillement votre route.",
+          "1": "Vous n'êtes pas prêt à faire la fête aujourd'hui. Vous reprenez votre route, quand soudain, vous trébuchez et tombez nez à nez avec une banane. Cependant, celle-ci semble ne pas être bonne."
         }
       },
       "gift": {
@@ -789,7 +789,7 @@
       "party": {
         "outcomes": {
           "0": "Vous rentrez et profitez de la fête qui va durer jusque très tard dans la nuit.",
-          "1": "Le garde aperçoit vos chaussures sales et vous demande de revenir uniquement avec une tenue plus adaptée. Heureusement, un jeune mendiant se trouvant juste a côté de vous propose de vous les cirer contre quelques pièces. Vous pouvez ainsi profiter de l'anniversaire.",
+          "1": "Le garde aperçoit vos chaussures sales et vous demande de revenir avec une tenue plus adaptée. Heureusement, un jeune mendiant se trouvant juste a côté de vous propose de vous les cirer contre quelques pièces. Vous pouvez ainsi profiter de l'anniversaire.",
           "2": "Le buffet de la fête est un festin. Vous vous régalez avec toutes ces bananes."
         },
         "text": "Rester à la fête."
@@ -803,7 +803,7 @@
         "text": "Sortir pour aller lui voler des bananes dans son exploitation."
       }
     },
-    "text": "Vous apercevez un château au loin, vous décidez de vous en approcher par l'entrée principale. Cette demeure semble être celle du Duc Benatis, connu pour ses exploitations de bananes. Il organise une fête en l'honneur de ses 21 ans. Lorsque vous approchez un peu plus, un garde vous invite à rentrer car le duc souhaite que tout le monde participe à la fête. Une fois rentré vous faites face à un immense festin."
+    "text": "Vous apercevez un château au loin, vous décidez de vous en approcher par l'entrée principale. Cette demeure semble être celle du Duc Benatis, connu pour ses exploitations de bananes. Il organise une fête en l'honneur de ses 21 ans. Lorsque vous approchez un peu plus, un garde vous invite à rentrer car le duc souhaite que tout le monde participe à la fête. Une fois rentré, vous faites face à un immense festin."
   },
   "31": {
     "possibilities": {
