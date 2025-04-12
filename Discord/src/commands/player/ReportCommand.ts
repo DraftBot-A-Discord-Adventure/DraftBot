@@ -189,7 +189,7 @@ function getReportResultConditionTriplets(packet: CommandReportBigEventResultRes
 		[
 			packet.effect?.name === Effect.OCCUPIED.id,
 			"timeLost",
-			{ timeLost: minutesDisplay(packet.effect!.time) }
+			{ timeLost: packet.effect ? minutesDisplay(packet.effect.time) : 0 }
 		]
 	];
 }
